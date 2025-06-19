@@ -4,118 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FDAAC7115B
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jun 2025 14:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7916AC7115B
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jun 2025 15:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07F1210EA68;
-	Thu, 19 Jun 2025 14:05:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20F8810EA7A;
+	Thu, 19 Jun 2025 15:12:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4oiPqGy/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GUazw5RI";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2079.outbound.protection.outlook.com [40.107.244.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5012C10EA70
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jun 2025 14:05:53 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12EF010EA7A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jun 2025 15:12:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ry1J2QE2qva0GUAJi1l/FsAO7DOjszLgbGC3VzJpT2VOdpUm1KJRrSyXPKoIIgmNylD3CTNvcrThPQS4BXNNEXcmu92Ans3k9p5zaocNLP+KNQ5sDvcgPn9gxmd+5nKp9LtJoUvilBvKFLZ5DxfF2jyrxRioIjqZV7k8NXsBGBftO7CgJm4L0uOhLD8TIeCDU+72QCOrR0gTcjxgjWxcTg2Xm6GC3WG0OaQsQZYOUCbaZO0zFC5Op7qY0Nf1jLTb8UThWaAF99glcDE2BmIFjMBdX/4Y9GMfYwMqJ1p/JsCoofjMuiZ1WdnpsuSuipX75iE38rgP2pQTPv/NLG4X4Q==
+ b=TUYacAlQzLOXOog07xk2rwuCi+wdBBcsxQ9fxLIDw/S3nRIzlI6VgPbQzHdWt/JKYgwk11IY5vcuRoJnKBB0dUxBhvBqz4wUf8ixmXhENu/VUFUo0m5k/I9VREFI3s+v7gz8X42Bsu+YGnOP/zF2r/5MBp6wQ7Smje/nSMYLRhO5crzHu6l8MOHO3dK+rRZrNFWl7zkryyDxTksYPMxio7SymlnHiSn44pcsHKaixujGwWSo2Rz4AlSkxrTkbSnf+i8blikr21AqDblg4p82UnK208TrjAqHS65tg39E1WR9WjwW+BfRyRlpP0PGnpDuDc/O3YprtP/kBKyiWkG0JQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LW9GUXS6hj4pm1kj2nVBespreKXc7maKft1MU3DGSKk=;
- b=L7NTKCqq6LWs5w7CC28Kcnmxxvzxnq3htwn4InaONxQVswS0ZwnBOq+gGDTrV3Q3Ps9MxgfSEy2HwFQQcNKUq1j//YanOsXYyne+gW1Fzdd2Fg/Rzz+TpX32xRNc7eOEyorFDItqo5yLspbfKE6ZfvP/clgNj6/HBMBSWJPAPHg0g6jxLOWr2NDJQWUtMaqmkSy23FC2Q7vfAY31FrIx8r6EXnjpZckSMmuKiGjxLuNeE+YmDZ6ztErWelauo9VyzWGRv9WHJXkqNdj87YEbv7A+EavUBnQIQUYobnuTy7pB3Q+k+rzmNhdo0s9sIelYRIUkrNwyETvRD/giqiEezQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=nKrArgmXFOTLYTTyNhTeXov6XSTWvjvT9b7RYgx8wRU=;
+ b=HMQuNfu43iwzuJmWNMq/t1o8WZSj7H/xPfJt/JyASw9BgeBHTDsfBJlXG1k6BbfU+pL4DA1N4VfumUgFNYuvKf7NZqac0rYoNsmcLNga8NqwDibpm8+cMarPDIJD+0+Y6PzH45mZSzmQD5nn3yhodEeY+htPFUUlx7W1I7vKwimUEP0gN0G82lncpeJ6ixyoZaAZHJ8Sr5dyqTr2Q2gaK+vN3zpRTsVVEtAyxd5afWusdvRidzNSylL6MsZGONewyxXXIE/hsUbPq+arBhLsKxlrCXfAGXtXNehjYKdcUPVtwHUJ11272Fhm09Q07yZrQxiVTSKkD7+lUaYd4aMP4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LW9GUXS6hj4pm1kj2nVBespreKXc7maKft1MU3DGSKk=;
- b=4oiPqGy/BsIXc4dm9J/pl/YbkyCJd/jYoQBzWcTn3W3nZkiZzkHjApNEwbbwXpYGmJ3beanSRwz2/TAP/LvhNPX5T+MrrP2dpsH+a1Sp7gc2EGUFnVYN+ZhD9JPl+6HnC6YahKW3OW2aCCpDNnFeMppK5C5VcXeaGDJWhQX7QxA=
-Received: from MN2PR20CA0056.namprd20.prod.outlook.com (2603:10b6:208:235::25)
- by SA3PR12MB9177.namprd12.prod.outlook.com (2603:10b6:806:39d::5)
+ bh=nKrArgmXFOTLYTTyNhTeXov6XSTWvjvT9b7RYgx8wRU=;
+ b=GUazw5RIjG3kK3lkh3pOL5+Ys3Tn5s8QNJnZyypGlVKcDT/iWyBzQvxDTePEQyWCrnjpMiSGXH2zcxei/7u8HEuH5PpINbJxpF1j8Oc7zNtMHyTr4T82rQB2I63ktblU8EYN9EFGy5CdIjj0yXYeVi90TNgo4O+x2v5qwQlm48w=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by IA1PR12MB9063.namprd12.prod.outlook.com (2603:10b6:208:3a9::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.27; Thu, 19 Jun
- 2025 14:05:45 +0000
-Received: from BL02EPF0001A107.namprd05.prod.outlook.com
- (2603:10b6:208:235:cafe::6) by MN2PR20CA0056.outlook.office365.com
- (2603:10b6:208:235::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.34 via Frontend Transport; Thu,
- 19 Jun 2025 14:05:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A107.mail.protection.outlook.com (10.167.241.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8857.21 via Frontend Transport; Thu, 19 Jun 2025 14:05:44 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 19 Jun
- 2025 09:05:44 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: make compute timeouts consistent
-Date: Thu, 19 Jun 2025 10:05:30 -0400
-Message-ID: <20250619140530.5683-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.49.0
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Thu, 19 Jun
+ 2025 15:12:05 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.8857.019; Thu, 19 Jun 2025
+ 15:12:04 +0000
+Message-ID: <beb4ba2d-49e9-4945-b3c9-5af6927026fd@amd.com>
+Date: Thu, 19 Jun 2025 10:11:51 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/8] media: platform: amd: Add isp4 fw and hw interface
+To: "Du, Bin" <bin.du@amd.com>, mchehab@kernel.org, hverkuil@xs4all.nl,
+ laurent.pinchart+renesas@ideasonboard.com, bryan.odonoghue@linaro.org,
+ sakari.ailus@linux.intel.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: pratap.nirujogi@amd.com, benjamin.chan@amd.com, king.li@amd.com,
+ gjorgji.rosikopulos@amd.com, Phil.Jawich@amd.com, Dominic.Antony@amd.com,
+ Svetoslav.Stoilov@amd.com,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20250618091959.68293-1-Bin.Du@amd.com>
+ <20250618091959.68293-5-Bin.Du@amd.com>
+ <42bac0f3-159b-4192-b23f-658d7edc0d37@amd.com>
+ <6735fb02-24a0-42c1-86ab-605a783c4f47@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <6735fb02-24a0-42c1-86ab-605a783c4f47@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: SCZP215CA0023.LAMP215.PROD.OUTLOOK.COM
+ (2603:10d6:300:54::17) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A107:EE_|SA3PR12MB9177:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13d3cc85-d8f4-48b6-dc9f-08ddaf3a625a
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|IA1PR12MB9063:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d689b95-2f4b-4950-e27e-08ddaf43a65b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dWDsIK93zPiWs+9v0VaiGT1Tj+VmlwPWNAF5jojumcF4Y7sb7tN3uib6kwTW?=
- =?us-ascii?Q?imfflI2loI6eApE3iPpkb/qAhVuBzHvwuNoCKkePR+A6LxtnydSgkq95h6UY?=
- =?us-ascii?Q?JMmFdaJWW2W6+HPtYWKj0N8TWr2IYtFovilMHyPqOt/3m6jt7pKRvXFW+eoM?=
- =?us-ascii?Q?2gbWV29+xCbWet63XaYbp5RlMeednjKEPRT9bGqlmYY7PeD97stFoeo5gowV?=
- =?us-ascii?Q?ZyyYAqGkny9RoCfL4aAhhDROK6xQ98H4+38346nnf6e8Z/dUDQFLLgM6B8tY?=
- =?us-ascii?Q?pWovJG6BW0hlcZDvdnvY2+a5Oogyy6sUHNJJV3j0uPMl824Dtjq2nAfODre+?=
- =?us-ascii?Q?F/rNJZykVdK2ZcXJML0zzoCJF8hkskGZ1xm2fIrleLP6hHBwmvShJtKPWxZB?=
- =?us-ascii?Q?Xqz0meSjxF2DS2qUce0LDrp6K2e/PJ1x3OXl1/FlCy8SSPq4C/xQuCj6Ac6Z?=
- =?us-ascii?Q?o5ScX4x3aNNd9n6q9qjHNWC9bLEZ/bNwpe4WE76wA78zzydSMuzS/uVv6I0g?=
- =?us-ascii?Q?CXorT8HdGDUbJ10P5iJArWXmPD5StQJ+z/k5xfbb4ajh232RTyQQY/dHgKO7?=
- =?us-ascii?Q?AvxsX86MS1XcoAl3l7X1PRfGzQihbCnxiByrwCf//IdnjuHshepg4MK3P31Z?=
- =?us-ascii?Q?XNep7hYMPHeJ0HKUTYdyHOmqT8PF3o14qgecjdPoIf6ZKXkmcfst+DWuqOR4?=
- =?us-ascii?Q?QyT72FS+cmCrfbo+eQVuM/UZnnTSYN6c2LG+yW8H1ejBOfmODCvYrqNUCqbG?=
- =?us-ascii?Q?v5U23BAaJNDQmzcg1PypoCuE+rdEo8vgNObACUEIGSLKyRbLK49jx3aSweXa?=
- =?us-ascii?Q?uo+TACHlMGZEhyX+KgR1G0pnA16gpyKIN0jfUJdhwNKEbi6HX1posH7yYCma?=
- =?us-ascii?Q?hvH/FXbUk74B7P4RIuodz4WpWwrJwLrlN/+/1KK4zxhGdtYgZXqGBvCRr42e?=
- =?us-ascii?Q?wlPv0oDiXfO8Yub4v6Sbd1SHgMpphrfGCVyKWjd/F+ivRBCTP7q1XUNjXa23?=
- =?us-ascii?Q?LaGXR1yqhrX/88bnNjx1+HKHeU+Pos8Oo2XdozRki6Px6Ntk60roPbk2nyQu?=
- =?us-ascii?Q?op9Vv7lvYmMsh2610piOZec55QKP7oWAV2SxgJjQMDghJhn5xWQtt0IPuFco?=
- =?us-ascii?Q?H1PZkKUABLP8klBjYbzvM8Vv7iQFHDMxnrr5aHlQQ8mYN744Ef3DaGRxp2Et?=
- =?us-ascii?Q?IpwTf18ptA+nJ+yspp2vEs+gHBSkDv02Csf2QjzLYhCqZ0ln+u1VXeIZ69Jx?=
- =?us-ascii?Q?ml0ZwQCOolw8slVzdkNHv9m3zYr/FAs6FgGQjCTi+uc/YPdRhJ4hb591DPwN?=
- =?us-ascii?Q?+saDZzlms/iGJ7scDWydgdPkgXDH592XMKVuukQfCFDAwrl1afY//FD/5zI/?=
- =?us-ascii?Q?/mqBH1xWhMGyZTURExv1xJ/pdKo60kDlIbh6FwiXP9ACmLDP3/WP66RwSQfQ?=
- =?us-ascii?Q?CD10qBSOThLTiFj9xN8Nen/Y7E2i+n9AXqtkVbZVuYKH8qRU6cK+TvOOeg6r?=
- =?us-ascii?Q?GYmkXeNKBNoeA79yrpAPN+QU1eyRGi0z06yD?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|921020;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZXY3cldpclNvdDMrMWR0cytoQ1IwNDdEcDA5bGtwY0psVHVtODR5ZWhxbFZN?=
+ =?utf-8?B?MEtYcUZ0TXY0U21uU2FPcURLRUtnMkUrOUNCR1crNlBoNmwxOE9uMjB4c3ZN?=
+ =?utf-8?B?TXRwNll4OTU4WDIwT1FDbnBpTEcrL0lnYVVucHZSeFR0VHViRDVTQ3o1ZE1Y?=
+ =?utf-8?B?RlhHaktGenlJekZPYjZ4ZDBJVVhoWSsydkQzbmJSelVXckZ0dTI3K1lpRkNC?=
+ =?utf-8?B?alcxZ0pQWFBxMHE4dU5KME5LRnBBQ1kxZ1V0NHRWOE1nU1AyQTdkRU9ocFlv?=
+ =?utf-8?B?VkM0TSt5OUtCQkx5ZkpqSWJhOHkxbW5Rbk41dzI1WDNqci9YZ1NsbjIxYmlT?=
+ =?utf-8?B?cHZRTjYrTG9mRWJ4RW02a0ROSExmTGtIWVVFbGdvZHEydkQ1anNNNHEyR0ps?=
+ =?utf-8?B?TldNRVdYcXJ6RWxwWWVIZm5uQWtLa0IzaU0wempTbzNta0RPK2tvaEE4NkVa?=
+ =?utf-8?B?azNneEpVSlRqY1RXS09jU3ZpUk5HbXlpS3dtbitOOGpSUWFsMTRpWGJhNlRO?=
+ =?utf-8?B?VVBVTzlleHBRNFlrUVlrN1gwVS9mbjRvUDlyUGNqcWNLZEMvdnNTRjZubUxm?=
+ =?utf-8?B?U3JLV0NPT1pJV1c5Wmc4dE1Nak9BSUhkdUFlWC9VQjJtUXpRUmM0MTNQaWl6?=
+ =?utf-8?B?cGlXcGw3V1pvYlhHdmxtL3FUUXQvUEtVTVhVeDNDZ0g3cFlieEpqL2JPVWtT?=
+ =?utf-8?B?RWZ3UjVpTWJnbVYzZkRLRkJIVnZXQ0RpdWswTlFoWk9ROEtwaVU2aGo5TE9a?=
+ =?utf-8?B?dGdxc0orV2VnbktuM2Y0WGF0REMxV3laVHFNNWdBMVdOZ3FibWM1b2lCMVl1?=
+ =?utf-8?B?d1I4eDVWWmg5U056NWp2RUswUW9JVzNTZVphaTNkeVdQSUh0aGhxbWw3KzJx?=
+ =?utf-8?B?MFhrb1VvM3dTN0FxcnZybTd3QlBrNHVoaHR6OVRxVEZtY1ljMjA4bktmTG5r?=
+ =?utf-8?B?REhZSkRrcHBUVlVKTUtOcmFtOFdCakw4cGhNL2tnZnlWeStnL3ErTW5aQ0RU?=
+ =?utf-8?B?L05nSDY3UFBZemRjYWc1cFVobThBLzFtSTZ1QjVaMDRnSG44TzhYSVRJRVNR?=
+ =?utf-8?B?Y3pnc1Z4QzVwZ0NEU1Q3bS9KcGVISk9IYzlEVEJMdFJxSzhLOXo2NUtPVlZL?=
+ =?utf-8?B?eVVCdm8vVWxFVVZ3cXcvZ2tPSEx6K0JhdGZHNHRsUEpaRWdxaHRVMm0xMjY5?=
+ =?utf-8?B?anBQRGc2TUJpUUVOVEpnTEhKYkc5Z3VHVllnR0JwV2Y3ZUUrakkvSmc1QkpL?=
+ =?utf-8?B?UkJZMXlaV1kvVHdWdkdIcElWWWNMMUYvZFZQSTZWeHFFWll5R2R3V01Lb29T?=
+ =?utf-8?B?YnN1MGxnUUF2VXdFTy94Ukw4VG43VFJScUJBOWEzZzVMRGpHY2xUdzlEalk3?=
+ =?utf-8?B?N1dxNHZreGFXZnl0ZXFadUtuWUtnYUpWM3kvQjU2ZmUrZ2V4ckNSZDR1bk5X?=
+ =?utf-8?B?TEJFUzc2c0VnbFhsWnpiZjVMaXR5VkUxdlpIUVQzbTBpUVNsbERvQXdYRW9B?=
+ =?utf-8?B?bXJKM28rTmJxa0gzOTU0aC9BbkVCayt0NTFoV0c4UythSXNYUXJVSWR2Sk5x?=
+ =?utf-8?B?TGRaeDRjNmRaaHZRcjZDaFQ5MzRzNU1OK1dhd01UbW03amc1aEhBVWd2WWNu?=
+ =?utf-8?B?OWZycFR5NHgzWVBvcmsvT2hNVEIzUE1TbURYdkdKUVNHQUljakxtbURuelUr?=
+ =?utf-8?B?Y2NRMHpJZDdOaCtldmFXdFQxckphYi9SbndaQmd0WlVEQXJnR1hqQkVFQW1R?=
+ =?utf-8?B?NTRDNGdVblpDRFBUY0xNM28ySjl3QmdMZUFIN1krQ3BtUmFBTmZCTG9BUVRH?=
+ =?utf-8?B?WHBRcnFTWVFWZ2FtMm9VYnVSTFdCaTNYOEJySVlDL0NBanpickZ6ZG42WnMx?=
+ =?utf-8?B?Q3BiSldqS3R1Vm1wTEgrejlNakRpQm9ESzVncEhlR0FFWDZ4ZWFsK1Y3VU1t?=
+ =?utf-8?B?dVc0NkFkeWtCRXNYSVgvNVBseDA1bTZOYlhGYVVPRFMvMmZYVmp0MlVJSVJh?=
+ =?utf-8?B?TGwwK2w3Q0xRPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(921020); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amZBZGE0TktkSGFBOXhhLzlTcXF5dW9uaU1OMU1uZXNaWmNiNStiQ3BMbTE5?=
+ =?utf-8?B?R0hOTzFxQU92akVadGV1eHFEbFVYMGljc21Va2kyRGl1VjZPTlhrSHAweGRv?=
+ =?utf-8?B?dkVydm5uUFMxeFhLQzVXTXZzaDBZVVJqWnV5bDl4UHhPSzZueHpka1F3ZU9y?=
+ =?utf-8?B?cWluMkprcWx2WjhWTDhydmZ5WjNCYlN5dFFhSmN2QlJFd1c4NmViUHBDb2NS?=
+ =?utf-8?B?TFBSVzA2cEs0ZDYrZk4rWlJ3MDR5SkI5Y081Ky9VekNiWnpIZ0trVG5sYm5X?=
+ =?utf-8?B?MEJBRkJxUVM3aUVBZytuUkszZVVORldUWWlFdTlQU0RJWkRrM1crVVBHT3lK?=
+ =?utf-8?B?Zy9rR2dwbFkwa1lMWERpeUhkaDY4ODlReXJaQXlXUnBLanREK3lvejlWSGFt?=
+ =?utf-8?B?aEJHRlhtQ3Jpb0t0QTJ2RkxXWVVYQ2psdWFEZm80N1Avc3ZGaDArS3VOalF3?=
+ =?utf-8?B?Z2x0bWtST1ZqY0pRUGsxWmp5eEwyZXppVTVtbmlOQ0N0aWV1ZzAvWTZWRXRK?=
+ =?utf-8?B?ODJPZFN1cGluL0JIN1hQbzlsUjZGemlKRWJiSGMwQXE1WnQwdVBTdVFBMjlp?=
+ =?utf-8?B?TEF6OGE4TGg2SUM1NDEybFkwU3NXN1orYmMrYUlOMHl4Q1dtNTVkcFEyZmFv?=
+ =?utf-8?B?OERlejVFRDJUcGpYVEd4aFhWM3FjV2l5Qk0zTVJOeUV0NGlITm95MGl3eW5S?=
+ =?utf-8?B?eDBjWVkwazVtL2x6YlRkbTJBQzl4SDRTcGZDWHkxSnQ4R08zZ0p4cmRFbEgr?=
+ =?utf-8?B?c3lBcXMwR0dNbTU1cG16QzRSMkhQWDcwaGowb0QySGxuam1kYXJDQTFkbEhG?=
+ =?utf-8?B?Qm12RlQxRzBhemVlZ1RqM2tJM3UxbjMrMGF2cUU0UENueE0ycThoTVN4SUpV?=
+ =?utf-8?B?L0RIdTJ5ZURpNjV5WGtHd3NXeDRHTUVyRjRHM2ZsZllpMXRZbUFpUk5PQWxi?=
+ =?utf-8?B?bGZ5UmpFaytuNFJEOE1XK1BvRml3SFBLZWk0RkxWQ01tWkpMRk5IOE9NYXhQ?=
+ =?utf-8?B?UFJqdWFSV2paanYrVm8vaFo1N090Zk5JcUZZRGoxTlRzRjVaZi9kVU9kTytX?=
+ =?utf-8?B?Y2thaUtWQUwyU1AxWXIyLzIwM0JqNWJXZHFiNnFFcFhUeXkxUW1uelFlMzkv?=
+ =?utf-8?B?MndOVUZQbEFHN3dIdGI3THFOTURFVXdiM3gzVjRzbVNJY1k2Z0lIWmlHQXFC?=
+ =?utf-8?B?YXBieDkrSSs1bkNRdlRJZHB3TkFtanJZYXNDaTZUeTBINm1LQ2h6YmZRRGhH?=
+ =?utf-8?B?YXdXYWRXSTZXVXpzU3VldXp1YjJUZFRRSnUxUjBLYjhQQ0xURWxMalQ5UU95?=
+ =?utf-8?B?TkN1STMwTGlPaEliZC9VelAxWWV3Vi9wVCtTcWxEd1ViRXdITG5sY1NxVGhw?=
+ =?utf-8?B?Zmcybm12QmVPOWdQcWZqNk9ZdDdRM241dWh6U2N5YTVhOS81eVNadEhIU2l4?=
+ =?utf-8?B?RzVGbTNsSlE2VmJuSzdlOTQ5eGdweDQrK1Z2YVJPblBMbnhUSFJGTEFYTFlZ?=
+ =?utf-8?B?R0Ewb0gyQTBJd3VOQkgzOHpnQjdQakFDWUE0VktJU2tOcGM4bE43VEFlYUMy?=
+ =?utf-8?B?elVIb1Y5bUdMS21HZlJoZkdNejFudFRuRWNMQjdaRXRMVUFMa2xIVlExdTRH?=
+ =?utf-8?B?TWE3QTRBSmFjYThGM3FGdkFjZlFyZWhzWTdQamdza2dna0RGM01jQTlxMVpD?=
+ =?utf-8?B?ZHJXeHVReGNIWEVEZXZOQ3JCSGpMckpvbzNkTHFVUGlVNzRwbnJLOWU3b2FL?=
+ =?utf-8?B?NTV6Vm1MS29xOEdWRzFjNWEvMmJhSStOT1g5SmczaTJESEVCODZWeGZ5NWZV?=
+ =?utf-8?B?c0VSYlZKU0d1YmNya1dveHNHeEFiUDRBblRGZFNySXEwV3NKTkFWVVRwUHQ1?=
+ =?utf-8?B?M20xZ1FVRXNzS2xITE5EK1gxRFd0MktUd3RKeUZJMzZPekw2Nm1KemMwU04v?=
+ =?utf-8?B?S09TUXA0N1lOY0dCb09jeld5OEFRRFpMaTBXSTBUbjRTOWxWdkVpcWJkLzU2?=
+ =?utf-8?B?SHN1eEdQVEtVaWFmNFlzODgrWk5SQjJwZUFMKzFjR1MweThscE1uOURHSFV0?=
+ =?utf-8?B?d1F6VFk0LzNSMmlWTENLOVM4KzRpL1k4bC9nOGpta0VKKzZubHpGRnRGWjJK?=
+ =?utf-8?Q?Wms2MYv/YHBj9F5w3mIWwECLZ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2025 14:05:44.9132 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13d3cc85-d8f4-48b6-dc9f-08ddaf3a625a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d689b95-2f4b-4950-e27e-08ddaf43a65b
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2025 15:12:04.7413 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A107.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9177
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ckPvLBQ+sf6aZPJngTDXgXGa3kxP6okX8tamEDM2Q61sFP0mztT2A6hnKH/McIBWbjfo0/tTvq+pYc7g+2WklQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9063
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,47 +171,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For kernel compute queues, align the timeout with
-other kernel queues (10 sec).  This had previously
-been set higher for OpenCL when it used kernel
-queues, but now OpenCL uses KFD user queues which
-don't have a timeout limitation. This also aligns
-with SR-IOV which already used a shorter timeout.
+On 6/19/2025 4:58 AM, Du, Bin wrote:
+> Thanks Mario, will fix in the next version and pls see some of my comments
+> 
+> On 6/19/2025 12:17 AM, Mario Limonciello wrote:
+>> +Alex
+>> +amd-gfx
+>>
+>> On 6/18/2025 4:19 AM, Bin Du wrote:
+>>> ISP firmware controls ISP HW pipeline using dedicated embedded processor
+>>> called ccpu.
+>>> The communication between ISP FW and driver is using commands and
+>>> response messages sent through the ring buffer. Command buffers support
+>>> either global setting that is not specific to the steam and support 
+>>> stream
+>>> specific parameters. Response buffers contains ISP FW notification
+>>> information such as frame buffer done and command done. IRQ is used for
+>>> receiving response buffer from ISP firmware, which is handled in the 
+>>> main
+>>> isp4 media device. ISP ccpu is booted up through the firmware loading
+>>> helper function prior to stream start.
+>>> Memory used for command buffer and response buffer needs to be allocated
+>>> from amdgpu buffer manager because isp4 is a child device of amdgpu.
+>>>
+>>> Signed-off-by: Bin Du <Bin.Du@amd.com>
+>>> Signed-off-by: Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>
+>>> ---
+>>>   drivers/media/platform/amd/isp4/Makefile      |   12 +
+>>>   .../platform/amd/isp4/isp4_fw_cmd_resp.h      |  318 +++++
+>>>   .../media/platform/amd/isp4/isp4_interface.c  | 1052 +++++++++++++++++
+>>>   .../media/platform/amd/isp4/isp4_interface.h  |  164 +++
+>>>   4 files changed, 1546 insertions(+)
+>>>   create mode 100644 drivers/media/platform/amd/isp4/isp4_fw_cmd_resp.h
+>>>   create mode 100644 drivers/media/platform/amd/isp4/isp4_interface.c
+>>>   create mode 100644 drivers/media/platform/amd/isp4/isp4_interface.h
+>>>
+>>> diff --git a/drivers/media/platform/amd/isp4/Makefile b/drivers/ 
+>>> media/ platform/amd/isp4/Makefile
+>>> index 0e36201fbb30..c0166f954516 100644
+>>> --- a/drivers/media/platform/amd/isp4/Makefile
+>>> +++ b/drivers/media/platform/amd/isp4/Makefile
+>>> @@ -5,10 +5,22 @@
+>>>   obj-$(CONFIG_AMD_ISP4) += amd_capture.o
+>>>   amd_capture-objs := isp4.o    \
+>>>               isp4_phy.o \
+>>> +            isp4_interface.o \
+>>>               isp4_hw.o    \
+>>>   ccflags-y += -I$(srctree)/drivers/media/platform/amd/isp4
+>>> +ccflags-y += -I$(srctree)/drivers/gpu/drm/amd/include
+>>> +ccflags-y += -I$(srctree)/drivers/gpu/drm/amd/amdgpu
+>>> +ccflags-y += -I$(srctree)/drivers/gpu/drm/amd/pm/inc
+>>> +ccflags-y += -I$(srctree)/include/drm
+>>>   ccflags-y += -I$(srctree)/include
+>>> +ccflags-y += -I$(srctree)/include/uapi/drm
+>>> +ccflags-y += -I$(srctree)/drivers/gpu/drm/amd/acp/include
+>>> +ccflags-y += -I$(srctree)/drivers/gpu/drm/amd/display
+>>> +ccflags-y += -I$(srctree)/drivers/gpu/drm/amd/display/include
+>>> +ccflags-y += -I$(srctree)/drivers/gpu/drm/amd/display/modules/inc
+>>> +ccflags-y += -I$(srctree)/drivers/gpu/drm/amd/display/dc
+>>> +ccflags-y += -I$(srctree)/drivers/gpu/drm/amd/display/amdgpu_dm
+>>
+>> IMO this feels like a hack and also fragile to be sharing so much 
+>> across subsystems.
+>>
+>> Either there should be a kernel wide include/ header that can be used 
+>> by both or there should be a helper exported to get just the data that 
+>> is needed.
+> 
+> Yes, will refine to remove unnecessary ones in the next version, 
+> actually isp driver needs to access function amdgpu_bo_create_kernel 
+> which is exported by amdgpu and delared in amdgpu_object.h, because 
+> amdgpu_object.h also includes other amd gpu header files, so have to add 
+> these include path to avoid compilation error.
+> It'll be greate if there is kernel wide include, any suggestion for this?
+> 
 
-Additionally the longer timeout negatively impacts
-the user experience with kernel queues for interactive
-applications.
+Ah yeah I do see exports as of 
+https://git.kernel.org/torvalds/c/ebbe34edc0a90
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+So based on what is in the tree right now what you did "makes sense", 
+but I don't think it's "correct".  From another driver like the ISP 
+driver I feel that the code should really just be something like:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 571fe25a315f0..a91ff438672dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4179,18 +4179,10 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
- 	int ret = 0;
- 
- 	/*
--	 * By default timeout for non compute jobs is 10000
--	 * and 60000 for compute jobs.
--	 * In SR-IOV or passthrough mode, timeout for compute
--	 * jobs are 60000 by default.
-+	 * By default timeout for jobs is 10 sec
- 	 */
--	adev->gfx_timeout = msecs_to_jiffies(10000);
-+	adev->compute_timeout = adev->gfx_timeout = msecs_to_jiffies(10000);
- 	adev->sdma_timeout = adev->video_timeout = adev->gfx_timeout;
--	if (amdgpu_sriov_vf(adev))
--		adev->compute_timeout = amdgpu_sriov_is_pp_one_vf(adev) ?
--					msecs_to_jiffies(60000) : msecs_to_jiffies(10000);
--	else
--		adev->compute_timeout =  msecs_to_jiffies(60000);
- 
- 	if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
- 		while ((timeout_setting = strsep(&input, ",")) &&
--- 
-2.49.0
+#include <linux/amdgpu/isp.h>
 
+I see a few ways forward.
+
+1) A new set of helpers created for amdgpu that can take
+opaque" data arguments (maybe the mfd device?) and return back a pointer 
+to the new buffer.  Describe those new helpers in that isp.h header.
+
+2) Manage the lifecycle of the buffers in sw_init/sw_fini of the ISP in 
+amdgpu.  Store pointers to them for access in the mfd device, and let 
+the ISP driver take references.  This only works if you don't need new 
+buffers after the driver is loaded.
+
+I personally prefer option 2 if it is feasible.
+
+Alex or others might have some other ideas too.
