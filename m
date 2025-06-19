@@ -4,71 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46832C7115A
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jun 2025 02:26:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E587C7115A
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jun 2025 02:30:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D70E010E3D3;
-	Thu, 19 Jun 2025 02:26:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA70510E911;
+	Thu, 19 Jun 2025 02:30:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FbgV/Wml";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DXqSkMwb";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A05A10E3D3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jun 2025 02:26:47 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-312a806f002so37653a91.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jun 2025 19:26:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750300007; x=1750904807; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=i7TCWM7xpT6Ugz+mcI7j3wjQNyxlnBvy5MP/no8q7XU=;
- b=FbgV/WmlzB7WOgls0XRYU4+w+TxzIh6UguZUnM8xkTAH8wt1BTxPRO02zadkb7/Tea
- etj8ifjH7F1PkU1HxPsc2j56bx5FDT0cez4Z43VxiDt/1UkMZI2DGI8gNZUpOA9L18s7
- 3pHMxhhz5tECOf+Y+kgI3SfyacXMkzxge1khZvEJG6b5xMNAdSOEsdN1LE5VK3SPNeRb
- tSqrQUEjs0o5TstandkCNF5aMQPnZ/xzGUr+vZMo+TDkLkaEhgYU46LszhyW2hkPCj+3
- yEXNvz5Qp0A+gIKvzfO9necxec5tmww5A9zccJ/gYn5hfnbXpVErJLLUdteyy1JZTdGh
- 6ODA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750300007; x=1750904807;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=i7TCWM7xpT6Ugz+mcI7j3wjQNyxlnBvy5MP/no8q7XU=;
- b=OUmuI3se8ZmgBU1A3rzyZckgWrM+wr+8n1UtT02cYU3XXZ9y313M+1zW8YlsccQ9K4
- EE/XpSo/rvHGdIw/Do6uXbDfRT8HA7LgyVm9rG5b7hBbuVLpqykS91k3oVrSOWrBnj/K
- NuHksT1lQz4J3yzMdIqEB+fHiWWh3FJzk7PVwbLkJmbMlngASOFxRWbLpKSm89nG/6h9
- 8lPVjedNp7/34cEzm7KXDM1hV4li2X49ix1Izfs6+6DER3Udx+7sprEC6P7o5AMSj+S0
- /EwBBJzsqbXwlhrb4xMTueibaSA4Xup26BE3kaJ8BcavxA3XHAhYwJPulI4kr4HRM+/f
- fmSg==
-X-Gm-Message-State: AOJu0Yy/i+InRrKSYxtsswC7JPwXF+XsOsSLhy8x3YPGtKiIbSd2ndDB
- EhZLV+gomYx2TkY2GqV7YYUwu5XlIoWLSGUsS/8Djt6AXKrkiJz6ihhLDxohB1jS10OLXIDiPDF
- QJp8XCvUDqpEBWfjEUNRakNXvdJKgvfk=
-X-Gm-Gg: ASbGnct+ll47Z2fRG1gHSo4ACizIVVZLAswYEOZJ4Z575QM6/TGiECYKDMFiLtobHR2
- pAY6gjphfGj49SdSlR17SBS9tPbzMFVzNtTl5/Bfss2G9tP6FoCvWZxT/k+2UyjC6BH9PX6E19R
- QH3A+asqWXZUO1JLfhmuFe/mEBh/gIsfrXjtdCYCqrwx0p
-X-Google-Smtp-Source: AGHT+IGh7KBubVHSB4EkN5Bq5MCqSD/jNQ5QF6NzW8ERrcfHjHOxa42J289hHp1EOPXv9OB2vKjR2HtSxOCEYy+Cch8=
-X-Received: by 2002:a17:90b:5251:b0:312:e9d:4001 with SMTP id
- 98e67ed59e1d1-3158c10362dmr784638a91.8.1750300006560; Wed, 18 Jun 2025
- 19:26:46 -0700 (PDT)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2088.outbound.protection.outlook.com [40.107.102.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0C7610E911
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jun 2025 02:30:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EcW2xx5KSO+UL44V8rqjghrq/MacbDFA0qD1hfRLH3/vp7+ymDBQ402HcsOUnCH7bqWCdXOAT11jR95BpgNiiO3J+rliE2O4mLqsgmgWEG/cvHVRG3Aw6eUD+CZAD629DdScz7ExFGHbdDsryjhK6R8uWLd7syFqqw8a1EqNbPaDWp2wRYHZuIrOZFXE/JQUpPWBx4nC0twcLcmX0WqSB+ZvAfxXCM0gpzJNTiap02JeJRmLbTyyiWSX7asSdyRJeTi0YWEJ6z/ixTkzuQq2+B8Fv0ZPs6G9/TpvQ3UV1r/q0I4DIDqsrHscWJBLLuXFKVCp/10qVe2M13Sew2117g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=obctOLNB3bjt1mtiYNe+MsLoOAeirepAK38Wyu6nuxI=;
+ b=xbX7kKhUOPVH2lJdjPrZf3sPp2XK2IJdI93bm/JSG42s520ZuH45TRSAR6fXHKgX7BQVXyhE84PWglkRYjyYmTMQGTyGmrvC/p0iRpFXKsb30p20FwlI3NqrIUMp7xPAwh0pxnuwjkyFFEyWrChBebFOdkOffWa+mXvZTX+Yl/NbLYHERHukOAziZNanMCn31lZDMwj0mTPA1Eg1UExw+3avdS/bLKj1YNPiY+HIu6g0uH3K+oM5ebCy7ch5LWFR3SSyzWf76bGAyZN9MWyMzE+fddTKcpkyrskEj0Prn8dXKw3vf/itTz+OOWEUNLQ8PryzsLNri46/jAhJ+yh5HQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=obctOLNB3bjt1mtiYNe+MsLoOAeirepAK38Wyu6nuxI=;
+ b=DXqSkMwbvHUYNTxTISLHq0Rcz1k9BamA1KrlKPzYouYDIG8On3Ru23RCLoT5ISXWuEohtvA5cT5k84V8aFdQ1b/iVSrLjDKQgb/w/GZVEWkMP1HuWQK51DiYwwMrluDM1VlJanZWgFj/sLFImqAa1qkhviYAxqqorsvkuiy+Yuc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
+ by DM4PR12MB6159.namprd12.prod.outlook.com (2603:10b6:8:a8::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8835.28; Thu, 19 Jun 2025 02:30:05 +0000
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::bc87:6c1b:cadb:67a]) by DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::bc87:6c1b:cadb:67a%6]) with mapi id 15.20.8857.020; Thu, 19 Jun 2025
+ 02:30:04 +0000
+Message-ID: <fac75e5e-2d2f-9dc9-6321-24f7a838a76b@amd.com>
+Date: Thu, 19 Jun 2025 10:30:00 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH 2/4] drm/amd/pm: Add support to set min ISP clocks
+Content-Language: en-US
+To: Pratap Nirujogi <pratap.nirujogi@amd.com>, amd-gfx@lists.freedesktop.org, 
+ mlimonci@amd.com, lijo.lazar@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+Cc: benjamin.chan@amd.com, bin.du@amd.com, gjorgji.rosikopulos@amd.com,
+ king.li@amd.com, dantony@amd.com, Phil.Jawich@amd.com
+References: <20250618221923.3944751-1-pratap.nirujogi@amd.com>
+ <20250618221923.3944751-3-pratap.nirujogi@amd.com>
+From: Xiaojian Du <xiaojian.du@amd.com>
+In-Reply-To: <20250618221923.3944751-3-pratap.nirujogi@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI1PR02CA0054.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::13) To DM4PR12MB5136.namprd12.prod.outlook.com
+ (2603:10b6:5:393::23)
 MIME-Version: 1.0
-References: <20250619013206.123183-1-vitaly.prosyak@amd.com>
-In-Reply-To: <20250619013206.123183-1-vitaly.prosyak@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 18 Jun 2025 22:26:34 -0400
-X-Gm-Features: AX0GCFuwqFSAO1otcYWEBHFpbAGOx1tXWgey_NnHtu8095eyU8yHKJqDThQhAXY
-Message-ID: <CADnq5_NKTTXcEuZANmsS=E6gcLeX11P5CMT5bQnF0p-5XaLqYw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix slab-use-after-free in
- amdgpu_userq_mgr_fini+0x70c
-To: vitaly.prosyak@amd.com
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>, 
- Arvind Yadav <arvind.yadav@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5136:EE_|DM4PR12MB6159:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b03f278-572f-4d8c-2f13-08ddaed932c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eVRLUXZ5bDZ2YTY1Tk1qcDNmR3dzVXcyL1VWOVREbC9NTDFnZHFGa1JyTDdT?=
+ =?utf-8?B?YTRsYXJZaFFFcEhPRlhuYzRBYjZLc3Y0SmE1clh1T2h1b1NlZVRCNkV1czNO?=
+ =?utf-8?B?ZkJJQTB3bEFJa29oQXgyVWFDZklweUdzYzNzL0wveTczbTJ1U28yNy8zOHl2?=
+ =?utf-8?B?WGVHQUc2aHl3WThWOW16OHpGUWtaV0YySDluK2l4bWNwSW9PZmwybWFOcWJw?=
+ =?utf-8?B?WTkxM0lWVlFRcGtnZzRTZVRLSFplQUxrOXFlMHhja2Ewd1hzUndKOEJIUEJo?=
+ =?utf-8?B?anAxdXordWhSbElzQ2p6bE0zZEF5SUN2bzhST2p4THMxUTBoNHcvblNMNGdJ?=
+ =?utf-8?B?d0NWL1B5bERSV3EvL0FLaXMyZnR3OHErOS8zaW1LbU1CMExTRFdHQXlCQ2tK?=
+ =?utf-8?B?cUZmSnZHSUZya3FuSGwrK1l3Y0s0anJXRzRpa1JGd2RRMEwwSTN6RGZNSDFQ?=
+ =?utf-8?B?cklnajd4emNhemNhckwzK3BweFd5UEVPRloxNk1Gd1M5YVIvMnNvMUYyR2cr?=
+ =?utf-8?B?c3dDa3VYU2lRTjl1alJDVHdiZFJtOWZ0V2Ria25qUEJMMm8vbWZvQ0pMNDg4?=
+ =?utf-8?B?RHQrZ3NHWmRsVWVQNVV2MHd5b0VDcUlLV2Q1dXZZNVpmUUlKT2I0Q1JqRW1N?=
+ =?utf-8?B?Q3JraFZsMkRSMHNaOU1EeFFrakR3bnlqVldLRURLUUk5Sit3QVpyZXpWMnBP?=
+ =?utf-8?B?RmdEZTB6TTRFQjNCTXZHZ05Ja1ZuZmtWM2lIem1MRWEvcmgwQWMxMHJVZDhU?=
+ =?utf-8?B?eDNOZklneE81MlVxTmhOUko2UjZNVzJLeGRSR1hRL3FRY0FvY28wYVhJNm9H?=
+ =?utf-8?B?QXEzZVVxa2FRMUFRS3JRK2k2WjIxZVhObGlseHo2YkYyQWVSc09adDZHMzhJ?=
+ =?utf-8?B?dnIwYUxoSkh3dzhWclNIOUZyb1JDOFN5TGU2RGJWbFg1dGlvbjNDZlJSL3dB?=
+ =?utf-8?B?L1AvWEtuRnBQUnk1aXVBQWxaUlZINVNvLzB3T3U4SGhyYSsvWXdVZ0FjSFlI?=
+ =?utf-8?B?WHRPVW82MGxVRGdPQ1YrbEpFV0xaU3RDS2tEYnJZUHpjZjVEeVRXS2ZpRTl4?=
+ =?utf-8?B?TllIZkp0S05LcEJzNEdGVk5UOTBqV3RSbUF2ekZFeFlISDd0a0hxRHc0MW9H?=
+ =?utf-8?B?NXMxeWJKQ2M3bkN3YXRNaGZpU0R6LzVJT0xnOEVVMmtJSVJEMzVmMk9PZVcy?=
+ =?utf-8?B?V1p1d0hGdzNycWhTcXRjSnorZlZPMzJHKzYxL3hsdzZMSzRPczBHdHp3aElz?=
+ =?utf-8?B?MWxsdlJvNzlSUEZlc1drU21xeDRDMjJEZlpkQytOckFuNUtCWGNJbXh0OFpH?=
+ =?utf-8?B?YUpQSlNXWTNFcVZ4YmhuaUFFdnhydnFCaVlMaUs0c3dhUlc1V3ZvcXg3L3li?=
+ =?utf-8?B?ajFOM2paQ0pHYmN6bmg5cnZQLzE4N2JRYWZGemIvNXdJZXFYaW9CTmlNR0Qw?=
+ =?utf-8?B?dG5wR1RldTRReG1CTmY3TldpTFN1TkRCNURzVVhaUVExU1VFeDlwRlpQMVVJ?=
+ =?utf-8?B?b2UxU0p1VWl6RWRuc2d6TTZBSEsrbGlPY3hPb29lSjNyMWNJNlNIaEtJUTJ6?=
+ =?utf-8?B?TDMvdW1QY3pCSEF2REFxQzMzb3RtV29QSklCcXdMY1B0WHFoU2RuNDFrb3NW?=
+ =?utf-8?B?N2g5Und1ZzRoZHMwaUZzaGtJMDVQQ05LMWFMdjZPTWlGaUtrUGV6ZlZiVVMv?=
+ =?utf-8?B?MUQ1aUZxRmgxZkxEaGhJcjhlMVo3Vy9kU0tINTc4UE1BeHpibFpOeUluWXpZ?=
+ =?utf-8?B?YThZSThlc3lKWG9jd3ZDdUhVWVNUeVlwYktLS0d1Y2Y3UVdlNzZDYU9PQ3Na?=
+ =?utf-8?B?VEZUQ1FSb2RrL3l0NGIxTDRadDBNTkZPalBDRHY5d3dYMHVzMnp4cTNraGVq?=
+ =?utf-8?B?cFF3SjF6YWdURkEwQXJvVEZ3RkJndnVOcks0d2ZJdUdnSGVuWWplZ2tsV3hH?=
+ =?utf-8?Q?tBTc9+ODAx0=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmFwdVlST1VYRGYyQUE0MWVqcDBkZFhkaHZGV1hyMFlTSXcxQWk1a01VcFBN?=
+ =?utf-8?B?SzJNV01xRWZ5K1BZTWw2S0gxSEtJU2RHZmQxajJBUkJmVXFlMEw4cFcxSlVl?=
+ =?utf-8?B?UmZndVVFN3YybzlNVXF4NnV3VnZhTkJ1OGVQRnY3VU4zUno1djZ1bkl2V2Z3?=
+ =?utf-8?B?RkxFYVhBTTVNbWE5eFFqQmljWS9IRS9SU09lRWpIRkt4U0hZVDhKRXFZTmZ5?=
+ =?utf-8?B?eTlPVFNCN0UxRFpVOThDU2NaZUtpR29wQWhVcU1UeFY2RDk5YmYzTVV4N0pn?=
+ =?utf-8?B?cXQ4d2hZTnhiZCt0anFvY2ZzR0twU2lNaDRiOTgyUkQ3WmgxUlc0cjFoQ2xO?=
+ =?utf-8?B?KzUyYzF4bFZHNTVLekJyTDlEUHpoOVlmZ1c4a0JQVGFWcDI2UmJvK3BZVGhl?=
+ =?utf-8?B?M2VzWlBvSHhFS0JPQWszaHBFSm5vdk1wRktqQW9zQXdYYmt0VXhmMnRlUmgw?=
+ =?utf-8?B?anZvY0NqWXFqSERZR1hqOGw4a3FJQnZIWExsNDI5aVdmRVlhZGV0NlBLZ1BE?=
+ =?utf-8?B?dWdpc1BCdkQxdVZ0MjhLb3lxMGxURE42VUdEN0ZEQkhiOXBSTUR5RFBsTi9D?=
+ =?utf-8?B?QmlpRGxFbHdpelpMbnprSzlNcG14WWZVNldxMHZNOVduTnkxVVJFKzZBcWNu?=
+ =?utf-8?B?NVNwVzA4QkNrQ1BXMmVnRUlQVUJuWnFXMDAwSTF3eVZWTjlaR3VGQ09GVTFp?=
+ =?utf-8?B?b3FYVUVCZjZCNVpQc2NIU2tDeFpCNHF2SDc2ME9ZM0d4bWNXMlRYU0EzY0kr?=
+ =?utf-8?B?UE1GMTlRRGhTWVhLMTJUbGZnZVFNUTV4ZEI1T283VFhGc3JIUFVkS2xubGEr?=
+ =?utf-8?B?UkNTMkhkUmU2MGo4Rm4vVERQQmFBRVdtSUVEdUtHQVpReEI5VGxaZXM3MDVC?=
+ =?utf-8?B?ZlBSeGFldDNyV0MyVityTmtHUVYwck4vT1Erd1NrZkRIWlBnTDVOc25ZRUJR?=
+ =?utf-8?B?QTYrcWpic25yV2JUYmdvc2JhODhKeVFUZVhHNTRZNjVVSytNUE00YTdUN2ty?=
+ =?utf-8?B?OGVIL09uUk5uWUlYMmRPbGpSVnhWR3ZURFhab1orblhteS9tblRkNFNzdE9X?=
+ =?utf-8?B?RVhxQlNMMGV6b21FbjNzZ0x6RjlwSFlDdnUrejhUTlBpT0dqZGdGMmpJNjdI?=
+ =?utf-8?B?S2ZKNVpwaTJTK2xTSjZCRzhUeU90eWNlRmFXMTArd2pLMzRadWFCdmQybHMw?=
+ =?utf-8?B?dE8vMWJCREUxSjI0M0JiN3lwZHYvZkFMeWQ2cGtZSWVlVWVldHVrZVRja1Vu?=
+ =?utf-8?B?ZjI2Ykwvcmh1TUJMYVFtc1JZRzAxZDdta3lEbEQzZElTU1VjQkgxV2U2MzlV?=
+ =?utf-8?B?endwbU9ielFramlaTUZFZTFrUEV2UTZEbEpOMDdYeGtGaytDQmN5RGkyZ2or?=
+ =?utf-8?B?Z2ZvVUIrdHFGcnI0N1BmV2hwZ3VxYUVDVzFWWTJ2aFBKaTkvb2FwQWFMUjZJ?=
+ =?utf-8?B?WHdlcXN4RERmd0VlYVBkNTM3MmFGWExmb3BBK1FhUS9iM3hlbENzTFhZRjNH?=
+ =?utf-8?B?VzQvMGZMUzRiZkFIRm04WkhJWWpKVi9BVDJKaytoQ2M5R0JoenYwSkw3dnBh?=
+ =?utf-8?B?NDFCYldKTUd6ekJjU3Zpb2RyeW1OU1ZCdzNCMEQ2MTJ0dHV3OTRWOHA3Qkpp?=
+ =?utf-8?B?LzlwM0w1OUpXTGRYRU5qSnJ0NjRTR3ZFNnhoQTFVZkh2Wk1mTjJVNkw3ZlEw?=
+ =?utf-8?B?Q1ZHcGdISnBvUUx6MUlVaDg2SGJQNldTeUNPb0c1N0EwWFdYU212N3Y2SUFH?=
+ =?utf-8?B?NHJTdWxnV3RFOHdoaFRLZ0gxNmVhVzNlY0xQWDFCd0N5UjFaSURXVHl1U3l4?=
+ =?utf-8?B?Zk9peE1KbWswamFqZnYrQS8xY2lvemVkL29aV0V3S3Fmc0Zzalh6aXBOS1g0?=
+ =?utf-8?B?S0FPb0dwTHRKd3lPVGJydEYza2t0Q1pUL1djcXJLc21TbFdFSEZ0b1NDVWRR?=
+ =?utf-8?B?aFBsaEhISzM4ZWpMM3kyeGxJSHErbm9VYmtwVTUycE1aNTREWUVJYzNBODlZ?=
+ =?utf-8?B?bk0rV0J3STJldUlzbVcwR0JneUhpVC8vNFo1ejNwNVRZTE00NWJWMlJqOVg3?=
+ =?utf-8?B?RzhuZ09QQ1FOQ1JoK3hFUWpCa21yWlRCQjk4aG1WTGdRSDI2V3c3ckgrV1hU?=
+ =?utf-8?Q?a2HyFbzWowiOJYyNeVK5GiFHn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b03f278-572f-4d8c-2f13-08ddaed932c3
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2025 02:30:04.4548 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mXa4Ks2ZLAFSFn6gHmvMsTieAywv2zoZxzqwQwBgjTbft2T/n/it5OZLRpels6Xml7HEmLV0y71ATgNwzaQM9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,286 +164,283 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 18, 2025 at 9:32=E2=80=AFPM <vitaly.prosyak@amd.com> wrote:
+Reviewed-by: Xiaojian Du <xiaojian.du@amd.com>
+
+
+Thanks,
+Xiaojian
+
+On 6/19/2025 6:17 AM, Pratap Nirujogi wrote:
+> Add support to set ISP clocks for SMU v14.0.0. ISP driver
+> uses amdgpu_dpm_set_soft_freq_range() API to set clocks via
+> SMU interface than communicating with PMFW directly.
 >
-> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> amdgpu_dpm_set_soft_freq_range() is updated to take in any
+> pp_clock_type than limiting to support only PP_SCLK to allow
+> ISP and other driver modules to set the min/max clocks. Any
+> clock specific restrictions are expected to be taken care in
+> SOC specific SMU implementations instead of generic amdgpu_dpm
+> and amdgpu_smu interfaces.
 >
-> The issue was reproduced on NV10 using IGT pci_unplug test.
-> It is expected that `amdgpu_driver_postclose_kms()` is called prior to `a=
-mdgpu_drm_release()`.
-> However, the bug is that `amdgpu_fpriv` was freed in `amdgpu_driver_postc=
-lose_kms()`, and then
-> later accessed in `amdgpu_drm_release()` via a call to `amdgpu_userq_mgr_=
-fini()`.
-> As a result, KASAN detected a use-after-free condition, as shown in the l=
-og below.
-> The proposed fix is to move the calls to `amdgpu_eviction_fence_destroy()=
-` and
-> `amdgpu_userq_mgr_fini()` into `amdgpu_driver_postclose_kms()`, so they a=
-re invoked before
-> `amdgpu_fpriv` is freed.
->
-> This also ensures symmetry with the initialization path in `amdgpu_driver=
-_open_kms()`,
-> where the following components are initialized:
-> - `amdgpu_userq_mgr_init()`
-> - `amdgpu_eviction_fence_init()`
-> - `amdgpu_ctx_mgr_init()`
->
-> Correspondingly, in `amdgpu_driver_postclose_kms()` we should clean up us=
-ing:
-> - `amdgpu_userq_mgr_fini()`
-> - `amdgpu_eviction_fence_destroy()`
-> - `amdgpu_ctx_mgr_fini()`
->
-> This change eliminates the use-after-free and improves consistency in res=
-ource management between open and close paths.
->
-> [  +0.094367] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> [  +0.000026] BUG: KASAN: slab-use-after-free in amdgpu_userq_mgr_fini+0x=
-70c/0x730 [amdgpu]
-> [  +0.000866] Write of size 8 at addr ffff88811c068c60 by task amd_pci_un=
-plug/1737
-> [  +0.000026] CPU: 3 UID: 0 PID: 1737 Comm: amd_pci_unplug Not tainted 6.=
-14.0+ #2
-> [  +0.000008] Hardware name: ASUS System Product Name/ROG STRIX B550-F GA=
-MING (WI-FI), BIOS 1401 12/03/2020
-> [  +0.000004] Call Trace:
-> [  +0.000004]  <TASK>
-> [  +0.000003]  dump_stack_lvl+0x76/0xa0
-> [  +0.000010]  print_report+0xce/0x600
-> [  +0.000009]  ? amdgpu_userq_mgr_fini+0x70c/0x730 [amdgpu]
-> [  +0.000790]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000007]  ? kasan_complete_mode_report_info+0x76/0x200
-> [  +0.000008]  ? amdgpu_userq_mgr_fini+0x70c/0x730 [amdgpu]
-> [  +0.000684]  kasan_report+0xbe/0x110
-> [  +0.000007]  ? amdgpu_userq_mgr_fini+0x70c/0x730 [amdgpu]
-> [  +0.000601]  __asan_report_store8_noabort+0x17/0x30
-> [  +0.000007]  amdgpu_userq_mgr_fini+0x70c/0x730 [amdgpu]
-> [  +0.000801]  ? __pfx_amdgpu_userq_mgr_fini+0x10/0x10 [amdgpu]
-> [  +0.000819]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000008]  amdgpu_drm_release+0xa3/0xe0 [amdgpu]
-> [  +0.000604]  __fput+0x354/0xa90
-> [  +0.000010]  __fput_sync+0x59/0x80
-> [  +0.000005]  __x64_sys_close+0x7d/0xe0
-> [  +0.000006]  x64_sys_call+0x2505/0x26f0
-> [  +0.000006]  do_syscall_64+0x7c/0x170
-> [  +0.000004]  ? kasan_record_aux_stack+0xae/0xd0
-> [  +0.000005]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? kmem_cache_free+0x398/0x580
-> [  +0.000006]  ? __fput+0x543/0xa90
-> [  +0.000006]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? __fput+0x543/0xa90
-> [  +0.000004]  ? __kasan_check_read+0x11/0x20
-> [  +0.000007]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? __kasan_check_read+0x11/0x20
-> [  +0.000003]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? fpregs_assert_state_consistent+0x21/0xb0
-> [  +0.000006]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? syscall_exit_to_user_mode+0x4e/0x240
-> [  +0.000005]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? do_syscall_64+0x88/0x170
-> [  +0.000003]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? do_syscall_64+0x88/0x170
-> [  +0.000004]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? irqentry_exit+0x43/0x50
-> [  +0.000004]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? exc_page_fault+0x7c/0x110
-> [  +0.000006]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> [  +0.000005] RIP: 0033:0x7ffff7b14f67
-> [  +0.000005] Code: ff e8 0d 16 02 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f=
- 00 f3 0f 1e fa 64 8b 04 25 18 00 00 00 85 c0 75 10 b8 03 00 00 00 0f 05 <4=
-8> 3d 00 f0 ff ff 77 41 c3 48 83 ec 18 89 7c 24 0c e8 73 ba f7 ff
-> [  +0.000004] RSP: 002b:00007fffffffe358 EFLAGS: 00000246 ORIG_RAX: 00000=
-00000000003
-> [  +0.000006] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007ffff7=
-b14f67
-> [  +0.000003] RDX: 0000000000000000 RSI: 00007ffff7f5755a RDI: 0000000000=
-000003
-> [  +0.000003] RBP: 00007fffffffe380 R08: 0000555555568170 R09: 0000000000=
-000000
-> [  +0.000003] R10: 0000000000000000 R11: 0000000000000246 R12: 00007fffff=
-ffe5c8
-> [  +0.000003] R13: 00005555555552a9 R14: 0000555555557d48 R15: 00007ffff7=
-ffd040
-> [  +0.000007]  </TASK>
->
-> [  +0.000286] Allocated by task 425 on cpu 11 at 29.751192s:
-> [  +0.000013]  kasan_save_stack+0x28/0x60
-> [  +0.000008]  kasan_save_track+0x18/0x70
-> [  +0.000006]  kasan_save_alloc_info+0x38/0x60
-> [  +0.000006]  __kasan_kmalloc+0xc1/0xd0
-> [  +0.000005]  __kmalloc_cache_noprof+0x1bd/0x430
-> [  +0.000006]  amdgpu_driver_open_kms+0x172/0x760 [amdgpu]
-> [  +0.000521]  drm_file_alloc+0x569/0x9a0
-> [  +0.000008]  drm_client_init+0x1b7/0x410
-> [  +0.000007]  drm_fbdev_client_setup+0x174/0x470
-> [  +0.000007]  drm_client_setup+0x8a/0xf0
-> [  +0.000006]  amdgpu_pci_probe+0x50b/0x10d0 [amdgpu]
-> [  +0.000482]  local_pci_probe+0xe7/0x1b0
-> [  +0.000008]  pci_device_probe+0x5bf/0x890
-> [  +0.000005]  really_probe+0x1fd/0x950
-> [  +0.000007]  __driver_probe_device+0x307/0x410
-> [  +0.000005]  driver_probe_device+0x4e/0x150
-> [  +0.000006]  __driver_attach+0x223/0x510
-> [  +0.000005]  bus_for_each_dev+0x102/0x1a0
-> [  +0.000006]  driver_attach+0x3d/0x60
-> [  +0.000005]  bus_add_driver+0x309/0x650
-> [  +0.000005]  driver_register+0x13d/0x490
-> [  +0.000006]  __pci_register_driver+0x1ee/0x2b0
-> [  +0.000006]  xfrm_ealg_get_byidx+0x43/0x50 [xfrm_algo]
-> [  +0.000008]  do_one_initcall+0x9c/0x3e0
-> [  +0.000007]  do_init_module+0x29e/0x7f0
-> [  +0.000006]  load_module+0x5c75/0x7c80
-> [  +0.000006]  init_module_from_file+0x106/0x180
-> [  +0.000007]  idempotent_init_module+0x377/0x740
-> [  +0.000006]  __x64_sys_finit_module+0xd7/0x180
-> [  +0.000006]  x64_sys_call+0x1f0b/0x26f0
-> [  +0.000006]  do_syscall_64+0x7c/0x170
-> [  +0.000005]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->
-> [  +0.000013] Freed by task 1737 on cpu 9 at 76.455063s:
-> [  +0.000010]  kasan_save_stack+0x28/0x60
-> [  +0.000006]  kasan_save_track+0x18/0x70
-> [  +0.000005]  kasan_save_free_info+0x3b/0x60
-> [  +0.000006]  __kasan_slab_free+0x54/0x80
-> [  +0.000005]  kfree+0x127/0x470
-> [  +0.000006]  amdgpu_driver_postclose_kms+0x455/0x760 [amdgpu]
-> [  +0.000485]  drm_file_free.part.0+0x5b1/0xba0
-> [  +0.000007]  drm_file_free+0x13/0x30
-> [  +0.000006]  drm_client_release+0x1c4/0x2b0
-> [  +0.000006]  drm_fbdev_ttm_fb_destroy+0xd2/0x120 [drm_ttm_helper]
-> [  +0.000007]  put_fb_info+0x97/0xe0
-> [  +0.000006]  unregister_framebuffer+0x197/0x380
-> [  +0.000005]  drm_fb_helper_unregister_info+0x94/0x100
-> [  +0.000005]  drm_fbdev_client_unregister+0x3c/0x80
-> [  +0.000007]  drm_client_dev_unregister+0x144/0x330
-> [  +0.000006]  drm_dev_unregister+0x49/0x1b0
-> [  +0.000006]  drm_dev_unplug+0x4c/0xd0
-> [  +0.000006]  amdgpu_pci_remove+0x58/0x130 [amdgpu]
-> [  +0.000482]  pci_device_remove+0xae/0x1e0
-> [  +0.000006]  device_remove+0xc7/0x180
-> [  +0.000006]  device_release_driver_internal+0x3d4/0x5a0
-> [  +0.000007]  device_release_driver+0x12/0x20
-> [  +0.000006]  pci_stop_bus_device+0x104/0x150
-> [  +0.000006]  pci_stop_and_remove_bus_device_locked+0x1b/0x40
-> [  +0.000005]  remove_store+0xd7/0xf0
-> [  +0.000007]  dev_attr_store+0x3f/0x80
-> [  +0.000006]  sysfs_kf_write+0x125/0x1d0
-> [  +0.000005]  kernfs_fop_write_iter+0x2ea/0x490
-> [  +0.000007]  vfs_write+0x90d/0xe70
-> [  +0.000006]  ksys_write+0x119/0x220
-> [  +0.000006]  __x64_sys_write+0x72/0xc0
-> [  +0.000006]  x64_sys_call+0x18ab/0x26f0
-> [  +0.000005]  do_syscall_64+0x7c/0x170
-> [  +0.000005]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->
-> [  +0.000013] The buggy address belongs to the object at ffff88811c068000
->                which belongs to the cache kmalloc-rnd-01-4k of size 4096
-> [  +0.000016] The buggy address is located 3168 bytes inside of
->                freed 4096-byte region [ffff88811c068000, ffff88811c069000=
-)
->
-> [  +0.000022] The buggy address belongs to the physical page:
-> [  +0.000010] page: refcount:0 mapcount:0 mapping:0000000000000000 index:=
-0xffff88811c06e000 pfn:0x11c068
-> [  +0.000006] head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:=
-0 pincount:0
-> [  +0.000006] flags: 0x17ffffc0000040(head|node=3D0|zone=3D2|lastcpupid=
-=3D0x1fffff)
-> [  +0.000007] page_type: f5(slab)
-> [  +0.000007] raw: 0017ffffc0000040 ffff88810004c140 dead000000000122 000=
-0000000000000
-> [  +0.000005] raw: ffff88811c06e000 0000000080040002 00000000f5000000 000=
-0000000000000
-> [  +0.000006] head: 0017ffffc0000040 ffff88810004c140 dead000000000122 00=
-00000000000000
-> [  +0.000005] head: ffff88811c06e000 0000000080040002 00000000f5000000 00=
-00000000000000
-> [  +0.000006] head: 0017ffffc0000003 ffffea0004701a01 ffffffffffffffff 00=
-00000000000000
-> [  +0.000005] head: 0000000000000008 0000000000000000 00000000ffffffff 00=
-00000000000000
-> [  +0.000004] page dumped because: kasan: bad access detected
->
-> [  +0.000011] Memory state around the buggy address:
-> [  +0.000009]  ffff88811c068b00: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000012]  ffff88811c068b80: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000011] >ffff88811c068c00: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000011]                                                        ^
-> [  +0.000010]  ffff88811c068c80: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000011]  ffff88811c068d00: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000011] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: Jesse Zhang <Jesse.Zhang@amd.com>
-> Cc: Arvind Yadav <arvind.yadav@amd.com>
->
-> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 +++---------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  3 +++
->  2 files changed, 6 insertions(+), 9 deletions(-)
+>   .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
+>   drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 14 ++---
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 14 ++++-
+>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  2 +-
+>   drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  2 +
+>   .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 51 ++++++++++++-------
+>   6 files changed, 56 insertions(+), 29 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 7fd233f160bf..204178d949e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2914,16 +2914,10 @@ static int amdgpu_pmops_runtime_idle(struct devic=
-e *dev)
->
->  static int amdgpu_drm_release(struct inode *inode, struct file *filp)
->  {
-> -       struct drm_file *file_priv =3D filp->private_data;
-> -       struct amdgpu_fpriv *fpriv =3D file_priv->driver_priv;
+> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> index f4d914dc731f..e2b1ea7467b0 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> @@ -108,6 +108,8 @@ enum pp_clock_type {
+>   	PP_VCLK1,
+>   	PP_DCLK,
+>   	PP_DCLK1,
+> +	PP_ISPICLK,
+> +	PP_ISPXCLK,
+>   	OD_SCLK,
+>   	OD_MCLK,
+>   	OD_VDDC_CURVE,
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> index 95f1fff442cb..71d986dd7a6e 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> @@ -853,22 +853,16 @@ int amdgpu_dpm_set_soft_freq_range(struct amdgpu_device *adev,
+>   				   uint32_t max)
+>   {
+>   	struct smu_context *smu = adev->powerplay.pp_handle;
+> -	int ret = 0;
 > -
-> -       if (fpriv) {
-> -               fpriv->evf_mgr.fd_closing =3D true;
-> -               amdgpu_eviction_fence_destroy(&fpriv->evf_mgr);
-> -               amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
-> -       }
-> +       int r;
->
-> -       return drm_release(inode, filp);
-> +       r =3D drm_release(inode, filp);
-> +       return r;
->  }
-
-You can just drop amdgpu_drm_release() altogether and just assign
-drm_release() as the callback directly.
-
-Alex
-
->
->  long amdgpu_drm_ioctl(struct file *filp,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index d2ce7d86dbc8..195ed81d39ff 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1501,6 +1501,9 @@ void amdgpu_driver_postclose_kms(struct drm_device =
-*dev,
->                 amdgpu_vm_bo_del(adev, fpriv->prt_va);
->                 amdgpu_bo_unreserve(pd);
->         }
-> +       fpriv->evf_mgr.fd_closing =3D true;
-> +       amdgpu_eviction_fence_destroy(&fpriv->evf_mgr);
-> +       amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
->
->         amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
->         amdgpu_vm_fini(adev, &fpriv->vm);
-> --
-> 2.34.1
->
+> -	if (type != PP_SCLK)
+> -		return -EINVAL;
+>   
+>   	if (!is_support_sw_smu(adev))
+>   		return -EOPNOTSUPP;
+>   
+> -	mutex_lock(&adev->pm.mutex);
+> -	ret = smu_set_soft_freq_range(smu,
+> -				      SMU_SCLK,
+> +	guard(mutex)(&adev->pm.mutex);
+> +
+> +	return smu_set_soft_freq_range(smu,
+> +				      type,
+>   				      min,
+>   				      max);
+> -	mutex_unlock(&adev->pm.mutex);
+> -
+> -	return ret;
+>   }
+>   
+>   int amdgpu_dpm_write_watermarks_table(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 97572fe26ddf..756afe78a6e5 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -76,6 +76,7 @@ static void smu_power_profile_mode_get(struct smu_context *smu,
+>   				       enum PP_SMC_POWER_PROFILE profile_mode);
+>   static void smu_power_profile_mode_put(struct smu_context *smu,
+>   				       enum PP_SMC_POWER_PROFILE profile_mode);
+> +static enum smu_clk_type smu_convert_to_smuclk(enum pp_clock_type type);
+>   
+>   static int smu_sys_get_pp_feature_mask(void *handle,
+>   				       char *buf)
+> @@ -134,12 +135,17 @@ int smu_get_status_gfxoff(struct smu_context *smu, uint32_t *value)
+>   }
+>   
+>   int smu_set_soft_freq_range(struct smu_context *smu,
+> -			    enum smu_clk_type clk_type,
+> +			    enum pp_clock_type type,
+>   			    uint32_t min,
+>   			    uint32_t max)
+>   {
+> +	enum smu_clk_type clk_type;
+>   	int ret = 0;
+>   
+> +	clk_type = smu_convert_to_smuclk(type);
+> +	if (clk_type == SMU_CLK_COUNT)
+> +		return -EINVAL;
+> +
+>   	if (smu->ppt_funcs->set_soft_freq_limited_range)
+>   		ret = smu->ppt_funcs->set_soft_freq_limited_range(smu,
+>   								  clk_type,
+> @@ -2980,6 +2986,12 @@ static enum smu_clk_type smu_convert_to_smuclk(enum pp_clock_type type)
+>   		clk_type = SMU_DCLK; break;
+>   	case PP_DCLK1:
+>   		clk_type = SMU_DCLK1; break;
+> +	case PP_ISPICLK:
+> +		clk_type = SMU_ISPICLK;
+> +		break;
+> +	case PP_ISPXCLK:
+> +		clk_type = SMU_ISPXCLK;
+> +		break;
+>   	case OD_SCLK:
+>   		clk_type = SMU_OD_SCLK; break;
+>   	case OD_MCLK:
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index 41d4a7f93660..b52e194397e2 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -1642,7 +1642,7 @@ int smu_write_watermarks_table(struct smu_context *smu);
+>   int smu_get_dpm_freq_range(struct smu_context *smu, enum smu_clk_type clk_type,
+>   			   uint32_t *min, uint32_t *max);
+>   
+> -int smu_set_soft_freq_range(struct smu_context *smu, enum smu_clk_type clk_type,
+> +int smu_set_soft_freq_range(struct smu_context *smu, enum pp_clock_type clk_type,
+>   			    uint32_t min, uint32_t max);
+>   
+>   int smu_set_gfx_power_up_by_imu(struct smu_context *smu);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+> index eefdaa0b5df6..d7a9e41820fa 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+> @@ -305,6 +305,8 @@ enum smu_clk_type {
+>   	SMU_MCLK,
+>   	SMU_PCIE,
+>   	SMU_LCLK,
+> +	SMU_ISPICLK,
+> +	SMU_ISPXCLK,
+>   	SMU_OD_CCLK,
+>   	SMU_OD_SCLK,
+>   	SMU_OD_MCLK,
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> index fe4735d5ebd4..fe00c84b1cc6 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> @@ -1207,11 +1207,13 @@ static int smu_v14_0_0_print_clk_levels(struct smu_context *smu,
+>   
+>   static int smu_v14_0_0_set_soft_freq_limited_range(struct smu_context *smu,
+>   						   enum smu_clk_type clk_type,
+> -						   uint32_t min,
+> -						   uint32_t max)
+> +						   u32 min,
+> +						   u32 max,
+> +						   bool __always_unused automatic)
+>   {
+> -	enum smu_message_type msg_set_min, msg_set_max;
+> -	int ret = 0;
+> +	enum smu_message_type msg_set_min = SMU_MSG_MAX_COUNT;
+> +	enum smu_message_type msg_set_max = SMU_MSG_MAX_COUNT;
+> +	int ret = -EINVAL;
+>   
+>   	if (!smu_v14_0_0_clk_dpm_is_enabled(smu, clk_type))
+>   		return -EINVAL;
+> @@ -1240,16 +1242,23 @@ static int smu_v14_0_0_set_soft_freq_limited_range(struct smu_context *smu,
+>   		msg_set_min = SMU_MSG_SetHardMinVcn1;
+>   		msg_set_max = SMU_MSG_SetSoftMaxVcn1;
+>   		break;
+> +	case SMU_ISPICLK:
+> +		msg_set_min = SMU_MSG_SetHardMinIspiclkByFreq;
+> +		break;
+> +	case SMU_ISPXCLK:
+> +		msg_set_min = SMU_MSG_SetHardMinIspxclkByFreq;
+> +		break;
+>   	default:
+>   		return -EINVAL;
+>   	}
+>   
+> -	ret = smu_cmn_send_smc_msg_with_param(smu, msg_set_min, min, NULL);
+> -	if (ret)
+> -		return ret;
+> +	if (min && msg_set_min != SMU_MSG_MAX_COUNT)
+> +		ret = smu_cmn_send_smc_msg_with_param(smu, msg_set_min, min, NULL);
+> +
+> +	if (max && msg_set_max != SMU_MSG_MAX_COUNT)
+> +		ret = smu_cmn_send_smc_msg_with_param(smu, msg_set_max, max, NULL);
+>   
+> -	return smu_cmn_send_smc_msg_with_param(smu, msg_set_max,
+> -					       max, NULL);
+> +	return ret;
+>   }
+>   
+>   static int smu_v14_0_0_force_clk_levels(struct smu_context *smu,
+> @@ -1278,7 +1287,7 @@ static int smu_v14_0_0_force_clk_levels(struct smu_context *smu,
+>   		if (ret)
+>   			break;
+>   
+> -		ret = smu_v14_0_0_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq);
+> +		ret = smu_v14_0_0_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq, false);
+>   		break;
+>   	default:
+>   		ret = -EINVAL;
+> @@ -1426,7 +1435,8 @@ static int smu_v14_0_common_set_performance_level(struct smu_context *smu,
+>   		ret = smu_v14_0_0_set_soft_freq_limited_range(smu,
+>   							      SMU_SCLK,
+>   							      sclk_min,
+> -							      sclk_max);
+> +							      sclk_max,
+> +							      false);
+>   		if (ret)
+>   			return ret;
+>   
+> @@ -1438,7 +1448,8 @@ static int smu_v14_0_common_set_performance_level(struct smu_context *smu,
+>   		ret = smu_v14_0_0_set_soft_freq_limited_range(smu,
+>   							      SMU_FCLK,
+>   							      fclk_min,
+> -							      fclk_max);
+> +							      fclk_max,
+> +							      false);
+>   		if (ret)
+>   			return ret;
+>   	}
+> @@ -1447,7 +1458,8 @@ static int smu_v14_0_common_set_performance_level(struct smu_context *smu,
+>   		ret = smu_v14_0_0_set_soft_freq_limited_range(smu,
+>   							      SMU_SOCCLK,
+>   							      socclk_min,
+> -							      socclk_max);
+> +							      socclk_max,
+> +							      false);
+>   		if (ret)
+>   			return ret;
+>   	}
+> @@ -1456,7 +1468,8 @@ static int smu_v14_0_common_set_performance_level(struct smu_context *smu,
+>   		ret = smu_v14_0_0_set_soft_freq_limited_range(smu,
+>   							      SMU_VCLK,
+>   							      vclk_min,
+> -							      vclk_max);
+> +							      vclk_max,
+> +							      false);
+>   		if (ret)
+>   			return ret;
+>   	}
+> @@ -1465,7 +1478,8 @@ static int smu_v14_0_common_set_performance_level(struct smu_context *smu,
+>   		ret = smu_v14_0_0_set_soft_freq_limited_range(smu,
+>   							      SMU_VCLK1,
+>   							      vclk1_min,
+> -							      vclk1_max);
+> +							      vclk1_max,
+> +							      false);
+>   		if (ret)
+>   			return ret;
+>   	}
+> @@ -1474,7 +1488,8 @@ static int smu_v14_0_common_set_performance_level(struct smu_context *smu,
+>   		ret = smu_v14_0_0_set_soft_freq_limited_range(smu,
+>   							      SMU_DCLK,
+>   							      dclk_min,
+> -							      dclk_max);
+> +							      dclk_max,
+> +							      false);
+>   		if (ret)
+>   			return ret;
+>   	}
+> @@ -1483,7 +1498,8 @@ static int smu_v14_0_common_set_performance_level(struct smu_context *smu,
+>   		ret = smu_v14_0_0_set_soft_freq_limited_range(smu,
+>   							      SMU_DCLK1,
+>   							      dclk1_min,
+> -							      dclk1_max);
+> +							      dclk1_max,
+> +							      false);
+>   		if (ret)
+>   			return ret;
+>   	}
+> @@ -1670,6 +1686,7 @@ static const struct pptable_funcs smu_v14_0_0_ppt_funcs = {
+>   	.gfx_off_control = smu_v14_0_gfx_off_control,
+>   	.mode2_reset = smu_v14_0_0_mode2_reset,
+>   	.get_dpm_ultimate_freq = smu_v14_0_common_get_dpm_ultimate_freq,
+> +	.set_soft_freq_limited_range = smu_v14_0_0_set_soft_freq_limited_range,
+>   	.od_edit_dpm_table = smu_v14_0_od_edit_dpm_table,
+>   	.print_clk_levels = smu_v14_0_0_print_clk_levels,
+>   	.force_clk_levels = smu_v14_0_0_force_clk_levels,
