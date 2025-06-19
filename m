@@ -4,53 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65A41C7115A
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jun 2025 13:33:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12279C7115B
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jun 2025 14:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB7510EA4F;
-	Thu, 19 Jun 2025 13:33:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A076F10EA6D;
+	Thu, 19 Jun 2025 14:02:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f3l6NJAF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lfGhTahw";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08F4410EA4F
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jun 2025 13:33:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E62AC5C67BC;
- Thu, 19 Jun 2025 13:30:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80283C4CEEA;
- Thu, 19 Jun 2025 13:32:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750339980;
- bh=GMwXOeaXWN2v406169klXQK2DYMrtEo7oWJPyzBqDh4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=f3l6NJAFSS/9KxXJbiDU4FwkQTNKQa3DO9ARNdbNm+U9nnimhkcNTzCVvqhYANdL3
- Rat73/nO2axMM+MsspeJ04DKs1pCe8lKRwdWTjuCM/iYj89PYeEZbkgrPXUmWbFiFJ
- bmkdX7xJkRCX4nLLKrqM9SzeX4ZI3I1z/sT3taRCfnqm1NLxoZ7dJzVDrwHI9y/l07
- yNjM4RYRicUlLHNJJqU4rFhtkp0d+Rl4wptFObdjnIvJp5gqnjG19DwjdviHQ9KGoV
- c70lh4UpQxysenteVbBjbbEY7icRkFQjN0AY5XDPt3rScq+5m1kIbLOcURRRqXxBJG
- lAzVOgiH8Gbzw==
-Message-ID: <35ab7037-6195-40cd-9d3f-8e5870402f4d@kernel.org>
-Date: Thu, 19 Jun 2025 08:32:58 -0500
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 505FA10EA1E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jun 2025 12:55:15 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-748582445cfso428130b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jun 2025 05:55:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1750337714; x=1750942514; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=wuuwCmdIbqbcBHU9VhiEZI/hOwAawJBMP/z6o38vDiw=;
+ b=lfGhTahw5YQvbTRYiKYan9dPtRqDFTFf9iy8KIAVhv0TcwGuUAAC9QL7s0xv2PLpfO
+ HyoTfYaJBaFo6RG2h3L/M+eclJlTdbBMDvRQvj8X5N0E6/R6+n+kJTD77lXoDnuXt8wg
+ rMmdD03IL5HlMOgj+3fF81heXfwjWnHp89QB7h4EoE+8bKOVPQNLjpZCkBdKb42ZtlVJ
+ EQvf4G5aEezzzIp2kaLmlsDI+fVarTcR2ipvQrVhNWS6C0DciRN5WeDxJleibN5YqXhi
+ LlKnN/95XZU3uCDPvC+k8UWqaWR55JmgS+q0t/iCxlOou4TEZiDNUiMphJ4753eCCJH8
+ 9TBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750337714; x=1750942514;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wuuwCmdIbqbcBHU9VhiEZI/hOwAawJBMP/z6o38vDiw=;
+ b=bKzgRA9h1wQHZ9+KOrdEehMX4NYZuxJJYc6oXld3CNv7uAl1LdWOWPU9E7lJHjONFG
+ /pP7d/fWhvb/v1rBCmyyPVA9SPKwQ0L2CXsSsMA6ZVrBl7PLBcU6gqmVIuZI+hK8uGdR
+ YpdFJ03lFbEk3/d3JOmOS910qOQTOZwmZbwSLZAndoX8VPZlWlGLkiRQlKgvuqk7lLCV
+ DMB3DGddZ8n/VqJeKuWxXzKJMgLUVZbIfyhcekK9VS4OiaL8y80yh5gkTS9Eeppu8PdY
+ iL+yR4VMI2/x7Iy8+n+dFqV9iwvtCgCqxhdwMNuinAoBpK50G4P3N4UptdqtaqUttZky
+ +Nqg==
+X-Gm-Message-State: AOJu0YzP1Rz8BckJknuOSOE/nuA7M40E3tHo6mswtiTTRxDW5jZAdJti
+ Wp/fkIycXkG1+3hEAHZxCg9WtXh6AhJ2TKtl9PpYc7lJywbbxHO0kpIoBilEYs+e2JE=
+X-Gm-Gg: ASbGncuOsxpRbuoSZo7fU+XuwL6CTMZC4GK0rSuM20WB1ELCPckVnQegQH9XfI0SeQp
+ AQpS/I+L5Mljj4chTi9SzsmLHbgEypDAx81bSKk1/LFRmMy/Z249Q3gjpmjO9yp+htqCZXRIB6A
+ dbKxprcw1jH2afYAMLtQmOyttXtTSzOBXDPWOya7uGG63KS5Z4J1xJ5QDjGHe9xuF0vOISbBZDW
+ i1R5rjyMhaki36imIe54MeTyOX7sXaLnMacb83DKOLIpCtNKOMNk3Ua60oEboI24kZONhP3vXyg
+ 6sowHzFtb0ZfFQVG0+3CWdHFH5Dtipi4T8v5z57xSJltOJBpSEezfNKwdUUWjyRe69Hh
+X-Google-Smtp-Source: AGHT+IGUHL8InS0jieiqCEbs21CgAWjix3DOmyhxS34H9NDKVNoClILiY/3wBaio+AhmWANO/dzOCw==
+X-Received: by 2002:a05:6a21:512:b0:21f:568c:713a with SMTP id
+ adf61e73a8af0-21fbd4dffe7mr28264958637.17.1750337714244; 
+ Thu, 19 Jun 2025 05:55:14 -0700 (PDT)
+Received: from copycat.coywolf-snapper.ts.net ([2600:6c51:4c3f:8e93::d81])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-748900b3d82sm13547664b3a.141.2025.06.19.05.55.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Jun 2025 05:55:11 -0700 (PDT)
+From: Christopher Snowhill <kode54@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Christopher Snowhill <chris@kode54.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christopher Snowhill <kode54@gmail.com>
+Subject: [RFC PATCH] drm/amdgpu: Enable async flip for cursor planes
+Date: Thu, 19 Jun 2025 05:55:05 -0700
+Message-ID: <20250619125507.54384-1-kode54@gmail.com>
+X-Mailer: git-send-email 2.50.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: amdgpu vs kexec
-To: Baoquan He <bhe@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, Borislav Petkov <bp@alien8.de>,
- amd-gfx@lists.freedesktop.org
-References: <20250616093945.GA1613200@noisy.programming.kicks-ass.net>
- <4f5f95ff-b97e-41db-b9fd-5204e6581a30@amd.com>
- <20250616145437.GG1613376@noisy.programming.kicks-ass.net>
- <2bbcc44d-9079-4a73-ba6c-e93fdcb9cf6f@kernel.org>
- <20250618085123.GF1613376@noisy.programming.kicks-ass.net>
- <20250618091232.GD1613633@noisy.programming.kicks-ass.net>
- <aFNR4E/4CR1b/MsG@MiWiFi-R3L-srv>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <aFNR4E/4CR1b/MsG@MiWiFi-R3L-srv>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 19 Jun 2025 14:02:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,51 +85,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/18/2025 6:55 PM, Baoquan He wrote:
-> On 06/18/25 at 11:12am, Peter Zijlstra wrote:
->> On Wed, Jun 18, 2025 at 10:51:23AM +0200, Peter Zijlstra wrote:
->>> On Tue, Jun 17, 2025 at 09:12:12PM -0500, Mario Limonciello wrote:
->>>
->>>> How about if we reset before the kexec?  There is a symbol for drivers to
->>>> use to know they're about to go through kexec to do $THINGS.
->>>>
->>>> Something like this:
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> index 0fc0eeedc6461..2b1216b14d618 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> @@ -34,6 +34,7 @@
->>>>
->>>>   #include <linux/cc_platform.h>
->>>>   #include <linux/dynamic_debug.h>
->>>> +#include <linux/kexec.h>
->>>>   #include <linux/module.h>
->>>>   #include <linux/mmu_notifier.h>
->>>>   #include <linux/pm_runtime.h>
->>>> @@ -2544,6 +2545,9 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
->>>>                  adev->mp1_state = PP_MP1_STATE_UNLOAD;
->>>>          amdgpu_device_ip_suspend(adev);
->>>>          adev->mp1_state = PP_MP1_STATE_NONE;
->>>> +
->>>> +       if (kexec_in_progress)
->>>> +               amdgpu_asic_reset(adev);
->>>>   }
->>>>
->>>>   static int amdgpu_pmops_prepare(struct device *dev)
->>>
->>> I will throw this in the dev kernel... I'll let you know.
->>
->> First hurdle appears to be that this symbol is not exported. I fixed
->> that, but perhaps the kexec folks don't like drivers to use this?
-> 
-> I can't find the original mail of this thread, while we don't have a
-> known restriction about that afaik.
-> 
+From: Christopher Snowhill <chris@kode54.net>
 
-FYI here's the whole thread:
+amdgpu apparently fudges atomic flips if some software is also tweaking
+the cursor planes during flips, which results in lovely fallback to non-
+atomic flips.
 
-https://lore.kernel.org/amd-gfx/423aec58-0ab2-4471-b986-dfb955e63ca8@kernel.org/T/#m68bea029aac9b7ec015a26a8dfb8268ffb007125
+Fixes: 41129e236f14 ("drm/amdgpu: Enable async flip on overlay planes")
+Signed-off-by: Christopher Snowhill <chris@kode54.net>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+ Is there some reason why this was decided to be this way? I see it
+ hasn't changed much since 2018, until the addition of overlay
+ plane checking.
+
+ Re: https://gitlab.freedesktop.org/drm/amd/-/issues/4263
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index b7c6e8d13435..f0c98d67e1f3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1268,7 +1268,8 @@ static int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
+ 	struct dm_crtc_state *dm_new_crtc_state;
+ 
+ 	if (flip) {
+-		if (plane->type != DRM_PLANE_TYPE_OVERLAY)
++		if (plane->type != DRM_PLANE_TYPE_OVERLAY &&
++		    plane->type != DRM_PLANE_TYPE_CURSOR)
+ 			return -EINVAL;
+ 	} else if (plane->type != DRM_PLANE_TYPE_CURSOR) {
+ 		return -EINVAL;
+-- 
+2.50.0
 
