@@ -4,69 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18EC2C7115B
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Jun 2025 21:41:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B469C71157
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Jun 2025 14:13:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1E010E22F;
-	Fri, 20 Jun 2025 21:41:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF8F610E2BE;
+	Sat, 21 Jun 2025 14:13:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T/OxpJYX";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="H03gqolO";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFF2B10E22F
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jun 2025 21:41:51 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-31384c8ba66so244167a91.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jun 2025 14:41:51 -0700 (PDT)
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com
+ [209.85.160.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45F8F10E057
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jun 2025 14:41:45 +0000 (UTC)
+Received: by mail-oa1-f45.google.com with SMTP id
+ 586e51a60fabf-2e95ab2704fso1153442fac.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jun 2025 07:41:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750455711; x=1751060511; darn=lists.freedesktop.org;
+ d=chromium.org; s=google; t=1750430504; x=1751035304;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YfefVm31vmwqa12+v+xYXQGhpxOpssXn6k/8EXtdsBc=;
- b=T/OxpJYX/DNiHXHbB3X4qAKS3JbT8gt/LgWoT0xty1NA1ZbsoF1Kl7lnODZgg9lfqD
- X9Cj/EWBeC54DOzZjiEdrxl8ns+zpLn7oszlzu2aAQPAeEL0lQsGJpRMOfkQeKcmnQo+
- 9yA61vNldQqfMSViyZQDI+i6g02n1HYauuLTr3wjGbywawjQJPjYHi5O+VlorIkq8wYT
- 93B3hYtJIsQgfH39w7tqY8rQ1XNLJ5sr57HDa9n6IlZjGPl1zWbsZBa24wsim+I05Q6i
- hDO4kEy9tt2823BI6kJdz4H3Okwoyltk94Naj6FEJ672q3N+OLq06lSTtN9ym6AB9uhh
- tfrw==
+ bh=8KT4DQcewRXgTOMNaBYIe1ub0iebCscNnZe8/5h5B18=;
+ b=H03gqolO/xCfVU4mwWYlbRKtc96lgV+cp/5Dr8OevlgX1RZGGQ7DX62pQEzXxmkkNV
+ 8zQZNUpjPfLswkpWYnSXBHyxm4zLZZvEqAtP3lhGxOWy4lLsFbTV3erl0seFnxRRuc1X
+ Z+GWP7us5DJFapav+4D64rb4Nlbt7q9hfJ//A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750455711; x=1751060511;
+ d=1e100.net; s=20230601; t=1750430504; x=1751035304;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YfefVm31vmwqa12+v+xYXQGhpxOpssXn6k/8EXtdsBc=;
- b=R6sNWHVGkz+IYrzj11/3QqxBRaUV6Gw+fXhzPjaIbyNs52Dv4/XKnqG1tDAN4JxiRJ
- amz9edSL8l4yXouJwlEioD+WNK51I3iQtLCxqGRugfjO2sRUkUAlo//OP9oFgc1VIG5l
- ytz9CaLjCvVsEU5sYTR8ldykuqTpTI+95NedjeoAeHfTCirRDUHi9r8pOuc874Lf2I4w
- Q8GNulJhy08CgGEMiF4q5mCmN0HJVGh29U9weKeVXznSlqoXtIAorqo1gCsCYhUTJnek
- Biu4t0IE53//7GtpGj8yxK/rlvXyCAIUQUOmmNC+AiswtGiykhkVTO94L7TxKRjwKwdm
- 52kw==
-X-Gm-Message-State: AOJu0Yzap8GlGi0KLt8BZFIjD/XMAGYHVroa0bkIbGlos9DzbTj4qMtk
- U+zuaqjw9uyFXWOXdHlQv4/zi+d/P1osFLJj2kZMYvJoQghmr6KcCcZhNY2fnFNBdv0fxm8+6k0
- Guskhy2aYdOhz/FxAipvFeQeXw2YBoz5g9Q==
-X-Gm-Gg: ASbGncsz9Lh2XkQk3onRLuv6/ADbdDQrAzI4LxP7efuloV7i3stiTNpan7mEQeLzbTw
- vC4Eb521qqlvNjy4zW8odysc2dVx1IcTrDzuq7spVe31PB6PurzHI6+FU8qNWFAbcqQj4XaCYP5
- Z48iry6kVOszflz5cOftU9+J6f0PSX0aei4XEoPV3Wzmd0edUTuQm/NwM=
-X-Google-Smtp-Source: AGHT+IEiNzEXT3UCLO1580dowNJZpvw+aDdbXumfrgjpFMiMjRh1dxFXHlWUL5EHbxRr3opULola4V7agjnUOBtZcKs=
-X-Received: by 2002:a17:90b:5603:b0:311:a314:c2c9 with SMTP id
- 98e67ed59e1d1-3159d63225bmr2966559a91.1.1750455711332; Fri, 20 Jun 2025
- 14:41:51 -0700 (PDT)
+ bh=8KT4DQcewRXgTOMNaBYIe1ub0iebCscNnZe8/5h5B18=;
+ b=DC/CoP2MnCEaCHbGXVi1F3D5vHaxT13RSe+uvtJfQiQ194e9X2BO0Oe5vCQKDtDVD1
+ Ah1+Mp1zFLQjonOfcM0pWr2EiLzdN1MiZlifgvRiEzQ3qtbJvwZRud1nrWaa2DtjBf7Z
+ 9qTkbO/Ba1/4X5saaycIWGa7vUwxToiSFbXgyDVRK9npzgDJcOqDFpHcnOjYiU6eMjcE
+ R5VaYBKhpQxlafv6HPYrYrFiQKxolk2WxnZNfM5X4Ch5xbbtsufSQygi6Kjx16GxpA9O
+ h9VJVPRHpcMeEaVgMfCs2QagCVBwZamrO/HS1pRVwq2AtOWhZxmb9Mtr6NaawJhS3zsD
+ myFQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUc97P+8h9H6Nvkv1N1+H1/HA84vL5htHFIDU/Fm9dUeE0fG7kc7obT4in7QCG5FV+LO/isPL1z@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymO6otcN04iC51bnx+AwI9A8zqWurHc79Sjrd0KFV+j7y3eysP
+ Rg5871EnD306ZtmlFg2UTCuHscqG5XhHejuWT4myF4jNFPez+TzWFrRP4L9UN82hD6amf3lZtPP
+ 9QYagipYZ
+X-Gm-Gg: ASbGncv7NKdfGspRnDVPup+57Dml4BHCnRH8BKNDQPNWOlZL379SW7LEER3/P/zwbtq
+ 55K+Kxsr7YQyG9QRm/JK/zzyBSJ3YY3JJ9PHAmNVvrGp/gwlb3yh57+m9R0Um0YLj0bpiFaZW5I
+ BPYkG0e9A53IygG3Q3v9hchGnQHKJ9blUjtPkcPTqJv3JBB5lmShOd5Sb+NAa5cmy3fgMT35YnY
+ zkCLk+MsmPP9y9eFyglsC6sA0rSwzQomLwHxFbJOraqHysK1GEqCcWynvApLhQ88tL/IGg07gjc
+ VLgvzu3iUsgxOAnhswQFCsZUYXVgXzFhBJgjkYVq5T0uDaDX9ylnJ9rh3BTtmjG7v2Io0ihi/Ai
+ iAosecW7ebBHoxQIVfJ0CCGbhC0uxHZzXYE3c
+X-Google-Smtp-Source: AGHT+IEL3AvlkBP9Hv86DMsjjpvvZO0d+RtYcLgG4WofNkAkYrRr8Snk6zH9hOuvqCBaEctMObYFoQ==
+X-Received: by 2002:a05:6870:6b90:b0:29e:27b6:bea5 with SMTP id
+ 586e51a60fabf-2eeee628a79mr2217425fac.25.1750430503764; 
+ Fri, 20 Jun 2025 07:41:43 -0700 (PDT)
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com.
+ [209.85.210.52]) by smtp.gmail.com with ESMTPSA id
+ 006d021491bc7-6115b7c9036sm255394eaf.28.2025.06.20.07.41.41
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 Jun 2025 07:41:43 -0700 (PDT)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 46e09a7af769-735a6faec9eso1338333a34.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jun 2025 07:41:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUh/z9oHrpyU649BDGagmQmXTipr47/fwQIp4h9ALfV7QB/6ANVpMmJ/DFT5J0q+rumg2N4V39N@lists.freedesktop.org
+X-Received: by 2002:a05:6871:4195:b0:2e9:9e9:d94b with SMTP id
+ 586e51a60fabf-2ef0094c0cbmr2001638fac.39.1750430501165; Fri, 20 Jun 2025
+ 07:41:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250610191232.15597-1-patrick9876@free.fr>
- <20250610191232.15597-2-patrick9876@free.fr>
-In-Reply-To: <20250610191232.15597-2-patrick9876@free.fr>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 20 Jun 2025 17:41:38 -0400
-X-Gm-Features: AX0GCFsFV_g5E9wqegvToV7zJfk2aMRqvqBjmyfIRCk_5scOMLRBUxWQQBjEEHM
-Message-ID: <CADnq5_M=yTiipiYxwvxGDGMfbWqOWJwcdRk1kgPVK_jB7=f+Ug@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/radeon/evergreen_cs: lower
- evergreen_surface_check_linear_aligned restriction
-To: Patrick Lerda <patrick9876@free.fr>
-Cc: amd-gfx@lists.freedesktop.org
+References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+ <20250402174156.1246171-29-jim.cromie@gmail.com>
+In-Reply-To: <20250402174156.1246171-29-jim.cromie@gmail.com>
+From: Sean Paul <seanpaul@chromium.org>
+Date: Fri, 20 Jun 2025 10:41:03 -0400
+X-Gmail-Original-Message-ID: <CAOw6vbJwbvcVARNmx3O7mTbOr+A_Vo_DaUXFfN8HFFLqdG-VPQ@mail.gmail.com>
+X-Gm-Features: Ac12FXysVBlI9m3EGLlNcwPGQBWhWDrHdfE7f5KsOCiBBCH_bJGVrs_uGmTAM7k
+Message-ID: <CAOw6vbJwbvcVARNmx3O7mTbOr+A_Vo_DaUXFfN8HFFLqdG-VPQ@mail.gmail.com>
+Subject: Re: [PATCH v3 28/54] dyndbg: restore classmap protection when theres
+ a controlling_param
+To: Jim Cromie <jim.cromie@gmail.com>
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
+ louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Sat, 21 Jun 2025 14:13:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,41 +105,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.
+On Thu, Apr 3, 2025 at 9:48=E2=80=AFAM Jim Cromie <jim.cromie@gmail.com> wr=
+ote:
+>
 
-Thanks!
+\snip
 
-On Tue, Jun 10, 2025 at 3:12=E2=80=AFPM Patrick Lerda <patrick9876@free.fr>=
- wrote:
 >
-> This change removes the restriction when palign=3D64 and nbx=3D32.
-> This makes two piglit tests working. This is discussed on the
-> thread linked below.
+> -static void ddebug_match_apply_kparam(const struct kernel_param *kp,
+> -                                     const struct _ddebug_class_map *map=
+,
+> -                                     const char *mod_name)
+> +static struct _ddebug_class_param *
+> +ddebug_get_classmap_kparam(const struct kernel_param *kp,
+> +                          const struct _ddebug_class_map *map)
+>  {
+>         struct _ddebug_class_param *dcp;
 >
-> Link: https://gitlab.freedesktop.org/mesa/mesa/-/issues/9056
-> Signed-off-by: Patrick Lerda <patrick9876@free.fr>
-> ---
->  drivers/gpu/drm/radeon/evergreen_cs.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>         if (kp->ops !=3D &param_ops_dyndbg_classes)
+> -               return;
+> +               return false;
+
+Return type is struct _ddebug_class_param *, should this be NULL?
+
 >
-> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/rade=
-on/evergreen_cs.c
-> index 7d00096fc915..266c57733136 100644
-> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
-> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-> @@ -211,7 +211,7 @@ static int evergreen_surface_check_linear_aligned(str=
-uct radeon_cs_parser *p,
->         surf->base_align =3D track->group_size;
->         surf->palign =3D palign;
->         surf->halign =3D 1;
-> -       if (surf->nbx & (palign - 1)) {
-> +       if ((surf->nbx & (palign - 1)) && !(palign =3D=3D 64 && surf->nbx=
- =3D=3D 32)) {
->                 if (prefix) {
->                         dev_warn(p->dev, "%s:%d %s pitch %d invalid must =
-be aligned with %d\n",
->                                  __func__, __LINE__, prefix, surf->nbx, p=
-align);
+>         dcp =3D (struct _ddebug_class_param *)kp->arg;
+>
+> -       if (map =3D=3D dcp->map) {
+> +       return (map =3D=3D dcp->map)
+> +               ? dcp : (struct _ddebug_class_param *)NULL;
+> +}
+> +
+> +static void ddebug_match_apply_kparam(const struct kernel_param *kp,
+> +                                     struct _ddebug_class_map *map,
+> +                                     const char *mod_name)
+> +{
+> +       struct _ddebug_class_param *dcp =3D ddebug_get_classmap_kparam(kp=
+, map);
+> +
+> +       if (dcp) {
+> +               map->controlling_param =3D dcp;
+>                 v2pr_info(" kp:%s.%s =3D0x%lx", mod_name, kp->name, *dcp-=
+>bits);
+>                 vpr_cm_info(map, " %s mapped to: ", mod_name);
+>                 ddebug_sync_classbits(kp, mod_name);
+>         }
+>  }
+>
+> -static void ddebug_apply_params(const struct _ddebug_class_map *cm, cons=
+t char *mod_name)
+> +static void ddebug_apply_params(struct _ddebug_class_map *cm, const char=
+ *mod_name)
+>  {
+>         const struct kernel_param *kp;
+>  #if IS_ENABLED(CONFIG_MODULES)
+> @@ -1266,6 +1288,13 @@ static void ddebug_apply_params(const struct _ddeb=
+ug_class_map *cm, const char *
+>         }
+>  }
+>
+> +/*
+> + * called from add_module, ie early. it can find controlling kparams,
+> + * which can/does? enable protection of this classmap from class-less
+> + * queries, on the grounds that the user created the kparam, means to
+> + * use it, and expects it to reflect reality.  We should oblige him,
+> + * and protect those classmaps from classless "-p" changes.
+> + */
+>  static void ddebug_apply_class_maps(const struct _ddebug_info *di)
+>  {
+>         struct _ddebug_class_map *cm;
 > --
 > 2.49.0
 >
