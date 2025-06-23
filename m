@@ -4,148 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2DF3C77B7C
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 22:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2811DC7115B
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 22:19:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E3F210E465;
-	Mon, 23 Jun 2025 22:00:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E6910E472;
+	Mon, 23 Jun 2025 22:19:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HjLS/zVi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LXBoNa/v";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2053.outbound.protection.outlook.com [40.107.102.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BEF410E465
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 22:00:14 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2083.outbound.protection.outlook.com [40.107.101.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B081110E472
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 22:19:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lCf13PhuUwOn4zP4N1khTDZznDGJggRTdZ3rqOmrdUxObQva3eA/SPOyLk8ILEcqfFAIzHryzExEMAvIc3SakQe7m3ajH6r6MUbf9AJ2wBxSy0z9383SPVRLYgxXHi75qNXU4H/jJ2PrNh60qwjWrLnoEm69ay3PorN6pxYvSf4MxyY1Jd+28PGD98kz2bJ3EhSyZCqHJVATjGsCIOsQwMaRLWpys82FuqnGK1/6de14QjXcv48d2VkF31K6TInFjmmSLDUNbGwF/rybyHIYc8aXB6BAv0wten17Z/Fkm0JQoGnUqbZcch1FYMCCtdGDUn6rTSY4NFeKHK5vfyEl6A==
+ b=HO+hWLqO6w7QVaARppfLepofgRStj9ZA33BEaFVist3K0N0yYW0p42F3tBaDTESYSQyZxqiO9pTkg7pjx8zQDAvOEk6zbW3zCVQSPjvDwRQEE31/E56Q9XobltPjOaiY/1gYv000vMjjRLnXFZRVSDVnaSmFUvK4A9Tymq5WsREkWBcUcmiijX1yc9pINlHHR7W5qCmVdoeVBZm7T+9+j4GY3SwCO7MljT4KTKtGTEAqpQbtjr4SitEAy64aC6fBU1tUwKw52RbYodp1sHPPVM7Q3KjjPqda9fwMJSuvslZz0OMZwhzxzVKCut332Osldy991xRbjHQJvfV6b8z65A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z+0ipUSRLX5lnpwmEGOiyFgtVQK7FYwppbsJE34SGBA=;
- b=JsMGBEre9ibYOz3YIVWuBT1K3BU2HjoXxV/8Tngjlq24HQ05L+vSAG4nOOwRxW0OLfEt0LnbyW5NSoFfJH+SRo7jiAJSifeAf+28pdVX/ZO/PYO5p4UD7s3ATATNbPa6ZO+7HMJJeX7E8/H8bLWkUXhtOnaFVt7QNf3F9JpRHG773A1r+W0w852hd1y16TM/UiYvfJWnOgaz4uAgFID4EYm1bNdPybq2TAemB+8VU72lb/BBx4XUA0FUHqdp7GZQ9s7gPvTpvfRL1g3h29uP8716AxvHabe3xAgocZrLiM1PtdYXMoq/vvJayDHOt/hChYmFDTpH5Arwsjyau1iBQQ==
+ bh=4wTkiE3+6COCcLcwPK1oihVqB2KaPkP0BYORafuO6g8=;
+ b=KLdAKc6KLveX6J8sm8A9/b9AFwkUMWuiL1PcnfkkhPpg+rAgzXkLRrDXNZUTxFnMW71ajwsy96qLTtUs3HwkKXfY/0MbKBv/YBWaPmYU9x6xqZIunq34qoELg/ZYXb4dBT/TfzXTR7SFzP6wnbz0CIet7xVpajL6p7yVF/zeG0yPm+3FiHBQmql88D4vha0jS2LeksVARfzh0uutJ+RayQw+AEd4uAtVu+GVORq4mFI335qu/+stPL4dYhGTEuGvRXEN92WsEu+wavnC7Re5lRXv3sJwT4uhD0sT9c/NWpnVki7mgbIAn11HQa6I36mjnNPMpPhVJfK7tyE93cgERA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z+0ipUSRLX5lnpwmEGOiyFgtVQK7FYwppbsJE34SGBA=;
- b=HjLS/zViupwif+zzOQNWHZ7URJGbdLhs4dDqxmRH2tVvhFbrU2HVnDDqBPsRetoydJIrRoEZCSvOXGsM4iG4oZJeM4zQJpKkU3f8PUxoIEnRLhmiukw+pCGz4go0QGtFOjuwDJ8V/v9I11N4jQZH1yAnUhcw+CEVK+xVKgN2Bpc=
+ bh=4wTkiE3+6COCcLcwPK1oihVqB2KaPkP0BYORafuO6g8=;
+ b=LXBoNa/vk4EK7+jS8rfhKZVRFoqqJsfA21mSvSzXYhHH1Pe9wub+2hoRmzyfpp2cDfansuZE9LIKVTRlbvH20URrFdRBhBOO9xMlWg7wo7D3+lZbGCQEMogb7n91WfnLnzP1vh62RykkOPPF5VMdbD+l/TRWeZM6ykFwUt5c82U=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by SA0PR12MB4461.namprd12.prod.outlook.com (2603:10b6:806:9c::22) with
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ PH7PR12MB9065.namprd12.prod.outlook.com (2603:10b6:510:1f7::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.29; Mon, 23 Jun
- 2025 22:00:08 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%4]) with mapi id 15.20.8857.026; Mon, 23 Jun 2025
- 22:00:08 +0000
-Message-ID: <a05023d3-e6f2-46c1-9733-da42a3079e28@amd.com>
-Date: Mon, 23 Jun 2025 16:00:06 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.22; Mon, 23 Jun
+ 2025 22:18:58 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%4]) with mapi id 15.20.8857.026; Mon, 23 Jun 2025
+ 22:18:58 +0000
+Content-Type: multipart/alternative;
+ boundary="------------fw6wPXSx3P8dRsHuGfYKcF0C"
+Message-ID: <77dbf577-d767-48e6-b087-61dfcc478c22@amd.com>
+Date: Mon, 23 Jun 2025 17:18:55 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/amd/display: Add a trace event for brightness
- programming
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20250623171114.1156451-1-mario.limonciello@amd.com>
- <20250623171114.1156451-2-mario.limonciello@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: Don't call mmput from MMU notifier callback
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com
+References: <20250623165936.6178-1-Philip.Yang@amd.com>
 Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20250623171114.1156451-2-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0131.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:87::19) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <20250623165936.6178-1-Philip.Yang@amd.com>
+X-ClientProxiedBy: CY5P221CA0114.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:930:1f::34) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SA0PR12MB4461:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a7eba2e-209d-4b98-b929-08ddb2a15167
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|PH7PR12MB9065:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc817a7f-e022-4cf0-b3cf-08ddb2a3f2d1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?elp4VGxrL2x3ZlpCdHp5TCtQNzFwQWJmMytKQjVjVXB0eXRPTldvUnNHZTM2?=
- =?utf-8?B?MDVHNTdmV01kYVVZODF3aUlVUXBZaVpvQXBOZkxVV0FoWnlheUhCQTAvNWlI?=
- =?utf-8?B?eDlzYWZrVUtvQkpZUG9NQ0t5R05XeEk1M2t4VVNWeTVFRlFjRFoycDRIdzJO?=
- =?utf-8?B?UWxrQ1l0ZzluK1ZMMDZGdTZaeXhuTWdRL2JHc3lJSmNicmNXd0pMVURGRG4x?=
- =?utf-8?B?Vy9vQjJDWVlFTTNjN2toN1hGK05Xc0FQM29Pb3FVNVNkUTJRckpNODdYQ1Zw?=
- =?utf-8?B?bkJtazVZRnE5WEJ5ZnZrTSszVVh4WnpaV2Vud1J4YjZuMW5uZmt0elB3clZB?=
- =?utf-8?B?K2t2enhGSXNNZHhqTkg2TklaVWN4dzVOalpDL1hBVWt1SVJjMTNScktXRk1k?=
- =?utf-8?B?OGEya3JPeitpT3V5a0hsU05hVVlBc1FxRUh5OFVuUGdnTDViMGdVNjJSSzR1?=
- =?utf-8?B?R1F3elI2cnNPSHB2ZGl4amVhcEhDZ3Y2Q2U2Z0F6TWFhZ2hKSEhkUkZSbFJT?=
- =?utf-8?B?WlViZVJUN3EwRmZnYUZNVSszMkRvSXRzSHh2WWt6a2lBWVMxUHdYNkdkVS9K?=
- =?utf-8?B?aWRqQVhaUGY4Y2FrSi8wRVk3Q3VlamhCMFVXQ0szZnpQSThsV0dNSmhIMVcy?=
- =?utf-8?B?MEk3MDVVWWJoYjFZaG1mWjdaZVBxSmRmaEpub1VvNGF3a0VmM0tOdldncnho?=
- =?utf-8?B?aTlWMEI4ZGdDTldMb0FhQXh4S2dlaXB6Q2Yyay9LakUwUTNDMVZqQ0pIVDB2?=
- =?utf-8?B?ckwrYTNYSkRTR2JTQlZwTitSY2t0S3ZVeUVnY1hjZU9TZDdEUWNSd0ZWWWxy?=
- =?utf-8?B?RWVJWk1TNldvdTNuY0RqNk1kTmkzWHhicGVaSTh6OXd5cEVnOUczbXBDdEha?=
- =?utf-8?B?MVViRWlmU1lxTzFNaXdWd2RjL0VCY1VCdHpwVGMrVjZJbWlCRFVpdkhUQ1Qz?=
- =?utf-8?B?UlhHeWNWTWVQVWFuMmUvRFFHL2JhcHZ6TUpKZGp5YkN2MURUWmRzZkhXTStX?=
- =?utf-8?B?eUlvS1lnWE8zTzdJRTNPN1RESzlKQ0dHMEZnRUNJenhMaTR4MU9yVUh2UENt?=
- =?utf-8?B?NDBDUVg5UkFwTC92Y1BYNDVWOEhjbzRjWkh3c2VIdWU0TmxWeWRneW4ySDZQ?=
- =?utf-8?B?WjFHbE1OSXlJaTUrb1E2MjNnc3hCNTAyVDlKekswR0JTdnFQekViWFg0MGdC?=
- =?utf-8?B?S1hJTkI4RnB6TGNSLyt0MFpobDgyamwzazFKTHR2YjdpcStxSUpzRHZnOXBX?=
- =?utf-8?B?NktaMFB0WWtETXVZS3Fwbmk3djBsSzR3clVkbmJkdzlwRjBicjMxUGd1TnhW?=
- =?utf-8?B?aVFOUEdJSjlweWRvYThNaUMwRWc0K2YyZFBueDNkS04xRlFoTktUYjllc05t?=
- =?utf-8?B?MFd0NVcyTHFkK1JkQ3ZKaUZTTVpIY3dRNER6QWNKV3UzNEw3bzdUQjhmY0tV?=
- =?utf-8?B?RTJGZko0cFBHY2VSWE8rRjh2TVBWeERMem45alR5NU1RMkpiSVdGdXg3TXdR?=
- =?utf-8?B?bHlnanNlS0o0eEkwaWZBNFhqaGQ3MDByR2FLTW50R0JGMG1Pc0hoSnJpUWRm?=
- =?utf-8?B?UThSbkRwVXl2RDZjMWptUVRRZ0tOSi93alhJMXdBWlNYR2ZPTlRKRGMxNUFv?=
- =?utf-8?B?aUdHOUdtTlZOUlFSenhzWitDWWpYTERqVXBPSVB1TktidldwV2xEV0Q2bUJI?=
- =?utf-8?B?ZmJ0MS84NG8zYzBsZFZvZnRoZzhBUmxiNFdCcGRNSXVwcHg4d2Q5MmRzTjAy?=
- =?utf-8?B?N2V4cXFjeTZPYjJpZ3laU3BwbDZEN0hWbzhCRjBjREtXVHJ6K2t4NHZOckxl?=
- =?utf-8?Q?LEYdXZl22DRleqO7tN0t2EepGT8FN43ijAHOo=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MlE5alMxRjVRUlM0YWdMU0NON204SlcyVlRDR2xaSFBmZm1wak1WT1A5UWNK?=
+ =?utf-8?B?Q1VGYk9hdEROSUhsTXlaQmJoOG1TRFRMR2F4SlNZRDVLVktnK0IySmNGWjRn?=
+ =?utf-8?B?TWFsL3QrLzFvcXlRRXBmaW9FMkkzcGg5d2Q5QW4rRXRlUldwKzBEdXg2ZEpC?=
+ =?utf-8?B?OXY4eXBPbWl0T2Q5UDVWRWhhVWdPWmVBY0VOSldNb25PcmwvWHV3bFY2MDRS?=
+ =?utf-8?B?VkF1V3NQREJEc1Q4S0FxTG1Yc0t6dEk0UEU3MmVXM3krN1poSFNkSmtxbVNW?=
+ =?utf-8?B?VDlCRnBMV2ZRdXB6OXoxTkRQemVjRHFYWExsNHJ0MGRld0pGZWxLbjc0YTRr?=
+ =?utf-8?B?ZXFKeDdJVmllUDlhV0RyQ3JtM2ppajA0a3VucDBvVEp3YiswK0hZd0dKME1B?=
+ =?utf-8?B?UXk1Vm5hNTNBczEzejJkMlRrQzExN2FSbEJOWXY1NTBoK1dEMTlrdDUyZmk1?=
+ =?utf-8?B?cEsvZzJHbk1wbDhubGxKb2EySEtydlFKZ0hzNWFBZFN0ZWp1OUdmaS9RRFVv?=
+ =?utf-8?B?dFdTUmJNUG9QOEdnY1dXU3JQaE1OQkdDT2lZeXJaMGs0UXNtVTZINjJKT0Qv?=
+ =?utf-8?B?aW80NG1vZ3dDZG1QcjdrWStiQnd3RFRHOU93bHNoc2pxNDEzUlYzU20xcGRy?=
+ =?utf-8?B?eTA1alFXaEpGUnByM1NwQUtLaXp2bDYxaWJFeU43MGNUdTU4Qk1sdndjV0ox?=
+ =?utf-8?B?VUNmTjNqT0tvRHlJVmtUZGtWMVpqblVWeGJ2ZElESjBXK01IMzdlRGtIRWNT?=
+ =?utf-8?B?dHZxU2MvKys4YWtZTVpKWitOVkJxTHVlRTBvUGtTQ0MwSDFRM2F0Y2Y0TTR0?=
+ =?utf-8?B?ZDRWZFV6REZFd1hnUWNSb21TQUVjS0FHeVZ1dk9FRHQwaWg4UXhLVHBsOTQx?=
+ =?utf-8?B?d2VnVlh5eloyaTNmNW5YMkU3TUtuK3prQlVub2o5WUczcXFLV1A0MTJYU2FT?=
+ =?utf-8?B?RWVWT0tFM1MzZXhJd3VVdW5RS2tEMGgwNCtOZXh4OGs5SmlSZ0o4OGNTb2RN?=
+ =?utf-8?B?cWpuSFB0UVVwSG5aODN3bzJaakNNVEZyWUNMckpFZ0hocVhaTXl0T1RDakln?=
+ =?utf-8?B?NE51RStWNDNBMlJHNkJsL3hQQ2tsYmMvWUxBVFB3RmNJdHczbUtUM2lhZXRy?=
+ =?utf-8?B?SXYzWnBnUGNlRkQ3ME5UT2RLZmtFVHlYZWpTWTBHS0xYODJNZnMxY1RxYy92?=
+ =?utf-8?B?SjNTVTgzZzFNWHNFVFd5V1ZJOEw0OWRTd3daanZaYVdGMGJDa3ZsNVNEcm84?=
+ =?utf-8?B?ZEhtSFgyeUpOQ2VQdWNva1VMYkQ1RUlwSy91VEk2SS9SYnBqT1FyTWJVRW91?=
+ =?utf-8?B?bmU2UzJiRUovK1dFdW80ekswMGRlVll5ZTVLSXNKY2ZSTnhRMzNTMzEweWhB?=
+ =?utf-8?B?Q0NVc3hSSWplR2wrMGxoYUZoaEhPdWZqeUIxd290MGJ2YU85M3hINisrYzND?=
+ =?utf-8?B?bE15UDNEVkxQZy9YdE1RTVZRUFp5UkZYU1ByVUNGQU5CMDRoKzdDdTdrL0p1?=
+ =?utf-8?B?b2pVaC9BTTVMN3R2b040eXg5V0ZGUS9paHVBQ0dMaC9MTTNFNjBOazU5N3dp?=
+ =?utf-8?B?eDZTYlFwbi9IdHRvYVJLN2lUYVFTazNocmVaMEIyQk1weUN1M0VrRkhGTjB3?=
+ =?utf-8?B?TTFrSTMweDhVMVo5YUsvQUVpY1Q1OHlIcVovYnZBcXU0KzdoM2RlL0lDbGlB?=
+ =?utf-8?B?RFBxaldabDVKTlhQbEFFcHJaWEJ5N2hwY3drelZ6TTM0dmF0UXVVdDIyNUMy?=
+ =?utf-8?B?aEZlSndNMTJqV2x6WEJCaTExVmg2Z1lWUGRVMGgwY2lWWDBrckFRS3pDek9L?=
+ =?utf-8?B?MCtDancxUExwakM4dVA0UE92NlNuSFRPSEU3cFdKd3UwU2FjY2gyUEJRcVI3?=
+ =?utf-8?B?dm11OWZYTXBnNDBpM09id1hGL1QzLzg2TXBhZG92WEtyVHRWdkhhZVhZMlBs?=
+ =?utf-8?Q?xot8cMvpglU=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NFRiQzRmZUIwZEVoMWlYS3dxdmx1NEd1ZEZHeGlTM3RRZnY5allrY244UWFG?=
- =?utf-8?B?eFFwSHczN045c2w3QkowaEZMVFR6UWRpVGd0N2hpdGNsR3NjV3hJaFIrQTBO?=
- =?utf-8?B?a3p6cXpkdUg2RmFhTlhwaGZ6YVVxWnRBRXdRUjVEdXYxZlkxUFpJNFZMTHlX?=
- =?utf-8?B?SFNLZlhsc2VEYUFTZ1k5K3FBclpKdXNCOXhmTXd3TE5za1ZWNXNFTjNVQ01N?=
- =?utf-8?B?aE9xMit2eVZldll5TFgrZXcyYSt4dE02SDZ5TlBKSFNkZG5zNG5aaW55Vk1J?=
- =?utf-8?B?NmZscklxZjZjVGJmQWM3a3lpc09QbkJoRmEwbkM5bVhYNW9QZ1NDdkd6amtO?=
- =?utf-8?B?Y3FEdUt5VHEwVkt3ekxlbmlyOEo0YTFsZVB4V2FPa3QvaFA4OWpjQ0ozeTJR?=
- =?utf-8?B?SXFWN1VUSERjTmhIeUlLa3BxZmFXMHNNZ0tTcWJDQm5seVI5MjFYWFFmTnhq?=
- =?utf-8?B?MWZiNEszdGdiZjBpUXc4MWVGbHZNZHZhSjc0RGZKR1RDL3h2dGRNTk51Ymlr?=
- =?utf-8?B?aFExMU1mTXFSL1BiVzVYL252WWdoVWhGenkxRzNBTGc0VGdLQXVXMkg3NEZV?=
- =?utf-8?B?UUtwMm1QT3V3UWlUVHpCWjJ1a1F0VGtTcEw2T295R3V1RGZhTlgrWWRDZ2xw?=
- =?utf-8?B?UithK1dWL3JKcXZKMnZXakJTNUVHMkxKUWRaelFxeDVzT3ZtMXdOVTlaTFpV?=
- =?utf-8?B?b28veFVYbGFkYmlMcmJPc1M0MmhOWkxOMHBqZlpVLzRnRzBpUmtWSUZDRDJ6?=
- =?utf-8?B?eGpnUzhMbE5CV0R4dUZyUDB3R2NzZHZOUnBmSjArNUt0WUhCMU1aam9wZWxs?=
- =?utf-8?B?OXljem5TSVZZeU02d0J0dFgzUEo4ZVlNdWhYQ2Fxa1J2ZlNjUVBqenlKcmxi?=
- =?utf-8?B?N3UzS21TREtqMTlrcVNtK2NQRXhVcW1VQVNOQTFsaGliNWc0ZXdLR1A4dzNW?=
- =?utf-8?B?Q0liRU5iK21vc25idExFaFkwelQyMGRzcm9kUFh2S202dDV1dVQyeGZzcDVs?=
- =?utf-8?B?TXRqTWpJYTBjdnJaTi9PdlNNL0hKUHJMZ0xKYkdLMEdwSXVFNGpONDZoTnVH?=
- =?utf-8?B?eGdKSk1jOURMT25vVDlCMm1NdW9zRzZlZmdMWDlxeWhEeW0wYjJHWWYzdTVB?=
- =?utf-8?B?d3lCdzZxQ1Jsc1NKZjVGSStBdmREeGtmS1dGTTZzVmh1eUxwSjZFWXRVbkpR?=
- =?utf-8?B?T2UvQnlyUjRBWG16czc1aWlsdjBkaDF0U2c5Mkd5UVEreUQvNjJkTjJBdXky?=
- =?utf-8?B?NFJKWUlOWG9icWl1MndiM1ZRS3d0VjBKYnVEdGJ4REJRdzlhcVZtdUdVaGNT?=
- =?utf-8?B?ZDBnRUlGSUhmTFREQkVHS2gxbUhkVlJvblJqNHRmRk9ERTA0aUxPVVd6RkJx?=
- =?utf-8?B?OFhRS2hDeFBpNS9DRTZxSUVSM0JIeHB6WDhieXU0cE5sYjZya1BNVklQSFg0?=
- =?utf-8?B?c2pjS0dqMUxBYXdWSWtRcXY0TGhSM04vZW5vOVdORExxK3ozV0hsdmxaamVr?=
- =?utf-8?B?V2pYYmJDOFkrcFYwZDRxVW5WZkR1ejNPd0VuRFZDTUx6S0xEa2QwdzNqRkg2?=
- =?utf-8?B?cWRjZzkzbVZFOWxOT0c2TGNYdTgveXk5VWQwZENWWTdoa2w2OVViQVBDUTZw?=
- =?utf-8?B?YitVTTNWTlR5dndhUDNvMjY4QmRNdVRlV2RrUjZ2d2dwVFAzWjkvTEY2bnhr?=
- =?utf-8?B?TnhLbjg2QkFFUzRia0dRMHlBazhwdEg5MW9EQ3gwdFdvZ3dGcmVNQ3V3VTlP?=
- =?utf-8?B?b0lNRkNneUxYY3FCVTBNZDNyLzJYdEorTEVWcThVSzdnMkFCQlV5Qy95eS82?=
- =?utf-8?B?dVVmZzZtZzgzRFB3WFBHU3FxOWIzQWV1VGJjUmhBMzVtcDdaOVpha08wNnlK?=
- =?utf-8?B?YXpmdUJoODRPRjlUa0Z0bnN0ajNWOHMvSDhoN2ZBR2ptTlRNZk5mWklwRTlj?=
- =?utf-8?B?a0Nad3NqZHNJd0xoQWFDMHZZWmVlR2J6clI4QzI5OC9IdnF0MEFvTWRXSHE2?=
- =?utf-8?B?aEhLTS90VVU2Z293L3h5cnlxb2lpdkdnS2tFN0s3OXc3elFpR3FqUitpQ1Fo?=
- =?utf-8?B?MU1Ma0FBS1cwZE5MRHRpMUpYTCtkVmNmcm5tbGJpYWRjVjRtVjc5b3BiY1JK?=
- =?utf-8?Q?pJZodxVXD+D0iUvA2Z/wkW91P?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0Z4Syt4ZFRraXl5dW9NbHFGcktLdGFvVERJR0s4OERXS0NidnFHdXYxa3cr?=
+ =?utf-8?B?OUJiUTJaZkdwcVRFVUhZdmhpcnJHOUNoRndRbEtUYlJzbEVEdmdQR05EUXZj?=
+ =?utf-8?B?dEtWU25MMmxMeEV1ckZyclhiWENxdEhscTVJVmdVWTVJd3NMMFRHdE5rWlBY?=
+ =?utf-8?B?UHJuN3k2d0JrZTY4WjUyUWhUbVNmenlzckFLUEtqTGl2SklPT0YrdkhZaVhZ?=
+ =?utf-8?B?MVpiSExHN3RDaVkwd2FPT0x1anlieStTeFo4UURvVXIrdnNvK1BtZ3hvSThV?=
+ =?utf-8?B?Sld2QVFLWnByMlZ4NW1SZnF1SVdlTk80bVFtbHJoSnFaM2xEZkV4QXdUSFBy?=
+ =?utf-8?B?M3FUcFlxRFlSNTgwc1BvallFd0FHMnF4QlBJOW9MQ3FxSVl1ZDB3dGNtZjJv?=
+ =?utf-8?B?UEU1aEFZY3phRTN2YzRuOHlpNG9ENkM2ZDJXVlpmalpxZDhvWUhrcyt2UDAx?=
+ =?utf-8?B?bThsOXh3OTBTNWczMExQUVZycHpaMFpYUVo0QXEwVU14UUhuYmk0bktLNzJ5?=
+ =?utf-8?B?ZHI4dGd5aTdSVzBUZW9NUEdLNi9qRVJPZG4wNHVydmtBU1lwTTR1ckh0OXdy?=
+ =?utf-8?B?bkVXb2RHNzMzQVk2QlY4dnkyZDRTdHljT1VOK2xYWUtnYWk0K2RNb3ErL05T?=
+ =?utf-8?B?U3VCL0c4SysvU2xlaWNsQkhqVDQxb0hrVExMWDgyMnVRN2o3a3oxaTU1Q1pt?=
+ =?utf-8?B?L3lJeTBsekthakpZVVM5REcyVmxScXJTTlVKNEhrUUkva2txdVF0Q3c5NThx?=
+ =?utf-8?B?TmlNNGoydmV6ZExJcWdveGc0dlFqU0RSU1pIS1I0NkNNWDE2UFhKOFZ3UzNS?=
+ =?utf-8?B?YSt3MEJZQ2VmeVVUWXBuVE45cVlDUE9EZDdqODcycnVCUnUrZGVPeWxua2p5?=
+ =?utf-8?B?Vi9uRTlyWVB4Y0luREh1aVgwVVpQQmE2K0hqTE9rREUxZ08yRnJxMHAzb0dD?=
+ =?utf-8?B?MCtKT1V0WXFJTEh3QkhoakdoVlNTbmZIV3ZVeUJhMHBibktaa0RPR3crMlZN?=
+ =?utf-8?B?a1RYMjQ4T0hZbHZiK0pJaktsRW1QcmNvZ0JoWmFxRC9ZbnhWU25KU01ROTVU?=
+ =?utf-8?B?UFhpMUk5bG5wV1BQNzZoeFF0UjFMUTBFeTJpdUxUYmdUL2NpdEwyVUxseDNX?=
+ =?utf-8?B?cSt1U1FHcUQ4K1NjSlpDdW5vS0RwVnJUbndBcXFsUDlkSTZsWmFEMVVYWktC?=
+ =?utf-8?B?NytteFdHdldPK1ErcHRxY0V3NTVGMk41cHhmVnF4MmlrVVMyY1dBRG5TaXpL?=
+ =?utf-8?B?OWdXTDlmbEZYZEVrUGR5QUpiNktKNTEwMkdzRVJGNWhkTk01UGxlRTNZblZ4?=
+ =?utf-8?B?Wmp1d0d1WGJwNXVvRjVwY3JNRDJpZ3h4NmM1QytNM1F1Rys3OVpNRXU2ZHFy?=
+ =?utf-8?B?WlpGMXVsMjlLMnZ4ZGJZcXRMSm9ROUxNQzFJSlhmUThWNzJXZnpPaC9Zc0Iw?=
+ =?utf-8?B?V3RJL1FjcXRYQ2grRXp6MkdOWnUrZDZCYzkrY0VtRE45ODBodUZpQy9JZkF1?=
+ =?utf-8?B?MDRwTGxBdU93c0J6bGZRb1ZiSk5GL2tESlg3VnZEbDQ1UGZIT2FlVU12a1Ey?=
+ =?utf-8?B?cllTaEhpQXQ1bExSdnFVWkRXRmx2OVpWeDQzcTlEMGZNZktDb1ZuODVRK3B2?=
+ =?utf-8?B?ZTNPbUVJZnhhRmx1Q085eUVPMk9ZSkNQekZ3S1lXUFJYMUxQZW81d0tYa3gr?=
+ =?utf-8?B?ZC84WkxkbTJ2UW1EZnRNc3didCt0WGJaenhTVzdGRzhUdTBNQVF4Sys5QXQ0?=
+ =?utf-8?B?RjNYMExSM0xkWW9XcDNVdjhPa2swY0Z4YnhYRmdlR1VjQzJmdytQQW9MTFJ4?=
+ =?utf-8?B?c0o1dE8yTWtlbEt0V2pmZmlPZVdxV2I1YnZQU1huWHRuZVBLRjlKN1NGRzdR?=
+ =?utf-8?B?ZzZ2bTk2UnBibERHN3ZMZFE3cXd6WkNwMnQ4MzkrNUZJd2Fiemt0Mi9qbnFm?=
+ =?utf-8?B?S1M0L21rT0VIM2hPelhoem5QYmhjNGMwUGJyS1dSQkdBbzFCMXcwTVpPbW9X?=
+ =?utf-8?B?d2FNWDdnN1pUbk9wNVc5TG55bG5aQ2dwZ01XT2NVSDF2cVpoMkZBclUwT0VS?=
+ =?utf-8?B?ajdLSXlvMHRKQnlNT2YwL1R5SnhhZmpHSVBWZlcyRXZtVEJTWWlWMVptd0N4?=
+ =?utf-8?Q?dXqo=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a7eba2e-209d-4b98-b929-08ddb2a15167
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc817a7f-e022-4cf0-b3cf-08ddb2a3f2d1
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 22:00:08.3540 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 22:18:58.2033 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bf0LGydOwRQlwu3JiX8pO4xrvRyCuOZ9hfrHSgbZArulQk/D+U+jz3ElCO3iOzOUStXUSFS7NHWsadoMLSJoKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4461
+X-MS-Exchange-CrossTenant-UserPrincipalName: HQEDJpF836hhFGk0SwhfzX9hTEk6y805KuQAAEFh9g+wj38AJt4KExaSJcAf/L1m
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9065
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,104 +160,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+--------------fw6wPXSx3P8dRsHuGfYKcF0C
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 6/23/25 11:11, Mario Limonciello wrote:
-> [Why]
-> Brightness programming may involve a conversion of a user requested
-> brightness against what was in a custom brightness curve. The values
-> might not match what a user programmed.
-> 
-> [How]
-> Add a new trace event to show specific converted brightness values.
-> 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+
+On 6/23/2025 11:59 AM, Philip Yang wrote:
+> If the process is exiting, the mmput inside mmu notifier callback from
+> compactd or fork or numa balancing could release the last reference
+> of mm struct to call exit_mmap and free_pgtable, this triggers deadlock
+> with below backtrace.
+>
+> The deadlock will leak kfd process as mmu notifier release is not called
+> and cause VRAM leaking.
+>
+> The fix is to take mm reference mmget_non_zero when adding prange to the
+> deferred list to pair with mmput in deferred list work.
+>
+> The backtrace of hung task:
+>
+>   INFO: task python:348105 blocked for more than 64512 seconds.
+>   Call Trace:
+>    __schedule+0x1c3/0x550
+>    schedule+0x46/0xb0
+>    rwsem_down_write_slowpath+0x24b/0x4c0
+>    unlink_anon_vmas+0xb1/0x1c0
+>    free_pgtables+0xa9/0x130
+>    exit_mmap+0xbc/0x1a0
+>    mmput+0x5a/0x140
+>    svm_range_cpu_invalidate_pagetables+0x2b/0x40 [amdgpu]
+>    mn_itree_invalidate+0x72/0xc0
+>    __mmu_notifier_invalidate_range_start+0x48/0x60
+>    try_to_unmap_one+0x10fa/0x1400
+>    rmap_walk_anon+0x196/0x460
+>    try_to_unmap+0xbb/0x210
+>    migrate_page_unmap+0x54d/0x7e0
+>    migrate_pages_batch+0x1c3/0xae0
+>    migrate_pages_sync+0x98/0x240
+>    migrate_pages+0x25c/0x520
+>    compact_zone+0x29d/0x590
+>    compact_zone_order+0xb6/0xf0
+>    try_to_compact_pages+0xbe/0x220
+>    __alloc_pages_direct_compact+0x96/0x1a0
+>    __alloc_pages_slowpath+0x410/0x930
+>    __alloc_pages_nodemask+0x3a9/0x3e0
+>    do_huge_pmd_anonymous_page+0xd7/0x3e0
+>    __handle_mm_fault+0x5e3/0x5f0
+>    handle_mm_fault+0xf7/0x2e0
+>    hmm_vma_fault.isra.0+0x4d/0xa0
+>    walk_pmd_range.isra.0+0xa8/0x310
+>    walk_pud_range+0x167/0x240
+>    walk_pgd_range+0x55/0x100
+>    __walk_page_range+0x87/0x90
+>    walk_page_range+0xf6/0x160
+>    hmm_range_fault+0x4f/0x90
+>    amdgpu_hmm_range_get_pages+0x123/0x230 [amdgpu]
+>    amdgpu_ttm_tt_get_user_pages+0xb1/0x150 [amdgpu]
+>    init_user_pages+0xb1/0x2a0 [amdgpu]
+>    amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu+0x543/0x7d0 [amdgpu]
+>    kfd_ioctl_alloc_memory_of_gpu+0x24c/0x4e0 [amdgpu]
+>    kfd_ioctl+0x29d/0x500 [amdgpu]
+>
+> Fixes: fa582c6f3684 ("drm/amdkfd: Use mmget_not_zero in MMU notifier")
+> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
 > ---
->   Documentation/gpu/amdgpu/debugging.rst        | 18 +++++++++++++
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++++++
->   .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 26 +++++++++++++++++++
->   3 files changed, 52 insertions(+)
-> 
-> diff --git a/Documentation/gpu/amdgpu/debugging.rst b/Documentation/gpu/amdgpu/debugging.rst
-> index 7cbfea0606e1..ac914d524741 100644
-> --- a/Documentation/gpu/amdgpu/debugging.rst
-> +++ b/Documentation/gpu/amdgpu/debugging.rst
-> @@ -85,3 +85,21 @@ UMR
->   GPU debugging and diagnostics tool.  Please see the umr
->   `documentation <https://umr.readthedocs.io/en/main/>`_ for more information
->   about its capabilities.
-> +
-> +Debugging backlight brightness
-> +==============================
-> +Default backlight brightness is intended to be set via the policy advertised
-> +by the firmware.  Firmware will often provide different defaults for AC or DC.
-> +Furthermore, some userspace software will save backlight brightness during
-> +the previous boot and attempt to restore it.
-> +
-> +Some firmware also has support for a feature called "Custom Backlight Curves"
-> +where an input value for brightness is mapped along a linearly interpolated
-> +curve of brightness values that better match display characteristics.
-> +
-> +In the event of problems happening with backlight, there is a trace event
-> +that can be enabled at bootup to log every brightness change request.
-> +This can help isolate where the problem is. To enable the trace event add
-> +the following to the kernel command line:
-> +
-> +  tp_printk trace_event=amdgpu_dm:amdgpu_dm_brightness:mod:amdgpu trace_buf_size=1M
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 77302caaf24a..2ac5cd225781 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4860,6 +4860,14 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
->   		reallow_idle = true;
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 23 +++++++++++------------
+>   1 file changed, 11 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 10d1276f8e1c..5fe92f9a1ce1 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -2392,15 +2392,17 @@ svm_range_add_list_work(struct svm_range_list *svms, struct svm_range *prange,
+>   		    prange->work_item.op != SVM_OP_UNMAP_RANGE)
+>   			prange->work_item.op = op;
+>   	} else {
+> -		prange->work_item.op = op;
+> -
+> -		/* Pairs with mmput in deferred_list_work */
+> -		mmget(mm);
+> -		prange->work_item.mm = mm;
+> -		list_add_tail(&prange->deferred_list,
+> -			      &prange->svms->deferred_range_list);
+> -		pr_debug("add prange 0x%p [0x%lx 0x%lx] to work list op %d\n",
+> -			 prange, prange->start, prange->last, op);
+> +		/* Pairs with mmput in deferred_list_work.
+> +		 * If process is exiting and mm is gone, don't update mmu notifier.
+> +		 */
+> +		if (mmget_not_zero(mm)) {
+If process is exiting we not need do schedule_deferred_list_work 
+neither. I think this part code need be reorganized with 
+mmget_not_zero(mm) check.
+> +			prange->work_item.mm = mm;
+> +			prange->work_item.op = op;
+> +			list_add_tail(&prange->deferred_list,
+> +				      &prange->svms->deferred_range_list);
+> +			pr_debug("add prange 0x%p [0x%lx 0x%lx] to work list op %d\n",
+> +				 prange, prange->start, prange->last, op);
+> +		}
+>   	}
+>   	spin_unlock(&svms->deferred_list_lock);
+>   }
+> @@ -2568,8 +2570,6 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+>   
+>   	if (range->event == MMU_NOTIFY_RELEASE)
+>   		return true;
+> -	if (!mmget_not_zero(mni->mm))
+> -		return true;
+
+Why remove mmget_not_zero(mni->mm) /mmput(mni->mm) here? I think they 
+are for different purpose from mmget_not_zero(mm) at 
+svm_range_add_list_work.
+
+Regards
+
+Xiaogang
+
+>   
+>   	start = mni->interval_tree.start;
+>   	last = mni->interval_tree.last;
+> @@ -2596,7 +2596,6 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
 >   	}
 >   
-> +	if (trace_amdgpu_dm_brightness_enabled()) {
-> +		trace_amdgpu_dm_brightness(__builtin_return_address(0),
-> +					   user_brightness,
-> +					   brightness,
-> +					   caps->aux_support,
-> +					   power_supply_is_system_supplied() > 0);
-> +	}
-> +
->   	if (caps->aux_support) {
->   		rc = dc_link_set_backlight_level_nits(link, true, brightness,
->   						      AUX_BL_DEFAULT_TRANSITION_TIME_MS);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> index 4686d4b0cbad..308a36176bd2 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> @@ -726,6 +726,32 @@ TRACE_EVENT(dcn_optc_lock_unlock_state,
->   	    )
->   );
+>   	svm_range_unlock(prange);
+> -	mmput(mni->mm);
 >   
-> +TRACE_EVENT(amdgpu_dm_brightness,
-> +	TP_PROTO(void *function, u32 user_brightness, u32 converted_brightness, bool aux, bool ac),
-> +	TP_ARGS(function, user_brightness, converted_brightness, aux, ac),
-> +	TP_STRUCT__entry(
-> +		__field(void *, function)
-> +		__field(u32, user_brightness)
-> +		__field(u32, converted_brightness)
-> +		__field(bool, aux)
-> +		__field(bool, ac)
-> +	),
-> +	TP_fast_assign(
-> +		__entry->function = function;
-> +		__entry->user_brightness = user_brightness;
-> +		__entry->converted_brightness = converted_brightness;
-> +		__entry->aux = aux;
-> +		__entry->ac = ac;
-> +	),
-> +	TP_printk("%ps: brightness requested=%u converted=%u aux=%s power=%s",
-> +		  (void *)__entry->function,
-> +		  (u32)__entry->user_brightness,
-> +		  (u32)__entry->converted_brightness,
-> +		  (__entry->aux) ? "true" : "false",
-> +		  (__entry->ac) ? "AC" : "DC"
-> +	)
-> +);
-> +
->   #endif /* _AMDGPU_DM_TRACE_H_ */
->   
->   #undef TRACE_INCLUDE_PATH
+>   	return true;
+>   }
+--------------fw6wPXSx3P8dRsHuGfYKcF0C
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/23/2025 11:59 AM, Philip Yang
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20250623165936.6178-1-Philip.Yang@amd.com">
+      <pre wrap="" class="moz-quote-pre">If the process is exiting, the mmput inside mmu notifier callback from
+compactd or fork or numa balancing could release the last reference
+of mm struct to call exit_mmap and free_pgtable, this triggers deadlock
+with below backtrace.
+
+The deadlock will leak kfd process as mmu notifier release is not called
+and cause VRAM leaking.
+
+The fix is to take mm reference mmget_non_zero when adding prange to the
+deferred list to pair with mmput in deferred list work.
+
+The backtrace of hung task:
+
+ INFO: task python:348105 blocked for more than 64512 seconds.
+ Call Trace:
+  __schedule+0x1c3/0x550
+  schedule+0x46/0xb0
+  rwsem_down_write_slowpath+0x24b/0x4c0
+  unlink_anon_vmas+0xb1/0x1c0
+  free_pgtables+0xa9/0x130
+  exit_mmap+0xbc/0x1a0
+  mmput+0x5a/0x140
+  svm_range_cpu_invalidate_pagetables+0x2b/0x40 [amdgpu]
+  mn_itree_invalidate+0x72/0xc0
+  __mmu_notifier_invalidate_range_start+0x48/0x60
+  try_to_unmap_one+0x10fa/0x1400
+  rmap_walk_anon+0x196/0x460
+  try_to_unmap+0xbb/0x210
+  migrate_page_unmap+0x54d/0x7e0
+  migrate_pages_batch+0x1c3/0xae0
+  migrate_pages_sync+0x98/0x240
+  migrate_pages+0x25c/0x520
+  compact_zone+0x29d/0x590
+  compact_zone_order+0xb6/0xf0
+  try_to_compact_pages+0xbe/0x220
+  __alloc_pages_direct_compact+0x96/0x1a0
+  __alloc_pages_slowpath+0x410/0x930
+  __alloc_pages_nodemask+0x3a9/0x3e0
+  do_huge_pmd_anonymous_page+0xd7/0x3e0
+  __handle_mm_fault+0x5e3/0x5f0
+  handle_mm_fault+0xf7/0x2e0
+  hmm_vma_fault.isra.0+0x4d/0xa0
+  walk_pmd_range.isra.0+0xa8/0x310
+  walk_pud_range+0x167/0x240
+  walk_pgd_range+0x55/0x100
+  __walk_page_range+0x87/0x90
+  walk_page_range+0xf6/0x160
+  hmm_range_fault+0x4f/0x90
+  amdgpu_hmm_range_get_pages+0x123/0x230 [amdgpu]
+  amdgpu_ttm_tt_get_user_pages+0xb1/0x150 [amdgpu]
+  init_user_pages+0xb1/0x2a0 [amdgpu]
+  amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu+0x543/0x7d0 [amdgpu]
+  kfd_ioctl_alloc_memory_of_gpu+0x24c/0x4e0 [amdgpu]
+  kfd_ioctl+0x29d/0x500 [amdgpu]
+
+Fixes: fa582c6f3684 (&quot;drm/amdkfd: Use mmget_not_zero in MMU notifier&quot;)
+Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 10d1276f8e1c..5fe92f9a1ce1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2392,15 +2392,17 @@ svm_range_add_list_work(struct svm_range_list *svms, struct svm_range *prange,
+ 		    prange-&gt;work_item.op != SVM_OP_UNMAP_RANGE)
+ 			prange-&gt;work_item.op = op;
+ 	} else {
+-		prange-&gt;work_item.op = op;
+-
+-		/* Pairs with mmput in deferred_list_work */
+-		mmget(mm);
+-		prange-&gt;work_item.mm = mm;
+-		list_add_tail(&amp;prange-&gt;deferred_list,
+-			      &amp;prange-&gt;svms-&gt;deferred_range_list);
+-		pr_debug(&quot;add prange 0x%p [0x%lx 0x%lx] to work list op %d\n&quot;,
+-			 prange, prange-&gt;start, prange-&gt;last, op);
++		/* Pairs with mmput in deferred_list_work.
++		 * If process is exiting and mm is gone, don't update mmu notifier.
++		 */
++		if (mmget_not_zero(mm)) {</pre>
+    </blockquote>
+    If process is exiting we not need do schedule_deferred_list_work
+    neither. I think this part code need be reorganized with <span style="white-space: pre-wrap">mmget_not_zero(mm)</span> check.<br>
+    <blockquote type="cite" cite="mid:20250623165936.6178-1-Philip.Yang@amd.com">
+      <pre wrap="" class="moz-quote-pre">+			prange-&gt;work_item.mm = mm;
++			prange-&gt;work_item.op = op;
++			list_add_tail(&amp;prange-&gt;deferred_list,
++				      &amp;prange-&gt;svms-&gt;deferred_range_list);
++			pr_debug(&quot;add prange 0x%p [0x%lx 0x%lx] to work list op %d\n&quot;,
++				 prange, prange-&gt;start, prange-&gt;last, op);
++		}
+ 	}
+ 	spin_unlock(&amp;svms-&gt;deferred_list_lock);
+ }
+@@ -2568,8 +2570,6 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+ 
+ 	if (range-&gt;event == MMU_NOTIFY_RELEASE)
+ 		return true;
+-	if (!mmget_not_zero(mni-&gt;mm))
+-		return true;</pre>
+    </blockquote>
+    <p>Why remove <span style="white-space: pre-wrap">mmget_not_zero(mni-&gt;mm)</span>
+      /<span style="white-space: pre-wrap">mmput(mni-&gt;mm) here? I think they are for different purpose from </span><span style="white-space: pre-wrap">mmget_not_zero(mm)</span> at <span style="white-space: pre-wrap">svm_range_add_list_work</span>.</p>
+    <p>Regards</p>
+    <p>Xiaogang<br>
+    </p>
+    <blockquote type="cite" cite="mid:20250623165936.6178-1-Philip.Yang@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 
+ 	start = mni-&gt;interval_tree.start;
+ 	last = mni-&gt;interval_tree.last;
+@@ -2596,7 +2596,6 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+ 	}
+ 
+ 	svm_range_unlock(prange);
+-	mmput(mni-&gt;mm);
+ 
+ 	return true;
+ }
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------fw6wPXSx3P8dRsHuGfYKcF0C--
