@@ -4,62 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C8DC77B7F
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 12:37:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B2BBC77B7F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 13:03:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1A5110E3A4;
-	Mon, 23 Jun 2025 12:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F57E10E3B1;
+	Mon, 23 Jun 2025 13:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FSRtIGfd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bOB1GlAn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E940A10E3AD;
- Mon, 23 Jun 2025 12:37:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750682261; x=1782218261;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=jOOtIzg+qfOmHQceAyeLn4PiLd1Wxl/+vF70O4jTiQU=;
- b=FSRtIGfd5Xmu+91rLV3/ppEQDc+3iAXuKKO4v9dObst1R4x03wFK9Aj6
- 1CFi+iN2MQ2saRVeW1ti095KUoyFCNv2/jn1epTSNCkQ4DHfvmCX2jfWT
- 1XyYo4xLYtOlJ0MDxfKBd0Oj2cMWPmZc2HIthXCrPxbXlO/AMnK9LUpEP
- td7J6WM2JM7KjspkzC8au3fFJ01HqSOeAb3vCjmd4BxEPQQS6Yz8xnOm+
- arnzhqv+ogLswPmfXFh6yoBhJ20//Tk971tOkcg9WwtgT7k0Kw6dnPbkv
- PzQ5U4h8lcbeIeTTWk/D7fnxgEpf8W69CFViP+e+EPHrG5YnoJjFAIXAA A==;
-X-CSE-ConnectionGUID: AinJDl4uTCWBUobYYDoZGA==
-X-CSE-MsgGUID: OEeznP8zRSaRGPKsVyioPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11473"; a="56666224"
-X-IronPort-AV: E=Sophos;i="6.16,258,1744095600"; d="scan'208";a="56666224"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2025 05:37:40 -0700
-X-CSE-ConnectionGUID: b10mhB7hRcuT8k5vRF0Wlw==
-X-CSE-MsgGUID: cUrA/9NyTFOzEIuyKS2A5g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,258,1744095600"; d="scan'208";a="175204491"
-Received: from dprybysh-mobl.ger.corp.intel.com (HELO [10.245.244.101])
- ([10.245.244.101])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2025 05:37:38 -0700
-Message-ID: <2250a163-76ee-4da0-8804-9157d269c84b@intel.com>
-Date: Mon, 23 Jun 2025 13:37:35 +0100
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A265A10E03C;
+ Mon, 23 Jun 2025 08:41:31 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-453398e90e9so25218775e9.1; 
+ Mon, 23 Jun 2025 01:41:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1750668090; x=1751272890; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=hFKfoFX+b0fWpj1OGuQAhMWHq/Trp5Rsum6TUT3TNh8=;
+ b=bOB1GlAnKI3IxyMm+k/D7saH25BCSgMI9cDYso+4Z5dh49BzdtpAF3WgTdk02bJ6XJ
+ TYLsAO6UGabx6SgmUef23aTMf+5JhyEfep1kh4+BqzHYMpz3mCDzSGz0vOJ2JfAhUvTc
+ LRciv0oJOiel0WNPACawEiJkq56dC7njLYurSv4O5pmJ1TO8RRZbRDqs5NUi9HMW7Ntg
+ YE2ExfpEkM3xz0jf0ZNaoNH7WSydrnbMCbD/orKIpZjppZutpBIgFdndH9Lbm6DxBbxY
+ uYXDnAvEroKY6YNPd0aGZ9wxo9SzNfTKQhTWbGV4h5iN10tu0FK5hu7i/KbLpVKiPj5Q
+ XV/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750668090; x=1751272890;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hFKfoFX+b0fWpj1OGuQAhMWHq/Trp5Rsum6TUT3TNh8=;
+ b=CV0OgjoAClVLLfC8F20Ji3XiDIF0kdzWohFXTgfNpzcdGkrUzlm9sLg3ewUfGSCdWV
+ Ox7uERX6o8ExZmNvrxfRbp1xat/zBa2tRklWftvcDgM9oX6ej3R1Yts+VDCEIAUbPUNE
+ 2wLEnNqJigvdud/LdmggyGI3YQpkEnIyD+aMcN9HNFkHetmgvRKzkCD5XEHAofwZCme5
+ ltkt4EPEgdyyrwavS+d5sIYcWZyngmCOIa9hTNSuTKYn87wJHKBcxUl63eTEs04qY3gA
+ SI5gq6oNibJ90swyeskRoMqAVaTygD/XA1j8oGNhAWL20NyabcKgpWGTf5EklxGtw5ZU
+ /W1A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUjNJ+ii3ZwJaWznalQyOsEfyloOWG2NKtua3PAK2adf4nUQX4m1hV0YA4iU5Sf2TGJUkm6MXo2kMe+@lists.freedesktop.org,
+ AJvYcCWifL1d3EGw8TNHXFC37qKBgkReyhWvKw765/CBI02opy3U5Gic2/Rb+sTD8UxlzPtG8/kBmaC9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyIGazcl/4MV6K1boIOiurFfen2FtVmqb8kvNJUJhRV+/HuSHOH
+ OEnj9+o3Iziq1SAN0coI4W9LWQfVAE3DIcpBcVgKZl5Jiz72k0FdFz2T
+X-Gm-Gg: ASbGncv5A3GOFchrzwQgYGHRY3Kf4x7jZl6kxqpB+Z40P+buvgBttJ9HflUC9c6ikx4
+ dkOjpp0w6/kvmYpelnfGa3hoyLDvZ2vRaFE3krBduz3QnscrmR+VItsr/n8MyRZ98XrZdCGFMci
+ Tz8MrWFTczOJ1cjGgbyIxKGTouilcwzUM1TQvuVK2SxaMNWq9bpalSFAqAoaDk743hD9fMZvy4n
+ R9aEUwY780f6BRyk1pGr0ydQ2Q1e+ZyWyspf2XUJ4tw+W0B2VttO3IVH9hCUtT2nPLWFPXGdFb5
+ Khswi7FOyO/gFfSN5R+Rcya9fMRpcjNluABe965617+dxBcWSuGZOzt1HNIG
+X-Google-Smtp-Source: AGHT+IEg+Vrg4q7OXMVziKAkMdGsGKVcz2ch4jcR2RgQa7iyDmfJ9xV9plJ7R+MCae/mqCNaZWsqGg==
+X-Received: by 2002:a05:6000:1a8f:b0:3a4:f52d:8b05 with SMTP id
+ ffacd0b85a97d-3a6d12d5316mr10912719f8f.35.1750668089889; 
+ Mon, 23 Jun 2025 01:41:29 -0700 (PDT)
+Received: from localhost ([87.254.0.133]) by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-453646cb5ecsm105878885e9.8.2025.06.23.01.41.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Jun 2025 01:41:29 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amd: Fix spelling mistake "correctalbe" ->
+ "correctable"
+Date: Mon, 23 Jun 2025 09:41:08 +0100
+Message-ID: <20250623084108.29627-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.50.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Reset the clear flag in buddy during
- resume
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- stable@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-References: <20250623055253.56630-1-Arunpravin.PaneerSelvam@amd.com>
- <20250623055253.56630-2-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20250623055253.56630-2-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 23 Jun 2025 13:03:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,114 +91,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+Matt B who is adding clear-on-free support in xe. I'm not sure if we 
-might also see something like this.
+There is a spelling mistake in a pr_info message. Fix it.
 
-On 23/06/2025 06:52, Arunpravin Paneer Selvam wrote:
-> - Added a handler in DRM buddy manager to reset the cleared
->    flag for the blocks in the freelist.
-> 
-> - This is necessary because, upon resuming, the VRAM becomes
->    cluttered with BIOS data, yet the VRAM backend manager
->    believes that everything has been cleared.
-> 
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Cc: stable@vger.kernel.org
-> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3812
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   |  2 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  5 ++++
->   drivers/gpu/drm/drm_buddy.c                  | 24 ++++++++++++++++++++
->   include/drm/drm_buddy.h                      |  2 ++
->   4 files changed, 33 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index a59f194e3360..eb67d6c97392 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5193,6 +5193,8 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
->   		dev->dev->power.disable_depth--;
->   #endif
->   	}
-> +
-> +	amdgpu_vram_mgr_clear_reset_blocks(&adev->mman.vram_mgr.mm);
->   	adev->in_suspend = false;
->   
->   	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> index 1019c5806ec7..e9e2928fa4d1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> @@ -58,6 +58,11 @@ static inline bool amdgpu_vram_mgr_is_cleared(struct drm_buddy_block *block)
->   	return drm_buddy_block_is_clear(block);
->   }
->   
-> +static inline void amdgpu_vram_mgr_clear_reset_blocks(struct drm_buddy *mm)
-> +{
-> +	drm_buddy_clear_reset_blocks(mm);
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-No lock needed?
-
-> +}
-> +
->   static inline struct amdgpu_vram_mgr_resource *
->   to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
->   {
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index a1e652b7631d..b5e44867adf2 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -405,6 +405,30 @@ drm_get_buddy(struct drm_buddy_block *block)
->   }
->   EXPORT_SYMBOL(drm_get_buddy);
->   
-> +/**
-> + * drm_buddy_clear_reset_blocks - reset cleared blocks
-> + *
-> + * @mm: DRM buddy manager
-> + *
-> + * Reset all the cleared blocks in the freelist.
-> + */
-> +void drm_buddy_clear_reset_blocks(struct drm_buddy *mm)
-> +{
-> +	unsigned int i;
-> +
-
-This might be a good spot to also force merge freed blocks back 
-together, for the ones that have the clear vs dirty mismatch. Otherwise 
-with the below loop we can have two buddies that are now dirty but don't 
-get merged back together? Fairly sure fini() can chuck a warning 
-otherwise. Also a simple kunit test for this would be good.
-
-> +	for (i = 0; i <= mm->max_order; ++i) {
-> +		struct drm_buddy_block *block;
-> +
-> +		list_for_each_entry_reverse(block, &mm->free_list[i], link) {
-> +			if (drm_buddy_block_is_clear(block)) {
-> +				clear_reset(block);
-> +				mm->clear_avail -= drm_buddy_block_size(mm, block);
-> +			}
-> +		}
-> +	}
-> +}
-> +EXPORT_SYMBOL(drm_buddy_clear_reset_blocks);
-> +
->   /**
->    * drm_buddy_free_block - free a block
->    *
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index 9689a7c5dd36..da569dea16b7 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -160,6 +160,8 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   			 u64 new_size,
->   			 struct list_head *blocks);
->   
-> +void drm_buddy_clear_reset_blocks(struct drm_buddy *mm);
-> +
->   void drm_buddy_free_block(struct drm_buddy *mm, struct drm_buddy_block *block);
->   
->   void drm_buddy_free_list(struct drm_buddy *mm,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 7f8fa69300bf..eaf95ee5148a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2281,7 +2281,7 @@ static void amdgpu_init_debug_options(struct amdgpu_device *adev)
+ 	}
+ 
+ 	if (amdgpu_debug_mask & AMDGPU_DEBUG_DISABLE_RAS_CE_LOG) {
+-		pr_info("debug: disable kernel logs of correctalbe errors\n");
++		pr_info("debug: disable kernel logs of correctable errors\n");
+ 		adev->debug_disable_ce_logs = true;
+ 	}
+ }
+-- 
+2.50.0
 
