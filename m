@@ -4,62 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 632D8C77B7C
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 21:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2DF3C77B7C
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 22:00:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10F6710E461;
-	Mon, 23 Jun 2025 21:38:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E3F210E465;
+	Mon, 23 Jun 2025 22:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dfodf55o";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HjLS/zVi";
 	dkim-atps=neutral
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E324210E461
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 21:38:22 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-32b561a861fso38814131fa.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 14:38:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750714700; x=1751319500; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=Pagpv8GMF/N9RHuAN4Rg6HJY4HhVU4OBYM8fmNSI6u4=;
- b=dfodf55oGSfW5d0sHwpvRTctW9wTxvYSgQ951eOww3P2ef6PKzCi8dyIGVSmFnsiXt
- oE5nlUzOX8N9ABzhqK/3I8T4PA2MAbQ8JODNs7kqQDI4CUDQB+TCSEw7PCHKi6ZdnOEt
- Up4qqiW/yXEfbtTjzRpyZ2PvYHnbEheo3h0kqji7OBfUmAhSt6wsJsDKJqbEYynwOC6f
- ayZSuCJoOK4uXP2o9j9bWTq0BMJRFHC7hZRtSpiblermFnFauqg7hTPVRdqQqZHEFxqS
- YcBknjncpuI8IJ7at+fNbOI5nr3hlN3dtzCSJe8hlyTVyP5LvaTsXC+p65gVVSJSsWI7
- gzWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750714700; x=1751319500;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Pagpv8GMF/N9RHuAN4Rg6HJY4HhVU4OBYM8fmNSI6u4=;
- b=cZI62diViuK3seh3lEicIARcvqGl8XuPDCv/m6enxCmFDeecFZzgIO2/hU0GIMYryF
- b9iSFKx3Lf6aC4AOiDJUyALlv+ant6hkARwMWmZBtPNfcqgV/BNgtTTp6vhJ+2MC5O9C
- hqJA4T6bVFCjgybh70a00/wgjsCjckNZxSFULAyCoFW5N0nzhxESUlPp1c7IzICrzGvg
- OwYfrIX714L37pmxc0ymwhMGR2LpZW3ezep43CQpSK3UnR0XTg8pzyJSeijh+p0ECXXq
- NFIqD2iNtuWmYHQSApQ8yPOO1nbEoPkfq8oEvf4GsCtiEPIfAXMOksmTaPLmR+/P3wHo
- S2yQ==
-X-Gm-Message-State: AOJu0YyYDp+Su8PRLcN6kpP3eyNHB4eiaZNcuaOaezywW+stnVxTmglk
- k7ZVnv/w/J0L8Cc9zPqAb5zeNWtjQMZdIo+8Cd8fCkm+UBH9opb1ReEbMfY1obqPnYCowC//bSZ
- jYI9aB3iDqq+J6/1Hr8jJMH4/lR5NO5+yuIrD
-X-Gm-Gg: ASbGncux7rkgTflLVi9NP/rxeqqpdySd/8OIc1eWTECuOK3pLs+DjtX/UlanGc7typT
- o6aPwFUrnS3Lu07QlGToqjGzMFvNxyEYqjgQXt9/TcXalktgkVvFSJsZdPnhUhHpZw0x4IDjs7z
- 1jakGp789y0VWsDo4BKSyyWun+BaDDIXuoZeMb37Od
-X-Google-Smtp-Source: AGHT+IHmneCz6eZNIbpjPElyM9P5gzbcaWpZrnyA8FSkXPAI077QKS1XsMJly3S659XZ6vzENOb3SpS7AmmbEvzYGmE=
-X-Received: by 2002:a2e:3217:0:b0:32b:56b3:d35e with SMTP id
- 38308e7fff4ca-32b9942186amr29295011fa.20.1750714700011; Mon, 23 Jun 2025
- 14:38:20 -0700 (PDT)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2053.outbound.protection.outlook.com [40.107.102.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BEF410E465
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 22:00:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lCf13PhuUwOn4zP4N1khTDZznDGJggRTdZ3rqOmrdUxObQva3eA/SPOyLk8ILEcqfFAIzHryzExEMAvIc3SakQe7m3ajH6r6MUbf9AJ2wBxSy0z9383SPVRLYgxXHi75qNXU4H/jJ2PrNh60qwjWrLnoEm69ay3PorN6pxYvSf4MxyY1Jd+28PGD98kz2bJ3EhSyZCqHJVATjGsCIOsQwMaRLWpys82FuqnGK1/6de14QjXcv48d2VkF31K6TInFjmmSLDUNbGwF/rybyHIYc8aXB6BAv0wten17Z/Fkm0JQoGnUqbZcch1FYMCCtdGDUn6rTSY4NFeKHK5vfyEl6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z+0ipUSRLX5lnpwmEGOiyFgtVQK7FYwppbsJE34SGBA=;
+ b=JsMGBEre9ibYOz3YIVWuBT1K3BU2HjoXxV/8Tngjlq24HQ05L+vSAG4nOOwRxW0OLfEt0LnbyW5NSoFfJH+SRo7jiAJSifeAf+28pdVX/ZO/PYO5p4UD7s3ATATNbPa6ZO+7HMJJeX7E8/H8bLWkUXhtOnaFVt7QNf3F9JpRHG773A1r+W0w852hd1y16TM/UiYvfJWnOgaz4uAgFID4EYm1bNdPybq2TAemB+8VU72lb/BBx4XUA0FUHqdp7GZQ9s7gPvTpvfRL1g3h29uP8716AxvHabe3xAgocZrLiM1PtdYXMoq/vvJayDHOt/hChYmFDTpH5Arwsjyau1iBQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z+0ipUSRLX5lnpwmEGOiyFgtVQK7FYwppbsJE34SGBA=;
+ b=HjLS/zViupwif+zzOQNWHZ7URJGbdLhs4dDqxmRH2tVvhFbrU2HVnDDqBPsRetoydJIrRoEZCSvOXGsM4iG4oZJeM4zQJpKkU3f8PUxoIEnRLhmiukw+pCGz4go0QGtFOjuwDJ8V/v9I11N4jQZH1yAnUhcw+CEVK+xVKgN2Bpc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by SA0PR12MB4461.namprd12.prod.outlook.com (2603:10b6:806:9c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.29; Mon, 23 Jun
+ 2025 22:00:08 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1%4]) with mapi id 15.20.8857.026; Mon, 23 Jun 2025
+ 22:00:08 +0000
+Message-ID: <a05023d3-e6f2-46c1-9733-da42a3079e28@amd.com>
+Date: Mon, 23 Jun 2025 16:00:06 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/amd/display: Add a trace event for brightness
+ programming
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20250623171114.1156451-1-mario.limonciello@amd.com>
+ <20250623171114.1156451-2-mario.limonciello@amd.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20250623171114.1156451-2-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0131.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:87::19) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-From: Andre Costa <andre.ocosta@gmail.com>
-Date: Mon, 23 Jun 2025 18:38:08 -0300
-X-Gm-Features: AX0GCFvb6vwC-kvsZrrOD1z1nKLwtAWseQpLFt47Fj_YTPPcHnymzkeSlslJC-w
-Message-ID: <CAMBDoMMvOLV9JqvCB0aek9Ubs7qQ1o1-ceAn7Gd55bojeN6_yw@mail.gmail.com>
-Subject: Weird bug: AMD Radeon iGPU fails to initialize when booting laptop on
- battery
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000cc2079063844078a"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SA0PR12MB4461:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a7eba2e-209d-4b98-b929-08ddb2a15167
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?elp4VGxrL2x3ZlpCdHp5TCtQNzFwQWJmMytKQjVjVXB0eXRPTldvUnNHZTM2?=
+ =?utf-8?B?MDVHNTdmV01kYVVZODF3aUlVUXBZaVpvQXBOZkxVV0FoWnlheUhCQTAvNWlI?=
+ =?utf-8?B?eDlzYWZrVUtvQkpZUG9NQ0t5R05XeEk1M2t4VVNWeTVFRlFjRFoycDRIdzJO?=
+ =?utf-8?B?UWxrQ1l0ZzluK1ZMMDZGdTZaeXhuTWdRL2JHc3lJSmNicmNXd0pMVURGRG4x?=
+ =?utf-8?B?Vy9vQjJDWVlFTTNjN2toN1hGK05Xc0FQM29Pb3FVNVNkUTJRckpNODdYQ1Zw?=
+ =?utf-8?B?bkJtazVZRnE5WEJ5ZnZrTSszVVh4WnpaV2Vud1J4YjZuMW5uZmt0elB3clZB?=
+ =?utf-8?B?K2t2enhGSXNNZHhqTkg2TklaVWN4dzVOalpDL1hBVWt1SVJjMTNScktXRk1k?=
+ =?utf-8?B?OGEya3JPeitpT3V5a0hsU05hVVlBc1FxRUh5OFVuUGdnTDViMGdVNjJSSzR1?=
+ =?utf-8?B?R1F3elI2cnNPSHB2ZGl4amVhcEhDZ3Y2Q2U2Z0F6TWFhZ2hKSEhkUkZSbFJT?=
+ =?utf-8?B?WlViZVJUN3EwRmZnYUZNVSszMkRvSXRzSHh2WWt6a2lBWVMxUHdYNkdkVS9K?=
+ =?utf-8?B?aWRqQVhaUGY4Y2FrSi8wRVk3Q3VlamhCMFVXQ0szZnpQSThsV0dNSmhIMVcy?=
+ =?utf-8?B?MEk3MDVVWWJoYjFZaG1mWjdaZVBxSmRmaEpub1VvNGF3a0VmM0tOdldncnho?=
+ =?utf-8?B?aTlWMEI4ZGdDTldMb0FhQXh4S2dlaXB6Q2Yyay9LakUwUTNDMVZqQ0pIVDB2?=
+ =?utf-8?B?ckwrYTNYSkRTR2JTQlZwTitSY2t0S3ZVeUVnY1hjZU9TZDdEUWNSd0ZWWWxy?=
+ =?utf-8?B?RWVJWk1TNldvdTNuY0RqNk1kTmkzWHhicGVaSTh6OXd5cEVnOUczbXBDdEha?=
+ =?utf-8?B?MVViRWlmU1lxTzFNaXdWd2RjL0VCY1VCdHpwVGMrVjZJbWlCRFVpdkhUQ1Qz?=
+ =?utf-8?B?UlhHeWNWTWVQVWFuMmUvRFFHL2JhcHZ6TUpKZGp5YkN2MURUWmRzZkhXTStX?=
+ =?utf-8?B?eUlvS1lnWE8zTzdJRTNPN1RESzlKQ0dHMEZnRUNJenhMaTR4MU9yVUh2UENt?=
+ =?utf-8?B?NDBDUVg5UkFwTC92Y1BYNDVWOEhjbzRjWkh3c2VIdWU0TmxWeWRneW4ySDZQ?=
+ =?utf-8?B?WjFHbE1OSXlJaTUrb1E2MjNnc3hCNTAyVDlKekswR0JTdnFQekViWFg0MGdC?=
+ =?utf-8?B?S1hJTkI4RnB6TGNSLyt0MFpobDgyamwzazFKTHR2YjdpcStxSUpzRHZnOXBX?=
+ =?utf-8?B?NktaMFB0WWtETXVZS3Fwbmk3djBsSzR3clVkbmJkdzlwRjBicjMxUGd1TnhW?=
+ =?utf-8?B?aVFOUEdJSjlweWRvYThNaUMwRWc0K2YyZFBueDNkS04xRlFoTktUYjllc05t?=
+ =?utf-8?B?MFd0NVcyTHFkK1JkQ3ZKaUZTTVpIY3dRNER6QWNKV3UzNEw3bzdUQjhmY0tV?=
+ =?utf-8?B?RTJGZko0cFBHY2VSWE8rRjh2TVBWeERMem45alR5NU1RMkpiSVdGdXg3TXdR?=
+ =?utf-8?B?bHlnanNlS0o0eEkwaWZBNFhqaGQ3MDByR2FLTW50R0JGMG1Pc0hoSnJpUWRm?=
+ =?utf-8?B?UThSbkRwVXl2RDZjMWptUVRRZ0tOSi93alhJMXdBWlNYR2ZPTlRKRGMxNUFv?=
+ =?utf-8?B?aUdHOUdtTlZOUlFSenhzWitDWWpYTERqVXBPSVB1TktidldwV2xEV0Q2bUJI?=
+ =?utf-8?B?ZmJ0MS84NG8zYzBsZFZvZnRoZzhBUmxiNFdCcGRNSXVwcHg4d2Q5MmRzTjAy?=
+ =?utf-8?B?N2V4cXFjeTZPYjJpZ3laU3BwbDZEN0hWbzhCRjBjREtXVHJ6K2t4NHZOckxl?=
+ =?utf-8?Q?LEYdXZl22DRleqO7tN0t2EepGT8FN43ijAHOo=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NFRiQzRmZUIwZEVoMWlYS3dxdmx1NEd1ZEZHeGlTM3RRZnY5allrY244UWFG?=
+ =?utf-8?B?eFFwSHczN045c2w3QkowaEZMVFR6UWRpVGd0N2hpdGNsR3NjV3hJaFIrQTBO?=
+ =?utf-8?B?a3p6cXpkdUg2RmFhTlhwaGZ6YVVxWnRBRXdRUjVEdXYxZlkxUFpJNFZMTHlX?=
+ =?utf-8?B?SFNLZlhsc2VEYUFTZ1k5K3FBclpKdXNCOXhmTXd3TE5za1ZWNXNFTjNVQ01N?=
+ =?utf-8?B?aE9xMit2eVZldll5TFgrZXcyYSt4dE02SDZ5TlBKSFNkZG5zNG5aaW55Vk1J?=
+ =?utf-8?B?NmZscklxZjZjVGJmQWM3a3lpc09QbkJoRmEwbkM5bVhYNW9QZ1NDdkd6amtO?=
+ =?utf-8?B?Y3FEdUt5VHEwVkt3ekxlbmlyOEo0YTFsZVB4V2FPa3QvaFA4OWpjQ0ozeTJR?=
+ =?utf-8?B?SXFWN1VUSERjTmhIeUlLa3BxZmFXMHNNZ0tTcWJDQm5seVI5MjFYWFFmTnhq?=
+ =?utf-8?B?MWZiNEszdGdiZjBpUXc4MWVGbHZNZHZhSjc0RGZKR1RDL3h2dGRNTk51Ymlr?=
+ =?utf-8?B?aFExMU1mTXFSL1BiVzVYL252WWdoVWhGenkxRzNBTGc0VGdLQXVXMkg3NEZV?=
+ =?utf-8?B?UUtwMm1QT3V3UWlUVHpCWjJ1a1F0VGtTcEw2T295R3V1RGZhTlgrWWRDZ2xw?=
+ =?utf-8?B?UithK1dWL3JKcXZKMnZXakJTNUVHMkxKUWRaelFxeDVzT3ZtMXdOVTlaTFpV?=
+ =?utf-8?B?b28veFVYbGFkYmlMcmJPc1M0MmhOWkxOMHBqZlpVLzRnRzBpUmtWSUZDRDJ6?=
+ =?utf-8?B?eGpnUzhMbE5CV0R4dUZyUDB3R2NzZHZOUnBmSjArNUt0WUhCMU1aam9wZWxs?=
+ =?utf-8?B?OXljem5TSVZZeU02d0J0dFgzUEo4ZVlNdWhYQ2Fxa1J2ZlNjUVBqenlKcmxi?=
+ =?utf-8?B?N3UzS21TREtqMTlrcVNtK2NQRXhVcW1VQVNOQTFsaGliNWc0ZXdLR1A4dzNW?=
+ =?utf-8?B?Q0liRU5iK21vc25idExFaFkwelQyMGRzcm9kUFh2S202dDV1dVQyeGZzcDVs?=
+ =?utf-8?B?TXRqTWpJYTBjdnJaTi9PdlNNL0hKUHJMZ0xKYkdLMEdwSXVFNGpONDZoTnVH?=
+ =?utf-8?B?eGdKSk1jOURMT25vVDlCMm1NdW9zRzZlZmdMWDlxeWhEeW0wYjJHWWYzdTVB?=
+ =?utf-8?B?d3lCdzZxQ1Jsc1NKZjVGSStBdmREeGtmS1dGTTZzVmh1eUxwSjZFWXRVbkpR?=
+ =?utf-8?B?T2UvQnlyUjRBWG16czc1aWlsdjBkaDF0U2c5Mkd5UVEreUQvNjJkTjJBdXky?=
+ =?utf-8?B?NFJKWUlOWG9icWl1MndiM1ZRS3d0VjBKYnVEdGJ4REJRdzlhcVZtdUdVaGNT?=
+ =?utf-8?B?ZDBnRUlGSUhmTFREQkVHS2gxbUhkVlJvblJqNHRmRk9ERTA0aUxPVVd6RkJx?=
+ =?utf-8?B?OFhRS2hDeFBpNS9DRTZxSUVSM0JIeHB6WDhieXU0cE5sYjZya1BNVklQSFg0?=
+ =?utf-8?B?c2pjS0dqMUxBYXdWSWtRcXY0TGhSM04vZW5vOVdORExxK3ozV0hsdmxaamVr?=
+ =?utf-8?B?V2pYYmJDOFkrcFYwZDRxVW5WZkR1ejNPd0VuRFZDTUx6S0xEa2QwdzNqRkg2?=
+ =?utf-8?B?cWRjZzkzbVZFOWxOT0c2TGNYdTgveXk5VWQwZENWWTdoa2w2OVViQVBDUTZw?=
+ =?utf-8?B?YitVTTNWTlR5dndhUDNvMjY4QmRNdVRlV2RrUjZ2d2dwVFAzWjkvTEY2bnhr?=
+ =?utf-8?B?TnhLbjg2QkFFUzRia0dRMHlBazhwdEg5MW9EQ3gwdFdvZ3dGcmVNQ3V3VTlP?=
+ =?utf-8?B?b0lNRkNneUxYY3FCVTBNZDNyLzJYdEorTEVWcThVSzdnMkFCQlV5Qy95eS82?=
+ =?utf-8?B?dVVmZzZtZzgzRFB3WFBHU3FxOWIzQWV1VGJjUmhBMzVtcDdaOVpha08wNnlK?=
+ =?utf-8?B?YXpmdUJoODRPRjlUa0Z0bnN0ajNWOHMvSDhoN2ZBR2ptTlRNZk5mWklwRTlj?=
+ =?utf-8?B?a0Nad3NqZHNJd0xoQWFDMHZZWmVlR2J6clI4QzI5OC9IdnF0MEFvTWRXSHE2?=
+ =?utf-8?B?aEhLTS90VVU2Z293L3h5cnlxb2lpdkdnS2tFN0s3OXc3elFpR3FqUitpQ1Fo?=
+ =?utf-8?B?MU1Ma0FBS1cwZE5MRHRpMUpYTCtkVmNmcm5tbGJpYWRjVjRtVjc5b3BiY1JK?=
+ =?utf-8?Q?pJZodxVXD+D0iUvA2Z/wkW91P?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a7eba2e-209d-4b98-b929-08ddb2a15167
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 22:00:08.3540 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Bf0LGydOwRQlwu3JiX8pO4xrvRyCuOZ9hfrHSgbZArulQk/D+U+jz3ElCO3iOzOUStXUSFS7NHWsadoMLSJoKA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4461
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,251 +160,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000cc2079063844078a
-Content-Type: text/plain; charset="UTF-8"
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-Hi,
+On 6/23/25 11:11, Mario Limonciello wrote:
+> [Why]
+> Brightness programming may involve a conversion of a user requested
+> brightness against what was in a custom brightness curve. The values
+> might not match what a user programmed.
+> 
+> [How]
+> Add a new trace event to show specific converted brightness values.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>   Documentation/gpu/amdgpu/debugging.rst        | 18 +++++++++++++
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++++++
+>   .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 26 +++++++++++++++++++
+>   3 files changed, 52 insertions(+)
+> 
+> diff --git a/Documentation/gpu/amdgpu/debugging.rst b/Documentation/gpu/amdgpu/debugging.rst
+> index 7cbfea0606e1..ac914d524741 100644
+> --- a/Documentation/gpu/amdgpu/debugging.rst
+> +++ b/Documentation/gpu/amdgpu/debugging.rst
+> @@ -85,3 +85,21 @@ UMR
+>   GPU debugging and diagnostics tool.  Please see the umr
+>   `documentation <https://umr.readthedocs.io/en/main/>`_ for more information
+>   about its capabilities.
+> +
+> +Debugging backlight brightness
+> +==============================
+> +Default backlight brightness is intended to be set via the policy advertised
+> +by the firmware.  Firmware will often provide different defaults for AC or DC.
+> +Furthermore, some userspace software will save backlight brightness during
+> +the previous boot and attempt to restore it.
+> +
+> +Some firmware also has support for a feature called "Custom Backlight Curves"
+> +where an input value for brightness is mapped along a linearly interpolated
+> +curve of brightness values that better match display characteristics.
+> +
+> +In the event of problems happening with backlight, there is a trace event
+> +that can be enabled at bootup to log every brightness change request.
+> +This can help isolate where the problem is. To enable the trace event add
+> +the following to the kernel command line:
+> +
+> +  tp_printk trace_event=amdgpu_dm:amdgpu_dm_brightness:mod:amdgpu trace_buf_size=1M
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 77302caaf24a..2ac5cd225781 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4860,6 +4860,14 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+>   		reallow_idle = true;
+>   	}
+>   
+> +	if (trace_amdgpu_dm_brightness_enabled()) {
+> +		trace_amdgpu_dm_brightness(__builtin_return_address(0),
+> +					   user_brightness,
+> +					   brightness,
+> +					   caps->aux_support,
+> +					   power_supply_is_system_supplied() > 0);
+> +	}
+> +
+>   	if (caps->aux_support) {
+>   		rc = dc_link_set_backlight_level_nits(link, true, brightness,
+>   						      AUX_BL_DEFAULT_TRANSITION_TIME_MS);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> index 4686d4b0cbad..308a36176bd2 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> @@ -726,6 +726,32 @@ TRACE_EVENT(dcn_optc_lock_unlock_state,
+>   	    )
+>   );
+>   
+> +TRACE_EVENT(amdgpu_dm_brightness,
+> +	TP_PROTO(void *function, u32 user_brightness, u32 converted_brightness, bool aux, bool ac),
+> +	TP_ARGS(function, user_brightness, converted_brightness, aux, ac),
+> +	TP_STRUCT__entry(
+> +		__field(void *, function)
+> +		__field(u32, user_brightness)
+> +		__field(u32, converted_brightness)
+> +		__field(bool, aux)
+> +		__field(bool, ac)
+> +	),
+> +	TP_fast_assign(
+> +		__entry->function = function;
+> +		__entry->user_brightness = user_brightness;
+> +		__entry->converted_brightness = converted_brightness;
+> +		__entry->aux = aux;
+> +		__entry->ac = ac;
+> +	),
+> +	TP_printk("%ps: brightness requested=%u converted=%u aux=%s power=%s",
+> +		  (void *)__entry->function,
+> +		  (u32)__entry->user_brightness,
+> +		  (u32)__entry->converted_brightness,
+> +		  (__entry->aux) ? "true" : "false",
+> +		  (__entry->ac) ? "AC" : "DC"
+> +	)
+> +);
+> +
+>   #endif /* _AMDGPU_DM_TRACE_H_ */
+>   
+>   #undef TRACE_INCLUDE_PATH
 
-I'm coming here hoping someone could shed some light on this weird problem
-I have.
-
-My setup is:
-
-   - Acer Nitro AN515-44 (V1.04) laptop
-   - AMD Radeon Vega Series / Radeon Vega Mobile Series iGPU
-   - NVIDIA GeForce GTX 1650 Mobile dGPU
-   - Fedora 42
-
-If I boot the laptop on battery (unplugged from the charger) internal
-display either fails to initialize completely (remains blank) or isn't
-properly recognized and is set to fixed 60Hz instead of its 144Hz.
-
-The fixed 60Hz refresh rate happens when I boot on battery with kernel
-6.14.11-300 and Nvidia open source driver. I have filed a bug report
-<https://bugzilla.redhat.com/show_bug.cgi?id=2372819> on Fedora's kernel
-bugzilla, there are a couple of (hopefully useful) log snippets there, like
-this:
-
-[    8.311152] amdgpu 0000:05:00.0: enabling device (0006 -> 0007)
-[    8.311219] [drm] initializing kernel modesetting (RENOIR
-0x1002:0x1636 0x1025:0x1455 0xC6).
-[    8.311536] [drm] register mmio base: 0xD1500000
-[    8.311539] [drm] register mmio size: 524288
-[    8.311550] workqueue: Failed to create a rescuer kthread for wq
-"amdgpu-reset-dev": -EINTR
-[    8.311557] [drm:amdgpu_reset_create_reset_domain [amdgpu]] *ERROR*
-Failed to allocate wq for amdgpu_reset_domain!
-[    8.312266] amdgpu 0000:05:00.0: amdgpu: Fatal error during GPU init
-[    8.312272] amdgpu 0000:05:00.0: amdgpu: amdgpu: finishing device.
-[    8.312351] amdgpu 0000:05:00.0: probe with driver amdgpu failed
-with error -12
-
-I have just tried booting with rawhide 6.16.0rc2 kernel from Fedora
-Rawhide, and it completely failed to initialize the display (log is also
-attached there). Here's a snippet:
-
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: vgaarb: deactivate vga console
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: Trusted Memory Zone
-(TMZ) feature enabled
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: MODE2 reset
-jun 23 17:51:46 kernel: [drm] vm size is 262144 GB, 4 levels, block size is
-9-bit, fragment size is 9-bit
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: VRAM: 512M
-0x000000F400000000 - 0x000000F41FFFFFFF (512M used)
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: GART: 1024M
-0x0000000000000000 - 0x000000003FFFFFFF
-jun 23 17:51:46 kernel: [drm] Detected VRAM RAM=512M, BAR=512M
-jun 23 17:51:46 kernel: [drm] RAM width 128bits DDR4
-jun 23 17:51:46 kernel: [drm] amdgpu: 512M of VRAM memory ready
-jun 23 17:51:46 kernel: [drm] amdgpu: 15723M of GTT memory ready.
-jun 23 17:51:46 kernel: [drm] GART: num cpu pages 262144, num gpu pages
-262144
-jun 23 17:51:46 kernel: [drm] PCIE GART of 1024M enabled.
-jun 23 17:51:46 kernel: [drm] PTB located at 0x000000F41FC00000
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: [drm] Loading DMUB
-firmware via PSP: version=0x0101002B
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: Found VCN firmware
-Version ENC: 1.24 DEC: 8 VEP: 0 Revision: 3
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: reserve 0x400000 from
-0xf41f800000 for PSP TMR
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: RAS: optional ras ta
-ucode is not available
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: RAP: optional rap ta
-ucode is not available
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: psp gfx command
-LOAD_TA(0x1) failed and response status is (0x7)
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: psp gfx command
-INVOKE_CMD(0x3) failed and response status is (0x4)
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: Secure display:
-Generic Failure.
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: SECUREDISPLAY: query
-securedisplay TA failed. ret 0x0
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: SMU is initialized
-successfully!
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: [drm] Display Core
-v3.2.334 initialized on DCN 2.1
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: [drm] DP-HDMI FRL PCON
-supported
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: [drm] DMUB hardware
-initialized: version=0x0101002B
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: [drm] *ERROR* amdgpu:
-failed to initialize sw for display support.
-jun 23 17:51:46 kernel: [drm:amdgpu_device_ip_init [amdgpu]] *ERROR*
-hw_init of IP block <dm> failed -22
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: amdgpu_device_ip_init
-failed
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: Fatal error during GPU
-init
-jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: amdgpu: finishing
-device.
-jun 23 17:51:46 kernel: BUG: kernel NULL pointer dereference, address:
-00000000000005b8
-jun 23 17:51:46 kernel: #PF: supervisor read access in kernel mode
-jun 23 17:51:46 kernel: #PF: error_code(0x0000) - not-present page
-jun 23 17:51:46 kernel: PGD 0 P4D 0
-jun 23 17:51:46 kernel: Oops: Oops: 0000 [#1] SMP NOPTI
-jun 23 17:51:46 kernel: CPU: 3 UID: 0 PID: 384 Comm: (udev-worker) Not
-tainted 6.16.0-0.rc2.24.fc43.x86_64 #1 PREEMPT(lazy)
-jun 23 17:51:46 kernel: Hardware name: Acer Nitro AN515-44/Stonic_RNS, BIOS
-V1.04 02/04/2021
-jun 23 17:51:46 kernel: RIP:
-0010:dc_resource_is_dsc_encoding_supported+0x9/0x30 [amdgpu]
-jun 23 17:51:46 kernel: Code: e9 95 77 06 00 66 66 2e 0f 1f 84 00 00 00 00
-00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 66 0f 1f 00 0f 1f 44
-00 00 <48> 8b 87 b8 05 00 00 48 85 c0 74 14 48 8b 80 b8 04 00 00 8b 40 24
-jun 23 17:51:46 kernel: RSP: 0018:ffffca408083b630 EFLAGS: 00010246
-jun 23 17:51:46 kernel: RAX: 0000000000000000 RBX: ffff895b22280010 RCX:
-0000000000000000
-jun 23 17:51:46 kernel: RDX: ffff895b22280010 RSI: ffff895b20250a00 RDI:
-0000000000000000
-jun 23 17:51:46 kernel: RBP: ffff895b042beb80 R08: 0000000000000000 R09:
-0000000000000000
-jun 23 17:51:46 kernel: R10: ffffca408083b7a0 R11: 0000000000000000 R12:
-0000000000000000
-jun 23 17:51:46 kernel: R13: 0000000000000000 R14: 0000000000000000 R15:
-0000000000000000
-jun 23 17:51:46 kernel: FS:  00007ff2d298d040(0000)
-GS:ffff896264dff000(0000) knlGS:0000000000000000
-jun 23 17:51:46 kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-jun 23 17:51:46 kernel: CR2: 00000000000005b8 CR3: 0000000103a5f000 CR4:
-0000000000350ef0
-jun 23 17:51:46 kernel: Call Trace:
-jun 23 17:51:46 kernel:  <TASK>
-jun 23 17:51:46 kernel:  amdgpu_dm_atomic_check+0xf5/0x1510 [amdgpu]
-jun 23 17:51:46 kernel:  drm_atomic_check_only+0x190/0x3f0
-
-Booting with the charger plugged properly initializes the internal display
-every time. It doesn't make much sense to me, but it's 100% reproducible
-here.
-
-Any tips on how to workaround this will be most welcome.
-
-Regards,
-Andre
-
---000000000000cc2079063844078a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>I&#39;m coming here hopi=
-ng someone could shed some light on this weird problem I have.</div><div><b=
-r></div><div>My setup is:</div><div><ul><li>Acer Nitro AN515-44 (V1.04) lap=
-top</li><li>AMD Radeon Vega Series / Radeon Vega Mobile Series iGPU</li><li=
->NVIDIA GeForce GTX 1650 Mobile dGPU</li><li>Fedora 42</li></ul><div>If I b=
-oot the laptop on battery (unplugged from the charger) internal display eit=
-her fails to initialize completely (remains blank) or isn&#39;t properly re=
-cognized and is set to fixed 60Hz instead of its 144Hz.</div><div><br></div=
-><div>The fixed 60Hz refresh rate happens when I boot on battery with kerne=
-l 6.14.11-300 and Nvidia open source driver. I have filed a <a href=3D"http=
-s://bugzilla.redhat.com/show_bug.cgi?id=3D2372819">bug report</a> on Fedora=
-&#39;s kernel bugzilla, there are a couple of (hopefully useful) log snippe=
-ts there, like this:</div><div><br></div><div><pre class=3D"gmail-bz_commen=
-t_text" id=3D"gmail-comment_text_0">[    8.311152] amdgpu 0000:05:00.0: ena=
-bling device (0006 -&gt; 0007)
-[    8.311219] [drm] initializing kernel modesetting (RENOIR 0x1002:0x1636 =
-0x1025:0x1455 0xC6).
-[    8.311536] [drm] register mmio base: 0xD1500000
-[    8.311539] [drm] register mmio size: 524288
-[    8.311550] workqueue: Failed to create a rescuer kthread for wq &quot;a=
-mdgpu-reset-dev&quot;: -EINTR
-[    8.311557] [drm:amdgpu_reset_create_reset_domain [amdgpu]] *ERROR* Fail=
-ed to allocate wq for amdgpu_reset_domain!
-[    8.312266] amdgpu 0000:05:00.0: amdgpu: Fatal error during GPU init
-[    8.312272] amdgpu 0000:05:00.0: amdgpu: amdgpu: finishing device.
-[    8.312351] amdgpu 0000:05:00.0: probe with driver amdgpu failed with er=
-ror -12
-</pre>I have just tried booting with rawhide 6.16.0rc2 kernel from Fedora R=
-awhide, and it completely failed to initialize the display (log is also att=
-ached there). Here&#39;s a snippet:</div><div><br></div><div><span style=3D=
-"font-family:monospace">jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: vgaarb=
-: deactivate vga console<br>jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: am=
-dgpu: Trusted Memory Zone (TMZ) feature enabled<br>jun 23 17:51:46 kernel: =
-amdgpu 0000:05:00.0: amdgpu: MODE2 reset<br>jun 23 17:51:46 kernel: [drm] v=
-m size is 262144 GB, 4 levels, block size is 9-bit, fragment size is 9-bit<=
-br>jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: VRAM: 512M 0x000000=
-F400000000 - 0x000000F41FFFFFFF (512M used)<br>jun 23 17:51:46 kernel: amdg=
-pu 0000:05:00.0: amdgpu: GART: 1024M 0x0000000000000000 - 0x000000003FFFFFF=
-F<br>jun 23 17:51:46 kernel: [drm] Detected VRAM RAM=3D512M, BAR=3D512M<br>=
-jun 23 17:51:46 kernel: [drm] RAM width 128bits DDR4<br>jun 23 17:51:46 ker=
-nel: [drm] amdgpu: 512M of VRAM memory ready<br>jun 23 17:51:46 kernel: [dr=
-m] amdgpu: 15723M of GTT memory ready.<br>jun 23 17:51:46 kernel: [drm] GAR=
-T: num cpu pages 262144, num gpu pages 262144<br>jun 23 17:51:46 kernel: [d=
-rm] PCIE GART of 1024M enabled.<br>jun 23 17:51:46 kernel: [drm] PTB locate=
-d at 0x000000F41FC00000<br>jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amd=
-gpu: [drm] Loading DMUB firmware via PSP: version=3D0x0101002B<br>jun 23 17=
-:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: Found VCN firmware Version ENC:=
- 1.24 DEC: 8 VEP: 0 Revision: 3<br>jun 23 17:51:46 kernel: amdgpu 0000:05:0=
-0.0: amdgpu: reserve 0x400000 from 0xf41f800000 for PSP TMR<br>jun 23 17:51=
-:46 kernel: amdgpu 0000:05:00.0: amdgpu: RAS: optional ras ta ucode is not =
-available<br>jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: RAP: opti=
-onal rap ta ucode is not available<br>jun 23 17:51:46 kernel: amdgpu 0000:0=
-5:00.0: amdgpu: psp gfx command LOAD_TA(0x1) failed and response status is =
-(0x7)<br>jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: psp gfx comma=
-nd INVOKE_CMD(0x3) failed and response status is (0x4)<br>jun 23 17:51:46 k=
-ernel: amdgpu 0000:05:00.0: amdgpu: Secure display: Generic Failure.<br>jun=
- 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: SECUREDISPLAY: query secu=
-redisplay TA failed. ret 0x0<br>jun 23 17:51:46 kernel: amdgpu 0000:05:00.0=
-: amdgpu: SMU is initialized successfully!<br>jun 23 17:51:46 kernel: amdgp=
-u 0000:05:00.0: amdgpu: [drm] Display Core v3.2.334 initialized on DCN 2.1<=
-br>jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: [drm] DP-HDMI FRL P=
-CON supported<br>jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: [drm]=
- DMUB hardware initialized: version=3D0x0101002B<br>jun 23 17:51:46 kernel:=
- amdgpu 0000:05:00.0: amdgpu: [drm] *ERROR* amdgpu: failed to initialize sw=
- for display support.<br>jun 23 17:51:46 kernel: [drm:amdgpu_device_ip_init=
- [amdgpu]] *ERROR* hw_init of IP block &lt;dm&gt; failed -22<br>jun 23 17:5=
-1:46 kernel: amdgpu 0000:05:00.0: amdgpu: amdgpu_device_ip_init failed<br>j=
-un 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: Fatal error during GPU =
-init<br>jun 23 17:51:46 kernel: amdgpu 0000:05:00.0: amdgpu: amdgpu: finish=
-ing device.<br>jun 23 17:51:46 kernel: BUG: kernel NULL pointer dereference=
-, address: 00000000000005b8<br>jun 23 17:51:46 kernel: #PF: supervisor read=
- access in kernel mode<br>jun 23 17:51:46 kernel: #PF: error_code(0x0000) -=
- not-present page<br>jun 23 17:51:46 kernel: PGD 0 P4D 0 <br>jun 23 17:51:4=
-6 kernel: Oops: Oops: 0000 [#1] SMP NOPTI<br>jun 23 17:51:46 kernel: CPU: 3=
- UID: 0 PID: 384 Comm: (udev-worker) Not tainted 6.16.0-0.rc2.24.fc43.x86_6=
-4 #1 PREEMPT(lazy) <br>jun 23 17:51:46 kernel: Hardware name: Acer Nitro AN=
-515-44/Stonic_RNS, BIOS V1.04 02/04/2021<br>jun 23 17:51:46 kernel: RIP: 00=
-10:dc_resource_is_dsc_encoding_supported+0x9/0x30 [amdgpu]<br>jun 23 17:51:=
-46 kernel: Code: e9 95 77 06 00 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 9=
-0 90 90 90 90 90 90 90 90 90 90 90 90 90 66 0f 1f 00 0f 1f 44 00 00 &lt;48&=
-gt; 8b 87 b8 05 00 00 48 85 c0 74 14 48 8b 80 b8 04 00 00 8b 40 24<br>jun 2=
-3 17:51:46 kernel: RSP: 0018:ffffca408083b630 EFLAGS: 00010246<br>jun 23 17=
-:51:46 kernel: RAX: 0000000000000000 RBX: ffff895b22280010 RCX: 00000000000=
-00000<br>jun 23 17:51:46 kernel: RDX: ffff895b22280010 RSI: ffff895b20250a0=
-0 RDI: 0000000000000000<br>jun 23 17:51:46 kernel: RBP: ffff895b042beb80 R0=
-8: 0000000000000000 R09: 0000000000000000<br>jun 23 17:51:46 kernel: R10: f=
-fffca408083b7a0 R11: 0000000000000000 R12: 0000000000000000<br>jun 23 17:51=
-:46 kernel: R13: 0000000000000000 R14: 0000000000000000 R15: 00000000000000=
-00<br>jun 23 17:51:46 kernel: FS: =C2=A000007ff2d298d040(0000) GS:ffff89626=
-4dff000(0000) knlGS:0000000000000000<br>jun 23 17:51:46 kernel: CS: =C2=A00=
-010 DS: 0000 ES: 0000 CR0: 0000000080050033<br>jun 23 17:51:46 kernel: CR2:=
- 00000000000005b8 CR3: 0000000103a5f000 CR4: 0000000000350ef0<br>jun 23 17:=
-51:46 kernel: Call Trace:<br>jun 23 17:51:46 kernel: =C2=A0&lt;TASK&gt;<br>=
-jun 23 17:51:46 kernel: =C2=A0amdgpu_dm_atomic_check+0xf5/0x1510 [amdgpu]<b=
-r>jun 23 17:51:46 kernel: =C2=A0drm_atomic_check_only+0x190/0x3f0<br></span=
-><br></div><div>Booting with the charger plugged properly initializes the i=
-nternal display every time. It doesn&#39;t make much sense to me, but it&#3=
-9;s 100% reproducible here.</div><div><br></div><div>Any tips on how to wor=
-karound this will be most welcome.</div><div><br></div><div>Regards,</div><=
-div>Andre</div><div><br></div></div></div>
-
---000000000000cc2079063844078a--
