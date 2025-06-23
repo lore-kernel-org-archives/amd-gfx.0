@@ -4,124 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BECEC77B7F
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 09:05:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A4DEC77B7F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 09:28:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2BCC10E28F;
-	Mon, 23 Jun 2025 09:05:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF3E10E2A3;
+	Mon, 23 Jun 2025 09:28:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mn7Qdzq2";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="TvthYNQU";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2052.outbound.protection.outlook.com [40.107.100.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E56A810E28F
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 09:05:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I1pY9sweUqEGbpQ7pIH8jDKU9J6B0Vu+bfSwTlwESQ0wr/BmVIfIfc42hGyvL9pEtL+L62X8LfQFZANwYzzTVCgenBN9NP7UlfHWDmAbEFKKVdJnbfieV6BtGXyXQxpnq+95/aWUfKI0H4RBlGT+fT30/x0OVZ6xt2i68o0/hm/nQAai2DVfyk1gqbmlilnm2tUTnXNGJmU8eUwqDVJmRi6F7WS2g+aQ66EPom91L2OAX8qaZ8JSxSkA9DLeAoNWPS8RyLPJiFAoNqUsSNzOZmIlpA15oI3Pzg7d7d7oPJmQNbgL4FDTVhMUc1kYqQ+SxDQCCfwV/Q3uu9rwFHwXDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FoFPUZE8emlg1RABpEiaWTZ2lf5y+Nvg2nWbjr6nlKo=;
- b=j+Q1IlNAE6PpeqCbtz5AVTatwBOzPq6J3sK0xIIIh78XxLvgWDYJMWi9LY7bnbNaWPwZjYyLTU10yQonRS+q7bwi5dS1YQXABWs6dRMgHo8CegmY5jMnlj6Y/gx2NwfsfsUX7omQ0b22/sGfCRCJlhk++3DkjQwvTHEOgAIHEfhGW0cthY6HV4YTCSG8DgXP3rs2LgJUZnXSJxDnBRv3mEnkcPsL97iGOsSGOJPk+T0lPC3ObQMpI/qe8yqk3jbq8VozkFUCpKGJ1wLu98Pyr4sDhK1H4Cuf7Ft/wBXQnnqMQ23kD41oxIlzPg+eBOROS+5NtQ7G/NZGyl1+yQ+5/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FoFPUZE8emlg1RABpEiaWTZ2lf5y+Nvg2nWbjr6nlKo=;
- b=mn7Qdzq2oCcTPnpQBuldcKlzvLiU3d3PbhfZhBjWCDw9aizEbcmGf0AoKf2NIYhY5/pNUHoEZKWO4jXuvN0xCdwSm6XF3TJ+tjdYKluF+RP1D2+Nka8pZwHmqQppfm6ksm7pl1GoFUn3WbXZAU1f3YNf+KaI/k1W6HWrS4vZEu0=
-Received: from SJ0PR13CA0038.namprd13.prod.outlook.com (2603:10b6:a03:2c2::13)
- by MN0PR12MB6078.namprd12.prod.outlook.com (2603:10b6:208:3ca::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.22; Mon, 23 Jun
- 2025 09:05:03 +0000
-Received: from SJ1PEPF000023D8.namprd21.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::60) by SJ0PR13CA0038.outlook.office365.com
- (2603:10b6:a03:2c2::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8880.15 via Frontend Transport; Mon,
- 23 Jun 2025 09:05:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ1PEPF000023D8.mail.protection.outlook.com (10.167.244.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.1 via Frontend Transport; Mon, 23 Jun 2025 09:05:03 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Jun
- 2025 04:04:57 -0500
-Received: from jessevm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 23 Jun 2025 04:04:52 -0500
-From: Jesse Zhang <jesse.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Jesse Zhang <jesse.zhang@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Add user queue instance count reporting for
- gfx11
-Date: Mon, 23 Jun 2025 17:04:39 +0800
-Message-ID: <20250623090439.3811614-2-jesse.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250623090439.3811614-1-jesse.zhang@amd.com>
-References: <20250623090439.3811614-1-jesse.zhang@amd.com>
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2832910E2A3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 09:28:11 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-45348bff79fso43913705e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 02:28:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1750670889; x=1751275689;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OO/idZQSS5cQFxp8gfwUuiwtWMk5ElukOWUF6vn1f0M=;
+ b=TvthYNQU37192MjfL3UrAtMTYfFZVatXafB2wEsR47PoWpA4WEz5ujtkFiUvlOF7OC
+ lYyvre70Xtu4rcIuig9uC0c51tUvHfgWTv+H1sAE6zKJgT+vDibiFQB8hJ9WHvVrCari
+ Wv9yeiCO1jc4TKMWNpwtOhVUn6JgMHuAMCzFtwGh9N5SJoMuxk2URWyzEySdM1DbFowf
+ yDIezy63jByrBmxun8D/xXn8Mkm2AB5kYf/4oSK3s2qoQjfTBPN/SjYQ+5HuLSTFwiN7
+ 2cKuCBzhWbiV3PHXN0+VZFTD/PCQnpdU4ZVMu8i1FjcCiMZaIqiwsMFqRQJfAXKTKxd3
+ wB/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750670889; x=1751275689;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OO/idZQSS5cQFxp8gfwUuiwtWMk5ElukOWUF6vn1f0M=;
+ b=tfjNOBHWAByaF4Nc5uWfPSbNkSNoj0mQ+VCVps0RMOCFzuh6hqzxfe3cYC4lu2vbhE
+ 78S/SsVriM82XrNJtN/JB5M5xTxOLPcRT/a8n9GCD0SIoU0CReJboC+gYZEljW3LSUGF
+ wRIQbjYvcd5+sDxwP7qO0eyCm9ph4RhadUugxJ2qTtBst0z4Xez02Gb5DGylwNfeIRQ0
+ K2xsIT/zZO6HxyrguJNzx27sSJ/obTJYUkKhnRk7XriVBEo3aoSOl6l4Y/q5YP8HwOju
+ J7dwtIdNFlMiZub151VuCZhUmK0QLiraoNDGQ8qOxcVUqcuyFgJwu7fofkASAM7nna8H
+ +PQw==
+X-Gm-Message-State: AOJu0YxcjNPg60HPWP/1xSojkELY/3qYqsHNGjvFm8jH9BHAQSwn3fEI
+ 0/9GPoIJRD6dbcyHyyw1/7dOtpmi4CH6u65WIvTL+IqU3iAREhlEeIMf5tAwIO/CBTQ=
+X-Gm-Gg: ASbGncsc06iQA46x7uzaqcdnPBBAVIwpVFc66ihRqhjFDSagGyWE2GxrjHM8v4ql+yL
+ qNEdwAuzCAZwgdi7t+7h8QY9MTAx8xZNt3jddNCo7gsu8XEvwOTfBVHS280uusympATigBY5CYe
+ 69KTrYU2K5US5OlJM48rbMD3vsbZnE3ElqP7+01ujmmVXS/4JBS37akLuFbmAqGwsVa7Wdw6+7P
+ bZ08s9Lg5Wh41omkbXz+ppIvp5+ewTL5gvJiNq8Dt0ZLjpaOEITwRcgwktRL50HOiZf2X9ZAC5T
+ S4qF39KXeK640/LrLpWJkwJ2M6+uqmVZQa15hQ7YO/sIyvY36u3mBELhAgq+rjkhAFtAidZpl8d
+ TtgP5yk4UR1I=
+X-Google-Smtp-Source: AGHT+IF1e17PymZsogQru2VIH1zKILybdvwE2KT6iLXFL7wEy6C6BpmVNAbvrRZr+vgDkS0RbHsFlg==
+X-Received: by 2002:a05:600c:4512:b0:453:5c30:a1d0 with SMTP id
+ 5b1f17b1804b1-4536e0da765mr50193325e9.21.1750670888914; 
+ Mon, 23 Jun 2025 02:28:08 -0700 (PDT)
+Received: from [192.168.0.101] ([81.79.92.254])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4535ead202asm137905985e9.27.2025.06.23.02.28.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Jun 2025 02:28:08 -0700 (PDT)
+Message-ID: <d1372124-616b-4bc7-8a5c-50c524bc3e5d@ursulin.net>
+Date: Mon, 23 Jun 2025 10:28:07 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: jesse.zhang@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D8:EE_|MN0PR12MB6078:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f85aa16-2563-4b18-6d1f-08ddb2350a44
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wsk1ghW/Y5WAVtqqKKcFpQOyY4vFjLMMs+DCGYL7tVvCS01RbKJlFAXxwe/W?=
- =?us-ascii?Q?K1D7m7L9DnxKLPtitkvVvkC/AyzbXsSblU+DOchK3U51jzbFR2KisvQeJ16E?=
- =?us-ascii?Q?frCLJs+9NGxSC80P2Dnbg/9tuwxr8nvrF3ZorXLm1nDt+Qw6mFPtFzmkB9B9?=
- =?us-ascii?Q?Y57fSq4m2V/XQC0x30L6lwkQvPdpq9+8vmHkLXpkv2rIoXu6RTaYJTTfQdSb?=
- =?us-ascii?Q?yfM9544q0ctKOhF3Q07jzW+s9r6f1pthCbsxLwhmgv90ZCS+GXqXnh061JOH?=
- =?us-ascii?Q?hhcFg8LAIJ71urdRIEJeZhy40CHqcMLBwoMxhk52nAoaBew2KKfhg4PscPS7?=
- =?us-ascii?Q?/e2Tbkk7F9cwdxdvmIWOPBl8z4FhiKSQBmQLN+Aplljwss+Y50zvezxqbKa7?=
- =?us-ascii?Q?zNa9W4WPguL9x6F+wQ6KXLKX3soTJthi5rpVXjUUS6ZLXGu7KViq/xHlH1C3?=
- =?us-ascii?Q?Owyu+lOpVs5kt5eeFottHVRoPEnlsI4twObuhpzfIYnWAk/UXDrc6ddiWjiH?=
- =?us-ascii?Q?CzeLNew0zI6c8hFZ7rxovBx2lJlIvIUqlqglCBGTP5zZ/H0OG+iNa029AwCp?=
- =?us-ascii?Q?oLfrYGPSYq13pLFWiQimLml/W1u+LrMRJSCBoFk8MtC4rdynMOpYQTnp+114?=
- =?us-ascii?Q?wimgDT00napBdko/9q/ZYCcQzhegrJPrS00/ovQpDm1jZ+PeMjeFUaYdrWne?=
- =?us-ascii?Q?BSGti2dv3r8+x9mbgdct5mD8KiLwHWl0YBfYbpRwZJjLkCxVUPRHlPHRw0fI?=
- =?us-ascii?Q?h5ECw2w4OZQK2+6WUJvba9+qIL9X0unkfv8ZRRgc7KG7CcV8qrdnbfnK5FFX?=
- =?us-ascii?Q?//REtbTkxvfa3MoGSWiI1q3v/dy2eR2aKhPX92s5gg5RP9vfiUR0V/60YDiE?=
- =?us-ascii?Q?n2ql+QcLGDvsuWJR7H1PBPC1c8pKrH45tdnUeSfy7l97h/R8clWFSqrBcPz0?=
- =?us-ascii?Q?WLcHAqk7w/xvo3suusJGO3qDOhDcGx1ZdD4oRvuKJAKZjCA0hIsv2Rm2t893?=
- =?us-ascii?Q?hn7bmTJ9Gr1VRV73gvrVGzFyuC20pmZ+5fgE3cfDhGEWsNr0Wl0LkxiAqBQ/?=
- =?us-ascii?Q?7V3SE1EJF0z3fzBgJM5BS4HpanOEBLGL6DpMPpauJNIyZG+kRp9y4mzUdsDA?=
- =?us-ascii?Q?yoXIgDQL/hWZv6YptMRjNu9pWrACQ/ZND77SRoPDthrKjBnfuSbWrEF89avi?=
- =?us-ascii?Q?8QJPzcsHg26cH90ZjqrdFb87pQt5vWTGQXaG7a9RB3Ilu8jN1i6hzb8EtR4i?=
- =?us-ascii?Q?FN3qRGLkKIDObjIVM7cVyu6ZqJxUIKiZiBxRc8zMt1xgDg+xIUYV1/dvVI5L?=
- =?us-ascii?Q?lsLXEtDzflmcbpj5AUlelcoTOGnJA/f5nFytHDiSBvurEdhWEEobrW6e53BH?=
- =?us-ascii?Q?5jiaFiL+IZe8FtKqT3XTrW8ML7c8yBvExFxHA2kX7TDHU/cvR+1qiKAmqCFq?=
- =?us-ascii?Q?lBrZVTc5A2AQt0oEPT0tKjmrxTw1G2MhgaCS2MKAu5LeOiZIK/NVXikB5Lnh?=
- =?us-ascii?Q?QzH4yry5m9mWXlueEJ4bbh3t8xg3kZk6Jj8S?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 09:05:03.0407 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f85aa16-2563-4b18-6d1f-08ddb2350a44
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D8.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6078
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/4] drm: add debugfs support on per client-id basis
+To: Sunil Khatri <sunil.khatri@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
+ phasta@kernel.org, dakr@kernel.org
+References: <20250618134747.3893138-1-sunil.khatri@amd.com>
+ <20250618134747.3893138-2-sunil.khatri@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20250618134747.3893138-2-sunil.khatri@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,34 +92,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Initialize the number of available user queue instances for GFX11 hardware
-when user queues are enabled (!disable_uq).
 
-This sets:
-- userq_gfx_instances to GFX11_NUM_GFX_RINGS
-- userq_compute_instances to AMDGPU_MAX_COMPUTE_RINGS
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 5 +++++
- 1 file changed, 5 insertions(+)
+On 18/06/2025 14:47, Sunil Khatri wrote:
+> add support to add a directory for each client-id
+> with root at the dri level. Since the clients are
+> unique and not just related to one single drm device,
+> so it makes more sense to add all the client based
+> nodes with root as dri.
+> 
+> Also create a symlink back to the parent drm device
+> from each client.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index ec9b84f92d46..775036146d5a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -5226,6 +5226,11 @@ static int gfx_v11_0_early_init(struct amdgpu_ip_block *ip_block)
- 						  AMDGPU_MAX_COMPUTE_RINGS);
- 	}
- 
-+	if (!adev->gfx.disable_uq) {
-+		adev->gfx.userq_gfx_instances = GFX11_NUM_GFX_RINGS;
-+		adev->gfx.userq_compute_instances = AMDGPU_MAX_COMPUTE_RINGS;
-+	}
-+
- 	gfx_v11_0_set_kiq_pm4_funcs(adev);
- 	gfx_v11_0_set_ring_funcs(adev);
- 	gfx_v11_0_set_irq_funcs(adev);
--- 
-2.34.1
+TBH I can see an use case for both clients at DRI level and clients 
+under DRM devices. I guess you have an use case for global and per 
+device can be added later if it becomes needed.
+
+> 
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>   drivers/gpu/drm/drm_debugfs.c | 32 ++++++++++++++++++++++++++++++++
+>   drivers/gpu/drm/drm_file.c    | 10 ++++++++++
+>   include/drm/drm_debugfs.h     | 12 ++++++++++++
+>   include/drm/drm_file.h        |  7 +++++++
+>   4 files changed, 61 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+> index 5a33ec299c04..875276d5fb9f 100644
+> --- a/drivers/gpu/drm/drm_debugfs.c
+> +++ b/drivers/gpu/drm/drm_debugfs.c
+> @@ -298,6 +298,38 @@ void drm_debugfs_remove_dir(void)
+>   	debugfs_remove(drm_debugfs_root);
+>   }
+>   
+> +int drm_debugfs_clients_add(struct drm_file *file)
+> +{
+> +	struct drm_device *dev;
+> +	char *client_dir, *symlink;
+> +
+> +	dev = file->minor->dev;
+
+FWIW, as dev is only used once and string locals are not overlapping, 
+you could reduce to a single local variable like char *name and re-use 
+it. Up to you.
+
+> +
+> +	client_dir = kasprintf(GFP_KERNEL, "client-%llu", file->client_id);
+> +	if (!client_dir)
+> +		return -ENOMEM;
+
+It is a bit more work, but I think a clients/ directory with numerical 
+client id subdirs would be nicer.
+
+> +
+> +	/* Create a debugfs directory for the client in root on drm debugfs */
+> +	file->debugfs_client = debugfs_create_dir(client_dir, drm_debugfs_root);
+> +	kfree(client_dir);
+> +
+> +	symlink = kasprintf(GFP_KERNEL, "../%s", dev->unique);
+> +	if (!symlink)
+> +		return -ENOMEM;
+
+Worth removing the partial construction?
+
+> +
+> +	/* Create a link from client_id to the drm device this client id belongs to */
+> +	debugfs_create_symlink("device", file->debugfs_client, symlink);
+
+This can also fail.
+
+> +	kfree(symlink);
+> +
+> +	return 0;
+> +}
+> +
+> +void drm_debugfs_clients_remove(struct drm_file *file)
+> +{
+> +	debugfs_remove_recursive(file->debugfs_client);
+> +	file->debugfs_client = NULL;
+> +}
+> +
+>   /**
+>    * drm_debugfs_dev_init - create debugfs directory for the device
+>    * @dev: the device which we want to create the directory for
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index 06ba6dcbf5ae..8502c5a630b1 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -39,12 +39,14 @@
+>   #include <linux/poll.h>
+>   #include <linux/slab.h>
+>   #include <linux/vga_switcheroo.h>
+> +#include <linux/debugfs.h>
+>   
+>   #include <drm/drm_client_event.h>
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_file.h>
+>   #include <drm/drm_gem.h>
+>   #include <drm/drm_print.h>
+> +#include <drm/drm_debugfs.h>
+>   
+>   #include "drm_crtc_internal.h"
+>   #include "drm_internal.h"
+> @@ -143,6 +145,13 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
+>   	rcu_assign_pointer(file->pid, get_pid(task_tgid(current)));
+>   	file->minor = minor;
+>   
+> +	ret = drm_debugfs_clients_add(file);
+
+Slightly tricky part is that as soon as this runs userspace can enter 
+debugfs. If in the future any debufs clients file is added which can 
+dereference any of the drm_file fields not yet initialized it has the 
+potential to explode and/or be exploited.
+
+Hence I think to be safe the usual pattern of exposing drm_file to 
+userspace at the end, only _after_ drm_file has been *fully* initialized.
+
+Slightly annoying part with that might be undoing dev->driver->open() 
+but maybe it is not that bad.
+
+> +	if (ret) {
+> +		put_pid(rcu_access_pointer(file->pid));
+> +		kfree(file);
+> +		return ERR_PTR(ret);
+
+Onion unwind already exists in the function so could have used it. (Add 
+a new label and here simply "goto out_put_pid".) But as above we discuss 
+tweaking the order lets see how that goes first.
+
+> +	}
+> +
+>   	/* for compatibility root is always authenticated */
+>   	file->authenticated = capable(CAP_SYS_ADMIN);
+>   
+> @@ -236,6 +245,7 @@ void drm_file_free(struct drm_file *file)
+>   		     atomic_read(&dev->open_count));
+>   
+>   	drm_events_release(file);
+> +	drm_debugfs_clients_remove(file);
+>   
+>   	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+>   		drm_fb_release(file);
+> diff --git a/include/drm/drm_debugfs.h b/include/drm/drm_debugfs.h
+> index cf06cee4343f..4bd6cc1d0900 100644
+> --- a/include/drm/drm_debugfs.h
+> +++ b/include/drm/drm_debugfs.h
+> @@ -153,6 +153,9 @@ void drm_debugfs_add_files(struct drm_device *dev,
+>   
+>   int drm_debugfs_gpuva_info(struct seq_file *m,
+>   			   struct drm_gpuvm *gpuvm);
+> +
+> +int drm_debugfs_clients_add(struct drm_file *file);
+> +void drm_debugfs_clients_remove(struct drm_file *file);
+>   #else
+>   static inline void drm_debugfs_create_files(const struct drm_info_list *files,
+>   					    int count, struct dentry *root,
+> @@ -181,6 +184,15 @@ static inline int drm_debugfs_gpuva_info(struct seq_file *m,
+>   {
+>   	return 0;
+>   }
+> +
+> +int drm_debugfs_clients_add(struct drm_file *file)
+> +{
+> +	return 0;
+> +}
+> +
+> +void drm_debugfs_clients_remove(struct drm_file *file)
+> +{
+> +}
+
+Static inline for the two above.
+
+>   #endif
+>   
+>   #endif /* _DRM_DEBUGFS_H_ */
+> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> index 5c3b2aa3e69d..eab7546aad79 100644
+> --- a/include/drm/drm_file.h
+> +++ b/include/drm/drm_file.h
+> @@ -400,6 +400,13 @@ struct drm_file {
+>   	 * @client_name_lock: Protects @client_name.
+>   	 */
+>   	struct mutex client_name_lock;
+> +
+> +	/**
+> +	 * @debugfs_client:
+> +	 *
+> +	 * debugfs directory for each client under a drm node.
+> +	 */
+> +	struct dentry *debugfs_client;
+
+Is it worth idefing this out if !CONFIG_DEBUG_FS?
+
+Regards,
+
+Tvrtko
+
+>   };
+>   
+>   /**
 
