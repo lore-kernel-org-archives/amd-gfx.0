@@ -4,80 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A4DEC77B7F
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 09:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F16EC7115B
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 09:52:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF3E10E2A3;
-	Mon, 23 Jun 2025 09:28:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C075E10E343;
+	Mon, 23 Jun 2025 09:52:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="TvthYNQU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VUSV+zdT";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2832910E2A3
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 09:28:11 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-45348bff79fso43913705e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 02:28:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1750670889; x=1751275689;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OO/idZQSS5cQFxp8gfwUuiwtWMk5ElukOWUF6vn1f0M=;
- b=TvthYNQU37192MjfL3UrAtMTYfFZVatXafB2wEsR47PoWpA4WEz5ujtkFiUvlOF7OC
- lYyvre70Xtu4rcIuig9uC0c51tUvHfgWTv+H1sAE6zKJgT+vDibiFQB8hJ9WHvVrCari
- Wv9yeiCO1jc4TKMWNpwtOhVUn6JgMHuAMCzFtwGh9N5SJoMuxk2URWyzEySdM1DbFowf
- yDIezy63jByrBmxun8D/xXn8Mkm2AB5kYf/4oSK3s2qoQjfTBPN/SjYQ+5HuLSTFwiN7
- 2cKuCBzhWbiV3PHXN0+VZFTD/PCQnpdU4ZVMu8i1FjcCiMZaIqiwsMFqRQJfAXKTKxd3
- wB/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750670889; x=1751275689;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OO/idZQSS5cQFxp8gfwUuiwtWMk5ElukOWUF6vn1f0M=;
- b=tfjNOBHWAByaF4Nc5uWfPSbNkSNoj0mQ+VCVps0RMOCFzuh6hqzxfe3cYC4lu2vbhE
- 78S/SsVriM82XrNJtN/JB5M5xTxOLPcRT/a8n9GCD0SIoU0CReJboC+gYZEljW3LSUGF
- wRIQbjYvcd5+sDxwP7qO0eyCm9ph4RhadUugxJ2qTtBst0z4Xez02Gb5DGylwNfeIRQ0
- K2xsIT/zZO6HxyrguJNzx27sSJ/obTJYUkKhnRk7XriVBEo3aoSOl6l4Y/q5YP8HwOju
- J7dwtIdNFlMiZub151VuCZhUmK0QLiraoNDGQ8qOxcVUqcuyFgJwu7fofkASAM7nna8H
- +PQw==
-X-Gm-Message-State: AOJu0YxcjNPg60HPWP/1xSojkELY/3qYqsHNGjvFm8jH9BHAQSwn3fEI
- 0/9GPoIJRD6dbcyHyyw1/7dOtpmi4CH6u65WIvTL+IqU3iAREhlEeIMf5tAwIO/CBTQ=
-X-Gm-Gg: ASbGncsc06iQA46x7uzaqcdnPBBAVIwpVFc66ihRqhjFDSagGyWE2GxrjHM8v4ql+yL
- qNEdwAuzCAZwgdi7t+7h8QY9MTAx8xZNt3jddNCo7gsu8XEvwOTfBVHS280uusympATigBY5CYe
- 69KTrYU2K5US5OlJM48rbMD3vsbZnE3ElqP7+01ujmmVXS/4JBS37akLuFbmAqGwsVa7Wdw6+7P
- bZ08s9Lg5Wh41omkbXz+ppIvp5+ewTL5gvJiNq8Dt0ZLjpaOEITwRcgwktRL50HOiZf2X9ZAC5T
- S4qF39KXeK640/LrLpWJkwJ2M6+uqmVZQa15hQ7YO/sIyvY36u3mBELhAgq+rjkhAFtAidZpl8d
- TtgP5yk4UR1I=
-X-Google-Smtp-Source: AGHT+IF1e17PymZsogQru2VIH1zKILybdvwE2KT6iLXFL7wEy6C6BpmVNAbvrRZr+vgDkS0RbHsFlg==
-X-Received: by 2002:a05:600c:4512:b0:453:5c30:a1d0 with SMTP id
- 5b1f17b1804b1-4536e0da765mr50193325e9.21.1750670888914; 
- Mon, 23 Jun 2025 02:28:08 -0700 (PDT)
-Received: from [192.168.0.101] ([81.79.92.254])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4535ead202asm137905985e9.27.2025.06.23.02.28.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 02:28:08 -0700 (PDT)
-Message-ID: <d1372124-616b-4bc7-8a5c-50c524bc3e5d@ursulin.net>
-Date: Mon, 23 Jun 2025 10:28:07 +0100
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2072.outbound.protection.outlook.com [40.107.94.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D862A10E343
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 09:52:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iXkeymH4qeKPAYdBEY1VPqdP8FKj/vf2yTm+LgFXKbzo8O4uh3pvWupnIxt1NimFIQiWjhoRXoHhahjLla+g3Id78cSFjBnrzW36aKXo6QM6lgg0ywUP8Y5RLdVOrbYJq7f5eOQLwNi1e7QkSn+fw4jNlNxDH5n8Ot2F8kdO7cKFHV964vczL/ExEkAB6vxmmLSyYx9lM5Y2BPkK0W8uAyX8Ew8vnXzroq7L5u2Czz4G3/8SJ/7RAQW5jW7EqIgMZN334jmUzI9JrQUoE+o7Iehzz/LAl9MI7Y4Rt5/azl0pRtrCZS7z8Ucf5/UmkWvvP9m2OnMX346QLT+XdMMu1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aTbsS+t1QnIXKfZLAImVQvlc6r5CTHaX/UCDNMmUAck=;
+ b=c8kNsuWi+zK4EzV5gONfvFuLj0V08j/bPj/G1kZ03vfhMXACQlZjbsasqGAefl1ki/Q6vrrOWAUqTPC1C2t+D5B3HzHVwraXm2LgQRL+8SWNr8ZrPiQoZqXcw9IFrQr3UuGyWoHrTemT+CfbmMIH4y28Ir1vuaHNh4L2JyZjAs+kwwbHkvQgIP+r5YG3xkY4UxmpYOM85ha1AIGnjuXbaOhyByUrMTGDbV7Y6dGx4Ioh9pxLbxhbNw40GG4cq0/Vjr2/aUk/UYBZ1s4Y7/M83zFlxj2k1D8e6Jo4Dx0bALvHyqh2MFrzi+8MWdrUMEbOefcikmtOAcwqExlCT02piA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aTbsS+t1QnIXKfZLAImVQvlc6r5CTHaX/UCDNMmUAck=;
+ b=VUSV+zdTDu6IlmfvPPrfCgPr55IfhtMLaecEupPwamlJhUmCzL+LhrnxFAaB2T9/sshCf24n3SY7HGMeVwA0OIrb1BxieReUvaq9X/ih0CdeDNt4OOpIGDp3E2xLpTgojLwgLouV34e1Szp+ioazo9sOuo8NtRtZHswy6voXIHM=
+Received: from DM6PR17CA0018.namprd17.prod.outlook.com (2603:10b6:5:1b3::31)
+ by SA1PR12MB8722.namprd12.prod.outlook.com (2603:10b6:806:373::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.20; Mon, 23 Jun
+ 2025 09:52:09 +0000
+Received: from DS1PEPF00017094.namprd03.prod.outlook.com
+ (2603:10b6:5:1b3:cafe::d) by DM6PR17CA0018.outlook.office365.com
+ (2603:10b6:5:1b3::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8857.28 via Frontend Transport; Mon,
+ 23 Jun 2025 09:52:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017094.mail.protection.outlook.com (10.167.17.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8880.14 via Frontend Transport; Mon, 23 Jun 2025 09:52:09 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Jun
+ 2025 04:52:05 -0500
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
+ <Prike.Liang@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH v3 02/11] drm/amdgpu: validate unmap status for destroying
+ userq
+Date: Mon, 23 Jun 2025 17:51:45 +0800
+Message-ID: <20250623095154.1150830-2-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250623095154.1150830-1-Prike.Liang@amd.com>
+References: <20250623095154.1150830-1-Prike.Liang@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] drm: add debugfs support on per client-id basis
-To: Sunil Khatri <sunil.khatri@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
- phasta@kernel.org, dakr@kernel.org
-References: <20250618134747.3893138-1-sunil.khatri@amd.com>
- <20250618134747.3893138-2-sunil.khatri@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20250618134747.3893138-2-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017094:EE_|SA1PR12MB8722:EE_
+X-MS-Office365-Filtering-Correlation-Id: db32f017-8d40-49ef-6805-08ddb23b9eb4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mI4PyyB9qbR7j57/SX9h84xXrfPSeuzWs1XSeNfy37okr/yu/RoDBGUIE0iq?=
+ =?us-ascii?Q?/Aru9WvTo0y7fUc/dpc00zNsZt3+jH1NKBvygT1H0xlI+AZEKgSJVvH5+NKl?=
+ =?us-ascii?Q?Rbmxz32KEnGsm4O8FJMfhNDc4UVibmw3YSdRBTyYdIHjJCVukmi3hemkzLz3?=
+ =?us-ascii?Q?BveNuCxe5sCR4QnFySyM2BBsZ+NfXrgoxMmVAw1O5vL2GyiTyuBwju3skfm+?=
+ =?us-ascii?Q?g/qyTgvClkM9JcWOCSBl5V0fvCRU4micIrFzfm4w7iIQ89R1PT60/0IvypnG?=
+ =?us-ascii?Q?vTLumZtUTQVtfrkinURk063RFxa27ZjXARzcyEVqVTT5njBCs2z36RuG+ux/?=
+ =?us-ascii?Q?CiKeTR6SFK6MeVJemjsJgk5F+PpSNZJ3UYghHIcv7l6M1sSnb/AtXRrM6lYD?=
+ =?us-ascii?Q?UPu2XIwkSD2vDPG9GrzH6EB44Lg0GyIZzOyY1YCvDocx4OO3+QyAgS5FSfLu?=
+ =?us-ascii?Q?ybUHZq9KbgHiYd+ihBiNfh090FQZE5+R+2sLhkCKElOXjH9cBtkHmfNNrLW5?=
+ =?us-ascii?Q?N+pVcxsiWr3fojAX3YBpPAleInviZmC/AGpSjsA0XgMcPPmpn62sgYBUtoZF?=
+ =?us-ascii?Q?Zyg+zOXQXeQPuWZyYqRsQv/fayLdy0yl7N2lyX2s4XYZPQeju9IOMi9wQpx/?=
+ =?us-ascii?Q?y857ZnMK8cuZBWyjAsbBt92q/grPAbGEMdcpJ+v10EpyJp6rS6abSYbxVxnx?=
+ =?us-ascii?Q?V6bxXP3JOgixHxZri1I37HoT4/qDg99fjPtAK994wLiz3k3JLSgxBDWG78tP?=
+ =?us-ascii?Q?P+7gOTzSwKqfBRpyyHVv7ly8s5dNxr15Qi2lyU5PbPEXv1S+dkj0uNnTurtf?=
+ =?us-ascii?Q?VX+yo6hG/6j6eiZ+vUukmb1N71jp+ZzF2V95giMiHhCO9UEA07es1fN9DhGf?=
+ =?us-ascii?Q?4+X8EilcumO+zhsPbF3qODwxv2LCk+Jp7WHBqMK0ohrAS6AHxcFXmqr0d672?=
+ =?us-ascii?Q?/FSdCbyctQvsOnVCkyznDTzWy1la0c86J0F2BcDtUW+MzAluayPq+y4LAcGl?=
+ =?us-ascii?Q?JYOhGPYr1+ry1QPL4hbBav+jbp8PC1APXQsCEyQLLPjatgln9VFPH3N7pNQH?=
+ =?us-ascii?Q?MKn8vFSC/gMxFmQca4cot5x6PgQxf2u1vCCg7prQt4p2ecdxn31EU1xi/crm?=
+ =?us-ascii?Q?5qNwn2D/UXnU28TCboje/3QK8lxCEjDnjdtQlzfpbgUJDQutzYkyWHmiGZv0?=
+ =?us-ascii?Q?m7dCWtwTjjKsc380517o1Gg0eucdKnEtWymzuzERvLiH3aZUoQMiJNisAbsP?=
+ =?us-ascii?Q?Kss/1Cf0FXf5BitEV71P3kbreWduf0z6WuJMFgRlj2z1vJxRaEVF+09hMX14?=
+ =?us-ascii?Q?eupZa6xu5FUw2rejl/DLqIKTk3hhhqlRHah/mCaAm6iYCus3GzQItLcVdFFk?=
+ =?us-ascii?Q?mJyaW77Jvq9HGuBT3AOPhmEbvFPqGON2AYup1uyJSccu0EH6w8xiV3U2h5aN?=
+ =?us-ascii?Q?296XfTxHP3jx79vZK/E6awKfsw/5XodY+UrXyHEEAXHxslWHoqvl8Afg9P4q?=
+ =?us-ascii?Q?4khe2nABMroqX0NPK/i+wkFtN1b2HWywjtkt?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 09:52:09.1169 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db32f017-8d40-49ef-6805-08ddb23b9eb4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017094.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8722
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,203 +134,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Before destroying the userq buffer object, it requires validating
+the userq unmap status and ensuring the userq is unmapped from
+hardware.
 
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-On 18/06/2025 14:47, Sunil Khatri wrote:
-> add support to add a directory for each client-id
-> with root at the dri level. Since the clients are
-> unique and not just related to one single drm device,
-> so it makes more sense to add all the client based
-> nodes with root as dri.
-> 
-> Also create a symlink back to the parent drm device
-> from each client.
-
-TBH I can see an use case for both clients at DRI level and clients 
-under DRM devices. I guess you have an use case for global and per 
-device can be added later if it becomes needed.
-
-> 
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> ---
->   drivers/gpu/drm/drm_debugfs.c | 32 ++++++++++++++++++++++++++++++++
->   drivers/gpu/drm/drm_file.c    | 10 ++++++++++
->   include/drm/drm_debugfs.h     | 12 ++++++++++++
->   include/drm/drm_file.h        |  7 +++++++
->   4 files changed, 61 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-> index 5a33ec299c04..875276d5fb9f 100644
-> --- a/drivers/gpu/drm/drm_debugfs.c
-> +++ b/drivers/gpu/drm/drm_debugfs.c
-> @@ -298,6 +298,38 @@ void drm_debugfs_remove_dir(void)
->   	debugfs_remove(drm_debugfs_root);
->   }
->   
-> +int drm_debugfs_clients_add(struct drm_file *file)
-> +{
-> +	struct drm_device *dev;
-> +	char *client_dir, *symlink;
-> +
-> +	dev = file->minor->dev;
-
-FWIW, as dev is only used once and string locals are not overlapping, 
-you could reduce to a single local variable like char *name and re-use 
-it. Up to you.
-
-> +
-> +	client_dir = kasprintf(GFP_KERNEL, "client-%llu", file->client_id);
-> +	if (!client_dir)
-> +		return -ENOMEM;
-
-It is a bit more work, but I think a clients/ directory with numerical 
-client id subdirs would be nicer.
-
-> +
-> +	/* Create a debugfs directory for the client in root on drm debugfs */
-> +	file->debugfs_client = debugfs_create_dir(client_dir, drm_debugfs_root);
-> +	kfree(client_dir);
-> +
-> +	symlink = kasprintf(GFP_KERNEL, "../%s", dev->unique);
-> +	if (!symlink)
-> +		return -ENOMEM;
-
-Worth removing the partial construction?
-
-> +
-> +	/* Create a link from client_id to the drm device this client id belongs to */
-> +	debugfs_create_symlink("device", file->debugfs_client, symlink);
-
-This can also fail.
-
-> +	kfree(symlink);
-> +
-> +	return 0;
-> +}
-> +
-> +void drm_debugfs_clients_remove(struct drm_file *file)
-> +{
-> +	debugfs_remove_recursive(file->debugfs_client);
-> +	file->debugfs_client = NULL;
-> +}
-> +
->   /**
->    * drm_debugfs_dev_init - create debugfs directory for the device
->    * @dev: the device which we want to create the directory for
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index 06ba6dcbf5ae..8502c5a630b1 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -39,12 +39,14 @@
->   #include <linux/poll.h>
->   #include <linux/slab.h>
->   #include <linux/vga_switcheroo.h>
-> +#include <linux/debugfs.h>
->   
->   #include <drm/drm_client_event.h>
->   #include <drm/drm_drv.h>
->   #include <drm/drm_file.h>
->   #include <drm/drm_gem.h>
->   #include <drm/drm_print.h>
-> +#include <drm/drm_debugfs.h>
->   
->   #include "drm_crtc_internal.h"
->   #include "drm_internal.h"
-> @@ -143,6 +145,13 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
->   	rcu_assign_pointer(file->pid, get_pid(task_tgid(current)));
->   	file->minor = minor;
->   
-> +	ret = drm_debugfs_clients_add(file);
-
-Slightly tricky part is that as soon as this runs userspace can enter 
-debugfs. If in the future any debufs clients file is added which can 
-dereference any of the drm_file fields not yet initialized it has the 
-potential to explode and/or be exploited.
-
-Hence I think to be safe the usual pattern of exposing drm_file to 
-userspace at the end, only _after_ drm_file has been *fully* initialized.
-
-Slightly annoying part with that might be undoing dev->driver->open() 
-but maybe it is not that bad.
-
-> +	if (ret) {
-> +		put_pid(rcu_access_pointer(file->pid));
-> +		kfree(file);
-> +		return ERR_PTR(ret);
-
-Onion unwind already exists in the function so could have used it. (Add 
-a new label and here simply "goto out_put_pid".) But as above we discuss 
-tweaking the order lets see how that goes first.
-
-> +	}
-> +
->   	/* for compatibility root is always authenticated */
->   	file->authenticated = capable(CAP_SYS_ADMIN);
->   
-> @@ -236,6 +245,7 @@ void drm_file_free(struct drm_file *file)
->   		     atomic_read(&dev->open_count));
->   
->   	drm_events_release(file);
-> +	drm_debugfs_clients_remove(file);
->   
->   	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
->   		drm_fb_release(file);
-> diff --git a/include/drm/drm_debugfs.h b/include/drm/drm_debugfs.h
-> index cf06cee4343f..4bd6cc1d0900 100644
-> --- a/include/drm/drm_debugfs.h
-> +++ b/include/drm/drm_debugfs.h
-> @@ -153,6 +153,9 @@ void drm_debugfs_add_files(struct drm_device *dev,
->   
->   int drm_debugfs_gpuva_info(struct seq_file *m,
->   			   struct drm_gpuvm *gpuvm);
-> +
-> +int drm_debugfs_clients_add(struct drm_file *file);
-> +void drm_debugfs_clients_remove(struct drm_file *file);
->   #else
->   static inline void drm_debugfs_create_files(const struct drm_info_list *files,
->   					    int count, struct dentry *root,
-> @@ -181,6 +184,15 @@ static inline int drm_debugfs_gpuva_info(struct seq_file *m,
->   {
->   	return 0;
->   }
-> +
-> +int drm_debugfs_clients_add(struct drm_file *file)
-> +{
-> +	return 0;
-> +}
-> +
-> +void drm_debugfs_clients_remove(struct drm_file *file)
-> +{
-> +}
-
-Static inline for the two above.
-
->   #endif
->   
->   #endif /* _DRM_DEBUGFS_H_ */
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index 5c3b2aa3e69d..eab7546aad79 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -400,6 +400,13 @@ struct drm_file {
->   	 * @client_name_lock: Protects @client_name.
->   	 */
->   	struct mutex client_name_lock;
-> +
-> +	/**
-> +	 * @debugfs_client:
-> +	 *
-> +	 * debugfs directory for each client under a drm node.
-> +	 */
-> +	struct dentry *debugfs_client;
-
-Is it worth idefing this out if !CONFIG_DEBUG_FS?
-
-Regards,
-
-Tvrtko
-
->   };
->   
->   /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 7f9dfeae4322..c7c9f9e597f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -319,6 +319,11 @@ amdgpu_userq_destroy(struct drm_file *filp, int queue_id)
+ 	}
+ 	amdgpu_bo_unref(&queue->db_obj.obj);
+ 	r = amdgpu_userq_unmap_helper(uq_mgr, queue);
++	/*TODO: It requires a reset for unmap error*/
++	if (r != AMDGPU_USERQ_STATE_UNMAPPED) {
++		drm_warn(adev_to_drm(uq_mgr->adev), "trying to destroy a HW mapping userq\n");
++		r = -ETIMEDOUT;
++	}
+ 	amdgpu_userq_cleanup(uq_mgr, queue, queue_id);
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+ 
+-- 
+2.34.1
 
