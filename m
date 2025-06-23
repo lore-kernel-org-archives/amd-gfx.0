@@ -4,130 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46AF7C7115D
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 05:53:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36B8CC77B7F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 09:05:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9213910E170;
-	Mon, 23 Jun 2025 05:53:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD36410E1E1;
+	Mon, 23 Jun 2025 09:04:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="De42k/io";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xUPi+X9t";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2079.outbound.protection.outlook.com [40.107.96.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1213110E168;
- Mon, 23 Jun 2025 05:53:40 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6609F10E1D8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 09:04:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T4TTnSIy3o+QpFTTg9kLqkkq34NwYWO4wWo0mMbaAj47T4p4PQyXm2QMD/hXL+vr8lgaVTA6S5/a0picbXHH1kW/nZXYCCvcOtP3p+PrPvTuqwbD+BFSqx+t+cRc/eFQt+yQkG/3I/F2SC8TV7yp2SL+J7VZvND0X6xrGNbIwwDdk+hsOldp/lI8QBnFtPfWXS61NaAQL7dsEcl4HjqvhKiuk0U7eSq6ch8FkFwyGHlupRckJ4kcoxCUU0J4VvJqpG3e2S6zkWRG/S+IKJPLVEtUBUndYDzMJVSNose6WbfRA8SUmTs440TsFleQpe5+A55MwGKgzosBeFmxKq2gQg==
+ b=tpnNZp7r03F23eRiRaezvqvdg/9x1DXyy+z3QjjNzL9aEQ/+I6yx27tO9e4ogR/diNUTnXfQghz9pMPmDYF1zV/oQN9KexNe0zdupIb+V7wp00zNJFbYTBVDS3iGWE631YM4S8JFyPokbzROJ1Pzt1gyUlIyLeFRFVAG3umu/PDysF+jcHNPDlfNWR19hTdXLRgGSxQ+sCaru/Bu1tbBt+Gg9YDi0auhN1fJXHuK0qtx3m9kt/jGjd7sOX4NuNmq726vDvf7I6Uz5tiDpUFD8ly15UKBt5ljZ/1TbZBeL5rFhZf997whOUCWB0Rbeq58Sh/vzv8yL8LnJAmvwCBomw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cjAn9o0t8b60HZD5zLThY4ESzC2SoWhpQrb/6w1DF5Y=;
- b=p7UdZ1QXp99aelhRPAZnkMps9NpljZkptYT42OKDTavtt7/4RMfBaveBP3bMJ+9mYuqTEfBGa8aZdHPbYuzFamN2cLPdVrd8SF8/XyNqVqLEEd0WxMghoBliQunLxjjMGoxc1H7nCEvyReytWvgNlEjV1XRPL0ZRrH6+f7Zhg0oKRyR2Tsk8mRL+qhNvZVSZRT0WAbcUvY6NvzeyO8MmSrA7q4Rusb/KyM81xU2avPB+QytfpyAb0BIDfE2wgIiqmgBDbpt8KILOrLRT1luohJoDvtu9fJ9fcN+uevPsNp6oY+FLiRTupHmAuvwl2pu2vChdEggNdeQxDtmIATfMLg==
+ bh=VzL85oRwbd06jyVBbx1r0aDnMhzQ4dKMZ87pElJPc4c=;
+ b=FHDwcdjd+LscMnh2QBndtddboH+g43ztLxCR67tvS3A/8fUEqp3daDcBowSvRrZWYS88/tFOqnbQi1Dr0UG8j5AFvyspDMnlPmwOLoj62CmmtdOBiD2y/QnpV8mLPhQJ5O+rh6MW/B1fSjLKLRGl4Hd3PFnuz8tsfvNcgpdhn5d0lEwddE2inISyvPK1plamn8N/huKX3uXLeUqkMngqb55IMEzf18JXaRw4ify/NVKAh3w1yTGqQ63FSDJCwer9fyuSbpkO2R8HO2ObCclXFxHBF/vm6M8Yq5sSfTS59wIvKR3heorGOjB2K0VDVEfGbCjVSa1DeRVVehhJizgyNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cjAn9o0t8b60HZD5zLThY4ESzC2SoWhpQrb/6w1DF5Y=;
- b=De42k/io7IFUZ+vLk6tv0u4H1TN+/sYeJtJvZf3NFhv+R+m09ZxnxrNyDezcgrSC3ymSewia3fVzyeyzx9U73Y7jcv0i2sRp1VR/X1QIbyxQ27cPxi7yvzfPqobrcHygZDh2Baqgnfr23weKxSukxwRdont5ah+/L5uTEi9tkU4=
-Received: from BN0PR08CA0003.namprd08.prod.outlook.com (2603:10b6:408:142::19)
- by SN7PR12MB7910.namprd12.prod.outlook.com (2603:10b6:806:34b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.22; Mon, 23 Jun
- 2025 05:53:35 +0000
-Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
- (2603:10b6:408:142:cafe::76) by BN0PR08CA0003.outlook.office365.com
- (2603:10b6:408:142::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8857.28 via Frontend Transport; Mon,
- 23 Jun 2025 05:53:34 +0000
+ bh=VzL85oRwbd06jyVBbx1r0aDnMhzQ4dKMZ87pElJPc4c=;
+ b=xUPi+X9ti89KRnXhv5DLkOhWxQQCzWqWAPIR2cWSalZuBC803f//NE13T8KoL7QtIt23/WbwnFsmllG3n/NK9eBwMvae84Y4CLCKUtkmPv/Io4nv5T3MNXaSHGsQZKHUTT08X7QMAhW2wZ2KmV7kiPWeF72h1fbcdkJ5VU1VdWg=
+Received: from SJ0PR13CA0031.namprd13.prod.outlook.com (2603:10b6:a03:2c2::6)
+ by DS7PR12MB6144.namprd12.prod.outlook.com (2603:10b6:8:98::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8857.28; Mon, 23 Jun 2025 09:04:50 +0000
+Received: from SJ1PEPF000023D8.namprd21.prod.outlook.com
+ (2603:10b6:a03:2c2:cafe::c0) by SJ0PR13CA0031.outlook.office365.com
+ (2603:10b6:a03:2c2::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8880.15 via Frontend Transport; Mon,
+ 23 Jun 2025 09:04:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF000023D8.mail.protection.outlook.com (10.167.244.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8880.14 via Frontend Transport; Mon, 23 Jun 2025 05:53:34 +0000
-Received: from rtg-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 23 Jun 2025 00:53:31 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, <matthew.auld@intel.com>,
- <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH 2/2] drm/amdgpu: Reset the clear flag in buddy during resume
-Date: Mon, 23 Jun 2025 11:22:53 +0530
-Message-ID: <20250623055253.56630-2-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250623055253.56630-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20250623055253.56630-1-Arunpravin.PaneerSelvam@amd.com>
+ 15.20.8901.1 via Frontend Transport; Mon, 23 Jun 2025 09:04:50 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Jun
+ 2025 04:04:47 -0500
+Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Mon, 23 Jun 2025 04:04:46 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <KevinYang.Wang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amd/pm: revise the pcie dpm parameters
+Date: Mon, 23 Jun 2025 17:04:39 +0800
+Message-ID: <20250623090439.959876-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: kenneth.feng@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|SN7PR12MB7910:EE_
-X-MS-Office365-Filtering-Correlation-Id: 534f8e66-239c-47e6-0d5f-08ddb21a4ac0
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D8:EE_|DS7PR12MB6144:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07e871a1-2380-4585-bc79-08ddb235027f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?alRuM3h1c1ZHOEw2d0o2dC9OZkdSWkdrSnJrVHBYVFg3ZXF4RVRnNjBrZUJQ?=
- =?utf-8?B?TVJmYWtzZVpZWGZzVXROcWR1WjR6bVV3bTZaOU10KzYvUjhyQnNhanhrQXF5?=
- =?utf-8?B?TkZLeWdvSlRvY2htam1EZjdHT29MekcrZjM0b0t2MnZLRW5XaksvTnZVS1Vl?=
- =?utf-8?B?MGlxdUhRZTRhSUthRmwzRTFEa0NVYVpEZ0lMcURDWVd4bEtTeElxZWxDUW1T?=
- =?utf-8?B?dDJ1SjVZTWJHSkorTUJaZ1MrbXJJVVpXRDZmQ0ptUDUwaU9HbDk4MjlXMzhu?=
- =?utf-8?B?VVhQazU2aWovTk1TOVNTNHJ3UWNKVkRYcmJ4eHNrS3lPUER2M2YwUm85a3lx?=
- =?utf-8?B?T1psWE1GTDJ6Ylltd3BickxpWDBUYVFpZVFOY0RITnhyVElHSDlzWFpML2p2?=
- =?utf-8?B?cnZKSmJSeEZnUSt3RktDTTlPVkFwTGhJMVUrTEJWaWY1VXd6OG1FdGg2a0FH?=
- =?utf-8?B?b3N1SWpTQnVDcHZkbzlhbTBkYTJWSFp4elAvRGtJSUwxdnZKN2EwTlJyQmxY?=
- =?utf-8?B?bmRhRk5lQ0UrZEhxV2VBeVZxd2syYWxuK2gyRlFVSXE5ZTRVVUR0bTNlemVX?=
- =?utf-8?B?N243ZGtyZkVKN3czR2k0Qk90WUxsaktpU2x3dGpZaHdveDBLMGZZajJQNGpU?=
- =?utf-8?B?ZnVyN1ZweHcwbTArNyt2RFFnZHJyRnNaRXBOaENKaVBXU2tuMHV0ZG5rT1hL?=
- =?utf-8?B?L2hBYVJVRUtycWx0ellCU0FKZmZqNEhJYWdlQm1SMmhwcjE3Mzd4K256b0pi?=
- =?utf-8?B?M3lUVkVsRFBxb2orbWJvN00zbmI1eTRDKzFvMXVSblJVZ09LU0tKOXRpdkxm?=
- =?utf-8?B?QTJiVnBJZWszNEdoeUFsTGdtMHhtc1RSS2lDMmY4YUhQb3hVY0d0dkV4S3Fp?=
- =?utf-8?B?V3hxMWR1Yzlid2FuTDRQeVNrUllURzhKOHgxUDF2czBLQVdaeERVSlEyeHZy?=
- =?utf-8?B?ZmlJZTZBaytNTk0wbDFnNDU0NTEvZ2c2dXBLTTNtdURQZDZpa1B3UjB4enZC?=
- =?utf-8?B?SEI4WjlLNmZEWE9paFF2eEFwNTNVc2taNzA3dGdwenZVMTgzRFlvMkpvTmFm?=
- =?utf-8?B?MDBRZk01N3hkZ1NVUDlNYVFZTjdzdmRoYnUxeDlpbWZhVS81NzJtNW1CR1dR?=
- =?utf-8?B?dDFIM2hCVDhPb2p0eitGdjZNSHpZaDFROW5DVzYwR2MvSVRtaEwxN25JYkRN?=
- =?utf-8?B?d0JqckhJRVRvRDRFODRJa3V0TjRkRkZqRjB0QWluZlZlc1g3WUlocXNBWkVm?=
- =?utf-8?B?VzBNV1lYUVJmWmFzNFg5ZkJrK0tXL2dsL1lWOFdDT2s1UGRGWnJSTDNhbFJJ?=
- =?utf-8?B?ZTAwWlNuUG1PVDI4SW81Rlh4SmtDNmFRdFVhUWc2Z2dkVG16VFdtbHRxOGVR?=
- =?utf-8?B?NUtwc2NnWU9vcy9aK2xYSm15OTlXQ0xPR29sbUFGZnE3b2J1T0doRXZHN3B0?=
- =?utf-8?B?SEg4WGg1NkFieE5GeFVIR0tiVFQ3dWdnWE03c21EeHlFSHpQZUhvNzhIVTg4?=
- =?utf-8?B?TTZGdUVZVmkwQksvSnREZDRWeEJXV1VKOWQ2V2FFVzZ6MEw0Y1Z1REZub2JQ?=
- =?utf-8?B?VVZmUExKaW94dFNSN0V5TmFJdk5JMlVlRGRHaTFkTEdIRnRHbGx3bVErZVBs?=
- =?utf-8?B?OTB5UzdTWXRiQnJDSzFQT2poSVpMVzQwZVVHczZ6NmorK1QvSGdxTFZIZlN4?=
- =?utf-8?B?TGhrb2xOek8rRzhxVmhvdFJFNWJtTVIwcHFaTDcvSFJBRVdRR0lvRlFyVktx?=
- =?utf-8?B?a2wrWjJLbE5FQkUvZjByK3pSQkMrSk4vNEZUc0tuSDE3M1krRVgxclFZaXNN?=
- =?utf-8?B?eDVpcU9vM1U0aDVOM0dDRHdlZTRQdnFrRzlkOTZsekROZ0VnUFhFUGROZXUw?=
- =?utf-8?B?SnI0TTdqRjAwZS9zN2Q0UTJEN1J0QTVzSWlWeDdNazFHVEx4QithYTYvWGdN?=
- =?utf-8?B?OTJDY09GSHRPcksyMzRFMm9GTnlMeGtaRVZPdENWUExBd1A5VFlwUkluMFU4?=
- =?utf-8?B?TDFDSUJ6NmF3PT0=?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/4vlK26ba9NcN2ARQ7QkAKHhxqHrxqTS3bEinT6ebYQPpSnpkOB8l8ybVIWq?=
+ =?us-ascii?Q?p5E82Y1azqWtJjdXkFaYxL0fBb44YktQz9aZwLKSHhvh0GkULyBPnS284p/t?=
+ =?us-ascii?Q?w42oSbaKJDkBgnXRXIR2MkPqdsTkYCdfUE0CCQ/NkJUH/7x+E7IySYIlbbs2?=
+ =?us-ascii?Q?htHzrty+vpirQ92WCdGnCrUvDzKycDTOVhjuyF+KBs/rFG/FeGj3xH123ZQm?=
+ =?us-ascii?Q?7Wv08kZRfNo1VgpI4KilX9+A/RNFnwP1iXTovQhLwkzIwDlSZx1xP/U2JvF7?=
+ =?us-ascii?Q?nYb1Co0RNsFycxd867Avo6Tl+01mXKjihAOY33iE7TqX0COybjgsCtoaTZnc?=
+ =?us-ascii?Q?+0eTycqzxWaEWvhxG+aBIX+wHgGqUUcSMNHydzoCIB0kOlsSpbEjB6Z+Tr9w?=
+ =?us-ascii?Q?4uHk21k7aU7F2VW5OH7YEk58AFgGt9qxpgPG2nEBHrPmS1WPE+OjhGdUU9c3?=
+ =?us-ascii?Q?qpdIAIps+KvHrK5xHgRPwrXmc3vbDLSFN7JMDKO7owM0+zcA+Ud1aVv4VrjJ?=
+ =?us-ascii?Q?jR2yHs87ldfdOFJ8N5oWbvLOxrSljssiDoSKqyZLLQIMAwaLQRW1/Jg19raI?=
+ =?us-ascii?Q?PfW9L1g1eDISQW0Av4s9dLdqWunz4BdC11QekBqHOzprNzLQlmMLNqmWk7dQ?=
+ =?us-ascii?Q?NE1Je0UmBSE+3f4yWTlC6RArhlBZqCjPMLxNCHoqlDJWT3YMO88CV5ApPtRO?=
+ =?us-ascii?Q?JeV/OmeOX4POJkl8dLDkoLZOSEyBDmbgsJ8fDBD/OeBhhfzKxzLqHadw1JdG?=
+ =?us-ascii?Q?A16VjzCQXUxlkUHVtzpQLs9I7YdICi9b4kZFHNipg2QvBa7RABffqHQPllnz?=
+ =?us-ascii?Q?aDaa+HwUet25zjaH4ty4u3PxQ+Y80QuDuQWmQ9FH8QB+x1shp+sB3V6nXsNO?=
+ =?us-ascii?Q?mWH7LKNHVvVLMQf4wuREvZyIvu1+Gbhvcq8Fqqphc/VePgKqSzyDBaCzZtM8?=
+ =?us-ascii?Q?Q3pm4q2Gxm1jr0IKjeO5lVjqVZARyrJnFDJICzBGB02xQN2jebnIftIX4xTM?=
+ =?us-ascii?Q?EAZj2DwIijcuiQwWLIlo4+o14ZHAR7iG5rTwMv8h7HkkZkbsign3xzssjVAq?=
+ =?us-ascii?Q?VFrw/m7XWQkEv82MRCrxJdWBKiL4p2oRC+4cT4EHIy16GBa7mitbhVACBUey?=
+ =?us-ascii?Q?IppJGkSAcsLJsWS9zwT20H1O1xoe5aVs8d5SH0rg2lutpJoPkJ9aCvj24Ek3?=
+ =?us-ascii?Q?BQh3EQY8QyyLTLKa2wMjmQ/bmOlYMqvBqkI90m+MsYbAQBLvASZg0EGiOib+?=
+ =?us-ascii?Q?YKDjNEsoW/KFR7JgeP7V0cRV1yntatZ5s3RZ4ix2MUZQxmYo2Xtfs6i1J+Ij?=
+ =?us-ascii?Q?X1/QCBjUHZWDrBD1xJnnyazFCJbkfKYPZRxS0kS3ycsSPKQCq6iLs6IlLXsr?=
+ =?us-ascii?Q?o0xlnuvLlJNeQBvnR9j9xTe/D1dJaTgyhH0+QHlR+BrZimidH7YHTRh3mjAx?=
+ =?us-ascii?Q?K/mw1W/lD1muPEleY+kD3IAHhIqjir7L9cs4PnvecCgZih7twmlUDlH9lakf?=
+ =?us-ascii?Q?O7zpCJz2kzVtRxbZA3s/XXI4r9lTuV5BVt5+?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013)(13003099007);
- DIR:OUT; SFP:1101; 
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 05:53:34.9051 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 534f8e66-239c-47e6-0d5f-08ddb21a4ac0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 09:04:50.0083 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07e871a1-2380-4585-bc79-08ddb235027f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBA.namprd04.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D8.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7910
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6144
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,102 +132,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-- Added a handler in DRM buddy manager to reset the cleared
-  flag for the blocks in the freelist.
+revise the pcie dpm parameters
 
-- This is necessary because, upon resuming, the VRAM becomes
-  cluttered with BIOS data, yet the VRAM backend manager
-  believes that everything has been cleared.
-
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: stable@vger.kernel.org
-Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3812
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  5 ++++
- drivers/gpu/drm/drm_buddy.c                  | 24 ++++++++++++++++++++
- include/drm/drm_buddy.h                      |  2 ++
- 4 files changed, 33 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c      | 8 ++++++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 6 ++++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 6 ++++--
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c | 6 ++++--
+ 4 files changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index a59f194e3360..eb67d6c97392 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5193,6 +5193,8 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
- 		dev->dev->power.disable_depth--;
- #endif
- 	}
-+
-+	amdgpu_vram_mgr_clear_reset_blocks(&adev->mman.vram_mgr.mm);
- 	adev->in_suspend = false;
- 
- 	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-index 1019c5806ec7..e9e2928fa4d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-@@ -58,6 +58,11 @@ static inline bool amdgpu_vram_mgr_is_cleared(struct drm_buddy_block *block)
- 	return drm_buddy_block_is_clear(block);
- }
- 
-+static inline void amdgpu_vram_mgr_clear_reset_blocks(struct drm_buddy *mm)
-+{
-+	drm_buddy_clear_reset_blocks(mm);
-+}
-+
- static inline struct amdgpu_vram_mgr_resource *
- to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
- {
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index a1e652b7631d..b5e44867adf2 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -405,6 +405,30 @@ drm_get_buddy(struct drm_buddy_block *block)
- }
- EXPORT_SYMBOL(drm_get_buddy);
- 
-+/**
-+ * drm_buddy_clear_reset_blocks - reset cleared blocks
-+ *
-+ * @mm: DRM buddy manager
-+ *
-+ * Reset all the cleared blocks in the freelist.
-+ */
-+void drm_buddy_clear_reset_blocks(struct drm_buddy *mm)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i <= mm->max_order; ++i) {
-+		struct drm_buddy_block *block;
-+
-+		list_for_each_entry_reverse(block, &mm->free_list[i], link) {
-+			if (drm_buddy_block_is_clear(block)) {
-+				clear_reset(block);
-+				mm->clear_avail -= drm_buddy_block_size(mm, block);
-+			}
-+		}
-+	}
-+}
-+EXPORT_SYMBOL(drm_buddy_clear_reset_blocks);
-+
- /**
-  * drm_buddy_free_block - free a block
-  *
-diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-index 9689a7c5dd36..da569dea16b7 100644
---- a/include/drm/drm_buddy.h
-+++ b/include/drm/drm_buddy.h
-@@ -160,6 +160,8 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
- 			 u64 new_size,
- 			 struct list_head *blocks);
- 
-+void drm_buddy_clear_reset_blocks(struct drm_buddy *mm);
-+
- void drm_buddy_free_block(struct drm_buddy *mm, struct drm_buddy_block *block);
- 
- void drm_buddy_free_list(struct drm_buddy *mm,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index d7d5ec247624..aac202d0c30e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -2456,8 +2456,12 @@ static int navi10_update_pcie_parameters(struct smu_context *smu,
+ 	for (i = 0; i < NUM_LINK_LEVELS; i++) {
+ 		if (pptable->PcieGenSpeed[i] > pcie_gen_cap ||
+ 			pptable->PcieLaneCount[i] > pcie_width_cap) {
+-			dpm_context->dpm_tables.pcie_table.pcie_gen[i] = pcie_gen_cap;
+-			dpm_context->dpm_tables.pcie_table.pcie_lane[i] = pcie_width_cap;
++			dpm_context->dpm_tables.pcie_table.pcie_gen[i] =
++									pptable->PcieGenSpeed[i] > pcie_gen_cap ?
++									pcie_gen_cap : pptable->PcieGenSpeed[i];
++			dpm_context->dpm_tables.pcie_table.pcie_lane[i] =
++									pptable->PcieLaneCount[i] > pcie_width_cap ?
++									pcie_width_cap : pptable->PcieLaneCount[i];
+ 			smu_pcie_arg = i << 16;
+ 			smu_pcie_arg |= pcie_gen_cap << 8;
+ 			smu_pcie_arg |= pcie_width_cap;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 257082c03865..e084ed99ec0e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -3193,8 +3193,10 @@ static int smu_v13_0_0_update_pcie_parameters(struct smu_context *smu,
+ 		for (i = 0; i < num_of_levels; i++) {
+ 			if (pcie_table->pcie_gen[i] > pcie_gen_cap ||
+ 				pcie_table->pcie_lane[i] > pcie_width_cap) {
+-				pcie_table->pcie_gen[i] = pcie_gen_cap;
+-				pcie_table->pcie_lane[i] = pcie_width_cap;
++				pcie_table->pcie_gen[i] = pcie_table->pcie_gen[i] > pcie_gen_cap ?
++										  pcie_gen_cap : pcie_table->pcie_gen[i];
++				pcie_table->pcie_lane[i] = pcie_table->pcie_lane[i] > pcie_width_cap ?
++										   pcie_width_cap : pcie_table->pcie_lane[i];
+ 				smu_pcie_arg = i << 16;
+ 				smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
+ 				smu_pcie_arg |= pcie_table->pcie_lane[i];
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index e96364856e74..c96fa5e49ed6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -2781,8 +2781,10 @@ static int smu_v13_0_7_update_pcie_parameters(struct smu_context *smu,
+ 		for (i = 0; i < num_of_levels; i++) {
+ 			if (pcie_table->pcie_gen[i] > pcie_gen_cap ||
+ 				pcie_table->pcie_lane[i] > pcie_width_cap) {
+-				pcie_table->pcie_gen[i] = pcie_gen_cap;
+-				pcie_table->pcie_lane[i] = pcie_width_cap;
++				pcie_table->pcie_gen[i] = pcie_table->pcie_gen[i] > pcie_gen_cap ?
++										  pcie_gen_cap : pcie_table->pcie_gen[i];
++				pcie_table->pcie_lane[i] = pcie_table->pcie_lane[i] > pcie_width_cap ?
++										   pcie_width_cap : pcie_table->pcie_lane[i];
+ 				smu_pcie_arg = i << 16;
+ 				smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
+ 				smu_pcie_arg |= pcie_table->pcie_lane[i];
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 581a4e59130a..3aea32baea3d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -1518,8 +1518,10 @@ static int smu_v14_0_2_update_pcie_parameters(struct smu_context *smu,
+ 		for (i = 0; i < num_of_levels; i++) {
+ 			if (pcie_table->pcie_gen[i] > pcie_gen_cap ||
+ 				pcie_table->pcie_lane[i] > pcie_width_cap) {
+-				pcie_table->pcie_gen[i] = pcie_gen_cap;
+-				pcie_table->pcie_lane[i] = pcie_width_cap;
++				pcie_table->pcie_gen[i] = pcie_table->pcie_gen[i] > pcie_gen_cap ?
++										  pcie_gen_cap : pcie_table->pcie_gen[i];
++				pcie_table->pcie_lane[i] = pcie_table->pcie_lane[i] > pcie_width_cap ?
++										   pcie_width_cap : pcie_table->pcie_lane[i];
+ 				smu_pcie_arg = i << 16;
+ 				smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
+ 				smu_pcie_arg |= pcie_table->pcie_lane[i];
 -- 
-2.43.0
+2.34.1
 
