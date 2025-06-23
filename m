@@ -4,155 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8616C77B7C
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 15:25:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C9E3C77B7C
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 15:28:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B64910E010;
-	Mon, 23 Jun 2025 15:25:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA61410E3CF;
+	Mon, 23 Jun 2025 15:28:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q4+Nbkt9";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="iU/Alsp5";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C5B810E010
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 15:25:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G5kcKsn9ERSJEv/Z8RIWrMf6S+QEQ9hpAu+moQ4qPb4i2KhA3HDlFC3MH/nkK4Tk2zU9WRBHaBgHPj8fChLwGzower77GbsGRHcPsmjj35aZH6EROQQwwyJbb+gIaTy+beNZBVXhXI0u/0mMXsUw0e0eSjD+XfGgOS7JrdNkxLlRTYZCPey3JIEW+h8jkb04fMEnwOwLzL/rkPmbVaLtsDFsFAYWFFqxAZ3saoIGHbOXzqC+1pKjPakbhsyxxjo5zKaNZFFeP8WV5DEowKnRPFgbx4SdTGtQ3qtEvu0uLwFb9yEvUoHHJcqO9TDkv0dzlPWM1lk47geBf2vQ+3YqYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PwhOUqtae0qVFkoUwzC3+vYABzKUdhyvIn1TxUoopv0=;
- b=Y3w/RELkuSkLwILdyJxgb47BAQgEaLH2g4PrGgg5PbDjvKwZX2ml4A3fkSJa0nQEK1BBUbezi8plcJA75yuPGGXdVwL5L+jXWwkOCrBgRxAj4CraJ7QMH5xY+Whhcq1xTfRhe0UB42rMbrVYTk41ovdPT/YZxK+faeT5yxSrhK94DNGrJ0SSiUZErPnqqQ6U+LZLoCr0xayvVWxjcE8QcSaGw5XYOzamHhDs/15o7b3jnf91yYiZKbDsvdYaU5DHA0RHy1i/yE6qbw5isr00atSXFuJ9K0OT+G4yZ6qT77CaFUunbHaBUBt/3dQ5xMh/CMDqRwUIlm4C6wd4XQx1Yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PwhOUqtae0qVFkoUwzC3+vYABzKUdhyvIn1TxUoopv0=;
- b=q4+Nbkt91NX2shGdAR73clBnNuIdkIeEwgheI9mSFDteEOvjCmAHykfSjBakN8UoIO7izaPrUR5M0/A/Z88o8VmU6MmrZuLFhwDnG/Mv5MHR1IUCQ57AobFbvetu31ryzFcz8/uI7cVdf644aCiaraTKx3SV1jlJE/ROVFs9MWI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB8499.namprd12.prod.outlook.com (2603:10b6:8:181::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.28; Mon, 23 Jun
- 2025 15:25:26 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8857.026; Mon, 23 Jun 2025
- 15:25:26 +0000
-Message-ID: <2f2bc39e-1e87-431d-944a-036062c7f029@amd.com>
-Date: Mon, 23 Jun 2025 17:25:21 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix slab-use-after-free in
- amdgpu_userq_mgr_fini+0x70c
-To: vitaly prosyak <vprosyak@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
- vitaly.prosyak@amd.com
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
- Arvind Yadav <arvind.yadav@amd.com>
-References: <20250619035751.138272-1-vitaly.prosyak@amd.com>
- <CADnq5_NcgpcSc8VzEY9gXC9AZtbNwF1ovog7dHE6ybDsgZLKXw@mail.gmail.com>
- <cb810840-abc5-41de-80af-52cd9fa7169f@amd.com>
- <25c0e980-f6db-43f7-a003-2d2b16c35301@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <25c0e980-f6db-43f7-a003-2d2b16c35301@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR19CA0044.namprd19.prod.outlook.com
- (2603:10b6:208:19b::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA5110E3D8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 15:28:37 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4531e146a24so26067175e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 08:28:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1750692516; x=1751297316;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=T5jsPJ1p5Egrtae+4G+WGKOerqdw7nmTqDz+XFCcz+E=;
+ b=iU/Alsp5CvHC0PWrkNTejIt/mGvj7KseVjIek7FznYiQGFmZjjuySz3U/ZGQT/xTkA
+ FnhAXxFg+DJ2WsBSuySC0HGT7qk2Okfgv+/xWX/lrFirrB7ZINLebHmqrKWYVprQHgev
+ ydcZHr1OM7anCK6Dy/D0XiskhO/OqvXdu4xn2Co7ICqrJ55bzqbnRzQl14iBmNXgXcW0
+ jwp4fX558lEJrroR0eGfgdvfTB+FF86X9ua5Kcz5x5ZL2R6OI82fCxQI9GtVCRkYWjkf
+ b8CrtQLQ8i03cr9SpvW7ca5haVl3QzZAOdO1O2iomOE+9h1HKPqChXrE0Pi0QADvOjPj
+ Yrnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750692516; x=1751297316;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=T5jsPJ1p5Egrtae+4G+WGKOerqdw7nmTqDz+XFCcz+E=;
+ b=FMy6I0WyZhW6VvJRt7BuHOeixTddYW3cuG7KZ//AebAIkbUDS1OjDedN0J2pr+7opC
+ qu54ivdUoYoVhrJhUOj/ZU4r7aVMPOhcLjej4dzp0CyELiq1WAsxhGtyxCQbA1hgqLAD
+ yKVBbK/EGVoJ1Ubych/LmpVNNFNz+1amiohTfy6RFChGAfsWZbjEVAqFf5ousq1lGMhf
+ Sk8C+NliV2YF5UZ8LGhWH7zvHNIf+sCPHhDToaaGhGuLvgXEw9+sKKBJsRUswpiewp/p
+ g7GfnSdyrdpKraTGjQRCBlCIjYw0YrGVDWMZndSH+kBm13mIfs6nqrO1DXcMbdcyeZyB
+ ukIw==
+X-Gm-Message-State: AOJu0YzDBf8q5AyH6EeyjQrUM8mQ+zk2KpDW/rWeVtG6msxVRBEIDvf7
+ xtLULXaTLv2zE7aJmGYDs3EJjWeRyfVB3IfTo2uOQlDAMAqI0g/IWa3I6ubv1HrxPos=
+X-Gm-Gg: ASbGncvZDvWq9WPL4h3heLiaAbrR1lrMFUQl1Pd5VzpEbtI/h3yaMwak1oPuB+tgY0B
+ tgHkS9n5LxZ46frPqWj40YEntJyEQGxLbEihZnWqcwY8k1+x4cXQHMqYbKS5BOfJLVZtb1QwRlv
+ uGa7ac1kKpBMVsdJFYxFjcDGfqfGu99Zmpl4JulDWnDeVo8ysm7PnJfAjU2k97mcQufZw+Lr9Qp
+ JNsPAR03axfC2l3LFtdQCSThwNhHCqU7x36j6i6zHOUuiHb6q5IrytU52iVXzq5Nw+aWfu8M2Lt
+ xvXgBx9AHj7fxn0jk9MITNe4KzdYffZlsw5sBcIa8hdZigmSnlJoTURHoUSlORGZ+Eyaz0qIGQ4
+ N
+X-Google-Smtp-Source: AGHT+IFQpDGlRRJnUzpoHTSyJAhCWxlzPofzDLWcKPngGnjPSLg2iE2SjgwKKIyXdc7jCTB3NGk5KQ==
+X-Received: by 2002:a05:600c:c48e:b0:442:c993:6f94 with SMTP id
+ 5b1f17b1804b1-453659c58d6mr123235975e9.12.1750692515705; 
+ Mon, 23 Jun 2025 08:28:35 -0700 (PDT)
+Received: from [192.168.0.101] ([81.79.92.254])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45364703f1esm114414125e9.32.2025.06.23.08.28.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Jun 2025 08:28:35 -0700 (PDT)
+Message-ID: <7c0652b5-90c6-490a-a67f-ffda0143121d@ursulin.net>
+Date: Mon, 23 Jun 2025 16:28:34 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB8499:EE_
-X-MS-Office365-Filtering-Correlation-Id: a59a7843-fc74-40ec-6123-08ddb26a2da3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QXcxNk43SHg3QllJaG9HeS9PMTJ0akljemRaZDlwVXBoelRWeHNQWmx6QVNx?=
- =?utf-8?B?NFJMOTJGUDEvRkswVUE2enFwd2FxK0hxVi9KSGZreWpYQVRUbG8zLzRSMTdX?=
- =?utf-8?B?S3luanRCTkY0cXpId1dXQ0tSaStwSERlYkgrYjlBeTVFVGk2R255Y3I5OUVk?=
- =?utf-8?B?ZDRhc2xjNzBGblR2aHFQenYwNXhZMUF2bGxOVGRhZ1BsREh3SkVRUXphd0Q4?=
- =?utf-8?B?STJJNXpzQlJzZzMxK1M5TEdUOGs1RzcwSXdCdHhPaHRFeUFjQlFlUXc5eVBN?=
- =?utf-8?B?TS9ScWFHd3FYTXNyQTh1ZS9zVzFKWDBGTDhFcHhjcXNVR3pUL2JPUlozYTg1?=
- =?utf-8?B?N0dUclJDRHRvd2NmQ2FlUGx0RkRPanFLdUovODcwRzUzU2pXdUFBL0RQUEg3?=
- =?utf-8?B?RnJMZkxBQU16WnNOTmN1UWg2QzFpc1BZckpoSUFIUEVLT2pJL3dnV0dtdUlB?=
- =?utf-8?B?ZkNMV2JEK2R4SEoyK3htQk5zZU16cHArWGxlUFhhVUJ2Wms2a2dzUWhpZm1B?=
- =?utf-8?B?SjlVNnVibzFCeGEvc1VRNHRETEZNR2F3UlRweWkwWWJtdGtCYkRLbTR6VGcr?=
- =?utf-8?B?UElWUTAvYXNUVTNyelBBS3VrMEluK2JFa3h5ZTVUb0hXWTNkMTJyS0xaR0VH?=
- =?utf-8?B?U3dvWTV0L0s5UWQ3K0drRkNHV2dkMGhKWGwxdEJQK2tvOS82WmlYM2xwVUdh?=
- =?utf-8?B?ODNBV3BxaHQ3dE1rMUZ0REtPQzhCRWRvMWRMeEs1ZEZ6RUVYYmI2M2ZMdldK?=
- =?utf-8?B?S3NveVFvYWZqeW9ZQ3RkTVNZTWZqZTIxeGFtdklxR3dTeUg0Qm5LZFZobHQ0?=
- =?utf-8?B?S0xuRGI2ZUExdm9KNWJMYklhK3l0aklaUUpHczROUXpYSm5ZV054MmE4MEZY?=
- =?utf-8?B?OEpERGtmRzNkV202Yi83MHFJcnhjeW8xNkNDOUNpUDBXSCtoOCtHNHJkU2tt?=
- =?utf-8?B?MFFnRVZLTk85S0FNOFhINi9qcnVvNVl0LytDTnYxTWV1bFBCaEFSWGo2YWph?=
- =?utf-8?B?b2FwSEgvN2ovemx2SEN1NnBlM2tRQ1ZVdEVlRm9KS1NXR0dpbEQzU1h4MHdC?=
- =?utf-8?B?ZWJQVUdlZkZVYzR2OEE1bU5kU1ZuR2dKVit0OUduRkIxSGlqK25sY2NJVG1R?=
- =?utf-8?B?QTJjSkhuQUJjYWZIc05qbFkxbVc5c0NZeUVDZmlHZEhBVHYrNnpZUFhyVnlJ?=
- =?utf-8?B?U3VDMDBkVWxYQjA1VEd5K0tOenZJTU1ocytlMXZVMlJhVUJGanRDckYwd0Yw?=
- =?utf-8?B?OEh3MnI4ZVkrSWYzYVlqd2NrQmJsOURQeUw1MkFDeHlwWUtRb0FyYWJ1Qzg3?=
- =?utf-8?B?TnEvdjlxUVRUM3pmc2s3dVlvSE5VNk5UMXNsdmVtdFZxOWlXM1Z0TmQxMWp6?=
- =?utf-8?B?VDZFY1A2YlE1eHovbGZySXJ2NFRzUWNLdWgzYVhaQjBrb0lCOVo2K1hDYmJ2?=
- =?utf-8?B?RGYzbXRMYWRCeXc3Z0FyYnBwS3B1bnh5VGFxbjkxbE5rVHBIdC9NS3RKbG9Q?=
- =?utf-8?B?YmxmS3pKZmZGVmlJcW92ZXdZWVJtVXlETE52YmUrNkQ5TTVENXJ1WDFibGs4?=
- =?utf-8?B?T29VdzFvQm5zVmQ5VDFvYUU1ck5PVlZaNVBobk43Yk5mcGJ3di9SeksvSStr?=
- =?utf-8?B?ZWpqN0NtT2dIbjNVM1lpUG1NSTVqNDVxb3RXdFI0UXlZWEpZWk5UdXQ1SjVM?=
- =?utf-8?B?RllPdXNPMjArSGMwdzMzdnVGb0hRZVVXMGpIakxzZDh3SmJRM3cwbFphMXZR?=
- =?utf-8?B?bnZaVWIrcUZ3ODJjWUVFNUFQSHE0UFArOWRXNVpUSHNvVHBiN21lUTdaaitQ?=
- =?utf-8?B?c1FBQ2IyVmdHS2RmWEY1aHpPb0V0THFzb2c4TUEzMjJTRVF3aVowdkpLeTBn?=
- =?utf-8?B?VFRiZGpLakxabVdvTHZ2WVdhNWUybGM4S0czbm5QMlV6c2VkYkhabjFBa1NI?=
- =?utf-8?Q?HcyC1casoBg=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MDhybG9Nc1JYbTZlcXpHeGFlMlpzSEpEd2tqT0ZZNXRKbGZDdWZSa3U4aWdO?=
- =?utf-8?B?aWJWaElOMUZrK1N3aTdUQlNIWVFMMm5XRUlHWlNYb3Rqci94aWpKcUIwK2lh?=
- =?utf-8?B?N1RoYjZyQ1VoR3pSUVY5RVdnalFWTkU5VFR6QjlvSFJwQzFva1M0cXMxSlIv?=
- =?utf-8?B?Sk4wQ0xQZ296andiOHVEVzVPOWJONWNUT1JhREhyK1c4enZVMjI1ZUE1SjlT?=
- =?utf-8?B?aHZVYkdNZTd0cWpwbEVNajJKMXlZR3hnNkpTODFpWUZLMzBBdEY2eFppaFlT?=
- =?utf-8?B?T0lVMWg0R3BHU2gzcHJINEFIdkZtUXJtTVBLUnA3ZGYrQVNFL3FoTkdGNGI2?=
- =?utf-8?B?OUdxenRZM0tOcFRjTk1Ic09OZ0JqZnN2YmRtRnJNc1U3RllPUk1ZK1NCdk9K?=
- =?utf-8?B?cWZFNHkrcjc1d29tT1BISnJ2YlRIYUdPWE1ieXdWcUxwOXZhTVdDUXVFaXZp?=
- =?utf-8?B?aHV2a2V4cFM3cmg1WW1HOC80MThEb1JmMmlTUllQVm5KQWpzQnlwcmVSYmNU?=
- =?utf-8?B?akM3UllKS0tiWVA0Ly9WQ2dka1VEckxIendQeTVXdHk2ZGhWYmJBVFcySG9R?=
- =?utf-8?B?MTYzTDBCN2dOa2hadkZVL3VWM21seVJydkJHdDk4Ri9MM3hCZFRTTFBNRjZk?=
- =?utf-8?B?dDN1aHpZQTcxWGJOeVVKVmRRY1ZSNjZzSnJpOWl3UzBBM3pQRG1LdjB6dUI2?=
- =?utf-8?B?SDZIa1lXdEpKem1OZ3ZsSjNaRjR5Z2lwTXlIZlBSMDROUnEvUnpOdGgvTkxI?=
- =?utf-8?B?OGlJeGhmR2xUNEQ1Y1dGR0R1VmFIM2FLSmp2aUFmMDhFVWJnZmNNbE1vejNx?=
- =?utf-8?B?RDNCWXF3Smt0ZEJiRE1TOVZMUnZpait1cWtMUnZSMThmM25DL2w3NnU2Y1Ft?=
- =?utf-8?B?ekwxczhLRmRoNzFVcC9YZS9yRzZHTXptYjMzOWpPdWRuRi9vS0p2Y1YzWVJo?=
- =?utf-8?B?eUpMeGJGSFpyMWdCWDZiV3RYc0h1R3lCWDhWajcyWUo5TWViNkdPOW9sQUNm?=
- =?utf-8?B?R3gxajNIZW8zRkNNemt6N0orbjRpOXdRSWlkSkZzdEJqR2QxV0RpN2J0eW1o?=
- =?utf-8?B?UkhEdmFPYUc4NWFaMnZBeDk4ZGlRM05ORHRSR0NFT2VYTXR5YVpXdmYxU1A4?=
- =?utf-8?B?d3AwaTFLTzZhRWhscWh3NGFvQi9scEgxck5SWktBTExvcXZSeWMxZGhJODM3?=
- =?utf-8?B?NmtIelh4WEtNN2xOVWtNdEtlVjRENGFuMEZGbGh1a0ZrL0RaMEI3TU9vb2Uw?=
- =?utf-8?B?R3JvMHlWa1NPdFYzUDU1T1I2eCtNaVpnTjdCYnBNZzFxbWJKM1FCVTd2WDRv?=
- =?utf-8?B?U3hHdS91VHJzQnErTm4vTkJ4Q04rODlLYzdHbFkveHdMYjFpdmJhTTRrM2Fo?=
- =?utf-8?B?d2xNTHRSQ0dOWmFWNUtGSnVXK1ZhTVRSRVFRa1BzMmxBM1oxd3FYbzAwNGVG?=
- =?utf-8?B?aWtZeEIvcklXbXJ4byt6UEVHRHh4Ukd6QSthNyttdkthKzZUalk0RFhDQ1VR?=
- =?utf-8?B?eFoxVlIrMjR6ZSsrV0JBclhibUdnUE0xYWI3WnA5MC9vUC9PUlVPSlFKeTdU?=
- =?utf-8?B?ODlNU05zOUY2dXlVZk12RDZ0cVZFcStJL2JCenVQcTJsY1ZwTkNGTko4Y0Vu?=
- =?utf-8?B?WU9vcEl3NHMrT2JhQ0F1TVVuc2MyZ3VnNGw1OUFqUFVVQkRkUWRYcWsvOUFY?=
- =?utf-8?B?VzFOZ1dhTmU4T3FUbkwxM3ZtdVA5YkJ3S3FTemNncVV2NlVza3VVMEVMN0lO?=
- =?utf-8?B?QkFwNVJHYUpZaUZMK09oQmRmNlIxT1FWSSs4bFVLTklyS2J4Q1ltVThmbisy?=
- =?utf-8?B?eTZrRDROZ3JLUm8zNG9DY29rZTVlUUZkVzQyODdXSGxtYW5tMUk2ZkxpQzZZ?=
- =?utf-8?B?Vmkxc1Z2T3g1TlB5Sy9mN0NPcEt0eHpQbFdPMlREdjNpTzdWc3g0NG9vdzY4?=
- =?utf-8?B?VHZVK0UyajQxUy9XaFV4WUhRR2FBQ3lUam1GRTR3WmVJcmxpT2VWSGdobHpW?=
- =?utf-8?B?bUZLRFhNVjYrTE91cEV6MVlpVVRjc25RWFRaNlpRV05ydDJzVHlVdzJMQzFl?=
- =?utf-8?B?UExtZW85Sm5HTGYrL29pVDlrZUVEaTRKS1ZwRTdkL3NWVTNaZnlUTFRZb3hS?=
- =?utf-8?Q?UZKdPJzdNWNVbTd03YldIT7jV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a59a7843-fc74-40ec-6123-08ddb26a2da3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 15:25:25.9977 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7bNlNplwxLKyEaTTGBXwQrX1pGY3xEYhDgeip0/33+OTsIEXF96z0gfUZ16dIKw0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8499
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/4] drm: add debugfs support on per client-id basis
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
+ dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
+ phasta@kernel.org, dakr@kernel.org
+References: <20250618134747.3893138-1-sunil.khatri@amd.com>
+ <20250618134747.3893138-2-sunil.khatri@amd.com>
+ <d1372124-616b-4bc7-8a5c-50c524bc3e5d@ursulin.net>
+ <090b8491-329e-4dd7-9480-cf58fd4477da@amd.com>
+ <067c1b95-9411-437c-9c57-0cc040547ffd@ursulin.net>
+ <fd381676-d0c7-4981-8d23-b666ea5b29f6@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <fd381676-d0c7-4981-8d23-b666ea5b29f6@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,277 +96,282 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 23.06.25 17:23, vitaly prosyak wrote:
-> 
-> On 2025-06-23 11:16, Christian König wrote:
->> On 20.06.25 15:49, Alex Deucher wrote:
->>> On Wed, Jun 18, 2025 at 11:58 PM <vitaly.prosyak@amd.com> wrote:
->>>> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
->>>>
->>>> The issue was reproduced on NV10 using IGT pci_unplug test.
->>>> It is expected that `amdgpu_driver_postclose_kms()` is called prior to `amdgpu_drm_release()`.
->>>> However, the bug is that `amdgpu_fpriv` was freed in `amdgpu_driver_postclose_kms()`, and then
->>>> later accessed in `amdgpu_drm_release()` via a call to `amdgpu_userq_mgr_fini()`.
->>>> As a result, KASAN detected a use-after-free condition, as shown in the log below.
->>>> The proposed fix is to move the calls to `amdgpu_eviction_fence_destroy()` and
->>>> `amdgpu_userq_mgr_fini()` into `amdgpu_driver_postclose_kms()`, so they are invoked before
->>>> `amdgpu_fpriv` is freed.
->>>>
->>>> This also ensures symmetry with the initialization path in `amdgpu_driver_open_kms()`,
->>>> where the following components are initialized:
->>>> - `amdgpu_userq_mgr_init()`
->>>> - `amdgpu_eviction_fence_init()`
->>>> - `amdgpu_ctx_mgr_init()`
->>>>
->>>> Correspondingly, in `amdgpu_driver_postclose_kms()` we should clean up using:
->>>> - `amdgpu_userq_mgr_fini()`
->>>> - `amdgpu_eviction_fence_destroy()`
->>>> - `amdgpu_ctx_mgr_fini()`
->>>>
->>>> This change eliminates the use-after-free and improves consistency in resource management between open and close paths.
->>>>
->>>> [  +0.094367] ==================================================================
->>>> [  +0.000026] BUG: KASAN: slab-use-after-free in amdgpu_userq_mgr_fini+0x70c/0x730 [amdgpu]
->>>> [  +0.000866] Write of size 8 at addr ffff88811c068c60 by task amd_pci_unplug/1737
->>>> [  +0.000026] CPU: 3 UID: 0 PID: 1737 Comm: amd_pci_unplug Not tainted 6.14.0+ #2
->>>> [  +0.000008] Hardware name: ASUS System Product Name/ROG STRIX B550-F GAMING (WI-FI), BIOS 1401 12/03/2020
->>>> [  +0.000004] Call Trace:
->>>> [  +0.000004]  <TASK>
->>>> [  +0.000003]  dump_stack_lvl+0x76/0xa0
->>>> [  +0.000010]  print_report+0xce/0x600
->>>> [  +0.000009]  ? amdgpu_userq_mgr_fini+0x70c/0x730 [amdgpu]
->>>> [  +0.000790]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000007]  ? kasan_complete_mode_report_info+0x76/0x200
->>>> [  +0.000008]  ? amdgpu_userq_mgr_fini+0x70c/0x730 [amdgpu]
->>>> [  +0.000684]  kasan_report+0xbe/0x110
->>>> [  +0.000007]  ? amdgpu_userq_mgr_fini+0x70c/0x730 [amdgpu]
->>>> [  +0.000601]  __asan_report_store8_noabort+0x17/0x30
->>>> [  +0.000007]  amdgpu_userq_mgr_fini+0x70c/0x730 [amdgpu]
->>>> [  +0.000801]  ? __pfx_amdgpu_userq_mgr_fini+0x10/0x10 [amdgpu]
->>>> [  +0.000819]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000008]  amdgpu_drm_release+0xa3/0xe0 [amdgpu]
->>>> [  +0.000604]  __fput+0x354/0xa90
->>>> [  +0.000010]  __fput_sync+0x59/0x80
->>>> [  +0.000005]  __x64_sys_close+0x7d/0xe0
->>>> [  +0.000006]  x64_sys_call+0x2505/0x26f0
->>>> [  +0.000006]  do_syscall_64+0x7c/0x170
->>>> [  +0.000004]  ? kasan_record_aux_stack+0xae/0xd0
->>>> [  +0.000005]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000004]  ? kmem_cache_free+0x398/0x580
->>>> [  +0.000006]  ? __fput+0x543/0xa90
->>>> [  +0.000006]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000004]  ? __fput+0x543/0xa90
->>>> [  +0.000004]  ? __kasan_check_read+0x11/0x20
->>>> [  +0.000007]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000004]  ? __kasan_check_read+0x11/0x20
->>>> [  +0.000003]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000004]  ? fpregs_assert_state_consistent+0x21/0xb0
->>>> [  +0.000006]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000004]  ? syscall_exit_to_user_mode+0x4e/0x240
->>>> [  +0.000005]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000004]  ? do_syscall_64+0x88/0x170
->>>> [  +0.000003]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000004]  ? do_syscall_64+0x88/0x170
->>>> [  +0.000004]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000004]  ? irqentry_exit+0x43/0x50
->>>> [  +0.000004]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000004]  ? exc_page_fault+0x7c/0x110
->>>> [  +0.000006]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->>>> [  +0.000005] RIP: 0033:0x7ffff7b14f67
->>>> [  +0.000005] Code: ff e8 0d 16 02 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 f3 0f 1e fa 64 8b 04 25 18 00 00 00 85 c0 75 10 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 41 c3 48 83 ec 18 89 7c 24 0c e8 73 ba f7 ff
->>>> [  +0.000004] RSP: 002b:00007fffffffe358 EFLAGS: 00000246 ORIG_RAX: 0000000000000003
->>>> [  +0.000006] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007ffff7b14f67
->>>> [  +0.000003] RDX: 0000000000000000 RSI: 00007ffff7f5755a RDI: 0000000000000003
->>>> [  +0.000003] RBP: 00007fffffffe380 R08: 0000555555568170 R09: 0000000000000000
->>>> [  +0.000003] R10: 0000000000000000 R11: 0000000000000246 R12: 00007fffffffe5c8
->>>> [  +0.000003] R13: 00005555555552a9 R14: 0000555555557d48 R15: 00007ffff7ffd040
->>>> [  +0.000007]  </TASK>
->>>>
->>>> [  +0.000286] Allocated by task 425 on cpu 11 at 29.751192s:
->>>> [  +0.000013]  kasan_save_stack+0x28/0x60
->>>> [  +0.000008]  kasan_save_track+0x18/0x70
->>>> [  +0.000006]  kasan_save_alloc_info+0x38/0x60
->>>> [  +0.000006]  __kasan_kmalloc+0xc1/0xd0
->>>> [  +0.000005]  __kmalloc_cache_noprof+0x1bd/0x430
->>>> [  +0.000006]  amdgpu_driver_open_kms+0x172/0x760 [amdgpu]
->>>> [  +0.000521]  drm_file_alloc+0x569/0x9a0
->>>> [  +0.000008]  drm_client_init+0x1b7/0x410
->>>> [  +0.000007]  drm_fbdev_client_setup+0x174/0x470
->>>> [  +0.000007]  drm_client_setup+0x8a/0xf0
->>>> [  +0.000006]  amdgpu_pci_probe+0x50b/0x10d0 [amdgpu]
->>>> [  +0.000482]  local_pci_probe+0xe7/0x1b0
->>>> [  +0.000008]  pci_device_probe+0x5bf/0x890
->>>> [  +0.000005]  really_probe+0x1fd/0x950
->>>> [  +0.000007]  __driver_probe_device+0x307/0x410
->>>> [  +0.000005]  driver_probe_device+0x4e/0x150
->>>> [  +0.000006]  __driver_attach+0x223/0x510
->>>> [  +0.000005]  bus_for_each_dev+0x102/0x1a0
->>>> [  +0.000006]  driver_attach+0x3d/0x60
->>>> [  +0.000005]  bus_add_driver+0x309/0x650
->>>> [  +0.000005]  driver_register+0x13d/0x490
->>>> [  +0.000006]  __pci_register_driver+0x1ee/0x2b0
->>>> [  +0.000006]  xfrm_ealg_get_byidx+0x43/0x50 [xfrm_algo]
->>>> [  +0.000008]  do_one_initcall+0x9c/0x3e0
->>>> [  +0.000007]  do_init_module+0x29e/0x7f0
->>>> [  +0.000006]  load_module+0x5c75/0x7c80
->>>> [  +0.000006]  init_module_from_file+0x106/0x180
->>>> [  +0.000007]  idempotent_init_module+0x377/0x740
->>>> [  +0.000006]  __x64_sys_finit_module+0xd7/0x180
->>>> [  +0.000006]  x64_sys_call+0x1f0b/0x26f0
->>>> [  +0.000006]  do_syscall_64+0x7c/0x170
->>>> [  +0.000005]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->>>>
->>>> [  +0.000013] Freed by task 1737 on cpu 9 at 76.455063s:
->>>> [  +0.000010]  kasan_save_stack+0x28/0x60
->>>> [  +0.000006]  kasan_save_track+0x18/0x70
->>>> [  +0.000005]  kasan_save_free_info+0x3b/0x60
->>>> [  +0.000006]  __kasan_slab_free+0x54/0x80
->>>> [  +0.000005]  kfree+0x127/0x470
->>>> [  +0.000006]  amdgpu_driver_postclose_kms+0x455/0x760 [amdgpu]
->>>> [  +0.000485]  drm_file_free.part.0+0x5b1/0xba0
->>>> [  +0.000007]  drm_file_free+0x13/0x30
->>>> [  +0.000006]  drm_client_release+0x1c4/0x2b0
->>>> [  +0.000006]  drm_fbdev_ttm_fb_destroy+0xd2/0x120 [drm_ttm_helper]
->>>> [  +0.000007]  put_fb_info+0x97/0xe0
->>>> [  +0.000006]  unregister_framebuffer+0x197/0x380
->>>> [  +0.000005]  drm_fb_helper_unregister_info+0x94/0x100
->>>> [  +0.000005]  drm_fbdev_client_unregister+0x3c/0x80
->>>> [  +0.000007]  drm_client_dev_unregister+0x144/0x330
->>>> [  +0.000006]  drm_dev_unregister+0x49/0x1b0
->>>> [  +0.000006]  drm_dev_unplug+0x4c/0xd0
->>>> [  +0.000006]  amdgpu_pci_remove+0x58/0x130 [amdgpu]
->>>> [  +0.000482]  pci_device_remove+0xae/0x1e0
->>>> [  +0.000006]  device_remove+0xc7/0x180
->>>> [  +0.000006]  device_release_driver_internal+0x3d4/0x5a0
->>>> [  +0.000007]  device_release_driver+0x12/0x20
->>>> [  +0.000006]  pci_stop_bus_device+0x104/0x150
->>>> [  +0.000006]  pci_stop_and_remove_bus_device_locked+0x1b/0x40
->>>> [  +0.000005]  remove_store+0xd7/0xf0
->>>> [  +0.000007]  dev_attr_store+0x3f/0x80
->>>> [  +0.000006]  sysfs_kf_write+0x125/0x1d0
->>>> [  +0.000005]  kernfs_fop_write_iter+0x2ea/0x490
->>>> [  +0.000007]  vfs_write+0x90d/0xe70
->>>> [  +0.000006]  ksys_write+0x119/0x220
->>>> [  +0.000006]  __x64_sys_write+0x72/0xc0
->>>> [  +0.000006]  x64_sys_call+0x18ab/0x26f0
->>>> [  +0.000005]  do_syscall_64+0x7c/0x170
->>>> [  +0.000005]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->>>>
->>>> [  +0.000013] The buggy address belongs to the object at ffff88811c068000
->>>>                which belongs to the cache kmalloc-rnd-01-4k of size 4096
->>>> [  +0.000016] The buggy address is located 3168 bytes inside of
->>>>                freed 4096-byte region [ffff88811c068000, ffff88811c069000)
->>>>
->>>> [  +0.000022] The buggy address belongs to the physical page:
->>>> [  +0.000010] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88811c06e000 pfn:0x11c068
->>>> [  +0.000006] head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
->>>> [  +0.000006] flags: 0x17ffffc0000040(head|node=0|zone=2|lastcpupid=0x1fffff)
->>>> [  +0.000007] page_type: f5(slab)
->>>> [  +0.000007] raw: 0017ffffc0000040 ffff88810004c140 dead000000000122 0000000000000000
->>>> [  +0.000005] raw: ffff88811c06e000 0000000080040002 00000000f5000000 0000000000000000
->>>> [  +0.000006] head: 0017ffffc0000040 ffff88810004c140 dead000000000122 0000000000000000
->>>> [  +0.000005] head: ffff88811c06e000 0000000080040002 00000000f5000000 0000000000000000
->>>> [  +0.000006] head: 0017ffffc0000003 ffffea0004701a01 ffffffffffffffff 0000000000000000
->>>> [  +0.000005] head: 0000000000000008 0000000000000000 00000000ffffffff 0000000000000000
->>>> [  +0.000004] page dumped because: kasan: bad access detected
->>>>
->>>> [  +0.000011] Memory state around the buggy address:
->>>> [  +0.000009]  ffff88811c068b00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->>>> [  +0.000012]  ffff88811c068b80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->>>> [  +0.000011] >ffff88811c068c00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->>>> [  +0.000011]                                                        ^
->>>> [  +0.000010]  ffff88811c068c80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->>>> [  +0.000011]  ffff88811c068d00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->>>> [  +0.000011] ==================================================================
->>>>
->>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> Cc: Lijo Lazar <lijo.lazar@amd.com>
->>>> Cc: Jesse Zhang <Jesse.Zhang@amd.com>
->>>> Cc: Arvind Yadav <arvind.yadav@amd.com>
->>> Please add:
->>> Fixes: adba0929736a ("drm/amdgpu: Fix Illegal opcode in command stream Error")
->>>
->>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->> Sorry, I was on vacation last week.
+
+On 23/06/2025 15:55, Christian König wrote:
+> On 23.06.25 15:07, Tvrtko Ursulin wrote:
 >>
->> Clear NAK to that here, this will massively break things!
+>> On 23/06/2025 11:24, Khatri, Sunil wrote:
+>>>
+>>> On 6/23/2025 2:58 PM, Tvrtko Ursulin wrote:
+>>>>
+>>>>
+>>>> On 18/06/2025 14:47, Sunil Khatri wrote:
+>>>>> add support to add a directory for each client-id
+>>>>> with root at the dri level. Since the clients are
+>>>>> unique and not just related to one single drm device,
+>>>>> so it makes more sense to add all the client based
+>>>>> nodes with root as dri.
+>>>>>
+>>>>> Also create a symlink back to the parent drm device
+>>>>> from each client.
+>>>>
+>>>> TBH I can see an use case for both clients at DRI level and clients under DRM devices. I guess you have an use case for global and per device can be added later if it becomes needed.
 > 
-> Could you clarify what issues are introduced by this patch? I validated it using NV31 user queues and didn’t observe any problems
+> We already have a "clients" file in the driver directory giving you a list of clients who use this driver instance.
 
-Without this code when an application crashes drm_release() will first free up all memory and then disable the queues.
+Okay, that won't work then.
 
-It is mandatory that we do it the other way around.
+>>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>>>>> ---
+>>>>>    drivers/gpu/drm/drm_debugfs.c | 32 ++++++++++++++++++++++++++++++++
+>>>>>    drivers/gpu/drm/drm_file.c    | 10 ++++++++++
+>>>>>    include/drm/drm_debugfs.h     | 12 ++++++++++++
+>>>>>    include/drm/drm_file.h        |  7 +++++++
+>>>>>    4 files changed, 61 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/ drm_debugfs.c
+>>>>> index 5a33ec299c04..875276d5fb9f 100644
+>>>>> --- a/drivers/gpu/drm/drm_debugfs.c
+>>>>> +++ b/drivers/gpu/drm/drm_debugfs.c
+>>>>> @@ -298,6 +298,38 @@ void drm_debugfs_remove_dir(void)
+>>>>>        debugfs_remove(drm_debugfs_root);
+>>>>>    }
+>>>>>    +int drm_debugfs_clients_add(struct drm_file *file)
+>>>>> +{
+>>>>> +    struct drm_device *dev;
+>>>>> +    char *client_dir, *symlink;
+>>>>> +
+>>>>> +    dev = file->minor->dev;
+>>>>
+>>>> FWIW, as dev is only used once and string locals are not overlapping, you could reduce to a single local variable like char *name and re-use it. Up to you.
+>>>>
+>>> Let me see what i could do with that. But yes can reduce locals.
+>>
+>> Ok.
+>>
+>>> regards
+>>>
+>>> Sunil
+>>
+>> Usually when you sign people stop reading. In this case I accidentaly spotted there is more below.
+>>
+>>>
+>>>>> +
+>>>>> +    client_dir = kasprintf(GFP_KERNEL, "client-%llu", file->client_id);
+>>>>> +    if (!client_dir)
+>>>>> +        return -ENOMEM;
+>>>>
+>>>> It is a bit more work, but I think a clients/ directory with numerical client id subdirs would be nicer.
+>>>
+>>> It was with the id only first but with feedback from Christian i moved it with client-$. Also since we want it in main root directory along with nodes like 0 and 128, it makes sense to differentiate and make a clear
+>>>
+>>> representation of clients.
+>>
+>> I don't mean id only in the root dir, but add a clients subdir in the root, where clients subdir contains more subdirs for individual clients. Maybe it is personal but for me $dri_root/clients/1/something feels nicer, less cluttered and potentially easier to handle in scripts and/or code that $dri_root/client-1/something.
+> 
+> I've played around with that idea as well, but then abandoned it as only an extra step. But it might indeed be nicer.
+> 
+>>>
+>>>>
+>>>>> +
+>>>>> +    /* Create a debugfs directory for the client in root on drm debugfs */
+>>>>> +    file->debugfs_client = debugfs_create_dir(client_dir, drm_debugfs_root);
+>>>>> +    kfree(client_dir);
+>>>>> +
+>>>>> +    symlink = kasprintf(GFP_KERNEL, "../%s", dev->unique);
+>>>>> +    if (!symlink)
+>>>>> +        return -ENOMEM;
+>>>>
+>>>> Worth removing the partial construction?
+>>> Ideally it should never fail and but yes makes sense to clean up.
+>>>>
+>>>>> +
+>>>>> +    /* Create a link from client_id to the drm device this client id belongs to */
+>>>>> +    debugfs_create_symlink("device", file->debugfs_client, symlink);
+>>>>
+>>>> This can also fail.
+>>> sure. Noted
+> 
+> Keep in mind that the results of debugfs functions should *not* be checked and failures should *not* be fatal.
+> 
+> Otherwise Greg comes out and beats your code into shape :)
+
+Oops, my bad!
+
+>>>>> +    kfree(symlink);
+>>>>> +
+>>>>> +    return 0;
+>>>>> +}
+>>>>> +
+>>>>> +void drm_debugfs_clients_remove(struct drm_file *file)
+>>>>> +{
+>>>>> +    debugfs_remove_recursive(file->debugfs_client);
+>>>>> +    file->debugfs_client = NULL;
+>>>>> +}
+>>>>> +
+>>>>>    /**
+>>>>>     * drm_debugfs_dev_init - create debugfs directory for the device
+>>>>>     * @dev: the device which we want to create the directory for
+>>>>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+>>>>> index 06ba6dcbf5ae..8502c5a630b1 100644
+>>>>> --- a/drivers/gpu/drm/drm_file.c
+>>>>> +++ b/drivers/gpu/drm/drm_file.c
+>>>>> @@ -39,12 +39,14 @@
+>>>>>    #include <linux/poll.h>
+>>>>>    #include <linux/slab.h>
+>>>>>    #include <linux/vga_switcheroo.h>
+>>>>> +#include <linux/debugfs.h>
+>>>>>      #include <drm/drm_client_event.h>
+>>>>>    #include <drm/drm_drv.h>
+>>>>>    #include <drm/drm_file.h>
+>>>>>    #include <drm/drm_gem.h>
+>>>>>    #include <drm/drm_print.h>
+>>>>> +#include <drm/drm_debugfs.h>
+>>>>>      #include "drm_crtc_internal.h"
+>>>>>    #include "drm_internal.h"
+>>>>> @@ -143,6 +145,13 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
+>>>>>        rcu_assign_pointer(file->pid, get_pid(task_tgid(current)));
+>>>>>        file->minor = minor;
+>>>>>    +    ret = drm_debugfs_clients_add(file);
+> 
+> No error handling for debugfs functions please!
+
+Hmm but then any userspace will have a hard time figuring out what 
+clients exist.
+
+> 
+>>>>
+>>>> Slightly tricky part is that as soon as this runs userspace can enter debugfs. If in the future any debufs clients file is added which can dereference any of the drm_file fields not yet initialized it has the potential to explode and/or be exploited.
+>>>>
+>>>> Hence I think to be safe the usual pattern of exposing drm_file to userspace at the end, only _after_ drm_file has been *fully* initialized.
+>>>>
+>>>> Slightly annoying part with that might be undoing dev->driver->open() but maybe it is not that bad.
+>>>
+>>> I need this before driver open as the entry is accessed in driver->open in amdgpu to add files to the directory.
+>>>
+>>> So, i could see to move it just before the open but not after. Anyways if we reach till driver open surely file is fully initialized. Nothing else is done in that function after that.
+>>
+>> I guess it is fine as long as dev->driver->open() will be the only place which will be adding files. If one day DRM core decides to add some common file it will need to make things it can dereference are fully initialized.
+>>
+>> Perhaps what makes sense today to make this more robust, and it is not hard, is to simply move drm_debugfs_clients_add to just before dev->driver->open()?
+> 
+> Well the common files should always work and never crash on read, don't they? So it should be save to have them created as soon as the drm_file exists.
+
+Yes they should not. :)
+
+My concern is one day someone adds a common DRM file in here which maybe 
+accesses file->client_name_lock. So the debugfs register must not be 
+before the mutex_init.
+
+Second option is a common file which would call some DRM helper, which 
+in turn could dereference into driver ops, where those driver ops assume 
+dev->driver->open() has already set up the relevant state.
+
+For now it is theoretical but if any of the two happens it would be a 
+timing sensitive null ptr deref, or worse.
+
+Whether or not it is worth protecting against that at this stage I am 
+not sure. One way would be two stage setup. First set up the client dir, 
+then after dev->driver->open call a new hook into the driver to set up 
+the files under it.
+
+> The question is rather how do we handle teardown? Removing the directory as soon as possible?
+
+You think the placent in the patch is too late?
 
 Regards,
-Christian.
 
-> 
-> Thanks, Vitaly
-> 
+Tvrtko
+
+>>>>
+>>>>> +    if (ret) {
+>>>>> +        put_pid(rcu_access_pointer(file->pid));
+>>>>> +        kfree(file);
+>>>>> +        return ERR_PTR(ret);
+>>>>
+>>>> Onion unwind already exists in the function so could have used it. (Add a new label and here simply "goto out_put_pid".) But as above we discuss tweaking the order lets see how that goes first.
+>>> Sure.
+>>>>
+>>>>> +    }
+>>>>> +
+>>>>>        /* for compatibility root is always authenticated */
+>>>>>        file->authenticated = capable(CAP_SYS_ADMIN);
+>>>>>    @@ -236,6 +245,7 @@ void drm_file_free(struct drm_file *file)
+>>>>>                 atomic_read(&dev->open_count));
+>>>>>          drm_events_release(file);
+>>>>> +    drm_debugfs_clients_remove(file);
+>>>>>          if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+>>>>>            drm_fb_release(file);
+>>>>> diff --git a/include/drm/drm_debugfs.h b/include/drm/drm_debugfs.h
+>>>>> index cf06cee4343f..4bd6cc1d0900 100644
+>>>>> --- a/include/drm/drm_debugfs.h
+>>>>> +++ b/include/drm/drm_debugfs.h
+>>>>> @@ -153,6 +153,9 @@ void drm_debugfs_add_files(struct drm_device *dev,
+>>>>>      int drm_debugfs_gpuva_info(struct seq_file *m,
+>>>>>                   struct drm_gpuvm *gpuvm);
+>>>>> +
+>>>>> +int drm_debugfs_clients_add(struct drm_file *file);
+>>>>> +void drm_debugfs_clients_remove(struct drm_file *file);
+>>>>>    #else
+>>>>>    static inline void drm_debugfs_create_files(const struct drm_info_list *files,
+>>>>>                            int count, struct dentry *root,
+>>>>> @@ -181,6 +184,15 @@ static inline int drm_debugfs_gpuva_info(struct seq_file *m,
+>>>>>    {
+>>>>>        return 0;
+>>>>>    }
+>>>>> +
+>>>>> +int drm_debugfs_clients_add(struct drm_file *file)
+>>>>> +{
+>>>>> +    return 0;
+>>>>> +}
+>>>>> +
+>>>>> +void drm_debugfs_clients_remove(struct drm_file *file)
+>>>>> +{
+>>>>> +}
+>>>>
+>>>> Static inline for the two above.
+>>> Noted
+>>>>
+>>>>>    #endif
+>>>>>      #endif /* _DRM_DEBUGFS_H_ */
+>>>>> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+>>>>> index 5c3b2aa3e69d..eab7546aad79 100644
+>>>>> --- a/include/drm/drm_file.h
+>>>>> +++ b/include/drm/drm_file.h
+>>>>> @@ -400,6 +400,13 @@ struct drm_file {
+>>>>>         * @client_name_lock: Protects @client_name.
+>>>>>         */
+>>>>>        struct mutex client_name_lock;
+>>>>> +
+>>>>> +    /**
+>>>>> +     * @debugfs_client:
+>>>>> +     *
+>>>>> +     * debugfs directory for each client under a drm node.
+>>>>> +     */
+>>>>> +    struct dentry *debugfs_client;
+>>>>
+>>>> Is it worth idefing this out if !CONFIG_DEBUG_FS?
+>>>
+>>> Surprisingly i dont see CONFIG_DEBUG_FS used in drm much.  So keeping it same for this one variable too. Need a whole new change to keep debugfs related things under the if.
+>>
+>> Ah struct drm_device.. I see what you mean. I guess the waste if progressively worse as the unused fields move from structs with fewer instances to ones which can be a lot more.
+>>
 >> Regards,
->> Christian.
 >>
+>> Tvrtko
 >>
->>>> v2: drop amdgpu_drm_release() and assign drm_release()
->>>>     as the callback directly.(Alex)
+>>>
+>>> Regards
+>>> Sunil Khatri
+>>>
 >>>>
->>>> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
->>>> Change-Id: I7ab41fd785dcd6f2651c726337ca07519ceae574
->>>> ---
->>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 16 +---------------
->>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  3 +++
->>>>  2 files changed, 4 insertions(+), 15 deletions(-)
+>>>> Regards,
 >>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> index 7fd233f160bf..818a49e69aea 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> @@ -2912,20 +2912,6 @@ static int amdgpu_pmops_runtime_idle(struct device *dev)
->>>>         return ret;
->>>>  }
+>>>> Tvrtko
 >>>>
->>>> -static int amdgpu_drm_release(struct inode *inode, struct file *filp)
->>>> -{
->>>> -       struct drm_file *file_priv = filp->private_data;
->>>> -       struct amdgpu_fpriv *fpriv = file_priv->driver_priv;
->>>> -
->>>> -       if (fpriv) {
->>>> -               fpriv->evf_mgr.fd_closing = true;
->>>> -               amdgpu_eviction_fence_destroy(&fpriv->evf_mgr);
->>>> -               amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
->>>> -       }
->>>> -
->>>> -       return drm_release(inode, filp);
->>>> -}
->>>> -
->>>>  long amdgpu_drm_ioctl(struct file *filp,
->>>>                       unsigned int cmd, unsigned long arg)
->>>>  {
->>>> @@ -2977,7 +2963,7 @@ static const struct file_operations amdgpu_driver_kms_fops = {
->>>>         .owner = THIS_MODULE,
->>>>         .open = drm_open,
->>>>         .flush = amdgpu_flush,
->>>> -       .release = amdgpu_drm_release,
->>>> +       .release = drm_release,
->>>>         .unlocked_ioctl = amdgpu_drm_ioctl,
->>>>         .mmap = drm_gem_mmap,
->>>>         .poll = drm_poll,
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>>> index d2ce7d86dbc8..195ed81d39ff 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>>> @@ -1501,6 +1501,9 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
->>>>                 amdgpu_vm_bo_del(adev, fpriv->prt_va);
->>>>                 amdgpu_bo_unreserve(pd);
->>>>         }
->>>> +       fpriv->evf_mgr.fd_closing = true;
->>>> +       amdgpu_eviction_fence_destroy(&fpriv->evf_mgr);
->>>> +       amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
+>>>>>    };
+>>>>>      /**
 >>>>
->>>>         amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
->>>>         amdgpu_vm_fini(adev, &fpriv->vm);
->>>> --
->>>> 2.34.1
->>>>
+>>
+> 
 
