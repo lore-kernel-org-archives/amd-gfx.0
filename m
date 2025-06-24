@@ -4,68 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE7B6C77B7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 06:36:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 001A5C7EE2A
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 07:33:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5EDF10E1F8;
-	Tue, 24 Jun 2025 06:36:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93DC310E4E7;
+	Tue, 24 Jun 2025 07:33:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QxtM07I4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Mro7t4WO";
 	dkim-atps=neutral
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
- [209.85.160.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4E8410E1F8
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jun 2025 06:36:20 +0000 (UTC)
-Received: by mail-oa1-f52.google.com with SMTP id
- 586e51a60fabf-2da3c572a0bso49937fac.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 23:36:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750746980; x=1751351780; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XN6TuGeyrIqut9p4j/N7jW+heUn3/vlQTRZgcGd/JL0=;
- b=QxtM07I4tQrm4KnuH0Cz4r64jQmhnG9U8sV67uVx0t/LOCeX2oT+MJcxj46/KNSh8B
- IPs1fW3o+YNRv0T0IpvQZRgAZPImoVXP82S7k8KRCD/dDHdob3aqTZBG2Jl2nvMx13mD
- oQPSahnAQu4r+KiImQku7Kml1RNNkTn/Tgdv8Ds+WYUm1UATQiT/p4aFcM2uzcrDvpp+
- 2JmIacn9qBJlRO7+Aa0gpjsU138Gd+lVOyHZCUdfRrp5nbvOPxvKGPBbaYfU5d39UHW1
- feVILA7fIoxD6p9doqq3ECkCO/lFEusjBBS6xPQ1yLX2eO50sj2/y1ZWb3QIGySId1ve
- Rs7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750746980; x=1751351780;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XN6TuGeyrIqut9p4j/N7jW+heUn3/vlQTRZgcGd/JL0=;
- b=pmh+mVMHFVt70toL9gAk2RyVPTW/iEnUpRmtjGUg1GjJN7/wOVtdGR+aRBiXvFcLPS
- AVRvmHR1tNReWhhGOQ/R19leCxcyqmxznq5jbMSxkrHE5eonD491g4Cz/EMdU6oTDIn5
- DVWl6fYL1D8/dSAHuCLHTqgczR6MMOhUH0+0cbNkPl7dfFVdFT5slGirspCyLD5EF8FT
- JUnXeFw0DiEoh9TBcqSd8uWiJ8wXcC0qHRE74ehxhinuc6M8WAYSz0Iw1NjRWVqS8U6Q
- XPIc8NiTtrLNxso6mNz9bjRUSYM2KNuWuEmZ9n1IveUzeGVScc6KXrPKS/rtRE7TzPvb
- CBEw==
-X-Gm-Message-State: AOJu0Ywv7AevgytW6TN/nlUJ+OUhzOqssUfttebpUXHAiWcz7+3QedjH
- DV58ufGh9MluByIWzdJ0SBENNXOgSgc6j+juaGP70wXuCO+sPzBHKh9r7GkAqu7inGebtBhntfz
- lNkXZEDSINM0NkBwkoXJnpLzvHaaTYQU=
-X-Gm-Gg: ASbGncusZYEsOQz6zNS8hp7FsNTTHFsWTfjxsbb/oaRwXXun8e7ZT1JC4jgT1WdJEkD
- AhSIPZiC2J27d2Nqes1jvwraAVBqLonbb8JaWPic/jWbPxHtiidJBepdQlrUBaINTEORdtlSEcQ
- 1Qv+FtxKBmW3BM8affgRVx6Wnbkaz+37F40G8kKndfVgw=
-X-Google-Smtp-Source: AGHT+IEwJlPe4Rh+pIHQ04ZYNNI+pgmi+uqmaXg1K1gDDKcTidI3yhmuoBBv3daHJmGRRFvDmAZel7CiAIg7wjSEeTw=
-X-Received: by 2002:a05:6871:7a4:b0:2d5:d5c:a851 with SMTP id
- 586e51a60fabf-2eeda4d760cmr10413543fac.6.1750746979927; Mon, 23 Jun 2025
- 23:36:19 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2B9310E214;
+ Tue, 24 Jun 2025 07:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1750750428; x=1782286428;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=PKV9c/lsGQc1Lfg8W9yxKSsMGfV1QfYb+yKQY/6y6uc=;
+ b=Mro7t4WO8nRfbo/dLxu0BzrYxAji6PnkAHzN7iEHS1TVUTvJbOSIWrsv
+ lQlMUGPajPmdeaMjNLP8AOizsE6GbJ+mEuaU0s/nc2bMt0a3yuc6B1z9S
+ GMHaW/Mlvult17bWIdTj+jjAsNj5ZOXwP8W1m+sbw71Che3o7RY8uJpP4
+ 234dnOaZkN/YPVbYQ99/B+pcof6rYpZ9oURk328acABdo+h9BHZU7NiXm
+ 8U6OEU9czhlMZDW6z01v9/J+t9WgQ3EwzB/kFhSMMWqW/Avdxvbilgh9E
+ O6ecxECgH+fyw4x68fZ7kfS7seYB4PZO9FnfWMWTQ1bnc87Hg28Bnn/Jk Q==;
+X-CSE-ConnectionGUID: +aOinOfrQuS1n2Mz3T/BgA==
+X-CSE-MsgGUID: lLeEKmkQTBCFB6mYu6DbkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11473"; a="70547317"
+X-IronPort-AV: E=Sophos;i="6.16,261,1744095600"; d="scan'208";a="70547317"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2025 00:33:47 -0700
+X-CSE-ConnectionGUID: qvT++gUTSrGUu7p13G5RMQ==
+X-CSE-MsgGUID: LAt0UfglSIeUb7XCr0jgTA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,261,1744095600"; d="scan'208";a="157336325"
+Received: from lkp-server01.sh.intel.com (HELO e8142ee1dce2) ([10.239.97.150])
+ by fmviesa004.fm.intel.com with ESMTP; 24 Jun 2025 00:33:45 -0700
+Received: from kbuild by e8142ee1dce2 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1uTyA3-000Rry-0d;
+ Tue, 24 Jun 2025 07:33:43 +0000
+Date: Tue, 24 Jun 2025 15:33:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, kernel-dev@igalia.com,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>
+Subject: Re: [PATCH v5 14/16] drm/sched: Remove FIFO and RR and simplify to a
+ single run queue
+Message-ID: <202506241518.ufRm4IS8-lkp@intel.com>
+References: <20250623122746.46478-15-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-References: <20250618213217.3862490-1-superm1@kernel.org>
-In-Reply-To: <20250618213217.3862490-1-superm1@kernel.org>
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-Date: Tue, 24 Jun 2025 02:36:08 -0400
-X-Gm-Features: Ac12FXxfG1yTD3Kn5PxQE1v4c5rVGLsyiFPvbo-rwE0RJMXI_8qkODk_Qp4wvEk
-Message-ID: <CAPEhTTFOZh1_xntmj1ETOq77Ja1KkBTH7hi3ZDmnCVtq9DT4CQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Decrease message level for legacy-pm prints
-To: Mario Limonciello <superm1@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, 
- Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250623122746.46478-15-tvrtko.ursulin@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,66 +75,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I think we need to also modify kv_dpm_print_power_state() and
-si_dpm_print_power_state(). Both send power state info through
-DRM_INFO, which should be decreased in the same way.
+Hi Tvrtko,
 
-On Wed, Jun 18, 2025 at 5:32=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
-rg> wrote:
->
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> legacy-pm has prints while changing power states that don't have
-> a level and thus are printed by default.  These are not useful at
-> runtime for most people, so decrease them to debug.
->
-> Reported-by: Alexandre Demers <alexandre.f.demers@gmail.com>
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4322
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c | 16 ++++++----------
->  1 file changed, 6 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu=
-/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> index c7518b13e7879..5b09c5fd9dc13 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> @@ -123,14 +123,10 @@ void amdgpu_dpm_print_cap_info(u32 caps)
->  void amdgpu_dpm_print_ps_status(struct amdgpu_device *adev,
->                                 struct amdgpu_ps *rps)
->  {
-> -       printk("\tstatus:");
-> -       if (rps =3D=3D adev->pm.dpm.current_ps)
-> -               pr_cont(" c");
-> -       if (rps =3D=3D adev->pm.dpm.requested_ps)
-> -               pr_cont(" r");
-> -       if (rps =3D=3D adev->pm.dpm.boot_ps)
-> -               pr_cont(" b");
-> -       pr_cont("\n");
-> +       drm_dbg(adev_to_drm(adev), "\tstatus:%s%s%s\n",
-> +               rps =3D=3D adev->pm.dpm.current_ps ? " c" : "",
-> +               rps =3D=3D adev->pm.dpm.requested_ps ? " r" : "",
-> +               rps =3D=3D adev->pm.dpm.boot_ps ? " b" : "");
->  }
->
->  void amdgpu_pm_print_power_states(struct amdgpu_device *adev)
-> @@ -943,9 +939,9 @@ static int amdgpu_dpm_change_power_state_locked(struc=
-t amdgpu_device *adev)
->                 return -EINVAL;
->
->         if (amdgpu_dpm =3D=3D 1 && pp_funcs->print_power_state) {
-> -               printk("switching from power state:\n");
-> +               drm_dbg(adev_to_drm(adev), "switching from power state\n"=
-);
->                 amdgpu_dpm_print_power_state(adev, adev->pm.dpm.current_p=
-s);
-> -               printk("switching to power state:\n");
-> +               drm_dbg(adev_to_drm(adev), "switching to power state\n");
->                 amdgpu_dpm_print_power_state(adev, adev->pm.dpm.requested=
-_ps);
->         }
->
-> --
-> 2.43.0
->
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on next-20250623]
+[cannot apply to linus/master drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip v6.16-rc3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Tvrtko-Ursulin/drm-sched-Add-some-scheduling-quality-unit-tests/20250623-202942
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+patch link:    https://lore.kernel.org/r/20250623122746.46478-15-tvrtko.ursulin%40igalia.com
+patch subject: [PATCH v5 14/16] drm/sched: Remove FIFO and RR and simplify to a single run queue
+config: i386-buildonly-randconfig-002-20250624 (https://download.01.org/0day-ci/archive/20250624/202506241518.ufRm4IS8-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250624/202506241518.ufRm4IS8-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202506241518.ufRm4IS8-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: drivers/gpu/drm/scheduler/sched_rq.c:96 Excess function parameter 'ts' description in 'drm_sched_rq_add_entity'
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
