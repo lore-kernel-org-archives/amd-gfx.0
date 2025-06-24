@@ -4,148 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2811DC7115B
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jun 2025 22:19:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01233C7115B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 01:53:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7E6910E472;
-	Mon, 23 Jun 2025 22:19:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A208210E497;
+	Tue, 24 Jun 2025 01:53:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LXBoNa/v";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zKLaXYzn";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2083.outbound.protection.outlook.com [40.107.101.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B081110E472
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jun 2025 22:19:02 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2052.outbound.protection.outlook.com [40.107.93.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3F7510E49A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jun 2025 01:53:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HO+hWLqO6w7QVaARppfLepofgRStj9ZA33BEaFVist3K0N0yYW0p42F3tBaDTESYSQyZxqiO9pTkg7pjx8zQDAvOEk6zbW3zCVQSPjvDwRQEE31/E56Q9XobltPjOaiY/1gYv000vMjjRLnXFZRVSDVnaSmFUvK4A9Tymq5WsREkWBcUcmiijX1yc9pINlHHR7W5qCmVdoeVBZm7T+9+j4GY3SwCO7MljT4KTKtGTEAqpQbtjr4SitEAy64aC6fBU1tUwKw52RbYodp1sHPPVM7Q3KjjPqda9fwMJSuvslZz0OMZwhzxzVKCut332Osldy991xRbjHQJvfV6b8z65A==
+ b=qxiRmOmHz8Au+r+EQ1QQq9OjxjEmjpBllBR0QHk2pmdMDMXSeb4ICuWcBsbhdrz3hYP677j+SwN4ocXRqEhWtinJz/u6sIIrDeTUhGK7nuINOxbk341fe+SG0/vYREfqYI0vdMf9KUAo7ACBCjyZor159OapnbnuiEANN4MQm5jJ2guhqU0p/4EFuLYb3CkKjsKTTRUzuaJvW+WvHlBeFkz5l5o/VNIp658zcLQFsFTvCeBuBmxMj0t8MUcZ37ct2C4Tz/4+A0JRNjaGggDsDbafhnmC96zLFjr1VQpFZs3OVm1wZLJ8qQMn6lqs1+FGcaE5cug7ZykXeq/2kRkSaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4wTkiE3+6COCcLcwPK1oihVqB2KaPkP0BYORafuO6g8=;
- b=KLdAKc6KLveX6J8sm8A9/b9AFwkUMWuiL1PcnfkkhPpg+rAgzXkLRrDXNZUTxFnMW71ajwsy96qLTtUs3HwkKXfY/0MbKBv/YBWaPmYU9x6xqZIunq34qoELg/ZYXb4dBT/TfzXTR7SFzP6wnbz0CIet7xVpajL6p7yVF/zeG0yPm+3FiHBQmql88D4vha0jS2LeksVARfzh0uutJ+RayQw+AEd4uAtVu+GVORq4mFI335qu/+stPL4dYhGTEuGvRXEN92WsEu+wavnC7Re5lRXv3sJwT4uhD0sT9c/NWpnVki7mgbIAn11HQa6I36mjnNPMpPhVJfK7tyE93cgERA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=/1uSM44jpfHkaIvBt2tX7UHc2MbF92gd2s/6iqr3FA0=;
+ b=HaiwKVs969KQH4g+tTvBmfoE5BIEbeGvfymmi5rKg5V1saTRpiSArmmvIiaXEBPTbQtgh+MpVCepiA/AR6yQr55ELBKsZo6/ACbMmDYxcpKzxf0X8ZR5l+Lcot91eArcnlN84biBnfvYkj07YmWGWuAPwoXruLm83/2TYiWhUgFr2qNhkQXD4eJM14bPplX2wgCThURGPK30ftwL712RXzKhXHeLmvDYRevEBOz0r9Z7OVn6x8+zNrGEnpaZ+sM1avjZZwCOjMmD/epAyMEE8z8n69hNPdxREzLbT1M8fK63mxuyyoQPlU+dky6kWilpndwDa+RhEBg7QGPyi4TXZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4wTkiE3+6COCcLcwPK1oihVqB2KaPkP0BYORafuO6g8=;
- b=LXBoNa/vk4EK7+jS8rfhKZVRFoqqJsfA21mSvSzXYhHH1Pe9wub+2hoRmzyfpp2cDfansuZE9LIKVTRlbvH20URrFdRBhBOO9xMlWg7wo7D3+lZbGCQEMogb7n91WfnLnzP1vh62RykkOPPF5VMdbD+l/TRWeZM6ykFwUt5c82U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- PH7PR12MB9065.namprd12.prod.outlook.com (2603:10b6:510:1f7::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.22; Mon, 23 Jun
- 2025 22:18:58 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%4]) with mapi id 15.20.8857.026; Mon, 23 Jun 2025
- 22:18:58 +0000
-Content-Type: multipart/alternative;
- boundary="------------fw6wPXSx3P8dRsHuGfYKcF0C"
-Message-ID: <77dbf577-d767-48e6-b087-61dfcc478c22@amd.com>
-Date: Mon, 23 Jun 2025 17:18:55 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Don't call mmput from MMU notifier callback
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com
-References: <20250623165936.6178-1-Philip.Yang@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <20250623165936.6178-1-Philip.Yang@amd.com>
-X-ClientProxiedBy: CY5P221CA0114.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:930:1f::34) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+ bh=/1uSM44jpfHkaIvBt2tX7UHc2MbF92gd2s/6iqr3FA0=;
+ b=zKLaXYzn9XSBPCwpqJVbNYnAeCeV6DBUQ2cET1e7d9kmheDho6QfTNbIQSNwSkEbAo4SeTUMKDmZq0RFRp6wX0AFl3mk4JGVGt2fgm29dkZRwG5P8vLccpuiKbqJlcf8zCjMVDu3/LfPmrEasolEMcfM/DVMibY1W+tT6/eBiF8=
+Received: from BN9PR03CA0494.namprd03.prod.outlook.com (2603:10b6:408:130::19)
+ by PH8PR12MB7184.namprd12.prod.outlook.com (2603:10b6:510:227::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Tue, 24 Jun
+ 2025 01:53:24 +0000
+Received: from BL6PEPF00020E63.namprd04.prod.outlook.com
+ (2603:10b6:408:130:cafe::c1) by BN9PR03CA0494.outlook.office365.com
+ (2603:10b6:408:130::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8857.30 via Frontend Transport; Tue,
+ 24 Jun 2025 01:53:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF00020E63.mail.protection.outlook.com (10.167.249.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8880.14 via Frontend Transport; Tue, 24 Jun 2025 01:53:24 +0000
+Received: from jasmine-meng.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Jun
+ 2025 20:53:21 -0500
+From: Meng Li <li.meng@amd.com>
+To: amd-gfx <amd-gfx@lists.freedesktop.org>
+CC: Perry Yuan <Perry.Yuan@amd.com>, Shimmer Huang <Shimmer.Huang@amd.com>,
+ Koenig Christian <Koenig.Christian@amd.com>, Lazar Lijo <Lijo.Lazar@amd.com>, 
+ Alexander Deucher <Alexander.Deucher@amd.com>, Meng Li <li.meng@amd.com>
+Subject: [PATCH V3 0/1] Release xcp drm memory after unplug xcp device
+Date: Tue, 24 Jun 2025 09:52:53 +0800
+Message-ID: <20250624015254.1162196-1-li.meng@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|PH7PR12MB9065:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc817a7f-e022-4cf0-b3cf-08ddb2a3f2d1
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E63:EE_|PH8PR12MB7184:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23927fec-fb3b-48c6-c252-08ddb2c1e7a1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MlE5alMxRjVRUlM0YWdMU0NON204SlcyVlRDR2xaSFBmZm1wak1WT1A5UWNK?=
- =?utf-8?B?Q1VGYk9hdEROSUhsTXlaQmJoOG1TRFRMR2F4SlNZRDVLVktnK0IySmNGWjRn?=
- =?utf-8?B?TWFsL3QrLzFvcXlRRXBmaW9FMkkzcGg5d2Q5QW4rRXRlUldwKzBEdXg2ZEpC?=
- =?utf-8?B?OXY4eXBPbWl0T2Q5UDVWRWhhVWdPWmVBY0VOSldNb25PcmwvWHV3bFY2MDRS?=
- =?utf-8?B?VkF1V3NQREJEc1Q4S0FxTG1Yc0t6dEk0UEU3MmVXM3krN1poSFNkSmtxbVNW?=
- =?utf-8?B?VDlCRnBMV2ZRdXB6OXoxTkRQemVjRHFYWExsNHJ0MGRld0pGZWxLbjc0YTRr?=
- =?utf-8?B?ZXFKeDdJVmllUDlhV0RyQ3JtM2ppajA0a3VucDBvVEp3YiswK0hZd0dKME1B?=
- =?utf-8?B?UXk1Vm5hNTNBczEzejJkMlRrQzExN2FSbEJOWXY1NTBoK1dEMTlrdDUyZmk1?=
- =?utf-8?B?cEsvZzJHbk1wbDhubGxKb2EySEtydlFKZ0hzNWFBZFN0ZWp1OUdmaS9RRFVv?=
- =?utf-8?B?dFdTUmJNUG9QOEdnY1dXU3JQaE1OQkdDT2lZeXJaMGs0UXNtVTZINjJKT0Qv?=
- =?utf-8?B?aW80NG1vZ3dDZG1QcjdrWStiQnd3RFRHOU93bHNoc2pxNDEzUlYzU20xcGRy?=
- =?utf-8?B?eTA1alFXaEpGUnByM1NwQUtLaXp2bDYxaWJFeU43MGNUdTU4Qk1sdndjV0ox?=
- =?utf-8?B?VUNmTjNqT0tvRHlJVmtUZGtWMVpqblVWeGJ2ZElESjBXK01IMzdlRGtIRWNT?=
- =?utf-8?B?dHZxU2MvKys4YWtZTVpKWitOVkJxTHVlRTBvUGtTQ0MwSDFRM2F0Y2Y0TTR0?=
- =?utf-8?B?ZDRWZFV6REZFd1hnUWNSb21TQUVjS0FHeVZ1dk9FRHQwaWg4UXhLVHBsOTQx?=
- =?utf-8?B?d2VnVlh5eloyaTNmNW5YMkU3TUtuK3prQlVub2o5WUczcXFLV1A0MTJYU2FT?=
- =?utf-8?B?RWVWT0tFM1MzZXhJd3VVdW5RS2tEMGgwNCtOZXh4OGs5SmlSZ0o4OGNTb2RN?=
- =?utf-8?B?cWpuSFB0UVVwSG5aODN3bzJaakNNVEZyWUNMckpFZ0hocVhaTXl0T1RDakln?=
- =?utf-8?B?NE51RStWNDNBMlJHNkJsL3hQQ2tsYmMvWUxBVFB3RmNJdHczbUtUM2lhZXRy?=
- =?utf-8?B?SXYzWnBnUGNlRkQ3ME5UT2RLZmtFVHlYZWpTWTBHS0xYODJNZnMxY1RxYy92?=
- =?utf-8?B?SjNTVTgzZzFNWHNFVFd5V1ZJOEw0OWRTd3daanZaYVdGMGJDa3ZsNVNEcm84?=
- =?utf-8?B?ZEhtSFgyeUpOQ2VQdWNva1VMYkQ1RUlwSy91VEk2SS9SYnBqT1FyTWJVRW91?=
- =?utf-8?B?bmU2UzJiRUovK1dFdW80ekswMGRlVll5ZTVLSXNKY2ZSTnhRMzNTMzEweWhB?=
- =?utf-8?B?Q0NVc3hSSWplR2wrMGxoYUZoaEhPdWZqeUIxd290MGJ2YU85M3hINisrYzND?=
- =?utf-8?B?bE15UDNEVkxQZy9YdE1RTVZRUFp5UkZYU1ByVUNGQU5CMDRoKzdDdTdrL0p1?=
- =?utf-8?B?b2pVaC9BTTVMN3R2b040eXg5V0ZGUS9paHVBQ0dMaC9MTTNFNjBOazU5N3dp?=
- =?utf-8?B?eDZTYlFwbi9IdHRvYVJLN2lUYVFTazNocmVaMEIyQk1weUN1M0VrRkhGTjB3?=
- =?utf-8?B?TTFrSTMweDhVMVo5YUsvQUVpY1Q1OHlIcVovYnZBcXU0KzdoM2RlL0lDbGlB?=
- =?utf-8?B?RFBxaldabDVKTlhQbEFFcHJaWEJ5N2hwY3drelZ6TTM0dmF0UXVVdDIyNUMy?=
- =?utf-8?B?aEZlSndNMTJqV2x6WEJCaTExVmg2Z1lWUGRVMGgwY2lWWDBrckFRS3pDek9L?=
- =?utf-8?B?MCtDancxUExwakM4dVA0UE92NlNuSFRPSEU3cFdKd3UwU2FjY2gyUEJRcVI3?=
- =?utf-8?B?dm11OWZYTXBnNDBpM09id1hGL1QzLzg2TXBhZG92WEtyVHRWdkhhZVhZMlBs?=
- =?utf-8?Q?xot8cMvpglU=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(8096899003); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0Z4Syt4ZFRraXl5dW9NbHFGcktLdGFvVERJR0s4OERXS0NidnFHdXYxa3cr?=
- =?utf-8?B?OUJiUTJaZkdwcVRFVUhZdmhpcnJHOUNoRndRbEtUYlJzbEVEdmdQR05EUXZj?=
- =?utf-8?B?dEtWU25MMmxMeEV1ckZyclhiWENxdEhscTVJVmdVWTVJd3NMMFRHdE5rWlBY?=
- =?utf-8?B?UHJuN3k2d0JrZTY4WjUyUWhUbVNmenlzckFLUEtqTGl2SklPT0YrdkhZaVhZ?=
- =?utf-8?B?MVpiSExHN3RDaVkwd2FPT0x1anlieStTeFo4UURvVXIrdnNvK1BtZ3hvSThV?=
- =?utf-8?B?Sld2QVFLWnByMlZ4NW1SZnF1SVdlTk80bVFtbHJoSnFaM2xEZkV4QXdUSFBy?=
- =?utf-8?B?M3FUcFlxRFlSNTgwc1BvallFd0FHMnF4QlBJOW9MQ3FxSVl1ZDB3dGNtZjJv?=
- =?utf-8?B?UEU1aEFZY3phRTN2YzRuOHlpNG9ENkM2ZDJXVlpmalpxZDhvWUhrcyt2UDAx?=
- =?utf-8?B?bThsOXh3OTBTNWczMExQUVZycHpaMFpYUVo0QXEwVU14UUhuYmk0bktLNzJ5?=
- =?utf-8?B?ZHI4dGd5aTdSVzBUZW9NUEdLNi9qRVJPZG4wNHVydmtBU1lwTTR1ckh0OXdy?=
- =?utf-8?B?bkVXb2RHNzMzQVk2QlY4dnkyZDRTdHljT1VOK2xYWUtnYWk0K2RNb3ErL05T?=
- =?utf-8?B?U3VCL0c4SysvU2xlaWNsQkhqVDQxb0hrVExMWDgyMnVRN2o3a3oxaTU1Q1pt?=
- =?utf-8?B?L3lJeTBsekthakpZVVM5REcyVmxScXJTTlVKNEhrUUkva2txdVF0Q3c5NThx?=
- =?utf-8?B?TmlNNGoydmV6ZExJcWdveGc0dlFqU0RSU1pIS1I0NkNNWDE2UFhKOFZ3UzNS?=
- =?utf-8?B?YSt3MEJZQ2VmeVVUWXBuVE45cVlDUE9EZDdqODcycnVCUnUrZGVPeWxua2p5?=
- =?utf-8?B?Vi9uRTlyWVB4Y0luREh1aVgwVVpQQmE2K0hqTE9rREUxZ08yRnJxMHAzb0dD?=
- =?utf-8?B?MCtKT1V0WXFJTEh3QkhoakdoVlNTbmZIV3ZVeUJhMHBibktaa0RPR3crMlZN?=
- =?utf-8?B?a1RYMjQ4T0hZbHZiK0pJaktsRW1QcmNvZ0JoWmFxRC9ZbnhWU25KU01ROTVU?=
- =?utf-8?B?UFhpMUk5bG5wV1BQNzZoeFF0UjFMUTBFeTJpdUxUYmdUL2NpdEwyVUxseDNX?=
- =?utf-8?B?cSt1U1FHcUQ4K1NjSlpDdW5vS0RwVnJUbndBcXFsUDlkSTZsWmFEMVVYWktC?=
- =?utf-8?B?NytteFdHdldPK1ErcHRxY0V3NTVGMk41cHhmVnF4MmlrVVMyY1dBRG5TaXpL?=
- =?utf-8?B?OWdXTDlmbEZYZEVrUGR5QUpiNktKNTEwMkdzRVJGNWhkTk01UGxlRTNZblZ4?=
- =?utf-8?B?Wmp1d0d1WGJwNXVvRjVwY3JNRDJpZ3h4NmM1QytNM1F1Rys3OVpNRXU2ZHFy?=
- =?utf-8?B?WlpGMXVsMjlLMnZ4ZGJZcXRMSm9ROUxNQzFJSlhmUThWNzJXZnpPaC9Zc0Iw?=
- =?utf-8?B?V3RJL1FjcXRYQ2grRXp6MkdOWnUrZDZCYzkrY0VtRE45ODBodUZpQy9JZkF1?=
- =?utf-8?B?MDRwTGxBdU93c0J6bGZRb1ZiSk5GL2tESlg3VnZEbDQ1UGZIT2FlVU12a1Ey?=
- =?utf-8?B?cllTaEhpQXQ1bExSdnFVWkRXRmx2OVpWeDQzcTlEMGZNZktDb1ZuODVRK3B2?=
- =?utf-8?B?ZTNPbUVJZnhhRmx1Q085eUVPMk9ZSkNQekZ3S1lXUFJYMUxQZW81d0tYa3gr?=
- =?utf-8?B?ZC84WkxkbTJ2UW1EZnRNc3didCt0WGJaenhTVzdGRzhUdTBNQVF4Sys5QXQ0?=
- =?utf-8?B?RjNYMExSM0xkWW9XcDNVdjhPa2swY0Z4YnhYRmdlR1VjQzJmdytQQW9MTFJ4?=
- =?utf-8?B?c0o1dE8yTWtlbEt0V2pmZmlPZVdxV2I1YnZQU1huWHRuZVBLRjlKN1NGRzdR?=
- =?utf-8?B?ZzZ2bTk2UnBibERHN3ZMZFE3cXd6WkNwMnQ4MzkrNUZJd2Fiemt0Mi9qbnFm?=
- =?utf-8?B?S1M0L21rT0VIM2hPelhoem5QYmhjNGMwUGJyS1dSQkdBbzFCMXcwTVpPbW9X?=
- =?utf-8?B?d2FNWDdnN1pUbk9wNVc5TG55bG5aQ2dwZ01XT2NVSDF2cVpoMkZBclUwT0VS?=
- =?utf-8?B?ajdLSXlvMHRKQnlNT2YwL1R5SnhhZmpHSVBWZlcyRXZtVEJTWWlWMVptd0N4?=
- =?utf-8?Q?dXqo=3D?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?zq1U41BzgTElxAZ0GlDcVF4ALzLN5sPU6tFCUu1d5AFsFVmssjEE4gopiW/f?=
+ =?us-ascii?Q?ZL55jHM23bjWdteL3LBz257Xn+/3c8321F+kXQ98rPoKpL3hk2BpVfw1cUOf?=
+ =?us-ascii?Q?qFjZA8Pb5Tpkp8fYy3synbn97YseKBb2m1zJSBSngtOFDspBAARkxGXOMrLp?=
+ =?us-ascii?Q?UOHK1lVHYSwnvkBlt3jC4QUhE5BbiEblOZssB6YvqUYIV3i6aB5aSX7HCT7t?=
+ =?us-ascii?Q?S+LPTv+M1p703nfg6XNDcFMfX5/3FGI3VR8IOh8aHAywsPmizKFVHeuKdxuf?=
+ =?us-ascii?Q?I1xVzF28x4xYIr54VS+HhwtUB/02u+4z17UxXSTCwOy8q+pprP/2jNn+Ih1K?=
+ =?us-ascii?Q?+zA338Cbtp2ST7vqXL58HCz/g0pncK2OJ0v1ovCMDb1jaobAF6a2utzSwOAF?=
+ =?us-ascii?Q?hGQtVrJB8yDRqPRtpGzgRkkUmM4KNhxtTKonQNGvXsqHbqS0kEZ6VZOgWoia?=
+ =?us-ascii?Q?2ueiSA5jp4DAAGDLOk2a26sTfrol23k8M3mSPyngPjIi8IGepSfSe9+Vc+Af?=
+ =?us-ascii?Q?TThX07bk+IqRwfTyNHuchrVt3JgEx+msFDLurLRC6q1fVNOErloFZqqwSJqx?=
+ =?us-ascii?Q?+3fTtqtkvhSh6f9iVEAHQUQE4rZajP3Hav295i+fKZITvsvCz4KmEPx08grJ?=
+ =?us-ascii?Q?cLJpS0o3d1BjBm6ST2EvBqbT7aOTCQfOtpJDAuJ7B+uYPgtbXwjg4ilRgk0O?=
+ =?us-ascii?Q?iB9UZVUKrYkAbp6J/YLA1XeQrC5QW9BQshXvnddHuK5JiJmD+D4Ajy7e3PDa?=
+ =?us-ascii?Q?7epPj6DRys5aZn9hSE57zqyN82ZToCRsu7/v8S6kcg8Fo5rS4Wjfay/XFt74?=
+ =?us-ascii?Q?omuIdDKEFWyvTdh2bdhw0Bmmd6ApK0F9yNZRuY8ehxmJNssS1cgdnuBRyK8X?=
+ =?us-ascii?Q?XD99T4IEm7cEAeeGb9j8T5quT+SgCBBAfQETC+RywOl8Py00F33vgVKI51pP?=
+ =?us-ascii?Q?yvZCEQIOGuY1F3RytlFTU55rKYDGl974tcj8YorpvZNVtCUS/xl9OcwpCnPR?=
+ =?us-ascii?Q?KfOSYgf2TQFVCdNhsPvgHj0XvWQhgZXTrUAVz5pTm0O+bPCLe4f1xmUj7jVo?=
+ =?us-ascii?Q?cpy88YZTucahE3AHIa8FkWEPBycoxVgRZImhvM8qRYBoTtrfSPGLPvr0w7JK?=
+ =?us-ascii?Q?l9rh17sm7/A/IlgbZ4+McAF/OOr4GLqCZv2mlz7lsQDm89I/z2DOJGwe/5yo?=
+ =?us-ascii?Q?9KaQ9HXGlbF+YIH7Sd38SqsNzIqV7GzIbvgjoK5GXlDrsnd+3vbN0zCt1tgU?=
+ =?us-ascii?Q?DRbiDZ+xkl3H+5Pffe7BYULD13AMvFXfJiL6YWWALH/d4IMKHiQrFzc+7/C3?=
+ =?us-ascii?Q?YwABnyjzJZiIrAXR02aQa66drVRDNjcH23BqpHV5B6tS8fDKHn6+f89IMQlu?=
+ =?us-ascii?Q?hA4iEynT6Jk+hvkff5HlhgyL4e/QKT83wRJ+8XCzeHry6gBE+miBhoCpjPJ1?=
+ =?us-ascii?Q?LcEmWeis/tYWwTHzNeD3j2dGQzphge8IRnNtLtWXtnRYXow4o0CKObnzNzWo?=
+ =?us-ascii?Q?xVRBVFwQQNEm3j+MABp9mn+QA9/I1QjTKZAN?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc817a7f-e022-4cf0-b3cf-08ddb2a3f2d1
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 22:18:58.2033 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2025 01:53:24.0625 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23927fec-fb3b-48c6-c252-08ddb2c1e7a1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HQEDJpF836hhFGk0SwhfzX9hTEk6y805KuQAAEFh9g+wj38AJt4KExaSJcAf/L1m
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9065
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7184
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,271 +132,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------fw6wPXSx3P8dRsHuGfYKcF0C
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Fix xcp drm memory release after executing PCIe remove.
+Fix xcp drm memory alloc after executing PCIe insert.
 
+Changes from V2->V3:
+- amdgpu:
+- - Add Gerry as a Signed-off.
+- - Unified commit author.
 
-On 6/23/2025 11:59 AM, Philip Yang wrote:
-> If the process is exiting, the mmput inside mmu notifier callback from
-> compactd or fork or numa balancing could release the last reference
-> of mm struct to call exit_mmap and free_pgtable, this triggers deadlock
-> with below backtrace.
->
-> The deadlock will leak kfd process as mmu notifier release is not called
-> and cause VRAM leaking.
->
-> The fix is to take mm reference mmget_non_zero when adding prange to the
-> deferred list to pair with mmput in deferred list work.
->
-> The backtrace of hung task:
->
->   INFO: task python:348105 blocked for more than 64512 seconds.
->   Call Trace:
->    __schedule+0x1c3/0x550
->    schedule+0x46/0xb0
->    rwsem_down_write_slowpath+0x24b/0x4c0
->    unlink_anon_vmas+0xb1/0x1c0
->    free_pgtables+0xa9/0x130
->    exit_mmap+0xbc/0x1a0
->    mmput+0x5a/0x140
->    svm_range_cpu_invalidate_pagetables+0x2b/0x40 [amdgpu]
->    mn_itree_invalidate+0x72/0xc0
->    __mmu_notifier_invalidate_range_start+0x48/0x60
->    try_to_unmap_one+0x10fa/0x1400
->    rmap_walk_anon+0x196/0x460
->    try_to_unmap+0xbb/0x210
->    migrate_page_unmap+0x54d/0x7e0
->    migrate_pages_batch+0x1c3/0xae0
->    migrate_pages_sync+0x98/0x240
->    migrate_pages+0x25c/0x520
->    compact_zone+0x29d/0x590
->    compact_zone_order+0xb6/0xf0
->    try_to_compact_pages+0xbe/0x220
->    __alloc_pages_direct_compact+0x96/0x1a0
->    __alloc_pages_slowpath+0x410/0x930
->    __alloc_pages_nodemask+0x3a9/0x3e0
->    do_huge_pmd_anonymous_page+0xd7/0x3e0
->    __handle_mm_fault+0x5e3/0x5f0
->    handle_mm_fault+0xf7/0x2e0
->    hmm_vma_fault.isra.0+0x4d/0xa0
->    walk_pmd_range.isra.0+0xa8/0x310
->    walk_pud_range+0x167/0x240
->    walk_pgd_range+0x55/0x100
->    __walk_page_range+0x87/0x90
->    walk_page_range+0xf6/0x160
->    hmm_range_fault+0x4f/0x90
->    amdgpu_hmm_range_get_pages+0x123/0x230 [amdgpu]
->    amdgpu_ttm_tt_get_user_pages+0xb1/0x150 [amdgpu]
->    init_user_pages+0xb1/0x2a0 [amdgpu]
->    amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu+0x543/0x7d0 [amdgpu]
->    kfd_ioctl_alloc_memory_of_gpu+0x24c/0x4e0 [amdgpu]
->    kfd_ioctl+0x29d/0x500 [amdgpu]
->
-> Fixes: fa582c6f3684 ("drm/amdkfd: Use mmget_not_zero in MMU notifier")
-> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 23 +++++++++++------------
->   1 file changed, 11 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 10d1276f8e1c..5fe92f9a1ce1 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -2392,15 +2392,17 @@ svm_range_add_list_work(struct svm_range_list *svms, struct svm_range *prange,
->   		    prange->work_item.op != SVM_OP_UNMAP_RANGE)
->   			prange->work_item.op = op;
->   	} else {
-> -		prange->work_item.op = op;
-> -
-> -		/* Pairs with mmput in deferred_list_work */
-> -		mmget(mm);
-> -		prange->work_item.mm = mm;
-> -		list_add_tail(&prange->deferred_list,
-> -			      &prange->svms->deferred_range_list);
-> -		pr_debug("add prange 0x%p [0x%lx 0x%lx] to work list op %d\n",
-> -			 prange, prange->start, prange->last, op);
-> +		/* Pairs with mmput in deferred_list_work.
-> +		 * If process is exiting and mm is gone, don't update mmu notifier.
-> +		 */
-> +		if (mmget_not_zero(mm)) {
-If process is exiting we not need do schedule_deferred_list_work 
-neither. I think this part code need be reorganized with 
-mmget_not_zero(mm) check.
-> +			prange->work_item.mm = mm;
-> +			prange->work_item.op = op;
-> +			list_add_tail(&prange->deferred_list,
-> +				      &prange->svms->deferred_range_list);
-> +			pr_debug("add prange 0x%p [0x%lx 0x%lx] to work list op %d\n",
-> +				 prange, prange->start, prange->last, op);
-> +		}
->   	}
->   	spin_unlock(&svms->deferred_list_lock);
->   }
-> @@ -2568,8 +2570,6 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
->   
->   	if (range->event == MMU_NOTIFY_RELEASE)
->   		return true;
-> -	if (!mmget_not_zero(mni->mm))
-> -		return true;
+Changes from V1->V2:
+- cover-letter:
+- - Revise title version number.
+- amdgpu:
+- - Remove // comments.
+- - Add Gerry as a co-developr.
 
-Why remove mmget_not_zero(mni->mm) /mmput(mni->mm) here? I think they 
-are for different purpose from mmget_not_zero(mm) at 
-svm_range_add_list_work.
+Meng Li (1):
+  drm/amd/amdgpu: Release xcp drm memory after unplug
 
-Regards
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c     |  1 +
+ drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 60 +++++++++++++++++----
+ drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h |  1 +
+ 3 files changed, 53 insertions(+), 9 deletions(-)
 
-Xiaogang
+-- 
+2.43.0
 
->   
->   	start = mni->interval_tree.start;
->   	last = mni->interval_tree.last;
-> @@ -2596,7 +2596,6 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
->   	}
->   
->   	svm_range_unlock(prange);
-> -	mmput(mni->mm);
->   
->   	return true;
->   }
---------------fw6wPXSx3P8dRsHuGfYKcF0C
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 6/23/2025 11:59 AM, Philip Yang
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20250623165936.6178-1-Philip.Yang@amd.com">
-      <pre wrap="" class="moz-quote-pre">If the process is exiting, the mmput inside mmu notifier callback from
-compactd or fork or numa balancing could release the last reference
-of mm struct to call exit_mmap and free_pgtable, this triggers deadlock
-with below backtrace.
-
-The deadlock will leak kfd process as mmu notifier release is not called
-and cause VRAM leaking.
-
-The fix is to take mm reference mmget_non_zero when adding prange to the
-deferred list to pair with mmput in deferred list work.
-
-The backtrace of hung task:
-
- INFO: task python:348105 blocked for more than 64512 seconds.
- Call Trace:
-  __schedule+0x1c3/0x550
-  schedule+0x46/0xb0
-  rwsem_down_write_slowpath+0x24b/0x4c0
-  unlink_anon_vmas+0xb1/0x1c0
-  free_pgtables+0xa9/0x130
-  exit_mmap+0xbc/0x1a0
-  mmput+0x5a/0x140
-  svm_range_cpu_invalidate_pagetables+0x2b/0x40 [amdgpu]
-  mn_itree_invalidate+0x72/0xc0
-  __mmu_notifier_invalidate_range_start+0x48/0x60
-  try_to_unmap_one+0x10fa/0x1400
-  rmap_walk_anon+0x196/0x460
-  try_to_unmap+0xbb/0x210
-  migrate_page_unmap+0x54d/0x7e0
-  migrate_pages_batch+0x1c3/0xae0
-  migrate_pages_sync+0x98/0x240
-  migrate_pages+0x25c/0x520
-  compact_zone+0x29d/0x590
-  compact_zone_order+0xb6/0xf0
-  try_to_compact_pages+0xbe/0x220
-  __alloc_pages_direct_compact+0x96/0x1a0
-  __alloc_pages_slowpath+0x410/0x930
-  __alloc_pages_nodemask+0x3a9/0x3e0
-  do_huge_pmd_anonymous_page+0xd7/0x3e0
-  __handle_mm_fault+0x5e3/0x5f0
-  handle_mm_fault+0xf7/0x2e0
-  hmm_vma_fault.isra.0+0x4d/0xa0
-  walk_pmd_range.isra.0+0xa8/0x310
-  walk_pud_range+0x167/0x240
-  walk_pgd_range+0x55/0x100
-  __walk_page_range+0x87/0x90
-  walk_page_range+0xf6/0x160
-  hmm_range_fault+0x4f/0x90
-  amdgpu_hmm_range_get_pages+0x123/0x230 [amdgpu]
-  amdgpu_ttm_tt_get_user_pages+0xb1/0x150 [amdgpu]
-  init_user_pages+0xb1/0x2a0 [amdgpu]
-  amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu+0x543/0x7d0 [amdgpu]
-  kfd_ioctl_alloc_memory_of_gpu+0x24c/0x4e0 [amdgpu]
-  kfd_ioctl+0x29d/0x500 [amdgpu]
-
-Fixes: fa582c6f3684 (&quot;drm/amdkfd: Use mmget_not_zero in MMU notifier&quot;)
-Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 10d1276f8e1c..5fe92f9a1ce1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2392,15 +2392,17 @@ svm_range_add_list_work(struct svm_range_list *svms, struct svm_range *prange,
- 		    prange-&gt;work_item.op != SVM_OP_UNMAP_RANGE)
- 			prange-&gt;work_item.op = op;
- 	} else {
--		prange-&gt;work_item.op = op;
--
--		/* Pairs with mmput in deferred_list_work */
--		mmget(mm);
--		prange-&gt;work_item.mm = mm;
--		list_add_tail(&amp;prange-&gt;deferred_list,
--			      &amp;prange-&gt;svms-&gt;deferred_range_list);
--		pr_debug(&quot;add prange 0x%p [0x%lx 0x%lx] to work list op %d\n&quot;,
--			 prange, prange-&gt;start, prange-&gt;last, op);
-+		/* Pairs with mmput in deferred_list_work.
-+		 * If process is exiting and mm is gone, don't update mmu notifier.
-+		 */
-+		if (mmget_not_zero(mm)) {</pre>
-    </blockquote>
-    If process is exiting we not need do schedule_deferred_list_work
-    neither. I think this part code need be reorganized with <span style="white-space: pre-wrap">mmget_not_zero(mm)</span> check.<br>
-    <blockquote type="cite" cite="mid:20250623165936.6178-1-Philip.Yang@amd.com">
-      <pre wrap="" class="moz-quote-pre">+			prange-&gt;work_item.mm = mm;
-+			prange-&gt;work_item.op = op;
-+			list_add_tail(&amp;prange-&gt;deferred_list,
-+				      &amp;prange-&gt;svms-&gt;deferred_range_list);
-+			pr_debug(&quot;add prange 0x%p [0x%lx 0x%lx] to work list op %d\n&quot;,
-+				 prange, prange-&gt;start, prange-&gt;last, op);
-+		}
- 	}
- 	spin_unlock(&amp;svms-&gt;deferred_list_lock);
- }
-@@ -2568,8 +2570,6 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
- 
- 	if (range-&gt;event == MMU_NOTIFY_RELEASE)
- 		return true;
--	if (!mmget_not_zero(mni-&gt;mm))
--		return true;</pre>
-    </blockquote>
-    <p>Why remove <span style="white-space: pre-wrap">mmget_not_zero(mni-&gt;mm)</span>
-      /<span style="white-space: pre-wrap">mmput(mni-&gt;mm) here? I think they are for different purpose from </span><span style="white-space: pre-wrap">mmget_not_zero(mm)</span> at <span style="white-space: pre-wrap">svm_range_add_list_work</span>.</p>
-    <p>Regards</p>
-    <p>Xiaogang<br>
-    </p>
-    <blockquote type="cite" cite="mid:20250623165936.6178-1-Philip.Yang@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 
- 	start = mni-&gt;interval_tree.start;
- 	last = mni-&gt;interval_tree.last;
-@@ -2596,7 +2596,6 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
- 	}
- 
- 	svm_range_unlock(prange);
--	mmput(mni-&gt;mm);
- 
- 	return true;
- }
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------fw6wPXSx3P8dRsHuGfYKcF0C--
