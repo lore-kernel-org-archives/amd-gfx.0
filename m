@@ -4,81 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 485D8C77B7F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 09:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D85EC77B7C
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 11:35:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E58F610E541;
-	Tue, 24 Jun 2025 09:47:04 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="Ydlb/TSe";
-	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 696BC10E541
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jun 2025 09:46:58 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-453426170b6so36429065e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jun 2025 02:46:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1750758417; x=1751363217;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7KXxwbHVWhaJwWfs+CMcQez53m1pJfDu3vlWMg5CPb0=;
- b=Ydlb/TSeADLRhat9K5AmM+MWsIBmNcYhkRep96FbPA8k8yQCmL4NCgxQDUufmKwBoh
- kPK+Gq38z6A6chprwFC6XyY7fAJ60dLlU9zYI/w9n1e54HjBwgGeUP+MyltWcS3IwM8W
- 7wd1cyxuI4ojBIE/vONn5Br39kuXTMoT1V34MuXBQTiBaGuumxFQ0Hy9g8uzlHFuf7Ps
- ldgry4t2EmupnCuo4alElq8B33bin39iRdLQw02D7hErooQyvm51At1kcCEm2LsSiSLB
- NsVjNrl26aUhXqiq7talsur4arqkMLLvLhut8S44WsQWLr2GBjlneXzL5SzDb7iSJv8E
- xFQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750758417; x=1751363217;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7KXxwbHVWhaJwWfs+CMcQez53m1pJfDu3vlWMg5CPb0=;
- b=aquA2U4JnovWOkqVlyT6eHp2AX2Hiz+UvRDTpldLZAgdEQQa3x9C4O+yqCE+ZBiH3P
- QEGxbkB0snvfC9gXmpfCyB63OYZU53q3dl/WzBYPdUOlXeYJXZvT4+QWQ3vVrUkSe/TI
- W3pym1J0k0fdW+KHZLKgNKMPWjOsR3/yg638S1KS9LXJwil+u1mJlFxlDPjJ+V7lYy9O
- 3spY3nDEFyeSEc/oCk+rFvxnLc3IHwMwmeEdGv02Diwnx8UWG7Oh9jDADakJ9rYuBAXj
- 8ao2BLBlkDKmSlbFNztWMhuf/+GfEuaFRC2rcLFL/O4PsvACN8y6PV2wqf1ONtTRL/Ll
- niQw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWC7eul41pHUr+gmWHnRs/TeLGDnZEC1YNll5ag92mx5nV0O8n0y3Tp1DyuriNanjPgLIb30Mep@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw13oQW/61o6T6MiZ9FtJzYLzTXa/6dnDJrxd03JkOSLOqe96eC
- jowwRFLv81fey/nPCvKS/+O9TIcukDjxZJv1gZ1AXOZcYt5oCQlQq7srm63uH8GSIQMCAv3Xgj8
- 2exBK
-X-Gm-Gg: ASbGncuP4Vt0k4PYDMg+1QangQrp1SWM3GoUFDN2SYl1dq0pYbXHQMdTvSVwwjYZ7up
- uuFXkwn9yTXFeUmKUaVb83guPJ34cGkCNPvFijbQhzvptER+/NYbC/hZFKVVQs6RCFWxKJhjlRf
- AA1ijkIVscit3KoZMM3+CuEux9HVja1rWrE+ixLRkHey7C5/T86caDUYuPbjs2FSsd/Lt6AQKla
- X5+2ujfRNaKPhWfT18Mm1Vpk+cSBYdskFNm9OdRXPrlY1HCCP4GdAf39Qx7pPVGxY1P2mdb+yQU
- tCCcgsBtu8kgF4f+8hihMWA7BEfDezx+WuuiRWwFT8ppvByfVdubCuh5DbmRemtiA4NUsD+D2D/
- +
-X-Google-Smtp-Source: AGHT+IHe98vbPFuP0inahHGYkGgZXsJrrTIOSa5hnhDZWpiX+E23u2PXsQyTQWGjgjcUSW4DdByhDQ==
-X-Received: by 2002:a5d:5f92:0:b0:3a5:25e2:6129 with SMTP id
- ffacd0b85a97d-3a6e7206741mr2286030f8f.21.1750758416996; 
- Tue, 24 Jun 2025 02:46:56 -0700 (PDT)
-Received: from [192.168.0.101] ([81.79.92.254])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-453646fd642sm132712455e9.21.2025.06.24.02.46.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jun 2025 02:46:56 -0700 (PDT)
-Message-ID: <b7fc658e-2778-48dd-8584-3f33bbcc5ab7@ursulin.net>
-Date: Tue, 24 Jun 2025 10:46:55 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6E6910E518;
+	Tue, 24 Jun 2025 11:35:26 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72CED10E518;
+ Tue, 24 Jun 2025 11:35:25 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 55OBZ5j92323040; Tue, 24 Jun 2025 17:05:05 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 55OBZ5xd2323039;
+ Tue, 24 Jun 2025 17:05:05 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
+ tursulin@ursulin.net, phasta@kernel.org, dakr@kernel.org,
+ Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH v5 5/5] drm/amdgpu: add support of debugfs for mqd information
+Date: Tue, 24 Jun 2025 17:04:54 +0530
+Message-Id: <20250624113454.2322935-5-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250624113454.2322935-1-sunil.khatri@amd.com>
+References: <20250624113454.2322935-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: put ctx's ref count in
- amdgpu_ctx_mgr_entity_fini()
-To: "Lin.Cao" <lincao12@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: haijun.chang@amd.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-References: <20250624091823.3963949-1-lincao12@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20250624091823.3963949-1-lincao12@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,43 +46,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+add mqd support based on queue of for each client-id
+so the gpu address could be used to dump the mqd.
 
-On 24/06/2025 10:18, Lin.Cao wrote:
-> patch "daf823f1d0cd drm/amdgpu: Remove duplicated "context still
-> alive" check" removed ctx put, which will cause amdgpu_ctx_fini()
-> cannot be called and then cause some finished fence that added by
-> amdgpu_ctx_add_fence() cannot be released and cause memleak.
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 52 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  1 +
+ 2 files changed, 53 insertions(+)
 
-Ouch I removed the wrong one. :( Probably misread kref_put as kref_read..
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-But is the SHA correct? I see it is dd64956685fa.
-
-Which would mean adding:
-
-Fixes: dd64956685fa ("drm/amdgpu: Remove duplicated "context still 
-alive" check")
-
-Regards,
-
-Tvrtko
-
-> Signed-off-by: Lin.Cao <lincao12@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> index 85567d0d9545..f5d5c45ddc0d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -944,6 +944,7 @@ static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
->   				drm_sched_entity_fini(entity);
->   			}
->   		}
-> +		kref_put(&ctx->refcount, amdgpu_ctx_fini);
->   	}
->   }
->   
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 295e7186e156..dbac940b2517 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -318,6 +318,9 @@ amdgpu_userq_destroy(struct drm_file *filp, int queue_id)
+ 		amdgpu_bo_unreserve(queue->db_obj.obj);
+ 	}
+ 	amdgpu_bo_unref(&queue->db_obj.obj);
++
++	debugfs_remove_recursive(queue->debugfs_queue);
++
+ 	r = amdgpu_userq_unmap_helper(uq_mgr, queue);
+ 	amdgpu_userq_cleanup(uq_mgr, queue, queue_id);
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+@@ -343,6 +346,46 @@ static int amdgpu_userq_priority_permit(struct drm_file *filp,
+ 	return -EACCES;
+ }
+ 
++#if defined(CONFIG_DEBUG_FS)
++static int amdgpu_mqd_info_read(struct seq_file *m, void *unused)
++{
++	struct amdgpu_usermode_queue *queue = (struct amdgpu_usermode_queue *)m->private;
++	struct amdgpu_bo *bo;
++	int r;
++
++	if (!queue || !queue->mqd.obj)
++		return -EINVAL;
++
++	bo = amdgpu_bo_ref(queue->mqd.obj);
++	r = amdgpu_bo_reserve(bo, true);
++	if (r) {
++		amdgpu_bo_unref(&bo);
++		return 0;
++	}
++
++	seq_printf(m, "queue_type %d\n", queue->queue_type);
++	seq_printf(m, "mqd_gpu_address: 0x%llx\n", amdgpu_bo_gpu_offset(queue->mqd.obj));
++
++	amdgpu_bo_unreserve(bo);
++	amdgpu_bo_unref(&bo);
++
++	return 0;
++}
++
++static int amdgpu_mqd_info_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, amdgpu_mqd_info_read, inode->i_private);
++}
++
++static const struct file_operations amdgpu_mqd_info_fops = {
++	.owner = THIS_MODULE,
++	.open = amdgpu_mqd_info_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++};
++#endif
++
+ static int
+ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ {
+@@ -352,6 +395,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	const struct amdgpu_userq_funcs *uq_funcs;
+ 	struct amdgpu_usermode_queue *queue;
+ 	struct amdgpu_db_info db_info;
++	char *queue_name;
+ 	bool skip_map_queue;
+ 	uint64_t index;
+ 	int qid, r = 0;
+@@ -475,6 +519,14 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		}
+ 	}
+ 
++	queue_name = kasprintf(GFP_KERNEL, "queue-%d", qid);
++	if (!queue_name)
++		return -ENOMEM;
++
++	/* Queue dentry per client to hold MQD information   */
++	queue->debugfs_queue = debugfs_create_dir(queue_name, filp->debugfs_client);
++	debugfs_create_file("mqd_info", 0444, queue->debugfs_queue, queue, &amdgpu_mqd_info_fops);
++	kfree(queue_name);
+ 
+ 	args->out.queue_id = qid;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index ec040c2fd6c9..b1ca91b7cda4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -65,6 +65,7 @@ struct amdgpu_usermode_queue {
+ 	struct dma_fence	*last_fence;
+ 	u32			xcp_id;
+ 	int			priority;
++	struct dentry		*debugfs_queue;
+ };
+ 
+ struct amdgpu_userq_funcs {
+-- 
+2.34.1
 
