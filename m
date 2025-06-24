@@ -4,66 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15E1CC77B7F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 12:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95526C77B7F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 13:11:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3777410E221;
-	Tue, 24 Jun 2025 12:59:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2168F10E055;
+	Tue, 24 Jun 2025 13:11:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="LM1KqDf3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sfD2vUOe";
 	dkim-atps=neutral
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
- [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B04AB10E56F;
- Tue, 24 Jun 2025 09:47:52 +0000 (UTC)
-Received: from [192.168.42.116] (pd9e59880.dip0.t-ipconnect.de
- [217.229.152.128]) (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 514E92FC01F5;
- Tue, 24 Jun 2025 11:47:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1750758469;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=on//GmR4nzs5aJ9qGxop0qW8vJ8usF/fHdQ8L17zNjw=;
- b=LM1KqDf3fR0y1TyHEUX8QqwDi3SSHYjWIP0lxmQyKJoyocpL4YTl/mmqBIrwD0NoptgjQF
- ElxvAoTphlq+YqFptwRKeq2YRmuJRBepdG/Ygkxc7EvSFlaJyHvbXYSfJ6Sst96JYF9nxr
- xZxsOMhXEN5szeUbp2BA3XsmnSRZuWo=
-Authentication-Results: mail.tuxedocomputers.com;
- auth=pass smtp.auth=wse@tuxedocomputers.com
- smtp.mailfrom=wse@tuxedocomputers.com
-Message-ID: <f551abbd-b901-4779-9bd9-c87981690460@tuxedocomputers.com>
-Date: Tue, 24 Jun 2025 11:47:49 +0200
-MIME-Version: 1.0
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2063.outbound.protection.outlook.com [40.107.212.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF0110E055
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jun 2025 13:11:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MA4tdZFy7RCCl5y8PByFgnYWtYN6s2neUW5bdkw5sBf/YY2gRbwoVVFzbCTzqTAfOpASYabNZSFA4U5bWEO+czWYXZ7feNJXHpMHmLl/pNXYTub4tWwmYdb/PsvcG33ABykg7ObH2VrDCZGgHEuUzMSbQJBxK5WWj8vv2v31wfXI23KD5GyV1DQ5JnNINZX7qrgk0YFFosjCJWBc6QPyGu61cLLu3qzi6GXWHlnM0RYPEvD8teyQwblNemLSKhcAGqVM3VhTLHqu9WED0C3DlbYo6fxlc3jr+m8vqRYmRrQb1/hQFhOTTMtCDQAllX3oW3e40gOGF9WKSoSdoudYNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s4UqcU/FkINktMvy2Lx8NaTTdhK1GpWnkWNgQenv7to=;
+ b=ZVGivItMWEc5UkmyJScYENFQqwElhSgEd+SIVOyifbLp2NEswF6McXgBzAb+U771ed1vMN7bzV7kRhEmA1skyaKwrBES6LddCS0h+niHikqPqDL3QVqVv1j9JllQG9D4C9GByknAgQkN88a3hSynH14FCia/aw6LhBP2Tec2R6xb7WBxH1Of1FvSkWAo0cJm6RzFXTuaZc5UMFo4kUreY+ncP0vDYdTu0uiWJZcjpf0x0pMlZtPxJxby3N160XrpFxmc8MV2eDrSPpTD5Xp0Nydz6G3MYnYf3IWrG0RB0FcjlCR4/dOkG63t2fvfvr//9kMA6Q+k3QOLLqIIgkRB9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s4UqcU/FkINktMvy2Lx8NaTTdhK1GpWnkWNgQenv7to=;
+ b=sfD2vUOe6YkddgMzXhCfjrXlap8RRBrEuQJXKgAFquye+v0gjPW1k6/tH3FZui7n8tquTM5+fOu9d+nYN0qjDUpA4QPfg1IWUPhIsJ1CQ45inoROqyp94nnNkYf/SBrnXyrVhzno8FrT/ja4Lp0gQ7ryiK/aWK+Lm2u9iQJ3s7w=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW6PR12MB8999.namprd12.prod.outlook.com (2603:10b6:303:247::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.27; Tue, 24 Jun
+ 2025 13:11:48 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8857.026; Tue, 24 Jun 2025
+ 13:11:48 +0000
+Message-ID: <a88d5329-d500-490c-a054-7ed584322e1d@amd.com>
+Date: Tue, 24 Jun 2025 15:11:44 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] drm/amd/display: Add quirk to force backlight type on
- some TUXEDO devices
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
-Cc: "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Hung, Alex" <Alex.Hung@amd.com>, "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-References: <20250409163029.130651-1-wse@tuxedocomputers.com>
- <20250409163029.130651-2-wse@tuxedocomputers.com>
- <08ceaa42-a12c-4bd4-bb75-b71126a60688@tuxedocomputers.com>
- <dnu7mbrw7fs4qvwi2alvgrqvonsrucrq7hgxgkqyyqn5djzkkj@c7grkpftjbw4>
- <8c048899-e307-4229-8165-fa70d001176e@amd.com>
- <293be5bc-11ad-49b8-a549-864ce4016f14@tuxedocomputers.com>
- <2de286af-fcfe-414c-b951-384e1acae89f@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: put ctx's ref count in
+ amdgpu_ctx_mgr_entity_fini()
+To: Tvrtko Ursulin <tursulin@ursulin.net>, "Lin.Cao" <lincao12@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: haijun.chang@amd.com
+References: <20250624091823.3963949-1-lincao12@amd.com>
+ <b7fc658e-2778-48dd-8584-3f33bbcc5ab7@ursulin.net>
 Content-Language: en-US
-From: Werner Sembach <wse@tuxedocomputers.com>
-In-Reply-To: <2de286af-fcfe-414c-b951-384e1acae89f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <b7fc658e-2778-48dd-8584-3f33bbcc5ab7@ursulin.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 24 Jun 2025 12:59:26 +0000
+X-ClientProxiedBy: FR2P281CA0076.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW6PR12MB8999:EE_
+X-MS-Office365-Filtering-Correlation-Id: d31feeb2-b1e9-4eb1-5310-08ddb320ad1c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MEJUdklXS09QSlFiNjJxWnRBVm1mc2liNitmcnBzU3VrRXdVN2xDRExxVWp3?=
+ =?utf-8?B?REJLdktpY3grNllpS2JaeHpKVjN2d01WbTliWlR6ak5tLzd2T1VxNXE4M3Rv?=
+ =?utf-8?B?MkpQbS9zUGZVS2Q3eDdvMXR0bGlaMnhWd3YvY2hIWDFWeUdwYjJLVlQwZW0z?=
+ =?utf-8?B?aTQzWnpOMUlxaExUVmJyYk1uNEV4REEveTViZHBLTnI2UTJ1RGNzVHN0d213?=
+ =?utf-8?B?TzNNM1h6VGpLQ1d1Q1Jqa0FZVjVXMjdlMVQ0R3V4N1VQZlBLYm9LMGJYQzFN?=
+ =?utf-8?B?cDMvRFh3bTZBM2gzK00rOER1RHZQWGY5cnlPaWFpZ1M4eHV3dFdJOGV1Q0x2?=
+ =?utf-8?B?dlNWajBsUUg5Sk9ZT1FFNG1WdjUxbW9acVhiZldDN1E0TmZwS0hBNTk3SjBG?=
+ =?utf-8?B?MnA4c0JGWjRKblZQSGNXR294U095Z1FjajE0SFBjektCS2JjWGtmSnZqdHRo?=
+ =?utf-8?B?cCtLV2dnalNWYUxOZDZMNVdGZEpWNDVEanNOUnVuOVhwR2FEOW1PZDhqQ2Mx?=
+ =?utf-8?B?YzlDb1p2cnlMU2poZVVHaXBVTCt3MGRBalUrckp4Yy9EVjZSdFRRYXliNG1s?=
+ =?utf-8?B?MXkwUEtZTFFaTEw4T09ESE9YM1JuSzlUdEdleHJvK3NJZUFJWkQ3NHZWVThS?=
+ =?utf-8?B?U1FRWTNrQlRzdUFXYlMxdms4cnNZU0ppRTBDUCsya2wxbDczZHYzbStsaElS?=
+ =?utf-8?B?alRUYXJqa1I3bEVZYm5zK0R5MUlEakZtME5tUnIvVmpjc3UvcEtKWFAxd1Ez?=
+ =?utf-8?B?ZWduNDVYS2V1K1lmUDNYbit0bFZGdGlTNktCSllWdHZMRkFyVjBZdEQ3cXIw?=
+ =?utf-8?B?V081WVdTRjVPQzEzdDFLdjc5SEN4VDlLQm1wOTg1RnA3Q1lZanp4UGNDaE90?=
+ =?utf-8?B?cmtlY0ZPaXd2M3pTUjF6eWxWV1FQcCtBRzl2MWZxeTAxbjl6SFdPVWRLOVVN?=
+ =?utf-8?B?bmtSeVJoRk9GYUcwS3RGa0xHbmVyQ2NzRFl1QjBqR2F6RkpwZHR2ak1wUGxY?=
+ =?utf-8?B?VVJHS3A2K1FOM09OYWdIOFpmR2gzVGp2eGhhR3NZc3hocVhWemI3czBRQjB4?=
+ =?utf-8?B?b1l0NlZQR1Z6eERSVVVyeHBJTjBoWnNWMG41aFFhYmFhbVFkeGVhelBTWXZK?=
+ =?utf-8?B?cSsvY3dWbmpKMXVXbzJzN245WU5CSjFuUkE0Q3pZODM5aVkrNFA0SitmRFh1?=
+ =?utf-8?B?T3RqVFFWdXpudldRWDRKQTJSck5Bdzd4elhHT0Y3Rm5iaWRtSHpySXhrRm82?=
+ =?utf-8?B?SUVocEN2YUhORUpaUkpGTnNBeTRJczdWOEFnS01VSDBXWThOMjRQbDBjc2pE?=
+ =?utf-8?B?enVjTmlLNmdyTTFaMzFETDhILzI5M2VDRkE3YkFtbC9rWnkzM2wxVWloaTNX?=
+ =?utf-8?B?ck5zMlNOcGJBVzgra3g3K252L2dleEgvZEo1RTh5QzlyS2VKNkwwQm1WdW5w?=
+ =?utf-8?B?RzU0aks5SWg4ZWVZZytTbCtOZHBmRXdYOUwyYkZhdE9FMmJ4ZXlOOU5keVpL?=
+ =?utf-8?B?bDkra3hSQ0E3UjJYb1I1RXJGNmFnYS9mYWpEMFJsUjJTSGc1dTJ1UGdaTFRU?=
+ =?utf-8?B?by9uVkNlZGdXRExGRHM2cGdwWG1wN05janJvRUptM1haWWxyYXdnSlhYa3lx?=
+ =?utf-8?B?WTNtellXclVyUndtL2VjVjZHakJuRlNyankra0g5REwweHBwRGg5dnlubjA1?=
+ =?utf-8?B?TTdqeU95ZGNmMDVTUkpmSjBOZ0dqUVllZDhDdXU2VFI4R0JRVnJRQ000N1Bw?=
+ =?utf-8?B?am1wYjZmUzg1bUxKNVEzcjNCcEpmV1hVYUFhclVsd3N3WU9hZU5TaXYzNE5j?=
+ =?utf-8?B?NEkxY0JJUVVvUzVJV0twNEFqVHVBRm8xcUpMdjhyWlFxRHFjZnBrdHE2MWVU?=
+ =?utf-8?B?MW9LalQ5Um51NklMVm85eWk3ckF3SXhGVkFIMmZtQmcrY3p6c2lJdXNTQlNn?=
+ =?utf-8?Q?pk7w83ecJ8g=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2tabXJmNVZvOEpCZS9mdFNOem9ud1ZRZHFFV25ENnhsbVlFd3Mwc2tPQ250?=
+ =?utf-8?B?WlRETWVMaUk3WGpIMGVpaG82R0IrbkoyL0xDOE16Z3hYL0h4VkR4TFpwUUgw?=
+ =?utf-8?B?SEZ3Y1pyQkcvZ0dMYVdxcXlVS0JpNE42cDh2OHQxenFobVU0TndSbFhLSytZ?=
+ =?utf-8?B?c2I1ejdKdmQ1eERyL05PNytDd2tYUlJnVGxBaHRibU1Qd1ZpNlN0TDZRc3Bw?=
+ =?utf-8?B?VzBFc2VzckpZQjFiNzBTdnYzajB0SWlZbHJqWTVHN0h0dFNKN2JwMTIyeWhw?=
+ =?utf-8?B?ZlFWSnNkSzRYMUNRR0RYTGczZGRMNUpIUllsMUF3aVVlbnFJQ1BPc2xhQjBq?=
+ =?utf-8?B?YUdEQ01QSlB4OGNNYjdIZUtoRVdSWHppNGcyQzZIKytFMkcxUzU1K0RSWW04?=
+ =?utf-8?B?aHJRRVl0cXhabGI3cTV5Z3k0Y1BFU3ZScGdydFRiRlYwVnVJQ2cwZHplWUtp?=
+ =?utf-8?B?bnp1M0dBRkZDYVhEYXNDVW9EaTNrR21yTFpiN0JXb2FKQkhOZHU0RW9kc0N6?=
+ =?utf-8?B?cVpzUys4UVlvaTM5UUVnWE0zbUtHVUpyUENvemlhc0d4aUtYM09ncDViUUJV?=
+ =?utf-8?B?MjN2MXYvODJVSTd2K1RSa1BIMWdVZWp2Skx1d1FaR3BiV1dzQnRqVTZYT2Ur?=
+ =?utf-8?B?Uks0eWVpeUh5MWd4TWJwRm9scjhjZVlsU2xNTDdld0RsV0lxUUVjUC83UUlh?=
+ =?utf-8?B?QjZoTHhHbUNjeEJwYlRSYlY5S1VxWXM2N1B2aVBGQ3MxdXZYNWVWL1pqTURw?=
+ =?utf-8?B?cnNSQWdnYzhZRzlNbEJ2aUJCSWVOdUFHcGovc09aTU1WNlJnaEdRMGxqb0p3?=
+ =?utf-8?B?TmxWL0lrWWxWVDFIeVRsc1Q1NVRuZ1hMY25iQ0djUElaOXZabFk3eEhIditP?=
+ =?utf-8?B?L2tGY0F4cE0yMHRGakJ0QldXYU9QejdlTDArVUJOY1VyYnlLTkxlSGpmMlUz?=
+ =?utf-8?B?NGdPZ3UyYzROb2dUamhaNnAwcnQ3SzlncW1HTEU5RzJSV29hdUN1M2dLVzJq?=
+ =?utf-8?B?NDlQTGZDbi9mYit0T2tIUFFoN2lwcnVrT2VxNGFwckptcnpLN040a1ZzdWk2?=
+ =?utf-8?B?Qy9KTUd6NUpXYVY1ZU5zWTNrV3pqZHR2dXQxTDN2RUJjWVh4Q3NkZlJaZXgw?=
+ =?utf-8?B?SXlHWGh2b0dESS9sT1F6Q3BoRUNXY1pjZmhsNTlDTm5CaW40QWZ5blZCa3k5?=
+ =?utf-8?B?OENOSms4M3JEQW9HUnlSWXhqay9scTREVVowQUx3SU1CdnZ0SXUrMXdiZkYx?=
+ =?utf-8?B?TU1HdzNEU3BtcDNRVGlZQmtEQlpzNkF6TEhEbWV6M1hHRjl0eXVsMlpNWk02?=
+ =?utf-8?B?cUdMMmVZYW9CWlZtSmdiTUYrTTdORnlOam44aHdhaE1jbTRZVG5KRW5XV0s1?=
+ =?utf-8?B?YWlmcE0yZlJHUFhyQXphUTJ3ektyV2dOVUhEWjZBaktBeDBvZTNyWTBCVEd5?=
+ =?utf-8?B?czBsY1lLdUJJQ3VMaDdRak56TmFLSXNpRlVYUG1IcVF0ZDlkdXNHeUY2Y2RL?=
+ =?utf-8?B?WEFSc0E4K3hYcEU2UXplS3VLbGhPMkhHZDUzMFI0cW5VL0RvM3ZwYS8rSkZp?=
+ =?utf-8?B?TWwvOVZGcjl4Zk9sWVNVTHdhbDFqdzRxcVRTYXJEODJtSyt3d3FSNDhxUUZI?=
+ =?utf-8?B?OURzcTBiVHNxeUdnV3pob1BzbEZTR0k0QXc3WXpSTW1ySVRRWWV3ZWh6MHMv?=
+ =?utf-8?B?OWNnNG5OTEx4MjlhaVVpa0NGRmxRMWQ0K1VESGVmY0FLbjdPYWVuV1FmUFJ6?=
+ =?utf-8?B?eTdqVDZ6dEhVaHFETDROWlZ4UUFBbFg4SzNWRHcvOHc2aTBQdzFpVmV0Uitl?=
+ =?utf-8?B?T1UzUWlhR2hMRE9MTVpGNXNIdERaWHlaaVUzQ3VOWkxPTFBtSjEwZGxsUTBs?=
+ =?utf-8?B?bm1odWhraFdDb1FRdGR3U3F4VW4yWUVYWHV5emN1a01EZDZucVRSaUtUWkRX?=
+ =?utf-8?B?R3Y5ZXZhSWNwOFZCTkhKcXZhcjFSZ1Z3OVBIa0Z4VnJGYU1SR24zWHJybnZI?=
+ =?utf-8?B?SDJwSlhhNFE5dERpeUhGOXU3N3J6dm9lK09Pd3RxV0R1QWFlT2ZrWUtaR2N6?=
+ =?utf-8?B?elZqTm0xeld4L2pXQ0g3UjRoOVdpMStvVkt3eXFjU1M3THh3SDFRSHJnRFJj?=
+ =?utf-8?Q?2M9X5+ZFln/MT327nvxP3vZa/?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d31feeb2-b1e9-4eb1-5310-08ddb320ad1c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2025 13:11:48.4073 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mweU6r6UMqayjVFlSOfqrGN5b+7hbOa/QeQrn27RDTsomUm/kbNne0IVuJolYiVx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8999
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,150 +163,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 24.06.25 11:46, Tvrtko Ursulin wrote:
+> 
+> On 24/06/2025 10:18, Lin.Cao wrote:
+>> patch "daf823f1d0cd drm/amdgpu: Remove duplicated "context still
+>> alive" check" removed ctx put, which will cause amdgpu_ctx_fini()
+>> cannot be called and then cause some finished fence that added by
+>> amdgpu_ctx_add_fence() cannot be released and cause memleak.
+> 
+> Ouch I removed the wrong one. :( Probably misread kref_put as kref_read..
+> 
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Am 24.06.25 um 07:45 schrieb Mario Limonciello:
-> On 6/24/2025 12:42 AM, Werner Sembach wrote:
->> Hi Mario,
->>
->> Am 23.06.25 um 21:42 schrieb Limonciello, Mario:
->>> On 6/23/25 2:13 PM, Rodrigo Siqueira wrote:
->>>> On 06/23, Werner Sembach wrote:
->>>>> gentle bump
->>>>>
->>>>> Am 09.04.25 um 18:27 schrieb Werner Sembach:
->>>>>> The display backlight on TUXEDO Polaris AMD Gen2 and Gen3 with panels
->>>>>> BOE 2420 and BOE 2423 must be forced to pwn controlled to be able to
->>>>>> control the brightness.
->>>>>>
->>>>>> This could already be archived via a module parameter, but this patch adds
->>>>>> a quirk to apply this by default on the mentioned device + panel
->>>>>> combinations.
->>>>>>
->>>>>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
->>>>>> Cc: stable@vger.kernel.org
->>>>>> ---
->>>>>>     .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 ++++++++++++ ++++++-
->>>>>>     1 file changed, 31 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/ 
->>>>>> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>>> index 39df45f652b32..2bad6274ad8ff 100644
->>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>>> @@ -1625,11 +1625,13 @@ static bool dm_should_disable_stutter(struct 
->>>>>> pci_dev *pdev)
->>>>>>     struct amdgpu_dm_quirks {
->>>>>>         bool aux_hpd_discon;
->>>>>>         bool support_edp0_on_dp1;
->>>>>> +    bool boe_2420_2423_bl_force_pwm;
->>>>>>     };
->>>>>>     static struct amdgpu_dm_quirks quirk_entries = {
->>>>>>         .aux_hpd_discon = false,
->>>>>> -    .support_edp0_on_dp1 = false
->>>>>> +    .support_edp0_on_dp1 = false,
->>>>>> +    .boe_2420_2423_bl_force_pwm = false
->>>>>>     };
->>>>>>     static int edp0_on_dp1_callback(const struct dmi_system_id *id)
->>>>>> @@ -1644,6 +1646,12 @@ static int aux_hpd_discon_callback(const struct 
->>>>>> dmi_system_id *id)
->>>>>>         return 0;
->>>>>>     }
->>>>>> +static int boe_2420_2423_bl_force_pwm_callback(const struct 
->>>>>> dmi_system_id *id)
->>>>>> +{
->>>>>> +    quirk_entries.boe_2420_2423_bl_force_pwm = true;
->>>>>> +    return 0;
->>>>>> +}
->>>>>> +
->>>>>>     static const struct dmi_system_id dmi_quirk_table[] = {
->>>>>>         {
->>>>>>             .callback = aux_hpd_discon_callback,
->>>>>> @@ -1722,6 +1730,20 @@ static const struct dmi_system_id 
->>>>>> dmi_quirk_table[] = {
->>>>>>                 DMI_MATCH(DMI_PRODUCT_NAME, "HP EliteBook 665 16 inch G11 
->>>>>> Notebook PC"),
->>>>>>             },
->>>>>>         },
->>>>>> +    {
->>>>>> +        // TUXEDO Polaris AMD Gen2
->>>>>> +        .callback = boe_2420_2423_bl_force_pwm_callback,
->>>>>> +        .matches = {
->>>>>> +            DMI_MATCH(DMI_BOARD_NAME, "GMxNGxx"),
->>>>>> +        },
->>>>>> +    },
->>>>>> +    {
->>>>>> +        // TUXEDO Polaris AMD Gen3
->>>>>> +        .callback = boe_2420_2423_bl_force_pwm_callback,
->>>>>> +        .matches = {
->>>>>> +            DMI_MATCH(DMI_BOARD_NAME, "GMxZGxx"),
->>>>>> +        },
->>>>>> +    },
->>>>>>         {}
->>>>>>         /* TODO: refactor this from a fixed table to a dynamic option */
->>>>>>     };
->>>>>> @@ -3586,6 +3608,7 @@ static void update_connector_ext_caps(struct 
->>>>>> amdgpu_dm_connector *aconnector)
->>>>>>         struct amdgpu_device *adev;
->>>>>>         struct drm_luminance_range_info *luminance_range;
->>>>>>         int min_input_signal_override;
->>>>>> +    u32 panel;
->>>>>>         if (aconnector->bl_idx == -1 ||
->>>>>>             aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
->>>>>> @@ -3610,6 +3633,13 @@ static void update_connector_ext_caps(struct 
->>>>>> amdgpu_dm_connector *aconnector)
->>>>>>             caps->aux_support = false;
->>>>>>         else if (amdgpu_backlight == 1)
->>>>>>             caps->aux_support = true;
->>>>>> +    else if (amdgpu_backlight == -1 &&
->>>>>> +         quirk_entries.boe_2420_2423_bl_force_pwm) {
->>>>>> +        panel = drm_edid_get_panel_id(aconnector->drm_edid);
->>>>>> +        if (panel == drm_edid_encode_panel_id('B', 'O', 'E', 0x0974) ||
->>>>>> +            panel == drm_edid_encode_panel_id('B', 'O', 'E', 0x0977))
->>>>>> +            caps->aux_support = false;
->>>>>> +    }
->>>> It lgtm,
->>>>
->>>> Additionally, I believe this is safe to merge since it only affects a
->>>> specific device. Perhaps display folks would like to include this as
->>>> part of this week's promotion? Anyway, Cc other devs from the display.
->>>>
->>>> Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
->>> That's a bit odd that aux based B/L control wouldn't work. Are these
->>> both OLED panels?  What debugging have you done thus far with them?
->>> What kernel base?
->>>
->>> Could you repro on 6.16-rc3?
->>
->> Sadly our archive is missing this panel + device combination. This patch is 
->> based on our install script that sets this fix via boot parameters since the 
->> release of these devices.
->>
->> So the quirk is field proven, but I can't actively test it anymore.
->>
->> Best regards,
->>
->> Werner
->>
->
-> Do you recall what kernel version you were doing it with?  I'm just wondering 
-> if AUX brightness control had a bug with such a kernel.
-We shipped the device in 2021 with Ubuntu focal, so the kernel probably was 5.8 
-or 5.11 (in theory it also could have been 5.4 or whatever the Ubuntu OEM kernel 
-was at that time).
->
-> Do you have this panel on some other hardware perhaps? 
-Probably not. I will ask however.
-> Or could you send a call out to get some testing done?
+Acked-by: Christian König <christian.koenig@amd.com>
 
-An idea I also had in the past to plug this and similar holes in your archive, 
-but no "process" for this in place yet.
+> 
+> But is the SHA correct? I see it is dd64956685fa.
 
-Best regards,
+That could be because our internal branch is not yet rebased.
 
-Werner
+> 
+> Which would mean adding:
+> 
+> Fixes: dd64956685fa ("drm/amdgpu: Remove duplicated "context still alive" check")
 
->
->>>
->>>>>>         if (caps->aux_support)
->>>>>> aconnector->dc_link->backlight_control_type = BACKLIGHT_CONTROL_AMD_AUX;
->
+And maybe CC stable? Or in which release is that patch upstream?
+
+Regards,
+Christian.
+
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+>> Signed-off-by: Lin.Cao <lincao12@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> index 85567d0d9545..f5d5c45ddc0d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> @@ -944,6 +944,7 @@ static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>>                   drm_sched_entity_fini(entity);
+>>               }
+>>           }
+>> +        kref_put(&ctx->refcount, amdgpu_ctx_fini);
+>>       }
+>>   }
+>>   
+> 
+
