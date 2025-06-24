@@ -4,149 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94264C77B7F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 12:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15E1CC77B7F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 12:59:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D15A10E587;
-	Tue, 24 Jun 2025 12:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3777410E221;
+	Tue, 24 Jun 2025 12:59:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c/gJKeD6";
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="LM1KqDf3";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2076.outbound.protection.outlook.com [40.107.220.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17F1010E587;
- Tue, 24 Jun 2025 12:46:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HHE0HELNym+IWXuZ2teXfwWt5MrpWdNpz2THAPy+lPVqMOZZ0aOvR0htwJ5Q0PTvX3d/bPuuoznrBndxjG9KCBljXHUTrQLVNoFTn2+XG9FvCEqxPxXqFaa1iL8kX66SUN7QoQ8T1sgj7F7vTTqL6bQ5q2EzQgQcOmvRw9RAoNmVuImxh0x6/czER3nP2Fz/lkc9kQ30alE4lMnXGB9xcB9tNWS7z2HxAUSZtZG+yG4EUIZ4GvGcGRneJ1GMy103d2bpxHfpLHj68CRs6dmvz+0GcRy1dpswVVj/WjWT+49lccsly5JvVRJonMW/aEQbmgmSm8iHV+2eZyZBU0E1tQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jzAeFroxpj4hg6f+/wJekLqZk80+xVyZ2ZcLYVjoZc0=;
- b=wQ+Wkt9DUnGwb0IH278v9m/Xfh0mf7a9i1p3OkXF8gutvj+TpeYJhBKEQD5CuU+whme6cKw/ZXIyGASfnUAfZNQTMN0FJRx6pexk+dX0TdURy7SPB9dGKsfSWyhStw78VsVAAP7Z5cXCLuzZJElqgvYjTRdZpgXifshpSByOArbgtx1GqlRDBpCp2hP044BRjpf+vma5WbSLWS7aocFcmVTJgmTqVG2Lulu7z9I2cG4DHc9RMK6ZKvX8/zq9/ROeKZiavUUnOs49lGJi4MZjUQH8cRK1faVzAuMhhind/N0dw1tY0mX0VYDKdc+Z/xcAYe0jqWWgA6bIAx9ZQHV1kQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jzAeFroxpj4hg6f+/wJekLqZk80+xVyZ2ZcLYVjoZc0=;
- b=c/gJKeD61cAHx5AQpEahTK0PWjiZ+n0uXJSOmyk2skU4MKleogz4egUrpPGG3LZwL/XmCFSjIUZ+m1eCafUpRMWd6oSG3Gwz3UXiWWbfT4rS9S9qa4PspcJCPA6tAUEHCR/r/qBoWT8zMu0lGa4HS+1AsdUKKjqg+F95mfi8J8Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH1PR12MB9646.namprd12.prod.outlook.com (2603:10b6:610:2af::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.20; Tue, 24 Jun
- 2025 12:46:05 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8857.026; Tue, 24 Jun 2025
- 12:46:05 +0000
-Message-ID: <767ca7a5-0450-4697-b35a-4c6fce58a3ea@amd.com>
-Date: Tue, 24 Jun 2025 14:45:58 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: Dirty cleared blocks on free
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: matthew.auld@intel.com, alexander.deucher@amd.com, stable@vger.kernel.org
-References: <20250623055253.56630-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250623055253.56630-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0147.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
+ [157.90.84.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B04AB10E56F;
+ Tue, 24 Jun 2025 09:47:52 +0000 (UTC)
+Received: from [192.168.42.116] (pd9e59880.dip0.t-ipconnect.de
+ [217.229.152.128]) (Authenticated sender: wse@tuxedocomputers.com)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 514E92FC01F5;
+ Tue, 24 Jun 2025 11:47:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+ s=default; t=1750758469;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=on//GmR4nzs5aJ9qGxop0qW8vJ8usF/fHdQ8L17zNjw=;
+ b=LM1KqDf3fR0y1TyHEUX8QqwDi3SSHYjWIP0lxmQyKJoyocpL4YTl/mmqBIrwD0NoptgjQF
+ ElxvAoTphlq+YqFptwRKeq2YRmuJRBepdG/Ygkxc7EvSFlaJyHvbXYSfJ6Sst96JYF9nxr
+ xZxsOMhXEN5szeUbp2BA3XsmnSRZuWo=
+Authentication-Results: mail.tuxedocomputers.com;
+ auth=pass smtp.auth=wse@tuxedocomputers.com
+ smtp.mailfrom=wse@tuxedocomputers.com
+Message-ID: <f551abbd-b901-4779-9bd9-c87981690460@tuxedocomputers.com>
+Date: Tue, 24 Jun 2025 11:47:49 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH1PR12MB9646:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59793247-efaf-41ba-dbdd-08ddb31d1556
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?clltNFI4a1lhRkh0QkoxMWRXelF1ZlROM2J0dk1RTU9rQlZqY0VIbmNRd1dX?=
- =?utf-8?B?SjhabC9mNXN4d2dpM20wVXFibkY1SVVEd2pRcFBVQzA4NStPTUIzUjBxcW9Q?=
- =?utf-8?B?YzI4SWd6TDE1YU9EbWxKdVEvRXJmKzFyN3IyeUVIYkFkYWY0Z0ozbDB0aktM?=
- =?utf-8?B?OFkvUnMwbWlJbUFhVzNsQUVZTk50RzRnb2lIQ2xxeittSWRDMHRwbE9neG5t?=
- =?utf-8?B?ejd4TTRCV29uK0VHQ0dHUnRBZmxNSENYNlVYVWR2Y1JOdEd1Y2x1Mnd4Mmgx?=
- =?utf-8?B?TnRaRDBMd2IydlhzWjA4SE5KZFFZdC9UOU9NZDU3UXNXWW1Qc1prNm00UVNt?=
- =?utf-8?B?c3Q2VWFYVzMwTE9nNXF0TjZJV3lNV0NkTG84NWtjeG1OZUgyR0gxOWdrajV4?=
- =?utf-8?B?Unl3NFVaaWdnTGE2WlErblRCdVVTaWhXNzA3dHJoOGdzRU9rR3pTNmhEQWhj?=
- =?utf-8?B?Y0I0TWtOU1M0cXFmR2lVbWtRelpOK3Vqam5JU1c3OUVSWVFuRmhnaG9uNStt?=
- =?utf-8?B?dDFIalpvb204ZjMvQXZ2ekVhNGVpeUZZYVdXNlA2Y1pLUHhJbkgrb1luWmZZ?=
- =?utf-8?B?TGNFSmx4ZjVJMjFwOEtIZnpLVjVvRngvQzlMZnFUaXZsWUZCRXpjbjFmZkdX?=
- =?utf-8?B?Zjc2OEFSTkpCRDlTc2FCSjJTL1YzQmRwSXVPS0k0UFhDQWFSZlFJbFFrZ3hR?=
- =?utf-8?B?V3JkRUJGMlFNVTRSdy9zUUdzQ2xyNWNzelBLV1lCWUt4MVFSakU5bHpWSVli?=
- =?utf-8?B?U3NSSlVqWWJLeUdpRm9DTVltQ2ZaMWZBTFRZSnVMS3EvMnlWVzh0eTNteTlp?=
- =?utf-8?B?WHluVUZidUIrcTlqUCtuNUVWUXM0UFpYR2d0a0dScXNWK0JaK3FNd0xOUVdU?=
- =?utf-8?B?d3BWaUNvUDFHK2VxRnBLZDQxdUR0cTNGR2NQT1U5MGNTdGp3T2xsQnRFdVhv?=
- =?utf-8?B?eDZuNWhkOHJrWlJPMlNyQUJhaXdDdE1NTHAwRUNqU1krUlJyTDlXNGxsdGlN?=
- =?utf-8?B?MHdYWmx6T3BVVHJaVXJuZyt2NWJMUSt5aXNFbVFaVndUb01ndkx0RmdHK1o1?=
- =?utf-8?B?YitwRUx5SEEvQnBEZDM2Qkplb0V4WXMwN3h4dm55U2RkRzFJamRPdlRnWmFI?=
- =?utf-8?B?WEYvTkk5K1JjVDRwZTJZRGh5amp0bThndHdoRXE1WkhvZ09qKzVNNVhMbHp3?=
- =?utf-8?B?ZXprc3h0UzRleU8xQXBScmxEbkRMcURYVTNRajhJWEtHS0NMVE1NZjBGMlhs?=
- =?utf-8?B?dmt3ZnArektxdFAvU1VBNWdFaTlBT0VwR0ZVRE9nZEl3Q082bVNuMmxKL2w4?=
- =?utf-8?B?MytJT1daWmZ0NFY3Z1pZdmNZczFWMXI4UHYzUlJQWUNBNlArOUt3WUdNcGJw?=
- =?utf-8?B?b2JIZS9uQlhucFlYTC9ORm1BWVlDTG1MdG5iaXlhMVNMOWFZOGRQclpsQkpY?=
- =?utf-8?B?MHVINi9VSjdXRGZkdFR0TFA2NDJmeHVQaTJOdWxoSU5lalJxa29yS1BLZFpE?=
- =?utf-8?B?UHI5UmxmVE5JeHBCdHgydSsxcWJXUXZ3SWJXVEpaQVBkcjNrZmxOVC9NVnhN?=
- =?utf-8?B?OEh3aXdMR09OU2VuRTdsUzhSUFZSZStqVHFFdG9YUjlkcE4yeU54UzlXUm9k?=
- =?utf-8?B?eVoyOFg5Q1FlRW5ja1N2QlhlZ1BNaHd5QjVPYWxoQm83bHNkUEcyR01KNzBn?=
- =?utf-8?B?UjdkRzE2UU1LU3p1UEcwRTB4c2JBZi85NXBaVVdkdzVvZ3NUQWJVV0RHcEdp?=
- =?utf-8?B?c1I0K0FBVlE1a05kakwzTVY2Wmc1VkV3WVNrWUpOWWFoZHFIOHBObEhFMkN1?=
- =?utf-8?B?eExJbXlDMHljQkZqdW15bnZ5VTJDRlo0UjFMbnhtRDR6SUxqc3c2T0ZWb0Zv?=
- =?utf-8?B?RHJWanY2eURhNGtpMlZRcjZLWDBIT2VXc2ZtSjdjN0k0cmhJTnJ1aHoxUUtr?=
- =?utf-8?Q?wYC8gZMYG3Y=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SlppOXI2ZzY0Z3B6cDUxL2NuV1hLOWtvNGprQWdiWTIxeHpoNUhLVzZrU0dZ?=
- =?utf-8?B?ZVpZZmJkci9FaE5PY3pMZnFLVGlsRmZ6cVFxdytxVFRNTnMzbitxR2twZW9m?=
- =?utf-8?B?UTUrcWs2bXJaaDVCUmw5UkZsVTlmRktxOEpRbndqSGJ5WHpvK1BUWUpSU0Jn?=
- =?utf-8?B?Wm9aQTNKdGV1cFJOTjRkVHkvZ0RId3BLZXBCM25ld3gzOUpCczVLalRvS2NZ?=
- =?utf-8?B?L08xY0lJdkZGbWZuYkg4R1gwbEx0cG5WdXBwQURXY0RUYUxXUUtMWEx1c1lN?=
- =?utf-8?B?a0RaM0hrOFYyd0FJQTRNbWpCWFJ3bU1TRC92QVBDTXF0aEFYYlFKQzBYUjBl?=
- =?utf-8?B?dU9rNURMWGRkZ0U0OXBFT0hLR1F6T0JnZzZoVkt1cHEwbDFhVmJlQnNCY3ND?=
- =?utf-8?B?b2FVakZOR1RzWWlnbUM0Y3g1WS9pRTBkZzhqN2NIVkh2RmFjK3FrWWNCT01F?=
- =?utf-8?B?aUtkemk3eWFZK0FveE5iODNCMjVqbDlEbWMwT3lIa3RBdUNjY1hKL2dwRXVF?=
- =?utf-8?B?M0lxU0I2T3oxTnVMWWo3bE5uRXFNWkVGSFFLNnlHemRxaEtISitvNS9pMjRX?=
- =?utf-8?B?d2Q4SHBXekRwWitnaG0wSFdWWEZTR3JkSWc3NmsveFlOT1BMdWkzOHFDMFZx?=
- =?utf-8?B?b0dVSVBIL3BMcFFxcG0zMjdBMTAyMHQ4cTBScW1xSkxrOHd1SXZKZEJNOFk3?=
- =?utf-8?B?aW5MQStBbzE0aXUvekNzbGRWdFdzZ3diSVA3cHNIVmZycVN0WFpCeE9ISGds?=
- =?utf-8?B?dG41dUNGM2FvcE10S1dEdlBWYnNRSXR4ZjRBeHUyeUppUCszR01tbXdycHh0?=
- =?utf-8?B?ZnBjUnBRMTA5NWtRRTVCRGNtZFBZMmpObitCaXZKSVZOeUx3Q1Vhb0JrSTBN?=
- =?utf-8?B?WHJ4dmd3cW5TdFRlM0Z5bzl4VEE5aC9vdDVVdDZ4STRMNVJ1RUFxYk56aEhT?=
- =?utf-8?B?TWVLb3NPNFpud3FOM0pnQkRybTByTmUwMUdtd1RJaCtjNGlPU2VpVXltcDFF?=
- =?utf-8?B?T0JwOXNuT0hkVnJvNGM4TFVKaG1pdmF6cVd5Y1BhTHNldHdzQTl4U2ZMaklM?=
- =?utf-8?B?SXQrTkF1bnRkWmM2S2tpWkhDRGtUcnN0SndBd0NTbU4yZFM5M1VSYWtMS3Bx?=
- =?utf-8?B?SXRuVjR5RDJOYTUzV2hxbm5SdmtzVi95YWdGSk5LNytBNmZqNC9kNUloNGVn?=
- =?utf-8?B?UUt6MHNVQVJlVDFNV3hUZ0Z4RUowa29helNmMUZmRWhUaHFlcXBkaTlac0lz?=
- =?utf-8?B?NDRVc0F0L1c3MXdtRHBRcXZUQkhpUnc5RHc2WWxHb1Y3eDBLdXNmMUxnRUVn?=
- =?utf-8?B?Z2RvK3JhekhtQ1BWRnFIdlRTVFRZNE1abDBGVTY1Q0xCR2NuR3RqbVRBeVJX?=
- =?utf-8?B?ZGg3U0pvREg4b3BSeVRocjdNeDRKSDFYa1QvODR6dGxBaVQ2c08rcEVpbUZD?=
- =?utf-8?B?NmFoS1AxZUh2UFlXMWFjR1lRaDRjczFIbUdob1BIYldzNmlTUTJXMUwrSWVH?=
- =?utf-8?B?ZVhXREdXQkEwbzE3VWRzN2Yzb2FjSEhZMnNiVWY4Nmg1WDVaN1ZYVWdFc09G?=
- =?utf-8?B?aWxOeUlKRjQybUFZWFpVTUpJcnhUUnB1bmN3dW5nUkN0cGlzaWkvQmFtTlVK?=
- =?utf-8?B?K2xaeG5JZUZJbUZ1YUFZREZWUEZ1Smt4U0o0WVRpejJqcFMrck0vWmtnYTdo?=
- =?utf-8?B?UFBwaXAxcEFFMWQ0UTZhdGVXMFhGREtiU0pUVFJmRVJjVmVMUUdORXZBcFJy?=
- =?utf-8?B?ckFmZHEwNSs0TVl3ODV5SFRnb3FWRVQvMnVBT1N0cldFMlJ3TzJYNkZ3N1lV?=
- =?utf-8?B?Mzc0WllKUWlUTnZaWnRDbGxKQTgzYWtRVG1kTmVRdGxZNGNpeVh0NTJnM3kx?=
- =?utf-8?B?THVOVHJrQkhYV3VTYzNVNzllMk5tN0hTVFVqTllNYXgxc3pDZmp2UE90UHJU?=
- =?utf-8?B?VGVycUhhMzBxTjhZZTVNNFd0eXd3SjlIRVNwRkg0bjVjU25aNDBEbVFOdUNk?=
- =?utf-8?B?aXJjM0I5V2QxQndVTVdwQ2tSUWltWWtEcUsvZTV2UDlzd3UvOTlDbkJVQSt2?=
- =?utf-8?B?OXREQ3pOazZaRUhycnZkMmdReGp1ZG9rN3E0Q2Ztc0c1TnN4Ykx6UG9GZ3Y5?=
- =?utf-8?Q?dMgMQQoA3JC6oBh8Q/5U1NfNk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59793247-efaf-41ba-dbdd-08ddb31d1556
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2025 12:46:05.5777 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nbl8wV8B5PosthjH0TTHQhAD19X5rmPCP7XMCIZSlnyRIr4ViCfriGpIW9kl6erw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9646
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] drm/amd/display: Add quirk to force backlight type on
+ some TUXEDO devices
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Cc: "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
+ <simona@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Hung, Alex" <Alex.Hung@amd.com>, "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+References: <20250409163029.130651-1-wse@tuxedocomputers.com>
+ <20250409163029.130651-2-wse@tuxedocomputers.com>
+ <08ceaa42-a12c-4bd4-bb75-b71126a60688@tuxedocomputers.com>
+ <dnu7mbrw7fs4qvwi2alvgrqvonsrucrq7hgxgkqyyqn5djzkkj@c7grkpftjbw4>
+ <8c048899-e307-4229-8165-fa70d001176e@amd.com>
+ <293be5bc-11ad-49b8-a549-864ce4016f14@tuxedocomputers.com>
+ <2de286af-fcfe-414c-b951-384e1acae89f@amd.com>
+Content-Language: en-US
+From: Werner Sembach <wse@tuxedocomputers.com>
+In-Reply-To: <2de286af-fcfe-414c-b951-384e1acae89f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 24 Jun 2025 12:59:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,123 +78,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 23.06.25 07:52, Arunpravin Paneer Selvam wrote:
-> Set the dirty bit when the memory resource is not cleared
-> during BO release.
-> 
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Cc: stable@vger.kernel.org
-> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c   | 26 ++++++++++++++------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  7 ++++--
->  3 files changed, 26 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 73403744331a..ea6ce53c3a44 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1302,28 +1302,40 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
->  	 * So when this locking here fails something is wrong with the reference
->  	 * counting.
->  	 */
-> -	if (WARN_ON_ONCE(!dma_resv_trylock(&bo->base._resv)))
-> +	if (WARN_ON_ONCE(!dma_resv_trylock(&bo->base._resv))) {
-> +		if (bo->resource && bo->resource->mem_type == TTM_PL_VRAM)
-> +			amdgpu_vram_mgr_set_clear_state(bo->resource, false);
 
-As far as I can see this is illegal while the BO is not locked, so please drop that.
+Am 24.06.25 um 07:45 schrieb Mario Limonciello:
+> On 6/24/2025 12:42 AM, Werner Sembach wrote:
+>> Hi Mario,
+>>
+>> Am 23.06.25 um 21:42 schrieb Limonciello, Mario:
+>>> On 6/23/25 2:13 PM, Rodrigo Siqueira wrote:
+>>>> On 06/23, Werner Sembach wrote:
+>>>>> gentle bump
+>>>>>
+>>>>> Am 09.04.25 um 18:27 schrieb Werner Sembach:
+>>>>>> The display backlight on TUXEDO Polaris AMD Gen2 and Gen3 with panels
+>>>>>> BOE 2420 and BOE 2423 must be forced to pwn controlled to be able to
+>>>>>> control the brightness.
+>>>>>>
+>>>>>> This could already be archived via a module parameter, but this patch adds
+>>>>>> a quirk to apply this by default on the mentioned device + panel
+>>>>>> combinations.
+>>>>>>
+>>>>>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>>>>>> Cc: stable@vger.kernel.org
+>>>>>> ---
+>>>>>>     .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 ++++++++++++ ++++++-
+>>>>>>     1 file changed, 31 insertions(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/ 
+>>>>>> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>>>> index 39df45f652b32..2bad6274ad8ff 100644
+>>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>>>> @@ -1625,11 +1625,13 @@ static bool dm_should_disable_stutter(struct 
+>>>>>> pci_dev *pdev)
+>>>>>>     struct amdgpu_dm_quirks {
+>>>>>>         bool aux_hpd_discon;
+>>>>>>         bool support_edp0_on_dp1;
+>>>>>> +    bool boe_2420_2423_bl_force_pwm;
+>>>>>>     };
+>>>>>>     static struct amdgpu_dm_quirks quirk_entries = {
+>>>>>>         .aux_hpd_discon = false,
+>>>>>> -    .support_edp0_on_dp1 = false
+>>>>>> +    .support_edp0_on_dp1 = false,
+>>>>>> +    .boe_2420_2423_bl_force_pwm = false
+>>>>>>     };
+>>>>>>     static int edp0_on_dp1_callback(const struct dmi_system_id *id)
+>>>>>> @@ -1644,6 +1646,12 @@ static int aux_hpd_discon_callback(const struct 
+>>>>>> dmi_system_id *id)
+>>>>>>         return 0;
+>>>>>>     }
+>>>>>> +static int boe_2420_2423_bl_force_pwm_callback(const struct 
+>>>>>> dmi_system_id *id)
+>>>>>> +{
+>>>>>> +    quirk_entries.boe_2420_2423_bl_force_pwm = true;
+>>>>>> +    return 0;
+>>>>>> +}
+>>>>>> +
+>>>>>>     static const struct dmi_system_id dmi_quirk_table[] = {
+>>>>>>         {
+>>>>>>             .callback = aux_hpd_discon_callback,
+>>>>>> @@ -1722,6 +1730,20 @@ static const struct dmi_system_id 
+>>>>>> dmi_quirk_table[] = {
+>>>>>>                 DMI_MATCH(DMI_PRODUCT_NAME, "HP EliteBook 665 16 inch G11 
+>>>>>> Notebook PC"),
+>>>>>>             },
+>>>>>>         },
+>>>>>> +    {
+>>>>>> +        // TUXEDO Polaris AMD Gen2
+>>>>>> +        .callback = boe_2420_2423_bl_force_pwm_callback,
+>>>>>> +        .matches = {
+>>>>>> +            DMI_MATCH(DMI_BOARD_NAME, "GMxNGxx"),
+>>>>>> +        },
+>>>>>> +    },
+>>>>>> +    {
+>>>>>> +        // TUXEDO Polaris AMD Gen3
+>>>>>> +        .callback = boe_2420_2423_bl_force_pwm_callback,
+>>>>>> +        .matches = {
+>>>>>> +            DMI_MATCH(DMI_BOARD_NAME, "GMxZGxx"),
+>>>>>> +        },
+>>>>>> +    },
+>>>>>>         {}
+>>>>>>         /* TODO: refactor this from a fixed table to a dynamic option */
+>>>>>>     };
+>>>>>> @@ -3586,6 +3608,7 @@ static void update_connector_ext_caps(struct 
+>>>>>> amdgpu_dm_connector *aconnector)
+>>>>>>         struct amdgpu_device *adev;
+>>>>>>         struct drm_luminance_range_info *luminance_range;
+>>>>>>         int min_input_signal_override;
+>>>>>> +    u32 panel;
+>>>>>>         if (aconnector->bl_idx == -1 ||
+>>>>>>             aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
+>>>>>> @@ -3610,6 +3633,13 @@ static void update_connector_ext_caps(struct 
+>>>>>> amdgpu_dm_connector *aconnector)
+>>>>>>             caps->aux_support = false;
+>>>>>>         else if (amdgpu_backlight == 1)
+>>>>>>             caps->aux_support = true;
+>>>>>> +    else if (amdgpu_backlight == -1 &&
+>>>>>> +         quirk_entries.boe_2420_2423_bl_force_pwm) {
+>>>>>> +        panel = drm_edid_get_panel_id(aconnector->drm_edid);
+>>>>>> +        if (panel == drm_edid_encode_panel_id('B', 'O', 'E', 0x0974) ||
+>>>>>> +            panel == drm_edid_encode_panel_id('B', 'O', 'E', 0x0977))
+>>>>>> +            caps->aux_support = false;
+>>>>>> +    }
+>>>> It lgtm,
+>>>>
+>>>> Additionally, I believe this is safe to merge since it only affects a
+>>>> specific device. Perhaps display folks would like to include this as
+>>>> part of this week's promotion? Anyway, Cc other devs from the display.
+>>>>
+>>>> Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+>>> That's a bit odd that aux based B/L control wouldn't work. Are these
+>>> both OLED panels?  What debugging have you done thus far with them?
+>>> What kernel base?
+>>>
+>>> Could you repro on 6.16-rc3?
+>>
+>> Sadly our archive is missing this panel + device combination. This patch is 
+>> based on our install script that sets this fix via boot parameters since the 
+>> release of these devices.
+>>
+>> So the quirk is field proven, but I can't actively test it anymore.
+>>
+>> Best regards,
+>>
+>> Werner
+>>
+>
+> Do you recall what kernel version you were doing it with?  I'm just wondering 
+> if AUX brightness control had a bug with such a kernel.
+We shipped the device in 2021 with Ubuntu focal, so the kernel probably was 5.8 
+or 5.11 (in theory it also could have been 5.4 or whatever the Ubuntu OEM kernel 
+was at that time).
+>
+> Do you have this panel on some other hardware perhaps? 
+Probably not. I will ask however.
+> Or could you send a call out to get some testing done?
 
-> +
->  		return;
-> +	}
->  
->  	amdgpu_amdkfd_remove_all_eviction_fences(abo);
->  
-> -	if (!bo->resource || bo->resource->mem_type != TTM_PL_VRAM ||
-> -	    !(abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE) ||
-> -	    adev->in_suspend || drm_dev_is_unplugged(adev_to_drm(adev)))
-> +	if (!bo->resource || bo->resource->mem_type != TTM_PL_VRAM)
->  		goto out;
->  
-> +	if (!(abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE) ||
-> +	    adev->in_suspend || drm_dev_is_unplugged(adev_to_drm(adev)))
-> +		goto out_clear_err;
-> +
->  	r = dma_resv_reserve_fences(&bo->base._resv, 1);
->  	if (r)
-> -		goto out;
-> +		goto out_clear_err;
->  
->  	r = amdgpu_fill_buffer(abo, 0, &bo->base._resv, &fence, true);
->  	if (WARN_ON(r))
-> -		goto out;
-> +		goto out_clear_err;
->  
-> -	amdgpu_vram_mgr_set_cleared(bo->resource);
-> +	amdgpu_vram_mgr_set_clear_state(bo->resource, true);
->  	dma_resv_add_fence(&bo->base._resv, fence, DMA_RESV_USAGE_KERNEL);
->  	dma_fence_put(fence);
->  
-> +	dma_resv_unlock(&bo->base._resv);
-> +
-> +	return;
-> +
-> +out_clear_err:
-> +	amdgpu_vram_mgr_set_clear_state(bo->resource, false);
+An idea I also had in the past to plug this and similar holes in your archive, 
+but no "process" for this in place yet.
 
-As far as I can see that is actually not a good idea. The cleared flag should not be set here in the first place.
+Best regards,
 
->  out:
->  	dma_resv_unlock(&bo->base._resv);
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 9c5df35f05b7..9ec14ab900f4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -407,9 +407,10 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
->  		r = amdgpu_fill_buffer(abo, 0, NULL, &wipe_fence,
->  				       false);
->  		if (r) {
-> +			amdgpu_vram_mgr_set_clear_state(bo->resource, false);
->  			goto error;
->  		} else if (wipe_fence) {
-> -			amdgpu_vram_mgr_set_cleared(bo->resource);
-> +			amdgpu_vram_mgr_set_clear_state(bo->resource, true);
->  			dma_fence_put(fence);
->  			fence = wipe_fence;
->  		}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> index b256cbc2bc27..1019c5806ec7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> @@ -64,9 +64,12 @@ to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
->  	return container_of(res, struct amdgpu_vram_mgr_resource, base);
->  }
->  
-> -static inline void amdgpu_vram_mgr_set_cleared(struct ttm_resource *res)
-> +static inline void amdgpu_vram_mgr_set_clear_state(struct ttm_resource *res, bool is_clear)
->  {
-> -	to_amdgpu_vram_mgr_resource(res)->flags |= DRM_BUDDY_CLEARED;
-> +	if (is_clear)
-> +		to_amdgpu_vram_mgr_resource(res)->flags |= DRM_BUDDY_CLEARED;
-> +	else
-> +		to_amdgpu_vram_mgr_resource(res)->flags &= ~DRM_BUDDY_CLEARED;
+Werner
 
-
-Rather code this here like:
-
-struct amdgpu_vram_mgr_resource *ares = to_amdgpu_vram_mgr_resource(res);
-
-WARN_ON(ares->flags & DRM_BUDDY_CLEARED);
-ares->flags |= DRM_BUDDY_CLEARED;
-
-Regards,
-Christian.
-
->  }
->  
->  #endif
-
+>
+>>>
+>>>>>>         if (caps->aux_support)
+>>>>>> aconnector->dc_link->backlight_control_type = BACKLIGHT_CONTROL_AMD_AUX;
+>
