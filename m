@@ -4,66 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09544C7115C
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jun 2025 14:16:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14DD8C77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jun 2025 14:41:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F19A10E73B;
-	Wed, 25 Jun 2025 14:16:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB15510E742;
+	Wed, 25 Jun 2025 14:41:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iLEc0opF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZXjRawg1";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99DB610E73B
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jun 2025 14:16:12 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-b31c9d96bcbso939808a12.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jun 2025 07:16:12 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84DE810E742;
+ Wed, 25 Jun 2025 14:41:11 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-312efc384fcso937987a91.3; 
+ Wed, 25 Jun 2025 07:41:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750860972; x=1751465772; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1750862471; x=1751467271; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vJMSg6J4AdQuhY9+KBs8u2+3wacTS0EZTtORYwDOKqo=;
- b=iLEc0opFeo12sRjI57Y/F39nqNkJx1S/nW7d5aFmq7yYQT7IAl0fV1J/IVMCdKwyel
- 7A5yrXj1xSLsAaSoy0QI9mTAAsEBFqs0FJfO86+MZ6ZZb5Mr/j2tBnEhCf8Qdf+KQ3Gu
- NI+fGPwiUPpbvDZCZMDXPxPtG0wtJ2qLgvsWdGheDbZ7MamMFzK3QDd+lTfFeO5GGdYS
- /r9ft5LRqfQ4wLIqmDfNM2XweWvtvefXBTM7sXj2ABe0JrECS0ydJAbNB9qGQM2tOs3i
- /VFd3JouzTtGHjj4tZXTO/5Lmq1heQ+0y1hwH03F/2yJSSoRPDwq8WKvEFYHTBw5DNdj
- Qcdg==
+ bh=Lu5oUiavdQkZJLBux8bj7ZE1cpoU9zj5JJzDzDi2sjk=;
+ b=ZXjRawg1GgUxmbzYyBcn4ktxzksJT+X57dlsfM/PGyim0Mpv9hu2bx7u/2WHdblDU4
+ Ivv1YZaJKbdwwP9H2fiyD0YFkHg3e157zEPscl1mUigGO7nXfOL4PuGy96lcplPME8Ex
+ hdrge01HcF9hPR2bLwxzLUp3UWwGrnPmlxM+k/BkMedd/nc8EyO2EH1lCc2hikjvyCgg
+ bF8ft/UQDm/YMOoHjVy8qjqivO7owJESq/d8PRzgnj/UF8GspHv7NNxFNP5/YOOb5dF+
+ e5AAEjp3wR5pP7vDKVgoXUVH0E9gCzXenwgpTVrxPJQtDOrkxqgOY9KZtQ3WJD9h5vSN
+ pvIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750860972; x=1751465772;
+ d=1e100.net; s=20230601; t=1750862471; x=1751467271;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vJMSg6J4AdQuhY9+KBs8u2+3wacTS0EZTtORYwDOKqo=;
- b=mBN7WJPybK6+pZDul/TF+t2DTnYUz89H1TMJkyZJslc8Pc8+ZYKZzko85appxj0YwS
- d1gmFZ3/TwxEedlHw8SMngJnmxKb9LBqdFLvh8U0WidZukVVVUIDeFU1Y6dkXTfcWCdE
- LwQzh7YJiqeDzkVCi6dM1nIJZYl289Q+As23cliXN/zg9FYJna3cCAE93fEtB+ifFmQY
- 7Fb4f+WQCFqZ9Vvmfczv5+fXFSFMhiemdVjxERGppRLRKc84gQ+pVYU6zDSJtRlQXeSm
- KVRwEe3NmClE4ev66saAtN0UD4JIyzNl6eAwd3GEHseDZ1XrGNt1Eo9S8Jd8P0Een52y
- UvSQ==
-X-Gm-Message-State: AOJu0YxSoSXDLNnJ+xGQAOsYXHWx9QlQcExlEjxI64Z8mjETDZFFw5Ht
- QTUrqCFdafDyDzpjQww0XxgdUmq9VRuknKMlXUUs1E6Oj1dvF02xatNCHDBwKlVMl7k+JORI7H4
- whLnIyW4p8TyAwAc6AQZUPyVWC6AX++NZBQ==
-X-Gm-Gg: ASbGncvmAfeoBOnLeCUceTBWiFYuKgQZqwy9A2U6j+vpuFsdILKziPyThAg1goPgcBY
- EsJEPfJNqTcWRLMwn+zsnXwjok5rV4Uv/hYHUEcIw19WeKaIDdP/KlaUdVBStO0wn4extMuKpk+
- kRBywpVO3SPPWqZNHa8/nP172R683KNBmo2z3gPImh74Vc
-X-Google-Smtp-Source: AGHT+IErsha/Yfa2eq1eDPvKQXu9oO5mklS3sDRhxhLcTmCBIINYWh4lra+5YwmpIVKRmJ6OH/0Aw4JALq680rrdqkQ=
-X-Received: by 2002:a17:90b:1645:b0:312:ec:411a with SMTP id
- 98e67ed59e1d1-315f2680018mr1668681a91.3.1750860971842; Wed, 25 Jun 2025
- 07:16:11 -0700 (PDT)
+ bh=Lu5oUiavdQkZJLBux8bj7ZE1cpoU9zj5JJzDzDi2sjk=;
+ b=ZB9+m62V5+E0fKTqTdobodxTqB/iOD8FxYw+ycD7nrUq5IM8o7eBBU0TJ1Ld1SJmG8
+ sNtQoKYWF1cF8Eb6pMawBxphzjHPYpf8SIfjfScPB6GBRNgI62UXHVRG2ax8rCrp9SHJ
+ 0Ssr3upy5Am0ZyOltuC1WvDZSCFviA1zndKPHhZfizGm7f7ZJWODFW+eBz6LyuzVrO3r
+ atJClC1+cIxotjTL7+CDluYFhHGUOacp+hg/kN0U0ZW4AHBj9uti8QCNefwW5TXxR0po
+ aluHaFgeWaC7ZnNzb+mU0lQCBF2qI438sS8tKUH88BoTjo5p3xJOBd/ld49+4UhdyaOD
+ FO5g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU3DhtuMryvOiW0fLV8EjK1TeUKP9NAhgPruKvCuq1xMsqkOcQ78fvsSZny/MlxHwxO1Jo6OTAf6X4I@lists.freedesktop.org,
+ AJvYcCXn9YM3HbiN4qa39Xx84l3JXr7wEbt3SgXEvyyaPlFcUyK8jfh9W6mwbkpW8DCN1M8AwKs43SrT@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTNaUeDz+l3++ESmrmYWAtF1Fjf7ZlzzTMTCW83LZ9DT9uwQbF
+ ybUeO/8wMtgD+sh5sAmHqa5QY3dymW/9m/Ot5lirBEaST+d+i6aZLY1i7Uc+t3jsc72TxoXkuw2
+ mTamZOP+aJd2Q0RiTfHZU9yDWdxPdAVI=
+X-Gm-Gg: ASbGncvEyeCXitQwgo1NftGIo7q3oSZjgUXNPQMVyN2BO6HtewqeJRQXQbTYr23CSlj
+ aFZC46SAU7fLEZXP2GHeUQ3Ezbvt+kamtJTMICHbj1BsOnUtz2g7VAYmpzRRaSy6k4+g7KbCIPL
+ 3G2u+gZFUSwgJ6l8/qVts+tdeRQSsft3qylYUs7ovz9IZK
+X-Google-Smtp-Source: AGHT+IHadyQR/HZ3pPHSZknX/K7vL2y/CWV3PGa+FeKMl8cI/3Fs4WIMokIKDxHEc4Ux8qeYTO7Q17rAKABE9wRA/ZM=
+X-Received: by 2002:a17:90b:35c6:b0:311:488:f506 with SMTP id
+ 98e67ed59e1d1-315f26b869fmr1807111a91.6.1750862470763; Wed, 25 Jun 2025
+ 07:41:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250625075314.4016532-1-jesse.zhang@amd.com>
-In-Reply-To: <20250625075314.4016532-1-jesse.zhang@amd.com>
+References: <20250625084314.414044-1-tzimmermann@suse.de>
+ <1f6b8e22-8608-4026-a306-3b4d38fb8027@amd.com>
+In-Reply-To: <1f6b8e22-8608-4026-a306-3b4d38fb8027@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 25 Jun 2025 10:16:00 -0400
-X-Gm-Features: AX0GCFtTo0DF1p6J9PKB1oI-TOjkqQCIMF86mVArdAh0h8TngUShBKvb-oUdxP0
-Message-ID: <CADnq5_PwOmaHnGzm7NaKQMpy6dWFsiFi4JTn3Ppn_UFjH2xQ0w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add user queue instance count in HW IP info
-To: Jesse Zhang <jesse.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
+Date: Wed, 25 Jun 2025 10:40:58 -0400
+X-Gm-Features: AX0GCFu2ss00rKDDOoN8VI0e-rOG-ZiWa3DSfgfqrTyh33BNhVSbv6s9MdQzIoI
+Message-ID: <CADnq5_N1b59pmKJY1kH=j76a8w6_Bnpyu_V3ZdCJnb1v-kBgLw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] drm/amd: Avoid using import_attach directly
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
+ airlied@gmail.com, 
+ simona@ffwll.ch, sumit.semwal@linaro.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,123 +86,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 25, 2025 at 4:03=E2=80=AFAM Jesse Zhang <jesse.zhang@amd.com> w=
-rote:
+On Wed, Jun 25, 2025 at 7:25=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> This change exposes the number of available user queue instances
-> for each hardware IP type (GFX, COMPUTE, SDMA) through the
-> drm_amdgpu_info_hw_ip interface.
+> On 25.06.25 10:42, Thomas Zimmermann wrote:
+> > The field import_attach of struct drm_gem_object is often only
+> > required by PRIME code. In other places, replace its use with
+> > clearer alternatives.
 >
-> Key changes:
-> 1. Added userq_num_instance field to drm_amdgpu_info_hw_ip structure
-> 2. Implemented counting of available HQD slots using:
->    - mes.gfx_hqd_mask for GFX queues
->    - mes.compute_hqd_mask for COMPUTE queues
->    - mes.sdma_hqd_mask for SDMA queues
-> 3. Only counts available instances when user queues are enabled
->    (!disable_uq)
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com> for the enti=
+re series.
 >
-> v2: using the adev->mes.gfx_hqd_mask[]/compute_hqd_mask[]/sdma_hqd_mask[]=
- masks
->   to determine the number of queue slots available for each engine type (=
-Alex)
->
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 17 +++++++++++++++++
->  include/uapi/drm/amdgpu_drm.h           |  2 ++
->  2 files changed, 19 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index 195ed81d39ff..d682a92f086b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -399,6 +399,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
-ev,
->         uint32_t ib_size_alignment =3D 0;
->         enum amd_ip_block_type type;
->         unsigned int num_rings =3D 0;
-> +       uint32_t num_instance =3D 0;
->         unsigned int i, j;
->
->         if (info->query_hw_ip.ip_instance >=3D AMDGPU_HW_IP_INSTANCE_MAX_=
-COUNT)
-> @@ -411,6 +412,11 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *a=
-dev,
->                         if (adev->gfx.gfx_ring[i].sched.ready &&
->                             !adev->gfx.gfx_ring[i].no_user_submission)
->                                 ++num_rings;
-> +
-> +               if (!adev->gfx.disable_uq)
-> +                       for (i =3D 0; i < AMDGPU_MES_MAX_GFX_PIPES; i++)
-> +                               num_instance +=3D hweight32(adev->mes.gfx=
-_hqd_mask[i]);
-> +
->                 ib_start_alignment =3D 32;
->                 ib_size_alignment =3D 32;
->                 break;
-> @@ -420,6 +426,11 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *a=
-dev,
->                         if (adev->gfx.compute_ring[i].sched.ready &&
->                             !adev->gfx.compute_ring[i].no_user_submission=
-)
->                                 ++num_rings;
-> +
-> +               if (!adev->sdma.disable_uq)
-> +                       for (i =3D 0; i < AMDGPU_MES_MAX_COMPUTE_PIPES; i=
-++)
-> +                               num_instance +=3D hweight32(adev->mes.com=
-pute_hqd_mask[i]);
-> +
->                 ib_start_alignment =3D 32;
->                 ib_size_alignment =3D 32;
->                 break;
-> @@ -429,6 +440,11 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *a=
-dev,
->                         if (adev->sdma.instance[i].ring.sched.ready &&
->                             !adev->sdma.instance[i].ring.no_user_submissi=
-on)
->                                 ++num_rings;
-> +
-> +               if (!adev->gfx.disable_uq)
-> +                       for (i =3D 0; i < AMDGPU_MES_MAX_SDMA_PIPES; i++)
-> +                               num_instance +=3D hweight32(adev->mes.sdm=
-a_hqd_mask[i]);
-> +
->                 ib_start_alignment =3D 256;
->                 ib_size_alignment =3D 4;
->                 break;
-> @@ -570,6 +586,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *ad=
-ev,
->         }
->         result->capabilities_flags =3D 0;
->         result->available_rings =3D (1 << num_rings) - 1;
-> +       result->userq_num_instance =3D num_instance;
->         result->ib_start_alignment =3D ib_start_alignment;
->         result->ib_size_alignment =3D ib_size_alignment;
->         return 0;
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index 45c4fa13499c..8082270a7ceb 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -1493,6 +1493,8 @@ struct drm_amdgpu_info_hw_ip {
->         __u32  available_rings;
->         /** version info: bits 23:16 major, 15:8 minor, 7:0 revision */
->         __u32  ip_discovery_version;
-> +       /* Userq available instance */
-> +       __u32  userq_num_instance;
 
-I would call this something like userq_num_slots or userq_num_hqds.
-Other than that, it looks good to me.
+Thomas,
+
+Feel free to take them via whatever tree makes sense if you have
+further work that depends on these, otherwise, let me know and I can
+pick them up.
 
 Alex
 
->  };
->
->  /* GFX metadata BO sizes and alignment info (in bytes) */
-> --
-> 2.34.1
+> >
+> > v2:
+> > - keep amdgpu_bo_print_info() as-is (Christian)
+> >
+> > Thomas Zimmermann (2):
+> >   drm/amdgpu: Test for imported buffers with drm_gem_is_imported()
+> >   drm/amdgpu: Use dma_buf from GEM object instance
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  4 ++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     |  5 ++---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 10 +++++-----
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  6 +++---
+> >  6 files changed, 14 insertions(+), 15 deletions(-)
+> >
 >
