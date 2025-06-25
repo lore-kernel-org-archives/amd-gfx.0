@@ -4,44 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4FFAC7EE2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jun 2025 02:39:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE59C7EE33
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jun 2025 07:50:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D6EB10E82E;
-	Thu, 26 Jun 2025 02:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F24A10E280;
+	Thu, 26 Jun 2025 07:50:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ccH/orCs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QDo8DZNN";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (unknown [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D50C410E25B
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jun 2025 02:39:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id DE9495C6373;
- Thu, 26 Jun 2025 02:36:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0C43C4CEEB;
- Thu, 26 Jun 2025 02:38:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750905539;
- bh=T+mY0wbxLDcKy44JAJQ7IYS4uo5PCDF9vbsjFCpzTqI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ccH/orCstXJ2iw0irii2f36SAyVa7LPcyqu+KIPt4rwJg5DlL9AUFM+uZCPag975t
- FpPRIZgBUzLjS0B+oJh07RT7cFXKqyoorLl1ulTIE60CXrn9i0SJJmaltYmo1whL2f
- IzrI0Po+qNaXlk9xAiCBA5/AmmKqTABVJm62NSw3daD3LfIyx/13PBhNwOpeTu39n6
- sBmXzwFIrXVaeGM86hj8zVIEJ4xh8llNsj5O/EEo0FobBVptYNDp9H1pY6885yLMXm
- VU2uguaHPrxC36D6MO8O9atSEQDpw/vU5abbABdc2WfskF0xusJ5GDLxl4WFqZQoJ+
- m+p044d0Fdl1w==
-From: Mario Limonciello <superm1@kernel.org>
-To: amd-gfx@lists.freedesktop.org
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alexandre Demers <alexandre.f.demers@gmail.com>
-Subject: [PATCH v2 3/3] drm/amd: Change kv-dpm DRM_*() macros to drm_*()
-Date: Wed, 25 Jun 2025 21:38:55 -0500
-Message-ID: <20250626023855.4026084-3-superm1@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250626023855.4026084-1-superm1@kernel.org>
-References: <20250626023855.4026084-1-superm1@kernel.org>
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F90710E104;
+ Wed, 25 Jun 2025 12:14:46 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-ae0a420431bso377839466b.2; 
+ Wed, 25 Jun 2025 05:14:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1750853684; x=1751458484; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=iuZ7V/wPf3y/FuOkP5B9PvK8oLIv24UDDjFzXY+F+6w=;
+ b=QDo8DZNNpc7nCS7SlH5dtW3GV0fkK0vePLg43g/QCml7VlPJC2mLwPRpmgE2xhjehT
+ yUlALeKdbT4esq2NzcdcVJ1OcQMpYVd9WzDnl1NmTdGQAMgB+9RVYoPRslAYKxNBYnqZ
+ k8YXCWp8Coe6fYKfNeCq8jyycnYWDX+P6iihKw5lws5rDhNBGg4lv2vgxRSZ8hfQiYzM
+ kLKuuSqld37kgjSMB0/MH7AQXnupCbNPz5RhmV839PaLjtTFtlOa48G4kLuK5BW7XWUJ
+ hk97BNHd/9yl7HME1IvOyqn9ZjNLDgmzDvIQvyvjTjycmUrwLvNP8R0S7rZyyPLp0rIY
+ QqxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750853684; x=1751458484;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=iuZ7V/wPf3y/FuOkP5B9PvK8oLIv24UDDjFzXY+F+6w=;
+ b=mGZINHgezsqfYfew5Ru4iaMxflF+B8pqZ3XVsfdBI8PbAeP4Bxl2pMsmvijJLzqdXo
+ msoGoPxu0rYMH4JCcsB//MOgN6YIJ5ZfYcfrh+aXe9pb5tfXoyza/crEWUQrd60S1OhW
+ nYSMAIDIkVPN3GQ8IC1teNGP6be/Alwkx2mrHrIc0iJbM8HOzrarE7YaJowo4kT7Zydi
+ 5xqf0C03wWmv8ywK6/OqIpY8CWL39zPPR9rftF10RVbYKF0o+Jc6+EIqWCNyiZTfVG4C
+ uJatThRjBemcNHZ0zPJFPRPY4KaiDJkTa/TtYbf+aCLLWp6lAGv9ahuwEdkxjlqZdj4F
+ a41w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWW6mkPdES3QjZvwE1eU9EkuHhEWcsYD4VQxlf9tBAR8IE0IUXrzLIId1hipWiWE6yTsg645P9M6KY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxpqxO37zsiEhSMWP+0AzBvzpsLBmjZRxMRGMtkls3/HsAsVSCg
+ 0e+o/CRwJ2+vNX2uxz2VqL0s/uTchHzfn+qCz5d0cwF48xBEWrpU0JQFBOcaudfI83EBecO3H0y
+ DK3fJogAHI205wS/B0eBfERzmthSrCUo=
+X-Gm-Gg: ASbGncu/scs4z/XkeOs1Bvnoyjc1Q7HV+crdkVPy3mp2yWQx1IRKZpqw1VnCsMPzKpk
+ jUHXNwrq0rZMUf81iFt7bekAOEXADHtGl0sXIm/32k1YzGec5ih7RV43mM0ljsPyblTEd2xJXiJ
+ jBKm/dvWM5COYLWzYe8xc62ehKsEFMTNYLaalIvHtBnY+x4XWHrgM8f5CAwG/JPiQhO/boiRwdY
+ EQtkw==
+X-Google-Smtp-Source: AGHT+IHQisugn9wv5S38QH8dRQR8tubX+c6FKqY5F5WfDU1aAk8yUXJkFRJXGjaZAVrapZK5cnPibWbIOLtP8+vEWrs=
+X-Received: by 2002:a17:906:3b0e:b0:ad8:9257:571b with SMTP id
+ a640c23a62f3a-ae0becba9a8mr231678666b.16.1750853683947; Wed, 25 Jun 2025
+ 05:14:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250621152657.1048807-1-superm1@kernel.org>
+In-Reply-To: <20250621152657.1048807-1-superm1@kernel.org>
+From: Xaver Hugl <xaver.hugl@gmail.com>
+Date: Wed, 25 Jun 2025 14:14:32 +0200
+X-Gm-Features: Ac12FXxxP103t8t9tCV4vFIb5b84CmOf48g7S9uOWfB8pUo4MSCmc1hEiLjx4t4
+Message-ID: <CAFZQkGxUwodf5bW0qQkXoPoz0CFFA1asJfUxFftMGgs5-VK2Hw@mail.gmail.com>
+Subject: Re: [PATCH v5 0/2] Add support for 'power saving policy' property
+To: Mario Limonciello <superm1@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>, 
+ Harry Wentland <Harry.Wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ Leo Li <sunpeng.li@amd.com>, Sean Paul <seanpaul@google.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 26 Jun 2025 07:50:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,239 +84,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+I have some more concerns / different direction I'd like to go with
+this stuff, let's please hold on it for now and talk about it at the
+display next hackfest again.
 
-drm_*() macros can show the device a message came from.
+- Xaver
 
-Cc: Alexandre Demers <alexandre.f.demers@gmail.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c | 56 +++++++++++-----------
- 1 file changed, 28 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index 81a6134bd56de..1520b2db6d70a 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -1242,7 +1242,7 @@ static void kv_dpm_enable_bapm(void *handle, bool enable)
- 	if (pi->bapm_enable) {
- 		ret = amdgpu_kv_smc_bapm_enable(adev, enable);
- 		if (ret)
--			DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
-+			drm_err(adev_to_drm(adev), "amdgpu_kv_smc_bapm_enable failed\n");
- 	}
- }
- 
-@@ -1266,40 +1266,40 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- 
- 	ret = kv_process_firmware_header(adev);
- 	if (ret) {
--		DRM_ERROR("kv_process_firmware_header failed\n");
-+		drm_err(adev_to_drm(adev), "kv_process_firmware_header failed\n");
- 		return ret;
- 	}
- 	kv_init_fps_limits(adev);
- 	kv_init_graphics_levels(adev);
- 	ret = kv_program_bootup_state(adev);
- 	if (ret) {
--		DRM_ERROR("kv_program_bootup_state failed\n");
-+		drm_err(adev_to_drm(adev), "kv_program_bootup_state failed\n");
- 		return ret;
- 	}
- 	kv_calculate_dfs_bypass_settings(adev);
- 	ret = kv_upload_dpm_settings(adev);
- 	if (ret) {
--		DRM_ERROR("kv_upload_dpm_settings failed\n");
-+		drm_err(adev_to_drm(adev), "kv_upload_dpm_settings failed\n");
- 		return ret;
- 	}
- 	ret = kv_populate_uvd_table(adev);
- 	if (ret) {
--		DRM_ERROR("kv_populate_uvd_table failed\n");
-+		drm_err(adev_to_drm(adev), "kv_populate_uvd_table failed\n");
- 		return ret;
- 	}
- 	ret = kv_populate_vce_table(adev);
- 	if (ret) {
--		DRM_ERROR("kv_populate_vce_table failed\n");
-+		drm_err(adev_to_drm(adev), "kv_populate_vce_table failed\n");
- 		return ret;
- 	}
- 	ret = kv_populate_samu_table(adev);
- 	if (ret) {
--		DRM_ERROR("kv_populate_samu_table failed\n");
-+		drm_err(adev_to_drm(adev), "kv_populate_samu_table failed\n");
- 		return ret;
- 	}
- 	ret = kv_populate_acp_table(adev);
- 	if (ret) {
--		DRM_ERROR("kv_populate_acp_table failed\n");
-+		drm_err(adev_to_drm(adev), "kv_populate_acp_table failed\n");
- 		return ret;
- 	}
- 	kv_program_vc(adev);
-@@ -1310,39 +1310,39 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- 	if (pi->enable_auto_thermal_throttling) {
- 		ret = kv_enable_auto_thermal_throttling(adev);
- 		if (ret) {
--			DRM_ERROR("kv_enable_auto_thermal_throttling failed\n");
-+			drm_err(adev_to_drm(adev), "kv_enable_auto_thermal_throttling failed\n");
- 			return ret;
- 		}
- 	}
- 	ret = kv_enable_dpm_voltage_scaling(adev);
- 	if (ret) {
--		DRM_ERROR("kv_enable_dpm_voltage_scaling failed\n");
-+		drm_err(adev_to_drm(adev), "kv_enable_dpm_voltage_scaling failed\n");
- 		return ret;
- 	}
- 	ret = kv_set_dpm_interval(adev);
- 	if (ret) {
--		DRM_ERROR("kv_set_dpm_interval failed\n");
-+		drm_err(adev_to_drm(adev), "kv_set_dpm_interval failed\n");
- 		return ret;
- 	}
- 	ret = kv_set_dpm_boot_state(adev);
- 	if (ret) {
--		DRM_ERROR("kv_set_dpm_boot_state failed\n");
-+		drm_err(adev_to_drm(adev), "kv_set_dpm_boot_state failed\n");
- 		return ret;
- 	}
- 	ret = kv_enable_ulv(adev, true);
- 	if (ret) {
--		DRM_ERROR("kv_enable_ulv failed\n");
-+		drm_err(adev_to_drm(adev), "kv_enable_ulv failed\n");
- 		return ret;
- 	}
- 	kv_start_dpm(adev);
- 	ret = kv_enable_didt(adev, true);
- 	if (ret) {
--		DRM_ERROR("kv_enable_didt failed\n");
-+		drm_err(adev_to_drm(adev), "kv_enable_didt failed\n");
- 		return ret;
- 	}
- 	ret = kv_enable_smc_cac(adev, true);
- 	if (ret) {
--		DRM_ERROR("kv_enable_smc_cac failed\n");
-+		drm_err(adev_to_drm(adev), "kv_enable_smc_cac failed\n");
- 		return ret;
- 	}
- 
-@@ -1350,7 +1350,7 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- 
- 	ret = amdgpu_kv_smc_bapm_enable(adev, false);
- 	if (ret) {
--		DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
-+		drm_err(adev_to_drm(adev), "amdgpu_kv_smc_bapm_enable failed\n");
- 		return ret;
- 	}
- 
-@@ -1358,7 +1358,7 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- 	    kv_is_internal_thermal_sensor(adev->pm.int_thermal_type)) {
- 		ret = kv_set_thermal_temperature_range(adev, KV_TEMP_RANGE_MIN, KV_TEMP_RANGE_MAX);
- 		if (ret) {
--			DRM_ERROR("kv_set_thermal_temperature_range failed\n");
-+			drm_err(adev_to_drm(adev), "kv_set_thermal_temperature_range failed\n");
- 			return ret;
- 		}
- 		amdgpu_irq_get(adev, &adev->pm.dpm.thermal.irq,
-@@ -1382,7 +1382,7 @@ static void kv_dpm_disable(struct amdgpu_device *adev)
- 
- 	err = amdgpu_kv_smc_bapm_enable(adev, false);
- 	if (err)
--		DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
-+		drm_err(adev_to_drm(adev), "amdgpu_kv_smc_bapm_enable failed\n");
- 
- 	if (adev->asic_type == CHIP_MULLINS)
- 		kv_enable_nb_dpm(adev, false);
-@@ -1920,7 +1920,7 @@ static int kv_dpm_set_power_state(void *handle)
- 	if (pi->bapm_enable) {
- 		ret = amdgpu_kv_smc_bapm_enable(adev, adev->pm.ac_power);
- 		if (ret) {
--			DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
-+			drm_err(adev_to_drm(adev), "amdgpu_kv_smc_bapm_enable failed\n");
- 			return ret;
- 		}
- 	}
-@@ -1931,7 +1931,7 @@ static int kv_dpm_set_power_state(void *handle)
- 			kv_update_dfs_bypass_settings(adev, new_ps);
- 			ret = kv_calculate_ds_divider(adev);
- 			if (ret) {
--				DRM_ERROR("kv_calculate_ds_divider failed\n");
-+				drm_err(adev_to_drm(adev), "kv_calculate_ds_divider failed\n");
- 				return ret;
- 			}
- 			kv_calculate_nbps_level_settings(adev);
-@@ -1947,7 +1947,7 @@ static int kv_dpm_set_power_state(void *handle)
- 
- 			ret = kv_update_vce_dpm(adev, new_ps, old_ps);
- 			if (ret) {
--				DRM_ERROR("kv_update_vce_dpm failed\n");
-+				drm_err(adev_to_drm(adev), "kv_update_vce_dpm failed\n");
- 				return ret;
- 			}
- 			kv_update_sclk_t(adev);
-@@ -1960,7 +1960,7 @@ static int kv_dpm_set_power_state(void *handle)
- 			kv_update_dfs_bypass_settings(adev, new_ps);
- 			ret = kv_calculate_ds_divider(adev);
- 			if (ret) {
--				DRM_ERROR("kv_calculate_ds_divider failed\n");
-+				drm_err(adev_to_drm(adev), "kv_calculate_ds_divider failed\n");
- 				return ret;
- 			}
- 			kv_calculate_nbps_level_settings(adev);
-@@ -1972,7 +1972,7 @@ static int kv_dpm_set_power_state(void *handle)
- 			kv_set_enabled_levels(adev);
- 			ret = kv_update_vce_dpm(adev, new_ps, old_ps);
- 			if (ret) {
--				DRM_ERROR("kv_update_vce_dpm failed\n");
-+				drm_err(adev_to_drm(adev), "kv_update_vce_dpm failed\n");
- 				return ret;
- 			}
- 			kv_update_acp_boot_level(adev);
-@@ -2521,7 +2521,7 @@ static int kv_set_thermal_temperature_range(struct amdgpu_device *adev,
- 	if (high_temp > max_temp)
- 		high_temp = max_temp;
- 	if (high_temp < low_temp) {
--		DRM_ERROR("invalid thermal range: %d - %d\n", low_temp, high_temp);
-+		drm_err(adev_to_drm(adev), "invalid thermal range: %d - %d\n", low_temp, high_temp);
- 		return -EINVAL;
- 	}
- 
-@@ -2563,7 +2563,7 @@ static int kv_parse_sys_info_table(struct amdgpu_device *adev)
- 					      data_offset);
- 
- 		if (crev != 8) {
--			DRM_ERROR("Unsupported IGP table: %d %d\n", frev, crev);
-+			drm_err(adev_to_drm(adev), "Unsupported IGP table: %d %d\n", frev, crev);
- 			return -EINVAL;
- 		}
- 		pi->sys_info.bootup_sclk = le32_to_cpu(igp_info->info_8.ulBootUpEngineClock);
-@@ -2579,7 +2579,7 @@ static int kv_parse_sys_info_table(struct amdgpu_device *adev)
- 		else
- 			pi->sys_info.htc_hyst_lmt = igp_info->info_8.ucHtcHystLmt;
- 		if (pi->sys_info.htc_tmp_lmt <= pi->sys_info.htc_hyst_lmt) {
--			DRM_ERROR("The htcTmpLmt should be larger than htcHystLmt.\n");
-+			drm_err(adev_to_drm(adev), "The htcTmpLmt should be larger than htcHystLmt.\n");
- 		}
- 
- 		if (le32_to_cpu(igp_info->info_8.ulSystemConfig) & (1 << 3))
-@@ -3015,13 +3015,13 @@ static int kv_dpm_sw_init(struct amdgpu_ip_block *ip_block)
- 	adev->pm.dpm.current_ps = adev->pm.dpm.requested_ps = adev->pm.dpm.boot_ps;
- 	if (amdgpu_dpm == 1)
- 		amdgpu_pm_print_power_states(adev);
--	DRM_INFO("amdgpu: dpm initialized\n");
-+	drm_info(adev_to_drm(adev), "dpm initialized\n");
- 
- 	return 0;
- 
- dpm_failed:
- 	kv_dpm_fini(adev);
--	DRM_ERROR("amdgpu: dpm initialization failed\n");
-+	drm_err(adev_to_drm(adev), "dpm initialization failed: %d\n", ret);
- 	return ret;
- }
- 
--- 
-2.43.0
-
+Am Sa., 21. Juni 2025 um 17:27 Uhr schrieb Mario Limonciello
+<superm1@kernel.org>:
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> During the Display Next hackfest 2024 one of the topics discussed
+> was the need for compositor to be able to relay intention to drivers
+> that color fidelity is preferred over power savings.
+>
+> To accomplish this a new optional DRM property is being introduced called
+> "power saving policy".  This property is a bit mask that can be configured
+> with requests of "Require color accuracy" or "Require low latency"
+> that can be configured by the compositor.
+>
+> When a driver advertises support for this property and the compositor
+> sets it to "Require color accuracy" then the driver will disable any power
+> saving features that can compromise color fidelity.
+>
+> In practice the main feature this currently applies to is the
+> "Adaptive Backlight Modulation" feature within AMD DCN on eDP panels.
+>
+> When the compositor has marked the property  "Require color accuracy" then
+> this feature will be disabled and any userspace that tries to turn it on
+> will get an -EBUSY return code.
+>
+> Compositors can also request that low latency is critical which in
+> practice should cause PSR and PSR2 to be disabled.
+>
+> When the compositor has restored the value back to no requirements then
+> the previous value that would have been programmed will be restored.
+>
+> This was previously accepted at version 4 but reverted because userspace
+> didn't have a matching implementation.
+> One was now created for KDE:
+>  * https://invent.kde.org/plasma/kwin/-/merge_requests/6028
+>
+> There was also a bug reported that Xorg crashed with this change. It's
+> fixed by this PR:
+>  * https://gitlab.freedesktop.org/xorg/driver/xf86-video-amdgpu/-/merge_requests/102
+>
+> Mario Limonciello (2):
+>   drm: Introduce 'power saving policy' drm property
+>   drm/amd: Add power_saving_policy drm property to eDP connectors
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  4 ++
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 52 +++++++++++++++++--
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +
+>  drivers/gpu/drm/drm_connector.c               | 49 +++++++++++++++++
+>  include/drm/drm_connector.h                   |  2 +
+>  include/drm/drm_mode_config.h                 |  5 ++
+>  include/uapi/drm/drm_mode.h                   |  9 ++++
+>  7 files changed, 118 insertions(+), 5 deletions(-)
+>
+> --
+> 2.43.0
+>
