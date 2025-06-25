@@ -4,150 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CC7CC7EE2A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jun 2025 16:26:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0FD5C7EE30
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jun 2025 16:30:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A16B010E235;
-	Wed, 25 Jun 2025 16:26:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB8F910E769;
+	Wed, 25 Jun 2025 16:30:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D3OfdGMB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KE7HSI1m";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2070.outbound.protection.outlook.com [40.107.236.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF0B410E235
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jun 2025 16:26:01 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42F9410E77C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jun 2025 16:30:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RQJqH8nj9FUcf807nrRpN7I29LKJE4tDBvXZRTP6vzPZ94NRJfLJff/GqbazBEUri2D57d8gWD3AKS23qdlET5H/LsZKFFGd5d44fP+NK6yAhp6hXK8IeyYsTVJpqlk01UbYLX5B8kej/sGOmW7/KrfI3byvllQdbqwglo55DVDyIreGsFJkk6Gt6FrQM8bLdy0RA/wOehqi4gNtuD4j3T7Efv7GeDIVwslZITpRVBotWXdZgaT/VIdLFN64ApGeAgJXqTnOCCBrRDyxPL5u66EdBelFanx725cb/qe0lCbC2HCMn1AD16mZtQfjjbv3hVc4q+shByhfmnBHszd7EA==
+ b=J0ljoB+mSMdc8v3fbd7jvg1G+uCH68ZGdjUiK3qDYOYbq1HQTByyWwmsfOECzOV5jHYKEnlkilsgticKq5kDd7xOedEXBB7AxWu4vfdGulV9P4w64JEcFhRvDgPFErlJtrxjjwn5/2BATre8OpOWLp6A9DCgi9gOuFmat7fjnSxm7GtOExqlFFdz47BhMLEi9YoadlDiyBWb7xmwNJcCTvmVKxDWM25KbgOWPioy7GvkQk9gdpRzUwZ3yP2MEddcCmhT6dB0ZvvgNyPmDvQNwea4g/Oo+GgZU+3vd11II2M47frY+bA57ARA3q5MUDfgKZU1ut9f15heLyfmLKQ3FA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=88I2Y11ZfazvQ3ByuD3SC9HyNLBA+zrC5HEHGJftYcI=;
- b=nEPUO2bo3YFP6sCUHPRCC5N3kgSPnViOw8HNgIdU2b5cXtu2pIptSQ6qxBoeqr/ykazXf69azBWwg/zmrIBXN/alN9OTZKVOj0jqkgizVTDpj4UMF6F1vjHDCK1MQVmdIn8+YbjVwhGq6p0OISuyjfo+KpymZ97asqQXVHNlXqibVNMSjVleMzx4ax3LiwCjNrBseqLtDoyJgAp8M3+6Q0zq1nxhlGMlw7JjTC28QO6GRmgmY0/t9jSb47T77ihbSWgO9YomR6Zj7g8KL+hmTJTt0Kjo3v8lUL6GaiVuehMQ2yiTLV0XtbOUSY9ylwidBigJ3vcl/2+DVBul2NeNbA==
+ bh=+2Plm6REg+rGQK5VqWUfezd23fv/yefkFDzDePQLuJc=;
+ b=AZYhcG6MbugMRIY/zHEOHAnphC5x4c4rHSzlL0+jpwc1FXLcxvgR4hlQtaYnSJHecTBZy+98RUpGiCqGzt2KugkcVxc/XXpbZEdQ8R9EGIMDvq+0hR0Xrc8hYdMYYx1U2vXdu17cJkfOiubIs0rTw8E/ewvu7NqL0B/P98hXp24d7+ylnXLL2GiU7WQzN/sWec+yLKJ1BqGtZ65n31QJMMEAq/8T0fnk/EFZwi2MfWGC0DNUv8PzNiI0w3erAJa7ATmx4g8bCAkDXqVBg8A/s55kiGjddwlI0+unT4uT/Q0joe5LfF+iwIYxJIgvDf8Z+cjgN1yw+IIOkXWU08KQbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=88I2Y11ZfazvQ3ByuD3SC9HyNLBA+zrC5HEHGJftYcI=;
- b=D3OfdGMBkpWQL3sI5Xg7W0e6WSBbyy/odltVnTO11vrCmrL1DrTEDsfajrk1MZMZPqax5RrFjsJf7U1GyvXAAhZozxEkFGxsqYfhqz3Ye8Xtfe1QeqfsLwzdXkivBRQ6/1Xgiz1+ZlB3tYT6VMIkIF6Z1Hlbxkfw9Ctgaj204j4=
+ bh=+2Plm6REg+rGQK5VqWUfezd23fv/yefkFDzDePQLuJc=;
+ b=KE7HSI1mgmrhqSxW6V6aftWfiYVVALUbwC00Qu2smHoHZW7Lre5tTiMBbd25eNtL3KWljxShId1RU+Uw5KPQWJRGWkBRmrMYl/KatmQI7I1pAl+keIpM8+E8Sg53wkR7DDmyG5OSsZWEzs2xgBnbmgLFUwSXefvi/xSOflQCU5Y=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW6PR12MB8865.namprd12.prod.outlook.com (2603:10b6:303:23b::21)
+ by CY3PR12MB9630.namprd12.prod.outlook.com (2603:10b6:930:101::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.28; Wed, 25 Jun
- 2025 16:25:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.20; Wed, 25 Jun
+ 2025 16:30:10 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8857.016; Wed, 25 Jun 2025
- 16:25:55 +0000
-Message-ID: <f8690c23-549e-4fa0-969c-00420fb24103@amd.com>
-Date: Wed, 25 Jun 2025 12:25:53 -0400
+ 16:30:10 +0000
+Message-ID: <86ed9450-09c4-43e2-8427-3d9d29d69bd4@amd.com>
+Date: Wed, 25 Jun 2025 12:30:08 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amdgpu: rework gmc_v9_0_get_coherence_flags
+Subject: Re: [PATCH 2/3] drm/amdgpu: rework how PTE flags are generated
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  amd-gfx@lists.freedesktop.org, rajneesh.bhardwaj@amd.com,
  david.francis@amd.com
 References: <20250606125723.7822-1-christian.koenig@amd.com>
+ <20250606125723.7822-2-christian.koenig@amd.com>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20250606125723.7822-1-christian.koenig@amd.com>
+In-Reply-To: <20250606125723.7822-2-christian.koenig@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0087.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d0::24) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTBP288CA0017.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::30) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW6PR12MB8865:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1cb301e-f53f-41ac-2f41-08ddb404f582
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY3PR12MB9630:EE_
+X-MS-Office365-Filtering-Correlation-Id: f225c153-2d80-4940-acc2-08ddb4058ddc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cDlnVjJIS3VuSmdZRWd0dndrSWw0YlNpY0hCdkVqK2hvcm9ZMUFHdEhDZS9R?=
- =?utf-8?B?T2EzZjJ2akNyeXFwSkdlaFJJYkJackVoMTU0eVJtbFFIWEJ2UDFyc1ZuaDZT?=
- =?utf-8?B?WnlrZm5WUGxxQ2pQb0NvRWxiTWhHZm0rNEVpN3BlUG1tenFaeWNoRDMydnV1?=
- =?utf-8?B?U2xqcFJqYWswZDZQaE9CL2RJbkxlSUxpL0VZcUpONktuT3A0cmF0c0ZKYk55?=
- =?utf-8?B?NDBMTG1mbHhGNWlZY0xjUmVMKzRpK2R1ekpXY2d3TzR6SU9wS2pUQk5na3JW?=
- =?utf-8?B?cUJGQ3BnTyttRmZiODY3aGpnMUx3c2xOcUgzWjBoT3dwN25EODhRTW1aN3NX?=
- =?utf-8?B?UVVjakNwdmFobUthdkEvU2FPeG5zOGFUY0djU3VoMWNNUG5zSmFpdXVqekhN?=
- =?utf-8?B?Y1R6MDVic201VzFOMkozU1FJeDB1ais5TXRUVWVhS0ZiRFRIajBtTmhuZ1Bn?=
- =?utf-8?B?d1Jwb1dDMzdVaVBFTkNTZHNyMm1LSDlTaXlvcTQ1TjBVQ3BiSmd5bUNlT3pv?=
- =?utf-8?B?TitOOXJ2bk1iUk5JWExIRUpHZmF5NXVhQVRFemJqbjcrQVNjZlJheGlzaEE2?=
- =?utf-8?B?NE5xNDVwV3VhTE1VdEh4em5BSDBYYmcvRllhWURzMUczZjBmVzRXQjdiVVdY?=
- =?utf-8?B?d2orbGV5V3BWQ3pHUzVIbW5KSkYzRFdYcnJneXpPYklxeDNoOWpIUFpjRWFG?=
- =?utf-8?B?SzlTZkZqUHJaRkErZnc2aFBqV05PeUZLbGM0Z21IZC9uVU5tcjc3a0FxbW84?=
- =?utf-8?B?K3E4S284dWZEQXdOSzFBbWsyWE5PYWkzYitvNDNrOGxuUWFHRDd6bjNUWXFK?=
- =?utf-8?B?S0RsUUhmVVNSZjZ5TWNFZ3JzQW5QMGt4K2MweU9Jbit4dktkOG1lT0RBUmFG?=
- =?utf-8?B?dWloMEN4VGNtUXl4RjFXejkzWXJXNVl4U0dkbCtDU00zOVBPMnFJMVZZQzJa?=
- =?utf-8?B?T01HV1A5Nmd6TlhVLzAvSHlGcEM0K1ZkbEdaUEdJemtMS3dXSUovU0FxUGJ0?=
- =?utf-8?B?MUNHTjNuQVdMNWkzQ1M4K2dUVjcvb3RKOCtDaXNMSFRHb0swc25IZElUTzkx?=
- =?utf-8?B?eS9YNE1LWThyVlF0TVpXK1d5T0xrZktPczVhQmRIQmlGZmMweWJQUlZ2YTRy?=
- =?utf-8?B?ZklyeEE4aWk5M2IvWk5UaWI3THh2eTFqVlI0M1ZjZDg5NllqU0p5alpIS3l3?=
- =?utf-8?B?bVJvTWVuY0NQbm5PaUlkbmJYaGNybGNzYnd6SmVnbzZpUDRGUW01eXJNOGZ1?=
- =?utf-8?B?L01hUW5ncWZ0QXdidU1TV1pCcUxrTTNmdWxUd20xT0ZpWUpBNkVVNk9yejVo?=
- =?utf-8?B?KzBTd1pXR1I2VWRQaU5QZjhJQlRqbVJXV2IxejhsRWV3OUFNdmZyU3pWYS9w?=
- =?utf-8?B?N0xWYXpGbVBtUDBESE1oSmUwVDJIVW5wSEtKc29KSXZkNUd4UVgyNmk4N2c1?=
- =?utf-8?B?Wk10L0JGSU4vWVIxc2gvTVNlbjdOcFk1YlpWVjdZbkFJbW1oZno1N1hxeEZi?=
- =?utf-8?B?Q1kwQ2M5VXdxcGZEd2F4MWU2V3Q0alJUakI1cjUvRytocHJQMHhvaW1hU3c1?=
- =?utf-8?B?ZEowSFpzOWh6aWwyTFlzTmwwRUdVNGtjYmVVZGN1cittZUxhdGFWdFdVUE1q?=
- =?utf-8?B?NC93L0JTczAwbSsvQ0t5QTR5eCttanZkWVRjY2d5K2hZVmVSeldZRS9aNnBS?=
- =?utf-8?B?bVhoMGlsbUFyWnM5dUNKb1pjOUc1aGQ2SVRkaElNeEg2MDdaN1VNeHdjSko3?=
- =?utf-8?B?Q0F6dCtUQ1o4SDJOd09kZnVCNDFWamozTEtYNDJud1c0SXhCMmRiam1qL2Za?=
- =?utf-8?B?M2hNOTdmYVdYRndQVUdDM0s5QjF0WEJVOUpsM004ZVdJck1ZSGovaUpaWVlB?=
- =?utf-8?B?dHMyMEZHNmtaQU4vL2NzU3VWbDlkR1hZREEwcVRaMUxYMGNHeE9GVXVtOXNG?=
- =?utf-8?Q?0MdJshRJvtA=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Nnk5c1JPSHFGU3ZLRk8xYkgydkxZdGZCU01laUo1MVJIcjJ2cnNrUFkxU2FG?=
+ =?utf-8?B?K2hjM1ZRQVFENGNqTjJ1YUpmcW43UmR2eHZuSk5STnBicGNpVlpTZDB0T0Nt?=
+ =?utf-8?B?eEU4OGJxdVR3aEphaWR4MWtHVit4bWVhMWl3UFFqQTlSYnF0TVpOMHNzRXgy?=
+ =?utf-8?B?RjBOVm42RSs4TTh3N2ZCV25NVDFsTDBoRktGb1Bmb0Y2a1IvVEdSVkNxbjE2?=
+ =?utf-8?B?dmhTdnp5UmhncUtMdGtxdE9PbDlxWkQ0azdrNUFxTVpuWERMVXBpeDdnbStj?=
+ =?utf-8?B?UGdzYkRBaHRSdVNuQStQb0FhNnVrL05vMU14S0dWS2xjQWlzdXNNeUowVTly?=
+ =?utf-8?B?bmQ1LzdOZm5nZlNaOEx1WlZtVjFWa2pHd2FQT3RtcVI5Qk04N2VaMXJYNDdP?=
+ =?utf-8?B?cEtmYjlGR3lZMG9IMnFQMSt4dlNDWm9oc1hzdVRvV0FzYnNiS3M2MGpzZEdM?=
+ =?utf-8?B?K3RlenRMTXI2R0QyQnFLelRZMk5oR3BkVDlkR29xanVLT3FvaXo3VXpzMk5S?=
+ =?utf-8?B?S1BLVVI4WXlML3hJTzdYVTR2aFFkUWJZZ0gzZGE3aTdxUE5FMzhuVXZXMTc5?=
+ =?utf-8?B?QnNCN2JVanhJYjROTVcrdmVxcXkwNmE3eURuS3c3My94anZxNkNENDYzY0cz?=
+ =?utf-8?B?R3FleG9xMGk4cVpXS2g2NDBra2tnL0NKVzFIV1RZcmVRTHYvdnpvcjJrRjJ0?=
+ =?utf-8?B?VW1XUEczTzVLUXoxTWI5OE1xK3pRL2srQ2kzWG5OVE8rWlFWdzR4ak4zcWNn?=
+ =?utf-8?B?WkFmdWtyQ0VLNW5INTliYm0yRTc5aWFTOURXRzFXRVV6S1lvZ215ZmNNdXN5?=
+ =?utf-8?B?dGNkN3pkclZmc1k0VTh6OUF2SWdtYS8wOEw5UitWOUt2TmdTQTlmZVN0OGhl?=
+ =?utf-8?B?YVJhMC80NW84eGlFNWVXaGNqS2cvV0dFd0ZDT2Q0MW5DTjJtMUFUTEVGTnNG?=
+ =?utf-8?B?WlZlSnpYbjFkRjN4SUU4NkVRZTdRL003TWJFdUVLaEJwQVgwNDFMa215cjdv?=
+ =?utf-8?B?NUtxN1YzNFlzWFRsKzl4Q1dhRDNVMXZycXI1VjVrRndlV0VrMU5uTG1nVFp0?=
+ =?utf-8?B?bE5NTlprSkw5Y1c1UWxIeXlac1dJRUxrT2UzVC9DS2hUZS90QS9UcStrUXk3?=
+ =?utf-8?B?M3BUT3I3RHZ3dVNmSUgyTmtjaGdDWVBxM2Q2aTJxNlR3QXd5blhZcWRRb2hD?=
+ =?utf-8?B?bmZGVHE0eHlYTk9XYXdLdnVlYnpUZXFtQ1B1L0RKenpwaDFVWk8vbytQSW5K?=
+ =?utf-8?B?d3ZnNmx3OVBtVTFqV0ZPU0o0Wm5lZGFXdWoxT3NYL0xzS1BiYktkVldwTTlE?=
+ =?utf-8?B?cGVaKzMyL2Fjd0UxZWtvUHBYc25CS1d3U3JUVHZNck14K21BbXNBUnp4WDR6?=
+ =?utf-8?B?ZVMyYXNETGtHZjNRN3BmRUJZUUNZR2RrZmNDTU16VVpodFZRYWVRVk9tTTE3?=
+ =?utf-8?B?RlFGTXd5QnBPcGl0eENiNyttSFA4MTNEMW51b0Zpcmh6b1pPdHk3d1dwQmdr?=
+ =?utf-8?B?dWZSY2hkL1Jnd0Q1c3ZCQnJlck91eUVSa3NodjRwbjlnc1JZWERYK0xTZFBp?=
+ =?utf-8?B?akVYaTJ2YWdOT25sOUZyaktUQ1dGU09MRkl3SHZIRVFIRnFrclRadVRtSUpH?=
+ =?utf-8?B?ZjNJU2NzR2VQRm4xS3FUUnhTTDR3K2ZEOGRNaDJOTGxZaUpZMXNudURFTVF3?=
+ =?utf-8?B?Z3YzSTN1YUFXbktNcXdJSGlTa0pYTjd3U1BhaUU0cE8zTnpWMnoyc2xKbGQ0?=
+ =?utf-8?B?UVRsQ1BBY3ZRWFFSeFRBdW5yWXd5cEZjZVhPOEl3NEFHN2dHSW9mTnNEL3dv?=
+ =?utf-8?B?R3BYN3BBNzhoV095WnhSYkJQcEdzbER1cHJuUEVnMkNIL2hWRDVtd2lET0NP?=
+ =?utf-8?B?V1NMVXN5bUFFazFjM0FhR2Y0TTI2Zkt4REswWUE5Wit5TjJCQzg4VExjZGxI?=
+ =?utf-8?Q?bs4u3hi8g2U=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnJNblJEZ2g5Y2hjK1h3dEY1QWVMeUwvbVNjUFROUUY5VzZxL1VOc2FHeXlT?=
- =?utf-8?B?MjNNbTNkRXBIOGpPUEo2ODMva0Q5TE9mMG01blZ0S2d5d2ZIMzZhZ2NhcGQz?=
- =?utf-8?B?TEY4N1A1MlRpYURCZFlDZHBQS2gvZDZBbUVjd1BSRXdDVFlScVJYVVdTTDZE?=
- =?utf-8?B?UzZSL3crZDFlZ0lYRFM0dkhvb3IzMHFpa29mMy9VY3M3cGZHVjJwWGU4bWVQ?=
- =?utf-8?B?eWlGSVhHcVc4M3BrYWVNUGozZ0V1cStuRXdvdGo1MncrbklYV3NadG1HSTNa?=
- =?utf-8?B?ZFdxSEd4bWdxc1luT1ovcVdudHROU0diRXpjbTNSMDhPTERteHZ1UTgySlph?=
- =?utf-8?B?blBIN3RWRkdxbXFQRkJwcTRTaDlZSVgvcmUwMDhaOEk1THlQVVl4OGFTZ0xU?=
- =?utf-8?B?WThKM1UzTzIvbmNRUEhNT2lmNlMzVEpnUkE0RFJnQm5BZkM2bHE0Ui9KZHAz?=
- =?utf-8?B?LzJlQytRYmtVTnFXNzIrKytWYmYvcDFDS1E5d0EyblRJZ3dMUW5PVU5MTHdM?=
- =?utf-8?B?OVhQTVJ4cmdvdGs3QXJrdlZuLzA3TmZ2dFFaRE43dVh3d29POHpGNzNReVFu?=
- =?utf-8?B?S2JJU2NydFplTnBWcUdMU0RtcWhzbTR1ZHZxQXByL01VbEpFSk1uOUdCN1M4?=
- =?utf-8?B?d2xiWjRYSGx4TlpZWmpGaUFDWjlONUJtMDRFc2hudjdHb1A1bFh4N2lYdnQz?=
- =?utf-8?B?eWpmRGxMbDNTRnQ3NHk1NTl6YlA2RXVodUhtejI4R3htMXdqL1UyKzZQa3Ey?=
- =?utf-8?B?S01LMGdHWGY5ek0yN2NxTFZjOUM3NFZHajUzSEJyYVpHK3VIQTZQOGMwSHhR?=
- =?utf-8?B?M1ZibVluL3A3SEF6bmlwQ0laNjJIUjBpbkV3UksyNGFFbTg2d1pXU0hkc01N?=
- =?utf-8?B?SmhaakQ2ZjNKdEFJdW5NOEc5ZVZ0UGhkVVdMRElQMFVkZVFlUWVHVVB5MlNZ?=
- =?utf-8?B?eFNsWEozTDlMMDBZMGdQTTBXS29qczVQY1Y0aTgzOXJIQ0UwanVxbGoyVEtH?=
- =?utf-8?B?R2U4alFuVFdETk5vRFM3Tjg4bXR6cFVCcHc0ZnRTcjdwR0VyZHpmeDBGN1JQ?=
- =?utf-8?B?dDdrUDBORzh6OG8wV1BPaThNcjEwVXFFNjhFeXVwcFlyQjJvcFNxYjVMK21v?=
- =?utf-8?B?eWFsNzBqK0Q2WnZUY3F0bWJSTlo4ZXZyTktJd3RKOTlIZlNlbUdDWkt6L2RH?=
- =?utf-8?B?TTRKV1F2ZXEzeTVNTW51VEluaVVuZ2hOYnNidXlYSUY5Ujl2Lzd5QmZMVURH?=
- =?utf-8?B?ZTUwZmlDL3AwbUNjWEVtZG9GYnY1VGQ4dGdPUjlLRFlWc25VRmFYU05JbzQx?=
- =?utf-8?B?c2hrdGV5eFYxajBVTXN1ZEhiblJUQm4xQUtBZDdGRzRlVklYQzJXL3pPblVs?=
- =?utf-8?B?YnRCR3pVUm41WTNwZXlSUERjWXJYdUFYT2liYUI3U2drU3ZZdUJMRVlzZ2g1?=
- =?utf-8?B?QlRsR0NxdFRqWVBkaVBFWm9vZEJ2TlM1TnJvWVc2MGRwS0RRU1J0ekh1TGVm?=
- =?utf-8?B?UTFLSVBUUENzK3M0aTY4WXd0SVJkYjU4clJlWjZzWWVFeVJIbzhxc0tFY2k5?=
- =?utf-8?B?REQrUS9wK040MWRhbmU2a2dvQ2k0cTRXNVhISVFYYkppV0kxN0RTRlVoMUNz?=
- =?utf-8?B?RU5xRTdJNGtOUjVEZjNaWC80K3ZESlZqNHlLUVgzOVRYSEhrT0ZaQnZ0TXUz?=
- =?utf-8?B?NlBBY2FqRFIvUnFZWnIwRzFkak1mMDZIaXFlTDJ0b2w0NVh1OUFPdUpreU8z?=
- =?utf-8?B?WEI1OWZVUnZJV1lzRXRFdW1VVkZvbTNHcWZkUURPVWQwelZYQjdCYlNUUFZl?=
- =?utf-8?B?aFBFcWhDemZid05YRTk5dE5BazVBN1JjSS9INEJRaTdWUUkwbG5wUmFmdGNH?=
- =?utf-8?B?djZGdTdCZTZpd3FWZzFMSGlyTmpHT1I5bFY0Ullpa0VXbEF2Ky93QXlIUHJF?=
- =?utf-8?B?QjJOVlFBVUxmQTFwazhrL0FSYWcyVHFzc1BGMW15UDdvWnVwRzV5MkMwSjk3?=
- =?utf-8?B?VDJNYjJFdyt1bEMzZC8xbXY5SHFJSUJrVWtNaTZhTStGdDFFb3pUaWY5MzBH?=
- =?utf-8?B?eXZlYjNkZ3prbHlQVWtpRW8yc21IekVFbkN3OWpETytNN3crRG1hR1pBdkpp?=
- =?utf-8?Q?8TYCSM8oUOIpmoxzLVetne0bG?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDYxejEzUDhiKytZbUhSQWJYODVWU2UwUW5ncFBVa280cnI3Z3hqSm9WaVZT?=
+ =?utf-8?B?OThMYWJnL1JldWd1bmFRMnFKNWJyaU45SWdwR2hxaWpmNFU2RTY2RE5OQXVj?=
+ =?utf-8?B?RXJqVGpvTHFGWVZHTnBMZ2dYamFWT0EwMEEvMGM3a2tURHFVZGczMGNNWUFM?=
+ =?utf-8?B?NkhZbDVQZkd4NjNKcG56QWY1U3IvS1hRVmVac0hvQmxjeStWcE1ScUM3eXZq?=
+ =?utf-8?B?QWMxeTYyeGdjSXladnpaSnJlYlZGN3ZlU0srcVdzSmpvbFRHdG5WVzRpV2J3?=
+ =?utf-8?B?dnMzVXlzQXFqYXN3M3E1cXhuTkFJZWpOREhWZXNqUHhPeklFZUFNbndCanJt?=
+ =?utf-8?B?bnhUUmpZZC9HN29abzlpeXIzVlNVcEtDZ1VTOUZHcWtiR2RuL0lyQjFqVzdp?=
+ =?utf-8?B?SFQ4amdzWG5KM0RoVGRVSzFveGpHWjExM081QnpBTldFNmlzbFRrWlpCMyt4?=
+ =?utf-8?B?UTRXMWcvQVFFWDNVdDJGQTFJeitoeGdzZTlkdy9MdnZzTnc0UUxsSEF0OFdy?=
+ =?utf-8?B?aVNzRXRDQ1FoSFcxM3BtblFJOC94Lys2Q0FLRUgvNkFXYjZERzdyVDNpY1N2?=
+ =?utf-8?B?dkdYNHA0c2l0ZVZMOEZXYTZCZmNRK3Eza1BmYjNoNndxMkdqeXNUenFYdEp3?=
+ =?utf-8?B?cmx5N3JMbWoyeEZVVkJZZS9kNG9IY3FhSWJoTjQ4REhNdGNzT1p3c3diNVhv?=
+ =?utf-8?B?dWZXbTd1eWlpTUJhdGFIazZjbDNOVUVnd1VUTVBBci9UY3BrZEN3UFVhbS9u?=
+ =?utf-8?B?aS8waHVtRkttR1ljNHJYcEYwYjF5QjNkNWgzaGY3bGRBZWtLYllsWUg4WnhQ?=
+ =?utf-8?B?c2Z0SWJXVFpaWFZ2N1d6aFV0bGJobFk4NExTWWU0cngvTlJ6TXNwYVV3a212?=
+ =?utf-8?B?ZW9DS0VXcjZzMmN4RXFqRDRzMVdhWC9yVEowWXNia3JDTXNjY05Gb0tuQW9G?=
+ =?utf-8?B?NmVsemYwTEJpSVh5UXFzdXcrZkp2V2FMeFhxekhxOWVheGpISHhtVi8vVmVM?=
+ =?utf-8?B?KzdnTjZaRlJCc2kzcGRzL09QRTN4VGQrbEovK2lWeDlMY0pJbWI0YUg3cWNV?=
+ =?utf-8?B?VDdOWVdZL1k2b0RacW40dkRrMEwybFE4UklDTG8zYWM3WTJsQlRmcUtvd002?=
+ =?utf-8?B?SW1QMkRLSE1Ka2ZSVEE0dTByVm1reFpyZURZMzRmcm9LTXU1Y0NDS25XcXAw?=
+ =?utf-8?B?QjdZbEU3Z1Mwd01LaE9Rc1hWVFV2bFdLc1lxN3VGdXN5MTd4NDdxZXMwdWN0?=
+ =?utf-8?B?L2tUdjVvQTQwQnp0OGx5ZDU1QTU4UzN3YU9mL1hWSVBIQS95WVFEUmJVVDc1?=
+ =?utf-8?B?NGZ3bEhVUUlPa1UvZW5nZE9TWTBYUHpXdU54ZERXeXJqZ3FoU2dwMXk4L3l0?=
+ =?utf-8?B?OU9iMVZGL1JtRXZRaThUeHFkVXpwWTJIWVVWSk4zMG5OOE1qcEdncTNLVnB1?=
+ =?utf-8?B?UGRlbXc3dU1YK21VNE16NzRBeHpYUHlXeTBIQmhFSVQ1bXk0WVBDM0NZZjJR?=
+ =?utf-8?B?YTljaVdKb1hWV0QxMU9nVFNPLzVmNXRGVG96Q3VrNG9ST0NnUzgrWGY3SHNz?=
+ =?utf-8?B?MzdpeWVXSjBHaHFYT2ZScWhYTWlCNTJNMHBxSEpkTXRqMXFDRjZnMDJiNGlP?=
+ =?utf-8?B?a3R5Nm84YnJsc0t3SGtwWVBTakNva0hvYkFDdTFBbFNCRERHSitSK2VEUzVv?=
+ =?utf-8?B?dmJwYk4zazZoU1VmK0oyanQrN25SaWdJKzF1TUZaQlRhZ0lnN0YwQS9UQ2I4?=
+ =?utf-8?B?aTUxQXVYaVRZclBGekFWSVB6d0ZjNmE4cE4ycnhlbmxZV0VNK0ZBSi82MzJO?=
+ =?utf-8?B?VnJwMys5VVVvTjYxeGlrU1Fjb1BRV21EeUF5OWx6SlZxN0RpMzgzbjVWMDM0?=
+ =?utf-8?B?UmhweW5RelR4UGZzZWp3alVURE5uWUZVMXg5YXdpelFDNUFZeUltcjQ3Tkw0?=
+ =?utf-8?B?QmRrRjBEa215bFhVK29Dc25CKzhmSEdlWlJjREhXa1FkSFowRXJmNVlWa25v?=
+ =?utf-8?B?U29OSmFuN29ZeTlXRzhKQTJBdjZVUnhoL2pnUWY0U3pCblB1dWJ0OEcxbWYy?=
+ =?utf-8?B?NjVWU3JFOWo5dXJvWkczbTB2ZHdmWHpDWHVRSEdubXJuZ20wcEZHMXN6NVRt?=
+ =?utf-8?Q?W9m/c0D/FLVd08MF9Ot9iEwTi?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1cb301e-f53f-41ac-2f41-08ddb404f582
+X-MS-Exchange-CrossTenant-Network-Message-Id: f225c153-2d80-4940-acc2-08ddb4058ddc
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2025 16:25:54.9885 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2025 16:30:10.5901 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PNx0WQNeMA2W9Loj37c/0gUrJHYW94ZQlOKBivIFHy8oqAcZWgDyBpj8eBskR5yuu9f+I8i4ybnEKgCgqQfagQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8865
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8kBMefpOpnAt6pYyBIyAnzsYkGAvgsC5Zm+lRmyx4Mh54xRNFlEHRxah0jHpGWOj+FrsvsczBfRhudJJeTsrtQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9630
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,68 +165,780 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 2025-06-06 08:57, Christian König wrote:
-> Avoid using the mapping here.
+> Previously we tried to keep the HW specific PTE flags in each mapping,
+> but for CRIU that isn't sufficient any more since the original value is
+> needed for the checkpoint procedure.
+>
+> So rework the whole handling, nuke the early mapping function, keep the
+> UAPI flags in each mapping instead of the HW flags and translate them to
+> the HW flags while filling in the PTEs.
+>
+> Only tested on Navi 23 for now, so probably needs quite a bit of more
+> work.
 >
 > Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 9 +++++----
->   1 file changed, 5 insertions(+), 4 deletions(-)
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  9 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 37 +----------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |  1 -
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       | 15 ++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c     |  8 +--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 17 +++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  4 +-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        | 57 +++++++++--------
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        | 57 +++++++++--------
+>   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        | 56 ++++++++---------
+>   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  4 +-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  4 +-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         | 10 ++-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         | 61 +++++++++----------
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  6 +-
+>   16 files changed, 161 insertions(+), 187 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index e691cc61ef6e..cad014c3bbf7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -30,6 +30,7 @@
->   #include "gmc_v9_0.h"
->   #include "amdgpu_atomfirmware.h"
->   #include "amdgpu_gem.h"
-> +#include "amdgpu_dma_buf.h"
->   
->   #include "gc/gc_9_0_sh_mask.h"
->   #include "dce/dce_12_0_offset.h"
-> @@ -1131,8 +1132,8 @@ static void gmc_v9_0_get_vm_pde(struct amdgpu_device *adev, int level,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 260165bbe373..9e66d6108a9e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -494,17 +494,20 @@ static int vm_update_pds(struct amdgpu_vm *vm, struct amdgpu_sync *sync)
+>   	return amdgpu_sync_fence(sync, vm->last_update, GFP_KERNEL);
 >   }
 >   
+> -static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
+> +static uint64_t get_pte_flags(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +			      struct kgd_mem *mem)
+>   {
+>   	uint32_t mapping_flags = AMDGPU_VM_PAGE_READABLE |
+>   				 AMDGPU_VM_MTYPE_DEFAULT;
+> +	uint64_t pte_flags = 0;
+>   
+>   	if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE)
+>   		mapping_flags |= AMDGPU_VM_PAGE_WRITEABLE;
+>   	if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE)
+>   		mapping_flags |= AMDGPU_VM_PAGE_EXECUTABLE;
+>   
+> -	return amdgpu_gem_va_map_flags(adev, mapping_flags);
+> +	amdgpu_gmc_get_vm_pte(adev, vm, NULL, mapping_flags, &pte_flags);
+> +	return pte_flags;
+>   }
+>   
+>   /**
+> @@ -961,7 +964,7 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+>   			goto unwind;
+>   		}
+>   		attachment[i]->va = va;
+> -		attachment[i]->pte_flags = get_pte_flags(adev, mem);
+> +		attachment[i]->pte_flags = get_pte_flags(adev, vm, mem);
+
+I think this won't work correctly. The pte_flags get passed to 
+amdgpu_vm_bo_map later. But that function is now expecting AMDGPU_VM_... 
+flags.
+
+Regards,
+   Felix
+
+
+>   		attachment[i]->adev = adev;
+>   		list_add(&attachment[i]->list, &mem->attachments);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index 0ecc88df7208..1e335ffbf2df 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -791,36 +791,6 @@ amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
+>   	return fence;
+>   }
+>   
+> -/**
+> - * amdgpu_gem_va_map_flags - map GEM UAPI flags into hardware flags
+> - *
+> - * @adev: amdgpu_device pointer
+> - * @flags: GEM UAPI flags
+> - *
+> - * Returns the GEM UAPI flags mapped into hardware for the ASIC.
+> - */
+> -uint64_t amdgpu_gem_va_map_flags(struct amdgpu_device *adev, uint32_t flags)
+> -{
+> -	uint64_t pte_flag = 0;
+> -
+> -	if (flags & AMDGPU_VM_PAGE_EXECUTABLE)
+> -		pte_flag |= AMDGPU_PTE_EXECUTABLE;
+> -	if (flags & AMDGPU_VM_PAGE_READABLE)
+> -		pte_flag |= AMDGPU_PTE_READABLE;
+> -	if (flags & AMDGPU_VM_PAGE_WRITEABLE)
+> -		pte_flag |= AMDGPU_PTE_WRITEABLE;
+> -	if (flags & AMDGPU_VM_PAGE_PRT)
+> -		pte_flag |= AMDGPU_PTE_PRT_FLAG(adev);
+> -	if (flags & AMDGPU_VM_PAGE_NOALLOC)
+> -		pte_flag |= AMDGPU_PTE_NOALLOC;
+> -
+> -	if (adev->gmc.gmc_funcs->map_mtype)
+> -		pte_flag |= amdgpu_gmc_map_mtype(adev,
+> -						 flags & AMDGPU_VM_MTYPE_MASK);
+> -
+> -	return pte_flag;
+> -}
+> -
+>   int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   			  struct drm_file *filp)
+>   {
+> @@ -841,7 +811,6 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   	struct dma_fence_chain *timeline_chain = NULL;
+>   	struct dma_fence *fence;
+>   	struct drm_exec exec;
+> -	uint64_t va_flags;
+>   	uint64_t vm_size;
+>   	int r = 0;
+>   
+> @@ -945,10 +914,9 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   
+>   	switch (args->operation) {
+>   	case AMDGPU_VA_OP_MAP:
+> -		va_flags = amdgpu_gem_va_map_flags(adev, args->flags);
+>   		r = amdgpu_vm_bo_map(adev, bo_va, args->va_address,
+>   				     args->offset_in_bo, args->map_size,
+> -				     va_flags);
+> +				     args->flags);
+>   		break;
+>   	case AMDGPU_VA_OP_UNMAP:
+>   		r = amdgpu_vm_bo_unmap(adev, bo_va, args->va_address);
+> @@ -960,10 +928,9 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   						args->map_size);
+>   		break;
+>   	case AMDGPU_VA_OP_REPLACE:
+> -		va_flags = amdgpu_gem_va_map_flags(adev, args->flags);
+>   		r = amdgpu_vm_bo_replace_map(adev, bo_va, args->va_address,
+>   					     args->offset_in_bo, args->map_size,
+> -					     va_flags);
+> +					     args->flags);
+>   		break;
+>   	default:
+>   		break;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+> index 3a8f57900a3a..b51e8f95ee86 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+> @@ -63,7 +63,6 @@ int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
+>   			  struct drm_file *filp);
+>   int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
+>   			      struct drm_file *filp);
+> -uint64_t amdgpu_gem_va_map_flags(struct amdgpu_device *adev, uint32_t flags);
+>   int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   			  struct drm_file *filp);
+>   int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index 46b2bcbd5025..c69317804071 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -152,15 +152,15 @@ struct amdgpu_gmc_funcs {
+>   				   unsigned pasid);
+>   	/* enable/disable PRT support */
+>   	void (*set_prt)(struct amdgpu_device *adev, bool enable);
+> -	/* map mtype to hardware flags */
+> -	uint64_t (*map_mtype)(struct amdgpu_device *adev, uint32_t flags);
+>   	/* get the pde for a given mc addr */
+>   	void (*get_vm_pde)(struct amdgpu_device *adev, int level,
+>   			   u64 *dst, u64 *flags);
+> -	/* get the pte flags to use for a BO VA mapping */
+> +	/* get the pte flags to use for PTEs */
+>   	void (*get_vm_pte)(struct amdgpu_device *adev,
+> -			   struct amdgpu_bo_va_mapping *mapping,
+> -			   uint64_t *flags);
+> +			   struct amdgpu_vm *vm,
+> +			   struct amdgpu_bo *bo,
+> +			   uint32_t vm_flags,
+> +			   uint64_t *pte_flags);
+>   	/* override per-page pte flags */
+>   	void (*override_vm_pte_flags)(struct amdgpu_device *dev,
+>   				      struct amdgpu_vm *vm,
+> @@ -354,9 +354,10 @@ struct amdgpu_gmc {
+>   
+>   #define amdgpu_gmc_emit_flush_gpu_tlb(r, vmid, addr) (r)->adev->gmc.gmc_funcs->emit_flush_gpu_tlb((r), (vmid), (addr))
+>   #define amdgpu_gmc_emit_pasid_mapping(r, vmid, pasid) (r)->adev->gmc.gmc_funcs->emit_pasid_mapping((r), (vmid), (pasid))
+> -#define amdgpu_gmc_map_mtype(adev, flags) (adev)->gmc.gmc_funcs->map_mtype((adev),(flags))
+>   #define amdgpu_gmc_get_vm_pde(adev, level, dst, flags) (adev)->gmc.gmc_funcs->get_vm_pde((adev), (level), (dst), (flags))
+> -#define amdgpu_gmc_get_vm_pte(adev, mapping, flags) (adev)->gmc.gmc_funcs->get_vm_pte((adev), (mapping), (flags))
+> +#define amdgpu_gmc_get_vm_pte(adev, vm, bo, vm_flags, pte_flags) \
+> +	(adev)->gmc.gmc_funcs->get_vm_pte((adev), (vm), (bo), (vm_flags), \
+> +					  (pte_flags))
+>   #define amdgpu_gmc_override_vm_pte_flags(adev, vm, addr, pte_flags)	\
+>   	(adev)->gmc.gmc_funcs->override_vm_pte_flags			\
+>   		((adev), (vm), (addr), (pte_flags))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index c316920f3450..87523fcd4386 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -69,7 +69,7 @@ struct amdgpu_bo_va_mapping {
+>   	uint64_t			last;
+>   	uint64_t			__subtree_last;
+>   	uint64_t			offset;
+> -	uint64_t			flags;
+> +	uint32_t			flags;
+>   };
+>   
+>   /* User space allocated BO in a VM */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+> index d45ebfb642ca..a0b479d5fff1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+> @@ -67,9 +67,9 @@ static inline u64 amdgpu_seq64_get_va_base(struct amdgpu_device *adev)
+>   int amdgpu_seq64_map(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		     struct amdgpu_bo_va **bo_va)
+>   {
+> -	u64 seq64_addr, va_flags;
+>   	struct amdgpu_bo *bo;
+>   	struct drm_exec exec;
+> +	u64 seq64_addr;
+>   	int r;
+>   
+>   	bo = adev->seq64.sbo;
+> @@ -94,9 +94,9 @@ int amdgpu_seq64_map(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   
+>   	seq64_addr = amdgpu_seq64_get_va_base(adev) & AMDGPU_GMC_HOLE_MASK;
+>   
+> -	va_flags = amdgpu_gem_va_map_flags(adev, AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_MTYPE_UC);
+> -	r = amdgpu_vm_bo_map(adev, *bo_va, seq64_addr, 0, AMDGPU_VA_RESERVED_SEQ64_SIZE,
+> -			     va_flags);
+> +	r = amdgpu_vm_bo_map(adev, *bo_va, seq64_addr, 0,
+> +			     AMDGPU_VA_RESERVED_SEQ64_SIZE,
+> +			     AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_MTYPE_UC);
+>   	if (r) {
+>   		DRM_ERROR("failed to do bo_map on userq sem, err=%d\n", r);
+>   		amdgpu_vm_bo_del(adev, *bo_va);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 3911c78f8282..10d135e71088 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1328,13 +1328,14 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   		/* normally,bo_va->flags only contians READABLE and WIRTEABLE bit go here
+>   		 * but in case of something, we filter the flags in first place
+>   		 */
+> -		if (!(mapping->flags & AMDGPU_PTE_READABLE))
+> +		if (!(mapping->flags & AMDGPU_VM_PAGE_READABLE))
+>   			update_flags &= ~AMDGPU_PTE_READABLE;
+> -		if (!(mapping->flags & AMDGPU_PTE_WRITEABLE))
+> +		if (!(mapping->flags & AMDGPU_VM_PAGE_WRITEABLE))
+>   			update_flags &= ~AMDGPU_PTE_WRITEABLE;
+>   
+>   		/* Apply ASIC specific mapping flags */
+> -		amdgpu_gmc_get_vm_pte(adev, mapping, &update_flags);
+> +		amdgpu_gmc_get_vm_pte(adev, vm, bo, mapping->flags,
+> +				      &update_flags);
+>   
+>   		trace_amdgpu_vm_bo_update(mapping);
+>   
+> @@ -1475,7 +1476,7 @@ static void amdgpu_vm_free_mapping(struct amdgpu_device *adev,
+>   				   struct amdgpu_bo_va_mapping *mapping,
+>   				   struct dma_fence *fence)
+>   {
+> -	if (mapping->flags & AMDGPU_PTE_PRT_FLAG(adev))
+> +	if (mapping->flags & AMDGPU_VM_PAGE_PRT)
+>   		amdgpu_vm_add_prt_cb(adev, fence);
+>   	kfree(mapping);
+>   }
+> @@ -1754,7 +1755,7 @@ static void amdgpu_vm_bo_insert_map(struct amdgpu_device *adev,
+>   	list_add(&mapping->list, &bo_va->invalids);
+>   	amdgpu_vm_it_insert(mapping, &vm->va);
+>   
+> -	if (mapping->flags & AMDGPU_PTE_PRT_FLAG(adev))
+> +	if (mapping->flags & AMDGPU_VM_PAGE_PRT)
+>   		amdgpu_vm_prt_get(adev);
+>   
+>   	if (amdgpu_vm_is_bo_always_valid(vm, bo) && !bo_va->base.moved)
+> @@ -1814,7 +1815,7 @@ static int amdgpu_vm_verify_parameters(struct amdgpu_device *adev,
+>   int amdgpu_vm_bo_map(struct amdgpu_device *adev,
+>   		     struct amdgpu_bo_va *bo_va,
+>   		     uint64_t saddr, uint64_t offset,
+> -		     uint64_t size, uint64_t flags)
+> +		     uint64_t size, uint32_t flags)
+>   {
+>   	struct amdgpu_bo_va_mapping *mapping, *tmp;
+>   	struct amdgpu_bo *bo = bo_va->base.bo;
+> @@ -1873,7 +1874,7 @@ int amdgpu_vm_bo_map(struct amdgpu_device *adev,
+>   int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
+>   			     struct amdgpu_bo_va *bo_va,
+>   			     uint64_t saddr, uint64_t offset,
+> -			     uint64_t size, uint64_t flags)
+> +			     uint64_t size, uint32_t flags)
+>   {
+>   	struct amdgpu_bo_va_mapping *mapping;
+>   	struct amdgpu_bo *bo = bo_va->base.bo;
+> @@ -2730,7 +2731,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>   	dma_fence_put(vm->last_tlb_flush);
+>   
+>   	list_for_each_entry_safe(mapping, tmp, &vm->freed, list) {
+> -		if (mapping->flags & AMDGPU_PTE_PRT_FLAG(adev) && prt_fini_needed) {
+> +		if (mapping->flags & AMDGPU_VM_PAGE_PRT && prt_fini_needed) {
+>   			amdgpu_vm_prt_fini(adev, vm);
+>   			prt_fini_needed = false;
+>   		}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index f3ad687125ad..f9549f6b3d1f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -539,11 +539,11 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
+>   int amdgpu_vm_bo_map(struct amdgpu_device *adev,
+>   		     struct amdgpu_bo_va *bo_va,
+>   		     uint64_t addr, uint64_t offset,
+> -		     uint64_t size, uint64_t flags);
+> +		     uint64_t size, uint32_t flags);
+>   int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
+>   			     struct amdgpu_bo_va *bo_va,
+>   			     uint64_t addr, uint64_t offset,
+> -			     uint64_t size, uint64_t flags);
+> +			     uint64_t size, uint32_t flags);
+>   int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+>   		       struct amdgpu_bo_va *bo_va,
+>   		       uint64_t addr);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index a3e2787501f1..846b67d52dfc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -469,24 +469,6 @@ static void gmc_v10_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
+>    * 0 valid
+>    */
+>   
+> -static uint64_t gmc_v10_0_map_mtype(struct amdgpu_device *adev, uint32_t flags)
+> -{
+> -	switch (flags) {
+> -	case AMDGPU_VM_MTYPE_DEFAULT:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
+> -	case AMDGPU_VM_MTYPE_NC:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
+> -	case AMDGPU_VM_MTYPE_WC:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_WC);
+> -	case AMDGPU_VM_MTYPE_CC:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_CC);
+> -	case AMDGPU_VM_MTYPE_UC:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_UC);
+> -	default:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
+> -	}
+> -}
+> -
+>   static void gmc_v10_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   				 uint64_t *addr, uint64_t *flags)
+>   {
+> @@ -511,21 +493,39 @@ static void gmc_v10_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   }
+>   
+>   static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
+> -				 struct amdgpu_bo_va_mapping *mapping,
+> +				 struct amdgpu_vm *vm,
+> +				 struct amdgpu_bo *bo,
+> +				 uint32_t vm_flags,
+>   				 uint64_t *flags)
+>   {
+> -	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
+> -
+> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
+> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
+> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
+> +		*flags |= AMDGPU_PTE_EXECUTABLE;
+> +	else
+> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
+>   
+> -	*flags &= ~AMDGPU_PTE_MTYPE_NV10_MASK;
+> -	*flags |= (mapping->flags & AMDGPU_PTE_MTYPE_NV10_MASK);
+> +	switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
+> +	case AMDGPU_VM_MTYPE_DEFAULT:
+> +	case AMDGPU_VM_MTYPE_NC:
+> +	default:
+> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_NC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_WC:
+> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_WC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_CC:
+> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_CC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_UC:
+> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
+> +		break;
+> +	}
+>   
+> -	*flags &= ~AMDGPU_PTE_NOALLOC;
+> -	*flags |= (mapping->flags & AMDGPU_PTE_NOALLOC);
+> +	if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
+> +		*flags |= AMDGPU_PTE_NOALLOC;
+> +	else
+> +		*flags &= ~AMDGPU_PTE_NOALLOC;
+>   
+> -	if (mapping->flags & AMDGPU_PTE_PRT) {
+> +	if (vm_flags & AMDGPU_VM_PAGE_PRT) {
+>   		*flags |= AMDGPU_PTE_PRT;
+>   		*flags |= AMDGPU_PTE_SNOOPED;
+>   		*flags |= AMDGPU_PTE_LOG;
+> @@ -566,7 +566,6 @@ static const struct amdgpu_gmc_funcs gmc_v10_0_gmc_funcs = {
+>   	.flush_gpu_tlb_pasid = gmc_v10_0_flush_gpu_tlb_pasid,
+>   	.emit_flush_gpu_tlb = gmc_v10_0_emit_flush_gpu_tlb,
+>   	.emit_pasid_mapping = gmc_v10_0_emit_pasid_mapping,
+> -	.map_mtype = gmc_v10_0_map_mtype,
+>   	.get_vm_pde = gmc_v10_0_get_vm_pde,
+>   	.get_vm_pte = gmc_v10_0_get_vm_pte,
+>   	.get_vbios_fb_size = gmc_v10_0_get_vbios_fb_size,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index 72211409227b..36720d1c07a0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -433,24 +433,6 @@ static void gmc_v11_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
+>    * 0 valid
+>    */
+>   
+> -static uint64_t gmc_v11_0_map_mtype(struct amdgpu_device *adev, uint32_t flags)
+> -{
+> -	switch (flags) {
+> -	case AMDGPU_VM_MTYPE_DEFAULT:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
+> -	case AMDGPU_VM_MTYPE_NC:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
+> -	case AMDGPU_VM_MTYPE_WC:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_WC);
+> -	case AMDGPU_VM_MTYPE_CC:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_CC);
+> -	case AMDGPU_VM_MTYPE_UC:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_UC);
+> -	default:
+> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
+> -	}
+> -}
+> -
+>   static void gmc_v11_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   				 uint64_t *addr, uint64_t *flags)
+>   {
+> @@ -475,21 +457,39 @@ static void gmc_v11_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   }
+>   
+>   static void gmc_v11_0_get_vm_pte(struct amdgpu_device *adev,
+> -				 struct amdgpu_bo_va_mapping *mapping,
+> +				 struct amdgpu_vm *vm,
+> +				 struct amdgpu_bo *bo,
+> +				 uint32_t vm_flags,
+>   				 uint64_t *flags)
+>   {
+> -	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
+> -
+> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
+> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
+> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
+> +		*flags |= AMDGPU_PTE_EXECUTABLE;
+> +	else
+> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
+>   
+> -	*flags &= ~AMDGPU_PTE_MTYPE_NV10_MASK;
+> -	*flags |= (mapping->flags & AMDGPU_PTE_MTYPE_NV10_MASK);
+> +	switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
+> +	case AMDGPU_VM_MTYPE_DEFAULT:
+> +	case AMDGPU_VM_MTYPE_NC:
+> +	default:
+> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_NC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_WC:
+> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_WC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_CC:
+> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_CC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_UC:
+> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
+> +		break;
+> +	}
+>   
+> -	*flags &= ~AMDGPU_PTE_NOALLOC;
+> -	*flags |= (mapping->flags & AMDGPU_PTE_NOALLOC);
+> +	if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
+> +		*flags |= AMDGPU_PTE_NOALLOC;
+> +	else
+> +		*flags &= ~AMDGPU_PTE_NOALLOC;
+>   
+> -	if (mapping->flags & AMDGPU_PTE_PRT) {
+> +	if (vm_flags & AMDGPU_VM_PAGE_PRT) {
+>   		*flags |= AMDGPU_PTE_PRT;
+>   		*flags |= AMDGPU_PTE_SNOOPED;
+>   		*flags |= AMDGPU_PTE_LOG;
+> @@ -530,7 +530,6 @@ static const struct amdgpu_gmc_funcs gmc_v11_0_gmc_funcs = {
+>   	.flush_gpu_tlb_pasid = gmc_v11_0_flush_gpu_tlb_pasid,
+>   	.emit_flush_gpu_tlb = gmc_v11_0_emit_flush_gpu_tlb,
+>   	.emit_pasid_mapping = gmc_v11_0_emit_pasid_mapping,
+> -	.map_mtype = gmc_v11_0_map_mtype,
+>   	.get_vm_pde = gmc_v11_0_get_vm_pde,
+>   	.get_vm_pte = gmc_v11_0_get_vm_pte,
+>   	.get_vbios_fb_size = gmc_v11_0_get_vbios_fb_size,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> index b645d3e6a6c8..fb3fb31724a8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -456,20 +456,6 @@ static void gmc_v12_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned vmid
+>    * 0 valid
+>    */
+>   
+> -static uint64_t gmc_v12_0_map_mtype(struct amdgpu_device *adev, uint32_t flags)
+> -{
+> -	switch (flags) {
+> -	case AMDGPU_VM_MTYPE_DEFAULT:
+> -		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_NC);
+> -	case AMDGPU_VM_MTYPE_NC:
+> -		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_NC);
+> -	case AMDGPU_VM_MTYPE_UC:
+> -		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_UC);
+> -	default:
+> -		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_NC);
+> -	}
+> -}
+> -
+>   static void gmc_v12_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   				 uint64_t *addr, uint64_t *flags)
+>   {
+> @@ -493,30 +479,45 @@ static void gmc_v12_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   }
+>   
+>   static void gmc_v12_0_get_vm_pte(struct amdgpu_device *adev,
+> -				 struct amdgpu_bo_va_mapping *mapping,
+> +				 struct amdgpu_vm *vm,
+> +				 struct amdgpu_bo *bo,
+> +				 uint32_t vm_flags,
+>   				 uint64_t *flags)
+>   {
+> -	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
+> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
+> +		*flags |= AMDGPU_PTE_EXECUTABLE;
+> +	else
+> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
+>   
+> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
+> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
+> +	switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
+> +	case AMDGPU_VM_MTYPE_DEFAULT:
+> +		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_NC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_NC:
+> +	default:
+> +		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_NC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_UC:
+> +		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_UC);
+> +		break;
+> +	}
+>   
+> -	*flags &= ~AMDGPU_PTE_MTYPE_GFX12_MASK;
+> -	*flags |= (mapping->flags & AMDGPU_PTE_MTYPE_GFX12_MASK);
+> +	if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
+> +		*flags |= AMDGPU_PTE_NOALLOC;
+> +	else
+> +		*flags &= ~AMDGPU_PTE_NOALLOC;
+>   
+> -	if (mapping->flags & AMDGPU_PTE_PRT_GFX12) {
+> -		*flags |= AMDGPU_PTE_PRT_GFX12;
+> +	if (vm_flags & AMDGPU_VM_PAGE_PRT) {
+>   		*flags |= AMDGPU_PTE_SNOOPED;
+>   		*flags |= AMDGPU_PTE_SYSTEM;
+>   		*flags |= AMDGPU_PTE_IS_PTE;
+>   		*flags &= ~AMDGPU_PTE_VALID;
+>   	}
+>   
+> -	if (bo && bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC)
+> -		*flags |= AMDGPU_PTE_DCC;
+> -
+> -	if (bo && bo->flags & AMDGPU_GEM_CREATE_UNCACHED)
+> -		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_UC);
+> +	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
+> +			       AMDGPU_GEM_CREATE_EXT_COHERENT |
+> +			       AMDGPU_GEM_CREATE_UNCACHED))
+> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
+>   }
+>   
+>   static unsigned gmc_v12_0_get_vbios_fb_size(struct amdgpu_device *adev)
+> @@ -546,7 +547,6 @@ static const struct amdgpu_gmc_funcs gmc_v12_0_gmc_funcs = {
+>   	.flush_gpu_tlb_pasid = gmc_v12_0_flush_gpu_tlb_pasid,
+>   	.emit_flush_gpu_tlb = gmc_v12_0_emit_flush_gpu_tlb,
+>   	.emit_pasid_mapping = gmc_v12_0_emit_pasid_mapping,
+> -	.map_mtype = gmc_v12_0_map_mtype,
+>   	.get_vm_pde = gmc_v12_0_get_vm_pde,
+>   	.get_vm_pte = gmc_v12_0_get_vm_pte,
+>   	.get_vbios_fb_size = gmc_v12_0_get_vbios_fb_size,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> index 8030fcd64210..f6ad7911f1e6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> @@ -382,7 +382,9 @@ static void gmc_v6_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   }
+>   
+>   static void gmc_v6_0_get_vm_pte(struct amdgpu_device *adev,
+> -				struct amdgpu_bo_va_mapping *mapping,
+> +				struct amdgpu_vm *vm,
+> +				struct amdgpu_bo *bo,
+> +				uint32_t vm_flags,
+>   				uint64_t *flags)
+>   {
+>   	*flags &= ~AMDGPU_PTE_EXECUTABLE;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> index a8d5795084fc..93d7ccb7d013 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -504,7 +504,9 @@ static void gmc_v7_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   }
+>   
+>   static void gmc_v7_0_get_vm_pte(struct amdgpu_device *adev,
+> -				struct amdgpu_bo_va_mapping *mapping,
+> +				struct amdgpu_vm *vm,
+> +				struct amdgpu_bo *bo,
+> +				uint32_t vm_flags,
+>   				uint64_t *flags)
+>   {
+>   	*flags &= ~AMDGPU_PTE_EXECUTABLE;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> index 99ca08e9bdb5..1ea198fcb51f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -716,11 +716,15 @@ static void gmc_v8_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   }
+>   
+>   static void gmc_v8_0_get_vm_pte(struct amdgpu_device *adev,
+> -				struct amdgpu_bo_va_mapping *mapping,
+> +				struct amdgpu_vm *vm,
+> +				struct amdgpu_bo *bo,
+> +				uint32_t vm_flags,
+>   				uint64_t *flags)
+>   {
+> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
+> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
+> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
+> +		*flags |= AMDGPU_PTE_EXECUTABLE;
+> +	else
+> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
+>   	*flags &= ~AMDGPU_PTE_PRT;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index cad014c3bbf7..aa2ea1078cb8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1084,27 +1084,6 @@ static void gmc_v9_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int v
+>    * 0 valid
+>    */
+>   
+> -static uint64_t gmc_v9_0_map_mtype(struct amdgpu_device *adev, uint32_t flags)
+> -
+> -{
+> -	switch (flags) {
+> -	case AMDGPU_VM_MTYPE_DEFAULT:
+> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_NC);
+> -	case AMDGPU_VM_MTYPE_NC:
+> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_NC);
+> -	case AMDGPU_VM_MTYPE_WC:
+> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_WC);
+> -	case AMDGPU_VM_MTYPE_RW:
+> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_RW);
+> -	case AMDGPU_VM_MTYPE_CC:
+> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_CC);
+> -	case AMDGPU_VM_MTYPE_UC:
+> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_UC);
+> -	default:
+> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_NC);
+> -	}
+> -}
+> -
+>   static void gmc_v9_0_get_vm_pde(struct amdgpu_device *adev, int level,
+>   				uint64_t *addr, uint64_t *flags)
+>   {
+> @@ -1134,6 +1113,7 @@ static void gmc_v9_0_get_vm_pde(struct amdgpu_device *adev, int level,
 >   static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
-> +					 struct amdgpu_vm *vm,
+>   					 struct amdgpu_vm *vm,
 >   					 struct amdgpu_bo *bo,
-> -					 struct amdgpu_bo_va_mapping *mapping,
+> +					 uint32_t vm_flags,
 >   					 uint64_t *flags)
 >   {
 >   	struct amdgpu_device *bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
-> @@ -1142,7 +1143,6 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
->   				     AMDGPU_GEM_CREATE_EXT_COHERENT);
->   	bool ext_coherent = bo->flags & AMDGPU_GEM_CREATE_EXT_COHERENT;
->   	bool uncached = bo->flags & AMDGPU_GEM_CREATE_UNCACHED;
-> -	struct amdgpu_vm *vm = mapping->bo_va->base.vm;
->   	unsigned int mtype_local, mtype;
->   	uint32_t gc_ip_version = amdgpu_ip_version(adev, GC_HWIP, 0);
->   	bool snoop = false;
-> @@ -1172,7 +1172,7 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
->   					mtype = MTYPE_UC;
->   				else
->   					mtype = MTYPE_NC;
-> -				if (mapping->bo_va->is_xgmi)
-> +				if (amdgpu_dmabuf_is_xgmi_accessible(adev, bo))
-
-A more straight-forward check would be amdgpu_xgmi_same_hive(adev, 
-bo_adev). Then you also don't need to include amdgpu_dma_buf.h above.
-
-With that fixed, the patch is
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-
-
->   					snoop = true;
->   			}
->   		} else {
-> @@ -1264,7 +1264,8 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
+> @@ -1247,25 +1227,43 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
+>   }
+>   
+>   static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
+> -				struct amdgpu_bo_va_mapping *mapping,
+> +				struct amdgpu_vm *vm,
+> +				struct amdgpu_bo *bo,
+> +				uint32_t vm_flags,
+>   				uint64_t *flags)
+>   {
+> -	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
+> -
+> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
+> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
+> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
+> +		*flags |= AMDGPU_PTE_EXECUTABLE;
+> +	else
+> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
+>   
+> -	*flags &= ~AMDGPU_PTE_MTYPE_VG10_MASK;
+> -	*flags |= mapping->flags & AMDGPU_PTE_MTYPE_VG10_MASK;
+> +	switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
+> +	case AMDGPU_VM_MTYPE_DEFAULT:
+> +	case AMDGPU_VM_MTYPE_NC:
+> +	default:
+> +		*flags = AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_NC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_WC:
+> +		*flags |= AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_WC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_RW:
+> +		*flags |= AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_RW);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_CC:
+> +		*flags |= AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_CC);
+> +		break;
+> +	case AMDGPU_VM_MTYPE_UC:
+> +		*flags |= AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_UC);
+> +		break;
+> +	}
+>   
+> -	if (mapping->flags & AMDGPU_PTE_PRT) {
+> +	if (vm_flags & AMDGPU_VM_PAGE_PRT) {
+>   		*flags |= AMDGPU_PTE_PRT;
+>   		*flags &= ~AMDGPU_PTE_VALID;
 >   	}
 >   
 >   	if ((*flags & AMDGPU_PTE_VALID) && bo)
-> -		gmc_v9_0_get_coherence_flags(adev, bo, mapping, flags);
-> +		gmc_v9_0_get_coherence_flags(adev, mapping->bo_va->base.vm, bo,
-> +					     flags);
+> -		gmc_v9_0_get_coherence_flags(adev, mapping->bo_va->base.vm, bo,
+> -					     flags);
+> +		gmc_v9_0_get_coherence_flags(adev, vm, bo, vm_flags, flags);
 >   }
 >   
 >   static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+> @@ -1442,7 +1440,6 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
+>   	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
+>   	.emit_flush_gpu_tlb = gmc_v9_0_emit_flush_gpu_tlb,
+>   	.emit_pasid_mapping = gmc_v9_0_emit_pasid_mapping,
+> -	.map_mtype = gmc_v9_0_map_mtype,
+>   	.get_vm_pde = gmc_v9_0_get_vm_pde,
+>   	.get_vm_pte = gmc_v9_0_get_vm_pte,
+>   	.override_vm_pte_flags = gmc_v9_0_override_vm_pte_flags,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 865dca2547de..4cdd585de0be 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1190,7 +1190,7 @@ svm_nodes_in_same_hive(struct kfd_node *node_a, struct kfd_node *node_b)
+>   }
+>   
+>   static uint64_t
+> -svm_range_get_pte_flags(struct kfd_node *node,
+> +svm_range_get_pte_flags(struct kfd_node *node, struct amdgpu_vm *vm,
+>   			struct svm_range *prange, int domain)
+>   {
+>   	struct kfd_node *bo_node;
+> @@ -1306,7 +1306,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
+>   	if (gc_ip_version >= IP_VERSION(12, 0, 0))
+>   		pte_flags |= AMDGPU_PTE_IS_PTE;
+>   
+> -	pte_flags |= amdgpu_gem_va_map_flags(node->adev, mapping_flags);
+> +	amdgpu_gmc_get_vm_pte(node->adev, vm, NULL, mapping_flags, &pte_flags);
+>   	return pte_flags;
+>   }
+>   
+> @@ -1413,7 +1413,7 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
+>   		pr_debug("Mapping range [0x%lx 0x%llx] on domain: %s\n",
+>   			 last_start, prange->start + i, last_domain ? "GPU" : "CPU");
+>   
+> -		pte_flags = svm_range_get_pte_flags(pdd->dev, prange, last_domain);
+> +		pte_flags = svm_range_get_pte_flags(pdd->dev, vm, prange, last_domain);
+>   		if (readonly)
+>   			pte_flags &= ~AMDGPU_PTE_WRITEABLE;
+>   
