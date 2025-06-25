@@ -4,162 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3859CC77B7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jun 2025 02:02:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C08EC77B7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jun 2025 02:14:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EFCD10E04E;
-	Wed, 25 Jun 2025 02:02:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 537CC10E078;
+	Wed, 25 Jun 2025 02:14:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aUgXC7zJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Tm4Bd8y9";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2065.outbound.protection.outlook.com [40.107.101.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19AD210E04E
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jun 2025 02:02:52 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2056.outbound.protection.outlook.com [40.107.243.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54EC810E078
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jun 2025 02:14:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CRt6T089got8LLZaI5zNNjklf++X/bAeWSJJwVmNFieObZwAnGpIF2M7g2rvu2OBTgpLbj69f6W+s2wg//dgLWz4B+4895uv0U5TAXWDZZc7khaPy5Qs+PDd+883xH1SaLZx17MsvmsTi1B1wpu/MJyCIpVnGTTCfIyDQrnT0jnDK/SXZIgM7Mkp1Ji604vTIJTnwg6yOs0UfDAa2FMzzeY9DZ9/mH5DAzMCgMiperwGmYHrmo7s5I/t5TVWKt4exD+j2TxoftRZ5JTSPrh9yUrEtBPiEiWkSkk1+R+4K8ibhml0eMN3iRrUbUlhdtgXJvXr1Amsl7GRWsIUOEoYfg==
+ b=xezncKLvq3iaHn+U+JsSoj3I4hmlgnSykXEuBYTNgOPip+h50lNefMieHTbpJSCfMwulOEaWqzAHdOwIjAufv6ukp6arwUYUi3J9hxS1+ITGLwPel8FDeL8L1D+QpaHOS3zoclBmx+ZilTr79OQyw/DLcL2nNcIf6PrSTCQ0J/oYECDZjBe21idfMWpcAXVY1QkY7BXgXxS+ESEVGux/c6cBihdXfHzfHBMAu1sIjBbo3V/4n4b8mfcfIORVU25HCij8yEqs/xAVq0RO1vffT+qMZ74ROLzLDWRNQMJW81m1zPrJIyDZyrW5IaqEyPXUGwRPSORHek7Wkjurn2n/Ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q4e9Ul4eUAohCjuzF3KEPAueA54vB+jjw9DE0fCeqZU=;
- b=oXX8AGE2FyoxyPJIcaoJZ+lJQxmmMQCqzg6WS5dtnKQbtRZRb2AQKEdhmPzeHRQZKl+M7RQb8zLiEmI3oux+NW9o+rQ81YIvkrsUari1apCPVP3WafU7H8fyGOzdaWZIZCTnKjPkCcswzI9f6t/t/AZAZp5c7KTrY9Th4DK9EfE3/rFBKknXtbq9T6F/gtMXJzCIeTBh7QXAEYDBk2ZYQIu/wjhAILnC/xNIrr4HsDES/qT0NxqzpsprqY1cusXCpSfR/nixsJkUQNtFFA/VUlGw10xvUgT2u/4SUkTenade2Q/KNG1ZZeycNFpjuWIkITNDlPa+cYWvK3NO5h/D9A==
+ bh=XmaEXUzmVzWPWEfaWuHxMrkZ5YCuyrbH09kU4CPATqE=;
+ b=qtTLi7+YRaLZ2T8hXFMEVcL/yTeSYmjHclTT/Zkhbn3rIn+OH4E1RrQ7eWGDslqzLkAoiEqLWbw7ZzJnsrXYjxlmfHLx56HC9/TsUrHc/3e77y1yIEUQB4y2XKfkZkVN2ok1cfD7YEYlCnwSmHvPOQXljPkNB6iJC4sflr4D5I2kwVHA26zFVzVYS+XOjICT2CIiQfanXgsBze1PZfvPmFA1mdqeiTUO7U/jm8bby5/+gZJOPJ8K+ZkU950vHFl1PG43wlFIMige/iJaaPbZRTl/vneq4uw4PhiwIon9cljlBw8QgaOXMWQ9B8nVhuWSgOJZbKEWovYuVURPbRWAag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q4e9Ul4eUAohCjuzF3KEPAueA54vB+jjw9DE0fCeqZU=;
- b=aUgXC7zJgY/1v4chg05GF4kCCrgqTRIRtbbmFblHOeGfBgLEO1QOY2/l0m7r/bAVnSEdSKDpASa1ap61+cByfEOVG4A/kfgYD9l5CPqxBj/1xjsiWv5HUctGL2ScwixUozoYIYdXAeATtXjD05K6XbD77y0EVhFB2FTYWTT8RO4=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- SJ5PPFE4FC9FAB3.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::9a7)
+ bh=XmaEXUzmVzWPWEfaWuHxMrkZ5YCuyrbH09kU4CPATqE=;
+ b=Tm4Bd8y9cnPAnvAL/hGRjnDZhpwO65pcMmXx5hj+fhIU/jlLOi9OhAh6Q4ZBvq3RC3RdF0AGyDfztaYZ89SZ7CSTOvhimKGyEjCrxOQzsFtydIireaoJIJ1EhRSpLK8m6Rr2NDcFPaQD/sKj8c7BAfC8eKg5OPa143NguPXowDw=
+Received: from PH0PR12MB5497.namprd12.prod.outlook.com (2603:10b6:510:eb::22)
+ by PH7PR12MB8121.namprd12.prod.outlook.com (2603:10b6:510:2b5::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Wed, 25 Jun
- 2025 02:02:46 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb%4]) with mapi id 15.20.8857.022; Wed, 25 Jun 2025
- 02:02:46 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: RE: [PATCH v4 10/11] drm/amdgpu: only bound the eviction fence to
- userq bo
-Thread-Topic: [PATCH v4 10/11] drm/amdgpu: only bound the eviction fence to
- userq bo
-Thread-Index: AQHb5ORrfgBI0MLUM0OQwir1QlR+H7QSisOAgACVoKA=
-Date: Wed, 25 Jun 2025 02:02:46 +0000
-Message-ID: <DS7PR12MB6005424626E1F69B8739514BFB7BA@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20250624084535.1178476-1-Prike.Liang@amd.com>
- <20250624084535.1178476-10-Prike.Liang@amd.com>
- <CADnq5_ME8GNEjZdkfjGAEL69=PqOtLVui1jqao3JmwK1XMnHFQ@mail.gmail.com>
-In-Reply-To: <CADnq5_ME8GNEjZdkfjGAEL69=PqOtLVui1jqao3JmwK1XMnHFQ@mail.gmail.com>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.28; Wed, 25 Jun
+ 2025 02:14:12 +0000
+Received: from PH0PR12MB5497.namprd12.prod.outlook.com
+ ([fe80::662f:f49f:2ba1:ca55]) by PH0PR12MB5497.namprd12.prod.outlook.com
+ ([fe80::662f:f49f:2ba1:ca55%5]) with mapi id 15.20.8857.026; Wed, 25 Jun 2025
+ 02:14:12 +0000
+From: "cao, lin" <lin.cao@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Chang, HaiJun" <HaiJun.Chang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: put ctx's ref count in
+ amdgpu_ctx_mgr_entity_fini()
+Thread-Topic: [PATCH] drm/amdgpu: put ctx's ref count in
+ amdgpu_ctx_mgr_entity_fini()
+Thread-Index: AQHb5Oj0drxJuIkp3E6Gzq913V0TK7QSEASAgAA5OgCAANoYXA==
+Date: Wed, 25 Jun 2025 02:14:12 +0000
+Message-ID: <PH0PR12MB54971F5A5D9BC332B1BDB9DEF57BA@PH0PR12MB5497.namprd12.prod.outlook.com>
+References: <20250624091823.3963949-1-lincao12@amd.com>
+ <b7fc658e-2778-48dd-8584-3f33bbcc5ab7@ursulin.net>
+ <a88d5329-d500-490c-a054-7ed584322e1d@amd.com>
+In-Reply-To: <a88d5329-d500-490c-a054-7ed584322e1d@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-06-25T02:01:54.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-06-25T02:14:12.1780000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|SJ5PPFE4FC9FAB3:EE_
-x-ms-office365-filtering-correlation-id: b27e0b44-ce0e-4b67-4ade-08ddb38c615b
+x-ms-traffictypediagnostic: PH0PR12MB5497:EE_|PH7PR12MB8121:EE_
+x-ms-office365-filtering-correlation-id: 9f03a7dc-8236-42eb-3fde-08ddb38dfa53
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?ZkNBSWpiQ0N2ZjhldTNvUEE4b3MzL2N6QWtaS1duMzhzUVdxM1FmS0JzODdr?=
- =?utf-8?B?L0lYaUN3SnRzM0VJWC8zVnNXd3dHdEEyYXlKOUw5RzRDb3hFSVd3OCtwMnEr?=
- =?utf-8?B?YkNOV01mL05NQk15ak8vWkNGUTdadld5WjNsSk00VnhYb09hUzc0dk5Db1lo?=
- =?utf-8?B?MmFiNDFIRjFxaUZ5OW9aMnJhTmRyRUZoSkxtMkE0Y0FVTVhFdEs4ZWJKeXlW?=
- =?utf-8?B?eHZmdXNhdnd1dG1TdjgyMjVyb001d2c5N2h5T1g3NlUyb0k5WGgrQllDd29I?=
- =?utf-8?B?RmFHTlk3SHo5ekJOTnovN1dyc2ZpZUJrNUI2NWEzRHhYNWFreitRb0hMU202?=
- =?utf-8?B?ck5ydU83U05TK3BWcUwyYlFtT1BXbDRJOEFsMnVyd1F3WnpJNVlXWlprd0dw?=
- =?utf-8?B?VmZVbStLaWJZV0xrU2djZXhCb1dueW1CVldGU1hnYkluL1liVUttQk5kU0V3?=
- =?utf-8?B?SEhwWW03elFvQ0kwbmM2WkY5K3AwV3Y3eFRyZXpKM3NtMjZDV0o1TTlrbWlr?=
- =?utf-8?B?Zi9RVEl3NWwrTDFhcGZISnRQQ1hoY0tXckhZcTNGZmhiSUpIN3lUdUUxcUt2?=
- =?utf-8?B?OWQ5UHFMMkd3Y1BsZHZLSlFDd0YyZ08zbllPQzZ1aXN0VWFFakZwaURrOXN0?=
- =?utf-8?B?T3ZocUgxWS9kS3ZDU1hSd1hWTFEwL2tkajd6WVJPWnppaGlGaEIyT0tpVk1a?=
- =?utf-8?B?Vit1NmwzNmhWemlNRWlZaWl5UTVxZVEzWXdEMmtRZ2VOb2IxRnV6SkxFdFJo?=
- =?utf-8?B?Q3VXR2NWWHVYK0kxRnBVRWtRWnRYRFRTNHlxQzdjajk1VGNtYk9PMkNOSjB0?=
- =?utf-8?B?OU1ZWHUzQ2hOdjk3MGErT1NveDd0UEh6U25zQU1oME1ZeVhrUDY0akZhUkVL?=
- =?utf-8?B?Zko0dWpScjhNbEhvckVISkg0TUd4bml5UVhHUGdLZjc5OTBiRHZwQTE0S2dW?=
- =?utf-8?B?R1hLcDFTYXNUSkRrakxXZDg0ejcvSkNCaU15eDYzSWdtbEg3TEY1a2VYTU1q?=
- =?utf-8?B?YjNjTmhXTUQybm5YVWdYaG9lUVByRHQ1bGlJUHB3ZXhvdWVpT1cxTDNXRnZp?=
- =?utf-8?B?TzFQWmdUOHI5eS94d0FTSzVhc1IxWi9ITGhaYzJFMHRVdmNPZktzdzZZcnc0?=
- =?utf-8?B?dVpWU21nZDc5LzVBb2dXbzIyem9lYTlPR1dUUUwrc3JrZVBCejVxU3FZSEdM?=
- =?utf-8?B?NjdCOVBxVWVYNHNiS0dJMG5jdmhORjFFOVBMYXBpVEIwSllUSU1BUTk0VTdq?=
- =?utf-8?B?aDVqcTFCRnhsSWJhSklKdC85RWYzTmlVS3VaV29IeGhVaEdtMDVZaGN5aDZx?=
- =?utf-8?B?Vlg2ZDdGbEZCajFtUE9nRHBWb0JJNmdwY2E0SGh0Y0QxSGNmcEM5OVJiRDkx?=
- =?utf-8?B?M3pOTGdNclkveHVxQ3dMMHl4NjNENHpjNC94Tkt6TXl3UlVpYThFM1Fyby96?=
- =?utf-8?B?alNHUDExM2dGOEN5d2NRNzhwblRuVDg5a3M1ZGFhV0FIcm9ZWEZ1UmkrYUcz?=
- =?utf-8?B?dk4xRmo4Q21KbWdHZFB1cmxPVXR5S2VURitoTEMrNVZSSlIvQk1jUzlzTGVV?=
- =?utf-8?B?U1JoL0swc1FiN21qR0FvQmFxTUxOSGxBd3FqNVBzRFpTc3VlMXlqNlFRdmNW?=
- =?utf-8?B?V0o4U0RoR3pWMlpsQUVNazBISy85cDd3bXEwbkpDeEpmR0hBSm9XdCtKRXZV?=
- =?utf-8?B?ZnpTS1A1T1EwQU1JNzlKdTNpS0g3eCtRNDU2M3dFVGs1ZncxOEVqaTFHaWNN?=
- =?utf-8?B?aHFHdEVGS3VIVmR2ZFowMUhMUkVIQzNaTjVzdnlTZEZpWUtydUI3OVdCYzlv?=
- =?utf-8?B?cG84VmNKV1VrT2RocXBwKzk3T08wc3kxZXNYdVFkbzhCYm9RM041VWtqRDY0?=
- =?utf-8?B?MzZqajNoL2ZqZ2pPZXlTTWFkTXIzaU1WUWNmZ3E1YlAwRlJTWjRQZlA1R2dR?=
- =?utf-8?B?cjJhSUZLZE5Jc2lPUURibVlFdUY0eCtURFZWVG4zby9yeGpobTBBbE4zNnd4?=
- =?utf-8?Q?DvUCW18jK+gQHb+WmK6/ACEIbC7nkI=3D?=
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|7053199007|8096899003|38070700018|13003099007;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?lLSwG2dg1E26MQVW4YXguCT9n3ypzNuKFPRPrr5mkuVogcSnbUkhuTbguN?=
+ =?iso-8859-1?Q?q98o3fIUkXN0rAhg5A+8pGPY5MGlKr8Yz+2fs7fMskc+++elE8t1iH4MfX?=
+ =?iso-8859-1?Q?1/0aPxD1+6jFIyDTrgx32YKSR9KKTG5Z/H1Yxd/6SopECd/kxZ8emn+nkN?=
+ =?iso-8859-1?Q?X8L2Ftohfygu3Wi4v9+pwD9NmX6u26uaSfEXFXSEx5afFTPZsgJS0ieJ67?=
+ =?iso-8859-1?Q?8Hffaqrl6hZaHWbJk9cGC6lNg1pbEcmBJmbcs8r24gJaZMS3ihw1chv/Et?=
+ =?iso-8859-1?Q?fDmJrAsxeiwNvvhsy02DXcxwy98Ol4Oog2kyYtiIKWUxFlrnt8voENXRuc?=
+ =?iso-8859-1?Q?xyMouOInV6oAgytUvFY1o10Nzg2SUrdeJiNJv2qbHXmWDBnGMpESnI5mRE?=
+ =?iso-8859-1?Q?oHBLN5EJp5hGGiq/TiRaxa8sKkRKPsspngAI7piDyotmChyHnO//oY1gGg?=
+ =?iso-8859-1?Q?r14FXp71R1h3VWIwzZK8Fb0s3/zvAXk8VAzzyC61z4Ws6/t2ZWAIJWzn1Q?=
+ =?iso-8859-1?Q?FLORagl0axs3H0VICU5yJ+iX4z4aj+yy1GeLfL5YZ00MLLrhUiWoRAr5DE?=
+ =?iso-8859-1?Q?4+TWZmE8Fv5YUtT6PbxWEOVkjQTadjYLHPAc1Q9Qz1vW3xIJpkjMYLHuxw?=
+ =?iso-8859-1?Q?yI/RH8iRLeS2fcHQuDLJy5HIg1IilKiAghQ0WxAyOE7y9VHELXixDFgb3i?=
+ =?iso-8859-1?Q?W4oMteff/R4sXkNxfPhBZbx84+XQ7ewOgS5R+Orss9zTmKZZ9bOyCy9eko?=
+ =?iso-8859-1?Q?jIdwzga/QYbb2uIsXOqz2ND7cj/vWY8Q0qFUHdNR85k6OXTOqlXbPeieyP?=
+ =?iso-8859-1?Q?UovhfqtSpEv3bGimO2xEquUPEGAZWzezrtfOVdaKsyWMffe+mguqTJBQwh?=
+ =?iso-8859-1?Q?Rhq1hJMp+/hr+O48zipcgL/LueIYJGXXozWYSQ3b96kILuqBcTJLp28mNd?=
+ =?iso-8859-1?Q?yWSPpRtVWmvwcbr1sFMn4PRa2EZIG/O4Z+vEz4shmI+HTSP0zOMR/It33O?=
+ =?iso-8859-1?Q?NWEQ1BYnqfPSz48MM1hUNYDGYwGMUQ/rDeB3308jnafctQqOSayVC22o/D?=
+ =?iso-8859-1?Q?KNBZv76UhhSMndVmFiEPLPMRaglVAzkGg6Dldm4lbMUslVHcJ2U1quxtpW?=
+ =?iso-8859-1?Q?pScBMhtnXfjjf3llEmnd9ysz4WNbU9onBc6Nx81UEiBEoNL6RFQ4HlRYIA?=
+ =?iso-8859-1?Q?rTEl42FYbjuLy4Genr8Qxz0px8OJsywyZ2DWuiXTj//6hqPBex2qEBm7P0?=
+ =?iso-8859-1?Q?TVg0Di6UNffxh5C2G9aSHDbeHi8ivABmWKjb9toq03ADgYGQctK0Dcbj2C?=
+ =?iso-8859-1?Q?A0L8qGr0k6eBYpcS9FY1Z8GhZNOTXhKXcQ/dkWOnI5rWH6XVe5wAkSrTlL?=
+ =?iso-8859-1?Q?S31CebH7qFSAWsL8UBgul1brv4duaiSQmCZZY8tohxqAoAI0E5ENT2BYGz?=
+ =?iso-8859-1?Q?NROTMuAbCRGISImwLr7sGXUuGCeOUlg5lexY4KPurq7GD+wDxasQciVPPT?=
+ =?iso-8859-1?Q?dOOFanGsVMADhsGd/LvRv6/L7TNXd5k1wkBU/0etm4FiMF0SQn9iZ8Zd7k?=
+ =?iso-8859-1?Q?n+z5Ej4=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH0PR12MB5497.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(8096899003)(38070700018)(13003099007);
+ DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OVhIdVRpNGNxNTJoRzZHOGhHWU81WUdqcUtWbWRGSzB2QnI1ZDNIK3FHTkRP?=
- =?utf-8?B?YVFWaE11K21veFBIekNabUhoeHBERWpBTDhyWXFjSHBxKzdYbEhhUTRlTDhY?=
- =?utf-8?B?VGZiVmFhbUErUkF1a0hVS0Q5b2VybGNTYjNWV2RZZFczYnZUbFl4dWVQdVdr?=
- =?utf-8?B?Y0J2ZnBIbHlrcjJuSlFlYjdJWnpFZnZ2YlNna2pXV1VMNWRadXU0MW5RSVl5?=
- =?utf-8?B?NUd2aFR0Y0V4UWZBN20za3JEVXd4OXVSZFJ3TGorQ2hWbjIrN0w2V0lDU3pY?=
- =?utf-8?B?MW8xb05oUWp5TGVtMzZKNURXd25QRkI4OU5yNzFoa2ZneVluSW10Y3F5ZFVG?=
- =?utf-8?B?ZTN0Ym83dlV0WVdWNGFaTzUzeGUwZnN1eTVQMWdvcWdRVVJNS2FGODIxR1ZF?=
- =?utf-8?B?MndnYk5zR2pQTmxST3BZbDIxdUU1citxL25oOXdFQ1psdHhSUm1wLzk3Z1c3?=
- =?utf-8?B?c3hwTzJwNmVxRmd4bG5PK3dsNHlWTUwvd3VOb0NGRWpNVnhGZ29OY2xSVTVS?=
- =?utf-8?B?alRrc0h1cmE0YmZwK21WMnV4Tm1keHM1SlhpOXFCNnlHVld1S3BiSjJnd0Vv?=
- =?utf-8?B?V2hBbmVlcEM1Qk1oeEpEUHdBaVdPUXNFVWpEM0x0Wk9XSnR6VkVDOFdEaDc1?=
- =?utf-8?B?SjVLNm13aysxWnFkQWI3cU1LM1c5RGRBTUdkMDljaGJvKzdzZ1dmQk44WHZn?=
- =?utf-8?B?c0xXVkg5cU5PTGQwWDI5ZUk2SVViTGpISVBaUFNZR0VtcmlGNlRTbXJ0L0FR?=
- =?utf-8?B?ejVUeGJnWDRIcjZiMk5SbDNqcmNRc2RINVRUR29Ua0NOeFV1dExQZUJLdDF0?=
- =?utf-8?B?dWQ1TEMvd2VmTlJtT252UWl4WklYU3FqZ0xCd21uN2l6VCs3VnBCa010MUhi?=
- =?utf-8?B?Zms0Zmh5c2RGQ2xwZWUxakdTVTUwdm8rbmhhdk1uOEhVY1ZMRm5KMFRmbjhq?=
- =?utf-8?B?dFFwcSsvTkZ1MmZXWmF1QUxKWWpXWDdRbkhvcVduK3V1Z2o4TnhoT0hSUUFD?=
- =?utf-8?B?RVpyQi9tMkpuS1JjZU8yWTA0OGhuQU9FWGZhWm8xTllUUDdWajBkcUJFQkY1?=
- =?utf-8?B?Mkx0TllPeEJtWW51VjhGaVIrRXl1NUQrYm05UC9vUWhDWjFwbmZBQVRYYVBz?=
- =?utf-8?B?Z2NNREk1bkhDdXpheEFFcXR2RE12eG9Xd0RNMUpsTkprQ2J6a3orYmhRaDJE?=
- =?utf-8?B?aTI0T3BYSWJ2cm01YW83WjJpNk1Jem1rNFNzeGNDMW8vQ2QxRWY1K2s0Z0lB?=
- =?utf-8?B?Njd2cEY4dmZjZU16cnNXZEJjZlBocGExMmN0VlZ2elhzQzZUVEJKUTBkZUVZ?=
- =?utf-8?B?dDI1UXlLK3RzdHdvSWtnTkQvd0pLdlpZcXhsOFJVUkRQb1htZmVha3YvUTdq?=
- =?utf-8?B?YjQ1UVZwVnRBOEJTeitBK1QrYzRtVG1Gb1hYUzV0aVhpUWNYZ3o0WjZDcDlZ?=
- =?utf-8?B?bUJtR0ttNG1Xc2tqQXpTSy9HaFF5YU1NUjFidW1oY2ZsL2dra1BNR1VmR3VV?=
- =?utf-8?B?Qi8zOWtjZUExbnB3ai81a0dlZ0xwdHcrS0NickZCM2g1L1ArUnYxdVFEQUMr?=
- =?utf-8?B?cndKbFJiWmJ5V0JuVDE0VlArcmcrUWcrREpXMkFjdHNxZmRTUC81NlV0Rjdy?=
- =?utf-8?B?Z0ZnZ2pQTDRyWDdVVis3WXJvRmtNK2J6cXYwNGJXUDBRYy80dVc2RTJZaGxI?=
- =?utf-8?B?Ryt6WVhPUGpIOGRzN3d1bmtzSFRTY1UxdGRtOElGcnRPMCtScGE0REdURHNp?=
- =?utf-8?B?MjVwWGkxa1d0bUtvVytBQmgrSm5CeW1Rb1oyZDNSOUFEdnhPbExBUDgybERk?=
- =?utf-8?B?dUNWbXBNZlA0OUJ5RG5sU3V1UFg1SjVRRE16UXRZa3lVQzRoUTZhaVpwRmht?=
- =?utf-8?B?WUFqRnVOWkRCeEdjdmtnMGFYYUFPNU1CZ1FLS081MlZqOW45QjVJZmZaQmdm?=
- =?utf-8?B?VXg3RGROSFRBa2huS3dPYnh5MFNRODM4WmFUdkNrZ2s5NlE5K0U4OFcrY3J4?=
- =?utf-8?B?amVsZ3F1QnlKNHFjVEs2U2s1YkhYN2MyMVZKQm1YTjNVWUlLdy9Fcytqcjl6?=
- =?utf-8?B?ZHlRN2VQejAwSDVxVlgvTXZsUlF4djVIeFEzZHZ0eGlQOGV4RUtmMElla3ZH?=
- =?utf-8?Q?3iLo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?7eV/FThgdMYm6kLjPCUpu4D4X3fMUqY6OZNQZbIq2ZGZtt/lSA2GSutCHy?=
+ =?iso-8859-1?Q?sv5VmiSckN2bdOczTs5iWUeuO1nCxyWiz155cEVXfp7VfyMd/0FIWOnAou?=
+ =?iso-8859-1?Q?fFCeiPUi4jcv6AlWWXAchOWIXpsn+ZDcjhJaRfD3y1RFJ3naeI3LPqotc1?=
+ =?iso-8859-1?Q?tScO+NWCjJnHXaOJM3ojN+WyqR9T2LlMs2TWjrAXHFA5iTcAPA+iK/P4oj?=
+ =?iso-8859-1?Q?B3dZbWA55mG1JWVN77dfG9I/ZS44xqlCFzgn+Ub/V4Z5O0ad4OhxYofxqx?=
+ =?iso-8859-1?Q?huCIX4rtXWktsn3OV4q94MSyTlmrQvKHbxjm4pCbTxH8ovnMKSllRF6FI1?=
+ =?iso-8859-1?Q?BkYdjRknoF6Sbje41x65wNeqvyV/xiS+kLYJ5xLCaCxiTzDw7G+Wyw1ScP?=
+ =?iso-8859-1?Q?ULM2HInSzbH9X1CZn6rSebPbIUDYYkOMlH4AmvBeArdh77glPjpFDQHgxq?=
+ =?iso-8859-1?Q?t8K2ulHdk8bng3dbMXdRsER+qCzF0/cT0ao7bDJIHLpfD7d2pJdvOEPAQ4?=
+ =?iso-8859-1?Q?AQZ4pT+CI/TCOpnEGzsiRJoV2uKmYTqKz1olRMvPJMWYaSpcg64is/FP/E?=
+ =?iso-8859-1?Q?S+buqZdZ3IodEhtVAUzr4P2dHA0ovrVUHzLLlU4Mn1S0HcSN6mqXoHQuJ3?=
+ =?iso-8859-1?Q?YhFL/QxMcfRq/PCXMXe26oKsIT39C6JiiSrE/eHdM2WPetta8Ef5Xm50E6?=
+ =?iso-8859-1?Q?9ci5pC3GDnPs2ObomGpfzPYAiZCWC15yqQM8RcxJr/ZCcjWGeyMnkFfGxg?=
+ =?iso-8859-1?Q?D61eFFcaA2w1pwBJqumvVvVa3a1lVyuOV1Sk2yj3U05GgaW4vZwZRsXxqF?=
+ =?iso-8859-1?Q?xBxnoI2emj/VTUCGjQxDiGtSpf9xAP3J4ANBBFQajPV+u1JDa/me0ym/0n?=
+ =?iso-8859-1?Q?G/B2Nbn7cur51MCOP4WuZPtqJQUnQRzI4/qf7BzIq8nLgpmyUdDB5UEZAv?=
+ =?iso-8859-1?Q?GiCDPcXgzLDIO3c88POgkTc5qFyntqava1ACqd/gjqGzm/uoNbvELUtutj?=
+ =?iso-8859-1?Q?9jn6jXLvnsK9kJ+IOiQPpsJLgMxzoprI8PZKu4kfnKt7mSxSFFUCwLShSq?=
+ =?iso-8859-1?Q?BaoKpEYsKBXPYPEWrZMVvtTJ/9A4lZJTJUB3yJf0xrwqzABd5U4wu+66cm?=
+ =?iso-8859-1?Q?wwyY8UoOA8s92b9M0wzqFN3OfJt7ruPYFiaJ4k6Q/E1tjU1h5H2V8Cdtro?=
+ =?iso-8859-1?Q?Ms/mQKwXozorTBZs7bMeLOI4aru9XemmEuACbbLyXhRz2nwxT4i07mYiHf?=
+ =?iso-8859-1?Q?Cw10f5e3ZKt7ZfbIlde5caqoRO4SHAuEA4NYLl8QappTvOteHA1up9n8aw?=
+ =?iso-8859-1?Q?kRwHRoRQ59byremhMzHuHb7dz01kMHwK4LoKr8y48E4gFI9MvtvAFeDfEG?=
+ =?iso-8859-1?Q?FYmxP57OtR8nDh5qrrLTPkES/LLjvoSpIRa7io/F/fyBLVygyJ1O2mnSSb?=
+ =?iso-8859-1?Q?0BCk/3/iK9/pp3nyGR8liQJxONyBqQg1D/ha4mwyZPoDREECtF90oVxtNw?=
+ =?iso-8859-1?Q?TB30c1fong87zQKfcOX2Bakv8QB1xrVx9amsNrfQmzUyYRit8dLDUyYcpc?=
+ =?iso-8859-1?Q?GBCxWck3Cd6kQDO9OGF1qJE2cR2tPfeuTY2e6Nc+5V9TGXFS8j4FHYcYQE?=
+ =?iso-8859-1?Q?IUOrzhPw0oruY=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_PH0PR12MB54971F5A5D9BC332B1BDB9DEF57BAPH0PR12MB5497namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b27e0b44-ce0e-4b67-4ade-08ddb38c615b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jun 2025 02:02:46.6587 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5497.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f03a7dc-8236-42eb-3fde-08ddb38dfa53
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jun 2025 02:14:12.7476 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1nh/7WS8WTnwReRRLYkj1wUikrTjfNpl7j3hz8eF3LgfZmoFu3Txp2RsDOKajcnR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFE4FC9FAB3
+X-MS-Exchange-CrossTenant-userprincipalname: Q3/Wx1+5yIW2CSpO3cPbZ7I/4zN0wK5SY7/xNtdrEPoL3MVZx2LmrGKsHV6vqwPjkPQ9pFbsPcX+EhIM1s5Otw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8121
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,47 +162,299 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KPiBGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4N
-Cj4gU2VudDogV2VkbmVzZGF5LCBKdW5lIDI1LCAyMDI1IDE6MDYgQU0NCj4gVG86IExpYW5nLCBQ
-cmlrZSA8UHJpa2UuTGlhbmdAYW1kLmNvbT4NCj4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnOyBEZXVjaGVyLCBBbGV4YW5kZXINCj4gPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+
-OyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTdWJqZWN0
-OiBSZTogW1BBVENIIHY0IDEwLzExXSBkcm0vYW1kZ3B1OiBvbmx5IGJvdW5kIHRoZSBldmljdGlv
-biBmZW5jZSB0byB1c2VycQ0KPiBibw0KPg0KPiBPbiBUdWUsIEp1biAyNCwgMjAyNSBhdCA0OjQ2
-4oCvQU0gUHJpa2UgTGlhbmcgPFByaWtlLkxpYW5nQGFtZC5jb20+IHdyb3RlOg0KPiA+DQo+ID4g
-SXQgZG9lc24ndCBuZWVkIHRvIGF0dGFjaCB0aGUgaW52YWxpZCBldmljdGlvbiBmZW5jZSB0byBu
-b24tdXNlcnEncw0KPiA+IEJPcy4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IFByaWtlIExpYW5n
-IDxQcmlrZS5MaWFuZ0BhbWQuY29tPg0KPiA+IC0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZ2VtLmMgfCAxNiArKysrKysrKystLS0tLS0tDQo+ID4gIDEgZmlsZSBj
-aGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pDQo+ID4NCj4gPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jDQo+ID4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4gPiBpbmRleCAyYzY4MTE4ZmU5
-ZmQuLjUwMzU2YWEyM2E5OSAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZ2VtLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZ2VtLmMNCj4gPiBAQCAtMjk0LDEyICsyOTQsMTQgQEAgc3RhdGljIGludCBhbWRncHVf
-Z2VtX29iamVjdF9vcGVuKHN0cnVjdA0KPiBkcm1fZ2VtX29iamVjdCAqb2JqLA0KPiA+ICAgICAg
-ICAgZWxzZQ0KPiA+ICAgICAgICAgICAgICAgICArK2JvX3ZhLT5yZWZfY291bnQ7DQo+ID4NCj4g
-PiAtICAgICAgIC8qIGF0dGFjaCBnZnggZXZpY3Rpb24gZmVuY2UgKi8NCj4gPiAtICAgICAgIHIg
-PSBhbWRncHVfZXZpY3Rpb25fZmVuY2VfYXR0YWNoKCZmcHJpdi0+ZXZmX21nciwgYWJvKTsNCj4g
-PiAtICAgICAgIGlmIChyKSB7DQo+ID4gLSAgICAgICAgICAgICAgIERSTV9ERUJVR19EUklWRVIo
-IkZhaWxlZCB0byBhdHRhY2ggZXZpY3Rpb24gZmVuY2UgdG8gQk9cbiIpOw0KPiA+IC0gICAgICAg
-ICAgICAgICBhbWRncHVfYm9fdW5yZXNlcnZlKGFibyk7DQo+ID4gLSAgICAgICAgICAgICAgIHJl
-dHVybiByOw0KPiA+ICsgICAgICAgLyogYXR0YWNoIGdmeCBldmljdGlvbiBmZW5jZSB3aGVuIHVz
-ZXJxIGNyZWF0ZWQqLw0KPiA+ICsgICAgICAgaWYgKHZtLT5pc191c2VycV9jb250ZXh0KSB7DQo+
-ID4gKyAgICAgICAgICAgICAgIHIgPSBhbWRncHVfZXZpY3Rpb25fZmVuY2VfYXR0YWNoKCZmcHJp
-di0+ZXZmX21nciwgYWJvKTsNCj4gPiArICAgICAgICAgICAgICAgaWYgKHIpIHsNCj4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICBEUk1fREVCVUdfRFJJVkVSKCJGYWlsZWQgdG8gYXR0YWNoIGV2
-aWN0aW9uIGZlbmNlIHRvIEJPXG4iKTsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICBhbWRn
-cHVfYm9fdW5yZXNlcnZlKGFibyk7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IHI7DQo+ID4gKyAgICAgICAgICAgICAgIH0NCj4gPiAgICAgICAgIH0NCj4gPg0KPiA+ICAgICAg
-ICAgYW1kZ3B1X2JvX3VucmVzZXJ2ZShhYm8pOw0KPiA+IEBAIC0zNjUsNyArMzY3LDcgQEAgc3Rh
-dGljIHZvaWQgYW1kZ3B1X2dlbV9vYmplY3RfY2xvc2Uoc3RydWN0DQo+IGRybV9nZW1fb2JqZWN0
-ICpvYmosDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgZ290byBvdXRfdW5sb2NrOw0KPiA+
-ICAgICAgICAgfQ0KPiA+DQo+ID4gLSAgICAgICBpZiAoIWFtZGdwdV92bV9pc19ib19hbHdheXNf
-dmFsaWQodm0sIGJvKSkNCj4gPiArICAgICAgIGlmICghYW1kZ3B1X3ZtX2lzX2JvX2Fsd2F5c192
-YWxpZCh2bSwgYm8pICYmDQo+ID4gKyB2bS0+aXNfY29tcHV0ZV9jb250ZXh0KQ0KPg0KPiBEaWQg
-eW91IG1lYW4gdm0tPmlzX3VzZXJxX2NvbnRleHQgaGVyZT8NClllcywgaXQncyBhIHR5cG8gYW5k
-IHdpbGwgY29ycmVjdCBpdCBpbiB0aGUgbGF0ZXIgcGF0Y2guDQo+DQo+IEFsZXgNCj4NCj4gPiAg
-ICAgICAgICAgICAgICAgYW1kZ3B1X2V2aWN0aW9uX2ZlbmNlX2RldGFjaCgmZnByaXYtPmV2Zl9t
-Z3IsIGJvKTsNCj4gPg0KPiA+ICAgICAgICAgYm9fdmEgPSBhbWRncHVfdm1fYm9fZmluZCh2bSwg
-Ym8pOw0KPiA+IC0tDQo+ID4gMi4zNC4xDQo+ID4NCg==
+--_000_PH0PR12MB54971F5A5D9BC332B1BDB9DEF57BAPH0PR12MB5497namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+Hi Ursulin, Christian,
+
+I find the upstream patch: https://git.kernel.org/pub/scm/linux/kernel/git/=
+torvalds/linux.git/commit/?id=3Ddd64956685fa48358c4152d952070c8c073e5f89
+
+May I ask if I can modify the commit msg as:
+
+drm/amdgpu: Fix memory leak in amdgpu_ctx_mgr_entity_fini
+
+patch "dd64956685fa drm/amdgpu: Remove duplicated "context still
+alive" check" removed ctx put, which will cause amdgpu_ctx_fini()
+cannot be called and then cause some finished fence that added by
+amdgpu_ctx_add_fence() cannot be released and cause memleak.
+
+Fixes: dd64956685fa ("drm/amdgpu: Remove duplicated "context still alive" c=
+heck")
+
+Signed-off-by: Lin.Cao <lincao12@amd.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Acked-by: Christian K=F6nig <christian.koenig@amd.com>
+
+Thanks,
+Lin
+________________________________
+From: Koenig, Christian <Christian.Koenig@amd.com>
+Sent: Tuesday, June 24, 2025 21:11
+To: Tvrtko Ursulin <tursulin@ursulin.net>; cao, lin <lin.cao@amd.com>; amd-=
+gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Chang, HaiJun <HaiJun.Chang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: put ctx's ref count in amdgpu_ctx_mgr_enti=
+ty_fini()
+
+On 24.06.25 11:46, Tvrtko Ursulin wrote:
+>
+> On 24/06/2025 10:18, Lin.Cao wrote:
+>> patch "daf823f1d0cd drm/amdgpu: Remove duplicated "context still
+>> alive" check" removed ctx put, which will cause amdgpu_ctx_fini()
+>> cannot be called and then cause some finished fence that added by
+>> amdgpu_ctx_add_fence() cannot be released and cause memleak.
+>
+> Ouch I removed the wrong one. :( Probably misread kref_put as kref_read..
+>
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Acked-by: Christian K=F6nig <christian.koenig@amd.com>
+
+>
+> But is the SHA correct? I see it is dd64956685fa.
+
+That could be because our internal branch is not yet rebased.
+
+>
+> Which would mean adding:
+>
+> Fixes: dd64956685fa ("drm/amdgpu: Remove duplicated "context still alive"=
+ check")
+
+And maybe CC stable? Or in which release is that patch upstream?
+
+Regards,
+Christian.
+
+>
+> Regards,
+>
+> Tvrtko
+>
+>> Signed-off-by: Lin.Cao <lincao12@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ctx.c
+>> index 85567d0d9545..f5d5c45ddc0d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> @@ -944,6 +944,7 @@ static void amdgpu_ctx_mgr_entity_fini(struct amdgpu=
+_ctx_mgr *mgr)
+>>                   drm_sched_entity_fini(entity);
+>>               }
+>>           }
+>> +        kref_put(&ctx->refcount, amdgpu_ctx_fini);
+>>       }
+>>   }
+>>
+>
+
+
+--_000_PH0PR12MB54971F5A5D9BC332B1BDB9DEF57BAPH0PR12MB5497namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+Hi Ursulin, Christian,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+I find the upstream patch: <a href=3D"https://git.kernel.org/pub/scm/linux/=
+kernel/git/torvalds/linux.git/commit/?id=3Ddd64956685fa48358c4152d952070c8c=
+073e5f89" id=3D"LPlnk654005">
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3Ddd64956685fa48358c4152d952070c8c073e5f89</a></div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+May I ask if I can modify&nbsp;the commit msg as:</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+drm/amdgpu: Fix memory leak in amdgpu_ctx_mgr_entity_fini</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+patch &quot;dd64956685fa drm/amdgpu: Remove duplicated &quot;context still<=
+/div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+alive&quot; check&quot; removed ctx put, which will cause amdgpu_ctx_fini()=
+</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+cannot be called and then cause some finished fence that added by</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+amdgpu_ctx_add_fence() cannot be released and cause memleak.</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+Fixes: dd64956685fa (&quot;drm/amdgpu: Remove duplicated &quot;context stil=
+l alive&quot; check&quot;)</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+&nbsp;</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+Signed-off-by: Lin.Cao &lt;lincao12@amd.com&gt;</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+Reviewed-by: Tvrtko Ursulin &lt;tvrtko.ursulin@igalia.com&gt;</div>
+<div class=3D"elementToProof" style=3D"margin-left: 40px; font-family: Apto=
+s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
+ font-size: 11pt; color: rgb(0, 0, 0);">
+Acked-by: Christian K=F6nig &lt;christian.koenig@amd.com&gt;</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+Thanks,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+Lin</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
+;Christian.Koenig@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, June 24, 2025 21:11<br>
+<b>To:</b> Tvrtko Ursulin &lt;tursulin@ursulin.net&gt;; cao, lin &lt;lin.ca=
+o@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.=
+org&gt;<br>
+<b>Cc:</b> Chang, HaiJun &lt;HaiJun.Chang@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: put ctx's ref count in amdgpu_ctx_m=
+gr_entity_fini()</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 24.06.25 11:46, Tvrtko Ursulin wrote:<br>
+&gt; <br>
+&gt; On 24/06/2025 10:18, Lin.Cao wrote:<br>
+&gt;&gt; patch &quot;daf823f1d0cd drm/amdgpu: Remove duplicated &quot;conte=
+xt still<br>
+&gt;&gt; alive&quot; check&quot; removed ctx put, which will cause amdgpu_c=
+tx_fini()<br>
+&gt;&gt; cannot be called and then cause some finished fence that added by<=
+br>
+&gt;&gt; amdgpu_ctx_add_fence() cannot be released and cause memleak.<br>
+&gt; <br>
+&gt; Ouch I removed the wrong one. :( Probably misread kref_put as kref_rea=
+d..<br>
+&gt; <br>
+&gt; Reviewed-by: Tvrtko Ursulin &lt;tvrtko.ursulin@igalia.com&gt;<br>
+<br>
+Acked-by: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
+<br>
+&gt; <br>
+&gt; But is the SHA correct? I see it is dd64956685fa.<br>
+<br>
+That could be because our internal branch is not yet rebased.<br>
+<br>
+&gt; <br>
+&gt; Which would mean adding:<br>
+&gt; <br>
+&gt; Fixes: dd64956685fa (&quot;drm/amdgpu: Remove duplicated &quot;context=
+ still alive&quot; check&quot;)<br>
+<br>
+And maybe CC stable? Or in which release is that patch upstream?<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt; <br>
+&gt; Regards,<br>
+&gt; <br>
+&gt; Tvrtko<br>
+&gt; <br>
+&gt;&gt; Signed-off-by: Lin.Cao &lt;lincao12@amd.com&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 1 +<br>
+&gt;&gt; &nbsp; 1 file changed, 1 insertion(+)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_ctx.c<br>
+&gt;&gt; index 85567d0d9545..f5d5c45ddc0d 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
+&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
+&gt;&gt; @@ -944,6 +944,7 @@ static void amdgpu_ctx_mgr_entity_fini(struct =
+amdgpu_ctx_mgr *mgr)<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_sched_entity_fini(entity);<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; }<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kref_put(&amp;ctx-&gt;=
+refcount, amdgpu_ctx_fini);<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt; &nbsp; }<br>
+&gt;&gt; &nbsp; <br>
+&gt; <br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_PH0PR12MB54971F5A5D9BC332B1BDB9DEF57BAPH0PR12MB5497namp_--
