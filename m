@@ -4,142 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED34FC7EE2A
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Jun 2025 05:20:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A2FAC7EE33
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Jun 2025 09:03:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82D5C10E968;
-	Fri, 27 Jun 2025 05:20:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEAE710E982;
+	Fri, 27 Jun 2025 09:03:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bQLR2SBB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="udtLWfje";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA37510E968
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Jun 2025 05:20:16 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2069.outbound.protection.outlook.com [40.107.102.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C8C10E982
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Jun 2025 09:03:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qxW9Jo7qOciuwHpdl0To8maPFewZZLf6nvM1wuf/AnucHuiqru2ekr4YzDo6mB27BaeOqJZWwKnYwrToYOn0xUM+PcibDmeLXTburOOJYQNf9seqmugLCRViRGlBMmcaa5Kx9CjJUQHX0iyhZt+l3WgZitvYItbtqAJDoj44GI0jwTXQzye8ASzfRI2RebmJs5jrVXFpoDh7ukEp/sdH+0/pfmjESw7ocl1K8kVLczvFFORJllt2EmHfbc9YbPIduNT3EI0HeOu2ARfmzDrqLR/ZflXeyZdyQtzlk0F0dPD1/uOJt5/lOu58M26DfTNelOuOLH+R/qkGFAn9ziiQ9w==
+ b=I7fxwYVhW4w+Kp/k3viSwhKtOVvY8Jqvkm+5ZU98+FSBy1UdBKiuQJynsrJ4PSPJ6slqY+ktUdidguRPY+iNtQhnEzLm43pbOMSTTQZZJPJcOv+6xOxhQZ6uO46g2Y/UNbjwaPVzUvB/IZz/hGQsCNaQnMzqkTB6WzRtZ0CWlZXn+I6bBtJthCiBucr9dy7UYj1GG4c5G/AI7aYlfgM/qbxpBsbgresrPrp3xrpcg0tIu6cNkC29Go28bEdcdQfnqz4EF7x++XRENh8WBg41aydAfAcKVDcrNCrYgXo0bZNfjUDh/58Yw+cBrFo+AOj0fz2CKvXWogH968UiOJZVnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V2AJEOZIv96U8vDc+MW4lhH59FZhNsvNPmSgBUXIxkE=;
- b=q9n1Ebk4qJBHV8Oo/hjYQ+VyeL/XxodhaORpC637eqMwZJTuDRWdN398M8YfwRx2/N/67w4GBM1dWY+FtPLHxg6+oOtw/EkWKkcoosRujKqBQhlmnwhipm6KPRAUREC5gpRN5Mk6pe66Va/zNXb+h0JYEIzSlIDL0+ES3XJup7jFgoIWeXktzqizLw/CX4RQERTTF53hHBC6NtdBdZvNE99SSYp+W+cPf/A14AZj0v+JYID1lXIrvSZ48a+yBCdFvvqX0xKDbZg0PEtnhgPGDxFalV6PdLBkcfahRenwrAkpDjSZ5pK+hXsx2Dmfu2T7Dtf/i4zshmh1FZlM/qwASQ==
+ bh=4xWE9Pp6SlreaIzS/3hNz8aykhpXE5XX00p9w6LE+zw=;
+ b=R+YgtdbPA/Y5O1D4A6+e0ZSa/rO/itLIuhlmja5e74Hmou3NiX7Pov3rY+5xrM+LLkpn2tlek4jHwxOl8MGSKPDxnXH0g8MjSmK25Zbq1xLV/RMbjJuVgCzV5gP89boGR89Yo2sW1zmq4t2bJ5DihLCgqGCPQ/wCfTko3PLvoXxbGNwk5drTQ3oWyMWh5I4HlgWkYmlgwmsZKYPkEEigWjhYpqSuFUYFp9p+nD9RbdrsZ9RmO0tu/BiQK74g543N+gsNSCUooAaa9c0FBhQn5Dozd7vRnj5+T974ui4B2ryvXe+dvka+I3/3UOJM66H4V9GjhgWoJzqvexzRl3KV9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V2AJEOZIv96U8vDc+MW4lhH59FZhNsvNPmSgBUXIxkE=;
- b=bQLR2SBBRF/O0hyYtOk7Rak02HIw3HjwqNK4jRj2629gQpXUiG146nPpepOqRbosfCPRMUpk67efBT07gkQvtpU3Mwvw5/px0tXo6GP73sdYgfxiKNWTidFLUt9UK7m0Pe3JFiRXN52AYtQ2vs56Pl/1aC8RmvdmabzGXmSfHHY=
-Received: from PH0PR12MB5420.namprd12.prod.outlook.com (2603:10b6:510:e8::18)
- by CH2PR12MB9493.namprd12.prod.outlook.com (2603:10b6:610:27c::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.32; Fri, 27 Jun
- 2025 05:20:09 +0000
-Received: from PH0PR12MB5420.namprd12.prod.outlook.com
- ([fe80::dd32:9eed:14e9:33f1]) by PH0PR12MB5420.namprd12.prod.outlook.com
- ([fe80::dd32:9eed:14e9:33f1%6]) with mapi id 15.20.8880.021; Fri, 27 Jun 2025
- 05:20:09 +0000
-From: "YuanShang Mao (River)" <YuanShang.Mao@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Yin, ZhenGuo (Chris)" <ZhenGuo.Yin@amd.com>, "cao, lin"
- <lin.cao@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: delete function amdgpu_flush
-Thread-Topic: [PATCH] drm/amdgpu: delete function amdgpu_flush
-Thread-Index: AQHb5yIReczaTiaQSEqtOQ09HFaOBbQWdlww
-Date: Fri, 27 Jun 2025 05:20:08 +0000
-Message-ID: <PH0PR12MB54205C1B34B693720538A914E045A@PH0PR12MB5420.namprd12.prod.outlook.com>
-References: <20250627051204.62029-1-YuanShang.Mao@amd.com>
-In-Reply-To: <20250627051204.62029-1-YuanShang.Mao@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-06-27T05:14:10.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=4xWE9Pp6SlreaIzS/3hNz8aykhpXE5XX00p9w6LE+zw=;
+ b=udtLWfjez1FYG1YHIvAhaZZt8WkSR5tElgtp8tLlmCuOSRLX6myL/CDhuXqGWHK2/YZymcldbqeDayZTlOLD5S71+2hIFihCOxJCpt/zW5nCDpUYh+/pWPReechDI92h+osXO+eqrsaPL+r9kb3O6BZ1M0VwyYBgQFHKEaQTmVA=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5420:EE_|CH2PR12MB9493:EE_
-x-ms-office365-filtering-correlation-id: ef25c778-895c-4002-e5e3-08ddb53a48d4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?35PxLTOXnu9QNo/5gcyxQSPsq0Ddrx9gZhmC6xd6pWMec/JL/9TXPZ6NDmF7?=
- =?us-ascii?Q?BR/Nkj7m6Z1oc3GVhMt+LJVE77JK194X96RsxNtwpYpWFDTe/PZi+v5XWgmk?=
- =?us-ascii?Q?WTSp0iZ1cqPNo8mczp0+H0Uqt2MN/U5qhZWHle/eXdceUjOBy8P+r3Vjpr8w?=
- =?us-ascii?Q?piDjEYGholxa6aV1K/polV2SFhOxKhw2/Mhxhqotn3GMuGRKBnj6oG3lSBSs?=
- =?us-ascii?Q?i3QEHsPCIlSjy2HbVG6j86akr0c+Xrb6wvhFYyA38UrDR1nr2vC/hpL7AOfX?=
- =?us-ascii?Q?6y9iecjZb9zpXdr32NGM06yvenim12w6j6v+NenHQSMJyGlg03b3xT6kCXjO?=
- =?us-ascii?Q?88/40kojEeAGLi2kDh0aWLtkj5SS8z+nCd8MrcXUta63hf4uqIQLYjApiJT9?=
- =?us-ascii?Q?GYhE2n4sHnbaI/d4Zgk9zd/789zDGvFuJTRXcvt+KxL5lm6D7N83zTJSjw1I?=
- =?us-ascii?Q?HWXcSIT9+yUTyxoYVClPyOkrRDSfsJIZXKE4Rv231vw7G7X7KGDFlPskUUch?=
- =?us-ascii?Q?f2wsu8RJtMcggTtoKgg3iru/Uw80p6YlXpCTDBlAU1Gzz0DeOZ4/alhDmh+m?=
- =?us-ascii?Q?ATbnHbdABdZtiZqKhNSpjbR5w3b41ehAmojSAl2y9L+eVj45hEzGOQg6RVpj?=
- =?us-ascii?Q?sZC74V7s/j5xAdJ1Uw0/pNO7jxuNdgQYqTMUYM43TcinRjqblV4hrh+3QbRr?=
- =?us-ascii?Q?n98SPOjQnW9NONJRrn6M13+qWwFYvLRnTIAhn9X5hlqPWxGUeiOUsjmDqHXH?=
- =?us-ascii?Q?qn+tZs/4RmE0n86kBW5YcmOrckLvdNr68F8E1f8sJMJJlGs9/z+tO6M0Lsm/?=
- =?us-ascii?Q?K1J+uKgNt7PEaFKg8OcQFTmGcZotOPhSGEgwbYNu1K/TKUKM+PhIcNTccdin?=
- =?us-ascii?Q?hL95RBxG2Mqx0a8ULh8IVSVpP/Kyd0IJwaTZX95iEd3ooIXNH6cH9U8m9r/L?=
- =?us-ascii?Q?xqTy2OZIO1TaWtLtaXMMKJ534VJvwkmjzy4h1Z06nsHyt12lImj8wU/xT2/X?=
- =?us-ascii?Q?npeBquAw721GHp0JRziZxPqDFVgSAVTXshqpCbUq0lnhUM2Esbl8fhlxCj5L?=
- =?us-ascii?Q?ZTOoAD6dBc6ZR1Ghrlr7qEfnJcvyaSiBLmsl99vFP9gUdP8BIlLK+CJL4Fqu?=
- =?us-ascii?Q?RdaAkyKTwgLnnuvXOGH5p/TtrbABKhkjOKSX62GMuc+fPj0KQG19sTLNtIcm?=
- =?us-ascii?Q?nU01rZzCLCLwoMNFlCZmxHUv7/J6AJRKHsCu+SxVT3ptyzMhOZ3t4D4GPaGI?=
- =?us-ascii?Q?3wF60O8GAtKSorAWxvZS2YcxtNqEhlXIYKUos/5ZCHvEsiF6V69A4IAREEh6?=
- =?us-ascii?Q?+81ruNiYiFllTb8cCouANZYm1DWVv1F79YGwQYyfH958Fkgq4MjwzMjO6SK4?=
- =?us-ascii?Q?gpHWxo6xKzpFK+qcRtDfhrVzDrGbDRkQpCb0ubNKj6Xw0XI1ca6vdSMsjeU9?=
- =?us-ascii?Q?a88N4tBzrccvLZY5e1ihfnVb2gYw7sVwfX3FZl+nVISzCD3DCtPmnoi66QUT?=
- =?us-ascii?Q?c+nheZcD1qJrV5w=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR12MB5420.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?amIliPwY88tajw8QU7iAWIEnTC3nNHCpzDcNOqGox3at4MG1RdzSlTMDQSz0?=
- =?us-ascii?Q?VKuabSHUiv2SfIJNf2jcMl1igY8X7uKGV2sszZ1iZ259PmiCNIgeBXTADDjF?=
- =?us-ascii?Q?VlfcZDZX+OEpBCC9f0qfQzdZDVjdDf+3y52vFzrLHq+4RSWUGW2cPR7l3U8d?=
- =?us-ascii?Q?ihV6M2eBE7dkZ/mO46JkQofoF8+XhA7+SY0QKRwbgDXX/MZL1ZpB1YdDXtVC?=
- =?us-ascii?Q?DEuEfK2o3a6di+n53qJXUX5xQwbr8UetB5EN77k11xPlz0WQQOCjGId9zb8P?=
- =?us-ascii?Q?oSBpZgo5aQGLyTfn9k02RxmxYj736XXKX51rfd7dQGgDpceXYLdXHUMa0EGW?=
- =?us-ascii?Q?1M9nPfx4VBDqHLlpsppKK8noLMsfpSAHl7YzB474p4KvkCkZoL0N+ZqY0D4I?=
- =?us-ascii?Q?UkRUptz/F3DckOTkrJrtVP33wTcO7oGBa8rKXt+YFlg8MsoUa0jHf9kkY6tX?=
- =?us-ascii?Q?jHtgHQqnfd4MEU1j3v1wfd2GGByN6XHTKbiZvSmMXni8dooNNeXTqPjEToja?=
- =?us-ascii?Q?eXYoOW+DY5D+xOpL92v1QXTb1pORBU3ijP0zE2fyJYurTR7kiEFdVJFtD+Kl?=
- =?us-ascii?Q?6c6AEYS1NT6xNNXHx04/1NReLYYrv2Xb3T056PWFMXG/xEOAac7jeRy9eITE?=
- =?us-ascii?Q?CaUvlbCXbTv0iEFlq+lHQE6zJn/M9mZrgIN39r8w6VOTW/KyO9aCR/Jp9M3u?=
- =?us-ascii?Q?bvlt48HTiUaS3VjJU0KNDr5Nzo2aRGv+LjI6TaA4bJTbNUTg27GqYaJQ75BK?=
- =?us-ascii?Q?gZc4jh5MLUX/Q3UMqgt0hgz3Y9nUz3f3LRPGkBGXKfhlL3Gl7q40Bj/27ywq?=
- =?us-ascii?Q?VFw/bJ5OEJsZ0+BE7yMPB3wW0B/BaKSDAxkRu5Cqf145pS7iB+WfxER3l5W8?=
- =?us-ascii?Q?1zUDpw2i2BqW8kseLveXeoqJ6bcQ90RHoNV8MtIIJOKsWPBQCnxB74jrgRgo?=
- =?us-ascii?Q?ZKaO7nAin9Xce2xw+5UvtM+90bHfawYAIxRjuexAnbR44oB3AGNwDnrrl8Xy?=
- =?us-ascii?Q?e95oVtUgzQ6pekOYJJiM2fbOFNQTPGD8kBnrKwYzA+xUblnDjyONrbx1Yls2?=
- =?us-ascii?Q?8XwZMBEpKWlxdriyko7WjB008SRKP/1WpAMDlFYSGeJFj2R90c2EwmJ+N9n2?=
- =?us-ascii?Q?+YuiMZEBFsDMbkZDhn8DmZCvLpC+RLvgJgAdrNTx8XXz7kDqWnDqsXPcw4to?=
- =?us-ascii?Q?509wCzeiGMzm0dkasb3MxLyi/LoH2c23jtO1kTXKJ72uZ6iExwRy5t7udfjU?=
- =?us-ascii?Q?Awj7y2+A++aD+d0pqQ0LB1Q2P6p0A7GZfTaPBp3ujfkn5ZdOc35zogD1keQZ?=
- =?us-ascii?Q?t8wrAdv6vgb22n+CNW7snHvOSmgssWWb9e32DYBNP3oocinbAYjs7RwXTJq5?=
- =?us-ascii?Q?CZgrhksFEEwXppDoojrgBsQV84yWlZ6+jF7Rh2h1RgbksIIJXzk+7886B1kj?=
- =?us-ascii?Q?3o4fGt0nEssHxt3ZQNrvzEjK6AP2OlMuJTFVtBx58Nj75dy6+P9RrPJ4ECxS?=
- =?us-ascii?Q?AtMcIoAS7VNoDeB6pxZxletCLtNO04RH2OReS4RN42Ognsw+2zR5L6cc5wk7?=
- =?us-ascii?Q?8cupLRuhnqvpDkHGOZ4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ PH8PR12MB6985.namprd12.prod.outlook.com (2603:10b6:510:1bc::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.30; Fri, 27 Jun
+ 2025 09:03:07 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.8857.026; Fri, 27 Jun 2025
+ 09:03:07 +0000
+Message-ID: <89d80032-ba6a-40a5-a621-d65e13ab977b@amd.com>
+Date: Fri, 27 Jun 2025 14:33:01 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] drm/amd: Decrease message level for legacy-pm,
+ kv-dpm and si-dpm
+To: Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Alexandre Demers <alexandre.f.demers@gmail.com>
+References: <20250626023855.4026084-1-superm1@kernel.org>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20250626023855.4026084-1-superm1@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN4P287CA0067.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:267::13) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH8PR12MB6985:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c1a71ca-66fb-450d-e242-08ddb5596eb3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?S2NibHUyUld1dHBXR1YrTlJnWU5lcDlNMS9zU0pIN1VNbGJOOWtCNkpxT3N1?=
+ =?utf-8?B?d2M1RmZpV2h5bWxYNE8yRXpMMTNuUjZoVDdzQit2WkJjQnZJS0ZTWXNydFM3?=
+ =?utf-8?B?Wkg0YWdoQnFWMjN2bGIzeTQ1em5MdnY3YytJZnUwZDVlRE9xK2YvN3hsVVR4?=
+ =?utf-8?B?ODZsbVcrYVliQ3pISDZORW1xU1JXUkJQVW5UcXJVNnVwS3JzaWFNRlJHNjNK?=
+ =?utf-8?B?eElNSjlTTzFLZ002SkUraGw1T0xFMnB2ZXVXeVhOQ0M3ZExPeHNlUFlFczZW?=
+ =?utf-8?B?T2dKQ3RuTmg4dXNaeUcxRERlR0Q1SFd5VUMzY2QwVmtNWHNnN0g1TllTUFo0?=
+ =?utf-8?B?RHZsWUJuVWVEMkJuTkVSWEhYTGk4Um1KK2dPVVQvZ3JNTVZ5dXZFSkgyODN6?=
+ =?utf-8?B?QURJSFB3MytTaGI3aUU4ekhzNVpaM2JnS3Nhdk8wQkRJMHN4MXpuYUdIUTFG?=
+ =?utf-8?B?YkU2eVdCK1luNE9waU5KekpobmFwYXFuYXdNNkVNN3lRbmdvMkovVUNNUGl0?=
+ =?utf-8?B?dEsvTjNRWlBmWTFKYWRrVDNLeWRWZW82V0lOWTFPd3JCMlVJU3o2Wjk2SnNy?=
+ =?utf-8?B?Y3dGR2ZmTGxjQStJeVlYOGxDMFM2UnQxRGVKd1NYODZRUkd4RmVRSW9XbDBI?=
+ =?utf-8?B?c1NtcEF2cW1qZktLUnFwT2RVNDIvYmhQalZ0MlprMkVhQlBoSzNydnJvdmRW?=
+ =?utf-8?B?OGpNQkZRUVBMUFlyZm9QYUcvQmZUOGxqbW1xUytRZWJkMitRZjdJLzk3MHN1?=
+ =?utf-8?B?V241WGRlUFAxbVRVM0xGUVpGamJUQVB5b0t1VktlVHpRSmxsOFJqN2ZUYWs4?=
+ =?utf-8?B?QU1VQlhqaXVaVnAzQkZmSnNLUVFJVXUxYVM3NWF0M2w3TkZaTE9nQ1BmZGN1?=
+ =?utf-8?B?NFJNWmNxT1FKd1pzYWtGbVFOUGxMT0NqbUMrNk1QN1Q4QXJCZEhzWjVNN2hQ?=
+ =?utf-8?B?eFhqZjJrWWlkS0toZGZSTVFsTjdwWGxTck5EekFkaUxwT3dzaXFBL1hGL3ZC?=
+ =?utf-8?B?Mm5uN3Nlc2luM00rOE1JS3FIOG9MYk9obFJQRldxUUNGTEgyd0JyU3hWcFIz?=
+ =?utf-8?B?Qk04eGp5QmlZZll5RlpacVM1M0hmMFJ0bTFsOUpMck1RL1FRRTZoT0I0VW5p?=
+ =?utf-8?B?TTkza2hEWm4vODd4YkVySXZDMm5RMnhocUNkUmxRSG9Fb3ZUclVxNXZMVmNn?=
+ =?utf-8?B?OGYrY0pJNkovTzU1OXFYOW1qeGljK0wvTEFlMFFjV3gvYTE3MCsyb3dxSUxa?=
+ =?utf-8?B?Z3VSR3dUWDF1ekhZNzZvQnQrdXJ1eHZSbkJlK05wUlNhdjF3bUE2R2k0RUcr?=
+ =?utf-8?B?Tklhd0pZZUJ6MnFOYzdkV2NRYmVQMnVQWXBPMGNkUWZkaWRaZmVtZ1BsclFq?=
+ =?utf-8?B?aHRodmszYUEwSzNKQjlWN2d6VUpVQk9kRnVZMG9DenlMcGtiQjhqV21Qd3Ew?=
+ =?utf-8?B?Q3JEU1lZNlN2YVA3aENXdzU5TzlBbWtXaFpXSSttbnNSd3VRc3E0NDJoQkVx?=
+ =?utf-8?B?VW5wN0VYczBDcnRpOU8xUk15Z3VVY25zL1pXQ3ozbUc1ZHdyVHFwT2FMaGJR?=
+ =?utf-8?B?bFNtd2haRkpJY0U1ZUhzQTJGUERYcXlLbHlFZ1c2WE0vU1YwTkhyYkFQcGNZ?=
+ =?utf-8?B?aGdpQllxd3hTOEpCem9jYmxJeFlHdHhkNzJZVWFvcDd6b0gyUC9VZFJocUU3?=
+ =?utf-8?B?V0FackdtM0ZWdXp3YzhtUy9CeTZIZVh4L0xlQWptYWV1K0FSNnp3MENIUjg1?=
+ =?utf-8?B?dXNYNC9CWk9PTnVuQURFbjNBaXBLM1ZKVFJMdHh6KzdlRUNoeWJsa1laVmpU?=
+ =?utf-8?Q?GJCaDKWBIBoUyLNGf7ZfxqRmRVYVRl+NPgh9Y=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEo4SGRRWS83dS9rODF6SmliR3lEcW5lZDVrNGZCelU0c3VqVjRJNFRKSW1y?=
+ =?utf-8?B?bDhtemd2UnRPa09RVmVsU0VnMGxxYkZuS1ZzYjZiZmFreDNnbnFzT0MxdUk2?=
+ =?utf-8?B?Ti9KalE3NkZiQzZoOVh2U0Z4ZlFUR3RjREFqMzdBRVVnNW5WU045bEpZanhY?=
+ =?utf-8?B?aG8wUmN2bUhySWo1ZlE0YnNlUDNjTEdrR25SaVc3Z1V6QkdYQU0vQXRvR3p1?=
+ =?utf-8?B?NHBhSGpYSExndXJuQWNiSWpKa2UyMXZhNWNNbDZpNXVleGxpbFprUGVuNjA5?=
+ =?utf-8?B?dWpPWlNkY0FoMko5MldhTmd1L0hYVXY1dlA3VWdYQ1MwZjgrVGZhblJqQjU5?=
+ =?utf-8?B?MHQrQVFKUUwxZlR1NGx6WjM0bXIzTldsc2NvakpnczBNUzVaeFdER2RHWngz?=
+ =?utf-8?B?eTkyUE53WmxEQTZaVFJ3cElaVzlOR3IrczkwYVFMRXBCMk8zNkNERWpKbm1u?=
+ =?utf-8?B?VkcyM1Y0cDZ6cHhOYWhBSXlzQTVjT09jS0NaZVRYVkZBYTFuSEc4bjRvOUxF?=
+ =?utf-8?B?MkxVMlhnVHZNWGkyWUI4L3lBTnU5SzVYRFJkb1FXQzFaMWdzVXp2L1lmaHRT?=
+ =?utf-8?B?QjJkNjgrcW56elFVY0txUHVpZy9UWlh2ZXhINUR1dHVWOHZQR3FwYWd3QkEr?=
+ =?utf-8?B?M0I2M1ZvK1pLTlVNNG56RGkyQVdMMzVicHBQZEFjRTRmY0FtdUUycXoyeHVt?=
+ =?utf-8?B?dVkrU0paY253Q1dzZEJyOHVjVm95cWJOMDI2dlltZjB2aDJZMmJnWk5XRExr?=
+ =?utf-8?B?OHhKRVdKT1pTL2E2d0h0cGZGdUFsbDMxNmhZcGsvQmdQZWg4WFYzNzdubGZE?=
+ =?utf-8?B?UWxPbmxVMzk3RzVmbFBVOEkzeGVNb1lwdm5ob3BzK0c3MWEwS1l3QWU3M3Jo?=
+ =?utf-8?B?Z2M1Nm9mOXUyTjZYU01TcVp4ZlRCemtvQk9tcGo5Ti9xZ0d3MVR1SDBuc1Ra?=
+ =?utf-8?B?NUhwRjVpd09IVmQ4amR4ZEI4OGdoY05EUkRuNUtzNzNLak1hRWVDUkU0K1RX?=
+ =?utf-8?B?dnpaTCt6VndmWnI0b2Uwb0s4Sm9XMDU3enVHTi9DZ1k1cG0xa2haeVhXUVFZ?=
+ =?utf-8?B?Q1doT3IwMzA2REJRUmYwTWFsVFM4Q0VuRTBNWDRQeUgxQXphZ3MzTURRaTdr?=
+ =?utf-8?B?WEJMU1E4Z0lsSzN1N0tvVU8yODBtK1lOdzVKQ0l4RDJIcGNtMmJXaUFtOGhJ?=
+ =?utf-8?B?SEsweW96K2RVUWNaREg0aUNYWnpnL0VFZmJDMjdFN2VCNDRjTURTaFlHdmN5?=
+ =?utf-8?B?RElyVmdKVnNxZDNyVE1lSHdlcjdNcHI3M0lUVm5RYllrUVhyUkVyWnFGa0pV?=
+ =?utf-8?B?ZlV3eHBwWk5YeUgydUFyb0pmS1hJMTAzKzFnNmJOTGVCUFBIcTNzUENFWHZy?=
+ =?utf-8?B?Q0g1cE5zVFVyUU40b3JEcUw2aTlkVEp5YmJrZ1FVclh3Y0swK3QyYzZDMk5K?=
+ =?utf-8?B?SiswSnhwWnZBYkNvczBwYTkwSzlLQWdENGwxMXROZmhydngvb3hlNXVTc2Vv?=
+ =?utf-8?B?M2VsbmxiSEQxYXlFQzlBR3lqNm1RQk1ET3hFYUE5WHcyejBnMDZwb1ZFL0xx?=
+ =?utf-8?B?bW13b3dOV2w4ZGVWR2JqVHNBQ2dPTVNQN3d6TWlnNml5TkY1a29GbDNWWVBi?=
+ =?utf-8?B?bkIrV2YvcGZWUmhwR0o1RTBQYjZ0ZHVRRlJOVmhIR1hlZFRJQ2RsMm9la1l1?=
+ =?utf-8?B?MVRydjkycUl4S0FxY3ZJS2JndWJhUlhtcVdyMmxQSjZsMDk1ZVRlSWhSZXJ6?=
+ =?utf-8?B?MnJ0RkE4bXFRT2tRMW85ak5VTyt1VnN0MkFNYWVyNE9VU09nQjI3d1ZCM1Bv?=
+ =?utf-8?B?M0pZWVJzdzV4ZjN0ZTF0OU5lMWpCTFhBRHR3ZU55Uk8rK0x2bXkyK0hzZmpU?=
+ =?utf-8?B?cWR1ODMzRWw3NG1sU2V5ZFQ5RWJTS0pnM3hYbGFwN0JqZm9UNHdHVWRsTE8v?=
+ =?utf-8?B?K0l6SHJDNE9GMERHNXZxeXB3ay9yM2V0bzRrWXlCQmo5RUV0WXNFOUV0Y0pw?=
+ =?utf-8?B?eUhXMVlOWk5hUFJTcitGWUc4ajhHTExKWnVnQjlSYWc1QUlOWDJsblZnbGls?=
+ =?utf-8?B?U2QvTmdGSlpxM3RrVUhNTmMvUkVzQlBOM1N2VVlxTENUY3lFTUpWR0RKR1dj?=
+ =?utf-8?Q?MaOyxvlGf5qYwWhO9NI7TpVUn?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c1a71ca-66fb-450d-e242-08ddb5596eb3
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5420.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef25c778-895c-4002-e5e3-08ddb53a48d4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jun 2025 05:20:09.0629 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YcD4Ld7bVGHJy1lhfFEgNt2bPkKQSY37oNyYUPtjlRTfmGukftNr3mJzYdva52Z0Lr7wRLXhLO7rTpOSyevQCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9493
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2025 09:03:07.4747 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pF7iNuRuyIDJppqcdD38rMkKNXe2FnDpwK2Q/af3y5IUky8yi1JZESzMbPiECXMR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6985
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,204 +160,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
 
-Currently, amdgpu_flush is used to prevent new jobs from being submitted in=
- the same context when a file descriptor is closed and to wait for existing=
- jobs to complete. Additionally, if the current process is in an exit state=
- and the latest job of the entity was submitted by this process, the entity=
- is terminated.
 
-There is an issue where, if drm scheduler is not woken up for some reason, =
-the amdgpu_flush will remain hung, and another process holding this file ca=
-nnot submit a job to wake up the drm scheduler.
+On 6/26/2025 8:08 AM, Mario Limonciello wrote:
+> From: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> legacy-pm, kv-dpm and si-dpm have prints while changing power states
+> that don't have a level and thus are printed by default. These are
+> not useful at runtime for most people, so decrease them to debug.
+> 
+> Reported-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4322
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    | 14 +--
+>  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    | 90 +++++++------------
+>  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h    |  4 +-
+>  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  8 +-
+>  4 files changed, 46 insertions(+), 70 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> index 34e71727b27d7..81a6134bd56de 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> @@ -2886,14 +2886,16 @@ kv_dpm_print_power_state(void *handle, void *request_ps)
+>  	struct kv_ps *ps = kv_get_ps(rps);
+>  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>  
+> -	amdgpu_dpm_print_class_info(rps->class, rps->class2);
+> -	amdgpu_dpm_print_cap_info(rps->caps);
+> -	printk("\tuvd    vclk: %d dclk: %d\n", rps->vclk, rps->dclk);
+> +	amdgpu_dpm_print_class_info(adev, rps->class, rps->class2);
+> +	amdgpu_dpm_print_cap_info(adev, rps->caps);
+> +	drm_dbg(adev_to_drm(adev), "vclk: %d, dclk: %d\n",
+> +		rps->vclk, rps->dclk);
+>  	for (i = 0; i < ps->num_levels; i++) {
+>  		struct kv_pl *pl = &ps->levels[i];
+> -		printk("\t\tpower level %d    sclk: %u vddc: %u\n",
+> -		       i, pl->sclk,
+> -		       kv_convert_8bit_index_to_voltage(adev, pl->vddc_index));
+> +		drm_dbg(adev_to_drm(adev),
+> +			"power level %d    sclk: %u vddc: %u\n",
+> +			i, pl->sclk,
+> +			kv_convert_8bit_index_to_voltage(adev, pl->vddc_index));
+>  	}
+>  	amdgpu_dpm_print_ps_status(adev, rps);
+>  }
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+> index c7518b13e7879..287a22082c9ed 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+> @@ -47,7 +47,7 @@
+>  #define amdgpu_dpm_check_state_equal(adev, cps, rps, equal) \
+>  		((adev)->powerplay.pp_funcs->check_state_equal((adev)->powerplay.pp_handle, (cps), (rps), (equal)))
+>  
+> -void amdgpu_dpm_print_class_info(u32 class, u32 class2)
+> +void amdgpu_dpm_print_class_info(struct amdgpu_device *adev, u32 class, u32 class2)
+>  {
+>  	const char *s;
+>  
+> @@ -66,71 +66,45 @@ void amdgpu_dpm_print_class_info(u32 class, u32 class2)
+>  		s = "performance";
+>  		break;
+>  	}
+> -	printk("\tui class: %s\n", s);
+> -	printk("\tinternal class:");
+> +	drm_dbg(adev_to_drm(adev), "\tui class: %s\n", s);
+>  	if (((class & ~ATOM_PPLIB_CLASSIFICATION_UI_MASK) == 0) &&
+>  	    (class2 == 0))
+> -		pr_cont(" none");
+> -	else {
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_BOOT)
+> -			pr_cont(" boot");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_THERMAL)
+> -			pr_cont(" thermal");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_LIMITEDPOWERSOURCE)
+> -			pr_cont(" limited_pwr");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_REST)
+> -			pr_cont(" rest");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_FORCED)
+> -			pr_cont(" forced");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE)
+> -			pr_cont(" 3d_perf");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_OVERDRIVETEMPLATE)
+> -			pr_cont(" ovrdrv");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_UVDSTATE)
+> -			pr_cont(" uvd");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_3DLOW)
+> -			pr_cont(" 3d_low");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_ACPI)
+> -			pr_cont(" acpi");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_HD2STATE)
+> -			pr_cont(" uvd_hd2");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_HDSTATE)
+> -			pr_cont(" uvd_hd");
+> -		if (class & ATOM_PPLIB_CLASSIFICATION_SDSTATE)
+> -			pr_cont(" uvd_sd");
+> -		if (class2 & ATOM_PPLIB_CLASSIFICATION2_LIMITEDPOWERSOURCE_2)
+> -			pr_cont(" limited_pwr2");
+> -		if (class2 & ATOM_PPLIB_CLASSIFICATION2_ULV)
+> -			pr_cont(" ulv");
+> -		if (class2 & ATOM_PPLIB_CLASSIFICATION2_MVC)
+> -			pr_cont(" uvd_mvc");
+> -	}
+> -	pr_cont("\n");
+> +		drm_dbg(adev_to_drm(adev), "\tinternal class: none\n");
+> +	else
+> +		drm_dbg(adev_to_drm(adev), "\tinternal class: %s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s\n",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_BOOT) ? " boot" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_THERMAL) ? " thermal" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_LIMITEDPOWERSOURCE) ? " limited_pwr" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_REST) ? " rest" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_FORCED) ? " forced" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE) ? " 3d_perf" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_OVERDRIVETEMPLATE) ? " ovrdrv" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_UVDSTATE) ? " uvd" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_3DLOW) ? " 3d_low" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_ACPI) ? " acpi" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_HD2STATE) ? " uvd_hd2" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_HDSTATE) ? " uvd_hd" : "",
+> +			(class & ATOM_PPLIB_CLASSIFICATION_SDSTATE) ? " uvd_sd" : "",
+> +			(class2 & ATOM_PPLIB_CLASSIFICATION2_LIMITEDPOWERSOURCE_2) ? " limited_pwr2" : "",
+> +			(class2 & ATOM_PPLIB_CLASSIFICATION2_ULV) ? " ulv" : "",
+> +			(class2 & ATOM_PPLIB_CLASSIFICATION2_MVC) ? " uvd_mvc" : "");
+>  }
+>  
+> -void amdgpu_dpm_print_cap_info(u32 caps)
+> +void amdgpu_dpm_print_cap_info(struct amdgpu_device *adev, u32 caps)
+>  {
+> -	printk("\tcaps:");
+> -	if (caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY)
+> -		pr_cont(" single_disp");
+> -	if (caps & ATOM_PPLIB_SUPPORTS_VIDEO_PLAYBACK)
+> -		pr_cont(" video");
+> -	if (caps & ATOM_PPLIB_DISALLOW_ON_DC)
+> -		pr_cont(" no_dc");
+> -	pr_cont("\n");
+> +	drm_dbg(adev_to_drm(adev), "\tcaps: %s%s%s\n",
+> +		(caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY) ? " single_disp" : "",
+> +		(caps & ATOM_PPLIB_SUPPORTS_VIDEO_PLAYBACK) ? " video" : "",
+> +		(caps & ATOM_PPLIB_DISALLOW_ON_DC) ? " no_dc" : "");
+>  }
+>  
+>  void amdgpu_dpm_print_ps_status(struct amdgpu_device *adev,
+>  				struct amdgpu_ps *rps)
+>  {
+> -	printk("\tstatus:");
+> -	if (rps == adev->pm.dpm.current_ps)
+> -		pr_cont(" c");
+> -	if (rps == adev->pm.dpm.requested_ps)
+> -		pr_cont(" r");
+> -	if (rps == adev->pm.dpm.boot_ps)
+> -		pr_cont(" b");
+> -	pr_cont("\n");
+> +	drm_dbg(adev_to_drm(adev), "\tstatus:%s%s%s\n",
+> +		rps == adev->pm.dpm.current_ps ? " c" : "",
+> +		rps == adev->pm.dpm.requested_ps ? " r" : "",
+> +		rps == adev->pm.dpm.boot_ps ? " b" : "");
+>  }
+>  
+>  void amdgpu_pm_print_power_states(struct amdgpu_device *adev)
+> @@ -943,9 +917,9 @@ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
+>  		return -EINVAL;
+>  
+>  	if (amdgpu_dpm == 1 && pp_funcs->print_power_state) {
+> -		printk("switching from power state:\n");
+> +		drm_dbg(adev_to_drm(adev), "switching from power state\n");
+>  		amdgpu_dpm_print_power_state(adev, adev->pm.dpm.current_ps);
+> -		printk("switching to power state:\n");
+> +		drm_dbg(adev_to_drm(adev), "switching to power state\n");
+>  		amdgpu_dpm_print_power_state(adev, adev->pm.dpm.requested_ps);
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
+> index 93bd3973330cd..62967876888a6 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
+> @@ -23,8 +23,8 @@
+>  #ifndef __LEGACY_DPM_H__
+>  #define __LEGACY_DPM_H__
+>  
+> -void amdgpu_dpm_print_class_info(u32 class, u32 class2);
+> -void amdgpu_dpm_print_cap_info(u32 caps);
+> +void amdgpu_dpm_print_class_info(struct amdgpu_device *adev, u32 class, u32 class2);
+> +void amdgpu_dpm_print_cap_info(struct amdgpu_device *adev, u32 caps);
+>  void amdgpu_dpm_print_ps_status(struct amdgpu_device *adev,
+>  				struct amdgpu_ps *rps);
 
-The intended purpose of the flush operation in linux is to flush the conten=
-t written by the current process to the hardware, rather than shutting down=
- related services upon the process's exit, which would prevent other proces=
-ses from using them. Now, amdgpu_flush cannot execute concurrently with com=
-mand submission ioctl, which also leads to performance degradation.
+Since nothing is printed any longer, it's better to also rename the
+functions as amdgpu_dpm_dbg_print_*
 
-An example of a shared DRM file is when systemd stop the display manager; s=
-ystemd will close the file descriptor of Xorg that it holds.
+Thanks,
+Lijo
 
-Jun 11 16:24:24 ubuntu2404-2 kernel: amdgpu: amdgpu_ctx_get: locked by othe=
-r task times 8811
-Jun 11 16:24:24 ubuntu2404-2 kernel: amdgpu: owner stack:
-Jun 11 16:24:24 ubuntu2404-2 kernel: task:(sd-rmrf)       state:D stack:0  =
-   pid:3407  tgid:3407  ppid:1      flags:0x00004002
-Jun 11 16:24:24 ubuntu2404-2 kernel: Call Trace:
-Jun 11 16:24:24 ubuntu2404-2 kernel:  <TASK>
-Jun 11 16:24:24 ubuntu2404-2 kernel:  __schedule+0x279/0x6b0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  schedule+0x29/0xd0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  amddrm_sched_entity_flush+0x13e/0x270=
- [amd_sched]
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_autoremove_wake_function+0x10=
-/0x10
-Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_ctx_mgr_entity_flush+0xd6/0x20=
-0 [amdgpu]
-Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_flush+0x29/0x50 [amdgpu]
-Jun 11 16:24:24 ubuntu2404-2 kernel:  filp_flush+0x38/0x90
-Jun 11 16:24:24 ubuntu2404-2 kernel:  filp_close+0x14/0x30
-Jun 11 16:24:24 ubuntu2404-2 kernel:  __close_range+0x1b0/0x230
-Jun 11 16:24:24 ubuntu2404-2 kernel:  __x64_sys_close_range+0x17/0x30
-Jun 11 16:24:24 ubuntu2404-2 kernel:  x64_sys_call+0x1e0f/0x25f0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  do_syscall_64+0x7e/0x170
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __count_memcg_events+0x86/0x160
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? count_memcg_events.constprop.0+0x2a=
-/0x50
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? handle_mm_fault+0x1df/0x2d0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_user_addr_fault+0x5d5/0x870
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? irqentry_exit_to_user_mode+0x43/0x2=
-50
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? irqentry_exit+0x43/0x50
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? exc_page_fault+0x96/0x1c0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  entry_SYSCALL_64_after_hwframe+0x76/0=
-x7e
-Jun 11 16:24:24 ubuntu2404-2 kernel: RIP: 0033:0x762b6df1677b
-Jun 11 16:24:24 ubuntu2404-2 kernel: RSP: 002b:00007ffdb20ad718 EFLAGS: 000=
-00246 ORIG_RAX: 00000000000001b4
-Jun 11 16:24:24 ubuntu2404-2 kernel: RAX: ffffffffffffffda RBX: 00000000000=
-00000 RCX: 0000762b6df1677b
-Jun 11 16:24:24 ubuntu2404-2 kernel: RDX: 0000000000000000 RSI: 000000007ff=
-fffff RDI: 0000000000000003
-Jun 11 16:24:24 ubuntu2404-2 kernel: RBP: 00007ffdb20ad730 R08: 00000000000=
-00000 R09: 0000000000000000
-Jun 11 16:24:24 ubuntu2404-2 kernel: R10: 0000000000000008 R11: 00000000000=
-00246 R12: 0000000000000007
-Jun 11 16:24:24 ubuntu2404-2 kernel: R13: 0000000000000000 R14: 00000000000=
-00000 R15: 0000000000000000
-Jun 11 16:24:24 ubuntu2404-2 kernel:  </TASK>
-Jun 11 16:24:24 ubuntu2404-2 kernel: amdgpu: current stack:
-Jun 11 16:24:24 ubuntu2404-2 kernel: task:Xorg            state:R  running =
-task     stack:0     pid:2343  tgid:2343  ppid:2341   flags:0x00000008
-Jun 11 16:24:24 ubuntu2404-2 kernel: Call Trace:
-Jun 11 16:24:24 ubuntu2404-2 kernel:  <TASK>
-Jun 11 16:24:24 ubuntu2404-2 kernel:  sched_show_task+0x122/0x180
-Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_ctx_get+0xf6/0x120 [amdgpu]
-Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_cs_ioctl+0xb6/0x2110 [amdgpu]
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? update_cfs_group+0x111/0x120
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? enqueue_entity+0x3a6/0x550
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [am=
-dgpu]
-Jun 11 16:24:24 ubuntu2404-2 kernel:  drm_ioctl_kernel+0xbc/0x120
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  drm_ioctl+0x2f6/0x5b0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [am=
-dgpu]
-Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_drm_ioctl+0x4e/0x90 [amdgpu]
-Jun 11 16:24:24 ubuntu2404-2 kernel:  __x64_sys_ioctl+0xa3/0xf0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  x64_sys_call+0x11ad/0x25f0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  do_syscall_64+0x7e/0x170
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? ksys_read+0xe6/0x100
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? idr_find+0xf/0x20
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_syncobj_array_free+0x5a/0x80
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_syncobj_reset_ioctl+0xbd/0xd0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_drm_syncobj_reset_ioctl+0x10/=
-0x10
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_ioctl_kernel+0xbc/0x120
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __check_object_size.part.0+0x3a/0x1=
-50
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? _copy_to_user+0x41/0x60
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_ioctl+0x326/0x5b0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_drm_syncobj_reset_ioctl+0x10/=
-0x10
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? kvm_clock_get_cycles+0x18/0x40
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pm_runtime_suspend+0x7b/0xd0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? amdgpu_drm_ioctl+0x70/0x90 [amdgpu]
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __x64_sys_ioctl+0xbb/0xf0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? syscall_exit_to_user_mode+0x4e/0x25=
-0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? syscall_exit_to_user_mode+0x4e/0x25=
-0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
-Jun 11 16:24:24 ubuntu2404-2 kernel:  ? sysvec_apic_timer_interrupt+0x57/0x=
-c0
-Jun 11 16:24:24 ubuntu2404-2 kernel:  entry_SYSCALL_64_after_hwframe+0x76/0=
-x7e
-Jun 11 16:24:24 ubuntu2404-2 kernel: RIP: 0033:0x7156c3524ded
-Jun 11 16:24:24 ubuntu2404-2 kernel: Code: 04 25 28 00 00 00 48 89 45 c8 31=
- c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8=
- 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 =
-28 00 00 00
-Jun 11 16:24:24 ubuntu2404-2 kernel: RSP: 002b:00007ffe4afcc410 EFLAGS: 000=
-00246 ORIG_RAX: 0000000000000010
-Jun 11 16:24:24 ubuntu2404-2 kernel: RAX: ffffffffffffffda RBX: 0000578954b=
-74cf8 RCX: 00007156c3524ded
-Jun 11 16:24:24 ubuntu2404-2 kernel: RDX: 00007ffe4afcc4f0 RSI: 00000000c01=
-86444 RDI: 0000000000000012
-Jun 11 16:24:24 ubuntu2404-2 kernel: RBP: 00007ffe4afcc460 R08: 00007ffe4af=
-cc7a0 R09: 00007ffe4afcc4b0
-Jun 11 16:24:24 ubuntu2404-2 kernel: R10: 0000578954b862f0 R11: 00000000000=
-00246 R12: 00000000c0186444
-Jun 11 16:24:24 ubuntu2404-2 kernel: R13: 0000000000000012 R14: 00000000000=
-00060 R15: 0000578954b46380
-Jun 11 16:24:24 ubuntu2404-2 kernel:  </TASK>
-
-Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
-
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 13 -------------
- 1 file changed, 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index 2bb02fe9c880..ee6b59bfd798 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2947,22 +2947,9 @@ static const struct dev_pm_ops amdgpu_pm_ops =3D {
-        .runtime_idle =3D amdgpu_pmops_runtime_idle,  };
-
--static int amdgpu_flush(struct file *f, fl_owner_t id) -{
--       struct drm_file *file_priv =3D f->private_data;
--       struct amdgpu_fpriv *fpriv =3D file_priv->driver_priv;
--       long timeout =3D MAX_WAIT_SCHED_ENTITY_Q_EMPTY;
--
--       timeout =3D amdgpu_ctx_mgr_entity_flush(&fpriv->ctx_mgr, timeout);
--       timeout =3D amdgpu_vm_wait_idle(&fpriv->vm, timeout);
--
--       return timeout >=3D 0 ? 0 : timeout;
--}
--
- static const struct file_operations amdgpu_driver_kms_fops =3D {
-        .owner =3D THIS_MODULE,
-        .open =3D drm_open,
--       .flush =3D amdgpu_flush,
-        .release =3D drm_release,
-        .unlocked_ioctl =3D amdgpu_drm_ioctl,
-        .mmap =3D drm_gem_mmap,
---
-2.25.1
+>  int amdgpu_get_platform_caps(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> index 4c0e976004ba4..d806471a5ce11 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> @@ -7951,12 +7951,12 @@ static void si_dpm_print_power_state(void *handle,
+>  	struct rv7xx_pl *pl;
+>  	int i;
+>  
+> -	amdgpu_dpm_print_class_info(rps->class, rps->class2);
+> -	amdgpu_dpm_print_cap_info(rps->caps);
+> -	DRM_INFO("\tuvd    vclk: %d dclk: %d\n", rps->vclk, rps->dclk);
+> +	amdgpu_dpm_print_class_info(adev, rps->class, rps->class2);
+> +	amdgpu_dpm_print_cap_info(adev, rps->caps);
+> +	drm_dbg(adev_to_drm(adev), "\tuvd    vclk: %d dclk: %d\n", rps->vclk, rps->dclk);
+>  	for (i = 0; i < ps->performance_level_count; i++) {
+>  		pl = &ps->performance_levels[i];
+> -		DRM_INFO("\t\tpower level %d    sclk: %u mclk: %u vddc: %u vddci: %u pcie gen: %u\n",
+> +		drm_dbg(adev_to_drm(adev), "\t\tpower level %d    sclk: %u mclk: %u vddc: %u vddci: %u pcie gen: %u\n",
+>  			 i, pl->sclk, pl->mclk, pl->vddc, pl->vddci, pl->pcie_gen + 1);
+>  	}
+>  	amdgpu_dpm_print_ps_status(adev, rps);
 
