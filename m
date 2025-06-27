@@ -4,147 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A2FAC7EE33
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Jun 2025 09:03:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26305C7EE31
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Jun 2025 09:05:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEAE710E982;
-	Fri, 27 Jun 2025 09:03:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4A8610E98B;
+	Fri, 27 Jun 2025 09:05:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="udtLWfje";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EOKaWFpa";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2069.outbound.protection.outlook.com [40.107.102.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28C8C10E982
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Jun 2025 09:03:10 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13A3810E98B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Jun 2025 09:05:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I7fxwYVhW4w+Kp/k3viSwhKtOVvY8Jqvkm+5ZU98+FSBy1UdBKiuQJynsrJ4PSPJ6slqY+ktUdidguRPY+iNtQhnEzLm43pbOMSTTQZZJPJcOv+6xOxhQZ6uO46g2Y/UNbjwaPVzUvB/IZz/hGQsCNaQnMzqkTB6WzRtZ0CWlZXn+I6bBtJthCiBucr9dy7UYj1GG4c5G/AI7aYlfgM/qbxpBsbgresrPrp3xrpcg0tIu6cNkC29Go28bEdcdQfnqz4EF7x++XRENh8WBg41aydAfAcKVDcrNCrYgXo0bZNfjUDh/58Yw+cBrFo+AOj0fz2CKvXWogH968UiOJZVnw==
+ b=SEt3HvSWgLCMrH3mpdoivzkKKaqxAuNd4mNjUX1Yj4kV8VPDZStKr5t+1VrYjD1/lYpYb3oG77r+Zh87h51q6vnJID0O9voE0SAKQKoLFKtUfVOBR1qlp3XIuV7CG5Ubu3jd3VRzvCfH1mnowqQMU2IxKiwINg6Eg8ajaDRKm+s0tmXsyL5cLCYT+Z9/W31te1pHPUBBQ/TfdDbXlyEHwQ3RxuRe2ypfeXOeVkuiEVnsG9j2l4mzaPb3gMkdEfhv6JgVP7bO9Q6/+enXOvyUjQNghOuTsDu0iTGDEGEyI9TdOX3gQpQrIyXFbslbqLja3rhIpX5oXrVNgyTLFoOjBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4xWE9Pp6SlreaIzS/3hNz8aykhpXE5XX00p9w6LE+zw=;
- b=R+YgtdbPA/Y5O1D4A6+e0ZSa/rO/itLIuhlmja5e74Hmou3NiX7Pov3rY+5xrM+LLkpn2tlek4jHwxOl8MGSKPDxnXH0g8MjSmK25Zbq1xLV/RMbjJuVgCzV5gP89boGR89Yo2sW1zmq4t2bJ5DihLCgqGCPQ/wCfTko3PLvoXxbGNwk5drTQ3oWyMWh5I4HlgWkYmlgwmsZKYPkEEigWjhYpqSuFUYFp9p+nD9RbdrsZ9RmO0tu/BiQK74g543N+gsNSCUooAaa9c0FBhQn5Dozd7vRnj5+T974ui4B2ryvXe+dvka+I3/3UOJM66H4V9GjhgWoJzqvexzRl3KV9g==
+ bh=Z5usTZAeXzEwU/g4eIpQj4PaE25UJwP56i1FUayWjZs=;
+ b=Bga5jLnyNncWQH49L3mLfswFd9jttREiIzFl/j7nOUwtMK+sMU0jHf4/6W45jGtfONTNxHUSQ85ef7bdMudzrf8/T6vVJgdnIHedfEKYFLNqGnb9Vx3/8yUvzFDS+2l8h89CD4JrFC/+sG8ZyNhOnvc7nkf00c1JOzzoPKBeZLxTxWi+j2KQQ6Iif6ORtAGW5Pjjkc64cjNi4wtxkih4p8kH1s31LjPKtgNw2EANPFF5+a4Y1Q1XWbPr+QQ1u1/EF1ZHib25uMDlgjqnw9jBgSXQbE2rUMJyasdATC8oV+wqoyWLUKUBYOD6n7HVYblqEfYOEdGw+oHOzcTvNM/3oA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4xWE9Pp6SlreaIzS/3hNz8aykhpXE5XX00p9w6LE+zw=;
- b=udtLWfjez1FYG1YHIvAhaZZt8WkSR5tElgtp8tLlmCuOSRLX6myL/CDhuXqGWHK2/YZymcldbqeDayZTlOLD5S71+2hIFihCOxJCpt/zW5nCDpUYh+/pWPReechDI92h+osXO+eqrsaPL+r9kb3O6BZ1M0VwyYBgQFHKEaQTmVA=
+ bh=Z5usTZAeXzEwU/g4eIpQj4PaE25UJwP56i1FUayWjZs=;
+ b=EOKaWFpaduU8TFNmavppNsbj8lIhsOgMz31e7s2jHXiEqOANjbhnC0VubfDZDu1GLq7kWWnJKj1vqe1abJA7taPZJo085HGKIzfFYkan5uBYTi8uOws437H5bPrtLvj4dN5EBoJJsSliT+Nm4CsTje0JHdwbwpRYHZiV9Of8v2A=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
  PH8PR12MB6985.namprd12.prod.outlook.com (2603:10b6:510:1bc::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.30; Fri, 27 Jun
- 2025 09:03:07 +0000
+ 2025 09:05:24 +0000
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.8857.026; Fri, 27 Jun 2025
- 09:03:07 +0000
-Message-ID: <89d80032-ba6a-40a5-a621-d65e13ab977b@amd.com>
-Date: Fri, 27 Jun 2025 14:33:01 +0530
+ 09:05:24 +0000
+Message-ID: <f115ae1c-c838-48d9-abc4-01e1fe01baa5@amd.com>
+Date: Fri, 27 Jun 2025 14:35:18 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] drm/amd: Decrease message level for legacy-pm,
- kv-dpm and si-dpm
+Subject: Re: [PATCH v2 3/3] drm/amd: Change kv-dpm DRM_*() macros to drm_*()
 To: Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>
 References: <20250626023855.4026084-1-superm1@kernel.org>
+ <20250626023855.4026084-3-superm1@kernel.org>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20250626023855.4026084-1-superm1@kernel.org>
+In-Reply-To: <20250626023855.4026084-3-superm1@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4P287CA0067.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:267::13) To DS0PR12MB7804.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0136.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::21) To DS0PR12MB7804.namprd12.prod.outlook.com
  (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH8PR12MB6985:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c1a71ca-66fb-450d-e242-08ddb5596eb3
+X-MS-Office365-Filtering-Correlation-Id: 43b1dfd1-7254-4fda-9178-08ddb559c031
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?S2NibHUyUld1dHBXR1YrTlJnWU5lcDlNMS9zU0pIN1VNbGJOOWtCNkpxT3N1?=
- =?utf-8?B?d2M1RmZpV2h5bWxYNE8yRXpMMTNuUjZoVDdzQit2WkJjQnZJS0ZTWXNydFM3?=
- =?utf-8?B?Wkg0YWdoQnFWMjN2bGIzeTQ1em5MdnY3YytJZnUwZDVlRE9xK2YvN3hsVVR4?=
- =?utf-8?B?ODZsbVcrYVliQ3pISDZORW1xU1JXUkJQVW5UcXJVNnVwS3JzaWFNRlJHNjNK?=
- =?utf-8?B?eElNSjlTTzFLZ002SkUraGw1T0xFMnB2ZXVXeVhOQ0M3ZExPeHNlUFlFczZW?=
- =?utf-8?B?T2dKQ3RuTmg4dXNaeUcxRERlR0Q1SFd5VUMzY2QwVmtNWHNnN0g1TllTUFo0?=
- =?utf-8?B?RHZsWUJuVWVEMkJuTkVSWEhYTGk4Um1KK2dPVVQvZ3JNTVZ5dXZFSkgyODN6?=
- =?utf-8?B?QURJSFB3MytTaGI3aUU4ekhzNVpaM2JnS3Nhdk8wQkRJMHN4MXpuYUdIUTFG?=
- =?utf-8?B?YkU2eVdCK1luNE9waU5KekpobmFwYXFuYXdNNkVNN3lRbmdvMkovVUNNUGl0?=
- =?utf-8?B?dEsvTjNRWlBmWTFKYWRrVDNLeWRWZW82V0lOWTFPd3JCMlVJU3o2Wjk2SnNy?=
- =?utf-8?B?Y3dGR2ZmTGxjQStJeVlYOGxDMFM2UnQxRGVKd1NYODZRUkd4RmVRSW9XbDBI?=
- =?utf-8?B?c1NtcEF2cW1qZktLUnFwT2RVNDIvYmhQalZ0MlprMkVhQlBoSzNydnJvdmRW?=
- =?utf-8?B?OGpNQkZRUVBMUFlyZm9QYUcvQmZUOGxqbW1xUytRZWJkMitRZjdJLzk3MHN1?=
- =?utf-8?B?V241WGRlUFAxbVRVM0xGUVpGamJUQVB5b0t1VktlVHpRSmxsOFJqN2ZUYWs4?=
- =?utf-8?B?QU1VQlhqaXVaVnAzQkZmSnNLUVFJVXUxYVM3NWF0M2w3TkZaTE9nQ1BmZGN1?=
- =?utf-8?B?NFJNWmNxT1FKd1pzYWtGbVFOUGxMT0NqbUMrNk1QN1Q4QXJCZEhzWjVNN2hQ?=
- =?utf-8?B?eFhqZjJrWWlkS0toZGZSTVFsTjdwWGxTck5EekFkaUxwT3dzaXFBL1hGL3ZC?=
- =?utf-8?B?Mm5uN3Nlc2luM00rOE1JS3FIOG9MYk9obFJQRldxUUNGTEgyd0JyU3hWcFIz?=
- =?utf-8?B?Qk04eGp5QmlZZll5RlpacVM1M0hmMFJ0bTFsOUpMck1RL1FRRTZoT0I0VW5p?=
- =?utf-8?B?TTkza2hEWm4vODd4YkVySXZDMm5RMnhocUNkUmxRSG9Fb3ZUclVxNXZMVmNn?=
- =?utf-8?B?OGYrY0pJNkovTzU1OXFYOW1qeGljK0wvTEFlMFFjV3gvYTE3MCsyb3dxSUxa?=
- =?utf-8?B?Z3VSR3dUWDF1ekhZNzZvQnQrdXJ1eHZSbkJlK05wUlNhdjF3bUE2R2k0RUcr?=
- =?utf-8?B?Tklhd0pZZUJ6MnFOYzdkV2NRYmVQMnVQWXBPMGNkUWZkaWRaZmVtZ1BsclFq?=
- =?utf-8?B?aHRodmszYUEwSzNKQjlWN2d6VUpVQk9kRnVZMG9DenlMcGtiQjhqV21Qd3Ew?=
- =?utf-8?B?Q3JEU1lZNlN2YVA3aENXdzU5TzlBbWtXaFpXSSttbnNSd3VRc3E0NDJoQkVx?=
- =?utf-8?B?VW5wN0VYczBDcnRpOU8xUk15Z3VVY25zL1pXQ3ozbUc1ZHdyVHFwT2FMaGJR?=
- =?utf-8?B?bFNtd2haRkpJY0U1ZUhzQTJGUERYcXlLbHlFZ1c2WE0vU1YwTkhyYkFQcGNZ?=
- =?utf-8?B?aGdpQllxd3hTOEpCem9jYmxJeFlHdHhkNzJZVWFvcDd6b0gyUC9VZFJocUU3?=
- =?utf-8?B?V0FackdtM0ZWdXp3YzhtUy9CeTZIZVh4L0xlQWptYWV1K0FSNnp3MENIUjg1?=
- =?utf-8?B?dXNYNC9CWk9PTnVuQURFbjNBaXBLM1ZKVFJMdHh6KzdlRUNoeWJsa1laVmpU?=
- =?utf-8?Q?GJCaDKWBIBoUyLNGf7ZfxqRmRVYVRl+NPgh9Y=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SFkrL1BkdE1WcXZtSUYyYXduRTVQSW80akVPS3RUa1ZVREZiSXhUcGpWcmRM?=
+ =?utf-8?B?dG45bysrY3UvK2UzZ21FRzVVR0VsVXMrSnczZTRKWVVFdThJZC9kN0dLUzBX?=
+ =?utf-8?B?a01MOHN2djV5YWswYUVWemxXMzN3NjJoM2M2WkIza2NCZ3JrOVdPdXZ5MTlX?=
+ =?utf-8?B?Q1FPUEo3Y2FrNzRleUJPVFBRNCszZEx5MWExaDJLWXQ1cHJGU2JNblkweEZk?=
+ =?utf-8?B?LzZSa0IyaVZZNmJrUFJsOVVBemN5cFUwUmhPVXZCVEZRa05pa3pvRjJrYzlH?=
+ =?utf-8?B?dU9KS25ka1hzYng4Y3ZDSzlIak91TUJKaHAyVGNSQkJjMi80TE0xdGJiN2ZI?=
+ =?utf-8?B?TE9obURvSHJyK0htS0Vka2d4eFVQMFl4NVVqWWM4dW92UUR5eDNLWnlUeUM0?=
+ =?utf-8?B?R0l1dWxlb1dIa3JhRzdmWjhxRFdxZ0JvY0ZlZ0tVZE5mK3lzUDNCalRPbEFH?=
+ =?utf-8?B?RWV5VHdOVDl4TC81R1pjN1ZmbUxWcWcyR0pGMGM2RFd2R1hPTjNsVFRjYXgv?=
+ =?utf-8?B?OWxrekh6dExHMXl5VmVkQUZxVjV3dHVlM3NsTk1JK2VvMjlCL1g3YU9Td3Rl?=
+ =?utf-8?B?ZFlpNFJ3NHFJWWp6UkFwZkV6WndsM01uUW9mZkNJM0lXNEZFclhYQnh3cUlI?=
+ =?utf-8?B?QktacTN0WFU0ZTd5dHROYktDZmVibHBMT3gvaXJ1RER4K3V6UDlaWnF5Yits?=
+ =?utf-8?B?SUxjYUszdjhNMXZDbTdIbWpjVS9CQU9kYjlhL0Q3Y0JCN2RJTStxTzhEOS9v?=
+ =?utf-8?B?V1hQYldSMWJsYWdzVzFoamZlaGtnelNtVTI3REZ3SWZIdzBha0IvbmZZdWNG?=
+ =?utf-8?B?UE1DbUxJR1FqN29uY2dOWndXeXdUMTd1UnQ5NWtNZnJ4RDdzMWtMYVVtb0h6?=
+ =?utf-8?B?U1RMblcvajNlSG5oYjE4dFdvUnhxUUEzVGVoRTJYL2QxVEE1ZUl5RG1sZ09W?=
+ =?utf-8?B?eXRYbG1QV1MwRkxDVWRoU1hvcWtyVGhtaHhQMjgvdUk2cHBrWWxQVGQwc1N2?=
+ =?utf-8?B?Q3g5czJZTFB4ZEZrWFJEeFEvSmRXWHl4bmh6ZTdwSVBqTENkQnI0dGJyalVH?=
+ =?utf-8?B?RHlqS1BYcStiQVJzK0UydTNyYk1rZGoxbDhRYWszUWEwUTEwbU42dWdndUpu?=
+ =?utf-8?B?K1czQUZIaXUybXFvRTM5eTBRM3VCWkl0ZjJ4cUlzcHJkaGRmOE9hM1k3WG05?=
+ =?utf-8?B?SStHZnlHamkxSmJTL2xXQlJFR0xKNWRLQTVyU1lKRythekQwSStPR0J0NGZQ?=
+ =?utf-8?B?NUQxLzZpQlIwM29ERGViZS9NYis5WlR2NTJGMTUxc0dRbTJZWmhuOTVmOEdj?=
+ =?utf-8?B?Yjk1L1lsU3p0VHE1RFNqOU5vL2VMdFozdnA5V1NGbXpyS0VvaXlzTEN0TGhv?=
+ =?utf-8?B?aFovVUYzSVczeDdPZnJEUjNMNFJhRWxZMEFrNTBoNmFpUml0bkVxNXU1eU9D?=
+ =?utf-8?B?SGFYaTFxR2Z0R3lzUFFJY2VwOGlMZWR1QTJGUXhzQmFTb1RHOC82bExnK0Zi?=
+ =?utf-8?B?Y1N3NVdxZUR3eVdjc2RyMDZpRlhZc1RROVd5dUZDVGZneklRR3N4enlTdFF5?=
+ =?utf-8?B?N0grYmUxcDFnYXNCdm9XNi8vVGc0emUxN2VPUktFTndMMTkxUlFaTzgwTklW?=
+ =?utf-8?B?MTUzMXJ4dDVhY0hYZ3Z0dk1BTms3RHZqRDVZNXZxblBqTlNjLzJEM3Vtak1F?=
+ =?utf-8?B?Q1JwZXg0WDRhM29VbExPYnhLNHlNQXYxNjZqQU1xd0llazhaekJCWG51V1Fr?=
+ =?utf-8?B?SUdLZTJlOHFPbFR2eUUzekh4S1RKcVQrbnpkWXhiT09SUVFURHFEaUVXR3ps?=
+ =?utf-8?B?TFBPTjdRY3JOcHU5d1ErNGhsRXFGditQS2RYUEpFSUJrc29wbUxBdHExRlk2?=
+ =?utf-8?B?RWZhME9JYmFzaGh5aUlNTU9kRHQwaEpEaks4ejR0Njdac0ZjQy9wblhQaGps?=
+ =?utf-8?Q?rBxhPJT5MTk=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEo4SGRRWS83dS9rODF6SmliR3lEcW5lZDVrNGZCelU0c3VqVjRJNFRKSW1y?=
- =?utf-8?B?bDhtemd2UnRPa09RVmVsU0VnMGxxYkZuS1ZzYjZiZmFreDNnbnFzT0MxdUk2?=
- =?utf-8?B?Ti9KalE3NkZiQzZoOVh2U0Z4ZlFUR3RjREFqMzdBRVVnNW5WU045bEpZanhY?=
- =?utf-8?B?aG8wUmN2bUhySWo1ZlE0YnNlUDNjTEdrR25SaVc3Z1V6QkdYQU0vQXRvR3p1?=
- =?utf-8?B?NHBhSGpYSExndXJuQWNiSWpKa2UyMXZhNWNNbDZpNXVleGxpbFprUGVuNjA5?=
- =?utf-8?B?dWpPWlNkY0FoMko5MldhTmd1L0hYVXY1dlA3VWdYQ1MwZjgrVGZhblJqQjU5?=
- =?utf-8?B?MHQrQVFKUUwxZlR1NGx6WjM0bXIzTldsc2NvakpnczBNUzVaeFdER2RHWngz?=
- =?utf-8?B?eTkyUE53WmxEQTZaVFJ3cElaVzlOR3IrczkwYVFMRXBCMk8zNkNERWpKbm1u?=
- =?utf-8?B?VkcyM1Y0cDZ6cHhOYWhBSXlzQTVjT09jS0NaZVRYVkZBYTFuSEc4bjRvOUxF?=
- =?utf-8?B?MkxVMlhnVHZNWGkyWUI4L3lBTnU5SzVYRFJkb1FXQzFaMWdzVXp2L1lmaHRT?=
- =?utf-8?B?QjJkNjgrcW56elFVY0txUHVpZy9UWlh2ZXhINUR1dHVWOHZQR3FwYWd3QkEr?=
- =?utf-8?B?M0I2M1ZvK1pLTlVNNG56RGkyQVdMMzVicHBQZEFjRTRmY0FtdUUycXoyeHVt?=
- =?utf-8?B?dVkrU0paY253Q1dzZEJyOHVjVm95cWJOMDI2dlltZjB2aDJZMmJnWk5XRExr?=
- =?utf-8?B?OHhKRVdKT1pTL2E2d0h0cGZGdUFsbDMxNmhZcGsvQmdQZWg4WFYzNzdubGZE?=
- =?utf-8?B?UWxPbmxVMzk3RzVmbFBVOEkzeGVNb1lwdm5ob3BzK0c3MWEwS1l3QWU3M3Jo?=
- =?utf-8?B?Z2M1Nm9mOXUyTjZYU01TcVp4ZlRCemtvQk9tcGo5Ti9xZ0d3MVR1SDBuc1Ra?=
- =?utf-8?B?NUhwRjVpd09IVmQ4amR4ZEI4OGdoY05EUkRuNUtzNzNLak1hRWVDUkU0K1RX?=
- =?utf-8?B?dnpaTCt6VndmWnI0b2Uwb0s4Sm9XMDU3enVHTi9DZ1k1cG0xa2haeVhXUVFZ?=
- =?utf-8?B?Q1doT3IwMzA2REJRUmYwTWFsVFM4Q0VuRTBNWDRQeUgxQXphZ3MzTURRaTdr?=
- =?utf-8?B?WEJMU1E4Z0lsSzN1N0tvVU8yODBtK1lOdzVKQ0l4RDJIcGNtMmJXaUFtOGhJ?=
- =?utf-8?B?SEsweW96K2RVUWNaREg0aUNYWnpnL0VFZmJDMjdFN2VCNDRjTURTaFlHdmN5?=
- =?utf-8?B?RElyVmdKVnNxZDNyVE1lSHdlcjdNcHI3M0lUVm5RYllrUVhyUkVyWnFGa0pV?=
- =?utf-8?B?ZlV3eHBwWk5YeUgydUFyb0pmS1hJMTAzKzFnNmJOTGVCUFBIcTNzUENFWHZy?=
- =?utf-8?B?Q0g1cE5zVFVyUU40b3JEcUw2aTlkVEp5YmJrZ1FVclh3Y0swK3QyYzZDMk5K?=
- =?utf-8?B?SiswSnhwWnZBYkNvczBwYTkwSzlLQWdENGwxMXROZmhydngvb3hlNXVTc2Vv?=
- =?utf-8?B?M2VsbmxiSEQxYXlFQzlBR3lqNm1RQk1ET3hFYUE5WHcyejBnMDZwb1ZFL0xx?=
- =?utf-8?B?bW13b3dOV2w4ZGVWR2JqVHNBQ2dPTVNQN3d6TWlnNml5TkY1a29GbDNWWVBi?=
- =?utf-8?B?bkIrV2YvcGZWUmhwR0o1RTBQYjZ0ZHVRRlJOVmhIR1hlZFRJQ2RsMm9la1l1?=
- =?utf-8?B?MVRydjkycUl4S0FxY3ZJS2JndWJhUlhtcVdyMmxQSjZsMDk1ZVRlSWhSZXJ6?=
- =?utf-8?B?MnJ0RkE4bXFRT2tRMW85ak5VTyt1VnN0MkFNYWVyNE9VU09nQjI3d1ZCM1Bv?=
- =?utf-8?B?M0pZWVJzdzV4ZjN0ZTF0OU5lMWpCTFhBRHR3ZU55Uk8rK0x2bXkyK0hzZmpU?=
- =?utf-8?B?cWR1ODMzRWw3NG1sU2V5ZFQ5RWJTS0pnM3hYbGFwN0JqZm9UNHdHVWRsTE8v?=
- =?utf-8?B?K0l6SHJDNE9GMERHNXZxeXB3ay9yM2V0bzRrWXlCQmo5RUV0WXNFOUV0Y0pw?=
- =?utf-8?B?eUhXMVlOWk5hUFJTcitGWUc4ajhHTExKWnVnQjlSYWc1QUlOWDJsblZnbGls?=
- =?utf-8?B?U2QvTmdGSlpxM3RrVUhNTmMvUkVzQlBOM1N2VVlxTENUY3lFTUpWR0RKR1dj?=
- =?utf-8?Q?MaOyxvlGf5qYwWhO9NI7TpVUn?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXZweHp0Yi9ObTBPdG9lUzJFa21ENTB2eWc2YUc4U0U3TDdGdStsQW5rUVIy?=
+ =?utf-8?B?aE8ySEJDaDM1RE9ZNWpjNG5SUHNNRTFpNFM0VG44cWYrZHExOEx2bUkyK3FK?=
+ =?utf-8?B?Y083RDE4RnlVdzFJcm5nZ3loVFlEN1VNY1hFU24wM0pIbkE5T29GTE5QdW10?=
+ =?utf-8?B?cGdFTmxWQ0dmNHlCQ0lnUmdmYzY1RWx2T3VINDFaSHpzMitIWmVUbSsxWU5j?=
+ =?utf-8?B?Zm4rN1NyeHo1bzNHNWhPbjF5ZVFzanhocEtKNXdpTlpOWmRjQktsZSsvR0VI?=
+ =?utf-8?B?TDY4STMwY0tTZVpGd3ZHMWtxMXpOaFQ2Tzl2MnB3WVVsbEF1VHhvY2U4ZEc0?=
+ =?utf-8?B?TDN5TzRWcHlhTHpFWnFwZk9iaCtuMXJtenhHeGJmM3dlVmhHZjBzQlNNWXg1?=
+ =?utf-8?B?emExbDVneXo2TVBtajJlSFlNS0V1eGIySUZCazhaRHlzK01IajNWNU1hRDYw?=
+ =?utf-8?B?a1BzTXAzY2UyM0JidGx0eEYwOTFCeHMwS3FqRWdLajJIYUtXOXliZFNaODBr?=
+ =?utf-8?B?eXFOcHlsODVSUFgzZXNpZ0dxL0dEb21TMWttOVJ1UDZDb04wK0dMN0pSRWRN?=
+ =?utf-8?B?NFQvVk1ocnlZMW9mL2UwRmpidGN2cVNOeFJ6RnVjRnJYdllDdWZlb1hDMEl2?=
+ =?utf-8?B?cHVBNkoyci9DcWhTblNEZ09qdm9FTmNHbHlMeGpQVi9zNWNONXFYaVVtVWtW?=
+ =?utf-8?B?citpQTdiNzFsTWlYN29yVHBRWlV3NFRlMjR0Vy9jNHB1U3B6TlZWMXdYS3F0?=
+ =?utf-8?B?NDFRUzRVeW9mdmp0SzVPQXJlWk1xeS8yWnltcXVZMWlpVlpoTndRdGd1Uk9V?=
+ =?utf-8?B?RmtDeVVBN1M5aCtLeU5hZDBaSGE3NytkaTlOZjIyZVlCRW41VnZoK0tRSHRh?=
+ =?utf-8?B?UmY2Y0NvbHdUUy9XSFRhR0NwWjBYMms0ME13S29lUEN4SW4zWkVpdWZXbWMw?=
+ =?utf-8?B?SDg0eWt5U3lBYmZpdlZYVlN0SWdwR2VlRnpWdm1yaDVxMmN2VDJlNm9nWWk1?=
+ =?utf-8?B?OUZWUElKNjJCdU9GU0FDa1FyOFZnbmxUOForUXZGK204NHRjazhjTnBva3ow?=
+ =?utf-8?B?eGhnSFFHNTZBNExGQ0pnSDMxVjNFd0wvT2VRZVpNUmh4aCticzRCS2w5bUZi?=
+ =?utf-8?B?ZW40K3lnb2Q1YnZ3ektiZk5WTTdydWdJUWZzWGhLTFg0KzR2bkQxL2VDbjF0?=
+ =?utf-8?B?dUdtK3ZLS1c1dUJSNVR4VnM2bXp1SDlyUVV2MVNrK3liYTU4V1ArVTE3SXBZ?=
+ =?utf-8?B?cERUVnpZT1Rab3dtQm4wRkx2TytQM3huVUNOeGo2SHZiTm9KT0I5Zzc1Z1Bm?=
+ =?utf-8?B?ZlBtRXBlMkJpK256WCtiOWs3OTBNT0N3WW92RjdFcEhsT3pMeUVDbEg5UGFD?=
+ =?utf-8?B?bGZmVW9wL1h2L2tRcUdQNEJrTlI5M3lNZW05RlNYTEx5U2pOa3dteXFFd21q?=
+ =?utf-8?B?OCtYVjU5cFo3M1BaT0ZiYm9FcUlKN0QrcWFiMXc2bkw5VUJEcUU4RjdFMUNh?=
+ =?utf-8?B?OENhbjFNVnlxU3Zia2hVMnBpbUVxYUFDakxtR2FFRHB3ejg5MTZ3bWk5d0V0?=
+ =?utf-8?B?ZnVKbFpOQkpPMEl6TGxPYlBKb2RrVHo4dURaOXJKRHVHVkNyL1gwalZGdWh3?=
+ =?utf-8?B?TmduK1BsV092dlo2SFdYa0VORzgweHZ1clIxZDR3Zmk0eE9LR25UcU9pS0lN?=
+ =?utf-8?B?RlZuWXZ3QlFucXhjQk44VWQ4WExqTGNlUFNPdXdnN2NlWXUwcFNBK0IyT1R1?=
+ =?utf-8?B?ZmFtSzViV1RjYnZmYnlQVjlWSE1DZjJKWmQvV1p4dlZZbnBsS2ZDYXhlMHFW?=
+ =?utf-8?B?QXY1MTBDeUw5NGxDcGx1WVhZRHRxNDZqb1gzSFo4OFlBOGVpZXVJd01nRjc4?=
+ =?utf-8?B?ZmpYUWw2WlZYZUZwM04wMmw3c3RqZnNJUG9YWTRkQTFMVkxJTVhmNmhIVXhJ?=
+ =?utf-8?B?aVRvU05HTjc4alFlQzdCelk3a1BpbFhMV3BmdmhOZDJIUFA5UWU0YnJuTTFw?=
+ =?utf-8?B?anZjZDJZT0huUVlkR1lVdEM1ZVRuYlY3WFNNdk9WWVJDUThkV0lEbGp5eUg4?=
+ =?utf-8?B?Mk5SZzhteHM5M3poSEZFTzEybkJQNXd1TVE2T29UMC9Jd20vc2J1Mk1ZUUhF?=
+ =?utf-8?Q?hO4sZgvP386aYnUKBfnTTeMwf?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c1a71ca-66fb-450d-e242-08ddb5596eb3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43b1dfd1-7254-4fda-9178-08ddb559c031
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2025 09:03:07.4747 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2025 09:05:24.3579 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pF7iNuRuyIDJppqcdD38rMkKNXe2FnDpwK2Q/af3y5IUky8yi1JZESzMbPiECXMR
+X-MS-Exchange-CrossTenant-UserPrincipalName: cPfL/Sc8lpIFWMPa0QeT/xQeBbVAAOuetZeGJGfYtKwj5SEzjUHBo2HiIHZnwM6P
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6985
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -165,214 +167,242 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On 6/26/2025 8:08 AM, Mario Limonciello wrote:
 > From: Mario Limonciello <mario.limonciello@amd.com>
 > 
-> legacy-pm, kv-dpm and si-dpm have prints while changing power states
-> that don't have a level and thus are printed by default. These are
-> not useful at runtime for most people, so decrease them to debug.
+> drm_*() macros can show the device a message came from.
 > 
-> Reported-by: Alexandre Demers <alexandre.f.demers@gmail.com>
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4322
+> Cc: Alexandre Demers <alexandre.f.demers@gmail.com>
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    | 14 +--
->  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    | 90 +++++++------------
->  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h    |  4 +-
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  8 +-
->  4 files changed, 46 insertions(+), 70 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> index 34e71727b27d7..81a6134bd56de 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> @@ -2886,14 +2886,16 @@ kv_dpm_print_power_state(void *handle, void *request_ps)
->  	struct kv_ps *ps = kv_get_ps(rps);
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  
-> -	amdgpu_dpm_print_class_info(rps->class, rps->class2);
-> -	amdgpu_dpm_print_cap_info(rps->caps);
-> -	printk("\tuvd    vclk: %d dclk: %d\n", rps->vclk, rps->dclk);
-> +	amdgpu_dpm_print_class_info(adev, rps->class, rps->class2);
-> +	amdgpu_dpm_print_cap_info(adev, rps->caps);
-> +	drm_dbg(adev_to_drm(adev), "vclk: %d, dclk: %d\n",
-> +		rps->vclk, rps->dclk);
->  	for (i = 0; i < ps->num_levels; i++) {
->  		struct kv_pl *pl = &ps->levels[i];
-> -		printk("\t\tpower level %d    sclk: %u vddc: %u\n",
-> -		       i, pl->sclk,
-> -		       kv_convert_8bit_index_to_voltage(adev, pl->vddc_index));
-> +		drm_dbg(adev_to_drm(adev),
-> +			"power level %d    sclk: %u vddc: %u\n",
-> +			i, pl->sclk,
-> +			kv_convert_8bit_index_to_voltage(adev, pl->vddc_index));
->  	}
->  	amdgpu_dpm_print_ps_status(adev, rps);
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> index c7518b13e7879..287a22082c9ed 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> @@ -47,7 +47,7 @@
->  #define amdgpu_dpm_check_state_equal(adev, cps, rps, equal) \
->  		((adev)->powerplay.pp_funcs->check_state_equal((adev)->powerplay.pp_handle, (cps), (rps), (equal)))
->  
-> -void amdgpu_dpm_print_class_info(u32 class, u32 class2)
-> +void amdgpu_dpm_print_class_info(struct amdgpu_device *adev, u32 class, u32 class2)
->  {
->  	const char *s;
->  
-> @@ -66,71 +66,45 @@ void amdgpu_dpm_print_class_info(u32 class, u32 class2)
->  		s = "performance";
->  		break;
->  	}
-> -	printk("\tui class: %s\n", s);
-> -	printk("\tinternal class:");
-> +	drm_dbg(adev_to_drm(adev), "\tui class: %s\n", s);
->  	if (((class & ~ATOM_PPLIB_CLASSIFICATION_UI_MASK) == 0) &&
->  	    (class2 == 0))
-> -		pr_cont(" none");
-> -	else {
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_BOOT)
-> -			pr_cont(" boot");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_THERMAL)
-> -			pr_cont(" thermal");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_LIMITEDPOWERSOURCE)
-> -			pr_cont(" limited_pwr");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_REST)
-> -			pr_cont(" rest");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_FORCED)
-> -			pr_cont(" forced");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE)
-> -			pr_cont(" 3d_perf");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_OVERDRIVETEMPLATE)
-> -			pr_cont(" ovrdrv");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_UVDSTATE)
-> -			pr_cont(" uvd");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_3DLOW)
-> -			pr_cont(" 3d_low");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_ACPI)
-> -			pr_cont(" acpi");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_HD2STATE)
-> -			pr_cont(" uvd_hd2");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_HDSTATE)
-> -			pr_cont(" uvd_hd");
-> -		if (class & ATOM_PPLIB_CLASSIFICATION_SDSTATE)
-> -			pr_cont(" uvd_sd");
-> -		if (class2 & ATOM_PPLIB_CLASSIFICATION2_LIMITEDPOWERSOURCE_2)
-> -			pr_cont(" limited_pwr2");
-> -		if (class2 & ATOM_PPLIB_CLASSIFICATION2_ULV)
-> -			pr_cont(" ulv");
-> -		if (class2 & ATOM_PPLIB_CLASSIFICATION2_MVC)
-> -			pr_cont(" uvd_mvc");
-> -	}
-> -	pr_cont("\n");
-> +		drm_dbg(adev_to_drm(adev), "\tinternal class: none\n");
-> +	else
-> +		drm_dbg(adev_to_drm(adev), "\tinternal class: %s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s\n",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_BOOT) ? " boot" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_THERMAL) ? " thermal" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_LIMITEDPOWERSOURCE) ? " limited_pwr" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_REST) ? " rest" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_FORCED) ? " forced" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE) ? " 3d_perf" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_OVERDRIVETEMPLATE) ? " ovrdrv" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_UVDSTATE) ? " uvd" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_3DLOW) ? " 3d_low" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_ACPI) ? " acpi" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_HD2STATE) ? " uvd_hd2" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_HDSTATE) ? " uvd_hd" : "",
-> +			(class & ATOM_PPLIB_CLASSIFICATION_SDSTATE) ? " uvd_sd" : "",
-> +			(class2 & ATOM_PPLIB_CLASSIFICATION2_LIMITEDPOWERSOURCE_2) ? " limited_pwr2" : "",
-> +			(class2 & ATOM_PPLIB_CLASSIFICATION2_ULV) ? " ulv" : "",
-> +			(class2 & ATOM_PPLIB_CLASSIFICATION2_MVC) ? " uvd_mvc" : "");
->  }
->  
-> -void amdgpu_dpm_print_cap_info(u32 caps)
-> +void amdgpu_dpm_print_cap_info(struct amdgpu_device *adev, u32 caps)
->  {
-> -	printk("\tcaps:");
-> -	if (caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY)
-> -		pr_cont(" single_disp");
-> -	if (caps & ATOM_PPLIB_SUPPORTS_VIDEO_PLAYBACK)
-> -		pr_cont(" video");
-> -	if (caps & ATOM_PPLIB_DISALLOW_ON_DC)
-> -		pr_cont(" no_dc");
-> -	pr_cont("\n");
-> +	drm_dbg(adev_to_drm(adev), "\tcaps: %s%s%s\n",
-> +		(caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY) ? " single_disp" : "",
-> +		(caps & ATOM_PPLIB_SUPPORTS_VIDEO_PLAYBACK) ? " video" : "",
-> +		(caps & ATOM_PPLIB_DISALLOW_ON_DC) ? " no_dc" : "");
->  }
->  
->  void amdgpu_dpm_print_ps_status(struct amdgpu_device *adev,
->  				struct amdgpu_ps *rps)
->  {
-> -	printk("\tstatus:");
-> -	if (rps == adev->pm.dpm.current_ps)
-> -		pr_cont(" c");
-> -	if (rps == adev->pm.dpm.requested_ps)
-> -		pr_cont(" r");
-> -	if (rps == adev->pm.dpm.boot_ps)
-> -		pr_cont(" b");
-> -	pr_cont("\n");
-> +	drm_dbg(adev_to_drm(adev), "\tstatus:%s%s%s\n",
-> +		rps == adev->pm.dpm.current_ps ? " c" : "",
-> +		rps == adev->pm.dpm.requested_ps ? " r" : "",
-> +		rps == adev->pm.dpm.boot_ps ? " b" : "");
->  }
->  
->  void amdgpu_pm_print_power_states(struct amdgpu_device *adev)
-> @@ -943,9 +917,9 @@ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
->  		return -EINVAL;
->  
->  	if (amdgpu_dpm == 1 && pp_funcs->print_power_state) {
-> -		printk("switching from power state:\n");
-> +		drm_dbg(adev_to_drm(adev), "switching from power state\n");
->  		amdgpu_dpm_print_power_state(adev, adev->pm.dpm.current_ps);
-> -		printk("switching to power state:\n");
-> +		drm_dbg(adev_to_drm(adev), "switching to power state\n");
->  		amdgpu_dpm_print_power_state(adev, adev->pm.dpm.requested_ps);
->  	}
->  
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
-> index 93bd3973330cd..62967876888a6 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
-> @@ -23,8 +23,8 @@
->  #ifndef __LEGACY_DPM_H__
->  #define __LEGACY_DPM_H__
->  
-> -void amdgpu_dpm_print_class_info(u32 class, u32 class2);
-> -void amdgpu_dpm_print_cap_info(u32 caps);
-> +void amdgpu_dpm_print_class_info(struct amdgpu_device *adev, u32 class, u32 class2);
-> +void amdgpu_dpm_print_cap_info(struct amdgpu_device *adev, u32 caps);
->  void amdgpu_dpm_print_ps_status(struct amdgpu_device *adev,
->  				struct amdgpu_ps *rps);
 
-Since nothing is printed any longer, it's better to also rename the
-functions as amdgpu_dpm_dbg_print_*
+Patches 2/3 are -
+	Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
 Lijo
 
->  int amdgpu_get_platform_caps(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> index 4c0e976004ba4..d806471a5ce11 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> @@ -7951,12 +7951,12 @@ static void si_dpm_print_power_state(void *handle,
->  	struct rv7xx_pl *pl;
->  	int i;
->  
-> -	amdgpu_dpm_print_class_info(rps->class, rps->class2);
-> -	amdgpu_dpm_print_cap_info(rps->caps);
-> -	DRM_INFO("\tuvd    vclk: %d dclk: %d\n", rps->vclk, rps->dclk);
-> +	amdgpu_dpm_print_class_info(adev, rps->class, rps->class2);
-> +	amdgpu_dpm_print_cap_info(adev, rps->caps);
-> +	drm_dbg(adev_to_drm(adev), "\tuvd    vclk: %d dclk: %d\n", rps->vclk, rps->dclk);
->  	for (i = 0; i < ps->performance_level_count; i++) {
->  		pl = &ps->performance_levels[i];
-> -		DRM_INFO("\t\tpower level %d    sclk: %u mclk: %u vddc: %u vddci: %u pcie gen: %u\n",
-> +		drm_dbg(adev_to_drm(adev), "\t\tpower level %d    sclk: %u mclk: %u vddc: %u vddci: %u pcie gen: %u\n",
->  			 i, pl->sclk, pl->mclk, pl->vddc, pl->vddci, pl->pcie_gen + 1);
+> ---
+>  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c | 56 +++++++++++-----------
+>  1 file changed, 28 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> index 81a6134bd56de..1520b2db6d70a 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> @@ -1242,7 +1242,7 @@ static void kv_dpm_enable_bapm(void *handle, bool enable)
+>  	if (pi->bapm_enable) {
+>  		ret = amdgpu_kv_smc_bapm_enable(adev, enable);
+>  		if (ret)
+> -			DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
+> +			drm_err(adev_to_drm(adev), "amdgpu_kv_smc_bapm_enable failed\n");
 >  	}
->  	amdgpu_dpm_print_ps_status(adev, rps);
+>  }
+>  
+> @@ -1266,40 +1266,40 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
+>  
+>  	ret = kv_process_firmware_header(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_process_firmware_header failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_process_firmware_header failed\n");
+>  		return ret;
+>  	}
+>  	kv_init_fps_limits(adev);
+>  	kv_init_graphics_levels(adev);
+>  	ret = kv_program_bootup_state(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_program_bootup_state failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_program_bootup_state failed\n");
+>  		return ret;
+>  	}
+>  	kv_calculate_dfs_bypass_settings(adev);
+>  	ret = kv_upload_dpm_settings(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_upload_dpm_settings failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_upload_dpm_settings failed\n");
+>  		return ret;
+>  	}
+>  	ret = kv_populate_uvd_table(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_populate_uvd_table failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_populate_uvd_table failed\n");
+>  		return ret;
+>  	}
+>  	ret = kv_populate_vce_table(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_populate_vce_table failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_populate_vce_table failed\n");
+>  		return ret;
+>  	}
+>  	ret = kv_populate_samu_table(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_populate_samu_table failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_populate_samu_table failed\n");
+>  		return ret;
+>  	}
+>  	ret = kv_populate_acp_table(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_populate_acp_table failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_populate_acp_table failed\n");
+>  		return ret;
+>  	}
+>  	kv_program_vc(adev);
+> @@ -1310,39 +1310,39 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
+>  	if (pi->enable_auto_thermal_throttling) {
+>  		ret = kv_enable_auto_thermal_throttling(adev);
+>  		if (ret) {
+> -			DRM_ERROR("kv_enable_auto_thermal_throttling failed\n");
+> +			drm_err(adev_to_drm(adev), "kv_enable_auto_thermal_throttling failed\n");
+>  			return ret;
+>  		}
+>  	}
+>  	ret = kv_enable_dpm_voltage_scaling(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_enable_dpm_voltage_scaling failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_enable_dpm_voltage_scaling failed\n");
+>  		return ret;
+>  	}
+>  	ret = kv_set_dpm_interval(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_set_dpm_interval failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_set_dpm_interval failed\n");
+>  		return ret;
+>  	}
+>  	ret = kv_set_dpm_boot_state(adev);
+>  	if (ret) {
+> -		DRM_ERROR("kv_set_dpm_boot_state failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_set_dpm_boot_state failed\n");
+>  		return ret;
+>  	}
+>  	ret = kv_enable_ulv(adev, true);
+>  	if (ret) {
+> -		DRM_ERROR("kv_enable_ulv failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_enable_ulv failed\n");
+>  		return ret;
+>  	}
+>  	kv_start_dpm(adev);
+>  	ret = kv_enable_didt(adev, true);
+>  	if (ret) {
+> -		DRM_ERROR("kv_enable_didt failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_enable_didt failed\n");
+>  		return ret;
+>  	}
+>  	ret = kv_enable_smc_cac(adev, true);
+>  	if (ret) {
+> -		DRM_ERROR("kv_enable_smc_cac failed\n");
+> +		drm_err(adev_to_drm(adev), "kv_enable_smc_cac failed\n");
+>  		return ret;
+>  	}
+>  
+> @@ -1350,7 +1350,7 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
+>  
+>  	ret = amdgpu_kv_smc_bapm_enable(adev, false);
+>  	if (ret) {
+> -		DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
+> +		drm_err(adev_to_drm(adev), "amdgpu_kv_smc_bapm_enable failed\n");
+>  		return ret;
+>  	}
+>  
+> @@ -1358,7 +1358,7 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
+>  	    kv_is_internal_thermal_sensor(adev->pm.int_thermal_type)) {
+>  		ret = kv_set_thermal_temperature_range(adev, KV_TEMP_RANGE_MIN, KV_TEMP_RANGE_MAX);
+>  		if (ret) {
+> -			DRM_ERROR("kv_set_thermal_temperature_range failed\n");
+> +			drm_err(adev_to_drm(adev), "kv_set_thermal_temperature_range failed\n");
+>  			return ret;
+>  		}
+>  		amdgpu_irq_get(adev, &adev->pm.dpm.thermal.irq,
+> @@ -1382,7 +1382,7 @@ static void kv_dpm_disable(struct amdgpu_device *adev)
+>  
+>  	err = amdgpu_kv_smc_bapm_enable(adev, false);
+>  	if (err)
+> -		DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
+> +		drm_err(adev_to_drm(adev), "amdgpu_kv_smc_bapm_enable failed\n");
+>  
+>  	if (adev->asic_type == CHIP_MULLINS)
+>  		kv_enable_nb_dpm(adev, false);
+> @@ -1920,7 +1920,7 @@ static int kv_dpm_set_power_state(void *handle)
+>  	if (pi->bapm_enable) {
+>  		ret = amdgpu_kv_smc_bapm_enable(adev, adev->pm.ac_power);
+>  		if (ret) {
+> -			DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
+> +			drm_err(adev_to_drm(adev), "amdgpu_kv_smc_bapm_enable failed\n");
+>  			return ret;
+>  		}
+>  	}
+> @@ -1931,7 +1931,7 @@ static int kv_dpm_set_power_state(void *handle)
+>  			kv_update_dfs_bypass_settings(adev, new_ps);
+>  			ret = kv_calculate_ds_divider(adev);
+>  			if (ret) {
+> -				DRM_ERROR("kv_calculate_ds_divider failed\n");
+> +				drm_err(adev_to_drm(adev), "kv_calculate_ds_divider failed\n");
+>  				return ret;
+>  			}
+>  			kv_calculate_nbps_level_settings(adev);
+> @@ -1947,7 +1947,7 @@ static int kv_dpm_set_power_state(void *handle)
+>  
+>  			ret = kv_update_vce_dpm(adev, new_ps, old_ps);
+>  			if (ret) {
+> -				DRM_ERROR("kv_update_vce_dpm failed\n");
+> +				drm_err(adev_to_drm(adev), "kv_update_vce_dpm failed\n");
+>  				return ret;
+>  			}
+>  			kv_update_sclk_t(adev);
+> @@ -1960,7 +1960,7 @@ static int kv_dpm_set_power_state(void *handle)
+>  			kv_update_dfs_bypass_settings(adev, new_ps);
+>  			ret = kv_calculate_ds_divider(adev);
+>  			if (ret) {
+> -				DRM_ERROR("kv_calculate_ds_divider failed\n");
+> +				drm_err(adev_to_drm(adev), "kv_calculate_ds_divider failed\n");
+>  				return ret;
+>  			}
+>  			kv_calculate_nbps_level_settings(adev);
+> @@ -1972,7 +1972,7 @@ static int kv_dpm_set_power_state(void *handle)
+>  			kv_set_enabled_levels(adev);
+>  			ret = kv_update_vce_dpm(adev, new_ps, old_ps);
+>  			if (ret) {
+> -				DRM_ERROR("kv_update_vce_dpm failed\n");
+> +				drm_err(adev_to_drm(adev), "kv_update_vce_dpm failed\n");
+>  				return ret;
+>  			}
+>  			kv_update_acp_boot_level(adev);
+> @@ -2521,7 +2521,7 @@ static int kv_set_thermal_temperature_range(struct amdgpu_device *adev,
+>  	if (high_temp > max_temp)
+>  		high_temp = max_temp;
+>  	if (high_temp < low_temp) {
+> -		DRM_ERROR("invalid thermal range: %d - %d\n", low_temp, high_temp);
+> +		drm_err(adev_to_drm(adev), "invalid thermal range: %d - %d\n", low_temp, high_temp);
+>  		return -EINVAL;
+>  	}
+>  
+> @@ -2563,7 +2563,7 @@ static int kv_parse_sys_info_table(struct amdgpu_device *adev)
+>  					      data_offset);
+>  
+>  		if (crev != 8) {
+> -			DRM_ERROR("Unsupported IGP table: %d %d\n", frev, crev);
+> +			drm_err(adev_to_drm(adev), "Unsupported IGP table: %d %d\n", frev, crev);
+>  			return -EINVAL;
+>  		}
+>  		pi->sys_info.bootup_sclk = le32_to_cpu(igp_info->info_8.ulBootUpEngineClock);
+> @@ -2579,7 +2579,7 @@ static int kv_parse_sys_info_table(struct amdgpu_device *adev)
+>  		else
+>  			pi->sys_info.htc_hyst_lmt = igp_info->info_8.ucHtcHystLmt;
+>  		if (pi->sys_info.htc_tmp_lmt <= pi->sys_info.htc_hyst_lmt) {
+> -			DRM_ERROR("The htcTmpLmt should be larger than htcHystLmt.\n");
+> +			drm_err(adev_to_drm(adev), "The htcTmpLmt should be larger than htcHystLmt.\n");
+>  		}
+>  
+>  		if (le32_to_cpu(igp_info->info_8.ulSystemConfig) & (1 << 3))
+> @@ -3015,13 +3015,13 @@ static int kv_dpm_sw_init(struct amdgpu_ip_block *ip_block)
+>  	adev->pm.dpm.current_ps = adev->pm.dpm.requested_ps = adev->pm.dpm.boot_ps;
+>  	if (amdgpu_dpm == 1)
+>  		amdgpu_pm_print_power_states(adev);
+> -	DRM_INFO("amdgpu: dpm initialized\n");
+> +	drm_info(adev_to_drm(adev), "dpm initialized\n");
+>  
+>  	return 0;
+>  
+>  dpm_failed:
+>  	kv_dpm_fini(adev);
+> -	DRM_ERROR("amdgpu: dpm initialization failed\n");
+> +	drm_err(adev_to_drm(adev), "dpm initialization failed: %d\n", ret);
+>  	return ret;
+>  }
+>  
 
