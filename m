@@ -4,154 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E596FC8302B
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jun 2025 14:58:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF61DC83029
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jun 2025 15:07:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C78889ABE;
-	Mon, 30 Jun 2025 14:58:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 807E310E47B;
+	Mon, 30 Jun 2025 15:07:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dqEc1K6M";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jvau++3v";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2054.outbound.protection.outlook.com [40.107.102.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB4B989ABE;
- Mon, 30 Jun 2025 14:58:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TC0JiSaK/mQKgOMFRm3I9jyTAaQZcHy+Ccbyg7jr5SBlYALwNQqEVsqtz0z5bT3xDF6u2Hsznm4o6TnXN6PiXaex0koQ15cg+qGc2UoFoZ72xyD5n0UePGTvCYusRFUj9e2NBVr2MHPY2ZE9BTW3d4lbGc9oCG1vYYty0CwBkJ//0C4UectAthFEGuV8bLHcMLsNpzlOgjKGzNZDAhZrd2Qb0599eLx2TAfMNRLUZt77jNlLC8q8lxLDa8GZ/NJgbsMjdwnU2+kJRs8VjBU5gCZXl7DqLmVA/V3/QoQFRZ8kB6MOXEmxVbaLW8/JK78VY3PeQR1qpy0AHg07U2GAKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mvtb4d3Xj8YjzHPKFWNudhMBvla7X4D30+z/vAJrgr8=;
- b=LO2e7wVVnhWVKP/9/fRtZQTcciCRnhqwkdsDh1iM8fTOCIqP19brV491dxdLqJ++XeQzXLC3NDfAhhUVan0SADM7hbj2j5bh3TqyD3Vu0c8JccfiCHcL1P3JK3STFDia7rzBOMczs07YysdDkteJ/TugsdzcwJzrM0AdIluDN/vi41qFR1uZjaGw5O94zr0tsXsx3fr0LiRdO176StqB2jRUStApbDeVcTN8my6y3EJypsMSC5WnGru6BSTi3865hKIztDULgOjrBfktl/5n+9hwxDO3/+eINl+jzBQ5x3BITAoTiwjMCVaweKlj1+VtP9lKbVK0Tsveq25MncwFfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mvtb4d3Xj8YjzHPKFWNudhMBvla7X4D30+z/vAJrgr8=;
- b=dqEc1K6M+NkxgZBPWXTbB+hQU9UWDGXhAj0/bAutI67G2tS0/yc23zgTmAHGwfK2Bywi3cOrqasd+A2NQxAU6A4i9j9KFyFKDvzWuycl1HSOhC/jnpo+qE0yYvDurKSOlj0VliE2rX3qKgN/JqDlhTce3fu56W/4fSqkFMdPz5w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB7009.namprd12.prod.outlook.com (2603:10b6:510:21c::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.27; Mon, 30 Jun
- 2025 14:58:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8880.027; Mon, 30 Jun 2025
- 14:58:52 +0000
-Message-ID: <c90e389f-d737-4151-a6b2-5131e13820a8@amd.com>
-Date: Mon, 30 Jun 2025 16:58:46 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/5] drm: move debugfs functionality from drm_drv.c to
- drm_debugfs.c
-To: "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
- tursulin@ursulin.net, phasta@kernel.org, dakr@kernel.org
-References: <20250627094921.911009-1-sunil.khatri@amd.com>
- <20250627094921.911009-2-sunil.khatri@amd.com>
- <d94574be-4054-40d0-98e7-36c32c1ca556@amd.com>
- <8bad0398-7e4f-4611-8b21-cfbdbe671429@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <8bad0398-7e4f-4611-8b21-cfbdbe671429@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0177.namprd03.prod.outlook.com
- (2603:10b6:208:32f::30) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C33CC10E47B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jun 2025 15:07:25 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-31305ee3281so594751a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jun 2025 08:07:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1751296045; x=1751900845; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DOr9/IJutqvmHOwlug9ojOPC32aFeZSk1fKm2e//yv8=;
+ b=jvau++3vsBkIgY5do+s2FD4tIe2AWmAixmYOJUb94DDOmK+A0kB/lm6DGbV8od7h3X
+ SFkrw+2hO26fpao24r3oHVy07oqpl8Pxiz0mTnBa1EXL1TrF9ixXQF5RptJ0FoMUoRde
+ NdJQtNTipIIPEDaTwypGcLnvPdvxfpTdInv+TK6h93lnRmDeiopcTkU3uhmgHYinuz8X
+ Ew3DK1KPSUVPCjPIXoacVxK08bsRlOfcrySrHFOLeRlGJcMln6sWrkYas/0FmePWHCkr
+ H7eTHuMaOK3xAfowxl264ivqJVpbpvMgXIvID1/vk2rVhfbB4WJBGXMcKqvyQ94H9oSF
+ nfLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751296045; x=1751900845;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DOr9/IJutqvmHOwlug9ojOPC32aFeZSk1fKm2e//yv8=;
+ b=TzPvjEfD8L5k38v3O0XlW7kkIuur7Q7MMPD79eUpK5Y0fuROZxokJPPh3gBPYu8qi7
+ PtA0tc/GWNouqWUEaf9365xwZtNQjxP4U0R/6rraSeD/ICBIiyZkCIEdg6jSt7PwehMH
+ zbkcdQcuLCCrnKsmzw4uGjBEDh2g30neyYO8d06MuQLb87wCGCfO+ztrwjKgob9CCMnI
+ KFDw4ksytygTFOYGA2HcSRo2HtVaM+g1r4aznEuJ8Vvw3BQ0nOUQnwQw6pEd3p7UFTTt
+ PRfWRC8/dLyKYqV1/K0kNMH99HSUC9a65FpGNygOokiI0oPo7a/OCXN4FoME8UmBwe0L
+ lJGw==
+X-Gm-Message-State: AOJu0Ywx+IbYPqpgOPZTDDUtKaUyA0/69qqY0rN9fle2Z5B3fBw1oDsg
+ 1/wBo7oxtP1ZQqQc43mBJvxgbWSpzo1s7Ggv+OVm2N82EmzrCE3vd78jZ40ShqlysVHMNxV4SU/
+ P/6zzOKoPMKGDCLmwL+aU+lv+d8U38tXdkA==
+X-Gm-Gg: ASbGnctRmq0eLsdsap69ZuVObUPcc/limjnlFbq8BVAfj5uquA23AM44V2nShkkpVAB
+ /2z1kkvgLcPSF3gsdqb6Ds/vsAYrPvBPGShZXMICbDvwATojmXX2V8PXFTCu9YPV9bAJ69OXRp2
+ bv1HWy4xncckem86uXBOYdAWhv55fZeAabQvzcI44h60Rh
+X-Google-Smtp-Source: AGHT+IEeQ2rAHjf93hhGZBJMJUT3wMxtOho5KJ/bSxRmPm1LJWB5VQRV1qvjE6UNwnS6tt15vw1jnE9u1J0VWi7Kg04=
+X-Received: by 2002:a17:90b:2dca:b0:312:25dd:1c8b with SMTP id
+ 98e67ed59e1d1-318ec34194bmr5627468a91.2.1751296044902; Mon, 30 Jun 2025
+ 08:07:24 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f171d72-0983-4a64-597b-08ddb7e6a079
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RU9ObTRyd0lGUE83WlAwWDcxUXgwYVNwdWpaR0dSWU9CeXl1OUpScnpqSDN4?=
- =?utf-8?B?NkNSM1REZFJxb003aDl0djE5VGtKbEFtM3lJVzAxVUFXV1J0QzJDcG5Balk0?=
- =?utf-8?B?dllaZmc4TEkvaXBQUlN4L0dtaDhOK0NpclRmQjhQQlBqelh0enFoR0VZbGdP?=
- =?utf-8?B?Wm9TQ3VQK2NPeVhoVzV0SUdFQVhYUVVtRC9CMTBleUJaOTRkd3o3bnVhVWRx?=
- =?utf-8?B?Y25oWkM2MEVqazZZckREa3dBSlp1Y1AzaEVXc2JwZTNOVkFVVXp2eksvTndi?=
- =?utf-8?B?cjRqN2tPTyt6L3FkdGtZL2ljUWlGeE5TWEJjbTBseGxuT2pWZTdidE1UNEpE?=
- =?utf-8?B?NXFubENjRzg4c2M5QmJNTVRlanp2b3ZmYUN2SjVpckcyWVRKMXI2Sk15Rkkz?=
- =?utf-8?B?Q1pseTZmU1dFNmpicUFGNXp5VXVmR0R4Qk4zay9ibk8vZVh0OXVubmcwVHBS?=
- =?utf-8?B?S051MTQ2THFxZnRqNFlLVU9Odk95TU1UR1VJUXFrYjM5WXhyUnJJa2doUVVQ?=
- =?utf-8?B?KzFJRFZMeG1SUHZzVEd0bW9Ld2REb3lMS05YeVF5R0lmazBQTmNlc1VGR2I3?=
- =?utf-8?B?YytKa1JzcG1raUFUV1RCcTNndHlyc0RCK1RYRU54Q2U2cEtpZU5Mb0llWmlF?=
- =?utf-8?B?NUUzUkNSYi9QNTQyNUo4NU01SElsWHAzRHk5bVgrRzBTKzRZRjRja3JCdW8r?=
- =?utf-8?B?MTJaQkYrRFllVkxUREJHa05HelBaQTRYaEtFOGxZUGUzUjV2YjliSW5oK29W?=
- =?utf-8?B?S3JBVVpxSnlGcGJSa09PczJ6ZWtyeWVzdU9OMkJ0UGVEWGF0c0RBMnNoS01N?=
- =?utf-8?B?cllqUkg3V3JKak5KM2ZQVy93YmFhT09DMDV0MkV5dlZ0aE1rWXdZYU5mZDQ3?=
- =?utf-8?B?clhLQ0gyeG84QlJwQXRHR2VkOFNWWXpLRVJ6Z1hHeGJYVWs5RVd5cEpCb0Vz?=
- =?utf-8?B?YkFIQUpLVm5OQVBLb2lPY2lhY05CdVE1SjBqVnBTQzQyUzVtYkpKOUNRRkJC?=
- =?utf-8?B?cEdONXkwTGxqb1VOT1V4OUlFYTc4L1kwS2xrRm9RdE1RQXQzMDRhdHRIbGE3?=
- =?utf-8?B?NVZYc2VVRndMVnl2RFJidDJHelJ1MjkydTE2YmVlN0JnekhsMTRmV3dWU1Fq?=
- =?utf-8?B?ZVVSV0dsNDljZ2E1QXhRUUtqMWRKV2NGNERDSUxocHpHMzJGTjRKeHNFWHhm?=
- =?utf-8?B?U1c4cEZoWVdvUFZtNG1EK0RJNlhpc3ZEaTA4RGlaekEzM3IrR292ejVNWVNJ?=
- =?utf-8?B?a3Z1TWVrbHV3S0FXZWQzMG5xRXdyR2dVUDd0S2FkcUJzK25RNmh6WW5TN3hG?=
- =?utf-8?B?Y0R3azZrY1RPQWhuVXVBcXM5TTNCWUFzcVpRUlVEZUhvU1MwMVltVjA1TXU0?=
- =?utf-8?B?c1k0WVpWN0RnUTBnb3JUWlhEZVp3aXdkOVdhRjFLdngyVnZDZko4dkZBZ1Ur?=
- =?utf-8?B?ZmZEamQyRHhoUFpBMzZBQy9hTXM2V2ZyWm8wbVRoVlFBdFZpV1ZsRzhHQmxJ?=
- =?utf-8?B?UUNYdkUwQTJGOFo4eXF6elEvdVdCc01lci8wbEp0YkN2eDJqZlAvR3dIMSt3?=
- =?utf-8?B?dVJaeVBJRnNPQjVzR0pGWWlsV21jM3RtTWhPeGYxczZQTFY4YXZaUVZLclNC?=
- =?utf-8?B?ak5ua28wdVB2YjM4bjNDUi9qejd4ek5zME81diszcjRuc0RORnJPSzVzUHdD?=
- =?utf-8?B?a0IzZDdiRTN5cHRyNE1hMTJ4Z05xQmowTTYvcjRuMFl2YkZZeE51Um9XYmhO?=
- =?utf-8?B?UzQvcEEvR2Zra0Z1UGZCSWFvUFIrbDNmbWsrbGQzVzV5ZzYyMUhMVy9DOXVR?=
- =?utf-8?B?SjZOWm5QUXhGRTk0SGF2eHlnbDlqdWw0Ykp2anpUOU8yS3J4OTNZTVg3ckRZ?=
- =?utf-8?B?aXJ5QVBRbE1MNm9ZNlJJZFk5RDZzN3BmUmpySVJRVGNyZGVRNFFYVnZqVHR3?=
- =?utf-8?Q?gckC8TD0f8Y=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEFONjJDc1haM3RlcHVPc3BHSFFLRW1UemFOK2NmN2NRUDVOTkthTFFWSEdU?=
- =?utf-8?B?dnRScXRmY2dsWXBjOUhVSzNQSjFFY1JNR3pNc2JBWGtUMUtsOUd2clE2eG93?=
- =?utf-8?B?L2NTMGNSN1YyeUYyMWxoTVBCZkZlMm5XQmlDdGN1aWZseVFMOG5NNWVwSS9B?=
- =?utf-8?B?R2xTQ3hBeWxsSVorMDBab0paNFN4RGV4aXNNK21XODg4Ny9kMm9Nc0N5MEE3?=
- =?utf-8?B?cEw1Q0hzS3AzRjZCTjhqcEdtTUN0OGduNTgzTllGZ3RNS1hmbEtJdFNNME56?=
- =?utf-8?B?cVBoSjYraHlnY3g1bEpWaXlQT2JXejdrbUpJWmJFVkxDMExvbFJ0bWFZaDVS?=
- =?utf-8?B?L0FGU0JMWGkyS2IwbSt0di9XUGN3R1BDTkFmVVh5ZkhnNVhNVjJBWmJFT1Nx?=
- =?utf-8?B?R0RIRUt6d0ZoSmxuUWxZbWZtaFc2SFlZMkIybWdsekhyczQ4Ly81Z1ZJS3Fr?=
- =?utf-8?B?SEtqTm1KRGJkOWFjWThKRkRyS3ZhRlFNMDcrZmM4eWlPQlFIZzUwdm1BYkNq?=
- =?utf-8?B?S1JyWnNnbGpZUXBBSWtBS2lLQkN6VEdsRkFwS1Z4OUp5V0IzcTRtNGFqZ1Za?=
- =?utf-8?B?bmNzZFUveG1DRS9DWXRydjFBTUVmbjFTa2laeWNiNitzelZRRTZiMW5CZTBs?=
- =?utf-8?B?Sm5TRW9TcFNidkdZTTI4N09jUFlocFVTM0ZOU1BiZ3lUd0lhSFBPWjFJQlVI?=
- =?utf-8?B?b1pPSGNkOXA2c1FIajBBdXc3a2o3czFjeXV2ZGFYS3dnMUtja1UzcDBRSzk0?=
- =?utf-8?B?V2xtTTJnNFlXYVhUbit3VXdUbHRZNzUva0poVnY5Y0dIU2dVMGF1RE1IS0xh?=
- =?utf-8?B?ZEsxNGpQaENFTWpCTElhMThaY1VVSm4wR1dKQnl2eW5ReFBzdHhZNVpMOFJy?=
- =?utf-8?B?NnM2dzZ2VjFMTDlZSjBPU25mVTMyK005RjdSclRtaXdpYmZ5Skhaa29JdlNL?=
- =?utf-8?B?VTRQUzVSNVhHVEhnNjFienNPa2Uzb1Q2WXRxZVE3cEpSNDJxajN0V3BqSGRk?=
- =?utf-8?B?cDc0QVZmZlAyMUYzV0o5ZEVRMTdNNjA4aEpQK3lad2c5WTllQ0pYN2JFdGlZ?=
- =?utf-8?B?SEFDZjl3TnFRMk1RMUF0SHZSYWRZOTY3ZURYcHFBSks1VzBoMngyYmFYY2ow?=
- =?utf-8?B?MUFrT3I1S3RiUUpOTnZkanpVVnpqZGZzSHUzUFdLajlpY1VUclhFdkNXS3FP?=
- =?utf-8?B?cHVDa05Jbk40RmRaSVFOKzViQ1ZjZjk5OTNWY2E4dGpiOTk5RVZGYUxTeElD?=
- =?utf-8?B?Mk9TTTF4NE5OaVY2eEhhQWNBMmtKQUJtQ0xhZlNiUU9KdmZ2aVNKZkFmdEFv?=
- =?utf-8?B?b0drLzYycDFNbDByZm02dVZDMUx1aUQ5MmI1Umt0Zy9JK3RXN29XUzFDbHl6?=
- =?utf-8?B?dVpiRWVVTVc4aTQzVnpoWmpNWm1oL0k5SFdYaEdOVU9hYWsrdURhV2Z2T3FG?=
- =?utf-8?B?ZnFYdkgxZ1JHSzlBT0RaYnNBZ2hwS05FVHdnVTZBczZsQ1dib3RSY3paOEVk?=
- =?utf-8?B?YkFXV3pua3RiV1p6TlhqQlVxV3crazF4akRVbTViVmdpRGVTaDlNQndHTTd3?=
- =?utf-8?B?dEp4bnIvK21xdDA2Q0VraElacWxwd1duTGVRQmtyTWxBaEtCRE9nQzYwRU5N?=
- =?utf-8?B?amdqYmhGOHNqZFVuRHRVZjNFUm03elJXbUdFSXlybDdVTndrRzdpanZPTWZG?=
- =?utf-8?B?ZjVMaHc4a1lnY1lZNC80ZG5oOHgxTHo1SU5RSnc2S1lna1dNYkZKZk1HdDhX?=
- =?utf-8?B?NStTZUIwREhWeUxKTWtJNmdTd2pZcUw1THpKZWVKRlNwbytKOGRuM1FpZVY0?=
- =?utf-8?B?WXhvMmlkcTJMa25rcVViQkpRRUpaSVRVbXVqdGVIN21HWUlOYUZXWWx1N0xX?=
- =?utf-8?B?a3FUL2hOZVhDYmxWaWhyK3V6NUg5NVc4SU5VMFFpbm1OaWVDQ1FHa3hUT0R5?=
- =?utf-8?B?NkJ6TW44ZkoxRjZmZVkrMDNDVzhudE10NlVtNUJGeHNnUzBOMCtYSkJWeGpF?=
- =?utf-8?B?Ty9MZ1pSdUJCQlhUK2RLMi9aSWpZNmlteHUxNGlhN2tjTElIODJnM1Z4V0RN?=
- =?utf-8?B?ZWxtd2E3OEFnZ0szdm8xZEh6dTA5WHlxUndlTEQvU0pSbUJ6YUp6bW1SKzA1?=
- =?utf-8?Q?GX5WjpoOr6lVZVewd80zDDHYx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f171d72-0983-4a64-597b-08ddb7e6a079
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2025 14:58:52.1209 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 01D9qV6HLXhonn4YZ46ySwLYerpPAJgFHTDIsbRbBWbT8iHSnu+xV74sILW9SHWz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7009
+References: <20250630135700.1286085-1-lijo.lazar@amd.com>
+In-Reply-To: <20250630135700.1286085-1-lijo.lazar@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 30 Jun 2025 11:07:13 -0400
+X-Gm-Features: Ac12FXx3AzEhQ5M-22QQ9RZ6wwcZGnjhw82P-w7fGoPqILj9DfLo_6qRF3Fu1aw
+Message-ID: <CADnq5_PAkaq+ZfGsm5-rFeLWVSu1_sqcBpz12Ykv-Ha79RRZLA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Pass adev pointers to functions
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,216 +80,487 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 30.06.25 15:34, Khatri, Sunil wrote:
-> 
-> On 6/30/2025 5:11 PM, Christian König wrote:
->>
->> On 27.06.25 11:49, Sunil Khatri wrote:
->>> move the debugfs functions from drm_drv.c to drm_debugfs.c
->>>
->>> move this root node to the debugfs for easily handling
->>> of future requirements to add more information in the
->>> root directory and one of which is planned to have
->>> directories for each client in the root directory
->>> which is dri.
->>>
->>> Suggested-by: Christian König <christian.koenig@amd.com>
->>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>> ---
->>>   drivers/gpu/drm/drm_debugfs.c  | 33 +++++++++++++++++++++++++++------
->>>   drivers/gpu/drm/drm_drv.c      | 19 +++++--------------
->>>   drivers/gpu/drm/drm_internal.h |  6 ++----
->>>   include/drm/drm_drv.h          | 19 +++++++++++++++++--
->>>   4 files changed, 51 insertions(+), 26 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
->>> index 2d43bda82887..5807dd64d28a 100644
->>> --- a/drivers/gpu/drm/drm_debugfs.c
->>> +++ b/drivers/gpu/drm/drm_debugfs.c
->>> @@ -44,6 +44,9 @@
->>>   #include "drm_crtc_internal.h"
->>>   #include "drm_internal.h"
->>>   +static struct dentry *accel_debugfs_root;
->>> +static struct dentry *drm_debugfs_root;
->>> +
->>>   /***************************************************
->>>    * Initialization, etc.
->>>    **************************************************/
->>> @@ -286,16 +289,35 @@ int drm_debugfs_remove_files(const struct drm_info_list *files, int count,
->>>   }
->>>   EXPORT_SYMBOL(drm_debugfs_remove_files);
->>>   +void drm_debugfs_init_root(void)
->>> +{
->>> +    drm_debugfs_root = debugfs_create_dir("dri", NULL);
->>> +    accel_debugfs_root = debugfs_create_dir("accel", NULL);
->>> +}
->>> +
->>> +void drm_debugfs_remove_root(void)
->>> +{
->>> +    debugfs_remove(drm_debugfs_root);
->>> +}
->>> +
->>> +void drm_debugfs_remove_accel_root(void)
->>> +{
->>> +    debugfs_remove(accel_debugfs_root);
->>> +}
->> Those two can be removed together as well I think, apart from that the patch looks good to me.
-> If i got you right you mean to club
-> 
-> drm_debugfs_remove_root and drm_debugfs_remove_accel_root in one function drm_debugfs_remove_root?
+On Mon, Jun 30, 2025 at 10:03=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wr=
+ote:
+>
+> Pass amdgpu device context instead of drm device context to some
+> amdgpu_device_* functions. DRM device context is not required in those
+> functions. No functional change.
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
-Yes, exactly that.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Christian.
-
-> 
-> Regards
-> Sunil Khatri
-> 
->>
->> Regards,
->> Christian.
->>
->>> +
->>> +
->>>   /**
->>>    * drm_debugfs_dev_init - create debugfs directory for the device
->>>    * @dev: the device which we want to create the directory for
->>> - * @root: the parent directory depending on the device type
->>>    *
->>>    * Creates the debugfs directory for the device under the given root directory.
->>>    */
->>> -void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root)
->>> +void drm_debugfs_dev_init(struct drm_device *dev)
->>>   {
->>> -    dev->debugfs_root = debugfs_create_dir(dev->unique, root);
->>> +    if (drm_core_check_feature(dev, DRIVER_COMPUTE_ACCEL))
->>> +        dev->debugfs_root = debugfs_create_dir(dev->unique, accel_debugfs_root);
->>> +    else
->>> +        dev->debugfs_root = debugfs_create_dir(dev->unique, drm_debugfs_root);
->>>   }
->>>     /**
->>> @@ -322,14 +344,13 @@ void drm_debugfs_dev_register(struct drm_device *dev)
->>>           drm_atomic_debugfs_init(dev);
->>>   }
->>>   -int drm_debugfs_register(struct drm_minor *minor, int minor_id,
->>> -             struct dentry *root)
->>> +int drm_debugfs_register(struct drm_minor *minor, int minor_id)
->>>   {
->>>       struct drm_device *dev = minor->dev;
->>>       char name[64];
->>>         sprintf(name, "%d", minor_id);
->>> -    minor->debugfs_symlink = debugfs_create_symlink(name, root,
->>> +    minor->debugfs_symlink = debugfs_create_symlink(name, drm_debugfs_root,
->>>                               dev->unique);
->>>         /* TODO: Only for compatibility with drivers */
->>> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
->>> index 5d57b622f9aa..68f50d915153 100644
->>> --- a/drivers/gpu/drm/drm_drv.c
->>> +++ b/drivers/gpu/drm/drm_drv.c
->>> @@ -69,9 +69,6 @@ DEFINE_XARRAY_ALLOC(drm_minors_xa);
->>>    */
->>>   static bool drm_core_init_complete;
->>>   -static struct dentry *drm_debugfs_root;
->>> -static struct dentry *accel_debugfs_root;
->>> -
->>>   DEFINE_STATIC_SRCU(drm_unplug_srcu);
->>>     /*
->>> @@ -184,8 +181,7 @@ static int drm_minor_register(struct drm_device *dev, enum drm_minor_type type)
->>>           return 0;
->>>         if (minor->type != DRM_MINOR_ACCEL) {
->>> -        ret = drm_debugfs_register(minor, minor->index,
->>> -                       drm_debugfs_root);
->>> +        ret = drm_debugfs_register(minor, minor->index);
->>>           if (ret) {
->>>               DRM_ERROR("DRM: Failed to initialize /sys/kernel/debug/dri.\n");
->>>               goto err_debugfs;
->>> @@ -752,10 +748,7 @@ static int drm_dev_init(struct drm_device *dev,
->>>           goto err;
->>>       }
->>>   -    if (drm_core_check_feature(dev, DRIVER_COMPUTE_ACCEL))
->>> -        drm_debugfs_dev_init(dev, accel_debugfs_root);
->>> -    else
->>> -        drm_debugfs_dev_init(dev, drm_debugfs_root);
->>> +    drm_debugfs_dev_init(dev);
->>>         return 0;
->>>   @@ -1167,10 +1160,10 @@ static void drm_core_exit(void)
->>>   {
->>>       drm_privacy_screen_lookup_exit();
->>>       drm_panic_exit();
->>> -    debugfs_remove(accel_debugfs_root);
->>> +    drm_debugfs_remove_accel_root();
->>>       accel_core_exit();
->>>       unregister_chrdev(DRM_MAJOR, "drm");
->>> -    debugfs_remove(drm_debugfs_root);
->>> +    drm_debugfs_remove_root();
->>>       drm_sysfs_destroy();
->>>       WARN_ON(!xa_empty(&drm_minors_xa));
->>>       drm_connector_ida_destroy();
->>> @@ -1189,14 +1182,12 @@ static int __init drm_core_init(void)
->>>           goto error;
->>>       }
->>>   -    drm_debugfs_root = debugfs_create_dir("dri", NULL);
->>> +    drm_debugfs_init_root();
->>>         ret = register_chrdev(DRM_MAJOR, "drm", &drm_stub_fops);
->>>       if (ret < 0)
->>>           goto error;
->>>   -    accel_debugfs_root = debugfs_create_dir("accel", NULL);
->>> -
->>>       ret = accel_core_init();
->>>       if (ret < 0)
->>>           goto error;
->>> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
->>> index b2b6a8e49dda..d2d8e72f32d9 100644
->>> --- a/drivers/gpu/drm/drm_internal.h
->>> +++ b/drivers/gpu/drm/drm_internal.h
->>> @@ -186,8 +186,7 @@ void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map);
->>>   #if defined(CONFIG_DEBUG_FS)
->>>   void drm_debugfs_dev_fini(struct drm_device *dev);
->>>   void drm_debugfs_dev_register(struct drm_device *dev);
->>> -int drm_debugfs_register(struct drm_minor *minor, int minor_id,
->>> -             struct dentry *root);
->>> +int drm_debugfs_register(struct drm_minor *minor, int minor_id);
->>>   void drm_debugfs_unregister(struct drm_minor *minor);
->>>   void drm_debugfs_connector_add(struct drm_connector *connector);
->>>   void drm_debugfs_connector_remove(struct drm_connector *connector);
->>> @@ -205,8 +204,7 @@ static inline void drm_debugfs_dev_register(struct drm_device *dev)
->>>   {
->>>   }
->>>   -static inline int drm_debugfs_register(struct drm_minor *minor, int minor_id,
->>> -                       struct dentry *root)
->>> +static inline int drm_debugfs_register(struct drm_minor *minor, int minor_id)
->>>   {
->>>       return 0;
->>>   }
->>> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
->>> index a43d707b5f36..a02bf4885b79 100644
->>> --- a/include/drm/drm_drv.h
->>> +++ b/include/drm/drm_drv.h
->>> @@ -566,9 +566,24 @@ static inline bool drm_firmware_drivers_only(void)
->>>   }
->>>     #if defined(CONFIG_DEBUG_FS)
->>> -void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root);
->>> +void drm_debugfs_dev_init(struct drm_device *dev);
->>> +void drm_debugfs_init_root(void);
->>> +void drm_debugfs_remove_root(void);
->>> +void drm_debugfs_remove_accel_root(void);
->>>   #else
->>> -static inline void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root)
->>> +static inline void drm_debugfs_dev_init(struct drm_device *dev)
->>> +{
->>> +}
->>> +
->>> +static inline void drm_debugfs_init_root(void)
->>> +{
->>> +}
->>> +
->>> +static inline void drm_debugfs_remove_root(void)
->>> +{
->>> +}
->>> +
->>> +static inline void drm_debugfs_remove_accel_root(void)
->>>   {
->>>   }
->>>   #endif
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 24 ++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c   |  8 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 65 ++++++++++------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 15 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  4 +-
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c         |  4 +-
+>  6 files changed, 57 insertions(+), 63 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index f9c981a3ea05..ebc1a2203492 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1583,16 +1583,16 @@ void amdgpu_device_program_register_sequence(stru=
+ct amdgpu_device *adev,
+>
+>  int amdgpu_device_mode1_reset(struct amdgpu_device *adev);
+>  int amdgpu_device_link_reset(struct amdgpu_device *adev);
+> -bool amdgpu_device_supports_atpx(struct drm_device *dev);
+> -bool amdgpu_device_supports_px(struct drm_device *dev);
+> -bool amdgpu_device_supports_boco(struct drm_device *dev);
+> -bool amdgpu_device_supports_smart_shift(struct drm_device *dev);
+> -int amdgpu_device_supports_baco(struct drm_device *dev);
+> +bool amdgpu_device_supports_atpx(struct amdgpu_device *adev);
+> +bool amdgpu_device_supports_px(struct amdgpu_device *adev);
+> +bool amdgpu_device_supports_boco(struct amdgpu_device *adev);
+> +bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev);
+> +int amdgpu_device_supports_baco(struct amdgpu_device *adev);
+>  void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev);
+>  bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
+>                                       struct amdgpu_device *peer_adev);
+> -int amdgpu_device_baco_enter(struct drm_device *dev);
+> -int amdgpu_device_baco_exit(struct drm_device *dev);
+> +int amdgpu_device_baco_enter(struct amdgpu_device *adev);
+> +int amdgpu_device_baco_exit(struct amdgpu_device *adev);
+>
+>  void amdgpu_device_flush_hdp(struct amdgpu_device *adev,
+>                 struct amdgpu_ring *ring);
+> @@ -1695,7 +1695,8 @@ int amdgpu_acpi_pcie_performance_request(struct amd=
+gpu_device *adev,
+>                                                 u8 perf_req, bool adverti=
+se);
+>  int amdgpu_acpi_power_shift_control(struct amdgpu_device *adev,
+>                                     u8 dev_state, bool drv_state);
+> -int amdgpu_acpi_smart_shift_update(struct drm_device *dev, enum amdgpu_s=
+s ss_state);
+> +int amdgpu_acpi_smart_shift_update(struct amdgpu_device *adev,
+> +                                  enum amdgpu_ss ss_state);
+>  int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev);
+>  int amdgpu_acpi_get_tmr_info(struct amdgpu_device *adev, u64 *tmr_offset=
+,
+>                              u64 *tmr_size);
+> @@ -1726,8 +1727,11 @@ static inline void amdgpu_acpi_release(void) { }
+>  static inline bool amdgpu_acpi_is_power_shift_control_supported(void) { =
+return false; }
+>  static inline int amdgpu_acpi_power_shift_control(struct amdgpu_device *=
+adev,
+>                                                   u8 dev_state, bool drv_=
+state) { return 0; }
+> -static inline int amdgpu_acpi_smart_shift_update(struct drm_device *dev,
+> -                                                enum amdgpu_ss ss_state)=
+ { return 0; }
+> +static inline int amdgpu_acpi_smart_shift_update(struct amdgpu_device *a=
+dev,
+> +                                                enum amdgpu_ss ss_state)
+> +{
+> +       return 0;
+> +}
+>  static inline void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backl=
+ight_caps *caps) { }
+>  #endif
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_acpi.c
+> index ae2d08cf027e..6c62e27b9800 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -811,18 +811,18 @@ int amdgpu_acpi_power_shift_control(struct amdgpu_d=
+evice *adev,
+>  /**
+>   * amdgpu_acpi_smart_shift_update - update dGPU device state to SBIOS
+>   *
+> - * @dev: drm_device pointer
+> + * @adev: amdgpu device pointer
+>   * @ss_state: current smart shift event
+>   *
+>   * returns 0 on success,
+>   * otherwise return error number.
+>   */
+> -int amdgpu_acpi_smart_shift_update(struct drm_device *dev, enum amdgpu_s=
+s ss_state)
+> +int amdgpu_acpi_smart_shift_update(struct amdgpu_device *adev,
+> +                                  enum amdgpu_ss ss_state)
+>  {
+> -       struct amdgpu_device *adev =3D drm_to_adev(dev);
+>         int r;
+>
+> -       if (!amdgpu_device_supports_smart_shift(dev))
+> +       if (!amdgpu_device_supports_smart_shift(adev))
+>                 return 0;
+>
+>         switch (ss_state) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 30173daeff85..154b1f18400a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -413,19 +413,16 @@ static const struct attribute_group amdgpu_board_at=
+trs_group =3D {
+>
+>  static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev);
+>
+> -
+>  /**
+>   * amdgpu_device_supports_px - Is the device a dGPU with ATPX power cont=
+rol
+>   *
+> - * @dev: drm_device pointer
+> + * @adev: amdgpu device pointer
+>   *
+>   * Returns true if the device is a dGPU with ATPX power control,
+>   * otherwise return false.
+>   */
+> -bool amdgpu_device_supports_px(struct drm_device *dev)
+> +bool amdgpu_device_supports_px(struct amdgpu_device *adev)
+>  {
+> -       struct amdgpu_device *adev =3D drm_to_adev(dev);
+> -
+>         if ((adev->flags & AMD_IS_PX) && !amdgpu_is_atpx_hybrid())
+>                 return true;
+>         return false;
+> @@ -434,15 +431,13 @@ bool amdgpu_device_supports_px(struct drm_device *d=
+ev)
+>  /**
+>   * amdgpu_device_supports_boco - Is the device a dGPU with ACPI power re=
+sources
+>   *
+> - * @dev: drm_device pointer
+> + * @adev: amdgpu device pointer
+>   *
+>   * Returns true if the device is a dGPU with ACPI power control,
+>   * otherwise return false.
+>   */
+> -bool amdgpu_device_supports_boco(struct drm_device *dev)
+> +bool amdgpu_device_supports_boco(struct amdgpu_device *adev)
+>  {
+> -       struct amdgpu_device *adev =3D drm_to_adev(dev);
+> -
+>         if (!IS_ENABLED(CONFIG_HOTPLUG_PCI_PCIE))
+>                 return false;
+>
+> @@ -455,29 +450,24 @@ bool amdgpu_device_supports_boco(struct drm_device =
+*dev)
+>  /**
+>   * amdgpu_device_supports_baco - Does the device support BACO
+>   *
+> - * @dev: drm_device pointer
+> + * @adev: amdgpu device pointer
+>   *
+>   * Return:
+>   * 1 if the device supports BACO;
+>   * 3 if the device supports MACO (only works if BACO is supported)
+>   * otherwise return 0.
+>   */
+> -int amdgpu_device_supports_baco(struct drm_device *dev)
+> +int amdgpu_device_supports_baco(struct amdgpu_device *adev)
+>  {
+> -       struct amdgpu_device *adev =3D drm_to_adev(dev);
+> -
+>         return amdgpu_asic_supports_baco(adev);
+>  }
+>
+>  void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev)
+>  {
+> -       struct drm_device *dev;
+>         int bamaco_support;
+>
+> -       dev =3D adev_to_drm(adev);
+> -
+>         adev->pm.rpm_mode =3D AMDGPU_RUNPM_NONE;
+> -       bamaco_support =3D amdgpu_device_supports_baco(dev);
+> +       bamaco_support =3D amdgpu_device_supports_baco(adev);
+>
+>         switch (amdgpu_runtime_pm) {
+>         case 2:
+> @@ -497,10 +487,12 @@ void amdgpu_device_detect_runtime_pm_mode(struct am=
+dgpu_device *adev)
+>                 break;
+>         case -1:
+>         case -2:
+> -               if (amdgpu_device_supports_px(dev)) { /* enable PX as run=
+time mode */
+> +               if (amdgpu_device_supports_px(adev)) {
+> +                       /* enable PX as runtime mode */
+>                         adev->pm.rpm_mode =3D AMDGPU_RUNPM_PX;
+>                         dev_info(adev->dev, "Using ATPX for runtime pm\n"=
+);
+> -               } else if (amdgpu_device_supports_boco(dev)) { /* enable =
+boco as runtime mode */
+> +               } else if (amdgpu_device_supports_boco(adev)) {
+> +                       /* enable boco as runtime mode */
+>                         adev->pm.rpm_mode =3D AMDGPU_RUNPM_BOCO;
+>                         dev_info(adev->dev, "Using BOCO for runtime pm\n"=
+);
+>                 } else {
+> @@ -549,14 +541,14 @@ void amdgpu_device_detect_runtime_pm_mode(struct am=
+dgpu_device *adev)
+>   * amdgpu_device_supports_smart_shift - Is the device dGPU with
+>   * smart shift support
+>   *
+> - * @dev: drm_device pointer
+> + * @adev: amdgpu device pointer
+>   *
+>   * Returns true if the device is a dGPU with Smart Shift support,
+>   * otherwise returns false.
+>   */
+> -bool amdgpu_device_supports_smart_shift(struct drm_device *dev)
+> +bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev)
+>  {
+> -       return (amdgpu_device_supports_boco(dev) &&
+> +       return (amdgpu_device_supports_boco(adev) &&
+>                 amdgpu_acpi_is_power_shift_control_supported());
+>  }
+>
+> @@ -2202,7 +2194,8 @@ static void amdgpu_switcheroo_set_state(struct pci_=
+dev *pdev,
+>         struct drm_device *dev =3D pci_get_drvdata(pdev);
+>         int r;
+>
+> -       if (amdgpu_device_supports_px(dev) && state =3D=3D VGA_SWITCHEROO=
+_OFF)
+> +       if (amdgpu_device_supports_px(drm_to_adev(dev)) &&
+> +           state =3D=3D VGA_SWITCHEROO_OFF)
+>                 return;
+>
+>         if (state =3D=3D VGA_SWITCHEROO_ON) {
+> @@ -4194,13 +4187,13 @@ static void amdgpu_device_xgmi_reset_func(struct =
+work_struct *__work)
+>         if (amdgpu_asic_reset_method(adev) =3D=3D AMD_RESET_METHOD_BACO) =
+{
+>
+>                 task_barrier_enter(&hive->tb);
+> -               adev->asic_reset_res =3D amdgpu_device_baco_enter(adev_to=
+_drm(adev));
+> +               adev->asic_reset_res =3D amdgpu_device_baco_enter(adev);
+>
+>                 if (adev->asic_reset_res)
+>                         goto fail;
+>
+>                 task_barrier_exit(&hive->tb);
+> -               adev->asic_reset_res =3D amdgpu_device_baco_exit(adev_to_=
+drm(adev));
+> +               adev->asic_reset_res =3D amdgpu_device_baco_exit(adev);
+>
+>                 if (adev->asic_reset_res)
+>                         goto fail;
+> @@ -4355,7 +4348,6 @@ static void amdgpu_device_set_mcbp(struct amdgpu_de=
+vice *adev)
+>  int amdgpu_device_init(struct amdgpu_device *adev,
+>                        uint32_t flags)
+>  {
+> -       struct drm_device *ddev =3D adev_to_drm(adev);
+>         struct pci_dev *pdev =3D adev->pdev;
+>         int r, i;
+>         bool px =3D false;
+> @@ -4816,7 +4808,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>         if ((adev->pdev->class >> 8) =3D=3D PCI_CLASS_DISPLAY_VGA)
+>                 vga_client_register(adev->pdev, amdgpu_device_vga_set_dec=
+ode);
+>
+> -       px =3D amdgpu_device_supports_px(ddev);
+> +       px =3D amdgpu_device_supports_px(adev);
+>
+>         if (px || (!dev_is_removable(&adev->pdev->dev) &&
+>                                 apple_gmux_detect(NULL, NULL)))
+> @@ -4982,7 +4974,7 @@ void amdgpu_device_fini_sw(struct amdgpu_device *ad=
+ev)
+>         kfree(adev->xcp_mgr);
+>         adev->xcp_mgr =3D NULL;
+>
+> -       px =3D amdgpu_device_supports_px(adev_to_drm(adev));
+> +       px =3D amdgpu_device_supports_px(adev);
+>
+>         if (px || (!dev_is_removable(&adev->pdev->dev) &&
+>                                 apple_gmux_detect(NULL, NULL)))
+> @@ -5155,7 +5147,7 @@ int amdgpu_device_suspend(struct drm_device *dev, b=
+ool notify_clients)
+>                         return r;
+>         }
+>
+> -       if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D3))
+> +       if (amdgpu_acpi_smart_shift_update(adev, AMDGPU_SS_DEV_D3))
+>                 dev_warn(adev->dev, "smart shift update failed\n");
+>
+>         if (notify_clients)
+> @@ -5324,7 +5316,7 @@ int amdgpu_device_resume(struct drm_device *dev, bo=
+ol notify_clients)
+>         }
+>         adev->in_suspend =3D false;
+>
+> -       if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
+> +       if (amdgpu_acpi_smart_shift_update(adev, AMDGPU_SS_DEV_D0))
+>                 dev_warn(adev->dev, "smart shift update failed\n");
+>
+>         return 0;
+> @@ -6369,7 +6361,8 @@ static int amdgpu_device_sched_resume(struct list_h=
+ead *device_list,
+>                         amdgpu_vf_error_put(tmp_adev, AMDGIM_ERROR_VF_GPU=
+_RESET_FAIL, 0, r);
+>                 } else {
+>                         dev_info(tmp_adev->dev, "GPU reset(%d) succeeded!=
+\n", atomic_read(&tmp_adev->gpu_reset_counter));
+> -                       if (amdgpu_acpi_smart_shift_update(adev_to_drm(tm=
+p_adev), AMDGPU_SS_DEV_D0))
+> +                       if (amdgpu_acpi_smart_shift_update(tmp_adev,
+> +                                                          AMDGPU_SS_DEV_=
+D0))
+>                                 dev_warn(tmp_adev->dev,
+>                                          "smart shift update failed\n");
+>                 }
+> @@ -6837,12 +6830,11 @@ bool amdgpu_device_is_peer_accessible(struct amdg=
+pu_device *adev,
+>  #endif
+>  }
+>
+> -int amdgpu_device_baco_enter(struct drm_device *dev)
+> +int amdgpu_device_baco_enter(struct amdgpu_device *adev)
+>  {
+> -       struct amdgpu_device *adev =3D drm_to_adev(dev);
+>         struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+>
+> -       if (!amdgpu_device_supports_baco(dev))
+> +       if (!amdgpu_device_supports_baco(adev))
+>                 return -ENOTSUPP;
+>
+>         if (ras && adev->ras_enabled &&
+> @@ -6852,13 +6844,12 @@ int amdgpu_device_baco_enter(struct drm_device *d=
+ev)
+>         return amdgpu_dpm_baco_enter(adev);
+>  }
+>
+> -int amdgpu_device_baco_exit(struct drm_device *dev)
+> +int amdgpu_device_baco_exit(struct amdgpu_device *adev)
+>  {
+> -       struct amdgpu_device *adev =3D drm_to_adev(dev);
+>         struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+>         int ret =3D 0;
+>
+> -       if (!amdgpu_device_supports_baco(dev))
+> +       if (!amdgpu_device_supports_baco(adev))
+>                 return -ENOTSUPP;
+>
+>         ret =3D amdgpu_dpm_baco_exit(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index b299e15bb5e5..4f8632737574 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2457,10 +2457,10 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>
+>         if (adev->pm.rpm_mode !=3D AMDGPU_RUNPM_NONE) {
+>                 /* only need to skip on ATPX */
+> -               if (amdgpu_device_supports_px(ddev))
+> +               if (amdgpu_device_supports_px(adev))
+>                         dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DI=
+RECT_COMPLETE);
+>                 /* we want direct complete for BOCO */
+> -               if (amdgpu_device_supports_boco(ddev))
+> +               if (amdgpu_device_supports_boco(adev))
+>                         dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART=
+_PREPARE |
+>                                                 DPM_FLAG_SMART_SUSPEND |
+>                                                 DPM_FLAG_MAY_SKIP_RESUME)=
+;
+> @@ -2493,9 +2493,9 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>                  * into D0 state. Then there will be a PMFW-aware D-state
+>                  * transition(D0->D3) on runpm suspend.
+>                  */
+> -               if (amdgpu_device_supports_baco(ddev) &&
+> +               if (amdgpu_device_supports_baco(adev) &&
+>                     !(adev->flags & AMD_IS_APU) &&
+> -                   (adev->asic_type >=3D CHIP_NAVI10))
+> +                   adev->asic_type >=3D CHIP_NAVI10)
+>                         amdgpu_get_secondary_funcs(adev);
+>         }
+>
+> @@ -2560,8 +2560,7 @@ static int amdgpu_pmops_prepare(struct device *dev)
+>         /* Return a positive number here so
+>          * DPM_FLAG_SMART_SUSPEND works properly
+>          */
+> -       if (amdgpu_device_supports_boco(drm_dev) &&
+> -           pm_runtime_suspended(dev))
+> +       if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev=
+))
+>                 return 1;
+>
+>         /* if we will not support s3 or s2i for the device
+> @@ -2834,7 +2833,7 @@ static int amdgpu_pmops_runtime_suspend(struct devi=
+ce *dev)
+>                 /* nothing to do */
+>         } else if ((adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BACO) ||
+>                         (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BAMACO)) {
+> -               amdgpu_device_baco_enter(drm_dev);
+> +               amdgpu_device_baco_enter(adev);
+>         }
+>
+>         dev_dbg(&pdev->dev, "asic/device is runtime suspended\n");
+> @@ -2875,7 +2874,7 @@ static int amdgpu_pmops_runtime_resume(struct devic=
+e *dev)
+>                 pci_set_master(pdev);
+>         } else if ((adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BACO) ||
+>                         (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BAMACO)) {
+> -               amdgpu_device_baco_exit(drm_dev);
+> +               amdgpu_device_baco_exit(adev);
+>         }
+>         ret =3D amdgpu_device_resume(drm_dev, false);
+>         if (ret) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index 5d38276fc900..4aab5e394ce2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -91,7 +91,7 @@ void amdgpu_driver_unload_kms(struct drm_device *dev)
+>         if (adev->rmmio =3D=3D NULL)
+>                 return;
+>
+> -       if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DRV_UNLOAD))
+> +       if (amdgpu_acpi_smart_shift_update(adev, AMDGPU_SS_DRV_UNLOAD))
+>                 DRM_WARN("smart shift update failed\n");
+>
+>         amdgpu_acpi_fini(adev);
+> @@ -161,7 +161,7 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev=
+, unsigned long flags)
+>         if (acpi_status)
+>                 dev_dbg(dev->dev, "Error during ACPI methods call\n");
+>
+> -       if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DRV_LOAD))
+> +       if (amdgpu_acpi_smart_shift_update(adev, AMDGPU_SS_DRV_LOAD))
+>                 DRM_WARN("smart shift update failed\n");
+>
+>  out:
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
+amdgpu_pm.c
+> index 5537dcf23b5c..c2fde0e33b38 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -1897,7 +1897,7 @@ static ssize_t amdgpu_set_smartshift_bias(struct de=
+vice *dev,
+>  static int ss_power_attr_update(struct amdgpu_device *adev, struct amdgp=
+u_device_attr *attr,
+>                                 uint32_t mask, enum amdgpu_device_attr_st=
+ates *states)
+>  {
+> -       if (!amdgpu_device_supports_smart_shift(adev_to_drm(adev)))
+> +       if (!amdgpu_device_supports_smart_shift(adev))
+>                 *states =3D ATTR_STATE_UNSUPPORTED;
+>
+>         return 0;
+> @@ -1908,7 +1908,7 @@ static int ss_bias_attr_update(struct amdgpu_device=
+ *adev, struct amdgpu_device_
+>  {
+>         uint32_t ss_power;
+>
+> -       if (!amdgpu_device_supports_smart_shift(adev_to_drm(adev)))
+> +       if (!amdgpu_device_supports_smart_shift(adev))
+>                 *states =3D ATTR_STATE_UNSUPPORTED;
+>         else if (amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_S=
+S_APU_SHARE,
+>                  (void *)&ss_power))
+> --
+> 2.49.0
+>
