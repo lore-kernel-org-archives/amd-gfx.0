@@ -4,34 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EADA8C83029
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jun 2025 14:36:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4DDEC8302B
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jun 2025 14:36:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40E1310E46F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97AAA10E472;
 	Mon, 30 Jun 2025 14:36:40 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2973710E46C;
- Mon, 30 Jun 2025 14:36:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00F5410E469;
+ Mon, 30 Jun 2025 14:36:36 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 55UEaHbl2520168; Mon, 30 Jun 2025 20:06:17 +0530
+ 55UEaGi92520147; Mon, 30 Jun 2025 20:06:16 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 55UEaH6Z2520167;
- Mon, 30 Jun 2025 20:06:17 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 55UEaETx2520140;
+ Mon, 30 Jun 2025 20:06:14 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
  tursulin@ursulin.net, phasta@kernel.org, dakr@kernel.org,
  Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v7 4/5] drm/amdgpu: add debugfs support for VM pagetable per
- client
-Date: Mon, 30 Jun 2025 20:06:12 +0530
-Message-Id: <20250630143613.2520111-4-sunil.khatri@amd.com>
+Subject: [PATCH v7 1/5] drm: move the debugfs accel driver code to drm layer
+Date: Mon, 30 Jun 2025 20:06:09 +0530
+Message-Id: <20250630143613.2520111-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250630143613.2520111-1-sunil.khatri@amd.com>
-References: <20250630143613.2520111-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,156 +45,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a debugfs file under the client directory which shares
-the root page table base address of the VM.
-
-This address could be used to dump the pagetable for debug
-memory issues.
+Move the debugfs accel driver code to the drm layer
+and it is an intermediate step to move all debugfs
+related handling into drm_debugfs.c
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 52 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  4 +-
- 5 files changed, 60 insertions(+), 3 deletions(-)
+ drivers/accel/drm_accel.c | 16 ----------------
+ drivers/gpu/drm/drm_drv.c |  6 +++++-
+ include/drm/drm_accel.h   |  5 -----
+ 3 files changed, 5 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index f81608330a3d..6762dd11f00c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -2131,6 +2131,55 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 	return 0;
- }
+diff --git a/drivers/accel/drm_accel.c b/drivers/accel/drm_accel.c
+index aa826033b0ce..ca3357acd127 100644
+--- a/drivers/accel/drm_accel.c
++++ b/drivers/accel/drm_accel.c
+@@ -20,8 +20,6 @@
  
-+static int amdgpu_pt_info_read(struct seq_file *m, void *unused)
-+{
-+	struct drm_file *file;
-+	struct amdgpu_fpriv *fpriv;
-+	struct amdgpu_bo *root_bo;
-+	int r;
+ DEFINE_XARRAY_ALLOC(accel_minors_xa);
+ 
+-static struct dentry *accel_debugfs_root;
+-
+ static const struct device_type accel_sysfs_device_minor = {
+ 	.name = "accel_minor"
+ };
+@@ -73,17 +71,6 @@ static const struct drm_info_list accel_debugfs_list[] = {
+ };
+ #define ACCEL_DEBUGFS_ENTRIES ARRAY_SIZE(accel_debugfs_list)
+ 
+-/**
+- * accel_debugfs_init() - Initialize debugfs for device
+- * @dev: Pointer to the device instance.
+- *
+- * This function creates a root directory for the device in debugfs.
+- */
+-void accel_debugfs_init(struct drm_device *dev)
+-{
+-	drm_debugfs_dev_init(dev, accel_debugfs_root);
+-}
+-
+ /**
+  * accel_debugfs_register() - Register debugfs for device
+  * @dev: Pointer to the device instance.
+@@ -194,7 +181,6 @@ static const struct file_operations accel_stub_fops = {
+ void accel_core_exit(void)
+ {
+ 	unregister_chrdev(ACCEL_MAJOR, "accel");
+-	debugfs_remove(accel_debugfs_root);
+ 	accel_sysfs_destroy();
+ 	WARN_ON(!xa_empty(&accel_minors_xa));
+ }
+@@ -209,8 +195,6 @@ int __init accel_core_init(void)
+ 		goto error;
+ 	}
+ 
+-	accel_debugfs_root = debugfs_create_dir("accel", NULL);
+-
+ 	ret = register_chrdev(ACCEL_MAJOR, "accel", &accel_stub_fops);
+ 	if (ret < 0)
+ 		DRM_ERROR("Cannot register ACCEL major: %d\n", ret);
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index 17fc5dc708f4..5d57b622f9aa 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -70,6 +70,7 @@ DEFINE_XARRAY_ALLOC(drm_minors_xa);
+ static bool drm_core_init_complete;
+ 
+ static struct dentry *drm_debugfs_root;
++static struct dentry *accel_debugfs_root;
+ 
+ DEFINE_STATIC_SRCU(drm_unplug_srcu);
+ 
+@@ -752,7 +753,7 @@ static int drm_dev_init(struct drm_device *dev,
+ 	}
+ 
+ 	if (drm_core_check_feature(dev, DRIVER_COMPUTE_ACCEL))
+-		accel_debugfs_init(dev);
++		drm_debugfs_dev_init(dev, accel_debugfs_root);
+ 	else
+ 		drm_debugfs_dev_init(dev, drm_debugfs_root);
+ 
+@@ -1166,6 +1167,7 @@ static void drm_core_exit(void)
+ {
+ 	drm_privacy_screen_lookup_exit();
+ 	drm_panic_exit();
++	debugfs_remove(accel_debugfs_root);
+ 	accel_core_exit();
+ 	unregister_chrdev(DRM_MAJOR, "drm");
+ 	debugfs_remove(drm_debugfs_root);
+@@ -1193,6 +1195,8 @@ static int __init drm_core_init(void)
+ 	if (ret < 0)
+ 		goto error;
+ 
++	accel_debugfs_root = debugfs_create_dir("accel", NULL);
 +
-+	file = m->private;
-+	if (!file)
-+		return -EINVAL;
-+
-+	fpriv = file->driver_priv;
-+	if (!fpriv && !fpriv->vm.root.bo)
-+		return -ENODEV;
-+
-+	root_bo = amdgpu_bo_ref(fpriv->vm.root.bo);
-+	r = amdgpu_bo_reserve(root_bo, true);
-+	if (r) {
-+		amdgpu_bo_unref(&root_bo);
-+		return -EINVAL;
-+	}
-+
-+	seq_printf(m, "gpu_address: 0x%llx\n", amdgpu_bo_gpu_offset(fpriv->vm.root.bo));
-+
-+	amdgpu_bo_unreserve(root_bo);
-+	amdgpu_bo_unref(&root_bo);
-+
-+	return 0;
-+}
-+
-+static int amdgpu_pt_info_open(struct inode *inode, struct file *file)
-+{
-+	return single_open(file, amdgpu_pt_info_read, inode->i_private);
-+}
-+
-+static const struct file_operations amdgpu_pt_info_fops = {
-+	.owner = THIS_MODULE,
-+	.open = amdgpu_pt_info_open,
-+	.read = seq_read,
-+	.llseek = seq_lseek,
-+	.release = single_release,
-+};
-+
-+void amdgpu_debugfs_vm_init(struct drm_file *file)
-+{
-+	debugfs_create_file("vm_pagetable_info", 0444, file->debugfs_client, file,
-+			    &amdgpu_pt_info_fops);
-+}
-+
+ 	ret = accel_core_init();
+ 	if (ret < 0)
+ 		goto error;
+diff --git a/include/drm/drm_accel.h b/include/drm/drm_accel.h
+index 038ccb02f9a3..20a665ec6f16 100644
+--- a/include/drm/drm_accel.h
++++ b/include/drm/drm_accel.h
+@@ -58,7 +58,6 @@ void accel_core_exit(void);
+ int accel_core_init(void);
+ void accel_set_device_instance_params(struct device *kdev, int index);
+ int accel_open(struct inode *inode, struct file *filp);
+-void accel_debugfs_init(struct drm_device *dev);
+ void accel_debugfs_register(struct drm_device *dev);
+ 
  #else
- int amdgpu_debugfs_init(struct amdgpu_device *adev)
+@@ -77,10 +76,6 @@ static inline void accel_set_device_instance_params(struct device *kdev, int ind
  {
-@@ -2140,4 +2189,7 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
- {
- 	return 0;
  }
-+void amdgpu_debugfs_vm_init(struct drm_file *file)
-+{
-+}
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-index 0425432d8659..e7b3c38e5186 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-@@ -33,4 +33,5 @@ void amdgpu_debugfs_fence_init(struct amdgpu_device *adev);
- void amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
- void amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
- void amdgpu_debugfs_mes_event_log_init(struct amdgpu_device *adev);
-+void amdgpu_debugfs_vm_init(struct drm_file *file);
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 195ed81d39ff..27aa1b551dbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1395,7 +1395,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 	if (r)
- 		goto error_pasid;
- 
--	r = amdgpu_vm_init(adev, &fpriv->vm, fpriv->xcp_id);
-+	r = amdgpu_vm_init(adev, &fpriv->vm, fpriv->xcp_id, file_priv);
- 	if (r)
- 		goto error_pasid;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index f042372d9f2e..7e31fb5f6f33 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2527,6 +2527,7 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
-  * @adev: amdgpu_device pointer
-  * @vm: requested vm
-  * @xcp_id: GPU partition selection id
-+ * @file: drm_file
-  *
-  * Init @vm fields.
-  *
-@@ -2534,7 +2535,7 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
-  * 0 for success, error for failure.
-  */
- int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--		   int32_t xcp_id)
-+		   int32_t xcp_id, struct drm_file *file)
+-static inline void accel_debugfs_init(struct drm_device *dev)
+-{
+-}
+-
+ static inline void accel_debugfs_register(struct drm_device *dev)
  {
- 	struct amdgpu_bo *root_bo;
- 	struct amdgpu_bo_vm *root;
-@@ -2610,6 +2611,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (r)
- 		dev_dbg(adev->dev, "Failed to create task info for VM\n");
- 
-+	amdgpu_debugfs_vm_init(file);
- 	amdgpu_bo_unreserve(vm->root.bo);
- 	amdgpu_bo_unref(&root_bo);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index f3ad687125ad..555afaf867c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -487,7 +487,9 @@ int amdgpu_vm_set_pasid(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 			u32 pasid);
- 
- long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout);
--int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp_id);
-+int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp_id,
-+		   struct drm_file *file);
-+
- int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec,
+ }
 -- 
 2.34.1
 
