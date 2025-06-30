@@ -4,153 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26CA1C8302D
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jun 2025 13:34:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A99A6C8302F
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jun 2025 13:47:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 963BB10E458;
-	Mon, 30 Jun 2025 13:34:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB5E10E22B;
+	Mon, 30 Jun 2025 13:47:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZjYBA3/3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dm0aXa+N";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B00FB10E226;
- Mon, 30 Jun 2025 13:34:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ViLzkcXFsObXo6MeALkPWzWGQXf1ZKKKAj8O7wfJedMmuTTU+Z3lkkK982YK23AwVyw2/FPVs4UpFyiNv+woReJh71cyIkLfLAKaYfrxdn+s/NWJ/v22h8BvNKjllSDJst3GJS0oIOCi9gqM18H7S97a9BlcUKbYB/8q0l7liK0C5DQxUyxkCYe6HhtQ1PDSqiQncq0f4c0RmJuTy+Tsthp3fofwEv2617B1V82cGMJHj9dRwzKcY4leEK7QxJcsxkohJQEvNP20ETEsZeU9xpURKzGJV/NrH+4k0n91OpZ1KFgFsmWwnRWsKIbvhhp+ad4oT0xtl6Vm0osAmH6wrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8jmYzwhK98Glit2BAeZFSs4oEWia2LG7LVZiML8sTdM=;
- b=mwg9RlNJRTWoU+dXWlYkRSFsfefNgDL57n0VMRkMkhioaOyMUQUQl50WZDaKHMo8K/95Xt439wseLSFSULDvTJoR8MBhcy0wh16iiV8S+tm6ZJ2PR3co1u80H/A+7jqRYzGmwaGwB1Pz3PMYujqryA+xC7ALqdszhFB3F8MNeB8bTpxTWOWGeErDTrLY12A7Gh4Le/sdCatzzy4vQYupivSIRV4qpHnSzU8J8+2lIE9q7KUn+1UfX8Htwiskghf6jT+NFVfpbAdfANAUmM+FyBtnq/bia9FSJG5rA0TutglBPAkJhnvmk+jZt4wL+o0AiM/6Rkom9y/g1eOi541QyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8jmYzwhK98Glit2BAeZFSs4oEWia2LG7LVZiML8sTdM=;
- b=ZjYBA3/3i69n5yX324zRk77B9TslkeKXuZM1x0rgCDvsdUqem4mKK4y7YkLVvkIzRzU46RIudGAfL5Lt+uK0v67IGQ9g7AbEXTnzzHccGB09yvPV6uZxQmoOygC6+7MHee7i/nt5xSeJTT8g831tpZ0lJPaRNbX0UbvyQeBd1Uk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by PH7PR12MB7308.namprd12.prod.outlook.com (2603:10b6:510:20c::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.30; Mon, 30 Jun
- 2025 13:34:16 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2%6]) with mapi id 15.20.8880.021; Mon, 30 Jun 2025
- 13:34:15 +0000
-Message-ID: <8bad0398-7e4f-4611-8b21-cfbdbe671429@amd.com>
-Date: Mon, 30 Jun 2025 19:04:09 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/5] drm: move debugfs functionality from drm_drv.c to
- drm_debugfs.c
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
- tursulin@ursulin.net, phasta@kernel.org, dakr@kernel.org
-References: <20250627094921.911009-1-sunil.khatri@amd.com>
- <20250627094921.911009-2-sunil.khatri@amd.com>
- <d94574be-4054-40d0-98e7-36c32c1ca556@amd.com>
-Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <d94574be-4054-40d0-98e7-36c32c1ca556@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4PR01CA0006.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:272::12) To BL1PR12MB5753.namprd12.prod.outlook.com
- (2603:10b6:208:390::15)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6BFF10E22B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jun 2025 13:47:55 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-235248ba788so3767245ad.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jun 2025 06:47:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1751291275; x=1751896075; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JjLzaSa7CvdyySN2FZPZYerDLeovMkF4sruVdsf3XJ8=;
+ b=dm0aXa+N3pEbdkjvtvinCIzQYmoT6ETwU68aNiPjJSj30jIMmqn0YrXolqa5nPh/Ft
+ MXDHrzoCB31YBprA+KnOf86UnAairM2gApefcVCSvvhyCAKlFJlXxQMmQPwAe/4cExIR
+ Ou8B7YDE5pH/4kDeZ0J6/qRUMJSzv/HIRZnfddAdmmgn4dAe1if7WPCN5QCjM9d0J3zV
+ UUs8aGCAQPNdk2dnUOjrlDRupvudYhtWUPUTDUR+3E/budpTexs9MufDHZVFV7zzVHIb
+ k1xDWmhGmCLZMWZvws1p5WR0n0+XgcvEAVmpBIW1Dz3rLm2myL17XtvoGheAQZNXR4xZ
+ +/zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751291275; x=1751896075;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JjLzaSa7CvdyySN2FZPZYerDLeovMkF4sruVdsf3XJ8=;
+ b=lg8YawB01CVzNqU7YhekKfu1akzr3Eu/0Y2ryGB12NWT6PmbLbZkDVoWvO2irBIYlf
+ TWMtmvcj+APV+A8ABbIvLGEwna4c95QbDFeARc7gtNw8IJWuPUnNMfSntG+vJYHHaGOT
+ j0je46xEhOeXLhGIEA0MhMihqdkf01gVvp2r1PyGFNRiI5K2SC64OeDewQtMQjORhq+C
+ o1kFGZpqTkNJHsPWFVeSt1h0GRiDY25BhmHml66+Xi2gLKXE4HuQtedEAd7HNZf/r2zN
+ BnISExvSPB53RBiPWF7GyfxuLIRFxqfuRbZWK//CoCzEXTVrx7svnMIP7sHMJU35ocPX
+ 0GTA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVZCA/u8ZqiL4l9475/h1WCPzctse+kgicMcqKYvOMiAgCk+RpO0bTnq3L7lYU5YZl72wHXhzz5@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzHr8j1ZqIf4xmtjG9imQrZuWW7QGliUy525QbJN+Lfsi3MWdJz
+ HoC1BtuyiDXyd7n4K571DRTUv/bRCAl6W7TYNuL0Ow5GjUzLx7nuwTbM3r2WViOdJ5dKlZXoNda
+ zal5yisLtaG/RL+/DCh9UL8jZhHrkDOdUAQ==
+X-Gm-Gg: ASbGnct4Hej+AXB8lhckbSNfhkaloHLIALZl09OhoawUK2/B4ebsjWleRvnwc0PAMoq
+ 6L0cjNd1ejRbIVa9mjwFuzrn7KDjpIkrJ+Vq/Sj5OoxwrX/RIsIxOj3Vz20AcxNNjLje4gDnvFj
+ VUg4tRu0ndWm3fzIx0ROod4Ti840yDUokw/0HLPWoseHae
+X-Google-Smtp-Source: AGHT+IFHUxp2UBtOqOtY0CCYVVWhKPRHcBbzAfK9Id8R7LnwLY/CHGIwmZHNDfYIiQ75gGUoRVLZaiFt2fu8arDfFZQ=
+X-Received: by 2002:a17:902:e747:b0:234:1163:ffa0 with SMTP id
+ d9443c01a7336-23ae943ca15mr57135095ad.13.1751291275223; Mon, 30 Jun 2025
+ 06:47:55 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|PH7PR12MB7308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f5c7229-8a67-4f8c-7344-08ddb7dacec9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Sng3bU53MDM4WDAvazN4bnVGdWgrd1BZM1hwTDBKdVozQjM4MGdIZmJsazMx?=
- =?utf-8?B?M3V3c014ZmpaSUh0c1FqN0g3bWFZSnhSUTd3Q1Y4aldLcEpnbFNjWnpJWCtR?=
- =?utf-8?B?YklWSTJhb3gwRkZLZ0ozQVBhK3ZrUHltM1p1UXhwbnhybjRpejVKZDAvZ2lL?=
- =?utf-8?B?MXg4RWdBdWZLNC8xSGpsR1kraUVIM2pWSlMvN0xnNFNjV3dGbFJoZnhMc25s?=
- =?utf-8?B?dGpEOUN5UFNjVy9oR0FJQzV3OWgxam9nQjNmM1NGVTBReDQwVjg1UE1wWjFK?=
- =?utf-8?B?cFNubWV4dFYreE9uUnc4MjYxcDJxU2RGYm40Rmp6bWhjNy9PQ252WWpLQ3A4?=
- =?utf-8?B?d2IyWjFUM3RaR3FMd2hyRGNZWHVDUkk3L2FGS1pzYlhaa29hMkVJeGtnMzdR?=
- =?utf-8?B?UXlhSXdtSWRBUFRMcDBCYWZ0cnBFY0NtMnp3N2VYcitFamd1ZnRJeURMRzVG?=
- =?utf-8?B?N0o5cTVNOTFsUkkyTStzL0hreGhlOGlnbG54NHlsc3MyMUNWWEVvUzN0cUdu?=
- =?utf-8?B?TnhQeWsybkhJdC8yRU1qeXZlb0tRODQvVzIzK1p1dUlES2pENGlISXUzL2t0?=
- =?utf-8?B?c3VlbGxKbmphS3F0MDI4ejQ2ay95cG00VmhsVWVHcFNkcjEzaHhHVStpMHFU?=
- =?utf-8?B?V3JGTkZQS3FjVndpTnF4ZjRjUGZCcFJvcVJacWQzZzA1dGtySlBkMWZxRzl1?=
- =?utf-8?B?VHBJSG9KbDJ0ZHI5Wng1MldzSzh3LzV1NC9NK1o1dWowWHZsYnkrUUQxaWg1?=
- =?utf-8?B?UkpoM3hkRFZkRmJSRkpoK1FrdjNxc280UXc3eG4yRlJtaTJxeGx5ZExYYm9O?=
- =?utf-8?B?QUJCQWRtSGFrSjA4WVhZSGJqZXFUU09ObXpvUjBSbHVqV2pSOHBQeDQxWlRC?=
- =?utf-8?B?YXZWZFpjSUZRR3IwRUJiZUEzU2lTTEo3bFBoL0JWTURKelZGdllrU0pPRHhy?=
- =?utf-8?B?U0JvOG54aUcwSEtRZDY3OEtiVUlVMHFldS9NeWo0eU9pMXNVVnR0ckNoUFY3?=
- =?utf-8?B?YTliS1hLWGRqc09DeXErMCs5UXNTVGk1S2R1WFNoMXdIZDN3SExuMTNpNThY?=
- =?utf-8?B?d2x3QjFXblBmUVhJUGlqaXl0dVJET3I3eXNPd01FSGRyQzhqY05pb0JhcXY5?=
- =?utf-8?B?bVhnc0Z0bFNLWVBBS24yTFVtNE9YcXcrZUFoUXNFdFFVbUtOZzZnekRQNDFW?=
- =?utf-8?B?U0pzK3N0dXpqYVNObkxaOVU3T1dXUkMxOHc2U3VaSmt3dXYwbzlJVk1Jczly?=
- =?utf-8?B?QjFVSXg0VHhyZDhJZVN0M29NUUlpSW9JNG03bFU1bDJELzBUcUkwMUo1bVps?=
- =?utf-8?B?UmpsaHdQT0FZY2FMSVQ4T3VTa0dJcHZDbVAxK0tFV3hPVllPM0JaQzNxQkxi?=
- =?utf-8?B?WGFPZVMzbCtEVVJ2U3pNc0VnYS9jZStodWJCRmU5dG5CMDExUzQzc3IrTUhl?=
- =?utf-8?B?ekI3UlprWEYxRmc4YkxhQW1DU0JwRm52TzkvQmc0cVpNeGlVK1dtMVZwNS8y?=
- =?utf-8?B?Q2c1TmVzMm9tOVRKR25UdFVsMThOSlJ0UGszaTJQcHh5cmpsVDN6VnpWZjdM?=
- =?utf-8?B?QnRRQzRsemRJTE1vaENjQ2hkMUUrWGlQWUxhVHFxMHlqaEpOTHplNWg2eUlD?=
- =?utf-8?B?MDZMNGdncEVtNkZJK3Rwbkc2WWxsY015dEpvNy8xU1NTam4yU3RmTXBlSFhJ?=
- =?utf-8?B?MUFYSzVZYURVbVNiVklvb29tRmNEZmlRUmFqWjQxdEN4RnhOd0hjVkxpZWNB?=
- =?utf-8?B?OXlhUVd4ZzZCVkUrdkg3aXdYQzhpWEFpd1UyWmFkUTM0S3hsQzZmV1ROMjVH?=
- =?utf-8?B?emJ2VEF5SnY5ZzV1UlNLVktLdXkweThqcElwS0x4dlVEaEpLdXZnaGhBVzFm?=
- =?utf-8?B?bEhxYWpmbVVrWlkvaWd4WEk1TnkvQmY0dktkanc4dE01UG16cW9oV2R2YmZk?=
- =?utf-8?Q?4NB+egHcWe4=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXcva0dUOG82c0E0L09MRjkzbDZtS1pvMkVPMmNjUnk5MHBtcmwxdnp3Qk1p?=
- =?utf-8?B?Vk1tZFdTNndhZlVaVEdwNXMzZDBiWFRjRUlSUkR3R0t2V0Mzb3JHNmlDMDdU?=
- =?utf-8?B?SlMyV0dFV2Nwa0hUMDlHQ3ZWc3B1dGQ4czhKTjBQUEhyb21UejYwTzYxWlNV?=
- =?utf-8?B?NVpPUUhtS2pvUHYvWk5DL2FIRWlmRUIvRDFmN0ZrYmM0UnpPYU1VQzdTTUZw?=
- =?utf-8?B?bzBBb0hDT1N0MmRmWXNLdmtlZ091TXZtcDlUdG1oODlUbzlBQzduQlZxbzRY?=
- =?utf-8?B?eHV1ZnBkWmxvdFhZcjMzZHZMYU5SMUpuczZqd0phY1VNdUFOdHA1ZHoraWx1?=
- =?utf-8?B?MS83SGtqMTNKWkROYW9GdHZDeFhRK0lXdTNBdVZBQjhhdGVVckx4YnN4MjNn?=
- =?utf-8?B?UExMRFpYVmU3UHJMa2tlTHpyNnpTWDcxSFJDM0VJbkxCN2doSkI0TkdzWkQx?=
- =?utf-8?B?VFhJaTM2bjdMYVBTa2pRNGpBRlpybmMyTTVWYXF0MjVieHQ3MmZPNWtoMUFx?=
- =?utf-8?B?b1ZyZlh0TTdtUjlaMkg3VG83RTRpODRWbkhCdEh0Tm9tbFZPU3dXQk1DOUZh?=
- =?utf-8?B?anBkRDFUNnZITE5NM284Sk5lMXdnTEhIYTdzdUJndlRKT2ZhVjMwSVNPc1M1?=
- =?utf-8?B?cTJmampqejcvNSszQXBnN1ZiTnlJWWhYc1dBbEowMWt3RkNsSlVMTGJIZXMw?=
- =?utf-8?B?RnJyZjl0OUV0aHhnNTVZN0RBaUw0VzZVS1hUYmZoT2tGVENianpxMjJBb1Nj?=
- =?utf-8?B?ZWFQSVhmRkpqdXlEUmRlK3lHRlVmeVhBMzdvVXRGYjBxeklWaGVCSm1YSDhP?=
- =?utf-8?B?OVZjd0NBcitBaTJyczhKZ3JiZGs3SGgrTWRiYjA5a1V1cjdiWjVqekpMZE5H?=
- =?utf-8?B?MmJtYzIwVkFpL0Z6UHFhMjgxY1I0MFgyVGhxZGtpM2N6QTNzVEIxSDVhNjR6?=
- =?utf-8?B?V3dERGYwUm1PeXVwSjBXUEhpWkZ5RXh2UTg0UE9OMFNBNlBFNG4waU0zWG54?=
- =?utf-8?B?QjFMOEJqTzA3dG1QMnRKeUx1akxZeXFzTUpsTzZZU0pmWFBRZDZsQjRuc3Br?=
- =?utf-8?B?Vm0zM24yYVR0L1ZUdTZoU25CNnQrRGphY3oyaU45Ylg0dWh1blEybFQ4RzRE?=
- =?utf-8?B?aitjWlp3U0hiQitrbFM5S3d1REU1LzZ3SGYycURPOEhPNWRzMmZrWUJUUHZR?=
- =?utf-8?B?OE1IL2JXdHgwRXpCNTBQQjNWVXVZVWxvWWRVTWpvcGs4OTlUR0RlMDBMUGRa?=
- =?utf-8?B?RU8zT01SVGNrZ1dZZVZEV2IxT2JyY20wYVRJeWMxUDJOWGw4cEdvTi9wc0Fr?=
- =?utf-8?B?bVRUUk1TaUxuU1pGYXFkRk1qZGdOTEdlK2diSlRSY0tiZ2ZmYTJsRnNvcnI3?=
- =?utf-8?B?MUc1SU16b0o1TUZKSm1nQ09qQ05UTXNtSWthQUEvcmxRS2RaRVZaS1pEb0hM?=
- =?utf-8?B?T3ViOFV2OTNwcGVja1pzbGxTRlFuRHo5bG5hOGhiaHdNS002M21IK29LNjht?=
- =?utf-8?B?L2VtYkFsWVBpQUp2ak5nNlJOSnBGcHkrWVlDS2toaTVEU2ZOR1dNaTVERzV3?=
- =?utf-8?B?dENJOWd5anBSNzJ5RmlmSS81aWVXd20ydkxvVXZaUFpvMnRVOHlWQ25PaGtk?=
- =?utf-8?B?ZEZ6eGhUdkJUWTNuS0t2czhyKzFIYmFPZG5jV3FIZWp5WEdEbTdJMnk3UWZt?=
- =?utf-8?B?bkxkRHhHTGtpMmx1ais2WmhyMk1ZRHFmRFN0Y2srRytmcFJzeHl4MG9Ya1gv?=
- =?utf-8?B?NHB6M3EwTjhieXBPZFIrTzBuUDNjV0Q5QTBZbmNyRTVmSlF0RUJBRnJuNkxI?=
- =?utf-8?B?ejA2ckJIVGsxa05jUTZXNHBjT1lrSzN2UWs3UHFlUHJUbmNPRW9BeHZ1YlAv?=
- =?utf-8?B?a3piZEl0NTEwdkw4dnh6NDJDY3AvVDlmQ0l4cEx1YWxzMzRZVDg2ZGZzQTZN?=
- =?utf-8?B?bVNDdHkvZUExc1k2Sms0REFLaVZsZ3ByeGxLdnpTMjdRK2YwTFZrOVFCWGJG?=
- =?utf-8?B?NlJUZWNsUXZjam1wRXVteCtEWWJaRkdyL0lIMnZCTVFIblh3RndSUE1RTkYx?=
- =?utf-8?B?L2h1cU9vNVROaHZHM3kyaFpZb2lKQUtQTWZBT2N5ZTM0d21RazFkMmM5azJ1?=
- =?utf-8?Q?GF1hfPDBB4a3WvXsnm+5Mo6Wq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f5c7229-8a67-4f8c-7344-08ddb7dacec9
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2025 13:34:15.8281 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cb3MahsZUrGGx2Uf8Tdq8CRKtqAOy6nij+P1oeyitw1ULsY+npcLMQnLtNMjpisVqWWFqeqbN7EjGax9G4AAGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7308
+References: <20250627034002.5590-1-alexander.deucher@amd.com>
+ <20250627034002.5590-3-alexander.deucher@amd.com>
+ <fd35ac26-d510-47ac-a98f-0643c1525f1c@amd.com>
+In-Reply-To: <fd35ac26-d510-47ac-a98f-0643c1525f1c@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 30 Jun 2025 09:47:43 -0400
+X-Gm-Features: Ac12FXzbhEU0pF2ho7w5qJD8YER1cmgHgMsYJYY6U1_V2qSGClceADA_ScOHRtw
+Message-ID: <CADnq5_M8hU+-wjLRs6p_wjmmuCVCgV02Q-zVv3irqjpeV6wh9g@mail.gmail.com>
+Subject: Re: [PATCH 02/33] drm/amdgpu/sdma: consolidate engine reset handling
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ sasundar@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,226 +84,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 6/30/2025 5:11 PM, Christian König wrote:
+On Mon, Jun 30, 2025 at 4:48=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> On 27.06.25 11:49, Sunil Khatri wrote:
->> move the debugfs functions from drm_drv.c to drm_debugfs.c
->>
->> move this root node to the debugfs for easily handling
->> of future requirements to add more information in the
->> root directory and one of which is planned to have
->> directories for each client in the root directory
->> which is dri.
->>
->> Suggested-by: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->> ---
->>   drivers/gpu/drm/drm_debugfs.c  | 33 +++++++++++++++++++++++++++------
->>   drivers/gpu/drm/drm_drv.c      | 19 +++++--------------
->>   drivers/gpu/drm/drm_internal.h |  6 ++----
->>   include/drm/drm_drv.h          | 19 +++++++++++++++++--
->>   4 files changed, 51 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
->> index 2d43bda82887..5807dd64d28a 100644
->> --- a/drivers/gpu/drm/drm_debugfs.c
->> +++ b/drivers/gpu/drm/drm_debugfs.c
->> @@ -44,6 +44,9 @@
->>   #include "drm_crtc_internal.h"
->>   #include "drm_internal.h"
->>   
->> +static struct dentry *accel_debugfs_root;
->> +static struct dentry *drm_debugfs_root;
->> +
->>   /***************************************************
->>    * Initialization, etc.
->>    **************************************************/
->> @@ -286,16 +289,35 @@ int drm_debugfs_remove_files(const struct drm_info_list *files, int count,
->>   }
->>   EXPORT_SYMBOL(drm_debugfs_remove_files);
->>   
->> +void drm_debugfs_init_root(void)
->> +{
->> +	drm_debugfs_root = debugfs_create_dir("dri", NULL);
->> +	accel_debugfs_root = debugfs_create_dir("accel", NULL);
->> +}
->> +
->> +void drm_debugfs_remove_root(void)
->> +{
->> +	debugfs_remove(drm_debugfs_root);
->> +}
->> +
->> +void drm_debugfs_remove_accel_root(void)
->> +{
->> +	debugfs_remove(accel_debugfs_root);
->> +}
-> Those two can be removed together as well I think, apart from that the patch looks good to me.
-If i got you right you mean to club
+> On 27.06.25 05:39, Alex Deucher wrote:
+> > Move the force completion handling into the common
+> > engine reset function.  No need to duplicate it for
+> > every IP version.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c |  5 ++++-
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 17 +----------------
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  6 ++----
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  6 ++----
+> >  4 files changed, 9 insertions(+), 25 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_sdma.c
+> > index 7e26a44dcc1fd..56939bb1d1a95 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> > @@ -590,9 +590,12 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device =
+*adev, uint32_t instance_id)
+> >        * to be submitted to the queues after the reset is complete.
+> >        */
+> >       if (!ret) {
+> > +             amdgpu_fence_driver_force_completion(gfx_ring);
+> >               drm_sched_wqueue_start(&gfx_ring->sched);
+> > -             if (adev->sdma.has_page_queue)
+> > +             if (adev->sdma.has_page_queue) {
+> > +                     amdgpu_fence_driver_force_completion(page_ring);
+>
+> Calling amdgpu_fence_driver_force_completion() here sounds like a really =
+bad idea in the first place.
+>
+> That will mark all fences as completed making it impossible to execute th=
+e remaingin work.
 
-drm_debugfs_remove_root and drm_debugfs_remove_accel_root in one function drm_debugfs_remove_root?
+That is the current behavior of the ring reset code so this just moves
+the existing code around.  Also, SDMA 5.x and older is a bit special
+because the hardware only supports engine reset (all queues) so when
+we reset we lose all the queues.  Also SDMA resets can come in via KFD
+as well so at this point, we just mark everything as lost when we
+reset the engine.  This could potentially be optimized in the future.
+I've done this for SDMA 5.x later in the series.
 
-Regards
-Sunil Khatri
+Alex
 
 >
 > Regards,
 > Christian.
 >
->> +
->> +
->>   /**
->>    * drm_debugfs_dev_init - create debugfs directory for the device
->>    * @dev: the device which we want to create the directory for
->> - * @root: the parent directory depending on the device type
->>    *
->>    * Creates the debugfs directory for the device under the given root directory.
->>    */
->> -void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root)
->> +void drm_debugfs_dev_init(struct drm_device *dev)
->>   {
->> -	dev->debugfs_root = debugfs_create_dir(dev->unique, root);
->> +	if (drm_core_check_feature(dev, DRIVER_COMPUTE_ACCEL))
->> +		dev->debugfs_root = debugfs_create_dir(dev->unique, accel_debugfs_root);
->> +	else
->> +		dev->debugfs_root = debugfs_create_dir(dev->unique, drm_debugfs_root);
->>   }
->>   
->>   /**
->> @@ -322,14 +344,13 @@ void drm_debugfs_dev_register(struct drm_device *dev)
->>   		drm_atomic_debugfs_init(dev);
->>   }
->>   
->> -int drm_debugfs_register(struct drm_minor *minor, int minor_id,
->> -			 struct dentry *root)
->> +int drm_debugfs_register(struct drm_minor *minor, int minor_id)
->>   {
->>   	struct drm_device *dev = minor->dev;
->>   	char name[64];
->>   
->>   	sprintf(name, "%d", minor_id);
->> -	minor->debugfs_symlink = debugfs_create_symlink(name, root,
->> +	minor->debugfs_symlink = debugfs_create_symlink(name, drm_debugfs_root,
->>   							dev->unique);
->>   
->>   	/* TODO: Only for compatibility with drivers */
->> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
->> index 5d57b622f9aa..68f50d915153 100644
->> --- a/drivers/gpu/drm/drm_drv.c
->> +++ b/drivers/gpu/drm/drm_drv.c
->> @@ -69,9 +69,6 @@ DEFINE_XARRAY_ALLOC(drm_minors_xa);
->>    */
->>   static bool drm_core_init_complete;
->>   
->> -static struct dentry *drm_debugfs_root;
->> -static struct dentry *accel_debugfs_root;
->> -
->>   DEFINE_STATIC_SRCU(drm_unplug_srcu);
->>   
->>   /*
->> @@ -184,8 +181,7 @@ static int drm_minor_register(struct drm_device *dev, enum drm_minor_type type)
->>   		return 0;
->>   
->>   	if (minor->type != DRM_MINOR_ACCEL) {
->> -		ret = drm_debugfs_register(minor, minor->index,
->> -					   drm_debugfs_root);
->> +		ret = drm_debugfs_register(minor, minor->index);
->>   		if (ret) {
->>   			DRM_ERROR("DRM: Failed to initialize /sys/kernel/debug/dri.\n");
->>   			goto err_debugfs;
->> @@ -752,10 +748,7 @@ static int drm_dev_init(struct drm_device *dev,
->>   		goto err;
->>   	}
->>   
->> -	if (drm_core_check_feature(dev, DRIVER_COMPUTE_ACCEL))
->> -		drm_debugfs_dev_init(dev, accel_debugfs_root);
->> -	else
->> -		drm_debugfs_dev_init(dev, drm_debugfs_root);
->> +	drm_debugfs_dev_init(dev);
->>   
->>   	return 0;
->>   
->> @@ -1167,10 +1160,10 @@ static void drm_core_exit(void)
->>   {
->>   	drm_privacy_screen_lookup_exit();
->>   	drm_panic_exit();
->> -	debugfs_remove(accel_debugfs_root);
->> +	drm_debugfs_remove_accel_root();
->>   	accel_core_exit();
->>   	unregister_chrdev(DRM_MAJOR, "drm");
->> -	debugfs_remove(drm_debugfs_root);
->> +	drm_debugfs_remove_root();
->>   	drm_sysfs_destroy();
->>   	WARN_ON(!xa_empty(&drm_minors_xa));
->>   	drm_connector_ida_destroy();
->> @@ -1189,14 +1182,12 @@ static int __init drm_core_init(void)
->>   		goto error;
->>   	}
->>   
->> -	drm_debugfs_root = debugfs_create_dir("dri", NULL);
->> +	drm_debugfs_init_root();
->>   
->>   	ret = register_chrdev(DRM_MAJOR, "drm", &drm_stub_fops);
->>   	if (ret < 0)
->>   		goto error;
->>   
->> -	accel_debugfs_root = debugfs_create_dir("accel", NULL);
->> -
->>   	ret = accel_core_init();
->>   	if (ret < 0)
->>   		goto error;
->> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
->> index b2b6a8e49dda..d2d8e72f32d9 100644
->> --- a/drivers/gpu/drm/drm_internal.h
->> +++ b/drivers/gpu/drm/drm_internal.h
->> @@ -186,8 +186,7 @@ void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map);
->>   #if defined(CONFIG_DEBUG_FS)
->>   void drm_debugfs_dev_fini(struct drm_device *dev);
->>   void drm_debugfs_dev_register(struct drm_device *dev);
->> -int drm_debugfs_register(struct drm_minor *minor, int minor_id,
->> -			 struct dentry *root);
->> +int drm_debugfs_register(struct drm_minor *minor, int minor_id);
->>   void drm_debugfs_unregister(struct drm_minor *minor);
->>   void drm_debugfs_connector_add(struct drm_connector *connector);
->>   void drm_debugfs_connector_remove(struct drm_connector *connector);
->> @@ -205,8 +204,7 @@ static inline void drm_debugfs_dev_register(struct drm_device *dev)
->>   {
->>   }
->>   
->> -static inline int drm_debugfs_register(struct drm_minor *minor, int minor_id,
->> -				       struct dentry *root)
->> +static inline int drm_debugfs_register(struct drm_minor *minor, int minor_id)
->>   {
->>   	return 0;
->>   }
->> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
->> index a43d707b5f36..a02bf4885b79 100644
->> --- a/include/drm/drm_drv.h
->> +++ b/include/drm/drm_drv.h
->> @@ -566,9 +566,24 @@ static inline bool drm_firmware_drivers_only(void)
->>   }
->>   
->>   #if defined(CONFIG_DEBUG_FS)
->> -void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root);
->> +void drm_debugfs_dev_init(struct drm_device *dev);
->> +void drm_debugfs_init_root(void);
->> +void drm_debugfs_remove_root(void);
->> +void drm_debugfs_remove_accel_root(void);
->>   #else
->> -static inline void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root)
->> +static inline void drm_debugfs_dev_init(struct drm_device *dev)
->> +{
->> +}
->> +
->> +static inline void drm_debugfs_init_root(void)
->> +{
->> +}
->> +
->> +static inline void drm_debugfs_remove_root(void)
->> +{
->> +}
->> +
->> +static inline void drm_debugfs_remove_accel_root(void)
->>   {
->>   }
->>   #endif
+> >                       drm_sched_wqueue_start(&page_ring->sched);
+> > +             }
+> >       }
+> >       mutex_unlock(&sdma_instance->engine_reset_mutex);
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm=
+/amd/amdgpu/sdma_v4_4_2.c
+> > index d3072bca43e3f..572d105420ec3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> > @@ -1714,7 +1714,7 @@ static int sdma_v4_4_2_stop_queue(struct amdgpu_r=
+ing *ring)
+> >  static int sdma_v4_4_2_restore_queue(struct amdgpu_ring *ring)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> > -     u32 inst_mask, tmp_mask;
+> > +     u32 inst_mask;
+> >       int i, r;
+> >
+> >       inst_mask =3D 1 << ring->me;
+> > @@ -1733,21 +1733,6 @@ static int sdma_v4_4_2_restore_queue(struct amdg=
+pu_ring *ring)
+> >       }
+> >
+> >       r =3D sdma_v4_4_2_inst_start(adev, inst_mask, true);
+> > -     if (r)
+> > -             return r;
+> > -
+> > -     tmp_mask =3D inst_mask;
+> > -     for_each_inst(i, tmp_mask) {
+> > -             ring =3D &adev->sdma.instance[i].ring;
+> > -
+> > -             amdgpu_fence_driver_force_completion(ring);
+> > -
+> > -             if (adev->sdma.has_page_queue) {
+> > -                     struct amdgpu_ring *page =3D &adev->sdma.instance=
+[i].page;
+> > -
+> > -                     amdgpu_fence_driver_force_completion(page);
+> > -             }
+> > -     }
+> >
+> >       return r;
+> >  }
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v5_0.c
+> > index 4d72b085b3dd7..ed1706da7deec 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> > @@ -1618,10 +1618,8 @@ static int sdma_v5_0_restore_queue(struct amdgpu=
+_ring *ring)
+> >
+> >       r =3D sdma_v5_0_gfx_resume_instance(adev, inst_id, true);
+> >       amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
+> > -     if (r)
+> > -             return r;
+> > -     amdgpu_fence_driver_force_completion(ring);
+> > -     return 0;
+> > +
+> > +     return r;
+> >  }
+> >
+> >  static int sdma_v5_0_ring_preempt_ib(struct amdgpu_ring *ring)
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v5_2.c
+> > index 42a25150f83ac..b87a4b44fa939 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > @@ -1534,10 +1534,8 @@ static int sdma_v5_2_restore_queue(struct amdgpu=
+_ring *ring)
+> >       r =3D sdma_v5_2_gfx_resume_instance(adev, inst_id, true);
+> >
+> >       amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
+> > -     if (r)
+> > -             return r;
+> > -     amdgpu_fence_driver_force_completion(ring);
+> > -     return 0;
+> > +
+> > +     return r;
+> >  }
+> >
+> >  static int sdma_v5_2_ring_preempt_ib(struct amdgpu_ring *ring)
+>
