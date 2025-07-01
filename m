@@ -4,165 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2A98C7EE30
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 08:32:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E402DC7EE30
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 09:07:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 528CA10E52D;
-	Tue,  1 Jul 2025 08:32:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F38810E544;
+	Tue,  1 Jul 2025 09:07:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xlB3Dp8C";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q900rC0k";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2082.outbound.protection.outlook.com [40.107.92.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1D7A10E52D;
- Tue,  1 Jul 2025 08:32:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iuu54nyqrPVqL8lxtjbqd4SrLdRD5u15PUO2iigSBFpj3Pf+3iVFYw4cVz6R6J6NFNftqtEGk0d0veRrnFQ/GHv/08CkPvieIfD8V5t9HoIYeiSwccHLw5lKbKR/lAVNr3KwK95JZvvLG7bhe40FzYII2L5oyCnlsJsl9jDxivSezL0U1ejGO5wrgSI7DnwkzaliTTGLR20RWcf3hCNoTVFrii+kk0LZpvupyZEqFCKEt/Ah1/hjkk4vMgK/qEZj8QzmVG2uzywzRuVFa9MixrZNlaMNkSKhWHTNtuGinjJD7ThFmU3LU0J/hvX4RX/OmF64BUQ6HxcktoJBTr1ytg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ph1kp2gmIVBr5cUGa228IWTaFdXefZGk1BXBx/n0x9s=;
- b=K+9H6zjcLugi2+alHFnRI13XN1yrFPCiwLi5tXS4rvHXVM8TFF9V061b/o5zhRG4BiUtJe7/TPDtClu1eADNEO/vRiDhcZQ0LZDFPSHoQSrNUbXZNERfpjWMiFJXz4/h3sT8hyGMzO9Dj7gEdVh8jqT+I+vzYwLUoQZnpg7C06InQseXBoLwGYzQ+N3D2hAwgaxBclugUOz0ZcO6hIyZ/1PNgKzhhfEszh0Bg66zg9ZCR1olL3GCjS6XJrashlzTkHvgcSJJkw2SNQjYdNH54flp/FVK27Nz/3bu1BB3AxgiEYIv/SSmaNh2kPmAHjTYGXdMi58Kk8Mq8vy63v+FXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ph1kp2gmIVBr5cUGa228IWTaFdXefZGk1BXBx/n0x9s=;
- b=xlB3Dp8CRd5O+YB5VJaX6EriXp3VaIRvr5BF8iLXFaOU8Xf7f0R/9RLwMeklNgTKNQkIMQ+5qkm7yAuMsS1d+8SZs7W0VXme6p8yiA0zuEzL+1Xx1lpZr0Ye436dCreH4i0vqfEdHqkNYn047w47BPCf2+fGPT3HhhwovOycetM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN6PR12MB8543.namprd12.prod.outlook.com (2603:10b6:208:47b::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.22; Tue, 1 Jul
- 2025 08:32:42 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8880.027; Tue, 1 Jul 2025
- 08:32:42 +0000
-Message-ID: <019a15d5-142f-4761-9408-58c103d3922b@amd.com>
-Date: Tue, 1 Jul 2025 10:32:33 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdgpu: skip kfd resume_process for
- dev_pm_ops.thaw()
-To: "Zhang, GuoQing (Sam)" <GuoQing.Zhang@amd.com>,
- "rafael@kernel.org" <rafael@kernel.org>,
- "len.brown@intel.com" <len.brown@intel.com>,
- "pavel@kernel.org" <pavel@kernel.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Cc: "Zhao, Victor" <Victor.Zhao@amd.com>, "Chang, HaiJun"
- <HaiJun.Chang@amd.com>, "Ma, Qing (Mark)" <Qing.Ma@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20250630104116.3050306-1-guoqing.zhang@amd.com>
- <20250630104116.3050306-4-guoqing.zhang@amd.com>
- <8806781b-90d1-4b99-a798-dd1d29d4c8c0@amd.com>
- <8eb1700d-4d60-4a1e-9d09-718f65baaf1e@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <8eb1700d-4d60-4a1e-9d09-718f65baaf1e@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F22FC10E545;
+ Tue,  1 Jul 2025 09:07:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1751360851; x=1782896851;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=TmqcRVflrH/gpO62B9F5VGOPZ9NKNWzao89t1bDmpUA=;
+ b=Q900rC0kyKCLF/PLi/I0agGiIY/DrL7YOnO9exr0IQUXWJGMCQ8+2zvK
+ v0V5+R5+615qJC3D7cn5dszIdSeHPK19a3KMf+rczT0Wb9fzXPiET46aB
+ HwKy/qBeAXto1iyNUmz3EYTirOy9pomqBZK+0Z1Fq6wV7m5wENCu+bwY2
+ gDnUz1nFLdOe3psEgMsHUyDPLGamzq2BZjnDVnFnJz+tXm06jzeR3aVO8
+ RE3eUe9tJl5mz8Dw7Z+pKFjdbtMfPNq4FVukSy3YJd81w2XZ/myXOgWax
+ cYhG1XDSFLWdGvODDNKDSq+lYOsavyt+UhuHstnGHpnIxb3zBMwCmGRJB w==;
+X-CSE-ConnectionGUID: tadnUSWpSXuH4sCOQ2ofWQ==
+X-CSE-MsgGUID: oLPCNDOjTq+GpbLuOs7VXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11480"; a="64218264"
+X-IronPort-AV: E=Sophos;i="6.16,279,1744095600"; d="scan'208";a="64218264"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2025 02:07:31 -0700
+X-CSE-ConnectionGUID: KSTl1DtOSfC11HwX5E8sDA==
+X-CSE-MsgGUID: MFqyfR78TC64Uh2ynoK/bw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,279,1744095600"; d="scan'208";a="159426845"
+Received: from zzombora-mobl1.ger.corp.intel.com (HELO stinkbox)
+ ([10.245.245.11])
+ by orviesa005.jf.intel.com with SMTP; 01 Jul 2025 02:07:27 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 01 Jul 2025 12:07:25 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 01/19] drm: Pass pixel_format+modifier to .get_format_info()
+Date: Tue,  1 Jul 2025 12:07:04 +0300
+Message-ID: <20250701090722.13645-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250701090722.13645-1-ville.syrjala@linux.intel.com>
+References: <20250701090722.13645-1-ville.syrjala@linux.intel.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR05CA0013.namprd05.prod.outlook.com
- (2603:10b6:208:52c::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN6PR12MB8543:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6783223f-8b6a-4566-8c65-08ddb879d87a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|921020|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ODhnUzNJZjd1cDVRWFJiZ3lQU0pNcFU1c29YWnczSEZIVWF2OVV5aVRPdmtE?=
- =?utf-8?B?S2szNnV4eHN5R3VzTlBNMCt1NG1LY1p4NlZkZkZZR0pXMmk5bTBIY3ZRbmZv?=
- =?utf-8?B?ZitiRlVDWDFGZGJvR3FIVVdWa1hqclNHb29adGREMlhwZEYvWmJnQTVFN1NO?=
- =?utf-8?B?QXpRbjB5T1cyUEp0Z1dERmN2Q2M0UEZJS2xLTFhsQXhlNjQ0UjVjYmprN2NE?=
- =?utf-8?B?c3EzZkN3NCtDNHhjK25BRkhzamxTSktzbFpKQzJRTk5zNllOb01ac1A5Uk00?=
- =?utf-8?B?Umc2L2FFMlN0YW5wbGQ1S0d6NzRlTnZNM0lDZ2ozMUdxYmlpNVF3VUtldzN1?=
- =?utf-8?B?NDZPeG1PMUhFcDN1NjhCQXpSTDY0QnhVelpUeFNsRm9BUHRaV0Y5bmJEa3hz?=
- =?utf-8?B?b0p2MFMyK3R4cHdBbHFWOE5kRTdjeisrb09vUlhvMTcxcjNueCtGaFNUa1JP?=
- =?utf-8?B?R1c4cUlCb0xBSjErTGQyVlVJQlV0WXZjblRmTmRYWlV6cG40VTdsS0YxSEIr?=
- =?utf-8?B?bXFJS1lLa3dRSGtmZzlYbjBSVHZjOHNQM3JOSmtkaklnazRycVd6V3NncFpY?=
- =?utf-8?B?SVp4RWF4T3R1OUpVSExSYlY2Y3dJc25xRFBCMlhSVnFZTXNEOHhxdWs5SXhq?=
- =?utf-8?B?RGRhSzNmV1U0T1FqQUtTT2FTVVNVT2ZmTjBRRzVjanhrZ1ZocWJQeHBEdTZz?=
- =?utf-8?B?MU9ONVVJZGN1Yit5aE9VckdqMTNPZHhBeko4Zm5MeEphdVoxQTl3M1huWFZN?=
- =?utf-8?B?MWtGOXhseElHWDN5WWZ2WDVTTDhLcmVFUEoxUlVlQkJ3bXpBT1JiN3NiR1VP?=
- =?utf-8?B?TnNLU1NQanBOaU9pUmx2WXF2ZTNwLzdBMzZybTMzaHNpT2JXYnNUT1M4SkZJ?=
- =?utf-8?B?YUsxeHBuTE1zOVBOcDltZFI4b0U0SXFLUVBiRW8vY3I0SHpLTjVMVlJGUEJx?=
- =?utf-8?B?ejk0aTNIN1FKaWJsN2xDTGhCMmpuUHFoS3JUNlZaVXFBNnR4ZlRHM1dVMlNZ?=
- =?utf-8?B?TW1odmk3RGZRdkxUK0d1aWRRU05rUE1EbUtGcUdvREdnUlhKdmxQbDN3STFr?=
- =?utf-8?B?Zk5sR2xobjZQVEZ0azBGdmVlbHJSanFjYnN6bDNkZzhBekFhM3hnZlJYYWJ2?=
- =?utf-8?B?cDFZRm5mRWNoOWY0ZjdmV05yc2lzUzRzT3Z0aFZrdDB4TUVMQ1J6Zmt4QjRm?=
- =?utf-8?B?S3dKQ2F1VjE4N0RqWjhrVVBIb1h3WEo3Y1Mrdy85M0JuTHcwU0ZDeTU3Y1U4?=
- =?utf-8?B?TUg0Q2VJU3VKcTNaeW84UnVpL2JhOVFkZVRGMFlRck1taDhsWEppbGtWSzQ1?=
- =?utf-8?B?bkpNeXVZYzl4SlBzY0JxTlUyQXI1VGpRTHdpWHZqUk9TQkpqYnc3OXhDK2ov?=
- =?utf-8?B?blNIdEJzL3dTekJnQ0dYZ3gvYzlHaTIyNGNmK0RnZ3NGZS9HeTY3OXFwcFBM?=
- =?utf-8?B?RXd1VE5nYUVTY3BqZzBtWFQ1bVN2c040N3hZS2RIS3NDWVBmRDhRNGMrODZu?=
- =?utf-8?B?WUNkZC91ZEZnNHhpVFdKTU11WWhhcjFPVVQwRUNrOVFZVEp5amtHaUppdU5M?=
- =?utf-8?B?cmNzVUpOMWE2SkF4UjVSL2dUUWthcWNlVGswSzJCVEo0cExPN3Bmbm9mWFlS?=
- =?utf-8?B?cVQ4d205ZVE4TktHVkpCMFpDa3JyV2wwQWNGVXdxaTloN1FCNmRlMjlCMmpY?=
- =?utf-8?B?TzVMbDIvelhMMWwrVDNHdUx0dVNXMVRsb1NMVkdacEY3ZHVjOWVvVjRKc1JU?=
- =?utf-8?B?aSsrM3piUTZvbXhoM1dVdzlRTzd4UTBRblQ4bnVvNERjZ0JDU29lb3dEZGpX?=
- =?utf-8?B?UUN4OWZOWCs0aE1QdmI5emFjRTQwalYzTG9uc1ZESmU2N1hGZVBIZW9kT2lF?=
- =?utf-8?B?Nmtya0wvOHl5RWdpTllDVVRGL1FlYjBCTXVSaGcwR05KY3dNMmltcFRESVJt?=
- =?utf-8?Q?9EHESUFetBc=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(921020)(13003099007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVFZcDYzcnJsMkNNUy91ajZaTXZoWVlTUWJ2cWFnMmZjQTM1ek9yQVBPK09Q?=
- =?utf-8?B?bThNM0ROeUZIK2xYeVl1M0NRbVpONG9KN09OUDNtMDhxbmpEME81TmxyQUtZ?=
- =?utf-8?B?eUZUeUxnVzFmaW5HVzJwKzMvbHdQZTcrSzk1Skw0dEE1UnRmWGVHOXQzbU00?=
- =?utf-8?B?OThuRkhZUnd0aWI3OHYzMFZZZjE0aGQ2NTZNby9yV01IdmY0M3k2TGJROGly?=
- =?utf-8?B?UlpVZXFBYTUrTWY4eDlGQXJIU2JpK1FLdFBMQWZNLzljTngrS2lZYU13Rk44?=
- =?utf-8?B?SkF1YjRVbDRqd0IrRng0cVNGc1FMSE9CQnBINktQTmo3cklCbUFGLzZXcHdn?=
- =?utf-8?B?djRrZ0VUamJRcnpvMVNKU1VWbmJZNEprc1cxVWNjdUZWRGFmT2piaEZKNytI?=
- =?utf-8?B?aFRLQVhuSFhjZnIyZW5RdjdCSldrTmtwOVhsNlB0Z3BQekF2elp1MnVtUlNy?=
- =?utf-8?B?RldyMWNWc3A2Snd0VGRaUDkyR0dPbkFRTkw3VEhCK0FZUnFLbDNSL1hESmNj?=
- =?utf-8?B?amdleURZV1VLcGw1QVpDVVAyOVJZSDFLaVU2UmllT2tPWGd2bnl3TElIOGlF?=
- =?utf-8?B?eVdEeWF3YWN6eGZJaHJvZ09NNzFQRi8xOVYzQkxXMlpqR0VvWVBPR01aaU82?=
- =?utf-8?B?KzBMN3ZXaGZ3TlYwaHp6Zi9xNCt3RmFha1hrTnl3bUh6a1RyTkQxbnRRdllW?=
- =?utf-8?B?SFhNOWZXd1AxT3U0SDZzTDBOSmdFZ0VMbHQ1REt6SVlFYlJBeThPOXkxdGtq?=
- =?utf-8?B?eXBDSW9iMEhORzFoQnBFSmk1Wlk3REI3Szd3d0FuUXgzdkhnSXlobEEwT2Jx?=
- =?utf-8?B?VmR0WjhDWWd2elRpYXZmWXRSUlFsTUFqMERIWmlySkR6UmlVemVWSDQ0cDQ5?=
- =?utf-8?B?SlNoYTg3UkhRMkJ6Rk8zVEJabGxKQk5nUDc4bm4yUEdDSWRJcEZ4cVFPOXVw?=
- =?utf-8?B?b2Q3QlNkOExUekpPTnFGdE5RR2JqRWxWNktObVMrUkNYQVcyZ1M0OFZnMkRE?=
- =?utf-8?B?eVRWWXJMSzNockI3dXR6TTFEWHI0cEV3MG1SSC9mNzFmbG9pVnpRcGZSZkRi?=
- =?utf-8?B?azE2bzdHVGt0U0k3S3FDcmtDcVpTcEludURGV1kzV3lYRFZtd2I2ZERQTmRn?=
- =?utf-8?B?WVlEbVpONVdZSnlyVnVMNjhCVEpMRlZTNTV0NzBaemVtUFRQQ1d3SHcyYWRY?=
- =?utf-8?B?WXkzRGdSekd2WGpRVVZ1NFBudzhyZTZKRzZjWHYzMjZ2ME92OFZxRXZNSENK?=
- =?utf-8?B?RGRMZWNUbFJMYVErMWNUdXlHaEE3L0xGTXUraDNxbUF4YjQyRUoxNDUybFJ3?=
- =?utf-8?B?cTBPRWVNMm9Dd3cwc2JxUkpMeXM4MmNFbmtWWDNlL1JBN1U1NXVmTEhzVEVm?=
- =?utf-8?B?Y0doMi9weTJoRmptWEtBaFBxSHRtSk9iZFR1T2NZbnhnWG9IVVV4eEkrVGxZ?=
- =?utf-8?B?SzlFZkIzQ09XNUlWMDVET2ppSXQySzNlTmpRNEhVMVNmMnEvVFdHQlVnVzIv?=
- =?utf-8?B?YWlPSFA0QnRUeFVraUZHT1l4TUh5UEpLOFpCT01UWXdJWWNTMldka3NsclZq?=
- =?utf-8?B?Q1JwTkhWZmdJclhxTmlJbElXY05xRGFmR01icDhzTTZLMzlYRHBmZUtBQmkr?=
- =?utf-8?B?enFadE14cGtOL0JwYnI4cXdYQWxwL1hiRWVNQUtvNnRQUnhKaFc4OER3MENZ?=
- =?utf-8?B?N3oreGRHMGlJRUZZM1lLQk1HQ1RDb0hXY2FCQm4vbnBLUXI2b0ZGM05ySmtw?=
- =?utf-8?B?M2prSnplemtNajdTRUhKMFJGK0NRcU9CWFQwckRzTU1XSEx2ZWhpUFFsUHpH?=
- =?utf-8?B?SGswbUJWbVI1MUxRckdpeG1tOVlqV3lCbkRZUTdFTzcxQjZRZEsyOWM1T1Er?=
- =?utf-8?B?T256ZDNMQ3VlRldRUVBjcnVxSUl4TEhSc3I1OTBPTjVDNTVHU2t3NTRqaTZ3?=
- =?utf-8?B?S2ZsSjhiVSs4bnRyNWZ2cWRpMC9GOXV5OEFDdDRXQzhNeTJWY1llZFp1V2JI?=
- =?utf-8?B?N2hZTDZuYlJuWER4WWhHTW43UXlCYk5EalI4MXZya290NnpPSzdIa3FVUmh4?=
- =?utf-8?B?V2tjQURoa0FFQzM2ZlMyMXVHWXF1cUpLVTJ4T3k2UXIvUDZXbXp5bUFqaEN0?=
- =?utf-8?Q?Imm66+muaEJspuoU2IZalipPW?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6783223f-8b6a-4566-8c65-08ddb879d87a
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 08:32:42.0442 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: csfcrAiAhua7J0ncGPpaBGRZCMfYLT7w14vNSD7ZfC2Z41hGCW4NKN+rCRz3M0o5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8543
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,119 +74,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01.07.25 10:03, Zhang, GuoQing (Sam) wrote:
-> 
-> thaw() is called before writing the hiberation image to swap disk. See
-> the doc here.
-> https://github.com/torvalds/linux/blob/v6.14/Documentation/driver-api/pm/devices.rst?plain=1#L552 <https://github.com/torvalds/linux/blob/v6.14/Documentation/driver-api/pm/devices.rst?plain=1#L552>
-> 
-> And amdgpu implemented thaw() callback by calling amdgpu_device_resume().
-> https://github.com/torvalds/linux/blob/v6.14/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c#L2572 <https://github.com/torvalds/linux/blob/v6.14/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c#L2572>
-> 
-> This patch is skip amdgpu_amdkfd_resume_process() call in thaw() during
-> hibernation. it is not skipped in restore() during resume from
-> hibernation when system boot again.
-> 
-> 
-> I just found the following kernel doc. Thaw() is intended to resume the
-> storage device for saving the hibernation image.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Ah, that makes much more sense.
+Decouple .get_format_info() from struct drm_mode_fb_cmd2 and just
+pass the pixel format+modifier combo in by hand.
 
-> Our GPU is not involved
-> in it, it is not necessary to resume our GPU in thaw().
-> https://github.com/torvalds/linux/blob/v6.14/Documentation/power/pci.rst?plain=1#L588 <https://github.com/torvalds/linux/blob/v6.14/Documentation/power/pci.rst?plain=1#L588>
-> 
-> So another implementation is to remove the amdgpu_device_resume() call
-> in amdgpu_pmops_thaw(), and skip amdgpu_device_ip_suspend() call in
-> amdgpu_pci_shutdown()for hibernation.
-> Initial tests show it's working fine for hibernation successful case.
-> Should I switch to this implementation?
+We may want to use .get_format_info() outside of the normal
+addfb paths where we won't have a struct drm_mode_fb_cmd2, and
+creating a temporary one just for this seems silly.
 
-No idea. Alex and the KFD guys need to take a look at that.
+v2: Fix intel_fb_get_format_info() docs (Laurent)
 
-> But thaw() is also called to restore the GPU when hibernation is aborted
-> due to some error in hibernation image creation stage. In this case,
-> amdgpu_device_resume() is needed in thaw().
-> 
-> So I need a method to check if hibernation is aborted or not to
-> conditionally skip amdgpu_device_resume() in thaw(). Currently I don't
-> know how to do this.
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  4 ++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h   |  2 +-
+ drivers/gpu/drm/drm_fourcc.c                          |  3 ++-
+ drivers/gpu/drm/i915/display/intel_fb.c               | 11 ++++++-----
+ drivers/gpu/drm/i915/display/intel_fb.h               |  2 +-
+ include/drm/drm_mode_config.h                         |  2 +-
+ 6 files changed, 13 insertions(+), 11 deletions(-)
 
-Yeah that approach here looks fishy to me, but I don't know how to properly fix it either.
-
-@Alex any idea?
-
-Regards,
-Christian.
-
-> 
-> 
-> Regards
-> Sam
-> 
-> 
-> On 2025/6/30 19:58, Christian König wrote:
->> On 30.06.25 12:41, Samuel Zhang wrote:
->>> The hibernation successful workflow:
->>> - prepare: evict VRAM and swapout GTT BOs
->>> - freeze
->>> - create the hibernation image in system memory
->>> - thaw: swapin and restore BOs
->> Why should a thaw happen here in between?
->>
->>> - complete
->>> - write hibernation image to disk
->>> - amdgpu_pci_shutdown
->>> - goto S5, turn off the system.
->>>
->>> During prepare stage of hibernation, VRAM and GTT BOs will be swapout to
->>> shmem. Then in thaw stage, all BOs will be swapin and restored.
->> That's not correct. This is done by the application starting again and not during thaw.
->>
->>> On server with 192GB VRAM * 8 dGPUs and 1.7TB system memory,
->>> the swapin and restore BOs takes too long (50 minutes) and it is not
->>> necessary since the follow-up stages does not use GPU.
->>>
->>> This patch is to skip BOs restore during thaw to reduce the hibernation
->>> time.
->> As far as I can see that doesn't make sense. The KFD processes need to be resumed here and that can't be skipped.
->>
->> Regards,
->> Christian.
->>
->>> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 2 ++
->>>   2 files changed, 3 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> index a8f4697deb1b..b550d07190a2 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -5328,7 +5328,7 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
->>>               amdgpu_virt_init_data_exchange(adev);
->>>               amdgpu_virt_release_full_gpu(adev, true);
->>>   
->>> -            if (!adev->in_s0ix && !r && !adev->in_runpm)
->>> +            if (!adev->in_s0ix && !r && !adev->in_runpm && !adev->in_s4)
->>>                       r = amdgpu_amdkfd_resume_process(adev);
->>>       }
->>>   
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> index 571b70da4562..23b76e8ac2fd 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> @@ -2734,7 +2734,9 @@ static int amdgpu_pmops_poweroff(struct device *dev)
->>>   static int amdgpu_pmops_restore(struct device *dev)
->>>   {
->>>       struct drm_device *drm_dev = dev_get_drvdata(dev);
->>> +    struct amdgpu_device *adev = drm_to_adev(drm_dev);
->>>   
->>> +    adev->in_s4 = false;
->>>       return amdgpu_device_resume(drm_dev, true);
->>>   }
->>>   
-> 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index b7c6e8d13435..eef51652ca35 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -92,9 +92,9 @@ enum dm_micro_swizzle {
+ 	MICRO_SWIZZLE_R = 3
+ };
+ 
+-const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
++const struct drm_format_info *amdgpu_dm_plane_get_format_info(u32 pixel_format, u64 modifier)
+ {
+-	return amdgpu_lookup_format_info(cmd->pixel_format, cmd->modifier[0]);
++	return amdgpu_lookup_format_info(pixel_format, modifier);
+ }
+ 
+ void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+index 615d2ab2b803..ea2619b507db 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+@@ -58,7 +58,7 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 			 unsigned long possible_crtcs,
+ 			 const struct dc_plane_cap *plane_cap);
+ 
+-const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
++const struct drm_format_info *amdgpu_dm_plane_get_format_info(u32 pixel_format, u64 modifier);
+ 
+ void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+ 				    bool *per_pixel_alpha, bool *pre_multiplied_alpha,
+diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
+index 2890e889dd15..4b4444f6d504 100644
+--- a/drivers/gpu/drm/drm_fourcc.c
++++ b/drivers/gpu/drm/drm_fourcc.c
+@@ -430,7 +430,8 @@ drm_get_format_info(struct drm_device *dev,
+ 	const struct drm_format_info *info = NULL;
+ 
+ 	if (dev->mode_config.funcs->get_format_info)
+-		info = dev->mode_config.funcs->get_format_info(mode_cmd);
++		info = dev->mode_config.funcs->get_format_info(mode_cmd->pixel_format,
++							       mode_cmd->modifier[0]);
+ 
+ 	if (!info)
+ 		info = drm_format_info(mode_cmd->pixel_format);
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index 6158031821fd..52c4901dc072 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -422,21 +422,22 @@ unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier)
+ 
+ /**
+  * intel_fb_get_format_info: Get a modifier specific format information
+- * @cmd: FB add command structure
++ * @pixel_format: pixel format
++ * @modifier: modifier
+  *
+  * Returns:
+- * Returns the format information for @cmd->pixel_format specific to @cmd->modifier[0],
++ * Returns the format information for @pixel_format specific to @modifier,
+  * or %NULL if the modifier doesn't override the format.
+  */
+ const struct drm_format_info *
+-intel_fb_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
++intel_fb_get_format_info(u32 pixel_format, u64 modifier)
+ {
+-	const struct intel_modifier_desc *md = lookup_modifier_or_null(cmd->modifier[0]);
++	const struct intel_modifier_desc *md = lookup_modifier_or_null(modifier);
+ 
+ 	if (!md || !md->formats)
+ 		return NULL;
+ 
+-	return lookup_format_info(md->formats, md->format_count, cmd->pixel_format);
++	return lookup_format_info(md->formats, md->format_count, pixel_format);
+ }
+ 
+ static bool plane_caps_contain_any(u8 caps, u8 mask)
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
+index bdd76b372957..7d1267fbeee2 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.h
++++ b/drivers/gpu/drm/i915/display/intel_fb.h
+@@ -47,7 +47,7 @@ u64 *intel_fb_plane_get_modifiers(struct intel_display *display,
+ bool intel_fb_plane_supports_modifier(struct intel_plane *plane, u64 modifier);
+ 
+ const struct drm_format_info *
+-intel_fb_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
++intel_fb_get_format_info(u32 pixel_format, u64 modifier);
+ 
+ bool
+ intel_format_info_is_yuv_semiplanar(const struct drm_format_info *info,
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index 9e524b51a001..e971e1b8a850 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -95,7 +95,7 @@ struct drm_mode_config_funcs {
+ 	 * The format information specific to the given fb metadata, or
+ 	 * NULL if none is found.
+ 	 */
+-	const struct drm_format_info *(*get_format_info)(const struct drm_mode_fb_cmd2 *mode_cmd);
++	const struct drm_format_info *(*get_format_info)(u32 pixel_format, u64 modifier);
+ 
+ 	/**
+ 	 * @mode_valid:
+-- 
+2.49.0
 
