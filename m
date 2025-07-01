@@ -4,75 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4728C7EE30
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 18:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6413BC83038
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 19:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C94F10E640;
-	Tue,  1 Jul 2025 18:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C571610E2BB;
+	Tue,  1 Jul 2025 19:09:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PECMGjt6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CT7Dxb6r";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B68F10E634;
- Tue,  1 Jul 2025 18:52:40 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-3138e64fc73so875759a91.2; 
- Tue, 01 Jul 2025 11:52:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1751395960; x=1752000760; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=L6/2QDcUd+BuLhy26L8CwtizFOS8qyx61q1YP4an3WA=;
- b=PECMGjt63zn258YPgL/Axy3S8oU+SFH5dPnhlTJAcXhoCq76KMAodDUI3wVhzfYNT7
- T/duU1Ik3wB3821IULavgkAuZ2KeRiXFKUpbTq6a+CEDjeRZc0G3H2zjwOOzzQ1M0eAW
- RpW3AhgcBPF/AoU2NNg7aUlK9YpPu+TERBu9AKFM1wcx4LPdz/oa7fTn3l2ocI1iRDXm
- XEBrOVyJRT5krq7bi1D9LHLOdX0gGs8SG8amjBVsNu014F7bsmo9fQtRW+Vl4h6mDQUJ
- dOkUyLWyKiJ2A2Mm4Mflcw/7di/645/vkJH6D+AEavymYjKgp+1p195U/JFxG2/Sjh9v
- bW5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751395960; x=1752000760;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=L6/2QDcUd+BuLhy26L8CwtizFOS8qyx61q1YP4an3WA=;
- b=ibiNAYqEVHLcR/ykr+Jbm+mBpAacLx48HVLXSL+6zWeapBG0xptoK7hKVy2MSPcxJW
- mD8JE1SdiebDjBASPH0CRAk5ihAa51yE2uQa8BxaU+2TcHcgtgtpgrZgGLOdzrSiwFjz
- rz9bLDnpCQN3n1//s8ZPLk+Sx3QTV+t/UH1apRIyu2fs5swcoSbEfrsYOXf7+oRVT1rv
- NvzsvwreyrJDNLjiNtxcaTyLoleye5dhi5XePyahRnxWK+36meUHtlDNpptz4gqgQwuB
- AmscwM+Nx+p8p2bCMZURehdkXvZ8TloqrlEhiYW3MCWFoX7BcRWMvy3j/bkI5bVB7nNa
- WUHQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUlFHnVKGq/IxvMYjUSr34Llt8/wrbRMprWBIHXSJIWbJ1Zf+xTVucT3gjHvQdf8dUYHmx6MEx6iU1uyk6T@lists.freedesktop.org,
- AJvYcCV6cbUf5nHbZMbCrpkUrxvU1EXNMvvQfZhXyefgjJRvDs9mAcooMgUF9YRLeqjyyj9/z6n23HF/Tw==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx5YuppmioDHrZPln0O6DxI38oL5FQMkUZnSQJU1SheqDRxles6
- ieas9frmf4dWub2g0wayccaJiYjE8PIeSTmG6qPRNvuZVfkD1M9FpT7zEQtixMQp+B9mVfPeJeV
- rKTTWj7HJzp3CuNt1IMkMSHV9cmn7Tds=
-X-Gm-Gg: ASbGncvrrJCTZYnC26By5XOSlopi/hCkFw5wV72iHs19klOVE/ZQIu0MXRV41FSEprj
- DpXh5NWhYUqZIMSXrsdYe82iXwiVBIq90j7VLyvnlA7law7fr9tmI2jf97yPFlYb/ihlm5nMlZD
- 8StkoJricyMR9V037wlqfFS003fvdrkIJzWDTqzQ62j7dX
-X-Google-Smtp-Source: AGHT+IGkQ8mCCmR4JjVXW5iuZS8vaedAJkA9RsCQCR7WLKSjgSmTzGv8Iqae07UmyHHcfhUZ8lyjBz3vf6R6NtZn5so=
-X-Received: by 2002:a17:90b:2f48:b0:311:c939:c842 with SMTP id
- 98e67ed59e1d1-31a90c45d3emr46689a91.7.1751395959654; Tue, 01 Jul 2025
- 11:52:39 -0700 (PDT)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 279AF10E5FD;
+ Tue,  1 Jul 2025 19:09:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ydid3hFSN4BTq6md6pkEdUg+MgFinv5PPmqgkpVGwDcVWBWUioRedawKhtBZhlA+dhCuSGZ1WRgXgWd8aoFJneHqDveKUDfxOUw7+Yo612psWKRvVZeUA41Jb53hpwyW+/0ZkSXX+Csb6d73ZJVZge/I+V8Zf40DKb6tJxDiUwx1nhb5O3Iv9olvYonuu4TlFB56/+2VLQ+kPU36GBE+bPyIKLgpepcjXjMLyII/3J4M5vI1w8w7v3fhs0b94NZVJHTVQ4wNokGlhP+nXMkxnXnzSclleQ3VdX00eE/ZfwkzyL3/odEZP+fmHWy9/ehd3BNCJXLM2YDVxi4gu2lxOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WV5XSf9nwcN9+Nsoey0Y2anC5oKojJd9nD97wkwueEo=;
+ b=FvgLAiHB7zNo7+hJFouMXAqrZdkgpjcICAVQRSQHUgkSG6h0PykODcDkhKX4jYoGgmhbcKB4cPq0vcQQ8QpQK60WOrTUDKIxmok5mBKQZE4VOdY6kmAf183Qn28HsHnh7cIFlqElp3sGMmdyq/j7SoUZ5yg9bJIvBB/wW8G20UsXoVv6eo2p3OQ1Gbc9/MG/uodo27HHd5w8s3OvF3yRsouvgwDcYy6050wvBXyAhhSMGUZWyP+M9ufAC8BG9IEl4d+ua8KBZOssAteHBx4jrxA2+uNSP+fDBSoEFRB1IvwXMR/XPj921nxzMGItaZOKLktbu1h0zdK/abfio/lUvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WV5XSf9nwcN9+Nsoey0Y2anC5oKojJd9nD97wkwueEo=;
+ b=CT7Dxb6rMFperX18TpMAHV41FNnFjEN9b0dVCQ1U484pJnuVvtHj9okj7fN8rOL7YCpJlL10U2zE3TxeMzHmz4cWvofLGsLbfLzBhpga31R+h7FeE1KKirkQyr1c5gLDD7FQ5odBJVqM5MW4Mjc5AvSfeBhjMgTtBvHwGERgJGA=
+Received: from BN8PR04CA0035.namprd04.prod.outlook.com (2603:10b6:408:70::48)
+ by DS7PR12MB6069.namprd12.prod.outlook.com (2603:10b6:8:9f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.29; Tue, 1 Jul
+ 2025 19:09:50 +0000
+Received: from BN1PEPF00006000.namprd05.prod.outlook.com
+ (2603:10b6:408:70:cafe::a6) by BN8PR04CA0035.outlook.office365.com
+ (2603:10b6:408:70::48) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.19 via Frontend Transport; Tue,
+ 1 Jul 2025 19:09:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00006000.mail.protection.outlook.com (10.167.243.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8880.14 via Frontend Transport; Tue, 1 Jul 2025 19:09:49 +0000
+Received: from rtg-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Tue, 1 Jul 2025 14:09:46 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <christian.koenig@amd.com>, <matthew.auld@intel.com>,
+ <matthew.brost@intel.com>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH v2 1/3] drm/amdgpu: Dirty cleared blocks on free
+Date: Wed, 2 Jul 2025 00:38:20 +0530
+Message-ID: <20250701190822.5272-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <CAOR=gxQahs8SXmObsj-6-ux3BMpTZc=8WrSZ83hikpoBZR3OZg@mail.gmail.com>
- <CADnq5_P-60BpvNJf5W16TPbFDXRM5wtHh10iiZm2z6DEDFqn=g@mail.gmail.com>
- <72408fd5-bd8d-4f86-9856-b3b7858f0b9b@amd.com>
- <CAOR=gxRKU3guoXBLi-CBngaWgFa+vgkwzejLQW1aZmrrJL_bxw@mail.gmail.com>
- <CAOR=gxRf0DALhdV_8mRU_7OeYwGX25ccyUvgrDxakwFtB7jDjg@mail.gmail.com>
-In-Reply-To: <CAOR=gxRf0DALhdV_8mRU_7OeYwGX25ccyUvgrDxakwFtB7jDjg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Jul 2025 14:52:28 -0400
-X-Gm-Features: Ac12FXwPAKcKgCM_7iMZuqWQ-nlvgZKxa5zzsvfbz35HpW-xIw89hxWLaqK_LWo
-Message-ID: <CADnq5_NbYNgUciE9gFepXLhPNwu1Mfr8BLQowSGkv8caHSE4Tw@mail.gmail.com>
-Subject: =?UTF-8?B?UmU6IFtSRUdSRVNTSU9OXSBSWC01ODAgKGdmeDgwMykgR1BVIGhhbmdzIHNpbmNlIH52Ng==?=
- =?UTF-8?B?LjE0LjEg4oCTIOKAnHNjaGVkdWxlciBjb21wXzEuMS4xIGlzIG5vdCByZWFkeeKAnSAvIFJPQ20gNS43?=
- =?UTF-8?B?LTYuNCsgYnJva2Vu?=
-To: Johl Brown <johlbrown@gmail.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, amd-gfx-owner@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000094cd30638e2a6d1"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006000:EE_|DS7PR12MB6069:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9706f302-683e-4c76-1c61-08ddb8d2d9f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eHo4bGRnY1VtcDY0ZFNUVHRYK0NHSXc2Zk1qRlJabWp2TDc1Q2NKTXRtSUs5?=
+ =?utf-8?B?UTdJWEVDTzcvUVdvWWRMM3lGSG9rdUZGNE44ODF1QVUreWd0UWozTTlqMnNu?=
+ =?utf-8?B?YlRrTElvRU1vV29DK3pEZ0lMV0o4TFMvRVd3aUgvYlFQeDJQTGZ5Q0FwYy9B?=
+ =?utf-8?B?dFA5MzBtQ3RHWkVSaFVNaUZJQVJqWFRGaVJDNFBkZFR1d0F3aXJGV0J4YTl0?=
+ =?utf-8?B?Zm9FK2hIRmwxdWt4a1VsMWloRXpMYnZZMmFiRWJWS3pEOGlhTml1eUlZdHM1?=
+ =?utf-8?B?RHUxc2ZtMzVyL3ZscU1uS09MYnFmYjVCNm5EdS9PbGREbmVoOFdzZlJZMXQy?=
+ =?utf-8?B?WW0zcVcxYUFDdEVVRXBpRGlwTjcycDlodFF3ZXZqSWd1RzlleFpaZG9pS2dV?=
+ =?utf-8?B?bVRzc21KbVJYbm1QN0M4UVhXUEhOZitiZ3VoM2FtYVJ2b2lZL25JWGFNbGNC?=
+ =?utf-8?B?QmNtY09FL3NiNVd0VW9nY0FIQUJUeDVMQlRKNVo5Sm1IRlJ5enZQTXA2N1g5?=
+ =?utf-8?B?TklkVFViRjhFQnM4bWNtQkpHUlNzWDdibXlGYTJ1YjY1VUFYaTg2bFloL0J1?=
+ =?utf-8?B?Uy9MZkJBUWJvdzFNblpFVUxnckNsc0lVVGFWR0tWeVcycUNLK2w1YlExSGxk?=
+ =?utf-8?B?QXhpTzRoaEtrK2dDMkxiUWFPSWZWM3BVVEtCR2pOc0drWHZyVVI0SGhXVzd5?=
+ =?utf-8?B?UkxTMXFIVFRkNmxTZ2ZWVXJNNWhVdlBiN21LSHZ1ZHlOT0xDbGdJTHdVcVd0?=
+ =?utf-8?B?bVBJMkdsUk0wWmlUS0c4Qjd5TERqNlF5UnZhSnhlSjF0NTdNbXBBZTJ2L05Q?=
+ =?utf-8?B?a3Z3NDQybE5ld0FIOFp4aUdzSDNaUVNBbHRIT0l0ZUZ0TitJUWU1UGxLYWo0?=
+ =?utf-8?B?R3RkUXRhY0hGc1RueFNRRmh1T3BmSDJNeGFZbVBmd2s1M1ZjZXl6cjNET1NX?=
+ =?utf-8?B?MEh0eDNLMTBqTkhNRkFqSUV5dENSTGU3azlGbGlMb2x4SU9mTlV5Z1lDNTA4?=
+ =?utf-8?B?cnZiT2VveFNEQ1JFQ2F0bzZ2NkpGdmN1KzgvUmZlK2pPZG1zRnRRUDVSNUVq?=
+ =?utf-8?B?WTBKb0JkdDcrekVmaVBxWko3bWtVK05jcjVMeDAxck9sY0RWZGpETlJ5ZzlG?=
+ =?utf-8?B?VlBFT1NVQUpRL1lXekR3aGlEQ0RiMWpKbkcyUGNsc01aMkRCbURqMnpPVWhz?=
+ =?utf-8?B?MjFZTHVNS1dXSGlhcGw5MDdWbXFESEtqRzNiY0dJSGR4bVZzYUp0YVd5dmJO?=
+ =?utf-8?B?U1lHajh1WFJza0dtc3ZtWW1pMWY3WURiSHdlNVdkVHZSZThTVmtxVkNNNzRJ?=
+ =?utf-8?B?eXhoanY1WlFKTFJTVWNmMGo5bit3MWlqcTU1TzMvTUVqSDJNdFhwcS9oMHBI?=
+ =?utf-8?B?TDN1L1BGaXVsbXpYMXpJR3VJUUZramc3U2FzYlBtbDdkL2xVWlBzRGZDQ1dV?=
+ =?utf-8?B?d2FnTWZWa2RjMjZSR0dWQWJtcCtuNXNGSi94d1VZNDFFOE1VS084cGhTY21y?=
+ =?utf-8?B?bEZCWnpUVzcydGdzaXdkQmN2OHB5SGJtSlovOWJLOVlIRUFvVGh6SlZKOTZl?=
+ =?utf-8?B?RkkrVkFTMmt3Y0ZDcmd5amxRQ0NTS1BqRkxyUXBZNUlzd1g5TEJEKzJTNHU4?=
+ =?utf-8?B?V09zclVRZnVabU1Kd2xISDUrQ2JIMU16SjQxT21qanp6M0lPdHNXR3VDVjVE?=
+ =?utf-8?B?NlhhaWE0L0tCRmhuaDZIU1YrTGJJZ0dVNUhCZUphM3VvOHFXSFgxRkZXRURZ?=
+ =?utf-8?B?NjNxS0loN3JER0R3WHhBZ25oS0RTODNPM29ZUUNpZWNybG9HbHYySWhkL3pR?=
+ =?utf-8?B?bUUvc0hwT2M5bWlBejIwN05hWTMvcFRlVVpKNXJ5SEc1WjdET05sRDdCYmY3?=
+ =?utf-8?B?aVdtWWVRdXAzQXFQZHJaM2NQb0lOQmFTRitBSTcrM2pLTTZnZ3BsMzF6MEpO?=
+ =?utf-8?B?SXJXd2NEU0EveTRHVzVJREZoZFUrbGZhWS9TbkdHRzlVRWNsZmovdnM3NHYv?=
+ =?utf-8?B?RGVBbkpXcVhnZlhtTm1mUi83TzRtR0Q2ejJJbytNOW5TbFhZNVJDb1F1Y0xp?=
+ =?utf-8?Q?gXlG2W?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 19:09:49.5616 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9706f302-683e-4c76-1c61-08ddb8d2d9f8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006000.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6069
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,797 +142,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000094cd30638e2a6d1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Set the dirty bit when the memory resource is not cleared
+during BO release.
 
-That's a GPU page fault.  Something in the userspace command stream to the
-GPU accessed a non-mapped page with the GPU.
+v2(Christian):
+  - Drop the cleared flag set to false.
+  - Improve the amdgpu_vram_mgr_set_clear_state() function.
 
-Alex
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: stable@vger.kernel.org
+Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h | 5 ++++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-On Tue, Jul 1, 2025 at 5:39=E2=80=AFAM Johl Brown <johlbrown@gmail.com> wro=
-te:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 9c5df35f05b7..86eb6d47dcc5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -409,7 +409,6 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
+ 		if (r) {
+ 			goto error;
+ 		} else if (wipe_fence) {
+-			amdgpu_vram_mgr_set_cleared(bo->resource);
+ 			dma_fence_put(fence);
+ 			fence = wipe_fence;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+index b256cbc2bc27..2c88d5fd87da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+@@ -66,7 +66,10 @@ to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
+ 
+ static inline void amdgpu_vram_mgr_set_cleared(struct ttm_resource *res)
+ {
+-	to_amdgpu_vram_mgr_resource(res)->flags |= DRM_BUDDY_CLEARED;
++	struct amdgpu_vram_mgr_resource *ares = to_amdgpu_vram_mgr_resource(res);
++
++	WARN_ON(ares->flags & DRM_BUDDY_CLEARED);
++	ares->flags |= DRM_BUDDY_CLEARED;
+ }
+ 
+ #endif
+-- 
+2.43.0
 
-> Hi all, hoping I'm still on-side... Thank you for your consideration.
-> Linux archb 6.14.0-rt3-arch1-1-rt #1 SMP PREEMPT_RT Wed, 21 May 2025
-> 13:21:26 +0000 x86_64 GNU/Linux
->
-> AMDGPU sequence
-> Time Message
-> 19:29:29 *GPU fault detected* (0x00020802) for process *kdeconnect-app
-> (pid 2285)*; VM fault at page 2048, write from *TC0*.
-> 19:29:29 Second fault (0x0000880c) for same process; VM fault at page 0,
-> read from *TC6*.
-> 19:29:39 *ring gfx timeout* (signaled seq 699, emitted seq 701) =E2=86=92
-> =E2=80=9CStarting gfx ring reset=E2=80=9D =E2=86=92 *Ring gfx reset failu=
-re*.
-> 19:29:40 Self-tests: ring comp_1.0.1 test failed (-110) and ring
-> comp_1.2.1 test failed (-110).
->
->
-> On Thu, 26 Jun 2025 at 10:38, Johl Brown <johlbrown@gmail.com> wrote:
->
->> Apologies, I believe it was attached to one of the above posts. Please
->> find complete dmesg attached.
->>
->> I had previously attempted to GDB/Ghidra at (
->> https://github.com/lamikr/rocm_sdk_builder/issues/173 ) while
->> experiencing segfaults on previous kernels/roc.
->> Around Nov 3, 2024 (I can't see any comment I made there about kernel
->> version but currently Linux archb 6.14.0-rt3-arch1-1-rt #1 SMP PREEMPT_R=
-T
->> Wed, 21 May 2025 13:21:26 +0000 x86_64 GNU/Linux. I'm just testing rt du=
-e
->> to easyeffects glitches but generally I run mainline kernel and update
->> roughly weekly so the kernel should be current for that time period)
->> eg:
->>
->> /opt/rocm_sdk_612/bin/hipcc hello_world.o -fPIE -o hello_world
->> ./hello_world
->>  System minor: 0
->>  System major: 8
->>  Agent name: AMD Radeon RX 580 Series
->> Kernel input: GdkknVnqkc
->> Expecting that kernel increases each character from input string by one
->> make: *** [Makefile:18: test] Segmentation fault (core dumped)
->>  System minor: 0
->>  System major: 8
->>  Agent name: AMD Radeon RX 580 Series
->> Kernel input: GdkknVnqkc
->> Expecting that kernel increases each character from input string by one
->> Segmentation fault (core dumped)
->>
->>
->> [New Thread 0x7fffecaea6c0 (LWP 2980691)]
->>
->> [New Thread 0x7fffe7fff6c0 (LWP 2980692)]
->>
->> [Thread 0x7fffe7fff6c0 (LWP 2980692) exited]
->>
->>  System minor: 0
->>
->>  System major: 8
->>
->>  Agent name: AMD Radeon RX 580 Series
->>
->> Kernel input: GdkknVnqkc
->>
->> Expecting that kernel increases each character from input string by one
->>
->>
->> Thread 1 "hello_world" received signal SIGSEGV, Segmentation fault.
->>
->> 0x00007ffff7db0fbd in ?? ()
->>
->>    from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
->>
->> (gdb) bt
->>
->> #0  0x00007ffff7db0fbd in ?? ()
->>
->>    from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
->>
->> #1  0x00007ffff7c1497f in ?? ()
->>
->>    from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
->>
->> #2  0x00007ffff7c14c74 in ?? ()
->>
->>    from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
->>
->> #3  0x00007ffff7c14e3e in ?? ()
->>
->>    from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
->>
->> #4  0x00005555555555bf in main (argc=3D<optimized out>,
->>
->>     argv=3D<optimized out>) at hello_world.cpp:69
->>
->> (gdb)
->>
->> Line 69 (nice) is res =3D hipMemcpy(inputBuffer, input, (strlength + 1) =
-*
->> sizeof(char), hipMemcpyHostToDevice); (see attached file jb_gdb_tester)
->>
->>
->>
->> https://github.com/robertrosenbusch/gfx803_rocm/issues/35
->>
->>
->> One love!!
->>
->> On Thu, 26 Jun 2025 at 10:10, Felix Kuehling <felix.kuehling@amd.com>
->> wrote:
->>
->>> I couldn't find a dmesg attched to the linked bug reports. I was going
->>> to look for a kernel oops from calling an uninitialized function pointe=
-r.
->>> Your patch addresses just that.
->>>
->>> I'm not sure how =E2=80=9Cdrm/amdkfd: Improve signal event slow path=E2=
-=80=9D is
->>> implicated. I don't see anything in that patch that would break
->>> specifically on gfx v803.
->>>
->>> Regards,
->>>   Felix
->>>
->>> On 2025-06-25 18:21, Alex Deucher wrote:
->>> > Adding folks from the KFD team to take a look.  Thank you for
->>> > bisecting.  Does the attached patch fix it?
->>> >
->>> > Thanks,
->>> >
->>> > Alex
->>> >
->>> > On Wed, Jun 25, 2025 at 12:33=E2=80=AFAM Johl Brown <johlbrown@gmail.=
-com>
->>> wrote:
->>> >> Good Afternoon and best wishes!
->>> >> This is my first attempt at upstreaming an issue after dailying arch
->>> for a full year now :)
->>> >> Please forgive me, a lot of this is pushing my comfort zone, but
->>> preventing needless e-waste is important to me personally :) with this =
-in
->>> mind, I will save your eyeballs and let you know I did use gpt to help
->>> compile the below, but I have proofread it several times (which means y=
-ou
->>> can't be mad :p ).
->>> >>
->>> >>
->>> >> https://github.com/ROCm/ROCm/issues/4965
->>> >>
->>> https://github.com/robertrosenbusch/gfx803_rocm/issues/35#issuecomment-=
-2996884779
->>> >>
->>> >>
->>> >> Hello Kernel, AMD GPU, & ROCm maintainers,
->>> >>
->>> >> TL;DR: My Polaris (RX-580, gfx803) freezes under compute load on a
->>> number of kernels since v6.14 and newer. This was not previously the ca=
-se
->>> prior to 6.15 for ROCm 6.4.0 on gfx803 cards.
->>> >>
->>> >> The issue has been successfully mitigated within an older version of
->>> ROC under kernel 6.16rc2 by reverting two specific commits:
->>> >>
->>> >> de84484c6f8b (=E2=80=9Cdrm/amdkfd: Improve signal event slow path=E2=
-=80=9D,
->>> 2024-12-19)
->>> >>
->>> >> bac38ca057fe (=E2=80=9Cdrm/amdkfd: implement per queue sdma reset fo=
-r gfx
->>> 9.4+=E2=80=9D, 2025-03-06)
->>> >>
->>> >> Reverting both commits on top of v6.16-rc3 restores full stability
->>> and allows ROCm 5.7 workloads (e.g., Stable-Diffusion, faster-whisper) =
-to
->>> run. Instability is usually immediately obvious via eg models failing t=
-o
->>> initialise, no errors (other than host dmesg)/segfault reported, which =
-is
->>> the usual failure method under previous kernels.
->>> >>
->>> >> ________________________________
->>> >>
->>> >> Problem Description
->>> >>
->>> >> A number of users report GPU hangs when initialising compute loads,
->>> specifically with ROCm 5.7+ workloads. This issue appears to be a
->>> regression, as it was not present in earlier kernel versions.
->>> >>
->>> >> System Information:
->>> >>
->>> >> OS: Arch Linux
->>> >>
->>> >> CPU: Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
->>> >>
->>> >> GPU: AMD Radeon RX 580 Series (gfx803)
->>> >>
->>> >> ROCm Version: Runtime Version: 1.1, Runtime Ext Version: 1.7 (as per
->>> rocminfo --support)
->>> >>
->>> >> ________________________________
->>> >>
->>> >> Affected Kernels and Regression Details
->>> >>
->>> >> The problem consistently occurs on v6.14.1-rc1 and newer kernels.
->>> >>
->>> >> Last known good: v6.11
->>> >>
->>> >> First known bad: v6.12
->>> >>
->>> >> The regression has been bisected to the following two commits, as
->>> reverting them resolves the issue:
->>> >>
->>> >> de84484c6f8b (=E2=80=9Cdrm/amdkfd: Improve signal event slow path=E2=
-=80=9D,
->>> 2024-12-19)
->>> >>
->>> >> bac38ca057fe (=E2=80=9Cdrm/amdkfd: implement per queue sdma reset =
-=E2=80=A6=E2=80=9D,
->>> 2025-03-06)
->>> >>
->>> >> Both patches touch amdkfd queue reset paths and are first included i=
-n
->>> the exact releases where the regression appears.
->>> >>
->>> >> Here's a summary of kernel results:
->>> >>
->>> >> Kernel | Result | Note
->>> >>
->>> >> ------- | -------- | --------
->>> >>
->>> >> 6.13.y (LTS) | OK |
->>> >>
->>> >> 6.14.0 | OK | Baseline - my last working kernel, though I am not
->>> exactly sure which subver
->>> >>
->>> >> 6.14.1-rc1 | BAD | First hang
->>> >>
->>> >> 6.15-rc1 | BAD | Hang
->>> >>
->>> >> 6.15.8 | BAD | Hang
->>> >>
->>> >> 6.16-rc3 | BAD | Hang
->>> >>
->>> >> 6.16-rc3 =E2=80=93 revert de84484 + bac38ca | OK | Full stability re=
-stored,
->>> ROCm workloads run for hours.
->>> >>
->>> >> ________________________________
->>> >>
->>> >> Reproduction Steps
->>> >>
->>> >> Boot the system with a kernel version exhibiting the issue (e.g.,
->>> v6.14.1-rc1 or newer without the reverts).
->>> >>
->>> >> Run a ROCm workload that creates several compute queues, for example=
-:
->>> >>
->>> >> python stable-diffusion.py
->>> >>
->>> >> faster-whisper --model medium ...
->>> >>
->>> >> Upon model initialization, an immediate driver crash occurs. This is
->>> visible on the host machine via dmesg logs.
->>> >>
->>> >> Observed Error Messages (dmesg):
->>> >>
->>> >> [drm] scheduler comp_1.1.1 is not ready, skipping
->>> >> [drm:sched_job_timedout] ERROR ring comp_1.1.1 timeout
->>> >> [message continues ad-infinitum while system functions generally]
->>> >>
->>> >> This is followed by a hard GPU reset (visible in logs, no visual
->>> artifacts), which reliably leads to a full system lockup. Python or Doc=
-ker
->>> processes become unkillable, requiring a manual reboot. Over time, the
->>> desktop slowly loses interactivity.
->>> >>
->>> >> ________________________________
->>> >>
->>> >> Bisect Details
->>> >>
->>> >> I previously attempted a git bisect (limited to drivers/gpu/drm/amd)
->>> between v6.12 and v6.15-rc1, which identified some further potentially
->>> problematic commits, however due to undersized /boot/ partition was
->>> experiencing some difficulties. In the interim, it seems a user on  the
->>> gfx803 compatibilty repo discovered the below regarding ROC 5.7:
->>> >>
->>> >> de84484c6f8b07ad0850d6c4  bad
->>> >> bac38ca057fef2c8c024fe9e  bad
->>> >>
->>> >> Cherry-picking reverts of both commits on top of v6.16-rc3 restores
->>> normal behavior; leaving either patch in place reproduces the hang.
->>> >>
->>> >> ________________________________
->>> >>
->>> >> Relevant Log Excerpts
->>> >>
->>> >> (Full dmesg logs can be attached separately if needed)
->>> >>
->>> >> [drm] scheduler comp_1.1.1 is not ready, skipping
->>> >> [ 97.602622] amdgpu 0000:08:00.0: amdgpu: ring comp_1.1.1 timeout,
->>> signaled seq=3D123456 emitted seq=3D123459
->>> >> [ 97.602630] amdgpu 0000:08:00.0: amdgpu: GPU recover succeeded,
->>> reset domain time =3D 2ms
->>> >>
->>> >> ________________________________
->>> >> References:
->>> >>
->>> >> It's back: Log spam: [drm] scheduler comp_1.0.2 is not ready,
->>> skipping ... (https://bbs.archlinux.org/viewtopic.php?id=3D302729)
->>> >>
->>> >> Observations about HSA and KFD backends in TinyGrad =C2=B7 GitHub (
->>> https://gist.github.com/fxkamd/ffd02d66a2863e444ec208ea4f3adc48)
->>> >>
->>> >> AMD RX580 system freeze on maximum VRAM speed (
->>> https://discussion.fedoraproject.org/t/amd-rx580-system-freeze-on-maxim=
-um-vram-speed/136639
->>> )
->>> >>
->>> >> LKML: Linus Torvalds: Re: [git pull] drm fixes for 6.15-rc1 (
->>> https://lkml.org/lkml/2025/4/5/394)
->>> >>
->>> >> Commits =C2=B7 torvalds/linux - GitHub (Link for commit de84484) (
->>> https://github.com/torvalds/linux/commits?before=3D805ba04cb7ccfc7d72e8=
-34ebd796e043142156ba+6335
->>> )
->>> >>
->>> >> Commits =C2=B7 torvalds/linux - GitHub (Link for commit bac38ca) (
->>> https://github.com/torvalds/linux/commits?before=3D5bc1018675ec28a8a60d=
-83b378d8c3991faa5a27+7980
->>> )
->>> >>
->>> >> ROCm-For-RX580/README.md at main - GitHub (
->>> https://github.com/woodrex83/ROCm-For-RX580/blob/main/README.md)
->>> >>
->>> >> ROCm 4.6.0 for gfx803 - GitHub (
->>> https://github.com/robertrosenbusch/gfx803_rocm/issues/35#issuecomment-=
-2996884779
->>> )
->>> >>
->>> >> Compatibility matrices =E2=80=94 Use ROCm on Radeon GPUs - AMD (
->>> https://rocm.docs.amd.com/projects/radeon/en/latest/docs/compatibility.=
-html
->>> )
->>> >>
->>> >>
->>> >> ________________________________
->>> >>
->>> >> Why this matters
->>> >>
->>> >> Although gfx803 is End-of-Life (EOL) for official ROCm support, larg=
-e
->>> user communities (Stable-Diffusion, Whisper, Tinygrad) still depend on =
-it.
->>> Community builds (e.g., github.com/robertrosenbusch/gfx803_rocm/)
->>> demonstrate that ROCm 6.4+ and RX-580 are fully functional on a number =
-of
->>> relatively recent kernels. This regression significantly impacts the
->>> usability of these cards for compute workloads.
->>> >>
->>> >> ________________________________
->>> >>
->>> >> Proposed Next Steps
->>> >>
->>> >> I suggest the following for further investigation:
->>> >>
->>> >> Review the interaction between the new KFD signal-event slow-path an=
-d
->>> legacy GPUs that may lack valid event IDs.
->>> >>
->>> >> Confirm whether hqd_sdma_get_doorbell() logic (added in bac38ca)
->>> returns stale doorbells on gfx803, potentially causing false positives.
->>> >>
->>> >> Consider back-outs for 6.15-stable / 6.16-rc while a proper fix is
->>> developed.
->>> >>
->>> >> Please let me know if you require any further diagnostics or testing=
-.
->>> I can easily rebuild kernels and provide annotated traces.
->>> >>
->>> >> Please find my working document:
->>> https://chatgpt.com/share/6854bef2-c69c-8002-a243-a06c67a2c066
->>> >>
->>> >> Thanks for your time!
->>> >>
->>> >> Best regards, big love,
->>> >>
->>> >> Johl Brown
->>> >>
->>> >> johlbrown@gmail.com
->>>
->>
-
---000000000000094cd30638e2a6d1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>That&#39;s a GPU page fault.=C2=A0 Something in the u=
-serspace command stream to the GPU accessed a non-mapped page with the GPU.=
-</div><div><br></div><div>Alex</div><br><div class=3D"gmail_quote gmail_quo=
-te_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jul 1, 2025 at =
-5:39=E2=80=AFAM Johl Brown &lt;<a href=3D"mailto:johlbrown@gmail.com">johlb=
-rown@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
-ing-left:1ex"><div dir=3D"ltr"><h4><span style=3D"font-weight:normal">Hi al=
-l, hoping I&#39;m still on-side... Thank you for your consideration.</span>=
-</h4><h4><br>Linux archb 6.14.0-rt3-arch1-1-rt #1 SMP PREEMPT_RT Wed, 21 Ma=
-y 2025 13:21:26 +0000 x86_64 GNU/Linux<br><br>AMDGPU sequence</h4>
-<div><div><table><thead><tr><th>Time</th><th>Message</th></tr></thead><tbod=
-y><tr><td>19:29:29</td><td><b>GPU fault detected</b> (<code>0x00020802</cod=
-e>) for process <b>kdeconnect-app (pid 2285)</b>; VM fault at page 2048, wr=
-ite from <b>TC0</b>.</td></tr><tr><td>19:29:29</td><td>Second fault (<code>=
-0x0000880c</code>) for same process; VM fault at page 0, read from <b>TC6</=
-b>.</td></tr><tr><td>19:29:39</td><td><b>ring gfx timeout</b> (<code>signal=
-ed seq 699, emitted seq 701</code>) =E2=86=92 =E2=80=9CStarting gfx ring re=
-set=E2=80=9D =E2=86=92 <b>Ring gfx reset failure</b>.</td></tr><tr><td>19:2=
-9:40</td><td>Self-tests: <code>ring comp_1.0.1 test failed (-110)</code> an=
-d <code>ring comp_1.2.1 test failed (-110)</code>.</td></tr></tbody></table=
-></div></div><br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" clas=
-s=3D"gmail_attr">On Thu, 26 Jun 2025 at 10:38, Johl Brown &lt;<a href=3D"ma=
-ilto:johlbrown@gmail.com" target=3D"_blank">johlbrown@gmail.com</a>&gt; wro=
-te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"=
-ltr"><div>Apologies, I believe it was attached to one of the above posts. P=
-lease find complete dmesg attached.<br><br>I had previously attempted to GD=
-B/Ghidra at ( <a href=3D"https://github.com/lamikr/rocm_sdk_builder/issues/=
-173" target=3D"_blank">https://github.com/lamikr/rocm_sdk_builder/issues/17=
-3</a> ) while experiencing segfaults on previous kernels/roc.<br></div><div=
->Around Nov 3, 2024 (I can&#39;t see any comment I made there about kernel =
-version but currently=C2=A0Linux archb 6.14.0-rt3-arch1-1-rt #1 SMP PREEMPT=
-_RT Wed, 21 May 2025 13:21:26 +0000 x86_64 GNU/Linux. I&#39;m just testing =
-rt due to easyeffects glitches but generally I run mainline kernel and upda=
-te roughly weekly so the kernel should be current for that time period)</di=
-v>eg:=C2=A0<pre><code>/opt/rocm_sdk_612/bin/hipcc hello_world.o -fPIE -o he=
-llo_world
-./hello_world
- System minor: 0
- System major: 8
- Agent name: AMD Radeon RX 580 Series
-Kernel input: GdkknVnqkc
-Expecting that kernel increases each character from input string by one
-make: *** [Makefile:18: test] Segmentation fault (core dumped)
- System minor: 0
- System major: 8
- Agent name: AMD Radeon RX 580 Series
-Kernel input: GdkknVnqkc
-Expecting that kernel increases each character from input string by one
-Segmentation fault (core dumped)<br><br><br></code><code>[New Thread 0x7fff=
-ecaea6c0 (LWP 2980691)]                            =20
-
-[New Thread 0x7fffe7fff6c0 (LWP 2980692)]
-
-[Thread 0x7fffe7fff6c0 (LWP 2980692) exited]
-
- System minor: 0
-
- System major: 8
-
- Agent name: AMD Radeon RX 580 Series
-
-Kernel input: GdkknVnqkc
-
-Expecting that kernel increases each character from input string by one
-
-
-Thread 1 &quot;hello_world&quot; received signal SIGSEGV, Segmentation faul=
-t.
-
-0x00007ffff7db0fbd in ?? ()
-
-   from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
-
-(gdb) bt
-
-#0  0x00007ffff7db0fbd in ?? ()
-
-   from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
-
-#1  0x00007ffff7c1497f in ?? ()
-
-   from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
-
-#2  0x00007ffff7c14c74 in ?? ()
-
-   from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
-
-#3  0x00007ffff7c14e3e in ?? ()
-
-   from /opt/rocm_sdk_612/lib64/libamdhip64.so.6
-
-#4  0x00005555555555bf in main (argc=3D&lt;optimized out&gt;,
-
-    argv=3D&lt;optimized out&gt;) at hello_world.cpp:69
-
-(gdb) <br><br></code></pre><p dir=3D"auto"><code>Line 69 (nice) is res =3D =
-hipMemcpy(inputBuffer, input, (strlength + 1) * sizeof(char), hipMemcpyHost=
-ToDevice); (see attached file jb_gdb_tester)</code></p><pre><br></pre><div>=
-<br><a href=3D"https://github.com/robertrosenbusch/gfx803_rocm/issues/35" t=
-arget=3D"_blank">https://github.com/robertrosenbusch/gfx803_rocm/issues/35<=
-/a><br><br><br></div><div>One love!!</div></div><br><div class=3D"gmail_quo=
-te"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, 26 Jun 2025 at 10:10, Fel=
-ix Kuehling &lt;<a href=3D"mailto:felix.kuehling@amd.com" target=3D"_blank"=
->felix.kuehling@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">I couldn&#39;t find a dmesg attched to the linked bu=
-g reports. I was going to look for a kernel oops from calling an uninitiali=
-zed function pointer. Your patch addresses just that.<br>
-<br>
-I&#39;m not sure how =E2=80=9Cdrm/amdkfd: Improve signal event slow path=E2=
-=80=9D is implicated. I don&#39;t see anything in that patch that would bre=
-ak specifically on gfx v803.<br>
-<br>
-Regards,<br>
-=C2=A0 Felix<br>
-<br>
-On 2025-06-25 18:21, Alex Deucher wrote:<br>
-&gt; Adding folks from the KFD team to take a look.=C2=A0 Thank you for<br>
-&gt; bisecting.=C2=A0 Does the attached patch fix it?<br>
-&gt;<br>
-&gt; Thanks,<br>
-&gt;<br>
-&gt; Alex<br>
-&gt;<br>
-&gt; On Wed, Jun 25, 2025 at 12:33=E2=80=AFAM Johl Brown &lt;<a href=3D"mai=
-lto:johlbrown@gmail.com" target=3D"_blank">johlbrown@gmail.com</a>&gt; wrot=
-e:<br>
-&gt;&gt; Good Afternoon and best wishes!<br>
-&gt;&gt; This is my first attempt at upstreaming an issue after dailying ar=
-ch for a full year now :)<br>
-&gt;&gt; Please forgive me, a lot of this is pushing my comfort zone, but p=
-reventing needless e-waste is important to me personally :) with this in mi=
-nd, I will save your eyeballs and let you know I did use gpt to help compil=
-e the below, but I have proofread it several times (which means you can&#39=
-;t be mad :p ).<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; <a href=3D"https://github.com/ROCm/ROCm/issues/4965" rel=3D"norefe=
-rrer" target=3D"_blank">https://github.com/ROCm/ROCm/issues/4965</a><br>
-&gt;&gt; <a href=3D"https://github.com/robertrosenbusch/gfx803_rocm/issues/=
-35#issuecomment-2996884779" rel=3D"noreferrer" target=3D"_blank">https://gi=
-thub.com/robertrosenbusch/gfx803_rocm/issues/35#issuecomment-2996884779</a>=
-<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; Hello Kernel, AMD GPU, &amp; ROCm maintainers,<br>
-&gt;&gt;<br>
-&gt;&gt; TL;DR: My Polaris (RX-580, gfx803) freezes under compute load on a=
- number of kernels since v6.14 and newer. This was not previously the case =
-prior to 6.15 for ROCm 6.4.0 on gfx803 cards.<br>
-&gt;&gt;<br>
-&gt;&gt; The issue has been successfully mitigated within an older version =
-of ROC under kernel 6.16rc2 by reverting two specific commits:<br>
-&gt;&gt;<br>
-&gt;&gt; de84484c6f8b (=E2=80=9Cdrm/amdkfd: Improve signal event slow path=
-=E2=80=9D, 2024-12-19)<br>
-&gt;&gt;<br>
-&gt;&gt; bac38ca057fe (=E2=80=9Cdrm/amdkfd: implement per queue sdma reset =
-for gfx 9.4+=E2=80=9D, 2025-03-06)<br>
-&gt;&gt;<br>
-&gt;&gt; Reverting both commits on top of v6.16-rc3 restores full stability=
- and allows ROCm 5.7 workloads (e.g., Stable-Diffusion, faster-whisper) to =
-run. Instability is usually immediately obvious via eg models failing to in=
-itialise, no errors (other than host dmesg)/segfault reported, which is the=
- usual failure method under previous kernels.<br>
-&gt;&gt;<br>
-&gt;&gt; ________________________________<br>
-&gt;&gt;<br>
-&gt;&gt; Problem Description<br>
-&gt;&gt;<br>
-&gt;&gt; A number of users report GPU hangs when initialising compute loads=
-, specifically with ROCm 5.7+ workloads. This issue appears to be a regress=
-ion, as it was not present in earlier kernel versions.<br>
-&gt;&gt;<br>
-&gt;&gt; System Information:<br>
-&gt;&gt;<br>
-&gt;&gt; OS: Arch Linux<br>
-&gt;&gt;<br>
-&gt;&gt; CPU: Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz<br>
-&gt;&gt;<br>
-&gt;&gt; GPU: AMD Radeon RX 580 Series (gfx803)<br>
-&gt;&gt;<br>
-&gt;&gt; ROCm Version: Runtime Version: 1.1, Runtime Ext Version: 1.7 (as p=
-er rocminfo --support)<br>
-&gt;&gt;<br>
-&gt;&gt; ________________________________<br>
-&gt;&gt;<br>
-&gt;&gt; Affected Kernels and Regression Details<br>
-&gt;&gt;<br>
-&gt;&gt; The problem consistently occurs on v6.14.1-rc1 and newer kernels.<=
-br>
-&gt;&gt;<br>
-&gt;&gt; Last known good: v6.11<br>
-&gt;&gt;<br>
-&gt;&gt; First known bad: v6.12<br>
-&gt;&gt;<br>
-&gt;&gt; The regression has been bisected to the following two commits, as =
-reverting them resolves the issue:<br>
-&gt;&gt;<br>
-&gt;&gt; de84484c6f8b (=E2=80=9Cdrm/amdkfd: Improve signal event slow path=
-=E2=80=9D, 2024-12-19)<br>
-&gt;&gt;<br>
-&gt;&gt; bac38ca057fe (=E2=80=9Cdrm/amdkfd: implement per queue sdma reset =
-=E2=80=A6=E2=80=9D, 2025-03-06)<br>
-&gt;&gt;<br>
-&gt;&gt; Both patches touch amdkfd queue reset paths and are first included=
- in the exact releases where the regression appears.<br>
-&gt;&gt;<br>
-&gt;&gt; Here&#39;s a summary of kernel results:<br>
-&gt;&gt;<br>
-&gt;&gt; Kernel | Result | Note<br>
-&gt;&gt;<br>
-&gt;&gt; ------- | -------- | --------<br>
-&gt;&gt;<br>
-&gt;&gt; 6.13.y (LTS) | OK |<br>
-&gt;&gt;<br>
-&gt;&gt; 6.14.0 | OK | Baseline - my last working kernel, though I am not e=
-xactly sure which subver<br>
-&gt;&gt;<br>
-&gt;&gt; 6.14.1-rc1 | BAD | First hang<br>
-&gt;&gt;<br>
-&gt;&gt; 6.15-rc1 | BAD | Hang<br>
-&gt;&gt;<br>
-&gt;&gt; 6.15.8 | BAD | Hang<br>
-&gt;&gt;<br>
-&gt;&gt; 6.16-rc3 | BAD | Hang<br>
-&gt;&gt;<br>
-&gt;&gt; 6.16-rc3 =E2=80=93 revert de84484 + bac38ca | OK | Full stability =
-restored, ROCm workloads run for hours.<br>
-&gt;&gt;<br>
-&gt;&gt; ________________________________<br>
-&gt;&gt;<br>
-&gt;&gt; Reproduction Steps<br>
-&gt;&gt;<br>
-&gt;&gt; Boot the system with a kernel version exhibiting the issue (e.g., =
-v6.14.1-rc1 or newer without the reverts).<br>
-&gt;&gt;<br>
-&gt;&gt; Run a ROCm workload that creates several compute queues, for examp=
-le:<br>
-&gt;&gt;<br>
-&gt;&gt; python stable-diffusion.py<br>
-&gt;&gt;<br>
-&gt;&gt; faster-whisper --model medium ...<br>
-&gt;&gt;<br>
-&gt;&gt; Upon model initialization, an immediate driver crash occurs. This =
-is visible on the host machine via dmesg logs.<br>
-&gt;&gt;<br>
-&gt;&gt; Observed Error Messages (dmesg):<br>
-&gt;&gt;<br>
-&gt;&gt; [drm] scheduler comp_1.1.1 is not ready, skipping<br>
-&gt;&gt; [drm:sched_job_timedout] ERROR ring comp_1.1.1 timeout<br>
-&gt;&gt; [message continues ad-infinitum while system functions generally]<=
-br>
-&gt;&gt;<br>
-&gt;&gt; This is followed by a hard GPU reset (visible in logs, no visual a=
-rtifacts), which reliably leads to a full system lockup. Python or Docker p=
-rocesses become unkillable, requiring a manual reboot. Over time, the deskt=
-op slowly loses interactivity.<br>
-&gt;&gt;<br>
-&gt;&gt; ________________________________<br>
-&gt;&gt;<br>
-&gt;&gt; Bisect Details<br>
-&gt;&gt;<br>
-&gt;&gt; I previously attempted a git bisect (limited to drivers/gpu/drm/am=
-d) between v6.12 and v6.15-rc1, which identified some further potentially p=
-roblematic commits, however due to undersized /boot/ partition was experien=
-cing some difficulties. In the interim, it seems a user on=C2=A0 the gfx803=
- compatibilty repo discovered the below regarding ROC 5.7:<br>
-&gt;&gt;<br>
-&gt;&gt; de84484c6f8b07ad0850d6c4=C2=A0 bad<br>
-&gt;&gt; bac38ca057fef2c8c024fe9e=C2=A0 bad<br>
-&gt;&gt;<br>
-&gt;&gt; Cherry-picking reverts of both commits on top of v6.16-rc3 restore=
-s normal behavior; leaving either patch in place reproduces the hang.<br>
-&gt;&gt;<br>
-&gt;&gt; ________________________________<br>
-&gt;&gt;<br>
-&gt;&gt; Relevant Log Excerpts<br>
-&gt;&gt;<br>
-&gt;&gt; (Full dmesg logs can be attached separately if needed)<br>
-&gt;&gt;<br>
-&gt;&gt; [drm] scheduler comp_1.1.1 is not ready, skipping<br>
-&gt;&gt; [ 97.602622] amdgpu 0000:08:00.0: amdgpu: ring comp_1.1.1 timeout,=
- signaled seq=3D123456 emitted seq=3D123459<br>
-&gt;&gt; [ 97.602630] amdgpu 0000:08:00.0: amdgpu: GPU recover succeeded, r=
-eset domain time =3D 2ms<br>
-&gt;&gt;<br>
-&gt;&gt; ________________________________<br>
-&gt;&gt; References:<br>
-&gt;&gt;<br>
-&gt;&gt; It&#39;s back: Log spam: [drm] scheduler comp_1.0.2 is not ready, =
-skipping ... (<a href=3D"https://bbs.archlinux.org/viewtopic.php?id=3D30272=
-9" rel=3D"noreferrer" target=3D"_blank">https://bbs.archlinux.org/viewtopic=
-.php?id=3D302729</a>)<br>
-&gt;&gt;<br>
-&gt;&gt; Observations about HSA and KFD backends in TinyGrad =C2=B7 GitHub =
-(<a href=3D"https://gist.github.com/fxkamd/ffd02d66a2863e444ec208ea4f3adc48=
-" rel=3D"noreferrer" target=3D"_blank">https://gist.github.com/fxkamd/ffd02=
-d66a2863e444ec208ea4f3adc48</a>)<br>
-&gt;&gt;<br>
-&gt;&gt; AMD RX580 system freeze on maximum VRAM speed (<a href=3D"https://=
-discussion.fedoraproject.org/t/amd-rx580-system-freeze-on-maximum-vram-spee=
-d/136639" rel=3D"noreferrer" target=3D"_blank">https://discussion.fedorapro=
-ject.org/t/amd-rx580-system-freeze-on-maximum-vram-speed/136639</a>)<br>
-&gt;&gt;<br>
-&gt;&gt; LKML: Linus Torvalds: Re: [git pull] drm fixes for 6.15-rc1 (<a hr=
-ef=3D"https://lkml.org/lkml/2025/4/5/394" rel=3D"noreferrer" target=3D"_bla=
-nk">https://lkml.org/lkml/2025/4/5/394</a>)<br>
-&gt;&gt;<br>
-&gt;&gt; Commits =C2=B7 torvalds/linux - GitHub (Link for commit de84484) (=
-<a href=3D"https://github.com/torvalds/linux/commits?before=3D805ba04cb7ccf=
-c7d72e834ebd796e043142156ba+6335" rel=3D"noreferrer" target=3D"_blank">http=
-s://github.com/torvalds/linux/commits?before=3D805ba04cb7ccfc7d72e834ebd796=
-e043142156ba+6335</a>)<br>
-&gt;&gt;<br>
-&gt;&gt; Commits =C2=B7 torvalds/linux - GitHub (Link for commit bac38ca) (=
-<a href=3D"https://github.com/torvalds/linux/commits?before=3D5bc1018675ec2=
-8a8a60d83b378d8c3991faa5a27+7980" rel=3D"noreferrer" target=3D"_blank">http=
-s://github.com/torvalds/linux/commits?before=3D5bc1018675ec28a8a60d83b378d8=
-c3991faa5a27+7980</a>)<br>
-&gt;&gt;<br>
-&gt;&gt; ROCm-For-RX580/README.md at main - GitHub (<a href=3D"https://gith=
-ub.com/woodrex83/ROCm-For-RX580/blob/main/README.md" rel=3D"noreferrer" tar=
-get=3D"_blank">https://github.com/woodrex83/ROCm-For-RX580/blob/main/README=
-.md</a>)<br>
-&gt;&gt;<br>
-&gt;&gt; ROCm 4.6.0 for gfx803 - GitHub (<a href=3D"https://github.com/robe=
-rtrosenbusch/gfx803_rocm/issues/35#issuecomment-2996884779" rel=3D"noreferr=
-er" target=3D"_blank">https://github.com/robertrosenbusch/gfx803_rocm/issue=
-s/35#issuecomment-2996884779</a>)<br>
-&gt;&gt;<br>
-&gt;&gt; Compatibility matrices =E2=80=94 Use ROCm on Radeon GPUs - AMD (<a=
- href=3D"https://rocm.docs.amd.com/projects/radeon/en/latest/docs/compatibi=
-lity.html" rel=3D"noreferrer" target=3D"_blank">https://rocm.docs.amd.com/p=
-rojects/radeon/en/latest/docs/compatibility.html</a>)<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; ________________________________<br>
-&gt;&gt;<br>
-&gt;&gt; Why this matters<br>
-&gt;&gt;<br>
-&gt;&gt; Although gfx803 is End-of-Life (EOL) for official ROCm support, la=
-rge user communities (Stable-Diffusion, Whisper, Tinygrad) still depend on =
-it. Community builds (e.g., <a href=3D"http://github.com/robertrosenbusch/g=
-fx803_rocm/" rel=3D"noreferrer" target=3D"_blank">github.com/robertrosenbus=
-ch/gfx803_rocm/</a>) demonstrate that ROCm 6.4+ and RX-580 are fully functi=
-onal on a number of relatively recent kernels. This regression significantl=
-y impacts the usability of these cards for compute workloads.<br>
-&gt;&gt;<br>
-&gt;&gt; ________________________________<br>
-&gt;&gt;<br>
-&gt;&gt; Proposed Next Steps<br>
-&gt;&gt;<br>
-&gt;&gt; I suggest the following for further investigation:<br>
-&gt;&gt;<br>
-&gt;&gt; Review the interaction between the new KFD signal-event slow-path =
-and legacy GPUs that may lack valid event IDs.<br>
-&gt;&gt;<br>
-&gt;&gt; Confirm whether hqd_sdma_get_doorbell() logic (added in bac38ca) r=
-eturns stale doorbells on gfx803, potentially causing false positives.<br>
-&gt;&gt;<br>
-&gt;&gt; Consider back-outs for 6.15-stable / 6.16-rc while a proper fix is=
- developed.<br>
-&gt;&gt;<br>
-&gt;&gt; Please let me know if you require any further diagnostics or testi=
-ng. I can easily rebuild kernels and provide annotated traces.<br>
-&gt;&gt;<br>
-&gt;&gt; Please find my working document: <a href=3D"https://chatgpt.com/sh=
-are/6854bef2-c69c-8002-a243-a06c67a2c066" rel=3D"noreferrer" target=3D"_bla=
-nk">https://chatgpt.com/share/6854bef2-c69c-8002-a243-a06c67a2c066</a><br>
-&gt;&gt;<br>
-&gt;&gt; Thanks for your time!<br>
-&gt;&gt;<br>
-&gt;&gt; Best regards, big love,<br>
-&gt;&gt;<br>
-&gt;&gt; Johl Brown<br>
-&gt;&gt;<br>
-&gt;&gt; <a href=3D"mailto:johlbrown@gmail.com" target=3D"_blank">johlbrown=
-@gmail.com</a><br>
-</blockquote></div>
-</blockquote></div>
-</blockquote></div></div>
-
---000000000000094cd30638e2a6d1--
