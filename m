@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6413BC83038
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 19:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D82BC7EE30
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 19:09:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C571610E2BB;
-	Tue,  1 Jul 2025 19:09:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEA3D10E624;
+	Tue,  1 Jul 2025 19:09:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CT7Dxb6r";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="24oQGpx5";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 279AF10E5FD;
- Tue,  1 Jul 2025 19:09:53 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2083.outbound.protection.outlook.com [40.107.220.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA6E910E60B;
+ Tue,  1 Jul 2025 19:09:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ydid3hFSN4BTq6md6pkEdUg+MgFinv5PPmqgkpVGwDcVWBWUioRedawKhtBZhlA+dhCuSGZ1WRgXgWd8aoFJneHqDveKUDfxOUw7+Yo612psWKRvVZeUA41Jb53hpwyW+/0ZkSXX+Csb6d73ZJVZge/I+V8Zf40DKb6tJxDiUwx1nhb5O3Iv9olvYonuu4TlFB56/+2VLQ+kPU36GBE+bPyIKLgpepcjXjMLyII/3J4M5vI1w8w7v3fhs0b94NZVJHTVQ4wNokGlhP+nXMkxnXnzSclleQ3VdX00eE/ZfwkzyL3/odEZP+fmHWy9/ehd3BNCJXLM2YDVxi4gu2lxOA==
+ b=yX+id2xCorhutY9Ovn+triMa6g/72RYWBlRlT9Tbq7KuoZ1Qn2YSLwcoc5hkEzG9ikRIo5sKq1Mlqless84yNbYs5PFhMtUtcTDZl+sdj6hW0y1doSWpmuw/EbamadWymmldHZsO3XCPALqjCUsQjPz8RIOVDeEcSrgQf4ZkdaSti0LQU01dOKGvy+yIV2KJV9Dd+Y9wsZCHJNFGwVH2Zh0PHvuSZLz/C0XmEXG6GmXPyp565Dnudj15xqBoaQ3gtC39JDmuHD8AVYQffHglhGr0MRQKRdLxfIO7CdO0PPgmDRkCccRw0yTqhQYWLW6x/xB12KuvrIaWNMWs3dspgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WV5XSf9nwcN9+Nsoey0Y2anC5oKojJd9nD97wkwueEo=;
- b=FvgLAiHB7zNo7+hJFouMXAqrZdkgpjcICAVQRSQHUgkSG6h0PykODcDkhKX4jYoGgmhbcKB4cPq0vcQQ8QpQK60WOrTUDKIxmok5mBKQZE4VOdY6kmAf183Qn28HsHnh7cIFlqElp3sGMmdyq/j7SoUZ5yg9bJIvBB/wW8G20UsXoVv6eo2p3OQ1Gbc9/MG/uodo27HHd5w8s3OvF3yRsouvgwDcYy6050wvBXyAhhSMGUZWyP+M9ufAC8BG9IEl4d+ua8KBZOssAteHBx4jrxA2+uNSP+fDBSoEFRB1IvwXMR/XPj921nxzMGItaZOKLktbu1h0zdK/abfio/lUvw==
+ bh=yTbKVYPSBtpwXva4eCd5m8kwnm9PpPRJ5MJ3nMW2keU=;
+ b=DwxqPdAPHRLSPhnv9+Lopy3MDG7SAUkUVz1x9TJqBXvK/fZqzvkjRE+yC1E4fBFt2eZr1ea6yaYL/gdrjlasrryp99FwnPnirc0OKPCJ5F3cIDdnIgz7V+RqHfBYwtKUNqa0hIuXqnDoimhJWN7hWo6NqXGItKWz8I1AnI6ZrXgIGUGCP7CTTH7VUy4HmcMeoESzS577PqiqgFynx/NiMzzAYw1TJ1ves6dU+ypajom9Qkv6zSgH1Q0yHLrS2OVAn86Nxo2r+PJjvPwPrwTmJRd9lSahFjsPoOv6ju1YC8PNeSwvBaWrD7/h4QxlxePGjTLfkLIhtgwLhKx3lNWntw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WV5XSf9nwcN9+Nsoey0Y2anC5oKojJd9nD97wkwueEo=;
- b=CT7Dxb6rMFperX18TpMAHV41FNnFjEN9b0dVCQ1U484pJnuVvtHj9okj7fN8rOL7YCpJlL10U2zE3TxeMzHmz4cWvofLGsLbfLzBhpga31R+h7FeE1KKirkQyr1c5gLDD7FQ5odBJVqM5MW4Mjc5AvSfeBhjMgTtBvHwGERgJGA=
-Received: from BN8PR04CA0035.namprd04.prod.outlook.com (2603:10b6:408:70::48)
- by DS7PR12MB6069.namprd12.prod.outlook.com (2603:10b6:8:9f::13) with
+ bh=yTbKVYPSBtpwXva4eCd5m8kwnm9PpPRJ5MJ3nMW2keU=;
+ b=24oQGpx5DEIvbzc5VFLf3BHuGiw535n2swBBp/Qamh8g+CyBdIFrPHAqNT0wfVQOuMpuuKikpnmO5dq382AAWVEZJG1EspUrbCZs+fwKPIEEl6RTO1GqUpuQQXkXGMg2zu7RhzTWuRehzeIrM42Wi8yuRa2BFIhPi3cpdAghOEc=
+Received: from BLAP220CA0005.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::10)
+ by DS0PR12MB8442.namprd12.prod.outlook.com (2603:10b6:8:125::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.29; Tue, 1 Jul
- 2025 19:09:50 +0000
-Received: from BN1PEPF00006000.namprd05.prod.outlook.com
- (2603:10b6:408:70:cafe::a6) by BN8PR04CA0035.outlook.office365.com
- (2603:10b6:408:70::48) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.19 via Frontend Transport; Tue,
- 1 Jul 2025 19:09:50 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.27; Tue, 1 Jul
+ 2025 19:09:55 +0000
+Received: from BN1PEPF00005FFC.namprd05.prod.outlook.com
+ (2603:10b6:208:32c:cafe::2c) by BLAP220CA0005.outlook.office365.com
+ (2603:10b6:208:32c::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8880.26 via Frontend Transport; Tue,
+ 1 Jul 2025 19:09:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,86 +48,80 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF00006000.mail.protection.outlook.com (10.167.243.232) with Microsoft
+ BN1PEPF00005FFC.mail.protection.outlook.com (10.167.243.228) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8880.14 via Frontend Transport; Tue, 1 Jul 2025 19:09:49 +0000
+ 15.20.8880.14 via Frontend Transport; Tue, 1 Jul 2025 19:09:54 +0000
 Received: from rtg-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 1 Jul 2025 14:09:46 -0500
+ 15.1.2507.39; Tue, 1 Jul 2025 14:09:52 -0500
 From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
  <christian.koenig@amd.com>, <matthew.auld@intel.com>,
  <matthew.brost@intel.com>
 CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v2 1/3] drm/amdgpu: Dirty cleared blocks on free
-Date: Wed, 2 Jul 2025 00:38:20 +0530
-Message-ID: <20250701190822.5272-1-Arunpravin.PaneerSelvam@amd.com>
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v2 3/3] drm/buddy: Add a new unit test case for buffer
+ clearance issue
+Date: Wed, 2 Jul 2025 00:38:22 +0530
+Message-ID: <20250701190822.5272-3-Arunpravin.PaneerSelvam@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250701190822.5272-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20250701190822.5272-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006000:EE_|DS7PR12MB6069:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9706f302-683e-4c76-1c61-08ddb8d2d9f8
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFC:EE_|DS0PR12MB8442:EE_
+X-MS-Office365-Filtering-Correlation-Id: a21eae1d-0df6-4bd7-3954-08ddb8d2dcfb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eHo4bGRnY1VtcDY0ZFNUVHRYK0NHSXc2Zk1qRlJabWp2TDc1Q2NKTXRtSUs5?=
- =?utf-8?B?UTdJWEVDTzcvUVdvWWRMM3lGSG9rdUZGNE44ODF1QVUreWd0UWozTTlqMnNu?=
- =?utf-8?B?YlRrTElvRU1vV29DK3pEZ0lMV0o4TFMvRVd3aUgvYlFQeDJQTGZ5Q0FwYy9B?=
- =?utf-8?B?dFA5MzBtQ3RHWkVSaFVNaUZJQVJqWFRGaVJDNFBkZFR1d0F3aXJGV0J4YTl0?=
- =?utf-8?B?Zm9FK2hIRmwxdWt4a1VsMWloRXpMYnZZMmFiRWJWS3pEOGlhTml1eUlZdHM1?=
- =?utf-8?B?RHUxc2ZtMzVyL3ZscU1uS09MYnFmYjVCNm5EdS9PbGREbmVoOFdzZlJZMXQy?=
- =?utf-8?B?WW0zcVcxYUFDdEVVRXBpRGlwTjcycDlodFF3ZXZqSWd1RzlleFpaZG9pS2dV?=
- =?utf-8?B?bVRzc21KbVJYbm1QN0M4UVhXUEhOZitiZ3VoM2FtYVJ2b2lZL25JWGFNbGNC?=
- =?utf-8?B?QmNtY09FL3NiNVd0VW9nY0FIQUJUeDVMQlRKNVo5Sm1IRlJ5enZQTXA2N1g5?=
- =?utf-8?B?TklkVFViRjhFQnM4bWNtQkpHUlNzWDdibXlGYTJ1YjY1VUFYaTg2bFloL0J1?=
- =?utf-8?B?Uy9MZkJBUWJvdzFNblpFVUxnckNsc0lVVGFWR0tWeVcycUNLK2w1YlExSGxk?=
- =?utf-8?B?QXhpTzRoaEtrK2dDMkxiUWFPSWZWM3BVVEtCR2pOc0drWHZyVVI0SGhXVzd5?=
- =?utf-8?B?UkxTMXFIVFRkNmxTZ2ZWVXJNNWhVdlBiN21LSHZ1ZHlOT0xDbGdJTHdVcVd0?=
- =?utf-8?B?bVBJMkdsUk0wWmlUS0c4Qjd5TERqNlF5UnZhSnhlSjF0NTdNbXBBZTJ2L05Q?=
- =?utf-8?B?a3Z3NDQybE5ld0FIOFp4aUdzSDNaUVNBbHRIT0l0ZUZ0TitJUWU1UGxLYWo0?=
- =?utf-8?B?R3RkUXRhY0hGc1RueFNRRmh1T3BmSDJNeGFZbVBmd2s1M1ZjZXl6cjNET1NX?=
- =?utf-8?B?MEh0eDNLMTBqTkhNRkFqSUV5dENSTGU3azlGbGlMb2x4SU9mTlV5Z1lDNTA4?=
- =?utf-8?B?cnZiT2VveFNEQ1JFQ2F0bzZ2NkpGdmN1KzgvUmZlK2pPZG1zRnRRUDVSNUVq?=
- =?utf-8?B?WTBKb0JkdDcrekVmaVBxWko3bWtVK05jcjVMeDAxck9sY0RWZGpETlJ5ZzlG?=
- =?utf-8?B?VlBFT1NVQUpRL1lXekR3aGlEQ0RiMWpKbkcyUGNsc01aMkRCbURqMnpPVWhz?=
- =?utf-8?B?MjFZTHVNS1dXSGlhcGw5MDdWbXFESEtqRzNiY0dJSGR4bVZzYUp0YVd5dmJO?=
- =?utf-8?B?U1lHajh1WFJza0dtc3ZtWW1pMWY3WURiSHdlNVdkVHZSZThTVmtxVkNNNzRJ?=
- =?utf-8?B?eXhoanY1WlFKTFJTVWNmMGo5bit3MWlqcTU1TzMvTUVqSDJNdFhwcS9oMHBI?=
- =?utf-8?B?TDN1L1BGaXVsbXpYMXpJR3VJUUZramc3U2FzYlBtbDdkL2xVWlBzRGZDQ1dV?=
- =?utf-8?B?d2FnTWZWa2RjMjZSR0dWQWJtcCtuNXNGSi94d1VZNDFFOE1VS084cGhTY21y?=
- =?utf-8?B?bEZCWnpUVzcydGdzaXdkQmN2OHB5SGJtSlovOWJLOVlIRUFvVGh6SlZKOTZl?=
- =?utf-8?B?RkkrVkFTMmt3Y0ZDcmd5amxRQ0NTS1BqRkxyUXBZNUlzd1g5TEJEKzJTNHU4?=
- =?utf-8?B?V09zclVRZnVabU1Kd2xISDUrQ2JIMU16SjQxT21qanp6M0lPdHNXR3VDVjVE?=
- =?utf-8?B?NlhhaWE0L0tCRmhuaDZIU1YrTGJJZ0dVNUhCZUphM3VvOHFXSFgxRkZXRURZ?=
- =?utf-8?B?NjNxS0loN3JER0R3WHhBZ25oS0RTODNPM29ZUUNpZWNybG9HbHYySWhkL3pR?=
- =?utf-8?B?bUUvc0hwT2M5bWlBejIwN05hWTMvcFRlVVpKNXJ5SEc1WjdET05sRDdCYmY3?=
- =?utf-8?B?aVdtWWVRdXAzQXFQZHJaM2NQb0lOQmFTRitBSTcrM2pLTTZnZ3BsMzF6MEpO?=
- =?utf-8?B?SXJXd2NEU0EveTRHVzVJREZoZFUrbGZhWS9TbkdHRzlVRWNsZmovdnM3NHYv?=
- =?utf-8?B?RGVBbkpXcVhnZlhtTm1mUi83TzRtR0Q2ejJJbytNOW5TbFhZNVJDb1F1Y0xp?=
- =?utf-8?Q?gXlG2W?=
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?HSnSC7PlxV52doUaLUuLmsWhDeCLpZQqMirBDfOMrKPIjWb7yu7G5mLMbthL?=
+ =?us-ascii?Q?6yG7KVJ9npWQ07ZBcwqgUIDI4T4FyXqQn4802L1drqZQqAlCGAr32JC2kyAA?=
+ =?us-ascii?Q?p9IfV/rQOmBivTl/LuOim52uQUPBIjlt8NQvfRfj1/Z2HNApRun0BNa15bPf?=
+ =?us-ascii?Q?PQ5bxVBFGG9qcgKN4cdy86h8Jj7DDUoEI6HT9NlE3j6jXtv2M/Hd4NpriUAB?=
+ =?us-ascii?Q?lDPy3OlbU2X11YNLSPTAeS4zTy3XrWmVc1FlfIcoxeGsqJyFujI5+8fkimYM?=
+ =?us-ascii?Q?w+/YeEDXF1maHnYCm1h0Z/fCTCVyJrv8FRr+1I7dPwPeb7NYFBRrUyFq/KqB?=
+ =?us-ascii?Q?uELbdtucdPlSL/EiyLzGAxtFTjZ2VXyMpQwlyuJvRii9JdgQhimvuaqxg7sM?=
+ =?us-ascii?Q?wqXM/ZzMbAZhmrW7iqGBAwc3xvF0j6knpFOPFmTNRSyKWGnrLnFyylo2t5Re?=
+ =?us-ascii?Q?vbHCvL89UVQ21xPM9BHK4UsjK6Zqp738TErU0Lk6f/LhsJrBC5vMDT0QVeSp?=
+ =?us-ascii?Q?X9j5HDU2ygWAZgZqE6jcF7jMZ3TQWaa/3gx1yUwUruheT8n21+6FSLMIWj+c?=
+ =?us-ascii?Q?sQ4AzXXpQ2M9iKWs+n1bsF/+x4uYr3UPJZKV9rCrYwWMfcpkoOtv5aVkmS6F?=
+ =?us-ascii?Q?3sJ7TAMVbHJkXBjezq8Z8dOuQf+6SfP4A1k1wI6jbgco2s7Erd0exB+sVM0w?=
+ =?us-ascii?Q?3AFfET91KAJ+flZry6lZeRomKIy4SMx8ILsz0I29Rb2RisA2Dq704gC/Inb7?=
+ =?us-ascii?Q?96bQF79fQ/WgDX9OFaGGD9jOw3J+rIwOWINrUXnlFHyCqZgr/M4s8k29X+p1?=
+ =?us-ascii?Q?B2QySruM0EmScV1bD+I8dgZNWcL+3FW3n2g7KCq3GKhNtBg3EC5+/qRa2SBG?=
+ =?us-ascii?Q?rUIN+W1OkOCz+ub6cW0ouG66aTKP90OhOj6Wa6PidfMzBkOAIKNOPDI1YE3U?=
+ =?us-ascii?Q?vtuIomQRltYQv+yBdf21oTxYJ6jZo4T+wKwLqRslljjE3qsd3cKIOoNSWidg?=
+ =?us-ascii?Q?hJKHyO3PivxZvHyR1x+LPWBpfYAdTVzoLyeDn9CxA/Vm9F76TGlcof1dsPJh?=
+ =?us-ascii?Q?+EagsuZn/QNH9hvZ+7XKx0+ZG5Bys8ejUkBfWJwLQtbt6CkCHzK+ECi7oHBL?=
+ =?us-ascii?Q?3xKg993dDWk3f1G5eZLICbN6W9hVdpHTy2u7eoHh7o0FZuEtI9S8DLkDrOiM?=
+ =?us-ascii?Q?wuJWuAUgmxyeSVWFJdv6YbUQACL4Bg8yrbegU7Qa84bBMfglneLq6eJVCQK2?=
+ =?us-ascii?Q?jY9aC+JOsOOU5hwaTIcER828L+ty+inaw6y4LyS+cFQAyWpVUdHOTmeUbNRu?=
+ =?us-ascii?Q?+QhiCbnmJhxGUrlAku55wWGEBHvOydTq4lavTjuBZ/TaV72Emr0aIj169NGJ?=
+ =?us-ascii?Q?nvXMQUGI9tYxkee0zeHNBRuUdu9+m51xd7XT+f0pxihj5O7qRoQCLRxFKdOo?=
+ =?us-ascii?Q?/m0vB3dULlN0blmdgsIUMsGCO8Qe9Dijp20hSOeYTFhXLR8Fxgrs7S9z+r+9?=
+ =?us-ascii?Q?nov9BLBMNDz9bD5vA5qhe3H4xH//1PgjEFDy?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 19:09:49.5616 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9706f302-683e-4c76-1c61-08ddb8d2d9f8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 19:09:54.6155 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a21eae1d-0df6-4bd7-3954-08ddb8d2dcfb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006000.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6069
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8442
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,50 +136,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set the dirty bit when the memory resource is not cleared
-during BO release.
+Add a new unit test case for buffer clearance issue during
+resume.
 
-v2(Christian):
-  - Drop the cleared flag set to false.
-  - Improve the amdgpu_vram_mgr_set_clear_state() function.
+Using a non-power-of-two mm size, allocate alternating blocks of
+4KiB in an even sequence and free them as cleared. All alternate
+blocks should be marked as dirty and the split blocks should be
+merged back to their original size when the blocks clear reset
+function is called.
 
 Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: stable@vger.kernel.org
-Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h | 5 ++++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/tests/drm_buddy_test.c | 41 ++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 9c5df35f05b7..86eb6d47dcc5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -409,7 +409,6 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
- 		if (r) {
- 			goto error;
- 		} else if (wipe_fence) {
--			amdgpu_vram_mgr_set_cleared(bo->resource);
- 			dma_fence_put(fence);
- 			fence = wipe_fence;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-index b256cbc2bc27..2c88d5fd87da 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-@@ -66,7 +66,10 @@ to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
- 
- static inline void amdgpu_vram_mgr_set_cleared(struct ttm_resource *res)
- {
--	to_amdgpu_vram_mgr_resource(res)->flags |= DRM_BUDDY_CLEARED;
-+	struct amdgpu_vram_mgr_resource *ares = to_amdgpu_vram_mgr_resource(res);
+diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
+index 7a0e523651f0..e23922a21c77 100644
+--- a/drivers/gpu/drm/tests/drm_buddy_test.c
++++ b/drivers/gpu/drm/tests/drm_buddy_test.c
+@@ -408,6 +408,47 @@ static void drm_test_buddy_alloc_clear(struct kunit *test)
+ 				"buddy_alloc hit an error size=%lu\n", ps);
+ 	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
+ 	drm_buddy_fini(&mm);
 +
-+	WARN_ON(ares->flags & DRM_BUDDY_CLEARED);
-+	ares->flags |= DRM_BUDDY_CLEARED;
++	/*
++	 * Using a non-power-of-two mm size, allocate alternating blocks of 4KiB in an
++	 * even sequence and free them as cleared. All blocks should be marked as
++	 * dirty and the split blocks should be merged back to their original
++	 * size when the blocks clear reset function is called.
++	 */
++	KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
++	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
++
++	i = 0;
++	n_pages = mm_size / ps;
++	do {
++		if (i % 2 == 0)
++			KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
++									    ps, ps, &allocated, 0),
++						"buddy_alloc hit an error size=%lu\n", ps);
++	} while (++i < n_pages);
++
++	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
++	drm_buddy_reset_clear_state(&mm, false);
++	KUNIT_EXPECT_EQ(test, mm.clear_avail, 0);
++
++	/*
++	 * Using a non-power-of-two mm size, allocate alternating blocks of 4KiB in an
++	 * odd sequence and free them as cleared. All blocks should be marked as
++	 * cleared and the split blocks should be merged back to their original
++	 * size when the blocks clear reset function is called.
++	 */
++	i = 0;
++	do {
++		if (i % 2 != 0)
++			KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
++									    ps, ps, &allocated, 0),
++						"buddy_alloc hit an error size=%lu\n", ps);
++	} while (++i < n_pages);
++
++	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
++	drm_buddy_reset_clear_state(&mm, true);
++	KUNIT_EXPECT_EQ(test, mm.clear_avail, mm_size);
++	drm_buddy_fini(&mm);
  }
  
- #endif
+ static void drm_test_buddy_alloc_contiguous(struct kunit *test)
 -- 
 2.43.0
 
