@@ -4,155 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BDE8C7EE30
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 07:28:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F7DCC7EE30
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 08:04:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04AAC10E514;
-	Tue,  1 Jul 2025 07:28:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D63A610E045;
+	Tue,  1 Jul 2025 08:04:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B+RL4U95";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TdeS7nQL";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C252A10E514
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Jul 2025 07:28:11 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB88510E045;
+ Tue,  1 Jul 2025 08:04:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pL4fYfEmHjl4y39Lf9dxsqpZ7sSjOwm5TLi/9XGfMrdSpER1OtObLPS3mmFP22U7JTHdcrgByo6l1pfzyZNtpq+hPbl+iQ3trXU0F1iwunrnJS6nQUVsC138+FuxAuhOO8rTiZmDAETt25aC4jniVTqT6rw4IGCjMiofRNwBa2JQliSx+fjtsmJweV4+pxZWRFywh4Th8E6KxgP4Ez7JWO9zyQZY9P4w9jbJyR0ArMDahDy0UBGU519K+xGWd7v6p6cXUCUPlUNmWjy0bHj3FKRcJCAWFywPJVKSi5ChmHJ5p/wViKABgbrDvmmSt7coB9yOBkCvhOABWEMkeV3PHQ==
+ b=MK5xnDC+1h22Eb5/SRf6j1ggpAfSC7u1s/RARH2AGSq+2YxT7mb3Uqvk1mqt3t7LrkMgbRrQeWeppxlWldoNSnLJb/zvgpguO9HWBMDLV01M6WFChTUj+CbQwn251xjCzQvNRAxHae6cINjoIPIVGagCO1jAS4J8I4HwPUfmEeMKBA08e5GllnlSUKmngqDg/x+vscpXB3TgtpjZKvMt+7cp8PYwekyYQwkCzleO9lNxP51GMzibkcVA7SoMP61kT7oYq7sqqdlwBHZ7QF5k8nSDLz/epNu2xWBA7z2hCvHAH6ryXRfjq85CZ4uVwXI98wubFif+ewZBbov/axlViA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vhrhnlylLQcUtkCzCtQ1UwdLsLoEmPrzAjlpQjmgXBk=;
- b=a3h+WDCFmKnZ2fcd18G6vB0qZuoZWFt3tEFonSbsfwY5LLYc6pufwYRz7Vt2PE+MqiRObwQ+FpN+8MuZaJnKfTdvD38CUHL4hpinJT07/5jIFoIkWuScT1IObkLr7umh9ILsa3tjXLKjcF2ow0/CtfndJhtF+x+D/qftxhrov4TDA4QXeIZ2q10GydHECsaRs22HTlHyDd/kKF23V9nyxd8DQhz37dqVXw2IeLfByC5N8hfXZG7IVdsD7mgZ20UaR0UGbS9vwu82+1ih9Lp42PWZ3P6xiXHh55pdy41vLRMn6T7Rox0EZKBawG5lYJ1QYauDJqbqrtknVRV9B3wpGQ==
+ bh=WCozHiIltblxr7g3bnerFJFbTXc/fKK6j/1UsRQZBDI=;
+ b=JUsgJmpFq8o4xTe67PI5+YJa4IJd/QNoVf9Sz/RidVAqJx+rc1PsvwxZjPQ+shm7B1EN0JtqGfLFWRnq4b4S077bdoO9k3Qupm+29EDdLpAM3lPQ5G1ZWNQsqk4DTVen4BATCWRZpgqoYmi7/fCx2BwAoHGRMzX1nf9+By2mYM30FNs75dp02KxY1312JjgxKxOvRcI9uy7JSG91Q6NVVmEOHe2lO2md81OkY3xlAiKM4moqiKzcYz83Noqy5N/uY3Z4AkcUHDOq9yFtkmqmsFtEcX3hAMVTnRt1uwiASSa9OIT04oxpsfuaFUQpi8JscCFNmFVxzP5XceRJTxF26w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vhrhnlylLQcUtkCzCtQ1UwdLsLoEmPrzAjlpQjmgXBk=;
- b=B+RL4U95vCQhGarleBBw53iC8CAqwETpe0EOq94Uo8/mVRrTifceQ2WbPLkVGsu2FOWPWuZH5w3FErP6aHsOGb2/py1gpJsV4sL+GZod4hdQ52XtUczZ9M7RWotFYYHFmCiA9VQNrqDGvhWbsS8DP8WXY9d1vAommaWJcjywvmY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB9431.namprd12.prod.outlook.com (2603:10b6:610:1c1::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.26; Tue, 1 Jul
- 2025 07:28:09 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8880.027; Tue, 1 Jul 2025
- 07:28:09 +0000
-Message-ID: <ecd7b192-84af-4e3e-82d9-4283ca14fe4c@amd.com>
-Date: Tue, 1 Jul 2025 09:28:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: delete function amdgpu_flush
-To: "YuanShang Mao (River)" <YuanShang.Mao@amd.com>,
- "Yang, Philip" <Philip.Yang@amd.com>,
+ bh=WCozHiIltblxr7g3bnerFJFbTXc/fKK6j/1UsRQZBDI=;
+ b=TdeS7nQLnwmVyl46iHsuaxv4FGKsTRHd6+7Nc3ul6bssCVJajbPD6n74d4vBLGd4O8WsTjRtwgScpz0zVshDT/G/dxHQRcF3xVy9w7L4wRIlYtLvvlhzBhfNKK9Y2UMTCTHL/uv+tY0HDFQk3YKkWN6kBh6U7PH0+c5lGqZRrBg=
+Received: from DM4PR12MB5937.namprd12.prod.outlook.com (2603:10b6:8:68::11) by
+ IA1PR12MB6459.namprd12.prod.outlook.com (2603:10b6:208:3a9::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.29; Tue, 1 Jul
+ 2025 08:04:18 +0000
+Received: from DM4PR12MB5937.namprd12.prod.outlook.com
+ ([fe80::c847:70c6:3c78:54ba]) by DM4PR12MB5937.namprd12.prod.outlook.com
+ ([fe80::c847:70c6:3c78:54ba%4]) with mapi id 15.20.8880.030; Tue, 1 Jul 2025
+ 08:04:18 +0000
+From: "Zhang, GuoQing (Sam)" <GuoQing.Zhang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhang, GuoQing (Sam)"
+ <GuoQing.Zhang@amd.com>, "rafael@kernel.org" <rafael@kernel.org>,
+ "len.brown@intel.com" <len.brown@intel.com>, "pavel@kernel.org"
+ <pavel@kernel.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>, "Lazar, Lijo"
+ <Lijo.Lazar@amd.com>
+CC: "Zhao, Victor" <Victor.Zhao@amd.com>, "Chang, HaiJun"
+ <HaiJun.Chang@amd.com>, "Ma, Qing (Mark)" <Qing.Ma@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "Yin, ZhenGuo (Chris)" <ZhenGuo.Yin@amd.com>, "cao, lin"
- <lin.cao@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>
-References: <20250627051204.62029-1-YuanShang.Mao@amd.com>
- <PH0PR12MB54205C1B34B693720538A914E045A@PH0PR12MB5420.namprd12.prod.outlook.com>
- <a3b5cc3a-f863-b845-989c-ddd6ac953a52@amd.com>
- <CO6PR12MB5409AF9DD130FFD6323C1A49E041A@CO6PR12MB5409.namprd12.prod.outlook.com>
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: skip kfd resume_process for
+ dev_pm_ops.thaw()
+Thread-Topic: [PATCH 3/3] drm/amdgpu: skip kfd resume_process for
+ dev_pm_ops.thaw()
+Thread-Index: AQHb6auWHDxg3eDLo0CTH/CkVPD93LQbmTEAgAHWVgA=
+Date: Tue, 1 Jul 2025 08:03:49 +0000
+Message-ID: <8eb1700d-4d60-4a1e-9d09-718f65baaf1e@amd.com>
+References: <20250630104116.3050306-1-guoqing.zhang@amd.com>
+ <20250630104116.3050306-4-guoqing.zhang@amd.com>
+ <8806781b-90d1-4b99-a798-dd1d29d4c8c0@amd.com>
+In-Reply-To: <8806781b-90d1-4b99-a798-dd1d29d4c8c0@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CO6PR12MB5409AF9DD130FFD6323C1A49E041A@CO6PR12MB5409.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0192.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ca::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-imapappendstamp: DM4PR12MB5937.namprd12.prod.outlook.com
+ (15.20.8880.029)
+x-ms-reactions: allow
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5937:EE_|IA1PR12MB6459:EE_
+x-ms-office365-filtering-correlation-id: 1fc65006-7773-408e-1f86-08ddb875e0fb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|921020|13003099007|8096899003|38070700018;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?yBzPepUSXhpKY1yyEdrIV4LPbuaFn/aSIg9PQd6opIgW87K5+OnCd8XzRJ?=
+ =?iso-8859-1?Q?q2NwVXJcjqqcwpmrlOjPCZBDNgJVBKF7V6EdB8iCKZzHfnqdM4epYLM/0o?=
+ =?iso-8859-1?Q?CQvDwbGq4JZikqCLcL5Yz+NE+T1KqspwD3D5fyh9TnDZFbFqU8NfPCigDx?=
+ =?iso-8859-1?Q?rl3O3CsFY/mGaL0Ne4vAeidUcCqUwGFHorbsDCqCB5LTuRmlqdeaiQNssb?=
+ =?iso-8859-1?Q?m/S33orP4EOI5ckQGzaWKdar38IEahmKLig4ByAdVFUhMtNhD41eGn6t3R?=
+ =?iso-8859-1?Q?E8C/I2W3KgirkIQXRXq3ATUzp6jSX1C2YM3V7FdveWwSdCVbWLLxLz0cPe?=
+ =?iso-8859-1?Q?w8iZKwxxTWzIzP6dng8vTb1Hg4JCrfaxfy0m22gjMVcSG/pGA+2DO5nMDK?=
+ =?iso-8859-1?Q?d8ziY0ylAnJI2FVVbJ1+kwmAYKJAJvfPWK63xAF9q27aGLIpVNNFulqj/s?=
+ =?iso-8859-1?Q?gLTaMIwKB4OSLIX/OlgbvCfkiWvQV8QEp5edkMnucABelpFZ/rYJkwnvYS?=
+ =?iso-8859-1?Q?U+NqRgouxaqpn3z7aDPZ1e6gfagaXNkt6WmL6walbVzNLMEGdWoPOZVXwp?=
+ =?iso-8859-1?Q?DWrVcrMXyfR4TllbfBusOHl8BoaNbrTje8wknZ0F5dxK0rBaGo3GdchQcU?=
+ =?iso-8859-1?Q?y8DvQci3PzvQ6hVC1hmfoUtF3ZN3xSUlMiPWQU49hqpukXUr4FViE63KnG?=
+ =?iso-8859-1?Q?kh+Dl2vvUNJaZ/IuPFU15zW1AV+8j2i2GK0cWVDTty0o7tLl53XbrIE8Yx?=
+ =?iso-8859-1?Q?NAL8kuUNWHMKE6xFCtOzLxCVru5JHwpbJjPhrTxI9O4Ke7/2i4uDU+hQOw?=
+ =?iso-8859-1?Q?y/LmJ5OgqO+kN+uw67zoD8lzj0xwakKkI6i9I2jc8mFrK6ivJMkAopNxwj?=
+ =?iso-8859-1?Q?GI2v0mfbueP4/UcxfOFlkCNE1p0GoQccJq7jVAzHBWLlXMd+IEw9FYA3jF?=
+ =?iso-8859-1?Q?nXAbGd85M4t9RoRTdIcvtOZIvdI9/2bsNNRDYzdDmoFeyDHBTig3NEcw8I?=
+ =?iso-8859-1?Q?9qyZBkQTYWnmZBhbU96Arjvtw+xNKI2igGCItpc/1llzoM2gEq2hXqUjiR?=
+ =?iso-8859-1?Q?dwsv6h48uuvg/8DFg4ILbud9SzveaGuduSkV4Q8EyKsPKs2f6i4+uVpMCO?=
+ =?iso-8859-1?Q?7fLBmLwLc7kFHVfQebAAUeGPG2rV5J8cUIV7yVKNAS0bPPLhytaWsHKEbj?=
+ =?iso-8859-1?Q?eTB3x14xFG2W4KScGbzy/+Bogu7HFUyCspbKKBMREy1OcTsxZVw5T/3crn?=
+ =?iso-8859-1?Q?WBig8XxSDniFcilLtkzTt1XLkGZ3NN4lT82FRuYvXmnIlPPUxIhueTRww7?=
+ =?iso-8859-1?Q?1E/XnN8noRq1qiQMAEds377NKO0I9Kt2igi2h8lUs3fU9dQteA1A9y+0hO?=
+ =?iso-8859-1?Q?2paAOKjaYS5m2uKXkXsR5XJIV5nkxbnhGvtt7iH40T5ksivGkF3gdnTvB+?=
+ =?iso-8859-1?Q?4OgXZCLy/bx6wL2iVXvsmKdlSCSTpdg+MQqJwAsHPokqAlbpEm3wm8Qzoq?=
+ =?iso-8859-1?Q?BJtYRjB4i/xTrfB6SrpRyip2om4XUUepkLNA0vL/pRSA=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5937.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(921020)(13003099007)(8096899003)(38070700018);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?dK9QYrYLf99mvPdm71+hOmrv0bc3mC8yyrS9ho1R+QpMMnK4DVnZoxNURe?=
+ =?iso-8859-1?Q?Qajc1b3SM97wc4cTAtRFHIdJV8/W2PdD7O7Sx95bwg93PaKIqITL4/aSD0?=
+ =?iso-8859-1?Q?IwuynqvZhXTfSgmCXo91ccD8sTsvfBIfWEWaIqsQC/0uBWpj++TY1mgwIH?=
+ =?iso-8859-1?Q?nhBs1rJ61NGbkLJO6Gz22oOmVBVB0fQPOcjRH+bZOgwW+xqDOc4IAEWqUB?=
+ =?iso-8859-1?Q?ao1+LY+4sAlEtp6FHHSO5SkENGYnBvd9sqSfv498z4o+915i951re6dtLY?=
+ =?iso-8859-1?Q?RGBfXL6rIZJ/TMX27lYslJms2NuCCQuqzSdkb0ND8WK6/IY7NP4gElvkPM?=
+ =?iso-8859-1?Q?TbEh0ZFfAFuwlMQQ970teeGIZQdpffIpSm9W2xvRx9+yJFr3J4b+pIoFy4?=
+ =?iso-8859-1?Q?MFOmuuTHejKbu8MnCYem8jUPvaNLmTZdn94ABWV+YndzdWl37tz+Wx7bUT?=
+ =?iso-8859-1?Q?a3nWCIatiyPAMaPFFT5nQg9EFhjt0JcYJpEd1J3trLPQ84n3cBw6OkLtKQ?=
+ =?iso-8859-1?Q?TXPYJj9AgBjsdMFUrYCr7I37NpoieuSsmyT+vzGwvqpKAPLe5opoSWgaIz?=
+ =?iso-8859-1?Q?KKsPD7XfGba2cjY80WDAh/t+ba1uxbHaLx2UtM8aZw7NiNnJY+AXCK/VJn?=
+ =?iso-8859-1?Q?0mVqwYzji3CZDFN2QNbQdg7ADeFTUFZkTlEvVbuWBxer9lDV1CaS4bkY3p?=
+ =?iso-8859-1?Q?U4/fgohY4jTFWyFHbXoZrRbatnbEQQBPiPYu3gMyIiecmwfvE0d/98BweR?=
+ =?iso-8859-1?Q?MLBPRHMYuzXtVulxODHJqeKMmnkfJhA9exqs/P/aLr8SlVbJg8EOITatF7?=
+ =?iso-8859-1?Q?gDVapQURjVITZq0AKacL46aWY/sKWpyXYCSG7jxMEdNkPHMgXtx0vcDBrj?=
+ =?iso-8859-1?Q?4Pv8sbb9+ZM3tUJ3vnV8oOU6aTJIa7ayalNHZQhbtrlxdX190qJ2vzZaRk?=
+ =?iso-8859-1?Q?ifvve9fTnYpZrS2EiXHI2S9zcqMZkeQcjCcphlvhhAP/gV/jervoujJq3/?=
+ =?iso-8859-1?Q?1FEdj/9lVPYDJw+ZWCk+FOQqmRPqXhOUgHP6dTQDcfIXvpuhwL3+719ARq?=
+ =?iso-8859-1?Q?eX23rxR+s9Or+L/K6FCS/deiIGjm4fQN/T8sC70k0bVfGFI2X4tnng1uW5?=
+ =?iso-8859-1?Q?8kM8EHeVHpmVE97MtVXUjuxtI2d0AJj6ghgsajndSF7kNPDF7A03oD4oXt?=
+ =?iso-8859-1?Q?C/VXdzk+TtozIbxziOtxZ1XJLOymFmuGLMUOiquPgWuuypPHfayv5T6aIe?=
+ =?iso-8859-1?Q?v4mBk4ZjViLdM0dl9e4xZH3PquwlN/iTEx/HdaWrorqT2t6NrfrMc3QnoJ?=
+ =?iso-8859-1?Q?UD6moVK3A9os/EGLhZDoR5WfG3MbKM9vmfLt4Qm9ZKxtLPZ7B5myudU44d?=
+ =?iso-8859-1?Q?ZCPWjYrEkpUoMRD/E8CKWk3Oq5RcT8iPYA9bAXu0XIlzregGoz9Q7k0T2Z?=
+ =?iso-8859-1?Q?tjbnIRggqdw2YeSVJttP9jTirMKpt2yIHv39r5hf/c9xqtA/s1BBE/ktoX?=
+ =?iso-8859-1?Q?FA2gdsR5282B/sfISxrPNXRTWRwE+twyT0paopFJLE0l5MuGm26qOawKO2?=
+ =?iso-8859-1?Q?wnZavvo4w+B4F6cxmVEVeZuhDuc52x26LPz/+VbLGqsyRZUJXUwqo0wKWI?=
+ =?iso-8859-1?Q?XrjZ7S67B1mLY=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_8eb1700d4d604a1e9d09718f65baaf1eamdcom_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9431:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccb9efcc-d1eb-4fb5-0345-08ddb870d3d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?czV4cnJUUUdRYTB4TksreWlZcTQzQmNTeitLTlkyNTR1TnFKbkRsdnEzMmND?=
- =?utf-8?B?a1FxT0owRlQ3M1lmdzFFUG5MczFwclFseW9meGRjeUVhRVI0UGZOVHhKOXhO?=
- =?utf-8?B?a1ZvTTMzWlpaNVllakNHcFh2bzhTVENaVVFjN0FPd255dG9SN0JBek9mWkgw?=
- =?utf-8?B?Q0xVd1BnZzJjRWpTSE5DcEVDQVpoN1NBMkxVcno1TFV2VlhIcTJWa0pMUGxU?=
- =?utf-8?B?TUdvMzdQeHdCYTEybVN0NFdkcXlVZ08wYWlpMEhFZkJtbFBRY092NFgzSVVD?=
- =?utf-8?B?Z0VXN05aRVB3RjlQaWRYZkRSZTZyYUpUSldIcVRqZ2lyckUzczNiSnI5a2Q3?=
- =?utf-8?B?TGhscG15VTJETEphRE5xQmdPNGFwS3JSbHFwYXdxWXZITzdhOWlpNkt2QUtk?=
- =?utf-8?B?WkNBbFhkQWJRcnBQNjQ1cmlrdzluMXBXV21PWHc3UHFUZkJ5ejlvRU05bEMr?=
- =?utf-8?B?cnRiNHU2b2UrdVRzLzZzRERaaDArNUdMcTRRR3RlZWxqUjNCbmlraXBiS0Ro?=
- =?utf-8?B?SGttV0J3blJyYnd6WHFsS0lJalNvVWVGNUVmUGRVd0xvajUwcWs4c21YRnZQ?=
- =?utf-8?B?NnVOZ2ZLNzcrdG5VL3ZkRndWdW1obzFEam9wOGZncjlVcVRSb1F5a0RwUm56?=
- =?utf-8?B?OEJuaW5KSUVraGRXZlBRa1hEblJmSndoQW1UZ1U2RWVIZTMzNG1CREU5Nmty?=
- =?utf-8?B?R1VuelIxZjhSKzNMZ3FlSlRxdzlwNUNlMCtHZHRFbGhCSDVKY2U2ektjOXM5?=
- =?utf-8?B?S1Jjd2RBY0xkT1RLOE11R3krdFQ5eXBZd2pPZVVkSVRxQUF3d2NqbGlQVVJn?=
- =?utf-8?B?blcwdWtubEZiVm1qS3hab3BrWHFtNGZUTXhKdG55aUY0bzRCem5raTdxRVkr?=
- =?utf-8?B?VTgrc3RSRnJibTRTV3JpZnJNUnNGVWV2SXJROC9YUHpKZXJ2OHFSSmRkU0Jk?=
- =?utf-8?B?UjdBNkJrcC8zQ3Ardy9tcmM2T0dWQXhCU2ZheDlXZXgraDlKdFRuNm1MUThs?=
- =?utf-8?B?T044NWtFL2U4M1A2eUwzd0k3UXc1MHVlL3p5eDZ5bXhBVCtlVERaSW1sWVIr?=
- =?utf-8?B?YmswZXhkQ0hEWmtWT1pabWkxamZQYnVxUXRuaEFNZUI2dXNsMFFIbUlEaWNP?=
- =?utf-8?B?djFwZzZobXJjdWhuSkRBSmJLSWl6S3RrODMxT2J1QWFRSUFDOWxlT1dqbXd0?=
- =?utf-8?B?VXFtU3BpSUFDL25Bay91N2tyQ2hJcE1GOWFNdHhocWtoRU9hU29ZcllWaEZx?=
- =?utf-8?B?dk4yaXVpRDJpTUpDY3JSN2Y5UGF3Mkd4cHc3WXpmdGdBa1c3eGpybWE1d2Nk?=
- =?utf-8?B?ZXBIM092MXJXL0s0VGVvV3ZPd05QczE1RFRVaVRiOFRoVi9rMnFGbHIydFVY?=
- =?utf-8?B?cjhab2M0M0Q1QVd3QktCby8wd0pZYVBreTRuR2hnV0IxcExwNklGUEF1RHRl?=
- =?utf-8?B?UU5RbGVXUG1yeXR6Rk9aQnMxa0FsMzZFcmdhZmIvZmR6OWwwdW5UdXlZU0ZN?=
- =?utf-8?B?ZXJxdnJrWTMrRHNMbEZ5djdKaHRZSXdRc0N2WEZwM3JZUEY1d2p6eXlHdlBt?=
- =?utf-8?B?ck80WVgrZUYvdmVoM2lkdDBGemxDR2ZjazNuZlozbWlsYUhBdlNBTmx4R1U4?=
- =?utf-8?B?Yk15aEd0LytLdHpRbmR2SVh1aHRwcHFWbDg0Q3BUVFBUWFdWcE5EQnJMSVZG?=
- =?utf-8?B?OUg4TGdMelBCQjM0UWtqN3dHOHZKT2g4ZHB6Rk51aHdWdnc0RTMvV0RLZzI4?=
- =?utf-8?B?Q3lSNXdwTTlZYWFhVnJhK0p0QjQ1RGh3SEZ3NFVlczJ0eU53ajZrQ0lDeHNa?=
- =?utf-8?B?dFVqS0ZJRjZQK2ZydGJ6SkRGRlhiakhrZE43cHlVOTM4bFJ3MnhhN1pwNGFB?=
- =?utf-8?B?MW9SNStZRSt6bzVwcklORmRaZjNLcHMzQmJZZ0hhdUZEcks1MUlySlNQNE5N?=
- =?utf-8?Q?2CklAEpIxBs=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTZsd3JXYVNaUzNSSHFEN1o5ZzhvaVpzMjJZRG82VS90bElrSnRnTmFCSFNO?=
- =?utf-8?B?cVArd0xZVkdwNFU4YzRLemFMNW5PU2NTUXVNQTBOWHloK0J1KzZ6ZDR6RHFM?=
- =?utf-8?B?MFlqUkN0cnVMem4xRWNXQlBQLzA5Rk9NVUxaZTN0YmswZ1l0aFJncjRYS3NT?=
- =?utf-8?B?RXo4MDdDU0VMQ2puU3BXbzV0NjNkSzZjYUVEVm0vM0JFTGxEWDVhTHVhMVha?=
- =?utf-8?B?MkhBTEVZMnBadUx4UXFCcXlxd2dReU9wc2tQQ3BUdndCbFFOWm5lM3pBckJN?=
- =?utf-8?B?cDd5V0l0YjJudUFySGlPTkgyUGtVcGZoNDhkZG5KWkFKS0dydng1V1Boa21i?=
- =?utf-8?B?MGNYYUc0TEl4VHNreHdnWXlhejY5Q3kwVUFxWEVnbkdoaU9vTm4xVG1Eek50?=
- =?utf-8?B?QU81dHVGRjdVUEhDQ01WVElZWlBKdzE2ZDZwMUVSZ2F1V3NTZ1RSYS9HUGJv?=
- =?utf-8?B?OWdQbDZPMXFZTGdOeWRkemJIbk5vcXJMSURvR2FZV0c1MTRZa0VvUUh4NUE0?=
- =?utf-8?B?bUNWRVVpWExvTmNBa2t4Rkl5eURDaFErNFpzaVA3NWtSTFY4VmExZGhtYnpy?=
- =?utf-8?B?OUFqWk9sT0tFM3VzdmpjWmFpQUdXRXk2UForSnliejRHMlN6OVVqb2VYaEEy?=
- =?utf-8?B?M2hwT2s5cXBacGNhVFcwRlRnY3IwUmxPbnFXSGRKSkVsYVZCTG82cUtMYWhD?=
- =?utf-8?B?K0JvMnk4TkMyb1luVnpBQXhLSThET0ZwTVZJdnNiZFNuR2ZMVmZWbXVZcERY?=
- =?utf-8?B?d25IQ0trU1ZmUzB3d3MzSURLbFl3ZHpBYTFHMnZGdFNVQzcyV1V6a05VY01k?=
- =?utf-8?B?dUkrcG9oT0puSU9BcmFobEFYUWgxMmcrcklzaUlGMkRNZnNicjBtcThCWGtv?=
- =?utf-8?B?OFZsZEZaK0hxcE5FV2NVNmJnOWdwdTBVZFhHMmJPQzIvVnBoU29ITXh0cFJo?=
- =?utf-8?B?bHR3d2FRWmFrZ21td09wSTZMc0ExWlRxS3BENGtUSUtOMjRVU2daV0ZkWjFm?=
- =?utf-8?B?MmJKU2tNNlpPZXdVaDhIYjJOUDlYSkRmR29QNmdsLzFXK3pZSm9XWEtReHdj?=
- =?utf-8?B?aFh1U0xWODc3TWZNVWJ3TGVVUE9qVi9hSjVFYXYvSnZaaVdnL29vYk4yS2tT?=
- =?utf-8?B?TW5veHJIeGNCaENBUjN5Y0lOZFhoaEFYVkVYY29DNmE0eFVNdGhYRTRRV1FF?=
- =?utf-8?B?TzQyZ0grbkJidm9VM2VxSURYWUpZTTBZV3EwbFdkZHBZMEliV0FzeEpMRWJR?=
- =?utf-8?B?cW5WWUtrTzdpUEl2NlRGeUZtcXJPTDNOWVhCaTljbmZGRFhFSmF0eGMyTDN4?=
- =?utf-8?B?Y1hnV29aM3k2T25RTzN5RXU5emlDeFM1US96L1p4NGgxS1BKUURuR20zem1O?=
- =?utf-8?B?VFYzaFJUMDdqcStYQWxCY2VGREVCUk1hMWY4SnY3QjRDNHBoeGtvTjFLZkJr?=
- =?utf-8?B?NUozaXd5Z25abGVNMnFVL2VoOFQ2ZTlkMEdEK2w0ZmN5eGxyTUM1V2J1UnNh?=
- =?utf-8?B?L2s1ZEExT0xrVWxqcnpwb2pkbFovam9nakx2QW1IYXhyWjBZWGlLRlp5aXdL?=
- =?utf-8?B?UC9TYUZab3hBTWpCcXRiKzhpV256dzBhb2srUEp3YUJJK20xUktaaTl1TnND?=
- =?utf-8?B?czlYUk81SE5sRjdweU5Vd1pNQTBKL0p2TUtiUnQySkNlWFZKeW9YTHVNOEFJ?=
- =?utf-8?B?U0lWM1NobllQMDRUQTg2Uzc0MWkwVk15bzNEM2Y2UUxRV1YyeVh0QmF1RUNz?=
- =?utf-8?B?NXpRTk51THhQQk1YK20rT2ZqUTJtcWM1VjJROHdqWUdvVDVIeUFNenp5SFRn?=
- =?utf-8?B?NXVuNVNvNFZ2amF4SGlSZTFTU0pHTk16S1FTMjhHQ3ZLQjlJaFUwUWo4ZUt0?=
- =?utf-8?B?eStsdU9Xa2lxM0lZTmxUVFdpajdJeVVuUzRia1lBNUpUem9QQW9Fdy9QZ0FY?=
- =?utf-8?B?dk9MdjJhL2hhc2JKK25IdW1vbVFzcHRnRlRLOGZnL0FaU1FVOEFiVm1peGl1?=
- =?utf-8?B?L214aG82dHBSck5wRFFxYVN3REE3dzV3ajNFVzg1RHkvWlpCV2dtYjlUNFBT?=
- =?utf-8?B?bFNhdW1pQ0dtWERHZkVKVVU3RHFhMTVRck9wV2ZvREV1M2xzeGxPQ0l0c3Zt?=
- =?utf-8?Q?wcJJ/7Ey+IL1wv5rS00jlc9xa?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccb9efcc-d1eb-4fb5-0345-08ddb870d3d2
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 07:28:08.9861 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gGbTVokoUVEVfJbS4i54tQMeeCFHH2zYIIwSieT4OwqZUB2+Y96lIxpWOZa+UMoB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9431
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5937.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1fc65006-7773-408e-1f86-08ddb875e0fb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2025 08:04:18.1283 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 28WCUGRUMrMVRjSYXhCGe8U4DeAnEauSR0pmDDRV7VzA0BHAEQT4s1R/oOne/9eJGl4SDZHLYqZqNpj0wcBsBQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6459
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,243 +166,300 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Clear NAK to removing this!
+--_000_8eb1700d4d604a1e9d09718f65baaf1eamdcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-The amdgpu_flush function is vital for correct operation.
 
-The intention is to block closing the file handle in child processes and wait for all previous operations to complete.
+thaw() is called before writing the hiberation image to swap disk. See
+the doc here.
+https://github.com/torvalds/linux/blob/v6.14/Documentation/driver-api/pm/de=
+vices.rst?plain=3D1#L552
 
-Regards,
-Christian.
+And amdgpu implemented thaw() callback by calling amdgpu_device_resume().
+https://github.com/torvalds/linux/blob/v6.14/drivers/gpu/drm/amd/amdgpu/amd=
+gpu_drv.c#L2572
 
-On 01.07.25 07:35, YuanShang Mao (River) wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
-> @Yang, Philip
->> I notice KFD has another different issue with fclose -> amdgpu_flush,
->> that fork evict parent process queues when child process close the
->> inherited drm node file handle, amdgpu_flush will signal parent process
->> KFD eviction fence added to vm root bo resv, this cause performance drop
->> if python application uses lots of popen.
-> 
-> Yes. Closing inherited drm node file handle will evict parent process queues, since drm share  vm with kfd.
-> 
->> function amdgpu_ctx_mgr_entity_flush is only called by amdgpu_flush, can
->> be removed too.
-> 
-> Sure. If we decide to remove amdgpu_flush.
-> 
-> @Koenig, Christian @Deucher, Alexander, do you have any concern on removal of amdgpu_flush?
-> 
-> Thanks
-> River
-> 
-> 
-> -----Original Message-----
-> From: Yang, Philip <Philip.Yang@amd.com>
-> Sent: Friday, June 27, 2025 10:44 PM
-> To: YuanShang Mao (River) <YuanShang.Mao@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Yin, ZhenGuo (Chris) <ZhenGuo.Yin@amd.com>; cao, lin <lin.cao@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: delete function amdgpu_flush
-> 
-> 
-> On 2025-06-27 01:20, YuanShang Mao (River) wrote:
->> [AMD Official Use Only - AMD Internal Distribution Only]
+This patch is skip amdgpu_amdkfd_resume_process() call in thaw() during
+hibernation. it is not skipped in restore() during resume from
+hibernation when system boot again.
+
+
+I just found the following kernel doc. Thaw() is intended to resume the
+storage device for saving the hibernation image. Our GPU is not involved
+in it, it is not necessary to resume our GPU in thaw().
+https://github.com/torvalds/linux/blob/v6.14/Documentation/power/pci.rst?pl=
+ain=3D1#L588
+
+So another implementation is to remove the amdgpu_device_resume() call
+in amdgpu_pmops_thaw(), and skip amdgpu_device_ip_suspend() call in
+amdgpu_pci_shutdown() for hibernation.
+Initial tests show it's working fine for hibernation successful case.
+Should I switch to this implementation?
+
+But thaw() is also called to restore the GPU when hibernation is aborted
+due to some error in hibernation image creation stage. In this case,
+amdgpu_device_resume() is needed in thaw().
+
+So I need a method to check if hibernation is aborted or not to
+conditionally skip amdgpu_device_resume() in thaw(). Currently I don't
+know how to do this.
+
+
+Regards
+Sam
+
+
+On 2025/6/30 19:58, Christian K=F6nig wrote:
+> On 30.06.25 12:41, Samuel Zhang wrote:
+>> The hibernation successful workflow:
+>> - prepare: evict VRAM and swapout GTT BOs
+>> - freeze
+>> - create the hibernation image in system memory
+>> - thaw: swapin and restore BOs
+> Why should a thaw happen here in between?
+>
+>> - complete
+>> - write hibernation image to disk
+>> - amdgpu_pci_shutdown
+>> - goto S5, turn off the system.
 >>
->> Currently, amdgpu_flush is used to prevent new jobs from being submitted in the same context when a file descriptor is closed and to wait for existing jobs to complete. Additionally, if the current process is in an exit state and the latest job of the entity was submitted by this process, the entity is terminated.
+>> During prepare stage of hibernation, VRAM and GTT BOs will be swapout to
+>> shmem. Then in thaw stage, all BOs will be swapin and restored.
+> That's not correct. This is done by the application starting again and no=
+t during thaw.
+>
+>> On server with 192GB VRAM * 8 dGPUs and 1.7TB system memory,
+>> the swapin and restore BOs takes too long (50 minutes) and it is not
+>> necessary since the follow-up stages does not use GPU.
 >>
->> There is an issue where, if drm scheduler is not woken up for some reason, the amdgpu_flush will remain hung, and another process holding this file cannot submit a job to wake up the drm scheduler.
-> 
-> I notice KFD has another different issue with fclose -> amdgpu_flush,
-> that fork evict parent process queues when child process close the
-> inherited drm node file handle, amdgpu_flush will signal parent process
-> KFD eviction fence added to vm root bo resv, this cause performance drop
-> if python application uses lots of popen.
-> 
-> [677852.634569] amdkfd_fence_enable_signaling+0x56/0x70 [amdgpu]
-> [677852.634814]  __dma_fence_enable_signaling+0x3e/0xe0
-> [677852.634820]  dma_fence_wait_timeout+0x3a/0x140
-> [677852.634825]  amddma_resv_wait_timeout+0x7f/0xf0 [amdkcl]
-> [677852.634831]  amdgpu_vm_wait_idle+0x2d/0x60 [amdgpu]
-> [677852.635026]  amdgpu_flush+0x34/0x50 [amdgpu]
-> [677852.635208]  filp_flush+0x38/0x90
-> [677852.635213]  filp_close+0x14/0x30
-> [677852.635216]  do_close_on_exec+0xdd/0x130
-> [677852.635221]  begin_new_exec+0x1da/0x490
-> [677852.635225]  load_elf_binary+0x307/0xea0
-> [677852.635231]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [677852.635235]  ? ima_bprm_check+0xa2/0xd0
-> [677852.635240]  search_binary_handler+0xda/0x260
-> [677852.635245]  exec_binprm+0x58/0x1a0
-> [677852.635249]  bprm_execve.part.0+0x16f/0x210
-> [677852.635254]  bprm_execve+0x45/0x80
-> [677852.635257]  do_execveat_common.isra.0+0x190/0x200
-> 
->>
->> The intended purpose of the flush operation in linux is to flush the content written by the current process to the hardware, rather than shutting down related services upon the process's exit, which would prevent other processes from using them. Now, amdgpu_flush cannot execute concurrently with command submission ioctl, which also leads to performance degradation.
-> 
-> fclose -> filp_flush -> fput, if fput release the last reference of drm
-> node file handle, call amdgpu_driver_postclose_kms ->
-> amdgpu_ctx_mgr_fini will flush the entities, so amdgpu_flush is not needed.
-> 
-> I thought to add workaround to skip amdgpu_flush if (vm->task_info->tgid
-> != current->group_leader->pid) for KFD, this patch will fix both gfx and
-> KFD, one stone for two birds.
-> 
-> function amdgpu_ctx_mgr_entity_flush is only called by amdgpu_flush, can
-> be removed too.
-> 
+>> This patch is to skip BOs restore during thaw to reduce the hibernation
+>> time.
+> As far as I can see that doesn't make sense. The KFD processes need to be=
+ resumed here and that can't be skipped.
+>
 > Regards,
-> 
-> Philip
-> 
->>
->> An example of a shared DRM file is when systemd stop the display manager; systemd will close the file descriptor of Xorg that it holds.
->>
->> Jun 11 16:24:24 ubuntu2404-2 kernel: amdgpu: amdgpu_ctx_get: locked by other task times 8811
->> Jun 11 16:24:24 ubuntu2404-2 kernel: amdgpu: owner stack:
->> Jun 11 16:24:24 ubuntu2404-2 kernel: task:(sd-rmrf)       state:D stack:0     pid:3407  tgid:3407  ppid:1      flags:0x00004002
->> Jun 11 16:24:24 ubuntu2404-2 kernel: Call Trace:
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  <TASK>
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  __schedule+0x279/0x6b0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  schedule+0x29/0xd0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  amddrm_sched_entity_flush+0x13e/0x270 [amd_sched]
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_autoremove_wake_function+0x10/0x10
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_ctx_mgr_entity_flush+0xd6/0x200 [amdgpu]
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_flush+0x29/0x50 [amdgpu]
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  filp_flush+0x38/0x90
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  filp_close+0x14/0x30
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  __close_range+0x1b0/0x230
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  __x64_sys_close_range+0x17/0x30
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  x64_sys_call+0x1e0f/0x25f0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  do_syscall_64+0x7e/0x170
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __count_memcg_events+0x86/0x160
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? count_memcg_events.constprop.0+0x2a/0x50
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? handle_mm_fault+0x1df/0x2d0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_user_addr_fault+0x5d5/0x870
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? irqentry_exit_to_user_mode+0x43/0x250
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? irqentry_exit+0x43/0x50
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? exc_page_fault+0x96/0x1c0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RIP: 0033:0x762b6df1677b
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RSP: 002b:00007ffdb20ad718 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 0000762b6df1677b
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RDX: 0000000000000000 RSI: 000000007fffffff RDI: 0000000000000003
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RBP: 00007ffdb20ad730 R08: 0000000000000000 R09: 0000000000000000
->> Jun 11 16:24:24 ubuntu2404-2 kernel: R10: 0000000000000008 R11: 0000000000000246 R12: 0000000000000007
->> Jun 11 16:24:24 ubuntu2404-2 kernel: R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  </TASK>
->> Jun 11 16:24:24 ubuntu2404-2 kernel: amdgpu: current stack:
->> Jun 11 16:24:24 ubuntu2404-2 kernel: task:Xorg            state:R  running task     stack:0     pid:2343  tgid:2343  ppid:2341   flags:0x00000008
->> Jun 11 16:24:24 ubuntu2404-2 kernel: Call Trace:
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  <TASK>
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  sched_show_task+0x122/0x180
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_ctx_get+0xf6/0x120 [amdgpu]
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_cs_ioctl+0xb6/0x2110 [amdgpu]
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? update_cfs_group+0x111/0x120
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? enqueue_entity+0x3a6/0x550
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  drm_ioctl_kernel+0xbc/0x120
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  drm_ioctl+0x2f6/0x5b0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_drm_ioctl+0x4e/0x90 [amdgpu]
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  __x64_sys_ioctl+0xa3/0xf0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  x64_sys_call+0x11ad/0x25f0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  do_syscall_64+0x7e/0x170
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? ksys_read+0xe6/0x100
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? idr_find+0xf/0x20
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_syncobj_array_free+0x5a/0x80
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_syncobj_reset_ioctl+0xbd/0xd0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_drm_syncobj_reset_ioctl+0x10/0x10
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_ioctl_kernel+0xbc/0x120
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __check_object_size.part.0+0x3a/0x150
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? _copy_to_user+0x41/0x60
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_ioctl+0x326/0x5b0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_drm_syncobj_reset_ioctl+0x10/0x10
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? kvm_clock_get_cycles+0x18/0x40
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pm_runtime_suspend+0x7b/0xd0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? amdgpu_drm_ioctl+0x70/0x90 [amdgpu]
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __x64_sys_ioctl+0xbb/0xf0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? syscall_exit_to_user_mode+0x4e/0x250
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? syscall_exit_to_user_mode+0x4e/0x250
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? sysvec_apic_timer_interrupt+0x57/0xc0
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RIP: 0033:0x7156c3524ded
->> Jun 11 16:24:24 ubuntu2404-2 kernel: Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RSP: 002b:00007ffe4afcc410 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RAX: ffffffffffffffda RBX: 0000578954b74cf8 RCX: 00007156c3524ded
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RDX: 00007ffe4afcc4f0 RSI: 00000000c0186444 RDI: 0000000000000012
->> Jun 11 16:24:24 ubuntu2404-2 kernel: RBP: 00007ffe4afcc460 R08: 00007ffe4afcc7a0 R09: 00007ffe4afcc4b0
->> Jun 11 16:24:24 ubuntu2404-2 kernel: R10: 0000578954b862f0 R11: 0000000000000246 R12: 00000000c0186444
->> Jun 11 16:24:24 ubuntu2404-2 kernel: R13: 0000000000000012 R14: 0000000000000060 R15: 0000578954b46380
->> Jun 11 16:24:24 ubuntu2404-2 kernel:  </TASK>
->>
->> Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
->>
+> Christian.
+>
+>> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
 >> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 13 -------------
->>   1 file changed, 13 deletions(-)
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 2 ++
+>>   2 files changed, 3 insertions(+), 1 deletion(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index 2bb02fe9c880..ee6b59bfd798 100644
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_device.c
+>> index a8f4697deb1b..b550d07190a2 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -5328,7 +5328,7 @@ int amdgpu_device_resume(struct drm_device *dev, b=
+ool notify_clients)
+>>               amdgpu_virt_init_data_exchange(adev);
+>>               amdgpu_virt_release_full_gpu(adev, true);
+>>
+>> -            if (!adev->in_s0ix && !r && !adev->in_runpm)
+>> +            if (!adev->in_s0ix && !r && !adev->in_runpm && !adev->in_s4=
+)
+>>                       r =3D amdgpu_amdkfd_resume_process(adev);
+>>       }
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_drv.c
+>> index 571b70da4562..23b76e8ac2fd 100644
 >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
 >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -2947,22 +2947,9 @@ static const struct dev_pm_ops amdgpu_pm_ops = {
->>          .runtime_idle = amdgpu_pmops_runtime_idle,  };
+>> @@ -2734,7 +2734,9 @@ static int amdgpu_pmops_poweroff(struct device *de=
+v)
+>>   static int amdgpu_pmops_restore(struct device *dev)
+>>   {
+>>       struct drm_device *drm_dev =3D dev_get_drvdata(dev);
+>> +    struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
 >>
->> -static int amdgpu_flush(struct file *f, fl_owner_t id) -{
->> -       struct drm_file *file_priv = f->private_data;
->> -       struct amdgpu_fpriv *fpriv = file_priv->driver_priv;
->> -       long timeout = MAX_WAIT_SCHED_ENTITY_Q_EMPTY;
->> -
->> -       timeout = amdgpu_ctx_mgr_entity_flush(&fpriv->ctx_mgr, timeout);
->> -       timeout = amdgpu_vm_wait_idle(&fpriv->vm, timeout);
->> -
->> -       return timeout >= 0 ? 0 : timeout;
->> -}
->> -
->>   static const struct file_operations amdgpu_driver_kms_fops = {
->>          .owner = THIS_MODULE,
->>          .open = drm_open,
->> -       .flush = amdgpu_flush,
->>          .release = drm_release,
->>          .unlocked_ioctl = amdgpu_drm_ioctl,
->>          .mmap = drm_gem_mmap,
->> --
->> 2.25.1
+>> +    adev->in_s4 =3D false;
+>>       return amdgpu_device_resume(drm_dev, true);
+>>   }
 >>
 
+--_000_8eb1700d4d604a1e9d09718f65baaf1eamdcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-ID: <92F0F351C3D55C4AA73F829AA76CF2FF@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;
+	panose-1:2 11 0 4 2 2 2 2 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style>
+</head>
+<body lang=3D"en-CN" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><br>
+thaw() is called before writing the hiberation image to swap disk. See <br>
+the doc here.<br>
+<a href=3D"https://github.com/torvalds/linux/blob/v6.14/Documentation/drive=
+r-api/pm/devices.rst?plain=3D1#L552">https://github.com/torvalds/linux/blob=
+/v6.14/Documentation/driver-api/pm/devices.rst?plain=3D1#L552</a><br>
+<br>
+And amdgpu implemented thaw() callback by calling amdgpu_device_resume().<b=
+r>
+<a href=3D"https://github.com/torvalds/linux/blob/v6.14/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_drv.c#L2572">https://github.com/torvalds/linux/blob/v6.14/dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_drv.c#L2572</a><br>
+<br>
+This patch is skip amdgpu_amdkfd_resume_process() call in thaw() during <br=
+>
+hibernation. it is not skipped in restore() during resume from <br>
+hibernation when system boot again.<br>
+<br>
+<br>
+I just found the following kernel doc. Thaw() is intended to resume the <br=
+>
+storage device for saving the hibernation image. Our GPU is not involved <b=
+r>
+in it, it is not necessary to resume our GPU in thaw().<br>
+<a href=3D"https://github.com/torvalds/linux/blob/v6.14/Documentation/power=
+/pci.rst?plain=3D1#L588">https://github.com/torvalds/linux/blob/v6.14/Docum=
+entation/power/pci.rst?plain=3D1#L588</a><br>
+<br>
+So another implementation is to remove the amdgpu_device_resume() call <br>
+in amdgpu_pmops_thaw(), and skip amdgpu_device_ip_suspend() call in <br>
+amdgpu_pci_shutdown()</span><span lang=3D"EN-US" style=3D"font-size:11.0pt"=
+> for hibernation</span><span style=3D"font-size:11.0pt">.<br>
+Initial tests show it's working fine for hibernation successful case. <br>
+Should I switch to this implementation?<br>
+<br>
+But thaw() is also called to restore the GPU when hibernation is aborted <b=
+r>
+due to some error in hibernation image creation stage. In this case, <br>
+amdgpu_device_resume() is needed in thaw().<br>
+<br>
+So I need a method to check if hibernation is aborted or not to <br>
+conditionally skip amdgpu_device_resume() in thaw(). Currently I don't <br>
+know how to do this.<br>
+<br>
+<br>
+Regards<br>
+Sam<br>
+<br>
+<br>
+On 2025/6/30 19:58, Christian K=F6nig wrote:<br>
+&gt; On 30.06.25 12:41, Samuel Zhang wrote:<br>
+&gt;&gt; The hibernation successful workflow:<br>
+&gt;&gt; - prepare: evict VRAM and swapout GTT BOs<br>
+&gt;&gt; - freeze<br>
+&gt;&gt; - create the hibernation image in system memory<br>
+&gt;&gt; - thaw: swapin and restore BOs<br>
+&gt; Why should a thaw happen here in between?<br>
+&gt;<br>
+&gt;&gt; - complete<br>
+&gt;&gt; - write hibernation image to disk<br>
+&gt;&gt; - amdgpu_pci_shutdown<br>
+&gt;&gt; - goto S5, turn off the system.<br>
+&gt;&gt;<br>
+&gt;&gt; During prepare stage of hibernation, VRAM and GTT BOs will be swap=
+out to<br>
+&gt;&gt; shmem. Then in thaw stage, all BOs will be swapin and restored.<br=
+>
+&gt; That's not correct. This is done by the application starting again and=
+ not during thaw.<br>
+&gt;<br>
+&gt;&gt; On server with 192GB VRAM * 8 dGPUs and 1.7TB system memory,<br>
+&gt;&gt; the swapin and restore BOs takes too long (50 minutes) and it is n=
+ot<br>
+&gt;&gt; necessary since the follow-up stages does not use GPU.<br>
+&gt;&gt;<br>
+&gt;&gt; This patch is to skip BOs restore during thaw to reduce the hibern=
+ation<br>
+&gt;&gt; time.<br>
+&gt; As far as I can see that doesn't make sense. The KFD processes need to=
+ be resumed here and that can't be skipped.<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt;&gt; Signed-off-by: Samuel Zhang &lt;guoqing.zhang@amd.com&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-<br>
+&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nb=
+sp; | 2 ++<br>
+&gt;&gt;&nbsp;&nbsp; 2 files changed, 3 insertions(+), 1 deletion(-)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt;&gt; index a8f4697deb1b..b550d07190a2 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt;&gt; @@ -5328,7 +5328,7 @@ int amdgpu_device_resume(struct drm_device *=
+dev, bool notify_clients)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; amdgpu_virt_init_data_exchange(adev);<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; amdgpu_virt_release_full_gpu(adev, true);<br>
+&gt;&gt;&nbsp;&nbsp; <br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; if (!adev-&gt;in_s0ix &amp;&amp; !r &amp;&amp; !adev-&gt;in_runpm)<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; if (!adev-&gt;in_s0ix &amp;&amp; !r &amp;&amp; !adev-&gt;in_runpm &amp;&a=
+mp; !adev-&gt;in_s4)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amd=
+gpu_amdkfd_resume_process(adev);<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&nbsp;&nbsp; <br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_drv.c<br>
+&gt;&gt; index 571b70da4562..23b76e8ac2fd 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&gt;&gt; @@ -2734,7 +2734,9 @@ static int amdgpu_pmops_poweroff(struct devi=
+ce *dev)<br>
+&gt;&gt;&nbsp;&nbsp; static int amdgpu_pmops_restore(struct device *dev)<br=
+>
+&gt;&gt;&nbsp;&nbsp; {<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *drm_dev =3D=
+ dev_get_drvdata(dev);<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D drm_to_adev(drm=
+_dev);<br>
+&gt;&gt;&nbsp;&nbsp; <br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp; adev-&gt;in_s4 =3D false;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_device_resume(dr=
+m_dev, true);<br>
+&gt;&gt;&nbsp;&nbsp; }<br>
+&gt;&gt;&nbsp;&nbsp; <o:p></o:p></span></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_8eb1700d4d604a1e9d09718f65baaf1eamdcom_--
