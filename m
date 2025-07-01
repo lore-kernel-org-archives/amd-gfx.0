@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94CBEC83038
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 08:22:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2A98C7EE30
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jul 2025 08:32:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8A510E528;
-	Tue,  1 Jul 2025 08:22:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 528CA10E52D;
+	Tue,  1 Jul 2025 08:32:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4Vpekxwk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xlB3Dp8C";
 	dkim-atps=neutral
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2053.outbound.protection.outlook.com [40.107.92.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD83410E527;
- Tue,  1 Jul 2025 08:22:50 +0000 (UTC)
+ (mail-bn7nam10on2082.outbound.protection.outlook.com [40.107.92.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1D7A10E52D;
+ Tue,  1 Jul 2025 08:32:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EfHMSQ+d1CZ5q9yWIhTzTv7WBltXDAQNMcGS2zqzqnHnp71cOc4/oxEuLwPYUYUfEC0+gv1jLUFTbD0NV6PjsbY1SozwnNw8oxmnX6MFWE7k97MRAQ5azLeAZdrhzG/Cnmt+pK8h4PA7XsIdZZ2yzlnZiy5odjfDmDzguLoiFTeBwBl5F3ZCMoDHsSG5aJvABfkCcDt34g2qS1EYFIOQEsj+tHv1rlWSnFtoj+w9PBnRa66MOPAKGDpDJtOPR2gUOogWdJh9wDghuhZStWyJABsxMdM+5tzS+VJs2ht+tb7FMKDAiVOZFNvSc6MXr5eRDUC7exoIypbkuYK0ZwjoDg==
+ b=iuu54nyqrPVqL8lxtjbqd4SrLdRD5u15PUO2iigSBFpj3Pf+3iVFYw4cVz6R6J6NFNftqtEGk0d0veRrnFQ/GHv/08CkPvieIfD8V5t9HoIYeiSwccHLw5lKbKR/lAVNr3KwK95JZvvLG7bhe40FzYII2L5oyCnlsJsl9jDxivSezL0U1ejGO5wrgSI7DnwkzaliTTGLR20RWcf3hCNoTVFrii+kk0LZpvupyZEqFCKEt/Ah1/hjkk4vMgK/qEZj8QzmVG2uzywzRuVFa9MixrZNlaMNkSKhWHTNtuGinjJD7ThFmU3LU0J/hvX4RX/OmF64BUQ6HxcktoJBTr1ytg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tOpfpBlyNL0di9ui1juvySpwNCp97KoCVghur/D8/aI=;
- b=vn8VIRQDp30ENPEEgpcy+JRFEpIfHLk5g8x9xS7L++sduUWMx/B6VUHeix3FDEJPzEVA3zrjODkT9lxLg5GURGSDubRqwLqp7rFZxuy+eod5pXfg3AvPKFNzQTVWOhWk/iTxYQ2w80qmboos/2f9uW3wM183GP83xSsrLdoJXtBzWqxbbRwbCEYX6YarrZ249y5yV45R0F+ZKtt6CCHIn0zFh/o+xoXYUOy/pgZbpuwsZp0olgV7cxLA0GHGOJhTi1VzdNuN8piQTLIxzOJb7GKR6h1AmlcekUpgHjcVjO+e/RQfj4LKVSTIi3iUs1/A2JuhvbUrHSvXPd2MqVFTsQ==
+ bh=Ph1kp2gmIVBr5cUGa228IWTaFdXefZGk1BXBx/n0x9s=;
+ b=K+9H6zjcLugi2+alHFnRI13XN1yrFPCiwLi5tXS4rvHXVM8TFF9V061b/o5zhRG4BiUtJe7/TPDtClu1eADNEO/vRiDhcZQ0LZDFPSHoQSrNUbXZNERfpjWMiFJXz4/h3sT8hyGMzO9Dj7gEdVh8jqT+I+vzYwLUoQZnpg7C06InQseXBoLwGYzQ+N3D2hAwgaxBclugUOz0ZcO6hIyZ/1PNgKzhhfEszh0Bg66zg9ZCR1olL3GCjS6XJrashlzTkHvgcSJJkw2SNQjYdNH54flp/FVK27Nz/3bu1BB3AxgiEYIv/SSmaNh2kPmAHjTYGXdMi58Kk8Mq8vy63v+FXg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tOpfpBlyNL0di9ui1juvySpwNCp97KoCVghur/D8/aI=;
- b=4VpekxwkPg1esToSwzhDC73zrQLMVE3G+NQvbzSsNf6IcMZdoWfSJFPn7wRm1BQH8T5MZaL8UJK1DhaQR/cOunBIpWoIxVHH2XW1s79iOugrKTa0YrCWx5MPlwsCQjt1zyyMlEnq463qRhtzhFnVsDS6JXDuV3sjzLz8rB2lbsA=
+ bh=Ph1kp2gmIVBr5cUGa228IWTaFdXefZGk1BXBx/n0x9s=;
+ b=xlB3Dp8CRd5O+YB5VJaX6EriXp3VaIRvr5BF8iLXFaOU8Xf7f0R/9RLwMeklNgTKNQkIMQ+5qkm7yAuMsS1d+8SZs7W0VXme6p8yiA0zuEzL+1Xx1lpZr0Ye436dCreH4i0vqfEdHqkNYn047w47BPCf2+fGPT3HhhwovOycetM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.26; Tue, 1 Jul
- 2025 08:22:46 +0000
+ by MN6PR12MB8543.namprd12.prod.outlook.com (2603:10b6:208:47b::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.22; Tue, 1 Jul
+ 2025 08:32:42 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8880.027; Tue, 1 Jul 2025
- 08:22:46 +0000
-Message-ID: <ba843972-f564-4817-8651-b3b776c5f375@amd.com>
-Date: Tue, 1 Jul 2025 10:22:38 +0200
+ 08:32:42 +0000
+Message-ID: <019a15d5-142f-4761-9408-58c103d3922b@amd.com>
+Date: Tue, 1 Jul 2025 10:32:33 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amdgpu: move GTT to SHM after eviction for
- hibernation
+Subject: Re: [PATCH 3/3] drm/amdgpu: skip kfd resume_process for
+ dev_pm_ops.thaw()
 To: "Zhang, GuoQing (Sam)" <GuoQing.Zhang@amd.com>,
  "rafael@kernel.org" <rafael@kernel.org>,
  "len.brown@intel.com" <len.brown@intel.com>,
@@ -60,110 +60,109 @@ Cc: "Zhao, Victor" <Victor.Zhao@amd.com>, "Chang, HaiJun"
  "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 References: <20250630104116.3050306-1-guoqing.zhang@amd.com>
- <20250630104116.3050306-2-guoqing.zhang@amd.com>
- <ce04e266-6c3f-4256-aade-bafca8609ab3@amd.com>
- <DM4PR12MB5937FFB3E121E489A261785DE541A@DM4PR12MB5937.namprd12.prod.outlook.com>
+ <20250630104116.3050306-4-guoqing.zhang@amd.com>
+ <8806781b-90d1-4b99-a798-dd1d29d4c8c0@amd.com>
+ <8eb1700d-4d60-4a1e-9d09-718f65baaf1e@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <DM4PR12MB5937FFB3E121E489A261785DE541A@DM4PR12MB5937.namprd12.prod.outlook.com>
+In-Reply-To: <8eb1700d-4d60-4a1e-9d09-718f65baaf1e@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0168.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN0PR05CA0013.namprd05.prod.outlook.com
+ (2603:10b6:208:52c::7) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6132:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1012a855-2f15-42f0-cfcb-08ddb87874bc
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN6PR12MB8543:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6783223f-8b6a-4566-8c65-08ddb879d87a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|7053199007|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Z1Znd2ZVcGdmZ0ZWVWlWdTZXNHBJZ2pqbkU0TGhnT3NRUXIrUG81WVJwNUhh?=
- =?utf-8?B?eUEyR25od2wwMUpGMkNST0pIbDFza3F1U3RjVFY5ZnRSNWJtQnFnOXVzYzVW?=
- =?utf-8?B?VXFxL0hDcW94eS9LNFJ0MVhaUUdRcjNyRlNZcGFSNDhnaE04VmNJUU43VEly?=
- =?utf-8?B?T01VeEExd243eUNTTEJRSVZhQU5mWDBYS2JsSTFIVWdxT1ZPR2VnSDl1bzJN?=
- =?utf-8?B?WEYwUVVEQXh6a0tGKzIyZkdtVnJIQUVXTW1yQk8vOVh4Nm5KZjFFNWwyQ1lv?=
- =?utf-8?B?UVBId2JyemplQSs0ZjdXYVJHeFY3MW1qdURZT1BrM1BqVE5Ed010QTJKRzRC?=
- =?utf-8?B?SG9SYlNUMXE5OXVYdDUzYkJJRzI3YzVjNEMwcHpvSWRwOC80UmJ2ekVpbmhy?=
- =?utf-8?B?MlJvWXJTK1J1amN4TStZRVN4RzdEWG82UVJPL1BKL3FNNk9VQTI2VERvUVNS?=
- =?utf-8?B?amgvYnh5VUE3Q3YrVDhJVlh0ZnBNWXNmbDhWNXNWN3VHeDVEbk8vZlZnUTJE?=
- =?utf-8?B?ay9Tb1VXdDRQS0hEMk55VWx1MGdBTFoxOThOYU5KWVdWUk81cW5FamhJUUdx?=
- =?utf-8?B?a1RkNVpIcmg2VStpT3ZPYkNmN0R5ZzN3WlFYSm1vdEkzQ3Q4bTcrYzJCNFNN?=
- =?utf-8?B?bEhRc0d3V1U2OE9FYVFxcmJydHdVaFMvTUkxRnU5SFJKclBMSkN1ZS94amJO?=
- =?utf-8?B?bnFUblZvb2x0QnZ3TFliZkYvc0NRSGZmWjFMby9na0ZwUUZYWS9udHRKRTJG?=
- =?utf-8?B?WWxIZXBCZWF3VG5wNGZ6VUkxakNYbEo5RTlIaVYxV0d1WVB0VkhrSGtQSVBn?=
- =?utf-8?B?THlwVjRNYXJMeW5ucnFhZHUzY1pwY1ZJYjd5NmhxRlREdU1VbnRmNFNSeHNO?=
- =?utf-8?B?M2JsNU1RWmlBclF5emVkR0llYnRiV3hJSy9xdVJIZXkrSk5oN0w1NEwyend5?=
- =?utf-8?B?TXJ6L0ZuYWdObjZNYXJHMnpQNDcrenF4eDRrekhpSkJYVG1IUGVFTzNDNjRJ?=
- =?utf-8?B?Mlo5MGdLeGZhUFpTTmdtWFdLbW1YQnpmR2N3cVFwRzFLdW5sRWdxMkUva3U2?=
- =?utf-8?B?UEJsaFA3bC94RkpFWlNzbTRtd3VLTnkwVncwRDg3R2Qrc2F4aU8rc0tZcThW?=
- =?utf-8?B?ZjlQSUtrd1lrSHpFbnJVWlBCNnVTY1d2bXdhL1dlZHE4eGJLQzFPaU1oNldK?=
- =?utf-8?B?cC9qazJqTjhVdnFXYStuK3hFTmdVVUVpNU1Cc2RaeW9DaFFCVU55dWxwNnZF?=
- =?utf-8?B?bU16U0VIK29WWXM1SnIrc1J2a3lKaGtiYzg4V3pTVWpNWVF6MmhYSkJEZ1Nx?=
- =?utf-8?B?aFVaZTM5K3RpeFAvS0JCMHlYUXZRNHlGL2ZmeVdLamZMY0htdS9VUnU0UWdF?=
- =?utf-8?B?UDFaY05VV2JZZ1BEMmFRWC9PUVl1aURJYk1Ra1FMS0tobGoveHgxa0Q5TmZD?=
- =?utf-8?B?RUVieDNFNmxCRlE3c3pDV0NSeGJxWWVKMUhCR3MzdTFvWnBYMUtTR0xrT3Fj?=
- =?utf-8?B?UGJGRXBBa0JCd2ZoYzU4OWU5S1Z3MVRidTFqQlNNcmc3dzM3ZEd3bG9JK05H?=
- =?utf-8?B?NnZ3RVJQQzZVMm5IWnR2dlFhU3NjRVgzbm5QcEZrb056dUo3UUYrdHY2R1Zn?=
- =?utf-8?B?UWh0dFQ2TUJ1UEZtbG1vZ2ZKVjZLNkVuQ2h2aGdSYWowNm1FRlR4WUxhL25S?=
- =?utf-8?B?THRCMWJ0K3VjSGpRZWZacFgvS3E0ak12VEZJc0R4T2xPWXpmMFRvMUVxYURv?=
- =?utf-8?B?cWtiV0g4anMwM1k5MVlrY05KNVptdGlOT2J4QXpXZ0xCUW9uTklIUFlHNTFk?=
- =?utf-8?B?cGNOTzJTSm5mOTZiMkQ0VGxzZ3RtQzEvdmJ5THBFN09CV3JLblNWeGJHWjVj?=
- =?utf-8?B?NU5rdFFXNjdhbVVseGJSUWh3amE4TUdOUVNLZ01ia1J5Vkl0QW9VNWpJQ2dr?=
- =?utf-8?B?VFg2dHZTTmVoaDdhcWtpRW1EQk5IUm9FejJMS3F4UStOcG8wY0pkWURyL0Ev?=
- =?utf-8?B?TVYrYnJEaWlnPT0=?=
+ ARA:13230040|366016|1800799024|376014|921020|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ODhnUzNJZjd1cDVRWFJiZ3lQU0pNcFU1c29YWnczSEZIVWF2OVV5aVRPdmtE?=
+ =?utf-8?B?S2szNnV4eHN5R3VzTlBNMCt1NG1LY1p4NlZkZkZZR0pXMmk5bTBIY3ZRbmZv?=
+ =?utf-8?B?ZitiRlVDWDFGZGJvR3FIVVdWa1hqclNHb29adGREMlhwZEYvWmJnQTVFN1NO?=
+ =?utf-8?B?QXpRbjB5T1cyUEp0Z1dERmN2Q2M0UEZJS2xLTFhsQXhlNjQ0UjVjYmprN2NE?=
+ =?utf-8?B?c3EzZkN3NCtDNHhjK25BRkhzamxTSktzbFpKQzJRTk5zNllOb01ac1A5Uk00?=
+ =?utf-8?B?Umc2L2FFMlN0YW5wbGQ1S0d6NzRlTnZNM0lDZ2ozMUdxYmlpNVF3VUtldzN1?=
+ =?utf-8?B?NDZPeG1PMUhFcDN1NjhCQXpSTDY0QnhVelpUeFNsRm9BUHRaV0Y5bmJEa3hz?=
+ =?utf-8?B?b0p2MFMyK3R4cHdBbHFWOE5kRTdjeisrb09vUlhvMTcxcjNueCtGaFNUa1JP?=
+ =?utf-8?B?R1c4cUlCb0xBSjErTGQyVlVJQlV0WXZjblRmTmRYWlV6cG40VTdsS0YxSEIr?=
+ =?utf-8?B?bXFJS1lLa3dRSGtmZzlYbjBSVHZjOHNQM3JOSmtkaklnazRycVd6V3NncFpY?=
+ =?utf-8?B?SVp4RWF4T3R1OUpVSExSYlY2Y3dJc25xRFBCMlhSVnFZTXNEOHhxdWs5SXhq?=
+ =?utf-8?B?RGRhSzNmV1U0T1FqQUtTT2FTVVNVT2ZmTjBRRzVjanhrZ1ZocWJQeHBEdTZz?=
+ =?utf-8?B?MU9ONVVJZGN1Yit5aE9VckdqMTNPZHhBeko4Zm5MeEphdVoxQTl3M1huWFZN?=
+ =?utf-8?B?MWtGOXhseElHWDN5WWZ2WDVTTDhLcmVFUEoxUlVlQkJ3bXpBT1JiN3NiR1VP?=
+ =?utf-8?B?TnNLU1NQanBOaU9pUmx2WXF2ZTNwLzdBMzZybTMzaHNpT2JXYnNUT1M4SkZJ?=
+ =?utf-8?B?YUsxeHBuTE1zOVBOcDltZFI4b0U0SXFLUVBiRW8vY3I0SHpLTjVMVlJGUEJx?=
+ =?utf-8?B?ejk0aTNIN1FKaWJsN2xDTGhCMmpuUHFoS3JUNlZaVXFBNnR4ZlRHM1dVMlNZ?=
+ =?utf-8?B?TW1odmk3RGZRdkxUK0d1aWRRU05rUE1EbUtGcUdvREdnUlhKdmxQbDN3STFr?=
+ =?utf-8?B?Zk5sR2xobjZQVEZ0azBGdmVlbHJSanFjYnN6bDNkZzhBekFhM3hnZlJYYWJ2?=
+ =?utf-8?B?cDFZRm5mRWNoOWY0ZjdmV05yc2lzUzRzT3Z0aFZrdDB4TUVMQ1J6Zmt4QjRm?=
+ =?utf-8?B?S3dKQ2F1VjE4N0RqWjhrVVBIb1h3WEo3Y1Mrdy85M0JuTHcwU0ZDeTU3Y1U4?=
+ =?utf-8?B?TUg0Q2VJU3VKcTNaeW84UnVpL2JhOVFkZVRGMFlRck1taDhsWEppbGtWSzQ1?=
+ =?utf-8?B?bkpNeXVZYzl4SlBzY0JxTlUyQXI1VGpRTHdpWHZqUk9TQkpqYnc3OXhDK2ov?=
+ =?utf-8?B?blNIdEJzL3dTekJnQ0dYZ3gvYzlHaTIyNGNmK0RnZ3NGZS9HeTY3OXFwcFBM?=
+ =?utf-8?B?RXd1VE5nYUVTY3BqZzBtWFQ1bVN2c040N3hZS2RIS3NDWVBmRDhRNGMrODZu?=
+ =?utf-8?B?WUNkZC91ZEZnNHhpVFdKTU11WWhhcjFPVVQwRUNrOVFZVEp5amtHaUppdU5M?=
+ =?utf-8?B?cmNzVUpOMWE2SkF4UjVSL2dUUWthcWNlVGswSzJCVEo0cExPN3Bmbm9mWFlS?=
+ =?utf-8?B?cVQ4d205ZVE4TktHVkpCMFpDa3JyV2wwQWNGVXdxaTloN1FCNmRlMjlCMmpY?=
+ =?utf-8?B?TzVMbDIvelhMMWwrVDNHdUx0dVNXMVRsb1NMVkdacEY3ZHVjOWVvVjRKc1JU?=
+ =?utf-8?B?aSsrM3piUTZvbXhoM1dVdzlRTzd4UTBRblQ4bnVvNERjZ0JDU29lb3dEZGpX?=
+ =?utf-8?B?UUN4OWZOWCs0aE1QdmI5emFjRTQwalYzTG9uc1ZESmU2N1hGZVBIZW9kT2lF?=
+ =?utf-8?B?Nmtya0wvOHl5RWdpTllDVVRGL1FlYjBCTXVSaGcwR05KY3dNMmltcFRESVJt?=
+ =?utf-8?Q?9EHESUFetBc=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(921020); DIR:OUT;
+ SFS:(13230040)(366016)(1800799024)(376014)(921020)(13003099007); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZThzLzZCeWM3S0N0NGkzY2k2YmdwdHdPSTZZNFlZSXY2c3NQU0EyS3RZemRM?=
- =?utf-8?B?bUlNVW1uSSsrNVp4SkFwMGo5aGJHKzJUdEJpOCsvOTV4M2RDU3pNMm9KdTl3?=
- =?utf-8?B?N0tueFBlV1orcmx4QlVMZHR3ZGFNQWltWjJWc2ZPWmxhMThTT0NlVmtlcVNM?=
- =?utf-8?B?NkxuMlYvc2lBNXVlN1AxdGc1WGZxTEw4WDhVeHp4NC9mQ214ZExTVUJ5Szla?=
- =?utf-8?B?c2NmcXp6eVhtRERUSVEyMVVBY2htdWFHS3JKKzZXYzcweHlSTHBLWU8yekZB?=
- =?utf-8?B?U1hLYWR4dmV0Mm9jQ3JqdHFnRnE5YjE3amJ0VndIVXVuMHpPYTZaRFJFT0JO?=
- =?utf-8?B?d3FLQzc4OTdKVVgrYklMdkR2MytYQllqUTlwVjRrQVYwRkYyWVlodE8xakhI?=
- =?utf-8?B?Z1JTNUM5NmJPNTVvQW92eFdoR1BnSmJTZ2hvaW1BNk9MdlJpR1IrZ1lBMkl5?=
- =?utf-8?B?Kzl0MmtwbWFQcmphL0FpcTNld3JVRXpYcllRNndCNElhajVaNTNRZzAvMWMx?=
- =?utf-8?B?a1FEbi9yNHIyQ1hBNHpTaTFhdklzeENVdFh6Ly90VjJra0lDQ0tNM3E4cHFm?=
- =?utf-8?B?SEhYVjJlVjRxbXRJbUNsT201ZEVtOHF0dzB0Rldnamw0ZC9MekdjRTJpMjZ6?=
- =?utf-8?B?eGw5NGRma1FBVXRhUUNQdUhodzQ2cjJiWmpudTZ3K3RFRzF0aVhyK2p1ZVY4?=
- =?utf-8?B?TElqSVppTHJGZjRaNlFCRXRWVXhUQXBqV1VuMzh6VmpncVBaN2VsMksrc1pt?=
- =?utf-8?B?RkhHQTdvUDZ3OGFlaDZyck8yMUpJTFhoemRGMGhkMnI3Wk9lQXdYcTVpMm5K?=
- =?utf-8?B?RVVQZ0N6bFFhTXB3YTRLdDQ3MGtqUm80RVdPaHE0alI3dzFibzVVWEtSblN1?=
- =?utf-8?B?NU0vZ2c3ZHNGREtobStIVkl3cXRkaDFyRzArUElEQTRaNGtybklnTmxxMkF4?=
- =?utf-8?B?ZzFTMDcyS1R6MjFnc3I3V2pUQmJXT1kvSkhTL3lITHUraWdtTlA5czVDcGQ4?=
- =?utf-8?B?ODlCN2ZQdjdLY0VGZHJPUXpRbXNkSStMNVN0YlVWSlFBSDByWkg4TlhPbkRy?=
- =?utf-8?B?WjZIdDQ3cytaT1FPMHF4Q25NdU44eGhBcE9ZRmVHdnlQSStBam9yRGV2WFo5?=
- =?utf-8?B?Y3J3em1VK2drcTFleFlKaEIyWi9Zd1g3ZG9pOUJ6ZVhaTEhDemhCMkI5TnNU?=
- =?utf-8?B?bVZKK2FiVjY1SmY2alZOMVBDM2hMRnFQdUlGaXJndzNWbEIxbDFwMmYyQjln?=
- =?utf-8?B?OFBCUW5NWDdNRUNiUCtNbEpPcm5mQVZvNVpNeFI1QjU4QUU5OExHckxWV2lv?=
- =?utf-8?B?RDRqbnJOdWlwZnp1amwwRW1UNnJZU01ZbEFkeVpIaVdTNWhyWUY3bnIrRHhj?=
- =?utf-8?B?SnhwMXRCR1lpL1hCZGpUZzY4V1ltQVdwamNmQzF2VjNhUmJPVi9KYkZtWkRr?=
- =?utf-8?B?d1NaUFhMenpWcVJ3ZlpzMmgrSHRSU1pGTDNZTXpoZHZ6WWNKUDIvVTBJRS84?=
- =?utf-8?B?ZTJ0d2EyV3M3cEtqNERYdlFzTnJkUXdncnhLTlpUR0w3aHFTM0haMlhDd0Qy?=
- =?utf-8?B?VDdyckFOblh6QjJscWNuaDU4QTlPcmJ0TUFrOU84UG1CNDBYWFJWZVFHSlhi?=
- =?utf-8?B?YWdIUTE1RFUwRXFGQXNIdHhCaHErREhCbk5wdk9rSlB1aVBhK3V1bkh6b0dx?=
- =?utf-8?B?eU9QY3hJcVROSi8vMEtKSXlZMStHTjVXcUtRUTlWb3BPSEhReFRQYzBLSTBh?=
- =?utf-8?B?M3VKNHBaOFluYjBvWCtFRnp0TklobzF4d0RmM2hDVHpLR2Y5TXZVRlZwWEZL?=
- =?utf-8?B?T1dLNDlKKytWSGpvS1E3OHRXbFBnbStqaDhOMWx2NHoxak9mVElvV2ZTNnhs?=
- =?utf-8?B?ajQzMU5xbDdPNDNZNWh0UXRHNlJEcmFzWWxnYUtMaWVjT05PYnZPUzBEMzll?=
- =?utf-8?B?QVRLaGdqTE9qMUZIeG5VOVJOOElpd3NQSVkzTmROL29pMmxOdXB1eEJVZXhh?=
- =?utf-8?B?b3Y5NDcycmdCWXVVQXBpMThLT2hwYUloc0dZRDZMK1JEeGs1RjloVnE4eVJI?=
- =?utf-8?B?R2t1U1FiUmlXbVZFM3NFSUpqSTdWMjA5RGVkeS8wUFZ6ZjFhZk9ndklNdUl3?=
- =?utf-8?Q?unKRJYdtlX3GBmSogY7zAx0rr?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVFZcDYzcnJsMkNNUy91ajZaTXZoWVlTUWJ2cWFnMmZjQTM1ek9yQVBPK09Q?=
+ =?utf-8?B?bThNM0ROeUZIK2xYeVl1M0NRbVpONG9KN09OUDNtMDhxbmpEME81TmxyQUtZ?=
+ =?utf-8?B?eUZUeUxnVzFmaW5HVzJwKzMvbHdQZTcrSzk1Skw0dEE1UnRmWGVHOXQzbU00?=
+ =?utf-8?B?OThuRkhZUnd0aWI3OHYzMFZZZjE0aGQ2NTZNby9yV01IdmY0M3k2TGJROGly?=
+ =?utf-8?B?UlpVZXFBYTUrTWY4eDlGQXJIU2JpK1FLdFBMQWZNLzljTngrS2lZYU13Rk44?=
+ =?utf-8?B?SkF1YjRVbDRqd0IrRng0cVNGc1FMSE9CQnBINktQTmo3cklCbUFGLzZXcHdn?=
+ =?utf-8?B?djRrZ0VUamJRcnpvMVNKU1VWbmJZNEprc1cxVWNjdUZWRGFmT2piaEZKNytI?=
+ =?utf-8?B?aFRLQVhuSFhjZnIyZW5RdjdCSldrTmtwOVhsNlB0Z3BQekF2elp1MnVtUlNy?=
+ =?utf-8?B?RldyMWNWc3A2Snd0VGRaUDkyR0dPbkFRTkw3VEhCK0FZUnFLbDNSL1hESmNj?=
+ =?utf-8?B?amdleURZV1VLcGw1QVpDVVAyOVJZSDFLaVU2UmllT2tPWGd2bnl3TElIOGlF?=
+ =?utf-8?B?eVdEeWF3YWN6eGZJaHJvZ09NNzFQRi8xOVYzQkxXMlpqR0VvWVBPR01aaU82?=
+ =?utf-8?B?KzBMN3ZXaGZ3TlYwaHp6Zi9xNCt3RmFha1hrTnl3bUh6a1RyTkQxbnRRdllW?=
+ =?utf-8?B?SFhNOWZXd1AxT3U0SDZzTDBOSmdFZ0VMbHQ1REt6SVlFYlJBeThPOXkxdGtq?=
+ =?utf-8?B?eXBDSW9iMEhORzFoQnBFSmk1Wlk3REI3Szd3d0FuUXgzdkhnSXlobEEwT2Jx?=
+ =?utf-8?B?VmR0WjhDWWd2elRpYXZmWXRSUlFsTUFqMERIWmlySkR6UmlVemVWSDQ0cDQ5?=
+ =?utf-8?B?SlNoYTg3UkhRMkJ6Rk8zVEJabGxKQk5nUDc4bm4yUEdDSWRJcEZ4cVFPOXVw?=
+ =?utf-8?B?b2Q3QlNkOExUekpPTnFGdE5RR2JqRWxWNktObVMrUkNYQVcyZ1M0OFZnMkRE?=
+ =?utf-8?B?eVRWWXJMSzNockI3dXR6TTFEWHI0cEV3MG1SSC9mNzFmbG9pVnpRcGZSZkRi?=
+ =?utf-8?B?azE2bzdHVGt0U0k3S3FDcmtDcVpTcEludURGV1kzV3lYRFZtd2I2ZERQTmRn?=
+ =?utf-8?B?WVlEbVpONVdZSnlyVnVMNjhCVEpMRlZTNTV0NzBaemVtUFRQQ1d3SHcyYWRY?=
+ =?utf-8?B?WXkzRGdSekd2WGpRVVZ1NFBudzhyZTZKRzZjWHYzMjZ2ME92OFZxRXZNSENK?=
+ =?utf-8?B?RGRMZWNUbFJMYVErMWNUdXlHaEE3L0xGTXUraDNxbUF4YjQyRUoxNDUybFJ3?=
+ =?utf-8?B?cTBPRWVNMm9Dd3cwc2JxUkpMeXM4MmNFbmtWWDNlL1JBN1U1NXVmTEhzVEVm?=
+ =?utf-8?B?Y0doMi9weTJoRmptWEtBaFBxSHRtSk9iZFR1T2NZbnhnWG9IVVV4eEkrVGxZ?=
+ =?utf-8?B?SzlFZkIzQ09XNUlWMDVET2ppSXQySzNlTmpRNEhVMVNmMnEvVFdHQlVnVzIv?=
+ =?utf-8?B?YWlPSFA0QnRUeFVraUZHT1l4TUh5UEpLOFpCT01UWXdJWWNTMldka3NsclZq?=
+ =?utf-8?B?Q1JwTkhWZmdJclhxTmlJbElXY05xRGFmR01icDhzTTZLMzlYRHBmZUtBQmkr?=
+ =?utf-8?B?enFadE14cGtOL0JwYnI4cXdYQWxwL1hiRWVNQUtvNnRQUnhKaFc4OER3MENZ?=
+ =?utf-8?B?N3oreGRHMGlJRUZZM1lLQk1HQ1RDb0hXY2FCQm4vbnBLUXI2b0ZGM05ySmtw?=
+ =?utf-8?B?M2prSnplemtNajdTRUhKMFJGK0NRcU9CWFQwckRzTU1XSEx2ZWhpUFFsUHpH?=
+ =?utf-8?B?SGswbUJWbVI1MUxRckdpeG1tOVlqV3lCbkRZUTdFTzcxQjZRZEsyOWM1T1Er?=
+ =?utf-8?B?T256ZDNMQ3VlRldRUVBjcnVxSUl4TEhSc3I1OTBPTjVDNTVHU2t3NTRqaTZ3?=
+ =?utf-8?B?S2ZsSjhiVSs4bnRyNWZ2cWRpMC9GOXV5OEFDdDRXQzhNeTJWY1llZFp1V2JI?=
+ =?utf-8?B?N2hZTDZuYlJuWER4WWhHTW43UXlCYk5EalI4MXZya290NnpPSzdIa3FVUmh4?=
+ =?utf-8?B?V2tjQURoa0FFQzM2ZlMyMXVHWXF1cUpLVTJ4T3k2UXIvUDZXbXp5bUFqaEN0?=
+ =?utf-8?Q?Imm66+muaEJspuoU2IZalipPW?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1012a855-2f15-42f0-cfcb-08ddb87874bc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6783223f-8b6a-4566-8c65-08ddb879d87a
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 08:22:46.4681 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 08:32:42.0442 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eZtwnXaRcpXznz2rN6L3Nl+IXb2al8Xwa9PVzXJ7FbnCPpBZUsqTn4jVQb7Bqym6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6132
+X-MS-Exchange-CrossTenant-UserPrincipalName: csfcrAiAhua7J0ncGPpaBGRZCMfYLT7w14vNSD7ZfC2Z41hGCW4NKN+rCRz3M0o5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8543
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,162 +177,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01.07.25 10:18, Zhang, GuoQing (Sam) wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
+On 01.07.25 10:03, Zhang, GuoQing (Sam) wrote:
+> 
+> thaw() is called before writing the hiberation image to swap disk. See
+> the doc here.
+> https://github.com/torvalds/linux/blob/v6.14/Documentation/driver-api/pm/devices.rst?plain=1#L552 <https://github.com/torvalds/linux/blob/v6.14/Documentation/driver-api/pm/devices.rst?plain=1#L552>
+> 
+> And amdgpu implemented thaw() callback by calling amdgpu_device_resume().
+> https://github.com/torvalds/linux/blob/v6.14/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c#L2572 <https://github.com/torvalds/linux/blob/v6.14/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c#L2572>
+> 
+> This patch is skip amdgpu_amdkfd_resume_process() call in thaw() during
+> hibernation. it is not skipped in restore() during resume from
+> hibernation when system boot again.
 > 
 > 
-> Hi Christian,
-> 
->  
-> 
-> Thank you for the feedback.
-> 
->  
-> 
-> For “return ret < 0 ? ret : 0;”, it is equivalent to “return ret;” since ret is always <= 0 after the loop.
+> I just found the following kernel doc. Thaw() is intended to resume the
+> storage device for saving the hibernation image.
 
-No it isn't.
+Ah, that makes much more sense.
 
-ttm_global_swapout() returns the number of pages swapped out and only a negative error code if something went wrong.
+> Our GPU is not involved
+> in it, it is not necessary to resume our GPU in thaw().
+> https://github.com/torvalds/linux/blob/v6.14/Documentation/power/pci.rst?plain=1#L588 <https://github.com/torvalds/linux/blob/v6.14/Documentation/power/pci.rst?plain=1#L588>
+> 
+> So another implementation is to remove the amdgpu_device_resume() call
+> in amdgpu_pmops_thaw(), and skip amdgpu_device_ip_suspend() call in
+> amdgpu_pci_shutdown()for hibernation.
+> Initial tests show it's working fine for hibernation successful case.
+> Should I switch to this implementation?
 
-And it's probably not a good idea to return that from the new function.
+No idea. Alex and the KFD guys need to take a look at that.
+
+> But thaw() is also called to restore the GPU when hibernation is aborted
+> due to some error in hibernation image creation stage. In this case,
+> amdgpu_device_resume() is needed in thaw().
+> 
+> So I need a method to check if hibernation is aborted or not to
+> conditionally skip amdgpu_device_resume() in thaw(). Currently I don't
+> know how to do this.
+
+Yeah that approach here looks fishy to me, but I don't know how to properly fix it either.
+
+@Alex any idea?
 
 Regards,
 Christian.
 
 > 
->  
-> 
-> For all other comments, I will revise the patch accordingly in v2.
-> 
->  
 > 
 > Regards
-> 
 > Sam
 > 
->  
 > 
->  
-> 
-> *From: *Koenig, Christian <Christian.Koenig@amd.com>
-> *Date: *Monday, June 30, 2025 at 19:54
-> *To: *Zhang, GuoQing (Sam) <GuoQing.Zhang@amd.com>, rafael@kernel.org <rafael@kernel.org>, len.brown@intel.com <len.brown@intel.com>, pavel@kernel.org <pavel@kernel.org>, Deucher, Alexander <Alexander.Deucher@amd.com>, Limonciello, Mario <Mario.Limonciello@amd.com>, Lazar, Lijo <Lijo.Lazar@amd.com>
-> *Cc: *Zhao, Victor <Victor.Zhao@amd.com>, Chang, HaiJun <HaiJun.Chang@amd.com>, Ma, Qing (Mark) <Qing.Ma@amd.com>, amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>, linux-pm@vger.kernel.org <linux-pm@vger.kernel.org>, linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>
-> *Subject: *Re: [PATCH 1/3] drm/amdgpu: move GTT to SHM after eviction for hibernation
-> 
-> On 30.06.25 12:41, Samuel Zhang wrote:
->> When hibernate with data center dGPUs, huge number of VRAM BOs evicted
->> to GTT and takes too much system memory. This will cause hibernation
->> fail due to insufficient memory for creating the hibernation image.
->> 
->> Move GTT BOs to shmem in KMD, then shmem to swap disk in kernel
->> hibernation code to make room for hibernation image.
-> 
-> This should probably be two patches, one for TTM and then an amdgpu patch to forward the event.
-> 
->> 
->> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 13 ++++++++++++-
->>  drivers/gpu/drm/ttm/ttm_resource.c      | 18 ++++++++++++++++++
->>  include/drm/ttm/ttm_resource.h          |  1 +
->>  3 files changed, 31 insertions(+), 1 deletion(-)
->> 
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index 4d57269c9ca8..5aede907a591 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -2889,6 +2889,7 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->>  int amdgpu_ttm_evict_resources(struct amdgpu_device *adev, int mem_type)
->>  {
->>        struct ttm_resource_manager *man;
->> +     int r;
->>  
->>        switch (mem_type) {
->>        case TTM_PL_VRAM:
->> @@ -2903,7 +2904,17 @@ int amdgpu_ttm_evict_resources(struct amdgpu_device *adev, int mem_type)
->>                return -EINVAL;
->>        }
->>  
->> -     return ttm_resource_manager_evict_all(&adev->mman.bdev, man);
->> +     r = ttm_resource_manager_evict_all(&adev->mman.bdev, man);
->> +     if (r) {
->> +             DRM_ERROR("Failed to evict memory type %d\n", mem_type);
->> +             return r;
->> +     }
->> +     if (adev->in_s4 && mem_type == TTM_PL_VRAM) {
->> +             r = ttm_resource_manager_swapout();
->> +             if (r)
->> +                     DRM_ERROR("Failed to swap out, %d\n", r);
->> +     }
->> +     return r;
->>  }
->>  
->>  #if defined(CONFIG_DEBUG_FS)
->> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
->> index fd41b56e2c66..07b1f5a5afc2 100644
->> --- a/drivers/gpu/drm/ttm/ttm_resource.c
->> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
->> @@ -534,6 +534,24 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
->>  }
->>  EXPORT_SYMBOL(ttm_resource_manager_init);
->>  
->> +int ttm_resource_manager_swapout(void)
-> 
-> This needs documentation, better placement and a better name.
-> 
-> First of all put it into ttm_device.c instead of the resource manager.
-> 
-> Then call it something like ttm_device_prepare_hibernation or similar.
-> 
-> 
->> +{
->> +     struct ttm_operation_ctx ctx = {
->> +             .interruptible = false,
->> +             .no_wait_gpu = false,
->> +             .force_alloc = true
->> +     };
->> +     int ret;
->> +
->> +     while (true) {
-> 
-> Make that:
-> 
-> do {
->         ret = ...
-> } while (ret > 0);
-> 
->> +             ret = ttm_global_swapout(&ctx, GFP_KERNEL);
->> +             if (ret <= 0)
->> +                     break;
->> +     }
->> +     return ret;
-> 
-> It's rather pointless to return the number of swapped out pages.
-> 
-> Make that "return ret < 0 ? ret : 0;
-> 
-> Regards,
-> Christian.
-> 
->> +}
->> +EXPORT_SYMBOL(ttm_resource_manager_swapout);
->> +
->>  /*
->>   * ttm_resource_manager_evict_all
->>   *
->> diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
->> index b873be9597e2..46181758068e 100644
->> --- a/include/drm/ttm/ttm_resource.h
->> +++ b/include/drm/ttm/ttm_resource.h
->> @@ -463,6 +463,7 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
->>  
->>  int ttm_resource_manager_evict_all(struct ttm_device *bdev,
->>                                   struct ttm_resource_manager *man);
->> +int ttm_resource_manager_swapout(void);
->>  
->>  uint64_t ttm_resource_manager_usage(struct ttm_resource_manager *man);
->>  void ttm_resource_manager_debug(struct ttm_resource_manager *man,
+> On 2025/6/30 19:58, Christian König wrote:
+>> On 30.06.25 12:41, Samuel Zhang wrote:
+>>> The hibernation successful workflow:
+>>> - prepare: evict VRAM and swapout GTT BOs
+>>> - freeze
+>>> - create the hibernation image in system memory
+>>> - thaw: swapin and restore BOs
+>> Why should a thaw happen here in between?
+>>
+>>> - complete
+>>> - write hibernation image to disk
+>>> - amdgpu_pci_shutdown
+>>> - goto S5, turn off the system.
+>>>
+>>> During prepare stage of hibernation, VRAM and GTT BOs will be swapout to
+>>> shmem. Then in thaw stage, all BOs will be swapin and restored.
+>> That's not correct. This is done by the application starting again and not during thaw.
+>>
+>>> On server with 192GB VRAM * 8 dGPUs and 1.7TB system memory,
+>>> the swapin and restore BOs takes too long (50 minutes) and it is not
+>>> necessary since the follow-up stages does not use GPU.
+>>>
+>>> This patch is to skip BOs restore during thaw to reduce the hibernation
+>>> time.
+>> As far as I can see that doesn't make sense. The KFD processes need to be resumed here and that can't be skipped.
+>>
+>> Regards,
+>> Christian.
+>>
+>>> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 2 ++
+>>>   2 files changed, 3 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index a8f4697deb1b..b550d07190a2 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -5328,7 +5328,7 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
+>>>               amdgpu_virt_init_data_exchange(adev);
+>>>               amdgpu_virt_release_full_gpu(adev, true);
+>>>   
+>>> -            if (!adev->in_s0ix && !r && !adev->in_runpm)
+>>> +            if (!adev->in_s0ix && !r && !adev->in_runpm && !adev->in_s4)
+>>>                       r = amdgpu_amdkfd_resume_process(adev);
+>>>       }
+>>>   
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>> index 571b70da4562..23b76e8ac2fd 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>> @@ -2734,7 +2734,9 @@ static int amdgpu_pmops_poweroff(struct device *dev)
+>>>   static int amdgpu_pmops_restore(struct device *dev)
+>>>   {
+>>>       struct drm_device *drm_dev = dev_get_drvdata(dev);
+>>> +    struct amdgpu_device *adev = drm_to_adev(drm_dev);
+>>>   
+>>> +    adev->in_s4 = false;
+>>>       return amdgpu_device_resume(drm_dev, true);
+>>>   }
+>>>   
 > 
 
