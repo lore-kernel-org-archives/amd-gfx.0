@@ -4,73 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20151C77B7C
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 13:12:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38F6BC77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 13:42:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC8E710E704;
-	Wed,  2 Jul 2025 13:12:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5223E10E711;
+	Wed,  2 Jul 2025 13:42:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lzY0cBIa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tRdxOsu7";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0D4210E6FD
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jul 2025 13:12:48 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-31305ee3281so857959a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Jul 2025 06:12:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1751461968; x=1752066768; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QtU8O/Jb5Tb6dH5emzv7f+G4oJ8n9L9XWl9SgOPMqT8=;
- b=lzY0cBIaK+Hqxs6TQE/2yL0iWk/APx6kznWAG43xLo9BIsPc8G7GjojCKmXlP/PujC
- kite7hD/GB+I6AT3gDgNE4fwpmk7uptBgKgdfiuAuhuX+GoOfrOp+4g4wzIj/R2pMay7
- CD/CTPcXSB4xOp6fGvRAmH9Ay7syzAiF7KWCodtLOu9znup+kpXi8xhUD/gJki4njKvg
- 51STAn+1LzlTLsT+iunIhRFlyPdA8QKU5/A1tWf8fRV3xx25eH5274jmhWljahFrEFmI
- vwqBYQSHNivxyv5m3k301Y5YzjBsjSYltmIKJDIcd0sYznq/fQOIeuEYPVhr+e8PlpY1
- u7AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751461968; x=1752066768;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=QtU8O/Jb5Tb6dH5emzv7f+G4oJ8n9L9XWl9SgOPMqT8=;
- b=MPehfsLdBjRtDBlAwVl+iAm4qDExfKmvAfLVeG/wz2/y+/7FwgX8h8nActEsku7gk2
- kdCxi5FY5/+x5IcozwELM2lM7bnadr01rusaztiEXJVNL3h4OYRDdNbq9JiKqHmHJHwX
- oglFktIU41crKnoKFfm493dY2SrMs7SAFC+F/Ww6btQE027xHGxfT821Kmh9pqnAAMzv
- 0P2wQF+gIpLVrql4uYnak0Yn1bLlsQ/mw5QCMM1Xu2pZ9XwrF8R/NXNG3ealNs3tNh2V
- hNXZ8kHHa+ovgDefmO9a7KsdvgQhhg/QMdGZOYRDSXNFSJiCyEp5Z1W1Tn6ABA8sdxeG
- 7bvg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUixO3c3t50hOKFXRF7Gum5kBuKVPPoBE9/0J+DbJmtv5uwGh2TGnovtMhS4YwSBZJ0LKg1fepn@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOfweebjRBw7Rcw0FbMSNB2krvVfoPrC4FoxmUFrQptW+AzIwK
- yUE7p0OQHYFYV8xRl95omNZpVlYCHvOg9pCAeWTtlimLL4VTbsWFPX1dobNms/hwCY7y771oJgE
- Twm5NctEh0pMxqBY4UkoRv1CfEaWXLXw=
-X-Gm-Gg: ASbGncusydpIF/EK87nyd7e1i3rlMO0pinuevjiT3Snfrwvw5cF3vbJ90/cL+bvHIZZ
- BtkaH8gHn6Mvur1der7hp3Mw2tKZ7BMBgccxdvsO9ZBjIXiYwFCy7RWp/4DfkZ2Og92mC1Jkvi7
- we4UTmdFzZV0MDbXhWB2onb0uRGNA5adn0FIUQxUbF18Vd
-X-Google-Smtp-Source: AGHT+IG20cpSIPzxCDtl8YGvMEEOmFz2z1Q2potddsge9qcpbiQvJ+PaCKmMzN3gA8CblOIDvl71Pg1OiiRWyyCCJjQ=
-X-Received: by 2002:a17:90b:55c8:b0:312:639:a06d with SMTP id
- 98e67ed59e1d1-31a90c304acmr1609225a91.5.1751461968041; Wed, 02 Jul 2025
- 06:12:48 -0700 (PDT)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E410F10E710;
+ Wed,  2 Jul 2025 13:42:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HcWNZ8R+JEH+Gqf2PJ4TATI7S6ev9/t0HaxHh6FA+5htnDvdNfnbzbgrSn7OiT7lQNzT4Fehdbl6O+sYJIgoPCc8TP1EnlJjpSc59NHkHFAWvLLyMa9/7dMxsRhSBMVonYiGCGPa+jHAppP6HtkvIZaxgXMSWdzz5Cd+/olgNjPvFRoPcCekh1junLUC/Rgvc6lNEdql4XSNtoguxD1UKZaGxDiyT9wTIakrALsAK4HYJRJOcz2NQS8hOxD7G/n0h8yYUFajAbxJAO8WFwibSUvB6O++W3AndI4T765HigP+E5YubrdFHcaoF1JPrmnzARuougvrq3+7zzTncdZntQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qza4IhKR+joplv1+F+VJ+FHlih+mDpPCA2dTztFRk0s=;
+ b=i4Z+klIMKQ6Hp1cEyO4ghVMroFuPFqVOx/IlSt4bZO1IOcVtbry3dGAXpcNwoE3VzM5S6ChkyTF4WvB+cVWfqLwQWWIpvHOk8qwGAYlmiRn9RO+ld8jyCgsJxZVV5RVTu00adSDMXrSrRGug7BcL14elz6S3OSBCxo/to6bBde6qDDrZ/QyY8ePAux7zsophwCS2IqiqFMZcfF4vu8QfHvzRADiNF+ZgsjLzkOn6/JhovHkS7pSR/cuQ0Zfs68E318y1WnVChanlRRfojz6gvyrbnYQW1YaPkSKxjBchc+3oPG6PUZs9jyEvh7PfeMp+Yppuj7X5khJMmGOHHRgF7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qza4IhKR+joplv1+F+VJ+FHlih+mDpPCA2dTztFRk0s=;
+ b=tRdxOsu7DjJ5+XQi5tv+xzIgy+MLW/wVBCm71Pprp8gjJX1EEUbiEql57RLsNwX1wjhUGCRaja3RCfM1LQkGR5GKVwA/Lb1QJhTA6hNAkrmF7SMSEvi7ZYA+zIRdhJ1Y8oUpbbZG4o5SgmdDKmgNzWaLgThdxE06SDcvClsPFCc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CYYPR12MB8892.namprd12.prod.outlook.com (2603:10b6:930:be::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.22; Wed, 2 Jul
+ 2025 13:42:02 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8901.018; Wed, 2 Jul 2025
+ 13:42:01 +0000
+Message-ID: <dda50b9d-1348-4fce-a513-c20e6223d58f@amd.com>
+Date: Wed, 2 Jul 2025 15:41:57 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] drm/amdgpu: Dirty cleared blocks on free
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, matthew.brost@intel.com
+Cc: alexander.deucher@amd.com, stable@vger.kernel.org
+References: <20250701190822.5272-1-Arunpravin.PaneerSelvam@amd.com>
+ <39ff4d7d-d8eb-4c2d-9330-2bb8a5a04964@amd.com>
+ <eebf740c-2a96-434a-a114-2d168f51f774@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <eebf740c-2a96-434a-a114-2d168f51f774@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR22CA0020.namprd22.prod.outlook.com
+ (2603:10b6:208:238::25) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20250701152538.5832-1-alexander.deucher@amd.com>
- <DM4PR12MB5152D2C3C56C7F0E8F4B54A7E340A@DM4PR12MB5152.namprd12.prod.outlook.com>
- <CADnq5_Nxvf_e3JYOHpQb375kWr9ZW79ybQwdtf97QD+8kK2M3w@mail.gmail.com>
-In-Reply-To: <CADnq5_Nxvf_e3JYOHpQb375kWr9ZW79ybQwdtf97QD+8kK2M3w@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 2 Jul 2025 09:12:36 -0400
-X-Gm-Features: Ac12FXwIflMKXn-zYJGAXyeBblRWEqKPhn4biDALzDVUK6KmBI_q7IFVxaFjKEQ
-Message-ID: <CADnq5_NdfnB8Bu5N8Yn6_9fu=PenZtwEuKCR-XhKG6R_nLb=eg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/sdma: don't actually disable any SDMA rings
- via debugfs
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8892:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7c87b39-9ba2-4f26-2d63-08ddb96e3954
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?clBPamQzU0NLS0NoNW8xQ2Z2OGhOL0RsYW1VR29JekNxRUVEYm1tTU43VXd4?=
+ =?utf-8?B?TncwaVRJeWhRU09yMDZuL3N5cmg0b09IOXdDZThxM1l1RUxwSC84MkRwNFhs?=
+ =?utf-8?B?QTRXZGFGV0hjT2NqL2I0ckZ2T3RqaG5NMnNIRmFjcm1NSWNzNzhHb3NwVkVL?=
+ =?utf-8?B?QkJNd3FXdkxlSEhVMDdkOXlXTGdpVmNBWE9YUDk0SXpXaTJGcyt3Z0lrTm50?=
+ =?utf-8?B?RFk3ZzNSYTRXSk0xeS82cjZ6OGFkYzBCSzVnbWc0TnN6UDZRckZtSzFDQlhv?=
+ =?utf-8?B?clZHV1JjeXJ1Tk1EeUs1cE1jSG5kL1RjZkpLcjI3bzVQMktWMi9zQUt2VG1I?=
+ =?utf-8?B?TUlCdERHbm9SUDlQVVlFV0lnVTRuSDQ4TGVBa0pxNmNpdExQcjdZNitkakJ1?=
+ =?utf-8?B?ZFpEc1pncHdPa0hmcUxPL0ZoUGlYb3dTMkZ5dXpTNzJUY2ZnaEtFV0o5Ukda?=
+ =?utf-8?B?RTBpK1UzamhSZUpPZ09HU0VQTEVTNm43QnJZallub0lFWmVQV1Y2WUVxaGJZ?=
+ =?utf-8?B?UWM3cEtUU0QvSWx5TXp6RjRTNWhic0d1SG8wcThCenpOWllnbUxLSlNmMEs2?=
+ =?utf-8?B?ME5Za1p4VVVXM2hyM1ZFejhxNWQ2WkVTdmNJTjFXaFBIbFppS2xZaWpGbW4z?=
+ =?utf-8?B?UGo1SDRUNEYyTzJON2Q0S0Fxb1pZM2I0VmtDTll1NzdncVgzeDhpRCtWT0wy?=
+ =?utf-8?B?SUhWVFpHTnpZMmJoRzhBTndMTlBYa3l6bU1OZk92YmFHcjY2VWNJK2pEbU0y?=
+ =?utf-8?B?ZGdpM1lkVlVpR2ZlWmVpd3YzdTBhUnpwLzlSc3F2dHlCdi9LaHBtUjZkRUND?=
+ =?utf-8?B?bXQ5MDdzUHZmaHBIZ25FQzVCSmx3UTZGTVU1eGF6TkFYeHEzSmNJUlJCSWFG?=
+ =?utf-8?B?QVIreWROS3hsdEplUUFxUktyOE5McDJPV3U0eHhIRTJtRW8wZEtXeE55bHhJ?=
+ =?utf-8?B?M0FOajJJazBsMVM5QjRTNVBJYVZUb1AyblhtYkZ4NWxRVDVvV21SdmE0V0dD?=
+ =?utf-8?B?bmoxY1FCcUk3SmtyejN1NjUzVkdOOUNYMlFnZ3NBQlcxZ1dWS29nWlcvZkwr?=
+ =?utf-8?B?b2kzVmc3bzRDaEdlb3ZSTnZRVDArcWFzY2VwREdxdG9RVXRWYVV2VFlmbXRJ?=
+ =?utf-8?B?eEFWRGhWUXZidVpadFRPaFR4a2NEQ2pySVplZ0JOOUdYcXNpZE1wWVI5bkJn?=
+ =?utf-8?B?TTlFdEtkTjlmdHV4SmM4RmU0bzZzUEIyUmpJM3dnOUlpWElJdFZvVlJsSnRu?=
+ =?utf-8?B?WFllRTlKT3ltL1ZhK0o1eEVBUGxTRno2T2RJdzQxL2dWY0s3aTFZQWYrQ2Iy?=
+ =?utf-8?B?ZHVlc0dxYndQUmtBdWZEbU44c0tBQmFaRFQwWE5HNDNMY1I4cTlLUU5iVC9W?=
+ =?utf-8?B?WEFLdnc0d05MTXgzREZaS2h5UGNnZDI0MlNMUGh6b1lRR3I1aHRlUmUxb0Rm?=
+ =?utf-8?B?cFZQbnE4b2hObHpjTmxvZE91SWFhb3Y1Y1VwVUdRaS9INFI4TWdpQzlSSXJt?=
+ =?utf-8?B?RzErbjJwRWhrbExjNUw5dXgvTlR4dk9mQmNScWZZMkxQbHlDMlVuMUg3elhk?=
+ =?utf-8?B?RDdoRTZ4cWxrbXEwcFNmbnZZMHRJTFE1YmE1YWwyNExUUmMxQVoyeWl4NmpX?=
+ =?utf-8?B?Rmw0NjZSdVJwYkxaQndtRC9HeHBEM09QZ2hwOWxkdTZFVlM1ajg5SUF3TlhD?=
+ =?utf-8?B?eGZYUHBSVFdNZmNuRnV6ZVI3SHBKSTVFSE5aSXpscmo2MzMrb3Z4ck9TVith?=
+ =?utf-8?B?V09sdTlMbHIxRnBrZnhLY1VsZzZ5ejFjV3dGWFRnTXNjTGhuYkJFRFBvYzRS?=
+ =?utf-8?B?VUphS2FERlRSbHkreGlNL0pZRXpjYjFOcDVYd0tnMmUxU2FMV2FtZVpMVEUz?=
+ =?utf-8?B?UGQ4VnZ0bEdhcjljYlphYzdCcU14clFNTVFUWDBkQTJuNE9CRzBtVzFCaURB?=
+ =?utf-8?Q?8YBLnMKgkdE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXlxRFdzN3JJVE5MUTJWZjJWbWZLUGlKNkc2RVJXekppVVhjTEpLdTBMajlQ?=
+ =?utf-8?B?Q1FOcHNUYms0ZXlPallRZldhTHdhOUYwR0ppMEVuQ09PNVdxY1I2d2NmVEZ1?=
+ =?utf-8?B?dkcwZmMzNTFMNHZmWnlQVWFxQzVFM0FSbDRSQndrVDZEeDJCQjZ0cTZPSWw2?=
+ =?utf-8?B?dzBWcXJkNkJmdVdPZU5oU3hxcmZhanlQbTdsWm5NN2dJWVNCRDZKQUZ0dkhn?=
+ =?utf-8?B?ZHpWZlJDQUFheVgxRFVPdDZPYUpySStvV3ZPTkcvMEh3Z3RidTA3SEZXRm8y?=
+ =?utf-8?B?L011Rlc0VW5VVm1kQWd6d2MrK0NFL3NrQmEyUFRPTlQxYjFBZi9rYWNOR215?=
+ =?utf-8?B?bENERW5ubjN2MTR3S0x5U3FoUHVMclozUmROTU5teHNGbUliVDdOSnJrWTBW?=
+ =?utf-8?B?Vll2L01KTkFWL01kbldWMktiTTMwNmU2RjhRSi92VGFYY0Jmc3hESXFmeHIy?=
+ =?utf-8?B?ZHBCR1VzMTNqaCtURXVSTjQ3R1IrLzNKN2JkRFNhN2Y3NVRSMjFpNmlIUE9n?=
+ =?utf-8?B?cnVYMStNZlFsWTF6SUk5VXlaWDhSZ1RVR2J0VkZjdlNyalU1UEhtNFh6S3Nl?=
+ =?utf-8?B?TGp3dEVkQzczSUkrVzlibFhwN0pKbndVS2Y5bysrLzhaMlMrVGwvNUtOb2c0?=
+ =?utf-8?B?UEZVT3N3WFpsTXRRQjNTMWkyV2VORHNOeUlsQ0JTYmFSMFYxbDFsb29ZcHN3?=
+ =?utf-8?B?QWZYZ2tnbllFU2xGZVRJZWNYRUFGOEtjbVJtZVRXbHBGSkVIYmhoTlFYenBW?=
+ =?utf-8?B?enBnWDFJVldNbzR3V1lVOWJNSHpCZ0loQ2Y4TjR5OGV2a1N2SEdWZEhaMW5N?=
+ =?utf-8?B?R3E1aEZVd1d1TWdGN2RkRE80dUMxTUViNTZsM2sxOHkvUFIxZmV0bGM5b3NJ?=
+ =?utf-8?B?cEMyemtUUTZMZ1VydHNyR05IYTE1U3lQOFFpcWZyanl6SWxhK1NicnBOU1I5?=
+ =?utf-8?B?aUc4ZGM0MWpxcFNxeGZvRjM4N1EvaUxkN3V5V0UxUzU0MHdMdC9qZFVwQTdS?=
+ =?utf-8?B?UVZzL2x2R0s3QkV1cU96bHQzNFI2Vlp6bUwvcUZWUDVuNEwrSnRINitqOTlZ?=
+ =?utf-8?B?cDRjVkk5NnRzOURIL3ZqeE8xUkxkazJ2RXlBb1VwZmpCOUtrMzQ0V1lxREhD?=
+ =?utf-8?B?MEIvbmZyVjhYaWJnb3BJMGFIaTFwc1k3aGNFeTE2bWVlZjh4cndVd0RnblJr?=
+ =?utf-8?B?OVVMdlZiV3NXcDBtUWxoaVd5ZmpGU1BibVpDLy9MaG5uUXNLRVlMNlhKSUNk?=
+ =?utf-8?B?ZEEza0ZSSEE2N3ZUWmtidFViR05ZY0hZRVY4ZE9oOEZtZ1FHbzRiK3R3M0Rl?=
+ =?utf-8?B?TXU4ektMM2VqY3RYU1ZYaktjKzVYQkZFTkhJWWNhYVFJQmdzVWVZTWUrUW5L?=
+ =?utf-8?B?dUgrRVJhWWlNZXZ2M3RoZHc1dGtRS3dOU0ovRUlMaGE1VHhXc3JXTUxkcVZa?=
+ =?utf-8?B?SGpGbVltdEJFNUNUeWpNdmZrbDhYT2VFaWRHK0JWRTlLaDZMWFFTemIxT2lp?=
+ =?utf-8?B?VGNlbHZLRGhYRVhRUUM4QWp5cmNBa2VLNTJQNmZHU0ppYjE0K2F6cy9CMlF4?=
+ =?utf-8?B?c3BhNEJrNzluYjJZa0JKUm45YkRhSDBPWXhDM0JqUXpjN2M0WS85dlh4TEVH?=
+ =?utf-8?B?WmoxeC9ZU01hVW9Xc09VejN5bzhIZ1ZGZldXV1NpSjRBTnJESjdBZzVUZHlj?=
+ =?utf-8?B?eGRmVHhTRW9YU1haUHlkaGxWcmJod2tSUzBBa1pmSnBWOS9PZmdGQ2FYckFN?=
+ =?utf-8?B?US9oL1ZxT2VqL012a0dvMExUdDUxMEdiU0lIV05WMUJ3TmxPaUdqUmtHWU9O?=
+ =?utf-8?B?UnV1c1pIcmt5OFFuTmRQc3d5YW81TlhXT3ZyRHZrcENIZzVqOXNVbVFkdXdT?=
+ =?utf-8?B?endTS2loTFZ4dThIcE00Q2Nab01yUGhXdy85QkJsUkRvczRiQ1orWW90SWRh?=
+ =?utf-8?B?QUZ5UkpWWUI0dUJacnVyTkNaTHJhOHRSK2FUNnhyS1NBMUt4U3ZLZkEyS1JK?=
+ =?utf-8?B?clM2RWE3NlNRTkl5OGsrWEJJT2swb1llZUVXTnRYcklvQURRRis1dzZwdU1F?=
+ =?utf-8?B?Sm5wRi82Zm0wbk8wNzdpOFZGK2pZc2JJenQvWFNVVW9MYU9kQlloWFlOOXpP?=
+ =?utf-8?Q?UyIU=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7c87b39-9ba2-4f26-2d63-08ddb96e3954
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 13:42:01.8442 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J7ap3a1AZMKiZz7C3EeoqGAm/3Qu5ik3vR5I3EOcGNnBrubyJB1HcAw02H4eK8PO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8892
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,190 +164,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 2, 2025 at 9:03=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com>=
- wrote:
->
-> On Tue, Jul 1, 2025 at 10:08=E2=80=AFPM Zhang, Jesse(Jie) <Jesse.Zhang@am=
-d.com> wrote:
-> >
-> > [AMD Official Use Only - AMD Internal Distribution Only]
-> >
-> > Hi Alex,
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex=
- Deucher
-> > Sent: Tuesday, July 1, 2025 11:26 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > Subject: [PATCH] drm/amdgpu/sdma: don't actually disable any SDMA rings=
- via debugfs
-> >
-> > We can disable various queues via debugfs for IGT testing, but in doing=
- so, we race with the kernel for VM updates or buffer moves.
-> >
-> > Fixes: d2e3961ae371 ("drm/amdgpu: add amdgpu_sdma_sched_mask debugfs")
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 25 ++++--------------------
-> >  1 file changed, 4 insertions(+), 21 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_sdma.c
-> > index 8b8a04138711c..4f98d4920f5cf 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> > @@ -350,9 +350,8 @@ int amdgpu_sdma_ras_sw_init(struct amdgpu_device *a=
-dev)  static int amdgpu_debugfs_sdma_sched_mask_set(void *data, u64 val)  {
-> >         struct amdgpu_device *adev =3D (struct amdgpu_device *)data;
-> > -       u64 i, num_ring;
-> > +       u64 num_ring;
-> >         u64 mask =3D 0;
-> > -       struct amdgpu_ring *ring, *page =3D NULL;
-> >
-> >         if (!adev)
-> >                 return -ENODEV;
-> > @@ -372,25 +371,9 @@ static int amdgpu_debugfs_sdma_sched_mask_set(void=
- *data, u64 val)
-> >
-> >         if ((val & mask) =3D=3D 0)
-> >                 return -EINVAL;
-> > -
-> > -       for (i =3D 0; i < adev->sdma.num_instances; ++i) {
-> > -               ring =3D &adev->sdma.instance[i].ring;
-> > -               if (adev->sdma.has_page_queue)
-> > -                       page =3D &adev->sdma.instance[i].page;
-> > -               if (val & BIT_ULL(i * num_ring))
-> > -                       ring->sched.ready =3D true;
-> > -               else
-> > -                       ring->sched.ready =3D false;
-> >
-> >
-> > Is it possible to change the write ring->sched.ready  via WRITE_ONCE or=
- atomic_set to avoid the race?
-> > And check val to avoid disabling all sdma queues.
-> >     /* Get current valid mask (reuses _get logic) */
-> >     ret =3D amdgpu_debugfs_sdma_sched_mask_get(data, current_mask);
-> >     if (ret)
-> >         return ret;
-> >
-> >     /* Reject invalid masks */
-> >     if (val & ~current_mask)
-> >         return -EINVAL;
->
-> There are two things we need to handle.
-> 1. The ring used for BO moves and clears:
-> adev->mman.buffer_funcs_ring
-> This would need to be changed to a different SDMA ring if the once
-> currently assigned is disabled or we'd need to fall back to do copies
-> and clears with the CPU, but that won't work without large BARs.
-> 2. The VM scheduling entities:
-> vm->immediate
-> vm->delayed
-> We'd need to adjust adev->vm_manager.vm_pte_scheds and
-> adev->vm_manager.vm_pte_num_scheds to reflect what's currently
-> disabled and then update the drm sched entity.
+On 02.07.25 13:58, Arunpravin Paneer Selvam wrote:
+> Hi Christian,
+> 
+> On 7/2/2025 1:27 PM, Christian König wrote:
+>> On 01.07.25 21:08, Arunpravin Paneer Selvam wrote:
+>>> Set the dirty bit when the memory resource is not cleared
+>>> during BO release.
+>>>
+>>> v2(Christian):
+>>>   - Drop the cleared flag set to false.
+>>>   - Improve the amdgpu_vram_mgr_set_clear_state() function.
+>>>
+>>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>>> Suggested-by: Christian König <christian.koenig@amd.com>
+>>> Cc: stable@vger.kernel.org
+>>> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
+>>> ---
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 1 -
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h | 5 ++++-
+>>>  2 files changed, 4 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>> index 9c5df35f05b7..86eb6d47dcc5 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>> @@ -409,7 +409,6 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
+>>>  		if (r) {
+>>>  			goto error;
+>>>  		} else if (wipe_fence) {
+>>> -			amdgpu_vram_mgr_set_cleared(bo->resource);
+>> Mhm, that looks incorrect to me.
+>>
+>> Why don't we consider the resource cleared after it go wiped during eviction?
+> 
+> Modifying the resource flag here doesn't go into effect until we call the drm_buddy_free_list() in amdgpu_vram_mgr_del(). This BO will be cleared once again after executing amdgpu_bo_release_notify(). With the new implementation, there's a chance that changing the resource flag the second time would cause the WARN_ON to occur. Hence I removed the resource cleared function call in amdgpu_move_blit. Thanks, Arun.
 
-Here's the segfault I'm seeing with the latter:
+Something fishy is going on that we don't fully understand.
 
-[  193.939200] BUG: kernel NULL pointer dereference, address: 0000000000000=
-000
-[  193.939226] #PF: supervisor read access in kernel mode
-[  193.939238] #PF: error_code(0x0000) - not-present page
-[  193.939250] PGD 10836d8067 P4D 10836d8067 PUD 10d5e76067 PMD 0
-[  193.939275] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
-[  193.939291] CPU: 15 UID: 0 PID: 4678 Comm: amd_deadlock Tainted: G
-          E      6.14.0+ #1976
-[  193.939312] Tainted: [E]=3DUNSIGNED_MODULE
-[  193.939322] Hardware name: System manufacturer System Product
-Name/ROG STRIX X399-E GAMING, BIOS 1002 02/15/2019
-[  193.939339] RIP: 0010:drm_sched_job_arm+0x1f/0x50 [gpu_sched]
-[  193.939366] Code: 90 90 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00
-55 53 48 8b 6f 20 48 85 ed 74 3d 48 89 fb 48 89 ef e8 a5 36 00 00 48
-8b 45 18 <48> 8b 10 48 89 53 10 8b 45 2c 89 43 28 b8 01 00 00 00 f0 48
-0f c1
-[  193.939395] RSP: 0018:ffffa70898ecbaa8 EFLAGS: 00010206
-[  193.939410] RAX: 0000000000000000 RBX: ffff8e382cc3e400 RCX: 00000000000=
-00000
-[  193.939425] RDX: 0000000000000001 RSI: ffff8e3808c16ed0 RDI: 00000000fff=
-fffff
-[  193.939440] RBP: ffff8e384213b350 R08: ffff8e3811ab0968 R09: 00000000000=
-00000
-[  193.939454] R10: ffff8e3808c16ed0 R11: 0000000000000003 R12: ffffa70898e=
-cbc20
-[  193.939468] R13: ffff8e382cc3e400 R14: 0000000000000000 R15: 00000000000=
-00000
-[  193.939484] FS:  00007fd1a992bac0(0000) GS:ffff8e47be580000(0000)
-knlGS:0000000000000000
-[  193.939502] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  193.939515] CR2: 0000000000000000 CR3: 00000010ded50000 CR4: 00000000003=
-506f0
-[  193.939530] Call Trace:
-[  193.939541]  <TASK>
-[  193.939553]  ? __die_body.cold+0x19/0x27
-[  193.939571]  ? page_fault_oops+0x116/0x280
-[  193.939587]  ? srso_return_thunk+0x5/0x5f
-[  193.939603]  ? srso_return_thunk+0x5/0x5f
-[  193.939617]  ? do_user_addr_fault+0x63/0x620
-[  193.939630]  ? irq_work_queue+0xa/0x50
-[  193.939649]  ? exc_page_fault+0x7a/0x190
-[  193.939665]  ? asm_exc_page_fault+0x22/0x30
-[  193.939688]  ? drm_sched_job_arm+0x1f/0x50 [gpu_sched]
-[  193.939711]  ? drm_sched_job_arm+0x1b/0x50 [gpu_sched]
-[  193.939732]  amdgpu_job_submit+0x15/0xe0 [amdgpu]
-[  193.940502]  amdgpu_vm_sdma_commit+0x76/0x210 [amdgpu]
-[  193.941144]  amdgpu_vm_update_range+0x423/0x830 [amdgpu]
-[  193.941631]  amdgpu_vm_clear_freed+0x108/0x270 [amdgpu]
-[  193.942063]  amdgpu_gem_va_ioctl+0x4be/0x800 [amdgpu]
-[  193.942475]  ? up_read+0x37/0x70
-[  193.942492]  ? __pfx_amdgpu_gem_va_ioctl+0x10/0x10 [amdgpu]
-[  193.942904]  drm_ioctl_kernel+0x82/0xe0 [drm]
-[  193.942974]  drm_ioctl+0x25c/0x4f0 [drm]
-[  193.943038]  ? __pfx_amdgpu_gem_va_ioctl+0x10/0x10 [amdgpu]
-[  193.943457]  amdgpu_drm_ioctl+0x47/0x80 [amdgpu]
-[  193.943853]  __x64_sys_ioctl+0x93/0xc0
-[  193.943867]  do_syscall_64+0x62/0x180
-[  193.943882]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[  193.943895] RIP: 0033:0x7fd1ab8e514d
-[  193.943934] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10
-c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00
-00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00
-00 00
-[  193.943957] RSP: 002b:00007ffe6261f400 EFLAGS: 00000246 ORIG_RAX:
-0000000000000010
-[  193.943973] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fd1ab8=
-e514d
-[  193.943985] RDX: 00007ffe6261f4a0 RSI: 00000000c0286448 RDI: 00000000000=
-00004
-[  193.943996] RBP: 00007ffe6261f450 R08: 0000000110000000 R09: 00000000000=
-0000e
-[  193.944008] R10: 0000000000000003 R11: 0000000000000246 R12: 00007ffe626=
-1f4a0
-[  193.944019] R13: 00000000c0286448 R14: 0000000000000004 R15: 0000000021e=
-92a70
+What happens here is that we move from VRAM to GTT, clear the VRAM BO after the move and set the flag.
 
-Alex
+When the BO is destroyed the it is backed by GTT and not VRAM any more, so no clear operation and no flag setting is performed.
 
->
-> Alex
->
-> > -
-> > -               if (page) {
-> > -                       if (val & BIT_ULL(i * num_ring + 1))
-> > -                               page->sched.ready =3D true;
-> > -                       else
-> > -                               page->sched.ready =3D false;
-> > -               }
-> > -       }
-> > -       /* publish sched.ready flag update effective immediately across=
- smp */
-> > -       smp_rmb();
-> > +       /* Just return success here. We can't disable any rings otherwi=
-se
-> > +        * we race with vm udpates or buffer ops.
-> > +        */
-> >         return 0;
-> >  }
-> >
-> > --
-> > 2.50.0
-> >
+It looks more like we forget to clear the flag in some cases.
+
+Regards,
+Christian.
+
+> 
+>> Regards,
+>> Christian.
+>>
+>>>  			dma_fence_put(fence);
+>>>  			fence = wipe_fence;
+>>>  		}
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+>>> index b256cbc2bc27..2c88d5fd87da 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+>>> @@ -66,7 +66,10 @@ to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
+>>>  
+>>>  static inline void amdgpu_vram_mgr_set_cleared(struct ttm_resource *res)
+>>>  {
+>>> -	to_amdgpu_vram_mgr_resource(res)->flags |= DRM_BUDDY_CLEARED;
+>>> +	struct amdgpu_vram_mgr_resource *ares = to_amdgpu_vram_mgr_resource(res);
+>>> +
+>>> +	WARN_ON(ares->flags & DRM_BUDDY_CLEARED);
+>>> +	ares->flags |= DRM_BUDDY_CLEARED;
+>>>  }
+>>>  
+>>>  #endif
+
