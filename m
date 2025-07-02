@@ -4,70 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 714D9C83038
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 17:54:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F7C8C8303C
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 22:00:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC03F10E09C;
-	Wed,  2 Jul 2025 17:54:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F007210E796;
+	Wed,  2 Jul 2025 22:00:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XKDwd0j6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NGe0Ci9h";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52D4B10E09C
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jul 2025 17:54:08 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-31384c8ba66so1272308a91.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Jul 2025 10:54:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1751478848; x=1752083648; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dMDaylWR1s3noDM5x5gqhX6AIcXqkuD2e22B+kXXfIw=;
- b=XKDwd0j6SeUcD0N2gsnisGXrNmbGJzR3Jhzyg5u2W3um327uZTm0ORk5wVzJoMkMyf
- s3fA+z8tEA9YCIqFWG7gGWMtSbtLuz8rQpo77b6NCyYj19zcjiSOfi2wAXnTm8ZXnotQ
- d5Ht9rBMyFmcOuJ25hIshKrn9ZVReFP7ugF3LmAY7Tjmpn+6F9ImmPJeWva0nKplfPt5
- mtGRZf3sKoCF2M8zkdVHxCBNpGftLQzNIcFNeKzeCPWlH4yZdEyhV72ZOzQNLS4yOBPd
- 7SCzVfPIET6Q03AptuQLNCcEYpuKGoyZo6tb7UN0QFsqvVCCwGWhsFMBnMqHWhAH/Cg5
- VnRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751478848; x=1752083648;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dMDaylWR1s3noDM5x5gqhX6AIcXqkuD2e22B+kXXfIw=;
- b=bb4jjWvCOu8+450ge36hCwVUqPTAIYP/uk9QflWQesZI3ZGTD5tkXJ58M7R+B6gAqY
- cuqLV9BLErnLrw4Kb9o2GestWMKPgA6C4VLmoDUNX18ZBZwSl0h7rhNVTf1USu08Hwek
- bEMwYHOKBSlg+GEVf3BHXmAN3FGhTm6bTsSDqHVAMYOhdLITa/9nydhqSOo7CPs905B9
- KJN+72Uqi47Akg8M5pMzEUCIEtU3A7vcctrG8WRCI/GFSYwj9RG/Y5Ly9Ifafs5O0l1/
- mRuFLaduktvJkWdhBcmyArplLpBzS8LxySu5dgyXe805GKah6O5L4+O8Ecevnx9zVeMN
- sdaA==
-X-Gm-Message-State: AOJu0Yyyf8NdtWwzPKOft4hvkm5dJd8KieMDm58bKC4bNQZD7KHaJE8e
- Vlb92wzSMpbltzgGGEuI9E0NQjpr4kaJEQGKhz9H3SvwkVglecnlg00DF63cDzul5gT45dm2E1Y
- SM9PLvNSptBDl9XRVu1URMdwcDU5PR5ub9A==
-X-Gm-Gg: ASbGncvYs6By7NoJ/+gXDOi0vrcpp55NsEKeqqR4aC0h3BqNUcxQIQnxTZTnhQq8/rf
- Ay4es48D/m6VGGiHrxpSnDnOVnyZgW3TL6Xg3kEgPc0soeKSb/zHsjtNgJ+cffgJQxh8QGDuT0Z
- g5zxu3o1PQXcAGBCh0qdr70BZmFPYHPvjkaC/oYLvqTfRE
-X-Google-Smtp-Source: AGHT+IFC/ZyRYfChARQtYd/jnQGj3FEOfxUsClNO8wCtFFY42pFP2dlRRMB0++TRs4979+vmYdzSuGvX8jrII7VvDxI=
-X-Received: by 2002:a17:90b:56cf:b0:30a:80bc:ad4 with SMTP id
- 98e67ed59e1d1-31a909d3b90mr2149312a91.0.1751478847523; Wed, 02 Jul 2025
- 10:54:07 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2197310E794;
+ Wed,  2 Jul 2025 22:00:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1751493649; x=1783029649;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=1C+ZvN4RboOMPH5CDK7BVBobYActUUuXl0ShpsAuBjs=;
+ b=NGe0Ci9hbgAzn8W8MqT93j1QMtafSCo1jxwSFBVaT0/+pjRrTIvNT+XW
+ CaKui1MslFnhylmIp1x4BDWU8V8aZZzPyeAAt7TB8mEKnY7vp2bDSUqKk
+ 8f5a1RklXGO77QMz4U+4ufZWrmAbVs5l7DrZy0jOjAhCSkh/m4lx9qmuM
+ 4YTeENbLc9jba35Aw2U1CrOUT0rONwrPqTgjzr9B91aWI01sBN8DZiSrG
+ STTOVCwxvsIwH6BEM5hqPu8sTuUP8Mmug4cE9ULlvmZrkuONvsfqPfGSo
+ /I07Dhvs7DWLhKwUcVOW11q8PEGFD+m+qCfChGdbNz7ZIzI2whYMDf4sJ Q==;
+X-CSE-ConnectionGUID: nDmSM7aeTKqZWVLiD3+OOg==
+X-CSE-MsgGUID: qK3A2WaWQfqNhfYJa1cpmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11482"; a="53670573"
+X-IronPort-AV: E=Sophos;i="6.16,282,1744095600"; d="scan'208";a="53670573"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2025 15:00:45 -0700
+X-CSE-ConnectionGUID: 1hQL3OwaSF2rDdBTdAM4NQ==
+X-CSE-MsgGUID: 97OiypiSS5WS58ZXMnf/gA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,282,1744095600"; d="scan'208";a="154550758"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2025 15:00:45 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Wed, 2 Jul 2025 15:00:44 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25 via Frontend Transport; Wed, 2 Jul 2025 15:00:44 -0700
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (40.107.94.78) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Wed, 2 Jul 2025 15:00:43 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XEd4R2HUrNG/hF/nNe0TRzHXoXdVcjxYPZ3TGzPiufI1xrOU6VWUJNFSV9F8HoocaL3sIWGqetUO9e0jkybqSi1VbVwz9IQoeAoY8K2qj1dT5BGKuN0fncPmcxShTSjWkXX0F3d+Jilq80OeG76/9wWQqjm0BCR1a5g33Fg3gma6EkrXrqkB/R4UIULuSMkDIBxmSu8cS28d149OA7ax59n2z3notYzc9y8MBVRrTX9pSLRR8dXDkQDo93nwLHtq99ij0sLbdI3FfCMjJ3+Dw0V0ID6cYfYwDkUX5LQmnmM4/HjxOlYyThwzMEWlBc6GpPu3YTmmo1yJkqLII/MUNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TM/M9GIu1YXGYJ3+zUJgALi3G8de4doxGKHGaM6UR6E=;
+ b=VHL+2frHZb16PBd8blZPA1S0xXhgoQNsYoL8xAAoShkUjyRtvBEFuGSEbbkwjH7xJQkcDI11wsQArsThejKjxKKnjk6PRFAlbpHgABObefUylY+Rha0OBBLjHypSuq3X9kAV95j3TttH47lbmnAZ5fIctWADzVebXuKzdwVGHMZ4kdAdgqhpXv0yzLiMSi0oa3dZSFaRSBe8W4QowlaEuviYVpdnle2H0meClglwlk7lTc0SJMx+FG0vLdBNZ84iWxc813IY7o7Snaf934l7pB2Ol3AbhmPsLvX+36fdlK6sMrKgr0IRMW/xqI+263xfkzBNHE/MdUVOnRa2ikwaiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by MN0PR11MB6205.namprd11.prod.outlook.com (2603:10b6:208:3c7::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.32; Wed, 2 Jul
+ 2025 22:00:14 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332%5]) with mapi id 15.20.8901.018; Wed, 2 Jul 2025
+ 22:00:13 +0000
+Date: Wed, 2 Jul 2025 15:01:56 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+CC: <thomas.hellstrom@linux.intel.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] drm/ttm: rename ttm_bo_put to _fini
+Message-ID: <aGWsVBA45EVO/yhM@lstrano-desk.jf.intel.com>
+References: <20250702110028.2521-1-christian.koenig@amd.com>
+ <20250702110028.2521-2-christian.koenig@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250702110028.2521-2-christian.koenig@amd.com>
+X-ClientProxiedBy: SJ0PR13CA0033.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c2::8) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-References: <20250702171020.69028-1-vitaly.prosyak@amd.com>
- <20250702171020.69028-2-vitaly.prosyak@amd.com>
-In-Reply-To: <20250702171020.69028-2-vitaly.prosyak@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 2 Jul 2025 13:53:55 -0400
-X-Gm-Features: Ac12FXxnFYRjkkS2YuqgOHSB6RJlDQ8rURfq6h9pjd1A37xtXL6parm1AmgrZso
-Message-ID: <CADnq5_PwgfzhsNHsJrptmrW7QeQi4_oJTkT7cVD9KsRL42pd-Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: fix use-after-free in
- amdgpu_userq_suspend+0x51a/0x5a0
-To: vitaly.prosyak@amd.com
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|MN0PR11MB6205:EE_
+X-MS-Office365-Filtering-Correlation-Id: eec31ff9-2366-4bd7-3137-08ddb9b3d266
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?ZfNb3oB1i2vHAZEAuC6DdYT8sQX8YqNysrz4SfaF78dHi2GKB0kNDM4kpB?=
+ =?iso-8859-1?Q?h21bnWWe+MaP8ALjqrOF2Ib08pseslSilucMTh7F16vJAUgrE9zPsobyyp?=
+ =?iso-8859-1?Q?xlRGX0O5oXxap08cqGQf7LtkIBoJLWZwYojqmISuIXnyzB047CYg6MUorw?=
+ =?iso-8859-1?Q?Zj3azhaeHt6vUQp5XcZ+pA3nj3eHeHQOR/x8A69Cds/TSrj+4Kkps7vgFj?=
+ =?iso-8859-1?Q?MTBSOZJmD2QBZa8aieSKyozUmXLasl0pVGbwYYBccntZ4jr3lwQmbidX1m?=
+ =?iso-8859-1?Q?/9BWbpE31qtlxhAN2XNexSQw4ETMrKlMBN5b7zJFnrz9YusH/3dghCIUNJ?=
+ =?iso-8859-1?Q?4HK6Yfi7rIQ6ED6vDUPqtWVNgECzhvgwkJ5A4MFjd7TUlB97SGnVIIZMzo?=
+ =?iso-8859-1?Q?SqXYCIBdtmxkg4/mqM8Vnux2VqfZkbi9bUYR4wyLVfw4Erax+4tbC37uF2?=
+ =?iso-8859-1?Q?QtlOJzFoCKYbpvElEd4/cNCvylTWPMofpU1OvXk8hwm/bbvgjs3YcEXqLa?=
+ =?iso-8859-1?Q?PiMKz29Gv0p6PgnhFAF9sGshBmkdzLWv5RKLU3vxkUywKA3/UO/Pl0A8oC?=
+ =?iso-8859-1?Q?/EsnXHeED1bh6u4m4fKGvh8Okq2vV/Wpe8rKnyZyW1ZYlnH0iPo1e7gRn9?=
+ =?iso-8859-1?Q?gKq0T0KQDdnl4EKUDN8GcfAJQzolIRPU92tBfSJ59OTuMdV9xvOWcwS4V5?=
+ =?iso-8859-1?Q?9tDSLld8CtifmqRJIL+jLbx8zS+9EpHCdReke0y22kGdTHQ/OpYybeICi1?=
+ =?iso-8859-1?Q?KPQEfn0VgskJjFHMoyemiHdXpq+XpGzvsmo5nwRRaB/TXcLRzS9VwyXzdA?=
+ =?iso-8859-1?Q?vTjvFUceebrLxNk9R1HGZxvKRPYsD89kqhaRBk2erWnB//mHq7v4kV4kjP?=
+ =?iso-8859-1?Q?efV6cPxBd//hmP5xCW3YFq+vfyiBa0uFT6aWPWjtI7GZfjtKuJqnfsG42n?=
+ =?iso-8859-1?Q?ksb1hU8DN0G62eVzH61bujBzZjYdWGLTrrVnxw3nYi002ebiI5MjzjV7kE?=
+ =?iso-8859-1?Q?ZiPIKzZ40m6+SFc81kTHcteo5K162vkvUmX+nOQGOHmDuW/buss7QP2Mcl?=
+ =?iso-8859-1?Q?nhSOEo+z6BbhTR7/yvcXmWqUwor/X4c1mqiC4VAPe3HB27+YDri78tOnDW?=
+ =?iso-8859-1?Q?uxC/fnwxmg/xynSD4z3INCZgfTXk3ki4clauMGp1Kz1r2vw0E8jlQYU+4g?=
+ =?iso-8859-1?Q?k8ey8SaAstsozVoQRB2IsLqUSyjWp3Am+7NYb7UiDf3r/p+3LkvqpVwH5L?=
+ =?iso-8859-1?Q?bFeEkks2WNuEYXx4xrJnVNpUubGFAki59lxM08Gze94gel65dyuBhl/wAo?=
+ =?iso-8859-1?Q?R6mSZDx8xK4j7DsSVKSBRQAqf6Y3SB5c9rtVs+02/0iVrvJCV0+ALPwsSL?=
+ =?iso-8859-1?Q?cHCGFPPFHXLo2Ao4Hq6fVNNmTD0VbOro8Rxt5k4oTS/5KMvQTwrn0=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?T1LgTqW3IKxGuIbz0G+5g6HBgyVX/QjkwqUNqYeNmdZaLbNZsC0a27OXjx?=
+ =?iso-8859-1?Q?VujyPva2ytUGI+M2iVGw26YW6SgF2FovoTdp4yoAUV7p7MbI0XSpmTFfdo?=
+ =?iso-8859-1?Q?PylEcITzCU8MFxDQcTkAZZuP5RxIMV1NkOeIKEAQWu7kFt1qXpTOjdqyBw?=
+ =?iso-8859-1?Q?PUQPVqRhRz2+BUZOs7IaJG2l6HZ1sRA+75IqCdIMzWWJy/q/wM4Uyr+5VH?=
+ =?iso-8859-1?Q?IK6/ptPRqCTMG6AtYb/U2FwFnz2wurcaYjLzy6wJCeitAuaxfS/K91b/xa?=
+ =?iso-8859-1?Q?sCDTG4W67XdR9hiNu43ydDMeKPLri35Z3bqpsRvFtMyw+uXxDrGeUQK5v/?=
+ =?iso-8859-1?Q?S2OF3dyu49JmLobhtf7T9TFYHto7eyMWxGqvC5MqL4T0BKryK+xz45DGb2?=
+ =?iso-8859-1?Q?BhGCPR8zmfne7U0dkZ3vBQ6M3/l1bohKoDEbUTtZKn2EKMCoLKWfX6mPWu?=
+ =?iso-8859-1?Q?gUtSTAuItxtGl59hoKpQKChFa4DkYK+Nq3qVk93yB1TE3tYGRx9RLsDEFc?=
+ =?iso-8859-1?Q?0fHHxESTm/B5SIWCwDpeeLS8OyPMma04rR0os6vg2yB9Ihiwnq9zn9rX8m?=
+ =?iso-8859-1?Q?PwJiQjUtdRsU06JdAsvClccG++y2yiUOQRHrVmgaVRdAdsVHUBZ1RPH0gU?=
+ =?iso-8859-1?Q?3S3tlEDAeC308ovYPGf07i2Tvi88zqsMHc3w4tXB0O+VXZmDOdBDpWR1dC?=
+ =?iso-8859-1?Q?5YP/vbX4iY+/eiW8jGYPlPsynE96DMfZnCyQI2alg27erUXR4UnSIGJw4t?=
+ =?iso-8859-1?Q?rXZzChgih91kFF1Hr21Dj5TL7cp0ndzp8i0hh/MJMhJvy3ihzdVC/na1Br?=
+ =?iso-8859-1?Q?59lrPkNtla+sTrDdIH6avXhaMzOWn0II1DPldGOMScQ90GGULLH8sXVsUg?=
+ =?iso-8859-1?Q?F+sKTsTNXBKpu8Z5DwXitL4IvKGXFvqQzkgdWJ9jCr6swrriWf/tPMOSTm?=
+ =?iso-8859-1?Q?6dmY7jvaN6V3X7eS82QKWcwb6Zix9RZog6ZLUdyBEH0jOSJvFIO7Ir1NHk?=
+ =?iso-8859-1?Q?f87YRo8glCH2DP17c+mlm4eJjnRHlLE3UY7FTmy+kL1CPZZdyGKEg6BBpX?=
+ =?iso-8859-1?Q?kC1Waq5DmsI829BEKbdN+dmSeet/bBQrpuEopBgXLQPkjrqn9BWD3BYBUt?=
+ =?iso-8859-1?Q?qQa11ezDBKCSDUujpUmemucad6nWycdbTlCyYrMrn20nMCsnhOd/ZKVkdU?=
+ =?iso-8859-1?Q?/3xFUC51H1b4z1o7tdmzo9QSeasvEmUBCgsAJ1+kOT7RzNoL9xqSdu1LPV?=
+ =?iso-8859-1?Q?3V+0u/nFTWtoiYEdgQX3Xy7Z/SyDAG193UYSTn5v16+zgKH21zePWakiA8?=
+ =?iso-8859-1?Q?tu5HWlVEDYgKCAFZt27vqaN4zG+5xa9dHz2cVE74Gd7IxHrMeaDn1uJBoN?=
+ =?iso-8859-1?Q?qWDPN61WAxuZe1mJ6dCZ/4Ye/Xymi5qKZMgqjNXhnUJaPvZB1YtjzdFP8H?=
+ =?iso-8859-1?Q?5IUdnowTzLxP8akpjg/+eoMYPLEiitNZVoubWCIqtxVzvjN3PmuzGddO6B?=
+ =?iso-8859-1?Q?U7peOH6oc3obsI7PBGn8vCToV1QyG3RoiGBO9AFozgutIVHwjAFLVJc/Ln?=
+ =?iso-8859-1?Q?VVtjZfApdn238hlve6r7bH61Bc0TK2OSx5MEEfjjXmLkEp1RX3+pEyYlXN?=
+ =?iso-8859-1?Q?3DSIRCbQl77w2nJ3jJ51YZ0YbA2sA3gGRWwQr7WbwGfFI5rqnnuUhCTQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: eec31ff9-2366-4bd7-3137-08ddb9b3d266
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 22:00:13.8958 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aUGrmnN3GK85I30zIhfHI74EbzOIe06GR8eC27jmk+DIABdx3D7PKzqwHI656A6enPQnQwYj68JkmudOhSQThA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB6205
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,268 +178,528 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-On Wed, Jul 2, 2025 at 1:10=E2=80=AFPM <vitaly.prosyak@amd.com> wrote:
->
-> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
->
-> [  +0.000020] BUG: KASAN: slab-use-after-free in amdgpu_userq_suspend+0x5=
-1a/0x5a0 [amdgpu]
-> [  +0.000817] Read of size 8 at addr ffff88812eec8c58 by task amd_pci_unp=
-lug/1733
->
-> [  +0.000027] CPU: 10 UID: 0 PID: 1733 Comm: amd_pci_unplug Tainted: G   =
-     W          6.14.0+ #2
-> [  +0.000009] Tainted: [W]=3DWARN
-> [  +0.000003] Hardware name: ASUS System Product Name/ROG STRIX B550-F GA=
-MING (WI-FI), BIOS 1401 12/03/2020
-> [  +0.000004] Call Trace:
-> [  +0.000004]  <TASK>
-> [  +0.000003]  dump_stack_lvl+0x76/0xa0
-> [  +0.000011]  print_report+0xce/0x600
-> [  +0.000009]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000006]  ? kasan_complete_mode_report_info+0x76/0x200
-> [  +0.000007]  ? kasan_addr_to_slab+0xd/0xb0
-> [  +0.000006]  ? amdgpu_userq_suspend+0x51a/0x5a0 [amdgpu]
-> [  +0.000707]  kasan_report+0xbe/0x110
-> [  +0.000006]  ? amdgpu_userq_suspend+0x51a/0x5a0 [amdgpu]
-> [  +0.000541]  __asan_report_load8_noabort+0x14/0x30
-> [  +0.000005]  amdgpu_userq_suspend+0x51a/0x5a0 [amdgpu]
-> [  +0.000535]  ? stop_cpsch+0x396/0x600 [amdgpu]
-> [  +0.000556]  ? stop_cpsch+0x429/0x600 [amdgpu]
-> [  +0.000536]  ? __pfx_amdgpu_userq_suspend+0x10/0x10 [amdgpu]
-> [  +0.000536]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? kgd2kfd_suspend+0x132/0x1d0 [amdgpu]
-> [  +0.000542]  amdgpu_device_fini_hw+0x581/0xe90 [amdgpu]
-> [  +0.000485]  ? down_write+0xbb/0x140
-> [  +0.000007]  ? __mutex_unlock_slowpath.constprop.0+0x317/0x360
-> [  +0.000005]  ? __pfx_amdgpu_device_fini_hw+0x10/0x10 [amdgpu]
-> [  +0.000482]  ? __kasan_check_write+0x14/0x30
-> [  +0.000004]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? up_write+0x55/0xb0
-> [  +0.000007]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000005]  ? blocking_notifier_chain_unregister+0x6c/0xc0
-> [  +0.000008]  amdgpu_driver_unload_kms+0x69/0x90 [amdgpu]
-> [  +0.000484]  amdgpu_pci_remove+0x93/0x130 [amdgpu]
-> [  +0.000482]  pci_device_remove+0xae/0x1e0
-> [  +0.000008]  device_remove+0xc7/0x180
-> [  +0.000008]  device_release_driver_internal+0x3d4/0x5a0
-> [  +0.000007]  device_release_driver+0x12/0x20
-> [  +0.000004]  pci_stop_bus_device+0x104/0x150
-> [  +0.000006]  pci_stop_and_remove_bus_device_locked+0x1b/0x40
-> [  +0.000005]  remove_store+0xd7/0xf0
-> [  +0.000005]  ? __pfx_remove_store+0x10/0x10
-> [  +0.000006]  ? __pfx__copy_from_iter+0x10/0x10
-> [  +0.000006]  ? __pfx_dev_attr_store+0x10/0x10
-> [  +0.000006]  dev_attr_store+0x3f/0x80
-> [  +0.000006]  sysfs_kf_write+0x125/0x1d0
-> [  +0.000004]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000005]  ? __kasan_check_write+0x14/0x30
-> [  +0.000005]  kernfs_fop_write_iter+0x2ea/0x490
-> [  +0.000005]  ? rw_verify_area+0x70/0x420
-> [  +0.000005]  ? __pfx_kernfs_fop_write_iter+0x10/0x10
-> [  +0.000006]  vfs_write+0x90d/0xe70
-> [  +0.000005]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000005]  ? __pfx_vfs_write+0x10/0x10
-> [  +0.000004]  ? local_clock+0x15/0x30
-> [  +0.000008]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? __kasan_slab_free+0x5f/0x80
-> [  +0.000005]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? __kasan_check_read+0x11/0x20
-> [  +0.000004]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? fdget_pos+0x1d3/0x500
-> [  +0.000007]  ksys_write+0x119/0x220
-> [  +0.000005]  ? putname+0x1c/0x30
-> [  +0.000006]  ? __pfx_ksys_write+0x10/0x10
-> [  +0.000007]  __x64_sys_write+0x72/0xc0
-> [  +0.000006]  x64_sys_call+0x18ab/0x26f0
-> [  +0.000006]  do_syscall_64+0x7c/0x170
-> [  +0.000004]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? __pfx___x64_sys_openat+0x10/0x10
-> [  +0.000006]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? __kasan_check_read+0x11/0x20
-> [  +0.000003]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? fpregs_assert_state_consistent+0x21/0xb0
-> [  +0.000006]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? syscall_exit_to_user_mode+0x4e/0x240
-> [  +0.000005]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? do_syscall_64+0x88/0x170
-> [  +0.000003]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? irqentry_exit+0x43/0x50
-> [  +0.000004]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000004]  ? exc_page_fault+0x7c/0x110
-> [  +0.000006]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> [  +0.000006] RIP: 0033:0x7480c0b14887
-> [  +0.000005] Code: 10 00 f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b7 0f 1f=
- 00 f3 0f 1e fa 64 8b 04 25 18 00 00 00 85 c0 75 10 b8 01 00 00 00 0f 05 <4=
-8> 3d 00 f0 ff ff 77 51 c3 48 83 ec 28 48 89 54 24 18 48 89 74 24
-> [  +0.000005] RSP: 002b:00007fff142b0058 EFLAGS: 00000246 ORIG_RAX: 00000=
-00000000001
-> [  +0.000006] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007480c0=
-b14887
-> [  +0.000003] RDX: 0000000000000001 RSI: 00007480c0e7365a RDI: 0000000000=
-000004
-> [  +0.000003] RBP: 00007fff142b0080 R08: 0000563b2e73c170 R09: 0000000000=
-000000
-> [  +0.000003] R10: 0000000000000000 R11: 0000000000000246 R12: 00007fff14=
-2b02f8
-> [  +0.000003] R13: 0000563b159a72a9 R14: 0000563b159a9d48 R15: 00007480c0=
-f19040
-> [  +0.000008]  </TASK>
->
-> [  +0.000445] Allocated by task 427 on cpu 5 at 29.342331s:
-> [  +0.000011]  kasan_save_stack+0x28/0x60
-> [  +0.000006]  kasan_save_track+0x18/0x70
-> [  +0.000006]  kasan_save_alloc_info+0x38/0x60
-> [  +0.000005]  __kasan_kmalloc+0xc1/0xd0
-> [  +0.000006]  __kmalloc_cache_noprof+0x1bd/0x430
-> [  +0.000007]  amdgpu_driver_open_kms+0x172/0x760 [amdgpu]
-> [  +0.000493]  drm_file_alloc+0x569/0x9a0
-> [  +0.000007]  drm_client_init+0x1b7/0x410
-> [  +0.000007]  drm_fbdev_client_setup+0x174/0x470
-> [  +0.000006]  drm_client_setup+0x8a/0xf0
-> [  +0.000006]  amdgpu_pci_probe+0x510/0x10c0 [amdgpu]
-> [  +0.000483]  local_pci_probe+0xe7/0x1b0
-> [  +0.000006]  pci_device_probe+0x5bf/0x890
-> [  +0.000006]  really_probe+0x1fd/0x950
-> [  +0.000005]  __driver_probe_device+0x307/0x410
-> [  +0.000006]  driver_probe_device+0x4e/0x150
-> [  +0.000005]  __driver_attach+0x223/0x510
-> [  +0.000006]  bus_for_each_dev+0x102/0x1a0
-> [  +0.000005]  driver_attach+0x3d/0x60
-> [  +0.000006]  bus_add_driver+0x309/0x650
-> [  +0.000005]  driver_register+0x13d/0x490
-> [  +0.000006]  __pci_register_driver+0x1ee/0x2b0
-> [  +0.000006]  rfcomm_dlc_clear_state+0x69/0x220 [rfcomm]
-> [  +0.000011]  do_one_initcall+0x9c/0x3e0
-> [  +0.000007]  do_init_module+0x29e/0x7f0
-> [  +0.000006]  load_module+0x5c75/0x7c80
-> [  +0.000006]  init_module_from_file+0x106/0x180
-> [  +0.000006]  idempotent_init_module+0x377/0x740
-> [  +0.000006]  __x64_sys_finit_module+0xd7/0x180
-> [  +0.000006]  x64_sys_call+0x1f0b/0x26f0
-> [  +0.000006]  do_syscall_64+0x7c/0x170
-> [  +0.000005]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->
-> [  +0.000013] Freed by task 1733 on cpu 5 at 59.907086s:
-> [  +0.000011]  kasan_save_stack+0x28/0x60
-> [  +0.000006]  kasan_save_track+0x18/0x70
-> [  +0.000005]  kasan_save_free_info+0x3b/0x60
-> [  +0.000005]  __kasan_slab_free+0x54/0x80
-> [  +0.000006]  kfree+0x127/0x470
-> [  +0.000006]  amdgpu_driver_postclose_kms+0x455/0x760 [amdgpu]
-> [  +0.000493]  drm_file_free.part.0+0x5b1/0xba0
-> [  +0.000006]  drm_file_free+0x13/0x30
-> [  +0.000006]  drm_client_release+0x1c4/0x2b0
-> [  +0.000006]  drm_fbdev_ttm_fb_destroy+0xd2/0x120 [drm_ttm_helper]
-> [  +0.000007]  put_fb_info+0x97/0xe0
-> [  +0.000007]  unregister_framebuffer+0x197/0x380
-> [  +0.000005]  drm_fb_helper_unregister_info+0x94/0x100
-> [  +0.000005]  drm_fbdev_client_unregister+0x3c/0x80
-> [  +0.000007]  drm_client_dev_unregister+0x144/0x330
-> [  +0.000006]  drm_dev_unregister+0x49/0x1b0
-> [  +0.000006]  drm_dev_unplug+0x4c/0xd0
-> [  +0.000006]  amdgpu_pci_remove+0x58/0x130 [amdgpu]
-> [  +0.000484]  pci_device_remove+0xae/0x1e0
-> [  +0.000008]  device_remove+0xc7/0x180
-> [  +0.000007]  device_release_driver_internal+0x3d4/0x5a0
-> [  +0.000006]  device_release_driver+0x12/0x20
-> [  +0.000007]  pci_stop_bus_device+0x104/0x150
-> [  +0.000006]  pci_stop_and_remove_bus_device_locked+0x1b/0x40
-> [  +0.000006]  remove_store+0xd7/0xf0
-> [  +0.000006]  dev_attr_store+0x3f/0x80
-> [  +0.000005]  sysfs_kf_write+0x125/0x1d0
-> [  +0.000006]  kernfs_fop_write_iter+0x2ea/0x490
-> [  +0.000006]  vfs_write+0x90d/0xe70
-> [  +0.000006]  ksys_write+0x119/0x220
-> [  +0.000006]  __x64_sys_write+0x72/0xc0
-> [  +0.000006]  x64_sys_call+0x18ab/0x26f0
-> [  +0.000005]  do_syscall_64+0x7c/0x170
-> [  +0.000006]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->
-> [  +0.000012] The buggy address belongs to the object at ffff88812eec8000
->                which belongs to the cache kmalloc-rnd-07-4k of size 4096
-> [  +0.000016] The buggy address is located 3160 bytes inside of
->                freed 4096-byte region [ffff88812eec8000, ffff88812eec9000=
-)
->
-> [  +0.000023] The buggy address belongs to the physical page:
-> [  +0.000009] page: refcount:0 mapcount:0 mapping:0000000000000000 index:=
-0x0 pfn:0x12eec8
-> [  +0.000007] head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:=
-0 pincount:0
-> [  +0.000005] flags: 0x17ffffc0000040(head|node=3D0|zone=3D2|lastcpupid=
-=3D0x1fffff)
-> [  +0.000007] page_type: f5(slab)
-> [  +0.000008] raw: 0017ffffc0000040 ffff888100054500 dead000000000122 000=
-0000000000000
-> [  +0.000005] raw: 0000000000000000 0000000080040004 00000000f5000000 000=
-0000000000000
-> [  +0.000006] head: 0017ffffc0000040 ffff888100054500 dead000000000122 00=
-00000000000000
-> [  +0.000005] head: 0000000000000000 0000000080040004 00000000f5000000 00=
-00000000000000
-> [  +0.000006] head: 0017ffffc0000003 ffffea0004bbb201 ffffffffffffffff 00=
-00000000000000
-> [  +0.000005] head: 0000000000000008 0000000000000000 00000000ffffffff 00=
-00000000000000
-> [  +0.000005] page dumped because: kasan: bad access detected
->
-> [  +0.000010] Memory state around the buggy address:
-> [  +0.000009]  ffff88812eec8b00: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000012]  ffff88812eec8b80: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000011] >ffff88812eec8c00: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000011]                                                     ^
-> [  +0.000010]  ffff88812eec8c80: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000011]  ffff88812eec8d00: fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb fb
-> [  +0.000011] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> The use-after-free occurs because a delayed work item (`suspend_work`) ma=
-y still
-> be pending or running when resources it accesses are freed during device =
-removal
-> or file close. The previous code used `flush_work(&fpriv->evf_mgr.suspend=
-_work.work)`,
-> which does not wait for delayed work that has not yet started. As a resul=
-t, the
-> delayed work could run after its memory was freed, causing a use-after-fr=
-ee.
-> By switching to `flush_delayed_work(&fpriv->evf_mgr.suspend_work)`, we en=
-sure that
-> the kernel waits for both queued and delayed work to finish before
-> freeing memory, closing this race.
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+On Wed, Jul 02, 2025 at 01:00:27PM +0200, Christian König wrote:
+> Give TTM BOs a separate cleanup function.
+> 
+> The next step in removing the TTM BO reference counting and replacing it
+> with the GEM object reference counting.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 295e7186e156..aac0de86f3e8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -664,7 +664,7 @@ static void amdgpu_userq_restore_worker(struct work_s=
-truct *work)
->         struct amdgpu_fpriv *fpriv =3D uq_mgr_to_fpriv(uq_mgr);
->         int ret;
->
-> -       flush_work(&fpriv->evf_mgr.suspend_work.work);
-> +       flush_delayed_work(&fpriv->evf_mgr.suspend_work);
->
->         mutex_lock(&uq_mgr->userq_mutex);
->
-> --
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  2 +-
+>  drivers/gpu/drm/drm_gem_vram_helper.c         |  6 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  4 +-
+>  drivers/gpu/drm/loongson/lsdc_gem.c           |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_gem.c         |  2 +-
+>  drivers/gpu/drm/qxl/qxl_gem.c                 |  2 +-
+>  drivers/gpu/drm/radeon/radeon_gem.c           |  2 +-
+>  drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 12 ++--
+>  .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  | 64 +++++++++----------
+>  drivers/gpu/drm/ttm/ttm_bo.c                  | 21 +++---
+>  drivers/gpu/drm/ttm/ttm_bo_internal.h         |  2 +
+>  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c           |  2 +-
+>  drivers/gpu/drm/xe/xe_bo.c                    |  2 +-
+>  include/drm/ttm/ttm_bo.h                      |  2 +-
+>  14 files changed, 64 insertions(+), 61 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index e5e33a68d935..9a2a8496eea3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -198,7 +198,7 @@ static void amdgpu_gem_object_free(struct drm_gem_object *gobj)
+>  	struct amdgpu_bo *aobj = gem_to_amdgpu_bo(gobj);
+>  
+>  	amdgpu_hmm_unregister(aobj);
+> -	ttm_bo_put(&aobj->tbo);
+> +	ttm_bo_fini(&aobj->tbo);
+>  }
+>  
+>  int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+> diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
+> index b04cde4a60e7..90760d0ca071 100644
+> --- a/drivers/gpu/drm/drm_gem_vram_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_vram_helper.c
+> @@ -107,7 +107,7 @@ static const struct drm_gem_object_funcs drm_gem_vram_object_funcs;
+>  
+>  static void drm_gem_vram_cleanup(struct drm_gem_vram_object *gbo)
+>  {
+> -	/* We got here via ttm_bo_put(), which means that the
+> +	/* We got here via ttm_bo_fini(), which means that the
+>  	 * TTM buffer object in 'bo' has already been cleaned
+>  	 * up; only release the GEM object.
+>  	 */
+> @@ -234,11 +234,11 @@ EXPORT_SYMBOL(drm_gem_vram_create);
+>   * drm_gem_vram_put() - Releases a reference to a VRAM-backed GEM object
+>   * @gbo:	the GEM VRAM object
+>   *
+> - * See ttm_bo_put() for more information.
+> + * See ttm_bo_fini() for more information.
+>   */
+>  void drm_gem_vram_put(struct drm_gem_vram_object *gbo)
+>  {
+> -	ttm_bo_put(&gbo->bo);
+> +	ttm_bo_fini(&gbo->bo);
+>  }
+>  EXPORT_SYMBOL(drm_gem_vram_put);
+>  
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> index 1f4814968868..57bb111d65da 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> @@ -1029,7 +1029,7 @@ static void i915_ttm_delayed_free(struct drm_i915_gem_object *obj)
+>  {
+>  	GEM_BUG_ON(!obj->ttm.created);
+>  
+> -	ttm_bo_put(i915_gem_to_ttm(obj));
+> +	ttm_bo_fini(i915_gem_to_ttm(obj));
+>  }
+>  
+>  static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
+> @@ -1325,7 +1325,7 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+>  	 * If this function fails, it will call the destructor, but
+>  	 * our caller still owns the object. So no freeing in the
+>  	 * destructor until obj->ttm.created is true.
+> -	 * Similarly, in delayed_destroy, we can't call ttm_bo_put()
+> +	 * Similarly, in delayed_destroy, we can't call ttm_bo_fini()
+>  	 * until successful initialization.
+>  	 */
+>  	ret = ttm_bo_init_reserved(&i915->bdev, i915_gem_to_ttm(obj), bo_type,
+> diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
+> index a720d8f53209..22d0eced95da 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_gem.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+> @@ -57,7 +57,7 @@ static void lsdc_gem_object_free(struct drm_gem_object *obj)
+>  	struct ttm_buffer_object *tbo = to_ttm_bo(obj);
+>  
+>  	if (tbo)
+> -		ttm_bo_put(tbo);
+> +		ttm_bo_fini(tbo);
+>  }
+>  
+>  static int lsdc_gem_object_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+> index 690e10fbf0bd..395d92ab6271 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+> @@ -87,7 +87,7 @@ nouveau_gem_object_del(struct drm_gem_object *gem)
+>  		return;
+>  	}
+>  
+> -	ttm_bo_put(&nvbo->bo);
+> +	ttm_bo_fini(&nvbo->bo);
+>  
+>  	pm_runtime_mark_last_busy(dev);
+>  	pm_runtime_put_autosuspend(dev);
+> diff --git a/drivers/gpu/drm/qxl/qxl_gem.c b/drivers/gpu/drm/qxl/qxl_gem.c
+> index fc5e3763c359..d26043424e95 100644
+> --- a/drivers/gpu/drm/qxl/qxl_gem.c
+> +++ b/drivers/gpu/drm/qxl/qxl_gem.c
+> @@ -39,7 +39,7 @@ void qxl_gem_object_free(struct drm_gem_object *gobj)
+>  	qxl_surface_evict(qdev, qobj, false);
+>  
+>  	tbo = &qobj->tbo;
+> -	ttm_bo_put(tbo);
+> +	ttm_bo_fini(tbo);
+>  }
+>  
+>  int qxl_gem_object_create(struct qxl_device *qdev, int size,
+> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+> index f86773f3db20..18ca1bcfd2f9 100644
+> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+> @@ -86,7 +86,7 @@ static void radeon_gem_object_free(struct drm_gem_object *gobj)
+>  
+>  	if (robj) {
+>  		radeon_mn_unregister(robj);
+> -		ttm_bo_put(&robj->tbo);
+> +		ttm_bo_fini(&robj->tbo);
+>  	}
+>  }
+>  
+> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+> index 6c77550c51af..5426b435f702 100644
+> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+> @@ -379,7 +379,7 @@ static void ttm_bo_unreserve_bulk(struct kunit *test)
+>  	dma_resv_fini(resv);
+>  }
+>  
+> -static void ttm_bo_put_basic(struct kunit *test)
+> +static void ttm_bo_fini_basic(struct kunit *test)
+>  {
+>  	struct ttm_test_devices *priv = test->priv;
+>  	struct ttm_buffer_object *bo;
+> @@ -410,7 +410,7 @@ static void ttm_bo_put_basic(struct kunit *test)
+>  	dma_resv_unlock(bo->base.resv);
+>  	KUNIT_EXPECT_EQ(test, err, 0);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+
+Intel's CI [1], see Kunit tab, is indicating an issue with the
+selftests. Unsure if this suggestion would fix the kunit failure, but
+would it not be better to just ref count gem BOs in the kunit tests and
+create a mock drm_gem_object_funcs ops in in which free calls
+ttm_bo_fini? Then in selftests replace ttm_bo_fini with
+drm_gem_object_put?
+
+Matt 
+
+[1] https://patchwork.freedesktop.org/series/151064/
+
+>  }
+>  
+>  static const char *mock_name(struct dma_fence *f)
+> @@ -423,7 +423,7 @@ static const struct dma_fence_ops mock_fence_ops = {
+>  	.get_timeline_name = mock_name,
+>  };
+>  
+> -static void ttm_bo_put_shared_resv(struct kunit *test)
+> +static void ttm_bo_fini_shared_resv(struct kunit *test)
+>  {
+>  	struct ttm_test_devices *priv = test->priv;
+>  	struct ttm_buffer_object *bo;
+> @@ -463,7 +463,7 @@ static void ttm_bo_put_shared_resv(struct kunit *test)
+>  	bo->type = ttm_bo_type_device;
+>  	bo->base.resv = external_resv;
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  }
+>  
+>  static void ttm_bo_pin_basic(struct kunit *test)
+> @@ -616,8 +616,8 @@ static struct kunit_case ttm_bo_test_cases[] = {
+>  	KUNIT_CASE(ttm_bo_unreserve_basic),
+>  	KUNIT_CASE(ttm_bo_unreserve_pinned),
+>  	KUNIT_CASE(ttm_bo_unreserve_bulk),
+> -	KUNIT_CASE(ttm_bo_put_basic),
+> -	KUNIT_CASE(ttm_bo_put_shared_resv),
+> +	KUNIT_CASE(ttm_bo_fini_basic),
+> +	KUNIT_CASE(ttm_bo_fini_shared_resv),
+>  	KUNIT_CASE(ttm_bo_pin_basic),
+>  	KUNIT_CASE(ttm_bo_pin_unpin_resource),
+>  	KUNIT_CASE(ttm_bo_multiple_pin_one_unpin),
+> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> index 3148f5d3dbd6..4553c4e0e0f1 100644
+> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> @@ -144,7 +144,7 @@ static void ttm_bo_init_reserved_sys_man(struct kunit *test)
+>  				  drm_mm_node_allocated(&bo->base.vma_node.vm_node));
+>  
+>  	ttm_resource_free(bo, &bo->resource);
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  }
+>  
+>  static void ttm_bo_init_reserved_mock_man(struct kunit *test)
+> @@ -186,7 +186,7 @@ static void ttm_bo_init_reserved_mock_man(struct kunit *test)
+>  				  drm_mm_node_allocated(&bo->base.vma_node.vm_node));
+>  
+>  	ttm_resource_free(bo, &bo->resource);
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
+>  }
+>  
+> @@ -221,7 +221,7 @@ static void ttm_bo_init_reserved_resv(struct kunit *test)
+>  	KUNIT_EXPECT_PTR_EQ(test, bo->base.resv, &resv);
+>  
+>  	ttm_resource_free(bo, &bo->resource);
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  }
+>  
+>  static void ttm_bo_validate_basic(struct kunit *test)
+> @@ -265,7 +265,7 @@ static void ttm_bo_validate_basic(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, bo->resource->placement,
+>  			DRM_BUDDY_TOPDOWN_ALLOCATION);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  	ttm_mock_manager_fini(priv->ttm_dev, snd_mem);
+>  }
+>  
+> @@ -292,7 +292,7 @@ static void ttm_bo_validate_invalid_placement(struct kunit *test)
+>  
+>  	KUNIT_EXPECT_EQ(test, err, -ENOMEM);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  }
+>  
+>  static void ttm_bo_validate_failed_alloc(struct kunit *test)
+> @@ -321,7 +321,7 @@ static void ttm_bo_validate_failed_alloc(struct kunit *test)
+>  
+>  	KUNIT_EXPECT_EQ(test, err, -ENOMEM);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  	ttm_bad_manager_fini(priv->ttm_dev, mem_type);
+>  }
+>  
+> @@ -353,7 +353,7 @@ static void ttm_bo_validate_pinned(struct kunit *test)
+>  	ttm_bo_unpin(bo);
+>  	dma_resv_unlock(bo->base.resv);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  }
+>  
+>  static const struct ttm_bo_validate_test_case ttm_mem_type_cases[] = {
+> @@ -403,7 +403,7 @@ static void ttm_bo_validate_same_placement(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, err, 0);
+>  	KUNIT_EXPECT_EQ(test, ctx_val.bytes_moved, 0);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  
+>  	if (params->mem_type != TTM_PL_SYSTEM)
+>  		ttm_mock_manager_fini(priv->ttm_dev, params->mem_type);
+> @@ -452,7 +452,7 @@ static void ttm_bo_validate_busy_placement(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, bo->resource->mem_type, snd_mem);
+>  	KUNIT_ASSERT_TRUE(test, list_is_singular(&man->lru[bo->priority]));
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  	ttm_bad_manager_fini(priv->ttm_dev, fst_mem);
+>  	ttm_mock_manager_fini(priv->ttm_dev, snd_mem);
+>  }
+> @@ -495,7 +495,7 @@ static void ttm_bo_validate_multihop(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, ctx_val.bytes_moved, size * 2);
+>  	KUNIT_EXPECT_EQ(test, bo->resource->mem_type, final_mem);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  
+>  	ttm_mock_manager_fini(priv->ttm_dev, fst_mem);
+>  	ttm_mock_manager_fini(priv->ttm_dev, tmp_mem);
+> @@ -566,7 +566,7 @@ static void ttm_bo_validate_no_placement_signaled(struct kunit *test)
+>  		KUNIT_ASSERT_TRUE(test, flags & TTM_TT_FLAG_ZERO_ALLOC);
+>  	}
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  }
+>  
+>  static int threaded_dma_resv_signal(void *arg)
+> @@ -634,7 +634,7 @@ static void ttm_bo_validate_no_placement_not_signaled(struct kunit *test)
+>  	/* Make sure we have an idle object at this point */
+>  	dma_resv_wait_timeout(bo->base.resv, usage, false, MAX_SCHEDULE_TIMEOUT);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  }
+>  
+>  static void ttm_bo_validate_move_fence_signaled(struct kunit *test)
+> @@ -667,7 +667,7 @@ static void ttm_bo_validate_move_fence_signaled(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, bo->resource->mem_type, mem_type);
+>  	KUNIT_EXPECT_EQ(test, ctx.bytes_moved, size);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  	dma_fence_put(man->move);
+>  }
+>  
+> @@ -752,7 +752,7 @@ static void ttm_bo_validate_move_fence_not_signaled(struct kunit *test)
+>  	else
+>  		KUNIT_EXPECT_EQ(test, bo->resource->mem_type, fst_mem);
+>  
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo);
+>  	ttm_mock_manager_fini(priv->ttm_dev, fst_mem);
+>  	ttm_mock_manager_fini(priv->ttm_dev, snd_mem);
+>  }
+> @@ -801,8 +801,8 @@ static void ttm_bo_validate_swapout(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, bo_small->resource->mem_type, TTM_PL_SYSTEM);
+>  	KUNIT_EXPECT_TRUE(test, bo_small->ttm->page_flags & TTM_TT_FLAG_SWAPPED);
+>  
+> -	ttm_bo_put(bo_big);
+> -	ttm_bo_put(bo_small);
+> +	ttm_bo_fini(bo_big);
+> +	ttm_bo_fini(bo_small);
+>  
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
+>  }
+> @@ -856,8 +856,8 @@ static void ttm_bo_validate_happy_evict(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, bos[1].resource->mem_type, mem_type);
+>  
+>  	for (i = 0; i < bo_no; i++)
+> -		ttm_bo_put(&bos[i]);
+> -	ttm_bo_put(bo_val);
+> +		ttm_bo_fini(&bos[i]);
+> +	ttm_bo_fini(bo_val);
+>  
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_multihop);
+> @@ -901,12 +901,12 @@ static void ttm_bo_validate_all_pinned_evict(struct kunit *test)
+>  
+>  	KUNIT_EXPECT_EQ(test, err, -ENOMEM);
+>  
+> -	ttm_bo_put(bo_small);
+> +	ttm_bo_fini(bo_small);
+>  
+>  	ttm_bo_reserve(bo_big, false, false, NULL);
+>  	ttm_bo_unpin(bo_big);
+>  	dma_resv_unlock(bo_big->base.resv);
+> -	ttm_bo_put(bo_big);
+> +	ttm_bo_fini(bo_big);
+>  
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_multihop);
+> @@ -965,13 +965,13 @@ static void ttm_bo_validate_allowed_only_evict(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, bo_evictable->resource->mem_type, mem_type_evict);
+>  	KUNIT_EXPECT_EQ(test, ctx_val.bytes_moved, size * 2 + BO_SIZE);
+>  
+> -	ttm_bo_put(bo);
+> -	ttm_bo_put(bo_evictable);
+> +	ttm_bo_fini(bo);
+> +	ttm_bo_fini(bo_evictable);
+>  
+>  	ttm_bo_reserve(bo_pinned, false, false, NULL);
+>  	ttm_bo_unpin(bo_pinned);
+>  	dma_resv_unlock(bo_pinned->base.resv);
+> -	ttm_bo_put(bo_pinned);
+> +	ttm_bo_fini(bo_pinned);
+>  
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_multihop);
+> @@ -1022,8 +1022,8 @@ static void ttm_bo_validate_deleted_evict(struct kunit *test)
+>  	KUNIT_EXPECT_NULL(test, bo_big->ttm);
+>  	KUNIT_EXPECT_NULL(test, bo_big->resource);
+>  
+> -	ttm_bo_put(bo_small);
+> -	ttm_bo_put(bo_big);
+> +	ttm_bo_fini(bo_small);
+> +	ttm_bo_fini(bo_big);
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
+>  }
+>  
+> @@ -1074,8 +1074,8 @@ static void ttm_bo_validate_busy_domain_evict(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, bo_init->resource->mem_type, mem_type);
+>  	KUNIT_EXPECT_NULL(test, bo_val->resource);
+>  
+> -	ttm_bo_put(bo_init);
+> -	ttm_bo_put(bo_val);
+> +	ttm_bo_fini(bo_init);
+> +	ttm_bo_fini(bo_val);
+>  
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
+>  	ttm_bad_manager_fini(priv->ttm_dev, mem_type_evict);
+> @@ -1119,8 +1119,8 @@ static void ttm_bo_validate_evict_gutting(struct kunit *test)
+>  	KUNIT_ASSERT_NULL(test, bo_evict->resource);
+>  	KUNIT_ASSERT_TRUE(test, bo_evict->ttm->page_flags & TTM_TT_FLAG_ZERO_ALLOC);
+>  
+> -	ttm_bo_put(bo_evict);
+> -	ttm_bo_put(bo);
+> +	ttm_bo_fini(bo_evict);
+> +	ttm_bo_fini(bo);
+>  
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
+>  }
+> @@ -1177,9 +1177,9 @@ static void ttm_bo_validate_recrusive_evict(struct kunit *test)
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
+>  	ttm_mock_manager_fini(priv->ttm_dev, mem_type_evict);
+>  
+> -	ttm_bo_put(bo_val);
+> -	ttm_bo_put(bo_tt);
+> -	ttm_bo_put(bo_mock);
+> +	ttm_bo_fini(bo_val);
+> +	ttm_bo_fini(bo_tt);
+> +	ttm_bo_fini(bo_mock);
+>  }
+>  
+>  static struct kunit_case ttm_bo_validate_test_cases[] = {
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index f4d9e68b21e7..3ea27c9707ef 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -49,6 +49,14 @@
+>  #include "ttm_module.h"
+>  #include "ttm_bo_internal.h"
+>  
+> +static void ttm_bo_release(struct kref *kref);
+> +
+> +/* TODO: remove! */
+> +void ttm_bo_put(struct ttm_buffer_object *bo)
+> +{
+> +	kref_put(&bo->kref, ttm_bo_release);
+> +}
+> +
+>  static void ttm_bo_mem_space_debug(struct ttm_buffer_object *bo,
+>  					struct ttm_placement *placement)
+>  {
+> @@ -318,18 +326,11 @@ static void ttm_bo_release(struct kref *kref)
+>  	bo->destroy(bo);
+>  }
+>  
+> -/**
+> - * ttm_bo_put
+> - *
+> - * @bo: The buffer object.
+> - *
+> - * Unreference a buffer object.
+> - */
+> -void ttm_bo_put(struct ttm_buffer_object *bo)
+> +void ttm_bo_fini(struct ttm_buffer_object *bo)
+>  {
+> -	kref_put(&bo->kref, ttm_bo_release);
+> +	ttm_bo_put(bo);
+>  }
+> -EXPORT_SYMBOL(ttm_bo_put);
+> +EXPORT_SYMBOL(ttm_bo_fini);
+>  
+>  static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
+>  				     struct ttm_operation_ctx *ctx,
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_internal.h b/drivers/gpu/drm/ttm/ttm_bo_internal.h
+> index 9d8b747a34db..e0d48eac74b0 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_internal.h
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_internal.h
+> @@ -55,4 +55,6 @@ ttm_bo_get_unless_zero(struct ttm_buffer_object *bo)
+>  	return bo;
+>  }
+>  
+> +void ttm_bo_put(struct ttm_buffer_object *bo);
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> index 7057d852951b..e564d071f40b 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> @@ -37,7 +37,7 @@ static void vmw_gem_object_free(struct drm_gem_object *gobj)
+>  {
+>  	struct ttm_buffer_object *bo = drm_gem_ttm_of_gem(gobj);
+>  	if (bo)
+> -		ttm_bo_put(bo);
+> +		ttm_bo_fini(bo);
+>  }
+>  
+>  static int vmw_gem_object_open(struct drm_gem_object *obj,
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index 7aa2c17825da..c4aa3eaba2a2 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -1649,7 +1649,7 @@ static void xe_gem_object_free(struct drm_gem_object *obj)
+>  	 * refcount directly if needed.
+>  	 */
+>  	__xe_bo_vunmap(gem_to_xe_bo(obj));
+> -	ttm_bo_put(container_of(obj, struct ttm_buffer_object, base));
+> +	ttm_bo_fini(container_of(obj, struct ttm_buffer_object, base));
+>  }
+>  
+>  static void xe_gem_object_close(struct drm_gem_object *obj,
+> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> index 894ff7ccd68e..21dac074b94d 100644
+> --- a/include/drm/ttm/ttm_bo.h
+> +++ b/include/drm/ttm/ttm_bo.h
+> @@ -391,7 +391,7 @@ int ttm_bo_wait_ctx(struct ttm_buffer_object *bo,
+>  int ttm_bo_validate(struct ttm_buffer_object *bo,
+>  		    struct ttm_placement *placement,
+>  		    struct ttm_operation_ctx *ctx);
+> -void ttm_bo_put(struct ttm_buffer_object *bo);
+> +void ttm_bo_fini(struct ttm_buffer_object *bo);
+>  void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
+>  			  struct ttm_lru_bulk_move *bulk);
+>  bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+> -- 
 > 2.34.1
->
+> 
