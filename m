@@ -4,56 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 124D9C83013
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 09:42:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43989C8303C
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 11:00:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F04710E69C;
-	Wed,  2 Jul 2025 09:42:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7EAB10E6D3;
+	Wed,  2 Jul 2025 11:00:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UCKumJdU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YAZdm7e8";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0217610E671;
- Wed,  2 Jul 2025 09:42:45 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EA5AB5C6B22;
- Wed,  2 Jul 2025 09:42:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F176C4CEED;
- Wed,  2 Jul 2025 09:42:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1751449364;
- bh=DsjKHY1GUVtaqB541z5W1P7Mb/2sQOrRjL29c3xI8cA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UCKumJdUauSJKqemWT1HcLXhQyaviC7Rg1zxNs139rwdA4z2iVOVVmTkkm3z8Y1Qi
- KMRFmFY/ROm3fH4fAC10rb3uAFvmzzzX/SgSwRxk4ZH5yGGYrV1p+EqiYj6ldUAv6x
- R62PX9qZLwvVEZqjNpe8QJFpw4MKbFC+dDH2EdvoG5nIRjdCZYNvTVFE6Jlg2FS8ih
- h5lNsFf2P26ktpjdLNyikM+RHzIOBpOhtHt7tgQZJH0GgkZDFmTfJ2lWze0X9PpfGO
- 7xDT3+luAiuAb2Diibkvn40bqsxvoh9EU4oTd8ANEOI6IJB6UjFZnKS9s47AHpETMH
- tGGJ/zF4NvOhg==
-Date: Wed, 2 Jul 2025 11:42:40 +0200
-From: Danilo Krummrich <dakr@kernel.org>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- Philipp Stanner <phasta@kernel.org>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v1] drm/amdgpu: give each kernel job a unique id
-Message-ID: <aGT_EMqpDLccP7At@pollux>
-References: <dc661205-1e5b-4697-863b-36a299365219@amd.com>
- <aEmcpsXwS8dLNGUg@cassiopeiae>
- <5f71cfd0-fd38-491c-8255-bdd3e0fb19dc@amd.com>
- <aEtnS6kvh1mssFTb@cassiopeiae>
- <099816b4-0b7b-4ac7-9bb5-22f23b1db7b7@amd.com>
- <aEvitwoc_D6OxXCS@pollux>
- <d205de0c-0c7a-4644-9655-e9ca28cadb57@damsy.net>
- <aEwP_kOkRKD9akKt@pollux>
- <6cb228b7-0926-425b-8ffe-8c48f2c554b8@damsy.net>
- <c30011b2-8eaa-4a0a-8c9a-81fb61cfcced@damsy.net>
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BE5810E6D1;
+ Wed,  2 Jul 2025 11:00:32 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4539cd7990cso18848225e9.0; 
+ Wed, 02 Jul 2025 04:00:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1751454031; x=1752058831; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/u1TiJkRcIrwSUE5tAC+RVsrI6uEdQeH3tbAzyZ69ds=;
+ b=YAZdm7e86oPkdMhTuh7t8HSr7B4u2Fva8bfKSAA24NyofsnmLYtIjb7a5aOR7SFiJM
+ Qs2ec2Ho6FubiUoU6yeGgI9skjwBpkVodekCDVPmfS1KE9vKIpbMKoshTvCyoa20WGy9
+ ay9G8SVVqbhHbxL+Sm+L9bLcUyWhFhEkmbRBJ7RviKZiGiPusyVTRxeEg7kN2y+yUibO
+ ImW2f/JqA6ZMOxFLOcJfTacdVQ/JrV2AnuERv6q46IrdpzS7o9v23d4Wm0eRKqSDC1gI
+ PaqohwnrVa/TmgfxBtb3P0XHbFgg9wh9sNdhW3VvKwvavhJ0HTUg8vKpbEIQFbZO14r2
+ y9zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751454031; x=1752058831;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/u1TiJkRcIrwSUE5tAC+RVsrI6uEdQeH3tbAzyZ69ds=;
+ b=IvakBqu0/8q0iMPObnsI1VrgGlOSXEQJiwYEuhTt8t+khidx6SKBUkOSySfAFAXJ4s
+ 65pBd1s7h1BFVWaCjpEBJX+YTF5jXPHNT3Dq2BADH+ejSeRTqkDb33lcgOuYk+ZBYNRr
+ dJaXc/83hw/orJ9HcyTAxCRueel0RQ7AHUmAQl00JX0W0I3EWxlGjwBFuhcuG4STEyS1
+ nSloJQzSegNPN9l8mTrrNL6syReara33H+BW7lek6TxaAHFbwxmkz+bxagL2vzxKC0ub
+ O4ai+cMq2y6D1xutmqVXqU8IYM8q4k5WuEtddxB+1lEwr5XIIZlQWZaSRl+Cu5hgRaDc
+ an5g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVQhAdG10GlNHSFv06yFufmpZUx/NkArIUgxCpvA26Uqnj7W/wm9TvQX79lZ0dF/Sa8Vv/pi05b@lists.freedesktop.org,
+ AJvYcCXFkPdlSizG9EQQxvTwNcAnM0JVK8HRtssIXZMHgZwIQVEVsoGldpDVov1y2Vu1w8DikGArj6bGypNy@lists.freedesktop.org,
+ AJvYcCXiTONFy51uJ1RAJWt7QndQhgqdICFKj6tZLY5eIy0EzxIsNYmXuc5pqZcyGmk2vCeycD86HRVqCnw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzAem9SDXzA9scBAFsWVn80luperyR2+VZi+1tdP2uSfrc8ILVK
+ CY8ozmOYsHosirfTJ0+yTj0Wa6ZO/nN7ynR43NFWwvA6EQlxP65ENh94
+X-Gm-Gg: ASbGnctzR/WkTFn93n9IgZj7Pjsj+67yCNQOjUwlMxla9DoImtzU3IlVjhmkRUPNK7j
+ bYwYvXyDjQZIKKDYiIvrPqa7gKEu54izMxcgKdXVcCvqIQry0ca46+ZNglp7Hct/gUp5eqdLWNe
+ eu8tuWPDzTGG7UVfAsK39ECnuICQ88PwKynKq0PLp/TdgxhYEiRGyzqIbkt0hW1IG8L+ifHPVMu
+ RBnIj5scwMbEho2WRJFVDnMFdYn1bUF3/9QH3ELstT1Be3ut+j5pBPtEE0UcbhDW/o3efwVp7eq
+ kqd71yMFY7pDNP9vV19gj8nELBLRc0N71hbqu9HKYpBRylJ3VWaUSZQsv1y2Zc+j0AfCnSBdDWM
+ y
+X-Google-Smtp-Source: AGHT+IHwnbU1S8GOvGpp8OtzutoIfRwWg11XK/OPkH80Sp2G0Q8UqC9hWCLGktIoe+LlYTD8wSprXg==
+X-Received: by 2002:a05:600c:5249:b0:43c:f3e1:a729 with SMTP id
+ 5b1f17b1804b1-454a3c555aemr18163725e9.12.1751454030702; 
+ Wed, 02 Jul 2025 04:00:30 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:158b:1e00:ab87:1cdf:ca26:fa8c])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-453823b913esm220664735e9.33.2025.07.02.04.00.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Jul 2025 04:00:30 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: thomas.hellstrom@linux.intel.com, matthew.brost@intel.com,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Switching TTM over to GEM refcounts v2
+Date: Wed,  2 Jul 2025 13:00:26 +0200
+Message-Id: <20250702110028.2521-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c30011b2-8eaa-4a0a-8c9a-81fb61cfcced@damsy.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,69 +89,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 02, 2025 at 11:23:26AM +0200, Pierre-Eric Pelloux-Prayer wrote:
-> 
-> 
-> Le 18/06/2025 à 11:18, Pierre-Eric Pelloux-Prayer a écrit :
-> > 
-> > 
-> > 
-> > > > 
-> > > > Adding an API to reserve fixed numbers would work but:
-> > > > * if the fixed numbers are chosen by the driver ("drm_reserve_id(u64_max
-> > > > -1)"), I don't see the benefit over the current patch
-> > > > * if the fixed numbers are allocated by drm (drm_reserve_id("vm_update") ->
-> > > > u64), it would then require a way to expose them to userspace (through
-> > > > /sys/kernel/debug/dri/x/clients?)
-> > > 
-> > > Yeah, both is possible, I'm fine with either.
-> > > 
-> > > The benefit is that this way it becomes an official API, which can (and must)
-> > > be considered should there ever be a change on drm_file::client_id.
-> > > 
-> > > If someone would patch drm_file::client_id to start allocating IDs from high to
-> > > low, your corresponding driver code would silently break, because it relies on
-> > > an implementation detail of something that is not an official API.
-> > > 
-> > > Yes, I know that this exact case won't happen, but I guess you get the idea. :-)
-> > 
-> > After looking a bit more into this, I came to the conclusion that IMO the 2 above options aren't great:
-> > * the first adds a function that expose the possibility of reserving an
-> > id so we'll have to keep track of such reserved ids for a benefit that
-> > is limited at best
-> > * the second option is nicer on the surface because it doesn't make the
-> > tools dependent on hard- coded kernel ids. But it also requires quite a
-> > bit of changes and memory usage allocations.
-> > 
-> > Honestly I'm wondering if adding a comment to drm_file_alloc like this would be enough;
-> > 
-> >     /* Get a unique identifier for fdinfo.
-> >      * The highest ids may be used by drivers for tracing purposes. Overlapping is
-> >      * unlikely to occur, and if it does the impact will be limited to tracing.
-> >      */
-> >     file->client_id = atomic64_inc_return(&ident);
-> > 
-> > What do you think?
-> > 
-> 
-> ping?
-> 
-> btw, I don't think that adding a comment to drm_file is even useful.
-> 
-> What the original patch does is passing opaque ids to a function that expects
-> client_id (drm_sched_job_init).
-> These opaque ids could have any values, they won't interfere with fdinfo statistics
-> nor the driver inner working - they're just for tracing purpose.
+Hi everyone,
 
-I mean, you're right, you can definitely do that, it's entirely up to the driver
-what to pass as a debug cookie to drm_sched_job_init().
+v2 of this patch set. I've either pushed or removed the other
+patches from v1, so only two remain.
 
-I'm just saying that you're completely on your own if the implementation of
-file->client_id would change (which admittedly is unlikely). In such a case
-you'd have to accept that potentially a change silently breaks your driver and
-that people are free to ignore this fact.
+Pretty straight forward conversation and shouldn't result in any visible
+technical difference.
 
-In this case it's probably not that big a deal, but still I like to create some
-awareness that this class of solutions (i.e. rely on how generic infrastructure
-works internally) is usually not a good idea at all, since it's error prone and
-is giving maintainers a hard time.
+Please review and/or comment.
+
+Regards,
+Christian.
+
+
