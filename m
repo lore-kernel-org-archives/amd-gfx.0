@@ -4,151 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9409DC83F04
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 16:21:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7475DC77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 16:41:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3813E10E746;
-	Wed,  2 Jul 2025 16:21:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01C6010E744;
+	Wed,  2 Jul 2025 16:41:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bcJkhHn0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d0USmks9";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2066.outbound.protection.outlook.com [40.107.95.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C35B810E744
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jul 2025 16:21:22 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2061.outbound.protection.outlook.com [40.107.101.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD0DA10E74B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jul 2025 16:41:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dpthh9W8pt4eh2JvXkajlfk86La3rDiOWTATRpa2omVwbyh7c2aH5vWk3JcQ/GJATlyg51dOBidG+ojd7eRV6dJzquR0YjsO1ucILa34m/LMQlcSoGwWaTBBoQzS+9cU21M9XS9s1xM3+orCfj7oXmGo2abPO0AkbUZwgr4s6A0tCVerlxJ+sY8P/XatMNydtAwE19zp+fz66hyqQw2dFclXfO4Vh+t0IRnVmTv7eHTGUjzzOrHRYMNVJ2W8QdAUFb/C8hGl9Av3B8sjjqZR315fGpeH0s+9+rjr4QDiJ0pHa538ZEoXv6ePbn2x0IypmNFuYdoPy3jpTJQQ1ZoK4Q==
+ b=lFaSmjasXyPB5/PGBpFo476YheH7yJwCwC3CFstO6jtZ/qzXh+sesSIpRWz7AFO5BOhZ4xenjtvXH6bdQ+VL/lk347JGTFtcNJ/PV5ilRVsJVVjMpzjHLVO3Do4daVKmwPb1rW5NtIuDA3VN6HXjcA6vIdy5W7AZP0m9gMvHPD1Rx5tYxYaZNwAJgI/4Gvjgk6Pj7gMSo8yTCTEHDGsCyoRlS8AJgnsGTdIRMN//+jP5aE44+GMu+vI2c0WNzgQap2AD+QOP4MPU6C6ac6iK5gdtNEaug/rBvwyDDslpIPl18dgyu40WoUfMr7qyptl9ovjheC4qucx9B8IZYvZzDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t7rQYXeKD3MjnTfAiWCPCMWbNxxH9ZApZfTXCJKpQVo=;
- b=kzd4NaQkDvBvjaOcqZhH6rOEt4zBJfHoLf6FU8wWHutUfhw20hj/L+TuUnw+7J9m8l97Dhi/TUbZVQVsCApUBQdgPIAbWATtm76qX59ZFC+c3pIlBRQX8INjJIi90/Frxn8RA811n3zoGWUFoaUpkpNoiB8WCrdmwtBGtFAsO2tkRhMYpjJY69otPcYI2jITqOm/kb5mV4IQdui1o5JK4AwNUde6NWIRJ8DRsFEkGveNNpiqcyQBDp4ONqWwOThGZLveFyjPmYzlCWrP7ghWo1UV4ylHmZ5Ef+JvDlNuXSKNurHrLphXs22lTpMlZaOjv+Qnhr1i7AQgxgv+5fgWMQ==
+ bh=YSj8hHZwUNCicKoCcrcudZiDyJemWqMB5Hoa0fkdtdc=;
+ b=UlU3rubwTxrmYy4auvGRQ5Fh0n7Jbz2DwYz/180331ikimti3+Qd3IA0q2M3pgjWLTst5Y3muLf9S+BrAqYHakeCZ5s0m+7T0MngKoQwqo7bkqL8o6R4xsDkctYWo6mtA3VKgRW7aUw4UWhlCm7lBZTenr4Tb9XOSI6gkxlc9qChkXWaJZdjZ6AZrSn4WkIgpxQLfzIC2CW41vIp/OTcdRJIzrm+QM7LSkaXj9nRMVAN7mrhKHYEz/RXFXgGVzzgDk9pJFF6kgRwNd7n/amzFp14FzPjO9NxW6swvdpM5J4MDV4BE5FZMM/KQ5R32CjvkmKTRAuy1SW9yfykcztdOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t7rQYXeKD3MjnTfAiWCPCMWbNxxH9ZApZfTXCJKpQVo=;
- b=bcJkhHn0oj/Ip0vuWqlZ1kdFfAIXOt+TDuEtm1oVGsI0/Rlu496MwbVL3V21QO1xLWHmsgpL/UMhYL6W/toM3LNBjcnSHtmb/RRf+eoxCZqgwIH4pHX7GyOV2B8lGwo2Ts1e+Y9wImczbpZPS7PAJx9vg9uHAhluHklt2YCXjMk=
+ bh=YSj8hHZwUNCicKoCcrcudZiDyJemWqMB5Hoa0fkdtdc=;
+ b=d0USmks9L2rQCBete08+jpR8qRn+O6rXox1eP7taWO8rjoAtJUMwGmOb66XWEpz/C221eIbCSe0WeGVH/AhWIBKkO/Yd672QZDu3zUjeSFrxOGDKbpieO+mzq0A5Lx7lnjPFKynGr84sNeYBvVmy9fPtJr1DawXPBgWVUXg9e7s=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by IA1PR12MB8334.namprd12.prod.outlook.com (2603:10b6:208:3ff::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Wed, 2 Jul
- 2025 16:21:20 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8880.029; Wed, 2 Jul 2025
- 16:21:20 +0000
-Message-ID: <bafb01ed-562d-45ef-89ff-1b20a11378ae@amd.com>
-Date: Wed, 2 Jul 2025 12:21:18 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/amdgpu: rework how PTE flags are generated
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, rajneesh.bhardwaj@amd.com,
- david.francis@amd.com
-References: <20250606125723.7822-1-christian.koenig@amd.com>
- <20250606125723.7822-2-christian.koenig@amd.com>
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by CY3PR12MB9631.namprd12.prod.outlook.com (2603:10b6:930:ff::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.20; Wed, 2 Jul
+ 2025 16:41:03 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da%4]) with mapi id 15.20.8901.018; Wed, 2 Jul 2025
+ 16:41:03 +0000
+Message-ID: <2ee49f02-e7cf-197a-a6dd-e66b22c57f81@amd.com>
+Date: Wed, 2 Jul 2025 12:40:57 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amdgpu: delete function amdgpu_flush
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20250606125723.7822-2-christian.koenig@amd.com>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "YuanShang Mao (River)" <YuanShang.Mao@amd.com>,
+ "Yang, Philip" <Philip.Yang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "Yin, ZhenGuo (Chris)" <ZhenGuo.Yin@amd.com>, "cao, lin"
+ <lin.cao@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>
+References: <20250627051204.62029-1-YuanShang.Mao@amd.com>
+ <PH0PR12MB54205C1B34B693720538A914E045A@PH0PR12MB5420.namprd12.prod.outlook.com>
+ <a3b5cc3a-f863-b845-989c-ddd6ac953a52@amd.com>
+ <CO6PR12MB5409AF9DD130FFD6323C1A49E041A@CO6PR12MB5409.namprd12.prod.outlook.com>
+ <ecd7b192-84af-4e3e-82d9-4283ca14fe4c@amd.com>
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <ecd7b192-84af-4e3e-82d9-4283ca14fe4c@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0343.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:fc::15) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+X-ClientProxiedBy: YT4PR01CA0327.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a::12) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA1PR12MB8334:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d6c14ea-f9a3-457c-7534-08ddb9847ac4
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CY3PR12MB9631:EE_
+X-MS-Office365-Filtering-Correlation-Id: a20a0a01-d49a-43cc-8bc0-08ddb9873bf7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NFpDSWNZZUprQUJTQlhYSDUxSUVQZThVcmRxWVFNQ283eGxpTGJsRHYvR2hE?=
- =?utf-8?B?Qk4vS3B0RElHRHRxeTVMcTZsOUVYeUZmYkJydURBcXJGaSs0c0g2eE1QY2hS?=
- =?utf-8?B?OHZvaDd1bzRLRjdVQnV1MDJYaVdvU2lFQ2FrNG9jbDJWUE1UQnZtdDdJN1ZO?=
- =?utf-8?B?b0FQMGsrT1AwTjhlMGZpSmJVWG1VSHgxdlZBNms2WDhBSytoVStCcTVMcGhp?=
- =?utf-8?B?dWdva0FDaVB6UkZ4OHY5dTdnUmFwcEZ5M2hrM3hLRGxRbnNwRWdibnNDTHpz?=
- =?utf-8?B?OHBVdWJ3a25pS09ISm1GMm83ZkJ4RDU3SzlDbzI3dEtyRjNDRjJTV2ZmaWky?=
- =?utf-8?B?dVErdyszVSswSUFXT1o5amwrV0RxTGIweXJuTUxJY2lTWVRtdEh1UEZ2RHMv?=
- =?utf-8?B?c2EyOWJsRDZ3RnNOM2U2cjBrRmJjYlBYSCsxRFpsUE1VRDlaZmJESGpiT3Bi?=
- =?utf-8?B?NVBOMStLSjFqQXpBK2JkYVp5aTRPMHRIMG0yc0txMkZQT1BxcUwxdWxDa3Ix?=
- =?utf-8?B?aHRFTVgzL1dCekRtMFBCempaaVVLdkFFRVRlUGVyb3YxS3BnMFZCZnNNdkI4?=
- =?utf-8?B?eklPTXdFemRCZkpIZHBkYXVYNWxUbnc5OWszZjBSUlp4M3FiNWpsL1BPYk9T?=
- =?utf-8?B?d08rY21qdUJqVjJiSWNGYms4Wi9pNFQ0Rmk2Mm9PeTlFZ05wcitJTFNEa1pM?=
- =?utf-8?B?d3k3WWZDL2dxczFlNkpUd2RubkttOWorSFFCSFpwNHU5M0dEUkJ6RTdHTUlw?=
- =?utf-8?B?bUtmMVgwa0NkUGd5UjhITVF0Q2lQOWpMVXd0TkQvclJBc1BFUVhpemtBd2Ra?=
- =?utf-8?B?TEY3WEI2SU9hOUpzQzdXb2NKUHFtSGY4cnI4ekt6eDZQN1FlbW1WZFhERlI4?=
- =?utf-8?B?b0RQbDk4eS95dFlrN1pQMUhydjUrWElTWkVQTksxSHR6SFVMckZDMHhCS0Zr?=
- =?utf-8?B?ZDZDam9EcnFPclBmbG91WXlIREh6ZGFOQnNHaDJoTlgyajQ3aEZ1ckJlNXV1?=
- =?utf-8?B?VzF0R0MzYjVTb2plSTQzM05QQjNaU1hmWThhNDYxOFp2TGdCQXV1d3dNdUov?=
- =?utf-8?B?eTk2d0c0Y0VkbnZSdElobThiNjNIYUJTMVQ4aFljeVI1RFM0M2t4OXhHejhL?=
- =?utf-8?B?TFJ0SHN0RGpYN3hJWlY1U29ZUU8vaGJIVVVoR3pNUjRlNFEwelpXUFBBSi9l?=
- =?utf-8?B?aXozZXpOSnRTR0hvN1RxQ3daUnljaDVDNFYwREIvNGpLbEQzNGFZcnpBdm9p?=
- =?utf-8?B?Y0dpaUxGd0xJUDd4eHMreU1qNTJqR1U1d0xNNGZ0M3hGMUJCTkN0bk9zYWhi?=
- =?utf-8?B?alBGUXREbXNRWWxld05kWFJTSDJQZ2ZQSUtGUFgzK3pPNEg0QVBZKzN6R3Mw?=
- =?utf-8?B?ZHhYYzlsWDNXTk1LcjAycXptWndkS3hrSE8zNGFzZGxOaU51Q0tWMVpVS2RG?=
- =?utf-8?B?N1Y2YWdFcnoyNUVyQ053R1VQLzNLZWRPZGxBb3hEWGZGU2MrSGJhS0x2RUkw?=
- =?utf-8?B?c1RmOFI1N3dtZ3JLS0RsOU81ZzBWdE1vc0VZdmZ1N0Ntek1yMjQwWk1DbTRI?=
- =?utf-8?B?RG9YU0JUa0ZzaGY3NDd0c1BvdzQzcU5RTmt1WTM4T1gwY2N4emd0TTcxaUxP?=
- =?utf-8?B?VmNsckhzaFlrcTE3YW5TQlg2UjRYNkU2akpWKzYvVXg1TjdWcjZ3UWQ2TVpB?=
- =?utf-8?B?VEhlbDc3UXJ6Z0ZxMC9XUCtVbG5ZQU1iU1FnT1VybDE1OUs0V3YrV2dGQytw?=
- =?utf-8?B?WHY1Y1o0UXJjdXIwVjdVbUxjby9laXNQTVZVVEc5U1JVS1EyeVlYR2p3UHg3?=
- =?utf-8?B?MlhCbHFPcTd2R3A4WEZUdXFsSG1ybUFyU0duMkFHaGZ5YUpJdllzckVCb0Fy?=
- =?utf-8?B?eFJ4dy9nOHNzeWtQMWFNYnJyVUFDVldYM1ZjTDNQQlVuQVI3K1l4TDREbDZ1?=
- =?utf-8?Q?46fdXR8/E9M=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?V2JWa3JsL0F1bkxhNEQwS2hIOWpPMm9BOVd5T1MwRnVjNkZFUDZmblF0SHFI?=
+ =?utf-8?B?ZUoweUJBRlA0cUFmMjRTcW53M0s0RExwcjVReTRXY1VSYWtaL0ZHckxNSTNy?=
+ =?utf-8?B?Uk0zRUpuM1AvSzhXRUtZNW9MVmp4UjAzbWxtQ1Azd01VUnErSmhreFNQbFRK?=
+ =?utf-8?B?VzFkOCs2Y1NvcGY3Zis2RElzV1d3VTRhWWVaeG83WC9mcW5XUURvZXkrc3RF?=
+ =?utf-8?B?b2tJdXpTZ0FKTDFxVUdHM3hoV0R0dTA1c2VEVmVyUW4yN3lRRVg2MndKSmFi?=
+ =?utf-8?B?aFBsZklzMFY1VnRWWmtVMDBpTjRjNklyUHhQZ3Y5YklpVktnbjR0Zk1ISURu?=
+ =?utf-8?B?a2F4anVVV3ZyZ0ZBTlFpR1Z6LzlrOU5rNUxvWE9BekRxeFBhZGtKdW1uSklD?=
+ =?utf-8?B?ci9EUkhnY3N2RjFQWmlPcHVBUzdtaFVkSDR0UVphejNaenRMS0FhV2NydFBM?=
+ =?utf-8?B?UTcwVGtuLzkrRnNxYVdFTitQL3lTVktsVHpXblRzd3BZM1EySWJwMTBlOWFK?=
+ =?utf-8?B?U3M0dkZCN0N5R3FsQ2hBcFpKa1d2TEZ3bVAxb2tMVXE0K0FMZGhKZG1wZTJ5?=
+ =?utf-8?B?bkEwN3doQ2hqb09tR0liL3hpNlJ0ckpSLzlIajlpQWwwUlJQUmFSTEJ0Rmdj?=
+ =?utf-8?B?TE5vVE1QK2tvdVM5NHBIVmg5LzhkWTVMbkFtWEU1Z2w4RDFFbStqa1YydDM2?=
+ =?utf-8?B?bktHM1l0cjVQS0wveFZOVndiMVNZNDRZeWU4U3lDYTBzTDNRS2crMFN3SUJX?=
+ =?utf-8?B?VDA5OVVhbXRKSmRDYWRuVXRNKzFIalRSM01VTU96Y002azhSSEZScWJ6TVZ0?=
+ =?utf-8?B?N1pabzBQZDZSR0lmR1BoL1RUWXEwUmo4dFc0eUlYUXVqNDUwSnFGeU1Vbm5E?=
+ =?utf-8?B?MzJ5NGRCS1F5dCtxSjMrYUl6U1U1ZGpMMWtEL2xzY3Z1RGJ3K1BzNnIvenZJ?=
+ =?utf-8?B?S2NvVktrOWttbmZQRDIwS0xERDc5YmFpR1NhVmhTWEticVVLUDdmR3M5K0FV?=
+ =?utf-8?B?MFoyeGRsa2I1aU5oN1JmYytYTjNYNU5nTGxMcVdudWJ0NFQrV1pJakQ1ZlJl?=
+ =?utf-8?B?VmdPQnhGcGRkUnd4U1lCZlZlL05LN2FtZjJkZG9QR3BYcjIrYXJrcWJkMlkz?=
+ =?utf-8?B?WFpOZmkwbGN2c1VoWHd6aW1SRzFYVTFOK3Jmd3p0eVAvQm1ndlIxRGRoUlB4?=
+ =?utf-8?B?SXNsRllHQlY3em1qNkZCaHVaUXJsdndFNmcvYXdTaTFoVFUyd092eWFsOWZ1?=
+ =?utf-8?B?V05OWWhXamYrbzNaV2I4ZXlicGVIYnNiOWxyNjVPM3pNNzNabDgya2haeVJQ?=
+ =?utf-8?B?R3lwUjEwTCtGek5mWjdCUndQTkNvdkcxTkhOT1hpckV6eWJYS0p1bjdYTzdX?=
+ =?utf-8?B?c091QjJGYTZxQ1VTS2tGNHJFVjF1VmoxWFhZVkU3OGhCTGZCRlJJaEQ1QitE?=
+ =?utf-8?B?M050UktsTnU3c3VwSlF2VUNDd2Z2V0dWTHNoaGZZVjUxanRqcDFEV0JNT0hr?=
+ =?utf-8?B?WFlzdGVkVndQRW9za1MrQTNRZ0hFS0tMZlRqUklKanZRVG1BTkg0UFdYV0dF?=
+ =?utf-8?B?Q05xSk53eXphMWovc3ZqdXhzaEFWZnVhT3lxUWFzQlJZWW9scHhPeHpFYXFU?=
+ =?utf-8?B?YStUbFJvdWZBQmE4YTB5N2tPV3M0MEtCZ0o1WDlIYjRhUXdjanZCU21RTDFm?=
+ =?utf-8?B?ZkNESVR3UFo0ZDUvcE92YWdOZ0I3aGNRTTNVUmZGZ2F4RC9EWFZWcjhOM0U2?=
+ =?utf-8?B?VVBaRDlsQldXZW9jVDRUVGIxSlhnWFdYbVBkWXk0REREaElwZUQxelNzbVc3?=
+ =?utf-8?B?OWlNUS94UG5aNFdGNk5CUHl1ZGhkUzRLeEJYMmpCY0M0NURxVUs0V092aWZV?=
+ =?utf-8?B?cytPVzJiaURvQ3FaKzFPV0JaQ1dMemJnUjFaVW1RQVJXaTVkTVVIaFRDVXhx?=
+ =?utf-8?Q?JWkEKUZeJTk=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0NLNGlxM1ozZzN0blF5bjZmNWFRUVhGbVB1MEk1UmRBeDhMZ1l1R2lNNkow?=
- =?utf-8?B?QkNwYmsycmprVFV2WGZuRmZMbDliaTdPZ3ErdzlmdkgvOTZrNFlQUkp1YTZu?=
- =?utf-8?B?Q2xrWnpjWWNaT3pTc1dyenY0ODZFZlJvazVpQUlESGpjRGt6KzRYR1ozdU9l?=
- =?utf-8?B?bmtyRTk2aDdZUTZNTmRtSVhkNGtFYU9QMHE4eTJwS0daZzVXR2tkN2tQSzZN?=
- =?utf-8?B?NTgyTW42MCtQZFJCQW80ODVrUFJzYkFHZWxPN2t3bmV4Q2pqd2NKMmxoaG9a?=
- =?utf-8?B?V29EQ3pwaXhNV0hRQTVBdVdtaHpXNEFNcllmMWZNcFZrbTFxNzlPUzFsd2RB?=
- =?utf-8?B?TWxJTlhJTW5VZnpNcUh1VTkzWnZVR0lDUWZQZTJqazcwZ3JKK0VDTEFvL0RW?=
- =?utf-8?B?eDZEeXBOQnFTMnZzS0ZvTjV1Q2dQWmlPVngvWFRPZy8xOWxwUWNyamdTNldz?=
- =?utf-8?B?VlJFeTh1Z3JmWGhDTVM5WE04UnhpbFZ4UkRGZFBCQTJhTWQzZGxjd3FhdHBu?=
- =?utf-8?B?UWxhSEtUMDhzRTdpMDJNb0NIdUZLOERjMWZkYlZMVzB5Uk9SdlZRVVh1N0VE?=
- =?utf-8?B?ZmdLeFpPSFM4VEdwc3VTNXZlRTkvN2tRd2crbEozS0dGQlhFbjBidm4zL0tV?=
- =?utf-8?B?d0UxK0R1U0NrM21hNW1ZVkRsNUhQRGFZckgvTWZ6OWRINGg4TTZSSkdKNVlz?=
- =?utf-8?B?Um1zemhKamF0MUMzWlVPYXJ0NUg2NG1zbmNqMHJLMTAvU1dUTFhZRGttWjZV?=
- =?utf-8?B?Ti9rTWdJMGorWFV0REttTUNKeHRBWGxPQ1JmMHZRT2lKbjVIWkhGM1NlZXZu?=
- =?utf-8?B?TnlVSUhIOUQyOWRLL1IyUDllZC9icUxyTGRicFdvdmY2K2dLK1hHWVNDNkMy?=
- =?utf-8?B?NU40QjNkcWtUR1hVZnVPSnEzZmVKV1IvZkRqY3VYUFhFSkNmUVVRMjRpcktD?=
- =?utf-8?B?OCtoQmJPeC93d0RQVHRSSHhJcVJ2QytscmFoZzhHcXNBcUxpcXNVUWM0V2c5?=
- =?utf-8?B?MWFQN1NvTU1Ya3REM3F4ZkhxRlhWbGFrd3hKS2FuR044ZENPOW1yZlRrQkxr?=
- =?utf-8?B?OUh5ZndFaEorZjBZREFia0FZQkR6TlhvNmVOdm54c0pmQWk2VkZ4c1BxZ1Zv?=
- =?utf-8?B?SFZUOG9aQUV3bDdnQUVMbDFMMlpvVnZqZkVXMHNlSnlpZnR1ck1IUVdFNWhB?=
- =?utf-8?B?b1UySkZvZjRXUk1hazNWMEcwOVlLN3QwaFJwZXRlbU5wNko1Ykk2ZjIxelpy?=
- =?utf-8?B?LzBvdEVFcHFVZmNWdXF2bmN3RG5yTmYvbDU1UFNYcmRZM3lDZXpqbkwxOU16?=
- =?utf-8?B?V0VnQ2hQU05McmlQRmd4clEycVdTL3pXNk8zTHVLT2VoQ3ozRjVQS0tmMW96?=
- =?utf-8?B?eUZNYVdxUGQvVGFuZjVIK1JRWVNFSGUrTCtDUWUvN2pRV2dkYVMxUHdNaUVt?=
- =?utf-8?B?RW1rSTlWOGdmeEJlQU4xd0VHbWFYVEF1aHp4ZUQxVGp3Q2hqOWcwTHZja25v?=
- =?utf-8?B?VzlMK3V6WXppaEFNUDdFb1ZJaFA4VWQ0Q0IwVG12MUpkL2ZtcStodFRlQ25m?=
- =?utf-8?B?aEp5akhGTEVPemZJWERIQ3hxZWdrUUxCMFBDaVh4a1R1bmk1Ly9jbnV1Zm56?=
- =?utf-8?B?N2RrOWFlNHYzaDJ5bWRzN1IyUlR6ZDNHSG9xOWQxUjh6UFdZVzJWNjBiTjVQ?=
- =?utf-8?B?QUE2QlNWWFVRTVNzS0RneW0xazMxMmwyR0VxWjFqSXFkNGRBYlFIWTdNQW5M?=
- =?utf-8?B?TkdCcFJrRlJ3VXZ3d0N0NTE3eXFWWkR5aVBIcDdyaElFSFMxVVp1MGFVV003?=
- =?utf-8?B?Wi9HRm1kTWVtSHpwUDJiS05kR0x5SVphWTFEMTV6RXZ5MFhhN0E2Z1hmYm5n?=
- =?utf-8?B?ay9YbkxaM3RXNlZ4RFFKdllsbjRBQmxxb2FCYjFiNGJza3YrcDNKd2ZZSUVl?=
- =?utf-8?B?UzNadmVCWW11UG96a1RIa1NWcURjV1FVSTA3ZHd6R2YxNUtoOTYweGlncit0?=
- =?utf-8?B?bjJWazh4bUs1YWdhdkgxS0R5d2wra0dqQ0NFMDNjcmZWUWZ4bCtTOTZ2SU9X?=
- =?utf-8?B?cjhzQThMTjJrWFpUTnZWejRPMWxUalVrcnE0TUszVlpwV1NMSk1uL0I3MVV5?=
- =?utf-8?Q?KUhEGoF+qP9b8ur89kF9wsPgj?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFVXM1RPREFqYmlzR01yQVdEYzV3N1pXOXJwOEhqdEpEWWhHdXZ1VjVaMXJI?=
+ =?utf-8?B?TGJzS2NLMGxnRk91V2FFTVdwdGFSTWNBeWc2RGU1cmJDRmN2QWVxMnFLaU1H?=
+ =?utf-8?B?bUlWMzJLZU1hb0RSL0txd1RnQm5uY2hJWGN1MFpxNHNSaHRUVkE3TFdSSkhk?=
+ =?utf-8?B?d1ZsVUoyYnk0b29ybmIvakc2Y0ZXWU4yV01INWVSa2UzeEFqa2dTK0I4NWYx?=
+ =?utf-8?B?RVBNY2RUUmgyU0ljUlhkRXBKOVNzK1NjU3VqTXNNcllhSy9hNDNpTzZUOXpz?=
+ =?utf-8?B?VFJ3ekVkSUFGcUgvVzdDSU41VlAwRmRGMGNOdHExbk5DU21DbEdHay9WRkhp?=
+ =?utf-8?B?S1RIbTRnNFpVT01TdjR2S2lqcEpVV2NJQVlOUzVoVEZXOE5WWk43eDB2OTJh?=
+ =?utf-8?B?RktObllsWnB0MkVmNXB2eGtaTTRrb0cvVHBHVHVjalRjc3pwTE1SZDdtbWJn?=
+ =?utf-8?B?bmRnZ21aeFF3ako2bnJIcW9zQTZBL21nbUdDcDU1dmF4cVp0cEFROWFWbFI1?=
+ =?utf-8?B?VWFUMkVmR1hZSTh2TFliblM5MU9VZUo4ZERwUXdLcHgzcWVHdTZzeTZRYldD?=
+ =?utf-8?B?SVQ5UVgzOWd6eCs2RXhTUy9vWWtnMGFZaXdjdG5UbFpSUExwcGVEckRUZ205?=
+ =?utf-8?B?WXVOcHZVOEpmTllIeUp6bDBmSHpPVFpYMlNpbzJqSUxOTGZJMVdWU2JJY3lQ?=
+ =?utf-8?B?K001bkNRL0lYNGsrVmlGdzZYcGRkZUMxSjdjNmFKRWtvTHhFcDZpYXVWTEpG?=
+ =?utf-8?B?TjhVOFJHR09ZbHN5M092RG9XNnBUaHlOcGtrVDF6UXpQaWF2R2tvSFYzUDVG?=
+ =?utf-8?B?NWx2TFpWNFdtVDB3bWZxekdWSnFLV1FubXVkbWk2T3djTTZieGV2VmN1dkds?=
+ =?utf-8?B?Y1ordHFpUEd1K09HSE00MFFVSnFvWFFmL0FXVU9SMEJMR0NtcGorU1RvQno0?=
+ =?utf-8?B?QklseGVnck5NTC85bWlyTG5FRVIvNDVzODZpRndML3dKQmhvMy8xZDdSWDVn?=
+ =?utf-8?B?R3JFeTBlQmJUSmZQYXdCcWlYSlozYUExZTlCUFBVSXZNYzZNTWc2QzhYb2JJ?=
+ =?utf-8?B?b0R5LzNFaGlKSmh4cStwZmNSQmgvTnEwSmE2eFhndVpNbGUrRFNIWFpFb0Z0?=
+ =?utf-8?B?ZnNUL0pQTGtrNXZwUXV3ci9mQ0FxbXlsZVlqb1BSMFpVT0poakpEbWNSVEpx?=
+ =?utf-8?B?aUhpUGVySGdLcER2WEZ1UU9RWXJEUHNxd3lBcDVJaXdoQkhxcjljM0tXbjRI?=
+ =?utf-8?B?bzVUVVNycW5TdW9hVjZYMnlHZm1SeVZoMlBPaWt0VDdVb2gzWWxadXhPMVd1?=
+ =?utf-8?B?WmVDNmJqUVVMaFI1Qm5FVTIvQ1piYjcrNFBNaUJUZStWSk83Rk9PdkFjdXRF?=
+ =?utf-8?B?QUhwN2RxV1JXaUZsQytVbGFDR3VjR3dtRzgzcHJWdjMyb3JrSHh2RUNHQVpj?=
+ =?utf-8?B?RzY3T2pKem1pMGFpbGRIbEgrVWpLT2lkWHNXeVg5eGdyUTBUSUFhUUQ4SkQy?=
+ =?utf-8?B?cTY2OGl3aGxpWUQ1MzMrM3h1ZzM1REVsM3R1R3VteitoUys4WFlDN0hmSXFY?=
+ =?utf-8?B?RXd0MUZKcksxbGlMNXh5UlJ3Vm1zZHVJZUJuZWIxOVZNSFpLYWxHL1JNWFli?=
+ =?utf-8?B?cnZkVEQyc1RlK0FZQ2hiRC9xQzh1ZVY5N2p1NjR3RGhEOEp3MGFGM3o1WEUz?=
+ =?utf-8?B?eEhuVEUvT2FHT3pUbW5PRWo5akwrZkd1WXJ4dmpOK3RxMnpkcE1US0JrVDFE?=
+ =?utf-8?B?cmo2MVV3RkZGejl4SDFBZUN6Q2xETEZ3TEIvN3E5eCtNRm1GMDRNTXVCWHo5?=
+ =?utf-8?B?TVFVM3hXM1Z3Lzd5MldVeFhvekJUQWZRLzRRSFlCSE1TdkhkSTFFKzNIZU03?=
+ =?utf-8?B?T2RPVXdYOHFyNFIrMyt1UGZjb2U2YUI2cHZkc3QrQnYwbXI4SGVNU2p0MlBt?=
+ =?utf-8?B?bVdKczUwd3I5SEFsVnhHby9lTnFDMXowVm5mVHd1MEZzYXBWTGt1SDYrTVVi?=
+ =?utf-8?B?Rll5YlVQMmZnVWV1Ujd6ZzdoRWwwV1A1SkZJbGRCSEI4MHZxcWJCMy9TRGZu?=
+ =?utf-8?B?bnlqZFhpYWIxZGtUNWkrU0t4VDAySjM4S0hFL2J2ZkNiT1BKVDNibzBZc21U?=
+ =?utf-8?Q?K/l4=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d6c14ea-f9a3-457c-7534-08ddb9847ac4
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a20a0a01-d49a-43cc-8bc0-08ddb9873bf7
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 16:21:20.5170 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 16:41:03.5829 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5PlZRdgW+j7IiRk5fr2YFMhzLY7udAEN/pOqGQE7cvrtnlXzVJ/P7BM61Kqxu0o722Y5TpJvl4xz3VryViZ1YQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8334
+X-MS-Exchange-CrossTenant-UserPrincipalName: vCzHgx2xA3axpTprO7GrOaS4pnap+hmVbXawzRBrD3w6NROwQjpopi7sygJjbiiE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9631
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,782 +171,248 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2025-06-06 08:57, Christian König wrote:
-> Previously we tried to keep the HW specific PTE flags in each mapping,
-> but for CRIU that isn't sufficient any more since the original value is
-> needed for the checkpoint procedure.
+On 2025-07-01 03:28, Christian König wrote:
+> Clear NAK to removing this!
 >
-> So rework the whole handling, nuke the early mapping function, keep the
-> UAPI flags in each mapping instead of the HW flags and translate them to
-> the HW flags while filling in the PTEs.
->
-> Only tested on Navi 23 for now, so probably needs quite a bit of more
-> work.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  9 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 37 +----------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |  1 -
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       | 15 ++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c     |  8 +--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 17 +++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  4 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        | 57 +++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        | 57 +++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        | 56 ++++++++---------
->   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  4 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  4 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         | 10 ++-
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         | 61 +++++++++----------
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  6 +-
->   16 files changed, 161 insertions(+), 187 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 260165bbe373..9e66d6108a9e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -494,17 +494,20 @@ static int vm_update_pds(struct amdgpu_vm *vm, struct amdgpu_sync *sync)
->   	return amdgpu_sync_fence(sync, vm->last_update, GFP_KERNEL);
->   }
->   
-> -static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
-> +static uint64_t get_pte_flags(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> +			      struct kgd_mem *mem)
->   {
->   	uint32_t mapping_flags = AMDGPU_VM_PAGE_READABLE |
->   				 AMDGPU_VM_MTYPE_DEFAULT;
-> +	uint64_t pte_flags = 0;
->   
->   	if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE)
->   		mapping_flags |= AMDGPU_VM_PAGE_WRITEABLE;
->   	if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE)
->   		mapping_flags |= AMDGPU_VM_PAGE_EXECUTABLE;
->   
-> -	return amdgpu_gem_va_map_flags(adev, mapping_flags);
-> +	amdgpu_gmc_get_vm_pte(adev, vm, NULL, mapping_flags, &pte_flags);
-> +	return pte_flags;
->   }
->   
->   /**
-> @@ -961,7 +964,7 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
->   			goto unwind;
->   		}
->   		attachment[i]->va = va;
-> -		attachment[i]->pte_flags = get_pte_flags(adev, mem);
-> +		attachment[i]->pte_flags = get_pte_flags(adev, vm, mem);
->   		attachment[i]->adev = adev;
->   		list_add(&attachment[i]->list, &mem->attachments);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 0ecc88df7208..1e335ffbf2df 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -791,36 +791,6 @@ amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
->   	return fence;
->   }
->   
-> -/**
-> - * amdgpu_gem_va_map_flags - map GEM UAPI flags into hardware flags
-> - *
-> - * @adev: amdgpu_device pointer
-> - * @flags: GEM UAPI flags
-> - *
-> - * Returns the GEM UAPI flags mapped into hardware for the ASIC.
-> - */
-> -uint64_t amdgpu_gem_va_map_flags(struct amdgpu_device *adev, uint32_t flags)
-> -{
-> -	uint64_t pte_flag = 0;
-> -
-> -	if (flags & AMDGPU_VM_PAGE_EXECUTABLE)
-> -		pte_flag |= AMDGPU_PTE_EXECUTABLE;
-> -	if (flags & AMDGPU_VM_PAGE_READABLE)
-> -		pte_flag |= AMDGPU_PTE_READABLE;
-> -	if (flags & AMDGPU_VM_PAGE_WRITEABLE)
-> -		pte_flag |= AMDGPU_PTE_WRITEABLE;
+> The amdgpu_flush function is vital for correct operation.
+no fflush call from libdrm/amdgpu, so amdgpu_flush is only called from 
+fclose -> filp_flush
+> The intention is to block closing the file handle in child processes and wait for all previous operations to complete.
 
-I was trying to see where AMDGPU_PTE_READABLE and AMDGPU_PTE_WRITABLE 
-are being set now. I think it depends on amdgpu_ttm_tt_pte_flags. But 
-that never gets called for SVM ranges. That's probably why David found 
-SVM to be broken.
+Child process cannot share amdgpu vm with parent process, child process 
+should open drm file node to create and use new amdgpu vm. Can you 
+elaborate the intention why child process close the inherited drm file 
+handle to wait for parent process operations done?
 
 Regards,
-   Felix
 
+Philip
 
-> -	if (flags & AMDGPU_VM_PAGE_PRT)
-> -		pte_flag |= AMDGPU_PTE_PRT_FLAG(adev);
-> -	if (flags & AMDGPU_VM_PAGE_NOALLOC)
-> -		pte_flag |= AMDGPU_PTE_NOALLOC;
-> -
-> -	if (adev->gmc.gmc_funcs->map_mtype)
-> -		pte_flag |= amdgpu_gmc_map_mtype(adev,
-> -						 flags & AMDGPU_VM_MTYPE_MASK);
-> -
-> -	return pte_flag;
-> -}
-> -
->   int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   			  struct drm_file *filp)
->   {
-> @@ -841,7 +811,6 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   	struct dma_fence_chain *timeline_chain = NULL;
->   	struct dma_fence *fence;
->   	struct drm_exec exec;
-> -	uint64_t va_flags;
->   	uint64_t vm_size;
->   	int r = 0;
->   
-> @@ -945,10 +914,9 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   
->   	switch (args->operation) {
->   	case AMDGPU_VA_OP_MAP:
-> -		va_flags = amdgpu_gem_va_map_flags(adev, args->flags);
->   		r = amdgpu_vm_bo_map(adev, bo_va, args->va_address,
->   				     args->offset_in_bo, args->map_size,
-> -				     va_flags);
-> +				     args->flags);
->   		break;
->   	case AMDGPU_VA_OP_UNMAP:
->   		r = amdgpu_vm_bo_unmap(adev, bo_va, args->va_address);
-> @@ -960,10 +928,9 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   						args->map_size);
->   		break;
->   	case AMDGPU_VA_OP_REPLACE:
-> -		va_flags = amdgpu_gem_va_map_flags(adev, args->flags);
->   		r = amdgpu_vm_bo_replace_map(adev, bo_va, args->va_address,
->   					     args->offset_in_bo, args->map_size,
-> -					     va_flags);
-> +					     args->flags);
->   		break;
->   	default:
->   		break;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> index 3a8f57900a3a..b51e8f95ee86 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> @@ -63,7 +63,6 @@ int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
->   			  struct drm_file *filp);
->   int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
->   			      struct drm_file *filp);
-> -uint64_t amdgpu_gem_va_map_flags(struct amdgpu_device *adev, uint32_t flags);
->   int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   			  struct drm_file *filp);
->   int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index 46b2bcbd5025..c69317804071 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -152,15 +152,15 @@ struct amdgpu_gmc_funcs {
->   				   unsigned pasid);
->   	/* enable/disable PRT support */
->   	void (*set_prt)(struct amdgpu_device *adev, bool enable);
-> -	/* map mtype to hardware flags */
-> -	uint64_t (*map_mtype)(struct amdgpu_device *adev, uint32_t flags);
->   	/* get the pde for a given mc addr */
->   	void (*get_vm_pde)(struct amdgpu_device *adev, int level,
->   			   u64 *dst, u64 *flags);
-> -	/* get the pte flags to use for a BO VA mapping */
-> +	/* get the pte flags to use for PTEs */
->   	void (*get_vm_pte)(struct amdgpu_device *adev,
-> -			   struct amdgpu_bo_va_mapping *mapping,
-> -			   uint64_t *flags);
-> +			   struct amdgpu_vm *vm,
-> +			   struct amdgpu_bo *bo,
-> +			   uint32_t vm_flags,
-> +			   uint64_t *pte_flags);
->   	/* override per-page pte flags */
->   	void (*override_vm_pte_flags)(struct amdgpu_device *dev,
->   				      struct amdgpu_vm *vm,
-> @@ -354,9 +354,10 @@ struct amdgpu_gmc {
->   
->   #define amdgpu_gmc_emit_flush_gpu_tlb(r, vmid, addr) (r)->adev->gmc.gmc_funcs->emit_flush_gpu_tlb((r), (vmid), (addr))
->   #define amdgpu_gmc_emit_pasid_mapping(r, vmid, pasid) (r)->adev->gmc.gmc_funcs->emit_pasid_mapping((r), (vmid), (pasid))
-> -#define amdgpu_gmc_map_mtype(adev, flags) (adev)->gmc.gmc_funcs->map_mtype((adev),(flags))
->   #define amdgpu_gmc_get_vm_pde(adev, level, dst, flags) (adev)->gmc.gmc_funcs->get_vm_pde((adev), (level), (dst), (flags))
-> -#define amdgpu_gmc_get_vm_pte(adev, mapping, flags) (adev)->gmc.gmc_funcs->get_vm_pte((adev), (mapping), (flags))
-> +#define amdgpu_gmc_get_vm_pte(adev, vm, bo, vm_flags, pte_flags) \
-> +	(adev)->gmc.gmc_funcs->get_vm_pte((adev), (vm), (bo), (vm_flags), \
-> +					  (pte_flags))
->   #define amdgpu_gmc_override_vm_pte_flags(adev, vm, addr, pte_flags)	\
->   	(adev)->gmc.gmc_funcs->override_vm_pte_flags			\
->   		((adev), (vm), (addr), (pte_flags))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> index c316920f3450..87523fcd4386 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -69,7 +69,7 @@ struct amdgpu_bo_va_mapping {
->   	uint64_t			last;
->   	uint64_t			__subtree_last;
->   	uint64_t			offset;
-> -	uint64_t			flags;
-> +	uint32_t			flags;
->   };
->   
->   /* User space allocated BO in a VM */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-> index d45ebfb642ca..a0b479d5fff1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-> @@ -67,9 +67,9 @@ static inline u64 amdgpu_seq64_get_va_base(struct amdgpu_device *adev)
->   int amdgpu_seq64_map(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   		     struct amdgpu_bo_va **bo_va)
->   {
-> -	u64 seq64_addr, va_flags;
->   	struct amdgpu_bo *bo;
->   	struct drm_exec exec;
-> +	u64 seq64_addr;
->   	int r;
->   
->   	bo = adev->seq64.sbo;
-> @@ -94,9 +94,9 @@ int amdgpu_seq64_map(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   
->   	seq64_addr = amdgpu_seq64_get_va_base(adev) & AMDGPU_GMC_HOLE_MASK;
->   
-> -	va_flags = amdgpu_gem_va_map_flags(adev, AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_MTYPE_UC);
-> -	r = amdgpu_vm_bo_map(adev, *bo_va, seq64_addr, 0, AMDGPU_VA_RESERVED_SEQ64_SIZE,
-> -			     va_flags);
-> +	r = amdgpu_vm_bo_map(adev, *bo_va, seq64_addr, 0,
-> +			     AMDGPU_VA_RESERVED_SEQ64_SIZE,
-> +			     AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_MTYPE_UC);
->   	if (r) {
->   		DRM_ERROR("failed to do bo_map on userq sem, err=%d\n", r);
->   		amdgpu_vm_bo_del(adev, *bo_va);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 3911c78f8282..10d135e71088 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1328,13 +1328,14 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
->   		/* normally,bo_va->flags only contians READABLE and WIRTEABLE bit go here
->   		 * but in case of something, we filter the flags in first place
->   		 */
-> -		if (!(mapping->flags & AMDGPU_PTE_READABLE))
-> +		if (!(mapping->flags & AMDGPU_VM_PAGE_READABLE))
->   			update_flags &= ~AMDGPU_PTE_READABLE;
-> -		if (!(mapping->flags & AMDGPU_PTE_WRITEABLE))
-> +		if (!(mapping->flags & AMDGPU_VM_PAGE_WRITEABLE))
->   			update_flags &= ~AMDGPU_PTE_WRITEABLE;
->   
->   		/* Apply ASIC specific mapping flags */
-> -		amdgpu_gmc_get_vm_pte(adev, mapping, &update_flags);
-> +		amdgpu_gmc_get_vm_pte(adev, vm, bo, mapping->flags,
-> +				      &update_flags);
->   
->   		trace_amdgpu_vm_bo_update(mapping);
->   
-> @@ -1475,7 +1476,7 @@ static void amdgpu_vm_free_mapping(struct amdgpu_device *adev,
->   				   struct amdgpu_bo_va_mapping *mapping,
->   				   struct dma_fence *fence)
->   {
-> -	if (mapping->flags & AMDGPU_PTE_PRT_FLAG(adev))
-> +	if (mapping->flags & AMDGPU_VM_PAGE_PRT)
->   		amdgpu_vm_add_prt_cb(adev, fence);
->   	kfree(mapping);
->   }
-> @@ -1754,7 +1755,7 @@ static void amdgpu_vm_bo_insert_map(struct amdgpu_device *adev,
->   	list_add(&mapping->list, &bo_va->invalids);
->   	amdgpu_vm_it_insert(mapping, &vm->va);
->   
-> -	if (mapping->flags & AMDGPU_PTE_PRT_FLAG(adev))
-> +	if (mapping->flags & AMDGPU_VM_PAGE_PRT)
->   		amdgpu_vm_prt_get(adev);
->   
->   	if (amdgpu_vm_is_bo_always_valid(vm, bo) && !bo_va->base.moved)
-> @@ -1814,7 +1815,7 @@ static int amdgpu_vm_verify_parameters(struct amdgpu_device *adev,
->   int amdgpu_vm_bo_map(struct amdgpu_device *adev,
->   		     struct amdgpu_bo_va *bo_va,
->   		     uint64_t saddr, uint64_t offset,
-> -		     uint64_t size, uint64_t flags)
-> +		     uint64_t size, uint32_t flags)
->   {
->   	struct amdgpu_bo_va_mapping *mapping, *tmp;
->   	struct amdgpu_bo *bo = bo_va->base.bo;
-> @@ -1873,7 +1874,7 @@ int amdgpu_vm_bo_map(struct amdgpu_device *adev,
->   int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
->   			     struct amdgpu_bo_va *bo_va,
->   			     uint64_t saddr, uint64_t offset,
-> -			     uint64_t size, uint64_t flags)
-> +			     uint64_t size, uint32_t flags)
->   {
->   	struct amdgpu_bo_va_mapping *mapping;
->   	struct amdgpu_bo *bo = bo_va->base.bo;
-> @@ -2730,7 +2731,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->   	dma_fence_put(vm->last_tlb_flush);
->   
->   	list_for_each_entry_safe(mapping, tmp, &vm->freed, list) {
-> -		if (mapping->flags & AMDGPU_PTE_PRT_FLAG(adev) && prt_fini_needed) {
-> +		if (mapping->flags & AMDGPU_VM_PAGE_PRT && prt_fini_needed) {
->   			amdgpu_vm_prt_fini(adev, vm);
->   			prt_fini_needed = false;
->   		}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index f3ad687125ad..f9549f6b3d1f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -539,11 +539,11 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
->   int amdgpu_vm_bo_map(struct amdgpu_device *adev,
->   		     struct amdgpu_bo_va *bo_va,
->   		     uint64_t addr, uint64_t offset,
-> -		     uint64_t size, uint64_t flags);
-> +		     uint64_t size, uint32_t flags);
->   int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
->   			     struct amdgpu_bo_va *bo_va,
->   			     uint64_t addr, uint64_t offset,
-> -			     uint64_t size, uint64_t flags);
-> +			     uint64_t size, uint32_t flags);
->   int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
->   		       struct amdgpu_bo_va *bo_va,
->   		       uint64_t addr);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index a3e2787501f1..846b67d52dfc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -469,24 +469,6 @@ static void gmc_v10_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
->    * 0 valid
->    */
->   
-> -static uint64_t gmc_v10_0_map_mtype(struct amdgpu_device *adev, uint32_t flags)
-> -{
-> -	switch (flags) {
-> -	case AMDGPU_VM_MTYPE_DEFAULT:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
-> -	case AMDGPU_VM_MTYPE_NC:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
-> -	case AMDGPU_VM_MTYPE_WC:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_WC);
-> -	case AMDGPU_VM_MTYPE_CC:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_CC);
-> -	case AMDGPU_VM_MTYPE_UC:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_UC);
-> -	default:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
-> -	}
-> -}
-> -
->   static void gmc_v10_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   				 uint64_t *addr, uint64_t *flags)
->   {
-> @@ -511,21 +493,39 @@ static void gmc_v10_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   }
->   
->   static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
-> -				 struct amdgpu_bo_va_mapping *mapping,
-> +				 struct amdgpu_vm *vm,
-> +				 struct amdgpu_bo *bo,
-> +				 uint32_t vm_flags,
->   				 uint64_t *flags)
->   {
-> -	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
-> -
-> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
-> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
-> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
-> +		*flags |= AMDGPU_PTE_EXECUTABLE;
-> +	else
-> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
->   
-> -	*flags &= ~AMDGPU_PTE_MTYPE_NV10_MASK;
-> -	*flags |= (mapping->flags & AMDGPU_PTE_MTYPE_NV10_MASK);
-> +	switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
-> +	case AMDGPU_VM_MTYPE_DEFAULT:
-> +	case AMDGPU_VM_MTYPE_NC:
-> +	default:
-> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_NC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_WC:
-> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_WC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_CC:
-> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_CC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_UC:
-> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
-> +		break;
-> +	}
->   
-> -	*flags &= ~AMDGPU_PTE_NOALLOC;
-> -	*flags |= (mapping->flags & AMDGPU_PTE_NOALLOC);
-> +	if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
-> +		*flags |= AMDGPU_PTE_NOALLOC;
-> +	else
-> +		*flags &= ~AMDGPU_PTE_NOALLOC;
->   
-> -	if (mapping->flags & AMDGPU_PTE_PRT) {
-> +	if (vm_flags & AMDGPU_VM_PAGE_PRT) {
->   		*flags |= AMDGPU_PTE_PRT;
->   		*flags |= AMDGPU_PTE_SNOOPED;
->   		*flags |= AMDGPU_PTE_LOG;
-> @@ -566,7 +566,6 @@ static const struct amdgpu_gmc_funcs gmc_v10_0_gmc_funcs = {
->   	.flush_gpu_tlb_pasid = gmc_v10_0_flush_gpu_tlb_pasid,
->   	.emit_flush_gpu_tlb = gmc_v10_0_emit_flush_gpu_tlb,
->   	.emit_pasid_mapping = gmc_v10_0_emit_pasid_mapping,
-> -	.map_mtype = gmc_v10_0_map_mtype,
->   	.get_vm_pde = gmc_v10_0_get_vm_pde,
->   	.get_vm_pte = gmc_v10_0_get_vm_pte,
->   	.get_vbios_fb_size = gmc_v10_0_get_vbios_fb_size,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index 72211409227b..36720d1c07a0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -433,24 +433,6 @@ static void gmc_v11_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
->    * 0 valid
->    */
->   
-> -static uint64_t gmc_v11_0_map_mtype(struct amdgpu_device *adev, uint32_t flags)
-> -{
-> -	switch (flags) {
-> -	case AMDGPU_VM_MTYPE_DEFAULT:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
-> -	case AMDGPU_VM_MTYPE_NC:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
-> -	case AMDGPU_VM_MTYPE_WC:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_WC);
-> -	case AMDGPU_VM_MTYPE_CC:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_CC);
-> -	case AMDGPU_VM_MTYPE_UC:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_UC);
-> -	default:
-> -		return AMDGPU_PTE_MTYPE_NV10(0ULL, MTYPE_NC);
-> -	}
-> -}
-> -
->   static void gmc_v11_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   				 uint64_t *addr, uint64_t *flags)
->   {
-> @@ -475,21 +457,39 @@ static void gmc_v11_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   }
->   
->   static void gmc_v11_0_get_vm_pte(struct amdgpu_device *adev,
-> -				 struct amdgpu_bo_va_mapping *mapping,
-> +				 struct amdgpu_vm *vm,
-> +				 struct amdgpu_bo *bo,
-> +				 uint32_t vm_flags,
->   				 uint64_t *flags)
->   {
-> -	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
-> -
-> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
-> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
-> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
-> +		*flags |= AMDGPU_PTE_EXECUTABLE;
-> +	else
-> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
->   
-> -	*flags &= ~AMDGPU_PTE_MTYPE_NV10_MASK;
-> -	*flags |= (mapping->flags & AMDGPU_PTE_MTYPE_NV10_MASK);
-> +	switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
-> +	case AMDGPU_VM_MTYPE_DEFAULT:
-> +	case AMDGPU_VM_MTYPE_NC:
-> +	default:
-> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_NC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_WC:
-> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_WC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_CC:
-> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_CC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_UC:
-> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
-> +		break;
-> +	}
->   
-> -	*flags &= ~AMDGPU_PTE_NOALLOC;
-> -	*flags |= (mapping->flags & AMDGPU_PTE_NOALLOC);
-> +	if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
-> +		*flags |= AMDGPU_PTE_NOALLOC;
-> +	else
-> +		*flags &= ~AMDGPU_PTE_NOALLOC;
->   
-> -	if (mapping->flags & AMDGPU_PTE_PRT) {
-> +	if (vm_flags & AMDGPU_VM_PAGE_PRT) {
->   		*flags |= AMDGPU_PTE_PRT;
->   		*flags |= AMDGPU_PTE_SNOOPED;
->   		*flags |= AMDGPU_PTE_LOG;
-> @@ -530,7 +530,6 @@ static const struct amdgpu_gmc_funcs gmc_v11_0_gmc_funcs = {
->   	.flush_gpu_tlb_pasid = gmc_v11_0_flush_gpu_tlb_pasid,
->   	.emit_flush_gpu_tlb = gmc_v11_0_emit_flush_gpu_tlb,
->   	.emit_pasid_mapping = gmc_v11_0_emit_pasid_mapping,
-> -	.map_mtype = gmc_v11_0_map_mtype,
->   	.get_vm_pde = gmc_v11_0_get_vm_pde,
->   	.get_vm_pte = gmc_v11_0_get_vm_pte,
->   	.get_vbios_fb_size = gmc_v11_0_get_vbios_fb_size,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> index b645d3e6a6c8..fb3fb31724a8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> @@ -456,20 +456,6 @@ static void gmc_v12_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned vmid
->    * 0 valid
->    */
->   
-> -static uint64_t gmc_v12_0_map_mtype(struct amdgpu_device *adev, uint32_t flags)
-> -{
-> -	switch (flags) {
-> -	case AMDGPU_VM_MTYPE_DEFAULT:
-> -		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_NC);
-> -	case AMDGPU_VM_MTYPE_NC:
-> -		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_NC);
-> -	case AMDGPU_VM_MTYPE_UC:
-> -		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_UC);
-> -	default:
-> -		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_NC);
-> -	}
-> -}
-> -
->   static void gmc_v12_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   				 uint64_t *addr, uint64_t *flags)
->   {
-> @@ -493,30 +479,45 @@ static void gmc_v12_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   }
->   
->   static void gmc_v12_0_get_vm_pte(struct amdgpu_device *adev,
-> -				 struct amdgpu_bo_va_mapping *mapping,
-> +				 struct amdgpu_vm *vm,
-> +				 struct amdgpu_bo *bo,
-> +				 uint32_t vm_flags,
->   				 uint64_t *flags)
->   {
-> -	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
-> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
-> +		*flags |= AMDGPU_PTE_EXECUTABLE;
-> +	else
-> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
->   
-> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
-> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
-> +	switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
-> +	case AMDGPU_VM_MTYPE_DEFAULT:
-> +		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_NC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_NC:
-> +	default:
-> +		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_NC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_UC:
-> +		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_UC);
-> +		break;
-> +	}
->   
-> -	*flags &= ~AMDGPU_PTE_MTYPE_GFX12_MASK;
-> -	*flags |= (mapping->flags & AMDGPU_PTE_MTYPE_GFX12_MASK);
-> +	if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
-> +		*flags |= AMDGPU_PTE_NOALLOC;
-> +	else
-> +		*flags &= ~AMDGPU_PTE_NOALLOC;
->   
-> -	if (mapping->flags & AMDGPU_PTE_PRT_GFX12) {
-> -		*flags |= AMDGPU_PTE_PRT_GFX12;
-> +	if (vm_flags & AMDGPU_VM_PAGE_PRT) {
->   		*flags |= AMDGPU_PTE_SNOOPED;
->   		*flags |= AMDGPU_PTE_SYSTEM;
->   		*flags |= AMDGPU_PTE_IS_PTE;
->   		*flags &= ~AMDGPU_PTE_VALID;
->   	}
->   
-> -	if (bo && bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC)
-> -		*flags |= AMDGPU_PTE_DCC;
-> -
-> -	if (bo && bo->flags & AMDGPU_GEM_CREATE_UNCACHED)
-> -		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_UC);
-> +	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
-> +			       AMDGPU_GEM_CREATE_EXT_COHERENT |
-> +			       AMDGPU_GEM_CREATE_UNCACHED))
-> +		*flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
->   }
->   
->   static unsigned gmc_v12_0_get_vbios_fb_size(struct amdgpu_device *adev)
-> @@ -546,7 +547,6 @@ static const struct amdgpu_gmc_funcs gmc_v12_0_gmc_funcs = {
->   	.flush_gpu_tlb_pasid = gmc_v12_0_flush_gpu_tlb_pasid,
->   	.emit_flush_gpu_tlb = gmc_v12_0_emit_flush_gpu_tlb,
->   	.emit_pasid_mapping = gmc_v12_0_emit_pasid_mapping,
-> -	.map_mtype = gmc_v12_0_map_mtype,
->   	.get_vm_pde = gmc_v12_0_get_vm_pde,
->   	.get_vm_pte = gmc_v12_0_get_vm_pte,
->   	.get_vbios_fb_size = gmc_v12_0_get_vbios_fb_size,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index 8030fcd64210..f6ad7911f1e6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -382,7 +382,9 @@ static void gmc_v6_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   }
->   
->   static void gmc_v6_0_get_vm_pte(struct amdgpu_device *adev,
-> -				struct amdgpu_bo_va_mapping *mapping,
-> +				struct amdgpu_vm *vm,
-> +				struct amdgpu_bo *bo,
-> +				uint32_t vm_flags,
->   				uint64_t *flags)
->   {
->   	*flags &= ~AMDGPU_PTE_EXECUTABLE;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index a8d5795084fc..93d7ccb7d013 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -504,7 +504,9 @@ static void gmc_v7_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   }
->   
->   static void gmc_v7_0_get_vm_pte(struct amdgpu_device *adev,
-> -				struct amdgpu_bo_va_mapping *mapping,
-> +				struct amdgpu_vm *vm,
-> +				struct amdgpu_bo *bo,
-> +				uint32_t vm_flags,
->   				uint64_t *flags)
->   {
->   	*flags &= ~AMDGPU_PTE_EXECUTABLE;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 99ca08e9bdb5..1ea198fcb51f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -716,11 +716,15 @@ static void gmc_v8_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   }
->   
->   static void gmc_v8_0_get_vm_pte(struct amdgpu_device *adev,
-> -				struct amdgpu_bo_va_mapping *mapping,
-> +				struct amdgpu_vm *vm,
-> +				struct amdgpu_bo *bo,
-> +				uint32_t vm_flags,
->   				uint64_t *flags)
->   {
-> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
-> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
-> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
-> +		*flags |= AMDGPU_PTE_EXECUTABLE;
-> +	else
-> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
->   	*flags &= ~AMDGPU_PTE_PRT;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index cad014c3bbf7..aa2ea1078cb8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1084,27 +1084,6 @@ static void gmc_v9_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int v
->    * 0 valid
->    */
->   
-> -static uint64_t gmc_v9_0_map_mtype(struct amdgpu_device *adev, uint32_t flags)
-> -
-> -{
-> -	switch (flags) {
-> -	case AMDGPU_VM_MTYPE_DEFAULT:
-> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_NC);
-> -	case AMDGPU_VM_MTYPE_NC:
-> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_NC);
-> -	case AMDGPU_VM_MTYPE_WC:
-> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_WC);
-> -	case AMDGPU_VM_MTYPE_RW:
-> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_RW);
-> -	case AMDGPU_VM_MTYPE_CC:
-> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_CC);
-> -	case AMDGPU_VM_MTYPE_UC:
-> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_UC);
-> -	default:
-> -		return AMDGPU_PTE_MTYPE_VG10(0ULL, MTYPE_NC);
-> -	}
-> -}
-> -
->   static void gmc_v9_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   				uint64_t *addr, uint64_t *flags)
->   {
-> @@ -1134,6 +1113,7 @@ static void gmc_v9_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
->   					 struct amdgpu_vm *vm,
->   					 struct amdgpu_bo *bo,
-> +					 uint32_t vm_flags,
->   					 uint64_t *flags)
->   {
->   	struct amdgpu_device *bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
-> @@ -1247,25 +1227,43 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
->   }
->   
->   static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
-> -				struct amdgpu_bo_va_mapping *mapping,
-> +				struct amdgpu_vm *vm,
-> +				struct amdgpu_bo *bo,
-> +				uint32_t vm_flags,
->   				uint64_t *flags)
->   {
-> -	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
-> -
-> -	*flags &= ~AMDGPU_PTE_EXECUTABLE;
-> -	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
-> +	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
-> +		*flags |= AMDGPU_PTE_EXECUTABLE;
-> +	else
-> +		*flags &= ~AMDGPU_PTE_EXECUTABLE;
->   
-> -	*flags &= ~AMDGPU_PTE_MTYPE_VG10_MASK;
-> -	*flags |= mapping->flags & AMDGPU_PTE_MTYPE_VG10_MASK;
-> +	switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
-> +	case AMDGPU_VM_MTYPE_DEFAULT:
-> +	case AMDGPU_VM_MTYPE_NC:
-> +	default:
-> +		*flags = AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_NC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_WC:
-> +		*flags |= AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_WC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_RW:
-> +		*flags |= AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_RW);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_CC:
-> +		*flags |= AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_CC);
-> +		break;
-> +	case AMDGPU_VM_MTYPE_UC:
-> +		*flags |= AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_UC);
-> +		break;
-> +	}
->   
-> -	if (mapping->flags & AMDGPU_PTE_PRT) {
-> +	if (vm_flags & AMDGPU_VM_PAGE_PRT) {
->   		*flags |= AMDGPU_PTE_PRT;
->   		*flags &= ~AMDGPU_PTE_VALID;
->   	}
->   
->   	if ((*flags & AMDGPU_PTE_VALID) && bo)
-> -		gmc_v9_0_get_coherence_flags(adev, mapping->bo_va->base.vm, bo,
-> -					     flags);
-> +		gmc_v9_0_get_coherence_flags(adev, vm, bo, vm_flags, flags);
->   }
->   
->   static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
-> @@ -1442,7 +1440,6 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
->   	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
->   	.emit_flush_gpu_tlb = gmc_v9_0_emit_flush_gpu_tlb,
->   	.emit_pasid_mapping = gmc_v9_0_emit_pasid_mapping,
-> -	.map_mtype = gmc_v9_0_map_mtype,
->   	.get_vm_pde = gmc_v9_0_get_vm_pde,
->   	.get_vm_pte = gmc_v9_0_get_vm_pte,
->   	.override_vm_pte_flags = gmc_v9_0_override_vm_pte_flags,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 865dca2547de..4cdd585de0be 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1190,7 +1190,7 @@ svm_nodes_in_same_hive(struct kfd_node *node_a, struct kfd_node *node_b)
->   }
->   
->   static uint64_t
-> -svm_range_get_pte_flags(struct kfd_node *node,
-> +svm_range_get_pte_flags(struct kfd_node *node, struct amdgpu_vm *vm,
->   			struct svm_range *prange, int domain)
->   {
->   	struct kfd_node *bo_node;
-> @@ -1306,7 +1306,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
->   	if (gc_ip_version >= IP_VERSION(12, 0, 0))
->   		pte_flags |= AMDGPU_PTE_IS_PTE;
->   
-> -	pte_flags |= amdgpu_gem_va_map_flags(node->adev, mapping_flags);
-> +	amdgpu_gmc_get_vm_pte(node->adev, vm, NULL, mapping_flags, &pte_flags);
->   	return pte_flags;
->   }
->   
-> @@ -1413,7 +1413,7 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
->   		pr_debug("Mapping range [0x%lx 0x%llx] on domain: %s\n",
->   			 last_start, prange->start + i, last_domain ? "GPU" : "CPU");
->   
-> -		pte_flags = svm_range_get_pte_flags(pdd->dev, prange, last_domain);
-> +		pte_flags = svm_range_get_pte_flags(pdd->dev, vm, prange, last_domain);
->   		if (readonly)
->   			pte_flags &= ~AMDGPU_PTE_WRITEABLE;
->   
+>
+> Regards,
+> Christian.
+>
+> On 01.07.25 07:35, YuanShang Mao (River) wrote:
+>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>
+>> @Yang, Philip
+>>> I notice KFD has another different issue with fclose -> amdgpu_flush,
+>>> that fork evict parent process queues when child process close the
+>>> inherited drm node file handle, amdgpu_flush will signal parent process
+>>> KFD eviction fence added to vm root bo resv, this cause performance drop
+>>> if python application uses lots of popen.
+>> Yes. Closing inherited drm node file handle will evict parent process queues, since drm share  vm with kfd.
+>>
+>>> function amdgpu_ctx_mgr_entity_flush is only called by amdgpu_flush, can
+>>> be removed too.
+>> Sure. If we decide to remove amdgpu_flush.
+>>
+>> @Koenig, Christian @Deucher, Alexander, do you have any concern on removal of amdgpu_flush?
+>>
+>> Thanks
+>> River
+>>
+>>
+>> -----Original Message-----
+>> From: Yang, Philip <Philip.Yang@amd.com>
+>> Sent: Friday, June 27, 2025 10:44 PM
+>> To: YuanShang Mao (River) <YuanShang.Mao@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Yin, ZhenGuo (Chris) <ZhenGuo.Yin@amd.com>; cao, lin <lin.cao@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Subject: Re: [PATCH] drm/amdgpu: delete function amdgpu_flush
+>>
+>>
+>> On 2025-06-27 01:20, YuanShang Mao (River) wrote:
+>>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>>
+>>> Currently, amdgpu_flush is used to prevent new jobs from being submitted in the same context when a file descriptor is closed and to wait for existing jobs to complete. Additionally, if the current process is in an exit state and the latest job of the entity was submitted by this process, the entity is terminated.
+>>>
+>>> There is an issue where, if drm scheduler is not woken up for some reason, the amdgpu_flush will remain hung, and another process holding this file cannot submit a job to wake up the drm scheduler.
+>> I notice KFD has another different issue with fclose -> amdgpu_flush,
+>> that fork evict parent process queues when child process close the
+>> inherited drm node file handle, amdgpu_flush will signal parent process
+>> KFD eviction fence added to vm root bo resv, this cause performance drop
+>> if python application uses lots of popen.
+>>
+>> [677852.634569] amdkfd_fence_enable_signaling+0x56/0x70 [amdgpu]
+>> [677852.634814]  __dma_fence_enable_signaling+0x3e/0xe0
+>> [677852.634820]  dma_fence_wait_timeout+0x3a/0x140
+>> [677852.634825]  amddma_resv_wait_timeout+0x7f/0xf0 [amdkcl]
+>> [677852.634831]  amdgpu_vm_wait_idle+0x2d/0x60 [amdgpu]
+>> [677852.635026]  amdgpu_flush+0x34/0x50 [amdgpu]
+>> [677852.635208]  filp_flush+0x38/0x90
+>> [677852.635213]  filp_close+0x14/0x30
+>> [677852.635216]  do_close_on_exec+0xdd/0x130
+>> [677852.635221]  begin_new_exec+0x1da/0x490
+>> [677852.635225]  load_elf_binary+0x307/0xea0
+>> [677852.635231]  ? srso_alias_return_thunk+0x5/0xfbef5
+>> [677852.635235]  ? ima_bprm_check+0xa2/0xd0
+>> [677852.635240]  search_binary_handler+0xda/0x260
+>> [677852.635245]  exec_binprm+0x58/0x1a0
+>> [677852.635249]  bprm_execve.part.0+0x16f/0x210
+>> [677852.635254]  bprm_execve+0x45/0x80
+>> [677852.635257]  do_execveat_common.isra.0+0x190/0x200
+>>
+>>> The intended purpose of the flush operation in linux is to flush the content written by the current process to the hardware, rather than shutting down related services upon the process's exit, which would prevent other processes from using them. Now, amdgpu_flush cannot execute concurrently with command submission ioctl, which also leads to performance degradation.
+>> fclose -> filp_flush -> fput, if fput release the last reference of drm
+>> node file handle, call amdgpu_driver_postclose_kms ->
+>> amdgpu_ctx_mgr_fini will flush the entities, so amdgpu_flush is not needed.
+>>
+>> I thought to add workaround to skip amdgpu_flush if (vm->task_info->tgid
+>> != current->group_leader->pid) for KFD, this patch will fix both gfx and
+>> KFD, one stone for two birds.
+>>
+>> function amdgpu_ctx_mgr_entity_flush is only called by amdgpu_flush, can
+>> be removed too.
+>>
+>> Regards,
+>>
+>> Philip
+>>
+>>> An example of a shared DRM file is when systemd stop the display manager; systemd will close the file descriptor of Xorg that it holds.
+>>>
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: amdgpu: amdgpu_ctx_get: locked by other task times 8811
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: amdgpu: owner stack:
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: task:(sd-rmrf)       state:D stack:0     pid:3407  tgid:3407  ppid:1      flags:0x00004002
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: Call Trace:
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  <TASK>
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  __schedule+0x279/0x6b0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  schedule+0x29/0xd0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  amddrm_sched_entity_flush+0x13e/0x270 [amd_sched]
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_autoremove_wake_function+0x10/0x10
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_ctx_mgr_entity_flush+0xd6/0x200 [amdgpu]
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_flush+0x29/0x50 [amdgpu]
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  filp_flush+0x38/0x90
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  filp_close+0x14/0x30
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  __close_range+0x1b0/0x230
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  __x64_sys_close_range+0x17/0x30
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  x64_sys_call+0x1e0f/0x25f0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  do_syscall_64+0x7e/0x170
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __count_memcg_events+0x86/0x160
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? count_memcg_events.constprop.0+0x2a/0x50
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? handle_mm_fault+0x1df/0x2d0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_user_addr_fault+0x5d5/0x870
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? irqentry_exit_to_user_mode+0x43/0x250
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? irqentry_exit+0x43/0x50
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? exc_page_fault+0x96/0x1c0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RIP: 0033:0x762b6df1677b
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RSP: 002b:00007ffdb20ad718 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 0000762b6df1677b
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RDX: 0000000000000000 RSI: 000000007fffffff RDI: 0000000000000003
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RBP: 00007ffdb20ad730 R08: 0000000000000000 R09: 0000000000000000
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: R10: 0000000000000008 R11: 0000000000000246 R12: 0000000000000007
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  </TASK>
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: amdgpu: current stack:
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: task:Xorg            state:R  running task     stack:0     pid:2343  tgid:2343  ppid:2341   flags:0x00000008
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: Call Trace:
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  <TASK>
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  sched_show_task+0x122/0x180
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_ctx_get+0xf6/0x120 [amdgpu]
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_cs_ioctl+0xb6/0x2110 [amdgpu]
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? update_cfs_group+0x111/0x120
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? enqueue_entity+0x3a6/0x550
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  drm_ioctl_kernel+0xbc/0x120
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  drm_ioctl+0x2f6/0x5b0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  amdgpu_drm_ioctl+0x4e/0x90 [amdgpu]
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  __x64_sys_ioctl+0xa3/0xf0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  x64_sys_call+0x11ad/0x25f0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  do_syscall_64+0x7e/0x170
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? ksys_read+0xe6/0x100
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? idr_find+0xf/0x20
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_syncobj_array_free+0x5a/0x80
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_syncobj_reset_ioctl+0xbd/0xd0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_drm_syncobj_reset_ioctl+0x10/0x10
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_ioctl_kernel+0xbc/0x120
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __check_object_size.part.0+0x3a/0x150
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? _copy_to_user+0x41/0x60
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? drm_ioctl+0x326/0x5b0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pfx_drm_syncobj_reset_ioctl+0x10/0x10
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? kvm_clock_get_cycles+0x18/0x40
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __pm_runtime_suspend+0x7b/0xd0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? amdgpu_drm_ioctl+0x70/0x90 [amdgpu]
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? __x64_sys_ioctl+0xbb/0xf0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? syscall_exit_to_user_mode+0x4e/0x250
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? syscall_exit_to_user_mode+0x4e/0x250
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? srso_return_thunk+0x5/0x5f
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? do_syscall_64+0x8a/0x170
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  ? sysvec_apic_timer_interrupt+0x57/0xc0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RIP: 0033:0x7156c3524ded
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RSP: 002b:00007ffe4afcc410 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RAX: ffffffffffffffda RBX: 0000578954b74cf8 RCX: 00007156c3524ded
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RDX: 00007ffe4afcc4f0 RSI: 00000000c0186444 RDI: 0000000000000012
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: RBP: 00007ffe4afcc460 R08: 00007ffe4afcc7a0 R09: 00007ffe4afcc4b0
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: R10: 0000578954b862f0 R11: 0000000000000246 R12: 00000000c0186444
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel: R13: 0000000000000012 R14: 0000000000000060 R15: 0000578954b46380
+>>> Jun 11 16:24:24 ubuntu2404-2 kernel:  </TASK>
+>>>
+>>> Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
+>>>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 13 -------------
+>>>    1 file changed, 13 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>> index 2bb02fe9c880..ee6b59bfd798 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>> @@ -2947,22 +2947,9 @@ static const struct dev_pm_ops amdgpu_pm_ops = {
+>>>           .runtime_idle = amdgpu_pmops_runtime_idle,  };
+>>>
+>>> -static int amdgpu_flush(struct file *f, fl_owner_t id) -{
+>>> -       struct drm_file *file_priv = f->private_data;
+>>> -       struct amdgpu_fpriv *fpriv = file_priv->driver_priv;
+>>> -       long timeout = MAX_WAIT_SCHED_ENTITY_Q_EMPTY;
+>>> -
+>>> -       timeout = amdgpu_ctx_mgr_entity_flush(&fpriv->ctx_mgr, timeout);
+>>> -       timeout = amdgpu_vm_wait_idle(&fpriv->vm, timeout);
+>>> -
+>>> -       return timeout >= 0 ? 0 : timeout;
+>>> -}
+>>> -
+>>>    static const struct file_operations amdgpu_driver_kms_fops = {
+>>>           .owner = THIS_MODULE,
+>>>           .open = drm_open,
+>>> -       .flush = amdgpu_flush,
+>>>           .release = drm_release,
+>>>           .unlocked_ioctl = amdgpu_drm_ioctl,
+>>>           .mmap = drm_gem_mmap,
+>>> --
+>>> 2.25.1
+>>>
