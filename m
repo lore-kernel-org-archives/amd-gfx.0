@@ -4,166 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F7C8C8303C
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 22:00:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE483C83030
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jul 2025 07:13:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F007210E796;
-	Wed,  2 Jul 2025 22:00:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAEB810E7CD;
+	Thu,  3 Jul 2025 07:13:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NGe0Ci9h";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="I2jLEDlC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2197310E794;
- Wed,  2 Jul 2025 22:00:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1751493649; x=1783029649;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=1C+ZvN4RboOMPH5CDK7BVBobYActUUuXl0ShpsAuBjs=;
- b=NGe0Ci9hbgAzn8W8MqT93j1QMtafSCo1jxwSFBVaT0/+pjRrTIvNT+XW
- CaKui1MslFnhylmIp1x4BDWU8V8aZZzPyeAAt7TB8mEKnY7vp2bDSUqKk
- 8f5a1RklXGO77QMz4U+4ufZWrmAbVs5l7DrZy0jOjAhCSkh/m4lx9qmuM
- 4YTeENbLc9jba35Aw2U1CrOUT0rONwrPqTgjzr9B91aWI01sBN8DZiSrG
- STTOVCwxvsIwH6BEM5hqPu8sTuUP8Mmug4cE9ULlvmZrkuONvsfqPfGSo
- /I07Dhvs7DWLhKwUcVOW11q8PEGFD+m+qCfChGdbNz7ZIzI2whYMDf4sJ Q==;
-X-CSE-ConnectionGUID: nDmSM7aeTKqZWVLiD3+OOg==
-X-CSE-MsgGUID: qK3A2WaWQfqNhfYJa1cpmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11482"; a="53670573"
-X-IronPort-AV: E=Sophos;i="6.16,282,1744095600"; d="scan'208";a="53670573"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2025 15:00:45 -0700
-X-CSE-ConnectionGUID: 1hQL3OwaSF2rDdBTdAM4NQ==
-X-CSE-MsgGUID: 97OiypiSS5WS58ZXMnf/gA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,282,1744095600"; d="scan'208";a="154550758"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2025 15:00:45 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Wed, 2 Jul 2025 15:00:44 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25 via Frontend Transport; Wed, 2 Jul 2025 15:00:44 -0700
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (40.107.94.78) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Wed, 2 Jul 2025 15:00:43 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2774E10E7CB;
+ Thu,  3 Jul 2025 07:13:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XEd4R2HUrNG/hF/nNe0TRzHXoXdVcjxYPZ3TGzPiufI1xrOU6VWUJNFSV9F8HoocaL3sIWGqetUO9e0jkybqSi1VbVwz9IQoeAoY8K2qj1dT5BGKuN0fncPmcxShTSjWkXX0F3d+Jilq80OeG76/9wWQqjm0BCR1a5g33Fg3gma6EkrXrqkB/R4UIULuSMkDIBxmSu8cS28d149OA7ax59n2z3notYzc9y8MBVRrTX9pSLRR8dXDkQDo93nwLHtq99ij0sLbdI3FfCMjJ3+Dw0V0ID6cYfYwDkUX5LQmnmM4/HjxOlYyThwzMEWlBc6GpPu3YTmmo1yJkqLII/MUNg==
+ b=U6snmHJ/XRI9wiv8Evk0rDkxoQ07meDulh2+nJXElRE0xqpPqIkTl2XVXVNjTe4TQfFSNpEUpT44pT/AzTp17ucBG7h1WE0nZp3uV5NeBwkcCn6HnqJ2+4EYvu/XS/docc+42Ffo/eyXQIzmHx9o3hXN4GGNftyEecr/taUUOuZNQtqVmYLOK4yBoyRrJcTCh7meCJ+atG1N5WJnE5+U1kT5NBvjdB2FrCAmme65j4oRFJBSKPr/B+Ayw2m2XaeMsiMbz6RDwVQYUEQ9F8fujijdTCsceV1jRYR1wDjGGA1JTUpx4FYa7Fb4pxXvghgsfKFLCHuQpN0gPYErHJQUbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TM/M9GIu1YXGYJ3+zUJgALi3G8de4doxGKHGaM6UR6E=;
- b=VHL+2frHZb16PBd8blZPA1S0xXhgoQNsYoL8xAAoShkUjyRtvBEFuGSEbbkwjH7xJQkcDI11wsQArsThejKjxKKnjk6PRFAlbpHgABObefUylY+Rha0OBBLjHypSuq3X9kAV95j3TttH47lbmnAZ5fIctWADzVebXuKzdwVGHMZ4kdAdgqhpXv0yzLiMSi0oa3dZSFaRSBe8W4QowlaEuviYVpdnle2H0meClglwlk7lTc0SJMx+FG0vLdBNZ84iWxc813IY7o7Snaf934l7pB2Ol3AbhmPsLvX+36fdlK6sMrKgr0IRMW/xqI+263xfkzBNHE/MdUVOnRa2ikwaiw==
+ bh=jyo5SZ8VAGwoxBK/g2rusJ5wpmLtZDUTkICdDDm7DAM=;
+ b=wPOrMxUMvQx4Pmb0rsxtjEhKNJFgIm4+Ox+/Y88nA7ouJjgj/oqeDPOhbfIhz/+pMnmURQSRraubHns9t+hIsmLo8ZQn8Ye1kDvUaZxqkrJjhDBQARxlZJ6fIgGP5PINIK/JETfgdhjFWeVTkl5lswNJtQoXneXbbDTpGaSv5hEivIqamgghNAKe8xyDyWN0n/NnBgBxaglHQ1333gnFgGCRiKdVpCemQTyd5CSQMv1O4fO27w52Ub3hRrx8VyMy6MThJPrdrylWceYbCnKJFzb36GpzamS8N6/zuDGCX171hiGqVCkuPepYAyfDJc+oyORnKW5tlH2WwPmGEYHkwg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jyo5SZ8VAGwoxBK/g2rusJ5wpmLtZDUTkICdDDm7DAM=;
+ b=I2jLEDlCZUgkLHApx6Bb0ingRJU3GIvO8eIboUc7ht1feJLfwK5XYEd9QWUmsDWjywi9Swx4Z6ZEUz6goJUZJ19vq3y1E0WEuLi026dxwcIC8GQvR2aTG8yfx1+2Wzh4QWj4gYmzM/nhDmlOOBmJTaiBSToN56F/dSqANZfPwLM=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by MN0PR11MB6205.namprd11.prod.outlook.com (2603:10b6:208:3c7::19)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by SA1PR12MB8164.namprd12.prod.outlook.com (2603:10b6:806:338::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.32; Wed, 2 Jul
- 2025 22:00:14 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::9e94:e21f:e11a:332]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::9e94:e21f:e11a:332%5]) with mapi id 15.20.8901.018; Wed, 2 Jul 2025
- 22:00:13 +0000
-Date: Wed, 2 Jul 2025 15:01:56 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-CC: <thomas.hellstrom@linux.intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/2] drm/ttm: rename ttm_bo_put to _fini
-Message-ID: <aGWsVBA45EVO/yhM@lstrano-desk.jf.intel.com>
-References: <20250702110028.2521-1-christian.koenig@amd.com>
- <20250702110028.2521-2-christian.koenig@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.21; Thu, 3 Jul
+ 2025 07:13:50 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350%4]) with mapi id 15.20.8880.030; Thu, 3 Jul 2025
+ 07:13:49 +0000
+Message-ID: <1a65c427-e0ae-49fa-b5cb-0a67a6851d72@amd.com>
+Date: Thu, 3 Jul 2025 12:43:41 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] drm/amdgpu: Dirty cleared blocks on free
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, matthew.brost@intel.com
+Cc: alexander.deucher@amd.com, stable@vger.kernel.org
+References: <20250701190822.5272-1-Arunpravin.PaneerSelvam@amd.com>
+ <39ff4d7d-d8eb-4c2d-9330-2bb8a5a04964@amd.com>
+ <eebf740c-2a96-434a-a114-2d168f51f774@amd.com>
+ <dda50b9d-1348-4fce-a513-c20e6223d58f@amd.com>
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <dda50b9d-1348-4fce-a513-c20e6223d58f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250702110028.2521-2-christian.koenig@amd.com>
-X-ClientProxiedBy: SJ0PR13CA0033.namprd13.prod.outlook.com
- (2603:10b6:a03:2c2::8) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+X-ClientProxiedBy: PN4PR01CA0018.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26e::7) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|MN0PR11MB6205:EE_
-X-MS-Office365-Filtering-Correlation-Id: eec31ff9-2366-4bd7-3137-08ddb9b3d266
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|SA1PR12MB8164:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ae411c2-7d96-4f09-d148-08ddba01285a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?ZfNb3oB1i2vHAZEAuC6DdYT8sQX8YqNysrz4SfaF78dHi2GKB0kNDM4kpB?=
- =?iso-8859-1?Q?h21bnWWe+MaP8ALjqrOF2Ib08pseslSilucMTh7F16vJAUgrE9zPsobyyp?=
- =?iso-8859-1?Q?xlRGX0O5oXxap08cqGQf7LtkIBoJLWZwYojqmISuIXnyzB047CYg6MUorw?=
- =?iso-8859-1?Q?Zj3azhaeHt6vUQp5XcZ+pA3nj3eHeHQOR/x8A69Cds/TSrj+4Kkps7vgFj?=
- =?iso-8859-1?Q?MTBSOZJmD2QBZa8aieSKyozUmXLasl0pVGbwYYBccntZ4jr3lwQmbidX1m?=
- =?iso-8859-1?Q?/9BWbpE31qtlxhAN2XNexSQw4ETMrKlMBN5b7zJFnrz9YusH/3dghCIUNJ?=
- =?iso-8859-1?Q?4HK6Yfi7rIQ6ED6vDUPqtWVNgECzhvgwkJ5A4MFjd7TUlB97SGnVIIZMzo?=
- =?iso-8859-1?Q?SqXYCIBdtmxkg4/mqM8Vnux2VqfZkbi9bUYR4wyLVfw4Erax+4tbC37uF2?=
- =?iso-8859-1?Q?QtlOJzFoCKYbpvElEd4/cNCvylTWPMofpU1OvXk8hwm/bbvgjs3YcEXqLa?=
- =?iso-8859-1?Q?PiMKz29Gv0p6PgnhFAF9sGshBmkdzLWv5RKLU3vxkUywKA3/UO/Pl0A8oC?=
- =?iso-8859-1?Q?/EsnXHeED1bh6u4m4fKGvh8Okq2vV/Wpe8rKnyZyW1ZYlnH0iPo1e7gRn9?=
- =?iso-8859-1?Q?gKq0T0KQDdnl4EKUDN8GcfAJQzolIRPU92tBfSJ59OTuMdV9xvOWcwS4V5?=
- =?iso-8859-1?Q?9tDSLld8CtifmqRJIL+jLbx8zS+9EpHCdReke0y22kGdTHQ/OpYybeICi1?=
- =?iso-8859-1?Q?KPQEfn0VgskJjFHMoyemiHdXpq+XpGzvsmo5nwRRaB/TXcLRzS9VwyXzdA?=
- =?iso-8859-1?Q?vTjvFUceebrLxNk9R1HGZxvKRPYsD89kqhaRBk2erWnB//mHq7v4kV4kjP?=
- =?iso-8859-1?Q?efV6cPxBd//hmP5xCW3YFq+vfyiBa0uFT6aWPWjtI7GZfjtKuJqnfsG42n?=
- =?iso-8859-1?Q?ksb1hU8DN0G62eVzH61bujBzZjYdWGLTrrVnxw3nYi002ebiI5MjzjV7kE?=
- =?iso-8859-1?Q?ZiPIKzZ40m6+SFc81kTHcteo5K162vkvUmX+nOQGOHmDuW/buss7QP2Mcl?=
- =?iso-8859-1?Q?nhSOEo+z6BbhTR7/yvcXmWqUwor/X4c1mqiC4VAPe3HB27+YDri78tOnDW?=
- =?iso-8859-1?Q?uxC/fnwxmg/xynSD4z3INCZgfTXk3ki4clauMGp1Kz1r2vw0E8jlQYU+4g?=
- =?iso-8859-1?Q?k8ey8SaAstsozVoQRB2IsLqUSyjWp3Am+7NYb7UiDf3r/p+3LkvqpVwH5L?=
- =?iso-8859-1?Q?bFeEkks2WNuEYXx4xrJnVNpUubGFAki59lxM08Gze94gel65dyuBhl/wAo?=
- =?iso-8859-1?Q?R6mSZDx8xK4j7DsSVKSBRQAqf6Y3SB5c9rtVs+02/0iVrvJCV0+ALPwsSL?=
- =?iso-8859-1?Q?cHCGFPPFHXLo2Ao4Hq6fVNNmTD0VbOro8Rxt5k4oTS/5KMvQTwrn0=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L2xBaWN2QnFNWkVPK0tzcU11RFpXR2NNYWJWSk8wRFVHdFR1RWN2SndGOEVt?=
+ =?utf-8?B?Tk1EckRsaUlzOTFYUW05N3UrOXFWOEZHemNqSUhhcVNmMFcxUDh6L2Y2NGty?=
+ =?utf-8?B?OEVtelNIV3F2eTVrUEFrN2J3ajMzTUpQeFVxYXI2RGlqYmU3QU9MdHB1NHh5?=
+ =?utf-8?B?OHlVY0FkdFAxWTNhU1pMZjZVTitsak93VDljZWRqc01wNVhXa2FkWmEveWZq?=
+ =?utf-8?B?aUZRaTdjV1BKbTZyRDUzRzRUR1h6eERiM0FLNTFhdWVFZ1hrYWxESENRR3g3?=
+ =?utf-8?B?dzhHUk9lWTJVcTF5T3ZBMUpBRUdVTjhUOTZqNGYvMFZLbmZiY3RRWTRXakxE?=
+ =?utf-8?B?V0lqa1Z5bkswTEZTVmUwTzVadm43bURUZStwcy8veElqako5ZU5uMUVmQ3ht?=
+ =?utf-8?B?L05zSGdVa3NaZm5Gb3NOYTJlcnlxd25JR2tKbVgyejJYdWFEdmlma0FZVFV6?=
+ =?utf-8?B?SzMzQzRlQ1NvdUliQU5GQmhyYkFmd0FKRytBcW8rdkN4WHQ1UzYreXlkdWVE?=
+ =?utf-8?B?WHAycktXMk5jWWpLbnFVcUREZjEvMWRHdy9hSkxoRGhZeGFUQm9BNEt0OHA1?=
+ =?utf-8?B?Y21qdlhZcFRRckhQNjdpTkZWaU5ReFYrK1RES3cwdm5mVGF6dWJuNkpZbXNt?=
+ =?utf-8?B?dHZxelYzWHdRNWpvdXJWMzlFdnVrYWYvZFpjR1dGZC81cjdub3JwM0dPem9U?=
+ =?utf-8?B?elhabFI0QkxFdmh6bHFHUDd6SS82bXJBVWpMOEF0OE9KNktsV0d1S2RzcStL?=
+ =?utf-8?B?czBBSHdpNXZYZm5CREZtLzdWMUw2ajdKSHVOdXV1d1R5d2lsWFYwcGlBWTBV?=
+ =?utf-8?B?ejFKVmZRNGNROWxzRlRaS1VOQmZIYjkvc0s0QWI2a3JiY0FESGJXV0ZiZGdC?=
+ =?utf-8?B?bExLalkybUhXdGV5emF4NElESVRQMXpYRG1xOXJJZ0plNkU3SGNsb2VqeE9n?=
+ =?utf-8?B?dlRWWHZpRHFTZUt2UmdJWXRXNDBZMUd5cmVId0EyVHo4dFpFM3ZlYnJsZytp?=
+ =?utf-8?B?SSs0MFlOaXBlVFo4K1VKZVl0Rmt4MkNvc1daQWthYlpwSXljVjdFQ0lYZG9v?=
+ =?utf-8?B?SlVUWjRkVHIyMHh6T1Q4Q3B1ZnlWdWNIdnR2N2wrMzBkVCswOUorWHd3S3F3?=
+ =?utf-8?B?OGQ0TzVFV3p6OEc4SFgxY3hMRUV5QzBNQllBWC9hbGlmU3FrN3lNbWo0a29t?=
+ =?utf-8?B?YWdzSVlNRFJnZTNhQVRaNVlRSWJSTko2UWJnUEFDSHFqSk12MTMyb1I1emRx?=
+ =?utf-8?B?WE9PK0o5ME02UFVKZGxOZnlnTHJKeisvM0paTjFLV3o3bzlHNnc1WEh3bU1K?=
+ =?utf-8?B?c2xhVVpYcjZhNnBwN2pmdkVYeW02R253UENsbEtocWVYaHpDNEhiRzVBc2ZU?=
+ =?utf-8?B?N0lxNHZSVzRJRndua3V5T3Q2WEl6Um5veWsycDR5NmZFTFp0d3ZuVjFBcnZP?=
+ =?utf-8?B?dFYyYkZWQVp2QStDY1VkVENRcUZSWHRNZGZtUTBZOS9Qd2s4cWVPRTRscmR1?=
+ =?utf-8?B?OXFHUzE5N3dNaUZCRUxKSTJQbm1HajdYVVB3YU94UFd6ajRiRVRwN1Nia0cr?=
+ =?utf-8?B?WFZrS3l4UGZockRSZU40QmRSV0RnQXl5K1psVkJUQXdOWkxVazNzZmJyaTli?=
+ =?utf-8?B?eXZSTnBzV2N2L0hldlB3b2p2NVpwdXpkemJRdzJVT2wrZU5kc3pCeTFWc2NJ?=
+ =?utf-8?B?Zjl3MTJNVlRCOFFFd3V5TjJUbVFIMjl3dGFWT2R5OFVtdVhISjNBblZWUUFT?=
+ =?utf-8?B?UlA4L1czU1BGbnQreit6clQ0SFEzQmpmMmo5WlN3Z214ZFJkKyt2OHFXY0l6?=
+ =?utf-8?B?SkpUV2o4eHVLRUMzNkxsNnNSLzYrZjNTNE5UN2Y1dWM5UEpCZFJnWnNRRjJu?=
+ =?utf-8?B?a1A0d3NQa2FBaDJ6cWtsc1VzaUw2UW9ZMmtqK3RUL3llQk4vUERaSUlMVGdv?=
+ =?utf-8?Q?Go6XxubybsE=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?T1LgTqW3IKxGuIbz0G+5g6HBgyVX/QjkwqUNqYeNmdZaLbNZsC0a27OXjx?=
- =?iso-8859-1?Q?VujyPva2ytUGI+M2iVGw26YW6SgF2FovoTdp4yoAUV7p7MbI0XSpmTFfdo?=
- =?iso-8859-1?Q?PylEcITzCU8MFxDQcTkAZZuP5RxIMV1NkOeIKEAQWu7kFt1qXpTOjdqyBw?=
- =?iso-8859-1?Q?PUQPVqRhRz2+BUZOs7IaJG2l6HZ1sRA+75IqCdIMzWWJy/q/wM4Uyr+5VH?=
- =?iso-8859-1?Q?IK6/ptPRqCTMG6AtYb/U2FwFnz2wurcaYjLzy6wJCeitAuaxfS/K91b/xa?=
- =?iso-8859-1?Q?sCDTG4W67XdR9hiNu43ydDMeKPLri35Z3bqpsRvFtMyw+uXxDrGeUQK5v/?=
- =?iso-8859-1?Q?S2OF3dyu49JmLobhtf7T9TFYHto7eyMWxGqvC5MqL4T0BKryK+xz45DGb2?=
- =?iso-8859-1?Q?BhGCPR8zmfne7U0dkZ3vBQ6M3/l1bohKoDEbUTtZKn2EKMCoLKWfX6mPWu?=
- =?iso-8859-1?Q?gUtSTAuItxtGl59hoKpQKChFa4DkYK+Nq3qVk93yB1TE3tYGRx9RLsDEFc?=
- =?iso-8859-1?Q?0fHHxESTm/B5SIWCwDpeeLS8OyPMma04rR0os6vg2yB9Ihiwnq9zn9rX8m?=
- =?iso-8859-1?Q?PwJiQjUtdRsU06JdAsvClccG++y2yiUOQRHrVmgaVRdAdsVHUBZ1RPH0gU?=
- =?iso-8859-1?Q?3S3tlEDAeC308ovYPGf07i2Tvi88zqsMHc3w4tXB0O+VXZmDOdBDpWR1dC?=
- =?iso-8859-1?Q?5YP/vbX4iY+/eiW8jGYPlPsynE96DMfZnCyQI2alg27erUXR4UnSIGJw4t?=
- =?iso-8859-1?Q?rXZzChgih91kFF1Hr21Dj5TL7cp0ndzp8i0hh/MJMhJvy3ihzdVC/na1Br?=
- =?iso-8859-1?Q?59lrPkNtla+sTrDdIH6avXhaMzOWn0II1DPldGOMScQ90GGULLH8sXVsUg?=
- =?iso-8859-1?Q?F+sKTsTNXBKpu8Z5DwXitL4IvKGXFvqQzkgdWJ9jCr6swrriWf/tPMOSTm?=
- =?iso-8859-1?Q?6dmY7jvaN6V3X7eS82QKWcwb6Zix9RZog6ZLUdyBEH0jOSJvFIO7Ir1NHk?=
- =?iso-8859-1?Q?f87YRo8glCH2DP17c+mlm4eJjnRHlLE3UY7FTmy+kL1CPZZdyGKEg6BBpX?=
- =?iso-8859-1?Q?kC1Waq5DmsI829BEKbdN+dmSeet/bBQrpuEopBgXLQPkjrqn9BWD3BYBUt?=
- =?iso-8859-1?Q?qQa11ezDBKCSDUujpUmemucad6nWycdbTlCyYrMrn20nMCsnhOd/ZKVkdU?=
- =?iso-8859-1?Q?/3xFUC51H1b4z1o7tdmzo9QSeasvEmUBCgsAJ1+kOT7RzNoL9xqSdu1LPV?=
- =?iso-8859-1?Q?3V+0u/nFTWtoiYEdgQX3Xy7Z/SyDAG193UYSTn5v16+zgKH21zePWakiA8?=
- =?iso-8859-1?Q?tu5HWlVEDYgKCAFZt27vqaN4zG+5xa9dHz2cVE74Gd7IxHrMeaDn1uJBoN?=
- =?iso-8859-1?Q?qWDPN61WAxuZe1mJ6dCZ/4Ye/Xymi5qKZMgqjNXhnUJaPvZB1YtjzdFP8H?=
- =?iso-8859-1?Q?5IUdnowTzLxP8akpjg/+eoMYPLEiitNZVoubWCIqtxVzvjN3PmuzGddO6B?=
- =?iso-8859-1?Q?U7peOH6oc3obsI7PBGn8vCToV1QyG3RoiGBO9AFozgutIVHwjAFLVJc/Ln?=
- =?iso-8859-1?Q?VVtjZfApdn238hlve6r7bH61Bc0TK2OSx5MEEfjjXmLkEp1RX3+pEyYlXN?=
- =?iso-8859-1?Q?3DSIRCbQl77w2nJ3jJ51YZ0YbA2sA3gGRWwQr7WbwGfFI5rqnnuUhCTQ?=
- =?iso-8859-1?Q?=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: eec31ff9-2366-4bd7-3137-08ddb9b3d266
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2dEREplR051bGhZYzRyWm9CaXBVQ2Vjck5qd2xnanpnWWZjWm1CV0laMkd1?=
+ =?utf-8?B?bmtHTGRZaXMvWS8wdlpCV05qd0RhRVE3Z0pZYjJ6a1JpZlBoUTJTKzRwTzVp?=
+ =?utf-8?B?aFpVQld0U05NMzI4R0tobDVKcE5NVmdoK2t0aFdGUDRXdm84THZIdG5CM0g0?=
+ =?utf-8?B?cDQwZmtDbW8yQVM4Slc2U2NBM29sVlE2UnFpVTByWURYd3ZCS2RLU1JnOVFP?=
+ =?utf-8?B?T3ZJeHFTeDdjUVBXRW91dkV6VjY4eHZ3VzNqK3Fwck5JNWs4M0JxZERWRkFD?=
+ =?utf-8?B?VEVTQlBrZ21uZyt4dzdacFBwU3JUM3FnNEJBTGFZZHRzUVhQSDJ1cktXcGs2?=
+ =?utf-8?B?R1lmSUhUdFZURHlRSmlvSVY2UHdnZTBldjU0Y0FqZTFnNmRmL2E2cEUvVzFZ?=
+ =?utf-8?B?bk9UMW1vOUdiYXhEQW5UYURicHFaaTJObVNjOWU3ZmhlRU9oM3dXZXZiTnVo?=
+ =?utf-8?B?QnVERENkTjY1emlsUGtiNUhSSGxuSXc1YW5vYkc2Yjk0R2ozdHpSbFhlTEp5?=
+ =?utf-8?B?NGNYUGlabTN3bHo1VmpkTkF6dlZxWGtnR21NbzAyNGJJSVBzbjlsWENKZjhj?=
+ =?utf-8?B?YitRWlJhNkw1QXlBZ1VUekxJLzVRRkQ0eFYxanpFZ2hKSCtzbkx2WGZWYTBr?=
+ =?utf-8?B?YnBMSHdGSE9kaTU0SG1DNFpSeW9CMG03L1FBWUJqS2F0SjVNNFNPYzFTbC9p?=
+ =?utf-8?B?NFJNZmlZeGtlOG1qSkZtVm9lNkdZSmN0VkwzTmNxSnJUd204bUdFTjlBbGR1?=
+ =?utf-8?B?NGYrcDVOKzAxMkMzOVUwSkhKR0c4VS9WVy95UGJ6MzFFKzVIK2ZwVDY3eVlq?=
+ =?utf-8?B?N1h2UXN0MHhEMDVJWHZmbFZ3OERYeHpQY1lKVmNVcW85Z05UZXpENU9XSU9w?=
+ =?utf-8?B?RHI1QkZmRkR0dUVaREp6eUtWSXhTeXZadDE2TS9Nb0hMdjhIeDhQeXU3NW5D?=
+ =?utf-8?B?MkcyVVVVcllsRmhpOFptU2JDTldIQlZVOUM3VHFWYXFTSFc5Rmx4MkZBTEUx?=
+ =?utf-8?B?akNlTHBRdTY1TjhCbUMxWU56dkRmNkVUYnBmekRUVmJ3NVdiK3VVWmRPUVRX?=
+ =?utf-8?B?TFVWenlVZktSNzRPZS9WamxFanI0NWwzdEpBemN3QkdtSkFpc0RlOE5mdjFr?=
+ =?utf-8?B?dDk5M3NwUStIUDZNMGZ2d09HcDk5aHpIVTJzQWk1MVR2MmRYQ0o5Z0FraDhr?=
+ =?utf-8?B?bmhpQWZZTjVES3NCYks0cHB0alV3WU9FdVNYalpqYlpZSFpidFlJb2p0VlZJ?=
+ =?utf-8?B?WXJDWVlPMXRkYTArU0hNTjk1ZlBRMDNUTjlXMzU5R2ZlUXF5V3FuS29WMVp3?=
+ =?utf-8?B?QTRCV2tQemc1c1BaVG5iaHdxMzlmSHhnb1NsTnVoektEOUFUVXZWMVNNV1Bm?=
+ =?utf-8?B?dE1yZDYvUGZrR0JpelZjVGxGaldYUWUxSHhPcTcwcGVUU3d4MFIyR3pHRjZ5?=
+ =?utf-8?B?UlhrdGxuNWJCYWFZVjRFMHh4SGRtME9OTlRXMkpka1J5RkFoektMdmVxNHdQ?=
+ =?utf-8?B?YmxnR3piYStWbXF2RTc3cmZtVEtpdTgrS3d5djg5SE9YQTNpcVc3T1hITnV3?=
+ =?utf-8?B?eVVnb3EySWpwbVRNMkZXTVNQVlI4bEVlaUtaaHNZV3pOYmhCVVc0azVsd29U?=
+ =?utf-8?B?dFdjUStCTWZHV2xpeEVXc0JXNG5paUo0ZEZPRDZETHE4cThrSU56ZTBYc1I5?=
+ =?utf-8?B?TU1CT2hKTUV1cFgwcytkWlYyUkVRcGlYMjdUL0JlWENmWFF5UXYyV0VMV1p4?=
+ =?utf-8?B?cVBHRlFNS3J4U1hYcjBLR0pkeGV2bnRCd3lYRkRVa2M3R3dQTjY0S2pwMXk2?=
+ =?utf-8?B?STlsTGZqdXNGbHZhTUxNcXVvVEU1SGgzMHB6Z01DVlo3Yzhoc1lYdlJWd09S?=
+ =?utf-8?B?Q3pyTmxPR2huQ0M0bWwrUTVWMyt2dnJob0hzY2pLdXRQTE9NbXpYZ3lrWGx1?=
+ =?utf-8?B?V2RrcXF5QXpIblBOQWNYdXdqU1J2QlgzclhlV1NrOFJlbm5JSytCWEJsQUYr?=
+ =?utf-8?B?RG5pQ3JHdEpNVERhdm5lOTd6MTcwais0SHNucEI2QWhmVi9FUGd1Z0hub0lm?=
+ =?utf-8?B?L1BvS2hkTURoS1lyY1V0cDQyckR1cC9FeDlIYlVZUy9PcG1PUnB3dm1iSkYr?=
+ =?utf-8?Q?ewTUNr6QXY2Wrcqo8YfhGkHHs?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ae411c2-7d96-4f09-d148-08ddba01285a
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 22:00:13.8958 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2025 07:13:49.4767 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aUGrmnN3GK85I30zIhfHI74EbzOIe06GR8eC27jmk+DIABdx3D7PKzqwHI656A6enPQnQwYj68JkmudOhSQThA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB6205
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: vOsCz/TNKPESD0UH5sYY0vEnrSODcjMPuyMmAbYWYIsqg5O5/L7XUkgfd5kMuC8E5YZB8d2lBGuUSZzIYDbNGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8164
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,528 +165,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 02, 2025 at 01:00:27PM +0200, Christian König wrote:
-> Give TTM BOs a separate cleanup function.
-> 
-> The next step in removing the TTM BO reference counting and replacing it
-> with the GEM object reference counting.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  2 +-
->  drivers/gpu/drm/drm_gem_vram_helper.c         |  6 +-
->  drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  4 +-
->  drivers/gpu/drm/loongson/lsdc_gem.c           |  2 +-
->  drivers/gpu/drm/nouveau/nouveau_gem.c         |  2 +-
->  drivers/gpu/drm/qxl/qxl_gem.c                 |  2 +-
->  drivers/gpu/drm/radeon/radeon_gem.c           |  2 +-
->  drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 12 ++--
->  .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  | 64 +++++++++----------
->  drivers/gpu/drm/ttm/ttm_bo.c                  | 21 +++---
->  drivers/gpu/drm/ttm/ttm_bo_internal.h         |  2 +
->  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c           |  2 +-
->  drivers/gpu/drm/xe/xe_bo.c                    |  2 +-
->  include/drm/ttm/ttm_bo.h                      |  2 +-
->  14 files changed, 64 insertions(+), 61 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index e5e33a68d935..9a2a8496eea3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -198,7 +198,7 @@ static void amdgpu_gem_object_free(struct drm_gem_object *gobj)
->  	struct amdgpu_bo *aobj = gem_to_amdgpu_bo(gobj);
->  
->  	amdgpu_hmm_unregister(aobj);
-> -	ttm_bo_put(&aobj->tbo);
-> +	ttm_bo_fini(&aobj->tbo);
->  }
->  
->  int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
-> diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
-> index b04cde4a60e7..90760d0ca071 100644
-> --- a/drivers/gpu/drm/drm_gem_vram_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_vram_helper.c
-> @@ -107,7 +107,7 @@ static const struct drm_gem_object_funcs drm_gem_vram_object_funcs;
->  
->  static void drm_gem_vram_cleanup(struct drm_gem_vram_object *gbo)
->  {
-> -	/* We got here via ttm_bo_put(), which means that the
-> +	/* We got here via ttm_bo_fini(), which means that the
->  	 * TTM buffer object in 'bo' has already been cleaned
->  	 * up; only release the GEM object.
->  	 */
-> @@ -234,11 +234,11 @@ EXPORT_SYMBOL(drm_gem_vram_create);
->   * drm_gem_vram_put() - Releases a reference to a VRAM-backed GEM object
->   * @gbo:	the GEM VRAM object
->   *
-> - * See ttm_bo_put() for more information.
-> + * See ttm_bo_fini() for more information.
->   */
->  void drm_gem_vram_put(struct drm_gem_vram_object *gbo)
->  {
-> -	ttm_bo_put(&gbo->bo);
-> +	ttm_bo_fini(&gbo->bo);
->  }
->  EXPORT_SYMBOL(drm_gem_vram_put);
->  
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> index 1f4814968868..57bb111d65da 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> @@ -1029,7 +1029,7 @@ static void i915_ttm_delayed_free(struct drm_i915_gem_object *obj)
->  {
->  	GEM_BUG_ON(!obj->ttm.created);
->  
-> -	ttm_bo_put(i915_gem_to_ttm(obj));
-> +	ttm_bo_fini(i915_gem_to_ttm(obj));
->  }
->  
->  static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
-> @@ -1325,7 +1325,7 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
->  	 * If this function fails, it will call the destructor, but
->  	 * our caller still owns the object. So no freeing in the
->  	 * destructor until obj->ttm.created is true.
-> -	 * Similarly, in delayed_destroy, we can't call ttm_bo_put()
-> +	 * Similarly, in delayed_destroy, we can't call ttm_bo_fini()
->  	 * until successful initialization.
->  	 */
->  	ret = ttm_bo_init_reserved(&i915->bdev, i915_gem_to_ttm(obj), bo_type,
-> diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
-> index a720d8f53209..22d0eced95da 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_gem.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-> @@ -57,7 +57,7 @@ static void lsdc_gem_object_free(struct drm_gem_object *obj)
->  	struct ttm_buffer_object *tbo = to_ttm_bo(obj);
->  
->  	if (tbo)
-> -		ttm_bo_put(tbo);
-> +		ttm_bo_fini(tbo);
->  }
->  
->  static int lsdc_gem_object_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-> index 690e10fbf0bd..395d92ab6271 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-> @@ -87,7 +87,7 @@ nouveau_gem_object_del(struct drm_gem_object *gem)
->  		return;
->  	}
->  
-> -	ttm_bo_put(&nvbo->bo);
-> +	ttm_bo_fini(&nvbo->bo);
->  
->  	pm_runtime_mark_last_busy(dev);
->  	pm_runtime_put_autosuspend(dev);
-> diff --git a/drivers/gpu/drm/qxl/qxl_gem.c b/drivers/gpu/drm/qxl/qxl_gem.c
-> index fc5e3763c359..d26043424e95 100644
-> --- a/drivers/gpu/drm/qxl/qxl_gem.c
-> +++ b/drivers/gpu/drm/qxl/qxl_gem.c
-> @@ -39,7 +39,7 @@ void qxl_gem_object_free(struct drm_gem_object *gobj)
->  	qxl_surface_evict(qdev, qobj, false);
->  
->  	tbo = &qobj->tbo;
-> -	ttm_bo_put(tbo);
-> +	ttm_bo_fini(tbo);
->  }
->  
->  int qxl_gem_object_create(struct qxl_device *qdev, int size,
-> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-> index f86773f3db20..18ca1bcfd2f9 100644
-> --- a/drivers/gpu/drm/radeon/radeon_gem.c
-> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-> @@ -86,7 +86,7 @@ static void radeon_gem_object_free(struct drm_gem_object *gobj)
->  
->  	if (robj) {
->  		radeon_mn_unregister(robj);
-> -		ttm_bo_put(&robj->tbo);
-> +		ttm_bo_fini(&robj->tbo);
->  	}
->  }
->  
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-> index 6c77550c51af..5426b435f702 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-> @@ -379,7 +379,7 @@ static void ttm_bo_unreserve_bulk(struct kunit *test)
->  	dma_resv_fini(resv);
->  }
->  
-> -static void ttm_bo_put_basic(struct kunit *test)
-> +static void ttm_bo_fini_basic(struct kunit *test)
->  {
->  	struct ttm_test_devices *priv = test->priv;
->  	struct ttm_buffer_object *bo;
-> @@ -410,7 +410,7 @@ static void ttm_bo_put_basic(struct kunit *test)
->  	dma_resv_unlock(bo->base.resv);
->  	KUNIT_EXPECT_EQ(test, err, 0);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
 
-Intel's CI [1], see Kunit tab, is indicating an issue with the
-selftests. Unsure if this suggestion would fix the kunit failure, but
-would it not be better to just ref count gem BOs in the kunit tests and
-create a mock drm_gem_object_funcs ops in in which free calls
-ttm_bo_fini? Then in selftests replace ttm_bo_fini with
-drm_gem_object_put?
+On 7/2/2025 7:11 PM, Christian KÃ¶nig wrote:
+> On 02.07.25 13:58, Arunpravin Paneer Selvam wrote:
+>> Hi Christian,
+>>
+>> On 7/2/2025 1:27 PM, Christian KÃ¶nig wrote:
+>>> On 01.07.25 21:08, Arunpravin Paneer Selvam wrote:
+>>>> Set the dirty bit when the memory resource is not cleared
+>>>> during BO release.
+>>>>
+>>>> v2(Christian):
+>>>>    - Drop the cleared flag set to false.
+>>>>    - Improve the amdgpu_vram_mgr_set_clear_state() function.
+>>>>
+>>>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>>>> Suggested-by: Christian KÃ¶nig <christian.koenig@amd.com>
+>>>> Cc: stable@vger.kernel.org
+>>>> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 1 -
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h | 5 ++++-
+>>>>   2 files changed, 4 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> index 9c5df35f05b7..86eb6d47dcc5 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> @@ -409,7 +409,6 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
+>>>>   		if (r) {
+>>>>   			goto error;
+>>>>   		} else if (wipe_fence) {
+>>>> -			amdgpu_vram_mgr_set_cleared(bo->resource);
+>>> Mhm, that looks incorrect to me.
+>>>
+>>> Why don't we consider the resource cleared after it go wiped during eviction?
+>> Modifying the resource flag here doesn't go into effect until we call the drm_buddy_free_list() in amdgpu_vram_mgr_del(). This BO will be cleared once again after executing amdgpu_bo_release_notify(). With the new implementation, there's a chance that changing the resource flag the second time would cause the WARN_ON to occur. Hence I removed the resource cleared function call in amdgpu_move_blit. Thanks, Arun.
+> Something fishy is going on that we don't fully understand.
+>
+> What happens here is that we move from VRAM to GTT, clear the VRAM BO after the move and set the flag.
+>
+> When the BO is destroyed the it is backed by GTT and not VRAM any more, so no clear operation and no flag setting is performed.
+>
+> It looks more like we forget to clear the flag in some cases.
 
-Matt 
+Got it. I tried to add back the resource cleared after being wiped 
+during eviction and verified it, and I didn't observe WARN_ON messages.
 
-[1] https://patchwork.freedesktop.org/series/151064/
+I will update the patch and send the next version.
 
->  }
->  
->  static const char *mock_name(struct dma_fence *f)
-> @@ -423,7 +423,7 @@ static const struct dma_fence_ops mock_fence_ops = {
->  	.get_timeline_name = mock_name,
->  };
->  
-> -static void ttm_bo_put_shared_resv(struct kunit *test)
-> +static void ttm_bo_fini_shared_resv(struct kunit *test)
->  {
->  	struct ttm_test_devices *priv = test->priv;
->  	struct ttm_buffer_object *bo;
-> @@ -463,7 +463,7 @@ static void ttm_bo_put_shared_resv(struct kunit *test)
->  	bo->type = ttm_bo_type_device;
->  	bo->base.resv = external_resv;
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  }
->  
->  static void ttm_bo_pin_basic(struct kunit *test)
-> @@ -616,8 +616,8 @@ static struct kunit_case ttm_bo_test_cases[] = {
->  	KUNIT_CASE(ttm_bo_unreserve_basic),
->  	KUNIT_CASE(ttm_bo_unreserve_pinned),
->  	KUNIT_CASE(ttm_bo_unreserve_bulk),
-> -	KUNIT_CASE(ttm_bo_put_basic),
-> -	KUNIT_CASE(ttm_bo_put_shared_resv),
-> +	KUNIT_CASE(ttm_bo_fini_basic),
-> +	KUNIT_CASE(ttm_bo_fini_shared_resv),
->  	KUNIT_CASE(ttm_bo_pin_basic),
->  	KUNIT_CASE(ttm_bo_pin_unpin_resource),
->  	KUNIT_CASE(ttm_bo_multiple_pin_one_unpin),
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> index 3148f5d3dbd6..4553c4e0e0f1 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> @@ -144,7 +144,7 @@ static void ttm_bo_init_reserved_sys_man(struct kunit *test)
->  				  drm_mm_node_allocated(&bo->base.vma_node.vm_node));
->  
->  	ttm_resource_free(bo, &bo->resource);
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  }
->  
->  static void ttm_bo_init_reserved_mock_man(struct kunit *test)
-> @@ -186,7 +186,7 @@ static void ttm_bo_init_reserved_mock_man(struct kunit *test)
->  				  drm_mm_node_allocated(&bo->base.vma_node.vm_node));
->  
->  	ttm_resource_free(bo, &bo->resource);
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
->  }
->  
-> @@ -221,7 +221,7 @@ static void ttm_bo_init_reserved_resv(struct kunit *test)
->  	KUNIT_EXPECT_PTR_EQ(test, bo->base.resv, &resv);
->  
->  	ttm_resource_free(bo, &bo->resource);
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  }
->  
->  static void ttm_bo_validate_basic(struct kunit *test)
-> @@ -265,7 +265,7 @@ static void ttm_bo_validate_basic(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, bo->resource->placement,
->  			DRM_BUDDY_TOPDOWN_ALLOCATION);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  	ttm_mock_manager_fini(priv->ttm_dev, snd_mem);
->  }
->  
-> @@ -292,7 +292,7 @@ static void ttm_bo_validate_invalid_placement(struct kunit *test)
->  
->  	KUNIT_EXPECT_EQ(test, err, -ENOMEM);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  }
->  
->  static void ttm_bo_validate_failed_alloc(struct kunit *test)
-> @@ -321,7 +321,7 @@ static void ttm_bo_validate_failed_alloc(struct kunit *test)
->  
->  	KUNIT_EXPECT_EQ(test, err, -ENOMEM);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  	ttm_bad_manager_fini(priv->ttm_dev, mem_type);
->  }
->  
-> @@ -353,7 +353,7 @@ static void ttm_bo_validate_pinned(struct kunit *test)
->  	ttm_bo_unpin(bo);
->  	dma_resv_unlock(bo->base.resv);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  }
->  
->  static const struct ttm_bo_validate_test_case ttm_mem_type_cases[] = {
-> @@ -403,7 +403,7 @@ static void ttm_bo_validate_same_placement(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, err, 0);
->  	KUNIT_EXPECT_EQ(test, ctx_val.bytes_moved, 0);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  
->  	if (params->mem_type != TTM_PL_SYSTEM)
->  		ttm_mock_manager_fini(priv->ttm_dev, params->mem_type);
-> @@ -452,7 +452,7 @@ static void ttm_bo_validate_busy_placement(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, bo->resource->mem_type, snd_mem);
->  	KUNIT_ASSERT_TRUE(test, list_is_singular(&man->lru[bo->priority]));
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  	ttm_bad_manager_fini(priv->ttm_dev, fst_mem);
->  	ttm_mock_manager_fini(priv->ttm_dev, snd_mem);
->  }
-> @@ -495,7 +495,7 @@ static void ttm_bo_validate_multihop(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, ctx_val.bytes_moved, size * 2);
->  	KUNIT_EXPECT_EQ(test, bo->resource->mem_type, final_mem);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  
->  	ttm_mock_manager_fini(priv->ttm_dev, fst_mem);
->  	ttm_mock_manager_fini(priv->ttm_dev, tmp_mem);
-> @@ -566,7 +566,7 @@ static void ttm_bo_validate_no_placement_signaled(struct kunit *test)
->  		KUNIT_ASSERT_TRUE(test, flags & TTM_TT_FLAG_ZERO_ALLOC);
->  	}
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  }
->  
->  static int threaded_dma_resv_signal(void *arg)
-> @@ -634,7 +634,7 @@ static void ttm_bo_validate_no_placement_not_signaled(struct kunit *test)
->  	/* Make sure we have an idle object at this point */
->  	dma_resv_wait_timeout(bo->base.resv, usage, false, MAX_SCHEDULE_TIMEOUT);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  }
->  
->  static void ttm_bo_validate_move_fence_signaled(struct kunit *test)
-> @@ -667,7 +667,7 @@ static void ttm_bo_validate_move_fence_signaled(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, bo->resource->mem_type, mem_type);
->  	KUNIT_EXPECT_EQ(test, ctx.bytes_moved, size);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  	dma_fence_put(man->move);
->  }
->  
-> @@ -752,7 +752,7 @@ static void ttm_bo_validate_move_fence_not_signaled(struct kunit *test)
->  	else
->  		KUNIT_EXPECT_EQ(test, bo->resource->mem_type, fst_mem);
->  
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo);
->  	ttm_mock_manager_fini(priv->ttm_dev, fst_mem);
->  	ttm_mock_manager_fini(priv->ttm_dev, snd_mem);
->  }
-> @@ -801,8 +801,8 @@ static void ttm_bo_validate_swapout(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, bo_small->resource->mem_type, TTM_PL_SYSTEM);
->  	KUNIT_EXPECT_TRUE(test, bo_small->ttm->page_flags & TTM_TT_FLAG_SWAPPED);
->  
-> -	ttm_bo_put(bo_big);
-> -	ttm_bo_put(bo_small);
-> +	ttm_bo_fini(bo_big);
-> +	ttm_bo_fini(bo_small);
->  
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
->  }
-> @@ -856,8 +856,8 @@ static void ttm_bo_validate_happy_evict(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, bos[1].resource->mem_type, mem_type);
->  
->  	for (i = 0; i < bo_no; i++)
-> -		ttm_bo_put(&bos[i]);
-> -	ttm_bo_put(bo_val);
-> +		ttm_bo_fini(&bos[i]);
-> +	ttm_bo_fini(bo_val);
->  
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_multihop);
-> @@ -901,12 +901,12 @@ static void ttm_bo_validate_all_pinned_evict(struct kunit *test)
->  
->  	KUNIT_EXPECT_EQ(test, err, -ENOMEM);
->  
-> -	ttm_bo_put(bo_small);
-> +	ttm_bo_fini(bo_small);
->  
->  	ttm_bo_reserve(bo_big, false, false, NULL);
->  	ttm_bo_unpin(bo_big);
->  	dma_resv_unlock(bo_big->base.resv);
-> -	ttm_bo_put(bo_big);
-> +	ttm_bo_fini(bo_big);
->  
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_multihop);
-> @@ -965,13 +965,13 @@ static void ttm_bo_validate_allowed_only_evict(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, bo_evictable->resource->mem_type, mem_type_evict);
->  	KUNIT_EXPECT_EQ(test, ctx_val.bytes_moved, size * 2 + BO_SIZE);
->  
-> -	ttm_bo_put(bo);
-> -	ttm_bo_put(bo_evictable);
-> +	ttm_bo_fini(bo);
-> +	ttm_bo_fini(bo_evictable);
->  
->  	ttm_bo_reserve(bo_pinned, false, false, NULL);
->  	ttm_bo_unpin(bo_pinned);
->  	dma_resv_unlock(bo_pinned->base.resv);
-> -	ttm_bo_put(bo_pinned);
-> +	ttm_bo_fini(bo_pinned);
->  
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_multihop);
-> @@ -1022,8 +1022,8 @@ static void ttm_bo_validate_deleted_evict(struct kunit *test)
->  	KUNIT_EXPECT_NULL(test, bo_big->ttm);
->  	KUNIT_EXPECT_NULL(test, bo_big->resource);
->  
-> -	ttm_bo_put(bo_small);
-> -	ttm_bo_put(bo_big);
-> +	ttm_bo_fini(bo_small);
-> +	ttm_bo_fini(bo_big);
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
->  }
->  
-> @@ -1074,8 +1074,8 @@ static void ttm_bo_validate_busy_domain_evict(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, bo_init->resource->mem_type, mem_type);
->  	KUNIT_EXPECT_NULL(test, bo_val->resource);
->  
-> -	ttm_bo_put(bo_init);
-> -	ttm_bo_put(bo_val);
-> +	ttm_bo_fini(bo_init);
-> +	ttm_bo_fini(bo_val);
->  
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
->  	ttm_bad_manager_fini(priv->ttm_dev, mem_type_evict);
-> @@ -1119,8 +1119,8 @@ static void ttm_bo_validate_evict_gutting(struct kunit *test)
->  	KUNIT_ASSERT_NULL(test, bo_evict->resource);
->  	KUNIT_ASSERT_TRUE(test, bo_evict->ttm->page_flags & TTM_TT_FLAG_ZERO_ALLOC);
->  
-> -	ttm_bo_put(bo_evict);
-> -	ttm_bo_put(bo);
-> +	ttm_bo_fini(bo_evict);
-> +	ttm_bo_fini(bo);
->  
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
->  }
-> @@ -1177,9 +1177,9 @@ static void ttm_bo_validate_recrusive_evict(struct kunit *test)
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type);
->  	ttm_mock_manager_fini(priv->ttm_dev, mem_type_evict);
->  
-> -	ttm_bo_put(bo_val);
-> -	ttm_bo_put(bo_tt);
-> -	ttm_bo_put(bo_mock);
-> +	ttm_bo_fini(bo_val);
-> +	ttm_bo_fini(bo_tt);
-> +	ttm_bo_fini(bo_mock);
->  }
->  
->  static struct kunit_case ttm_bo_validate_test_cases[] = {
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index f4d9e68b21e7..3ea27c9707ef 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -49,6 +49,14 @@
->  #include "ttm_module.h"
->  #include "ttm_bo_internal.h"
->  
-> +static void ttm_bo_release(struct kref *kref);
-> +
-> +/* TODO: remove! */
-> +void ttm_bo_put(struct ttm_buffer_object *bo)
-> +{
-> +	kref_put(&bo->kref, ttm_bo_release);
-> +}
-> +
->  static void ttm_bo_mem_space_debug(struct ttm_buffer_object *bo,
->  					struct ttm_placement *placement)
->  {
-> @@ -318,18 +326,11 @@ static void ttm_bo_release(struct kref *kref)
->  	bo->destroy(bo);
->  }
->  
-> -/**
-> - * ttm_bo_put
-> - *
-> - * @bo: The buffer object.
-> - *
-> - * Unreference a buffer object.
-> - */
-> -void ttm_bo_put(struct ttm_buffer_object *bo)
-> +void ttm_bo_fini(struct ttm_buffer_object *bo)
->  {
-> -	kref_put(&bo->kref, ttm_bo_release);
-> +	ttm_bo_put(bo);
->  }
-> -EXPORT_SYMBOL(ttm_bo_put);
-> +EXPORT_SYMBOL(ttm_bo_fini);
->  
->  static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
->  				     struct ttm_operation_ctx *ctx,
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_internal.h b/drivers/gpu/drm/ttm/ttm_bo_internal.h
-> index 9d8b747a34db..e0d48eac74b0 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_internal.h
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_internal.h
-> @@ -55,4 +55,6 @@ ttm_bo_get_unless_zero(struct ttm_buffer_object *bo)
->  	return bo;
->  }
->  
-> +void ttm_bo_put(struct ttm_buffer_object *bo);
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> index 7057d852951b..e564d071f40b 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> @@ -37,7 +37,7 @@ static void vmw_gem_object_free(struct drm_gem_object *gobj)
->  {
->  	struct ttm_buffer_object *bo = drm_gem_ttm_of_gem(gobj);
->  	if (bo)
-> -		ttm_bo_put(bo);
-> +		ttm_bo_fini(bo);
->  }
->  
->  static int vmw_gem_object_open(struct drm_gem_object *obj,
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 7aa2c17825da..c4aa3eaba2a2 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -1649,7 +1649,7 @@ static void xe_gem_object_free(struct drm_gem_object *obj)
->  	 * refcount directly if needed.
->  	 */
->  	__xe_bo_vunmap(gem_to_xe_bo(obj));
-> -	ttm_bo_put(container_of(obj, struct ttm_buffer_object, base));
-> +	ttm_bo_fini(container_of(obj, struct ttm_buffer_object, base));
->  }
->  
->  static void xe_gem_object_close(struct drm_gem_object *obj,
-> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-> index 894ff7ccd68e..21dac074b94d 100644
-> --- a/include/drm/ttm/ttm_bo.h
-> +++ b/include/drm/ttm/ttm_bo.h
-> @@ -391,7 +391,7 @@ int ttm_bo_wait_ctx(struct ttm_buffer_object *bo,
->  int ttm_bo_validate(struct ttm_buffer_object *bo,
->  		    struct ttm_placement *placement,
->  		    struct ttm_operation_ctx *ctx);
-> -void ttm_bo_put(struct ttm_buffer_object *bo);
-> +void ttm_bo_fini(struct ttm_buffer_object *bo);
->  void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
->  			  struct ttm_lru_bulk_move *bulk);
->  bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
-> -- 
-> 2.34.1
-> 
+Thanks,
+
+Arun.
+
+>
+> Regards,
+> Christian.
+>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>   			dma_fence_put(fence);
+>>>>   			fence = wipe_fence;
+>>>>   		}
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+>>>> index b256cbc2bc27..2c88d5fd87da 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+>>>> @@ -66,7 +66,10 @@ to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
+>>>>   
+>>>>   static inline void amdgpu_vram_mgr_set_cleared(struct ttm_resource *res)
+>>>>   {
+>>>> -	to_amdgpu_vram_mgr_resource(res)->flags |= DRM_BUDDY_CLEARED;
+>>>> +	struct amdgpu_vram_mgr_resource *ares = to_amdgpu_vram_mgr_resource(res);
+>>>> +
+>>>> +	WARN_ON(ares->flags & DRM_BUDDY_CLEARED);
+>>>> +	ares->flags |= DRM_BUDDY_CLEARED;
+>>>>   }
+>>>>   
+>>>>   #endif
