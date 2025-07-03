@@ -4,156 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86FA2C77B7C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jul 2025 15:15:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36823C83F03
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jul 2025 21:06:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3397F10E878;
-	Thu,  3 Jul 2025 15:15:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D241A10E8E7;
+	Thu,  3 Jul 2025 21:06:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gER97n28";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Mv3O950t";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4D1C10E869;
- Thu,  3 Jul 2025 15:15:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LyA434uP03mZpouvJaPvZmmGy80DGkhzhkdxa0SWmp833NsjoHEoKQ4SFvu24byobz6mMWfoUDGnj+HO1+vAyPVyBBoPjezpdB5viLt+soFmqvyUG0lBFpUS4Ud0w4esSzmdJdjCw+ce6JTnDnktbFFNIn9Cj5ekuIBubKPL1eS0HAqSQqWgEhor/qBCAIknLmVTUwJxb+cQD144p82vBUsi5K7uOwMvjPNm42M0Dz9t5INmDzH/3LyNsIo8ognevPQ/LWDd0NNQwRbwLy0HK25jrSwf07l+toZ0/CvKq09FKSPwxw6tt8bF1AaudxdryWrt7s9hHMP8Q/vd06ncyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tybzE8D5wOXbMFgCIEQ77XSdjnMWdvgoESINzjpaB6c=;
- b=oK9ALORR53g9KQcEHQr9OX2EdOZrrJgJmq00LebGrdby+6cqJbpeBq2W2daa0YvY/Edi9jJdDawc5VeHgaYk66nZmTyXsM+im555IHCH8w5EvPLf5L3ZpBsWP+bPqUhxK3XEPZATsXK6LtaNN/akYaGtVJMRyxuW54DwOMpwc2I3Sm5gfN7tb2VrHxM2XNygCH/WU4jcdhWbXhlia1nEeY6mV4x3HPAI/RfFI/FF5WDMgFnP5jpHemsafCvOV5iTeAa7TUmLVewRHk2fnIPC6wO9q1YgOl5wOMbNWsflYEipU+UEpGw82DMY8M5Gd23yhyUaMsFuRDhKxTOwPGlNuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tybzE8D5wOXbMFgCIEQ77XSdjnMWdvgoESINzjpaB6c=;
- b=gER97n286EkFZ95j50az5Sn03wUSZbGjZpM5Bz6jgQv0yPbjwWJcDazznWJgRUluw9vKdRgHpBTLsfbYI6JYUkmU1oitPmO9TT7P1JZ5Jkd6K70VO6gy63MEjn/zODAZstFxtnUlMHcp3jeTi+2z5z91LEiA8y9pCam8nTx5N28=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BL3PR12MB6403.namprd12.prod.outlook.com (2603:10b6:208:3b3::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.20; Thu, 3 Jul
- 2025 15:15:53 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%7]) with mapi id 15.20.8880.027; Thu, 3 Jul 2025
- 15:15:53 +0000
-Message-ID: <220f9fb4-45ad-4997-9572-564242737dd4@amd.com>
-Date: Thu, 3 Jul 2025 11:15:49 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display:fix a Null pointer dereference
- vulnerability
-To: jackysliu <1972843537@qq.com>
-Cc: sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- alvin.lee2@amd.com, aurabindo.pillai@amd.com, Dillon.Varone@amd.com,
- Austin.Zheng@amd.com, Sung.Lee@amd.com, mario.limonciello@amd.com,
- Wayne.Lin@amd.com, ryanseto@amd.com, linux@treblig.org,
- joshua.aberback@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jackysliu <Security@tencent.com>
-References: <tencent_4A53F3018A4E9A1EAECFAD853F6952D67B06@qq.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <tencent_4A53F3018A4E9A1EAECFAD853F6952D67B06@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0388.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:108::29) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E698E10E8E7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Jul 2025 21:06:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=L6q2iTzAg/U4DrBxstd48TH1p6vURbhNzZpIkDrBxcw=; b=Mv3O950tkzQ1NzEJw2qdP2d+uu
+ 83zQ0gQq+YL9PaE9AwUu/FVcovjw+RUsYDSj0ZLWuX6NmdOgrvdaB/VdyFQO2m8Io/zKHudeXNO5o
+ 9fBhp/UcJfWoAGQ5594+y65BdoPnWEFXfvPIPYRpn4XprrIPhYSxMFwfkUaOHjACl/EAc8szfHAOW
+ ZjzSn8MbDPPWNYJWlA8lfD7ucUN+W4AuKNOzDliEZHkEJojby5OxoSR/IFeXnsazdl+XEVGV4WBS9
+ gLcnonlcW6f+WWIszBgcUUE7A51I6wx0o9rsV+fP5jjOPMq4nrtqm+jGXhY04zdCvYGOTe+bY7gYm
+ DIYUfeDw==;
+Received: from [104.193.135.201] (helo=debian.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uXR8D-00C4mk-Ud; Thu, 03 Jul 2025 23:06:10 +0200
+Date: Thu, 3 Jul 2025 15:06:05 -0600
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+	amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] Documentation: add initial documenation for user queues
+Message-ID: <h6xtfigou6xb32kkw53ukipyzwp6sigguickyniklymvjmgs2q@nspsum5okfrn>
+References: <20250502205924.935319-1-alexander.deucher@amd.com>
+ <aws6c3hsphrcdaap4wmptu6q4psout2pdebzcupy4wtzasvufy@xcizj5e5rkgy>
+ <CADnq5_PvPMtAeE1OPxtbEeuCTzkSrmvbgjwmutsCWN2zbKxQ+g@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|BL3PR12MB6403:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07c9192d-ce25-4820-a472-08ddba448065
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VGYya0pqY3NIVjkrRkhhSUZFeENSeEdlS2E1VFByRW9tSGFvcm1oVWc5WkRr?=
- =?utf-8?B?eEtOVS82V2JUQkhadHkrR296RWYzd2N2UDVoYXp1aTVRcDZyQjMxcm1HZ25a?=
- =?utf-8?B?ZDBqOGVpcWJ5MFVJRy94clNwZUdkQTJ0cEZtemg5clBtazRCZk16NVBDSXJw?=
- =?utf-8?B?aTF3VWkrSkRnOVMzM05SNHZlaXc4Sm5tK0dJUzZTZGVGRXNCN1RJZHl1MWgv?=
- =?utf-8?B?Ynk5ODdIQmxic2xRUmZ2TDNOUWpqQzVqdlFuSm1ZdkJqTW50ZTE4NkhKVFp5?=
- =?utf-8?B?UHI0UEtpcUViQ3Buek1xVWhRQVF3OVZ0MlNuUEJoS0NRSVdXM245NW9NRW56?=
- =?utf-8?B?NytwSXgyUGhON2pDMDdIeU5heUU1NmxmOEgrVHBna3c4THEwalhuQkFhTjNZ?=
- =?utf-8?B?aU5PZDljTjhyczZ0TzRCenBYci8wUVQ2NSt0c2cwZmRMT1JjZmw3UUg3L1pv?=
- =?utf-8?B?Sm9mUzV4c0plZmJaTmlDSTc1TktydlFmQjZaTFViUU5VOEhDRjdSWEdMK1JC?=
- =?utf-8?B?OFFwbDltcjdSN0lHMFRzOGVBOG9pUEJHeisvT1A0OGREN0J4cVNRMmI5Y3NN?=
- =?utf-8?B?ZW9LZXhsZ0Y2WTRVL3VZdlNFVHY1US9WR2Ezd0R0YkliWHdSRjY4TXlSYXM3?=
- =?utf-8?B?WmZqVnVjNFEvRDNTemVtK043SDI5SFA2amh2RkZYV25mVEdUTlhNa3lGU3oy?=
- =?utf-8?B?YzZHeGUxUVh6dFo0Y2tXMzdDR2YrYjhHRnRmVTVmR0piVDhlZ1R0UHovbjRi?=
- =?utf-8?B?MDd2VzNDTVRwV1NQRXJaY0dZYVNJK0hTWU84WU5qK2hBYWhISUZUMjJROGF6?=
- =?utf-8?B?WmR2SFJtRHJQblNnOEQvbGF3R1J2NmYydVJCL01NOTh2ZWRZaGI0czlxa0gx?=
- =?utf-8?B?L2dEWmt6c0FnL1BsQXBWSTBWd3M3eFZ1VCt5dnF4QlJNU2Rpb3RtM3FFQ1E1?=
- =?utf-8?B?SlVjbWJxeURQbnFlUmlQNVdHT3J3a3puUWlSU3Yxc3dXV1ZKRDVBUlB3c0tn?=
- =?utf-8?B?K0pDL0wxMmZhcTNYaWZQNzZDZU82WVRDR2UrTVJFOEluU2cvOThpNGlwZjlG?=
- =?utf-8?B?MzZhb2hOblMzM20yT2ZwNkNCVGhLRjBWVnJKczlYRlJ6MXF4djZTR1VFVlEx?=
- =?utf-8?B?UnhXSm5rR1g4QjBVdUo3YVVibExkc3hiNHh6UXd6RHNPMEs1a29lZlU4eklt?=
- =?utf-8?B?WTVXbFFwMTNTRUxWUWxJZFpwU0VRSEdaTFRQTWI1b0tQMTVrVURQbjVzNnpv?=
- =?utf-8?B?a0pSLzhZVmxua2NTaklhMDhlSnd6bkhpUVV0UUREeUhGYnhOeWdidHpFaXkv?=
- =?utf-8?B?ZklCSlFteW1pQnhZS1JBTkM3VU4wc3BXdDdWZk53WHZFbll6MXVQb2FKUzAw?=
- =?utf-8?B?dHdRSXpRSDdCS0xseVdJRlhPREd0WjRCaDhDM1ljbFFscEExU2NzSXlaTERG?=
- =?utf-8?B?UmNiNmFrOHlaME9YUnp6MU13NVBkZ1lsV0FVTmZvdU1LSXV0V0sxWURiS0tu?=
- =?utf-8?B?dXpxUmNlenJ4THFITWxCbjFLVnhCTTd2cFRTRkxKQjFUREpscFpSeWovelQy?=
- =?utf-8?B?b1JNcUZrajVabGd0UmxObjQwWGp4bVVZbFBTejFFdlkwUStLR1lzZHRwTHQ1?=
- =?utf-8?B?ejNvWi9hYlNDMkUvQW1FM2s3UWpnVncyWksxeDRuS1haVFBRWGI0RzJLbHpi?=
- =?utf-8?B?WHJXd05TWFhleUpSMEZSVGpnR0Q3RXJUL2dDTXozU2RhcWRzYk5mWWllNHNa?=
- =?utf-8?B?djdSbGVGNURvd1RiMTdLSmU0ZFFGNVIvRWN0c0FORkhtZ2wvUXBFb3JpNkN6?=
- =?utf-8?B?cnhCSWhpWGt4YkYwTTd2cTRubHU0Zm5XeG9nUFd5OFhGaXZVUC94c205clVH?=
- =?utf-8?B?NENMcFV0NTN2Z2dCN1BFcThoQjJZbkk5LzNTdGk5T3BnenlGVzk3UFdwZkUz?=
- =?utf-8?Q?GnivG64uhj8=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ek0vNGhqU21NRXd6QXZmcDFaT2xIRTRwYlVpWUFjL0daWm1GMXFmMXFhRXpF?=
- =?utf-8?B?U0NFQ1NpNVE5c0xNN0lpNkN0WHdLTktwNDl6VTlrREFvMm1uMXZhVmlwVkVB?=
- =?utf-8?B?VjNGd0JLSHZrbnM5bHNsVEZzdlNITUwwVFM1TUlnUEZKOFMyVHAxMGUrS05M?=
- =?utf-8?B?dDBTR1d3RmVxT3doMlYyOFQ1a09scTB1R2VPZlhudzU0R2hEQVRkOHU0SkZi?=
- =?utf-8?B?bEVBb3BDL3pyVmRqVTFuWThPRngwZEJ2US93UmJ6OWIwRTM3aklkbnNKbnFL?=
- =?utf-8?B?OGxpNWNxdjMyV1VZR3JaUkFwc09yM2cwcFNSM1oyclhOMVJLOG95aFl1ZGN0?=
- =?utf-8?B?UVVzM2ZnVzV6TU5sMkM0c0RUV1phVDB5cmtFS3pFRFluL0NhSm9xbTA0aFlj?=
- =?utf-8?B?Ni9naS80VnZVMmU5WTFtaHNpZDREcmV5dVlXSjVLSzdMcmhYcmsrbVJMQVBo?=
- =?utf-8?B?bjRkRzdiM2pXQmM5QzUrc29QVVJ0TW5JVGUwWWFzQ0E0b3VJT1dXaU9rK1dR?=
- =?utf-8?B?ZFVId1JtekxjSEV6N0hOUXFLdmg2MnJna3p3cmx6OE1ldkZWMkY5N3M5ZlAz?=
- =?utf-8?B?WHJvWUl2bDEyY1ppRGdiNWNnZ05IR0VtKzQwT1BiR3UweFQ1T29lNWZKVmJO?=
- =?utf-8?B?a2phS2JBb2NIZkdnak5YSjhMWmxveE9NVnY4NUszVTVrVUZ6OVAzYmNFOXQz?=
- =?utf-8?B?N01nV2IveXNpSkJVL1hJc2d4YzN3M1FQSkJDemIxcll5UVQrM0UxWFErU00v?=
- =?utf-8?B?bFhzYXlUTklwUldzZUFhZXBIYmNhSGdNOTg3ZUwrWFYyS2NHWHNwOTFYWFB1?=
- =?utf-8?B?Q1hyZTVZRXB6ZllhNlJBUEorUEdVeDVyMlpsdkwyZTh2ZGlVd1lRUi9BZ21I?=
- =?utf-8?B?MDFXc0ZqdlZsanB3QmozZWNwRUxxZHUwN0pUNC9xMzBkWU40NVhkcS9jTWpi?=
- =?utf-8?B?WTJiNGlSbWwrUE9HMENKUlRaM3NycVZBVmYrWGNqSTVkSFlpOGJjcDB5a2l2?=
- =?utf-8?B?ZU1KUWM3bXNyamd1TXNiZTRIL1NNa1hFK0xZekd6SmtGMXNLQjRSdzRZUDZv?=
- =?utf-8?B?M3RBdXBkbHpTbFl1OWt6TlZvNlcxL1dDOUNBYlJISmxnOHVDcHdUQ2piYVp6?=
- =?utf-8?B?MHRjMnlwTFNBQjZKb0VRWGlCZ0NIc2VPemxKV3J6Q0ZjaDR3cXNjVWpUcnAr?=
- =?utf-8?B?RUltMURybk9PakZ5bm1BOEE2NHpLRzFhL2lPN1FRRHI3WDNjWkdNbHEwR3Rv?=
- =?utf-8?B?NWtMemZMaHV1YUxtWDg4UDVxb1BYRGd6YVlESDB3OW01MEFzVFBaSkw3eTcw?=
- =?utf-8?B?VHhkazlUdnVFczBtUEQ2RE8zS0ZHSERCNHRrS2NBMnV5Q2pJelRSd1puL216?=
- =?utf-8?B?SmRldGZRNUNtR3FTQ2VTT3pUcVlTWVNobVhaNys5OERNbktuRXNlY1BZRzYx?=
- =?utf-8?B?OEJqYWF0RWYvMFlKaTFSTDJKWDZIcFJpV1JGZ1hSMU5jd21ENTJjcFBKNmh3?=
- =?utf-8?B?OXo1Zm04RlNsZkVsV0ZQUHdPd2RWaGg2S2pNeDlURVc4Zm9iYnN0R1YyaHlt?=
- =?utf-8?B?SzRzQjlKOHRyVHQ0Z1A0cjBYM3Z6STIxSWRIamdPSWtZKy9yczQwYnR3Q0ZY?=
- =?utf-8?B?U1REMXpoQ3M0aUlzaHJiQ3dFdi9qQXZBcHR2VDFTamFoWWU1ckRVQm5YVzh2?=
- =?utf-8?B?b09JdUxHdU5wMy9GaUJRYjlwaUxMdmhNTlArRzYzRXdoOFUyaG9odU9xUE9X?=
- =?utf-8?B?ZGFRYUJkNTQ1ZE5QNU9LK1pHS2NqQW5ZQ2NzRmdoYU5INkhnUDVLWG1tNjhz?=
- =?utf-8?B?ZVBBdkp4V1p3TWJyMVVwaUwySC92MlYwN3d2Y2ZFM0QwOERNYVREaWRtTUl4?=
- =?utf-8?B?MXRKalJOZ1RtVy9aS1lpUnlSb2xOcitvR2hrUUtTcXNYa0lYcnRjM0phK244?=
- =?utf-8?B?RElDZ0Y2RGExR1BCRlBSSXpyM1JUZ1ZYZVdLQURRdWxHdXRGY1ZxcDZyUjM0?=
- =?utf-8?B?czdGUkZsTk9hK2w2ZGUzTjRwUDBSMWZYMXQxTVR1YTl6NmVtdDhKVmZHaWxF?=
- =?utf-8?B?ZlZRTXZwNXY1K3RUcE9FWjF4V1pUS0tSYVNXK3Nmcm9WUGU4QS9INmF5T3lB?=
- =?utf-8?Q?dAPdxGhb3wRxS8ghusTLWkPNb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07c9192d-ce25-4820-a472-08ddba448065
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2025 15:15:53.6831 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +ANzmc8UY8Pp+r+mOite+u+Nsft5Erq5v2IRal7lXwbFjmcVJSeiEKZozeLPkm1l8enM1Wo6NNJBLjLwIyv8mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6403
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_PvPMtAeE1OPxtbEeuCTzkSrmvbgjwmutsCWN2zbKxQ+g@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,56 +61,341 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-07-02 23:39, jackysliu wrote:
-> A null pointer dereference vulnerability exists in the AMD display driver's
->  (DC module) cleanup function dc_destruct().
->  When display control context (dc->ctx) construction fails
->  (due to memory allocation failure), this pointer remains NULL.
-> During subsequent error handling when dc_destruct() is called,
-> there's no NULL check before dereferencing the perf_trace member
->  (dc->ctx->perf_trace),
->  causing a kernel null pointer dereference crash
+On 06/30, Alex Deucher wrote:
+> On Tue, May 27, 2025 at 4:46 PM Rodrigo Siqueira <siqueira@igalia.com> wrote:
+> >
+> > Hi Alex,
+> >
+> > Follow some comments and questions.
+> >
+> > On 05/02, Alex Deucher wrote:
+> > > Add an initial documentation page for user mode queues.
+> > >
+> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > ---
+> > >  Documentation/gpu/amdgpu/index.rst |   1 +
+> > >  Documentation/gpu/amdgpu/userq.rst | 196 +++++++++++++++++++++++++++++
+> > >  2 files changed, 197 insertions(+)
+> > >  create mode 100644 Documentation/gpu/amdgpu/userq.rst
+> > >
+> > > diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amdgpu/index.rst
+> > > index bb2894b5edaf2..45523e9860fc5 100644
+> > > --- a/Documentation/gpu/amdgpu/index.rst
+> > > +++ b/Documentation/gpu/amdgpu/index.rst
+> > > @@ -12,6 +12,7 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA) architectures.
+> > >     module-parameters
+> > >     gc/index
+> > >     display/index
+> > > +   userq
+> > >     flashing
+> > >     xgmi
+> > >     ras
+> > > diff --git a/Documentation/gpu/amdgpu/userq.rst b/Documentation/gpu/amdgpu/userq.rst
+> > > new file mode 100644
+> > > index 0000000000000..53e6b053f652f
+> > > --- /dev/null
+> > > +++ b/Documentation/gpu/amdgpu/userq.rst
+> > > @@ -0,0 +1,196 @@
+> > > +==================
+> > > + User Mode Queues
+> > > +==================
+> > > +
+> > > +Introduction
+> > > +============
+> > > +
+> > > +Similar to the KFD, GPU engine queues move into userspace.  The idea is to let
+> > > +user processes manage their submissions to the GPU engines directly, bypassing
+> > > +IOCTL calls to the driver to submit work.  This reduces overhead and also allows
+> > > +the GPU to submit work to itself.  Applications can set up work graphs of jobs
+> > > +across multiple GPU engines without needing trips through the CPU.
+> > > +
+> > > +UMDs directly interface with firmware via per application shared memory areas.
+> > > +The main vehicle for this is queue.  A queue is a ring buffer with a read
+> > > +pointer (rptr) and a write pointer (wptr).  The UMD writes IP specific packets
+> > > +into the queue and the firmware processes those packets, kicking off work on the
+> > > +GPU engines.  The CPU in the application (or another queue or device) updates
+> > > +the wptr to tell the firmware how far into the ring buffer to process packets
+> > > +and the rtpr provides feedback to the UMD on how far the firmware has progressed
+> > > +in executing those packets.  When the wptr and the rptr are equal, the queue is
+> > > +idle.
+> > > +
+> > > +Theory of Operation
+> > > +===================
+> > > +
+> > > +The various engines on modern AMD GPUs support multiple queues per engine with a
+> > > +scheduling firmware which handles dynamically scheduling user queues on the
+> > > +available hardware queue slots.  When the number of user queues outnumbers the
+> > > +available hardware queue slots, the scheduling firmware dynamically maps and
+> > > +unmaps queues based on priority and time quanta.  The state of each user queue
+> > > +is managed in the kernel driver in an MQD (Memory Queue Descriptor).  This is a
+> > > +buffer in GPU accessible memory that stores the state of a user queue.  The
+> > > +scheduling firmware uses the MQD to load the queue state into an HQD (Hardware
+> > > +Queue Descriptor) when a user queue is mapped.  Each user queue requires a
+> > > +number of additional buffers which represent the ring buffer and any metadata
+> > > +needed by the engine for runtime operation.  On most engines this consists of
+> > > +the ring buffer itself, a rptr buffer (where the firmware will shadow the rptr
+> > > +to userspace), a wrptr buffer (where the application will write the wptr for the
+> > > +firmware to fetch it), and a doorbell.  A doorbell is a piece of the device's
+> >
+> > In this part, you started to explain about the doorbell; consider adding
+> > a new paragraph here.
 > 
-> Signed-off-by: jackysliu <Security@tencent.com>
-
-Thanks for your patch.
-
-Please run and fix this checkpatch.pl warning:
-
-WARNING: From:/Signed-off-by: email address mismatch: 'From: jackysliu <1972843537@qq.com>' != 'Signed-off-by: jackysliu <Security@tencent.com>'
-
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+> Added some additional info here.
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 56d011a1323c..3bda0593f66f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -934,6 +934,11 @@ static void dc_destruct(struct dc *dc)
->  	if (dc->link_srv)
->  		link_destroy_link_service(&dc->link_srv);
->  
-> +	if (!dc->ctx) {
-> +		dm_error("%s: called with NULL ctx\n", __func__);
-> +		goto skip_ctx_cleanup;
-> +	}
-> +
+> >
+> > Another idea could be to create a dedicated page to explain doorbells
+> > and move all the general doorbell information from this patch to the new
+> > page. I think there is no kernel-doc about amdgpu doorbells.
+> >
+> > > +MMIO BAR which can be mapped to specific user queues.  Writing to the doorbell
+> > > +wakes the firmware and causes it to fetch the wptr and start processing the
+> > > +packets in the queue. Each 4K page of the doorbell BAR supports specific offset
+> > > +ranges for specific engines.  The doorbell of a queue most be mapped into the
+> >
+> > /most/must/
+> 
+> Fixed.
+> 
+> >
+> > > +aperture aligned to the IP used by the queue (e.g., GFX, VCN, SDMA, etc.).
+> > > +These doorbell apertures are set up via NBIO registers.  Doorbells are 32 bit or
+> > > +64 bit (depending on the engine) chunks of the doorbell BAR.  A 4K doorbell page
+> > > +provides 512 64-bit doorbells for up to 512 user queues.  A subset of each page
+> > > +is reserved for each IP type supported on the device.  The user can query the
+> > > +doorbell ranges for each IP via the INFO IOCTL.
+> >
+> > The first time that I read this, I was confused about the IOCTL part;
+> > however, at the end of this patch, I noticed that you explained the
+> > IOCTL part. Perhaps add a mention in parenthesis so the reader can see
+> > more details about this info in the "IOCTL Interfaces" section.
+> 
+> Updated.
+> 
+> >
+> > > +
+> > > +When an application wants to create a user queue, it allocates the the necessary
+> > > +buffers for the queue (ring buffer, wptr and rptr, context save areas, etc.).
+> > > +These can be separate buffers or all part of one larger buffer.  The application
+> > > +would map the buffer(s) into its GPUVM and use the GPU virtual addresses of for
+> > > +the areas of memory they want t use for the user queue.  They would also
+> >
+> > /t/to/
+> 
+> Fixed.
+> 
+> >
+> > > +allocate a doorbell page for the doorbells used by the user queues.  The
+> > > +application would then populate the MQD in the USERQ IOCTL structure with the
+> > > +GPU virtual addresses and doorbell index they want to use.  The user can also
+> > > +specify the attributes for the user queue (priority, whether the queue is secure
+> > > +for protected content, etc.).  The application would then call the USERQ
+> > > +create IOCTL to create the queue from using the specified MQD.  The
+> > > +kernel driver then validates the MQD provided by the application and translates
+> > > +the MQD into the engine specific MQD format for the IP.  The IP specific MQD
+> > > +would be allocated and the queue would be added to the run list maintained by
+> > > +the scheduling firmware.  Once the queue has been created, the application can
+> > > +write packets directly into the queue, update the wptr, and write to the
+> > > +doorbell offset to kick off work in the user queue.
+> > > +
+> > > +When the application is done with the user queue, it would call the USERQ
+> > > +FREE IOCTL to destroy it.  The kernel driver would preempt the queue and
+> > > +remove it from the scheduling firmware's run list.  Then the IP specific MQD
+> > > +would be freed and the user queue state would be cleaned up.
+> >
+> > Is it possible to add some pseudo-code that summarizes the programming
+> > model described here?
+> 
+> I'm not sure I understand what you are asking for here.
 
-I would prefer to simply wrap the dc->ctx->logger and dc->ctx bits
-with if (!dc->ctx) and avoid the goto.
+Hi Alex,
 
-Harry
+You can ignore my question.
 
->  	if (dc->ctx->gpio_service)
->  		dal_gpio_service_destroy(&dc->ctx->gpio_service);
->  
-> @@ -946,6 +951,7 @@ static void dc_destruct(struct dc *dc)
->  	kfree(dc->ctx);
->  	dc->ctx = NULL;
->  
-> +skip_ctx_cleanup:
->  	kfree(dc->bw_vbios);
->  	dc->bw_vbios = NULL;
->  
+> 
+> >
+> > > +
+> > > +Some engines may require the aggregated doorbell to if the engine does not
+> >
+> > /to/too/ or /to//?
+> 
+> Fixed.
+> 
+> >
+> > Do you know which engines requires the aggreted doorbell? Can this
+> > information be retrieved via IOCTL?  I think this information can be
+> > helpful for userspace implementation.
+> 
+> No IPs which currently support user queues require the aggregated
+> doorbell.  VCN likely will be the first IP
+> that needs it.
+> 
+> >
+> > > +support doorbells from unmapped queues.  The aggregated doorbell is a special
+> > > +page of doorbell space which wakes the scheduler.  In cases where the engine may
+> > > +be oversubscribed, some queues may not be mapped.  If the doorbell is rung when
+> > > +the queue is not mapped, the engine firmware may miss the request.  Some
+> > > +scheduling firmware may work around this my polling wptr shadows when the
 
+/my/by/ ?
+
+> > > +hardware is oversubscribed, other engines may support doorbell updates from
+> > > +unmapped queues.  In the event that one of these options is not available, the
+> > > +kernel driver will map a page of aggregated doorbell space into each GPUVM
+> > > +space.  The UMD will then update the doorbell and wptr as normal and then write
+> > > +to the aggregated doorbell as well.
+> > > +
+> > > +Special Packets
+> > > +---------------
+> > > +
+> > > +In order to support legacy implicit synchronization, as well as mixed user and
+> > > +kernel queues, we need a synchronization mechanism that is secure.  Because
+> > > +kernel queues or memory management tasks depend on kernel fences, we need a way
+> > > +for user queues to update memory that the kernel can use for a fence, that can't
+> > > +be messed with by a bad actor.  To support this, we've added protected fence
+> > > +packet.  This packet works by writing the a monotonically increasing value to
+> > > +a memory location that is only the privileged clients have write access to.
+> > > +User queues only have read access.  When this packet is executed, the memory
+> > > +location is updated and other queues (kernel or user) can see the results.
+> >
+> > Does the driver handle this packet? I mean, does the driver insert it
+> > without the userspace request? What is the packet name? How can I find
+> > it in the kernel?
+> 
+> The actual packet format varies from IP to IP (GFX/Compute, SDMA, VCN,
+> etc.), but the behavior is the same.  The packet submission is handled
+> in userspace.  The kernel driver just sets up the privileged memory
+> used for each user queue when it sets them up when the application
+> creates them.
+
+Could you include this additional information in the new version?
+
+Thanks
+
+> 
+> >
+> > > +
+> > > +Memory Management
+> > > +=================
+> > > +
+> > > +It is assumed that all buffers mapped into the GPUVM space for the process are
+> > > +valid when engines on the GPU are running.  The kernel driver will only allow
+> > > +user queues to run when all buffers are mapped.  If there is a memory event that
+> > > +requires buffer migration, the kernel driver will preempt the user queues,
+> > > +migrate buffers to where they need to be, update the GPUVM page tables and
+> > > +invaldidate the TLB, and then resume the user queues.
+> > > +
+> > > +Interaction with Kernel Queues
+> > > +==============================
+> > > +
+> > > +Depending on the IP and the scheduling firmware, you can enable kernel queues
+> > > +and user queues at the same time,  However, you are limited by the HQD slots.
+> >
+> > /However/however/
+> 
+> Fixed.
+> 
+> >
+> > > +Kernel queues are always mapped so any work the goes into kernel queues will
+> > > +take priority.  This limits the available HQD slots for user queues.
+> > > +
+> > > +Not all IPs will support user queues on all GPUs.  As such, UMDs will need to
+> > > +support both user queues and kernel queues depending on the IP.  For example, a
+> > > +GPU may support user queues for GFX, compute, and SDMA, but not for VCN, JPEG,
+> > > +and VPE.  UMDs need to support both.  The kernel driver provides a way to
+> > > +determine if user queues and kernel queues are supported on a per IP basis.
+> > > +UMDs can query this information via the INFO IOCTL and determine whether to use
+> > > +kernel queues or user queues for each IP.
+> > > +
+> > > +Queue Resets
+> > > +============
+> > > +
+> > > +For most engines, queues can be reset individually.  GFX, compute, and SDMA
+> > > +queues can be reset individually.  When a hung queue is detected, it can be
+> > > +reset either via the scheduling firmware or MMIO.  Since there are no kernel
+> > > +fences for most user queues, they will usually only be detected when some other
+> > > +event happens; e.g., a memory event which requires migration of buffers.  When
+> > > +the queues are preempted, if the queue is hung, the preemption will fail.
+> > > +Driver will them look up the queues that failed to preempt and reset them and
+> > > +record which queues are hung.
+> > > +
+> > > +
+> > > +On the UMD side, we will add an USERQ QUERY_STATUS IOCTL to query the queue
+> > > +status.  UMD will provide the queue id in the IOCTL and the kernel driver
+> > > +will check if it has already recorded the queue as hung (e.g., due to failed
+> > > +peemption) and report back the status.
+> > > +
+> > > +IOCTL Interfaces
+> > > +================
+> > > +
+> > > +GPU virtual addresses used for queues and related data (rptrs, wptrs, context
+> > > +save areas, etc.) should be validated by the kernel mode driver to prevent the
+> > > +user from specifying invalid GPU virtual addresses.  If the user provides
+> > > +invalid GPU virtual addresses or doorbell indicies, the IOCTL should return an
+> > > +error message.  These buffers should also be tracked in the kernel driver so
+> > > +that if the user attempts to unmap the buffer(s) from the GPUVM, the umap call
+> > > +would return an error.
+> > > +
+> > > +INFO
+> > > +----
+> > > +There are several new INFO queries related to user queues in order to query the
+> > > +size of user queue meta data needed for a user queue (e.g., context save areas
+> > > +or shadow buffers), and whether kernel or user queues or both are supported
+> > > +for each IP type.
+> > > +
+> > > +USERQ
+> > > +-----
+> > > +The USERQ IOCTL is used for creating, freeing, and querying the status of user
+> > > +queues.  It supports 3 opcodes:
+> > > +
+> > > +1. CREATE - Create a user queue.  The application provides a MQD-like structure
+> > > +   that devices the type of queue and associated metadata and flags for that
+> > > +   queue type.  Returns the queue id.
+> > > +2. FREE - Free a user queue.
+> > > +3. QUERY_STATRUS - Query that status of a queue.  Used to check if the queue is
+> >
+> > /QUERY_STATRUS/QUERY_STATUS/?
+> 
+> Fixed.
+> 
+> Thanks,
+> 
+> Alex
+> 
+> >
+> > Thanks
+> > Siqueira
+> >
+> > > +   healthy or not.  E.g., if the queue has been reset. (WIP)
+> > > +
+> > > +USERQ_SIGNAL
+> > > +------------
+> > > +The USERQ_SIGNAL IOCTL is used to provide a list of sync objects to be signaled.
+> > > +
+> > > +USERQ_WAIT
+> > > +----------
+> > > +The USERQ_WAIT IOCTL is used to provide a list of sync object to be waited on.
+> > > +
+> > > +Kernel and User Queues
+> > > +======================
+> > > +
+> > > +In order to properly validate and test performance, we have a driver option to
+> > > +select what type of queues are enabled (kernel queues, user queues or both).
+> > > +The user_queue driver parameter allows you to enable kernel queues only (0),
+> > > +user queues and kernel queues (1), and user queues only (2).  Enabling user
+> > > +queues only will free up static queue assignments that would otherwise be used
+> > > +by kernel queues for use by the scheduling firmware.  Some kernel queues are
+> > > +required for kernel driver operation and they will always be created.  When the
+> > > +kernel queues are not enabled, they are not registered with the drm scheduler
+> > > +and the CS IOCTL will reject any incoming command submissions which target those
+> > > +queue types.  Kernel queues only mirrors the behavior on all existing GPUs.
+> > > +Enabling both queues allows for backwards compatibility with old userspace while
+> > > +still supporting user queues.
+> > > --
+> > > 2.49.0
+> > >
+> >
+> > --
+> > Rodrigo Siqueira
+
+-- 
+Rodrigo Siqueira
