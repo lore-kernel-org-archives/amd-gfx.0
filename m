@@ -4,73 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13BABC77B7C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jul 2025 14:30:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86FA2C77B7C
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jul 2025 15:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8462110E857;
-	Thu,  3 Jul 2025 14:30:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3397F10E878;
+	Thu,  3 Jul 2025 15:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EUtQUVaT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gER97n28";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A223310E856;
- Thu,  3 Jul 2025 14:30:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5375B5C5E05;
- Thu,  3 Jul 2025 14:29:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4192C4CEF5;
- Thu,  3 Jul 2025 14:29:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1751552998;
- bh=Fm3qk2Sxt9oTRrrfhvZcED03yYICrUHHIb3sCtzNWN4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=EUtQUVaTKURBSPBDtNxwsZsLLGU/xuEHfm0PM0K5AWLaAr0lx8/+TnwYPfB+kyugp
- o5d1bOfi4bMzMx2v5TNIDepiHs+lhKKtjX3PEHUE1FABzscTZA81BEJuCo0M0+oFZE
- dOrF4zbUAof8uuDe+iZKSFilPr/iDnGR0fZS146Rn1y2CwpF2gGr8tGklAwmWHwLd/
- H8Hc4TXVr72JEd4ApQIUdwamFnhZZ9yo02YLAo86ZBHy6BnhWR2tguDc4rTB9wd0PV
- 4ddhT8qjZhuaiqWLp/lCL2F70yOJqRDWT/21+N7ylRkXCOvzQfNM3ccrTj/VKiWXAz
- zCMqHWcqpGzCA==
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-610d87553b6so3239902eaf.2; 
- Thu, 03 Jul 2025 07:29:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCVcbsd6zxUvBtcBBX/0EFAODqFQ5E3Wxw+zbCIvxhDb7/dY7tndWm95cf0BkXlRsjwi2ReQI81JyqrO@lists.freedesktop.org,
- AJvYcCXtrl9U4HsyynXxcEvI4sE8x0Pv8qqvJlzkUUQAjil/dDz3z1dziNqrHgt3ulEqOhkdJsf5fJCa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3BxMdHrM9+BROXwyjXnHfSY/hTI0zsUdLVxjjv7ZM/V9d52hC
- M13ybFuxguVy6qOnKgVQaqMRPV450+ubnThi4rmDM6TXZeGa1Mw7NpVtlWAnAJwkk1qiAC0Kxm8
- 2TDe3ZOVjYl0e1ioZQcvUQ6z9U6YzZBQ=
-X-Google-Smtp-Source: AGHT+IGKqgRrtyx19Ohp3Z1EI2LoOc/W9BuT9DA7/iSo9WQpIWa8l502nswOSx3IuDHZQjfc+w2NIPaPXuTzX8u35dk=
-X-Received: by 2002:a05:6820:2713:b0:611:bbad:7b62 with SMTP id
- 006d021491bc7-6120112a218mr4957769eaf.3.1751552997991; Thu, 03 Jul 2025
- 07:29:57 -0700 (PDT)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D1C10E869;
+ Thu,  3 Jul 2025 15:15:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LyA434uP03mZpouvJaPvZmmGy80DGkhzhkdxa0SWmp833NsjoHEoKQ4SFvu24byobz6mMWfoUDGnj+HO1+vAyPVyBBoPjezpdB5viLt+soFmqvyUG0lBFpUS4Ud0w4esSzmdJdjCw+ce6JTnDnktbFFNIn9Cj5ekuIBubKPL1eS0HAqSQqWgEhor/qBCAIknLmVTUwJxb+cQD144p82vBUsi5K7uOwMvjPNm42M0Dz9t5INmDzH/3LyNsIo8ognevPQ/LWDd0NNQwRbwLy0HK25jrSwf07l+toZ0/CvKq09FKSPwxw6tt8bF1AaudxdryWrt7s9hHMP8Q/vd06ncyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tybzE8D5wOXbMFgCIEQ77XSdjnMWdvgoESINzjpaB6c=;
+ b=oK9ALORR53g9KQcEHQr9OX2EdOZrrJgJmq00LebGrdby+6cqJbpeBq2W2daa0YvY/Edi9jJdDawc5VeHgaYk66nZmTyXsM+im555IHCH8w5EvPLf5L3ZpBsWP+bPqUhxK3XEPZATsXK6LtaNN/akYaGtVJMRyxuW54DwOMpwc2I3Sm5gfN7tb2VrHxM2XNygCH/WU4jcdhWbXhlia1nEeY6mV4x3HPAI/RfFI/FF5WDMgFnP5jpHemsafCvOV5iTeAa7TUmLVewRHk2fnIPC6wO9q1YgOl5wOMbNWsflYEipU+UEpGw82DMY8M5Gd23yhyUaMsFuRDhKxTOwPGlNuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tybzE8D5wOXbMFgCIEQ77XSdjnMWdvgoESINzjpaB6c=;
+ b=gER97n286EkFZ95j50az5Sn03wUSZbGjZpM5Bz6jgQv0yPbjwWJcDazznWJgRUluw9vKdRgHpBTLsfbYI6JYUkmU1oitPmO9TT7P1JZ5Jkd6K70VO6gy63MEjn/zODAZstFxtnUlMHcp3jeTi+2z5z91LEiA8y9pCam8nTx5N28=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by BL3PR12MB6403.namprd12.prod.outlook.com (2603:10b6:208:3b3::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.20; Thu, 3 Jul
+ 2025 15:15:53 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%7]) with mapi id 15.20.8880.027; Thu, 3 Jul 2025
+ 15:15:53 +0000
+Message-ID: <220f9fb4-45ad-4997-9572-564242737dd4@amd.com>
+Date: Thu, 3 Jul 2025 11:15:49 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display:fix a Null pointer dereference
+ vulnerability
+To: jackysliu <1972843537@qq.com>
+Cc: sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ alvin.lee2@amd.com, aurabindo.pillai@amd.com, Dillon.Varone@amd.com,
+ Austin.Zheng@amd.com, Sung.Lee@amd.com, mario.limonciello@amd.com,
+ Wayne.Lin@amd.com, ryanseto@amd.com, linux@treblig.org,
+ joshua.aberback@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jackysliu <Security@tencent.com>
+References: <tencent_4A53F3018A4E9A1EAECFAD853F6952D67B06@qq.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <tencent_4A53F3018A4E9A1EAECFAD853F6952D67B06@qq.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0388.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:108::29) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20250616175019.3471583-1-superm1@kernel.org>
-In-Reply-To: <20250616175019.3471583-1-superm1@kernel.org>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Thu, 3 Jul 2025 16:29:46 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jc-tjs_a+RCzu6bvrbfhv5QHqsWx-zKjH0wpisiJciKA@mail.gmail.com>
-X-Gm-Features: Ac12FXyr5oPvb2c3yNjkDygXC9l6Pt_56oLkJ04HxD0-cR-THCDtscKWWn70wDY
-Message-ID: <CAJZ5v0jc-tjs_a+RCzu6bvrbfhv5QHqsWx-zKjH0wpisiJciKA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] Improvements to S5 power consumption
-To: Mario Limonciello <superm1@kernel.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
- "open list:HIBERNATION (aka Software Suspend,
- aka swsusp)" <linux-pm@vger.kernel.org>, 
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K . Petersen" <martin.petersen@oracle.com>, 
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, 
- "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>, 
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|BL3PR12MB6403:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07c9192d-ce25-4820-a472-08ddba448065
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VGYya0pqY3NIVjkrRkhhSUZFeENSeEdlS2E1VFByRW9tSGFvcm1oVWc5WkRr?=
+ =?utf-8?B?eEtOVS82V2JUQkhadHkrR296RWYzd2N2UDVoYXp1aTVRcDZyQjMxcm1HZ25a?=
+ =?utf-8?B?ZDBqOGVpcWJ5MFVJRy94clNwZUdkQTJ0cEZtemg5clBtazRCZk16NVBDSXJw?=
+ =?utf-8?B?aTF3VWkrSkRnOVMzM05SNHZlaXc4Sm5tK0dJUzZTZGVGRXNCN1RJZHl1MWgv?=
+ =?utf-8?B?Ynk5ODdIQmxic2xRUmZ2TDNOUWpqQzVqdlFuSm1ZdkJqTW50ZTE4NkhKVFp5?=
+ =?utf-8?B?UHI0UEtpcUViQ3Buek1xVWhRQVF3OVZ0MlNuUEJoS0NRSVdXM245NW9NRW56?=
+ =?utf-8?B?NytwSXgyUGhON2pDMDdIeU5heUU1NmxmOEgrVHBna3c4THEwalhuQkFhTjNZ?=
+ =?utf-8?B?aU5PZDljTjhyczZ0TzRCenBYci8wUVQ2NSt0c2cwZmRMT1JjZmw3UUg3L1pv?=
+ =?utf-8?B?Sm9mUzV4c0plZmJaTmlDSTc1TktydlFmQjZaTFViUU5VOEhDRjdSWEdMK1JC?=
+ =?utf-8?B?OFFwbDltcjdSN0lHMFRzOGVBOG9pUEJHeisvT1A0OGREN0J4cVNRMmI5Y3NN?=
+ =?utf-8?B?ZW9LZXhsZ0Y2WTRVL3VZdlNFVHY1US9WR2Ezd0R0YkliWHdSRjY4TXlSYXM3?=
+ =?utf-8?B?WmZqVnVjNFEvRDNTemVtK043SDI5SFA2amh2RkZYV25mVEdUTlhNa3lGU3oy?=
+ =?utf-8?B?YzZHeGUxUVh6dFo0Y2tXMzdDR2YrYjhHRnRmVTVmR0piVDhlZ1R0UHovbjRi?=
+ =?utf-8?B?MDd2VzNDTVRwV1NQRXJaY0dZYVNJK0hTWU84WU5qK2hBYWhISUZUMjJROGF6?=
+ =?utf-8?B?WmR2SFJtRHJQblNnOEQvbGF3R1J2NmYydVJCL01NOTh2ZWRZaGI0czlxa0gx?=
+ =?utf-8?B?L2dEWmt6c0FnL1BsQXBWSTBWd3M3eFZ1VCt5dnF4QlJNU2Rpb3RtM3FFQ1E1?=
+ =?utf-8?B?SlVjbWJxeURQbnFlUmlQNVdHT3J3a3puUWlSU3Yxc3dXV1ZKRDVBUlB3c0tn?=
+ =?utf-8?B?K0pDL0wxMmZhcTNYaWZQNzZDZU82WVRDR2UrTVJFOEluU2cvOThpNGlwZjlG?=
+ =?utf-8?B?MzZhb2hOblMzM20yT2ZwNkNCVGhLRjBWVnJKczlYRlJ6MXF4djZTR1VFVlEx?=
+ =?utf-8?B?UnhXSm5rR1g4QjBVdUo3YVVibExkc3hiNHh6UXd6RHNPMEs1a29lZlU4eklt?=
+ =?utf-8?B?WTVXbFFwMTNTRUxWUWxJZFpwU0VRSEdaTFRQTWI1b0tQMTVrVURQbjVzNnpv?=
+ =?utf-8?B?a0pSLzhZVmxua2NTaklhMDhlSnd6bkhpUVV0UUREeUhGYnhOeWdidHpFaXkv?=
+ =?utf-8?B?ZklCSlFteW1pQnhZS1JBTkM3VU4wc3BXdDdWZk53WHZFbll6MXVQb2FKUzAw?=
+ =?utf-8?B?dHdRSXpRSDdCS0xseVdJRlhPREd0WjRCaDhDM1ljbFFscEExU2NzSXlaTERG?=
+ =?utf-8?B?UmNiNmFrOHlaME9YUnp6MU13NVBkZ1lsV0FVTmZvdU1LSXV0V0sxWURiS0tu?=
+ =?utf-8?B?dXpxUmNlenJ4THFITWxCbjFLVnhCTTd2cFRTRkxKQjFUREpscFpSeWovelQy?=
+ =?utf-8?B?b1JNcUZrajVabGd0UmxObjQwWGp4bVVZbFBTejFFdlkwUStLR1lzZHRwTHQ1?=
+ =?utf-8?B?ejNvWi9hYlNDMkUvQW1FM2s3UWpnVncyWksxeDRuS1haVFBRWGI0RzJLbHpi?=
+ =?utf-8?B?WHJXd05TWFhleUpSMEZSVGpnR0Q3RXJUL2dDTXozU2RhcWRzYk5mWWllNHNa?=
+ =?utf-8?B?djdSbGVGNURvd1RiMTdLSmU0ZFFGNVIvRWN0c0FORkhtZ2wvUXBFb3JpNkN6?=
+ =?utf-8?B?cnhCSWhpWGt4YkYwTTd2cTRubHU0Zm5XeG9nUFd5OFhGaXZVUC94c205clVH?=
+ =?utf-8?B?NENMcFV0NTN2Z2dCN1BFcThoQjJZbkk5LzNTdGk5T3BnenlGVzk3UFdwZkUz?=
+ =?utf-8?Q?GnivG64uhj8=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ek0vNGhqU21NRXd6QXZmcDFaT2xIRTRwYlVpWUFjL0daWm1GMXFmMXFhRXpF?=
+ =?utf-8?B?U0NFQ1NpNVE5c0xNN0lpNkN0WHdLTktwNDl6VTlrREFvMm1uMXZhVmlwVkVB?=
+ =?utf-8?B?VjNGd0JLSHZrbnM5bHNsVEZzdlNITUwwVFM1TUlnUEZKOFMyVHAxMGUrS05M?=
+ =?utf-8?B?dDBTR1d3RmVxT3doMlYyOFQ1a09scTB1R2VPZlhudzU0R2hEQVRkOHU0SkZi?=
+ =?utf-8?B?bEVBb3BDL3pyVmRqVTFuWThPRngwZEJ2US93UmJ6OWIwRTM3aklkbnNKbnFL?=
+ =?utf-8?B?OGxpNWNxdjMyV1VZR3JaUkFwc09yM2cwcFNSM1oyclhOMVJLOG95aFl1ZGN0?=
+ =?utf-8?B?UVVzM2ZnVzV6TU5sMkM0c0RUV1phVDB5cmtFS3pFRFluL0NhSm9xbTA0aFlj?=
+ =?utf-8?B?Ni9naS80VnZVMmU5WTFtaHNpZDREcmV5dVlXSjVLSzdMcmhYcmsrbVJMQVBo?=
+ =?utf-8?B?bjRkRzdiM2pXQmM5QzUrc29QVVJ0TW5JVGUwWWFzQ0E0b3VJT1dXaU9rK1dR?=
+ =?utf-8?B?ZFVId1JtekxjSEV6N0hOUXFLdmg2MnJna3p3cmx6OE1ldkZWMkY5N3M5ZlAz?=
+ =?utf-8?B?WHJvWUl2bDEyY1ppRGdiNWNnZ05IR0VtKzQwT1BiR3UweFQ1T29lNWZKVmJO?=
+ =?utf-8?B?a2phS2JBb2NIZkdnak5YSjhMWmxveE9NVnY4NUszVTVrVUZ6OVAzYmNFOXQz?=
+ =?utf-8?B?N01nV2IveXNpSkJVL1hJc2d4YzN3M1FQSkJDemIxcll5UVQrM0UxWFErU00v?=
+ =?utf-8?B?bFhzYXlUTklwUldzZUFhZXBIYmNhSGdNOTg3ZUwrWFYyS2NHWHNwOTFYWFB1?=
+ =?utf-8?B?Q1hyZTVZRXB6ZllhNlJBUEorUEdVeDVyMlpsdkwyZTh2ZGlVd1lRUi9BZ21I?=
+ =?utf-8?B?MDFXc0ZqdlZsanB3QmozZWNwRUxxZHUwN0pUNC9xMzBkWU40NVhkcS9jTWpi?=
+ =?utf-8?B?WTJiNGlSbWwrUE9HMENKUlRaM3NycVZBVmYrWGNqSTVkSFlpOGJjcDB5a2l2?=
+ =?utf-8?B?ZU1KUWM3bXNyamd1TXNiZTRIL1NNa1hFK0xZekd6SmtGMXNLQjRSdzRZUDZv?=
+ =?utf-8?B?M3RBdXBkbHpTbFl1OWt6TlZvNlcxL1dDOUNBYlJISmxnOHVDcHdUQ2piYVp6?=
+ =?utf-8?B?MHRjMnlwTFNBQjZKb0VRWGlCZ0NIc2VPemxKV3J6Q0ZjaDR3cXNjVWpUcnAr?=
+ =?utf-8?B?RUltMURybk9PakZ5bm1BOEE2NHpLRzFhL2lPN1FRRHI3WDNjWkdNbHEwR3Rv?=
+ =?utf-8?B?NWtMemZMaHV1YUxtWDg4UDVxb1BYRGd6YVlESDB3OW01MEFzVFBaSkw3eTcw?=
+ =?utf-8?B?VHhkazlUdnVFczBtUEQ2RE8zS0ZHSERCNHRrS2NBMnV5Q2pJelRSd1puL216?=
+ =?utf-8?B?SmRldGZRNUNtR3FTQ2VTT3pUcVlTWVNobVhaNys5OERNbktuRXNlY1BZRzYx?=
+ =?utf-8?B?OEJqYWF0RWYvMFlKaTFSTDJKWDZIcFJpV1JGZ1hSMU5jd21ENTJjcFBKNmh3?=
+ =?utf-8?B?OXo1Zm04RlNsZkVsV0ZQUHdPd2RWaGg2S2pNeDlURVc4Zm9iYnN0R1YyaHlt?=
+ =?utf-8?B?SzRzQjlKOHRyVHQ0Z1A0cjBYM3Z6STIxSWRIamdPSWtZKy9yczQwYnR3Q0ZY?=
+ =?utf-8?B?U1REMXpoQ3M0aUlzaHJiQ3dFdi9qQXZBcHR2VDFTamFoWWU1ckRVQm5YVzh2?=
+ =?utf-8?B?b09JdUxHdU5wMy9GaUJRYjlwaUxMdmhNTlArRzYzRXdoOFUyaG9odU9xUE9X?=
+ =?utf-8?B?ZGFRYUJkNTQ1ZE5QNU9LK1pHS2NqQW5ZQ2NzRmdoYU5INkhnUDVLWG1tNjhz?=
+ =?utf-8?B?ZVBBdkp4V1p3TWJyMVVwaUwySC92MlYwN3d2Y2ZFM0QwOERNYVREaWRtTUl4?=
+ =?utf-8?B?MXRKalJOZ1RtVy9aS1lpUnlSb2xOcitvR2hrUUtTcXNYa0lYcnRjM0phK244?=
+ =?utf-8?B?RElDZ0Y2RGExR1BCRlBSSXpyM1JUZ1ZYZVdLQURRdWxHdXRGY1ZxcDZyUjM0?=
+ =?utf-8?B?czdGUkZsTk9hK2w2ZGUzTjRwUDBSMWZYMXQxTVR1YTl6NmVtdDhKVmZHaWxF?=
+ =?utf-8?B?ZlZRTXZwNXY1K3RUcE9FWjF4V1pUS0tSYVNXK3Nmcm9WUGU4QS9INmF5T3lB?=
+ =?utf-8?Q?dAPdxGhb3wRxS8ghusTLWkPNb?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07c9192d-ce25-4820-a472-08ddba448065
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2025 15:15:53.6831 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +ANzmc8UY8Pp+r+mOite+u+Nsft5Erq5v2IRal7lXwbFjmcVJSeiEKZozeLPkm1l8enM1Wo6NNJBLjLwIyv8mw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6403
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,73 +168,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 16, 2025 at 7:50=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
-rg> wrote:
->
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> A variety of issues both in function and in power consumption have been
-> raised as a result of devices not being put into a low power state when
-> the system is powered off.
->
-> There have been some localized changes[1] to PCI core to help these issue=
-s,
-> but they have had various downsides.
->
-> This series instead tries to use the S4 flow when the system is being
-> powered off.  This lines up the behavior with what other operating system=
-s
-> do as well.  If for some reason that fails or is not supported, unwind an=
-d
-> do the previous S5 flow that will wake all devices and run their shutdown=
-()
-> callbacks.
+On 2025-07-02 23:39, jackysliu wrote:
+> A null pointer dereference vulnerability exists in the AMD display driver's
+>  (DC module) cleanup function dc_destruct().
+>  When display control context (dc->ctx) construction fails
+>  (due to memory allocation failure), this pointer remains NULL.
+> During subsequent error handling when dc_destruct() is called,
+> there's no NULL check before dereferencing the perf_trace member
+>  (dc->ctx->perf_trace),
+>  causing a kernel null pointer dereference crash
+> 
+> Signed-off-by: jackysliu <Security@tencent.com>
 
-I actually like this approach, but I think that it is risky.
+Thanks for your patch.
 
-It also requires more work/review from other people.
+Please run and fix this checkpatch.pl warning:
 
-I'll be sending some comments on the individual patches going forward,
-but I think the earliest it can go in is after 6.17-rc1 (given it is
-reviewed properly till then).
+WARNING: From:/Signed-off-by: email address mismatch: 'From: jackysliu <1972843537@qq.com>' != 'Signed-off-by: jackysliu <Security@tencent.com>'
 
-Thanks!
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 56d011a1323c..3bda0593f66f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -934,6 +934,11 @@ static void dc_destruct(struct dc *dc)
+>  	if (dc->link_srv)
+>  		link_destroy_link_service(&dc->link_srv);
+>  
+> +	if (!dc->ctx) {
+> +		dm_error("%s: called with NULL ctx\n", __func__);
+> +		goto skip_ctx_cleanup;
+> +	}
+> +
 
-> v3->v4:
->  * Fix LKP robot failure
->  * Rebase on v6.16-rc2
->
-> Previous submissions [1]:
-> Link: https://lore.kernel.org/linux-pm/CAJZ5v0hrKEJa8Ad7iiAvQ3d_0ysVhzZcX=
-SYc5kkL=3D6vtseF+bg@mail.gmail.com/T/#m91e4eae868a7405ae579e89b135085f49062=
-25d2
-> Link: https://lore.kernel.org/linux-pci/20250506041934.1409302-1-superm1@=
-kernel.org/
-> Link: https://lore.kernel.org/linux-pci/20231213182656.6165-1-mario.limon=
-ciello@amd.com/ (v1)
-> Link: https://lore.kernel.org/linux-pm/20250514193406.3998101-1-superm1@k=
-ernel.org/ (v2)
-> Link: https://lore.kernel.org/linux-pm/20250609024619.407257-1-superm1@ke=
-rnel.org/ (v3)
->
-> Mario Limonciello (5):
->   PM: Use hibernate flows for system power off
->   PCI: Put PCIe ports with downstream devices into D3 at hibernate
->   drm/amd: Avoid evicting resources at S5
->   scsi: Add PM_EVENT_POWEROFF into suspend callbacks
->   usb: sl811-hcd: Add PM_EVENT_POWEROFF into suspend callbacks
->
->  drivers/base/power/main.c                  |  7 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +
->  drivers/pci/pci-driver.c                   | 94 ++++++++++++++--------
->  drivers/scsi/mesh.c                        |  1 +
->  drivers/scsi/stex.c                        |  1 +
->  drivers/usb/host/sl811-hcd.c               |  1 +
->  include/linux/pm.h                         |  3 +
->  include/trace/events/power.h               |  3 +-
->  kernel/reboot.c                            |  6 ++
->  9 files changed, 86 insertions(+), 34 deletions(-)
->
-> --
-> 2.43.0
->
+I would prefer to simply wrap the dc->ctx->logger and dc->ctx bits
+with if (!dc->ctx) and avoid the goto.
+
+Harry
+
+>  	if (dc->ctx->gpio_service)
+>  		dal_gpio_service_destroy(&dc->ctx->gpio_service);
+>  
+> @@ -946,6 +951,7 @@ static void dc_destruct(struct dc *dc)
+>  	kfree(dc->ctx);
+>  	dc->ctx = NULL;
+>  
+> +skip_ctx_cleanup:
+>  	kfree(dc->bw_vbios);
+>  	dc->bw_vbios = NULL;
+>  
+
