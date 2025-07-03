@@ -4,64 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C612C83030
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jul 2025 08:45:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13BABC77B7C
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jul 2025 14:30:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F393510E16B;
-	Thu,  3 Jul 2025 08:45:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8462110E857;
+	Thu,  3 Jul 2025 14:30:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="t2VFBL5F";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EUtQUVaT";
 	dkim-atps=neutral
-X-Greylist: delayed 424 seconds by postgrey-1.36 at gabe;
- Thu, 03 Jul 2025 03:53:04 UTC
-Received: from out203-205-221-252.mail.qq.com (out203-205-221-252.mail.qq.com
- [203.205.221.252])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 853D110E0A8;
- Thu,  3 Jul 2025 03:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1751514777; bh=F+ILISzDjtPPxv3dgfZUBuIfwYunt431F1PsflXRPJM=;
- h=From:To:Cc:Subject:Date;
- b=t2VFBL5FUawREaLL+yclxgZr7IlquCfWkeKP/VhwVk3WRQIsR2j4Q+PpMr2aAPfqX
- amWduCK5nRLW37+j3pSd1y9l5fILq6V6q0Ini+DcjM/Bg88d7eLIGskDXrtbyBoD7o
- NyysT/LsiwYVO7gpHc/UPZ/ZHwneaIzedKWGBpfE=
-Received: from VM-222-126-tencentos.localdomain ([14.116.239.37])
- by newxmesmtplogicsvrszc13-1.qq.com (NewEsmtp) with SMTP
- id 9E327C20; Thu, 03 Jul 2025 11:39:35 +0800
-X-QQ-mid: xmsmtpt1751513975trlfmosn8
-Message-ID: <tencent_4A53F3018A4E9A1EAECFAD853F6952D67B06@qq.com>
-X-QQ-XMAILINFO: OEnxXf6IMmheJ7ACWL7UaaRa8R2XU0uytHp9G+VfxLWKLXqiLR0EJcNmnngBLa
- UyD99zyxTwuxpuZaT0E9S6jYVq+Rj7ufMP7AYRjbLCFVwlDFeIae+t6y6ITtyJiW4h3gWhhyvbI7
- zK1imbEOGJ8Rtzh7+ZUWYCIqXRYbCWTdp2yDVnWGG+8ZqUmylc/MPwCKQ3MLVo+Cu1aUFqxLAY0D
- FXRfxjnx2dBBUhKJnVw6R/9ghxeMXbYi24sLdP/BYsUSykWcOli+KOOrx+sui4d1usOWMActFjiV
- HPNlLjvIV4LqaYH0eMl8A8ceOvo3f69kwCXN938j6BGKQjvwa++XNdLrygakREJkivRhowkRnp0x
- rr1A+aEf+Lqiub/fa2p3396BGJkHvgeXnvuA8pGEHsTEvlMGLLWDveLnEzC7dB9xYgfJYvQQ9oCP
- lCWAihZFX42H3qZEeAWPBxI3z8p+xiY73eatQZzBg4r6QC4Hg2SW3lvigq57s/Tx/fVVL/6qCaNz
- ta48b1UusOU+X9lRqibTE/v6ECfho7Pq4d2bpnSvKksjOxNvMVbEMTnwbf9rmmIzDLZ4lWLJnv6w
- UowmV0XYnomiN7sZjyd0Qszhyt6ahnMh5LhbBEDkenQIuLc2S2qkis3A/WJwl8PZKlkQ2qatVBVA
- eRNMVYsLvRMwiMSQenu0Kpkmu3lJm+oTwbq/rz9crU83PleXDABoVxSBle8OdRmcHi8KOdYbJIza
- XinphfatitXh2pR5ze6ewDHbgV2IiZ8YAqpTw2hmCeUL+yFsXd9Bd0thuCiDkPB09ovRVG9UMugv
- W5/Z0YbxgdF4QjhWpxNP5kb6DQjJBkSBGEi4R84g5FTdcg7UwWlrJh2NMdSX4rmcgB/J3h3H+P6W
- ScfUGubsKIECqTqvp/peOzK53dPaxQoSt2xpoWXME0gUevza5vIPF6kly6JCtcqwXCWf/HPSANMm
- kOPmZ4Nk773NdImwy6O14dHzVCyX2eSXIzCuqB1m34Qz4pCINi5uEx+eYMkDw7F6743cDZZdsmJU
- NlNn1NjxNf+SEPBfm0M1whDKjSo8987d0x1+w0EA9PGoUtfeFykOE3TH7XbXhDtxCpF49ybg==
-X-QQ-XMRINFO: OD9hHCdaPRBwq3WW+NvGbIU=
-From: jackysliu <1972843537@qq.com>
-To: harry.wentland@amd.com
-Cc: sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- alvin.lee2@amd.com, aurabindo.pillai@amd.com, Dillon.Varone@amd.com,
- Austin.Zheng@amd.com, Sung.Lee@amd.com, mario.limonciello@amd.com,
- Wayne.Lin@amd.com, ryanseto@amd.com, linux@treblig.org,
- joshua.aberback@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jackysliu <1972843537@qq.com>, jackysliu <Security@tencent.com>
-Subject: [PATCH] drm/amd/display:fix a Null pointer dereference vulnerability
-Date: Thu,  3 Jul 2025 11:39:28 +0800
-X-OQ-MSGID: <20250703033928.2201509-1-1972843537@qq.com>
-X-Mailer: git-send-email 2.43.5
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A223310E856;
+ Thu,  3 Jul 2025 14:30:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5375B5C5E05;
+ Thu,  3 Jul 2025 14:29:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4192C4CEF5;
+ Thu,  3 Jul 2025 14:29:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1751552998;
+ bh=Fm3qk2Sxt9oTRrrfhvZcED03yYICrUHHIb3sCtzNWN4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=EUtQUVaTKURBSPBDtNxwsZsLLGU/xuEHfm0PM0K5AWLaAr0lx8/+TnwYPfB+kyugp
+ o5d1bOfi4bMzMx2v5TNIDepiHs+lhKKtjX3PEHUE1FABzscTZA81BEJuCo0M0+oFZE
+ dOrF4zbUAof8uuDe+iZKSFilPr/iDnGR0fZS146Rn1y2CwpF2gGr8tGklAwmWHwLd/
+ H8Hc4TXVr72JEd4ApQIUdwamFnhZZ9yo02YLAo86ZBHy6BnhWR2tguDc4rTB9wd0PV
+ 4ddhT8qjZhuaiqWLp/lCL2F70yOJqRDWT/21+N7ylRkXCOvzQfNM3ccrTj/VKiWXAz
+ zCMqHWcqpGzCA==
+Received: by mail-oo1-f41.google.com with SMTP id
+ 006d021491bc7-610d87553b6so3239902eaf.2; 
+ Thu, 03 Jul 2025 07:29:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVcbsd6zxUvBtcBBX/0EFAODqFQ5E3Wxw+zbCIvxhDb7/dY7tndWm95cf0BkXlRsjwi2ReQI81JyqrO@lists.freedesktop.org,
+ AJvYcCXtrl9U4HsyynXxcEvI4sE8x0Pv8qqvJlzkUUQAjil/dDz3z1dziNqrHgt3ulEqOhkdJsf5fJCa@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw3BxMdHrM9+BROXwyjXnHfSY/hTI0zsUdLVxjjv7ZM/V9d52hC
+ M13ybFuxguVy6qOnKgVQaqMRPV450+ubnThi4rmDM6TXZeGa1Mw7NpVtlWAnAJwkk1qiAC0Kxm8
+ 2TDe3ZOVjYl0e1ioZQcvUQ6z9U6YzZBQ=
+X-Google-Smtp-Source: AGHT+IGKqgRrtyx19Ohp3Z1EI2LoOc/W9BuT9DA7/iSo9WQpIWa8l502nswOSx3IuDHZQjfc+w2NIPaPXuTzX8u35dk=
+X-Received: by 2002:a05:6820:2713:b0:611:bbad:7b62 with SMTP id
+ 006d021491bc7-6120112a218mr4957769eaf.3.1751552997991; Thu, 03 Jul 2025
+ 07:29:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 03 Jul 2025 08:45:11 +0000
+References: <20250616175019.3471583-1-superm1@kernel.org>
+In-Reply-To: <20250616175019.3471583-1-superm1@kernel.org>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Thu, 3 Jul 2025 16:29:46 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jc-tjs_a+RCzu6bvrbfhv5QHqsWx-zKjH0wpisiJciKA@mail.gmail.com>
+X-Gm-Features: Ac12FXyr5oPvb2c3yNjkDygXC9l6Pt_56oLkJ04HxD0-cR-THCDtscKWWn70wDY
+Message-ID: <CAJZ5v0jc-tjs_a+RCzu6bvrbfhv5QHqsWx-zKjH0wpisiJciKA@mail.gmail.com>
+Subject: Re: [PATCH v4 0/5] Improvements to S5 power consumption
+To: Mario Limonciello <superm1@kernel.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
+ "open list:HIBERNATION (aka Software Suspend,
+ aka swsusp)" <linux-pm@vger.kernel.org>, 
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Danilo Krummrich <dakr@kernel.org>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K . Petersen" <martin.petersen@oracle.com>, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, 
+ "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>, 
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,44 +85,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A null pointer dereference vulnerability exists in the AMD display driver's
- (DC module) cleanup function dc_destruct().
- When display control context (dc->ctx) construction fails
- (due to memory allocation failure), this pointer remains NULL.
-During subsequent error handling when dc_destruct() is called,
-there's no NULL check before dereferencing the perf_trace member
- (dc->ctx->perf_trace),
- causing a kernel null pointer dereference crash
+On Mon, Jun 16, 2025 at 7:50=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
+rg> wrote:
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> A variety of issues both in function and in power consumption have been
+> raised as a result of devices not being put into a low power state when
+> the system is powered off.
+>
+> There have been some localized changes[1] to PCI core to help these issue=
+s,
+> but they have had various downsides.
+>
+> This series instead tries to use the S4 flow when the system is being
+> powered off.  This lines up the behavior with what other operating system=
+s
+> do as well.  If for some reason that fails or is not supported, unwind an=
+d
+> do the previous S5 flow that will wake all devices and run their shutdown=
+()
+> callbacks.
 
-Signed-off-by: jackysliu <Security@tencent.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+I actually like this approach, but I think that it is risky.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 56d011a1323c..3bda0593f66f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -934,6 +934,11 @@ static void dc_destruct(struct dc *dc)
- 	if (dc->link_srv)
- 		link_destroy_link_service(&dc->link_srv);
- 
-+	if (!dc->ctx) {
-+		dm_error("%s: called with NULL ctx\n", __func__);
-+		goto skip_ctx_cleanup;
-+	}
-+
- 	if (dc->ctx->gpio_service)
- 		dal_gpio_service_destroy(&dc->ctx->gpio_service);
- 
-@@ -946,6 +951,7 @@ static void dc_destruct(struct dc *dc)
- 	kfree(dc->ctx);
- 	dc->ctx = NULL;
- 
-+skip_ctx_cleanup:
- 	kfree(dc->bw_vbios);
- 	dc->bw_vbios = NULL;
- 
--- 
-2.43.5
+It also requires more work/review from other people.
 
+I'll be sending some comments on the individual patches going forward,
+but I think the earliest it can go in is after 6.17-rc1 (given it is
+reviewed properly till then).
+
+Thanks!
+
+> v3->v4:
+>  * Fix LKP robot failure
+>  * Rebase on v6.16-rc2
+>
+> Previous submissions [1]:
+> Link: https://lore.kernel.org/linux-pm/CAJZ5v0hrKEJa8Ad7iiAvQ3d_0ysVhzZcX=
+SYc5kkL=3D6vtseF+bg@mail.gmail.com/T/#m91e4eae868a7405ae579e89b135085f49062=
+25d2
+> Link: https://lore.kernel.org/linux-pci/20250506041934.1409302-1-superm1@=
+kernel.org/
+> Link: https://lore.kernel.org/linux-pci/20231213182656.6165-1-mario.limon=
+ciello@amd.com/ (v1)
+> Link: https://lore.kernel.org/linux-pm/20250514193406.3998101-1-superm1@k=
+ernel.org/ (v2)
+> Link: https://lore.kernel.org/linux-pm/20250609024619.407257-1-superm1@ke=
+rnel.org/ (v3)
+>
+> Mario Limonciello (5):
+>   PM: Use hibernate flows for system power off
+>   PCI: Put PCIe ports with downstream devices into D3 at hibernate
+>   drm/amd: Avoid evicting resources at S5
+>   scsi: Add PM_EVENT_POWEROFF into suspend callbacks
+>   usb: sl811-hcd: Add PM_EVENT_POWEROFF into suspend callbacks
+>
+>  drivers/base/power/main.c                  |  7 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +
+>  drivers/pci/pci-driver.c                   | 94 ++++++++++++++--------
+>  drivers/scsi/mesh.c                        |  1 +
+>  drivers/scsi/stex.c                        |  1 +
+>  drivers/usb/host/sl811-hcd.c               |  1 +
+>  include/linux/pm.h                         |  3 +
+>  include/trace/events/power.h               |  3 +-
+>  kernel/reboot.c                            |  6 ++
+>  9 files changed, 86 insertions(+), 34 deletions(-)
+>
+> --
+> 2.43.0
+>
