@@ -4,159 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8AA6C83030
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jul 2025 08:37:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C612C83030
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jul 2025 08:45:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 837B410E195;
-	Thu,  3 Jul 2025 08:37:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F393510E16B;
+	Thu,  3 Jul 2025 08:45:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2lG0WgY3";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="t2VFBL5F";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C4AA10E195;
- Thu,  3 Jul 2025 08:37:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=njMnkiTPba47/2E6nkC3KPhSCkMw0jQXTy/QDRKC8c+LOiU7KV5nJm5vcrd+XWbmuLdDTiNk7Tf5y+aaYyugvqsIE50cMA0dTzRDQbUBeZSjvZErXij37gkm7abodg41Y7sHLyboeFCIXLcaAbZfz3L9cQ6vsbhfDJPATBTF5THLTEHsn8L2Y7qVPyNS8PHEdgAA+L6Sg+UPtFrcOdcGTMI+w01PzwXQ61G4/tFjg1BRwckspaYG5IJsvvyXXc0tsJeuQzSMQ6PZbniGaLGdmpILUNmyvw+rLmOs9q3rWwAn6Weu7uqaF3BSjJsFOBQ5psB6YrJTfvcWHH2iulo4zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FbNdpgLruNZVfLWAGPS1FINQD+woTa4at82/AgF48yk=;
- b=IumBo+O/jybt/CBT0KvQSi0DNHW9CIE0qkWhb0tYJtVc1bBR9lHxiPM/03RA2NDF+M8yoXgOzPox9snG9HmIpG/m0WH0o3sRFabbVazAV9K1/B8RWW2l65NmtDI4JyR8nQRIiT+hDnJpvxU/k2rNlJTfUA9ezbUwWmYK+arqzNJoTTXdCga2NF1WFAFr58H6+0QZG0kabYrCGd+XFM+hkcUmOkPsUvUXXNMG1LrS/MGBiqDkxM615k7MCile5cJr2k+yahPZGSUu/dlRQ5bHXBY86mZtyzxwJK+9iwlWi4Cxn04uC//cTkm9jE7EnRXTIye1I0CSzdJtInYX5J37uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FbNdpgLruNZVfLWAGPS1FINQD+woTa4at82/AgF48yk=;
- b=2lG0WgY3ndr/OmJNI7EHlIov4NOc8YdOVu++K1fgGypGpujfPAOJj1pg1N4L78svCwjh6n8ppwR4TwAcBwXXoksh8uR2NiYPn4I9LTLNBOd5PnsElQ/Z9OlGk0G4nYglTJh4ruo3Iyms2JnUfxre/oxSkBk0aAL97YEBfuFM2AA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN2PR12MB4094.namprd12.prod.outlook.com (2603:10b6:208:15f::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.38; Thu, 3 Jul
- 2025 08:37:50 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8901.018; Thu, 3 Jul 2025
- 08:37:50 +0000
-Message-ID: <c8ac36f3-06ea-40c3-a5e6-da3964ac3b22@amd.com>
-Date: Thu, 3 Jul 2025 10:37:45 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] drm/buddy: add a flag to disable trimming of non
- cleared blocks
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Matthew Auld <matthew.auld@intel.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20250702161208.25188-1-pierre-eric.pelloux-prayer@amd.com>
- <20250702161208.25188-2-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250702161208.25188-2-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR03CA0177.namprd03.prod.outlook.com
- (2603:10b6:208:32f::30) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-Greylist: delayed 424 seconds by postgrey-1.36 at gabe;
+ Thu, 03 Jul 2025 03:53:04 UTC
+Received: from out203-205-221-252.mail.qq.com (out203-205-221-252.mail.qq.com
+ [203.205.221.252])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 853D110E0A8;
+ Thu,  3 Jul 2025 03:53:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1751514777; bh=F+ILISzDjtPPxv3dgfZUBuIfwYunt431F1PsflXRPJM=;
+ h=From:To:Cc:Subject:Date;
+ b=t2VFBL5FUawREaLL+yclxgZr7IlquCfWkeKP/VhwVk3WRQIsR2j4Q+PpMr2aAPfqX
+ amWduCK5nRLW37+j3pSd1y9l5fILq6V6q0Ini+DcjM/Bg88d7eLIGskDXrtbyBoD7o
+ NyysT/LsiwYVO7gpHc/UPZ/ZHwneaIzedKWGBpfE=
+Received: from VM-222-126-tencentos.localdomain ([14.116.239.37])
+ by newxmesmtplogicsvrszc13-1.qq.com (NewEsmtp) with SMTP
+ id 9E327C20; Thu, 03 Jul 2025 11:39:35 +0800
+X-QQ-mid: xmsmtpt1751513975trlfmosn8
+Message-ID: <tencent_4A53F3018A4E9A1EAECFAD853F6952D67B06@qq.com>
+X-QQ-XMAILINFO: OEnxXf6IMmheJ7ACWL7UaaRa8R2XU0uytHp9G+VfxLWKLXqiLR0EJcNmnngBLa
+ UyD99zyxTwuxpuZaT0E9S6jYVq+Rj7ufMP7AYRjbLCFVwlDFeIae+t6y6ITtyJiW4h3gWhhyvbI7
+ zK1imbEOGJ8Rtzh7+ZUWYCIqXRYbCWTdp2yDVnWGG+8ZqUmylc/MPwCKQ3MLVo+Cu1aUFqxLAY0D
+ FXRfxjnx2dBBUhKJnVw6R/9ghxeMXbYi24sLdP/BYsUSykWcOli+KOOrx+sui4d1usOWMActFjiV
+ HPNlLjvIV4LqaYH0eMl8A8ceOvo3f69kwCXN938j6BGKQjvwa++XNdLrygakREJkivRhowkRnp0x
+ rr1A+aEf+Lqiub/fa2p3396BGJkHvgeXnvuA8pGEHsTEvlMGLLWDveLnEzC7dB9xYgfJYvQQ9oCP
+ lCWAihZFX42H3qZEeAWPBxI3z8p+xiY73eatQZzBg4r6QC4Hg2SW3lvigq57s/Tx/fVVL/6qCaNz
+ ta48b1UusOU+X9lRqibTE/v6ECfho7Pq4d2bpnSvKksjOxNvMVbEMTnwbf9rmmIzDLZ4lWLJnv6w
+ UowmV0XYnomiN7sZjyd0Qszhyt6ahnMh5LhbBEDkenQIuLc2S2qkis3A/WJwl8PZKlkQ2qatVBVA
+ eRNMVYsLvRMwiMSQenu0Kpkmu3lJm+oTwbq/rz9crU83PleXDABoVxSBle8OdRmcHi8KOdYbJIza
+ XinphfatitXh2pR5ze6ewDHbgV2IiZ8YAqpTw2hmCeUL+yFsXd9Bd0thuCiDkPB09ovRVG9UMugv
+ W5/Z0YbxgdF4QjhWpxNP5kb6DQjJBkSBGEi4R84g5FTdcg7UwWlrJh2NMdSX4rmcgB/J3h3H+P6W
+ ScfUGubsKIECqTqvp/peOzK53dPaxQoSt2xpoWXME0gUevza5vIPF6kly6JCtcqwXCWf/HPSANMm
+ kOPmZ4Nk773NdImwy6O14dHzVCyX2eSXIzCuqB1m34Qz4pCINi5uEx+eYMkDw7F6743cDZZdsmJU
+ NlNn1NjxNf+SEPBfm0M1whDKjSo8987d0x1+w0EA9PGoUtfeFykOE3TH7XbXhDtxCpF49ybg==
+X-QQ-XMRINFO: OD9hHCdaPRBwq3WW+NvGbIU=
+From: jackysliu <1972843537@qq.com>
+To: harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ alvin.lee2@amd.com, aurabindo.pillai@amd.com, Dillon.Varone@amd.com,
+ Austin.Zheng@amd.com, Sung.Lee@amd.com, mario.limonciello@amd.com,
+ Wayne.Lin@amd.com, ryanseto@amd.com, linux@treblig.org,
+ joshua.aberback@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jackysliu <1972843537@qq.com>, jackysliu <Security@tencent.com>
+Subject: [PATCH] drm/amd/display:fix a Null pointer dereference vulnerability
+Date: Thu,  3 Jul 2025 11:39:28 +0800
+X-OQ-MSGID: <20250703033928.2201509-1-1972843537@qq.com>
+X-Mailer: git-send-email 2.43.5
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN2PR12MB4094:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c9bd3ba-5de0-4521-42ab-08ddba0ce4f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|921020;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VWhkOStsMUo5aHdHYWpSaVd3UGxrNDFqUUlaR2pXUnlpWm1Ebnh1ekhGV2lZ?=
- =?utf-8?B?UlpyN1hUTVZRT28rOUpaa0xiVTFqcUlNVGVuNnNOZTArQlh6Z0dVVXdRN3dW?=
- =?utf-8?B?azQrb3RnRjA1eGMvOUo4V3BjM1MvVExST3VhVVdWUGk2TWJaZkdTL1JCUmRi?=
- =?utf-8?B?SVJOTmloVW90NlUraXc0QkkxR291dnBrQm5LZENIM0gzTkgwOTQ0WTJrWVR6?=
- =?utf-8?B?QXozOE9vTjNTa0l6dUp6YXlYRFFVNTFLaXpwYXI1NEkwR0h0N0p1ejc5T3VC?=
- =?utf-8?B?MFZqd3JWZzlIRWkwLzdhcWY1N1NqYXcyaW5nTXh2Z3pySGh3SFIzdVNhNXpl?=
- =?utf-8?B?WVNkcVAzdThnTVloc3pWZDhqZVM4UytsSVB1UlpxMEVIbGtWcUFHWHZJcDdU?=
- =?utf-8?B?ek1HZDB4d000ZHU1S2JTUHA4OHB3WjM0UlBiRzBZN2Fycm9TUTNqOFJySlJR?=
- =?utf-8?B?aEtnOGR2NklmWjM2blFxbmdMN1RPUzhGME5XejF0Um9xbEJ0VDNIZWdHZjNw?=
- =?utf-8?B?RTV4Y21JVjhFakZieEFzNWQ3TC93YzB2R2p6N2NUUEVRMjhwRElLc2tESXFy?=
- =?utf-8?B?NVArWmlYNndycmQzVklPVlNaVlJpa1RkYzJRUDZUZTZhUllvUmREUU55Z1lN?=
- =?utf-8?B?c08ySW1Ed3FWZVUwWUdoS1dTcWlUMVZPaUtUbkloKzRUempMVzcwT29IMTlm?=
- =?utf-8?B?VnpoNjhCYWpiUlU4RENtczFzbE43S014dGExMTNLU2FXRGl2TStPdXcvR243?=
- =?utf-8?B?SDBhaUJlQXZUNG9GYzlLajRNSDliWTZVUTBHRDJJR3ZRQW8rSmJMd0tlTnFN?=
- =?utf-8?B?YnVEeC9Yc2p6Z3g5TXhIWG1GeGJVN3RUUWNIYTAxL285N3F2UVBIeE1VS0pZ?=
- =?utf-8?B?RzhINGlBVjl4VGRVZWpsQUQ2WnNPQmNuVnpoRmhGSU9DaFFzLzFJMkU2S1Rl?=
- =?utf-8?B?c2VKTlNIejFDNWxIelRVOXgrMWVWSS9XcjNUOFZtMzJJMERZWGh0YkRGcHpx?=
- =?utf-8?B?Qk92c3RxV05zampERVZmTHh2Wm0xalgraGllMjBNeTIwNkhOQ21IRU1udHNL?=
- =?utf-8?B?VEV4RlBVTFhxS3RNS2pDWHBmc2VSMjIzbWF1UHRxb29pQmJKdWZYM2tXWURT?=
- =?utf-8?B?Z3VsM0hzNWM3cHI4b2lPNU53TWY0RjRKUjBtekxMajkvaVJuNW55dmdSWlV3?=
- =?utf-8?B?cTU4dmhsSVpmTVg1UkdabkZCQXdPWTQ1K0dzNXdRR3FzRWhiNklHMlJ1NE84?=
- =?utf-8?B?VUdTeWVpNWF6SnY2a3IwVkRZN3ZDR3NwZ3NtSURQMnIyRmp5MDJWTE5DWCtF?=
- =?utf-8?B?YVoyNkMvWDk5dnFhYkRNMU5TS0wwVGlaRkpxaEsvYkR6Ujc2S0o2TXpHR3hP?=
- =?utf-8?B?dTZaM1pRcFA2bVlQOU14cUZoblFHd1FUR24xQldSeW5GeURlWmtoKzBHM2RH?=
- =?utf-8?B?UGhEK1M4K0xrMXkzWWgrVFBoeEt5NUdlT3BZa0g0ekFJcEVQTytNY2ptT3lU?=
- =?utf-8?B?TGRzTlA3OW5tUnU5eHF3anpsNFNxVmZ2eldrVUpWYm9heHozVWtiL2JiWDF1?=
- =?utf-8?B?akpZd05DOHVrZEZCRURmekNyTHVuVnZSUDY0T25jMDAxcEVrcVY0Mzh2RTZT?=
- =?utf-8?B?ektWa2hhRWhhRVRZVmVpcWloY25XMDg2WXVSMWo5M3krdDdIeXJXM3dDcEJD?=
- =?utf-8?B?Q3V2OHc0OWFlcndST2hBSlpNQVRPOGYrTGZybkVuWlIyRkgwTXJ0Y3JBRlRF?=
- =?utf-8?B?L3k4anFrZHZqY3VDQlJwUGp4MGorMXdIL1RCRGg3YjFEQWZjZk1wNkUvUW9I?=
- =?utf-8?B?QmUyZzcyY01FbEV5eUxobE9DNGRaU0F4YmZ6ZS9TRjJSK1dHTTVHdVpYZTZr?=
- =?utf-8?B?WTYwcWZXZ0NkNkJ3UzdIMndjTTdEcTBwR2huMTNJc1FDekpuWmtFaS91RTEw?=
- =?utf-8?B?V01mVS9JTTY0c2o2bExJNmExWjNqOXBxZTFML3V4WWxaclVFYlh1eWxmcnpP?=
- =?utf-8?B?NnMxZFl4b3VnPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(921020); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0dJellxdkIyYkphS2JxUi84bXNMdUtGNEhxbWZmN3dFOUZoSmZrbjBHRHpy?=
- =?utf-8?B?VFczS3M4WXB1YVdYTDdBeUpJRkI5dFdwaGlQbjloRTdIbS9FNFNRTWMwQ0FB?=
- =?utf-8?B?a1F1UjNqZVhxSjBxMll0V1pJcE10d0RWKzFSQlhURHFuNkVVVlgzcm1mc1Qx?=
- =?utf-8?B?ODQ2NTZFYW9Od3VJeEsrczV6d2pvdGVKaGtpeUh1UHkxSHpCUlduRWl6Mmpu?=
- =?utf-8?B?bmpWR2MweHNYak9ZY2RKaGZFYThWcm1JZml2T1ZxRno4eDNpWkVleVJkZmcx?=
- =?utf-8?B?cUt6ejVXRTVBeW5FZUJILzRSKy9jRmxEVkdoR1ZZOXRSaVBadzJ5L2x1NExG?=
- =?utf-8?B?T25ncUpWSFNMQ1BIS0tucTVkdGgxeHlyOEQvOVJ6VDJGVFVtaUdIZkdVUXdi?=
- =?utf-8?B?UTZoWFFzUHpZNSt4MUpSdnk4UTVNU3ZYcHB6TTVKVUZyS1ExVnlWMGJLYjBy?=
- =?utf-8?B?OTF6YUR6bWd0VmRPVHpXMC9ObnRvVmsvdFZMYnljRFNZbHFYRGJ2d3Q0YkJ4?=
- =?utf-8?B?RXBwS3U4U3ZVV0RUUVRuN2tPUHpFSmpWdWQ4S2JtYnl2MkUwcFA2elFjL3dJ?=
- =?utf-8?B?R2tEUnZCYTJPMWFkRU5JVGJmYjNEWEYrV09KMXVrZ3YwUDcxSnVPSkhLQjlM?=
- =?utf-8?B?YlFabkd0WlVtY295cTUvTE5EVENMWVZoUjVtMWtQUGZBUCtpL2YzTy9IMk9S?=
- =?utf-8?B?VDh6T25BSklNdXgvNnV2dXAxSnNxd2xKSmNUZSs1R0ZjdnF3MEl0UXEwcEZx?=
- =?utf-8?B?aXU3bE9YZGRMalRkNWgwOTBvR1EyTXBqRnlMSGZlR0J6QXNpT0RUY2ZBNDZU?=
- =?utf-8?B?UUhvYVZrQ0kwTmhqWFhNQUYwYXRDVnFSUHgwWEpGZFhTS3dQako1U1BEUSt4?=
- =?utf-8?B?bmJJbEhadE1jc1d3dlpEeThRWmZibE40L3MxUnVtT1IvYkhyR3dGanREUlFT?=
- =?utf-8?B?dGliNUpKU01mb2N3dWcyQmo4YkxvNVM5UWJtUkdncHk3VG40Z1N5b3Q2SHJq?=
- =?utf-8?B?dk1HWmJNTnBBaVUycllNUmlFYjBIQ3I2dUJ5dU1SQXJYSXM3aUViZ256VWJQ?=
- =?utf-8?B?RDR0QzU4eFVhOTBQV0l2OUlZZEkxSWFXTy9jb3gvY3RIVWcvUFJFTnFWWHIw?=
- =?utf-8?B?VzVkUG5DOU9qU212Z0p2Vnp2MU1BZ3drcGcyeG15NnVaa1Fxaml6ZDNUeHpG?=
- =?utf-8?B?M2VHM0ZCUFZsTFFjL1hCZDN1RGMrVjBFQVpWaE84aFBPb1Rxc1BkeVo4T3Yw?=
- =?utf-8?B?dWJkb1M5cUJNZ1NiTDh6KzVGQ3YyeXFVVzlFMzZSaHo5aTlBRTIxZDBDYUpV?=
- =?utf-8?B?MCttcmJtYWlhRXIvMUM3MkZaRVY2ZzdFZy8rcXZ5cEdhV00zOXlBRXNpL2cy?=
- =?utf-8?B?dU53dE5XU2ZMWG4vejNiejVoajVXTTk3ckVZMEJUUmtJTjJHSW9RTW9IMjNz?=
- =?utf-8?B?MU0vcndLMmF2L21EUXdYR3lxcFBtdkZWNHVENDZzZkNTUUZFemhIS1R2VE5N?=
- =?utf-8?B?MVFtWUtlTm5wbzY4Z3dwbHV4OGErRGE4TXVJN2lpOHZGdThkOVk1TE1DaUpu?=
- =?utf-8?B?aWF2Lzh6Q3A4Ri9KS1U2STdRcnpZK1RGbmRQb1QycUUzWTVydzY3a2tidXF2?=
- =?utf-8?B?d2pYZXdQaTZRSFRUbWdxU1VqZXdRaVVFejVtUEFyWXQwK2JuS0dJQzRvNDVs?=
- =?utf-8?B?Y0dUNDg5a2pVRXNyNDNLWDdSOUtKeXlrQ1kvUU1JQUo1d01iTElJanN3V0ph?=
- =?utf-8?B?Z0FkdmRZcnh2eStFcGVycjRkM1NPUnFRNXUybEhBMlNHMFpMRUxTY2lPUFN0?=
- =?utf-8?B?bVpFQ2h1akoxYThJQVVidXdIV3ZiTFFuNk9FVUZ6Z3NrTjJLaTBBS0JWbXIx?=
- =?utf-8?B?SitsYXh6UVVQdFBZc1F3QU9ZbmhPWTJOUjJGN1hRdExTaUsyZmVsZXphaXU1?=
- =?utf-8?B?S2x2UlF3UXpzSnlYK1NmVmNleWtKRDlwb2EzcC9KaEJaSU10dHZuNzBmdmlV?=
- =?utf-8?B?WGFlaGRMZ3VkbnVmYUhuQ1ZlemVTSHhKd0tjVW5CVXlZUmxFQVRGem12UVk5?=
- =?utf-8?B?SlBPRGVVZWtsVWtibzFZWEtOaklmMUhucDJ2QTdld2NyMDJKbHlUcllzYWs0?=
- =?utf-8?Q?Ueqb1J+6r0UlZNOrMprOB3ckk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c9bd3ba-5de0-4521-42ab-08ddba0ce4f5
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2025 08:37:50.1558 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RvheI/r3ie3Ik9XxXRp2bkKzfhmulQV/gsy1OmprDg5LKEVoAN0/JacNrGXD2AVz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4094
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 03 Jul 2025 08:45:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,129 +76,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 02.07.25 18:12, Pierre-Eric Pelloux-Prayer wrote:
-> A vkcts test case is triggering a case where the drm buddy allocator
-> wastes lots of memory and performs badly:
-> 
->   dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000
-> 
-> For each memory pool type, the test will allocate 4000 8kB objects,
-> and then will release them. The alignment request is 256kB.
-> 
-> For each object, the allocator will select a 256kB block (to
-> match the alignment), and then trim it to 8kB, adding lots of free
-> entries to the free_lists of order 5 to 1.
-> On deallocation, none of these objects will be merged with their
-> buddy because their "clear status" is different: only the block
-> that was handed over to the driver might come back cleared.
-> Also since the test don't allocate much memory, the allocator don't
-> need to force the merge process so it will repeat the same logic
-> for each run.
-> 
-> As a result, after the first run (which takes about 6sec), the
-> freelists look like this:
-> 
->    chunk_size: 4KiB, total: 16368MiB, free: 15354MiB, clear_free: 397MiB
->    [...]
->    order- 5 free:     1914 MiB, blocks: 15315
->    order- 4 free:      957 MiB, blocks: 15325
->    order- 3 free:      480 MiB, blocks: 15360
->    order- 2 free:      239 MiB, blocks: 15347
->    order- 1 free:      238 MiB, blocks: 30489
-> 
-> After the second run (19 sec):
-> 
->    chunk_size: 4KiB, total: 16368MiB, free: 15374MiB, clear_free: 537MiB
->    [...]
->    order- 5 free:     3326 MiB, blocks: 26615
->    order- 4 free:     1663 MiB, blocks: 26619
->    order- 3 free:      833 MiB, blocks: 26659
->    order- 2 free:      416 MiB, blocks: 26643
->    order- 1 free:      414 MiB, blocks: 53071
-> 
-> list_insert_sorted is part of the problem here since it iterates
-> over the free_list to figure out where to insert the new blocks.
-> 
-> To fix this while keeping the clear tracking information, a new
-> bit is exposed to drivers, allowing them to disable trimming for
-> blocks that aren't "clear". This bit is used by amdgpu because
-> it always returns cleared memory to drm_buddy.
+A null pointer dereference vulnerability exists in the AMD display driver's
+ (DC module) cleanup function dc_destruct().
+ When display control context (dc->ctx) construction fails
+ (due to memory allocation failure), this pointer remains NULL.
+During subsequent error handling when dc_destruct() is called,
+there's no NULL check before dereferencing the perf_trace member
+ (dc->ctx->perf_trace),
+ causing a kernel null pointer dereference crash
 
-That's an extremely good catch, but I don't think this is the right solution.
+Signed-off-by: jackysliu <Security@tencent.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-If I understood it correctly we now give back 256k instead of 8k to the caller and that is a really big no-go.
-
-Regards,
-Christian.
-
-
-> 
-> With this bit set, the "merge buddies on deallocation logic" can
-> work again, and the free_list are not growing indefinitely anymore.
-> 
-> So after a run we get:
-> 
->    chunk_size: 4KiB, total: 16368MiB, free: 15306MiB, clear_free: 1734MiB
->    [...]
->    order- 5 free:        2 MiB, blocks: 17
->    order- 4 free:        2 MiB, blocks: 35
->    order- 3 free:        1 MiB, blocks: 41
->    order- 2 free:      656 KiB, blocks: 41
->    order- 1 free:      256 KiB, blocks: 32
-> 
-> The runtime is better (2 sec) and stable across multiple runs, and we
-> also see that the reported "clear_free" amount is larger than without
-> the patch.
-> 
-> Fixes: 96950929eb23 ("drm/buddy: Implement tracking clear page feature")
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 8 ++++++++
->  drivers/gpu/drm/drm_buddy.c                  | 1 +
->  include/drm/drm_buddy.h                      | 1 +
->  3 files changed, 10 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index abdc52b0895a..dbbaa15a973e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -499,6 +499,14 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->  
->  	INIT_LIST_HEAD(&vres->blocks);
->  
-> +	/* Trimming create smaller blocks that may never be given to the driver.
-> +	 * Such blocks won't be cleared until being seen by the driver, which might
-> +	 * never occur (for instance UMD might request large alignment) => in such
-> +	 * case, upon release of the block, the drm_buddy allocator won't merge them
-> +	 * back, because their clear status is different.
-> +	 */
-> +	vres->flags = DRM_BUDDY_TRIM_IF_CLEAR;
-> +
->  	if (place->flags & TTM_PL_FLAG_TOPDOWN)
->  		vres->flags |= DRM_BUDDY_TOPDOWN_ALLOCATION;
->  
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index a1e652b7631d..555c72abce4c 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -1092,6 +1092,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->  
->  	/* Trim the allocated block to the required size */
->  	if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
-> +	    (!(flags & DRM_BUDDY_TRIM_IF_CLEAR) || drm_buddy_block_is_clear(block)) &&
->  	    original_size != size) {
->  		struct list_head *trim_list;
->  		LIST_HEAD(temp);
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index 9689a7c5dd36..c338d03028c3 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -28,6 +28,7 @@
->  #define DRM_BUDDY_CLEAR_ALLOCATION		BIT(3)
->  #define DRM_BUDDY_CLEARED			BIT(4)
->  #define DRM_BUDDY_TRIM_DISABLE			BIT(5)
-> +#define DRM_BUDDY_TRIM_IF_CLEAR			BIT(6)
->  
->  struct drm_buddy_block {
->  #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 56d011a1323c..3bda0593f66f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -934,6 +934,11 @@ static void dc_destruct(struct dc *dc)
+ 	if (dc->link_srv)
+ 		link_destroy_link_service(&dc->link_srv);
+ 
++	if (!dc->ctx) {
++		dm_error("%s: called with NULL ctx\n", __func__);
++		goto skip_ctx_cleanup;
++	}
++
+ 	if (dc->ctx->gpio_service)
+ 		dal_gpio_service_destroy(&dc->ctx->gpio_service);
+ 
+@@ -946,6 +951,7 @@ static void dc_destruct(struct dc *dc)
+ 	kfree(dc->ctx);
+ 	dc->ctx = NULL;
+ 
++skip_ctx_cleanup:
+ 	kfree(dc->bw_vbios);
+ 	dc->bw_vbios = NULL;
+ 
+-- 
+2.43.5
 
