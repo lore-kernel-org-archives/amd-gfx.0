@@ -4,20 +4,20 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89A74C83F03
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jul 2025 07:56:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DD4FC83030
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jul 2025 07:56:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22C1A10E971;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4458D10E974;
 	Fri,  4 Jul 2025 07:56:58 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB1FE10E974;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE13010E971;
  Fri,  4 Jul 2025 07:56:56 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 5647uUeo1550148; Fri, 4 Jul 2025 13:26:30 +0530
+ 5647uV861550169; Fri, 4 Jul 2025 13:26:31 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 5647uQA01550123;
- Fri, 4 Jul 2025 13:26:26 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 5647uV9v1550168;
+ Fri, 4 Jul 2025 13:26:31 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  dri-devel@lists.freedesktop.org
@@ -29,11 +29,15 @@ Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
  Andrzej Hajda <andrzej.hajda@intel.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v10 0/4] Enable debugfs information based on client-id
-Date: Fri,  4 Jul 2025 13:25:44 +0530
-Message-Id: <20250704075548.1549849-1-sunil.khatri@amd.com>
+Subject: [PATCH v10 3/4] drm/amdgpu: add debugfs support for VM pagetable per
+ client
+Date: Fri,  4 Jul 2025 13:25:47 +0530
+Message-Id: <20250704075548.1549849-4-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250704075548.1549849-1-sunil.khatri@amd.com>
+References: <20250704075548.1549849-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,48 +53,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-client-id is a unique id across the system no matter if its from a VM
-or on a host system. This unique id is a good base to use create
-client-id based dentry in debugfs in the root directory.
+Add a debugfs file under the client directory which shares
+the root page table base address of the VM.
 
-This directory could be a unique directory where drivers could dump
-the debug information.
+This address could be used to dump the pagetable for debug
+memory issues.
 
-For amdgpu driver, we want to dump the VM PTBASE address and MQD for
-userqueue which can be used by a tool like amd umr to dump the memory
-and that is really important to debug userqueues and VM related issues.
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 52 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  2 +
+ 3 files changed, 55 insertions(+)
 
-One of the challenge in this how to access the root directory which is
-beyond the drm_device hence moving the debugfs related information to
-drm_debugfs.c
-
-v10: rebase patch 1 and patch 3 on the drm-misc-next. In the process
-move the drm bridge code to have access to drm root node for patch 1.
-for patch 3 remove drm_file from amdgpu_vm_init and call the vm debugfs
-function directly before calling the amdgpu_vm_init
-
-Sunil Khatri (4):
-  drm: move drm based debugfs funcs to drm_debugfs.c
-  drm: add debugfs support on per client-id basis
-  drm/amdgpu: add debugfs support for VM pagetable per client
-  drm/amdgpu: add support of debugfs for mqd information
-
- drivers/accel/drm_accel.c                   |  16 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  52 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c   |  52 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h   |   1 +
- drivers/gpu/drm/drm_debugfs.c               | 118 +++++++++++++++++++-
- drivers/gpu/drm/drm_drv.c                   |  16 +--
- drivers/gpu/drm/drm_file.c                  |  11 ++
- drivers/gpu/drm/drm_internal.h              |   6 +-
- include/drm/drm_accel.h                     |   5 -
- include/drm/drm_debugfs.h                   |  11 ++
- include/drm/drm_drv.h                       |  19 +++-
- include/drm/drm_file.h                      |   7 ++
- 14 files changed, 273 insertions(+), 44 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index dac4b926e7be..e49890a23ef6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -2131,6 +2131,55 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++static int amdgpu_pt_info_read(struct seq_file *m, void *unused)
++{
++	struct drm_file *file;
++	struct amdgpu_fpriv *fpriv;
++	struct amdgpu_bo *root_bo;
++	int r;
++
++	file = m->private;
++	if (!file)
++		return -EINVAL;
++
++	fpriv = file->driver_priv;
++	if (!fpriv && !fpriv->vm.root.bo)
++		return -ENODEV;
++
++	root_bo = amdgpu_bo_ref(fpriv->vm.root.bo);
++	r = amdgpu_bo_reserve(root_bo, true);
++	if (r) {
++		amdgpu_bo_unref(&root_bo);
++		return -EINVAL;
++	}
++
++	seq_printf(m, "gpu_address: 0x%llx\n", amdgpu_bo_gpu_offset(fpriv->vm.root.bo));
++
++	amdgpu_bo_unreserve(root_bo);
++	amdgpu_bo_unref(&root_bo);
++
++	return 0;
++}
++
++static int amdgpu_pt_info_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, amdgpu_pt_info_read, inode->i_private);
++}
++
++static const struct file_operations amdgpu_pt_info_fops = {
++	.owner = THIS_MODULE,
++	.open = amdgpu_pt_info_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++};
++
++void amdgpu_debugfs_vm_init(struct drm_file *file)
++{
++	debugfs_create_file("vm_pagetable_info", 0444, file->debugfs_client, file,
++			    &amdgpu_pt_info_fops);
++}
++
+ #else
+ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ {
+@@ -2140,4 +2189,7 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
+ {
+ 	return 0;
+ }
++void amdgpu_debugfs_vm_init(struct drm_file *file)
++{
++}
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+index 0425432d8659..e7b3c38e5186 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+@@ -33,4 +33,5 @@ void amdgpu_debugfs_fence_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_mes_event_log_init(struct amdgpu_device *adev);
++void amdgpu_debugfs_vm_init(struct drm_file *file);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index d2ce7d86dbc8..d555853c5717 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1395,6 +1395,8 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 	if (r)
+ 		goto error_pasid;
+ 
++	amdgpu_debugfs_vm_init(file_priv);
++
+ 	r = amdgpu_vm_init(adev, &fpriv->vm, fpriv->xcp_id);
+ 	if (r)
+ 		goto error_pasid;
 -- 
 2.34.1
 
