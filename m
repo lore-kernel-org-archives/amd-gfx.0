@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67DDBC83F03
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jul 2025 15:15:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 775B8C83F03
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jul 2025 15:32:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57E3610E230;
-	Fri,  4 Jul 2025 15:15:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C55410E29D;
+	Fri,  4 Jul 2025 15:32:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="E/vaBBtt";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="J5/u8ord";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6675D10E06E;
- Fri,  4 Jul 2025 15:15:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE27A10E29D;
+ Fri,  4 Jul 2025 15:32:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,36 +22,33 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ven6hvhaEcO4jhZscLbgCagwItLyOfAT48JqHURfZno=; b=E/vaBBttSM0UWAzyHUr0XX4RrO
- iOPuZ8qn3H5HnUb5RF/I9kpH+OZI2qrH5jST1VqRriomfr4gxW9oWDzlTcI4vOVAlTyyCxrpux+ob
- +q/RkNjH+XwWwwgOdYRLsQlDa3T6IdBbqK45qMU5quCHH7qYWG/QWMGZIiZLuJhUHugXCK2IgvGaJ
- bjHBz64GWnBMI0YZCDF0rztGTbAew7sFgiCmUXJ5sQkl8+iiXY1ZfjSD+wbQMI4A5houtCF/64561
- C6/Ktm92/6uhWrSQf7rakxd5hZKfudwHb9XbvZPLVsiAvWCPdBGx00g6P1OfhxPdBOAKwp5VYbwgf
- AJPVITEA==;
+ bh=DsbtcEFmDjjoRUf1jUgg1jpELo4Oc0/Q1cJNz5p/j9I=; b=J5/u8ord0ZdSydTynWh5sdzzlY
+ qNVr0t/aZcz6mw2Ni9ChyygnRKB/yMcdQsqn7Ibhr1dUDAih6RCI/iC4Kz6tuwl7nt3wAakiF68sA
+ KxPwOJAxhz4yEHg79/M3DixlMDKWs39FoSPKp/ut1Lg/Ba9U1JSITz3xLBWnGGE4FXW4uclreksGQ
+ P/apYktkjJbjDbcg9kJ3N1nJXw9nwhjQYw8eabCJMjaV/EbgI8+Iy84NTDd9t12knh9EV2h69D7Jw
+ KXTnktbNexqlGbvO7XxPyZ5eIE51jrBnxlOEODxPmnQuKGlkVWnavzK6w6K8BtRSBqg8RX+KvcfM7
+ fDzVmc+Q==;
 Received: from [81.79.92.254] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uXi7u-00CTna-Ge; Fri, 04 Jul 2025 17:14:58 +0200
-Message-ID: <8acfa716-cbb6-4e4f-9553-f2051c8134a4@igalia.com>
-Date: Fri, 4 Jul 2025 16:14:57 +0100
+ id 1uXiPA-00CU7T-Me; Fri, 04 Jul 2025 17:32:48 +0200
+Message-ID: <4630c69d-f762-4c2e-aa43-a55cb90c8074@igalia.com>
+Date: Fri, 4 Jul 2025 16:32:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/16] drm/sched: Avoid double re-lock on the job free
- path
-To: phasta@kernel.org, =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+Subject: Re: [PATCH v5 08/16] drm/sched: Consolidate entity run queue
+ management
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
  <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
 References: <20250623122746.46478-1-tvrtko.ursulin@igalia.com>
- <20250623122746.46478-5-tvrtko.ursulin@igalia.com>
- <3ab04122-72dc-41f4-95af-6c4bf851c6d0@igalia.com>
- <70a5fcd839c0582ed2216c8a61e128834bf81315.camel@mailbox.org>
- <1a1ef81e-2df4-4d9b-af06-25dfb9bc4192@igalia.com>
- <a20cfbddc2632c5731d7c59f1766a79baa1f2821.camel@mailbox.org>
+ <20250623122746.46478-9-tvrtko.ursulin@igalia.com>
+ <c1466501-db4f-4d88-9669-512e53ed4c8c@igalia.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <a20cfbddc2632c5731d7c59f1766a79baa1f2821.camel@mailbox.org>
+In-Reply-To: <c1466501-db4f-4d88-9669-512e53ed4c8c@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,198 +66,120 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 04/07/2025 14:59, Philipp Stanner wrote:
-> On Fri, 2025-07-04 at 14:30 +0100, Tvrtko Ursulin wrote:
->>
->> On 04/07/2025 13:56, Philipp Stanner wrote:
->>> On Fri, 2025-07-04 at 09:29 -0300, Maíra Canal wrote:
->>>> Hi Tvrtko,
->>>>
->>>> On 23/06/25 09:27, Tvrtko Ursulin wrote:
->>>>> Currently the job free work item will lock sched->job_list_lock
->>>>> first time
->>>>> to see if there are any jobs, free a single job, and then lock
->>>>> again to
->>>>> decide whether to re-queue itself if there are more finished
->>>>> jobs.
->>>>>
->>>>> Since drm_sched_get_finished_job() already looks at the second
->>>>> job
->>>>> in the
->>>>> queue we can simply add the signaled check and have it return
->>>>> the
->>>>> presence
->>>>> of more jobs to free to the caller. That way the work item does
->>>>> not
->>>>> have
->>>>> to lock the list again and repeat the signaled check.
->>>>>
->>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>> Cc: Danilo Krummrich <dakr@kernel.org>
->>>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>>> Cc: Philipp Stanner <phasta@kernel.org>
->>>>> ---
->>>>>     drivers/gpu/drm/scheduler/sched_main.c | 39 +++++++++++-----
->>>>> -----
->>>>> -----
->>>>>     1 file changed, 16 insertions(+), 23 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>>>> b/drivers/gpu/drm/scheduler/sched_main.c
->>>>> index 1f077782ec12..c6c26aec07b6 100644
->>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>>> @@ -366,22 +366,6 @@ static void
->>>>> __drm_sched_run_free_queue(struct
->>>>> drm_gpu_scheduler *sched)
->>>>>     		queue_work(sched->submit_wq, &sched-
->>>>>> work_free_job);
->>>>>     }
->>>>>     
->>>>> -/**
->>>>> - * drm_sched_run_free_queue - enqueue free-job work if ready
->>>>> - * @sched: scheduler instance
->>>>> - */
->>>>> -static void drm_sched_run_free_queue(struct drm_gpu_scheduler
->>>>> *sched)
->>>>> -{
->>>>> -	struct drm_sched_job *job;
->>>>> -
->>>>> -	spin_lock(&sched->job_list_lock);
->>>>> -	job = list_first_entry_or_null(&sched->pending_list,
->>>>> -				       struct drm_sched_job,
->>>>> list);
->>>>> -	if (job && dma_fence_is_signaled(&job->s_fence-
->>>>>> finished))
->>>>> -		__drm_sched_run_free_queue(sched);
->>>>> -	spin_unlock(&sched->job_list_lock);
->>>>> -}
->>>>> -
->>>>>     /**
->>>>>      * drm_sched_job_done - complete a job
->>>>>      * @s_job: pointer to the job which is done
->>>>> @@ -1102,12 +1086,13 @@ drm_sched_select_entity(struct
->>>>> drm_gpu_scheduler *sched)
->>>>>      * drm_sched_get_finished_job - fetch the next finished job
->>>>> to be
->>>>> destroyed
->>>>>      *
->>>>>      * @sched: scheduler instance
->>>>> + * @have_more: are there more finished jobs on the list
->>>>>      *
->>>>>      * Returns the next finished job from the pending list (if
->>>>> there
->>>>> is one)
->>>>>      * ready for it to be destroyed.
->>>>>      */
->>>>>     static struct drm_sched_job *
->>>>> -drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
->>>>> +drm_sched_get_finished_job(struct drm_gpu_scheduler *sched,
->>>>> bool
->>>>> *have_more)
->>>>>     {
->>>>>     	struct drm_sched_job *job, *next;
->>>>>     
->>>>> @@ -1115,22 +1100,27 @@ drm_sched_get_finished_job(struct
->>>>> drm_gpu_scheduler *sched)
->>>>>     
->>>>>     	job = list_first_entry_or_null(&sched->pending_list,
->>>>>     				       struct drm_sched_job,
->>>>> list);
->>>>> -
->>>>>     	if (job && dma_fence_is_signaled(&job->s_fence-
->>>>>> finished))
->>>>> {
->>>>>     		/* remove job from pending_list */
->>>>>     		list_del_init(&job->list);
->>>>>     
->>>>>     		/* cancel this job's TO timer */
->>>>>     		cancel_delayed_work(&sched->work_tdr);
->>>>> -		/* make the scheduled timestamp more accurate
->>>>> */
->>>>> +
->>>>> +		*have_more = false;
->>>>>     		next = list_first_entry_or_null(&sched-
->>>>>> pending_list,
->>>>>     						typeof(*next),
->>>>> list);
->>>>> -
->>>>>     		if (next) {
->>>>> +			/* make the scheduled timestamp more
->>>>> accurate */
->>>>>     			if
->>>>> (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
->>>>>     				     &next->s_fence-
->>>>>> scheduled.flags))
->>>>>     				next->s_fence-
->>>>>> scheduled.timestamp
->>>>> =
->>>>>     					dma_fence_timestamp(&j
->>>>> ob-
->>>>>> s_fence->finished);
->>>>> +
->>>>> +			if
->>>>> (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
->>>>> +				     &next->s_fence-
->>>>>> finished.flags))
->>>>
->>>> Shouldn't we use dma_fence_is_signaled() to keep the same check
->>>> that
->>>> we
->>>> have in drm_sched_run_free_queue()?
->>>
->>> There is a paused-ongoing discussion about this function:
->>>
->>> https://lore.kernel.org/all/20250522112540.161411-2-phasta@kernel.org/
->>>
->>>
->>> dma_fence_is_signaled() can have side effects by actually
->>> signaling,
->>> instead of just checking.
->>>
->>> Not sure if Tvrtko wanted to bypass that behavior here, though.
->>
->> No, no ulterior motives here. :)
->>
->> It is ages I wrote this, but now I revisited it, and AFAICT I don't
->> see
->> that it matters in this case.
->>
->> It is a scheduler fence which does not implement fence->ops-
->>> signaled()
->> so opportunistic signaling does not come into the picture.
->>
->> I am happy to change it to dma_fence_is_signaled() if that is the
->> preference.
+On 04/07/2025 14:51, Maíra Canal wrote:
+> Hi Tvrtko,
 > 
-> Its our (scheduler's) fence, so we can be sure dma_fence_is_signaled()
-> is OK.
+> On 23/06/25 09:27, Tvrtko Ursulin wrote:
+>> Move the code dealing with entities entering and exiting run queues to
+>> helpers to logically separate it from jobs entering and exiting entities.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_entity.c   | 60 ++-------------
+>>   drivers/gpu/drm/scheduler/sched_internal.h |  8 +-
+>>   drivers/gpu/drm/scheduler/sched_main.c     | 87 +++++++++++++++++++---
+>>   3 files changed, 83 insertions(+), 72 deletions(-)
+>>
+> 
+> [...]
+> 
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/ 
+>> scheduler/sched_main.c
+>> index 2c85be201605..bfec2e35a2f6 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -145,15 +145,18 @@ static __always_inline bool 
+>> drm_sched_entity_compare_before(struct rb_node *a,
+>>   static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity 
+>> *entity,
+>>                           struct drm_sched_rq *rq)
+>>   {
+>> +    lockdep_assert_held(&entity->lock);
+>> +    lockdep_assert_held(&rq->lock);
+>> +
+> 
+> Nit: I'm not sure if this change belongs to this patch. I felt a bit out
+> of context to me. Also, the same assert exists in
+> `drm_sched_rq_update_fifo_locked()` (maybe remove there?).
 
-Okay, I changed it to dma_fence_is_signaled() locally.
+You are right - another bad rebase after moving patches around in the 
+series. Fixed locally.
+
+> 
+>>       if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+>>           rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
+>>           RB_CLEAR_NODE(&entity->rb_tree_node);
+>>       }
+>>   }
+>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+>> -                     struct drm_sched_rq *rq,
+>> -                     ktime_t ts)
+>> +static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity 
+>> *entity,
+>> +                        struct drm_sched_rq *rq,
+>> +                        ktime_t ts)
+>>   {
+>>       /*
+>>        * Both locks need to be grabbed, one to protect from entity->rq 
+>> change
+>> @@ -188,25 +191,58 @@ static void drm_sched_rq_init(struct 
+>> drm_gpu_scheduler *sched,
+>>       rq->sched = sched;
+>>   }
+> 
+> [...]
+> 
+> 
+> Missing kerneldoc.
+
+You got me there for a while, I always look up from the review comment. 
+:) Fixed locally, thanks!
 
 Regards,
 
 Tvrtko
 
-> I'd still prefer if we could get Christian to accept a function with a
-> superior name, though..
 > 
-> P.
+>> +void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+>> +{
+>> +    struct drm_sched_job *next_job;
+>> +    struct drm_sched_rq *rq;
+>> +    ktime_t ts;
+>> +
+>> +    /*
+>> +     * Update the entity's location in the min heap according to
+>> +     * the timestamp of the next job, if any.
+>> +     */
+>> +    next_job = drm_sched_entity_queue_peek(entity);
+>> +    if (!next_job)
+>> +        return;
+>> +
+>> +    if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>> +        ts = next_job->submit_ts;
+>> +    else
+>> +        ts = drm_sched_rq_get_rr_deadline(rq);
 > 
->>
->> Regards,
->>
->> Tvrtko
->>
->>>>> +				*have_more = true;
->>>>> +
->>>>>     			/* start TO timer for next job */
->>>>>     			drm_sched_start_timeout(sched);
->>>>>     		}
->>>>
->>>>
->>>
->>
+> Same as previous patch :)
+> 
+> Best Regards,
+> - Maíra
+> 
+>> +
+>> +    spin_lock(&entity->lock);
+>> +    rq = entity->rq;
+>> +    spin_lock(&rq->lock);
+>> +    drm_sched_rq_update_fifo_locked(entity, rq, ts);
+>> +    spin_unlock(&rq->lock);
+>> +    spin_unlock(&entity->lock);
+>> +}
+>> +
+>>   /**
+>>    * drm_sched_rq_select_entity - Select an entity which provides a 
+>> job to run
+>>    *
 > 
 
