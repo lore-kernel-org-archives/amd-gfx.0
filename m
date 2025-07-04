@@ -4,152 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19FB7C83030
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jul 2025 09:20:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD836C83F03
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jul 2025 10:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B386710E9B9;
-	Fri,  4 Jul 2025 09:20:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 582E210E9D3;
+	Fri,  4 Jul 2025 10:14:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w3XKZPXC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="axdZwFF3";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91D7C10E9B9;
- Fri,  4 Jul 2025 09:20:15 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2077.outbound.protection.outlook.com [40.107.95.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6730110E9D0;
+ Fri,  4 Jul 2025 10:14:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DJ/4ehlmjaxjEXYlBv7SAYQ+NkgIVLznnX2eaJ03CgelsbvV0Gr+JrMDV1NSAibZbTWbQcqKiwKtNDdGu2IDafVe3oldfu/ZAdevOrFDJ3dD5ngngXNkmaqkzyS5bGov7/oHJqN6UYYoly0ZVt3q9vLKxHaeDsQRj9pA4NjFbCLTB6lw4zicNC+HOVY1wKcCLsEx0p1lYMiqN8wfn6qvzW1ISwF0+CEf0R4Jmo3A7WJO2AA/EZFPRzoHjZne5Ar+tczUcI2mhPJbeQjWv9SGcBFsTOPXys5y9cF6gLQ8ZTmU6KnLk3oPTJaAwh6v3bRjqs9MKJTAilq+P2wneiIJAA==
+ b=POFHL5QTcAbqQym7Gj/hekT7+Y8wH+Vw46LRUUtRl3UkmUD7jFEW3RW+1ebaoRyvdn653P/HIGHHZ4Fbwm5XFFeWlzyILoLdpkmHO+sIBOAxnxPKgA+6TI+vuCl74lzgERlWJTsCJJWgSJJ0qIIFLROUe49IgMerSMEvaYQn4v1F7MPQPvs6JzjLfbTeclVLI1FjHifZI6Y560KC98zG+HCzGBRGqstYv2A9Yni1zLujKv/a+aLo2vbJzsmGB8KfszCARb3fXyAgO3GKIqWAenzrIZAWd/JlxGldtWq4w81BG7fBTuBxoRr0N86ZKsMeCTPYf/H0z/d/MzO7lqxazw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T3orMCRS1ZwpttPCQ39hGJEk83cXGcwch1IxwQHdl50=;
- b=uEm7Z2XZ5aYWLYKxyMOFu0L9ZdTISOwmSSEdRNI2QGaoh3E8uMW8c3rX7McV17BAKKCsc/v975YdhsVEfGoC9N/cKQzrEyutpC7FyHVrfJak/cMY1U8PglzhZIrCV4YtuZiiuswVlBrvmqlvdfnUR4PhlLxbRiAm1cuO5Xp/RFSba1UV9g7ZfrURhNVkeZ+45fu/tArda9QL4Z144hohl1A8pPpYQO1TrAaKrKiu5FfSdB8DtWiGxaNCbjMcPLl0pyrCRQEmA9triJUizsKXL1+bt37/2nR51ZwVuQdWnTlHiPZtOpute/h/uYORGeXTTu962XrYgogb8cf5EiRozw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=M1pTyXJW6BDzoDr/o13Tw8RjJQBkB0IbpDGg5eipI6Y=;
+ b=MRqPe9Q5g4cYPUumO2nN4t0iw3/x99xn2jeW7kxcYOJKCvqn8yl37694teMltPsgUIku3zp5TuoDOJp7aw+k1AfOeSPuraLyJXY/6Lsqi5dwsBi69dvKwC/8k4SSEmt5b9FQIwnnGSGtheNfquMSrI0ntXaOLgivBohkUinS+evi3B/VI3LxLUtNV/XLcRA3arqsahbRdRAuQmIbcioU7Zi8nxW5Zm1PYpdDw0CJRtPTUaa6Gij/wvKt9gbMH/9yT8beuJv/8VkepQInDCnls19RD2C8bRrdp/AyUkd6Vxrx6b6eNnPDZPBOmO/aIVgi62AgklXqEuL8Cp/2RcbpFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T3orMCRS1ZwpttPCQ39hGJEk83cXGcwch1IxwQHdl50=;
- b=w3XKZPXCON1tymwU6T1ZvHepTw495GIXhgpdyDlJYIHrZqate6kvHb6jDpfb0/PbB2xnlSmoCG4LZSFCfwoH2uTFNlakFgUDgN+qXLvXR5TdNF1Kw7Mg7ST+hStoaNo1ZviMVrCoKWtbPKKsdefOhD6LmuypVlo0C9Pm+qpPO3I=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA3PR12MB9157.namprd12.prod.outlook.com (2603:10b6:806:39a::21)
+ bh=M1pTyXJW6BDzoDr/o13Tw8RjJQBkB0IbpDGg5eipI6Y=;
+ b=axdZwFF3y9cj2pFEXKym3T69xfIrEDxFy6Jt1aGlPM/zWYk0JHs4wZBj6U+iwSY2QPZlWv1/Xb+w0CyPBwWZqSAooS7MaXnHDfGKKcTcXZDRl1SJ8rJnU1p+CjzLZkD9+djOs+PVBSfUb0EO/TO53rAkx7LYZUY5s/HvSjZcUq4=
+Received: from BYAPR05CA0085.namprd05.prod.outlook.com (2603:10b6:a03:e0::26)
+ by SA3PR12MB8763.namprd12.prod.outlook.com (2603:10b6:806:312::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.21; Fri, 4 Jul
- 2025 09:20:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8901.018; Fri, 4 Jul 2025
- 09:20:12 +0000
-Message-ID: <a13fe778-a766-4221-8a60-5ee4f25f88d3@amd.com>
-Date: Fri, 4 Jul 2025 11:20:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix lifetime of struct amdgpu_task_info after
- ring reset
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- Dave Airlie <airlied@gmail.com>
-References: <20250704030629.1064397-1-andrealmeid@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250704030629.1064397-1-andrealmeid@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0014.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c8::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.22; Fri, 4 Jul
+ 2025 10:14:11 +0000
+Received: from MWH0EPF000989E7.namprd02.prod.outlook.com
+ (2603:10b6:a03:e0:cafe::a4) by BYAPR05CA0085.outlook.office365.com
+ (2603:10b6:a03:e0::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.14 via Frontend Transport; Fri,
+ 4 Jul 2025 10:14:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989E7.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8901.15 via Frontend Transport; Fri, 4 Jul 2025 10:14:10 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Jul
+ 2025 05:14:05 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Jul
+ 2025 05:14:04 -0500
+Received: from hjbog-srdc-41.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 4 Jul 2025 05:13:59 -0500
+From: Samuel Zhang <guoqing.zhang@amd.com>
+To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <rafael@kernel.org>, <len.brown@intel.com>, <pavel@kernel.org>,
+ <gregkh@linuxfoundation.org>, <dakr@kernel.org>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <ray.huang@amd.com>, <matthew.auld@intel.com>,
+ <matthew.brost@intel.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>
+CC: <mario.limonciello@amd.com>, <lijo.lazar@amd.com>, <victor.zhao@amd.com>, 
+ <haijun.chang@amd.com>, <Qing.Ma@amd.com>, <linux-pm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Samuel Zhang <guoqing.zhang@amd.com>
+Subject: [PATCH v2 0/5] reduce system memory requirement for hibernation
+Date: Fri, 4 Jul 2025 18:12:28 +0800
+Message-ID: <20250704101233.347506-1-guoqing.zhang@amd.com>
+X-Mailer: git-send-email 2.43.5
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB9157:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99f0dc8b-09c2-4e05-8dd3-08ddbadbfa74
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E7:EE_|SA3PR12MB8763:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ca03fe0-c266-4455-f646-08ddbae38510
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TVpoT0IxcWVwSVhjOHRmRlZZc1Q0NGptSWlsQWVQT291em9vZ3JScHV0QXNu?=
- =?utf-8?B?WGNSbU5kZFhtMXZjNXhJMFNLNHc5cHhFcFphTWF4Zk5jNVpFUEllZXZ0WlFJ?=
- =?utf-8?B?OG11dFFrT2FXMzloemJHNHpwY0tVaGtYVG81aWZhcHBoVWpacUUwYmJCNVpn?=
- =?utf-8?B?M1g0bkJDZGNrY0MrbnpJV1NFQnh2d2JzN2hyWE9vTE9qZDFKeURoT0ppblN5?=
- =?utf-8?B?ZXlEYzIvWW9ZODZ3YmlzeVFjeno3ZDE0YS9UVml1ODNaN1ZzVk1RNUIvN3Iv?=
- =?utf-8?B?aytMajIwODdxczh0c0c3M1VOZ3hmd0Q3N21ia2k3bVRWNDNiS3huUGsxdTVE?=
- =?utf-8?B?SnFleW1JQXk3a2NWNW1iUE1qQVZYd25NM3hXMkZJUHM1MDlnZ0R0M0ZpSnlx?=
- =?utf-8?B?aE1mQWFCV2xGTHpGZFNORDFocXBrNHViMXJSZG14b1BiVGk1NTNCL3Q0UFc4?=
- =?utf-8?B?WWpBc2RRWUtXUENwNURFL3dqalRsQk9QdHN6ekw2MlpMbEZoTWFSVWg4OVo2?=
- =?utf-8?B?dUhhZVpKdDJ6Q014SFVsT3ZjcjRlRVBzTlhCd245UFJ6Yi92cERLdDZjdTVV?=
- =?utf-8?B?K0U3cDVjTlhkM08veHZiYk5HYXBadGl5REdSZ25XSDRiWlFrRlJUcWNkQm4x?=
- =?utf-8?B?YmErOUkxZ1JhSjltbnJjSS9Nb3g0NUxFVi9uMEZJdWVDSm03aHlxLy9IMlQ4?=
- =?utf-8?B?S05vQ2duWTVHYmo0Rmo5U25uWU9Bc054VjFkMDlmckRiVEFjNVEwRzAwVWlj?=
- =?utf-8?B?TENNU2UzL2lPZEhLSzRhVVdEUnRuMC9OcitRbG04ZzBnVnVpY3F5bGlXTGpa?=
- =?utf-8?B?RnlRdEltVzJ1NHdXcGdxMDk2dTZDQngrRWl6ajVVbVFhMkdraHgwTS9kSUlw?=
- =?utf-8?B?ejhYVXFnVk9HMXZKcHlpSjdTU25wcU5kREt3TmRDSDNOYVVESmpmd3IwWWFN?=
- =?utf-8?B?b05QbXBPWXMxZXVmdmVrMDhxOVdlazZ1WFlBSjdTV1FFLzZ5a3JyUG9iOWEy?=
- =?utf-8?B?dy9OL3Q1MjVveVc1QmRWVk5rSktPK0hZaWtLaDRDR1JoUXZaTTV5MHJyZFlH?=
- =?utf-8?B?Ym1FWGN5UThHc29qNHo1ckgxRWU3bzJLNzVWbXNIYVFSMGhhdHZWbEZSNzR6?=
- =?utf-8?B?elB4OGdra2VrSzVFNkFyS05tQlA2a0tqem5WRHNYNWpxNHVvdUpwMjRUeEV0?=
- =?utf-8?B?cGtIMjRDdTNnRGZoSXdyWkNsOGVFY1JNcyszOGR0UFNWRUd6Z2xra1pKT1R3?=
- =?utf-8?B?YXArZVU4bG8rQ1hCL3NtUFZGcEJ5YXI2WlJkSGtibmQyNG5xY2Y5d2l4ejcy?=
- =?utf-8?B?dGIrdmg0RFZOV2dTWmZZY1U4em5DM3oxQUVTSVIzc1kwWXV3MWR2ZXg5cnNQ?=
- =?utf-8?B?Sklqbmd3TWwwc29HTCtwRS9PYUN2L0VNbksvU2hOZ1h6b01oWUFxK3VuRktw?=
- =?utf-8?B?aGljUlU2bit4cmo3b3JobHNkeDhqL0t5cDNpenpBcGVVeVUxbnk1SlFETEcz?=
- =?utf-8?B?MTJ4MTQrb3VRY3lQYmFLajRVK3JxSTZQczgvYXorYmNweGU3T1hUNW9pTnhZ?=
- =?utf-8?B?TG1xS3BOakpMUVM1aDlzYjUyQXYwdzhoa2xIRWNxdVdlSExhc1h0MHVvRzZt?=
- =?utf-8?B?NnVBaXlXOVU5T0d0a2xTRzZGeHdNL2kwZXM5eDF6NTdmWVlZcGNpM25BaGo0?=
- =?utf-8?B?U3Y2aXAxSTN0UnpBS2tReFY1V3l3RXJtRzd6VmxtUHI4U041cXJiRDhYbnJq?=
- =?utf-8?B?V3dNSHNMVVJlTjRBZy92V1JaVFdvbURMOWpLY3BXdk1oMExXK3hqY1ZLVGg5?=
- =?utf-8?B?Slk0THdsWE52c3JVTHZPSWliMGg4bXd4U3RwSnR5NUpLdmwwSWp1QTd2T2xQ?=
- =?utf-8?B?djlsQUV2a2RuUVhXQXVrbEd2UnFPdkNwUE12NVRJL2ZqcmRpUzJQTUY0S090?=
- =?utf-8?Q?0b6+exG0wP0=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzNsWUg1K3hHdG0zbFQ3bmFmczNPQkZGZXBwQUtLaG16RENnK0FiRlA1M3pJ?=
- =?utf-8?B?T2VMZzJpdDM5K09oS3VVendlZUFoMEFmaEd5dHNWZjdqZFA2Q3dBbUJ3Umd6?=
- =?utf-8?B?b3ltekRqb1krbkFheURKQlAyTXF5M1ZmYUh6YkxWemViMFEzZHhyWExRSVBV?=
- =?utf-8?B?WXBZUzU5TzVvODhydnZMRWlkMlJUdGF6aElpRGxQMUZ4RnNLN0w2V0pFc25k?=
- =?utf-8?B?Mi9ZUDlpa3V3UFgvdzZQYnh0ZG92SE5pOE5OeHlneWloOUc4aGxTTTFrajRS?=
- =?utf-8?B?dzJIVS9ONHZmY2lBZ1RQaHp4Y01JM3FvVXFVcUJDMFlTZ0xuNytCQWZYQkJJ?=
- =?utf-8?B?L2pneExYRkNnWFAvWjZWd1lTakhjQUhsWU5lNkFESlJpL0FvdHc1UVRaK3o4?=
- =?utf-8?B?Vzl6U1FyMTBDMXBTUDhsUHg2Rm9xYlFtbTNlVmZ2cC85cnIwMnNTS25vR0Y1?=
- =?utf-8?B?T3p1cC9XdnlqRzBDOU1LUmYwS3NKZjh3Q21UUGxvTk5iUklKb2NwajI2QVZM?=
- =?utf-8?B?SzNLaGNSTWtiRkxvc2FqVklkV2pNclJTYlY4aVllczJoV1VicFFqYXFrUi8z?=
- =?utf-8?B?cVFRVDFwS1BFTlovNGlkTmZoSldRTm5qYWY1ektCMnl2UWxieTNmRE1LQzVW?=
- =?utf-8?B?NXhPbElxc29WS2tLaHhxWVVWZnhSNzlyYmtTbnovaVpsOTNiSkw5MkJHNEMv?=
- =?utf-8?B?OEJ6RzZjWHVac29uVDkzTlNmV09pdUNXaVBXWDN1a2hEQjVRMUZWbHBTcnBY?=
- =?utf-8?B?cFZFTXRjWXR0M2NTWTdHQnJTSW51WE1WTGJJMVIrcUw1TDZZRC96NzNmU01R?=
- =?utf-8?B?RlFlc2oyQnVBSEY2L1RtRWpTR1hHOGE5QXlEeGZFMi9pckJxU1QvSENKdVFv?=
- =?utf-8?B?Vmg4dnIxa3Z3ZlVoeVd3a0JXTWZnOFVlellJV0RabnYvZzFSaDMrbTlBZ2k2?=
- =?utf-8?B?UjRFalpTT0JKRERYNzM0NVRVT2pEci9hWE1pZUd3VWhNcitWbjMwd2lkMkMy?=
- =?utf-8?B?bGxpM3orZjhock8wOWNqQ01CbytLQlF2aCt5OEdvQVQraUlhZmF4NG03Qm9r?=
- =?utf-8?B?TkhMZ0ppbThMQzY4a1Z1M0d6K2xIdU0xaEdQbElWTllEV0dSbWdYSnNNaFhr?=
- =?utf-8?B?K01NZEp2RWluL2FKOEJFUEROOXdyWklHdEtpYi9aVkVqTW5sOW5NMEZHQmFv?=
- =?utf-8?B?UDFnaGhzVHV5WnpqR3k2ZmxQcndCUHE4Nmw5MkhGVE96UDcxbG9qeHNVKzAz?=
- =?utf-8?B?Znd1blBhcnNtZ0Zpb21Sd0pRcTJkK3lSOTYwNFdBR2VId29HeHpIMWp4S0tZ?=
- =?utf-8?B?RVdlLy9Ba3Q3OXVSVHhCNmJJMDNJRHhlVEdURkhReDB3dkhDSUs1MFAwR3V3?=
- =?utf-8?B?NnpydDlTelJMSTdUNkR1a1A2eTJxVTZERFRrNUx5ZTJoU0pGam9JcC9LNVp0?=
- =?utf-8?B?M2RtWWs2Q0pMN011bisxdmMvVkxSR3EzNUJWalZ2OXZiNkVSckZTRmcwaDVF?=
- =?utf-8?B?K2t3R0c2TERQZ3NLejZkbFFIOHJmMWx6S3JIN01MR1d3R3U3UGRBRlhUbXZE?=
- =?utf-8?B?SjBpcUlZMU1ieERBRVl6dHdSK282YjRTSk45N1laODZBdWhCbys4WWVsMHpj?=
- =?utf-8?B?MVl2YzB2UzJhRm4raTdaZkc4ZWRtbjFXTXQrOFZuK0xiTmYrdUxoZ2ZNK3BI?=
- =?utf-8?B?WGc1b3MvYXNUY05XZTBsM0RzUy9iSWw5K1N6b3VZblA4RllWUmVYVzJTSjZU?=
- =?utf-8?B?dXdpOTBad0VYS0tzNXJ4MStiOHU2dC9xYllhc1g5Mm93andGMUF4NkovQ3hR?=
- =?utf-8?B?cjIrU2ZxQ2FEbVQ3dXpITHRtYUprbnFrbjYwU2hJb0pEbGtyckJPTUx2dm1H?=
- =?utf-8?B?TnJuVEk3N0szNXpnU29rV3BtNUI0eHdIaUNqemt5clUwRkw1aExEQnIyNnYx?=
- =?utf-8?B?TGZsNHkxUmM1T3podlhvbkhRRm1JdHJuSW44STduOHBtOHJTbnkrc1FndklX?=
- =?utf-8?B?RzZWTEJwVi9lWXgrZWttaVY3RFBVNkx3eUNMTEdjd1NqNHJQQjVYTk90clB2?=
- =?utf-8?B?S1JONWhRV3ZUKzRhcnppbTBUakh0eUFVbG1RMHA2aFl1QjdnUlhJam10a3pw?=
- =?utf-8?Q?Cx3Q=3D?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|7416014|376014|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gtu9nSAW5o9k0rgtfbFIYCyqTw3y2SCr0LviOm9895dhqVpkaTTuhErNSaKx?=
+ =?us-ascii?Q?KRfKgRWKtdQmAs4twrYvHRzJZol6huCoMNGJ6QPy3sa9q3OabJZKqGyKdf+h?=
+ =?us-ascii?Q?UCn0UvH9jBepoh7t347Uc2+3bc7cusf1+DS6Kuvsa/LU6cezUrPaSyZTBHNa?=
+ =?us-ascii?Q?68ay3KECTiyv7X8QbEWdxHawhmxeRr+kk9WpiNdY9VwDW68KpgB+++QRV09E?=
+ =?us-ascii?Q?t9OLwYp7ZO9qRxx6FZhXNqiR6Ynnhe+m3ztLv1v6LiAOgv4mbygzFwsYB4vN?=
+ =?us-ascii?Q?51f2je4M5CiTrOdwyloY6gg+aqF+4g2SZ5EmoJXkJHNOWzlGYkUSwbqE8uqT?=
+ =?us-ascii?Q?LViQkj8NsUzaRokfJSvpZXMulyxdWXwzdZ+Yhtx00snByjYfLDIT1o4ByZXX?=
+ =?us-ascii?Q?CGsNl8/MNjOoaPdSo2Sv7zktCG+gnJ58fK2EDKH30fEJw+ZrItBUpQr5Fh3i?=
+ =?us-ascii?Q?WkAHZ0i95aZhdeId/r6kNNiZJMrww1s0eoA8/Zf9eFZE1G9IARc7h4cQMsIk?=
+ =?us-ascii?Q?KBfpuJ9PNEjEfZAPddeFK8VsYe4L4Hq9ZewpUbqK5IteAXPAX85kZI0/Wue3?=
+ =?us-ascii?Q?0z2VtxB3L+ja1xxylAmm/uIIaWZWeSilFo3v2JoMHKDn7c0GWtB9D7ecIqLV?=
+ =?us-ascii?Q?FvS3inV2nFkLOM26yXuRRyX0iVH75ooYkzRYYWIscKJ/epAW5GNgMsdgJyLn?=
+ =?us-ascii?Q?PKJZR6VXyyEBg5rek1Fk4eu/XpVVAo6a273jQqz7A4MrWQX/0w64a23PpaO1?=
+ =?us-ascii?Q?S/FyYQAQ6GbbpdT+3n7PaoFr/Xs2xwo7yCjVXApqPt2klkG0O83C8gaNA5BU?=
+ =?us-ascii?Q?ar1UBc48Rw9naHWqI8nNKnMW3cL8BNz+YquPHf6/AroQHSTZyZD6y+BzdFLQ?=
+ =?us-ascii?Q?24Ch1BvRuTevlOgVSdyThGrG+EBWgz3OMFkAbg3XW9IkRqtPw9reoP1GiY79?=
+ =?us-ascii?Q?2M6KqfCKsPsHNQkvXkkcYmWyKQNhFs6aXNb19z8M1Q1muAF0oCDmDIF+xIz0?=
+ =?us-ascii?Q?WA8W0PU7/Xx1RALahw0/ezg+z9+avxJioOElFl58mrhaNvdE4tqzZQNjYTAT?=
+ =?us-ascii?Q?ztrlrSvarEnBUtx7g/kUFAvv5Zwv23EnelWLhO/CS0IM0cYhdCGdjLvUOE/W?=
+ =?us-ascii?Q?B5hNNPgQAZl+ss+ntmHoIX0IA6NSBEo40Kz/F1TrlXiPxNg1LFdGaGeycNyA?=
+ =?us-ascii?Q?8bS2fFFwERIamnisuPYUOyhE2pq3lM6znV/WwGmw9prYBU/shqX+9qoW4JDR?=
+ =?us-ascii?Q?rRpuZq5xhj7C2SYMX38L/RrMvxXGn11V5wK7a9y209YeCDqB6yrdArQOZ+my?=
+ =?us-ascii?Q?dwOSzsLzjzWwT5VttB/yvs1gdaJHDzCsev2HSIApKRjz7pmV+LOci/k0pFOz?=
+ =?us-ascii?Q?LNOvs/p5T3ccG8DufMr/XxOGBA0b+3NggpZy9QPYO0SzLQlesUE95QPspt4F?=
+ =?us-ascii?Q?MwXlJ14zARGFK7dssz2EsASQ5vDnZyLOq2JUx5JIeEgUcJggUV6wFkRTuHIq?=
+ =?us-ascii?Q?uEdVWG1ij3y1qgreidjXQajwDQTXrP00068ZSp4kjUfhJXNpajZcqZqaog?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(7416014)(376014)(921020);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99f0dc8b-09c2-4e05-8dd3-08ddbadbfa74
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2025 09:20:12.2446 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2025 10:14:10.7967 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca03fe0-c266-4455-f646-08ddbae38510
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zZpCf5e9o67txCmJGcdFWQorP4MinVPsURCNN/HgnLyIoxJ2M7BPJlubNGHxorGa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9157
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8763
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,60 +143,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 04.07.25 05:06, André Almeida wrote:
-> When a ring reset happens, amdgpu calls drm_dev_wedged_event() using
-> struct amdgpu_task_info *ti as one of the arguments. After using *ti, a
-> call to amdgpu_vm_put_task_info(ti) is required to correctly track its
-> lifetime.
-> 
-> However, it's called from a place that the ring reset path never reaches
-> due to a goto after drm_dev_wedged_event() is called. Move
-> amdgpu_vm_put_task_info() bellow the exit label to make sure that it's
-> called regardless of the code path.
-> 
-> amdgpu_vm_put_task_info() can only accept a valid address or NULL as
-> argument, so initialise *ti to make sure we can call this function if
-> *ti isn't used.
-> 
-> Fixes: a72002cb181f ("drm/amdgpu: Make use of drm_wedge_task_info")
-> Reported-by: Dave Airlie <airlied@gmail.com>
-> Closes: https://lore.kernel.org/dri-devel/CAPM=9tz0rQP8VZWKWyuF8kUMqRScxqoa6aVdwWw9=5yYxyYQ2Q@mail.gmail.com/
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+Modern data center dGPUs are usually equipped with very large VRAM. On
+server with such dGPUs(192GB VRAM * 8) and 2TB system memory, hibernate
+will fail due to no enough free memory.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+The root cause is that during hibernation all VRAM memory get evicted to
+GTT or shmem. In both case, it is in system memory and kernel will try to 
+copy the pages to hibernation image. In the worst case, this causes 2 
+copies of VRAM memory in system memory, 2TB is not enough for the 
+hibernation image. 192GB * 8 * 2 = 3TB > 2TB.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 1e24590ae144..e69366401f6b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -90,7 +90,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->  	struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
->  	struct amdgpu_job *job = to_amdgpu_job(s_job);
->  	struct drm_wedge_task_info *info = NULL;
-> -	struct amdgpu_task_info *ti;
-> +	struct amdgpu_task_info *ti = NULL;
->  	struct amdgpu_device *adev = ring->adev;
->  	int idx;
->  	int r;
-> @@ -172,8 +172,6 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->  	}
->  	dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
->  
-> -	amdgpu_vm_put_task_info(ti);
-> -
->  	if (amdgpu_device_should_recover_gpu(ring->adev)) {
->  		struct amdgpu_reset_context reset_context;
->  		memset(&reset_context, 0, sizeof(reset_context));
-> @@ -199,6 +197,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->  	}
->  
->  exit:
-> +	amdgpu_vm_put_task_info(ti);
->  	drm_dev_exit(idx);
->  	return DRM_GPU_SCHED_STAT_NOMINAL;
->  }
+The fix includes following changes. With these changes, there's much less
+pages needed to be copied to hibernate image and hibernation can succeed.
+* patch 1 and 2: move GTT to shmem after evicting VRAM. so that the GTT 
+  pages can be freed.
+* patch 3: force write shmem pages to swap disk and free shmem pages.
+
+After swapout GTT to shmem in hibernation prepare stage, the GPU will be
+resumed again in thaw stage. The swapin and restore BOs of resume takes
+lots of time (50 mintues observed for 8 dGPUs). And it's unnecessary since
+writing hibernation image do not need GPU for hibernate successful case.
+* patch 4 and 5: skip resume of device in thaw stage for successful
+  hibernation case to reduce the hibernation time.
+
+v2:
+* split first patch to 2 patches, 1 for ttm, 1 for amdgpu
+* refined the new ttm api
+* add more comments for shrink_shmem_memory() and its callsite
+* export variable pm_transition in kernel
+* skip resume in thaw() for successful hibernation case
+
+Samuel Zhang (5):
+1. drm/ttm: add ttm_device_prepare_hibernation() api
+2. drm/amdgpu: move GTT to shmem after eviction for hibernation
+3. PM: hibernate: shrink shmem pages after dev_pm_ops.prepare()
+4. PM: hibernate: export variable pm_transition
+5. drm/amdgpu: do not resume device in thaw for normal hibernation
+
+ drivers/base/power/main.c                    |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      | 10 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 13 ++++++++-
+ drivers/gpu/drm/amd/dkms/config/config.h     |  3 ++
+ drivers/gpu/drm/amd/dkms/m4/pm_transition.m4 | 15 ++++++++++
+ drivers/gpu/drm/ttm/ttm_device.c             | 29 ++++++++++++++++++++
+ include/drm/ttm/ttm_device.h                 |  1 +
+ include/linux/pm.h                           |  2 ++
+ kernel/power/hibernate.c                     | 26 ++++++++++++++++++
+ 9 files changed, 100 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/dkms/m4/pm_transition.m4
+
+-- 
+2.43.5
 
