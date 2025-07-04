@@ -4,75 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA36AC83F14
-	for <amd-gfx@archiver.kernel.org>; Sun,  6 Jul 2025 23:58:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D8FC83F10
+	for <amd-gfx@archiver.kernel.org>; Sun,  6 Jul 2025 23:58:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B48C10E3DD;
-	Sun,  6 Jul 2025 23:58:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17B4510E16D;
+	Sun,  6 Jul 2025 23:58:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qniy9ODx";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="vFb/EG4c";
 	dkim-atps=neutral
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DEE310E22B;
- Sat,  5 Jul 2025 15:59:37 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-74b52bf417cso1133840b3a.0; 
- Sat, 05 Jul 2025 08:59:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1751731176; x=1752335976; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Xxe3hUK0FcWLFBwawbJlsURwRJfsz9aIAfjmQMU/LHU=;
- b=Qniy9ODxwHkwBwuN33ivO2ubRTRaYNwrgqF6uUvxQt1D4xEnl0yokvUYaSyZgPBbou
- x+DgtndDnZDtRxDJvB4Y+sV2ORmg9K28VFEOlImm/4RCZftYPeMjmXakSo3t3cDevKYC
- gE5J3jiARDgrY4IF6MFH7iuj4FLw81vr0vaAsQ0ckaq5yVJpUNZhRucH/Bb0e8uqdyTk
- KpW4Zrdr7SVReVVW2miXJ7S9wDmFUlhjNxSA6PJpIDNN9YNVpd+E2yOovgDuaCXX+kAF
- aXzxi41F4JLok70N3rn/flasgcVaksI4Fe6G4/eA8/Q9xtuS6wsovi4QWcVdKOtHfm2u
- W+oA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751731176; x=1752335976;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Xxe3hUK0FcWLFBwawbJlsURwRJfsz9aIAfjmQMU/LHU=;
- b=wnBQ4OCu9RUb6sJGgtr7+AFokwo6lHoZxGdpkqfA9tg+6T7fiYNBVRgUrlVF5PBTe6
- 8cKzzGAp/uR6CAppaRunGJmfMZ3a6gX1w2hdgPFlMezm67uqxelBGvlEV9aE0dY01YYA
- LGXoZLYDcsIT25VRJDSDsSyD+ce2F6w0GOLARSYAfSFD9GwVoWOUlrtZZC2rXCV5S63q
- 5lnvw//DWlrvhC40WGyGAU9x7qx6tSyQObcxOkVZlfBuWxHem2zkwoPwPBGvk0eDQ16m
- rj9uERqwREA+1EcHNxiL4ftE93Utj1pA41vHzsdQGyEbwEm5e730+4An+geLLR5sVPoD
- GE0Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUpgJTMFGxI7fQBBY77UZ+i7ok4Ei0UFDiqNKxOBmOH/ZqPT2tcikwy+rVVtD8yc0lY+NlpyFtWYOU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyv3YFIfaW1ZWJhQblo2zUMeRzcz8Acrlh8lQ1ALMt8Sxt2OJjX
- vubMz10HT5tTR3ayzOLlX75QnFQV4VTu2nON93Xp1wYa0yH94oi5mZuw
-X-Gm-Gg: ASbGncsT2pqgHNSzaneVEFW6pu4tue7EMDWDXTIIRVqXg7q3thIrcs1awWCrQRPHj0H
- In0frBpgWyXAx1aWSV58lLsko1jQE/pTfkUc4+FQ6zDcB/Mm7ePWYsefJU7nTCCSwSKgqON7IyY
- toozV3qbv82pP1ruIhqe66Lrhd0y0ROnA0aIJkpdTGQZquoYkF5OSJXt6fL3tzjqJ7/zZVUuUQ4
- 0Wy5gFpeVFIusb/aZHYGf8YxupeU6W3AsQmvBClxQtgO18U+IKxjryJEqZzfkM88mvk43gfpYQF
- dvx7s5VWz+16csJnXtXFdOboKgpBhO9n/1DXoBt1qpzGhBhQalHkO0A1n3DNrOQLnSOv87nYm97
- 32xkld5hVWvlYPc8=
-X-Google-Smtp-Source: AGHT+IFjq06wwaJBBhZjTvlaIGp9QtkdQ8b7G5Dhd4VLbUDuY3LNRSFQdF8WPRHnHcJuL4ZpsupNFA==
-X-Received: by 2002:a05:6a21:7a43:b0:223:76d2:5a7 with SMTP id
- adf61e73a8af0-225b948850fmr10729212637.24.1751731176590; 
- Sat, 05 Jul 2025 08:59:36 -0700 (PDT)
-Received: from localhost.localdomain ([2401:4900:882f:293:70ba:30fe:2559:8217])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b38ee74cf48sm4539103a12.77.2025.07.05.08.59.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Jul 2025 08:59:36 -0700 (PDT)
-From: Abinash Singh <abinashlalotra@gmail.com>
-X-Google-Original-From: Abinash Singh <abinashsinghlalotra@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abinash Singh <abinashsinghlalotra@gmail.com>
-Subject: [PATCH RFC] drm/radeon: fix the warning for radeon_cs_ioctl()
-Date: Sat,  5 Jul 2025 21:29:14 +0530
-Message-ID: <20250705155914.806693-1-abinashsinghlalotra@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7954410E214;
+ Fri,  4 Jul 2025 12:59:28 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4bYYcY2TlLz9t13;
+ Fri,  4 Jul 2025 14:59:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1751633965; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=85ulYrWa2aKa6X7PytppDzTSoBmaC9nM/f9Z+G5Oeu4=;
+ b=vFb/EG4cHeJRyFTWy14fLOzuSNuEIqoOgM1bxQO+7l+I2CO8ZBSsKF+mOtj3CP/7hAGLuS
+ XVGDwHkRhfJXltR3rQbyk6QGGCAMIjX0jUjgPfV/VzguDt7I9aqAj1x7Gs4qw302/6QW9T
+ tBYCYuzbKEGwmkI7OnvHUt/pjydc89YxZ9wsvgT/RUpx24024+11t3V5VtwemrO5ATDW3W
+ 5Bcw86NsfK8BFnTyZxSlZMPqYYx8p1p1d+Yk1XpTdBRwv70eWbDBilcEcKmYNxXsu6TJPj
+ nGaNRSB5i0lEDnjXaCTm/HNfXEEJa4RK+721iPJaRRxV4sOrg2qSoOehyoFe8Q==
+Message-ID: <f010325d1d49b4d7cae44d12c77110c3c36de214.camel@mailbox.org>
+Subject: Re: [PATCH v5 03/16] drm/sched: De-clutter drm_sched_init
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
+Date: Fri, 04 Jul 2025 14:59:23 +0200
+In-Reply-To: <20250623122746.46478-4-tvrtko.ursulin@igalia.com>
+References: <20250623122746.46478-1-tvrtko.ursulin@igalia.com>
+ <20250623122746.46478-4-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: tnwqegw6qa5tpxygq55tbw8am9hstkwz
+X-MBO-RS-ID: 41c0739efc0bc8a2696
 X-Mailman-Approved-At: Sun, 06 Jul 2025 23:58:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,123 +63,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following compiler warning about excessive stack usage:
-
- drivers/gpu/drm/radeon/radeon_cs.c:669:5: warning: stack frame size (1200) exceeds limit (1024) in 'radeon_cs_ioctl' [-Wframe-larger-than]
-
-The warning is caused by a large objects like  `struct radeon_cs_parser`
- being allocated on the stack. This patch changes the parser to be 
- heap-allocated via `kzalloc()`, thus reducing stack pressure. 
- It uses the __free() attribute  to ensure automatic 
- cleanup on return.
-
-This change should not affect functionality, as all usage of the
- `parser` remains intact and is now accessed via a pointer.
-
-
-Signed-off-by: Abinash Singh <abinashsinghlalotra@gmail.com>
----
-the radeon_cs_ioctl() consumes around 1200 bytes on stack.
-It was confirmed using -fstack-usage
-....................................
-divers/gpu/drm/radeon/radeon_cs.c:669:radeon_cs_ioctl  1200    static
-drivers/gpu/drm/radeon/radeon_cs.c:416:radeon_cs_parser_fini    56      static
-...............................................
-
-After applying this patch the stack size effectivly reduces to 656 bytes
-...............................................
-drivers/gpu/drm/radeon/radeon_cs.c:669:radeon_cs_ioctl  656     static
-drivers/gpu/drm/radeon/radeon_cs.c:416:radeon_cs_parser_fini    56      static
-.....................................................
-
-This will eliminate the build warning .But will this dynamic allocation with kzalloc()
-affect performance as compared to stack allocation + memset . Or will this way we will
-suffer greater penalty ?
- drivers/gpu/drm/radeon/radeon_cs.c | 34 ++++++++++++++++--------------
- 1 file changed, 18 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_cs.c b/drivers/gpu/drm/radeon/radeon_cs.c
-index b8e6202f1d5b..ca7fad842db7 100644
---- a/drivers/gpu/drm/radeon/radeon_cs.c
-+++ b/drivers/gpu/drm/radeon/radeon_cs.c
-@@ -669,9 +669,12 @@ static int radeon_cs_ib_fill(struct radeon_device *rdev, struct radeon_cs_parser
- int radeon_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- {
- 	struct radeon_device *rdev = dev->dev_private;
--	struct radeon_cs_parser parser;
-+	struct radeon_cs_parser *parser __free(kfree) = NULL;
- 	int r;
+On Mon, 2025-06-23 at 13:27 +0100, Tvrtko Ursulin wrote:
+> Move work queue allocation into a helper for a more streamlined
+> function
+> body.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> ---
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 33 ++++++++++++++++-------=
 -
-+
-+	parser = kzalloc(sizeof(*parser), GFP_KERNEL);
-+	if (!parser)
-+		return -ENOMEM;
- 	down_read(&rdev->exclusive_lock);
- 	if (!rdev->accel_working) {
- 		up_read(&rdev->exclusive_lock);
-@@ -685,46 +688,45 @@ int radeon_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		return r;
- 	}
- 	/* initialize parser */
--	memset(&parser, 0, sizeof(struct radeon_cs_parser));
--	parser.filp = filp;
--	parser.rdev = rdev;
--	parser.dev = rdev->dev;
--	parser.family = rdev->family;
--	r = radeon_cs_parser_init(&parser, data);
-+	parser->filp = filp;
-+	parser->rdev = rdev;
-+	parser->dev = rdev->dev;
-+	parser->family = rdev->family;
-+	r = radeon_cs_parser_init(parser, data);
- 	if (r) {
- 		DRM_ERROR("Failed to initialize parser !\n");
--		radeon_cs_parser_fini(&parser, r);
-+		radeon_cs_parser_fini(parser, r);
- 		up_read(&rdev->exclusive_lock);
- 		r = radeon_cs_handle_lockup(rdev, r);
- 		return r;
- 	}
+> --
+> =C2=A01 file changed, 20 insertions(+), 13 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> b/drivers/gpu/drm/scheduler/sched_main.c
+> index a1b445c3b4db..1f077782ec12 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -84,12 +84,6 @@
+> =C2=A0#define CREATE_TRACE_POINTS
+> =C2=A0#include "gpu_scheduler_trace.h"
+> =C2=A0
+> -#ifdef CONFIG_LOCKDEP
+> -static struct lockdep_map drm_sched_lockdep_map =3D {
+> -	.name =3D "drm_sched_lockdep_map"
+> -};
+> -#endif
+> -
+> =C2=A0int drm_sched_policy =3D DRM_SCHED_POLICY_FIFO;
+> =C2=A0
+> =C2=A0/**
+> @@ -1263,6 +1257,25 @@ static void drm_sched_run_job_work(struct
+> work_struct *w)
+> =C2=A0	drm_sched_run_job_queue(sched);
+> =C2=A0}
+> =C2=A0
+> +static struct workqueue_struct *drm_sched_alloc_wq(const char *name)
+> +{
+> +#if (IS_ENABLED(CONFIG_LOCKDEP))
+> +	static struct lockdep_map map =3D {
+> +		.name =3D "drm_sched_lockdep_map"
+> +	};
+> +
+> +	/*
+> +	 * Avoid leaking a lockdep map on each drm sched creation
+> and
+> +	 * destruction by using a single lockdep map for all drm
+> sched
+> +	 * allocated submit_wq.
+> +	 */
+> +
+> +	return alloc_ordered_workqueue_lockdep_map(name,
+> WQ_MEM_RECLAIM, &map);
+> +#else
+> +	return alloc_ordered_workqueue(name, WQ_MEM_RECLAIM);
+> +#endif
+> +}
+> +
+> =C2=A0/**
+> =C2=A0 * drm_sched_init - Init a gpu scheduler instance
+> =C2=A0 *
+> @@ -1303,13 +1316,7 @@ int drm_sched_init(struct drm_gpu_scheduler
+> *sched, const struct drm_sched_init_
+> =C2=A0		sched->submit_wq =3D args->submit_wq;
+> =C2=A0		sched->own_submit_wq =3D false;
+> =C2=A0	} else {
+> -#ifdef CONFIG_LOCKDEP
+> -		sched->submit_wq =3D
+> alloc_ordered_workqueue_lockdep_map(args->name,
+> -
+> 								=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WQ_MEM_RECLAIM,
+> -
+> 								=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &drm_sched_lockdep_map);
+> -#else
+> -		sched->submit_wq =3D alloc_ordered_workqueue(args-
+> >name, WQ_MEM_RECLAIM);
+> -#endif
+> +		sched->submit_wq =3D drm_sched_alloc_wq(args->name);
+> =C2=A0		if (!sched->submit_wq)
+> =C2=A0			return -ENOMEM;
 
--	r = radeon_cs_ib_fill(rdev, &parser);
-+	r = radeon_cs_ib_fill(rdev, parser);
- 	if (!r) {
--		r = radeon_cs_parser_relocs(&parser);
-+		r = radeon_cs_parser_relocs(parser);
- 		if (r && r != -ERESTARTSYS)
- 			DRM_ERROR("Failed to parse relocation %d!\n", r);
- 	}
+You could send this patch separately any time *wink wink*
 
- 	if (r) {
--		radeon_cs_parser_fini(&parser, r);
-+		radeon_cs_parser_fini(parser, r);
- 		up_read(&rdev->exclusive_lock);
- 		r = radeon_cs_handle_lockup(rdev, r);
- 		return r;
- 	}
+We definitely wanna merge that, and you could then just rebase your RFC
+series on drm-misc-next.
 
--	trace_radeon_cs(&parser);
-+	trace_radeon_cs(parser);
+P.
 
--	r = radeon_cs_ib_chunk(rdev, &parser);
-+	r = radeon_cs_ib_chunk(rdev, parser);
- 	if (r) {
- 		goto out;
- 	}
--	r = radeon_cs_ib_vm_chunk(rdev, &parser);
-+	r = radeon_cs_ib_vm_chunk(rdev, parser);
- 	if (r) {
- 		goto out;
- 	}
- out:
--	radeon_cs_parser_fini(&parser, r);
-+	radeon_cs_parser_fini(parser, r);
- 	up_read(&rdev->exclusive_lock);
- 	r = radeon_cs_handle_lockup(rdev, r);
- 	return r;
---q
-2.43.0
+> =C2=A0
 
