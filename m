@@ -4,61 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 528F1C83030
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jul 2025 08:52:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25E7FC83030
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jul 2025 08:57:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D182D10E98D;
-	Fri,  4 Jul 2025 08:52:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A977310E99D;
+	Fri,  4 Jul 2025 08:57:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A12++TEL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BJ4E0OOU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15DC610E989;
- Fri,  4 Jul 2025 08:52:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE0E10E96A;
+ Fri,  4 Jul 2025 07:54:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1751619142; x=1783155142;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=eDaB4H7uTImRWrHDBvRkFn8cXQ2OlGO5SiT890oT2Yc=;
- b=A12++TELaUCZPjEjQQjJUBcCrZuYAktSCSHp3BaJQaGv954KYE3Ji0dQ
- +UbjUZhhspDyxCC+vsT7M+/Uz6D6iZEnkRUEdY+0FhRnukPqHD+cWXU1t
- XJIkkx/AnMevkyneZgUUmz24FGpa/tcr5Sf7/ndfw6XC/MNhXEeCW9CtX
- HHwZTr8ZVka8VSpsvreTzMnYk/+4hcVkyAQyUujQjV94xuaOsR7vn4SRY
- 1ec2z1fXY61mA61DtUrGpiMzQphzgIxxxOFc8Hh1lzboXmf8KDpk+mxnI
- KiMY7aG9NPW2rE41rqTtwzMrfq0p6Vql5BiZ2J5Gh/ZYgGR9r3M1Ad/+g Q==;
-X-CSE-ConnectionGUID: 04AZaugmR3ek89XCYwvA9A==
-X-CSE-MsgGUID: Qcg+sOUbS4KlDPSbD7NrPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11483"; a="79391981"
-X-IronPort-AV: E=Sophos;i="6.16,286,1744095600"; d="scan'208";a="79391981"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2025 01:52:22 -0700
-X-CSE-ConnectionGUID: G5wxgdf2Rzq9ri+HZ0T8fw==
-X-CSE-MsgGUID: RBoYUIHbTmeF3eCB66dyMA==
+ t=1751615656; x=1783151656;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=KVlSDc0mZPkCLINDGK1BM9jwOUm48xtGzbIHTXiVMqM=;
+ b=BJ4E0OOUoVjzJkZq2dipMReFVAsuj3c9zStNayPn+QcX9qr57CAkvXym
+ NBl0F5bbJZRgjmAbbnuZQF2VOj4Tj8D+oKyyJPit2EdjOfRB1suAg9r7b
+ 9b6/GWIDEVyUzeZB4vWfOHY0H3Fx83d2kV+j4yFVBNR2oo8X71o1MsqzE
+ XID9u5cTSZBZyjyaqMa7Huo0KYMMadUUSl6bKT0uXChaIBBH+CLmZx/WY
+ DH1RIFXw4FzpMorOhOQc22KKPwPdBrlenPgPYnEtfXuXhjSRmjKT/vHjt
+ V6RBmrMq+Po9LdqWg0AKkHO69zvMEaX0cneFfMeOSYe6BGGQT7fEliY1G g==;
+X-CSE-ConnectionGUID: 9+YL3adWTx+q4xIeso1fzw==
+X-CSE-MsgGUID: 91FkYTilTyCnEgmpGmWl9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11483"; a="76494548"
+X-IronPort-AV: E=Sophos;i="6.16,286,1744095600"; d="scan'208";a="76494548"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2025 00:54:15 -0700
+X-CSE-ConnectionGUID: 9R57z0ToQ9etEVLaTP/fQw==
+X-CSE-MsgGUID: hbP5tAbuSxCIwTiN0b6otg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,286,1744095600"; d="scan'208";a="154722521"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.245.51])
- ([10.245.245.51])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2025 01:52:20 -0700
-Message-ID: <358045a3-c2ac-4d3c-942c-aa5473d88298@intel.com>
-Date: Fri, 4 Jul 2025 09:52:16 +0100
+X-IronPort-AV: E=Sophos;i="6.16,286,1744095600"; d="scan'208";a="158924210"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO
+ svinhufvud.fi.intel.com) ([10.245.244.244])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2025 00:54:13 -0700
+Received: from svinhufvud.lan (localhost [IPv6:::1])
+ by svinhufvud.fi.intel.com (Postfix) with ESMTP id 3E67544843;
+ Fri,  4 Jul 2025 10:54:11 +0300 (EEST)
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 18/80] drm/radeon: Remove redundant
+ pm_runtime_mark_last_busy() calls
+Date: Fri,  4 Jul 2025 10:54:11 +0300
+Message-Id: <20250704075411.3218009-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250704075225.3212486-1-sakari.ailus@linux.intel.com>
+References: <20250704075225.3212486-1-sakari.ailus@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] drm/amdgpu: Reset the clear flag in buddy during
- resume
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, matthew.brost@intel.com
-Cc: alexander.deucher@amd.com, stable@vger.kernel.org
-References: <20250701190822.5272-1-Arunpravin.PaneerSelvam@amd.com>
- <20250701190822.5272-2-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20250701190822.5272-2-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 04 Jul 2025 08:57:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,312 +77,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01/07/2025 20:08, Arunpravin Paneer Selvam wrote:
-> - Added a handler in DRM buddy manager to reset the cleared
->    flag for the blocks in the freelist.
-> 
-> - This is necessary because, upon resuming, the VRAM becomes
->    cluttered with BIOS data, yet the VRAM backend manager
->    believes that everything has been cleared.
-> 
-> v2:
->    - Add lock before accessing drm_buddy_clear_reset_blocks()(Matthew Auld)
->    - Force merge the two dirty blocks.(Matthew Auld)
->    - Add a new unit test case for this issue.(Matthew Auld)
->    - Having this function being able to flip the state either way would be
->      good. (Matthew Brost)
-> 
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Cc: stable@vger.kernel.org
-> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3812
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   |  2 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h      |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 17 ++++
->   drivers/gpu/drm/drm_buddy.c                  | 90 +++++++++++++++++---
->   include/drm/drm_buddy.h                      |  2 +
->   5 files changed, 99 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index a59f194e3360..b89e46f29b51 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5193,6 +5193,8 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
->   		dev->dev->power.disable_depth--;
->   #endif
->   	}
-> +
-> +	amdgpu_vram_mgr_clear_reset_blocks(adev);
->   	adev->in_suspend = false;
->   
->   	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index 208b7d1d8a27..450e4bf093b7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -154,6 +154,7 @@ int amdgpu_vram_mgr_reserve_range(struct amdgpu_vram_mgr *mgr,
->   				  uint64_t start, uint64_t size);
->   int amdgpu_vram_mgr_query_page_status(struct amdgpu_vram_mgr *mgr,
->   				      uint64_t start);
-> +void amdgpu_vram_mgr_clear_reset_blocks(struct amdgpu_device *adev);
->   
->   bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
->   			    struct ttm_resource *res);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index abdc52b0895a..665656fbc948 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -782,6 +782,23 @@ uint64_t amdgpu_vram_mgr_vis_usage(struct amdgpu_vram_mgr *mgr)
->   	return atomic64_read(&mgr->vis_usage);
->   }
->   
-> +/**
-> + * amdgpu_vram_mgr_clear_reset_blocks - reset clear blocks
-> + *
-> + * @adev: amdgpu device pointer
-> + *
-> + * Reset the cleared drm buddy blocks.
-> + */
-> +void amdgpu_vram_mgr_clear_reset_blocks(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
-> +	struct drm_buddy *mm = &mgr->mm;
-> +
-> +	mutex_lock(&mgr->lock);
-> +	drm_buddy_reset_clear_state(mm, false);
-> +	mutex_unlock(&mgr->lock);
-> +}
-> +
->   /**
->    * amdgpu_vram_mgr_intersects - test each drm buddy block for intersection
->    *
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index a1e652b7631d..436f7e4ee202 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -12,6 +12,9 @@
->   
->   #include <drm/drm_buddy.h>
->   
-> +#define FORCE_MERGE	BIT(0)
-> +#define RESET_CLEAR	BIT(1)
-> +
->   static struct kmem_cache *slab_blocks;
->   
->   static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
-> @@ -60,6 +63,16 @@ static void list_insert_sorted(struct drm_buddy *mm,
->   	__list_add(&block->link, node->link.prev, &node->link);
->   }
->   
-> +static bool is_force_merge_enabled(unsigned int flags)
-> +{
-> +	return flags & FORCE_MERGE;
-> +}
-> +
-> +static bool is_reset_clear_enabled(unsigned int flags)
-> +{
-> +	return flags & RESET_CLEAR;
-> +}
-> +
->   static void clear_reset(struct drm_buddy_block *block)
->   {
->   	block->header &= ~DRM_BUDDY_HEADER_CLEAR;
-> @@ -122,7 +135,7 @@ __get_buddy(struct drm_buddy_block *block)
->   
->   static unsigned int __drm_buddy_free(struct drm_buddy *mm,
->   				     struct drm_buddy_block *block,
-> -				     bool force_merge)
-> +				     unsigned int flags)
->   {
->   	struct drm_buddy_block *parent;
->   	unsigned int order;
-> @@ -135,7 +148,7 @@ static unsigned int __drm_buddy_free(struct drm_buddy *mm,
->   		if (!drm_buddy_block_is_free(buddy))
->   			break;
->   
-> -		if (!force_merge) {
-> +		if (!is_force_merge_enabled(flags)) {
->   			/*
->   			 * Check the block and its buddy clear state and exit
->   			 * the loop if they both have the dissimilar state.
-> @@ -149,7 +162,9 @@ static unsigned int __drm_buddy_free(struct drm_buddy *mm,
->   		}
->   
->   		list_del(&buddy->link);
-> -		if (force_merge && drm_buddy_block_is_clear(buddy))
-> +		if (is_force_merge_enabled(flags) &&
-> +		    !is_reset_clear_enabled(flags) &&
-> +		    drm_buddy_block_is_clear(buddy))
->   			mm->clear_avail -= drm_buddy_block_size(mm, buddy);
->   
->   		drm_block_free(mm, block);
-> @@ -167,7 +182,8 @@ static unsigned int __drm_buddy_free(struct drm_buddy *mm,
->   static int __force_merge(struct drm_buddy *mm,
->   			 u64 start,
->   			 u64 end,
-> -			 unsigned int min_order)
-> +			 unsigned int min_order,
-> +			 unsigned int flags)
->   {
->   	unsigned int order;
->   	int i;
-> @@ -178,6 +194,8 @@ static int __force_merge(struct drm_buddy *mm,
->   	if (min_order > mm->max_order)
->   		return -EINVAL;
->   
-> +	flags |= FORCE_MERGE;
-> +
->   	for (i = min_order - 1; i >= 0; i--) {
->   		struct drm_buddy_block *block, *prev;
->   
-> @@ -198,7 +216,8 @@ static int __force_merge(struct drm_buddy *mm,
->   			if (!drm_buddy_block_is_free(buddy))
->   				continue;
->   
-> -			WARN_ON(drm_buddy_block_is_clear(block) ==
-> +			WARN_ON(!is_reset_clear_enabled(flags) &&
-> +				drm_buddy_block_is_clear(block) ==
->   				drm_buddy_block_is_clear(buddy));
->   
->   			/*
-> @@ -210,10 +229,11 @@ static int __force_merge(struct drm_buddy *mm,
->   				prev = list_prev_entry(prev, link);
->   
->   			list_del(&block->link);
-> -			if (drm_buddy_block_is_clear(block))
-> +			if (!is_reset_clear_enabled(flags) &&
-> +			    drm_buddy_block_is_clear(block))
->   				mm->clear_avail -= drm_buddy_block_size(mm, block);
->   
-> -			order = __drm_buddy_free(mm, block, true);
-> +			order = __drm_buddy_free(mm, block, flags);
->   			if (order >= min_order)
->   				return 0;
->   		}
-> @@ -336,7 +356,7 @@ void drm_buddy_fini(struct drm_buddy *mm)
->   	for (i = 0; i < mm->n_roots; ++i) {
->   		order = ilog2(size) - ilog2(mm->chunk_size);
->   		start = drm_buddy_block_offset(mm->roots[i]);
-> -		__force_merge(mm, start, start + size, order);
-> +		__force_merge(mm, start, start + size, order, 0);
->   
->   		if (WARN_ON(!drm_buddy_block_is_free(mm->roots[i])))
->   			kunit_fail_current_test("buddy_fini() root");
-> @@ -405,6 +425,50 @@ drm_get_buddy(struct drm_buddy_block *block)
->   }
->   EXPORT_SYMBOL(drm_get_buddy);
->   
-> +/**
-> + * drm_buddy_reset_clear_state - reset blocks clear state
-> + *
-> + * @mm: DRM buddy manager
-> + * @is_clear: blocks clear state
-> + *
-> + * Reset the clear state based on @clear value for each block
-> + * in the freelist.
-> + */
-> +void drm_buddy_reset_clear_state(struct drm_buddy *mm, bool is_clear)
-> +{
-> +	u64 root_size, size, start;
-> +	unsigned int order;
-> +	int i;
-> +
-> +	for (i = 0; i <= mm->max_order; ++i) {
-> +		struct drm_buddy_block *block;
-> +
-> +		list_for_each_entry_reverse(block, &mm->free_list[i], link) {
-> +			if (is_clear != drm_buddy_block_is_clear(block)) {
-> +				if (is_clear) {
-> +					mark_cleared(block);
-> +					mm->clear_avail += drm_buddy_block_size(mm, block);
-> +				} else {
-> +					clear_reset(block);
-> +					mm->clear_avail -= drm_buddy_block_size(mm, block);
-> +				}
-> +			}
-> +		}
-> +	}
+pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
+pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
+to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
+pm_runtime_mark_last_busy().
 
-Is it not possible to do the merge step first and then go through 
-whatever is left marking at clear/dirty? If we do that then we maybe 
-don't need any extra changes or flags outside of reset_clear_state? Or 
-am I missing something?
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+The cover letter of the set can be found here
+<URL:https://lore.kernel.org/linux-pm/20250704075225.3212486-1-sakari.ailus@linux.intel.com>.
 
-> +
-> +	/* Force merge the two dirty or two cleared blocks */
-> +	size = mm->size;
-> +	for (i = 0; i < mm->n_roots; ++i) {
-> +		order = ilog2(size) - ilog2(mm->chunk_size);
-> +		start = drm_buddy_block_offset(mm->roots[i]);
-> +		__force_merge(mm, start, start + size, order, RESET_CLEAR);
-> +
-> +		root_size = mm->chunk_size << order;
-> +		size -= root_size;
-> +	}
-> +}
-> +EXPORT_SYMBOL(drm_buddy_reset_clear_state);
-> +
->   /**
->    * drm_buddy_free_block - free a block
->    *
-> @@ -419,7 +483,7 @@ void drm_buddy_free_block(struct drm_buddy *mm,
->   	if (drm_buddy_block_is_clear(block))
->   		mm->clear_avail += drm_buddy_block_size(mm, block);
->   
-> -	__drm_buddy_free(mm, block, false);
-> +	__drm_buddy_free(mm, block, 0);
->   }
->   EXPORT_SYMBOL(drm_buddy_free_block);
->   
-> @@ -566,7 +630,7 @@ __alloc_range_bias(struct drm_buddy *mm,
->   	if (buddy &&
->   	    (drm_buddy_block_is_free(block) &&
->   	     drm_buddy_block_is_free(buddy)))
-> -		__drm_buddy_free(mm, block, false);
-> +		__drm_buddy_free(mm, block, 0);
->   	return ERR_PTR(err);
->   }
->   
-> @@ -684,7 +748,7 @@ alloc_from_freelist(struct drm_buddy *mm,
->   
->   err_undo:
->   	if (tmp != order)
-> -		__drm_buddy_free(mm, block, false);
-> +		__drm_buddy_free(mm, block, 0);
->   	return ERR_PTR(err);
->   }
->   
-> @@ -770,7 +834,7 @@ static int __alloc_range(struct drm_buddy *mm,
->   	if (buddy &&
->   	    (drm_buddy_block_is_free(block) &&
->   	     drm_buddy_block_is_free(buddy)))
-> -		__drm_buddy_free(mm, block, false);
-> +		__drm_buddy_free(mm, block, 0);
->   
->   err_free:
->   	if (err == -ENOSPC && total_allocated_on_err) {
-> @@ -1051,7 +1115,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   			if (order-- == min_order) {
->   				/* Try allocation through force merge method */
->   				if (mm->clear_avail &&
-> -				    !__force_merge(mm, start, end, min_order)) {
-> +				    !__force_merge(mm, start, end, min_order, 0)) {
->   					block = __drm_buddy_alloc_blocks(mm, start,
->   									 end,
->   									 min_order,
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index 9689a7c5dd36..8b5273d4b2d1 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -160,6 +160,8 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   			 u64 new_size,
->   			 struct list_head *blocks);
->   
-> +void drm_buddy_reset_clear_state(struct drm_buddy *mm, bool is_clear);
-> +
->   void drm_buddy_free_block(struct drm_buddy *mm, struct drm_buddy_block *block);
->   
->   void drm_buddy_free_list(struct drm_buddy *mm,
+In brief, this patch depends on PM runtime patches adding marking the last
+busy timestamp in autosuspend related functions. The patches are here, on
+rc2:
+
+        git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
+                pm-runtime-6.17-rc1
+
+ drivers/gpu/drm/radeon/radeon_acpi.c       | 1 -
+ drivers/gpu/drm/radeon/radeon_connectors.c | 5 -----
+ drivers/gpu/drm/radeon/radeon_display.c    | 2 --
+ drivers/gpu/drm/radeon/radeon_drv.c        | 2 --
+ drivers/gpu/drm/radeon/radeon_fbdev.c      | 2 --
+ drivers/gpu/drm/radeon/radeon_kms.c        | 4 ----
+ 6 files changed, 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_acpi.c b/drivers/gpu/drm/radeon/radeon_acpi.c
+index 22ce61bdfc06..08f8ba4fd148 100644
+--- a/drivers/gpu/drm/radeon/radeon_acpi.c
++++ b/drivers/gpu/drm/radeon/radeon_acpi.c
+@@ -408,7 +408,6 @@ static int radeon_atif_handler(struct radeon_device *rdev,
+ 			pm_runtime_get_sync(rdev_to_drm(rdev)->dev);
+ 			/* Just fire off a uevent and let userspace tell us what to do */
+ 			drm_helper_hpd_irq_event(rdev_to_drm(rdev));
+-			pm_runtime_mark_last_busy(rdev_to_drm(rdev)->dev);
+ 			pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 9f6a3df951ba..7a4f05dbd6f7 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -876,7 +876,6 @@ radeon_lvds_detect(struct drm_connector *connector, bool force)
+ 	radeon_connector_update_scratch_regs(connector, ret);
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+-		pm_runtime_mark_last_busy(connector->dev->dev);
+ 		pm_runtime_put_autosuspend(connector->dev->dev);
+ 	}
+ 
+@@ -1067,7 +1066,6 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
+ 
+ out:
+ 	if (!drm_kms_helper_is_poll_worker()) {
+-		pm_runtime_mark_last_busy(connector->dev->dev);
+ 		pm_runtime_put_autosuspend(connector->dev->dev);
+ 	}
+ 
+@@ -1155,7 +1153,6 @@ radeon_tv_detect(struct drm_connector *connector, bool force)
+ 	radeon_connector_update_scratch_regs(connector, ret);
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+-		pm_runtime_mark_last_busy(connector->dev->dev);
+ 		pm_runtime_put_autosuspend(connector->dev->dev);
+ 	}
+ 
+@@ -1403,7 +1400,6 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
+ 
+ exit:
+ 	if (!drm_kms_helper_is_poll_worker()) {
+-		pm_runtime_mark_last_busy(connector->dev->dev);
+ 		pm_runtime_put_autosuspend(connector->dev->dev);
+ 	}
+ 
+@@ -1715,7 +1711,6 @@ radeon_dp_detect(struct drm_connector *connector, bool force)
+ 
+ out:
+ 	if (!drm_kms_helper_is_poll_worker()) {
+-		pm_runtime_mark_last_busy(connector->dev->dev);
+ 		pm_runtime_put_autosuspend(connector->dev->dev);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 8f5f8abcb1b4..89c3f83561d6 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -644,8 +644,6 @@ radeon_crtc_set_config(struct drm_mode_set *set,
+ 		if (crtc->enabled)
+ 			active = true;
+ 
+-	pm_runtime_mark_last_busy(dev->dev);
+-
+ 	rdev = dev->dev_private;
+ 	/* if we have active crtcs and we don't have a power ref,
+ 	   take the current one */
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index 88e821d67af7..d0af0cef178a 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -477,7 +477,6 @@ static int radeon_pmops_runtime_idle(struct device *dev)
+ 		}
+ 	}
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_autosuspend(dev);
+ 	/* we don't want the main rpm_idle to call suspend - we want to autosuspend */
+ 	return 1;
+@@ -499,7 +498,6 @@ long radeon_drm_ioctl(struct file *filp,
+ 
+ 	ret = drm_ioctl(filp, cmd, arg);
+ 
+-	pm_runtime_mark_last_busy(dev->dev);
+ 	pm_runtime_put_autosuspend(dev->dev);
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
+index d4a58bd679db..419fcad8d283 100644
+--- a/drivers/gpu/drm/radeon/radeon_fbdev.c
++++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
+@@ -155,7 +155,6 @@ static int radeon_fbdev_fb_open(struct fb_info *info, int user)
+ 	return 0;
+ 
+ err_pm_runtime_mark_last_busy:
+-	pm_runtime_mark_last_busy(rdev_to_drm(rdev)->dev);
+ 	pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
+ 	return ret;
+ }
+@@ -165,7 +164,6 @@ static int radeon_fbdev_fb_release(struct fb_info *info, int user)
+ 	struct drm_fb_helper *fb_helper = info->par;
+ 	struct radeon_device *rdev = fb_helper->dev->dev_private;
+ 
+-	pm_runtime_mark_last_busy(rdev_to_drm(rdev)->dev);
+ 	pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
+index 645e33bf7947..3144890b6007 100644
+--- a/drivers/gpu/drm/radeon/radeon_kms.c
++++ b/drivers/gpu/drm/radeon/radeon_kms.c
+@@ -170,7 +170,6 @@ int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags)
+ 		pm_runtime_set_autosuspend_delay(dev->dev, 5000);
+ 		pm_runtime_set_active(dev->dev);
+ 		pm_runtime_allow(dev->dev);
+-		pm_runtime_mark_last_busy(dev->dev);
+ 		pm_runtime_put_autosuspend(dev->dev);
+ 	}
+ 
+@@ -677,7 +676,6 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 		file_priv->driver_priv = fpriv;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(dev->dev);
+ 	pm_runtime_put_autosuspend(dev->dev);
+ 	return 0;
+ 
+@@ -687,7 +685,6 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 	kfree(fpriv);
+ 
+ err_suspend:
+-	pm_runtime_mark_last_busy(dev->dev);
+ 	pm_runtime_put_autosuspend(dev->dev);
+ 	return r;
+ }
+@@ -737,7 +734,6 @@ void radeon_driver_postclose_kms(struct drm_device *dev,
+ 		kfree(fpriv);
+ 		file_priv->driver_priv = NULL;
+ 	}
+-	pm_runtime_mark_last_busy(dev->dev);
+ 	pm_runtime_put_autosuspend(dev->dev);
+ }
+ 
+-- 
+2.39.5
 
