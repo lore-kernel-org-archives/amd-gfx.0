@@ -4,118 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B075C8303D
-	for <amd-gfx@archiver.kernel.org>; Sat,  5 Jul 2025 04:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96A1CC8303C
+	for <amd-gfx@archiver.kernel.org>; Sat,  5 Jul 2025 13:42:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2254010E1A4;
-	Sat,  5 Jul 2025 04:25:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17C3710E21B;
+	Sat,  5 Jul 2025 13:42:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aTRbgiV/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GLc2TCmz";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 204C010E17E
- for <amd-gfx@lists.freedesktop.org>; Sat,  5 Jul 2025 04:25:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rFYuLRBPai0FKlbKkLiF1Pq5a7gYOHUiqwMx11tNtyrH/bjuU2mf1SVQXrEbuJinQ5MptmkDjk1gmHUj8+53S9ts4yW2UsLUN7J8btQnBz20mMfH2WQfSp2vhIiNOkfA3nzeNQ2m31yokLBiYOAs9gmAVfshS1RSAR0c1gOaxiQsPlS3fWHD1FrZ3qp6i8UhgOx+53+gf1QTk9NhTdlHUicFiwhn25Odsp6sD8wDsnrq3rhi0ww0mg6xRmQMNkuJ6c8pb88pPijTgrWTRI6RGYRwuQvIagM5/2BBPAFdGW8g/RCx792yi8KPgY4X0quLmYk+tvHFCLI8KCxJpW/qew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3FFI1+Lz5uT7JUbSkhSxPrg4C6gJs6t2H70ZUcBwzRo=;
- b=S67C1TvWl6cLMZ3qjDLpS9yA8sM3RSG1BQTDUd93ynmsxpdYpHV+rUxuDMJYWWTnMFkxBm1ftn9N5kEJMbbD8ixtpCKHNMpEcxfMgqO53SNwwiX0IPeP8ZAXYZD4Ut5F6s+GSJ1x1lCY7IdzCW5WfxOjnzazA6nGfHY3BDPsnoWWGXtQn/EDUgQ7uUFNGQdnDRdflyK7143gHo16hGcfvfPYDV46DogwE9uKHsNMZjE1q/tBmq/6w5cEIioeUNoTd2lRHBmjjxDNFWteXUgaIBGDf3jRf1x4463vKjuI4GJ7IEmkGzmVYoU2HBwfSJFxEWtES3rVvwI5GbwBQ15BzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3FFI1+Lz5uT7JUbSkhSxPrg4C6gJs6t2H70ZUcBwzRo=;
- b=aTRbgiV/IX4Kkdle+da3PQr0Z5jpo1aciqahIv3pEqKPfGrR+WptUbsSOnxIoZd1ducOrmkCleo7SwUDam+KkKgPazaob415Rlrd8BZhj5iBWdFieOA/0sQsIQRfRuHrXAK75JgQVnVS7sP1/IivN3N+iNS7MAnZ79vR9PkmcHo=
-Received: from MW4PR03CA0002.namprd03.prod.outlook.com (2603:10b6:303:8f::7)
- by DS5PPF7B9F1F8E0.namprd12.prod.outlook.com (2603:10b6:f:fc00::656) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.33; Sat, 5 Jul
- 2025 04:24:57 +0000
-Received: from SJ1PEPF00001CE6.namprd03.prod.outlook.com
- (2603:10b6:303:8f:cafe::78) by MW4PR03CA0002.outlook.office365.com
- (2603:10b6:303:8f::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.21 via Frontend Transport; Sat,
- 5 Jul 2025 04:24:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CE6.mail.protection.outlook.com (10.167.242.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Sat, 5 Jul 2025 04:24:56 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Jul
- 2025 23:24:52 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Use cached partition mode, if valid
-Date: Sat, 5 Jul 2025 09:54:35 +0530
-Message-ID: <20250705042435.1359695-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6A0810E21B
+ for <amd-gfx@lists.freedesktop.org>; Sat,  5 Jul 2025 13:42:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F22C4344F;
+ Sat,  5 Jul 2025 13:42:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13EF1C4CEE7;
+ Sat,  5 Jul 2025 13:42:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1751722923;
+ bh=ynQrNwBDBOQ5RfR+h7mzUDjRZLOnV6i7r7K9rrPxkyg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=GLc2TCmznc7TuMgG3M2kiwy8RLNwnRB15ifs24QRvggEcMbVcSj4rAlMoOeJK0Uqd
+ 7l+HwAZHQ4B1UZMN9brBirHsUl9bY2+MAMtEHMsja8IAHVGIeTXxpv/66SEKcEBk5i
+ wi2i6MCH56kO2Cbk55EdqYaCb5rnYNOVzRp9CzfHp9mM49vtE2a5keSOcznlZtpt2K
+ ONluorwg3P4GhEG78me1oFRnKcqELnQDjZINcHVxkGX4vAlVFWZIBY9frZHC99/P6C
+ MPVI85yy2I2b2Ea0ghZxmLO8IUP27g0OqIUS8zDrSokrTcXIOg58zulWgMtJ4a8Sgh
+ YoIhm4QbaKtMg==
+Date: Sat, 5 Jul 2025 08:42:01 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Alex Huang <huangalex409@gmail.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org
+Subject: Re: BUG: ASPM issues with Radeon Pro WX3100
+Message-ID: <20250705134201.GA2004436@bhelgaas>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE6:EE_|DS5PPF7B9F1F8E0:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1367a2cc-b5bc-4644-7076-08ddbb7be574
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7NsT9ZloLgRs7pQieCP7MiHp0QC86BKqXq+pMYrPIb9MaolHtAo3UFyfJDce?=
- =?us-ascii?Q?g2Ggf7/3Qextpg6be1zT+2XZG+aVWvG2G+7pnbbH8QxiG0B+2qY+2y5VhsKU?=
- =?us-ascii?Q?9YCXgy87xrZ/onm8aILc/lGAWm7+JSExCEgFdDF9rdEF4C8Ft/mRne/tZKwp?=
- =?us-ascii?Q?44uSuS/N2y1tFET118xBVB24zADLzdb2i+toLh6AXyjGknEVIKC4ewYQWoVU?=
- =?us-ascii?Q?cIEbrL2vcOeJyqGBnmtYvbZ8O3kAzATVUYTbwoMcwJN/Ys35yd4f1gTHWIIV?=
- =?us-ascii?Q?ohOyTxU759zDHcY+jANRHkCrQ7yVYZ8qIEn2PS4pBzVZDNZC0qnM6qX8Ztc8?=
- =?us-ascii?Q?zEuDhN6Sj/IVlP4/lznD8MM8NbwkspxzB5BtC45pe78mbB3qp51UxqNMcdHR?=
- =?us-ascii?Q?RlrXXZaoylXCrbS+8Bk9vc2jxm1nX635kPvTfTWf1WBR2GmnNOiSl5dQ89Gc?=
- =?us-ascii?Q?rUQuxfpE/CmxkxnjVYNI1hGAcwlUpCBKD/y1raEreRKxEcYGqB+1V4DvjqmM?=
- =?us-ascii?Q?RgqyxuAor3PKeuaqeMmHCHs9DZbplfFVPl2QWahttkjyMPrH0hPQ4II4/tts?=
- =?us-ascii?Q?nnRh/bq/lZDEF7+Amk1WGS1RHBujuMRJZadHq/iAkIAtK7y7C5VI3bBnuDwU?=
- =?us-ascii?Q?Ohu1E0K+EDd9DHP++ilQ/IDhHzC1U3q2rzJPK67TkhqkhXaueQT5V8BaKMTZ?=
- =?us-ascii?Q?ND7DpXSDBhdXyJpLb8DMjQLkrjj25t0Sk5lJWprQGQsZG91dLGZzBzGB+Nps?=
- =?us-ascii?Q?XT/vqkCQinUTLzs3wXSwPCptGMm6m7F0EB/2m3iem+2JTVeUhFEkxtUDdv6D?=
- =?us-ascii?Q?ypaE1jG9kIK8u56bcFYMDphZCYF3QaVps2UGG/XPuAfQX5MyW4iznlLfin6N?=
- =?us-ascii?Q?CI4onqMlLknxxUYSlCqChFfp0NK1ufQ4BsmL2RCdJfaJJIeuoMuArVDZ+eyj?=
- =?us-ascii?Q?s0s67ayd1kwCkCtYjki1vwxneUwbboRx1lMIMuD4dF36voiKkph+tVYGITDV?=
- =?us-ascii?Q?iHo+HlCffAkEw9Vq9G/6GMRWBm7+rQStbWCgFmVgECo7f6+pCOUseu6znp1A?=
- =?us-ascii?Q?UFDpRxC5Z4pdmSdMfjCVby9ajP8xr4ZxEhnOjmF269GgKiXoQ9YcimZ9DXGR?=
- =?us-ascii?Q?wx6wu9EFkc8IvMMI/sxiZVWA4x3qKlyUCgx16G1vLkd+AIfHiCkoEdgs+lGv?=
- =?us-ascii?Q?+5O2f26IcVCDlby3d9zYDWpsTfRSoAxuRaiZ1wJNis+HQVY1Yz4JQZJUnRQC?=
- =?us-ascii?Q?3bVcMGnQG4tqbpxaGZHkkaK71Dc5slrwVKzDjXAvbDsLmEtc+vD/dvU1tbQW?=
- =?us-ascii?Q?AZ1aJ9h/T+lirjfByaPuab0mouIoTMY26Z64PwO+vNvQ1r6sxEwsmtS+Edka?=
- =?us-ascii?Q?kGa9DfxGBoZUeea5X+5NNhvt3zzz7d1HHcX1rSWebqo85rtFGcsMc1Bc9P91?=
- =?us-ascii?Q?flIxvjA5IvEKuPL8OgDxH00yODpizHkzEnAvaSE69NorLS26scI0IJ/8QhJa?=
- =?us-ascii?Q?H2Itu9/YwfIskvxs0igUglCVhcyL5wQO+jme?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2025 04:24:56.0109 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1367a2cc-b5bc-4644-7076-08ddbb7be574
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE6.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF7B9F1F8E0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d10e4b65-463d-492e-b08a-221dba11500d@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,50 +58,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For current partition mode queries, return the mode cached in partition
-manager whenever it's valid.
+[+cc Kenneth, Alex, Christian, amd-gfx]
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+On Thu, Jul 03, 2025 at 12:09:20AM -0400, Alex Huang wrote:
+> Hi,
+> 
+> Recently, I dug up a Radeon Pro WX3100 and when booting, got a black screen
+> with some complaints of No EDID read and then a `Fatal error during GPU
+> init`. With windows booting fine and an MSI Kombustor run turning out just
+> fine, I would say hardware failure highly unlikely. The logs seem unrelated
+> (although I have attached them anyways), lspci -vvxxx output for the device
+> is also at the end of the email. Also here is lspci -vvxxx for the upstream
+> PCI bridge attached to the GPU.
+> 
+> A bisect reveals the offending commit is 0064b0ce85bb ("drm/amd/pm: enable
+> ASPM by default"). The simple fix appears to be setting `amdgpu.aspm=0` in
+> kernel boot parameters. This seemingly is a case of something in the Lenovo
+> ideacentre (specifically the ideacentre 510A-15ARR I found this bug on)
+> incorrectly reporting ASPM availability. I'd think this is a PCI driver
+> issue, but I am by no means an expert here. If this ends up on the wrong
+> mailing list, please do let me know.
+> 
+> I also did try enabling/disabling ASPM on the BIOS side to no avail.
+> 
+> The bug appears to be systematically existent for many other cards I ended
+> up plugging into the device (thus conclusion as PCI driver issue). And does
+> appear to have an attempt to fix specifically for amdgpu
+> (20220408154447.3519453-1-richard.gong@amd.com) but that never went
+> upstream.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index c8fcafeb6864..c417f8689220 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -218,15 +218,27 @@ int amdgpu_xcp_restore_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr)
- 	return __amdgpu_xcp_switch_partition_mode(xcp_mgr, xcp_mgr->mode);
- }
- 
--int amdgpu_xcp_query_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
-+static bool __amdgpu_xcp_is_cached_mode_valid(struct amdgpu_xcp_mgr *xcp_mgr)
- {
--	int mode;
-+	if (!xcp_mgr->funcs || !xcp_mgr->funcs->query_partition_mode)
-+		return true;
- 
- 	if (!amdgpu_sriov_vf(xcp_mgr->adev) &&
- 	    xcp_mgr->mode == AMDGPU_XCP_MODE_NONE)
--		return xcp_mgr->mode;
-+		return true;
- 
--	if (!xcp_mgr->funcs || !xcp_mgr->funcs->query_partition_mode)
-+	if (xcp_mgr->mode != AMDGPU_XCP_MODE_NONE &&
-+	    xcp_mgr->mode != AMDGPU_XCP_MODE_TRANS)
-+		return true;
-+
-+	return false;
-+}
-+
-+int amdgpu_xcp_query_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
-+{
-+	int mode;
-+
-+	if (__amdgpu_xcp_is_cached_mode_valid(xcp_mgr))
- 		return xcp_mgr->mode;
- 
- 	if (!(flags & AMDGPU_XCP_FL_LOCKED))
--- 
-2.49.0
+Hi Alex, thanks very much for reporting and bisecting this issue.  I
+added the author of 0064b0ce85bb and the maintainers of amdgpu.
 
+From your lspci output, it looks like ASPM L1.2 is enabled for this
+device, and we do have a known PCI core issue with L1.2.  Linux tries
+to configure L1.2 but doesn't have enough information to do it
+correctly.  We don't have a good fix for this yet, but you could try
+the debug patch from here:
+
+  https://lore.kernel.org/r/20250418225527.GA169820@bhelgaas
+
+That patch is based on v6.15-rc1, and it looks like you're running a
+v5.12 kernel, so it likely won't apply directly, but you may be able
+to try a newer kernel or adapt the patch to your v5.12 kernel.
+
+If you do try this out, please collect the complete dmesg log.
+
+Bjorn
+
+> ------------[ cut here ]------------
+> WARNING: CPU: 2 PID: 338 at drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c:1089
+> uvd_v6_0_ring_insert_nop+0x21/0x120 [amdgpu]
+> Modules linked in: amdgpu(+) ath10k_pci ath10k_core snd_hda_codec_realtek
+> snd_hda_codec_generic ath binfmt_misc ledtrig_audio snd_hda_codec_hdmi
+> mac80211 snd>
+> CPU: 2 PID: 338 Comm: systemd-udevd Not tainted 5.12.0-rc7+ #41
+> Hardware name: LENOVO 90J00078US/3706, BIOS O4DKT45A 12/06/2022
+> RIP: 0010:uvd_v6_0_ring_insert_nop+0x21/0x120 [amdgpu]
+> Code: ff ff 0f 1f 80 00 00 00 00 0f 1f 44 00 00 55 48 89 e5 41 55 41 54 41
+> 89 f4 53 48 89 fb f6 87 18 02 00 00 01 0f 84 e7 00 00 00 <0f> 0b 41 d1 ec 0f
+> 84 d5>
+> RSP: 0018:ffff9c75c192f8e8 EFLAGS: 00010202
+> RAX: ffffffffc0b86b10 RBX: ffff8f7f3496e8a8 RCX: 0000000000000010
+> RDX: 000000000000000f RSI: 000000000000000f RDI: ffff8f7f3496e8a8
+> RBP: ffff9c75c192f900 R08: ffff8f8016a985c0 R09: ffff9c75c192f5e0
+> R10: 0000000000000001 R11: 0000000000000001 R12: 000000000000000f
+> R13: 0000000000000000 R14: 0000000000000000 R15: ffff8f7f34960000
+> FS:  00007f29d89df880(0000) GS:ffff8f8016a80000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 000056359eef7ca0 CR3: 0000000102574000 CR4: 00000000003506e0
+> Call Trace:
+>  amdgpu_ring_commit+0x3c/0x70 [amdgpu]
+>  uvd_v6_0_ring_test_ring+0xfe/0x180 [amdgpu]
+>  amdgpu_ring_test_helper+0x21/0x80 [amdgpu]
+>  uvd_v6_0_hw_init+0x9c/0x5b0 [amdgpu]
+>  amdgpu_device_init.cold+0xff2/0x1b71 [amdgpu]
+>  ? pci_read_config_word+0x27/0x40
+>  ? do_pci_enable_device+0xd7/0x100
+>  amdgpu_driver_load_kms+0x69/0x280 [amdgpu]
+>  amdgpu_pci_probe+0x12a/0x1b0 [amdgpu]
+>  local_pci_probe+0x48/0x80
+>  pci_device_probe+0x10f/0x1c0
+>  really_probe+0xfb/0x420
+>  driver_probe_device+0xe9/0x160
+>  device_driver_attach+0x5d/0x70
+>  __driver_attach+0x8f/0x150
+>  ? device_driver_attach+0x70/0x70
+>  bus_for_each_dev+0x7e/0xc0
+>  driver_attach+0x1e/0x20
+>  bus_add_driver+0x152/0x1f0
+>  driver_register+0x74/0xd0
+>  __pci_register_driver+0x54/0x60
+>  amdgpu_init+0x77/0x1000 [amdgpu]
+>  ? 0xffffffffc108d000
+>  do_one_initcall+0x48/0x1d0
+>  ? __cond_resched+0x19/0x30
+>  ? kmem_cache_alloc_trace+0x390/0x440
+>  ? do_init_module+0x28/0x260
+>  do_init_module+0x62/0x260
+>  load_module+0x2554/0x2770
+>  __do_sys_finit_module+0xc2/0x120
+>  ? __do_sys_finit_module+0xc2/0x120
+>  __x64_sys_finit_module+0x1a/0x20
+>  do_syscall_64+0x38/0x90
+>  entry_SYSCALL_64_after_hwframe+0x44/0xae
+> RIP: 0033:0x7f29d900b95d
+> Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7
+> 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff
+> 73 01>
+> RSP: 002b:00007fff56f4a6a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+> RAX: ffffffffffffffda RBX: 000055abfb17d7a0 RCX: 00007f29d900b95d
+> RDX: 0000000000000000 RSI: 00007f29d8eebded RDI: 0000000000000018
+> RBP: 0000000000020000 R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000018 R11: 0000000000000246 R12: 00007f29d8eebded
+> R13: 0000000000000000 R14: 000055abfb182d90 R15: 000055abfb17d7a0
+> ---[ end trace 5b8e539d0503ff82 ]---
+> amdgpu 0000:01:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring uvd
+> test failed (-110)
+> [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init of IP block
+> <uvd_v6_0> failed -110
+> amdgpu 0000:01:00.0: amdgpu: amdgpu_device_ip_init failed
+> amdgpu 0000:01:00.0: amdgpu: Fatal error during GPU init
+> ------------[ cut here ]------------
+> 
+> 00:01.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 PCIe GPP
+> Bridge [6:0] (prog-if 00 [Normal decode])
+>         Subsystem: Lenovo Raven/Raven2 PCIe GPP Bridge [6:0]
+>         Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
+> Stepping- SERR- FastB2B- DisINTx+
+>         Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort-
+> <TAbort- <MAbort- >SERR- <PERR- INTx-
+>         Latency: 0, Cache Line Size: 64 bytes
+>         Interrupt: pin ? routed to IRQ 26
+>         IOMMU group: 1
+>         Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
+>         I/O behind bridge: f000-ffff [size=4K] [16-bit]
+>         Memory behind bridge: fce00000-fcefffff [size=1M] [32-bit]
+>         Prefetchable memory behind bridge: e0000000-f01fffff [size=258M]
+> [32-bit]
+>         Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort-
+> <TAbort- <MAbort+ <SERR- <PERR-
+>         BridgeCtl: Parity- SERR+ NoISA- VGA+ VGA16+ MAbort- >Reset- FastB2B-
+>                 PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+>         Capabilities: [50] Power Management version 3
+>                 Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA
+> PME(D0+,D1-,D2-,D3hot+,D3cold+)
+>                 Status: D0 NoSoftRst- PME-Enable- DSel=0 DScale=0 PME-
+>         Capabilities: [58] Express (v2) Root Port (Slot+), MSI 00
+>                 DevCap: MaxPayload 512 bytes, PhantFunc 0
+>                         ExtTag+ RBE+
+>                 DevCtl: CorrErr+ NonFatalErr+ FatalErr+ UnsupReq+
+>                         RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
+>                         MaxPayload 256 bytes, MaxReadReq 512 bytes
+>                 DevSta: CorrErr- NonFatalErr- FatalErr- UnsupReq- AuxPwr-
+> TransPend-
+>                 LnkCap: Port #0, Speed 8GT/s, Width x8, ASPM L1, Exit
+> Latency L1 <64us
+>                         ClockPM- Surprise- LLActRep+ BwNot+ ASPMOptComp+
+>                 LnkCtl: ASPM L1 Enabled; RCB 64 bytes, Disabled- CommClk+
+>                         ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+>                 LnkSta: Speed 8GT/s, Width x8
+>                         TrErr- Train- SlotClk+ DLActive+ BWMgmt+ ABWMgmt+
+>                 SltCap: AttnBtn- PwrCtrl- MRL- AttnInd- PwrInd- HotPlug-
+> Surprise-
+>                         Slot #0, PowerLimit 0W; Interlock- NoCompl+
+>                 SltCtl: Enable: AttnBtn- PwrFlt- MRL- PresDet- CmdCplt-
+> HPIrq- LinkChg-
+>                         Control: AttnInd Unknown, PwrInd Unknown, Power-
+> Interlock-
+>                 SltSta: Status: AttnBtn- PowerFlt- MRL- CmdCplt- PresDet+
+> Interlock-
+>                         Changed: MRL- PresDet- LinkState+
+>                 RootCap: CRSVisible+
+>                 RootCtl: ErrCorrectable- ErrNon-Fatal- ErrFatal- PMEIntEna+
+> CRSVisible+
+>                 RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+>                 DevCap2: Completion Timeout: Range ABCD, TimeoutDis+
+> NROPrPrP- LTR+
+>                          10BitTagComp- 10BitTagReq- OBFF Not Supported,
+> ExtFmt+ EETLPPrefix+, MaxEETLPPrefixes 1
+>                          EmergencyPowerReduction Not Supported,
+> EmergencyPowerReductionInit-
+>                          FRS- LN System CLS Not Supported, TPHComp-
+> ExtTPHComp- ARIFwd+
+>                          AtomicOpsCap: Routing- 32bit+ 64bit+ 128bitCAS-
+>                 DevCtl2: Completion Timeout: 65ms to 210ms, TimeoutDis- LTR-
+> 10BitTagReq- OBFF Disabled, ARIFwd+
+>                          AtomicOpsCtl: ReqEn- EgressBlck-
+>                 LnkCap2: Supported Link Speeds: 2.5-8GT/s, Crosslink-
+> Retimer- 2Retimers- DRS-
+>                 LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance-
+> SpeedDis-
+>                          Transmit Margin: Normal Operating Range,
+> EnterModifiedCompliance- ComplianceSOS-
+>                          Compliance Preset/De-emphasis: -6dB de-emphasis,
+> 0dB preshoot
+>                 LnkSta2: Current De-emphasis Level: -3.5dB,
+> EqualizationComplete+ EqualizationPhase1+
+>                          EqualizationPhase2+ EqualizationPhase3+
+> LinkEqualizationRequest-
+>                          Retimer- 2Retimers- CrosslinkRes: unsupported
+>         Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
+>                 Address: 00000000fee00000  Data: 0000
+>         Capabilities: [c0] Subsystem: Lenovo Raven/Raven2 PCIe GPP Bridge
+> [6:0]
+>         Capabilities: [c8] HyperTransport: MSI Mapping Enable+ Fixed+
+>         Capabilities: [100 v1] Vendor Specific Information: ID=0001 Rev=1
+> Len=010 <?>
+>         Capabilities: [150 v2] Advanced Error Reporting
+>                 UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt-
+> RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+>                 UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt-
+> RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+>                 UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt-
+> RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
+>                 CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout-
+> AdvNonFatalErr-
+>                 CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout-
+> AdvNonFatalErr+
+>                 AERCap: First Error Pointer: 00, ECRCGenCap- ECRCGenEn-
+> ECRCChkCap- ECRCChkEn-
+>                         MultHdrRecCap- MultHdrRecEn- TLPPfxPres- HdrLogCap-
+>                 HeaderLog: 00000000 00000000 00000000 00000000
+>                 RootCmd: CERptEn+ NFERptEn+ FERptEn+
+>                 RootSta: CERcvd- MultCERcvd- UERcvd- MultUERcvd-
+>                          FirstFatal- NonFatalMsg- FatalMsg- IntMsg 0
+>                 ErrorSrc: ERR_COR: 0000 ERR_FATAL/NONFATAL: 0000
+>         Capabilities: [270 v1] Secondary PCI Express
+>                 LnkCtl3: LnkEquIntrruptEn- PerformEqu-
+>                 LaneErrStat: 0
+>         Capabilities: [2a0 v1] Access Control Services
+>                 ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+
+> UpstreamFwd+ EgressCtrl- DirectTrans+
+>                 ACSCtl: SrcValid+ TransBlk- ReqRedir+ CmpltRedir+
+> UpstreamFwd+ EgressCtrl- DirectTrans-
+>         Capabilities: [370 v1] L1 PM Substates
+>                 L1SubCap: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+
+> L1_PM_Substates+
+>                           PortCommonModeRestoreTime=0us
+> PortTPowerOnTime=10us
+>                 L1SubCtl1: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2- ASPM_L1.1+
+>                            T_CommonMode=0us LTR1.2_Threshold=176128ns
+>                 L1SubCtl2: T_PwrOn=170us
+>         Kernel driver in use: pcieport
+> 00: 22 10 d3 15 07 04 10 00 00 00 04 06 10 00 81 00
+> 10: 00 00 00 00 00 00 00 00 00 01 01 00 f1 f1 00 20
+> 20: e0 fc e0 fc 01 e0 11 f0 00 00 00 00 00 00 00 00
+> 30: 00 00 00 00 50 00 00 00 00 00 00 00 ff 00 1a 00
+> 40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 50: 01 58 03 c8 00 00 00 00 10 a0 42 01 22 80 00 00
+> 60: 3f 29 00 00 83 78 73 00 42 00 83 f0 00 00 04 00
+> 70: 00 00 40 01 18 00 01 00 00 00 00 00 bf 09 70 00
+> 80: 26 00 00 00 0e 00 00 00 03 00 1f 00 00 00 00 00
+> 90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> a0: 05 c0 81 00 00 00 e0 fe 00 00 00 00 00 00 00 00
+> b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> c0: 0d c8 00 00 aa 17 06 37 08 00 03 a8 00 00 00 00
+> d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 
+> 01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
+> Lexa XT [Radeon PRO WX 3100] (prog-if 00 [VGA controller])
+>         Subsystem: Advanced Micro Devices, Inc. [AMD/ATI] Lexa XT [Radeon
+> PRO WX 3100]
+>         Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
+> Stepping- SERR- FastB2B- DisINTx+
+>         Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort-
+> <TAbort- <MAbort- >SERR- <PERR- INTx-
+>         Latency: 0, Cache Line Size: 64 bytes
+>         Interrupt: pin A routed to IRQ 49
+>         IOMMU group: 7
+>         Region 0: Memory at e0000000 (64-bit, prefetchable) [size=256M]
+>         Region 2: Memory at f0000000 (64-bit, prefetchable) [size=2M]
+>         Region 4: I/O ports at f000 [size=256]
+>         Region 5: Memory at fce00000 (32-bit, non-prefetchable) [size=256K]
+>         Expansion ROM at 000c0000 [disabled] [size=128K]
+>         Capabilities: [48] Vendor Specific Information: Len=08 <?>
+>         Capabilities: [50] Power Management version 3
+>                 Flags: PMEClk- DSI- D1+ D2+ AuxCurrent=0mA
+> PME(D0-,D1+,D2+,D3hot+,D3cold+)
+>                 Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+>         Capabilities: [58] Express (v2) Legacy Endpoint, MSI 00
+>                 DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us,
+> L1 unlimited
+>                         ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset-
+>                 DevCtl: CorrErr+ NonFatalErr+ FatalErr+ UnsupReq+
+>                         RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
+>                         MaxPayload 256 bytes, MaxReadReq 512 bytes
+>                 DevSta: CorrErr+ NonFatalErr+ FatalErr- UnsupReq+ AuxPwr-
+> TransPend-
+>                 LnkCap: Port #0, Speed 8GT/s, Width x8, ASPM L1, Exit
+> Latency L1 <1us
+>                         ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp+
+>                 LnkCtl: ASPM L1 Enabled; RCB 64 bytes, Disabled- CommClk+
+>                         ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+>                 LnkSta: Speed 8GT/s, Width x8
+>                         TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+>                 DevCap2: Completion Timeout: Not Supported, TimeoutDis-
+> NROPrPrP- LTR+
+>                          10BitTagComp- 10BitTagReq- OBFF Not Supported,
+> ExtFmt+ EETLPPrefix+, MaxEETLPPrefixes 1
+>                          EmergencyPowerReduction Not Supported,
+> EmergencyPowerReductionInit-
+>                          FRS-
+>                          AtomicOpsCap: 32bit+ 64bit+ 128bitCAS-
+>                 DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis- LTR-
+> 10BitTagReq- OBFF Disabled,
+>                          AtomicOpsCtl: ReqEn+
+>                 LnkCap2: Supported Link Speeds: 2.5-8GT/s, Crosslink-
+> Retimer- 2Retimers- DRS-
+>                 LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance-
+> SpeedDis-
+>                          Transmit Margin: Normal Operating Range,
+> EnterModifiedCompliance- ComplianceSOS-
+>                          Compliance Preset/De-emphasis: -6dB de-emphasis,
+> 0dB preshoot
+>                 LnkSta2: Current De-emphasis Level: -3.5dB,
+> EqualizationComplete+ EqualizationPhase1+
+>                          EqualizationPhase2+ EqualizationPhase3+
+> LinkEqualizationRequest-
+>                          Retimer- 2Retimers- CrosslinkRes: unsupported
+>         Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
+>                 Address: 00000000fee00000  Data: 0000
+>         Capabilities: [100 v1] Vendor Specific Information: ID=0001 Rev=1
+> Len=010 <?>
+>         Capabilities: [150 v2] Advanced Error Reporting
+>                 UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt-
+> RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+>                 UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt-
+> RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+>                 UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt-
+> RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
+>                 CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout-
+> AdvNonFatalErr-
+>                 CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout-
+> AdvNonFatalErr+
+>                 AERCap: First Error Pointer: 14, ECRCGenCap+ ECRCGenEn-
+> ECRCChkCap+ ECRCChkEn-
+>                         MultHdrRecCap- MultHdrRecEn- TLPPfxPres- HdrLogCap-
+>                 HeaderLog: 40001001 0000000f 000a0000 00000000
+>         Capabilities: [200 v1] Physical Resizable BAR
+>                 BAR 0: current size: 256MB, supported: 256MB 512MB 1GB 2GB
+> 4GB
+>         Capabilities: [270 v1] Secondary PCI Express
+>                 LnkCtl3: LnkEquIntrruptEn- PerformEqu-
+>                 LaneErrStat: 0
+>         Capabilities: [2b0 v1] Address Translation Service (ATS)
+>                 ATSCap: Invalidate Queue Depth: 00
+>                 ATSCtl: Enable+, Smallest Translation Unit: 00
+>         Capabilities: [2c0 v1] Page Request Interface (PRI)
+>                 PRICtl: Enable+ Reset-
+>                 PRISta: RF- UPRGI- Stopped+
+>                 Page Request Capacity: 00000020, Page Request Allocation:
+> 00000020
+>         Capabilities: [2d0 v1] Process Address Space ID (PASID)
+>                 PASIDCap: Exec+ Priv+, Max PASID Width: 10
+>                 PASIDCtl: Enable- Exec- Priv-
+>         Capabilities: [320 v1] Latency Tolerance Reporting
+>                 Max snoop latency: 0ns
+>                 Max no snoop latency: 0ns
+>         Capabilities: [328 v1] Alternative Routing-ID Interpretation (ARI)
+>                 ARICap: MFVC- ACS-, Next Function: 1
+>                 ARICtl: MFVC- ACS-, Function Group: 0
+>         Capabilities: [370 v1] L1 PM Substates
+>                 L1SubCap: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+
+> L1_PM_Substates+
+>                           PortCommonModeRestoreTime=0us
+> PortTPowerOnTime=170us
+>                 L1SubCtl1: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2- ASPM_L1.1+
+>                            T_CommonMode=0us LTR1.2_Threshold=176128ns
+>                 L1SubCtl2: T_PwrOn=170us
+>         Kernel driver in use: amdgpu
+>         Kernel modules: amdgpu
+> 00: 02 10 85 69 07 04 10 00 00 00 00 03 10 00 80 00
+> 10: 0c 00 00 e0 00 00 00 00 0c 00 00 f0 00 00 00 00
+> 20: 01 f0 00 00 00 00 e0 fc 00 00 00 00 02 10 0c 0b
+> 30: 00 00 e4 fc 48 00 00 00 00 00 00 00 0b 01 00 00
+> 40: 00 00 00 00 00 00 00 00 09 50 08 00 02 10 0c 0b
+> 50: 01 58 03 f6 08 00 00 00 10 a0 12 00 a1 8f 00 00
+> 60: 3f 29 0b 00 83 08 44 00 42 00 83 10 00 00 00 00
+> 70: 00 00 00 00 00 00 00 00 00 00 00 00 80 09 70 00
+> 80: 40 00 00 00 0e 00 00 00 03 00 1f 00 00 00 00 00
+> 90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> a0: 05 00 81 00 00 00 e0 fe 00 00 00 00 00 00 00 00
+> b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
