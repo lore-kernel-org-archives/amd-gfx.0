@@ -4,158 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85140C83F09
-	for <amd-gfx@archiver.kernel.org>; Sun,  6 Jul 2025 20:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18377C83F03
+	for <amd-gfx@archiver.kernel.org>; Sun,  6 Jul 2025 23:58:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261E710E2E3;
-	Sun,  6 Jul 2025 20:44:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38B5E10E3DA;
+	Sun,  6 Jul 2025 23:58:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1Y5Tp/mB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hVVMO3ZX";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2063.outbound.protection.outlook.com [40.107.94.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94F7810E2E3;
- Sun,  6 Jul 2025 20:44:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d+fNYnD+OJiQdQDgl2jmzN1Vgotncx01uovquI25RPkQueWRLky9yG3V2psZHhZFjQ8rEioVQXdUJZip6HgzzvupCEphhCmOdmxRYAHDWt1raNkmx92QqRwlNtqi0E7gbcZ+rhO1iWyG7Nxdq1QU/Cqh3wiSlgtb1SXj+kTSPHR1y5OucxY27/4ishvrLCxXPqqvhymWaeIU57uA+soE8j2P/ON5UdXkkz6AvaNdk0b8/ic8rSWgEmgx5QMxaiMrNEYtbQemgowGAuhWxkCr6EBWqJiedrMOepsYhCrBAGRDcy5FRBqaR0WrK08irduCgYp2e0bwr3uNiB8bIoFn2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h1FYZfvWnk3mvvOCW+avIvJReP5y0k8vFAdLhVkJTFA=;
- b=V8TxK0g3dKeijywqQpA1Z9O6T5N72PU63tne9SthZ4pgQ7jWNtl4416naILJclUS9M1KCkbqx6B5YJg2wZ6tX1/cJlDt2GUn3MGGIPkORzA4HpB9OzWBNO5J1F0wWTuulFItBALR8kfww+Ef1MzO5gflsPhXLsNUU//Cf7pNgN8FKnZmr+5GbimVib1DGLvKVmLr3HDL5EULJroZfCcIvw3CIcqNhyl/FV+TgGkDsI0Xip/LjIdk6mjw4HRlsIDKyW+h/eXi5XW3rZfmU2fpCXmuz722KYhwmK9y7uW26sEvS09sKs0U+ilDPJAexzHJQNgWWrhDTBgZ6xo046xUMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h1FYZfvWnk3mvvOCW+avIvJReP5y0k8vFAdLhVkJTFA=;
- b=1Y5Tp/mBCXVoMXexFg5D6km+fsKcq1MxAvm7hQ+01Ryqv2PzhoG2q9JlmkJrDxWfQHf/fYYd/Xgx7SzcGY11SBbayGlIEaj180PA74wGtZgC9ymZypO5/I3xZC53N8YPZP/NC0oL8YadR2VM1rHpNKivRbk7/qEH0jlJxdvdhq0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by IA0PR12MB8746.namprd12.prod.outlook.com (2603:10b6:208:490::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.26; Sun, 6 Jul
- 2025 20:44:30 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8901.021; Sun, 6 Jul 2025
- 20:44:30 +0000
-Message-ID: <5c4f5f0d-024a-46e5-9506-0b589f6cce5d@amd.com>
-Date: Sun, 6 Jul 2025 16:44:27 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] drm/ttm: add ttm_device_prepare_hibernation() api
-To: Samuel Zhang <guoqing.zhang@amd.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, rafael@kernel.org, len.brown@intel.com,
- pavel@kernel.org, gregkh@linuxfoundation.org, dakr@kernel.org,
- airlied@gmail.com, simona@ffwll.ch, ray.huang@amd.com,
- matthew.auld@intel.com, matthew.brost@intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
-Cc: lijo.lazar@amd.com, victor.zhao@amd.com, haijun.chang@amd.com,
- Qing.Ma@amd.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20250704101233.347506-1-guoqing.zhang@amd.com>
- <20250704101233.347506-2-guoqing.zhang@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20250704101233.347506-2-guoqing.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0446.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10d::7) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C3F010E1E0;
+ Sat,  5 Jul 2025 08:06:08 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-3141b84bf65so1530372a91.1; 
+ Sat, 05 Jul 2025 01:06:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1751702768; x=1752307568; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5YZ16XW5/oaudvAcjdRll9Pwcbdl4hYkpk0raAHNXFw=;
+ b=hVVMO3ZXMD5YzjrNTCa1qcv8UEHEU6VJ77JnCLycWZcnP9cd3Ak1bLGwOUqRVHohz7
+ OtsDmdkpJfp151C7kwMaImaQz3E2zfjvzgETmjCS0DvEPKJHYQ+jWqxspgLfkoPVLHj9
+ 7+UZQmSCQov6D4XhufIcMrFHV8uLI/wtiLCYHvN5ihEMiUu01nr8b8e/fKVgbyz959b1
+ edt+Q7QBHRwTErUHlqJI003xepS9hG7Od/jlONMt2vT11wdimuGmp5vQ3e1O2n6AYZNw
+ GJmJyJ8dBMTBXwCDo2Xsg8q5hh59tDR1kYxLcI4foQfX3BY8Xa5TSIvFl0sOxdR8/RNh
+ tyOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751702768; x=1752307568;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5YZ16XW5/oaudvAcjdRll9Pwcbdl4hYkpk0raAHNXFw=;
+ b=RGWds8arbTqca6xpWFl4rJg9tEg00P7CzKpDmuGUt/gr4kHwtuq4pny4MAYct+gF7J
+ AT8cQ6jbWKmJh+QaflgdEBHyUcN5YPMd4ZZXbApUVXFdQeY7Fkam18JBtO8SvCm0K/4c
+ K2n1Ba1h+v4LIyBtUr1VrFSShHI9JuC7xccJDC6mPheUndLzdxp4AvLJj+qiHJ1VEO+E
+ r/Y4g4o/ocT37a4RbK/GDot1ITYpYIyQmj+WPOzNzYN+TpiVH3UPI5zMi5bMS5n0n9bu
+ JkfmJrViqjgHbLN55m91GZiTW3FSiYnTr+2K2yEnxAXi/lEIJZTRGwKHdeRom8fOyenM
+ fP/Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU7hFMLx+ujsqUiHNaCm4Yz2C1LQP7S5DOVE9IiDGA9ftZYSF3463NV3johulaTijgL99DuNV/1Mhs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/I/ZktrIRZ/4BDIA8lPoiyUCuw02LjGYrQkUGwR0Ay6i0xBBV
+ U8LD6iir+TRpbhpPy/lUHX1TPFfiCg8d6DEdVynHgofjvDBxbb/iRYew
+X-Gm-Gg: ASbGncvQiNcW3rY7XKWW4l+GvX/SNKCg/mvoWr+b/rG88L2C3mtH++lAR6vsEl6RiFp
+ 5UhjTSWkudQ+I1vLTNasgaBiYXUc2XtZk5T/viQuQsfHoKBFx9KVM7CyO2LqsJMbtDN94wCFtB8
+ +wK+8Qa1CLS88+E5YuoHWtHkzRFkR+lLQILEKfPffrV4Nlvg86qF4k8jh/a7f3iV6bMLpIEfbVy
+ Oz8rQc+bhPmvW20OOV3XtpOJe6vwHXh1MxoECB21XM38Feoy0ke5PpYZ7KvI1wLaXNvkRH4TrZp
+ 48DnNKAK/p0Zmgv6usBBMG7ryBO5uLyhx+5D4wvhc+1JmgPEGMaer2lN6xolHPh29nZ9lXAIYgX
+ FAdmIDMs=
+X-Google-Smtp-Source: AGHT+IGTWL+LXaCE0s7SVZTJw0Dw926iGaq0yWHgQOoV3X86xxB0l6u8NCO6LtHsTJv7Lmyc64Fp3Q==
+X-Received: by 2002:a17:90b:1f87:b0:312:1ae9:152b with SMTP id
+ 98e67ed59e1d1-31aba8d2954mr1758967a91.23.1751702767425; 
+ Sat, 05 Jul 2025 01:06:07 -0700 (PDT)
+Received: from localhost.localdomain ([119.8.44.69])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-31aaae3e3a3sm4010095a91.4.2025.07.05.01.06.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 05 Jul 2025 01:06:06 -0700 (PDT)
+From: Han Gao <rabenda.cn@gmail.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Han Gao <rabenda.cn@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev
+Subject: [PATCH] drm/amdkfd: enable kfd on LoongArch systems
+Date: Sat,  5 Jul 2025 16:05:40 +0800
+Message-ID: <2b83380bf64a424b9cb902a20a244c3e106c4bb8.1751702072.git.rabenda.cn@gmail.com>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|IA0PR12MB8746:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc58bb7b-1384-4cb7-9fa8-08ddbccde7e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SE5xR09JZHpWeTh3U2IreVhjTVhXTmZ6Mm9ZM3hiMHZQZ25HSmtqZEVjWGpu?=
- =?utf-8?B?ZVBFVFNsK1Z0WDJQSERGa3JIWnh1K0MycnhXNnNoY3JmRWFOcHVyZzBySTBo?=
- =?utf-8?B?aW51eTRMUjR2eWwxcG1SeGllc004OWNzc1p5MHJGZldOcDk4T21pdElDNmNi?=
- =?utf-8?B?YzhIVWV5N2hRa1NFMUttMlBhYXVZSUFXZ0NGdGhKZ243OGVZNXlyY2ljcTBW?=
- =?utf-8?B?RUxkWUlKeVBITDI0ZHVBZ2orYjBiSlpNVkZSNmp0bXMyYVBSNUxseUppYk1M?=
- =?utf-8?B?VElucFhyUVJUY09QWGRWZFJnQVZrNUpPZXhjUFo2b2dCeC9XY0UveHFuUkUy?=
- =?utf-8?B?VHovczhWcDhseWs2ckNpSG9mUVBlUUpHZFhKamxXbzkxdDZRTEtuWk8ycFpo?=
- =?utf-8?B?dUdZbU9pSWVaQlYzSFlCSzdVTXFLSlEvV0E5aTRONkl6TS9WYTRQU3FjNzVa?=
- =?utf-8?B?MzdRZDVZUzVaL3pEcUl2UGJWSzRBMDlLOEZkUEJ4bmdGYUNlc3VtSUE2N1Fx?=
- =?utf-8?B?aFpqQnRFczYzMmJpYzg2dHcxRVpzWnNmWG5UeFpGT1hHc2wweDV4OUd6VXo1?=
- =?utf-8?B?S0hZVTZVSzVPNUxSMFRyTDJ1eDRZeDV1VXdBREM3KzVEZCsxcUQ5NFBDdHFv?=
- =?utf-8?B?SEEzRCt2TC9FUlA4WlBUc1VCckdhTStCMTZCQnA5dENLa1ltcUVldUtCRVVM?=
- =?utf-8?B?aU9EVGdFUjVCWGpzSm9ZeVdxSUZYQndLVFhLMkVORlRSalhHUTNPR1BZRDht?=
- =?utf-8?B?azUyQlkwbHZCYkNkWG9USzZMNGs3LzlSREs3QmdORDZodWtET0NqT3diODZv?=
- =?utf-8?B?WjN0ekZNNkRaUTV4R2FESWQ4QlJMVzF6WGx3KzVWZGxEZXIyNnE0aDVIUjd6?=
- =?utf-8?B?RnE2SXZwOG4rcXM2U1IyVU13SEN4cVllY0pJMnlVWEJQUFBQWmE0dzgwcHo4?=
- =?utf-8?B?cjR1a3Z2S1dobnlPbHU5NnpQNkJSclc3OVEvS1JxZWNEbVd0cHgwRTJ3MGIz?=
- =?utf-8?B?UW4rc3E1Z0t1ck1WZkNETmxyZ0RYR3JOaHVXWVV5N3p3Wmp4U3FCWGhMdXBx?=
- =?utf-8?B?Mm1EVGZndzJ4a203K0NaTzVWQk42cUlNNEJQTVNKc3VCcU1KNXZYOFpVRmEv?=
- =?utf-8?B?RGM5b2c5QURPYzVhVHFxY2E5b05QR3N5RzFMdmQrUmxMSzBGR29hQ1pFWVlv?=
- =?utf-8?B?dVh4L2p5NE5TV3RQc29zcUJJZTJwK0Q3OHhMekRCVC81em1Xd1YzQjZEaWFy?=
- =?utf-8?B?YUNJTUxoV21zdUhrQ01CWHZacmp6UFlSbHZmSUVIZDVCYWMzejUxMFdNZXVx?=
- =?utf-8?B?aUExd3BlVzNWNzN4dlBEQU5UcGdveDVxdWJtSGF4a1VPZml4N3huSytqdHRJ?=
- =?utf-8?B?UGlqVTZWUnE3RjZBajFJNXUvWG5EdHpTSmdHSE1MNUtBV2pybUNhTkJNb1I2?=
- =?utf-8?B?cythQlJZdllhVFVWMmVaRklkTFJBVVJIc3NUbGVLMXprMnJnNWpxRjEvZmtC?=
- =?utf-8?B?bWxBaVUyOHJ5VCtxNEgvTnAvMzBqRTZQRmwxeGh6cUZmZUd1VzZQTjdIOFBl?=
- =?utf-8?B?QWFXc0JGdzllK1laZ2FjYUJOSGFoQ2UvNWxXbmhaZ3dUbjdocDlrekJFR1RN?=
- =?utf-8?B?cXFkWDNDWVVLQkFkUWJPeUkvR0RKSmhIUWZDZVVhbHN0Qndadk45bTBucXpI?=
- =?utf-8?B?ZmNKQXpPWHJkTkFqVlliZGZpVWRDdnhEVGs3NG9HOXAwZWNMVmhNYS9tVnBO?=
- =?utf-8?B?bFF5alczNTk5c05tR0xSQUlCVnRuemFnWTdCTmRCN1FkNTl2NzdMZHFtZFlk?=
- =?utf-8?B?WlBXK0ZsbHBrV1FpMHNMaWFNNFRrRTdhdWtNamhna2RsME5JbzZiRDg4Rzgv?=
- =?utf-8?B?WmtRbCtjbUxQUVdCb1hGRDVlTnlrYW1ac1I1Rk40T3V6MjVDYk1IRThNMWlo?=
- =?utf-8?B?Qnl2d2luSjVNWmhneStsbUFheXVxck5KUGVtQXRKYWxCSC9kb2ZHZVZRQm51?=
- =?utf-8?B?a2JmWUwzNy93PT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RFI5TURETTZkek5vemw4QVF5M3QzT1hveTV2K0t1bzh2dkFKbE50OUFxM2J1?=
- =?utf-8?B?Nit1cnNuNCtLUGFudC9acVNQY2xZVWRCZUxpWEpxM21LcWIzRG85QjIxa1hW?=
- =?utf-8?B?ZEVGNzZmVkc2MGNjU05VQzlKbHA4a3JoUHAxSWRXd2M3MUVOWnpiNkJpeXBX?=
- =?utf-8?B?czY5czhSNnhxcDBGVDEvbEYyTktqSU5FOUt0QjNXNGErQldLN3NIeDNzdHBM?=
- =?utf-8?B?dGpwa2EwOTc0V2Jxd3dML25QMUtqTEdHZXZZNjRrNFBPR1RKdU05VnFNZW8x?=
- =?utf-8?B?MUh2RS9VL2pwa0o1WkhiOVczUEQ4S0FxNUpwaG1jaHQ2Rm9rZTBiaTU1U2x2?=
- =?utf-8?B?VkEveTJoU2dKUGhKK0JTVWpLMkcvM1JCc3J1b3pEZnlHcGRvNForcmZFc01G?=
- =?utf-8?B?eFBsWWszL00rc045bm9hUzc4Vmd6djBaTzdUN0M0aW1JT3J3R2xhS2JrbVF6?=
- =?utf-8?B?amRKcTE0bW0zTlNxcXF6SkQrMEc2TEM0OURxbjFBenlTM1BsOHVQRnM1aERE?=
- =?utf-8?B?Zkp2NXoxWWNWTXBBZDJLVFQ3ek9tU0RJcFh4OW1pSlU4eE9PYllDN3dKb0lQ?=
- =?utf-8?B?aWw3aFpWYjlTdlcxR0NYeWZKbWRvOHhTUUQ1Zm5lZ3BPYU1RNFJXYkN3bk9T?=
- =?utf-8?B?ZU5sMFJQWHZFMGdFVW9MS2cxNkdHUUR5dzMxY3N4VERHb3Fic0tRdFVTL0xD?=
- =?utf-8?B?ZFkzVjhCRHQrT0lhZ2FvOGE3TWRsYkd1cWFMc2NDZVQxKzdKUVNGRWJoQmQ5?=
- =?utf-8?B?c1o2TWFYb0FPdW83d1c2YjJPSjM3bnF1UkdXSGw0eFlnSlpqWk5pcmZxbzlU?=
- =?utf-8?B?alRYRnZFMTIzVUtMWTFod1N6bzZBeTdBZHIxVjh6ampzMitEU2Y0WDMrOWJl?=
- =?utf-8?B?UDUwbzJBNEdVbFpCNkFaQU9sQzV6VDNLSitZbkVWRHNWOHZLYW92MUtNTkxn?=
- =?utf-8?B?bHBiRU8rUE0xeEZTOG9QcFh0dk9xSlU5bXBHbTNYMEJlYnlmMjRseDg1b1Y4?=
- =?utf-8?B?THhIOFFIbzlSZStKTHhEbE1sNkI3S2VWRXd6T3NyU2V0Z3ljNTRlZTBYOTVL?=
- =?utf-8?B?ZEtBVU1DTjhGSHMzZ2ZFaDFWVUxURnExMWt3WFY1N1ZZai9UaG9yMDhPdVpH?=
- =?utf-8?B?RnhVUmtaWEZadTVYc2tSV3U5bGZ2NVJ5RlRRVzZmK2ttU254cERERDYzUUR3?=
- =?utf-8?B?QUpoMXBSZmRsazlObTJlZFVDOElhcTU1Z09hU1VPS2t0TG1qbkFNOWQ2SXA3?=
- =?utf-8?B?YURIRHo0MHRTRksyTjQvaW5ONEJTbmdBRDBhYkdEaEN1eEhkL0duU0RFZXhE?=
- =?utf-8?B?N0owSCtqbDJLbHB2TDUrOFFTK0VESTlRUkdWekw0YlVzRVR0RzF6V3B2UW5E?=
- =?utf-8?B?anUxalE1WHVGam9JMzFvL2RjU1JDM041cHVXTXpCa3M3UlcxWEVsSUhWWG51?=
- =?utf-8?B?V0U2TXBOTGpaQmRSU1hQL0pwRFlRb0ljYmlRYzNRU0l6L1pBVmxvT3VFVVNQ?=
- =?utf-8?B?b09YYnN4Rm43SEUzVi9NemtrbzE1ZGVPS3o2MitXMkM5M2ZoSEZTWnQ3U1pL?=
- =?utf-8?B?bjBqcTJiVEJ5S0RuZ1hXcng3a0NieUZva1UxWWRkc3I1RU8zWGIyZGR0RTBq?=
- =?utf-8?B?Y0x2Nlh2b0kyMmhDVkxzcUFiOHl0NHpFNnJIUEsyNHdzaFlib2NhU1AxbzBG?=
- =?utf-8?B?S056SlB0Z2FBMDNGZGV3N25mc2RLdFYyNzdnODExVTBxTEtIT3J5U2Z1NnpS?=
- =?utf-8?B?Qzh4cDQwLzVLYUI3bndBNXh6WVpsTjNBbUJZNGZ3a2J2VDl3U0ZMc1E0QWRT?=
- =?utf-8?B?MVZLb0RpRVA2Ym5IM3dCdWJ3bndNRUV1ZUdEQnRHTDd3d2s5WnZYa0YzS3Y1?=
- =?utf-8?B?QXg2TW1DRDRmUVdyY0NBQnZUa2hrNUFVT2hWYzFmMkhmWTNzL0M1eGMzUXQ1?=
- =?utf-8?B?MTNTQkFiT2RkRi9lVjUrbWdqc3hpQnNORkhCZE0zVHg3eGpQMjVLc2tJUGJp?=
- =?utf-8?B?ekxIQ1pBbG4yNGxwbHNuMURsUURYRXkrQnV2Yi9aSjhTN0tSYlIyMUtXYmZt?=
- =?utf-8?B?dXkxZy9Ya3VxL0trK3hIZzFXMzJORGgwa3lDRDM5bkY4SmhGbytKV2IxeXUw?=
- =?utf-8?Q?pGp+2V+FbKO9vxnIJjKL1agSY?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc58bb7b-1384-4cb7-9fa8-08ddbccde7e7
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2025 20:44:30.3094 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M4VkzaUucNHDwaVVELYiy27qCaNIvlMhDMlLbbHSWCs5Oc3hsmnZQpdWQN9urOLVMGaggKUhrBsLJ2VVyBwVjg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8746
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 06 Jul 2025 23:58:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,84 +90,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/4/2025 6:12 AM, Samuel Zhang wrote:
-> This new api is used for hibernation to move GTT BOs to shmem after
-> VRAM eviction. shmem will be flushed to swap disk later to reduce
-> the system memory usage for hibernation.
-> 
-> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
-> ---
->   drivers/gpu/drm/ttm/ttm_device.c | 29 +++++++++++++++++++++++++++++
->   include/drm/ttm/ttm_device.h     |  1 +
->   2 files changed, 30 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-> index 02e797fd1891..19ab35ffeead 100644
-> --- a/drivers/gpu/drm/ttm/ttm_device.c
-> +++ b/drivers/gpu/drm/ttm/ttm_device.c
-> @@ -123,6 +123,35 @@ static int ttm_global_init(void)
->   	return ret;
->   }
->   
-> +/**
-> + * move GTT BOs to shmem for hibernation.
-> + *
-> + * returns 0 on success, negative on failure.
-> + */
-> +int ttm_device_prepare_hibernation(void)
-> +{
-> +	struct ttm_operation_ctx ctx = {
-> +		.interruptible = false,
-> +		.no_wait_gpu = false,
-> +		.force_alloc = true
-> +	};
-> +	struct ttm_global *glob = &ttm_glob;
-> +	struct ttm_device *bdev;
-> +	int ret = 0;
-> +
-> +	mutex_lock(&ttm_global_mutex);
-> +	list_for_each_entry(bdev, &glob->device_list, device_list) {
-> +		do {
-> +			ret = ttm_device_swapout(bdev, &ctx, GFP_KERNEL);
-> +		} while (ret > 0);
-> +		if (ret < 0)
-> +			break;
-> +	}
-> +	mutex_unlock(&ttm_global_mutex);
-> +	return ret;
+KFD has been confirmed that can run on LoongArch systems.
+It's necessary to support CONFIG_HSA_AMD on LoongArch.
 
-I'd personally rather see scoped guard here so you can return 
-immediately and the guard will clean up but up to Christian what he thinks.
+Signed-off-by: Han Gao <rabenda.cn@gmail.com>
+---
+ drivers/gpu/drm/amd/amdkfd/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-int ret;
-
-scoped_guard(mutex, &ttm_global_mutex) {
-	list_for_each_entry(bdev, &glob->device_list, device_list) {
-		do {
-			ret = ttm_device_swapout(bdev, &ctx, GFP_KERNEL);
-		} while (ret > 0);
-		if (ret)
-			return ret;
-}
-
-return 0;
-
-> +}
-> +EXPORT_SYMBOL(ttm_device_prepare_hibernation);
-> +
->   /*
->    * A buffer object shrink method that tries to swap out the first
->    * buffer object on the global::swap_lru list.
-> diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
-> index 39b8636b1845..b45498b398dd 100644
-> --- a/include/drm/ttm/ttm_device.h
-> +++ b/include/drm/ttm/ttm_device.h
-> @@ -272,6 +272,7 @@ struct ttm_device {
->   int ttm_global_swapout(struct ttm_operation_ctx *ctx, gfp_t gfp_flags);
->   int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
->   		       gfp_t gfp_flags);
-> +int ttm_device_prepare_hibernation(void);
->   
->   static inline struct ttm_resource_manager *
->   ttm_manager_type(struct ttm_device *bdev, int mem_type)
+diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
+index 62e88e5362e9..b2387d529bf0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/Kconfig
++++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+@@ -5,7 +5,7 @@
+ 
+ config HSA_AMD
+ 	bool "HSA kernel driver for AMD GPU devices"
+-	depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64 || (RISCV && 64BIT))
++	depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64 || (RISCV && 64BIT) || LOONGARCH)
+ 	select HMM_MIRROR
+ 	select MMU_NOTIFIER
+ 	select DRM_AMDGPU_USERPTR
+-- 
+2.47.2
 
