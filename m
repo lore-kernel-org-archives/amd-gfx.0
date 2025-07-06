@@ -4,45 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 360A1C83F03
-	for <amd-gfx@archiver.kernel.org>; Sun,  6 Jul 2025 15:05:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95631C83F03
+	for <amd-gfx@archiver.kernel.org>; Sun,  6 Jul 2025 20:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABAC010E3A4;
-	Sun,  6 Jul 2025 15:05:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C8A689DA9;
+	Sun,  6 Jul 2025 20:34:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rrhtRJvl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A/8gmhVi";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6969F10E3A4
- for <amd-gfx@lists.freedesktop.org>; Sun,  6 Jul 2025 15:05:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=nna9mds0/21QBTB4J4E6quIbcifR4OpiJizsc6b6QnY=; b=rrhtRJvlkRONDPyH+eEd5qO6Iz
- B7pMTCDx5liQzYA4UQimeXyRMuE1OWD8Rt0W8qIMZTcVNfecET73CeLxjO9TfaJj3UK8LOFLPzagh
- ROZvQM2esbgnU3653kxONcPQW3oJRbFlNJRpT5o4xeYKipRIwhtSHa3FfIQRc5WjnaQpgSWgFoWe6
- HOBCxYTcs232MM28HJF5UWcfK2vkFxdD/pUn53mOSu1FIVWOdRkkfad2suu1zfUlBnM+MfQ2p9DWm
- zspp8BWyO3zjLeLNr8CdwNHO4k9Y9RlbH5VCaLuBEP/6bYpO4+4CTwJdmk2EDbFhUplfeGW/F4k4L
- ozqbmTeQ==;
-Received: from [104.193.135.201] (helo=debian.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uYQvv-00DAKS-9E; Sun, 06 Jul 2025 17:05:35 +0200
-Date: Sun, 6 Jul 2025 09:05:31 -0600
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, sasundar@amd.com
-Subject: Re: [PATCH V13 00/28] Reset improvements
-Message-ID: <bcmfbiiod2gyn3u2fyimfbglvqt2ui2ouozklsoyskn3n6txmi@bvavettvg4lw>
-References: <20250701184451.11868-1-alexander.deucher@amd.com>
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2040.outbound.protection.outlook.com [40.107.95.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A1289DA9;
+ Sun,  6 Jul 2025 20:34:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nMwF1TlYqXI4ktG0cFr4Zhc9yTwIYkqnA5/I02+rROQaWwc/hEpeTcAaVBjR60EuOVye6YXMB54VEKxwmdih+pI1C6Xz9AmXjaEnbDZFIKdhCN84vwoEJNa+4VqJFXxxLmnPo7FGUSEcSEd70J6nOHVxq81lwMSbCxj8W7zNJhulTRYnEVw4Y+fpJxdbfFhSBycPxsWLHntfdTAjBsgfn+7/xOpJ4wjqJaSIYZ1MNgW5b3nDxA2epYnC+dp91bTOhZh/fvVTWlGyXPquCkmwg5etlIi78jf1OZv779HLNtSyBmlynQ5PXgMua8/dmfprH7+KUlAF323ihWNn6DKwUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ree+RMSCCpbxugGebO34O4spfpK+5h2OGbtZWz6Znr4=;
+ b=P49cH52XoD9SQ8SUO2KCj3sVsPzybVBgJih3htmKQ0zmnftWdh0gFnRZZ/zHpwM3+HlbEccks0/c1jQp6dT2PFDiJw4ZApoBsaLHXPhzTxy6JxgBBwaOOGezKrqc+p/hIvBpzg9v/Fdrn+dKGgr8MXS+PjJYtD1JagHRMNTR+CpTBDLTWrRV8zlp8glISs/QpJvWlC1dxob456NZoFatKRmvzE/kxVQU38pYUH4WRQQAuzFNYHx3+Fof5c3HEHG1eqTjD4wRyYMDhdIbrkdturMQZz0XaN0Wy4DJNNZb6F86BRv7q8Gd3i17+Tii0V9fVK0R0HG7o5R0n1Twq3scdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ree+RMSCCpbxugGebO34O4spfpK+5h2OGbtZWz6Znr4=;
+ b=A/8gmhVi+iIDi3z8Tiu2pXPokNJmqx0IuYrJhMd76eScx4kz9TP2kja6nl9kixPPimdw3uBYEIMdAxvZdgIpWXEZ7fTCDxROBqdHfCaAM3DGzkHwE40MuBdOa/NVggi3USDUIYc7Jm2VTtkDUPPxuJZGQjS8lT+4INQrTEYCh/s=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by SJ0PR12MB6877.namprd12.prod.outlook.com (2603:10b6:a03:47f::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.25; Sun, 6 Jul
+ 2025 20:34:13 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8901.021; Sun, 6 Jul 2025
+ 20:34:13 +0000
+Message-ID: <c847783d-eb92-49aa-919c-447cbc34baed@amd.com>
+Date: Sun, 6 Jul 2025 16:34:10 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/5] drm/amdgpu: do not resume device in thaw for
+ normal hibernation
+To: Samuel Zhang <guoqing.zhang@amd.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, rafael@kernel.org, len.brown@intel.com,
+ pavel@kernel.org, gregkh@linuxfoundation.org, dakr@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, ray.huang@amd.com,
+ matthew.auld@intel.com, matthew.brost@intel.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
+Cc: lijo.lazar@amd.com, victor.zhao@amd.com, haijun.chang@amd.com,
+ Qing.Ma@amd.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20250704101233.347506-1-guoqing.zhang@amd.com>
+ <20250704101233.347506-6-guoqing.zhang@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20250704101233.347506-6-guoqing.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0039.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:82::16) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250701184451.11868-1-alexander.deucher@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SJ0PR12MB6877:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7352f33d-03a0-45a7-090b-08ddbccc77f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cnduTU5xdG1yUHJtQ0tuTU9Pa0VjRVhHZ3JVMjdGSEFwWkY3SGwwbnlHWTho?=
+ =?utf-8?B?dFJqMjJZMDNDUTBWR0xlVkhmVzFCc29JZW9QM2dRTktlY21mdWhCTUZHVHlI?=
+ =?utf-8?B?bklPMmM2M2VVSVhJbFdwR2hTMzluV2Q0OURCMlNFRmk4Y1NVZjVOa3NsM1R1?=
+ =?utf-8?B?enA5M2NWQnNwS3pzRXlhaWNwU1cvRUVUZzF5QldNWVVsajBhVzNLSDhWZWtV?=
+ =?utf-8?B?emRXMmhjNHpoV1ZldkJrWGtPT0prUkVSdDBZUUx1am9LcU1lZ0lpUllKZmJJ?=
+ =?utf-8?B?V0pncXRIb25JSTRkekxzYjBuZzYrUDFNOEtvZWlhVzEzN1hxR1cvb2h4NjE0?=
+ =?utf-8?B?UlNua3dUd0ZFREQwVFlVdXZsOUxWVUxFbEdwZm1wbkl1dG9kNVEyZUxUYnFC?=
+ =?utf-8?B?TVFIK05uNFJrUTVBWXVtL1c3a3lvc0hTWTVOclU5ZGhsKzVrYjRVQ2FOZFBL?=
+ =?utf-8?B?SVFOWWN6b3paTkdtanpxNmpqYUFZdVNVRGFxWEVIaUJGY0lDUU4zQ2U2UDdp?=
+ =?utf-8?B?SjVXWkRiUmdlK1R3dlFtZDNUTHRUVHNMSkkwTEwzUXpSQlA3UHkrbzBwWTg4?=
+ =?utf-8?B?clRyRUpHOFlhVWdwNytUSDB6a2dNZ0JHdVo2djNXUTBjcTQ4V3N1K053YVIy?=
+ =?utf-8?B?d2lFY01aSlFrMmFyUjExeUdwU0JuREVMbkhqZ2FNcEorYTRZeUw3b3F3cWlG?=
+ =?utf-8?B?Q2dVUHVpSlBqOGZzVk8zZWtTNHFoZHZkZ1lORXBpcHUzWVhjMlFORzRPNVdx?=
+ =?utf-8?B?MlZjY1JCMUx2R1dqUHB6cEs0OE9NQ1ZNZC9kUjFiN2gwbkxLU3o5cWRqSjFB?=
+ =?utf-8?B?TVBjQm5XYVVKbndlMzNrdFpHSTgxUE05WURyRkU1RDl6RExJMlRXK2JldXpH?=
+ =?utf-8?B?UTNNNVZiUUlpcFFrUm5FZURLY0E5ZkZCOHdDYVh3UFFPWTdzbUdPdXlUSzFM?=
+ =?utf-8?B?TE85SlFEcVFTU1RycWs5ZVRTRkdRNk9QY3pFdTNkczgvM2RZZlpDYUI3RmNI?=
+ =?utf-8?B?a1llZVNMbE1hWExYSStqL2NWb2FKQlZsNVpscnVuOHhaZkNyT2F6Wi80S1hy?=
+ =?utf-8?B?L2Z5Z21tb1lRUnYxTHlKSHJ1bWR0OXRha2tnSXV6R1JWemRuTlZ3WVhpcWxW?=
+ =?utf-8?B?WisrcWdSUVdvMGMya1ZYK1FKbzZQWjRCbW1OOUdVckVWaytKelJVZ2tJNXNw?=
+ =?utf-8?B?TExCaDdCcW5pRDdxV2VDcWRidzNnWlhUcVhFL3NVVnN4MkJKTFZmcndvbEZZ?=
+ =?utf-8?B?bGFISHJWdmN0U21CZWprSVZGZ2FLcVE5M0kvTVJLODhBbitzUHM5Y1B1dGp0?=
+ =?utf-8?B?UmlxNXZScGVKY1JpVmVQbW1ZTk1FejdNYmV5TytmNjQwb2xwQ096RWZKb3o5?=
+ =?utf-8?B?TnQreFJiZklERzhWeDBWbUpIYnFoS25qdTU0OEN1b09DQmVRMVhiOE90WU9S?=
+ =?utf-8?B?dzBpTEhZZFVjZVRZU3QxdHpxdGN5cTBwbmhJVEdWajZ3RXVZN0N3S0ExTk9h?=
+ =?utf-8?B?Y051UTcwWFNiQ3k5ZmZ3N09kOEpkeGNQajQvaHdpNEhYbmlHcnMybU81K2pv?=
+ =?utf-8?B?cXI3ZlhXMUt3V1kveVZmMEtQOUlOZkFiTWQyUXlsR2V2WHYySkdaOFFQdE1j?=
+ =?utf-8?B?R01iTm55S1N6MWMreWdIa2V0QVVFRUJFUGdJSGliU3ZTY01rUDlDZTUzRWlJ?=
+ =?utf-8?B?NGFzVFNtYmZpU2JhSVlkTFJqbDhLdHNTb0c3MTk0NlNyenJkaGppVlRtMlRt?=
+ =?utf-8?B?ZTBGU2lvUlA4MTBySEtlS05sT1grVlhOVko5WElabS9maXB6Qnh3Y3plSStl?=
+ =?utf-8?B?am5MN3l5RTY1ajJLNjZGc045LzMvU0pwalFuSHowcDBZUWUway96aUxXMzFj?=
+ =?utf-8?B?MExlSWJkd1hma2VBVXEveTVEdWxmQ3JJSlAyM3BhcDZkVDhDYklhSzJ5SmFN?=
+ =?utf-8?B?VWlxZE9pbDFha2cvcGNPanR6S1gxaVhnTllXRGlkTkVqUXNKNTgzTDdkQlgw?=
+ =?utf-8?B?cWhvcFNBKzhRPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(921020); DIR:OUT; SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUR5TlVGVUFEYTV3MmEza3pwS1BUWUw2MHBQTzF0U3RDbDRNL1BXNjRuemgy?=
+ =?utf-8?B?Q3ZCVkV5MnVkSml2U1h2UHNzYmZYU05jcFExOFovWWJhajVGSm0vMUdNcmVY?=
+ =?utf-8?B?R2piRExTNUtLdHdHTm0wMC9NdXNuOCtZWHBrcXAxcEd5Tyt1R0F5aURBNStr?=
+ =?utf-8?B?Q3crRWxUdkRBVTNySTVXQTFuOEpaRkRjV0xNQmZXamZtVGIxekZEY2tpUVZ4?=
+ =?utf-8?B?TU55SmNIV2hjc3UybDFsLzBKdVdySlV0dHNjaUw2ZGJXV3cxdUMvaTUzS1I4?=
+ =?utf-8?B?b0wvbW5tL01UeXB0eFR2NFRheCtuWjJ3aWdtTUdmWkM5K0dSWUo2MXNQQnVX?=
+ =?utf-8?B?V0NBbldoaWNqRENPQVc2Y2FQOVFPZUFrWGlCalN1VkVJSzV2M2lrM1ZZZ1BI?=
+ =?utf-8?B?V3JHNVpsYmF6ZXdaUUd6ZkhRTHMrV25kbllUYjZCL0xrZ0ZpZURWaC8vSXR2?=
+ =?utf-8?B?eVJ4STlkU0VZR0hXYlR0QmZXaG9YbEhWUm0zU2RudEQzdjdwVmlWc1ZUdVFQ?=
+ =?utf-8?B?Y0xQUFRBL21kWlpNWEtHcnhndk1nQTUzRiswR0IyaHlrK1d6cG5WcGNuUXQw?=
+ =?utf-8?B?bWI5U2NpRmhjbmNYN2s0R3Y2YzUxdFlQYTJEWHFRM0crMTE4cDJUMVdQTmNG?=
+ =?utf-8?B?Nkx3dXR6eHBPWU4yRXgrRGdZemxLdHhMZzlqRWJuRkszYmxZbzRFc2RRTkZP?=
+ =?utf-8?B?elhCejRSays1Qk5rUGQvNVRoc3YwZ1Vydjd6Qlo4a0QrNzNEOWFqTjFlbXJh?=
+ =?utf-8?B?VFpjWDVGNmRBVkpJclh5K1JqbVlzYmdQUDRXZWMrWFVVQ3BMNTAzcWliakFs?=
+ =?utf-8?B?aVBuVmcxbG84dFpPalJNV212RlBaVXpYMDZxU1Z6M0Z4Y3ZYcTlHckJiOHlh?=
+ =?utf-8?B?SEFBZnJaS2toYVkweWJqalo2QUJtOVFXeXd5MENGcHZkc05kdy9mL04ray9M?=
+ =?utf-8?B?MnpydnEvOVN6UTB0S3k2NmZPT1I5RkY5WllOSVZzYk5rOWh0eGZNMjZzVFgx?=
+ =?utf-8?B?YTJZdWpIZmxqbFFnWkRZclJMR1VVdTJ6WWVPM0U3TTh4OWRiZGVrSXh4NXNE?=
+ =?utf-8?B?WEdUZFliUGczTnQ0ZWFQNVgvQ3A1NUhHWXovK0pOTkxYeU9NeXA0Y0Jib2pv?=
+ =?utf-8?B?TWRobjlSODNESzhwSTBIellMaXgzaG11QWlrcFJRR29oQkFTd1JZZmxtSkUv?=
+ =?utf-8?B?S042Z1Z4UWJqTTVJUzRtOTFQc3hVUnp2cW5URHpINDN3SithMFZpUFBPMnpx?=
+ =?utf-8?B?eW1JUVBST3RJcWYxS0lhbEE5WUN3a3diakw0dm8zOEMvL0xvWHJZRlp3Mk5l?=
+ =?utf-8?B?Z0UreWxLM1phc3R4MzNZNG9hUGM5UkpES0wweVdRdmtsWVdvY3FiYmxJMURD?=
+ =?utf-8?B?cVBtMmwvL05MSUcyVm1hUEJvakc0Wno4RFdGYkRtQWQrMm93SHE1VFV2UEY1?=
+ =?utf-8?B?VHlYWXNJcUxmNzRRVDBIa3crU1B5MXd1UTdaR1V2N3QxcytTMGtHdkczWHcz?=
+ =?utf-8?B?ZmxJdjM0bDBiSmdiQllnMTB6NnUxYmdqeXkyNVREYnpVdytMMDVjS2k1UHR5?=
+ =?utf-8?B?d2tycFVpNlY5MmN2Q1lZQUJiUnNRQ0dveGpIOCtlcjVobzdxM3NuRE5zSE40?=
+ =?utf-8?B?TS94WGZyWmdhMDRGVk96VElnLzlqb0xUaFpHQmp0Qm5QYVRFazdMYlM0M3Y0?=
+ =?utf-8?B?MjQwbTFJaUVGYWxab0Y5ZlFoUEVQdFFMSTVzYzZieGtKQ25TcEorQTRlaXBv?=
+ =?utf-8?B?c2dQSHlRTU80QjVUYTMxZlA0NzNNVE1UT3Nud1kyZCt4YWlIbnpva2lKV21z?=
+ =?utf-8?B?ZkE2bE94QnpnM0FzalJTTWxEbHVNb1pyNW5RTkFqWnIzS3M5T1Z3bGNGaEpo?=
+ =?utf-8?B?UGsxTlhmR3Yyb1FacUxrTExLQm9hb1FpN3FaNGRnM0xNYytvUmxLU3lsSVd1?=
+ =?utf-8?B?VlBZc21XcDlQWUh6dDllZHFkcTFZWTNTbmhwQmhDRmVLUitxVHozL2hqYTZZ?=
+ =?utf-8?B?YXovMmtHL1c4a2o2TnRDTE5wUXYyY2UxYTlJanRPL3dkZ0N0eU9iOTVtQ3px?=
+ =?utf-8?B?Ym11MDRLYTRPV1o1RTF3N00wZHc0bktzek1jbWJ6K0xpWllKUUJLbkI4NFRo?=
+ =?utf-8?Q?6n+kbs4OWZQuHvX+EGgwJDrpx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7352f33d-03a0-45a7-090b-08ddbccc77f7
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2025 20:34:13.0403 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qr982NDepu7InhZuPlrJijXMkRtm9+LtQ5MAAoxDG917qqIVWXj+E5/Ppkm2m+4vvqUdOERqpGhnFjyODQimxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6877
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,149 +171,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07/01, Alex Deucher wrote:
-> This set improves per queue reset support for a number of IPs.
-> When we reset the queue, the queue is lost so we need
-> to re-emit the unprocessed state from subsequent submissions.
-> This is handled in gfx/compute queues via switch buffer and
-> pipeline sync packets.  However, you can still end up with
-> parallel execution across queues.  For correctness in that
-> cause, enforce isolation needs to be enabled.  That can
-> impact certain use cases however and in most cases, the
-> guilty job is correctly identified even without enforce isolation.
-> 
-> Tested on GC 10 and 11 chips with a game running and
-> then running hang tests.  The game pauses when the
+On 7/4/2025 6:12 AM, Samuel Zhang wrote:
+> For normal hibernation, GPU do not need to be resumed in thaw since it
+> is not involved in writing the hibernation image. Skip resume in this
+> case can reduce the hibernation time.
 
-Hi Alex,
+Since you have the measurements would you mind including them in the 
+commit message for reference?
 
-Which hang test did you run?
+> 
+> For cancelled hibernation, GPU need to be resumed.
 
-Thanks
+If I'm following right you are actually handling two different things in 
+this patch aren't you?
 
-> hang happens, then continues after the queue reset.
-> 
-> The same approach is extended to SDMA and VCN.
-> They don't need enforce isolation because those engines
-> are single threaded so they always operate serially.
-> 
-> Rework re-emit to signal the seq number of the bad job and
-> verify that to verify that the reset worked, then re-emit the
-> rest of the non-guilty state.  This way we are not waiting on
-> the rest of the state to complete, and if the subsequent state
-> also contains a bad job, we'll end up in queue reset again rather
-> than adapter reset.
-> 
-> Patches apply to the amd-staging-drm-next or drm-next branches in my
-> git tree.
-> 
-> Git tree:
-> https://gitlab.freedesktop.org/agd5f/linux/-/commits/kq_resets?ref_type=heads
-> 
-> The IGT deadlock tests need the following fixes to properly handle -ETIME fences:
-> https://patchwork.freedesktop.org/series/150724/
-> 
-> v4: Drop explicit padding patches
->     Drop new timeout macro
->     Rework re-emit sequence
-> v5: Add a helper for reemit
->     Convert VCN, JPEG, SDMA to use new helpers
-> v6: Update SDMA 4.4.2 to use new helpers
->     Move ptr tracking to amdgpu_fence
->     Skip all jobs from the bad context on the ring
-> v7: Rework the backup logic
->     Move and clean up the guilty logic for engine resets
->     Integrate suggestions from Christian
->     Add JPEG 4.0.5 support
-> v8: Add non-guilty ring backup handling
->     Clean up new function signatures
->     Reorder some bug fixes to the start of the series
-> v9: Clean up fence_emit
->     SDMA 5.x fixes
->     Add new reset helpers
->     sched wqueue stop/start cleanup
->     Add support for VCNs without unified queues
-> v10: Drop enforce isolation default change
->      Add more documentation
->      Clean up ring backup logic
-> v11: SDMA6/7 fixes
-> v12: Ring backup and reemit fixes
->      SDMA cleanups
->      SDMA5.x reemit support
->      GFX10 KGQ reset fix
-> v13: drop SDMA cleaups, they caused regressions in some IGT tests
-> 
-> Alex Deucher (28):
->   drm/amdgpu/sdma: consolidate engine reset handling
->   drm/amdgpu/sdma: allow caller to handle kernel rings in engine reset
->   drm/amdgpu: track ring state associated with a fence
->   drm/amdgpu/gfx9: re-emit unprocessed state on kcq reset
->   drm/amdgpu/gfx9.4.3: re-emit unprocessed state on kcq reset
->   drm/amdgpu/gfx10: re-emit unprocessed state on ring reset
->   drm/amdgpu/gfx11: re-emit unprocessed state on ring reset
->   drm/amdgpu/gfx12: re-emit unprocessed state on ring reset
->   drm/amdgpu/sdma5: re-emit unprocessed state on ring reset
->   drm/amdgpu/sdma5.2: re-emit unprocessed state on ring reset
->   drm/amdgpu/sdma6: re-emit unprocessed state on ring reset
->   drm/amdgpu/sdma7: re-emit unprocessed state on ring reset
->   drm/amdgpu/jpeg2: re-emit unprocessed state on ring reset
->   drm/amdgpu/jpeg2.5: re-emit unprocessed state on ring reset
->   drm/amdgpu/jpeg3: re-emit unprocessed state on ring reset
->   drm/amdgpu/jpeg4: re-emit unprocessed state on ring reset
->   drm/amdgpu/jpeg4.0.3: re-emit unprocessed state on ring reset
->   drm/amdgpu/jpeg4.0.5: add queue reset
->   drm/amdgpu/jpeg5: add queue reset
->   drm/amdgpu/jpeg5.0.1: re-emit unprocessed state on ring reset
->   drm/amdgpu/vcn4: re-emit unprocessed state on ring reset
->   drm/amdgpu/vcn4.0.3: re-emit unprocessed state on ring reset
->   drm/amdgpu/vcn4.0.5: re-emit unprocessed state on ring reset
->   drm/amdgpu/vcn5: re-emit unprocessed state on ring reset
->   drm/amdgpu/vcn: add a helper framework for engine resets
->   drm/amdgpu/vcn2: implement ring reset
->   drm/amdgpu/vcn2.5: implement ring reset
->   drm/amdgpu/vcn3: implement ring reset
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     | 90 +++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c        | 15 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      | 67 ++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      | 18 ++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      | 43 +++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |  3 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 76 ++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h       |  6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  4 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 41 ++-------
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 35 +-------
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        | 35 +-------
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 12 +--
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       | 12 +--
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        | 11 +--
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        | 11 +--
->  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        | 11 +--
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        | 11 +--
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      | 11 +--
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      | 11 +++
->  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      | 14 +++
->  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      | 11 +--
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      | 19 +---
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        | 23 +++--
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        | 23 +++--
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        | 18 ++--
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        | 18 ++--
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         | 12 +++
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         | 11 +++
->  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         | 13 +++
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         | 11 +--
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       | 10 +--
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       | 11 +--
->  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       | 11 +--
->  .../drm/amd/amdkfd/kfd_device_queue_manager.c |  2 +-
->  36 files changed, 454 insertions(+), 280 deletions(-)
-> 
-> -- 
-> 2.50.0
-> 
+1) A change in thaw() to only resume on aborted hibernation
+2) A change in shutdown() to skip running if the in s4 when shutdown() 
+is called.
 
--- 
-Rodrigo Siqueira
+So I think it would be more logical to split this into two patches.
+
+> 
+> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 4f8632737574..e064816aae4d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2541,6 +2541,10 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
+>   	if (amdgpu_ras_intr_triggered())
+>   		return;
+>   
+> +	/* device maybe not resumed here, return immediately in this case */
+> +	if (adev->in_s4 && adev->in_suspend)
+> +		return;
+> +
+>   	/* if we are running in a VM, make sure the device
+>   	 * torn down properly on reboot/shutdown.
+>   	 * unfortunately we can't detect certain
+> @@ -2655,6 +2659,10 @@ static int amdgpu_pmops_thaw(struct device *dev)
+>   {
+>   	struct drm_device *drm_dev = dev_get_drvdata(dev);
+>   
+> +	/* do not resume device for normal hibernation */
+> +	if (pm_transition.event == PM_EVENT_THAW)
+> +		return 0;
+> +
+
+Without digging into pm.h documentation I think it's not going to be 
+very obvious next time we look at this code that amdgpu_device_resume() 
+is only intended for the aborted case.
+
+How would you feel about a switch/case?
+
+Something like this:
+
+switch (pm_transition.event) {
+/* normal hibernation */
+case PM_EVENT_THAW:
+	return 0;
+/* for aborted hibernation */
+case PM_EVENT_RECOVER:
+	return amdgpu_device_resume(drm_dev, true);
+default:
+	return -EOPNOTSUP;
+}
+
+
+>   	return amdgpu_device_resume(drm_dev, true);
+>   }
+>   
+
