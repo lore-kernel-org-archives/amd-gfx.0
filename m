@@ -4,166 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA3F4C8303C
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jul 2025 14:31:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C604C8303C
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jul 2025 14:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 460B210E4AE;
-	Mon,  7 Jul 2025 14:31:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C3310E4B2;
+	Mon,  7 Jul 2025 14:46:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iWRUA/GY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H22M5qnU";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D546210E4AB
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jul 2025 14:31:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BdhBEnWaN4P3/zsJHxtSuN+mv5EPCAZPTRxS/2pD9hgiOjrbIZgCFiZSkultei421DU+0/K7+ksVHTG1E2ybJBDjxAfQt1mVsqCjmOebkbFJ40JQYrQkyJFJKLUjJsGv8XzJv6l6+Aai33d/uLHOsfEORLlZ58w181PiOWjy7+bhb3yRQf1llPYbuEcR4xdGlUYKXylsI+k1J4PyRnSSa6SKiOjgYguuMYPRO6PvTbGOr60TOPkTGTkWkrgpnsX04sPXQ/yu8FuJdc7J3/Nc6TotVpS/3toPVv3FPsQh83NJwjiv2tPE20Jlddhy8mkW3zr0y54q2FghJ8fPZN0Y2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MOG7XfYHG308QJgBLywCURXT5ILMZxpKUQQholUh+MM=;
- b=C7HeDKTe3lFCKNrwUcqgwOm0Jw9dz6PKNWVYP5MdQUeaU7rBGfHPOFBigLzQIElN9mxhgfCvIXI2RyU0X8aMhqH5sMVFX1ueXeMay6qS0BiaAkE88WFbvuQPXEh5X0SEf7GZxdq/xgJ+uG3Ue9SMBk1SBQUGfd0oh/Jcr0ZF5V/Z08BUZtyeZkVNrpwRfVsmtKRziUK4fYvPv/rHqdZ0WqszpeFZwwD8eYjuJ8djDa1z8ZzLFPdEFBb0aCqfXKnDFlJCBZEpAADITm4DRpoqNl7V1EHUAs8SbvGMUENZxxmyaRPx0s7snBfIZR2dvQDAWFjDv6GeMA1WFbkAM9gsGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MOG7XfYHG308QJgBLywCURXT5ILMZxpKUQQholUh+MM=;
- b=iWRUA/GYU2t2+NPGj7Xl68aC9DaDJe9SK+Q97aX/R8zlXXu6q5r9DnQSFst90KSLhMuYkYr/HIgAVj/Pn7z17IUgXbIsrYAhqqrOMrAbm8/E3jGy1lv/aGwn6juU4q+z5gV2KMcFASQnLoKK4qNESbx3IhYjOHwV8n510byUIx4=
-Received: from CY5PR12MB6429.namprd12.prod.outlook.com (2603:10b6:930:3b::16)
- by SA3PR12MB8809.namprd12.prod.outlook.com (2603:10b6:806:31f::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.25; Mon, 7 Jul
- 2025 14:31:00 +0000
-Received: from CY5PR12MB6429.namprd12.prod.outlook.com
- ([fe80::1b40:2f7f:a826:3fa0]) by CY5PR12MB6429.namprd12.prod.outlook.com
- ([fe80::1b40:2f7f:a826:3fa0%6]) with mapi id 15.20.8901.024; Mon, 7 Jul 2025
- 14:31:00 +0000
-From: "Nirujogi, Pratap" <Pratap.Nirujogi@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-CC: "Chan, Benjamin (Koon Pan)" <Benjamin.Chan@amd.com>, "Du, Bin"
- <Bin.Du@amd.com>, "Rosikopulos, Gjorgji" <Gjorgji.Rosikopulos@amd.com>, "Li,
- King" <King.Li@amd.com>, "Antony, Dominic" <Dominic.Antony@amd.com>, "Jawich, 
- Phil" <Phil.Jawich@amd.com>
-Subject: RE: [PATCH v4] drm/amd/amdgpu: Add helper functions for isp buffers
-Thread-Topic: [PATCH v4] drm/amd/amdgpu: Add helper functions for isp buffers
-Thread-Index: AQHb6gcHuFP7eNon806kDxYW6j0cxLQl8KMAgADSeJA=
-Date: Mon, 7 Jul 2025 14:31:00 +0000
-Message-ID: <CY5PR12MB642908CEF762C493C1CBF2C9FE4FA@CY5PR12MB6429.namprd12.prod.outlook.com>
-References: <20250630213607.1849629-1-pratap.nirujogi@amd.com>
- <f5bdade9-97f4-4f02-9ae3-9f68b2f186fe@amd.com>
-In-Reply-To: <f5bdade9-97f4-4f02-9ae3-9f68b2f186fe@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-07-07T14:29:43.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6429:EE_|SA3PR12MB8809:EE_
-x-ms-office365-filtering-correlation-id: 0a3634bf-6943-4704-f004-08ddbd62e511
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?utf-8?B?ayszbmlhKzB5dm5uSDBiSkZuU3dpbnFhYUhLbGdrRlR2K05QMC9mZUgvVEIy?=
- =?utf-8?B?eHIySDBVQWhjeCs0aXhnc0pJekprTEZFU1gvb25DSGpyek9LRktlNlBTOHdk?=
- =?utf-8?B?eDVWTEJLVFRQNkw1Z0Vma2N6cWNyVjg3ZnhuN1F0azhEajhKTzdLLzEzbk94?=
- =?utf-8?B?NE03bUM5NTBlMEpkMnJSN083dytLdVBZUWQwUVp2WUdGenZTZVY3Wlp2d0dt?=
- =?utf-8?B?QWxmQ0NNOW5CVFFSUE8vbzJlNTRqTmZHNlRlYWMxczZicEN2dGprVGdORHRR?=
- =?utf-8?B?SFlRMEFoQ3dsNE8yU0dLMnBuQU5BU25RbVdnNnBQM3ZrUTBKanQ3UVBFcmVK?=
- =?utf-8?B?eCtnNW9LclRmOFh2dTZRc3NVL29Ea0thMCsvMFJyTjZ4M0FHUS9iN3BiN2t4?=
- =?utf-8?B?ZnE2TkhKWGI1ZDhNbnhQaUQ4QlB6YVVQRzVSbCtaUU5OV1VFekpqS2w1NlJC?=
- =?utf-8?B?ZzcwWU5PZ0lCYklKN0hpR2NOZ0xWVHdXNjlIWmljY0VRRlVxb2dTc3ROczNV?=
- =?utf-8?B?QUFac1kwMmk5N3lSakppcnpybG9tekllanRqK3pYNGE0aldXN2xBU1QzVURy?=
- =?utf-8?B?bEFKWCswZmJwc2s4azMwblpnTTIvVzRZTUdrS0drZEVoQnIycEs0cWNXOCto?=
- =?utf-8?B?aWh6cTg2ZXdnSnFLalBiaGVJRnltOERwSEMvZXlUSU9ZRk4yaEZqWVFsRnA5?=
- =?utf-8?B?U3NabU55c2hSWjMxUUZVMjBZYjRRM1dpS3BSL3dBc0F6QmU0eVdyN1ZBYVVL?=
- =?utf-8?B?NjNETFFlZitBVTV2b21XUnFsejhoeXRpdlNOQU1HYUZYaVZtUnArcUZneFJy?=
- =?utf-8?B?UWRSZDRaSHkvUjB3VTU1aHpXeXhtRTRDY2d4dTVoRmVUWjRmV1hNcWkyMXNX?=
- =?utf-8?B?ajE3N05ZYzZqeUFTWGFjQThLNUxiL2grN0QzNFppck1FOGl5WHFuaFFVd3Vr?=
- =?utf-8?B?T2RRS25kbEoxd0hSRlJqZzZkQnorSUdhbG9QY1ZHTHQyMHZVMEFheEEwV3BL?=
- =?utf-8?B?TVJwa2c1QkNwckFCSVZzNGd3YTdIWW5DcXMrTGp3Mi9CQWp1NTQwdVlvRkp0?=
- =?utf-8?B?d3ZmOEVnUjJadk5OUDIvVCtpT3hEcmJJZkZISDZxcEZtZHM3MUVZOC9Xek5w?=
- =?utf-8?B?VitPaUtrU1RLVVdsTHpBSUpHdEVHWVhnNkwvMno2M0NET0xqR2wzL25sL3Ew?=
- =?utf-8?B?NThkNGQzMitDc09iTG9MSGthRVJCRkZySW1GeHVQV2s3YjBaYlhBOUlyNW5F?=
- =?utf-8?B?U0oxWFQ0Y204YnVhd3VqYzk0T3N3aXg3NlJwenZvS21tVnJobGxxUVI1Mzdn?=
- =?utf-8?B?SnZsTnY4d2YzczdheW00bzFKRWdITS85dytZR0NxRGExNVE1bWd5emdXYWg3?=
- =?utf-8?B?UCtpeDZyenRlVWhPSEVNc2loMWtQR0Vrb3VzMFpwTU11MlRTVElNa0ZjYURj?=
- =?utf-8?B?bkRKTm90ZjJxRFhvbmdjTWVkWWtHbGhIU05RZEI4UjNjYVZBYkFKWlVOSXhV?=
- =?utf-8?B?UlM3Y2V3eEZBc3laTU02SWNnaHVnQld6SEhJa1pQUVRNUmdDZDcxYlo1aUpB?=
- =?utf-8?B?S0pqVldXQW5taGdCYU9zMzduOVpQT0xWd1gvWHBjbzBKUTZsa1dhNE9pRjR6?=
- =?utf-8?B?YTB3R3d0dHZ5TWRhM0YzMUtZYVlFMGtuWGR6MlpKcjROQjd5dUw5WktRZTZa?=
- =?utf-8?B?L29MdytIWEdRWHpDazVCQ0xLRmd2eDlYMXltamNQcDZkZ1ZNQ1dCT1BjUmZk?=
- =?utf-8?B?bllXZTRwQlc0elVWQThZdUc2WkVkbXlLU1NjZDE3b0dTbWZVc3ljc2JPSGpF?=
- =?utf-8?B?Um1FRjdVWEgyMEtmRnVIR28wczBvL2hDck4xODVoM2hkbVlEVDJtSk1UejZS?=
- =?utf-8?B?dm9mQW5NVGxvWmo5ZytYbXlVd1k4c2IzVmpCU3B5N2IrYU1UbEU4NElVZ0FB?=
- =?utf-8?B?bFAzVzROMDhwK2tDaWxWeCtjb1g0UC9Md1NzTnBYSTZ1WkdqZ3dUMWMveVJk?=
- =?utf-8?B?bEJSQkEvRjZnPT0=?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6429.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OVN3djJMMUd0WjN5TWZhTVNzd2NWdmxzYVBEMEN4U28xTmJxeXN0cGVVSWo3?=
- =?utf-8?B?ZjYvRDh2Mk5jSFJ0RFp6N0EzMEN1QzBzT3lqUFprS09qNTh2czREa2xqTkc3?=
- =?utf-8?B?TW5oam51aEsyNHc5MjJNTFpISzZ2MlhoTDE4bEpPYmFxMUttY2V4UWNUN1F6?=
- =?utf-8?B?bnp6YzZobmEvZm1hVTcxQU9BTHVwVnk1V1RIS0pQaUZ3ZEk3VUVtSTZrR2tn?=
- =?utf-8?B?WVJtSnh5NW5kZzZKdzViVHd4aSs4Mlkzd1gvM3QxVEdvT2oydnI2QlhnczBr?=
- =?utf-8?B?Zno3aVptaWZwZlRickRvcHNtVEhpZFF6Z0JuSkpZcm9FNUR3VlppbDcrN3Bz?=
- =?utf-8?B?OUxxMktJaG9Tck4wUHFmZzNzSVBKQVpBd0Jxb3VRb09XcWtlRDBLM0NJUGJU?=
- =?utf-8?B?am1iM1d4TlFod3RlUzB1SXlIdWhRWStLOHpPcExNbU95SUkxWTZUS2ZDbTh2?=
- =?utf-8?B?VHEzd09SNjRpdUF4aGJkQi94Z05EZTRzTHdhWUdLWEVlSnNCRnJaOTZUL0Jv?=
- =?utf-8?B?Y1B2NTNzUG1abmVZczdqL2txZG1kTDlrUGlHb1NxdWZCZ1d2cjBSaTRjdzJL?=
- =?utf-8?B?Wit3WTh2QTdUR0ZWRHcvbGd4Q1ZKWUVkVWdsTVBURCt2aEhtOHBBTDNyRE5M?=
- =?utf-8?B?em9Janc4RkhlNStlM3VjcXREQ2NBTUFWSk9jc1dUcm14NGNndkpBREN0OXlG?=
- =?utf-8?B?Y2JPTkVzc3pYL1FCMnBwVFBxRjg2WkNMRjBQZE8yVzAvQUxDU1RyeHhMTW5E?=
- =?utf-8?B?SXJWRkpkUURVZWhsM1MxeFN5UXc4SjBDa3ZrNTl3QW03UnhFYXZLMWxVOVJ0?=
- =?utf-8?B?ZEN2RTB2dTZNRWo3eWhTTUlWaDFHRmJDN0YrT3drK2tLMzVyb0x3bjN5RXI0?=
- =?utf-8?B?aCtoR3ViTlJGS20rT2tBdEZEa2hIWlV1MWdIemlxNTg2bG1yb0laYUNlWjBG?=
- =?utf-8?B?WmRTSnFCVEtzNDhDcGtvanNTS3F5b2w1Uk9iZEd3emtEcmVuTFBjMHdBbFcr?=
- =?utf-8?B?M3QyWG1GdXV2VFprWGFEU28rWUNGdVdraDdYQWN2QlRHN1pZMjhqVkIyRGw4?=
- =?utf-8?B?UUluRXV6WUxUbVJBWndwNW9XaWtIcUFjamU1L2pjRWF0MDhTdHhnMzNENzE3?=
- =?utf-8?B?Mkp2N1BhRC90RmV0Y2thRHNOaGhDUnZSUHFQcUxLV0RGU1kyYnZSbXJLdjFl?=
- =?utf-8?B?L1RJaHdFbUNmUHhMUnY0ek9vTU9IMG1NQkFHNXFXWGxBbEZCaytVVUVoV0pG?=
- =?utf-8?B?RWVlR1kwZDVqdE5HRjVoU3JOZ3FLYmVOVTFhUmV2MktocEFMSmppU0F6Nmky?=
- =?utf-8?B?Z0RLekZmb0FEcDRMYkFVTTU2eGVuRzRIbGErdDlGNUZwQm1OSHRaU1ZGdmdz?=
- =?utf-8?B?Q2xaaGk5TDMxN01IbHMwQm1Lb0FzZUFQNmh0aldRM012VTZQb3d5SmRVeEph?=
- =?utf-8?B?U3h3czgrK3htRCtPUXEzOEl0RWgzTnphZTBuRTM3ZlluQ2hxWnY5eUlkb1Uz?=
- =?utf-8?B?cUVqc01Ja0hFVGZRQUdPNVZ4ejFucC9HS3MrY0puNmJEOFVuemMrb2FJN2VU?=
- =?utf-8?B?SnBVeTNWQ3JpZTdmYlhLVHhtWis3TUtRaTFrYi9tWC8xbXREK3IwN01DM0g4?=
- =?utf-8?B?aHJOOWZodVdIK2dad1psM3IxNzF0WXdSRFFnd0E0djloTGpNUk9zSC81RjZ2?=
- =?utf-8?B?UHNua0dJWUZZVC9KSUZCYmNKaVl4NVZqN2xjQjlFRFJhYnUwTVQvRC9VOUJs?=
- =?utf-8?B?c25sU2kycDdxV2NmdFZoZTBVd0c2QUN4Q2xTWWtFMFJ6RXBhbWg0a0R3ZkdN?=
- =?utf-8?B?Q1hTK3ZleEVwRDIxU0dHTEoxTmFRSHRIaVVRb29VdkN5dTd3U0F3TVVON1Ir?=
- =?utf-8?B?ZHdFeHMrOGV0SXhKUkQ1VUFrS0xTdGlmSkpsdm8xZis5YzNEczJrb09NcjFK?=
- =?utf-8?B?Z1NQVzlSeEVFaklReC9NTldCcWZFS09BaGpLbUJzMjFEMTdOcXhaQjJ1d1Ir?=
- =?utf-8?B?cEpqeFBtWFVlMUk3OVU0Y1duRytrWTBvNjRmSXUyN3N2aFF2Z21FeHdOT2ti?=
- =?utf-8?B?eUx3aGY0dENNRVEvRjdsWmpUSk1JNXBWdnF1ejZYMlN1bTV4L2pWcjE2QzRh?=
- =?utf-8?Q?9a2A=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 476F410E4BB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jul 2025 14:46:19 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-313dc7be67aso462365a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Jul 2025 07:46:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1751899579; x=1752504379; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oaJoDrcCrGfcXM7t0WibI4NEyQ2zo4kdU9217dIyRNs=;
+ b=H22M5qnUe9qE7GZuy6Wwn/N1mmxAkOdHB64xFOl7EsE4N2ALlr4YIz5oZlW2Mk4+Bk
+ gmP2FJqKo8mPrWO7PfboblcMUAR1wPO+rh+JVGyS1rld7A+nzUDXpJ99pYyB5Nnq6Bcc
+ 2JLl1vYx32bNTfP+Ms2U+x9yBNnZH4RdmIvB7+/ZfmFoCe1o1lB+Yy+lB716ClIPxVsk
+ DrO38x8IAhpS4KQSRSIBgSS/zrYWABlpr6p/1XIB+8Y6pUGhPQru+iAWmPwebr8y3oT5
+ buK7Z6mau6b1l9SNfRaajX1VBWBYQfWfisRBpewnEFt80pz7yg4b458uRAt+DdmrlC7f
+ E9jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751899579; x=1752504379;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oaJoDrcCrGfcXM7t0WibI4NEyQ2zo4kdU9217dIyRNs=;
+ b=WTQc2mclxfgWcAt2nbUnLA2JwjzlTw/+TaD9Rf3BGtacJlfAbbgGybROGQs2lGZK4M
+ a1I424pZo5dl94ZGZVxxLhKP08HsmVOoBT++DDcFy+yNAx0zlEiQX2fnNvwBUAX55WZn
+ 6192jqT2j3hYxQdHkqZAQ552LsCLmSdBmRl2CXDengrKqzkSKQdBrnE7MEza9cdqMCZ5
+ stbmtR5+Pvw0Iq8yVtr91b94A71dUuQafrLDYBXwK88eB1NSqtAZUXpjZqRhhSuV50QW
+ 2hb9a39R2ZzybJe3lh0FE5qYK3bUkKLm9Ci5P1sEibSATuVMbh7I+5dk5c1B13T9txh6
+ Ih+w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU6alt7676D12I2w5Y/NkHA4rWAtHoTlD7dGPI0ekQ6tHBxBB8UhCXljqsIAbOQ0c+95ismHfGF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5d3O/ZwC0wgRxWKqWcPS6sJkc7hs6sLcMytpNCjHBwov+IZ9C
+ puTUCXVq2bzipCo2oQBT7oozWbLPida1ncZnFPEvJVggQ3prEKabH6eAJuynFPIdou24yfYHEp6
+ ZJY71ikxqPeX8sgZKcSEp3+FLd7gWaVWZhr8C
+X-Gm-Gg: ASbGncvW9DsQV38BxtOrZauBPKf8nG7NNS0y4auGm19Xa/SmXDLwHfXzsJht9J3/zoa
+ mJQGYuc7cw9zxfPqf0GGl2/dr7AdT1deQIGQbowMUhSs5m5HEDdhuXdptQjTVNDQ2tm/WpVlTwH
+ 9Wtosp6HmD+uumhRtxFfebBjk+YulQCwHPNl3mpxPC7rD2
+X-Google-Smtp-Source: AGHT+IFq8b9aHPszoSFAytIHC+jG7G+HfHaEGXu2bIR9vLGQxv5+h8495XBrZgtqP4wR9dzmmw8v9er5X/3YTL48P7Y=
+X-Received: by 2002:a17:90b:5744:b0:314:2d38:3e4d with SMTP id
+ 98e67ed59e1d1-31aacc1286dmr6925992a91.3.1751899578342; Mon, 07 Jul 2025
+ 07:46:18 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6429.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a3634bf-6943-4704-f004-08ddbd62e511
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jul 2025 14:31:00.3827 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qzHaIqqMC8FzLjOAAVxpNri3r6vISx9KblAbphToHaMvl8A0ITwvTN5+dFOVcan9sv3IJNjEKqG/wyms+fh/Hg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8809
+References: <20250701184451.11868-1-alexander.deucher@amd.com>
+ <20250701184451.11868-4-alexander.deucher@amd.com>
+ <at3gplc4kikoavr4rkduknc6fkqij45bx5pduf3znbdzxxejae@xkqulazbt65a>
+In-Reply-To: <at3gplc4kikoavr4rkduknc6fkqij45bx5pduf3znbdzxxejae@xkqulazbt65a>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 7 Jul 2025 10:46:05 -0400
+X-Gm-Features: Ac12FXzRnCNF673PgVETFp6Zdjg5knSZ2iRHv3uovnv5xrn6ImY_oLcFfFFojCU
+Message-ID: <CADnq5_NQOPpgQ-SBbBqWAgB4ODd3oLeDuegAoz9A5DxDN9kJEA@mail.gmail.com>
+Subject: Re: [PATCH 03/28] drm/amdgpu: track ring state associated with a fence
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ christian.koenig@amd.com, sasundar@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,221 +84,529 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KVGhhbmtzIE1hcmlvLiBJIHdpbGwgZml4IHRoZSB0eXBvIHRvbyB3aGlsZSBzdWJtaXR0aW5n
-IHRoZSBwYXRjaC4NCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IExpbW9uY2ll
-bGxvLCBNYXJpbyA8TWFyaW8uTGltb25jaWVsbG9AYW1kLmNvbT4NClNlbnQ6IFN1bmRheSwgSnVs
-eSA2LCAyMDI1IDk6NTYgUE0NClRvOiBOaXJ1am9naSwgUHJhdGFwIDxQcmF0YXAuTmlydWpvZ2lA
-YW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBEZXVjaGVyLCBBbGV4YW5k
-ZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0
-aWFuLktvZW5pZ0BhbWQuY29tPjsgTGltb25jaWVsbG8sIE1hcmlvIDxNYXJpby5MaW1vbmNpZWxs
-b0BhbWQuY29tPg0KQ2M6IENoYW4sIEJlbmphbWluIChLb29uIFBhbikgPEJlbmphbWluLkNoYW5A
-YW1kLmNvbT47IER1LCBCaW4gPEJpbi5EdUBhbWQuY29tPjsgUm9zaWtvcHVsb3MsIEdqb3Jnamkg
-PEdqb3JnamkuUm9zaWtvcHVsb3NAYW1kLmNvbT47IExpLCBLaW5nIDxLaW5nLkxpQGFtZC5jb20+
-OyBBbnRvbnksIERvbWluaWMgPERvbWluaWMuQW50b255QGFtZC5jb20+OyBKYXdpY2gsIFBoaWwg
-PFBoaWwuSmF3aWNoQGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIHY0XSBkcm0vYW1kL2Ft
-ZGdwdTogQWRkIGhlbHBlciBmdW5jdGlvbnMgZm9yIGlzcCBidWZmZXJzDQoNCk9uIDYvMzAvMjAy
-NSA1OjMzIFBNLCBQcmF0YXAgTmlydWpvZ2kgd3JvdGU6DQo+IEFjY2Vzc2luZyBhbWRncHUgaW50
-ZXJuYWwgZGF0YSBzdHJ1Y3R1cmVzICJzdHJ1Y3QgYW1kZ3B1X2RldmljZSINCj4gYW5kICJzdHJ1
-Y3QgYW1kZ3B1X2JvIiBpbiBJU1AgVjRMMiBkcml2ZXIgdG8gYWxsb2MvZnJlZSBHQVJUIGJ1ZmZl
-cnMNCj4gaXMgbm90IHJlY29tbWVuZGVkLg0KPg0KPiBBZGQgbmV3IGFtZGdwdV9pc3AgaGVscGVy
-IGZ1bmN0aW9ucyB0aGF0cyB0YWtlcyBvcGFxdWUgcGFyYW1zDQoNCnMvdGhhdHMvdGhhdC8NCg0K
-PiBmcm9tIElTUCBWNEwyIGRyaXZlciBhbmQgY2FsbHMgdGhlIGFtZGdwdSBpbnRlcm5hbCBmdW5j
-dGlvbnMNCj4gYW1kZ3B1X2JvX2NyZWF0ZV9pc3BfdXNlcigpIGFuZCBhbWRncHVfYm9fY3JlYXRl
-X2tlcm5lbCgpIHRvDQo+IGFsbG9jL2ZyZWUgR0FSVCBidWZmZXJzLg0KPg0KPiBTaWduZWQtb2Zm
-LWJ5OiBQcmF0YXAgTmlydWpvZ2kgPHByYXRhcC5uaXJ1am9naUBhbWQuY29tPg0KDQpObyBuZWVk
-IHRvIHJlc3BpbiBmb3IgdGhlIHR5cG8gYWJvdmUgaWYgdGhpcyBpcyB0aGUgb25seSBmZWVkYmFj
-ay4NCg0KUmV2aWV3ZWQtYnk6IE1hcmlvIExpbW9uY2llbGxvIDxtYXJpby5saW1vbmNpZWxsb0Bh
-bWQuY29tPg0KDQo+IC0tLQ0KPiBDaGFuZ2VzIHYzIC0+IHY0Og0KPg0KPiAqIFJlbW92ZSB1bnJl
-bGF0ZWQgY2hhbmdlIGluIGlzcF9sb2FkX2Z3X2J5X3BzcCgpDQo+DQo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lzcC5jICAgIHwgMTc1ICsrKysrKysrKysrKysrKysrKysr
-Kw0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pc3AuaCAgICB8ICAgNyAr
-LQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyB8ICAgNCAt
-DQo+ICAgaW5jbHVkZS9kcm0vYW1kL2lzcC5oICAgICAgICAgICAgICAgICAgICAgIHwgIDUxICsr
-KysrKw0KPiAgIDQgZmlsZXMgY2hhbmdlZCwgMjI3IGluc2VydGlvbnMoKyksIDEwIGRlbGV0aW9u
-cygtKQ0KPiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBpbmNsdWRlL2RybS9hbWQvaXNwLmgNCj4NCj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pc3AuYw0KPiBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pc3AuYw0KPiBpbmRleCA0M2ZjOTQx
-ZGZhNTcuLmY5Y2FiZWFlMWM3MSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2lzcC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9pc3AuYw0KPiBAQCAtMzMsNiArMzMsOCBAQA0KPiAgICNpbmNsdWRlICJpc3BfdjRfMV8w
-LmgiDQo+ICAgI2luY2x1ZGUgImlzcF92NF8xXzEuaCINCj4NCj4gKyNkZWZpbmUgSVNQX01DX0FE
-RFJfQUxJR04gKDEwMjQgKiAzMikNCj4gKw0KPiAgIC8qKg0KPiAgICAqIGlzcF9od19pbml0IC0g
-c3RhcnQgYW5kIHRlc3QgaXNwIGJsb2NrDQo+ICAgICoNCj4gQEAgLTE0MSw2ICsxNDMsMTc5IEBA
-IHN0YXRpYyBpbnQgaXNwX3NldF9wb3dlcmdhdGluZ19zdGF0ZShzdHJ1Y3QgYW1kZ3B1X2lwX2Js
-b2NrICppcF9ibG9jaywNCj4gICAgICAgcmV0dXJuIDA7DQo+ICAgfQ0KPg0KPiArc3RhdGljIGlu
-dCBpc192YWxpZF9pc3BfZGV2aWNlKHN0cnVjdCBkZXZpY2UgKmlzcF9wYXJlbnQsIHN0cnVjdA0K
-PiArZGV2aWNlICphbWRncHVfZGV2KSB7DQo+ICsgICAgIGlmIChpc3BfcGFyZW50ICE9IGFtZGdw
-dV9kZXYpDQo+ICsgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+ICsNCj4gKyAgICAgcmV0
-dXJuIDA7DQo+ICt9DQo+ICsNCj4gKy8qKg0KPiArICogaXNwX3VzZXJfYnVmZmVyX2FsbG9jIC0g
-Y3JlYXRlIHVzZXIgYnVmZmVyIG9iamVjdCAoQk8pIGZvciBpc3ANCj4gKyAqDQo+ICsgKiBAZGV2
-OiBpc3AgZGV2aWNlIGhhbmRsZQ0KPiArICogQGRtYV9idWY6IERNQUJVRiBoYW5kbGUgZm9yIGlz
-cCBidWZmZXIgYWxsb2NhdGVkIGluIHN5c3RlbSBtZW1vcnkNCj4gKyAqIEBidWZfb2JqOiBHUFUg
-YnVmZmVyIG9iamVjdCBoYW5kbGUgdG8gaW5pdGlhbGl6ZQ0KPiArICogQGJ1Zl9hZGRyOiBHUFUg
-YWRkciBvZiB0aGUgcGlubmVkIEJPIHRvIGluaXRpYWxpemUNCj4gKyAqDQo+ICsgKiBJbXBvcnRz
-IGlzcCBETUFCVUYgdG8gYWxsb2NhdGUgYW5kIHBpbiBhIHVzZXIgQk8gZm9yIGlzcCBpbnRlcm5h
-bA0KPiArdXNlLiBJdCBkb2VzDQo+ICsgKiBHQVJUIGFsbG9jIHRvIGdlbmVyYXRlIEdQVSBhZGRy
-IGZvciBCTyB0byBtYWtlIGl0IGFjY2Vzc2libGUNCj4gK3Rocm91Z2ggdGhlDQo+ICsgKiBHQVJU
-IGFwZXJ0dXJlIGZvciBJU1AgSFcuDQo+ICsgKg0KPiArICogVGhpcyBmdW5jdGlvbiBpcyBleHBv
-cnRlZCB0byBhbGxvdyB0aGUgVjRMMiBpc3AgZGV2aWNlIGV4dGVybmFsIHRvDQo+ICtkcm0gZGV2
-aWNlDQo+ICsgKiB0byBjcmVhdGUgYW5kIGFjY2VzcyB0aGUgaXNwIHVzZXIgQk8uDQo+ICsgKg0K
-PiArICogUmV0dXJuczoNCj4gKyAqIDAgb24gc3VjY2VzcywgbmVnYXRpdmUgZXJyb3IgY29kZSBv
-dGhlcndpc2UuDQo+ICsgKi8NCj4gK2ludCBpc3BfdXNlcl9idWZmZXJfYWxsb2Moc3RydWN0IGRl
-dmljZSAqZGV2LCB2b2lkICpkbWFidWYsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgIHZvaWQg
-KipidWZfb2JqLCB1NjQgKmJ1Zl9hZGRyKQ0KPiArew0KPiArICAgICBzdHJ1Y3QgcGxhdGZvcm1f
-ZGV2aWNlICppc3BkZXYgPSB0b19wbGF0Zm9ybV9kZXZpY2UoZGV2KTsNCj4gKyAgICAgY29uc3Qg
-c3RydWN0IGlzcF9wbGF0Zm9ybV9kYXRhICppc3BfcGRhdGE7DQo+ICsgICAgIHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2Ow0KPiArICAgICBzdHJ1Y3QgbWZkX2NlbGwgKm1mZF9jZWxsOw0KPiAr
-ICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICpibzsNCj4gKyAgICAgdTY0IGdwdV9hZGRyOw0KPiArICAg
-ICBpbnQgcmV0Ow0KPiArDQo+ICsgICAgIGlmIChXQVJOX09OKCFpc3BkZXYpKQ0KPiArICAgICAg
-ICAgICAgIHJldHVybiAtRU5PREVWOw0KPiArDQo+ICsgICAgIGlmIChXQVJOX09OKCFidWZfb2Jq
-KSkNCj4gKyAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCj4gKw0KPiArICAgICBpZiAoV0FS
-Tl9PTighYnVmX2FkZHIpKQ0KPiArICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KPiArDQo+
-ICsgICAgIG1mZF9jZWxsID0gJmlzcGRldi0+bWZkX2NlbGxbMF07DQo+ICsgICAgIGlmICghbWZk
-X2NlbGwpDQo+ICsgICAgICAgICAgICAgcmV0dXJuIC1FTk9ERVY7DQo+ICsNCj4gKyAgICAgaXNw
-X3BkYXRhID0gbWZkX2NlbGwtPnBsYXRmb3JtX2RhdGE7DQo+ICsgICAgIGFkZXYgPSBpc3BfcGRh
-dGEtPmFkZXY7DQo+ICsNCj4gKyAgICAgcmV0ID0gaXNfdmFsaWRfaXNwX2RldmljZShpc3BkZXYt
-PmRldi5wYXJlbnQsIGFkZXYtPmRldik7DQo+ICsgICAgIGlmIChyZXQpDQo+ICsgICAgICAgICAg
-ICAgcmV0dXJuIHJldDsNCj4gKw0KPiArICAgICByZXQgPSBhbWRncHVfYm9fY3JlYXRlX2lzcF91
-c2VyKGFkZXYsIGRtYWJ1ZiwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBBTURHUFVfR0VNX0RPTUFJTl9HVFQsICZibywgJmdwdV9hZGRyKTsNCj4gKyAgICAgaWYgKHJl
-dCkgew0KPiArICAgICAgICAgICAgIGRybV9lcnIoJmFkZXYtPmRkZXYsICJmYWlsZWQgdG8gYWxs
-b2MgZ2FydCB1c2VyIGJ1ZmZlciAoJWQpIiwgcmV0KTsNCj4gKyAgICAgICAgICAgICByZXR1cm4g
-cmV0Ow0KPiArICAgICB9DQo+ICsNCj4gKyAgICAgKmJ1Zl9vYmogPSAodm9pZCAqKWJvOw0KPiAr
-ICAgICAqYnVmX2FkZHIgPSBncHVfYWRkcjsNCj4gKw0KPiArICAgICByZXR1cm4gMDsNCj4gK30N
-Cj4gK0VYUE9SVF9TWU1CT0woaXNwX3VzZXJfYnVmZmVyX2FsbG9jKTsNCj4gKw0KPiArLyoqDQo+
-ICsgKiBpc3BfdXNlcl9idWZmZXJfZnJlZSAtIGZyZWUgaXNwIHVzZXIgYnVmZmVyIG9iamVjdCAo
-Qk8pDQo+ICsgKg0KPiArICogQGJ1Zl9vYmo6IGFtZGdwdSBpc3AgdXNlciBCTyB0byBmcmVlDQo+
-ICsgKg0KPiArICogdW5waW4gYW5kIHVucmVmIEJPIGZvciBpc3AgaW50ZXJuYWwgdXNlLg0KPiAr
-ICoNCj4gKyAqIFRoaXMgZnVuY3Rpb24gaXMgZXhwb3J0ZWQgdG8gYWxsb3cgdGhlIFY0TDIgaXNw
-IGRldmljZQ0KPiArICogZXh0ZXJuYWwgdG8gZHJtIGRldmljZSB0byBmcmVlIHRoZSBpc3AgdXNl
-ciBCTy4NCj4gKyAqLw0KPiArdm9pZCBpc3BfdXNlcl9idWZmZXJfZnJlZSh2b2lkICpidWZfb2Jq
-KSB7DQo+ICsgICAgIGFtZGdwdV9ib19mcmVlX2lzcF91c2VyKGJ1Zl9vYmopOw0KPiArfQ0KPiAr
-RVhQT1JUX1NZTUJPTChpc3BfdXNlcl9idWZmZXJfZnJlZSk7DQo+ICsNCj4gKy8qKg0KPiArICog
-aXNwX2tlcm5lbF9idWZmZXJfYWxsb2MgLSBjcmVhdGUga2VybmVsIGJ1ZmZlciBvYmplY3QgKEJP
-KSBmb3IgaXNwDQo+ICsgKg0KPiArICogQGRldjogaXNwIGRldmljZSBoYW5kbGUNCj4gKyAqIEBz
-aXplOiBzaXplIGZvciB0aGUgbmV3IEJPDQo+ICsgKiBAYnVmX29iajogR1BVIEJPIGhhbmRsZSB0
-byBpbml0aWFsaXplDQo+ICsgKiBAZ3B1X2FkZHI6IEdQVSBhZGRyIG9mIHRoZSBwaW5uZWQgQk8N
-Cj4gKyAqIEBjcHVfYWRkcjogQ1BVIGFkZHJlc3MgbWFwcGluZyBvZiBCTw0KPiArICoNCj4gKyAq
-IEFsbG9jYXRlcyBhbmQgcGlucyBhIGtlcm5lbCBCTyBmb3IgaW50ZXJuYWwgaXNwIGZpcm13YXJl
-IHVzZS4NCj4gKyAqDQo+ICsgKiBUaGlzIGZ1bmN0aW9uIGlzIGV4cG9ydGVkIHRvIGFsbG93IHRo
-ZSBWNEwyIGlzcCBkZXZpY2UNCj4gKyAqIGV4dGVybmFsIHRvIGRybSBkZXZpY2UgdG8gY3JlYXRl
-IGFuZCBhY2Nlc3MgdGhlIGtlcm5lbCBCTy4NCj4gKyAqDQo+ICsgKiBSZXR1cm5zOg0KPiArICog
-MCBvbiBzdWNjZXNzLCBuZWdhdGl2ZSBlcnJvciBjb2RlIG90aGVyd2lzZS4NCj4gKyAqLw0KPiAr
-aW50IGlzcF9rZXJuZWxfYnVmZmVyX2FsbG9jKHN0cnVjdCBkZXZpY2UgKmRldiwgdTY0IHNpemUs
-DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgdm9pZCAqKmJ1Zl9vYmosIHU2NCAqZ3B1X2Fk
-ZHIsIHZvaWQgKipjcHVfYWRkcikgew0KPiArICAgICBzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpp
-c3BkZXYgPSB0b19wbGF0Zm9ybV9kZXZpY2UoZGV2KTsNCj4gKyAgICAgc3RydWN0IGFtZGdwdV9i
-byAqKmJvID0gKHN0cnVjdCBhbWRncHVfYm8gKiopYnVmX29iajsNCj4gKyAgICAgY29uc3Qgc3Ry
-dWN0IGlzcF9wbGF0Zm9ybV9kYXRhICppc3BfcGRhdGE7DQo+ICsgICAgIHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2Ow0KPiArICAgICBzdHJ1Y3QgbWZkX2NlbGwgKm1mZF9jZWxsOw0KPiArICAg
-ICBpbnQgcmV0Ow0KPiArDQo+ICsgICAgIGlmIChXQVJOX09OKCFpc3BkZXYpKQ0KPiArICAgICAg
-ICAgICAgIHJldHVybiAtRU5PREVWOw0KPiArDQo+ICsgICAgIGlmIChXQVJOX09OKCFidWZfb2Jq
-KSkNCj4gKyAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCj4gKw0KPiArICAgICBpZiAoV0FS
-Tl9PTighZ3B1X2FkZHIpKQ0KPiArICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KPiArDQo+
-ICsgICAgIGlmIChXQVJOX09OKCFjcHVfYWRkcikpDQo+ICsgICAgICAgICAgICAgcmV0dXJuIC1F
-SU5WQUw7DQo+ICsNCj4gKyAgICAgbWZkX2NlbGwgPSAmaXNwZGV2LT5tZmRfY2VsbFswXTsNCj4g
-KyAgICAgaWYgKCFtZmRfY2VsbCkNCj4gKyAgICAgICAgICAgICByZXR1cm4gLUVOT0RFVjsNCj4g
-Kw0KPiArICAgICBpc3BfcGRhdGEgPSBtZmRfY2VsbC0+cGxhdGZvcm1fZGF0YTsNCj4gKyAgICAg
-YWRldiA9IGlzcF9wZGF0YS0+YWRldjsNCj4gKw0KPiArICAgICByZXQgPSBpc192YWxpZF9pc3Bf
-ZGV2aWNlKGlzcGRldi0+ZGV2LnBhcmVudCwgYWRldi0+ZGV2KTsNCj4gKyAgICAgaWYgKHJldCkN
-Cj4gKyAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KPiArDQo+ICsgICAgIHJldCA9IGFtZGdwdV9i
-b19jcmVhdGVfa2VybmVsKGFkZXYsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHNpemUsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIElTUF9NQ19B
-RERSX0FMSUdOLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBTURHUFVf
-R0VNX0RPTUFJTl9HVFQsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJv
-LA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBncHVfYWRkciwNCj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY3B1X2FkZHIpOw0KPiArICAgICBpZiAo
-IWNwdV9hZGRyIHx8IHJldCkgew0KPiArICAgICAgICAgICAgIGRybV9lcnIoJmFkZXYtPmRkZXYs
-ICJmYWlsZWQgdG8gYWxsb2MgZ2FydCBrZXJuZWwgYnVmZmVyICglZCkiLCByZXQpOw0KPiArICAg
-ICAgICAgICAgIHJldHVybiByZXQ7DQo+ICsgICAgIH0NCj4gKw0KPiArICAgICByZXR1cm4gMDsN
-Cj4gK30NCj4gK0VYUE9SVF9TWU1CT0woaXNwX2tlcm5lbF9idWZmZXJfYWxsb2MpOw0KPiArDQo+
-ICsvKioNCj4gKyAqIGlzcF9rZXJuZWxfYnVmZmVyX2ZyZWUgLSBmcmVlIGlzcCBrZXJuZWwgYnVm
-ZmVyIG9iamVjdCAoQk8pDQo+ICsgKg0KPiArICogQGJ1Zl9vYmo6IGFtZGdwdSBpc3AgdXNlciBC
-TyB0byBmcmVlDQo+ICsgKiBAZ3B1X2FkZHI6IEdQVSBhZGRyIG9mIGlzcCBrZXJuZWwgQk8NCj4g
-KyAqIEBjcHVfYWRkcjogQ1BVIGFkZHIgb2YgaXNwIGtlcm5lbCBCTw0KPiArICoNCj4gKyAqIHVu
-bWFwcyBhbmQgdW5waW4gYSBpc3Aga2VybmVsIEJPLg0KPiArICoNCj4gKyAqIFRoaXMgZnVuY3Rp
-b24gaXMgZXhwb3J0ZWQgdG8gYWxsb3cgdGhlIFY0TDIgaXNwIGRldmljZQ0KPiArICogZXh0ZXJu
-YWwgdG8gZHJtIGRldmljZSB0byBmcmVlIHRoZSBrZXJuZWwgQk8uDQo+ICsgKi8NCj4gK3ZvaWQg
-aXNwX2tlcm5lbF9idWZmZXJfZnJlZSh2b2lkICoqYnVmX29iaiwgdTY0ICpncHVfYWRkciwgdm9p
-ZA0KPiArKipjcHVfYWRkcikgew0KPiArICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICoqYm8gPSAoc3Ry
-dWN0IGFtZGdwdV9ibyAqKilidWZfb2JqOw0KPiArDQo+ICsgICAgIGFtZGdwdV9ib19mcmVlX2tl
-cm5lbChibywgZ3B1X2FkZHIsIGNwdV9hZGRyKTsgfQ0KPiArRVhQT1JUX1NZTUJPTChpc3Bfa2Vy
-bmVsX2J1ZmZlcl9mcmVlKTsNCj4gKw0KPiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kX2lwX2Z1
-bmNzIGlzcF9pcF9mdW5jcyA9IHsNCj4gICAgICAgLm5hbWUgPSAiaXNwX2lwIiwNCj4gICAgICAg
-LmVhcmx5X2luaXQgPSBpc3BfZWFybHlfaW5pdCwNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pc3AuaA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9pc3AuaA0KPiBpbmRleCAxZDFjNGIxZWM3ZTcuLmQ2ZjRmZmE0Yzk3YyAxMDA2
-NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lzcC5oDQo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pc3AuaA0KPiBAQCAtMjgsMTgg
-KzI4LDEzIEBADQo+ICAgI2lmbmRlZiBfX0FNREdQVV9JU1BfSF9fDQo+ICAgI2RlZmluZSBfX0FN
-REdQVV9JU1BfSF9fDQo+DQo+ICsjaW5jbHVkZSA8ZHJtL2FtZC9pc3AuaD4NCj4gICAjaW5jbHVk
-ZSA8bGludXgvcG1fZG9tYWluLmg+DQo+DQo+ICAgI2RlZmluZSBJU1BfUkVHU19PRkZTRVRfRU5E
-IDB4NjI5QTQNCj4NCj4gICBzdHJ1Y3QgYW1kZ3B1X2lzcDsNCj4NCj4gLXN0cnVjdCBpc3BfcGxh
-dGZvcm1fZGF0YSB7DQo+IC0gICAgIHZvaWQgKmFkZXY7DQo+IC0gICAgIHUzMiBhc2ljX3R5cGU7
-DQo+IC0gICAgIHJlc291cmNlX3NpemVfdCBiYXNlX3JtbWlvX3NpemU7DQo+IC19Ow0KPiAtDQo+
-ICAgc3RydWN0IGlzcF9mdW5jcyB7DQo+ICAgICAgIGludCAoKmh3X2luaXQpKHN0cnVjdCBhbWRn
-cHVfaXNwICppc3ApOw0KPiAgICAgICBpbnQgKCpod19maW5pKShzdHJ1Y3QgYW1kZ3B1X2lzcCAq
-aXNwKTsgZGlmZiAtLWdpdA0KPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9v
-YmplY3QuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYw0K
-PiBpbmRleCBjNWZkYTE4OTY3YzguLjEyMmE4ODI5NDg4MyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYw0KPiBAQCAtMzUyLDcgKzM1Miw2IEBAIGlu
-dCBhbWRncHVfYm9fY3JlYXRlX2tlcm5lbChzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPiAqYWRldiwN
-Cj4NCj4gICAgICAgcmV0dXJuIDA7DQo+ICAgfQ0KPiAtRVhQT1JUX1NZTUJPTChhbWRncHVfYm9f
-Y3JlYXRlX2tlcm5lbCk7DQo+DQo+ICAgLyoqDQo+ICAgICogYW1kZ3B1X2JvX2NyZWF0ZV9pc3Bf
-dXNlciAtIGNyZWF0ZSB1c2VyIEJPIGZvciBpc3AgQEAgLTQyMSw3DQo+ICs0MjAsNiBAQCBpbnQg
-YW1kZ3B1X2JvX2NyZWF0ZV9pc3BfdXNlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4N
-Cj4gICAgICAgcmV0dXJuIHI7DQo+ICAgfQ0KPiAtRVhQT1JUX1NZTUJPTChhbWRncHVfYm9fY3Jl
-YXRlX2lzcF91c2VyKTsNCj4NCj4gICAvKioNCj4gICAgKiBhbWRncHVfYm9fY3JlYXRlX2tlcm5l
-bF9hdCAtIGNyZWF0ZSBCTyBmb3Iga2VybmVsIHVzZSBhdCBzcGVjaWZpYw0KPiBsb2NhdGlvbiBA
-QCAtNTI1LDcgKzUyMyw2IEBAIHZvaWQgYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKHN0cnVjdCBhbWRn
-cHVfYm8gKipibywgdTY0ICpncHVfYWRkciwNCj4gICAgICAgaWYgKGNwdV9hZGRyKQ0KPiAgICAg
-ICAgICAgICAgICpjcHVfYWRkciA9IE5VTEw7DQo+ICAgfQ0KPiAtRVhQT1JUX1NZTUJPTChhbWRn
-cHVfYm9fZnJlZV9rZXJuZWwpOw0KPg0KPiAgIC8qKg0KPiAgICAqIGFtZGdwdV9ib19mcmVlX2lz
-cF91c2VyIC0gZnJlZSBCTyBmb3IgaXNwIHVzZSBAQCAtNTQ4LDcgKzU0NSw2IEBADQo+IHZvaWQg
-YW1kZ3B1X2JvX2ZyZWVfaXNwX3VzZXIoc3RydWN0IGFtZGdwdV9ibyAqYm8pDQo+ICAgICAgIH0N
-Cj4gICAgICAgYW1kZ3B1X2JvX3VucmVmKCZibyk7DQo+ICAgfQ0KPiAtRVhQT1JUX1NZTUJPTChh
-bWRncHVfYm9fZnJlZV9pc3BfdXNlcik7DQo+DQo+ICAgLyogVmFsaWRhdGUgYm8gc2l6ZSBpcyBi
-aXQgYmlnZ2VyIHRoYW4gdGhlIHJlcXVlc3QgZG9tYWluICovDQo+ICAgc3RhdGljIGJvb2wgYW1k
-Z3B1X2JvX3ZhbGlkYXRlX3NpemUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGRpZmYNCj4g
-LS1naXQgYS9pbmNsdWRlL2RybS9hbWQvaXNwLmggYi9pbmNsdWRlL2RybS9hbWQvaXNwLmggbmV3
-IGZpbGUgbW9kZQ0KPiAxMDA2NDQgaW5kZXggMDAwMDAwMDAwMDAwLi5lYzg2ODI4OGFiZjINCj4g
-LS0tIC9kZXYvbnVsbA0KPiArKysgYi9pbmNsdWRlL2RybS9hbWQvaXNwLmgNCj4gQEAgLTAsMCAr
-MSw1MSBAQA0KPiArLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVCAqLw0KPiArLyoNCj4g
-KyAqIENvcHlyaWdodCAoQykgMjAyNSBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuIEFsbCBy
-aWdodHMgcmVzZXJ2ZWQuDQo+ICsgKiBBbGwgUmlnaHRzIFJlc2VydmVkLg0KPiArICoNCj4gKyAq
-IFBlcm1pc3Npb24gaXMgaGVyZWJ5IGdyYW50ZWQsIGZyZWUgb2YgY2hhcmdlLCB0byBhbnkgcGVy
-c29uDQo+ICtvYnRhaW5pbmcgYQ0KPiArICogY29weSBvZiB0aGlzIHNvZnR3YXJlIGFuZCBhc3Nv
-Y2lhdGVkIGRvY3VtZW50YXRpb24gZmlsZXMgKHRoZQ0KPiArICogIlNvZnR3YXJlIiksIHRvIGRl
-YWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sDQo+ICtpbmNsdWRpbmcNCj4g
-KyAqIHdpdGhvdXQgbGltaXRhdGlvbiB0aGUgcmlnaHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBt
-ZXJnZSwNCj4gK3B1Ymxpc2gsDQo+ICsgKiBkaXN0cmlidXRlLCBzdWIgbGljZW5zZSwgYW5kL29y
-IHNlbGwgY29waWVzIG9mIHRoZSBTb2Z0d2FyZSwgYW5kDQo+ICt0bw0KPiArICogcGVybWl0IHBl
-cnNvbnMgdG8gd2hvbSB0aGUgU29mdHdhcmUgaXMgZnVybmlzaGVkIHRvIGRvIHNvLCBzdWJqZWN0
-DQo+ICt0bw0KPiArICogdGhlIGZvbGxvd2luZyBjb25kaXRpb25zOg0KPiArICoNCj4gKyAqIFRI
-RSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBL
-SU5ELA0KPiArRVhQUkVTUyBPUg0KPiArICogSU1QTElFRCwgSU5DTFVESU5HIEJVVCBOT1QgTElN
-SVRFRCBUTyBUSEUgV0FSUkFOVElFUyBPRg0KPiArTUVSQ0hBTlRBQklMSVRZLA0KPiArICogRklU
-TkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UgQU5EIE5PTi1JTkZSSU5HRU1FTlQuIElOIE5P
-IEVWRU5UDQo+ICtTSEFMTA0KPiArICogVEhFIENPUFlSSUdIVCBIT0xERVJTLCBBVVRIT1JTIEFO
-RC9PUiBJVFMgU1VQUExJRVJTIEJFIExJQUJMRSBGT1INCj4gK0FOWSBDTEFJTSwNCj4gKyAqIERB
-TUFHRVMgT1IgT1RIRVIgTElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElPTiBPRiBDT05UUkFD
-VCwgVE9SVA0KPiArT1INCj4gKyAqIE9USEVSV0lTRSwgQVJJU0lORyBGUk9NLCBPVVQgT0YgT1Ig
-SU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRQ0KPiArT1IgVEhFDQo+ICsgKiBVU0UgT1Ig
-T1RIRVIgREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLg0KPiArICoNCj4gKyAqIFRoZSBhYm92ZSBj
-b3B5cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBlcm1pc3Npb24gbm90aWNlIChpbmNsdWRpbmcNCj4g
-K3RoZQ0KPiArICogbmV4dCBwYXJhZ3JhcGgpIHNoYWxsIGJlIGluY2x1ZGVkIGluIGFsbCBjb3Bp
-ZXMgb3Igc3Vic3RhbnRpYWwNCj4gK3BvcnRpb25zDQo+ICsgKiBvZiB0aGUgU29mdHdhcmUuDQo+
-ICsgKg0KPiArICovDQo+ICsNCj4gKyNpZm5kZWYgX19JU1BfSF9fDQo+ICsjZGVmaW5lIF9fSVNQ
-X0hfXw0KPiArDQo+ICsjaW5jbHVkZSA8bGludXgvdHlwZXMuaD4NCj4gKw0KPiArc3RydWN0IGRl
-dmljZTsNCj4gKw0KPiArc3RydWN0IGlzcF9wbGF0Zm9ybV9kYXRhIHsNCj4gKyAgICAgdm9pZCAq
-YWRldjsNCj4gKyAgICAgdTMyIGFzaWNfdHlwZTsNCj4gKyAgICAgcmVzb3VyY2Vfc2l6ZV90IGJh
-c2Vfcm1taW9fc2l6ZTsNCj4gK307DQo+ICsNCj4gK2ludCBpc3BfdXNlcl9idWZmZXJfYWxsb2Mo
-c3RydWN0IGRldmljZSAqZGV2LCB2b2lkICpkbWFidWYsDQo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIHZvaWQgKipidWZfb2JqLCB1NjQgKmJ1Zl9hZGRyKTsNCj4gKw0KPiArdm9pZCBpc3BfdXNl
-cl9idWZmZXJfZnJlZSh2b2lkICpidWZfb2JqKTsNCj4gKw0KPiAraW50IGlzcF9rZXJuZWxfYnVm
-ZmVyX2FsbG9jKHN0cnVjdCBkZXZpY2UgKmRldiwgdTY0IHNpemUsDQo+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgdm9pZCAqKmJ1Zl9vYmosIHU2NCAqZ3B1X2FkZHIsIHZvaWQgKipjcHVfYWRk
-cik7DQo+ICsNCj4gK3ZvaWQgaXNwX2tlcm5lbF9idWZmZXJfZnJlZSh2b2lkICoqYnVmX29iaiwg
-dTY0ICpncHVfYWRkciwgdm9pZA0KPiArKipjcHVfYWRkcik7DQo+ICsNCj4gKyNlbmRpZg0KDQo=
+On Sun, Jul 6, 2025 at 10:41=E2=80=AFAM Rodrigo Siqueira <siqueira@igalia.c=
+om> wrote:
+>
+> On 07/01, Alex Deucher wrote:
+> > We need to know the wptr and sequence number associated
+> > with a fence so that we can re-emit the unprocessed state
+> > after a ring reset.  Pre-allocate storage space for
+> > the ring buffer contents and add helpers to save off
+> > and re-emit the unprocessed state so that it can be
+> > re-emitted after the queue is reset.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 90 +++++++++++++++++++++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c    | 15 +++-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c   |  4 +-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c  | 67 +++++++++++++++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  | 18 +++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 +
+> >  6 files changed, 195 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_fence.c
+> > index 2d6b2b486baf7..3f2080aecd5a3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > @@ -120,6 +120,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, str=
+uct dma_fence **f,
+> >               am_fence =3D kzalloc(sizeof(*am_fence), GFP_KERNEL);
+> >               if (!am_fence)
+> >                       return -ENOMEM;
+> > +             am_fence->context =3D 0;
+> >       } else {
+> >               am_fence =3D af;
+> >       }
+> > @@ -127,6 +128,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, str=
+uct dma_fence **f,
+> >       am_fence->ring =3D ring;
+> >
+> >       seq =3D ++ring->fence_drv.sync_seq;
+> > +     am_fence->seq =3D seq;
+> >       if (af) {
+> >               dma_fence_init(fence, &amdgpu_job_fence_ops,
+> >                              &ring->fence_drv.lock,
+> > @@ -141,6 +143,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, str=
+uct dma_fence **f,
+> >
+> >       amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
+> >                              seq, flags | AMDGPU_FENCE_FLAG_INT);
+> > +     amdgpu_fence_save_wptr(fence);
+> >       pm_runtime_get_noresume(adev_to_drm(adev)->dev);
+> >       ptr =3D &ring->fence_drv.fences[seq & ring->fence_drv.num_fences_=
+mask];
+> >       if (unlikely(rcu_dereference_protected(*ptr, 1))) {
+> > @@ -253,6 +256,7 @@ bool amdgpu_fence_process(struct amdgpu_ring *ring)
+> >
+> >       do {
+> >               struct dma_fence *fence, **ptr;
+> > +             struct amdgpu_fence *am_fence;
+> >
+> >               ++last_seq;
+> >               last_seq &=3D drv->num_fences_mask;
+> > @@ -265,6 +269,12 @@ bool amdgpu_fence_process(struct amdgpu_ring *ring=
+)
+> >               if (!fence)
+> >                       continue;
+> >
+> > +             /* Save the wptr in the fence driver so we know what the =
+last processed
+> > +              * wptr was.  This is required for re-emitting the ring s=
+tate for
+> > +              * queues that are reset but are not guilty and thus have=
+ no guilty fence.
+> > +              */
+> > +             am_fence =3D container_of(fence, struct amdgpu_fence, bas=
+e);
+> > +             drv->signalled_wptr =3D am_fence->wptr;
+> >               dma_fence_signal(fence);
+> >               dma_fence_put(fence);
+> >               pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+> > @@ -727,6 +737,86 @@ void amdgpu_fence_driver_force_completion(struct a=
+mdgpu_ring *ring)
+> >       amdgpu_fence_process(ring);
+> >  }
+> >
+> > +
+> > +/**
+> > + * Kernel queue reset handling
+> > + *
+> > + * The driver can reset individual queues for most engines, but those =
+queues
+> > + * may contain work from multiple contexts.  Resetting the queue will =
+reset
+> > + * lose all of that state.  In order to minimize the collateral damage=
+, the
+> > + * driver will save the ring contents which are not associated with th=
+e guilty
+> > + * context prior to resetting the queue.  After resetting the queue th=
+e queue
+> > + * contents from the other contexts is re-emitted to the rings so that=
+ it can
+> > + * be processed by the engine.  To handle this, we save the queue's wr=
+ite
+> > + * pointer (wptr) in the fences associated with each context.  If we g=
+et a
+> > + * queue timeout, we can then use the wptrs from the fences to determi=
+ne
+> > + * which data needs to be saved out of the queue's ring buffer.
+> > + */
+> > +
+> > +/**
+> > + * amdgpu_fence_driver_guilty_force_completion - force signal of speci=
+fied sequence
+> > + *
+> > + * @fence: fence of the ring to signal
+> > + *
+> > + */
+> > +void amdgpu_fence_driver_guilty_force_completion(struct amdgpu_fence *=
+fence)
+> > +{
+> > +     dma_fence_set_error(&fence->base, -ETIME);
+> > +     amdgpu_fence_write(fence->ring, fence->seq);
+> > +     amdgpu_fence_process(fence->ring);
+> > +}
+> > +
+> > +void amdgpu_fence_save_wptr(struct dma_fence *fence)
+> > +{
+> > +     struct amdgpu_fence *am_fence =3D container_of(fence, struct amdg=
+pu_fence, base);
+> > +
+> > +     am_fence->wptr =3D am_fence->ring->wptr;
+> > +}
+> > +
+> > +static void amdgpu_ring_backup_unprocessed_command(struct amdgpu_ring =
+*ring,
+> > +                                                u64 start_wptr, u32 en=
+d_wptr)
+>
+> Perhaps you could call this function something like amdgpu_ring_backup()
+> or a similar name? I suggest this change because you also have the same
+> function name for the exported function.
+
+The names are different:
+amdgpu_ring_backup_unprocessed_command()
+vs.
+amdgpu_ring_backup_unprocessed_commands()
+the latter calls the former in a loop to back up all of the necessary
+commands in the ring.
+
+>
+> > +{
+> > +     unsigned int first_idx =3D start_wptr & ring->buf_mask;
+> > +     unsigned int last_idx =3D end_wptr & ring->buf_mask;
+> > +     unsigned int i;
+> > +
+> > +     /* Backup the contents of the ring buffer. */
+> > +     for (i =3D first_idx; i !=3D last_idx; ++i, i &=3D ring->buf_mask=
+)
+> > +             ring->ring_backup[ring->ring_backup_entries_to_copy++] =
+=3D ring->ring[i];
+>
+> After the backup is done, don't you need to set
+> ring_backup_entries_to_copy to 0?
+
+No.  This function is called in a loop so we back up multiple commands
+from the ring so we need to make sure we keep the index up to date.
+
+>
+> > +}
+> > +
+> > +void amdgpu_ring_backup_unprocessed_commands(struct amdgpu_ring *ring,
+> > +                                          struct amdgpu_fence *guilty_=
+fence)
+> > +{
+> > +     struct dma_fence *unprocessed;
+> > +     struct dma_fence __rcu **ptr;
+> > +     struct amdgpu_fence *fence;
+> > +     u64 wptr, i, seqno;
+> > +
+> > +     seqno =3D amdgpu_fence_read(ring);
+> > +     wptr =3D ring->fence_drv.signalled_wptr;
+> > +     ring->ring_backup_entries_to_copy =3D 0;
+> > +
+> > +     for (i =3D seqno + 1; i <=3D ring->fence_drv.sync_seq; ++i) {
+> > +             ptr =3D &ring->fence_drv.fences[i & ring->fence_drv.num_f=
+ences_mask];
+> > +             rcu_read_lock();
+> > +             unprocessed =3D rcu_dereference(*ptr);
+> > +
+> > +             if (unprocessed && !dma_fence_is_signaled(unprocessed)) {
+> > +                     fence =3D container_of(unprocessed, struct amdgpu=
+_fence, base);
+> > +
+> > +                     /* save everything if the ring is not guilty, oth=
+erwise
+> > +                      * just save the content from other contexts.
+> > +                      */
+> > +                     if (!guilty_fence || (fence->context !=3D guilty_=
+fence->context))
+>
+> Why do you need these two checks? Why is guilty_fence not enough here?
+
+There are two cases:
+1. The fence innocent, in which case, we can back up all of the
+unprocessed ring contents.
+2. The fence is guilty, in which case, we want to skip ring content
+associated with all fences associated with the guilty context.
+
+>
+> > +                             amdgpu_ring_backup_unprocessed_command(ri=
+ng, wptr,
+> > +                                                                    fe=
+nce->wptr);
+> > +                     wptr =3D fence->wptr;
+> > +             }
+> > +             rcu_read_unlock();
+> > +     }
+> > +}
+> > +
+> >  /*
+> >   * Common fence implementation
+> >   */
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ib.c
+> > index 206b70acb29a0..7d9bcb72e8dd3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> > @@ -139,7 +139,6 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, un=
+signed int num_ibs,
+> >       int vmid =3D AMDGPU_JOB_GET_VMID(job);
+> >       bool need_pipe_sync =3D false;
+> >       unsigned int cond_exec;
+> > -
+> >       unsigned int i;
+> >       int r =3D 0;
+> >
+> > @@ -156,6 +155,11 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, u=
+nsigned int num_ibs,
+> >               gds_va =3D job->gds_va;
+> >               init_shadow =3D job->init_shadow;
+> >               af =3D &job->hw_fence;
+> > +             /* Save the context of the job for reset handling.
+> > +              * The driver needs this so it can skip the ring
+> > +              * contents for guilty contexts.
+> > +              */
+> > +             af->context =3D job->base.s_fence ? job->base.s_fence->fi=
+nished.context : 0;
+> >       } else {
+> >               vm =3D NULL;
+> >               fence_ctx =3D 0;
+> > @@ -307,8 +311,17 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, u=
+nsigned int num_ibs,
+> >           ring->hw_prio =3D=3D AMDGPU_GFX_PIPE_PRIO_HIGH)
+> >               ring->funcs->emit_wave_limit(ring, false);
+> >
+> > +     /* Save the wptr associated with this fence.
+> > +      * This must be last for resets to work properly
+> > +      * as we need to save the wptr associated with this
+> > +      * fence so we know what rings contents to backup
+> > +      * after we reset the queue.
+> > +      */
+> > +     amdgpu_fence_save_wptr(*f);
+> > +
+> >       amdgpu_ring_ib_end(ring);
+> >       amdgpu_ring_commit(ring);
+> > +
+> >       return 0;
+> >  }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_job.c
+> > index f0b7080dccb8d..45febdc2f3493 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > @@ -89,8 +89,8 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(st=
+ruct drm_sched_job *s_job)
+> >  {
+> >       struct amdgpu_ring *ring =3D to_amdgpu_ring(s_job->sched);
+> >       struct amdgpu_job *job =3D to_amdgpu_job(s_job);
+> > -     struct amdgpu_task_info *ti;
+> >       struct amdgpu_device *adev =3D ring->adev;
+> > +     struct amdgpu_task_info *ti;
+> >       int idx, r;
+> >
+> >       if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
+> > @@ -135,7 +135,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(=
+struct drm_sched_job *s_job)
+> >       } else if (amdgpu_gpu_recovery && ring->funcs->reset) {
+> >               dev_err(adev->dev, "Starting %s ring reset\n",
+> >                       s_job->sched->name);
+> > -             r =3D amdgpu_ring_reset(ring, job->vmid, NULL);
+> > +             r =3D amdgpu_ring_reset(ring, job->vmid, &job->hw_fence);
+> >               if (!r) {
+> >                       atomic_inc(&ring->adev->gpu_reset_counter);
+> >                       dev_err(adev->dev, "Ring %s reset succeeded\n",
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.c
+> > index 426834806fbf2..09d7681b7a754 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> > @@ -99,6 +99,29 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsi=
+gned int ndw)
+> >       return 0;
+> >  }
+> >
+> > +/**
+> > + * amdgpu_ring_alloc_reemit - allocate space on the ring buffer for re=
+emit
+> > + *
+> > + * @ring: amdgpu_ring structure holding ring information
+> > + * @ndw: number of dwords to allocate in the ring buffer
+> > + *
+> > + * Allocate @ndw dwords in the ring buffer (all asics).
+> > + * doesn't check the max_dw limit as we may be reemitting
+> > + * several submissions.
+> > + */
+> > +static void amdgpu_ring_alloc_reemit(struct amdgpu_ring *ring, unsigne=
+d int ndw)
+> > +{
+> > +     /* Align requested size with padding so unlock_commit can
+> > +      * pad safely */
+> > +     ndw =3D (ndw + ring->funcs->align_mask) & ~ring->funcs->align_mas=
+k;
+> > +
+> > +     ring->count_dw =3D ndw;
+> > +     ring->wptr_old =3D ring->wptr;
+> > +
+> > +     if (ring->funcs->begin_use)
+> > +             ring->funcs->begin_use(ring);
+> > +}
+> > +
+> >  /** amdgpu_ring_insert_nop - insert NOP packets
+> >   *
+> >   * @ring: amdgpu_ring structure holding ring information
+> > @@ -333,6 +356,12 @@ int amdgpu_ring_init(struct amdgpu_device *adev, s=
+truct amdgpu_ring *ring,
+> >       /*  Initialize cached_rptr to 0 */
+> >       ring->cached_rptr =3D 0;
+> >
+> > +     if (!ring->ring_backup) {
+> > +             ring->ring_backup =3D kvzalloc(ring->ring_size, GFP_KERNE=
+L);
+> > +             if (!ring->ring_backup)
+> > +                     return -ENOMEM;
+> > +     }
+> > +
+> >       /* Allocate ring buffer */
+> >       if (ring->ring_obj =3D=3D NULL) {
+> >               r =3D amdgpu_bo_create_kernel(adev, ring->ring_size + rin=
+g->funcs->extra_dw, PAGE_SIZE,
+> > @@ -342,6 +371,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, st=
+ruct amdgpu_ring *ring,
+> >                                           (void **)&ring->ring);
+> >               if (r) {
+> >                       dev_err(adev->dev, "(%d) ring create failed\n", r=
+);
+> > +                     kvfree(ring->ring_backup);
+> >                       return r;
+> >               }
+> >               amdgpu_ring_clear_ring(ring);
+> > @@ -385,6 +415,8 @@ void amdgpu_ring_fini(struct amdgpu_ring *ring)
+> >       amdgpu_bo_free_kernel(&ring->ring_obj,
+> >                             &ring->gpu_addr,
+> >                             (void **)&ring->ring);
+> > +     kvfree(ring->ring_backup);
+> > +     ring->ring_backup =3D NULL;
+> >
+> >       dma_fence_put(ring->vmid_wait);
+> >       ring->vmid_wait =3D NULL;
+> > @@ -753,3 +785,38 @@ bool amdgpu_ring_sched_ready(struct amdgpu_ring *r=
+ing)
+> >
+> >       return true;
+> >  }
+> > +
+> > +void amdgpu_ring_reset_helper_begin(struct amdgpu_ring *ring,
+> > +                                 struct amdgpu_fence *guilty_fence)
+> > +{
+> > +     /* Stop the scheduler to prevent anybody else from touching the r=
+ing buffer. */
+> > +     drm_sched_wqueue_stop(&ring->sched);
+> > +     /* back up the non-guilty commands */
+> > +     amdgpu_ring_backup_unprocessed_commands(ring, guilty_fence);
+> > +}
+> > +
+> > +int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
+> > +                              struct amdgpu_fence *guilty_fence)
+> > +{
+> > +     unsigned int i;
+> > +     int r;
+> > +
+> > +     /* verify that the ring is functional */
+> > +     r =3D amdgpu_ring_test_ring(ring);
+> > +     if (r)
+> > +             return r;
+> > +
+> > +     /* signal the fence of the bad job */
+> > +     if (guilty_fence)
+> > +             amdgpu_fence_driver_guilty_force_completion(guilty_fence)=
+;
+> > +     /* Re-emit the non-guilty commands */
+> > +     if (ring->ring_backup_entries_to_copy) {
+> > +             amdgpu_ring_alloc_reemit(ring, ring->ring_backup_entries_=
+to_copy);
+> > +             for (i =3D 0; i < ring->ring_backup_entries_to_copy; i++)
+> > +                     amdgpu_ring_write(ring, ring->ring_backup[i]);
+> > +             amdgpu_ring_commit(ring);
+> > +     }
+> > +     /* Start the scheduler again */
+> > +     drm_sched_wqueue_start(&ring->sched);
+> > +     return 0;
+> > +}
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.h
+> > index 784ba2ec354c7..309e7bb6001bd 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -118,6 +118,7 @@ struct amdgpu_fence_driver {
+> >       /* sync_seq is protected by ring emission lock */
+> >       uint32_t                        sync_seq;
+> >       atomic_t                        last_seq;
+> > +     u64                             signalled_wptr;
+> >       bool                            initialized;
+> >       struct amdgpu_irq_src           *irq_src;
+> >       unsigned                        irq_type;
+> > @@ -141,6 +142,12 @@ struct amdgpu_fence {
+> >       /* RB, DMA, etc. */
+> >       struct amdgpu_ring              *ring;
+> >       ktime_t                         start_timestamp;
+> > +
+> > +     /* wptr for the fence for resets */
+> > +     u64                             wptr;
+> > +     /* fence context for resets */
+> > +     u64                             context;
+> > +     uint32_t                        seq;
+>
+> All of these new fields are associated with reset, and their names are
+> also common in the code (we see wptr, context, and seq everywhere). What
+> do you think of adding a suffix/prefix to identify their purpose in the
+> code clearly? For example, wptr_reset instead of wptr or context_reset
+> instead of context. It does not need to be _reset, but something that
+> helps to identify these field purpose in the code.
+
+They are used to facilitate the resets, but at a more general level,
+they are just tagging the fence with additional metadata.
+The wptr marks the wptr value associated with the work associated with
+the fence.  seq is the sequence number
+associated with the fence (i.e., the value that will get written when
+the work on the engine completes). The context is the
+context of the job whose work is associated with the fence.
+
+Alex
+
+>
+> Thanks
+>
+> >  };
+> >
+> >  extern const struct drm_sched_backend_ops amdgpu_sched_ops;
+> > @@ -148,6 +155,8 @@ extern const struct drm_sched_backend_ops amdgpu_sc=
+hed_ops;
+> >  void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring);
+> >  void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error=
+);
+> >  void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
+> > +void amdgpu_fence_driver_guilty_force_completion(struct amdgpu_fence *=
+fence);
+> > +void amdgpu_fence_save_wptr(struct dma_fence *fence);
+> >
+> >  int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring);
+> >  int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
+> > @@ -284,6 +293,9 @@ struct amdgpu_ring {
+> >
+> >       struct amdgpu_bo        *ring_obj;
+> >       uint32_t                *ring;
+> > +     /* backups for resets */
+> > +     uint32_t                *ring_backup;
+> > +     unsigned int            ring_backup_entries_to_copy;
+> >       unsigned                rptr_offs;
+> >       u64                     rptr_gpu_addr;
+> >       volatile u32            *rptr_cpu_addr;
+> > @@ -550,4 +562,10 @@ int amdgpu_ib_pool_init(struct amdgpu_device *adev=
+);
+> >  void amdgpu_ib_pool_fini(struct amdgpu_device *adev);
+> >  int amdgpu_ib_ring_tests(struct amdgpu_device *adev);
+> >  bool amdgpu_ring_sched_ready(struct amdgpu_ring *ring);
+> > +void amdgpu_ring_backup_unprocessed_commands(struct amdgpu_ring *ring,
+> > +                                          struct amdgpu_fence *guilty_=
+fence);
+> > +void amdgpu_ring_reset_helper_begin(struct amdgpu_ring *ring,
+> > +                                 struct amdgpu_fence *guilty_fence);
+> > +int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
+> > +                              struct amdgpu_fence *guilty_fence);
+> >  #endif
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vm.c
+> > index f042372d9f2e6..ea9b0f050f799 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -765,6 +765,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struc=
+t amdgpu_job *job,
+> >       bool cleaner_shader_needed =3D false;
+> >       bool pasid_mapping_needed =3D false;
+> >       struct dma_fence *fence =3D NULL;
+> > +     struct amdgpu_fence *af;
+> >       unsigned int patch;
+> >       int r;
+> >
+> > @@ -830,6 +831,9 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struc=
+t amdgpu_job *job,
+> >               r =3D amdgpu_fence_emit(ring, &fence, NULL, 0);
+> >               if (r)
+> >                       return r;
+> > +             /* this is part of the job's context */
+> > +             af =3D container_of(fence, struct amdgpu_fence, base);
+> > +             af->context =3D job->base.s_fence ? job->base.s_fence->fi=
+nished.context : 0;
+> >       }
+> >
+> >       if (vm_flush_needed) {
+> > --
+> > 2.50.0
+> >
+>
+> --
+> Rodrigo Siqueira
