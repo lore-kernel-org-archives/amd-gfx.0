@@ -4,121 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBEEAC8303C
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jul 2025 07:10:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B082C83F0A
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jul 2025 07:42:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5794110E425;
-	Mon,  7 Jul 2025 07:10:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55C4910E28D;
+	Mon,  7 Jul 2025 07:42:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bYzP6cGm";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aWaRFSVU";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2041.outbound.protection.outlook.com [40.107.237.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCBF210E425
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jul 2025 07:10:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W6TG87zFJ1+87dX5oSOwW0QKCLRS7qZj3SsSczVosN41S8MVk8P63rMmEUx1TysglnyrYWikphU1ljCDX7s52JUqSqHRQotBKnoicy8WK+OOtSRkYB4T6J3t98P5YrQf5CT8pY9BzhBEvYgJQOivaOx2CBhSgNCJBa9hcLfPd/nWmsssBprHDakQiagYqRevgl+v75mogFCCJPeq/8npEiTjcgX2FAWkLnwOniYUTeGdNpPwAvLlP3bY6PcY4UKsUiQ2+dYZ77EOshwaXnAvFmaig8ygw3a+ZGXp83cpwGdXB7DGypuywT6qrml7/j2AlywVS6pNW0LCAH14Qd/usQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BmtjNuKnXNGnwATcu9l9f+PW9MrORF7Y3ECePKRPtFg=;
- b=BhMblaUcCmHrIdKLatEteu9KaEtBfUoYw+3teKFXA+ifnqpDPCbNnslLWAr8ZKvEzVul5Svg3ZKeAkyVsba5OiU2pz4qBs4XvO5zuv4F4zA/2AbybPXqr/kYY/0SBQ+1AieFbkb9Wrv5tWffwz0J6L216AvF32dudkBypawLndIRHDOF8pHssZtVs3VSRxITqpmZ+SSCH96plFwfxo2VoCA5kElQn0IXg2tUDq6zbBipaB86qn8O44ChLvvxCKWqLASHeBQ1ZNRsjDJyIqWiG6NCi+suDmWATyWRktvilGZx+dYkftl7/Pr44Vg3MMN3jrTPwVawd2ye2ESWGgYdOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BmtjNuKnXNGnwATcu9l9f+PW9MrORF7Y3ECePKRPtFg=;
- b=bYzP6cGmUG+dS6qcAPfhaKiWsqqiwu/AqyGbSnTHqxswMoHdjVbppOKXdg1L4ohsKPQITwZIwwJDfkzZBUBOuyxdMTaQ7lVA1KccWUgZ9MkZG2XKtkvN1PzBRNUdNyjQQG7P0zTrHAlPhYW/mOBqlsYSxgPO30qG8zTAGysGnj8=
-Received: from CH0PR13CA0008.namprd13.prod.outlook.com (2603:10b6:610:b1::13)
- by SN7PR12MB7129.namprd12.prod.outlook.com (2603:10b6:806:2a1::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.23; Mon, 7 Jul
- 2025 07:10:31 +0000
-Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
- (2603:10b6:610:b1:cafe::b0) by CH0PR13CA0008.outlook.office365.com
- (2603:10b6:610:b1::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.19 via Frontend Transport; Mon,
- 7 Jul 2025 07:10:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Mon, 7 Jul 2025 07:10:30 +0000
-Received: from gangliang-mlse-vm.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 7 Jul 2025 02:10:29 -0500
-From: ganglxie <ganglxie@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <tao.zhou1@amd.com>, ganglxie <ganglxie@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: refine bad page loading when in the same nps
- mode
-Date: Mon, 7 Jul 2025 15:09:39 +0800
-Message-ID: <20250707070939.6852-2-ganglxie@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250707070939.6852-1-ganglxie@amd.com>
-References: <20250707070939.6852-1-ganglxie@amd.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8535510E0CC;
+ Mon,  7 Jul 2025 07:42:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=c6CLwTIMWcYWBn9i+wFI1ayP6RsZGwi1/983/GpksWc=; b=aWaRFSVUqnt0F8HkEKNAiHZbbB
+ DXPDf7/KQQCB5atKGXYV1Vq7WX6QLvrfExSB/ZgRjhNsB2Z0nh9T3HKCrJv6oolQxIdIa7b74tWpE
+ WsppBsljY0WAsLI0fOKmrjkb70uZJexFtXeIEA10rCFePZVEwxlocUhLN6UWKiZhJCMd2KVJeqV6H
+ ihwoRjqd2xkUy/Kbc+mmAvJBCZwl7MoMhCKD7uylpBPOAujSuBNmk6+AJsGe0BnMpzNfi2VUmcLlD
+ /MX8Ld9fht7MUxQRKJTUQ4zRcPERr4kYnmNdeYjkoo7enAEXugROCTChXi7kzkNcE4vbA68wtLMDn
+ 6YksBKFw==;
+Received: from [81.79.92.254] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uYgUB-00DPrZ-RG; Mon, 07 Jul 2025 09:41:59 +0200
+Message-ID: <9d5ef179-7ae6-49e9-9e58-b3be4f1eed97@igalia.com>
+Date: Mon, 7 Jul 2025 08:41:58 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 11/16] drm/sched: Account entity GPU time
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
+References: <20250623122746.46478-1-tvrtko.ursulin@igalia.com>
+ <20250623122746.46478-12-tvrtko.ursulin@igalia.com>
+ <8ae350fa-6257-46f1-86b9-b129c708485c@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <8ae350fa-6257-46f1-86b9-b129c708485c@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|SN7PR12MB7129:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c565b33-6aaf-44a3-816d-08ddbd255bef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?A0uVYQdlEtuS24W7kdaXXAwOqTfmTTu+pkMahqJdOk44nS+EeaOEDqxGqBkr?=
- =?us-ascii?Q?EiueU8gSARP2iSAeMCrbeCOhKUAQUpPPvf5ZtH5DEujWnBP0huFwWO2qTVjF?=
- =?us-ascii?Q?/dnq6O0Pm94Z4hJTcaQ60D7xX5nYIvx0QqL9ZTWciJkv8V6dcEz84tZKgmcV?=
- =?us-ascii?Q?vsGQm3q8W2qKUOVv3pq4OYgI5A2bdK1j5Dcd9Y1QdJ7dPjAj3rhfeds81HeN?=
- =?us-ascii?Q?NgDOnQn8/BOqIN/QsrmUzLUt5pRYaSGQ01nqUT3hTrgQQemj1veVng06gFSM?=
- =?us-ascii?Q?rOUCO0zsYrzd/r7+hRf+f2VHoRzQ+tw0DBL45ovDJUbXtooQVr2VJkDUWOc8?=
- =?us-ascii?Q?6O1RpgwOJDNqHhkafrV5BQN6+94UFfrTtgcazS3TxSY/x5CstIxQJ0tb2lXP?=
- =?us-ascii?Q?xIohnOEDpVU5nxVieyWVnItE9QlYfCDe5hPCrJ4lIDXSTho3hZA/cifYW/+7?=
- =?us-ascii?Q?XXapOzS0M3emt266+EMz8jhj1ZsIh1bgczvKSAaQj+F5K7QvnXZO3y1Mk9h6?=
- =?us-ascii?Q?dvNrdU8fhlVju2Mr4sjmYdAOngHxTplBAjWDO+SYgwKrldLnLLkT/ce+hT7K?=
- =?us-ascii?Q?XyAGhZPnrmksQFxoSNaOR9F8qSdxK9L26QyyGV22n/+Op3jeQOTJAEoS9T4J?=
- =?us-ascii?Q?Ki0eRC0VS2oNwet2msl0jg6Rv09i2w8Ywj2f/SrKCyV71RbnU6UMxQOD26fY?=
- =?us-ascii?Q?OCEk6cNxJlXMUm2233Ojn1QHnykKxjbFu1+2syOVl1N8J7hjHI0oZZBs2JZR?=
- =?us-ascii?Q?GOr2nMG1/k1CKHqK+0e5D8bmY517pRN6gsjvYNVbSDLCS2CArrtdBLp3U9DA?=
- =?us-ascii?Q?QTFkRbEww/hu7H9kjaieH9VyVnMeG12eRloBYM9BCelSHycFdkXM2U6kNhYH?=
- =?us-ascii?Q?C4au+Oa8oWghs0xN4eJjwps6HrvUoVFCLw36b1C45fvR0+NRK7L/gwrlFI72?=
- =?us-ascii?Q?hkoYj+43zBlYx9wPuFgFA3HDL/yaXjIRylWNylxYuIrRqJPyxiiJB2FE3kOL?=
- =?us-ascii?Q?a/8+T+R/aiWEd/pWJU/7I7PhbHGMQz9xWPp0YbJRpQkGBaIwl66gByoMIslj?=
- =?us-ascii?Q?SWKx9C6xpoChFPSFUyLdekOQuESlNJCv3/KYQzX609DtLMs9iKVUoclmjxF1?=
- =?us-ascii?Q?MDdIkC9puC2ZyJor5ApgjrweUp+WiT39Gi5kMM4F3DZFdhS6vTo15T2mtBDT?=
- =?us-ascii?Q?6RJcSIInPfdpjbEMslI25TB1IOPqnMr+tPDj6nGW4gYa9QrhwSwzMkmr4Jc4?=
- =?us-ascii?Q?UpGs6Vkavb1I21E5ikz0wGgznj6Ky7XQicOOihdTKAtBoQSqH/YZKidFAvpp?=
- =?us-ascii?Q?XZ3bOMY4tcrOXDVFGOMVMAk8Lfgk+uWu9b4clrkOdA8ReJEopAWhx6bUZ2+H?=
- =?us-ascii?Q?kUTZ1jz/RKzrvmcQWhxKRW5081Z8DTG1Q4kX/bIi0thXq6GQxEY639XFlUeQ?=
- =?us-ascii?Q?yz29XGwzSuyLNmREPdap3KvKxtHuSWNzfXu3/c/270Tik+w82D1FCHSORbt9?=
- =?us-ascii?Q?9kcwg+put9ylKHno6P6a1qFJD/6xKFX0ZaHK?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2025 07:10:30.9803 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c565b33-6aaf-44a3-816d-08ddbd255bef
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7129
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,54 +64,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-when loading bad page in the same nps mode, need to set the other fields in eeprom records manually
-besides retired_page
 
-Signed-off-by: ganglxie <ganglxie@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+On 04/07/2025 15:18, Maíra Canal wrote:
+> Hi Tvrtko,
+> 
+> In general, LGTM, but I miss documentation for all the new structures
+> and functions that you implemented.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index e03550be45b4..e02af20e6204 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2861,6 +2861,13 @@ static int __amdgpu_ras_convert_rec_array_from_rom(struct amdgpu_device *adev,
- 			if (amdgpu_umc_pages_in_a_row(adev, err_data,
- 					bps[0].retired_page << AMDGPU_GPU_PAGE_SHIFT))
- 				return -EINVAL;
-+			for ( i = 0; i < adev->umc.retire_unit; i++) {
-+				err_data->err_addr[i].address = bps[0].address;
-+				err_data->err_addr[i].mem_channel = bps[0].mem_channel;
-+				err_data->err_addr[i].bank = bps[0].bank;
-+				err_data->err_addr[i].err_type = bps[0].err_type;
-+				err_data->err_addr[i].mcumc_id = bps[0].mcumc_id;
-+			}
- 		} else {
- 			if (amdgpu_ras_mca2pa_by_idx(adev, &bps[0], err_data))
- 				return -EINVAL;
-@@ -2893,6 +2900,7 @@ static int __amdgpu_ras_convert_rec_from_rom(struct amdgpu_device *adev,
- 				enum amdgpu_memory_partition nps)
- {
- 	enum amdgpu_memory_partition save_nps;
-+	int i = 0;
- 
- 	save_nps = (bps->retired_page >> UMC_NPS_SHIFT) & UMC_NPS_MASK;
- 	bps->retired_page &= ~(UMC_NPS_MASK << UMC_NPS_SHIFT);
-@@ -2901,6 +2909,13 @@ static int __amdgpu_ras_convert_rec_from_rom(struct amdgpu_device *adev,
- 		if (amdgpu_umc_pages_in_a_row(adev, err_data,
- 				bps->retired_page << AMDGPU_GPU_PAGE_SHIFT))
- 			return -EINVAL;
-+		for ( i = 0; i < adev->umc.retire_unit; i++) {
-+			err_data->err_addr[i].address = bps->address;
-+			err_data->err_addr[i].mem_channel = bps->mem_channel;
-+			err_data->err_addr[i].bank = bps->bank;
-+			err_data->err_addr[i].err_type = bps->err_type;
-+			err_data->err_addr[i].mcumc_id = bps->mcumc_id;
-+		}
- 	} else {
- 		if (bps->address) {
- 			if (amdgpu_ras_mca2pa_by_idx(adev, bps, err_data))
--- 
-2.34.1
+Okay, I added some kerneldoc locally.
+
+Regards,
+
+Tvrtko
+
+> On 23/06/25 09:27, Tvrtko Ursulin wrote:
+>> To implement fair scheduling we need a view into the GPU time consumed by
+>> entities. Problem we have is that jobs and entities objects have 
+>> decoupled
+>> lifetimes, where at the point we have a view into accurate GPU time, we
+>> cannot link back to the entity any longer.
+>>
+>> Solve this by adding a light weight entity stats object which is 
+>> reference
+>> counted by both entity and the job and hence can safely be used from
+>> either side.
+>>
+>> With that, the only other thing we need is to add a helper for adding the
+>> job's GPU time into the respective entity stats object, and call it once
+>> the accurate GPU time has been calculated.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_entity.c   | 29 ++++++++++++++++
+>>   drivers/gpu/drm/scheduler/sched_internal.h | 40 ++++++++++++++++++++++
+>>   drivers/gpu/drm/scheduler/sched_main.c     |  6 +++-
+>>   include/drm/gpu_scheduler.h                |  5 +++
+>>   4 files changed, 79 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/ 
+>> drm/scheduler/sched_entity.c
+>> index e42526aa22dc..466914506c36 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -32,6 +32,29 @@
+>>   #include "gpu_scheduler_trace.h"
+>> +
+>> +void drm_sched_entity_stats_release(struct kref *kref)
+>> +{
+>> +    struct drm_sched_entity_stats *stats =
+>> +        container_of(kref, typeof(*stats), kref);
+>> +
+>> +    kfree(stats);
+>> +}
+>> +
+>> +static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
+>> +{
+>> +    struct drm_sched_entity_stats *stats;
+>> +
+>> +    stats = kzalloc(sizeof(*stats), GFP_KERNEL);
+>> +    if (!stats)
+>> +        return NULL;
+>> +
+>> +    kref_init(&stats->kref);
+>> +    spin_lock_init(&stats->lock);
+>> +
+>> +    return stats;
+>> +}
+>> +
+>>   /**
+>>    * drm_sched_entity_init - Init a context entity used by scheduler when
+>>    * submit to HW ring.
+>> @@ -65,6 +88,11 @@ int drm_sched_entity_init(struct drm_sched_entity 
+>> *entity,
+>>           return -EINVAL;
+>>       memset(entity, 0, sizeof(struct drm_sched_entity));
+>> +
+>> +    entity->stats = drm_sched_entity_stats_alloc();
+>> +    if (!entity->stats)
+>> +        return -ENOMEM;
+>> +
+>>       INIT_LIST_HEAD(&entity->list);
+>>       entity->rq = NULL;
+>>       entity->guilty = guilty;
+>> @@ -340,6 +368,7 @@ void drm_sched_entity_fini(struct drm_sched_entity 
+>> *entity)
+>>       dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
+>>       RCU_INIT_POINTER(entity->last_scheduled, NULL);
+>> +    drm_sched_entity_stats_put(entity->stats);
+>>   }
+>>   EXPORT_SYMBOL(drm_sched_entity_fini);
+>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/ 
+>> drm/scheduler/sched_internal.h
+>> index 703ee48fbc58..000c4a5b2c86 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+>> @@ -3,6 +3,15 @@
+>>   #ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
+>>   #define _DRM_GPU_SCHEDULER_INTERNAL_H_
+>> +#include <linux/ktime.h>
+>> +#include <linux/kref.h>
+>> +#include <linux/spinlock.h>
+>> +
+>> +struct drm_sched_entity_stats {
+>> +    struct kref    kref;
+>> +    spinlock_t    lock;
+>> +    ktime_t        runtime;
+>> +};
+>>   /* Used to choose between FIFO and RR job-scheduling */
+>>   extern int drm_sched_policy;
+>> @@ -93,4 +102,35 @@ drm_sched_entity_is_ready(struct drm_sched_entity 
+>> *entity)
+>>       return true;
+>>   }
+>> +void drm_sched_entity_stats_release(struct kref *kref);
+>> +
+>> +static inline struct drm_sched_entity_stats *
+>> +drm_sched_entity_stats_get(struct drm_sched_entity_stats *stats)
+>> +{
+>> +    kref_get(&stats->kref);
+>> +
+>> +    return stats;
+>> +}
+>> +
+>> +static inline void
+>> +drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
+>> +{
+>> +    kref_put(&stats->kref, drm_sched_entity_stats_release);
+>> +}
+>> +
+>> +static inline void
+>> +drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+>> +{
+>> +    struct drm_sched_entity_stats *stats = job->entity_stats;
+>> +    struct drm_sched_fence *s_fence = job->s_fence;
+>> +    ktime_t start, end;
+>> +
+>> +    start = dma_fence_timestamp(&s_fence->scheduled);
+>> +    end = dma_fence_timestamp(&s_fence->finished);
+>> +
+>> +    spin_lock(&stats->lock);
+>> +    stats->runtime = ktime_add(stats->runtime, ktime_sub(end, start));
+>> +    spin_unlock(&stats->lock);
+>> +}
+>> +
+>>   #endif
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/ 
+>> scheduler/sched_main.c
+>> index f87bb4681b93..22cc0dd536db 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -620,6 +620,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+>>       job->sched = sched;
+>>       job->s_priority = entity->priority;
+>> +    job->entity_stats = drm_sched_entity_stats_get(entity->stats);
+>>       drm_sched_fence_init(job->s_fence, job->entity);
+>>   }
+>> @@ -810,6 +811,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *job)
+>>            * been called.
+>>            */
+>>           dma_fence_put(&job->s_fence->finished);
+>> +        drm_sched_entity_stats_put(job->entity_stats);
+>>       } else {
+>>           /* The job was aborted before it has been committed to be run;
+>>            * notably, drm_sched_job_arm() has not been called.
+>> @@ -958,8 +960,10 @@ static void drm_sched_free_job_work(struct 
+>> work_struct *w)
+>>           container_of(w, struct drm_gpu_scheduler, work_free_job);
+>>       struct drm_sched_job *job;
+>> -    while ((job = drm_sched_get_finished_job(sched)))
+>> +    while ((job = drm_sched_get_finished_job(sched))) {
+>> +        drm_sched_entity_stats_job_add_gpu_time(job);
+>>           sched->ops->free_job(job);
+>> +    }
+>>       drm_sched_run_job_queue(sched);
+>>   }
+>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>> index 9f8b3b78d24d..cbbcd1c05154 100644
+>> --- a/include/drm/gpu_scheduler.h
+>> +++ b/include/drm/gpu_scheduler.h
+>> @@ -71,6 +71,8 @@ enum drm_sched_priority {
+>>       DRM_SCHED_PRIORITY_COUNT
+>>   };
+>> +struct drm_sched_entity_stats;
+>> +
+>>   /**
+>>    * struct drm_sched_entity - A wrapper around a job queue (typically
+>>    * attached to the DRM file_priv).
+>> @@ -109,6 +111,8 @@ struct drm_sched_entity {
+>>        */
+>>       struct drm_sched_rq        *rq;
+>> +    struct drm_sched_entity_stats    *stats;
+>> +
+>>       /**
+>>        * @sched_list:
+>>        *
+>> @@ -355,6 +359,7 @@ struct drm_sched_job {
+>>       struct drm_sched_fence        *s_fence;
+>>       struct drm_sched_entity         *entity;
+>> +    struct drm_sched_entity_stats    *entity_stats;
+>>       enum drm_sched_priority        s_priority;
+>>       u32                credits;
+> 
 
