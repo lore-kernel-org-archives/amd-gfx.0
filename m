@@ -4,65 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F231AC8303C
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jul 2025 13:13:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B930C8303C
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jul 2025 13:22:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C16110E46A;
-	Mon,  7 Jul 2025 13:13:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 171E310E469;
+	Mon,  7 Jul 2025 13:22:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cH1izd8p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AvNjtUds";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5689F10E46A
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jul 2025 13:13:05 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-313862d48e7so372661a91.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Jul 2025 06:13:05 -0700 (PDT)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6E2610E46D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jul 2025 13:22:52 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-234b9b01a76so2016575ad.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Jul 2025 06:22:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1751893985; x=1752498785; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1751894572; x=1752499372; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zhOipWUG6QdzmZ9AhXjQv9Ug9pYg+cZVTAo5KPMPnOM=;
- b=cH1izd8pkR5XGdKvaRZKccVIAS0Ztvu5d4UobgOCYf9a11cMHRQY+QBsF0OHvve/ik
- fynlt/YaddWk/BuB5aVYxEqQXLn1JnVoAwTqUjOgZdbXArvR+8ao0ZMvV10O/Z4L216b
- HdVuKB5GP1fLZz13MhF8VKUi4lkEATkefxhLUnw+I8Y42D7Y6KnI7sq5xWNsCV/j79mh
- /2veJ/5OPm652AbUeCAvaxJcWEMd6aApyN5pwvw13K0dNaWL0S+c5yXfM7c75wUJSqYw
- NU9jsI83Nx21TG+5baMhgKuvof6lPjEUrzUQE1pa9T/99wlgI4bpfDwnhpAQK8zndp2b
- UZ6Q==
+ bh=Cu052TBqnNm0FC6LZsCt3uhjYEQyqdrtI+mNBtJj4O4=;
+ b=AvNjtUdsDWAnPntfsMZAG3nkk6ixVFz8v5Qvsel/8bS5UmdrJli/xTxNXbwdvXU1Xx
+ W7nvh+AMK0uNXUr0l+EBtdwZj6pcGnTqbD0MJlSxbmMModhwlkvXL6Ne+wI0r0TQEtXR
+ 6HotIkDQ+wZfDIH7EYX1uJIpaGyohPxWeDiT/5RSdP739aQKRW43Xn8MyQ8tFFWBWAcT
+ pClHFuP/BeFT/w5U70YrKVi9oiHFIwaGsAikwN9JjlfpgxzsLL9bNFRH4IMr2x8LctP9
+ L8Oo3/q63rANUx5hpst5JqJeIMghJECuI19UA8m5v3sOi9tXrAirgcefHIVNsITtD+tb
+ H7CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751893985; x=1752498785;
+ d=1e100.net; s=20230601; t=1751894572; x=1752499372;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zhOipWUG6QdzmZ9AhXjQv9Ug9pYg+cZVTAo5KPMPnOM=;
- b=iL3+Os3Vg3/gURoOjeAdm7C4rmaGS6rt75ikuKB7FUM6aKQhiH4X0M/i3Rco8Dpdke
- M+2kLLlbUFeLubK+58Zr89q+DSTVzD+2m6tD0bOGZgnnv448y2SKWLHUYMsXtJ3v8Fny
- 8z1k7+b6S3YwrO+Bh134YiCE8lpqPjiJ8gwdQSq1SkkkoRBEU4LOVOWPiLSieixHHngG
- AFgxzh5mSlybWMHJkCkq/oR21v/vUvXmRhImebCvXCZzOZvZ+uAvU5mxWybvH7FXqfb2
- H/LYzuMV4FzMC21CA1snumeWD00WObT6sKzDYTLl6n/AM2kuIDEU0sTnVpNFBQeFozUK
- UobA==
-X-Gm-Message-State: AOJu0Yxh8XPRMZ1NLV5AjO2V8IZgb8cxpruoYdwGsSj/QxizGc3IHfCO
- g4FdvErhOXbA5GWm2qXRsYgK9JgnYYCFMuTrZj1QglWhyzMa6I4zQ+FwVk6VTM1eeHCpWVjCnSq
- IyjqoqJoJg3AmIern2SKlCGE6AFDz3VQS7A==
-X-Gm-Gg: ASbGncuVLSOkxzgStLr3H6L0r5vGMUL/7atpFQ9izoXvZL77XLlux/RyZbKyTGyrIVG
- 9mnUFpNXnmDJzN5RAB00k3dEBSkWPFhQaprgnrtI/H1/KixmjYtsRjI8YOQEifey37al4x3RXz2
- jBWWWEBWkvh3OTAfL9UZP12jvvtjoCekVNbzqNHn21Ejno
-X-Google-Smtp-Source: AGHT+IG6H2xB9AndniGK2rpGyh/HApGql4zGdclVYuVuS5lOoNgTzh18+O8fUrhdu2/xQstmub1nx3kGZ65o4bva/pk=
-X-Received: by 2002:a17:90b:5744:b0:314:2d38:3e4d with SMTP id
- 98e67ed59e1d1-31aacc1286dmr6745755a91.3.1751893984785; Mon, 07 Jul 2025
- 06:13:04 -0700 (PDT)
+ bh=Cu052TBqnNm0FC6LZsCt3uhjYEQyqdrtI+mNBtJj4O4=;
+ b=PRf3F2tPwt5KdAH/c+3TL2D98c6ASaiu8ws4CDFrL1RvBtAnXHjn/Gp2rYT0etDgJb
+ FAHIKMFi7+by6ku7GmziguBydXhXJnKCkp+QsxB1xb/XUYUS24TfafCN6S1KJdGmvjBR
+ pzo8T1lSgERxrBsapQsrpHlK3XhIdrML+UPT1N75O0a64v42/dff7NALWQLci4f3xsyx
+ LxhPaoyxNjXOPfre+AyN/cNO8ZZHoNXYcZ+cOdD8Y7cTddB25+CYHuKuZnNXGtz/n4e/
+ AUE+rxyAhPIDFRDNfGyZRShTY91JLE5tHjl+Xfa2xtMkpvq0s2FDAOlchYd2YIZHxrbE
+ ePlg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVoh+zxZHNh6B4ZhMkUEGZF2JCos3pn3HfROb4+Q0lFYEbT5Hq6xLWahz+JnnYo/syRSBWxfrV0@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz5uu2RFzbkz63rticLL7eRmLuCrdA/WwkWbHlkmxapLiOvZdRu
+ VNb0jYbuIioPDsYl5g88iRTkgTv9xxWAmcxHksNWHwhdyOcfwwtlSWoJ0SruaDNpq/mUPKTnbIO
+ 0FIspb/OYSLTy2tO2sgO8qIj0Nc0J35lWug==
+X-Gm-Gg: ASbGncvvxbawytWTY1v4id0up08N2Hanu39IqPuw7/jLnuzC0/IayP5m5dMpEXwJYyP
+ 6axsmd8HvC916tAkOFIlCzJpJh66kvB/SFVx3gX27rHGs4mwf3FgJkHd73/1U/bVbwTXTZ7cfgU
+ ydyhBnF0/4THgpCcHi16KCEbwhtnZqV8eR/MPDALvDqzJ4
+X-Google-Smtp-Source: AGHT+IEOpQA6OXAA58tbSAerX3dXM6mBwO69gEuUvKai6b2iV7Jac+ttFlB1UoJp4EN8yBTvlR8qEl08AYoxTKaqNYo=
+X-Received: by 2002:a17:902:f690:b0:22e:6d69:1775 with SMTP id
+ d9443c01a7336-23c85f8d949mr68522375ad.11.1751894572287; Mon, 07 Jul 2025
+ 06:22:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250627143342.23856-1-alexander.deucher@amd.com>
-In-Reply-To: <20250627143342.23856-1-alexander.deucher@amd.com>
+References: <20250704072657.553572-1-jesse.zhang@amd.com>
+ <b5cf1085-5a0b-4b32-8e6a-348f173a247b@amd.com>
+In-Reply-To: <b5cf1085-5a0b-4b32-8e6a-348f173a247b@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Jul 2025 09:12:52 -0400
-X-Gm-Features: Ac12FXyJmlPiD6xfu9waR63D4Qtfk_Y_34HrFRi7S6W5PtKPnnQqi-EU9BlmLl0
-Message-ID: <CADnq5_NQ_TB+_Ewgtxh9g6Q_so5bCzym8a=o+SPZ5aX-+NMbog@mail.gmail.com>
-Subject: Re: [PATCH 1/6] drm/amd: add more cyan skillfish PCI ids
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Mon, 7 Jul 2025 09:22:40 -0400
+X-Gm-Features: Ac12FXxxzEHng2c4SgkXXA0d5C_wB_2II04cnec935psxUn7XgOWK0zvWmZxq-4
+Message-ID: <CADnq5_PrV6RBuiy3vtogGyxhK3QyROCk14WLByfNpOMewh2KMQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Replace HQD terminology with slots naming
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jesse Zhang <jesse.zhang@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Alexander.Deucher@amd.com, Marek.Olsak@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,45 +83,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping on this series.
+On Mon, Jul 7, 2025 at 5:48=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> On 04.07.25 09:26, Jesse Zhang wrote:
+> > The term "HQD" is CP-specific and doesn't
+> > accurately describe the queue resources for other IP blocks like SDMA,
+> > VCN, or VPE. This change:
+> >
+> > 1. Renames `num_hqds` to `num_slots` in amdgpu_kms.c to better reflect
+> >    the generic nature of the resource counting
+> > 2. Updates the UAPI struct member from `userq_num_hqds` to `userq_num_s=
+lots`
+> > 3. Maintains the same functionality while using more appropriate termin=
+ology
+> >
+> > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> BTW: Why userspace needs to know that in the first place?
+
+So IGT can determine how many queues to create to hit over subscription.
 
 Alex
 
-On Fri, Jun 27, 2025 at 10:34=E2=80=AFAM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
 >
-> Add additional PCI IDs to the cyan skillfish family.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 21aea5d28a161..9a05efd80f278 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2172,6 +2172,11 @@ static const struct pci_device_id pciidlist[] =3D =
-{
->         {0x1002, 0x7410, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_ALDEBARAN},
->
->         /* CYAN_SKILLFISH */
-> +       {0x1002, 0x13DB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFIS=
-H|AMD_IS_APU},
-> +       {0x1002, 0x13F9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFIS=
-H|AMD_IS_APU},
-> +       {0x1002, 0x13FA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFIS=
-H|AMD_IS_APU},
-> +       {0x1002, 0x13FB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFIS=
-H|AMD_IS_APU},
-> +       {0x1002, 0x13FC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFIS=
-H|AMD_IS_APU},
->         {0x1002, 0x13FE, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFIS=
-H|AMD_IS_APU},
->         {0x1002, 0x143F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFIS=
-H|AMD_IS_APU},
->
-> --
-> 2.50.0
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 10 +++++-----
+> >  include/uapi/drm/amdgpu_drm.h           |  4 ++--
+> >  2 files changed, 7 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_kms.c
+> > index 4aab5e394ce2..e2aa2264fa0b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > @@ -399,7 +399,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >       uint32_t ib_size_alignment =3D 0;
+> >       enum amd_ip_block_type type;
+> >       unsigned int num_rings =3D 0;
+> > -     uint32_t num_hqds =3D 0;
+> > +     uint32_t num_slots =3D 0;
+> >       unsigned int i, j;
+> >
+> >       if (info->query_hw_ip.ip_instance >=3D AMDGPU_HW_IP_INSTANCE_MAX_=
+COUNT)
+> > @@ -415,7 +415,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >
+> >               if (!adev->gfx.disable_uq) {
+> >                       for (i =3D 0; i < AMDGPU_MES_MAX_GFX_PIPES; i++)
+> > -                             num_hqds +=3D hweight32(adev->mes.gfx_hqd=
+_mask[i]);
+> > +                             num_slots +=3D hweight32(adev->mes.gfx_hq=
+d_mask[i]);
+> >               }
+> >
+> >               ib_start_alignment =3D 32;
+> > @@ -430,7 +430,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >
+> >               if (!adev->sdma.disable_uq) {
+> >                       for (i =3D 0; i < AMDGPU_MES_MAX_COMPUTE_PIPES; i=
+++)
+> > -                             num_hqds +=3D hweight32(adev->mes.compute=
+_hqd_mask[i]);
+> > +                             num_slots +=3D hweight32(adev->mes.comput=
+e_hqd_mask[i]);
+> >               }
+> >
+> >               ib_start_alignment =3D 32;
+> > @@ -445,7 +445,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >
+> >               if (!adev->gfx.disable_uq) {
+> >                       for (i =3D 0; i < AMDGPU_MES_MAX_SDMA_PIPES; i++)
+> > -                             num_hqds +=3D hweight32(adev->mes.sdma_hq=
+d_mask[i]);
+> > +                             num_slots +=3D hweight32(adev->mes.sdma_h=
+qd_mask[i]);
+> >               }
+> >
+> >               ib_start_alignment =3D 256;
+> > @@ -589,7 +589,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *=
+adev,
+> >       }
+> >       result->capabilities_flags =3D 0;
+> >       result->available_rings =3D (1 << num_rings) - 1;
+> > -     result->userq_num_hqds =3D num_hqds;
+> > +     result->userq_num_slots =3D num_slots;
+> >       result->ib_start_alignment =3D ib_start_alignment;
+> >       result->ib_size_alignment =3D ib_size_alignment;
+> >       return 0;
+> > diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_dr=
+m.h
+> > index 66c4a03ac9f9..bdedbaccf776 100644
+> > --- a/include/uapi/drm/amdgpu_drm.h
+> > +++ b/include/uapi/drm/amdgpu_drm.h
+> > @@ -1493,8 +1493,8 @@ struct drm_amdgpu_info_hw_ip {
+> >       __u32  available_rings;
+> >       /** version info: bits 23:16 major, 15:8 minor, 7:0 revision */
+> >       __u32  ip_discovery_version;
+> > -     /* Userq available hqds */
+> > -     __u32  userq_num_hqds;
+> > +     /* Userq available slots */
+> > +     __u32  userq_num_slots;
+> >  };
+> >
+> >  /* GFX metadata BO sizes and alignment info (in bytes) */
 >
