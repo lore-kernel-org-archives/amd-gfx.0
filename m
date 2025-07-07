@@ -4,60 +4,173 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F4DC83F09
-	for <amd-gfx@archiver.kernel.org>; Sun,  6 Jul 2025 23:58:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C2C1C83F03
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jul 2025 00:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A7CD10E3DC;
-	Sun,  6 Jul 2025 23:58:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3814410E3E6;
+	Mon,  7 Jul 2025 00:47:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="vad2821O";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IZ1svor3";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9E2410E00A;
- Fri,  4 Jul 2025 14:00:02 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4bYZyR3Kqjz9tJv;
- Fri,  4 Jul 2025 15:59:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1751637599; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UaTbJOHKKjrhQN9x3hJlgL1oT92jBFCmmRhdGbWsgNM=;
- b=vad2821O6xFGFw+jmgGwZRLFZuU/KDAt6pfqLZDmz8a3SEmZC2mDdXt5E2hGVlcnTtxQCQ
- HPYS1J/1QlH88df+QPOP/m/9Golk+aaoJnlTdtryYKqCKzk7zLOePOqFGj2LV6clsposQU
- ornf/1MBNw0ivRynHZ6kax53ltd5996p8OgsGKj+R/JYaKBTbfpju2gwc2hJNyza+q/3xB
- JuI6XUryhQx96tId0hTeF1Jdo4bxBaNK4E6/cin/k4SzZVUZoFVSY1u31S1bnC4V1dCkSD
- fX8a/5PZgkGAk0y67Dyq3E+Lx/K6V1VMtdSS83RxIRwUBXmw2OQkNpSfbiFUtQ==
-Message-ID: <a20cfbddc2632c5731d7c59f1766a79baa1f2821.camel@mailbox.org>
-Subject: Re: [PATCH v5 04/16] drm/sched: Avoid double re-lock on the job
- free path
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- =?ISO-8859-1?Q?Ma=EDra?= Canal
- <mcanal@igalia.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost <matthew.brost@intel.com>
-Date: Fri, 04 Jul 2025 15:59:56 +0200
-In-Reply-To: <1a1ef81e-2df4-4d9b-af06-25dfb9bc4192@igalia.com>
-References: <20250623122746.46478-1-tvrtko.ursulin@igalia.com>
- <20250623122746.46478-5-tvrtko.ursulin@igalia.com>
- <3ab04122-72dc-41f4-95af-6c4bf851c6d0@igalia.com>
- <70a5fcd839c0582ed2216c8a61e128834bf81315.camel@mailbox.org>
- <1a1ef81e-2df4-4d9b-af06-25dfb9bc4192@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEE1910E272;
+ Mon,  7 Jul 2025 00:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1751849253; x=1783385253;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=DDxZayI1Bs30RUHiwOJ4GMh/aX3l05IvEO9SlXsEILI=;
+ b=IZ1svor3gQSfws1Apg4gs4apag01Ia1+cNsEJ/4Bv89ESACEA6ByQ/zm
+ Sv2MGsEGU8uWrXu53rXSBHNFZvxf5+XPRfHwJZih6L4GXIlYN5ZadGtSM
+ yJEN6F8RYcQ/oxow8L5fiNPY3FqXd1kbaOkPw2qjGfMYikglWsoOoD2yf
+ JYqAx/OnEKV41QmT1XUdw4PuGaebZ04TZjwwSFCJbNTP/o4jqzhisc3Cd
+ UTXvGlRX4EbqdFpvGMdEPcrvn1sE7o7fx1wlBu4wsOokWzhp1ZwmhpELG
+ WDsZ1mdXWufP7InRmtF9Cm6Cq8BABAp++EzZsZtw1rJmjwZ0NLJwzNNRi w==;
+X-CSE-ConnectionGUID: 6O4lVLgNRnucF9kbSvvSLQ==
+X-CSE-MsgGUID: O02ANfuESUKaVlhDjPG05Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11486"; a="64753692"
+X-IronPort-AV: E=Sophos;i="6.16,292,1744095600"; d="scan'208";a="64753692"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2025 17:47:32 -0700
+X-CSE-ConnectionGUID: i4PXHjOVQy6gCT80jPTvWQ==
+X-CSE-MsgGUID: yBNDLoBqTeqj6UQlikIToA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,292,1744095600"; d="scan'208";a="192261269"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2025 17:47:32 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Sun, 6 Jul 2025 17:47:31 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25 via Frontend Transport; Sun, 6 Jul 2025 17:47:31 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (40.107.223.79)
+ by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Sun, 6 Jul 2025 17:47:31 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xQJb9OUP0tx+SAuSOip7clCNAOvAfL0jBa1yRFHQu/gTp4X5EdK1kZ2Q/wR50pRc1ydh/+rreKoKS4CHNKlQ0aHETZODJEzEdggun+BDXj8EZi5jR3I9zHiq9TyNGF4jHCSitX/NH1Qnau4AR3Fvjvg8BT1hMg94xW3GwBV4qQV6dzYxDwGJueZ/UowRZGB+dIgBpqwz7hm3ZplRVGR31VkmAklw/TKtGqFTil8WiOeag7mRKse6aj19FpXutpvSZkJ0jbVBxrs5/mtvvk5ZGrVyHbT3nhg0tSfGMNjXPM2dOZrq4/gYcLm7Kck9dFUnvj9FlSWCMlotV7tu8cJXsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kp9Xqv43yFmpS9Z05S5wwDFXcW9r7drbg0BwnWiPY6s=;
+ b=RAGYmmavd9CKOXagSnhFOYUYy3BOmVAh8FZ+WuJzYJf/nIds2rp3peWgMpDL2emXU5SnSoPLLQ8GIccvHh8/e+slgEedNcRRhOfZxt998JEcINxulbgPnrtyTK3ADOrQzNvHYrjuq8zrcPB/OWNaRnqAgngXI8xhrHew4mV17K9wnB53kKkiVOLAAkf5yEEU06xCIe9f48ly3uaCwaY8UTzoNOaEmAzK0LEZ83S/Zmo7TzQTas71wK1UpkvaagiEDRLAVR3hYa6hqiJPoK524Delz7TAO7hCgfv7IMv8F+aTIPe0k1ntQZ0n6maKlnmrxS9WjKhFDkI3wil85iw31g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by SJ1PR11MB6274.namprd11.prod.outlook.com (2603:10b6:a03:457::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.25; Mon, 7 Jul
+ 2025 00:47:14 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332%5]) with mapi id 15.20.8901.018; Mon, 7 Jul 2025
+ 00:47:13 +0000
+Date: Sun, 6 Jul 2025 17:48:56 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+CC: Samuel Zhang <guoqing.zhang@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <rafael@kernel.org>, <len.brown@intel.com>,
+ <pavel@kernel.org>, <gregkh@linuxfoundation.org>, <dakr@kernel.org>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <ray.huang@amd.com>,
+ <matthew.auld@intel.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <lijo.lazar@amd.com>,
+ <victor.zhao@amd.com>, <haijun.chang@amd.com>, <Qing.Ma@amd.com>,
+ <linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v2 1/5] drm/ttm: add ttm_device_prepare_hibernation() api
+Message-ID: <aGsZeOFhBcMAl341@lstrano-desk.jf.intel.com>
+References: <20250704101233.347506-1-guoqing.zhang@amd.com>
+ <20250704101233.347506-2-guoqing.zhang@amd.com>
+ <5c4f5f0d-024a-46e5-9506-0b589f6cce5d@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <5c4f5f0d-024a-46e5-9506-0b589f6cce5d@amd.com>
+X-ClientProxiedBy: SJ0PR05CA0106.namprd05.prod.outlook.com
+ (2603:10b6:a03:334::21) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-X-MBO-RS-ID: 0cf13761a98a16d155d
-X-MBO-RS-META: uyqrt6s3c1e65jtp9ioqdwp6echcui4t
-X-Mailman-Approved-At: Sun, 06 Jul 2025 23:58:15 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SJ1PR11MB6274:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39155841-615a-4857-1856-08ddbcefd05e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PD5amweKx6q5nEQlOrGEnEe0x19NQt+leMbEg3zeQFA6mcRm5icVxMAT/rrZ?=
+ =?us-ascii?Q?Xj/vrEX0DhnhmzoCvmLiT32MQ3gRIe+l7sl2HcVjTw3judbH3kbVMy7YgAfV?=
+ =?us-ascii?Q?Dh8yJDlcjUkCgLsR40eUMKC8kdeazW05KfUb2uLMQtx0VK6z8N1VTpcmV8LR?=
+ =?us-ascii?Q?Fa6V5gCH81AZAwSnEnBdg42cRJLpWzxUhYILSwAPE1YGPQ0G/yJx2cDYkzBC?=
+ =?us-ascii?Q?d9LPiiSOMIkxAY+nQORk0+Ou1FwqfWqcM2Ok3RmobGeKGkMAweE/8bdvk8GS?=
+ =?us-ascii?Q?evxTPlTYAcgvDdz2YjVCTnecwvR3eXPl7FCoqgZMRjD1mwaYHNb/j0Cz0947?=
+ =?us-ascii?Q?WxP4w66gupmhaHyWhfUZv3nwiC+xC5jZ7u1VDO73i8gM5ForQNHDPndNJuCR?=
+ =?us-ascii?Q?pb1d0yJtyPjcHyadwxwDtXZmxD32iuXeXmTmJl9I1UCyuSwGFHRfkRu/4fF8?=
+ =?us-ascii?Q?j0qK6J54MIj2yYQHGU3B/NRhdWDAksnqv03sSPDt679/5jlyyq4YEa83UP3N?=
+ =?us-ascii?Q?ra+tP6ai/Alzl0rRla3yJ7kphqoiPWcLUpIFy/gGM2dWCjWKJNtr4ir8oS12?=
+ =?us-ascii?Q?dIJcH4ytNNMWGJm7jgt0EMu0haY5odKgX+cycCTT+iM4aCAj/maS6sB+DgdL?=
+ =?us-ascii?Q?OBLPf/iy3EsCO02StSSiJWBdyS9U3XIEa7VilWKh8+FtCsWZR3OGXxEPzMl6?=
+ =?us-ascii?Q?S+/SH1hMbBHebnCzY64bshYehCbgcnjxxS7K+Wcw///uHC3AgxmTAsAdYb4N?=
+ =?us-ascii?Q?wZ+c6Pki4XbQNFRg4ZahzA2TMtkoM2Xk8JN0kBMS5pbeicbeMBYsrrSKhYPj?=
+ =?us-ascii?Q?VAUaKDjlxtuJr+MvLKEZ3neyvN738QnPJBaOZTFQwOiST16yuJKF+r+IJSSD?=
+ =?us-ascii?Q?+DohFaITWDKL73yganrnSZaprSfZQvG86y/ChkZ3MI1UOb22Tp+o4WaKAu/Z?=
+ =?us-ascii?Q?mA0bAeCHzlrjh7y1Q4WDEsxxTxSMCXTFU1bGjwWrN43XIeB/mSXNNZn6pqBY?=
+ =?us-ascii?Q?CLqnZAyU0EQhO8WNgoQrnBhsFqUnbwj4Z5hu9odxbfVTWAVrOIxPUHjS4k+/?=
+ =?us-ascii?Q?SqOhPw6C6uY0/GAbRTuavhLcF54RJFUKHm7W8/poipbhhypNF+0LQtmm+cm9?=
+ =?us-ascii?Q?Bo/Ad7DH1VK05SW58+Da0ZUTDAqpxSsnWI8G/YGqc72uGfM0bUD+WvF3zc1W?=
+ =?us-ascii?Q?wxASRrUh1H7BUNmO09JEWpL5mMF4lwbcCd284U2KpHcKVh3RFKvyloaY9beD?=
+ =?us-ascii?Q?kM6regfBAuD8yg4DKzJzfqUmwwSOLUZG3D63YayMywKa+eGAE09XGloBJGO0?=
+ =?us-ascii?Q?HWJCwVBQObIvG+OmInCRnCGi/lzHmenSHEkoIBX4VXLYSQKFpQVWzraObj6w?=
+ =?us-ascii?Q?GeS481JjGY+D48aSckR7OpPZ23Spv+tJy0vnbmoviRZum6dqaxMCfrEMum9h?=
+ =?us-ascii?Q?DMAoi9WDOJE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Pajov32B8661pv9EFfxdDcyL/yRxBj9PutqqpIuVYZUqdJRqfHrdy51PQErt?=
+ =?us-ascii?Q?q+sXaAOPGFlG3uv+BdcJ80rt3rfl2s0dmjWoCNkrwycastY5W8fEdYx4cCBn?=
+ =?us-ascii?Q?FpRjxQqO2GNJKbwpNdWg9IGpZEahd9YrdFQwpoNYq+4DJenZIkmlOtLVVwKf?=
+ =?us-ascii?Q?NSFm1fN8JZ9wzwjjJKnVF0ASeOYMwnFctHFhxVRtzuNQhzTs+xB/MgnOgGbc?=
+ =?us-ascii?Q?akzV0N0MUPvky9v1Uavg8A++J2sNRcjWkIzN49L5zEAv9yzyNOI2AQKpYUWR?=
+ =?us-ascii?Q?KMltZsF31EccShgOxYY/BV6R9A1uz5AahDhs/xYBA2ojomv/A5ArP6/gExwa?=
+ =?us-ascii?Q?BrO8Cnl5U3pqsE3qIiqbeu0EJhFtJTAxVTBjlL3adaMvoYG94nK/WOeLIr0b?=
+ =?us-ascii?Q?uTL5hcNLXlt0J9N0Wd+8X/D1sLnJhnzhgSej30WY1kDesKBhbZOrjHWxvBSv?=
+ =?us-ascii?Q?dS5hNwLRVTIE8No4Fyn4eT7qRFOZS3sQbSj6ciBf74K+B1AJkpnS6iPxzHme?=
+ =?us-ascii?Q?QciWE77OsQdUdTivXABEnbNoJ0u47eOnaIGDWmTfau1v825KjJtGrFOZmkFi?=
+ =?us-ascii?Q?2HwQTPBCEazHBo3ELraGCxVS+EsYu7s17pg1I2Bp12IjdBDnhR+0+zLlScZ3?=
+ =?us-ascii?Q?QBsiTBZQ11UGuDpB7O6zbXy3JNIs6WrBKHEeKbRMP3xDmH4FUtPpzmqVLVNt?=
+ =?us-ascii?Q?oXPZyD5DipApQFyh8BZjC/+8Acw/gAfBeVSUPmB3P11VqlJch/9qr2pi1hRP?=
+ =?us-ascii?Q?bCtVuWcCZFuPeOZznw/FS6PscrGMGgegvRM8QZeAECSZ1RU4ROuvcWPyjY5z?=
+ =?us-ascii?Q?MmeH8kuVb/qja8eVuwsIgOTD5GyDktHOq3cU9ObZs+seafjcUYjhcO7UFUOw?=
+ =?us-ascii?Q?UiGKc6ByUAcEKg7qPk/F2+GzAOPiclGKiFNPgQEHa+MAAKClul/sdcBWwAWD?=
+ =?us-ascii?Q?GZSrsF/0fLD3liidzlkNZ5ArE65cogpR3sDpnPvKL2sD+e/ZovfjmjeiDPk2?=
+ =?us-ascii?Q?JNCJv8LVn935TpLIXkrY23vLEjNHjmRRGObswOf8MJmf1HK/aWdj6qlJYZYG?=
+ =?us-ascii?Q?m2pS5IgdwMAF4GbDJEwzrWKOc1Ku/tHBbHzIzTJxSAlCJ2Tf2G+nXAIQPfOt?=
+ =?us-ascii?Q?Gl+SVb5J1N6nNIli/OBm/mzr64KEXXo0WQIdspWfvU1FEeRamHduadistrUM?=
+ =?us-ascii?Q?qoJaZnXHYW1LmVPFRghc/pyzH1aF1NY5tRILJcKY7KiBPjchOe05q1dn2rA4?=
+ =?us-ascii?Q?fCMFLCGprwRjSicrs1NA1Du0OeoeeuMHjFemTikgQISAAWYEM+gVJXfIGa5X?=
+ =?us-ascii?Q?+yKZEn3TqlG/PPNzKt2nkys+cgqhRc3YF9p1bb75HJRu8xLvmCIfi5axlWBo?=
+ =?us-ascii?Q?JyXZZNAQPymWwHev8sfZthIInoHA1Bq2doTKs5O6+t+ijLGdzH7ontloCgTM?=
+ =?us-ascii?Q?GuZ4puBUGbS+JwzPbzwa4vXPu+m/JX3n8+LqExnCalXKs1maV8YDODUwdok6?=
+ =?us-ascii?Q?O6WNNHEbu5C0HNPKKfdW9vgRUoQCcbRADKqea50qE+mJqUqpV1s21Ajmwkiv?=
+ =?us-ascii?Q?5KMYOJfPrWRHjCSNvaqoZa1S0MWqb1VACx2vPIwdKcs27Vrfuf7279kn3kGi?=
+ =?us-ascii?Q?ug=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39155841-615a-4857-1856-08ddbcefd05e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2025 00:47:13.8097 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OiTb03/y+JCtzqSdIhTOARPa3KL84wrTU/cA54lgP9P3DcsDZutUj/J8lal/7b1xoMjnIBtwmnWq5cVbKuPJkg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR11MB6274
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,199 +182,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-07-04 at 14:30 +0100, Tvrtko Ursulin wrote:
->=20
-> On 04/07/2025 13:56, Philipp Stanner wrote:
-> > On Fri, 2025-07-04 at 09:29 -0300, Ma=C3=ADra Canal wrote:
-> > > Hi Tvrtko,
-> > >=20
-> > > On 23/06/25 09:27, Tvrtko Ursulin wrote:
-> > > > Currently the job free work item will lock sched->job_list_lock
-> > > > first time
-> > > > to see if there are any jobs, free a single job, and then lock
-> > > > again to
-> > > > decide whether to re-queue itself if there are more finished
-> > > > jobs.
-> > > >=20
-> > > > Since drm_sched_get_finished_job() already looks at the second
-> > > > job
-> > > > in the
-> > > > queue we can simply add the signaled check and have it return
-> > > > the
-> > > > presence
-> > > > of more jobs to free to the caller. That way the work item does
-> > > > not
-> > > > have
-> > > > to lock the list again and repeat the signaled check.
-> > > >=20
-> > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > > Cc: Danilo Krummrich <dakr@kernel.org>
-> > > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > > Cc: Philipp Stanner <phasta@kernel.org>
-> > > > ---
-> > > > =C2=A0=C2=A0 drivers/gpu/drm/scheduler/sched_main.c | 39 ++++++++++=
-+-----
-> > > > -----
-> > > > -----
-> > > > =C2=A0=C2=A0 1 file changed, 16 insertions(+), 23 deletions(-)
-> > > >=20
-> > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > index 1f077782ec12..c6c26aec07b6 100644
-> > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > @@ -366,22 +366,6 @@ static void
-> > > > __drm_sched_run_free_queue(struct
-> > > > drm_gpu_scheduler *sched)
-> > > > =C2=A0=C2=A0=C2=A0		queue_work(sched->submit_wq, &sched-
-> > > > > work_free_job);
-> > > > =C2=A0=C2=A0 }
-> > > > =C2=A0=C2=A0=20
-> > > > -/**
-> > > > - * drm_sched_run_free_queue - enqueue free-job work if ready
-> > > > - * @sched: scheduler instance
-> > > > - */
-> > > > -static void drm_sched_run_free_queue(struct drm_gpu_scheduler
-> > > > *sched)
-> > > > -{
-> > > > -	struct drm_sched_job *job;
-> > > > -
-> > > > -	spin_lock(&sched->job_list_lock);
-> > > > -	job =3D list_first_entry_or_null(&sched->pending_list,
-> > > > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_job,
-> > > > list);
-> > > > -	if (job && dma_fence_is_signaled(&job->s_fence-
-> > > > >finished))
-> > > > -		__drm_sched_run_free_queue(sched);
-> > > > -	spin_unlock(&sched->job_list_lock);
-> > > > -}
-> > > > -
-> > > > =C2=A0=C2=A0 /**
-> > > > =C2=A0=C2=A0=C2=A0 * drm_sched_job_done - complete a job
-> > > > =C2=A0=C2=A0=C2=A0 * @s_job: pointer to the job which is done
-> > > > @@ -1102,12 +1086,13 @@ drm_sched_select_entity(struct
-> > > > drm_gpu_scheduler *sched)
-> > > > =C2=A0=C2=A0=C2=A0 * drm_sched_get_finished_job - fetch the next fi=
-nished job
-> > > > to be
-> > > > destroyed
-> > > > =C2=A0=C2=A0=C2=A0 *
-> > > > =C2=A0=C2=A0=C2=A0 * @sched: scheduler instance
-> > > > + * @have_more: are there more finished jobs on the list
-> > > > =C2=A0=C2=A0=C2=A0 *
-> > > > =C2=A0=C2=A0=C2=A0 * Returns the next finished job from the pending=
- list (if
-> > > > there
-> > > > is one)
-> > > > =C2=A0=C2=A0=C2=A0 * ready for it to be destroyed.
-> > > > =C2=A0=C2=A0=C2=A0 */
-> > > > =C2=A0=C2=A0 static struct drm_sched_job *
-> > > > -drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
-> > > > +drm_sched_get_finished_job(struct drm_gpu_scheduler *sched,
-> > > > bool
-> > > > *have_more)
-> > > > =C2=A0=C2=A0 {
-> > > > =C2=A0=C2=A0=C2=A0	struct drm_sched_job *job, *next;
-> > > > =C2=A0=C2=A0=20
-> > > > @@ -1115,22 +1100,27 @@ drm_sched_get_finished_job(struct
-> > > > drm_gpu_scheduler *sched)
-> > > > =C2=A0=C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0	job =3D list_first_entry_or_null(&sched->pending=
-_list,
-> > > > =C2=A0=C2=A0=C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct d=
-rm_sched_job,
-> > > > list);
-> > > > -
-> > > > =C2=A0=C2=A0=C2=A0	if (job && dma_fence_is_signaled(&job->s_fence-
-> > > > >finished))
-> > > > {
-> > > > =C2=A0=C2=A0=C2=A0		/* remove job from pending_list */
-> > > > =C2=A0=C2=A0=C2=A0		list_del_init(&job->list);
-> > > > =C2=A0=C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0		/* cancel this job's TO timer */
-> > > > =C2=A0=C2=A0=C2=A0		cancel_delayed_work(&sched->work_tdr);
-> > > > -		/* make the scheduled timestamp more accurate
-> > > > */
-> > > > +
-> > > > +		*have_more =3D false;
-> > > > =C2=A0=C2=A0=C2=A0		next =3D list_first_entry_or_null(&sched-
-> > > > > pending_list,
-> > > > =C2=A0=C2=A0=C2=A0						typeof(*next),
-> > > > list);
-> > > > -
-> > > > =C2=A0=C2=A0=C2=A0		if (next) {
-> > > > +			/* make the scheduled timestamp more
-> > > > accurate */
-> > > > =C2=A0=C2=A0=C2=A0			if
-> > > > (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
-> > > > =C2=A0=C2=A0=C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 &next->s_fence-
-> > > > > scheduled.flags))
-> > > > =C2=A0=C2=A0=C2=A0				next->s_fence-
-> > > > >scheduled.timestamp
-> > > > =3D
-> > > > =C2=A0=C2=A0=C2=A0					dma_fence_timestamp(&j
-> > > > ob-
-> > > > > s_fence->finished);
-> > > > +
-> > > > +			if
-> > > > (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
-> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0 &next->s_fence-
-> > > > > finished.flags))
-> > >=20
-> > > Shouldn't we use dma_fence_is_signaled() to keep the same check
-> > > that
-> > > we
-> > > have in drm_sched_run_free_queue()?
-> >=20
-> > There is a paused-ongoing discussion about this function:
-> >=20
-> > https://lore.kernel.org/all/20250522112540.161411-2-phasta@kernel.org/
-> >=20
-> >=20
-> > dma_fence_is_signaled() can have side effects by actually
-> > signaling,
-> > instead of just checking.
-> >=20
-> > Not sure if Tvrtko wanted to bypass that behavior here, though.
->=20
-> No, no ulterior motives here. :)
->=20
-> It is ages I wrote this, but now I revisited it, and AFAICT I don't
-> see=20
-> that it matters in this case.
->=20
-> It is a scheduler fence which does not implement fence->ops-
-> >signaled()=20
-> so opportunistic signaling does not come into the picture.
->=20
-> I am happy to change it to dma_fence_is_signaled() if that is the=20
-> preference.
+On Sun, Jul 06, 2025 at 04:44:27PM -0400, Mario Limonciello wrote:
+> On 7/4/2025 6:12 AM, Samuel Zhang wrote:
+> > This new api is used for hibernation to move GTT BOs to shmem after
+> > VRAM eviction. shmem will be flushed to swap disk later to reduce
+> > the system memory usage for hibernation.
+> > 
+> > Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
+> > ---
+> >   drivers/gpu/drm/ttm/ttm_device.c | 29 +++++++++++++++++++++++++++++
+> >   include/drm/ttm/ttm_device.h     |  1 +
+> >   2 files changed, 30 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+> > index 02e797fd1891..19ab35ffeead 100644
+> > --- a/drivers/gpu/drm/ttm/ttm_device.c
+> > +++ b/drivers/gpu/drm/ttm/ttm_device.c
+> > @@ -123,6 +123,35 @@ static int ttm_global_init(void)
+> >   	return ret;
+> >   }
+> > +/**
+> > + * move GTT BOs to shmem for hibernation.
+> > + *
+> > + * returns 0 on success, negative on failure.
+> > + */
+> > +int ttm_device_prepare_hibernation(void)
+> > +{
+> > +	struct ttm_operation_ctx ctx = {
+> > +		.interruptible = false,
+> > +		.no_wait_gpu = false,
+> > +		.force_alloc = true
+> > +	};
+> > +	struct ttm_global *glob = &ttm_glob;
+> > +	struct ttm_device *bdev;
+> > +	int ret = 0;
+> > +
+> > +	mutex_lock(&ttm_global_mutex);
+> > +	list_for_each_entry(bdev, &glob->device_list, device_list) {
+> > +		do {
+> > +			ret = ttm_device_swapout(bdev, &ctx, GFP_KERNEL);
+> > +		} while (ret > 0);
+> > +		if (ret < 0)
+> > +			break;
+> > +	}
+> > +	mutex_unlock(&ttm_global_mutex);
+> > +	return ret;
+> 
+> I'd personally rather see scoped guard here so you can return immediately
+> and the guard will clean up but up to Christian what he thinks.
+> 
+> int ret;
+> 
+> scoped_guard(mutex, &ttm_global_mutex) {
 
-Its our (scheduler's) fence, so we can be sure dma_fence_is_signaled()
-is OK.
+guard(mutex)(&ttm_global_mutex) would be more apporiate for this as the
+scope of the guard is the entire function.
 
-I'd still prefer if we could get Christian to accept a function with a
-superior name, though..
+Matt
 
-P.
-
->=20
-> Regards,
->=20
-> Tvrtko
->=20
-> > > > +				*have_more =3D true;
-> > > > +
-> > > > =C2=A0=C2=A0=C2=A0			/* start TO timer for next job */
-> > > > =C2=A0=C2=A0=C2=A0			drm_sched_start_timeout(sched);
-> > > > =C2=A0=C2=A0=C2=A0		}
-> > >=20
-> > >=20
-> >=20
->=20
-
+> 	list_for_each_entry(bdev, &glob->device_list, device_list) {
+> 		do {
+> 			ret = ttm_device_swapout(bdev, &ctx, GFP_KERNEL);
+> 		} while (ret > 0);
+> 		if (ret)
+> 			return ret;
+> }
+> 
+> return 0;
+> 
+> > +}
+> > +EXPORT_SYMBOL(ttm_device_prepare_hibernation);
+> > +
+> >   /*
+> >    * A buffer object shrink method that tries to swap out the first
+> >    * buffer object on the global::swap_lru list.
+> > diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
+> > index 39b8636b1845..b45498b398dd 100644
+> > --- a/include/drm/ttm/ttm_device.h
+> > +++ b/include/drm/ttm/ttm_device.h
+> > @@ -272,6 +272,7 @@ struct ttm_device {
+> >   int ttm_global_swapout(struct ttm_operation_ctx *ctx, gfp_t gfp_flags);
+> >   int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
+> >   		       gfp_t gfp_flags);
+> > +int ttm_device_prepare_hibernation(void);
+> >   static inline struct ttm_resource_manager *
+> >   ttm_manager_type(struct ttm_device *bdev, int mem_type)
+> 
