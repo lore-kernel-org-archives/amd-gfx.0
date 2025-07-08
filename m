@@ -4,78 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E318DC83F0A
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 13:03:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1636AC83F09
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 14:28:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C50D10E634;
-	Tue,  8 Jul 2025 13:03:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6C6B10E660;
+	Tue,  8 Jul 2025 14:28:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JdFEu7PE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T1d7Ukld";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 843CD10E633;
- Tue,  8 Jul 2025 13:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=CyMyoOzxPeWjgAxgKPF6kohtSbJRtTIW2hnbquSOXqk=; b=JdFEu7PEjSL5zluijTDqwm7bFA
- KDlzpRB62hDf7FTri4sgFMFKZ9IAbPwIbYxurQtIBHxzwiWvg5jpYcdIw5ZV6JcMx18tCRGq54vWL
- K8zJscgwk4rVzcCcRm85O7NyKIaWwzFgKqUUD09LpuHl8Kw5Vc2NFrjxyc4gUZnr8kkxmIhhJFAzi
- WJdR3Rqn1sgRx4mr0s0c/UH5926jQuHMDLbdyLOnd/A/M7EZNEgwT9GQk9TkS5fSAvboLI2hv7Jv1
- nNXvHxy60BlEKNAApOnC74HQN94woOay2aU4owCh1Ue/GWN7kAGbHNIRnUnwCZRuHk+y1l+jvswqS
- DYPnZUTw==;
-Received: from [84.65.48.237] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uZ7xn-00E173-9x; Tue, 08 Jul 2025 15:02:23 +0200
-Message-ID: <b5d0921c-7cbf-4d55-aa47-c35cd7861c02@igalia.com>
-Date: Tue, 8 Jul 2025 14:02:20 +0100
-MIME-Version: 1.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDD810E660;
+ Tue,  8 Jul 2025 14:28:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vxjHaygs8TWKEn5higuBDdnUAycHO6berTrV9ZIgC9DDPTfRNERuED8F/Rp5zZFStYfZ4rExdydls0ZvmTCu9z+PR0JZaKfeqXH+iT7Fw7d8Zn9IrI/DkJUoPUd6lqZUYSw9rj+nQI68tpyM4EynqpqaD82Z/xOq9WDDl1ki/PxAcsJnXgtaBR17KmeK1LdSnQU8yS9jTe2M1yNSONIH/kxMhV98RmC9hCZlO6+0NWZ+iCSqDinBS+K58bMzT9UiOtrL3/HBzuhmJb/TOUOh7VYtppU5WpKVliIZMiNi9ox/nKxKAfqqYdJtxtHiagNcWOq+61i/qAZgKWav0ZqUjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=13Kss5/ZlqS2hOsyED47OwOTHIyLQlqHAxO1NNr/yVY=;
+ b=Rg3J232y04DTAP1N2bJ0DqExZCf+rLcOXD5BUofP5tBOdqUspj+6AM/gb0Vd4JvBnkxQuEZPOsb8fVS3W7LdQH4TTwn6x9YVoO1AwLcMu1j1cMfmuNFfQGnUIT0NZZ9NwJ6hxJCHQPXSnh4HtgdYtjdnQ776LmaeCVl7Ybz00f1+rxjb7eXmbJ/zXLaZZTd4bYMLldgnoFK7uBRC35pNEdSLZYasuqU82pK4oCyaZbm256nuqET7XYqzs6cOTi12tSPt6YBbDTuHLmXyVrdLS4/XxfOoUxEbdJ1AuVBAhKyaEBIcYt6aZD55p+2M0XeBR+brZgbDnO1lXycRkM2/8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=13Kss5/ZlqS2hOsyED47OwOTHIyLQlqHAxO1NNr/yVY=;
+ b=T1d7UkldRylgbQ3KXS1XpeKBT/Rxrjd+sSBE6jVQUQReJoAIX7JeBqwACONXes3hXsIGHyq9JeY+y8X2u8HE2PZYBgd9cWPegnl+t8gggUgOOgGTl8bCDw8q08R+JtqpFzJNGeZ+ebT6/+OGcQmvbfBCJ95rSwLzEe60DGi1/Pc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by IA1PR12MB9737.namprd12.prod.outlook.com (2603:10b6:208:465::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.20; Tue, 8 Jul
+ 2025 14:28:32 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%3]) with mapi id 15.20.8901.024; Tue, 8 Jul 2025
+ 14:28:32 +0000
+Message-ID: <bd30f96b-44d2-4127-a019-f02bc2689aa2@amd.com>
+Date: Tue, 8 Jul 2025 10:28:21 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/sched: Use struct for drm_sched_init() params
-To: Philipp Stanner <phasta@kernel.org>, Min Ma <min.ma@amd.com>,
- Lizhi Hou <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Melissa Wen <mwen@igalia.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Yunxiang Li <Yunxiang.Li@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Christian Gmeiner <cgmeiner@igalia.com>
-References: <20250211111422.21235-2-phasta@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20250211111422.21235-2-phasta@kernel.org>
+Subject: Re: [PATCH v3 3/5] PM: hibernate: shrink shmem pages after
+ dev_pm_ops.prepare()
+To: Samuel Zhang <guoqing.zhang@amd.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, rafael@kernel.org, len.brown@intel.com,
+ pavel@kernel.org, gregkh@linuxfoundation.org, dakr@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, ray.huang@amd.com,
+ matthew.auld@intel.com, matthew.brost@intel.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
+Cc: lijo.lazar@amd.com, victor.zhao@amd.com, haijun.chang@amd.com,
+ Qing.Ma@amd.com, Owen.Zhang2@amd.com, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20250708074248.1674924-1-guoqing.zhang@amd.com>
+ <20250708074248.1674924-4-guoqing.zhang@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20250708074248.1674924-4-guoqing.zhang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0409.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10b::14) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|IA1PR12MB9737:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcff4c9b-e897-44f0-9798-08ddbe2bb6d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NW9BTzBqc3VmZ2hiTW9ZZXVyK1NadjJtL3FUMGFHTE1uRDlYRkxXQ29VR0VL?=
+ =?utf-8?B?TVF5UmZ0SUMwUXV3bS9ZQ1htbklRdWRMQVlBSXRRUEk2clZONzRvRnhUeEZ5?=
+ =?utf-8?B?ZWJkZDBWV2JaNEYzWG5UcGRlR0RSelNwRUZ6OWpNdzZ2YmpPT1RBMzN0eTQx?=
+ =?utf-8?B?R0hhajNJdkRzd0ZZaUgwZ04yQUJWNVNuczVoaTRxMm5pa20wNFM3WWZ0Y3dZ?=
+ =?utf-8?B?dzFId2pIcVFBUDU3cXBMSjlWZHNsRFhLSzhDOUdHT2p2WnFaeXBCWWNoeStJ?=
+ =?utf-8?B?V2J4Zi9WeCtwNVc2b0srbUx4NFp5aDZqYldzWEJITmhQS2tZaUp3Y1NkYzhV?=
+ =?utf-8?B?a0hRWFdBbmRkYTVSRWIvWW5LOUVra25OQ3JsT0Q3c0dnY2E2VmthTTVsZ0xH?=
+ =?utf-8?B?RnBXMUU4aEVDREthbkE2OVBpUTRtYWJlNUtjWWdncDg5a0liYjFHUEYxZmlp?=
+ =?utf-8?B?b2MzbjdldVlNVVU2RmI1Qk82ZTZMQkFaMENYbVNGMVFWeVR1emU5RFJybXJ1?=
+ =?utf-8?B?Q2ZFRVlKKzNtYTdEUnhpaTVOUGpUeGhJQmFWTHJtMGdiME5tcVBSMUpEbXZ0?=
+ =?utf-8?B?WlBNMmRoVHJGSmdvcDFaM3Q0dHZiam55SHFNS0hhcUo1bTZZeG1FSjlPTnV6?=
+ =?utf-8?B?cG5MRm4rd0pwa1hua3IrVGRROVpKaW45b0VIdHI2WjVzRjArTkhjUTNkMHRS?=
+ =?utf-8?B?Rlp2OUlneXhOUTZMa3Zpdm56dXk4VFVuaTNwTXBuQWw0cVg3bzFrWitJY2Fu?=
+ =?utf-8?B?ejY5SVUxdlBCN0xWdWFxdXJUY0QvcFpvMjIzaUtKU2JheUtqazk2M2JQNkZY?=
+ =?utf-8?B?MGZ4dS9Nang1a0h2N3VhVFNnelc3RUwrTFRzcytVYlZYekR5QlFuZzVhLysx?=
+ =?utf-8?B?aHJXdkNZbVRzZVN4OThpemNuMUZzTmRKVHRQODlFNE12alJZdS9QMUNHVVd4?=
+ =?utf-8?B?MjFkWmN4a1JJRU92bWZ0dC9Ic2FoNlNhZE9pZWxIbXRqbk00U1pERHNRWndw?=
+ =?utf-8?B?ZnpvRjMrbFhEQ3FvM012MWNxVjJLQnd2clpLTlBvVkd3YzVWU3FjVXZreEJB?=
+ =?utf-8?B?SkM5a0EyRlJ2akgxSW5mTVZRY0dRYWhjVFVtdm51YWZxb2dMOHlnakIrOU9L?=
+ =?utf-8?B?KzdheGhTdk1VL2pmZHdpeHF4S09XbzFDTkNuOUk2WFRaeUZVQVhjaXhCdmda?=
+ =?utf-8?B?ZkxPRm5MTkxOUnl3MWxwMUxOaURhaU5qOFF0NVFZcFBFUWs5SXFaemM1ZW4y?=
+ =?utf-8?B?dE9tVmhkWDBVY0pIMldBY1YwNmJoZHVPb3pXR3lHcjdoL0NuQW1ScExzRTZW?=
+ =?utf-8?B?QkpPME1ma0dtbTA2d00zdmZKSmExNXBXTzg0M1FPOVlCTnYvKzZoakduNEdv?=
+ =?utf-8?B?U2dJY2Z3MkJmdURyeUVjSnNKRzVST0dPZDRCVndTWkg3aFh1ZGh1RGdUT2JZ?=
+ =?utf-8?B?SW9jU2NWc25vdFpJWlBHQXBSZkZBNzExV0dQdkZ0K1lFMFc4NmUxb2VGYklQ?=
+ =?utf-8?B?YW41Zitaa0NScGxtRGZ3ZUpBeHI3dlFlaUgxRDJjZUoxaHlYbytzU1lxY2I1?=
+ =?utf-8?B?SWdzNkN1Q1BYYWZjWHhmQUFHU25mZk5BR2Q2RzBNeStXUldaTzJyTUJWZ016?=
+ =?utf-8?B?VnVuanVtTU9IdFBNN1dTcitSc0YzU3o5STBhVTFoeTAwU3ZBSU5ma1JkREN0?=
+ =?utf-8?B?YU1STHNUNUg2OVdWSnlRdFEyKzlGSmY5NzdFaVgveGlyYjF2cGo0djNhN3Jw?=
+ =?utf-8?B?elBjejk5alh6SnpIUHlyU2RLVVcxQXRGMHJUY3cyYUpuZWNleG4yYWpCWWNq?=
+ =?utf-8?B?UXczMGRINitPb1IwZzEyMmNsZFo2aGtvazhMK255aFZtZzlhL0VoUUtRU25Q?=
+ =?utf-8?B?NS9yUlhvMUwxVTV4eEtxMFpFUnlCY213VEk2WXlFQW12eUtpaDEzalpQUzFr?=
+ =?utf-8?B?NTIxN000ay8wa1VmOEdBeDgrUDBkdWg4NW1xdzAxemt2UWdlR2tFMEhtczF1?=
+ =?utf-8?B?cENVUHM2Ny9nPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(921020); DIR:OUT; SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2dvQVQ4eGZ6WS9MVml4RitSN2ljZ0NqRnh0UDdRdkIwNUt3ZEJEejV6d20y?=
+ =?utf-8?B?Zkloa1cxb2wvbXFNZW9pK1lpT1VLNGluWWlmZmpldzZ6bmFZSldNR01SeENz?=
+ =?utf-8?B?cUI5VkFxTGJFdmRUbFEvVUdLaUJFRlhPZTE0ZTZHZzF4QlI5SG1sVEdqWFho?=
+ =?utf-8?B?R2pyVCtJUTVvbXh3NWViTnprbzlMZTVCSVRxbDFjMWkxSnpRUGtwdThFeW9u?=
+ =?utf-8?B?SXJGd3AzemNrNGxiTEp5MnkvVWZLS2dRc05xblY5VFdGQXk1M0QvcXFLWXdF?=
+ =?utf-8?B?UkxoZWpUazU4eG1zV3pzQXdhUGVzaXczTS9jTkVqdWNYTjhXOU9WdDgxUDh2?=
+ =?utf-8?B?ZTF2SjVyUk5aZlBGTjhQd2s2b0dPU0F1Yk5CV21sdHhCOVdsbkk2M1duNGNk?=
+ =?utf-8?B?cG43blpKUWdNVUREaXB4cG85TU1nTU5kTitra1NXSXcvcnQ3bG9RT2l6RjFi?=
+ =?utf-8?B?cEZ6aEpuWXZQd1IxKzdIT0lUUmsxY1Z1TmRjVHBvb2JFcXo3N0NBTmY4VVZu?=
+ =?utf-8?B?NitNVW8wL0FLd2dtOHRHRnlTZWVTQW1ZRVJENGVwLzVFaE1kYURxbGNYWmgy?=
+ =?utf-8?B?bE5WQ2xxbDRiWC9RNWhYN2ZKMjNRNVpYdlJnWmFOdHphOStBVDZGVmhWM0xP?=
+ =?utf-8?B?MGlXTkNjWnozRXFKWFZjZ1ZML2R2ZXp2R0g0UlJEZ2tTd3NMZVlBdTBoeDEw?=
+ =?utf-8?B?UDJKWXVCc250Y1pZelJZMXpXdlI5dlZHZDhIVGljQXZybG5PdU9icjh0bm5t?=
+ =?utf-8?B?STVLYm5vb3dGMFJlOFhGWFVVVm5FZkhMakJPN1pnZUMzVURsOWZiRFU3QXV2?=
+ =?utf-8?B?enJnSnJCclh5WHZiOCt0Yjd1WlB6Q3BwMGNrYnpzTVFsdmhzOGY3T1NTcmp6?=
+ =?utf-8?B?bTFjeVJwaXc2SHVSY2kxT0xDSkhucVVPWDBnbDhaNG9RZUhMd3BJQUlmUzEy?=
+ =?utf-8?B?OXpNSFpTTEx3U2lrZyt5Qld0dkh1QlkxWjRtaXBGa2d6K2lFVkNxWnFaU1A5?=
+ =?utf-8?B?dGo1RC93aGRmWUhIWWRHL0pSb0ZBdjFkdjVvbmEvR2kwdmNYc2lUbmtJOUNQ?=
+ =?utf-8?B?T2NDcmNway9rRzJIYmZIT1N0RTdWZ0tXbHVVemtrM25BamFCQ0pBK3VtcnFu?=
+ =?utf-8?B?bWpERmZhTVByUXQ4aFl5S1V6aWNwMFRxSkd6RjJNcXpBZVpDWG9XaWRGSm1p?=
+ =?utf-8?B?MWZzNmdCUENUcEYvYTY4NE84cjc5V295NWdRVXpYcHlxeXYvRzRLL1h6V1JG?=
+ =?utf-8?B?SFVhV0pCa0FtVy8zL0pDME9IQnQyYUxBQ0tRdDcybHpCd2VLa3BoMWlScWt1?=
+ =?utf-8?B?K0RsL284Y1JDM0U4eDZ2UkJLMGpHbkhZQkhKd1J3UWF0QUlRejNaTnE4NHZV?=
+ =?utf-8?B?TlU5TWxXRGNMOU00RXlTc01rNXkyakxJQU1WUGFmeTgrRy9OZVRVdy9VdThh?=
+ =?utf-8?B?U0pkWUtpYkVtUSt3cUM2UmtMZHJQTFhscloyQkN0V1FIcCs0ZVUvT0JWY0RC?=
+ =?utf-8?B?Vi9Fei9ISVNyVDNVU0tMQ3VuTUpsbEFGb2w0TmJTTXYrU1ZrbFMyY0tVVTUw?=
+ =?utf-8?B?VG9yMU13VXFEUU9ySGRWK2xFWXgxdXVReDZkWmprL2RiQlBLOWhzdHdoWUdy?=
+ =?utf-8?B?RVJjZFBoeWdmNTRudnBjT3lEa21OMGlNRUp1K002ZVhUR1VubnUwQmVZQzN5?=
+ =?utf-8?B?eEFBUzBLTE5QOTQvSGVwdHZndUtYd2VReE15cHhtN1V4dXZiaGpBWFpvRFdE?=
+ =?utf-8?B?RmtMd1BxUVBWQmkzQ0JRclJJQ2tDaVh1L1pGY3hFWkQyN3JxTk5VdHJid2xk?=
+ =?utf-8?B?cjVjeER4UDBGM2NCQkJBUU9WZGtaZSsrUWc5SjBpbmpNN1VRTkZ2QzRaelM4?=
+ =?utf-8?B?dno4N1NFOEwzTDExRmE2T1RpODNpMnYrY0RPcDRWUlAwdWtqOElvM0QyMmZ1?=
+ =?utf-8?B?bGNBeXRjZHlQYjFENEd3d3NJV2JLSjBuMUFIV3hZQ2tic04rM0dVZEgzVVFz?=
+ =?utf-8?B?UXg5SXhTejYwTEk2TUtuQmwxR1lpdWplU1lEZ2l1b0M0dStabmxaU3RjZUox?=
+ =?utf-8?B?eHMvcXo3bEczU1lqNkIzTW43VTlIdzNrK3kzSk5uY2JSTlFTQ01iME5mazVk?=
+ =?utf-8?Q?O444VK1F5TKIDxRgujP+VbZ+p?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcff4c9b-e897-44f0-9798-08ddbe2bb6d6
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 14:28:31.9353 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CMbrE/JqpU5bDyn4xbehCLBbekvzN7Ww55kt4iPpiiqraSFFIZsU7T1CegpLPQ5PKSiqEFdyANk//wmr+8hxiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9737
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,116 +172,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 7/8/2025 3:42 AM, Samuel Zhang wrote:
+> When hibernate with data center dGPUs, huge number of VRAM data will be
+> moved to shmem during dev_pm_ops.prepare(). These shmem pages take a lot
+> of system memory so that there's no enough free memory for creating the
+> hibernation image. This will cause hibernation fail and abort.
+> 
+> After dev_pm_ops.prepare(), call shrink_all_memory() to force move shmem
+> pages to swap disk and reclaim the pages, so that there's enough system
+> memory for hibernation image and less pages needed to copy to the image.
+> 
+> This patch can only flush and free about half shmem pages. It will be
+> better to flush and free more pages, even all of shmem pages, so that
+> there're less pages to be copied to the hibernation image and the overall
+> hibernation time can be reduced.
+> 
+> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
 
+AFAICT this didn't tangibly change and was just reordered in the series, 
+I think you should carry Rafael's A-b tag forward.
 
-On 11/02/2025 11:14, Philipp Stanner wrote:
-> drm_sched_init() has a great many parameters and upcoming new
-> functionality for the scheduler might add even more. Generally, the
-> great number of parameters reduces readability and has already caused
-> one missnaming, addressed in:
-> 
-> commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
-> nouveau_sched_init()").
-> 
-> Introduce a new struct for the scheduler init parameters and port all
-> users.
-> 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Acked-by: Matthew Brost <matthew.brost@intel.com> # for Xe
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> # for Panfrost and Panthor
-> Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com> # for Etnaviv
-> Reviewed-by: Frank Binns <frank.binns@imgtec.com> # for Imagination
-> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com> # for Sched
-> Reviewed-by: Maíra Canal <mcanal@igalia.com> # for v3d
 > ---
-> Changes in v4:
->    - Add forgotten driver accel/amdxdna. (Me)
->    - Rephrase the "init to NULL" comments. (Tvrtko)
->    - Apply RBs by Tvrtko and Maira.
->    - Terminate the last struct members with a comma, so that future
->      fields can be added with a minimal patch diff. (Me)
+>   kernel/power/hibernate.c | 26 ++++++++++++++++++++++++++
+>   1 file changed, 26 insertions(+)
 > 
-> Changes in v3:
->    - Various formatting requirements.
-> 
-> Changes in v2:
->    - Point out that the hang-limit is deprecated. (Christian)
->    - Initialize the structs to 0 at declaration. (Planet Earth)
->    - Don't set stuff explicitly to 0 / NULL. (Tvrtko)
->    - Make the structs const where possible. (Boris)
->    - v3d: Use just 1, universal, function for sched-init. (Maíra)
-> ---
-
-8><
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-> index 9b8e82fb8bc4..5657106c2f7d 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -836,8 +836,16 @@ static irqreturn_t panfrost_job_irq_handler(int irq, void *data)
+> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+> index 10a01af63a80..7ae9d9a7aa1d 100644
+> --- a/kernel/power/hibernate.c
+> +++ b/kernel/power/hibernate.c
+> @@ -370,6 +370,23 @@ static int create_image(int platform_mode)
+>   	return error;
+>   }
 >   
->   int panfrost_job_init(struct panfrost_device *pfdev)
->   {
-> +	struct drm_sched_init_args args = {
-> +		.ops = &panfrost_sched_ops,
-> +		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
-> +		.credit_limit = 2,
-> +		.timeout = msecs_to_jiffies(JOB_TIMEOUT_MS),
-> +		.timeout_wq = pfdev->reset.wq,
-
-^^^
-
-> +		.name = "pan_js",
-> +		.dev = pfdev->dev,
-> +	};
->   	struct panfrost_job_slot *js;
-> -	unsigned int nentries = 2;
->   	int ret, j;
+> +static void shrink_shmem_memory(void)
+> +{
+> +	struct sysinfo info;
+> +	unsigned long nr_shmem_pages, nr_freed_pages;
+> +
+> +	si_meminfo(&info);
+> +	nr_shmem_pages = info.sharedram; /* current page count used for shmem */
+> +	/*
+> +	 * The intent is to reclaim all shmem pages. Though shrink_all_memory() can
+> +	 * only reclaim about half of them, it's enough for creating the hibernation
+> +	 * image.
+> +	 */
+> +	nr_freed_pages = shrink_all_memory(nr_shmem_pages);
+> +	pr_debug("requested to reclaim %lu shmem pages, actually freed %lu pages\n",
+> +			nr_shmem_pages, nr_freed_pages);
+> +}
+> +
+>   /**
+>    * hibernation_snapshot - Quiesce devices and create a hibernation image.
+>    * @platform_mode: If set, use platform driver to prepare for the transition.
+> @@ -411,6 +428,15 @@ int hibernation_snapshot(int platform_mode)
+>   		goto Thaw;
+>   	}
 >   
->   	/* All GPUs have two entries per queue, but without jobchain
-> @@ -845,7 +853,7 @@ int panfrost_job_init(struct panfrost_device *pfdev)
->   	 * so let's just advertise one entry in that case.
->   	 */
->   	if (!panfrost_has_hw_feature(pfdev, HW_FEATURE_JOBCHAIN_DISAMBIGUATION))
-> -		nentries = 1;
-> +		args.credit_limit = 1;
+> +	/*
+> +	 * Device drivers may move lots of data to shmem in dpm_prepare(). The shmem
+> +	 * pages will use lots of system memory, causing hibernation image creation
+> +	 * fail due to insufficient free memory.
+> +	 * This call is to force flush the shmem pages to swap disk and reclaim
+> +	 * the system memory so that image creation can succeed.
+> +	 */
+> +	shrink_shmem_memory();
+> +
+>   	suspend_console();
+>   	pm_restrict_gfp_mask();
 >   
->   	pfdev->js = js = devm_kzalloc(pfdev->dev, sizeof(*js), GFP_KERNEL);
->   	if (!js)
-
-Stumbled on this while looking at drm_sched_init() workqueue usage.
-
-I think this patch might need a fixup. Because somewhere around here in 
-the code there is this:
-
-	pfdev->reset.wq = alloc_ordered_workqueue("panfrost-reset", 0);
-	if (!pfdev->reset.wq)
-		return -ENOMEM;
-
-Which means that after the patch panfrost is using system_wq for the 
-timeout handler instead the one it creates.
-
-> @@ -875,13 +883,7 @@ int panfrost_job_init(struct panfrost_device *pfdev)
->   	for (j = 0; j < NUM_JOB_SLOTS; j++) {
->   		js->queue[j].fence_context = dma_fence_context_alloc(1);
->   
-> -		ret = drm_sched_init(&js->queue[j].sched,
-> -				     &panfrost_sched_ops, NULL,
-> -				     DRM_SCHED_PRIORITY_COUNT,
-> -				     nentries, 0,
-> -				     msecs_to_jiffies(JOB_TIMEOUT_MS),
-> -				     pfdev->reset.wq,
-> -				     NULL, "pan_js", pfdev->dev);
-> +		ret = drm_sched_init(&js->queue[j].sched, &args);
-
-^^^
-
->   		if (ret) {
->   			dev_err(pfdev->dev, "Failed to create scheduler: %d.", ret);
->   			goto err_sched;
-
-Regards,
-
-Tvrtko
 
