@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BA2EC83F1C
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 09:52:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D959AC83F0F
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 09:52:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4696C10E5EF;
-	Tue,  8 Jul 2025 09:52:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B07E210E5FB;
+	Tue,  8 Jul 2025 09:52:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hfkwkqob";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NXOPy0ef";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08F3B10E5E8;
- Tue,  8 Jul 2025 09:52:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7F5A10E5E7;
+ Tue,  8 Jul 2025 09:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=JCL2ChtCeR8mKOIhxXZfrNdDmBWo499T3B/tqFwlq0k=; b=hfkwkqobqXVZB9wNhcAzZ92d9e
- 96lQl+vW9Ek6LAFuhCYnGKNMMR3MP0dHHo2GFV+j4HUoeSEBu95RdCrgteMaRjkt1Bgn6VGex4FDt
- qziFvIxiKCRySziUpmBDZMd3S77sHqyq59wa8wlMJpxCUQPz/RVIjYm2Cfy0USjuWqNNXdCsOS0js
- cgUJfWCygbP1+vsKBzy6e0MahlLdYxMSMRWTA10MrE0/r9dC5OsC0lhNe7Dc7yMDFQO/Pjfe+7Qw3
- CrMI54c2PV090Va3Zi74CbdgANomcQ450E9I6lmvgK8ka/1Dg/6J5mZe97vwNFGQkTdy3tbB9VerA
- Q6/xyvQA==;
+ bh=wLc79qwFhp2VYeEN0pbcSv4L6Ipeb29vtsUVovwqCRE=; b=NXOPy0efyD5FAQDtm0Q70R+pv5
+ Vc+QjdUdEuKdgvEKByR1QKJ8kftwKo9EJCCG7vkaOhe10pyISrAL4HtnGRR+A5P0Bq3ysHWC4Sag4
+ tSM8rsmtgXqOeJZK2hw8vZsP7PkMM0KkZYbHFeCmgH6W2vu7+GJ3nu1qr5P6LX+WcSBbshekOGYxa
+ mdLXL1mUW9DNEzNuS4tQ+HQrYv3tdDW4JjbSQnCFyLHuL0hl2pgESwJ/QX0zu0JJdnc/lmTR8lf9W
+ 1giUQ1w6EjcF9sPZPhXMwxd501IVI4MCW26Bcxdlm2s6hL1XFnwe5rfs8IHWFO34KeRYKlMcDeYc8
+ aym0RkUg==;
 Received: from [84.65.48.237] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uZ4zW-00Dx4a-Ak; Tue, 08 Jul 2025 11:51:58 +0200
+ id 1uZ4zU-00Dx43-UX; Tue, 08 Jul 2025 11:51:57 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -40,9 +40,9 @@ Cc: intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v6 11/15] drm/sched: Remove idle entity from tree
-Date: Tue,  8 Jul 2025 10:51:43 +0100
-Message-ID: <20250708095147.73366-12-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v6 09/15] drm/sched: Free all finished jobs at once
+Date: Tue,  8 Jul 2025 10:51:41 +0100
+Message-ID: <20250708095147.73366-10-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250708095147.73366-1-tvrtko.ursulin@igalia.com>
 References: <20250708095147.73366-1-tvrtko.ursulin@igalia.com>
@@ -63,10 +63,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is no need to keep entities with no jobs in the tree so lets remove
-it once the last job is consumed. This keeps the tree smaller which is
-nicer and more efficient as entities are removed and re-added on every
-popped job.
+To implement fair scheduling we will need as accurate as possible view
+into per entity GPU time utilisation. Because sched fence execution time
+are only adjusted for accuracy in the free worker we need to process
+completed jobs as soon as possible so the metric is most up to date when
+view from the submission side of things.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
@@ -74,61 +75,60 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_rq.c | 28 +++++++++++++++++-----------
- 1 file changed, 17 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index 0492d1f21572..9f1b4ea99cad 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -19,6 +19,9 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
- static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
- 					    struct drm_sched_rq *rq)
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index c906c2f3e6d5..f87bb4681b93 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -870,13 +870,12 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
+  * drm_sched_get_finished_job - fetch the next finished job to be destroyed
+  *
+  * @sched: scheduler instance
+- * @have_more: are there more finished jobs on the list
+  *
+  * Returns the next finished job from the pending list (if there is one)
+  * ready for it to be destroyed.
+  */
+ static struct drm_sched_job *
+-drm_sched_get_finished_job(struct drm_gpu_scheduler *sched, bool *have_more)
++drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
  {
-+	lockdep_assert_held(&entity->lock);
-+	lockdep_assert_held(&rq->lock);
-+
- 	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
- 		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
- 		RB_CLEAR_NODE(&entity->rb_tree_node);
-@@ -153,24 +156,27 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- {
- 	struct drm_sched_job *next_job;
- 	struct drm_sched_rq *rq;
--	ktime_t ts;
+ 	struct drm_sched_job *job, *next;
  
- 	/*
- 	 * Update the entity's location in the min heap according to
- 	 * the timestamp of the next job, if any.
- 	 */
-+	spin_lock(&entity->lock);
-+	rq = entity->rq;
-+	spin_lock(&rq->lock);
- 	next_job = drm_sched_entity_queue_peek(entity);
--	if (!next_job)
--		return;
-+	if (next_job) {
-+		ktime_t ts;
+@@ -891,7 +890,6 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched, bool *have_more)
+ 		/* cancel this job's TO timer */
+ 		cancel_delayed_work(&sched->work_tdr);
  
--	spin_lock(&entity->lock);
--	rq = entity->rq;
--	spin_lock(&rq->lock);
--	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
--		ts = next_job->submit_ts;
--	else
--		ts = drm_sched_rq_get_rr_deadline(rq);
--	drm_sched_rq_update_fifo_locked(entity, rq, ts);
-+		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
-+			ts = next_job->submit_ts;
-+		else
-+			ts = drm_sched_rq_get_rr_deadline(rq);
-+
-+		drm_sched_rq_update_fifo_locked(entity, rq, ts);
-+	} else {
-+		drm_sched_rq_remove_fifo_locked(entity, rq);
-+	}
- 	spin_unlock(&rq->lock);
- 	spin_unlock(&entity->lock);
+-		*have_more = false;
+ 		next = list_first_entry_or_null(&sched->pending_list,
+ 						typeof(*next), list);
+ 		if (next) {
+@@ -901,8 +899,6 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched, bool *have_more)
+ 				next->s_fence->scheduled.timestamp =
+ 					dma_fence_timestamp(&job->s_fence->finished);
+ 
+-			*have_more = dma_fence_is_signaled(&next->s_fence->finished);
+-
+ 			/* start TO timer for next job */
+ 			drm_sched_start_timeout(sched);
+ 		}
+@@ -961,14 +957,9 @@ static void drm_sched_free_job_work(struct work_struct *w)
+ 	struct drm_gpu_scheduler *sched =
+ 		container_of(w, struct drm_gpu_scheduler, work_free_job);
+ 	struct drm_sched_job *job;
+-	bool have_more;
+ 
+-	job = drm_sched_get_finished_job(sched, &have_more);
+-	if (job) {
++	while ((job = drm_sched_get_finished_job(sched)))
+ 		sched->ops->free_job(job);
+-		if (have_more)
+-			__drm_sched_run_free_queue(sched);
+-	}
+ 
+ 	drm_sched_run_job_queue(sched);
  }
 -- 
 2.48.0
