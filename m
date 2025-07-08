@@ -4,67 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB049C83F12
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 10:29:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78917C83F0A
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 11:38:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6E6110E5F8;
-	Tue,  8 Jul 2025 10:29:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AA9E10E5FE;
+	Tue,  8 Jul 2025 11:38:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="C1JbOEwB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DdA8gkO8";
 	dkim-atps=neutral
-X-Greylist: delayed 605 seconds by postgrey-1.36 at gabe;
- Mon, 07 Jul 2025 09:41:01 UTC
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42D6110E31A;
- Mon,  7 Jul 2025 09:41:01 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BF41240E0208; 
- Mon,  7 Jul 2025 09:30:54 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id jbK1aqKiTf2C; Mon,  7 Jul 2025 09:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1751880650; bh=1lz/JpPtCN7njwwxfe47p4WGy8o2scBRxB/pzapm9KI=;
- h=Date:From:To:Cc:Subject:From;
- b=C1JbOEwBSbRAVbykwKs8j6NZofsnsHLWDwhg4FLoR2hrJ0ltzP4r7S7+F3KK6mirk
- v/rCCS8xa6TGIIo50OAUFj/q+KaLj9laFQK8H4NU00MYbRd8VELaWqLakGizgVmPxF
- gF130GLXTOK0kC2XMlhqlRWVA+aLXT+NLACNz7uA1ckAbNtp8lfqGpFb5vkZmVAuHu
- bTY5rsJ6MB3w6so3CFXEIDSXBJ+fyJZZmrxUviZh2lyQzhX+k3KgkTHuM44Y4FjA6+
- LPGFHpYKjlTfE9FvW5HXm9dhzt9/MmLGy9lwA19GUkMDF47jgY8/dkbmYv9akmViC0
- dVxS8JAfnC7+wJyzdBsD/Jn1V2kPdHiixWL/IgBEKwT3vE9rLrLV7D75Wg3Qdo/ta+
- fms9sXLrObKOj1kwjm7FtogFPfKm9jvkzzH5mKyMfPZy7rqBk6M2r5bRrg4ZAQRyeW
- fIF2Hhhdi1+q06jLKL4kFOUOKVO0hz1p7JQCr3DeoH2AXqlNmCJ4fXjuAo5EWlPApe
- IMLDnuhHdrXA+eXkdFdqYLFZoVjC5AjrlOvOiVH8JKjCwt3eZe/Fh4YMPr9qtdQwTB
- TNvQTxnEcs9L8vJDnNtg27jlmHoBTkBPyolu5VueCzbaMnJ0WKT+/W7TO4vnDjCaYh
- 2azpldGwVqgZj+jC4LTqwKdE=
-Received: from zn.tnic (p57969c58.dip0.t-ipconnect.de [87.150.156.88])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 50F4940E0198;
- Mon,  7 Jul 2025 09:30:40 +0000 (UTC)
-Date: Mon, 7 Jul 2025 11:30:32 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>,
- Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
- Ramesh Errabolu <Ramesh.Errabolu@amd.com>,
- Arvind Yadav <Arvind.Yadav@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: WARNING: drivers/gpu/drm/drm_gem.c:286 at
- drm_gem_object_handle_put_unlocked+0xb1/0xf0 [drm]
-Message-ID: <20250707093032.GAaGuTuJ0ZYHPgA2q3@fat_crate.local>
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A32F10E607;
+ Tue,  8 Jul 2025 11:38:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cw09aDffMl2EgcPUZXmJ2qDO+E2FrPxHp9u18niVOH39wn0bnsgGtrQEFKEz58EDKmlKfHOvt9s28k+kJ/GRgZGpjEkPVrXh3Y9I9paI7pujAg/YJx9ZU7R4EI3g2kClC8ffVo8b8sXTgUryGSgfzofujoqIwbgTCV7+2HQP450KHKlcKOQR0gNXqB6pTsgBvwWyE4bnxq3xDFw+lwl4sWM0Ps1tPb1kOcShghd6OAZeuyAxJeCfD/96RzLLT6X30NP4og/UGHdTM4s1O61b2NpS3CeIZKleOI5BKy7ZBwcQwEUtsHU9u/vOXMsQdvmd84nFBPXfV5uFGv4WxG8UHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HaVYXihkVMSAt1VFgA4IKClPoCsXbZ3HLzsRLr3AZEU=;
+ b=iIa5OLDVEbw2X5uX0N8UYU7l9nF5hqlEakTQdsDJwjsa8q6u28u6yBxHs8csAksiRAc8vdTcN8OT+QE/HR7DwzXMOA6yYJlyyfLVztGwCWbpiMMqcOb7Rv/RyAnOWTWmJEbzVS1yZfHUXlKogp/UpUMcFDgN+rEifVAXkDc6unWS5B251aH+i9thuB0aDXXaOCMxQJhW9uuLRMB/IutJn3L9fZR1Hrc3ZMqAItXXJ+Vj7nT1NwJFsER+wbqvoCof4zqcYGrESiim+h8pDrbRxROruc6sFaIq2wIh++QzLQu6eu3KaskrOTLayhzuwDRDzEQqATgBMSttWgkeYDNLWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HaVYXihkVMSAt1VFgA4IKClPoCsXbZ3HLzsRLr3AZEU=;
+ b=DdA8gkO8KWW7UvklOWu10pWff0oHXw7HR86nh326H5N85lYXKO8OpCSC5Eg86dwBD5GfrNRS3lQvx1xZ7YHfGTTGNnMo+HBRSggrrbya/zoxg2co9UFErJ0cRDv3SpAYsigE4GGar3s5/KarL1WVnE5OI12Ly1U6xUd9UtS/QdA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW3PR12MB4425.namprd12.prod.outlook.com (2603:10b6:303:5e::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.25; Tue, 8 Jul
+ 2025 11:38:46 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8901.024; Tue, 8 Jul 2025
+ 11:38:46 +0000
+Message-ID: <d0928396-488d-4862-af32-1eb3e0727970@amd.com>
+Date: Tue, 8 Jul 2025 13:38:40 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: fix MQD debugfs undefined symbol when
+ DEBUG_FS=n
+To: Sunil Khatri <sunil.khatri@amd.com>, dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
+ tursulin@ursulin.net
+References: <20250708101551.68033-1-sunil.khatri@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250708101551.68033-1-sunil.khatri@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL0PR0102CA0069.prod.exchangelabs.com
+ (2603:10b6:208:25::46) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 08 Jul 2025 10:29:18 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4425:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6aae8776-a8ef-44ee-0214-08ddbe13feeb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UkwwQ2cxSlJoTmtNT0N1ajAyQmRnQytHdEF6ZUgxMTdaNUVnTS9WYmNPUmJ5?=
+ =?utf-8?B?RlFZTElSbm93cmVSRFVBY1dka1F2ckZGenhIWTEzbEhKeDZLNEw1eTJSWlRU?=
+ =?utf-8?B?clA4VmhHRkRpUEQvSFhxL0svakdDbnR4SlYvZC9vS0cvQmhKS3VmYVdwMlBm?=
+ =?utf-8?B?blIwNlJ0ZWFQY2NLTHFvNlEzbmFhTGJmbTZ4SEdmZnJEV2YxajBzMThtNHJq?=
+ =?utf-8?B?OWc1K29jcVpyazdiWkJRWUw5dyttM2FFWFdCaWYvbmR6Z1BYT2MwdklXemZk?=
+ =?utf-8?B?MjQwRHViNmhUb2Y5N2U5anh4YnZKT2psVjNncitLQnVZSkdRKzZFdmpGQTdE?=
+ =?utf-8?B?dUVSOXdJUGozQmtBVnpHaktBTEZNZmVhWUs2Y0UzOFhpUU5iaVZZMDF3NnpR?=
+ =?utf-8?B?WDR5MEUzek1JMlRkWWdnY05uSmY0dHNkdW5sSFZOemgxVXVKaVhNVXBDZlVX?=
+ =?utf-8?B?OU5uaVp6TU9wUE4xSGM2UGJtODFveVZuVlhLY2p3dTNBK2dOZ2VzQ05jcncz?=
+ =?utf-8?B?STJQVEl5WjZOUzdaN2laRzI0TnVzdU1Tb3hUb0VSZE5ya1ovS1pmdzRRWjJD?=
+ =?utf-8?B?N09iaVV3Wm1KeHVoa2s5emRtZGltWjMwcmd6L1N5QUliM0N5eGVXTTc2MUpk?=
+ =?utf-8?B?WklaaVUrV2p4cERnK3hhdXhWZWVlRVVHRFFXT3VQWWZ2aWI2RGZMRlF0Rlcv?=
+ =?utf-8?B?RWJrb1ZzOHhFd0hIYlpkT0FNM2w2cVllUVh4RU9tOXRuRXA5Zk1zS1JPeDNw?=
+ =?utf-8?B?VGEvVG0vUkhNVUFLVjFpNWw5bDJ2S3IrMEZPMENtSnJrWWxYY0tuMy9meTZ5?=
+ =?utf-8?B?M2VubGZsTlNuQW9qMXRtNlExT0VGY1ZyNHBSZXVzTlVwMktlTm9paWpjbDJr?=
+ =?utf-8?B?eWdhTUlhOEFUOFhTbFhWekYyRGdYRkVTY1NhZXpoWS94S2dKU2o1Z2JsMDg2?=
+ =?utf-8?B?dmNvZlNxRGc1QURSWS80K0poU0wrUkNrQVI0b0J0bUx5b3YrR0t0VTZKbU5V?=
+ =?utf-8?B?aDVLMnZUWWJYeHgwcXFLcXZkczYyMEFXSncrUVJQNjFZcC8yVWxOQUxDOGtn?=
+ =?utf-8?B?VmFHMjN6L2RwRG5XVzd0T2JLNG9yaTdvdloxUTJaRUYzYkMyRms4VWpVajhz?=
+ =?utf-8?B?c1dZOVZ3YTgxNlpWb1ZoTmh1M3crdTU1WTE3Vk5oQXRaUFhVQ2VNRzYrUXVG?=
+ =?utf-8?B?c1dKL0hkZzNZdDFHeWhxenU3dUdqTFcveGJhbzRuNEhpaXd2YzRPLzZCaTFH?=
+ =?utf-8?B?WnZsQjIzYWNjVUlucnkyc3VlSk4vdHpZb3hUdkIrY3JuY1dSRGdMak5sS2hO?=
+ =?utf-8?B?U2sweTM2MDdvdXJMSzh0TlF4Y0FxQlNZTFV4N3hlUWRXMEYxT1hzR0UrbTBn?=
+ =?utf-8?B?Q3hScXp1enJPRWNjSWhMMW1ESWs1c3dGcEtzd2FYVVNieXd2SUcrUWZORWF6?=
+ =?utf-8?B?MDZCTDRDU2ZHL1BJR3VXVXJKdEJRbEErdWdOQXYzWUc4WmlpMTBTb010UWln?=
+ =?utf-8?B?OFBhUkFjRlhYMjhxRlN3QlJOeG1UM0tVUlFnZkVlQmxSQVF6UEgzdUY4aXVS?=
+ =?utf-8?B?SUZSMTRUTVgrcjlEd0pQREpVb1kvbjlzUHl0TGJ0V0YzQUhBb2lxdWRkY3hL?=
+ =?utf-8?B?MzFRUFFoQjVtOGVDYkdLMThtcERpYU9DTWpFcmE4a1VmZE9nbklRRjJhdVlB?=
+ =?utf-8?B?Mk15eU04NURtUHVxMU0xTk9oQlFGK1NIYUdDRjRMTkF5bUw4VDNFZWdHKzZr?=
+ =?utf-8?B?dzN6bkRZZGJVZytDMjNKckt4cjZwUmhqbWw0TG9nTTg4QmUwT3gvSlNaNGlT?=
+ =?utf-8?B?Y0hRMC9iRlFVcWlzSlRCTjFaS2FDTit4K2d0R05jb2dRY3JEL0YwdEtwNGVu?=
+ =?utf-8?B?WERwWnF2R3MwaGduYXM2WUIwOHFtelROeEFvR1NacjdSSWNsaUEwK2o5T2NV?=
+ =?utf-8?Q?y63uWVk+jms=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZVI5dVdySTZTUG0zd1Q1emw5RStRZzFwV3F0T2JCT3hCRUE0SFh3UUR5RnBv?=
+ =?utf-8?B?TDRHaDdJT0VJR1ZJQysrMXl1Q0c3RFRlTVRydUZ2YmNrblg3cUJEVUs2dy80?=
+ =?utf-8?B?c2N2Q3RQSU1pbTd6MDlLRVNqaGo3SWtPWFYzMklWeGlvLzRPYkRRRXNKMWJk?=
+ =?utf-8?B?bEIwNTlDL1BZd3Jjc3ErODhka0JmUW5MRmgzR3dVOFkvTW1adFJ4elNkbW9M?=
+ =?utf-8?B?aUhrc2ROd3cySGh3NDdtbjRrYi9ScUVhbk5YcmY3eDFyNDlBRUkzTWo1WXpB?=
+ =?utf-8?B?dGI5UnI0UDgyWmV3V3ptcDVnRWVyZm1xWHQwQ0JZbDdwd2xkalZoVXczRVlZ?=
+ =?utf-8?B?amY2em8xTnRwWjNNSlUvUk9hakRNMlJqeUFDVVlnNlN0TWJtRzNWMXk4c2hh?=
+ =?utf-8?B?dkVxREI1TXFaSUFCSXFoS1EvRExKVjRwMGJaTHhlSmttaSswUDNqZU5wZzBr?=
+ =?utf-8?B?WEgrNXFPamFLeVhNNmZMWmtXWndjdStaMDZ3L2I0enFSS2h3RGpTeGRjT3ly?=
+ =?utf-8?B?VXBDNlI0NGtHbURlSVR2RUl1R1krUnF5Z2pGTzVLSTRXNmZzVVNoUnRDNEJu?=
+ =?utf-8?B?R2UwRzVZQ3NZSHNzYkgzSERxVzRJS3lPQ1k0M1lucTBFVEJRYVlURzVEL0dr?=
+ =?utf-8?B?WnZxY2VHZ2VscWJGWXNROENjR3JaeWsxNTJDTFF2R3hwZlFBK3ErSFJYajky?=
+ =?utf-8?B?dThMT2FFeS9xNVlUUXBwYUxZdmtyeXZqSi84eGdvaThXbHEwM3JKbU1WNUVU?=
+ =?utf-8?B?aStrVUU2bUl0UUZ5NGtJSkl4NU1PUXlxSUxKREt5SVJYRE05UWZ5N1h0SVNM?=
+ =?utf-8?B?VUxzbnV2elZEWUlJUGVDeDErdnJRMVphcUNXTThZajVyUHVMUUY5dTZ0dzBu?=
+ =?utf-8?B?aGlPVGxoR0Z2WFpYaUNsSTgxVHBDdFFUREI0L1pvalBKNmk1ZWpLTHk3OVcv?=
+ =?utf-8?B?eERsM1F6MWltMXBqTFI2Uk9mcmhKRzdEM2JDWDBuRCtNd0hlQzJ4cS83Vmlm?=
+ =?utf-8?B?NUQ3NU1WMTdEZ1k4SmVpd0VzV01yOFZ2K3AxWWVjbXljRHVJMU1iYzkrTnpq?=
+ =?utf-8?B?M05lSkQwZVE2eHMwNFUwQUtKODErYmFDQkphTmsrMkYvd3U5YXpTSG9VUldp?=
+ =?utf-8?B?Z05lYlNOZm9Hd2RmQ1ZWQk54a2dxYjN5VS9jZjlLTWU3UmVPeW5ESWxWTnZj?=
+ =?utf-8?B?bE1JWHhUdkFjSTNvSXY4OWI3SldyWTRFcndzcDVLSVh3VTJzNVBNREEwNDhz?=
+ =?utf-8?B?dWVlQzZxRytTc0JoWU5WWHdWaGFuNlFWVzU2dmhMUDhFcURoTUN2bDZ3dUM0?=
+ =?utf-8?B?NlRTQkxGSkxFSlpjdDZESEZDSDNDR0ViVWloMW9WRWxkTCtWNzBnU1E3OTVT?=
+ =?utf-8?B?dlVGenZBUjdXdVdxZkNCMGtkb09VcHNtZnlrRCtnK1VSUlExeVdPMjhVeHZw?=
+ =?utf-8?B?cnNRVHBLUEJ3T3dyUGZOMm5lTFVRSkRtS1JVTWJPai8rM0xEZDFzYm5yME9w?=
+ =?utf-8?B?Ukk1Y0tXUWx6YXJwSzBYeWlZdzNSRVZacEtVMGFlWkJ5eWh4SktJWGMycDhD?=
+ =?utf-8?B?a3NBcTgyZmMvNFFSV0hIS2tSVG15bkg0emE5S2s3WEN6TG9EMnZtby81cjVu?=
+ =?utf-8?B?M0ExUUs4N21wS2o3OXNJNUR1V1I0VXIyWHRyZi9BLzlPcFp6L3pZU0N2bVAr?=
+ =?utf-8?B?dEt6eVVBQ3hRUmUwQnF6aEpnOUt3eXg1THY2cGJnWlBHL3kzb2VFalF6clZV?=
+ =?utf-8?B?Vk9mYzV1T0VWS2R5YWJuWjZsUFRWdDhtR3pOQUd0Y3dsNWFXZ2M1VHZQdmds?=
+ =?utf-8?B?QS80ZHNnNjVGVlBWUVVhZWVGeXBhSnVuWU11NHM1STVna09jdDFyMkhVRmZn?=
+ =?utf-8?B?Z0JycC8wdXhmMlJRODRiREw4aFMzU0ZhaE8yWWFya0trNm53Yzk1ZUpPaGJN?=
+ =?utf-8?B?cnY3d0h3NVd1Q1lwRkg4MVJMbERNSGh1UGxhdG9kV2RETERmNDVPSnhxMFJC?=
+ =?utf-8?B?R2ZyQTFxQ05ZOVFBb0NCcHFzSnQxY25aR1g5QVUvdXRRcStjNllxa29MRDlZ?=
+ =?utf-8?B?S3l4dzZtSUg5b3MzU21jU1RtYTlLRmFHdXlucXdvL3d3K0laR0ZLeXFCWmhH?=
+ =?utf-8?Q?Sm8MmLUk7iNkMJhTxdSz/fAru?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6aae8776-a8ef-44ee-0214-08ddbe13feeb
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 11:38:46.0747 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2g4MrbCZRozqg3bj7aSe2lxzjXymw2wPrf8thHN+EgYEmGv8cb9j2LhzXZveGMVu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4425
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,200 +162,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
 
-I see the below on -rc5 + tip, on a RN machine.
 
----
+On 08.07.25 12:15, Sunil Khatri wrote:
+> Fix undefined reference to amdgpu_mqd_info_fops during
+> debugfs_create_file if DEBUG_FS=n
+> 
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 
-[    5.592468] cdc_ncm 2-2:2.0 eth0: register 'cdc_ncm' at usb-0000:03:00.3=
--2, CDC NCM (NO ZLP), f8:e4:3b:33:37:71
-[    5.593133] usbcore: registered new interface driver cdc_ncm
-[    5.597944] usbcore: registered new interface driver cdc_wdm
-[    5.600108] usbcore: registered new interface driver cdc_mbim
-[    6.912317] ------------[ cut here ]------------
-[    6.912377] WARNING: drivers/gpu/drm/drm_gem.c:286 at drm_gem_object_han=
-dle_put_unlocked+0xb1/0xf0 [drm], CPU#1: Xorg/629
-[    6.912429] Modules linked in: cdc_mbim(E) cdc_wdm(E) cdc_ncm(E) cdc_eth=
-er(E) amd_atl(E) nls_ascii(E) nls_cp437(E) vfat(E) fat(E) joydev(E) amdgpu(=
-E) edac_mce_amd(E) snd_hda_codec_realtek(E) snd_hda_codec_generic(E) snd_hd=
-a_scodec_component(E) snd_hda_codec_hdmi(E) rtw88_8822ce(E) hid_multitouch(=
-E) amdxcp(E) kvm_amd(E) sha3_generic(E) rtw88_8822c(E) i2c_algo_bit(E) rtw8=
-8_pci(E) drm_client_lib(E) snd_hda_intel(E) drm_ttm_helper(E) rtw88_core(E)=
- jitterentropy_rng(E) hid_generic(E) snd_intel_dspcfg(E) tpm_crb(E) wmi_bmo=
-f(E) drbg(E) ttm(E) kvm(E) snd_hda_codec(E) drm_exec(E) mac80211(E) irqbypa=
-ss(E) snd_hwdep(E) snd_hda_core(E) ghash_clmulni_intel(E) gpu_sched(E) liba=
-rc4(E) aesni_intel(E) snd_pcm(E) drm_suballoc_helper(E) drm_panel_backlight=
-_quirks(E) sp5100_tco(E) rapl(E) cec(E) snd_timer(E) watchdog(E) cfg80211(E=
-) drm_buddy(E) snd_rn_pci_acp3x(E) ucsi_acpi(E) snd_acp_config(E) drm_displ=
-ay_helper(E) pcspkr(E) i2c_piix4(E) xhci_pci(E) snd_soc_acpi(E) acpi_cpufre=
-q(E) snd(E) video(E) typec_ucsi(E) roles(E) drm_kms_helper(E)
-[    6.912495]  ccp(E) soundcore(E) snd_pci_acp3x(E) xhci_hcd(E) k10temp(E)=
- rfkill(E) i2c_smbus(E) typec(E) battery(E) wmi(E) tpm_tis(E) i2c_hid_acpi(=
-E) tpm_tis_core(E) i2c_hid(E) hid(E) ac(E) button(E) fuse(E) drm(E) efi_pst=
-ore(E) tpm(E) libaescfb(E) ecdh_generic(E) ecc(E) rng_core(E) autofs4(E) ev=
-dev(E) serio_raw(E)
-[    6.912538] CPU: 1 UID: 0 PID: 629 Comm: Xorg Tainted: G            E   =
-    6.16.0-rc5+ #1 PREEMPT(voluntary)=20
-[    6.912542] Tainted: [E]=3DUNSIGNED_MODULE
-[    6.912544] Hardware name: HP HP ProBook 635 Aero G7 Notebook PC/8830, B=
-IOS S84 Ver. 01.05.00 05/14/2021
-[    6.912547] RIP: 0010:drm_gem_object_handle_put_unlocked+0xb1/0xf0 [drm]
-[    6.912573] Code: 55 d1 1e f3 48 89 ef e8 fd 22 1e f3 eb d8 48 8b 43 08 =
-48 8d b8 f8 0c 00 00 e8 cb 85 1a f3 c7 83 18 01 00 00 00 00 00 00 eb 98 <0f=
-> 0b 5b 5d e9 26 d1 1e f3 48 8b 83 f8 01 00 00 48 8b 00 48 85 c0
-[    6.912575] RSP: 0018:ffffb5ebc32e3ba0 EFLAGS: 00010246
-[    6.912578] RAX: 0000000000000000 RBX: 0000000000000001 RCX: ffffb5ebc32=
-e3b1c
-[    6.912581] RDX: 0000000000000000 RSI: ffff9efb8cb005e8 RDI: ffff9efb861=
-cd448
-[    6.912583] RBP: ffff9efb8cb00010 R08: 0000000000000001 R09: ffff9efb8cb=
-00610
-[    6.912584] R10: 0000000000000000 R11: ffffb5ebc32e3b58 R12: ffff9efb8c2=
-41700
-[    6.912586] R13: 00000000ffffffdd R14: ffffb5ebc32e3c80 R15: ffff9efb8cb=
-00010
-[    6.912588] FS:  00007f320acb2b00(0000) GS:ffff9efcd29b8000(0000) knlGS:=
-0000000000000000
-[    6.912591] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    6.912593] CR2: 00005605532d6164 CR3: 000000000bee9000 CR4: 00000000003=
-50ef0
-[    6.912595] Call Trace:
-[    6.912597]  <TASK>
-[    6.912599]  drm_gem_fb_destroy+0x2c/0x50 [drm_kms_helper]
-[    6.912616]  drm_mode_cursor_universal+0x10d/0x2a0 [drm]
-[    6.912647]  drm_mode_cursor_common.part.0+0xb0/0x200 [drm]
-[    6.912676]  ? __pfx_drm_mode_cursor2_ioctl+0x10/0x10 [drm]
-[    6.912700]  drm_ioctl_kernel+0xa9/0x100 [drm]
-[    6.912728]  drm_ioctl+0x275/0x520 [drm]
-[    6.912752]  ? __pfx_drm_mode_cursor2_ioctl+0x10/0x10 [drm]
-[    6.912777]  ? lock_release+0xc6/0x290
-[    6.912783]  ? _raw_spin_unlock_irqrestore+0x44/0x60
-[    6.912789]  amdgpu_drm_ioctl+0x4e/0x90 [amdgpu]
-[    6.913114]  __x64_sys_ioctl+0x85/0xd0
-[    6.913120]  do_syscall_64+0x6a/0x2e0
-[    6.913125]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[    6.913128] RIP: 0033:0x7f320b0338db
-[    6.913131] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 =
-00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89=
-> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-[    6.913134] RSP: 002b:00007ffd66400810 EFLAGS: 00000246 ORIG_RAX: 000000=
-0000000010
-[    6.913137] RAX: ffffffffffffffda RBX: 00007ffd664008a0 RCX: 00007f320b0=
-338db
-[    6.913139] RDX: 00007ffd664008a0 RSI: 00000000c02464bb RDI: 00000000000=
-0000f
-[    6.913141] RBP: 00007ffd664008a0 R08: 00007f320a8cbb20 R09: 00000000000=
-00001
-[    6.913143] R10: 000000000000004b R11: 0000000000000246 R12: 00000000c02=
-464bb
-[    6.913145] R13: 000000000000000f R14: 0000000000000001 R15: 00005605530=
-01d10
-[    6.913152]  </TASK>
-[    6.913153] irq event stamp: 354561
-[    6.913155] hardirqs last  enabled at (354569): [<ffffffffb2b951f2>] __u=
-p_console_sem+0x52/0x60
-[    6.913159] hardirqs last disabled at (354576): [<ffffffffb2b951d7>] __u=
-p_console_sem+0x37/0x60
-[    6.913161] softirqs last  enabled at (352542): [<ffffffffb2aeb586>] __i=
-rq_exit_rcu+0x96/0xc0
-[    6.913165] softirqs last disabled at (352537): [<ffffffffb2aeb586>] __i=
-rq_exit_rcu+0x96/0xc0
-[    6.913167] ---[ end trace 0000000000000000 ]---
-[    6.913288] ------------[ cut here ]------------
-[    6.913290] WARNING: drivers/gpu/drm/drm_gem.c:286 at drm_gem_object_han=
-dle_put_unlocked+0xb1/0xf0 [drm], CPU#1: Xorg/629
-[    6.913318] Modules linked in: cdc_mbim(E) cdc_wdm(E) cdc_ncm(E) cdc_eth=
-er(E) amd_atl(E) nls_ascii(E) nls_cp437(E) vfat(E) fat(E) joydev(E) amdgpu(=
-E) edac_mce_amd(E) snd_hda_codec_realtek(E) snd_hda_codec_generic(E) snd_hd=
-a_scodec_component(E) snd_hda_codec_hdmi(E) rtw88_8822ce(E) hid_multitouch(=
-E) amdxcp(E) kvm_amd(E) sha3_generic(E) rtw88_8822c(E) i2c_algo_bit(E) rtw8=
-8_pci(E) drm_client_lib(E) snd_hda_intel(E) drm_ttm_helper(E) rtw88_core(E)=
- jitterentropy_rng(E) hid_generic(E) snd_intel_dspcfg(E) tpm_crb(E) wmi_bmo=
-f(E) drbg(E) ttm(E) kvm(E) snd_hda_codec(E) drm_exec(E) mac80211(E) irqbypa=
-ss(E) snd_hwdep(E) snd_hda_core(E) ghash_clmulni_intel(E) gpu_sched(E) liba=
-rc4(E) aesni_intel(E) snd_pcm(E) drm_suballoc_helper(E) drm_panel_backlight=
-_quirks(E) sp5100_tco(E) rapl(E) cec(E) snd_timer(E) watchdog(E) cfg80211(E=
-) drm_buddy(E) snd_rn_pci_acp3x(E) ucsi_acpi(E) snd_acp_config(E) drm_displ=
-ay_helper(E) pcspkr(E) i2c_piix4(E) xhci_pci(E) snd_soc_acpi(E) acpi_cpufre=
-q(E) snd(E) video(E) typec_ucsi(E) roles(E) drm_kms_helper(E)
-[    6.913380]  ccp(E) soundcore(E) snd_pci_acp3x(E) xhci_hcd(E) k10temp(E)=
- rfkill(E) i2c_smbus(E) typec(E) battery(E) wmi(E) tpm_tis(E) i2c_hid_acpi(=
-E) tpm_tis_core(E) i2c_hid(E) hid(E) ac(E) button(E) fuse(E) drm(E) efi_pst=
-ore(E) tpm(E) libaescfb(E) ecdh_generic(E) ecc(E) rng_core(E) autofs4(E) ev=
-dev(E) serio_raw(E)
-[    6.913408] CPU: 1 UID: 0 PID: 629 Comm: Xorg Tainted: G        W   E   =
-    6.16.0-rc5+ #1 PREEMPT(voluntary)=20
-[    6.913412] Tainted: [W]=3DWARN, [E]=3DUNSIGNED_MODULE
-[    6.913414] Hardware name: HP HP ProBook 635 Aero G7 Notebook PC/8830, B=
-IOS S84 Ver. 01.05.00 05/14/2021
-[    6.913416] RIP: 0010:drm_gem_object_handle_put_unlocked+0xb1/0xf0 [drm]
-[    6.913438] Code: 55 d1 1e f3 48 89 ef e8 fd 22 1e f3 eb d8 48 8b 43 08 =
-48 8d b8 f8 0c 00 00 e8 cb 85 1a f3 c7 83 18 01 00 00 00 00 00 00 eb 98 <0f=
-> 0b 5b 5d e9 26 d1 1e f3 48 8b 83 f8 01 00 00 48 8b 00 48 85 c0
-[    6.913441] RSP: 0018:ffffb5ebc32e3ba0 EFLAGS: 00010246
-[    6.913443] RAX: 0000000000000000 RBX: 0000000000000001 RCX: ffffb5ebc32=
-e3b1c
-[    6.913445] RDX: 0000000000000000 RSI: ffff9efb8cb005e8 RDI: ffff9efb861=
-cd448
-[    6.913447] RBP: ffff9efb8cb00010 R08: 0000000000000001 R09: ffff9efb8cb=
-00610
-[    6.913449] R10: 0000000000000000 R11: ffffb5ebc32e3b58 R12: ffff9efb8c2=
-41700
-[    6.913451] R13: 00000000ffffffdd R14: ffffb5ebc32e3c80 R15: ffff9efb8cb=
-00010
-[    6.913453] FS:  00007f320acb2b00(0000) GS:ffff9efcd29b8000(0000) knlGS:=
-0000000000000000
-[    6.913455] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    6.913457] CR2: 00005605532d6164 CR3: 000000000bee9000 CR4: 00000000003=
-50ef0
-[    6.913459] Call Trace:
-[    6.913461]  <TASK>
-[    6.913464]  drm_gem_fb_destroy+0x2c/0x50 [drm_kms_helper]
-[    6.913477]  drm_mode_cursor_universal+0x10d/0x2a0 [drm]
-[    6.913506]  drm_mode_cursor_common.part.0+0xb0/0x200 [drm]
-[    6.913534]  ? __pfx_drm_mode_cursor2_ioctl+0x10/0x10 [drm]
-[    6.913557]  drm_ioctl_kernel+0xa9/0x100 [drm]
-[    6.913583]  drm_ioctl+0x275/0x520 [drm]
-[    6.913607]  ? __pfx_drm_mode_cursor2_ioctl+0x10/0x10 [drm]
-[    6.913631]  ? lock_release+0xc6/0x290
-[    6.913637]  ? _raw_spin_unlock_irqrestore+0x44/0x60
-[    6.913642]  amdgpu_drm_ioctl+0x4e/0x90 [amdgpu]
-[    6.913818]  __x64_sys_ioctl+0x85/0xd0
-[    6.913823]  do_syscall_64+0x6a/0x2e0
-[    6.913828]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[    6.913830] RIP: 0033:0x7f320b0338db
-[    6.913832] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 =
-00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89=
-> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-[    6.913835] RSP: 002b:00007ffd66400810 EFLAGS: 00000246 ORIG_RAX: 000000=
-0000000010
-[    6.913838] RAX: ffffffffffffffda RBX: 00007ffd664008a0 RCX: 00007f320b0=
-338db
-[    6.913839] RDX: 00007ffd664008a0 RSI: 00000000c02464bb RDI: 00000000000=
-0000f
-[    6.913841] RBP: 00007ffd664008a0 R08: 00007f320a8cbb20 R09: 00000000000=
-00001
-[    6.913843] R10: 000000000000004b R11: 0000000000000246 R12: 00000000c02=
-464bb
-[    6.913845] R13: 000000000000000f R14: 0000000000000001 R15: 00005605530=
-01d10
-[    6.913852]  </TASK>
-[    6.913853] irq event stamp: 355561
-[    6.913855] hardirqs last  enabled at (355569): [<ffffffffb2b951f2>] __u=
-p_console_sem+0x52/0x60
-[    6.913858] hardirqs last disabled at (355576): [<ffffffffb2b951d7>] __u=
-p_console_sem+0x37/0x60
-[    6.913861] softirqs last  enabled at (352542): [<ffffffffb2aeb586>] __i=
-rq_exit_rcu+0x96/0xc0
-[    6.913864] softirqs last disabled at (352537): [<ffffffffb2aeb586>] __i=
-rq_exit_rcu+0x96/0xc0
-[    6.913866] ---[ end trace 0000000000000000 ]---
-[   45.744032]     percentage:          78%
-[  225.782261]     percentage:          79%
+Yeah, that's exactly the reason why I wanted to put this into amdgpu_debugfs.c.
 
---=20
-Regards/Gruss,
-    Boris.
+For now Reviewed-by: Christian König <christian.koenig@amd.com>, but we should clean that up at some point.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+Going to push the patch to drm-misc-next now.
+
+Regards,
+Christian.
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> index 115d53bc9a8d..b1b80efc7993 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -319,8 +319,9 @@ amdgpu_userq_destroy(struct drm_file *filp, int queue_id)
+>  	}
+>  	amdgpu_bo_unref(&queue->db_obj.obj);
+>  
+> +#if defined(CONFIG_DEBUG_FS)
+>  	debugfs_remove_recursive(queue->debugfs_queue);
+> -
+> +#endif
+>  	r = amdgpu_userq_unmap_helper(uq_mgr, queue);
+>  	amdgpu_userq_cleanup(uq_mgr, queue, queue_id);
+>  	mutex_unlock(&uq_mgr->userq_mutex);
+> @@ -523,9 +524,11 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>  	if (!queue_name)
+>  		return -ENOMEM;
+>  
+> +#if defined(CONFIG_DEBUG_FS)
+>  	/* Queue dentry per client to hold MQD information   */
+>  	queue->debugfs_queue = debugfs_create_dir(queue_name, filp->debugfs_client);
+>  	debugfs_create_file("mqd_info", 0444, queue->debugfs_queue, queue, &amdgpu_mqd_info_fops);
+> +#endif
+>  	kfree(queue_name);
+>  
+>  	args->out.queue_id = qid;
+
