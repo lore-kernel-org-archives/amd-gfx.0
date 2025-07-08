@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99BC7C83F10
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 09:51:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC225C83F0F
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 09:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E934310E336;
-	Tue,  8 Jul 2025 09:51:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46C9C10E5D7;
+	Tue,  8 Jul 2025 09:51:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SByZ+0az";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WB8IqNhH";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88AFB10E5C3;
- Tue,  8 Jul 2025 09:51:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2AEF10E155;
+ Tue,  8 Jul 2025 09:51:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=ZoqpIl4+r/O7gOpNZHn0vOD8A4Dooj1YMggoqyBFfIQ=; b=SByZ+0azy6sMxfMR/NXCQ+SWEP
- SmBa0J++lS/5w7nSTJ4IhBZktBwWZxMxWoW4Ntuxjp89GJo0aXXZ3dMsxVzTlPfFBD08e3fXqEBl2
- Mm7VVpyhyKr6GbcCZYblCCsAYjfZabYHJGlcZ9FTRA7Cj4QjFOyASxs7TtZy54q7fFittxHlhZcW2
- 99mpf/AJaRCpyOhP6SwEPv/A1031d6UpIl48Z24bXfOP7LY1316S8dOpqzxqUYuMAqwMyJUyCSpYS
- 4rqK36zgru+tuRsdfMd0pEjHZpKDWgDzxNzVOblu559qkZp+Y6OjFeKPF4FsLSSlEffHeLMzeKgJA
- opgjchVg==;
+ bh=8bQtEuMRUigy0j+y0P+UgKEcBYWWReGSyZkAPX3/x4M=; b=WB8IqNhH5vBZZSOEGsIcJG4t9N
+ vCW2VMyjinoLRvpYciLS733sSof6B06YqqrnlwE+iuE0lqpTLoRpkCy17kEnooRzqHrX7p8Lsxy+R
+ Qk5JEwbnWI3VMZu6rxByj4OvEkXbZBLsmD2wYvYM5+/+Twp88fpONSy7WrYYra7U4pIZbf6PgDydH
+ 8B/eJ9g9KBYoydct/ERIVgjL3Auyt4r4WiT5uqDz56B/cN0atDafMbQgA+DI9+9/u2lKk3tC46jB7
+ BL/G59148HTxnKJ8EaV77JPmp6f3HGDZd9O9KLs5mF+jM5aHQ4bpdYfxFkdj/sDUVDNg8MJNxm4SL
+ 9JXXMIsQ==;
 Received: from [84.65.48.237] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uZ4zQ-00Dx3K-P0; Tue, 08 Jul 2025 11:51:52 +0200
+ id 1uZ4zS-00Dx3T-5H; Tue, 08 Jul 2025 11:51:54 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -40,9 +40,9 @@ Cc: intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v6 03/15] drm/sched: Avoid double re-lock on the job free path
-Date: Tue,  8 Jul 2025 10:51:35 +0100
-Message-ID: <20250708095147.73366-4-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v6 05/15] drm/sched: Consolidate drm_sched_rq_select_entity_rr
+Date: Tue,  8 Jul 2025 10:51:37 +0100
+Message-ID: <20250708095147.73366-6-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250708095147.73366-1-tvrtko.ursulin@igalia.com>
 References: <20250708095147.73366-1-tvrtko.ursulin@igalia.com>
@@ -63,14 +63,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently the job free work item will lock sched->job_list_lock first time
-to see if there are any jobs, free a single job, and then lock again to
-decide whether to re-queue itself if there are more finished jobs.
-
-Since drm_sched_get_finished_job() already looks at the second job in the
-queue we can simply add the signaled check and have it return the presence
-of more jobs to free to the caller. That way the work item does not have
-to lock the list again and repeat the signaled check.
+Extract out two copies of the identical code to function epilogue to make
+it smaller and more readable.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
@@ -78,99 +72,79 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 37 ++++++++++----------------
- 1 file changed, 14 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 48 +++++++++++---------------
+ 1 file changed, 20 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 1f077782ec12..1bce0b66f89c 100644
+index 2335df4de2b8..9212ebae7476 100644
 --- a/drivers/gpu/drm/scheduler/sched_main.c
 +++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -366,22 +366,6 @@ static void __drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
- 		queue_work(sched->submit_wq, &sched->work_free_job);
- }
- 
--/**
-- * drm_sched_run_free_queue - enqueue free-job work if ready
-- * @sched: scheduler instance
-- */
--static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
--{
--	struct drm_sched_job *job;
+@@ -263,38 +263,14 @@ drm_sched_rq_select_entity_rr(struct drm_gpu_scheduler *sched,
+ 	entity = rq->current_entity;
+ 	if (entity) {
+ 		list_for_each_entry_continue(entity, &rq->entities, list) {
+-			if (drm_sched_entity_is_ready(entity)) {
+-				/* If we can't queue yet, preserve the current
+-				 * entity in terms of fairness.
+-				 */
+-				if (!drm_sched_can_queue(sched, entity)) {
+-					spin_unlock(&rq->lock);
+-					return ERR_PTR(-ENOSPC);
+-				}
 -
--	spin_lock(&sched->job_list_lock);
--	job = list_first_entry_or_null(&sched->pending_list,
--				       struct drm_sched_job, list);
--	if (job && dma_fence_is_signaled(&job->s_fence->finished))
--		__drm_sched_run_free_queue(sched);
--	spin_unlock(&sched->job_list_lock);
--}
--
- /**
-  * drm_sched_job_done - complete a job
-  * @s_job: pointer to the job which is done
-@@ -1102,12 +1086,13 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
-  * drm_sched_get_finished_job - fetch the next finished job to be destroyed
-  *
-  * @sched: scheduler instance
-+ * @have_more: are there more finished jobs on the list
-  *
-  * Returns the next finished job from the pending list (if there is one)
-  * ready for it to be destroyed.
-  */
- static struct drm_sched_job *
--drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
-+drm_sched_get_finished_job(struct drm_gpu_scheduler *sched, bool *have_more)
- {
- 	struct drm_sched_job *job, *next;
- 
-@@ -1115,22 +1100,25 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
- 
- 	job = list_first_entry_or_null(&sched->pending_list,
- 				       struct drm_sched_job, list);
--
- 	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
- 		/* remove job from pending_list */
- 		list_del_init(&job->list);
- 
- 		/* cancel this job's TO timer */
- 		cancel_delayed_work(&sched->work_tdr);
--		/* make the scheduled timestamp more accurate */
-+
-+		*have_more = false;
- 		next = list_first_entry_or_null(&sched->pending_list,
- 						typeof(*next), list);
--
- 		if (next) {
-+			/* make the scheduled timestamp more accurate */
- 			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
- 				     &next->s_fence->scheduled.flags))
- 				next->s_fence->scheduled.timestamp =
- 					dma_fence_timestamp(&job->s_fence->finished);
-+
-+			*have_more = dma_fence_is_signaled(&next->s_fence->finished);
-+
- 			/* start TO timer for next job */
- 			drm_sched_start_timeout(sched);
+-				rq->current_entity = entity;
+-				reinit_completion(&entity->entity_idle);
+-				spin_unlock(&rq->lock);
+-				return entity;
+-			}
++			if (drm_sched_entity_is_ready(entity))
++				goto found;
  		}
-@@ -1189,12 +1177,15 @@ static void drm_sched_free_job_work(struct work_struct *w)
- 	struct drm_gpu_scheduler *sched =
- 		container_of(w, struct drm_gpu_scheduler, work_free_job);
- 	struct drm_sched_job *job;
-+	bool have_more;
+ 	}
  
--	job = drm_sched_get_finished_job(sched);
--	if (job)
-+	job = drm_sched_get_finished_job(sched, &have_more);
-+	if (job) {
- 		sched->ops->free_job(job);
-+		if (have_more)
-+			__drm_sched_run_free_queue(sched);
+ 	list_for_each_entry(entity, &rq->entities, list) {
+-		if (drm_sched_entity_is_ready(entity)) {
+-			/* If we can't queue yet, preserve the current entity in
+-			 * terms of fairness.
+-			 */
+-			if (!drm_sched_can_queue(sched, entity)) {
+-				spin_unlock(&rq->lock);
+-				return ERR_PTR(-ENOSPC);
+-			}
+-
+-			rq->current_entity = entity;
+-			reinit_completion(&entity->entity_idle);
+-			spin_unlock(&rq->lock);
+-			return entity;
+-		}
++		if (drm_sched_entity_is_ready(entity))
++			goto found;
+ 
+ 		if (entity == rq->current_entity)
+ 			break;
+@@ -303,6 +279,22 @@ drm_sched_rq_select_entity_rr(struct drm_gpu_scheduler *sched,
+ 	spin_unlock(&rq->lock);
+ 
+ 	return NULL;
++
++found:
++	if (!drm_sched_can_queue(sched, entity)) {
++		/*
++		 * If scheduler cannot take more jobs signal the caller to not
++		 * consider lower priority queues.
++		 */
++		entity = ERR_PTR(-ENOSPC);
++	} else {
++		rq->current_entity = entity;
++		reinit_completion(&entity->entity_idle);
 +	}
- 
--	drm_sched_run_free_queue(sched);
- 	drm_sched_run_job_queue(sched);
++
++	spin_unlock(&rq->lock);
++
++	return entity;
  }
  
+ /**
 -- 
 2.48.0
 
