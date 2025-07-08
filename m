@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 073A4C83F12
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 521BCC8303C
 	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 09:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E63510E5E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECB410E5E4;
 	Tue,  8 Jul 2025 09:51:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kkTIZq/M";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ObtKcHGp";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 987E810E155;
- Tue,  8 Jul 2025 09:51:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55A8810E5DB;
+ Tue,  8 Jul 2025 09:51:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=qN89fSksm32elucbuhJee3xSd+VhpQR22G6Is05G6sA=; b=kkTIZq/M0H1uy33YHlshAd5Hci
- i7c3JsN335HqGy6oqmae6mnzqZuJSLPaMgWHPe37p51VCgz33tjvPN/M5+MJlj0By4maGPCKDoy0e
- 2OVqCXnc1kpQE3jGEL4wxeneqUMV7Pnd7dLOfJpG7SumqY4Kta/fr4uFIHvbwgM6NWmM3e33EElQm
- WXZwrlmxQ1pgMhtgG2ydZxdmS238EmJE8MEsRg+b63WXFoiW0EnVOkFe+J+gYa+AZaYYpnG77Sdae
- 9igBN900Fo1KMD/ugtgfHGzWOajiAN8ZLv/fUeiQe+Bc24oO29mLBYP1WjVC0z7S56iu+Z3nip2ZN
- u1w79Bcg==;
+ bh=VRrRB6xh67vAjNQa4s3iw93wSVpNSu2jNp5D+im6TmE=; b=ObtKcHGpKQita6N9tSVrF2OqAG
+ cBMc/QLn8murdsYETgGOFecuJCkRnkCFhomYiyTguyXbNAlvF6LZdnCevF1jHVJcKHOhZJUN6PPsa
+ dI6Ea48ZEqDUAXn4REyCqnVCG+tXIcsbHfxg+SCKBNyyv7fDWcpSmK95nzCkKQhzkdHg93/KfNgdL
+ ZMSk8jQtqX7Au47BFOT3eozfIprNVOf4C1gYZHKS4hwuJ4SEXZdhVY2uz+uK1g4oS7Edda3Ey8dxr
+ s+z8OEqJHfeFzPSsoDHvqCJgB2O9BWHMQWObY8JxCjyNvAQ8kOXU8HjAohJKmeVDUDkJMcl7GV6S2
+ +jc8X1JQ==;
 Received: from [84.65.48.237] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uZ4zO-00Dx34-HK; Tue, 08 Jul 2025 11:51:50 +0200
+ id 1uZ4zT-00Dx3m-IR; Tue, 08 Jul 2025 11:51:55 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Leo Liu <Leo.Liu@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Subject: [PATCH v6 00/15] Fair DRM scheduler
-Date: Tue,  8 Jul 2025 10:51:32 +0100
-Message-ID: <20250708095147.73366-1-tvrtko.ursulin@igalia.com>
+ Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH v6 07/15] drm/sched: Consolidate entity run queue management
+Date: Tue,  8 Jul 2025 10:51:39 +0100
+Message-ID: <20250708095147.73366-8-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250708095147.73366-1-tvrtko.ursulin@igalia.com>
+References: <20250708095147.73366-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -63,225 +63,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As a summary, the new scheduling algorithm is insipired by the original Linux
-CFS and so far no scheduling regressions have been found. There are improvements
-in fairness and scheduling of interactive clients when running in parallel with
-a heavy GPU load (for example Pierre-Eric has one viewperf medical test which
-shows a nice improvement with amdgpu).
+Move the code dealing with entities entering and exiting run queues to
+helpers to logically separate it from jobs entering and exiting entities.
 
-On the high level main advantages of the series are:
-
- 1. Scheduling quality - schedules better than FIFO, solves priority starvation.
- 2. Code simplification - no more multiple run queues and multiple algorithms.
- 3. Virtual GPU time based scheduling enables relatively simple addition
-    of a scheduling cgroup controller in the future.
-
-There is a little bit more detailed write up on the motivation and results in
-the form of a blog post which may be easier to read:
-https://blogs.igalia.com/tursulin/fair-er-drm-gpu-scheduler/
-
-First patches add some unit tests which allow for easy evaluation of scheduling
-behaviour against different client submission patterns. From there onwards it is
-hopefully a natural progression of cleanups, enablers, adding the fair policy,
-and finally removing FIFO and RR and simplifying the code base due no more need
-for multiple run queues.
-
-As a headline result I have tested three simultaneous clients on the Steam Deck:
-
-One instance of a deferredmultisampling Vulkan demo running with low priority,
-one normal priority instance of the same demo, and the Unigine Heaven benchmark.
-
-With the FIFO scheduler we can see that the low priority client is completely
-starved and the GPU time distribution between the other two clients is uneven:
-
-https://people.igalia.com/tursulin/drm-sched-fair/fifo-starvation.png
-
-Switching to the fair scheduler, GPU time distribution is almost equal and the
-low priority client does get a small share of the GPU:
-
-https://people.igalia.com/tursulin/drm-sched-fair/fair-no-starvation.png
-
-Moving onto the synthetic submission patterns, they are about two simultaneous
-clients which broadly cover the following categories:
-
- * Deep queue clients
- * Hogs versus interactive
- * Priority handling
-
-Lets look at the results:
-
-1. Two normal priority deep queue clients.
-
-These ones submit one second worth of 8ms jobs. As fast as they can, no
-dependencies etc. There is no difference in runtime between FIFO and fair but
-the latter allows both clients to progress with work more evenly:
-
-https://people.igalia.com/tursulin/drm-sched-fair/normal-normal.png
-
-(X axis is time, Y is submitted queue-depth, hence lowering of qd corresponds
-  with work progress for both clients, tested with both schedulers separately.)
-
-2. Same two clients but one is now low priority.
-
-https://people.igalia.com/tursulin/drm-sched-fair/normal-low.png
-
-Normal priority client is a solid line, low priority dotted. We can see how FIFO
-completely starves the low priority client until the normal priority is fully
-done. Only then the low priority client gets any GPU time.
-
-In constrast, fair scheduler allows some GPU time to the low priority client.
-
-3. Same clients but now high versus normal priority.
-
-Similar behaviour as in the previous one with normal a bit less de-prioritised
-relative to high, than low was against normal.
-
-https://people.igalia.com/tursulin/drm-sched-fair/high-normal.png
-
-4. Heavy load vs interactive client.
-
-Heavy client emits a 75% GPU load in the format of 3x 2.5ms jobs followed by a
-2.5ms wait. Interactive client emits a 10% GPU load in the format of 1x 1ms job
-followed by a 9ms wait.
-
-This simulates an interactive graphical client used on top of a relatively heavy
-background load but no GPU oversubscription.
-
-Graphs show the interactive client only and from now on, instead of looking at
-the client's queue depth, we look at its "fps".
-
-https://people.igalia.com/tursulin/drm-sched-fair/heavy-interactive.png
-
-We can see that fair scheduler allows a higher fps for the interactive client
-which is good.
-
-5. An even heavier load vs interactive client.
-
-This one is oversubscribing the GPU by submitting 4x 50ms jobs and waiting for
-only one microsecond before repeating the cycle. Interactive client is thje same
-10% as above.
-
-https://people.igalia.com/tursulin/drm-sched-fair/veryheavy-interactive.png
-
-Here the difference is even more dramatic with fair scheduler enabling ~3x the
-framerate for the interactive client.
-
-6. Low priority GPU hog versus heavy-interactive.
-
-Low priority client: 3x 2.5ms jobs client followed by a 0.5ms wait.
-Interactive client: 1x 0.5ms job followed by a 10ms wait.
-
-https://people.igalia.com/tursulin/drm-sched-fair/lowhog-interactive.png
-
-Slight win for the fair scheduler but could be just noise.
-
-7. Last set of test scenarios will have three subgroups.
-
-In all cases we have two interactive (synchronous, single job at a time) clients
-with a 50% "duty cycle" GPU time usage.
-
-Client 1: 1.5ms job + 1.5ms wait (aka short bursty)
-Client 2: 2.5ms job + 2.5ms wait (aka long bursty)
-
-a) Both normal priority.
-
-https://people.igalia.com/tursulin/drm-sched-fair/5050-short.png
-https://people.igalia.com/tursulin/drm-sched-fair/5050-long.png
-
-Both schedulers favour the higher frequency duty cycle with fair giving it a
-little bit more which should be good for interactivity.
-
-b) Normal vs low priority.
-
-https://people.igalia.com/tursulin/drm-sched-fair/5050-normal-low-normal.png
-https://people.igalia.com/tursulin/drm-sched-fair/5050-normal-low-low.png
-
-Fair scheduler gives a bit more GPU time to the normal priority client which is
-again good.
-
-c) High vs normal priority.
-
-https://people.igalia.com/tursulin/drm-sched-fair/5050-high-normal-high.png
-https://people.igalia.com/tursulin/drm-sched-fair/5050-high-normal-normal.png
-
-Again, fair scheduler gives a bit more share to the higher priority client.
-
-As before, I am looking for feedback, ideas for what other kinds of submission
-scenarios to test, testing on different GPUs and of course reviews.
-
-v2:
- * Fixed many rebase errors.
- * Added some new patches.
- * Dropped single shot dependecy handling.
-
-v3:
- * Added scheduling quality unit tests.
- * Refined a tiny bit by adding some fairness.
- * Dropped a few patches for now.
-
-v4:
- * Replaced deadline with fair!
- * Refined scheduling quality unit tests.
- * Pulled one cleanup patch earlier.
- * Fixed "drm/sched: Avoid double re-lock on the job free path".
-
-v5:
- * Rebase on top of latest upstream DRM scheduler changes.
- * Kerneldoc fixup.
- * Improve commit message justification for one patch. (Philipp)
- * Add comment in drm_sched_alloc_wq. (Christian)
-
-v6:
- * Rebase for "drm/sched: De-clutter drm_sched_init" getting merged.
- * Avoid NULL rq dereference from a bad rebase. (Maira)
- * Added some kerneldoc throughout. (Maira)
- * Removed some lockdep annotations not belonging to one patch. (Maira)
- * Use dma_fence_is_signaled in "drm/sched: Avoid double re-lock on the job free path". (Maira, Philipp)
-
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
-CC: Leo Liu <Leo.Liu@amd.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Michel Dänzer <michel.daenzer@mailbox.org>
+---
+ drivers/gpu/drm/scheduler/sched_entity.c   | 59 ++------------
+ drivers/gpu/drm/scheduler/sched_internal.h |  8 +-
+ drivers/gpu/drm/scheduler/sched_main.c     | 90 +++++++++++++++++++---
+ 3 files changed, 86 insertions(+), 71 deletions(-)
 
-Tvrtko Ursulin (15):
-  drm/sched: Add some scheduling quality unit tests
-  drm/sched: Add some more scheduling quality unit tests
-  drm/sched: Avoid double re-lock on the job free path
-  drm/sched: Consolidate drm_sched_job_timedout
-  drm/sched: Consolidate drm_sched_rq_select_entity_rr
-  drm/sched: Implement RR via FIFO
-  drm/sched: Consolidate entity run queue management
-  drm/sched: Move run queue related code into a separate file
-  drm/sched: Free all finished jobs at once
-  drm/sched: Account entity GPU time
-  drm/sched: Remove idle entity from tree
-  drm/sched: Add fair scheduling policy
-  drm/sched: Remove FIFO and RR and simplify to a single run queue
-  drm/sched: Queue all free credits in one worker invocation
-  drm/sched: Embed run queue singleton into the scheduler
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   8 +-
- drivers/gpu/drm/scheduler/Makefile            |   2 +-
- drivers/gpu/drm/scheduler/sched_entity.c      | 131 ++-
- drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
- drivers/gpu/drm/scheduler/sched_internal.h    | 146 +++-
- drivers/gpu/drm/scheduler/sched_main.c        | 548 +++---------
- drivers/gpu/drm/scheduler/sched_rq.c          | 221 +++++
- drivers/gpu/drm/scheduler/tests/Makefile      |   3 +-
- .../gpu/drm/scheduler/tests/tests_scheduler.c | 815 ++++++++++++++++++
- include/drm/gpu_scheduler.h                   |  31 +-
- 15 files changed, 1396 insertions(+), 565 deletions(-)
- create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
- create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 04350097f85f..e42526aa22dc 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -470,19 +470,9 @@ drm_sched_job_dependency(struct drm_sched_job *job,
+ 	return NULL;
+ }
+ 
+-static ktime_t
+-drm_sched_rq_get_rr_deadline(struct drm_sched_rq *rq)
+-{
+-	lockdep_assert_held(&rq->lock);
+-
+-	rq->rr_deadline = ktime_add_ns(rq->rr_deadline, 1);
+-
+-	return rq->rr_deadline;
+-}
+-
+ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ {
+-	struct drm_sched_job *sched_job, *next_job;
++	struct drm_sched_job *sched_job;
+ 
+ 	sched_job = drm_sched_entity_queue_peek(entity);
+ 	if (!sched_job)
+@@ -513,26 +503,7 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ 
+ 	spsc_queue_pop(&entity->job_queue);
+ 
+-	/*
+-	 * Update the entity's location in the min heap according to
+-	 * the timestamp of the next job, if any.
+-	 */
+-	next_job = drm_sched_entity_queue_peek(entity);
+-	if (next_job) {
+-		struct drm_sched_rq *rq;
+-		ktime_t ts;
+-
+-		spin_lock(&entity->lock);
+-		rq = entity->rq;
+-		spin_lock(&rq->lock);
+-		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+-			ts = next_job->submit_ts;
+-		else
+-			ts = drm_sched_rq_get_rr_deadline(rq);
+-		drm_sched_rq_update_fifo_locked(entity, rq, ts);
+-		spin_unlock(&rq->lock);
+-		spin_unlock(&entity->lock);
+-	}
++	drm_sched_rq_pop_entity(entity);
+ 
+ 	/* Jobs and entities might have different lifecycles. Since we're
+ 	 * removing the job from the entities queue, set the jobs entity pointer
+@@ -622,30 +593,10 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 	/* first job wakes up scheduler */
+ 	if (first) {
+ 		struct drm_gpu_scheduler *sched;
+-		struct drm_sched_rq *rq;
+ 
+-		/* Add the entity to the run queue */
+-		spin_lock(&entity->lock);
+-		if (entity->stopped) {
+-			spin_unlock(&entity->lock);
+-
+-			DRM_ERROR("Trying to push to a killed entity\n");
+-			return;
+-		}
+-
+-		rq = entity->rq;
+-		sched = rq->sched;
+-
+-		spin_lock(&rq->lock);
+-		drm_sched_rq_add_entity(rq, entity);
+-		if (drm_sched_policy == DRM_SCHED_POLICY_RR)
+-			submit_ts = drm_sched_rq_get_rr_deadline(rq);
+-		drm_sched_rq_update_fifo_locked(entity, rq, submit_ts);
+-
+-		spin_unlock(&rq->lock);
+-		spin_unlock(&entity->lock);
+-
+-		drm_sched_wakeup(sched);
++		sched = drm_sched_rq_add_entity(entity, submit_ts);
++		if (sched)
++			drm_sched_wakeup(sched);
+ 	}
+ }
+ EXPORT_SYMBOL(drm_sched_entity_push_job);
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index 7ea5a6736f98..8269c5392a82 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -12,13 +12,11 @@ extern int drm_sched_policy;
+ 
+ void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+ 
+-void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+-			     struct drm_sched_entity *entity);
++struct drm_gpu_scheduler *
++drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts);
+ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+ 				struct drm_sched_entity *entity);
+-
+-void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+-				     struct drm_sched_rq *rq, ktime_t ts);
++void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
+ 
+ void drm_sched_entity_select_rq(struct drm_sched_entity *entity);
+ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 5c6a3a9dfe5b..796f0b218cf7 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -151,9 +151,9 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
+ 	}
+ }
+ 
+-void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+-				     struct drm_sched_rq *rq,
+-				     ktime_t ts)
++static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
++					    struct drm_sched_rq *rq,
++					    ktime_t ts)
+ {
+ 	/*
+ 	 * Both locks need to be grabbed, one to protect from entity->rq change
+@@ -188,25 +188,58 @@ static void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
+ 	rq->sched = sched;
+ }
+ 
++static ktime_t
++drm_sched_rq_get_rr_deadline(struct drm_sched_rq *rq)
++{
++	lockdep_assert_held(&rq->lock);
++
++	rq->rr_deadline = ktime_add_ns(rq->rr_deadline, 1);
++
++	return rq->rr_deadline;
++}
++
+ /**
+  * drm_sched_rq_add_entity - add an entity
+  *
+- * @rq: scheduler run queue
+  * @entity: scheduler entity
++ * @ts: submission timestamp
+  *
+  * Adds a scheduler entity to the run queue.
++ *
++ * Returns a DRM scheduler pre-selected to handle this entity.
+  */
+-void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+-			     struct drm_sched_entity *entity)
++struct drm_gpu_scheduler *
++drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+ {
+-	lockdep_assert_held(&entity->lock);
+-	lockdep_assert_held(&rq->lock);
++	struct drm_gpu_scheduler *sched;
++	struct drm_sched_rq *rq;
+ 
+-	if (!list_empty(&entity->list))
+-		return;
++	/* Add the entity to the run queue */
++	spin_lock(&entity->lock);
++	if (entity->stopped) {
++		spin_unlock(&entity->lock);
+ 
+-	atomic_inc(rq->sched->score);
+-	list_add_tail(&entity->list, &rq->entities);
++		DRM_ERROR("Trying to push to a killed entity\n");
++		return NULL;
++	}
++
++	rq = entity->rq;
++	spin_lock(&rq->lock);
++	sched = rq->sched;
++
++	if (list_empty(&entity->list)) {
++		atomic_inc(sched->score);
++		list_add_tail(&entity->list, &rq->entities);
++	}
++
++	if (drm_sched_policy == DRM_SCHED_POLICY_RR)
++		ts = drm_sched_rq_get_rr_deadline(rq);
++	drm_sched_rq_update_fifo_locked(entity, rq, ts);
++
++	spin_unlock(&rq->lock);
++	spin_unlock(&entity->lock);
++
++	return sched;
+ }
+ 
+ /**
+@@ -235,6 +268,39 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+ 	spin_unlock(&rq->lock);
+ }
+ 
++/**
++ * drm_sched_rq_pop_entity - pops an entity
++ *
++ * @entity: scheduler entity
++ *
++ * To be called every time after a job is popped from the entity.
++ */
++void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
++{
++	struct drm_sched_job *next_job;
++	struct drm_sched_rq *rq;
++	ktime_t ts;
++
++	/*
++	 * Update the entity's location in the min heap according to
++	 * the timestamp of the next job, if any.
++	 */
++	next_job = drm_sched_entity_queue_peek(entity);
++	if (!next_job)
++		return;
++
++	spin_lock(&entity->lock);
++	rq = entity->rq;
++	spin_lock(&rq->lock);
++	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
++		ts = next_job->submit_ts;
++	else
++		ts = drm_sched_rq_get_rr_deadline(rq);
++	drm_sched_rq_update_fifo_locked(entity, rq, ts);
++	spin_unlock(&rq->lock);
++	spin_unlock(&entity->lock);
++}
++
+ /**
+  * drm_sched_rq_select_entity - Select an entity which provides a job to run
+  *
 -- 
 2.48.0
 
