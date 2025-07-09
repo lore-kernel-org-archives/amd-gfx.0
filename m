@@ -4,121 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE911C83F09
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 08:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 503F7C83F03
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 08:39:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 655A710E762;
-	Wed,  9 Jul 2025 08:29:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E99EE10E2B0;
+	Wed,  9 Jul 2025 08:39:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AiAgykk8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XDuqHhl2";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2044.outbound.protection.outlook.com [40.107.237.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A073510E762
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Jul 2025 08:29:55 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2054.outbound.protection.outlook.com [40.107.243.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C98B510E061;
+ Wed,  9 Jul 2025 08:39:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d0dHKJUymKAiJHpLPc6ZgdFSNkvZPsA5skPdg4YYP3gWUNxho9t8VywK1yTzmhx7fIUSa1NHTEM9zRpXgxQvXN5fMATf7MTDD3rOrznwPHut96jeHWz/kFH/IrW1+UQIGivUs/31ynMpkWnBf7OUEwlO8u4ivJyTiQ06jGbiHMRT4Nj96iAdYt2zS7JhSSOAuE/e+C0INed8sgKikD4xkdvETbIaz0cp4DuoziesxAysCgDEtPbSQUWxQXRlKPpuctYKysqPlsp/GDMgEKNWfkfk6+pstI/X+MVs1WXOvTUEu5b7+vtP47uUKOCX/j0BhRC0BHQbz3i3XqOmfalsRA==
+ b=bZ1DebLPYipKYFT2INntL6mMjuUB4cjepMCt7W/FcTlEboMlQcUvLea6gpymVC5lWK/b49ADfxKuAqFgwzOSTWnoKTeMI5OGwE94REgpdLej3gJyJUt3jW7ohSdeurZycEpfIzwZLxKOb29wta+bK2MtFp5kZ20mP+TWoHu51NXUT/5uZiYNmpoUD5tmlSBMdysdVlqT8yhllIb6VH/Hc04Xh0UPOdX9ecQLdXGgUPljcP4D33v5ONZ2bLo9Kl/6U54/TeNqJsqVr67z8Uny7Gjh2MXbJBaIoubq7bRMo/zhBYXp6I5G2bRmmJcIJlkapPM/W+Ix6XGAQm7Dt1+O6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hNVLaTt4Ma87GWttaqBPmsoslBwKmjVjRL4GuAUMoPk=;
- b=vmCJPMMbyr084OsWuuuxoM8AfDoD9qDyyGY0mgeXs/86JP2PkdZVyzj9q5o9TyDBL+dmExrgd0BN63ZBVv/1+jcwkemjdp1YNl+t1rcNzhE3hqJ++blTfgTZ71CMDhpLnlNW/ZUWj+YMw5yN50Vq96Se9Du2E9t4QqSM9pUXSl6fcfDYRiQ2wrsV+VXhYWJT2egzLXmbygIAwU6y9Sveefi939QK6J1rNO0+0DE8mB/+YlS+sDPedp/Emsqvh69JjB8CVCAUgMhaqPeCj+Adwz4/SCq3SN0AnF0WoQzpqoi9h2bV21ch6P0zP9/CkRJTOs+ehr7hI0i3qBJdljRbvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=pE6VEnatcnJjkhNMqQzwa+xjXNatoAWliwKd6T8+jP4=;
+ b=gOv7rAbsEUUlIT/8uPhB3LFZRLJ3bPfpkquZ5+6uN9LxmmFQsbbSLewxGXbu0xlF2kwtwYCH70RiYeygdkoeILpXIJP9dJjbodyGg8YuNf4xVho9yxB5JWDe8ey36K1M2eIMyKjfGBn/dG/i4pvr4N9U26FylT+gcpew512STmZc3e95tV/QJ+ywu4SFHNhlbyYh6oc2JPdrCD/PFoLc+vb6SHLyhxmzmqNKU7PKDyADCLxXuCqYr6MsDo5CD5GZHIOGL0rDV5jNvomZsvJrlt/wzy4EuNOSgHz3WWjcfCvP0Bt768vMrryYIhk2+7GVpYjpJRXcYhOpXmkZiodyMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hNVLaTt4Ma87GWttaqBPmsoslBwKmjVjRL4GuAUMoPk=;
- b=AiAgykk8TCiWPZnCMQlfrVi077F5vMSNZqyqBoEhN4C+zs/A+h/OMmFAR+65gH5J8YZ6caeyVRuDbBVB9848NLPRN1rbC+aztgBhv6KwJnB6h9jgcVxwRMxcVWEEjk4ugUnNXR4xsf26Gggu42cKMraVM3pKztHtRm5DYm265Uo=
-Received: from BN9PR03CA0151.namprd03.prod.outlook.com (2603:10b6:408:f4::6)
- by CH1PR12MB9599.namprd12.prod.outlook.com (2603:10b6:610:2ae::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Wed, 9 Jul
- 2025 08:29:50 +0000
-Received: from BL6PEPF00020E64.namprd04.prod.outlook.com
- (2603:10b6:408:f4:cafe::6c) by BN9PR03CA0151.outlook.office365.com
- (2603:10b6:408:f4::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.21 via Frontend Transport; Wed,
- 9 Jul 2025 08:29:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00020E64.mail.protection.outlook.com (10.167.249.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Wed, 9 Jul 2025 08:29:50 +0000
-Received: from gangliang-mlse-vm.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Wed, 9 Jul 2025 03:29:47 -0500
-From: ganglxie <ganglxie@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <tao.zhou1@amd.com>, ganglxie <ganglxie@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: refine bad page loading when in the same nps
- mode
-Date: Wed, 9 Jul 2025 16:29:15 +0800
-Message-ID: <20250709082915.18904-2-ganglxie@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250709082915.18904-1-ganglxie@amd.com>
-References: <20250709082915.18904-1-ganglxie@amd.com>
-MIME-Version: 1.0
+ bh=pE6VEnatcnJjkhNMqQzwa+xjXNatoAWliwKd6T8+jP4=;
+ b=XDuqHhl2/YSHAe0XT5tdeqJrk/1B6ly14geGuXcyfCfxb1hnTd6H/EoVRGqFb1/8VGRMgZ7RAZ/D97dFTRH5jioelFwHYuNivOH6/yzyTfsfclhqZWOg+IWUJwfd642DN8cgM/LswFn3VPwQTv1a3Cecn/FjD3cIyFbqA3CT4IA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB7354.namprd12.prod.outlook.com (2603:10b6:510:20d::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.25; Wed, 9 Jul
+ 2025 08:39:15 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8901.024; Wed, 9 Jul 2025
+ 08:39:15 +0000
+Message-ID: <103de0a1-22bd-4389-9f5b-c1283497387c@amd.com>
+Date: Wed, 9 Jul 2025 10:39:10 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported IOCTLs
+To: "Lazar, Lijo" <lijo.lazar@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "McRae, Geoffrey" <Geoffrey.McRae@amd.com>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <20250708042219.180109-1-geoffrey.mcrae@amd.com>
+ <470a613e-d85d-4943-aa48-7590d84f7fd2@amd.com>
+ <PH7PR12MB55958988869861DF44D3D007884EA@PH7PR12MB5595.namprd12.prod.outlook.com>
+ <BL1PR12MB5144018C868ED8C6566B8B84F74EA@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <5878b6eb-7961-4ffb-aebd-601868163de6@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <5878b6eb-7961-4ffb-aebd-601868163de6@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR2P281CA0159.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E64:EE_|CH1PR12MB9599:EE_
-X-MS-Office365-Filtering-Correlation-Id: 644c36c4-77d9-48a1-0d7e-08ddbec2c5ab
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB7354:EE_
+X-MS-Office365-Filtering-Correlation-Id: 765fcd92-a015-4748-42aa-08ddbec4162d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?2HYuMpC9MBoGr2B4DZ7BUYGt6WokT2VHMgWpxdYeoJf2Itsob79FzLkfnDKa?=
- =?us-ascii?Q?eGFjp/ckLpiF9cvtznHH1QYWHIHApTgr8+qzw/5XqohbFnFl3z3OVrPmzvej?=
- =?us-ascii?Q?vR+4FBFKeci8oFezWe7kABz9pS/q8hphVLaeS/OyNejZ8Fxx3kKqHgUPm+3U?=
- =?us-ascii?Q?zotCvmxyyzMBP+uTIjPngW0j6MbyXQIHeC6jf4EBHshjaMa0XzRBOshGY+dL?=
- =?us-ascii?Q?x5x1UnVLmCqnNVnLpAqIQ1eYzP8C4Q2bfyvABnmjD7m9ZfOMpwMu1yaXttvk?=
- =?us-ascii?Q?Egl2FEjEuMzasL6JnJkHWn0Yrqa39FQrTH7sjQTx/BIoJUWppzKlwWzihJ1k?=
- =?us-ascii?Q?b4/NdrQc3jL38HGyIelOOkANmo28ST63JMhSBY8btUHehzkQmlZUttw0oOS9?=
- =?us-ascii?Q?Mc/+CST5NiK792zyV+K3gwtVVag2U9r1mMjOf/m86D1Yr11hbeobwbml9QFk?=
- =?us-ascii?Q?0AbKvBtGertUwJKVgMNKNDYYo7lA2ihI1LJDjT2ZvinEej8UqFCiY1wksrI5?=
- =?us-ascii?Q?8QxKoBOw8mB5DIOBNe6TTcacqO0gAh6kel7ZjY5TQyfU0l2PBsKTOAHI388G?=
- =?us-ascii?Q?Pm9zegZ1rDieQKyCj/VV6YO5CWBQK8T4M7LrW8benY7p0kQOE9NOb2zoDOnD?=
- =?us-ascii?Q?LuFBqeu9u8NImj2iTX63TewZqxGZNxopHQLz8nR4OuGp2hKiPIngqHhDmLE6?=
- =?us-ascii?Q?ZgoAMG1eUtBO8WMNzFCgeQd0dPikoo42PUij6djA0mf6RSxN9pxzsjXvDBsY?=
- =?us-ascii?Q?V9D6Z4DVckktwPXluwfLzrNri6QTnaB86WqLlUvm6OCtrhRIy6kS7X6llu7/?=
- =?us-ascii?Q?ja3uHPaInPERg+AHLfHbinnq1aauNq2PVinTSz5LUgBYlofWYlCk73wSzKl6?=
- =?us-ascii?Q?urwF3vfTqGN8otHEwyVTV3zZDkEyz3ZMIAmGnPZREYR6rdk3tIcELs9mAatA?=
- =?us-ascii?Q?SxcRMofvlx72Mth8IQB1p/6ik+LdELwlIYh55cFcvBrXQmS1ELQvEp2BwIjf?=
- =?us-ascii?Q?beXi/9gzV28djMpOc3LsgdCGmgk27uE+wCoSZX3zUUEw3UsrwytK0OsRc+vf?=
- =?us-ascii?Q?U7bPFHpSaKVr/j7j/JeUEaUjEPbji6C33rtEbmTv5c80bJTNpkaMOfDiF/ok?=
- =?us-ascii?Q?+SGXZHGkcSzd0vgUdSeY9X3jj7S4O3vawO4aD8r4qGQogv3ggD0b31/zMgfX?=
- =?us-ascii?Q?VFXRfTw8QMMEafh71iX9+TsiW/GOlx2Fc5sOtRomR2ksdvY1xVkGTAhG7Ayd?=
- =?us-ascii?Q?t/BplnqtLPUhNfEfG7QBB6MPH9dsAWg3g0Wb1q7VvoXK60h6b4tagrQLvTnV?=
- =?us-ascii?Q?Xxgq75oPvYH6UbqmVCZmWg37yYmMZBiHiDTYgqlSt0w1LvGzIMEjWkOg5iHr?=
- =?us-ascii?Q?fMB5BzvtcuGzWM/inhkx6fEI4jyiiVgqoS7tpllVuWxl3y2JzfzKZDTIgWDD?=
- =?us-ascii?Q?EaTOZK1U7o9WZ31WPF0tNBvb9wKME5nFGuiFqi2lixY80hQazfcaG/8YrRyq?=
- =?us-ascii?Q?mfQJyIKcKb92BFz10LV/bgvTW/8d4MbcJwyt?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VS93WUV0K2IwQldTQXZjbnhwWnZtRFhBTFhrWFlDQVlza3lnZFA4SW1ZMTh0?=
+ =?utf-8?B?SFNDSDJHb1Q0TXoxU2RtTUlXcVNaZ3NLUnROS3VHcGhLaUFyUnVGaXM0Y0sr?=
+ =?utf-8?B?YkdKOUtWQTY5K0JDSnVWLzVPcTVWRzRMZ3dvRDhwWjcyWUR4T3dYNEZsTzZR?=
+ =?utf-8?B?aTVRbFNhSzJaOTVIOUp2c1NBNTUwUkVpOWs5a1RXSFpQNERvK2FVQm4zbEhD?=
+ =?utf-8?B?MzM0OExRSFo4UFhRbnZqdm0xdlZaMGJaejlkVmQwQUM5SFpUek1kQzdqOVJI?=
+ =?utf-8?B?VW0yc3JuTDR0TmZURHQ0bUFqQXFRemZoSlYxL3pReHdXRUlJWHUzdURuNk9a?=
+ =?utf-8?B?Rm9ieVlQUjhKZ0o1Y2YwYms4MHAwbXVxbXZtbnQzbmtZN0RhZ2FXWmlFQnZR?=
+ =?utf-8?B?OFhjOUx0MnNteVBPcStaUnpBUlRBNkM1dE1BV21JQS8yeTBYN0wwU0h6QkhK?=
+ =?utf-8?B?T201dk0zTDJnUFI1alRRQldLUDhxNHV1LzJrTEZETUFaaFlGL0dQQ0hKeWVs?=
+ =?utf-8?B?a0FFMm85bjd1TitLZTVIaThYeEc3R2hOZHlIenRWc1hQN09Xak5BbGRuM0FC?=
+ =?utf-8?B?WGd1T2lEQXp3ZGsra2V3M2ZYbkFqaCs1TGxFQWRPczhOWC91NUJ6SHdyaGs3?=
+ =?utf-8?B?MFZ3S21wa1N1MVBHZ3A0KzR0SDFGVk50M1Q1cmRyTmlWQkFlSSsvN1Y0dnNU?=
+ =?utf-8?B?bHNaOTJ1NW43WDBuYzh3cStxTVZ1Q2xrd2s0UEZscUx3NnZCRmg4QUdQQ3l3?=
+ =?utf-8?B?a0o1b3NWbXVocmYxRTVtR3crMlN6TnZDMkpiQlF5VEpDcmczOEJ4RlVFcUZY?=
+ =?utf-8?B?eUFvYXhJcnlJOGJQWWdOdCt6NXQzcHBpbWhKUmtheUpwNGE3UjFySUx3NFVM?=
+ =?utf-8?B?bDFCSHE2Y29ZRE1USGZ2YTNTYTBaS3E4bDdlenMrNzB1Nnk4Vy9acTVwaFdv?=
+ =?utf-8?B?alN1T0N4RUpBS0dYWFJCTVQrVWlpM3FNRGN6dXRpcDlnRjdpdXBKNmpEZm9N?=
+ =?utf-8?B?M1hHN3hnY2huZ3grNGlPWHBKbFhzSkN2MVRPUHhnYzBBbWN4ODNIb1VsVEhk?=
+ =?utf-8?B?bUQvWmxyWlN4Ly9HZWJSbEd0SVVKaWpsZVhiWVZBUEZtdnZoRHpLODJteHor?=
+ =?utf-8?B?WXR1MGd6NkJ6TjJReE5uNUphNEY0TnpFSDhGektHdzZuSGRsRTVxeTYrM0pl?=
+ =?utf-8?B?UDNUWHJSS0FHZzVkSXFhYVdCbHVIRXRjNm1tcEQ5ZmQ3ckk4a3hDRHhCKzkv?=
+ =?utf-8?B?eTVEbmVaR2pmWHZONEJycTZWQU12NTZJUEhWaCtpNXpLUWVCVm1DUk9lSjhs?=
+ =?utf-8?B?cEJCTjh2eDM4ckV5SkNDcWlBLyt6L3RpSkhwYndiazg5eEdtbEh6ZWxpNHlP?=
+ =?utf-8?B?T1dUU2NWRC9PaUVidFZwRFQ1VUxNbUJmbzdzWjlkbCtCTzE1K0Z3TkQxYW8x?=
+ =?utf-8?B?Q21rTHFveG9vMG1rYkE4eDk2bGhJWFBhbFMwbXltQkREdXA1NnQvTS9QQW9G?=
+ =?utf-8?B?Smd2MENDUzE4N2ZuUnFCTWp1dGVkVkE4aDZoRWZVMFVLRVZKS2s5L2hvMzZt?=
+ =?utf-8?B?b1ltSFZEd1BPVWROU2NPNnQwN2RMRVZNUWVtd01vMWtETVNOQll4UmExWjJ0?=
+ =?utf-8?B?aUdSQjdvanNiWHVVdk5yc0tOTG1YZGtjREhyU0dGLzBkdzhxeUFJOVp4THBN?=
+ =?utf-8?B?Z3Jub3pOZTlxUmo1Yk4xVUZvRXRYeW1ZSTQxb2lrbG9LRlU3cVdwdExnRjJv?=
+ =?utf-8?B?QTdiRDRBZEtnVVNENjUzRkx5cGg0MUhBdGk1aGRTZlM2MXF5aFNrN3l1WEtt?=
+ =?utf-8?Q?QnC8vCXGw+DsKT2+CiBC0Ewu3yI/07V6Qwpgc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SnYrQityeEVqMmd4T3JIZEdEdnBsS0NtVUZJOWFsUm1mMzh0S0thQ1JOVktj?=
+ =?utf-8?B?VlhaWUl5SDFZb2ZiWUcxNGJ2aEo5WElzTmhlY0tkcVFKSUlrcDc5NnYrWEQ0?=
+ =?utf-8?B?Z0d3NEMwVll4TkpZaWdEZE1SMTBUUlI4Y3ZoNThUOFk3SDJkU1Y3elhEVGpZ?=
+ =?utf-8?B?NldmU3JvVSttd1hjTWRWUjZDUmRVdk9QbGFUZnpRTjRIL1FpZ0FtejhSWktw?=
+ =?utf-8?B?NVVVNWVYWW1OckEzcFdNbmR6MzQrZU02UWFHMjhhMHFIL21DbDFOdEVJb3dW?=
+ =?utf-8?B?VEVEWm1JWkcrMFRpZjJuYVAyTmE4bEVRZEJWc2wyelhQQUh2RGR2c1lqdGNF?=
+ =?utf-8?B?UThEWlVoOGJjclE5MDNxZDhnUmJrMUhFUG1EUisvamdtK2Q1K0xnU3pnU2xE?=
+ =?utf-8?B?UWlpSDJHV0xEcnYzcXRIRGhnR3VESUZCci9WWlZWS1BTOVI4ZEdtRGJIdkFJ?=
+ =?utf-8?B?VU82WDNQYUJSVFRjTWRhSWIwZ3gyVWJWMXpXb3VLYVFEQVVSR2s3RHY2MWN4?=
+ =?utf-8?B?TGxqQ3d0K2ZBSFZXV09KR1p5bHAvaWh5Q2RnVHJuOVNiTFFlR1R2WHFUWDhp?=
+ =?utf-8?B?QTVqekNGSVg0NVZnTHlNU1RNeWhRalh1NCthclg3enBiL2dXTUpiOGg3MktE?=
+ =?utf-8?B?M3kyTVhOZkpZcEdvamFmODEyeUNnL2JTTHY0NngzQnVJVURoTzZPbzZ2eUZD?=
+ =?utf-8?B?Rk11eVowa0NHMDhVUExBbkJCOEp0RmJFVFRiZ2lzeldSYndLNithMXB0Z0Zx?=
+ =?utf-8?B?NUoyZExlN0hlMTJaQU1kK3ZYMk1wblNiMUFCdjY5ZGYzVVRqQXlrT0xKSnMy?=
+ =?utf-8?B?K1pVbG5WTnI0V1pJTENTZTBBUkpzc3lJN0g3ckZDTkpTTWVka0plNGlPU0h5?=
+ =?utf-8?B?cklZeUFTdXdvN3RsQytzSmNJdTJpWlJZaWJOUU1YRUl2ejYvMlBqdXZiYTFF?=
+ =?utf-8?B?V2ozclpWckJRTFZZRWhVT1VTRERLa2lwK2RlV0pYdEpWRkhzaDdFcXNtRCtl?=
+ =?utf-8?B?RjZkc0U4U3d4dkxCdjhXNGczWVRaWWsreXM3VlQzNjZZaEt1eFNReVU0dDZy?=
+ =?utf-8?B?ZjEzZGFhamE2OGo0aUZ1Njh0MEJBZUpPUlgvK2ptQlZXcUI0NDJyUmpWenNu?=
+ =?utf-8?B?a2lNRzVVNmozQ3h0NlEzOGd2SlRxSk95ZWdNai9IVWpDR0VrWGpINExpWlFk?=
+ =?utf-8?B?T2d3OWxkTUgrTGttU2RkZmQyQVdZc1ZyRGY1d25SOUdjRmdyTjFjVlhCRUVz?=
+ =?utf-8?B?cWxYTGNOb0pHL2doMHk4dzNKdlpURjF3S1RzOTJWUGg5U0FWWDFkT2F1VlAv?=
+ =?utf-8?B?MzdzQW96T2NSVHFiN0R5dWFHakhTeTVySCtza2oxZjJKNUtwMHp5WnJURXpr?=
+ =?utf-8?B?VXdFV2tMODFWRGlyajBpcG9FU2hjNnZzdThtcGJaNTR1eHNGNmdiTWdmVzRm?=
+ =?utf-8?B?ZTFwR0NTQjdwSWFTUDJzMVlHd0FPRmx2QlY1WGVPdmVhSDlSL1VxQnBhSnNE?=
+ =?utf-8?B?Y3hPZnZIZE1iNW9BQVA3Um9VOUFCM1dBQ3hnbmwzL1QyZk56NXRTVUxiVGwr?=
+ =?utf-8?B?cmg1djNCeU51ZVdrTmlCbzRHendnL1cwa3d5UGx6c21sTGt5WUVPdlZpVUda?=
+ =?utf-8?B?c0VvSlpZcUpEN0N1VTVFeW9ZZkhyTTVOaTNpQjJBNDhvc3FIcVdTelVoWmdF?=
+ =?utf-8?B?T0N5cjllRVFNcTNPaVVpRVFBM3BMV09lRG5QTXhVU0RaSkRnNnk3NE1YeFNW?=
+ =?utf-8?B?QTRxS2lUWjVZeXRZN3hHVGd4bXpqQ0pMTnFOenVVUm5VWHlEVUpVNEJEcnJN?=
+ =?utf-8?B?SjcwWXdkTWVNZDBhb0gxQWhyT045SDNTV2kvSHJZeTFublRDTXRMSnphK2FX?=
+ =?utf-8?B?VXJwR3JyS0YxSWdHMnUwQ1pwWFJaNjZqNkx2TkZJb3dBK3dPNnd6a25qNmJZ?=
+ =?utf-8?B?aVlJVU1uQXVDZzgwMktmb3R0bGJkSHBFbWdELy82WDZPUVVUWDhKY1lSamdK?=
+ =?utf-8?B?R2FtR2Flc1NKVCtEV3lFbW5ueGRtdjdVZzBWK1JZRmFyNGtOR05KYjRoZEl6?=
+ =?utf-8?B?N2RhR1ltMUV5dTRzTUJqbTdnZzBGVkp2bDltbzRpUWNhMHpqa2tXTTZTbHc4?=
+ =?utf-8?Q?/1X+avYGI1J4uKT29zyx5pVSM?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 08:29:50.5306 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 644c36c4-77d9-48a1-0d7e-08ddbec2c5ab
+X-MS-Exchange-CrossTenant-Network-Message-Id: 765fcd92-a015-4748-42aa-08ddbec4162d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 08:39:15.4869 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E64.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9599
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W9eX3FNbESq1hTpW8AtnzVKvLbDzRXGcnw5TdmKspHoqKO3jd+4JPp8t5nE3sphQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,54 +166,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-when loading bad page in the same nps mode, need to set
-the other fields in eeprom records manually besides retired_page
+On 09.07.25 06:56, Lazar, Lijo wrote:
+> On 7/8/2025 8:40 PM, Deucher, Alexander wrote:
+>> [Public]
+>>
+>>
+>> I seem to recall -ENOTSUPP being frowned upon for IOCTLs.
+>>
+>>
+> Going by documentation -
+> https://dri.freedesktop.org/docs/drm/gpu/drm-uapi.html
+>
 
-Signed-off-by: ganglxie <ganglxie@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Good point.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index e03550be45b4..d1180c3d4c46 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2861,6 +2861,13 @@ static int __amdgpu_ras_convert_rec_array_from_rom(struct amdgpu_device *adev,
- 			if (amdgpu_umc_pages_in_a_row(adev, err_data,
- 					bps[0].retired_page << AMDGPU_GPU_PAGE_SHIFT))
- 				return -EINVAL;
-+			for (i = 0; i < adev->umc.retire_unit; i++) {
-+				err_data->err_addr[i].address = bps[0].address;
-+				err_data->err_addr[i].mem_channel = bps[0].mem_channel;
-+				err_data->err_addr[i].bank = bps[0].bank;
-+				err_data->err_addr[i].err_type = bps[0].err_type;
-+				err_data->err_addr[i].mcumc_id = bps[0].mcumc_id;
-+			}
- 		} else {
- 			if (amdgpu_ras_mca2pa_by_idx(adev, &bps[0], err_data))
- 				return -EINVAL;
-@@ -2893,6 +2900,7 @@ static int __amdgpu_ras_convert_rec_from_rom(struct amdgpu_device *adev,
- 				enum amdgpu_memory_partition nps)
- {
- 	enum amdgpu_memory_partition save_nps;
-+	int i = 0;
- 
- 	save_nps = (bps->retired_page >> UMC_NPS_SHIFT) & UMC_NPS_MASK;
- 	bps->retired_page &= ~(UMC_NPS_MASK << UMC_NPS_SHIFT);
-@@ -2901,6 +2909,13 @@ static int __amdgpu_ras_convert_rec_from_rom(struct amdgpu_device *adev,
- 		if (amdgpu_umc_pages_in_a_row(adev, err_data,
- 				bps->retired_page << AMDGPU_GPU_PAGE_SHIFT))
- 			return -EINVAL;
-+		for (i = 0; i < adev->umc.retire_unit; i++) {
-+			err_data->err_addr[i].address = bps->address;
-+			err_data->err_addr[i].mem_channel = bps->mem_channel;
-+			err_data->err_addr[i].bank = bps->bank;
-+			err_data->err_addr[i].err_type = bps->err_type;
-+			err_data->err_addr[i].mcumc_id = bps->mcumc_id;
-+		}
- 	} else {
- 		if (bps->address) {
- 			if (amdgpu_ras_mca2pa_by_idx(adev, bps, err_data))
--- 
-2.34.1
+> EOPNOTSUPP:
+> Feature (like PRIME, modesetting, GEM) is not supported by the driver.
+> 
+> "Note that ENOTTY has the slightly unintuitive meaning of “this IOCTL
+> does not exist”, and is used exactly as such in DRM"
+>  
+> Since KFD ioctls could eventually be supported in drm node,
+
+That's certainly not going to happen.
+
+We are currently in the process of deprecating the KFD IOCTLs and either using the existing DRM render node ones or coming up with new IOCTL/additions to the existing ones.
+
+Background is that some of the KFD IOCTLs have design flaws which are unfix able.
+
+Regards,
+Christian.
+
+> it seems
+> better to go with ENOTTY.
+> 
+> Thanks,
+> Lijo
+> 
+>>
+>> Alex
+>>
+>>  
+>>
+>> *From:*McRae, Geoffrey <Geoffrey.McRae@amd.com>
+>> *Sent:* Tuesday, July 8, 2025 5:13 AM
+>> *To:* Koenig, Christian <Christian.Koenig@amd.com>; Kuehling, Felix
+>> <Felix.Kuehling@amd.com>
+>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
+>> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+>> *Subject:* Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported
+>> IOCTLs
+>>
+>>  
+>>
+>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>
+>>  
+>>
+>> I am happy to use EOPNOTSUPP but I must point out that this is not the
+>> pattern used across the kernel, the standard is to use ENOTTY, which is
+>> also the default that fs/ioctl.c returns when no handler is present.
+>> Userspace tooling such as strace and glibc specifically expectect ENOTTY
+>> to indicate invalid or unsupported IOCTL.
+>>
+>> ------------------------------------------------------------------------
+>>
+>> *From:*Koenig, Christian <Christian.Koenig@amd.com
+>> <mailto:Christian.Koenig@amd.com>>
+>> *Sent:* Tuesday, 8 July 2025 5:01 PM
+>> *To:* McRae, Geoffrey <Geoffrey.McRae@amd.com
+>> <mailto:Geoffrey.McRae@amd.com>>; Kuehling, Felix
+>> <Felix.Kuehling@amd.com <mailto:Felix.Kuehling@amd.com>>
+>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com
+>> <mailto:Alexander.Deucher@amd.com>>; amd-gfx@lists.freedesktop.org
+>> <mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org
+>> <mailto:amd-gfx@lists.freedesktop.org>>; dri-devel@lists.freedesktop.org
+>> <mailto:dri-devel@lists.freedesktop.org> <dri-
+>> devel@lists.freedesktop.org <mailto:dri-devel@lists.freedesktop.org>>
+>> *Subject:* Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported
+>> IOCTLs
+>>
+>>  
+>>
+>> On 08.07.25 06:22, Geoffrey McRae wrote:
+>>> Some kfd ioctls may not be available depending on the kernel version the
+>>> user is running, as such we need to report -ENOTTY so userland can
+>>> determine the cause of the ioctl failure.
+>>
+>> In general sounds like a good idea, but ENOTTY is potentially a bit
+>> misleading.
+>>
+>> We usually use EOPNOTSUPP for that even if its not the original meaning
+>> of that error code.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com <mailto:geoffrey.mcrae@amd.com>>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 8 ++++++--
+>>>   1 file changed, 6 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> index a2149afa5803..36396b7318e7 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> @@ -3253,8 +3253,10 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+>>>         int retcode = -EINVAL;
+>>>         bool ptrace_attached = false;
+>>>   
+>>> -     if (nr >= AMDKFD_CORE_IOCTL_COUNT)
+>>> +     if (nr >= AMDKFD_CORE_IOCTL_COUNT) {
+>>> +             retcode = -ENOTTY;
+>>>                 goto err_i1;
+>>> +     }
+>>>   
+>>>         if ((nr >= AMDKFD_COMMAND_START) && (nr < AMDKFD_COMMAND_END)) {
+>>>                 u32 amdkfd_size;
+>>> @@ -3267,8 +3269,10 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+>>>                         asize = amdkfd_size;
+>>>   
+>>>                 cmd = ioctl->cmd;
+>>> -     } else
+>>> +     } else {
+>>> +             retcode = -ENOTTY;
+>>>                 goto err_i1;
+>>> +     }
+>>>   
+>>>         dev_dbg(kfd_device, "ioctl cmd 0x%x (#0x%x), arg 0x%lx\n", cmd, nr, arg);
+>>>   
+>>
+> 
 
