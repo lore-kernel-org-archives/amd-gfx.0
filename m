@@ -4,154 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 503F7C83F03
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 08:39:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1F50C83F09
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 08:40:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E99EE10E2B0;
-	Wed,  9 Jul 2025 08:39:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC8510E768;
+	Wed,  9 Jul 2025 08:40:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XDuqHhl2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MGoCcbB3";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2054.outbound.protection.outlook.com [40.107.243.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C98B510E061;
- Wed,  9 Jul 2025 08:39:21 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2052.outbound.protection.outlook.com [40.107.96.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8552010E766
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Jul 2025 08:40:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bZ1DebLPYipKYFT2INntL6mMjuUB4cjepMCt7W/FcTlEboMlQcUvLea6gpymVC5lWK/b49ADfxKuAqFgwzOSTWnoKTeMI5OGwE94REgpdLej3gJyJUt3jW7ohSdeurZycEpfIzwZLxKOb29wta+bK2MtFp5kZ20mP+TWoHu51NXUT/5uZiYNmpoUD5tmlSBMdysdVlqT8yhllIb6VH/Hc04Xh0UPOdX9ecQLdXGgUPljcP4D33v5ONZ2bLo9Kl/6U54/TeNqJsqVr67z8Uny7Gjh2MXbJBaIoubq7bRMo/zhBYXp6I5G2bRmmJcIJlkapPM/W+Ix6XGAQm7Dt1+O6w==
+ b=LVVb/YTMiwzEsL1MuIFNMrF7xKIxJre5GlObEW/pCItCPsW+QX6LhinLGdnldvJ+Fhe412fcwBclNwPNFsYxav4piOlWJ/iHFiOMtWyCTRT+ji6LldO+FvRzyuqD9ts8kINHr6PLb49nTuFTrjt1iv6/AgGapBrETLVvUdEN5drLC0yOgHkP8NmykJVpeerakPB7H3agimVI9mK5iRftTR1+/V3Z6Ca073UiwHQjTQiW2SQSFYHst41lZIQTzMcVpS6xm8nHwnZrL4GGmPHCc6y6RMAKVSTDpRjwZaqiGjXF8gazIHV4ZPwRiFmaANV+cUXnmm6oyCy7j0V9ff0TvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pE6VEnatcnJjkhNMqQzwa+xjXNatoAWliwKd6T8+jP4=;
- b=gOv7rAbsEUUlIT/8uPhB3LFZRLJ3bPfpkquZ5+6uN9LxmmFQsbbSLewxGXbu0xlF2kwtwYCH70RiYeygdkoeILpXIJP9dJjbodyGg8YuNf4xVho9yxB5JWDe8ey36K1M2eIMyKjfGBn/dG/i4pvr4N9U26FylT+gcpew512STmZc3e95tV/QJ+ywu4SFHNhlbyYh6oc2JPdrCD/PFoLc+vb6SHLyhxmzmqNKU7PKDyADCLxXuCqYr6MsDo5CD5GZHIOGL0rDV5jNvomZsvJrlt/wzy4EuNOSgHz3WWjcfCvP0Bt768vMrryYIhk2+7GVpYjpJRXcYhOpXmkZiodyMQ==
+ bh=dtBkY5ihtb+tvzc1EgNhCE/PwaE6QhyXJXuHzcbaxB8=;
+ b=nHN09ThyByreRZG8w1VD3y931FKbw4+104fJXFi77otfZI9xdhZkya+ssR+OWY2dA/AivjEtzukPexxZ7L/cOevXKiFiYIaZAUICRQ8CjqQWtHhiYQX4nk32hLAZTMdCbebr16GGZbaBULjXn086rpjuYB/P2JcmnHklaWK36E55HCBz3+4DW/emJ9kRjmms9CHh4dSLXWh7cvgN0IVvdNk0IrU8RZyz1kVoQBEGjxVBFTigNgEFh9MmGUvE2edKeCVY5hvCu8b2qeFuugz3Q7TgK9W/lJ3rL5+IhvTq+3EShh7RF29LIeooSbe4Ih5J3/6pyezpH+mIW0616VDOxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pE6VEnatcnJjkhNMqQzwa+xjXNatoAWliwKd6T8+jP4=;
- b=XDuqHhl2/YSHAe0XT5tdeqJrk/1B6ly14geGuXcyfCfxb1hnTd6H/EoVRGqFb1/8VGRMgZ7RAZ/D97dFTRH5jioelFwHYuNivOH6/yzyTfsfclhqZWOg+IWUJwfd642DN8cgM/LswFn3VPwQTv1a3Cecn/FjD3cIyFbqA3CT4IA=
+ bh=dtBkY5ihtb+tvzc1EgNhCE/PwaE6QhyXJXuHzcbaxB8=;
+ b=MGoCcbB3fDkwJgjtojvkUETDoQ2IGe4N0qWSU1CgzH8N4aq/cKgaFEErsAGJDhbBPiKlZ2arxN6EnqWcfQNm5+wOBXqNSswoqk9Gg3krWaaK8HvYw2QlWkx8tfOmbFwHFvJRzxIVWmeTs8z1neX3uxZlpq+7gNljrZ+lK1GwEdw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB7354.namprd12.prod.outlook.com (2603:10b6:510:20d::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.25; Wed, 9 Jul
- 2025 08:39:15 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8901.024; Wed, 9 Jul 2025
- 08:39:15 +0000
-Message-ID: <103de0a1-22bd-4389-9f5b-c1283497387c@amd.com>
-Date: Wed, 9 Jul 2025 10:39:10 +0200
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ CH3PR12MB8728.namprd12.prod.outlook.com (2603:10b6:610:171::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.24; Wed, 9 Jul
+ 2025 08:40:12 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.8880.023; Wed, 9 Jul 2025
+ 08:40:12 +0000
+Message-ID: <057716a5-9817-4115-8852-53122500dcf0@amd.com>
+Date: Wed, 9 Jul 2025 14:10:06 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported IOCTLs
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "McRae, Geoffrey" <Geoffrey.McRae@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20250708042219.180109-1-geoffrey.mcrae@amd.com>
- <470a613e-d85d-4943-aa48-7590d84f7fd2@amd.com>
- <PH7PR12MB55958988869861DF44D3D007884EA@PH7PR12MB5595.namprd12.prod.outlook.com>
- <BL1PR12MB5144018C868ED8C6566B8B84F74EA@BL1PR12MB5144.namprd12.prod.outlook.com>
- <5878b6eb-7961-4ffb-aebd-601868163de6@amd.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: refine eeprom data check
+To: ganglxie <ganglxie@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: tao.zhou1@amd.com
+References: <20250709082915.18904-1-ganglxie@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <5878b6eb-7961-4ffb-aebd-601868163de6@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20250709082915.18904-1-ganglxie@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0159.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:99::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0166.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:de::10) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB7354:EE_
-X-MS-Office365-Filtering-Correlation-Id: 765fcd92-a015-4748-42aa-08ddbec4162d
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|CH3PR12MB8728:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50e91c16-8f1f-4df9-003f-08ddbec437d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VS93WUV0K2IwQldTQXZjbnhwWnZtRFhBTFhrWFlDQVlza3lnZFA4SW1ZMTh0?=
- =?utf-8?B?SFNDSDJHb1Q0TXoxU2RtTUlXcVNaZ3NLUnROS3VHcGhLaUFyUnVGaXM0Y0sr?=
- =?utf-8?B?YkdKOUtWQTY5K0JDSnVWLzVPcTVWRzRMZ3dvRDhwWjcyWUR4T3dYNEZsTzZR?=
- =?utf-8?B?aTVRbFNhSzJaOTVIOUp2c1NBNTUwUkVpOWs5a1RXSFpQNERvK2FVQm4zbEhD?=
- =?utf-8?B?MzM0OExRSFo4UFhRbnZqdm0xdlZaMGJaejlkVmQwQUM5SFpUek1kQzdqOVJI?=
- =?utf-8?B?VW0yc3JuTDR0TmZURHQ0bUFqQXFRemZoSlYxL3pReHdXRUlJWHUzdURuNk9a?=
- =?utf-8?B?Rm9ieVlQUjhKZ0o1Y2YwYms4MHAwbXVxbXZtbnQzbmtZN0RhZ2FXWmlFQnZR?=
- =?utf-8?B?OFhjOUx0MnNteVBPcStaUnpBUlRBNkM1dE1BV21JQS8yeTBYN0wwU0h6QkhK?=
- =?utf-8?B?T201dk0zTDJnUFI1alRRQldLUDhxNHV1LzJrTEZETUFaaFlGL0dQQ0hKeWVs?=
- =?utf-8?B?a0FFMm85bjd1TitLZTVIaThYeEc3R2hOZHlIenRWc1hQN09Xak5BbGRuM0FC?=
- =?utf-8?B?WGd1T2lEQXp3ZGsra2V3M2ZYbkFqaCs1TGxFQWRPczhOWC91NUJ6SHdyaGs3?=
- =?utf-8?B?MFZ3S21wa1N1MVBHZ3A0KzR0SDFGVk50M1Q1cmRyTmlWQkFlSSsvN1Y0dnNU?=
- =?utf-8?B?bHNaOTJ1NW43WDBuYzh3cStxTVZ1Q2xrd2s0UEZscUx3NnZCRmg4QUdQQ3l3?=
- =?utf-8?B?a0o1b3NWbXVocmYxRTVtR3crMlN6TnZDMkpiQlF5VEpDcmczOEJ4RlVFcUZY?=
- =?utf-8?B?eUFvYXhJcnlJOGJQWWdOdCt6NXQzcHBpbWhKUmtheUpwNGE3UjFySUx3NFVM?=
- =?utf-8?B?bDFCSHE2Y29ZRE1USGZ2YTNTYTBaS3E4bDdlenMrNzB1Nnk4Vy9acTVwaFdv?=
- =?utf-8?B?alN1T0N4RUpBS0dYWFJCTVQrVWlpM3FNRGN6dXRpcDlnRjdpdXBKNmpEZm9N?=
- =?utf-8?B?M1hHN3hnY2huZ3grNGlPWHBKbFhzSkN2MVRPUHhnYzBBbWN4ODNIb1VsVEhk?=
- =?utf-8?B?bUQvWmxyWlN4Ly9HZWJSbEd0SVVKaWpsZVhiWVZBUEZtdnZoRHpLODJteHor?=
- =?utf-8?B?WXR1MGd6NkJ6TjJReE5uNUphNEY0TnpFSDhGektHdzZuSGRsRTVxeTYrM0pl?=
- =?utf-8?B?UDNUWHJSS0FHZzVkSXFhYVdCbHVIRXRjNm1tcEQ5ZmQ3ckk4a3hDRHhCKzkv?=
- =?utf-8?B?eTVEbmVaR2pmWHZONEJycTZWQU12NTZJUEhWaCtpNXpLUWVCVm1DUk9lSjhs?=
- =?utf-8?B?cEJCTjh2eDM4ckV5SkNDcWlBLyt6L3RpSkhwYndiazg5eEdtbEh6ZWxpNHlP?=
- =?utf-8?B?T1dUU2NWRC9PaUVidFZwRFQ1VUxNbUJmbzdzWjlkbCtCTzE1K0Z3TkQxYW8x?=
- =?utf-8?B?Q21rTHFveG9vMG1rYkE4eDk2bGhJWFBhbFMwbXltQkREdXA1NnQvTS9QQW9G?=
- =?utf-8?B?Smd2MENDUzE4N2ZuUnFCTWp1dGVkVkE4aDZoRWZVMFVLRVZKS2s5L2hvMzZt?=
- =?utf-8?B?b1ltSFZEd1BPVWROU2NPNnQwN2RMRVZNUWVtd01vMWtETVNOQll4UmExWjJ0?=
- =?utf-8?B?aUdSQjdvanNiWHVVdk5yc0tOTG1YZGtjREhyU0dGLzBkdzhxeUFJOVp4THBN?=
- =?utf-8?B?Z3Jub3pOZTlxUmo1Yk4xVUZvRXRYeW1ZSTQxb2lrbG9LRlU3cVdwdExnRjJv?=
- =?utf-8?B?QTdiRDRBZEtnVVNENjUzRkx5cGg0MUhBdGk1aGRTZlM2MXF5aFNrN3l1WEtt?=
- =?utf-8?Q?QnC8vCXGw+DsKT2+CiBC0Ewu3yI/07V6Qwpgc=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?K25hRXMyM2ltSnVtVUEzTkRVdkI5WENXRFoydklQSFdudzUwenFVeVlLWHQ2?=
+ =?utf-8?B?d2dVOENKZTVSSDRETm83S1lkalR0Qk5sM1Z0djdFcWNQU2JTaEVGKzdRVlBq?=
+ =?utf-8?B?YWp3dThldXpsNjVzQjMyY250ZFh1cGFKNnhWSERaRFQzQUp1bm9vbTFVZzMy?=
+ =?utf-8?B?cnFnWXFtQm1xSmhZYVk1RWFySzlzYkNUQk96NjdqLy9nVGhtSWszNm9KWm1j?=
+ =?utf-8?B?MzFuRXcvMllFalU5eTcrdnBQeWdLVGhldDlGN0RWRms2RWd3WkNsam43aFV3?=
+ =?utf-8?B?dzBaaG4xajR1NDhQNU1MZmZsOHJaZXcxaFFGeEJBbWpueTdLRUVuRDRhQ2Iy?=
+ =?utf-8?B?NkpzQ1M4UFdOZUZCVWEzc21KNDR3RFJKRlVza1NDQTMwSFJqRnB6clMzZEhs?=
+ =?utf-8?B?MlU3d0FWUHhjZjl2RU9iR0dRRHMrUzBLT2tvTHRKcGlBWFRpU1d5ZUtSNHU5?=
+ =?utf-8?B?cUhINDBDUlVBZUlaaVBNVDRzaDViTzJaLzd6SUtIUXBlVlpnVjNhRktmSHNC?=
+ =?utf-8?B?MVZ5UWtsTGtkOW5QVThnV3BieU9FeE5qdFZMaEkxYSt6d25IMDY1SGdvRTl3?=
+ =?utf-8?B?V0E5M01TRVlNMGlSeWc5aW4rK3gxMldCaWRURjY1bXoraHNmc0FzZDYwSWJW?=
+ =?utf-8?B?REdyZW1OVm12b0VtS0MxenhPQk0zTXoxa0w3OWkyZjVXSVd5YktnYmhsaWdM?=
+ =?utf-8?B?TVhPVDVTUjFiZ1VBNWtLaEFWQ1QxRVF1NDVxSFpBVkRhckxYT3RCQWRLNkdC?=
+ =?utf-8?B?aVJ4UUxpU0hQNGlmcmxiVkU3MnJIdE9ZOWlUMERYSWhCb2NjY3U4akpxL1pE?=
+ =?utf-8?B?Qi9UZHBRSEJBNVdLR05UZCt2ZmVQTWthTzA4OFBNN0xmYTF3TXRjclNpY0sr?=
+ =?utf-8?B?MDR5S2pMWHJydG5GSUUvakhSVTlFWXkwMGlNTnJRd2p2RWE5QWNveGJQU3Z4?=
+ =?utf-8?B?aHNhVkJaT29mZFkvK2lHZzFwRkY2ejhheGlkM2RidlRINGlPeSt5MmhReTNv?=
+ =?utf-8?B?amwvQnQzcUJYOTZiQVByMVlNZDZpdGREeUZyS3hUQkphK3ZseDRmZEpLdjZQ?=
+ =?utf-8?B?N2JTNHM0ODd1bjZyS3h6V2FoOGFhbHFBcFZFRFl5dk1YcEdSREE4azFoNW1D?=
+ =?utf-8?B?ZWFRNmI2bmxtc0lUakhrb2tyeE91UUlkWkdsbk5DeS9hK3dyTkMzVS9tZ05x?=
+ =?utf-8?B?SDNRcVVHVE81M0hZekV0dEN5d09DdExucStiNkFsdFE3VmRLWllBeUVYNTJr?=
+ =?utf-8?B?MmRrZ3AxV2tZNXc2dlZTQ3gvWGpEZVdLa01tY1kvSGZnU0dkT2s2VGlsSmJp?=
+ =?utf-8?B?VEQyQjAxOUZZaEFzWmJPeU1COXJxbExQay9Ia2JMK0dKeGM4bDdZMS9mVlpl?=
+ =?utf-8?B?dVNZL1ZCSzdDaVhYV1hwVzV6V25Xb0ZvdUM5TGROY1dHNzM0dVRRNzRwYTl0?=
+ =?utf-8?B?NXdnbE8yMEpsQUJURHMxUWFDa0psSEl6VmUrdTJTMGNkbm94bTI5bHQvdlVr?=
+ =?utf-8?B?OXQ5c2Q2azVXbWxlT1RHN3g2RnpJbTlJNm9sRU5NelMvcHFlczBrenVUWGh5?=
+ =?utf-8?B?QWlJTXlaT3JEZVc4L0IyVnNzQnpJV2NwNkZDL0xCSjJzT3dJVmVoNnVtTGp3?=
+ =?utf-8?B?VEE2TDlQeUVmWG5YYzEyc242aHc4NFN6VEhWMkE3Vy9QeHJaOVkxY0R6dWdh?=
+ =?utf-8?B?ZnhmWjhNbGxKcWQvZ0h6QUxGZ25pMFpLVGN5SEhYNU5XMlZ4TWNHUE9hQ0FH?=
+ =?utf-8?B?cUpRT3BtZDVtbVVmdy80MFIxQUpkdnBNRDhQNnJuenQwc3AvekdqVGcxLzF0?=
+ =?utf-8?B?QndwSEhsWHg5YXFpQ0lHN2ZacjRnVGxlZTR2dlU1RUx5YUZIS0ZkV1BZQVRY?=
+ =?utf-8?B?R3VtUzM1cUxkUjc3RmFhV2tyd05UWm8rYThHeGorRkNoZ1B5NVBWY0x5TkRH?=
+ =?utf-8?Q?d6NV+x8w010=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SnYrQityeEVqMmd4T3JIZEdEdnBsS0NtVUZJOWFsUm1mMzh0S0thQ1JOVktj?=
- =?utf-8?B?VlhaWUl5SDFZb2ZiWUcxNGJ2aEo5WElzTmhlY0tkcVFKSUlrcDc5NnYrWEQ0?=
- =?utf-8?B?Z0d3NEMwVll4TkpZaWdEZE1SMTBUUlI4Y3ZoNThUOFk3SDJkU1Y3elhEVGpZ?=
- =?utf-8?B?NldmU3JvVSttd1hjTWRWUjZDUmRVdk9QbGFUZnpRTjRIL1FpZ0FtejhSWktw?=
- =?utf-8?B?NVVVNWVYWW1OckEzcFdNbmR6MzQrZU02UWFHMjhhMHFIL21DbDFOdEVJb3dW?=
- =?utf-8?B?VEVEWm1JWkcrMFRpZjJuYVAyTmE4bEVRZEJWc2wyelhQQUh2RGR2c1lqdGNF?=
- =?utf-8?B?UThEWlVoOGJjclE5MDNxZDhnUmJrMUhFUG1EUisvamdtK2Q1K0xnU3pnU2xE?=
- =?utf-8?B?UWlpSDJHV0xEcnYzcXRIRGhnR3VESUZCci9WWlZWS1BTOVI4ZEdtRGJIdkFJ?=
- =?utf-8?B?VU82WDNQYUJSVFRjTWRhSWIwZ3gyVWJWMXpXb3VLYVFEQVVSR2s3RHY2MWN4?=
- =?utf-8?B?TGxqQ3d0K2ZBSFZXV09KR1p5bHAvaWh5Q2RnVHJuOVNiTFFlR1R2WHFUWDhp?=
- =?utf-8?B?QTVqekNGSVg0NVZnTHlNU1RNeWhRalh1NCthclg3enBiL2dXTUpiOGg3MktE?=
- =?utf-8?B?M3kyTVhOZkpZcEdvamFmODEyeUNnL2JTTHY0NngzQnVJVURoTzZPbzZ2eUZD?=
- =?utf-8?B?Rk11eVowa0NHMDhVUExBbkJCOEp0RmJFVFRiZ2lzeldSYndLNithMXB0Z0Zx?=
- =?utf-8?B?NUoyZExlN0hlMTJaQU1kK3ZYMk1wblNiMUFCdjY5ZGYzVVRqQXlrT0xKSnMy?=
- =?utf-8?B?K1pVbG5WTnI0V1pJTENTZTBBUkpzc3lJN0g3ckZDTkpTTWVka0plNGlPU0h5?=
- =?utf-8?B?cklZeUFTdXdvN3RsQytzSmNJdTJpWlJZaWJOUU1YRUl2ejYvMlBqdXZiYTFF?=
- =?utf-8?B?V2ozclpWckJRTFZZRWhVT1VTRERLa2lwK2RlV0pYdEpWRkhzaDdFcXNtRCtl?=
- =?utf-8?B?RjZkc0U4U3d4dkxCdjhXNGczWVRaWWsreXM3VlQzNjZZaEt1eFNReVU0dDZy?=
- =?utf-8?B?ZjEzZGFhamE2OGo0aUZ1Njh0MEJBZUpPUlgvK2ptQlZXcUI0NDJyUmpWenNu?=
- =?utf-8?B?a2lNRzVVNmozQ3h0NlEzOGd2SlRxSk95ZWdNai9IVWpDR0VrWGpINExpWlFk?=
- =?utf-8?B?T2d3OWxkTUgrTGttU2RkZmQyQVdZc1ZyRGY1d25SOUdjRmdyTjFjVlhCRUVz?=
- =?utf-8?B?cWxYTGNOb0pHL2doMHk4dzNKdlpURjF3S1RzOTJWUGg5U0FWWDFkT2F1VlAv?=
- =?utf-8?B?MzdzQW96T2NSVHFiN0R5dWFHakhTeTVySCtza2oxZjJKNUtwMHp5WnJURXpr?=
- =?utf-8?B?VXdFV2tMODFWRGlyajBpcG9FU2hjNnZzdThtcGJaNTR1eHNGNmdiTWdmVzRm?=
- =?utf-8?B?ZTFwR0NTQjdwSWFTUDJzMVlHd0FPRmx2QlY1WGVPdmVhSDlSL1VxQnBhSnNE?=
- =?utf-8?B?Y3hPZnZIZE1iNW9BQVA3Um9VOUFCM1dBQ3hnbmwzL1QyZk56NXRTVUxiVGwr?=
- =?utf-8?B?cmg1djNCeU51ZVdrTmlCbzRHendnL1cwa3d5UGx6c21sTGt5WUVPdlZpVUda?=
- =?utf-8?B?c0VvSlpZcUpEN0N1VTVFeW9ZZkhyTTVOaTNpQjJBNDhvc3FIcVdTelVoWmdF?=
- =?utf-8?B?T0N5cjllRVFNcTNPaVVpRVFBM3BMV09lRG5QTXhVU0RaSkRnNnk3NE1YeFNW?=
- =?utf-8?B?QTRxS2lUWjVZeXRZN3hHVGd4bXpqQ0pMTnFOenVVUm5VWHlEVUpVNEJEcnJN?=
- =?utf-8?B?SjcwWXdkTWVNZDBhb0gxQWhyT045SDNTV2kvSHJZeTFublRDTXRMSnphK2FX?=
- =?utf-8?B?VXJwR3JyS0YxSWdHMnUwQ1pwWFJaNjZqNkx2TkZJb3dBK3dPNnd6a25qNmJZ?=
- =?utf-8?B?aVlJVU1uQXVDZzgwMktmb3R0bGJkSHBFbWdELy82WDZPUVVUWDhKY1lSamdK?=
- =?utf-8?B?R2FtR2Flc1NKVCtEV3lFbW5ueGRtdjdVZzBWK1JZRmFyNGtOR05KYjRoZEl6?=
- =?utf-8?B?N2RhR1ltMUV5dTRzTUJqbTdnZzBGVkp2bDltbzRpUWNhMHpqa2tXTTZTbHc4?=
- =?utf-8?Q?/1X+avYGI1J4uKT29zyx5pVSM?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K1FNZ281ZjFhVVFLTktIYkloN3NNTTJyYjJwVFZvWmZ0RHoyYmk3WDB6REpV?=
+ =?utf-8?B?ZVlyWmRhMzl0N3duNHp1azZsMDZuMm5tUTFyMWZLNUUxa2x2b0E1UWFYKzNo?=
+ =?utf-8?B?eFdGd1VmSEN0RjZ1bnk2TzZOZC9EYUtOQjFTM1Ixa21HSkFvT0pzNnU4STFz?=
+ =?utf-8?B?Nyt4VG9jRmY5OWFIUWNJeUxDUjVtS2ltaHdvZUFkRmwyZ0RHNzZQakRqNzFL?=
+ =?utf-8?B?Mjhzb1FwM1ZQei8yOUVrM3AvVllzNExIYWloVlNDdHhDeExDcEtGSWxqU3Bl?=
+ =?utf-8?B?K3dlZFBQWDFUdzRLeFNjbGtqVHR3RTI3M1FUWVowUnJ1ei9yWVNwQjhmTlJW?=
+ =?utf-8?B?bi9hUUt1YjJ6OXEyNi9DRlBzYWZFc3ZTeEs4TG00eHh0dkx6OU4rUnhYQ3lS?=
+ =?utf-8?B?RUtsNWNtbUU4VkxxRnhxUmR5UFlITXBtMlhlUVVoMDBiVWRIa1Z3R2FPTkRv?=
+ =?utf-8?B?UUNQaDJFMnBFaXZIb2NlMjZpYWZzdHh2STZjczExN2pIZHVIVzdjckdaUWJ3?=
+ =?utf-8?B?TVBlcmF2anJNMHNHZDU4MzNSVWd6aXdFQzdRWmtsd2RpZXo5Um5idjZBZnBE?=
+ =?utf-8?B?YjFBVlJ6YU84L0czVmd3a3VQVWJQTmFrT2J2Qkg1Ky9ZTnFFUzkvY2JDam0v?=
+ =?utf-8?B?UExBaEp3aGZGL2orT1ZYOTJydFArbzBhZ2xNa3ZJR2RZaEg0N3NuQlJkSE9l?=
+ =?utf-8?B?SDF3Q3U0eWt4ZFVoMXU0Rktaa3dGS3QyU3ZSL2hXUDRtVGd1SlZ6R284cEFD?=
+ =?utf-8?B?bDBNM3lrUS9palJDT0JEY3BudGpjRitYcnRZVDlYRjlXR0tuc0RQWDRJRVAr?=
+ =?utf-8?B?bXROOEh5eXVyS1dadDB3SkRnbk9NV2YweXJ6b281eG5wYkNpeUZpU3ZCa2pz?=
+ =?utf-8?B?NmdxL1M0Y0MycnUvN1NHdUZpMlJ6dnYyaGtKTUJFN0RyekFONmdZZ2Z4T1RF?=
+ =?utf-8?B?WGt6UDdQdWlydk4zWHBiMFljZ0tnU2M5WDRaaXNDRHdrN2czbXR1dnNhblY5?=
+ =?utf-8?B?b0NWbEd1YTEyMG1kVDlmZE9GdG13dm15UzN1ckRLa3dRYVhFVk1aNFJudkdF?=
+ =?utf-8?B?U0pWQ1AyQnlyYkJ5YVRzZGRqTlcya245OWdtYW1YbndGTzRoOFdvOTFqOWQ0?=
+ =?utf-8?B?T2UzeUJYSDhSOFR4UlJxQ3p2YmlHTnhTV0JBOTJpdEFJMkdIY0FIcys5TjhE?=
+ =?utf-8?B?UXJ6TkM0Tjg1WWFPVVF6UmpENEdlUEMzNjFHSTVWMEhzWWE0MXFmYlZTU2Z3?=
+ =?utf-8?B?Q3ZZUFRzK3JENEl3c04xcnZvUVpoR3JUdWowa01EUUNaZnBXQWFJKzR6T3ZI?=
+ =?utf-8?B?RFJ5bjcxWVRUVDB5U2l3STQwQkVYUy9kUnJDWUFmREkyeXJLcFNTVnNPeUcw?=
+ =?utf-8?B?dVIzYkFoRUYwSTEwMUhaVllDSDVvbDBLandNUExxZTJmNjBMQis0NGlOOG1u?=
+ =?utf-8?B?ZWp6dTZTSUc2NFNEUDF0MTR3dnB4aURPR1l5QUkrRHRYNmw4OUY1dXdOYUtp?=
+ =?utf-8?B?TSs5TzBFR2tXUnFZUDR4clJmSDIzN1llM3lQZFRGTW9tY0dFRXlGV2tLcm9u?=
+ =?utf-8?B?V1hsMUd6RUxDRGsvQ3pKZ1FjWFY5NnpZVHZ0OW9ZRUFPSWxEcFQ1QXlOcTFN?=
+ =?utf-8?B?Q1lqcm9zbDRlemFjdS9ScjM1TjdlT2hnZVRQSTlSYnRNZEhHTzBPZWtrb1hk?=
+ =?utf-8?B?UnFLQVRkUC82b2ZGQWtHUjdsUGRhVHVTT2d5SkRueFIyN1JuTWpkS0tSNVEy?=
+ =?utf-8?B?YW9UeThHS3Noa3F3bVdGWnRNVllacXgxY3MrTmdUOW5HWXlyMXBrRk45Z0li?=
+ =?utf-8?B?QjF1bjI5bHl3V0V5WTM2eVc0N1JRcTJIQ2w4NWpVZ1F5VHVOKzRYaFErYm9H?=
+ =?utf-8?B?NnNIdXNhOVk0c1JTeEFCZDM5NGtkVXdsV2lVWlhuOXRhdDBXQ1dOc1R1L05Q?=
+ =?utf-8?B?dDNSUXlMRVBLYnpoR2IyNHU1SkFhSTVCV2J3dXhBYlNZYWQrK0RtQXpFN2Vh?=
+ =?utf-8?B?VmZsUXdkR1ZHY0NkWTZjcTJWSmNVQjk0QVMza2JlWEp1YVZmWVhHUlYvM04y?=
+ =?utf-8?B?OVdFODRUWHA2aDVhNkJLN2U3T09iSjNWZEdYTXRuSlplNVkveXJsSXhxeGRO?=
+ =?utf-8?Q?3JV+yo+oHxGsIkA2qBfh4SXKt?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 765fcd92-a015-4748-42aa-08ddbec4162d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50e91c16-8f1f-4df9-003f-08ddbec437d5
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 08:39:15.4869 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 08:40:12.1676 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W9eX3FNbESq1hTpW8AtnzVKvLbDzRXGcnw5TdmKspHoqKO3jd+4JPp8t5nE3sphQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7354
+X-MS-Exchange-CrossTenant-UserPrincipalName: IKmj4zlyKIE4VvbIa2YE1BSHlGxWgImbo68dAQXUyOQ5nVg5ANblwJzlt/ZaGM/8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8728
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,136 +160,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 09.07.25 06:56, Lazar, Lijo wrote:
-> On 7/8/2025 8:40 PM, Deucher, Alexander wrote:
->> [Public]
->>
->>
->> I seem to recall -ENOTSUPP being frowned upon for IOCTLs.
->>
->>
-> Going by documentation -
-> https://dri.freedesktop.org/docs/drm/gpu/drm-uapi.html
->
 
-Good point.
 
-> EOPNOTSUPP:
-> Feature (like PRIME, modesetting, GEM) is not supported by the driver.
+On 7/9/2025 1:59 PM, ganglxie wrote:
+> add eeprom data checksum check after data writing, after gpu
+> reset, and before driver unload. reset eeprom and save correct
+> data to eeprom when check failed
 > 
-> "Note that ENOTTY has the slightly unintuitive meaning of “this IOCTL
-> does not exist”, and is used exactly as such in DRM"
->  
-> Since KFD ioctls could eventually be supported in drm node,
-
-That's certainly not going to happen.
-
-We are currently in the process of deprecating the KFD IOCTLs and either using the existing DRM render node ones or coming up with new IOCTL/additions to the existing ones.
-
-Background is that some of the KFD IOCTLs have design flaws which are unfix able.
-
-Regards,
-Christian.
-
-> it seems
-> better to go with ENOTTY.
+> Signed-off-by: ganglxie <ganglxie@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 13 ++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  7 +++++-
+>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 25 +++++++++++++++++++
+>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |  1 +
+>  6 files changed, 48 insertions(+), 1 deletion(-)
 > 
-> Thanks,
-> Lijo
-> 
->>
->> Alex
->>
->>  
->>
->> *From:*McRae, Geoffrey <Geoffrey.McRae@amd.com>
->> *Sent:* Tuesday, July 8, 2025 5:13 AM
->> *To:* Koenig, Christian <Christian.Koenig@amd.com>; Kuehling, Felix
->> <Felix.Kuehling@amd.com>
->> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
->> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
->> *Subject:* Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported
->> IOCTLs
->>
->>  
->>
->> [AMD Official Use Only - AMD Internal Distribution Only]
->>
->>  
->>
->> I am happy to use EOPNOTSUPP but I must point out that this is not the
->> pattern used across the kernel, the standard is to use ENOTTY, which is
->> also the default that fs/ioctl.c returns when no handler is present.
->> Userspace tooling such as strace and glibc specifically expectect ENOTTY
->> to indicate invalid or unsupported IOCTL.
->>
->> ------------------------------------------------------------------------
->>
->> *From:*Koenig, Christian <Christian.Koenig@amd.com
->> <mailto:Christian.Koenig@amd.com>>
->> *Sent:* Tuesday, 8 July 2025 5:01 PM
->> *To:* McRae, Geoffrey <Geoffrey.McRae@amd.com
->> <mailto:Geoffrey.McRae@amd.com>>; Kuehling, Felix
->> <Felix.Kuehling@amd.com <mailto:Felix.Kuehling@amd.com>>
->> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com
->> <mailto:Alexander.Deucher@amd.com>>; amd-gfx@lists.freedesktop.org
->> <mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org
->> <mailto:amd-gfx@lists.freedesktop.org>>; dri-devel@lists.freedesktop.org
->> <mailto:dri-devel@lists.freedesktop.org> <dri-
->> devel@lists.freedesktop.org <mailto:dri-devel@lists.freedesktop.org>>
->> *Subject:* Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported
->> IOCTLs
->>
->>  
->>
->> On 08.07.25 06:22, Geoffrey McRae wrote:
->>> Some kfd ioctls may not be available depending on the kernel version the
->>> user is running, as such we need to report -ENOTTY so userland can
->>> determine the cause of the ioctl failure.
->>
->> In general sounds like a good idea, but ENOTTY is potentially a bit
->> misleading.
->>
->> We usually use EOPNOTSUPP for that even if its not the original meaning
->> of that error code.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com <mailto:geoffrey.mcrae@amd.com>>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 8 ++++++--
->>>   1 file changed, 6 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> index a2149afa5803..36396b7318e7 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> @@ -3253,8 +3253,10 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
->>>         int retcode = -EINVAL;
->>>         bool ptrace_attached = false;
->>>   
->>> -     if (nr >= AMDKFD_CORE_IOCTL_COUNT)
->>> +     if (nr >= AMDKFD_CORE_IOCTL_COUNT) {
->>> +             retcode = -ENOTTY;
->>>                 goto err_i1;
->>> +     }
->>>   
->>>         if ((nr >= AMDKFD_COMMAND_START) && (nr < AMDKFD_COMMAND_END)) {
->>>                 u32 amdkfd_size;
->>> @@ -3267,8 +3269,10 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
->>>                         asize = amdkfd_size;
->>>   
->>>                 cmd = ioctl->cmd;
->>> -     } else
->>> +     } else {
->>> +             retcode = -ENOTTY;
->>>                 goto err_i1;
->>> +     }
->>>   
->>>         dev_dbg(kfd_device, "ioctl cmd 0x%x (#0x%x), arg 0x%lx\n", cmd, nr, arg);
->>>   
->>
-> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 84fcaf84fead..2503f2300472 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -6410,6 +6410,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>  	struct amdgpu_hive_info *hive = NULL;
+>  	int r = 0;
+>  	bool need_emergency_restart = false;
+> +	enum amd_reset_method tmp_reset_method;
+>  
+>  	if (amdgpu_reset_domain_in_drain_mode(adev->reset_domain))
+>  		return 0;
+> @@ -6506,6 +6507,18 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>  	if (!r)
+>  		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
+>  
+> +	if (reset_context->method == AMD_RESET_METHOD_MODE1 ||
+> +	    reset_context->method == AMD_RESET_METHOD_MODE2) {
+> +		amdgpu_ras_eeprom_check_and_recover(adev);
+> +	} else {
+> +		if (reset_context->method == AMD_RESET_METHOD_NONE) {
+> +			tmp_reset_method = adev->asic_funcs->reset_method(adev);
+> +			if (tmp_reset_method == AMD_RESET_METHOD_MODE1 ||
+> +			    tmp_reset_method == AMD_RESET_METHOD_MODE2)
+> +				amdgpu_ras_eeprom_check_and_recover(adev);
+> +		}
+> +	}
+> +
+
+It's not required to do this for every reset. You may check reset
+context source as RAS and then do a recheck.
+
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 571b70da4562..1009b60f6ae4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2560,6 +2560,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+>  	struct drm_device *dev = pci_get_drvdata(pdev);
+>  	struct amdgpu_device *adev = drm_to_adev(dev);
+>  
+> +	amdgpu_ras_eeprom_check_and_recover(adev);
+>  	amdgpu_xcp_dev_unplug(adev);
+>  	amdgpu_gmc_prepare_nps_mode_change(adev);
+>  	drm_dev_unplug(dev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index f8a8c8502013..e03550be45b4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -196,6 +196,7 @@ static int amdgpu_reserve_page_direct(struct amdgpu_device *adev, uint64_t addre
+>  		amdgpu_ras_add_bad_pages(adev, err_data.err_addr,
+>  					 err_data.err_addr_cnt, false);
+>  		amdgpu_ras_save_bad_pages(adev, NULL);
+> +		amdgpu_ras_eeprom_check_and_recover(adev);
+
+As mentioned earlier also, there should be some way to identify when
+this is really required. We had plenty of issues in the past with
+delayed resets during RAS errors. Introducing more handshakes/I2C
+transactions with PMFW is strictly discouraged.
+
+Thanks,
+Lijo
+
+>  	}
+>  
+>  	amdgpu_ras_error_data_fini(&err_data);
+> @@ -3539,9 +3540,13 @@ int amdgpu_ras_init_badpage_info(struct amdgpu_device *adev)
+>  		/* The format action is only applied to new ASICs */
+>  		if (IP_VERSION_MAJ(amdgpu_ip_version(adev, UMC_HWIP, 0)) >= 12 &&
+>  		    control->tbl_hdr.version < RAS_TABLE_VER_V3)
+> -			if (!amdgpu_ras_eeprom_reset_table(control))
+> +			if (!amdgpu_ras_eeprom_reset_table(control)) {
+>  				if (amdgpu_ras_save_bad_pages(adev, NULL))
+>  					dev_warn(adev->dev, "Failed to format RAS EEPROM data in V3 version!\n");
+> +				else
+> +					amdgpu_ras_eeprom_check_and_recover(adev);
+> +			}
+> +
+>  	}
+>  
+>  	return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> index 2af14c369bb9..2458c67526c9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> @@ -1522,3 +1522,28 @@ int amdgpu_ras_eeprom_check(struct amdgpu_ras_eeprom_control *control)
+>  
+>  	return res < 0 ? res : 0;
+>  }
+> +
+> +void amdgpu_ras_eeprom_check_and_recover(struct amdgpu_device *adev)
+> +{
+> +	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+> +	struct amdgpu_ras_eeprom_control *control = &ras->eeprom_control;
+> +	int res = 0;
+> +
+> +	if (!control->is_eeprom_valid)
+> +		return;
+> +	res = __verify_ras_table_checksum(control);
+> +	if (res) {
+> +		dev_warn(adev->dev,
+> +			"RAS table incorrect checksum or error:%d, try to recover\n",
+> +			res);
+> +		if (!amdgpu_ras_eeprom_reset_table(control))
+> +			if (!amdgpu_ras_save_bad_pages(adev, NULL))
+> +				if (!__verify_ras_table_checksum(control)) {
+> +					dev_info(adev->dev, "RAS table recovery succeed\n");
+> +					return;
+> +				}
+> +		dev_err(adev->dev, "RAS table recovery failed\n");
+> +		control->is_eeprom_valid = false;
+> +	}
+> +	return;
+> +}
+> \ No newline at end of file
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> index 35c69ac3dbeb..ebfca4cb5688 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> @@ -161,6 +161,8 @@ void amdgpu_ras_debugfs_set_ret_size(struct amdgpu_ras_eeprom_control *control);
+>  
+>  int amdgpu_ras_eeprom_check(struct amdgpu_ras_eeprom_control *control);
+>  
+> +void amdgpu_ras_eeprom_check_and_recover(struct amdgpu_device *adev);
+> +
+>  extern const struct file_operations amdgpu_ras_debugfs_eeprom_size_ops;
+>  extern const struct file_operations amdgpu_ras_debugfs_eeprom_table_ops;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+> index bfc86f1e84e5..081f7fd29394 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+> @@ -80,6 +80,7 @@ int amdgpu_umc_page_retirement_mca(struct amdgpu_device *adev,
+>  		amdgpu_ras_add_bad_pages(adev, err_data.err_addr,
+>  						err_data.err_addr_cnt, false);
+>  		amdgpu_ras_save_bad_pages(adev, NULL);
+> +		amdgpu_ras_eeprom_check_and_recover(adev);
+>  	}
+>  
+>  out_free_err_addr:
 
