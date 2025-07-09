@@ -4,46 +4,169 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 587BCC8303C
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 23:07:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2ED0C83F09
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 04:43:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A68E210E1D8;
-	Tue,  8 Jul 2025 23:07:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4239A10E268;
+	Wed,  9 Jul 2025 04:43:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nm+4Q/9/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cS068e3W";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1739D10E1D8
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jul 2025 23:07:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 97FD6A544BD;
- Tue,  8 Jul 2025 23:07:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F8D7C4CEED;
- Tue,  8 Jul 2025 23:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1752016066;
- bh=nSWIiZ8c2B2S99IhwwjJ6EnD6mZ83g+A8NKZFmBIezw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=nm+4Q/9/sUALLz/kYLurAX56TYmjQQoUni/CTXQfFrvjzAI6IrzhSfkkmCsocgLW5
- rgxk5lZ2NQUOesMIBarmVcT8msohzywGFs3UTPK0554lM0Qvf/cKDZYwdR7rnJk4bv
- O8d7W0mArOUeuq2FHFypUAS55f20lQEbxQXf9f9uKsMMg9dSUCS5nmPdjhVd997Ps4
- tMEtZeIjJYCHZ92FrAbT2qjR37V8htPMZj002kMBbKyJGL5BeW3qNwlsCRM4LD5H4G
- /NmoRlLg+V0XKwsGPdGhsWH6pAcBWYeHFj1TznkTVrIM6NB7Q9Nl2Edaz1apUwgfhJ
- Wugzp6n/CoiPQ==
-Date: Tue, 8 Jul 2025 18:07:44 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Alex Huang <huangalex409@gmail.com>
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org
-Subject: Re: BUG: ASPM issues with Radeon Pro WX3100
-Message-ID: <20250708230744.GA2167285@bhelgaas>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B02C210E1EF;
+ Wed,  9 Jul 2025 04:43:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1752036238; x=1783572238;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=nXaPbOKSf6sUuAyMMu1eXqLlGDTO1kwpdV4oTZz3Wkg=;
+ b=cS068e3Wfus6MCqP0/VjTCn6qQKF10IqcJHZu2S97lzTfruS/wCkmnlQ
+ POBt9ZTInApIeUwAQ2/01VHpU+rERhd/c1FENT+geYy07IEPOmNNJHf59
+ +DgB6IxX8NEnOQxM4EeXvXPAA7VKNIAxtNvrAYc7stIDib5m8gwQLwUS9
+ jk49j2XAVm7oDqSkY++BJu9VuaPhcw3yayzv49YtQNfbfBz6QaoCrRc2C
+ M8uISrlBvNsZ6n9jhnzWlyRwvq0b4+Kg/qjQA9K4dreJ8EYxV/udrvmAt
+ NzTk35qQvmu0s72ElOn/lbGEc6LXUKs409OOZMepcjKrM1dLfos7EVQI3 w==;
+X-CSE-ConnectionGUID: qFGHH7jGSWazKtTWYTDkxw==
+X-CSE-MsgGUID: N66Ya2owT7OpPWNzzfG3mg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11487"; a="76833571"
+X-IronPort-AV: E=Sophos;i="6.16,298,1744095600"; d="scan'208";a="76833571"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2025 21:43:58 -0700
+X-CSE-ConnectionGUID: 0s7lxRwmQDODQDj2ZD+iQQ==
+X-CSE-MsgGUID: YmTVo7LZRI+L9L+zwXJtLg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,298,1744095600"; d="scan'208";a="156149542"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2025 21:43:57 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Tue, 8 Jul 2025 21:43:56 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25 via Frontend Transport; Tue, 8 Jul 2025 21:43:56 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (40.107.220.49)
+ by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Tue, 8 Jul 2025 21:43:56 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YNgbKiMTzTl7+AMZNfTZsdmWN3NagweA+zhfUy6JndrB+CZ1A41k2rXQ6Rr+kNtWtQQRrNWANuF6+TAGFV/3OfyKSKuwidA8VpHEK6bFe/5cSqdVx8Ewq0QFWlktdrH8kIfBW4JBJhyS1xfCwsevbmdkI1tjmRAA1mECZkmWY7y0eeF4BX/Ao0VbGjWfZhhXYRdaw0Vd0R1FkTOuKlU2urY5S208F8WVYWVLL9qQeUrpeqWrJ15iEkTfHuIwlRsB5Eba8G1Sqlp5srvvAShO50pFdBtPMjgSKvctXQTfYuOmikYZlXr3AI+bQVx3dzbHrzPa5Zdzf+M1wbbAZncktA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hXg9uAw83MZObSPlT9GShz/Yrie/NooUYdrcmdYDfLE=;
+ b=qMSvQwrcfrMMkd4smK8EfFOObyL4Yb+3Pexs1XLzusG34OzSobzHJyWOunYkJRj/dS5hHum8/aI7X79rVw8jG0ktQmPpYzxaiFfQ3X7ZIPeSxujgVKHbS2aj5dbwlK15BQzChqhVrhxUvcdMgH4HOTyy6dVmvGupP3o74cfLvifaobkW/Nn9eYotS8tezSjbNPRTkcK+c+1dSUz3PI8VKuZGNfL5lvTMw+DF+GfQ+ulvycZHuUyBaaa6LGq2H7wPcs+QtodKwhne7IAn3cO4y3PoT6DHyyctOO1SGOhvkLQmmrvTG+GsN2gNYkYyZg+3K4MAPX6fumiqVrOZsfTCLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by DS0PR11MB9456.namprd11.prod.outlook.com (2603:10b6:8:290::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Wed, 9 Jul
+ 2025 04:43:36 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332%5]) with mapi id 15.20.8901.024; Wed, 9 Jul 2025
+ 04:43:36 +0000
+Date: Tue, 8 Jul 2025 21:45:19 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+CC: <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>, <kernel-dev@igalia.com>, Christian
+ =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
+Subject: Re: [PATCH] drm/sched: Avoid double re-lock on the job free path
+Message-ID: <aG3z38CePTKpvjfE@lstrano-desk.jf.intel.com>
+References: <20250708122032.75668-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Disposition: inline
-In-Reply-To: <d10e4b65-463d-492e-b08a-221dba11500d@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250708122032.75668-1-tvrtko.ursulin@igalia.com>
+X-ClientProxiedBy: MW4PR04CA0390.namprd04.prod.outlook.com
+ (2603:10b6:303:81::35) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DS0PR11MB9456:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5dec15d-096e-4cf0-64e2-08ddbea32ad2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?KxvGWhGOrP7FS7YHaxQtJ57rshbDT38ro1knZ3tBFq0H/bUEca8nxVgMWJ?=
+ =?iso-8859-1?Q?ouAQR1PrVV6lNugqWB4+LXRv/ocit3ZLaFfjUyuwwok+PFCZ91nRD0uzKx?=
+ =?iso-8859-1?Q?bvvSR8FpyXhx79Y+ZwhASJPZmPQYuZFbz8G1S09RFm8LrX71HbFKz8Hz50?=
+ =?iso-8859-1?Q?tXzhWyS/DfC8AXHNFpNAK2FnuVKsKHrTpDT6bQxciV9TIKrphksEAxH7Bz?=
+ =?iso-8859-1?Q?69zLxF++3Rj5UHuqPQjGAfYnr+M9vSpB1ADsJ+nOanR0EDdZ9X5XDFj115?=
+ =?iso-8859-1?Q?D2qGgDxyXH1a0TsTNjb2d94uyYAHsuAZ3R5W3LFDaXq5cTe8N4E4O8a2eg?=
+ =?iso-8859-1?Q?CTkdh1a/DS799ZOVwKWanuHPRF2G192PQ/kbuJdL8HgDVm6hfD+NtJwydn?=
+ =?iso-8859-1?Q?nmv+lIwhtxSJHkqT5X0DHslkSCwEcVCVRftWDa9nvCa6kknENLX8tArmR8?=
+ =?iso-8859-1?Q?G2JhDpDH9sumsDEHYuE5wgIdajZpGSyYsi3R81aNs0n3msvTJY4GiwqyPp?=
+ =?iso-8859-1?Q?pC2sYC07zmu6Vu8soXvvCoGqC6hLpKFau4CsjIKqiFgjv6jakHUQA8IB7D?=
+ =?iso-8859-1?Q?gUXVBgM5WPHNSaj8apLGNZT8kWS4Qy3QzdAT8n8RdfV6wbkRuDr/SOHiH9?=
+ =?iso-8859-1?Q?1quHL77yecvXf4nesxeb+M218e0Gn6XXKL9yxKunpPTBfFF8Kw4jTObz5Z?=
+ =?iso-8859-1?Q?PL/IpLtt76JYcAWYezaB8KMMjsAGtT2XonXsLi4BmaLVqA+GS6J3HegoNW?=
+ =?iso-8859-1?Q?zZqWPl/GT0O7zc7HA3isS1wPlQgMZIKRsGBC7U3/qld+eMZ+rOvo9Qty0X?=
+ =?iso-8859-1?Q?goFPOah57pKP804IOl961FJ387KUnL3P62VvlKL//ht0RWUmH4AIzO199Z?=
+ =?iso-8859-1?Q?GXsP/M7s5TjNfmLwlGjrHyPfLbdMUcjje7V8XBSLi6o6u79Y6FIEUUq47P?=
+ =?iso-8859-1?Q?rGpSJ1WlsuiaymYBlsKolbEz1YhDTk2+vz5+mSpxLchb0n6/CiO+CdRRz4?=
+ =?iso-8859-1?Q?R+lOJXThYoduyA3SKC1qztyfOtY5R39vJfiuRkjeKIoh/8aB+VEtVJKkYQ?=
+ =?iso-8859-1?Q?fGbKOcC3MsI9AoEVAtQZgm4ynjDmHMl9gyRBS3++i4RiYaeZoorE03EaBY?=
+ =?iso-8859-1?Q?4kgni7ELAuJzwcWGwoJyG6s9VQHgKxEM9XMwX+QoZz/5m0V23SRt4HKTDH?=
+ =?iso-8859-1?Q?qfuUag+Whv464Fw2ruG6T0bs/H/vi/oOF4doWSYrKGC39WpNvKJ54vu2du?=
+ =?iso-8859-1?Q?lzIc1RiIS3qphOIpkNIJshjvbfaHJoVA0TC+AKlNvv1qR84qCkA9FZ5s8+?=
+ =?iso-8859-1?Q?0egGsAoQAVrWhTWnnoChIHYe5Y76QELN2YYwh1bjp4Q85L3SXzZvkxoy1Y?=
+ =?iso-8859-1?Q?Il6+urTDm4J+sxMKsjEHIL+HpjiYxqcpDLQwEf9EkppcbhPplPes4ZTccT?=
+ =?iso-8859-1?Q?aGlBEkgONlIkfS/5VEdN70rjzKRYCEk0uKY+uTcTjU4rpgEBsuKiCvkKA0?=
+ =?iso-8859-1?Q?E=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?JRJ3JnUTvEwgOvhLI5992ufut9zPn2WJACRUd/PulWoUPSQU0fPEJQYTMa?=
+ =?iso-8859-1?Q?Ey1548NDGAjmd1cPZ5jeJxNX4Xw9wK2w1vr/LQgXq+xVScx3K3AlZB1V/Q?=
+ =?iso-8859-1?Q?YzeQvui7s0VCUybQgZnXe33y1IwPe+jODCI/MDVsbCMPQJhUM5Elg1UnMv?=
+ =?iso-8859-1?Q?uBvnHU9KT+2YIdvkHgvOIaUG0Qpi+kbDnGVf0Y048VnAwwiLdR/B/mgWTE?=
+ =?iso-8859-1?Q?1hMoSNz3Nm27lY9ZLj94jRth2uIVY5VXNDhpp3m8v4CZz1dmZHwKdmnPTl?=
+ =?iso-8859-1?Q?ZyG4N5nw9b/hc/UQEgk9DVgH06enk69S2Id97W1UU/0wMpJzSiQWs3sVin?=
+ =?iso-8859-1?Q?QTA9GtbIYMedDecbdPBaguLhNxb2/BkJWDqSIiAtzb/eSD+DNRuH+JVpTS?=
+ =?iso-8859-1?Q?BApIKaiFI8ItClqNB6ph6jYLHpv235XXlW3YuASYZmbW9JZ9o1wk1cr3Ky?=
+ =?iso-8859-1?Q?TtxSgkVJEa8GUaUJf8j56/wa36YApJe8y+iYon9omG3Uf9EiXndZ6BgIQw?=
+ =?iso-8859-1?Q?4J3ny7DEeLSqX1RLoVhp54TnPZy5SXSRkZauM7O6ALEGiKs93fFD1NiTVV?=
+ =?iso-8859-1?Q?WoUIBrvGvg7peZVm+AVyBjPxu9DDA4+x/IatxVP4Cqn8FaFhpCqg8aQkWx?=
+ =?iso-8859-1?Q?wnEiI/hczK8dWePzn6r337uKD3n5FqfY/BC1SEH90Ym8rlv0TRsceOwf97?=
+ =?iso-8859-1?Q?SdynzpubKpqKF4RW4kab80dgDcdV8HJ+RI3RGtKbLdfHyykotSwWUDUCOw?=
+ =?iso-8859-1?Q?LTCkgNcihf0ZKSX2UySyZ5w4zK/gcb1t/pcPoG74rsfHlmqzk87NA6MrXO?=
+ =?iso-8859-1?Q?CxOCYq90hQ9IdRQJmb3CqOs9rt/rx/W3EOharyLAWl7xwAA+pd2mOcXOo+?=
+ =?iso-8859-1?Q?uhIFrfD9OoCFBl96vfNuqRjxVeMizV8Jxz0KfFQiDPiyzVI4UL6JTdTtT/?=
+ =?iso-8859-1?Q?1+w+WQvWjEHRsGVgmo4/0ow1k+xZnJIz0ac5dwl4DdBVNrpwJ/xss+I/Jn?=
+ =?iso-8859-1?Q?tegERmgYXxVNFKuWXygbMHuc0RoTOhnfBomkn9p9FiMNl8cfnJwl8lOyr1?=
+ =?iso-8859-1?Q?6WBueiYMRpHPcfG1hgO6smRWssyqhRLU0PTspmKUqyBMVwtXQq5g5/u823?=
+ =?iso-8859-1?Q?/aK0u3OmVslxZKc0E50zWNPcH65wFzL3jW3fO13dnzQLIkkxhsd9yMEGJH?=
+ =?iso-8859-1?Q?/ribe44DsGlwiJ4mONpmAJa+ZxH1K15YHNPlmmmYMJ8cg/LbyJ3sPbWHxc?=
+ =?iso-8859-1?Q?k3DZGDxecFa3lcfOgjJkw5rz967lnE1YbBOFoA4YAckb2EETLgy47zUXhO?=
+ =?iso-8859-1?Q?ujDlRhdKjZJqXIUo0QkwYz2CGNOf6voAguQFVGbOVjlrjg8PblFbEw8Fpf?=
+ =?iso-8859-1?Q?+zAE4LlG9JtFYMCYYamU5LvKg57gBYIBj73HVaboDnt5Ie22PoKk+/lADR?=
+ =?iso-8859-1?Q?Q9jM0kU8d7dwxD9ZERCxX+FxJFaNBkLx7vcbBsQLvApFAhpTfbdmw9rkGj?=
+ =?iso-8859-1?Q?y//MXLzniY6k66E9mvegY64IzNbGkve4Q7v5jy2uqVxAhKSkELRGWPVZNw?=
+ =?iso-8859-1?Q?En3ANEAI8j/InUX2xeXp+OfTrTzg6zSG6ALIDb9Qbuku8ah+DBUr80R45f?=
+ =?iso-8859-1?Q?p6LaRBbvm4sYBOI0IkZXEmGA8RzNlusiXHS9Bc+tqq4BMc9vaagMNWZQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5dec15d-096e-4cf0-64e2-08ddbea32ad2
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 04:43:36.5117 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HmSG3prlW6Rh1IJeIEgiDpueDN9+KvUxXF1DzoR7xwuPRsTZ98zfI0DGECJ9Jbp8Kgs2u7IfSYF5ZQh2pdCVIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB9456
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,394 +181,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 03, 2025 at 12:09:20AM -0400, Alex Huang wrote:
-> Hi,
+On Tue, Jul 08, 2025 at 01:20:32PM +0100, Tvrtko Ursulin wrote:
+> Currently the job free work item will lock sched->job_list_lock first time
+> to see if there are any jobs, free a single job, and then lock again to
+> decide whether to re-queue itself if there are more finished jobs.
 > 
-> Recently, I dug up a Radeon Pro WX3100 and when booting, got a black screen
-> with some complaints of No EDID read and then a `Fatal error during GPU
-> init`. With windows booting fine and an MSI Kombustor run turning out just
-> fine, I would say hardware failure highly unlikely. The logs seem unrelated
-> (although I have attached them anyways), lspci -vvxxx output for the device
-> is also at the end of the email. Also here is lspci -vvxxx for the upstream
-> PCI bridge attached to the GPU.
+> Since drm_sched_get_finished_job() already looks at the second job in the
+> queue we can simply add the signaled check and have it return the presence
+> of more jobs to free to the caller. That way the work item does not have
+> to lock the list again and repeat the signaled check.
 > 
-> A bisect reveals the offending commit is 0064b0ce85bb ("drm/amd/pm: enable
-> ASPM by default"). The simple fix appears to be setting `amdgpu.aspm=0` in
-> kernel boot parameters. This seemingly is a case of something in the Lenovo
-> ideacentre (specifically the ideacentre 510A-15ARR I found this bug on)
-> incorrectly reporting ASPM availability. I'd think this is a PCI driver
-> issue, but I am by no means an expert here. If this ends up on the wrong
-> mailing list, please do let me know.
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
 
-The messages below show that you're running v5.12.0-rc7+, but
-0064b0ce85bb didn't appear until v5.14.  Obviously it was reproducible
-if you could bisect it, but I'm confused about where you observed the
-problem.  
+The patch looks correct, we do have CI failure in a section which
+stresses scheduling though. Probably noise though. Do you have Intel
+hardware? I suggest running xe_exec_threads in a loop on either LNL or
+BMG and see if the CI failure pops. If you don't have hardware, let me
+know and I can do this.
 
-The newer log you posted at
-https://lore.kernel.org/r/e03b119d-4a27-45a0-8058-3ac7fbee23c7@gmail.com
-is from v6.16.0-rc4+, which is great because it's a current kernel,
-but the issue there looks much different (an oops in
-drm_gem_object_handle_put_unlocked()) and doesn't seem like a PCI
-issue at all.
+With a bit of investigation in the CI failure:
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
-If you can reproduce a PCI issue in v6.16, I'd love to look at it, but
-right now I don't see anything I can help with.
-
-> I also did try enabling/disabling ASPM on the BIOS side to no avail.
+> Cc: Philipp Stanner <phasta@kernel.org>
+> ---
+>  drivers/gpu/drm/scheduler/sched_main.c | 37 ++++++++++----------------
+>  1 file changed, 14 insertions(+), 23 deletions(-)
 > 
-> The bug appears to be systematically existent for many other cards I ended
-> up plugging into the device (thus conclusion as PCI driver issue). And does
-> appear to have an attempt to fix specifically for amdgpu
-> (20220408154447.3519453-1-richard.gong@amd.com) but that never went
-> upstream.
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index 1f077782ec12..1bce0b66f89c 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -366,22 +366,6 @@ static void __drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+>  		queue_work(sched->submit_wq, &sched->work_free_job);
+>  }
+>  
+> -/**
+> - * drm_sched_run_free_queue - enqueue free-job work if ready
+> - * @sched: scheduler instance
+> - */
+> -static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+> -{
+> -	struct drm_sched_job *job;
+> -
+> -	spin_lock(&sched->job_list_lock);
+> -	job = list_first_entry_or_null(&sched->pending_list,
+> -				       struct drm_sched_job, list);
+> -	if (job && dma_fence_is_signaled(&job->s_fence->finished))
+> -		__drm_sched_run_free_queue(sched);
+> -	spin_unlock(&sched->job_list_lock);
+> -}
+> -
+>  /**
+>   * drm_sched_job_done - complete a job
+>   * @s_job: pointer to the job which is done
+> @@ -1102,12 +1086,13 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
+>   * drm_sched_get_finished_job - fetch the next finished job to be destroyed
+>   *
+>   * @sched: scheduler instance
+> + * @have_more: are there more finished jobs on the list
+>   *
+>   * Returns the next finished job from the pending list (if there is one)
+>   * ready for it to be destroyed.
+>   */
+>  static struct drm_sched_job *
+> -drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+> +drm_sched_get_finished_job(struct drm_gpu_scheduler *sched, bool *have_more)
+>  {
+>  	struct drm_sched_job *job, *next;
+>  
+> @@ -1115,22 +1100,25 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+>  
+>  	job = list_first_entry_or_null(&sched->pending_list,
+>  				       struct drm_sched_job, list);
+> -
+>  	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
+>  		/* remove job from pending_list */
+>  		list_del_init(&job->list);
+>  
+>  		/* cancel this job's TO timer */
+>  		cancel_delayed_work(&sched->work_tdr);
+> -		/* make the scheduled timestamp more accurate */
+> +
+> +		*have_more = false;
+>  		next = list_first_entry_or_null(&sched->pending_list,
+>  						typeof(*next), list);
+> -
+>  		if (next) {
+> +			/* make the scheduled timestamp more accurate */
+>  			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
+>  				     &next->s_fence->scheduled.flags))
+>  				next->s_fence->scheduled.timestamp =
+>  					dma_fence_timestamp(&job->s_fence->finished);
+> +
+> +			*have_more = dma_fence_is_signaled(&next->s_fence->finished);
+> +
+>  			/* start TO timer for next job */
+>  			drm_sched_start_timeout(sched);
+>  		}
+> @@ -1189,12 +1177,15 @@ static void drm_sched_free_job_work(struct work_struct *w)
+>  	struct drm_gpu_scheduler *sched =
+>  		container_of(w, struct drm_gpu_scheduler, work_free_job);
+>  	struct drm_sched_job *job;
+> +	bool have_more;
+>  
+> -	job = drm_sched_get_finished_job(sched);
+> -	if (job)
+> +	job = drm_sched_get_finished_job(sched, &have_more);
+> +	if (job) {
+>  		sched->ops->free_job(job);
+> +		if (have_more)
+> +			__drm_sched_run_free_queue(sched);
+> +	}
+>  
+> -	drm_sched_run_free_queue(sched);
+>  	drm_sched_run_job_queue(sched);
+>  }
+>  
+> -- 
+> 2.48.0
 > 
-> I could try fixing this bug if it indeed is a PCI driver bug.
-> 
-> Thanks,
-> Alex H
-> 
-> PS This is my first message around here, please be nice to me :)
-> 
-> 
-> ------------[ cut here ]------------
-> WARNING: CPU: 2 PID: 338 at drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c:1089
-> uvd_v6_0_ring_insert_nop+0x21/0x120 [amdgpu]
-> Modules linked in: amdgpu(+) ath10k_pci ath10k_core snd_hda_codec_realtek
-> snd_hda_codec_generic ath binfmt_misc ledtrig_audio snd_hda_codec_hdmi
-> mac80211 snd>
-> CPU: 2 PID: 338 Comm: systemd-udevd Not tainted 5.12.0-rc7+ #41
-> Hardware name: LENOVO 90J00078US/3706, BIOS O4DKT45A 12/06/2022
-> RIP: 0010:uvd_v6_0_ring_insert_nop+0x21/0x120 [amdgpu]
-> Code: ff ff 0f 1f 80 00 00 00 00 0f 1f 44 00 00 55 48 89 e5 41 55 41 54 41
-> 89 f4 53 48 89 fb f6 87 18 02 00 00 01 0f 84 e7 00 00 00 <0f> 0b 41 d1 ec 0f
-> 84 d5>
-> RSP: 0018:ffff9c75c192f8e8 EFLAGS: 00010202
-> RAX: ffffffffc0b86b10 RBX: ffff8f7f3496e8a8 RCX: 0000000000000010
-> RDX: 000000000000000f RSI: 000000000000000f RDI: ffff8f7f3496e8a8
-> RBP: ffff9c75c192f900 R08: ffff8f8016a985c0 R09: ffff9c75c192f5e0
-> R10: 0000000000000001 R11: 0000000000000001 R12: 000000000000000f
-> R13: 0000000000000000 R14: 0000000000000000 R15: ffff8f7f34960000
-> FS:  00007f29d89df880(0000) GS:ffff8f8016a80000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000056359eef7ca0 CR3: 0000000102574000 CR4: 00000000003506e0
-> Call Trace:
->  amdgpu_ring_commit+0x3c/0x70 [amdgpu]
->  uvd_v6_0_ring_test_ring+0xfe/0x180 [amdgpu]
->  amdgpu_ring_test_helper+0x21/0x80 [amdgpu]
->  uvd_v6_0_hw_init+0x9c/0x5b0 [amdgpu]
->  amdgpu_device_init.cold+0xff2/0x1b71 [amdgpu]
->  ? pci_read_config_word+0x27/0x40
->  ? do_pci_enable_device+0xd7/0x100
->  amdgpu_driver_load_kms+0x69/0x280 [amdgpu]
->  amdgpu_pci_probe+0x12a/0x1b0 [amdgpu]
->  local_pci_probe+0x48/0x80
->  pci_device_probe+0x10f/0x1c0
->  really_probe+0xfb/0x420
->  driver_probe_device+0xe9/0x160
->  device_driver_attach+0x5d/0x70
->  __driver_attach+0x8f/0x150
->  ? device_driver_attach+0x70/0x70
->  bus_for_each_dev+0x7e/0xc0
->  driver_attach+0x1e/0x20
->  bus_add_driver+0x152/0x1f0
->  driver_register+0x74/0xd0
->  __pci_register_driver+0x54/0x60
->  amdgpu_init+0x77/0x1000 [amdgpu]
->  ? 0xffffffffc108d000
->  do_one_initcall+0x48/0x1d0
->  ? __cond_resched+0x19/0x30
->  ? kmem_cache_alloc_trace+0x390/0x440
->  ? do_init_module+0x28/0x260
->  do_init_module+0x62/0x260
->  load_module+0x2554/0x2770
->  __do_sys_finit_module+0xc2/0x120
->  ? __do_sys_finit_module+0xc2/0x120
->  __x64_sys_finit_module+0x1a/0x20
->  do_syscall_64+0x38/0x90
->  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> RIP: 0033:0x7f29d900b95d
-> Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7
-> 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff
-> 73 01>
-> RSP: 002b:00007fff56f4a6a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-> RAX: ffffffffffffffda RBX: 000055abfb17d7a0 RCX: 00007f29d900b95d
-> RDX: 0000000000000000 RSI: 00007f29d8eebded RDI: 0000000000000018
-> RBP: 0000000000020000 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000018 R11: 0000000000000246 R12: 00007f29d8eebded
-> R13: 0000000000000000 R14: 000055abfb182d90 R15: 000055abfb17d7a0
-> ---[ end trace 5b8e539d0503ff82 ]---
-> amdgpu 0000:01:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring uvd
-> test failed (-110)
-> [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init of IP block
-> <uvd_v6_0> failed -110
-> amdgpu 0000:01:00.0: amdgpu: amdgpu_device_ip_init failed
-> amdgpu 0000:01:00.0: amdgpu: Fatal error during GPU init
-> ------------[ cut here ]------------
-> 
-> 00:01.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 PCIe GPP
-> Bridge [6:0] (prog-if 00 [Normal decode])
->         Subsystem: Lenovo Raven/Raven2 PCIe GPP Bridge [6:0]
->         Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
-> Stepping- SERR- FastB2B- DisINTx+
->         Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort-
-> <TAbort- <MAbort- >SERR- <PERR- INTx-
->         Latency: 0, Cache Line Size: 64 bytes
->         Interrupt: pin ? routed to IRQ 26
->         IOMMU group: 1
->         Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
->         I/O behind bridge: f000-ffff [size=4K] [16-bit]
->         Memory behind bridge: fce00000-fcefffff [size=1M] [32-bit]
->         Prefetchable memory behind bridge: e0000000-f01fffff [size=258M]
-> [32-bit]
->         Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort-
-> <TAbort- <MAbort+ <SERR- <PERR-
->         BridgeCtl: Parity- SERR+ NoISA- VGA+ VGA16+ MAbort- >Reset- FastB2B-
->                 PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
->         Capabilities: [50] Power Management version 3
->                 Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA
-> PME(D0+,D1-,D2-,D3hot+,D3cold+)
->                 Status: D0 NoSoftRst- PME-Enable- DSel=0 DScale=0 PME-
->         Capabilities: [58] Express (v2) Root Port (Slot+), MSI 00
->                 DevCap: MaxPayload 512 bytes, PhantFunc 0
->                         ExtTag+ RBE+
->                 DevCtl: CorrErr+ NonFatalErr+ FatalErr+ UnsupReq+
->                         RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
->                         MaxPayload 256 bytes, MaxReadReq 512 bytes
->                 DevSta: CorrErr- NonFatalErr- FatalErr- UnsupReq- AuxPwr-
-> TransPend-
->                 LnkCap: Port #0, Speed 8GT/s, Width x8, ASPM L1, Exit
-> Latency L1 <64us
->                         ClockPM- Surprise- LLActRep+ BwNot+ ASPMOptComp+
->                 LnkCtl: ASPM L1 Enabled; RCB 64 bytes, Disabled- CommClk+
->                         ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
->                 LnkSta: Speed 8GT/s, Width x8
->                         TrErr- Train- SlotClk+ DLActive+ BWMgmt+ ABWMgmt+
->                 SltCap: AttnBtn- PwrCtrl- MRL- AttnInd- PwrInd- HotPlug-
-> Surprise-
->                         Slot #0, PowerLimit 0W; Interlock- NoCompl+
->                 SltCtl: Enable: AttnBtn- PwrFlt- MRL- PresDet- CmdCplt-
-> HPIrq- LinkChg-
->                         Control: AttnInd Unknown, PwrInd Unknown, Power-
-> Interlock-
->                 SltSta: Status: AttnBtn- PowerFlt- MRL- CmdCplt- PresDet+
-> Interlock-
->                         Changed: MRL- PresDet- LinkState+
->                 RootCap: CRSVisible+
->                 RootCtl: ErrCorrectable- ErrNon-Fatal- ErrFatal- PMEIntEna+
-> CRSVisible+
->                 RootSta: PME ReqID 0000, PMEStatus- PMEPending-
->                 DevCap2: Completion Timeout: Range ABCD, TimeoutDis+
-> NROPrPrP- LTR+
->                          10BitTagComp- 10BitTagReq- OBFF Not Supported,
-> ExtFmt+ EETLPPrefix+, MaxEETLPPrefixes 1
->                          EmergencyPowerReduction Not Supported,
-> EmergencyPowerReductionInit-
->                          FRS- LN System CLS Not Supported, TPHComp-
-> ExtTPHComp- ARIFwd+
->                          AtomicOpsCap: Routing- 32bit+ 64bit+ 128bitCAS-
->                 DevCtl2: Completion Timeout: 65ms to 210ms, TimeoutDis- LTR-
-> 10BitTagReq- OBFF Disabled, ARIFwd+
->                          AtomicOpsCtl: ReqEn- EgressBlck-
->                 LnkCap2: Supported Link Speeds: 2.5-8GT/s, Crosslink-
-> Retimer- 2Retimers- DRS-
->                 LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance-
-> SpeedDis-
->                          Transmit Margin: Normal Operating Range,
-> EnterModifiedCompliance- ComplianceSOS-
->                          Compliance Preset/De-emphasis: -6dB de-emphasis,
-> 0dB preshoot
->                 LnkSta2: Current De-emphasis Level: -3.5dB,
-> EqualizationComplete+ EqualizationPhase1+
->                          EqualizationPhase2+ EqualizationPhase3+
-> LinkEqualizationRequest-
->                          Retimer- 2Retimers- CrosslinkRes: unsupported
->         Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
->                 Address: 00000000fee00000  Data: 0000
->         Capabilities: [c0] Subsystem: Lenovo Raven/Raven2 PCIe GPP Bridge
-> [6:0]
->         Capabilities: [c8] HyperTransport: MSI Mapping Enable+ Fixed+
->         Capabilities: [100 v1] Vendor Specific Information: ID=0001 Rev=1
-> Len=010 <?>
->         Capabilities: [150 v2] Advanced Error Reporting
->                 UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt-
-> RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
->                 UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt-
-> RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
->                 UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt-
-> RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
->                 CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout-
-> AdvNonFatalErr-
->                 CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout-
-> AdvNonFatalErr+
->                 AERCap: First Error Pointer: 00, ECRCGenCap- ECRCGenEn-
-> ECRCChkCap- ECRCChkEn-
->                         MultHdrRecCap- MultHdrRecEn- TLPPfxPres- HdrLogCap-
->                 HeaderLog: 00000000 00000000 00000000 00000000
->                 RootCmd: CERptEn+ NFERptEn+ FERptEn+
->                 RootSta: CERcvd- MultCERcvd- UERcvd- MultUERcvd-
->                          FirstFatal- NonFatalMsg- FatalMsg- IntMsg 0
->                 ErrorSrc: ERR_COR: 0000 ERR_FATAL/NONFATAL: 0000
->         Capabilities: [270 v1] Secondary PCI Express
->                 LnkCtl3: LnkEquIntrruptEn- PerformEqu-
->                 LaneErrStat: 0
->         Capabilities: [2a0 v1] Access Control Services
->                 ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+
-> UpstreamFwd+ EgressCtrl- DirectTrans+
->                 ACSCtl: SrcValid+ TransBlk- ReqRedir+ CmpltRedir+
-> UpstreamFwd+ EgressCtrl- DirectTrans-
->         Capabilities: [370 v1] L1 PM Substates
->                 L1SubCap: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+
-> L1_PM_Substates+
->                           PortCommonModeRestoreTime=0us
-> PortTPowerOnTime=10us
->                 L1SubCtl1: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2- ASPM_L1.1+
->                            T_CommonMode=0us LTR1.2_Threshold=176128ns
->                 L1SubCtl2: T_PwrOn=170us
->         Kernel driver in use: pcieport
-> 00: 22 10 d3 15 07 04 10 00 00 00 04 06 10 00 81 00
-> 10: 00 00 00 00 00 00 00 00 00 01 01 00 f1 f1 00 20
-> 20: e0 fc e0 fc 01 e0 11 f0 00 00 00 00 00 00 00 00
-> 30: 00 00 00 00 50 00 00 00 00 00 00 00 ff 00 1a 00
-> 40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 50: 01 58 03 c8 00 00 00 00 10 a0 42 01 22 80 00 00
-> 60: 3f 29 00 00 83 78 73 00 42 00 83 f0 00 00 04 00
-> 70: 00 00 40 01 18 00 01 00 00 00 00 00 bf 09 70 00
-> 80: 26 00 00 00 0e 00 00 00 03 00 1f 00 00 00 00 00
-> 90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> a0: 05 c0 81 00 00 00 e0 fe 00 00 00 00 00 00 00 00
-> b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> c0: 0d c8 00 00 aa 17 06 37 08 00 03 a8 00 00 00 00
-> d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 
-> 01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
-> Lexa XT [Radeon PRO WX 3100] (prog-if 00 [VGA controller])
->         Subsystem: Advanced Micro Devices, Inc. [AMD/ATI] Lexa XT [Radeon
-> PRO WX 3100]
->         Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
-> Stepping- SERR- FastB2B- DisINTx+
->         Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort-
-> <TAbort- <MAbort- >SERR- <PERR- INTx-
->         Latency: 0, Cache Line Size: 64 bytes
->         Interrupt: pin A routed to IRQ 49
->         IOMMU group: 7
->         Region 0: Memory at e0000000 (64-bit, prefetchable) [size=256M]
->         Region 2: Memory at f0000000 (64-bit, prefetchable) [size=2M]
->         Region 4: I/O ports at f000 [size=256]
->         Region 5: Memory at fce00000 (32-bit, non-prefetchable) [size=256K]
->         Expansion ROM at 000c0000 [disabled] [size=128K]
->         Capabilities: [48] Vendor Specific Information: Len=08 <?>
->         Capabilities: [50] Power Management version 3
->                 Flags: PMEClk- DSI- D1+ D2+ AuxCurrent=0mA
-> PME(D0-,D1+,D2+,D3hot+,D3cold+)
->                 Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
->         Capabilities: [58] Express (v2) Legacy Endpoint, MSI 00
->                 DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us,
-> L1 unlimited
->                         ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset-
->                 DevCtl: CorrErr+ NonFatalErr+ FatalErr+ UnsupReq+
->                         RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
->                         MaxPayload 256 bytes, MaxReadReq 512 bytes
->                 DevSta: CorrErr+ NonFatalErr+ FatalErr- UnsupReq+ AuxPwr-
-> TransPend-
->                 LnkCap: Port #0, Speed 8GT/s, Width x8, ASPM L1, Exit
-> Latency L1 <1us
->                         ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp+
->                 LnkCtl: ASPM L1 Enabled; RCB 64 bytes, Disabled- CommClk+
->                         ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
->                 LnkSta: Speed 8GT/s, Width x8
->                         TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
->                 DevCap2: Completion Timeout: Not Supported, TimeoutDis-
-> NROPrPrP- LTR+
->                          10BitTagComp- 10BitTagReq- OBFF Not Supported,
-> ExtFmt+ EETLPPrefix+, MaxEETLPPrefixes 1
->                          EmergencyPowerReduction Not Supported,
-> EmergencyPowerReductionInit-
->                          FRS-
->                          AtomicOpsCap: 32bit+ 64bit+ 128bitCAS-
->                 DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis- LTR-
-> 10BitTagReq- OBFF Disabled,
->                          AtomicOpsCtl: ReqEn+
->                 LnkCap2: Supported Link Speeds: 2.5-8GT/s, Crosslink-
-> Retimer- 2Retimers- DRS-
->                 LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance-
-> SpeedDis-
->                          Transmit Margin: Normal Operating Range,
-> EnterModifiedCompliance- ComplianceSOS-
->                          Compliance Preset/De-emphasis: -6dB de-emphasis,
-> 0dB preshoot
->                 LnkSta2: Current De-emphasis Level: -3.5dB,
-> EqualizationComplete+ EqualizationPhase1+
->                          EqualizationPhase2+ EqualizationPhase3+
-> LinkEqualizationRequest-
->                          Retimer- 2Retimers- CrosslinkRes: unsupported
->         Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
->                 Address: 00000000fee00000  Data: 0000
->         Capabilities: [100 v1] Vendor Specific Information: ID=0001 Rev=1
-> Len=010 <?>
->         Capabilities: [150 v2] Advanced Error Reporting
->                 UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt-
-> RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
->                 UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt-
-> RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
->                 UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt-
-> RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
->                 CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout-
-> AdvNonFatalErr-
->                 CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout-
-> AdvNonFatalErr+
->                 AERCap: First Error Pointer: 14, ECRCGenCap+ ECRCGenEn-
-> ECRCChkCap+ ECRCChkEn-
->                         MultHdrRecCap- MultHdrRecEn- TLPPfxPres- HdrLogCap-
->                 HeaderLog: 40001001 0000000f 000a0000 00000000
->         Capabilities: [200 v1] Physical Resizable BAR
->                 BAR 0: current size: 256MB, supported: 256MB 512MB 1GB 2GB
-> 4GB
->         Capabilities: [270 v1] Secondary PCI Express
->                 LnkCtl3: LnkEquIntrruptEn- PerformEqu-
->                 LaneErrStat: 0
->         Capabilities: [2b0 v1] Address Translation Service (ATS)
->                 ATSCap: Invalidate Queue Depth: 00
->                 ATSCtl: Enable+, Smallest Translation Unit: 00
->         Capabilities: [2c0 v1] Page Request Interface (PRI)
->                 PRICtl: Enable+ Reset-
->                 PRISta: RF- UPRGI- Stopped+
->                 Page Request Capacity: 00000020, Page Request Allocation:
-> 00000020
->         Capabilities: [2d0 v1] Process Address Space ID (PASID)
->                 PASIDCap: Exec+ Priv+, Max PASID Width: 10
->                 PASIDCtl: Enable- Exec- Priv-
->         Capabilities: [320 v1] Latency Tolerance Reporting
->                 Max snoop latency: 0ns
->                 Max no snoop latency: 0ns
->         Capabilities: [328 v1] Alternative Routing-ID Interpretation (ARI)
->                 ARICap: MFVC- ACS-, Next Function: 1
->                 ARICtl: MFVC- ACS-, Function Group: 0
->         Capabilities: [370 v1] L1 PM Substates
->                 L1SubCap: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+
-> L1_PM_Substates+
->                           PortCommonModeRestoreTime=0us
-> PortTPowerOnTime=170us
->                 L1SubCtl1: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2- ASPM_L1.1+
->                            T_CommonMode=0us LTR1.2_Threshold=176128ns
->                 L1SubCtl2: T_PwrOn=170us
->         Kernel driver in use: amdgpu
->         Kernel modules: amdgpu
-> 00: 02 10 85 69 07 04 10 00 00 00 00 03 10 00 80 00
-> 10: 0c 00 00 e0 00 00 00 00 0c 00 00 f0 00 00 00 00
-> 20: 01 f0 00 00 00 00 e0 fc 00 00 00 00 02 10 0c 0b
-> 30: 00 00 e4 fc 48 00 00 00 00 00 00 00 0b 01 00 00
-> 40: 00 00 00 00 00 00 00 00 09 50 08 00 02 10 0c 0b
-> 50: 01 58 03 f6 08 00 00 00 10 a0 12 00 a1 8f 00 00
-> 60: 3f 29 0b 00 83 08 44 00 42 00 83 10 00 00 00 00
-> 70: 00 00 00 00 00 00 00 00 00 00 00 00 80 09 70 00
-> 80: 40 00 00 00 0e 00 00 00 03 00 1f 00 00 00 00 00
-> 90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> a0: 05 00 81 00 00 00 e0 fe 00 00 00 00 00 00 00 00
-> b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
