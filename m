@@ -4,55 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 273E8C83F12
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 10:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CF45C83F03
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 10:59:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B59A10E7A7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E40FE10E7AA;
 	Wed,  9 Jul 2025 10:59:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="KC4VngdO";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="WDgn0IoC";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D7B810E610;
- Tue,  8 Jul 2025 12:19:34 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E530010E789;
+ Wed,  9 Jul 2025 10:15:13 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4bc0Xg2rbbz9smB;
- Tue,  8 Jul 2025 14:19:31 +0200 (CEST)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4bcYkk5Z6Tz9v0W;
+ Wed,  9 Jul 2025 12:15:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1751977171; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1752056110; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lSI5LAmi3mMBYhT7ZREIYI+TQpGMUQHtGlN0jXwacUc=;
- b=KC4VngdOsQRoBoCvULF6lcyQM4BIy0cmzy2ftJ0BONP/W11QMxgeCD+XsczrezjTCq1dFE
- VGebNF0x64adNikodPfvQTSwD/dkJNaq6KX71xi7RAWrTKgVHMcPy9ehqXVgyjJXuIDXkx
- HIxtB2the4vhMqbEu7AbFyrXEdr+EwqoqhQg0jxVY/6heW+irp609OgeiSXrf3+X93XXs5
- eeGaYa7g6NHziKmbamtYPjA9RWisERbNWc2mB29oYgCCvX+97fGooNg1uRQzDXIZs/jD4B
- +cfRrybm3Gu+s+ypyM+zw4ZqCKh5gakKA8iM2ugPTesXCzo32f9yYWq8BObHFg==
-Message-ID: <6a41840e57075ffa2ff385a940e2088e66cc7d08.camel@mailbox.org>
-Subject: Re: [PATCH v6 14/15] drm/sched: Queue all free credits in one
- worker invocation
+ bh=mFira+KRxdt8d2FwCbb09WeKAggOn2O87AQVoaADDDg=;
+ b=WDgn0IoCwgiKpF286Do31Pin7PJ2guwZj4o9mUTgcnO0KxKRTMpqV1aW5zxiX3N5htkerQ
+ kLhuJfncnmUQFLRQycp7T3gADDfsZpqselBwPENiHlokvruIwHszV22QpuL2+jmHRmt6SC
+ 2yWvgFkRY9erkLCMUhDcYQiYSuAD9QcIo7iKFxOvDGh2JLrZV6jU9u+yBUUarJcP9qa938
+ xzxeTJYjxtsL2NhiXfY1Iu86YK4LH1w0II4PxVwZh64bszBzCJlB/lXJnIgWpIqwwXfUWN
+ OnrrZ4LsSmNbTztfn1SQlVuOOhFrIzV65WwXMXNPPStL+o/Z9X9QGj9JNOiJlQ==
+Message-ID: <acb81a4e86f4f683c4f83509afdc5f24ea01e64d.camel@mailbox.org>
+Subject: Re: [PATCH v4] drm/sched: Use struct for drm_sched_init() params
 From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
-Date: Tue, 08 Jul 2025 14:19:27 +0200
-In-Reply-To: <20250708095147.73366-15-tvrtko.ursulin@igalia.com>
-References: <20250708095147.73366-1-tvrtko.ursulin@igalia.com>
- <20250708095147.73366-15-tvrtko.ursulin@igalia.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Philipp Stanner
+ <phasta@kernel.org>, Min Ma <min.ma@amd.com>, Lizhi Hou
+ <lizhi.hou@amd.com>,  Oded Gabbay <ogabbay@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lucas Stach
+ <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, Frank Binns
+ <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Qiang Yu
+ <yuq825@gmail.com>,  Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,  Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Karol Herbst <kherbst@redhat.com>, Lyude
+ Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>, Boris
+ Brezillon <boris.brezillon@collabora.com>, Rob Herring <robh@kernel.org>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Matthew Brost <matthew.brost@intel.com>, Melissa Wen <mwen@igalia.com>, 
+ =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sunil Khatri <sunil.khatri@amd.com>,  Lijo Lazar <lijo.lazar@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>, Yunxiang Li
+ <Yunxiang.Li@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
+ lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Christian Gmeiner <cgmeiner@igalia.com>
+Date: Wed, 09 Jul 2025 12:14:54 +0200
+In-Reply-To: <b5d0921c-7cbf-4d55-aa47-c35cd7861c02@igalia.com>
+References: <20250211111422.21235-2-phasta@kernel.org>
+ <b5d0921c-7cbf-4d55-aa47-c35cd7861c02@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: 8f1e45c262641111aeb
-X-MBO-RS-META: bxfsfzgpnme4tmswk3coz5316kqnifpr
+X-MBO-RS-ID: 2cfb6c6c64b390fa220
+X-MBO-RS-META: ay4k4wqr33dnoj1dmtnedfghmj9cfjnj
 X-Mailman-Approved-At: Wed, 09 Jul 2025 10:59:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,271 +95,145 @@ Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-07-08 at 10:51 +0100, Tvrtko Ursulin wrote:
-> There is no reason to queue just a single job if scheduler can take
-> more
-> and re-queue the worker to queue more. We can simply feed the
-> hardware
-> with as much as it can take in one go and hopefully win some latency.
+On Tue, 2025-07-08 at 14:02 +0100, Tvrtko Ursulin wrote:
 >=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h |=C2=A0=C2=A0 2 -
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0 | 13=
-2 ++++++++++---------
-> --
-> =C2=A0drivers/gpu/drm/scheduler/sched_rq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 12 +-
-> =C2=A03 files changed, 64 insertions(+), 82 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h
-> b/drivers/gpu/drm/scheduler/sched_internal.h
-> index 15d78abc48df..1a5c2f255223 100644
-> --- a/drivers/gpu/drm/scheduler/sched_internal.h
-> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
-> @@ -22,8 +22,6 @@ struct drm_sched_entity_stats {
-> =C2=A0	u64		vruntime;
-> =C2=A0};
-> =C2=A0
-> -bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-> -			 struct drm_sched_entity *entity);
-> =C2=A0void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
-> =C2=A0
-> =C2=A0void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-> b/drivers/gpu/drm/scheduler/sched_main.c
-> index 35025edea669..1fb3f1da4821 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -95,35 +95,6 @@ static u32 drm_sched_available_credits(struct
-> drm_gpu_scheduler *sched)
-> =C2=A0	return credits;
-> =C2=A0}
-> =C2=A0
-> -/**
-> - * drm_sched_can_queue -- Can we queue more to the hardware?
-> - * @sched: scheduler instance
-> - * @entity: the scheduler entity
-> - *
-> - * Return true if we can push at least one more job from @entity,
-> false
-> - * otherwise.
-> - */
-> -bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-> -			 struct drm_sched_entity *entity)
-> -{
-> -	struct drm_sched_job *s_job;
-> -
-> -	s_job =3D drm_sched_entity_queue_peek(entity);
-> -	if (!s_job)
-> -		return false;
-> -
-> -	/* If a job exceeds the credit limit, truncate it to the
-> credit limit
-> -	 * itself to guarantee forward progress.
-> -	 */
-> -	if (s_job->credits > sched->credit_limit) {
-> -		dev_WARN(sched->dev,
-> -			 "Jobs may not exceed the credit limit,
-> truncate.\n");
-> -		s_job->credits =3D sched->credit_limit;
-> -	}
-> -
-> -	return drm_sched_available_credits(sched) >=3D s_job->credits;
-> -}
-> -
-> =C2=A0/**
-> =C2=A0 * drm_sched_run_job_queue - enqueue run-job work
-> =C2=A0 * @sched: scheduler instance
-> @@ -940,54 +911,77 @@ static void drm_sched_run_job_work(struct
-> work_struct *w)
-> =C2=A0{
-> =C2=A0	struct drm_gpu_scheduler *sched =3D
-> =C2=A0		container_of(w, struct drm_gpu_scheduler,
-> work_run_job);
-> +	u32 job_credits, submitted_credits =3D 0;
-> =C2=A0	struct drm_sched_entity *entity;
-> -	struct dma_fence *fence;
-> =C2=A0	struct drm_sched_fence *s_fence;
-> =C2=A0	struct drm_sched_job *sched_job;
-> -	int r;
-> +	struct dma_fence *fence;
-> =C2=A0
-> -	/* Find entity with a ready job */
-> -	entity =3D drm_sched_rq_select_entity(sched, sched->rq);
-> -	if (IS_ERR_OR_NULL(entity))
-> -		return;	/* No more work */
-> +	while (!READ_ONCE(sched->pause_submit)) {
+> On 11/02/2025 11:14, Philipp Stanner wrote:
+> > drm_sched_init() has a great many parameters and upcoming new
+> > functionality for the scheduler might add even more. Generally, the
+> > great number of parameters reduces readability and has already
+> > caused
+> > one missnaming, addressed in:
+> >=20
+> > commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
+> > nouveau_sched_init()").
+> >=20
+> > Introduce a new struct for the scheduler init parameters and port
+> > all
+> > users.
+> >=20
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> > Acked-by: Matthew Brost <matthew.brost@intel.com> # for Xe
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> # for
+> > Panfrost and Panthor
+> > Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com> # for Etnaviv
+> > Reviewed-by: Frank Binns <frank.binns@imgtec.com> # for Imagination
+> > Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com> # for Sched
+> > Reviewed-by: Ma=C3=ADra Canal <mcanal@igalia.com> # for v3d
+> > ---
+> > Changes in v4:
+> > =C2=A0=C2=A0 - Add forgotten driver accel/amdxdna. (Me)
+> > =C2=A0=C2=A0 - Rephrase the "init to NULL" comments. (Tvrtko)
+> > =C2=A0=C2=A0 - Apply RBs by Tvrtko and Maira.
+> > =C2=A0=C2=A0 - Terminate the last struct members with a comma, so that =
+future
+> > =C2=A0=C2=A0=C2=A0=C2=A0 fields can be added with a minimal patch diff.=
+ (Me)
+> >=20
+> > Changes in v3:
+> > =C2=A0=C2=A0 - Various formatting requirements.
+> >=20
+> > Changes in v2:
+> > =C2=A0=C2=A0 - Point out that the hang-limit is deprecated. (Christian)
+> > =C2=A0=C2=A0 - Initialize the structs to 0 at declaration. (Planet Eart=
+h)
+> > =C2=A0=C2=A0 - Don't set stuff explicitly to 0 / NULL. (Tvrtko)
+> > =C2=A0=C2=A0 - Make the structs const where possible. (Boris)
+> > =C2=A0=C2=A0 - v3d: Use just 1, universal, function for sched-init. (Ma=
+=C3=ADra)
+> > ---
+>=20
+> 8><
+>=20
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c
+> > b/drivers/gpu/drm/panfrost/panfrost_job.c
+> > index 9b8e82fb8bc4..5657106c2f7d 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> > @@ -836,8 +836,16 @@ static irqreturn_t
+> > panfrost_job_irq_handler(int irq, void *data)
+> > =C2=A0=20
+> > =C2=A0 int panfrost_job_init(struct panfrost_device *pfdev)
+> > =C2=A0 {
+> > +	struct drm_sched_init_args args =3D {
+> > +		.ops =3D &panfrost_sched_ops,
+> > +		.num_rqs =3D DRM_SCHED_PRIORITY_COUNT,
+> > +		.credit_limit =3D 2,
+> > +		.timeout =3D msecs_to_jiffies(JOB_TIMEOUT_MS),
+> > +		.timeout_wq =3D pfdev->reset.wq,
+>=20
+> ^^^
+>=20
+> > +		.name =3D "pan_js",
+> > +		.dev =3D pfdev->dev,
+> > +	};
+> > =C2=A0=C2=A0	struct panfrost_job_slot *js;
+> > -	unsigned int nentries =3D 2;
+> > =C2=A0=C2=A0	int ret, j;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	/* All GPUs have two entries per queue, but without
+> > jobchain
+> > @@ -845,7 +853,7 @@ int panfrost_job_init(struct panfrost_device
+> > *pfdev)
+> > =C2=A0=C2=A0	 * so let's just advertise one entry in that case.
+> > =C2=A0=C2=A0	 */
+> > =C2=A0=C2=A0	if (!panfrost_has_hw_feature(pfdev,
+> > HW_FEATURE_JOBCHAIN_DISAMBIGUATION))
+> > -		nentries =3D 1;
+> > +		args.credit_limit =3D 1;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	pfdev->js =3D js =3D devm_kzalloc(pfdev->dev, sizeof(*js),
+> > GFP_KERNEL);
+> > =C2=A0=C2=A0	if (!js)
+>=20
+> Stumbled on this while looking at drm_sched_init() workqueue usage.
+>=20
+> I think this patch might need a fixup. Because somewhere around here
+> in=20
+> the code there is this:
+>=20
+> 	pfdev->reset.wq =3D alloc_ordered_workqueue("panfrost-reset",
+> 0);
+> 	if (!pfdev->reset.wq)
+> 		return -ENOMEM;
+>=20
+> Which means that after the patch panfrost is using system_wq for the=20
+> timeout handler instead the one it creates.
 
-I had it on my agenda whether we can remove these atomic booleans once
-and for all. If we can't, we probably want to document why they are
-there.
+Ouch yes, that's definitely a very subtle bug. AFAICS it comes to be by
+pfdev being initialized to 0.
 
-> +		/* Find entity with a ready job */
-> +		entity =3D drm_sched_rq_select_entity(sched, sched-
-> >rq);
-> +		if (!entity)
-> +			break;	/* No more work */
-> +
-> +		sched_job =3D drm_sched_entity_queue_peek(entity);
-> +		if (!sched_job) {
-> +			complete_all(&entity->entity_idle);
-> +			continue;
-> +		}
-> +
-> +		job_credits =3D sched_job->credits;
-> +		/*
-> +		 * If a job exceeds the credit limit truncate it to
-> guarantee
-> +		 * forward progress.
-> +		 */
-> +		if (dev_WARN_ONCE(sched->dev, job_credits > sched-
-> >credit_limit,
-> +				=C2=A0 "Jobs may not exceed the credit
-> limit, truncating.\n"))
-> +			job_credits =3D sched_job->credits =3D sched-
-> >credit_limit;
-> +
-> +		if (job_credits >
-> drm_sched_available_credits(sched)) {
-> +			complete_all(&entity->entity_idle);
-> +			break;
-> +		}
-> +
-> +		sched_job =3D drm_sched_entity_pop_job(entity);
-> +		if (!sched_job) {
-> +			/* Top entity is not yet runnable after all
-> */
-> +			complete_all(&entity->entity_idle);
-> +			continue;
-> +		}
-> +
-> +		s_fence =3D sched_job->s_fence;
-> +		drm_sched_job_begin(sched_job);
-> +		trace_drm_sched_job_run(sched_job, entity);
-> +		submitted_credits +=3D job_credits;
-> +		atomic_add(job_credits, &sched->credit_count);
-> +
-> +		fence =3D sched->ops->run_job(sched_job);
-> +		drm_sched_fence_scheduled(s_fence, fence);
-> +
-> +		if (!IS_ERR_OR_NULL(fence)) {
-> +			int r;
-> +
-> +			/* Drop for original kref_init of the fence
-> */
-> +			dma_fence_put(fence);
-
-Not sure if you're aware, but this is based on quite some outdated
-code. In mainline this function has been reworked a while ago.
-
+Let me provide a fix..
 
 P.
 
-> +
-> +			r =3D dma_fence_add_callback(fence,
-> &sched_job->cb,
-> +						=C2=A0=C2=A0
-> drm_sched_job_done_cb);
-> +			if (r =3D=3D -ENOENT)
-> +				drm_sched_job_done(sched_job, fence-
-> >error);
-> +			else if (r)
-> +				DRM_DEV_ERROR(sched->dev,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "fence add callback
-> failed (%d)\n", r);
-> +		} else {
-> +			drm_sched_job_done(sched_job, IS_ERR(fence)
-> ?
-> +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PTR_ERR(fence)
-> : 0);
-> +		}
-> =C2=A0
-> -	sched_job =3D drm_sched_entity_pop_job(entity);
-> -	if (!sched_job) {
-> =C2=A0		complete_all(&entity->entity_idle);
-> -		drm_sched_run_job_queue(sched);
-> -		return;
-> =C2=A0	}
-> =C2=A0
-> -	s_fence =3D sched_job->s_fence;
-> -
-> -	atomic_add(sched_job->credits, &sched->credit_count);
-> -	drm_sched_job_begin(sched_job);
-> -
-> -	trace_drm_sched_job_run(sched_job, entity);
-> -	/*
-> -	 * The run_job() callback must by definition return a fence
-> whose
-> -	 * refcount has been incremented for the scheduler already.
-> -	 */
-> -	fence =3D sched->ops->run_job(sched_job);
-> -	complete_all(&entity->entity_idle);
-> -	drm_sched_fence_scheduled(s_fence, fence);
-> -
-> -	if (!IS_ERR_OR_NULL(fence)) {
-> -		r =3D dma_fence_add_callback(fence, &sched_job->cb,
-> -					=C2=A0=C2=A0 drm_sched_job_done_cb);
-> -		if (r =3D=3D -ENOENT)
-> -			drm_sched_job_done(sched_job, fence->error);
-> -		else if (r)
-> -			DRM_DEV_ERROR(sched->dev, "fence add
-> callback failed (%d)\n", r);
-> -
-> -		dma_fence_put(fence);
-> -	} else {
-> -		drm_sched_job_done(sched_job, IS_ERR(fence) ?
-> -				=C2=A0=C2=A0 PTR_ERR(fence) : 0);
-> -	}
-> -
-> -	wake_up(&sched->job_scheduled);
-> -	drm_sched_run_job_queue(sched);
-> +	if (submitted_credits)
-> +		wake_up(&sched->job_scheduled);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static struct workqueue_struct *drm_sched_alloc_wq(const char *name=
-)
-> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c
-> b/drivers/gpu/drm/scheduler/sched_rq.c
-> index e22f9ff88822..f0afdc0bd417 100644
-> --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> @@ -197,9 +197,7 @@ void drm_sched_rq_pop_entity(struct
-> drm_sched_entity *entity)
-> =C2=A0 *
-> =C2=A0 * Find oldest waiting ready entity.
-> =C2=A0 *
-> - * Return an entity if one is found; return an error-pointer (!NULL)
-> if an
-> - * entity was ready, but the scheduler had insufficient credits to
-> accommodate
-> - * its job; return NULL, if no ready entity was found.
-> + * Return an entity if one is found or NULL if no ready entity was
-> found.
-> =C2=A0 */
-> =C2=A0struct drm_sched_entity *
-> =C2=A0drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
-> @@ -213,14 +211,6 @@ drm_sched_rq_select_entity(struct
-> drm_gpu_scheduler *sched,
-> =C2=A0
-> =C2=A0		entity =3D rb_entry(rb, struct drm_sched_entity,
-> rb_tree_node);
-> =C2=A0		if (drm_sched_entity_is_ready(entity)) {
-> -			/* If we can't queue yet, preserve the
-> current entity in
-> -			 * terms of fairness.
-> -			 */
-> -			if (!drm_sched_can_queue(sched, entity)) {
-> -				spin_unlock(&rq->lock);
-> -				return ERR_PTR(-ENOSPC);
-> -			}
-> -
-> =C2=A0			reinit_completion(&entity->entity_idle);
-> =C2=A0			break;
-> =C2=A0		}
+>=20
+> > @@ -875,13 +883,7 @@ int panfrost_job_init(struct panfrost_device
+> > *pfdev)
+> > =C2=A0=C2=A0	for (j =3D 0; j < NUM_JOB_SLOTS; j++) {
+> > =C2=A0=C2=A0		js->queue[j].fence_context =3D
+> > dma_fence_context_alloc(1);
+> > =C2=A0=20
+> > -		ret =3D drm_sched_init(&js->queue[j].sched,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 &panfrost_sched_ops, NULL,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 nentries, 0,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0
+> > msecs_to_jiffies(JOB_TIMEOUT_MS),
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 pfdev->reset.wq,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "pan_js", pfdev->dev);
+> > +		ret =3D drm_sched_init(&js->queue[j].sched, &args);
+>=20
+> ^^^
+>=20
+> > =C2=A0=C2=A0		if (ret) {
+> > =C2=A0=C2=A0			dev_err(pfdev->dev, "Failed to create
+> > scheduler: %d.", ret);
+> > =C2=A0=C2=A0			goto err_sched;
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
 
