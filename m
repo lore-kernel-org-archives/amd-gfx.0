@@ -4,153 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A415AC83F09
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 04:56:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E66C0C83F09
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 06:04:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1232810E1EF;
-	Wed,  9 Jul 2025 04:56:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E19610E28F;
+	Wed,  9 Jul 2025 06:04:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0x67JjBi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KKUPjvZo";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2053.outbound.protection.outlook.com [40.107.102.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 695E110E1EF;
- Wed,  9 Jul 2025 04:56:21 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2079.outbound.protection.outlook.com [40.107.94.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD8A10E28F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Jul 2025 06:04:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=adliqVaTSpxDzQzdC5+fmY4r0aFoB5XpmHCJPxJY1EVCHUpwUlgYx0aSAvBlAjAu2y4ejrzhZTe8dgSZg73uh7IpNOVKZlZnRDNbam0SSJdyzl7W/FZCuyswHdgtUuod6kYsUZRznzEwe+kS1U7zrggQVj7R1uoPb7ugX1unriwcy0bKzpak5d643phErOnh87dfbcWqb3WiKfgqA7mKVFO5zbS3ZYxAGTpg8x8yA7/icERoz2+gQ9pTtj6gkLvu/3U7/CiFFopxXC7SqK+PCvAEbCcOkaMxk6VyxkjtP8pcPz/Twu+PJ7NWIQEmSzPS3tIANbgNm9X6LmaHOXUrHA==
+ b=aLvtX9vyJUR0FZyELyMnkREqo6D+bOPWzeJyenK2X0LijOsSWRm5C+NGWrm34xnW2GqaIowh7TdzxgNXaLjJf7Nt0s599ESJqP+xnenJBb2rfdQc10pfxyuuE2f7NDSFEMakzPKh4tbbhbgSL3+dFuQgTbQ+eR6wv7GeTFqAH57CPHwhGbNVE7gUeuD0vQu1pbZZDKfk+twBnOfcJw2psybWdcqRGy7qCV8861NIGR45JlZ+KAWhot/evF4tvXNJSATxjkq4/0Wmmk/uhir4Q2d6O7Jfgj7ewvCP4gbjgAsAXyBnRaiiHYNrK5sbMS4zR8+mkeOOQDrOMvlyW3EPQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oci6RhUkUA+eZa0mFIVsBbRhudreDetlyO06q3zGi/4=;
- b=zH/P9MlA+BdYtA4ZSxK70cPpnaum+4wwVN5AKVR3N18BkUznN+YbNwC2D+Kao1imAtJ+szD8FclYe1zKAMPHwBaixsTJbPC7NJyn8r34x1rtwY5VNnmktn/G0gxTkNG9o55AULEaPJGzYBMEUVzK9Bl2PCplZuNcTcKe4uUJ/9MAPvR6gZJuGZ9ps3lxiBOjNzzo8oZSvu2DlS+NEv56Sgb0vGyp6fi5VLzsJ2GyHC7V/znoErgFLQKcmFeF5S2FYlEHHpdXMu5JffLkSlpCEU5urvJzWUHBq46JtUFWPUG0T/+UiiuN1s4FXpySy2rMe+yC8w9lbRdC4uVqeCCDlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=HdJgDV4iFN/rEt12FKkaGPYE3DvMTlajvFlaogJ49bE=;
+ b=B4OL2RGjR2oUZuxHhUOjKCupU30qA0NNCxfAJT0bcVutVDpHH5iWjPLaMI3Lc6zFxf1jdiF9lzpoi5x/suckKG98/qOwlPci/E81DMqqsvGd0MAcDW5XRvIjAFU/zOvPNpgDwIcfS6bhT3V+kZXwyygrrGfweS9AyqtbIez8Xnbfj5/Wn1pLXDkBwSrcEm93C+VoqBCA4MGE4nWb6ZJp1Rt6AFYofEI00aHYV3FFoD5/FhI7mCEwJYVDVoZf9UwtT3CEhNHIcabmqQZ28x33T5XrrAFz4qOWYz8ADwdAmx0V3RjKwnSCaq8wen5YFgu+pQaQqElpeVg2DHag+1Ks7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oci6RhUkUA+eZa0mFIVsBbRhudreDetlyO06q3zGi/4=;
- b=0x67JjBi9DCnjgoifUYpEVg23Vi8INcM8uc/5yTCBldbk1nKKzMYsF04VFXFEPHp50eiOEsFXFWF3Eig86btG/8u5/vYj/wyxT0DqxYVLTIUugSX/y9fPD1boOLKw+WSB/s6Yuhf5c4kFWUlKhyrFmzwQzUTw2wHBHkESiyeBE4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- LV8PR12MB9691.namprd12.prod.outlook.com (2603:10b6:408:295::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.26; Wed, 9 Jul
- 2025 04:56:19 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.8880.023; Wed, 9 Jul 2025
- 04:56:18 +0000
-Message-ID: <5878b6eb-7961-4ffb-aebd-601868163de6@amd.com>
-Date: Wed, 9 Jul 2025 10:26:12 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported IOCTLs
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "McRae, Geoffrey" <Geoffrey.McRae@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20250708042219.180109-1-geoffrey.mcrae@amd.com>
- <470a613e-d85d-4943-aa48-7590d84f7fd2@amd.com>
- <PH7PR12MB55958988869861DF44D3D007884EA@PH7PR12MB5595.namprd12.prod.outlook.com>
- <BL1PR12MB5144018C868ED8C6566B8B84F74EA@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <BL1PR12MB5144018C868ED8C6566B8B84F74EA@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0053.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:270::7) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+ bh=HdJgDV4iFN/rEt12FKkaGPYE3DvMTlajvFlaogJ49bE=;
+ b=KKUPjvZomqBal5PNZgaBiJjnZHtPnmXFWUrAbIHZDInLBE8j4zKa7hWMj4bBmqyPLFT/d+8gMemmvKx9RiBfqOPbmmd09IU9b4WHjPaI6erhoxLlqtHlGaDtUFPQDZ10Gk7l97D2zVNmHCQiUTYvfWdBceQRB1qUPPdngnHiBjY=
+Received: from BN8PR07CA0032.namprd07.prod.outlook.com (2603:10b6:408:ac::45)
+ by SA1PR12MB7245.namprd12.prod.outlook.com (2603:10b6:806:2bf::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.28; Wed, 9 Jul
+ 2025 06:03:59 +0000
+Received: from BL6PEPF0002256E.namprd02.prod.outlook.com
+ (2603:10b6:408:ac:cafe::8d) by BN8PR07CA0032.outlook.office365.com
+ (2603:10b6:408:ac::45) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.21 via Frontend Transport; Wed,
+ 9 Jul 2025 06:03:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0002256E.mail.protection.outlook.com (10.167.249.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8922.22 via Frontend Transport; Wed, 9 Jul 2025 06:03:59 +0000
+Received: from jasmine-meng.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 9 Jul
+ 2025 01:03:57 -0500
+From: Meng Li <li.meng@amd.com>
+To: amd-gfx <amd-gfx@lists.freedesktop.org>
+CC: Perry Yuan <Perry.Yuan@amd.com>, Shimmer Huang <Shimmer.Huang@amd.com>,
+ Koenig Christian <Koenig.Christian@amd.com>, Lazar Lijo <Lijo.Lazar@amd.com>, 
+ Alexander Deucher <Alexander.Deucher@amd.com>, Meng Li <li.meng@amd.com>
+Subject: [PATCH V5 0/1] Release xcp drm memory after unplug xcp device
+Date: Wed, 9 Jul 2025 14:03:39 +0800
+Message-ID: <20250709060340.2365660-1-li.meng@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|LV8PR12MB9691:EE_
-X-MS-Office365-Filtering-Correlation-Id: c778c3a9-f8a1-45bf-81e9-08ddbea4f0fe
+X-MS-TrafficTypeDiagnostic: BL6PEPF0002256E:EE_|SA1PR12MB7245:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fee5d93-135b-4ab0-a2fe-08ddbeae6598
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WTlBenp2Wk9OWFR1Z2dvWWtLaG0rckFIUlA4d1lGN2IxZnQvdzlMY1BFbDFQ?=
- =?utf-8?B?VWNlcnFRbncxL1ozbkdmREdYRFVzOVBxc2hmSUhrMWdva1RaUUpwN0d3OGV2?=
- =?utf-8?B?MjA2MmwycklUNk96M1NGYzQ4aUFDem5Wa0FySnhLS1dqRWcwOGRGYmVHS2FG?=
- =?utf-8?B?dUdUZVA2SnhTdGlYM0dhOWhacUpaUm1ZeTNsRTdpU3liQzNJMHR3SFB0NVdv?=
- =?utf-8?B?WUF0eXJyb0ZLT3Viczl3VGxiUEhXaUpNS1VTelhKbnJiQlFUWmpEYUk4MUJ6?=
- =?utf-8?B?TENrbXI0dXlIczlBS05YZVFYSzQzejE0aDAzU1poMVdWbWIvalBISjVXMTVV?=
- =?utf-8?B?ZzN6TzRCaERqT1RualpScjUyMnoyajV4VlE5d3Z0WmFzb0xuRGlOVmEyYWNk?=
- =?utf-8?B?TVk0Q2MyV0lHTEViWVUyS010aC9VRlpOMXAvMk01anJRK1JNZm8zbGE4VkQ2?=
- =?utf-8?B?Y0NkSVBrSVd2QXNwUWk2OVA2c0poTksySHgrbDB0Ni93ekhNUHc4d3AzbmRI?=
- =?utf-8?B?VllDTERUWTdkTVRlSDN4Wm5iMk43R2l5Wmh6cDJzWVVuUlBlcW5uR2hKWTJ0?=
- =?utf-8?B?b3Z6THl0eFgrK09nRkk2UmhJSnlISVQycU54OWhyc1ZOOGU3STdDc1JVSUlh?=
- =?utf-8?B?UU42bWRXcGNGR3JkcTh4ajRucXZhTWdlcTRRSk5lVnlUNGJYYThUeENrLzhs?=
- =?utf-8?B?NGJUMUZmKzBBaUFvUy93SVhyeThIZkFYdXBxSDk1STdHcEp2MW11a1d1cjhy?=
- =?utf-8?B?aWc5anlIMk5PR3A5N0FUL0ZhbUxNVzhNVnh3UFpvVXZSVEVicjZpL2VWRWE0?=
- =?utf-8?B?dEsyTk9Ka2o1UkYxck9DSXEzV3hJUWsxT1BNOVlnamp6M01LSDB5cFdMczc5?=
- =?utf-8?B?T2VIeWJEN3ZVVWVBQ080UmZsNWtZcjdDM2RRV2JlZi9GL3ZmOXNhQ1VNRHht?=
- =?utf-8?B?U2RzSmYxdjdZQTczbnFKMEhPY09Da205eUQvVUZvSEQxblRVenNJWFlXLzlk?=
- =?utf-8?B?Z01tNHhtblBFdGt1UlFad1p5M01kUkttcVdMY2JTNlJYSWI0UVhXSTBwS0JX?=
- =?utf-8?B?RFE4YXl2R29ReW5yREE5bHpNS3RtZWhRbnVxMTJQTStRWkRBbmRSaUhNeEtH?=
- =?utf-8?B?dzd6SkZxZ3czZXpaWkU1NGthNmpPUCtjNkVGTlcydjNlQ0d3MHVjMzBpUkg2?=
- =?utf-8?B?VWxERm9aRGk0aWpTN0lnS1hqV1U0cUxkK1FCS0tTcjFHS0NkVHJsdUIzaXpj?=
- =?utf-8?B?Z0J3dWNxUGRSeUNlYUZMNHJnME05d3hrcGN2YzB3dkFhTEp3My9BWFpYK3dY?=
- =?utf-8?B?UmFzT0VvWmN0ZUlnczFwdmlhRkdKNXRzSzNtQlYyVEp6OHFKaDZFV0lXZ1Bk?=
- =?utf-8?B?eDdUMUJmSEM5R29nYTZSenhyQ3hBREJmc2NaZDdRQVdFOXN1dkpVcy9mbURN?=
- =?utf-8?B?RFpkV0VVT2x6MkhvYmRjT1JKdGU3am5xdTBRNU9td0M4ZElQek1xN1k1enRB?=
- =?utf-8?B?YjJhYVhNSDN1QnFBRzRqRURsN3JaOWx0bEdIMEJTUHg2ZE1ISkNlbkxzRGRF?=
- =?utf-8?B?U0Z5U0ZJaVJudzlIaDQ2UXVOK3Z1L0pucEZZWlFnQ3o4M0pZL3lub2lEZ3k5?=
- =?utf-8?B?czRGdUxaTUM3UnA3YjBuTXRnRkppTGtqQTFGSisyN3NkTUZPWmhsMXU1L0M1?=
- =?utf-8?B?T2Qzb2J4MGxycEFucVhoQiszQ2RIckxBN2lGWHlLMGJVTmo3UStmZHJ0TUJn?=
- =?utf-8?B?NGFXc1FKaDMvemVEVU14MTZFNm54eGl5YnFjSi9BMlo3dlhuT1kxaHlLN2lH?=
- =?utf-8?Q?dN7dLFQQzxFKkXIBEST1Ix/4u+4fqSdxCHsyI=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YSttVVJJUmFxQzRpWkRqRXErbjZJaFQ4d2RhcnFNYjVTc0tlNnNSTHZBZW5h?=
- =?utf-8?B?OFdodS9EanpocGJuK3JGTmFWYVZwVFRma2ZlQzErMWZnYWdhZDQ5MStnRCtn?=
- =?utf-8?B?NGRxc3E2Z0gxTlhVd1Q5VVpBd0tnS1JKdk9UNzR2Qkdad0NSdktRUzBCVlhT?=
- =?utf-8?B?cHU3R3VDWmFnTnQ5UHB2QjZwVUhBZHY4L0ZPN3dQUVhEUksvWFc5QitDME1D?=
- =?utf-8?B?U245UkllL1pNZldZdnNCbHBDMWh2VDVJcFovd1hLbm1vdlhCQVUyaDFjYS9t?=
- =?utf-8?B?Ym14L2ZWTmhGcUVzaXczT1ozeGFYcmVQQVpGeDlSelhyeWl4UWxiNHc3emJF?=
- =?utf-8?B?YkdMK3hQUzFFRUVLdUFTVnh3NkRvalhraUpObHRYREJqSDVidXUrOENaYVhu?=
- =?utf-8?B?MXhMYjB6TnlET0dRd05oZXRSOGFpUFY4Q1pVd3JXeVRNRGgvK3VGK1hVYXl0?=
- =?utf-8?B?b2s2Rk5GREdGdXQxc2tUcWg5RXQ2WmlGaTczaDV4eGNNRWhCZC9HWTBzclhQ?=
- =?utf-8?B?ZDRDVlcyc0UyRkNCKy9DTGFYR0Fyd25Ua0dTWXNqTVExUzBLTlRRNk92eExu?=
- =?utf-8?B?dE0rYmszM2ZmTi9sUUFDY00wSlNwWEMwNXFISjI4WWpEZ05FQUFDVEJjTXVl?=
- =?utf-8?B?RGhrZWUvS2tpdjdtVGRIcEJUa0ZZK2hCeGtaN1gyU2xmUFFzbFo5WjNSTzg0?=
- =?utf-8?B?VXBNSEdrTW1GT2UxVGVDcFpYckVjUXlSdUtROVRIVlliYVQxaTBIV2FUOFQx?=
- =?utf-8?B?Q09OSWNsOEhhamQ1N256YnQ0elUwa2VWRXByTmViUlNsN2Jzay9QNk1Demd4?=
- =?utf-8?B?SHl2Vk5RUEJSNGREK21sbXdNdXVnR3dpSEJtRFNXQk5pOVM3VkRtUU9TcTJX?=
- =?utf-8?B?TXhoZ3JkTUM5Q1QwQTRBVVJNc1dWbGxCT0hrb3RzSVVwS0hHclk5RGFJd0Zv?=
- =?utf-8?B?T3ZVYkJFQ09UUG9xVDlQZWsxdUZXWmpyMS8rT2lSOGpjSUNWYVMvRWdMY0dI?=
- =?utf-8?B?SnoxdDBsT0kwSEtSeWREU1A0V1RQWVZIUnBQb1RPelU4RWtaRHVzUUN0WFAr?=
- =?utf-8?B?dEN6NlRDbGYzMHQ4VU5PbzhNdW5MTjBEQ1NZMFRNc0R1bVRMVUFSZVM3aW83?=
- =?utf-8?B?a3FPQitJMHliSlhsdGd1SnRyNEUwUE00eExXRkdCdElrK1JzTTVUdzZwTS9F?=
- =?utf-8?B?MUdVNStVV3dIV0RGZ1U3cStYZ0JnS0Y2dldHQ0w0WWFaOHl1c3RjaHNPeVVT?=
- =?utf-8?B?YUVoZERzZkt2UUpuUEdTMk0rSVhMMCt4eThOZWhEeU9FYkRUZXI5eHI3QkdZ?=
- =?utf-8?B?cTIvUy9VQlBrZDZmSVFuZlc4aEhkcWJYdm91UC9ZbmV0M2NXL0h4MC9TR01z?=
- =?utf-8?B?YXpVdnNCZUZ2QktPdnoxNGNiVXJvampYTXplaEZ1RGdDaGpkZEpzUHVFYkVE?=
- =?utf-8?B?SVhnRGIyN2ZPc1RZU1hkaGYyOElTMk9kTHV6WVZvbWFCMnpFVGFjZkRXTis0?=
- =?utf-8?B?a1BrT2NRbjBHeHg3MnJqTDRzOE1va1VTN2tzMVRNbnk3TmtQNGZxa3FxR3lL?=
- =?utf-8?B?MGtvUTV0MUpvTnlvbHpJRVUrQldvejlLUTlFUEFNUk1hQ1NqWTZHNDZzQXhj?=
- =?utf-8?B?TEYwdEpPWCthcmEwWU1ZazNSUzJQZDlrR3pNS3VNZUNkQ3pQTVNycmNDMWs0?=
- =?utf-8?B?QUN4RnRLa3kydUxYMDJpcUNieGtLL29iUDVOQmY3WWl4eklGVjZYQkNUQ0ZZ?=
- =?utf-8?B?WmwvdmtxUnN4VUlleW9OMkkyVUNYL0FmTnNwbEJ6enQ5MlphQWZwYjBHVnds?=
- =?utf-8?B?WUpLblVoTHRpRi9sSWpqUEVCRGc5UFU2TWV4VGpoNzJYZU9YTHdRbjhXT3R6?=
- =?utf-8?B?Ulp4bzBUME9FNTNocFp3Y2VuUVRUZ1NrMXlNai9HeWFEL3VsM1I5SWxIeFNp?=
- =?utf-8?B?OVdFUE5HR1FwcmovS3ZrejFhaVpjU3F3ZjlpRWVCZWdiUm1GUmVSQjRpbE5D?=
- =?utf-8?B?Qi9nTXQ2T2tSMFZaSU9jQ2tUbjh4TGxaQUMvTG9RWk1sUkZ1Qmc0OW5EUG1Q?=
- =?utf-8?B?Wk9yWTNSVEoxTWdNN3JUMStaOGtldWlnZzNRQzk5VGh5UzNvN2JveWFnMWMx?=
- =?utf-8?Q?36zdmspcq6kIx5b49rlXwmawh?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?k1ZGJkOB1oXji2MZJVtw+lYq8+gnKAx9N2K7se9gdenE+5m5JSZsTSlooEk/?=
+ =?us-ascii?Q?7KTg8HVYRage36giykS3wbzbVdfJOwDXWtFXy/9C96hGDHvxOxPVdTYMoU8l?=
+ =?us-ascii?Q?XZ51VynAhLeUNeDrH2nDFjopdWaxAK01tBO6EiVK/k4UlwI3vzQ/g3/QbHYA?=
+ =?us-ascii?Q?p0MR0yn1MHeTfqnmzhm2+ZICb3jkCeWBX5bVr2bimDZY+ZgXeHogDrxsOm+2?=
+ =?us-ascii?Q?SrphkfFRjuxTuJK3YtZiCnR1xCbA4Ta2jhna/TEWwUpDSnqoBgrV1XaXKiwd?=
+ =?us-ascii?Q?Fpr1z76x0QcrcN1047q2wLrgRw0dN/VVAshMrgK3tBoFGX2lhqAFlGjsGD12?=
+ =?us-ascii?Q?J9qanvpYPEcicZimEwtCU8mP3USoSnhxJtmiLbv3rmP738cW3ZK1qN+LB68H?=
+ =?us-ascii?Q?aQttEfYa2lVe4ZXKIinOeOoNE2zQCrS6XylX1msH3Z+63nqbEInyXwkoXYdG?=
+ =?us-ascii?Q?M0Kht3OwWWJp6Ze0c4Vd876XQwGj9Ff6w7+W1inJltSkfBzrEgh2lqiOuaST?=
+ =?us-ascii?Q?zgj+HjpiPMamcMxABuTaVHA/vV/mFIg0TMwLJybxd/zg2cbEgR5Nh74XRoWi?=
+ =?us-ascii?Q?psNWiUiOprCgD1iipzutGzBZLbUrBBc34Ice33ak+ZSFM0b2VT/LADCjOnJ9?=
+ =?us-ascii?Q?pyl2iXhmJHlBxW3MAKuJ6gwIhpczVugWjAr9v69Het7F4LH8PkQjtQkgCi5M?=
+ =?us-ascii?Q?Gd8O810C8MKjnKt/oMyZjioYBRmqluJ/31Iq3jOvVT7ZUxsVpQpgAY6RFK2p?=
+ =?us-ascii?Q?dafi1dUvjllyi4gu91KwsM/w7//xRZSpfHPUs0ReYhzwXgZCPkRmjuf8PSMJ?=
+ =?us-ascii?Q?IxBVdYlVOEg8aa1xwlxnwmhjzz66WDI9momhRt2k1LSfR7nZTopVIIMS6IDZ?=
+ =?us-ascii?Q?2a/6Vhmeolt136eRPgvqxWugA6IMXKNJYp4/7hcsaCwoVeeA7mOQzERGl8oV?=
+ =?us-ascii?Q?RBfLXFOO1dm3QUtBlvtN2hJJewtpkIVnVzVRmqB2drqeLdWCpQlltxuNfoqw?=
+ =?us-ascii?Q?17lCNz8y7HGit7bFfwlwhttpUBY3Eqv1lJYpmEpXj7vRYjfHYWg7uFACz7ix?=
+ =?us-ascii?Q?lHWFxYdD+RKac+yzI++eFJexRLiy2FRCfRz3fL3EQ9ROF8Ba6IPX3WitDMSk?=
+ =?us-ascii?Q?tTaIjgorfDqJ6qhUnYhIFiFLaC3xElfLFhk/lAgG477QtCjyDIJ6qGOqtGEN?=
+ =?us-ascii?Q?60OynyOP8a3g8xkdEWjG4lSngn+DZ1VGLy/SIqzpXQKg2sp/JGPT4MguCyUP?=
+ =?us-ascii?Q?H1lQIdIP9hWm3RJtUie+RhqpJBqXF0An8TBTv/2GIv8RSdkluytBz1JKgLb1?=
+ =?us-ascii?Q?1FtdBdQ34RcpiIx1Z5DEwuy3UukNRh6fDwwrNMsy/2N9OjOp2Ac8S6+kw7gi?=
+ =?us-ascii?Q?nQOUbt+Ie82tjhOB6ySHDoZp0Kc5aUEk0z27NVxklmNU1Eq5weu5i2OA9uAX?=
+ =?us-ascii?Q?Hw1c86UJICDu5B8cRdYZWkAEh9BDicbDiXEiJpVpYNfSqVtMcEVi1tQYES51?=
+ =?us-ascii?Q?t/d5ON0hgiA4F+hnW/oaZfROw15BppiAvNbd?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c778c3a9-f8a1-45bf-81e9-08ddbea4f0fe
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 04:56:18.8212 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 06:03:59.4138 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fee5d93-135b-4ab0-a2fe-08ddbeae6598
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +ZUlyLZDky7LBFSSg4E/e5XglCqkdPv5+xKUxM1/0NaxQmWG/6/gld+G/SXn+Jhl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9691
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7245
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,120 +132,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/8/2025 8:40 PM, Deucher, Alexander wrote:
-> [Public]
-> 
-> 
-> I seem to recall -ENOTSUPP being frowned upon for IOCTLs.
-> 
-> 
-Going by documentation -
-https://dri.freedesktop.org/docs/drm/gpu/drm-uapi.html
+Fix xcp drm memory release after executing PCIe remove.
+Fix xcp drm memory alloc after executing PCIe insert.
 
-EOPNOTSUPP:
-Feature (like PRIME, modesetting, GEM) is not supported by the driver.
+Changes from V4->V5:
+- amdgpu:
+- - Delete "if" check in the loop.
 
-"Note that ENOTTY has the slightly unintuitive meaning of “this IOCTL
-does not exist”, and is used exactly as such in DRM"
- 
-Since KFD ioctls could eventually be supported in drm node, it seems
-better to go with ENOTTY.
+Changes from V3->V4:
+- amdgpu:
+- - Remove redundant initialization for "i".
+- - Simplify checks.
 
-Thanks,
-Lijo
+Changes from V2->V3:
+- amdgpu:
+- - Add Gerry as a Signed-off.
+- - Unified commit author.
 
-> 
-> Alex
-> 
->  
-> 
-> *From:*McRae, Geoffrey <Geoffrey.McRae@amd.com>
-> *Sent:* Tuesday, July 8, 2025 5:13 AM
-> *To:* Koenig, Christian <Christian.Koenig@amd.com>; Kuehling, Felix
-> <Felix.Kuehling@amd.com>
-> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
-> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
-> *Subject:* Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported
-> IOCTLs
-> 
->  
-> 
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
->  
-> 
-> I am happy to use EOPNOTSUPP but I must point out that this is not the
-> pattern used across the kernel, the standard is to use ENOTTY, which is
-> also the default that fs/ioctl.c returns when no handler is present.
-> Userspace tooling such as strace and glibc specifically expectect ENOTTY
-> to indicate invalid or unsupported IOCTL.
-> 
-> ------------------------------------------------------------------------
-> 
-> *From:*Koenig, Christian <Christian.Koenig@amd.com
-> <mailto:Christian.Koenig@amd.com>>
-> *Sent:* Tuesday, 8 July 2025 5:01 PM
-> *To:* McRae, Geoffrey <Geoffrey.McRae@amd.com
-> <mailto:Geoffrey.McRae@amd.com>>; Kuehling, Felix
-> <Felix.Kuehling@amd.com <mailto:Felix.Kuehling@amd.com>>
-> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com
-> <mailto:Alexander.Deucher@amd.com>>; amd-gfx@lists.freedesktop.org
-> <mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org
-> <mailto:amd-gfx@lists.freedesktop.org>>; dri-devel@lists.freedesktop.org
-> <mailto:dri-devel@lists.freedesktop.org> <dri-
-> devel@lists.freedesktop.org <mailto:dri-devel@lists.freedesktop.org>>
-> *Subject:* Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported
-> IOCTLs
-> 
->  
-> 
-> On 08.07.25 06:22, Geoffrey McRae wrote:
->> Some kfd ioctls may not be available depending on the kernel version the
->> user is running, as such we need to report -ENOTTY so userland can
->> determine the cause of the ioctl failure.
-> 
-> In general sounds like a good idea, but ENOTTY is potentially a bit
-> misleading.
-> 
-> We usually use EOPNOTSUPP for that even if its not the original meaning
-> of that error code.
-> 
-> Regards,
-> Christian.
-> 
->> 
->> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com <mailto:geoffrey.mcrae@amd.com>>
->> ---
->>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 8 ++++++--
->>  1 file changed, 6 insertions(+), 2 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> index a2149afa5803..36396b7318e7 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> @@ -3253,8 +3253,10 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
->>        int retcode = -EINVAL;
->>        bool ptrace_attached = false;
->>  
->> -     if (nr >= AMDKFD_CORE_IOCTL_COUNT)
->> +     if (nr >= AMDKFD_CORE_IOCTL_COUNT) {
->> +             retcode = -ENOTTY;
->>                goto err_i1;
->> +     }
->>  
->>        if ((nr >= AMDKFD_COMMAND_START) && (nr < AMDKFD_COMMAND_END)) {
->>                u32 amdkfd_size;
->> @@ -3267,8 +3269,10 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
->>                        asize = amdkfd_size;
->>  
->>                cmd = ioctl->cmd;
->> -     } else
->> +     } else {
->> +             retcode = -ENOTTY;
->>                goto err_i1;
->> +     }
->>  
->>        dev_dbg(kfd_device, "ioctl cmd 0x%x (#0x%x), arg 0x%lx\n", cmd, nr, arg);
->>  
-> 
+Changes from V1->V2:
+- cover-letter:
+- - Revise title version number.
+- amdgpu:
+- - Remove // comments.
+- - Add Gerry as a co-developr.
+
+Meng Li (1):
+  drm/amd/amdgpu: Release xcp drm memory after unplug
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c     |  1 +
+ drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 56 +++++++++++++++++----
+ drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h |  1 +
+ 3 files changed, 49 insertions(+), 9 deletions(-)
+
+-- 
+2.43.0
 
