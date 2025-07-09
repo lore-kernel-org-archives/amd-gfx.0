@@ -4,68 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D5C0C83F03
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 10:14:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03A53C83F0A
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 10:49:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 533F310E1F2;
-	Wed,  9 Jul 2025 10:14:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F94110E797;
+	Wed,  9 Jul 2025 10:49:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jv75CHNk";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BofmsTM+";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE10A10E79B;
- Wed,  9 Jul 2025 10:14:18 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 3350AA5400C;
- Wed,  9 Jul 2025 10:14:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6829C4CEF8;
- Wed,  9 Jul 2025 10:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1752056057;
- bh=2C4pjyJfdueSpOB2Mvvwc5pv38gCi/WniANABx1A6dc=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=Jv75CHNk32psM/ac6tyRoLCzzu5BFZCiIlBJT7APWb00m7ZkYBkb2M5bLM2fj7J8N
- viXdxE396Ys3g6AORulQWY6QVx9pydFaQqqxkYAkm4DKoWFXITb6LrUD+269wUONvR
- GQ/W4hdarSY/t3plzB3KwpMpD4OruzrJXSM/T7dGLfdI8+gbR6oVGlw+qciEE+8HRE
- 2kEqClhlzFbFZkVywH+AHLslJXEz0StbJWQ7lZpSVlwW57/rw9MR/aZ1WxGk+6GiSA
- gIJRrT3Q5t4goEeqPv4W2V/QPN0iMot8LYN5YWEXNwlNEnttjsN41QPbzrBTyzzlTK
- dLc/Rhw+ADbJw==
-Received: by mail-oo1-f52.google.com with SMTP id
- 006d021491bc7-6138aedd718so415620eaf.0; 
- Wed, 09 Jul 2025 03:14:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUHmmjWRAYqKGHGBvLF3KhfMTa5R1Lojuez3sYzL+ZbuGQmptSrb65HQ0f5qXmtTWV/RebvXYea@lists.freedesktop.org,
- AJvYcCXGGhkKWhWwQXL0yWTPvl8qN8zp1jFulQNL1yy6FroI+2aHYzRPLF9Yy+/32AGKa8VqBcCXHTDSfLax@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwVfm7C0Oi+WU0ruDodjaH2xh0IYCwkgCuXMZgftrMrYyAIS9Co
- gaH7t46onutp/GEPMQdtpBzIfDv2FQEWnAAGasI6wSQsH+v/VVnLIOe6waVmYMFBNp1hARJsJCS
- ZSup7+MlBBghh71m2/qqywe5PJ653A74=
-X-Google-Smtp-Source: AGHT+IGV03Pl9AQwiLzwXsYo2beEMoMSWrGSGoCKgRfbkG+PrR7p5pv9tGMAyclr03pPq+vN5TQloAV+Py294L3Ea9c=
-X-Received: by 2002:a05:6820:4c85:b0:613:bd07:54cc with SMTP id
- 006d021491bc7-613cd02aac7mr1117259eaf.0.1752056057126; Wed, 09 Jul 2025
- 03:14:17 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 938BA10E797;
+ Wed,  9 Jul 2025 10:49:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Q5u+6AafBmRCe5AiLkVQpA4VXoPEsutgemkpBMiv/Ok=; b=BofmsTM++0++Qmt13yj9bU6iQ6
+ yemmNUTRcGjWCzhXd6V5AGOAXItd2XXrwSwQ8ftcUKPJ2owPMX3tcuQDswn6ffYju9lCzYw1/LmtZ
+ YFNeX8DlBbcBJS6hjM83pQn6QArLOJ7oYuEHH3T/sdiIHXr/5gXFHVzDffo5pjCxJPSfwOCKH0v2S
+ vKiIAPGF0q90B/NTB53T5T6QgG0sdgFgC3AyFTB1DmS6ovKTEARlgRxbe1infMHANOtdzDQSPYEZj
+ wMWanH/rQimXDnSntlEtUn51YNQoJ8n3WBELy8GrhlNjSAfzevMwH2PHSUBPliY6ZQ/BjnQqQwsIN
+ zHfEGbig==;
+Received: from [84.65.48.237] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uZSMz-00EQhA-8r; Wed, 09 Jul 2025 12:49:45 +0200
+Message-ID: <9826ee93-d14f-473a-a53f-581f02391569@igalia.com>
+Date: Wed, 9 Jul 2025 11:49:44 +0100
 MIME-Version: 1.0
-References: <20250709100512.3762063-1-guoqing.zhang@amd.com>
- <20250709100512.3762063-5-guoqing.zhang@amd.com>
-In-Reply-To: <20250709100512.3762063-5-guoqing.zhang@amd.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Wed, 9 Jul 2025 12:14:06 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hAHfL-Vamh-OAGJ73oVnoRDXh3QqLd8+NjNFsU5yWwcg@mail.gmail.com>
-X-Gm-Features: Ac12FXyFX77CgkWVTAu-0wLPoDSeMMEFLfqSFYTRgAjt5vPCEE2oN68SUekAwCY
-Message-ID: <CAJZ5v0hAHfL-Vamh-OAGJ73oVnoRDXh3QqLd8+NjNFsU5yWwcg@mail.gmail.com>
-Subject: Re: [PATCH v5 4/5] PM: hibernate: add new api
- pm_hibernate_is_recovering()
-To: Samuel Zhang <guoqing.zhang@amd.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, rafael@kernel.org, 
- len.brown@intel.com, pavel@kernel.org, gregkh@linuxfoundation.org, 
- dakr@kernel.org, airlied@gmail.com, simona@ffwll.ch, ray.huang@amd.com, 
- matthew.auld@intel.com, matthew.brost@intel.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- mario.limonciello@amd.com, lijo.lazar@amd.com, victor.zhao@amd.com, 
- haijun.chang@amd.com, Qing.Ma@amd.com, Owen.Zhang2@amd.com, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Avoid double re-lock on the job free path
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
+References: <20250708122032.75668-1-tvrtko.ursulin@igalia.com>
+ <aG3z38CePTKpvjfE@lstrano-desk.jf.intel.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <aG3z38CePTKpvjfE@lstrano-desk.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,71 +63,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 9, 2025 at 12:05=E2=80=AFPM Samuel Zhang <guoqing.zhang@amd.com=
-> wrote:
->
-> dev_pm_ops.thaw() is called in following cases:
-> * normal case: after hibernation image has been created.
-> * error case 1: creation of a hibernation image has failed.
-> * error case 2: restoration from a hibernation image has failed.
->
-> For normal case, it is called mainly for resume storage devices for
-> saving the hibernation image. Other devices that are not involved
-> in the image saving do not need to resume the device. But since there's
-> no api to know which case thaw() is called, device drivers can't
-> conditionally resume device in thaw().
->
-> The new pm_hibernate_is_recovering() is such a api to query if thaw() is
-> called in normal case.
->
-> Signed-off-by: Samuel Zhang <guoqing.zhang@amd.com>
-> ---
->  drivers/base/power/main.c | 14 ++++++++++++++
->  include/linux/pm.h        |  2 ++
->  2 files changed, 16 insertions(+)
->
-> diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-> index 40e1d8d8a589..ff78cf96f795 100644
-> --- a/drivers/base/power/main.c
-> +++ b/drivers/base/power/main.c
-> @@ -63,6 +63,20 @@ static LIST_HEAD(dpm_noirq_list);
->  static DEFINE_MUTEX(dpm_list_mtx);
->  static pm_message_t pm_transition;
->
-> +/**
-> + * pm_hibernate_is_recovering - if recovering from hibernate due to erro=
-r.
-> + *
-> + * Used to query if dev_pm_ops.thaw() is called for normal hibernation c=
-ase or
-> + * recovering from some error.
-> + *
-> + * Return: true for error case, false for normal case.
-> + */
-> +bool pm_hibernate_is_recovering(void)
-> +{
-> +       return pm_transition.event =3D=3D PM_EVENT_RECOVER;
-> +}
-> +EXPORT_SYMBOL_GPL(pm_hibernate_is_recovering);
-> +
->  static int async_error;
->
->  static const char *pm_verb(int event)
-> diff --git a/include/linux/pm.h b/include/linux/pm.h
-> index 78855d794342..f54a803f2afb 100644
-> --- a/include/linux/pm.h
-> +++ b/include/linux/pm.h
-> @@ -657,6 +657,8 @@ struct pm_subsys_data {
->  #define DPM_FLAG_SMART_SUSPEND         BIT(2)
->  #define DPM_FLAG_MAY_SKIP_RESUME       BIT(3)
->
-> +bool pm_hibernate_is_recovering(void);
-> +
 
-Please add this to suspend.h instead (preferably after the
-is_hibernate_resume_dev definition).
+On 09/07/2025 05:45, Matthew Brost wrote:
+> On Tue, Jul 08, 2025 at 01:20:32PM +0100, Tvrtko Ursulin wrote:
+>> Currently the job free work item will lock sched->job_list_lock first time
+>> to see if there are any jobs, free a single job, and then lock again to
+>> decide whether to re-queue itself if there are more finished jobs.
+>>
+>> Since drm_sched_get_finished_job() already looks at the second job in the
+>> queue we can simply add the signaled check and have it return the presence
+>> of more jobs to free to the caller. That way the work item does not have
+>> to lock the list again and repeat the signaled check.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+> 
+> The patch looks correct, we do have CI failure in a section which
+> stresses scheduling though. Probably noise though. Do you have Intel
+> hardware? I suggest running xe_exec_threads in a loop on either LNL or
+> BMG and see if the CI failure pops. If you don't have hardware, let me
+> know and I can do this.
+> 
+> With a bit of investigation in the CI failure:
+> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
->  struct dev_pm_info {
->         pm_message_t            power_state;
->         bool                    can_wakeup:1;
-> --
+Thanks! I don't have the HW but I was able to press re-test in the CI so 
+lets see. Although at the moment I can't imagine a failure mode like 
+that could be caused by this patch.
+
+Regards,
+
+Tvrtko
+
+> 
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_main.c | 37 ++++++++++----------------
+>>   1 file changed, 14 insertions(+), 23 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+>> index 1f077782ec12..1bce0b66f89c 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -366,22 +366,6 @@ static void __drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+>>   		queue_work(sched->submit_wq, &sched->work_free_job);
+>>   }
+>>   
+>> -/**
+>> - * drm_sched_run_free_queue - enqueue free-job work if ready
+>> - * @sched: scheduler instance
+>> - */
+>> -static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+>> -{
+>> -	struct drm_sched_job *job;
+>> -
+>> -	spin_lock(&sched->job_list_lock);
+>> -	job = list_first_entry_or_null(&sched->pending_list,
+>> -				       struct drm_sched_job, list);
+>> -	if (job && dma_fence_is_signaled(&job->s_fence->finished))
+>> -		__drm_sched_run_free_queue(sched);
+>> -	spin_unlock(&sched->job_list_lock);
+>> -}
+>> -
+>>   /**
+>>    * drm_sched_job_done - complete a job
+>>    * @s_job: pointer to the job which is done
+>> @@ -1102,12 +1086,13 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
+>>    * drm_sched_get_finished_job - fetch the next finished job to be destroyed
+>>    *
+>>    * @sched: scheduler instance
+>> + * @have_more: are there more finished jobs on the list
+>>    *
+>>    * Returns the next finished job from the pending list (if there is one)
+>>    * ready for it to be destroyed.
+>>    */
+>>   static struct drm_sched_job *
+>> -drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+>> +drm_sched_get_finished_job(struct drm_gpu_scheduler *sched, bool *have_more)
+>>   {
+>>   	struct drm_sched_job *job, *next;
+>>   
+>> @@ -1115,22 +1100,25 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+>>   
+>>   	job = list_first_entry_or_null(&sched->pending_list,
+>>   				       struct drm_sched_job, list);
+>> -
+>>   	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
+>>   		/* remove job from pending_list */
+>>   		list_del_init(&job->list);
+>>   
+>>   		/* cancel this job's TO timer */
+>>   		cancel_delayed_work(&sched->work_tdr);
+>> -		/* make the scheduled timestamp more accurate */
+>> +
+>> +		*have_more = false;
+>>   		next = list_first_entry_or_null(&sched->pending_list,
+>>   						typeof(*next), list);
+>> -
+>>   		if (next) {
+>> +			/* make the scheduled timestamp more accurate */
+>>   			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
+>>   				     &next->s_fence->scheduled.flags))
+>>   				next->s_fence->scheduled.timestamp =
+>>   					dma_fence_timestamp(&job->s_fence->finished);
+>> +
+>> +			*have_more = dma_fence_is_signaled(&next->s_fence->finished);
+>> +
+>>   			/* start TO timer for next job */
+>>   			drm_sched_start_timeout(sched);
+>>   		}
+>> @@ -1189,12 +1177,15 @@ static void drm_sched_free_job_work(struct work_struct *w)
+>>   	struct drm_gpu_scheduler *sched =
+>>   		container_of(w, struct drm_gpu_scheduler, work_free_job);
+>>   	struct drm_sched_job *job;
+>> +	bool have_more;
+>>   
+>> -	job = drm_sched_get_finished_job(sched);
+>> -	if (job)
+>> +	job = drm_sched_get_finished_job(sched, &have_more);
+>> +	if (job) {
+>>   		sched->ops->free_job(job);
+>> +		if (have_more)
+>> +			__drm_sched_run_free_queue(sched);
+>> +	}
+>>   
+>> -	drm_sched_run_free_queue(sched);
+>>   	drm_sched_run_job_queue(sched);
+>>   }
+>>   
+>> -- 
+>> 2.48.0
+>>
+
