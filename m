@@ -4,81 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CF45C83F03
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E710FC83F17
 	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jul 2025 10:59:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E40FE10E7AA;
-	Wed,  9 Jul 2025 10:59:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E906110E7AC;
+	Wed,  9 Jul 2025 10:59:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="WDgn0IoC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z6f5fuZr";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E530010E789;
- Wed,  9 Jul 2025 10:15:13 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4bcYkk5Z6Tz9v0W;
- Wed,  9 Jul 2025 12:15:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1752056110; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mFira+KRxdt8d2FwCbb09WeKAggOn2O87AQVoaADDDg=;
- b=WDgn0IoCwgiKpF286Do31Pin7PJ2guwZj4o9mUTgcnO0KxKRTMpqV1aW5zxiX3N5htkerQ
- kLhuJfncnmUQFLRQycp7T3gADDfsZpqselBwPENiHlokvruIwHszV22QpuL2+jmHRmt6SC
- 2yWvgFkRY9erkLCMUhDcYQiYSuAD9QcIo7iKFxOvDGh2JLrZV6jU9u+yBUUarJcP9qa938
- xzxeTJYjxtsL2NhiXfY1Iu86YK4LH1w0II4PxVwZh64bszBzCJlB/lXJnIgWpIqwwXfUWN
- OnrrZ4LsSmNbTztfn1SQlVuOOhFrIzV65WwXMXNPPStL+o/Z9X9QGj9JNOiJlQ==
-Message-ID: <acb81a4e86f4f683c4f83509afdc5f24ea01e64d.camel@mailbox.org>
-Subject: Re: [PATCH v4] drm/sched: Use struct for drm_sched_init() params
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Philipp Stanner
- <phasta@kernel.org>, Min Ma <min.ma@amd.com>, Lizhi Hou
- <lizhi.hou@amd.com>,  Oded Gabbay <ogabbay@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, Frank Binns
- <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Qiang Yu
- <yuq825@gmail.com>,  Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,  Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, Karol Herbst <kherbst@redhat.com>, Lyude
- Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>, Boris
- Brezillon <boris.brezillon@collabora.com>, Rob Herring <robh@kernel.org>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Matthew Brost <matthew.brost@intel.com>, Melissa Wen <mwen@igalia.com>, 
- =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sunil Khatri <sunil.khatri@amd.com>,  Lijo Lazar <lijo.lazar@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>, Yunxiang Li
- <Yunxiang.Li@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Christian Gmeiner <cgmeiner@igalia.com>
-Date: Wed, 09 Jul 2025 12:14:54 +0200
-In-Reply-To: <b5d0921c-7cbf-4d55-aa47-c35cd7861c02@igalia.com>
-References: <20250211111422.21235-2-phasta@kernel.org>
- <b5d0921c-7cbf-4d55-aa47-c35cd7861c02@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 885BB10E73A;
+ Wed,  9 Jul 2025 06:51:49 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-748d982e92cso3251990b3a.1; 
+ Tue, 08 Jul 2025 23:51:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1752043909; x=1752648709; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=wsXmoNVf8gqhHwpX7v98CH6HHO1K78Rr2kE9W8JmaiQ=;
+ b=Z6f5fuZrV2VldFscmlrdo440L1xMGgpuWa3TmrOdtp0t4jOZAPTO+gmVxNXww3jGNO
+ lwifJzqittRkPUzBtcmLUorB0DvjAZjSw/qTPrX+duSc9yqNu23Ntd66ZksWB46lb5ph
+ mwAewxf59zheZFUMajZMuUptK3tqJ9saeJfDUq8I3bV8Jpu2RbBH69M+waOTdjbGt6Fb
+ Yy5CKTVDMBbwFmNLYolXgaF9tCHBjMc5VsV8NJ9og06kMM8at91oEA+kqX5z7az8y1V1
+ ApyCiQm8cyeEJ4MEu3naUh9ZzrDOIXzJvU/yXcuy/9SGCQWSMiGnne0BzHeBU3CP9PD4
+ YZbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752043909; x=1752648709;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wsXmoNVf8gqhHwpX7v98CH6HHO1K78Rr2kE9W8JmaiQ=;
+ b=E0z9EEc3AVOQTbO04bR8q9vKJByEZ6PNkiZqwSa2SZp5sSeiST75QIdYwDsD80UqI7
+ B07KJ+3WbPIksiilWxG4S3h6dV9tmM1vsYww8sfUmq2p0UhKJdO+TNG1E/Cr2SSRr0XV
+ +3BUo/4Lbvsyou2feQUR1PtoHKsGxWGWp7VaIhyMHDGo7zoIukOZnBkPOPmrvQKAwPzx
+ UZOkhNSTYXs1ftUEXJbUk1zr1yU+YkrTIOq3YUAGl9taM40BUTn9v+QlanLEZ06LRIv5
+ FBLWTGaOHMv0XxZlOSnBabG5KMvjbNQyCm9eziJxquZ5m7NHdTG3CMxdzB5N0FYmPAoZ
+ xgNg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU8TxrAphR/k+dn+StJQRb4KIWfKe7COQS9+UZjEBVIispFnBm7tne7RMdeQGboJTXoVYiFGlqWqmX2@lists.freedesktop.org,
+ AJvYcCV+i8beotySP3LvmlgPojsS2k2loycbM7gOKkDt5XBPXBEVamT4LrY6mbi+ALUvXwDUzkSCdNBh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVp6OsYy3MgT3z7CSWAZaaLEAFVGvD2AftXx/pj+XNlIugPrQy
+ Z/LW1i5JmVjint+cWaYN1Nmf7Ch3402+UC8F/b9skvCHzjXNKaY9QrNl
+X-Gm-Gg: ASbGnctBrFmBEtJ3D8CWg4J5gGjnaXwfVhv6UVvAUkDfRawVoIgvWRU1GdjA/Q/oj8W
+ xEfRrbR5sQJk4XJnGHnRHuoepdLhOEpaEM6ufCEltx6HsRKTxcqH5vTVy5taciwcAjXP8UT3VQV
+ uKHR/kWE8BMPaL0evbziy5kutDBltYa6HyTt2XRW3yNvsa5pKCVy9MKbEuiaNjLsISpuPSyigYU
+ V67ok+2lYAfNy8pU3T5USHGeEfFt1hInm6wMTQ+kSQKsKtcxlxkrBfsOM+tUpbFMU97OEM+vIjQ
+ GWAToNVzP7zFekZG/qM2JqGtnS9xUkon+3DnXH6duab829FP0xIPAjyCWOTNig6Rf9BNTy3b
+X-Google-Smtp-Source: AGHT+IHhwVqmIexE3eKGz91oczxiizHyu03L1oLCkTdwBUOHIgnDLMOxZ5EJMI1a3H3LD8QK/1k+bQ==
+X-Received: by 2002:a05:6a20:6a24:b0:21c:e870:d77 with SMTP id
+ adf61e73a8af0-22cd5ff1630mr2141698637.15.1752043908408; 
+ Tue, 08 Jul 2025 23:51:48 -0700 (PDT)
+Received: from localhost.localdomain ([119.8.44.69])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b38ee62dd6asm13324561a12.64.2025.07.08.23.51.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Jul 2025 23:51:48 -0700 (PDT)
+From: Han Gao <rabenda.cn@gmail.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Han Gao <rabenda.cn@gmail.com>
+Cc: Xinmudotmoe <xinmu@xinmu.moe>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/amdkfd: enable kfd on LoongArch systems
+Date: Wed,  9 Jul 2025 14:51:38 +0800
+Message-ID: <ecedf70051b805c5cfdcc2b91f9304af24b3c3fd.1752043543.git.rabenda.cn@gmail.com>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-X-MBO-RS-ID: 2cfb6c6c64b390fa220
-X-MBO-RS-META: ay4k4wqr33dnoj1dmtnedfghmj9cfjnj
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 09 Jul 2025 10:59:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,149 +87,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-07-08 at 14:02 +0100, Tvrtko Ursulin wrote:
->=20
->=20
-> On 11/02/2025 11:14, Philipp Stanner wrote:
-> > drm_sched_init() has a great many parameters and upcoming new
-> > functionality for the scheduler might add even more. Generally, the
-> > great number of parameters reduces readability and has already
-> > caused
-> > one missnaming, addressed in:
-> >=20
-> > commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
-> > nouveau_sched_init()").
-> >=20
-> > Introduce a new struct for the scheduler init parameters and port
-> > all
-> > users.
-> >=20
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> > Acked-by: Matthew Brost <matthew.brost@intel.com> # for Xe
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> # for
-> > Panfrost and Panthor
-> > Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com> # for Etnaviv
-> > Reviewed-by: Frank Binns <frank.binns@imgtec.com> # for Imagination
-> > Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com> # for Sched
-> > Reviewed-by: Ma=C3=ADra Canal <mcanal@igalia.com> # for v3d
-> > ---
-> > Changes in v4:
-> > =C2=A0=C2=A0 - Add forgotten driver accel/amdxdna. (Me)
-> > =C2=A0=C2=A0 - Rephrase the "init to NULL" comments. (Tvrtko)
-> > =C2=A0=C2=A0 - Apply RBs by Tvrtko and Maira.
-> > =C2=A0=C2=A0 - Terminate the last struct members with a comma, so that =
-future
-> > =C2=A0=C2=A0=C2=A0=C2=A0 fields can be added with a minimal patch diff.=
- (Me)
-> >=20
-> > Changes in v3:
-> > =C2=A0=C2=A0 - Various formatting requirements.
-> >=20
-> > Changes in v2:
-> > =C2=A0=C2=A0 - Point out that the hang-limit is deprecated. (Christian)
-> > =C2=A0=C2=A0 - Initialize the structs to 0 at declaration. (Planet Eart=
-h)
-> > =C2=A0=C2=A0 - Don't set stuff explicitly to 0 / NULL. (Tvrtko)
-> > =C2=A0=C2=A0 - Make the structs const where possible. (Boris)
-> > =C2=A0=C2=A0 - v3d: Use just 1, universal, function for sched-init. (Ma=
-=C3=ADra)
-> > ---
->=20
-> 8><
->=20
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c
-> > b/drivers/gpu/drm/panfrost/panfrost_job.c
-> > index 9b8e82fb8bc4..5657106c2f7d 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> > @@ -836,8 +836,16 @@ static irqreturn_t
-> > panfrost_job_irq_handler(int irq, void *data)
-> > =C2=A0=20
-> > =C2=A0 int panfrost_job_init(struct panfrost_device *pfdev)
-> > =C2=A0 {
-> > +	struct drm_sched_init_args args =3D {
-> > +		.ops =3D &panfrost_sched_ops,
-> > +		.num_rqs =3D DRM_SCHED_PRIORITY_COUNT,
-> > +		.credit_limit =3D 2,
-> > +		.timeout =3D msecs_to_jiffies(JOB_TIMEOUT_MS),
-> > +		.timeout_wq =3D pfdev->reset.wq,
->=20
-> ^^^
->=20
-> > +		.name =3D "pan_js",
-> > +		.dev =3D pfdev->dev,
-> > +	};
-> > =C2=A0=C2=A0	struct panfrost_job_slot *js;
-> > -	unsigned int nentries =3D 2;
-> > =C2=A0=C2=A0	int ret, j;
-> > =C2=A0=20
-> > =C2=A0=C2=A0	/* All GPUs have two entries per queue, but without
-> > jobchain
-> > @@ -845,7 +853,7 @@ int panfrost_job_init(struct panfrost_device
-> > *pfdev)
-> > =C2=A0=C2=A0	 * so let's just advertise one entry in that case.
-> > =C2=A0=C2=A0	 */
-> > =C2=A0=C2=A0	if (!panfrost_has_hw_feature(pfdev,
-> > HW_FEATURE_JOBCHAIN_DISAMBIGUATION))
-> > -		nentries =3D 1;
-> > +		args.credit_limit =3D 1;
-> > =C2=A0=20
-> > =C2=A0=C2=A0	pfdev->js =3D js =3D devm_kzalloc(pfdev->dev, sizeof(*js),
-> > GFP_KERNEL);
-> > =C2=A0=C2=A0	if (!js)
->=20
-> Stumbled on this while looking at drm_sched_init() workqueue usage.
->=20
-> I think this patch might need a fixup. Because somewhere around here
-> in=20
-> the code there is this:
->=20
-> 	pfdev->reset.wq =3D alloc_ordered_workqueue("panfrost-reset",
-> 0);
-> 	if (!pfdev->reset.wq)
-> 		return -ENOMEM;
->=20
-> Which means that after the patch panfrost is using system_wq for the=20
-> timeout handler instead the one it creates.
+KFD has been confirmed that can run on LoongArch systems.
+It's necessary to support CONFIG_HSA_AMD on LoongArch.
 
-Ouch yes, that's definitely a very subtle bug. AFAICS it comes to be by
-pfdev being initialized to 0.
+Signed-off-by: Han Gao <rabenda.cn@gmail.com>
+---
 
-Let me provide a fix..
+Changes in v2:
+  Add 64BIT
 
-P.
+v1: https://lore.kernel.org/amd-gfx/56e7ec54-9820-4e02-be97-2a9e1dedd117@amd.com/T/#t
 
->=20
-> > @@ -875,13 +883,7 @@ int panfrost_job_init(struct panfrost_device
-> > *pfdev)
-> > =C2=A0=C2=A0	for (j =3D 0; j < NUM_JOB_SLOTS; j++) {
-> > =C2=A0=C2=A0		js->queue[j].fence_context =3D
-> > dma_fence_context_alloc(1);
-> > =C2=A0=20
-> > -		ret =3D drm_sched_init(&js->queue[j].sched,
-> > -				=C2=A0=C2=A0=C2=A0=C2=A0 &panfrost_sched_ops, NULL,
-> > -				=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT,
-> > -				=C2=A0=C2=A0=C2=A0=C2=A0 nentries, 0,
-> > -				=C2=A0=C2=A0=C2=A0=C2=A0
-> > msecs_to_jiffies(JOB_TIMEOUT_MS),
-> > -				=C2=A0=C2=A0=C2=A0=C2=A0 pfdev->reset.wq,
-> > -				=C2=A0=C2=A0=C2=A0=C2=A0 NULL, "pan_js", pfdev->dev);
-> > +		ret =3D drm_sched_init(&js->queue[j].sched, &args);
->=20
-> ^^^
->=20
-> > =C2=A0=C2=A0		if (ret) {
-> > =C2=A0=C2=A0			dev_err(pfdev->dev, "Failed to create
-> > scheduler: %d.", ret);
-> > =C2=A0=C2=A0			goto err_sched;
->=20
-> Regards,
->=20
-> Tvrtko
->=20
+ drivers/gpu/drm/amd/amdkfd/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
+index 62e88e5362e9..16e12c9913f9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/Kconfig
++++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+@@ -5,7 +5,7 @@
+ 
+ config HSA_AMD
+ 	bool "HSA kernel driver for AMD GPU devices"
+-	depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64 || (RISCV && 64BIT))
++	depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64 || (RISCV && 64BIT) || (LOONGARCH && 64BIT))
+ 	select HMM_MIRROR
+ 	select MMU_NOTIFIER
+ 	select DRM_AMDGPU_USERPTR
+-- 
+2.47.2
 
