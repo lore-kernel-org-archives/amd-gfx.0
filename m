@@ -4,150 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6072C83F1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 12:45:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08C84C83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 13:17:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5470E10EA42;
-	Fri, 11 Jul 2025 12:45:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97A3E10E3A2;
+	Fri, 11 Jul 2025 13:17:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D235k4tO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WJVXqqL3";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE2D10EA42
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 12:45:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HIrLsY/fwIjL3zqYC6brUvugn8N0vQenMJssF8VyhPnzVEHUopbJ1UegpsuvpCH6Vql11LJehPVp6oFxLTnwVZwEkjN2V9uax7JeTSVmo8x9zQLYiSirZ25l7EeC9FaIuX7AhPaMHhOsl1XyXxp3NWN/b0SDcTQ8YbGuT/H790SjSW/k5QVQKGengKZT8q3hdPce5Y8gcFKKUbTilldHek81evF+84Sq/AFQyUMgJqwBVT3/Kvo7t0s+ZegBArjRujFlP9rSFhQq4Z3JmOEYwORmT10vMnO3ZjU3rFwsYWWHGZ3RXFPUPgQjh5QJECEjApIbGCGZ2l5E7w8yayJ7TA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HxlMGn/EpG/rFpvZPSSCr3cdPpGzdkRaDLARc6gdoks=;
- b=VbAXi5FV4Klm3/do4w1/kzur9Quep4X/ylJEGci3J5kUb5wCJU0tzMKAfaja3dQww3vWFlUc74foqWXZNznPcV4DVenHqgaJwkmteDp3ruy7W7rQlBD2es7DeLdGqgA3cI+Hij+LhWQKUzZd3t2w49+45cjya5a8tvnSUHY9Bym5tV5/SHM5XlF9m56gCQu3YaE5U5uHFHTdzkutGSJ70sPisPNZFT8IWPbf67QIrCRsicv/5JNTGTYH+aYe6P+ZcYLRFZKMp/6uclOwxhKqimJjudZcxpwp92tzF+aVrvnr8zC1Xm/2iBWhGQj4ITEvmIiK++1IVkkGFI4tXsK9WA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HxlMGn/EpG/rFpvZPSSCr3cdPpGzdkRaDLARc6gdoks=;
- b=D235k4tOkjVe2YUiW54g38ww39N4t2HDgVCQqmLVJUM87ruJqtYCYXse5LFyiiv1jorb4j/5Yt72K8wWIGKQbCD3wOkthIurbfmD5mIyNdIkwtFKTObtdNJ/r+1j5sIgP2hlmFz03thR10JZNvwGLd2H0xMGs6cSxnVdMP99BMU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB6927.namprd12.prod.outlook.com (2603:10b6:a03:483::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.27; Fri, 11 Jul
- 2025 12:45:37 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8901.024; Fri, 11 Jul 2025
- 12:45:31 +0000
-Message-ID: <57da4e28-4968-409a-9861-3ee969bed541@amd.com>
-Date: Fri, 11 Jul 2025 14:45:27 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] drm/amdgpu/sdma5.2: Avoid latencies caused by the
- powergating workaround
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20250711122338.44831-1-tvrtko.ursulin@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250711122338.44831-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR16CA0052.namprd16.prod.outlook.com
- (2603:10b6:208:234::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3987810E98A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jul 2025 23:43:07 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56AJQtBS013136
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jul 2025 23:43:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=O6dneaoEJTU4dB5TWgOZwO
+ yJvDGKlM6DOiO6ssR/9JM=; b=WJVXqqL30MlBFZimKymhYq0ZPOc2GjQ8kRGkbn
+ JtTWjw2HfnXQ/+A8ZgY/nBlGV6LWs3MT4eznqJyTRJ0mPuDgkJUh02MyxpDVImIZ
+ qeovXmX+ARKDOhbZy6WzJ87cIq3ST2EE5sv3e81NVl87WAsZCHO1kHlyjqDrDzqf
+ Bxh04kzmwRYEUeHXHWk8Z+VLoT7H7E1nobaKLxxGdG8CtYHu5ZNJvK3ISjhDbwyo
+ Vz9FgcJEeu9e2SbyjSMSxZxM5JgJkxpFeZA0eJTHuuvCodg/f4ZT2XAFpYi1Kavy
+ lrb8n8KYvjUl5WLKyvqk7h25xWoagu/I/8ditp4+cWbM+9JA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47pucna61b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jul 2025 23:43:06 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-235e3f93687so22063995ad.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jul 2025 16:43:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752190985; x=1752795785;
+ h=content-transfer-encoding:subject:cc:to:from:content-language
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=O6dneaoEJTU4dB5TWgOZwOyJvDGKlM6DOiO6ssR/9JM=;
+ b=WTXnRo2VqliA4woKh1G6DCQ66FkbDiV944mWtPeTYaxhuPJiKg+IiR3sAHFxPypimP
+ 8XYphhDFbwgUngaxdhFMtr20RkXUK3yagQvkwGYpm9vjEFVce4MenXGbWbQQALuixRHB
+ FadBhiu3KzOnnqYm3a22LQ20T2eIkEpVbb3P0e8WvMu/qWYUI9RP1/l3xwcibnBcZxv5
+ ng9X5wGQyC58fk3INyjpUaA6M5HFFzFMofM6cC70to05jnpn3Sky1p/iG3qYizh7Jv2w
+ SWKA/y6/hgQWKKVVtymPp8dKv1KliccxpD+O+hpgl+/lJnlXX85wU6ruUdCyQj9cYOP2
+ Xq/A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV4AWOJ1Jf2PG+ySkUxrGD36qbYQNwnsNqMM13HaMs2LJ3R/3YpisIUXDsw6yz0/PBYp0HuZdBV@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzKh7z9xUA1cWKeopUv3TS2/saqJbUesmGgBSWofaeEYewT8uUo
+ 9JgUkr/Wby3xL6UjXMjJTuDUsBfqncAl0mc4I/PJQGkQeMpC5F/PaogPYJYPzQMIIgWfcpe6j9o
+ ZeBDa4D5ztUcq6lWt3QhswdDwNATZJiHh0He2Lg5+aq0O1q7cWQ3VQFmAaHq8nlNaGWW0
+X-Gm-Gg: ASbGncsGDhwly1Hu1yKwvyCWMQ94mtx8jZ5mpyoAJxlV7ZBsjUPUNj23WZi1eJIICrC
+ l+Y09RsemrY9bz0XfUOdOrZhSvfSw+IO4ZUQzisZZNwYEViR1XoiGHE8YcXLEB6O7xQVIZnVbOe
+ W8EaWTTk2iQ2qTqJqbOhww4nYICAtqWP2ErBD2rVYvxtFABQPfT6nWOqqbZau8DUaiG9WZHA4vQ
+ 5DpJap6NHQb4H0qQ9Sli/3JI2YjHmBfxmQQNIu3d2MlUwtU7pizs9KeSKvhXwHNEe5zyDQMZANe
+ MxkM7TI+5kPpFEaLjAu4yZbitPkmEt1VB6e+X9uoLc+Th3jBeTDzHNkLuNbJblU/enDaWJnhulZ
+ 4cHQ3N9OUnZdcv4VBWjgl5xtq58hjX/Mc
+X-Received: by 2002:a17:902:e947:b0:234:9092:9dda with SMTP id
+ d9443c01a7336-23dede7d49bmr17258295ad.24.1752190984472; 
+ Thu, 10 Jul 2025 16:43:04 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHND8BuRmtddpqtYLgCU+bPJQKH6MwPIq7BEDW2QdigNAgxlg8RW8yy15cqprrIb+/9yikrig==
+X-Received: by 2002:a17:902:e947:b0:234:9092:9dda with SMTP id
+ d9443c01a7336-23dede7d49bmr17257985ad.24.1752190983964; 
+ Thu, 10 Jul 2025 16:43:03 -0700 (PDT)
+Received: from [192.168.1.111] (c-73-202-227-126.hsd1.ca.comcast.net.
+ [73.202.227.126]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23de4322e7fsm34742765ad.93.2025.07.10.16.43.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Jul 2025 16:43:03 -0700 (PDT)
+Message-ID: <0a087cfd-bd4c-48f1-aa2f-4a3b12593935@oss.qualcomm.com>
+Date: Thu, 10 Jul 2025 16:43:02 -0700
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB6927:EE_
-X-MS-Office365-Filtering-Correlation-Id: dccc64b6-02dc-4c92-5f14-08ddc078d274
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QnE5RVR5cUxEMHJjb0FLbTY3RHBYcXNKMUw0ZHl6Z08zc3ZVQTkxMkxWWndw?=
- =?utf-8?B?L0JMQWIxWFk2WCtSZVZJREpKZ3RUQytDKzNGc040SFFnMDNmTm9SaEg5NmRE?=
- =?utf-8?B?d0tXWHBYUWJWTHBaOGZNaTROZVgxbXpNeHFCVGg1aVZXTEpOWmYwc1Y1d1Fy?=
- =?utf-8?B?ei8ydVV1TEszSUFrWDBoMFg1KzZmQTd5aDZnaTNMQUVmaVJqTVpHZDl2U3da?=
- =?utf-8?B?S01OdzB2QzMxY25NNk13dHhOaXBZbWdjRlpIVkxzTW14YUxsT2tOOGtEVkZL?=
- =?utf-8?B?RWJKcXJQVytTdE05QjVIV0lLVE12Sm1CenB1UzlBNEo3SFdvdTNMQVF4M29B?=
- =?utf-8?B?bW8rY0t6YlZmRGJLZHUybmoxWW10QmI5YmlCRnFHZzJGL1Y2OGdWWFZ4NmZ5?=
- =?utf-8?B?Zi9EbDZObXFNallvZVFwMHVPZjZJNjlCa1VYNWdnMEpjc2FqU212QVloajZK?=
- =?utf-8?B?eFEvUkRUNmgwSXNEZ0VyQjdkRElFdk1ZRUUvSWN2WDRHNjZWVW9OeGp0ZWtH?=
- =?utf-8?B?dlB3Y3pETDVEeWJCTUZpbGFKQWZIVjZ0QkRRRnZSVjNKL1dWemd4VGNjNjNx?=
- =?utf-8?B?UXdlTHp0QlBPemliVjIvLzJ6bkhzMjFyNUpDb0hQRUkvWEVjL2l4U3pDWXBy?=
- =?utf-8?B?cmoyQ0VCQzlFQzZkbW8wM1JEOHhnbHRmUFRsSkUxbTR6SVZpNSs5SkpWRGxt?=
- =?utf-8?B?dDdOSXhHMmd0Rmp1SkVVNzVvRjNzcW5yNVNDYnZtSWRwOUNaUHFoTFlEOW5I?=
- =?utf-8?B?NHR1U3U1L2hUWjBvZWVHcldKSXNjVWJCNnBtU2JDaHF4RlRKdmEvWjZjclBR?=
- =?utf-8?B?RVBMbmo2bkxlTEtOdXVVc1UzNExReDM2R29zZTdrV1RXVzVlK1Y2cmUwbWdW?=
- =?utf-8?B?TzF6WklGSmVBZzVTeTE0eFdIYnVCMENka3hsbVo0cE4yOVBBYWlHekN6aXgv?=
- =?utf-8?B?djFXOGROdEhFcW81RHhqeGNCbUc5VGpsZUFTM0pFM2RhaWZPQ1BLaWJTNkEw?=
- =?utf-8?B?cDZvd1BleDl2V2UrckREU0VGYmNWZjJNYloxYUdWZTF2M0xnWlFrUU5OOGw3?=
- =?utf-8?B?elZ4MHVZVzJMNnByNWRydTVIZktpQ21FODA0b0hHc2xHZnY5dHlaVmhUWGV2?=
- =?utf-8?B?RFdGT2lrK2RhTlQ4UEhnSlNCVElHNlEra0JnMWsxN2MzN0JOR1d6V0lSMk9x?=
- =?utf-8?B?MHkrUnBCVk5QUUg2alpnVzlTSEZkVVJkVVNhL3poYVptanh6dEJZelY0NTEr?=
- =?utf-8?B?N1R4S2N6UW9id2xlbjc4NFNIcUZYUUd5a0QvcVhuYSsyWnp3cmNMYnVNc1VW?=
- =?utf-8?B?RlV5STRCQndGTTUzK3hWcVNhaTJUaEZLOVJkSjJmZkVtRWVDWmJPeVlrRmxN?=
- =?utf-8?B?MytvbXBNT0c3Tk5UdXM2K0dLSFhvanJxS2JDaW9VdDJXTzJScndvUnlmRi90?=
- =?utf-8?B?MS94NE15bEtRWk1hemVIbnJGWGI4NFgrMzFuVVVvUGJMekU0TzJMNTA5M3BS?=
- =?utf-8?B?VG1VcTVHZGgxc2s5NWJmYW8yNTRNb3haTS9mYll5NWFqYy9VUjduRXBNYTRE?=
- =?utf-8?B?TmZRS2l2R1p1MkI1WVBDK0VBendOSWtwbGY3RGVvbXNlM2lFenRIYjFRc1RX?=
- =?utf-8?B?TmFDMktZR091Y0wybzVHN3poaWxnQUNXendjYUJWMkpBeE16enZZVjhycXlK?=
- =?utf-8?B?V0RucmgyNzdTRGF3ODQxOWFuaGhMZ29zNWxBaG5qbE16TFVydnJHdUhRMmtL?=
- =?utf-8?B?SEIwY3JtSnFBUE5DQ2tXSnh0dCtwSldGTW15cTFqa3NsVnM1cTVKZzlGclNy?=
- =?utf-8?B?S2p2VUlpQ2VBS0JJUUdmV1lsaG04U0RkVmhWVzQ5d1JsbmY1clNTVytYVnkv?=
- =?utf-8?B?Z0paM1huSDE5akFOdFo3Vlg0SjY4WEJFTmtWSDBjSWJNTEdUVlQ4Rm4wVDdB?=
- =?utf-8?Q?fBqKczqkxcE=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tm1jRmtiTllmZE9oaWJ3bEd1OGhLcUZYcXlYd2lMMXQrZS9NcXY5ODZzRTRR?=
- =?utf-8?B?OWFxcWdyR3djWXkzU3NCZ2pFNktUZmRuaVVIT0ZpeHVra21UVnJ4SU5ueUtm?=
- =?utf-8?B?VE1tbmVUVXUyT20wQW1CK0ZwYWphaVBLeUIvTEJ5dnhWQkN0QWhob0kwOVMv?=
- =?utf-8?B?bVZuQjF4ZzJia1dsVVhRTWZDSy95UkxleUNVN2N2ay9INU1lMGJjZ2FQY3px?=
- =?utf-8?B?TzhEREJpckFpZFBuRXJvU1FDdFp5ZEx6Z3B3Ym42WklUN05neW9EOUpCbndi?=
- =?utf-8?B?LzNTekI1UldaWStSNjdHdGs3QmpqZjhENW9UWFVhUWZFSkdwVGNqZmZkZ2xH?=
- =?utf-8?B?Q2EzMWFNRU04SFdESkJReE5MZVpOdm1FQWVIWi83MVIyS3VOZlprMjBncEcz?=
- =?utf-8?B?VWFpTDFOR0pkYWJDNG50MThBcXZpaTJKK3Q4blRLcVQ5YlN6WTI0R1dqUlBq?=
- =?utf-8?B?OWlGN3N1TlU2V2FtNGFnL0pxREVSQ0dOY1c3OWIwY3lKZHhCbFJRTEZNdzRi?=
- =?utf-8?B?UlZ3T2xiUy84aGtRaXc3NWRLdktxSStoOTJsMnFoa3pucTNXK28rTTFOdDBJ?=
- =?utf-8?B?OHMxZHQ2bmgxQ2hkMTJ3Nm5IOUZ2aDZJQSt5VHNUK0JyTitLSmhtVlIzOEl6?=
- =?utf-8?B?c0wrcC80N2xOUU5RMkhDZWtSdm1ua2RpbFkyZ0hPTjZkRjdRcEJMRlpsclVY?=
- =?utf-8?B?NkFmdG1lZ0tJNEIycHBleHZMbnd0RzNtYmpydHh0UGxjQlJWT3lMREJWOTc1?=
- =?utf-8?B?RzdDTWJzQlp5T05VdGJ0dFJKeEJ0ckhCdXpmY1ExSGRCZWo5cXpQSWh5Q2dU?=
- =?utf-8?B?dDRMOHhGb3JJc2NMWFN6RjNzaTk5UFEwcHdLbXdwVHlCY0YzWjBvbUgwcDVC?=
- =?utf-8?B?U1JLbzFYREpwem5hR091ZzF6eml2ckN2TnFmRVc4TERXdWVQRHhTTGVMRmhW?=
- =?utf-8?B?Z3J4SWF0aG9FUWc4NnFyZXFQTjQ2Vy9NSFBBYlYyMFZnODBvdStWalNwTFUy?=
- =?utf-8?B?bzVRRkdsNkNyRFNZaGc3Wmh3WUZIRmtxeEJNK2dhd0gzb21wR0xuVWJ3b1lS?=
- =?utf-8?B?TjFkRXg5L3dqTkxqVnZtUXhmeFFYcC9KVWVNYTF6UGtFWFlGYnBzc1VnWGRU?=
- =?utf-8?B?bXZ1Z3BrSFNxSHgvWVlZYldmY0kzdHVKc29JM1hVK3dreFZmbnJ6ZzNzcUc0?=
- =?utf-8?B?ZHJ6K3lZVGdWUXkyYkdCcDdIazk0WXc3UkRXRzcxZnpIV2R5OSs5RXlTeUta?=
- =?utf-8?B?UnpNVnRjQlU2R0krL2ZFUzRWUFRYSmhlR1ArOUJ3RUtpeVBmelBPOFZoenNN?=
- =?utf-8?B?WENFMG9wREhHTVR4bVN2UnNrRFZKUytDbjlMaVJ5ckFHYjJKMW83VnNYZmh6?=
- =?utf-8?B?OGFuaDZMUzR5eE9Wa3lwY1JySkU5M1VsQVdFMlIwZ3phUmpYS0pwZTZxWDhh?=
- =?utf-8?B?UUZFWHoyZTFCWmx5U2lkR1IrN2xXSTJadDUwMmwvd2dnbFhlQUZXbW9zaDhV?=
- =?utf-8?B?eWtrUXBjK3dLeDZWOTM3bmpyOGZqdEhxQUIvbmgxTG9XTDhOMHdFZk5pVEdX?=
- =?utf-8?B?Uk5tbTdwUVkySDZYSXg0bDhwZEhyaEQzeThCVHZHalkyVnBSYzI0R2pnVzVS?=
- =?utf-8?B?RmlhLzdOWjl0b01rTTFLSHVBMVpIa3BraG5uMGI0TEx3Z0ZpMFBzS2VpSVZh?=
- =?utf-8?B?N2hHODFKaEpGMERUakpkWjBRbWlEL1JwdW1yQzJGRWdCUTdWdVd6WVh6V0g3?=
- =?utf-8?B?UUlPWW5FQXhxbnNRUVFiMVpaSFFFV1ZaR1llZU02ZjdwQXBvVWJOdWxsakpl?=
- =?utf-8?B?cGRmbGh4MFVuVms0SWFuOUdQYnBkRmJFZ08wbEdyZ1hZc2NOWWpCYjhhMzky?=
- =?utf-8?B?VEJ6am1IY1BQMUdSb2hNdHk2emNYcXFHZ1ZZcmNDZFFqM09lcW5XTTZwbEUy?=
- =?utf-8?B?a2FnNVhXM0JGZ0E0Q0xSWTVhNk5tQmROVmtDbWp3THIzNEVuWVhXTG9qNTJH?=
- =?utf-8?B?SDU1L0FyWVBHTTEvQkhZWGV0cGtJNEtzekQzMGdtSGg0cHBmYzlIeFB3OWJT?=
- =?utf-8?B?SGVKTjJVdktxbFY1eGdFdU51TGdQajBMRU95UUxDOG1tNHdFTU9MblBLcktV?=
- =?utf-8?Q?fRwiNxRuMxD6N+wXP/0SnNFJC?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dccc64b6-02dc-4c92-5f14-08ddc078d274
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2025 12:45:31.7263 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +F6ITGObJuaw3kLQYapi3Vkb207wAdK/0lscFKDErbpeH4MGmffVZHoJunWPu0oh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6927
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>
+Subject: WARNING: possible circular locking dependency detected:
+ drm_client_dev_suspend() & radeon_suspend_kms()
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=GdQXnRXL c=1 sm=1 tr=0 ts=6870500a cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=e70TP3dOR9hTogukJ0528Q==:17
+ a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=VwQbUJbxAAAA:8 a=eMaqxZqQJXyQkHEHPUwA:9
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: Aej3A53zrrv3PJzUwa6hDjUBcJ3R1ZCg
+X-Proofpoint-ORIG-GUID: Aej3A53zrrv3PJzUwa6hDjUBcJ3R1ZCg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzEwMDE5OCBTYWx0ZWRfX0rSjBdpPI1m+
+ 5B41df6guJJjV/cLrORaFCowpms+B9gm7kBOBIAXTEywjddc/AfrXj+o7JKKpmFLG17lYDZZaMP
+ lGQSy0QsSPp6v6yTIXo+FffJOCgSuAQEq6eZUAxPTENPQoSgkmHFB5l2f/+TVXJpQFF/yoh/Z+s
+ IdKlm39hMHGbKG5IswRyGANvfE2JAr9yOW/fPqpz7oB3p6saAmBpxD2dEMam43a4q5y6ASD/B5n
+ 3CCIZJQbCuHr59dklzdF/RMbYgiUn+P7rPx09vyDaR6UlkAJo5eTjrhSsNq4t1Ob3Rb28uhAB+f
+ ttEd6wswxQXi5k8CfikxJUbrxW5ptjYjRuuiIo7ExbuOCQQlSpf37cX+FNIvE5smdhkAX62XgST
+ ogdkELL+1MU57y3WRUQ610xZJHUILMFvmBTJ0+GpoNSwqY6+knjRC07l70FLLVmau+VzBI3V
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
+ definitions=2025-07-10_06,2025-07-09_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0 clxscore=1011
+ spamscore=0 suspectscore=0 mlxlogscore=999 priorityscore=1501 impostorscore=0
+ malwarescore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507100198
+X-Mailman-Approved-At: Fri, 11 Jul 2025 13:17:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,209 +127,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11.07.25 14:23, Tvrtko Ursulin wrote:
-> Commit
-> 94b1e028e15c ("drm/amdgpu/sdma5.2: add begin/end_use ring callbacks")
-> added a workaround which disables GFXOFF for the duration of the job
-> submit stage (with a 100ms trailing hysteresis).
-> 
-> Empirically the GFXOFF disable/enable request can suffer from significant
-> latencies (2ms is easily seen) which are then inserted onto the
-> amdgpu_job_run() path, which slows down the CPU submission of ready jobs.
-> 
-> 1)
-> If the premise of the GFXOFF workaround is to keep it disabled while the
-> SDMA engine is active, the current workaround achieves that only
-> partially, for submissions and jobs which take less than 100ms (the GFXOFF
-> re-enable hysteresis), counting from the ring write phase, up to
-> completion.
-> 
-> 2)
-> If disabling GFXOFF affects the GFX engine too, basing the workaround
-> solely on the SDMA activity creates, at minimum, a needless "chatter" on
-> the SMU communication channel.
+I'm trying to debug a hibernation issue with the ath12k driver, but to
+establish a baseline I started with Linus' current tree. I have the following
+enabled in my .config:
 
-IIRC that is intentional. This "needless" chatter is what the workaround was all about.
+CONFIG_PROVE_LOCKING=y
+CONFIG_PROVE_RAW_LOCK_NESTING=y
+CONFIG_PROVE_RCU=y
 
-> 
-> If 1) and 2) hold true, we can improve on the workaround by; a) only
-> re-enabling GFXOFF once the job had actually completed*, and b) apply the
-> same workaround on other rings which share the same GFXOFF powergating
-> domain.
+As part of the baseline I observed the following:
 
-The point of GFXOFF is to turn GFX on/off *without* kernel driver interaction. Otherwise we don't need it in the first place.
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: ======================================================
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: WARNING: possible circular locking dependency detected
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 6.16.0-rc5+ #6 Not tainted
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: ------------------------------------------------------
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: kworker/u16:13/3787 is trying to acquire lock:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: ffff8881113e0308 (&dev->clientlist_mutex){+.+.}-{4:4}, at: drm_client_dev_suspend+0x37/0x250 [drm]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 
+                                           but task is already holding lock:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: ffffffff8a2e4b80 (console_lock){+.+.}-{0:0}, at: radeon_suspend_kms+0x63b/0x7d0 [radeon]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 
+                                           which lock already depends on the new lock.
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 
+                                           the existing dependency chain (in reverse order) is:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 
+                                           -> #1 (console_lock){+.+.}-{0:0}:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        console_lock+0x8d/0x130
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        drm_fb_helper_set_suspend_unlocked+0x10e/0x200 [drm_kms_helper]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        drm_fbdev_client_suspend+0x24/0x30 [drm_client_lib]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        drm_client_dev_suspend+0x138/0x250 [drm]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        i915_drm_suspend.isra.0+0x74/0x260 [i915]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        i915_pm_suspend+0x6b/0x90 [i915]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        pci_pm_suspend+0x1e3/0x4f0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        dpm_run_callback+0xa0/0x100
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        device_suspend+0x41e/0xdc0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        async_suspend+0x1d/0x30
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        async_run_entry_fn+0x96/0x3e0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        process_one_work+0x86e/0x14b0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        worker_thread+0x5d0/0xfc0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        kthread+0x375/0x750
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ret_from_fork+0x215/0x2f0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ret_from_fork_asm+0x1a/0x30
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 
+                                           -> #0 (&dev->clientlist_mutex){+.+.}-{4:4}:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        __lock_acquire+0x15b5/0x2ac0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        lock_acquire+0x154/0x2d0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        __mutex_lock+0x15f/0x12c0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        drm_client_dev_suspend+0x37/0x250 [drm]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        radeon_suspend_kms+0x648/0x7d0 [radeon]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        pci_pm_suspend+0x1e3/0x4f0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        dpm_run_callback+0xa0/0x100
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        device_suspend+0x41e/0xdc0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        async_suspend+0x1d/0x30
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        async_run_entry_fn+0x96/0x3e0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        process_one_work+0x86e/0x14b0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        worker_thread+0x5d0/0xfc0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        kthread+0x375/0x750
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ret_from_fork+0x215/0x2f0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ret_from_fork_asm+0x1a/0x30
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 
+                                           other info that might help us debug this:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  Possible unsafe locking scenario:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        CPU0                    CPU1
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ----                    ----
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:   lock(console_lock);
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:                                lock(&dev->clientlist_mutex);
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:                                lock(console_lock);
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:   lock(&dev->clientlist_mutex);
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 
+                                            *** DEADLOCK ***
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 4 locks held by kworker/u16:13/3787:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  #0: ffff888100dee148 ((wq_completion)async){+.+.}-{0:0}, at: process_one_work+0xe97/0x14b0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  #1: ffff88813f22fd30 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_one_work+0x7f6/0x14b0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  #2: ffff8881049241b0 (&dev->mutex){....}-{4:4}, at: device_suspend+0x3bd/0xdc0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  #3: ffffffff8a2e4b80 (console_lock){+.+.}-{0:0}, at: radeon_suspend_kms+0x63b/0x7d0 [radeon]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 
+                                           stack backtrace:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: CPU: 0 UID: 0 PID: 3787 Comm: kworker/u16:13 Not tainted 6.16.0-rc5+ #6 PREEMPT(voluntary) 
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: Hardware name: Hewlett-Packard HP ZBook 14 G2/2216, BIOS M71 Ver. 01.31 02/24/2020
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: Workqueue: async async_run_entry_fn
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: Call Trace:
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  <TASK>
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  dump_stack_lvl+0x5b/0x80
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  print_circular_bug.cold+0x178/0x1be
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  check_noncircular+0x130/0x150
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? 0xffffffffc1600000
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? radeon_suspend_kms+0x63b/0x7d0 [radeon]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  __lock_acquire+0x15b5/0x2ac0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  lock_acquire+0x154/0x2d0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? drm_client_dev_suspend+0x37/0x250 [drm]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_stack_trace_save+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? acpi_ut_release_mutex+0xba/0x150
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  __mutex_lock+0x15f/0x12c0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? drm_client_dev_suspend+0x37/0x250 [drm]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? drm_client_dev_suspend+0x37/0x250 [drm]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? add_lock_to_list+0x2c/0x1b0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx___mutex_lock+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? lock_acquire+0x154/0x2d0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? radeon_suspend_kms+0x63b/0x7d0 [radeon]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? drm_client_dev_suspend+0x37/0x250 [drm]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  drm_client_dev_suspend+0x37/0x250 [drm]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  radeon_suspend_kms+0x648/0x7d0 [radeon]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_radeon_pmops_suspend+0x10/0x10 [radeon]
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  pci_pm_suspend+0x1e3/0x4f0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_pci_pm_suspend+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  dpm_run_callback+0xa0/0x100
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_dpm_run_callback+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  device_suspend+0x41e/0xdc0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_device_suspend+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_async_suspend+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  async_suspend+0x1d/0x30
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  async_run_entry_fn+0x96/0x3e0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  process_one_work+0x86e/0x14b0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_process_one_work+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? assign_work+0x16c/0x240
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  worker_thread+0x5d0/0xfc0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_worker_thread+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  kthread+0x375/0x750
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_kthread+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? ret_from_fork+0x1f/0x2f0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? lock_release+0xc6/0x2a0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_kthread+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ret_from_fork+0x215/0x2f0
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_kthread+0x10/0x10
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ret_from_fork_asm+0x1a/0x30
+Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  </TASK>
 
-We just have a hack for the SDMA because that moved into the GFXOFF domain with Navi and is broken on some HW generations IIRC.
+This doesn't seem to be the cause of the ath12k issue I'm debugging,
+but thought it worth mentioning since I only see one similar report
+on lore, and that didn't have any apparent follow-up:
+https://lore.kernel.org/all/20250202161048.373f89c0@yea/
 
-> 
-> With these two applied, the GFXOFF re-enable requests are avoided
-> altogether during persistent activity on the GFX ring and simultaneous
-> sporadic activity on the SDMA ring.
-> 
-> This has a positive effect of drastically reducing SDMA submission
-> latencies. For example during the Cyberpunk 2077 benchmark, they are
-> reduced from an average of 64us (stdev 60) to 9us (stdev 6). Or more
-> importantly the worst case latency, averaged to a one second window, is
-> reduced from 305us to 30us**.
-> 
-> *) For ease of implementation we put the re-enable at the job free stage,
-> since doing it on actual completion is problematic in terms of locking.
-
-Absolutely clear NAK to this. Never ever base anything on the job livetime!
-
-We already had enough trouble with that.
-
-> 
-> **) Submission latency ewma averaged (DECLARE_EWMA(latency, 6, 4)) -
-> Approximately 30 SDMA submissions per second, ewma average logged once
-> per second therefore significantly hides the worst case latency. Eg.
-> the real improvement in max submission latency is severely understated by
-> these numbers.
-
-Well that would indeed be quite nice to have.
-
-Regards,
-Christian.
-
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> References: 94b1e028e15c ("drm/amdgpu/sdma5.2: add begin/end_use ring callbacks")
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 8 ++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 7 +++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h  | 2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 3 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 1 +
->  7 files changed, 23 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index 08f268dab8f5..eee40f385793 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -475,6 +475,7 @@ struct amdgpu_gfx {
->  	uint32_t 			compute_supported_reset;
->  
->  	/* gfx off */
-> +	bool				gfx_off_held;	    /* true: rings hold gfx_off */
->  	bool                            gfx_off_state;      /* true: enabled, false: disabled */
->  	struct mutex                    gfx_off_mutex;      /* mutex to change gfxoff state */
->  	uint32_t                        gfx_off_req_count;  /* default 1, enable gfx off: dec 1, disable gfx off: add 1 */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> index 206b70acb29a..bf9bffe40235 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -191,6 +191,14 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
->  		return r;
->  	}
->  
-> +	if (job && adev->gfx.gfx_off_held &&
-> +	    (ring->funcs->type == AMDGPU_RING_TYPE_GFX ||
-> +	     ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
-> +	     ring->funcs->type == AMDGPU_RING_TYPE_SDMA)) {
-> +		amdgpu_gfx_off_ctrl(adev, false);
-> +		job->gfx_off_held = true;
-> +	}
-> +
->  	need_ctx_switch = ring->current_ctx != fence_ctx;
->  	if (ring->funcs->emit_pipeline_sync && job &&
->  	    ((tmp = amdgpu_sync_get_fence(&job->explicit_sync)) ||
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 2b58e353cca1..4cfd175ac6df 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -191,6 +191,7 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  	if (!*job)
->  		return -ENOMEM;
->  
-> +	(*job)->adev = adev;
->  	(*job)->vm = vm;
->  
->  	amdgpu_sync_create(&(*job)->explicit_sync);
-> @@ -268,6 +269,9 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
->  
->  	amdgpu_sync_free(&job->explicit_sync);
->  
-> +	if (job->gfx_off_held)
-> +		amdgpu_gfx_off_ctrl(job->adev, true);
-> +
-
-
-
-
->  	/* only put the hw fence if has embedded fence */
->  	if (!job->hw_fence.base.ops)
->  		kfree(job);
-> @@ -301,6 +305,9 @@ void amdgpu_job_free(struct amdgpu_job *job)
->  	if (job->gang_submit != &job->base.s_fence->scheduled)
->  		dma_fence_put(job->gang_submit);
->  
-> +	if (job->gfx_off_held)
-> +		amdgpu_gfx_off_ctrl(job->adev, true);
-> +
->  	if (!job->hw_fence.base.ops)
->  		kfree(job);
->  	else
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> index 2f302266662b..d4ab832ac193 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> @@ -46,6 +46,7 @@ enum amdgpu_ib_pool_type;
->  
->  struct amdgpu_job {
->  	struct drm_sched_job    base;
-> +	struct amdgpu_device	*adev;
->  	struct amdgpu_vm	*vm;
->  	struct amdgpu_sync	explicit_sync;
->  	struct amdgpu_fence	hw_fence;
-> @@ -55,6 +56,7 @@ struct amdgpu_job {
->  	bool                    vm_needs_flush;
->  	bool			gds_switch_needed;
->  	bool			spm_update_needed;
-> +	bool			gfx_off_held;
->  	uint64_t		vm_pd_addr;
->  	unsigned		vmid;
->  	unsigned		pasid;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index 426834806fbf..22cac94e2f2a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -350,6 +350,9 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
->  	ring->max_dw = max_dw;
->  	ring->hw_prio = hw_prio;
->  
-> +	if (ring->funcs->gfx_off_held)
-> +		adev->gfx.gfx_off_held = true;
-> +
->  	if (!ring->no_scheduler && ring->funcs->type < AMDGPU_HW_IP_NUM) {
->  		hw_ip = ring->funcs->type;
->  		num_sched = &adev->gpu_sched[hw_ip][hw_prio].num_scheds;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index 784ba2ec354c..afaf951b0b78 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -202,6 +202,7 @@ struct amdgpu_ring_funcs {
->  	bool			support_64bit_ptrs;
->  	bool			no_user_fence;
->  	bool			secure_submission_supported;
-> +	bool			gfx_off_held;
->  	unsigned		extra_dw;
->  
->  	/* ring read/write ptr handling */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> index 42a25150f83a..c88de65e82bc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> @@ -1944,6 +1944,7 @@ static const struct amdgpu_ring_funcs sdma_v5_2_ring_funcs = {
->  	.nop = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP),
->  	.support_64bit_ptrs = true,
->  	.secure_submission_supported = true,
-> +	.gfx_off_held = true,
->  	.get_rptr = sdma_v5_2_ring_get_rptr,
->  	.get_wptr = sdma_v5_2_ring_get_wptr,
->  	.set_wptr = sdma_v5_2_ring_set_wptr,
-
+/jeff
