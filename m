@@ -4,153 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22CA6C83F1B
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jul 2025 14:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 412D4C83F17
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jul 2025 15:49:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD85C10E8EA;
-	Thu, 10 Jul 2025 14:54:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E151C10E220;
+	Thu, 10 Jul 2025 15:49:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D3vWWYYx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TsARUbBS";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2070.outbound.protection.outlook.com [40.107.102.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00C9210E8EA;
- Thu, 10 Jul 2025 14:54:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RzH4Us125wzGQdXewuyCLkF5OIZU9UqW91v2UWi+ib/2yyiqzaceDyU/o9fnPr6FbZGfrLo5+F2lQ0znZhHQNAN5UEYkqOVRUyKb7MYaeDXdkiHk+XALkxzeZuL/YyxydXcC50wX+Lhe4+RdxOHXPKf2j2OCqyeXZ7FPFzZNj7SFYdvC1+4kmsFy5gNGuW8ELRy9E1ksE+Y5h3/hE+dSgBA8QnIe8pSFbFUHoc/VMi10SlELWbIaD1BBmuk2+drm0WKV3kXzzvg2w+/8devZ25QauK/NxaMspjz/Gpi2kOE2CB+yH9MPDzsKMr61Joq59Iak7JmfhmZkVQhfMSidEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LEGdMZ6nAATS8CbZutXlHSAaWxPD4ndKXziSAzb7lSo=;
- b=n5CjzKvVyYZepcrI6XTXuQby10l0TNwcPkXxPYhOtRHKG7Wn++iMVoj0+5VWphj6VRvGJiVeDx+MQl715tD7RXpu7U0AziT+s96PTAwYOud3ttF/yWiLeDXS8wtEgLpP9SFEJgszG0IrulOUbDT4r/a1LzXKilkI2tLl3ehuofyynsGBOf6Rp6V6ZRQFWNWBAEy2pe8HNeLWcgt5QohK9LIDlZg0xy4fZyY1nLAmvaxuZ12dYYJan8HH+2gK2TanlEAi4pn0lYW/06U8gGI/IArkImAFI91LsdZuK/FG0pxL/eII7KVI7qIyCXuQZnfAIPG+oDMDOBwTwX+ea2Sg2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LEGdMZ6nAATS8CbZutXlHSAaWxPD4ndKXziSAzb7lSo=;
- b=D3vWWYYxhKG0o45A8OATuaCbXZKP2sXxgJ5aTwZLQAfd4WPctT2M/I6ZwuUFCS3BGWO0ffohWq5pRqkkekOYJUQqL/eBThHV5Gvt+mxwf6dk1vCj0Qjx+sCmk4D5kF/7HFALsLZVT06xP0BQ8eB40rQbq0xNHnIXGrmjAxl0IoA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
- by DS4PR12MB9610.namprd12.prod.outlook.com (2603:10b6:8:277::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Thu, 10 Jul
- 2025 14:54:25 +0000
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350%4]) with mapi id 15.20.8901.028; Thu, 10 Jul 2025
- 14:54:25 +0000
-Message-ID: <a01890f1-8db9-4477-b879-cce70bc468ed@amd.com>
-Date: Thu, 10 Jul 2025 20:24:18 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] drm/amdgpu: Reset the clear flag in buddy during
- resume
-Content-Language: en-US
-To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- matthew.brost@intel.com
-Cc: alexander.deucher@amd.com, stable@vger.kernel.org
-References: <20250708065404.4185-1-Arunpravin.PaneerSelvam@amd.com>
- <20250708065404.4185-2-Arunpravin.PaneerSelvam@amd.com>
- <f5386d20-326f-40ba-834f-953a0d7d18e1@intel.com>
- <16d56381-fec5-4cd8-a84c-4ce969786d9d@amd.com>
- <83353f59-fdae-432c-9071-7a05acd8a2bc@intel.com>
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <83353f59-fdae-432c-9071-7a05acd8a2bc@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: KL1P15301CA0027.APCP153.PROD.OUTLOOK.COM
- (2603:1096:820:6::15) To PH8PR12MB7301.namprd12.prod.outlook.com
- (2603:10b6:510:222::12)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B803D89F27
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jul 2025 15:49:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 61D29433F1;
+ Thu, 10 Jul 2025 15:49:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 212F1C4CEE3;
+ Thu, 10 Jul 2025 15:49:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1752162568;
+ bh=foG9f9cdzF4VjUfn2UjSlnSdvbnX8/uWCSS01L4+zeY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=TsARUbBSF0wAe3pbM5uyEMmR9Ln5cuZ3udIlyzm4MYZwV/Y2RWpc1nDqSSRTHkE98
+ ZuIzkvCMq63HnwyQC2tC9y6CaOWHFqPKE0COCNrM7BEXbxAd/vMIm1DumdxgJBkbEJ
+ upZVauqkPcJFek8GCxKOKjT5heqjge5H3ZHFqHdWBzoic/Ct5MzDw+1te9HELqoURE
+ hHOMkS0ocyix2d6kY19sg8zCwQYrbzlfnJ7cWpRkxWWn6TChNGka2+67GRvnzpn03W
+ 9ZfyzT3zingvYk2OMz5UKWM5ZCGzzReiCGVfhc9SPSeW28I9GGjyO5K9TRGoSBGpgX
+ dOcPsVrfk999Q==
+Date: Thu, 10 Jul 2025 10:49:26 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Alex Huang <huangalex409@gmail.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org
+Subject: Re: BUG: ASPM issues with Radeon Pro WX3100
+Message-ID: <20250710154926.GA2250118@bhelgaas>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|DS4PR12MB9610:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28de0b51-ebee-4738-9b7b-08ddbfc1a976
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dWkxV3BOcDBkdTJ0UDBVQWpYUGFqVXJhK1pRWnhnZlJvQVJOaVE2Q0o4ZGlv?=
- =?utf-8?B?MG9ZSC9zSFBCV2QxS0VHS1VkOFhKbEFUenB2SVJjNjdReFYvbzJNUEhzMVZG?=
- =?utf-8?B?dHEwdVFoNTFMc1VuOFpRY3RZTUd6M2YyUmpEc0pGNjZ0VERqSVRQWStLSFVk?=
- =?utf-8?B?NnhJa0tMa1pYU1F5L0hDWjJTSmozc29IRHhMRjRncGgwVXEzNllrRWFvNlgr?=
- =?utf-8?B?eE1NS0prblpGOVI0L3dkQzV4aXAwVmFpb3dpSnQxMWNuZkcwckpGdUQ0ZUhq?=
- =?utf-8?B?cXJpdnlkMTNKSHJZYU0rQU5lZlg3M1BZdmFtdVZJZDA1ZGtkT0RIcENDdEY5?=
- =?utf-8?B?WFpzR3I4aGRkbDJBd1Z5eU5mV2pmeTh0Z0FSNmFXMUI4eGtCeUZ2M1JORndp?=
- =?utf-8?B?OTVPRnRFYVZrc2drYjl0RkxQN01QYjV4dUFZT29oT2NHcGM4MGRrY0RFWjJY?=
- =?utf-8?B?azRGdlZCYmQ5QS9XZEt3RVNqU2VFWi9UNEh6cytsTDFKL0ZieVpndjNTc0Z5?=
- =?utf-8?B?aW9JTDFRaWIwaDFvazF0dS9lV0JFZGxnaVpCSm1PQWdhdncrOTdhS3licUxV?=
- =?utf-8?B?b0JOZ0tha2x1TzRqdlhta3lsYkc4VldOZ2xHZk01QmZQVStyYmJZTlp5dlpl?=
- =?utf-8?B?ZmhJYXBHczVCbHUyV2FvNFpGVUxpcEpxMDVLMUhaMGtkMWQwTGtkUE9iTXlD?=
- =?utf-8?B?NTYzdDlKU1FVZTdkOVF2aXRTUHY5TjFCNTNKQXdmSXJvTmZuUXpkdVAzRm9u?=
- =?utf-8?B?K3YzTitsQlo5WjZRZFVMeGk4Rzk5eWdGajhYUDdLSE5sMG95YXgvTU9LeEhD?=
- =?utf-8?B?Q1lvdjExZ3ZiWGVTRjNNMVdTclY1YmZSUm9zUENiYVU0RWFCYStkWXR3czZF?=
- =?utf-8?B?Ulc2UFFvY1NqQzJPb1pCQitxMi9xUUpsMVpsaTRnbFkvb2UybkprNTZscWRC?=
- =?utf-8?B?TkRzeWxORFZnWGFNMkN0V3dCdWpyRU5EV1piQk5JVzlJOG5OcHFob0MrNytp?=
- =?utf-8?B?bmVJa2FJb05SVEN0THRkeE5lelZqQ2QyNmZIdHRKT3ljcDZJc0FqeWhiOXph?=
- =?utf-8?B?Z3h5bGVKdHd4NWpxL3BxYkltVkVPRndyOTR3Z1crZlhVcFBqZkRsSkh1cFFt?=
- =?utf-8?B?OEFNbm83QlVBeGVOcWZjejcwUVZES3diM1RKNVZRNU0zNnZnVDdTZWpvZEM3?=
- =?utf-8?B?TjVSNHhaa3FXYTZXSit5aEZMVU1Rcm93RFR0czViSmtJM0E3cU93MW9BVkJw?=
- =?utf-8?B?VGlNdmY3L2lmN0JzSlZMbUhsL3ZhOUZQVnRWMU5JRHpMRWxISURNbXFuYkVF?=
- =?utf-8?B?WktMME43UUlHWHVpRVNaUkxZVEJ2YlZtcDduQjNFdW8xcFVuSTRqTEFYR2hr?=
- =?utf-8?B?bnB3ZU00WmtGenEveUV1c0FENjFnR1V5SmRCZEJMMUhRZ1NFQ2pYQkhpZXJi?=
- =?utf-8?B?U0RxMlU0OHF1Q1Q3OE5BTVVxd09UZFBxWURRckpFY01qbWJ4YXBEZ3h1WnRD?=
- =?utf-8?B?MjlTUFRRc0pxUms4Y0RaNkUyMTArYS8rdzBiYXZVN0N6NXN5ZHBnMDVEbTd5?=
- =?utf-8?B?U2dZK0RkKzVLQm4wOS9FY0YrbEJzWkRhTFpzODNIN0JyeERVbThwZDNFdkx3?=
- =?utf-8?B?WHZNN1FCeEV6dnRTNnMxNUgrQVl0ekgzMjc0UkdVWGVvOTduVTdxT0JVOTFF?=
- =?utf-8?B?VXFjQ0JoMGw0cno1RjFhVStOWm9MbTduQzhnZks3TVArYXdObHR0RHZvUFFj?=
- =?utf-8?B?NSsyMllFUy80WlJVYnNEMW9pZGxxUmRZZTBYM3VQRGxzeDJXcUIxOEcwN293?=
- =?utf-8?Q?uYgmX+4QkAvf+cJu3LnrYdZizi6LTdwFcyCFg=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dHFiMUhGSlNBWnFQWDBkcUh6aG13Y1hqQXl2d1dSQ1VNdHBTSVIwbnh2QUx2?=
- =?utf-8?B?Q2plb1ozTTRta2F4cDBXd0ZnVGxXSWZrN05lUzNiT1ZOY2JxQUZjdk1uNnQ1?=
- =?utf-8?B?eVAvV1hINWhpZ0QwUGwreUZ1ZGJSQ3hBU2o0NjcvODlLbndZcmtvOCtvQ0F3?=
- =?utf-8?B?emU2cGpleWxhdkJlNmRjaEdtYUl4dzEyV2RXaTdaajN3aFM3U2g2eFRCVEw4?=
- =?utf-8?B?YzMydWVIellBYi85QnpsZW4zbUk0UlZjTW9zV2VvSy9HQnhBNVNrR1dpdmxv?=
- =?utf-8?B?dW92RWgvVDkyRjRYcGRiTmcwTVlSd1VrbUJJVE1FUGdSd295QUZhOXBCbE1I?=
- =?utf-8?B?NHQ2WWR4RWwvWjlFZEhta2Y1VXhaNEJGVEplSWZNWWt1aFExSFNRbE16V1lt?=
- =?utf-8?B?dXg4aGdmUzVyYnN6bkhMMGtwRWhlN1U5c3UrOW1FNjdCdFV0M2JBbUhzcDVJ?=
- =?utf-8?B?d0k4TWozVDdxelU2L1FFbXQ4QnFJR0VydXEySVQySStta2t6bEJkYXM4U2tU?=
- =?utf-8?B?bXBSZVIxRnZobGRia29OWlJSWGM3MjlJTUNDUFFPaWJTSUNSN3pXMThqb1FV?=
- =?utf-8?B?dG00Q1JHdUVkMEtGVHBZcE1QMFp2Q2xsbU9sTG1lRmZaZGNuM1dGNzdIN1hO?=
- =?utf-8?B?Vm5yZ25GaklheW1rZHkxcUp0L2czbEFNeUhvSXE2SzJOdUlDb3pseFBsNlFX?=
- =?utf-8?B?akdlUzNuOTBmOW9Bam9BREgwMmpIVTJ4a2p4OG90dUJsZGlseDNqODM5Mi9v?=
- =?utf-8?B?VUI4MEgwSDltZVJnT2xZZEtoRFViL0pndE55ZTZEblpzdXpqcEdOb3VGSThW?=
- =?utf-8?B?c3FhVTNCbWo0akQxaHBKbTNkbFVuc3hRZ1lvQWV4YXEzbW1xNDhvUnB0L2hE?=
- =?utf-8?B?V2txVU8wK0tNaXYyLzZpdjB0VFFOVmFDUzhVN2ZsdjhGcklrWkRNU2w4cFpR?=
- =?utf-8?B?QkdqUDQ3bHYyanc5NkpObFM4THJlNkZQQWF1VE1xc0FPb0EyUEQzK1l6M09J?=
- =?utf-8?B?WncrVEZ3N0hKYkhiM25BV1oxdmJPcjducEdHWEZjM29TVjFUaWoxdEVjNVYr?=
- =?utf-8?B?YXNTZXcyYkd1YUViRXJNRDI0Rjc2Mk5iTXdsZEh3aG56Yng0bjRGQlprR2Ez?=
- =?utf-8?B?cUdubURzSnR3anhxREFEZnhhR2Uvc1BmUlJraHFibjRpTmdEK2gxOFcrY25x?=
- =?utf-8?B?TldDYlpKWmRmYzFYWE1DVnFrTGMwYXZjamRGV01zVkNPdXpvblV3Sm5EbnlC?=
- =?utf-8?B?TWdSM3RlTDlUQVdQVGVGcGtmRE8zOTBBcUdVZEYyeDBFZSs4V0Q3aHltTWRG?=
- =?utf-8?B?cUVDQ1BaZUV1OVRIWkl2RFk0a0M5MzUvaUJjbXpiU1FWbnliMUFnZjNxazRK?=
- =?utf-8?B?a3NaUjlyNGxBdzZiSzNFSm01WmM5Q2FON1hnc3BKckd1UTF5dWducC9qYkdu?=
- =?utf-8?B?TkRZTEhuUk4vZ2tlUjlmc2NWRTRhRnFJazhlSzBpclNMTzBER3ZTeXJtdU9C?=
- =?utf-8?B?eGJxMkZvWHNWUTN1RkN3L2k2eThzQy9oTUFuQXZMdEp6UHp6MFcyQzhSSUZs?=
- =?utf-8?B?a2RpMGhhVnVtOWdiQk5UV09IeXIwRHNSMFgzOHAydDJjdThpdEgrUUl2dWMz?=
- =?utf-8?B?K3hwWlNHcHZxNzZ4SzFjMWtadzJkRmVwZ1M2ekVSNmFqMVVjeDRiUDlOcGc2?=
- =?utf-8?B?YTFhRGpsV1ZhR1NyV09NTmg5a2tJUGZ2TWRDOGJMeCtmdFFzakNiQkNPSXBl?=
- =?utf-8?B?UzhDbmdxdzQveWttVzNaWlRybnF6dDRob1ZpQm94dEhWcjNLbkM5c0hJTENy?=
- =?utf-8?B?VDRjVUdhNFRoM0dpOTMydnBTa3pDcFV2WSt1clNQOE1RN0RmbTBlRlpSQVJr?=
- =?utf-8?B?Mk9GWTZYbUxETXA3enQ3dzl6WFBRQkNhMUFlRktXeUVCUE5aM1VyNG9XdTJD?=
- =?utf-8?B?aFZUaUxKRXZ2b3dFV3N3TjZHMzdDZVBLWFJiTWJOR05VcDFRQ0xMd2dUMEdt?=
- =?utf-8?B?RmQ4b3BvNjh3d0pVak81TEhrNHF5Tk5FQVJCTGRLSW9jRCs3cG1tckt2UnZU?=
- =?utf-8?B?WDhrS0VtUk9oaHV0cW96QVZ5dHRUVmI3clZocStGZ0ZRZXhsMHdnd1RieXVh?=
- =?utf-8?Q?aLTfa2lfC9pWe5GvqtuLnoxSr?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28de0b51-ebee-4738-9b7b-08ddbfc1a976
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2025 14:54:25.2269 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FYu5q0Qa+jLq9WZoK4cqQD33ysS7Ab0ql8HLyVoKt8rV+XNcCMgGWJ4QZS7ID/gpUNmKdyOJiueIU0P7ykD2tg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9610
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8640445b-a868-4c1f-a32b-449bbffa2553@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,183 +58,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Jul 09, 2025 at 09:02:17PM -0400, Alex Huang wrote:
+> On 2025-07-08 19:07, Bjorn Helgaas wrote:
+> > On Thu, Jul 03, 2025 at 12:09:20AM -0400, Alex Huang wrote:
+> >> Recently, I dug up a Radeon Pro WX3100 and when booting, got a black screen
+> >> with some complaints of No EDID read and then a `Fatal error during GPU
+> >> init`. With windows booting fine and an MSI Kombustor run turning out just
+> >> fine, I would say hardware failure highly unlikely. The logs seem unrelated
+> >> (although I have attached them anyways), lspci -vvxxx output for the device
+> >> is also at the end of the email. Also here is lspci -vvxxx for the upstream
+> >> PCI bridge attached to the GPU.
+> >>
+> >> A bisect reveals the offending commit is 0064b0ce85bb ("drm/amd/pm: enable
+> >> ASPM by default"). The simple fix appears to be setting `amdgpu.aspm=0` in
+> >> kernel boot parameters. This seemingly is a case of something in the Lenovo
+> >> ideacentre (specifically the ideacentre 510A-15ARR I found this bug on)
+> >> incorrectly reporting ASPM availability. I'd think this is a PCI driver
+> >> issue, but I am by no means an expert here. If this ends up on the wrong
+> >> mailing list, please do let me know.
+> > 
+> > The messages below show that you're running v5.12.0-rc7+, but
+> > 0064b0ce85bb didn't appear until v5.14.  Obviously it was reproducible
+> > if you could bisect it, but I'm confused about where you observed the
+> > problem.
+> 
+> Prior to v5.14, it's possible to replicate the bug with
+> amdgpu.aspm=1, basically replicating what the change itself did.
+> > 
+> > The newer log you posted at
+> > https://lore.kernel.org/r/e03b119d-4a27-45a0-8058-3ac7fbee23c7@gmail.com
+> > is from v6.16.0-rc4+, which is great because it's a current kernel,
+> > but the issue there looks much different (an oops in
+> > drm_gem_object_handle_put_unlocked()) and doesn't seem like a PCI
+> > issue at all.
+> 
+> Sorry, I had assumed you wanted the output from the PCI debug patch,
+> which is why I had set amdgpu.aspm=0 to have easier access to logs.
+> I've attached a log where the bug can be seen, although it's just
+> amdgpu complaining and then falling over.
+> 
+> > If you can reproduce a PCI issue in v6.16, I'd love to look at it, but
+> > right now I don't see anything I can help with.
+> 
+> Annoyingly, PCI doesn't complain at all about this issue, PCI just
+> quietly reports ASPM is available (even when that is not the case)
+> and amdgpu uses that to attempt to configure ASPM for the graphics
+> card.
+>
+> Peeking at the return value for amdgpu_device_should_use_aspm shows
+> pcie_aspm_enabled returns true even though ASPM is explicitly set to
+> the "disable" mode in the BIOS.
+>
+> Leading me to believe this is a case of ASPM being incorrectly
+> detected as enabled.
 
-On 7/10/2025 7:50 PM, Matthew Auld wrote:
-> On 10/07/2025 08:14, Arunpravin Paneer Selvam wrote:
->>
->> On 7/8/2025 2:30 PM, Matthew Auld wrote:
->>> On 08/07/2025 07:54, Arunpravin Paneer Selvam wrote:
->>>> - Added a handler in DRM buddy manager to reset the cleared
->>>>    flag for the blocks in the freelist.
->>>>
->>>> - This is necessary because, upon resuming, the VRAM becomes
->>>>    cluttered with BIOS data, yet the VRAM backend manager
->>>>    believes that everything has been cleared.
->>>>
->>>> v2:
->>>>    - Add lock before accessing 
->>>> drm_buddy_clear_reset_blocks()(Matthew Auld)
->>>>    - Force merge the two dirty blocks.(Matthew Auld)
->>>>    - Add a new unit test case for this issue.(Matthew Auld)
->>>>    - Having this function being able to flip the state either way 
->>>> would be
->>>>      good. (Matthew Brost)
->>>>
->>>> v3(Matthew Auld):
->>>>    - Do merge step first to avoid the use of extra reset flag.
->>>>
->>>> Signed-off-by: Arunpravin Paneer Selvam 
->>>> <Arunpravin.PaneerSelvam@amd.com>
->>>> Suggested-by: Christian König <christian.koenig@amd.com>
->>>> Cc: stable@vger.kernel.org
->>>> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
->>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3812
->>>
->>> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->>
->> Is this RB also for the unit test case (patch 3).
->
-> Feel free to apply my r-b there also.
-Thanks!
->
->>
->> Thanks,
->>
->> Arun.
->>
->>>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   |  2 +
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h      |  1 +
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 17 ++++++++
->>>>   drivers/gpu/drm/drm_buddy.c                  | 43 
->>>> ++++++++++++++++++++
->>>>   include/drm/drm_buddy.h                      |  2 +
->>>>   5 files changed, 65 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/ 
->>>> gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> index a59f194e3360..b89e46f29b51 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> @@ -5193,6 +5193,8 @@ int amdgpu_device_resume(struct drm_device 
->>>> *dev, bool notify_clients)
->>>>           dev->dev->power.disable_depth--;
->>>>   #endif
->>>>       }
->>>> +
->>>> +    amdgpu_vram_mgr_clear_reset_blocks(adev);
->>>>       adev->in_suspend = false;
->>>>         if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/ 
->>>> drm/amd/amdgpu/amdgpu_ttm.h
->>>> index 208b7d1d8a27..450e4bf093b7 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> @@ -154,6 +154,7 @@ int amdgpu_vram_mgr_reserve_range(struct 
->>>> amdgpu_vram_mgr *mgr,
->>>>                     uint64_t start, uint64_t size);
->>>>   int amdgpu_vram_mgr_query_page_status(struct amdgpu_vram_mgr *mgr,
->>>>                         uint64_t start);
->>>> +void amdgpu_vram_mgr_clear_reset_blocks(struct amdgpu_device *adev);
->>>>     bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
->>>>                   struct ttm_resource *res);
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c 
->>>> b/drivers/ gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>> index abdc52b0895a..07c936e90d8e 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>> @@ -782,6 +782,23 @@ uint64_t amdgpu_vram_mgr_vis_usage(struct 
->>>> amdgpu_vram_mgr *mgr)
->>>>       return atomic64_read(&mgr->vis_usage);
->>>>   }
->>>>   +/**
->>>> + * amdgpu_vram_mgr_clear_reset_blocks - reset clear blocks
->>>> + *
->>>> + * @adev: amdgpu device pointer
->>>> + *
->>>> + * Reset the cleared drm buddy blocks.
->>>> + */
->>>> +void amdgpu_vram_mgr_clear_reset_blocks(struct amdgpu_device *adev)
->>>> +{
->>>> +    struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
->>>> +    struct drm_buddy *mm = &mgr->mm;
->>>> +
->>>> +    mutex_lock(&mgr->lock);
->>>> +    drm_buddy_reset_clear(mm, false);
->>>> +    mutex_unlock(&mgr->lock);
->>>> +}
->>>> +
->>>>   /**
->>>>    * amdgpu_vram_mgr_intersects - test each drm buddy block for 
->>>> intersection
->>>>    *
->>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>>> index a1e652b7631d..a94061f373de 100644
->>>> --- a/drivers/gpu/drm/drm_buddy.c
->>>> +++ b/drivers/gpu/drm/drm_buddy.c
->>>> @@ -405,6 +405,49 @@ drm_get_buddy(struct drm_buddy_block *block)
->>>>   }
->>>>   EXPORT_SYMBOL(drm_get_buddy);
->>>>   +/**
->>>> + * drm_buddy_reset_clear - reset blocks clear state
->>>> + *
->>>> + * @mm: DRM buddy manager
->>>> + * @is_clear: blocks clear state
->>>> + *
->>>> + * Reset the clear state based on @is_clear value for each block
->>>> + * in the freelist.
->>>> + */
->>>> +void drm_buddy_reset_clear(struct drm_buddy *mm, bool is_clear)
->>>> +{
->>>> +    u64 root_size, size, start;
->>>> +    unsigned int order;
->>>> +    int i;
->>>> +
->>>> +    size = mm->size;
->>>> +    for (i = 0; i < mm->n_roots; ++i) {
->>>> +        order = ilog2(size) - ilog2(mm->chunk_size);
->>>> +        start = drm_buddy_block_offset(mm->roots[i]);
->>>> +        __force_merge(mm, start, start + size, order);
->>>> +
->>>> +        root_size = mm->chunk_size << order;
->>>> +        size -= root_size;
->>>> +    }
->>>> +
->>>> +    for (i = 0; i <= mm->max_order; ++i) {
->>>> +        struct drm_buddy_block *block;
->>>> +
->>>> +        list_for_each_entry_reverse(block, &mm->free_list[i], link) {
->>>> +            if (is_clear != drm_buddy_block_is_clear(block)) {
->>>> +                if (is_clear) {
->>>> +                    mark_cleared(block);
->>>> +                    mm->clear_avail += drm_buddy_block_size(mm, 
->>>> block);
->>>> +                } else {
->>>> +                    clear_reset(block);
->>>> +                    mm->clear_avail -= drm_buddy_block_size(mm, 
->>>> block);
->>>> +                }
->>>> +            }
->>>> +        }
->>>> +    }
->>>> +}
->>>> +EXPORT_SYMBOL(drm_buddy_reset_clear);
->>>> +
->>>>   /**
->>>>    * drm_buddy_free_block - free a block
->>>>    *
->>>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
->>>> index 9689a7c5dd36..513837632b7d 100644
->>>> --- a/include/drm/drm_buddy.h
->>>> +++ b/include/drm/drm_buddy.h
->>>> @@ -160,6 +160,8 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->>>>                u64 new_size,
->>>>                struct list_head *blocks);
->>>>   +void drm_buddy_reset_clear(struct drm_buddy *mm, bool is_clear);
->>>> +
->>>>   void drm_buddy_free_block(struct drm_buddy *mm, struct 
->>>> drm_buddy_block *block);
->>>>     void drm_buddy_free_list(struct drm_buddy *mm,
->>>
->
+ASPM is designed to be a feature that the PCI core can discover and
+configure independent of the driver.  Devices advertise ASPM support
+via their Link Capabilities register, e.g., this one claims to support
+L1 as well as the L1.1 and L1.2 substates:
+
+  01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Lexa XT [Radeon PRO WX 3100] (prog-if 00 [VGA controller])
+    Capabilities: [58] Express (v2) Legacy Endpoint, MSI 00
+      LnkCap: Port #0, Speed 8GT/s, Width x8, ASPM L1, Exit Latency L1 <1us
+	      ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp+
+    Capabilities: [370 v1] L1 PM Substates
+      L1SubCap: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+ L1_PM_Substates+
+		PortCommonModeRestoreTime=0us PortTPowerOnTime=170us
+
+I don't know what your BIOS "disable" switch does.  It's possible it
+just keeps BIOS from configuring ASPM, while leaving it advertised as
+"supported" in config space, and Linux would configure ASPM in that
+case.  There is also a bit in the ACPI FADT that says "OSPM must not
+enable OSPM ASPM control on this platform," and maybe the BIOS
+"disable" switch would set that.  If set, this would be mentioned in
+the dmesg log.
+
+I don't have any insight into why amdgpu inserts itself in the middle
+of ASPM configuration.  There might be hardware defects it works
+around, or it could be working around old or current ASPM defects in
+the PCI core.
+
+> My reasons for my conclusion can basically be summarized like this:
+> - pcie_aspm_enabled returns true even if ASPM is disabled in BIOS.
+
+The BIOS switch could (a) prevent BIOS from enabling ASPM itself
+(could figure this out by booting with "pci=earlydump" and looking at
+Link Control), (b) set the ACPI FADT bit (would be shown in dmesg), or
+(c) change what's advertised in Link Capabilities (very unlikely since
+it would require AMDGPU-specific support in BIOS; also, Linux can't
+change Link Capabilities, and lspci showed L1 supported).  There's no
+other BIOS-OS handshake I'm aware of.
+
+> - amdgpu crashes with a non obvious issue and a lot of warnings as
+>   long as it tries to configure ASPM.
+
+ASPM configuration should only affect power consumption.  AFAIK, even
+if it's configured incorrectly, we should not see any functional
+issues.
+
+> - putting the WX3100 into another machine caused it to boot just
+>   fine, and did in fact correctly configure ASPM.
+
+I mentioned my suspicion of L1.2 because that does depend on some
+platform electrical properties that we don't know how to discover.
+But even so, we shouldn't see a functional issue.
+
+> - https://lore.kernel.org/lkml/CADnq5_PmxGxrJG5uZkkFXQ1YbJbDZTvAqb2oYqdCE=NtqBojqw@mail.gmail.com/
+>   mentions "It's more of an issue with whether the underlying
+>   platform supports ASPM or not"
+> 
+> It's possible I'm barking up the wrong tree here, I'm not familiar
+> with this part of the kernel, if this turns out to actually be an
+> amdgpu problem, please let me know.
+
+> >> I also did try enabling/disabling ASPM on the BIOS side to no avail.
+> >>
+> >> The bug appears to be systematically existent for many other cards I ended
+> >> up plugging into the device (thus conclusion as PCI driver issue). 
+
+This sounds interesting.  More details here?  I guess you also see
+issues with different cards plugged into the same slot?  And there
+appears to be some ASPM connection there, too?
+
+> ...
+> kernel: amdgpu 0000:01:00.0: amdgpu: [drm] Display Core v3.2.334 initialized on DCE 11.2
+> kernel: amdgpu 0000:01:00.0: [drm] *ERROR* No EDID read.
+> kernel: amdgpu 0000:01:00.0: [drm] *ERROR* No EDID read.
+> kernel: amdgpu 0000:01:00.0: [drm] *ERROR* No EDID read.
+> kernel: amdgpu 0000:01:00.0: amdgpu:
+>         last message was failed ret is 65535
+
+This is in smu7_send_msg_to_smc() and it looks like we might have
+gotten ~0 when reading a register.  Possibly a PCIe error, since the
+Root Complex typically synthesizes ~0 data returns when a read fails
+on PCIe.
+
+> kernel: ------------[ cut here ]------------
+> kernel: WARNING: CPU: 1 PID: 154 at drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c:1111 uvd_v6_0_ring_insert_nop+0xb5/0xc0 [amdgpu]
+
+This is:
+
+  WARN_ON(ring->wptr % 2 || count % 2);
+
+so apparently ring->wptr or count are expected to be even, but at
+least one was odd.  Makes me wonder if wptr was set from a PCIe read
+that returned ~0.
+
+Both are a little odd since I don't see any AER errors mentioned in
+the dmesg or the lspci output.  But worth looking into to see if there
+are errors that we could catch earlier or handle better.  Also of
+course odd if an error like this were related to ASPM.
+
+Bjorn
