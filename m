@@ -4,76 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24E53C83F1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 13:39:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B9FC83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 13:43:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C32CF10E288;
-	Fri, 11 Jul 2025 13:39:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9588310EA5E;
+	Fri, 11 Jul 2025 13:43:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NHPKDx8s";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zKbw2r3y";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98E6010E288
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 13:39:35 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-312f53d0609so293157a91.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 06:39:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752241175; x=1752845975; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NGDWeJniVJgHxTY9WU8UGP0dev9LzcckD2TuN51b0ho=;
- b=NHPKDx8sLr4AT/IWX0cG86xdKuf4RuygbNqvkzVhzzmwVQZGBXeBeSuItPA4Qj0NjP
- G/uJR/9tmht/FmN4A5GT9Y4ppzL1ugJDLCmQITn9LKXl9FW266QWcwSLFowaaWNIOyS2
- BLorPHZtBPQ72UTamjFubVoWS68tOk6Dfza31i/7c379BYe+UwBkaJfz5hQdq4Sdsf6k
- eIov6dc8+XJ76LAKujb2D6aBkV92wq8fsW8SPmbjfQhp44VuW5N8qQFM1Cko8vslRMgm
- p4quq1vLaSuIYE/4ISRrvPP8kvID2KpmXdRN/9xySP9wFkFx91gHm+Y0/66TbHm9n03M
- sD6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752241175; x=1752845975;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NGDWeJniVJgHxTY9WU8UGP0dev9LzcckD2TuN51b0ho=;
- b=X8emGCs4OJAuodu9+0oWhZRjn9oyLhdIfX+eZ8rlAWdCigxsMz3ZfScBe09gJNSg8i
- /TZw1xyuO8EkMwCOI5xpJfVgS18WEqoGHnmU2QtVhl3Ngd1k3LJFvg80FLMs9eY+TdGd
- saTAh0/i8Ljr7qKqu1dyB1CE10e5L0nj+77TFB6hygv0zH5jS+veJw1NX2/x1W4w054b
- iuzdCtQIybVlz7LCobg2SU3lIQ+2+3fXWQyqQS12/LXAYO7VKfHETtqlIrq5CbYnUge3
- xx6+gOTagsrLAdMVkgUcHlWe2sE6zjv20Kz2KGR2pTjSCFvp6WZCGWJp2xEswcfkq5eU
- IBKg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVVQQ5q/SFt0UFaXa8gBbhLu8mwEdqMKdBa76wLc7pknCP5aBhOCax5TXNQsEKN/431+GNcl9rb@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxpzT9cnRqGwt/y6+bPa0DfcCRlI2EvwCaBxPS5wpSlEgaHcw8I
- S+ncintYRthTNVg3yPMCeCiiJKMUwMIC1nDGgShy2Yw3dMNrcvekSAMP1tRM6x34HC5kPvysHoL
- S2rVd7iq8k/gdeKrQV+nrtA8aRqWR+m4=
-X-Gm-Gg: ASbGnct/8LqfkofGXSEE2/ec7uSsNU7vMbK9JPdTWPdWk6fnnHhsjldgt/G1dSM8QkI
- wJDx+EEpavBHFCfQKwMPVXsO/VMbrA1aWq4DTejTvZuVGjEOLlUfrqwQKG8MNvg/vNDHntNDOWy
- 1LxFU6QstSK7pAKVFa0Zw85YzlKrDeb6xiKVxfpzE8G0O+5EI/Yxk1zGDOMpFllOnUlLtxWdxua
- aea2bEf
-X-Google-Smtp-Source: AGHT+IGgM2Ivv2ROMSngIJMMr+rO+VvFpo+BYLXWBTGs888nRPY341ACvXvx1qIvqU7DqkF8h0Z8BHtuDTJibwmMzzs=
-X-Received: by 2002:a17:90b:5407:b0:311:e9a6:332e with SMTP id
- 98e67ed59e1d1-31c4c974af2mr1909585a91.0.1752241173969; Fri, 11 Jul 2025
- 06:39:33 -0700 (PDT)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5560D10EA5E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 13:43:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MLgIePUhWuABEEI16rGplNUQ9pTHETUl836c1UwO6Z8kJAaT5BYgSgxB0eiyVloKV906g/XTs9Z4FRmqBOFsQ4oWB5+KBn4Y3HAtCd/iR8XKQTzMOxAEOYsossJABLDS71h8PAh4BRaeuDjJunH9sr5JUSt353GuWOStlqEHnZu+HO7J54qk3thv3wr0YEfh4r+tu4k9poKsosQrflm2+3uSknJrLtRriaUp/lLNtTIdyqBw3zMwkVjVWGhbRSwX3v5mPOKrNawVMZWM/1p9Hnvb01+mbRBex7qh+ceOG/zQhes9UGr2jxFI/G7//UlazQYeFL/3xPruzLcGt+pCWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VrNZ3iJV60uk6EK6QN7twsKLPNFXh38MAvnEgKME0JU=;
+ b=F6VzAQ5xXIvkT3KoY2zO+UdsDNBtIYq3vy8opa5RyLKCZssU/eM9MIKpXtv9a0svZI+C537iqHFYXl9Q8Py6gmn1nOMqVPKmo9VFYPfKkDhrZUL8JWNr+s+ZCUAwN24xe1MbtcZGlO7meBhSHaFEk9ucgSaBFbUdQCcjBf9yKFYApkAlU4cH2HLE5Z2hWMgKuOg1gYJF4DPfZ3zJNObtnz3GiQre/4yqRQ+oivazMy4Gc4n6NbuI2Zrqt9t7hdEbx6dBc0oiJLys3sF0nNHZ/33COVfU5Rtz5Sxp2/yEiXpV8nfj7N7kn6wehnc+TAi/tiIvpwjZjAr2ecqQr/W0lQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VrNZ3iJV60uk6EK6QN7twsKLPNFXh38MAvnEgKME0JU=;
+ b=zKbw2r3yxehH0tbV6GH+A8nIxs1RIowfItTQDjwq6m0sN+M2GE1MOpOblQ7FhsEQ1ZV+SKfzs2FuMyXGe3z6X6TVtGqn3WBRY+xUlrtAWYnMer1cWdQg5GZiqbayxGKNTYTIWh4RrcsdyZ9z+Rm+o606PC0zMlNEw0dn84DpIug=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ DS0PR12MB6461.namprd12.prod.outlook.com (2603:10b6:8:c7::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8922.25; Fri, 11 Jul 2025 13:43:18 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb%4]) with mapi id 15.20.8880.034; Fri, 11 Jul 2025
+ 13:43:18 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH v6 09/11] drm/amdgpu: validate the shared bo for tracking
+ usage size
+Thread-Topic: [PATCH v6 09/11] drm/amdgpu: validate the shared bo for tracking
+ usage size
+Thread-Index: AQHb8kfEwnvMFUyra0OjyRBbgt20m7Qs1iAAgAAYWdA=
+Date: Fri, 11 Jul 2025 13:43:18 +0000
+Message-ID: <DS7PR12MB6005F6939CB6B0B2CD901BA3FB4BA@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20250711093930.1411470-1-Prike.Liang@amd.com>
+ <20250711093930.1411470-9-Prike.Liang@amd.com>
+ <efff0172-7df4-4da9-a03d-2041990bb7e9@amd.com>
+In-Reply-To: <efff0172-7df4-4da9-a03d-2041990bb7e9@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-07-11T13:43:04.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|DS0PR12MB6461:EE_
+x-ms-office365-filtering-correlation-id: e56fb388-363e-4a4a-22ee-08ddc080e4f2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?utf-8?B?U2tzNTB5ZUxXaDlVL1VBTWJUenRmUlZMNHA3ejRmZExlZkxSa1IxdUgvRC8y?=
+ =?utf-8?B?dnNNYlZGSnFKbWZxRkZQZitkUXFLWExIaU1iUWMzNmxwNlBVMitTS2JFcXFn?=
+ =?utf-8?B?Uk5CTlhGMzRkVVFYVjdvL2I3dTJDVm5EbTVaQktJSFhqbFBUdnhTT0pnMWh0?=
+ =?utf-8?B?a3p6T1VMV1N0RkJvc2FLYWJrQUloWXZwK0dUQUlmTFFuZHpmV1F0Uy9BV09r?=
+ =?utf-8?B?TFhqalRkNkVzbm9Pd2hpTm45VHkzU20zd2REYTlqSDlFdkVENHRkNzNaalE5?=
+ =?utf-8?B?SWp6MWJxS0tLWGJZYzYyY3FiUngyUmgvaEYwemNubW9sZ1Z6MURtQTlXOGUy?=
+ =?utf-8?B?aW1TVHBDc0RYc3k1MGVrMERMUTE4UGF4TE9ZSU1XNHl4c3JaZ3dPdkhEeTMz?=
+ =?utf-8?B?dGFlblVjWnBxZktOZ1BLZTdGaDl3R0ovWXVKcmRTMlNwQXdiK3EyU1ZPdXlF?=
+ =?utf-8?B?YlZuVHR6cUp1RysrQnFZY0tZdm54ejN1MkNRdUY5QjVHUDQ2QS91dDZjUnA2?=
+ =?utf-8?B?ZWNoSU5XQUVOemVxRGhZb1lvN3NydWd3aDFsY1pWdi9GbG9hUWZCRGpsT1Vi?=
+ =?utf-8?B?U1R4eUt2V0FnSXljdEdER1AwdUxCUkJXR0lwTitnZlhGdTJqWTRCZGlOVmJp?=
+ =?utf-8?B?TTloemJKYVFRZllCVEVsQkRrdEt3K0k4MFVWU2ZmWVg5N09SVkpJRHVXM3Jw?=
+ =?utf-8?B?bEU5aUcxc0JyQkRCRHBTU3RjclNPUzBIZEVJSHlDbkVZNFhoU2o4SWpqQ3U4?=
+ =?utf-8?B?UVpGc291bzBIYWRUQllaZWRLU0FjTVRWQnBkQlV3dldTY05iZDRJd3g2YUhl?=
+ =?utf-8?B?ZGEwYWNVcTBKVWMycDIvUUdYWjJvdmx5cC8yYVQ2QVBBcUFOQUFja1ZwMUxk?=
+ =?utf-8?B?dzhmZDkrOGFieHBhUmNuMUVQNUZRNGN5OUg0L0Roa3ptNmlqc25qTVAyMXdv?=
+ =?utf-8?B?ZGJCN3FZTWQ1MFM4TTBLRnYyTDQ1V2VveHY3bmZYd3lKWjhNS1hKZHFnbVpW?=
+ =?utf-8?B?blBncHZOWThUelFXU29GRmREOEpxOWZ5TWlIOVNrNjYyZ0dpYjM4SEREMXVB?=
+ =?utf-8?B?aGZrYU5qMFFrZGcySnprUUlDQkVWeEx5K3FHY2Y0RzRvYkpweVY5T0pkRTF2?=
+ =?utf-8?B?RVpQcloybWJDNjBoUkpBMlZjSXAzdzUyMS9Nd1RQajhobEZKVkFlK2xYbTVU?=
+ =?utf-8?B?ditERW1LVzFHdGRLblgzMmFPa1lKT254Y21oTWN3RDdmQllzL2VJb2duQXRC?=
+ =?utf-8?B?YllpVkRnVG9oSzJZbkhNSkUyT25PZmhidXlhQk9PcUtTZXhMQ29KS0gvcVRW?=
+ =?utf-8?B?NlhtbnpXKzgxeUpTUG40aTE4NkpOMzlHTjZJelZHdDlNYitNNFUrWDV3cWM3?=
+ =?utf-8?B?RzNWSDRWREtzVU1OaldQYnd4Q3ZkR3l3d2lwaWcrdEtkVGRTbVllaHBVL2JF?=
+ =?utf-8?B?TE5qSkEvNFhKYVlrZkVBTk5FVU04czRHcmlVOWo3djRyNFdJTENWZzQ0a0hR?=
+ =?utf-8?B?MFhIMzFSVHpQV2xqdHBQc2lZQUo4dHprVFFqd1pNVnZCU3JvM1czQ1V3Q2h1?=
+ =?utf-8?B?dkRLc0huUjhQNHE2ekhIcGdsek1nZFQybHZHRCt2YTl3eDQvWFoxOXl2NXIx?=
+ =?utf-8?B?RHlqRy95VlBUOXRvM0NDM1NjeTdtZUpYdmxXS21La2ZzbjJJYVFDWGk5UUFS?=
+ =?utf-8?B?dHd0bzd1WXR2WGpzTW1BYklneUt6MWs0dEFPa3hmMzRodXBEK0N6akhxZG9v?=
+ =?utf-8?B?R0F1V1d6dDJEN1hXUWgzazFuWjhtSFlKL25sZkZYSlNCYW5MN3JvMHh2Ynl0?=
+ =?utf-8?B?Ry9CTlk1L3N5SXN4WS9jUGtKR2JncFRoU2tvRjdBeFFnZVNlUlppemdKckpS?=
+ =?utf-8?B?N0RqNUpES3QzUThWeXBoajZWaElEWUpHd2plMWwxem9xMGk2bjlLTWwzcXE1?=
+ =?utf-8?B?OGhRRHN4TTlPa2hCNElpSHJ6eWhLRFMvRGpWZVlDUmNRT3I3aDJ5WXZPa0wy?=
+ =?utf-8?Q?4Sv3p4ETgfYAGMHniTNELK74uR34Y0=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?S2lUdGx0cEtUOEJRVTRxcURUejMvbkVadFNkaCtNZkJzMHV2aXoyMzJZWUpR?=
+ =?utf-8?B?U054c0NQRWtIQnJUUGtjS2lKQnVNSzFVVXdpaGRWMXRXTC9lYnNSdDh4RnlX?=
+ =?utf-8?B?bTBocy9ha2NMbDdoUlNUQzhuaW9xK1NCK3JSN1c0WDBmb1NoYUVEL2gvUkZD?=
+ =?utf-8?B?dnlqTENUQWNqenhVMkdmZzQ4ZVl0QTE3ZXo2VUZsN2doM3lBZGNJN01nU1ZG?=
+ =?utf-8?B?azlTelRSTDNmVjFWNGdtM2tMNnlEVVd4TzZNS1phMFNXZWo1aCswVWRNcEp1?=
+ =?utf-8?B?WS9wanNtQmpzcjBWNndlQVIwQ1pSN21oTVdWV2psZnhUeUNPN0Y3MGxpQXZn?=
+ =?utf-8?B?NmlsTDFJN1R4b1FNTlFBNElaM3F3K1JYVEZTTFd2VGdsN3FpWDk0by9vbFZu?=
+ =?utf-8?B?TEpaakozdktHL1J2cmEvYjh4bDV4cUZ3QXY4dHhncTh3RjBVQWo4TmhzR0lv?=
+ =?utf-8?B?TGRjVmVsY1RKeGhxSzB5ZzVjanRvdGhxbjh5bm5RWVBnZDM4aW1lT0xuNnJP?=
+ =?utf-8?B?aFppOXFVVkwzbjh5MysrZFNsclN3ZkEwbjJnNUcyQW1Jc3VuR3dPVXlURUds?=
+ =?utf-8?B?NDY0eEk2NW4zbXB0NW1UWmNBbk1vb2t3V2x1RGpNOHd3UFJpd1pTVGR3M1N0?=
+ =?utf-8?B?U0N6U2FsamliRjI1Qis0NUpsNVdFQTJsSzBIODRoRHkzVXJ2V1ExZW01QTYz?=
+ =?utf-8?B?eDREY1FQUG9EMkE3RHVCQng1VFh5VTI2dTJ2Wm1ObVFiVFNnc2hjWTk3Zk5Q?=
+ =?utf-8?B?UWtNSkJJUUlRbDFWZjRISll5QWJBSnN3R1c2Z0E3ZVVSZTI2RTdHNnYvdXhR?=
+ =?utf-8?B?ME5VbE5hV0Q3b2cvaUlRRnErSStFWFg4RlJuLy96cm93SjhERjRRTlRtbWV6?=
+ =?utf-8?B?YXIrQWN4UVRDZlAweCs3WHFEMUpqU3ZlUVFIL001K0ZmK0huNnluQ2Q3cEZP?=
+ =?utf-8?B?bE1zMlNraHE2OTlGQW5TYkQ1OHNLNUkwK29WOU5kTFRRLzZ3b1dQd1dDRS9F?=
+ =?utf-8?B?ZzcrVlRTQk9vVVJ5QjdVWlNOVVg2d0ZvbmJKdnRtQllvRHpBRnYwemlzSXJo?=
+ =?utf-8?B?anliTUZzczVmeUhWQmdFekhYM2ttbXNCQitJemxSMExMSkR6VHBQSEtOSk5m?=
+ =?utf-8?B?OGt4M1BRZU01SjBzdWpFK1J4RFVQSUpSK0d5aFNHcUI4ZXFtREdZREFIbWRH?=
+ =?utf-8?B?c3FxamVTWVVrdElLNmR1ZjhkNDRxRVMxaVptZ2g0RFpMelBRb0FCcGhHMlJm?=
+ =?utf-8?B?NUd3Y3VzQ0Z5NmpoRG8zdGQxMkFTUHNZK2RPZ3pnR29qZDUyZ24za05EZnFl?=
+ =?utf-8?B?NXNGWERJYVp5YXU2UVcrR21CbW4rcU1WZFhvSXcxVVErTlBDQjlWRDc5SnBr?=
+ =?utf-8?B?bUdsTmtrTEh2bEVlb0FsdVhFRUhiZUU2K2xMZmZNNmUzeU9yWm9VMWl5TEtx?=
+ =?utf-8?B?ZjZRYlJET0ZrNnI5a3oxUkh3WVd3NTVYYk5PODYyOEtyNnJhQzU5NGxYVnZ2?=
+ =?utf-8?B?Q3ZOWG81WHo3K3Z4RlpzZCtGc2NTMzBMekN5TWxZTkJWTzl2cVZ0Nm9SU3d5?=
+ =?utf-8?B?aXVLaTJRQXZ0blJJQXZuYWVFcVNsSUpGUjFrL21BUHUrTzBnYzZBcS9JQzRL?=
+ =?utf-8?B?U25DUEVvTUd1enU5cEJFNlpJMk5FTlpGS1ltWGIvQmJEdDBTbXNHRFlpRlpQ?=
+ =?utf-8?B?VDdKKzF1ZzB1ZVczQS9pK1RMU1oxZSswTk1pZ0F5N2JOYU5IWEJxNDVNQjBY?=
+ =?utf-8?B?M0RadzBqd2FqKzhHV09yM2MyVUhYWjFNN0U1SmRZTHBXVkQzdkhBQzhlVVlk?=
+ =?utf-8?B?UU95cnNOczVsS0JCWnFDZHZXSFZ4a0wvaE1LVDZET1g2cmdwUUQ1TDhvdzky?=
+ =?utf-8?B?OHZ0d0NWNm16UzV4N3JvSDlWR2ZTcmpOMXdlUVRaWm1oYzdONlBOaWtPSnJ4?=
+ =?utf-8?B?cHdKYjRqWnlyVWdVQkhQQWZwT21KbHcxRjZWaFg4K2NmaU81NitqYzZ6cngw?=
+ =?utf-8?B?QTZKN25FR1JkK0ROWVJIV21tRVdBVzArSzdkUUsvd0hkUzhrdHhQYTMwd1ZJ?=
+ =?utf-8?B?OGhJaUIzbEMxSFZkektzcGFuLzJKd3NWYWZzUkhWci9aMFJiMG1ROWFvckVY?=
+ =?utf-8?Q?dJso=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20250711122338.44831-1-tvrtko.ursulin@igalia.com>
- <57da4e28-4968-409a-9861-3ee969bed541@amd.com>
- <df254527-d027-45df-ae3b-356134536941@igalia.com>
-In-Reply-To: <df254527-d027-45df-ae3b-356134536941@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Jul 2025 09:39:21 -0400
-X-Gm-Features: Ac12FXzV8cPH4Cc4sFXXVK22k8kDupTeke6WdIraGQjrbG66sJEZviXQGGruHf8
-Message-ID: <CADnq5_PTrZ8eVtT8xDQQyf9tP+7AQ8pcAZ4YSEgUwbufU5YQvw@mail.gmail.com>
-Subject: Re: [RFC] drm/amdgpu/sdma5.2: Avoid latencies caused by the
- powergating workaround
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, 
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e56fb388-363e-4a4a-22ee-08ddc080e4f2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2025 13:43:18.5790 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: G4YzPq7qBjd4jZA7GGDGGr+FK7YcW2FX5E/LXiMw0GTPtoKEGR0aOFgGtVMbbV5q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6461
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,317 +175,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 11, 2025 at 9:22=E2=80=AFAM Tvrtko Ursulin
-<tvrtko.ursulin@igalia.com> wrote:
->
->
-> On 11/07/2025 13:45, Christian K=C3=B6nig wrote:
-> > On 11.07.25 14:23, Tvrtko Ursulin wrote:
-> >> Commit
-> >> 94b1e028e15c ("drm/amdgpu/sdma5.2: add begin/end_use ring callbacks")
-> >> added a workaround which disables GFXOFF for the duration of the job
-> >> submit stage (with a 100ms trailing hysteresis).
-> >>
-> >> Empirically the GFXOFF disable/enable request can suffer from signific=
-ant
-> >> latencies (2ms is easily seen) which are then inserted onto the
-> >> amdgpu_job_run() path, which slows down the CPU submission of ready jo=
-bs.
-> >>
-> >> 1)
-> >> If the premise of the GFXOFF workaround is to keep it disabled while t=
-he
-> >> SDMA engine is active, the current workaround achieves that only
-> >> partially, for submissions and jobs which take less than 100ms (the GF=
-XOFF
-> >> re-enable hysteresis), counting from the ring write phase, up to
-> >> completion.
-> >>
-> >> 2)
-> >> If disabling GFXOFF affects the GFX engine too, basing the workaround
-> >> solely on the SDMA activity creates, at minimum, a needless "chatter" =
-on
-> >> the SMU communication channel.
-> >
-> > IIRC that is intentional. This "needless" chatter is what the workaroun=
-d was all about.
->
-> I tried to gather knowledge to how the hardware works from the comment
-> in sdma_v5_2_ring_begin_use(). Maybe I got it wrong so bear with me pleas=
-e.
->
-> To try and explain my questions better. If the GFX ring/engine is busy
-> is there a point for SDMA to be requesting GFXOFF enable/disable? Or
-> maybe with diagrams...
->
-> 1)
->
-> SDMA:
->
->     ring-write     ring-commit       job-execute       job-done
->   gfxoff-off-req  gfxoff-on-req  >100ms -> gfxoff-on
->
-> Was the workaround prematurely dropped in this case (aka is
-> ring->funcs->end_use() the right place to drop it from)? Probably
-> theoretical that a SDMA job takes more than 100ms but I am trying to
-> understand it all.
->
-
-The firmware controls the power to a subset of the chip which contains
-both gfx and sdma.  Normally the firmware dynamically powers up and
-down gfx transparently when doorbells come in or the engines go idle
-for either engine.  amdgpu_gfx_off_ctrl() tells the firmware to allow
-or disallow gfxoff entry.  So what this workaround does is disallow
-gfxoff (which results in gfx being powered up) before we touch SDMA.
-Once SDMA is active, we can allow gfxoff again as it will dynamically
-be disabled once GFX/SDMA is no longer active.  In this particular
-case there was a race condition somewhere in the internal handshaking
-with SDMA which led to SDMA missing doorbells sometimes and not
-executing the job even if there was work in the ring.
-
-Alex
-
-> 2)
->
->
-> GFX:
->
->     +-----  job executing --------------------------------------+
->
-> SDMA:
->
->     ring-write     ring-commit       job-execute       job-done
->   gfxoff-off-req  gfxoff-on-req  >100ms -> gfxoff-on
->
->
-> Is it required for the SDMA activity to cause SMU message traffic in
-> this case, or is the powerdomain implied to be on (GFXOFF cannot turn it
-> off while GFX is active)?
->
-> This is the case I measured latency spikes. While the GFX load was
-> running I was seeing SDMA->run_job() spike and traced it to the SMU
-> communication.
->
-> Hence the idea from the patch - prevent adev->gfx.gfx_off_req_count
-> dropping to zero until both GFX and SDMA are idle.
->
-> https://imgshare.cc/rdxu2bjl
->
-> Above is visual representation of these latencies. Y is SDMA run_job()
-> duration in micro-seconds, X is seconds wall time. Blue is stock kernel,
-> orange is with this patch. X goes for ~60 seconds, which is how long
-> Cyberpunk 2077 benchmark is.
->
-> Regards,
->
-> Tvrtko
->
-> >> If 1) and 2) hold true, we can improve on the workaround by; a) only
-> >> re-enabling GFXOFF once the job had actually completed*, and b) apply =
-the
-> >> same workaround on other rings which share the same GFXOFF powergating
-> >> domain.
-> >
-> > The point of GFXOFF is to turn GFX on/off *without* kernel driver inter=
-action. Otherwise we don't need it in the first place.
-> >
-> > We just have a hack for the SDMA because that moved into the GFXOFF dom=
-ain with Navi and is broken on some HW generations IIRC.
-> >
-> >>
-> >> With these two applied, the GFXOFF re-enable requests are avoided
-> >> altogether during persistent activity on the GFX ring and simultaneous
-> >> sporadic activity on the SDMA ring.
-> >>
-> >> This has a positive effect of drastically reducing SDMA submission
-> >> latencies. For example during the Cyberpunk 2077 benchmark, they are
-> >> reduced from an average of 64us (stdev 60) to 9us (stdev 6). Or more
-> >> importantly the worst case latency, averaged to a one second window, i=
-s
-> >> reduced from 305us to 30us**.
-> >>
-> >> *) For ease of implementation we put the re-enable at the job free sta=
-ge,
-> >> since doing it on actual completion is problematic in terms of locking=
-.
-> >
-> > Absolutely clear NAK to this. Never ever base anything on the job livet=
-ime!
-> >
-> > We already had enough trouble with that.
-> >
-> >>
-> >> **) Submission latency ewma averaged (DECLARE_EWMA(latency, 6, 4)) -
-> >> Approximately 30 SDMA submissions per second, ewma average logged once
-> >> per second therefore significantly hides the worst case latency. Eg.
-> >> the real improvement in max submission latency is severely understated=
- by
-> >> these numbers.
-> >
-> > Well that would indeed be quite nice to have.
-> >
-> > Regards,
-> > Christian.
-> >
-> >>
-> >> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> >> References: 94b1e028e15c ("drm/amdgpu/sdma5.2: add begin/end_use ring =
-callbacks")
-> >> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> >> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >> Cc: Alex Deucher <alexander.deucher@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  | 1 +
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 8 ++++++++
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 7 +++++++
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h  | 2 ++
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 3 +++
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
-> >>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 1 +
-> >>   7 files changed, 23 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gfx.h
-> >> index 08f268dab8f5..eee40f385793 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> >> @@ -475,6 +475,7 @@ struct amdgpu_gfx {
-> >>      uint32_t                        compute_supported_reset;
-> >>
-> >>      /* gfx off */
-> >> +    bool                            gfx_off_held;       /* true: ring=
-s hold gfx_off */
-> >>      bool                            gfx_off_state;      /* true: enab=
-led, false: disabled */
-> >>      struct mutex                    gfx_off_mutex;      /* mutex to c=
-hange gfxoff state */
-> >>      uint32_t                        gfx_off_req_count;  /* default 1,=
- enable gfx off: dec 1, disable gfx off: add 1 */
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_ib.c
-> >> index 206b70acb29a..bf9bffe40235 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> >> @@ -191,6 +191,14 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, =
-unsigned int num_ibs,
-> >>              return r;
-> >>      }
-> >>
-> >> +    if (job && adev->gfx.gfx_off_held &&
-> >> +        (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX ||
-> >> +         ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
-> >> +         ring->funcs->type =3D=3D AMDGPU_RING_TYPE_SDMA)) {
-> >> +            amdgpu_gfx_off_ctrl(adev, false);
-> >> +            job->gfx_off_held =3D true;
-> >> +    }
-> >> +
-> >>      need_ctx_switch =3D ring->current_ctx !=3D fence_ctx;
-> >>      if (ring->funcs->emit_pipeline_sync && job &&
-> >>          ((tmp =3D amdgpu_sync_get_fence(&job->explicit_sync)) ||
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_job.c
-> >> index 2b58e353cca1..4cfd175ac6df 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> @@ -191,6 +191,7 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, s=
-truct amdgpu_vm *vm,
-> >>      if (!*job)
-> >>              return -ENOMEM;
-> >>
-> >> +    (*job)->adev =3D adev;
-> >>      (*job)->vm =3D vm;
-> >>
-> >>      amdgpu_sync_create(&(*job)->explicit_sync);
-> >> @@ -268,6 +269,9 @@ static void amdgpu_job_free_cb(struct drm_sched_jo=
-b *s_job)
-> >>
-> >>      amdgpu_sync_free(&job->explicit_sync);
-> >>
-> >> +    if (job->gfx_off_held)
-> >> +            amdgpu_gfx_off_ctrl(job->adev, true);
-> >> +
-> >
-> >
-> >
-> >
-> >>      /* only put the hw fence if has embedded fence */
-> >>      if (!job->hw_fence.base.ops)
-> >>              kfree(job);
-> >> @@ -301,6 +305,9 @@ void amdgpu_job_free(struct amdgpu_job *job)
-> >>      if (job->gang_submit !=3D &job->base.s_fence->scheduled)
-> >>              dma_fence_put(job->gang_submit);
-> >>
-> >> +    if (job->gfx_off_held)
-> >> +            amdgpu_gfx_off_ctrl(job->adev, true);
-> >> +
-> >>      if (!job->hw_fence.base.ops)
-> >>              kfree(job);
-> >>      else
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_job.h
-> >> index 2f302266662b..d4ab832ac193 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> >> @@ -46,6 +46,7 @@ enum amdgpu_ib_pool_type;
-> >>
-> >>   struct amdgpu_job {
-> >>      struct drm_sched_job    base;
-> >> +    struct amdgpu_device    *adev;
-> >>      struct amdgpu_vm        *vm;
-> >>      struct amdgpu_sync      explicit_sync;
-> >>      struct amdgpu_fence     hw_fence;
-> >> @@ -55,6 +56,7 @@ struct amdgpu_job {
-> >>      bool                    vm_needs_flush;
-> >>      bool                    gds_switch_needed;
-> >>      bool                    spm_update_needed;
-> >> +    bool                    gfx_off_held;
-> >>      uint64_t                vm_pd_addr;
-> >>      unsigned                vmid;
-> >>      unsigned                pasid;
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_ring.c
-> >> index 426834806fbf..22cac94e2f2a 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> >> @@ -350,6 +350,9 @@ int amdgpu_ring_init(struct amdgpu_device *adev, s=
-truct amdgpu_ring *ring,
-> >>      ring->max_dw =3D max_dw;
-> >>      ring->hw_prio =3D hw_prio;
-> >>
-> >> +    if (ring->funcs->gfx_off_held)
-> >> +            adev->gfx.gfx_off_held =3D true;
-> >> +
-> >>      if (!ring->no_scheduler && ring->funcs->type < AMDGPU_HW_IP_NUM) =
-{
-> >>              hw_ip =3D ring->funcs->type;
-> >>              num_sched =3D &adev->gpu_sched[hw_ip][hw_prio].num_scheds=
-;
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_ring.h
-> >> index 784ba2ec354c..afaf951b0b78 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> >> @@ -202,6 +202,7 @@ struct amdgpu_ring_funcs {
-> >>      bool                    support_64bit_ptrs;
-> >>      bool                    no_user_fence;
-> >>      bool                    secure_submission_supported;
-> >> +    bool                    gfx_off_held;
-> >>      unsigned                extra_dw;
-> >>
-> >>      /* ring read/write ptr handling */
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/=
-amd/amdgpu/sdma_v5_2.c
-> >> index 42a25150f83a..c88de65e82bc 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> >> @@ -1944,6 +1944,7 @@ static const struct amdgpu_ring_funcs sdma_v5_2_=
-ring_funcs =3D {
-> >>      .nop =3D SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP),
-> >>      .support_64bit_ptrs =3D true,
-> >>      .secure_submission_supported =3D true,
-> >> +    .gfx_off_held =3D true,
-> >>      .get_rptr =3D sdma_v5_2_ring_get_rptr,
-> >>      .get_wptr =3D sdma_v5_2_ring_get_wptr,
-> >>      .set_wptr =3D sdma_v5_2_ring_set_wptr,
-> >
->
+W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb2VuaWcs
+IENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTZW50OiBGcmlkYXksIEp1
+bHkgMTEsIDIwMjUgODoxNCBQTQ0KPiBUbzogTGlhbmcsIFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQu
+Y29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IERldWNoZXIsIEFsZXhh
+bmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2
+NiAwOS8xMV0gZHJtL2FtZGdwdTogdmFsaWRhdGUgdGhlIHNoYXJlZCBibyBmb3IgdHJhY2tpbmcN
+Cj4gdXNhZ2Ugc2l6ZQ0KPg0KPiBPbiAxMS4wNy4yNSAxMTozOSwgUHJpa2UgTGlhbmcgd3JvdGU6
+DQo+ID4gSXQgcmVxdWlyZXMgdmFsaWRhdGluZyB0aGUgc2hhcmVkIEJPIGJlZm9yZSB1cGRhdGlu
+ZyBpdHMgdXNhZ2Ugc2l6ZTsNCj4gPiBvdGhlcndpc2UsIHRoZXJlIGlzIGEgcG90ZW50aWFsIE5V
+TEwgcG9pbnRlciBlcnJvciB3aGVuIHRoZSBCTw0KPiA+IHJlbGVhc2VkIGltcHJvcGVybHkuDQo+
+DQo+IENsZWFyIE5BSyB0byB0aGF0LiBZb3UgYXJlIG9idmlvdXNseSB3b3JraW5nIGFyb3VuZCBh
+IGJ1ZyBlbHNld2hlcmUuDQpZZXMsIHRoaXMgaXMgYSB3b3JrYXJvdW5kIGZvciB0aGUgdXNlcnEg
+UFQgZGVmZXJlbmNlIGltYmFsYW5jZSBpc3N1ZSBhbmQgd2lsbCBkcm9wIHRoYXQuDQoNCj4gUmVn
+YXJkcywNCj4gQ2hyaXN0aWFuLg0KPg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogUHJpa2UgTGlh
+bmcgPFByaWtlLkxpYW5nQGFtZC5jb20+DQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgMjUgKysrKysrKysrKysrKysrKysrKysrLS0tLQ0KPiA+
+ICAxIGZpbGUgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkNCj4gPg0K
+PiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0K
+PiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4gPiBpbmRleCBm
+MDQyMzcyZDlmMmUuLmE1NzRlZmZkZDNlYyAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92bS5jDQo+ID4gQEAgLTMyMSwxMiArMzIxLDI2IEBAIHN0YXRpYyB2b2lk
+IGFtZGdwdV92bV9ib19yZXNldF9zdGF0ZV9tYWNoaW5lKHN0cnVjdA0KPiBhbWRncHVfdm0gKnZt
+KQ0KPiA+ICAgKi8NCj4gPiAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX3VwZGF0ZV9zaGFyZWQoc3Ry
+dWN0IGFtZGdwdV92bV9ib19iYXNlICpiYXNlKQ0KPiA+IHsNCj4gPiAtICAgc3RydWN0IGFtZGdw
+dV92bSAqdm0gPSBiYXNlLT52bTsNCj4gPiAtICAgc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBiYXNl
+LT5ibzsNCj4gPiAtICAgdWludDY0X3Qgc2l6ZSA9IGFtZGdwdV9ib19zaXplKGJvKTsNCj4gPiAt
+ICAgdWludDMyX3QgYm9fbWVtdHlwZSA9IGFtZGdwdV9ib19tZW1fc3RhdHNfcGxhY2VtZW50KGJv
+KTsNCj4gPiArICAgc3RydWN0IGFtZGdwdV92bSAqdm07DQo+ID4gKyAgIHN0cnVjdCBhbWRncHVf
+Ym8gKmJvOw0KPiA+ICsgICB1aW50NjRfdCBzaXplID0gMDsNCj4gPiArICAgdWludDMyX3QgYm9f
+bWVtdHlwZSA9IFRUTV9QTF9TWVNURU07DQo+ID4gICAgIGJvb2wgc2hhcmVkOw0KPiA+DQo+ID4g
+KyAgIGlmIChsaWtlbHkoYmFzZSkpIHsNCj4gPiArICAgICAgICAgICB2bSA9IGJhc2UtPnZtOw0K
+PiA+ICsgICAgICAgICAgIGJvID0gYmFzZS0+Ym87DQo+ID4gKyAgIH0gZWxzZSB7DQo+ID4gKyAg
+ICAgICAgICAgcmV0dXJuOw0KPiA+ICsgICB9DQo+ID4gKw0KPiA+ICsgICBpZiAobGlrZWx5KGJv
+KSkgew0KPiA+ICsgICAgICAgICAgIHNpemUgPSBhbWRncHVfYm9fc2l6ZShibyk7DQo+ID4gKyAg
+ICAgICAgICAgYm9fbWVtdHlwZSA9IGFtZGdwdV9ib19tZW1fc3RhdHNfcGxhY2VtZW50KGJvKTsN
+Cj4gPiArICAgfSBlbHNlIHsNCj4gPiArICAgICAgICAgICByZXR1cm47DQo+ID4gKyAgIH0NCj4g
+PiArDQo+ID4gICAgIHNwaW5fbG9jaygmdm0tPnN0YXR1c19sb2NrKTsNCj4gPiAgICAgc2hhcmVk
+ID0gZHJtX2dlbV9vYmplY3RfaXNfc2hhcmVkX2Zvcl9tZW1vcnlfc3RhdHMoJmJvLT50Ym8uYmFz
+ZSk7DQo+ID4gICAgIGlmIChiYXNlLT5zaGFyZWQgIT0gc2hhcmVkKSB7DQo+ID4gQEAgLTM1Myw2
+ICszNjcsOSBAQCB2b2lkIGFtZGdwdV92bV9ib191cGRhdGVfc2hhcmVkKHN0cnVjdCBhbWRncHVf
+Ym8NCj4gPiAqYm8pICB7DQo+ID4gICAgIHN0cnVjdCBhbWRncHVfdm1fYm9fYmFzZSAqYmFzZTsN
+Cj4gPg0KPiA+ICsgICBpZiAodW5saWtlbHkoIWJvKSkNCj4gPiArICAgICAgICAgICByZXR1cm47
+DQo+ID4gKw0KPiA+ICAgICBmb3IgKGJhc2UgPSBiby0+dm1fYm87IGJhc2U7IGJhc2UgPSBiYXNl
+LT5uZXh0KQ0KPiA+ICAgICAgICAgICAgIGFtZGdwdV92bV91cGRhdGVfc2hhcmVkKGJhc2UpOw0K
+PiA+ICB9DQoNCg==
