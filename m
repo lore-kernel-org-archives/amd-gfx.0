@@ -4,73 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79CBEC83F1B
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 21:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 996E3C83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 21:30:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B68310E2DB;
-	Fri, 11 Jul 2025 21:21:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 389A810E2ED;
+	Fri, 11 Jul 2025 21:30:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YhqMvpMO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4Pai+Mj8";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5355410E2DB
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 21:21:56 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-313336f8438so381516a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 14:21:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752268916; x=1752873716; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=riFSJk2LPfUMX5iTtCd2I9lCakapjSG53a35DB4KJy8=;
- b=YhqMvpMOUwyn0n9LGXsF2dJ8rNMehoQaHxj20qyhEocZXgDjRqvTUyvNtR/WkrQE0u
- S9cQAzwgEAfWA16XhqMryJBxM6eElI97D9X5AlTfYe594BFgHnWFXcQ/ZmjwLYv+mpvf
- SgAWuyCKRVduyW5m34zafViXNDIINBdtx/qZCsFbowa+ugj4KfxZzVqIncuVTL0iCgRv
- OpGLvfR7VCg73XPAqI+H/lT/YW0q4kqIx7jQ6P3HP2kOxCfR5sX3KvUvBLEDqGoPUN9V
- PsgAzu+fX7hSbqLFFxHfajlmmE33VThkew7uo+lXDstdB5TtFv2EaTjL6DwZ8XF+FmjS
- kwzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752268916; x=1752873716;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=riFSJk2LPfUMX5iTtCd2I9lCakapjSG53a35DB4KJy8=;
- b=KvauCK19G1tYHf1Bur3EreRZ7k54BMKS9TJ2s+UVJl6zQA8vAU1w3tnBKDxT5R0GQ4
- jA6CcPXzLkEhvXCsDK3OasT6K6c7KQMbVyf/h98664cJCHl687DKtAsJeSHcnuxLgv8F
- aK4LNpviHnio95UEOUuMDFVBUgFoYW7Hm8PNl0dQn2SyC1vOzqXnHTVWp8MnG+qKqQEf
- XAoahSJFsXSYCcOJJl1Y+TltVOCXcngQlo8fejmczFbK5ksFmaY5Yt/4zXZZbsU81vNy
- Tbshol/GMTRRfUk4h/+NRYb9BNtu1YS7kzgR6v8AR+/QCef+qiz+2swrwb513a2fWtWA
- TE2Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVIreKPql13VDM4WjZ6uhQvPVOByoAKrjcwCEvEni8RfQ/9m+qEiGU7RNdOhOAlcNMpah3bs1sU@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRoey51q6m0C8tU3tNwAaEZhtyjwEMzz8VED/3SkbwEUTm1vvr
- GIDr5WP5Xug/PGyiktuffOTT1Txo537L73IvjPW4x78N0SyZJlpzpyawIYDAAIvHTWgBrV8Rv61
- GzQRNnEuPVZr8nBWxHkgI7wNuVbKnb1bk1Q==
-X-Gm-Gg: ASbGncv8ffJI57DQ2LvfpqSicxZsXt+Xsp+doNvVWeg6npOG02IPeLF0pRCz0UNc4A7
- NrRJEYGlEqtd1Xhm1LdEbzgkjqXcEakA1XLxgtVtFmoFrpxfoJc/mI1nxdfDRmY+paq/t67owjg
- ueQAGzThqlotHpXWVodocVySowUgnOzcIr4QJjIc7m+ZpaXyXLPi3lLmm0hpEDcDYNzHkKLfDJh
- Ki8FSnKoCTsZIF5PLk=
-X-Google-Smtp-Source: AGHT+IHt/HBiYVuXto+BdRIeGoKjWqxG0hDvbTNIeBQOn/KsVvBo147KKsCq8blb2ii/CVKgoeOzobbfGBzwBBI2umA=
-X-Received: by 2002:a17:90b:1f91:b0:311:fde5:c4ae with SMTP id
- 98e67ed59e1d1-31c4f540cc2mr2594711a91.6.1752268915705; Fri, 11 Jul 2025
- 14:21:55 -0700 (PDT)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2040.outbound.protection.outlook.com [40.107.237.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D87E310E2E4;
+ Fri, 11 Jul 2025 21:30:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aECZZOL3XQU5K51YA1BNSqUZ+TeTpgfyCjEt3hK6AiB93OfOam2D0hGqH+bNRQgJl7oqm++9IWN2RB5ODrY7XRD5tR/TDcoed4sLHrbeG+e66ImO4Lp7Ii2jioHpyiFbZMaVFdYB1hbJS2fkSKEM30gSw7TdG8rjXGi3Zl9u+MIiKs3vIXQKDt3Wz2AN9XWGU8UwYflRUxcIuUUi8pkWt9gnDk8JHjT5CfVKTLV4gYbau6XvWcURZ4ib58ibNjwkqKTUF2E/opaS686SAO/521jxqyLiQ5m/tocv81DcANo6BNoDGMqLdT0suX/2tERLbUYgqsLg8reo0JKcitaJTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+rzDAzr1MBaXSOrtEoHbbDBbwwo2UfpfAhQWwYGA9BQ=;
+ b=HaYYyTqMBRlko5Ax8Ytds34XtRmy2jW1Ka9hesBwNY4jJHLZCMQ60WL0lHWa+troYCRYDAN0kNPgJBsD3fkkqbHHauHCC1r211qBWSHRb0gXe9GSKC8zDgbF/rtDMtlCyO/qKgbHgrUAH1MpF3Jk9dmEujzq5xYBMT4csw5SVLWySj2vH4/nPO/O6wXRZXNaaIxyDSdi/irzko9zVfZqGs8xepHWTrfNgg8Zi/yB37r9N78PazHBmcUSQpAX7KebCuQcLSI13ZINHbamSyfNM/DCYKKZ4ZxJHyPp8u1rL5X04SR//ICVKSpj4f7Y5geOKu6ciXhLr4XlTX4CoeIdsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+rzDAzr1MBaXSOrtEoHbbDBbwwo2UfpfAhQWwYGA9BQ=;
+ b=4Pai+Mj8X4kAts6ty+AbDsk7btbhrAcmkUIcbaeC44fxAKUPRgMcI6skBHeQZDQP7lhxy2hinMjFQ2deC7KTDIKHGpiVSuXUtD3UhbEpE6G90W/mpVGdhlHE6X5LWwb1TtllbhqnYdwVWYf431AHXwKU7J0C/kdnXU1e+UQZdzE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CYYPR12MB9015.namprd12.prod.outlook.com (2603:10b6:930:c8::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Fri, 11 Jul
+ 2025 21:30:40 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8922.023; Fri, 11 Jul 2025
+ 21:30:40 +0000
+Message-ID: <deafd2b4-0947-4588-bba6-81e5a072abf5@amd.com>
+Date: Fri, 11 Jul 2025 17:30:36 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdkfd: enable kfd on LoongArch systems
+To: Han Gao <rabenda.cn@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Xinmudotmoe <xinmu@xinmu.moe>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <ecedf70051b805c5cfdcc2b91f9304af24b3c3fd.1752043543.git.rabenda.cn@gmail.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <ecedf70051b805c5cfdcc2b91f9304af24b3c3fd.1752043543.git.rabenda.cn@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0296.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10e::12) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20250627143342.23856-1-alexander.deucher@amd.com>
- <20250627143342.23856-5-alexander.deucher@amd.com>
- <MW6PR12MB889876E593C85C19140D5581FB4BA@MW6PR12MB8898.namprd12.prod.outlook.com>
-In-Reply-To: <MW6PR12MB889876E593C85C19140D5581FB4BA@MW6PR12MB8898.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Jul 2025 17:21:44 -0400
-X-Gm-Features: Ac12FXyyhmhjrQFqBdyeYSelgi0mmovV-HLUKp7PaejfWvU9zxyvrAL9bgj-wvM
-Message-ID: <CADnq5_MqwSMNYR=fPs+Z-2KqA-OusB4ann2aiZHw-P_zrn7HiQ@mail.gmail.com>
-Subject: Re: [PATCH 5/6] drm/amdgpu: add support for cyan skillfish gpu_info
-To: "Yu, Lang" <Lang.Yu@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CYYPR12MB9015:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dae64f1-93c4-41c8-9fac-08ddc0c22ee5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y1hUdm9ZZS9VcG1rT2xXaEkrdHZDOHlNOWhhMHlpNnloREFWRHkwd3lmQTJ6?=
+ =?utf-8?B?L1ZIcmJJeVd4cFRtbTJ4MkhqSGw2MG1LTlFJQUJkVjMwemM1cGVHU0MveEM1?=
+ =?utf-8?B?bjlJNlZydkRpVTE1SkEwaVJ6bDc2Y01qejVKR3h1QVlxTHgrYXJOdEU2ZFpv?=
+ =?utf-8?B?QlJTK3VVTHdRYkg3a1hJQkRHd2k4T25ZMkhETExTUjY5WFFLZVU2N01hcWps?=
+ =?utf-8?B?OUdlQ00ydW5oNXptaWczY0ZYdEN6ZThFQVBPcm9uQi9Pd01yNU80cDk5NHpB?=
+ =?utf-8?B?SW0xeGtQVzlIUFJoK1gxaGlFMnJrUVEyRHRPQlpQeWwrUU9hZWlhNGpzQWFK?=
+ =?utf-8?B?TGlkOWx6djFkWjloS0d4Z1dyODdhM1Y0azNjYlBVcEkxc0dkb25vdklhUDd6?=
+ =?utf-8?B?S0pBL2VvQTlnQ0RiUWgzdXREeE9teVo4L2x6aWRGVG5WczhwOXRZa0IzY3Ew?=
+ =?utf-8?B?V2NUR21yRWxmOGVFVVp4ZUtDK1VqSFBlbzg2Vnc3R3BSaUlhQ3lLRG4zaExU?=
+ =?utf-8?B?TVljUHdnVGdvL3FqbFR0N3MxNXJOMmpHZ0lTS1Qzd2doK2h6d3ZtbStmZEZ3?=
+ =?utf-8?B?ZHUwVlpJbURrNDZCMlhMQk96cDFIYnllL3ZyOVZFMFZhREVZMlYyeFZWZjJt?=
+ =?utf-8?B?OUlTK2Nic0VEUFMybHhoZ253T1d4NG1oeDZPVG5xMVBsRHJrUUpTMjc3ZG0z?=
+ =?utf-8?B?R1h5M29sZEp6dGMyMkRsVU4zYU1JYTVjaHZ3WXA0R3ltNXdRNzFrZ2trZXFo?=
+ =?utf-8?B?UWtXaEI0WFN2WWtFbUpzNVpuT3VkSzI2c1g1dDEySm4vZmFQc3NPbXEyMHls?=
+ =?utf-8?B?bi9BWTBMeTMxL21YM2V6djd3TXFMRVRiLytCeDhCbXo1dENrQ1U5RlljeHlv?=
+ =?utf-8?B?a2lQQjVlTVFSS01JTW1FaXFjQ3VDZUNlWlhDdDRuYTcxNkQ3REZvb3RpVmhK?=
+ =?utf-8?B?WURYODlHT0ZCd0ZobjRReU1ZQlY3VitlWVM1cE1iSHF2M2VuMDJnQUprdzVH?=
+ =?utf-8?B?b2pDUnU5VTgxNjNGUHRrMHVaNVdJdXRqcWVXNGdRcDFqWFp1U3ozSVhidmU5?=
+ =?utf-8?B?VnpaVi9GRWNkTnhPMXRqR0hKUUgvSS9YcnJXOWJDNUZCYmtJNlNjMXBYSWZx?=
+ =?utf-8?B?akgxZEFnTi9hYnRERy9GZWlFQjQ3M05uSWZyZWtya2UrSlpZaDRKMUpDTVpW?=
+ =?utf-8?B?endDclUyZjVuTThzMlBOTGMyUDNUdzFjZzlnRGEyeWViaGdSUEk3TVdubEY4?=
+ =?utf-8?B?UTEyclpmZ2pmVCt3YUNxRG5xREszdDlkbU82NzJiRzN4Q29weVNWS1cwQmhu?=
+ =?utf-8?B?RHJ2eXJ6eVFCU0xCVGxVWWw4MkxwT044S3pRWC9NeGhaTmpLWHJUOTJsejJ0?=
+ =?utf-8?B?cHpFSGZVT084bUg2cFlTbUdsc0locUxtb1V0WndwOWhQdUdtODBvR2g1ZzR6?=
+ =?utf-8?B?RHJ0cFp5eGtmNzVVZ3JSMGRSaFpsMmlBZHF1R29oOTVzWDhKU29mdjFVU2h1?=
+ =?utf-8?B?aWpJZk9FbXQrV25tdkFkbWIwQ3dwbWR5bDhqMmVmSlJ2THphc3E4Z2I3cXIz?=
+ =?utf-8?B?dWE5bnZvdDcvbXdkWkpKUWdGcG1sbUJraTZGRTk1RXdQWlVoWlNGM1JlQXVy?=
+ =?utf-8?B?Z203N0FiYmw5Q01XVUpIelZoVlJtMVJrTlh0eTExWU0xaEpFbTQwTzFLdHRw?=
+ =?utf-8?B?TzVBSFVIU3pPalFydzRjbTZVbUhoTGZENVZUNE8vWXVERFdjbmUrenhNKzQ2?=
+ =?utf-8?B?NndjNHVCL3g5cjNkZHFqdEpQbCtlZ1NVdERyNEUxMkZPY1I0NmMybUIwM2tG?=
+ =?utf-8?B?SDhucVB2eHl6R1lQWU1uN2tCTmgvU2dMVGhOZ3hsdFhwZUh3N3Q1NHVDT1lz?=
+ =?utf-8?B?ZEZCejZpaVI1TWg3L0UrbFRkeWRvajNZTFpUWmtBSmJnbGozVUZzb2tneDdF?=
+ =?utf-8?Q?qcNy0Gxplgw=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnNWMEJVeFJaVzluOWlqZTV5NWRIODNNcWNPcHRrOGhwNEcvK2VZMlc4Q1RK?=
+ =?utf-8?B?UU9kcVRxVzI0czhzY2EzcXB1NmgwNjZjT2FDU1UwY09vRUdGS0pSK1c0OHpX?=
+ =?utf-8?B?STJ3NkNFazU0SWtEcGd6TzhjK3ZYTFgrUTBvQ05YbjdCRkFtL1YydlR3SlNU?=
+ =?utf-8?B?REhIWjUxT3R2VFlnTGwxdnlNWGtwQlFFeS9sak8rVkhpQ0UwMGhNaWpxaGJl?=
+ =?utf-8?B?TEdhQUladHgwSERSUHpneFY2M1hObmoxR3Bhd001aUV6MjhlZ1kwbUJzaURQ?=
+ =?utf-8?B?UWF0R2F5cGhSN2p6S1M0K2U0czFudk1CQkNqZkw2K1IrdUhJcC9Vb3BHWlc4?=
+ =?utf-8?B?NFQ2cG5iU3NtMjNGRHprblhGRGJ0dHNybFNvZTU2Y2dna29aTnllWXh4bG9C?=
+ =?utf-8?B?RDJSdHZUWDZISlNMc2pKUFQ1UTlnWmZmK0ZxM3cwdzZYVmpMcHFkZlF0bEVa?=
+ =?utf-8?B?bEtkNUpteXhJbnJTRTV2MVY4eWtDNkhSQXh4Z0FyTmtTcTlxMGhKbEsvcG16?=
+ =?utf-8?B?ejlia3NmaWN6KzAzZWpHeUpPemNaVUpOOEJHcFNnNjdHc05OdHJHNFR4bXNG?=
+ =?utf-8?B?OEdxQlc4TjltL2lEdlQzNmYwWkNBaG9JZzZQVnZsZWlHRmdCekhtTlE3VzBD?=
+ =?utf-8?B?OEFXa0hRdVZKNXk4Qk4xdWFXd2dEQnpUZmNsOEl3REgrWDFtZENZa3NSOXZz?=
+ =?utf-8?B?M3drZ2hDZHJrdTREZXdCZzlwa2V4SGZ3L0JDc0NYc1IrVG00MkhtRkFWQWl1?=
+ =?utf-8?B?VmRYZkNEd2N1MDBrMFNGNjF3TnZOQmwrWFRnaXJ2dHJNTmlmZnUxV2VMUVhQ?=
+ =?utf-8?B?TEZ3eW5sQnlDV3haZnVCaENUMU1OUUNIQkNVWWI2bVVLNXJ1aHFzbExlS3ht?=
+ =?utf-8?B?TVNKMUNvblVHTEVOVkJNQWdaNnQrTEJKZGE3aElYeU1Ra3ZpMmE4eHh1S1ov?=
+ =?utf-8?B?TjAyUXlIZ2Uwb1N3MHZ5MmJLakh2OStIcWdnMlBhQTVzREpUM0IzS2xtUFdo?=
+ =?utf-8?B?aGtDUExvTkhJd25PRTBkZnBJMXc5WDJPdnU0dTZCZkEvOTNZYlo5ZTJrNFlY?=
+ =?utf-8?B?alRJVTJJejNPSzhMUVFsdXJYS3pjbnBreDllWlM5WmxEc0wxZXhhajRQRkpr?=
+ =?utf-8?B?aXZteE14aUtQQnVndFB2UE9wajlwMTFya1hjQ3hkSzJ4STR2NUFrYjF0cDdk?=
+ =?utf-8?B?R0pKSjVocjlqbitNSWMzMGU2bFBKU2MraEZlUVhGVE1PVTlqK0ZISE9CK2VO?=
+ =?utf-8?B?YW4wOGIxM2ZINlh5cTY4eDI2RmZrWksyREVIelU5RzlXSUlNZDVIa3FuSjNP?=
+ =?utf-8?B?eW5JQXZ3ZzF4YS83RjVYeVd1b2ZiQWVtWGdZL3RNZ3J1bWJ3UE5XVFRlWE1Y?=
+ =?utf-8?B?ZUNzZnBoNHhvQ2NCSXFJVVNKZStkUDlWVm5EQm81d1phYjY5TWoxLzRHOC8z?=
+ =?utf-8?B?cG5VVWVtODNhUDVxczVnK1preHZ6M3Z1ZWFhWVYrWjhjcnpvQnZJQkhEWHdV?=
+ =?utf-8?B?WmI3azF0UWI2ZUNkRmYvaFU4NHlwVWs1ZTJvc0NoTkNpQnRBb2k5b0pTbVVn?=
+ =?utf-8?B?Zk0vcGIxbVF2QUFJNEp0QXJ0Z2kxT3JnWWxvN2pkZFVURVdlN0hLK3NadVln?=
+ =?utf-8?B?UDZZcUlnWlhDQ0NMaDZldHVELzlZKzluN2pjcDdSem40TjNkQk1TTGJaMWls?=
+ =?utf-8?B?elhhTGc1SWhPRWNHK2hkWFBPK05ldFFlcmJDeEEwMitlU0d0QVVJTG1tbGVF?=
+ =?utf-8?B?Rm51QzR0V1JobERHNC9zaWVNaXpMczM0Wmo3c2d4Ti94aS9ZdTNWdE05RjZO?=
+ =?utf-8?B?MTBtMXlSLzFBMlQrYTI5TlNMa3pBTUd2MmtzQW9DYVRURU5aaUNQclI5RlEv?=
+ =?utf-8?B?cUlvWkVCdjZjSjZoZFNmM1Q5ZFJMejRZWFFsWXNST2VxOHFvb29EYnk4VWly?=
+ =?utf-8?B?bkJVL09LWVFZTWRVNDBYNGNROHVsWVpEcDlUdUtTLytPamdFSS9QRzBnd2FB?=
+ =?utf-8?B?MHU1dk94NGpiMkxQYit3bis2Tks0MHhKNVFNK0JoWlJpY1dtTVp3UHNwaHpM?=
+ =?utf-8?B?Qm1VZHVqcVhmdFlVdmFJdmJ3TDQzekFtN2JweTZUOUpMeDZPRXJFOUJ1ZWJO?=
+ =?utf-8?Q?RTN9JdVlho6+j1geDBDYcLjNt?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8dae64f1-93c4-41c8-9fac-08ddc0c22ee5
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2025 21:30:40.1031 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8YXmTL12GFF/+k2Na17MarVFSOVq8tLxPhUvgHomICvm5rToARWbwFRn5vOMw8D8dsANkwWxriTWODwiUc2lKA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB9015
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,70 +164,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 11, 2025 at 6:38=E2=80=AFAM Yu, Lang <Lang.Yu@amd.com> wrote:
->
-> [Public]
->
-> >-----Original Message-----
-> >From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex =
-Deucher
-> >Sent: Friday, June 27, 2025 10:34 PM
-> >To: amd-gfx@lists.freedesktop.org
-> >Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> >Subject: [PATCH 5/6] drm/amdgpu: add support for cyan skillfish gpu_info
-> >
-> >Some SOCs which are part of the cyan skillfish family rely on an explici=
-t firmware for
-> >IP discovery.  Add support for the gpu_info firmware.
-> >
-> >Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >---
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
-> > 1 file changed, 4 insertions(+)
-> >
-> >diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >index d1b122090b3d8..758e51505b3c7 100644
-> >--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >@@ -95,6 +95,7 @@ MODULE_FIRMWARE("amdgpu/picasso_gpu_info.bin");
-> > MODULE_FIRMWARE("amdgpu/raven2_gpu_info.bin");
-> > MODULE_FIRMWARE("amdgpu/arcturus_gpu_info.bin");
-> > MODULE_FIRMWARE("amdgpu/navi12_gpu_info.bin");
-> >+MODULE_FIRMWARE("amdgpu/cyan_skillfish1_gpu_info.bin");
-> >
-> > #define AMDGPU_RESUME_MS              2000
-> > #define AMDGPU_MAX_RETRY_LIMIT                2
-> >@@ -2603,6 +2604,9 @@ static int amdgpu_device_parse_gpu_info_fw(struct
-> >amdgpu_device *adev)
-> >       case CHIP_NAVI12:
-> >               chip_name =3D "navi12";
-> >               break;
-> >+      case CHIP_CYAN_SKILLFISH:
-> >+              chip_name =3D "cyan_skillfish1";
-> >+              break;
-> >       }
->
-> It would be better to name it "cyan_skillfish" which follows the name con=
-vention.
-> E.g., raven/raven2, phoenix/phoenix2, cyan_skillfish/cyan_skillfish2.
 
-Will fix that up.
-
+On 2025-07-09 02:51, Han Gao wrote:
+> KFD has been confirmed that can run on LoongArch systems.
+> It's necessary to support CONFIG_HSA_AMD on LoongArch.
 >
-> Do you need to parse its name in amdgpu_ucode_legacy_naming()?
+> Signed-off-by: Han Gao <rabenda.cn@gmail.com>
 
-Not at the moment, but we will need it once we add support for the
-individual firmwares.
+Thank you. I'm applying this patch to amd-staging-drm-next.
 
-Alex
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
+
+> ---
 >
-> Regards,
-> Lang
+> Changes in v2:
+>    Add 64BIT
 >
-> >
-> >       err =3D amdgpu_ucode_request(adev, &adev->firmware.gpu_info_fw,
-> >--
-> >2.50.0
+> v1: https://lore.kernel.org/amd-gfx/56e7ec54-9820-4e02-be97-2a9e1dedd117@amd.com/T/#t
 >
+>   drivers/gpu/drm/amd/amdkfd/Kconfig | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
+> index 62e88e5362e9..16e12c9913f9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+> @@ -5,7 +5,7 @@
+>   
+>   config HSA_AMD
+>   	bool "HSA kernel driver for AMD GPU devices"
+> -	depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64 || (RISCV && 64BIT))
+> +	depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64 || (RISCV && 64BIT) || (LOONGARCH && 64BIT))
+>   	select HMM_MIRROR
+>   	select MMU_NOTIFIER
+>   	select DRM_AMDGPU_USERPTR
