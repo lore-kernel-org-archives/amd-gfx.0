@@ -4,75 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79481C83F1B
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 21:11:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79CBEC83F1B
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 21:21:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21C5410E135;
-	Fri, 11 Jul 2025 21:11:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B68310E2DB;
+	Fri, 11 Jul 2025 21:21:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zaf+I6XL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YhqMvpMO";
 	dkim-atps=neutral
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE92110E135;
- Fri, 11 Jul 2025 21:11:11 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-b3510c22173so373403a12.0; 
- Fri, 11 Jul 2025 14:11:11 -0700 (PDT)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5355410E2DB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 21:21:56 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-313336f8438so381516a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 14:21:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752268271; x=1752873071; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1752268916; x=1752873716; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0Id33Mh0yn//Z70R8X33hXzajTyy941nJMPZubqNqXg=;
- b=Zaf+I6XLkr3S5zOzZUoBSi+hy+mzo4qjh1mr2x0d2wfgIb5U+T1Ni1yF0KJxCdqzlp
- EVj2WZGCf5H82J9M5L9gvhM74ZAxkK+PywzI4LNC60RfWmgm1PmgBXOKAy0puJVHCNaj
- iCJpcz17i/xGa/lDzLDwLoO21NQWvDamZUDw+DWc14FUkX7tMxEmJsreG+wbhpMNlO6S
- P8s343nCNVEiUR8DqklBl0kd+1cI7KMosHCnFmqvs9oK5Jv5WRSiqWtzOV4LbEThuW/1
- kaTHuQZvy9/ZD0s1QQrJFXFaZYBXLsUJS6YzUD5wZIxwCKxiLxxMJDRdccyIfwqgdNmm
- Y5vQ==
+ bh=riFSJk2LPfUMX5iTtCd2I9lCakapjSG53a35DB4KJy8=;
+ b=YhqMvpMOUwyn0n9LGXsF2dJ8rNMehoQaHxj20qyhEocZXgDjRqvTUyvNtR/WkrQE0u
+ S9cQAzwgEAfWA16XhqMryJBxM6eElI97D9X5AlTfYe594BFgHnWFXcQ/ZmjwLYv+mpvf
+ SgAWuyCKRVduyW5m34zafViXNDIINBdtx/qZCsFbowa+ugj4KfxZzVqIncuVTL0iCgRv
+ OpGLvfR7VCg73XPAqI+H/lT/YW0q4kqIx7jQ6P3HP2kOxCfR5sX3KvUvBLEDqGoPUN9V
+ PsgAzu+fX7hSbqLFFxHfajlmmE33VThkew7uo+lXDstdB5TtFv2EaTjL6DwZ8XF+FmjS
+ kwzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752268271; x=1752873071;
+ d=1e100.net; s=20230601; t=1752268916; x=1752873716;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0Id33Mh0yn//Z70R8X33hXzajTyy941nJMPZubqNqXg=;
- b=WVed0EOgqlCycP830qBdMxzQpWwQXF785VIYFmtGVzvep9P7PRp4eVbTy9Hyqf1XUN
- PSZ1qCYtfu9Oom1PpBNlq3Ok0W5rJG4B04PoAOx+khhxsUcCqTGCNRJX546mBrQq+2/t
- khuxmY9qin21S2Dg6DuR04Wv9yC4nhyPO3GJ96xd40F+jgOlSijbM6gMOZzStz1I4cgg
- YvlJ1oDAT0rO8kq9kqpmaBir6Qf3jrP5Q5DFigKdl/tmsCjAf9tc4P02ziwsd9JqkaH6
- j5FK1gyQ673jGPRNIEn0/LAlzNXuCeaRlQ6SpT1tKti7H/z8Mg/1lEaYEAtMEexpWHnb
- S8Ww==
+ bh=riFSJk2LPfUMX5iTtCd2I9lCakapjSG53a35DB4KJy8=;
+ b=KvauCK19G1tYHf1Bur3EreRZ7k54BMKS9TJ2s+UVJl6zQA8vAU1w3tnBKDxT5R0GQ4
+ jA6CcPXzLkEhvXCsDK3OasT6K6c7KQMbVyf/h98664cJCHl687DKtAsJeSHcnuxLgv8F
+ aK4LNpviHnio95UEOUuMDFVBUgFoYW7Hm8PNl0dQn2SyC1vOzqXnHTVWp8MnG+qKqQEf
+ XAoahSJFsXSYCcOJJl1Y+TltVOCXcngQlo8fejmczFbK5ksFmaY5Yt/4zXZZbsU81vNy
+ Tbshol/GMTRRfUk4h/+NRYb9BNtu1YS7kzgR6v8AR+/QCef+qiz+2swrwb513a2fWtWA
+ TE2Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVsnqJ/9Xc7Sc5wjV42r7ah7AJECGQqcQMNh/nmoYT9GicTdxfGcrRaIxDzWxNnyfyIM02fTk2q@lists.freedesktop.org,
- AJvYcCWczKD/RikKOCuqwm+eLAP5a3JhdBEKRi7t/2MPgTheMNpSOYzd6BG5eR5z/m43sO7Dmmbl2e/blrOT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywa5fTIc1IxIgZpb8f3rOJpzVPVOpXQUHZWYVPlvudLY+NO1KZX
- TNSUGWf4W1YbbLQZYyd/yTx5BPpbp90eqg5Ixg055Eq5YknrFJLj91iOV4uesE13++9tlAc4pif
- BuEluk0F08LOxW/lm2FhMOT4DYxMe6pM=
-X-Gm-Gg: ASbGncvELUy6HcruTAGV6TCPmRFl0lu46hCtbHW80WTmSjs97jLS0ZoYEqSk628izpC
- QNpXnglNZAS9XPqeBgMSHbAXWZkrWTzY7NZLKCIwGL/AB+1+W6oTUC8yFd60XBhDtROA8BMQxCT
- 0M1TdDFodptpDYVdCSO/X6R2FWjbZYNYcRV0l9wP0gAeejZa3/JFWI7klGPs8uHJzOs4ThazGI4
- cgzihdj
-X-Google-Smtp-Source: AGHT+IGpJSVp1KJC67mP9tYUlD7o9SFm9SGP4FrEtk5U5U6aBHi9jNnu7oPx4ia9y9djde5+J/vRTWXyDwi9eXTEhj0=
-X-Received: by 2002:a17:90a:e7d0:b0:311:c939:c842 with SMTP id
- 98e67ed59e1d1-31c4cd1cd40mr2250510a91.7.1752268271234; Fri, 11 Jul 2025
- 14:11:11 -0700 (PDT)
+ AJvYcCVIreKPql13VDM4WjZ6uhQvPVOByoAKrjcwCEvEni8RfQ/9m+qEiGU7RNdOhOAlcNMpah3bs1sU@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyRoey51q6m0C8tU3tNwAaEZhtyjwEMzz8VED/3SkbwEUTm1vvr
+ GIDr5WP5Xug/PGyiktuffOTT1Txo537L73IvjPW4x78N0SyZJlpzpyawIYDAAIvHTWgBrV8Rv61
+ GzQRNnEuPVZr8nBWxHkgI7wNuVbKnb1bk1Q==
+X-Gm-Gg: ASbGncv8ffJI57DQ2LvfpqSicxZsXt+Xsp+doNvVWeg6npOG02IPeLF0pRCz0UNc4A7
+ NrRJEYGlEqtd1Xhm1LdEbzgkjqXcEakA1XLxgtVtFmoFrpxfoJc/mI1nxdfDRmY+paq/t67owjg
+ ueQAGzThqlotHpXWVodocVySowUgnOzcIr4QJjIc7m+ZpaXyXLPi3lLmm0hpEDcDYNzHkKLfDJh
+ Ki8FSnKoCTsZIF5PLk=
+X-Google-Smtp-Source: AGHT+IHt/HBiYVuXto+BdRIeGoKjWqxG0hDvbTNIeBQOn/KsVvBo147KKsCq8blb2ii/CVKgoeOzobbfGBzwBBI2umA=
+X-Received: by 2002:a17:90b:1f91:b0:311:fde5:c4ae with SMTP id
+ 98e67ed59e1d1-31c4f540cc2mr2594711a91.6.1752268915705; Fri, 11 Jul 2025
+ 14:21:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <366557fa7ca8173fd78c58336986ca56953369b9.1752087753.git.christophe.jaillet@wanadoo.fr>
-In-Reply-To: <366557fa7ca8173fd78c58336986ca56953369b9.1752087753.git.christophe.jaillet@wanadoo.fr>
+References: <20250627143342.23856-1-alexander.deucher@amd.com>
+ <20250627143342.23856-5-alexander.deucher@amd.com>
+ <MW6PR12MB889876E593C85C19140D5581FB4BA@MW6PR12MB8898.namprd12.prod.outlook.com>
+In-Reply-To: <MW6PR12MB889876E593C85C19140D5581FB4BA@MW6PR12MB8898.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Jul 2025 17:10:59 -0400
-X-Gm-Features: Ac12FXwGI8TSVukgGWSUQp6H1YscPS-pE-fH7frUdLlnr1VDrWuzrJq-3B0vZ2Y
-Message-ID: <CADnq5_MX6jkkgKTTkZY=M9btZPdVmSSs9siEJ9E8b=tz21MCZw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix missing unlocking in an error path in
- amdgpu_userq_create()
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sunil Khatri <sunil.khatri@amd.com>, 
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Fri, 11 Jul 2025 17:21:44 -0400
+X-Gm-Features: Ac12FXyyhmhjrQFqBdyeYSelgi0mmovV-HLUKp7PaejfWvU9zxyvrAL9bgj-wvM
+Message-ID: <CADnq5_MqwSMNYR=fPs+Z-2KqA-OusB4ann2aiZHw-P_zrn7HiQ@mail.gmail.com>
+Subject: Re: [PATCH 5/6] drm/amdgpu: add support for cyan skillfish gpu_info
+To: "Yu, Lang" <Lang.Yu@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,47 +85,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 9, 2025 at 3:28=E2=80=AFPM Christophe JAILLET
-<christophe.jaillet@wanadoo.fr> wrote:
+On Fri, Jul 11, 2025 at 6:38=E2=80=AFAM Yu, Lang <Lang.Yu@amd.com> wrote:
 >
-> If kasprintf() fails, some mutex still need to be released to avoid locki=
-ng
-> issue, as already done in all other error handling path.
+> [Public]
 >
-> Fixes: c03ea34cbf88 ("drm/amdgpu: add support of debugfs for mqd informat=
-ion")
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> >-----Original Message-----
+> >From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex =
+Deucher
+> >Sent: Friday, June 27, 2025 10:34 PM
+> >To: amd-gfx@lists.freedesktop.org
+> >Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> >Subject: [PATCH 5/6] drm/amdgpu: add support for cyan skillfish gpu_info
+> >
+> >Some SOCs which are part of the cyan skillfish family rely on an explici=
+t firmware for
+> >IP discovery.  Add support for the gpu_info firmware.
+> >
+> >Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >---
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+> > 1 file changed, 4 insertions(+)
+> >
+> >diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >index d1b122090b3d8..758e51505b3c7 100644
+> >--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >@@ -95,6 +95,7 @@ MODULE_FIRMWARE("amdgpu/picasso_gpu_info.bin");
+> > MODULE_FIRMWARE("amdgpu/raven2_gpu_info.bin");
+> > MODULE_FIRMWARE("amdgpu/arcturus_gpu_info.bin");
+> > MODULE_FIRMWARE("amdgpu/navi12_gpu_info.bin");
+> >+MODULE_FIRMWARE("amdgpu/cyan_skillfish1_gpu_info.bin");
+> >
+> > #define AMDGPU_RESUME_MS              2000
+> > #define AMDGPU_MAX_RETRY_LIMIT                2
+> >@@ -2603,6 +2604,9 @@ static int amdgpu_device_parse_gpu_info_fw(struct
+> >amdgpu_device *adev)
+> >       case CHIP_NAVI12:
+> >               chip_name =3D "navi12";
+> >               break;
+> >+      case CHIP_CYAN_SKILLFISH:
+> >+              chip_name =3D "cyan_skillfish1";
+> >+              break;
+> >       }
+>
+> It would be better to name it "cyan_skillfish" which follows the name con=
+vention.
+> E.g., raven/raven2, phoenix/phoenix2, cyan_skillfish/cyan_skillfish2.
 
-@Christian Koenig @Sunil Khatri can you pick this up for drm-misc?
+Will fix that up.
 
-Thanks,
+>
+> Do you need to parse its name in amdgpu_ucode_legacy_naming()?
+
+Not at the moment, but we will need it once we add support for the
+individual firmwares.
 
 Alex
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 513bbc543f40..bce97318965c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -520,8 +520,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm=
-_amdgpu_userq *args)
->         }
+> Regards,
+> Lang
 >
->         queue_name =3D kasprintf(GFP_KERNEL, "queue-%d", qid);
-> -       if (!queue_name)
-> -               return -ENOMEM;
-> +       if (!queue_name) {
-> +               r =3D -ENOMEM;
-> +               goto unlock;
-> +       }
->
->         /* Queue dentry per client to hold MQD information   */
->         queue->debugfs_queue =3D debugfs_create_dir(queue_name, filp->deb=
-ugfs_client);
-> --
-> 2.50.0
+> >
+> >       err =3D amdgpu_ucode_request(adev, &adev->firmware.gpu_info_fw,
+> >--
+> >2.50.0
 >
