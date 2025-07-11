@@ -4,71 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1210C83F1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 22:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51645C83F1B
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 22:40:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6799E10E2EC;
-	Fri, 11 Jul 2025 22:35:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8C1710EAD5;
+	Fri, 11 Jul 2025 22:40:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gsL//Qet";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5XL4rub3";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFDBE10E2EC
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 22:35:21 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-31384c8ba66so513608a91.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 15:35:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752273321; x=1752878121; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=APQp9NUXICQOsRMmGXlqQUazhUvOA8vqpsj9shidyvU=;
- b=gsL//QetDFAVPEugZgwgBfos8wBDvTeyfu8bwccmyAuzCISFs/yJEr4RTFvAwiClzx
- ScKqOz576qc53A+4uIP6QQjbk6dtxm1R0rKZUeIpysv6NFIa90LHXSBjGmQjumV15mln
- HI/OD8N6eDaQ2adHq+HOCUveOPDlnAjtHpRlpVRtIL7IM0iyJrbB/P2l+xU9YSFW8+yH
- nUQW/r9NPHGWqEaMea39WlSKsaOKaeeoClqi8GFMf+VltAH3upS755l9t9uTqNRkIn+L
- aBum4Ht28ksjtfaCQj5P3M9OJ8DR3WLziMsNtQfO5F5kxCSJLLGjOWuXLowBFf1szzUW
- XnHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752273321; x=1752878121;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=APQp9NUXICQOsRMmGXlqQUazhUvOA8vqpsj9shidyvU=;
- b=nWA0MsIa33y0sznoTbyjWVjBv8xCx4h6UUMX1SblnIxPPVoTtZv4IX5dkYUmjI/xKx
- StkgzOuBhCELS/G6OC8nkoKyBbJIWZH3FfWuqb8r69/Tyjfa1j05zEk71K8Vcw9hPD50
- PoReFeTTMVT8WeQCy0YRmE9xY+fyFI3G8VFx2mPHCYXYWiIBihI28Eui7yUptx86gHfY
- 8lmgP7xVeW+r5tEFs7dsyQKCur3vqBfB7Xbp7JAfEJWzqCv4gzOndyjPByT0Tryn0/fC
- ezm51qQYEIcpOJR9Tvz82ja3S4cDh0kN5/JjCAu9QCbBkRxWOF6+whM9XebPGIUjyIUV
- xfNA==
-X-Gm-Message-State: AOJu0YwavQr2/AViOJpMIekb79scEQmTrBuL9bE8oUVYSsT5N282iz9q
- sNJ25QleRG7fl4R9KS2FYPY0vYWNVZlJBNxQ2dxIg3cfHckfR6Qbc5bdPybeLBuH6CaPhAIpgC2
- 7f78uvCHwGJQeQxCLrdvFZaHyjT/zrfo=
-X-Gm-Gg: ASbGnctWyPlLeWMZoN5TScN1Xh2UARyCZFi/1fJf6+A5sN1ombh7V5atB2AcMxGCpNt
- HzAa7hv2s9gaZqSaSp/AFTvuk1+dm3A1oua8AMtbw3GA9oujpSA/BlgX6r+6VS83z8JDcwIdd5y
- tjQvfGcgFOsekty72nPz0APGh1H/wSnpQf6a4KBU27lgmZ1iNbfImCQyRVc/U+pAjx+XrEZCkzE
- af5U2IS
-X-Google-Smtp-Source: AGHT+IGXj9E5bLhbb8j0z/xr5ZoSt1G5rzKlH408DrERwMFttHK5AyaWfJFsWh53aqzf3M7z0QoGJeWG60iCnDFjiWs=
-X-Received: by 2002:a17:90b:3512:b0:312:e76f:520f with SMTP id
- 98e67ed59e1d1-31c4f56e8e2mr2185383a91.8.1752273321028; Fri, 11 Jul 2025
- 15:35:21 -0700 (PDT)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2080.outbound.protection.outlook.com [40.107.236.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24C4010EAD5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 22:40:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iDdIOOYlAXb09vVxzQBRzUTwhP7JauFUyLTM4QcTG5JQiESDRLbdUWwtfLiw2e/5TrXfEYknnqvJ0TdfAAtuDk+J6RIE5MliIeN47snT1mvtWZytNsE0E0oHsGsMGJyv+Fg7VTl2hx5pj4sAnzUu7Mu9/ckVcPO0cXTQksvo9jHRFQgZjK5Ycczae86fmBP/pT0ZY9XfmEzx1xGVYphP/wu059Z+dZZH4J7mJQJ1BMa412Jxntr/JOomeyae5H1HC9UjZ9zWkdOrF/xvjjMHIYOA8ovtNjMhlMKYeYnLtHl0zZBRl1jDkECVacqAm4EhqRvcdXkkV5ZVQUxu5+lZTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ij1udK/K6ROCspEkzCIILI+oppZ++51Ayp93nb2SkNM=;
+ b=YxGu7MiiXMpNDD2NWHfm0cKkdtMZ+LAJaKgSyKW9UhikNeXOUIwwUvAn1ISdSxUYvvGtF13/xxeZ4b/uUlVq5UfnS/NWLRwI/PyvgOstGVDxV47vQqQWl5Uhowj4w0Y11NxEXOILd4eZ6R6OKmpy4oinnE8pymsd+gf74URquHqAIbAazD/p12g+ezZlkPtFgrDrZhueTy2bzXrrvogC7CnhdoYj9S7WhVFCZ641a2B/ZgmCoIPyPAtRhcuvjKoGneBzMzZfuIsmjQBMTcVAvV+9SpsmOaVGq75giYdAK78hpDT8Pu20trpl7ab6/d85wlzTiVxO4gVdo9BsPfm2SQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ij1udK/K6ROCspEkzCIILI+oppZ++51Ayp93nb2SkNM=;
+ b=5XL4rub3LS8qvTyip62mbDoXwLBJfJjrsXJUsRmuVd0NJhSoEcGMstVAw8J0scWbJQIuwG08bkYxxEyUoQHeU7+fnlGPLOk9YelNXh9b1jOmyr5ak2g3ZEsqriIdsPipYFBOPI4K91l0vn/46fnhjvRQ4/MhnPrwiFZHZMA75VM=
+Received: from BYAPR01CA0055.prod.exchangelabs.com (2603:10b6:a03:94::32) by
+ MN0PR12MB6365.namprd12.prod.outlook.com (2603:10b6:208:3c2::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Fri, 11 Jul
+ 2025 22:40:41 +0000
+Received: from CY4PEPF0000E9D5.namprd05.prod.outlook.com
+ (2603:10b6:a03:94:cafe::de) by BYAPR01CA0055.outlook.office365.com
+ (2603:10b6:a03:94::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.26 via Frontend Transport; Fri,
+ 11 Jul 2025 22:40:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D5.mail.protection.outlook.com (10.167.241.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8922.22 via Frontend Transport; Fri, 11 Jul 2025 22:40:40 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 11 Jul
+ 2025 17:40:38 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
+ <sasundar@amd.com>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 01/33] drm/amdgpu: clean up sdma reset functions
+Date: Fri, 11 Jul 2025 18:39:52 -0400
+Message-ID: <20250711224024.410506-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.50.0
+In-Reply-To: <20250711224024.410506-1-alexander.deucher@amd.com>
+References: <20250711224024.410506-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-References: <20250711083558.1372311-1-jesse.zhang@amd.com>
-In-Reply-To: <20250711083558.1372311-1-jesse.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Jul 2025 18:35:09 -0400
-X-Gm-Features: Ac12FXybv4mUiMdT4XC6BH1fZOhPTUvMl53GEWIo8KflWLaNU0dwbT-TKH_TqRU
-Message-ID: <CADnq5_NrOASWfXg+Ofx3AB9MiVo2sNoQmUeffY6PoeWPDU6RLg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add atomic CPU-GPU clock counter correlation
-To: Jesse Zhang <jesse.zhang@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, 
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>, lijo.lazar@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D5:EE_|MN0PR12MB6365:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca134edf-9deb-4662-527e-08ddc0cbf6a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lvXG5vhYHOl1H1C28mn6GpBa4xPOLUKiiG1fW8vKXIMr+0W2KAVmjQ7gPvRp?=
+ =?us-ascii?Q?XlzumgmirlwsDw3JY4iUo4Rj36+blTCc1v/jac/gfGstLjDQFB8t36/nljf8?=
+ =?us-ascii?Q?10ZGxaiIMBFCr+hneOI5FEYpd8JE1QAZgqOMRPZORNzvnKvG85wkLUJeJ6Nh?=
+ =?us-ascii?Q?fhKUHXSmM6h3CJHzwXgOXdQtbKPpuu3CosOVk5a0hXSuf1tDsnb4QZALMGgq?=
+ =?us-ascii?Q?cu0ML5zXWkFjsedE4jDTG+BCHyKF9V5Sty+a5qCslV/JCJcjKYXK5SLsq9Zz?=
+ =?us-ascii?Q?nSNgi3F/UFYWVobNQ16l4y62ZP15WdxWXtt/aqqgwcTAiTATABU0bl4tPF1X?=
+ =?us-ascii?Q?ApbWg/m3HMJrYRnH0BABvRIaPafdzvoLZVHIV61OFGXA5s9clONKJ4e+bbnL?=
+ =?us-ascii?Q?wnkQoc+iZgzFBtQZcQcc2SMV3HmebNFpp77L+1W90K5U2lyVs3BAxmpGVinQ?=
+ =?us-ascii?Q?+sEch5VzdWFEZ4g0BkCUhyyVyw7vQVE7TQpK9Qz3k6BUI0C9dFSDjaKLHysV?=
+ =?us-ascii?Q?r2yTSe+TCWKwyBivd0U+0m90kOUl7NJ6KsBsOXvKXNIef0NNlRLSATH+GvsF?=
+ =?us-ascii?Q?JfrOy3vnAr7u3qyDjnWlann1F0C4P+PX15SFNpbM/zmB7TGv9c8RsvF4ZCfs?=
+ =?us-ascii?Q?DGGrNohbeU0k5biXlPDdeexwOiNSplgYy77OuEPlDCw2kcDrhsNFPS063Z6O?=
+ =?us-ascii?Q?0uTEbl6FzHEMjavK1Aanpw6sQo3AH8J5D5XT8IqMLMvD45BWl5pljSp28nkG?=
+ =?us-ascii?Q?5SUUZ6tQWtneUeSp9ATyVv0b9P1JadU0A743epUJ8VTYp0bhiHa6QxO7fLon?=
+ =?us-ascii?Q?aOlgmy0QXubCMdTNR4Y39cyqPusdN7JNMaslTlcPi4UuSFC7c4GMzGVZGHZ0?=
+ =?us-ascii?Q?ZX/URvSBqtLRhglvHmCYeEPCwXJ6cEaXhM4BeIDKdiuEREp7FaoRPjNzdAZH?=
+ =?us-ascii?Q?/DwNXCmFGDWMJmX0df58mY0OUuORfCMN7wj51G/1OACK3zQWtJVy9qE4qqa/?=
+ =?us-ascii?Q?eGyhn+HfLP+97XcbydsWxZPe5Uhc5tkM9ceEbj+u+CC9qWjcHPQiZxer7eo4?=
+ =?us-ascii?Q?sn/ggJrfkBrDCv2fAQZeJvxkM5qea3t1IPWal4PYEvJpz0Qy0erOMbbGGvQp?=
+ =?us-ascii?Q?14fIcS7aACt0737o4/vzMkqqpe7xP1lwqbbd3cR3QlAv7T3bo3BZG2JGk/pl?=
+ =?us-ascii?Q?02rmw0FtWsd3oxBwAQV+au93t5X+IRtOPhcx6rpwnLsVKbHpKFCNRytN58MY?=
+ =?us-ascii?Q?ccWrKNsJ/2egzlCHLHaIDvqItd8kXuzo2dGmt8okvHMIGRRJhJpgCUwVOgV2?=
+ =?us-ascii?Q?6GNwdYKqUIId71X7t3Aj785PXIIvBBob3KRFR80wLv8nigJpG4UcLvT+Ags6?=
+ =?us-ascii?Q?59t9xqH0SPfLqSiVHn/YLvxG6uShSQQOWgYs2czXx8BZL2lejSEYq+Ff+8wL?=
+ =?us-ascii?Q?1wAchhaBZV7iuPHTNLgnjnnHG9knwqZdC2vQkcllUfddK9z2sfHRA7H8bW1Z?=
+ =?us-ascii?Q?ireSXiGD+KXwEprCYdwj5SjNEApDWepxpYda?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2025 22:40:40.4686 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca134edf-9deb-4662-527e-08ddc0cbf6a8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6365
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,153 +133,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 11, 2025 at 5:13=E2=80=AFAM Jesse Zhang <jesse.zhang@amd.com> w=
-rote:
->
-> This patch introduces a new IOCTL to provide tightly correlated
-> CPU and GPU timestamps for accurate performance measurements
-> and synchronization between host and device timelines.
->
-> Key improvements:
-> 1. Adds AMDGPU_INFO_CLOCK_COUNTERS query type (0x06)
-> 2. Implements atomic sampling of clocks with:
->    - preempt_disable()
->    - local IRQ disabling
->    - GPU timestamp sampled first (higher latency)
->    - CPU timestamps sampled immediately after
-> 3. Provides three correlated clocks:
->    - GPU clock counter (ns)
->    - CPU raw monotonic time (ns)
->    - System boottime (ns)
-> 4. Includes system clock frequency (1GHz) for reference
->
-> The implementation addresses the need for precise CPU-GPU
-> timestamp correlation in ROCm applications, particularly for:
-> - Performance analysis tools
-> - Compute pipeline synchronization
-> - Graphics/compute interoperability
-> - Low-latency VR/AR applications
->
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 44 +++++++++++++++++++++++++
->  include/uapi/drm/amdgpu_drm.h           | 19 +++++++++++
->  2 files changed, 63 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index 931c52c918c4..8412c88aada9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -595,6 +595,43 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *a=
-dev,
->         return 0;
->  }
->
-> +/**
-> + * get_cpu_gpu_counters - Atomically sample CPU and GPU clocks
-> + * @adev: amdgpu device pointer
-> + * @args: structure to store clock counters
-> + *
-> + * Samples CPU and GPU clocks as close to simultaneously as possible
-> + * by disabling preemption and interrupts during the sampling.
-> + * Returns 0 on success.
-> + */
-> +static int get_cpu_gpu_counters(struct amdgpu_device *adev,
-> +                               struct drm_amdgpu_info_clock_counters *ar=
-gs)
+Make them consistent and drop unneeded extra variables.
 
-prefix this function with amdgpu_ for consistency.  Other than that,
-it looks good to me.  Felix, Harish, this mirrors what we do in KFD.
-Was there any other timing data you wanted to include?
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 14 +++++++++++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 17 +++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 20 ++++++++------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c | 20 ++++++++------------
+ 4 files changed, 40 insertions(+), 31 deletions(-)
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 5a1098bdd8256..999705e7b2641 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -1428,7 +1428,8 @@ static int sdma_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(5, 0, 0):
+ 	case IP_VERSION(5, 0, 2):
+ 	case IP_VERSION(5, 0, 5):
+-		if (adev->sdma.instance[0].fw_version >= 35)
++		if ((adev->sdma.instance[0].fw_version >= 35) &&
++		    !amdgpu_sriov_vf(adev))
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	default:
+@@ -1544,11 +1545,18 @@ static int sdma_v5_0_reset_queue(struct amdgpu_ring *ring,
+ 				 struct amdgpu_fence *timedout_fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	u32 inst_id = ring->me;
+ 	int r;
+ 
++	if (!(adev->sdma.supported_reset & AMDGPU_RESET_TYPE_PER_QUEUE))
++		return -EOPNOTSUPP;
++
++	if (ring->me >= adev->sdma.num_instances) {
++		dev_err(adev->dev, "sdma instance not found\n");
++		return -EINVAL;
++	}
++
+ 	amdgpu_amdkfd_suspend(adev, true);
+-	r = amdgpu_sdma_reset_engine(adev, inst_id, false);
++	r = amdgpu_sdma_reset_engine(adev, ring->me, false);
+ 	amdgpu_amdkfd_resume(adev, true);
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 6843c2c3d71f5..e542195972dd4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -1347,11 +1347,13 @@ static int sdma_v5_2_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(5, 2, 2):
+ 	case IP_VERSION(5, 2, 3):
+ 	case IP_VERSION(5, 2, 4):
+-		if (adev->sdma.instance[0].fw_version >= 76)
++		if ((adev->sdma.instance[0].fw_version >= 76) &&
++		    !amdgpu_sriov_vf(adev))
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	case IP_VERSION(5, 2, 5):
+-		if (adev->sdma.instance[0].fw_version >= 34)
++		if ((adev->sdma.instance[0].fw_version >= 34) &&
++		    !amdgpu_sriov_vf(adev))
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	default:
+@@ -1457,11 +1459,18 @@ static int sdma_v5_2_reset_queue(struct amdgpu_ring *ring,
+ 				 struct amdgpu_fence *timedout_fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	u32 inst_id = ring->me;
+ 	int r;
+ 
++	if (!(adev->sdma.supported_reset & AMDGPU_RESET_TYPE_PER_QUEUE))
++		return -EOPNOTSUPP;
++
++	if (ring->me >= adev->sdma.num_instances) {
++		dev_err(adev->dev, "sdma instance not found\n");
++		return -EINVAL;
++	}
++
+ 	amdgpu_amdkfd_suspend(adev, true);
+-	r = amdgpu_sdma_reset_engine(adev, inst_id, false);
++	r = amdgpu_sdma_reset_engine(adev, ring->me, false);
+ 	amdgpu_amdkfd_resume(adev, true);
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+index d2effa5318176..c08e9a6cf6827 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+@@ -1355,7 +1355,8 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(6, 0, 0):
+ 	case IP_VERSION(6, 0, 2):
+ 	case IP_VERSION(6, 0, 3):
+-		if (adev->sdma.instance[0].fw_version >= 21)
++		if ((adev->sdma.instance[0].fw_version >= 21) &&
++		    !amdgpu_sriov_vf(adev))
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	default:
+@@ -1575,18 +1576,13 @@ static int sdma_v6_0_reset_queue(struct amdgpu_ring *ring,
+ 				 struct amdgpu_fence *timedout_fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	int i, r;
+-
+-	if (amdgpu_sriov_vf(adev))
+-		return -EINVAL;
++	int r;
+ 
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		if (ring == &adev->sdma.instance[i].ring)
+-			break;
+-	}
++	if (!(adev->sdma.supported_reset & AMDGPU_RESET_TYPE_PER_QUEUE))
++		return -EOPNOTSUPP;
+ 
+-	if (i == adev->sdma.num_instances) {
+-		DRM_ERROR("sdma instance not found\n");
++	if (ring->me >= adev->sdma.num_instances) {
++		dev_err(adev->dev, "sdma instance not found\n");
+ 		return -EINVAL;
+ 	}
+ 
+@@ -1596,7 +1592,7 @@ static int sdma_v6_0_reset_queue(struct amdgpu_ring *ring,
+ 	if (r)
+ 		return r;
+ 
+-	r = sdma_v6_0_gfx_resume_instance(adev, i, true);
++	r = sdma_v6_0_gfx_resume_instance(adev, ring->me, true);
+ 	if (r)
+ 		return r;
+ 	amdgpu_fence_driver_force_completion(ring);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+index 99a080bad2a3d..ba1f3e3b6eb61 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+@@ -807,18 +807,13 @@ static int sdma_v7_0_reset_queue(struct amdgpu_ring *ring,
+ 				 struct amdgpu_fence *timedout_fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	int i, r;
+-
+-	if (amdgpu_sriov_vf(adev))
+-		return -EINVAL;
++	int r;
+ 
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		if (ring == &adev->sdma.instance[i].ring)
+-			break;
+-	}
++	if (!(adev->sdma.supported_reset & AMDGPU_RESET_TYPE_PER_QUEUE))
++		return -EOPNOTSUPP;
+ 
+-	if (i == adev->sdma.num_instances) {
+-		DRM_ERROR("sdma instance not found\n");
++	if (ring->me >= adev->sdma.num_instances) {
++		dev_err(adev->dev, "sdma instance not found\n");
+ 		return -EINVAL;
+ 	}
+ 
+@@ -828,7 +823,7 @@ static int sdma_v7_0_reset_queue(struct amdgpu_ring *ring,
+ 	if (r)
+ 		return r;
+ 
+-	r = sdma_v7_0_gfx_resume_instance(adev, i, true);
++	r = sdma_v7_0_gfx_resume_instance(adev, ring->me, true);
+ 	if (r)
+ 		return r;
+ 	amdgpu_fence_driver_force_completion(ring);
+@@ -1346,7 +1341,8 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	adev->sdma.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->sdma.instance[0].ring);
+-	adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
++	if (!amdgpu_sriov_vf(adev))
++		adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 
+ 	r = amdgpu_sdma_sysfs_reset_mask_init(adev);
+ 	if (r)
+-- 
+2.50.0
 
-> +{
-> +       unsigned long flags;
-> +
-> +       /* Disable preemption and interrupts on local CPU */
-> +       preempt_disable();
-> +       local_irq_save(flags);
-> +
-> +       if (adev->gfx.funcs->get_gpu_clock_counter)
-> +               args->gpu_clock_counter =3D adev->gfx.funcs->get_gpu_cloc=
-k_counter(adev);
-> +       else
-> +               args->gpu_clock_counter =3D 0;
-> +
-> +       /* No access to rdtsc. Using raw monotonic time */
-> +       args->cpu_clock_counter =3D ktime_get_raw_ns();
-> +       args->system_clock_counter =3D ktime_get_boottime_ns();
-> +
-> +       /* Since the counter is in nano-seconds we use 1GHz frequency */
-> +       args->system_clock_freq =3D 1000000000;
-> +
-> +       /* Restore previous state */
-> +       local_irq_restore(flags);
-> +       preempt_enable();
-> +
-> +       return 0;
-> +}
-> +
->  /*
->   * Userspace get information ioctl
->   */
-> @@ -734,6 +771,13 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *=
-data, struct drm_file *filp)
->         case AMDGPU_INFO_TIMESTAMP:
->                 ui64 =3D amdgpu_gfx_get_gpu_clock_counter(adev);
->                 return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT =
-: 0;
-> +       case AMDGPU_INFO_CLOCK_COUNTERS: {
-> +               struct drm_amdgpu_info_clock_counters counters;
-> +
-> +                memset(&counters, 0, sizeof(counters));
-> +               get_cpu_gpu_counters(adev, &counters);
-> +               return copy_to_user(out, &counters, min(size, sizeof(coun=
-ters))) ? -EFAULT : 0;
-> +       }
->         case AMDGPU_INFO_FW_VERSION: {
->                 struct drm_amdgpu_info_firmware fw_info;
->
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index bdedbaccf776..e8adbbd076ca 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -1056,6 +1056,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
->  #define AMDGPU_INFO_HW_IP_COUNT                        0x03
->  /* timestamp for GL_ARB_timer_query */
->  #define AMDGPU_INFO_TIMESTAMP                  0x05
-> +/* get synchronized CPU and GPU clock counters  */
-> +#define AMDGPU_INFO_CLOCK_COUNTERS             0x06
->  /* Query the firmware version */
->  #define AMDGPU_INFO_FW_VERSION                 0x0e
->         /* Subquery id: Query VCE firmware version */
-> @@ -1598,6 +1600,23 @@ struct drm_amdgpu_info_uq_metadata {
->         };
->  };
->
-> +/**
-> + * struct drm_amdgpu_info_clock_counters - Clock counter information
-> + *
-> + * Used to correlate timestamps between CPU and GPU with minimal skew.
-> + * All counters are in nanoseconds for consistent comparison.
-> + */
-> +struct drm_amdgpu_info_clock_counters {
-> +       /* GPU clock counter in nanoseconds */
-> +       __u64 gpu_clock_counter;
-> +       /* CPU clock counter (raw monotonic) in nanoseconds */
-> +       __u64 cpu_clock_counter;
-> +       /* System boottime clock counter in nanoseconds */
-> +       __u64 system_clock_counter;
-> +       /* System clock frequency in Hz (always 1GHz) */
-> +       __u64 system_clock_freq;
-> +};
-> +
->  /*
->   * Supported GPU families
->   */
-> --
-> 2.34.1
->
