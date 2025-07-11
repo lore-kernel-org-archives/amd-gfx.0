@@ -4,143 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A36C83F1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 15:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82326C83F1B
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 15:51:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A06CC10E2C1;
-	Fri, 11 Jul 2025 15:28:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 216FE10E3A1;
+	Fri, 11 Jul 2025 15:51:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="TRrCosWW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="82oDwsJs";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ATQjHptI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lqTPufFn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vk27+zeY";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED63F10E2B2
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 15:28:24 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 409FF211E7;
- Fri, 11 Jul 2025 15:28:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1752247703; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=rU43kUJ+WPjv4GzAxfWLF2kqhxqNIxIkipKhBoj6XeA=;
- b=TRrCosWWeXtd20aVzyTn7py1V9AZym13bt+VU9dK8lm2BTashbr4KYw0efaaTg9CW56vIi
- CP5mjb9vT4eBC4KXxbhrIu43unxUZU7UH81SzuKknYQ6FsgpAh+e4OUp8AOLhNTs3UiUQH
- h2m2M8gkx7+kId/95nYyEHoEV58rtOU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1752247703;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=rU43kUJ+WPjv4GzAxfWLF2kqhxqNIxIkipKhBoj6XeA=;
- b=82oDwsJssOfHs3AU4PZOg5bB29Y+xj/p9PMd+v82TNxcJhjX55PERxScJGlmaiyJseiZf4
- V+rWSqLzPn1hglAA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ATQjHptI;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=lqTPufFn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1752247702; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=rU43kUJ+WPjv4GzAxfWLF2kqhxqNIxIkipKhBoj6XeA=;
- b=ATQjHptI0M9pdX5lndVcTWZiNGDFwq9yV/iVFHBbKv3f9DOB1whlLB42RoffyDxgELUoBj
- kNEhAXZgvaX9dOeLxn0p8dgbs/CeBoDwn6knS4HYISR2g0nr9IcjPKuDHvm4JitdeBPcMq
- Omjl88mRIHcj1kZY07o9CU4E64YR6ME=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1752247702;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=rU43kUJ+WPjv4GzAxfWLF2kqhxqNIxIkipKhBoj6XeA=;
- b=lqTPufFn6mBSMt2h9p1gil424ow0DRG96syl+fC+zhnoNw11+MdXC6QNBLOIuridsQLvgt
- 3iFT+x1UNanl6SCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C9ADB1388B;
- Fri, 11 Jul 2025 15:28:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id bF7VL5UtcWgjZwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 11 Jul 2025 15:28:21 +0000
-Message-ID: <af6c8952-6e97-4f78-9ee6-ab5c5636705a@suse.de>
-Date: Fri, 11 Jul 2025 17:28:21 +0200
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAEC010E3A1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 15:51:33 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-313fab41fd5so454178a91.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 08:51:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1752249093; x=1752853893; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=O0Xky7gnLnMVVR0Uvfb3z39dRfPReD8LNQp8i0OTrVY=;
+ b=Vk27+zeYpLVZIV8kNfalIf2T2J/dgf2iw16qOW47TRUjZzK/nqtgzlG7r/QKR/rTm/
+ YrjbRT9Nl6UuBVyablWOiLCjjcib2vXr3tmI7lTBbWNshvA0vcwim4RFnEgkQkEmw2mU
+ NxQZuxgIFNin610gaIBO23Z7RGaxlJ8RXzBy4bs+guvh8cNz3h6YzEVAfCSuohYiNSQd
+ wPhF6zoSPRhr4vrl/FoaTG9wBzTE0fDTi3/qnnPbyVQBtOiR/zZEec1xJa9TcVk2RrBG
+ nQx3jUCcLzA7dHPHzy0oyfiHoKmA8UlKnn2SUXdVElqipUa/ya6xMuKzLLtElXj8fjon
+ tlig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752249093; x=1752853893;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=O0Xky7gnLnMVVR0Uvfb3z39dRfPReD8LNQp8i0OTrVY=;
+ b=XJ0NgS7f5YAvDTrM0BJg79e7qo+8wHKp6JB6A8unzlKfw7FtYb3vTQ1ERYdxZA8w/A
+ u+TBYGOC6ekGp9alyMZadZtlvAJcRjz1O31n2ZmXGnCdi073dB7qtLgjy2CamR+4vCCf
+ xsRdyVhcyaOrdBwhgBI/5z4UGXFIdSYe1FcMkkxXpwXZUG2G8fq1UcsGaFBfAuBqRb54
+ sGLaqEBKL+lWiPEOcuI0BIjVSoFKhzIKLboT1KFpvgBl7vGdwd10kA62NfSANw3d/aao
+ Uvg3zKC5yn3Kaf5B4sVtHsAefDIF9kIexu/PelP95wiqTCpenCGbotSbTuTAsizttkXK
+ +qRA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVV4tl2Zqx5YJ/lD929qjlHXsMmrd8fjtAtwx/Hh80noeFdL+2KcPpc/vjqNMCSr9TqNFE1U7g0@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzL6STbsOk2xL0U1QcA74QlBTPiv3Od6GOC45rq6z3urj5madDN
+ U3tyhGs0UAKNb9y4DC/FCED/hmIttv11AKaJjoeiZGLS8EfzXSF4zrNzqIaobz8k7J88zeV25NU
+ ZLPLhx6YYF9GGHFNgMVQL5P5gx1TnFgs=
+X-Gm-Gg: ASbGncuVUs/AIn+bm4dhT2v6p6UZ6KZJVq+4tHkuF3trJJS1xRbQfUyhSUeWk8jfeJd
+ cbR9kQvu//U8IUNaU4DkfYxHYsYHp0TfLFRtxjQC6WAvQq3Ng3B1vknt6RTHxd63jZNP++afwVw
+ axm4la2DdRRY737+5O7wXyHa3Ax48tnb7/sW9pBjZZPsD1gfRRW2oPd1ANUiAhuviavYWZzis6w
+ BTa8MgYP58sdRg/iCI=
+X-Google-Smtp-Source: AGHT+IFQLxApbVE0cUaSiYMazwOi3eqP3gZIbSYcNsTy5OUzTNhiHRIwIaPfkxrjRzmMn4bG49CnDus7XocRFY2IyWQ=
+X-Received: by 2002:a17:90b:2e8b:b0:311:c5d9:2c8b with SMTP id
+ 98e67ed59e1d1-31c4f540066mr1816285a91.5.1752249093081; Fri, 11 Jul 2025
+ 08:51:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: WARNING: possible circular locking dependency detected:
- drm_client_dev_suspend() & radeon_suspend_kms()
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
- "Nikula, Jani" <jani.nikula@linux.intel.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel
- <linux-kernel@vger.kernel.org>, Linux AMDGPU <amd-gfx@lists.freedesktop.org>
-References: <0a087cfd-bd4c-48f1-aa2f-4a3b12593935@oss.qualcomm.com>
- <CAKMK7uH7Hcviwyw2wZK=WVxcb4zBC+EKpsREhb4FHe_AxEi8gg@mail.gmail.com>
- <aHEj1GQjjIiCbhjB@intel.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <aHEj1GQjjIiCbhjB@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_TLS_ALL(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[oss.qualcomm.com,linux.intel.com,intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,lists.freedesktop.org,vger.kernel.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,ffwll.ch:url,suse.de:mid,suse.de:dkim];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: 409FF211E7
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+References: <20250711122338.44831-1-tvrtko.ursulin@igalia.com>
+ <57da4e28-4968-409a-9861-3ee969bed541@amd.com>
+ <df254527-d027-45df-ae3b-356134536941@igalia.com>
+ <CADnq5_PTrZ8eVtT8xDQQyf9tP+7AQ8pcAZ4YSEgUwbufU5YQvw@mail.gmail.com>
+ <a7d6a1d5-30b4-4e79-a845-d71252e7e5f9@igalia.com>
+In-Reply-To: <a7d6a1d5-30b4-4e79-a845-d71252e7e5f9@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 11 Jul 2025 11:51:21 -0400
+X-Gm-Features: Ac12FXzuEXbMVA7d2ZqQJQSWSGXHTrZMBKw1LEiz0q2IfBogR-yoi4Wi24tniEg
+Message-ID: <CADnq5_NYhPa+6gUqeJsvXkqtkwwkWmv=F70Wv96L+CEA-AGE1w@mail.gmail.com>
+Subject: Re: [RFC] drm/amdgpu/sdma5.2: Avoid latencies caused by the
+ powergating workaround
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,182 +90,362 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 11.07.25 um 16:46 schrieb Ville Syrjälä:
-> On Fri, Jul 11, 2025 at 11:08:03AM +0200, Simona Vetter wrote:
->> On Thu, Jul 10, 2025 at 04:43:02PM -0700, Jeff Johnson wrote:
->>> I'm trying to debug a hibernation issue with the ath12k driver, but to
->>> establish a baseline I started with Linus' current tree. I have the following
->>> enabled in my .config:
->>>
->>> CONFIG_PROVE_LOCKING=y
->>> CONFIG_PROVE_RAW_LOCK_NESTING=y
->>> CONFIG_PROVE_RCU=y
->>>
->>> As part of the baseline I observed the following:
->> On a very quick guess I'd bet on the drm_client conversion for i915 to
->> have broken something here. Adding more people.
-> Looks to me like it's simply due to this code in radeon:
+On Fri, Jul 11, 2025 at 9:58=E2=80=AFAM Tvrtko Ursulin
+<tvrtko.ursulin@igalia.com> wrote:
 >
-> radeon_suspend_kms(...)
-> {
-> 	...
->          if (notify_clients) {
->                  console_lock();
->                  drm_client_dev_suspend(dev, true);
->                  console_unlock();
-> 	}
-> 	...
-> }
+>
+> On 11/07/2025 14:39, Alex Deucher wrote:
+> > On Fri, Jul 11, 2025 at 9:22=E2=80=AFAM Tvrtko Ursulin
+> > <tvrtko.ursulin@igalia.com> wrote:
+> >>
+> >>
+> >> On 11/07/2025 13:45, Christian K=C3=B6nig wrote:
+> >>> On 11.07.25 14:23, Tvrtko Ursulin wrote:
+> >>>> Commit
+> >>>> 94b1e028e15c ("drm/amdgpu/sdma5.2: add begin/end_use ring callbacks"=
+)
+> >>>> added a workaround which disables GFXOFF for the duration of the job
+> >>>> submit stage (with a 100ms trailing hysteresis).
+> >>>>
+> >>>> Empirically the GFXOFF disable/enable request can suffer from signif=
+icant
+> >>>> latencies (2ms is easily seen) which are then inserted onto the
+> >>>> amdgpu_job_run() path, which slows down the CPU submission of ready =
+jobs.
+> >>>>
+> >>>> 1)
+> >>>> If the premise of the GFXOFF workaround is to keep it disabled while=
+ the
+> >>>> SDMA engine is active, the current workaround achieves that only
+> >>>> partially, for submissions and jobs which take less than 100ms (the =
+GFXOFF
+> >>>> re-enable hysteresis), counting from the ring write phase, up to
+> >>>> completion.
+> >>>>
+> >>>> 2)
+> >>>> If disabling GFXOFF affects the GFX engine too, basing the workaroun=
+d
+> >>>> solely on the SDMA activity creates, at minimum, a needless "chatter=
+" on
+> >>>> the SMU communication channel.
+> >>>
+> >>> IIRC that is intentional. This "needless" chatter is what the workaro=
+und was all about.
+> >>
+> >> I tried to gather knowledge to how the hardware works from the comment
+> >> in sdma_v5_2_ring_begin_use(). Maybe I got it wrong so bear with me pl=
+ease.
+> >>
+> >> To try and explain my questions better. If the GFX ring/engine is busy
+> >> is there a point for SDMA to be requesting GFXOFF enable/disable? Or
+> >> maybe with diagrams...
+> >>
+> >> 1)
+> >>
+> >> SDMA:
+> >>
+> >>      ring-write     ring-commit       job-execute       job-done
+> >>    gfxoff-off-req  gfxoff-on-req  >100ms -> gfxoff-on
+> >>
+> >> Was the workaround prematurely dropped in this case (aka is
+> >> ring->funcs->end_use() the right place to drop it from)? Probably
+> >> theoretical that a SDMA job takes more than 100ms but I am trying to
+> >> understand it all.
+> >>
+> >
+> > The firmware controls the power to a subset of the chip which contains
+> > both gfx and sdma.  Normally the firmware dynamically powers up and
+> > down gfx transparently when doorbells come in or the engines go idle
+> > for either engine.  amdgpu_gfx_off_ctrl() tells the firmware to allow
+> > or disallow gfxoff entry.  So what this workaround does is disallow
+> > gfxoff (which results in gfx being powered up) before we touch SDMA.
+> > Once SDMA is active, we can allow gfxoff again as it will dynamically
+>
+> Hmm so it is "once" and not "while", as the comment says:
+>
+>         /* SDMA 5.2.3 (RMB) FW doesn't seem to properly
+>          * disallow GFXOFF in some cases leading to
+>          * hangs in SDMA.  Disallow GFXOFF while SDMA is active.
+>
+> ?
+>
+> And for "once active" amdgpu_ring_commit() is what it counts?
 
-Good catch. This is most likely fallout from refactoring the client 
-suspend code. Radeon is also the only driver calling this with 
-holds_console_lock=true.  I'd say, try to remove the locking here and 
-pass false as second argument. We can later remove that second argument 
-as well. Console locking should only be a concern of the console client 
-(aka. fbdev emulation).
-
-Best regards
-Thomas
+Yes, amdgpu_ring_commit() rings the doorbell and at that point the
+engine starts running and SDMA is active.
 
 >
->> -Sima
->>
->>
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: ======================================================
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: WARNING: possible circular locking dependency detected
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 6.16.0-rc5+ #6 Not tainted
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: ------------------------------------------------------
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: kworker/u16:13/3787 is trying to acquire lock:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: ffff8881113e0308 (&dev->clientlist_mutex){+.+.}-{4:4}, at: drm_client_dev_suspend+0x37/0x250 [drm]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:
->>>                                             but task is already holding lock:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: ffffffff8a2e4b80 (console_lock){+.+.}-{0:0}, at: radeon_suspend_kms+0x63b/0x7d0 [radeon]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:
->>>                                             which lock already depends on the new lock.
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:
->>>                                             the existing dependency chain (in reverse order) is:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:
->>>                                             -> #1 (console_lock){+.+.}-{0:0}:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        console_lock+0x8d/0x130
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        drm_fb_helper_set_suspend_unlocked+0x10e/0x200 [drm_kms_helper]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        drm_fbdev_client_suspend+0x24/0x30 [drm_client_lib]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        drm_client_dev_suspend+0x138/0x250 [drm]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        i915_drm_suspend.isra.0+0x74/0x260 [i915]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        i915_pm_suspend+0x6b/0x90 [i915]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        pci_pm_suspend+0x1e3/0x4f0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        dpm_run_callback+0xa0/0x100
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        device_suspend+0x41e/0xdc0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        async_suspend+0x1d/0x30
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        async_run_entry_fn+0x96/0x3e0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        process_one_work+0x86e/0x14b0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        worker_thread+0x5d0/0xfc0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        kthread+0x375/0x750
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ret_from_fork+0x215/0x2f0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ret_from_fork_asm+0x1a/0x30
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:
->>>                                             -> #0 (&dev->clientlist_mutex){+.+.}-{4:4}:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        __lock_acquire+0x15b5/0x2ac0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        lock_acquire+0x154/0x2d0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        __mutex_lock+0x15f/0x12c0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        drm_client_dev_suspend+0x37/0x250 [drm]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        radeon_suspend_kms+0x648/0x7d0 [radeon]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        pci_pm_suspend+0x1e3/0x4f0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        dpm_run_callback+0xa0/0x100
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        device_suspend+0x41e/0xdc0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        async_suspend+0x1d/0x30
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        async_run_entry_fn+0x96/0x3e0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        process_one_work+0x86e/0x14b0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        worker_thread+0x5d0/0xfc0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        kthread+0x375/0x750
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ret_from_fork+0x215/0x2f0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ret_from_fork_asm+0x1a/0x30
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:
->>>                                             other info that might help us debug this:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  Possible unsafe locking scenario:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        CPU0                    CPU1
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:        ----                    ----
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:   lock(console_lock);
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:                                lock(&dev->clientlist_mutex);
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:                                lock(console_lock);
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:   lock(&dev->clientlist_mutex);
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:
->>>                                              *** DEADLOCK ***
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: 4 locks held by kworker/u16:13/3787:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  #0: ffff888100dee148 ((wq_completion)async){+.+.}-{0:0}, at: process_one_work+0xe97/0x14b0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  #1: ffff88813f22fd30 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_one_work+0x7f6/0x14b0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  #2: ffff8881049241b0 (&dev->mutex){....}-{4:4}, at: device_suspend+0x3bd/0xdc0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  #3: ffffffff8a2e4b80 (console_lock){+.+.}-{0:0}, at: radeon_suspend_kms+0x63b/0x7d0 [radeon]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:
->>>                                             stack backtrace:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: CPU: 0 UID: 0 PID: 3787 Comm: kworker/u16:13 Not tainted 6.16.0-rc5+ #6 PREEMPT(voluntary)
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: Hardware name: Hewlett-Packard HP ZBook 14 G2/2216, BIOS M71 Ver. 01.31 02/24/2020
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: Workqueue: async async_run_entry_fn
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel: Call Trace:
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  <TASK>
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  dump_stack_lvl+0x5b/0x80
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  print_circular_bug.cold+0x178/0x1be
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  check_noncircular+0x130/0x150
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? 0xffffffffc1600000
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? radeon_suspend_kms+0x63b/0x7d0 [radeon]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  __lock_acquire+0x15b5/0x2ac0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  lock_acquire+0x154/0x2d0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? drm_client_dev_suspend+0x37/0x250 [drm]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_stack_trace_save+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? acpi_ut_release_mutex+0xba/0x150
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  __mutex_lock+0x15f/0x12c0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? drm_client_dev_suspend+0x37/0x250 [drm]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? drm_client_dev_suspend+0x37/0x250 [drm]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? add_lock_to_list+0x2c/0x1b0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx___mutex_lock+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? lock_acquire+0x154/0x2d0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? radeon_suspend_kms+0x63b/0x7d0 [radeon]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? drm_client_dev_suspend+0x37/0x250 [drm]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  drm_client_dev_suspend+0x37/0x250 [drm]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  radeon_suspend_kms+0x648/0x7d0 [radeon]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_radeon_pmops_suspend+0x10/0x10 [radeon]
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  pci_pm_suspend+0x1e3/0x4f0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_pci_pm_suspend+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  dpm_run_callback+0xa0/0x100
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_dpm_run_callback+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  device_suspend+0x41e/0xdc0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_device_suspend+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_async_suspend+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  async_suspend+0x1d/0x30
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  async_run_entry_fn+0x96/0x3e0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  process_one_work+0x86e/0x14b0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_process_one_work+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? assign_work+0x16c/0x240
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  worker_thread+0x5d0/0xfc0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_worker_thread+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  kthread+0x375/0x750
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_kthread+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? ret_from_fork+0x1f/0x2f0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? lock_release+0xc6/0x2a0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_kthread+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ret_from_fork+0x215/0x2f0
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ? __pfx_kthread+0x10/0x10
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  ret_from_fork_asm+0x1a/0x30
->>> Jul 10 16:12:52 qca-HP-ZBook-14-G2 kernel:  </TASK>
->>>
->>> This doesn't seem to be the cause of the ath12k issue I'm debugging,
->>> but thought it worth mentioning since I only see one similar report
->>> on lore, and that didn't have any apparent follow-up:
->>> https://lore.kernel.org/all/20250202161048.373f89c0@yea/
->>>
->>> /jeff
->> --
->> Simona Vetter
->> Software Engineer, Intel Corporation
->> http://blog.ffwll.ch
+> > be disabled once GFX/SDMA is no longer active.  In this particular
+> > case there was a race condition somewhere in the internal handshaking
+> > with SDMA which led to SDMA missing doorbells sometimes and not
+> > executing the job even if there was work in the ring.
+>
+> Thank you, more or less than what I assumed.
+>
+> But in this case there should be no harm in holding GFXOFF disabled
+> until the job completes (like this patch)? Only a win to avoid the SMU
+> communication latencies while unit is powered on anyway.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+The extra latency is only on the CPU side, once the
+amdgpu_ring_commit() is called the SDMA engine is already working.
+Plus, the sooner you allow gfxoff again, the sooner it can start
+kicking in again.
 
+Alex
+
+
+>
+> Regards,
+>
+> Tvrtko
+>
+> >> 2)
+> >>
+> >>
+> >> GFX:
+> >>
+> >>      +-----  job executing --------------------------------------+
+> >>
+> >> SDMA:
+> >>
+> >>      ring-write     ring-commit       job-execute       job-done
+> >>    gfxoff-off-req  gfxoff-on-req  >100ms -> gfxoff-on
+> >>
+> >>
+> >> Is it required for the SDMA activity to cause SMU message traffic in
+> >> this case, or is the powerdomain implied to be on (GFXOFF cannot turn =
+it
+> >> off while GFX is active)?
+> >>
+> >> This is the case I measured latency spikes. While the GFX load was
+> >> running I was seeing SDMA->run_job() spike and traced it to the SMU
+> >> communication.
+> >>
+> >> Hence the idea from the patch - prevent adev->gfx.gfx_off_req_count
+> >> dropping to zero until both GFX and SDMA are idle.
+> >>
+> >> https://imgshare.cc/rdxu2bjl
+> >>
+> >> Above is visual representation of these latencies. Y is SDMA run_job()
+> >> duration in micro-seconds, X is seconds wall time. Blue is stock kerne=
+l,
+> >> orange is with this patch. X goes for ~60 seconds, which is how long
+> >> Cyberpunk 2077 benchmark is.
+> >>
+> >> Regards,
+> >>
+> >> Tvrtko
+> >>
+> >>>> If 1) and 2) hold true, we can improve on the workaround by; a) only
+> >>>> re-enabling GFXOFF once the job had actually completed*, and b) appl=
+y the
+> >>>> same workaround on other rings which share the same GFXOFF powergati=
+ng
+> >>>> domain.
+> >>>
+> >>> The point of GFXOFF is to turn GFX on/off *without* kernel driver int=
+eraction. Otherwise we don't need it in the first place.
+> >>>
+> >>> We just have a hack for the SDMA because that moved into the GFXOFF d=
+omain with Navi and is broken on some HW generations IIRC.
+> >>>
+> >>>>
+> >>>> With these two applied, the GFXOFF re-enable requests are avoided
+> >>>> altogether during persistent activity on the GFX ring and simultaneo=
+us
+> >>>> sporadic activity on the SDMA ring.
+> >>>>
+> >>>> This has a positive effect of drastically reducing SDMA submission
+> >>>> latencies. For example during the Cyberpunk 2077 benchmark, they are
+> >>>> reduced from an average of 64us (stdev 60) to 9us (stdev 6). Or more
+> >>>> importantly the worst case latency, averaged to a one second window,=
+ is
+> >>>> reduced from 305us to 30us**.
+> >>>>
+> >>>> *) For ease of implementation we put the re-enable at the job free s=
+tage,
+> >>>> since doing it on actual completion is problematic in terms of locki=
+ng.
+> >>>
+> >>> Absolutely clear NAK to this. Never ever base anything on the job liv=
+etime!
+> >>>
+> >>> We already had enough trouble with that.
+> >>>
+> >>>>
+> >>>> **) Submission latency ewma averaged (DECLARE_EWMA(latency, 6, 4)) -
+> >>>> Approximately 30 SDMA submissions per second, ewma average logged on=
+ce
+> >>>> per second therefore significantly hides the worst case latency. Eg.
+> >>>> the real improvement in max submission latency is severely understat=
+ed by
+> >>>> these numbers.
+> >>>
+> >>> Well that would indeed be quite nice to have.
+> >>>
+> >>> Regards,
+> >>> Christian.
+> >>>
+> >>>>
+> >>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> >>>> References: 94b1e028e15c ("drm/amdgpu/sdma5.2: add begin/end_use rin=
+g callbacks")
+> >>>> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> >>>> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+> >>>> ---
+> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  | 1 +
+> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 8 ++++++++
+> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 7 +++++++
+> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.h  | 2 ++
+> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 3 +++
+> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
+> >>>>    drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 1 +
+> >>>>    7 files changed, 23 insertions(+)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_gfx.h
+> >>>> index 08f268dab8f5..eee40f385793 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> >>>> @@ -475,6 +475,7 @@ struct amdgpu_gfx {
+> >>>>       uint32_t                        compute_supported_reset;
+> >>>>
+> >>>>       /* gfx off */
+> >>>> +    bool                            gfx_off_held;       /* true: ri=
+ngs hold gfx_off */
+> >>>>       bool                            gfx_off_state;      /* true: e=
+nabled, false: disabled */
+> >>>>       struct mutex                    gfx_off_mutex;      /* mutex t=
+o change gfxoff state */
+> >>>>       uint32_t                        gfx_off_req_count;  /* default=
+ 1, enable gfx off: dec 1, disable gfx off: add 1 */
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_ib.c
+> >>>> index 206b70acb29a..bf9bffe40235 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> >>>> @@ -191,6 +191,14 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring=
+, unsigned int num_ibs,
+> >>>>               return r;
+> >>>>       }
+> >>>>
+> >>>> +    if (job && adev->gfx.gfx_off_held &&
+> >>>> +        (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX ||
+> >>>> +         ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
+> >>>> +         ring->funcs->type =3D=3D AMDGPU_RING_TYPE_SDMA)) {
+> >>>> +            amdgpu_gfx_off_ctrl(adev, false);
+> >>>> +            job->gfx_off_held =3D true;
+> >>>> +    }
+> >>>> +
+> >>>>       need_ctx_switch =3D ring->current_ctx !=3D fence_ctx;
+> >>>>       if (ring->funcs->emit_pipeline_sync && job &&
+> >>>>           ((tmp =3D amdgpu_sync_get_fence(&job->explicit_sync)) ||
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_job.c
+> >>>> index 2b58e353cca1..4cfd175ac6df 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >>>> @@ -191,6 +191,7 @@ int amdgpu_job_alloc(struct amdgpu_device *adev,=
+ struct amdgpu_vm *vm,
+> >>>>       if (!*job)
+> >>>>               return -ENOMEM;
+> >>>>
+> >>>> +    (*job)->adev =3D adev;
+> >>>>       (*job)->vm =3D vm;
+> >>>>
+> >>>>       amdgpu_sync_create(&(*job)->explicit_sync);
+> >>>> @@ -268,6 +269,9 @@ static void amdgpu_job_free_cb(struct drm_sched_=
+job *s_job)
+> >>>>
+> >>>>       amdgpu_sync_free(&job->explicit_sync);
+> >>>>
+> >>>> +    if (job->gfx_off_held)
+> >>>> +            amdgpu_gfx_off_ctrl(job->adev, true);
+> >>>> +
+> >>>
+> >>>
+> >>>
+> >>>
+> >>>>       /* only put the hw fence if has embedded fence */
+> >>>>       if (!job->hw_fence.base.ops)
+> >>>>               kfree(job);
+> >>>> @@ -301,6 +305,9 @@ void amdgpu_job_free(struct amdgpu_job *job)
+> >>>>       if (job->gang_submit !=3D &job->base.s_fence->scheduled)
+> >>>>               dma_fence_put(job->gang_submit);
+> >>>>
+> >>>> +    if (job->gfx_off_held)
+> >>>> +            amdgpu_gfx_off_ctrl(job->adev, true);
+> >>>> +
+> >>>>       if (!job->hw_fence.base.ops)
+> >>>>               kfree(job);
+> >>>>       else
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_job.h
+> >>>> index 2f302266662b..d4ab832ac193 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> >>>> @@ -46,6 +46,7 @@ enum amdgpu_ib_pool_type;
+> >>>>
+> >>>>    struct amdgpu_job {
+> >>>>       struct drm_sched_job    base;
+> >>>> +    struct amdgpu_device    *adev;
+> >>>>       struct amdgpu_vm        *vm;
+> >>>>       struct amdgpu_sync      explicit_sync;
+> >>>>       struct amdgpu_fence     hw_fence;
+> >>>> @@ -55,6 +56,7 @@ struct amdgpu_job {
+> >>>>       bool                    vm_needs_flush;
+> >>>>       bool                    gds_switch_needed;
+> >>>>       bool                    spm_update_needed;
+> >>>> +    bool                    gfx_off_held;
+> >>>>       uint64_t                vm_pd_addr;
+> >>>>       unsigned                vmid;
+> >>>>       unsigned                pasid;
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_ring.c
+> >>>> index 426834806fbf..22cac94e2f2a 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> >>>> @@ -350,6 +350,9 @@ int amdgpu_ring_init(struct amdgpu_device *adev,=
+ struct amdgpu_ring *ring,
+> >>>>       ring->max_dw =3D max_dw;
+> >>>>       ring->hw_prio =3D hw_prio;
+> >>>>
+> >>>> +    if (ring->funcs->gfx_off_held)
+> >>>> +            adev->gfx.gfx_off_held =3D true;
+> >>>> +
+> >>>>       if (!ring->no_scheduler && ring->funcs->type < AMDGPU_HW_IP_NU=
+M) {
+> >>>>               hw_ip =3D ring->funcs->type;
+> >>>>               num_sched =3D &adev->gpu_sched[hw_ip][hw_prio].num_sch=
+eds;
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_ring.h
+> >>>> index 784ba2ec354c..afaf951b0b78 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> >>>> @@ -202,6 +202,7 @@ struct amdgpu_ring_funcs {
+> >>>>       bool                    support_64bit_ptrs;
+> >>>>       bool                    no_user_fence;
+> >>>>       bool                    secure_submission_supported;
+> >>>> +    bool                    gfx_off_held;
+> >>>>       unsigned                extra_dw;
+> >>>>
+> >>>>       /* ring read/write ptr handling */
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/dr=
+m/amd/amdgpu/sdma_v5_2.c
+> >>>> index 42a25150f83a..c88de65e82bc 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> >>>> @@ -1944,6 +1944,7 @@ static const struct amdgpu_ring_funcs sdma_v5_=
+2_ring_funcs =3D {
+> >>>>       .nop =3D SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP),
+> >>>>       .support_64bit_ptrs =3D true,
+> >>>>       .secure_submission_supported =3D true,
+> >>>> +    .gfx_off_held =3D true,
+> >>>>       .get_rptr =3D sdma_v5_2_ring_get_rptr,
+> >>>>       .get_wptr =3D sdma_v5_2_ring_get_wptr,
+> >>>>       .set_wptr =3D sdma_v5_2_ring_set_wptr,
+> >>>
+> >>
+>
