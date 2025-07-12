@@ -4,49 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A35FBC83F20
-	for <amd-gfx@archiver.kernel.org>; Sat, 12 Jul 2025 14:13:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7150CC83F1D
+	for <amd-gfx@archiver.kernel.org>; Sat, 12 Jul 2025 19:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33B2610E01F;
-	Sat, 12 Jul 2025 14:13:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C953F10E165;
+	Sat, 12 Jul 2025 19:02:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="mmgCobXk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HWjizx5l";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02FEC10E2E3;
- Fri, 11 Jul 2025 21:25:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=/5TCvZxyJm0mNelQph6qDoiq19mUElNh/nhMyYL3NcM=; b=mmgCobXk62qXUedyHlRaKKHsfu
- dxY/en13Wrp40RNHd5mCdTFS8v83JPZ8xM4Z7d1lETzUCRN7x2Cee4HcM1q/0NckNDbXZHYUI68nh
- haeg6QB3v78EWxvRxwkH/KtqIKAHqKTKMsKhroLkCoYFVSwKUk/bgyk5kZePcxDKK/QtK9TpCv9M1
- trxBUa3nUZcENDLToL16P0p8SwUi20SzBjX7CFYKcXmlP0kP4zIvc7aAHjMge2QZEkvxw+jJmEa/Y
- SuFDt+KdplQB5ihBuuAd2d+Gm2yu6RF49KxjCOEACTihphZFINbm+f0pssmvK3CSbJLiYJczEVzxk
- jCkcj25w==;
-Received: from [50.53.25.54] (helo=[192.168.254.17])
- by casper.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uaLF3-0000000ET0H-3jI1; Fri, 11 Jul 2025 21:25:14 +0000
-Message-ID: <49080a96-2c7a-4eea-a64c-deac0b7a665b@infradead.org>
-Date: Fri, 11 Jul 2025 14:25:10 -0700
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2573D10E06B;
+ Sat, 12 Jul 2025 19:02:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 6998AA53424;
+ Sat, 12 Jul 2025 19:02:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045A7C4CEEF;
+ Sat, 12 Jul 2025 19:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1752346960;
+ bh=LhsEIKj1SLsQCAk5TPT4MTfImsiSbwHmFcHOMwWmXc8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=HWjizx5l0FEQT25bpugRRwK1iwSRYSUMnnEfumnnbKkrN1YDIHJFkE8VgedfrpLRH
+ dogoPSSvR5+vV2TXvrLEB3e+GRLCNQ5J+JnwTSnwYJBqhbSEYRUyhsWp25MUqYlCbp
+ QhS8oFlveZ5w9be6sF23N78x/sru3d5CnLo+5eZ3UF3HV6Eoy55hqAJ6v3lM9Qm1fs
+ ZULGTqqGmC3OckTk9IhfXYJ1NS25fOe0nTLMoH6ae2dEwnnL7Hx2m6cHXw9hryCOCa
+ r3C/mHyyAsrsfVhfUEaiXn/KIkEm3dVV0XDmhEo1XjZmYqCcRqVFr5uAQzdE1yshMW
+ H8COPV+f4FwFg==
+Message-ID: <35f0dd7e-f4c1-4042-bc85-19d277f4b1f9@kernel.org>
+Date: Sat, 12 Jul 2025 14:02:38 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: linux-next: Tree for Jul 11 [drivers/gpu/drm/amd/amdgpu/amdgpu.ko]
-To: Stephen Rothwell <sfr@canb.auug.org.au>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux DRI Development <dri-devel@lists.freedesktop.org>,
- Samuel Zhang <guoqing.zhang@amd.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
+ Samuel Zhang <guoqing.zhang@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20250711191014.12a64210@canb.auug.org.au>
+ <49080a96-2c7a-4eea-a64c-deac0b7a665b@infradead.org>
+ <CAJZ5v0h1CX+aTu7dFy6vB-9LM6t5J4rt7Su3qVnq1xx-BFAm=Q@mail.gmail.com>
 Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20250711191014.12a64210@canb.auug.org.au>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Sat, 12 Jul 2025 14:13:39 +0000
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <CAJZ5v0h1CX+aTu7dFy6vB-9LM6t5J4rt7Su3qVnq1xx-BFAm=Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,24 +67,43 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 7/11/25 2:10 AM, Stephen Rothwell wrote:
-> Hi all,
+On 7/12/25 3:11 AM, Rafael J. Wysocki wrote:
+> On Fri, Jul 11, 2025 at 11:25 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+>>
+>>
+>>
+>> On 7/11/25 2:10 AM, Stephen Rothwell wrote:
+>>> Hi all,
+>>>
+>>> Changes since 20250710:
+>>>
+>>
+>> on x86_64, when
+>> # CONFIG_SUSPEND is not set
+>> # CONFIG_HIBERNATION is not set
+>> # CONFIG_PM is not set
+>>
+>> ERROR: modpost: "pm_hibernate_is_recovering" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+>>
+>> caused by commit
+>> 530694f54dd5e ("drm/amdgpu: do not resume device in thaw for normal hibernation")
+>>
+>> Rafael, is a stub appropriate for this case?
 > 
-> Changes since 20250710:
+> pm_hibernate_is_recovering() is not supposed to be called by code that
+> does not depend on CONFIG_HIBERNATE_CALLBACKS, but a stub returning
+> false would work for this.
+
+Thanks, I just sent out a fix for this.
+
 > 
+> Mario, it would be good to fix this up in your tree.  Also, it would
+> be good to expose stuff to 0-day build testing before letting it go
+> into linux-next.  I use the bleeding-edge branch for this purpose.
+> 
+Honestly; I'm surprised that 0-day didn't raise this on either dri-devel 
+or amd-gfx.  I had expected at least one of those lists to raise this 
+over the last week of patches.
 
-on x86_64, when
-# CONFIG_SUSPEND is not set
-# CONFIG_HIBERNATION is not set
-# CONFIG_PM is not set
-
-ERROR: modpost: "pm_hibernate_is_recovering" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-
-caused by commit
-530694f54dd5e ("drm/amdgpu: do not resume device in thaw for normal hibernation")
-
-Rafael, is a stub appropriate for this case?
-
--- 
-~Randy
+Anyone know the history why neither has 0-day?
 
