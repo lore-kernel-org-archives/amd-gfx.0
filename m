@@ -4,63 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4168C83F34
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 07:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7515AC83F27
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 07:19:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DCC310E682;
-	Wed, 16 Jul 2025 07:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFE0510E23F;
+	Wed, 16 Jul 2025 07:19:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="QIyZPO3A";
+	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="J8QIw5Qp";
 	dkim-atps=neutral
-Received: from out203-205-221-249.mail.qq.com (out203-205-221-249.mail.qq.com
- [203.205.221.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0964310E00D
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Jul 2025 03:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1752635829; bh=YUlCVgMJNmDjwrdJ6bJdu2yxm+8ftSfwyAUkzwsQpUY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=QIyZPO3Aam6AKWkSAnLkPHxkyNs4c1pfSfQxB/eDyrWqtFW5vQXTEWYCqfvLAonqB
- 8kemtR8CBCSc65NZ9P0Adx/ogDHX6uO5l3aiywyjtrb7uqzQujLq0MY61rPh3ToNIq
- cLgFt3Fq0mZYeJbhgblK4rI9rjzRznRISnJQpmLM=
-Received: from VM-222-126-tencentos.localdomain ([14.116.239.33])
- by newxmesmtplogicsvrsza29-0.qq.com (NewEsmtp) with SMTP
- id 2C00BE3E; Wed, 16 Jul 2025 11:11:00 +0800
-X-QQ-mid: xmsmtpt1752635460t8c7enoyi
-Message-ID: <tencent_725B64FFA3A4BBF7C3E67C14D2B43A5C9107@qq.com>
-X-QQ-XMAILINFO: OCPaXsGDlF8+lftE9NFAJ7mWAyp1NovPO6/docXm32AEKrxvRHuVA8D+uTio6w
- Ro0wipK2wFoolbqrwMUvc6BRSxd3kEMJlhHmBczdiEBpn+q943midwtLpSW/yhp5CMFeiTElEb+Y
- Mh5QItELk3hCBgHpfNSCNb7qpKa8fHm03PMTN2QIY+L2oKelLZQcnh1lYqhvUhpnZGqlOcj+9eom
- o6iNjmxRObYGc1a2lZ4bcYTPTYwrb1mxeuQz5cBDYRacAlhw2RszvucKcWr0KVOdTTtGCJBvruA0
- T2ALRQHnhNPXVLJWeL954pjLD1e+8DIYPpITje0VTZI4fRfpT/4nRLTXBfRKSoFdEPT4XnZTnHDM
- b1omVRq0suasKAfkyBJq9GU4Qv9wlj/A/04P/rSbVQvgGhrB9SjZNKhIaIAzq0PhsmzaHx7E62eN
- QTmYUPGDf0aVCILKpQg8guPSo/yabGiht9hk/385m8LbUkvszvfexfHnQSCHsjRSMR7tocBLwic1
- ruqxGC58qIFvJzzh4iTOaPMvtfdPtpcC0MwUyUYyWMe/ifg4iw6i03pIyFkqorohOovcryMBb4vm
- Kv2IPguFOD3RHsXe80Yl4Mk9+8AYCHwpeOf13JSM14gefScDKroGrejMsaIjxpjaRi04IUbw2Apd
- hssmqTANc9dSkS/r7loo3CLMTfNBJbWMIZKNyuKmXfHkzZNEKBXawU+Ovn4QNpa47bWT/B6DncD8
- X64mz6HWbP1xW4nVFHSnXUGV1jjbGEUeORVgOgFBWZrURlQZV6lDsXsYGJdXf5rOAinB1R0hPQ9G
- VMuQ7Of1PqR+rOGr4az3wMgVJQPPBjrPvDlrOEwidIJiF1X7W18tG3UzU7YBOxRUMdTlU/BGhP1n
- SiAgsA4ruBlC5QCDZEuWVp2kPGRLUv2dvl4yMTBANMycXIXR/EkTkqknnTTPRUNSvNKW3efZwlpT
- dyxiUgG+UFOMOEqaQPoaCbZsvA+6c/DjW9cOgJQYQ98xdVB5LKwxX+ntGGUGWtM2Jyq+pnLyUlah
- hPlWwfrQNKiEgl5HJsqPiKbYN6AZAoUzi9PadaTQCDTT6JDcGa
-X-QQ-XMRINFO: M/715EihBoGSf6IYSX1iLFg=
-From: jackysliu <1972843537@qq.com>
-To: krzk@kernel.org
-Cc: 1972843537@qq.com, Austin.Zheng@amd.com, Dillon.Varone@amd.com,
- Security@tencent.com, Sung.Lee@amd.com, Wayne.Lin@amd.com,
- airlied@gmail.com, alexander.deucher@amd.com, alvin.lee2@amd.com,
- amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, joshua.aberback@amd.com,
- linux-kernel@vger.kernel.org, linux@treblig.org, mario.limonciello@amd.com,
- ryanseto@amd.com, simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
-Subject: Re: [PATCH] scsi:bfa: Double-free vulnerability fix 
-Date: Wed, 16 Jul 2025 11:10:54 +0800
-X-OQ-MSGID: <20250716031054.3964061-1-1972843537@qq.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <12c6632b-65b7-43da-a954-7107ac8cb1b1@kernel.org>
-References: <12c6632b-65b7-43da-a954-7107ac8cb1b1@kernel.org>
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C8689954
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 14:44:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1752590680; x=1752849880;
+ bh=hvhi00gjiKEMGqqIg2U9ZxBYHj2Kh4LS7UuattcsqlM=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=J8QIw5QpTdA8tM2AxmQFrnnLjTgUtDgZvICRad+UylIQC6ceal4ZPYT4nvaw5r0Wk
+ F0S0NpXMHNf5wXocYcRGxvw1+CWO5UxpltqwgniUKJmTQqINb+wWQHyHJn7RShkk9k
+ 1Q/IMS6w4GcFkaMLGWibcnUZLLE0/cmfJLBLnvly/J9aZeTKWE0VI4oJmj46JhMWFz
+ ZC3u9GhLSeN1kLrz4CaJRRzaDYlI6026pghpEZSHZwRJWCgwwHW2Euju77fMgSqLGv
+ 9znZIFL1XGwDHsJYlwMGXSsNNJ3nxmVuopONTeKy5e6WUVBrTypWSe7EVuxAp6VTWu
+ LNEnHIib9G4sw==
+Date: Tue, 15 Jul 2025 14:44:35 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Umio Yasuno <coelacanth_dream@protonmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/pm: fix null pointer access
+Message-ID: <20250715144315.26642-1-coelacanth_dream@protonmail.com>
+Feedback-ID: 19510729:user:proton
+X-Pm-Message-ID: e97ea36b95cd3d4d789d47d3641cd7de31f8d45b
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 16 Jul 2025 07:19:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,16 +52,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 15 2025 12:45:00 +0200 Krzysztof Kozlowski wrote:
->You should disclose that you used some AI tool for that... and that
->other report(s) was really fake finding.  People should know you
->generated it with AI, so they could make informed decision whether to
->even allocate time here.
+Writing a string without delimiters (' ', '\n', '\0') to the under
+gpu_od/fan_ctrl sysfs or pp_power_profile_mode for the CUSTOM profile
+will result in a null pointer dereference.
 
-Although this problem was detected with the help of ai and static methods,
-I checked the trigger path by myself and verified this problem. 
-I'll describe the ways of detection if I find other issues in the future.
-Anyway, thanks for your review.
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4401
 
-Siyang Liu
+Signed-off-by: Umio Yasuno <coelacanth_dream@protonmail.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+---
+Thank you for your comment. I just fixed the patch message.
+
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c
+index edd9895b4..39ee81085 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1398,6 +1398,8 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struc=
+t device *dev,
+ =09=09=09if (ret)
+ =09=09=09=09return -EINVAL;
+ =09=09=09parameter_size++;
++=09=09=09if (!tmp_str)
++=09=09=09=09break;
+ =09=09=09while (isspace(*tmp_str))
+ =09=09=09=09tmp_str++;
+ =09=09}
+@@ -3645,6 +3647,9 @@ static int parse_input_od_command_lines(const char *b=
+uf,
+ =09=09=09return -EINVAL;
+ =09=09parameter_size++;
+=20
++=09=09if (!tmp_str)
++=09=09=09break;
++
+ =09=09while (isspace(*tmp_str))
+ =09=09=09tmp_str++;
+ =09}
+--=20
+2.47.2
+
 
