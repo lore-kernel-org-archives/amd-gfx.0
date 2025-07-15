@@ -4,71 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC775C83F17
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jul 2025 18:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF03C83F17
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jul 2025 21:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8299610E050;
-	Tue, 15 Jul 2025 18:46:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34B2710E054;
+	Tue, 15 Jul 2025 21:24:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EctAXNqn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Omee0rbN";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F228810E050
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 18:46:46 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-23de2b47a48so6507345ad.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 11:46:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752605206; x=1753210006; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+lsraJ8K+80LoJvcSy8DqFlwGVdi0yJ8fryyjNly6T0=;
- b=EctAXNqnegq33iMixjWT0/hDeW6ODZ9iJYcC1Lcj8cTDiljmHkMixTZA0rSDNFfLP2
- VvhHW9NyAd21kkNP6uW/SlWHRAwTydJe36ZORtBO7n0OSe/9J/JS3ZbeTGfEI1INjaRG
- AsaCOnagBU85Z9UopA9OOzwSe8gvpSs3TBERWX7iHa0mjBQaUFq8BCdpWivCQ2CEJghU
- gvIIUoos97DO0TC11j2gaDEHhmL6RuhVxAj2TgFPmbr2sn4BvNW+nZzEWOb/Zbjah7Bp
- smdYgGYcycTUptZrqfHFpgskqAeknIhHfORD+FULD82XvPq9M16+G9MOwL64biJwnIwy
- mHUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752605206; x=1753210006;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+lsraJ8K+80LoJvcSy8DqFlwGVdi0yJ8fryyjNly6T0=;
- b=Um3HfebBHD6rH7OOqZtBGvvF7LqNF8X0s4s0N/dj0X877jemOvdhlBrtdVqXyV/T74
- oq2LgiQXvIIRRAgm3lFQZvOkypDNDRl1GNIQ+N/Z8VFBXbMwXQ+6745+tNonVLC1KGFq
- QYLGY5xp01r8KsBRGS6y3im7JXyhjH5lBwmDdAGJ6cPn2JUH9oy1dSiziqA2g4Gplui/
- 81NoMbQGGM6HUuYRRx78hzYqeEeBkL0hT1pvzywYaT5tjnYhJesPFjvEh5dBEgUP02vC
- hrTyftnbFIEj6xliFw/5d97WKeJ4CSw8UksD3xa26LdAsA64/6tO1PbTZ9bnmo/XYtNw
- kpRA==
-X-Gm-Message-State: AOJu0YyE4ZEq4KGBFo8mCS1FcFbqMtfSxNMm8eTE8kRzT1HPHYtcpYKj
- X6BV4bwfyjkW2mvDR91hWK4YyupPb2jjDg5NGZ/eVdnzoupVr6O15thr/4jKOBS28xc1IpxDRdy
- M1lfOHTRnnt7eOD895mSYfNudmK6gH4X5yg==
-X-Gm-Gg: ASbGncvUNMErbFlK8QXL64S3BHuznGLeH6ehNnK3KImElV0gPhXOWzJbPvVhsLpTsIW
- Gx2n7gDVHD2bOH5AdtmiAqqHy4FnGV/D1i+tAtnvQQrVNeIdfKshPm9ewxVRb9V+eIDQXeIoO51
- rtDF5KSMZzQuyxjEwNIlt5yTOCClXH90Z8E8pqRmqk5DFqrAolL9TejukvLGuUNYkAXnrhVbJ6x
- A3VdrH8
-X-Google-Smtp-Source: AGHT+IGZByvMxGBNaSZ2Jgc0zQo03ty5tej+FsUNZfiC5CSusyTQ2/5ZQt5j6elRm0hW2usPpoK2L/pbHzSdAi/9bSc=
-X-Received: by 2002:a17:903:22ce:b0:234:8f5d:e3a0 with SMTP id
- d9443c01a7336-23e24ec7de1mr441345ad.2.1752605206343; Tue, 15 Jul 2025
- 11:46:46 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C425510E054
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 21:24:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C09CA60051;
+ Tue, 15 Jul 2025 21:24:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D22BEC4CEE3;
+ Tue, 15 Jul 2025 21:24:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1752614667;
+ bh=nehgjhGHveNZYNMqQh5+XJMZOAc+evQvat03ABQVnMw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Omee0rbNzuX/VcF2SY3FzZkOgJImHSHjxBjsUmbwDQP6dltpgXwq1MqI8EsQFUS1B
+ HCCZi1B2rCWOwhSSu8rRioxDuA9x38wgeCoLptkLlPLz3/hVP9y3McBqlNMRimOiMl
+ b6uCQQHwc7JIOugWLpEkYrFL4Pnkvh/gRa1dga0BHtWvpFmj1qC5Kua6RNY/ynDfO3
+ c81kC62mCKfVX+J2+Z6evfVYhjCviZm+9Iz6Pr8yTjMBCrANhE4aPW8BrXJcF9fBMI
+ 6gEBs+xQciPaHaTr1NsMc6CsuydOLQohdQhVcnoZoEa3IJJsqlT+fRCpXbhnfDC/h9
+ 9p5NEVlFy6H3A==
+From: Mario Limonciello <superm1@kernel.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v2] drm/amd: Use drm_*() macros instead of DRM_*() for
+ amdgpu_cs
+Date: Tue, 15 Jul 2025 16:24:20 -0500
+Message-ID: <20250715212420.2254925-1-superm1@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20250711215122.23288-1-alexander.deucher@amd.com>
- <20250711215122.23288-3-alexander.deucher@amd.com>
-In-Reply-To: <20250711215122.23288-3-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Jul 2025 14:46:33 -0400
-X-Gm-Features: Ac12FXwLXiw8lUzQF1B4zLFJ6nrJIHIplASE_CBl5DFWwXTY6siNJE0SP_radIQ
-Message-ID: <CADnq5_Ntdm40p8Uvpz84g0ch6sDo=y_woPLAvc6MCQy8=vtH2w@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu/gfx12: set MQD as appriopriate for queue
- priv
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,55 +54,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ping on this series.
+From: Mario Limonciello <mario.limonciello@amd.com>
 
+Some of the IOCTL messages can be called for different GPUs and it might
+not be obvious which one called them from a problem.  Using the drm_*()
+macros the correct device will be shown in the messages.
 
-On Fri, Jul 11, 2025 at 6:28=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
->
-> Set the MQD as appropriate for the queue priv state.
->
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index e4fc42470cf3e..c4dc6bfb0f6f1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -3016,6 +3016,8 @@ static int gfx_v12_0_gfx_mqd_init(struct amdgpu_dev=
-ice *adev, void *m,
->  #endif
->         if (prop->tmz_queue)
->                 tmp =3D REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, TMZ_MATCH, 1)=
-;
-> +       if (!prop->priv_queue)
-> +               tmp =3D REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_NON_PRIV, =
-1);
->         mqd->cp_gfx_hqd_cntl =3D tmp;
->
->         /* set up cp_doorbell_control */
-> @@ -3165,8 +3167,10 @@ static int gfx_v12_0_compute_mqd_init(struct amdgp=
-u_device *adev, void *m,
->                             (order_base_2(AMDGPU_GPU_PAGE_SIZE / 4) - 1))=
-;
->         tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, UNORD_DISPATCH, 1);
->         tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNNEL_DISPATCH, 0)=
-;
-> -       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, PRIV_STATE, 1);
-> -       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, KMD_QUEUE, 1);
-> +       if (prop->priv_queue) {
-> +               tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, PRIV_STATE,=
- 1);
-> +               tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, KMD_QUEUE, =
-1);
-> +       }
->         if (prop->tmz_queue)
->                 tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TMZ, 1);
->         mqd->cp_hqd_pq_control =3D tmp;
-> --
-> 2.50.0
->
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+v2:
+ * use adev_to_drm (Lijo)
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 9ea0d9b71f48..e1e48e6f1f35 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -395,7 +395,7 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *p,
+ 			   chunk_ib->ib_bytes : 0,
+ 			   AMDGPU_IB_POOL_DELAYED, ib);
+ 	if (r) {
+-		DRM_ERROR("Failed to get ib !\n");
++		drm_err(adev_to_drm(p->adev), "Failed to get ib !\n");
+ 		return r;
+ 	}
+ 
+@@ -467,7 +467,7 @@ static int amdgpu_syncobj_lookup_and_add(struct amdgpu_cs_parser *p,
+ 
+ 	r = drm_syncobj_find_fence(p->filp, handle, point, flags, &fence);
+ 	if (r) {
+-		DRM_ERROR("syncobj %u failed to find fence @ %llu (%d)!\n",
++		drm_err(adev_to_drm(p->adev), "syncobj %u failed to find fence @ %llu (%d)!\n",
+ 			  handle, point, r);
+ 		return r;
+ 	}
+@@ -901,7 +901,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 					 sizeof(struct page *),
+ 					 GFP_KERNEL);
+ 		if (!e->user_pages) {
+-			DRM_ERROR("kvmalloc_array failure\n");
++			drm_err(adev_to_drm(p->adev), "kvmalloc_array failure\n");
+ 			r = -ENOMEM;
+ 			goto out_free_user_pages;
+ 		}
+@@ -982,7 +982,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 	r = amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
+ 			       amdgpu_cs_bo_validate, p);
+ 	if (r) {
+-		DRM_ERROR("amdgpu_vm_validate() failed.\n");
++		drm_err(adev_to_drm(p->adev), "amdgpu_vm_validate() failed.\n");
+ 		goto out_free_user_pages;
+ 	}
+ 
+@@ -1060,13 +1060,13 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_parser *p,
+ 		va_start = ib->gpu_addr & AMDGPU_GMC_HOLE_MASK;
+ 		r = amdgpu_cs_find_mapping(p, va_start, &aobj, &m);
+ 		if (r) {
+-			DRM_ERROR("IB va_start is invalid\n");
++			drm_err(adev_to_drm(p->adev), "IB va_start is invalid\n");
+ 			return r;
+ 		}
+ 
+ 		if ((va_start + ib->length_dw * 4) >
+ 		    (m->last + 1) * AMDGPU_GPU_PAGE_SIZE) {
+-			DRM_ERROR("IB va_start+ib_bytes is invalid\n");
++			drm_err(adev_to_drm(p->adev), "IB va_start+ib_bytes is invalid\n");
+ 			return -EINVAL;
+ 		}
+ 
+@@ -1234,7 +1234,7 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
+ 	r = amdgpu_ctx_wait_prev_fence(p->ctx, p->entities[p->gang_leader_idx]);
+ 	if (r) {
+ 		if (r != -ERESTARTSYS)
+-			DRM_ERROR("amdgpu_ctx_wait_prev_fence failed.\n");
++			drm_err(adev_to_drm(p->adev), "amdgpu_ctx_wait_prev_fence failed.\n");
+ 		return r;
+ 	}
+ 
+@@ -1447,7 +1447,7 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 
+ 	r = amdgpu_cs_parser_init(&parser, adev, filp, data);
+ 	if (r) {
+-		DRM_ERROR_RATELIMITED("Failed to initialize parser %d!\n", r);
++		drm_err_ratelimited(dev, "Failed to initialize parser %d!\n", r);
+ 		return r;
+ 	}
+ 
+@@ -1462,9 +1462,9 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 	r = amdgpu_cs_parser_bos(&parser, data);
+ 	if (r) {
+ 		if (r == -ENOMEM)
+-			DRM_ERROR("Not enough memory for command submission!\n");
++			drm_err(dev, "Not enough memory for command submission!\n");
+ 		else if (r != -ERESTARTSYS && r != -EAGAIN)
+-			DRM_DEBUG("Failed to process the buffer list %d!\n", r);
++			drm_dbg(dev, "Failed to process the buffer list %d!\n", r);
+ 		goto error_fini;
+ 	}
+ 
+-- 
+2.49.0
+
