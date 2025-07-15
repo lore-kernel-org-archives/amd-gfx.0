@@ -4,104 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A88E3C83F1D
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jul 2025 09:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90D98C83F17
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jul 2025 09:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 278BE10E04A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75C9110E579;
 	Tue, 15 Jul 2025 09:58:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="VxFrL7a/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6U9ouOwp";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VxFrL7a/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6U9ouOwp";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="v17urEst";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mb7v/HFI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="v17urEst";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mb7v/HFI";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F060B10E579
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0A0E10E04A
  for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 09:58:46 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9CB3321224;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 582281F397;
  Tue, 15 Jul 2025 09:58:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1752573525; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2bmn+D0QYHSMpmvznWKvzmcttq0te/vi5lmLpXRnOtA=;
- b=VxFrL7a/CbHx9J21o11eRL+HJITgnjwmC/8tIf+d3XTAAbQGjKZOv3vBDlmsJHDOfapr/j
- Y6wkIIBLmwc7p8bjFWJ0+F442WW3XAh4R2e2F5U0szhrhdpV0iCEXHofjfRFCSeUx2uLnV
- B4nOLJpiWci6TTJzjFPFBcRDyjU6j8M=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=sZzAyfYgH5KYJVnIa4l3kAkIlVEUgQhME2o/g6RgBfI=;
+ b=v17urEst+2+9iknCwWCHmx3HwBp+iknqwpOgsuNsgfsCXq/goc0vipyjpi+XC/+/jrtZR2
+ 8ilsJxhGiOZ/YZWHhn2NpAQtKH1s4DIRFM/s/cgjgH9ONm0viPbSzgTSmiy9rHQTpPabBE
+ RuNODKoUdRzWRGmSNzpFK4RyB5cnxrU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1752573525;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2bmn+D0QYHSMpmvznWKvzmcttq0te/vi5lmLpXRnOtA=;
- b=6U9ouOwptP+GLHdgSRAomDfpJSyAF5tf6aOGDpbw4XSKWFNDo+aZSPkE8kXNAb9DAcRZca
- S2mr/w0oNPJX5tBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
+ content-transfer-encoding:content-transfer-encoding;
+ bh=sZzAyfYgH5KYJVnIa4l3kAkIlVEUgQhME2o/g6RgBfI=;
+ b=mb7v/HFI6rvvuZ9HRn707KUmwiLiYTNzYaxJUaEocdnxP2DfPKV5vtciFXeh1yQL77/Rzb
+ h9pGfWigTD6eLZCA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=v17urEst;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="mb7v/HFI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1752573525; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2bmn+D0QYHSMpmvznWKvzmcttq0te/vi5lmLpXRnOtA=;
- b=VxFrL7a/CbHx9J21o11eRL+HJITgnjwmC/8tIf+d3XTAAbQGjKZOv3vBDlmsJHDOfapr/j
- Y6wkIIBLmwc7p8bjFWJ0+F442WW3XAh4R2e2F5U0szhrhdpV0iCEXHofjfRFCSeUx2uLnV
- B4nOLJpiWci6TTJzjFPFBcRDyjU6j8M=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=sZzAyfYgH5KYJVnIa4l3kAkIlVEUgQhME2o/g6RgBfI=;
+ b=v17urEst+2+9iknCwWCHmx3HwBp+iknqwpOgsuNsgfsCXq/goc0vipyjpi+XC/+/jrtZR2
+ 8ilsJxhGiOZ/YZWHhn2NpAQtKH1s4DIRFM/s/cgjgH9ONm0viPbSzgTSmiy9rHQTpPabBE
+ RuNODKoUdRzWRGmSNzpFK4RyB5cnxrU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1752573525;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2bmn+D0QYHSMpmvznWKvzmcttq0te/vi5lmLpXRnOtA=;
- b=6U9ouOwptP+GLHdgSRAomDfpJSyAF5tf6aOGDpbw4XSKWFNDo+aZSPkE8kXNAb9DAcRZca
- S2mr/w0oNPJX5tBA==
+ content-transfer-encoding:content-transfer-encoding;
+ bh=sZzAyfYgH5KYJVnIa4l3kAkIlVEUgQhME2o/g6RgBfI=;
+ b=mb7v/HFI6rvvuZ9HRn707KUmwiLiYTNzYaxJUaEocdnxP2DfPKV5vtciFXeh1yQL77/Rzb
+ h9pGfWigTD6eLZCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 54F5B13A6C;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0769A13A68;
  Tue, 15 Jul 2025 09:58:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2G1bE1UmdmhdcQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id FFRyAFUmdmhdcQAAD6G6ig
  (envelope-from <tzimmermann@suse.de>); Tue, 15 Jul 2025 09:58:45 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH 1/2] drm/radeon: Do not hold console lock while suspending
- clients
-Date: Tue, 15 Jul 2025 11:50:53 +0200
-Message-ID: <20250715095536.58757-2-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 0/2] drm/radeon: Do not acquire console lock during
+ suspend/resume
+Date: Tue, 15 Jul 2025 11:50:52 +0200
+Message-ID: <20250715095536.58757-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.50.0
-In-Reply-To: <20250715095536.58757-1-tzimmermann@suse.de>
-References: <20250715095536.58757-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[amd.com,gmail.com,ffwll.ch];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_SEVEN(0.00)[9];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email, qualcomm.com:email,
- suse.de:email, suse.de:mid, imap1.dmz-prg2.suse.org:helo]
+ FREEMAIL_TO(0.00)[amd.com,gmail.com,ffwll.ch];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[7]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:dkim,
+ imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Queue-Id: 582281F397
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,42 +117,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The radeon driver holds the console lock while suspending in-kernel
-DRM clients. This creates a circular dependency with the client-list
-mutex, which is supposed to be acquired first. Reported when combining
-radeon with another DRM driver.
+Radeon is the only driver acquiring the console lock on suspend and
+resume by itself. This creates cyclic locking dependencies with the
+client-list mutex.
 
-Therefore, do not take the console lock in radeon, but let the fbdev
-DRM client acquire the lock when needed. This is what all other DRM
-drivers so.
+Drop the console locking from radeon and let fbdev client handle the
+console locking as necessary. Adopts the behavior of all other DRM
+drivers. Fixes the cyclic locking.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Closes: https://lore.kernel.org/dri-devel/0a087cfd-bd4c-48f1-aa2f-4a3b12593935@oss.qualcomm.com/
-Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/radeon/radeon_device.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+Tested by repeatedly suspeding/resuming on Radeon HD 6570.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index bbd39348a7ab..6f50cfdfe5a2 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1635,11 +1635,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 		pci_set_power_state(pdev, PCI_D3hot);
- 	}
- 
--	if (notify_clients) {
--		console_lock();
--		drm_client_dev_suspend(dev, true);
--		console_unlock();
--	}
-+	if (notify_clients)
-+		drm_client_dev_suspend(dev, false);
-+
- 	return 0;
- }
- 
+Thomas Zimmermann (2):
+  drm/radeon: Do not hold console lock while suspending clients
+  drm/radeon: Do not hold console lock during resume
+
+ drivers/gpu/drm/radeon/radeon_device.c | 23 ++++++-----------------
+ 1 file changed, 6 insertions(+), 17 deletions(-)
+
 -- 
 2.50.0
 
