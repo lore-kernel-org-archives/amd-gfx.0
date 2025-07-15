@@ -4,65 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 439B7C83F27
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 07:19:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BDC5C83F2D
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 07:19:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C692810E25D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8DFC10E67B;
 	Wed, 16 Jul 2025 07:19:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="LB0DLtN3";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="l/kPPqir";
 	dkim-atps=neutral
-Received: from out203-205-221-250.mail.qq.com (out203-205-221-250.mail.qq.com
- [203.205.221.250])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 597B110E737
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Jul 2025 03:37:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1752637041; bh=LEOKLduKn83Hk4hJU9cdyVDUO80iRjwGRPOjQDIAj5g=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=LB0DLtN3qJcLOPag7PyEd9WLfd3ZDvYQibP7D0m2AZGrqbbY2ODNWnG+g8hG3wzyC
- odMiVbvp4uZZsSLjPXkChAL2p60dDvR16oRjmvrL13OdAPlngVSOZA47EInU0C3n69
- PhoDyHtRx+JWbuWrf8tfT+a2Ue0xkkmtIuqZCO5s=
-Received: from VM-222-126-tencentos.localdomain ([14.116.239.33])
- by newxmesmtplogicsvrszb20-0.qq.com (NewEsmtp) with SMTP
- id 95233899; Wed, 16 Jul 2025 11:37:18 +0800
-X-QQ-mid: xmsmtpt1752637038t3ljnbpzq
-Message-ID: <tencent_56A4BA7780E65A148134035CC5DB2CFFA007@qq.com>
-X-QQ-XMAILINFO: NVJ0hJNx7N5SZ62XQeLKAxgOeEoRz+a6vTdTRn2HHdzSxRdLvtqVF8p9xXbTnW
- 62wfZIha+bKQwzazc3UuOkew8GaSNXYF9EyxosjLKWBHmpbzN0126sBCDGvqk0bIUfz1Lvj9d9jP
- MZR5MByWYWFZ0+zV3LvHckAlGJruALrfYZRcjh3Eaf+BAjownX0VMv2opIDPdb13+n53sAwkmjRS
- w14n4yle16gyUkq3X0p7ev462yILd7qQUS85j/U2xQScQWHZ7WTf66xpi20D5TgrFVWda85cFmbB
- +O/t6UtXqU7SFzM9RzL0LmpB3/gA92CbFHWUsoyS8Fmutl0lB2oHp3BKPI7cGpi3W5MoRbtBK4IV
- u7/uNiqjs+tJMjDLT6YjK6HpeclkUrUnA5OVva3XA55YbzBGKVXrSybFZqdE/jEKCPB43oCxwMPi
- xpR0x4k+ThYqOewRGdKqoAAxBQTUoO3JJzIaJmjpKJmlsWFx9iTf6saOuKsGEo7w39ctR0S3dNeO
- fFIHKlLq1h17aDrxDE3XfdHUbXnye9xujdo2ks6zbesZPDEvKGbgQf0OkB2lIRLYjP590arrohzx
- LbCe7aT1mLMdM0150Kmb4616G/oTDPzDrFije1+9b81VPLF/ixczqSUDGNNADe3tZuy5WCa8aRae
- Fpa6E9y6MhpNotlnNfVitm2fqdJf4b9VC4FAaPz9AExWz9ZIiqiRV7vN3G0NMuhWjpp5dXZFaoUU
- lgrTwD3mw4IvsS3/Bgl4xv8QDTSq639/bus32Ksi2nNzYXuJNAU7aucodLnOV9A8pqGFvoZZr5NH
- JxGnyE8PU56M2JfyFZYcR/9WXSckwItejn6zmpiE0gsLFpt4OivM3VgfmekoeGeU/7kUxjwrUFQF
- eQxbX0lE9z+8sHLCd7bIV3LemrOGBA24nry27NQwFK2Kuj1ZUEICqt+SMz07bvWu/JnbXMHDw8vV
- uKu16LfTRZ8UmVvMNoW6zRDUF24GEERuGz737KDE4p6as5nZaizYXm2mTFMOHHjlNC/JoX+c0G42
- H4yD/kMa5rqLR62R/fXFd6noUycOaosvpbkqgTkW8d52AeH28NsTAF9ExRZnbDOgPAsclovTCPuT
- at3hYr
-X-QQ-XMRINFO: NS+P29fieYNw95Bth2bWPxk=
-From: jackysliu <1972843537@qq.com>
-To: krzk@kernel.org
-Cc: 1972843537@qq.com, Austin.Zheng@amd.com, Dillon.Varone@amd.com,
- Security@tencent.com, Sung.Lee@amd.com, Wayne.Lin@amd.com,
- airlied@gmail.com, alexander.deucher@amd.com, alvin.lee2@amd.com,
- amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, joshua.aberback@amd.com,
- linux-kernel@vger.kernel.org, linux@treblig.org, mario.limonciello@amd.com,
- ryanseto@amd.com, simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
-Subject: Re: [PATCH v2] drm/amd/display:fix a Null pointer dereference
- vulnerability
-Date: Wed, 16 Jul 2025 11:37:18 +0800
-X-OQ-MSGID: <20250716033718.3981047-1-1972843537@qq.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <12c6632b-65b7-43da-a954-7107ac8cb1b1@kernel.org>
-References: <12c6632b-65b7-43da-a954-7107ac8cb1b1@kernel.org>
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF39210E69D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 22:58:49 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-73e64e87d49so179623a34.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 15:58:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1752620329; x=1753225129; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=dQdS/fnesxZHeRTbK+njettpxhb9T3PJtvTTlq4Hbyo=;
+ b=l/kPPqirYsZPtX9w8YMJqfk6aLgUP69VB02X9pN3Z0/87toKBr/B/BYhuIwMfHQ/1x
+ sR6bMkQ0l74KvfL9kioFian9GizNa9T0hCO65te76EXamyn9/BoH4FkPz4eMuh8YJue6
+ nwIXOiB/S1QlLHC/cRx0Vw/A26SCfiIwIwwdVSCMZLGoPy668h/06jSq2x2ztHa/oiwQ
+ Ge6WaEi1kMxYx8WtwebBQt2bFWsXTwT92tr2F3lRgKXpRVSjI/hwzypPxl91b3BKgddF
+ 9GhfXY9jlPD/x8UOPiz2psxRz6l5HHdq03BFlRM09OaUyx265zLDXpoepO3CbrZeeeGB
+ UsyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752620329; x=1753225129;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dQdS/fnesxZHeRTbK+njettpxhb9T3PJtvTTlq4Hbyo=;
+ b=lFepsy2C7znR7hcgV+F4+oIkXvDZ8jCYuPMJfJ3Zg22/8kzcu42l3zBIqxM3ZPGELJ
+ WSoGDpejyM7E5iKbn55bIUgBav42QaaCqTtr4+5oAC+s1WWF5fcZc32eaNA1Ay1eB6Xr
+ g+1Im/L1JMgqD2qsCjaNzOpw6pEtmrMjX7cwNAAFmoBG/Dv5skvka526LHrE8bdRInOr
+ fyZTeqg025co1ueXScH2w9COmVW92Ytzx6Eek6f6FHG2Jgwy1jVFRZMZdbVYwpY0ZKqD
+ 2lx7c2i2ZU9G/WYmRwOQTWyMa5zBe7LqB7Zu/eI7pIPYp0/WPSVL6BVXNY+3+I3Msyq+
+ Xxfw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWkj7BNI3QrmiN4QdQYC7+WIWSlWG1Bpse+ZWCrAiPBRSwrBoBNo9vavKyLYReU3hVI+SpeA2Zf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfNZ6LAyBxatyppVzHkVmRvG2i/+xHYY/j+bHI6m2cvChZpOmZ
+ qfBsYHD06Dj26Gd/1khvZ9BOJpZaN9VEDDV5h5qjHmF5TWa9GDWzs/4G2NBNl1dYriY=
+X-Gm-Gg: ASbGncsFVgfcjr6tijFP+JC87HM/nP0NYQt6kaeBDdWA/wNJqCdpMAiqhlo1EXABFry
+ 6c7mUBfBgwujWKhtdaG8vkYx0gWB2Dn5P9lhwMIdillVZi/TMksNiSVt38c4lnBs697cZgUO7Qr
+ pWxOlnk/rFKy14CYD6991CMipgZFgdppi35i93jF89RDZshyzOAxb+L5MDhGF8JuFktTpW4XSpn
+ Z306FXO/d8va3A4qDdzZhW63UvablYSlkXLeFdqBfqsOrNmTaE00C43Zq2wEVPFpN7KK6rbwYIZ
+ WVI20EbPedth4p/lsdxqu9yTBhqHOg5llP5v7VwyLoMINyOINcIZeN8N0ime+esu/h60mC8YTMB
+ E7F0vIm5BGgB+8RRYIqHB7czoW5v1
+X-Google-Smtp-Source: AGHT+IF8MmVG4ypCu726fhwqLEetif2ChyidvWvdhwWbSrW4wyOjZnawR/MGOE0avl2B+dB2nPbJkg==
+X-Received: by 2002:a05:6830:2d86:b0:73b:2751:eee2 with SMTP id
+ 46e09a7af769-73e66613225mr334520a34.23.1752620329043; 
+ Tue, 15 Jul 2025 15:58:49 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700:9b4e:9dd8:875d:d59])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 46e09a7af769-73cf10857b2sm2518429a34.16.2025.07.15.15.58.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Jul 2025 15:58:48 -0700 (PDT)
+Date: Tue, 15 Jul 2025 17:58:47 -0500
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ Arvind Yadav <Arvind.Yadav@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH next] drm/amdgpu: unlock on error in amdgpu_userq_create()
+Message-ID: <ef53ff29-4d1e-4f07-a431-c0b91578f93b@sabinyo.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Wed, 16 Jul 2025 07:19:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,16 +92,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 15 2025 12:44:40 +0200  Krzysztof Kozlowski wrote:
->You should disclose that you used some AI tool for that... and that
->other report(s) was really fake finding.  People should know you
->generated it with AI, so they could make informed decision whether to
->even allocate time here.
+We need to drop a couple locks before returning if the kasprintf() fails.
 
-Although this problem was detected with the help of ai and static methods,
-I checked the trigger path by myself and verified this problem. 
-I'll describe the ways of detection if I find other issues in the future.
-Anyway, thanks for your review.
+Fixes: c03ea34cbf88 ("drm/amdgpu: add support of debugfs for mqd information")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Siyang Liu
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 492f1089316f..c3ace8030530 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -521,8 +521,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	}
+ 
+ 	queue_name = kasprintf(GFP_KERNEL, "queue-%d", qid);
+-	if (!queue_name)
+-		return -ENOMEM;
++	if (!queue_name) {
++		r = -ENOMEM;
++		goto unlock;
++	}
+ 
+ #if defined(CONFIG_DEBUG_FS)
+ 	/* Queue dentry per client to hold MQD information   */
+-- 
+2.47.2
 
