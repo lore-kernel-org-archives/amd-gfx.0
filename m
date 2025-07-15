@@ -4,66 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E13DC83F21
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jul 2025 13:45:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 680E1C83F17
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jul 2025 13:53:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B21B10E5CD;
-	Tue, 15 Jul 2025 13:45:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D5610E5DA;
+	Tue, 15 Jul 2025 13:53:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mJFq9Q56";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CeQ0y7oD";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B72C10E5CD
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 13:45:18 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-234b122f2feso4927585ad.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 06:45:18 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1199F10E5DA;
+ Tue, 15 Jul 2025 13:53:15 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-312f53d0609so981513a91.1; 
+ Tue, 15 Jul 2025 06:53:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752587118; x=1753191918; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1752587594; x=1753192394; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ea6zILJUKfjDh01VcKvBGMfYV1+itb5o+BZpMbWPDvY=;
- b=mJFq9Q56L8RL5M/xXN5qbl7yJF8IIgkOdSKbBQjrFxF3wFqMRSr0UI5/UzyyeL1Emf
- TF5bJ8iweLaJ6BJolAJUXDWHexgVyykPQpFCEsEy7QjpeiagFqydYp1gt2OnQbCCr1Up
- Xf5dToGL7kyN1vxgKMkhDVbuVBIPx9F7Q/6qQ9UmzFMlLmwuBwr7ON37mMvWE1vrl1WS
- f7EAR/7dl1CF2JJjyvM6qM7jp7oy7z6VZe3W8pD36b1C9sIC2igq2reaWQcbnTz6IP52
- YVzqltevkbH3y/1HR2JgN6ExikxNZG/qLUYSI76Bgra503ia+4aMqwM1o3djrWYSNS7z
- sx/Q==
+ bh=1lS3uvd0FvDhLuDBdDTs7gr2vxjnybyZrnKvixcqLzg=;
+ b=CeQ0y7oDmbutxRLdDrJbNXPSqdpl1XyCFMYN6PJBIBvTwA05Ub9EAlJYA3CPD2wX+l
+ j8SlsPXMeGV2lTKTOGP04FfZN569nPCdZ84Uky9335xeLnGCj7AGRE6T+qi/RmQ3IamU
+ UyBi4Zimn1rBLYnpL9DIPraH9/ILo0hc2VSOpkiJPe7EZKw9D6CJWN1hpFSkSxCeVqTZ
+ 5Gp9NIJd3HvHy+2GtAjYNZ1c67vOfrXC55PZnSj9ozald0NztJ+romhM/u0a5pd70tnR
+ d9ZRK2j+xn1R+DzbVgpHuCPVdLEsw2CgOXnZ5C6OUluY3SyF1M1tRXxMQByZFAYlmrmi
+ fL4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752587118; x=1753191918;
+ d=1e100.net; s=20230601; t=1752587594; x=1753192394;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ea6zILJUKfjDh01VcKvBGMfYV1+itb5o+BZpMbWPDvY=;
- b=MQirnqiThVkg7f4rfnUQ2I6y6TDf9lYlVQdl8pCrOLkhUa0hQckEsWiodHRi9PDnbH
- ylLUevI4plHiLrbNYu+IRQgZMim3r43pIkSf6RbmZSYS9RIHsPeJJBhEOJLGpV4px7Bd
- evZFLwEEeHL03UPpi0LDihm7UeJ895dUxV1BqRIbyLOMgYVhm3/4fC2oxSn22d9S9mtJ
- 5mrOP1MPe5WtWlL8RlRNvhgO3rIEvaMhzzcCpI6ewneBnl+NQxNINr310lwg6a10Pf3v
- JMupCLrWSIn0MrPMX43Xej1sMzGMYuSWpc5bGqRKxKwPktpkQ58sKeVvSVPEQFbJ5I+4
- lQmw==
-X-Gm-Message-State: AOJu0YyNGlDgwweumbnvfBJFJUYQ2FIm8A6ZAvd9hhHdIo4TwpSSb7Ug
- DPG3M0JIZui2IKYKoudXN7TimW0ODSgLupxPK1WdOPgxY42TaExXSZxqJLamX8OjjQGCEdmAPZf
- HSQK04MgVsHsYSQgM807hOdv1aTA2dwGwpQ==
-X-Gm-Gg: ASbGncvAPAuyP01Qf339mOpRz++cNivAd8xNfwRW5voQeKZr8LAeVZpl2xZNDnb2LIG
- 77ZXU5UwiccK4Mlkagp5DWdjjcBjpRaJfx4ZR2AyvlTEnh0QjITU7C4oOlXuWZqWUQqdbdiDvPE
- id02BoHgg3vb14wIQvHfKiVmwKPFkAheCNbHq8g7tDBelC1sp5GCkjaSVu5rlLKpMJ3fpZ8d9LM
- KaFFxAV
-X-Google-Smtp-Source: AGHT+IFQhl6C/gSB/Pf0rIqNKVC8noXjdYQInDRMR5RBEgot2ZYG6zjohh39EfBm9PmKjNUcBmDBdbsLGHfPJkqa8ZI=
-X-Received: by 2002:a17:902:f682:b0:234:f1b5:6e9b with SMTP id
- d9443c01a7336-23e1e912dcbmr9350355ad.1.1752587117509; Tue, 15 Jul 2025
- 06:45:17 -0700 (PDT)
+ bh=1lS3uvd0FvDhLuDBdDTs7gr2vxjnybyZrnKvixcqLzg=;
+ b=Y+KC6dGVOQtnC9NMcRV0mERTrmzEsBKImYVxEcwWvbNseo9Mo61kYPs3npxJv1OSD+
+ ZmHQTHddGrYUDUPWPm/IVvsJUYHNojtvlAi6OjkWoBe7/X0zP66hzZfmGQExw2qJYPmA
+ BstcEDd1PAiYh23wERNkBJ7/O9O8xngkC9BpOz4iJklmQ26eF370TwjMMulag7aq8OW8
+ vrbC55mWJbnLxNU7xwOWpJwqsXNsaFrayTxoOucIw4KZoT0wS76wEP2GBe6cZhS0h9Ly
+ huWSgL5f/Fvpe1606STxZZzfpof5qHV8ZYc8SgKGP/BGmeRyoby+4siH5JS6fMPyiFF3
+ yjaQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUNAJNer93d06SHiQ9KfZuYdIFATcJU5DPoK570qO+7J2QhDpao0+RV08RMD15N3cOKRMcwO8g2EsOi@lists.freedesktop.org,
+ AJvYcCUTDyec3DqGjIzkQrQaZkTVslii9DcWsKtpmf7qFrmZerW7Ryxo5RuYkCcTrY8ym5Iz3hbDblC8@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxMeh5iYZwX5OnNpyXk6CUbPCeBcS+AYELgpfKitIDDQKoxPLbb
+ OcA43oDugeNw0/fh7RBTmZ9wnfFR7fOACe6BhCYSVfs9M1kwroDZAOvOqPMVGYYWeJ59B6bom3O
+ C0caVuosBVEWNIDxBmiSwjgcaquzw9jM=
+X-Gm-Gg: ASbGncuawAqigTndMctu3oGantAQ4W9dupNNi73RQLKcpWKQzIvi7RTnHF1+cHY2A6a
+ gwBNHHv9H3eGSwcSUR7qc16DnWq++0LBZGYudRteCu1gv9QJcmZs0iCyBIXYHxGy0QjN4NODSW/
+ sANaPuPWkJotnWP6CZ8S7HZMYwa10XRK/buS42BJe8A5F5EIdycB60D9ow0nKhn9lapHcf0ddWz
+ irkV5RI
+X-Google-Smtp-Source: AGHT+IFShvV8WR/svQcBOd9dLjJQvWNmtvK1o8+GBY32wOUjUOTlMABVY81NEAiaSwFaU1KRLisHJIi9Gwr0PqgbOKM=
+X-Received: by 2002:a17:90b:3d89:b0:311:c939:c842 with SMTP id
+ 98e67ed59e1d1-31c94dffef4mr840457a91.7.1752587594449; Tue, 15 Jul 2025
+ 06:53:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250625023220.8417-1-alexander.deucher@amd.com>
-In-Reply-To: <20250625023220.8417-1-alexander.deucher@amd.com>
+References: <20250715095536.58757-1-tzimmermann@suse.de>
+ <20250715095536.58757-2-tzimmermann@suse.de>
+In-Reply-To: <20250715095536.58757-2-tzimmermann@suse.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Jul 2025 09:45:05 -0400
-X-Gm-Features: Ac12FXwaQ0YWEOERcy_UpJANmQoELeOOLUMKB4wI2i7MAvcPyv42fs-_tzlotDA
-Message-ID: <CADnq5_P24tVYNh0oegDsC5R8gCS3_+aWvAf2yswgqd5k6JnrHQ@mail.gmail.com>
-Subject: Re: [PATCH V2] drm/amdgpu: make compute timeouts consistent
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Tue, 15 Jul 2025 09:53:02 -0400
+X-Gm-Features: Ac12FXwP0PB6aaMusaVSFIpkSJpSQQ1tWLHBx9YoJReoAifiR-j9lovKW7e2E1w
+Message-ID: <CADnq5_N=w-LpxiTnEYnNY3qQTno0-P44Q3nQN1dacB_VsZA31g@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/radeon: Do not hold console lock while suspending
+ clients
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,95 +88,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+Applied the series.  Thanks!
 
-On Tue, Jun 24, 2025 at 10:32=E2=80=AFPM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
+Alex
+
+On Tue, Jul 15, 2025 at 5:58=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
 >
-> For kernel compute queues, align the timeout with
-> other kernel queues (10 sec).  This had previously
-> been set higher for OpenCL when it used kernel
-> queues, but now OpenCL uses KFD user queues which
-> don't have a timeout limitation. This also aligns
-> with SR-IOV which already used a shorter timeout.
+> The radeon driver holds the console lock while suspending in-kernel
+> DRM clients. This creates a circular dependency with the client-list
+> mutex, which is supposed to be acquired first. Reported when combining
+> radeon with another DRM driver.
 >
-> Additionally the longer timeout negatively impacts
-> the user experience with kernel queues for interactive
-> applications.
+> Therefore, do not take the console lock in radeon, but let the fbdev
+> DRM client acquire the lock when needed. This is what all other DRM
+> drivers so.
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+> Closes: https://lore.kernel.org/dri-devel/0a087cfd-bd4c-48f1-aa2f-4a3b125=
+93935@oss.qualcomm.com/
+> Suggested-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 > ---
+>  drivers/gpu/drm/radeon/radeon_device.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
 >
-> V2: fix documentation as well
+> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/rad=
+eon/radeon_device.c
+> index bbd39348a7ab..6f50cfdfe5a2 100644
+> --- a/drivers/gpu/drm/radeon/radeon_device.c
+> +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> @@ -1635,11 +1635,9 @@ int radeon_suspend_kms(struct drm_device *dev, boo=
+l suspend,
+>                 pci_set_power_state(pdev, PCI_D3hot);
+>         }
 >
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 10 +++++-----
->  2 files changed, 7 insertions(+), 15 deletions(-)
+> -       if (notify_clients) {
+> -               console_lock();
+> -               drm_client_dev_suspend(dev, true);
+> -               console_unlock();
+> -       }
+> +       if (notify_clients)
+> +               drm_client_dev_suspend(dev, false);
+> +
+>         return 0;
+>  }
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index c8a6b3689deae..58a0ee99eb2f8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4171,18 +4171,10 @@ static int amdgpu_device_get_job_timeout_settings=
-(struct amdgpu_device *adev)
->         int ret =3D 0;
->
->         /*
-> -        * By default timeout for non compute jobs is 10000
-> -        * and 60000 for compute jobs.
-> -        * In SR-IOV or passthrough mode, timeout for compute
-> -        * jobs are 60000 by default.
-> +        * By default timeout for jobs is 10 sec
->          */
-> -       adev->gfx_timeout =3D msecs_to_jiffies(10000);
-> +       adev->compute_timeout =3D adev->gfx_timeout =3D msecs_to_jiffies(=
-10000);
->         adev->sdma_timeout =3D adev->video_timeout =3D adev->gfx_timeout;
-> -       if (amdgpu_sriov_vf(adev))
-> -               adev->compute_timeout =3D amdgpu_sriov_is_pp_one_vf(adev)=
- ?
-> -                                       msecs_to_jiffies(60000) : msecs_t=
-o_jiffies(10000);
-> -       else
-> -               adev->compute_timeout =3D  msecs_to_jiffies(60000);
->
->         if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
->                 while ((timeout_setting =3D strsep(&input, ",")) &&
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 7e3fa76227033..7bc326d0b4000 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -362,12 +362,12 @@ module_param_named(svm_default_granularity, amdgpu_=
-svm_default_granularity, uint
->   *   The second one is for Compute. The third and fourth ones are
->   *   for SDMA and Video.
->   *
-> - * By default(with no lockup_timeout settings), the timeout for all non-=
-compute(GFX, SDMA and Video)
-> - * jobs is 10000. The timeout for compute is 60000.
-> + * By default(with no lockup_timeout settings), the timeout for all jobs=
- is 10000.
->   */
-> -MODULE_PARM_DESC(lockup_timeout, "GPU lockup timeout in ms (default: for=
- bare metal 10000 for non-compute jobs and 60000 for compute jobs; "
-> -               "for passthrough or sriov, 10000 for all jobs. 0: keep de=
-fault value. negative: infinity timeout), format: for bare metal [Non-Compu=
-te] or [GFX,Compute,SDMA,Video]; "
-> -               "for passthrough or sriov [all jobs] or [GFX,Compute,SDMA=
-,Video].");
-> +MODULE_PARM_DESC(lockup_timeout,
-> +                "GPU lockup timeout in ms (default: 10000 for all jobs. =
-"
-> +                "0: keep default value. negative: infinity timeout), for=
-mat: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
-> +                "for passthrough or sriov [all jobs] or [GFX,Compute,SDM=
-A,Video].");
->  module_param_string(lockup_timeout, amdgpu_lockup_timeout, sizeof(amdgpu=
-_lockup_timeout), 0444);
->
->  /**
 > --
-> 2.49.0
+> 2.50.0
 >
