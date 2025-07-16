@@ -4,77 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02314C83F22
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 19:46:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AC19C83F1B
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 20:36:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 617A110E036;
-	Wed, 16 Jul 2025 19:46:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8555410E3CA;
+	Wed, 16 Jul 2025 20:36:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TH9EUw8T";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KXYNVKoM";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE54D10E036;
- Wed, 16 Jul 2025 19:46:41 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-31306794b30so46661a91.2; 
- Wed, 16 Jul 2025 12:46:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752695201; x=1753300001; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dERiphi8SN2qWU4cz5FSID1siLlWpDs3Gm8IHGd1cj4=;
- b=TH9EUw8TfKgkxuHr1D5vh4DgYJasKzMedDXDFgDK72BCwdjIGPAFWqVohicbfeWuEC
- IGofyQWRg1JLHFPahxb/8V0ZHvx7ivO3dI54RRjKoHLtTAtv+Ze5HLr3qzSmyywqkqiY
- eo9nKR5lUrje6n4jDAkMNOAjybBluQ5w+/8+8+FqN/2RXnDjxFS8LUOKJJoGMDE1koiJ
- fKNzToKZZRCQHMOLp0swSAPKT/5fiN7/GQ937tYEklNHWuFfzjbkWom69ZjVLWuIEgeJ
- 6Q0AozMuW6Di7a8IYSluEa4fqZuFG7e31J3w9WNjT7Qk0goeuib8jjnDn7MtAX0e5a/d
- Agyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752695201; x=1753300001;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dERiphi8SN2qWU4cz5FSID1siLlWpDs3Gm8IHGd1cj4=;
- b=qsiioVAhdhJ8jqZ4sPWt6EZhoh9FP7nipB8InsG00tOutYQSrdg0llQn6xD0OLM0pH
- +VL3P24qbjTqoFRkFZc6mhjCmDyzwo6cJHvxNEf+cqQ5cGqiRK7dzXFp7EMzGufkS+5R
- DND4KiI2KEg60iil9B6OLd9bmzHz1KJDxSOdA5AF/O0B5/eqdklU9wWU44qcwBlRUyDB
- 6exX6IM9t9dwewgfF74SzgDoRpetSE4BirS1l6RW3dZz0YdJTo3W3um8BFafljYTtf6a
- obitSM4s/wWbmxeE4BgaU6a4DAWyFWDJdGYh6JkqnRIt2P7+PhrjOvCGeSUQzLfKM5Bm
- 4i+Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWCesKxGdDSCw6ZHaOLnH3AGQ3nzkMi+uY7BxNdQ4OitI8XB+WyHYLjeOKsE7uKoVGgKuWf1HX8@lists.freedesktop.org,
- AJvYcCXhWSqY0HNzvtvm23YegPrpYu5PVvx6A9TVyXsqIni9ncNRIZs5kITdQr1dFQhOtuyHnC2QAQr5zxkz@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyBk5CBLZy5QsVK429fa6Qll8xIgXCamGboI2x2qtfVQtm/WQTW
- woO6aIL93Ewz0R8CnNcfTiKmLja9VykLmeJPs60JvyzMYeIb1cTNHS8yGk1uOZsmKvjg662rQOQ
- lDcweywqSwt84TnYPJZWICYzIbDi+njs=
-X-Gm-Gg: ASbGncvjIR+cn1EyDGoNJxAFPVyafBhlgJqTMzhCTHqWcROo+KB7VgWhhI5ifUou+gu
- 0hS6bsyoRhk02pMhsC5olqbdigB7BdQiQIY7dCYM5kdHYWs5NkJ1uDJ8fYQiLsht+ZMUmMnV9tt
- aVg8/eGWOple3tVnINA7QTQ+K9ciD2mFEPNkOYdqiirSFnJFI89DKUcAFnHimZdTdOOzEE4G7UM
- /9PLkyk
-X-Google-Smtp-Source: AGHT+IG514k5VRiW+obbt6A+oNLgvRU+VAxB/IFQYU8x0hq4HIBflZqiyffcLx81uxBEMk6EHCx34UB1XvYWKTTziSE=
-X-Received: by 2002:a17:90b:4f8f:b0:30a:80bc:ad4 with SMTP id
- 98e67ed59e1d1-31c9e5fd68dmr2197726a91.0.1752695201128; Wed, 16 Jul 2025
- 12:46:41 -0700 (PDT)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ADC210E3BD;
+ Wed, 16 Jul 2025 20:36:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E57U/gnteb2LlevicFLaxiIlGPeqHoW6IlmrWla1lPPVvAQ9UmVZWv28LsNNhtkM4UAKoBc+VEXMxqhWi57ye/yjyDP4yhwxMT82OIHAe7qX3U+c8Bv/7legkDF3iVjZCt8R0VBYljb84d1J9GFCfwGcI7qbWYU9p18vrRbdnLmqYFmW89ztGuy9j+w/i17l/kdo/5RbLcLzuBnhK9U9712pjrEzNlQackKWPovcOt1uagOZK1Dd19y2gvgx7HrVlNS2GdRh1MfnOOe8cKTfqhgFWRJAcq9tMuBDUx3idBBzADnYeSKvJOphz4Mv1z5Uj0VsxmKZBxoBarvOUtHKZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uxylae/ZKY3dmphg9IY7pAigRvBazhLAYFkR9zpNRK8=;
+ b=X19V0cwLnE1BAKa+qMSCse4x6QSGEW9SzIxvXyisaM4BNEF3O1XaAT8bCcNQCIsU/HwTxo5jjX0lj8faygCJdCm7it+YxkZ2TfGqzW+hI4JGmDIJGDDElhkrZVL5jgb+tnGilKIZKyLtRChPZtFIbNtXwISB2KwYdgjeIPaXqA+CC6OpCRydmT2mIrR7n6nFq0TBWbkKaXHTOgol6pHG4oU0tJuvE9ECtRLps2Tee3gY+z3FzHP2lLt2VOzai/3jZ79zR+uI1m20vPKJQn8A0ey1ABzvAcAW4rigOVSjx6VUFTB0LyIk4R7e2gSNnJhCsDwHvE8b67HbFN/VSnZXbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uxylae/ZKY3dmphg9IY7pAigRvBazhLAYFkR9zpNRK8=;
+ b=KXYNVKoM209gl5GorKKZ2TrT3t1AHNsx2RIwbg4XHorzqkjsJMj5j8cfM4ZLgktlLfI+ZaqaoQ69vc0QWrAmyV4xVk94yC7F9XsSIfM+qzGl9P0e2eCL4zhDmsMvlsavlc+ZNJre30RLbS85wQv02Z+OrpvsLCVLLpst5AwYhR0=
+Received: from MW4PR04CA0139.namprd04.prod.outlook.com (2603:10b6:303:84::24)
+ by LV8PR12MB9112.namprd12.prod.outlook.com (2603:10b6:408:184::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.29; Wed, 16 Jul
+ 2025 20:36:10 +0000
+Received: from MWH0EPF000A6733.namprd04.prod.outlook.com
+ (2603:10b6:303:84:cafe::ca) by MW4PR04CA0139.outlook.office365.com
+ (2603:10b6:303:84::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.20 via Frontend Transport; Wed,
+ 16 Jul 2025 20:36:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000A6733.mail.protection.outlook.com (10.167.249.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8922.22 via Frontend Transport; Wed, 16 Jul 2025 20:36:09 +0000
+Received: from kylin.lan (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 16 Jul
+ 2025 15:36:06 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
+ <simona@ffwll.ch>, <aric.cyr@amd.com>, <aurabindo.pillai@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <Yihan.Zhu@amd.com>
+CC: Alex Hung <alex.hung@amd.com>
+Subject: [PATCH] drm/amd/display: Fix kernel docs for struct mpc_color_caps
+Date: Wed, 16 Jul 2025 14:35:46 -0600
+Message-ID: <20250716203546.505788-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <366557fa7ca8173fd78c58336986ca56953369b9.1752087753.git.christophe.jaillet@wanadoo.fr>
-In-Reply-To: <366557fa7ca8173fd78c58336986ca56953369b9.1752087753.git.christophe.jaillet@wanadoo.fr>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Jul 2025 15:46:26 -0400
-X-Gm-Features: Ac12FXwIJeC3bTU_gBoJ6CtWloLxs-4aqxpxghGcmsfmdyFd7wbRIjGU8uyr99E
-Message-ID: <CADnq5_PZ-F=Ut=z05pqTJNs30as2hez-hq2kMariJS3E5N2AXQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix missing unlocking in an error path in
- amdgpu_userq_create()
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sunil Khatri <sunil.khatri@amd.com>, 
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6733:EE_|LV8PR12MB9112:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64bee458-ab9a-4632-c1eb-08ddc4a865f3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?34uvy7qOBso2p9MzHNx/CFOn/XGR9qoTiq2Nl7jqCUODG5LdoMenpz1lmTrW?=
+ =?us-ascii?Q?Bxj1FTbhpdzFKO1qqvg/qiLxvIzx3kzH6jHy23O4YXMm2FLGxqRNaH6l3HxB?=
+ =?us-ascii?Q?/l8aEh6pW8nLIE6KTvInfG46s7i09ZTtcgP3NBCL2T5AX9H6uW0v5pzyFGxQ?=
+ =?us-ascii?Q?w0GGdKqsYrxwhIrqQixOm+jiSo69j9Y6GnZNAwEoDeS41eKYP7tsrjGuinG5?=
+ =?us-ascii?Q?vNobQz1leGKPKlDb9EfzbHZkn6AehL9agq3yVO75CiADU00IQ6FDPLVtnRTY?=
+ =?us-ascii?Q?+J1JN0Sv4ZWQ6Lms3TVN1JICjkbcb7LNAn6WkhsuNGsnJ2PKcZhhnqHqMWZd?=
+ =?us-ascii?Q?Lz/iRKjPXZH+VoiBxowmqqcoWlXzTZadLJ9CJzVPp3t1Ms26FtSzcxetEBif?=
+ =?us-ascii?Q?iWJZA6DbZw5wCkzzhSYbuYWL0OxvDy9TlZTnJtRgIs9DK/2Ou5YyteIHwgQa?=
+ =?us-ascii?Q?3kep+DJ5L09h55SpIFYU3SCWc2LBF+jjDZVWUa3Q9izXcJApdoiASWsOtOyd?=
+ =?us-ascii?Q?FoQkuXCUCqTdcod3jddu8ZMHlpqsPcEPqVO70MiXcFEX/kccAFpW8ZqCJTFs?=
+ =?us-ascii?Q?jX0Kl5oR7UZzlcHLz9qATvR14XCci+IhMVKinnfRj9amIkFL6cObblHmcdPY?=
+ =?us-ascii?Q?i0LH3bYHh1JLYNZEladi/wYWF/w9Tby8HIxHGnJvcOitmjcTMGCYpCtm/j9O?=
+ =?us-ascii?Q?MowitJ/008yLn63Z5x0ZiOM4RWJCc8G1tNfKGLjKlIf8yApc1dybVoYfZ3gM?=
+ =?us-ascii?Q?PJPHiaQsagMJIcbvlEO53yjpo/g1zFUWbKRrtXM8C/yhCR1FUDygNlqt6EwD?=
+ =?us-ascii?Q?ky2MPMUl6ChbmO23+Ye19p8+77HNhM1KD/pzd5u/cEk4VhRgiBPHYrRTEVSD?=
+ =?us-ascii?Q?MyqMDkxXeIZ8BujQOcCvmCNhNNef/oEuFVzTYVpFM/elJlH2gxjrzTJKDYU2?=
+ =?us-ascii?Q?0Oqt7fLkUe/jTsQG4peXNk55JsDpYqG0O66L3jdzaYo8W1fuHsuPilz4wDPo?=
+ =?us-ascii?Q?AfMejwl1/IWyFHWq83+OUOumiy77qxAoxh8okJNL9E6tNScxexY+2YR32f3P?=
+ =?us-ascii?Q?wDrnqgKQagEF1Kjzlf5tZE9FGdKCGIKorDIY9zgYy11QrDPTE3xR/WbIW+Mv?=
+ =?us-ascii?Q?LobXs8BXVb89KwDoHRQEhweM/ZLMhj8Qbt1TdWE20CJai7YydUAQucNvDxJH?=
+ =?us-ascii?Q?vAgwR1GiZZcpjDRn+VxObvTMMsqJF4vN/KfXaGyDvcGYcJgXSWahYe6b2TVz?=
+ =?us-ascii?Q?qrkuPeA36xpGKhxoCkh1VzMysdOUqHCkuOgeZIFRXmm6bYV8JLpn8UxwlDFr?=
+ =?us-ascii?Q?C3xdlBsXTx4QQoU0j4u5Yt3MbMHH1Pc7RRq3BDA4OXa0plqKv8g07FceEr5q?=
+ =?us-ascii?Q?jNanTzvjm4nIdxrKjnqTpJ3wC9/XOdEDTZ33tCMJbO2NVr59wbf+sE/OlHxn?=
+ =?us-ascii?Q?Alx7OU9gbF0pt2TPOqugzEycd++MdvHCENykr2n7CNZE3SS6TYpCvdY6DBJt?=
+ =?us-ascii?Q?5qb2pcbMA+7/CDUGBpgcmz2KcD0ysho1R/aCaiMiZz87lewnTivgUqwKGw?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013)(921020); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2025 20:36:09.9161 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64bee458-ab9a-4632-c1eb-08ddc4a865f3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6733.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9112
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,46 +135,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 9, 2025 at 3:28=E2=80=AFPM Christophe JAILLET
-<christophe.jaillet@wanadoo.fr> wrote:
->
-> If kasprintf() fails, some mutex still need to be released to avoid locki=
-ng
-> issue, as already done in all other error handling path.
->
-> Fixes: c03ea34cbf88 ("drm/amdgpu: add support of debugfs for mqd informat=
-ion")
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+[WHAT & HOW]
+Add kernel-doc for a new struct member "num_rmcm_3dluts".
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-and pushed out to drm-misc-next.
+This fixes the follow warnings from "make htmldocs".
 
-Alex
+./drivers/gpu/drm/amd/display/dc/dc.h:255: warning: Function parameter
+or struct member 'num_rmcm_3dluts' not described in 'mpc_color_caps'
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 513bbc543f40..bce97318965c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -520,8 +520,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm=
-_amdgpu_userq *args)
->         }
->
->         queue_name =3D kasprintf(GFP_KERNEL, "queue-%d", qid);
-> -       if (!queue_name)
-> -               return -ENOMEM;
-> +       if (!queue_name) {
-> +               r =3D -ENOMEM;
-> +               goto unlock;
-> +       }
->
->         /* Queue dentry per client to hold MQD information   */
->         queue->debugfs_queue =3D debugfs_create_dir(queue_name, filp->deb=
-ugfs_client);
-> --
-> 2.50.0
->
+Reviewed-by: Yihan Zhu <Yihan.Zhu@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dc.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 59c07756130d..fac976b2cbee 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -234,6 +234,7 @@ struct lut3d_caps {
+  * @ogam_ram: programmable out gamma LUT
+  * @ocsc: output color space conversion matrix
+  * @num_3dluts: MPC 3D LUT; always assumes a preceding shaper LUT
++ * @num_rmcm_3dluts: number of RMCM hardware instances
+  * @shared_3d_lut: shared 3D LUT flag. Can be either DPP or MPC, but single
+  * instance
+  * @ogam_rom_caps: pre-definied curve caps for regamma 1D LUT
+-- 
+2.43.0
+
