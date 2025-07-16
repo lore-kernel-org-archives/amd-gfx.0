@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 023D6C83F22
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 13:49:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1841FC83F27
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 14:06:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A05D010E031;
-	Wed, 16 Jul 2025 13:49:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADC9910E753;
+	Wed, 16 Jul 2025 14:06:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="E3KF1ZFm";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NbjE3Ni5";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8DAD10E7B0;
- Wed, 16 Jul 2025 13:49:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 583FF10E753
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Jul 2025 14:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,32 +22,40 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zGUv7eTSYxsOgqMtPbVV//yRn5tnzskdilRU13XzeVo=; b=E3KF1ZFmxl8GXTV5xrAADPaf7f
- mmF+gzNrTLPrdDBr+Iy1NFzTiTmcw7HSi31v5L6F476vCcI/lNJ0BG0jor0er/rXjxGXI0nsqtKv3
- zCdGk+EW9WF7LZrH05tDIspE2ALUMFJum/Vu6yZiNR6p9ixS81m8/DBgpXyqkIGm09pn5xVcKldJz
- LUKtiL902AWG9WFEdpZcs5AsgSGHnJOs9gyNB5KQTKAn+7gGVQuLzp2xxtfOt4KpHAybIG8WPT7Qj
- lxQmgPVmGPINPu5gIPSwbiRGe7toDK6xOHzhrxajjvJqWHG+tI2tSZUpeiF/rmJj2a1zdYqGlwrm7
- g9KJtWJQ==;
+ bh=wP3H6VNBYfO6INO4GnSM+dMGL/8NJq1UWj1yhENc52k=; b=NbjE3Ni5Iu6PMxbn2e3jnjmBa2
+ T8ArcDu8L7NHB8boAv9v9zIDLGxjS5FbnWet/mHUN0PF8cvdOFSx8eXF+9Uv6D2YfD4DP4Gk/ftag
+ QTT+jd8wV/EaQbAfM6KR/xqBBzvUb/oSxFc1VXSDkpxhds/e+nhQq2zsW9H3fsLwhLPqF7sD943J1
+ m6Z+5IgfXDCHupzR0IeA39abVGr7aXv3Q0TSWmSX/0QVFNXRn7HmPk8n/1m089vWrD95nfH1w55sE
+ OvuCXFRjOC01+PtRvHxCR4rKY2CebAGjWhSwgNKU0e4LeDhK4bGzkNWBvuqzUf9Y53hmJswIW9wad
+ iBWEe/Dg==;
 Received: from [84.66.36.92] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uc2VO-00HKuG-Ri; Wed, 16 Jul 2025 15:49:06 +0200
-Message-ID: <52d32846-0286-4979-ab2f-c1aa1aa02e20@igalia.com>
-Date: Wed, 16 Jul 2025 14:49:05 +0100
+ id 1uc2mE-00HLGj-HU; Wed, 16 Jul 2025 16:06:30 +0200
+Message-ID: <3ba4e401-149a-4bb2-8725-1e4fd58f3288@igalia.com>
+Date: Wed, 16 Jul 2025 15:06:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sched: Avoid double re-lock on the job free path
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
-References: <20250716085117.56864-1-tvrtko.ursulin@igalia.com>
- <8e527b62-d968-4bc3-a0dc-491d193c02ce@igalia.com>
+Subject: Re: [RFC] drm/amdgpu/sdma5.2: Avoid latencies caused by the
+ powergating workaround
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20250711122338.44831-1-tvrtko.ursulin@igalia.com>
+ <57da4e28-4968-409a-9861-3ee969bed541@amd.com>
+ <df254527-d027-45df-ae3b-356134536941@igalia.com>
+ <CADnq5_PTrZ8eVtT8xDQQyf9tP+7AQ8pcAZ4YSEgUwbufU5YQvw@mail.gmail.com>
+ <a7d6a1d5-30b4-4e79-a845-d71252e7e5f9@igalia.com>
+ <CADnq5_NYhPa+6gUqeJsvXkqtkwwkWmv=F70Wv96L+CEA-AGE1w@mail.gmail.com>
+ <6d19ad87-6091-477c-a1ee-ddb224a63fe1@igalia.com>
+ <CADnq5_PFKKdDOnX7np+31jDfmf17=PNSFoFtmHk+XSPqRjnf4Q@mail.gmail.com>
+ <a07c4db8-a775-4036-a30e-8266c02283df@igalia.com>
+ <83463d64-b0dc-43e7-b098-b978c44756da@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <8e527b62-d968-4bc3-a0dc-491d193c02ce@igalia.com>
+In-Reply-To: <83463d64-b0dc-43e7-b098-b978c44756da@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -65,176 +73,79 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 16/07/2025 14:31, Maíra Canal wrote:
-> Hi Tvrtko,
+On 16/07/2025 14:00, Christian König wrote:
+> On 16.07.25 14:51, Tvrtko Ursulin wrote:
+>>>>>>> be disabled once GFX/SDMA is no longer active.  In this particular
+>>>>>>> case there was a race condition somewhere in the internal handshaking
+>>>>>>> with SDMA which led to SDMA missing doorbells sometimes and not
+>>>>>>> executing the job even if there was work in the ring.
+>>>>>>
+>>>>>> Thank you, more or less than what I assumed.
+>>>>>>
+>>>>>> But in this case there should be no harm in holding GFXOFF disabled
+>>>>>> until the job completes (like this patch)? Only a win to avoid the SMU
+>>>>>> communication latencies while unit is powered on anyway.
+>>>>>
+>>>>> The extra latency is only on the CPU side, once the
+>>>>> amdgpu_ring_commit() is called the SDMA engine is already working.
+>>>>
+>>>> It is on the CPU side but can create bubbles in the pipeline, no? Is
+>>>> there no scope with AMD to have GFX and SDMA jobs depend on each other?
+>>>> Because, as said, I've seen some high latencies from the GFXOFF disable
+>>>> calls.
+>>>
+>>> The SDMA job is already executing at that point.  The allow gfxoff
+>>> message to the firmware shouldn't come until later because it's
+>>> handled by a delayed work thread from end_use().  If you have multiple
+>>> submissions to SDMA within the delay window, the begin_use() and
+>>> end_use() will just be ref count handling and won't actually talk to
+>>> the firmware.
+>>
+>> I followed up with testing a bunch more games, and is it turns out, Cyberpunk 2077 is the only one which has this submission patterns where default GFX_OFF_DELAY_ENABLE is regularly defeated.
+>>
+>> There, around 1.2 times per second the SDMA submissions miss that 100ms hysteresis and cause a CPU latency over 100us (I only measured when >100us and ignored the rest). Average latency is ~400us and max is ~2ms. So IMHO quite bad.
 > 
-> On 16/07/25 05:51, Tvrtko Ursulin wrote:
->> Currently the job free work item will lock sched->job_list_lock first 
->> time
->> to see if there are any jobs, free a single job, and then lock again to
->> decide whether to re-queue itself if there are more finished jobs.
+> What exactly does Cyberpunk do to hit that? Are those SDMA page table updates, clears or userspace submissions?
+
+I will have to look into that to provide an answer.
+
+>> And the vast majority of those latencies come from the SMU request. Only very rarely someone hits the mutex contention path.
 >>
->> Since drm_sched_get_finished_job() already looks at the second job in the
->> queue we can simply add the signaled check and have it return the 
->> presence
->> of more jobs to be freed to the caller. That way the work item does not
->> have to lock the list again and repeat the signaled check.
+>> So that was the motivation for the RFC. I suppose I could have also proposed to increase the hysteresis, but holding the GFXOFF disabled for the duration of the job sounded preferable for power consmuption.
 >>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Maíra Canal <mcanal@igalia.com>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> ---
->> v2:
->>   * Improve commit text and kerneldoc. (Philipp)
->>   * Rename run free work helper. (Philipp)
->>
->> v3:
->>   * Rebase on top of Maira's changes.
->> ---
->>   drivers/gpu/drm/scheduler/sched_main.c | 53 ++++++++++----------------
->>   1 file changed, 21 insertions(+), 32 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/ 
->> scheduler/sched_main.c
->> index e2cda28a1af4..5a550fd76bf0 100644
->> --- a/drivers/gpu/drm/scheduler/sched_main.c
->> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->> @@ -349,34 +349,13 @@ static void drm_sched_run_job_queue(struct 
->> drm_gpu_scheduler *sched)
->>   }
->>   /**
->> - * __drm_sched_run_free_queue - enqueue free-job work
->> - * @sched: scheduler instance
->> - */
->> -static void __drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
->> -{
->> -    if (!READ_ONCE(sched->pause_submit))
->> -        queue_work(sched->submit_wq, &sched->work_free_job);
->> -}
->> -
->> -/**
->> - * drm_sched_run_free_queue - enqueue free-job work if ready
->> + * drm_sched_run_free_queue - enqueue free-job work
->>    * @sched: scheduler instance
->>    */
->>   static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
->>   {
->> -    struct drm_sched_job *job;
->> -
->> -    job = list_first_entry_or_null(&sched->pending_list,
->> -                       struct drm_sched_job, list);
->> -    if (job && dma_fence_is_signaled(&job->s_fence->finished))
->> -        __drm_sched_run_free_queue(sched);
+>> Anyway, given I only found Cyberpunk 2077 suffers from this I guess it maybe isn't to interesting to upstream for you guys. Then again it is limited to specific old SKU so maybe it should not be that controversial either? Only that Christian NAKed tying it to job lifetime. So I don't know, AMDs call.
 > 
-> I believe we'd still need this chunk for DRM_GPU_SCHED_STAT_NO_HANG
-> (check the comment in drm_sched_job_reinsert_on_false_timeout()). How
+> Well what you could do is to take a look if we couldn't simplify the SMU and/or adjust the GFX_OFF_DELAY_ENABLED.
 
-You mean the "is there a signaled job in the list check" is needed for 
-drm_sched_job_reinsert_on_false_timeout()? Hmm why? Worst case is a 
-false positive wakeup on the free worker, no?
+SMU stuff, as far as I can follow it, ends up with simply sending some 
+messages to the firmware. So I am not sure what and how could be 
+optimised there.
 
-> about only deleting drm_sched_run_free_queue_unlocked() and keep using
-> __drm_sched_run_free_queue()?
+Increasing GFX_OFF_DELAY_ENABLED would work, if large enough, but I 
+think it could be bad for power usage, depending on the workload.
 
-You mean use __drm_sched_run_free_queue() from 
-drm_sched_job_reinsert_on_false_timeout()? That is the same as 
-drm_sched_run_free_queue() with this patch.
+> On the other hand why does it help to keep GFXOFF disabled while running the SDMA job?
+
+Only because I tied it to both GFX and SDMA.
+
+RFC does this:
+
+1) Marks SDMA as "needs GFXOFF workaround".
+2) Propagates "needs GFXOFF workaround" to adev if any active ring has 
+it set.
+3) If adev has it set, it grabs and extra GFXOFF disable for GFX, 
+COMPUTE and SDMA submissions, and marks those jobs as "hold GFXOFF".
+4) Releases the GFXOFF when marked jobs are "completed" (well freed, 
+since completion is IRQ context so hard).
+
+AFAIU from what Alex said I understood the parts of the chip handling 
+GFX and SDMA (not sure about compute) are under the same "power gating 
+domain" (right name?).
+
+What would you suggest to log power use during the game? Something like 
+once per second or so?
 
 Regards,
 
 Tvrtko
-
->> -}
->> -
->> -static void drm_sched_run_free_queue_unlocked(struct 
->> drm_gpu_scheduler *sched)
->> -{
->> -    spin_lock(&sched->job_list_lock);
->> -    drm_sched_run_free_queue(sched);
->> -    spin_unlock(&sched->job_list_lock);
->> +    if (!READ_ONCE(sched->pause_submit))
->> +        queue_work(sched->submit_wq, &sched->work_free_job);
->>   }
->>   /**
->> @@ -398,7 +377,7 @@ static void drm_sched_job_done(struct 
->> drm_sched_job *s_job, int result)
->>       dma_fence_get(&s_fence->finished);
->>       drm_sched_fence_finished(s_fence, result);
->>       dma_fence_put(&s_fence->finished);
->> -    __drm_sched_run_free_queue(sched);
->> +    drm_sched_run_free_queue(sched);
->>   }
->>   /**
->> @@ -1134,12 +1113,16 @@ drm_sched_select_entity(struct 
->> drm_gpu_scheduler *sched)
->>    * drm_sched_get_finished_job - fetch the next finished job to be 
->> destroyed
->>    *
->>    * @sched: scheduler instance
->> + * @have_more: are there more finished jobs on the list
->> + *
->> + * Informs the caller through @have_more whether there are more 
->> finished jobs
->> + * besides the returned one.
->>    *
->>    * Returns the next finished job from the pending list (if there is 
->> one)
->>    * ready for it to be destroyed.
->>    */
->>   static struct drm_sched_job *
->> -drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
->> +drm_sched_get_finished_job(struct drm_gpu_scheduler *sched, bool 
->> *have_more)
->>   {
->>       struct drm_sched_job *job, *next;
->> @@ -1147,22 +1130,25 @@ drm_sched_get_finished_job(struct 
->> drm_gpu_scheduler *sched)
->>       job = list_first_entry_or_null(&sched->pending_list,
->>                          struct drm_sched_job, list);
->> -
->>       if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
->>           /* remove job from pending_list */
->>           list_del_init(&job->list);
->>           /* cancel this job's TO timer */
->>           cancel_delayed_work(&sched->work_tdr);
->> -        /* make the scheduled timestamp more accurate */
->> +
->> +        *have_more = false;
->>           next = list_first_entry_or_null(&sched->pending_list,
->>                           typeof(*next), list);
->> -
->>           if (next) {
->> +            /* make the scheduled timestamp more accurate */
->>               if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
->>                        &next->s_fence->scheduled.flags))
->>                   next->s_fence->scheduled.timestamp =
->>                       dma_fence_timestamp(&job->s_fence->finished);
->> +
->> +            *have_more = dma_fence_is_signaled(&next->s_fence- 
->> >finished);
->> +
->>               /* start TO timer for next job */
->>               drm_sched_start_timeout(sched);
->>           }
->> @@ -1221,12 +1207,15 @@ static void drm_sched_free_job_work(struct 
->> work_struct *w)
->>       struct drm_gpu_scheduler *sched =
->>           container_of(w, struct drm_gpu_scheduler, work_free_job);
->>       struct drm_sched_job *job;
->> +    bool have_more;
->> -    job = drm_sched_get_finished_job(sched);
->> -    if (job)
->> +    job = drm_sched_get_finished_job(sched, &have_more);
->> +    if (job) {
->>           sched->ops->free_job(job);
->> +        if (have_more)
->> +            drm_sched_run_free_queue(sched);
->> +    }
->> -    drm_sched_run_free_queue_unlocked(sched);
->>       drm_sched_run_job_queue(sched);
->>   }
-> 
 
