@@ -4,153 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCEB5C83F1B
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 11:37:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA38DC83F1B
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jul 2025 12:51:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53F8010E79A;
-	Wed, 16 Jul 2025 11:37:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61C3B10E393;
+	Wed, 16 Jul 2025 12:51:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aUGmNujy";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UGtacZSD";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F312410E79A;
- Wed, 16 Jul 2025 11:37:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uYEPRhQFufpNbn675TONMJyy3x00/aL+f4GYauI6O40XsWmauN9o2ye95HzVeyIU+5jsRqU0xDcF6/XqKJI2/sMn4dzdmJzbXQ+L8y9NbWW0rMLzebX3qh1/tmL/FA7p5RE3ySzF1I1Ft35Fa6vIG4azf4P3Shk72NdcQD3GiMGx4s8JJ45DqH+h0ZwSKMH92bw9T4xEPQrADtC39Dri/FilY8Q4ptOFlDBrHiS+EAXB8/KdyeayjvJlam63NTmEEWETmuX17JR2n8JIEq8FSKOYxDh/P6XmWWxRUhJhGP3vnDXkbFwZ9H9oQ9xQCXG+xNii/vNg8uS1njuID57vTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yfBhqRXv7zIX3Qoi2qEP5O3ojvUOf/rPBD+rcAHxhcM=;
- b=N/xESfvnvjy9tvm+iwHW93uwjexXGFd4qnG1b+uSUS/G+EfIkdiOVkOFSzZLmlwxXwU8kwHX5BQlhlPyUw5m+6mWyUTdyB/T4ROAx0NvzhPCP1AZyFyrGlma80Zy52PyT69piKMJp7N9eACvIyq+jTvPoBK7MklEEPTCFNDoEQfcQl/JGzSXNzOWbupOlohkXsnJ95nFqyzqMwSjh1R3boO4EzSOjUYA8wV3WsmxU1eD2/av14XaRW5BVabpRId6tJv2E9pYUULtfb6F7WQ9/eq2gpAeth7Z+QySqtyu9ntHNB4j9Pm/VsBjekLS3PpriuuloCitbVUk7wfWYcnAQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yfBhqRXv7zIX3Qoi2qEP5O3ojvUOf/rPBD+rcAHxhcM=;
- b=aUGmNujyQkWbLuzFZLYDO+frffn8stHaYiJaNlPT4r9uENKEXsErBi4oEdH/kHkPnqc1XZaslqTpS7ZO0pk0TIeBr5TOyAg5tHJmyZXoAKCHPGPchbL5IEtORqd56ltbHfOxJ4UMSdmK8Ik8yN0Qx8Od7GVQ4c1YJmQSUvMZ2Y8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
- by SJ0PR12MB6989.namprd12.prod.outlook.com (2603:10b6:a03:448::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.24; Wed, 16 Jul
- 2025 11:37:40 +0000
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350%4]) with mapi id 15.20.8901.033; Wed, 16 Jul 2025
- 11:37:39 +0000
-Message-ID: <30093f2a-adcd-41eb-b15c-236dcdbcb936@amd.com>
-Date: Wed, 16 Jul 2025 17:07:32 +0530
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00FC810E393
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Jul 2025 12:51:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=xWi8LhI6myKbBGdHkwu3pGdjAnfpKjB399FmKy0zROU=; b=UGtacZSDD8U616EQcNEpxSA0KY
+ /66EnINxbCbbL+deVFnD3QC0YtH4ukl769iQ3O/GtMWj13aC5PIXTdpGEPtQmiOFpy9qBllhQ4hvy
+ 003oKPrPAUh0oUrVgHTAnJH/CSvhs4b7j/kMzmcQ0djYbM1nd1Bxk9R08RFG1Ni48Q24x5xMMgUhv
+ 26mwXbrfZNWdrVsStEJPwm9cyknuYh5CQk05xoAGi20P2ZVVUQEwqTPRRtstdzWkN+32xNWIcMdJ0
+ Dy09+7Od6Ke51Vt4V4rlm4fb7opRgkIAlGMywwMZgazeDAZfHh7c70QhwlOx9Azls1EUvumX1N+uO
+ /7VsZ0jA==;
+Received: from [84.66.36.92] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uc1bJ-00HJlF-TZ; Wed, 16 Jul 2025 14:51:10 +0200
+Message-ID: <a07c4db8-a775-4036-a30e-8266c02283df@igalia.com>
+Date: Wed, 16 Jul 2025 13:51:09 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] drm/amdgpu: Reset the clear flag in buddy during
- resume
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, matthew.brost@intel.com, airlied@gmail.com
-Cc: alexander.deucher@amd.com, stable@vger.kernel.org
-References: <20250716075125.240637-1-Arunpravin.PaneerSelvam@amd.com>
- <20250716075125.240637-2-Arunpravin.PaneerSelvam@amd.com>
- <05a2b3f0-2166-47cd-9964-53254e4df6ba@amd.com>
- <9e9be088-fca0-4f31-bfa9-5201f46e1d12@amd.com>
- <1d5875f8-987a-4524-966f-cbb4ef72fd2a@amd.com>
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <1d5875f8-987a-4524-966f-cbb4ef72fd2a@amd.com>
+Subject: Re: [RFC] drm/amdgpu/sdma5.2: Avoid latencies caused by the
+ powergating workaround
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20250711122338.44831-1-tvrtko.ursulin@igalia.com>
+ <57da4e28-4968-409a-9861-3ee969bed541@amd.com>
+ <df254527-d027-45df-ae3b-356134536941@igalia.com>
+ <CADnq5_PTrZ8eVtT8xDQQyf9tP+7AQ8pcAZ4YSEgUwbufU5YQvw@mail.gmail.com>
+ <a7d6a1d5-30b4-4e79-a845-d71252e7e5f9@igalia.com>
+ <CADnq5_NYhPa+6gUqeJsvXkqtkwwkWmv=F70Wv96L+CEA-AGE1w@mail.gmail.com>
+ <6d19ad87-6091-477c-a1ee-ddb224a63fe1@igalia.com>
+ <CADnq5_PFKKdDOnX7np+31jDfmf17=PNSFoFtmHk+XSPqRjnf4Q@mail.gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <CADnq5_PFKKdDOnX7np+31jDfmf17=PNSFoFtmHk+XSPqRjnf4Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PEPF0000017A.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c04::45) To PH8PR12MB7301.namprd12.prod.outlook.com
- (2603:10b6:510:222::12)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|SJ0PR12MB6989:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0204887c-8539-453f-9a23-08ddc45d2b47
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SnRVcjhxZ0o1bUZnVHpIN2ZKemRLRDl5QjIvUEoxQ1laVlltWG8veVpaYXl5?=
- =?utf-8?B?bmhDdVBPei9YM1lBanhTNEt2MXJPZStBaStvclhWczRmMDFXR2lvR24vUFdT?=
- =?utf-8?B?MVB4YVRITVVIWTFVaXFva0txY0gxYi95TjZqZTllUi9yazlXaDd3MHk3YkJo?=
- =?utf-8?B?MFBLenFjcGRWUzlHU0RwSzRJWkpKRWVwa1pIZWY2NUlhZHZxWTZMN0FpMUMz?=
- =?utf-8?B?eTQ3OVVEN3RhcHJJN3ZwVlFEaGo4QUZLR29WREUxRDVOKzBuQWdKQnNnTFRW?=
- =?utf-8?B?Z1pnWFd2Mnpmd3ZyZjA5VU1tUHlmcHl4LzNGejZMYUdKSEErODE0WXgyN3F0?=
- =?utf-8?B?dEFwR0pEdlRadlVaTEt0Zm1nZzdOUEhEM1ZVdGNTTzZBdWxIWUZPU21LOHpB?=
- =?utf-8?B?Q2xsaE51VDVRM0crWXhEVWhMdlcycVVReHpGSnBtbFYyQVJBRWpuMEF5Uk9u?=
- =?utf-8?B?NnBUL05SbHo5T1BSYU5QcnpsRDdrcTE5d1Y4cFFrSW9BZDZkWUYrc0JOQXhw?=
- =?utf-8?B?OWMvVDE4R21YeTN3c1VHQkFVMlBmd1paQUVRYTlFMW5TbFFEaW9uSld6ODE3?=
- =?utf-8?B?V2xkdmw0VFJjNmZsdE5SdGwydWx0emNHTUNQZVV4MFZlYkpEclhVcXJPMHB3?=
- =?utf-8?B?bzVqeDFLR2Qwd0RnY005MnByblZOdk5KN2JCUzNpQk1qMDFGZHJXVUhaZmRp?=
- =?utf-8?B?M1ZKK0lHeVIwT3RCMFN2eUxJVm5Cc2lneXVSZmpjZE9Qam1vQSt3S2ttc0xJ?=
- =?utf-8?B?ai8yeWVvenhzSkZsUlRxeDlUWnIrWDBoeThPY2wzMTBHTllSbXU3SU05Zk1a?=
- =?utf-8?B?Vi9nbERlTTJYeWU0WWNUaVgvMWkvNFlOajdoVzdFQi91MEpucGpCcFNDczJ1?=
- =?utf-8?B?R2VPcGxZazdkMVY4QUwyc1hVbEVjOEh6N3BQVWVub1gwWURaR0JCYXc3TFRt?=
- =?utf-8?B?Qm1jd1l0UFdHdEo4U3RGVmpCMnBXWXg5VzNvVGd2di95Snl1bWNJOTZVa0Ez?=
- =?utf-8?B?MWY4bXJDTmVieUhiWitWQVc4bERBZFp1bmhnMVZ5dE9TS3BIUFlSQUQxN0xl?=
- =?utf-8?B?M1JLNk5LUkxOaTVGdEVudEVxN2gxbEFKNDh3czQ0Q08yUTJLQkhObFB2bTh1?=
- =?utf-8?B?SEZLUHE4ODJGWGJSeGtJcTEwVEJzMEpvM21rQXpURjlOdS9CeTVPdkNBaVM3?=
- =?utf-8?B?K1RvMS9uYk02SExZcmFlWFRtajBBT0tVNFcrbDk5b0MrU0pIZjRJSGIwa2JJ?=
- =?utf-8?B?bmhpOUtEMEMreC9aZk5xdWo1UHZjTHh2dFpiVXQ5TStUUEFSY3BlYkR5SVNE?=
- =?utf-8?B?RzRES3dFbGN4bXZhMkJvdHI2Y0RhdXJOdG5Ba2xFNEptYXM3UzQ4SVJ2ZDhW?=
- =?utf-8?B?NUdXemNzTk1oMEo0VzhaeStRaVh6WEgvWUtrcXM4b1NsWGFlekRHUnNKNWM2?=
- =?utf-8?B?cXJBa2FvbnBnWHM4WlExSkVwSm1qcWhFMERISU5EYloxMVlrelh5NmY3WUlO?=
- =?utf-8?B?T2hRMEcwb3RYd3kzRTdJUUNwVkFhRTNTNW8vUVN1Vkp0ekY1b1dkVW9HUDd3?=
- =?utf-8?B?UUdEWVhBb2RXVytnZ3QwNFQxa1BjM21qSWZXRlRTUkxmL093eEtjUytGb1VZ?=
- =?utf-8?B?L3dicGNWREJyaUI5anprbHZNMk5XSm5reTZ3OVo5QUFqSVY0WktuenIwaEF0?=
- =?utf-8?B?cklEbnE2OVkzdlBERXJRL25xVkNrOXlVQmcybHZzdUhBSCt0anpkS0graGJV?=
- =?utf-8?B?WHBaZWNNOXkrSE5KSWdkYUE4QzkvcmgxSG9oLzlrck1NampCWEZBUm5UblJV?=
- =?utf-8?Q?cYHjAJfF3CLJSQhwm7DwkO7C6aHDZZT5jTk+c=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Vk12N2tOQTA0ZEVYcWVkcWJVMEhDSG1RNlBlZ2RsNzBEcXVoR0VGK3NsdEp6?=
- =?utf-8?B?SUhhcDJBMEs0UzRDWVplenBhRDZsR1N2ZEZjMWNLOFo4SFg3YVZWZE03MVkr?=
- =?utf-8?B?T2FRdmZJKzdNTStSTDhjNS9YQktRUzdsL2NUV2RnZjdaQlRqemQ2NEhHSkpY?=
- =?utf-8?B?QTg4VFNYb2FvVzdUY3FLUlFjT0hLNzZyR1JGcUY3Qit3c3dtZkcvM3M2RWtM?=
- =?utf-8?B?NkpwanEya0l0djQya0x4QnFoUWtNcjF0aTRsYU1MZ2I4aXRDWXgyd3p5U1pu?=
- =?utf-8?B?am9TdktqdmFvT2twblkyRXJHb08wbkpiWnYwQjNhMXo0L1QycHFRZlhkTmli?=
- =?utf-8?B?bzFoUGhlTUY2YmNVdER3a3lqbjJUZ2VGTzFlaHgxYlAwZFVLcjRMUjlpMEFU?=
- =?utf-8?B?WXE4ejJ5SXVCUUxQRmpEdk5XRXRiNlVKZlNOMzV2Q254V1ZENk5ZdGlEL3p6?=
- =?utf-8?B?SDZkYkpzaDEzNkNoM0RUOGg3citQZnAvbzV4TW9oNE5wN0lKYTNVY1Vlbkdi?=
- =?utf-8?B?ay9DZjNrNlNXanFOaDVuUUorWlNjSkMzQVlRMTZ3eG1WZVpLQmp1V3Q1dFl1?=
- =?utf-8?B?NUlPN2FYUVdkSHkrNUo5aEdQLzd6RlVjQS9EcVBGclIySVd2dE9iU1RxWlZp?=
- =?utf-8?B?SDdUTHN1ZnNCZHZjdzlPbi8xdFBSc0ZSZllFYXpYNFFLenBhMWFrc21mbHdX?=
- =?utf-8?B?dGtPaEJNRUNnRWh3MzlFK1gzZFRjcGVVR0s5TFdBM2YyTDNiaVhiMDEyOUtt?=
- =?utf-8?B?K29JYjhBRWJpVkNpSUw5WS9SUC8waFZidEk3a3QwTVNEd3Q5UEJXSjByMjRG?=
- =?utf-8?B?RHZaeUx0cng0K0l3blBqRHJ2M3dmWVZSYXE5Z2xBM2dLUEkvMWlCbjNDQ3NP?=
- =?utf-8?B?NEN2emdqVGJRaUJxSzdCdW9kWmJJMWhuOGZ2MHZtK2t4cTNOb1FRdGtNQjZM?=
- =?utf-8?B?SHVERXlMK2tkbnphbjZFczBMV1FjNHcrbkJ3Rm1lWWdsWit5QnpSSm9PcGZS?=
- =?utf-8?B?aVl4Y1BYblRrcVpGYWpaUUc5T3QxUE1MU3pNUHlOTzYydGFjbnEyQ2dXU0ps?=
- =?utf-8?B?N1JkMjE1aEtTNkZjQWVNdW11Nk5NY3k1RW01bEZOMUNRTXdkK2VtdDJFU3px?=
- =?utf-8?B?VE5PR2NTNkxJVU5SVG1QN3luUHVybmhqc29kVXRnSXR1clQrVGlFNThmWEkr?=
- =?utf-8?B?UjEvQVEwNDBqSUN4L09EWUptcW1UVkVnQVZBekMrUVlvamJERU9ianJsWHRm?=
- =?utf-8?B?SWNnaVIzV2NYQXBpNnVyNXBUdElKM1pPaWVJa0FuY3NVUkNXZ2dRVGIvNDVq?=
- =?utf-8?B?TE5iUkN2MHJIQ2FKR01DMFBtRmVXTlpmaitYV0NQSEpDL3lvenNSTmppNGZJ?=
- =?utf-8?B?VFRGQzFuR3lqUzE5UUJQeGF0MW56Zi85c1JBdzF3OFZERmI0VklETXZjVFla?=
- =?utf-8?B?UmxwcTN1a1RESnNSRFF6bk1pc3BiSkZvRi9kR3ZmTVUzY2VjRWlsRkhKYmVh?=
- =?utf-8?B?NlVVNGxMN0RKNFg0QmQvL0hMR1VlRTBUS3RQd0RFVWplK2dyc3JxS3BCMlNE?=
- =?utf-8?B?VjFaRlNSK3JrRmk0bjhvbDB0cy9QUVNiUHNQeEdCaEJneUhDS1dXaXcvck5K?=
- =?utf-8?B?SjJ4em5MZVErMnFqTXpNVzdMUHAwQ3NTQXByb3pEbUNPZnlBc21kQ1MwNGFF?=
- =?utf-8?B?V0haaWNveEh3RWlIdng4bjVHbHRLbi81RlNKNXlBMTRWVHNDQ2dYajBPOURX?=
- =?utf-8?B?ZUcyVVh2d0lRQmJXSHVWeWFNY2M1c2svQVhVMFBIdDdxOXhVd1VJYWV4N3FX?=
- =?utf-8?B?VlNiYUNYRThCVWFialBhaHZYdWtGOHR4Y09WbnEydjZHK1FCcnZmc3pEVjAw?=
- =?utf-8?B?MG5RcWdTZXJXNHo4bUgzeldFUkRNYkZaUndaUDBINmdmekJhYXd4dy9CNk1y?=
- =?utf-8?B?emNoVXJsWVp3T25yN1lKQ3dzV3JUZlFuM3JJcno0VFdNcXB4QUs3Vi9Mejk0?=
- =?utf-8?B?akVhdE5EY29TVUtNcnhGSXM5R0dHQWtxZ1NNc0Q5akFhNXlwUGdiQi9CRVll?=
- =?utf-8?B?YUdlS2xBeGFqcHg2R3BjS041Qk9xbkhuSVlPQjlWbU5IU09mN0U2Sk9xbVlO?=
- =?utf-8?Q?4BWb4Y670CXGUP++Ri8ZB36ag?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0204887c-8539-453f-9a23-08ddc45d2b47
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2025 11:37:39.7184 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MPfk3QWcenRpwq1q+4IQ+Lw/vCf0741KiPaQ452wOqdnPv7iiw2BnK+7qg1THq1atxWTX7D1HhHjJPUZPudJ9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6989
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,182 +71,385 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 7/16/2025 4:31 PM, Christian König wrote:
-> On 16.07.25 12:47, Christian König wrote:
->> On 16.07.25 12:28, Arunpravin Paneer Selvam wrote:
->>> Hi Dave,
+On 11/07/2025 17:51, Alex Deucher wrote:
+> On Fri, Jul 11, 2025 at 12:07 PM Tvrtko Ursulin
+> <tvrtko.ursulin@igalia.com> wrote:
+>>
+>>
+>> On 11/07/2025 16:51, Alex Deucher wrote:
+>>> On Fri, Jul 11, 2025 at 9:58 AM Tvrtko Ursulin
+>>> <tvrtko.ursulin@igalia.com> wrote:
+>>>>
+>>>>
+>>>> On 11/07/2025 14:39, Alex Deucher wrote:
+>>>>> On Fri, Jul 11, 2025 at 9:22 AM Tvrtko Ursulin
+>>>>> <tvrtko.ursulin@igalia.com> wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 11/07/2025 13:45, Christian König wrote:
+>>>>>>> On 11.07.25 14:23, Tvrtko Ursulin wrote:
+>>>>>>>> Commit
+>>>>>>>> 94b1e028e15c ("drm/amdgpu/sdma5.2: add begin/end_use ring callbacks")
+>>>>>>>> added a workaround which disables GFXOFF for the duration of the job
+>>>>>>>> submit stage (with a 100ms trailing hysteresis).
+>>>>>>>>
+>>>>>>>> Empirically the GFXOFF disable/enable request can suffer from significant
+>>>>>>>> latencies (2ms is easily seen) which are then inserted onto the
+>>>>>>>> amdgpu_job_run() path, which slows down the CPU submission of ready jobs.
+>>>>>>>>
+>>>>>>>> 1)
+>>>>>>>> If the premise of the GFXOFF workaround is to keep it disabled while the
+>>>>>>>> SDMA engine is active, the current workaround achieves that only
+>>>>>>>> partially, for submissions and jobs which take less than 100ms (the GFXOFF
+>>>>>>>> re-enable hysteresis), counting from the ring write phase, up to
+>>>>>>>> completion.
+>>>>>>>>
+>>>>>>>> 2)
+>>>>>>>> If disabling GFXOFF affects the GFX engine too, basing the workaround
+>>>>>>>> solely on the SDMA activity creates, at minimum, a needless "chatter" on
+>>>>>>>> the SMU communication channel.
+>>>>>>>
+>>>>>>> IIRC that is intentional. This "needless" chatter is what the workaround was all about.
+>>>>>>
+>>>>>> I tried to gather knowledge to how the hardware works from the comment
+>>>>>> in sdma_v5_2_ring_begin_use(). Maybe I got it wrong so bear with me please.
+>>>>>>
+>>>>>> To try and explain my questions better. If the GFX ring/engine is busy
+>>>>>> is there a point for SDMA to be requesting GFXOFF enable/disable? Or
+>>>>>> maybe with diagrams...
+>>>>>>
+>>>>>> 1)
+>>>>>>
+>>>>>> SDMA:
+>>>>>>
+>>>>>>        ring-write     ring-commit       job-execute       job-done
+>>>>>>      gfxoff-off-req  gfxoff-on-req  >100ms -> gfxoff-on
+>>>>>>
+>>>>>> Was the workaround prematurely dropped in this case (aka is
+>>>>>> ring->funcs->end_use() the right place to drop it from)? Probably
+>>>>>> theoretical that a SDMA job takes more than 100ms but I am trying to
+>>>>>> understand it all.
+>>>>>>
+>>>>>
+>>>>> The firmware controls the power to a subset of the chip which contains
+>>>>> both gfx and sdma.  Normally the firmware dynamically powers up and
+>>>>> down gfx transparently when doorbells come in or the engines go idle
+>>>>> for either engine.  amdgpu_gfx_off_ctrl() tells the firmware to allow
+>>>>> or disallow gfxoff entry.  So what this workaround does is disallow
+>>>>> gfxoff (which results in gfx being powered up) before we touch SDMA.
+>>>>> Once SDMA is active, we can allow gfxoff again as it will dynamically
+>>>>
+>>>> Hmm so it is "once" and not "while", as the comment says:
+>>>>
+>>>>           /* SDMA 5.2.3 (RMB) FW doesn't seem to properly
+>>>>            * disallow GFXOFF in some cases leading to
+>>>>            * hangs in SDMA.  Disallow GFXOFF while SDMA is active.
+>>>>
+>>>> ?
+>>>>
+>>>> And for "once active" amdgpu_ring_commit() is what it counts?
 >>>
->>> I am trying to push this series into drm-misc-fixes, but I get the below error when dim push-branch drm-misc-fixes.
->>>
->>> dim:ERROR:e24c180b4300("drm/amdgpu:Reset the clear flag in buddy during resume"): Mandatory Maintainer Acked-by missing., aborting
->>>
->>> Looks like maintainers Acked-by is required to push the patches into drm-misc-fixes ?
->> Strange, it should work with my Acked-by. Let me give it a try.
-> I successfully pushed the patch to drm-misc-fixes.
->
-> No idea why that didn't worked for you. Maybe update your dim script Arun.
+>>> Yes, amdgpu_ring_commit() rings the doorbell and at that point the
+>>> engine starts running and SDMA is active.
+>>
+>> Should I submit a patch to change this comment to say "Disallow GFXOFF
+>> until SDMA is active (doorbell was rang)"?
+> 
+> Sure.
 
-Thanks Christian, I will check the dim script.
+Okay, will do.
+
+>>>>> be disabled once GFX/SDMA is no longer active.  In this particular
+>>>>> case there was a race condition somewhere in the internal handshaking
+>>>>> with SDMA which led to SDMA missing doorbells sometimes and not
+>>>>> executing the job even if there was work in the ring.
+>>>>
+>>>> Thank you, more or less than what I assumed.
+>>>>
+>>>> But in this case there should be no harm in holding GFXOFF disabled
+>>>> until the job completes (like this patch)? Only a win to avoid the SMU
+>>>> communication latencies while unit is powered on anyway.
+>>>
+>>> The extra latency is only on the CPU side, once the
+>>> amdgpu_ring_commit() is called the SDMA engine is already working.
+>>
+>> It is on the CPU side but can create bubbles in the pipeline, no? Is
+>> there no scope with AMD to have GFX and SDMA jobs depend on each other?
+>> Because, as said, I've seen some high latencies from the GFXOFF disable
+>> calls.
+> 
+> The SDMA job is already executing at that point.  The allow gfxoff
+> message to the firmware shouldn't come until later because it's
+> handled by a delayed work thread from end_use().  If you have multiple
+> submissions to SDMA within the delay window, the begin_use() and
+> end_use() will just be ref count handling and won't actually talk to
+> the firmware.
+
+I followed up with testing a bunch more games, and is it turns out, 
+Cyberpunk 2077 is the only one which has this submission patterns where 
+default GFX_OFF_DELAY_ENABLE is regularly defeated.
+
+There, around 1.2 times per second the SDMA submissions miss that 100ms 
+hysteresis and cause a CPU latency over 100us (I only measured when 
+ >100us and ignored the rest). Average latency is ~400us and max is 
+~2ms. So IMHO quite bad.
+
+And the vast majority of those latencies come from the SMU request. Only 
+very rarely someone hits the mutex contention path.
+
+So that was the motivation for the RFC. I suppose I could have also 
+proposed to increase the hysteresis, but holding the GFXOFF disabled for 
+the duration of the job sounded preferable for power consmuption.
+
+Anyway, given I only found Cyberpunk 2077 suffers from this I guess it 
+maybe isn't to interesting to upstream for you guys. Then again it is 
+limited to specific old SKU so maybe it should not be that controversial 
+either? Only that Christian NAKed tying it to job lifetime. So I don't 
+know, AMDs call.
 
 Regards,
 
-Arun.
+Tvrtko
 
->
-> Regards,
-> Christian.
->
->> Regards,
->> Christian.
+>>> Plus, the sooner you allow gfxoff again, the sooner it can start
+>>> kicking in again.
 >>
->>> Regards,
+>>   From this I read that even while GFX or SDMA rings are executing jobs
+>> GFXOFF can still power down stuff?
+> 
+> Only if all of the blocks are idle which would likely not be the case
+> if you have outstanding jobs.
+> 
+> Alex
+> 
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
 >>>
->>> Arun.
->>>
->>> On 7/16/2025 1:21 PM, Arunpravin Paneer Selvam wrote:
->>>> - Added a handler in DRM buddy manager to reset the cleared
->>>>     flag for the blocks in the freelist.
 >>>>
->>>> - This is necessary because, upon resuming, the VRAM becomes
->>>>     cluttered with BIOS data, yet the VRAM backend manager
->>>>     believes that everything has been cleared.
+>>>> Regards,
 >>>>
->>>> v2:
->>>>     - Add lock before accessing drm_buddy_clear_reset_blocks()(Matthew Auld)
->>>>     - Force merge the two dirty blocks.(Matthew Auld)
->>>>     - Add a new unit test case for this issue.(Matthew Auld)
->>>>     - Having this function being able to flip the state either way would be
->>>>       good. (Matthew Brost)
+>>>> Tvrtko
 >>>>
->>>> v3(Matthew Auld):
->>>>     - Do merge step first to avoid the use of extra reset flag.
+>>>>>> 2)
+>>>>>>
+>>>>>>
+>>>>>> GFX:
+>>>>>>
+>>>>>>        +-----  job executing --------------------------------------+
+>>>>>>
+>>>>>> SDMA:
+>>>>>>
+>>>>>>        ring-write     ring-commit       job-execute       job-done
+>>>>>>      gfxoff-off-req  gfxoff-on-req  >100ms -> gfxoff-on
+>>>>>>
+>>>>>>
+>>>>>> Is it required for the SDMA activity to cause SMU message traffic in
+>>>>>> this case, or is the powerdomain implied to be on (GFXOFF cannot turn it
+>>>>>> off while GFX is active)?
+>>>>>>
+>>>>>> This is the case I measured latency spikes. While the GFX load was
+>>>>>> running I was seeing SDMA->run_job() spike and traced it to the SMU
+>>>>>> communication.
+>>>>>>
+>>>>>> Hence the idea from the patch - prevent adev->gfx.gfx_off_req_count
+>>>>>> dropping to zero until both GFX and SDMA are idle.
+>>>>>>
+>>>>>> https://imgshare.cc/rdxu2bjl
+>>>>>>
+>>>>>> Above is visual representation of these latencies. Y is SDMA run_job()
+>>>>>> duration in micro-seconds, X is seconds wall time. Blue is stock kernel,
+>>>>>> orange is with this patch. X goes for ~60 seconds, which is how long
+>>>>>> Cyberpunk 2077 benchmark is.
+>>>>>>
+>>>>>> Regards,
+>>>>>>
+>>>>>> Tvrtko
+>>>>>>
+>>>>>>>> If 1) and 2) hold true, we can improve on the workaround by; a) only
+>>>>>>>> re-enabling GFXOFF once the job had actually completed*, and b) apply the
+>>>>>>>> same workaround on other rings which share the same GFXOFF powergating
+>>>>>>>> domain.
+>>>>>>>
+>>>>>>> The point of GFXOFF is to turn GFX on/off *without* kernel driver interaction. Otherwise we don't need it in the first place.
+>>>>>>>
+>>>>>>> We just have a hack for the SDMA because that moved into the GFXOFF domain with Navi and is broken on some HW generations IIRC.
+>>>>>>>
+>>>>>>>>
+>>>>>>>> With these two applied, the GFXOFF re-enable requests are avoided
+>>>>>>>> altogether during persistent activity on the GFX ring and simultaneous
+>>>>>>>> sporadic activity on the SDMA ring.
+>>>>>>>>
+>>>>>>>> This has a positive effect of drastically reducing SDMA submission
+>>>>>>>> latencies. For example during the Cyberpunk 2077 benchmark, they are
+>>>>>>>> reduced from an average of 64us (stdev 60) to 9us (stdev 6). Or more
+>>>>>>>> importantly the worst case latency, averaged to a one second window, is
+>>>>>>>> reduced from 305us to 30us**.
+>>>>>>>>
+>>>>>>>> *) For ease of implementation we put the re-enable at the job free stage,
+>>>>>>>> since doing it on actual completion is problematic in terms of locking.
+>>>>>>>
+>>>>>>> Absolutely clear NAK to this. Never ever base anything on the job livetime!
+>>>>>>>
+>>>>>>> We already had enough trouble with that.
+>>>>>>>
+>>>>>>>>
+>>>>>>>> **) Submission latency ewma averaged (DECLARE_EWMA(latency, 6, 4)) -
+>>>>>>>> Approximately 30 SDMA submissions per second, ewma average logged once
+>>>>>>>> per second therefore significantly hides the worst case latency. Eg.
+>>>>>>>> the real improvement in max submission latency is severely understated by
+>>>>>>>> these numbers.
+>>>>>>>
+>>>>>>> Well that would indeed be quite nice to have.
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>>>>> References: 94b1e028e15c ("drm/amdgpu/sdma5.2: add begin/end_use ring callbacks")
+>>>>>>>> Cc: Mario Limonciello <mario.limonciello@amd.com>
+>>>>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>>>>>> ---
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  | 1 +
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 8 ++++++++
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 7 +++++++
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_job.h  | 2 ++
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 3 +++
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 1 +
+>>>>>>>>      7 files changed, 23 insertions(+)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>>>>>>>> index 08f268dab8f5..eee40f385793 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>>>>>>>> @@ -475,6 +475,7 @@ struct amdgpu_gfx {
+>>>>>>>>         uint32_t                        compute_supported_reset;
+>>>>>>>>
+>>>>>>>>         /* gfx off */
+>>>>>>>> +    bool                            gfx_off_held;       /* true: rings hold gfx_off */
+>>>>>>>>         bool                            gfx_off_state;      /* true: enabled, false: disabled */
+>>>>>>>>         struct mutex                    gfx_off_mutex;      /* mutex to change gfxoff state */
+>>>>>>>>         uint32_t                        gfx_off_req_count;  /* default 1, enable gfx off: dec 1, disable gfx off: add 1 */
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+>>>>>>>> index 206b70acb29a..bf9bffe40235 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+>>>>>>>> @@ -191,6 +191,14 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+>>>>>>>>                 return r;
+>>>>>>>>         }
+>>>>>>>>
+>>>>>>>> +    if (job && adev->gfx.gfx_off_held &&
+>>>>>>>> +        (ring->funcs->type == AMDGPU_RING_TYPE_GFX ||
+>>>>>>>> +         ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
+>>>>>>>> +         ring->funcs->type == AMDGPU_RING_TYPE_SDMA)) {
+>>>>>>>> +            amdgpu_gfx_off_ctrl(adev, false);
+>>>>>>>> +            job->gfx_off_held = true;
+>>>>>>>> +    }
+>>>>>>>> +
+>>>>>>>>         need_ctx_switch = ring->current_ctx != fence_ctx;
+>>>>>>>>         if (ring->funcs->emit_pipeline_sync && job &&
+>>>>>>>>             ((tmp = amdgpu_sync_get_fence(&job->explicit_sync)) ||
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>>>>>> index 2b58e353cca1..4cfd175ac6df 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>>>>>> @@ -191,6 +191,7 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>>>>>>>>         if (!*job)
+>>>>>>>>                 return -ENOMEM;
+>>>>>>>>
+>>>>>>>> +    (*job)->adev = adev;
+>>>>>>>>         (*job)->vm = vm;
+>>>>>>>>
+>>>>>>>>         amdgpu_sync_create(&(*job)->explicit_sync);
+>>>>>>>> @@ -268,6 +269,9 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
+>>>>>>>>
+>>>>>>>>         amdgpu_sync_free(&job->explicit_sync);
+>>>>>>>>
+>>>>>>>> +    if (job->gfx_off_held)
+>>>>>>>> +            amdgpu_gfx_off_ctrl(job->adev, true);
+>>>>>>>> +
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>>>         /* only put the hw fence if has embedded fence */
+>>>>>>>>         if (!job->hw_fence.base.ops)
+>>>>>>>>                 kfree(job);
+>>>>>>>> @@ -301,6 +305,9 @@ void amdgpu_job_free(struct amdgpu_job *job)
+>>>>>>>>         if (job->gang_submit != &job->base.s_fence->scheduled)
+>>>>>>>>                 dma_fence_put(job->gang_submit);
+>>>>>>>>
+>>>>>>>> +    if (job->gfx_off_held)
+>>>>>>>> +            amdgpu_gfx_off_ctrl(job->adev, true);
+>>>>>>>> +
+>>>>>>>>         if (!job->hw_fence.base.ops)
+>>>>>>>>                 kfree(job);
+>>>>>>>>         else
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+>>>>>>>> index 2f302266662b..d4ab832ac193 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+>>>>>>>> @@ -46,6 +46,7 @@ enum amdgpu_ib_pool_type;
+>>>>>>>>
+>>>>>>>>      struct amdgpu_job {
+>>>>>>>>         struct drm_sched_job    base;
+>>>>>>>> +    struct amdgpu_device    *adev;
+>>>>>>>>         struct amdgpu_vm        *vm;
+>>>>>>>>         struct amdgpu_sync      explicit_sync;
+>>>>>>>>         struct amdgpu_fence     hw_fence;
+>>>>>>>> @@ -55,6 +56,7 @@ struct amdgpu_job {
+>>>>>>>>         bool                    vm_needs_flush;
+>>>>>>>>         bool                    gds_switch_needed;
+>>>>>>>>         bool                    spm_update_needed;
+>>>>>>>> +    bool                    gfx_off_held;
+>>>>>>>>         uint64_t                vm_pd_addr;
+>>>>>>>>         unsigned                vmid;
+>>>>>>>>         unsigned                pasid;
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>>>>>>> index 426834806fbf..22cac94e2f2a 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>>>>>>> @@ -350,6 +350,9 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+>>>>>>>>         ring->max_dw = max_dw;
+>>>>>>>>         ring->hw_prio = hw_prio;
+>>>>>>>>
+>>>>>>>> +    if (ring->funcs->gfx_off_held)
+>>>>>>>> +            adev->gfx.gfx_off_held = true;
+>>>>>>>> +
+>>>>>>>>         if (!ring->no_scheduler && ring->funcs->type < AMDGPU_HW_IP_NUM) {
+>>>>>>>>                 hw_ip = ring->funcs->type;
+>>>>>>>>                 num_sched = &adev->gpu_sched[hw_ip][hw_prio].num_scheds;
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>>>>>> index 784ba2ec354c..afaf951b0b78 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>>>>>> @@ -202,6 +202,7 @@ struct amdgpu_ring_funcs {
+>>>>>>>>         bool                    support_64bit_ptrs;
+>>>>>>>>         bool                    no_user_fence;
+>>>>>>>>         bool                    secure_submission_supported;
+>>>>>>>> +    bool                    gfx_off_held;
+>>>>>>>>         unsigned                extra_dw;
+>>>>>>>>
+>>>>>>>>         /* ring read/write ptr handling */
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>>>>>>>> index 42a25150f83a..c88de65e82bc 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>>>>>>>> @@ -1944,6 +1944,7 @@ static const struct amdgpu_ring_funcs sdma_v5_2_ring_funcs = {
+>>>>>>>>         .nop = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP),
+>>>>>>>>         .support_64bit_ptrs = true,
+>>>>>>>>         .secure_submission_supported = true,
+>>>>>>>> +    .gfx_off_held = true,
+>>>>>>>>         .get_rptr = sdma_v5_2_ring_get_rptr,
+>>>>>>>>         .get_wptr = sdma_v5_2_ring_get_wptr,
+>>>>>>>>         .set_wptr = sdma_v5_2_ring_set_wptr,
+>>>>>>>
+>>>>>>
 >>>>
->>>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->>>> Suggested-by: Christian König <christian.koenig@amd.com>
->>>> Acked-by: Christian König <christian.koenig@amd.com>
->>>> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->>>> Cc: stable@vger.kernel.org
->>>> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
->>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3812
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   |  2 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h      |  1 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 17 ++++++++
->>>>    drivers/gpu/drm/drm_buddy.c                  | 43 ++++++++++++++++++++
->>>>    include/drm/drm_buddy.h                      |  2 +
->>>>    5 files changed, 65 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> index 723ab95d8c48..ac92220f9fc3 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> @@ -5327,6 +5327,8 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
->>>>            dev->dev->power.disable_depth--;
->>>>    #endif
->>>>        }
->>>> +
->>>> +    amdgpu_vram_mgr_clear_reset_blocks(adev);
->>>>        adev->in_suspend = false;
->>>>          if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> index 215c198e4aff..2309df3f68a9 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> @@ -155,6 +155,7 @@ int amdgpu_vram_mgr_reserve_range(struct amdgpu_vram_mgr *mgr,
->>>>                      uint64_t start, uint64_t size);
->>>>    int amdgpu_vram_mgr_query_page_status(struct amdgpu_vram_mgr *mgr,
->>>>                          uint64_t start);
->>>> +void amdgpu_vram_mgr_clear_reset_blocks(struct amdgpu_device *adev);
->>>>      bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
->>>>                    struct ttm_resource *res);
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>> index abdc52b0895a..07c936e90d8e 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>> @@ -782,6 +782,23 @@ uint64_t amdgpu_vram_mgr_vis_usage(struct amdgpu_vram_mgr *mgr)
->>>>        return atomic64_read(&mgr->vis_usage);
->>>>    }
->>>>    +/**
->>>> + * amdgpu_vram_mgr_clear_reset_blocks - reset clear blocks
->>>> + *
->>>> + * @adev: amdgpu device pointer
->>>> + *
->>>> + * Reset the cleared drm buddy blocks.
->>>> + */
->>>> +void amdgpu_vram_mgr_clear_reset_blocks(struct amdgpu_device *adev)
->>>> +{
->>>> +    struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
->>>> +    struct drm_buddy *mm = &mgr->mm;
->>>> +
->>>> +    mutex_lock(&mgr->lock);
->>>> +    drm_buddy_reset_clear(mm, false);
->>>> +    mutex_unlock(&mgr->lock);
->>>> +}
->>>> +
->>>>    /**
->>>>     * amdgpu_vram_mgr_intersects - test each drm buddy block for intersection
->>>>     *
->>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>>> index a1e652b7631d..a94061f373de 100644
->>>> --- a/drivers/gpu/drm/drm_buddy.c
->>>> +++ b/drivers/gpu/drm/drm_buddy.c
->>>> @@ -405,6 +405,49 @@ drm_get_buddy(struct drm_buddy_block *block)
->>>>    }
->>>>    EXPORT_SYMBOL(drm_get_buddy);
->>>>    +/**
->>>> + * drm_buddy_reset_clear - reset blocks clear state
->>>> + *
->>>> + * @mm: DRM buddy manager
->>>> + * @is_clear: blocks clear state
->>>> + *
->>>> + * Reset the clear state based on @is_clear value for each block
->>>> + * in the freelist.
->>>> + */
->>>> +void drm_buddy_reset_clear(struct drm_buddy *mm, bool is_clear)
->>>> +{
->>>> +    u64 root_size, size, start;
->>>> +    unsigned int order;
->>>> +    int i;
->>>> +
->>>> +    size = mm->size;
->>>> +    for (i = 0; i < mm->n_roots; ++i) {
->>>> +        order = ilog2(size) - ilog2(mm->chunk_size);
->>>> +        start = drm_buddy_block_offset(mm->roots[i]);
->>>> +        __force_merge(mm, start, start + size, order);
->>>> +
->>>> +        root_size = mm->chunk_size << order;
->>>> +        size -= root_size;
->>>> +    }
->>>> +
->>>> +    for (i = 0; i <= mm->max_order; ++i) {
->>>> +        struct drm_buddy_block *block;
->>>> +
->>>> +        list_for_each_entry_reverse(block, &mm->free_list[i], link) {
->>>> +            if (is_clear != drm_buddy_block_is_clear(block)) {
->>>> +                if (is_clear) {
->>>> +                    mark_cleared(block);
->>>> +                    mm->clear_avail += drm_buddy_block_size(mm, block);
->>>> +                } else {
->>>> +                    clear_reset(block);
->>>> +                    mm->clear_avail -= drm_buddy_block_size(mm, block);
->>>> +                }
->>>> +            }
->>>> +        }
->>>> +    }
->>>> +}
->>>> +EXPORT_SYMBOL(drm_buddy_reset_clear);
->>>> +
->>>>    /**
->>>>     * drm_buddy_free_block - free a block
->>>>     *
->>>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
->>>> index 9689a7c5dd36..513837632b7d 100644
->>>> --- a/include/drm/drm_buddy.h
->>>> +++ b/include/drm/drm_buddy.h
->>>> @@ -160,6 +160,8 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->>>>                 u64 new_size,
->>>>                 struct list_head *blocks);
->>>>    +void drm_buddy_reset_clear(struct drm_buddy *mm, bool is_clear);
->>>> +
->>>>    void drm_buddy_free_block(struct drm_buddy *mm, struct drm_buddy_block *block);
->>>>      void drm_buddy_free_list(struct drm_buddy *mm,
+>>
+
