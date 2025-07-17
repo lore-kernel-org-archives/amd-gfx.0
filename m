@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B1C1C83F34
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jul 2025 19:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C8EAC83F34
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jul 2025 19:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F09F710E891;
-	Thu, 17 Jul 2025 19:18:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D95DE10E156;
+	Thu, 17 Jul 2025 19:43:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pzHT83bi";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TX3ULIxV";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1930510E88F;
- Thu, 17 Jul 2025 19:18:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7DA410E156;
+ Thu, 17 Jul 2025 19:43:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
- In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=aAtLRS9G0+ISESwh0lH4w42KWWH0ylGy1ZA32Pi6Ccw=; b=pzHT83bi3twOyx25fL/OtqcctC
- v76v3d4gcBBvn8SWO0/G1bYM3MsY0Th354jXj9pxMuNRt0mSvfjrtctKDgESUxVeDajestNyh+ill
- Ja6ZcFetdOhHG4c0nqOb70BW8hNhYRbVgsE+XXauBgF8SBtJ4S2c+CNuOLiAKi1YTerrhBolhVWcU
- Gw3KUsz0z+xGuPtESxd0jhaV4JLqgJI9/4toBX1k/OME0tjnrfNAG+jJ4xBqNNi3imBX/2IbF5KLf
- CWkHDxGk+PQspGdUOMc53raIr8WQP75bG/CYbHf2Cx2KAnaBS7ai1UwxvIzyinY0/nj7TCyJQWhM3
- fbBwSt4A==;
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtps 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ucU7b-000H1K-Sb; Thu, 17 Jul 2025 21:18:23 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
- by mail.igalia.com with esmtp (Exim)
- id 1ucU7Z-009rfZ-Fe; Thu, 17 Jul 2025 21:18:23 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
- by webmail with esmtp (Exim 4.96) (envelope-from <mwen@igalia.com>)
- id 1ucU7Y-00FFYe-2v; Thu, 17 Jul 2025 21:18:21 +0200
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=3Nys65xEidyy9UttvJOXBGVCFLSzgq8oJXjAwikdgBw=; b=TX3ULIxVWdoVGZSnmZgnViuvNW
+ w0oXzwQQFPkdw1Z48zkPAxDTRnkaX1vJjl9IxJXc0jqjUQwNLHan4DXgxB1qwSGkBI40/02Br7/Cv
+ kTf3Y9gbwiPnZcoUewnO2vqMwwcWOBT4i1SKzAJ4/YWU30O+gB7UBuJU1LQKWmAl9d283djNQqe3C
+ FWUFBlbsNNg94C1GcdYwUhObW/ws9D7Eoxm7RWbARo8diWKbjH44xaRfIPxxPuNfLCw2Kyl9amE+C
+ bb1gfQCNgjbuzVyOx05U1+GS1btNq2Sr5YZOUELQP2E592PKJxeao/zdFFaBF+U52Dl0l9wc0g/f2
+ 5C4p2FFw==;
+Received: from [189.6.13.79] (helo=[192.168.0.55])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1ucUVt-000HRX-4i; Thu, 17 Jul 2025 21:43:29 +0200
+Message-ID: <bdfc8786-d4b8-4391-a4d4-c5fe06020802@igalia.com>
+Date: Thu, 17 Jul 2025 16:43:22 -0300
 MIME-Version: 1.0
-Date: Thu, 17 Jul 2025 18:18:21 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Matthew Schwartz <mattschwartz@gwmail.gwu.edu>
-Cc: "Limonciello, Mario" <Mario.Limonciello@amd.com>, "Wentland, Harry"
- <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, airlied@gmail.com, simona@ffwll.ch, "Hung, Alex"
- <Alex.Hung@amd.com>, "Liu, Charlene" <Charlene.Liu@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] Revert "drm/amd/display: limit clear_update_flags to
  dcn32 and above"
-In-Reply-To: <BA28247C-9779-4C4C-A8E3-ACF57BEF1521@gwmail.gwu.edu>
+To: Matthew Schwartz <mattschwartz@gwmail.gwu.edu>
+Cc: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>, airlied@gmail.com,
+ simona@ffwll.ch, "Hung, Alex" <Alex.Hung@amd.com>,
+ "Liu, Charlene" <Charlene.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
 References: <20250717143738.84722-1-mwen@igalia.com>
  <70ac7b1e-9a28-45ff-b7b2-ab0f4fe9030a@amd.com>
  <bb4099a70c2a8c78ef07d5fb6a8f0d3b@igalia.com>
  <55467ebe-42c8-4387-9a61-aa60b3a84053@amd.com>
  <BA28247C-9779-4C4C-A8E3-ACF57BEF1521@gwmail.gwu.edu>
-Message-ID: <67169725b87e02cc8fdc19be5fc7df59@igalia.com>
-X-Sender: mwen@igalia.com
-Content-Type: text/plain; charset=UTF-8
+ <67169725b87e02cc8fdc19be5fc7df59@igalia.com>
+ <CAD9O9Dq=dAsMs5a3VzgSvLwfuYYhkARDFBXyWUy+yktEZv5WbQ@mail.gmail.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <CAD9O9Dq=dAsMs5a3VzgSvLwfuYYhkARDFBXyWUy+yktEZv5WbQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,95 +73,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 17-07-2025 17:57, Matthew Schwartz wrote:
->> On Jul 17, 2025, at 9:58 AM, Limonciello, Mario <Mario.Limonciello@amd.com> wrote:
->> 
->> On 7/17/25 11:55 AM, Melissa Wen wrote:
->>> On 17-07-2025 13:39, Limonciello, Mario wrote:
->>>> On 7/17/25 9:36 AM, Melissa Wen wrote:
->>>>> This reverts commit e1bd5e0bb4ca0d633ad698abd3658f8265009b81.
->>>>> 
->>>>> The commit causes a regression in Steam Deck (DCN 3.01), reintroducing a
->>>>> functional issue reported in [1] that was fixed by calling the
->>>>> clear_update_flags() from commit 7671f62c10f2a.
->>>>> 
->>>>> On Steam Deck, we use multiple hw plane color caps and up to two overlay
->>>>> planes with dynamic pipe split policy. I.e. with 1 primary + 1 overlay,
->>>>> the driver split planes into two (with 4 pipes), but with 1 primary + 2
->>>>> overlays, we don't have enough pipe for splitting. Glitches appear in
->>>>> this pipe-split transition of 1-2 overlay planes, if the driver doesn't
->>>>> clear update flags.
->>>>> 
->>>>> Besides that, the issue the commit e1bd5e0bb4ca tries to address [2]
->>>>> isn't functional.
->>>>> 
->>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3441 [1]
->>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4129 [2]
->>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>>> 
->>>> Can you please double check the use case that prompted
->>>> e1bd5e0bb4ca0d633ad698abd3658f8265009b81 in the first place?  IE With
->>>> this revert you proposed do you see a traceback on unplug of external
->>>> display?
->>> 
->>> Hi Mario,
->>> 
->>> I don't see either traceback or REG_WAIT timeout when unplugging an
->>> external HDMI-connected display.
->>> I tried with the Deck Dock and USB-C to HDMI adapter. Not sure if there
->>> is a very specific scenario that triggers this that I didn't cover.
->> 
->> No; it's quite a general problem and easy to reproduce.  This makes me 
->> wonder if there should be an exception carved out for Steam Deck instead.
-> 
-> I just tested DCN 3.1.2 (Z2 Go) and DCN 3.1.4 (Legion Go/ROG Ally) and
-> I was not able to reproduce the issue so a Steam Deck carveout might make
-> sense here.
 
-What issue are you trying to reproduce?
-Glitches on Hades II + MangoHud, or traceback/REG_WAIT timeout?
 
-And with what kernel version?
+On 17/07/2025 16:28, Matthew Schwartz wrote:
+> On Thu, Jul 17, 2025 at 12:18 PM Melissa Wen <mwen@igalia.com> wrote:
+>> On 17-07-2025 17:57, Matthew Schwartz wrote:
+>>>> On Jul 17, 2025, at 9:58 AM, Limonciello, Mario <Mario.Limonciello@amd.com> wrote:
+>>>>
+>>>> On 7/17/25 11:55 AM, Melissa Wen wrote:
+>>>>> On 17-07-2025 13:39, Limonciello, Mario wrote:
+>>>>>> On 7/17/25 9:36 AM, Melissa Wen wrote:
+>>>>>>> This reverts commit e1bd5e0bb4ca0d633ad698abd3658f8265009b81.
+>>>>>>>
+>>>>>>> The commit causes a regression in Steam Deck (DCN 3.01), reintroducing a
+>>>>>>> functional issue reported in [1] that was fixed by calling the
+>>>>>>> clear_update_flags() from commit 7671f62c10f2a.
+>>>>>>>
+>>>>>>> On Steam Deck, we use multiple hw plane color caps and up to two overlay
+>>>>>>> planes with dynamic pipe split policy. I.e. with 1 primary + 1 overlay,
+>>>>>>> the driver split planes into two (with 4 pipes), but with 1 primary + 2
+>>>>>>> overlays, we don't have enough pipe for splitting. Glitches appear in
+>>>>>>> this pipe-split transition of 1-2 overlay planes, if the driver doesn't
+>>>>>>> clear update flags.
+>>>>>>>
+>>>>>>> Besides that, the issue the commit e1bd5e0bb4ca tries to address [2]
+>>>>>>> isn't functional.
+>>>>>>>
+>>>>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3441 [1]
+>>>>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4129 [2]
+>>>>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>>>>> Can you please double check the use case that prompted
+>>>>>> e1bd5e0bb4ca0d633ad698abd3658f8265009b81 in the first place?  IE With
+>>>>>> this revert you proposed do you see a traceback on unplug of external
+>>>>>> display?
+>>>>> Hi Mario,
+>>>>>
+>>>>> I don't see either traceback or REG_WAIT timeout when unplugging an
+>>>>> external HDMI-connected display.
+>>>>> I tried with the Deck Dock and USB-C to HDMI adapter. Not sure if there
+>>>>> is a very specific scenario that triggers this that I didn't cover.
+>>>> No; it's quite a general problem and easy to reproduce.  This makes me
+>>>> wonder if there should be an exception carved out for Steam Deck instead.
+>>> I just tested DCN 3.1.2 (Z2 Go) and DCN 3.1.4 (Legion Go/ROG Ally) and
+>>> I was not able to reproduce the issue so a Steam Deck carveout might make
+>>> sense here.
+>> What issue are you trying to reproduce?
+>> Glitches on Hades II + MangoHud, or traceback/REG_WAIT timeout?
+> Sorry, should've specified! I was testing for glitches with Hades II + MangoHud.
+>
+>> And with what kernel version?
+> amd-staging-drm-next built from b78bd800, tested on top of SteamOS Main
+I suspect you don't see the issue because your kernel doesn't expose AMD 
+driver-specific color properties (?)
+For this, you should compile the kernel with KCFLAGS="-DAMD_PRIVATE_COLOR"
+
+If no plane color props, you are also not seeing three planes on AMD DTN 
+log and then no transitions in the pipe split.
+
+My main concern is that we will just hide the problem with an exception, 
+but it can come back to bite us when the KMS plane color API is merged 
+and gamescope updated to it.
 
 Melissa
 
-> 
-> Matt
-> 
->> 
->>> 
->>> The only message on dmesg from this action is:
->>> amdgpu 0000:04:00.0: amdgpu: pp_od_clk_voltage is not accessible if
->>> power_dpm_force_performance_level is not in manual mode!
->>> 
->>> Moreover, if I move to the Desktop mode (KDE), there is no message.
->>> 
->>> Melissa
->>> 
->>>> 
->>>>> ---
->>>>>   drivers/gpu/drm/amd/display/dc/core/dc.c | 5 +++--
->>>>>   1 file changed, 3 insertions(+), 2 deletions(-)
->>>>> 
->>>>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
->>>>> index c31f7f8e409f..7c48f72e5917 100644
->>>>> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
->>>>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
->>>>> @@ -5443,7 +5443,8 @@ bool dc_update_planes_and_stream(struct dc *dc,
->>>>>    else
->>>>>    ret = update_planes_and_stream_v2(dc, srf_updates,
->>>>>    surface_count, stream, stream_update);
->>>>> - if (ret && dc->ctx->dce_version >= DCN_VERSION_3_2)
->>>>> +
->>>>> + if (ret)
->>>>>    clear_update_flags(srf_updates, surface_count, stream);
->>>>> 
->>>>>    return ret;
->>>>> @@ -5474,7 +5475,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
->>>>>    ret = update_planes_and_stream_v1(dc, srf_updates, surface_count, stream,
->>>>>    stream_update, state);
->>>>> 
->>>>> - if (ret && dc->ctx->dce_version >= DCN_VERSION_3_2)
->>>>> + if (ret)
->>>>>    clear_update_flags(srf_updates, surface_count, stream);
->>>>>   }
+>
+>> Melissa
+>>
+>>> Matt
+>>>
+>>>>> The only message on dmesg from this action is:
+>>>>> amdgpu 0000:04:00.0: amdgpu: pp_od_clk_voltage is not accessible if
+>>>>> power_dpm_force_performance_level is not in manual mode!
+>>>>>
+>>>>> Moreover, if I move to the Desktop mode (KDE), there is no message.
+>>>>>
+>>>>> Melissa
+>>>>>
+>>>>>>> ---
+>>>>>>>    drivers/gpu/drm/amd/display/dc/core/dc.c | 5 +++--
+>>>>>>>    1 file changed, 3 insertions(+), 2 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>>>>>>> index c31f7f8e409f..7c48f72e5917 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>>>>>>> @@ -5443,7 +5443,8 @@ bool dc_update_planes_and_stream(struct dc *dc,
+>>>>>>>     else
+>>>>>>>     ret = update_planes_and_stream_v2(dc, srf_updates,
+>>>>>>>     surface_count, stream, stream_update);
+>>>>>>> - if (ret && dc->ctx->dce_version >= DCN_VERSION_3_2)
+>>>>>>> +
+>>>>>>> + if (ret)
+>>>>>>>     clear_update_flags(srf_updates, surface_count, stream);
+>>>>>>>
+>>>>>>>     return ret;
+>>>>>>> @@ -5474,7 +5475,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
+>>>>>>>     ret = update_planes_and_stream_v1(dc, srf_updates, surface_count, stream,
+>>>>>>>     stream_update, state);
+>>>>>>>
+>>>>>>> - if (ret && dc->ctx->dce_version >= DCN_VERSION_3_2)
+>>>>>>> + if (ret)
+>>>>>>>     clear_update_flags(srf_updates, surface_count, stream);
+>>>>>>>    }
+
