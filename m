@@ -4,19 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B53E2C83F34
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jul 2025 20:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29CA2C83F34
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jul 2025 20:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D09B10E29F;
-	Thu, 17 Jul 2025 20:54:58 +0000 (UTC)
-X-Greylist: delayed 381 seconds by postgrey-1.36 at gabe;
- Thu, 17 Jul 2025 20:54:57 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id C58CC10E8A3;
+	Thu, 17 Jul 2025 20:58:25 +0000 (UTC)
 Received: from erminea.space (erminea.space [51.250.125.203])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AEF310E29F;
- Thu, 17 Jul 2025 20:54:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 727EE10E8A3;
+ Thu, 17 Jul 2025 20:58:24 +0000 (UTC)
 Received: from alyaptyap (unknown [37.204.49.201])
- by erminea.space (Postfix) with ESMTPSA id 37F0213CE;
- Thu, 17 Jul 2025 23:54:56 +0300 (MSK)
+ by erminea.space (Postfix) with ESMTPSA id 9ACAA13CF;
+ Thu, 17 Jul 2025 23:48:34 +0300 (MSK)
 From: Peter Shkenev <mustela@erminea.space>
 To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  christian.koenig@amd.com
@@ -24,8 +22,8 @@ Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 Subject: [PATCH] drm/amdgpu: check if hubbub is NULL in
  debugfs/amdgpu_dm_capabilities
-Date: Thu, 17 Jul 2025 23:54:48 +0300
-Message-ID: <20250717205449.763512-1-mustela@erminea.space>
+Date: Thu, 17 Jul 2025 23:48:17 +0300
+Message-ID: <20250717204819.731936-1-mustela@erminea.space>
 X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
