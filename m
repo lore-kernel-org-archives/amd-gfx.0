@@ -4,161 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D5E7C83F1A
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jul 2025 14:39:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26854C83F3C
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jul 2025 14:59:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0344010E83C;
-	Thu, 17 Jul 2025 14:39:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5E810E2EF;
+	Thu, 17 Jul 2025 14:59:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kF7T0/xI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rk0cE3/4";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2082.outbound.protection.outlook.com [40.107.236.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D164B10E83B;
- Thu, 17 Jul 2025 14:39:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cUf5hACRsmkYeZ1y1T/eqcOhzFjoa+uHvIVF2vPhlB6xLhQ0debB+aqjS9sRanAdkdGG72R8l+hjckrAFNwBrOavZolmQI46QFfqRmDV5tjyXCHVOnmnsUqrAJe+6Nrth73ahxCbgDVKaJCupvZFAPAb2+BZvRWalLoev9iKJTQ6GOGnvffGOQon7vDYcsusEYetYheGAywbPQN0JWrDAe4erkEarLpwavMNVxhkvUu7EXJaCctHZo+He7EKWbnDcpSWMiwCx0gwus11cqS/KASBswVZOIkKw1a+z+3tkiIKCf3CdBm8hKYrNRSqhlMbPMUBB3gWQOwb9GmQQykm0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OStu62zSuIQHAle3LCU0v2ZRTYGmGpniPMPQ8dGj3Z4=;
- b=nhuR8kpYFFmk9w+R9dPEwxXa5fNhIXGtToD4JP2xmwCKCB6yVuVQsWXRioLCCS3mgIwGoex9iHRAXIVX9m3Dyvpey0xmjSQdL9xf2sPIHO1cyuSb3cOXxdHMk68DZFokz7/6h1xtlW/pOoKQhO0bB2zz/U8HHEQTnVLaKbUHk5reZBiHKRvtUG8LHrxkmXdMJD4FjWi7MCMUP37ZnYr6H20lIm4L6+sLy94DBWDQO4zyvy4HvZNEN/MJOmWrxJJ7alAARlJ6Jki31ca72A4zdryHKSRTv7jsdes4mqlB3UC4wdt21gaiGJXGVE81/0+7a1ADKJtstZn6TkzOXqJVZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OStu62zSuIQHAle3LCU0v2ZRTYGmGpniPMPQ8dGj3Z4=;
- b=kF7T0/xIQUBJ2Cgc/HYfWS+Vm3pJ805A2u+K+/ij63tL7GiKqLwZbb7v2NQfBMp8ep0CG34Z340/96kbRHqPP13rBZ+IzBKEJ0ib0Th3S+fGa70CkTcfB54ZbiaqrR9XadJTkmOf8Y2HlSiOU6ct6tGj+kkZOn7cAmbXjQpoEnY=
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SJ2PR12MB8829.namprd12.prod.outlook.com (2603:10b6:a03:4d0::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.24; Thu, 17 Jul
- 2025 14:39:39 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%3]) with mapi id 15.20.8901.036; Thu, 17 Jul 2025
- 14:39:39 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: Melissa Wen <mwen@igalia.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, 
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
-CC: "Hung, Alex" <Alex.Hung@amd.com>, "Liu, Charlene" <Charlene.Liu@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>
-Subject: Re: [PATCH] Revert "drm/amd/display: limit clear_update_flags to
- dcn32 and above"
-Thread-Topic: [PATCH] Revert "drm/amd/display: limit clear_update_flags to
- dcn32 and above"
-Thread-Index: AQHb9yhimdXJd2sAV0ekpQZXo91gObQ2Yu6A
-Date: Thu, 17 Jul 2025 14:39:39 +0000
-Message-ID: <70ac7b1e-9a28-45ff-b7b2-ab0f4fe9030a@amd.com>
-References: <20250717143738.84722-1-mwen@igalia.com>
-In-Reply-To: <20250717143738.84722-1-mwen@igalia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla Thunderbird
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6101:EE_|SJ2PR12MB8829:EE_
-x-ms-office365-filtering-correlation-id: 2c035304-037e-4abe-34b4-08ddc53fc29d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|38070700018|921020; 
-x-microsoft-antispam-message-info: =?utf-8?B?ZUNxSnhQcmxoYUNabmZxQjRSUy9rVW9uc0tzcVBjeFQxUm9oN2N1dk1DRGVu?=
- =?utf-8?B?S21XaWwyby9uRlVVM3p5Qm55TGlseHFSUGE2TlVNMjdNNlBwL3k3eGhiZm5I?=
- =?utf-8?B?dHFkci9lN3hJdXdNS2R0RTlMYVl6RDU1ZTE0amRxM1ZCeGpEOXlaUzFvV2VX?=
- =?utf-8?B?MGNoMitzbStkbmlLZHZiVVI5dGpyMlZ0bnNFVUd3dk4vZ1drbGZGYkowOG5Q?=
- =?utf-8?B?YzhZbTRWdG5BVENlMENzZUM3dUUwUldqMnFSdnAzMHZkMmRId2NpemR2TDBo?=
- =?utf-8?B?TE5CK0dUTmJydVprYnVack1TcEtBeGxxa1lRSkFFS0FYS0E3Nm8vS2w1bXpE?=
- =?utf-8?B?MFNwYTR4cEprdFpCLzVZR2tpb2ExVUpzUHkzWTBCbXk4SjcxUFVEL3BSN0R3?=
- =?utf-8?B?NmUvU2Q1T25XMTVZMFBRbkdSUjZLTGFURVNmb2Q1dVB5S053KzVQWGsrVWJm?=
- =?utf-8?B?U3RQY0ZxYWhVamErOGJUS3dJUk5wRTB1WnRrTmxMNWNmMWYzTW82dnkvNXBi?=
- =?utf-8?B?ejBobFcvTXhpY3RPbEE2R2JQVnd2U0tzSE1qbkV2ZVppTVMzTU1Uai9paE10?=
- =?utf-8?B?NXJwQ3hNbThJVTBXeHcrN3ErZWZvcXFDdGp3eEE5MU9FQW4rVXJadVg2QjVu?=
- =?utf-8?B?dFZuL2hpMVJheHQreDNXUXltRHh0YjB5SmhhMmd6K0Rmd1Y0V29MeTN6ZjB6?=
- =?utf-8?B?WGhHbU9kV1d6cmFYNW5YMmowOElJZXdkZ0JFR3hPZU1JMzdzb2RDLytqTURu?=
- =?utf-8?B?amZPTlNsR0ZqQ0RyaUNDRDR6ajhEOEJrYUtxaVVEYWpXWTdWVXdJYmplTlNk?=
- =?utf-8?B?a21tdnZzQ2FLU2xPYWZsTVV3cFVYcUxHM2RVcGZ0d1RJblR5L3gwSFl4M3Y4?=
- =?utf-8?B?U1UxR3d2UWg1Q0k4VzBNSFBhdTh6ZVBnZzdXTFRTY29NUTJrTFlhM0tCVDZV?=
- =?utf-8?B?bzgxYldzc3VITnJsTDlVdElwaEVNTnc5MERCcjRVMjV1K2lSZjd3bTVLTjNN?=
- =?utf-8?B?RkNocFhoTm1acm0yODUrMUtGUHE4N2t2SXdQYWVtNVBwMlRZdmlQZU85T1Uw?=
- =?utf-8?B?MmhxdHdmMDJMQzE0SUw0NW9ta1BiTzhZWXFaR2JJWHJoQWpPdmhRc3YxYVF3?=
- =?utf-8?B?SjRjR3ZURTYzKzIwTHBhSCtYY3hrc3BUcUYrcmxjSnJBZ3Q3RHJ5UGI5b0xm?=
- =?utf-8?B?S21iOFk5OWNxQzRJWDJkZVlZU2gvNm5IUnpMWFRpZWo0cmVqMzJ1ME9wNWRF?=
- =?utf-8?B?Ri9aa3MrYlhpdlVmdGxnRXlERmxPb1BYYThXajRvY0xWTW16R2Z3eFk3YlpN?=
- =?utf-8?B?N0tqRVhNZ0ZOSk02VjZkRjEvQ21aUmd6c1hpc3BDL0ZPaE1xUWQ5cStGV1FS?=
- =?utf-8?B?VlJYNU5NandZSCtTTHRxdExwS0lZWmtoaTVCWDBnWG1qMS93dnVlZWQ5SzdJ?=
- =?utf-8?B?UURmZzE5YmZHWEVHTnpiNFpxWldDZUViN2RjekYwWlErcDVPUWJvbmUxMUk2?=
- =?utf-8?B?dURXRlo3elFvUWQ1VG1XNTRMaDlFTU1sb3ZxSnloQ3lvemtQcy93eXVUZHJJ?=
- =?utf-8?B?OFF3VkpWLzV6Qk5HZ1JaOHFQNVJ1RTVsWnd2SDhIeExYVTdDOSt0TDZpOFZ2?=
- =?utf-8?B?Tkp2YmVCM0xoQUtRTkVqT1ptb3pjeHY5ejRNTXVSNmgwRnErSWs3OFRmaGVI?=
- =?utf-8?B?d2lZUlNlVWdRNldFTHpTWWttZUhVM1FyaGVva1gvV2JOSVYrOTF4YWRCUXJY?=
- =?utf-8?B?bk9YWW1ZTEt5ejRnZmFTN05Bb3grR3c0Z01DWDVMTkkvUGZ4OFZlbGliL2FH?=
- =?utf-8?B?bUdNSHRQa2NKT2NYamtjWS8rbVlKN3NBZkUwalRhSGxlaDI4SzYvU29mUXBD?=
- =?utf-8?B?OGZsYi9zc0xyb2x3Z2p6VTJqbFFCL24yYUI4WTF4c2NudW1xWi95dVdQak04?=
- =?utf-8?Q?WyStEjZU8QYN5hB0eSibZe7f4yoAV1jS?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700018)(921020); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cExpWG02cHZqbW9BMGFtZGUwRURnRkZva0VCQ0padHJTQUYzT05VSnNLekU3?=
- =?utf-8?B?bGYxUElXcmpITDg5MmdGeHZRaGY5T1JJTzNNSm9aYktCdnorU0Jzb09JWmYx?=
- =?utf-8?B?SFdYTG5LczdPcmlYVmUxRitWQnl5WEVzdmRPamRoTDkvTG1JdEhNN0xJQW1N?=
- =?utf-8?B?cVF0VldSbTVQK1BVMjYrQ3hIVHNHL1N2WkR6MTZqU1JBcjV0N2JyV1FKWXFw?=
- =?utf-8?B?Y3NFemw3bFhDMWI0L0VJd0cyYW13OW5rMnhvS0s1T2pFdU5IZi9OSUZHcUZt?=
- =?utf-8?B?TXpIbkNpNmFwOGlqOEcyNmJrenRmaVNXc0FLSnN3c0VSclhXeEZJbEtUY1V4?=
- =?utf-8?B?OUZCa3JCVVZWdVQ2Y08yM0lLUTBKTE5TZnZvWS9HU1FFak9SM3FlVHJIa3Rh?=
- =?utf-8?B?azRwck04cDlYT3RiNERmMW9HN250dzZBVXBkVHFjeHFiRWxJVVZjUkpFMlFy?=
- =?utf-8?B?VXVwL3BuRGRad0loSE56dzZNMjlBZVpvdkdnZGRySzREbTZURnhTd2Ewd0hq?=
- =?utf-8?B?a0hBalIxcjYrS1NUSzZWdGpSQnhVVzhMV1NldVhqM3l1ZTNzaGxsR0tjTmcy?=
- =?utf-8?B?R2YzNXVxYU04UjhjRmxYMXUwNnBmTzVtVTQxWW15T1RlMTNKUmtiUDUvVDho?=
- =?utf-8?B?S25XQjR0ZFordm1vR094WUVCZWJ4NkRycVFwUWY5NFNMVy9xNXJyRVFKLzh3?=
- =?utf-8?B?Yy8vSS9EYmdkYm85WDNnSkFOK0w1NzBGS3VBUGJ3N1Bla3VuSU5EbEtJM3lS?=
- =?utf-8?B?Qis5T3lZaHQ2eVc0dFJ4V3FOZTZ4Vis3ME5MOTlMZGVBMGpvYW5DRWlDWDlD?=
- =?utf-8?B?QjEzd0gxSUJyYWZwcDY2azRCaElJbmNhSVA3YmJGZTZrV2hjOHRSZ1QvcjZN?=
- =?utf-8?B?bjJiVWFnVFBtZXRRQWZ4YUc3UlJPTTkxOEd2OUZSSWx1Q0k3aWNSUklseXEy?=
- =?utf-8?B?OU4zbGtCTmxEeHJadEVwWWt1MlFvblhjbUZYRWxKQ0hNWllYTWhZbjZldTBV?=
- =?utf-8?B?d1VEWHc2TVpSZEtjeDZqRkxrSnhOZHVlSmI1L3ZwRG82RHVVTE54MmRaS3ha?=
- =?utf-8?B?TEVwclBFUkRnTlVlMG5JbU8yK2tUSVdlalN1dzJ3d1ZVVTA5aXgyYW1LVFJK?=
- =?utf-8?B?Z29vUUVkYjNuUFNZUDd4enBLbDlLNTJiTlhMSEVsUjYwUllrM2RvWHFHejRo?=
- =?utf-8?B?bVdtQ0grTk9hb0tQUmRDWStUUU45dFFOZU8vdEJjdjBIMFQrZVEvNFNNYnIw?=
- =?utf-8?B?N3I4N2xYNDBqRi9Ca2hxQlMyTk1MSEpTUXdkN2Q4ZW4wRmlBN3N5cmZSdnQ2?=
- =?utf-8?B?QXlzM280N2E0TzNsbjM4NXkvUzZKMjNiOGcxZWIvVjFFNCs0OCt6Uy9uY1lR?=
- =?utf-8?B?QjQ1VW43WGxDdWNta0NXTlAwelM1TEQ5WDVlL2duUjdwWUNIQzFtcDU4b3Bk?=
- =?utf-8?B?Y0dUcHNZLzk0K25zQkhMQkw1NmJMN1Jydzd0bWpwK21BRzBGQUJheUt1ci9s?=
- =?utf-8?B?YjFtOWpISXp5Z0UxcGtFbm1WQ3pFem03Z1Qzd1hrODNaSFN6QU9DekQrZ1l0?=
- =?utf-8?B?N2VrVUoxRmdBS2VlN3FPN0dNbVVMK0hiTEw4cE9WeXljNzRQWlZ2ZWNxWlB4?=
- =?utf-8?B?U1FJTlZwQ3FjSmx5MkRiMkUyOEF2NUcvK0licWZPVUhkc3BoZ2pDVG1GeW9t?=
- =?utf-8?B?cnpWQlhIM3pBQkRkcEZvb3liYTJUZ0FyQ2dsbUFKREZkQ0g1N1dkRzN6YWdY?=
- =?utf-8?B?ZnEvS0t3TFdXTVIwaGZkV0Vyd1ZIaS9BaURTOVhOSmZyZlQ0MnZSVVhBV2JZ?=
- =?utf-8?B?MVlIdmg5MWtRMTUwSUFMekFVR3ZmY0tncUQvczBtc3JHbEcyZUdOSmlnMmNZ?=
- =?utf-8?B?d1kyQjdITElqeFd2djhSUnlMY0dZazNoUTFyaVBReXZ4N3Y2cWVNNDUzTE04?=
- =?utf-8?B?OTlYa0FPUUtDQWZLVmRTQ0g4U2ZUZjZGZ21JT3lleERNL0c5VnNPeXFGWC9T?=
- =?utf-8?B?VG5mYnYyN3dRc0FmRmhxZEM0OG1lb0I3cDFUWUNWNFpaaEowK0tHdWRxb3pz?=
- =?utf-8?B?K1ZpNUVrN1ZaNWZobkFxNUR3VU43K1hDYyt1bVdOQXd4S3Z3VUVMdUlsa0I5?=
- =?utf-8?Q?xFg4=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <8F29916EC4EE694DBDFB9872E43BEE85@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9EB10E144;
+ Thu, 17 Jul 2025 14:59:06 +0000 (UTC)
+Received: by mail-pg1-f169.google.com with SMTP id
+ 41be03b00d2f7-b2700de85d0so57094a12.2; 
+ Thu, 17 Jul 2025 07:59:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1752764345; x=1753369145; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9Ya0Pf7GBbiFI9yCYfAdyjgFg/XCTrL1Lup/5nSkjZ4=;
+ b=Rk0cE3/4velB5AI95Y8a6IsnTA3LSkxdaeHYF/DC1wz+P66Dxd24EpyFerCABs46eY
+ 5szECa2lUnvbDySLVUOl8/B1o3fPkkMztr8iBbbmW75Z84xCjTuL8yzmJxNS0c0JDQCu
+ BxbTHjWn0Lnq8vMTqJosNIk4ygGnIpx8PoEf/R0sjac6vgXIkYOU5tYd7j8o5s8v2nNr
+ mUeU5HzkJMRFA9n9DJdV9+R9Z41JpaF4I8Wtev/1PJdHBn3WSMquCObpNT08lrJUrrgQ
+ fPM4hfwkE6tyI98K9a+E8Y+vGjL266wMOJOsP7zcqY+nxTtCUUx3uNLQhknhv3rAGAXY
+ Ti3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752764345; x=1753369145;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9Ya0Pf7GBbiFI9yCYfAdyjgFg/XCTrL1Lup/5nSkjZ4=;
+ b=X96Qgz73vR/TDx/3Zn2x12oUF8iCanBT4dC91NwMHVFqWCSOPhS9adC2uGFggBoXcj
+ XaHB+wiU3KSkhclqb4keIqSuot02OV9mNCP4dAn4toxAuam+1yF9Oy9cjCdGouow2h9Y
+ tY3jJP7h5oY7D/qozar216n92vVEXA4EEbBO+3V4MizyrCSA+lO+Qnx1w5QywE02AlLL
+ WcmZVHTMq8JuFEPryc/b9u8Ldy4onf8b6zUgodytsmvf+YwtW1hpjWOeAmG3sQMz33cP
+ V7L72ZBb6XHr8lW1+Cw5Rhmkq+CsrDFn1AYroVncSTtEdH/tIVzJ6u/or8l7UuF5/kB9
+ Wzpw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCULyEI7Qt6WqM3lkuVxDXoQDgaDGdOgTaUl4fr3Z+XyLR8aqrtlYIPxxqy5DJCsSdn0k0wIhXna@lists.freedesktop.org,
+ AJvYcCVQN0YroFqxmRQulJKAJaf7OrtxGeBkTxY4xLQE2PvmRoL2o1UoPDft9x9s7gmS6iefVso/LlWiTugf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTpG42ecXM48Skc5ZhAc2FczXlH+7NL3VLFvfR3LOBr5U6oJb7
+ YrJmcNTCHGr8ovwDypQ8kTwRe09PipiKwK5/nOHjBsc1+6sSCwAj7s+KqGKPABQp2z5a37pYA4C
+ ngeLTC57gMlczGPS4aU4j0/n7+DE5mwo=
+X-Gm-Gg: ASbGncsX8rMObERfMnWgjz/uEl71yCIlCnLW7sg8CuUnoiXcsr65J9YR9NtYdHBsZUV
+ OalcnETD8MxSik9akkT4a0kd+nLSae06Zq4yq3yk/3md1RTh0p2CTpWxW5gTePjg2nplNijk/+G
+ IlpSRQv5iZzqDt71bnibOPMg58dkQ2XbzMaFu3L6zIvpeboSlsKsg0v2BodPAkAUDeArqdrxEBS
+ tGRdmlO
+X-Google-Smtp-Source: AGHT+IHHlq/nQ9G6EWKKiMZEs2wLT9KLcyNzfgfIaMgOnK9+QgUCsPjP/ogcxgDDwwAVqR5cbpqVFpHPsuJaCZ+oScY=
+X-Received: by 2002:a17:90b:4b8b:b0:311:9c9a:58e2 with SMTP id
+ 98e67ed59e1d1-31c9e798695mr3931081a91.7.1752764345395; Thu, 17 Jul 2025
+ 07:59:05 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c035304-037e-4abe-34b4-08ddc53fc29d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2025 14:39:39.4715 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /DgAKPrmmfKjnL9qfB5BTODe4JTtmZHzDyDtxTX5CqTXzu+Ws8G/uTWHvbdKbEzEpzrYgzGPxgfImXuSG6DsVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8829
+References: <20250716161753.231145-1-bgeffon@google.com>
+ <CADnq5_P+a2g_YzKW7S4YSF5kQgXe+PNrMKEOAHuf9yhFg98pSQ@mail.gmail.com>
+ <CADyq12zB7+opz0vUgyAQSdbHcYMwbZrZp+qxKdYcqaeCeRVbCw@mail.gmail.com>
+ <CADnq5_OeTJqzg0DgV06b-u_AmgaqXL5XWdQ6h40zcgGj1mCE_A@mail.gmail.com>
+ <CADyq12ysC9C2tsQ3GrQJB3x6aZPzM1o8pyTW8z4bxjGPsfEZvw@mail.gmail.com>
+In-Reply-To: <CADyq12ysC9C2tsQ3GrQJB3x6aZPzM1o8pyTW8z4bxjGPsfEZvw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 17 Jul 2025 10:58:53 -0400
+X-Gm-Features: Ac12FXzrKvidT2q85M3LPC-hr0sTqZC7FoEbjKXO6dUbumO7fgzZhruHSNnRlGI
+Message-ID: <CADnq5_PnktmP+0Hw0T04VkrkKoF_TGz5HOzRd1UZq6XOE0Rm1g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Raven: don't allow mixing GTT and VRAM
+To: Brian Geffon <bgeffon@google.com>
+Cc: "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Yunxiang Li <Yunxiang.Li@amd.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, Prike Liang <Prike.Liang@amd.com>, 
+ Pratap Nirujogi <pratap.nirujogi@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Garrick Evans <garrick@google.com>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,43 +96,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gNy8xNy8yNSA5OjM2IEFNLCBNZWxpc3NhIFdlbiB3cm90ZToNCj4gVGhpcyByZXZlcnRzIGNv
-bW1pdCBlMWJkNWUwYmI0Y2EwZDYzM2FkNjk4YWJkMzY1OGY4MjY1MDA5YjgxLg0KPiANCj4gVGhl
-IGNvbW1pdCBjYXVzZXMgYSByZWdyZXNzaW9uIGluIFN0ZWFtIERlY2sgKERDTiAzLjAxKSwgcmVp
-bnRyb2R1Y2luZyBhDQo+IGZ1bmN0aW9uYWwgaXNzdWUgcmVwb3J0ZWQgaW4gWzFdIHRoYXQgd2Fz
-IGZpeGVkIGJ5IGNhbGxpbmcgdGhlDQo+IGNsZWFyX3VwZGF0ZV9mbGFncygpIGZyb20gY29tbWl0
-IDc2NzFmNjJjMTBmMmEuDQo+IA0KPiBPbiBTdGVhbSBEZWNrLCB3ZSB1c2UgbXVsdGlwbGUgaHcg
-cGxhbmUgY29sb3IgY2FwcyBhbmQgdXAgdG8gdHdvIG92ZXJsYXkNCj4gcGxhbmVzIHdpdGggZHlu
-YW1pYyBwaXBlIHNwbGl0IHBvbGljeS4gSS5lLiB3aXRoIDEgcHJpbWFyeSArIDEgb3ZlcmxheSwN
-Cj4gdGhlIGRyaXZlciBzcGxpdCBwbGFuZXMgaW50byB0d28gKHdpdGggNCBwaXBlcyksIGJ1dCB3
-aXRoIDEgcHJpbWFyeSArIDINCj4gb3ZlcmxheXMsIHdlIGRvbid0IGhhdmUgZW5vdWdoIHBpcGUg
-Zm9yIHNwbGl0dGluZy4gR2xpdGNoZXMgYXBwZWFyIGluDQo+IHRoaXMgcGlwZS1zcGxpdCB0cmFu
-c2l0aW9uIG9mIDEtMiBvdmVybGF5IHBsYW5lcywgaWYgdGhlIGRyaXZlciBkb2Vzbid0DQo+IGNs
-ZWFyIHVwZGF0ZSBmbGFncy4NCj4gDQo+IEJlc2lkZXMgdGhhdCwgdGhlIGlzc3VlIHRoZSBjb21t
-aXQgZTFiZDVlMGJiNGNhIHRyaWVzIHRvIGFkZHJlc3MgWzJdDQo+IGlzbid0IGZ1bmN0aW9uYWwu
-DQo+IA0KPiBMaW5rOiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2FtZC8tL2lz
-c3Vlcy8zNDQxIFsxXQ0KPiBMaW5rOiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJt
-L2FtZC8tL2lzc3Vlcy80MTI5IFsyXQ0KPiBTaWduZWQtb2ZmLWJ5OiBNZWxpc3NhIFdlbiA8bXdl
-bkBpZ2FsaWEuY29tPg0KDQpDYW4geW91IHBsZWFzZSBkb3VibGUgY2hlY2sgdGhlIHVzZSBjYXNl
-IHRoYXQgcHJvbXB0ZWQgDQplMWJkNWUwYmI0Y2EwZDYzM2FkNjk4YWJkMzY1OGY4MjY1MDA5Yjgx
-IGluIHRoZSBmaXJzdCBwbGFjZT8gIElFIFdpdGggDQp0aGlzIHJldmVydCB5b3UgcHJvcG9zZWQg
-ZG8geW91IHNlZSBhIHRyYWNlYmFjayBvbiB1bnBsdWcgb2YgZXh0ZXJuYWwgDQpkaXNwbGF5Pw0K
-DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgfCA1
-ICsrKy0tDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
-LSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29y
-ZS9kYy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYw0KPiBpbmRl
-eCBjMzFmN2Y4ZTQwOWYuLjdjNDhmNzJlNTkxNyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvY29yZS9kYy5jDQo+IEBAIC01NDQzLDcgKzU0NDMsOCBAQCBib29sIGRjX3Vw
-ZGF0ZV9wbGFuZXNfYW5kX3N0cmVhbShzdHJ1Y3QgZGMgKmRjLA0KPiAgIAllbHNlDQo+ICAgCQly
-ZXQgPSB1cGRhdGVfcGxhbmVzX2FuZF9zdHJlYW1fdjIoZGMsIHNyZl91cGRhdGVzLA0KPiAgIAkJ
-CXN1cmZhY2VfY291bnQsIHN0cmVhbSwgc3RyZWFtX3VwZGF0ZSk7DQo+IC0JaWYgKHJldCAmJiBk
-Yy0+Y3R4LT5kY2VfdmVyc2lvbiA+PSBEQ05fVkVSU0lPTl8zXzIpDQo+ICsNCj4gKwlpZiAocmV0
-KQ0KPiAgIAkJY2xlYXJfdXBkYXRlX2ZsYWdzKHNyZl91cGRhdGVzLCBzdXJmYWNlX2NvdW50LCBz
-dHJlYW0pOw0KPiAgIA0KPiAgIAlyZXR1cm4gcmV0Ow0KPiBAQCAtNTQ3NCw3ICs1NDc1LDcgQEAg
-dm9pZCBkY19jb21taXRfdXBkYXRlc19mb3Jfc3RyZWFtKHN0cnVjdCBkYyAqZGMsDQo+ICAgCQly
-ZXQgPSB1cGRhdGVfcGxhbmVzX2FuZF9zdHJlYW1fdjEoZGMsIHNyZl91cGRhdGVzLCBzdXJmYWNl
-X2NvdW50LCBzdHJlYW0sDQo+ICAgCQkJCXN0cmVhbV91cGRhdGUsIHN0YXRlKTsNCj4gICANCj4g
-LQlpZiAocmV0ICYmIGRjLT5jdHgtPmRjZV92ZXJzaW9uID49IERDTl9WRVJTSU9OXzNfMikNCj4g
-KwlpZiAocmV0KQ0KPiAgIAkJY2xlYXJfdXBkYXRlX2ZsYWdzKHNyZl91cGRhdGVzLCBzdXJmYWNl
-X2NvdW50LCBzdHJlYW0pOw0KPiAgIH0NCj4gICANCg0K
+On Wed, Jul 16, 2025 at 8:13=E2=80=AFPM Brian Geffon <bgeffon@google.com> w=
+rote:
+>
+> On Wed, Jul 16, 2025 at 5:03=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
+om> wrote:
+> >
+> > On Wed, Jul 16, 2025 at 12:40=E2=80=AFPM Brian Geffon <bgeffon@google.c=
+om> wrote:
+> > >
+> > > On Wed, Jul 16, 2025 at 12:33=E2=80=AFPM Alex Deucher <alexdeucher@gm=
+ail.com> wrote:
+> > > >
+> > > > On Wed, Jul 16, 2025 at 12:18=E2=80=AFPM Brian Geffon <bgeffon@goog=
+le.com> wrote:
+> > > > >
+> > > > > Commit 81d0bcf99009 ("drm/amdgpu: make display pinning more flexi=
+ble (v2)")
+> > > > > allowed for newer ASICs to mix GTT and VRAM, this change also not=
+ed that
+> > > > > some older boards, such as Stoney and Carrizo do not support this=
+.
+> > > > > It appears that at least one additional ASIC does not support thi=
+s which
+> > > > > is Raven.
+> > > > >
+> > > > > We observed this issue when migrating a device from a 5.4 to 6.6 =
+kernel
+> > > > > and have confirmed that Raven also needs to be excluded from mixi=
+ng GTT
+> > > > > and VRAM.
+> > > >
+> > > > Can you elaborate a bit on what the problem is?  For carrizo and
+> > > > stoney this is a hardware limitation (all display buffers need to b=
+e
+> > > > in GTT or VRAM, but not both).  Raven and newer don't have this
+> > > > limitation and we tested raven pretty extensively at the time.
+> > >
+> > > Thanks for taking the time to look. We have automated testing and a
+> > > few igt gpu tools tests failed and after debugging we found that
+> > > commit 81d0bcf99009 is what introduced the failures on this hardware
+> > > on 6.1+ kernels. The specific tests that fail are kms_async_flips and
+> > > kms_plane_alpha_blend, excluding Raven from this sharing of GTT and
+> > > VRAM buffers resolves the issue.
+> >
+> > + Harry and Leo
+> >
+> > This sounds like the memory placement issue we discussed last week.
+> > In that case, the issue is related to where the buffer ends up when we
+> > try to do an async flip.  In that case, we can't do an async flip
+> > without a full modeset if the buffers locations are different than the
+> > last modeset because we need to update more than just the buffer base
+> > addresses.  This change works around that limitation by always forcing
+> > display buffers into VRAM or GTT.  Adding raven to this case may fix
+> > those tests but will make the overall experience worse because we'll
+> > end up effectively not being able to not fully utilize both gtt and
+> > vram for display which would reintroduce all of the problems fixed by
+> > 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v2)").
+>
+> Thanks Alex, the thing is, we only observe this on Raven boards, why
+> would Raven only be impacted by this? It would seem that all devices
+> would have this issue, no? Also, I'm not familiar with how
+
+It depends on memory pressure and available memory in each pool.
+E.g., initially the display buffer is in VRAM when the initial mode
+set happens.  The watermarks, etc. are set for that scenario.  One of
+the next frames ends up in a pool different than the original.  Now
+the buffer is in GTT.  The async flip interface does a fast validation
+to try and flip as soon as possible, but that validation fails because
+the watermarks need to be updated which requires a full modeset.
+
+It's tricky to fix because you don't want to use the worst case
+watermarks all the time because that will limit the number available
+display options and you don't want to force everything to a particular
+memory pool because that will limit the amount of memory that can be
+used for display (which is what the patch in question fixed).  Ideally
+the caller would do a test commit before the page flip to determine
+whether or not it would succeed before issuing it and then we'd have
+some feedback mechanism to tell the caller that the commit would fail
+due to buffer placement so it would do a full modeset instead.  We
+discussed this feedback mechanism last week at the display hackfest.
+
+
+> kms_plane_alpha_blend works, but does this also support that test
+> failing as the cause?
+
+That may be related.  I'm not too familiar with that test either, but
+Leo or Harry can provide some guidance.
+
+Alex
+
+>
+> Thanks again,
+> Brian
+>
+> >
+> > Alex
+> >
+> > >
+> > > Brian
+> > >
+> > > >
+> > > >
+> > > > Alex
+> > > >
+> > > > >
+> > > > > Fixes: 81d0bcf99009 ("drm/amdgpu: make display pinning more flexi=
+ble (v2)")
+> > > > > Cc: Luben Tuikov <luben.tuikov@amd.com>
+> > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > > Cc: stable@vger.kernel.org # 6.1+
+> > > > > Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > > > > Signed-off-by: Brian Geffon <bgeffon@google.com>
+> > > > > ---
+> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+> > > > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > > > index 73403744331a..5d7f13e25b7c 100644
+> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > > > @@ -1545,7 +1545,8 @@ uint32_t amdgpu_bo_get_preferred_domain(str=
+uct amdgpu_device *adev,
+> > > > >                                             uint32_t domain)
+> > > > >  {
+> > > > >         if ((domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_D=
+OMAIN_GTT)) &&
+> > > > > -           ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->asic=
+_type =3D=3D CHIP_STONEY))) {
+> > > > > +           ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->asic=
+_type =3D=3D CHIP_STONEY) ||
+> > > > > +            (adev->asic_type =3D=3D CHIP_RAVEN))) {
+> > > > >                 domain =3D AMDGPU_GEM_DOMAIN_VRAM;
+> > > > >                 if (adev->gmc.real_vram_size <=3D AMDGPU_SG_THRES=
+HOLD)
+> > > > >                         domain =3D AMDGPU_GEM_DOMAIN_GTT;
+> > > > > --
+> > > > > 2.50.0.727.gbf7dc18ff4-goog
+> > > > >
