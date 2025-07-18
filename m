@@ -4,79 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16BC1C83F34
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jul 2025 22:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF48C83F34
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 00:19:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0B4F10E32E;
-	Thu, 17 Jul 2025 22:35:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E473710E328;
+	Fri, 18 Jul 2025 00:19:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b2/vK/3i";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="khaqR3PE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61B5D10E22E;
- Thu, 17 Jul 2025 22:35:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1752791712; x=1784327712;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=AcG89q44N75jkC0nwSdCQtJW9mEHeTqXIylkV6w+AME=;
- b=b2/vK/3ilWR5xFjaO3F3n2P2/OfXNayO1sg6X4jIfjFSvytmDeaulu6X
- vO6wob0Cgsz7ldzeBNtkjZouAsgO9fkXWab0n4Mbg6C1DzThmBx4S/rO8
- yt3kgvdiJO8fS8P3qX7+OB2NjFHh07Q9EmQIAcvSaRs4ktRp+KfZm7/Tg
- EeG7HckpyIqSlU7v421D+XGCd6Gfyt24Mbm47gIcmBUeYzVEYTixDM0IZ
- mL9UrckZKSn65Y5xqQXuvuHRzX6YCjDUqFRd8LxvBE6R5riqVCWVZhCwu
- rygX6cPSfS+eJ+pOSegNU/8qfFOvpa5b1AdOP+gcAFCWh8PwIxjATMEim Q==;
-X-CSE-ConnectionGUID: iEm5V65MQtmziLYbX0xkbw==
-X-CSE-MsgGUID: Ov07JXLNQQOOuA7aKvMngQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11495"; a="65773699"
-X-IronPort-AV: E=Sophos;i="6.16,320,1744095600"; d="scan'208";a="65773699"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2025 15:35:12 -0700
-X-CSE-ConnectionGUID: ROwT5RWQQvCcgZSuD1KWxg==
-X-CSE-MsgGUID: nNJ0Eu9gSeiUMoPhCGsbzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,320,1744095600"; d="scan'208";a="163543496"
-Received: from agladkov-desk.ger.corp.intel.com (HELO stinkbox)
- ([10.245.244.179])
- by orviesa005.jf.intel.com with SMTP; 17 Jul 2025 15:35:04 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Jul 2025 01:35:03 +0300
-Date: Fri, 18 Jul 2025 01:35:03 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Mario Limonciello <superm1@kernel.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:HIBERNATION (aka Software Suspend,
- aka swsusp)" <linux-pm@vger.kernel.org>, 
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>,
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- Denis Benato <benato.denis96@gmail.com>,
- Merthan =?utf-8?Q?Karaka=C5=9F?= <m3rthn.k@gmail.com>
-Subject: Re: [PATCH v4 2/5] PCI: Put PCIe ports with downstream devices into
- D3 at hibernate
-Message-ID: <aHl6l4cu8S0EVcc5@intel.com>
-References: <20250616175019.3471583-1-superm1@kernel.org>
- <20250616175019.3471583-3-superm1@kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 468E810E03D;
+ Fri, 18 Jul 2025 00:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
+ In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=Ub40z4CFyXsv6iwu/siFYQC1hDy2f7LnTMULPrYJPgs=; b=khaqR3PES5URyH7fgOl9itSSkB
+ Q46/MtK6BH3FQQr5GKVziL9Bdz7OWBOHVasi7szqVam0GshREVWQ7uuPORUW9LBawZdAtZVkc4PoQ
+ 0Ddn+1kQyX2AZQ5AmL7i+94LN6+F6aZ4iACYac5DD3gnByUBcrbCEJYPOYiG/Wm6iojacfi5XS3Gx
+ u2nU/3y/y1EXqhft4Wpf3jyhyLS8i6D+dOn/kp+EYBTdNvkBKgmgjY/keh+WAWYfoJ1AINMxiWLKS
+ 50dnaKJ4+t97Mny2NimgAd3s9tEK/grRMGkqvoC/DjOUbPBTpAiapuKnlJoSlDabwzaFZLKsIjeeU
+ QmDM2/EA==;
+Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtps 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1ucYoV-000MPD-Oy; Fri, 18 Jul 2025 02:18:59 +0200
+Received: from webmail.service.igalia.com ([192.168.21.45])
+ by mail.igalia.com with esmtp (Exim)
+ id 1ucYoT-00A5AW-75; Fri, 18 Jul 2025 02:18:59 +0200
+Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
+ by webmail with esmtp (Exim 4.96) (envelope-from <mwen@igalia.com>)
+ id 1ucYoS-00FI7P-24; Fri, 18 Jul 2025 02:18:57 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Date: Thu, 17 Jul 2025 23:18:56 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: Matthew Schwartz <mattschwartz@gwmail.gwu.edu>
+Cc: "Limonciello, Mario" <Mario.Limonciello@amd.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, airlied@gmail.com, simona@ffwll.ch, "Hung, Alex"
+ <Alex.Hung@amd.com>, "Liu, Charlene" <Charlene.Liu@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: Re: [PATCH] Revert "drm/amd/display: limit clear_update_flags to
+ dcn32 and above"
+In-Reply-To: <CAD9O9DqxJQyAJM=po4yDbAC=hHK2pi12qTVYeb+ar_GenGpMnw@mail.gmail.com>
+References: <20250717143738.84722-1-mwen@igalia.com>
+ <70ac7b1e-9a28-45ff-b7b2-ab0f4fe9030a@amd.com>
+ <bb4099a70c2a8c78ef07d5fb6a8f0d3b@igalia.com>
+ <55467ebe-42c8-4387-9a61-aa60b3a84053@amd.com>
+ <BA28247C-9779-4C4C-A8E3-ACF57BEF1521@gwmail.gwu.edu>
+ <67169725b87e02cc8fdc19be5fc7df59@igalia.com>
+ <CAD9O9Dq=dAsMs5a3VzgSvLwfuYYhkARDFBXyWUy+yktEZv5WbQ@mail.gmail.com>
+ <bdfc8786-d4b8-4391-a4d4-c5fe06020802@igalia.com>
+ <CAD9O9DqxJQyAJM=po4yDbAC=hHK2pi12qTVYeb+ar_GenGpMnw@mail.gmail.com>
+Message-ID: <478eb8175779f03a399f7d933614e14c@igalia.com>
+X-Sender: mwen@igalia.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250616175019.3471583-3-superm1@kernel.org>
-X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,195 +79,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 16, 2025 at 12:50:16PM -0500, Mario Limonciello wrote:
-> From: Mario Limonciello <mario.limonciello@amd.com>
+On 17-07-2025 19:17, Matthew Schwartz wrote:
+> On Thu, Jul 17, 2025 at 12:43 PM Melissa Wen <mwen@igalia.com> wrote:
+>>
+>>
+>>
+>> On 17/07/2025 16:28, Matthew Schwartz wrote:
+>> > On Thu, Jul 17, 2025 at 12:18 PM Melissa Wen <mwen@igalia.com> wrote:
+>> >> On 17-07-2025 17:57, Matthew Schwartz wrote:
+>> >>>> On Jul 17, 2025, at 9:58 AM, Limonciello, Mario <Mario.Limonciello@amd.com> wrote:
+>> >>>>
+>> >>>> On 7/17/25 11:55 AM, Melissa Wen wrote:
+>> >>>>> On 17-07-2025 13:39, Limonciello, Mario wrote:
+>> >>>>>> On 7/17/25 9:36 AM, Melissa Wen wrote:
+>> >>>>>>> This reverts commit e1bd5e0bb4ca0d633ad698abd3658f8265009b81.
+>> >>>>>>>
+>> >>>>>>> The commit causes a regression in Steam Deck (DCN 3.01), reintroducing a
+>> >>>>>>> functional issue reported in [1] that was fixed by calling the
+>> >>>>>>> clear_update_flags() from commit 7671f62c10f2a.
+>> >>>>>>>
+>> >>>>>>> On Steam Deck, we use multiple hw plane color caps and up to two overlay
+>> >>>>>>> planes with dynamic pipe split policy. I.e. with 1 primary + 1 overlay,
+>> >>>>>>> the driver split planes into two (with 4 pipes), but with 1 primary + 2
+>> >>>>>>> overlays, we don't have enough pipe for splitting. Glitches appear in
+>> >>>>>>> this pipe-split transition of 1-2 overlay planes, if the driver doesn't
+>> >>>>>>> clear update flags.
+>> >>>>>>>
+>> >>>>>>> Besides that, the issue the commit e1bd5e0bb4ca tries to address [2]
+>> >>>>>>> isn't functional.
+>> >>>>>>>
+>> >>>>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3441 [1]
+>> >>>>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4129 [2]
+>> >>>>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> >>>>>> Can you please double check the use case that prompted
+>> >>>>>> e1bd5e0bb4ca0d633ad698abd3658f8265009b81 in the first place?  IE With
+>> >>>>>> this revert you proposed do you see a traceback on unplug of external
+>> >>>>>> display?
+>> >>>>> Hi Mario,
+>> >>>>>
+>> >>>>> I don't see either traceback or REG_WAIT timeout when unplugging an
+>> >>>>> external HDMI-connected display.
+>> >>>>> I tried with the Deck Dock and USB-C to HDMI adapter. Not sure if there
+>> >>>>> is a very specific scenario that triggers this that I didn't cover.
+>> >>>> No; it's quite a general problem and easy to reproduce.  This makes me
+>> >>>> wonder if there should be an exception carved out for Steam Deck instead.
+>> >>> I just tested DCN 3.1.2 (Z2 Go) and DCN 3.1.4 (Legion Go/ROG Ally) and
+>> >>> I was not able to reproduce the issue so a Steam Deck carveout might make
+>> >>> sense here.
+>> >> What issue are you trying to reproduce?
+>> >> Glitches on Hades II + MangoHud, or traceback/REG_WAIT timeout?
+>> > Sorry, should've specified! I was testing for glitches with Hades II + MangoHud.
+>> >
+>> >> And with what kernel version?
+>> > amd-staging-drm-next built from b78bd800, tested on top of SteamOS Main
+>> I suspect you don't see the issue because your kernel doesn't expose AMD
+>> driver-specific color properties (?)
+>> For this, you should compile the kernel with KCFLAGS="-DAMD_PRIVATE_COLOR"
 > 
-> For the suspend flow PCIe ports that have downstream devices are put into
-> the appropriate D3 state when children are not in D0. For the hibernate
-> flow, PCIe ports with downstream devices stay in D0 however. This can
-> lead to PCIe ports that are remained powered on needlessly during
-> hibernate.
+> [missed reply-all, resending this]
 > 
-> Adjust the pci_pm_poweroff_noirq() to follow the same flow as
-> pci_pm_suspend_noirq() in that PCIe ports that are power manageable should
-> without downstream devices in D0 should be put into their appropriate
-> sleep state.
+> Ah right, thanks for pointing this out. I've gone back and recompiled
+> the kernel with
+> AMD_PRIVATE_COLOR enabled. However, I'm still unable to reproduce the issue on
+> those other platforms. I can see the number of overlay planes change
+> in my dtn log,
+> as well as the pipeline changes with amdgpu_dm_visual_confirm.
 > 
-> Cc: AceLan Kao <acelan.kao@canonical.com>
-> Cc: Kai-Heng Feng <kaihengf@nvidia.com>
-> Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
-> Cc: Denis Benato <benato.denis96@gmail.com>
-> Cc: Merthan Karakaş <m3rthn.k@gmail.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> v4:
->  * Use helper even when CONFIG_SUSPEND not set (LKP robot)
-> v3:
->  * Split out common code between suspend_noirq() and poweroff_noirq()
->    to a helper function
->  * https://lore.kernel.org/linux-pm/20250609024619.407257-1-superm1@kernel.org/T/#me6db0fb946e3d604a8f3d455128844ed802c82bb
-> ---
->  drivers/pci/pci-driver.c | 94 ++++++++++++++++++++++++++--------------
->  1 file changed, 61 insertions(+), 33 deletions(-)
+> In the original issue, I was unable to reproduce the Hades II and
+> MangoHud glitches
+> on my Z1E device at the time so this lack of reproduction on DCN 3.1.2
+> and DCN 3.1.4
+> might be expected.
+
+[Oh, I realized I only sent my reply to you. Sending the same msg to
+everyone now]
+
+Sounds good.
+
+Do you mind to share your DTN log with and without MangoHud enabled and
+the drm_info output with MangoHud?
+I want to compare those logs with Steam Deck.
+
 > 
-> diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-> index 0d4c67829958b..f7a0c23515718 100644
-> --- a/drivers/pci/pci-driver.c
-> +++ b/drivers/pci/pci-driver.c
-> @@ -759,6 +759,56 @@ static void pci_pm_complete(struct device *dev)
->  
->  #endif /* !CONFIG_PM_SLEEP */
->  
-> +#if defined(CONFIG_SUSPEND) || defined(CONFIG_HIBERNATE_CALLBACKS)
-> +/**
-> + * pci_pm_set_prepare_bus_pm
-> + * @pci_dev: pci device
-> + *
-> + * Prepare the device to go into a low power state by saving state
-> + * and configure bus PM policy.
-> + *
-> + * Return: TRUE for bus PM will be used
-> + *         FALSE for bus PM will be skipped
-> + */
-> +static bool pci_pm_set_prepare_bus_pm(struct pci_dev *pci_dev)
-> +{
-> +	if (!pci_dev->state_saved) {
-> +		pci_save_state(pci_dev);
-> +
-> +		/*
-> +		 * If the device is a bridge with a child in D0 below it,
-> +		 * it needs to stay in D0, so check skip_bus_pm to avoid
-> +		 * putting it into a low-power state in that case.
-> +		 */
-> +		if (!pci_dev->skip_bus_pm && pci_power_manageable(pci_dev))
-> +			pci_prepare_to_sleep(pci_dev);
-> +	}
-> +
-> +	pci_dbg(pci_dev, "PCI PM: Sleep power state: %s\n",
-> +		pci_power_name(pci_dev->current_state));
-> +
-> +	if (pci_dev->current_state == PCI_D0) {
-> +		pci_dev->skip_bus_pm = true;
-> +		/*
-> +		 * Per PCI PM r1.2, table 6-1, a bridge must be in D0 if any
-> +		 * downstream device is in D0, so avoid changing the power state
-> +		 * of the parent bridge by setting the skip_bus_pm flag for it.
-> +		 */
-> +		if (pci_dev->bus->self)
-> +			pci_dev->bus->self->skip_bus_pm = true;
-> +	}
-> +
-> +	if (pci_dev->skip_bus_pm && pm_suspend_no_platform()) {
-> +		pci_dbg(pci_dev, "PCI PM: Skipped\n");
-> +		return FALSE;
-> +	}
-> +
-> +	pci_pm_set_unknown_state(pci_dev);
-> +
-> +	return TRUE;
-> +}
-> +#endif /* CONFIG_SUSPEND || CONFIG_HIBERNATE_CALLBACKS */
-> +
->  #ifdef CONFIG_SUSPEND
->  static void pcie_pme_root_status_cleanup(struct pci_dev *pci_dev)
->  {
-> @@ -878,38 +928,8 @@ static int pci_pm_suspend_noirq(struct device *dev)
->  		}
->  	}
->  
-> -	if (!pci_dev->state_saved) {
-> -		pci_save_state(pci_dev);
-> -
-> -		/*
-> -		 * If the device is a bridge with a child in D0 below it,
-> -		 * it needs to stay in D0, so check skip_bus_pm to avoid
-> -		 * putting it into a low-power state in that case.
-> -		 */
-> -		if (!pci_dev->skip_bus_pm && pci_power_manageable(pci_dev))
-> -			pci_prepare_to_sleep(pci_dev);
-> -	}
-> -
-> -	pci_dbg(pci_dev, "PCI PM: Suspend power state: %s\n",
-> -		pci_power_name(pci_dev->current_state));
-> -
-> -	if (pci_dev->current_state == PCI_D0) {
-> -		pci_dev->skip_bus_pm = true;
-> -		/*
-> -		 * Per PCI PM r1.2, table 6-1, a bridge must be in D0 if any
-> -		 * downstream device is in D0, so avoid changing the power state
-> -		 * of the parent bridge by setting the skip_bus_pm flag for it.
-> -		 */
-> -		if (pci_dev->bus->self)
-> -			pci_dev->bus->self->skip_bus_pm = true;
-> -	}
-> -
-> -	if (pci_dev->skip_bus_pm && pm_suspend_no_platform()) {
-> -		pci_dbg(pci_dev, "PCI PM: Skipped\n");
-> +	if (!pci_pm_set_prepare_bus_pm(pci_dev))
->  		goto Fixup;
-> -	}
-> -
-> -	pci_pm_set_unknown_state(pci_dev);
->  
->  	/*
->  	 * Some BIOSes from ASUS have a bug: If a USB EHCI host controller's
-> @@ -1136,6 +1156,8 @@ static int pci_pm_poweroff(struct device *dev)
->  	struct pci_dev *pci_dev = to_pci_dev(dev);
->  	const struct dev_pm_ops *pm = dev->driver ? dev->driver->pm : NULL;
->  
-> +	pci_dev->skip_bus_pm = false;
-> +
->  	if (pci_has_legacy_pm_support(pci_dev))
->  		return pci_legacy_suspend(dev, PMSG_HIBERNATE);
->  
-> @@ -1199,8 +1221,8 @@ static int pci_pm_poweroff_noirq(struct device *dev)
->  			return error;
->  	}
->  
-> -	if (!pci_dev->state_saved && !pci_has_subordinate(pci_dev))
-> -		pci_prepare_to_sleep(pci_dev);
-> +	if (!pci_pm_set_prepare_bus_pm(pci_dev))
-> +		goto Fixup;
+>>
+>> If no plane color props, you are also not seeing three planes on AMD DTN
+>> log and then no transitions in the pipe split.
+>>
+>> My main concern is that we will just hide the problem with an exception,
+>> but it can come back to bite us when the KMS plane color API is merged
+>> and gamescope updated to it.
+> 
+> That makes sense. I've been meaning to circle back to the gamescope
+> implementation of that now that Simon is unable to continue since it would
+> be good to get some testing started there.
 
-This looks like it's doing similar stuff to what I wanted to do here:
-https://lore.kernel.org/linux-pci/20240925144526.2482-2-ville.syrjala@linux.intel.com/
+I started working on it here:
+https://github.com/melissawen/gamescope/tree/kms_color
+But not my area of expertise, so it will be slow and needs some work on
+libliftoff.
+Let me know if you want to contribute anyway, maybe you can go faster
+than me.
 
-and a bunch of other stuff that seems to lack an explanation:
-- the pci_has_subordinate() check is disappearing
-- pci_save_state() is now getting called for the poweroff path
-- same for pci_pm_set_unknown_state()
-- the pci_pm_bridge_power_up_actions() call is being added to
-  pci_pm_restore_noirq() for some reason
+Melissa
 
->  	/*
->  	 * The reason for doing this here is the same as for the analogous code
-> @@ -1209,6 +1231,7 @@ static int pci_pm_poweroff_noirq(struct device *dev)
->  	if (pci_dev->class == PCI_CLASS_SERIAL_USB_EHCI)
->  		pci_write_config_word(pci_dev, PCI_COMMAND, 0);
->  
-> +Fixup:
->  	pci_fixup_device(pci_fixup_suspend_late, pci_dev);
->  
->  	return 0;
-> @@ -1218,10 +1241,15 @@ static int pci_pm_restore_noirq(struct device *dev)
->  {
->  	struct pci_dev *pci_dev = to_pci_dev(dev);
->  	const struct dev_pm_ops *pm = dev->driver ? dev->driver->pm : NULL;
-> +	pci_power_t prev_state = pci_dev->current_state;
-> +	bool skip_bus_pm = pci_dev->skip_bus_pm;
->  
->  	pci_pm_default_resume_early(pci_dev);
->  	pci_fixup_device(pci_fixup_resume_early, pci_dev);
->  
-> +	if (!skip_bus_pm && prev_state == PCI_D3cold)
-> +		pci_pm_bridge_power_up_actions(pci_dev);
-> +
->  	if (pci_has_legacy_pm_support(pci_dev))
->  		return 0;
->  
-> -- 
-> 2.43.0
-
--- 
-Ville Syrjälä
-Intel
+> 
+> Matt
+> 
+>>
+>> Melissa
+>>
+>> >
+>> >> Melissa
+>> >>
+>> >>> Matt
+>> >>>
+>> >>>>> The only message on dmesg from this action is:
+>> >>>>> amdgpu 0000:04:00.0: amdgpu: pp_od_clk_voltage is not accessible if
+>> >>>>> power_dpm_force_performance_level is not in manual mode!
+>> >>>>>
+>> >>>>> Moreover, if I move to the Desktop mode (KDE), there is no message.
+>> >>>>>
+>> >>>>> Melissa
+>> >>>>>
+>> >>>>>>> ---
+>> >>>>>>>    drivers/gpu/drm/amd/display/dc/core/dc.c | 5 +++--
+>> >>>>>>>    1 file changed, 3 insertions(+), 2 deletions(-)
+>> >>>>>>>
+>> >>>>>>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> >>>>>>> index c31f7f8e409f..7c48f72e5917 100644
+>> >>>>>>> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> >>>>>>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> >>>>>>> @@ -5443,7 +5443,8 @@ bool dc_update_planes_and_stream(struct dc *dc,
+>> >>>>>>>     else
+>> >>>>>>>     ret = update_planes_and_stream_v2(dc, srf_updates,
+>> >>>>>>>     surface_count, stream, stream_update);
+>> >>>>>>> - if (ret && dc->ctx->dce_version >= DCN_VERSION_3_2)
+>> >>>>>>> +
+>> >>>>>>> + if (ret)
+>> >>>>>>>     clear_update_flags(srf_updates, surface_count, stream);
+>> >>>>>>>
+>> >>>>>>>     return ret;
+>> >>>>>>> @@ -5474,7 +5475,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
+>> >>>>>>>     ret = update_planes_and_stream_v1(dc, srf_updates, surface_count, stream,
+>> >>>>>>>     stream_update, state);
+>> >>>>>>>
+>> >>>>>>> - if (ret && dc->ctx->dce_version >= DCN_VERSION_3_2)
+>> >>>>>>> + if (ret)
+>> >>>>>>>     clear_update_flags(srf_updates, surface_count, stream);
+>> >>>>>>>    }
+>>
