@@ -4,62 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D131BC83F3D
-	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jul 2025 15:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F549C87FC3
+	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jul 2025 15:33:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D74010E37B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D0D10E21C;
 	Sun, 20 Jul 2025 15:32:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pcq9LXoH";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=hacktheplanet.fi header.i=@hacktheplanet.fi header.b="ipPcvZM3";
+	dkim=pass (2048-bit key; unprotected) header.d=hacktheplanet.fi header.i=@hacktheplanet.fi header.b="XJuhlFvi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A25E410E9EC;
- Fri, 18 Jul 2025 15:37:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1752853027; x=1784389027;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ltIuRJBzfoP4LzI8kUoo54zZCELzuoWYyP9nbjNM8uI=;
- b=Pcq9LXoHNtjhLDqIkxz+JBseQQfdx0lFeMy0XsNAfHRnL7stDC4vfNQ7
- 8tkw3JqpixczEb1FARNQyv8aSm+xEAPCk63TrdN+3BhgYQIp8CQ906eNY
- 26B5Ctg4SkAE5MQUlvVCCmLPMlbfHbP3zDnX8cHyENL8/PF8Oh52QJ0Do
- Ijt076nDdfA3nfP2K3YVjXH6csmTWZImhZUtzflg3iPVnE9uQVIiymVDu
- hirCZ6R23wIVx2CxTKrvFAKUceZozohpet+4ynFFt+8N67UwohQrDfN03
- +jBPQppPVjc/TZ08rsNheB24paq7uXUsfrX1Lwf0+76IaaLudr8qX8fol g==;
-X-CSE-ConnectionGUID: fVpooUiBTLyGPRlgq3jzKg==
-X-CSE-MsgGUID: yDNlHWVuRlqPZhstDipd9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11496"; a="42774450"
-X-IronPort-AV: E=Sophos;i="6.16,321,1744095600"; d="scan'208";a="42774450"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2025 08:37:06 -0700
-X-CSE-ConnectionGUID: mlbnjXt0Qsua6n7jnctHCw==
-X-CSE-MsgGUID: GpXjDRgpRPyg98Fb/ijsdw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,321,1744095600"; d="scan'208";a="163713156"
-Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
- by orviesa005-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jul 2025 08:37:04 -0700
-Date: Fri, 18 Jul 2025 17:37:01 +0200
-From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-To: IVAN.LIPSKI@amd.com
-Cc: igt-dev@lists.freedesktop.org, sunpeng.li@amd.com,
- harry.wentland@amd.com, amd-gfx@lists.freedesktop.org,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-Subject: Re: [PATCH i-g-t] tests/amdgpu: Add test for native cursor fallback
- to overlay
-Message-ID: <20250718153701.xi24dlco7a7bdtq2@kamilkon-DESK.igk.intel.com>
-Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- IVAN.LIPSKI@amd.com, igt-dev@lists.freedesktop.org,
- sunpeng.li@amd.com, harry.wentland@amd.com,
+Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com
+ [91.218.175.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C2C10E9CA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 14:36:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=gibson; bh=mCJTMl6hmU/t/
+ n7RMrAexSGMCuHAoxTnyKTXuygkquM=;
+ h=in-reply-to:references:subject:cc:
+ to:from:date; d=hacktheplanet.fi; b=ipPcvZM3bpMRJzxRS0cot5qFHDc+uFbNh/
+ hJrhoxcKvc68HaecB44RlKS7zlclhqvmPniNnPsgpormEgUYIVt6FDOowL7BvGrzRvlvjN
+ otPTSFQUyLVli7gPNsRtNMZlz9J2nvVjLHpcDvUn2N9IQhYfUx3uh57SqfMgMRkc3bsOH0
+ YXVuBwLGfTW5mwbyxFuTVNwfs/r6vkgDRihTr+MeGUrCO0Q9wT1Y264pYbO5NiR2Ub5/I7
+ je7NJ2i8fwnZOy9YJkZMXLdWZrsX6ja4gVfP5V8KpCcUZxmIEfvG0a0vaTnNky58NwqVaR
+ yO13azxNMKaq2ZkNDH/eVRUdb84A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hacktheplanet.fi;
+ s=key1; t=1752849384;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=U4fWzDUDVjTYg2bPTnEOawxX6k0jS8mMVyArseOI0Ro=;
+ b=XJuhlFvinkI3yznxCnIYv2c0XaEPy6pnW/s+axNlivjtyGr1LBuHtl9DMslPWcbGJOEUI2
+ NJKOpBr6bVvFxOtkeDf2x/i1lqyo0h3D0fk3h7GvAnkI189C++7fCwsBPCcd9+1beaeaKk
+ vlBmjvmrd1fG82LdTsqNjDR1Up5AZepcwFD/6XEcyCn9TvbQK1pJSJeAQa37bOZYEUTNR1
+ 6+fC2dKgKnu+70i+2Hrdy5ajG6SUg59oPhq9YuuImiVhC5735Mcz7oLPX06Y/ywteZK77h
+ AbGzTzFLwmQqmBtfqA28gVhfve6tglukDQQ+EnkyfN4seCDrbWcNjhknLAcDxg==
+Date: Fri, 18 Jul 2025 23:36:17 +0900
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Lauri Tirkkonen <lauri@hacktheplanet.fi>
+To: Mario Limonciello <superm1@kernel.org>
+Cc: stable@vger.kernel.org, regressions@lists.linux.dev,
  amd-gfx@lists.freedesktop.org,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-References: <20250717204155.17468-1-IVAN.LIPSKI@amd.com>
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [REGRESSION] drm/amd/display: backlight brightness set to 0 at
+ amdgpu initialization
+Message-ID: <aHpb4ZTZ5FoOBUrZ@hacktheplanet.fi>
+References: <aHn33vgj8bM4s073@hacktheplanet.fi>
+ <d92458bf-fc2b-47bf-b664-9609a3978646@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250717204155.17468-1-IVAN.LIPSKI@amd.com>
+In-Reply-To: <d92458bf-fc2b-47bf-b664-9609a3978646@kernel.org>
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Sun, 20 Jul 2025 15:32:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,80 +72,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi IVAN.LIPSKI,
-On 2025-07-17 at 16:41:46 -0400, IVAN.LIPSKI@amd.com wrote:
-> From: Ivan Lipski <ivan.lipski@amd.com>
-> 
-> [Why & How]
-> The AMD display hardware does not use dedicated cursor planes.
-> Instead, the cursor is rendered either using the primary plane
-> or an available overlay plane. This test verifies that the
-> cursor correctly falls back from native to overlay mode
-> when the underneath primary plane is incompatible. It also tests
-> 
-> It has 4 subtests:
-> 
-> rgb-to-yuv
-> Switches the primary plane to a NV12 format FB and verifies that
-> the cursor falls back from native to overlay.
-> 
-> non-full
-> Switches the primary planeto a FB that does not fill the entire CRTC
-> (currently sized at a quarter of the CRTC).
-> 
-> scaling-[50,75,125,150,175,200]
-> Switches the primary plane to a FB with a chosen scaling (50%-200%), which
-> is then filled in the CRTC.
-> 
-> no-available-planes
-> Enables all available overlay planes, a primary plane and a cursor. Then
-> switches the primary plane to YUV to cause the cursor to fall back to
-> overlay. Verifies that the atomic commit fails due to no available overlay
-> planes.
-> 
-> Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
-> ---
->  tests/amdgpu/amd_cursor_overlay.c | 433 ++++++++++++++++++++++++++++++
->  tests/amdgpu/meson.build          |   1 +
->  2 files changed, 434 insertions(+)
->  create mode 100644 tests/amdgpu/amd_cursor_overlay.c
-> 
-> diff --git a/tests/amdgpu/amd_cursor_overlay.c b/tests/amdgpu/amd_cursor_overlay.c
-> new file mode 100644
-> index 000000000..52cae8454
-> --- /dev/null
-> +++ b/tests/amdgpu/amd_cursor_overlay.c
-> @@ -0,0 +1,433 @@
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
+On Fri, Jul 18 2025 08:10:06 -0500, Mario Limonciello wrote:
+> Do you by chance have an OLED panel?  I believe what's going on is that
+> userspace is writing zero or near zero and on OLED panels with older kernels
+> this means non-visible.
 
-Please remove it and use SPDX instead.
+Yes, this is an OLED panel. But I don't believe it's userspace writing
+anything at this point in the boot; before the bisected commit,
+brightness was set to 32 (out of max 255) on this hardware when I
+checked from the initramfs rescue shell. At the bisected commit, it's 0
+(out of max 255).
 
-+cc Vitaly
+> There is another commit that fixes the behavior that is probably missing.
 
-Regards,
-Kamil
+Which commit is that? It's not in 6.15.7?
 
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
-> +
-> +#include "igt.h"
-> +
-[cut]
+-- 
+Lauri Tirkkonen | lotheac @ IRCnet
