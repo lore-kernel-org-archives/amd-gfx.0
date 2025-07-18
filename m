@@ -4,48 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EBB9C83F17
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB3FEC83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:12:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C58F210E9C1;
-	Fri, 18 Jul 2025 13:10:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EFC110E9C2;
+	Fri, 18 Jul 2025 13:12:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gRi4NJni";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lMnSJBlW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 160A910E9C1
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 13:10:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CBDFD4447B;
- Fri, 18 Jul 2025 13:10:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F304FC4CEEB;
- Fri, 18 Jul 2025 13:10:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1752844208;
- bh=auD37W/5Bb6CHnXA3KG4MJzsvUP86PWLz7PCOdUGwRU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=gRi4NJniUdu8GMfEEPDI9N+YAIUcc3u14dZm92OIeZZSVS6bjiJ/Ngiw7v30YPamA
- ELHllfH5X9qTtZjiLCCDhy6640UnFvsMgT2DastHDrFIFqN08l7v2a8u950Da5YaIA
- LsU+UmZwH2RSUc4EGSvifphTYfSbjHqIjiqkHQylnFo5r1PKGfwMafazWh/sz4YH9y
- rA1v4UWceFVMNIruuKAkRYYtqE/HyowqbPHJ2HPKgV/mXn96i+b8LVhVcliiB/0bTd
- m0iwTNt9BvirT01z3m3LDhS8mzW08gGH+c+BoVvHttQI7I2TfxiDrd+AruH+VJ8Efl
- nJan+X2BQgZ2g==
-Message-ID: <d92458bf-fc2b-47bf-b664-9609a3978646@kernel.org>
-Date: Fri, 18 Jul 2025 08:10:06 -0500
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2ACB10E9C2;
+ Fri, 18 Jul 2025 13:12:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
+ In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=AwU7bt8MAvt9UXAndNFX+doc5wRh0645T3vY748a7p8=; b=lMnSJBlWkX8FSxQuOMoUSOKkbl
+ 7ChAXCwspgLSj7A56x+UI07xXtZUXgV8HRhCZ1U55csorv1oFe9zvobtBoQg/1qIWpqzTgylXLICC
+ 2WpJEI145+nu6ovJxSCOtVS8AHGsQfP0Aw/gg8T6YxsBQIGjxTnbRtjkqbd+dw87rneNcPAj0Qv7X
+ A0wyX/7mJWG7QUzVGM1pzz3Vk+n98oqwPPK5Cd14jMKT2FwquCkbh1BFU2ZXr10jwo90ciK6B1dqP
+ xj35hTdz5sQoEkwb5yrlVJj2bARF785hE6VwI4Y5SSjd1bqL0RufYubd2X3F1zvGbbaZaq1MgFsoW
+ N74Gpvsg==;
+Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtps 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1ucksP-000a1q-4B; Fri, 18 Jul 2025 15:11:49 +0200
+Received: from webmail.service.igalia.com ([192.168.21.45])
+ by mail.igalia.com with esmtp (Exim)
+ id 1ucksM-00Ae9x-M1; Fri, 18 Jul 2025 15:11:48 +0200
+Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
+ by webmail with esmtp (Exim 4.96) (envelope-from <mwen@igalia.com>)
+ id 1ucksM-00FOx5-0J; Fri, 18 Jul 2025 15:11:46 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/amd/display: backlight brightness set to 0 at
- amdgpu initialization
-To: Lauri Tirkkonen <lauri@hacktheplanet.fi>, stable@vger.kernel.org
-Cc: regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- Mario Limonciello <mario.limonciello@amd.com>, Wayne Lin
- <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <aHn33vgj8bM4s073@hacktheplanet.fi>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <aHn33vgj8bM4s073@hacktheplanet.fi>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Fri, 18 Jul 2025 12:11:46 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: Matthew Schwartz <matthew.schwartz@linux.dev>
+Cc: Matthew Schwartz <mattschwartz@gwmail.gwu.edu>, "Limonciello, Mario"
+ <Mario.Limonciello@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ airlied@gmail.com, simona@ffwll.ch, "Hung, Alex" <Alex.Hung@amd.com>, "Liu,
+ Charlene" <Charlene.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+Subject: Re: [PATCH] Revert "drm/amd/display: limit clear_update_flags to
+ dcn32 and above"
+In-Reply-To: <8d859c5f-2551-4624-a9b8-a816f1809feb@linux.dev>
+References: <20250717143738.84722-1-mwen@igalia.com>
+ <70ac7b1e-9a28-45ff-b7b2-ab0f4fe9030a@amd.com>
+ <bb4099a70c2a8c78ef07d5fb6a8f0d3b@igalia.com>
+ <55467ebe-42c8-4387-9a61-aa60b3a84053@amd.com>
+ <BA28247C-9779-4C4C-A8E3-ACF57BEF1521@gwmail.gwu.edu>
+ <67169725b87e02cc8fdc19be5fc7df59@igalia.com>
+ <CAD9O9Dq=dAsMs5a3VzgSvLwfuYYhkARDFBXyWUy+yktEZv5WbQ@mail.gmail.com>
+ <bdfc8786-d4b8-4391-a4d4-c5fe06020802@igalia.com>
+ <CAD9O9DqxJQyAJM=po4yDbAC=hHK2pi12qTVYeb+ar_GenGpMnw@mail.gmail.com>
+ <478eb8175779f03a399f7d933614e14c@igalia.com>
+ <8d859c5f-2551-4624-a9b8-a816f1809feb@linux.dev>
+Message-ID: <801d0d97e7cdd1eb3b845347ccb5ddbf@igalia.com>
+X-Sender: mwen@igalia.com
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,113 +81,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 7/18/25 2:29 AM, Lauri Tirkkonen wrote:
-> Hi,
+On 18-07-2025 00:51, Matthew Schwartz wrote:
+[...]
 > 
-> I hit this regression on the stable kernel on Alpine with a Lenovo Yoga
-> Slim 7 Pro 17ACH5. During early boot, when the amdgpu module gets
-> loaded, backlight brightness is set to zero, resulting in a black
-> screen (and nothing in userspace is running yet to handle brightness
-> keys; I need to use an external monitor or type in my rootfs passphrase
-> blind).
+> Sure, going to use my Legion Go S w/ Z2 Go for this (DCN 3.1.2). All
+> of these are from amd-staging-drm-next with AMD_PRIVATE_COLOR=y.
 > 
-> #regzbot introduced: 6c56c8ec6f9762c33bd22f31d43af4194d12da53
+> DTN log from Hades II with MangoHud enabled:
+> https://gist.github.com/matte-schwartz/0c290ffe99bdb4f0d7369ee8817d1145
 > 
-> bisect log:
+> DTN log from Hades II with MangoHud disabled:
+> https://gist.github.com/matte-schwartz/3e2867e192ec9742ec545d2c5dd3096a
 > 
-> git bisect start
-> # status: waiting for both good and bad commits
-> # good: [e60eb441596d1c70e4a264d2bac726c6cd2da067] Linux 6.15.4
-> git bisect good e60eb441596d1c70e4a264d2bac726c6cd2da067
-> # status: waiting for bad commit, 1 good commit known
-> # bad: [1562d948232546cfad45a1beddc70fe0c7b34950] Linux 6.15.6
-> git bisect bad 1562d948232546cfad45a1beddc70fe0c7b34950
-> # good: [5e10620cb8e76279fd86411536c3fa0f486cd634] drm/xe/vm: move rebind_work init earlier
-> git bisect good 5e10620cb8e76279fd86411536c3fa0f486cd634
-> # bad: [ece85751c3e46c0e3c4f772113f691b7aec81d5d] btrfs: record new subvolume in parent dir earlier to avoid dir logging races
-> git bisect bad ece85751c3e46c0e3c4f772113f691b7aec81d5d
-> # bad: [9f5d2487a9fad1d36bcf107d1f3b1ebc8b6796cf] iommufd/selftest: Add asserts testing global mfd
-> git bisect bad 9f5d2487a9fad1d36bcf107d1f3b1ebc8b6796cf
-> # good: [c0687ec5625b2261d48936d03c761e38657f4a4b] rust: completion: implement initial abstraction
-> git bisect good c0687ec5625b2261d48936d03c761e38657f4a4b
-> # bad: [889906e6eb5fab990c9b6b5fe8f1122b2416fc22] drm/amd/display: Export full brightness range to userspace
-> git bisect bad 889906e6eb5fab990c9b6b5fe8f1122b2416fc22
-> # good: [c7d15ba11c8561c5f325ffeb27ed8a4e82d4d322] io_uring/kbuf: flag partial buffer mappings
-> git bisect good c7d15ba11c8561c5f325ffeb27ed8a4e82d4d322
-> # good: [66089fa8c9ed162744037ab0375e38cc74c7f7ed] drm/amd/display: Add debugging message for brightness caps
-> git bisect good 66089fa8c9ed162744037ab0375e38cc74c7f7ed
-> # bad: [cd711c87c2862be5e71eee79901f94e1c943f9fc] drm/amd/display: Only read ACPI backlight caps once
-> git bisect bad cd711c87c2862be5e71eee79901f94e1c943f9fc
-> # bad: [6c56c8ec6f9762c33bd22f31d43af4194d12da53] drm/amd/display: Fix default DC and AC levels
-> git bisect bad 6c56c8ec6f9762c33bd22f31d43af4194d12da53
-> # first bad commit: [6c56c8ec6f9762c33bd22f31d43af4194d12da53] drm/amd/display: Fix default DC and AC levels
+> drm_info from Hades II with MangoHud enabled:
+> https://gist.github.com/matte-schwartz/456684fc60f7e84173ee2f42de4b774b
 > 
-> 'dmesg|grep amd' on 6.15.7 on this machine:
-> 
-> [    0.319726] perf/amd_iommu: Detected AMD IOMMU #0 (2 banks, 4 counters/bank).
-> [    4.090573] [drm] amdgpu kernel modesetting enabled.
-> [    4.094238] amdgpu: Virtual CRAT table created for CPU
-> [    4.095389] amdgpu: Topology: Add CPU node
-> [    4.096451] amdgpu 0000:03:00.0: enabling device (0006 -> 0007)
-> [    4.174815] amdgpu 0000:03:00.0: amdgpu: detected ip block number 0 <soc15_common>
-> [    4.176034] amdgpu 0000:03:00.0: amdgpu: detected ip block number 1 <gmc_v9_0>
-> [    4.176992] amdgpu 0000:03:00.0: amdgpu: detected ip block number 2 <vega10_ih>
-> [    4.177911] amdgpu 0000:03:00.0: amdgpu: detected ip block number 3 <psp>
-> [    4.178799] amdgpu 0000:03:00.0: amdgpu: detected ip block number 4 <smu>
-> [    4.179704] amdgpu 0000:03:00.0: amdgpu: detected ip block number 5 <dm>
-> [    4.180594] amdgpu 0000:03:00.0: amdgpu: detected ip block number 6 <gfx_v9_0>
-> [    4.181445] amdgpu 0000:03:00.0: amdgpu: detected ip block number 7 <sdma_v4_0>
-> [    4.182299] amdgpu 0000:03:00.0: amdgpu: detected ip block number 8 <vcn_v2_0>
-> [    4.183114] amdgpu 0000:03:00.0: amdgpu: detected ip block number 9 <jpeg_v2_0>
-> [    4.183910] amdgpu 0000:03:00.0: amdgpu: Fetched VBIOS from VFCT
-> [    4.184800] amdgpu: ATOM BIOS: 113-CEZANNE-017
-> [    4.208484] amdgpu 0000:03:00.0: vgaarb: deactivate vga console
-> [    4.208493] amdgpu 0000:03:00.0: amdgpu: Trusted Memory Zone (TMZ) feature enabled
-> [    4.208509] amdgpu 0000:03:00.0: amdgpu: MODE2 reset
-> [    4.209086] amdgpu 0000:03:00.0: amdgpu: VRAM: 2048M 0x000000F400000000 - 0x000000F47FFFFFFF (2048M used)
-> [    4.209099] amdgpu 0000:03:00.0: amdgpu: GART: 1024M 0x0000000000000000 - 0x000000003FFFFFFF
-> [    4.209376] [drm] amdgpu: 2048M of VRAM memory ready
-> [    4.209386] [drm] amdgpu: 6912M of GTT memory ready.
-> [    4.210517] amdgpu 0000:03:00.0: amdgpu: Found VCN firmware Version ENC: 1.24 DEC: 8 VEP: 0 Revision: 3
-> [    4.927350] amdgpu 0000:03:00.0: amdgpu: reserve 0x400000 from 0xf47f400000 for PSP TMR
-> [    5.010609] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
-> [    5.021347] amdgpu 0000:03:00.0: amdgpu: RAP: optional rap ta ucode is not available
-> [    5.021357] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
-> [    5.021725] amdgpu 0000:03:00.0: amdgpu: SMU is initialized successfully!
-> [    5.131949] amdgpu 0000:03:00.0: amdgpu: [drm] Using ACPI provided EDID for eDP-1
-> [    5.385266] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
-> [    5.385286] kfd kfd: amdgpu: Total number of KFD nodes to be created: 1
-> [    5.385435] amdgpu: Virtual CRAT table created for GPU
-> [    5.385562] amdgpu: Topology: Add dGPU node [0x1638:0x1002]
-> [    5.385569] kfd kfd: amdgpu: added device 1002:1638
-> [    5.385582] amdgpu 0000:03:00.0: amdgpu: SE 1, SH per SE 1, CU per SH 8, active_cu_number 8
-> [    5.385592] amdgpu 0000:03:00.0: amdgpu: ring gfx uses VM inv eng 0 on hub 0
-> [    5.385598] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
-> [    5.385605] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
-> [    5.385612] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 5 on hub 0
-> [    5.385619] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 6 on hub 0
-> [    5.385625] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 7 on hub 0
-> [    5.385632] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 8 on hub 0
-> [    5.385639] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 9 on hub 0
-> [    5.385645] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 10 on hub 0
-> [    5.385652] amdgpu 0000:03:00.0: amdgpu: ring kiq_0.2.1.0 uses VM inv eng 11 on hub 0
-> [    5.385659] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 0 on hub 8
-> [    5.385665] amdgpu 0000:03:00.0: amdgpu: ring vcn_dec uses VM inv eng 1 on hub 8
-> [    5.385672] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc0 uses VM inv eng 4 on hub 8
-> [    5.385679] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc1 uses VM inv eng 5 on hub 8
-> [    5.385685] amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM inv eng 6 on hub 8
-> [    5.454665] amdgpu 0000:03:00.0: amdgpu: Runtime PM not available
-> [    5.455003] amdgpu 0000:03:00.0: amdgpu: [drm] Using custom brightness curve
-> [    5.455339] [drm] Initialized amdgpu 3.63.0 for 0000:03:00.0 on minor 1
-> [    5.480731] fbcon: amdgpudrmfb (fb0) is primary device
-> [    6.796057] amdgpu 0000:03:00.0: [drm] fb0: amdgpudrmfb frame buffer device
+> drm_info from Hades II with MangoHud disabled:
+> https://gist.github.com/matte-schwartz/6b635fa584d033234b435667f5d2c153
 > 
 
-Do you by chance have an OLED panel?  I believe what's going on is that 
-userspace is writing zero or near zero and on OLED panels with older 
-kernels this means non-visible.
+Hey Matthew,
 
-There is another commit that fixes the behavior that is probably missing.
+Thanks for the logs.
+There is actually a difference between your hw and Steam Deck in terms
+of pipe split.
+With your hw, there is no pipe split in both scenarios. However, on
+Steam Deck with MangoHud disabled, we can see the split (2 planes):
 
+HUBP:  format  addr_hi  width  height  rot  mir  sw_mode  dcc_en 
+blank_en  clock_en  ttu_dis  underflow   min_ttu_vblank       qos_low_wm
+     qos_high_wm
+[ 0]:      8h      f4h   1280     400   3h   0h      1bh       1        
+0         1        0         0h           36.562            0.000       
+   33.854
+[ 1]:      8h      f4h   1280     400   3h   0h      1bh       1        
+0         1        0         0h           36.562            0.000       
+   33.854
+[ 2]:      8h      f4h   1280     400   3h   0h      1bh       1        
+0         1        0         0h           36.562            0.000       
+   33.854
+[ 3]:      8h      f4h   1280     400   3h   0h      1bh       1        
+0         1        0         0h           36.562            0.000       
+   33.854
+
+For completion, this is the DTN log of Steam Deck with MangoHud enabled
+(3 planes, no pipe split):
+
+HUBP:  format  addr_hi  width  height  rot  mir  sw_mode  dcc_en 
+blank_en  clock_en  ttu_dis  underflow   min_ttu_vblank       qos_low_wm
+     qos_high_wm
+[ 0]:      8h      f4h   1280     800   3h   0h      1bh       1        
+0         1        0         0h           44.708            0.000       
+   33.854
+[ 1]:      0h       0h      0       0   0h   0h       0h       0        
+0         0        0         0h            0.000            0.000       
+    0.000
+[ 2]:      8h      f4h   1280     800   3h   0h      1bh       1        
+0         1        0         0h           44.708            0.000       
+   33.854
+[ 3]:      8h      f4h   1280     800   3h   0h      1bh       1        
+0         1        0         0h           44.708            0.000       
+   33.854
+
+I couldn't find a pipe-split policy specific for 3.1.2, but I guess it
+follows the 3.1 Dynamic policy, that is the same of the Steam Deck:
+
+drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c:863:    
+.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c:883:  
+.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c:863:  
+.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c:858:  
+.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+
+I remember that we have discussed about the possibility of workaround
+those glitches by avoiding pipe split (and then we would avoid the
+"split" transition), right?
+
+In short, there is a chance that you are not seeing those glitches
+because there are no changes in the pipe split when transitioning
+between 1-2 overlay planes in your hw, but the split happens on steam
+deck for some reasons. I don't know how the driver decides whether or
+not to split pipes.
+
+That said, if AMD prefers to go with an exception for steam deck, better
+if this situation is documented.
+
+Steam Deck still needs the clear_update_flags() because it uses plane
+color caps and therefore sets multiple update flags, and some glitches
+appear when transitioning from 2 planes (with pipe split) to 3 planes
+(no pipe split). It might be related to minimal transition machinery.
+
+Thank you for all inputs.
+
+Melissa
