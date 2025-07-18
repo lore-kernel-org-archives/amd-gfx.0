@@ -4,67 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 781C1C83F17
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 16:36:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6E2EC83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 16:47:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2148610EA08;
-	Fri, 18 Jul 2025 16:36:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B85510EA13;
+	Fri, 18 Jul 2025 16:47:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LgFMIgUr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jDyjdGFx";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E073E10EA08
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 16:36:14 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2369dd5839dso4544925ad.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 09:36:14 -0700 (PDT)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA55110EA1A;
+ Fri, 18 Jul 2025 16:47:01 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-234b9b01a76so1377305ad.3; 
+ Fri, 18 Jul 2025 09:47:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752856574; x=1753461374; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1752857221; x=1753462021; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=v7jhr9KEkrEmzJVidZuDTsIZolpydddxqO6JnmAEKBU=;
- b=LgFMIgUrmtvbOiQfhP2zKFFdbLX6i+V5mT2N10T1C9JJyqw4X6th8gctmmZmZBIB9Z
- 5ATw1Dvq5FubzlchezfqhrIMn2vwNQB9FFId75mpD1ocSrFw55GVl/SxAPaxZZF02KjV
- rXayN0AGUIl5IRhq4afXKh1BspVMFH7WY+RxFH2u+T7hu7VKDDzU6v5JKhTZxOmESZE2
- w4u9E7k7ikR4Iy3jNad3JTThVgGlXFCfOyHSl9qKtIc2FdHi+q6o9vBHPZf9b0sC/bbY
- TrGSZC2raItxWtScHuPtqodZuM2kbXIqL5X+ezE1FMtz4i+o68UCKf6fB2wpCY4HD9JB
- hHJg==
+ bh=KJsP/eoaDosNoXGwzPMM0imt30ENxWHLuIS9lVwxHA4=;
+ b=jDyjdGFxmcUdY4rqJFnhc9xofWT0jrFVek+ADN+Bb6kwzb+965XlwJoMFdiVxKcoEY
+ OwcgnIP18lBx/UhkvizUMGea5OQI2cBrQVSZgH0LDp5sdq6nJC2kWtIh9WhL9l4qAQ/u
+ ztaFvKDITpwfXAHLRVZyIUqAGGsOsyMW6jgrq4Wjh0QS6qoxto4kqmri0QLWuLEwJxHF
+ 8u5AHeZRditfy82ogqC2iXlzaYFOCkxk3LFD1/MCEhepRYHWXPRHXyIhRIgx51LVb6BF
+ 8iJNKbtGUPxL2pyfYuARj3cVn3G1t1bI9NUbXJXCTw/TRBZZUw+1PJ0WQpqdSn5TZkAq
+ hD1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752856574; x=1753461374;
+ d=1e100.net; s=20230601; t=1752857221; x=1753462021;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=v7jhr9KEkrEmzJVidZuDTsIZolpydddxqO6JnmAEKBU=;
- b=LGEhj9+HFuLrfOINEqCsX7uVKvYVi/vGucAlt5PDM+d+gjvX0C8LGVo0dIzpROOg6B
- VKxKW3+8Wudl7c6YwfQ3V8DkKoRCrpbmWHi5KIb4v/6C8sWt1iBbvrz/rqDJ20rQRBJD
- Bc0PuygpR6wCpqztLWRi+oQyO8otg9H5jtda9oY46abCpYw3kTa2MUdGatya1ZHOFBDG
- 48LbaQetzj6KEFKtCV0+OUP/0szkYeBI2VZNKw/dd2dcuqY5E06Fp+zR2y8JewbmVmf+
- aNpYZz44Qhwuz4PmQOdNWkdZ71I4ejAT5uOdYkA6oubl3GmjxazOO5Ev1ZJJ7Cqt7O8+
- VZ0g==
-X-Gm-Message-State: AOJu0YxahpE7yplGWVG+Hs7/uA8yIuxTog8oJ1tCFq2f2Wvqa59bH9L3
- 5+Ve2afdoChCcWUkdDOhXkeDhijiPkItCBkFE683KLdR08+iGNURNQlj5kj09TsYBFUrU78Q4wO
- POtTTwsVjpmRNAXntJiXogw50/BWuup8=
-X-Gm-Gg: ASbGnctqVbd6gQu0yzVlHg5U5mWG7vqFG31fKwOZbsANzVBnb2tCSISQbjOalk1uwAj
- Ep6Jb3bA+86P82vl/43f3TYinb8FPrWeO4Ngi88ESpHzmKqFYMSj2SNOBBcgh2Ihn03drfovEMf
- K9Bk2A1X/OYKA73oLHvxGkX32WtaF4uCa2ki9/rVelr6hYXOeNmD0bTa50E1sfELsU7SuIlvZq2
- Qj02dK94p0aKQuNKPo=
-X-Google-Smtp-Source: AGHT+IH07nKLqgb5GI0e6+dYg4NFAW9DmQug2mgwvs6pSsPFZ3KzlxMnCa8V0imnyZeJZv53jVomA2FmnS6I6212SLU=
-X-Received: by 2002:a17:902:ecce:b0:236:9302:bf11 with SMTP id
- d9443c01a7336-23e24fb217cmr65486035ad.13.1752856573875; Fri, 18 Jul 2025
- 09:36:13 -0700 (PDT)
+ bh=KJsP/eoaDosNoXGwzPMM0imt30ENxWHLuIS9lVwxHA4=;
+ b=DRd1BWzfzZ69/DKBxHJjY3uqgQgr9/BhWPFOVk0ZuIWAjnhn/OTkQlht2mgGLu7gHg
+ se3qWPXJx0h9UdUKhMBz2IvbMFF7VJodASMiYVUK5Qv6+3O4Fki2Tv1I673lcqWvR4/o
+ 66JBF9BKIPDLAC5k4b5Edrs4yvZVBn2wGlO79mBrYS2bXGJAu2P6dKzRuZ0SH7xaRb4E
+ 1ZMxB4dDqKo7ghfdoy54KAin0y3WDvbZD0LSRsSjCVqz9FsT5taCTgbnqgPG96B+wbnp
+ KcTR+p2asneB4CKVmTOt7pvP17EuQyEkNBSNPac1Wc3fjxmrviic8eJoDjkhuUDXmH0U
+ X5mw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU9ynOQ2R8uEQ9AeQnTQ3m/KUgrONEVxgIHAafYInXs0hRER1aHfQxFLt1v4+DR/krYsEDpmp/z@lists.freedesktop.org,
+ AJvYcCXTVry/p12YH4C8fu36hte0QrEXWxNHvdwQf7u+KfMOCY+ECuLAyZpV7SWCOxYQ1lfOHsZRpkD99VQ5@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuLg+f8g9sBrzoLlfxL6r0KtxsNosObGynNG2RnPsav57W04cW
+ +j6PfWwlM5n8Sl9pX/6qY27RrGFgIssjDur+QXgYLk7hhC2QoaEQJ3plbseJ07SZjzdcF+Yl61U
+ VmGhTGZmjkN2+ThHCDWkGzoTcmFuVtm8=
+X-Gm-Gg: ASbGncvUydPfqcev1iE8zLi3Pdjoao93ptzSTzpNWds1txVzK6KG3YZB1X0BgXeRNI/
+ KvsGlGsJxneeVMvTuJl+efqoc+A85e/3EiF516V4lDGyh3zl9iZ6c1iezlnx7RIPDTGUmlmx4nR
+ Lf1I0n7KF7OwL2XEiryKTsxfOJbnIsQUS/vyFIclAICh5EpdeMa1+Ze6/B9V+f1srU5AL7YJA4H
+ h+vG4lS
+X-Google-Smtp-Source: AGHT+IFOuDMPJrT1YCbFfuqwvYmjK058Y/LsXdNCczy9B2FmndCQNYcZwQpniaR39y9/uG9+M4sTO5ZsP5LXB18KwA8=
+X-Received: by 2002:a17:902:d4cb:b0:236:7165:6ed3 with SMTP id
+ d9443c01a7336-23e24f4c2edmr64356245ad.10.1752857221373; Fri, 18 Jul 2025
+ 09:47:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250718154346.1565623-1-lijo.lazar@amd.com>
-In-Reply-To: <20250718154346.1565623-1-lijo.lazar@amd.com>
+References: <20250717204819.731936-1-mustela@erminea.space>
+In-Reply-To: <20250717204819.731936-1-mustela@erminea.space>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 18 Jul 2025 12:36:02 -0400
-X-Gm-Features: Ac12FXwdW5oJ74EFGDcwzSefdaWl8pMZEVhspgNOFqnQGIHTJB9FiaIp350ucCU
-Message-ID: <CADnq5_O1TKFs7u7jNJfFWsU-KCkhQ=CNnvHAX2+tJPjUmdctAQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Wait for bootloader after PSPv11 reset
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com
+Date: Fri, 18 Jul 2025 12:46:49 -0400
+X-Gm-Features: Ac12FXyn8h7SRjZg184zAY-fazXhgQky6QNND2dxKcl59Lhu--Q37Qp2D17REr4
+Message-ID: <CADnq5_N++cfNqzaft003nJhqkyUbMQFYcM+ioM5yh_JNrnV5oA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: check if hubbub is NULL in
+ debugfs/amdgpu_dm_capabilities
+To: Peter Shkenev <mustela@erminea.space>
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,76 +86,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 18, 2025 at 12:23=E2=80=AFPM Lijo Lazar <lijo.lazar@amd.com> wr=
-ote:
->
-> Some PSPv11 SOCs take a longer time for PSP based mode-1 reset. Instead
-> of checking for C2PMSG_33 status, add the callback wait_for_bootloader.
-> Wait for bootloader to be back to steady state is already part of the
-> generic mode-1 reset flow. Increase the retry count for bootloader wait
-> and also fix the mask to prevent fake pass.
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Applied.  Thanks!
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
+On Thu, Jul 17, 2025 at 4:58=E2=80=AFPM Peter Shkenev <mustela@erminea.spac=
+e> wrote:
+>
+> HUBBUB structure is not initialized on DCE hardware, so check if it is NU=
+LL
+> to avoid null dereference while accessing amdgpu_dm_capabilities file in
+> debugfs.
+>
+> Signed-off-by: Peter Shkenev <mustela@erminea.space>
 > ---
->  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 19 ++++---------------
->  1 file changed, 4 insertions(+), 15 deletions(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/psp_v11_0.c
-> index 6cc05d36e359..64b240b51f1a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -149,12 +149,12 @@ static int psp_v11_0_wait_for_bootloader(struct psp=
-_context *psp)
->         int ret;
->         int retry_loop;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index c7d13e743e6c..b726bcd18e29 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -3988,7 +3988,7 @@ static int capabilities_show(struct seq_file *m, vo=
+id *unused)
 >
-> -       for (retry_loop =3D 0; retry_loop < 10; retry_loop++) {
-> +       for (retry_loop =3D 0; retry_loop < 20; retry_loop++) {
->                 /* Wait for bootloader to signify that is
->                     ready having bit 31 of C2PMSG_35 set to 1 */
->                 ret =3D psp_wait_for(
->                         psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_35=
-),
-> -                       0x80000000, 0x80000000, PSP_WAITREG_NOVERBOSE);
-> +                       0x80000000, 0x8000FFFF, PSP_WAITREG_NOVERBOSE);
+>         struct hubbub *hubbub =3D dc->res_pool->hubbub;
 >
->                 if (ret =3D=3D 0)
->                         return 0;
-> @@ -397,18 +397,6 @@ static int psp_v11_0_mode1_reset(struct psp_context =
-*psp)
+> -       if (hubbub->funcs->get_mall_en)
+> +       if (hubbub && hubbub->funcs->get_mall_en)
+>                 hubbub->funcs->get_mall_en(hubbub, &mall_in_use);
 >
->         msleep(500);
->
-> -       offset =3D SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_33);
-> -
-> -       ret =3D psp_wait_for(psp, offset, MBOX_TOS_RESP_FLAG, MBOX_TOS_RE=
-SP_MASK,
-> -                          0);
-> -
-> -       if (ret) {
-> -               DRM_INFO("psp mode 1 reset failed!\n");
-> -               return -EINVAL;
-> -       }
-> -
-> -       DRM_INFO("psp mode1 reset succeed \n");
-> -
->         return 0;
->  }
->
-> @@ -665,7 +653,8 @@ static const struct psp_funcs psp_v11_0_funcs =3D {
->         .ring_get_wptr =3D psp_v11_0_ring_get_wptr,
->         .ring_set_wptr =3D psp_v11_0_ring_set_wptr,
->         .load_usbc_pd_fw =3D psp_v11_0_load_usbc_pd_fw,
-> -       .read_usbc_pd_fw =3D psp_v11_0_read_usbc_pd_fw
-> +       .read_usbc_pd_fw =3D psp_v11_0_read_usbc_pd_fw,
-> +       .wait_for_bootloader =3D psp_v11_0_wait_for_bootloader
->  };
->
->  void psp_v11_0_set_psp_funcs(struct psp_context *psp)
+>         if (dc->cap_funcs.get_subvp_en)
 > --
-> 2.49.0
+> 2.50.1
 >
