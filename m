@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0529FC83F1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:23:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32AE7C83F17
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:23:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59CC110E9A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 751F610E9A9;
 	Fri, 18 Jul 2025 13:23:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="HNjVduxm";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="GAeptTTd";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 914F710E938;
- Fri, 18 Jul 2025 09:31:13 +0000 (UTC)
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5186510E93A;
+ Fri, 18 Jul 2025 09:41:16 +0000 (UTC)
 Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4bk4Kp272Lz9trL;
- Fri, 18 Jul 2025 11:31:10 +0200 (CEST)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4bk4YN6cSsz9t2R;
+ Fri, 18 Jul 2025 11:41:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1752831070; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1752831673; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LPIGraXFzaWpw2pUd6/w8T550M679k9Qmn29uZiTE8c=;
- b=HNjVduxmBmEXLt1PIB8E62l/6boLL5+LtJzJNSzxBXmvueBV8Lkx7TMHY/y5bzv6P6DcbE
- hsLMejABbsWoDK1M5BsV2IU15WsCdxWSR9wf47rPuLUakLhQQo6xYrLw0lv4bWJjh88WvO
- XRHSXliS57nVqydiAqzsFmvCLpTiDdkhm08VSGqWKuqL1AwBgPlhqtSPksKesg/QNLrkzs
- UckxRxJmNOLiiBeK6wAcSjHvB1MvWNgFNugyMt2gK1E15b9YXA6QGB3UTGdb5qxobPquII
- /rOjmh5pUvnxdYyHTfHa7/nQjbDIXU2X/5kaa03DvYv/nPicU22/ZjmLzHzG+w==
-Message-ID: <3448a6cf097051ea9fbd5beba741b624c831df2c.camel@mailbox.org>
+ bh=a2Zg4QEe0LqebhVzLVIQHsMhWzN9W8MKDz2KfO089x0=;
+ b=GAeptTTdUlbq2mCRPrYZQ9a82ysB/A77mUGeD8nIg06l3vaFU3Or8rKH22BIMJQ5By6/30
+ x2CfRxvpZEHotXaLelDFTAJVyiuE8DPXbSUgHQ7q0b/leYcDWoH69z3u3YMtzLpLRc/fcC
+ AlvdR4NhavVDUfuZ/3lJtSJfYdj37kUSx9JeJv2fNJbjn2cYO6JrqiHH39CyPOegcKdpkE
+ /POMAZVIYEcoN5w73vk4XVqGvhYR/juSgob969p3gNG+pkpp/HzJP62y2EhKzbqylhP1b0
+ DBsKaHp46/KmBN5RlRVQ/P1gGXDavE+4KMoqKT62WVzo/DM+b6+trT4LOwRaZQ==
+Message-ID: <48c311e35a4ed983433fc049bf465edde7930405.camel@mailbox.org>
 Subject: Re: [PATCH] drm/sched: Avoid double re-lock on the job free path
 From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org, Philipp Stanner <phasta@kernel.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org, Christian =?ISO-8859-1?Q?K=F6nig?=
  <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
  Brost <matthew.brost@intel.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal
  <mcanal@igalia.com>
-Date: Fri, 18 Jul 2025 11:31:05 +0200
-In-Reply-To: <ad66eeac-26d7-4f46-b29c-7b43ce793ea8@igalia.com>
+Date: Fri, 18 Jul 2025 11:41:09 +0200
+In-Reply-To: <c4e252ba-6ac2-4115-9606-c7f6f18f1abf@igalia.com>
 References: <20250716085117.56864-1-tvrtko.ursulin@igalia.com>
  <8e527b62-d968-4bc3-a0dc-491d193c02ce@igalia.com>
  <52d32846-0286-4979-ab2f-c1aa1aa02e20@igalia.com>
@@ -53,11 +53,13 @@ References: <20250716085117.56864-1-tvrtko.ursulin@igalia.com>
  <b5ff1fba-0e2c-4d02-8b9d-49c3c313e65d@igalia.com>
  <c1c9bb53-399d-4f1a-a6de-8cf354c2e903@igalia.com>
  <ad66eeac-26d7-4f46-b29c-7b43ce793ea8@igalia.com>
+ <3448a6cf097051ea9fbd5beba741b624c831df2c.camel@mailbox.org>
+ <c4e252ba-6ac2-4115-9606-c7f6f18f1abf@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-META: guo67enpcbsknhud7hfape4xxh4e7rcr
-X-MBO-RS-ID: e7a70689dee4a6b70da
+X-MBO-RS-ID: 0f20e2a877c70a13885
+X-MBO-RS-META: qbb99t1j1czmoy5iciiu3a347h1pontj
 X-Mailman-Approved-At: Fri, 18 Jul 2025 13:23:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,167 +76,216 @@ Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-07-18 at 08:13 +0100, Tvrtko Ursulin wrote:
+On Fri, 2025-07-18 at 10:35 +0100, Tvrtko Ursulin wrote:
 >=20
-> On 16/07/2025 21:44, Ma=C3=ADra Canal wrote:
-> > Hi Tvrtko,
-> >=20
-> > On 16/07/25 11:46, Tvrtko Ursulin wrote:
+> On 18/07/2025 10:31, Philipp Stanner wrote:
+> > On Fri, 2025-07-18 at 08:13 +0100, Tvrtko Ursulin wrote:
 > > >=20
-> > > On 16/07/2025 15:30, Ma=C3=ADra Canal wrote:
+> > > On 16/07/2025 21:44, Ma=C3=ADra Canal wrote:
 > > > > Hi Tvrtko,
 > > > >=20
-> > > > On 16/07/25 10:49, Tvrtko Ursulin wrote:
+> > > > On 16/07/25 11:46, Tvrtko Ursulin wrote:
 > > > > >=20
-> > > > > On 16/07/2025 14:31, Ma=C3=ADra Canal wrote:
+> > > > > On 16/07/2025 15:30, Ma=C3=ADra Canal wrote:
 > > > > > > Hi Tvrtko,
 > > > > > >=20
-> > > > > > On 16/07/25 05:51, Tvrtko Ursulin wrote:
-> > > > > > > Currently the job free work item will lock sched->job_list_lo=
-ck=20
-> > > > > > > first time
-> > > > > > > to see if there are any jobs, free a single job, and then loc=
-k=20
-> > > > > > > again to
-> > > > > > > decide whether to re-queue itself if there are more finished =
-jobs.
+> > > > > > On 16/07/25 10:49, Tvrtko Ursulin wrote:
 > > > > > > >=20
-> > > > > > > Since drm_sched_get_finished_job() already looks at the secon=
-d job=20
-> > > > > > > in the
-> > > > > > > queue we can simply add the signaled check and have it return=
- the=20
-> > > > > > > presence
-> > > > > > > of more jobs to be freed to the caller. That way the work ite=
-m=20
-> > > > > > > does not
-> > > > > > > have to lock the list again and repeat the signaled check.
+> > > > > > > On 16/07/2025 14:31, Ma=C3=ADra Canal wrote:
+> > > > > > > > Hi Tvrtko,
+> > > > > > > >=20
+> > > > > > > > On 16/07/25 05:51, Tvrtko Ursulin wrote:
+> > > > > > > > > Currently the job free work item will lock sched-
+> > > > > > > > > >job_list_lock
+> > > > > > > > > first time
+> > > > > > > > > to see if there are any jobs, free a single job, and
+> > > > > > > > > then lock
+> > > > > > > > > again to
+> > > > > > > > > decide whether to re-queue itself if there are more
+> > > > > > > > > finished jobs.
+> > > > > > > > >=20
+> > > > > > > > > Since drm_sched_get_finished_job() already looks at
+> > > > > > > > > the second job
+> > > > > > > > > in the
+> > > > > > > > > queue we can simply add the signaled check and have
+> > > > > > > > > it return the
+> > > > > > > > > presence
+> > > > > > > > > of more jobs to be freed to the caller. That way the
+> > > > > > > > > work item
+> > > > > > > > > does not
+> > > > > > > > > have to lock the list again and repeat the signaled
+> > > > > > > > > check.
+> > > > > > > > >=20
+> > > > > > > > > Signed-off-by: Tvrtko Ursulin
+> > > > > > > > > <tvrtko.ursulin@igalia.com>
+> > > > > > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > > > > Cc: Danilo Krummrich <dakr@kernel.org>
+> > > > > > > > > Cc: Ma=C3=ADra Canal <mcanal@igalia.com>
+> > > > > > > > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > > > > > > > Cc: Philipp Stanner <phasta@kernel.org>
+> > > > > > > > > ---
+> > > > > > > > > v2:
+> > > > > > > > > =C2=A0=C2=A0 * Improve commit text and kerneldoc. (Philip=
+p)
+> > > > > > > > > =C2=A0=C2=A0 * Rename run free work helper. (Philipp)
+> > > > > > > > >=20
+> > > > > > > > > v3:
+> > > > > > > > > =C2=A0=C2=A0 * Rebase on top of Maira's changes.
+> > > > > > > > > ---
+> > > > > > > > > =C2=A0=C2=A0 drivers/gpu/drm/scheduler/sched_main.c | 53
+> > > > > > > > > +++++++++
+> > > > > > > > > +----------------
+> > > > > > > > > =C2=A0=C2=A0 1 file changed, 21 insertions(+), 32 deletio=
+ns(-)
+> > > > > > > > >=20
+> > > > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > b/drivers/gpu/
+> > > > > > > > > drm/ scheduler/sched_main.c
+> > > > > > > > > index e2cda28a1af4..5a550fd76bf0 100644
+> > > > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > @@ -349,34 +349,13 @@ static void
+> > > > > > > > > drm_sched_run_job_queue(struct
+> > > > > > > > > drm_gpu_scheduler *sched)
+> > > > > > > > > =C2=A0=C2=A0 }
+> > > > > > > > > =C2=A0=C2=A0 /**
+> > > > > > > > > - * __drm_sched_run_free_queue - enqueue free-job
+> > > > > > > > > work
+> > > > > > > > > - * @sched: scheduler instance
+> > > > > > > > > - */
+> > > > > > > > > -static void __drm_sched_run_free_queue(struct
+> > > > > > > > > drm_gpu_scheduler
+> > > > > > > > > *sched)
+> > > > > > > > > -{
+> > > > > > > > > -=C2=A0=C2=A0=C2=A0 if (!READ_ONCE(sched->pause_submit))
+> > > > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 queue_work(sc=
+hed->submit_wq, &sched-
+> > > > > > > > > >work_free_job);
+> > > > > > > > > -}
+> > > > > > > > > -
+> > > > > > > > > -/**
+> > > > > > > > > - * drm_sched_run_free_queue - enqueue free-job work
+> > > > > > > > > if ready
+> > > > > > > > > + * drm_sched_run_free_queue - enqueue free-job work
+> > > > > > > > > =C2=A0=C2=A0=C2=A0 * @sched: scheduler instance
+> > > > > > > > > =C2=A0=C2=A0=C2=A0 */
+> > > > > > > > > =C2=A0=C2=A0 static void drm_sched_run_free_queue(struct
+> > > > > > > > > drm_gpu_scheduler
+> > > > > > > > > *sched)
+> > > > > > > > > =C2=A0=C2=A0 {
+> > > > > > > > > -=C2=A0=C2=A0=C2=A0 struct drm_sched_job *job;
+> > > > > > > > > -
+> > > > > > > > > -=C2=A0=C2=A0=C2=A0 job =3D list_first_entry_or_null(&sch=
+ed-
+> > > > > > > > > >pending_list,
+> > > > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 struct drm_sched_job, list);
+> > > > > > > > > -=C2=A0=C2=A0=C2=A0 if (job && dma_fence_is_signaled(&job=
+->s_fence-
+> > > > > > > > > >finished))
+> > > > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __drm_sched_r=
+un_free_queue(sched);
+> > > > > > > >=20
+> > > > > > > > I believe we'd still need this chunk for
+> > > > > > > > DRM_GPU_SCHED_STAT_NO_HANG
+> > > > > > > > (check the comment in
+> > > > > > > > drm_sched_job_reinsert_on_false_timeout()). How
 > > > > > > >=20
-> > > > > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > > > > > Cc: Danilo Krummrich <dakr@kernel.org>
-> > > > > > > Cc: Ma=C3=ADra Canal <mcanal@igalia.com>
-> > > > > > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > > > > > Cc: Philipp Stanner <phasta@kernel.org>
-> > > > > > > ---
-> > > > > > > v2:
-> > > > > > > =C2=A0 * Improve commit text and kerneldoc. (Philipp)
-> > > > > > > =C2=A0 * Rename run free work helper. (Philipp)
-> > > > > > >=20
-> > > > > > > v3:
-> > > > > > > =C2=A0 * Rebase on top of Maira's changes.
-> > > > > > > ---
-> > > > > > > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c | 53 +++++++++=
-=20
-> > > > > > > +----------------
-> > > > > > > =C2=A0 1 file changed, 21 insertions(+), 32 deletions(-)
-> > > > > > >=20
-> > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers=
-/gpu/=20
-> > > > > > > drm/ scheduler/sched_main.c
-> > > > > > > index e2cda28a1af4..5a550fd76bf0 100644
-> > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > @@ -349,34 +349,13 @@ static void drm_sched_run_job_queue(str=
-uct=20
-> > > > > > > drm_gpu_scheduler *sched)
-> > > > > > > =C2=A0 }
-> > > > > > > =C2=A0 /**
-> > > > > > > - * __drm_sched_run_free_queue - enqueue free-job work
-> > > > > > > - * @sched: scheduler instance
-> > > > > > > - */
-> > > > > > > -static void __drm_sched_run_free_queue(struct drm_gpu_schedu=
-ler=20
-> > > > > > > *sched)
-> > > > > > > -{
-> > > > > > > -=C2=A0=C2=A0=C2=A0 if (!READ_ONCE(sched->pause_submit))
-> > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 queue_work(sched-=
->submit_wq, &sched->work_free_job);
-> > > > > > > -}
-> > > > > > > -
-> > > > > > > -/**
-> > > > > > > - * drm_sched_run_free_queue - enqueue free-job work if ready
-> > > > > > > + * drm_sched_run_free_queue - enqueue free-job work
-> > > > > > > =C2=A0=C2=A0 * @sched: scheduler instance
-> > > > > > > =C2=A0=C2=A0 */
-> > > > > > > =C2=A0 static void drm_sched_run_free_queue(struct drm_gpu_sc=
-heduler=20
-> > > > > > > *sched)
-> > > > > > > =C2=A0 {
-> > > > > > > -=C2=A0=C2=A0=C2=A0 struct drm_sched_job *job;
-> > > > > > > -
-> > > > > > > -=C2=A0=C2=A0=C2=A0 job =3D list_first_entry_or_null(&sched->=
-pending_list,
-> > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 st=
-ruct drm_sched_job, list);
-> > > > > > > -=C2=A0=C2=A0=C2=A0 if (job && dma_fence_is_signaled(&job->s_=
-fence->finished))
-> > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __drm_sched_run_f=
-ree_queue(sched);
+> > > > > > > You mean the "is there a signaled job in the list check"
+> > > > > > > is needed
+> > > > > > > for drm_sched_job_reinsert_on_false_timeout()? Hmm why?
+> > > > > > > Worst case
+> > > > > > > is a false positive wakeup on the free worker, no?
 > > > > > >=20
-> > > > > > I believe we'd still need this chunk for DRM_GPU_SCHED_STAT_NO_=
-HANG
-> > > > > > (check the comment in drm_sched_job_reinsert_on_false_timeout()=
-). How
+> > > > > > Correct me if I'm mistaken, we would also have a false
+> > > > > > positive wake-up
+> > > > > > on the run_job worker, which I believe it could be
+> > > > > > problematic in the
+> > > > > > cases that we skipped the reset because the job is still
+> > > > > > running.
 > > > > >=20
-> > > > > You mean the "is there a signaled job in the list check" is neede=
-d=20
-> > > > > for drm_sched_job_reinsert_on_false_timeout()? Hmm why? Worst cas=
-e=20
-> > > > > is a false positive wakeup on the free worker, no?
+> > > > > Run job worker exits when it sees no free credits so I don't
+> > > > > think
+> > > > > there is a problem. What am I missing?
+> > > > >=20
 > > > >=20
-> > > > Correct me if I'm mistaken, we would also have a false positive wak=
-e-up
-> > > > on the run_job worker, which I believe it could be problematic in t=
-he
-> > > > cases that we skipped the reset because the job is still running.
+> > > > I was the one missing the code in `drm_sched_can_queue()`.
+> > > > Sorry for the
+> > > > misleading comments. This is:
+> > > >=20
+> > > > Reviewed-by: Ma=C3=ADra Canal <mcanal@igalia.com>
 > > >=20
-> > > Run job worker exits when it sees no free credits so I don't think=
-=20
-> > > there is a problem. What am I missing?
+> > > No worries, and thanks!
 > > >=20
+> > > Philipp - are you okay with this version? V2 was done to address
+> > > your
+> > > feedback so that should be good now.
 > >=20
-> > I was the one missing the code in `drm_sched_can_queue()`. Sorry for th=
-e
-> > misleading comments. This is:
+> > Was just giving it another spin when you wrote. (a [PATCH v3]
+> > would've
+> > been neat for identification, though =E2=80=93 I almost pulled the wron=
+g
+> > patch
+> > from the archive *wink*)
+>=20
+> Oops, my bad.
+>=20
+> > LGTM, improves things, can be merged.
 > >=20
-> > Reviewed-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> > However, we had to merge Lin Cao's bug fix [1] recently. That one
+> > is
+> > now in drm-misc-fixes, and your patch should go to drm-misc-next.
+> > This
+> > would cause a conflict once the two branches meet.
+> >=20
+> > So I suggest that we wait with this non-urgent patch until drm-
+> > misc-
+> > fixes / Linus's -rc gets merged into drm-misc-next, and then we
+> > apply
+> > it. Should be next week or the week after AFAIK.
+> >=20
+> > Unless somebody has a better idea, of course?
 >=20
-> No worries, and thanks!
->=20
-> Philipp - are you okay with this version? V2 was done to address your
-> feedback so that should be good now.
+> Lin's patch touches sched_entity.c only and mine only sched_main.c -
+> ie.=20
+> no conflict AFAICT?
 
-Was just giving it another spin when you wrote. (a [PATCH v3] would've
-been neat for identification, though =E2=80=93 I almost pulled the wrong pa=
-tch
-from the archive *wink*)
+Aaahhh, I had a hallucination ^^'
 
-LGTM, improves things, can be merged.
+It doesn't apply to drm-misc-fixes, but that is because fixes misses
+changes that yours is based on. Because Lin's patch was the last thing
+I touched on that branch I seem to have jumped to that conclusion.
 
-However, we had to merge Lin Cao's bug fix [1] recently. That one is
-now in drm-misc-fixes, and your patch should go to drm-misc-next. This
-would cause a conflict once the two branches meet.
+Should be fine, then. My bad.
 
-So I suggest that we wait with this non-urgent patch until drm-misc-
-fixes / Linus's -rc gets merged into drm-misc-next, and then we apply
-it. Should be next week or the week after AFAIK.
-
-Unless somebody has a better idea, of course?
-
-Remind me in case I forget.
+Will apply.
 
 
 P.
-
-[1] https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/15f77764e90a713=
-ee3916ca424757688e4f565b9
 
 
 >=20
 > Regards,
 >=20
 > Tvrtko
+>=20
+> >=20
+> > Remind me in case I forget.
+> >=20
+> >=20
+> > P.
+> >=20
+> > [1]
+> > https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/15f77764e90a713=
+ee3916ca424757688e4f565b9
+> >=20
+> >=20
+> > >=20
+> > > Regards,
+> > >=20
+> > > Tvrtko
+> > >=20
+> >=20
 >=20
 
