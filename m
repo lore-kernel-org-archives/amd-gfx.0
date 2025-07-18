@@ -4,69 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB3FEC83F1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:12:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0529FC83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:23:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EFC110E9C2;
-	Fri, 18 Jul 2025 13:12:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59CC110E9A8;
+	Fri, 18 Jul 2025 13:23:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lMnSJBlW";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="HNjVduxm";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2ACB10E9C2;
- Fri, 18 Jul 2025 13:12:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
- In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=AwU7bt8MAvt9UXAndNFX+doc5wRh0645T3vY748a7p8=; b=lMnSJBlWkX8FSxQuOMoUSOKkbl
- 7ChAXCwspgLSj7A56x+UI07xXtZUXgV8HRhCZ1U55csorv1oFe9zvobtBoQg/1qIWpqzTgylXLICC
- 2WpJEI145+nu6ovJxSCOtVS8AHGsQfP0Aw/gg8T6YxsBQIGjxTnbRtjkqbd+dw87rneNcPAj0Qv7X
- A0wyX/7mJWG7QUzVGM1pzz3Vk+n98oqwPPK5Cd14jMKT2FwquCkbh1BFU2ZXr10jwo90ciK6B1dqP
- xj35hTdz5sQoEkwb5yrlVJj2bARF785hE6VwI4Y5SSjd1bqL0RufYubd2X3F1zvGbbaZaq1MgFsoW
- N74Gpvsg==;
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtps 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ucksP-000a1q-4B; Fri, 18 Jul 2025 15:11:49 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
- by mail.igalia.com with esmtp (Exim)
- id 1ucksM-00Ae9x-M1; Fri, 18 Jul 2025 15:11:48 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
- by webmail with esmtp (Exim 4.96) (envelope-from <mwen@igalia.com>)
- id 1ucksM-00FOx5-0J; Fri, 18 Jul 2025 15:11:46 +0200
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 914F710E938;
+ Fri, 18 Jul 2025 09:31:13 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4bk4Kp272Lz9trL;
+ Fri, 18 Jul 2025 11:31:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1752831070; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=LPIGraXFzaWpw2pUd6/w8T550M679k9Qmn29uZiTE8c=;
+ b=HNjVduxmBmEXLt1PIB8E62l/6boLL5+LtJzJNSzxBXmvueBV8Lkx7TMHY/y5bzv6P6DcbE
+ hsLMejABbsWoDK1M5BsV2IU15WsCdxWSR9wf47rPuLUakLhQQo6xYrLw0lv4bWJjh88WvO
+ XRHSXliS57nVqydiAqzsFmvCLpTiDdkhm08VSGqWKuqL1AwBgPlhqtSPksKesg/QNLrkzs
+ UckxRxJmNOLiiBeK6wAcSjHvB1MvWNgFNugyMt2gK1E15b9YXA6QGB3UTGdb5qxobPquII
+ /rOjmh5pUvnxdYyHTfHa7/nQjbDIXU2X/5kaa03DvYv/nPicU22/ZjmLzHzG+w==
+Message-ID: <3448a6cf097051ea9fbd5beba741b624c831df2c.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Avoid double re-lock on the job free path
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ dri-devel@lists.freedesktop.org, Philipp Stanner <phasta@kernel.org>
+Cc: kernel-dev@igalia.com, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost <matthew.brost@intel.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal
+ <mcanal@igalia.com>
+Date: Fri, 18 Jul 2025 11:31:05 +0200
+In-Reply-To: <ad66eeac-26d7-4f46-b29c-7b43ce793ea8@igalia.com>
+References: <20250716085117.56864-1-tvrtko.ursulin@igalia.com>
+ <8e527b62-d968-4bc3-a0dc-491d193c02ce@igalia.com>
+ <52d32846-0286-4979-ab2f-c1aa1aa02e20@igalia.com>
+ <f535c0bf-225a-40c9-b6a1-5bfbb5ebec0d@igalia.com>
+ <b5ff1fba-0e2c-4d02-8b9d-49c3c313e65d@igalia.com>
+ <c1c9bb53-399d-4f1a-a6de-8cf354c2e903@igalia.com>
+ <ad66eeac-26d7-4f46-b29c-7b43ce793ea8@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Date: Fri, 18 Jul 2025 12:11:46 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Matthew Schwartz <matthew.schwartz@linux.dev>
-Cc: Matthew Schwartz <mattschwartz@gwmail.gwu.edu>, "Limonciello, Mario"
- <Mario.Limonciello@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- airlied@gmail.com, simona@ffwll.ch, "Hung, Alex" <Alex.Hung@amd.com>, "Liu,
- Charlene" <Charlene.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: Re: [PATCH] Revert "drm/amd/display: limit clear_update_flags to
- dcn32 and above"
-In-Reply-To: <8d859c5f-2551-4624-a9b8-a816f1809feb@linux.dev>
-References: <20250717143738.84722-1-mwen@igalia.com>
- <70ac7b1e-9a28-45ff-b7b2-ab0f4fe9030a@amd.com>
- <bb4099a70c2a8c78ef07d5fb6a8f0d3b@igalia.com>
- <55467ebe-42c8-4387-9a61-aa60b3a84053@amd.com>
- <BA28247C-9779-4C4C-A8E3-ACF57BEF1521@gwmail.gwu.edu>
- <67169725b87e02cc8fdc19be5fc7df59@igalia.com>
- <CAD9O9Dq=dAsMs5a3VzgSvLwfuYYhkARDFBXyWUy+yktEZv5WbQ@mail.gmail.com>
- <bdfc8786-d4b8-4391-a4d4-c5fe06020802@igalia.com>
- <CAD9O9DqxJQyAJM=po4yDbAC=hHK2pi12qTVYeb+ar_GenGpMnw@mail.gmail.com>
- <478eb8175779f03a399f7d933614e14c@igalia.com>
- <8d859c5f-2551-4624-a9b8-a816f1809feb@linux.dev>
-Message-ID: <801d0d97e7cdd1eb3b845347ccb5ddbf@igalia.com>
-X-Sender: mwen@igalia.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: guo67enpcbsknhud7hfape4xxh4e7rcr
+X-MBO-RS-ID: e7a70689dee4a6b70da
+X-Mailman-Approved-At: Fri, 18 Jul 2025 13:23:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,101 +70,171 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 18-07-2025 00:51, Matthew Schwartz wrote:
-[...]
-> 
-> Sure, going to use my Legion Go S w/ Z2 Go for this (DCN 3.1.2). All
-> of these are from amd-staging-drm-next with AMD_PRIVATE_COLOR=y.
-> 
-> DTN log from Hades II with MangoHud enabled:
-> https://gist.github.com/matte-schwartz/0c290ffe99bdb4f0d7369ee8817d1145
-> 
-> DTN log from Hades II with MangoHud disabled:
-> https://gist.github.com/matte-schwartz/3e2867e192ec9742ec545d2c5dd3096a
-> 
-> drm_info from Hades II with MangoHud enabled:
-> https://gist.github.com/matte-schwartz/456684fc60f7e84173ee2f42de4b774b
-> 
-> drm_info from Hades II with MangoHud disabled:
-> https://gist.github.com/matte-schwartz/6b635fa584d033234b435667f5d2c153
-> 
+On Fri, 2025-07-18 at 08:13 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 16/07/2025 21:44, Ma=C3=ADra Canal wrote:
+> > Hi Tvrtko,
+> >=20
+> > On 16/07/25 11:46, Tvrtko Ursulin wrote:
+> > >=20
+> > > On 16/07/2025 15:30, Ma=C3=ADra Canal wrote:
+> > > > Hi Tvrtko,
+> > > >=20
+> > > > On 16/07/25 10:49, Tvrtko Ursulin wrote:
+> > > > >=20
+> > > > > On 16/07/2025 14:31, Ma=C3=ADra Canal wrote:
+> > > > > > Hi Tvrtko,
+> > > > > >=20
+> > > > > > On 16/07/25 05:51, Tvrtko Ursulin wrote:
+> > > > > > > Currently the job free work item will lock sched->job_list_lo=
+ck=20
+> > > > > > > first time
+> > > > > > > to see if there are any jobs, free a single job, and then loc=
+k=20
+> > > > > > > again to
+> > > > > > > decide whether to re-queue itself if there are more finished =
+jobs.
+> > > > > > >=20
+> > > > > > > Since drm_sched_get_finished_job() already looks at the secon=
+d job=20
+> > > > > > > in the
+> > > > > > > queue we can simply add the signaled check and have it return=
+ the=20
+> > > > > > > presence
+> > > > > > > of more jobs to be freed to the caller. That way the work ite=
+m=20
+> > > > > > > does not
+> > > > > > > have to lock the list again and repeat the signaled check.
+> > > > > > >=20
+> > > > > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > > Cc: Danilo Krummrich <dakr@kernel.org>
+> > > > > > > Cc: Ma=C3=ADra Canal <mcanal@igalia.com>
+> > > > > > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > > > > > Cc: Philipp Stanner <phasta@kernel.org>
+> > > > > > > ---
+> > > > > > > v2:
+> > > > > > > =C2=A0 * Improve commit text and kerneldoc. (Philipp)
+> > > > > > > =C2=A0 * Rename run free work helper. (Philipp)
+> > > > > > >=20
+> > > > > > > v3:
+> > > > > > > =C2=A0 * Rebase on top of Maira's changes.
+> > > > > > > ---
+> > > > > > > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c | 53 +++++++++=
+=20
+> > > > > > > +----------------
+> > > > > > > =C2=A0 1 file changed, 21 insertions(+), 32 deletions(-)
+> > > > > > >=20
+> > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers=
+/gpu/=20
+> > > > > > > drm/ scheduler/sched_main.c
+> > > > > > > index e2cda28a1af4..5a550fd76bf0 100644
+> > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > @@ -349,34 +349,13 @@ static void drm_sched_run_job_queue(str=
+uct=20
+> > > > > > > drm_gpu_scheduler *sched)
+> > > > > > > =C2=A0 }
+> > > > > > > =C2=A0 /**
+> > > > > > > - * __drm_sched_run_free_queue - enqueue free-job work
+> > > > > > > - * @sched: scheduler instance
+> > > > > > > - */
+> > > > > > > -static void __drm_sched_run_free_queue(struct drm_gpu_schedu=
+ler=20
+> > > > > > > *sched)
+> > > > > > > -{
+> > > > > > > -=C2=A0=C2=A0=C2=A0 if (!READ_ONCE(sched->pause_submit))
+> > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 queue_work(sched-=
+>submit_wq, &sched->work_free_job);
+> > > > > > > -}
+> > > > > > > -
+> > > > > > > -/**
+> > > > > > > - * drm_sched_run_free_queue - enqueue free-job work if ready
+> > > > > > > + * drm_sched_run_free_queue - enqueue free-job work
+> > > > > > > =C2=A0=C2=A0 * @sched: scheduler instance
+> > > > > > > =C2=A0=C2=A0 */
+> > > > > > > =C2=A0 static void drm_sched_run_free_queue(struct drm_gpu_sc=
+heduler=20
+> > > > > > > *sched)
+> > > > > > > =C2=A0 {
+> > > > > > > -=C2=A0=C2=A0=C2=A0 struct drm_sched_job *job;
+> > > > > > > -
+> > > > > > > -=C2=A0=C2=A0=C2=A0 job =3D list_first_entry_or_null(&sched->=
+pending_list,
+> > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 st=
+ruct drm_sched_job, list);
+> > > > > > > -=C2=A0=C2=A0=C2=A0 if (job && dma_fence_is_signaled(&job->s_=
+fence->finished))
+> > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __drm_sched_run_f=
+ree_queue(sched);
+> > > > > >=20
+> > > > > > I believe we'd still need this chunk for DRM_GPU_SCHED_STAT_NO_=
+HANG
+> > > > > > (check the comment in drm_sched_job_reinsert_on_false_timeout()=
+). How
+> > > > >=20
+> > > > > You mean the "is there a signaled job in the list check" is neede=
+d=20
+> > > > > for drm_sched_job_reinsert_on_false_timeout()? Hmm why? Worst cas=
+e=20
+> > > > > is a false positive wakeup on the free worker, no?
+> > > >=20
+> > > > Correct me if I'm mistaken, we would also have a false positive wak=
+e-up
+> > > > on the run_job worker, which I believe it could be problematic in t=
+he
+> > > > cases that we skipped the reset because the job is still running.
+> > >=20
+> > > Run job worker exits when it sees no free credits so I don't think=
+=20
+> > > there is a problem. What am I missing?
+> > >=20
+> >=20
+> > I was the one missing the code in `drm_sched_can_queue()`. Sorry for th=
+e
+> > misleading comments. This is:
+> >=20
+> > Reviewed-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+>=20
+> No worries, and thanks!
+>=20
+> Philipp - are you okay with this version? V2 was done to address your
+> feedback so that should be good now.
 
-Hey Matthew,
+Was just giving it another spin when you wrote. (a [PATCH v3] would've
+been neat for identification, though =E2=80=93 I almost pulled the wrong pa=
+tch
+from the archive *wink*)
 
-Thanks for the logs.
-There is actually a difference between your hw and Steam Deck in terms
-of pipe split.
-With your hw, there is no pipe split in both scenarios. However, on
-Steam Deck with MangoHud disabled, we can see the split (2 planes):
+LGTM, improves things, can be merged.
 
-HUBP:  format  addr_hi  width  height  rot  mir  sw_mode  dcc_en 
-blank_en  clock_en  ttu_dis  underflow   min_ttu_vblank       qos_low_wm
-     qos_high_wm
-[ 0]:      8h      f4h   1280     400   3h   0h      1bh       1        
-0         1        0         0h           36.562            0.000       
-   33.854
-[ 1]:      8h      f4h   1280     400   3h   0h      1bh       1        
-0         1        0         0h           36.562            0.000       
-   33.854
-[ 2]:      8h      f4h   1280     400   3h   0h      1bh       1        
-0         1        0         0h           36.562            0.000       
-   33.854
-[ 3]:      8h      f4h   1280     400   3h   0h      1bh       1        
-0         1        0         0h           36.562            0.000       
-   33.854
+However, we had to merge Lin Cao's bug fix [1] recently. That one is
+now in drm-misc-fixes, and your patch should go to drm-misc-next. This
+would cause a conflict once the two branches meet.
 
-For completion, this is the DTN log of Steam Deck with MangoHud enabled
-(3 planes, no pipe split):
+So I suggest that we wait with this non-urgent patch until drm-misc-
+fixes / Linus's -rc gets merged into drm-misc-next, and then we apply
+it. Should be next week or the week after AFAIK.
 
-HUBP:  format  addr_hi  width  height  rot  mir  sw_mode  dcc_en 
-blank_en  clock_en  ttu_dis  underflow   min_ttu_vblank       qos_low_wm
-     qos_high_wm
-[ 0]:      8h      f4h   1280     800   3h   0h      1bh       1        
-0         1        0         0h           44.708            0.000       
-   33.854
-[ 1]:      0h       0h      0       0   0h   0h       0h       0        
-0         0        0         0h            0.000            0.000       
-    0.000
-[ 2]:      8h      f4h   1280     800   3h   0h      1bh       1        
-0         1        0         0h           44.708            0.000       
-   33.854
-[ 3]:      8h      f4h   1280     800   3h   0h      1bh       1        
-0         1        0         0h           44.708            0.000       
-   33.854
+Unless somebody has a better idea, of course?
 
-I couldn't find a pipe-split policy specific for 3.1.2, but I guess it
-follows the 3.1 Dynamic policy, that is the same of the Steam Deck:
+Remind me in case I forget.
 
-drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c:863:    
-.pipe_split_policy = MPC_SPLIT_DYNAMIC,
-drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c:883:  
-.pipe_split_policy = MPC_SPLIT_DYNAMIC,
-drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c:863:  
-.pipe_split_policy = MPC_SPLIT_DYNAMIC,
-drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c:858:  
-.pipe_split_policy = MPC_SPLIT_DYNAMIC,
 
-I remember that we have discussed about the possibility of workaround
-those glitches by avoiding pipe split (and then we would avoid the
-"split" transition), right?
+P.
 
-In short, there is a chance that you are not seeing those glitches
-because there are no changes in the pipe split when transitioning
-between 1-2 overlay planes in your hw, but the split happens on steam
-deck for some reasons. I don't know how the driver decides whether or
-not to split pipes.
+[1] https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/15f77764e90a713=
+ee3916ca424757688e4f565b9
 
-That said, if AMD prefers to go with an exception for steam deck, better
-if this situation is documented.
 
-Steam Deck still needs the clear_update_flags() because it uses plane
-color caps and therefore sets multiple update flags, and some glitches
-appear when transitioning from 2 planes (with pipe split) to 3 planes
-(no pipe split). It might be related to minimal transition machinery.
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
 
-Thank you for all inputs.
-
-Melissa
