@@ -4,62 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32AE7C83F17
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:23:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 148B5C83F34
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:23:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 751F610E9A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 549B310E9A6;
 	Fri, 18 Jul 2025 13:23:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="GAeptTTd";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=hacktheplanet.fi header.i=@hacktheplanet.fi header.b="a7+PYmKf";
+	dkim=pass (2048-bit key; unprotected) header.d=hacktheplanet.fi header.i=@hacktheplanet.fi header.b="tknHJYvL";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5186510E93A;
- Fri, 18 Jul 2025 09:41:16 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4bk4YN6cSsz9t2R;
- Fri, 18 Jul 2025 11:41:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1752831673; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=a2Zg4QEe0LqebhVzLVIQHsMhWzN9W8MKDz2KfO089x0=;
- b=GAeptTTdUlbq2mCRPrYZQ9a82ysB/A77mUGeD8nIg06l3vaFU3Or8rKH22BIMJQ5By6/30
- x2CfRxvpZEHotXaLelDFTAJVyiuE8DPXbSUgHQ7q0b/leYcDWoH69z3u3YMtzLpLRc/fcC
- AlvdR4NhavVDUfuZ/3lJtSJfYdj37kUSx9JeJv2fNJbjn2cYO6JrqiHH39CyPOegcKdpkE
- /POMAZVIYEcoN5w73vk4XVqGvhYR/juSgob969p3gNG+pkpp/HzJP62y2EhKzbqylhP1b0
- DBsKaHp46/KmBN5RlRVQ/P1gGXDavE+4KMoqKT62WVzo/DM+b6+trT4LOwRaZQ==
-Message-ID: <48c311e35a4ed983433fc049bf465edde7930405.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Avoid double re-lock on the job free path
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost <matthew.brost@intel.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal
- <mcanal@igalia.com>
-Date: Fri, 18 Jul 2025 11:41:09 +0200
-In-Reply-To: <c4e252ba-6ac2-4115-9606-c7f6f18f1abf@igalia.com>
-References: <20250716085117.56864-1-tvrtko.ursulin@igalia.com>
- <8e527b62-d968-4bc3-a0dc-491d193c02ce@igalia.com>
- <52d32846-0286-4979-ab2f-c1aa1aa02e20@igalia.com>
- <f535c0bf-225a-40c9-b6a1-5bfbb5ebec0d@igalia.com>
- <b5ff1fba-0e2c-4d02-8b9d-49c3c313e65d@igalia.com>
- <c1c9bb53-399d-4f1a-a6de-8cf354c2e903@igalia.com>
- <ad66eeac-26d7-4f46-b29c-7b43ce793ea8@igalia.com>
- <3448a6cf097051ea9fbd5beba741b624c831df2c.camel@mailbox.org>
- <c4e252ba-6ac2-4115-9606-c7f6f18f1abf@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 528 seconds by postgrey-1.36 at gabe;
+ Fri, 18 Jul 2025 07:38:32 UTC
+Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com
+ [91.218.175.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B68A10E928
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 07:38:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=gibson; bh=73mtiu+STtAof
+ J48KZx5LpXK+i6ebmLNIL3vWgzqJLY=; h=subject:cc:to:from:date;
+ d=hacktheplanet.fi; b=a7+PYmKf8EKl1hzrXSVa4Rv2HljxSXmckUz2WnfEvJbnaQu5
+ amJNJ4Q1qjlbYAxR1OFYuJj8AWncxLr6na28JiGbl6bC3Zgog/Z6ywhB0/v3hsJ/qbP8dg
+ iTec99VduSJytEbt4lclDhXSQ4AvbLZSVMHSPbjoupYF8xEGOuIG2F50o4UXt+FYN2Lb3U
+ 9iJdsZJ77Bay9nKFbgUl9fD8x1XaUYQe/KLhTaV3uRx2Di/ZODs4k2DF8+q7njod/Ai24p
+ u86sVJMRaS3F3ooq8/SSBf8XyXkK1ZlgVvG015L3OFgf77UMyxlggkQp5XoBVMUfaQLOuN
+ c9oXjW3aRKty5g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hacktheplanet.fi;
+ s=key1; t=1752823782;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=naR/zISxdFD2IfX/9yHd+kaNh8ZX3NCQpAGgz3lCALA=;
+ b=tknHJYvLZXqQ0IL6jKStI7SHa6OsP3K6O9VMjw64cde4D24l5zbLP5hXaeTIEY164KJz62
+ +VftPSvMFZBEQZZb5Po9izwkraz9sliNePOfN1z5AwPApmu8jVnUoL0Nd2hxsOLhx8mu4H
+ dJXX0WQZtWTH2IotCPFYp3Ka1idrykSYLkIVWjeq7VAWHQhve+nqqiuhIYhs2PiS8T0El9
+ kLCy8bwCWqmwf3lbnx1BAjyRej5rnHUsbEx2sBwxn340HbD5ebPqZNF78NQWeZekNfjDKt
+ Yo69ay6XOMbwHhToP6YFxF/msP/qFq2ZC50TNNPna1+6rp6VhrtFsAoRSTddsw==
+Date: Fri, 18 Jul 2025 16:29:34 +0900
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Lauri Tirkkonen <lauri@hacktheplanet.fi>
+To: stable@vger.kernel.org
+Cc: regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [REGRESSION] drm/amd/display: backlight brightness set to 0 at
+ amdgpu initialization
+Message-ID: <aHn33vgj8bM4s073@hacktheplanet.fi>
 MIME-Version: 1.0
-X-MBO-RS-ID: 0f20e2a877c70a13885
-X-MBO-RS-META: qbb99t1j1czmoy5iciiu3a347h1pontj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Fri, 18 Jul 2025 13:23:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,220 +65,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-07-18 at 10:35 +0100, Tvrtko Ursulin wrote:
->=20
-> On 18/07/2025 10:31, Philipp Stanner wrote:
-> > On Fri, 2025-07-18 at 08:13 +0100, Tvrtko Ursulin wrote:
-> > >=20
-> > > On 16/07/2025 21:44, Ma=C3=ADra Canal wrote:
-> > > > Hi Tvrtko,
-> > > >=20
-> > > > On 16/07/25 11:46, Tvrtko Ursulin wrote:
-> > > > >=20
-> > > > > On 16/07/2025 15:30, Ma=C3=ADra Canal wrote:
-> > > > > > Hi Tvrtko,
-> > > > > >=20
-> > > > > > On 16/07/25 10:49, Tvrtko Ursulin wrote:
-> > > > > > >=20
-> > > > > > > On 16/07/2025 14:31, Ma=C3=ADra Canal wrote:
-> > > > > > > > Hi Tvrtko,
-> > > > > > > >=20
-> > > > > > > > On 16/07/25 05:51, Tvrtko Ursulin wrote:
-> > > > > > > > > Currently the job free work item will lock sched-
-> > > > > > > > > >job_list_lock
-> > > > > > > > > first time
-> > > > > > > > > to see if there are any jobs, free a single job, and
-> > > > > > > > > then lock
-> > > > > > > > > again to
-> > > > > > > > > decide whether to re-queue itself if there are more
-> > > > > > > > > finished jobs.
-> > > > > > > > >=20
-> > > > > > > > > Since drm_sched_get_finished_job() already looks at
-> > > > > > > > > the second job
-> > > > > > > > > in the
-> > > > > > > > > queue we can simply add the signaled check and have
-> > > > > > > > > it return the
-> > > > > > > > > presence
-> > > > > > > > > of more jobs to be freed to the caller. That way the
-> > > > > > > > > work item
-> > > > > > > > > does not
-> > > > > > > > > have to lock the list again and repeat the signaled
-> > > > > > > > > check.
-> > > > > > > > >=20
-> > > > > > > > > Signed-off-by: Tvrtko Ursulin
-> > > > > > > > > <tvrtko.ursulin@igalia.com>
-> > > > > > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > > > > > > > Cc: Danilo Krummrich <dakr@kernel.org>
-> > > > > > > > > Cc: Ma=C3=ADra Canal <mcanal@igalia.com>
-> > > > > > > > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > > > > > > > Cc: Philipp Stanner <phasta@kernel.org>
-> > > > > > > > > ---
-> > > > > > > > > v2:
-> > > > > > > > > =C2=A0=C2=A0 * Improve commit text and kerneldoc. (Philip=
-p)
-> > > > > > > > > =C2=A0=C2=A0 * Rename run free work helper. (Philipp)
-> > > > > > > > >=20
-> > > > > > > > > v3:
-> > > > > > > > > =C2=A0=C2=A0 * Rebase on top of Maira's changes.
-> > > > > > > > > ---
-> > > > > > > > > =C2=A0=C2=A0 drivers/gpu/drm/scheduler/sched_main.c | 53
-> > > > > > > > > +++++++++
-> > > > > > > > > +----------------
-> > > > > > > > > =C2=A0=C2=A0 1 file changed, 21 insertions(+), 32 deletio=
-ns(-)
-> > > > > > > > >=20
-> > > > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > > b/drivers/gpu/
-> > > > > > > > > drm/ scheduler/sched_main.c
-> > > > > > > > > index e2cda28a1af4..5a550fd76bf0 100644
-> > > > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > > @@ -349,34 +349,13 @@ static void
-> > > > > > > > > drm_sched_run_job_queue(struct
-> > > > > > > > > drm_gpu_scheduler *sched)
-> > > > > > > > > =C2=A0=C2=A0 }
-> > > > > > > > > =C2=A0=C2=A0 /**
-> > > > > > > > > - * __drm_sched_run_free_queue - enqueue free-job
-> > > > > > > > > work
-> > > > > > > > > - * @sched: scheduler instance
-> > > > > > > > > - */
-> > > > > > > > > -static void __drm_sched_run_free_queue(struct
-> > > > > > > > > drm_gpu_scheduler
-> > > > > > > > > *sched)
-> > > > > > > > > -{
-> > > > > > > > > -=C2=A0=C2=A0=C2=A0 if (!READ_ONCE(sched->pause_submit))
-> > > > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 queue_work(sc=
-hed->submit_wq, &sched-
-> > > > > > > > > >work_free_job);
-> > > > > > > > > -}
-> > > > > > > > > -
-> > > > > > > > > -/**
-> > > > > > > > > - * drm_sched_run_free_queue - enqueue free-job work
-> > > > > > > > > if ready
-> > > > > > > > > + * drm_sched_run_free_queue - enqueue free-job work
-> > > > > > > > > =C2=A0=C2=A0=C2=A0 * @sched: scheduler instance
-> > > > > > > > > =C2=A0=C2=A0=C2=A0 */
-> > > > > > > > > =C2=A0=C2=A0 static void drm_sched_run_free_queue(struct
-> > > > > > > > > drm_gpu_scheduler
-> > > > > > > > > *sched)
-> > > > > > > > > =C2=A0=C2=A0 {
-> > > > > > > > > -=C2=A0=C2=A0=C2=A0 struct drm_sched_job *job;
-> > > > > > > > > -
-> > > > > > > > > -=C2=A0=C2=A0=C2=A0 job =3D list_first_entry_or_null(&sch=
-ed-
-> > > > > > > > > >pending_list,
-> > > > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 struct drm_sched_job, list);
-> > > > > > > > > -=C2=A0=C2=A0=C2=A0 if (job && dma_fence_is_signaled(&job=
-->s_fence-
-> > > > > > > > > >finished))
-> > > > > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __drm_sched_r=
-un_free_queue(sched);
-> > > > > > > >=20
-> > > > > > > > I believe we'd still need this chunk for
-> > > > > > > > DRM_GPU_SCHED_STAT_NO_HANG
-> > > > > > > > (check the comment in
-> > > > > > > > drm_sched_job_reinsert_on_false_timeout()). How
-> > > > > > >=20
-> > > > > > > You mean the "is there a signaled job in the list check"
-> > > > > > > is needed
-> > > > > > > for drm_sched_job_reinsert_on_false_timeout()? Hmm why?
-> > > > > > > Worst case
-> > > > > > > is a false positive wakeup on the free worker, no?
-> > > > > >=20
-> > > > > > Correct me if I'm mistaken, we would also have a false
-> > > > > > positive wake-up
-> > > > > > on the run_job worker, which I believe it could be
-> > > > > > problematic in the
-> > > > > > cases that we skipped the reset because the job is still
-> > > > > > running.
-> > > > >=20
-> > > > > Run job worker exits when it sees no free credits so I don't
-> > > > > think
-> > > > > there is a problem. What am I missing?
-> > > > >=20
-> > > >=20
-> > > > I was the one missing the code in `drm_sched_can_queue()`.
-> > > > Sorry for the
-> > > > misleading comments. This is:
-> > > >=20
-> > > > Reviewed-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> > >=20
-> > > No worries, and thanks!
-> > >=20
-> > > Philipp - are you okay with this version? V2 was done to address
-> > > your
-> > > feedback so that should be good now.
-> >=20
-> > Was just giving it another spin when you wrote. (a [PATCH v3]
-> > would've
-> > been neat for identification, though =E2=80=93 I almost pulled the wron=
-g
-> > patch
-> > from the archive *wink*)
->=20
-> Oops, my bad.
->=20
-> > LGTM, improves things, can be merged.
-> >=20
-> > However, we had to merge Lin Cao's bug fix [1] recently. That one
-> > is
-> > now in drm-misc-fixes, and your patch should go to drm-misc-next.
-> > This
-> > would cause a conflict once the two branches meet.
-> >=20
-> > So I suggest that we wait with this non-urgent patch until drm-
-> > misc-
-> > fixes / Linus's -rc gets merged into drm-misc-next, and then we
-> > apply
-> > it. Should be next week or the week after AFAIK.
-> >=20
-> > Unless somebody has a better idea, of course?
->=20
-> Lin's patch touches sched_entity.c only and mine only sched_main.c -
-> ie.=20
-> no conflict AFAICT?
+Hi,
 
-Aaahhh, I had a hallucination ^^'
+I hit this regression on the stable kernel on Alpine with a Lenovo Yoga
+Slim 7 Pro 17ACH5. During early boot, when the amdgpu module gets
+loaded, backlight brightness is set to zero, resulting in a black
+screen (and nothing in userspace is running yet to handle brightness
+keys; I need to use an external monitor or type in my rootfs passphrase
+blind).
 
-It doesn't apply to drm-misc-fixes, but that is because fixes misses
-changes that yours is based on. Because Lin's patch was the last thing
-I touched on that branch I seem to have jumped to that conclusion.
+#regzbot introduced: 6c56c8ec6f9762c33bd22f31d43af4194d12da53
 
-Should be fine, then. My bad.
+bisect log:
 
-Will apply.
+git bisect start
+# status: waiting for both good and bad commits
+# good: [e60eb441596d1c70e4a264d2bac726c6cd2da067] Linux 6.15.4
+git bisect good e60eb441596d1c70e4a264d2bac726c6cd2da067
+# status: waiting for bad commit, 1 good commit known
+# bad: [1562d948232546cfad45a1beddc70fe0c7b34950] Linux 6.15.6
+git bisect bad 1562d948232546cfad45a1beddc70fe0c7b34950
+# good: [5e10620cb8e76279fd86411536c3fa0f486cd634] drm/xe/vm: move rebind_work init earlier
+git bisect good 5e10620cb8e76279fd86411536c3fa0f486cd634
+# bad: [ece85751c3e46c0e3c4f772113f691b7aec81d5d] btrfs: record new subvolume in parent dir earlier to avoid dir logging races
+git bisect bad ece85751c3e46c0e3c4f772113f691b7aec81d5d
+# bad: [9f5d2487a9fad1d36bcf107d1f3b1ebc8b6796cf] iommufd/selftest: Add asserts testing global mfd
+git bisect bad 9f5d2487a9fad1d36bcf107d1f3b1ebc8b6796cf
+# good: [c0687ec5625b2261d48936d03c761e38657f4a4b] rust: completion: implement initial abstraction
+git bisect good c0687ec5625b2261d48936d03c761e38657f4a4b
+# bad: [889906e6eb5fab990c9b6b5fe8f1122b2416fc22] drm/amd/display: Export full brightness range to userspace
+git bisect bad 889906e6eb5fab990c9b6b5fe8f1122b2416fc22
+# good: [c7d15ba11c8561c5f325ffeb27ed8a4e82d4d322] io_uring/kbuf: flag partial buffer mappings
+git bisect good c7d15ba11c8561c5f325ffeb27ed8a4e82d4d322
+# good: [66089fa8c9ed162744037ab0375e38cc74c7f7ed] drm/amd/display: Add debugging message for brightness caps
+git bisect good 66089fa8c9ed162744037ab0375e38cc74c7f7ed
+# bad: [cd711c87c2862be5e71eee79901f94e1c943f9fc] drm/amd/display: Only read ACPI backlight caps once
+git bisect bad cd711c87c2862be5e71eee79901f94e1c943f9fc
+# bad: [6c56c8ec6f9762c33bd22f31d43af4194d12da53] drm/amd/display: Fix default DC and AC levels
+git bisect bad 6c56c8ec6f9762c33bd22f31d43af4194d12da53
+# first bad commit: [6c56c8ec6f9762c33bd22f31d43af4194d12da53] drm/amd/display: Fix default DC and AC levels
 
+'dmesg|grep amd' on 6.15.7 on this machine:
 
-P.
+[    0.319726] perf/amd_iommu: Detected AMD IOMMU #0 (2 banks, 4 counters/bank).
+[    4.090573] [drm] amdgpu kernel modesetting enabled.
+[    4.094238] amdgpu: Virtual CRAT table created for CPU
+[    4.095389] amdgpu: Topology: Add CPU node
+[    4.096451] amdgpu 0000:03:00.0: enabling device (0006 -> 0007)
+[    4.174815] amdgpu 0000:03:00.0: amdgpu: detected ip block number 0 <soc15_common>
+[    4.176034] amdgpu 0000:03:00.0: amdgpu: detected ip block number 1 <gmc_v9_0>
+[    4.176992] amdgpu 0000:03:00.0: amdgpu: detected ip block number 2 <vega10_ih>
+[    4.177911] amdgpu 0000:03:00.0: amdgpu: detected ip block number 3 <psp>
+[    4.178799] amdgpu 0000:03:00.0: amdgpu: detected ip block number 4 <smu>
+[    4.179704] amdgpu 0000:03:00.0: amdgpu: detected ip block number 5 <dm>
+[    4.180594] amdgpu 0000:03:00.0: amdgpu: detected ip block number 6 <gfx_v9_0>
+[    4.181445] amdgpu 0000:03:00.0: amdgpu: detected ip block number 7 <sdma_v4_0>
+[    4.182299] amdgpu 0000:03:00.0: amdgpu: detected ip block number 8 <vcn_v2_0>
+[    4.183114] amdgpu 0000:03:00.0: amdgpu: detected ip block number 9 <jpeg_v2_0>
+[    4.183910] amdgpu 0000:03:00.0: amdgpu: Fetched VBIOS from VFCT
+[    4.184800] amdgpu: ATOM BIOS: 113-CEZANNE-017
+[    4.208484] amdgpu 0000:03:00.0: vgaarb: deactivate vga console
+[    4.208493] amdgpu 0000:03:00.0: amdgpu: Trusted Memory Zone (TMZ) feature enabled
+[    4.208509] amdgpu 0000:03:00.0: amdgpu: MODE2 reset
+[    4.209086] amdgpu 0000:03:00.0: amdgpu: VRAM: 2048M 0x000000F400000000 - 0x000000F47FFFFFFF (2048M used)
+[    4.209099] amdgpu 0000:03:00.0: amdgpu: GART: 1024M 0x0000000000000000 - 0x000000003FFFFFFF
+[    4.209376] [drm] amdgpu: 2048M of VRAM memory ready
+[    4.209386] [drm] amdgpu: 6912M of GTT memory ready.
+[    4.210517] amdgpu 0000:03:00.0: amdgpu: Found VCN firmware Version ENC: 1.24 DEC: 8 VEP: 0 Revision: 3
+[    4.927350] amdgpu 0000:03:00.0: amdgpu: reserve 0x400000 from 0xf47f400000 for PSP TMR
+[    5.010609] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
+[    5.021347] amdgpu 0000:03:00.0: amdgpu: RAP: optional rap ta ucode is not available
+[    5.021357] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
+[    5.021725] amdgpu 0000:03:00.0: amdgpu: SMU is initialized successfully!
+[    5.131949] amdgpu 0000:03:00.0: amdgpu: [drm] Using ACPI provided EDID for eDP-1
+[    5.385266] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
+[    5.385286] kfd kfd: amdgpu: Total number of KFD nodes to be created: 1
+[    5.385435] amdgpu: Virtual CRAT table created for GPU
+[    5.385562] amdgpu: Topology: Add dGPU node [0x1638:0x1002]
+[    5.385569] kfd kfd: amdgpu: added device 1002:1638
+[    5.385582] amdgpu 0000:03:00.0: amdgpu: SE 1, SH per SE 1, CU per SH 8, active_cu_number 8
+[    5.385592] amdgpu 0000:03:00.0: amdgpu: ring gfx uses VM inv eng 0 on hub 0
+[    5.385598] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+[    5.385605] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+[    5.385612] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 5 on hub 0
+[    5.385619] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 6 on hub 0
+[    5.385625] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 7 on hub 0
+[    5.385632] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 8 on hub 0
+[    5.385639] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 9 on hub 0
+[    5.385645] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 10 on hub 0
+[    5.385652] amdgpu 0000:03:00.0: amdgpu: ring kiq_0.2.1.0 uses VM inv eng 11 on hub 0
+[    5.385659] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 0 on hub 8
+[    5.385665] amdgpu 0000:03:00.0: amdgpu: ring vcn_dec uses VM inv eng 1 on hub 8
+[    5.385672] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc0 uses VM inv eng 4 on hub 8
+[    5.385679] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc1 uses VM inv eng 5 on hub 8
+[    5.385685] amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM inv eng 6 on hub 8
+[    5.454665] amdgpu 0000:03:00.0: amdgpu: Runtime PM not available
+[    5.455003] amdgpu 0000:03:00.0: amdgpu: [drm] Using custom brightness curve
+[    5.455339] [drm] Initialized amdgpu 3.63.0 for 0000:03:00.0 on minor 1
+[    5.480731] fbcon: amdgpudrmfb (fb0) is primary device
+[    6.796057] amdgpu 0000:03:00.0: [drm] fb0: amdgpudrmfb frame buffer device
 
-
->=20
-> Regards,
->=20
-> Tvrtko
->=20
-> >=20
-> > Remind me in case I forget.
-> >=20
-> >=20
-> > P.
-> >=20
-> > [1]
-> > https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/15f77764e90a713=
-ee3916ca424757688e4f565b9
-> >=20
-> >=20
-> > >=20
-> > > Regards,
-> > >=20
-> > > Tvrtko
-> > >=20
-> >=20
->=20
-
+-- 
+Lauri Tirkkonen | lotheac @ IRCnet
