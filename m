@@ -4,52 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7635C87FC3
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 10:54:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B581C83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 12:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45B0210E970;
-	Fri, 18 Jul 2025 10:54:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0207910E6AA;
+	Fri, 18 Jul 2025 12:54:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qTl+/PNw";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="laAO2FfA";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D7310E96F;
- Fri, 18 Jul 2025 10:54:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1752836086;
- bh=zAFyDkIf9qCUhBZe8gnx6U8C2dwmN1Ikbn0/wkc7YvU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qTl+/PNwgT4pQnJiv0dRTS0wCfOw5K0VqkHPHmswV3uS26vgK96Bl2lt7jN4pdurW
- +lLQcQ4vUxqBodZrP5pFnHjF60LbRTLo0qHUH1yzwa7wdalGQXMUig7sS559dhO7fY
- /UakIWIXeP0TxDWU7o0/AFU6cJ6nYFq6lF1NoxGRMfZTQXXSc4YvwqEz/9Mnz9lfx+
- a39eRszxJAvOcbWHUeNeHgoMzErBxD/mGCBRtPwEW5VOtkusmUEqKk5oMHiCIkPAPY
- I7PFLsY82pI+QjSoMMUeCv1nbc8WiFZZU7/G5ej+ZLnrxnLm3hemaFMS5rmj/UQ+pk
- 2EKYvXymLrxcQ==
-Received: from debian.. (unknown [171.76.80.183])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3538517E1560;
- Fri, 18 Jul 2025 12:54:43 +0200 (CEST)
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: daniels@collabora.com, helen.fornazier@gmail.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, robdclark@gmail.com, guilherme.gallo@collabora.com,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDC9110E98C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 12:54:33 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56IAAxj9016516
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 12:54:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=NYv5+TMFsC7Y+uQecq8Wp1+t
+ 656E5JgsgS2DLSSChBk=; b=laAO2FfARndPJS57x45jBDT9UmQWhvee7N262jrY
+ gde/QniBZLBK4+Duuoda3y8uN6QRPnkBY5LGLvNC3HEkFLI9btGkWAzvQ8yXFSer
+ qCvHPht1JcuZDccnBfWNINrKMmXnPRJqu4kmj2lG8WIq8WQuYReEvZSiMP9jvnJF
+ XqIDXsa18ez2XByo2DWWVbM+nfNcnudzwCMFbcyjvsBUBNHOLQWUsDJwXstQMKe0
+ TkAngvl0wTBkG/pWTJznTb7Q1QEKnO3WG6M6q/ApXFtOFYQbyyZ3d4sVgC8F6F+3
+ M1kS6akmyCp0HmeFR/EA3/5qP2Lcl0WU5qpqs86DdRLv+w==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47y3tc3da4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 12:54:33 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7e2c8137662so352511485a.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 05:54:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752843272; x=1753448072;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NYv5+TMFsC7Y+uQecq8Wp1+t656E5JgsgS2DLSSChBk=;
+ b=dxnOK7D6WILFvwxWgbaqvmgY4rvaBxnaw9aTbUEUtf1+Q0F8izBQR8bzPqKnmf6Hlb
+ 0NTuthoTO//HEzRazEmAslk1Uizo+tfgX0GIryWVin4P902ZUn5EbUxlVR3IhfSKp7uQ
+ 5Kc24SXGn5VKdo9nHgA22cKPCK8JpBEtrqPmDjuGYrUvwzoVQchINcnmIaqUrO6bLkZd
+ pamnAq8PLtEg5R+1y567wzmGvIzCq6dPvp5xltS8TwHRB9GHfNPavqARiLnv2K1bnyf1
+ X4mTFFOtNaXu3DJhLm6KiqAGJxXiPqJKIu7doVOqmlKv5zs5BKobnFNnaULy7Kt5xysa
+ WWrg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVpLrTR+CeoWcdxvaiZi1bouYN4kSO+9u3U/SI0fVxxCrP9XQep4zZ6Ti3H30imRhRE8hSxzZ9n@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzn/ZOAB/Q9fk3OtUaykbp51SFruo81DJtC521ZyMHJDxwXnRfO
+ TT4hg+jaWOyWGDehyxbGA4As6VifZZ7dYqHeyypk9Wzfplg7Tnj3qrDIEsAWQRsBRNFKSzQoLkR
+ wJFuhj21pkb3EMTmOeM2hFIN6Zz0x4cOoCcWt94VGvEVE+xLbX8XWOeFYI7iAEr6raaYu
+X-Gm-Gg: ASbGncvsY+ub8iX5uRUMSE1k3Hc4bQOTUokdjOTY69zjWsaMYBXhinuKV1N1H1eLUc/
+ hUIA3lW6qomMB2rETe5xDKWN2K2W87yzH9+JsAvaUgW7L2L+LKW9buDIOKgXGGVuZPU83gFIGDS
+ wgphHMVNoK9HUb9KGCoRHhW+L3uxfChaXWgqb1cSYAY2LB2ozcYqa5zvQSpDmm6wFxnnztdLmCx
+ SkP9Sq38vH7ydlYLWC/q0PvCetHhUHlyF+a7lsu00PCdHp3TutWFJQXZ+b9d7UPJjF4iZXD1NXT
+ 2CYxN4zetHAuvdfnPjf1mfT9nN17S4Jq8TaO5Cs2ZshS4Xyl1hUH9Mv+vJfrs2fl4bjKEPWZRpJ
+ ZZbJXyanL7cIhyAmzpRbhBK6Ru05ksdwgPXmuU7ugl3QWP3qcrjAP
+X-Received: by 2002:a05:620a:8d83:b0:7e3:4415:8dfe with SMTP id
+ af79cd13be357-7e344159862mr1014486885a.59.1752843271754; 
+ Fri, 18 Jul 2025 05:54:31 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFlL7G+rWZtjez8FqYMyBmgx/fNiSJjpphmk7YNUHy7EXBZiFWEofOBfgRiW2FIEIVGsw0WNw==
+X-Received: by 2002:a05:620a:8d83:b0:7e3:4415:8dfe with SMTP id
+ af79cd13be357-7e344159862mr1014482685a.59.1752843271069; 
+ Fri, 18 Jul 2025 05:54:31 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-330a91c14acsm1926161fa.64.2025.07.18.05.54.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Jul 2025 05:54:30 -0700 (PDT)
+Date: Fri, 18 Jul 2025 15:54:28 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vignesh Raman <vignesh.raman@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
+ helen.fornazier@gmail.com, airlied@gmail.com, simona.vetter@ffwll.ch,
+ robdclark@gmail.com, guilherme.gallo@collabora.com,
  sergi.blanch.torne@collabora.com, valentine.burley@collabora.com,
  lumag@kernel.org, linux-mediatek@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
  amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v1 7/7] drm/ci: add mt8192
-Date: Fri, 18 Jul 2025 16:23:59 +0530
-Message-ID: <20250718105407.32878-8-vignesh.raman@collabora.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250718105407.32878-1-vignesh.raman@collabora.com>
+Subject: Re: [PATCH v1 5/7] drm/ci: uprev IGT
+Message-ID: <7c6suvc6quwwxni2nsos65btzim2lbv7f2u6mz5qbupzpmpzgb@g46wg63ubr6l>
 References: <20250718105407.32878-1-vignesh.raman@collabora.com>
+ <20250718105407.32878-6-vignesh.raman@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250718105407.32878-6-vignesh.raman@collabora.com>
+X-Authority-Analysis: v=2.4 cv=Z5PsHGRA c=1 sm=1 tr=0 ts=687a4409 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Wb1JkmetP80A:10 a=QX4gbG5DAAAA:8 a=W7FfGsJSNGCcAvtv9TIA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-ORIG-GUID: aocoVG_kDiUkYim_SQmff385zD493ZtV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE4MDA5OSBTYWx0ZWRfX6vU8OGIcgalC
+ hHUlkTAvoCNmpWbRnKFv4JoAhoJezFdP6sB5al/pqOYj9JBa1T8jU8ED+wfTsxvoXa37Qkf+PLM
+ niqWrIyucwmS9JVdWVWdQMKdoBBKfEJRTquTUYLiePI3eDFSZfjNeR1oUPU4h1mCfHvu5FVzIo7
+ OKZu7AAmsyk6KcFOteDxslKnNETbn9UhJN2trP/jQr8ER6S0/IeTUNTodVPnkQ321fL8mjdwfMs
+ 44bTiIkGBiEUgMjUkygYmz/O1PbyXTYgHVwazC6omUiFZfqF40Q6E6Ya8CNW/BZ1e/b8GNBeJ0J
+ q0ZYOzmsZxt/Vz5y3RNFSP/Zoc4i/28zlzimk66uD9Zldr8NjOaXjE154mfsQOM8Smvt2j8S6d+
+ nJj5waPuUANBCw7PRxMc6lGTff4wL97g1v0egGQkka2SqIxz4UmHwC8Yd9NOUMN85++T9RBn
+X-Proofpoint-GUID: aocoVG_kDiUkYim_SQmff385zD493ZtV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-18_02,2025-07-17_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 mlxlogscore=999 suspectscore=0 spamscore=0 clxscore=1015
+ mlxscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507180099
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,167 +129,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add job that executes the IGT test suite for mt8192-asurada-spherion-r0.
+On Fri, Jul 18, 2025 at 04:23:57PM +0530, Vignesh Raman wrote:
+> Uprev IGT to the latest version and update expectation files.
+> 
+> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+> ---
+>  drivers/gpu/drm/ci/gitlab-ci.yml              |   2 +-
+>  .../gpu/drm/ci/xfails/amdgpu-stoney-fails.txt |   2 +
+>  .../drm/ci/xfails/amdgpu-stoney-flakes.txt    |   7 ++
+>  drivers/gpu/drm/ci/xfails/i915-amly-fails.txt |  11 +-
+>  drivers/gpu/drm/ci/xfails/i915-apl-fails.txt  |   2 +
+>  drivers/gpu/drm/ci/xfails/i915-cml-fails.txt  |  29 +----
+>  drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt |   7 ++
+>  drivers/gpu/drm/ci/xfails/i915-glk-fails.txt  |   8 +-
+>  drivers/gpu/drm/ci/xfails/i915-glk-skips.txt  |  83 ++++++++++++
+>  drivers/gpu/drm/ci/xfails/i915-jsl-fails.txt  |  10 +-
+>  drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt  |   3 +
+>  drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt  |   5 +-
+>  drivers/gpu/drm/ci/xfails/i915-tgl-flakes.txt |   6 +
+>  drivers/gpu/drm/ci/xfails/i915-whl-fails.txt  |   7 +-
+>  .../drm/ci/xfails/mediatek-mt8173-fails.txt   |   5 +-
+>  .../drm/ci/xfails/mediatek-mt8173-flakes.txt  | 119 ++++++++++++++++++
+>  .../drm/ci/xfails/mediatek-mt8183-fails.txt   |   7 +-
+>  .../msm-sc7180-trogdor-kingoftown-fails.txt   |   1 +
+>  ...sm-sc7180-trogdor-lazor-limozeen-fails.txt |   1 +
+>  .../drm/ci/xfails/msm-sm8350-hdk-fails.txt    |   1 +
+>  .../drm/ci/xfails/msm-sm8350-hdk-skips.txt    |  73 +++++++++++
+>  .../drm/ci/xfails/panfrost-mt8183-fails.txt   |   1 +
+>  .../drm/ci/xfails/panfrost-rk3288-fails.txt   |   1 +
+>  .../drm/ci/xfails/panfrost-rk3399-fails.txt   |   1 +
+>  .../drm/ci/xfails/rockchip-rk3288-fails.txt   |  12 +-
+>  .../drm/ci/xfails/rockchip-rk3288-flakes.txt  |  21 ++++
+>  .../drm/ci/xfails/rockchip-rk3399-fails.txt   |   9 +-
+>  .../drm/ci/xfails/rockchip-rk3399-flakes.txt  |  35 ++++++
+>  .../drm/ci/xfails/virtio_gpu-none-fails.txt   |   4 +
+>  drivers/gpu/drm/ci/xfails/vkms-none-fails.txt |   3 +
+>  drivers/gpu/drm/ci/xfails/vkms-none-skips.txt |   3 +
+>  31 files changed, 416 insertions(+), 63 deletions(-)
+>  create mode 100644 drivers/gpu/drm/ci/xfails/i915-tgl-flakes.txt
+> 
+> diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
+> index e4a8f8352cd6..9bf38c077f8e 100644
+> --- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
+> +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
+> @@ -15,3 +15,4 @@ kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
+>  kms_plane_alpha_blend@alpha-7efc,Fail
+>  kms_plane_alpha_blend@coverage-7efc,Fail
+>  kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
+> +core_setmaster@master-drop-set-user,Fail
 
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
----
- drivers/gpu/drm/ci/arm64.config               |  4 +++
- drivers/gpu/drm/ci/test.yml                   | 13 +++++--
- .../drm/ci/xfails/mediatek-mt8192-fails.txt   | 34 +++++++++++++++++++
- .../drm/ci/xfails/mediatek-mt8192-skips.txt   | 14 ++++++++
- .../drm/ci/xfails/panfrost-mt8192-fails.txt   |  9 +++++
- .../drm/ci/xfails/panfrost-mt8192-skips.txt   | 20 +++++++++++
- 6 files changed, 92 insertions(+), 2 deletions(-)
- create mode 100644 drivers/gpu/drm/ci/xfails/mediatek-mt8192-fails.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/mediatek-mt8192-skips.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/panfrost-mt8192-fails.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/panfrost-mt8192-skips.txt
+Could you please point out the issue / failure log?
 
-diff --git a/drivers/gpu/drm/ci/arm64.config b/drivers/gpu/drm/ci/arm64.config
-index 7cd6d9d612fc..bae0175df556 100644
---- a/drivers/gpu/drm/ci/arm64.config
-+++ b/drivers/gpu/drm/ci/arm64.config
-@@ -213,3 +213,7 @@ CONFIG_PWM_TEGRA=y
- CONFIG_DRM_PANTHOR=m
- CONFIG_PHY_ROCKCHIP_NANENG_COMBO_PHY=y
- CONFIG_PHY_ROCKCHIP_SAMSUNG_HDPTX=y
-+
-+# For Mediatek mt8192
-+CONFIG_SPMI_MTK_PMIF=y
-+CONFIG_REGULATOR_MT6315=y
-diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-index dbd582442776..3d871c4bb5b9 100644
---- a/drivers/gpu/drm/ci/test.yml
-+++ b/drivers/gpu/drm/ci/test.yml
-@@ -451,8 +451,7 @@ panfrost:mt8183:
-     - .mt8183
-     - .panfrost-gpu
- 
--# drm-mtk doesn't even probe yet in mainline for mt8192
--.mediatek:mt8192:
-+.mt8192:
-   extends:
-     - .mediatek-device
-   parallel: 3
-@@ -461,6 +460,16 @@ panfrost:mt8183:
-     GPU_VERSION: mt8192
-     RUNNER_TAG: mesa-ci-x86-64-lava-mt8192-asurada-spherion-r0
- 
-+mediatek:mt8192:
-+  extends:
-+    - .mt8192
-+    - .mediatek-display
-+
-+panfrost:mt8192:
-+  extends:
-+    - .mt8192
-+    - .panfrost-gpu
-+
- .meson-device:
-   extends:
-     - .lava-igt:arm64
-diff --git a/drivers/gpu/drm/ci/xfails/mediatek-mt8192-fails.txt b/drivers/gpu/drm/ci/xfails/mediatek-mt8192-fails.txt
-new file mode 100644
-index 000000000000..4b4f1b594c23
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/mediatek-mt8192-fails.txt
-@@ -0,0 +1,34 @@
-+core_setmaster@master-drop-set-user,Fail
-+dumb_buffer@create-clear,Crash
-+kms_bw@connected-linear-tiling-1-displays-1920x1080p,Fail
-+kms_bw@connected-linear-tiling-1-displays-2160x1440p,Fail
-+kms_bw@connected-linear-tiling-1-displays-2560x1440p,Fail
-+kms_bw@connected-linear-tiling-1-displays-3840x2160p,Fail
-+kms_bw@linear-tiling-1-displays-1920x1080p,Fail
-+kms_bw@linear-tiling-1-displays-2160x1440p,Fail
-+kms_bw@linear-tiling-1-displays-2560x1440p,Fail
-+kms_bw@linear-tiling-1-displays-3840x2160p,Fail
-+kms_color@invalid-gamma-lut-sizes,Fail
-+kms_cursor_legacy@cursor-vs-flip-atomic,Fail
-+kms_cursor_legacy@cursor-vs-flip-legacy,Fail
-+kms_flip@basic-plain-flip,Fail
-+kms_flip@dpms-off-confusion,Fail
-+kms_flip@dpms-off-confusion-interruptible,Fail
-+kms_flip@flip-vs-blocking-wf-vblank,Fail
-+kms_flip@flip-vs-dpms-on-nop,Fail
-+kms_flip@flip-vs-dpms-on-nop-interruptible,Fail
-+kms_flip@flip-vs-expired-vblank,Fail
-+kms_flip@flip-vs-expired-vblank-interruptible,Fail
-+kms_flip@flip-vs-modeset-vs-hang,Fail
-+kms_flip@flip-vs-panning,Fail
-+kms_flip@flip-vs-panning-interruptible,Fail
-+kms_flip@flip-vs-panning-vs-hang,Fail
-+kms_flip@flip-vs-suspend,Fail
-+kms_flip@flip-vs-suspend-interruptible,Fail
-+kms_flip@plain-flip-fb-recreate,Fail
-+kms_flip@plain-flip-fb-recreate-interruptible,Fail
-+kms_flip@plain-flip-interruptible,Fail
-+kms_flip@plain-flip-ts-check,Fail
-+kms_flip@plain-flip-ts-check-interruptible,Fail
-+kms_invalid_mode@overflow-vrefresh,Fail
-+kms_lease@lease-uevent,Fail
-diff --git a/drivers/gpu/drm/ci/xfails/mediatek-mt8192-skips.txt b/drivers/gpu/drm/ci/xfails/mediatek-mt8192-skips.txt
-new file mode 100644
-index 000000000000..a165fccd8a93
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/mediatek-mt8192-skips.txt
-@@ -0,0 +1,14 @@
-+# Skip driver specific tests
-+^amdgpu.*
-+^msm.*
-+nouveau_.*
-+^panfrost.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-+tools_test.*
-+kms_dp_link_training.*
-diff --git a/drivers/gpu/drm/ci/xfails/panfrost-mt8192-fails.txt b/drivers/gpu/drm/ci/xfails/panfrost-mt8192-fails.txt
-new file mode 100644
-index 000000000000..6589d194323f
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/panfrost-mt8192-fails.txt
-@@ -0,0 +1,9 @@
-+core_hotunplug@hotreplug,Fail
-+core_hotunplug@hotreplug-lateclose,Fail
-+core_hotunplug@hotunplug-rescan,Fail
-+core_hotunplug@unplug-rescan,Fail
-+core_setmaster@master-drop-set-user,Fail
-+panfrost/panfrost_prime@gem-prime-import,Fail
-+panfrost/panfrost_submit@pan-reset,Fail
-+panfrost/panfrost_submit@pan-submit-error-bad-requirements,Fail
-+panfrost/panfrost_submit@pan-unhandled-pagefault,Fail
-diff --git a/drivers/gpu/drm/ci/xfails/panfrost-mt8192-skips.txt b/drivers/gpu/drm/ci/xfails/panfrost-mt8192-skips.txt
-new file mode 100644
-index 000000000000..b724cf04e3b3
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/panfrost-mt8192-skips.txt
-@@ -0,0 +1,20 @@
-+# Skip driver specific tests
-+^amdgpu.*
-+^msm.*
-+nouveau_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-+tools_test.*
-+kms_dp_link_training.*
-+
-+# Panfrost is not a KMS driver, so skip the KMS tests
-+kms_.*
-+
-+# Skip display functionality tests for GPU-only drivers
-+dumb_buffer.*
-+fbdev.*
+> diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt
+> index e4a8f8352cd6..7441b363efae 100644
+> --- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt
+> +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt
+> @@ -1,3 +1,4 @@
+> +core_setmaster@master-drop-set-user,Fail
+>  kms_color@ctm-0-25,Fail
+>  kms_color@ctm-0-50,Fail
+>  kms_color@ctm-0-75,Fail
+> diff --git a/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-fails.txt
+> index 8d26b23133aa..f387c73193c6 100644
+> --- a/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-fails.txt
+> +++ b/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-fails.txt
+> @@ -1,3 +1,4 @@
+> +core_setmaster@master-drop-set-user,Fail
+>  kms_3d,Fail
+>  kms_cursor_legacy@forked-bo,Fail
+>  kms_cursor_legacy@forked-move,Fail
+> diff --git a/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-skips.txt
+> index 9450f2a002fd..84ffbe0981ea 100644
+> --- a/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-skips.txt
+> +++ b/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-skips.txt
+> @@ -210,3 +210,76 @@ msm/msm_mapping@ring
+>  # [  229.752499] CPU features: 0x18,00000017,00200928,4200720b
+>  # [  229.758095] Memory Limit: none
+>  # [  229.761291] ---[ end Kernel panic - not syncing: softlockup: hung tasks ]---
+> +
+> +msm/msm_recovery@gpu-fault
+
+Hmm. I thought this should have been fixed...
+
+> +# DEBUG - Begin test msm/msm_recovery@gpu-fault
+> +# [  153.288652] [IGT] msm_recovery: executing
+> +# [  153.295317] [IGT] msm_recovery: starting subtest gpu-fault
+> +# [  153.317588] adreno 3d00000.gpu: CP | opcode error | possible opcode=0xDEADDEAD
+> +# [  153.367412] adreno 3d00000.gpu: [drm:a6xx_irq] *ERROR* gpu fault ring 0 fence 814 status 00800005 rb 016b/0215 ib1 000000010000B000/0000 ib2 0000000000000000/0000
+> +# [  153.383449] msm_dpu ae01000.display-controller: [drm:recover_worker] *ERROR* 6.6.0.1: hangcheck recover!
+> +# [  153.393296] msm_dpu ae01000.display-controller: [drm:recover_worker] *ERROR* 6.6.0.1: offending task: msm_recovery (/igt/libexec/igt-gpu-tools/msm/msm_recovery --run-subtest gpu-fault)
+> +# [  153.436085] revision: 660 (6.6.0.1)
+> +# [  153.439702] rb 0: fence:    2063/2068
+> +# [  153.443659] rptr:     360
+> +# [  153.446389] rb wptr:  533
+> +# [  153.449103] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG0: 0
+> +# [  153.455746] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG1: 0
+> +# [  153.462387] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG2: 2062
+> +# [  153.469293] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG3: 0
+> +# [  153.475680] adreno 3d00000.gpu: [drm:a6xx_irq] *ERROR* gpu fault ring 0 fence 814 status 00800005 rb 016b/0215 ib1 000000010000B000/0000 ib2 0000000000000000/0000
+> +# [  153.475919] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG4: 0
+> +# [  153.475925] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG5: 0
+> +# [  153.475928] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG6: 0
+> +# [  153.475930] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG7: 1
+> +# [  153.529587] platform 3d6a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x0
+> +# [  153.539837] msm_dpu ae01000.display-controller: [drm:recover_worker] *ERROR* 6.6.0.1: hangcheck recover!
+> +# [  153.549597] msm_dpu ae01000.display-controller: [drm:recover_worker] *ERROR* 6.6.0.1: offending task: msm_recovery (/igt/libexec/igt-gpu-tools/msm/msm_recovery --run-subtest gpu-fault)
+> +# [  153.566489] revision: 660 (6.6.0.1)
+> +# [  153.570099] rb 0: fence:    2064/2068
+> +# [  153.573878] rptr:     0
+> +# [  153.576411] rb wptr:  688
+> +# [  153.579134] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG0: 0
+> +# [  153.585775] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG1: 0
+> +# [  153.592410] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG2: 0
+> +# [  153.597308] [IGT] msm_recovery: finished subtest gpu-fault, FAIL
+> +# [  153.599039] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG3: 0
+> +# [  153.611856] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG4: 0
+> +# [  153.618498] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG5: 0
+> +# [  153.625132] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG6: 0
+> +# [  153.631766] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG7: 0
+> +# [  153.639162] *** gpu fault: ttbr0=00000001042fc000 iova=0000000000000000 dir=READ type=TRANSLATION source=CP (0,0,0,0)
+> +# [  153.648502] platform 3d6a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x0
+> +# [  153.650144] *** gpu fault: ttbr0=00000001042fc000 iova=0000000000000020 dir=READ type=TRANSLATION source=CP (0,0,0,0)
+> +# [  153.650241] adreno 3d00000.gpu: CP illegal instruction error
+> +# [  153.671006] platform 3d6a000.gmu: [drm:a6xx_rpmh_start] *ERROR* Unable to power on the GPU RSC
+> +# [  153.687278] platform 3d6a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x0
+> +# [  363.495437] INFO: task msm_recovery:876 blocked for more than 120 seconds.
+> +# [  363.503070]       Not tainted 6.16.0-rc2-g0594d0b01a7c #1
+> +# [  363.508838] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+> +# [  363.517142] task:msm_recovery    state:D stack:0     pid:876   tgid:876   ppid:274    task_flags:0x400100 flags:0x00000009
+> +# [  363.528876] Call trace:
+> +# [  363.531554]  __switch_to+0xf8/0x1a8 (T)
+> +# [  363.535703]  __schedule+0x418/0xee0
+> +# [  363.539486]  schedule+0x4c/0x164
+> +# [  363.542986]  schedule_timeout+0x11c/0x128
+> +# [  363.547281]  dma_fence_default_wait+0x13c/0x234
+> +# [  363.552123]  dma_fence_wait_timeout+0x160/0x45c
+> +# [  363.556947]  dma_resv_wait_timeout+0x70/0x11c
+> +# [  363.561582]  msm_gem_close+0xac/0xe4
+> +# [  363.565405]  drm_gem_handle_delete+0x74/0xe8
+> +# [  363.569951]  drm_gem_close_ioctl+0x38/0x44
+> +# [  363.574297]  drm_ioctl_kernel+0xc4/0x134
+> +# [  363.578442]  drm_ioctl+0x224/0x4f0
+> +# [  363.582050]  __arm64_sys_ioctl+0xac/0x104
+> +# [  363.586292]  invoke_syscall+0x48/0x110
+> +# [  363.590254]  el0_svc_common.constprop.0+0x40/0xe0
+> +# [  363.595197]  do_el0_svc+0x1c/0x28
+> +# [  363.598705]  el0_svc+0x4c/0x158
+> +# [  363.602035]  el0t_64_sync_handler+0x10c/0x138
+> +# [  363.606601]  el0t_64_sync+0x198/0x19c
+> +# [  363.610465] Showing all locks held in the system:
+> +# [  363.620406]  #0: ffff0000840200a0 (&tty->ldisc_sem){++++}-{0:0}, at: ldsem_down_read+0x18/0x24
+> +# [  363.629412]  #1: ffff800080d7c2f0 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x15c/0x57c
+> +# [  363.643169]  #0: ffffbd9c0475d920 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x18/0x1c0
+> +# [  363.654158] =============================================
+
 -- 
-2.47.2
-
+With best wishes
+Dmitry
