@@ -4,56 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 148B5C83F34
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:23:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59016C83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 13:41:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 549B310E9A6;
-	Fri, 18 Jul 2025 13:23:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00D6910E0E9;
+	Fri, 18 Jul 2025 13:41:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=hacktheplanet.fi header.i=@hacktheplanet.fi header.b="a7+PYmKf";
-	dkim=pass (2048-bit key; unprotected) header.d=hacktheplanet.fi header.i=@hacktheplanet.fi header.b="tknHJYvL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZxMpOVzI";
 	dkim-atps=neutral
-X-Greylist: delayed 528 seconds by postgrey-1.36 at gabe;
- Fri, 18 Jul 2025 07:38:32 UTC
-Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com
- [91.218.175.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B68A10E928
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 07:38:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=gibson; bh=73mtiu+STtAof
- J48KZx5LpXK+i6ebmLNIL3vWgzqJLY=; h=subject:cc:to:from:date;
- d=hacktheplanet.fi; b=a7+PYmKf8EKl1hzrXSVa4Rv2HljxSXmckUz2WnfEvJbnaQu5
- amJNJ4Q1qjlbYAxR1OFYuJj8AWncxLr6na28JiGbl6bC3Zgog/Z6ywhB0/v3hsJ/qbP8dg
- iTec99VduSJytEbt4lclDhXSQ4AvbLZSVMHSPbjoupYF8xEGOuIG2F50o4UXt+FYN2Lb3U
- 9iJdsZJ77Bay9nKFbgUl9fD8x1XaUYQe/KLhTaV3uRx2Di/ZODs4k2DF8+q7njod/Ai24p
- u86sVJMRaS3F3ooq8/SSBf8XyXkK1ZlgVvG015L3OFgf77UMyxlggkQp5XoBVMUfaQLOuN
- c9oXjW3aRKty5g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hacktheplanet.fi;
- s=key1; t=1752823782;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type;
- bh=naR/zISxdFD2IfX/9yHd+kaNh8ZX3NCQpAGgz3lCALA=;
- b=tknHJYvLZXqQ0IL6jKStI7SHa6OsP3K6O9VMjw64cde4D24l5zbLP5hXaeTIEY164KJz62
- +VftPSvMFZBEQZZb5Po9izwkraz9sliNePOfN1z5AwPApmu8jVnUoL0Nd2hxsOLhx8mu4H
- dJXX0WQZtWTH2IotCPFYp3Ka1idrykSYLkIVWjeq7VAWHQhve+nqqiuhIYhs2PiS8T0El9
- kLCy8bwCWqmwf3lbnx1BAjyRej5rnHUsbEx2sBwxn340HbD5ebPqZNF78NQWeZekNfjDKt
- Yo69ay6XOMbwHhToP6YFxF/msP/qFq2ZC50TNNPna1+6rp6VhrtFsAoRSTddsw==
-Date: Fri, 18 Jul 2025 16:29:34 +0900
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Lauri Tirkkonen <lauri@hacktheplanet.fi>
-To: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- Mario Limonciello <mario.limonciello@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [REGRESSION] drm/amd/display: backlight brightness set to 0 at
- amdgpu initialization
-Message-ID: <aHn33vgj8bM4s073@hacktheplanet.fi>
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA4E210E0E9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 13:41:14 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-313067339e9so377379a91.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 06:41:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1752846074; x=1753450874; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wzxKFRpd0DFNnzKuKWUe58AlBSnbCxk7UIckn6IJCoc=;
+ b=ZxMpOVzIQUN4qD/FTcEc9XoKy3Ckvjz0HE2SKomicbIheirXfr99GF+b8RlUDatIey
+ DKEPkaK/6YiOlLXw5XAYfvSokPCm+Ky5fxU5jrW5WIO1WnIrqj7yabss0XxkhgJ8soOK
+ 8JEvzS/sV5UUCtp4PASfIx0lBYpNrhWnwcd1Ezd4MhKwGmRwHZ32mhJ4G+bZr73zWo3W
+ cBj9sUbzJh3fS/EVsizjGGUgUHmNFaeKsvZDf508UkL8oAqWPsUzJR1GsS7JTpA7rHHA
+ AQx3aEw+ABOd8bHxrUbuohD7kAAfxUxMEqrQUkpne7ujSb8wmBzeTw9FqSKo4pB+vdZp
+ tXow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752846074; x=1753450874;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wzxKFRpd0DFNnzKuKWUe58AlBSnbCxk7UIckn6IJCoc=;
+ b=PbLImCmlvFqtsKpal7icI8yHR9GoDdVAuoaSV+yUvCCdhea0vaqUyCC133P/eth9wk
+ rNcOygKR6IxGvsy2wbToGMTU/bHfllaMalcm7gEbkl4LLaFR8KoS3Uqf8r+t4Ud/yWiN
+ x2I34ARIJvM/yvrH6DNn18iMBf8+N+GHyOWX7XmOixD89K+2t+3K+doYz1yUJdFiUgvg
+ oh3gN6c7s407r3IhkNbAVkYXbUcH6ZzfhCBfT1vgSkvaKTkL4y/QjDMclcmd0ZXtunoR
+ e9NlxA+1li/A4iC77pxNISrrHA0JpNqaMh1DtnIbTidXGjQZaf5/+mwAa/iXcU8z9PVK
+ 7Nmg==
+X-Gm-Message-State: AOJu0YwUrr+0iP4rsVD8TyJNbcrqD5U03Vsj4+YM2W8pWsp+ezU8QRpL
+ 4aA5WGKQ47ZU0s2oRRlGbnZM3xVPAido93pJpl65fVxG8MNO9gRuzB6i117mo12csi0pU7rthHx
+ 8XKUHbSp5Pt5CaqtOKjCVSk84ABhm13mbPQ==
+X-Gm-Gg: ASbGncvwn9Jn7oyfzibOoXRsMcM8VrLLKonTbQhfsWjGZtxdJdPrbNvulu3YW2W/bCx
+ ig1MqijCZHb1dvqaFiY66VEYDIZu1cxvNkM/YI6vKasaRJwt+aGIkAROMEDIsHLZesNtZvcw/7J
+ 2wgEngGiMOGhPfCtapT6UUy9DEzjzYAHWgm2qP/sxzTJIBok8lTBUeBNltY4Lyx/prSuHyL3UqW
+ HPW5HXu
+X-Google-Smtp-Source: AGHT+IE5Ua4xxco0J10r+nJgEsdqOj3qCCTqCpoilKGdtsswxCzCCkj/aCXx3g4uFr2TkoBn1cuvbGho6Vm83flowW8=
+X-Received: by 2002:a17:90b:2689:b0:313:151a:8653 with SMTP id
+ 98e67ed59e1d1-31c9e7a412bmr5772949a91.8.1752846074246; Fri, 18 Jul 2025
+ 06:41:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Fri, 18 Jul 2025 13:23:00 +0000
+References: <20250718035945.1560178-1-lijo.lazar@amd.com>
+In-Reply-To: <20250718035945.1560178-1-lijo.lazar@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 18 Jul 2025 09:41:02 -0400
+X-Gm-Features: Ac12FXw4LhZsF1G6aMfIEOSRztzxx_1_C27bfrlTMo9HbAgYRIpUFcqd0Uammho
+Message-ID: <CADnq5_P2Q-y2z2ZrtD6R9CT=7QJR2MpXdb3EL+8CAU1t+MYEdA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add NULL check for asic_funcs
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,105 +81,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, Jul 18, 2025 at 12:08=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wr=
+ote:
+>
+> If driver load fails too early, asic_funcs pointer remains unassigned.
+> Add NULL check to sanitize unwind path.
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
-I hit this regression on the stable kernel on Alpine with a Lenovo Yoga
-Slim 7 Pro 17ACH5. During early boot, when the amdgpu module gets
-loaded, backlight brightness is set to zero, resulting in a black
-screen (and nothing in userspace is running yet to handle brightness
-keys; I need to use an external monitor or type in my rootfs passphrase
-blind).
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-#regzbot introduced: 6c56c8ec6f9762c33bd22f31d43af4194d12da53
-
-bisect log:
-
-git bisect start
-# status: waiting for both good and bad commits
-# good: [e60eb441596d1c70e4a264d2bac726c6cd2da067] Linux 6.15.4
-git bisect good e60eb441596d1c70e4a264d2bac726c6cd2da067
-# status: waiting for bad commit, 1 good commit known
-# bad: [1562d948232546cfad45a1beddc70fe0c7b34950] Linux 6.15.6
-git bisect bad 1562d948232546cfad45a1beddc70fe0c7b34950
-# good: [5e10620cb8e76279fd86411536c3fa0f486cd634] drm/xe/vm: move rebind_work init earlier
-git bisect good 5e10620cb8e76279fd86411536c3fa0f486cd634
-# bad: [ece85751c3e46c0e3c4f772113f691b7aec81d5d] btrfs: record new subvolume in parent dir earlier to avoid dir logging races
-git bisect bad ece85751c3e46c0e3c4f772113f691b7aec81d5d
-# bad: [9f5d2487a9fad1d36bcf107d1f3b1ebc8b6796cf] iommufd/selftest: Add asserts testing global mfd
-git bisect bad 9f5d2487a9fad1d36bcf107d1f3b1ebc8b6796cf
-# good: [c0687ec5625b2261d48936d03c761e38657f4a4b] rust: completion: implement initial abstraction
-git bisect good c0687ec5625b2261d48936d03c761e38657f4a4b
-# bad: [889906e6eb5fab990c9b6b5fe8f1122b2416fc22] drm/amd/display: Export full brightness range to userspace
-git bisect bad 889906e6eb5fab990c9b6b5fe8f1122b2416fc22
-# good: [c7d15ba11c8561c5f325ffeb27ed8a4e82d4d322] io_uring/kbuf: flag partial buffer mappings
-git bisect good c7d15ba11c8561c5f325ffeb27ed8a4e82d4d322
-# good: [66089fa8c9ed162744037ab0375e38cc74c7f7ed] drm/amd/display: Add debugging message for brightness caps
-git bisect good 66089fa8c9ed162744037ab0375e38cc74c7f7ed
-# bad: [cd711c87c2862be5e71eee79901f94e1c943f9fc] drm/amd/display: Only read ACPI backlight caps once
-git bisect bad cd711c87c2862be5e71eee79901f94e1c943f9fc
-# bad: [6c56c8ec6f9762c33bd22f31d43af4194d12da53] drm/amd/display: Fix default DC and AC levels
-git bisect bad 6c56c8ec6f9762c33bd22f31d43af4194d12da53
-# first bad commit: [6c56c8ec6f9762c33bd22f31d43af4194d12da53] drm/amd/display: Fix default DC and AC levels
-
-'dmesg|grep amd' on 6.15.7 on this machine:
-
-[    0.319726] perf/amd_iommu: Detected AMD IOMMU #0 (2 banks, 4 counters/bank).
-[    4.090573] [drm] amdgpu kernel modesetting enabled.
-[    4.094238] amdgpu: Virtual CRAT table created for CPU
-[    4.095389] amdgpu: Topology: Add CPU node
-[    4.096451] amdgpu 0000:03:00.0: enabling device (0006 -> 0007)
-[    4.174815] amdgpu 0000:03:00.0: amdgpu: detected ip block number 0 <soc15_common>
-[    4.176034] amdgpu 0000:03:00.0: amdgpu: detected ip block number 1 <gmc_v9_0>
-[    4.176992] amdgpu 0000:03:00.0: amdgpu: detected ip block number 2 <vega10_ih>
-[    4.177911] amdgpu 0000:03:00.0: amdgpu: detected ip block number 3 <psp>
-[    4.178799] amdgpu 0000:03:00.0: amdgpu: detected ip block number 4 <smu>
-[    4.179704] amdgpu 0000:03:00.0: amdgpu: detected ip block number 5 <dm>
-[    4.180594] amdgpu 0000:03:00.0: amdgpu: detected ip block number 6 <gfx_v9_0>
-[    4.181445] amdgpu 0000:03:00.0: amdgpu: detected ip block number 7 <sdma_v4_0>
-[    4.182299] amdgpu 0000:03:00.0: amdgpu: detected ip block number 8 <vcn_v2_0>
-[    4.183114] amdgpu 0000:03:00.0: amdgpu: detected ip block number 9 <jpeg_v2_0>
-[    4.183910] amdgpu 0000:03:00.0: amdgpu: Fetched VBIOS from VFCT
-[    4.184800] amdgpu: ATOM BIOS: 113-CEZANNE-017
-[    4.208484] amdgpu 0000:03:00.0: vgaarb: deactivate vga console
-[    4.208493] amdgpu 0000:03:00.0: amdgpu: Trusted Memory Zone (TMZ) feature enabled
-[    4.208509] amdgpu 0000:03:00.0: amdgpu: MODE2 reset
-[    4.209086] amdgpu 0000:03:00.0: amdgpu: VRAM: 2048M 0x000000F400000000 - 0x000000F47FFFFFFF (2048M used)
-[    4.209099] amdgpu 0000:03:00.0: amdgpu: GART: 1024M 0x0000000000000000 - 0x000000003FFFFFFF
-[    4.209376] [drm] amdgpu: 2048M of VRAM memory ready
-[    4.209386] [drm] amdgpu: 6912M of GTT memory ready.
-[    4.210517] amdgpu 0000:03:00.0: amdgpu: Found VCN firmware Version ENC: 1.24 DEC: 8 VEP: 0 Revision: 3
-[    4.927350] amdgpu 0000:03:00.0: amdgpu: reserve 0x400000 from 0xf47f400000 for PSP TMR
-[    5.010609] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
-[    5.021347] amdgpu 0000:03:00.0: amdgpu: RAP: optional rap ta ucode is not available
-[    5.021357] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
-[    5.021725] amdgpu 0000:03:00.0: amdgpu: SMU is initialized successfully!
-[    5.131949] amdgpu 0000:03:00.0: amdgpu: [drm] Using ACPI provided EDID for eDP-1
-[    5.385266] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
-[    5.385286] kfd kfd: amdgpu: Total number of KFD nodes to be created: 1
-[    5.385435] amdgpu: Virtual CRAT table created for GPU
-[    5.385562] amdgpu: Topology: Add dGPU node [0x1638:0x1002]
-[    5.385569] kfd kfd: amdgpu: added device 1002:1638
-[    5.385582] amdgpu 0000:03:00.0: amdgpu: SE 1, SH per SE 1, CU per SH 8, active_cu_number 8
-[    5.385592] amdgpu 0000:03:00.0: amdgpu: ring gfx uses VM inv eng 0 on hub 0
-[    5.385598] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
-[    5.385605] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
-[    5.385612] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 5 on hub 0
-[    5.385619] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 6 on hub 0
-[    5.385625] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 7 on hub 0
-[    5.385632] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 8 on hub 0
-[    5.385639] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 9 on hub 0
-[    5.385645] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 10 on hub 0
-[    5.385652] amdgpu 0000:03:00.0: amdgpu: ring kiq_0.2.1.0 uses VM inv eng 11 on hub 0
-[    5.385659] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 0 on hub 8
-[    5.385665] amdgpu 0000:03:00.0: amdgpu: ring vcn_dec uses VM inv eng 1 on hub 8
-[    5.385672] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc0 uses VM inv eng 4 on hub 8
-[    5.385679] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc1 uses VM inv eng 5 on hub 8
-[    5.385685] amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM inv eng 6 on hub 8
-[    5.454665] amdgpu 0000:03:00.0: amdgpu: Runtime PM not available
-[    5.455003] amdgpu 0000:03:00.0: amdgpu: [drm] Using custom brightness curve
-[    5.455339] [drm] Initialized amdgpu 3.63.0 for 0000:03:00.0 on minor 1
-[    5.480731] fbcon: amdgpudrmfb (fb0) is primary device
-[    6.796057] amdgpu 0000:03:00.0: [drm] fb0: amdgpudrmfb frame buffer device
-
--- 
-Lauri Tirkkonen | lotheac @ IRCnet
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_nbio.c
+> index e56ba93a8df6..a974265837f0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
+> @@ -55,7 +55,8 @@ u64 amdgpu_nbio_get_pcie_replay_count(struct amdgpu_dev=
+ice *adev)
+>
+>  bool amdgpu_nbio_is_replay_cnt_supported(struct amdgpu_device *adev)
+>  {
+> -       if (amdgpu_sriov_vf(adev) || !adev->asic_funcs->get_pcie_replay_c=
+ount ||
+> +       if (amdgpu_sriov_vf(adev) || !adev->asic_funcs ||
+> +           !adev->asic_funcs->get_pcie_replay_count ||
+>             (!adev->nbio.funcs || !adev->nbio.funcs->get_pcie_replay_coun=
+t))
+>                 return false;
+>
+> --
+> 2.49.0
+>
