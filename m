@@ -4,67 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF48C83F34
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 00:19:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3867C83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 03:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E473710E328;
-	Fri, 18 Jul 2025 00:19:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2D610E0E0;
+	Fri, 18 Jul 2025 03:26:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="khaqR3PE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DBldXUq3";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 468E810E03D;
- Fri, 18 Jul 2025 00:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
- In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Ub40z4CFyXsv6iwu/siFYQC1hDy2f7LnTMULPrYJPgs=; b=khaqR3PES5URyH7fgOl9itSSkB
- Q46/MtK6BH3FQQr5GKVziL9Bdz7OWBOHVasi7szqVam0GshREVWQ7uuPORUW9LBawZdAtZVkc4PoQ
- 0Ddn+1kQyX2AZQ5AmL7i+94LN6+F6aZ4iACYac5DD3gnByUBcrbCEJYPOYiG/Wm6iojacfi5XS3Gx
- u2nU/3y/y1EXqhft4Wpf3jyhyLS8i6D+dOn/kp+EYBTdNvkBKgmgjY/keh+WAWYfoJ1AINMxiWLKS
- 50dnaKJ4+t97Mny2NimgAd3s9tEK/grRMGkqvoC/DjOUbPBTpAiapuKnlJoSlDabwzaFZLKsIjeeU
- QmDM2/EA==;
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtps 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ucYoV-000MPD-Oy; Fri, 18 Jul 2025 02:18:59 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
- by mail.igalia.com with esmtp (Exim)
- id 1ucYoT-00A5AW-75; Fri, 18 Jul 2025 02:18:59 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
- by webmail with esmtp (Exim 4.96) (envelope-from <mwen@igalia.com>)
- id 1ucYoS-00FI7P-24; Fri, 18 Jul 2025 02:18:57 +0200
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2044.outbound.protection.outlook.com [40.107.212.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B79410E0E0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 03:26:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZOtyibLYRv7hOnOA7uzRBqJ3IQdZx+GVV8vdBsByIlZFXgpoYoiNuiV4TxsVtMlKy6nKA2Pa6if1v2mJY1zcgx5wOkYMeR6xCqKWoH4uteWcwh5VEQOYgCSeTfqJJPmrjb5yPMyP3sY7XmzjIgKACeX8ttkxRlAg75W2SFsLknp4ycsEfS8j9hEyawbAHAWL/CA+Qalebw3qyqMC25t/cXazWyDEqyzXk2rY1qb0M4SEseK8R9RJqZIA2h9l8tYH7pQOy8iwjDJpTSvJoR12RS3y0G/VTZMx4xzZdn1SVVdMAhvYpIzMOm93T68n245Umc3WRoR5S1qBNuVe3bRv0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wv/QgL43vREJh/4QYnWX8bsLGJgivcmLdSe525pra4g=;
+ b=QhnNlDD723Jz5CVJlBa717IvBYnh07wPJqju/7n0ihEuNne65hVfUGd1rab5OrP2hggAVjcJpveAISE5Kd00C61xXxQssxG6OS/kg4Wf10Jq0TroNnhF00ayB8Zp286OAgQUYQFcxAWVh3NOhimSHUfb0tGViVBxj+aZ8uNF5hdcUNHh2Zrc4hwVH/RCnfXgEDIEbTXyaYa5/3tZT9Cn1ArkTdtUr0bBi27YU8DRdTjawccTyfWzabBhoeza8SnY7+JlgOKODQbWjvrikNcfRkMgoW8Y8FaewjCneTh0wDlFcXWN45EX+Dx1pTqbHT3zpCGOUMaUDrUEpdb/1g8CqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wv/QgL43vREJh/4QYnWX8bsLGJgivcmLdSe525pra4g=;
+ b=DBldXUq3IK+JKFNqTJULXSd3Z/u7K2tYxahAjTW2JIoEAATQMU2jZs3zyMIGFAPeaH9wA+q1fBI60z/1YJdrh807sqWx0A3AKcrcX9FFwSUCyGdWyMoubRAKmRj/nEDekiyPHdL0kRFX7yCn8EO6ZQyuWDCDGjHdtttYEwTxrCA=
+Received: from BN9PR03CA0707.namprd03.prod.outlook.com (2603:10b6:408:ef::22)
+ by BL3PR12MB6619.namprd12.prod.outlook.com (2603:10b6:208:38e::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.24; Fri, 18 Jul
+ 2025 03:26:40 +0000
+Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
+ (2603:10b6:408:ef:cafe::e3) by BN9PR03CA0707.outlook.office365.com
+ (2603:10b6:408:ef::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.23 via Frontend Transport; Fri,
+ 18 Jul 2025 03:26:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8943.21 via Frontend Transport; Fri, 18 Jul 2025 03:26:39 +0000
+Received: from amd-02.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Jul
+ 2025 22:26:37 -0500
+From: YiPeng Chai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <yipechai@amd.com>, <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, "YiPeng
+ Chai" <YiPeng.Chai@amd.com>
+Subject: [PATCH V2] drm/amdgpu: add command to check address validity
+Date: Fri, 18 Jul 2025 11:26:09 +0800
+Message-ID: <20250718032609.1363340-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Date: Thu, 17 Jul 2025 23:18:56 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Matthew Schwartz <mattschwartz@gwmail.gwu.edu>
-Cc: "Limonciello, Mario" <Mario.Limonciello@amd.com>, "Wentland, Harry"
- <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, airlied@gmail.com, simona@ffwll.ch, "Hung, Alex"
- <Alex.Hung@amd.com>, "Liu, Charlene" <Charlene.Liu@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: Re: [PATCH] Revert "drm/amd/display: limit clear_update_flags to
- dcn32 and above"
-In-Reply-To: <CAD9O9DqxJQyAJM=po4yDbAC=hHK2pi12qTVYeb+ar_GenGpMnw@mail.gmail.com>
-References: <20250717143738.84722-1-mwen@igalia.com>
- <70ac7b1e-9a28-45ff-b7b2-ab0f4fe9030a@amd.com>
- <bb4099a70c2a8c78ef07d5fb6a8f0d3b@igalia.com>
- <55467ebe-42c8-4387-9a61-aa60b3a84053@amd.com>
- <BA28247C-9779-4C4C-A8E3-ACF57BEF1521@gwmail.gwu.edu>
- <67169725b87e02cc8fdc19be5fc7df59@igalia.com>
- <CAD9O9Dq=dAsMs5a3VzgSvLwfuYYhkARDFBXyWUy+yktEZv5WbQ@mail.gmail.com>
- <bdfc8786-d4b8-4391-a4d4-c5fe06020802@igalia.com>
- <CAD9O9DqxJQyAJM=po4yDbAC=hHK2pi12qTVYeb+ar_GenGpMnw@mail.gmail.com>
-Message-ID: <478eb8175779f03a399f7d933614e14c@igalia.com>
-X-Sender: mwen@igalia.com
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|BL3PR12MB6619:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1d9a440-62bb-4200-4b8b-08ddc5aae87b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?KIlyuX4vUXLO4UJURTgs0ZLblr4PHBuHYZEX0zvqbF02GYvU6Ihh/ntBrskE?=
+ =?us-ascii?Q?/AttngobP4hqcA/PhCQPJcVCiP03Vz8tQIQr7d1MW/y0/giC7EIjx12EHVid?=
+ =?us-ascii?Q?MxU78pR7J5iY6UhcE+HGvc5CGthA24G7IlIlmGjlrD++RbF/rbr2kIaqk0F6?=
+ =?us-ascii?Q?PkqXhLEXbtP+SRRCpyjX5LoxGT1lkEaiHotTT28OluC27f3DlCE938p7Pqpz?=
+ =?us-ascii?Q?lBWXT21RBffJ1mohDDFujMI2ot69F/qc0xkgBPZsqptuu/mytm6snLJ5dfTW?=
+ =?us-ascii?Q?isPhZdI5krRCE0AaJvwMwM7J3r+CuEemsHk9lx9PS1eo/WI4APzwFbVt8ym9?=
+ =?us-ascii?Q?K4288CHaAFYOGBXQdAdAqZTs8629LdkQbW9R7o5oL9bTJpON8nmNnyQpylWt?=
+ =?us-ascii?Q?XR7MZ1i3XcWVDwuCz8UTADe5NeMS4jk4RR6xCnsTV/Sk+D29ZexIj/7TGRYE?=
+ =?us-ascii?Q?Vgdqxlf8sMV/26PXa6/YH/7KJhavRLOLR8rbCiQ8gpPHYoyNPlQalACv2IDv?=
+ =?us-ascii?Q?cZuaVMGim23B49ttdTBVifdye3HhQwEKowWh7xnPVkhWRHSepPlEM3CGR64c?=
+ =?us-ascii?Q?MAqC1AH7kWTt6pe8LdIpl8Pher20WqI/x+jlE7YqvvFB2ddP/09UOPANw+IM?=
+ =?us-ascii?Q?MZgmDYSHM09RXRuD/HwssJDLv8m7vRRAs8mqwy5mnS2GKPfAX4xQ9XLWvJBH?=
+ =?us-ascii?Q?WENnirhHTi0JIuo2B/tTdD3FRU9a5+J1Wn71NYa7aznFnVh/HiZLOSap/rht?=
+ =?us-ascii?Q?Uow3tQbuCBWksAY/Yprg5PA0BLKCYkjz0QB7hRqotvqeblD/AacA3xCiLHwy?=
+ =?us-ascii?Q?lBIx9F1J4vajTCMkim6Gmpjjm5qmveMu18qMmu8YQ3Ozw/ZTaHrVRYMHFWRp?=
+ =?us-ascii?Q?Uvk31/HshbuZ9WFsjR9ac/aBlLB+3X/afdT/G0XawUEaVjINUgTc+s/imGLe?=
+ =?us-ascii?Q?0//qj2WoE1E3bT/RSF8KLQOsS6WuviaeRYFcF5lMl1Q+15TFRYv4TtBev6Gi?=
+ =?us-ascii?Q?WigIux9nLC7oPG4FXdRsJHcRCv9aazO/hk+RyZV2yErQRWPPj/Ou151cFTuj?=
+ =?us-ascii?Q?N3fWnuzxeKkImvWGVgcdvUI500DnDOwiq8ltTYRresJD/SKmEGLudF0r3b3f?=
+ =?us-ascii?Q?ZN4/K900vfcS50WKI4mh6VjCuBlmigytzW/MS9LqC5XhRxfpI8cvAc5hBBIg?=
+ =?us-ascii?Q?1lm96Xe1jAp1p0+RfpTjXUCmPsDRYVX/b+hXiusKbeK9lG8UKeLljNgojGKe?=
+ =?us-ascii?Q?hxAMxtEaqhMEAPTvjf9lk4QOsmkz9JYQZ8m9c4MPny+/cL9TyD8tLzKcQa/r?=
+ =?us-ascii?Q?b9455F3jyr9AzPqTP9oiDMXubIH+y/5FDbhraF9u005M1xMe4Yp7wW21ACBI?=
+ =?us-ascii?Q?zmOOt46Kh2bflTd/M7COmiy5OEzE/W4qekYQy41rR+F8s5dvbsQECT7W+vyn?=
+ =?us-ascii?Q?FwZH1QWTJT18SzwnjLtc1l1QRilZO3Yww68cN4taFck0wz9tgQ7s37JhYUVH?=
+ =?us-ascii?Q?tZk664Jea7uICH7xXJIscDZDHUEz5duvaUfy?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2025 03:26:39.1557 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1d9a440-62bb-4200-4b8b-08ddc5aae87b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B072.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6619
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,152 +131,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 17-07-2025 19:17, Matthew Schwartz wrote:
-> On Thu, Jul 17, 2025 at 12:43 PM Melissa Wen <mwen@igalia.com> wrote:
->>
->>
->>
->> On 17/07/2025 16:28, Matthew Schwartz wrote:
->> > On Thu, Jul 17, 2025 at 12:18 PM Melissa Wen <mwen@igalia.com> wrote:
->> >> On 17-07-2025 17:57, Matthew Schwartz wrote:
->> >>>> On Jul 17, 2025, at 9:58 AM, Limonciello, Mario <Mario.Limonciello@amd.com> wrote:
->> >>>>
->> >>>> On 7/17/25 11:55 AM, Melissa Wen wrote:
->> >>>>> On 17-07-2025 13:39, Limonciello, Mario wrote:
->> >>>>>> On 7/17/25 9:36 AM, Melissa Wen wrote:
->> >>>>>>> This reverts commit e1bd5e0bb4ca0d633ad698abd3658f8265009b81.
->> >>>>>>>
->> >>>>>>> The commit causes a regression in Steam Deck (DCN 3.01), reintroducing a
->> >>>>>>> functional issue reported in [1] that was fixed by calling the
->> >>>>>>> clear_update_flags() from commit 7671f62c10f2a.
->> >>>>>>>
->> >>>>>>> On Steam Deck, we use multiple hw plane color caps and up to two overlay
->> >>>>>>> planes with dynamic pipe split policy. I.e. with 1 primary + 1 overlay,
->> >>>>>>> the driver split planes into two (with 4 pipes), but with 1 primary + 2
->> >>>>>>> overlays, we don't have enough pipe for splitting. Glitches appear in
->> >>>>>>> this pipe-split transition of 1-2 overlay planes, if the driver doesn't
->> >>>>>>> clear update flags.
->> >>>>>>>
->> >>>>>>> Besides that, the issue the commit e1bd5e0bb4ca tries to address [2]
->> >>>>>>> isn't functional.
->> >>>>>>>
->> >>>>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3441 [1]
->> >>>>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4129 [2]
->> >>>>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->> >>>>>> Can you please double check the use case that prompted
->> >>>>>> e1bd5e0bb4ca0d633ad698abd3658f8265009b81 in the first place?  IE With
->> >>>>>> this revert you proposed do you see a traceback on unplug of external
->> >>>>>> display?
->> >>>>> Hi Mario,
->> >>>>>
->> >>>>> I don't see either traceback or REG_WAIT timeout when unplugging an
->> >>>>> external HDMI-connected display.
->> >>>>> I tried with the Deck Dock and USB-C to HDMI adapter. Not sure if there
->> >>>>> is a very specific scenario that triggers this that I didn't cover.
->> >>>> No; it's quite a general problem and easy to reproduce.  This makes me
->> >>>> wonder if there should be an exception carved out for Steam Deck instead.
->> >>> I just tested DCN 3.1.2 (Z2 Go) and DCN 3.1.4 (Legion Go/ROG Ally) and
->> >>> I was not able to reproduce the issue so a Steam Deck carveout might make
->> >>> sense here.
->> >> What issue are you trying to reproduce?
->> >> Glitches on Hades II + MangoHud, or traceback/REG_WAIT timeout?
->> > Sorry, should've specified! I was testing for glitches with Hades II + MangoHud.
->> >
->> >> And with what kernel version?
->> > amd-staging-drm-next built from b78bd800, tested on top of SteamOS Main
->> I suspect you don't see the issue because your kernel doesn't expose AMD
->> driver-specific color properties (?)
->> For this, you should compile the kernel with KCFLAGS="-DAMD_PRIVATE_COLOR"
-> 
-> [missed reply-all, resending this]
-> 
-> Ah right, thanks for pointing this out. I've gone back and recompiled
-> the kernel with
-> AMD_PRIVATE_COLOR enabled. However, I'm still unable to reproduce the issue on
-> those other platforms. I can see the number of overlay planes change
-> in my dtn log,
-> as well as the pipeline changes with amdgpu_dm_visual_confirm.
-> 
-> In the original issue, I was unable to reproduce the Hades II and
-> MangoHud glitches
-> on my Z1E device at the time so this lack of reproduction on DCN 3.1.2
-> and DCN 3.1.4
-> might be expected.
+Add command to check address validity and remove
+unused command codes.
 
-[Oh, I realized I only sent my reply to you. Sending the same msg to
-everyone now]
+v2:
+ The command interface adds new parameters to support
+ multiple check address strategies.
 
-Sounds good.
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 63 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  3 ++
+ 2 files changed, 66 insertions(+)
 
-Do you mind to share your DTN log with and without MangoHud enabled and
-the drm_info output with MangoHud?
-I want to compare those logs with Steam Deck.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 15bde4904996..185b9e538f98 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -128,6 +128,9 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
+ 
+ #define MAX_FLUSH_RETIRE_DWORK_TIMES  100
+ 
++#define BYPASS_ALLOCATED_ADDRESS        0x0
++#define BYPASS_INITIALIZATION_ADDRESS   0x1
++
+ enum amdgpu_ras_retire_page_reservation {
+ 	AMDGPU_RAS_RETIRE_PAGE_RESERVED,
+ 	AMDGPU_RAS_RETIRE_PAGE_PENDING,
+@@ -207,6 +210,49 @@ static int amdgpu_reserve_page_direct(struct amdgpu_device *adev, uint64_t addre
+ 	return 0;
+ }
+ 
++static int amdgpu_check_address_validity(struct amdgpu_device *adev,
++			uint64_t address, uint64_t flags)
++{
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	struct amdgpu_vram_block_info blk_info;
++	uint64_t page_pfns[32] = {0};
++	int i, ret, count;
++
++	if (amdgpu_ip_version(adev, UMC_HWIP, 0) < IP_VERSION(12, 0, 0))
++		return 0;
++
++	if ((address >= adev->gmc.mc_vram_size) ||
++	    (address >= RAS_UMC_INJECT_ADDR_LIMIT))
++		return -EFAULT;
++
++	count = amdgpu_umc_lookup_bad_pages_in_a_row(adev,
++				address, page_pfns, ARRAY_SIZE(page_pfns));
++	if (count <= 0)
++		return -EPERM;
++
++	for (i = 0; i < count; i++) {
++		memset(&blk_info, 0, sizeof(blk_info));
++		ret = amdgpu_vram_mgr_query_address_block_info(&adev->mman.vram_mgr,
++					page_pfns[i] << AMDGPU_GPU_PAGE_SHIFT, &blk_info);
++		if (!ret) {
++			/* The input address that needs to be checked is allocated by
++			 * current calling process, so it is necessary to exclude
++			 * the calling process.
++			 */
++			if ((flags == BYPASS_ALLOCATED_ADDRESS) &&
++			    ((blk_info.task.pid != task_pid_nr(current)) ||
++				strncmp(blk_info.task.comm, current->comm, TASK_COMM_LEN)))
++				return -EACCES;
++			else if ((flags == BYPASS_INITIALIZATION_ADDRESS) &&
++				(blk_info.task.pid == con->init_task_pid) &&
++				!strncmp(blk_info.task.comm, con->init_task_comm, TASK_COMM_LEN))
++				return -EACCES;
++		}
++	}
++
++	return 0;
++}
++
+ static ssize_t amdgpu_ras_debugfs_read(struct file *f, char __user *buf,
+ 					size_t size, loff_t *pos)
+ {
+@@ -297,6 +343,8 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct file *f,
+ 		op = 2;
+ 	else if (strstr(str, "retire_page") != NULL)
+ 		op = 3;
++	else if (strstr(str, "check_address") != NULL)
++		op = 4;
+ 	else if (str[0] && str[1] && str[2] && str[3])
+ 		/* ascii string, but commands are not matched. */
+ 		return -EINVAL;
+@@ -310,6 +358,15 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct file *f,
+ 			data->op = op;
+ 			data->inject.address = address;
+ 
++			return 0;
++		} else if (op == 4) {
++			if (sscanf(str, "%*s 0x%llx 0x%llx", &address, &value) != 2 &&
++			    sscanf(str, "%*s %llu %llu", &address, &value) != 2)
++				return -EINVAL;
++
++			data->op = op;
++			data->inject.address = address;
++			data->inject.value = value;
+ 			return 0;
+ 		}
+ 
+@@ -500,6 +557,9 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f,
+ 			return size;
+ 		else
+ 			return ret;
++	} else if (data.op == 4) {
++		ret = amdgpu_check_address_validity(adev, data.inject.address, data.inject.value);
++		return ret ? ret : size;
+ 	}
+ 
+ 	if (!amdgpu_ras_is_supported(adev, data.head.block))
+@@ -4103,6 +4163,9 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 			goto release_con;
+ 	}
+ 
++	con->init_task_pid = task_pid_nr(current);
++	get_task_comm(con->init_task_comm, current);
++
+ 	dev_info(adev->dev, "RAS INFO: ras initialized successfully, "
+ 		 "hardware ability[%x] ras_mask[%x]\n",
+ 		 adev->ras_hw_enabled, adev->ras_enabled);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 927d6bff734a..7f10a7402160 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -570,6 +570,9 @@ struct amdgpu_ras {
+ 	struct ras_event_manager *event_mgr;
+ 
+ 	uint64_t reserved_pages_in_bytes;
++
++	pid_t init_task_pid;
++	char init_task_comm[TASK_COMM_LEN];
+ };
+ 
+ struct ras_fs_data {
+-- 
+2.34.1
 
-> 
->>
->> If no plane color props, you are also not seeing three planes on AMD DTN
->> log and then no transitions in the pipe split.
->>
->> My main concern is that we will just hide the problem with an exception,
->> but it can come back to bite us when the KMS plane color API is merged
->> and gamescope updated to it.
-> 
-> That makes sense. I've been meaning to circle back to the gamescope
-> implementation of that now that Simon is unable to continue since it would
-> be good to get some testing started there.
-
-I started working on it here:
-https://github.com/melissawen/gamescope/tree/kms_color
-But not my area of expertise, so it will be slow and needs some work on
-libliftoff.
-Let me know if you want to contribute anyway, maybe you can go faster
-than me.
-
-Melissa
-
-> 
-> Matt
-> 
->>
->> Melissa
->>
->> >
->> >> Melissa
->> >>
->> >>> Matt
->> >>>
->> >>>>> The only message on dmesg from this action is:
->> >>>>> amdgpu 0000:04:00.0: amdgpu: pp_od_clk_voltage is not accessible if
->> >>>>> power_dpm_force_performance_level is not in manual mode!
->> >>>>>
->> >>>>> Moreover, if I move to the Desktop mode (KDE), there is no message.
->> >>>>>
->> >>>>> Melissa
->> >>>>>
->> >>>>>>> ---
->> >>>>>>>    drivers/gpu/drm/amd/display/dc/core/dc.c | 5 +++--
->> >>>>>>>    1 file changed, 3 insertions(+), 2 deletions(-)
->> >>>>>>>
->> >>>>>>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
->> >>>>>>> index c31f7f8e409f..7c48f72e5917 100644
->> >>>>>>> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
->> >>>>>>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
->> >>>>>>> @@ -5443,7 +5443,8 @@ bool dc_update_planes_and_stream(struct dc *dc,
->> >>>>>>>     else
->> >>>>>>>     ret = update_planes_and_stream_v2(dc, srf_updates,
->> >>>>>>>     surface_count, stream, stream_update);
->> >>>>>>> - if (ret && dc->ctx->dce_version >= DCN_VERSION_3_2)
->> >>>>>>> +
->> >>>>>>> + if (ret)
->> >>>>>>>     clear_update_flags(srf_updates, surface_count, stream);
->> >>>>>>>
->> >>>>>>>     return ret;
->> >>>>>>> @@ -5474,7 +5475,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
->> >>>>>>>     ret = update_planes_and_stream_v1(dc, srf_updates, surface_count, stream,
->> >>>>>>>     stream_update, state);
->> >>>>>>>
->> >>>>>>> - if (ret && dc->ctx->dce_version >= DCN_VERSION_3_2)
->> >>>>>>> + if (ret)
->> >>>>>>>     clear_update_flags(srf_updates, surface_count, stream);
->> >>>>>>>    }
->>
