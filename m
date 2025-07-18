@@ -4,148 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69895C83F1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 07:41:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44612C83F1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 09:35:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F12DC10E91F;
-	Fri, 18 Jul 2025 07:41:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5FDB10E938;
+	Fri, 18 Jul 2025 09:35:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n9bDmKTc";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JV8/DnVP";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2044.outbound.protection.outlook.com [40.107.220.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA9110E91F
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 07:41:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iLq5/z0RBNEErSnU8Ee3OvWDgLoptmF7rs/X3s+EHk1wipfLJ3eyrFZx9XtoPxOSz8QH19XkATDNbqbRH97My4nn9DqkWCLq9JcM0aEHcgLeqJxEiNZ5/pSh6V5AirsaM7M2zlzEdiG2/ohWGD3/QlyxoPlqpEz6xWC+z4cMbfldMOuMez5Q7yY10dBk7PC+Xg9Z/znav+S++70ifHi1R/l8eWqPXnGOZJV4LRx9AyYMAMJKLCnQW/JiDu3jILB3CfRSNlkSqXzVhoZXEIfqywG6Se2TZJNIeOTxXPXTvI1rC6Fp3YRfNx4IsEYnXJmiUzYj/o0UaNtvUuDDyzCRxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QGLfwLk5GK62ldYO68umobgJZ+eZ/22z1fRQDUirXTE=;
- b=gkD/w6FgF0oEPS5OigPlgoxPM5u+sPyP0VbnOtVnL8XEao40OSNvWAWX0+ECzNZmk+vy4gROtVcebOBk3D5JVjlk2MGp1dE8gyw/Vylxqu9ZGl7bEbhesUlWeN5GnNgt9E8LDDNsNGBX6XGDwUlgcvneOE798UNfeLTcUBQIUsIASrMFSeNoX/XAlDH3vFOIrXrfsSULtekg6DERLoqJIK1Tx8p/8MkJQwHaktk6lm2pSy6lyCNvpG8QtLJvHso5qnr9KeKmOzThYS4yHZJ9qYoGnPPK5DUXrTCfvgKx2eJ0UQeD7ZWwrG5Y9ItsrTTVRjWGMyBIKTjHDnfRjIRJOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QGLfwLk5GK62ldYO68umobgJZ+eZ/22z1fRQDUirXTE=;
- b=n9bDmKTcNnfO/B+RVmG22WKgHIVtYlIwuHZ3GSrnBYlwXTguBfRqUt6g3Kb1j+Dg8CpiCZxHLObhBWy9FU3JOg/a34w0xH7Cbsptn7hZD9z6onUsYKokjbvve77hb4X8bQkjPvMDOczBOuJFZ5WJl4eXyuRzBWc2tqmOAcHMrDU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by LV8PR12MB9229.namprd12.prod.outlook.com (2603:10b6:408:191::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Fri, 18 Jul
- 2025 07:41:05 +0000
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::ec7a:dd71:9d6c:3062]) by SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::ec7a:dd71:9d6c:3062%4]) with mapi id 15.20.8901.033; Fri, 18 Jul 2025
- 07:41:05 +0000
-Message-ID: <a7b1816a-65a2-49d1-aa50-f0a0e7a8ef10@amd.com>
-Date: Fri, 18 Jul 2025 09:41:01 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/amdgpu: Avoid extra evict-restore process.
-To: Gang Ba <Gang.Ba@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Philip.Yang@amd.com
-References: <20250717175842.1344076-1-Gang.Ba@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250717175842.1344076-1-Gang.Ba@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR10CA0026.namprd10.prod.outlook.com
- (2603:10b6:208:120::39) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 510C410E938;
+ Fri, 18 Jul 2025 09:35:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=+8LIZAEk6MuSw+0jpr/iGDCIUka8aAfvDmtOr9ahEMs=; b=JV8/DnVP1TH09IgsT4JXlGmCUM
+ wwkcMkCaWgfslX7+3t032PW2IM9ear+OyBiqsmHbX5Y1GiBohCI6Vzoc2R/xZNZNOnUkMo6TdsO7C
+ 3PlhADilkkCMMKSfNOcEv9Y6iXPSL4iSETWrMsXQ8l3xXsdISDOatJy6WxPruZEiYwPnZkTiuf5Lj
+ 8/Hh715bNp3qeBcmNymP/mzGHVUuasAmlsriBPmoMEbTIyWxwdBG9YiQ2Oaj9+tFlzDSnYXQToNW7
+ Dk+IMUvqY5drL5pbaM8pYj9P0gamk07wfT1kiiV13c/ji0BSg0BrSJ1Np+zx2ys8K/xEQ9lLgcYBV
+ bD/OMMNw==;
+Received: from [84.66.36.92] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uchUe-000Vnh-9s; Fri, 18 Jul 2025 11:35:04 +0200
+Message-ID: <c4e252ba-6ac2-4115-9606-c7f6f18f1abf@igalia.com>
+Date: Fri, 18 Jul 2025 10:35:03 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|LV8PR12MB9229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ef8117d-7890-4416-6991-08ddc5ce73be
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Wkt3eU1hQmxoU0svNFJiNnBrS3YySTBYd0RtaHFUaVdLdXhDbkdPRWwxTXla?=
- =?utf-8?B?WlAzd3VUVFNOOFdkbEp1bEtKUThRUFhTSGlRNU13cG93NlliU2JEWlY3TjdB?=
- =?utf-8?B?ZUFiQXJPU0VFWU5ldENsV2Ziem1zbFU1b1dkMFBSQUJLVlFnMEdaTDRGSDRG?=
- =?utf-8?B?NFlycTJ6c01QN3EvUHdiejNJWEhOZ2tGcVFib0xXakthdStuWk0rNWtXRllI?=
- =?utf-8?B?UEV2Z0EyOGdJOWlhVTFLTGY3ckY3OVFac2xBcDIyNEgxTS93STh6c1hNVnRJ?=
- =?utf-8?B?MmFMV21kYmJ4L1k3Zk9FUFZvdEpPNmJQcU5pSzdYYzhmVWJWTlY2Z0UrcDVn?=
- =?utf-8?B?RHVVU1ZhNWxlaXZSdVBaM2N3ZDlzNE41cGI4T3h3OEoyNERLTmk3WVdKRTla?=
- =?utf-8?B?QVBKYVNjZGt6azZUSWZVUndoUzhaeTZkcVVKcTh4T1pFTXRycHc5RTFzR3R2?=
- =?utf-8?B?bzc1akN4eXhGUlNtRUlZSGJ3K3YxN2k1a2tQRnV1YXdwMFh2TnhFNnQ2OFg3?=
- =?utf-8?B?Z3pMSWpSendaZitiZ0dhUnh3aHY4TnB6cGYzS2N1ZnBpOGI0Z3RLTU52MHpY?=
- =?utf-8?B?T3JMaE5yS3dsR2ZZYzl0Z2xSZU9mL2tpd3U0a2t4S1I1ZWprRjBUZTJpWG00?=
- =?utf-8?B?UlcwRW8rWXR3NGdqUDRoVUxSY0tYd0Fjd2taai9wb1R2ckozUWUvWmFpcHJE?=
- =?utf-8?B?V2Jrc1F5RllkOUJicUg1R3JFZnNYYjAyUWNGYkNwRUp1V1FRRDZ6b21waVNu?=
- =?utf-8?B?MkdIV0NoUXVPeW1aT09pWDhhdEh2eitoakV2TmZjb0NhSE45ZC81Mm52NkFU?=
- =?utf-8?B?UThOaXk3Ui9DNVZmRnlLU1pPZEhZOHk2c3VVNCtiZTdaRFVRbkZZQ0dJRmFI?=
- =?utf-8?B?WjFDMkg0RCtRVVkwN1N5ZEJNdFV0VGdtcGtpbEFwTSs5MGlkY0RpWVBKNzgw?=
- =?utf-8?B?M0ZsTVoxelFYcmlXSVBubkozdWhySEVPaVh1RWpnbEp6RkZtNjJLTWVVamlD?=
- =?utf-8?B?dmFCM3E1NmVRbVhCTHBVdGV0SWd6b3Y0M0pZR0t3dnppaTYwVWxSR1IyaGR3?=
- =?utf-8?B?UEJxNVlDaGtlSzQxY1M1YjNNSVNHZnp3MEIvR01OcERZT2EzQit3Q3lTTWZS?=
- =?utf-8?B?OFliMUNPTExKdUVqVHZGanFqK1BPTEYxR01jSjJvVzZyU3U4SGFsQy9nS1hV?=
- =?utf-8?B?N3JSWUpTR1hkbHI0YlhqSEFJOVE2Um1OcG9QSjgzYXdYY2ltRmpoMk9qaHF3?=
- =?utf-8?B?enBJM2VxUWYrU3AxaWprK1FLU1FaeGhKQ1greWR5VkpsOVNId1BGR3JoSXg5?=
- =?utf-8?B?elNWWk1aYUxmZEJuWE41eGt0U3BqTm1vbG9ZRC9uRng3cm1xNHFxeEdCTEJk?=
- =?utf-8?B?djErM3VyNko2Y2NHTU1FWHlieTFsZGRSNVhFRmwzTVFCNkdmV09tNDNkUVIv?=
- =?utf-8?B?cWNwRVVzQ0M3YXl0d1hna3ltSzVOWGZKM1Y5Z0VyRjZSZFpUWG15OVJZL1B5?=
- =?utf-8?B?UlVOdG5aVnpMZEVSSHJ6d2NOTU0wTGhtV28rOGw3ekhUdWxJUmZpTWkzQ1c2?=
- =?utf-8?B?bFdnS0Q0dnlhci9ESzFyemVISUthZW81ZTlTTUpXV2tWelVVMUhyL1gvaGxz?=
- =?utf-8?B?SzRxa2RiNVZMRmdSc2pJelA4ZWRLWEliLzBtRzBsM3hXdHBNQjFPZDIxRVE3?=
- =?utf-8?B?Qlp0RDhYY2g5RXBhU3hobW13M014ZnBYZmErck9LZ1VRS3FPdGhQdUhHY3Vw?=
- =?utf-8?B?cXI4QWNMSFBmVkVoUGtGVjFjNzBjWE5KZC90TzF3WWFETkJFM2ovTmxVdG9P?=
- =?utf-8?B?UGlQbDJnMHUwaXBPZWlsRmt6K2lkZml4TXpyeDlBcjlGNi9TYnRXcU8yQ3pR?=
- =?utf-8?B?ZnAxWjYvdEFodmNVSXdxUCtVNWc0UHFWUXhsRVZWTnExMWg2UjFsZkUzUGhZ?=
- =?utf-8?Q?Ixm5MOqHqrc=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UE9hWlQyeXhIRmNiOVREYUdjRVZQSk9zdjVLSGczc0NaL1VFWE42YUh0UHhw?=
- =?utf-8?B?V3drcDV4QjcwM1kwZXZieWJoSjBZL09UUmR1RFhocjZ2cEdHS1pwWDZDWHZ3?=
- =?utf-8?B?eTZhc2FBaFUvM3Z1VEFXbzVpS2tTNUlKNStLYnRJaldqeEttTkgzS0ROVkVa?=
- =?utf-8?B?ajIzQ0Z3SnI0TGdkQUtlcEdEQ0ZORlFrdmYvR2RQWWhqc3IrTVRwZjN0eGpQ?=
- =?utf-8?B?akJTczd3Vnhlc2J2bGpiZEVnNHRxbnZ6azQrRXlMaXVhcTA1MGh3bngvc25j?=
- =?utf-8?B?VURrcDFiU3hOTUEvZGVTQS9IMWpMZ0pjZENBcGI5ZmlSZStBUEpjU1ZtS3Zp?=
- =?utf-8?B?WWgzSkxsSFJEVjJOSFU3cnpBVnN1MGN1dlFBaUNVd2MvZDZONXhpamhta29t?=
- =?utf-8?B?Vy81NXdSWVJUb0VpQ2RmaitLV04ycnlua1hyNk9jSHZEYlZNT2VzYWJJV1JG?=
- =?utf-8?B?UUZGSXJLQVM5TVlhdThEMDBhdVBwTU9RUG1zejJwTE1kMEhjVzRtN21RMFNJ?=
- =?utf-8?B?TVNXQkovRE1QaU5EdFgvYnR6RVREaTA1V29Pdk5oN3BSM0FHeGZETW1tTGxv?=
- =?utf-8?B?V0IwM3pNTnphMkN0clYyb05XWkZUVk5EbGwzMk1CTnhtQjl2d1Z6WHpaMm5s?=
- =?utf-8?B?cFVYaUx0dGlBWmxHYkZOTlh2NU1CMk5qRmI3SWdvN3BiVXdCZjZENm9DUW1T?=
- =?utf-8?B?TmRxMmI3NFIweXhJMDlyQXFIMGRCY1phaHhRQnBnZk9pS0hDNFhhbXpPNVlk?=
- =?utf-8?B?NUdTdlhUTy9nRjc1ZzR0ekw2Yy84OHQyaU5CSWY5c3JaRkpNSWZLZXhKYzlo?=
- =?utf-8?B?RTMvRDlNSG1BdndWbHl6dUdjRDQzTzg4WFBWbWphcmtzL2N0dW0vT2VXcTlR?=
- =?utf-8?B?Zm5rK0pNR0xDRGxhbi9NMjJ4VmU1dzl4eThDUUhxZmlId3ViRk1rVkFWQkpL?=
- =?utf-8?B?MUtkbTBBQUtxR3lOQ3Z1aXhKWjBSdkhNL044UlZJUU1wTk55MDNHZVE3MGlt?=
- =?utf-8?B?dnlnTEtvanBKWTRFaGtQbXRISlRVM2d1SmdDSUkrOVFqR2tRRno3SUVpdG9k?=
- =?utf-8?B?aFp5L0JSM01sbjZOODJkaERlcTdCZ1JYMHlCYzlNWk51Wk9qNDhFTVVqL09S?=
- =?utf-8?B?L3VWMFJXTi8yVTR1VWVYTElMNy9mV1dwcXRyVkhkb2Yvc2FwUEFsRnp1NjJ2?=
- =?utf-8?B?RkhwMG8xQlJsQmJwSENNL0hKSnh1L1RWZkhxOEEzZHg3RVdzL1NYcXFhT0dP?=
- =?utf-8?B?bTArMnJwTHBSZjY1RVhYNDNLY1FmdWRsb1lkVkIxSzF4Y21kaEk0ZHhKUTZj?=
- =?utf-8?B?dk5hSXFVbHZjcDdOK1VCR0NicE4rUHNuZExEcHhLNXFxdGVVeGZQemIrUWI2?=
- =?utf-8?B?U2xSOXI2MmRveHZBdVFyWU9PZktLajdQeC84RnhRcDZOVWUyTTZxZ25NVVEr?=
- =?utf-8?B?enRwL2Q1dWZPMEwreVlIMU0rejdFSGpVM2hGTEpRMTNSU3U4S1hEeGRSSE1B?=
- =?utf-8?B?dldzczlaY09lYkRyWmpMTUtLVFpNOTgxUjBrUkJ1N21ndkFvRU4vcGNrNnVZ?=
- =?utf-8?B?SFI0OTJFNHhOREdsd08vVjEvMXpuVmRoSTRDdGpJbndlNE0zUWxzMHJJMXZ2?=
- =?utf-8?B?d3pnOWdUTURmVzM3MGs2aUgzcUZEOEM1a3doa015bGE2QlJKM21iRCtGbGwr?=
- =?utf-8?B?alBLMXlJOEVDNklhS095U3BzVVl0eFJUdHFac05rTWFhOHh5SGJCRmFtOENG?=
- =?utf-8?B?ZFZiYU9XSmdVUUU3enlLZUE4NkhYb2FocEpNRWMzTDQwYndZVDQrZ3FoWHdM?=
- =?utf-8?B?eE5WaUxGQlJ1SDNZZ1Z1TVRjN1AwN1hoUDlubjJCTFNBK0xTcnIwcTFhOXJx?=
- =?utf-8?B?ZGpnTmx2bkpzY21UODV3YUFjYldKbCt0bTZBRndlUEwySU12U09ZNUxhSzlF?=
- =?utf-8?B?UUw1aGxOWmxhMWRlT0NIekFtRzFXSUErbEJSbmtVdVMvdXN0NURZR0VRR3lv?=
- =?utf-8?B?ZHN0SjRvOVRVa2dhaVUzZlJBNk5mSnBOV082SEJNcHFwVTBsS045WStBaEEy?=
- =?utf-8?B?N0I4KzhlVXdzQXByN2tqOVpGbzhVNUc5cnp5VlQyYnFDT1J3dE1GU3BRRzJa?=
- =?utf-8?Q?JYPpbJkr2V3CduG7OShkTFccq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ef8117d-7890-4416-6991-08ddc5ce73be
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2025 07:41:05.4851 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R8eWcdO+9XvKFrdmFBoTzFgupfl5lG9H3JSI2B6vct4ZmJZQsPKAGZBN+2oARdsB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9229
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Avoid double re-lock on the job free path
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>
+References: <20250716085117.56864-1-tvrtko.ursulin@igalia.com>
+ <8e527b62-d968-4bc3-a0dc-491d193c02ce@igalia.com>
+ <52d32846-0286-4979-ab2f-c1aa1aa02e20@igalia.com>
+ <f535c0bf-225a-40c9-b6a1-5bfbb5ebec0d@igalia.com>
+ <b5ff1fba-0e2c-4d02-8b9d-49c3c313e65d@igalia.com>
+ <c1c9bb53-399d-4f1a-a6de-8cf354c2e903@igalia.com>
+ <ad66eeac-26d7-4f46-b29c-7b43ce793ea8@igalia.com>
+ <3448a6cf097051ea9fbd5beba741b624c831df2c.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <3448a6cf097051ea9fbd5beba741b624c831df2c.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,56 +70,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 17.07.25 19:58, Gang Ba wrote:
-> If vm belongs to another process, this is fclose after fork,
-> wait may enable signaling KFD eviction fence and cause parent process queue evicted.
-> 
-> [677852.634569]  amdkfd_fence_enable_signaling+0x56/0x70 [amdgpu]
-> [677852.634814]  __dma_fence_enable_signaling+0x3e/0xe0
-> [677852.634820]  dma_fence_wait_timeout+0x3a/0x140
-> [677852.634825]  amddma_resv_wait_timeout+0x7f/0xf0 [amdkcl]
-> [677852.634831]  amdgpu_vm_wait_idle+0x2d/0x60 [amdgpu]
-> [677852.635026]  amdgpu_flush+0x34/0x50 [amdgpu]
-> [677852.635208]  filp_flush+0x38/0x90
-> [677852.635213]  filp_close+0x14/0x30
-> [677852.635216]  do_close_on_exec+0xdd/0x130
-> [677852.635221]  begin_new_exec+0x1da/0x490
-> [677852.635225]  load_elf_binary+0x307/0xea0
-> [677852.635231]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [677852.635235]  ? ima_bprm_check+0xa2/0xd0
-> [677852.635240]  search_binary_handler+0xda/0x260
-> [677852.635245]  exec_binprm+0x58/0x1a0
-> [677852.635249]  bprm_execve.part.0+0x16f/0x210
-> [677852.635254]  bprm_execve+0x45/0x80
-> [677852.635257]  do_execveat_common.isra.0+0x190/0x200
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Gang Ba <Gang.Ba@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+On 18/07/2025 10:31, Philipp Stanner wrote:
+> On Fri, 2025-07-18 at 08:13 +0100, Tvrtko Ursulin wrote:
+>>
+>> On 16/07/2025 21:44, Maíra Canal wrote:
+>>> Hi Tvrtko,
+>>>
+>>> On 16/07/25 11:46, Tvrtko Ursulin wrote:
+>>>>
+>>>> On 16/07/2025 15:30, Maíra Canal wrote:
+>>>>> Hi Tvrtko,
+>>>>>
+>>>>> On 16/07/25 10:49, Tvrtko Ursulin wrote:
+>>>>>>
+>>>>>> On 16/07/2025 14:31, Maíra Canal wrote:
+>>>>>>> Hi Tvrtko,
+>>>>>>>
+>>>>>>> On 16/07/25 05:51, Tvrtko Ursulin wrote:
+>>>>>>>> Currently the job free work item will lock sched->job_list_lock
+>>>>>>>> first time
+>>>>>>>> to see if there are any jobs, free a single job, and then lock
+>>>>>>>> again to
+>>>>>>>> decide whether to re-queue itself if there are more finished jobs.
+>>>>>>>>
+>>>>>>>> Since drm_sched_get_finished_job() already looks at the second job
+>>>>>>>> in the
+>>>>>>>> queue we can simply add the signaled check and have it return the
+>>>>>>>> presence
+>>>>>>>> of more jobs to be freed to the caller. That way the work item
+>>>>>>>> does not
+>>>>>>>> have to lock the list again and repeat the signaled check.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>>>>> Cc: Danilo Krummrich <dakr@kernel.org>
+>>>>>>>> Cc: Maíra Canal <mcanal@igalia.com>
+>>>>>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>>>>>> Cc: Philipp Stanner <phasta@kernel.org>
+>>>>>>>> ---
+>>>>>>>> v2:
+>>>>>>>>    * Improve commit text and kerneldoc. (Philipp)
+>>>>>>>>    * Rename run free work helper. (Philipp)
+>>>>>>>>
+>>>>>>>> v3:
+>>>>>>>>    * Rebase on top of Maira's changes.
+>>>>>>>> ---
+>>>>>>>>    drivers/gpu/drm/scheduler/sched_main.c | 53 +++++++++
+>>>>>>>> +----------------
+>>>>>>>>    1 file changed, 21 insertions(+), 32 deletions(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/
+>>>>>>>> drm/ scheduler/sched_main.c
+>>>>>>>> index e2cda28a1af4..5a550fd76bf0 100644
+>>>>>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>>>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>>>>>>>> @@ -349,34 +349,13 @@ static void drm_sched_run_job_queue(struct
+>>>>>>>> drm_gpu_scheduler *sched)
+>>>>>>>>    }
+>>>>>>>>    /**
+>>>>>>>> - * __drm_sched_run_free_queue - enqueue free-job work
+>>>>>>>> - * @sched: scheduler instance
+>>>>>>>> - */
+>>>>>>>> -static void __drm_sched_run_free_queue(struct drm_gpu_scheduler
+>>>>>>>> *sched)
+>>>>>>>> -{
+>>>>>>>> -    if (!READ_ONCE(sched->pause_submit))
+>>>>>>>> -        queue_work(sched->submit_wq, &sched->work_free_job);
+>>>>>>>> -}
+>>>>>>>> -
+>>>>>>>> -/**
+>>>>>>>> - * drm_sched_run_free_queue - enqueue free-job work if ready
+>>>>>>>> + * drm_sched_run_free_queue - enqueue free-job work
+>>>>>>>>     * @sched: scheduler instance
+>>>>>>>>     */
+>>>>>>>>    static void drm_sched_run_free_queue(struct drm_gpu_scheduler
+>>>>>>>> *sched)
+>>>>>>>>    {
+>>>>>>>> -    struct drm_sched_job *job;
+>>>>>>>> -
+>>>>>>>> -    job = list_first_entry_or_null(&sched->pending_list,
+>>>>>>>> -                       struct drm_sched_job, list);
+>>>>>>>> -    if (job && dma_fence_is_signaled(&job->s_fence->finished))
+>>>>>>>> -        __drm_sched_run_free_queue(sched);
+>>>>>>>
+>>>>>>> I believe we'd still need this chunk for DRM_GPU_SCHED_STAT_NO_HANG
+>>>>>>> (check the comment in drm_sched_job_reinsert_on_false_timeout()). How
+>>>>>>
+>>>>>> You mean the "is there a signaled job in the list check" is needed
+>>>>>> for drm_sched_job_reinsert_on_false_timeout()? Hmm why? Worst case
+>>>>>> is a false positive wakeup on the free worker, no?
+>>>>>
+>>>>> Correct me if I'm mistaken, we would also have a false positive wake-up
+>>>>> on the run_job worker, which I believe it could be problematic in the
+>>>>> cases that we skipped the reset because the job is still running.
+>>>>
+>>>> Run job worker exits when it sees no free credits so I don't think
+>>>> there is a problem. What am I missing?
+>>>>
+>>>
+>>> I was the one missing the code in `drm_sched_can_queue()`. Sorry for the
+>>> misleading comments. This is:
+>>>
+>>> Reviewed-by: Maíra Canal <mcanal@igalia.com>
+>>
+>> No worries, and thanks!
+>>
+>> Philipp - are you okay with this version? V2 was done to address your
+>> feedback so that should be good now.
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index ea9b0f050f79..ab295b22a669 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2414,13 +2414,11 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
->   */
->  long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout)
->  {
-> -	timeout = dma_resv_wait_timeout(vm->root.bo->tbo.base.resv,
-> -					DMA_RESV_USAGE_BOOKKEEP,
-> -					true, timeout);
-> +	timeout = drm_sched_entity_flush(&vm->immediate, timeout);
->  	if (timeout <= 0)
->  		return timeout;
->  
-> -	return dma_fence_wait_timeout(vm->last_unlocked, true, timeout);
-> +	return drm_sched_entity_flush(&vm->delayed, timeout);
->  }
->  
->  static void amdgpu_vm_destroy_task_info(struct kref *kref)
+> Was just giving it another spin when you wrote. (a [PATCH v3] would've
+> been neat for identification, though – I almost pulled the wrong patch
+> from the archive *wink*)
+
+Oops, my bad.
+
+> LGTM, improves things, can be merged.
+> 
+> However, we had to merge Lin Cao's bug fix [1] recently. That one is
+> now in drm-misc-fixes, and your patch should go to drm-misc-next. This
+> would cause a conflict once the two branches meet.
+> 
+> So I suggest that we wait with this non-urgent patch until drm-misc-
+> fixes / Linus's -rc gets merged into drm-misc-next, and then we apply
+> it. Should be next week or the week after AFAIK.
+> 
+> Unless somebody has a better idea, of course?
+
+Lin's patch touches sched_entity.c only and mine only sched_main.c - ie. 
+no conflict AFAICT?
+
+Regards,
+
+Tvrtko
+
+> 
+> Remind me in case I forget.
+> 
+> 
+> P.
+> 
+> [1] https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/15f77764e90a713ee3916ca424757688e4f565b9
+> 
+> 
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+> 
 
