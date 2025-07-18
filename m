@@ -4,152 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 804DCC83F34
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 22:09:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AA01C83F34
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jul 2025 23:00:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A01F10EA4C;
-	Fri, 18 Jul 2025 22:09:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F337710E1AB;
+	Fri, 18 Jul 2025 23:00:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EZa8T+pr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hiWkK/QN";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2041.outbound.protection.outlook.com [40.107.92.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 287AA10EA4C
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 22:09:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YoAKq68JjlIH4YWQaxRFTB5Gf1T9rdBBMpCcLaSrKzvxGKgxAYh70on6pJj+FW8OAatVh3G5zAf/RjxbMKgRt4aci7n8VUDOXdr3dm0rpdM/DfFNWJUXcNx4aVDUjllS36ic2cmjwhIvue19D75NS/kv8wQb7JmBqK5j6I5qNQ2qMsgA67VMAzlQdMeHncpT2Z5wO5rgBLlE3yryzP9t1f0OJgxwQEqq2WrlDtaYgkd9UU6S3l2R06bpD27bPTZrLJ6bi7EcUuRvDRl11+wo8RHsr1Hlls4y+mWQM+4gIDQUjk5ovsiHTD4jyQMvBF0qnkH9Epv1RM5s0qQ7kEPccA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b48x4RTV0IeqNgYuLQrHB+zruGl+vrR1VZTlqsnUP88=;
- b=g0Z4hSxMP6tgXhv2OxKHYAPTr8lix99QZ0OcOwIlla5cYAJjt7Yglx4X7gfXFq8nXeUVikFsptpLy+IS2oo8SSre8zEBgtZt29vFz6HCdrDWlIxAHCSPgCC2d00sNqK4ROB7u+Ql9uxhTt50A3E5MGFO/s2PEUP6O4wu5arO8NA1Fc/QFIW22VCfJgfHA/5XZ0c+9/W4dRdVdw9epPMlE47vXrvvCDSpMKbmyfvgduAQLNO2RwWJEVWWei/OYyxYHcVkWPz/b3mUyhNIVNp6QEl2Prqck4N985wStzGR/uX5WQCZ+KYvdP7Xu8nSH7nNoSXoncgTWxSFw+LUL0nlTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b48x4RTV0IeqNgYuLQrHB+zruGl+vrR1VZTlqsnUP88=;
- b=EZa8T+pr3h7tiQX9neKVTM7cv3ivPkq6jtP+K7WSUEg9VD/FMBLGlRZQ4XlIkUBCEVqzd5oih5wwFW1lYZtbb9PavvzMKWJYVrFs2601HbW2N2i4tmadvCkvEYRE++RozS5oZ5UFqnqR/RR89ykZjurdi30LFp1IxjKxXSaw+p4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by SN7PR12MB7131.namprd12.prod.outlook.com (2603:10b6:806:2a3::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Fri, 18 Jul
- 2025 22:09:31 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8922.037; Fri, 18 Jul 2025
- 22:09:31 +0000
-Message-ID: <2eeb8cfd-20b4-4e6f-92a4-a6a4a2430e8f@amd.com>
-Date: Fri, 18 Jul 2025 18:09:26 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amdkfd: return migration pages from copy
- function
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org,
- philip.yang@amd.com
-Cc: christian.koenig@amd.com, jamesz@amd.com
-References: <20250528171908.82639-2-James.Zhu@amd.com>
- <20250714124634.98951-1-James.Zhu@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20250714124634.98951-1-James.Zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0161.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ac::11) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A3BB10E013;
+ Fri, 18 Jul 2025 23:00:52 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-313290ea247so448080a91.3; 
+ Fri, 18 Jul 2025 16:00:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1752879652; x=1753484452; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=sXnSFrZQu6iHu8Vl2fFaximoXMxICZGZWhV/y8jBr6I=;
+ b=hiWkK/QNBUzRJS4Hf+oTmQ8FfIeAKnjZqRjHgkirhm40pqAINlLuyjP354rJhtXUEQ
+ ynCGEprk50BQbvLSXU4sRoW0diWbgxBZ+MdYr2yHW+9ob9j8bU/eti0Irsa2lBCw7dtR
+ Ot6zYafzoYFqPP1a1yZkYca9EtlS02O04JQz4Z9mQ0BQJq7CT8ISI8OsQBTO7c2JmJ6J
+ YrZCg/sF8BXESu85fTg+zOELJbaIRt0AAArC/dBF6nyJ13FmTiTcuzqErzFXbZY+FFkl
+ Rb7xaX9TpA8HNcnJR4QtAWypG3MMqWgWzbjlzJfqGtyHpkGMK7nGdBmUq+WeYazw09ld
+ C0Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752879652; x=1753484452;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sXnSFrZQu6iHu8Vl2fFaximoXMxICZGZWhV/y8jBr6I=;
+ b=eKzmR2rBUqKSi5+W98zbQTMVbbGsGQkKYEDXT10i2Iqan4mGYlElcEY89dhOeZ9ZjC
+ oHX5jaDnP9A44bf47bKD/sQiVNWffSNa5t+lrRFsDUTwHuQV7ptrL5aw9FT4huGDHf55
+ LkcoO/2fuS59s1LlQHrbujiV82dWNFG0U2ZEiHXzcXP8GclfE6OgduB0yejR+TaR1R3i
+ eKLEryXVwGjUu8uqpkiOSy/cP3aPZ6f92wGlgxx+Isv3X3OFH8Ozjeq6viXnFleXNuZS
+ NeqFG2FwPzPBNVitWjJG3D23V6xtkPlPP0jrhZNXRN6+186F3iUndfbqL6KpWVQeh8If
+ v47g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU8AsaSKo4t6HM4HEzGHpfh1lmLweS7zLcjZ8Q8O0sPpw1Fdloy811DJr0GEr4aQxG+1bu9vKzrrBTd@lists.freedesktop.org,
+ AJvYcCW/Z6UCqfEL4Ru1l3KHqQlvSts+uDI4Sm7bx3jC8dnWt2nDYDfTvk6SAXI/OjfL2OLKso9hof46@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzs+SP2avLU2Lt6xntHMg1TZkT9YDPVIcn1qdazurjpgBcf9V77
+ mw3t1LxmOUgdKs3HsbyXy+XdaL49IHhAxPq6UY8HLJX27Yw868VlVAxNXgL1IO89vch0b0Dyc9d
+ HU4uVtq7x7WCOcj9gsIWSs+4DJJSvPU4=
+X-Gm-Gg: ASbGncvZra5xUU3FP7KxJmi1jEHUxokx4AVqxggvJTSA9tpQ16gJAPtUeTrG0uOLdxo
+ CSU5pbdyixt8OjC2F/FnUaQ/YC+e/X4n/Gx/Xn1L1p/XGhAFbJDgeGSj2bzqWFyyBI7sedIsGhK
+ r25OUuV+mTvRoaCnRskZcXlboTyr76py0Xy361dhIEW28uwe+JjkRcN/gW6P+0RtZpAFmVMB3OK
+ aIFPWj0
+X-Google-Smtp-Source: AGHT+IHee7URO5AdAIetWQOqWSNF+tiB8BcaFoilq0xjITd/WfrQ4fVADkrn9hF8q620zqo7hJHNja1AQMJNZ6dfziQ=
+X-Received: by 2002:a17:90a:e18c:b0:311:a314:c2dd with SMTP id
+ 98e67ed59e1d1-31c9e77394emr6978695a91.4.1752879651725; Fri, 18 Jul 2025
+ 16:00:51 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SN7PR12MB7131:EE_
-X-MS-Office365-Filtering-Correlation-Id: 791819f8-bc90-469e-ad14-08ddc647c377
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eEtpbWIxVEhPdjQ1bXhJdmludzFDZ09hM1JSNHJXVW0wYVJUQ29jWEhiUWFP?=
- =?utf-8?B?WnhtanowQWdobjBVall2SVBpUUhsOEQ2T2JMVHUvYWdJS2JJMjJoakJ0Y0h1?=
- =?utf-8?B?ZCtVYkcwOFVIWWNsb0xxdHpkZHFaVFZBaWgzSmE2cTJjSDNtbDRGVjZHRXVt?=
- =?utf-8?B?SU5VcW1DWlRtVUZqZkkxNElHZWxzVmd0NXBOUTh3ZkJBMGhEQzZ1aTMrY1pK?=
- =?utf-8?B?bzFBRkhNb2IxNWk1aUV2OForRFRTamg0a0NJdWgzRjFkaDlpYnllcDR4cWhU?=
- =?utf-8?B?QWcvbkF1WExRNzEwUlhoMkc3eGdrN2s3Sm1RYWVpcnA2b3h5bmpHWnpyYkVp?=
- =?utf-8?B?eURxTUdCNmpNcVozajFQUFNxT3FXSVU4T1o5Y29Ldk5CZ0RBUGxRN1ZmQnpm?=
- =?utf-8?B?UmtoMndoT0lwdGFFYitKV2IvQUdPRytwcDFDMFFTbkxUYWg4Q011TnpGK3BF?=
- =?utf-8?B?SEYwQTJVZ3NtVmlsdmVoZGJXR1FWRmllN3RCOXU3TnYzcXRMY3VwYXR3RFE5?=
- =?utf-8?B?OUcyN1h6ZHpIVk04d0FrUmpqdTlNMzEreWJ0UDRjWkN3Rk1JSHNKQnV3cXVO?=
- =?utf-8?B?NTlweUhkaGNCaDUwT3RLaDR5aTJaamorNHdObFpGUTA0UkEvUmgrOW8raGt0?=
- =?utf-8?B?N3hiREJnTWtKcXJnem01bGFDU0NvZzhDemZnUjZVNkY1SjVZa05OSG9Udms5?=
- =?utf-8?B?dmN5bFlPZmhoVFRhNzZpOVgycUVScmNhcUtYMmZLajhETWpUWHg2RnFaMlVV?=
- =?utf-8?B?SVplWmN5Ym03dW9rdXlzRCtBY1NnNHZwNVlVcGxlZVJTMDBYUG1maVo1dENI?=
- =?utf-8?B?aVZsemRVNGtTc3k3ZGhpRjEwemhYNGpsajFKU3dLeDN6d25zZ0ZIRlIwditz?=
- =?utf-8?B?THdGMXNuWWZqdnZRaVZRTU41cWk2bWpPU0dHbjQ3YjFxS1JOWGxVVVJUemFm?=
- =?utf-8?B?b3I2bVp4QzZnaFgvR0JrR2JTU2ZKREpqdUZrWUtmV0V4d3Z3Tjc4UHdQUVhO?=
- =?utf-8?B?RlU3RytJWlRnL2RtaUFQYm1JNmp0RVJ3UDRaNDdwRlpoeHh6ZTVIWTJUNTBE?=
- =?utf-8?B?d2VlUEhnZlBOblhaWExEcVpUVzFmWTdRQmdia05ZM0JNcjNPdWVwM0Eyckti?=
- =?utf-8?B?RFBnV2QwSlRmaWR6TUFKR0lESU5kcDZzZy94ZzRhU1didnNPMzc1WWc5V1RY?=
- =?utf-8?B?Ty93UVJwYmtuNFYzYXBHRVpqbjJyZmdSWDJmR3Z5c1VLU0gxV3lZVWhZZWhq?=
- =?utf-8?B?WExkTU1uYzlBZFpuN1BCclMxTFNXM2J0eE5tZHdHSjMvL2NDZG91L09xTXdK?=
- =?utf-8?B?U0QzQW83VlZFM09FbE1IdHk0cTBvVHk2UDEyczQ5L0pYUkdXU241dVBEdFNF?=
- =?utf-8?B?YkRGTjhxMkFuMDJnRFRGVVUvRUhGMFVRQU04LzdGdnVzUmhXV0xDVFZIRWJw?=
- =?utf-8?B?cVR5SEhkR3BGWmdmNDBwOWlVVEwwRXB2NDhUMzE1RnhzdUphdTlRbTl4ZEZt?=
- =?utf-8?B?NWtscmhRYmxyUFI3eWhxY2tuQjBkRmpjZ0FTZUJaSk9pUngxbnRFQUlhdkZH?=
- =?utf-8?B?VGQxdHhxOWhZZW9KYldoQm5uMVVSVEV2NXBVTXVTN2NNS0MwT2JQVWFCNmk1?=
- =?utf-8?B?Si9iVGtVcWszd3g5RndpMXpMYVcrc1dCTGY1OFdJbW1jSFYrQW5xaG1HOVlK?=
- =?utf-8?B?bkQ4c1F5cmw3SUZHRXNVdHVDNFErVzc5bjQ3dGphcEsxdVNIZXg2UkJJK3Qw?=
- =?utf-8?B?R2lUUm51U0kwM1loYWN1U2NxV2ZuTG5GMnYvNG9XWUFmVDRobjI1aTJWSUVU?=
- =?utf-8?B?NHBCVC9KTFRraWFoY1ZodHEwUVJTZkNhNmRIbE90Yld4WlJmaWtldis4RXdT?=
- =?utf-8?B?V2ZtZk9ncUNRdGY3UFdYSXhiazlkSnNqcFI5N0I4V0swRFdRZHJBbHNJOGZR?=
- =?utf-8?Q?hrpUDRi03rs=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0Y0S3ZqYUtOMllNeUo0M3Z1T0xtRzE1UTFlVndiRXpGNnlFU3UxYXRaNnho?=
- =?utf-8?B?L2ZnWjhiaXUrVUdob25sT0xKVi9iYlR4dDU4Z3NrcVd4MFlNM3FOMTMxOXNM?=
- =?utf-8?B?c1ZNOFl4RXBhQk5VdUhOM0VBaEVmU0dEWkI1M09XdEtXb3BaZ0s4M0pkZllW?=
- =?utf-8?B?UzFjRWpjK3lLcE56Q1NZMXVtdlo4dlNEdHF4R1VwdGpJY25qUzRSOWVua2tj?=
- =?utf-8?B?TkJzV1NoRVRlc3BUbG1rQU9LMnY1aEtqMVZFYURWdEdxZGxNR0JjMTB1LzV0?=
- =?utf-8?B?SEFWWWlsd0NLWGpmQjJ3VXBoQTlXaUNib1hzMW96cXBSaE1Dd3hnT1d1d2FD?=
- =?utf-8?B?ejV6R0p2ckg3eHVhNEtGRm5PWm1zclpiZUpFcmRpZ2VwcUY4emYxenJDU1RZ?=
- =?utf-8?B?YTV6SXRhc0o1ZllTVkp2M2RSZUd2TE9paUlaTEZ0ZnM2dmNLdThNWTkzcXU1?=
- =?utf-8?B?S3NXNE8xZVV2dlZ0ZG93eWh3VWMrTlhRa28wNW5KYmZvbXJXWDdvaWtMb3M5?=
- =?utf-8?B?TUx6dnFFMUZFdUFsY1B1UXBWbXpzNjZRVnNwYXp5eU9VMzh0Tkd1bXhBUVFM?=
- =?utf-8?B?dVdGd0pDMGwxRGtiQjVaenZucVlmVUt6WSsvV1hKeFBxSVpKWCtLeVlSMStV?=
- =?utf-8?B?N2plWDMyNUY1bERYeGhNSFZ4am0ycjZNWkd4WmtuT1RrMGZ2dU50WlpZaTEz?=
- =?utf-8?B?TTBReGpDdTZsYVNDbkFrc2FFRnNvVEZxQTZrb2tGU3JFdEl4SU5XWEdvYnhS?=
- =?utf-8?B?MjloZ01TOGFBTWhJZkxDQW9pbEduSUp1Zis2Q1lxMkRIWGtOTnJYY01pSW1x?=
- =?utf-8?B?L2owV2Zyd29VVFlhaXcydVM3Z3lGMVV0SlN5ZXVFR2hBK1A0S2JaZk85NE1D?=
- =?utf-8?B?ZVk5dE9UZFpDUFdpRWNESkZwRkVBTkVJN0drWThSN1A4MjhSTUptc0MwRWE5?=
- =?utf-8?B?Q0VhS0R3NllMQURxeEY0TGRqZ1h5YWI2ekNMbzVaS1NrenRWeENPbElabDNT?=
- =?utf-8?B?UWF5MitUbnp4YklDSzBnbXJ6UTI0c2h1emJNZStGcU4rbUtzRzdodzh3akFy?=
- =?utf-8?B?VDZtalhCZE9iUDhlOGROU2NYYVA1QjR3VkFwZk5ZK1hoYkwvWlVLOVBPRkVn?=
- =?utf-8?B?RGtwRWlIRDNHU24rMEZENFlmTlRMUGE2ZlpOdzJTeFNyZkFZd1hweFNuUFpw?=
- =?utf-8?B?WjAyMm1TdDQxSllRQUFDUU9vZ3RHR3lyOCtOcEhMZ2hUN2t3ZWZpZ29uM1V2?=
- =?utf-8?B?bzVsemJ5U01RZVpPWWozSjdBQW9qUnc2TkNoSFlORE5Dei9JVlR1UGNkenFx?=
- =?utf-8?B?eFhzR3c1aVJ0NVNEUytSS3Y0ZGc2QjBPRC9rbzZGL2ozVlg2UDhpako2bFVJ?=
- =?utf-8?B?L3RYQlpDa1Y0UjM5YlVBekxScjZURGc0Nk0zc2grdUpER0tiMFRWZ0FBOC90?=
- =?utf-8?B?WDJjdzhBditpSVk1QytNbFMwOS9yMG9tWms2UU1qYko2RHZzcnp3VTNBSlpJ?=
- =?utf-8?B?YjZhVGUwbmVlL1I3emRNWW1WNmRSdGcwei9Takc2UnZ6Sk83TE9wdE5GWnFv?=
- =?utf-8?B?MEJ5b3J2Z3RYOVFKbllTdzMrOFFMeTJLaW5Wcml5SkRWMzhGbEpsZlMvZkV5?=
- =?utf-8?B?OS9YM2xDL3RrWXo0QlRwQTlSM2RIOVJVeVNxT1RSYTJqeGFjNmlsV1IrRmpo?=
- =?utf-8?B?R3ZHcnVaQkF2WGtRalYxVEdGS3M3ZWQrU2VMWHpYNE1VOEhMVUlCQllxbk8w?=
- =?utf-8?B?aTVwL0F5SXNRREJRZVo5QjVBeVJQblBTOXM0K2JJY1lTTURLVHBvWjNYR0F0?=
- =?utf-8?B?dkdqRC9wQlYvTWNwdXF1ZmdZS0RpeWtRRWIrYWdVb1FqbXVkdTFWT3FlQmJj?=
- =?utf-8?B?S1h4eWI3QlJxUGpmUjlzL2tCTUhsZXBrOFdSY2U2QVFpSG5LVmtVUG40U1Az?=
- =?utf-8?B?K1VYYjdvbTc5TWlwbCtTbDFrV1dROVVRNnVLeGt1SGJPTUllK0ZnUUlnZEJm?=
- =?utf-8?B?RUNPaWdsby9zNmlzNjhiUTU2MnRoUEkrYUdZd2tCejVCTmdwak8ycDNkelVQ?=
- =?utf-8?B?clYyNXV1MmVPT0RFc3NoN1dsL1ltOW1wVFltYnMrWHBRUlFtQUVUamhlMWhn?=
- =?utf-8?Q?B/A9z7GTbFqIsKnXxECayY8UU?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 791819f8-bc90-469e-ad14-08ddc647c377
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2025 22:09:31.4936 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KJxEoAImpJMZ2BQt7sOf16ohEaIakLxMC1wnIGdcp4NVaTYEFlxq6bjg8Mry6PvopdeOlMoW5LWSPvuyRWOs+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7131
+References: <20250716161753.231145-1-bgeffon@google.com>
+ <CADnq5_P+a2g_YzKW7S4YSF5kQgXe+PNrMKEOAHuf9yhFg98pSQ@mail.gmail.com>
+ <CADyq12zB7+opz0vUgyAQSdbHcYMwbZrZp+qxKdYcqaeCeRVbCw@mail.gmail.com>
+ <CADnq5_OeTJqzg0DgV06b-u_AmgaqXL5XWdQ6h40zcgGj1mCE_A@mail.gmail.com>
+ <CADyq12ysC9C2tsQ3GrQJB3x6aZPzM1o8pyTW8z4bxjGPsfEZvw@mail.gmail.com>
+ <CADnq5_PnktmP+0Hw0T04VkrkKoF_TGz5HOzRd1UZq6XOE0Rm1g@mail.gmail.com>
+ <CADyq12x1f0VLjHKWEmfmis8oLncqSWxeTGs5wL0Xj2hua+onOQ@mail.gmail.com>
+ <CADnq5_OhHpZDmV5J_5kA+avOdLrexnoRVCCCRddLQ=PPVAJsPQ@mail.gmail.com>
+ <46bdb101-11c6-46d4-8224-b17d1d356504@amd.com>
+ <CADnq5_PwyUwqdv1QG_O2XgvNnax+FNskuppBaKx8d0Kp582wXg@mail.gmail.com>
+ <eff0ef03-d054-487e-b3bf-96bf394a3bf5@amd.com>
+In-Reply-To: <eff0ef03-d054-487e-b3bf-96bf394a3bf5@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 18 Jul 2025 19:00:39 -0400
+X-Gm-Features: Ac12FXxsQb-K5hPEFVe-vUn9sPWELbN3hUPlB9ioULbkI7TQ40Q9TxxIpU6AUMA
+Message-ID: <CADnq5_NvPsxmm8j0URD_B8a5gg9NQNX8VY0d93AqUDis46cdXA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Raven: don't allow mixing GTT and VRAM
+To: Leo Li <sunpeng.li@amd.com>
+Cc: Brian Geffon <bgeffon@google.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Yunxiang Li <Yunxiang.Li@amd.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, Prike Liang <Prike.Liang@amd.com>, 
+ Pratap Nirujogi <pratap.nirujogi@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Garrick Evans <garrick@google.com>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, stable@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000f9bb55063a3c187b"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,205 +100,375 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-07-14 08:46, James Zhu wrote:
-> dst MIGRATE_PFN_VALID bit and src MIGRATE_PFN_MIGRATE bit
-> should always be set when migration success. cpage includes
-> src MIGRATE_PFN_MIGRATE bit set and MIGRATE_PFN_VALID bit
-> unset pages for both ram and vram when memory is only allocated
-> without access before migration, those pages should be count as
-> migrate_unsuccessful_pages.
+--000000000000f9bb55063a3c187b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I think the patch is correct but I'm not sure I agree with the 
-explanation. Pages that were never accessed (and are not populated in 
-system memory) should be counted as successfully migrated. It seems they 
-were counted as unsuccessful by the old code.
+On Fri, Jul 18, 2025 at 6:01=E2=80=AFPM Leo Li <sunpeng.li@amd.com> wrote:
+>
+>
+>
+> On 2025-07-18 17:33, Alex Deucher wrote:
+> > On Fri, Jul 18, 2025 at 5:02=E2=80=AFPM Leo Li <sunpeng.li@amd.com> wro=
+te:
+> >>
+> >>
+> >>
+> >> On 2025-07-18 16:07, Alex Deucher wrote:
+> >>> On Fri, Jul 18, 2025 at 1:57=E2=80=AFPM Brian Geffon <bgeffon@google.=
+com> wrote:
+> >>>>
+> >>>> On Thu, Jul 17, 2025 at 10:59=E2=80=AFAM Alex Deucher <alexdeucher@g=
+mail.com> wrote:
+> >>>>>
+> >>>>> On Wed, Jul 16, 2025 at 8:13=E2=80=AFPM Brian Geffon <bgeffon@googl=
+e.com> wrote:
+> >>>>>>
+> >>>>>> On Wed, Jul 16, 2025 at 5:03=E2=80=AFPM Alex Deucher <alexdeucher@=
+gmail.com> wrote:
+> >>>>>>>
+> >>>>>>> On Wed, Jul 16, 2025 at 12:40=E2=80=AFPM Brian Geffon <bgeffon@go=
+ogle.com> wrote:
+> >>>>>>>>
+> >>>>>>>> On Wed, Jul 16, 2025 at 12:33=E2=80=AFPM Alex Deucher <alexdeuch=
+er@gmail.com> wrote:
+> >>>>>>>>>
+> >>>>>>>>> On Wed, Jul 16, 2025 at 12:18=E2=80=AFPM Brian Geffon <bgeffon@=
+google.com> wrote:
+> >>>>>>>>>>
+> >>>>>>>>>> Commit 81d0bcf99009 ("drm/amdgpu: make display pinning more fl=
+exible (v2)")
+> >>>>>>>>>> allowed for newer ASICs to mix GTT and VRAM, this change also =
+noted that
+> >>>>>>>>>> some older boards, such as Stoney and Carrizo do not support t=
+his.
+> >>>>>>>>>> It appears that at least one additional ASIC does not support =
+this which
+> >>>>>>>>>> is Raven.
+> >>>>>>>>>>
+> >>>>>>>>>> We observed this issue when migrating a device from a 5.4 to 6=
+.6 kernel
+> >>>>>>>>>> and have confirmed that Raven also needs to be excluded from m=
+ixing GTT
+> >>>>>>>>>> and VRAM.
+> >>>>>>>>>
+> >>>>>>>>> Can you elaborate a bit on what the problem is?  For carrizo an=
+d
+> >>>>>>>>> stoney this is a hardware limitation (all display buffers need =
+to be
+> >>>>>>>>> in GTT or VRAM, but not both).  Raven and newer don't have this
+> >>>>>>>>> limitation and we tested raven pretty extensively at the time.s
+> >>>>>>>>
+> >>>>>>>> Thanks for taking the time to look. We have automated testing an=
+d a
+> >>>>>>>> few igt gpu tools tests failed and after debugging we found that
+> >>>>>>>> commit 81d0bcf99009 is what introduced the failures on this hard=
+ware
+> >>>>>>>> on 6.1+ kernels. The specific tests that fail are kms_async_flip=
+s and
+> >>>>>>>> kms_plane_alpha_blend, excluding Raven from this sharing of GTT =
+and
+> >>>>>>>> VRAM buffers resolves the issue.
+> >>>>>>>
+> >>>>>>> + Harry and Leo
+> >>>>>>>
+> >>>>>>> This sounds like the memory placement issue we discussed last wee=
+k.
+> >>>>>>> In that case, the issue is related to where the buffer ends up wh=
+en we
+> >>>>>>> try to do an async flip.  In that case, we can't do an async flip
+> >>>>>>> without a full modeset if the buffers locations are different tha=
+n the
+> >>>>>>> last modeset because we need to update more than just the buffer =
+base
+> >>>>>>> addresses.  This change works around that limitation by always fo=
+rcing
+> >>>>>>> display buffers into VRAM or GTT.  Adding raven to this case may =
+fix
+> >>>>>>> those tests but will make the overall experience worse because we=
+'ll
+> >>>>>>> end up effectively not being able to not fully utilize both gtt a=
+nd
+> >>>>>>> vram for display which would reintroduce all of the problems fixe=
+d by
+> >>>>>>> 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v2=
+)").
+> >>>>>>
+> >>>>>> Thanks Alex, the thing is, we only observe this on Raven boards, w=
+hy
+> >>>>>> would Raven only be impacted by this? It would seem that all devic=
+es
+> >>>>>> would have this issue, no? Also, I'm not familiar with how
+> >>>>>
+> >>>>> It depends on memory pressure and available memory in each pool.
+> >>>>> E.g., initially the display buffer is in VRAM when the initial mode
+> >>>>> set happens.  The watermarks, etc. are set for that scenario.  One =
+of
+> >>>>> the next frames ends up in a pool different than the original.  Now
+> >>>>> the buffer is in GTT.  The async flip interface does a fast validat=
+ion
+> >>>>> to try and flip as soon as possible, but that validation fails beca=
+use
+> >>>>> the watermarks need to be updated which requires a full modeset.
+> >>
+> >> Huh, I'm not sure if this actually is an issue for APUs. The fix that =
+introduced
+> >> a check for same memory placement on async flips was on a system with =
+a DGPU,
+> >> for which VRAM placement does matter:
+> >> https://github.com/torvalds/linux/commit/a7c0cad0dc060bb77e9c9d235d684=
+41b0fc69507
+> >>
+> >> Looking around in DM/DML, for APUs, I don't see any logic that changes=
+ DCN
+> >> bandwidth validation depending on memory placement. There's a gpuvm_en=
+able flag
+> >> for SG, but it's statically set to 1 on APU DCN versions. It sounds li=
+ke for
+> >> APUs specifically, we *should* be able to ignore the mem placement che=
+ck. I can
+> >> spin up a patch to test this out.
+> >
+> > Is the gpu_vm_support flag ever set for dGPUs?  The allowed domains
+> > for display buffers are determined by
+> > amdgpu_display_supported_domains() and we only allow GTT as a domain
+> > if gpu_vm_support is set, which I think is just for APUs.  In that
+> > case, we could probably only need the checks specifically for
+> > CHIP_CARRIZO and CHIP_STONEY since IIRC, they don't support mixed VRAM
+> > and GTT (only one or the other?).  dGPUs and really old APUs will
+> > always get VRAM, and newer APUs will get VRAM | GTT.
+>
+> It doesn't look like gpu_vm_support is set for DGPUs
+> https://elixir.bootlin.com/linux/v6.15.6/source/drivers/gpu/drm/amd/displ=
+ay/amdgpu_dm/amdgpu_dm.c#L1866
+>
+> Though interestingly, further up at #L1858, Raven has gpu_vm_support =3D =
+0. Maybe it had stability issues?
+> https://github.com/torvalds/linux/commit/098c13079c6fdd44f10586b69132c392=
+ebf87450
 
-Some more suggestions inline.
+We need to be a little careful here asic_type =3D=3D CHIP_RAVEN covers
+several variants:
+apu_flags & AMD_APU_IS_RAVEN - raven1 (gpu_vm_support =3D false)
+apu_flags & AMD_APU_IS_RAVEN2 - raven2 (gpu_vm_support =3D true)
+apu_flags & AMD_APU_IS_PICASSO - picasso (gpu_vm_support =3D true)
+
+amdgpu_display_supported_domains() only sets AMDGPU_GEM_DOMAIN_GTT if
+gpu_vm_support is true.  so we'd never get into the check in
+amdgpu_bo_get_preferred_domain() for raven1.
+
+Anyway, back to your suggestion, I think we can probably drop the
+checks as you should always get a compatible memory buffer due to
+amdgpu_bo_get_preferred_domain(). Pinning should fail if we can't pin
+in the required domain.  amdgpu_display_supported_domains() will
+ensure you always get VRAM or GTT or VRAM | GTT depending on what the
+chip supports.  Then amdgpu_bo_get_preferred_domain() will either
+leave that as is, or force VRAM or GTT for the STONEY/CARRIZO case.
+On the off chance we do get incompatible memory, something like the
+attached patch should do the trick.
+
+Alex
 
 
 >
-> -v2 use dst to check MIGRATE_PFN_VALID bit(suggested-by philip)
-> -v3 add warning when vram pages is less than migration pages
->      return migration pages directly from copy function
+> - Leo
 >
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 44 +++++++++---------------
->   1 file changed, 16 insertions(+), 28 deletions(-)
+> >
+> > Alex
+> >
+> >>
+> >> Thanks,
+> >> Leo
+> >>
+> >>>>>
+> >>>>> It's tricky to fix because you don't want to use the worst case
+> >>>>> watermarks all the time because that will limit the number availabl=
+e
+> >>>>> display options and you don't want to force everything to a particu=
+lar
+> >>>>> memory pool because that will limit the amount of memory that can b=
+e
+> >>>>> used for display (which is what the patch in question fixed).  Idea=
+lly
+> >>>>> the caller would do a test commit before the page flip to determine
+> >>>>> whether or not it would succeed before issuing it and then we'd hav=
+e
+> >>>>> some feedback mechanism to tell the caller that the commit would fa=
+il
+> >>>>> due to buffer placement so it would do a full modeset instead.  We
+> >>>>> discussed this feedback mechanism last week at the display hackfest=
+.
+> >>>>>
+> >>>>>
+> >>>>>> kms_plane_alpha_blend works, but does this also support that test
+> >>>>>> failing as the cause?
+> >>>>>
+> >>>>> That may be related.  I'm not too familiar with that test either, b=
+ut
+> >>>>> Leo or Harry can provide some guidance.
+> >>>>>
+> >>>>> Alex
+> >>>>
+> >>>> Thanks everyone for the input so far. I have a question for the
+> >>>> maintainers, given that it seems that this is functionally broken fo=
+r
+> >>>> ASICs which are iGPUs, and there does not seem to be an easy fix, do=
+es
+> >>>> it make sense to extend this proposed patch to all iGPUs until a mor=
+e
+> >>>> permanent fix can be identified? At the end of the day I'll take
+> >>>> functional correctness over performance.
+> >>>
+> >>> It's not functional correctness, it's usability.  All that is
+> >>> potentially broken is async flips (which depend on memory pressure an=
+d
+> >>> buffer placement), while if you effectively revert the patch, you end
+> >>> up  limiting all display buffers to either VRAM or GTT which may end
+> >>> up causing the inability to display anything because there is not
+> >>> enough memory in that pool for the next modeset.  We'll start getting
+> >>> bug reports about blank screens and failure to set modes because of
+> >>> memory pressure.  I think if we want a short term fix, it would be to
+> >>> always set the worst case watermarks.  The downside to that is that i=
+t
+> >>> would possibly cause some working display setups to stop working if
+> >>> they were on the margins to begin with.
+> >>>
+> >>> Alex
+> >>>
+> >>>>
+> >>>> Brian
+> >>>>
+> >>>>>
+> >>>>>>
+> >>>>>> Thanks again,
+> >>>>>> Brian
+> >>>>>>
+> >>>>>>>
+> >>>>>>> Alex
+> >>>>>>>
+> >>>>>>>>
+> >>>>>>>> Brian
+> >>>>>>>>
+> >>>>>>>>>
+> >>>>>>>>>
+> >>>>>>>>> Alex
+> >>>>>>>>>
+> >>>>>>>>>>
+> >>>>>>>>>> Fixes: 81d0bcf99009 ("drm/amdgpu: make display pinning more fl=
+exible (v2)")
+> >>>>>>>>>> Cc: Luben Tuikov <luben.tuikov@amd.com>
+> >>>>>>>>>> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >>>>>>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+> >>>>>>>>>> Cc: stable@vger.kernel.org # 6.1+
+> >>>>>>>>>> Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> >>>>>>>>>> Signed-off-by: Brian Geffon <bgeffon@google.com>
+> >>>>>>>>>> ---
+> >>>>>>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+> >>>>>>>>>>  1 file changed, 2 insertions(+), 1 deletion(-)
+> >>>>>>>>>>
+> >>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/driv=
+ers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> >>>>>>>>>> index 73403744331a..5d7f13e25b7c 100644
+> >>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> >>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> >>>>>>>>>> @@ -1545,7 +1545,8 @@ uint32_t amdgpu_bo_get_preferred_domain(=
+struct amdgpu_device *adev,
+> >>>>>>>>>>                                             uint32_t domain)
+> >>>>>>>>>>  {
+> >>>>>>>>>>         if ((domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GE=
+M_DOMAIN_GTT)) &&
+> >>>>>>>>>> -           ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->a=
+sic_type =3D=3D CHIP_STONEY))) {
+> >>>>>>>>>> +           ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->a=
+sic_type =3D=3D CHIP_STONEY) ||
+> >>>>>>>>>> +            (adev->asic_type =3D=3D CHIP_RAVEN))) {
+> >>>>>>>>>>                 domain =3D AMDGPU_GEM_DOMAIN_VRAM;
+> >>>>>>>>>>                 if (adev->gmc.real_vram_size <=3D AMDGPU_SG_TH=
+RESHOLD)
+> >>>>>>>>>>                         domain =3D AMDGPU_GEM_DOMAIN_GTT;
+> >>>>>>>>>> --
+> >>>>>>>>>> 2.50.0.727.gbf7dc18ff4-goog
+> >>>>>>>>>>
+> >>
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index f0b690d4bb46..aad1346bde79 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -260,29 +260,15 @@ static void svm_migrate_put_sys_page(unsigned long addr)
->   	put_page(page);
->   }
->   
-> -static unsigned long svm_migrate_unsuccessful_pages(struct migrate_vma *migrate)
-> -{
-> -	unsigned long upages = 0;
-> -	unsigned long i;
-> -
-> -	for (i = 0; i < migrate->npages; i++) {
-> -		if (migrate->src[i] & MIGRATE_PFN_VALID &&
-> -		    !(migrate->src[i] & MIGRATE_PFN_MIGRATE))
-> -			upages++;
-> -	}
-> -	return upages;
-> -}
-> -
->   static int
->   svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   			 struct migrate_vma *migrate, struct dma_fence **mfence,
-> -			 dma_addr_t *scratch, uint64_t ttm_res_offset)
-> +			 dma_addr_t *scratch, uint64_t ttm_res_offset, unsigned long *mpages)
 
-You could return mpages as the return value. That would match the 
-convention of svm_migrate_vma_to_vram.
+--000000000000f9bb55063a3c187b
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-drm-amd-display-refine-framebuffer-placement-checks.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amd-display-refine-framebuffer-placement-checks.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_md9f8jvm0>
+X-Attachment-Id: f_md9f8jvm0
 
-
->   {
->   	uint64_t npages = migrate->npages;
->   	struct amdgpu_device *adev = node->adev;
->   	struct device *dev = adev->dev;
->   	struct amdgpu_res_cursor cursor;
-> -	uint64_t mpages = 0;
->   	dma_addr_t *src;
->   	uint64_t *dst;
->   	uint64_t i, j;
-> @@ -296,7 +282,8 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   
->   	amdgpu_res_first(prange->ttm_res, ttm_res_offset,
->   			 npages << PAGE_SHIFT, &cursor);
-> -	for (i = j = 0; (i < npages) && (mpages < migrate->cpages); i++) {
-> +	*mpages = 0;
-> +	for (i = j = 0; (i < npages) && (*mpages < migrate->cpages); i++) {
->   		struct page *spage;
->   
->   		if (migrate->src[i] & MIGRATE_PFN_MIGRATE) {
-> @@ -304,7 +291,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   			migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
->   			svm_migrate_get_vram_page(prange, migrate->dst[i]);
->   			migrate->dst[i] = migrate_pfn(migrate->dst[i]);
-> -			mpages++;
-> +			(*mpages)++;
->   		}
->   		spage = migrate_pfn_to_page(migrate->src[i]);
->   		if (spage && !is_zone_device_page(spage)) {
-> @@ -356,12 +343,12 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   out_free_vram_pages:
->   	if (r) {
->   		pr_debug("failed %d to copy memory to vram\n", r);
-> -		for (i = 0; i < npages && mpages; i++) {
-> +		for (i = 0; i < npages && *mpages; i++) {
->   			if (!dst[i])
->   				continue;
->   			svm_migrate_put_vram_page(adev, dst[i]);
->   			migrate->dst[i] = 0;
-> -			mpages--;
-> +			(*mpages)--;
->   		}
->   	}
->   
-> @@ -441,13 +428,12 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
->   	else
->   		pr_debug("0x%lx pages collected\n", cpages);
->   
-> -	r = svm_migrate_copy_to_vram(node, prange, &migrate, &mfence, scratch, ttm_res_offset);
-> +	r = svm_migrate_copy_to_vram(node, prange, &migrate, &mfence, scratch, ttm_res_offset, &mpages);
->   	migrate_vma_pages(&migrate);
->   
->   	svm_migrate_copy_done(adev, mfence);
->   	migrate_vma_finalize(&migrate);
->   
-> -	mpages = cpages - svm_migrate_unsuccessful_pages(&migrate);
->   	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
->   			 mpages, cpages, migrate.npages);
-
-Maybe change "successful/cpages/npages" to 
-"migrated/collected/requested". I think that would be a better 
-explanation of what these numbers actually mean.
-
-
->   
-> @@ -580,7 +566,7 @@ static void svm_migrate_page_free(struct page *page)
->   static int
->   svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   			struct migrate_vma *migrate, struct dma_fence **mfence,
-> -			dma_addr_t *scratch, uint64_t npages)
-> +			dma_addr_t *scratch, uint64_t npages, unsigned long *mpages)
-
-You could return mpages as the return value. That would match the 
-convention of svm_migrate_vma_to_ram.
-
-
->   {
->   	struct device *dev = adev->dev;
->   	uint64_t *src;
-> @@ -598,6 +584,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   	src = (uint64_t *)(scratch + npages);
->   	dst = scratch;
->   
-> +	*mpages = 0;
->   	for (i = 0, j = 0; i < npages; i++, addr += PAGE_SIZE) {
->   		struct page *spage;
->   
-> @@ -646,6 +633,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   				     dst[i] >> PAGE_SHIFT, page_to_pfn(dpage));
->   
->   		migrate->dst[i] = migrate_pfn(page_to_pfn(dpage));
-> +		(*mpages)++;
->   		j++;
->   	}
->   
-> @@ -688,7 +676,6 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
->   {
->   	struct kfd_process *p = container_of(prange->svms, struct kfd_process, svms);
->   	uint64_t npages = (end - start) >> PAGE_SHIFT;
-> -	unsigned long upages = npages;
->   	unsigned long cpages = 0;
->   	unsigned long mpages = 0;
->   	struct amdgpu_device *adev = node->adev;
-> @@ -745,12 +732,11 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
->   		pr_debug("0x%lx pages collected\n", cpages);
->   
->   	r = svm_migrate_copy_to_ram(adev, prange, &migrate, &mfence,
-> -				    scratch, npages);
-> +				    scratch, npages, &mpages);
->   	migrate_vma_pages(&migrate);
->   
-> -	upages = svm_migrate_unsuccessful_pages(&migrate);
-> -	pr_debug("unsuccessful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
-> -		 upages, cpages, migrate.npages);
-> +	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
-> +		 mpages, cpages, migrate.npages);
-
-Maybe change "successful/cpages/npages" to 
-"migrated/collected/requested". I think that would be a better 
-explanation of what these numbers actually mean.
-
-Regards,
-   Felix
-
-
->   
->   	svm_migrate_copy_done(adev, mfence);
->   	migrate_vma_finalize(&migrate);
-> @@ -764,7 +750,6 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
->   				    node->id, 0, trigger, r);
->   out:
->   	if (!r && cpages) {
-> -		mpages = cpages - upages;
->   		pdd = svm_range_get_pdd_by_node(prange, node);
->   		if (pdd)
->   			WRITE_ONCE(pdd->page_out, pdd->page_out + mpages);
-> @@ -847,6 +832,9 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm,
->   	}
->   
->   	if (r >= 0) {
-> +		WARN_ONCE(prange->vram_pages < mpages,
-> +			"Recorded vram pages(0x%llx) should not be less than migration pages(0x%lx).",
-> +			prange->vram_pages, mpages);
->   		prange->vram_pages -= mpages;
->   
->   		/* prange does not have vram page set its actual_loc to system
+RnJvbSBjY2UxNjUyYzYyYzQyYzg1OGRlNjRjMzA2ZWEwZGRjN2FmM2JkMGIxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+CkRhdGU6IEZyaSwgMTggSnVsIDIwMjUgMTg6NDA6MjYgLTA0MDAKU3ViamVjdDogW1BBVENI
+XSBkcm0vYW1kL2Rpc3BsYXk6IHJlZmluZSBmcmFtZWJ1ZmZlciBwbGFjZW1lbnQgY2hlY2tzCgpX
+aGVuIHdlIGNvbW1pdCBwbGFuZXMsIHdlIG5lZWQgdG8gbWFrZSBzdXJlIHRoZQpmcmFtZWJ1ZmZl
+ciBtZW1vcnkgbG9jYXRpb25zIGFyZSBjb21wYXRpYmxlLiBWYXJpb3VzCmhhcmR3YXJlIGhhcyB0
+aGUgZm9sbG93aW5nIHJlcXVpcmVtZW50cyBmb3IgZGlzcGxheSBidWZmZXJzOgpkR1BVcywgb2xk
+IEFQVXMsIHJhdmVuMSAtIG11c3QgYmUgaW4gVlJBTQpjYXp6aXJvL3N0b25leSAtIG11c3QgYmUg
+aW4gVlJBTSBvciBHVFQsIGJ1dCBub3QgYm90aApuZXdlciBBUFVzIChyYXZlbjIvcGljYXNzbyBh
+bmQgbmV3ZXIpIC0gY2FuIGJlIGluIFZSQU0gb3IgR1RUCgpZb3Ugc2hvdWxkIGFsd2F5cyBnZXQg
+YSBjb21wYXRpYmxlIG1lbW9yeSBidWZmZXIgZHVlIHRvCmFtZGdwdV9ib19nZXRfcHJlZmVycmVk
+X2RvbWFpbigpLiBhbWRncHVfZGlzcGxheV9zdXBwb3J0ZWRfZG9tYWlucygpCndpbGwgZW5zdXJl
+IHlvdSBhbHdheXMgZ2V0IFZSQU0gb3IgR1RUIG9yIFZSQU0gfCBHVFQgZGVwZW5kaW5nIG9uCndo
+YXQgdGhlIGNoaXAgc3VwcG9ydHMuICBUaGVuIGFtZGdwdV9ib19nZXRfcHJlZmVycmVkX2RvbWFp
+bigpCndpbGwgZWl0aGVyIGxlYXZlIHRoYXQgYXMgaXMgd2hlbiBwaW5uaW5nLCBvciBmb3JjZSBW
+UkFNIG9yIEdUVApmb3IgdGhlIFNUT05FWS9DQVJSSVpPIGNhc2UuCgpBcyBzdWNoIHRoZSBjaGVj
+a3MgY291bGQgcHJvYmFibHkgYmUgcmVtb3ZlZCwgYnV0IG9uIHRoZSBvZmYgY2hhbmNlCndlIGRv
+IGVuZCB1cCBnZXR0aW5nIGRpZmZlcmVudCBtZW1vcnkgcG9vbCBmb3IgdGhlIG9sZAphbmQgbmV3
+IGZyYW1lYnVmZmVycywgcmVmaW5lIHRoZSBjaGVjayB0byB0YWtlIGludG8gYWNjb3VudCB0aGUK
+aGFyZHdhcmUgY2FwYWJpbGl0aWVzLgoKRml4ZXM6IGE3YzBjYWQwZGMwNiAoImRybS9hbWQvZGlz
+cGxheTogZW5zdXJlIGFzeW5jIGZsaXBzIGFyZSBvbmx5IGFjY2VwdGVkIGZvciBmYXN0IHVwZGF0
+ZXMiKQpSZXBvcnRlZC1ieTogQnJpYW4gR2VmZm9uIDxiZ2VmZm9uQGdvb2dsZS5jb20+CkNjOiBM
+ZW8gTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxh
+bGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG0uYyB8IDIwICsrKysrKysrKysrKysrKystLS0KIDEgZmlsZSBjaGFu
+Z2VkLCAxNyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IDEyOTQ3NmI2ZDVm
+YTkuLmRlMmJkNzg5ZWMxNWIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtOTI4OCw2ICs5Mjg4LDE4IEBAIHN0YXRpYyB2b2lk
+IGFtZGdwdV9kbV9lbmFibGVfc2VsZl9yZWZyZXNoKHN0cnVjdCBhbWRncHVfY3J0YyAqYWNydGNf
+YXR0YWNoLAogCX0KIH0KIAorc3RhdGljIGJvb2wgYW1kZ3B1X2RtX21lbV90eXBlX2NvbXBhdGli
+bGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCisJCQkJCSAgc3RydWN0IGRybV9mcmFtZWJ1
+ZmZlciAqb2xkX2ZiLAorCQkJCQkgIHN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKm5ld19mYikKK3sK
+KwlpZiAoIWFkZXYtPm1vZGVfaW5mby5ncHVfdm1fc3VwcG9ydCB8fAorCSAgICAoYWRldi0+YXNp
+Y190eXBlID09IENISVBfQ0FSUklaTykgfHwKKwkgICAgKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQ
+X1NUT05FWSkpCisJCXJldHVybiBnZXRfbWVtX3R5cGUob2xkX2ZiKSA9PSBnZXRfbWVtX3R5cGUo
+bmV3X2ZiKTsKKworCXJldHVybiB0cnVlOworfQorCiBzdGF0aWMgdm9pZCBhbWRncHVfZG1fY29t
+bWl0X3BsYW5lcyhzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUsCiAJCQkJICAgIHN0cnVj
+dCBkcm1fZGV2aWNlICpkZXYsCiAJCQkJICAgIHN0cnVjdCBhbWRncHVfZGlzcGxheV9tYW5hZ2Vy
+ICpkbSwKQEAgLTk0NjUsNyArOTQ3Nyw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRf
+cGxhbmVzKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwKIAkJICovCiAJCWlmIChjcnRj
+LT5zdGF0ZS0+YXN5bmNfZmxpcCAmJgogCQkgICAgKGFjcnRjX3N0YXRlLT51cGRhdGVfdHlwZSAh
+PSBVUERBVEVfVFlQRV9GQVNUIHx8Ci0JCSAgICAgZ2V0X21lbV90eXBlKG9sZF9wbGFuZV9zdGF0
+ZS0+ZmIpICE9IGdldF9tZW1fdHlwZShmYikpKQorCQkgICAgICFhbWRncHVfZG1fbWVtX3R5cGVf
+Y29tcGF0aWJsZShkbS0+YWRldiwgb2xkX3BsYW5lX3N0YXRlLT5mYiwgZmIpKSkKIAkJCWRybV93
+YXJuX29uY2Uoc3RhdGUtPmRldiwKIAkJCQkgICAgICAiW1BMQU5FOiVkOiVzXSBhc3luYyBmbGlw
+IHdpdGggbm9uLWZhc3QgdXBkYXRlXG4iLAogCQkJCSAgICAgIHBsYW5lLT5iYXNlLmlkLCBwbGFu
+ZS0+bmFtZSk7CkBAIC05NDczLDcgKzk0ODUsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZG1fY29t
+bWl0X3BsYW5lcyhzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUsCiAJCWJ1bmRsZS0+Zmxp
+cF9hZGRyc1twbGFuZXNfY291bnRdLmZsaXBfaW1tZWRpYXRlID0KIAkJCWNydGMtPnN0YXRlLT5h
+c3luY19mbGlwICYmCiAJCQlhY3J0Y19zdGF0ZS0+dXBkYXRlX3R5cGUgPT0gVVBEQVRFX1RZUEVf
+RkFTVCAmJgotCQkJZ2V0X21lbV90eXBlKG9sZF9wbGFuZV9zdGF0ZS0+ZmIpID09IGdldF9tZW1f
+dHlwZShmYik7CisJCQlhbWRncHVfZG1fbWVtX3R5cGVfY29tcGF0aWJsZShkbS0+YWRldiwgb2xk
+X3BsYW5lX3N0YXRlLT5mYiwgZmIpOwogCiAJCXRpbWVzdGFtcF9ucyA9IGt0aW1lX2dldF9ucygp
+OwogCQlidW5kbGUtPmZsaXBfYWRkcnNbcGxhbmVzX2NvdW50XS5mbGlwX3RpbWVzdGFtcF9pbl91
+cyA9IGRpdl91NjQodGltZXN0YW1wX25zLCAxMDAwKTsKQEAgLTExNzYwLDYgKzExNzcyLDcgQEAg
+c3RhdGljIGJvb2wgYW1kZ3B1X2RtX2NydGNfbWVtX3R5cGVfY2hhbmdlZChzdHJ1Y3QgZHJtX2Rl
+dmljZSAqZGV2LAogCQkJCQkgICAgc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlLAogCQkJ
+CQkgICAgc3RydWN0IGRybV9jcnRjX3N0YXRlICpjcnRjX3N0YXRlKQogeworCXN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2ID0gZHJtX3RvX2FkZXYoZGV2KTsKIAlzdHJ1Y3QgZHJtX3BsYW5lICpw
+bGFuZTsKIAlzdHJ1Y3QgZHJtX3BsYW5lX3N0YXRlICpuZXdfcGxhbmVfc3RhdGUsICpvbGRfcGxh
+bmVfc3RhdGU7CiAKQEAgLTExNzczLDcgKzExNzg2LDggQEAgc3RhdGljIGJvb2wgYW1kZ3B1X2Rt
+X2NydGNfbWVtX3R5cGVfY2hhbmdlZChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCQl9CiAKIAkJ
+aWYgKG9sZF9wbGFuZV9zdGF0ZS0+ZmIgJiYgbmV3X3BsYW5lX3N0YXRlLT5mYiAmJgotCQkgICAg
+Z2V0X21lbV90eXBlKG9sZF9wbGFuZV9zdGF0ZS0+ZmIpICE9IGdldF9tZW1fdHlwZShuZXdfcGxh
+bmVfc3RhdGUtPmZiKSkKKwkJICAgICFhbWRncHVfZG1fbWVtX3R5cGVfY29tcGF0aWJsZShhZGV2
+LCBvbGRfcGxhbmVfc3RhdGUtPmZiLAorCQkJCQkJICAgbmV3X3BsYW5lX3N0YXRlLT5mYikpCiAJ
+CQlyZXR1cm4gdHJ1ZTsKIAl9CiAKLS0gCjIuNTAuMQoK
+--000000000000f9bb55063a3c187b--
