@@ -4,87 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E9E9C83F22
-	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jul 2025 15:32:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C62FDC83F1A
+	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jul 2025 15:32:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79CBB10E225;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0CAE10E37C;
 	Sun, 20 Jul 2025 15:32:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=felixrichter.tech header.i=@felixrichter.tech header.b="Jl34XNkt";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="z43EccIG";
 	dkim-atps=neutral
-Received: from dijkstra.felixrichter.tech (unknown [37.120.184.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FA1210E1E4;
- Sat, 19 Jul 2025 10:11:05 +0000 (UTC)
-Received: from [10.130.10.1] (unknown [10.130.10.1])
- by dijkstra.felixrichter.tech (Postfix) with ESMTPSA id BF8651A30BD;
- Sat, 19 Jul 2025 12:11:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=felixrichter.tech;
- s=20210926; t=1752919899;
- bh=3VNfUxSAOp65CvuEaSzBq77SlXZOKw58vVaXGiL/O5w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Jl34XNktwUvmuKXe7npo+PCYFQW/xOBr1+GtI/8at3IY6Mfm29wl8adA41SvXnFAl
- PoDU7ZOUVe8YMCXvQHyJh+XFfmiHXON4PLPjQnNncDG0YYX+KsiLQvT0u5fZBJuNZ3
- z0TOW2IAFN6kQhgrqR4phjTkIX+jkZZxYAWNY22A=
-Message-ID: <5f63ae37-793e-4e34-a8ab-1845121fcd7e@felixrichter.tech>
-Date: Sat, 19 Jul 2025 12:10:51 +0200
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAD0810EA2A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 17:57:19 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2357c61cda7so13385ad.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jul 2025 10:57:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1752861439; x=1753466239;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fQwq6XL4XMMDUVPyAAts9uHNc3Wh3Ah7TMpl+x8VXU4=;
+ b=z43EccIG2lRK9j1LP1nZmdFBxXoPGUnzbBry4agKBKx10LQ+ni1bzFBVlagILBwbHs
+ TMfvSDloojsr+jxI8YwNQMLuN1uP2mzAQ+dhPPQiZqhtOj81C7yFuXZIcNYKFF8ggxaU
+ uk76sANW7Cq5xFjUWv1c4Z2osdeES8nyS44hu2R41ROLMZOhAtPjc6gX2SxUvpDd1xmS
+ nr8nBEfKxiV2pPQ1doZRzGmYGsEz/9gU2YYvuXYihPfKS3mrlqzz6ECLiYSR1Shu6wHN
+ cC1XAIBpbMBo2M09yonP0zhs1xTRIcS41UKIkK38EzdsAFdyU52qGmbhVBoCd9Y+irzo
+ GxcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752861439; x=1753466239;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fQwq6XL4XMMDUVPyAAts9uHNc3Wh3Ah7TMpl+x8VXU4=;
+ b=VcWGoS5GTdMTwn1o6BtSYg4aAU9aKr6aJRf+mFnhhox0OxfGna54e7P+ECeKqFdACV
+ cAXZMUj2GbJtfnSy2uAqpdZm9IDcCQBtCvoRHq0fFt5Tx2RsXNEEFd+A0UW9aPuQXz7t
+ f/7MEdKA7eqwAXxQP/U2Xdy6FLJ9SHYkqALdtfjGmfbNg/bYH15HOOJfGOTUSpNLleHj
+ QmuKB1tHt/Ksvex8kF1191QYr4p1qljGGae/AOiMEvVj2OO8i9bXJXzBYyOOrYFYW25b
+ 9vFVnAJhavxEbm2iaHNRNLktrzrSZoCPkpLbsEFDsE/sgYxwzst65sB+9hSa9PSg6H2A
+ krMw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXEJsaCtYqTe+0tMmt5nJ7w7hurKO8SgPw6DCqMPA520X0rnmVIyXZN70Go2ACd8BBi6dkw8xaq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyiTiA9eSZXiafUe93+MqGp4dYNYJ/kTLdzml6V9NYJAzZlibjn
+ hL/HDOB+x178Lpx4NMR2o0HJcemW2BK6N/P11pFVg9qxPrdZJ9TBvKkoo7nXfjePMW+zbz9caTj
+ U7IPmSZakQe20BwKXcGcN8Okb9acmsxYQpUmylM0f
+X-Gm-Gg: ASbGncvL3ZB3bJLX8xQ1BkuZ0cY5KhjMMkxehC/GIbY9xNgEW0Jj2w4+CKHEs1YPmWj
+ E99xjSgNQWGDm7oIJzo0saVVFlL4LkDEmPbhBsYAGsBOzQ5jb4koGWMrHrL/XHeybaX0tj9xs+t
+ am4CIYq8bJzV4NNZ1Q9FqZPbZ1qEvkWWQJ1dH/lE3Xv48PxFmiElXu29ufMs7eymfIsE6TJtq0S
+ LbNkw==
+X-Google-Smtp-Source: AGHT+IFB7mRsL16wpHPWottVi1OKrwf75zBs0DCPDQD+QRajm4wHJjRQeKVuBUPTfJF/u36oAJXSpzv3mDvRuLFSvUg=
+X-Received: by 2002:a17:902:e845:b0:231:d0ef:e8ff with SMTP id
+ d9443c01a7336-23f71cf6272mr147495ad.8.1752861438668; Fri, 18 Jul 2025
+ 10:57:18 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Regression: DDC I2C Display Freezing for internal displays
-To: Mario Limonciello <superm1@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, jonas@3j14.de
-References: <0863bc3e-7364-4572-bb72-fc85657cbad7@felixrichter.tech>
- <d9706fe0-7965-457d-830e-19f9aafee855@felixrichter.tech>
- <1c64c181-4e96-4274-975b-454f7207af92@kernel.org>
-Content-Language: en-US
-From: Felix Richter <judge@felixrichter.tech>
-Autocrypt: addr=judge@felixrichter.tech; keydata=
- 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
-In-Reply-To: <1c64c181-4e96-4274-975b-454f7207af92@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20250716161753.231145-1-bgeffon@google.com>
+ <CADnq5_P+a2g_YzKW7S4YSF5kQgXe+PNrMKEOAHuf9yhFg98pSQ@mail.gmail.com>
+ <CADyq12zB7+opz0vUgyAQSdbHcYMwbZrZp+qxKdYcqaeCeRVbCw@mail.gmail.com>
+ <CADnq5_OeTJqzg0DgV06b-u_AmgaqXL5XWdQ6h40zcgGj1mCE_A@mail.gmail.com>
+ <CADyq12ysC9C2tsQ3GrQJB3x6aZPzM1o8pyTW8z4bxjGPsfEZvw@mail.gmail.com>
+ <CADnq5_PnktmP+0Hw0T04VkrkKoF_TGz5HOzRd1UZq6XOE0Rm1g@mail.gmail.com>
+In-Reply-To: <CADnq5_PnktmP+0Hw0T04VkrkKoF_TGz5HOzRd1UZq6XOE0Rm1g@mail.gmail.com>
+From: Brian Geffon <bgeffon@google.com>
+Date: Fri, 18 Jul 2025 13:56:42 -0400
+X-Gm-Features: Ac12FXy1d35S96EobB812Shedx-VhbSYaFw_UhX7goQUz4ANBgmd9GU0nbH0gb8
+Message-ID: <CADyq12x1f0VLjHKWEmfmis8oLncqSWxeTGs5wL0Xj2hua+onOQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Raven: don't allow mixing GTT and VRAM
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Yunxiang Li <Yunxiang.Li@amd.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, Prike Liang <Prike.Liang@amd.com>, 
+ Pratap Nirujogi <pratap.nirujogi@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Garrick Evans <garrick@google.com>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sun, 20 Jul 2025 15:32:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,52 +98,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks for the reply.
-
-I am aware that i can read and `edid` via sysfs from the drm device. I 
-did not know about `drm_info` but from a quick look at it I don't think 
-it provides the information I need.
-
-The problem is not that I need more information about the attached 
-display. The problem is that there is not enough information about the 
-what `i2c` device corresponds to which monitors ddc channel. Relying on 
-udev hierarchies is not sufficient, because in many cases the relevant 
-i2c device has no parent drm output device. So when I have no 
-information about the i2c device I need to get more information by 
-reading from it. Then I know more and can map the device to the correct 
-display. I am happy to change the approach if there is a simpler way for 
-me to get this information.
-
-Ultimately I don't think that me accessing the bus should be the issue 
-here … This issue did not happen with kernel 6.6, so it definitely 
-qualifies as a regression. In my mind it is the job of the driver to 
-handle resource allocation, so if the bus is in use by somebody else it 
-is the kernels job to handle who uses it. It is not the users job to 
-have to worry about some sort of synchronization issue. That is the 
-operating systems job.
-
-People have been experiencing similar screen freezing issues randomly on 
-this drm issue thread: 
-https://gitlab.freedesktop.org/drm/amd/-/issues/4141#note_3016182
-
-This example highlights an issue that can be triggered reliably with a 
-very similar effect. It may not be the same issue, but they may be related.
-
-
-On 7/18/25 20:02, Mario Limonciello wrote:
+On Thu, Jul 17, 2025 at 10:59=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
+m> wrote:
 >
-> At least to me, this issue sounds like a case that multiple entities 
-> are trying to communicate with the panel at the same time.
+> On Wed, Jul 16, 2025 at 8:13=E2=80=AFPM Brian Geffon <bgeffon@google.com>=
+ wrote:
+> >
+> > On Wed, Jul 16, 2025 at 5:03=E2=80=AFPM Alex Deucher <alexdeucher@gmail=
+.com> wrote:
+> > >
+> > > On Wed, Jul 16, 2025 at 12:40=E2=80=AFPM Brian Geffon <bgeffon@google=
+.com> wrote:
+> > > >
+> > > > On Wed, Jul 16, 2025 at 12:33=E2=80=AFPM Alex Deucher <alexdeucher@=
+gmail.com> wrote:
+> > > > >
+> > > > > On Wed, Jul 16, 2025 at 12:18=E2=80=AFPM Brian Geffon <bgeffon@go=
+ogle.com> wrote:
+> > > > > >
+> > > > > > Commit 81d0bcf99009 ("drm/amdgpu: make display pinning more fle=
+xible (v2)")
+> > > > > > allowed for newer ASICs to mix GTT and VRAM, this change also n=
+oted that
+> > > > > > some older boards, such as Stoney and Carrizo do not support th=
+is.
+> > > > > > It appears that at least one additional ASIC does not support t=
+his which
+> > > > > > is Raven.
+> > > > > >
+> > > > > > We observed this issue when migrating a device from a 5.4 to 6.=
+6 kernel
+> > > > > > and have confirmed that Raven also needs to be excluded from mi=
+xing GTT
+> > > > > > and VRAM.
+> > > > >
+> > > > > Can you elaborate a bit on what the problem is?  For carrizo and
+> > > > > stoney this is a hardware limitation (all display buffers need to=
+ be
+> > > > > in GTT or VRAM, but not both).  Raven and newer don't have this
+> > > > > limitation and we tested raven pretty extensively at the time.
+> > > >
+> > > > Thanks for taking the time to look. We have automated testing and a
+> > > > few igt gpu tools tests failed and after debugging we found that
+> > > > commit 81d0bcf99009 is what introduced the failures on this hardwar=
+e
+> > > > on 6.1+ kernels. The specific tests that fail are kms_async_flips a=
+nd
+> > > > kms_plane_alpha_blend, excluding Raven from this sharing of GTT and
+> > > > VRAM buffers resolves the issue.
+> > >
+> > > + Harry and Leo
+> > >
+> > > This sounds like the memory placement issue we discussed last week.
+> > > In that case, the issue is related to where the buffer ends up when w=
+e
+> > > try to do an async flip.  In that case, we can't do an async flip
+> > > without a full modeset if the buffers locations are different than th=
+e
+> > > last modeset because we need to update more than just the buffer base
+> > > addresses.  This change works around that limitation by always forcin=
+g
+> > > display buffers into VRAM or GTT.  Adding raven to this case may fix
+> > > those tests but will make the overall experience worse because we'll
+> > > end up effectively not being able to not fully utilize both gtt and
+> > > vram for display which would reintroduce all of the problems fixed by
+> > > 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v2)").
+> >
+> > Thanks Alex, the thing is, we only observe this on Raven boards, why
+> > would Raven only be impacted by this? It would seem that all devices
+> > would have this issue, no? Also, I'm not familiar with how
 >
-> By setting dcdebugmask=0x10 what you're essentially doing is stopping 
-> the display hardware from trying to put the panel into PSR.  So there 
-> is "less" I2C traffic to fight with.
+> It depends on memory pressure and available memory in each pool.
+> E.g., initially the display buffer is in VRAM when the initial mode
+> set happens.  The watermarks, etc. are set for that scenario.  One of
+> the next frames ends up in a pool different than the original.  Now
+> the buffer is in GTT.  The async flip interface does a fast validation
+> to try and flip as soon as possible, but that validation fails because
+> the watermarks need to be updated which requires a full modeset.
 >
-> *Why* are you using I2C to read the EDID like this?  Could you instead 
-> use /sys/class/drm/cardX-inputY/edid?  Or even better - can you use 
-> the information from drm_info to make decisions?
+> It's tricky to fix because you don't want to use the worst case
+> watermarks all the time because that will limit the number available
+> display options and you don't want to force everything to a particular
+> memory pool because that will limit the amount of memory that can be
+> used for display (which is what the patch in question fixed).  Ideally
+> the caller would do a test commit before the page flip to determine
+> whether or not it would succeed before issuing it and then we'd have
+> some feedback mechanism to tell the caller that the commit would fail
+> due to buffer placement so it would do a full modeset instead.  We
+> discussed this feedback mechanism last week at the display hackfest.
 >
-> I think the less I2C traffic done directly from userspace the better 
-> when it comes to synchronization issues..
 >
+> > kms_plane_alpha_blend works, but does this also support that test
+> > failing as the cause?
+>
+> That may be related.  I'm not too familiar with that test either, but
+> Leo or Harry can provide some guidance.
+>
+> Alex
 
+Thanks everyone for the input so far. I have a question for the
+maintainers, given that it seems that this is functionally broken for
+ASICs which are iGPUs, and there does not seem to be an easy fix, does
+it make sense to extend this proposed patch to all iGPUs until a more
+permanent fix can be identified? At the end of the day I'll take
+functional correctness over performance.
+
+Brian
+
+>
+> >
+> > Thanks again,
+> > Brian
+> >
+> > >
+> > > Alex
+> > >
+> > > >
+> > > > Brian
+> > > >
+> > > > >
+> > > > >
+> > > > > Alex
+> > > > >
+> > > > > >
+> > > > > > Fixes: 81d0bcf99009 ("drm/amdgpu: make display pinning more fle=
+xible (v2)")
+> > > > > > Cc: Luben Tuikov <luben.tuikov@amd.com>
+> > > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > > > Cc: stable@vger.kernel.org # 6.1+
+> > > > > > Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > > > > > Signed-off-by: Brian Geffon <bgeffon@google.com>
+> > > > > > ---
+> > > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+> > > > > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > > > > >
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > > > > index 73403744331a..5d7f13e25b7c 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > > > > @@ -1545,7 +1545,8 @@ uint32_t amdgpu_bo_get_preferred_domain(s=
+truct amdgpu_device *adev,
+> > > > > >                                             uint32_t domain)
+> > > > > >  {
+> > > > > >         if ((domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM=
+_DOMAIN_GTT)) &&
+> > > > > > -           ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->as=
+ic_type =3D=3D CHIP_STONEY))) {
+> > > > > > +           ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->as=
+ic_type =3D=3D CHIP_STONEY) ||
+> > > > > > +            (adev->asic_type =3D=3D CHIP_RAVEN))) {
+> > > > > >                 domain =3D AMDGPU_GEM_DOMAIN_VRAM;
+> > > > > >                 if (adev->gmc.real_vram_size <=3D AMDGPU_SG_THR=
+ESHOLD)
+> > > > > >                         domain =3D AMDGPU_GEM_DOMAIN_GTT;
+> > > > > > --
+> > > > > > 2.50.0.727.gbf7dc18ff4-goog
+> > > > > >
