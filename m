@@ -4,42 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07184C83F1A
-	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jul 2025 11:36:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0994FC83F1A
+	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jul 2025 12:49:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E7DA10E04A;
-	Sun, 20 Jul 2025 11:36:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAFEF895CA;
+	Sun, 20 Jul 2025 12:49:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=free.fr header.i=@free.fr header.b="kCeEtibC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GvzWUlFD";
 	dkim-atps=neutral
-Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 639CA10E04A
- for <amd-gfx@lists.freedesktop.org>; Sun, 20 Jul 2025 11:36:32 +0000 (UTC)
-Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
- by smtp5-g21.free.fr (Postfix) with ESMTP id E30B25FFAA
- for <amd-gfx@lists.freedesktop.org>; Sun, 20 Jul 2025 13:36:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
- s=smtp-20201208; t=1753011390;
- bh=keX1sXaOO3HGAkS35ur8HRH7adcyz31T3tbB1pl02sQ=;
- h=Date:From:To:In-Reply-To:Subject:From;
- b=kCeEtibCa4EF5qhg2NF/6hYJoObFJGM+AsMzbEikluYBKgBZYgroPclbLeXhWAqek
- w3FExiCCl6fppNAssx6MkneV1IURT/9e9FJ8mrDlJump50oHhs8hI4KCO9srwf46/b
- 6Af8vyXUMEdHKLSaa7Pm1W/uIexn7ZaqeuFW2153NQ0QWLExEA1HPbEx1H1I9ESsTv
- dB9QuB8gzXJYLeQWjNrHKIPa/6Cz5E6GWYUPioBmwNodta9KD2FPA0Eda+h/138cIK
- n1Vzs99C9TpTpyeTlIr90z3w4adwYq5zSUvsMEput4Q770QsGWTJr/H4WYS+jZE5Cb
- VcRiHI0SaYyyQ==
-Date: Sun, 20 Jul 2025 13:36:30 +0200 (CEST)
-From: Yann Dirson <ydirson@free.fr>
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Message-ID: <450908979.152326114.1753011390727.JavaMail.root@zimbra39-e7.priv.proxad.net>
-In-Reply-To: <1103498267.150074445.1752966181999.JavaMail.root@zimbra39-e7.priv.proxad.net>
-Subject: Re: A few more items for the glossary, and understanding GPU switching
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B09AA895CA
+ for <amd-gfx@lists.freedesktop.org>; Sun, 20 Jul 2025 12:49:52 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4570545531;
+ Sun, 20 Jul 2025 12:49:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66B65C4CEE7;
+ Sun, 20 Jul 2025 12:49:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1753015792;
+ bh=oxFpdknoeX5Vw+UUVKkbtToVxydEtk2SgKvQHO4LClA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=GvzWUlFD5xtVgR4UOIIYcFPe2ZprorZ8ZGG+bXlshclLbKYjwp40Eg+C4sLajjrPF
+ 62cjZW0idnISxvQ1FVr8yi5SwGi8whd368XgEGRjERcAJpoda4/InBqp++bc+oiprP
+ TUNIg4pzl2ymi4ELcsDptVd4Qwx6Qpx/8y4lzwxVqXpYBvKflp6UGoLqw/09r8NjF0
+ 3hrHJuRsZeCpJZKlMcDFamJD0HAcI5gPUdV77NNlGOJqhZ5U2QK0DVfUPBftiZCNz8
+ +Bi7NqFynEo+emRFifeUKiBT7xs+qy0IzOV6Ey5Ktu/yVMF+342ZWb4fjfua438tja
+ g7AqvYW8liYCw==
+Message-ID: <18a71fc3-dd01-4335-9655-716c87048530@kernel.org>
+Date: Sun, 20 Jul 2025 07:49:50 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] [PATCH] drm/amd/display: fix initial backlight
+ brightness calculation
+To: Lauri Tirkkonen <lauri@hacktheplanet.fi>
+Cc: stable@vger.kernel.org, regressions@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Wayne Lin <wayne.lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <aHn33vgj8bM4s073@hacktheplanet.fi>
+ <d92458bf-fc2b-47bf-b664-9609a3978646@kernel.org>
+ <aHpb4ZTZ5FoOBUrZ@hacktheplanet.fi>
+ <46de4f2a-8836-42cd-a621-ae3e782bf253@kernel.org>
+ <aHru-sP7S2ufH7Im@hacktheplanet.fi>
+ <664c5661-0fa8-41db-b55d-7f1f58e40142@kernel.org>
+ <aHr--GxhKNj023fg@hacktheplanet.fi>
+ <f12cfe85-3597-4cf7-9236-3e00f16c3c38@kernel.org>
+ <cc7a41dc-066a-41c8-a271-7e4c92088d65@kernel.org>
+ <aHy4Ols-BZ3_UgQQ@hacktheplanet.fi> <aHy4tohvbwd1HpxI@hacktheplanet.fi>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <aHy4tohvbwd1HpxI@hacktheplanet.fi>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [88.120.44.86]
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: ydirson@free.fr
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,15 +70,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adding to the list:
 
-* ACA, mentionned in debug_mask flags - digging the source shows it seems to be
-  "Accelerator Check Architecture", but maybe some additional details could be
-  added?
-* DPIA (likely for dc-glossary): listed in DC_DEBUG_MASK values, source code
-  in several places shows "DisplayPort Input Adapter", but maybe more details would
-  be useful here too?  Often associated with DP USB4 tunneling in source code.
 
-Best regards,
--- 
-Yann
+On 7/20/25 4:36 AM, Lauri Tirkkonen wrote:
+> DIV_ROUND_CLOSEST(x, 100) returns either 0 or 1 if 0<x<=100, so the
+> division needs to be performed after the multiplication and not the
+> other way around, to properly scale the value.
+> 
+> Fixes: 6c56c8ec6f97 ("drm/amd/display: Fix default DC and AC levels")
+> Signed-off-by: Lauri Tirkkonen <lauri@hacktheplanet.fi>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index f58fa5da7fe5..8a5b5dfad1ab 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4941,9 +4941,9 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+>   	caps = &dm->backlight_caps[aconnector->bl_idx];
+>   	if (get_brightness_range(caps, &min, &max)) {
+>   		if (power_supply_is_system_supplied() > 0)
+> -			props.brightness = (max - min) * DIV_ROUND_CLOSEST(caps->ac_level, 100);
+> +			props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->ac_level, 100);
+>   		else
+> -			props.brightness = (max - min) * DIV_ROUND_CLOSEST(caps->dc_level, 100);
+> +			props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->dc_level, 100);
+>   		/* min is zero, so max needs to be adjusted */
+>   		props.max_brightness = max - min;
+>   		drm_dbg(drm, "Backlight caps: min: %d, max: %d, ac %d, dc %d\n", min, max,
+
+Thanks! The change makes sense.  Besides Greg's comments can you please 
+send out of the regression thread?  IMO This should be it's own patch 
+thread.
