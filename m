@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA6C3C83F1A
-	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jul 2025 14:14:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7018C83F1A
+	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jul 2025 14:39:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4416310E36A;
-	Sun, 20 Jul 2025 14:14:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2AD10E216;
+	Sun, 20 Jul 2025 14:39:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=free.fr header.i=@free.fr header.b="hX9+XLV8";
+	dkim=pass (2048-bit key; unprotected) header.d=free.fr header.i=@free.fr header.b="eN76THOa";
 	dkim-atps=neutral
-Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC5010E36A
- for <amd-gfx@lists.freedesktop.org>; Sun, 20 Jul 2025 14:14:20 +0000 (UTC)
-Received: from localhost.localdomain (unknown [88.120.44.86])
- (Authenticated sender: ydirson@free.fr)
- by smtp5-g21.free.fr (Postfix) with ESMTPSA id 71EAC5FFB7;
- Sun, 20 Jul 2025 16:14:14 +0200 (CEST)
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E60A10E216
+ for <amd-gfx@lists.freedesktop.org>; Sun, 20 Jul 2025 14:39:51 +0000 (UTC)
+Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
+ by smtp3-g21.free.fr (Postfix) with ESMTP id 9DB4F13F8A2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 20 Jul 2025 16:39:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
- s=smtp-20201208; t=1753020859;
- bh=zhGzzFgssENWKki4CJgsxhckAYzCUGAjZa/p23Z7Is0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hX9+XLV8r5pNVe7WzTbjo4KBDL8cIvI8+8mH1LUGiyn5DR7u318sUPohj34UW35y0
- mi3em4O5MUtXBq7ppNrkeCTOc2o3xW2tuG408ZlvERadWkhU0z0w8BvEtSYglOqJtp
- 9NIfKQQBrZ/RpmGgQcfFMYtmXbCqNGl7cNtKiftMYTUWleBMiwcmrh+H5Cp/n9AgMp
- E0IFF42XNWq84TW9RxmGj0sJgy2hRBi3eJ7dVV8J+aemFwZEbLGuvWSKRxO0si/bQl
- j4+phbDJzAWBwia1BXqP8w6DFAk7fDOHdOkU6Zep0i4V+eC9aORU34xeJtYHY7FaLM
- 8xvFlSCm40Mdw==
+ s=smtp-20201208; t=1753022389;
+ bh=4gAcgB92aj2qKHIOa/thrESQeLN0ULPX4Idgr/bmg5w=;
+ h=Date:From:To:In-Reply-To:Subject:From;
+ b=eN76THOaBI2yuE52HK7BTEcizKHdZIrk+O+7ElnBq4T6/iKrC6e9eyCfqOuqMubc6
+ Via3vp049VgIr8YU+l8PJsl1y+E7FdvjxoCF5RQ8en1DcDNk5nfssDkqvSmv2iBBed
+ IUiVG8/iWI2Hil/5pW7KLACdNnRJ2YccBsVXrcQO3HTfJfr7FfK6rDGMP1BgPbFZVi
+ AOAkAFXW51dT1ppUcdGtOraRsE5LLcyaqqRWoaJQOLytClq3V6WLIManDXjtl7fvcr
+ BkbqJiRyBtWCh62ifwgsbrBDTPAJAVeqosdnZ/CRtXMhZuqYmutcU6dHxtS0EZkCmS
+ bJZYOhv8jrDnQ==
+Date: Sun, 20 Jul 2025 16:39:49 +0200 (CEST)
 From: Yann Dirson <ydirson@free.fr>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Yann Dirson <ydirson@free.fr>
-Subject: [PATCH 3/3] Documentation/amdgpu: add a few acronyms to glossary
-Date: Sun, 20 Jul 2025 16:13:18 +0200
-Message-Id: <20250720141318.4845-4-ydirson@free.fr>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250720141318.4845-1-ydirson@free.fr>
-References: <1103498267.150074445.1752966181999.JavaMail.root@zimbra39-e7.priv.proxad.net>
- <20250720141318.4845-1-ydirson@free.fr>
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Message-ID: <1835198865.152908048.1753022389600.JavaMail.root@zimbra39-e7.priv.proxad.net>
+In-Reply-To: <1183390756.152871261.1753021573282.JavaMail.root@zimbra39-e7.priv.proxad.net>
+Subject: Need help to dig into X11 display freezing (Renoir, Xen/QubesOS)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [88.120.44.86]
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: ydirson@free.fr
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,44 +54,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Yann Dirson <ydirson@free.fr>
----
+Hello there,
 
-Notes (patch):
-    test patch note
+For a few months I've been experiencing occasional freezes of the X11 display
+on my QubesOS RENOIR laptop.  The setup is pretty much standard for QubesOS,
+with both GPUs attached to dom0 and XFCE running there (and the dGPU being
+mostly not used).  Kernel is QubesOS' kernel-latest-6.15.4.
 
- Documentation/gpu/amdgpu/amdgpu-glossary.rst     | 3 +++
- Documentation/gpu/amdgpu/display/dc-glossary.rst | 3 +++
- 2 files changed, 6 insertions(+)
+Those freezes most often occur while the screen is blanked
+by xscreensaver (suspend options fully deactivated here, as suspend is broken
+on this platform): in this case moving the mouse does not get the unlock banner
+displayed, the screen stays black... except the mouse pointer is visible.  I can
+also switch to other virtual consoles and interact with the system, but was
+never able to collect any evidence of something wrong being detected.
 
-diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-index 30812d9d53c6..ad9e6f0f91ba 100644
---- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-+++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-@@ -12,6 +12,9 @@ we have a dedicated glossary for Display Core at
-       The number of CUs that are active on the system.  The number of active
-       CUs may be less than SE * SH * CU depending on the board configuration.
- 
-+    ACA
-+      Accelerator Check Architecture
-+
-     BACO
-       Bus Alive, Chip Off
- 
-diff --git a/Documentation/gpu/amdgpu/display/dc-glossary.rst b/Documentation/gpu/amdgpu/display/dc-glossary.rst
-index 3205f80ad471..d6a6ed4e6374 100644
---- a/Documentation/gpu/amdgpu/display/dc-glossary.rst
-+++ b/Documentation/gpu/amdgpu/display/dc-glossary.rst
-@@ -88,6 +88,9 @@ consider asking in the amd-gfx mailing list and update this page.
-     DIO
-       Display IO
- 
-+    DPIA
-+      DisplayPort Input Adapter
-+
-     DPP
-       Display Pipes and Planes
- 
+Occasionally it also happens (like yesterday) while I'm working, and the X11
+display just seems frozen, no clue if the input devices trigger anything in
+there.
+
+I guess something goes wrong but gets undetected by the driver.  Any suggestion
+as to extra logging/debug features to enable?
+
+Best regards,
 -- 
-2.39.5
-
+Yann
