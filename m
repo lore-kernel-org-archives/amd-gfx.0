@@ -4,131 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BE57C83F27
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 07:47:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE1AC83F25
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 07:47:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A49110E618;
-	Tue, 22 Jul 2025 07:47:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 534D910E614;
+	Tue, 22 Jul 2025 07:47:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XwPZImL1";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BGkz1TGc";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2083.outbound.protection.outlook.com [40.107.220.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0067310E616
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 07:47:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NFjHCdfxxvNI9OI+vGuA5yybrWS8rEoKYHb9aP/a/coTGpgv+N2NG12LfbCcTFpmY0b3qdWExBT3UVQUpNIUp7GCHQAES+GHIWl4iKhfuudsRslaqjgMxS621M4H49s8YLHIhJNirJEFGYYWQb05zWMQZrlc+jm5piGoZ+hK036b3SX9jAbdKMWfpco7lz0A2TGIJN/B+T1FMmEKNl9Zip5gZ7c4Qp4dBuGn9A0vQEH7ttHhLFtLeKSMauusxuILizBizzxNM5Nsu4mRNNeh9AJW8eCzr9QwhI4HpVu6c2xGMa4x18T6Y5rKubQJrTIeDUywRGz/iUoOlNl6mHrS/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d/aTYEPz5EOnvOgdLqj9WCtu4E3XME95MFIrLMIiHTg=;
- b=lNQbpPc3Lhc3GzrTWfvf8AQYZoF0xog2umvjKY95rr6Tmr8Cij1u1fV28rkGEN7n5x4LjS5AjFsCXawgnMrjJci3YETWxnq0/quDI3WHhTba4WXKkhfyM5RbyNQRAo4TufHHXd+mY3Uztgv4DmgJbMJfiYAC6QWaIovw5IQbxPNRcZYQaAO/iSwsLzIkmrkshPfVvYY3KTsyv8mOFd52BgrbwJWRlT2Lf19/UykzMYa+Kcztufz/cHSJySUkh6XCLD9QTATmzFHR9S5YqrRrbk7IHhvQLT3TJsIF5u6/teIINxJPqFwpnej3vOa1VkDInfrZGoVlHJaPO5ms/MPjhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d/aTYEPz5EOnvOgdLqj9WCtu4E3XME95MFIrLMIiHTg=;
- b=XwPZImL1C9eK6nyAjH1qTMymaFtKfkgikXMuxtlkgS/YchezfHFl/TbT+JnLzzaBOiOFHLyspk1ASUKJXBDP3AcgoaIibDpJthU3rEa39EbaUFDlxkC1VyTgPWx6lMYM2HOPHCX1A1ehv32NovksCS9BEanN4GmuhwWzeojcflI=
-Received: from MN2PR11CA0015.namprd11.prod.outlook.com (2603:10b6:208:23b::20)
- by PH8PR12MB6721.namprd12.prod.outlook.com (2603:10b6:510:1cc::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.28; Tue, 22 Jul
- 2025 07:47:02 +0000
-Received: from BL02EPF0001A0F9.namprd03.prod.outlook.com
- (2603:10b6:208:23b:cafe::b1) by MN2PR11CA0015.outlook.office365.com
- (2603:10b6:208:23b::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.29 via Frontend Transport; Tue,
- 22 Jul 2025 07:47:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A0F9.mail.protection.outlook.com (10.167.242.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 07:47:01 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 02:46:58 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
- <Prike.Liang@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-Subject: [PATCH v7 14/14] drm/amdgpu: validate userq va for GEM unmap
-Date: Tue, 22 Jul 2025 15:46:23 +0800
-Message-ID: <20250722074623.1464666-14-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250722074623.1464666-1-Prike.Liang@amd.com>
-References: <20250722074623.1464666-1-Prike.Liang@amd.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1216F10E56D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jul 2025 15:26:30 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56LA34XF029264
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jul 2025 15:26:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=MnOD77sB2Ik3kJ7rDMTC033zhiY3x1p8B9vcyupzsb8=; b=BG
+ kz1TGcI4MFfbOe5H/VgBz4u5HbpHgshH6Xl1II8hXJUKWkg8HPL9JYwqbx2neLEG
+ ljnqf/ncKlo91sx1F74m4BqX/xfV1tDeVhB9CpttO0w1skrxPCoTRlkYij3WEpvn
+ bnJ0ZuKiiHt6QSfoxIfml17kM8nKkQhyiagixzuZ1lf93nLPb7haKctryk4kfbyK
+ 15DboDxgowALoAWR3aPMDt2JL8rQj1+iDdDwdGKntmJdHp1H0jI/kUwq669Ldcfz
+ /Ewm0bToxyO6SYurW+BdrDKtW1QOQthRkp9PWeJwGEvs4/CB1gS44/VtTpKhFiR+
+ TJS7KfYYfiPU9zu1sUrg==
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48048tdtg5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jul 2025 15:26:29 +0000 (GMT)
+Received: by mail-oi1-f197.google.com with SMTP id
+ 5614622812f47-41d2ce923a6so3730215b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jul 2025 08:26:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753111589; x=1753716389;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MnOD77sB2Ik3kJ7rDMTC033zhiY3x1p8B9vcyupzsb8=;
+ b=ioJ5SlK1bHy7MxCTUhy0Ytay6J3Ou91ilMnnum0p8eIsvYFmMzHpcmjtAP0Mw9CpeH
+ XzsPSifo85mRSkntuTTaCXk18m99ySuaA+QSGA+Lv+QOX8d4emBp+ALjNpImTN51k3gH
+ WopKvR7b9GdObuysRfYZd0HfMxCuKEqZeHa573AX/rXIJTiICwrphEOFVvt1HY+hHRNM
+ GS7xyuIpLywABS9CWD94IyosOciXS42ir15b6mTP3kvOEpdCLYJRENWn0H0/FveOyu19
+ gQsTnDBbWQXvViLqjcsndof4guaEuvMqDnGKxPCoTlNfJw7CQm8usV3ixRFiPyiZN2lz
+ xIQg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW1QINIeJ1zC7qCF/xWTjkbnjqiGP7ts7KVYlawDZAEq/OOoTD6PqdfZrLkCVhQ/z3IdXaIFyol@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxq+a5k5liTm3ZW1PXjod88ntnk97ldfb7cp1O8M4XYCFNmZtuG
+ NppNHxzOO9Wo4zGRaBK1H+2K9tanwyVQsaceZ33TYJbH+O5YvZsSMDrEL0cbSRKhZbtV0DoRtWK
+ lXkCZ1w2byx8ytkJrnURu4w5MXYdy1udMwxAyolu6zCKOqgdJZZoTxQFSStJVsudT2gSOc6AL16
+ QTAGpKHH+zxVCNt1iHhw4cHJEMn4a8VYqNuLcnv3yzuNI=
+X-Gm-Gg: ASbGncviKGNlpzrWSM4044ArkxLksnCPlkh4dc+1Vf0xQM39Lbspbs53J1sRSh/gzyf
+ tkgngttEhsLa2pn4wA03pTpWNWcCSs0LfRP2j1fUo6WittCXTsIdecMF+vgghO3Np2raok7yOd+
+ ODmi2ErEeFN17KMa/sle3Cw79Jb1iIU7Z+kO5orR1I3B5S3GqHr57S
+X-Received: by 2002:a05:6808:3a15:b0:40a:533c:c9cb with SMTP id
+ 5614622812f47-41d05654bcdmr14287439b6e.38.1753111588651; 
+ Mon, 21 Jul 2025 08:26:28 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGXFzYPkALClywTu5mOqRfeWp2m4fp272DjkezOJQOXBIAzqRGxPfJR9UxsN521B6259dXufoQBJ1qY0x7OZog=
+X-Received: by 2002:a05:6808:3a15:b0:40a:533c:c9cb with SMTP id
+ 5614622812f47-41d05654bcdmr14287392b6e.38.1753111588114; Mon, 21 Jul 2025
+ 08:26:28 -0700 (PDT)
 MIME-Version: 1.0
+References: <20250718105407.32878-1-vignesh.raman@collabora.com>
+ <20250718105407.32878-6-vignesh.raman@collabora.com>
+ <7c6suvc6quwwxni2nsos65btzim2lbv7f2u6mz5qbupzpmpzgb@g46wg63ubr6l>
+In-Reply-To: <7c6suvc6quwwxni2nsos65btzim2lbv7f2u6mz5qbupzpmpzgb@g46wg63ubr6l>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Mon, 21 Jul 2025 08:26:17 -0700
+X-Gm-Features: Ac12FXw4vMk5Whh0pLXxQUQeTvmf5_E4on_jddtIDBax9_-2BPFjBHHhqwcfDPI
+Message-ID: <CACSVV03x0DZLmoc_0GjiL+qhYH2ei8nKzuPRCTa+h6+j1pbhbQ@mail.gmail.com>
+Subject: Re: [PATCH v1 5/7] drm/ci: uprev IGT
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vignesh Raman <vignesh.raman@collabora.com>,
+ dri-devel@lists.freedesktop.org, daniels@collabora.com,
+ helen.fornazier@gmail.com, airlied@gmail.com, simona.vetter@ffwll.ch,
+ robdclark@gmail.com, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, valentine.burley@collabora.com,
+ lumag@kernel.org, linux-mediatek@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0F9:EE_|PH8PR12MB6721:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17728342-a5a0-467b-b813-08ddc8f3f1fc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M1VpU2hXd1pvdCtmdUh2b3d0eTZWUG9VcnFFZ3ZpZUI5MHI4TzlFdVJrVGl2?=
- =?utf-8?B?TUErQnBydk1uaGJKek5TK245eXdSWDcxT3FpVFYzNTNZOFhFUmhib3F4dHk5?=
- =?utf-8?B?ckRpd0o0elBQK25rZ2JCcy9CK1pQbEExdjM3OFR0Mjh6YXpuVDBZbEdYUlQ0?=
- =?utf-8?B?QXo5VnlWTUFGMm9hcE9lM1BzWTZsUmhMS0M3YXdKM0V6aFQ1cFd6dkoydlVN?=
- =?utf-8?B?cjE2WWNxdzNmMjlNYzRuelU1NWs3M0NiV1NjWEozWitvWUUyVTc4UEhBOUVZ?=
- =?utf-8?B?VDV3RHBYRzIrTFhseG8yeS9SaDhoOTBmbGtQRktuK3lYZGoyRWV4VVc1QVVr?=
- =?utf-8?B?aFp0WXlCdzNSMytoLytsZjJSTzE4RkpMTTBRZDV2U0U3dWx5blBFVGlYYXB2?=
- =?utf-8?B?bDE0NUxQSHAvTHdKZUZtYW1qSEFJR2M4YkcrTFcvaTYzYUFBWEttWGo1MHBU?=
- =?utf-8?B?UmM0ZGJBckhCVVU5eStTY2FGZmF3WERKaWROZnpUenZVbHlwS1M3RUNYazF1?=
- =?utf-8?B?T1NoZDdFa2dDUm4xd01sQnRRY3phd0lTUzFKYXh4UGh4TWVtZEk4WVlVYVVx?=
- =?utf-8?B?eGZpRXEwRkhUZHI4Q3ExbjRYeXk2ZktYaGJ4LzBwTWNoVWk5Q3VKM3NMZmxH?=
- =?utf-8?B?WE9jVWM1ZTEzVWY0clBjT3JKQjgzSmpBbUIyQmdJMmNHK21QckEwZDhPYWVY?=
- =?utf-8?B?MFVlTmc2NHFGSkk4VUo4TmVISXJIcXV4QVJjQmtGL24xNTdKR3VBTEd4UkRG?=
- =?utf-8?B?WFQ5b0o0Ym9EYzhGNlRhN01LWU9SMHU2WGhZNEdUMUZkbDBGaDRtZWlvK01j?=
- =?utf-8?B?d0xOejZFbHcxQ1hLSGNQZUR0clFLV1RnMkJra2RkNFlQcEhEYTF0QlB1Zmow?=
- =?utf-8?B?T0E3K2lwSjBkcWZPcFpsZ2ZHQUNVR1hNbGhxbW1qK2ZJYjlTdUlUZTQvQlhO?=
- =?utf-8?B?NWRQMDFMOHhRY1BkQnR6ZzJrS1FIT094RU5UTnZ3RVhzM3pudWQ1Qks3czdy?=
- =?utf-8?B?RkhXeDcwSHdleGh4Mnlhcmdxd21qOHp3eVRPakxYYytVaFpIcE1ubmlxOUtS?=
- =?utf-8?B?ZTB4MFozaFFnamtnMVplNDNxMlIyczY3NXEveDdlWFF5K0VTMXhyNEJXMm9j?=
- =?utf-8?B?MDlPMmJVSDFRUEFWQWdXazNZWkNlRStMOVU3dkdEWnFaTDd3L1ZwaUtCL25E?=
- =?utf-8?B?YnVtVlFoSmtvNVhiZDUzNDlWeURBOWE0WnlRdlNIalpCdTN4Um5kRUJMZGRs?=
- =?utf-8?B?ZlZUTjFvTFNUbGpBWVVrYjZoUk1XRk5oeXhXblFzeUkzako4U3RKK2k2VG84?=
- =?utf-8?B?Nno3cWRIVlljUGJQZzQwbm1hTWZnQnNZemI0UFppS2M4Q0U3UlV5VjM4MFcv?=
- =?utf-8?B?Z3RueTNwTW1wOW1rZk5zelM3eUVyaHZ6aURtLzVOUTRvUVVMMnkrakNaVUh0?=
- =?utf-8?B?c015dWJvdnk4MXhtVjk3aWl5UHlDS3FyakptOEt5MEwzSHR0ckkrcURkTzly?=
- =?utf-8?B?OU9KWExyYjBkTk1GZFpiMEI4QmkzK2ovcXJ6NWphNXhiVmRIUWR0TDRzbUh3?=
- =?utf-8?B?YStYZjA3NklPVW1Ca1VVbXJJcG1ibUpMclljdjdXVU1NLzgzeUZZQ3pIaEtp?=
- =?utf-8?B?MVJMK2d0cFRHZTIwbWY2MkNWaktNZXh1amNjTnNGU2sydDFHek0zQXZnOWZ4?=
- =?utf-8?B?Z3BSYXFNTDNvaW03YnE2MDl3ajNuY09RaFpTVUhNdDI4YnRyOEtvbzdremFv?=
- =?utf-8?B?VDdMKy9UTERJVWdFTVdvTFB5a1Q0TTF3S1FJcWtpdjNPdzc2WUorUDFKZW5S?=
- =?utf-8?B?dGZOQmVPMHNJQkd2SlozRWR3UVl6UFBPZWdxT3REdjVzTWFqUzgwYU1FdGRr?=
- =?utf-8?B?OHZuOUdocUVRS0FzTGlzOUo5dFIveWNkdmNtOHN0c2JHS1lSV2JkMnRPcmRJ?=
- =?utf-8?B?cENDdFNOQVZ5WGZ4QndkSlcvK3UrMFMxeHBZUUw5QS9KVHdhL3h6RWF3amJ0?=
- =?utf-8?B?bXdpblYrZVh3Z1UwNU0zVnVNVGZnVktkc1VxL3lzQ2k5NXNDdjNPYWdNWXZN?=
- =?utf-8?Q?xOFQKK?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 07:47:01.8492 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17728342-a5a0-467b-b813-08ddc8f3f1fc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0F9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6721
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzIxMDEzNyBTYWx0ZWRfXwwRkqMrwYQlR
+ PDsRkxgnCfYSoQrHOJK0LjEhkyUNaq5KW7oRIZNO8OcuNDzrfM92ByV26d0PZFYKnwJdISPGDo6
+ yNCD/4aZkAp7wacClPRKkl/8B+DL6ta55quBokk3jIpBlO4lVt50P5KYy7Rv37A9/tZqpEAXPmu
+ LGMZMHxiDxnHgSxx5IXoBr7pvxrupFrKcCgnK65sj7vNqKnMf+eSWeCe667F2tDCfbN7u2xrW9/
+ 4Af4fIQqTO7rzJLKB7KuhqGX1UowO4Yz8rRXKlE6T7PN7ODi2L6qB2ejRl0ZdUXiWYThqHlOwmD
+ Ob0f5e9rz7F+Tlg8u9Vi6hoDGLNNCmDgSjTMfFN174qxYIq8ufM6toG9+j5zqjCQM5WldsMqsdj
+ SuxTGo30V7LI1BKlOlMSP7YiGT89p9FqVrUB10/qFahDWRG3Asnf0AYynh72p2Sj6RSGwdm2
+X-Authority-Analysis: v=2.4 cv=Jb68rVKV c=1 sm=1 tr=0 ts=687e5c25 cx=c_pps
+ a=WJcna6AvsNCxL/DJwPP1KA==:117 a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=QX4gbG5DAAAA:8
+ a=kxiJzIYbFHhRTRM7nIQA:9 a=QEXdDO2ut3YA:10 a=_Y9Zt4tPzoBS9L09Snn2:22
+ a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-GUID: JSq_a1VgmVxeKSnJQhEtcmDskfoR0TXE
+X-Proofpoint-ORIG-GUID: JSq_a1VgmVxeKSnJQhEtcmDskfoR0TXE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-21_04,2025-07-21_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999 adultscore=0 priorityscore=1501 clxscore=1011 phishscore=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 malwarescore=0 mlxscore=0
+ spamscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507210137
+X-Mailman-Approved-At: Tue, 22 Jul 2025 07:47:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,196 +123,226 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This change validates the userq to see whether can be
-unmapped prior to the userq VA GEM unmap. The solution
-is based on the following idea:
-1) Find out the GEM unmap VA belonds to which userq,
-2) Wait the userq fence and eviction fence signal,
-3) If attached fence signal, then suspend the userq
-   to avoid reusing by userspace,
-4) If the userq attached fences signal failed, then
-   return an error code and give a warning message
-   for this illegal userspace request.
+On Fri, Jul 18, 2025 at 5:54=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Fri, Jul 18, 2025 at 04:23:57PM +0530, Vignesh Raman wrote:
+> > Uprev IGT to the latest version and update expectation files.
+> >
+> > Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+> > ---
+> >  drivers/gpu/drm/ci/gitlab-ci.yml              |   2 +-
+> >  .../gpu/drm/ci/xfails/amdgpu-stoney-fails.txt |   2 +
+> >  .../drm/ci/xfails/amdgpu-stoney-flakes.txt    |   7 ++
+> >  drivers/gpu/drm/ci/xfails/i915-amly-fails.txt |  11 +-
+> >  drivers/gpu/drm/ci/xfails/i915-apl-fails.txt  |   2 +
+> >  drivers/gpu/drm/ci/xfails/i915-cml-fails.txt  |  29 +----
+> >  drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt |   7 ++
+> >  drivers/gpu/drm/ci/xfails/i915-glk-fails.txt  |   8 +-
+> >  drivers/gpu/drm/ci/xfails/i915-glk-skips.txt  |  83 ++++++++++++
+> >  drivers/gpu/drm/ci/xfails/i915-jsl-fails.txt  |  10 +-
+> >  drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt  |   3 +
+> >  drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt  |   5 +-
+> >  drivers/gpu/drm/ci/xfails/i915-tgl-flakes.txt |   6 +
+> >  drivers/gpu/drm/ci/xfails/i915-whl-fails.txt  |   7 +-
+> >  .../drm/ci/xfails/mediatek-mt8173-fails.txt   |   5 +-
+> >  .../drm/ci/xfails/mediatek-mt8173-flakes.txt  | 119 ++++++++++++++++++
+> >  .../drm/ci/xfails/mediatek-mt8183-fails.txt   |   7 +-
+> >  .../msm-sc7180-trogdor-kingoftown-fails.txt   |   1 +
+> >  ...sm-sc7180-trogdor-lazor-limozeen-fails.txt |   1 +
+> >  .../drm/ci/xfails/msm-sm8350-hdk-fails.txt    |   1 +
+> >  .../drm/ci/xfails/msm-sm8350-hdk-skips.txt    |  73 +++++++++++
+> >  .../drm/ci/xfails/panfrost-mt8183-fails.txt   |   1 +
+> >  .../drm/ci/xfails/panfrost-rk3288-fails.txt   |   1 +
+> >  .../drm/ci/xfails/panfrost-rk3399-fails.txt   |   1 +
+> >  .../drm/ci/xfails/rockchip-rk3288-fails.txt   |  12 +-
+> >  .../drm/ci/xfails/rockchip-rk3288-flakes.txt  |  21 ++++
+> >  .../drm/ci/xfails/rockchip-rk3399-fails.txt   |   9 +-
+> >  .../drm/ci/xfails/rockchip-rk3399-flakes.txt  |  35 ++++++
+> >  .../drm/ci/xfails/virtio_gpu-none-fails.txt   |   4 +
+> >  drivers/gpu/drm/ci/xfails/vkms-none-fails.txt |   3 +
+> >  drivers/gpu/drm/ci/xfails/vkms-none-skips.txt |   3 +
+> >  31 files changed, 416 insertions(+), 63 deletions(-)
+> >  create mode 100644 drivers/gpu/drm/ci/xfails/i915-tgl-flakes.txt
+> >
+> > diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fa=
+ils.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
+> > index e4a8f8352cd6..9bf38c077f8e 100644
+> > --- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
+> > +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
+> > @@ -15,3 +15,4 @@ kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
+> >  kms_plane_alpha_blend@alpha-7efc,Fail
+> >  kms_plane_alpha_blend@coverage-7efc,Fail
+> >  kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
+> > +core_setmaster@master-drop-set-user,Fail
+>
+> Could you please point out the issue / failure log?
+>
+> > diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozee=
+n-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-f=
+ails.txt
+> > index e4a8f8352cd6..7441b363efae 100644
+> > --- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails=
+.txt
+> > +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails=
+.txt
+> > @@ -1,3 +1,4 @@
+> > +core_setmaster@master-drop-set-user,Fail
+> >  kms_color@ctm-0-25,Fail
+> >  kms_color@ctm-0-50,Fail
+> >  kms_color@ctm-0-75,Fail
+> > diff --git a/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-fails.txt b/drive=
+rs/gpu/drm/ci/xfails/msm-sm8350-hdk-fails.txt
+> > index 8d26b23133aa..f387c73193c6 100644
+> > --- a/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-fails.txt
+> > +++ b/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-fails.txt
+> > @@ -1,3 +1,4 @@
+> > +core_setmaster@master-drop-set-user,Fail
+> >  kms_3d,Fail
+> >  kms_cursor_legacy@forked-bo,Fail
+> >  kms_cursor_legacy@forked-move,Fail
+> > diff --git a/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-skips.txt b/drive=
+rs/gpu/drm/ci/xfails/msm-sm8350-hdk-skips.txt
+> > index 9450f2a002fd..84ffbe0981ea 100644
+> > --- a/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-skips.txt
+> > +++ b/drivers/gpu/drm/ci/xfails/msm-sm8350-hdk-skips.txt
+> > @@ -210,3 +210,76 @@ msm/msm_mapping@ring
+> >  # [  229.752499] CPU features: 0x18,00000017,00200928,4200720b
+> >  # [  229.758095] Memory Limit: none
+> >  # [  229.761291] ---[ end Kernel panic - not syncing: softlockup: hung=
+ tasks ]---
+> > +
+> > +msm/msm_recovery@gpu-fault
+>
+> Hmm. I thought this should have been fixed...
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 121 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  10 ++
- 3 files changed, 133 insertions(+)
+There is another fix which came out of stress testing the kernel uprev
+in mesa-ci:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 77a2f12c8dcc..a2c3caf382fa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -1212,3 +1212,124 @@ int amdgpu_userq_start_sched_for_enforce_isolation(struct amdgpu_device *adev,
- 	mutex_unlock(&adev->userq_mutex);
- 	return ret;
- }
-+
-+/**
-+ * amdgpu_userq_gem_va_unmap_queue_retrieve - find out userq by gem unmap va
-+ * @queue: destinated userq for finding out from unmap va
-+ * @va: the GEM unmap virtual address already aligned in mapping range
-+ * Find out the corresponding userq by comparing
-+ * the GEM unmap VA with userq VAs.
-+ */
-+static bool amdgpu_userq_gem_va_unmap_queue_retrieve(struct amdgpu_usermode_queue *queue,
-+                                                       uint64_t va)
-+{
-+	va = va << AMDGPU_GPU_PAGE_SHIFT | AMDGPU_GMC_HOLE_END;
-+
-+	switch (queue->queue_type) {
-+	case AMDGPU_HW_IP_GFX:
-+		if (queue->queue_va == va ||
-+		    queue->wptr_va  == va ||
-+		    queue->rptr_va  == va ||
-+		    queue->shadow_va == va ||
-+		    queue->csa_va  == va)
-+			return true;
-+		break;
-+	case AMDGPU_HW_IP_COMPUTE:
-+		if (queue->queue_va == va ||
-+		    queue->wptr_va == va ||
-+		    queue->rptr_va  == va ||
-+		    queue->eop_va  == va)
-+			return true;
-+		break;
-+	case AMDGPU_HW_IP_DMA:
-+		if (queue->queue_va == va ||
-+		    queue->wptr_va == va ||
-+		    queue->rptr_va == va ||
-+		    queue->csa_va == va)
-+			return true;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return false;
-+}
-+
-+
-+int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
-+				uint64_t va)
-+{
-+	u32 ip_mask = amdgpu_userq_get_supported_ip_mask(adev);
-+	struct amdgpu_usermode_queue *queue;
-+	struct amdgpu_userq_mgr *uqm, *tmp;
-+	int queue_id;
-+	int ret;
-+
-+	if (!ip_mask)
-+		return 0;
-+
-+	/**
-+	 * validate the unmap va sequence:
-+	 * 1) Find out the GEM unmap VA belonds to which userq,
-+	 * 2) Wait the userq fence and eviction fence signal,
-+	 * 3) If attached fence signal, then suspend the userq
-+	 *    to avoid reusing by userspace,
-+	 * 4) If the userq attached fences signal failed, then
-+	 *    return an error code and give a warning message
-+	 *    for this illegal userspace request.
-+	 */
-+
-+	if (mutex_trylock(&adev->userq_mutex)) {
-+		list_for_each_entry_safe(uqm, tmp, &adev->userq_mgr_list, list) {
-+
-+			if (!mutex_trylock(&uqm->userq_mutex))
-+				continue;
-+
-+			idr_for_each_entry(&uqm->userq_idr, queue, queue_id) {
-+				struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uqm);
-+				struct amdgpu_eviction_fence_mgr *evf_mgr = &fpriv->evf_mgr;
-+				struct amdgpu_eviction_fence *ev_fence;
-+
-+				if (!amdgpu_userq_gem_va_unmap_queue_retrieve(queue, va)) {
-+					dev_dbg(uqm->adev->dev, "va: 0x%llx not belond to queue id: %d\n",
-+						va, queue_id);
-+					continue;
-+				}
-+
-+				queue->state = AMDGPU_USERQ_STATE_INVALID_VA;
-+
-+				if (amdgpu_userq_wait_for_last_fence(uqm, queue) == -ETIMEDOUT) {
-+					drm_file_err(uqm->file, "userq fence signaled failed during unmapping its va\n");
-+					ret = -ETIMEDOUT;
-+					goto err;
-+				}
-+
-+				spin_lock(&evf_mgr->ev_fence_lock);
-+				ev_fence = evf_mgr->ev_fence;
-+				spin_unlock(&evf_mgr->ev_fence_lock);
-+				if (ev_fence && !dma_fence_is_signaled(&ev_fence->base)) {
-+					ret = dma_fence_wait_timeout(&ev_fence->base, true, msecs_to_jiffies(100));
-+					if (ret <= 0) {
-+						dev_dbg(uqm->adev->dev, "the userq eviction fence signaled\t"
-+								"failed during unmapping its va\n");
-+						ret = -EBUSY;
-+						goto err;
-+					}
-+				}
-+				/* Here needs to deactivate and prevent reusing it*/
-+				amdgpu_userq_unmap_helper(uqm, queue);
-+			}
-+			mutex_unlock(&uqm->userq_mutex);
-+		}
-+	} else {
-+			/* do we need a try lock again before return*/
-+			return -EBUSY;
-+	}
-+
-+	mutex_unlock(&adev->userq_mutex);
-+	return 0;
-+err:
-+	mutex_unlock(&uqm->userq_mutex);
-+	mutex_unlock(&adev->userq_mutex);
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index cf35b6140a3d..27ab8a6a7be6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -149,4 +149,6 @@ bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_vm *vm,
- int amdgpu_userq_buffer_va_put(struct amdgpu_vm *vm, u64 addr);
- int amdgpu_userq_buffer_vas_put(struct amdgpu_vm *vm,
- 			struct amdgpu_usermode_queue *queue);
-+int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
-+				uint64_t va);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index f042372d9f2e..533954c0d234 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1929,6 +1929,7 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
- 	struct amdgpu_bo_va_mapping *mapping;
- 	struct amdgpu_vm *vm = bo_va->base.vm;
- 	bool valid = true;
-+	int r;
- 
- 	saddr /= AMDGPU_GPU_PAGE_SIZE;
- 
-@@ -1949,6 +1950,15 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
- 			return -ENOENT;
- 	}
- 
-+	/* It's unlikely to happen that the mapping userq hasn't been idled
-+	 * during user requests GEM unmap IOCTL except for forcing the unmap
-+	 * from user space.
-+	 */
-+
-+	r = amdgpu_userq_gem_va_unmap_validate(adev, saddr);
-+	if (unlikely(r && r != -EBUSY))
-+		dev_warn(adev->dev, "Here should be an improper unmap request from user space\n");
-+
- 	list_del(&mapping->list);
- 	amdgpu_vm_it_remove(mapping, &vm->va);
- 	mapping->bo_va = NULL;
--- 
-2.34.1
+https://lore.kernel.org/all/20250718-msm-gmu-fault-wait-v1-1-4dcadd3b0eb6@g=
+mail.com/
 
+BR,
+-R
+
+>
+> > +# DEBUG - Begin test msm/msm_recovery@gpu-fault
+> > +# [  153.288652] [IGT] msm_recovery: executing
+> > +# [  153.295317] [IGT] msm_recovery: starting subtest gpu-fault
+> > +# [  153.317588] adreno 3d00000.gpu: CP | opcode error | possible opco=
+de=3D0xDEADDEAD
+> > +# [  153.367412] adreno 3d00000.gpu: [drm:a6xx_irq] *ERROR* gpu fault =
+ring 0 fence 814 status 00800005 rb 016b/0215 ib1 000000010000B000/0000 ib2=
+ 0000000000000000/0000
+> > +# [  153.383449] msm_dpu ae01000.display-controller: [drm:recover_work=
+er] *ERROR* 6.6.0.1: hangcheck recover!
+> > +# [  153.393296] msm_dpu ae01000.display-controller: [drm:recover_work=
+er] *ERROR* 6.6.0.1: offending task: msm_recovery (/igt/libexec/igt-gpu-too=
+ls/msm/msm_recovery --run-subtest gpu-fault)
+> > +# [  153.436085] revision: 660 (6.6.0.1)
+> > +# [  153.439702] rb 0: fence:    2063/2068
+> > +# [  153.443659] rptr:     360
+> > +# [  153.446389] rb wptr:  533
+> > +# [  153.449103] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+0: 0
+> > +# [  153.455746] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+1: 0
+> > +# [  153.462387] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+2: 2062
+> > +# [  153.469293] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+3: 0
+> > +# [  153.475680] adreno 3d00000.gpu: [drm:a6xx_irq] *ERROR* gpu fault =
+ring 0 fence 814 status 00800005 rb 016b/0215 ib1 000000010000B000/0000 ib2=
+ 0000000000000000/0000
+> > +# [  153.475919] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+4: 0
+> > +# [  153.475925] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+5: 0
+> > +# [  153.475928] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+6: 0
+> > +# [  153.475930] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+7: 1
+> > +# [  153.529587] platform 3d6a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* =
+Timeout waiting for GMU OOB set GPU_SET: 0x0
+> > +# [  153.539837] msm_dpu ae01000.display-controller: [drm:recover_work=
+er] *ERROR* 6.6.0.1: hangcheck recover!
+> > +# [  153.549597] msm_dpu ae01000.display-controller: [drm:recover_work=
+er] *ERROR* 6.6.0.1: offending task: msm_recovery (/igt/libexec/igt-gpu-too=
+ls/msm/msm_recovery --run-subtest gpu-fault)
+> > +# [  153.566489] revision: 660 (6.6.0.1)
+> > +# [  153.570099] rb 0: fence:    2064/2068
+> > +# [  153.573878] rptr:     0
+> > +# [  153.576411] rb wptr:  688
+> > +# [  153.579134] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+0: 0
+> > +# [  153.585775] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+1: 0
+> > +# [  153.592410] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+2: 0
+> > +# [  153.597308] [IGT] msm_recovery: finished subtest gpu-fault, FAIL
+> > +# [  153.599039] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+3: 0
+> > +# [  153.611856] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+4: 0
+> > +# [  153.618498] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+5: 0
+> > +# [  153.625132] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+6: 0
+> > +# [  153.631766] adreno 3d00000.gpu: [drm:a6xx_recover] CP_SCRATCH_REG=
+7: 0
+> > +# [  153.639162] *** gpu fault: ttbr0=3D00000001042fc000 iova=3D000000=
+0000000000 dir=3DREAD type=3DTRANSLATION source=3DCP (0,0,0,0)
+> > +# [  153.648502] platform 3d6a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* =
+Timeout waiting for GMU OOB set GPU_SET: 0x0
+> > +# [  153.650144] *** gpu fault: ttbr0=3D00000001042fc000 iova=3D000000=
+0000000020 dir=3DREAD type=3DTRANSLATION source=3DCP (0,0,0,0)
+> > +# [  153.650241] adreno 3d00000.gpu: CP illegal instruction error
+> > +# [  153.671006] platform 3d6a000.gmu: [drm:a6xx_rpmh_start] *ERROR* U=
+nable to power on the GPU RSC
+> > +# [  153.687278] platform 3d6a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* =
+Timeout waiting for GMU OOB set GPU_SET: 0x0
+> > +# [  363.495437] INFO: task msm_recovery:876 blocked for more than 120=
+ seconds.
+> > +# [  363.503070]       Not tainted 6.16.0-rc2-g0594d0b01a7c #1
+> > +# [  363.508838] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" di=
+sables this message.
+> > +# [  363.517142] task:msm_recovery    state:D stack:0     pid:876   tg=
+id:876   ppid:274    task_flags:0x400100 flags:0x00000009
+> > +# [  363.528876] Call trace:
+> > +# [  363.531554]  __switch_to+0xf8/0x1a8 (T)
+> > +# [  363.535703]  __schedule+0x418/0xee0
+> > +# [  363.539486]  schedule+0x4c/0x164
+> > +# [  363.542986]  schedule_timeout+0x11c/0x128
+> > +# [  363.547281]  dma_fence_default_wait+0x13c/0x234
+> > +# [  363.552123]  dma_fence_wait_timeout+0x160/0x45c
+> > +# [  363.556947]  dma_resv_wait_timeout+0x70/0x11c
+> > +# [  363.561582]  msm_gem_close+0xac/0xe4
+> > +# [  363.565405]  drm_gem_handle_delete+0x74/0xe8
+> > +# [  363.569951]  drm_gem_close_ioctl+0x38/0x44
+> > +# [  363.574297]  drm_ioctl_kernel+0xc4/0x134
+> > +# [  363.578442]  drm_ioctl+0x224/0x4f0
+> > +# [  363.582050]  __arm64_sys_ioctl+0xac/0x104
+> > +# [  363.586292]  invoke_syscall+0x48/0x110
+> > +# [  363.590254]  el0_svc_common.constprop.0+0x40/0xe0
+> > +# [  363.595197]  do_el0_svc+0x1c/0x28
+> > +# [  363.598705]  el0_svc+0x4c/0x158
+> > +# [  363.602035]  el0t_64_sync_handler+0x10c/0x138
+> > +# [  363.606601]  el0t_64_sync+0x198/0x19c
+> > +# [  363.610465] Showing all locks held in the system:
+> > +# [  363.620406]  #0: ffff0000840200a0 (&tty->ldisc_sem){++++}-{0:0}, =
+at: ldsem_down_read+0x18/0x24
+> > +# [  363.629412]  #1: ffff800080d7c2f0 (&ldata->atomic_read_lock){+.+.=
+}-{4:4}, at: n_tty_read+0x15c/0x57c
+> > +# [  363.643169]  #0: ffffbd9c0475d920 (rcu_read_lock){....}-{1:3}, at=
+: debug_show_all_locks+0x18/0x1c0
+> > +# [  363.654158] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+>
+> --
+> With best wishes
+> Dmitry
