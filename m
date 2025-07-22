@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D2B4C87FCA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 15:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52809C87FCC
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 15:58:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 334CE10E2E6;
-	Tue, 22 Jul 2025 15:58:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0F4C10E301;
+	Tue, 22 Jul 2025 15:58:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hqBaSbNC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kHmNVCBA";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7847389BEC
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 15:58:46 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-456108bf94bso40759955e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 08:58:46 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB89D10E2FA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 15:58:47 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-3a575a988f9so3453508f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 08:58:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753199925; x=1753804725; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1753199926; x=1753804726; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SlqSwLv86CV93GPyyDJLs+UYZf/H8AKD/3RSf4BX1cE=;
- b=hqBaSbNCkn7LgrOo81RtPTgcSNC9FFci8zZQfK48MqT/3BBh/TAT18uUVk3qh4GvBK
- fYHBsn4IdB7WPUyNBsS5x8gxHI3EgC3od8ECo7/ZKmWUisYcO+Lah8pB4n/qaC6Lu4Qz
- k5mpxlc2J/zJLSd1AmOHtOekWq/j4642t9jIIKahy95TfqW5nb9d8f13QGUQkOL4mcY7
- OVXgemxivkJSkA8QytkXEwVc+akIjUGrPlVP5EBhKH+TfKjZtePmkUFfDh+SeDrvYSR/
- MFRaA0yp/SC0AloFqG5nu2UxBg1VEu4xYUd7KOtwKglxb6WKJxVkPtVvEjRGEFVXw874
- P64g==
+ bh=pQ0IXPGo5ddI4uKLDvUC1LpLO/476KQM4Z4vcCvJIUk=;
+ b=kHmNVCBAw/ug8O0whQRgJey0vKtuAVF0iBuXKoQSKkGqWlOKbik8J3wPN6QI/l1rYV
+ IhZiKA/1vflutMCamWoEKABkY/RGph9/CmQ7GYhU1ywfB1dJNi0JxNFLfdkZElOGcHAB
+ dCUYlsPjupiatzUxIUsxmB1w6QJa3zTPp7vm1nXM4q1miJXZkmN7k6r+nyAkNmUntL9q
+ V+g62Dy0Kvl2RwUS7amwoSQVsbu3Vcf4v4lT06c4l93mafhRe8AuNXUtCW6TPteKL5FZ
+ FTrdOIDU9jpbhdLBl820w0zSWtj8jj3a3SIkyqhuoTuRkC4vn+3BNabZwv25VKoxze84
+ QatQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753199925; x=1753804725;
+ d=1e100.net; s=20230601; t=1753199926; x=1753804726;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SlqSwLv86CV93GPyyDJLs+UYZf/H8AKD/3RSf4BX1cE=;
- b=oyh5yDpE5m6qyBx0+80ghYiSZ+kZnSMnUL/va4hlVgHGRgTDOftP4azFXv6Vqd5Gem
- qbTg/m/pEZFXz3osREd82o8cN2eIsGsfXDnvOuEM09Fh2ekitTmgB7EosBd3zFHTE4YZ
- E7u+L1CoDBQVihI1Z9BJFTF9FTloItXQ+qEtli5uQy7J4fNC8T4kc5yHg4RLtqmhqfCo
- tecaJYR9W7Q8eXYg11tQPgdfLpQQjqFi6dpyIzZ2s6dTSfW2eDOK6t6TCxrvhU11NOuD
- lxjBKxCgqfJV7N3N8BxUvuGxVUyRRN5Qcy+vO5l86tqz9aAklOAxHS1QloVRsPfLE8Ji
- mwrQ==
-X-Gm-Message-State: AOJu0YwsMJM0HYxOq14RPGhkz1kg2W1dbTakXoimDXHosWz5SHreVaFE
- ujgE/x/aUvnaBjf88YFetwkN3OkTE3L0FGDsGc6CZoyIAQh3eEVi1rA/Q3H/VQ==
-X-Gm-Gg: ASbGnct8lCDS/Ip1o76dnx93TIDhT8UjrwEjH6B1Q7zccBmSXflAolXeYau1OfDGnFc
- 7KUfAjdFk0KltDKg0ASKYXC66WP3/weGneD4ugnYLulM6WYGlHYYDx2u+WxBekKFeAZvVXLEpWl
- DjZFfvNSAnHKpG2CGnkI/1dlufO8V1Ro7eiAc1zNKS/8VtTmG3DyTPZk3Bl98EUaSNyn5g2tWJH
- lYwRWvA4oJ1wEnwEGQi0mKZFb4bwcToEMPd+Wj1Ml/zKliAOdmPu/VUPD/SHVmP+ivaBQU24g8v
- fLLBxb/662xCn7Aum8EJv225AQ3T3ohW+dH6c9Fg9ee/LcvTj5a0d8ei1G/xJ+5HoN4iDrayoxD
- 4F/mfHohCGQ+7512bW3o9f4h9E+wKM9GR
-X-Google-Smtp-Source: AGHT+IEPkZbiz2bQXjAAeOvp8npWcbSTBmeFz13FcSvB75B6fPNOR6wNIvL6/pSUWYuydugVDDAx6g==
-X-Received: by 2002:a05:6000:3111:b0:3a4:f66a:9d31 with SMTP id
- ffacd0b85a97d-3b60e4d6272mr21063320f8f.16.1753199924766; 
- Tue, 22 Jul 2025 08:58:44 -0700 (PDT)
+ bh=pQ0IXPGo5ddI4uKLDvUC1LpLO/476KQM4Z4vcCvJIUk=;
+ b=eBOPpds0ZhaPhNlD6hcotYKYdg6oQyff1MAof4/1cdHFYSMaPdVWJq4lIOet/aTXI+
+ Hb8c/LnBKjxkEJhSyaidDLfcQrqEX9C2nBSGhX9eofTT8X0dXuK8srbAPCkcBC2yq1xA
+ nbRibCoaIgFGGcC9PNwPUQ0haBQ/mL8YODH7gWuvuFVR0EbthyIv7IXz6U+XqojXrjmW
+ kW3eHdIgBU3VZ+6aM0Xd9LAO8+js8qZOb5snl8Gcxkb0PhmYnECggIIXXSL+W8YEpwwL
+ jlC349GikYtOpg1NzIMtKqhVLHc1Qmbi3wXQtBPF0bbGWQnMLwvg1Kzve/heRRt33LBi
+ +QFw==
+X-Gm-Message-State: AOJu0YzmE1IgHUCpd2o5W5Hfe8o0Ue5JoNjqv/oULyUMs2Z8I31T0fwH
+ U/lzcXlEr9rMkAYlp++YV+T38KYZlhW8YiCWLUzHQ/dIfpNfSXa92pu44hwCcg==
+X-Gm-Gg: ASbGnctyIiOV6oICjLna3aUHl6Nfk1mbjk4QxCFoIRabwL3SsID52LFh6ftRIwjrkR3
+ t67DRCjZZ8Hm76ssdgfOL5WCi06MJTvw/J3yA5hwwAonXqupFzOV8Wue3wj3xQDK1MCuztHSA5e
+ OgFrB4+dQBZexcruYz/v3y9iKgqnrWJCHbte2ZnVM5EZ/RVP+Z2KSyDAq4vt/djOxSGdDQd0huw
+ EfehEm9ifnc700mAndvzIGsilzyuCpCRST/Q6KfTpo38jFBYAE9NLewO779NUTzDxcuLI26I7KR
+ jQobYZer0cGWGY52z9W886KS9K9zxcqv5VW/wJ/X5qjEPhpGBfKlcZf0fvlKE/nWkkZ4lzN5Aaw
+ 2vGUTV5ieXqyXxYrK/Y76T8slk8+vglBA
+X-Google-Smtp-Source: AGHT+IH0mbpkr38wZO8RgH2t5+QyLad4CIdVgkiZNmw6DQz1aXnf63cE6BQN8tM1Vvk96bYclz1NFQ==
+X-Received: by 2002:a05:6000:430a:b0:3b7:6345:c53 with SMTP id
+ ffacd0b85a97d-3b763450cbcmr3818845f8f.51.1753199925874; 
+ Tue, 22 Jul 2025 08:58:45 -0700 (PDT)
 Received: from Timur-Hyperion ([2a0a:f640:1810:c696:604:c93:8102:bad7])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca4893fsm13948241f8f.52.2025.07.22.08.58.43
+ ffacd0b85a97d-3b61ca4893fsm13948241f8f.52.2025.07.22.08.58.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Jul 2025 08:58:44 -0700 (PDT)
+ Tue, 22 Jul 2025 08:58:45 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 1/3] drm/amd/display: Fix refactored DSC cap calculation
-Date: Tue, 22 Jul 2025 17:58:28 +0200
-Message-ID: <20250722155830.67401-2-timur.kristof@gmail.com>
+Subject: [PATCH 2/3] drm/amd/display: Don't overwrite dce60_clk_mgr
+Date: Tue, 22 Jul 2025 17:58:29 +0200
+Message-ID: <20250722155830.67401-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250722155830.67401-1-timur.kristof@gmail.com>
 References: <20250722155830.67401-1-timur.kristof@gmail.com>
@@ -86,49 +86,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After refactoring the DSC capability calculation, the
-get_min_slice_count_for_odm could crash on some GPUs due to a
-division by zero when max_total_throughput_mps was zero.
-As a result, DC was broken when connecting a GPU that doesn't
-support DSC to a monitor that supports DSC.
-Tested on Oland (DCE 6) and Fiji (DCE 10).
+dc_clk_mgr_create accidentally overwrites the dce60_clk_mgr
+with the dce_clk_mgr, causing incorrect behaviour on DCE6.
+Fix it by removing the extra dce_clk_mgr_construct.
 
-This commit fixes it by returning zero instead.
-
-Fixes: 4909b8b3846c ("drm/amd/display: Refactor DSC cap calculations")
+Fixes: 62eab49faae7 ("drm/amd/display: hide VGH asic specific structs")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-index a454d16e6586..4169ece9c535 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-@@ -642,14 +642,15 @@ static unsigned int get_min_slice_count_for_odm(
- 	unsigned int max_dispclk_khz;
- 
- 	/* get max pixel rate and combine caps */
--	max_dispclk_khz = dsc_enc_caps->max_total_throughput_mps * 1000;
--	if (dsc && dsc->ctx->dc) {
--		if (dsc->ctx->dc->clk_mgr &&
--			dsc->ctx->dc->clk_mgr->funcs->get_max_clock_khz) {
--			/* dispclk is available */
--			max_dispclk_khz = dsc->ctx->dc->clk_mgr->funcs->get_max_clock_khz(dsc->ctx->dc->clk_mgr, CLK_TYPE_DISPCLK);
--		}
--	}
-+	if (dsc && dsc->ctx->dc && dsc->ctx->dc->clk_mgr &&
-+		dsc->ctx->dc->clk_mgr->funcs->get_max_clock_khz)
-+		max_dispclk_khz =
-+			dsc->ctx->dc->clk_mgr->funcs->get_max_clock_khz(
-+				dsc->ctx->dc->clk_mgr, CLK_TYPE_DISPCLK);
-+	else if (dsc_enc_caps->max_total_throughput_mps)
-+		max_dispclk_khz = dsc_enc_caps->max_total_throughput_mps * 1000;
-+	else
-+		return 0;
- 
- 	/* consider minimum odm slices required due to
- 	 * 1) display pipe throughput (dispclk)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
+index 33b9d36619ff..4071851f9e86 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
+@@ -158,7 +158,6 @@ struct clk_mgr *dc_clk_mgr_create(struct dc_context *ctx, struct pp_smu_funcs *p
+ 			return NULL;
+ 		}
+ 		dce60_clk_mgr_construct(ctx, clk_mgr);
+-		dce_clk_mgr_construct(ctx, clk_mgr);
+ 		return &clk_mgr->base;
+ 	}
+ #endif
 -- 
 2.50.1
 
