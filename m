@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 671DFC83F1A
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 16:25:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7658AC83F1A
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 17:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F32710E31A;
-	Tue, 22 Jul 2025 16:25:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17D6310E6E0;
+	Tue, 22 Jul 2025 17:31:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5uDJP86W";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4xOq2Bvk";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99D5510E31A
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 16:25:09 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77E5710E6E0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 17:31:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q8xYncaqD+/7vKZv+WnUOyeVm13imcO5FfKApYSydob1t06HNJ9eqzjJQQYjUB1NJoaPkeXYgluzW3gN5rE3B61lc/CtixLl045r7/RaCnzT6/snXXjy4MtwPp6/K3yy747M0aEW8M8rP1tQn8Wy11Af4Pj8OSnQI569ADMISEc0Q1LY7kxE5Aodk/JiJuYY6dQltKAlOX/VysCdMUfR5LLIsoCbGVtWiiv5R8kVTHuJTvM8BOzB16nUPADXOC0MYfGdzk/Ee7nvcrkhh1o8HUgcwtFXt0opLam7urgl0i1C/ekAXXy3LiFLGRG7xSNjenuqd6PhHXYIOjzeGDrviQ==
+ b=zCdWXqk3T56AXhoJnGoEJJDr6g6NAhLISORT91diwPZ5Q8YLqGDYVh6OheV5zyeyQSRbETEYh7ZH36k6mQzvz2s6SwxySm+GN5/DzfeACIn/bxd9S2XPwXOQOPy77a9/a7/Q5jaWU5fKKCW29zZxA/7PL9+CtmtcUeWEIw65UY8ON/wLz0L+J4BobWU7zJw0dR8PsHWbXU62G+BxL071IVj7XVv1uk31Dmh8+Ri1bBglShj0pA93ZUn2FTLklasrKkkw0kMG3fzot6gk3fkV2PvtF3AbwFVGooOpxjecfDt1NhEiblPMtdn5zjle8+LgWCQsEm5bJDrVzvE5Fw3oiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zQdxZhabJoZgCKIGe4HmEAXpGHi3kqO5+oluDa0gwos=;
- b=aLqWX5YgpRcwrcYoqmRIvVYmXR3w+HiztYqgXQDJ2yxVbPzJP3Ro+UHNP5PPH96HMJv7xfyi9R1DAFv5yBIjZeq9gdS6Ol4sgLwXzR/jk/kCj0tk2WwRBEJHGRdsQ5rdV4EJHiIQw4iLhbOzlg+VPC2X4bxieIF8I8lzrF69Ys6uVUdq0fvHQbIKpIxrkp9A9PX/R3utRV1axl6koBIG1rc4VRj4NPGM1Q27b2vXmMeT6QhNa9H3Ws5YlLuSYonxWBgLk8xfQqZusyUc66CiBjXD7W8pmXNu5SPD2mxIhi0QTuLnrue3+ZcMJyeQAh/QVLv8RsQQHTit76RWXMepgA==
+ bh=gB38N/TvUK6YWn9uVBQW+pLHPv9LRqiLqytGr+V52k8=;
+ b=Ks6cV1e7A73/2uYe/jNiYdQox/NQyhMPhwf3RDrv1EnPIpSu/7/1HG7P/gG/yxG/UAGMTTqERbmslqGAdtI8iGDK4q3MYiSoYTSef6yRi/MMEmGQ03JKXh84Z/bC/l3ufv4hazP+XfBiKcPquPX9ouHkWxjy9rWgaE3roMqaxHwx4iiHP0RNyOGICVslNvaEWBB5gCRFePJ0HgxD4eYTXF3iC4D/AUWzluMNBrcrr+qdfMvrZtkBkHvIvU1+SDi4XHShjtm+KrQKZ49KRP5nrrqjTDLyL6HHAsREwzWWkxHIvSTSLqnw9Tvp7nXtGeBHV6CSjphZgyoenCH0RDG2LA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zQdxZhabJoZgCKIGe4HmEAXpGHi3kqO5+oluDa0gwos=;
- b=5uDJP86W/ttDo/p1wEjbfOBMv6WqSgKDrc2W4QOyFu02xxkGS5lsOIlZ9cK3716n5NdeGqc2jKCgM2GO1VwVcmH0w4pWEBVDp2RWZpKKj4mkeKn5SAM6Z8ScXuu5HtkRYMqXTpYypGZ24l4ovSKpKf925maCwCelaCA6G0skt+s=
-Received: from CH0PR13CA0059.namprd13.prod.outlook.com (2603:10b6:610:b2::34)
- by LV8PR12MB9667.namprd12.prod.outlook.com (2603:10b6:408:297::6)
+ bh=gB38N/TvUK6YWn9uVBQW+pLHPv9LRqiLqytGr+V52k8=;
+ b=4xOq2BvkCaumH46X3tlJ8SN/OpbXjZsvb17lSeQa0PTIy0SotNpm1fKa2Hl0D9dwMzk2uOoqrOdzlKi5wOUEGO6id/aMKhOJQl7V6Tkt43yrXU8cjAKO8+TjHunx5LRuhqZxKyEhZOu6YzNFRshxr+lWIsoYMdAureoZinkATvU=
+Received: from MW3PR05CA0023.namprd05.prod.outlook.com (2603:10b6:303:2b::28)
+ by LV8PR12MB9155.namprd12.prod.outlook.com (2603:10b6:408:183::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Tue, 22 Jul
- 2025 16:25:07 +0000
-Received: from CH2PEPF0000014A.namprd02.prod.outlook.com
- (2603:10b6:610:b2:cafe::ea) by CH0PR13CA0059.outlook.office365.com
- (2603:10b6:610:b2::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.21; Tue, 22 Jul
+ 2025 17:31:31 +0000
+Received: from SJ5PEPF0000020A.namprd05.prod.outlook.com
+ (2603:10b6:303:2b:cafe::4a) by MW3PR05CA0023.outlook.office365.com
+ (2603:10b6:303:2b::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.21 via Frontend Transport; Tue,
- 22 Jul 2025 16:25:07 +0000
+ 22 Jul 2025 17:31:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,74 +48,75 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000014A.mail.protection.outlook.com (10.167.244.107) with Microsoft
+ SJ5PEPF0000020A.mail.protection.outlook.com (10.167.244.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 16:25:06 +0000
-Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 17:31:30 +0000
+Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 11:25:05 -0500
-From: Kent Russell <kent.russell@amd.com>
+ 2025 12:31:29 -0500
+From: David Yat Sin <David.YatSin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, Kent Russell <kent.russell@amd.com>
-Subject: [PATCH] drm/amdkfd: Handle lack of READ permissions in SVM mapping
-Date: Tue, 22 Jul 2025 12:24:50 -0400
-Message-ID: <20250722162450.79502-1-kent.russell@amd.com>
-X-Mailer: git-send-email 2.43.0
+CC: <Felix.Kuehling@amd.com>, <Rajneesh.Bhardwaj@amd.com>,
+ <david.yatsin@amd.com>, David Yat Sin <David.YatSin@amd.com>
+Subject: [PATCH 1/2] drm/amdkfd: Restore SDMA queues with engine_id
+Date: Tue, 22 Jul 2025 13:31:14 -0400
+Message-ID: <20250722173115.436932-1-David.YatSin@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000014A:EE_|LV8PR12MB9667:EE_
-X-MS-Office365-Filtering-Correlation-Id: a88207bb-a004-431c-53db-08ddc93c51e9
+X-MS-TrafficTypeDiagnostic: SJ5PEPF0000020A:EE_|LV8PR12MB9155:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7376e52-9cc0-476a-95cd-08ddc9459882
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?x4CTuLo402tgVe+z9lqyHLBEUOTSEM6WNgEtOUgsc+UbvUANisObHSHmJYzV?=
- =?us-ascii?Q?xOdMSIBa0mcF6VWR/Wmq3LC1QdYh1zokoqaQu6n/PTTFJEL1vqIFO/9mLtA3?=
- =?us-ascii?Q?oKlKX5HhOuRZXrm5llB6Sv9nJhD0//oG/avomWTN58qvMBFVk9MgY6KPZLuE?=
- =?us-ascii?Q?3c7lLhscdNFoBLcvXoMe2pZYb/3cMgnhwfzD23/Y5ILk75yvHQaHI/F0p948?=
- =?us-ascii?Q?8JBCkKhYz6DHHjYa6uXSDXICUs+rjzAsM82DZRvtO83QlLiF5+DRI/eXoJoP?=
- =?us-ascii?Q?kva5vcfDBn0jTFalWH5fhEyaFyy7A0rHLKxBAHwByXWFQo/gR+SFJREcXL3A?=
- =?us-ascii?Q?Nlp0MkqSvjk1M+zb4QbYMLYNfWOG+3d4tOSXp6rZ1/UfdUBYSrkp+BYbz0KP?=
- =?us-ascii?Q?gRDYh8xai8q8iDYgSdsnRm3TQpVh3o5L0UWWL3JFAMzPySk2ecdqbwv4vx0c?=
- =?us-ascii?Q?RxwceQdQStQyVF0j/7ZCDsIW2dAEwG91IufG3LgI5eAfsRdePNf0OkxiOMbV?=
- =?us-ascii?Q?tfNckmjqmreTMDZxbVCn/HlPstQiGQHUDEMxujlTsDt0tb7FAUhdXkxLe6wv?=
- =?us-ascii?Q?2KJ2PmwtlPEJfqT3/CdD8ZjoQpisMm37pPr0VWGvCWZNAlA8St5VGtwjnnHK?=
- =?us-ascii?Q?MqXkQYsXOKsIAZK6pWpLUJwDcISGG7NSkH1Q+YDy6zD1pOT6nEymtfheUeEa?=
- =?us-ascii?Q?YoOOUri8qcace8yN8MGHH8+cCrC9VaVf5A1meBv6GEgdyw4fyYO/Nikqu1Rk?=
- =?us-ascii?Q?Gi3ATBQEPO7hO5G9/+f/tYrFsd3TgndJVZS/Qgv3gGoSOVz8QA1/wp780xWm?=
- =?us-ascii?Q?Z8ha07dx+mnmzKnn/egqza0qBX/Qj8IVXfZVrqVTiWihN9W3RXFx4heQHxaI?=
- =?us-ascii?Q?dRnQBqUwVuMqN3ncKHhuJowBVFnHH9Lmgx/719Enna3W8ZP60uvruLpUGGkE?=
- =?us-ascii?Q?JkZsM3PdP85RHIMKjEUPDnOGRXWcd56nry3ulye6D1SXcCGqthvTAsCNrnbV?=
- =?us-ascii?Q?xxX4L5VwObYWKgPbh4dBJGUp6cRwV3UPedIbFd/hbecnnRvHrOxglzD+VdcV?=
- =?us-ascii?Q?M+FqH0tCoH7WHhyJKpVCydseWEnigfUtfNcxsKpq7zBOZ/ZjHWpUXqyfNL3o?=
- =?us-ascii?Q?wa7+qaZk2DW6ra7lLQXbLxXTUzy8fCow+3lqTYVfLynHmu1LlewdWf6JUxmN?=
- =?us-ascii?Q?OxRUI/GUmTe1X83t/k/vccJ/sOfGzBjvACUjuiKr7zRVuUwdm1ZJmsx3uKx8?=
- =?us-ascii?Q?tsCmAI9r/J8GsFh3+v1rUtyxXtpccuaTdtCQuOgSLC4EtgjEXv3vDi8pqHCC?=
- =?us-ascii?Q?6g0h1zQJUx1wF8tmze+mucBg1Q46YyLuD3HNR0ABt13SsVpeRMt+WenZwLGP?=
- =?us-ascii?Q?Um6+U04/Cp+G+C/zIFMdG4EYGicvvtZvY+f0unzYs0kW8m55Wtf/K8bLm2J+?=
- =?us-ascii?Q?RVXeyOxidwHxQUzyHwT9Uob28P4+GrYaMpwVIcvBJOk8yQmghrvPRXRtsD4Y?=
- =?us-ascii?Q?hPkwsQSoXo2r2SIzcBM8Kn+55LZCsLu5Hi51?=
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?RyabTI+Wvy+TYO/QFBNwiNpWf4bmbCzLGjMRWRp8oruSeBNNdJTupANhHRyO?=
+ =?us-ascii?Q?OmUHWhQMKal2fQTls4IyeSMKKJgUSRbCQdCkMZcnDmNm5bwjK/TA6GJi2Eke?=
+ =?us-ascii?Q?uc047yRE8EP1Gm4gkj6PIM3q2BB7nx3KBPOOMQQ3pvqZnuxsfwZzSCToqzY8?=
+ =?us-ascii?Q?c8hDtrcEqdoPiOWGpSINWRR4GPs1/nAP1IwDR2cuqFhVsdX6fA9kkGGEiuYr?=
+ =?us-ascii?Q?SVpSodTYmbN/RXV9kD7jVE0xvFEvx//EvEwdv9v2YQltcS7mgBOZ6609jX3H?=
+ =?us-ascii?Q?ARW2df/EqxoXnjdmwThQzG4wAVtI4Ee43PG+27qB9o+79uSl7/wSTyrTlR0w?=
+ =?us-ascii?Q?shLV7P4ZAHN1R1MjIhSv0orQlqY4Dchw/W8EjytmmncRrPUHzuD9jeMY5r9c?=
+ =?us-ascii?Q?3Gkyic9VBkAm8hR5W2+JgmHBvbCThO6M56TnqAU5HJkD3nAF4tczzeVTqziJ?=
+ =?us-ascii?Q?ck2SUnPOex5j40H4f0DODaJcRhGWEMYiPIbxHcxsnzzgFcc+QSMc7VK+NRxy?=
+ =?us-ascii?Q?K7k9D0xC5q32JuQXd67ry6GL8sqsSpPwDpSqSU8aUSmBfi9v0GckDrld3a3k?=
+ =?us-ascii?Q?N6VJ0ELNh/1MIRSK2764mGWSxD8jhP/rl3d0JIipiIGQHEKCDZUwl3aijMUI?=
+ =?us-ascii?Q?61jauCz7PE2IAaejhHUUpAcLMOLBqRb8M4UrZ0+AqIWd3xgWtr06H63n1UGI?=
+ =?us-ascii?Q?aSgzsSOleoiX+Rw3PoBwvzB6fplZ/TslPoI/OjGTjQRJekvtKfZkkgxR7UHi?=
+ =?us-ascii?Q?94gjTI+61tPfcBIKW7PJQSHmPL6e/zInHRXtkYpMJI0qB8CJ+v2lHDuXY6co?=
+ =?us-ascii?Q?Rv4DVqtF0e4dVM59pBGaBBCaKsn/9VRPCcDXsBETrh9y3H5MgkLufGsshwEi?=
+ =?us-ascii?Q?RKvICTKZwCswDSb80PXmNTDng76l9a08ATfImNnWZAE1Qh+1PXdVimnSaD/b?=
+ =?us-ascii?Q?+7VkjCBouBxkYnKvT/Z5plpegS8XqfkWrHXN8hf5hKLvUHiZqTTR5qX4mB3M?=
+ =?us-ascii?Q?F/Z7SvBQRTLhZgLvKAWScseJpdCJDFqeK33pLCE74TiPLTlNC171kcnhqShP?=
+ =?us-ascii?Q?o1KVHvddt6LxHKCnkDTVfm1Eq9tKvhgRJIC9uurfY5PGt9jVZFkq9SIB7Fin?=
+ =?us-ascii?Q?1AlbSOFv4MAEB/kd3301EZz0sVpW4dHzxaXeZP6C36BgyaorpwpbacxCQ6dA?=
+ =?us-ascii?Q?XS44MJTTF3Hq83C+i+craWFgiS67MxcM8Ww+2HuTSzVVTAecjNdNIdyYXuyu?=
+ =?us-ascii?Q?lkDwAx29cRw3oTtUwKo6bAPT2OsIu0Oks7YfLqPjKPteN1rPxXKqq3pgXnrL?=
+ =?us-ascii?Q?nsuSoBXSsNed1EdshanwY5febhfz7ZcZETSASlewQYI9AjB4cNmWBUEFM9OC?=
+ =?us-ascii?Q?aOHklR4gMn8kZzEUAcTUfugi6U2Q84H+r7q784fkTN0a6LFuWfdBFfQbTgGU?=
+ =?us-ascii?Q?7ieID7kFKE+059QSUZZdG189nrDbFI8BGhs6u1YPxC9k2esHaS33OWuiiAs+?=
+ =?us-ascii?Q?FWTEMTgaoyGdMx6Ox2VlZL/vDRdNzlfd4i/p?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 16:25:06.5433 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a88207bb-a004-431c-53db-08ddc93c51e9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 17:31:30.3751 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7376e52-9cc0-476a-95cd-08ddc9459882
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000014A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF0000020A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9667
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9155
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,53 +131,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-HMM assumes that pages have READ permissions by default. Inside
-svm_range_validate_and_map, we add READ permissions then add WRITE
-permissions if the VMA isn't read-only. This will conflict with regions
-that only have PROT_WRITE or have PROT_NONE. When that happens,
-svm_range_validate_and_map will continue to retry, silently, giving the
-impression of a hang.
+Add support for checkpoint/restore for SDMA queues of type
+KFD_QUEUE_TYPE_SDMA_BY_ENG_ID.
 
-If pages don't have READ permissions, simply unmap them and continue. If
-they weren't mapped in the first place, this would be a no-op. Since x86
-doesn't support write-only, and PROT_NONE doesn't allow reads or writes
-anyways, this will allow the svm range validation to continue without
-getting stuck in a loop forever on mappings we can't use with HMM.
-
-Signed-off-by: Kent Russell <kent.russell@amd.com>
+Signed-off-by: David Yat Sin <David.YatSin@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h                  | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 8 ++++++++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index e23b5a0f31f2..10b70b941b11 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1713,6 +1713,24 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 67694bcd9464..837da09b5bec 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1261,6 +1261,7 @@ struct kfd_criu_queue_priv_data {
+ 	uint32_t doorbell_id;
+ 	uint32_t gws;
+ 	uint32_t sdma_id;
++	uint32_t sdma_engine_id;
+ 	uint32_t eop_ring_buffer_size;
+ 	uint32_t ctx_save_restore_area_size;
+ 	uint32_t ctl_stack_size;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index c643e0ccec52..b64bc47748f1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -846,6 +846,14 @@ static int criu_checkpoint_queue(struct kfd_process_device *pdd,
  
- 			next = min(vma->vm_end, end);
- 			npages = (next - addr) >> PAGE_SHIFT;
-+			/* HMM requires at least READ permissions. If provided with PROT_NONE,
-+			 * unmap the memory. If it's not already mapped, this is a no-op
-+			 * If PROT_WRITE is provided without READ, warn first then unmap
-+			 */
-+			if (!(vma->vm_flags & VM_READ)) {
-+				unsigned long e, s;
+ 	q_data->sdma_id = q->sdma_id;
+ 
++	if ((q->properties.type == KFD_QUEUE_TYPE_SDMA ||
++		 q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)
++		&& q->properties.sdma_engine_id) {
++		q_data->type = KFD_QUEUE_TYPE_SDMA_BY_ENG_ID;
++	}
 +
-+				if (vma->vm_flags & VM_WRITE)
-+					pr_warn("VM_WRITE without VM_READ is not supported");
-+				s = max(start, prange->start);
-+				e = min(end, prange->last);
-+				if (e >= s)
-+					svm_range_unmap_from_gpus(prange, s, e,
-+						       KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
-+				addr = next;
-+				continue;
-+			}
++	q_data->sdma_engine_id = q->properties.sdma_engine_id;
 +
- 			WRITE_ONCE(p->svms.faulting_task, current);
- 			r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
- 						       readonly, owner, NULL,
+ 	q_data->eop_ring_buffer_address =
+ 		q->properties.eop_ring_buffer_address;
+ 
 -- 
-2.43.0
+2.34.1
 
