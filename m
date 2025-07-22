@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0137FC83F27
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 22:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6B79C83F34
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 22:39:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1A510E72C;
-	Tue, 22 Jul 2025 22:39:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DD4610E32C;
+	Tue, 22 Jul 2025 22:39:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WN2PDFaV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ckpww19B";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC34C10E720
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 22:39:30 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2058.outbound.protection.outlook.com [40.107.237.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E860510E722
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 22:39:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lVUk9NxPibVnJih1IqYS8jq3EN6pc0sCroqvIcs/cj1CcSxdBmJodhYGVhhqwdkgSiV4+/JzQBde67MorZlWhRbDtvG0INfSHg20qKtvPLb7u09lArJooF7kMIBExfWhHOU+LQWl/uiLHnGFQk1pJzcXPKlpcIcUZmyYHld5+4pQ+00U3pF6VwqrgCWxMWkK+yH4lTgqjJDtwD/LhaaBC51rovu3Qedu047a5d78s+42+eUerbq3X6rLwmnIrcok6vTwihV4NRU80zpw2y7yNW7MG4xwz95jB3fIIxBzIid4Hz88oBOnb2CKNK0aSgTdok0gphUwhuEolz9cjcOpHw==
+ b=AFNfoHbFDolGMrNMmKKFyNM5nEM01ZPTB0AVwmWwUVm5LfjEtEC41JGEBehGyq7rhkElUbZKWBWw0VqabJgsbBrB4hpR+W8prbiR5T2hYFPI5u8pEa5Rl4gYOc7866J/Dq7+suDk+g7ZF7wNx4LzkX75eW4NCpieNBRs2LXsrynkCixOCJC9zPB4sviXJALGjWe3MpwuDBEOzR6AR2RjazHRvMOuhGotVndXBKfF/8yy8GgDpGUgtlmQP40BfOExoX5nthFA8DUoir0VOkiAHAiLEZUr/mz7UWGPtQ/icPjIrpdEwF9bHabpkO5wFrwwCL9Xu3OASgws6SFleIRpuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8y1ycSf6UylBy0JiXOeXXoOwzexNqiom0Szb2xH+uYs=;
- b=uheoztv/rC6HIgvC9D3bf0JSKjyVtmen9fBiCrgqbCon3+h2SqAy7VPheP+054dDB6fSDz8WH4wAN5ZF+EynSp6t08Pj+BocWqxwFag8Krkp99F+cPic+IJWncbHthDANSdSiTrdEohdm4wKg+OWYJiZhuC6foRPPNGv3/gzfzxWCs5ZgSn1BwbYD1jcN9LxbiyO6Iq2Ful0x2Y23JHCEfIJqv7gosBDh+vS2corYqHpaqkCk7zW93CXx4Vgas3B2oqdvOyRUG1yGxx6Hg1XckVIxk3im7g444PbC0zYQxxPLa35Gc4m+8CgnHXgGWXJOA78F38461oBv+A/NskQNw==
+ bh=ycQCflSl8t5NhTfx5CyiaoA2sQXsTjZETIpQXbAmos4=;
+ b=IPX1pAPQYKqaftN8n1O9CRJd9qxnpLB/dvNXkmpymPrwszkFfW6Ru3IPI96vyttR8gdCf2toQOobkgth50IJs5KTdvlLRq5zXGRKXKOjJ0iAkhn3kmOX+1V8BBgZ1+GVU+GZ+ltmri3bSEl0RQJAkfZDt6PEIwQ2MW2iqs8JBjI76lTaVdOhw8DxIfXl+YcG35hT1v2OnSYghxX4/RtbS5hYpmNjpOF5cVMMJCUPd1jC7cbvr8OzY8oUXA6qhfR1S0giI8dOrd6uc8xS++0ZGN8D7XtlwgEz7hlOqCA9WtPZRP+DVwR1WcUzvaqgnZvxFYQ3l/NXwxYlXaWgziR9jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8y1ycSf6UylBy0JiXOeXXoOwzexNqiom0Szb2xH+uYs=;
- b=WN2PDFaVHkxJJz1bWBqv4hQrsQf/o5soeWzdJnkwjlvA2LX9owpwfhq+xa2NXvGWVqaqWcXtLoA4SlQkkrewtBYFcYi7I2C+sT+6iQilWf0hLCVzR/9PzztHrDd7FRrzlyMLCLzFEQe9Q0ejbsGcUzKHMa1P9sss8hLOr/osMEc=
-Received: from MN2PR05CA0001.namprd05.prod.outlook.com (2603:10b6:208:c0::14)
- by DS5PPF884E1ABEC.namprd12.prod.outlook.com (2603:10b6:f:fc00::658)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Tue, 22 Jul
- 2025 22:39:27 +0000
+ bh=ycQCflSl8t5NhTfx5CyiaoA2sQXsTjZETIpQXbAmos4=;
+ b=Ckpww19B0dZqFzvqn1VDXtZ28Px4LnCTwlbT/vAupUV5D/pQkVETvhhmDaR3h7Oqgr1Y/smszlya25uKlFoROMRuiIQj1Sty0qTX8mVji9OCoR1uUUfXtv92lawXvyT7/Dy0KXMt332vLTlW9Ef6b7c6zKI1pIZeCrjzVaDF6hQ=
+Received: from MN2PR05CA0027.namprd05.prod.outlook.com (2603:10b6:208:c0::40)
+ by SA5PPFA403A61D8.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8da) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.42; Tue, 22 Jul
+ 2025 22:39:24 +0000
 Received: from BL6PEPF0001AB53.namprd02.prod.outlook.com
- (2603:10b6:208:c0:cafe::e5) by MN2PR05CA0001.outlook.office365.com
- (2603:10b6:208:c0::14) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:c0:cafe::e3) by MN2PR05CA0027.outlook.office365.com
+ (2603:10b6:208:c0::40) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.21 via Frontend Transport; Tue,
- 22 Jul 2025 22:39:27 +0000
+ 22 Jul 2025 22:39:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,25 +50,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
  BL6PEPF0001AB53.mail.protection.outlook.com (10.167.241.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 22:39:27 +0000
+ 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 22:39:23 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 17:39:26 -0500
+ 2025 17:39:18 -0500
 Received: from box-0.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 22 Jul 2025 17:39:26 -0500
+ Transport; Tue, 22 Jul 2025 17:39:17 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Ivan Lipski <ivan.lipski@amd.com>
-Subject: [PATCH 10/25] drm/amd/display: Remove unnecessary includes
-Date: Tue, 22 Jul 2025 18:36:16 -0400
-Message-ID: <20250722223911.2655505-11-IVAN.LIPSKI@amd.com>
+ <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Jingwen Zhu
+ <Jingwen.Zhu@amd.com>, Hansen Dsouza <hansen.dsouza@amd.com>, Ivan Lipski
+ <ivan.lipski@amd.com>
+Subject: [PATCH 05/25] drm/amd/display: Add a config flag for limited_pll_vco
+Date: Tue, 22 Jul 2025 18:36:11 -0400
+Message-ID: <20250722223911.2655505-6-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250722223911.2655505-1-IVAN.LIPSKI@amd.com>
 References: <20250722223911.2655505-1-IVAN.LIPSKI@amd.com>
@@ -79,52 +80,52 @@ Received-SPF: None (SATLEXMB03.amd.com: IVAN.LIPSKI@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB53:EE_|DS5PPF884E1ABEC:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8c594e1-7f7a-403f-3b60-08ddc9709dd6
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB53:EE_|SA5PPFA403A61D8:EE_
+X-MS-Office365-Filtering-Correlation-Id: a139db9e-4846-4b2c-2ed7-08ddc9709b96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Rvlt+ZIemNnLjSOwmMcIpTyA2ETBV4SqCQj9g84Kg2efLbMrynZC40/7Qob2?=
- =?us-ascii?Q?uUY1EEVVCP1ldsa7NAdmrPoJ+GHLErXwU2DpusVYhXn0O9+NSwzygTo7oc/G?=
- =?us-ascii?Q?RdGkeRe9vf1idqxzIo6jcPXAiQpQFguiWPiIN4n/ZUkUZdz8HsEyEi42HaCx?=
- =?us-ascii?Q?etfyYCuSc61ATWfO86Xo00XLpMdTSQy5hXx9SqORjzvX/4sDBNS4zpC4gkGf?=
- =?us-ascii?Q?Cq0OS9uG0xxo033hYN86eqrkCFWtiISswWHVj/Vxlvf5Conr97uRXi2/toYa?=
- =?us-ascii?Q?2JygVLLTjVC5Vyit7iXa8Sfyjmj844j1c4OLgVc5ip0wLnGTeAyzYIKU81Uv?=
- =?us-ascii?Q?1mPQwY+44lsCksPnjXnxArfye2iXFBw/hZw18FdHzpWcdjsMObmwK/ziWxLH?=
- =?us-ascii?Q?sjNAd3OkRD4PzDwrWjrS2ONiwLkxJ12CUNxWr/Xt+UEKmfYbQF79iQtNHfLR?=
- =?us-ascii?Q?nrRbA++Q8pLaDGiaKzbiEfo0aMoRfN8BuhU6LUl5WgBPTv9lCWk1mfsZ5NXp?=
- =?us-ascii?Q?06QwAQxfK8gDkb3vC0Y6t5gBDthnXlNnNPCmAZBwU8tna2iyQ6Wp05GCMaKd?=
- =?us-ascii?Q?Jmt48CtmVVF34Hak4l9Lsmbo8zD4kLTrra6PGXjhDGae3BjUXKLByyxJFdnF?=
- =?us-ascii?Q?DRf4bZQe0nnbGZ/56jMuXJtJRHuDZYEF8ggfWd6c6iAYg7+ETBGGDztzWB05?=
- =?us-ascii?Q?dgw8xEJXh4oYJfCU6B77gLkvun1i8AFCnIbwXO6ZCRfnmbhJblUoRGBZLcAt?=
- =?us-ascii?Q?JQuA05xXzqw4JIa8THQN3Kb1pj776alu2s1CIAtVN0FkkiFbKknnXHVc8JZ5?=
- =?us-ascii?Q?bKHjiz2F13CZlCAyjmY5dMeQBLhizIsfa1pa0PtjA58QhKecKsvWGfUamyK4?=
- =?us-ascii?Q?TmGaxwI9gwnMUIR+tee+rLQT9l+2E5ZrJfcgppYwun/+MhoZm8hLeQ0IplGK?=
- =?us-ascii?Q?CaQSCOcEO3NG2g0dVlenPYDaWWgzaB5mc9RRno856e7z5QlPTZtiUZEOE4PM?=
- =?us-ascii?Q?HU4GBgz0R+4E0cXRyGKeL2+rd6lbKQT3NVb++oaxVXdNugg1m2bQc3LMxElK?=
- =?us-ascii?Q?PS2xCtYrDR96PjcOp/1p2fuajf1onBSPQuP/zCLYhcAF/x+PMu2npe5zWT+P?=
- =?us-ascii?Q?/0WFQo/ichVl69kA0upjO0kr06GFJszBazvxsY+i91Qqm2yNI/DN4Xx2wHmF?=
- =?us-ascii?Q?B3YUdBhvMCEKenQIjNoto9GvmgBt0/t5FWi9Cpe4UTkRfmI70tUYazOtDTr7?=
- =?us-ascii?Q?HTnrXay7uyGA+8HZYXUHhPPa7addgboPXID32/S+kDLHgD1lQf+lEakiwi8F?=
- =?us-ascii?Q?5FrfOaHKAOM2Wn2nclxOgICYCA6qtxEMMB+ZEm4PDW0S7LZ7ER3tPs8JPHtf?=
- =?us-ascii?Q?PCG1mSqFJ2LMvFLAoXPGOaS/W4krRQbqDZl1TGpHZwWAPdgj9vmJT/1VkfYq?=
- =?us-ascii?Q?qirfjHc96VKWQI5tA6Qy/nymWbuXyRXBtL1mm1b63TRZwpcntu6wkJ9Y0d45?=
- =?us-ascii?Q?PPp30woMPH48cLAVZ/99yk8iouWczFv9wvAV?=
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5BygrfDnjaYHCCiNkkt6U0DZMOnY+V38iUcvixBG3aQJg9nXm+vSk2wVtUlh?=
+ =?us-ascii?Q?5HIBoJvz01h0YvM6ypF/89u0n9h+3C363ob/S8wjSDaeyGGDkWeOT+a8rgLz?=
+ =?us-ascii?Q?T09ao4s6L/Fikb6tnbQtfxNJaTTaIC9RrDOPuJIcFUjudXI1b2RwaCPeyDhq?=
+ =?us-ascii?Q?KRtu1GrwO1TiJXNM6VOYGXIRhU6qe92haC104iHgz/+VEMmWkNT0XZVO2ZeZ?=
+ =?us-ascii?Q?EEsjNeOZZGTo1u1Je2qecmrc3EZf/Pve24HR8v1AgePiWyKPUnZcalZ58R4t?=
+ =?us-ascii?Q?qW7uwiM909V1gFhuy9zvhI9xtq22EgJ3UuR1paUfqV7IkfyvUvg90/69Vudy?=
+ =?us-ascii?Q?Kxs5qyxRBhb/neAmQXCkq72t7wTboSRSG4DJwEDYpcCd5OuL3V3irtTt/Foe?=
+ =?us-ascii?Q?vhWZj1URFafjf3f773uFcaCOrmH8WmOYtkUOLNPJia8i2XbRAhUWGe2RXI9i?=
+ =?us-ascii?Q?8QCbd65CdUnJhlJT2FPfsynz/npmj3krSbTztpupc4fopNIECKFBZcrEGyAs?=
+ =?us-ascii?Q?SeGtaxeXtpcBwzos5/srmxfhw1FXFDo4JlL6OMUZEb1xNMjHtDFZnzEolq01?=
+ =?us-ascii?Q?WFRxhFoz7peEqJx1zfgDUaxy41CWjWIUMJctovVWjElTiOutLBfWDNxr8fWP?=
+ =?us-ascii?Q?ku14HnEFzYPEvSfTTYlMLS4rrt+dS0/M6SUIauoclwuNBR+VIph4RyxHJtTg?=
+ =?us-ascii?Q?Vm6+i7cRsz6QBdr5ryRzeXfmd7eOXIrPvRqTISEjCdSpplhnqHrF3XW4RDK6?=
+ =?us-ascii?Q?e8KGcATtVv3ymboeGVhWb+djH7j2sD9i/yPUCKhky5YBoTdFfWt2ksTkBCrY?=
+ =?us-ascii?Q?oaDU7oYjNFtMs1pkNmCxYnzdZ9lRdUeSLkN1jlhnz2l7G9kpOomrhMaqTGHb?=
+ =?us-ascii?Q?GJajjneA6X7VevNg6SRoSkVIhCsBjhYijIRbvlydk4/GzEK1gX0S3kBJw6V2?=
+ =?us-ascii?Q?spBTiVcZmR39v2Wy8Fuz62gnWb6MPmXj8TArQnwKhzGC8zO+i9f9Oyv9wFmq?=
+ =?us-ascii?Q?/dhhGUAJNgUSPrgvXSklKwBC+kt5lk/8Pq8I1WZsOjHQpjC6oycxoNh1au5v?=
+ =?us-ascii?Q?UXLip9rzfR392Ql/2BRmp/RYUTI7t7wTl9gjFayGK5yIewGXe/2A5rI+rJCi?=
+ =?us-ascii?Q?D2mnOzVBn2b71VlVahJ7A3s6mHFGu/w7ZCWGxSPkqhvjE/oGhDMmVwPj6aH2?=
+ =?us-ascii?Q?3JN7U3FpP79jPLfdD3XH1afQC9OsYWusX80IegtHWU4P/H4fHR9MfUH82oEQ?=
+ =?us-ascii?Q?xIDzZrDOkaFHHAUbcuXCiMU6u+RM7Z3tkqCAB1RCr4NcWvym+E2UrZtmE+D3?=
+ =?us-ascii?Q?eKXgIvpV2U0bPNuFW+z0jxKZur+y2uz9TWwFerZOczUXCOsZpBPtrnwLlXI3?=
+ =?us-ascii?Q?q6FL+yIckKk5YuFUpkfKQmG+f4tnKAH1/sa5v9MxxBfs3qahQN+UnyhWi40B?=
+ =?us-ascii?Q?zQthtx7MqYdi6xz72liTHd3vszeHfSIPz7qMHACuDk6Bhxx9F11ae/aTBxK/?=
+ =?us-ascii?Q?LjP5HncpLP0jJCVj7xIZg1joPVyC6axkdu2t?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 22:39:27.7613 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8c594e1-7f7a-403f-3b60-08ddc9709dd6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 22:39:23.9782 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a139db9e-4846-4b2c-2ed7-08ddc9709b96
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB53.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF884E1ABEC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFA403A61D8
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,77 +140,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: Jingwen Zhu <Jingwen.Zhu@amd.com>
 
-[Why]
-Extra includes aren't needed for compilation and can slow down the
-preprocessor.
+[Why/How]
+Added a new config flag to pass to the DMUB during boot.
+This workaround will solves black screen issue on reboot.
 
-[How]
-Drop unneeded includes.
-
-Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
+Signed-off-by: Jingwen Zhu <Jingwen.Zhu@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 12 ------------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  |  1 -
- 2 files changed, 13 deletions(-)
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h       | 1 +
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 3 ++-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c | 1 +
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 19b0689601e3..2d9132c60bef 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -40,13 +40,11 @@
- #include "dc/dc_stat.h"
- #include "dc/dc_state.h"
- #include "amdgpu_dm_trace.h"
--#include "dpcd_defs.h"
- #include "link/protocols/link_dpcd.h"
- #include "link_service_types.h"
- #include "link/protocols/link_dp_capability.h"
- #include "link/protocols/link_ddc.h"
- 
--#include "vid.h"
- #include "amdgpu.h"
- #include "amdgpu_display.h"
- #include "amdgpu_ucode.h"
-@@ -57,7 +55,6 @@
- #include "amdgpu_dm_hdcp.h"
- #include <drm/display/drm_hdcp_helper.h>
- #include "amdgpu_dm_wb.h"
--#include "amdgpu_pm.h"
- #include "amdgpu_atombios.h"
- 
- #include "amd_shared.h"
-@@ -103,15 +100,6 @@
- 
- #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
- 
--#include "dcn/dcn_1_0_offset.h"
--#include "dcn/dcn_1_0_sh_mask.h"
--#include "soc15_hw_ip.h"
--#include "soc15_common.h"
--#include "vega10_ip_offset.h"
--
--#include "gc/gc_11_0_0_offset.h"
--#include "gc/gc_11_0_0_sh_mask.h"
--
- #include "modules/inc/mod_freesync.h"
- #include "modules/power/power_helpers.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index ff97785b60a2..c7387af725d6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -28,7 +28,6 @@
- #include "amdgpu_dm.h"
- #include "dc.h"
- #include "modules/color/color_gamma.h"
--#include "basics/conversion.h"
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index 0bafb6710761..87b761ac3135 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -316,6 +316,7 @@ struct dmub_srv_hw_params {
+ 	bool disable_sldo_opt;
+ 	bool enable_non_transparent_setconfig;
+ 	bool lower_hbr3_phy_ssc;
++	bool override_hbr3_pll_vco;
+ };
  
  /**
-  * DOC: overview
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index a89bf08ffd37..e2e5f71c03f2 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -843,7 +843,8 @@ union dmub_fw_boot_options {
+ 		uint32_t ips_sequential_ono: 1; /**< 1 to enable sequential ONO IPS sequence */
+ 		uint32_t disable_sldo_opt: 1; /**< 1 to disable SLDO optimizations */
+ 		uint32_t lower_hbr3_phy_ssc: 1; /**< 1 to lower hbr3 phy ssc to 0.125 percent */
+-		uint32_t reserved : 6; /**< reserved */
++		uint32_t override_hbr3_pll_vco: 1; /**< 1 to override the hbr3 pll vco to 0 */
++		uint32_t reserved : 5; /**< reserved */
+ 	} bits; /**< boot bits */
+ 	uint32_t all; /**< 32-bit access to bits */
+ };
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
+index 3f38db752b84..4777c7203b2c 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
+@@ -377,6 +377,7 @@ void dmub_dcn31_enable_dmub_boot_options(struct dmub_srv *dmub, const struct dmu
+ 	boot_options.bits.dpia_hpd_int_enable_supported = params->dpia_hpd_int_enable_supported;
+ 	boot_options.bits.power_optimization = params->power_optimization;
+ 	boot_options.bits.lower_hbr3_phy_ssc = params->lower_hbr3_phy_ssc;
++	boot_options.bits.override_hbr3_pll_vco = params->override_hbr3_pll_vco;
+ 
+ 	boot_options.bits.sel_mux_phy_c_d_phy_f_g = (dmub->asic == DMUB_ASIC_DCN31B) ? 1 : 0;
+ 
 -- 
 2.43.0
 
