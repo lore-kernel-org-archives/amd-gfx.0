@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CB0EC83F34
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 22:46:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE438C83F1A
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 22:46:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3482B10E735;
-	Tue, 22 Jul 2025 22:46:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62E8A10E736;
+	Tue, 22 Jul 2025 22:46:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VS5gkxie";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e6piEuWU";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7461C10E726
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 22:46:13 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2056.outbound.protection.outlook.com [40.107.92.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBD9110E737
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jul 2025 22:46:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JrBbRq8M1AMj2GyMtIhWWgh0NJvj/raOSf8PxY6nekNIQO8MHI6Kc5xd2O2De8ivTEUEhyZX/iLb7KMlFw8GfdQgmUSGxB4BCjhsIs4ThC8F1753ifvVrwFS6VpRXR6mDyOIXqojvofbUSnY7Y9VOsPgvLkl8LipSw94LAt3/j+JGQletd8vAkUmsbJSks7sTWHq7XI1QJrroy0y+e13zH6SnVHUOecGwmp6wlDwmIWUiVaTanbjEcZzJqBQwVHFk5CKRenCaWDOyYmfqHf4vZHElQS8TmrcAHOoim//TALOdbbR29VvvG12iTx1OHFe4/C8noxY1tzURvFq7uqRhg==
+ b=hpU88rc8gREIoc5aC2mq2ldUjQ/3qmaBcPfLGKTTVOq0PH4mjGsUrPjKO7xNPhA244XOSQF7QH5WEIFpoecdoepCj5Mk9P6yOYoIc83PZlnMRLbD5b/FuBH7KdJpHgmA5HRGsx07Vn8XmB34fa+N9FEsJTS+YDRJmnv3ez684F+qMUJxbW8KYM6/CkhXZRkULJLYxo9/rebmc4WXj6QJ+DcxENhpwtRQvfpBoYXdHwsCOHwFNn/Is6LFnumH/w21NGb3Es+jValGXiC4FmeqyRGoolQKuOp5hQ7OYEDgPJwxoLCD+W0Hn6xodaeXw7+dCEwkOHD48AOcIFPONwXSoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LAXWXlNw6kJMtUzgRdmAGEeAY0lp8dLSOZDHIqubexE=;
- b=DQxyQZwImLKedxKugvMraHc6Cl+ipOicVW3baq1sRQcg670EwIAVfA6qciOMNwQZIgMdrAnC83jaxRaK3U3KO2fYPowYcnYmI4F4zakiX+0Ejf9lGqw0JpD+9GRu5Tun1ZIVy42S4SLfk8wlWNE2Om9bhqPfeQaYosqFZ9FLm+W44OEAaa0v9q051x8LxXD30M1Enr7R7i6sAUTulNc0GZSSt9sFP+VDRRry4Zujlan/9eX/vyBV3CK4bTsNMIMo8bzuIfsfOvNO/4CxPCvBSvFePKOHR4E4NOMl21oH8Lw90IGqAj55H6SIkED99UU5rXDHqdFPqBMIoA8Sg1x1PA==
+ bh=/AYztXn6Wa5kifv1l794Ah5WuW69dFbDpGMZqW8Jbis=;
+ b=KCm03KDTZQhmG3KxysMT9Biz77F8zrCx+DOxwYgFwGtCfeensRCjoJtPCZWp67LZndZynfOF+hNa/YFHHAGZfKArgEH4K4uB8ZEU0eEaTgMevknqilExzh+FEYN84JYkWKPA15qAaS7Bx6eDf/w3jJPrwrfKN6P2ytjjt8FNH8Fymxad7yKhmA525/GblTUnuQ+DFIHzhTMuctNf3IOhknuyKf+mAgjz3NuuF8Oj3kl1PJreBcLLHGNZ/MrBPD6R95U689cSFoMhULJk6qfLl5sxjJGe7y3+/AJlniuSxbUPbXeF9+eUMZspdPLvoLGdHJfTA1+BjKhkURiKrQRFOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LAXWXlNw6kJMtUzgRdmAGEeAY0lp8dLSOZDHIqubexE=;
- b=VS5gkxieD8qKYHzK0ScYftCc4civwhJkbFbvFEcAkf/zASij+WLxil1G73cOQhLoIleLw6uc/SceHfZ426ftLuoZ0iM2ox+h5imFUXkekOTdbKQX7kAl++0HJn6GQ+Y5l1zAw8I+umZ3a4RHOsktE0CkjDG0KiYH/kCKtiuNy30=
-Received: from SJ0PR03CA0200.namprd03.prod.outlook.com (2603:10b6:a03:2ef::25)
- by PH7PR12MB5757.namprd12.prod.outlook.com (2603:10b6:510:1d0::13)
+ bh=/AYztXn6Wa5kifv1l794Ah5WuW69dFbDpGMZqW8Jbis=;
+ b=e6piEuWUTAxtrYXaD2tfF+bLAF+dQTyV2a5IftbbRNeUT7D2d1Hc/yy8povR6LmKd7wzoCBoPW8X/FBm98L6aKEociZ1Vf8/aq9hF8sXTTunV//bAs25QkONQyFZa3cEwwkCLaUnvnaL+xLc2XU1XRqgRGAUto7luFE+bQqUkT4=
+Received: from BYAPR06CA0001.namprd06.prod.outlook.com (2603:10b6:a03:d4::14)
+ by IA0PR12MB8931.namprd12.prod.outlook.com (2603:10b6:208:48a::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.32; Tue, 22 Jul
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.29; Tue, 22 Jul
  2025 22:46:09 +0000
-Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::e9) by SJ0PR03CA0200.outlook.office365.com
- (2603:10b6:a03:2ef::25) with Microsoft SMTP Server (version=TLS1_3,
+Received: from SJ1PEPF00002313.namprd03.prod.outlook.com
+ (2603:10b6:a03:d4:cafe::39) by BYAPR06CA0001.outlook.office365.com
+ (2603:10b6:a03:d4::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.29 via Frontend Transport; Tue,
  22 Jul 2025 22:46:09 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -48,89 +48,85 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ SJ1PEPF00002313.mail.protection.outlook.com (10.167.242.167) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 22:46:08 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 17:46:07 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2025 17:46:05 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 17:46:07 -0500
+ 2025 17:46:05 -0500
 Received: from box-0.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 22 Jul 2025 17:46:06 -0500
+ Transport; Tue, 22 Jul 2025 17:45:59 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Ovidiu Bunea
- <ovidiu.bunea@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ <Ray.Wu@amd.com>, Alex Hung <alex.hung@amd.com>, Ray Wu <ray.wu@amd.com>,
  Ivan Lipski <ivan.lipski@amd.com>
-Subject: [PATCH 21/25] drm/amd/display: Revert "Add a config flag for
- limited_pll_vco"
-Date: Tue, 22 Jul 2025 18:44:30 -0400
-Message-ID: <20250722224514.2655899-21-IVAN.LIPSKI@amd.com>
+Subject: [PATCH 20/25] drm/amd/display: Add Replay residency in debugfs
+Date: Tue, 22 Jul 2025 18:44:29 -0400
+Message-ID: <20250722224514.2655899-20-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250722224514.2655899-15-IVAN.LIPSKI@amd.com>
 References: <20250722224514.2655899-15-IVAN.LIPSKI@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: IVAN.LIPSKI@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|PH7PR12MB5757:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6b7bda6-cb7e-4e1f-2464-08ddc9718cf4
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002313:EE_|IA0PR12MB8931:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05f8b79d-8e46-4a02-caea-08ddc9718cc8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?nZuDoCSPRzuZ/HILI/lO6iAT4mohaA/vzv4OQcl5WQFwEjL16qrx1U8qw0K9?=
- =?us-ascii?Q?teHuommOPJqA7tY02l6MtTu68cWOEtxaN+Op2qWHyYQ2I9m7WG9w8IkLlqCn?=
- =?us-ascii?Q?LbZwRifYOsknyE4/GvVbazZJcKMk5pLD5p7prf/4/KflW/jy/yaMXL2t4Egm?=
- =?us-ascii?Q?wmWz8ex+7l9Sq0zi0FUr5YTXvOyXjE9j4DCBwim9rUgEopI9tX63vKMOl7VF?=
- =?us-ascii?Q?a7jNPoG/kljN0D+Zs0w/BEGglHPn9VMP0sqsDpTCwul7OPQGdAzMyS5rTYqN?=
- =?us-ascii?Q?tyFMswzTbr9LT4oxHFtV8vPLPjq34FjKHfmJwbD/CFvhiWg9Qb3OCEkvU1qq?=
- =?us-ascii?Q?VMvUV2OYa8KWvKopB6F/OpsCl9n3rVBRDZpcXmyRFuuJjTLhcSNFr8zCV4eW?=
- =?us-ascii?Q?o7QamCvlJqL8cYiXtLXTonnoEQ3DIFQHwfXVPqfkwc0mD8xWvlKTc1zr0nIU?=
- =?us-ascii?Q?BkGSkZl7fkYyt0Rx3Tm4L42L92jrMhi6cPVhD/Fcn9rJpXigmHj6KCGi9ryu?=
- =?us-ascii?Q?wFRDusunS2Cu1Ai5RZ37yBZoiQyBfgCgTSELxK27pBNI9UKaTC192eeKzwGI?=
- =?us-ascii?Q?6Njn6Ft+3Q/qCXZWMaZKeO+/QLqwoEiKZj+WUKYDljz5/Aj5UMliOKhz5Loq?=
- =?us-ascii?Q?H1en6W3r4elTcNa/QryUh/ZR76qlD7aPxXVVjfnaLZw5/VusMcrxfU8nuSZ0?=
- =?us-ascii?Q?Q6QaCVNqcChqVP3zHqoUzi8DqOZdKl4hyFKbfP4cqUkYnk0mEqm/dxQbFiK9?=
- =?us-ascii?Q?RxpGScHeAVlBVIU0757QFazsWTWwEkdcxIcfOlA7doCRt4X0lpS1pyM2nsD3?=
- =?us-ascii?Q?y/Vw3YnMB0dta4tS+B9F2Wn9Mqahf6IM3eLcdASpvc4x7ISA1LCqClfS7Y09?=
- =?us-ascii?Q?QKVWRqN8faGpQLN3rMgjHAFUwL+AI82sGTNA76X3VXVZvgF1tadUuO3pHoGi?=
- =?us-ascii?Q?JjsqkSjdMWsAPq+a8PG9hjnKXZY+ogOS/mPiHgApEU0MCMDOv7GYH+M6LjOB?=
- =?us-ascii?Q?7o9oxMn1UMMqpRr3xYl3IHIXNJubMK6o042lP/7GGn6Wbu7Bj8v/ti0OD/bQ?=
- =?us-ascii?Q?pLdqT8PfzLTwlibVME5eU0i9ZnpdzdANcJb0jnaHMWZwlCBo2IWxucHWUW35?=
- =?us-ascii?Q?qjjadpZEhVWhD8tQO0H1EukmlZLfUufqoFZwAX5Tz81EfQb6evCaDzHswTaj?=
- =?us-ascii?Q?JzkrmCfaNfmAyg8CkkqlaboFYRMGUYqoTLsxLFY+5UUaXPaQfVl+i62Fw+Db?=
- =?us-ascii?Q?+jPpBrSL1g1YoccKGwHOgeX2eomSLT3e/6OmxEkEQ1QbIHFL0m6Als8AZUAp?=
- =?us-ascii?Q?vFXk50UpE24ArhH1vfihfXrX8pXMBT6OuOGa0SCXbgfnjZpDybpo1P3ybcTq?=
- =?us-ascii?Q?H6VGT44+ZQxVMVi7wUgmcJ2GKRld7JNwDEa7QdCOBVUmXWY6oM24S+hUCCtX?=
- =?us-ascii?Q?JLh8qyF6oVhEMXhn5P2NhKwENat+MEGg5VDGUENVOpr9e4+BHY0da4OZeFR3?=
- =?us-ascii?Q?YaWqoqrI+c+/LGc6a5aQgsH1gmKeNBxmcUSY?=
+ ARA:13230040|36860700013|1800799024|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?AY4kHmGYnelyHYBwJtI8gu7j/wq/mE+tQ44gTVN764arvNHx0NctNTxNj322?=
+ =?us-ascii?Q?kLiTj8B/MtyDlssmp1OwuTVMgBnSKcNW7qx5PVSHWl1g09WwH8e8A8MKxQ0L?=
+ =?us-ascii?Q?xSl7+SCIbuBhxJdEBWOJ1mley4J6INlf6Vw/pViNHRld3EP+SbUAw77wja/e?=
+ =?us-ascii?Q?+YqPzCJESqCHm5FFq9koMp9fYdUTnhjpNjcDr3Uu5KmW8Y11CBqiTloekiFR?=
+ =?us-ascii?Q?K+/bakC49Ilg2iVIxQuK9wQoP85JktI/QBh8NTuxXoe5rgG567hKJRtM9SZ2?=
+ =?us-ascii?Q?lUyP7rxgOpsBcdFDOkdUNvJ6Vd70urt1n/2grAr9knA3m/ORyY7kUj9BhC/p?=
+ =?us-ascii?Q?ueYnTKR2qM5QBUzDJYeVp/xWWpeYbsclYGS4oCGxYkxzpnak20cCgyzxqpo4?=
+ =?us-ascii?Q?ho8znfEMXDvX+riX0SmRd/5QhPaRNKjHRgLG6Blnd4Fdm1jH4Hv0sKxunmsQ?=
+ =?us-ascii?Q?cfZC+mzGAa9NsRf3hqwPrpEZ9cmpZWTaHBhKqUBfKmsX6nCla+caOvk+7t7J?=
+ =?us-ascii?Q?SSPRhSCb1eRarK+FSqUrYedIj98mUF4HBPiIZFvktfihhzdwIeg7+L8wuPwe?=
+ =?us-ascii?Q?JbudOsxT0s0+FspjZPtJX2bTN8mDUpnqxXP7n/cz9LooR94IRA1lArtfepkK?=
+ =?us-ascii?Q?SeNNGROSfvZTPc+En6g7U3bx3n8LOJp1DmwkgLaeBCCIFLScY+YzDaf61zEM?=
+ =?us-ascii?Q?RTHyy39jsytyGNCNs2OGQFlCd2Q8qDObsHn2VVm8SoL+JbqLqSUewseu2v5S?=
+ =?us-ascii?Q?mrZLmKOvFJfx69ETy1QI5uN0UmxoVT4jiFbj7tv8dxcY1LRgHAc3F9UewXDk?=
+ =?us-ascii?Q?PgtR1L1CQuD+I++fY4lmi7psac2ngbRZp9M66yxWmkNMxboKOgJBJQXF5PXf?=
+ =?us-ascii?Q?NO3FY2T0DWUZQAeRBcfG1l2bp8ae/cghx/83lMVJahHCCgDPlyAPcR+pvFe1?=
+ =?us-ascii?Q?Sq++lcwIYUNXlTYIoAiw3Mea6hpfr+J6+2HuGiWoJAmAL90V/oDyEhCg6zRL?=
+ =?us-ascii?Q?72WSFRH1ktWi2/v/Oj4eNzeHJzs3S9V8xqh/9XuvFZ8OLr7aoEAblzmSum+f?=
+ =?us-ascii?Q?8DdS5N6SpFQnv4QY0EqS9RyTpWheo2oiEw60a0MuiAQUzZXUTVucGtuVbSSX?=
+ =?us-ascii?Q?99vJLM6UuZXtEw18n9ir6fzeTKCPQ57SeCiS7fn10lGqV9bVcCh9OXhJjPI5?=
+ =?us-ascii?Q?u0L/eTDrvzb129Q48bXx62jeqxlSS9isxx3C+d33lYJYKjf7aMnHyPqsNlg2?=
+ =?us-ascii?Q?D0Qi+lkn035Bq3Ieu3jAMeyhWphscTW/dEgXg7n5JIdGimxeVdKixS8oeHoJ?=
+ =?us-ascii?Q?p1lX7bNvkerWHOkpbIEhVJSPrgzAi/fO4KpjqM9FaWjwpB6/hK42y+Byz2Qp?=
+ =?us-ascii?Q?Qk+bdXz/eLAIJ4f0OKkCJv1HnL7X/b0UdFenF7DQM929WKkjBKEH7RCoE1Go?=
+ =?us-ascii?Q?IiCqmj1wM9KpKP231MdjHXaHfPN8QoH18VHATKa2nUB+BKFMYeeuNUMoqCkv?=
+ =?us-ascii?Q?NuMZ8xczPdpUonNzxISoafm3dmuM+ODi6e5b?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 22:46:08.8432 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6b7bda6-cb7e-4e1f-2464-08ddc9718cf4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 22:46:08.5584 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05f8b79d-8e46-4a02-caea-08ddc9718cc8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002316.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002313.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5757
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8931
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,62 +141,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+From: Ray Wu <ray.wu@amd.com>
 
-This reverts commit c97eef97dd74
+[Why]
+Users can access the replay residency to get PHY off percentage
 
-[why & how]
-DMUB header changes should be submitted to firmware branch first and
-allowed to propagate to driver. Currently, this change breaks linux
-builds so need to revert it until it's ready.
+[How]
+Start capture residency:
+sudo echo 1 /sys/kernel/debug/dri/0/eDP-1/replay_residency
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Stop and Get replay residency:
+sudo cat /sys/kernel/debug/dri/0/eDP-1/replay_residency
+
+Reviewed-by: ChiaHsuan (Tom) Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Ray Wu <ray.wu@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h       | 1 -
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 3 +--
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c | 1 -
- 3 files changed, 1 insertion(+), 4 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 34 ++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index 87b761ac3135..0bafb6710761 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -316,7 +316,6 @@ struct dmub_srv_hw_params {
- 	bool disable_sldo_opt;
- 	bool enable_non_transparent_setconfig;
- 	bool lower_hbr3_phy_ssc;
--	bool override_hbr3_pll_vco;
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 484691335fd6..f263e1a4537e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -3106,6 +3106,35 @@ static int replay_get_state(void *data, u64 *val)
+ 	return 0;
+ }
  
- /**
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index e2e5f71c03f2..a89bf08ffd37 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -843,8 +843,7 @@ union dmub_fw_boot_options {
- 		uint32_t ips_sequential_ono: 1; /**< 1 to enable sequential ONO IPS sequence */
- 		uint32_t disable_sldo_opt: 1; /**< 1 to disable SLDO optimizations */
- 		uint32_t lower_hbr3_phy_ssc: 1; /**< 1 to lower hbr3 phy ssc to 0.125 percent */
--		uint32_t override_hbr3_pll_vco: 1; /**< 1 to override the hbr3 pll vco to 0 */
--		uint32_t reserved : 5; /**< reserved */
-+		uint32_t reserved : 6; /**< reserved */
- 	} bits; /**< boot bits */
- 	uint32_t all; /**< 32-bit access to bits */
- };
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-index 4777c7203b2c..3f38db752b84 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-@@ -377,7 +377,6 @@ void dmub_dcn31_enable_dmub_boot_options(struct dmub_srv *dmub, const struct dmu
- 	boot_options.bits.dpia_hpd_int_enable_supported = params->dpia_hpd_int_enable_supported;
- 	boot_options.bits.power_optimization = params->power_optimization;
- 	boot_options.bits.lower_hbr3_phy_ssc = params->lower_hbr3_phy_ssc;
--	boot_options.bits.override_hbr3_pll_vco = params->override_hbr3_pll_vco;
++/*
++ *  Start / Stop capture Replay residency
++ */
++static int replay_set_residency(void *data, u64 val)
++{
++	struct amdgpu_dm_connector *connector = data;
++	struct dc_link *link = connector->dc_link;
++	bool is_start = (val != 0);
++	u32 residency = 0;
++
++	link->dc->link_srv->edp_replay_residency(link, &residency, is_start, PR_RESIDENCY_MODE_PHY);
++	return 0;
++}
++
++/*
++ *  Read Replay residency
++ */
++static int replay_get_residency(void *data, u64 *val)
++{
++	struct amdgpu_dm_connector *connector = data;
++	struct dc_link *link = connector->dc_link;
++	u32 residency = 0;
++
++	link->dc->link_srv->edp_replay_residency(link, &residency, false, PR_RESIDENCY_MODE_PHY);
++	*val = (u64)residency;
++
++	return 0;
++}
++
+ /*
+  *  Read PSR state
+  */
+@@ -3325,7 +3354,8 @@ DEFINE_DEBUGFS_ATTRIBUTE(dmcub_trace_event_state_fops, dmcub_trace_event_state_g
+ 			 dmcub_trace_event_state_set, "%llu\n");
  
- 	boot_options.bits.sel_mux_phy_c_d_phy_f_g = (dmub->asic == DMUB_ASIC_DCN31B) ? 1 : 0;
- 
+ DEFINE_DEBUGFS_ATTRIBUTE(replay_state_fops, replay_get_state, NULL, "%llu\n");
+-
++DEFINE_DEBUGFS_ATTRIBUTE(replay_residency_fops, replay_get_residency, replay_set_residency,
++			 "%llu\n");
+ DEFINE_DEBUGFS_ATTRIBUTE(psr_fops, psr_get, NULL, "%llu\n");
+ DEFINE_DEBUGFS_ATTRIBUTE(psr_residency_fops, psr_read_residency, NULL,
+ 			 "%llu\n");
+@@ -3503,6 +3533,8 @@ void connector_debugfs_init(struct amdgpu_dm_connector *connector)
+ 		debugfs_create_file("replay_capability", 0444, dir, connector,
+ 					&replay_capability_fops);
+ 		debugfs_create_file("replay_state", 0444, dir, connector, &replay_state_fops);
++		debugfs_create_file_unsafe("replay_residency", 0444, dir,
++					   connector, &replay_residency_fops);
+ 		debugfs_create_file_unsafe("psr_capability", 0444, dir, connector, &psr_capability_fops);
+ 		debugfs_create_file_unsafe("psr_state", 0444, dir, connector, &psr_fops);
+ 		debugfs_create_file_unsafe("psr_residency", 0444, dir,
 -- 
 2.43.0
 
