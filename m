@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 910E5C87FC5
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 13:37:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C884DC83F27
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jul 2025 13:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37D2E10E691;
-	Tue, 22 Jul 2025 13:37:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7189810E69F;
+	Tue, 22 Jul 2025 13:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K8BFTC4M";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qhtap4OV";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41D2910E691;
- Tue, 22 Jul 2025 13:37:35 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2052.outbound.protection.outlook.com [40.107.220.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4193810E044;
+ Tue, 22 Jul 2025 13:54:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=guEckM1j9cs/x1gIJaJNfHPrD6WRsX2djKs6MbBU0VhtQhrGV9QDEJT6aLdtuyBfEUVBSviynJr7tQq3Cs8GT/EwifmMIupVTuBZ7hqN1VKGs3I9acCkouBUJDyk95ZZlrbUiZw4YPvk5UU0BqNL7lqOPSNpsMLSmH36ShLDs1/nTj788LO6FpzDLkY0Nvm4TzzpEDet5N/Jmu+TclN+89jKsG162N9hcuu3RP3oUBYjav6lPnWpeMPvCWUU0XQBqBELGTXoR38dxL7IkIH3dQYtk/EplMDPtUXxNd2V5FlYAgIf6XaR4D5oL6IniIa5VomspsPMiO8uhBkB0MyzHw==
+ b=jJl21s/AjCbI+vt0fNVRFyKZSBI+3oAnuN6MpKVUmYn5wX59Z2vAinEISzVKdn/a7263mbFF0vlOhkmrEidnkw34BAo7XiZsLbetTr2lkJHmIhh5EWGvSIr4mMVPM3stJnfHZZvQ8QLSGMx22M5+KzuBkqbW35XvQVo9zkwPxA9Ev1fPtCbbFirooQThffEJnMLu4W8FRQsqUTad83PbbhQ4YefnNQiKaMtVh2eFI1GVyKwB3/1hPvCsn3kMbuYFQOuoAhckpbHmWZz2M9cryj8B4+DnBX6cDk28EfhNIcjm6846kGb1FkfPc63RTXe12qYtusUJwsbnUk/5PWVOjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i0a9MuWZVbMqTZ8RnZTa23edb6CFp9sZOlmo8p/kY3w=;
- b=hm0K1WdJDgBf/B6C7RHFf9+u6N4evnLMMCKKJX05NbB1ksG6DlpHrZHc3RNKW4OF8xCNTMfFyUyUv3qX2INHABQZQyTwgnxvKOZXlnTubOpbIOj7x6nGb39zNDkBgdxvKgzxuW1qEqLG/SbwyfCx9QpH4P894tOxa0+3Cbz3+iyNm7QaCM1aZnu7li9fiGCV2dxPsBo8ghdppvfNpHMXkZtzctDQa5P+Y1noqb79IXnujWPt895eDUDM0KA3O2RW68yj4j0JTT3O5QCMVf4uSu4h7gpg0ThBBTBirLXfldrMhRWDHaBfPXuIAbNCqOWFrgAb6RDcdVyRQk7LghQ1AQ==
+ bh=YwRckLuRM4OiLQ8UkgdakQPLA9xjBC78IuycU/pV5f8=;
+ b=dKlcSCQBbwYo5vcJlTngzSrB+MxW44SArA+1xu+RMudxtF1vvE01/JkZDFr8wmJB9hf1lnHlMb453/VcXR/D4h4usUp1bfQxwJgZ2z6Cf16h/F2x6vFiC3+fnu1llO85zJ4e2xoAjDKHN0adZFTCxZGagq3x4/cjlQPK8eiLIJNqvj4k2FSZ1M4FwxepkCFf3kync0JqoYJMFguvWx9fHsg6DxUqslSvwlvL/q9wNkvwWVpdvritmjKLetqaeXnHOnFyHgd9i+96t4yh0QcPSiNxMSYkepkNo9hbGOyLzeX8iJ+VWdtNZyDH1d9g+wHZP47w/S+62nqB/PSLDLWyaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i0a9MuWZVbMqTZ8RnZTa23edb6CFp9sZOlmo8p/kY3w=;
- b=K8BFTC4M9Okjqu03WXmACzBxhPH5nsQJ7cvPny+znkRGa/tlf3+vn8vDyTMbUMMyPvoqJZ8p4s5dHI30yBJuPBCbCK8mQkZWsQFDkCd9/fmSmnKiyaagoedJY6qnoJNbGY15Y7avogM19AGJD4ueSFMr3oeA9wqbTFdS8p5JQ4c=
-Received: from BN9PR03CA0565.namprd03.prod.outlook.com (2603:10b6:408:138::30)
- by SJ2PR12MB8183.namprd12.prod.outlook.com (2603:10b6:a03:4f4::7)
+ bh=YwRckLuRM4OiLQ8UkgdakQPLA9xjBC78IuycU/pV5f8=;
+ b=qhtap4OVKC+48xLP1P3wCIrY55n9InsWTcvL4/JgYcRJeKSXAOjf6mWQwYPmiX1GyqC906FFUhAbPxFEMbRuRPGXqEmmLQP+G0O6OItqmf44ePE/VWRcrQiGQk8xbzJT1ZSPIwRqABVOlVyDXuKzTjDcSY5j9EX12RFY+s5+l8w=
+Received: from BY3PR03CA0014.namprd03.prod.outlook.com (2603:10b6:a03:39a::19)
+ by LV3PR12MB9142.namprd12.prod.outlook.com (2603:10b6:408:198::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.35; Tue, 22 Jul
- 2025 13:37:27 +0000
-Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
- (2603:10b6:408:138:cafe::c0) by BN9PR03CA0565.outlook.office365.com
- (2603:10b6:408:138::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.27 via Frontend Transport; Tue,
- 22 Jul 2025 13:37:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.21; Tue, 22 Jul
+ 2025 13:54:48 +0000
+Received: from CO1PEPF000044F8.namprd21.prod.outlook.com
+ (2603:10b6:a03:39a:cafe::74) by BY3PR03CA0014.outlook.office365.com
+ (2603:10b6:a03:39a::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.21 via Frontend Transport; Tue,
+ 22 Jul 2025 13:54:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,76 +48,110 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
+ CO1PEPF000044F8.mail.protection.outlook.com (10.167.241.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 13:37:26 +0000
-Received: from arun-nv33.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.8989.1 via Frontend Transport; Tue, 22 Jul 2025 13:54:46 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 08:37:24 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <christian.koenig@amd.com>, <matthew.auld@intel.com>,
- <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>
-Subject: [PATCH 1/2] drm/buddy: Optimize free block management with RB tree
-Date: Tue, 22 Jul 2025 19:07:08 +0530
-Message-ID: <20250722133709.2191-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2025 08:54:43 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
+ 2025 08:54:42 -0500
+Received: from [10.4.13.140] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 22 Jul 2025 08:54:41 -0500
+Message-ID: <c4f9dbe8-d224-478f-a91f-03a420333fde@amd.com>
+Date: Tue, 22 Jul 2025 09:54:41 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Raven: don't allow mixing GTT and VRAM
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, Alex Deucher
+ <alexdeucher@gmail.com>
+CC: Brian Geffon <bgeffon@google.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Yunxiang Li
+ <Yunxiang.Li@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, Prike Liang
+ <Prike.Liang@amd.com>, Pratap Nirujogi <pratap.nirujogi@amd.com>, "Luben
+ Tuikov" <luben.tuikov@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Garrick
+ Evans" <garrick@google.com>, <stable@vger.kernel.org>
+References: <CADyq12zB7+opz0vUgyAQSdbHcYMwbZrZp+qxKdYcqaeCeRVbCw@mail.gmail.com>
+ <CADnq5_OeTJqzg0DgV06b-u_AmgaqXL5XWdQ6h40zcgGj1mCE_A@mail.gmail.com>
+ <CADyq12ysC9C2tsQ3GrQJB3x6aZPzM1o8pyTW8z4bxjGPsfEZvw@mail.gmail.com>
+ <CADnq5_PnktmP+0Hw0T04VkrkKoF_TGz5HOzRd1UZq6XOE0Rm1g@mail.gmail.com>
+ <CADyq12x1f0VLjHKWEmfmis8oLncqSWxeTGs5wL0Xj2hua+onOQ@mail.gmail.com>
+ <CADnq5_OhHpZDmV5J_5kA+avOdLrexnoRVCCCRddLQ=PPVAJsPQ@mail.gmail.com>
+ <46bdb101-11c6-46d4-8224-b17d1d356504@amd.com>
+ <CADnq5_PwyUwqdv1QG_O2XgvNnax+FNskuppBaKx8d0Kp582wXg@mail.gmail.com>
+ <eff0ef03-d054-487e-b3bf-96bf394a3bf5@amd.com>
+ <CADnq5_NvPsxmm8j0URD_B8a5gg9NQNX8VY0d93AqUDis46cdXA@mail.gmail.com>
+ <aH90O93xJhD8PXWL@quatroqueijos.cascardo.eti.br>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <aH90O93xJhD8PXWL@quatroqueijos.cascardo.eti.br>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
+Received-SPF: None (SATLEXMB05.amd.com: sunpeng.li@amd.com does not designate
+ permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|SJ2PR12MB8183:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6086a53a-de51-4d2f-86cc-08ddc924e5c1
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F8:EE_|LV3PR12MB9142:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9199d2c5-b584-40e4-65ac-08ddc92751bf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Cg4ieeoyN1H+lZ5E+b00zT4Qa/eVc8b4Nrgg9XZv+x6jpLjLGAqZ41Q1aarr?=
- =?us-ascii?Q?WWqY76YUcjQmNl/bOShKKiN4ha/gg+N6A3OOFhXi/NCygu0/az2dwb6tHlAF?=
- =?us-ascii?Q?mv+vcFHALyJldarjMM9QA/GrdXcWGCCky5+Z+C8TBS3Gk2OeLdD5aT1c9CoM?=
- =?us-ascii?Q?insE8JngomMBO6unTsYz9gNnxE1E0SeDYF5Md/F0vBguQV3HVwI0C2mWUkKQ?=
- =?us-ascii?Q?va5Hoy3nm0OZDdIEcqB/158S14FwzOF5LD1wxxNeDfGcTP08GA6492oaeNwl?=
- =?us-ascii?Q?64uRWGUA52zeJX7h5SOFdL4MG22uiE06BJgJ0F9UdVZUb/fHFJ3ijUzCbCKX?=
- =?us-ascii?Q?5GYLzONyXHEBe0zCopbdwVJ7EkhfWe3/71z8oUhUfTGlGZZ7gXw5uYNZgy3w?=
- =?us-ascii?Q?kfEMEu9EyMns2bfcr2BNhxN9jKir84mPlHDcGN2pjYIk4Hd5jLiPW2FPBx91?=
- =?us-ascii?Q?GtMFIaPIZa560P0O4YfsrYCOgQmLd1a9y3zmv4+PCYnv5bH7A6YwsCP9TU4D?=
- =?us-ascii?Q?SgKupywEgueyplkAc30Y+lRbZDkoGWu9KryemzENITV9+x8porDUncnKAjoZ?=
- =?us-ascii?Q?M9FOqKXHyFPaXsyyEQVT183f5YIW4ZQohQ/w2Z/ngv7/anYoiIzbEd7PrAX6?=
- =?us-ascii?Q?iUnnZFGCBcN3iSVTz2nNSA4uT0r4yW5gTB21JR/ZhOfvvOStQ5DhM5v9jRFV?=
- =?us-ascii?Q?ewGMlK3PUzAXdi+WQ79GqrtS+rso00Cj7xo3/dp89j5gF2Sdgx9XCPVdXkdS?=
- =?us-ascii?Q?bY23GHSJOej4flRzaK/viOOc33kdTkCc0FKhBlJSpJNnH7feJhFc8820mLX8?=
- =?us-ascii?Q?41fR5/G/ZEkblboP3zjiRxWlwmbSqS9b1yRQmW+V2Vb46DHfvKG81lvJR6eh?=
- =?us-ascii?Q?hPS2N6MFSYh1/4hMv9Y7rLMZOdchfTGTFKnVT1Nc70JUnN67MYnGoHu2sSxS?=
- =?us-ascii?Q?c4hQ4EBZ4G629UdJI+R162nEb6tLDUek05nE7P8J3uE6pq5BZkLYp2VDMWVK?=
- =?us-ascii?Q?5uqq71+fgTjYuOLlIUBn346r/DUXyhdUoUkTIzUH/U64fcTZYzZwjggpzNNU?=
- =?us-ascii?Q?ylOyt1wuF/S8FpYHx4gu28MjNYZ6jFnoNo8tFF9Yx4j8cCpNrdoeOS9ZNbjS?=
- =?us-ascii?Q?uXdlzjfkumcrpf2GQ/JCK+kfEAbRU0x6cPghi2vsBj3w5TKswwCasAExpbw9?=
- =?us-ascii?Q?F9tamsEU5pqifQlShGLnI5fnNsLtNaAUjtrUUjhL8QR+NTTuenJYWlxEm4TX?=
- =?us-ascii?Q?prPVBunlFdl1jq53S80494zVrhAxtwI32YYVpuf/5+W9Q+iexHmwi7WTqSgs?=
- =?us-ascii?Q?CP93/J6ckc+cykhJtIOjVi4pKu32uMeexr/VWH+KihlceWJxDKbhBhBdCnl0?=
- =?us-ascii?Q?sKFHUhW6SJPblwPeUxM8FPbzbvy0XiNRlnGSG9+FQcr2vddeNxn0VxwSX8ye?=
- =?us-ascii?Q?q45fShIe6h5QX7iM7NQ3GsWABFVEGX/3VpBO4wVsl1WAjkTFhlxffo8zcOTa?=
- =?us-ascii?Q?UyjHWIcat2Fdx++tGmLw3iHD8VKf2HkjsAWC?=
+ ARA:13230040|1800799024|82310400026|36860700013|376014|7416014|42112799006; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Mlo2VTRXQUlpMFB3d2FmM0kwa0duNjd0b29CODI5V2t1SFR5QTE3MkpCdFpv?=
+ =?utf-8?B?Rm1KeHBtNmRSbnNQNVJtdU5YQ2NDbnpBVnlVR2tKQTFMbEUvRWpxVmNRK0xL?=
+ =?utf-8?B?bVV4N0FKckJOTUt2dnBJS2FCajRsV3RQMk9nekNHbU1yb0NnRXlreklXY25M?=
+ =?utf-8?B?eHlaUGF3MXBUMzdsOGQxcmR6ODBickRGbVJPNXhvUEVQMmNRZElzOXdVUmV4?=
+ =?utf-8?B?QlJkMFJ5czlMRzBrcHVkeHhIaDEwaUhrSWJuS0dybDlFbnowUWhBRTROVnNv?=
+ =?utf-8?B?T21kNnl5TzVpKzMvQUVHQjlkMUZGbTRjVXVkU3pLTnR3bWlUWWdQeUtoNWpG?=
+ =?utf-8?B?SU14ektkMUgzSld0RFljaDhia1o4RmVWS1BQVFJZcGh2aUcrMHRneGdTRnRn?=
+ =?utf-8?B?Q05ZSnh6eHFuMjBmMVZ1QVpONWJNOUwrQzVFS2NFSzZENU1tbGN1L2dxTHp2?=
+ =?utf-8?B?MnE5V093OHFNRVQzM1lYTVlFSkZTdmVjcGx5QU5DQ3BqdVovcS9OM3IyOXpS?=
+ =?utf-8?B?Y08rOGhidnZGOGJ3Q21sN3RGUDNaNlo2amx5WVJ1amtGbXY1dUU5L2JSbGc5?=
+ =?utf-8?B?QjZ0cEl1WmlYTXJjeWJldzVvRFNlT3pLTnZlRHRjc1FMYTJGb1N6VlhjZ2NY?=
+ =?utf-8?B?WVFSTERkL1V0eGJDTERhb3pFSjFDQ1A0N05zQW8wOU5jcHZRTnlaN2xvVHE5?=
+ =?utf-8?B?Ulh5V2xQdk5EeU1FTEttRU1MY3RZNkdDWnNXU3EwcWdnNjc3WTZCRWYxZ1FP?=
+ =?utf-8?B?V1UrS29RRERXNWlLQi95K0E3UHpEZ1JCQ1M1cWNNcjlQc1U4cHFTWHdRNE1t?=
+ =?utf-8?B?d0hnRThCT2tCRkpFejZkRHN4SmxPcWVrYzgxRVFHNFJLMTF5a2xYYmNCajBU?=
+ =?utf-8?B?R3BrQUlWcy9VUm92bFkwTWJGQ3pGWE1DVFJ3dVF1ZEIrTEZHQmFqNWxMdjFS?=
+ =?utf-8?B?U1BjR3pxbVRSalBFYXNwb3hIaXZkenBkMHFpK0pQUllqZDJxS1dBdHRZY2Vv?=
+ =?utf-8?B?eVdDNUkxMGlWeCt5RllqaHhJZEthbFpoQkx0SmZvODVMNUp5YnRXSXVXRzlG?=
+ =?utf-8?B?WUhiN3Z4Z0VLZE9GcllnMlZpdEF6ODdLdDRlRHZCdnJvejRHeTVxSVN6eEJI?=
+ =?utf-8?B?bHllcWNWRThjS3RtWUdjemJhdytPVHV1Rk1GbXgrZm56NVBGektmbVgzZlZF?=
+ =?utf-8?B?Wm9zQVJGL2lNNWxKU2FlMUJsbDl6dVdDQ0NwODRkWXVzbVloc2pjaWErVFpl?=
+ =?utf-8?B?MXVBZVk5aXZFWUNpZExmT3dHNlY4SlpxR0ZRb3U1Y0dNZTVaaHZCZC9CSy95?=
+ =?utf-8?B?VnpqRkM3RC8rNkFZbGkxR2YxQ3BDL3lTOTZxRW1KNFhuMmxUckIwOUR0a05M?=
+ =?utf-8?B?OUowellwbFBkMDlZbm5pV3Y3dVNyU0VnM21XSHI0djhFOTlnTjZpUXlDS2xF?=
+ =?utf-8?B?TFZTck9uQmxZWjB5d0FibWFNT1paUUR0SzJCRmFhQ0FwZDRXN0daSVZYbkw5?=
+ =?utf-8?B?V2pHVE9aOHFMeTNrWlN5Q1l3VlltbnVnWHRRN05RRC9DbWtPRVEzNDUrblEx?=
+ =?utf-8?B?aEZKVGJmNm5wU0phK2kxZGUwb2VsMTNoclVIWlpaTk84WFduYWdNN2ovay85?=
+ =?utf-8?B?ZktVMDcwdmlSSlJCN2s5NVdoOWYzNWZwWVBYVlRJOW5XSUI0OEJyU1B3YXFv?=
+ =?utf-8?B?SEpTdHFpODN0aE5CTmFTS25FNXp2bnpTTnhNNmNUM1AwbFNaQTRPV2JGU2ln?=
+ =?utf-8?B?RHNzbXdQWDV1cU5SWTRIRGpHMTVDZmhFQ0t2VHM1eisvMjdGNmpzMVg0Zklk?=
+ =?utf-8?B?b25xQXJkWGhHNXFHUlB5bzNGelpRclhxQnBzblhFbTh0cTNkejBVZE5uL2dx?=
+ =?utf-8?B?RXBGZ3FES3FHRFE0V2V2djNOVnhoMzRVVXRycUN1NWVucGZqeERvMStEaXpY?=
+ =?utf-8?B?T2RFUlZSVkZYM0JXa1VObVJyNXVhM1ROUFJEVmhML2g2dlFjbTIzZVhYUnhX?=
+ =?utf-8?Q?ecj/0CsdBuXszkHEpWAPnfnBOxHwrY=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014)(7416014)(42112799006);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 13:37:26.6713 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6086a53a-de51-4d2f-86cc-08ddc924e5c1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 13:54:46.7541 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9199d2c5-b584-40e4-65ac-08ddc92751bf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB71.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F8.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8183
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9142
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,446 +166,366 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace the freelist (O(n)) used for free block management with a
-red-black tree, providing more efficient O(log n) search, insert,
-and delete operations. This improves scalability and performance
-when managing large numbers of free blocks per order (e.g., hundreds
-or thousands).
 
-In the VK-CTS memory stress subtest, the buddy manager merges
-fragmented memory and inserts freed blocks into the freelist. Since
-freelist insertion is O(n), this becomes a bottleneck as fragmentation
-increases. Benchmarking shows list_insert_sorted() consumes ~52.69% CPU
-with the freelist, compared to just 0.03% with the RB tree
-(rbtree_insert.isra.0), despite performing the same sorted insert.
 
-This also improves performance in heavily fragmented workloads,
-such as games or graphics tests that stress memory.
+On 2025-07-22 07:21, Thadeu Lima de Souza Cascardo wrote:
+> On Fri, Jul 18, 2025 at 07:00:39PM -0400, Alex Deucher wrote:
+>> On Fri, Jul 18, 2025 at 6:01 PM Leo Li <sunpeng.li@amd.com> wrote:
+>>>
+>>>
+>>>
+>>> On 2025-07-18 17:33, Alex Deucher wrote:
+>>>> On Fri, Jul 18, 2025 at 5:02 PM Leo Li <sunpeng.li@amd.com> wrote:
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 2025-07-18 16:07, Alex Deucher wrote:
+>>>>>> On Fri, Jul 18, 2025 at 1:57 PM Brian Geffon <bgeffon@google.com> wrote:
+>>>>>>>
+>>>>>>> On Thu, Jul 17, 2025 at 10:59 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>>>>>>>
+>>>>>>>> On Wed, Jul 16, 2025 at 8:13 PM Brian Geffon <bgeffon@google.com> wrote:
+>>>>>>>>>
+>>>>>>>>> On Wed, Jul 16, 2025 at 5:03 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>>>>>>>>>
+>>>>>>>>>> On Wed, Jul 16, 2025 at 12:40 PM Brian Geffon <bgeffon@google.com> wrote:
+>>>>>>>>>>>
+>>>>>>>>>>> On Wed, Jul 16, 2025 at 12:33 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>>>>>>>>>>>
+>>>>>>>>>>>> On Wed, Jul 16, 2025 at 12:18 PM Brian Geffon <bgeffon@google.com> wrote:
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Commit 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v2)")
+>>>>>>>>>>>>> allowed for newer ASICs to mix GTT and VRAM, this change also noted that
+>>>>>>>>>>>>> some older boards, such as Stoney and Carrizo do not support this.
+>>>>>>>>>>>>> It appears that at least one additional ASIC does not support this which
+>>>>>>>>>>>>> is Raven.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> We observed this issue when migrating a device from a 5.4 to 6.6 kernel
+>>>>>>>>>>>>> and have confirmed that Raven also needs to be excluded from mixing GTT
+>>>>>>>>>>>>> and VRAM.
+>>>>>>>>>>>>
+>>>>>>>>>>>> Can you elaborate a bit on what the problem is?  For carrizo and
+>>>>>>>>>>>> stoney this is a hardware limitation (all display buffers need to be
+>>>>>>>>>>>> in GTT or VRAM, but not both).  Raven and newer don't have this
+>>>>>>>>>>>> limitation and we tested raven pretty extensively at the time.s
+>>>>>>>>>>>
+>>>>>>>>>>> Thanks for taking the time to look. We have automated testing and a
+>>>>>>>>>>> few igt gpu tools tests failed and after debugging we found that
+>>>>>>>>>>> commit 81d0bcf99009 is what introduced the failures on this hardware
+>>>>>>>>>>> on 6.1+ kernels. The specific tests that fail are kms_async_flips and
+>>>>>>>>>>> kms_plane_alpha_blend, excluding Raven from this sharing of GTT and
+>>>>>>>>>>> VRAM buffers resolves the issue.
+>>>>>>>>>>
+>>>>>>>>>> + Harry and Leo
+>>>>>>>>>>
+>>>>>>>>>> This sounds like the memory placement issue we discussed last week.
+>>>>>>>>>> In that case, the issue is related to where the buffer ends up when we
+>>>>>>>>>> try to do an async flip.  In that case, we can't do an async flip
+>>>>>>>>>> without a full modeset if the buffers locations are different than the
+>>>>>>>>>> last modeset because we need to update more than just the buffer base
+>>>>>>>>>> addresses.  This change works around that limitation by always forcing
+>>>>>>>>>> display buffers into VRAM or GTT.  Adding raven to this case may fix
+>>>>>>>>>> those tests but will make the overall experience worse because we'll
+>>>>>>>>>> end up effectively not being able to not fully utilize both gtt and
+>>>>>>>>>> vram for display which would reintroduce all of the problems fixed by
+>>>>>>>>>> 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v2)").
+>>>>>>>>>
+>>>>>>>>> Thanks Alex, the thing is, we only observe this on Raven boards, why
+>>>>>>>>> would Raven only be impacted by this? It would seem that all devices
+>>>>>>>>> would have this issue, no? Also, I'm not familiar with how
+>>>>>>>>
+>>>>>>>> It depends on memory pressure and available memory in each pool.
+>>>>>>>> E.g., initially the display buffer is in VRAM when the initial mode
+>>>>>>>> set happens.  The watermarks, etc. are set for that scenario.  One of
+>>>>>>>> the next frames ends up in a pool different than the original.  Now
+>>>>>>>> the buffer is in GTT.  The async flip interface does a fast validation
+>>>>>>>> to try and flip as soon as possible, but that validation fails because
+>>>>>>>> the watermarks need to be updated which requires a full modeset.
+>>>>>
+>>>>> Huh, I'm not sure if this actually is an issue for APUs. The fix that introduced
+>>>>> a check for same memory placement on async flips was on a system with a DGPU,
+>>>>> for which VRAM placement does matter:
+>>>>> https://github.com/torvalds/linux/commit/a7c0cad0dc060bb77e9c9d235d68441b0fc69507
+>>>>>
+>>>>> Looking around in DM/DML, for APUs, I don't see any logic that changes DCN
+>>>>> bandwidth validation depending on memory placement. There's a gpuvm_enable flag
+>>>>> for SG, but it's statically set to 1 on APU DCN versions. It sounds like for
+>>>>> APUs specifically, we *should* be able to ignore the mem placement check. I can
+>>>>> spin up a patch to test this out.
+>>>>
+>>>> Is the gpu_vm_support flag ever set for dGPUs?  The allowed domains
+>>>> for display buffers are determined by
+>>>> amdgpu_display_supported_domains() and we only allow GTT as a domain
+>>>> if gpu_vm_support is set, which I think is just for APUs.  In that
+>>>> case, we could probably only need the checks specifically for
+>>>> CHIP_CARRIZO and CHIP_STONEY since IIRC, they don't support mixed VRAM
+>>>> and GTT (only one or the other?).  dGPUs and really old APUs will
+>>>> always get VRAM, and newer APUs will get VRAM | GTT.
+>>>
+>>> It doesn't look like gpu_vm_support is set for DGPUs
+>>> https://elixir.bootlin.com/linux/v6.15.6/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L1866
+>>>
+>>> Though interestingly, further up at #L1858, Raven has gpu_vm_support = 0. Maybe it had stability issues?
+>>> https://github.com/torvalds/linux/commit/098c13079c6fdd44f10586b69132c392ebf87450
+>>
+>> We need to be a little careful here asic_type == CHIP_RAVEN covers
+>> several variants:
+>> apu_flags & AMD_APU_IS_RAVEN - raven1 (gpu_vm_support = false)
+>> apu_flags & AMD_APU_IS_RAVEN2 - raven2 (gpu_vm_support = true)
+>> apu_flags & AMD_APU_IS_PICASSO - picasso (gpu_vm_support = true)
+>>
+>> amdgpu_display_supported_domains() only sets AMDGPU_GEM_DOMAIN_GTT if
+>> gpu_vm_support is true.  so we'd never get into the check in
+>> amdgpu_bo_get_preferred_domain() for raven1.
+>>
+>> Anyway, back to your suggestion, I think we can probably drop the
+>> checks as you should always get a compatible memory buffer due to
+>> amdgpu_bo_get_preferred_domain(). Pinning should fail if we can't pin
+>> in the required domain.  amdgpu_display_supported_domains() will
+>> ensure you always get VRAM or GTT or VRAM | GTT depending on what the
+>> chip supports.  Then amdgpu_bo_get_preferred_domain() will either
+>> leave that as is, or force VRAM or GTT for the STONEY/CARRIZO case.
+>> On the off chance we do get incompatible memory, something like the
+>> attached patch should do the trick.
 
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/drm/drm_buddy.c | 141 +++++++++++++++++++++++-------------
- include/drm/drm_buddy.h     |  39 +++++++++-
- 2 files changed, 128 insertions(+), 52 deletions(-)
+Thanks for the patch, this makes sense to me.
 
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index a1e652b7631d..19e9773b41be 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -31,6 +31,8 @@ static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
- 	block->header |= order;
- 	block->parent = parent;
- 
-+	RB_CLEAR_NODE(&block->rb);
-+
- 	BUG_ON(block->header & DRM_BUDDY_HEADER_UNUSED);
- 	return block;
- }
-@@ -41,23 +43,53 @@ static void drm_block_free(struct drm_buddy *mm,
- 	kmem_cache_free(slab_blocks, block);
- }
- 
--static void list_insert_sorted(struct drm_buddy *mm,
--			       struct drm_buddy_block *block)
-+static void rbtree_insert(struct drm_buddy *mm,
-+			  struct drm_buddy_block *block)
- {
-+	struct rb_root *root = &mm->free_tree[drm_buddy_block_order(block)];
-+	struct rb_node **link = &root->rb_node;
-+	struct rb_node *parent = NULL;
- 	struct drm_buddy_block *node;
--	struct list_head *head;
-+	u64 offset;
-+
-+	offset = drm_buddy_block_offset(block);
- 
--	head = &mm->free_list[drm_buddy_block_order(block)];
--	if (list_empty(head)) {
--		list_add(&block->link, head);
--		return;
-+	while (*link) {
-+		parent = *link;
-+		node = rb_entry(parent, struct drm_buddy_block, rb);
-+
-+		if (offset < drm_buddy_block_offset(node))
-+			link = &parent->rb_left;
-+		else
-+			link = &parent->rb_right;
- 	}
- 
--	list_for_each_entry(node, head, link)
--		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
--			break;
-+	rb_link_node(&block->rb, parent, link);
-+	rb_insert_color(&block->rb, root);
-+}
-+
-+static void rbtree_remove(struct drm_buddy *mm,
-+			  struct drm_buddy_block *block)
-+{
-+	struct rb_root *root;
- 
--	__list_add(&block->link, node->link.prev, &node->link);
-+	root = &mm->free_tree[drm_buddy_block_order(block)];
-+	rb_erase(&block->rb, root);
-+
-+	RB_CLEAR_NODE(&block->rb);
-+}
-+
-+static inline struct drm_buddy_block *
-+rbtree_last_entry(struct drm_buddy *mm, unsigned int order)
-+{
-+	struct rb_node *node = rb_last(&mm->free_tree[order]);
-+
-+	return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
-+}
-+
-+static bool rbtree_is_empty(struct drm_buddy *mm, unsigned int order)
-+{
-+	return RB_EMPTY_ROOT(&mm->free_tree[order]);
- }
- 
- static void clear_reset(struct drm_buddy_block *block)
-@@ -70,12 +102,13 @@ static void mark_cleared(struct drm_buddy_block *block)
- 	block->header |= DRM_BUDDY_HEADER_CLEAR;
- }
- 
--static void mark_allocated(struct drm_buddy_block *block)
-+static void mark_allocated(struct drm_buddy *mm,
-+			   struct drm_buddy_block *block)
- {
- 	block->header &= ~DRM_BUDDY_HEADER_STATE;
- 	block->header |= DRM_BUDDY_ALLOCATED;
- 
--	list_del(&block->link);
-+	rbtree_remove(mm, block);
- }
- 
- static void mark_free(struct drm_buddy *mm,
-@@ -84,15 +117,16 @@ static void mark_free(struct drm_buddy *mm,
- 	block->header &= ~DRM_BUDDY_HEADER_STATE;
- 	block->header |= DRM_BUDDY_FREE;
- 
--	list_insert_sorted(mm, block);
-+	rbtree_insert(mm, block);
- }
- 
--static void mark_split(struct drm_buddy_block *block)
-+static void mark_split(struct drm_buddy *mm,
-+		       struct drm_buddy_block *block)
- {
- 	block->header &= ~DRM_BUDDY_HEADER_STATE;
- 	block->header |= DRM_BUDDY_SPLIT;
- 
--	list_del(&block->link);
-+	rbtree_remove(mm, block);
- }
- 
- static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
-@@ -148,7 +182,7 @@ static unsigned int __drm_buddy_free(struct drm_buddy *mm,
- 				mark_cleared(parent);
- 		}
- 
--		list_del(&buddy->link);
-+		rbtree_remove(mm, buddy);
- 		if (force_merge && drm_buddy_block_is_clear(buddy))
- 			mm->clear_avail -= drm_buddy_block_size(mm, buddy);
- 
-@@ -179,12 +213,17 @@ static int __force_merge(struct drm_buddy *mm,
- 		return -EINVAL;
- 
- 	for (i = min_order - 1; i >= 0; i--) {
--		struct drm_buddy_block *block, *prev;
-+		struct drm_buddy_block *block, *prev_block, *first_block;
-+
-+		first_block = rb_entry(rb_first(&mm->free_tree[i]), struct drm_buddy_block, rb);
- 
--		list_for_each_entry_safe_reverse(block, prev, &mm->free_list[i], link) {
-+		for_each_rb_entry_reverse_safe(block, prev_block, &mm->free_tree[i], rb) {
- 			struct drm_buddy_block *buddy;
- 			u64 block_start, block_end;
- 
-+			if (RB_EMPTY_NODE(&block->rb))
-+				break;
-+
- 			if (!block->parent)
- 				continue;
- 
-@@ -206,10 +245,14 @@ static int __force_merge(struct drm_buddy *mm,
- 			 * block in the next iteration as we would free the
- 			 * buddy block as part of the free function.
- 			 */
--			if (prev == buddy)
--				prev = list_prev_entry(prev, link);
-+			if (prev_block && prev_block == buddy) {
-+				if (prev_block != first_block)
-+					prev_block = rb_entry(rb_prev(&prev_block->rb),
-+							      struct drm_buddy_block,
-+							      rb);
-+			}
- 
--			list_del(&block->link);
-+			rbtree_remove(mm, block);
- 			if (drm_buddy_block_is_clear(block))
- 				mm->clear_avail -= drm_buddy_block_size(mm, block);
- 
-@@ -258,14 +301,14 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
- 
- 	BUG_ON(mm->max_order > DRM_BUDDY_MAX_ORDER);
- 
--	mm->free_list = kmalloc_array(mm->max_order + 1,
--				      sizeof(struct list_head),
-+	mm->free_tree = kmalloc_array(mm->max_order + 1,
-+				      sizeof(struct rb_root),
- 				      GFP_KERNEL);
--	if (!mm->free_list)
-+	if (!mm->free_tree)
- 		return -ENOMEM;
- 
- 	for (i = 0; i <= mm->max_order; ++i)
--		INIT_LIST_HEAD(&mm->free_list[i]);
-+		mm->free_tree[i] = RB_ROOT;
- 
- 	mm->n_roots = hweight64(size);
- 
-@@ -273,7 +316,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
- 				  sizeof(struct drm_buddy_block *),
- 				  GFP_KERNEL);
- 	if (!mm->roots)
--		goto out_free_list;
-+		goto out_free_tree;
- 
- 	offset = 0;
- 	i = 0;
-@@ -312,8 +355,8 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
- 	while (i--)
- 		drm_block_free(mm, mm->roots[i]);
- 	kfree(mm->roots);
--out_free_list:
--	kfree(mm->free_list);
-+out_free_tree:
-+	kfree(mm->free_tree);
- 	return -ENOMEM;
- }
- EXPORT_SYMBOL(drm_buddy_init);
-@@ -323,7 +366,7 @@ EXPORT_SYMBOL(drm_buddy_init);
-  *
-  * @mm: DRM buddy manager to free
-  *
-- * Cleanup memory manager resources and the freelist
-+ * Cleanup memory manager resources and the freetree
-  */
- void drm_buddy_fini(struct drm_buddy *mm)
- {
-@@ -350,7 +393,7 @@ void drm_buddy_fini(struct drm_buddy *mm)
- 	WARN_ON(mm->avail != mm->size);
- 
- 	kfree(mm->roots);
--	kfree(mm->free_list);
-+	kfree(mm->free_tree);
- }
- EXPORT_SYMBOL(drm_buddy_fini);
- 
-@@ -383,7 +426,7 @@ static int split_block(struct drm_buddy *mm,
- 		clear_reset(block);
- 	}
- 
--	mark_split(block);
-+	mark_split(mm, block);
- 
- 	return 0;
- }
-@@ -598,7 +641,7 @@ get_maxblock(struct drm_buddy *mm, unsigned int order,
- 	for (i = order; i <= mm->max_order; ++i) {
- 		struct drm_buddy_block *tmp_block;
- 
--		list_for_each_entry_reverse(tmp_block, &mm->free_list[i], link) {
-+		for_each_rb_entry_reverse(tmp_block, &mm->free_tree[i], rb) {
- 			if (block_incompatible(tmp_block, flags))
- 				continue;
- 
-@@ -624,7 +667,7 @@ get_maxblock(struct drm_buddy *mm, unsigned int order,
- }
- 
- static struct drm_buddy_block *
--alloc_from_freelist(struct drm_buddy *mm,
-+alloc_from_freetree(struct drm_buddy *mm,
- 		    unsigned int order,
- 		    unsigned long flags)
- {
-@@ -641,7 +684,7 @@ alloc_from_freelist(struct drm_buddy *mm,
- 		for (tmp = order; tmp <= mm->max_order; ++tmp) {
- 			struct drm_buddy_block *tmp_block;
- 
--			list_for_each_entry_reverse(tmp_block, &mm->free_list[tmp], link) {
-+			for_each_rb_entry_reverse(tmp_block, &mm->free_tree[tmp], rb) {
- 				if (block_incompatible(tmp_block, flags))
- 					continue;
- 
-@@ -657,10 +700,8 @@ alloc_from_freelist(struct drm_buddy *mm,
- 	if (!block) {
- 		/* Fallback method */
- 		for (tmp = order; tmp <= mm->max_order; ++tmp) {
--			if (!list_empty(&mm->free_list[tmp])) {
--				block = list_last_entry(&mm->free_list[tmp],
--							struct drm_buddy_block,
--							link);
-+			if (!rbtree_is_empty(mm, tmp)) {
-+				block = rbtree_last_entry(mm, tmp);
- 				if (block)
- 					break;
- 			}
-@@ -728,7 +769,7 @@ static int __alloc_range(struct drm_buddy *mm,
- 
- 		if (contains(start, end, block_start, block_end)) {
- 			if (drm_buddy_block_is_free(block)) {
--				mark_allocated(block);
-+				mark_allocated(mm, block);
- 				total_allocated += drm_buddy_block_size(mm, block);
- 				mm->avail -= drm_buddy_block_size(mm, block);
- 				if (drm_buddy_block_is_clear(block))
-@@ -806,7 +847,6 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
- {
- 	u64 rhs_offset, lhs_offset, lhs_size, filled;
- 	struct drm_buddy_block *block;
--	struct list_head *list;
- 	LIST_HEAD(blocks_lhs);
- 	unsigned long pages;
- 	unsigned int order;
-@@ -819,11 +859,10 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
- 	if (order == 0)
- 		return -ENOSPC;
- 
--	list = &mm->free_list[order];
--	if (list_empty(list))
-+	if (rbtree_is_empty(mm, order))
- 		return -ENOSPC;
- 
--	list_for_each_entry_reverse(block, list, link) {
-+	for_each_rb_entry_reverse(block, &mm->free_tree[order], rb) {
- 		/* Allocate blocks traversing RHS */
- 		rhs_offset = drm_buddy_block_offset(block);
- 		err =  __drm_buddy_alloc_range(mm, rhs_offset, size,
-@@ -933,7 +972,7 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
- 	list_add(&block->tmp_link, &dfs);
- 	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
- 	if (err) {
--		mark_allocated(block);
-+		mark_allocated(mm, block);
- 		mm->avail -= drm_buddy_block_size(mm, block);
- 		if (drm_buddy_block_is_clear(block))
- 			mm->clear_avail -= drm_buddy_block_size(mm, block);
-@@ -956,8 +995,8 @@ __drm_buddy_alloc_blocks(struct drm_buddy *mm,
- 		return  __drm_buddy_alloc_range_bias(mm, start, end,
- 						     order, flags);
- 	else
--		/* Allocate from freelist */
--		return alloc_from_freelist(mm, order, flags);
-+		/* Allocate from freetree */
-+		return alloc_from_freetree(mm, order, flags);
- }
- 
- /**
-@@ -974,8 +1013,8 @@ __drm_buddy_alloc_blocks(struct drm_buddy *mm,
-  * alloc_range_bias() called on range limitations, which traverses
-  * the tree and returns the desired block.
-  *
-- * alloc_from_freelist() called when *no* range restrictions
-- * are enforced, which picks the block from the freelist.
-+ * alloc_from_freetree() called when *no* range restrictions
-+ * are enforced, which picks the block from the freetree.
-  *
-  * Returns:
-  * 0 on success, error code on failure.
-@@ -1077,7 +1116,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
- 			}
- 		} while (1);
- 
--		mark_allocated(block);
-+		mark_allocated(mm, block);
- 		mm->avail -= drm_buddy_block_size(mm, block);
- 		if (drm_buddy_block_is_clear(block))
- 			mm->clear_avail -= drm_buddy_block_size(mm, block);
-@@ -1161,7 +1200,7 @@ void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p)
- 		struct drm_buddy_block *block;
- 		u64 count = 0, free;
- 
--		list_for_each_entry(block, &mm->free_list[order], link) {
-+		for_each_rb_entry(block, &mm->free_tree[order], rb) {
- 			BUG_ON(!drm_buddy_block_is_free(block));
- 			count++;
- 		}
-diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-index 9689a7c5dd36..a64d108a33b7 100644
---- a/include/drm/drm_buddy.h
-+++ b/include/drm/drm_buddy.h
-@@ -10,6 +10,7 @@
- #include <linux/list.h>
- #include <linux/slab.h>
- #include <linux/sched.h>
-+#include <linux/rbtree.h>
- 
- #include <drm/drm_print.h>
- 
-@@ -22,6 +23,41 @@
- 	start__ >= max__ || size__ > max__ - start__; \
- })
- 
-+/*
-+ * for_each_rb_entry() - iterate over an RB tree in order
-+ * @pos:	the struct type * to use as a loop cursor
-+ * @root:	pointer to struct rb_root to iterate
-+ * @member:	name of the rb_node field within the struct
-+ */
-+#define for_each_rb_entry(pos, root, member) \
-+	for (pos = rb_entry_safe(rb_first(root), typeof(*pos), member); \
-+	     pos; \
-+	     pos = rb_entry_safe(rb_next(&(pos)->member), typeof(*pos), member))
-+
-+/*
-+ * for_each_rb_entry_reverse() - iterate over an RB tree in reverse order
-+ * @pos:	the struct type * to use as a loop cursor
-+ * @root:	pointer to struct rb_root to iterate
-+ * @member:	name of the rb_node field within the struct
-+ */
-+#define for_each_rb_entry_reverse(pos, root, member) \
-+	for (pos = rb_entry_safe(rb_last(root), typeof(*pos), member); \
-+	     pos; \
-+	     pos = rb_entry_safe(rb_prev(&(pos)->member), typeof(*pos), member))
-+
-+/**
-+ * for_each_rb_entry_reverse_safe() - safely iterate over an RB tree in reverse order
-+ * @pos:	the struct type * to use as a loop cursor.
-+ * @n:		another struct type * to use as temporary storage.
-+ * @root:	pointer to struct rb_root to iterate.
-+ * @member:	name of the rb_node field within the struct.
-+ */
-+#define for_each_rb_entry_reverse_safe(pos, n, root, member) \
-+	for (pos = rb_entry_safe(rb_last(root), typeof(*pos), member), \
-+	     n = pos ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*pos), member) : NULL; \
-+	     pos; \
-+	     pos = n, n = pos ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*pos), member) : NULL)
-+
- #define DRM_BUDDY_RANGE_ALLOCATION		BIT(0)
- #define DRM_BUDDY_TOPDOWN_ALLOCATION		BIT(1)
- #define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
-@@ -53,6 +89,7 @@ struct drm_buddy_block {
- 	 * a list, if so desired. As soon as the block is freed with
- 	 * drm_buddy_free* ownership is given back to the mm.
- 	 */
-+	struct rb_node rb;
- 	struct list_head link;
- 	struct list_head tmp_link;
- };
-@@ -68,7 +105,7 @@ struct drm_buddy_block {
-  */
- struct drm_buddy {
- 	/* Maintain a free list for each order. */
--	struct list_head *free_list;
-+	struct rb_root *free_tree;
- 
- 	/*
- 	 * Maintain explicit binary tree(s) to track the allocation of the
--- 
-2.34.1
+Somewhat unrelated: I wonder if setting AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS is necessary before
+bo_pin(). FWIU from chatting with our DCN experts, DCN doesn't really care if the fb is
+contiguous or not.
+
+Which begs the question -- what exactly does AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS mean? From git
+history, it seems setting this flag doesn't necessarily move the bo to be congiguous. But
+rather:
+
+    When we set AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS
+    - This means contiguous is not mandatory.
+    - we will try to allocate the contiguous buffer. Say if the
+      allocation fails, we fallback to allocate the individual pages.
+
+https://github.com/torvalds/linux/commit/e362b7c8f8c7af00d06f0ab609629101aebae993
+
+Does that mean -- if the buffer is already in the required domain -- that bo_pin() will also
+attempt to make it contiguous? Or will it just pin it from being moved and leave it at that?
+
+I guess in any case, it sounds like VRAM_CONTIGUOUS is not necessary for DCN scanout.
+I can give dropping it a spin and see if IGT complains.
+
+Thanks,
+Leo 
+
+>>
+>> Alex
+>>
+> 
+> Thanks for the patch, Alex.
+> 
+> I have tested it, and though kms_async_flips and kms_plane_alpha_blend
+> pass, kms_plane_cursor still fail.
+> 
+> I am going to investigate a little more today and send more details from my
+> findings.
+> 
+> Thanks.
+> Cascardo.
+> 
+>>
+>>>
+>>> - Leo
+>>>
+>>>>
+>>>> Alex
+>>>>
+>>>>>
+>>>>> Thanks,
+>>>>> Leo
+>>>>>
+>>>>>>>>
+>>>>>>>> It's tricky to fix because you don't want to use the worst case
+>>>>>>>> watermarks all the time because that will limit the number available
+>>>>>>>> display options and you don't want to force everything to a particular
+>>>>>>>> memory pool because that will limit the amount of memory that can be
+>>>>>>>> used for display (which is what the patch in question fixed).  Ideally
+>>>>>>>> the caller would do a test commit before the page flip to determine
+>>>>>>>> whether or not it would succeed before issuing it and then we'd have
+>>>>>>>> some feedback mechanism to tell the caller that the commit would fail
+>>>>>>>> due to buffer placement so it would do a full modeset instead.  We
+>>>>>>>> discussed this feedback mechanism last week at the display hackfest.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>>> kms_plane_alpha_blend works, but does this also support that test
+>>>>>>>>> failing as the cause?
+>>>>>>>>
+>>>>>>>> That may be related.  I'm not too familiar with that test either, but
+>>>>>>>> Leo or Harry can provide some guidance.
+>>>>>>>>
+>>>>>>>> Alex
+>>>>>>>
+>>>>>>> Thanks everyone for the input so far. I have a question for the
+>>>>>>> maintainers, given that it seems that this is functionally broken for
+>>>>>>> ASICs which are iGPUs, and there does not seem to be an easy fix, does
+>>>>>>> it make sense to extend this proposed patch to all iGPUs until a more
+>>>>>>> permanent fix can be identified? At the end of the day I'll take
+>>>>>>> functional correctness over performance.
+>>>>>>
+>>>>>> It's not functional correctness, it's usability.  All that is
+>>>>>> potentially broken is async flips (which depend on memory pressure and
+>>>>>> buffer placement), while if you effectively revert the patch, you end
+>>>>>> up  limiting all display buffers to either VRAM or GTT which may end
+>>>>>> up causing the inability to display anything because there is not
+>>>>>> enough memory in that pool for the next modeset.  We'll start getting
+>>>>>> bug reports about blank screens and failure to set modes because of
+>>>>>> memory pressure.  I think if we want a short term fix, it would be to
+>>>>>> always set the worst case watermarks.  The downside to that is that it
+>>>>>> would possibly cause some working display setups to stop working if
+>>>>>> they were on the margins to begin with.
+>>>>>>
+>>>>>> Alex
+>>>>>>
+>>>>>>>
+>>>>>>> Brian
+>>>>>>>
+>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Thanks again,
+>>>>>>>>> Brian
+>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> Alex
+>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>> Brian
+>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>> Alex
+>>>>>>>>>>>>
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Fixes: 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v2)")
+>>>>>>>>>>>>> Cc: Luben Tuikov <luben.tuikov@amd.com>
+>>>>>>>>>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>>>>>>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>>>>>>>>>>> Cc: stable@vger.kernel.org # 6.1+
+>>>>>>>>>>>>> Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>>>>>>>>>>>>> Signed-off-by: Brian Geffon <bgeffon@google.com>
+>>>>>>>>>>>>> ---
+>>>>>>>>>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+>>>>>>>>>>>>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>>>>>>>>>> index 73403744331a..5d7f13e25b7c 100644
+>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>>>>>>>>>> @@ -1545,7 +1545,8 @@ uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
+>>>>>>>>>>>>>                                             uint32_t domain)
+>>>>>>>>>>>>>  {
+>>>>>>>>>>>>>         if ((domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) &&
+>>>>>>>>>>>>> -           ((adev->asic_type == CHIP_CARRIZO) || (adev->asic_type == CHIP_STONEY))) {
+>>>>>>>>>>>>> +           ((adev->asic_type == CHIP_CARRIZO) || (adev->asic_type == CHIP_STONEY) ||
+>>>>>>>>>>>>> +            (adev->asic_type == CHIP_RAVEN))) {
+>>>>>>>>>>>>>                 domain = AMDGPU_GEM_DOMAIN_VRAM;
+>>>>>>>>>>>>>                 if (adev->gmc.real_vram_size <= AMDGPU_SG_THRESHOLD)
+>>>>>>>>>>>>>                         domain = AMDGPU_GEM_DOMAIN_GTT;
+>>>>>>>>>>>>> --
+>>>>>>>>>>>>> 2.50.0.727.gbf7dc18ff4-goog
+>>>>>>>>>>>>>
+>>>>>
+>>>
+> 
+>> From cce1652c62c42c858de64c306ea0ddc7af3bd0b1 Mon Sep 17 00:00:00 2001
+>> From: Alex Deucher <alexander.deucher@amd.com>
+>> Date: Fri, 18 Jul 2025 18:40:26 -0400
+>> Subject: [PATCH] drm/amd/display: refine framebuffer placement checks
+>>
+>> When we commit planes, we need to make sure the
+>> framebuffer memory locations are compatible. Various
+>> hardware has the following requirements for display buffers:
+>> dGPUs, old APUs, raven1 - must be in VRAM
+>> cazziro/stoney - must be in VRAM or GTT, but not both
+>> newer APUs (raven2/picasso and newer) - can be in VRAM or GTT
+>>
+>> You should always get a compatible memory buffer due to
+>> amdgpu_bo_get_preferred_domain(). amdgpu_display_supported_domains()
+>> will ensure you always get VRAM or GTT or VRAM | GTT depending on
+>> what the chip supports.  Then amdgpu_bo_get_preferred_domain()
+>> will either leave that as is when pinning, or force VRAM or GTT
+>> for the STONEY/CARRIZO case.
+>>
+>> As such the checks could probably be removed, but on the off chance
+>> we do end up getting different memory pool for the old
+>> and new framebuffers, refine the check to take into account the
+>> hardware capabilities.
+>>
+>> Fixes: a7c0cad0dc06 ("drm/amd/display: ensure async flips are only accepted for fast updates")
+>> Reported-by: Brian Geffon <bgeffon@google.com>
+>> Cc: Leo Li <sunpeng.li@amd.com>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> ---
+>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 ++++++++++++++++---
+>>  1 file changed, 17 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 129476b6d5fa9..de2bd789ec15b 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -9288,6 +9288,18 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
+>>  	}
+>>  }
+>>  
+>> +static bool amdgpu_dm_mem_type_compatible(struct amdgpu_device *adev,
+>> +					  struct drm_framebuffer *old_fb,
+>> +					  struct drm_framebuffer *new_fb)
+>> +{
+>> +	if (!adev->mode_info.gpu_vm_support ||
+>> +	    (adev->asic_type == CHIP_CARRIZO) ||
+>> +	    (adev->asic_type == CHIP_STONEY))
+>> +		return get_mem_type(old_fb) == get_mem_type(new_fb);
+>> +
+>> +	return true;
+>> +}
+>> +
+>>  static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>>  				    struct drm_device *dev,
+>>  				    struct amdgpu_display_manager *dm,
+>> @@ -9465,7 +9477,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>>  		 */
+>>  		if (crtc->state->async_flip &&
+>>  		    (acrtc_state->update_type != UPDATE_TYPE_FAST ||
+>> -		     get_mem_type(old_plane_state->fb) != get_mem_type(fb)))
+>> +		     !amdgpu_dm_mem_type_compatible(dm->adev, old_plane_state->fb, fb)))
+>>  			drm_warn_once(state->dev,
+>>  				      "[PLANE:%d:%s] async flip with non-fast update\n",
+>>  				      plane->base.id, plane->name);
+>> @@ -9473,7 +9485,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>>  		bundle->flip_addrs[planes_count].flip_immediate =
+>>  			crtc->state->async_flip &&
+>>  			acrtc_state->update_type == UPDATE_TYPE_FAST &&
+>> -			get_mem_type(old_plane_state->fb) == get_mem_type(fb);
+>> +			amdgpu_dm_mem_type_compatible(dm->adev, old_plane_state->fb, fb);
+>>  
+>>  		timestamp_ns = ktime_get_ns();
+>>  		bundle->flip_addrs[planes_count].flip_timestamp_in_us = div_u64(timestamp_ns, 1000);
+>> @@ -11760,6 +11772,7 @@ static bool amdgpu_dm_crtc_mem_type_changed(struct drm_device *dev,
+>>  					    struct drm_atomic_state *state,
+>>  					    struct drm_crtc_state *crtc_state)
+>>  {
+>> +	struct amdgpu_device *adev = drm_to_adev(dev);
+>>  	struct drm_plane *plane;
+>>  	struct drm_plane_state *new_plane_state, *old_plane_state;
+>>  
+>> @@ -11773,7 +11786,8 @@ static bool amdgpu_dm_crtc_mem_type_changed(struct drm_device *dev,
+>>  		}
+>>  
+>>  		if (old_plane_state->fb && new_plane_state->fb &&
+>> -		    get_mem_type(old_plane_state->fb) != get_mem_type(new_plane_state->fb))
+>> +		    !amdgpu_dm_mem_type_compatible(adev, old_plane_state->fb,
+>> +						   new_plane_state->fb))
+>>  			return true;
+>>  	}
+>>  
+>> -- 
+>> 2.50.1
+>>
+> 
+
 
