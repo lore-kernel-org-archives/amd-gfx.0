@@ -4,126 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C266FC83F1A
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jul 2025 17:28:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39700C83F17
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jul 2025 21:08:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62B5210E0CE;
-	Wed, 23 Jul 2025 17:28:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5B3210E86D;
+	Wed, 23 Jul 2025 21:08:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="P6CUoKbi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cyicx3Gz";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2075.outbound.protection.outlook.com [40.107.236.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B466F10E0CE;
- Wed, 23 Jul 2025 17:28:10 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2058.outbound.protection.outlook.com [40.107.220.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B89DF10E86F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 21:08:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NBDOvnli1uYP0rOvRh3yIhyCeFP+MASK5MFZGGSgC5/KV53XlwopIuFocZjXKLftt6ptVpUmBU09xI0FbxAPgcrnkU/YTxPzqQnXkKpW/Afpt6gLS4SJLbw8RykgLxV2iCpnCX+n2h0+a4cqdA2u5E2/NRSJu3oL7T1tMqtbtAKq5q1LPaP2ZkRyxOD3JSxNT2+5w2YQae/8pyysWB7EDpGuKKmfSv0VgjmLbQkqltCxBa5JZT1PDh+oWbU4MLs1KLg3swhuyLjU4fTycia4Nczy18mAHgfz69oRujGXeuENK6FF+QGfbNwD50pekUKssFGz2lvtfWp2KfzVenyEYg==
+ b=DcsPQUYOjExqTAtiTvwhozp26GI6X/QjGfDFY7NzVyUSElL+V/pFQx+nFfFMcmYlKlIguUSlLPrNqXxII9Ckh7kmz10NB3oKFCNvzGDxUEXl5UpXWCSf7CB0vjQgiRYDkFARFMWXG9m14W3D5pbtBAxyYziuRMlfBE6f9ALP9BtWEyFtBYNY98SvTYalP03VuyNaVqv769n78VFaqzqQ0wU9hpXmwdTxQYyN7IGeMml+amqqAzNcrrDZBKi06Ewot9Y31G+Th2iY/bE5MxWQ0tk/PeLMYF4HbsD5oTYbfwWgBej/q+IfiqY0B64g0PUWc98o9ZHIIi9UmZdewSU6jQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hHDFMBTm+VHzxykZ/HXf7yssaphNARp5Wx+xnJnnqgM=;
- b=askkQNkeo3hWBK3CXQEHQlz8GNGsYqVYQqyxCR17M031SiLMS+jgjLS3b4+NeO0TA0MXnNvoFmNJa83VMA33Zxvyn5j/uyC4IuYEfo1cUWslanRI0p7WjTQtwqLbZhqup0ovPjKiDWKcfdzymCwfTBEgSs3Kc5eSd0yIvqkjT0Y9beSDcmv4s01egQNVfWsoZrfXru6nG3te2smI/7FnNiqt95Kl0wYI/1eEHkMglrulNjTpFiLjHZWY+sXuYC5w8SGNalqWoQJuHjIZudQsVdxzLr//C/h7IcSwG868cu6K3xaK/mXXBOTp9m/PdTydrFOXyBx/fuo6OEs49N+Qdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=0G3qvkfdMoH9Q55fO/zl5D+wyYVSKVCzWJq+itTbC5U=;
+ b=j9+x7J/iZr3HxfLHoHr4epKfmuZWQ0lIfyvpW8dWK0p430/x5rdup57VuBd+PLWpChCYORPA4UPFdEInCMc5vvELLDnMw5kIiVv/yhbhBsCFax8DEEOi2lH9NW8XbJ6WivWVqrlUQLxkTtdK7UWu+/QG5MdvWGun/uG/1SIRQ73HoqtqCgFXs5qGNHBBDB6cGjFTWSaXdSHN0R0C5zOpaBN28qWiZ/xZ9hw1XvIDwFtlaopktSFO/A7hwxWNrIQsed+7TGdTbm7mdVe3uP/Xv1uq+LpxX9rNSAVTPSg28+coyyqrNUelBn409HVRywNEpJ0so7dsXnTIXebIeyKhdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hHDFMBTm+VHzxykZ/HXf7yssaphNARp5Wx+xnJnnqgM=;
- b=P6CUoKbiIWAIDlmIF1xhF6bs/1oUvuOYJTeU71H7gsOqVZHTvL1brnV09Z3F3BacM3wiFhylqG4jtiQzvjo4wWOfwIv+djsrGdjnAKDo8hmPgJn1lSZ3cWH6j60rI0POv8jVkyLvhYX/EUcRFOPth5vu9QjgrUMgvwamUxze4T0=
-Received: from BY5PR04CA0024.namprd04.prod.outlook.com (2603:10b6:a03:1d0::34)
- by SA1PR12MB7409.namprd12.prod.outlook.com (2603:10b6:806:29c::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Wed, 23 Jul
- 2025 17:28:07 +0000
-Received: from SJ1PEPF000023CE.namprd02.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::58) by BY5PR04CA0024.outlook.office365.com
- (2603:10b6:a03:1d0::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.21 via Frontend Transport; Wed,
- 23 Jul 2025 17:28:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF000023CE.mail.protection.outlook.com (10.167.244.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Wed, 23 Jul 2025 17:28:06 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Jul
- 2025 12:28:02 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Jul
- 2025 12:28:02 -0500
-Received: from box-0.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 23 Jul 2025 12:28:01 -0500
-From: <IVAN.LIPSKI@amd.com>
-To: <igt-dev@lists.freedesktop.org>
-CC: <sunpeng.li@amd.com>, <harry.wentland@amd.com>,
- <amd-gfx@lists.freedesktop.org>, Ivan Lipski <ivan.lipski@amd.com>
-Subject: [PATCH i-g-t v3] tests/amdgpu: Add test for native cursor fallback to
- overlay
-Date: Wed, 23 Jul 2025 13:27:26 -0400
-Message-ID: <20250723172754.2721348-1-IVAN.LIPSKI@amd.com>
-X-Mailer: git-send-email 2.43.0
+ bh=0G3qvkfdMoH9Q55fO/zl5D+wyYVSKVCzWJq+itTbC5U=;
+ b=cyicx3Gzgv/sJR3bvqZUlA6wiMLLgAcmE/xbJe/F3x1lsDpvBavo+o1ILMJaJf5juP/H3geQovM6PdCbt3/g9VHKTjI+iO8hpCTlAhFZmBSNcbwYYe9I9XhVRi5nyYdlvQqLAjIlZRehPvzija6oMAo9NNXemp21l45aR4zuJZw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ DS0PR12MB7851.namprd12.prod.outlook.com (2603:10b6:8:14a::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8964.21; Wed, 23 Jul 2025 21:08:15 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%4]) with mapi id 15.20.8964.019; Wed, 23 Jul 2025
+ 21:08:15 +0000
+Content-Type: multipart/alternative;
+ boundary="------------WPuQlExohKwRqXIwuHNBfCcf"
+Message-ID: <77662aa5-3f65-42ee-ac5e-e4996b3a4e99@amd.com>
+Date: Wed, 23 Jul 2025 16:08:12 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: Handle lack of READ permissions in SVM mapping
+To: "Russell, Kent" <Kent.Russell@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+References: <20250722162450.79502-1-kent.russell@amd.com>
+ <f81030dd-198e-4d7b-8467-7e7b3f199f32@amd.com>
+ <BL1PR12MB5898AFDD9DCC03E472E38368855FA@BL1PR12MB5898.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <BL1PR12MB5898AFDD9DCC03E472E38368855FA@BL1PR12MB5898.namprd12.prod.outlook.com>
+X-ClientProxiedBy: SA1P222CA0124.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c5::12) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: IVAN.LIPSKI@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CE:EE_|SA1PR12MB7409:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1608c521-8bcd-4b31-2244-08ddca0e497a
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|DS0PR12MB7851:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23b260bb-f5ab-474c-19d7-08ddca2d0a3f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8HswZ+DP8WccBqRHI68opA7lAFY5mXICDaqiSwlYc5JpVY4WtypTiB2q12JY?=
- =?us-ascii?Q?I0UGLLsH61ffF5oWcdXkZwsSDSx+a+pb/OrXxnEyMIsNi2oXvwv3+9QfkqHM?=
- =?us-ascii?Q?LEvJFgjy0ajHLU+g23xf9xtpeceXGUpi3jXTZqT7tSg6A2jbXB+rpAh8KV4G?=
- =?us-ascii?Q?BoRgg5SFPTlZuN8kXVs7lLUm5QgYnatSHLKWUnCqqmRHQ/a82EG/mZD+qCMP?=
- =?us-ascii?Q?Y4jJfcFn0Y2pQVQAYHX4ZloR6AUIYXJ05nXLQlb4RAlq9ybFvXApYX1KGP3n?=
- =?us-ascii?Q?G9EEwWYgBEG6m2Z5oaUb8IJrJFvDL/MXLRi3mlUsdaT7/ahnL3h5o8bVB8Rn?=
- =?us-ascii?Q?tYC0M7j8Cp42HoUATqIWDEhrVgUzTCnZpV3tWerg9cY20PbciZpF0aHj8pXB?=
- =?us-ascii?Q?PyC+OQk/EJZJXITpqRCZkRjsUOdszAhHjN53VaSbblRLHjEfvVdFdsCOxAhW?=
- =?us-ascii?Q?n62WAd30qXddmCTiknk+GB7by/4YIcYstg19B5VE8hUNZqN4tuiXZcN7I4LG?=
- =?us-ascii?Q?bOVwTUJHePd+4blc0wLA4ycC13f+9eiep2BHh0jzvlZtSZaqcpVRkiizfNWs?=
- =?us-ascii?Q?lk11XLwd5MkMauN6HKmANbZcNipOQ3C6hvFy+wicpKyWpUhCAUODhBDcXU4C?=
- =?us-ascii?Q?96yRuL5jvkDV4UDFc+brC+gAaKynLhSC/dC5g/B5inCBTTaYDo5TK1ksWGOG?=
- =?us-ascii?Q?fe0I+aFwOrVWy+QfHuXL14+dg7P3cbWwYmqXxVeB9XW9mN39cDCCHc4rcf3i?=
- =?us-ascii?Q?4Qlc5r07MPu8Ng4qqrpeM/dhwc3yULm6psF9kGI0qK17f743Cr6t7U6YeQST?=
- =?us-ascii?Q?T/MWeroBXP+yyYGwlLepoaql0mh2r9068/Tb+aQ84sG5dPH6B2aERVQZcsZz?=
- =?us-ascii?Q?KC1U1j2Mk4W/Vuh0Cbdvr/+OpCTmH8ZDKVpmcjObDxwX2bWsguxCmB9RDh8a?=
- =?us-ascii?Q?NxRRaHP2nScyDj1G7bFdmLNlGM5NcYn9+ciCP+QgvWrGNwAcUSRUL+bhYRic?=
- =?us-ascii?Q?gesa76VZdU1RDQGbqicnFKi+n7Vs4jXhRtWiNHside9w0JDzhTVDXmfLjVqN?=
- =?us-ascii?Q?k21VAI5+t2Xgo9vmEtudWhhfyk3c6/E3cqXfLQEPv8viU+hZ95F9nCLOfIA3?=
- =?us-ascii?Q?A/zavErxjH17UDSMc1lAOG+bDOwRqbawevp6/JEG0TtSKvXRGRI2cH+R2orM?=
- =?us-ascii?Q?86Kr6iDu6DJJoxatu1nzesmeElxXV69PiBs/5IueeIX9rSS+rPmvmGzZ0DNH?=
- =?us-ascii?Q?UnRBPgD60ymLtJRijr3NkoIs2fYdWP7aj32KteFUtunFG6vZp7P2dx0iOvH3?=
- =?us-ascii?Q?ncLHcYYWyKhHAc3J5rp409A4NfJzi/p7lcjCEUWXtVRYH6mE6R0LrchFb65D?=
- =?us-ascii?Q?/PdloYVedKkl5WuR16Q1I/HwQBpwW7szClBhGQonE40GUltXeaRiS4FAnVVI?=
- =?us-ascii?Q?7QMvg7rYkbBfyHVyTCvbjXhczdQDbPWZFb9YRG+pG1N4zpw9qEa/Qrlm8F7y?=
- =?us-ascii?Q?9U/xwjEkfuC7KAyxs5ApuwjZclAxaC6FuDHz?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ ARA:13230040|376014|366016|1800799024|7053199007|8096899003; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WUZ1RjFXQ0k3Y2VNTmN0VEdsRlh0Y2FHNUVla2d2dkwxYWhSTDJ1U0x1Rk9T?=
+ =?utf-8?B?dFgyM0lmanl4N1daOHRob3F0QWFqRjBXa1JyOFE0clg5Y3hSdWxWaDNaaVNH?=
+ =?utf-8?B?dWJmQm95VjhNd1R0WWV5eS9MWnIwSEkxYTZIRm16eS9iNXV2RE5USHJnWnlX?=
+ =?utf-8?B?ZW9lQlR0c2w5MFE4M213WHIvbkduVmkrTFpnSzVwQmRyMkRNZ1RhZVNQZzJY?=
+ =?utf-8?B?MTc2WEVpVWhlVXpaL0NacWRRNzJPdkFUaUlydkFSL2RHbFdTUWlndVZoR1dY?=
+ =?utf-8?B?bFIwdjM4RWZNdlFsVndpekUrS21YWjh2djExK2RLcTJOcy9nOTJUS1V3amJP?=
+ =?utf-8?B?eFVzRlRtV25rTGpZT2pGUjlyRnBzNGkvUnhjVThrekw3QXNXVjUvMDZWRDBT?=
+ =?utf-8?B?aldNLzFnTDJxdEllYW0xNmpsZ1JiSitSbFROZmVuOGpBdWZzdTZDbWYrRU9M?=
+ =?utf-8?B?NW1JZVdIenh6ZEc4NFk4eVpqTElobjlTNEdwczBKOGw2aHFNN0g5aDRFa1Yy?=
+ =?utf-8?B?UzRiSGE4RmNTYmhWbG41d1hxZ01ZbXFDaVQ5VjdyemljakpGNDdHVG5VMnNX?=
+ =?utf-8?B?TlhVWkJEc29VeHpxa0lJUzV5WUhyYi9WQUNpRUZhcWRxNnFFSVVvREkxdUJL?=
+ =?utf-8?B?UVBXNndWQ3NvbnQ2Nm5GdldseEl5OTFndjN2Nm9aNWx3dkhDT1dvUTJpTmR6?=
+ =?utf-8?B?TVZmeXdVS3RQd2hCUlJnQlBpczFYZkJsOGluREI4ekwxU09HaDM0M1Y0L2dV?=
+ =?utf-8?B?WmZXb0NLUkl1em1jYmpDSTRJRTJFTnV6aGVYL2ZrUnVqSlBIS3N3RzVMT3Jt?=
+ =?utf-8?B?blR6bTNtc0lGSEZDQU94UGVaaGgxQmdzbzVrWnZjOHlodDFGZzNFYWxzN0NK?=
+ =?utf-8?B?Z08xMStNejlPdFB4VkwyQzhXNVRQYStnVDhWcGZTR0dVRUt6TkhCdTdUbnBT?=
+ =?utf-8?B?UUdlTm9PbTNuUGZmdERaQjRUWUdLUDJrdXprYXpWNGoyR0o0K3Z2Qm15ODdT?=
+ =?utf-8?B?TXZ2aExFaXhwOEsxanh0MG5DclVocml2MDVaa0cvMGZJRDZGNlZQeVo4bllG?=
+ =?utf-8?B?UkNTLzBDRzBUcFppbWIvVVpDSkd3T2VPNWtPSysyc0Z4QjhVV3V0eUY0dFFL?=
+ =?utf-8?B?T3Qxdjd1RExUN0M1QytPdTJoY1kyWlVnQXZRdzJ5bTJ5dmRwYjdvbzdXcDFF?=
+ =?utf-8?B?bEZ1OGZPMjhqZEs2emV2Y0kzemFBTXJNSDB5TEc1U0lmSklER0VkaFRXVTMv?=
+ =?utf-8?B?QmFpYzRieDhlb3Jmc2JmelcvckdEc1l1VC9GK3ROWm9odWFkeEZSVnZzMmhE?=
+ =?utf-8?B?SEhnT014dXJnM2pjTVBnNDFTRUowZnRrZXhJSkdNZ0pyajdpVFJWOG1ta0dN?=
+ =?utf-8?B?bWlueVh2K1VkR2Y2VDRlbHJLTXhKQlBITHY2dWRQZlQ0eXZHZVRLWEhEalAz?=
+ =?utf-8?B?ck51Y0hrTEoyZUNHNDEwVG5TbkFURDl2cVFHN0wxRWM3MHQvdFAzRHkzYmoz?=
+ =?utf-8?B?RzJvMkRQd0pENXNmb1kwcnVrbmpZdTk4d0grb0RUY1IrU1JEQXFOUVJaUkRB?=
+ =?utf-8?B?eC93ZDE5RFdpRkNOQWpWMVVkSWk5OEdPNXlLeC9IYkdkL2l1czFVOGc4WjEr?=
+ =?utf-8?B?eXBkQ2RxTVlmaXdiNEhJYUpGdG55M1pzM2FkL2o2bUxwVUtQckVkU0IrbkY3?=
+ =?utf-8?B?bWNyK202dXI4TThMcGY1QzJWN3U1bjdZaDJKN2NsSmNXNGxkOGFXZG0yQSto?=
+ =?utf-8?B?bEJydUliejlUdnRtNGN6VGpXU1ZQcFlneEdvUTdzUVh3eCt6bDlwV1hqbnlI?=
+ =?utf-8?B?MUsyRk0yRXlOc1hjbEZUY1QyN0tSR0VPS3dZZC9hV2d0MWZMc2hyMkNyNXc1?=
+ =?utf-8?B?RUdrb2JwUXh3VU51RldneHcvUUxkWEhQTXlCeHVVaTV1bHVMdjZaOXIrMGZv?=
+ =?utf-8?Q?mEkI8jt4eYI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(8096899003); DIR:OUT;
  SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUpDVzUxdnN2S2w5UUJ3S3VBVmtCYUpzYm9wSVFscCt6VlorTUhqUmZkeGUw?=
+ =?utf-8?B?RHdNRmZqU2w1ZW54U2hzUEJzU2F0czBvenN1d1d1cTNOVGVveGdWbEFJSmNv?=
+ =?utf-8?B?L1ZwcEdGZ2xld29UdmdlZXlURFQydnNZOW9XYjVCbmZQU1JzVHZjNkVtYy85?=
+ =?utf-8?B?Nlo3aFVBWDRLM1pZdUNHTmFKUlEvNUxSWXNxOFo0M1U1Z05HKytIZTV4ZjNX?=
+ =?utf-8?B?RWhLRGFKUHJJa2UzTW5RL1dJZXIyWlZkdFYyMll3VERhT3lpd2E4TE5pTjMx?=
+ =?utf-8?B?c0J2TUJiTk0vSUxSRHhMOWI2M0dKQUJIekJhdm5HTkN6bjdwQUU2NHg5bkNS?=
+ =?utf-8?B?Y3VSQTB6V09NbkVRQWtsWnBkVndvN0xIcXBTTnJTbUxkWHhCQXFFYWhLZmd4?=
+ =?utf-8?B?Rk1IRmhUbmpHZGZEaXoza29KNlV4WDJ5alNPNndUZkZrVnYveXJCdGJZdU01?=
+ =?utf-8?B?UWgrMDFjUHgyekp4L21RUWlyR1cvbjhXS29KMUZMZEs1cW1ac25SdWpHLzMw?=
+ =?utf-8?B?SUp4WVluMXREaUViem8vRUZPQnZHZTZpZFJnZWhKMUZzR3B3TnEvUG04MFpW?=
+ =?utf-8?B?d3ZUQVFuNFA2NE51SDRWSlRmeldhWnlOQ3VHRUtWWVpPTG9YZytwNlY2bG55?=
+ =?utf-8?B?anp2dThoK0lSa0hDREQwQUhhbFdnYUFpOW9tZ0NJNTlMYWRqTzFqRjFBMEpM?=
+ =?utf-8?B?YU5zd1FyeVFiZGZJVFEvTzBKT3lhVS8wOXQ4cFpJV0hGUzF3YjJ1dVY2eDVs?=
+ =?utf-8?B?KzN3QllNZmdhMkw2ejZ0S0JXOGxzclNURWNQUUhtUjZFamFzcC9TbWZ0c0Fa?=
+ =?utf-8?B?VE5XeVlQQmtWSWR5d2toWHA4QlNpUS9ncU55cW5MMjVFVmpDMXZnTTFYOEVT?=
+ =?utf-8?B?bTMvUnc3MVgrUWFLNFNTeUlGTzlvd2Zwa2kxZXc5WFFVbjl5RzJwaExUSFVt?=
+ =?utf-8?B?VXE3VFFTdmVYSEN2UTdueGFFbWJDWU5HRjNiSitUZEQ3aEEybmhzS3lpSC95?=
+ =?utf-8?B?dUpnYkpvemdGRHhiMytpcXd0Z3poZGkyamRIRVhyRmpkcXJBSlc1ZlhaS2Rq?=
+ =?utf-8?B?cHVwTXdJMFRweGJ4ekJ2QjlySkcvekxlcW01MWdyZkd0R2tCTkNkaStCVS9U?=
+ =?utf-8?B?dTR1cXY4UU5vZmwyVk9VV0owRlBwcEw3MTVUUWNpdS9TZ3dxdzVwY2tWQ0tK?=
+ =?utf-8?B?QVZLWXkxelZSSFlweUYrV1JtWDZtSlZvY1BPUjdhR2FISktISXdTYXhwRzJv?=
+ =?utf-8?B?ZXpaZVgzK1dMM1hzckM4cjZkK0FveW9VL0tRUTNrSkRHb1F5emhGQ1IzQkwx?=
+ =?utf-8?B?bTlpVFdSdjlOeWViTGRRRVZZdlVWVjFleEwyOExRMysrK2dsRXhRY0tsNWpx?=
+ =?utf-8?B?QkZ4TE94R0trVFoydWx3Um5NK0Y4ZW5wWXA3RGFZUnloTUFQK3FXM3hseGky?=
+ =?utf-8?B?TjRJSTQ0UHJMRmZDL1Z6L0VoalpaRTFwcFhyUUUxdUpDMUFiL0FDZnlweTBM?=
+ =?utf-8?B?UGowV2NYR3o5SWxqZlhrK2cxSWY0R0huMW1RT3lhN0pHaXppdWxxSHhIcy9m?=
+ =?utf-8?B?dXc2T0hhYUFxY3dFT0YzQVY2YVlNcFMwcXA1WmRwRHRNTjZEQndYaW5mUE04?=
+ =?utf-8?B?QmJxb2JyUUV0cnBMS09iM1JrVEV3OUVheFArdWNJQmdJamtvSFB6cVViY0Ev?=
+ =?utf-8?B?R0NkVDFKQXZQLzZKK0FDdjZvYWREc01NcWxGS2tPK0E1OUNaRm5JNDd0bXhl?=
+ =?utf-8?B?UmEzSXZ5R284QjBCeGVjU3BYYStMMXE3dUp6QjRCQ2xKVHVjLytxSGpDbXpC?=
+ =?utf-8?B?b3gwZ0xkcTE3L1d3KzlqelN6dWlsSGo3UGZHNGNaQlI4L3NNdndMOFdMaGlx?=
+ =?utf-8?B?d2VDR2VFeVZ5R0RRR2kwVEhnR3BrQ2djMEJpbXJlWHlKZ2NhM0tsVWlEUURW?=
+ =?utf-8?B?RmFKa0dPd2ZGRUFHNCtYUlZkZmpEWUJIVzdGMGRkN1BFSnZvRDVzc2YzS1BC?=
+ =?utf-8?B?a0MwbVoyVUZ0YzVvZTd6dHV0SEZEY2swU2piNWtFM1BQaUlDVmZ4WlNGMlJx?=
+ =?utf-8?B?RTl6WkhmR0xsVldGZnVGVEFhNnhDRzJqVThJRjM2am45ZnYybUJHZWZxS01C?=
+ =?utf-8?Q?chtM=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2025 17:28:06.6227 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1608c521-8bcd-4b31-2244-08ddca0e497a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23b260bb-f5ab-474c-19d7-08ddca2d0a3f
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2025 21:08:15.2515 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023CE.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7409
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bOeqlQKmWB7ht5xW6EpdOzXyi4tAK/mDfblOtr3Ib1lZtPdPKlzHcdL7viIgcafj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7851
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,550 +165,372 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+--------------WPuQlExohKwRqXIwuHNBfCcf
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-[Why & How]
-The AMD display hardware does not use dedicated cursor planes.
-Instead, the cursor is rendered either using the primary plane
-or an available overlay plane. This test verifies that the
-cursor correctly falls back from native to overlay mode
-when the underneath primary plane is incompatible. It also tests
 
-It has 5 subtests:
+On 7/23/2025 8:30 AM, Russell, Kent wrote:
+>
+> [Public]
+>
+>
+> The big thing is that HMM doesn’t support a lack of read permissions. 
+> So does it make sense to make any HMM calls or set any HMM flags if 
+> it’s an unsupported configuration that it will fault on? That was why 
+> I went down this path, since trying to remove the READ permissions 
+> here while still using HMM calls could go sideways, if HMM will 
+> automatically fail if READ permissions are missing.
+>
+I do not see HMM can only work if read permission is specified. From 
+code comments "If the vma does not allow read access, then assume that 
+it does not allow write access either".
 
-rgb-to-yuv
-Switches the primary plane to a NV12 format FB and verifies that
-the cursor falls back from native to overlay.
+hmm_range_fault uses cpu page fault to valid pages. If it cannot do that 
+it return error code specified the reasons. Driver needs check the error 
+code to decide what to do after. Current driver checks if read is 
+allowed, if not, driver assumes it is write permission. That does not 
+consider VM_NONE that specifies the vma is not accessible, then the vms 
+is not fault-able.
 
-non-full
-Switches the primary planeto a FB that does not fill the entire CRTC
-(currently sized at a quarter of the CRTC).
+This issue not only exists in svm code. For user buffer registration and 
+validation current driver does not consider VM_NONE either. I think part 
+of the changes is: before let hmm_range_fault do page validation check 
+vma->flags to decide if can set hmm_range->default_flags to 
+HMM_PFN_REQ_FAULT or not. Do not request hmm fault on area that is not 
+faultable.
 
-scaling-[50,75,125,150,175,200]
-Switches the primary plane to a FB with a chosen scaling (50%-200%), which
-is then filled in the CRTC.
+Regards
 
-max-planes
-Enables 2 overlay planes, a primary plane and a cursor. Then
-switches the primary plane to YUV to cause the cursor to fall back to
-overlay. Verifies that the cursor can still fallback to overlay when 4
-planes are enabled.
+Xiaogang
 
-no-available-planes
-Enables 3 available overlay planes, a primary plane and a cursor. Then
-switches the primary plane to YUV to cause the cursor to fall back to
-overlay. Verifies that the atomic commit fails due to no available overlay
-planes.
+> Kent
+>
+> *From:*Chen, Xiaogang <Xiaogang.Chen@amd.com>
+> *Sent:* Tuesday, July 22, 2025 6:46 PM
+> *To:* Russell, Kent <Kent.Russell@amd.com>; amd-gfx@lists.freedesktop.org
+> *Cc:* Kuehling, Felix <Felix.Kuehling@amd.com>
+> *Subject:* Re: [PATCH] drm/amdkfd: Handle lack of READ permissions in 
+> SVM mapping
+>
+> On 7/22/2025 11:24 AM, Kent Russell wrote:
+>
+>     HMM assumes that pages have READ permissions by default. Inside
+>
+>     svm_range_validate_and_map, we add READ permissions then add WRITE
+>
+>     permissions if the VMA isn't read-only. This will conflict with
+>     regions
+>
+>     that only have PROT_WRITE or have PROT_NONE. When that happens,
+>
+> Why read-only conflict with PROT_WRITE or have PROT_NONE? They are 
+> vma->vm_flags that specifies the vma protection. User can change its 
+> value at runtime. Is user not allowed to change it from read-only to 
+> PROT_NONE?
+>
+>     svm_range_validate_and_map will continue to retry, silently,
+>     giving the
+>
+>     impression of a hang.
+>
+>     If pages don't have READ permissions, simply unmap them and
+>     continue. If
+>
+>     they weren't mapped in the first place, this would be a no-op.
+>     Since x86
+>
+>     doesn't support write-only, and PROT_NONE doesn't allow reads or
+>     writes
+>
+>     anyways, this will allow the svm range validation to continue without
+>
+>     getting stuck in a loop forever on mappings we can't use with HMM.
+>
+>     Signed-off-by: Kent Russell <kent.russell@amd.com>
+>     <mailto:kent.russell@amd.com>
+>
+>     ---
+>
+>     drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 18 ++++++++++++++++++
+>
+>     1 file changed, 18 insertions(+)
+>
+>     diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>     b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>
+>     index e23b5a0f31f2..10b70b941b11 100644
+>
+>     --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>
+>     +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>
+>     @@ -1713,6 +1713,24 @@ static int
+>     svm_range_validate_and_map(struct mm_struct *mm,
+>
+>                             next = min(vma->vm_end, end);
+>
+>                            npages = (next - addr) >> PAGE_SHIFT;
+>
+>     +                       /* HMM requires at least READ permissions.
+>     If provided with PROT_NONE,
+>
+>     +                       * unmap the memory. If it's not already
+>     mapped, this is a no-op
+>
+>     +                       * If PROT_WRITE is provided without READ,
+>     warn first then unmap
+>
+>     +                       */
+>
+>     +                       if (!(vma->vm_flags & VM_READ)) {
+>
+>     +                              unsigned long e, s;
+>
+>     +
+>
+>     +                              if (vma->vm_flags & VM_WRITE)
+>
+>     +                                      pr_warn("VM_WRITE without
+>     VM_READ is not supported");
+>
+>     +                              s = max(start, prange->start);
+>
+>     +                              e = min(end, prange->last);
+>
+>     +                              if (e >= s)
+>
+>     +                              svm_range_unmap_from_gpus(prange, s, e,
+>
+>     +                                                    
+>     KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
+>
+>     +                              addr = next;
+>
+>     +                              continue;
+>
+>     +                       }
+>
+>     +
+>
+>                            WRITE_ONCE(p->svms.faulting_task, current);
+>
+>                            r =
+>     amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
+>
+>                                                          readonly,
+>     owner, NULL,
+>
+> It seems the real problem is at amdgpu_hmm_range_get_pages. It always 
+> set HMM_PFN_REQ_FAULT to hmm_range->default_flags. HMM_PFN_REQ_FAULT 
+> means the page is faultable and a future call with HMM_PFN_REQ_FAULT 
+> could succeed. When vma->vm_flags is PROT_NONE the vma is not 
+> faultable, so hmm_range->default_flags should be not set to 
+> HMM_PFN_REQ_FAULT to avoid hmm_range_fault fault this vma.
+>
+> Regards
+>
+> Xiaogang
+>
+--------------WPuQlExohKwRqXIwuHNBfCcf
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
----
- tests/amdgpu/amd_cursor_overlay.c | 484 ++++++++++++++++++++++++++++++
- tests/amdgpu/meson.build          |   1 +
- 2 files changed, 485 insertions(+)
- create mode 100644 tests/amdgpu/amd_cursor_overlay.c
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 7/23/2025 8:30 AM, Russell, Kent
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:BL1PR12MB5898AFDD9DCC03E472E38368855FA@BL1PR12MB5898.namprd12.prod.outlook.com">
+      
+      <meta name="Generator" content="Microsoft Word 15 (filtered medium)">
+      <style>@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
+	{font-family:Aptos;}@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}pre
+	{mso-style-priority:99;
+	mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	font-size:10.0pt;
+	font-family:"Courier New";}span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-priority:99;
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;}span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}div.WordSection1
+	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <p style="font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left">
+        [Public]<br>
+      </p>
+      <br>
+      <div>
+        <div class="WordSection1">
+          <p class="MsoNormal"><font size="2" face="Arial"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">The
+                big thing is that HMM doesn’t support a lack of read
+                permissions. So does it make sense to make any HMM calls
+                or set any HMM flags if it’s an unsupported
+                configuration that it will fault on? That was why I went
+                down this path, since trying to remove the READ
+                permissions here while still using HMM calls could go
+                sideways, if HMM will automatically fail if READ
+                permissions are missing.
+                <o:p></o:p></span></font></p>
+          <p class="MsoNormal"><font size="2" face="Arial"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></font></p>
+        </div>
+      </div>
+    </blockquote>
+    <p><font size="2" face="Arial">I do not see HMM can only work if
+        read permission is specified. From code comments &quot;If the vma
+        does not allow read access, then assume that it does not allow
+        write access either&quot;.</font></p>
+    <p><font size="3" face="Arial"><span style="font-size:12.0pt">hmm_range_fault
+          uses cpu page fault to valid pages. If it cannot do that it
+          return error code specified the reasons. Driver needs check
+          the error code to decide what to do after. Current driver
+          checks if read is allowed, if not, driver assumes it is write
+          permission. That does not consider VM_NONE that specifies the
+          vma is not accessible, then the vms is not fault-able.<br>
+        </span></font></p>
+    <p><font size="3" face="Arial"><span style="font-size:12.0pt">This
+          issue not only exists in svm code. For user buffer
+          registration and validation current driver does not consider
+          VM_NONE either. I think part of the changes is: before let </span></font><font size="3" face="Arial"><span style="font-size:12.0pt">hmm_range_fault
+          do page validation check vma-&gt;flags to decide if can set </span></font><font size="3" face="Arial"><span style="font-size:12.0pt">hmm_range-&gt;default_flags
+          to HMM_PFN_REQ_FAULT or not. </span></font><font size="3" face="Arial"><span style="font-size:12.0pt">Do not request hmm
+          fault on area that is not faultable.</span></font></p>
+    <p><font size="3" face="Arial"><span style="font-size:12.0pt">Regards</span></font></p>
+    <p><font size="3" face="Arial"><span style="font-size:12.0pt">Xiaogang<br>
+        </span></font></p>
+    <p><font size="3" face="Aptos"><span style="font-size:12.0pt"></span></font></p>
+    <blockquote type="cite" cite="mid:BL1PR12MB5898AFDD9DCC03E472E38368855FA@BL1PR12MB5898.namprd12.prod.outlook.com">
+      <div>
+        <div class="WordSection1">
+          <p class="MsoNormal"><font size="2" face="Arial"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Kent<o:p></o:p></span></font></p>
+          <p class="MsoNormal"><font size="2" face="Arial"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></font></p>
+          <div style="border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt">
+            <div>
+              <div style="border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in 0in 0in">
+                <p class="MsoNormal"><b><font size="2" face="Calibri"><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;font-weight:bold">From:</span></font></b><font size="2" face="Calibri"><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
+                      Chen, Xiaogang <a class="moz-txt-link-rfc2396E" href="mailto:Xiaogang.Chen@amd.com">&lt;Xiaogang.Chen@amd.com&gt;</a> <br>
+                      <b><span style="font-weight:bold">Sent:</span></b>
+                      Tuesday, July 22, 2025 6:46 PM<br>
+                      <b><span style="font-weight:bold">To:</span></b>
+                      Russell, Kent <a class="moz-txt-link-rfc2396E" href="mailto:Kent.Russell@amd.com">&lt;Kent.Russell@amd.com&gt;</a>;
+                      <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
+                      <b><span style="font-weight:bold">Cc:</span></b>
+                      Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a><br>
+                      <b><span style="font-weight:bold">Subject:</span></b>
+                      Re: [PATCH] drm/amdkfd: Handle lack of READ
+                      permissions in SVM mapping<o:p></o:p></span></font></p>
+              </div>
+            </div>
+            <p class="MsoNormal"><font size="3" face="Aptos"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></font></p>
+            <p><font size="3" face="Aptos"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></font></p>
+            <div>
+              <p class="MsoNormal"><font size="3" face="Aptos"><span style="font-size:12.0pt">On 7/22/2025 11:24 AM, Kent
+                    Russell wrote:<o:p></o:p></span></font></p>
+            </div>
+            <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">HMM assumes that pages have READ permissions by default. Inside<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">svm_range_validate_and_map, we add READ permissions then add WRITE<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">permissions if the VMA isn't read-only. This will conflict with regions<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">that only have PROT_WRITE or have PROT_NONE. When that happens,<o:p></o:p></span></font></pre>
+            </blockquote>
+            <p class="MsoNormal"><font size="3" face="Aptos"><span style="font-size:12.0pt">Why read-only conflict with
+                  PROT_WRITE or have PROT_NONE? They are
+                  vma-&gt;vm_flags that specifies the vma protection.
+                  User can change its value at runtime. Is user not
+                  allowed to change it from read-only to PROT_NONE? <o:p></o:p></span></font></p>
+            <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"><o:p>&nbsp;</o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">svm_range_validate_and_map will continue to retry, silently, giving the<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">impression of a hang.<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"><o:p>&nbsp;</o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">If pages don't have READ permissions, simply unmap them and continue. If<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">they weren't mapped in the first place, this would be a no-op. Since x86<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">doesn't support write-only, and PROT_NONE doesn't allow reads or writes<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">anyways, this will allow the svm range validation to continue without<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">getting stuck in a loop forever on mappings we can't use with HMM.<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"><o:p>&nbsp;</o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">Signed-off-by: Kent Russell <a href="mailto:kent.russell@amd.com" moz-do-not-send="true">&lt;kent.russell@amd.com&gt;</a><o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">---<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"> drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 18 ++++++++++++++++++<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"> 1 file changed, 18 insertions(+)<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"><o:p>&nbsp;</o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">index e23b5a0f31f2..10b70b941b11 100644<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">@@ -1713,6 +1713,24 @@ static int svm_range_validate_and_map(struct mm_struct *mm,<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"> <o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next = min(vma-&gt;vm_end, end);<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; npages = (next - addr) &gt;&gt; PAGE_SHIFT;<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* HMM requires at least READ permissions. If provided with PROT_NONE,<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  * unmap the memory. If it's not already mapped, this is a no-op<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  * If PROT_WRITE is provided without READ, warn first then unmap<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  */<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(vma-&gt;vm_flags &amp; VM_READ)) {<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long e, s;<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vma-&gt;vm_flags &amp; VM_WRITE)<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warn(&quot;VM_WRITE without VM_READ is not supported&quot;);<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s = max(start, prange-&gt;start);<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e = min(end, prange-&gt;last);<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (e &gt;= s)<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  svm_range_unmap_from_gpus(prange, s, e,<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr = next;<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt">+<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_ONCE(p-&gt;svms.faulting_task, current);<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_hmm_range_get_pages(&amp;prange-&gt;notifier, addr, npages,<o:p></o:p></span></font></pre>
+              <pre><font size="2" face="Courier New"><span style="font-size:10.0pt"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;readonly, owner, NULL,<o:p></o:p></span></font></pre>
+            </blockquote>
+            <p><font size="3" face="Aptos"><span style="font-size:12.0pt">It seems the real problem is
+                  at amdgpu_hmm_range_get_pages. It always set
+                  HMM_PFN_REQ_FAULT to hmm_range-&gt;default_flags.
+                  HMM_PFN_REQ_FAULT means the page is faultable and a
+                  future call with HMM_PFN_REQ_FAULT could succeed. When
+                  vma-&gt;vm_flags is PROT_NONE the vma is not
+                  faultable, so hmm_range-&gt;default_flags should be
+                  not set to HMM_PFN_REQ_FAULT to avoid hmm_range_fault
+                  fault this vma.
+                  <o:p></o:p></span></font></p>
+            <p><font size="3" face="Aptos"><span style="font-size:12.0pt">Regards<o:p></o:p></span></font></p>
+            <p><font size="3" face="Aptos"><span style="font-size:12.0pt">Xiaogang<o:p></o:p></span></font></p>
+            <p><font size="3" face="Aptos"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></font></p>
+            <p><font size="3" face="Aptos"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></font></p>
+            <p><font size="3" face="Aptos"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></font></p>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+  </body>
+</html>
 
-diff --git a/tests/amdgpu/amd_cursor_overlay.c b/tests/amdgpu/amd_cursor_overlay.c
-new file mode 100644
-index 000000000..cf5ea83a0
---- /dev/null
-+++ b/tests/amdgpu/amd_cursor_overlay.c
-@@ -0,0 +1,484 @@
-+// SPDX-License-Identifier: MIT
-+// Copyright 2025 Advanced Micro Devices, Inc.
-+
-+#include "igt.h"
-+#include "igt_kms.h"
-+
-+/**
-+ * TEST: amd_cursor_overlay
-+ * Category: Display
-+ * Description: Tests cursor fall back from native to overlay
-+ * Driver requirement: amdgpu
-+ */
-+
-+/**
-+ * SUBTEST: rgb-to-yuv
-+ * Description: Tests native cursor fall back to overlay cursor when a top plane
-+ *				switches from RGB to YUV.
-+ * SUBTEST: non-full
-+ * Description: Tests native cursor fall back to overlay cursor when a top plane
-+ *				does not fill the crtc.
-+ * SUBTEST: scaling-%d
-+ * Description: Tests native cursor fall back to overlay cursor when a top plane
-+ *				is scaled.
-+ *
-+ * arg[1].values: 50, 75, 125, 150, 175, 200
-+ *
-+ * SUBTEST: max-planes
-+ * Description: Tests native cursor fall back to overlay cursor when a top plane
-+ *				is YUV and there are two overlay planes used.
-+ *
-+ * SUBTEST: no-available-planes
-+ * Description: Tests native cursor attempt to fall back to overlay cursor required,
-+ *				but fails atomic commit due to no available overlay planes.
-+ */
-+
-+enum {
-+	TEST_YUV = 1,
-+	TEST_QUARTER_FB = 1 << 1,
-+	TEST_SCALING = 1 << 2,
-+	TEST_MAX_PLANES = 1 << 3,
-+	TEST_NO_PLANES = 1 << 4,
-+};
-+
-+typedef struct {
-+	int x;
-+	int y;
-+} pos_t;
-+
-+/* Common test data. */
-+typedef struct data {
-+	igt_display_t display;
-+	igt_plane_t *primary;
-+	igt_plane_t *cursor;
-+	igt_plane_t *overlay1;
-+	igt_plane_t *overlay2;
-+	igt_plane_t *overlay3;
-+	igt_output_t *output;
-+	igt_pipe_t *pipe;
-+	igt_pipe_crc_t *pipe_crc;
-+	drmModeModeInfo *mode;
-+	igt_fb_t rgb_fb;
-+	igt_fb_t yuv_fb;
-+	igt_fb_t rgb_fb_o1;
-+	igt_fb_t rgb_fb_o2;
-+	igt_fb_t rgb_fb_o3;
-+	igt_fb_t quarter_fb;
-+	igt_fb_t scale_fb;
-+	igt_fb_t cfb;
-+	enum pipe pipe_id;
-+	int drm_fd;
-+	uint64_t max_curw;
-+	uint64_t max_curh;
-+} data_t;
-+
-+/* Retuns the number of available overlay planes */
-+static int get_overlay_planes_count(igt_display_t *display, enum pipe pipe)
-+{
-+	int count = 0;
-+	igt_plane_t *plane;
-+
-+	for_each_plane_on_pipe(display, pipe, plane)
-+		if (plane->type == DRM_PLANE_TYPE_OVERLAY)
-+			count++;
-+
-+	return count;
-+}
-+
-+/* Common test setup. */
-+static void test_init(data_t *data, enum pipe pipe_id, igt_output_t *output,
-+		      unsigned int flags)
-+{
-+	data->pipe_id = pipe_id;
-+	data->pipe = &data->display.pipes[data->pipe_id];
-+	data->output = output;
-+	data->mode = igt_output_get_mode(data->output);
-+	data->primary = igt_pipe_get_plane_type(data->pipe, DRM_PLANE_TYPE_PRIMARY);
-+	data->cursor = igt_pipe_get_plane_type(data->pipe, DRM_PLANE_TYPE_CURSOR);
-+
-+	if (flags & TEST_NO_PLANES || flags & TEST_MAX_PLANES) {
-+		data->overlay1 = igt_pipe_get_plane_type_index(data->pipe, DRM_PLANE_TYPE_OVERLAY, 0);
-+		data->overlay2 = igt_pipe_get_plane_type_index(data->pipe, DRM_PLANE_TYPE_OVERLAY, 1);
-+	}
-+	if (flags & TEST_NO_PLANES)
-+		data->overlay3 = igt_pipe_get_plane_type_index(data->pipe, DRM_PLANE_TYPE_OVERLAY, 2);
-+
-+	igt_info("Using (pipe %s + %s) to run the subtest.\n",
-+		 kmstest_pipe_name(data->pipe_id), igt_output_name(data->output));
-+
-+	igt_require_pipe_crc(data->drm_fd);
-+	data->pipe_crc = igt_pipe_crc_new(data->drm_fd, data->pipe_id,
-+					  IGT_PIPE_CRC_SOURCE_AUTO);
-+}
-+
-+/* Common test finish. */
-+static void test_fini(data_t *data)
-+{
-+	igt_pipe_crc_free(data->pipe_crc);
-+	igt_display_reset(&data->display);
-+	igt_plane_set_fb(data->primary, NULL);
-+	igt_plane_set_fb(data->cursor, NULL);
-+	if (data->overlay1)
-+		igt_plane_set_fb(data->overlay1, NULL);
-+	if (data->overlay2)
-+		igt_plane_set_fb(data->overlay2, NULL);
-+	if (data->overlay3)
-+                igt_plane_set_fb(data->overlay3, NULL);
-+	igt_display_commit2(&data->display, COMMIT_ATOMIC);
-+}
-+
-+/* Common test cleanup. */
-+static void test_cleanup(data_t *data)
-+{
-+	igt_remove_fb(data->drm_fd, &data->cfb);
-+	igt_remove_fb(data->drm_fd, &data->rgb_fb);
-+	igt_remove_fb(data->drm_fd, &data->yuv_fb);
-+	if (data->overlay1)
-+		igt_remove_fb(data->drm_fd, &data->rgb_fb_o1);
-+	if (data->overlay2)
-+		igt_remove_fb(data->drm_fd, &data->rgb_fb_o2);
-+	if (data->overlay3)
-+		igt_remove_fb(data->drm_fd, &data->rgb_fb_o3);
-+	igt_remove_fb(data->drm_fd, &data->quarter_fb);
-+	igt_remove_fb(data->drm_fd, &data->scale_fb);
-+}
-+
-+
-+static void test_cursor_pos(data_t *data, int x, int y, unsigned int flags, unsigned int scaling_factor)
-+{
-+	igt_crc_t ref_crc, test_crc;
-+	cairo_t *cr;
-+	igt_fb_t *rgb_fb = &data->rgb_fb;
-+	igt_fb_t *yuv_fb = &data->yuv_fb;
-+	igt_fb_t *quarter_fb = &data->quarter_fb;
-+	igt_fb_t *rgb_fb_o1 = &data->rgb_fb_o1;
-+	igt_fb_t *rgb_fb_o2 = &data->rgb_fb_o2;
-+	igt_fb_t *rgb_fb_o3 = &data->rgb_fb_o3;
-+	igt_fb_t *cfb = &data->cfb;
-+	int cw = cfb->width;
-+	int ch = cfb->height;
-+	int ret;
-+
-+
-+	cr = igt_get_cairo_ctx(rgb_fb->fd, rgb_fb);
-+
-+	igt_plane_set_fb(data->primary, rgb_fb);
-+	igt_display_commit2(&data->display, COMMIT_ATOMIC);
-+
-+	igt_paint_color(cr, 0, 0, rgb_fb->width, rgb_fb->height, 0.0, 0.0, 0.0);
-+
-+	/* Draw a magenta square where the cursor should be. */
-+	igt_paint_color(cr, x, y, cw, ch, 1.0, 0.0, 1.0);
-+	igt_put_cairo_ctx(cr);
-+
-+	if (flags & TEST_MAX_PLANES) {
-+		/* Display the overlay planes. */
-+		igt_plane_set_fb(data->overlay1, rgb_fb_o1);
-+		igt_plane_set_position(data->overlay1, 0, 0);
-+		igt_plane_set_fb(data->overlay2, rgb_fb_o2);
-+		igt_plane_set_position(data->overlay2, data->rgb_fb_o1.width, data->rgb_fb_o1.height);
-+		igt_display_commit_atomic(&data->display, 0, NULL);
-+
-+		/* Display the cursor. */
-+		igt_plane_set_fb(data->cursor, cfb);
-+		igt_plane_set_position(data->cursor, x, y);
-+		igt_display_commit_atomic(&data->display, 0, NULL);
-+
-+		/* Trigger cursor fall back due to a YUV plane;
-+		 * expect the atomic commit to fail due to no
-+		 * available overlay planes.
-+		 */
-+		igt_plane_set_fb(data->primary, &data->yuv_fb);
-+		ret = igt_display_try_commit_atomic(&data->display, DRM_MODE_ATOMIC_ALLOW_MODESET, 0);
-+
-+		/* Remove the overlay planes. */
-+		igt_plane_set_fb(data->overlay1, NULL);
-+		igt_plane_set_fb(data->overlay2, NULL);
-+		igt_plane_set_fb(data->cursor, NULL);
-+		igt_display_commit_atomic(&data->display, 0, NULL);
-+
-+		/* Expected atomic commit to fail due to no available overlay planes. */
-+		igt_assert_f(ret == 0, "Expected atomic commit to succeed.\n");
-+		return;
-+	}
-+	if (flags & TEST_NO_PLANES) {
-+
-+		/* Display the overlay planes. */
-+		igt_plane_set_fb(data->overlay1, rgb_fb_o1);
-+		igt_plane_set_position(data->overlay1, 0, 0);
-+		igt_plane_set_fb(data->overlay2, rgb_fb_o2);
-+		igt_plane_set_position(data->overlay2, data->rgb_fb_o1.width, data->rgb_fb_o1.height);
-+		igt_plane_set_fb(data->overlay3, rgb_fb_o3);
-+                igt_plane_set_position(data->overlay3, data->rgb_fb_o1.width, 0);
-+		igt_display_commit_atomic(&data->display, 0, NULL);
-+
-+		/* Display the cursor. */
-+		igt_plane_set_fb(data->cursor, cfb);
-+		igt_plane_set_position(data->cursor, x, y);
-+		igt_display_commit_atomic(&data->display, 0, NULL);
-+
-+		/* Trigger cursor fall back due to a YUV plane;
-+		 * expect the atomic commit to fail due to no
-+		 * available overlay planes.
-+		 */
-+		igt_plane_set_fb(data->primary, &data->yuv_fb);
-+		ret = igt_display_try_commit_atomic(&data->display, DRM_MODE_ATOMIC_ALLOW_MODESET, 0);
-+
-+		/* Remove the overlay planes. */
-+		igt_plane_set_fb(data->overlay1, NULL);
-+		igt_plane_set_fb(data->overlay2, NULL);
-+		igt_plane_set_fb(data->overlay3, NULL);
-+		igt_plane_set_fb(data->cursor, NULL);
-+		igt_display_commit_atomic(&data->display, 0, NULL);
-+
-+		/* Expected atomic commit to fail due to no available overlay planes. */
-+		igt_assert_f(ret == -EINVAL, "Expected atomic commit to fail due to no available overlay planes.\n");
-+		return;
-+	}
-+
-+	/* Display the cursor. */
-+	igt_plane_set_fb(data->cursor, cfb);
-+	igt_plane_set_position(data->cursor, x, y);
-+	igt_display_commit_atomic(&data->display, 0, NULL);
-+
-+	/** Record a reference CRC */
-+	igt_pipe_crc_start(data->pipe_crc);
-+	igt_pipe_crc_get_current(data->drm_fd, data->pipe_crc, &ref_crc);
-+
-+	/* Switch primary plane to use YUV Fb. */
-+	if (flags & TEST_YUV) {
-+		igt_plane_set_fb(data->primary, yuv_fb);
-+		igt_plane_set_position(data->primary, 0, 0);
-+		igt_plane_set_size(data->primary, yuv_fb->width, yuv_fb->height);
-+		igt_display_commit_atomic(&data->display, DRM_MODE_ATOMIC_ALLOW_MODESET, 0);
-+
-+	/* Switch primary plane to use a quarter-sized FB. */
-+	} else if (flags & TEST_QUARTER_FB) {
-+		igt_plane_set_fb(data->primary, quarter_fb);
-+		igt_plane_set_position(data->primary, 0, 0);
-+		igt_display_commit_atomic(&data->display, 0, NULL);
-+
-+	/* Switch primary plane to use a scaled FB. */
-+	} else if (flags & TEST_SCALING) {
-+		igt_create_fb(data->drm_fd,
-+			data->rgb_fb.width * scaling_factor / 100,
-+			data->rgb_fb.height * scaling_factor / 100,
-+			DRM_FORMAT_XRGB8888,
-+			DRM_FORMAT_MOD_LINEAR, &data->scale_fb);
-+
-+		igt_plane_set_fb(data->primary, &data->scale_fb);
-+		igt_plane_set_position(data->primary, 0, 0);
-+		igt_plane_set_size(data->primary, data->mode->hdisplay, data->mode->vdisplay);
-+
-+		igt_display_commit_atomic(&data->display, 0, NULL);
-+	}
-+
-+	/* Wait for one more vblank since cursor updates are not
-+	 * synchronized to the same frame on AMD hw.
-+	 */
-+	if (is_amdgpu_device(data->drm_fd))
-+		igt_wait_for_vblank_count(data->drm_fd, data->display.pipes[data->pipe_id].crtc_offset, 1);
-+
-+	/* Record the new CRC. */
-+	igt_pipe_crc_get_current(data->drm_fd, data->pipe_crc, &test_crc);
-+	igt_pipe_crc_stop(data->pipe_crc);
-+
-+	/** CRC Check is sufficient for this test */
-+	igt_assert_crc_equal(&ref_crc, &test_crc);
-+}
-+
-+/*
-+ * Tests the cursor on a variety of positions on the screen.
-+ * Specific edge cases that should be captured here are the negative edges
-+ * of each plane and the centers.
-+ */
-+static void test_cursor_spots(data_t *data, int size, unsigned int flags, unsigned int scaling_factor)
-+{
-+	int sw = data->mode->hdisplay;
-+	int sh = data->mode->vdisplay;
-+	int i;
-+		const pos_t pos[] = {
-+		/* Test diagonally from top left to bottom right. */
-+		{ -size / 3, -size / 3 },
-+		{ 0, 0 },
-+		{ sw / 4 - size, sh / 4 - size },
-+		{ sw / 4 - size / 3, sh / 4 - size / 3 },
-+		{ sw / 4, sh / 4 },
-+		{ sw / 4 + size, sh / 4 + size },
-+		{ sw / 2, sh / 2 },
-+		{ sw / 4 + sw / 2 - size, sh / 4 + sh / 2 - size },
-+		{ sw / 4 + sw / 2 - size / 3, sh / 4 + sh / 2 - size / 3 },
-+		{ sw / 4 + sw / 2 + size, sh / 4 + sh / 2 + size },
-+		{ sw - size, sh - size },
-+		{ sw - size / 3, sh - size / 3 },
-+		/* Test remaining corners. */
-+		{ sw - size, 0 },
-+		{ 0, sh - size },
-+		{ sw / 4 + sw / 2 - size, sh / 4 },
-+		{ sw / 4, sh / 4 + sh / 2 - size }
-+	};
-+
-+	for (i = 0; i < ARRAY_SIZE(pos); ++i)
-+		test_cursor_pos(data, pos[i].x, pos[i].y, flags, scaling_factor);
-+}
-+
-+static void test_cursor(data_t *data, int size, unsigned int flags, unsigned int scaling_factor)
-+{
-+	int sw, sh;
-+
-+	igt_skip_on(size > data->max_curw || size > data->max_curh);
-+
-+	sw = data->mode->hdisplay;
-+	sh = data->mode->vdisplay;
-+
-+	test_cleanup(data);
-+
-+	/* Create RGB FB for reference. */
-+	igt_create_color_fb(data->drm_fd, sw, sh, DRM_FORMAT_XRGB8888,
-+			    DRM_FORMAT_MOD_LINEAR, 0.0, 0.0, 0.0, &data->rgb_fb);
-+
-+	/* Create YUV FB for RGB-to-YUV, MAX_PLANES and NO_PLANES subtests */
-+	if (flags & TEST_YUV || flags & TEST_MAX_PLANES ||flags & TEST_NO_PLANES)
-+		igt_create_fb(data->drm_fd, sw, sh, DRM_FORMAT_NV12,
-+					DRM_FORMAT_MOD_NONE, &data->yuv_fb);
-+
-+	/* Create a quarter-sized empty FB. */
-+	if (flags & TEST_QUARTER_FB)
-+		igt_create_color_fb(data->drm_fd, sw / 2, sh / 2, DRM_FORMAT_XRGB8888,
-+					DRM_FORMAT_MOD_LINEAR, 0.0, 0.0, 0.0, &data->quarter_fb);
-+
-+	/* Create two RGB FBs for the overlay planes. */
-+	if (flags & TEST_MAX_PLANES || flags & TEST_NO_PLANES) {
-+		igt_create_color_fb(data->drm_fd, sw / 2, sh / 2, DRM_FORMAT_XRGB8888,
-+			DRM_FORMAT_MOD_NONE, 0.5, 0.0, 0.0, &data->rgb_fb_o1);
-+		igt_create_color_fb(data->drm_fd, sw / 2, sh / 2, DRM_FORMAT_XRGB8888,
-+			DRM_FORMAT_MOD_NONE, 0.0, 0.5, 0.0, &data->rgb_fb_o2);
-+	}
-+
-+	/* Create a third overlay plane for TEST_NO_PLANES test */
-+	if (flags & TEST_NO_PLANES) {
-+		igt_create_color_fb(data->drm_fd, sw / 2, sh / 2, DRM_FORMAT_XRGB8888,
-+			DRM_FORMAT_MOD_NONE, 0.0, 0.0, 0.5, &data->rgb_fb_o3);
-+	}
-+
-+	/* Create a FB for scaling. */
-+	if (flags & TEST_SCALING)
-+		igt_create_color_fb(data->drm_fd, sw, sh, DRM_FORMAT_XRGB8888,
-+					DRM_FORMAT_MOD_LINEAR, 0.0, 0.0, 0.0, &data->scale_fb);
-+
-+	/* Create a cursor FB. */
-+	igt_create_color_fb(data->drm_fd, size, size, DRM_FORMAT_ARGB8888,
-+				DRM_FORMAT_MOD_LINEAR, 1.0, 0.0, 1.0, &data->cfb);
-+
-+	igt_output_set_pipe(data->output, data->pipe_id);
-+
-+	/* Run the test for different cursor spots. */
-+	test_cursor_spots(data, size, flags, scaling_factor);
-+
-+}
-+
-+igt_main
-+{
-+	static const int cursor_sizes[] = { 64, 128, 256 };
-+	data_t data = { .max_curw = 64, .max_curh = 64 };
-+	enum pipe pipe;
-+	igt_output_t *output;
-+	igt_display_t *display;
-+	int i, j;
-+	struct {
-+		const char *name;
-+		unsigned int flags;
-+		unsigned int scale_factor;
-+		const char *desc;
-+	} tests[] = {
-+		{ "rgb-to-yuv", TEST_YUV, 100,
-+		"Tests native cursor fall back to overlay cursor when a top plane switches from RGB to YUV" },
-+		{"non-full", TEST_QUARTER_FB, 100,
-+		"Tests native cursor fall back to overlay cursor when a top plane does not fill the crtc"},
-+		{"max-planes", TEST_MAX_PLANES, 100,
-+		"Tests native cursor fall back to overlay cursor when a top plane is YUV and there are two overlay planes used."},
-+		{"no-available-planes", TEST_NO_PLANES, 100,
-+		"Tests native cursor attempt to fall back to overlay cursor required, but fails atomic commit due to no available overlay planes."},
-+		{"scaling-50", TEST_SCALING, 50,
-+		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-+		{"scaling-75", TEST_SCALING, 75,
-+		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-+		{"scaling-125", TEST_SCALING, 125,
-+		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-+		{"scaling-150", TEST_SCALING, 150,
-+		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-+		{"scaling-175", TEST_SCALING, 175,
-+		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-+		{"scaling-200", TEST_SCALING, 200,
-+		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-+	};
-+
-+	igt_fixture {
-+		int ret;
-+
-+		data.drm_fd = drm_open_driver_master(DRIVER_AMDGPU);
-+
-+		igt_display_require(&data.display, data.drm_fd);
-+		igt_require(data.display.is_atomic);
-+		igt_display_require_output(&data.display);
-+		display = &data.display;
-+
-+		ret = drmGetCap(data.drm_fd, DRM_CAP_CURSOR_WIDTH, &data.max_curw);
-+		igt_assert(ret == 0 || errno == EINVAL);
-+		ret = drmGetCap(data.drm_fd, DRM_CAP_CURSOR_HEIGHT, &data.max_curh);
-+		igt_assert(ret == 0 || errno == EINVAL);
-+
-+		kmstest_set_vt_graphics_mode();
-+	}
-+
-+
-+	for (i = 0; i < ARRAY_SIZE(tests); i++) {
-+		igt_describe_f("%s", tests[i].desc);
-+		igt_subtest_with_dynamic_f("%s", tests[i].name) {
-+
-+			/* Skip YUV and NO_PLANES subtests if YUV is not supported*/
-+			if (tests[i].flags & TEST_YUV || tests[i].flags & TEST_NO_PLANES)
-+				igt_require(igt_display_has_format_mod(display,
-+							DRM_FORMAT_NV12,
-+							DRM_FORMAT_MOD_LINEAR));
-+
-+			for_each_pipe_with_single_output(&data.display, pipe, output) {
-+
-+				igt_display_reset(display);
-+
-+				igt_output_set_pipe(output, pipe);
-+				if (!intel_pipe_output_combo_valid(display))
-+					continue;
-+
-+				/* Skip TEST_NO_PLANES if the ASIC has less than 3 overlay planes*/
-+				if (tests[i].flags & TEST_NO_PLANES)
-+					igt_require(get_overlay_planes_count(&data.display, pipe) >= 3);
-+
-+				/* Skip TEST_MAX_PLANES if the ASIC has less than 2 overlay planes*/
-+				if (tests[i].flags & TEST_MAX_PLANES)
-+					igt_require(get_overlay_planes_count(&data.display, pipe) >= 2);
-+
-+				test_init(&data, pipe, output, tests[i].flags);
-+
-+				for (j = 0; j < ARRAY_SIZE(cursor_sizes); j++) {
-+					int size = cursor_sizes[j];
-+
-+					igt_dynamic_f("pipe-%s-%s-size-%d",
-+						      kmstest_pipe_name(pipe),
-+						      igt_output_name(output),
-+						      size)
-+						test_cursor(&data, size, tests[i].flags, tests[i].scale_factor);
-+
-+					test_cleanup(&data);
-+				}
-+
-+				test_fini(&data);
-+			}
-+		}
-+	}
-+
-+	igt_fixture {
-+		igt_display_fini(&data.display);
-+		drm_close_driver(data.drm_fd);
-+	}
-+}
-diff --git a/tests/amdgpu/meson.build b/tests/amdgpu/meson.build
-index 421e686d3..b9f1842e2 100644
---- a/tests/amdgpu/meson.build
-+++ b/tests/amdgpu/meson.build
-@@ -10,6 +10,7 @@ if libdrm_amdgpu.found()
- 			  'amd_color',
- 			  'amd_cp_dma_misc',
- 			  'amd_cs_nop',
-+			  'amd_cursor_overlay',
- 			  'amd_deadlock',
- 			  'amd_dp_dsc',
- 			  'amd_freesync_video_mode',
--- 
-2.43.0
-
+--------------WPuQlExohKwRqXIwuHNBfCcf--
