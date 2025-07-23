@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE45C83F17
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jul 2025 15:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F3CFC83F34
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jul 2025 15:58:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7B7E10E7F1;
-	Wed, 23 Jul 2025 15:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F290410E806;
+	Wed, 23 Jul 2025 15:58:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hFMiAyKC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c9znJODP";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D5D10E806
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 15:58:28 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-45629702e52so32430825e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 08:58:28 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E5BA10E7FF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 15:58:30 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4561a4a8bf2so77453115e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 08:58:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753286307; x=1753891107; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1753286308; x=1753891108; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SYtFo7gaxKF9/CTK4az4/RM75UBugJj5vvo9hBR2vlQ=;
- b=hFMiAyKCS+WkGq7gEqz94o//sP+jvP6lxOkpjbkAHqguVjM99EKAiwIy1zbh3nwR/R
- Q65mZk02ucANzXrrDTSG8KS/HYoZVGc3nasZOD1pfJeqfv1PzqcR9WhgeomsrZoWkew3
- ZYSUk0HehDEtZNNHq1WiDdkM6wahEu+p5s3OMXpr64IeecGZmznfw8ZY6sgf6JQh/rd3
- HRe39Doew0h5S+Y7BNUWgZWZuUSh2k+vdQmdXwSkwWqsoA0a5a9SBN3eZcegFbUgHMWR
- h5nlA2FRDLxEYLsRmR1nq9l6Az3IZyR5pOOCam6D4UhIZ3hrAxOfBP3RfJyiUoIC/bty
- G5vw==
+ bh=pv1NFD8WlWHwqAVD6KpdIX45eCtayX3XmouwcEYGrGU=;
+ b=c9znJODPsd9JfT0pNl4+5K8cQ9iUYCuyrswyQDG67PKyBmfmFIeWGQsakwf9haa5Lp
+ w00R13TYXctBbL4esrXYbKlDtHBkCGS/JzlPDb5w1UyBQY9o0w7Hl3W5i9t3aSPU6OeP
+ UPflAdbelcCFeUf4hIUbDZBDyQssn0hu1Ac0fnyBB4v2vOBSGTwCkyDETe25vXiwHEKQ
+ YuJO71fqV/Qs5k223QVQFtDfMsatRGwhR9KTp9wZaIo1u5jkBG5TW+GgjLKk+YZwaebG
+ 9Y2MMomKx917SunrUDSuv3TjWI/iY3yWFjzXhNnTadNRpeAaZF5YItTZ9LdLfZtA5HGJ
+ 1tDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753286307; x=1753891107;
+ d=1e100.net; s=20230601; t=1753286308; x=1753891108;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SYtFo7gaxKF9/CTK4az4/RM75UBugJj5vvo9hBR2vlQ=;
- b=TLtnekiyNGlb2T/k/N1c5zjXiotX2sUlvMaJlJZAVRjFFsXvETuVsBCMBp5Nb2f4kf
- XPS/96eyIwdDSKZk9BXSGUUZyv3NaOoorXgxMYfiwSuiqu9YuPHb1fK4HSLtWL5Dn9RP
- s2GZs10yNOEvVi2m7cBr0Ua+dgq9od5BPdC08pZ05o0obvvdoL/viANrP/HRTPBIgM5i
- lnXR50g2P7I6TFpoWzz5Wmg1P+X8yUlY7E019GsVsyFpZqptfG5cHDpAc+pE8IM2jXKV
- ToSKnTMIHAy4X10Jbruu+MKDHpWCX1Uf4d0qSd7yeHDJNVduecjV4gQnL6InKesei+ln
- iSTw==
-X-Gm-Message-State: AOJu0YwNAChzPwQRLsle/9lC+XOu8rfC63bq8WnOpVUnfk1+UhsevLBQ
- GzKIAJCVASC8kDg/5w038S0IRjXBWTXCLGBfMXpwvpmKd/aJ9T0dJCpfnzqHCw==
-X-Gm-Gg: ASbGncsb7aH1+HT4bqFQO78NF4sM5CyUo9um+i9ZnT5CuT5HzDcNZo2qZG3bT5+cKK5
- D44AdmqKAibUy5rDVJtF12CpB68AzakQenlSaGWpBjLwxOiNeg/Y23bjpYOLlIOPsFKfZuhCk9D
- CpLq2btHAJ1XNDgbleszQvn1QGrvTUujV4Z8JH+IM39WJhbUMD7hnNkW+kkKx7Z7GQz2t6eth1F
- wAwPnPJYbyeFuQnRoPBQG8E0AXn1aR/yOh7BsITsqad/8JAfWxf5Q8iSym9VYGx4BKxOnl245rW
- +cKsUq9oMUnQ8gvm6Svjat6WmQAC7ghSd4PvmUgcUOAIJzfdAXCmrR7/NggRP+1GkG23w5HIhHt
- OKUie9ZxQAmkGK8xDGTpi9I3VEBcie9VeKilpNXo1yDGgs36YLMsQkPp/LZaw4REmRMUd8bXQ2c
- UNDY/n/aU4KWuhO2PDah+WW+vT3A==
-X-Google-Smtp-Source: AGHT+IGki7a6WPs8zHSdCKhvG1KDp/LQSw6jQutft4YnnpqynnuCbcNROBme2WOAXzyt2hQ3tdsaXA==
-X-Received: by 2002:a05:6000:290a:b0:3b5:e077:af24 with SMTP id
- ffacd0b85a97d-3b768caffa7mr3170474f8f.14.1753286306703; 
- Wed, 23 Jul 2025 08:58:26 -0700 (PDT)
+ bh=pv1NFD8WlWHwqAVD6KpdIX45eCtayX3XmouwcEYGrGU=;
+ b=Jj3PjDgtdRmdqOcwU6sXDEtgHqFeHggYX+eNAN6aQmtjuP3b7hywAPCcbnwRZhsS9u
+ 5TpulmRTqGuObtR2Eh5H8vDE6jP1pdepTn+5diLS6GlrRczRhD1mgQjwGIRIyAFu0cD/
+ utpo/utGTjkY5HBT9feyOYuQXCB+W73lWSILxx92ZKOIMFEfCXt7+J1zrhHefSgZlzTm
+ DKFl9k4Ozrf7tyh8uvxzTmZgCCB5+wGjFkn7SudrpueyRIMHOdZbsa3GQSwL5fxh7DEC
+ OkOhee0zfpE3tes6CPSlbahK2pDz/Ejv6735NN3Z2TTRbAM/BXtLmeOWn2Xr9UXl6jGP
+ 30XQ==
+X-Gm-Message-State: AOJu0YwWL2HPEc06miGazlQK+YKqy0BhamDdcrj4r9jHp9yy+su2fpDf
+ PJs1hMsIj317nF0+M3yrEMvzhNZQHe1it9MWVL+FB5AGRj0keIjj8rslGCOgYQ==
+X-Gm-Gg: ASbGnctfb2XfCcD8+/WC9/QVoZuTBwcqXVnJumjso/mRKHbMIP8kkKhh9G5qbW42Ze+
+ FGAGIvhB768K4G2vmZozLAPdQzHIO8zKEuMIBFdmO82OALemUlspy7TwcDgRyxttfG6Yf0aXax+
+ WLAm2ColLh8eQOyvAILmSpZ4w0bdc9R8vo3m4wslr43B5XrCwX/VCtiIGetDTu6gWivKehSiBQR
+ N4EKlZCDXY0pLswBXnAsrIlgQRWnI/ihnBPqidhQnx/DYXYE3T02ItRWMmJnqYG60CkiBuFYWxI
+ Cnvx8/xw8q0UcdgozSVFV31R9aITV1/B9LbzrQy4fcCBok8vNQR54K+iZVL4C9F6Cr8MIpGn8HX
+ +cDjpSwcuDKKQ5iPTWks0SSzFuAgdLcJLw3jXCAfUcoQUZZqn+v0YSjgVRLnWQRsf+aBUWYZhTA
+ TTcL19OxuGXVIZ0uKk3+tppcoI/Q==
+X-Google-Smtp-Source: AGHT+IFOkVZsw2XDZCVBJe8j79aBf07fbBv5AgwrkXu34JXVLC3s5gC31GEUGvx7TKeg9BBZVESXQA==
+X-Received: by 2002:a05:600c:6209:b0:456:1dd2:4e3a with SMTP id
+ 5b1f17b1804b1-45868c75be7mr37683725e9.3.1753286308187; 
+ Wed, 23 Jul 2025 08:58:28 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4D24D8FC008443E005DD6C3C62.dsl.pool.telekom.hu.
  [2001:4c4d:24d8:fc00:8443:e005:dd6c:3c62])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca2bf99sm16710468f8f.32.2025.07.23.08.58.26
+ ffacd0b85a97d-3b61ca2bf99sm16710468f8f.32.2025.07.23.08.58.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jul 2025 08:58:26 -0700 (PDT)
+ Wed, 23 Jul 2025 08:58:27 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 08/20] drm/amd/display: Don't try to enable/disable HPD when
- unavailable
-Date: Wed, 23 Jul 2025 17:58:01 +0200
-Message-ID: <20250723155813.9101-9-timur.kristof@gmail.com>
+Subject: [PATCH 10/20] drm/amd/display: Implement DCE analog stream encoders
+Date: Wed, 23 Jul 2025 17:58:03 +0200
+Message-ID: <20250723155813.9101-11-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250723155813.9101-1-timur.kristof@gmail.com>
 References: <20250723155813.9101-1-timur.kristof@gmail.com>
@@ -90,44 +89,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGA connectors don't have HPD (hotplug detection), so don't
-touch any HPD related registers for VGA.
+Add stream encoders for DCE6-10 only, because there are definitely
+graphics cards with analog connectors out there with these DCE
+versions. I am not aware of newer ones.
+
+Considering that all stream encoder functions currently have to do
+with digital streams, there is nothing for an analog stream
+encoder to do, making them basically a no-op.
+That being said, we still need some kind of stream encoder to
+represent an analog stream, and it is beneficial to split them from
+digital stream encoders in the code to make sure they don't
+accidentally write any DIG* registers.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ .../drm/amd/display/dc/dce/dce_stream_encoder.c    | 14 ++++++++++++++
+ .../drm/amd/display/dc/dce/dce_stream_encoder.h    |  5 +++++
+ .../display/dc/resource/dce100/dce100_resource.c   |  6 ++++++
+ .../amd/display/dc/resource/dce60/dce60_resource.c |  8 ++++++++
+ .../amd/display/dc/resource/dce80/dce80_resource.c |  8 ++++++++
+ 5 files changed, 41 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index c7d13e743e6c..1bb8a9bc673b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -758,6 +758,7 @@ static ssize_t dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
- 	int max_param_num = 11;
- 	enum dp_test_pattern test_pattern = DP_TEST_PATTERN_UNSUPPORTED;
- 	bool disable_hpd = false;
-+	bool supports_hpd = link->irq_source_hpd != DC_IRQ_SOURCE_INVALID;
- 	bool valid_test_pattern = false;
- 	uint8_t param_nums = 0;
- 	/* init with default 80bit custom pattern */
-@@ -849,7 +850,7 @@ static ssize_t dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
- 	 * because it might have been disabled after a test pattern was set.
- 	 * AUX depends on HPD * sequence dependent, do not move!
- 	 */
--	if (!disable_hpd)
-+	if (supports_hpd && !disable_hpd)
- 		dc_link_enable_hpd(link);
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+index 1130d7619b26..f8996ee2856b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+@@ -1567,3 +1567,17 @@ void dce110_stream_encoder_construct(
+ 	enc110->se_shift = se_shift;
+ 	enc110->se_mask = se_mask;
+ }
++
++static const struct stream_encoder_funcs dce110_an_str_enc_funcs = {0};
++
++void dce110_analog_stream_encoder_construct(
++	struct dce110_stream_encoder *enc110,
++	struct dc_context *ctx,
++	struct dc_bios *bp,
++	enum engine_id eng_id)
++{
++	enc110->base.funcs = &dce110_an_str_enc_funcs;
++	enc110->base.ctx = ctx;
++	enc110->base.id = eng_id;
++	enc110->base.bp = bp;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
+index cc5020a8e1e1..068de1392121 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
+@@ -708,6 +708,11 @@ void dce110_stream_encoder_construct(
+ 	const struct dce_stream_encoder_shift *se_shift,
+ 	const struct dce_stream_encoder_mask *se_mask);
  
- 	prefer_link_settings.lane_count = link->verified_link_cap.lane_count;
-@@ -887,7 +888,7 @@ static ssize_t dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
- 	 * Need disable interrupt to avoid SW driver disable DP output. This is
- 	 * done after the test pattern is set.
- 	 */
--	if (valid_test_pattern && disable_hpd)
-+	if (valid_test_pattern && supports_hpd && disable_hpd)
- 		dc_link_disable_hpd(link);
++void dce110_analog_stream_encoder_construct(
++	struct dce110_stream_encoder *enc110,
++	struct dc_context *ctx,
++	struct dc_bios *bp,
++	enum engine_id eng_id);
  
- 	kfree(wr_buf);
+ void dce110_se_audio_mute_control(
+ 	struct stream_encoder *enc, bool mute);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+index 72efb13c9027..9e70e920eb69 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+@@ -374,6 +374,7 @@ static const struct bios_registers bios_regs = {
+ static const struct resource_caps res_cap = {
+ 	.num_timing_generator = 6,
+ 	.num_audio = 6,
++	.num_analog_stream_encoder = 1,
+ 	.num_stream_encoder = 6,
+ 	.num_pll = 3,
+ 	.num_ddc = 6,
+@@ -483,6 +484,11 @@ static struct stream_encoder *dce100_stream_encoder_create(
+ 	if (!enc110)
+ 		return NULL;
+ 
++	if (eng_id == ENGINE_ID_DACA || eng_id == ENGINE_ID_DACB) {
++		dce110_analog_stream_encoder_construct(enc110, ctx, ctx->dc_bios, eng_id);
++		return &enc110->base;
++	}
++
+ 	dce110_stream_encoder_construct(enc110, ctx, ctx->dc_bios, eng_id,
+ 					&stream_enc_regs[eng_id], &se_shift, &se_mask);
+ 	return &enc110->base;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+index 58b59d52dc9d..29ccfbddb492 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+@@ -372,6 +372,7 @@ static const struct bios_registers bios_regs = {
+ static const struct resource_caps res_cap = {
+ 		.num_timing_generator = 6,
+ 		.num_audio = 6,
++		.num_analog_stream_encoder = 1,
+ 		.num_stream_encoder = 6,
+ 		.num_pll = 2,
+ 		.num_ddc = 6,
+@@ -381,6 +382,7 @@ static const struct resource_caps res_cap_61 = {
+ 		.num_timing_generator = 4,
+ 		.num_audio = 6,
+ 		.num_stream_encoder = 6,
++		.num_analog_stream_encoder = 1,
+ 		.num_pll = 3,
+ 		.num_ddc = 6,
+ };
+@@ -388,6 +390,7 @@ static const struct resource_caps res_cap_61 = {
+ static const struct resource_caps res_cap_64 = {
+ 		.num_timing_generator = 2,
+ 		.num_audio = 2,
++		.num_analog_stream_encoder = 1,
+ 		.num_stream_encoder = 2,
+ 		.num_pll = 2,
+ 		.num_ddc = 2,
+@@ -598,6 +601,11 @@ static struct stream_encoder *dce60_stream_encoder_create(
+ 	if (!enc110)
+ 		return NULL;
+ 
++	if (eng_id == ENGINE_ID_DACA || eng_id == ENGINE_ID_DACB) {
++		dce110_analog_stream_encoder_construct(enc110, ctx, ctx->dc_bios, eng_id);
++		return &enc110->base;
++	}
++
+ 	dce110_stream_encoder_construct(enc110, ctx, ctx->dc_bios, eng_id,
+ 					&stream_enc_regs[eng_id],
+ 					&se_shift, &se_mask);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
+index 3e8b0ac11d90..f90e51696bda 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
+@@ -374,6 +374,7 @@ static const struct bios_registers bios_regs = {
+ static const struct resource_caps res_cap = {
+ 		.num_timing_generator = 6,
+ 		.num_audio = 6,
++		.num_analog_stream_encoder = 1,
+ 		.num_stream_encoder = 6,
+ 		.num_pll = 3,
+ 		.num_ddc = 6,
+@@ -382,6 +383,7 @@ static const struct resource_caps res_cap = {
+ static const struct resource_caps res_cap_81 = {
+ 		.num_timing_generator = 4,
+ 		.num_audio = 7,
++		.num_analog_stream_encoder = 1,
+ 		.num_stream_encoder = 7,
+ 		.num_pll = 3,
+ 		.num_ddc = 6,
+@@ -390,6 +392,7 @@ static const struct resource_caps res_cap_81 = {
+ static const struct resource_caps res_cap_83 = {
+ 		.num_timing_generator = 2,
+ 		.num_audio = 6,
++		.num_analog_stream_encoder = 1,
+ 		.num_stream_encoder = 6,
+ 		.num_pll = 2,
+ 		.num_ddc = 2,
+@@ -604,6 +607,11 @@ static struct stream_encoder *dce80_stream_encoder_create(
+ 	if (!enc110)
+ 		return NULL;
+ 
++	if (eng_id == ENGINE_ID_DACA || eng_id == ENGINE_ID_DACB) {
++		dce110_analog_stream_encoder_construct(enc110, ctx, ctx->dc_bios, eng_id);
++		return &enc110->base;
++	}
++
+ 	dce110_stream_encoder_construct(enc110, ctx, ctx->dc_bios, eng_id,
+ 					&stream_enc_regs[eng_id],
+ 					&se_shift, &se_mask);
 -- 
 2.50.1
 
