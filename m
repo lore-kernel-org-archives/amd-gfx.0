@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 209D9C87FCA
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jul 2025 15:58:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C959C83F34
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jul 2025 15:58:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D63DB10E809;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9FB89196;
 	Wed, 23 Jul 2025 15:58:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X4wx8iOQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gRQKK0F6";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC66110E17F
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 15:58:32 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-454f428038eso59711205e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 08:58:32 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CE4910E80B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 15:58:29 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-3a528243636so4168148f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 08:58:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753286311; x=1753891111; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1753286308; x=1753891108; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XEZJ0p+vd9HUeRl8dUJLFnSj5uJ/WaEBGxPMS8dMhac=;
- b=X4wx8iOQVMQgCamXnVgI4JXes+8lii80RUO3CrzGkz8EytuPC9/K+U/e67d1JLNlzc
- SUGMSbAUCQQkQscztCqCJsrKphwsdYFsL/dBMH6+yTJGc2QYoUl4FaLCtHH/aFXrQI4p
- RNoU6HvigtlgJJcuDqBE+5QTJsX3AzjbskW7b3eYb25J+vvU04kNRljetBw5KpCO1/84
- pUvxqChfuzG6XFimIt4xJmODA4RjNVCk8m1MU/WGUk7tIMmAzc5qRzuAb/6Hd7mdiWWD
- Bz8KbEjbfeSOUVPnKFklUAW0Z6w0vaUkJjl5E0pJyHriZ7JcqAU8JTBaCFCsrz2/EJwm
- KZqg==
+ bh=WaOjeO/VWAyELTACsW5k0RSkF1IRXRbWIG8hHbwMSBg=;
+ b=gRQKK0F6oNPP+uTWSBUofml2tLrUc4BoRzLRsHc/SalSVxy9M3L2JcJhXGzFSVQQoq
+ Khkv/mkG552kfJVmat+JqU6GRIhoqnQQPB46zDaXf3qMBGGaI4a5WMuixWIE4j9/3/e6
+ 6t3Av65NaWG3ctV/+TPBeW+WxksAgZw5joUxRXHoP3MSORyoCPFnQU9GpaJkbo0DeaOl
+ 2GCgWIrPLGPseb0l7SqbBtrnNaDqRPmMqQLTYXD4PB4gGVHV/rgcZZZwnJnvb9oX/s2y
+ WecI30J2wHg+EFqhBIKCsZ9S3OrMFTEbO/sLrW/cpxyzjCpK/l24VeQLmGCDDLAoXxR+
+ GMdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753286311; x=1753891111;
+ d=1e100.net; s=20230601; t=1753286308; x=1753891108;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=XEZJ0p+vd9HUeRl8dUJLFnSj5uJ/WaEBGxPMS8dMhac=;
- b=LQ46BULi7EOO01n57va9EsUNogb6Ob3qrBAXoNkBp7rkYbiUo6d3BlYzbUobQApeHq
- yeBaG8M6Sz2e1Og/h68nXQaR2S/StD8HYneW+QTCdQnFsgZC/WiaJMgntIXSnZymAVhq
- R+df1W+4c4k8Gc66qF8/0bErxvJ2lGHwYQXUJCymOhg4g60hmIVBqPptfWUu9hRDIQwH
- wc3uL38wpL9xdGhER9GPreS9m0WcvMO151GVdVQbTiZwLbrHdaoXlrtT8VgCLZiy5kof
- l+tiN91mhP7Ix4bPlfNfCq44G4SJIHZZG1s5Ix5Y3zkwIHtYDg85gcqYhkDcYG0fdt7Y
- IYng==
-X-Gm-Message-State: AOJu0Yxk1DW3EIJQkZ0ylWhp01mB0hXKlBjM58CyzuidEiP1NpPVweQj
- KAVpjDYwyw38djwP7kQcJCk/jvZcdggCnA5dr+YFknvzr9dkaK2FLc5EBVkR1g==
-X-Gm-Gg: ASbGnctIyB44fNFXOCW03jeap/STL38im0A/+NYfCIs/7iiy8TSmYSDEt32wbuy8JQC
- IMArDpIgGfi64Yo2a1gF9Jf6lR4Oas4KVh8jOsZDjKKYYKVVbOWI/FIvRVxCpYAHXfa64S1L1Tr
- 0w+o4CS3Pr746GH9QTWsMb48ggDXctuwop1gvhgt/y1d42UkwTbVSLJh708Qyz6jjXXg5bDScTp
- D2uIdahTiEMr9ifIKAZ0isyq4t4T6sxo/NPv/EQYtXLeYapBRUShbUn+FGSxm/ZNFtB7on0OL3u
- 0Xw5gQT3o7ccUsPa5MnPSUfo3VNs/qY9chfupdc87+E44ZkAd8FI8qJLS+8TPRbjYz0nBLT5fg9
- BqOflmOAJAMdcfxlgwy8fCm1UdlOKZv0J/4TD8q7ZoTTZZbxbtDiViRF7CorE7W/7ylE/+4UFO1
- OKs8v0n53n4TnEqcKJK/9oUnNqYA==
-X-Google-Smtp-Source: AGHT+IHGoyPgfgaPwAPR2HsZnrbkCX8CSDruZ26c/KBbPnU+IkUtT6gvTuqZkgD4reJ40KfsO9SL1A==
-X-Received: by 2002:a05:600c:46c8:b0:44a:b478:1387 with SMTP id
- 5b1f17b1804b1-45868cfba61mr36249055e9.17.1753286311136; 
- Wed, 23 Jul 2025 08:58:31 -0700 (PDT)
+ bh=WaOjeO/VWAyELTACsW5k0RSkF1IRXRbWIG8hHbwMSBg=;
+ b=EDQKiNnQBzagXypXXJos4tqzLB7oz5KQztn52yDev8I8rmJoIygbdiz/spUXoh/zj7
+ vwoI2QGUC7LumkcWTWxf823njbmUeqJ2ugER3JLVdoFYvhjarkXth55RCKeVYjeYtyGu
+ RXsITSx+GThWVVWKvGi1jG6+A2n1jVte3ZTHH2lFFB0wKYEzbWOAdX6sPecgy2uw6/Nr
+ 2/kwSfb0/jCCzIzmmx9UUqKP5TIvQH8a5TFDZbHN1LSsKoH76HEcU2xjOj3Be9Y4ev3R
+ b2dZ0vTZuIE5NyLXqMGoWSWClpjEtuTel+ZdXWEJmKFxAr3Iaxez8gLYVdlWido4YAp6
+ EWHw==
+X-Gm-Message-State: AOJu0YyeTyt3j2R2J+gLEEsNWUUbE5qSPm2zk7rHEWUMM794VKccGZv0
+ rYL1g3lG29Im0kqaudLg+/ebjighHe7kGFTAN8dn0zEnCYFXS1B+UDfe6/RgtA==
+X-Gm-Gg: ASbGnctCSblQSoOpfUl1wCvENcXq775eDsWVOuc/EaspMLuGvNzoQZ79L2Zo+LgLwn4
+ uqCE4VPBpoKEAFfV+QEOVj6qljeCBy7Y9y4mrDcJ4YzgfOjCb7MyptYAt3vYg4guogDWabESO6a
+ vwJ4Xx9JjpIcQxc8RhisPnzgq08+njg/1QoeLfFuNZa10OGgu4UNtdajYD8hZcqKKzyKlVnDHcK
+ cG0Tx9LHQ8+MjxtLpKw+kh76StBCxUdK/wMFIvDjhk4Yh9CdSpWspc5C93BZ0OjKz8cNxAockX/
+ N56JpWmpH3s6vwh9HxElRED/mUtuOFPedDpx9rdsr/8GpQQTxZh8R+FUlMnWsRLjNT/7vmvZp4F
+ l6kDRK60B2tnVks2xos4MKzoB7wSqWNuqqWgcUD+t/hw1lGGonWyT0F+DDQlID9Hav1EJ9HAZlb
+ CWQBw76BfEv+ZefyGSTXBHUJQcjA==
+X-Google-Smtp-Source: AGHT+IHWFKGfV76eDSnrF9TKUMY57fRVvKikjFfNLEMfFX8fY8Xeh3r78B8mJ57GhGEw9z/XYoy4Zg==
+X-Received: by 2002:a05:6000:4285:b0:3a8:38b3:1aa1 with SMTP id
+ ffacd0b85a97d-3b768f1ab44mr3019505f8f.27.1753286307455; 
+ Wed, 23 Jul 2025 08:58:27 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4D24D8FC008443E005DD6C3C62.dsl.pool.telekom.hu.
  [2001:4c4d:24d8:fc00:8443:e005:dd6c:3c62])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca2bf99sm16710468f8f.32.2025.07.23.08.58.30
+ ffacd0b85a97d-3b61ca2bf99sm16710468f8f.32.2025.07.23.08.58.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jul 2025 08:58:30 -0700 (PDT)
+ Wed, 23 Jul 2025 08:58:27 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 14/20] drm/amd/display: Poll analog connectors
-Date: Wed, 23 Jul 2025 17:58:07 +0200
-Message-ID: <20250723155813.9101-15-timur.kristof@gmail.com>
+Subject: [PATCH 09/20] drm/amd/display: Add concept of analog encoders
+Date: Wed, 23 Jul 2025 17:58:02 +0200
+Message-ID: <20250723155813.9101-10-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250723155813.9101-1-timur.kristof@gmail.com>
 References: <20250723155813.9101-1-timur.kristof@gmail.com>
@@ -89,158 +89,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGA connectors don't support any hotplug detection, so the kernel
-needs to periodically poll them to see if a display is connected.
+Add a num_analog_stream_encoders field to indicate how many
+analog stream encoders are present. When analog stream encoders
+are present, create them.
 
-DVI-I connectors have hotplug detection for digital signals, and
-some analog DVI cables pull up that pin to work with that.
-However, in general not all DVI cables do this so we can't rely on
-this feature, therefore we need to poll DVI-I connectors as well.
+Additionally, add an analog_engine field to link encoders and
+search for supported analog encoders in the BIOS for each link.
+When connecting an RGB signal, search for analog stream encoders.
+
+The actual DCE analog stream encoder support is going to be
+added in a subsequent commit.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 60 ++++++++++++++++++-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |  8 +++
- 2 files changed, 66 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  8 ++++++
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |  2 ++
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |  1 +
+ .../drm/amd/display/dc/link/link_factory.c    | 28 +++++++++++++++++++
+ .../dc/resource/dce100/dce100_resource.c      |  7 +++--
+ 5 files changed, 44 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c347b232ae06..13823469fa7c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3736,7 +3736,9 @@ void amdgpu_dm_update_connector_after_detect(
- 	drm_dbg_kms(dev, "DCHPD: connector_id=%d: Old sink=%p New sink=%p\n",
- 		    aconnector->connector_id, aconnector->dc_sink, sink);
- 
--	guard(mutex)(&dev->mode_config.mutex);
-+	/* When polling, DRM has already locked the mutex for us. */
-+	if (!drm_kms_helper_is_poll_worker())
-+		mutex_lock(&dev->mode_config.mutex);
- 
- 	/*
- 	 * 1. Update status of the drm connector
-@@ -3799,6 +3801,10 @@ void amdgpu_dm_update_connector_after_detect(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 4d6181e7c612..9561d0bd255a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -441,6 +441,14 @@ bool resource_construct(
+ 				DC_ERR("DC: failed to create stream_encoder!\n");
+ 			pool->stream_enc_count++;
+ 		}
++
++		for (i = 0; i < caps->num_analog_stream_encoder; i++) {
++			pool->stream_enc[caps->num_stream_encoder + i] =
++				create_funcs->create_stream_encoder(ENGINE_ID_DACA + i, ctx);
++			if (pool->stream_enc[caps->num_stream_encoder + i] == NULL)
++				DC_ERR("DC: failed to create analog stream_encoder %d!\n", i);
++			pool->stream_enc_count++;
++		}
  	}
  
- 	update_subconnector_property(aconnector);
-+
-+	/* When polling, the mutex will be unlocked for us by DRM. */
-+	if (!drm_kms_helper_is_poll_worker())
-+		mutex_unlock(&dev->mode_config.mutex);
+ 	pool->hpo_dp_stream_enc_count = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+index 08c16ba52a51..df512920a9fa 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+@@ -47,6 +47,7 @@ struct encoder_init_data {
+ 	enum hpd_source_id hpd_source;
+ 	/* TODO: in DAL2, here was pointer to EventManagerInterface */
+ 	struct graphics_object_id encoder;
++	enum engine_id analog_engine;
+ 	struct dc_context *ctx;
+ 	enum transmitter transmitter;
+ };
+@@ -83,6 +84,7 @@ struct link_encoder {
+ 	struct graphics_object_id connector;
+ 	uint32_t output_signals;
+ 	enum engine_id preferred_engine;
++	enum engine_id analog_engine;
+ 	struct encoder_feature_support features;
+ 	enum transmitter transmitter;
+ 	enum hpd_source_id hpd_source;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
+index a890f581f4e8..9a10fbc93e5f 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
+@@ -48,6 +48,7 @@ struct resource_caps {
+ 	int num_video_plane;
+ 	int num_audio;
+ 	int num_stream_encoder;
++	int num_analog_stream_encoder;
+ 	int num_pll;
+ 	int num_dwb;
+ 	int num_ddc;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+index de1143dbbd25..71c10a1261b9 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+@@ -449,6 +449,32 @@ static enum channel_id get_ddc_line(struct dc_link *link)
+ 	return channel;
  }
  
- static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
-@@ -7061,10 +7067,48 @@ create_stream_for_sink(struct drm_connector *connector,
- 	return stream;
- }
- 
-+static enum drm_connector_status
-+amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force)
++static enum engine_id find_analog_engine(struct dc_link *link)
 +{
-+	struct drm_connector *connector = &aconnector->base;
-+	struct drm_device *dev = connector->dev;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct dc_link *link = aconnector->dc_link;
-+	enum dc_connection_type conn_type = dc_connection_none;
-+	enum drm_connector_status status = connector_status_disconnected;
++	struct dc_bios *bp = link->ctx->dc_bios;
++	struct graphics_object_id encoder = {0};
++	enum bp_result bp_result = BP_RESULT_OK;
++	int i;
 +
-+	mutex_lock(&aconnector->hpd_lock);
++	for (i = 0; i < 3; i++) {
++		bp_result = bp->funcs->get_src_obj(bp, link->link_id, i, &encoder);
 +
-+	if (dc_link_detect_connection_type(aconnector->dc_link, &conn_type) &&
-+	    conn_type != dc_connection_none) {
-+		mutex_lock(&adev->dm.dc_lock);
++		if (bp_result != BP_RESULT_OK)
++			return ENGINE_ID_UNKNOWN;
 +
-+		if (dc_link_detect(link, DETECT_REASON_HPD))
-+			status = connector_status_connected;
-+
-+		mutex_unlock(&adev->dm.dc_lock);
++		switch (encoder.id) {
++		case ENCODER_ID_INTERNAL_DAC1:
++		case ENCODER_ID_INTERNAL_KLDSCP_DAC1:
++			return ENGINE_ID_DACA;
++		case ENCODER_ID_INTERNAL_DAC2:
++		case ENCODER_ID_INTERNAL_KLDSCP_DAC2:
++			return ENGINE_ID_DACB;
++		}
 +	}
 +
-+	if (status == connector_status_disconnected) {
-+		if (link->local_sink)
-+			dc_sink_release(link->local_sink);
-+
-+		link->local_sink = NULL;
-+		link->dpcd_sink_count = 0;
-+		link->type = dc_connection_none;
-+	}
-+
-+	amdgpu_dm_update_connector_after_detect(aconnector);
-+
-+	mutex_unlock(&aconnector->hpd_lock);
-+	return status;
++	return ENGINE_ID_UNKNOWN;
 +}
 +
- static enum drm_connector_status
- amdgpu_dm_connector_detect(struct drm_connector *connector, bool force)
+ static bool construct_phy(struct dc_link *link,
+ 			      const struct link_init_data *init_params)
  {
- 	bool connected;
-+	bool analog_connector;
- 	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+@@ -461,6 +487,7 @@ static bool construct_phy(struct dc_link *link,
+ 	const struct dc_vbios_funcs *bp_funcs = bios->funcs;
+ 	struct bp_disp_connector_caps_info disp_connect_caps_info = { 0 };
  
- 	/*
-@@ -7083,6 +7127,15 @@ amdgpu_dm_connector_detect(struct drm_connector *connector, bool force)
- 
- 	update_subconnector_property(aconnector);
- 
-+	analog_connector =
-+		aconnector->dc_link->link_id.id == CONNECTOR_ID_DUAL_LINK_DVII ||
-+		aconnector->dc_link->link_id.id == CONNECTOR_ID_SINGLE_LINK_DVII ||
-+		aconnector->dc_link->link_id.id == CONNECTOR_ID_VGA;
 +
-+	if (analog_connector && drm_kms_helper_is_poll_worker() &&
-+		(!connected || aconnector->dc_sink->edid_caps.analog))
-+		return amdgpu_dm_connector_poll(aconnector, force);
-+
- 	return (connected ? connector_status_connected :
- 			connector_status_disconnected);
- }
-@@ -8442,9 +8495,12 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 			link->link_enc->features.dp_ycbcr420_supported ? true : false;
- 		break;
- 	case DRM_MODE_CONNECTOR_DVID:
-+		aconnector->base.polled = DRM_CONNECTOR_POLL_HPD;
-+		break;
- 	case DRM_MODE_CONNECTOR_DVII:
- 	case DRM_MODE_CONNECTOR_VGA:
--		aconnector->base.polled = DRM_CONNECTOR_POLL_HPD;
-+		aconnector->base.polled =
-+			DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
- 		break;
- 	default:
- 		break;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index b61e210f6246..327a3965fda1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -892,6 +892,7 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
- 	struct drm_connector_list_iter iter;
- 	int irq_type;
+ 	DC_LOGGER_INIT(dc_ctx->logger);
+ 
+ 	link->irq_source_hpd = DC_IRQ_SOURCE_INVALID;
+@@ -614,6 +641,7 @@ static bool construct_phy(struct dc_link *link,
+ 	enc_init_data.connector = link->link_id;
+ 	enc_init_data.channel = get_ddc_line(link);
+ 	enc_init_data.hpd_source = get_hpd_line(link);
++	enc_init_data.analog_engine = find_analog_engine(link);
+ 
+ 	link->hpd_src = enc_init_data.hpd_source;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+index 3a51be63f020..72efb13c9027 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+@@ -935,6 +935,10 @@ struct stream_encoder *dce100_find_first_free_match_stream_enc_for_link(
  	int i;
-+	bool need_polling = false;
- 
- 	/* First, clear all hpd and hpdrx interrupts */
- 	for (i = DC_IRQ_SOURCE_HPD1; i <= DC_IRQ_SOURCE_HPD6RX; i++) {
-@@ -905,6 +906,8 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
- 		struct amdgpu_dm_connector *amdgpu_dm_connector;
- 		const struct dc_link *dc_link;
- 
-+		need_polling |= connector->polled != DRM_CONNECTOR_POLL_HPD;
+ 	int j = -1;
+ 	struct dc_link *link = stream->link;
++	enum engine_id preferred_engine = link->link_enc->preferred_engine;
 +
- 		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
- 			continue;
++	if (dc_is_rgb_signal(stream->signal))
++		preferred_engine = link->link_enc->analog_engine;
  
-@@ -946,6 +949,11 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
+ 	for (i = 0; i < pool->stream_enc_count; i++) {
+ 		if (!res_ctx->is_stream_enc_acquired[i] &&
+@@ -943,8 +947,7 @@ struct stream_encoder *dce100_find_first_free_match_stream_enc_for_link(
+ 			 * in daisy chain use case
+ 			 */
+ 			j = i;
+-			if (pool->stream_enc[i]->id ==
+-					link->link_enc->preferred_engine)
++			if (pool->stream_enc[i]->id == preferred_engine)
+ 				return pool->stream_enc[i];
  		}
  	}
- 	drm_connector_list_iter_end(&iter);
-+
-+	if (need_polling) {
-+		drm_kms_helper_poll_init(dev);
-+		drm_kms_helper_poll_enable(dev);
-+	}
- }
- 
- /**
 -- 
 2.50.1
 
