@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E07AC83F1A
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jul 2025 15:58:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A9A7C83F1A
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jul 2025 15:58:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5B8810E17F;
-	Wed, 23 Jul 2025 15:58:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0FC810E804;
+	Wed, 23 Jul 2025 15:58:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FToPqED4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XWnjAvME";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A3ED10E80C
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D431D10E811
  for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 15:58:35 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-3b45edf2303so6167558f8f.2
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-3b611665b96so3966127f8f.2
  for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 08:58:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20230601; t=1753286314; x=1753891114; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bKax2/t7veYi2bUg4zHxsytdb5eA/uf4Xo5mkjMzBaQ=;
- b=FToPqED4s7CCqSFc5/d6+daOwabdzOd1BRhe/p2ZdkDoN9zoFzq9f2jJyN36o69Ude
- 8m1zyjAWu6vSHv2diQMREY++ee3Bh/Hplm3K8/HrHHPD8A2LGU0psAqrfxwsENdZyvxq
- Zro2sIcmIdFwUCbmd8ykntUItotqTXbk69+pXM17Vip62sgpN0TC+FLfOTPToHEi9T1F
- 0kuYUOvX8JnGeAidOzcqWQLqXTqjBiGWei7zh+fAdLbwDcxHmwSAaIlszvH82xcoeXHi
- Z6jkTb1tvPmN4OXmcrgf0uX2Rk0QpEdxWWDHmzbN2TX2fpCZR0NhzXA1DkL3jplS/l7m
- JWLw==
+ bh=lLIBQDuIzKYlNnxdeBudcHgqDxj8SdlbZbP43YviF7I=;
+ b=XWnjAvMEQCEApibMaETsueGlkauUETZ9gOUHay/MX573P/eWDKM/v3NfYnvenZfNAV
+ MfnJe6SEiWM9swnSUK+0mDRXHjyQDy4gt7aUQWFfB8RJFyu7ZA5MgvKjEvaGlKBntG0V
+ dT1VcVzbvPaEBMkgGeyQFe3/7xZzZS1Bhq9J7+S4bjIJkTbiOlEPJdNyjo1YiFTVGNRX
+ vCMM1wqT7lVFZDJqpMuov69VsRj0id+tzxavx3ZKdgqLmlHHU9A23t/4nuM6ZFdPQFbH
+ 1+7nUtrxdKsKVf/Yj5DsD7UzdEacgfbjWtlAkQocKtsmoWPFxvFrpZWo8sR0hzHC1EEv
+ irPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1753286314; x=1753891114;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bKax2/t7veYi2bUg4zHxsytdb5eA/uf4Xo5mkjMzBaQ=;
- b=pRQkQCWk6aX7ZkwNFOFvy759+BEEc3Z+De/rxOW1cbsmZuPX3g/v0bK8E3dAOJil3s
- eLmdbujRuYarDXhixxoP6Rpj3tub+MNdnekgdJO7BNWgS5Em24BLnLFFR0+6krolIPvu
- N0J56/32BHxEEztyZRPorwRG0hU5uKA074OY/lybXyCn5cuV/5fvswa1bJU30AK76ZXj
- 23UL6+a1RvM+sSaZ2d3tpWnAuWkqCmAL6WETZdBW507xOxsSSg5YyBqVTp2qDmEelz+Z
- bRGKapTTWeN2adMFFBJCFRiWUMpdCN9W3jfHPFIsnDGVbnynPzYnpf4l3Va4tD4enBxi
- PSMA==
-X-Gm-Message-State: AOJu0YymOdWJRQYy97PUHRYtrvLHOLLeRf1L+6Pp3d0ZstGyVMHx2Qq3
- 9vD0aI34WrVTnINXFbXQNd7tYBKaLrq3QVHQtYiSZJnkSgEww+F0bT3rC+uRLA==
-X-Gm-Gg: ASbGncszkzIh0jr51hpGtrrNReCFmG79O4ZoTLpKxEFzXc6/F9lDDCZ0psbW7tHTZOe
- lavWRVlFvXyd5wyA+l7u1HaiyuBnu3cY+iN6Ocsk+qri6r+H1CnjEfuzAsy2AoAMBkfuhvbNHJJ
- bdGKVrlBfxWa+2spOGn6GqeVlGVI4YsRJmABvCycyZukz9hSs+pa8rQ86ZZGmit/MsCzaCgzE+v
- Vi9gSJvQyRBUICq0tG4LQl1ZRVEm7kM8ZXwsWS9/5wDgFmWttWjZtALTQXuQVfb3uVltfGZpG60
- D4XcjB5pmpxrjqifitwr9F7t5tUOw9bMoXga0FPxW8HmSffpKc9DsZ+bd89SAinmhAkWJP+QUhJ
- h0iuNtd7SlpAcyv1vXn6uKXVo9GyXCfx5LZs+GUDe0h/27VPgWLf0KDEQYSPYawbiEvft7PGZJy
- qTOZ8hmmwLbM0lBedzx7Z1eo0Jkw==
-X-Google-Smtp-Source: AGHT+IE/Q0iX1tk8BeTklJMHY7UxLulTARzCtuQcYdDSTzPrx221vvlcVPMgHmdlEI4Ab0jO1neBfQ==
-X-Received: by 2002:a5d:588a:0:b0:3a4:ee51:8144 with SMTP id
- ffacd0b85a97d-3b768ea0012mr3006274f8f.13.1753286313427; 
- Wed, 23 Jul 2025 08:58:33 -0700 (PDT)
+ bh=lLIBQDuIzKYlNnxdeBudcHgqDxj8SdlbZbP43YviF7I=;
+ b=GqJpsB/vG7ZSWpWimByoEVzfCvy2X9OvsboTKFsOMcAn7XpjtCyM8h9pOMjA5CtuF0
+ YnNQazpBiSg/4eP8zDHCS/32BcMQw44Ctt1Cnlzl6wVOvabBqoJcj457ANlFCB4BlG3G
+ hCqsWxKj2tNbv/nz2O3N8kuMwHboncPKVs8aOrFTeQrO+d2UEtIY+BetY+xsZnfDMVbA
+ Z5sN4/YEX+lc1BQEd5pdJiBSZRST4/zGFGB8WHEAbAd4XONhdj7MF0NYrzvU1h42jgzB
+ ywQ67zhhr7ib5U6rqHmHRyBNM9tw14R57Kiq+YN3lXgp8gqq4R1ulullM4h4iyB1j7wf
+ Hsmg==
+X-Gm-Message-State: AOJu0YwL2AHfsY9s7/MwEUZFp/GYkFy271aWeM9F4ZzTJ328xfPJzj6w
+ zMFvfXhepGoM+bbZWJPGnRTQgvtvQXhb8hVr7vLEvdtZhb+H79wHZuAYce+2jQ==
+X-Gm-Gg: ASbGncsu71n1saD0+iFRWfhObBwzk+bxZE7mf8USc5rdF4E5Lp0NoLKLXwTEj4gKyu0
+ K3vMd4dYvu5IRtrBAFOPJWGVPE3aG3XCE/kZp61+UIUxoM8UZYtXwYoepPoArA8cLLDNY05mKro
+ XeGcfMTtUE+xINqdmnol43NshefkEGxgAJZxC3mTdY7v/9Panex86iJYCYFn6TiTqQV3ClDxHfQ
+ LdZLdF1Ky8fMRQbatppaZccseBNE5+ElzN6qvtxxuP3ythgEC3SYARfOGFtKJTPPgNsQnOdu6BP
+ 39aucG/NInQTjep1N9UrGJL4SHmTjUzzB+aIOGCxxLMvTFUCQcyZqqFGyI6s6x2o8XBExW/bGtf
+ Ks+en0T9pEoj/32bO0vPRECEoQdqTfwEI1RMY9n35eoH9QGzqlV28W5hQJWc167VlJzMjX1llW+
+ BtT/U/JgW18X+mQktiCB9NUGY2mQ==
+X-Google-Smtp-Source: AGHT+IEzfcf1kQBMXP5Gn40mJBdKjTNW2uDBrrRryKiJslwb8AX0vpHxRne69i0CUGcWmp9KjQM56w==
+X-Received: by 2002:a05:6000:230b:b0:3b6:938:86b7 with SMTP id
+ ffacd0b85a97d-3b768ef5b8amr3039846f8f.35.1753286314122; 
+ Wed, 23 Jul 2025 08:58:34 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4D24D8FC008443E005DD6C3C62.dsl.pool.telekom.hu.
  [2001:4c4d:24d8:fc00:8443:e005:dd6c:3c62])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca2bf99sm16710468f8f.32.2025.07.23.08.58.32
+ ffacd0b85a97d-3b61ca2bf99sm16710468f8f.32.2025.07.23.08.58.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 23 Jul 2025 08:58:33 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 17/20] drm/amd/display: Add DAC_LoadDetection to BIOS parser
-Date: Wed, 23 Jul 2025 17:58:10 +0200
-Message-ID: <20250723155813.9101-18-timur.kristof@gmail.com>
+Subject: [PATCH 18/20] drm/amd/display: Use DAC load detection on analog
+ connectors
+Date: Wed, 23 Jul 2025 17:58:11 +0200
+Message-ID: <20250723155813.9101-19-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250723155813.9101-1-timur.kristof@gmail.com>
 References: <20250723155813.9101-1-timur.kristof@gmail.com>
@@ -89,253 +90,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DAC_LoadDetection can be used to determine whether something
-is connected to an analog connector, primarily when the connected
-display doesn't have an EDID.
+This feature is useful for analog connections without EDID:
+- Really old monitors with a VGA connector
+- Cheap DVI/VGA adapters that don't connect DDC pins
 
-As a reference, I used the following function:
-amdgpu_atombios_encoder_dac_load_detect
+When a connection is established through DAC load detection,
+the driver is supposed to fill in the supported modes for the
+display, which we already do in amdgpu_dm_connector_get_modes.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- .../gpu/drm/amd/display/dc/bios/bios_parser.c | 50 ++++++++++
- .../drm/amd/display/dc/bios/command_table.c   | 92 +++++++++++++++++++
- .../drm/amd/display/dc/bios/command_table.h   |  3 +
- .../gpu/drm/amd/display/dc/dc_bios_types.h    |  5 +
- .../amd/display/include/bios_parser_types.h   |  5 +
- 5 files changed, 155 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++
+ .../drm/amd/display/dc/link/link_detection.c  | 43 +++++++++++++++++++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-index 44f71757508f..58a7f6012936 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-@@ -783,6 +783,54 @@ static enum bp_result bios_parser_encoder_control(
- 	return bp->cmd_tbl.dig_encoder_control(bp, cntl);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 13823469fa7c..49ee516dc83d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7077,6 +7077,18 @@ amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force)
+ 	enum dc_connection_type conn_type = dc_connection_none;
+ 	enum drm_connector_status status = connector_status_disconnected;
+ 
++	/* When the EDID is missing on an analog connector, that means
++	 * we determined the connection using DAC load detection.
++	 * In this case do NOT poll the connector do detect disconnect
++	 * because that would run DAC load detection again which can cause
++	 * visible visual glitches.
++	 *
++	 * Only allow to poll such a connector again when forcing.
++	 */
++	if (!force && link->local_sink && link->local_sink->edid_caps.analog &&
++		!aconnector->drm_edid)
++		return connector->status;
++
+ 	mutex_lock(&aconnector->hpd_lock);
+ 
+ 	if (dc_link_detect_connection_type(aconnector->dc_link, &conn_type) &&
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index fcabc83464af..6dd96e2797f4 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -1073,6 +1073,20 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 			break;
+ 		case EDID_NO_RESPONSE:
+ 			DC_LOG_ERROR("No EDID read.\n");
++
++			/* Analog connectors without EDID.
++			 * This can be an old monitor that actually doesn't have EDID,
++			 * or could be a cheap DVI/VGA adapter that doesn't connect DDC,
++			 * and therefore we can't read the EDID.
++			 */
++			if (link->link_enc->connector.id == CONNECTOR_ID_VGA ||
++				link->link_enc->connector.id == CONNECTOR_ID_DUAL_LINK_DVII ||
++				link->link_enc->connector.id == CONNECTOR_ID_SINGLE_LINK_DVII) {
++				DC_LOG_INFO("%s detected analog display without EDID\n", __func__);
++				sink->edid_caps.analog = true;
++				break;
++			}
++
+ 			/*
+ 			 * Abort detection for non-DP connectors if we have
+ 			 * no EDID
+@@ -1280,6 +1294,30 @@ static bool link_detect_ddc_probe(struct dc_link *link)
+ 	return true;
  }
  
-+static enum bp_result bios_parser_dac_load_detection(
-+	struct dc_bios *dcb,
-+	enum engine_id engine_id,
-+	enum dal_device_type device_type,
-+	uint32_t enum_id)
++static bool link_detect_dac_load_detect(struct dc_link *link)
 +{
-+	struct bios_parser *bp = BP_FROM_DCB(dcb);
-+	struct dc_context *ctx = dcb->ctx;
-+	struct bp_load_detection_parameters bp_params = {0};
++	struct dc_bios *bios = link->ctx->dc_bios;
++	struct link_encoder *link_enc = link->link_enc;
++	enum engine_id engine_id = link_enc->preferred_engine;
++	enum dal_device_type device_type = DEVICE_TYPE_CRT;
 +	enum bp_result bp_result;
-+	uint32_t bios_0_scratch;
++	uint32_t enum_id;
 +
-+	bp_params.engine_id = engine_id;
-+	bp_params.device_id = get_support_mask_for_device_id(device_type, enum_id);
-+
-+	if (engine_id != ENGINE_ID_DACA &&
-+	    engine_id != ENGINE_ID_DACB)
-+		return BP_RESULT_UNSUPPORTED;
-+
-+	if (!bp->cmd_tbl.dac_load_detection)
-+		return BP_RESULT_UNSUPPORTED;
-+
-+	/* BIOS will write the detected devices to BIOS_SCRATCH_0, clear the register */
-+	dm_write_reg(ctx, bp->base.regs->BIOS_SCRATCH_0, 0);
-+
-+	bp_result = bp->cmd_tbl.dac_load_detection(bp, &bp_params);
-+
-+	if (bp_result != BP_RESULT_OK)
-+		return bp_result;
-+
-+	bios_0_scratch = dm_read_reg(ctx, bp->base.regs->BIOS_SCRATCH_0);
-+
-+	switch (bp_params.device_id) {
-+	case ATOM_DEVICE_CRT1_SUPPORT:
-+		if (bios_0_scratch & ATOM_S0_CRT1_MASK)
-+			return BP_RESULT_OK;
++	switch (engine_id) {
++	case ENGINE_ID_DACB:
++		enum_id = 2;
 +		break;
-+	case ATOM_DEVICE_CRT2_SUPPORT:
-+		if (bios_0_scratch & ATOM_S0_CRT2_MASK)
-+			return BP_RESULT_OK;
-+		break;
++	case ENGINE_ID_DACA:
 +	default:
++		engine_id = ENGINE_ID_DACA;
++		enum_id = 1;
 +		break;
 +	}
 +
-+	return BP_RESULT_FAILURE;
++	bp_result = bios->funcs->dac_load_detection(bios, engine_id, device_type, enum_id);
++	return bp_result == BP_RESULT_OK;
 +}
 +
- static enum bp_result bios_parser_adjust_pixel_clock(
- 	struct dc_bios *dcb,
- 	struct bp_adjust_pixel_clock_parameters *bp_params)
-@@ -2867,6 +2915,8 @@ static const struct dc_vbios_funcs vbios_funcs = {
+ /**
+  * Determines if there is an analog sink connected.
+  */
+@@ -1296,6 +1334,11 @@ static bool link_detect_analog(struct dc_link *link, enum dc_connection_type *ty
+ 		return true;
+ 	}
  
- 	.encoder_control = bios_parser_encoder_control,
- 
-+	.dac_load_detection = bios_parser_dac_load_detection,
++	if (link_detect_dac_load_detect(link)) {
++		*type = dc_connection_single;
++		return true;
++	}
 +
- 	.transmitter_control = bios_parser_transmitter_control,
- 
- 	.enable_crtc = bios_parser_enable_crtc,
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table.c b/drivers/gpu/drm/amd/display/dc/bios/command_table.c
-index 8983220d2a4b..7899e952b68a 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/command_table.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/command_table.c
-@@ -54,6 +54,7 @@ static void init_enable_spread_spectrum_on_ppll(struct bios_parser *bp);
- static void init_adjust_display_pll(struct bios_parser *bp);
- static void init_select_crtc_source(struct bios_parser *bp);
- static void init_dac_encoder_control(struct bios_parser *bp);
-+static void init_dac_load_detection(struct bios_parser *bp);
- static void init_dac_output_control(struct bios_parser *bp);
- static void init_set_crtc_timing(struct bios_parser *bp);
- static void init_enable_crtc(struct bios_parser *bp);
-@@ -72,6 +73,7 @@ void dal_bios_parser_init_cmd_tbl(struct bios_parser *bp)
- 	init_adjust_display_pll(bp);
- 	init_select_crtc_source(bp);
- 	init_dac_encoder_control(bp);
-+	init_dac_load_detection(bp);
- 	init_dac_output_control(bp);
- 	init_set_crtc_timing(bp);
- 	init_enable_crtc(bp);
-@@ -1902,6 +1904,96 @@ static enum bp_result dac2_encoder_control_v1(
- 	return result;
+ 	*type = dc_connection_none;
+ 	return true;
  }
- 
-+/*******************************************************************************
-+ ********************************************************************************
-+ **
-+ **                  DAC LOAD DETECTION
-+ **
-+ ********************************************************************************
-+ *******************************************************************************/
-+
-+static enum bp_result dac_load_detection_v1(
-+	struct bios_parser *bp,
-+	struct bp_load_detection_parameters *bp_params);
-+
-+static enum bp_result dac_load_detection_v3(
-+	struct bios_parser *bp,
-+	struct bp_load_detection_parameters *bp_params);
-+
-+static void init_dac_load_detection(struct bios_parser *bp)
-+{
-+	switch (BIOS_CMD_TABLE_PARA_REVISION(DAC_LoadDetection)) {
-+	case 1:
-+	case 2:
-+		bp->cmd_tbl.dac_load_detection = dac_load_detection_v1;
-+		break;
-+	case 3:
-+	default:
-+		bp->cmd_tbl.dac_load_detection = dac_load_detection_v3;
-+		break;
-+	}
-+}
-+
-+static void dac_load_detect_prepare_params(
-+	struct _DAC_LOAD_DETECTION_PS_ALLOCATION *params,
-+	enum engine_id engine_id,
-+	uint16_t device_id,
-+	uint8_t misc)
-+{
-+	uint8_t dac_type = ENGINE_ID_DACA;
-+
-+	if (engine_id == ENGINE_ID_DACB)
-+		dac_type = ATOM_DAC_B;
-+
-+	params->sDacload.usDeviceID = cpu_to_le16(device_id);
-+	params->sDacload.ucDacType = dac_type;
-+	params->sDacload.ucMisc = misc;
-+}
-+
-+static enum bp_result dac_load_detection_v1(
-+	struct bios_parser *bp,
-+	struct bp_load_detection_parameters *bp_params)
-+{
-+	enum bp_result result = BP_RESULT_FAILURE;
-+	DAC_LOAD_DETECTION_PS_ALLOCATION params;
-+
-+	dac_load_detect_prepare_params(
-+		&params,
-+		bp_params->engine_id,
-+		bp_params->device_id,
-+		0);
-+
-+	if (EXEC_BIOS_CMD_TABLE(DAC_LoadDetection, params))
-+		result = BP_RESULT_OK;
-+
-+	return result;
-+}
-+
-+static enum bp_result dac_load_detection_v3(
-+	struct bios_parser *bp,
-+	struct bp_load_detection_parameters *bp_params)
-+{
-+	enum bp_result result = BP_RESULT_FAILURE;
-+	DAC_LOAD_DETECTION_PS_ALLOCATION params;
-+
-+	uint8_t misc = 0;
-+
-+	if (bp_params->device_id == ATOM_DEVICE_CV_SUPPORT ||
-+	    bp_params->device_id == ATOM_DEVICE_TV1_SUPPORT)
-+		misc = DAC_LOAD_MISC_YPrPb;
-+
-+	dac_load_detect_prepare_params(
-+		&params,
-+		bp_params->engine_id,
-+		bp_params->device_id,
-+		misc);
-+
-+	if (EXEC_BIOS_CMD_TABLE(DAC_LoadDetection, params))
-+		result = BP_RESULT_OK;
-+
-+	return result;
-+}
-+
- /*******************************************************************************
-  ********************************************************************************
-  **
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table.h b/drivers/gpu/drm/amd/display/dc/bios/command_table.h
-index 8b04b903e93d..e89b1ba0048b 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/command_table.h
-+++ b/drivers/gpu/drm/amd/display/dc/bios/command_table.h
-@@ -71,6 +71,9 @@ struct cmd_tbl {
- 	enum bp_result (*dac2_output_control)(
- 		struct bios_parser *bp,
- 		bool enable);
-+	enum bp_result (*dac_load_detection)(
-+		struct bios_parser *bp,
-+		struct bp_load_detection_parameters *bp_params);
- 	enum bp_result (*set_crtc_timing)(
- 		struct bios_parser *bp,
- 		struct bp_hw_crtc_timing_parameters *bp_params);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
-index 50c8906b74c5..40d7a7d83c40 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
-@@ -97,6 +97,11 @@ struct dc_vbios_funcs {
- 	enum bp_result (*encoder_control)(
- 		struct dc_bios *bios,
- 		struct bp_encoder_control *cntl);
-+	enum bp_result (*dac_load_detection)(
-+		struct dc_bios *bios,
-+		enum engine_id engine_id,
-+		enum dal_device_type device_type,
-+		uint32_t enum_id);
- 	enum bp_result (*transmitter_control)(
- 		struct dc_bios *bios,
- 		struct bp_transmitter_control *cntl);
-diff --git a/drivers/gpu/drm/amd/display/include/bios_parser_types.h b/drivers/gpu/drm/amd/display/include/bios_parser_types.h
-index d9e58a6a0d36..973b6bdbac63 100644
---- a/drivers/gpu/drm/amd/display/include/bios_parser_types.h
-+++ b/drivers/gpu/drm/amd/display/include/bios_parser_types.h
-@@ -162,6 +162,11 @@ struct bp_transmitter_control {
- 	bool single_pll_mode;
- };
- 
-+struct bp_load_detection_parameters {
-+	enum engine_id engine_id;
-+	uint16_t device_id;
-+};
-+
- struct bp_hw_crtc_timing_parameters {
- 	enum controller_id controller_id;
- 	/* horizontal part */
 -- 
 2.50.1
 
