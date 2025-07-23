@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4FE9C87FC5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 391DFC83F34
 	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jul 2025 15:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D96B10E801;
-	Wed, 23 Jul 2025 15:58:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D09B010E7FE;
+	Wed, 23 Jul 2025 15:58:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BEv9ViWs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IGURjucX";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 188C510E7FC
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFCAB10E801
  for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 15:58:24 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4561a4a8bf2so77451395e9.1
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4563cfac19cso60804275e9.2
  for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jul 2025 08:58:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753286302; x=1753891102; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1753286303; x=1753891103; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=njfzCYqfRFRWosCr630vnhxLkqhsfzrmEJRGwNsaFMs=;
- b=BEv9ViWsg56M5xuw239pFogV432189xNelpaY6rQm6VTeTBar+e39lKuckNhc5acSQ
- 6uDoLY5OyFZDtDV6f3wXzEGIpJdxh7cbItN90K5aRNivi6mmvK/8kyEpMuvFLpzFmpRH
- opB5cI9vp1oshWrjuMj/vN1ww5sEWtxjTf05SXicneU66jr7t7hM2RMSnNht11KlVfx8
- +JQ091EcwcHXIcs/LnPrz5TB/n+Q+awfGJrPmtZP/lxlNspjWNDvWsJzJFeGnxZ/Ntp8
- e+d1R5g/5/iFe0t/alQO37lJLihW3nVR9/0SK9zg0YwK2ag4/0FtBm/F23t5tieaOEMv
- WfNw==
+ bh=10Z8Bc2iy7D7nHIZP9z8on6JisDTZN/BNS6Mp11XQHc=;
+ b=IGURjucXdVvI49YJyXxn7o6QSUobTRm60Tk8BvdvVHJbEUp0tGfSaO6/f2vgmrI8Su
+ U14OlMMKwMe2FIPdu3AKGfKedrlmJbQMp8J0vnQEPFN+cwwyQS9i8yua2rGDyAG4O2Vk
+ OEqpbByKYE55USa4CSDp84bDh/SOmKhBx26hz5/0Hx6uCZ4UXqLuxcLgE7uMGycYDmp7
+ vFw+p1OJGfpPzeKAwL8EaJewyJmSFHidiybOyiw4x9QndcxAqcMRBM6dmgjRbniLFIaJ
+ OiDUEyKKp1KGjygC6O/mMt+zDTo1ZUDyqAdXEitxLOb5j7IW6zCZ9PfDFXbRIi50t0Q4
+ CAjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753286302; x=1753891102;
+ d=1e100.net; s=20230601; t=1753286303; x=1753891103;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=njfzCYqfRFRWosCr630vnhxLkqhsfzrmEJRGwNsaFMs=;
- b=mRH7baWKRUEbDf3wVAFy863a/qTFI3eBdpgfhlQ66vliK+h1hrA+xhj8yxrHcESHXj
- rJ3O8nqRK80Y5rUD5sRk4stXkjqZ2jfTbMtU8wYp8EqYnqHL+37PSMNtvjY6f1bfV0qp
- tqXyD8MZJB3L/FVVnvbGNjhdQaOE1/RDoBCgB0UxTvjbARzV06Jt6n2q92VSg0/epNoE
- i7gq0KxiRQOz4+/iTxLdih9+ANSs7CNlyo1kfDJurGolQVOlJbSAedq9jocAIUyqBkW2
- uqxYRUQmNoYwqvhJ6F411tRONBdrjJyRcVCTkAFHd3058ociECQIqdCBHsu2hALcMUuY
- m5kg==
-X-Gm-Message-State: AOJu0YyZP7ZJBNIiLt2Q3ul+/XH+KppoVYhGkGf2MMTzPiv9KSK1s20q
- 9KUyD1gDJtKQYk76FmRi6x4pan3xD1eCAuk3RN5N+5hihuEfaDXLcSIgT7M4cg==
-X-Gm-Gg: ASbGncs5muU+Ht5bMamN18f1drQJbxA6rwWmrbiW/ZbBtjCFjWwjylHH1+9Kc+BUf1Z
- 5bo9TRbpWVPmEAT+devq4LCBVqvT9A/uyvQUFClulZJaI8U/egCB3rJkNFNmMFOjKQ7SpFLTtm8
- K2WHZFmWNMVx+h7nNQcibDqkxPSvKf3pBxKuP1ebOIBg1Jpp0L4N4VmTVM/uRI6SYfHfiKwM6fl
- +IGeekg3/gNvMXffrVO3oaB4np8nV2AfWNUAJVary4fAHTyrtRDMzBv0qCBgVeMQO2gFkH+kUY2
- pjyeQdYOfl42A1xCU/TWgHX1FH7YP9gK2UnufNpS5YEQUprSxmtlO0oW0mkaRWQ7ZH9lGHjQxxo
- b8rZ64g5BoGd5gyTRacxgeeCcTe5olVn0rJEh7Zxg3JzeyttDwD0TZTiBXUyaJywVVwPK1YZnb7
- 5Savs/0k2yPNGZCuUAhP47uJY4ys6MtMEHV+Wc
-X-Google-Smtp-Source: AGHT+IGggcRuc0yiPRu6zwbx3w1TVb6O/2jAnuPtRvvsHcplfNs1GzWfJ4234niLn/4dm4omBWl7sw==
-X-Received: by 2002:a05:6000:2486:b0:3b3:c4b1:a212 with SMTP id
- ffacd0b85a97d-3b768c9c16amr3212290f8f.7.1753286302225; 
+ bh=10Z8Bc2iy7D7nHIZP9z8on6JisDTZN/BNS6Mp11XQHc=;
+ b=bMUu85w5P8QxuCyA2vci3dhG/mggE47/OUQArQBsK6GLCE4JT0ieQQyhHFENQ5NnDJ
+ fdYt/501sCPaMFsm83lLLJsZhR6LdlK6jspwlvqY2REC2OOeFL/C5UBgbxrHCoKCTDUh
+ BPHQ672X8w2JqRwgMGaqs4DgpjAqCYns7El9iUtzUYwTQ0NxdEhjeTEuI+gw6J4XS2hF
+ t4inNcQxuQVoFpFMhD/NNvYS2GASSCD8cim6nQAV/NE5ARfGaMdhV5kSYSKUtfMCuy/J
+ BZqimOt4A7cPBr8C3OSZVb4Anal0ZDdVt94tBvBwOnkpMcm7SIwDfJbxhBfm1gdGZdrS
+ 5pQA==
+X-Gm-Message-State: AOJu0YzlTN7x8h0K/NH6LwkW6kk7oLzEFKlc72DNAvSC3bvaxghrkovF
+ wArJkBthKxd5OGd/YZFy5rgLdK/gFKKiK+pYLayBzSd16T0lW0EpYWdQvmVNpQ==
+X-Gm-Gg: ASbGncuN2sLMvR6oLd4DiRNN18CF9g9iXmHMDtAtCQPGD/UyFBLjZHZYlo5XCijgxC+
+ sGhE+JZAmXJesEIM1GS38x08B7eH7Hn+ZFqaF/Ka4doWvUy3WmS0GU2GzG/CdugJO1BI5TLuYty
+ FCSnL8WQ5AgQLHLDUgduxxceZcWDzCzxb+uW6l8fHyyzFyjJECDOGBJnD6nL/Tufal2KQHlejWx
+ pxk41LIn5NP8AxKDLkPRTkTtp9KmPdGbNh/6/Qwdyp4atmZTH34UQhiRSJ2I6EQI4IeKNxpXy4u
+ rKDb135auspSXR+oVk/iYPVSBVlQsCecK329ejsPJpbG+tpCcET8v593WU9W1nzAW85D6EoXwsr
+ 6XLy4ytOrGIuAKw03FKTXVWkJH3oNTRN6tBTmRI4LAbGEordy2s3zCYBTwui9/0msPA/2m71/oT
+ pfdWjrtpbSatJ3kpNCa3kb+9djFY7AB+AcY0SB
+X-Google-Smtp-Source: AGHT+IFx9PGmjBRpavAtiFuvt2BPJ7l41C0aNjJ20wAAoiA+KjPlDxSJaxIZTdKmc2IEHMDS9eAJxg==
+X-Received: by 2002:a05:600c:4586:b0:453:2433:1c5b with SMTP id
+ 5b1f17b1804b1-4586a8cb052mr26568565e9.5.1753286302955; 
  Wed, 23 Jul 2025 08:58:22 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4D24D8FC008443E005DD6C3C62.dsl.pool.telekom.hu.
  [2001:4c4d:24d8:fc00:8443:e005:dd6c:3c62])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca2bf99sm16710468f8f.32.2025.07.23.08.58.21
+ ffacd0b85a97d-3b61ca2bf99sm16710468f8f.32.2025.07.23.08.58.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jul 2025 08:58:21 -0700 (PDT)
+ Wed, 23 Jul 2025 08:58:22 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 02/20] drm/amd/display: Add analog bit to edid_caps
-Date: Wed, 23 Jul 2025 17:57:55 +0200
-Message-ID: <20250723155813.9101-3-timur.kristof@gmail.com>
+Subject: [PATCH 03/20] drm/amd/display: Introduce MAX_LINK_ENCODERS
+Date: Wed, 23 Jul 2025 17:57:56 +0200
+Message-ID: <20250723155813.9101-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250723155813.9101-1-timur.kristof@gmail.com>
 References: <20250723155813.9101-1-timur.kristof@gmail.com>
@@ -89,52 +89,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The new analog bit will be used with DVI-I connectors.
-
-DVI-I connectors can connect to both digital and analog monitors
-and this bit will help distinguish between those.
+We are going to support analog encoders as well, not just digital,
+so we need to make space for them in various arrays.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
- drivers/gpu/drm/amd/display/dc/dc_types.h                 | 5 +++++
- 2 files changed, 6 insertions(+)
+ .../drm/amd/display/dc/core/dc_link_enc_cfg.c |  4 ++--
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  8 +++----
+ .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h | 24 +++++++++++++++++++
+ 3 files changed, 30 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 9e3e51a2dc49..95c00af04d77 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -129,6 +129,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	edid_caps->serial_number = edid_buf->serial;
- 	edid_caps->manufacture_week = edid_buf->mfg_week;
- 	edid_caps->manufacture_year = edid_buf->mfg_year;
-+	edid_caps->analog = !(edid_buf->input & DRM_EDID_INPUT_DIGITAL);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+index 814f68d76257..d86482611b3f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+@@ -522,10 +522,10 @@ struct link_encoder *link_enc_cfg_get_link_enc_used_by_link(
+ struct link_encoder *link_enc_cfg_get_next_avail_link_enc(struct dc *dc)
+ {
+ 	struct link_encoder *link_enc = NULL;
+-	enum engine_id encs_assigned[MAX_DIG_LINK_ENCODERS];
++	enum engine_id encs_assigned[MAX_LINK_ENCODERS];
+ 	int i;
  
- 	drm_edid_get_monitor_name(edid_buf,
- 				  edid_caps->display_name,
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 375ca2f13b7a..10de0930adaa 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -185,6 +185,10 @@ struct dc_panel_patch {
- 	unsigned int wait_after_dpcd_poweroff_ms;
+-	for (i = 0; i < MAX_DIG_LINK_ENCODERS; i++)
++	for (i = 0; i < MAX_LINK_ENCODERS; i++)
+ 		encs_assigned[i] = ENGINE_ID_UNKNOWN;
+ 
+ 	/* Add assigned encoders to list. */
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index f0d7185153b2..55daf348293e 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -274,7 +274,7 @@ struct resource_pool {
+ 	/* An array for accessing the link encoder objects that have been created.
+ 	 * Index in array corresponds to engine ID - viz. 0: ENGINE_ID_DIGA
+ 	 */
+-	struct link_encoder *link_encoders[MAX_DIG_LINK_ENCODERS];
++	struct link_encoder *link_encoders[MAX_LINK_ENCODERS];
+ 	/* Number of DIG link encoder objects created - i.e. number of valid
+ 	 * entries in link_encoders array.
+ 	 */
+@@ -508,7 +508,7 @@ struct pipe_ctx {
+ struct link_enc_cfg_context {
+ 	enum link_enc_cfg_mode mode;
+ 	struct link_enc_assignment link_enc_assignments[MAX_PIPES];
+-	enum engine_id link_enc_avail[MAX_DIG_LINK_ENCODERS];
++	enum engine_id link_enc_avail[MAX_LINK_ENCODERS];
+ 	struct link_enc_assignment transient_assignments[MAX_PIPES];
  };
  
+@@ -520,8 +520,8 @@ struct resource_context {
+ 	uint8_t dp_clock_source_ref_count;
+ 	bool is_dsc_acquired[MAX_PIPES];
+ 	struct link_enc_cfg_context link_enc_cfg_ctx;
+-	unsigned int dio_link_enc_to_link_idx[MAX_DIG_LINK_ENCODERS];
+-	int dio_link_enc_ref_cnts[MAX_DIG_LINK_ENCODERS];
++	unsigned int dio_link_enc_to_link_idx[MAX_LINK_ENCODERS];
++	int dio_link_enc_ref_cnts[MAX_LINK_ENCODERS];
+ 	bool is_hpo_dp_stream_enc_acquired[MAX_HPO_DP2_ENCODERS];
+ 	unsigned int hpo_dp_link_enc_to_link_idx[MAX_HPO_DP2_LINK_ENCODERS];
+ 	int hpo_dp_link_enc_ref_cnts[MAX_HPO_DP2_LINK_ENCODERS];
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
+index 41c76ba9ba56..dc9b9f22c75b 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
+@@ -45,7 +45,31 @@
+ #define MAX_PIPES 6
+ #define MAX_PHANTOM_PIPES (MAX_PIPES / 2)
+ #define MAX_LINKS (MAX_PIPES * 2 +2)
++
 +/**
-+ * struct dc_edid_caps - Capabilities read from EDID.
-+ * @analog: Whether the monitor is analog. Used by DVI-I handling.
++ * define MAX_DIG_LINK_ENCODERS - maximum number of digital encoders
++ *
++ * Digital encoders are ENGINE_ID_DIGA...G, there are at most 7,
++ * although not every GPU may have that many.
 + */
- struct dc_edid_caps {
- 	/* sink identification */
- 	uint16_t manufacturer_id;
-@@ -212,6 +216,7 @@ struct dc_edid_caps {
- 	bool edid_hdmi;
- 	bool hdr_supported;
- 	bool rr_capable;
-+	bool analog;
- 
- 	struct dc_panel_patch panel_patch;
- };
+ #define MAX_DIG_LINK_ENCODERS 7
++
++/**
++ * define MAX_DIG_LINK_ENCODERS - maximum number of analog link encoders
++ *
++ * Analog encoders are ENGINE_ID_DACA/B, there are at most 2,
++ * although not every GPU may have that many. Modern GPUs typically
++ * don't have analog encoders.
++ */
++#define MAX_DAC_LINK_ENCODERS 2
++
++/**
++ * define MAX_LINK_ENCODERS - maximum number link encoders in total
++ *
++ * This includes both analog and digital encoders.
++ */
++#define MAX_LINK_ENCODERS (MAX_DIG_LINK_ENCODERS + MAX_DAC_LINK_ENCODERS)
++
+ #define MAX_DWB_PIPES	1
+ #define MAX_HPO_DP2_ENCODERS	4
+ #define MAX_HPO_DP2_LINK_ENCODERS	4
 -- 
 2.50.1
 
