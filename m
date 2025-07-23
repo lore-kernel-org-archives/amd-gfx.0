@@ -4,77 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB22AC83F26
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 07:51:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A80EC83F1A
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 07:51:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7344010E8AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D499C10E8AF;
 	Thu, 24 Jul 2025 07:51:00 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j2j8Ehqm";
-	dkim-atps=neutral
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
- [209.85.219.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAC6910E1B9;
- Thu, 24 Jul 2025 02:36:45 +0000 (UTC)
-Received: by mail-qv1-f49.google.com with SMTP id
- 6a1803df08f44-6facebcd4f0so1103196d6.0; 
- Wed, 23 Jul 2025 19:36:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753324604; x=1753929404; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=rpafgB7TM97IiAPA4skXOQOxYZsSA7fW1d8osuC8fBc=;
- b=j2j8EhqmQZJOW3KR1l5oFaavdzWnr9wGINpT3U6HGde/+1g5G8omv/jVgM1VMG5zpj
- FjuhlW9AjNbxeZEwfzVhMJQPQMEnK5sTcIXwDXkVnSu76ukwP8JJ637MynAPplUDYLWN
- I+dd2oW7yVnhh++HZL1SyGmkwvhsdOGtKnMIYRqeWA0Iw0nVhAI5BFj5CggAu1vUlq+r
- pdupu7x1OEWzVEMdd8VNTMBrwg45v/JjnPKaQ5tvPwx3emfjAPeEIgcX1uWuoyDNqIYO
- 0+dtdMdqxJmFfASkKkk5ZapfDWf+AM0saYZGxf05qJxDkGf0KaEkthZ3IIOIOkRjT7wP
- tu/w==
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89F1510E17D;
+ Wed, 23 Jul 2025 15:08:35 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-3a6d1369d4eso4119088f8f.2; 
+ Wed, 23 Jul 2025 08:08:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753324604; x=1753929404;
+ d=1e100.net; s=20230601; t=1753283314; x=1753888114;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=rpafgB7TM97IiAPA4skXOQOxYZsSA7fW1d8osuC8fBc=;
- b=dbhIQDdY6bASbwN2xWIM2Zb+vOzy8qaunKctpqgHtlzLl67gxBue2LEHIVJg3LHKsk
- SXj9S0QcZR7Be9mtd0x4zm4n6eLxhPGmb93NCx05rqU2edfJsHXpp2wYzZW2IjEEIJay
- jdGzWVjNhu1VrR2dvMSe0Qfhv1wIc+jUEn00/hcuIRteB0vH1UqW6EfZSx8Sq+YdSUfx
- 6oJqXhcQ3uE5/R+uqXFh85doUmpHT13lSZNkIElt0AG6c8S5KftNQQZ8Nn7PY1vbWAmR
- ESABNGUa4Vsq5qjJacyBwrSOSPKw+VLKcVY4e7aZxA9+sua/fByBkoQ0+K6IzQCGoPeS
- WM1w==
+ bh=JlKXDF6nWZ/vsyDYBF/wvr2qpbqXxVXgrfljy3StO68=;
+ b=j5gXI6U472hI/S9122jT/Bpoxk31+JJHPpbGPDgR6jJTHsOzenB9VtWNqSPc9KPi6o
+ 2/T4Zm0jas5qK7suxakvST0NcQurBaYSi4oDZLXWRd1ohW14NjPZFXLt6jfNO2zvyt0t
+ j/8COkqR0lttD3Ur9b9XyPo/fL7xfwhOUcI/II3xAwLUtsC/tG+rVJjO7yOqCXTOBqaj
+ t5LBDLx4rZ4C4NGKV7UCxjyzSC0ZjMJmtSvcjUkdttzM8iB6qYnL9reOjxr15juCHUHu
+ GE/J+KjePHLeC7qiI0I5e7hdc55JK9or36/Ydjzat8efFd2T2rudl9N/2O/yMb9uUf1J
+ VkZA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQ/lBhRmn+BMQzgb80b6QuIUt+PisM68aiypufcg/bmvWZjSQzOm+6BXn4sRczbRP1AwiUkQLh@lists.freedesktop.org,
- AJvYcCVWSPDKHmMHjdV+Dh9Ixcn3AkzWOE25r6mG4aRZOxlBh7t36wtyqIP5p0xRmUe694CAg5X7oGjsk94K@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YynQOWHC84EFvU1JUmSIOQSWXtyQC9iwCt1aEroOoODRaQYvYiQ
- is0Gy/TVx7eGpanLzj6Y+gQEM6qFF7V6pPenqUWXAqXptAFS1WTHV8I=
-X-Gm-Gg: ASbGncuE1YF6q9CtwvbFlB0ZMyHTY2dXDvIt3UymIGYjThFKvmWygnz6pOzlgN1wfpx
- exgHEEaTd4erGSaLsFuaAFwEZazNtTmYZOgWY2R369f3FX/TVtMWufe1SHLL7w170SsgoOGs/6b
- yoCz6Gdkf25eaB9eHBliEbXtlen1bHA6HLMejdrpUidzU12VHWWnWx+K/91ZyFRyt+zlpKelDrD
- tIjGW70VQ8R6NNTvhfXlC629ARM+5oO8D3WR0/j82hlsuIJCSPO3GPj/8wZw9qQ1JGeUtbAPV0z
- Bs5ILejiaKWHtk+n94IT7xE51aBtw/vFb2mhkM/ys+WEBCeJVADxW8oBEq5UhNmpok6yWJSreb8
- 6B7IoeIWoEldZZHmZ+wc=
-X-Google-Smtp-Source: AGHT+IH+P0BUAZebqc5VI30I/89y9eCXqsFCURy/3jl+T3nPNtyKbqO+NJxSPIfO3MLZIv+k6oDqOg==
-X-Received: by 2002:ac8:5ac9:0:b0:4a9:e326:277a with SMTP id
- d75a77b69052e-4ae6de519c0mr32351221cf.5.1753324604423; 
- Wed, 23 Jul 2025 19:36:44 -0700 (PDT)
-Received: from ise-alpha.. ([2620:0:e00:550a:642:1aff:fee8:511b])
+ AJvYcCUAkfWGZ1ewh0mm35xjRwiOy3gh+owJepfJks9rBjFuSr7zSdeVvd7Kc0Ol8CPMqNda5x8Yx92y@lists.freedesktop.org,
+ AJvYcCX+D1WIhchkBKAAsAd5/H3l79fXtSrQV63qzRaCK6S6upSjdUi8mVm7kDHt9SgcEn+ERAOBz204oZE0@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzL37xPxoxxj7FJPD4v/qpLssAYMTLVNARpU5NVtBHmU6lHaulp
+ BMQ5ZbEZ+myPoYckJrO7VAPxR2F3bt2jTKyMhb42woC43Ry9j7y8X7Zim0kStpRxpBg=
+X-Gm-Gg: ASbGnct00vd5oxkLAs6EZEr8f9CBIuwdz4bIFSkcEC4IrejGgOoWNIchLSu0u7lgnro
+ ehouWEs8u8mUQju391WBEWfrx4vLQE5VJU21i4AiszsHUmQSTtQUJ2NJRsZcbMLoQqPvzP0Ckf+
+ UZAaE3BnIADwT/SXxNGCAAObeSjgGVtzazhbtUh3+fPgeA+gBgFw1WrokvZm2fali4swQRib3xh
+ z5g1Zjm9VJIpu/fkP2vhkNikRfMHRxlYtSZj7Ox/c1cr5ERn2gSDHbLDmozEDCWWZF/lApOT8F5
+ VLG9uHDjh4fqmuU8aEXqx8BLi/lIsKTYlUQLSH5hLdO6X/F8Hut+ROYq5b1pPi4Ke/IMh/z/c/T
+ 7ABGN7jFd7/Nub8t/uxkm/oSHQttaE1tTEbFOSkYdi0dz
+X-Google-Smtp-Source: AGHT+IFG22TEKJRsKCGmKJcD+w2qG7oznQaAuASUBW+hlSzkC2HlAMEa0E9gkEgT/2Ow83R50FxoSQ==
+X-Received: by 2002:a05:6000:24ca:b0:3a4:e4ee:4ca9 with SMTP id
+ ffacd0b85a97d-3b768cac943mr3029047f8f.23.1753283313725; 
+ Wed, 23 Jul 2025 08:08:33 -0700 (PDT)
+Received: from xavers-framework.fritz.box
+ ([2a04:7d84:aacf:a9d0:bd85:56a9:7a6b:c1cb])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4ae7e355017sm4641551cf.27.2025.07.23.19.36.43
+ ffacd0b85a97d-3b61ca2bfafsm16748800f8f.34.2025.07.23.08.08.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jul 2025 19:36:44 -0700 (PDT)
-From: Chenyuan Yang <chenyuan0y@gmail.com>
-To: harry.wentland@amd.com,
-	sunpeng.li@amd.com
-Cc: siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, vulab@iscas.ac.cn,
- Wenjing.Liu@amd.com, isabel.zhang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Chenyuan Yang <chenyuan0y@gmail.com>
-Subject: [PATCH] drm/amd/display: Add null pointer check in
- mod_hdcp_hdcp1_create_session()
-Date: Wed, 23 Jul 2025 21:36:41 -0500
-Message-Id: <20250724023641.1258831-1-chenyuan0y@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Wed, 23 Jul 2025 08:08:33 -0700 (PDT)
+From: Xaver Hugl <xaver.hugl@kde.org>
+To: dri-devel@lists.freedesktop.org
+Cc: xaver.hugl@kde.org, andrealmeid@igalia.com, chris@kode54.net,
+ naveen1.kumar@intel.com, ville.syrjala@linux.intel.com,
+ mdaenzer@redhat.com, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm: don't run atomic_async_check for disabled planes
+Date: Wed, 23 Jul 2025 17:04:13 +0200
+Message-ID: <20250723150413.18445-1-xaver.hugl@kde.org>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 24 Jul 2025 07:50:59 +0000
@@ -92,37 +76,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function mod_hdcp_hdcp1_create_session() calls the function
-get_first_active_display(), but does not check its return value.
-The return value is a null pointer if the display list is empty.
-This will lead to a null pointer dereference.
+It's entirely valid and correct for compositors to include disabled
+planes in the atomic commit, and doing that should not prevent async
+flips from working. To fix that, this commit skips the async checks
+if the plane was and still is not visible.
 
-Add a null pointer check for get_first_active_display() and return
-MOD_HDCP_STATUS_DISPLAY_NOT_FOUND if the function return null.
+Fixes: fd40a63c drm/atomic: Let drivers decide which planes to async flip
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4263
 
-This is similar to the commit c3e9826a2202
-("drm/amd/display: Add null pointer check for get_first_active_display()").
-
-Fixes: 2deade5ede56 ("drm/amd/display: Remove hdcp display state with mst fix")
-Signed-off-by: Chenyuan Yang <chenyuan0y@gmail.com>
+Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
 ---
- drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/drm_atomic_uapi.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-index e58e7b93810b..6b7db8ec9a53 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-@@ -260,6 +260,9 @@ enum mod_hdcp_status mod_hdcp_hdcp1_create_session(struct mod_hdcp *hdcp)
- 		return MOD_HDCP_STATUS_FAILURE;
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index c2726af6698e..2e62561fd94d 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1066,6 +1066,7 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
  	}
+ 	case DRM_MODE_OBJECT_PLANE: {
+ 		struct drm_plane *plane = obj_to_plane(obj);
++		struct drm_plane_state *old_plane_state;
+ 		struct drm_plane_state *plane_state;
+ 		struct drm_mode_config *config = &plane->dev->mode_config;
+ 		const struct drm_plane_helper_funcs *plane_funcs = plane->helper_private;
+@@ -1086,8 +1087,15 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
+ 			}
  
-+	if (!display)
-+		return MOD_HDCP_STATUS_DISPLAY_NOT_FOUND;
++			old_plane_state = drm_atomic_get_old_plane_state(state, plane);
++			if (IS_ERR(old_plane_state)) {
++				ret = PTR_ERR(plane_state);
++				break;
++			}
 +
- 	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.context.mem_context.shared_buf;
+ 			/* ask the driver if this non-primary plane is supported */
+-			if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
++			if (plane->type != DRM_PLANE_TYPE_PRIMARY &&
++					(plane_state->visible || old_plane_state->visible)) {
+ 				ret = -EINVAL;
  
- 	mutex_lock(&psp->hdcp_context.mutex);
+ 				if (plane_funcs && plane_funcs->atomic_async_check)
 -- 
-2.34.1
+2.50.1
 
