@@ -4,63 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A80EC83F1A
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 07:51:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3850DC87FC5
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 07:51:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D499C10E8AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DECF910E8B0;
 	Thu, 24 Jul 2025 07:51:00 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89F1510E17D;
- Wed, 23 Jul 2025 15:08:35 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-3a6d1369d4eso4119088f8f.2; 
- Wed, 23 Jul 2025 08:08:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753283314; x=1753888114;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=JlKXDF6nWZ/vsyDYBF/wvr2qpbqXxVXgrfljy3StO68=;
- b=j5gXI6U472hI/S9122jT/Bpoxk31+JJHPpbGPDgR6jJTHsOzenB9VtWNqSPc9KPi6o
- 2/T4Zm0jas5qK7suxakvST0NcQurBaYSi4oDZLXWRd1ohW14NjPZFXLt6jfNO2zvyt0t
- j/8COkqR0lttD3Ur9b9XyPo/fL7xfwhOUcI/II3xAwLUtsC/tG+rVJjO7yOqCXTOBqaj
- t5LBDLx4rZ4C4NGKV7UCxjyzSC0ZjMJmtSvcjUkdttzM8iB6qYnL9reOjxr15juCHUHu
- GE/J+KjePHLeC7qiI0I5e7hdc55JK9or36/Ydjzat8efFd2T2rudl9N/2O/yMb9uUf1J
- VkZA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUAkfWGZ1ewh0mm35xjRwiOy3gh+owJepfJks9rBjFuSr7zSdeVvd7Kc0Ol8CPMqNda5x8Yx92y@lists.freedesktop.org,
- AJvYcCX+D1WIhchkBKAAsAd5/H3l79fXtSrQV63qzRaCK6S6upSjdUi8mVm7kDHt9SgcEn+ERAOBz204oZE0@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzL37xPxoxxj7FJPD4v/qpLssAYMTLVNARpU5NVtBHmU6lHaulp
- BMQ5ZbEZ+myPoYckJrO7VAPxR2F3bt2jTKyMhb42woC43Ry9j7y8X7Zim0kStpRxpBg=
-X-Gm-Gg: ASbGnct00vd5oxkLAs6EZEr8f9CBIuwdz4bIFSkcEC4IrejGgOoWNIchLSu0u7lgnro
- ehouWEs8u8mUQju391WBEWfrx4vLQE5VJU21i4AiszsHUmQSTtQUJ2NJRsZcbMLoQqPvzP0Ckf+
- UZAaE3BnIADwT/SXxNGCAAObeSjgGVtzazhbtUh3+fPgeA+gBgFw1WrokvZm2fali4swQRib3xh
- z5g1Zjm9VJIpu/fkP2vhkNikRfMHRxlYtSZj7Ox/c1cr5ERn2gSDHbLDmozEDCWWZF/lApOT8F5
- VLG9uHDjh4fqmuU8aEXqx8BLi/lIsKTYlUQLSH5hLdO6X/F8Hut+ROYq5b1pPi4Ke/IMh/z/c/T
- 7ABGN7jFd7/Nub8t/uxkm/oSHQttaE1tTEbFOSkYdi0dz
-X-Google-Smtp-Source: AGHT+IFG22TEKJRsKCGmKJcD+w2qG7oznQaAuASUBW+hlSzkC2HlAMEa0E9gkEgT/2Ow83R50FxoSQ==
-X-Received: by 2002:a05:6000:24ca:b0:3a4:e4ee:4ca9 with SMTP id
- ffacd0b85a97d-3b768cac943mr3029047f8f.23.1753283313725; 
- Wed, 23 Jul 2025 08:08:33 -0700 (PDT)
-Received: from xavers-framework.fritz.box
- ([2a04:7d84:aacf:a9d0:bd85:56a9:7a6b:c1cb])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca2bfafsm16748800f8f.34.2025.07.23.08.08.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jul 2025 08:08:33 -0700 (PDT)
-From: Xaver Hugl <xaver.hugl@kde.org>
-To: dri-devel@lists.freedesktop.org
-Cc: xaver.hugl@kde.org, andrealmeid@igalia.com, chris@kode54.net,
- naveen1.kumar@intel.com, ville.syrjala@linux.intel.com,
- mdaenzer@redhat.com, intel-gfx@lists.freedesktop.org,
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nfraprado@collabora.com header.b="G0kKPqh8";
+	dkim-atps=neutral
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63CF710E7DD;
+ Wed, 23 Jul 2025 14:00:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1753279207; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=N5iTYjyepKeVwUsy3xrnJ4o2yQ4MvSLS0+wVMYJIhtDO6OtRzVkVxixiHzAcyscQVMe7UvVYHuvPClxlM+HfJ4UMrTSM1XcpCpqZVjzcopzbY2LznpdY79xbE50oe+Cu9hT+gknNlDNXt2o70wS7QzOAv3rBmJZ09dMD3V2ZTSk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1753279207;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=zk0L+C4K3jKWIEouwPa+VL9hBipstr3UBV39eVVZtzc=; 
+ b=Jw4SDO6N3L3BFKFPA4ODrr8giHGyK3mcSnIc4dSU3U2iJk69f3jpd3YoI1vo5lplER3+Xm0j2ZCgJXPTXYft/Kw+2PUH2sE86+vdQXOQ8CRjh+Gl6OhTEitDriYUx4i5b29uKEhQKbeI36GXOKrh5LTwxmLlwxybtHd+YAG1Les=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nfraprado@collabora.com;
+ dmarc=pass header.from=<nfraprado@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1753279207; 
+ s=zohomail; d=collabora.com; i=nfraprado@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=zk0L+C4K3jKWIEouwPa+VL9hBipstr3UBV39eVVZtzc=;
+ b=G0kKPqh8jyzSZ6yDdQ8uATQ+4yyJhgz6epyn7MMhI3OATuz8yrUx8lJDsGj+JVol
+ q/dnNabJ90ozFxka9o1xQL1bx7Drn76RT5OXDmwArKmnke3caUb67Hr1NL2ip8NG2Z2
+ OwxJh4MgkdZEJzTleapyxtx54gvF+r23GZaL4j9Y=
+Received: by mx.zohomail.com with SMTPS id 1753279204657109.55205778707705;
+ Wed, 23 Jul 2025 07:00:04 -0700 (PDT)
+Message-ID: <5bf31a150ac7556d59cf9d1828a5d2a7a1c0da8f.camel@collabora.com>
+Subject: Re: [PATCH V10 41/46] drm/colorop: allow non-bypass colorops
+From: =?ISO-8859-1?Q?N=EDcolas?= "F. R. A. Prado" <nfraprado@collabora.com>
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm: don't run atomic_async_check for disabled planes
-Date: Wed, 23 Jul 2025 17:04:13 +0200
-Message-ID: <20250723150413.18445-1-xaver.hugl@kde.org>
-X-Mailer: git-send-email 2.50.1
+Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com, 
+ leo.liu@amd.com, ville.syrjala@linux.intel.com,
+ pekka.paalanen@collabora.com, 	contact@emersion.fr, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, 	shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, 
+ aleixpol@kde.org, xaver.hugl@gmail.com, victoria@system76.com,
+ daniel@ffwll.ch, 	uma.shankar@intel.com, quic_naseer@quicinc.com,
+ quic_cbraga@quicinc.com, 	quic_abhinavk@quicinc.com, marcan@marcan.st,
+ Liviu.Dudau@arm.com, 	sashamcintosh@google.com,
+ chaitanya.kumar.borah@intel.com, 	louis.chauvet@bootlin.com,
+ arthurgrillo@riseup.net, Daniel Stone	 <daniels@collabora.com>
+Date: Wed, 23 Jul 2025 10:00:01 -0400
+In-Reply-To: <20250617041746.2884343-42-alex.hung@amd.com>
+References: <20250617041746.2884343-1-alex.hung@amd.com>
+ <20250617041746.2884343-42-alex.hung@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.1-1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
+X-ZohoMail-Owner: <5bf31a150ac7556d59cf9d1828a5d2a7a1c0da8f.camel@collabora.com>+zmo_0_nfraprado@collabora.com
 X-Mailman-Approved-At: Thu, 24 Jul 2025 07:50:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,48 +78,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It's entirely valid and correct for compositors to include disabled
-planes in the atomic commit, and doing that should not prevent async
-flips from working. To fix that, this commit skips the async checks
-if the plane was and still is not visible.
+On Mon, 2025-06-16 at 22:17 -0600, Alex Hung wrote:
+> From: Harry Wentland <harry.wentland@amd.com>
+>=20
+> Not all HW will be able to do bypass on all color
+> operations. Introduce an 32 bits 'flags' for all colorop
+> init functions and DRM_COLOROP_FLAG_ALLOW_BYPASS for creating
+> the BYPASS property when it's true.
+>=20
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Daniel Stone <daniels@collabora.com>
+> Reviewed-by: Simon Ser <contact@emersion.fr>
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
+> ---
+[..]
+> =C2=A0
+> =C2=A0	/* next */
+> =C2=A0	prop =3D drm_property_create_object(dev,
+> DRM_MODE_PROP_IMMUTABLE | DRM_MODE_PROP_ATOMIC,
+> @@ -195,10 +197,11 @@ EXPORT_SYMBOL(drm_colorop_pipeline_destroy);
+> =C2=A0 * @supported_tfs: A bitfield of supported
+> drm_plane_colorop_curve_1d_init enum values,
+> =C2=A0 *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 created using BIT(curve_type) and combine=
+d with
+> the OR '|'
+> =C2=A0 *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 operator.
+> + * @flags: bitmask of misc, see DRM_COLOROP_FLAGS_* defines.
 
-Fixes: fd40a63c drm/atomic: Let drivers decide which planes to async flip
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4263
+Typo, should be DRM_COLOROP_FLAG_*
 
-Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
----
- drivers/gpu/drm/drm_atomic_uapi.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Same on the other kernel-docs below.
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index c2726af6698e..2e62561fd94d 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1066,6 +1066,7 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 	}
- 	case DRM_MODE_OBJECT_PLANE: {
- 		struct drm_plane *plane = obj_to_plane(obj);
-+		struct drm_plane_state *old_plane_state;
- 		struct drm_plane_state *plane_state;
- 		struct drm_mode_config *config = &plane->dev->mode_config;
- 		const struct drm_plane_helper_funcs *plane_funcs = plane->helper_private;
-@@ -1086,8 +1087,15 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
- 			}
- 
-+			old_plane_state = drm_atomic_get_old_plane_state(state, plane);
-+			if (IS_ERR(old_plane_state)) {
-+				ret = PTR_ERR(plane_state);
-+				break;
-+			}
-+
- 			/* ask the driver if this non-primary plane is supported */
--			if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
-+			if (plane->type != DRM_PLANE_TYPE_PRIMARY &&
-+					(plane_state->visible || old_plane_state->visible)) {
- 				ret = -EINVAL;
- 
- 				if (plane_funcs && plane_funcs->atomic_async_check)
--- 
-2.50.1
+--=20
+Thanks,
 
+N=C3=ADcolas
