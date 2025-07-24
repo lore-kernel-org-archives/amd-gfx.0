@@ -4,127 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 582DAC83F26
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 09:34:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F20CC83F26
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 10:03:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F067310E0A5;
-	Thu, 24 Jul 2025 09:34:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8C7088CFA;
+	Thu, 24 Jul 2025 10:03:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S2kw8v0A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nre7pHlQ";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45EA310E0A5
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Jul 2025 09:34:44 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2081.outbound.protection.outlook.com [40.107.237.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AE5B10E915
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Jul 2025 10:03:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h78TfWudZVog2QjhC7zzjWihe4UcwG5SbOKW+5ES1B+HNBtb04vKXS0p/fwqwAD8+59D+2cj4jGyMyHjOtbiNO6MGiDfV4L5slInynF6DreynEzZFnEcByfa/vW9nL60E/C+IjmAXV1U7KEgsjcd/c3mVFBzRhIx4Ya3pQuOeaFyCvzhm5jivBdkCk+xIm7QogJ2x/PK6imU7PbBmZDfkgVdNyvXsMMTvZyhfwTQEVg1GLpgP2b7/v5Iw874RulxvxQjbWU8ZcAG07/bxC7KYV00PzVp258dqxmNz4FNwAFSbyfHKFfCmKT2HX9Wd7AkY80iibQU9SxCd2KFmqHKKw==
+ b=rD/ebVp5SMiKkUf0rmU8nSdfmk3R8lQey0bWsTbqwCYXltBdggsC7ojzJzTxfR0uMwFVd6mJEYXfuhbdNo6PW6DrJgsrYLYhed1gtKJ+RjNh/61j9aoK4fQX2XToKXezk6mblhCvxpmhVKAZDYZyn40S6BAO7h90rnHYiZE7nYXIwpjxsrN1yyBwZGpuEUoF/o6pW37b+vxxhUJyhHseneSQUG9Vr4N1NkM0Pseo4w3D8HKlkW+lVbjfdN5k0MpyK5LZPswaPRjQuxPvN0dQPXX8rhF83isWKjGT1buHtwCSeOy7hFLGFryUR7pof0b/T8eflrRDoGrakZOGqppm0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bdpOdPZN5j1MefjOAUA+kQYYQRP1Cx7ivHIu0J8SNZY=;
- b=fCqWDMKEqBPswxyU1Po2xEuDF6GeypdY/65V4gJkZuwh9vXsyhDuIgokYH8zzzlyP5FlQQO3a1ugELF7q1OAOmsGv/RWMKtNQfdVMzyPh8hxNNWBQVLtlVGhYMHksB93xQ7wfuAKDhOrlXLkEiUUVuz0iMxDjElFDQnzlCy5STbGgatKCCJL75GTkn4HVGIiJnIw0w/iBVIaMHGwx9Y9idHL9YB9FPaPK+6l6WGLKEw+kpgmP6OR4O6/NU+XZK2VgbUszuRCvt4kkrV7Lbt2w4bPB4NMcj4JsvWvxeUbJECLyUNLUt+XagTp1o+GNofy6Ar17KHowGq208NCsEmy8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=rjZxthOo2kRIOEaZl0mhKInUE8UVFo1KXa/zTmN/tkI=;
+ b=IbYqRqx7StnR/9U5q15ntZwphJMc9z121/gqtcVYdPlTvCCfcDiPi0WtWdJYZbtGYdog+WOY+CcToFgzBCKdLiQEPuJAEW434cbffACvIHupOwXspI89p66pUksd9HVN6hX5JkEuxkQiKiEYQGYHH+JpkRwJQUPWYZJ+Cru34ITn4XJ9R5RnJH3u28uBhJpzYTK0F2bT51krxGC82+TiYiAkLzMtAYx3v9yUde7SGa64Wso7RCnL/M2wpbQQBAidLvCF906OcjIiW6iKr+QdJzkcmez6zQH4iyd4vLouAKYdWca4w4OKOgUzV1A3S0EIglEdGbIoDSTEU3oYzu7Eqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bdpOdPZN5j1MefjOAUA+kQYYQRP1Cx7ivHIu0J8SNZY=;
- b=S2kw8v0ArCIMcYJFXiEMZ95FDwb1AWbxJuVJOUVoJ56lU2mM90xkYbP/7Ce5CcRVzpBvHKThloGQpW2Z5xaYoc2WmHikH4EdiUgHNesncEazWUGQmkS8x2NecPsUFULy8g+MlYTSdZ1tBRjEj1yWHAc05DfYUkNWTOnvsWowYJw=
-Received: from SA9PR13CA0128.namprd13.prod.outlook.com (2603:10b6:806:27::13)
- by CH3PR12MB8533.namprd12.prod.outlook.com (2603:10b6:610:159::16)
+ bh=rjZxthOo2kRIOEaZl0mhKInUE8UVFo1KXa/zTmN/tkI=;
+ b=nre7pHlQ7L+SZv3txLEsO9OltTKZus0Rq+IrUXYfNgEhICe7R/3eodIiRfvOUvi4URbf5GhwG4OqsLbu95NzozfTchQgEY2XLEoaFc8phD9FVU0uCwLQCSGt4sHrLp6nr0uhpvVoCM/TgjKK5GQMPxlx8dxzr7vXUW3eNokLd1g=
+Received: from SJ0PR12MB6967.namprd12.prod.outlook.com (2603:10b6:a03:44b::6)
+ by PH7PR12MB5710.namprd12.prod.outlook.com (2603:10b6:510:1e1::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Thu, 24 Jul
- 2025 09:34:41 +0000
-Received: from SN1PEPF000397B1.namprd05.prod.outlook.com
- (2603:10b6:806:27:cafe::80) by SA9PR13CA0128.outlook.office365.com
- (2603:10b6:806:27::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.5 via Frontend Transport; Thu,
- 24 Jul 2025 09:34:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000397B1.mail.protection.outlook.com (10.167.248.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Thu, 24 Jul 2025 09:34:41 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 24 Jul 2025 04:32:34 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Wenjing Liu
- <wenjing.liu@amd.com>, Michael Strauss <michael.strauss@amd.com>, Alex Hung
- <alex.hung@amd.com>, George Shen <george.shen@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Wayne Lin <wayne.lin@amd.com>, Alvin Lee
- <Alvin.Lee2@amd.com>, Ray Wu <ray.wu@amd.com>, Harry Wentland
- <harry.wentland@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
- <roman.li@amd.com>
-Subject: [PATCH v3] drm/amd/display: Reduce Stack Usage by moving
- 'audio_output' into 'stream_res' v3
-Date: Thu, 24 Jul 2025 15:01:51 +0530
-Message-ID: <20250724093151.1400303-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250724074833.1385215-1-srinivasan.shanmugam@amd.com>
-References: <20250724074833.1385215-1-srinivasan.shanmugam@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Thu, 24 Jul
+ 2025 10:03:27 +0000
+Received: from SJ0PR12MB6967.namprd12.prod.outlook.com
+ ([fe80::628b:cc72:7a93:6bdb]) by SJ0PR12MB6967.namprd12.prod.outlook.com
+ ([fe80::628b:cc72:7a93:6bdb%7]) with mapi id 15.20.8943.029; Thu, 24 Jul 2025
+ 10:03:26 +0000
+From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>
+Subject: Re: [PATCH] drm/amd/pm: Add priority messages for SMU v13.0.6
+Thread-Topic: [PATCH] drm/amd/pm: Add priority messages for SMU v13.0.6
+Thread-Index: AQHb/Hj0S6ltIhN4wEGkqmFJ5eetFbRBCI7r
+Date: Thu, 24 Jul 2025 10:03:26 +0000
+Message-ID: <SJ0PR12MB6967DC041C3C519D228B84B29D5EA@SJ0PR12MB6967.namprd12.prod.outlook.com>
+References: <20250724085603.1611802-1-lijo.lazar@amd.com>
+In-Reply-To: <20250724085603.1611802-1-lijo.lazar@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-07-24T10:03:25.9490000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR12MB6967:EE_|PH7PR12MB5710:EE_
+x-ms-office365-filtering-correlation-id: 88ceb70f-8530-4bd2-2018-08ddca995543
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|7053199007|8096899003|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?nQ20wTrMuAgScEvFwa1eLAHU3HSN+vWGxMwnwTofkQ64QHoS4CJsQXAXSlaH?=
+ =?us-ascii?Q?9V2Wm3HYrENk1VfxjRTJhxsY1mg72F5qCutwc7GiVhtpTI+cVZhdC1JsnU+H?=
+ =?us-ascii?Q?w69teoa66enmV6W/yN0SbwoTMi2k0vNm6fMCQVEBiw+bq9fjXiLY2nbzR/4g?=
+ =?us-ascii?Q?vxMEJUmoMsE15lLaTXofp611wg6khsujSvbfS2s5TSE5I4ul7R+5z7kU9u7i?=
+ =?us-ascii?Q?NUORcqQ+gItLRgTjrvPi2BO82xe/Zhoc8KTlLfv5pLCNrlEB/4FtSuZ+Zlh2?=
+ =?us-ascii?Q?MBRDqBU+oORYsOOTCqifPYwEl466ughPUXA6DN+wYeJRVoNqs3lGaQXUljQu?=
+ =?us-ascii?Q?TIRrNYor5BpOo+hQwrgqEbCY1axx7Hpr/LpYuc+mIwhyrrdxYmcaupxT72mi?=
+ =?us-ascii?Q?8Sup3gxu1vufRAv27YKhV13pBoqYym8C1B7CSmlYjy9/SNiQOSo6E61+uZsA?=
+ =?us-ascii?Q?2g1lgFgYWyrsFcnAcFLSnijnit1Sak2yjhg0jb2OAyjedaKLREPzt1QIhU8f?=
+ =?us-ascii?Q?yz4QcD5YMNWNzISVncNIxn9UwC52J3rwmUBMLBc1EY/+s08PDXnWGfkY2VBM?=
+ =?us-ascii?Q?sx2BxTdjfIfUoM8a9KNJ5+Zy95otZnbOeEbcZLR6S+AyiPIL5l5A5EI3uZ+n?=
+ =?us-ascii?Q?jTP7/05JFdPDcJuE8d8WXFM9vUP6MD/OZuU5+gCKytI0sKbMXUpsi8XNsOZM?=
+ =?us-ascii?Q?ETV5XCY6H5k6Disq4umOOWCu7rSA/SagbQP3XVvZaq1kEQ0QtqPjzWNBmNM0?=
+ =?us-ascii?Q?7RaXGUfC5C4mJgowV5HwXRQxBhCrtNiWEqyBLHyp5BdVu8QQr4IbXHmQGSeF?=
+ =?us-ascii?Q?W8b3iGzOqMRC2CNPpTFszNDKp2SlWbMuFkfPsCKHFkAutVR+ZlXI6pV+Fwdw?=
+ =?us-ascii?Q?kxXIxxFkRmRc5uiDh1yK9kbDe6QkFjAkUkDTjbehPEJX+mVL3Cs+YJV8TFD9?=
+ =?us-ascii?Q?ffyLtFT0WPA4OHf7famiv5MMLVzF4s17fFccPxyxOD5Juc6tS00qYpiAdW6/?=
+ =?us-ascii?Q?wtUha7QkEa219HqWNBuhCc3truSHZrLjn/vWblOQxfC3ceteMeLWG/06Paxp?=
+ =?us-ascii?Q?NC7kJIAC8R1QuFLs/ZHg2uArsUpeH4Ymc4Qs11C9eFNQG47hI3zcR8Ih3o/9?=
+ =?us-ascii?Q?jaayPiK72PeN8EGscbLRUZUd49h/xdrB/zRiqapeu8KArpCjngy0TnPdcCxP?=
+ =?us-ascii?Q?zAsu5/fNFAybuOMQ4RqrUBw9imsU6Rww/zICQVkMxc72DIiwvlfKa3LhGaVU?=
+ =?us-ascii?Q?q3M5mllHfbauheXRGZX1NfJd8evQQazTTBMsnnnDdPEJpAwsoc+z+bwMn4ta?=
+ =?us-ascii?Q?1ttPGh/LptBtRC0ixEuGjEN03sEHo+ma3bWKuHV+4TRE7DuujmRkTY5uSmnW?=
+ =?us-ascii?Q?soNiD5lmisVq6cFX4472fxrBqMGU/t2B4G95S4PRY1PJCEtLO4NXyizOPuAo?=
+ =?us-ascii?Q?WtcHAUfyTtq7E8BcPlTFSyDSXEx9RJ/ncb1NpTbp/RouYXHr3/f4Yw=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB6967.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(8096899003)(38070700018);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wnxSRmd0ZrhcJ70OJ91L6kKEPnePp6kTfCjT7pfo8ShBYkOPMF0135xSFQpv?=
+ =?us-ascii?Q?9sGjRXkoUPSpsVW5jyMAlcxJ8L7Fb5EGy3pMUOpJV19x9/BkdYY4Wyx6h574?=
+ =?us-ascii?Q?hFKh7D4w/p1EBQr3IAHT+GlsvLMvh1vjZgY21n0401P90A/aov9ARv1c1qR2?=
+ =?us-ascii?Q?ofFGcixDLMf52vs6AJVnpoPrZF+X/XcPKdlw2ucWSAn/CMbqxGBjgPOvV9IO?=
+ =?us-ascii?Q?cx0pGvbe82APU5fYMlovbdw4yTV6TbpzSX+PQos4XFzji9at68NffBeK1mZI?=
+ =?us-ascii?Q?k8hQZe0nO5YD3LOYDRe5NEzc5drLZXM7HCES1DMhsmhzdDUgNoki6DtF4Irl?=
+ =?us-ascii?Q?e2zSTgnqrNTW+wnHYbo+Nj4R4pA/Ayme4cvE199HzYz3f2qLH8h+UmaTB/JY?=
+ =?us-ascii?Q?M5yCn+dYqjQNJWPjDirkevC5h9Ihwt0ob5aXn1zEgNXfG9RfBRFqfTLhBEET?=
+ =?us-ascii?Q?K/yrQQmqQdG3mLLmCuKU95ZODtzaFSKkcacCL3k6Q1THLv0PmabI7OjRpI0C?=
+ =?us-ascii?Q?AqTn0s5T4703bnF/Kyo1hBz9StqOH28u1A7ZPgtGeX/B8uu1U+RP4k+/VDHO?=
+ =?us-ascii?Q?Go/n8z51nl4Vbq6lG+kH534dKRp2xChhvG8gv7ARoLLEcRaaFqzAA9EdzPqX?=
+ =?us-ascii?Q?vCkzxQrCGAF6EBG+ucK+jEUXybF0vFT1bP7QCpcUyQrtdXgZ8cJ+d1i9pe4+?=
+ =?us-ascii?Q?wsSfUGB1qBiSJEeWbIAHMPqpgc0EQZeNrG0chbkdDeB/LQ10dde1HDYslPPZ?=
+ =?us-ascii?Q?H8dpWtKgwl62IedAamw2Rja1hcI7dezuHsEotPXzzwF4X1a+kNKVwZmHjD9c?=
+ =?us-ascii?Q?uJ6fCPOjTPsGXFBRkA72/sbfVzsnNy+4CignOlARC7vDFLitzQKc65+Lh0qp?=
+ =?us-ascii?Q?QPSbVDyawp+c11Q1x3Ytt+e9UKy05h0/qCcFrc6GIz0WUNlGvBngrmvk84Qa?=
+ =?us-ascii?Q?5purAW8pv5zArwN/ihE6tdOjgpnVO1LNWmjTVQyiQFrpUj1M8fCKLKrGkWQn?=
+ =?us-ascii?Q?4wJl2MTGPCJQRVUo5o4175D0tKcFfivkylraw3ssVLrhvF/d6flfJqdO6Ddi?=
+ =?us-ascii?Q?wwEkZwXuTE2m3eYikVQWVBeJrCL+ZljTxy4KgJQgolrh5hNzQSvSIrYPYFyK?=
+ =?us-ascii?Q?+uiLySiaDtE3c3f3Ncf/ZIaFLgWDXbqcQ2XvFCrEJ+mgqk2bVy0Gcldj9GpG?=
+ =?us-ascii?Q?RvE8anGKySlWnF8v29PBzeC05I45wpOaUqWyNkD8/YTuA2wKi/LQ7vbKK19y?=
+ =?us-ascii?Q?XcZmWqn/v2SDZD8VEMojYsj0BhilvbHP/stqbOQeNowYAzKMofPotPyaKl7G?=
+ =?us-ascii?Q?DVOhZh6IYN9zaGz5/Th7z9y+6eQDu7MyxgXOO7HWLd//9nUWgVtMBY1rotEH?=
+ =?us-ascii?Q?gr9Nv1HayT+qviWBETaXuZyvF2dRYz/w+CY3qMicp6NrEREk7xXVZZ3kxrCK?=
+ =?us-ascii?Q?xTi0EAQyProCZf3prInJWYK0kuMZXnYhJWPuBlD6XO+Qp5j1ztfS3ezpRP8y?=
+ =?us-ascii?Q?6ySpGCPY0D0MEd5zzCCrCJshEkQX9XwN9YGh04PUiqgnoxbsw36CixS11wEu?=
+ =?us-ascii?Q?1KJLHDXWduppKSJUtlk=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_SJ0PR12MB6967DC041C3C519D228B84B29D5EASJ0PR12MB6967namp_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B1:EE_|CH3PR12MB8533:EE_
-X-MS-Office365-Filtering-Correlation-Id: 922da382-6b51-41d1-a7fc-08ddca9550e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?FcJGdNVE2rGZdN/TsuJoTlkQP4Y/Ktx6IiGOJsypuIn6HtPuCdB+nDm7kkXH?=
- =?us-ascii?Q?sFVJRrE4k8ki2lTWCOBv2k3AnLpMz/v5YYp3aqiPm1vkliwkCktKAiB3M9YE?=
- =?us-ascii?Q?v90kldkTKXJWi6lRGmQTlNZ7A2OAeVyo9LbRHWwNuRFWrU9KycC1Gwqcw4JF?=
- =?us-ascii?Q?98hpgdAIHu6hgpd1wnaNh/Gcafuh9PHb4rLCdeqeWhEy1YUf4KSFRCJEMc1K?=
- =?us-ascii?Q?viADrMx8HrZO7wjAGhi71xcuhY/G5acFIvNMFEhA4hJlyT8ioSq72KlzIW3l?=
- =?us-ascii?Q?Uh01VMiEYwTQ6gq8Vy/hVXnOiq0EdmipLfJIJpidB25BIPhQ/tbsX1mhIA59?=
- =?us-ascii?Q?CH7gD0lsnLvf4ONzilxS7UwKveZLgjjKttN/K6CZH0QrvXJ9862H30/P0Bx1?=
- =?us-ascii?Q?myLsOkvTRF7GJUlgBfD48+SV7CBUq/X83Y+B6IXtlcUmUsT9DVRenqkWMdNX?=
- =?us-ascii?Q?gvkgnl0H2CiF2H94jv/xyUbU2PCmCadPkIcn9nOE2N7XED4Bgk5cdtEO8za1?=
- =?us-ascii?Q?c0yyIkYow5Ow/aM2A4YagOBuiGJRz8yacaWRDGWfI5WiHqq/TtgwhrXvqqi8?=
- =?us-ascii?Q?jFjtAQDIcdou0++G+bKMcsvZvNoFBMJcyPQ6mu+p++bn0S/Li+uj4C94+WpF?=
- =?us-ascii?Q?wuk8Kht09KPfhOqGCS6S6uiE1SThBJCXPG/sbZjgv2xhtWtuHV9tA9HVKBt7?=
- =?us-ascii?Q?T8rLelLe+JS0kljbgaUOj6W6tBAdCaQMFeGaNexgRx167K2tXUJYy7Yizo2V?=
- =?us-ascii?Q?mJ4LTMrrWcLtyAmPzgiogfwMQVQepMQ0JgVYUP0N894WK1uJ9Mk/lQXYojkn?=
- =?us-ascii?Q?Xp+Oy02Hw37XXCccN7uxWcE27YRUFRK9AE1aMVVofGGHsnmivTxa1HyxZPHf?=
- =?us-ascii?Q?HycNW5WKVva1uzdWeZgPwLnokcsbPLfJwigZC0ArQYXGCXAtS4eSZyxHMBh8?=
- =?us-ascii?Q?tJst6nQZLQkahxtw2bfQkFWPkOVK+eEO0GZ+lNv+V1WWWeSFPD/gNe4ZQ9Qb?=
- =?us-ascii?Q?3xe/3EIpwNMuk99gOBd977hr+B/pn7r/ITmy2BMt1i7xJJDG8SBnk+mZmm7X?=
- =?us-ascii?Q?GgY9n+GBX4SDPuQnJYje7PuamiJT59Oh7vY6A0XqXJes5+3N1fdcHzVOogE4?=
- =?us-ascii?Q?4QRocTWSrREnImIA91p5HUismrb4bT5CQehXN4bKRy3wZjREwU1H7VkbJjKe?=
- =?us-ascii?Q?sTV3cuUmtTCq2lmzbVgo2lFN4GI58UKUCNRbM10QpZS7ixEqP5LNJNuRqyPi?=
- =?us-ascii?Q?5l2Rv5q+jhH4XX+hUZ0DLelZ9x3BI5UwcFT9Mc87jLgkFgQJHOO8OyLgJdkf?=
- =?us-ascii?Q?zZBxTN6LSa2+UP/AAXmIYDwnLnrO4H9C7pcdSCo8d2HyXSQ5nrcDE1y0yvG3?=
- =?us-ascii?Q?eF5b8V5jvcyYJlWcWGrF0FMOLxNUmNHkY2atQaBMXdLnFKQLNtxZb8ADWNx9?=
- =?us-ascii?Q?xbso19Hoxxj5U1TFBFjtrzoSASZTzCWVLTZRyongDMji++xaF2VDssMWDf+/?=
- =?us-ascii?Q?NEkgr0wOXrCkbGkxTH91S6vc/06Ma+wTEgnb?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2025 09:34:41.2133 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 922da382-6b51-41d1-a7fc-08ddca9550e7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8533
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6967.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88ceb70f-8530-4bd2-2018-08ddca995543
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2025 10:03:26.4921 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9LEypbl5J89ox+hRgA2zTOVsiI2qBntugUEwRtDhOYVnWe22dnV63BTE2xco0WzKraU/086ryjrTl5Gfvch4MQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5710
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,229 +155,460 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function `dp_retrain_link_dp_test` currently allocates a large
-audio_output array on the stack, causing the stack frame size to exceed
-the compiler limit (1080 bytes > 1024 bytes).
+--_000_SJ0PR12MB6967DC041C3C519D228B84B29D5EASJ0PR12MB6967namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-This change prevents stack overflow issues:
-amdgpu/../display/dc/link/accessories/link_dp_cts.c:65:13: warning: stack frame size (1080) exceeds limit (1024) in 'dp_retrain_link_dp_test' [-Wframe-larger-than]
-static void dp_retrain_link_dp_test(struct dc_link *link,
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-v2: Move audio-related data like `audio_output` is kept "per pipe" to
-    manage the audio for that specific display pipeline/display output path
-    (stream). (Wenjing)
 
-v3: Update in all the places where `build_audio_output` is currently
-    called with a separate audio_output variable on the stack & wherever
-    `audio_output` is passed to other functions
-    `dce110_apply_single_controller_ctx_to_hw()` &
-    `dce110_setup_audio_dto()` (like `az_configure`, `wall_dto_setup`)
-    replace with usage of `pipe_ctx->stream_res.audio_output`
-    to centralize audio data per pipe.
+Reviewed-and-tested-by:  Ce Sun <cesun102@amd.com>
 
-'Fixes: 9437059b4bfb ("drm/amd/display: Fix Link Override Sequencing When
-Switching Between DIO/HPO")'
-Cc: Wayne Lin <wayne.lin@amd.com>
-Cc: George Shen <george.shen@amd.com>
-Cc: Michael Strauss <michael.strauss@amd.com>
-Cc: Alvin Lee <Alvin.Lee2@amd.com>
-Cc: Ray Wu <ray.wu@amd.com>
-Cc: Wenjing Liu <wenjing.liu@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+
+
+
+
+
+
+Regards,
+Ce,Sun
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Lijo Laz=
+ar <lijo.lazar@amd.com>
+Sent: Thursday, July 24, 2025 4:56 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Sun, Ce(Overlord) <Ce.Su=
+n@amd.com>
+Subject: [PATCH] drm/amd/pm: Add priority messages for SMU v13.0.6
+
+Certain messages will processed with high priority by PMFW even if it
+hasn't responded to a previous message. Send the priority message
+regardless of the success/fail status of the previous message. Add
+support on SMUv13.0.6 and SMUv13.0.12
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 29 +++++++++----------
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  5 ++--
- .../display/dc/link/accessories/link_dp_cts.c | 12 ++++----
- .../dc/resource/dcn31/dcn31_resource.c        |  5 ++--
- .../dc/resource/dcn31/dcn31_resource.h        |  3 +-
- 5 files changed, 26 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c  |  2 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             | 14 +++++++++-----
+ 4 files changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 4ea13d0bf815..0846338a4b4a 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1600,19 +1600,18 @@ enum dc_status dce110_apply_single_controller_ctx_to_hw(
- 	}
- 
- 	if (pipe_ctx->stream_res.audio != NULL) {
--		struct audio_output audio_output = {0};
- 
--		build_audio_output(context, pipe_ctx, &audio_output);
-+		build_audio_output(context, pipe_ctx, &pipe_ctx->stream_res.audio_output);
- 
--		link_hwss->setup_audio_output(pipe_ctx, &audio_output,
-+		link_hwss->setup_audio_output(pipe_ctx, &pipe_ctx->stream_res.audio_output,
- 				pipe_ctx->stream_res.audio->inst);
- 
- 		pipe_ctx->stream_res.audio->funcs->az_configure(
- 				pipe_ctx->stream_res.audio,
- 				pipe_ctx->stream->signal,
--				&audio_output.crtc_info,
-+				&pipe_ctx->stream_res.audio_output.crtc_info,
- 				&pipe_ctx->stream->audio_info,
--				&audio_output.dp_link_info);
-+				&pipe_ctx->stream_res.audio_output.dp_link_info);
- 
- 		if (dc->config.disable_hbr_audio_dp2)
- 			if (pipe_ctx->stream_res.audio->funcs->az_disable_hbr_audio &&
-@@ -2386,9 +2385,8 @@ static void dce110_setup_audio_dto(
- 		if (pipe_ctx->stream->signal != SIGNAL_TYPE_HDMI_TYPE_A)
- 			continue;
- 		if (pipe_ctx->stream_res.audio != NULL) {
--			struct audio_output audio_output;
- 
--			build_audio_output(context, pipe_ctx, &audio_output);
-+			build_audio_output(context, pipe_ctx, &pipe_ctx->stream_res.audio_output);
- 
- 			if (dc->res_pool->dccg && dc->res_pool->dccg->funcs->set_audio_dtbclk_dto) {
- 				struct dtbclk_dto_params dto_params = {0};
-@@ -2399,14 +2397,14 @@ static void dce110_setup_audio_dto(
- 				pipe_ctx->stream_res.audio->funcs->wall_dto_setup(
- 						pipe_ctx->stream_res.audio,
- 						pipe_ctx->stream->signal,
--						&audio_output.crtc_info,
--						&audio_output.pll_info);
-+						&pipe_ctx->stream_res.audio_output.crtc_info,
-+						&pipe_ctx->stream_res.audio_output.pll_info);
- 			} else
- 				pipe_ctx->stream_res.audio->funcs->wall_dto_setup(
- 					pipe_ctx->stream_res.audio,
- 					pipe_ctx->stream->signal,
--					&audio_output.crtc_info,
--					&audio_output.pll_info);
-+					&pipe_ctx->stream_res.audio_output.crtc_info,
-+					&pipe_ctx->stream_res.audio_output.pll_info);
- 			break;
- 		}
- 	}
-@@ -2426,15 +2424,16 @@ static void dce110_setup_audio_dto(
- 				continue;
- 
- 			if (pipe_ctx->stream_res.audio != NULL) {
--				struct audio_output audio_output = {0};
- 
--				build_audio_output(context, pipe_ctx, &audio_output);
-+				build_audio_output(context,
-+						   pipe_ctx,
-+						   &pipe_ctx->stream_res.audio_output);
- 
- 				pipe_ctx->stream_res.audio->funcs->wall_dto_setup(
- 					pipe_ctx->stream_res.audio,
- 					pipe_ctx->stream->signal,
--					&audio_output.crtc_info,
--					&audio_output.pll_info);
-+					&pipe_ctx->stream_res.audio_output.crtc_info,
-+					&pipe_ctx->stream_res.audio_output.pll_info);
- 				break;
- 			}
- 		}
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index f0d7185153b2..f896cce87b8d 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -228,8 +228,7 @@ struct resource_funcs {
- 	enum dc_status (*update_dc_state_for_encoder_switch)(struct dc_link *link,
- 		struct dc_link_settings *link_setting,
- 		uint8_t pipe_count,
--		struct pipe_ctx *pipes,
--		struct audio_output *audio_output);
-+		struct pipe_ctx *pipes);
- };
- 
- struct audio_support{
-@@ -361,6 +360,8 @@ struct stream_resource {
- 	uint8_t gsl_group;
- 
- 	struct test_pattern_params test_pattern_params;
-+
-+	struct audio_output audio_output;
- };
- 
- struct plane_resource {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
-index 2956c2b3ad1a..b12d61701d4d 100644
---- a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
-@@ -75,7 +75,6 @@ static void dp_retrain_link_dp_test(struct dc_link *link,
- 	bool is_hpo_acquired;
- 	uint8_t count;
- 	int i;
--	struct audio_output audio_output[MAX_PIPES];
- 
- 	needs_divider_update = (link->dc->link_srv->dp_get_encoding_format(link_setting) !=
- 	link->dc->link_srv->dp_get_encoding_format((const struct dc_link_settings *) &link->cur_link_settings));
-@@ -99,7 +98,7 @@ static void dp_retrain_link_dp_test(struct dc_link *link,
- 	if (needs_divider_update && link->dc->res_pool->funcs->update_dc_state_for_encoder_switch) {
- 		link->dc->res_pool->funcs->update_dc_state_for_encoder_switch(link,
- 				link_setting, count,
--				*pipes, &audio_output[0]);
-+				*pipes);
- 		for (i = 0; i < count; i++) {
- 			pipes[i]->clock_source->funcs->program_pix_clk(
- 					pipes[i]->clock_source,
-@@ -111,15 +110,16 @@ static void dp_retrain_link_dp_test(struct dc_link *link,
- 				const struct link_hwss *link_hwss = get_link_hwss(
- 					link, &pipes[i]->link_res);
- 
--				link_hwss->setup_audio_output(pipes[i], &audio_output[i],
--						pipes[i]->stream_res.audio->inst);
-+				link_hwss->setup_audio_output(pipes[i],
-+							      &pipes[i]->stream_res.audio_output,
-+							      pipes[i]->stream_res.audio->inst);
- 
- 				pipes[i]->stream_res.audio->funcs->az_configure(
- 						pipes[i]->stream_res.audio,
- 						pipes[i]->stream->signal,
--						&audio_output[i].crtc_info,
-+						&pipes[i]->stream_res.audio_output.crtc_info,
- 						&pipes[i]->stream->audio_info,
--						&audio_output[i].dp_link_info);
-+						&pipes[i]->stream_res.audio_output.dp_link_info);
- 
- 				if (link->dc->config.disable_hbr_audio_dp2 &&
- 						pipes[i]->stream_res.audio->funcs->az_disable_hbr_audio &&
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-index 3ed7f50554e2..ca17e5d8fdc2 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-@@ -2239,8 +2239,7 @@ struct resource_pool *dcn31_create_resource_pool(
- enum dc_status dcn31_update_dc_state_for_encoder_switch(struct dc_link *link,
- 	struct dc_link_settings *link_setting,
- 	uint8_t pipe_count,
--	struct pipe_ctx *pipes,
--	struct audio_output *audio_output)
-+	struct pipe_ctx *pipes)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm=
+/amd/pm/swsmu/inc/smu_types.h
+index d7a9e41820fa..aaf148591a98 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+@@ -469,6 +469,7 @@ enum smu_feature_mask {
+ /* Message category flags */
+ #define SMU_MSG_VF_FLAG                 (1U << 0)
+ #define SMU_MSG_RAS_PRI                 (1U << 1)
++#define SMU_MSG_HI_PRI                 (1U << 2)
+
+ /* Firmware capability flags */
+ #define SMU_FW_CAP_RAS_PRI              (1U << 0)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driver=
+s/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index 02a455a31c25..17e0303f603b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -106,7 +106,7 @@ const struct cmn2asic_msg_mapping smu_v13_0_12_message_=
+map[SMU_MSG_MAX_COUNT] =3D
+         MSG_MAP(GetDpmFreqByIndex,                   PPSMC_MSG_GetDpmFreqB=
+yIndex,                1),
+         MSG_MAP(SetPptLimit,                         PPSMC_MSG_SetPptLimit=
+,                      0),
+         MSG_MAP(GetPptLimit,                         PPSMC_MSG_GetPptLimit=
+,                      1),
+-       MSG_MAP(GfxDeviceDriverReset,                PPSMC_MSG_GfxDriverRes=
+et,                   SMU_MSG_RAS_PRI),
++       MSG_MAP(GfxDeviceDriverReset,                PPSMC_MSG_GfxDriverRes=
+et,                   SMU_MSG_RAS_PRI | SMU_MSG_HI_PRI),
+         MSG_MAP(DramLogSetDramAddrHigh,              PPSMC_MSG_DramLogSetD=
+ramAddrHigh,           0),
+         MSG_MAP(DramLogSetDramAddrLow,               PPSMC_MSG_DramLogSetD=
+ramAddrLow,            0),
+         MSG_MAP(DramLogSetDramSize,                  PPSMC_MSG_DramLogSetD=
+ramSize,               0),
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 9cc294f4708b..c22b3f646355 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -145,7 +145,7 @@ static const struct cmn2asic_msg_mapping smu_v13_0_6_me=
+ssage_map[SMU_MSG_MAX_COU
+         MSG_MAP(GetDpmFreqByIndex,                   PPSMC_MSG_GetDpmFreqB=
+yIndex,                1),
+         MSG_MAP(SetPptLimit,                         PPSMC_MSG_SetPptLimit=
+,                      0),
+         MSG_MAP(GetPptLimit,                         PPSMC_MSG_GetPptLimit=
+,                      1),
+-       MSG_MAP(GfxDeviceDriverReset,                PPSMC_MSG_GfxDriverRes=
+et,                   SMU_MSG_RAS_PRI),
++       MSG_MAP(GfxDeviceDriverReset,                PPSMC_MSG_GfxDriverRes=
+et,                   SMU_MSG_RAS_PRI | SMU_MSG_HI_PRI),
+         MSG_MAP(DramLogSetDramAddrHigh,              PPSMC_MSG_DramLogSetD=
+ramAddrHigh,           0),
+         MSG_MAP(DramLogSetDramAddrLow,               PPSMC_MSG_DramLogSetD=
+ramAddrLow,            0),
+         MSG_MAP(DramLogSetDramSize,                  PPSMC_MSG_DramLogSetD=
+ramSize,               0),
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c
+index 59f9abd0f7b8..f1f5cd8c2cd9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -256,11 +256,12 @@ static int __smu_cmn_ras_filter_msg(struct smu_contex=
+t *smu,
  {
- 	struct dc_state *state = link->dc->current_state;
- 	int i;
-@@ -2255,7 +2254,7 @@ enum dc_status dcn31_update_dc_state_for_encoder_switch(struct dc_link *link,
- 
- 		// Setup audio
- 		if (pipes[i].stream_res.audio != NULL)
--			build_audio_output(state, &pipes[i], &audio_output[i]);
-+			build_audio_output(state, &pipes[i], &pipes[i].stream_res.audio_output);
- 	}
- #else
- 	/* This DCN requires rate divider updates and audio reprogramming to allow DP1<-->DP2 link rate switching,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.h
-index c32c85ef0ba4..7e8fde65528f 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.h
-@@ -69,8 +69,7 @@ unsigned int dcn31_get_det_buffer_size(
- enum dc_status dcn31_update_dc_state_for_encoder_switch(struct dc_link *link,
- 	struct dc_link_settings *link_setting,
- 	uint8_t pipe_count,
--	struct pipe_ctx *pipes,
--	struct audio_output *audio_output);
-+	struct pipe_ctx *pipes);
- 
- /*temp: B0 specific before switch to dcn313 headers*/
- #ifndef regPHYPLLF_PIXCLK_RESYNC_CNTL
--- 
-2.34.1
+         struct amdgpu_device *adev =3D smu->adev;
+         uint32_t flags, resp;
+-       bool fed_status;
++       bool fed_status, pri;
 
+         flags =3D __smu_cmn_get_msg_flags(smu, msg);
+         *poll =3D true;
+
++       pri =3D !!(flags & SMU_MSG_HI_PRI);
+         /* When there is RAS fatal error, FW won't process non-RAS priorit=
+y
+          * messages. Don't allow any messages other than RAS priority mess=
+ages.
+          */
+@@ -272,15 +273,18 @@ static int __smu_cmn_ras_filter_msg(struct smu_contex=
+t *smu,
+                                 smu_get_message_name(smu, msg));
+                         return -EACCES;
+                 }
++       }
+
++       if (pri || fed_status) {
+                 /* FW will ignore non-priority messages when a RAS fatal e=
+rror
+-                * is detected. Hence it is possible that a previous messag=
+e
+-                * wouldn't have got response. Allow to continue without po=
+lling
+-                * for response status for priority messages.
++                * or reset condition is detected. Hence it is possible tha=
+t a
++                * previous message wouldn't have got response. Allow to
++                * continue without polling for response status for priorit=
+y
++                * messages.
+                  */
+                 resp =3D RREG32(smu->resp_reg);
+                 dev_dbg(adev->dev,
+-                       "Sending RAS priority message %s response status: %=
+x",
++                       "Sending priority message %s response status: %x",
+                         smu_get_message_name(smu, msg), resp);
+                 if (resp =3D=3D 0)
+                         *poll =3D false;
+--
+2.49.0
+
+
+--_000_SJ0PR12MB6967DC041C3C519D228B84B29D5EASJ0PR12MB6967namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Reviewed-and-tested-by:&nbsp; Ce Sun &lt;cesun102@amd.com&gt;</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Regards,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Ce,Sun</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Lijo Lazar &lt;lijo.lazar@amd=
+.com&gt;<br>
+<b>Sent:</b> Thursday, July 24, 2025 4:56 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
+ &lt;Alexander.Deucher@amd.com&gt;; Kamal, Asad &lt;Asad.Kamal@amd.com&gt;;=
+ Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/pm: Add priority messages for SMU v13.0.6</=
+font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Certain messages will processed with high priority=
+ by PMFW even if it<br>
+hasn't responded to a previous message. Send the priority message<br>
+regardless of the success/fail status of the previous message. Add<br>
+support on SMUv13.0.6 and SMUv13.0.12<br>
+<br>
+Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; |&nbsp; 1 +<br>
+&nbsp;.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c&nbsp; |&nbsp; 2 +-<=
+br>
+&nbsp;.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c&nbsp;&nbsp; |&nbsp; =
+2 +-<br>
+&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 14 +++++++++-----<br>
+&nbsp;4 files changed, 12 insertions(+), 7 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm=
+/amd/pm/swsmu/inc/smu_types.h<br>
+index d7a9e41820fa..aaf148591a98 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h<br>
+@@ -469,6 +469,7 @@ enum smu_feature_mask {<br>
+&nbsp;/* Message category flags */<br>
+&nbsp;#define SMU_MSG_VF_FLAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1U &lt;&lt; 0)<br>
+&nbsp;#define SMU_MSG_RAS_PRI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1U &lt;&lt; 1)<br>
++#define SMU_MSG_HI_PRI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1U &lt;&lt; 2)<br>
+&nbsp;<br>
+&nbsp;/* Firmware capability flags */<br>
+&nbsp;#define SMU_FW_CAP_RAS_PRI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1U &lt;&lt; 0)<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driver=
+s/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c<br>
+index 02a455a31c25..17e0303f603b 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c<br>
+@@ -106,7 +106,7 @@ const struct cmn2asic_msg_mapping smu_v13_0_12_message_=
+map[SMU_MSG_MAX_COUNT] =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetDpmFreqByIndex,=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_GetDpmFreqByIndex,&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; 1),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(SetPptLimit,&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_S=
+etPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetPptLimit,&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_G=
+etPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1),<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GfxDeviceDriverReset,&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; PPSMC_MSG_GfxDriverReset,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_=
+RAS_PRI),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GfxDeviceDriverReset,&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; PPSMC_MSG_GfxDriverReset,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_=
+RAS_PRI | SMU_MSG_HI_PRI),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
+High,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; PPSMC_MSG_DramLogSetDramAddrHigh,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
+Low,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; PPSMC_MSG_DramLogSetDramAddrLow,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramSize=
+,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_DramLogSetDramSize,&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c<br>
+index 9cc294f4708b..c22b3f646355 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c<br>
+@@ -145,7 +145,7 @@ static const struct cmn2asic_msg_mapping smu_v13_0_6_me=
+ssage_map[SMU_MSG_MAX_COU<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetDpmFreqByIndex,=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_GetDpmFreqByIndex,&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; 1),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(SetPptLimit,&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_S=
+etPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetPptLimit,&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_G=
+etPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1),<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GfxDeviceDriverReset,&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; PPSMC_MSG_GfxDriverReset,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_=
+RAS_PRI),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GfxDeviceDriverReset,&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; PPSMC_MSG_GfxDriverReset,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_=
+RAS_PRI | SMU_MSG_HI_PRI),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
+High,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; PPSMC_MSG_DramLogSetDramAddrHigh,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
+Low,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; PPSMC_MSG_DramLogSetDramAddrLow,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramSize=
+,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_DramLogSetDramSize,&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c<br>
+index 59f9abd0f7b8..f1f5cd8c2cd9 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
+@@ -256,11 +256,12 @@ static int __smu_cmn_ras_filter_msg(struct smu_contex=
+t *smu,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D smu-&gt;adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags, resp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool fed_status;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool fed_status, pri;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flags =3D __smu_cmn_get_ms=
+g_flags(smu, msg);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *poll =3D true;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pri =3D !!(flags &amp; SMU_MSG_HI_PRI=
+);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* When there is RAS fatal=
+ error, FW won't process non-RAS priority<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * messages. Don't al=
+low any messages other than RAS priority messages.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+@@ -272,15 +273,18 @@ static int __smu_cmn_ras_filter_msg(struct smu_contex=
+t *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_get_message_name(smu, msg));=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n -EACCES;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pri || fed_status) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* FW will ignore non-priority messages when a RAS fa=
+tal error<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * is detected. Hence it is possible that a previous messag=
+e<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * wouldn't have got response. Allow to continue without po=
+lling<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * for response status for priority messages.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * or reset condition is detected. Hence it is possible tha=
+t a<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * previous message wouldn't have got response. Allow to<br=
+>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * continue without polling for response status for priorit=
+y<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * messages.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; resp =3D RREG32(smu-&gt;resp_reg);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dev_dbg(adev-&gt;dev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Sending RA=
+S priority message %s response status: %x&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Sending pr=
+iority message %s response status: %x&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_g=
+et_message_name(smu, msg), resp);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (resp =3D=3D 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *poll=
+ =3D false;<br>
+-- <br>
+2.49.0<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_SJ0PR12MB6967DC041C3C519D228B84B29D5EASJ0PR12MB6967namp_--
