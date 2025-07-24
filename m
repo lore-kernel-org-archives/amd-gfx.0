@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CFB0C87FC5
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 17:00:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C53BC83F26
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 22:32:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15E0610E9A1;
-	Thu, 24 Jul 2025 17:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CDD910E07C;
+	Thu, 24 Jul 2025 22:32:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=daenzer.net header.i=@daenzer.net header.b="Q9TI6YSR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="l5ha4Zvv";
 	dkim-atps=neutral
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B585F10E9A1;
- Thu, 24 Jul 2025 16:59:59 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; t=1753375955; x=1753980755; s=webland;
- d=daenzer.net; c=relaxed/relaxed; v=1;
- bh=iaVKPuzmpAQDt7xGC5CpA0Z7qFc3P3ZL/GrGKMIDRPY=;
- h=From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:References;
- b=Q9TI6YSRBnZXkMpErQkITNgZD1JDx1haafUhbqEKIuldfY+OdFelUsERpcSNlWtx6xhBDOgvaK/RJo5+tAzIhj2DUF9kiGHpcEylZAMQTqgbZGen9nBWpYYzeu/Y3BHQMIYQoDlLYr+uM42y4UN7NcQbtaCIcgrwn50EPq+EruiKKUX5JF+hIn2IFxxZJFblLovgTfEQrVSOO2YEWN63+QkIuI2w6f6MWdI6uNZ46tYKfxvGpOEOJF/SaTcTCfUNS5nP9Re2h0N8XxVPyclXJk0TNKqh31dDhLHIBKUEcH7qAgIgwGdWFHShFJTZcOoNSw3eU0Ygk5mhTtf3D3yuFw==
-Received: from kaveri ([213.144.156.170])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202507241852340802; Thu, 24 Jul 2025 18:52:34 +0200
-Received: from daenzer by kaveri with local (Exim 4.98.2)
- (envelope-from <michel@daenzer.net>) id 1uezBI-00000004zLz-2BV3;
- Thu, 24 Jul 2025 18:52:32 +0200
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Hung <alex.hung@amd.com>, Shankar@kaveri.local,
- Uma <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
- victoria@system76.com, David Turner <david.turner@raspberrypi.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 1/4] drm/kms: Add DRM_EVENT_ATOMIC_HW_DONE event type
-Date: Thu, 24 Jul 2025 18:40:28 +0200
-Message-ID: <20250724165220.1189129-2-michel@daenzer.net>
-X-Mailer: git-send-email 2.50.0
-In-Reply-To: <20250724165220.1189129-1-michel@daenzer.net>
-References: <20250724165220.1189129-1-michel@daenzer.net>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B885810E07C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Jul 2025 22:32:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=TtWK8SEqkDuQENn2gRiyc4Ds9c7q8T0oa9Jvm+hsAro=; b=l5ha4ZvviXke2yiZfr7F4YKKjX
+ 3gIeYy6bqCfKeDc/EFMXBXKeHuP1rctACmrRx8FTNMA9DqcenMCiXF8oaQF8F38Gd7ZOhuVZALaUI
+ pQ7TxgRqGaXyN0T4H08YTehMj1WMYIrlyQin+9XM8Ccsg3vGKbTrnqQAZf8egzzPCKYpjmmjVCNBb
+ w6AwzYsERbLRZxL3Zpnat94qgkN9kRbmxvejUVl/tASRKqbQh1TkJhn/dIE4If33j6+hULP5RIsm4
+ ZocmSBrrmTQlpJZP3aFKgYwFZUX5cGvD2Ct9gF//trH9QjDhDaQqLNgn8zLAkn2rpuTUCOXz3LPF+
+ QEjDB0Iw==;
+Received: from [104.193.135.201] (helo=debian.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uf4UC-003PQg-5s; Fri, 25 Jul 2025 00:32:24 +0200
+Date: Thu, 24 Jul 2025 16:32:19 -0600
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Timur =?utf-8?Q?Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Dillon Varone <dillon.varone@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Hung <alex.hung@amd.com>, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 1/3] drm/amd/display: Fix refactored DSC cap calculation
+Message-ID: <kzydigo7sq2odubrh5cci54lw2htowj56g3ihg6hn5pynnnq6u@oof6cdqts3h3>
+References: <20250722155830.67401-1-timur.kristof@gmail.com>
+ <20250722155830.67401-2-timur.kristof@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250722155830.67401-2-timur.kristof@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,100 +62,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michel DÃ¤nzer <mdaenzer@redhat.com>
+On 010/22, Timur Kristóf wrote:
+> After refactoring the DSC capability calculation, the
+> get_min_slice_count_for_odm could crash on some GPUs due to a
+> division by zero when max_total_throughput_mps was zero.
+> As a result, DC was broken when connecting a GPU that doesn't
+> support DSC to a monitor that supports DSC.
+> Tested on Oland (DCE 6) and Fiji (DCE 10).
+> 
+> This commit fixes it by returning zero instead.
+> 
+> Fixes: 4909b8b3846c ("drm/amd/display: Refactor DSC cap calculations")
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 17 +++++++++--------
+>  1 file changed, 9 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+> index a454d16e6586..4169ece9c535 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+> @@ -642,14 +642,15 @@ static unsigned int get_min_slice_count_for_odm(
+>  	unsigned int max_dispclk_khz;
+>  
+>  	/* get max pixel rate and combine caps */
+> -	max_dispclk_khz = dsc_enc_caps->max_total_throughput_mps * 1000;
+> -	if (dsc && dsc->ctx->dc) {
+> -		if (dsc->ctx->dc->clk_mgr &&
+> -			dsc->ctx->dc->clk_mgr->funcs->get_max_clock_khz) {
+> -			/* dispclk is available */
+> -			max_dispclk_khz = dsc->ctx->dc->clk_mgr->funcs->get_max_clock_khz(dsc->ctx->dc->clk_mgr, CLK_TYPE_DISPCLK);
+> -		}
+> -	}
+> +	if (dsc && dsc->ctx->dc && dsc->ctx->dc->clk_mgr &&
+> +		dsc->ctx->dc->clk_mgr->funcs->get_max_clock_khz)
+> +		max_dispclk_khz =
+> +			dsc->ctx->dc->clk_mgr->funcs->get_max_clock_khz(
+> +				dsc->ctx->dc->clk_mgr, CLK_TYPE_DISPCLK);
+> +	else if (dsc_enc_caps->max_total_throughput_mps)
+> +		max_dispclk_khz = dsc_enc_caps->max_total_throughput_mps * 1000;
+> +	else
+> +		return 0;
+>  
+>  	/* consider minimum odm slices required due to
+>  	 * 1) display pipe throughput (dispclk)
+> -- 
+> 2.50.1
+>
 
-It contains a timestamp corresponding to when the kernel driver finished
-programming an atomic commit to HW.
+This patch lgtm.
 
-Signed-off-by: Michel DÃ¤nzer <mdaenzer@redhat.com>
----
- include/uapi/drm/drm.h      | 31 ++++++++++++++++++++++++++++++-
- include/uapi/drm/drm_mode.h |  9 +++++++++
- 2 files changed, 39 insertions(+), 1 deletion(-)
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
 
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index e63a71d3c607..6fd16861cd3e 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -781,6 +781,13 @@ struct drm_gem_open {
-  * commits.
-  */
- #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
-+/**
-+ * DRM_CAP_ATOMIC_HW_DONE_EVENT
-+ *
-+ * If set to 1, the kernel supports &DRM_MODE_ATOMIC_HW_DONE_EVENT for atomic
-+ * commits.
-+ */
-+#define DRM_CAP_ATOMIC_HW_DONE_EVENT	0x16
- 
- /* DRM_IOCTL_GET_CAP ioctl argument type */
- struct drm_get_cap {
-@@ -1332,7 +1339,7 @@ extern "C" {
-  *
-  * Event types 0 - 0x7fffffff are generic DRM events, 0x80000000 and
-  * up are chipset specific. Generic DRM events include &DRM_EVENT_VBLANK,
-- * &DRM_EVENT_FLIP_COMPLETE and &DRM_EVENT_CRTC_SEQUENCE.
-+ * &DRM_EVENT_FLIP_COMPLETE, &DRM_EVENT_CRTC_SEQUENCE and &DRM_EVENT_ATOMIC_HW_DONE.
-  */
- struct drm_event {
- 	__u32 type;
-@@ -1365,6 +1372,17 @@ struct drm_event {
-  * The event payload is a struct drm_event_crtc_sequence.
-  */
- #define DRM_EVENT_CRTC_SEQUENCE	0x03
-+/**
-+ * DRM_EVENT_ATOMIC_HW_DONE - atomic commit HW done event
-+ *
-+ * This event is sent in response to an atomic commit with the
-+ * &DRM_MODE_ATOMIC_HW_DONE_EVENT flag set.
-+ *
-+ * One event is sent per commit.
-+ *
-+ * The event payload is a struct drm_event_atomic_hw_done.
-+ */
-+#define DRM_EVENT_ATOMIC_HW_DONE 0x04
- 
- struct drm_event_vblank {
- 	struct drm_event base;
-@@ -1375,6 +1393,17 @@ struct drm_event_vblank {
- 	__u32 crtc_id; /* 0 on older kernels that do not support this */
- };
- 
-+struct drm_event_atomic_hw_done {
-+	struct drm_event base;
-+	__u64 user_data;
-+
-+	/**
-+	 * Timestamp corresponding to when programming the commit to HW completed.
-+	 */
-+	__u32 tv_sec;
-+	__u32 tv_usec;
-+};
-+
- /* Event delivered at sequence. Time stamp marks when the first pixel
-  * of the refresh cycle leaves the display engine for the display
-  */
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index c082810c08a8..d7921e633f1a 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -1136,6 +1136,15 @@ struct drm_mode_destroy_dumb {
-  */
- #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
- 
-+/**
-+ * DRM_MODE_ATOMIC_HW_DONE_EVENT
-+ *
-+ * Request that the kernel sends back an atomic commit HW done event (see
-+ * struct drm_event_atomic_hw_done) with the &DRM_EVENT_ATOMIC_HW_DONE type when
-+ * programming the atomic commit to HW completes.
-+ */
-+#define DRM_MODE_ATOMIC_HW_DONE_EVENT 0x0800
-+
- /**
-  * DRM_MODE_ATOMIC_FLAGS
-  *
+I added other display folks to this patch.
+
+I'm not sure if the original modification (4909b8b3846c) is already in
+the stable kernel; if so, it could be a good idea to send this fix to
+the stable kernel as well.
+
+Thanks
+
 -- 
-2.50.0
-
+Rodrigo Siqueira
