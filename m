@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46E1CC83F26
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 16:59:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CFB0C87FC5
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 17:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2F110E99F;
-	Thu, 24 Jul 2025 16:58:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15E0610E9A1;
+	Thu, 24 Jul 2025 17:00:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=daenzer.net header.i=@daenzer.net header.b="PmG8DnNS";
+	dkim=pass (2048-bit key; unprotected) header.d=daenzer.net header.i=@daenzer.net header.b="Q9TI6YSR";
 	dkim-atps=neutral
 Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D9F710E99C;
- Thu, 24 Jul 2025 16:58:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B585F10E9A1;
+ Thu, 24 Jul 2025 16:59:59 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; t=1753375955; x=1753980755; s=webland;
  d=daenzer.net; c=relaxed/relaxed; v=1;
- bh=e7rOemkP0tEjy35RpgWmvOXIhrhtHHsVMmIIN4G9Pyg=;
+ bh=iaVKPuzmpAQDt7xGC5CpA0Z7qFc3P3ZL/GrGKMIDRPY=;
  h=From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:References;
- b=PmG8DnNSrPCVFtPmQgKGvS/SuA4rPgOUiaC9K40wCbKlvQpoYlLcjgamSf8UJW0M2tbX7aVE0nLU3aeDLkVNZOaS9TFmFmQ9T2KD79stK1TayWZDEkFPXuq4WN0BRjWU+hA/+0bLhb7ucemC7RYUz2X8z8oVkLaLG3PLYG5U5SeWILpWTrVW8ZF8Sas9u60gS3h6mKHjTuoO8Ewa90cJSLj/yOOxWNV73P5/Byyjn3F+Hf0bOtj29kFLslVhUmhnFyx4trJX2gXgif1bfVZQ3wcOLvIa/5Hha9KV5HxsM76VQkv1aE043V+AhREbfQbhHAneygDaVGrXwqkJNEE+Rw==
+ b=Q9TI6YSRBnZXkMpErQkITNgZD1JDx1haafUhbqEKIuldfY+OdFelUsERpcSNlWtx6xhBDOgvaK/RJo5+tAzIhj2DUF9kiGHpcEylZAMQTqgbZGen9nBWpYYzeu/Y3BHQMIYQoDlLYr+uM42y4UN7NcQbtaCIcgrwn50EPq+EruiKKUX5JF+hIn2IFxxZJFblLovgTfEQrVSOO2YEWN63+QkIuI2w6f6MWdI6uNZ46tYKfxvGpOEOJF/SaTcTCfUNS5nP9Re2h0N8XxVPyclXJk0TNKqh31dDhLHIBKUEcH7qAgIgwGdWFHShFJTZcOoNSw3eU0Ygk5mhTtf3D3yuFw==
 Received: from kaveri ([213.144.156.170])
  by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202507241852340804; Thu, 24 Jul 2025 18:52:34 +0200
+ 01202507241852340802; Thu, 24 Jul 2025 18:52:34 +0200
 Received: from daenzer by kaveri with local (Exim 4.98.2)
- (envelope-from <michel@daenzer.net>) id 1uezBI-00000004zM5-2Zns;
+ (envelope-from <michel@daenzer.net>) id 1uezBI-00000004zLz-2BV3;
  Thu, 24 Jul 2025 18:52:32 +0200
 From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -33,9 +33,9 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  victoria@system76.com, David Turner <david.turner@raspberrypi.com>
 Cc: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 3/4] drm: Add HW_DONE_DEADLINE immutable atomic CRTC property
-Date: Thu, 24 Jul 2025 18:40:30 +0200
-Message-ID: <20250724165220.1189129-4-michel@daenzer.net>
+Subject: [PATCH 1/4] drm/kms: Add DRM_EVENT_ATOMIC_HW_DONE event type
+Date: Thu, 24 Jul 2025 18:40:28 +0200
+Message-ID: <20250724165220.1189129-2-michel@daenzer.net>
 X-Mailer: git-send-email 2.50.0
 In-Reply-To: <20250724165220.1189129-1-michel@daenzer.net>
 References: <20250724165220.1189129-1-michel@daenzer.net>
@@ -58,147 +58,98 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Michel Dänzer <mdaenzer@redhat.com>
 
-It lets user space know how long before start of scanout HW programming
-of an atomic commit needs to finish.
-
-This implements the default fallback deadline which corresponds to start
-of vblank.
+It contains a timestamp corresponding to when the kernel driver finished
+programming an atomic commit to HW.
 
 Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
 ---
- drivers/gpu/drm/drm_atomic_helper.c | 15 +++++++++++++++
- drivers/gpu/drm/drm_crtc.c          | 30 +++++++++++++++++++++++++++++
- drivers/gpu/drm/drm_mode_config.c   |  7 +++++++
- include/drm/drm_crtc.h              |  1 +
- include/drm/drm_mode_config.h       |  5 +++++
- 5 files changed, 58 insertions(+)
+ include/uapi/drm/drm.h      | 31 ++++++++++++++++++++++++++++++-
+ include/uapi/drm/drm_mode.h |  9 +++++++++
+ 2 files changed, 39 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index e55edc42a317..51213e9fba07 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -2574,6 +2574,21 @@ void drm_atomic_helper_commit_hw_done(struct drm_atomic_state *state)
- 		/* backend must have consumed any event by now */
- 		WARN_ON(new_crtc_state->event);
- 		complete_all(&commit->hw_done);
-+
-+		if (new_crtc_state->active &&
-+		    (!old_crtc_state->active ||
-+		     drm_atomic_crtc_needs_modeset(new_crtc_state))) {
-+			struct drm_display_mode *mode = &new_crtc_state->mode;
-+			unsigned deadline_lines, deadline_us;
-+
-+			/* Reset HW done deadline to start of vblank */
-+			deadline_lines = mode->crtc_vtotal - mode->crtc_vdisplay;
-+			deadline_us = DIV_ROUND_UP(deadline_lines * mode->crtc_htotal * 1000u,
-+						   mode->crtc_clock);
-+			drm_crtc_set_hw_done_deadline_property(crtc, deadline_us);
-+		} else if (old_crtc_state->active && !new_crtc_state->active) {
-+			drm_crtc_set_hw_done_deadline_property(crtc, 0);
-+		}
- 	}
- 
- 	if (state->fake_commit) {
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index 46655339003d..3330fa30f295 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -229,6 +229,16 @@ struct dma_fence *drm_crtc_create_fence(struct drm_crtc *crtc)
-  * 		Driver's default scaling filter
-  * 	Nearest Neighbor:
-  * 		Nearest Neighbor scaling filter
-+ * HW_DONE_DEADLINE:
-+ * 	Immutable atomic property describing the deadline for programming an
-+ * 	atomic commit to HW to finish, to guarantee that the commit takes
-+ * 	effect for the next refresh cycle.
-+ *
-+ * 	With fixed refresh rate, the value is the number of microseconds before
-+ * 	the end of vblank.
-+ *
-+ * 	With variable refresh rate (VRR), the value is the number of microseconds
-+ * 	before the latest possible end of vblank.
+diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+index e63a71d3c607..6fd16861cd3e 100644
+--- a/include/uapi/drm/drm.h
++++ b/include/uapi/drm/drm.h
+@@ -781,6 +781,13 @@ struct drm_gem_open {
+  * commits.
   */
+ #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
++/**
++ * DRM_CAP_ATOMIC_HW_DONE_EVENT
++ *
++ * If set to 1, the kernel supports &DRM_MODE_ATOMIC_HW_DONE_EVENT for atomic
++ * commits.
++ */
++#define DRM_CAP_ATOMIC_HW_DONE_EVENT	0x16
  
- __printf(6, 0)
-@@ -303,6 +313,8 @@ static int __drm_crtc_init_with_planes(struct drm_device *dev, struct drm_crtc *
- 					   config->prop_out_fence_ptr, 0);
- 		drm_object_attach_property(&crtc->base,
- 					   config->prop_vrr_enabled, 0);
-+		drm_object_attach_property(&crtc->base,
-+					   config->prop_hw_done_deadline, 0);
- 	}
+ /* DRM_IOCTL_GET_CAP ioctl argument type */
+ struct drm_get_cap {
+@@ -1332,7 +1339,7 @@ extern "C" {
+  *
+  * Event types 0 - 0x7fffffff are generic DRM events, 0x80000000 and
+  * up are chipset specific. Generic DRM events include &DRM_EVENT_VBLANK,
+- * &DRM_EVENT_FLIP_COMPLETE and &DRM_EVENT_CRTC_SEQUENCE.
++ * &DRM_EVENT_FLIP_COMPLETE, &DRM_EVENT_CRTC_SEQUENCE and &DRM_EVENT_ATOMIC_HW_DONE.
+  */
+ struct drm_event {
+ 	__u32 type;
+@@ -1365,6 +1372,17 @@ struct drm_event {
+  * The event payload is a struct drm_event_crtc_sequence.
+  */
+ #define DRM_EVENT_CRTC_SEQUENCE	0x03
++/**
++ * DRM_EVENT_ATOMIC_HW_DONE - atomic commit HW done event
++ *
++ * This event is sent in response to an atomic commit with the
++ * &DRM_MODE_ATOMIC_HW_DONE_EVENT flag set.
++ *
++ * One event is sent per commit.
++ *
++ * The event payload is a struct drm_event_atomic_hw_done.
++ */
++#define DRM_EVENT_ATOMIC_HW_DONE 0x04
  
- 	return 0;
-@@ -940,6 +952,24 @@ int drm_crtc_create_scaling_filter_property(struct drm_crtc *crtc,
- }
- EXPORT_SYMBOL(drm_crtc_create_scaling_filter_property);
+ struct drm_event_vblank {
+ 	struct drm_event base;
+@@ -1375,6 +1393,17 @@ struct drm_event_vblank {
+ 	__u32 crtc_id; /* 0 on older kernels that do not support this */
+ };
+ 
++struct drm_event_atomic_hw_done {
++	struct drm_event base;
++	__u64 user_data;
++
++	/**
++	 * Timestamp corresponding to when programming the commit to HW completed.
++	 */
++	__u32 tv_sec;
++	__u32 tv_usec;
++};
++
+ /* Event delivered at sequence. Time stamp marks when the first pixel
+  * of the refresh cycle leaves the display engine for the display
+  */
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index c082810c08a8..d7921e633f1a 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -1136,6 +1136,15 @@ struct drm_mode_destroy_dumb {
+  */
+ #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
  
 +/**
-+ * drm_crtc_set_hw_done_deadline_property - sets the HW done deadline property for a CRTC
-+ * @crtc: drm CRTC
-+ * @capable: True if the connector is variable refresh rate capable
++ * DRM_MODE_ATOMIC_HW_DONE_EVENT
 + *
-+ * If the actual deadline differs from start of vblank, the atomic driver can call this to
-+ * update the deadline after a modeset.
++ * Request that the kernel sends back an atomic commit HW done event (see
++ * struct drm_event_atomic_hw_done) with the &DRM_EVENT_ATOMIC_HW_DONE type when
++ * programming the atomic commit to HW completes.
 + */
-+void drm_crtc_set_hw_done_deadline_property(struct drm_crtc *crtc, unsigned deadline)
-+{
-+	struct drm_device *dev = crtc->dev;
-+
-+	drm_object_property_set_value(&crtc->base,
-+				      dev->mode_config.prop_hw_done_deadline,
-+				      deadline);
-+}
-+EXPORT_SYMBOL(drm_crtc_set_hw_done_deadline_property);
++#define DRM_MODE_ATOMIC_HW_DONE_EVENT 0x0800
 +
  /**
-  * drm_crtc_in_clone_mode - check if the given CRTC state is in clone mode
+  * DRM_MODE_ATOMIC_FLAGS
   *
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index b4239fd04e9d..721896d291d3 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -339,6 +339,13 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
- 		return -ENOMEM;
- 	dev->mode_config.prop_vrr_enabled = prop;
- 
-+	prop = drm_property_create_range(dev,
-+					 DRM_MODE_PROP_ATOMIC | DRM_MODE_PROP_IMMUTABLE,
-+					 "HW_DONE_DEADLINE", 0, UINT_MAX);
-+	if (!prop)
-+		return -ENOMEM;
-+	dev->mode_config.prop_hw_done_deadline = prop;
-+
- 	prop = drm_property_create(dev,
- 			DRM_MODE_PROP_BLOB,
- 			"DEGAMMA_LUT", 0);
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index caa56e039da2..c902040c0468 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -1323,5 +1323,6 @@ static inline struct drm_crtc *drm_crtc_find(struct drm_device *dev,
- 
- int drm_crtc_create_scaling_filter_property(struct drm_crtc *crtc,
- 					    unsigned int supported_filters);
-+void drm_crtc_set_hw_done_deadline_property(struct drm_crtc *crtc, unsigned deadline);
- bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state);
- #endif /* __DRM_CRTC_H__ */
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index 9e524b51a001..11dce8be85a4 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -679,6 +679,11 @@ struct drm_mode_config {
- 	 */
- 	struct drm_property *prop_vrr_enabled;
- 
-+	/**
-+	 * @prop_hw_done_deadline: Atomic CRTC HW_DONE_DEADLINE property.
-+	 */
-+	struct drm_property *prop_hw_done_deadline;
-+
- 	/**
- 	 * @dvi_i_subconnector_property: Optional DVI-I property to
- 	 * differentiate between analog or digital mode.
 -- 
 2.50.0
 
