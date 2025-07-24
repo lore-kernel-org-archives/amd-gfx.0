@@ -4,49 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A49A3C87FCA
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jul 2025 07:24:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68A0DC87FCE
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jul 2025 07:24:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 265C510E43B;
-	Fri, 25 Jul 2025 07:24:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C96410E449;
+	Fri, 25 Jul 2025 07:24:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aladdin.ru header.i=@aladdin.ru header.b="XTjetLu9";
+	dkim=pass (1024-bit key; unprotected) header.d=felixrichter.tech header.i=@felixrichter.tech header.b="AfxgLGNl";
 	dkim-atps=neutral
-Received: from mail-out.aladdin-rd.ru (mail-out.aladdin-rd.ru [91.199.251.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C577A10E061;
- Thu, 24 Jul 2025 10:40:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; d=aladdin.ru; s=mail; c=simple/simple;
- t=1753352707; h=from:subject:to:date:message-id;
- bh=Y9JrkBs6/AHJ/jtw7YK1U4nAQTPwDGnhSXLxNcAPncw=;
- b=XTjetLu9+2eM1ii2DfR9qPXlXANLeK5jOimYq62LAdeBLzC33Blnsyh8Q6zgLmEf5VZ4VxleQ9f
- Q1WZ2/5spjH8ocieF+a6z6fqvSUEXzLCgK58Vn3ByFxBmJkyFHHVyL3ABfLn6Z0lyLm28sB+QLNy1
- /YAf5CpgS0NPINEJe+0Of+ZURXXu/Ra79LIUTK8uq60hRtFVX3Auxe+3CrvRT4Dcwn1jmmEa0YybF
- w8OQyOd9BArLVzCj5rus2teewKdO9T1LBTEMBSLTRVnkHAak1orYECdvFPTaJ/C5zJPuYFXbED18u
- 9gpEkID9FYzpk8EZ0klYeAR3Y2fKg2jmc5NA==
-From: Daniil Dulov <d.dulov@aladdin.ru>
-To: <stable@vger.kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Daniil Dulov <d.dulov@aladdin.ru>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@linux.ie>, Simona Vetter <simona@ffwll.ch>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>, "Rodrigo
- Siqueira" <rodrigo.siqueira@amd.com>, Jerry Zuo <jerry.zuo@amd.com>, Alex
- Hung <alex.hung@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>
-Subject: [PATCH 5.15/6.1] drm/amd/display: Pass non-null to
- dcn20_validate_apply_pipe_split_flags
-Date: Thu, 24 Jul 2025 13:24:49 +0300
-Message-ID: <20250724102449.63028-2-d.dulov@aladdin.ru>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250724102449.63028-1-d.dulov@aladdin.ru>
-References: <20250724102449.63028-1-d.dulov@aladdin.ru>
+Received: from dijkstra.felixrichter.tech (dijkstra.felixrichter.tech
+ [37.120.184.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11A7310E223;
+ Thu, 24 Jul 2025 19:41:08 +0000 (UTC)
+Received: from [10.130.10.2] (unknown [10.130.10.2])
+ by dijkstra.felixrichter.tech (Postfix) with ESMTPSA id B53011A30B9;
+ Thu, 24 Jul 2025 21:42:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=felixrichter.tech;
+ s=20210926; t=1753386126;
+ bh=jPcKOYRYVvQX2L/QtYS0YzxpKvQAYJULvoetNMAdv0w=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=AfxgLGNl6tESiyj6WW8Yuy05Sf6Gf7pVTmnr4HVfF64exTQwFwhGkywsliGPyF1Ud
+ 3cuNgQ3qk/1XU8k5aY0Vpw0Kni8JCXH/n9ThQWxPYK0E+0iCbf/3iIRJBCEEeRf3A6
+ eueDHZ4MzqvlILty4VYMRoJPejpkhei5g1aMyrmU=
+Content-Type: multipart/alternative;
+ boundary="------------30c514Pv90YWWNMzzHtQ4bcS"
+Message-ID: <706fb4e2-8b5b-46fc-b640-b304b224a259@felixrichter.tech>
+Date: Thu, 24 Jul 2025 21:41:05 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.0.122.7]
-X-ClientProxiedBy: EXCH-2016-03.aladdin.ru (192.168.1.103) To
- EXCH-2016-01.aladdin.ru (192.168.1.101)
+User-Agent: Mozilla Thunderbird
+Subject: Re: Regression: DDC I2C Display Freezing for internal displays
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Mario Limonciello <superm1@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Linux regressions mailing list <regressions@lists.linux.dev>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ jonas@3j14.de, seanpaul@chromium.org
+References: <0863bc3e-7364-4572-bb72-fc85657cbad7@felixrichter.tech>
+ <d9706fe0-7965-457d-830e-19f9aafee855@felixrichter.tech>
+ <1c64c181-4e96-4274-975b-454f7207af92@kernel.org>
+ <5f63ae37-793e-4e34-a8ab-1845121fcd7e@felixrichter.tech>
+ <79d7b8a1-b472-4f32-a724-1f2303fb2cab@kernel.org>
+ <19229f06-9062-492b-90fd-b6c931e29146@felixrichter.tech>
+ <CADnq5_Mpsd_68T3uKqdXzHSzm4dWcHamYJZMNpPNZFHBp=DORQ@mail.gmail.com>
+Content-Language: en-US
+From: Felix Richter <judge@felixrichter.tech>
+Autocrypt: addr=judge@felixrichter.tech; keydata=
+ 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
+In-Reply-To: <CADnq5_Mpsd_68T3uKqdXzHSzm4dWcHamYJZMNpPNZFHBp=DORQ@mail.gmail.com>
 X-Mailman-Approved-At: Fri, 25 Jul 2025 07:24:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,76 +107,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+This is a multi-part message in MIME format.
+--------------30c514Pv90YWWNMzzHtQ4bcS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-commit 5559598742fb4538e4c51c48ef70563c49c2af23 upstream.
 
-[WHAT & HOW]
-"dcn20_validate_apply_pipe_split_flags" dereferences merge, and thus it
-cannot be a null pointer. Let's pass a valid pointer to avoid null
-dereference.
+On 7/20/25 17:45, Alex Deucher wrote:
+> DP (and all of its variants, eDP, USB-C thunderbolt) doesn't actually
+> use i2c directly.  It's aux; you can do i2c over aux, but in the case
+> of MST, it's more like a network for displays so naively messing with
+> i2c buses from userspace won't do what you expect.  For MST, you have
+> a single set of i2c/aux pins for the connector which may have several
+> monitors on the other end.
+> DP is a two way communications channel.  You may have the driver
+> training a link or communicating with other devices on the DP network
+> (MST hubs, monitors, etc.).  You can also get requests from the
+> monitor to the driver via hpd interrupts.  Many of these processes do
+> not do well if interrupted.
+>
+> Alex
+>
 
-This fixes 2 FORWARD_NULL issues reported by Coverity.
+I get that this is a part of a very complicated protocol. I am still 
+irritated that the points you mention are relevant from the perspective 
+of userspace. From my perspective there is no expectation that the 
+kernel should just interrupt ongoing procedures when I access an i2c 
+link. I am happy to wait for the kernel to schedule the operation for 
+when it is convenient. After all the point of abstraction is not having 
+to worry about the layers underneath. And if the drm device exposes an 
+i2c device that I access it is the job of the drm driver to handle how 
+and when that transmission takes place.
 
-Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Jerry Zuo <jerry.zuo@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ Daniil: dcn20 and dcn21 were moved from drivers/gpu/drm/amd/display/dc to
-  drivers/gpu/drm/amd/display/dc/resource since commit
-  8b8eed05a1c6 ("drm/amd/display: Refactor resource into component directory").
-  The path is changed accordingly to apply the patch on 5.15.y and 6.1.y. ]
-Signed-off-by: Daniil Dulov <d.dulov@aladdin.ru>
----
-Backport fix for CVE-2024-49923
+Also I would like to point out that the bug I am experiencing does not 
+materialize in case of any external displays attached via an MST hub. It 
+happens with the internal display even when nothing is attached. The 
+point about MST Hubs is only relevant because those i2c interface can 
+not be matched via udev to the corresponding display. Though the can be 
+matched when reading edid from the device. Those interfaces then work 
+just fine when I use ddc to read/set monitor inputs. So those points do 
+not seem to really be relevant in case of the screen freezing trigger.
 
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 3 ++-
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+Anyway that is just my thoughts on the matter. I'll look into writing a 
+workaround to maybe avoid some i2c devices that could be problematic.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 04b370e7e732..877acdbb9d8d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2817,6 +2817,7 @@ bool dcn20_fast_validate_bw(
- {
- 	bool out = false;
- 	int split[MAX_PIPES] = { 0 };
-+	bool merge[MAX_PIPES] = { false };
- 	int pipe_cnt, i, pipe_idx, vlevel;
- 
- 	ASSERT(pipes);
-@@ -2839,7 +2840,7 @@ bool dcn20_fast_validate_bw(
- 	if (vlevel > context->bw_ctx.dml.soc.num_states)
- 		goto validate_fail;
- 
--	vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, vlevel, split, NULL);
-+	vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, vlevel, split, merge);
- 
- 	/*initialize pipe_just_split_from to invalid idx*/
- 	for (i = 0; i < MAX_PIPES; i++)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index 257ab8820c7a..4dcfdb2c013f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -1190,6 +1190,7 @@ static bool dcn21_fast_validate_bw(
- {
- 	bool out = false;
- 	int split[MAX_PIPES] = { 0 };
-+	bool merge[MAX_PIPES] = { false };
- 	int pipe_cnt, i, pipe_idx, vlevel;
- 
- 	ASSERT(pipes);
-@@ -1230,7 +1231,7 @@ static bool dcn21_fast_validate_bw(
- 			goto validate_fail;
- 	}
- 
--	vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, vlevel, split, NULL);
-+	vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, vlevel, split, merge);
- 
- 	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
- 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
--- 
-2.34.1
+And there still might be a relation to the other screen freezing issues.
 
+Felix
+--------------30c514Pv90YWWNMzzHtQ4bcS
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <div class="moz-cite-prefix"><font face="monospace">On 7/20/25
+        17:45, Alex Deucher wrote:</font><span
+      style="white-space: pre-wrap">
+</span></div>
+    <blockquote type="cite"
+cite="mid:CADnq5_Mpsd_68T3uKqdXzHSzm4dWcHamYJZMNpPNZFHBp=DORQ@mail.gmail.com">
+      <pre wrap="" class="moz-quote-pre">
+DP (and all of its variants, eDP, USB-C thunderbolt) doesn't actually
+use i2c directly.  It's aux; you can do i2c over aux, but in the case
+of MST, it's more like a network for displays so naively messing with
+i2c buses from userspace won't do what you expect.  For MST, you have
+a single set of i2c/aux pins for the connector which may have several
+monitors on the other end.</pre>
+      <pre wrap="" class="moz-quote-pre">
+DP is a two way communications channel.  You may have the driver
+training a link or communicating with other devices on the DP network
+(MST hubs, monitors, etc.).  You can also get requests from the
+monitor to the driver via hpd interrupts.  Many of these processes do
+not do well if interrupted.
+
+Alex
+
+</pre>
+    </blockquote>
+    <br>
+    <font face="monospace">I get that this is a part of a very
+      complicated protocol. I am still irritated that the points you
+      mention are relevant from the perspective of userspace. From my
+      perspective there is no expectation that the kernel should just
+      interrupt ongoing procedures when I access an i2c link. I am happy
+      to wait for the kernel to schedule the operation for when it is
+      convenient. After all the point of abstraction is not having to
+      worry about the layers underneath. And if the drm device exposes
+      an i2c device that I access it is the job of the drm driver to
+      handle how and when that transmission takes place. <br>
+      <br>
+      Also I would like to point out that the bug I am experiencing does
+      not materialize in case of any external displays attached via an
+      MST hub. It happens with the internal display even when nothing is
+      attached. The point about MST Hubs is only relevant because those
+      i2c interface can not be matched via udev to the corresponding
+      display. Though the can be matched when reading edid from the
+      device. Those interfaces then work just fine when I use ddc to
+      read/set monitor inputs. So those points do not seem to really be
+      relevant in case of the screen freezing trigger.<br>
+      <br>
+      Anyway that is just my thoughts on the matter. I'll look into
+      writing a workaround to maybe avoid some i2c devices that could be
+      problematic.<br>
+      <br>
+      And there still might be a relation to the other screen freezing
+      issues.<br>
+      <br>
+      Felix</font>
+  </body>
+</html>
+
+--------------30c514Pv90YWWNMzzHtQ4bcS--
