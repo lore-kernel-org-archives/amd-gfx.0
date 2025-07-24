@@ -4,143 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F20CC83F26
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 10:03:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9010C83F1A
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jul 2025 10:48:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C7088CFA;
-	Thu, 24 Jul 2025 10:03:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67C5910E1F3;
+	Thu, 24 Jul 2025 10:48:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nre7pHlQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="keKaxiQS";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2081.outbound.protection.outlook.com [40.107.237.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AE5B10E915
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Jul 2025 10:03:30 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E004B10E1E8;
+ Thu, 24 Jul 2025 10:48:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rD/ebVp5SMiKkUf0rmU8nSdfmk3R8lQey0bWsTbqwCYXltBdggsC7ojzJzTxfR0uMwFVd6mJEYXfuhbdNo6PW6DrJgsrYLYhed1gtKJ+RjNh/61j9aoK4fQX2XToKXezk6mblhCvxpmhVKAZDYZyn40S6BAO7h90rnHYiZE7nYXIwpjxsrN1yyBwZGpuEUoF/o6pW37b+vxxhUJyhHseneSQUG9Vr4N1NkM0Pseo4w3D8HKlkW+lVbjfdN5k0MpyK5LZPswaPRjQuxPvN0dQPXX8rhF83isWKjGT1buHtwCSeOy7hFLGFryUR7pof0b/T8eflrRDoGrakZOGqppm0g==
+ b=vBV5n+QtI1qzDBiZWBXIbCGm5aueKZO6USnhvoDAtdZ3zdkgLfFLO7+Lw0s8YaaiC3HhMExK7iw+syr3h0CKqdk5k23NXtsP/20/ghao/o90qUVQWny/0tDnFv2sh4p8J49DPU9kkDJxCb1KsAmCuh8EuJX5akLIUA/3MS3beskJe1hmzydiaplFDisIncX+mKEBSW5lyD+ObXn0FvBUKJWXWs7jI8x2NSZrhJtK8TuRri6vZbA/+d+dVroqletPIEhQS+iFxM+nFonsLS0B2Tr4pecPPgHVrMIrgfi5cm3GSBnyJ8RkpTHODJgWdi8y8quQD/SMYxIKrJui1YlzrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rjZxthOo2kRIOEaZl0mhKInUE8UVFo1KXa/zTmN/tkI=;
- b=IbYqRqx7StnR/9U5q15ntZwphJMc9z121/gqtcVYdPlTvCCfcDiPi0WtWdJYZbtGYdog+WOY+CcToFgzBCKdLiQEPuJAEW434cbffACvIHupOwXspI89p66pUksd9HVN6hX5JkEuxkQiKiEYQGYHH+JpkRwJQUPWYZJ+Cru34ITn4XJ9R5RnJH3u28uBhJpzYTK0F2bT51krxGC82+TiYiAkLzMtAYx3v9yUde7SGa64Wso7RCnL/M2wpbQQBAidLvCF906OcjIiW6iKr+QdJzkcmez6zQH4iyd4vLouAKYdWca4w4OKOgUzV1A3S0EIglEdGbIoDSTEU3oYzu7Eqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=i0a9MuWZVbMqTZ8RnZTa23edb6CFp9sZOlmo8p/kY3w=;
+ b=napfoc4frc+SnpsIuxb+Q/uPcN1MLo9w4vG6kqi6dr0ZAbCeY8nUav2tWG86WLwx3pbD/i12+UuCJ/XLEjumVt5qB5jDffHUcg95czqukdZ6QvbUsrkYozfDM7UJSTJau6bIFDG6aFh8VjNlo7rrzxKq3GrW/h7dbR5IWFp0NCSoVYCQx7w2GZ2FuNWDeHAzvNWxAmkjZD7PXNZctZ/J3FDoeY7yJrfhBf80pKOey5uRPbTKH+EN6LijSj9fwFlFE32kfPhh9m0pX7qd2aH1Qkx7L3mVLQw3qeSEbCqp4edYOSvs/VATEuEeuEbdWy0hJff5UoH807vizcPEUlAg4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rjZxthOo2kRIOEaZl0mhKInUE8UVFo1KXa/zTmN/tkI=;
- b=nre7pHlQ7L+SZv3txLEsO9OltTKZus0Rq+IrUXYfNgEhICe7R/3eodIiRfvOUvi4URbf5GhwG4OqsLbu95NzozfTchQgEY2XLEoaFc8phD9FVU0uCwLQCSGt4sHrLp6nr0uhpvVoCM/TgjKK5GQMPxlx8dxzr7vXUW3eNokLd1g=
-Received: from SJ0PR12MB6967.namprd12.prod.outlook.com (2603:10b6:a03:44b::6)
- by PH7PR12MB5710.namprd12.prod.outlook.com (2603:10b6:510:1e1::18)
+ bh=i0a9MuWZVbMqTZ8RnZTa23edb6CFp9sZOlmo8p/kY3w=;
+ b=keKaxiQSvafAqeFkTQW3NxWBUsSDzLw3wkoBqkjda5XunJMp9Up8/m/l2bfp7JbnZ5NYAQex2NaH3Z5EWGr2gEM1I/Uq7YTLF2PU+4dYl0bwq8eKufxJ0X9wRakRcTqfOdeNBcOWYQg78DKasKjHVwh+yBveDBZgYYDJFWXYgHs=
+Received: from SA1P222CA0096.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:35e::23)
+ by LV9PR12MB9783.namprd12.prod.outlook.com (2603:10b6:408:2e8::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Thu, 24 Jul
- 2025 10:03:27 +0000
-Received: from SJ0PR12MB6967.namprd12.prod.outlook.com
- ([fe80::628b:cc72:7a93:6bdb]) by SJ0PR12MB6967.namprd12.prod.outlook.com
- ([fe80::628b:cc72:7a93:6bdb%7]) with mapi id 15.20.8943.029; Thu, 24 Jul 2025
- 10:03:26 +0000
-From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>
-Subject: Re: [PATCH] drm/amd/pm: Add priority messages for SMU v13.0.6
-Thread-Topic: [PATCH] drm/amd/pm: Add priority messages for SMU v13.0.6
-Thread-Index: AQHb/Hj0S6ltIhN4wEGkqmFJ5eetFbRBCI7r
-Date: Thu, 24 Jul 2025 10:03:26 +0000
-Message-ID: <SJ0PR12MB6967DC041C3C519D228B84B29D5EA@SJ0PR12MB6967.namprd12.prod.outlook.com>
-References: <20250724085603.1611802-1-lijo.lazar@amd.com>
-In-Reply-To: <20250724085603.1611802-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-07-24T10:03:25.9490000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB6967:EE_|PH7PR12MB5710:EE_
-x-ms-office365-filtering-correlation-id: 88ceb70f-8530-4bd2-2018-08ddca995543
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|7053199007|8096899003|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?nQ20wTrMuAgScEvFwa1eLAHU3HSN+vWGxMwnwTofkQ64QHoS4CJsQXAXSlaH?=
- =?us-ascii?Q?9V2Wm3HYrENk1VfxjRTJhxsY1mg72F5qCutwc7GiVhtpTI+cVZhdC1JsnU+H?=
- =?us-ascii?Q?w69teoa66enmV6W/yN0SbwoTMi2k0vNm6fMCQVEBiw+bq9fjXiLY2nbzR/4g?=
- =?us-ascii?Q?vxMEJUmoMsE15lLaTXofp611wg6khsujSvbfS2s5TSE5I4ul7R+5z7kU9u7i?=
- =?us-ascii?Q?NUORcqQ+gItLRgTjrvPi2BO82xe/Zhoc8KTlLfv5pLCNrlEB/4FtSuZ+Zlh2?=
- =?us-ascii?Q?MBRDqBU+oORYsOOTCqifPYwEl466ughPUXA6DN+wYeJRVoNqs3lGaQXUljQu?=
- =?us-ascii?Q?TIRrNYor5BpOo+hQwrgqEbCY1axx7Hpr/LpYuc+mIwhyrrdxYmcaupxT72mi?=
- =?us-ascii?Q?8Sup3gxu1vufRAv27YKhV13pBoqYym8C1B7CSmlYjy9/SNiQOSo6E61+uZsA?=
- =?us-ascii?Q?2g1lgFgYWyrsFcnAcFLSnijnit1Sak2yjhg0jb2OAyjedaKLREPzt1QIhU8f?=
- =?us-ascii?Q?yz4QcD5YMNWNzISVncNIxn9UwC52J3rwmUBMLBc1EY/+s08PDXnWGfkY2VBM?=
- =?us-ascii?Q?sx2BxTdjfIfUoM8a9KNJ5+Zy95otZnbOeEbcZLR6S+AyiPIL5l5A5EI3uZ+n?=
- =?us-ascii?Q?jTP7/05JFdPDcJuE8d8WXFM9vUP6MD/OZuU5+gCKytI0sKbMXUpsi8XNsOZM?=
- =?us-ascii?Q?ETV5XCY6H5k6Disq4umOOWCu7rSA/SagbQP3XVvZaq1kEQ0QtqPjzWNBmNM0?=
- =?us-ascii?Q?7RaXGUfC5C4mJgowV5HwXRQxBhCrtNiWEqyBLHyp5BdVu8QQr4IbXHmQGSeF?=
- =?us-ascii?Q?W8b3iGzOqMRC2CNPpTFszNDKp2SlWbMuFkfPsCKHFkAutVR+ZlXI6pV+Fwdw?=
- =?us-ascii?Q?kxXIxxFkRmRc5uiDh1yK9kbDe6QkFjAkUkDTjbehPEJX+mVL3Cs+YJV8TFD9?=
- =?us-ascii?Q?ffyLtFT0WPA4OHf7famiv5MMLVzF4s17fFccPxyxOD5Juc6tS00qYpiAdW6/?=
- =?us-ascii?Q?wtUha7QkEa219HqWNBuhCc3truSHZrLjn/vWblOQxfC3ceteMeLWG/06Paxp?=
- =?us-ascii?Q?NC7kJIAC8R1QuFLs/ZHg2uArsUpeH4Ymc4Qs11C9eFNQG47hI3zcR8Ih3o/9?=
- =?us-ascii?Q?jaayPiK72PeN8EGscbLRUZUd49h/xdrB/zRiqapeu8KArpCjngy0TnPdcCxP?=
- =?us-ascii?Q?zAsu5/fNFAybuOMQ4RqrUBw9imsU6Rww/zICQVkMxc72DIiwvlfKa3LhGaVU?=
- =?us-ascii?Q?q3M5mllHfbauheXRGZX1NfJd8evQQazTTBMsnnnDdPEJpAwsoc+z+bwMn4ta?=
- =?us-ascii?Q?1ttPGh/LptBtRC0ixEuGjEN03sEHo+ma3bWKuHV+4TRE7DuujmRkTY5uSmnW?=
- =?us-ascii?Q?soNiD5lmisVq6cFX4472fxrBqMGU/t2B4G95S4PRY1PJCEtLO4NXyizOPuAo?=
- =?us-ascii?Q?WtcHAUfyTtq7E8BcPlTFSyDSXEx9RJ/ncb1NpTbp/RouYXHr3/f4Yw=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB6967.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(8096899003)(38070700018);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wnxSRmd0ZrhcJ70OJ91L6kKEPnePp6kTfCjT7pfo8ShBYkOPMF0135xSFQpv?=
- =?us-ascii?Q?9sGjRXkoUPSpsVW5jyMAlcxJ8L7Fb5EGy3pMUOpJV19x9/BkdYY4Wyx6h574?=
- =?us-ascii?Q?hFKh7D4w/p1EBQr3IAHT+GlsvLMvh1vjZgY21n0401P90A/aov9ARv1c1qR2?=
- =?us-ascii?Q?ofFGcixDLMf52vs6AJVnpoPrZF+X/XcPKdlw2ucWSAn/CMbqxGBjgPOvV9IO?=
- =?us-ascii?Q?cx0pGvbe82APU5fYMlovbdw4yTV6TbpzSX+PQos4XFzji9at68NffBeK1mZI?=
- =?us-ascii?Q?k8hQZe0nO5YD3LOYDRe5NEzc5drLZXM7HCES1DMhsmhzdDUgNoki6DtF4Irl?=
- =?us-ascii?Q?e2zSTgnqrNTW+wnHYbo+Nj4R4pA/Ayme4cvE199HzYz3f2qLH8h+UmaTB/JY?=
- =?us-ascii?Q?M5yCn+dYqjQNJWPjDirkevC5h9Ihwt0ob5aXn1zEgNXfG9RfBRFqfTLhBEET?=
- =?us-ascii?Q?K/yrQQmqQdG3mLLmCuKU95ZODtzaFSKkcacCL3k6Q1THLv0PmabI7OjRpI0C?=
- =?us-ascii?Q?AqTn0s5T4703bnF/Kyo1hBz9StqOH28u1A7ZPgtGeX/B8uu1U+RP4k+/VDHO?=
- =?us-ascii?Q?Go/n8z51nl4Vbq6lG+kH534dKRp2xChhvG8gv7ARoLLEcRaaFqzAA9EdzPqX?=
- =?us-ascii?Q?vCkzxQrCGAF6EBG+ucK+jEUXybF0vFT1bP7QCpcUyQrtdXgZ8cJ+d1i9pe4+?=
- =?us-ascii?Q?wsSfUGB1qBiSJEeWbIAHMPqpgc0EQZeNrG0chbkdDeB/LQ10dde1HDYslPPZ?=
- =?us-ascii?Q?H8dpWtKgwl62IedAamw2Rja1hcI7dezuHsEotPXzzwF4X1a+kNKVwZmHjD9c?=
- =?us-ascii?Q?uJ6fCPOjTPsGXFBRkA72/sbfVzsnNy+4CignOlARC7vDFLitzQKc65+Lh0qp?=
- =?us-ascii?Q?QPSbVDyawp+c11Q1x3Ytt+e9UKy05h0/qCcFrc6GIz0WUNlGvBngrmvk84Qa?=
- =?us-ascii?Q?5purAW8pv5zArwN/ihE6tdOjgpnVO1LNWmjTVQyiQFrpUj1M8fCKLKrGkWQn?=
- =?us-ascii?Q?4wJl2MTGPCJQRVUo5o4175D0tKcFfivkylraw3ssVLrhvF/d6flfJqdO6Ddi?=
- =?us-ascii?Q?wwEkZwXuTE2m3eYikVQWVBeJrCL+ZljTxy4KgJQgolrh5hNzQSvSIrYPYFyK?=
- =?us-ascii?Q?+uiLySiaDtE3c3f3Ncf/ZIaFLgWDXbqcQ2XvFCrEJ+mgqk2bVy0Gcldj9GpG?=
- =?us-ascii?Q?RvE8anGKySlWnF8v29PBzeC05I45wpOaUqWyNkD8/YTuA2wKi/LQ7vbKK19y?=
- =?us-ascii?Q?XcZmWqn/v2SDZD8VEMojYsj0BhilvbHP/stqbOQeNowYAzKMofPotPyaKl7G?=
- =?us-ascii?Q?DVOhZh6IYN9zaGz5/Th7z9y+6eQDu7MyxgXOO7HWLd//9nUWgVtMBY1rotEH?=
- =?us-ascii?Q?gr9Nv1HayT+qviWBETaXuZyvF2dRYz/w+CY3qMicp6NrEREk7xXVZZ3kxrCK?=
- =?us-ascii?Q?xTi0EAQyProCZf3prInJWYK0kuMZXnYhJWPuBlD6XO+Qp5j1ztfS3ezpRP8y?=
- =?us-ascii?Q?6ySpGCPY0D0MEd5zzCCrCJshEkQX9XwN9YGh04PUiqgnoxbsw36CixS11wEu?=
- =?us-ascii?Q?1KJLHDXWduppKSJUtlk=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_SJ0PR12MB6967DC041C3C519D228B84B29D5EASJ0PR12MB6967namp_"
+ 2025 10:48:33 +0000
+Received: from SA2PEPF00001505.namprd04.prod.outlook.com
+ (2603:10b6:806:35e:cafe::cb) by SA1P222CA0096.outlook.office365.com
+ (2603:10b6:806:35e::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.22 via Frontend Transport; Thu,
+ 24 Jul 2025 10:48:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00001505.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8964.20 via Frontend Transport; Thu, 24 Jul 2025 10:48:33 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 24 Jul
+ 2025 05:47:02 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <christian.koenig@amd.com>, <matthew.auld@intel.com>,
+ <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v2 1/2] drm/buddy: Optimize free block management with RB tree
+Date: Thu, 24 Jul 2025 16:16:39 +0530
+Message-ID: <20250724104640.2319-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001505:EE_|LV9PR12MB9783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64221e4b-26b8-4022-18ca-08ddca9fa2a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?J4HJ2fpY2z0xQ+j6AI/+uhOYY5tULN7x+aydcyzZI5wVd2nd4nKKTT/9rz8g?=
+ =?us-ascii?Q?ECw/at7APsP7azzYmUKsZVNg8ClYItFtG9lCR0kklZbo2ZWaYYO9GCotApKE?=
+ =?us-ascii?Q?gUAPN8MitlxaWKtBBmxr4neuY6Iz307NrNkjgalx2yC4IK4VGjyf4+2sRdNa?=
+ =?us-ascii?Q?2RTmQI+x0IN4AAqx/PJLatdUuD2RpnjnV0SFHybsph8IBsVw0rV76loJoJYd?=
+ =?us-ascii?Q?MqcMkqsEM7j/T5HrquXCCUqN05H+i0e85g08dbUcBvTB7YzbFXUSRdsVryUK?=
+ =?us-ascii?Q?2J7kFRldToD1cpKYcs64BbFCEhQRHMsAzfTF0gJftrH1IyKr/2hKdd2Q2/GT?=
+ =?us-ascii?Q?9BPsyYQFv7diHnfNf1/kD6ggE1MU0ibDtK98Sag63s+57dBsPy54O+axXtRE?=
+ =?us-ascii?Q?SWRLWNrCvrKCqruaFi9WiouEMHNjO4N+nA6qK2JHgmDucWaC8YRtGp796sL6?=
+ =?us-ascii?Q?1ugoIJGeZS76djksY3D/qTqmAP8ukAJnpUANPWxIuZK1mrw6iFTLxEglPDtO?=
+ =?us-ascii?Q?CwMNAaWrH/ig8fRNitnlLtE5pZy0UBGGsuz0gVmFyO0nNsMi2Q7uxVMmZdmA?=
+ =?us-ascii?Q?L66gcj77GdHbYf7h7/VFmkB3b2ViMg1yqkolbEWb5QKTle54K5dBOTf9lQlu?=
+ =?us-ascii?Q?Zq+Fu+5y8+9iIlWO5ggRRkWXx0OITQbveEorgldyD2ynwsLS5DKBpvKl4skv?=
+ =?us-ascii?Q?2N6E7BLLXLzjlN77D4J9Yl9XfQ0cgpOsy2FGwiCQmQaReZXs16ZdZYm20kaX?=
+ =?us-ascii?Q?rDJJu9xzXVHYzVHWBApDkQfxZuPhfF5WWEdMzrxILyn9J7DwPLjp51NbQhDE?=
+ =?us-ascii?Q?34KuS8zsyvkZBAqvtJ9rwhZKmI6rs6TAbVm5SexN4/CiEUsQj1nz0THbL5B0?=
+ =?us-ascii?Q?kl9b+OYelu1DOA88Mbpmxeq+OtLVUoXbr7AIW1LrCqtxx7kBWajRkOwGpGER?=
+ =?us-ascii?Q?GIIzsOeBx6mwNdZcW7zQhLR+o7UkO9XtBIFReU117mcddlcc5RCKEPnGTxYD?=
+ =?us-ascii?Q?MkJXizSjs7fWSVlDb2149RjBJZE5pdxyRy6CCwJIhRSFqUCAvFfz75Q9NYv4?=
+ =?us-ascii?Q?aZiNM+Ag6Mr5y5zzofBmGVaa0UP4U+IRCQbAJu7xIabnAno7f0xuprLYhPmz?=
+ =?us-ascii?Q?o/UTQ3JU/MSHH5g6FO7fdPJSJg2nhbIzybwh/HL0LEYZbjYKDXw7fAzECMd6?=
+ =?us-ascii?Q?CFrwRUEw4UEEBaNWWMU6MQpRpfuOfnebAZiFCgXsFv3pXQ+/CN3Vp3F0MEo3?=
+ =?us-ascii?Q?R04HZa9mfT7wfHYVXeviDwBLbDlL92AC31JMXjAOMswVSlA+jCafZDSQ+aAk?=
+ =?us-ascii?Q?DHjYTUQR6iwwh9PfQsoi7Gd0oAg3ZsCf13qSQsx49FxYnjbRsJxVpBwqzheg?=
+ =?us-ascii?Q?XprtG1v8B+Xqn3kbyPPbuV9r3RB1N1LY7b0j/7Ioj4GxBP6v7LvefusHSiFf?=
+ =?us-ascii?Q?0esmPoAteckVvN37ny+6AMChTgYu+595u1XG7jPtP1VQznew7JWgYDwh4/4x?=
+ =?us-ascii?Q?VFAA6Kme3o2AXq4XsIh931CO6t5DxVooxMy9?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6967.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88ceb70f-8530-4bd2-2018-08ddca995543
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2025 10:03:26.4921 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9LEypbl5J89ox+hRgA2zTOVsiI2qBntugUEwRtDhOYVnWe22dnV63BTE2xco0WzKraU/086ryjrTl5Gfvch4MQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5710
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2025 10:48:33.2839 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64221e4b-26b8-4022-18ca-08ddca9fa2a0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001505.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9783
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,460 +132,446 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SJ0PR12MB6967DC041C3C519D228B84B29D5EASJ0PR12MB6967namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Replace the freelist (O(n)) used for free block management with a
+red-black tree, providing more efficient O(log n) search, insert,
+and delete operations. This improves scalability and performance
+when managing large numbers of free blocks per order (e.g., hundreds
+or thousands).
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+In the VK-CTS memory stress subtest, the buddy manager merges
+fragmented memory and inserts freed blocks into the freelist. Since
+freelist insertion is O(n), this becomes a bottleneck as fragmentation
+increases. Benchmarking shows list_insert_sorted() consumes ~52.69% CPU
+with the freelist, compared to just 0.03% with the RB tree
+(rbtree_insert.isra.0), despite performing the same sorted insert.
 
+This also improves performance in heavily fragmented workloads,
+such as games or graphics tests that stress memory.
 
-Reviewed-and-tested-by:  Ce Sun <cesun102@amd.com>
-
-
-
-
-
-
-
-Regards,
-Ce,Sun
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Lijo Laz=
-ar <lijo.lazar@amd.com>
-Sent: Thursday, July 24, 2025 4:56 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Sun, Ce(Overlord) <Ce.Su=
-n@amd.com>
-Subject: [PATCH] drm/amd/pm: Add priority messages for SMU v13.0.6
-
-Certain messages will processed with high priority by PMFW even if it
-hasn't responded to a previous message. Send the priority message
-regardless of the success/fail status of the previous message. Add
-support on SMUv13.0.6 and SMUv13.0.12
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |  1 +
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c  |  2 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             | 14 +++++++++-----
- 4 files changed, 12 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/drm_buddy.c | 141 +++++++++++++++++++++++-------------
+ include/drm/drm_buddy.h     |  39 +++++++++-
+ 2 files changed, 128 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm=
-/amd/pm/swsmu/inc/smu_types.h
-index d7a9e41820fa..aaf148591a98 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -469,6 +469,7 @@ enum smu_feature_mask {
- /* Message category flags */
- #define SMU_MSG_VF_FLAG                 (1U << 0)
- #define SMU_MSG_RAS_PRI                 (1U << 1)
-+#define SMU_MSG_HI_PRI                 (1U << 2)
-
- /* Firmware capability flags */
- #define SMU_FW_CAP_RAS_PRI              (1U << 0)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driver=
-s/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-index 02a455a31c25..17e0303f603b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-@@ -106,7 +106,7 @@ const struct cmn2asic_msg_mapping smu_v13_0_12_message_=
-map[SMU_MSG_MAX_COUNT] =3D
-         MSG_MAP(GetDpmFreqByIndex,                   PPSMC_MSG_GetDpmFreqB=
-yIndex,                1),
-         MSG_MAP(SetPptLimit,                         PPSMC_MSG_SetPptLimit=
-,                      0),
-         MSG_MAP(GetPptLimit,                         PPSMC_MSG_GetPptLimit=
-,                      1),
--       MSG_MAP(GfxDeviceDriverReset,                PPSMC_MSG_GfxDriverRes=
-et,                   SMU_MSG_RAS_PRI),
-+       MSG_MAP(GfxDeviceDriverReset,                PPSMC_MSG_GfxDriverRes=
-et,                   SMU_MSG_RAS_PRI | SMU_MSG_HI_PRI),
-         MSG_MAP(DramLogSetDramAddrHigh,              PPSMC_MSG_DramLogSetD=
-ramAddrHigh,           0),
-         MSG_MAP(DramLogSetDramAddrLow,               PPSMC_MSG_DramLogSetD=
-ramAddrLow,            0),
-         MSG_MAP(DramLogSetDramSize,                  PPSMC_MSG_DramLogSetD=
-ramSize,               0),
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 9cc294f4708b..c22b3f646355 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -145,7 +145,7 @@ static const struct cmn2asic_msg_mapping smu_v13_0_6_me=
-ssage_map[SMU_MSG_MAX_COU
-         MSG_MAP(GetDpmFreqByIndex,                   PPSMC_MSG_GetDpmFreqB=
-yIndex,                1),
-         MSG_MAP(SetPptLimit,                         PPSMC_MSG_SetPptLimit=
-,                      0),
-         MSG_MAP(GetPptLimit,                         PPSMC_MSG_GetPptLimit=
-,                      1),
--       MSG_MAP(GfxDeviceDriverReset,                PPSMC_MSG_GfxDriverRes=
-et,                   SMU_MSG_RAS_PRI),
-+       MSG_MAP(GfxDeviceDriverReset,                PPSMC_MSG_GfxDriverRes=
-et,                   SMU_MSG_RAS_PRI | SMU_MSG_HI_PRI),
-         MSG_MAP(DramLogSetDramAddrHigh,              PPSMC_MSG_DramLogSetD=
-ramAddrHigh,           0),
-         MSG_MAP(DramLogSetDramAddrLow,               PPSMC_MSG_DramLogSetD=
-ramAddrLow,            0),
-         MSG_MAP(DramLogSetDramSize,                  PPSMC_MSG_DramLogSetD=
-ramSize,               0),
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
-m/swsmu/smu_cmn.c
-index 59f9abd0f7b8..f1f5cd8c2cd9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -256,11 +256,12 @@ static int __smu_cmn_ras_filter_msg(struct smu_contex=
-t *smu,
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index a1e652b7631d..19e9773b41be 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -31,6 +31,8 @@ static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
+ 	block->header |= order;
+ 	block->parent = parent;
+ 
++	RB_CLEAR_NODE(&block->rb);
++
+ 	BUG_ON(block->header & DRM_BUDDY_HEADER_UNUSED);
+ 	return block;
+ }
+@@ -41,23 +43,53 @@ static void drm_block_free(struct drm_buddy *mm,
+ 	kmem_cache_free(slab_blocks, block);
+ }
+ 
+-static void list_insert_sorted(struct drm_buddy *mm,
+-			       struct drm_buddy_block *block)
++static void rbtree_insert(struct drm_buddy *mm,
++			  struct drm_buddy_block *block)
  {
-         struct amdgpu_device *adev =3D smu->adev;
-         uint32_t flags, resp;
--       bool fed_status;
-+       bool fed_status, pri;
++	struct rb_root *root = &mm->free_tree[drm_buddy_block_order(block)];
++	struct rb_node **link = &root->rb_node;
++	struct rb_node *parent = NULL;
+ 	struct drm_buddy_block *node;
+-	struct list_head *head;
++	u64 offset;
++
++	offset = drm_buddy_block_offset(block);
+ 
+-	head = &mm->free_list[drm_buddy_block_order(block)];
+-	if (list_empty(head)) {
+-		list_add(&block->link, head);
+-		return;
++	while (*link) {
++		parent = *link;
++		node = rb_entry(parent, struct drm_buddy_block, rb);
++
++		if (offset < drm_buddy_block_offset(node))
++			link = &parent->rb_left;
++		else
++			link = &parent->rb_right;
+ 	}
+ 
+-	list_for_each_entry(node, head, link)
+-		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
+-			break;
++	rb_link_node(&block->rb, parent, link);
++	rb_insert_color(&block->rb, root);
++}
++
++static void rbtree_remove(struct drm_buddy *mm,
++			  struct drm_buddy_block *block)
++{
++	struct rb_root *root;
+ 
+-	__list_add(&block->link, node->link.prev, &node->link);
++	root = &mm->free_tree[drm_buddy_block_order(block)];
++	rb_erase(&block->rb, root);
++
++	RB_CLEAR_NODE(&block->rb);
++}
++
++static inline struct drm_buddy_block *
++rbtree_last_entry(struct drm_buddy *mm, unsigned int order)
++{
++	struct rb_node *node = rb_last(&mm->free_tree[order]);
++
++	return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
++}
++
++static bool rbtree_is_empty(struct drm_buddy *mm, unsigned int order)
++{
++	return RB_EMPTY_ROOT(&mm->free_tree[order]);
+ }
+ 
+ static void clear_reset(struct drm_buddy_block *block)
+@@ -70,12 +102,13 @@ static void mark_cleared(struct drm_buddy_block *block)
+ 	block->header |= DRM_BUDDY_HEADER_CLEAR;
+ }
+ 
+-static void mark_allocated(struct drm_buddy_block *block)
++static void mark_allocated(struct drm_buddy *mm,
++			   struct drm_buddy_block *block)
+ {
+ 	block->header &= ~DRM_BUDDY_HEADER_STATE;
+ 	block->header |= DRM_BUDDY_ALLOCATED;
+ 
+-	list_del(&block->link);
++	rbtree_remove(mm, block);
+ }
+ 
+ static void mark_free(struct drm_buddy *mm,
+@@ -84,15 +117,16 @@ static void mark_free(struct drm_buddy *mm,
+ 	block->header &= ~DRM_BUDDY_HEADER_STATE;
+ 	block->header |= DRM_BUDDY_FREE;
+ 
+-	list_insert_sorted(mm, block);
++	rbtree_insert(mm, block);
+ }
+ 
+-static void mark_split(struct drm_buddy_block *block)
++static void mark_split(struct drm_buddy *mm,
++		       struct drm_buddy_block *block)
+ {
+ 	block->header &= ~DRM_BUDDY_HEADER_STATE;
+ 	block->header |= DRM_BUDDY_SPLIT;
+ 
+-	list_del(&block->link);
++	rbtree_remove(mm, block);
+ }
+ 
+ static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
+@@ -148,7 +182,7 @@ static unsigned int __drm_buddy_free(struct drm_buddy *mm,
+ 				mark_cleared(parent);
+ 		}
+ 
+-		list_del(&buddy->link);
++		rbtree_remove(mm, buddy);
+ 		if (force_merge && drm_buddy_block_is_clear(buddy))
+ 			mm->clear_avail -= drm_buddy_block_size(mm, buddy);
+ 
+@@ -179,12 +213,17 @@ static int __force_merge(struct drm_buddy *mm,
+ 		return -EINVAL;
+ 
+ 	for (i = min_order - 1; i >= 0; i--) {
+-		struct drm_buddy_block *block, *prev;
++		struct drm_buddy_block *block, *prev_block, *first_block;
++
++		first_block = rb_entry(rb_first(&mm->free_tree[i]), struct drm_buddy_block, rb);
+ 
+-		list_for_each_entry_safe_reverse(block, prev, &mm->free_list[i], link) {
++		for_each_rb_entry_reverse_safe(block, prev_block, &mm->free_tree[i], rb) {
+ 			struct drm_buddy_block *buddy;
+ 			u64 block_start, block_end;
+ 
++			if (RB_EMPTY_NODE(&block->rb))
++				break;
++
+ 			if (!block->parent)
+ 				continue;
+ 
+@@ -206,10 +245,14 @@ static int __force_merge(struct drm_buddy *mm,
+ 			 * block in the next iteration as we would free the
+ 			 * buddy block as part of the free function.
+ 			 */
+-			if (prev == buddy)
+-				prev = list_prev_entry(prev, link);
++			if (prev_block && prev_block == buddy) {
++				if (prev_block != first_block)
++					prev_block = rb_entry(rb_prev(&prev_block->rb),
++							      struct drm_buddy_block,
++							      rb);
++			}
+ 
+-			list_del(&block->link);
++			rbtree_remove(mm, block);
+ 			if (drm_buddy_block_is_clear(block))
+ 				mm->clear_avail -= drm_buddy_block_size(mm, block);
+ 
+@@ -258,14 +301,14 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+ 
+ 	BUG_ON(mm->max_order > DRM_BUDDY_MAX_ORDER);
+ 
+-	mm->free_list = kmalloc_array(mm->max_order + 1,
+-				      sizeof(struct list_head),
++	mm->free_tree = kmalloc_array(mm->max_order + 1,
++				      sizeof(struct rb_root),
+ 				      GFP_KERNEL);
+-	if (!mm->free_list)
++	if (!mm->free_tree)
+ 		return -ENOMEM;
+ 
+ 	for (i = 0; i <= mm->max_order; ++i)
+-		INIT_LIST_HEAD(&mm->free_list[i]);
++		mm->free_tree[i] = RB_ROOT;
+ 
+ 	mm->n_roots = hweight64(size);
+ 
+@@ -273,7 +316,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+ 				  sizeof(struct drm_buddy_block *),
+ 				  GFP_KERNEL);
+ 	if (!mm->roots)
+-		goto out_free_list;
++		goto out_free_tree;
+ 
+ 	offset = 0;
+ 	i = 0;
+@@ -312,8 +355,8 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+ 	while (i--)
+ 		drm_block_free(mm, mm->roots[i]);
+ 	kfree(mm->roots);
+-out_free_list:
+-	kfree(mm->free_list);
++out_free_tree:
++	kfree(mm->free_tree);
+ 	return -ENOMEM;
+ }
+ EXPORT_SYMBOL(drm_buddy_init);
+@@ -323,7 +366,7 @@ EXPORT_SYMBOL(drm_buddy_init);
+  *
+  * @mm: DRM buddy manager to free
+  *
+- * Cleanup memory manager resources and the freelist
++ * Cleanup memory manager resources and the freetree
+  */
+ void drm_buddy_fini(struct drm_buddy *mm)
+ {
+@@ -350,7 +393,7 @@ void drm_buddy_fini(struct drm_buddy *mm)
+ 	WARN_ON(mm->avail != mm->size);
+ 
+ 	kfree(mm->roots);
+-	kfree(mm->free_list);
++	kfree(mm->free_tree);
+ }
+ EXPORT_SYMBOL(drm_buddy_fini);
+ 
+@@ -383,7 +426,7 @@ static int split_block(struct drm_buddy *mm,
+ 		clear_reset(block);
+ 	}
+ 
+-	mark_split(block);
++	mark_split(mm, block);
+ 
+ 	return 0;
+ }
+@@ -598,7 +641,7 @@ get_maxblock(struct drm_buddy *mm, unsigned int order,
+ 	for (i = order; i <= mm->max_order; ++i) {
+ 		struct drm_buddy_block *tmp_block;
+ 
+-		list_for_each_entry_reverse(tmp_block, &mm->free_list[i], link) {
++		for_each_rb_entry_reverse(tmp_block, &mm->free_tree[i], rb) {
+ 			if (block_incompatible(tmp_block, flags))
+ 				continue;
+ 
+@@ -624,7 +667,7 @@ get_maxblock(struct drm_buddy *mm, unsigned int order,
+ }
+ 
+ static struct drm_buddy_block *
+-alloc_from_freelist(struct drm_buddy *mm,
++alloc_from_freetree(struct drm_buddy *mm,
+ 		    unsigned int order,
+ 		    unsigned long flags)
+ {
+@@ -641,7 +684,7 @@ alloc_from_freelist(struct drm_buddy *mm,
+ 		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+ 			struct drm_buddy_block *tmp_block;
+ 
+-			list_for_each_entry_reverse(tmp_block, &mm->free_list[tmp], link) {
++			for_each_rb_entry_reverse(tmp_block, &mm->free_tree[tmp], rb) {
+ 				if (block_incompatible(tmp_block, flags))
+ 					continue;
+ 
+@@ -657,10 +700,8 @@ alloc_from_freelist(struct drm_buddy *mm,
+ 	if (!block) {
+ 		/* Fallback method */
+ 		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+-			if (!list_empty(&mm->free_list[tmp])) {
+-				block = list_last_entry(&mm->free_list[tmp],
+-							struct drm_buddy_block,
+-							link);
++			if (!rbtree_is_empty(mm, tmp)) {
++				block = rbtree_last_entry(mm, tmp);
+ 				if (block)
+ 					break;
+ 			}
+@@ -728,7 +769,7 @@ static int __alloc_range(struct drm_buddy *mm,
+ 
+ 		if (contains(start, end, block_start, block_end)) {
+ 			if (drm_buddy_block_is_free(block)) {
+-				mark_allocated(block);
++				mark_allocated(mm, block);
+ 				total_allocated += drm_buddy_block_size(mm, block);
+ 				mm->avail -= drm_buddy_block_size(mm, block);
+ 				if (drm_buddy_block_is_clear(block))
+@@ -806,7 +847,6 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
+ {
+ 	u64 rhs_offset, lhs_offset, lhs_size, filled;
+ 	struct drm_buddy_block *block;
+-	struct list_head *list;
+ 	LIST_HEAD(blocks_lhs);
+ 	unsigned long pages;
+ 	unsigned int order;
+@@ -819,11 +859,10 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
+ 	if (order == 0)
+ 		return -ENOSPC;
+ 
+-	list = &mm->free_list[order];
+-	if (list_empty(list))
++	if (rbtree_is_empty(mm, order))
+ 		return -ENOSPC;
+ 
+-	list_for_each_entry_reverse(block, list, link) {
++	for_each_rb_entry_reverse(block, &mm->free_tree[order], rb) {
+ 		/* Allocate blocks traversing RHS */
+ 		rhs_offset = drm_buddy_block_offset(block);
+ 		err =  __drm_buddy_alloc_range(mm, rhs_offset, size,
+@@ -933,7 +972,7 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+ 	list_add(&block->tmp_link, &dfs);
+ 	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
+ 	if (err) {
+-		mark_allocated(block);
++		mark_allocated(mm, block);
+ 		mm->avail -= drm_buddy_block_size(mm, block);
+ 		if (drm_buddy_block_is_clear(block))
+ 			mm->clear_avail -= drm_buddy_block_size(mm, block);
+@@ -956,8 +995,8 @@ __drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 		return  __drm_buddy_alloc_range_bias(mm, start, end,
+ 						     order, flags);
+ 	else
+-		/* Allocate from freelist */
+-		return alloc_from_freelist(mm, order, flags);
++		/* Allocate from freetree */
++		return alloc_from_freetree(mm, order, flags);
+ }
+ 
+ /**
+@@ -974,8 +1013,8 @@ __drm_buddy_alloc_blocks(struct drm_buddy *mm,
+  * alloc_range_bias() called on range limitations, which traverses
+  * the tree and returns the desired block.
+  *
+- * alloc_from_freelist() called when *no* range restrictions
+- * are enforced, which picks the block from the freelist.
++ * alloc_from_freetree() called when *no* range restrictions
++ * are enforced, which picks the block from the freetree.
+  *
+  * Returns:
+  * 0 on success, error code on failure.
+@@ -1077,7 +1116,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 			}
+ 		} while (1);
+ 
+-		mark_allocated(block);
++		mark_allocated(mm, block);
+ 		mm->avail -= drm_buddy_block_size(mm, block);
+ 		if (drm_buddy_block_is_clear(block))
+ 			mm->clear_avail -= drm_buddy_block_size(mm, block);
+@@ -1161,7 +1200,7 @@ void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p)
+ 		struct drm_buddy_block *block;
+ 		u64 count = 0, free;
+ 
+-		list_for_each_entry(block, &mm->free_list[order], link) {
++		for_each_rb_entry(block, &mm->free_tree[order], rb) {
+ 			BUG_ON(!drm_buddy_block_is_free(block));
+ 			count++;
+ 		}
+diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+index 9689a7c5dd36..a64d108a33b7 100644
+--- a/include/drm/drm_buddy.h
++++ b/include/drm/drm_buddy.h
+@@ -10,6 +10,7 @@
+ #include <linux/list.h>
+ #include <linux/slab.h>
+ #include <linux/sched.h>
++#include <linux/rbtree.h>
+ 
+ #include <drm/drm_print.h>
+ 
+@@ -22,6 +23,41 @@
+ 	start__ >= max__ || size__ > max__ - start__; \
+ })
+ 
++/*
++ * for_each_rb_entry() - iterate over an RB tree in order
++ * @pos:	the struct type * to use as a loop cursor
++ * @root:	pointer to struct rb_root to iterate
++ * @member:	name of the rb_node field within the struct
++ */
++#define for_each_rb_entry(pos, root, member) \
++	for (pos = rb_entry_safe(rb_first(root), typeof(*pos), member); \
++	     pos; \
++	     pos = rb_entry_safe(rb_next(&(pos)->member), typeof(*pos), member))
++
++/*
++ * for_each_rb_entry_reverse() - iterate over an RB tree in reverse order
++ * @pos:	the struct type * to use as a loop cursor
++ * @root:	pointer to struct rb_root to iterate
++ * @member:	name of the rb_node field within the struct
++ */
++#define for_each_rb_entry_reverse(pos, root, member) \
++	for (pos = rb_entry_safe(rb_last(root), typeof(*pos), member); \
++	     pos; \
++	     pos = rb_entry_safe(rb_prev(&(pos)->member), typeof(*pos), member))
++
++/**
++ * for_each_rb_entry_reverse_safe() - safely iterate over an RB tree in reverse order
++ * @pos:	the struct type * to use as a loop cursor.
++ * @n:		another struct type * to use as temporary storage.
++ * @root:	pointer to struct rb_root to iterate.
++ * @member:	name of the rb_node field within the struct.
++ */
++#define for_each_rb_entry_reverse_safe(pos, n, root, member) \
++	for (pos = rb_entry_safe(rb_last(root), typeof(*pos), member), \
++	     n = pos ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*pos), member) : NULL; \
++	     pos; \
++	     pos = n, n = pos ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*pos), member) : NULL)
++
+ #define DRM_BUDDY_RANGE_ALLOCATION		BIT(0)
+ #define DRM_BUDDY_TOPDOWN_ALLOCATION		BIT(1)
+ #define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
+@@ -53,6 +89,7 @@ struct drm_buddy_block {
+ 	 * a list, if so desired. As soon as the block is freed with
+ 	 * drm_buddy_free* ownership is given back to the mm.
+ 	 */
++	struct rb_node rb;
+ 	struct list_head link;
+ 	struct list_head tmp_link;
+ };
+@@ -68,7 +105,7 @@ struct drm_buddy_block {
+  */
+ struct drm_buddy {
+ 	/* Maintain a free list for each order. */
+-	struct list_head *free_list;
++	struct rb_root *free_tree;
+ 
+ 	/*
+ 	 * Maintain explicit binary tree(s) to track the allocation of the
+-- 
+2.34.1
 
-         flags =3D __smu_cmn_get_msg_flags(smu, msg);
-         *poll =3D true;
-
-+       pri =3D !!(flags & SMU_MSG_HI_PRI);
-         /* When there is RAS fatal error, FW won't process non-RAS priorit=
-y
-          * messages. Don't allow any messages other than RAS priority mess=
-ages.
-          */
-@@ -272,15 +273,18 @@ static int __smu_cmn_ras_filter_msg(struct smu_contex=
-t *smu,
-                                 smu_get_message_name(smu, msg));
-                         return -EACCES;
-                 }
-+       }
-
-+       if (pri || fed_status) {
-                 /* FW will ignore non-priority messages when a RAS fatal e=
-rror
--                * is detected. Hence it is possible that a previous messag=
-e
--                * wouldn't have got response. Allow to continue without po=
-lling
--                * for response status for priority messages.
-+                * or reset condition is detected. Hence it is possible tha=
-t a
-+                * previous message wouldn't have got response. Allow to
-+                * continue without polling for response status for priorit=
-y
-+                * messages.
-                  */
-                 resp =3D RREG32(smu->resp_reg);
-                 dev_dbg(adev->dev,
--                       "Sending RAS priority message %s response status: %=
-x",
-+                       "Sending priority message %s response status: %x",
-                         smu_get_message_name(smu, msg), resp);
-                 if (resp =3D=3D 0)
-                         *poll =3D false;
---
-2.49.0
-
-
---_000_SJ0PR12MB6967DC041C3C519D228B84B29D5EASJ0PR12MB6967namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Reviewed-and-tested-by:&nbsp; Ce Sun &lt;cesun102@amd.com&gt;</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Regards,</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Ce,Sun</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Lijo Lazar &lt;lijo.lazar@amd=
-.com&gt;<br>
-<b>Sent:</b> Thursday, July 24, 2025 4:56 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
- &lt;Alexander.Deucher@amd.com&gt;; Kamal, Asad &lt;Asad.Kamal@amd.com&gt;;=
- Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: Add priority messages for SMU v13.0.6</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Certain messages will processed with high priority=
- by PMFW even if it<br>
-hasn't responded to a previous message. Send the priority message<br>
-regardless of the success/fail status of the previous message. Add<br>
-support on SMUv13.0.6 and SMUv13.0.12<br>
-<br>
-Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; |&nbsp; 1 +<br>
-&nbsp;.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c&nbsp; |&nbsp; 2 +-<=
-br>
-&nbsp;.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c&nbsp;&nbsp; |&nbsp; =
-2 +-<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 14 +++++++++-----<br>
-&nbsp;4 files changed, 12 insertions(+), 7 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm=
-/amd/pm/swsmu/inc/smu_types.h<br>
-index d7a9e41820fa..aaf148591a98 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h<br>
-@@ -469,6 +469,7 @@ enum smu_feature_mask {<br>
-&nbsp;/* Message category flags */<br>
-&nbsp;#define SMU_MSG_VF_FLAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1U &lt;&lt; 0)<br>
-&nbsp;#define SMU_MSG_RAS_PRI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1U &lt;&lt; 1)<br>
-+#define SMU_MSG_HI_PRI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1U &lt;&lt; 2)<br>
-&nbsp;<br>
-&nbsp;/* Firmware capability flags */<br>
-&nbsp;#define SMU_FW_CAP_RAS_PRI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1U &lt;&lt; 0)<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driver=
-s/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c<br>
-index 02a455a31c25..17e0303f603b 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c<br>
-@@ -106,7 +106,7 @@ const struct cmn2asic_msg_mapping smu_v13_0_12_message_=
-map[SMU_MSG_MAX_COUNT] =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetDpmFreqByIndex,=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_GetDpmFreqByIndex,&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; 1),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(SetPptLimit,&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_S=
-etPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetPptLimit,&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_G=
-etPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GfxDeviceDriverReset,&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; PPSMC_MSG_GfxDriverReset,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_=
-RAS_PRI),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GfxDeviceDriverReset,&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; PPSMC_MSG_GfxDriverReset,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_=
-RAS_PRI | SMU_MSG_HI_PRI),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
-High,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; PPSMC_MSG_DramLogSetDramAddrHigh,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
-Low,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; PPSMC_MSG_DramLogSetDramAddrLow,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramSize=
-,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_DramLogSetDramSize,&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c<br>
-index 9cc294f4708b..c22b3f646355 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c<br>
-@@ -145,7 +145,7 @@ static const struct cmn2asic_msg_mapping smu_v13_0_6_me=
-ssage_map[SMU_MSG_MAX_COU<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetDpmFreqByIndex,=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_GetDpmFreqByIndex,&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; 1),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(SetPptLimit,&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_S=
-etPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetPptLimit,&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_G=
-etPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GfxDeviceDriverReset,&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; PPSMC_MSG_GfxDriverReset,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_=
-RAS_PRI),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GfxDeviceDriverReset,&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; PPSMC_MSG_GfxDriverReset,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_=
-RAS_PRI | SMU_MSG_HI_PRI),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
-High,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; PPSMC_MSG_DramLogSetDramAddrHigh,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
-Low,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; PPSMC_MSG_DramLogSetDramAddrLow,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramSize=
-,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_DramLogSetDramSize,&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
-m/swsmu/smu_cmn.c<br>
-index 59f9abd0f7b8..f1f5cd8c2cd9 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
-@@ -256,11 +256,12 @@ static int __smu_cmn_ras_filter_msg(struct smu_contex=
-t *smu,<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D smu-&gt;adev;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags, resp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool fed_status;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool fed_status, pri;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flags =3D __smu_cmn_get_ms=
-g_flags(smu, msg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *poll =3D true;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pri =3D !!(flags &amp; SMU_MSG_HI_PRI=
-);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* When there is RAS fatal=
- error, FW won't process non-RAS priority<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * messages. Don't al=
-low any messages other than RAS priority messages.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-@@ -272,15 +273,18 @@ static int __smu_cmn_ras_filter_msg(struct smu_contex=
-t *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_get_message_name(smu, msg));=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n -EACCES;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pri || fed_status) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* FW will ignore non-priority messages when a RAS fa=
-tal error<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * is detected. Hence it is possible that a previous messag=
-e<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * wouldn't have got response. Allow to continue without po=
-lling<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * for response status for priority messages.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * or reset condition is detected. Hence it is possible tha=
-t a<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * previous message wouldn't have got response. Allow to<br=
->
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * continue without polling for response status for priorit=
-y<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * messages.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; resp =3D RREG32(smu-&gt;resp_reg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dev_dbg(adev-&gt;dev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Sending RA=
-S priority message %s response status: %x&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Sending pr=
-iority message %s response status: %x&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_g=
-et_message_name(smu, msg), resp);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (resp =3D=3D 0)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *poll=
- =3D false;<br>
--- <br>
-2.49.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_SJ0PR12MB6967DC041C3C519D228B84B29D5EASJ0PR12MB6967namp_--
