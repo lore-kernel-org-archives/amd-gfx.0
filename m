@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F251C87FCD
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jul 2025 02:43:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92532C87FCC
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jul 2025 02:43:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23F1C10E402;
-	Fri, 25 Jul 2025 02:43:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 191AE10E403;
+	Fri, 25 Jul 2025 02:43:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tuqYzdn2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KjEsmNqK";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2065.outbound.protection.outlook.com [40.107.101.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09DDB10E402
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Jul 2025 02:43:36 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 734CB10E403
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Jul 2025 02:43:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pQNOc1D78cdN7IsBQO9+R3ZFGJ4X61DvjT5QtKcLbNUpLBtVAdMn1WfepGbMFVA3F4xnoYJpQqM0A83QdctrWZVYCU91JilwfrL0CVjiGs2ab35CihnzDERIiPnoaK+DMxGh0N8kz9OJu8NmUlG4OJ4M2/k4KiChfXeRKARCcK0B/WwFpmzJb31NbSnOdUq7mkcjFahbnKadgZ9bstnDPdPOjtF21fZLUkOWdUAtdpI7Vx9F2gmdduK3Ey4tymK8zjW84TIDCzZvv7JV0j+smXrAwxMgjh+wyl3OshQnHu8brEX5q9LL6lRGYnQv2AbQ2IwoA4zEXZJJPj0tQSPQuw==
+ b=uuSwpmKvLZ+uPRKhFTJvozXjnjHW64NlDftwMGr4JtA7eMulF6dBOBXiRAEzTOhDvOVEUjQDSrCkD75xz+rPmDMh3k16ri76o2tgbaxoXzKzhvE8tfXeOS9QplJUu8TLYkcfPOvUfJlMFlpQ4HShBkuvsvybWE3GL8Eix+dBw33tEagtUy8DlBhkyuIxVZ1zKnEjg3PVFSQMPs5naTGeTXOPQE4s0HxPBoe0zXglCwfltCcVFmxnlxvb88stuCFTaGzUO2HHbSWy7cml4BldOVFA7qszQx/VaHT/UvEbDvfrN9yHwhQCaUvNUyEfMYt24QAH0JE0PJAIvF+PZslCFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+QlYPmmNiXJ7GmrSoWzzU7Isd0TAo4tk9NQ6qXpmb8c=;
- b=A/uxUWPmoBdw2ZEnCrsBDw5gwkQacOB6HxxqR4Ye86e+nUQgdVld2siuwIkDM2ZC9Am8hlLHpUjinj4l+kyulBLGZMvIlXCmQ/iYfCdaIrABUf6KhbOEzP7br2Qj7GuacZz4ONB/JVAnhryFbP5BNXFikZFgr7s2tZDTPwj11JtLdhXjunBQpUnJAeFx+4H50gmbvEH077DEexjFGxlh0nsAZF32EoJXpdE1ASAfsn4LBivbunGAFtbiXhOqJAHVwIV8wfzL0G3BAtiZUANHEzxvirDVeQsZ+/dJNH7ukioJPIIKH9BhwK9vc0LQX/WRLIcpMhLh1fFZh662VEl2dA==
+ bh=SdVME6OApozAcqVOUvWCG5zvkUHnpDyj2nkAczqstoA=;
+ b=hs6kvgI0/H5cgCriy89w3ezIgR6NZKBINkDfthIrEH82//1K3KwwYVaYso/nePHmHIeDVbquxD3D8h1FRk10OSm8qlEuP6gM/e2eKEO6YExvgPrv/hKCxWllgutAx3FUwPbI3IoPQ23CLbbDBQzbmZpOl8KQX/UK7PJwcgUEsY9Ukj4sW420VV9G0Czhsmz3tFG+NtPWhuRnC0vhDWp/YaZ0C1T9UoMy3l6beI7NPMqJ0J0s2PhOdhVclIfZbs38q2UaN7EoFE6eePMlOVHz0OLijEqyacOFMOXw+NjbbJsIVlHO29XUHnSKEiUDPvWviNHSr6LQRkMGn+YkJp1tUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+QlYPmmNiXJ7GmrSoWzzU7Isd0TAo4tk9NQ6qXpmb8c=;
- b=tuqYzdn2h8YJf8KP5Z6eEIGlilExevssPeEe2S+GZay9/f5T9rkgvymfyYANF+U2NYDvlSUMnMN1BDSHTvym1ZzyRhPyOgH0bLBAVdKwek8JMUyEqEpL652rotmj0tQmp1r6obeSRQ0A5XTd6RcETXA3GyZptedJt3nFV+3JNRs=
-Received: from CH0PR03CA0098.namprd03.prod.outlook.com (2603:10b6:610:cd::13)
- by BN7PPF683A477A9.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6d3) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.21; Fri, 25 Jul
- 2025 02:43:33 +0000
+ bh=SdVME6OApozAcqVOUvWCG5zvkUHnpDyj2nkAczqstoA=;
+ b=KjEsmNqKCjiLmzPqYszPCGosLbDf0u9UPbkD3rRAjYAF8Sw7X8yEve6cwM/V7UeDo6CK3LhX6xVyz9r83Wiv63R8ys/oV56K+YpMWWvEBkvbgRjqQiw8iN4Wwdlz6CVeGfJB52dXNfr3dzepGgl2QQz8b/6FBRzQTnj6E5Y3F/I=
+Received: from CH0PR03CA0096.namprd03.prod.outlook.com (2603:10b6:610:cd::11)
+ by DM4PR12MB6009.namprd12.prod.outlook.com (2603:10b6:8:69::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Fri, 25 Jul
+ 2025 02:43:34 +0000
 Received: from CH1PEPF0000AD81.namprd04.prod.outlook.com
- (2603:10b6:610:cd:cafe::da) by CH0PR03CA0098.outlook.office365.com
- (2603:10b6:610:cd::13) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:cd:cafe::20) by CH0PR03CA0096.outlook.office365.com
+ (2603:10b6:610:cd::11) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.22 via Frontend Transport; Fri,
- 25 Jul 2025 02:43:33 +0000
+ 25 Jul 2025 02:43:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CH1PEPF0000AD81.mail.protection.outlook.com (10.167.244.89) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Fri, 25 Jul 2025 02:43:32 +0000
+ 15.20.8964.20 via Frontend Transport; Fri, 25 Jul 2025 02:43:34 +0000
 Received: from localhost.localdomain.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 24 Jul 2025 21:43:30 -0500
+ 15.1.2507.39; Thu, 24 Jul 2025 21:43:32 -0500
 From: Zhu Lingshan <lingshan.zhu@amd.com>
 To: <alexander.deucher@amd.com>, <felix.kuehling@amd.com>
 CC: <ray.huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
  <lingshan.zhu@amd.com>
-Subject: [PATCH 1/9] amdkfd: enlarge the hashtable of kfd_process
-Date: Fri, 25 Jul 2025 10:43:08 +0800
-Message-ID: <20250725024316.9273-2-lingshan.zhu@amd.com>
+Subject: [PATCH 2/9] amdkfd: mark the first kfd_process as the primary one
+Date: Fri, 25 Jul 2025 10:43:09 +0800
+Message-ID: <20250725024316.9273-3-lingshan.zhu@amd.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250725024316.9273-1-lingshan.zhu@amd.com>
 References: <20250725024316.9273-1-lingshan.zhu@amd.com>
@@ -73,52 +73,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD81:EE_|BN7PPF683A477A9:EE_
-X-MS-Office365-Filtering-Correlation-Id: facead96-d181-418e-3d66-08ddcb250ba1
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD81:EE_|DM4PR12MB6009:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf2c1038-77a9-433a-816d-08ddcb250cbb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?SxJCDq8XVnjK5ptVoVza8oWpn+kYyYOu1Nxj/c2w2BUdqagG9tJglrg+59pW?=
- =?us-ascii?Q?dNeZ0/iylYzsY3PjDYM7L6/Z/78gQKW4i90CthO93ZXGrGqmM7G8TZPxVT8G?=
- =?us-ascii?Q?IW/F+t48NOSEIOKTEJNM2ZrJILIikbaHGxO6ZilTf85JprdDaAPF84AAEA0d?=
- =?us-ascii?Q?VfcSZTS1cNGNePpWLwQkd9tO5WfIAcVtRSD3lgqiKYswPtloslUkgj3jELjh?=
- =?us-ascii?Q?2oMz24ShUKXN4UEQmBfVV6NxuENqS/5xnUn3WkXoWoui8dM0alYazFMT6+9Z?=
- =?us-ascii?Q?sSWbbwcYlMV1IR5nJf5N/2XwRu4At+b2c3UkJPXLaEQi9U+Ykofh+rwG1W6X?=
- =?us-ascii?Q?8a4nZCA+ShTqp4FsMPRBKk3sBeWbMltyhVCsExmi+7u6wgf5h+Uz2NxBeidP?=
- =?us-ascii?Q?EMyAHL3214v8MS1ax7BOaySYpoYG6GsUPPm8Bxmf9GRlXpSxItBUiaBC7dNP?=
- =?us-ascii?Q?YS5Zc3izpKCMThQgTAYhmQO12sVnXYToP+RzDGvz5fOpw3TuKu0q5aawWBiK?=
- =?us-ascii?Q?PEc38C4RZXm1jO79Uo2fz0oHW7d7jJ7XEkNl9FqMSkzstNFIjSC5MI+ZAHHO?=
- =?us-ascii?Q?6FDvv/8Nmcootr7+PaDN+NDnOWhnVR3Ug3ixo7P2KLpWORfioF/MNAkcoJWI?=
- =?us-ascii?Q?p/wrgp2OB9G07HRoDKRTEQqfc8BWkQ9RPybYwXk7McWUtwY4Il6lfxZBkHYM?=
- =?us-ascii?Q?5i+1XBOUIlqyU0+nWxhteHJwtGzyV6imBDDqZNk2VO9/LZBktnPpgpAdyKBb?=
- =?us-ascii?Q?m+KYVRWJubwuaDWE+PpqdUshHhC8x+LuUzv711w+khNGW1z5609j2tM/dbgW?=
- =?us-ascii?Q?HfIBc68BD4LRdYkqrrWkg6IKvthcPLUHDbR9uNvBWpMq8xeUV69rJAG8Mnyx?=
- =?us-ascii?Q?Ecj0KKTbiEBOIp/mKpk2JQ6fbLrVjR8s9He1Mtn43FnjRuS4GOfqoufGBeiy?=
- =?us-ascii?Q?ffBNNWzdYRb7UsrRtQqLjR9/FH1+Z4y2oGJxc8FRUn9fivpXUQGjxVfPTtep?=
- =?us-ascii?Q?gSDdQAhECPL9OvcAnYGCdFsDBMHIfwe1CzrkEr9bsKU086iEM3D4BiMy2hLj?=
- =?us-ascii?Q?nVsSvdU32NtxsMtFbslFtkpyxVWEphPBC80k9JLpBxRei6YNijHSvT2qYyRy?=
- =?us-ascii?Q?r9GXqh0pGL3Kk3XqWmhlsiEqIWl1qsKRILKvca4MKQHk0h+8tKmJLDmo/aZ3?=
- =?us-ascii?Q?+88Em/rKYyq/HVX89JwJXcd08T2OiCvnqWst8AufYtrxy+l/v0wByGHuVla6?=
- =?us-ascii?Q?a8ZSg4Pv+asQbP4miqVlDMAcBrz97Y8deaGt9AimNSUd4J11/JMOKnDGPMQu?=
- =?us-ascii?Q?JYdYxrAyyvhtU5t+QRjZD2lapRIwvrRJ8Z7UOWwbHjMIw6ymags94tpZ3aKZ?=
- =?us-ascii?Q?tAx9I0WjCkG7wLqVeUpRvnQhtbDMTOtHSKKbEis8h86+ucpf59VBCl07JmXc?=
- =?us-ascii?Q?L2WiOUd5hy70P3jMx+7GCQdUkDE1wYhBT6HuEvKYROE6a8ahPPBlhz5FmHKf?=
- =?us-ascii?Q?QCZvbKQjWzSwyiQs+rQSfU6Os4A9qZGhbd2+?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?44MEHr05fIz3qp3ntLPDviCMJ8Hd87w7MZExFcBxnJ+IvA8KyDKAIfX74k4g?=
+ =?us-ascii?Q?dbAI54E0ut8rfLuNPJAlbephtn7hiTrbIWA1L3cO1N94mTUqWs2oxRp7qmXU?=
+ =?us-ascii?Q?Vkq5ZI/os5bgbRqbgRz0hz8gTMWQqu6T15ivvlJo8LM3oXHZTsT4AUdK9VNF?=
+ =?us-ascii?Q?AKSDOrzQBp/qNCx9U5LFG/JEsZfTFq8fpmFSm5OcVGEtF58D2C3hqp/E7qFE?=
+ =?us-ascii?Q?kffvSYYmq/3gCbeBMKVIDDb8encXZ/S93e8RsEWFqGLiVKlMfigqArft94wt?=
+ =?us-ascii?Q?rmD9Lml6MJZC1VyE9K5H5TwmB2kWAwUucP4rwtLpF+LuQs2wmBtwKnT4UTd2?=
+ =?us-ascii?Q?XqPtDQ/YINQusWHq8jQDHXjNykCJIdYVr4+eLWL0dyKgwWdTg22WJJZD3gDx?=
+ =?us-ascii?Q?iaY7+hquf9Zzfpo4XAT1FGbFBRNRrWPRwntHgCx/EndmmnNDQekU9oyuDQ4C?=
+ =?us-ascii?Q?it2Nf7pmg7gWtOqZ7OdpC4umOUjr72Wy67CbXxwKwdVM10ZfLhvDlAs8E2T3?=
+ =?us-ascii?Q?uVnLg8rb7j405J1LdvzxxLmYmUJBiRyDng1Ot/pS4h43OjFRHrDxA437h7Mj?=
+ =?us-ascii?Q?EsvRXC6hQYzzdOik/Q8s3Y2yVwqdd5bpbPLXDlL650X7r56BvoZJ2amQApx3?=
+ =?us-ascii?Q?qZT4gK+t4VqHsaTk4I9fuSlQ/Q/O7xZz+pGx1pLkgflaJ9SMpida9eVf/BMv?=
+ =?us-ascii?Q?I1JeOFx7+4ba6VLh4u77671Fhp0PLsCQm6viYW0VAgEzL1OuJcuxMV3fJ2Re?=
+ =?us-ascii?Q?kCS5M2zY4XOblMM0OkwRSKy9iT2z6AyjheAujLLEc+Kk1g+NjozMlUS7hPwu?=
+ =?us-ascii?Q?j3IoXm5im3+jUD04i9zuaVn6ldaL0gkibaWuq3wfd3vZUrDOhVYCGEQ2h+5C?=
+ =?us-ascii?Q?4O88osH+wjlJ+2NQEnMTd/IV3x+PB0pB9rVWS1pux9kvugoogGXrcnudyztR?=
+ =?us-ascii?Q?YQg7JOHFGiFE/k4C1mcWTjZ/Ua6FYF2ONyqONmUBZMZnCirmOLGFWQ/Ya71P?=
+ =?us-ascii?Q?tlFHCRuzMn88vbLMXg0c0/Rs9Svw4pp32+Uf6w/KgpTD9lhWi1EfNlpGlNPI?=
+ =?us-ascii?Q?J/WWgyM078Y1356W5bhHuAgUEO6xNKuPNSsCn81j5bbIql+Lc5zVAxK79Jke?=
+ =?us-ascii?Q?GTs6HTeThZTxUIzrdv6kdhncIyoARcOJ1XWievypa7j50ujc6rzbTT0VYQKS?=
+ =?us-ascii?Q?umpGJE+9UfXM8jMOqAIMSq6/FMct5JyLEeFaTUOuupp3eJDY2aV95b/LRmfU?=
+ =?us-ascii?Q?YhGt8oR39oUDgnlrDMf3SI50cX8ykGlIbeqFefhJK0j6kGZL7voizKSDlXiZ?=
+ =?us-ascii?Q?sjSwmpq8KtCNpU3pzJRNMxk8rf5fyykoaO1v1cw0Wvvp5rZHtWxWmt83uTPb?=
+ =?us-ascii?Q?XAeARqVVO4y2cKNGk9JVisrLMBrT85XlC9cPU3ptHYfOpLvVwgwSl65MJZ1s?=
+ =?us-ascii?Q?67DUcXTmNTbhUMIYFgL0sCsfxNvgXJaTtJxMX0OxvKjUzDZ+pdAkKhhvI5pt?=
+ =?us-ascii?Q?oDTHT1/5bTTd4G8Hq2ZTJ1jxZ7in1wGe8i4f?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2025 02:43:32.5266 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: facead96-d181-418e-3d66-08ddcb250ba1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2025 02:43:34.3782 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf2c1038-77a9-433a-816d-08ddcb250cbb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD81.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF683A477A9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6009
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,29 +133,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit enlarges the hashtable size of
-kfd_process to 256, because of the multiple
-contexts feature allowing each application
-create multiple kfd_processes
+The first kfd_process is created through open(),
+this commit marks it as the primary kfd_process.
+
+Only the primary process should register the mmu_notifier.
 
 Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  3 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 20 ++++++++++++--------
+ 2 files changed, 15 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index d221c58dccc3..38a20ba61e24 100644
+index 38a20ba61e24..8149ce0639c0 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1008,7 +1008,7 @@ struct kfd_process {
+@@ -1006,6 +1006,9 @@ struct kfd_process {
+ 
+ 	/* if gpu page fault sent to KFD */
  	bool gpu_page_fault;
++
++	/* indicating whether this is a primary kfd_process */
++	bool primary;
  };
  
--#define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
-+#define KFD_PROCESS_TABLE_SIZE 8 /* bits: 256 entries */
- extern DECLARE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
- extern struct srcu_struct kfd_processes_srcu;
+ #define KFD_PROCESS_TABLE_SIZE 8 /* bits: 256 entries */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 722ac1662bdc..955ca8725bc5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -68,7 +68,7 @@ static struct workqueue_struct *kfd_restore_wq;
+ static struct kfd_process *find_process(const struct task_struct *thread,
+ 					bool ref);
+ static void kfd_process_ref_release(struct kref *ref);
+-static struct kfd_process *create_process(const struct task_struct *thread);
++static struct kfd_process *create_process(const struct task_struct *thread, bool primary);
  
+ static void evict_process_worker(struct work_struct *work);
+ static void restore_process_worker(struct work_struct *work);
+@@ -867,7 +867,7 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+ 	if (process) {
+ 		pr_debug("Process already found\n");
+ 	} else {
+-		process = create_process(thread);
++		process = create_process(thread, true);
+ 		if (IS_ERR(process))
+ 			goto out;
+ 
+@@ -1510,7 +1510,7 @@ void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
+  * On return the kfd_process is fully operational and will be freed when the
+  * mm is released
+  */
+-static struct kfd_process *create_process(const struct task_struct *thread)
++static struct kfd_process *create_process(const struct task_struct *thread, bool primary)
+ {
+ 	struct kfd_process *process;
+ 	struct mmu_notifier *mn;
+@@ -1526,6 +1526,8 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+ 	process->lead_thread = thread->group_leader;
+ 	process->n_pdds = 0;
+ 	process->queues_paused = false;
++	process->primary = primary;
++
+ 	INIT_DELAYED_WORK(&process->eviction_work, evict_process_worker);
+ 	INIT_DELAYED_WORK(&process->restore_work, restore_process_worker);
+ 	process->last_restore_timestamp = get_jiffies_64();
+@@ -1569,12 +1571,14 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+ 	 * After this point, mmu_notifier_put will trigger the cleanup by
+ 	 * dropping the last process reference in the free_notifier.
+ 	 */
+-	mn = mmu_notifier_get(&kfd_process_mmu_notifier_ops, process->mm);
+-	if (IS_ERR(mn)) {
+-		err = PTR_ERR(mn);
+-		goto err_register_notifier;
++	if (primary) {
++		mn = mmu_notifier_get(&kfd_process_mmu_notifier_ops, process->mm);
++		if (IS_ERR(mn)) {
++			err = PTR_ERR(mn);
++			goto err_register_notifier;
++		}
++		BUG_ON(mn != &process->mmu_notifier);
+ 	}
+-	BUG_ON(mn != &process->mmu_notifier);
+ 
+ 	kfd_unref_process(process);
+ 	get_task_struct(process->lead_thread);
 -- 
 2.47.1
 
