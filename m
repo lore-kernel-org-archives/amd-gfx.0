@@ -4,78 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08100C87FCA
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jul 2025 07:29:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C232C87FCD
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jul 2025 10:02:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5B9F10E456;
-	Fri, 25 Jul 2025 07:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1685410E179;
+	Fri, 25 Jul 2025 10:02:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jacqn34n";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LGsUA9BR";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CFF310E456
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Jul 2025 07:29:56 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-45600581226so18707025e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Jul 2025 00:29:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753428595; x=1754033395; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=fYitZNXB5TMJlw801+Zbsn7LGo5N/sIGGrhCJVrF0kw=;
- b=jacqn34n0+o+jxum0LYsKCgNU9ghxd08MQBmkIOxHAiIqSX+xzMhg3h/8CUtx5JGht
- A16KdHTBMj5Sep1/L+Oq2Cur/JMtDrrV5xhHKTLDCWRajpMHYcy2b/76mzYtvQxupEVU
- UNitSK2+/tNTjUi8QwtVj3rHaxM8NtKdrTFh4+PW22Cs+Cbqy0pKTV9agkou7bCL+aky
- Vr3P22R4pQbfOuIfYsxzh888zjs/U+tNgGXxWL9Yu+M037o1NgbKrw41cHpw55nYv+Xd
- rKzOo6ylmkdW92ojWIPPn2kKKMM+BWTZk+VTKveUHEoDTsEwGzZc+cwpLkwmskGLkH2r
- THQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753428595; x=1754033395;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fYitZNXB5TMJlw801+Zbsn7LGo5N/sIGGrhCJVrF0kw=;
- b=BCCoudhoS6nHFwgcWcGw2XjTIlDUfTmiWqDmVi40feGYERcKwbaooHLB7+3XxV1+U1
- S9iVrvp12tR045ifUzFaPcK3Se11640UqYrmdFTLBJMuL3eB9zOTQB4FhgV19X0DAeEY
- /HZp7AVZKOHIL9VgixmZZrDk/wgmMhh6pi/wZ0BA1DrY2zBRhosNlt9+7qvxNo6KOdGd
- YYhKXFZFQ42lmSFSB+M0j2RhZjhqK0zbJ9Ymb8CSVREh0Cr23+TH6sp5+Vf7LUaKAHx/
- nW77ptkMUtQhebsKfDPQMBPRiCpuSA9cAnphhT762iFJqQvg9SatggUt03XieVJ79UqX
- sRVQ==
-X-Gm-Message-State: AOJu0YzEDXukedD2Awke0AcLbT2KDh+CYREYNxXDUcjvnjcTjQlcNCZm
- 5D1CBKgjEkzs2cZJUo022jXiZYyVPHieM63wDfmFUc/MHLRHg7U1X8yf00v6KLLJ
-X-Gm-Gg: ASbGncvYQ+Kl2iMMi+D3OyaCIdbMRwkMO+TvFEl7BCJr7Q7vna8z55JF/ZlPtbS0USZ
- qm8n3hw7d3gou7kXVvq2AN+3dkVUSIqylbqFL/uLya8CASDKd8hADreHU1WhJMtBKyLBCRHXorR
- Je4ECAQ3Cx0EP/CBOMnWL7FeOMwXUHbjhW7102Jy5aSBm+uuh+/HmEnv8rGcpi4h/JkEf71OVUj
- VtlufOPPCy+cjEnnad5CxBTpolE1jdI9sIdz5YCeAGbV1juR8QqLa3sRt76d1tPBexFU0vmoN4j
- Hta+UjxhP6omiaE77j0/ooGFSv2Nxa8Bjjhdq9r4/vcZ6+CSOeIcEJPYwNK+/3u16Fhj1z8etVy
- 5LEiuCcogyLFjR37UuHkgYgi470aJvX9Gt2o7cxH2mAt47Fm5xJ1WjJ2Opw0RrIIpJls+MmI=
-X-Google-Smtp-Source: AGHT+IGeVfj1xvHMhaupykO/HI5vL6xJA+0EHpJ0c0OHpsokBi9QaHLIqLdFQRjtzcL8503VO9U2Eg==
-X-Received: by 2002:a05:600c:1c86:b0:43c:fc04:6d35 with SMTP id
- 5b1f17b1804b1-45876307432mr6549525e9.4.1753428594252; 
- Fri, 25 Jul 2025 00:29:54 -0700 (PDT)
-Received: from [192.168.0.188] (93-33-89-54.ip43.fastwebnet.it. [93.33.89.54])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4586ec77799sm38555265e9.2.2025.07.25.00.29.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Jul 2025 00:29:53 -0700 (PDT)
-Message-ID: <85b988bbc30337c939affaa61507363544f6a3c5.camel@gmail.com>
-Subject: Re: [PATCH 2/3] drm/amd/display: Don't overwrite dce60_clk_mgr
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Hung
- <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Date: Fri, 25 Jul 2025 09:29:52 +0200
-In-Reply-To: <tyay5kxsv5fwm53gdobd2kn4l3b5y5v4ac6wv6n4lg2iefwdjw@u6gokzk4esx2>
-References: <20250722155830.67401-1-timur.kristof@gmail.com>
- <20250722155830.67401-3-timur.kristof@gmail.com>
- <tyay5kxsv5fwm53gdobd2kn4l3b5y5v4ac6wv6n4lg2iefwdjw@u6gokzk4esx2>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 458D310E179;
+ Fri, 25 Jul 2025 10:02:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=OOpciwetaFaV2ukz/jkO+LK11DYvE3p779DTKh95WWs=; b=LGsUA9BRWBtPtK5DVIGnGVMTAF
+ bBcVcXQJTRoGHi2Z/Hpjo5Edb+cYnV5gxEK7STPXNQjK+W2g2WjovoAUkwVh6YUtallfILAfBq3ma
+ RWy2oHGr2KJpA3SFd1i+/lzn93Gy3z9iVj5IFXuOWxOfIW89/mASA2Na5piKT/4Ycfh7KFTYh/+8w
+ B7uVw/DCMApElmeetOAJUXxJzuY0ZfVqTYpC1hozuCjbbVs+gq88x6bqZLlx2xPPWvivis6mpC7Av
+ 5OuKha+ANIkkcVaPn612inzrRTXAgzk4NAbnpdGZ19moAFig5+sg1F1EiZFVWVVrsvLsFKrKASewZ
+ ZIwI5wwg==;
+Received: from [84.66.36.92] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1ufFFo-003ePy-Nu; Fri, 25 Jul 2025 12:02:16 +0200
+Message-ID: <0b797424-a0dd-4b6e-bcb3-b45715284472@igalia.com>
+Date: Fri, 25 Jul 2025 11:02:16 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 20/23] cgroup/drm: Introduce weight based scheduling control
+To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Tejun Heo <tj@kernel.org>
+References: <20250502123256.50540-1-tvrtko.ursulin@igalia.com>
+ <20250502123256.50540-21-tvrtko.ursulin@igalia.com>
+ <jlswx5kabjkszrkdmoflcqi7ycbxbfjfflbni3knromz6ucx63@kjwypivu3jpq>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <jlswx5kabjkszrkdmoflcqi7ycbxbfjfflbni3knromz6ucx63@kjwypivu3jpq>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,67 +62,578 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-07-24 at 16:40 -0600, Rodrigo Siqueira wrote:
-> On 07/22, Timur Krist=C3=B3f wrote:
-> > dc_clk_mgr_create accidentally overwrites the dce60_clk_mgr
-> > with the dce_clk_mgr, causing incorrect behaviour on DCE6.
->=20
-> Could you ellaborate on what do you mean by incorrect behaviour?
 
-By incorrect behaviour, I mean that the code was using dce_clk_mgr when
-it should have used the dce60_clk_mgr. So the DCE 6 specific functions
-were not correctly hooked up.
+On 02/06/2025 17:22, Michal Koutný wrote:
+> Hello.
 
-dce60_clk_mgr was added in 3ecb3b794e2c and according to that commit,
-the main difference is that DCE 6 doesn't have the DPREFCLK_CNTL
-registers.
+Hi and apologies for the delay.
 
->=20
-> > Fix it by removing the extra dce_clk_mgr_construct.
-> >=20
-> > Fixes: 62eab49faae7 ("drm/amd/display: hide VGH asic specific
-> > structs")
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c | 1 -
-> > =C2=A01 file changed, 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> > b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> > index 33b9d36619ff..4071851f9e86 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> > @@ -158,7 +158,6 @@ struct clk_mgr *dc_clk_mgr_create(struct
-> > dc_context *ctx, struct pp_smu_funcs *p
-> > =C2=A0			return NULL;
-> > =C2=A0		}
-> > =C2=A0		dce60_clk_mgr_construct(ctx, clk_mgr);
-> > -		dce_clk_mgr_construct(ctx, clk_mgr);
->=20
-> I suppose this error was not detected at the time because of the
-> CONFIG_DRM_AMD_DC_SI guard. This lgtm, but I guess it would be nice
-> to
-> test this patch with other SI devices just to be sure
+> On Fri, May 02, 2025 at 01:32:53PM +0100, Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>
+>> Similar to CPU and IO scheduling, implement a concept of weight in the DRM
+>> cgroup controller.
+>>
+>> Individual drivers are now able to register with the controller which will
+>> notify them of the relative scheduling weight for each open DRM client.
+>>
+>> The notifications are triggered on cgroup weight changes and DRM clients
+>> appearing and disappearing in/from cgroups. Latter is done because it is
+>> handy to ignore the groups with no DRM clients in relative weight
+>> calculations.
+>>
+>> The notifications are also consolidated by using a delayed worker.
+>>
+>> On the userspace API level we use the same range and defaults as the CPU
+>> controller - CGROUP_WEIGHT_MIN, CGROUP_WEIGHT_DFL and CGROUP_WEIGHT_MAX.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Michal Koutný <mkoutny@suse.com>
+>> Cc: Tejun Heo <tj@kernel.org>
+>> ---
+>>   Documentation/admin-guide/cgroup-v2.rst |  22 ++
+>>   include/linux/cgroup_drm.h              |   2 +
+>>   kernel/cgroup/drm.c                     | 313 +++++++++++++++++++++++-
+>>   3 files changed, 331 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+>> index 1a16ce68a4d7..095b7dee0151 100644
+>> --- a/Documentation/admin-guide/cgroup-v2.rst
+>> +++ b/Documentation/admin-guide/cgroup-v2.rst
+>> @@ -2729,6 +2729,28 @@ HugeTLB Interface Files
+>>           hugetlb pages of <hugepagesize> in this cgroup.  Only active in
+>>           use hugetlb pages are included.  The per-node values are in bytes.
+>>   
+>> +DRM
+>> +---
+>> +
+>> +The controller allows for configuring of scheduling weights of cgroups relative
+>> +to their siblings.
+>> +
+>> +NOTE: This is an optional feature into which individual DRM drivers need to
+>> +      opt-in if they want to support it.
+>> +
+>> +NOTE: Only single GPU systems will work as expected in the current
+>> +      implementation.
+>> +
+>> +DRM Interface Files
+>> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> +
+>> +  drm.weight
+>> +        A read-write single value file which exists on non-root cgroups. The
+>> +        default is "100".
+> 
+> Should this be akin to IO controller and have subkey granularity for
+> individual devices? (With special 'default' entry.)
+> 
+> (Can those devices come and go (hotplug)?)
 
-This series just contains some obvious regression fixes that I felt
-were the most important and easiest to review.
+Hot(un)plug is possible yes.
 
-SI definitely needs more work. I have a work in progress branch for
-this; I'll send the patches in a separate series. (The main things that
-are currently missing are fixing the display clock and taking
-pm_display_cfg into use in legacy_dpm and si_dpm to include DC display
-requirements in power management decisions.)
+I was thinking about the possibility of starting with the global weight 
+and later adding per device if required. As in, global is better than 
+nothing and works for many use cases.
 
->=20
-> Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
->=20
-> I added other display folks.
->=20
-> Thanks
->=20
-> > =C2=A0		return &clk_mgr->base;
-> > =C2=A0	}
-> > =C2=A0#endif
-> > --=20
-> > 2.50.1
-> >=20
+Not only on the uapi level but even the RFC to begin with could be 
+improved in the implementation to have separate scaled weights tree per 
+device. But again, for the "better than nothing", single scaled weights 
+tree and a no per device uapi controls already brings benefits and does 
+not preclude later extensions with no need to change the uapi.
+
+>> +
+>> +        The weights are in the range [1, 10000] and specify the relative
+>> +        scheduling weights for cgroups in relation to their siblings.
+>> +
+>>   Misc
+>>   ----
+>>   
+>> diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
+>> index d6a9a2fbdbf5..9961003958b4 100644
+>> --- a/include/linux/cgroup_drm.h
+>> +++ b/include/linux/cgroup_drm.h
+>> @@ -6,6 +6,8 @@
+>>   
+>>   #include <drm/drm_file.h>
+>>   
+>> +#define DRM_CGROUP_WEIGHT_SHIFT 10
+>> +
+>>   #if IS_ENABLED(CONFIG_CGROUP_DRM)
+>>   void drmcgroup_client_open(struct drm_file *file_priv);
+>>   void drmcgroup_client_close(struct drm_file *file_priv);
+>> diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+>> index ea7655edf86a..532702604786 100644
+>> --- a/kernel/cgroup/drm.c
+>> +++ b/kernel/cgroup/drm.c
+>> @@ -13,10 +13,18 @@ struct drm_cgroup_state {
+>>   	struct cgroup_subsys_state css;
+>>   
+>>   	struct list_head clients;
+>> +	unsigned int num_clients; /* Whole branch */
+>> +
+>> +	unsigned int sum_children_weights;
+>> +
+>> +	unsigned int weight;
+>> +	unsigned int effective_weight;
+> 
+> IIUC, this is weight normalized across siblings (and not scaled by
+> ancestors)?
+
+No, it is the latter - I have them in a "global namespace". (But only 
+groups which have DRM clients take part.)
+
+> It should be then sufficient to only notify the siblings of modified
+> cgroup after the recalculation, shouldn't it?
+> 
+>>   };
+>>   
+>>   struct drm_root_cgroup_state {
+>>   	struct drm_cgroup_state drmcs;
+>> +
+>> +	struct delayed_work notify_work;
+>>   };
+>>   
+>>   static struct drm_root_cgroup_state root_drmcs = {
+>> @@ -31,7 +39,7 @@ css_to_drmcs(struct cgroup_subsys_state *css)
+>>   	return container_of(css, struct drm_cgroup_state, css);
+>>   }
+>>   
+>> -static void __maybe_unused
+>> +static void
+>>   drmcs_notify_weight(struct drm_cgroup_state *drmcs)
+>>   {
+>>   	struct drm_file *fpriv;
+>> @@ -43,16 +51,152 @@ drmcs_notify_weight(struct drm_cgroup_state *drmcs)
+>>   			fpriv->minor->dev->driver->cg_ops;
+>>   
+>>   		if (cg_ops && cg_ops->notify_weight)
+>> -			cg_ops->notify_weight(fpriv, 0);
+>> +			cg_ops->notify_weight(fpriv, drmcs->effective_weight);
+>>   	}
+>>   }
+>>   
+>> +static void drmcg_update_weights_locked(void)
+>> +{
+>> +	lockdep_assert_held(&drmcg_mutex);
+>> +
+>> +	mod_delayed_work(system_wq,
+>> +			 &root_drmcs.notify_work,
+>> +			 usecs_to_jiffies(1000));
+> 
+> This value is little bit magic.
+> What is this consolidatiot good for?
+> (I guess it's rather because of clients joining/leaving rather than
+> cgroup attribute modifications.)
+
+Correct, it is to coalesce update storms into one re-calculation event. 
+There is no point in being instantenuous anyway, since DRM scheduling is 
+generally really coarse grained compared to other subsystems. For 
+example execution quanta is more often than not controlled by the 
+userspace simply due the widespread lack of preemption.
+
+I should indeed add a comment to this effect. Marked as TODO. Possibly 
+lower the delay as well since I think one second is a bit too lazy.
+
+>> +}
+>> +
+>> +static void drmcg_update_weights(void)
+>> +{
+>> +	mutex_lock(&drmcg_mutex);
+>> +	drmcg_update_weights_locked();
+>> +	mutex_unlock(&drmcg_mutex);
+>> +}
+>> +
+>> +static u64
+>> +drmcs_read_weight(struct cgroup_subsys_state *css, struct cftype *cft)
+>> +{
+>> +	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
+>> +
+>> +	return drmcs->weight;
+>> +}
+>> +
+>> +static int
+>> +drmcs_write_weight(struct cgroup_subsys_state *css, struct cftype *cftype,
+>> +		   u64 weight)
+>> +{
+>> +	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
+>> +	int ret;
+>> +
+>> +	if (weight < CGROUP_WEIGHT_MIN || weight > CGROUP_WEIGHT_MAX)
+>> +		return -ERANGE;
+>> +
+>> +	ret = mutex_lock_interruptible(&drmcg_mutex);
+>> +	if (ret)
+>> +		return ret;
+>> +	drmcs->weight = weight;
+>> +	drmcg_update_weights_locked();
+>> +	mutex_unlock(&drmcg_mutex);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void notify_worker(struct work_struct *work)
+>> +{
+>> +	struct drm_cgroup_state *root = &root_drmcs.drmcs;
+>> +	struct cgroup_subsys_state *node;
+>> +	bool updated;
+>> +
+>> +	mutex_lock(&drmcg_mutex);
+>> +	rcu_read_lock();
+>> +
+>> +	/*
+>> +	 * Always come back later if we race with core cgroup management.
+>> +	 */
+>> +	updated = false;
+>> +	if (WARN_ON_ONCE(!css_tryget_online(&root->css)))
+>> +		goto out_unlock;
+>> +
+>> +	css_for_each_descendant_post(node, &root->css) {
+>> +		struct drm_cgroup_state *drmcs = css_to_drmcs(node);
+>> +
+>> +		if (!css_tryget_online(node))
+>> +			goto out_put;
+>> +
+>> +		drmcs->sum_children_weights = 0;
+>> +		css_put(node);
+>> +	}
+>> +
+>> +	css_for_each_descendant_post(node, &root->css) {
+>> +		struct drm_cgroup_state *drmcs = css_to_drmcs(node);
+>> +		struct drm_cgroup_state *parent;
+>> +
+>> +		if (!css_tryget_online(node))
+>> +			goto out_put;
+>> +		if (!node->parent || !drmcs->num_clients) {
+>> +			css_put(node);
+>> +			continue;
+>> +		}
+>> +		if (!css_tryget_online(node->parent)) {
+>> +			css_put(node);
+>> +			goto out_put;
+>> +		}
+>> +
+>> +		parent = css_to_drmcs(node->parent);
+>> +		parent->sum_children_weights += drmcs->weight;
+>> +		css_put(node);
+>> +		css_put(&parent->css);
+>> +	}
+>> +
+>> +	css_for_each_descendant_pre(node, &root->css) {
+>> +		struct drm_cgroup_state *drmcs = css_to_drmcs(node);
+>> +		struct cgroup_subsys_state *css;
+>> +
+>> +		if (!css_tryget_online(node))
+>> +			goto out_put;
+>> +		if (!drmcs->num_clients) {
+>> +			css_put(node);
+>> +			continue;
+>> +		}
+>> +
+>> +		css_for_each_child(css, &drmcs->css) {
+>> +			struct drm_cgroup_state *sibling = css_to_drmcs(css);
+>> +
+>> +			if (!css_tryget_online(css)) {
+>> +				css_put(node);
+>> +				goto out_put;
+>> +			}
+>> +			if (!sibling->num_clients) {
+>> +				css_put(css);
+>> +				continue;
+>> +			}
+>> +
+>> +			sibling->effective_weight =
+>> +				DIV_ROUND_CLOSEST(sibling->weight <<
+>> +						  DRM_CGROUP_WEIGHT_SHIFT,
+>> +						  drmcs->sum_children_weights);
+>> +			drmcs_notify_weight(sibling);
+>> +			css_put(css);
+>> +		}
+>> +
+>> +		css_put(node);
+>> +	}
+>> +
+>> +	updated = true;
+>> +
+>> +out_put:
+>> +	css_put(&root->css);
+>> +out_unlock:
+>> +	rcu_read_unlock();
+>> +
+>> +	if (!updated)
+>> +		drmcg_update_weights_locked();
+>> +
+>> +	mutex_unlock(&drmcg_mutex);
+>> +}
+>> +
+>>   static void drmcs_free(struct cgroup_subsys_state *css)
+>>   {
+>> -	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
+>> -
+>> -	if (drmcs != &root_drmcs.drmcs)
+>> -		kfree(drmcs);
+>> +	if (css != &root_drmcs.drmcs.css)
+>> +		kfree(css_to_drmcs(css));
+>>   }
+>>   
+>>   static struct cgroup_subsys_state *
+>> @@ -62,6 +206,7 @@ drmcs_alloc(struct cgroup_subsys_state *parent_css)
+>>   
+>>   	if (!parent_css) {
+>>   		drmcs = &root_drmcs.drmcs;
+>> +		INIT_DELAYED_WORK(&root_drmcs.notify_work, notify_worker);
+>>   	} else {
+>>   		drmcs = kzalloc(sizeof(*drmcs), GFP_KERNEL);
+>>   		if (!drmcs)
+>> @@ -70,9 +215,147 @@ drmcs_alloc(struct cgroup_subsys_state *parent_css)
+>>   		INIT_LIST_HEAD(&drmcs->clients);
+>>   	}
+>>   
+>> +	drmcs->weight = CGROUP_WEIGHT_DFL;
+>> +	drmcs->effective_weight = (1 << DRM_CGROUP_WEIGHT_SHIFT) / 2;
+>> +
+>>   	return &drmcs->css;
+>>   }
+>>   
+>> +static int drmcs_online(struct cgroup_subsys_state *css)
+>> +{
+>> +	drmcg_update_weights();
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void drmcs_offline(struct cgroup_subsys_state *css)
+>> +{
+>> +	drmcg_update_weights();
+>> +}
+>> +
+>> +static struct drm_cgroup_state *old_drmcs;
+>> +
+>> +static int drmcs_can_attach(struct cgroup_taskset *tset)
+>> +{
+>> +	struct cgroup_subsys_state *css;
+>> +	struct task_struct *task;
+>> +
+>> +	task = cgroup_taskset_first(tset, &css);
+>> +	old_drmcs = css_to_drmcs(task_css(task, drm_cgrp_id));
+> 
+> This is similar to cpuset's cpuset_attach_old_cs.
+> Beware that when controller is disabled, the migration happens from
+> multiple (chilren) csses.
+
+Hmm I can't say I am an expert here. I guess you are saying this 
+approach is unsafe?
+
+AFAIR I copied it from one of the existing controllers and it was 
+declared fine by Tejun at one point. But it was probably long time ago 
+(this series has been floating around for a while) so things might have 
+changed since.
+
+What is the correct way to handle it these days? Perhaps there is a 
+different way to determine the old group directly in the attach callback?
+
+> 
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void __inc_clients(struct drm_cgroup_state *drmcs)
+>> +{
+>> +	struct cgroup_subsys_state *parent = NULL;
+>> +
+>> +	rcu_read_lock();
+>> +	do {
+>> +		drmcs->num_clients++;
+>> +		WARN_ON_ONCE(!drmcs->num_clients);
+>> +
+>> +		if (parent)
+>> +			css_put(parent);
+>> +
+>> +		parent = drmcs->css.parent;
+>> +		if (parent) {
+>> +			if (WARN_ON_ONCE(!css_tryget(parent)))
+> 
+> This should be ensured implicitly thanks to css::online_cnt.
+
+You mean it cannot fail so I should replace it with a plain css_get()?
+
+> 
+>> +				break;
+>> +
+>> +			drmcs = css_to_drmcs(parent);
+>> +		}
+>> +	} while (parent);
+>> +	rcu_read_unlock();
+>> +}
+>> +
+>> +static void __dec_clients(struct drm_cgroup_state *drmcs)
+>> +{
+>> +	struct cgroup_subsys_state *parent = NULL;
+>> +
+>> +	rcu_read_lock();
+>> +	do {
+>> +		WARN_ON_ONCE(!drmcs->num_clients);
+>> +		drmcs->num_clients--;
+>> +
+>> +		if (parent)
+>> +			css_put(parent);
+>> +
+>> +		parent = drmcs->css.parent;
+>> +		if (parent) {
+>> +			if (WARN_ON_ONCE(!css_tryget(parent)))
+>> +				break;
+>> +
+>> +			drmcs = css_to_drmcs(parent);
+>> +		}
+>> +	} while (parent);
+>> +	rcu_read_unlock();
+>> +}
+>> +
+>> +static void drmcs_attach(struct cgroup_taskset *tset)
+>> +{
+>> +	struct drm_cgroup_state *old = old_drmcs;
+>> +	struct cgroup_subsys_state *css;
+>> +	struct drm_file *fpriv, *next;
+>> +	struct drm_cgroup_state *new;
+>> +	struct task_struct *task;
+>> +	bool migrated = false;
+>> +
+>> +	if (!old)
+>> +		return;
+>> +
+>> +	task = cgroup_taskset_first(tset, &css);
+>> +	new = css_to_drmcs(task_css(task, drm_cgrp_id));
+>> +	if (new == old)
+>> +		return;
+> 
+> Beware here too, it'd be better to use css from
+> cgroup_taskset_for_each(task, css, tset) below as the new css.
+
+Better as in it can be wrong? Or there can be more than one target css 
+in the taskset?
+
+In any case I could just remove this early exit since the loop below 
+does fetch it again for every task.
+
+The open about the source/old css remains though.
+
+>> +
+>> +	mutex_lock(&drmcg_mutex);
+>> +
+>> +	list_for_each_entry_safe(fpriv, next, &old->clients, clink) {
+>> +		cgroup_taskset_for_each(task, css, tset) {
+>> +			struct cgroup_subsys_state *old_css;
+>> +			struct drm_cgroup_state *old_;
+>> +
+>> +			if (task->flags & PF_KTHREAD)
+>> +				continue;
+>> +			if (!thread_group_leader(task))
+>> +				continue;
+> 
+> Maybe cgroup_taskset_for_each_leader()
+
+Wasn't aware of it - marking as TODO thanks!
+
+Regards,
+
+Tvrtko
+
+> 
+>> +
+>> +			new = css_to_drmcs(task_css(task, drm_cgrp_id));
+>> +			if (WARN_ON_ONCE(new == old))
+>> +				continue;
+>> +
+>> +			if (rcu_access_pointer(fpriv->pid) != task_tgid(task))
+>> +				continue;
+>> +
+>> +			if (WARN_ON_ONCE(fpriv->__css != &old->css))
+>> +				continue;
+>> +
+>> +			old_css = fpriv->__css;
+>> +			old_ = css_to_drmcs(old_css);
+>> +			fpriv->__css = &new->css;
+>> +			css_get(fpriv->__css);
+>> +			list_move_tail(&fpriv->clink, &new->clients);
+>> +			__dec_clients(old);
+>> +			__inc_clients(new);
+>> +			css_put(old_css);
+>> +			migrated = true;
+>> +		}
+>> +	}
+>> +
+>> +	if (migrated)
+>> +		drmcg_update_weights_locked();
+>> +
+>> +	mutex_unlock(&drmcg_mutex);
+>> +
+>> +	old_drmcs = NULL;
+>> +}
+>> +
+>> +static void drmcs_cancel_attach(struct cgroup_taskset *tset)
+>> +{
+>> +	old_drmcs = NULL;
+>> +}
+>> +
+>>   void drmcgroup_client_open(struct drm_file *file_priv)
+>>   {
+>>   	struct drm_cgroup_state *drmcs;
+>> @@ -85,6 +368,8 @@ void drmcgroup_client_open(struct drm_file *file_priv)
+>>   	mutex_lock(&drmcg_mutex);
+>>   	file_priv->__css = &drmcs->css; /* Keeps the reference. */
+>>   	list_add_tail(&file_priv->clink, &drmcs->clients);
+>> +	__inc_clients(drmcs);
+>> +	drmcg_update_weights_locked();
+>>   	mutex_unlock(&drmcg_mutex);
+>>   }
+>>   EXPORT_SYMBOL_GPL(drmcgroup_client_open);
+>> @@ -100,7 +385,9 @@ void drmcgroup_client_close(struct drm_file *file_priv)
+>>   
+>>   	mutex_lock(&drmcg_mutex);
+>>   	list_del(&file_priv->clink);
+>> +	__dec_clients(drmcs);
+>>   	file_priv->__css = NULL;
+>> +	drmcg_update_weights_locked();
+>>   	mutex_unlock(&drmcg_mutex);
+>>   
+>>   	css_put(&drmcs->css);
+>> @@ -124,6 +411,9 @@ void drmcgroup_client_migrate(struct drm_file *file_priv)
+>>   	if (src != dst) {
+>>   		file_priv->__css = &dst->css; /* Keeps the reference. */
+>>   		list_move_tail(&file_priv->clink, &dst->clients);
+>> +		__dec_clients(src);
+>> +		__inc_clients(dst);
+>> +		drmcg_update_weights_locked();
+>>   	}
+>>   
+>>   	mutex_unlock(&drmcg_mutex);
+>> @@ -133,12 +423,23 @@ void drmcgroup_client_migrate(struct drm_file *file_priv)
+>>   EXPORT_SYMBOL_GPL(drmcgroup_client_migrate);
+>>   
+>>   struct cftype files[] = {
+>> +	{
+>> +		.name = "weight",
+>> +		.flags = CFTYPE_NOT_ON_ROOT,
+>> +		.read_u64 = drmcs_read_weight,
+>> +		.write_u64 = drmcs_write_weight,
+>> +	},
+>>   	{ } /* Zero entry terminates. */
+>>   };
+>>   
+>>   struct cgroup_subsys drm_cgrp_subsys = {
+>>   	.css_alloc	= drmcs_alloc,
+>>   	.css_free	= drmcs_free,
+>> +	.css_online	= drmcs_online,
+>> +	.css_offline	= drmcs_offline,
+>> +	.can_attach     = drmcs_can_attach,
+>> +	.attach		= drmcs_attach,
+>> +	.cancel_attach  = drmcs_cancel_attach,
+>>   	.early_init	= false,
+>>   	.legacy_cftypes	= files,
+>>   	.dfl_cftypes	= files,
+>> -- 
+>> 2.48.0
+>>
+> 
+> 
+> Regards,
+> Michal
+
