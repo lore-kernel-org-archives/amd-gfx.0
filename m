@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B2CC87FC9
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 10:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC67C87FC9
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 11:14:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14E4F10E15F;
-	Mon, 28 Jul 2025 10:39:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6377610E4DF;
+	Mon, 28 Jul 2025 11:14:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dKfKsRq5";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="b/u1wlyJ";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F8DA10E15F;
- Mon, 28 Jul 2025 10:39:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE4D10E4DA;
+ Mon, 28 Jul 2025 11:14:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,33 +22,36 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QrFb2RomH1b53hR3UDLKm6J+ikdY8pkJoQPD7aLwKI4=; b=dKfKsRq5ZZ2qMk58vnRFcOjDGO
- Zmem7EqnmBgNeHG9bTII1gkM38yjBpohg6zMSIJ/HHlanlLL2nT4xaMrcJMgBBla8iBg2S9MVZ34q
- 29qkis/OxkUEeJJ40Rk3bU38YOFhPTRmCvx3YwKXWRUDIdALxgCaQkq1LnOX+/iZCgAHgpQ9PNnyD
- vIF7fQGBkwbuXs2yj5StOWK31o8Z18XiGsqZaLqLo1+KHZJ8qabziCw54iEIWXKpXklyyTPHyT6GC
- slXuoeVWP3JmMnV6y8XKuNCZ81CDO8sJrhNLyKKFnn47Hwin1eaMJr2MX5869vCw4ovTyVrV3YDmP
- UznyfEog==;
+ bh=hmyVjFhM9n39tBDNOfktS5Ta0EggXanZ2OCbX4RAjxw=; b=b/u1wlyJzgNt6WD5ph0nwGB3yw
+ 67wLyLSYckaUONOmFL9nDUusXp8UTFeRaxY6Bps69xOQGa0yKDtBKS6eDazRFnJgaMGBeggd1foPT
+ s8cjclAgxzAp0digZWwGAaMxyfGXHwKGJqU02J86qKKTHEpufQV4jN5jboPILa1V2ruwyT1soU5Pa
+ chnuXjnusQS/iBaHrBomaYx/UIryUIzuHW4zUMDdIy6n51fbBfos8u5Z/kxhsRTSfRhrN99MPA63x
+ gL2A6Hi8Fe7K7kBirtgEoYxBXBGveu8e897vjk/OFCz87IyTcFqTlYfQZQeKTk2qZg4cdmEv0NWDU
+ qKhAIPpw==;
 Received: from [84.66.36.92] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1ugLGT-004rWj-Gk; Mon, 28 Jul 2025 12:39:29 +0200
-Message-ID: <2ab7b7a7-83d2-4de7-8c6c-3213cbe4ad7e@igalia.com>
-Date: Mon, 28 Jul 2025 11:39:28 +0100
+ id 1ugLoB-004sFd-CP; Mon, 28 Jul 2025 13:14:19 +0200
+Message-ID: <0312116d-b216-4afb-bf9f-210b553fed7f@igalia.com>
+Date: Mon, 28 Jul 2025 12:14:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v7 00/12] Fair DRM scheduler
-To: dri-devel@lists.freedesktop.org
+Subject: Re: [RFC v7 10/12] drm/sched: Break submission patterns with some
+ randomness
+To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
+ dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
  <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Leo Liu <Leo.Liu@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
+ <phasta@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 References: <20250724141921.75583-1-tvrtko.ursulin@igalia.com>
+ <20250724141921.75583-11-tvrtko.ursulin@igalia.com>
+ <fe05e8fd-d56f-4b32-a65b-46c9ef6df9c7@damsy.net>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20250724141921.75583-1-tvrtko.ursulin@igalia.com>
+In-Reply-To: <fe05e8fd-d56f-4b32-a65b-46c9ef6df9c7@damsy.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -66,252 +69,144 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 24/07/2025 15:19, Tvrtko Ursulin wrote:
-> As a summary, the new scheduling algorithm is insipired by the original Linux
-> CFS and so far no scheduling regressions have been found relative to FIFO.
-> There are improvements in fairness and scheduling of interactive clients when
-> running in parallel with a heavy GPU load (for example Pierre-Eric has one
-> viewperf medical test which shows a nice improvement with amdgpu).
-
-Actually I needed to give a lot more credit to collaboration with 
-Pierre-Eric here.
-
-Apart from finding a weakness in my earlier deadline based approach with 
-the above mentioned viewperf medical test, we also chatted quite a lot 
-on the design which, together with Pierre-Eric sketching out his own 
-CFS-like approach, pushed me to try harder to find an elegant way of 
-tracking entity GPU time. Earlier I had abandoned that attempt as 
-"impossible" without a significant rewrite of the scheduler, but the 
-excellent numbers Pierre-Eric showed with his prototype were too 
-tempting not to try again.
-
-I don't know if there is a commit message tag for this type of 
-collaboration and brain storming, but definitely needs to be recorded 
-that it would likely not have happened with him. It is not a classical 
-Suggested-by but I think it can be so:
-
-Suggested-by: Pierre-Eric Pelloux-Prayer 
-<pierre-eric.pelloux-prayer@amd.com>
-
-(I just need to remember to apply this to the relevant patch on the next 
-rebase.)
-
-> On the high level main advantages of the series are:
+On 28/07/2025 10:28, Pierre-Eric Pelloux-Prayer wrote:
+> Le 24/07/2025 à 16:19, Tvrtko Ursulin a écrit :
+>> GPUs generally don't implement preemption and DRM scheduler definitely
+>> does not support it at the front end scheduling level. This means
+>> execution quanta can be quite long and is controlled by userspace,
+>> consequence of which is picking the "wrong" entity to run can have a
+>> larger negative effect than it would have with a virtual runtime based 
+>> CPU
+>> scheduler.
+>>
+>> Another important consideration is that rendering clients often have
+>> shallow submission queues, meaning they will be entering and exiting the
+>> scheduler's runnable queue often.
+>>
+>> Relevant scenario here is what happens when an entity re-joins the
+>> runnable queue with other entities already present. One cornerstone of 
+>> the
+>> virtual runtime algorithm is to let it re-join at the head and depend on
+>> the virtual runtime accounting to sort out the order after an execution
+>> quanta or two.
+>>
+>> However, as explained above, this may not work fully reliably in the GPU
+>> world. Entity could always get to overtake the existing entities, or not,
+>> depending on the submission order and rbtree equal key insertion
+>> behaviour.
+>>
+>> We can break this latching by adding some randomness for this specific
+>> corner case.
+>>
+>> If an entity is re-joining the runnable queue, was head of the queue the
+>> last time it got picked, and there is an already queued different entity
+>> of an equal scheduling priority, we can break the tie by randomly 
+>> choosing
+>> the execution order between the two.
+>>
+>> For randomness we implement a simple driver global boolean which selects
+>> whether new entity will be first or not. Because the boolean is global 
+>> and
+>> shared between all the run queues and entities, its actual effect can be
+>> loosely called random. Under the assumption it will not always be the 
+>> same
+>> entity which is re-joining the queue under these circumstances.
+>>
+>> Another way to look at this is that it is adding a little bit of limited
+>> random round-robin behaviour to the fair scheduling algorithm.
+>>
+>> Net effect is a significant improvemnt to the scheduling unit tests which
+>> check the scheduling quality for the interactive client running in
+>> parallel with GPU hogs.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_rq.c | 10 ++++++++++
+>>   1 file changed, 10 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/ 
+>> scheduler/sched_rq.c
+>> index d16ee3ee3653..087a6bdbb824 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_rq.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
+>> @@ -147,6 +147,16 @@ drm_sched_entity_restore_vruntime(struct 
+>> drm_sched_entity *entity,
+>>                * Higher priority can go first.
+>>                */
+>>               vruntime = -us_to_ktime(rq_prio - prio);
+>> +        } else {
+>> +            static const int shuffle[2] = { -100, 100 };
+>> +            static bool r = 0;
+>> +
+>> +            /*
+>> +             * For equal priority apply some randomness to break
+>> +             * latching caused by submission patterns.
+>> +             */
+>> +            vruntime = shuffle[r];
+>> +            r ^= 1;
 > 
->   1. Scheduling quality - schedules better than FIFO, solves priority starvation.
->   2. Code simplification - no more multiple run queues and multiple algorithms.
->   3. Virtual GPU time based scheduling enables relatively simple addition
->      of a scheduling cgroup controller in the future.
+> I don't understand why this is needed at all?
+> 
+> I suppose this is related to how drm_sched_entity_save_vruntime saves a 
+> relative vruntime (= entity rejoins with a 0 runtime would be impossible 
+> otherwise) but I don't understand this either.
 
-For the 3rd point here, if people want to play with it, they can grab my 
-branch from 
-https://gitlab.freedesktop.org/tursulin/kernel/-/commits/drm-sched-cfs-cgroup. 
-There amdgpu and xe are wired up with the controller which can be shown 
-to work nicely by running for example two instances of something (I used 
-Unigine Heaven) in two cgroups and playing with drm.weight properties.
+Two things (and a bit more) to explain here for the record. And as 
+agreed off-line I need to add some more code comments for this are in 
+the next respin.
 
-On AMD I could have one instance get 2x GPU time and switch that around 
-at will at runtime. One idea is to connect that with window 
-foreground/background notifications or similar.
+First the saving of "vruntime - min_runtime" when entity exits the 
+run-queue.
 
-With xe, which uses a bit more limited method of acting on DRM 
-controller notifications due firmware being in control of more 
-scheduling, the control is a bit more coarse, but it also somewhat works 
-for simple use cases.
+That is a core CFS concept AFAIU which enables the relative position of 
+the entity to be restored once it re-enters the rq.
+
+It only applies on the scenario when the picked entity was not the head 
+of the queue, due the actual head being not runnable due a dependency.
+
+If the picked entity then leaves the queue and re-joins, this relative 
+vruntime is used to put it back where it was relative to the unready 
+entity (which may have became ready by now and so it needs to be picked 
+next and not overtaken so easily.)
+
+It has to be the relative vruntime that is preserved, ie. entity which 
+re-enters cannot simply keep its previous vruntime, since by then that 
+could lag significantly behind the vruntime of other active entities, 
+which in turn would mean the re-joining entity could be head of the 
+queue for a long time.
+
+Second part is the special case from the quoted patch and that only 
+applies to entities which are re-joining the queue after having been 
+picked from the head _and_ there is another entity in the rq.
+
+By the nature of the CFS algorithm the re-joining entity continues with 
+the vruntime assigned from the current rq min_vruntime. Which puts two 
+entities with the same vruntime at the head of the queue and the actual 
+picking order influenced by the submit order (FIFO) and rbtree sort 
+order (did not check). But in any case it is not desirable for all the 
+description of GPU scheduling weaknesses from the commit text (this patch).
+
+For this special case there are three sub-paths:
+
+  1. Re-joining entity is higher scheduling prio -> we pull its vruntime 
+a tiny bit ahead of the min_vruntime so it runs first.
+
+  2. Lower re-joining prio -> the opposite of the above - we explicitly 
+prevent it overtaking the higher priority head.
+
+  3. Equal prio -> apply some randomness as to which one runs first.
+
+Idea being avoidance of any "latching" of the execution order based on 
+submission patterns. Which kind of applies a little bit of 
+round/random-robin for this very specific case of equal priority entity 
+re-joining at the top of the queue.
 
 Regards,
 
 Tvrtko
-
-> There is a little bit more detailed write up on the motivation and results in
-> the form of a blog post which may be easier to read:
-> https://blogs.igalia.com/tursulin/fair-er-drm-gpu-scheduler/
-> 
-> First patches add some unit tests which allow for easy evaluation of scheduling
-> behaviour against different client submission patterns. From there onwards it is
-> hopefully a natural progression of cleanups, enablers, adding the fair policy,
-> and finally removing FIFO and RR and simplifying the code base due no more need
-> for multiple run queues.
-> 
-> As a headline result I have tested three simultaneous clients on the Steam Deck:
-> 
-> One instance of a deferredmultisampling Vulkan demo running with low priority,
-> one normal priority instance of the same demo, and the Unigine Heaven benchmark.
-> 
-> With the FIFO scheduler we can see that the low priority client is completely
-> starved and the GPU time distribution between the other two clients is uneven:
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/fifo-starvation.png
-> 
-> Switching to the fair scheduler, GPU time distribution is almost equal and the
-> low priority client does get a small share of the GPU:
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/fair-no-starvation.png
-> 
-> Moving onto the synthetic submission patterns, they are about two simultaneous
-> clients which broadly cover the following categories:
-> 
->   * Deep queue clients
->   * Hogs versus interactive
->   * Priority handling
-> 
-> Lets look at the results:
-> 
-> 1. Two normal priority deep queue clients.
-> 
-> These ones submit one second worth of 8ms jobs. As fast as they can, no
-> dependencies etc. There is no difference in runtime between FIFO and fair but
-> the latter allows both clients to progress with work more evenly:
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/normal-normal.png
-> 
-> (X axis is time, Y is submitted queue-depth, hence lowering of qd corresponds
->    with work progress for both clients, tested with both schedulers separately.)
-> 
-> Round-robin is the same as fair here.
-> 
-> 2. Same two clients but one is now low priority.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/normal-low.png
-> 
-> Normal priority client is a solid line, low priority dotted. We can see how FIFO
-> completely starves the low priority client until the normal priority is fully
-> done. Only then the low priority client gets any GPU time.
-> 
-> In constrast, fair scheduler allows some GPU time to the low priority client.
-> 
-> Here round-robin flavours are the same as FIFO (same starvation issue).
-> 
-> 3. Same clients but now high versus normal priority.
-> 
-> Similar behaviour as in the previous one with normal a bit less de-prioritised
-> relative to high, than low was against normal.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/high-normal.png
-> 
-> And again round-robin flavours are the same as FIFO.
-> 
-> 4. Heavy load vs interactive client.
-> 
-> Heavy client emits a 75% GPU load in the format of 3x 2.5ms jobs followed by a
-> 2.5ms wait. Interactive client emits a 10% GPU load in the format of 1x 1ms job
-> followed by a 9ms wait.
-> 
-> This simulates an interactive graphical client used on top of a relatively heavy
-> background load but no GPU oversubscription.
-> 
-> Graphs show the interactive client only and from now on, instead of looking at
-> the client's queue depth, we look at its "fps".
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/4-heavy-vs-interactive.png
-> 
-> Here round-robin and round-robin rewritten on top of FIFO are best, while FIFO
-> is clearly the worst. Fair scheduler is much better than FIFO but not as good as
-> RR.
-> 
-> 5. An even heavier load vs interactive client.
-> 
-> This one is oversubscribing the GPU by submitting 4x 50ms jobs and waiting for
-> only one microsecond before repeating the cycle. Interactive client is the same
-> 10% as above.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/4-very-heavy-vs-interactive.png
-> 
-> Here FIFO is really bad with fair more than twice as good. Round-robin flavours
-> are better still.
-> 
-> 6. Low priority GPU hog versus heavy-interactive.
-> 
-> Low priority client: 3x 2.5ms jobs client followed by a 0.5ms wait.
-> Interactive client: 1x 0.5ms job followed by a 10ms wait.
-> 
-> https://people.igalia.com/tursulin/drm-sched-fair/4-low-hog-vs-interactive.png
-> 
-> All schedulers appear to handle this equally well.
-> 
-> As before, I am looking for feedback, ideas for what other kinds of submission
-> scenarios to test, testing on different GPUs and of course reviews.
-> 
-> v2:
->   * Fixed many rebase errors.
->   * Added some new patches.
->   * Dropped single shot dependecy handling.
-> 
-> v3:
->   * Added scheduling quality unit tests.
->   * Refined a tiny bit by adding some fairness.
->   * Dropped a few patches for now.
-> 
-> v4:
->   * Replaced deadline with fair!
->   * Refined scheduling quality unit tests.
->   * Pulled one cleanup patch earlier.
->   * Fixed "drm/sched: Avoid double re-lock on the job free path".
-> 
-> v5:
->   * Rebase on top of latest upstream DRM scheduler changes.
->   * Kerneldoc fixup.
->   * Improve commit message justification for one patch. (Philipp)
->   * Add comment in drm_sched_alloc_wq. (Christian)
-> 
-> v6:
->   * Rebase for "drm/sched: De-clutter drm_sched_init" getting merged.
->   * Avoid NULL rq dereference from a bad rebase. (Maira)
->   * Added some kerneldoc throughout. (Maira)
->   * Removed some lockdep annotations not belonging to one patch. (Maira)
->   * Use dma_fence_is_signaled in "drm/sched: Avoid double re-lock on the job free path". (Maira, Philipp)
-> 
-> v7:
->   * Rebase for some prep patches getting merged.
->   * Dropped submit all ready jobs patch.
->   * Fixed 64-bit division in unit tests.
->   * Fixed some more rebase and patch re-ordering mistakes.
->   * Preserve entity RR order when re-entering the queue.
->   * Fine tuned the queue re-enter logic for better behaviour with interactive
->     clients.
->   * Removed some static inlines.
->   * Added more kerneldoc.
->   * Done some benchmarks in the round-robin scheduling modes.
-> 
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> CC: Leo Liu <Leo.Liu@amd.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Cc: Michel Dänzer <michel.daenzer@mailbox.org>
-> 
-> Tvrtko Ursulin (12):
->    drm/sched: Add some scheduling quality unit tests
->    drm/sched: Add some more scheduling quality unit tests
->    drm/sched: Implement RR via FIFO
->    drm/sched: Consolidate entity run queue management
->    drm/sched: Move run queue related code into a separate file
->    drm/sched: Free all finished jobs at once
->    drm/sched: Account entity GPU time
->    drm/sched: Remove idle entity from tree
->    drm/sched: Add fair scheduling policy
->    drm/sched: Break submission patterns with some randomness
->    drm/sched: Remove FIFO and RR and simplify to a single run queue
->    drm/sched: Embed run queue singleton into the scheduler
-> 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   8 +-
->   drivers/gpu/drm/scheduler/Makefile            |   2 +-
->   drivers/gpu/drm/scheduler/sched_entity.c      | 131 ++-
->   drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
->   drivers/gpu/drm/scheduler/sched_internal.h    |  85 +-
->   drivers/gpu/drm/scheduler/sched_main.c        | 368 +-------
->   drivers/gpu/drm/scheduler/sched_rq.c          | 348 ++++++++
->   drivers/gpu/drm/scheduler/tests/Makefile      |   3 +-
->   .../gpu/drm/scheduler/tests/tests_scheduler.c | 824 ++++++++++++++++++
->   include/drm/gpu_scheduler.h                   |  30 +-
->   15 files changed, 1393 insertions(+), 462 deletions(-)
->   create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
->   create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-> 
 
