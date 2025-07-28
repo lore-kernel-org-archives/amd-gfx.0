@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC67C87FC9
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 11:14:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E5E3C87FC9
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 12:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6377610E4DF;
-	Mon, 28 Jul 2025 11:14:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1095110E4EE;
+	Mon, 28 Jul 2025 12:58:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="b/u1wlyJ";
+	dkim=pass (2048-bit key; secure) header.d=cachyos.org header.i=@cachyos.org header.b="gL/9WQ/q";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE4D10E4DA;
- Mon, 28 Jul 2025 11:14:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hmyVjFhM9n39tBDNOfktS5Ta0EggXanZ2OCbX4RAjxw=; b=b/u1wlyJzgNt6WD5ph0nwGB3yw
- 67wLyLSYckaUONOmFL9nDUusXp8UTFeRaxY6Bps69xOQGa0yKDtBKS6eDazRFnJgaMGBeggd1foPT
- s8cjclAgxzAp0digZWwGAaMxyfGXHwKGJqU02J86qKKTHEpufQV4jN5jboPILa1V2ruwyT1soU5Pa
- chnuXjnusQS/iBaHrBomaYx/UIryUIzuHW4zUMDdIy6n51fbBfos8u5Z/kxhsRTSfRhrN99MPA63x
- gL2A6Hi8Fe7K7kBirtgEoYxBXBGveu8e897vjk/OFCz87IyTcFqTlYfQZQeKTk2qZg4cdmEv0NWDU
- qKhAIPpw==;
-Received: from [84.66.36.92] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1ugLoB-004sFd-CP; Mon, 28 Jul 2025 13:14:19 +0200
-Message-ID: <0312116d-b216-4afb-bf9f-210b553fed7f@igalia.com>
-Date: Mon, 28 Jul 2025 12:14:18 +0100
+Received: from mail.ptr1337.dev (mail.ptr1337.dev [202.61.224.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72D9E10E341;
+ Mon, 28 Jul 2025 08:54:04 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 05FAE2842E3; Mon, 28 Jul 2025 10:45:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cachyos.org; s=dkim;
+ t=1753692331; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=hZAZQxcJny2MJlnbj6INcbeqX5pbA4FFdFvh2PmI64w=;
+ b=gL/9WQ/qCqbdu8zR86gU47Fb4JEBykEZI3fYcn9RWlJ1FkRil9jRegxpKVtlMVHiuCRkvD
+ eUN8qjcTZbRYiOkvX4mdgh/LxFAr5+8+kF7N59rXBpMN6Ij4pFM7K0toI9/17YaGKGKaib
+ TRUqRWvjhzvFhphSevh08vs5VWbN3+rSK8oTR33/pl3tDKExtUZjXzo2iLkcAc7fqbskIw
+ LuRqFnwnfmC9KGst5fDt6aVyRY9/lqAnz1lnsj7VqV6WWNJBP5H76boU0TjPx4UuuMwu9R
+ DCIWav85qzoBaQQMN29prltn9IdsIgfcfFXvyThIPqE17s2r92h8R/Qfq6plxQ==
+Message-ID: <d9a1ed6d-05bb-440d-afa9-cb30315bd02d@cachyos.org>
+Date: Mon, 28 Jul 2025 15:45:25 +0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v7 10/12] drm/sched: Break submission patterns with some
- randomness
-To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
- <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-References: <20250724141921.75583-1-tvrtko.ursulin@igalia.com>
- <20250724141921.75583-11-tvrtko.ursulin@igalia.com>
- <fe05e8fd-d56f-4b32-a65b-46c9ef6df9c7@damsy.net>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <fe05e8fd-d56f-4b32-a65b-46c9ef6df9c7@damsy.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v4 0/5] Improvements to S5 power consumption
+To: Mario Limonciello <superm1@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:HIBERNATION (aka Software Suspend, aka swsusp)"
+ <linux-pm@vger.kernel.org>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>
+References: <20250616175019.3471583-1-superm1@kernel.org>
+Content-Language: en-US
+From: Eric Naim <dnaim@cachyos.org>
+In-Reply-To: <20250616175019.3471583-1-superm1@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
+X-Mailman-Approved-At: Mon, 28 Jul 2025 12:58:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,145 +69,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 28/07/2025 10:28, Pierre-Eric Pelloux-Prayer wrote:
-> Le 24/07/2025 à 16:19, Tvrtko Ursulin a écrit :
->> GPUs generally don't implement preemption and DRM scheduler definitely
->> does not support it at the front end scheduling level. This means
->> execution quanta can be quite long and is controlled by userspace,
->> consequence of which is picking the "wrong" entity to run can have a
->> larger negative effect than it would have with a virtual runtime based 
->> CPU
->> scheduler.
->>
->> Another important consideration is that rendering clients often have
->> shallow submission queues, meaning they will be entering and exiting the
->> scheduler's runnable queue often.
->>
->> Relevant scenario here is what happens when an entity re-joins the
->> runnable queue with other entities already present. One cornerstone of 
->> the
->> virtual runtime algorithm is to let it re-join at the head and depend on
->> the virtual runtime accounting to sort out the order after an execution
->> quanta or two.
->>
->> However, as explained above, this may not work fully reliably in the GPU
->> world. Entity could always get to overtake the existing entities, or not,
->> depending on the submission order and rbtree equal key insertion
->> behaviour.
->>
->> We can break this latching by adding some randomness for this specific
->> corner case.
->>
->> If an entity is re-joining the runnable queue, was head of the queue the
->> last time it got picked, and there is an already queued different entity
->> of an equal scheduling priority, we can break the tie by randomly 
->> choosing
->> the execution order between the two.
->>
->> For randomness we implement a simple driver global boolean which selects
->> whether new entity will be first or not. Because the boolean is global 
->> and
->> shared between all the run queues and entities, its actual effect can be
->> loosely called random. Under the assumption it will not always be the 
->> same
->> entity which is re-joining the queue under these circumstances.
->>
->> Another way to look at this is that it is adding a little bit of limited
->> random round-robin behaviour to the fair scheduling algorithm.
->>
->> Net effect is a significant improvemnt to the scheduling unit tests which
->> check the scheduling quality for the interactive client running in
->> parallel with GPU hogs.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> ---
->>   drivers/gpu/drm/scheduler/sched_rq.c | 10 ++++++++++
->>   1 file changed, 10 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/ 
->> scheduler/sched_rq.c
->> index d16ee3ee3653..087a6bdbb824 100644
->> --- a/drivers/gpu/drm/scheduler/sched_rq.c
->> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
->> @@ -147,6 +147,16 @@ drm_sched_entity_restore_vruntime(struct 
->> drm_sched_entity *entity,
->>                * Higher priority can go first.
->>                */
->>               vruntime = -us_to_ktime(rq_prio - prio);
->> +        } else {
->> +            static const int shuffle[2] = { -100, 100 };
->> +            static bool r = 0;
->> +
->> +            /*
->> +             * For equal priority apply some randomness to break
->> +             * latching caused by submission patterns.
->> +             */
->> +            vruntime = shuffle[r];
->> +            r ^= 1;
+On 6/17/25 00:50, Mario Limonciello wrote:
+> From: Mario Limonciello <mario.limonciello@amd.com>
 > 
-> I don't understand why this is needed at all?
+> A variety of issues both in function and in power consumption have been
+> raised as a result of devices not being put into a low power state when
+> the system is powered off.
 > 
-> I suppose this is related to how drm_sched_entity_save_vruntime saves a 
-> relative vruntime (= entity rejoins with a 0 runtime would be impossible 
-> otherwise) but I don't understand this either.
+> There have been some localized changes[1] to PCI core to help these issues,
+> but they have had various downsides.
+> 
+> This series instead tries to use the S4 flow when the system is being
+> powered off.  This lines up the behavior with what other operating systems
+> do as well.  If for some reason that fails or is not supported, unwind and
+> do the previous S5 flow that will wake all devices and run their shutdown()
+> callbacks.
+> 
 
-Two things (and a bit more) to explain here for the record. And as 
-agreed off-line I need to add some more code comments for this are in 
-the next respin.
+Hi Mario,
 
-First the saving of "vruntime - min_runtime" when entity exits the 
-run-queue.
+I've been running this series on CachyOS since 6.16-rc3 and have no issues.
 
-That is a core CFS concept AFAIU which enables the relative position of 
-the entity to be restored once it re-enters the rq.
+Feel free to add
 
-It only applies on the scenario when the picked entity was not the head 
-of the queue, due the actual head being not runnable due a dependency.
+Tested-by: Eric Naim <dnaim@cachyos.org>
 
-If the picked entity then leaves the queue and re-joins, this relative 
-vruntime is used to put it back where it was relative to the unready 
-entity (which may have became ready by now and so it needs to be picked 
-next and not overtaken so easily.)
-
-It has to be the relative vruntime that is preserved, ie. entity which 
-re-enters cannot simply keep its previous vruntime, since by then that 
-could lag significantly behind the vruntime of other active entities, 
-which in turn would mean the re-joining entity could be head of the 
-queue for a long time.
-
-Second part is the special case from the quoted patch and that only 
-applies to entities which are re-joining the queue after having been 
-picked from the head _and_ there is another entity in the rq.
-
-By the nature of the CFS algorithm the re-joining entity continues with 
-the vruntime assigned from the current rq min_vruntime. Which puts two 
-entities with the same vruntime at the head of the queue and the actual 
-picking order influenced by the submit order (FIFO) and rbtree sort 
-order (did not check). But in any case it is not desirable for all the 
-description of GPU scheduling weaknesses from the commit text (this patch).
-
-For this special case there are three sub-paths:
-
-  1. Re-joining entity is higher scheduling prio -> we pull its vruntime 
-a tiny bit ahead of the min_vruntime so it runs first.
-
-  2. Lower re-joining prio -> the opposite of the above - we explicitly 
-prevent it overtaking the higher priority head.
-
-  3. Equal prio -> apply some randomness as to which one runs first.
-
-Idea being avoidance of any "latching" of the execution order based on 
-submission patterns. Which kind of applies a little bit of 
-round/random-robin for this very specific case of equal priority entity 
-re-joining at the top of the queue.
-
+-- 
 Regards,
-
-Tvrtko
-
+  Eric
+> v3->v4:
+>  * Fix LKP robot failure
+>  * Rebase on v6.16-rc2
+> 
+> Previous submissions [1]:
+> Link: https://lore.kernel.org/linux-pm/CAJZ5v0hrKEJa8Ad7iiAvQ3d_0ysVhzZcXSYc5kkL=6vtseF+bg@mail.gmail.com/T/#m91e4eae868a7405ae579e89b135085f4906225d2
+> Link: https://lore.kernel.org/linux-pci/20250506041934.1409302-1-superm1@kernel.org/
+> Link: https://lore.kernel.org/linux-pci/20231213182656.6165-1-mario.limonciello@amd.com/ (v1)
+> Link: https://lore.kernel.org/linux-pm/20250514193406.3998101-1-superm1@kernel.org/ (v2)
+> Link: https://lore.kernel.org/linux-pm/20250609024619.407257-1-superm1@kernel.org/ (v3)
+> 
+> Mario Limonciello (5):
+>   PM: Use hibernate flows for system power off
+>   PCI: Put PCIe ports with downstream devices into D3 at hibernate
+>   drm/amd: Avoid evicting resources at S5
+>   scsi: Add PM_EVENT_POWEROFF into suspend callbacks
+>   usb: sl811-hcd: Add PM_EVENT_POWEROFF into suspend callbacks
+> 
+>  drivers/base/power/main.c                  |  7 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +
+>  drivers/pci/pci-driver.c                   | 94 ++++++++++++++--------
+>  drivers/scsi/mesh.c                        |  1 +
+>  drivers/scsi/stex.c                        |  1 +
+>  drivers/usb/host/sl811-hcd.c               |  1 +
+>  include/linux/pm.h                         |  3 +
+>  include/trace/events/power.h               |  3 +-
+>  kernel/reboot.c                            |  6 ++
+>  9 files changed, 86 insertions(+), 34 deletions(-)
+> 
