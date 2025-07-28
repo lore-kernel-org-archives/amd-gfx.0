@@ -4,69 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 292CDC83F26
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 18:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 693F6C83F17
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 18:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF2C910E567;
-	Mon, 28 Jul 2025 18:00:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A01410E569;
+	Mon, 28 Jul 2025 18:09:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uw7u9BM1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dohGltkv";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D385610E567;
- Mon, 28 Jul 2025 18:00:32 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-23fc4b64b6eso3290045ad.3; 
- Mon, 28 Jul 2025 11:00:32 -0700 (PDT)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0127610E569
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Jul 2025 18:09:51 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-31ec2ac984eso265003a91.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Jul 2025 11:09:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753725632; x=1754330432; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1753726191; x=1754330991; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XoqYYinGUT1hY70tZp5kDiOhRrEJYw5q7X2gewe+7GE=;
- b=Uw7u9BM1OzRD/jebU39dCsF1smA0o2CQJH6BgRJIoC7niCda8gLUdWaCMI3799vGfX
- UMIYvc535F4kWiMrtAZZ/lH5tOnotoc/fX/oI0fIM+1zwEy6X+Ewtn3Ih4IW5ROtwbMr
- B5tlmyRIJl/DHGi29gaDcKa0wF/Cg0JelxooGdIl6g1mCkQHGs+667uaObwg6Olmk3aY
- Ih85eQpH/0doPj/n13vWZASyaYrFgEJB1apC9mWl7iwOG4Xq0COudAMPW46TiBflsKMo
- z5oZDp6m5OVEtBq/DC0WD8IzlBcG5LkvUaio+iCjc8KhHPG3Qkzt9xcDCopUY2wPqlvd
- atGg==
+ bh=uPg50feDtI8/IvSrda/qSYd4awYvwi84/NVEtGDysic=;
+ b=dohGltkvRQKhGXBUYd/OxAWEJ00YQqCQDgPZpj6g/kNlTpi6LOkZQUoS7RR2YeVxiR
+ 6kZR9Ay12+SW/XXOCHl07LQuju15/gZYZ9tp+zjvawN9V8QCO2gzOBpyE52FoVxQ2ibN
+ RQllJ2wf7sxKtlo5aC+wPJXcJoF7zvHevU4empIP0MIiO78GgegovVDGonILPJLzaSVP
+ xHiV1/lVkiCt/dbktKPoR7lMIvRL5nmwm8d6hwmpm1fvFoQYxHIWWHfeD/OZY24Yl7MO
+ rUTekjsYY9dPpRmJytTD4ULdgf0plk9SSjlJex9DRp0JBnYMUhI6guhsEmAoF3pr90eS
+ jOYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753725632; x=1754330432;
+ d=1e100.net; s=20230601; t=1753726191; x=1754330991;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=XoqYYinGUT1hY70tZp5kDiOhRrEJYw5q7X2gewe+7GE=;
- b=kIwDvcjby2o2YcDayryennU5mYtu3cP6pW8oVheMgGwZgsIET1/VX6kaKDtPDYiNqm
- iV9pv2IN/BfGHAbRm1+Z4zrGic3tpALlswpnP/+tJHtEDR3sZ/05h/+fWAGEokf6VTYy
- 617xD9tIo1OPuUpGp34Pe7f6AI740+P9j1yN1qmoNP2YRcNua1SxjZeSyoE2SSz+FGUh
- hsXMoHMJHbe5jJaMou2efpslqnDTGPA6BEeguchzMzquvbglbK9yFCOh+R1tuYzScNox
- OMbxSOkNXbiqr8XL3WnlAf4wKSgzz4RLKxPk4DwI9nt8bICasFKiHX7TbJhjK+ARdnnT
- 7SuA==
+ bh=uPg50feDtI8/IvSrda/qSYd4awYvwi84/NVEtGDysic=;
+ b=BGK2j4RM2Zj1WIGa2r0+DOHTBFrQBnQtuo1imSmU+tGvNoZ+BFhq8S43c7sXnJsuzr
+ sHPHMAvQ/7ChszKN98/XnLHzzv9X/Hf9WnsE9MutsbguOqUO2qe68TYtRk+fKicOa7JV
+ OlJPHj2mm/RDEv8933EKcPZaspuIloqaf/0vrXF83JKzxDyDv57OxfAeALHv991+oKSR
+ sIc60BrEgyg7b04SaMcz6Fkh7PZFJ42olpp6VLkFkYDeyps0Tsk1w8EyM85IenHT0uwv
+ Xjt92C6MoP2wkfZJjCNA3Yci/Uez7nRL03c8okqdCpNazr6ehiYRdgansRL260otwIrA
+ P94A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVzNISPiZbhmm5+WjsZH/a96kGOpvNNngC9KH7bU+tyj207SpYqTYgPpcjq7jb/8SYstIJWsU7n21k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzWfqUU5YF/Hs91xd+CR6ThfmUfyfeRwfQTdaZP4HLX8br84B2+
- 8Y9g+87L3Twbv5cCa6WcQctUqUiDjMcS9vZhf1J1d2+o+0NmO+saK+iYSw+Tr4z8UyuBvrJngek
- p7szj1BKyPXDh0jwABlGEYlqInnNVhPU=
-X-Gm-Gg: ASbGnctddnbe+s21gVmYltoqKPY9/trIhIoBImyLOOg8HupiZicFARdnVRNlkqu6F6z
- KkrslSwIJ5dJ3m8DbXT5RJIT18i6trYUZUJYNOXIFgimL6HS8mOqbItkHtwunLhzmr6TST+Eao/
- XiEA2dxnBWqzANyjRW8SBh+PaMbATdTwkTCYc8tKG+pDky/E7AO/uLgrU9kTrfFo45dTVMvRnCh
- cqScD1YEd76pjLuCv0=
-X-Google-Smtp-Source: AGHT+IEVkGues0dVewLJgtAazrp1hjhHH6TcJVTYrQwHgQlASHSNcB1TLzTatAQ+AU1xf/16ViJHiWcanzgH44dC6nc=
-X-Received: by 2002:a17:903:2f83:b0:234:f1b5:6e9b with SMTP id
- d9443c01a7336-23fb304f98emr80326785ad.1.1753725632049; Mon, 28 Jul 2025
- 11:00:32 -0700 (PDT)
+ AJvYcCUoDuzL9MNod5P3GpKZV4SXOKXxn+OpLgdxd8qZAV4fAIpz5rflvSJJ3nr2dP1lVJKmbvDBLTWq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwCeEgU4tgdirr38IfVVlRgaEgihul06/fgkAp2iaY5i4dEIyG8
+ Nt4jJ9fYZIKqheH14CsMgmsW264LYdHfEoWnXFXV7iM0y51GezOF5cEHf5oAs7wGvs0K+kcE4TV
+ LQz2viKVntFCfHm3reDmf0jSb/h/I/oc=
+X-Gm-Gg: ASbGncvw/j3W98mIwoLcxoV2mpVcd1tooro2loCQxC5UULglMkA/puTK8UL3vVanJjN
+ 7WWllyW0ycwKJpiiPF2uZ0Y8OQ5RZX3pLmi62p31BJeRr4tlluxJDI88nGLT2HsP6vIpgKAB6/J
+ rAmtAh8YqlI2XITfqUzgpkz2DLKYHUQI6d4wnMIoeo3jUT7PukDNHLUucydBi2iInsdAn9X/lUj
+ RmBF2pW
+X-Google-Smtp-Source: AGHT+IFKvsCzAT5JdE5vaicE+pfXucubRBYvat/fgye+DMROiqjpDO69Auc02D3msd2yxl/NtDhV3jq7IXncfm6cNj4=
+X-Received: by 2002:a17:90a:e7c3:b0:30a:80bc:ad4 with SMTP id
+ 98e67ed59e1d1-31e776ab52bmr7586661a91.0.1753726191407; Mon, 28 Jul 2025
+ 11:09:51 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250718195738.2919761-1-alexander.deucher@amd.com>
- <20250718195738.2919761-2-alexander.deucher@amd.com>
-In-Reply-To: <20250718195738.2919761-2-alexander.deucher@amd.com>
+References: <20250723090624.53536-1-YuanShang.Mao@amd.com>
+ <PH0PR12MB5420F1D3878389D200D4E419E05AA@PH0PR12MB5420.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5420F1D3878389D200D4E419E05AA@PH0PR12MB5420.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 28 Jul 2025 14:00:20 -0400
-X-Gm-Features: Ac12FXxqU4dnR4e1GKwGWwKCkIvagoTfuvQVfocsowIYbc_ViPAe3d2evQTlq_Q
-Message-ID: <CADnq5_MYd2Wdshze+HQtD6wsqStqSTw9ar8+CR_LeKiLpG5pAg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: update mmhub 3.3 client id mappings
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Mon, 28 Jul 2025 14:09:40 -0400
+X-Gm-Features: Ac12FXxCLlWpB7SxsK8B173Hcg9lpAj1KugONa54WRcJ46Wx_zmzE606QYJLZfI
+Message-ID: <CADnq5_MBSe2tuczKGwigygErxYUXg=O+H63NcnFnMd_C0qLwpA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: keep job->vm in amdgpu_job_prepare_job
+To: "YuanShang Mao (River)" <YuanShang.Mao@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "cao,
+ lin" <lin.cao@amd.com>, 
+ "Zhang, Tiantian (Celine)" <Tiantian.Zhang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,172 +87,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ping?
+On Mon, Jul 28, 2025 at 5:01=E2=80=AFAM YuanShang Mao (River)
+<YuanShang.Mao@amd.com> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Hi Alexander
+>
+>         Since Christian is on vacation. Could you help review the below p=
+atch?
+>         If set job->vm to null in amdgpu_job_prepare_job, the job which s=
+hould be skipped in amdgpu_job_run will be submitted unexpectedly.
 
-On Fri, Jul 18, 2025 at 4:08=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
+I think we can just remove the amdgpu_vm_generation() check in
+amdgpu_job_run().  I didn't think we actually resubmitting jobs
+anymore.  How are we ending up trying to resubmit in the first place?
+
+Alex
+
 >
-> Update the client id mapping so the correct clients
-> get printed when there is a mmhub page fault.
+> Thanks
+> River
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> -----Original Message-----
+> From: YuanShang Mao (River) <YuanShang.Mao@amd.com>
+> Sent: Wednesday, July 23, 2025 5:06 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Koenig, Christian <Christian.Koenig@amd.com>; YuanShang Mao (River) <=
+YuanShang.Mao@amd.com>
+> Subject: [PATCH] drm/amdgpu: keep job->vm in amdgpu_job_prepare_job
+>
+> job->vm is used in function amdgpu_job_run to get the page
+> table re-generation counter and decide whether the job should be skipped.
+>
+> Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c | 104 +++++++++++++++++++++++-
->  1 file changed, 103 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 7 -------
+>  1 file changed, 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c b/drivers/gpu/drm/am=
-d/amdgpu/mmhub_v3_3.c
-> index bc3d6c2fc87a4..9ae811d9a9dd5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
-> @@ -40,30 +40,128 @@
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_job.c
+> index 45febdc2f349..18998343815e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -360,13 +360,6 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_j=
+ob,
+>                         dev_err(ring->adev->dev, "Error getting VM ID (%d=
+)\n", r);
+>                         goto error;
+>                 }
+> -               /*
+> -                * The VM structure might be released after the VMID is
+> -                * assigned, we had multiple problems with people trying =
+to use
+> -                * the VM pointer so better set it to NULL.
+> -                */
+> -               if (!fence)
+> -                       job->vm =3D NULL;
+>                 return fence;
+>         }
 >
->  static const char *mmhub_client_ids_v3_3[][2] =3D {
->         [0][0] =3D "VMC",
-> +       [1][0] =3D "ISPXT",
-> +       [2][0] =3D "ISPIXT",
->         [4][0] =3D "DCEDMC",
->         [6][0] =3D "MP0",
->         [7][0] =3D "MP1",
->         [8][0] =3D "MPM",
-> +       [9][0] =3D "ISPPDPRD",
-> +       [10][0] =3D "ISPCSTATRD",
-> +       [11][0] =3D "ISPBYRPRD",
-> +       [12][0] =3D "ISPRGBPRD",
-> +       [13][0] =3D "ISPMCFPRD",
-> +       [14][0] =3D "ISPMCFPRD1",
-> +       [15][0] =3D "ISPYUVPRD",
-> +       [16][0] =3D "ISPMCSCRD",
-> +       [17][0] =3D "ISPGDCRD",
-> +       [18][0] =3D "ISPMERD",
-> +       [22][0] =3D "ISPXT1",
-> +       [23][0] =3D "ISPIXT1",
->         [24][0] =3D "HDP",
->         [25][0] =3D "LSDMA",
->         [26][0] =3D "JPEG",
->         [27][0] =3D "VPE",
-> +       [28][0] =3D "VSCH",
->         [29][0] =3D "VCNU",
->         [30][0] =3D "VCN",
-> +       [1][1] =3D "ISPXT",
-> +       [2][1] =3D "ISPIXT",
->         [3][1] =3D "DCEDWB",
->         [4][1] =3D "DCEDMC",
->         [6][1] =3D "MP0",
->         [7][1] =3D "MP1",
->         [8][1] =3D "MPM",
-> +       [9][1] =3D "ISPPDPWR",
-> +       [10][1] =3D "ISPCSTATWR",
-> +       [11][1] =3D "ISPBYRPWR",
-> +       [12][1] =3D "ISPRGBPWR",
-> +       [13][1] =3D "ISPMCFPWR",
-> +       [14][1] =3D "ISPMCFPWR1",
-> +       [15][1] =3D "ISPYUVPWR",
-> +       [16][1] =3D "ISPMCSCWR",
-> +       [17][1] =3D "ISPGDCWR",
-> +       [18][1] =3D "ISPMEWR",
-> +       [20][1] =3D "ISPMWR2",
-> +       [21][1] =3D "OSSSYS",
-> +       [22][1] =3D "ISPXT1",
-> +       [23][1] =3D "ISPIXT1",
->         [21][1] =3D "OSSSYS",
->         [24][1] =3D "HDP",
->         [25][1] =3D "LSDMA",
->         [26][1] =3D "JPEG",
->         [27][1] =3D "VPE",
-> +       [28][1] =3D "VSCH",
->         [29][1] =3D "VCNU",
->         [30][1] =3D "VCN",
->  };
->
-> +static const char *mmhub_client_ids_v3_3_1[][2] =3D {
-> +       [0][0] =3D "VMC",
-> +       [4][0] =3D "DCEDMC",
-> +       [6][0] =3D "MP0",
-> +       [7][0] =3D "MP1",
-> +       [8][0] =3D "MPM",
-> +       [24][0] =3D "HDP",
-> +       [25][0] =3D "LSDMA",
-> +       [26][0] =3D "JPEG0",
-> +       [27][0] =3D "VPE0",
-> +       [28][0] =3D "VSCH",
-> +       [29][0] =3D "VCNU0",
-> +       [30][0] =3D "VCN0",
-> +       [32+1][0] =3D "ISPXT",
-> +       [32+2][0] =3D "ISPIXT",
-> +       [32+9][0] =3D "ISPPDPRD",
-> +       [32+10][0] =3D "ISPCSTATRD",
-> +       [32+11][0] =3D "ISPBYRPRD",
-> +       [32+12][0] =3D "ISPRGBPRD",
-> +       [32+13][0] =3D "ISPMCFPRD",
-> +       [32+14][0] =3D "ISPMCFPRD1",
-> +       [32+15][0] =3D "ISPYUVPRD",
-> +       [32+16][0] =3D "ISPMCSCRD",
-> +       [32+17][0] =3D "ISPGDCRD",
-> +       [32+18][0] =3D "ISPMERD",
-> +       [32+22][0] =3D "ISPXT1",
-> +       [32+23][0] =3D "ISPIXT1",
-> +       [32+26][0] =3D "JPEG1",
-> +       [32+27][0] =3D "VPE1",
-> +       [32+29][0] =3D "VCNU1",
-> +       [32+30][0] =3D "VCN1",
-> +       [3][1] =3D "DCEDWB",
-> +       [4][1] =3D "DCEDMC",
-> +       [6][1] =3D "MP0",
-> +       [7][1] =3D "MP1",
-> +       [8][1] =3D "MPM",
-> +       [21][1] =3D "OSSSYS",
-> +       [24][1] =3D "HDP",
-> +       [25][1] =3D "LSDMA",
-> +       [26][1] =3D "JPEG0",
-> +       [27][1] =3D "VPE0",
-> +       [28][1] =3D "VSCH",
-> +       [29][1] =3D "VCNU0",
-> +       [30][1] =3D "VCN0",
-> +       [32+1][1] =3D "ISPXT",
-> +       [32+2][1] =3D "ISPIXT",
-> +       [32+9][1] =3D "ISPPDPWR",
-> +       [32+10][1] =3D "ISPCSTATWR",
-> +       [32+11][1] =3D "ISPBYRPWR",
-> +       [32+12][1] =3D "ISPRGBPWR",
-> +       [32+13][1] =3D "ISPMCFPWR",
-> +       [32+14][1] =3D "ISPMCFPWR1",
-> +       [32+15][1] =3D "ISPYUVPWR",
-> +       [32+16][1] =3D "ISPMCSCWR",
-> +       [32+17][1] =3D "ISPGDCWR",
-> +       [32+18][1] =3D "ISPMEWR",
-> +       [32+19][1] =3D "ISPMWR1",
-> +       [32+20][1] =3D "ISPMWR2",
-> +       [32+22][1] =3D "ISPXT1",
-> +       [32+23][1] =3D "ISPIXT1",
-> +       [32+26][1] =3D "JPEG1",
-> +       [32+27][1] =3D "VPE1",
-> +       [32+29][1] =3D "VCNU1",
-> +       [32+30][1] =3D "VCN1",
-> +};
-> +
->  static uint32_t mmhub_v3_3_get_invalidate_req(unsigned int vmid,
->                                                 uint32_t flush_type)
->  {
-> @@ -102,12 +200,16 @@ mmhub_v3_3_print_l2_protection_fault_status(struct =
-amdgpu_device *adev,
->
->         switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
->         case IP_VERSION(3, 3, 0):
-> -       case IP_VERSION(3, 3, 1):
->         case IP_VERSION(3, 3, 2):
->                 mmhub_cid =3D cid < ARRAY_SIZE(mmhub_client_ids_v3_3) ?
->                             mmhub_client_ids_v3_3[cid][rw] :
->                             cid =3D=3D 0x140 ? "UMSCH" : NULL;
->                 break;
-> +       case IP_VERSION(3, 3, 1):
-> +               mmhub_cid =3D cid < ARRAY_SIZE(mmhub_client_ids_v3_3_1) ?
-> +                           mmhub_client_ids_v3_3_1[cid][rw] :
-> +                           cid =3D=3D 0x140 ? "UMSCH" : NULL;
-> +               break;
->         default:
->                 mmhub_cid =3D NULL;
->                 break;
 > --
-> 2.50.1
+> 2.25.1
 >
