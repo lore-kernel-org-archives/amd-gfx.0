@@ -4,67 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7586C83F26
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 17:20:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF39EC83F26
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 17:22:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7851B10E552;
-	Mon, 28 Jul 2025 17:20:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70DD610E554;
+	Mon, 28 Jul 2025 17:22:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nl8nYrsg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gBQR6/G9";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A1C10E552
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Jul 2025 17:20:26 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-b3f2f8469b7so384240a12.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Jul 2025 10:20:26 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7248D10E554
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Jul 2025 17:22:15 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-313067339e9so744405a91.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Jul 2025 10:22:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753723225; x=1754328025; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1753723335; x=1754328135; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MZkR29KdQ3D5UjXDnmGP3ttpyZtkVknzL40ggzHF33c=;
- b=nl8nYrsgTek7314cooFG293qMPUBBCso03dBnyXpZXgPo/PzkNL6qGNn6EdidoQNKZ
- 33MB7utEjKXcEBWaznY28AIq3eUVJlzEvqHCK2697PGu7SUoX9C1WD5mf2/xztSC3VrB
- 8CYlUqUVcdlxfg5BphuOiz+p8jFkVjy5zYMtbhQtn9MSjg+rbh+EAAHNCbFehbMgfpgK
- hI3zjLlHhWZyN2QlKBZrSGBkc/+D34H499+pgX8mt9z5rogUmPCXiD3hiZU3nH23qaqh
- Z6C1BMYoaFlgPmHrKEscJLbFRSXooJEH+DUDYBMuOt9wZPedCKF8DyNjRzatZwRAVuc1
- 5Njw==
+ bh=ZXeRmTIR5gEOmYDzAg8UBzI1wwlCnqXBPcJfOwWd29w=;
+ b=gBQR6/G9H5zI1+kvpPbizM1lJbxDRcvjKPZ7MPk3ot+BnpXBEq3z8qxWmzwiEJbcB7
+ 7Y1im/agU8MHT1PvCflzW8nQdrzYTxCUotIvyNtj09+9QQmjmOqlwffc4wbgz/OaCVUu
+ OqvJz8VKavYylNiHEJHqvPKg+lLMYD9FFO057cGLM2MoHYLb8e7+CBuGepD7fRybek3n
+ ksbkTmAZx39h7VB1q2+IXEW9R/twQgovbse27xHmph793uar4zKRJWO9mdWnNY9PgZBg
+ A8k1exMxfzLrTHDJxVMwc4LBi1TDwlSK7FeNlNueHFGMQvlivjgFgCIHiZaLNcH0PugK
+ zEBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753723225; x=1754328025;
+ d=1e100.net; s=20230601; t=1753723335; x=1754328135;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=MZkR29KdQ3D5UjXDnmGP3ttpyZtkVknzL40ggzHF33c=;
- b=FRdlYal5zk70ttQCp/zXxPMQkw9lWSO2yJPHDEwFpHOS2OMgEgwe9Pmni5jn8jqnz3
- +IXeRaNXDkBH+U66XDCnxB/Qf7hwT9byosa1gyK49AqLHrqtuiQzwgnKdbHxrkvg42KX
- 2aJnYAmC9N7ZGPL3mtQhOeTQHoddtoCoaSkQbP19fNSiLCWLfc1ACQc9WW4rHuKOsfAU
- SqY+O8f4Pjr4Sjr+yW1lT8Fq7NGJ25pEnwLWdK90t0ZGJusujzAShG2u+2GIgoqqaa+P
- mAsZmRyXjCadnuUbOyFyCYWiFRDUcXVgSB6JKUVw2bKm1TVB24vwkXlTgYXjau7HgziG
- GI6g==
-X-Gm-Message-State: AOJu0Yzef5Q+WAtf5sOIXXN/EEvAp4tKcyu/puftm/zCrWmwLi8W/9aj
- KLgDaQSm92L835RT9ZoiR9MTxw914vN+lrPG7+UfIw2klPtXKpFJKvXGS7Iu3Xs6hPSZCmvNzwB
- KK+3pQZbgnxZE3pp9mJPiLgUbrk1JuDAaBA==
-X-Gm-Gg: ASbGncsJOCp/pGlPE4qTJZGaaun8xYJ7WOL2yy0oM4fP+uh811smQrcCplrTs/qMztd
- WUeSLtI6G8Tha3TqQx7otMtPQMyvt9VZphmmzQzcTRYTax3Mbv0mCc+8Owi4XFfudL/ESs697UG
- O1Q9IHUvocMvNZ2iXwYyELfdmYtBJqCkFRDsL1wjrzqBWPc+75J9XHLUBusz0EBUODwTQhCE3dc
- BRBiSi4
-X-Google-Smtp-Source: AGHT+IFpMMBLTlbSC3lELBkumVe+oaQenL+7GWUGySxJnEW4Cis0bt89+YfuB0shrRLXhyOblLEXxufF5hoGXiD+rBY=
-X-Received: by 2002:a05:6a21:6d88:b0:233:f84f:6097 with SMTP id
- adf61e73a8af0-23d701ee6cbmr8244171637.9.1753723225509; Mon, 28 Jul 2025
- 10:20:25 -0700 (PDT)
+ bh=ZXeRmTIR5gEOmYDzAg8UBzI1wwlCnqXBPcJfOwWd29w=;
+ b=Xcc25m6j5nylwy4/a6drFx5L69TJKrNaa78GS0fTHoLohVhmvumfjnqu0VrEkGKBjN
+ 3BYqaxAIg9CkyWui4ptiAHpk40Ub5w7umjhynncGHbctmA+DUGjzjbBaO8hbH3Eg8l7s
+ KYtvwKI5A483kMXS6Rd8QTBy5+aC7RXvpTgaydcT8z1RyVbiu6IbvUzwxHRiQ4r9wjAe
+ gh4jJpT2CnUEM9+FI6mMDxP42oflCGauRKPsSpdQfqW27hzeav4yWUKQGVG3dGoZmsOc
+ efo1+ZjvpoXDjo4341XncKp4dqjmPt7+sHnowWijeMYrwflSb91e5Iq9LgFRgtyl4dR3
+ MNBg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVd+SEdK8AFIhxFiQGj9vQsrV+aDVmdWIYgEAwetvayPkUIGCEzwiHM9zhqh0W4TkuC9B7jjyWe@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwrrQjyNUKCHmfTeP5jlp6tR9uQMSacpKfrCNYcJA1tElpIYThD
+ Z0A4w7jcU3N8aSQ/yRdW9NQphsRDJamJECW32d7DbW37vIE2uvOX0+gsYg+Su8JzG2cs0Ola1Pu
+ p0Wthefwjbuv3tFbPbiYwwfHVUGTAFtJI1g==
+X-Gm-Gg: ASbGncuVpA/dRsDBqwzHRIAnE/kpLFBAY/nScu13ZidEKMBLXTtOJe3czIDkG7DxB8J
+ KKU3UrtfHL7BMAvo+L8X70zz8m9PNO2CVRhLqYaijOTpYbXYjWjSIzjIAfBS0uovKDvlFQehWBl
+ oukKtlASyp4uDjmBNgdIRdh+9luKIncSdEKqoHdRjbZstkxL4VjYm56/pn9O/+91LePstmG6SkS
+ 1t4lvs6
+X-Google-Smtp-Source: AGHT+IEg9gOR3zSAMOVau+/fwHzqqNMJuHfFOiKVHfqTRf2oUjdV1aCBVZqn+gj2ofReeItzm07POyBxwf265DvPf9A=
+X-Received: by 2002:a17:90b:4f49:b0:31c:3871:27ad with SMTP id
+ 98e67ed59e1d1-31e77667556mr7383398a91.0.1753723334730; Mon, 28 Jul 2025
+ 10:22:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <1183390756.152871261.1753021573282.JavaMail.root@zimbra39-e7.priv.proxad.net>
- <1835198865.152908048.1753022389600.JavaMail.root@zimbra39-e7.priv.proxad.net>
-In-Reply-To: <1835198865.152908048.1753022389600.JavaMail.root@zimbra39-e7.priv.proxad.net>
+References: <20250721133630.1307201-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250721133630.1307201-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 28 Jul 2025 13:20:13 -0400
-X-Gm-Features: Ac12FXzr1nuH14jFxz0PKWKJWvDZ2d-AT-4g3wJ82VykWk0lhh6FL6sxCdsRkqo
-Message-ID: <CADnq5_Mbr_dU3Xg39wj_DiUU4pRbS_tx23eOw5SEEFvMi6ReBQ@mail.gmail.com>
-Subject: Re: Need help to dig into X11 display freezing (Renoir, Xen/QubesOS)
-To: Yann Dirson <ydirson@free.fr>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Date: Mon, 28 Jul 2025 13:22:02 -0400
+X-Gm-Features: Ac12FXzYazXkdWjF0IgZxUSA8BEZtVtOYWJCN3cRtdd-slGXkz7uJ05yscREPOc
+Message-ID: <CADnq5_MWMyOwS=OS85hgx0xUSvbozaWruzoW7p9ih3qJmntw9Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix kdoc style in amdgpu_fence.c
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,40 +83,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jul 20, 2025 at 10:39=E2=80=AFAM Yann Dirson <ydirson@free.fr> wrot=
-e:
+On Mon, Jul 21, 2025 at 9:53=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
 >
-> Hello there,
+> The initial comment block before
+> amdgpu_fence_driver_guilty_force_completion() incorrectly used '/**' but
+> is not a kernel-doc comment, causing build warnings.
 >
-> For a few months I've been experiencing occasional freezes of the X11 dis=
-play
-> on my QubesOS RENOIR laptop.  The setup is pretty much standard for Qubes=
-OS,
-> with both GPUs attached to dom0 and XFCE running there (and the dGPU bein=
-g
-> mostly not used).  Kernel is QubesOS' kernel-latest-6.15.4.
+> Fixes the below with gcc W=3D1:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c:742: warning: This comment star=
+ts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guid=
+e/kernel-doc.rst
+>  * Kernel queue reset handling
 >
-> Those freezes most often occur while the screen is blanked
-> by xscreensaver (suspend options fully deactivated here, as suspend is br=
-oken
-> on this platform): in this case moving the mouse does not get the unlock =
-banner
-> displayed, the screen stays black... except the mouse pointer is visible.=
-  I can
-> also switch to other virtual consoles and interact with the system, but w=
-as
-> never able to collect any evidence of something wrong being detected.
->
-> Occasionally it also happens (like yesterday) while I'm working, and the =
-X11
-> display just seems frozen, no clue if the input devices trigger anything =
-in
-> there.
->
-> I guess something goes wrong but gets undetected by the driver.  Any sugg=
-estion
-> as to extra logging/debug features to enable?
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-Is this specific to QubesOS or a general problem even on bare metal?
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_fence.c
+> index 3f2080aecd5a..2c84d36b5437 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -738,7 +738,7 @@ void amdgpu_fence_driver_force_completion(struct amdg=
+pu_ring *ring)
+>  }
+>
+>
+> -/**
+> +/*
+>   * Kernel queue reset handling
+>   *
+>   * The driver can reset individual queues for most engines, but those qu=
+eues
+> --
+> 2.34.1
+>
