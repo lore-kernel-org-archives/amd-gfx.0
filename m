@@ -4,149 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EEF5C83F26
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 20:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD9C4C83F26
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 22:39:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16EBF10E57F;
-	Mon, 28 Jul 2025 20:00:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56F7010E06C;
+	Mon, 28 Jul 2025 22:39:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="W7uNtaGm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qkZ7tYBy";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB8B10E57F
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Jul 2025 20:00:01 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2332D10E06C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Jul 2025 22:39:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GU6kml+SWi79j6mQvnpSLdwMiHosPFiuC4505PrF5JEz7AFwFWqQz0bSekrM9OuSB+ce91w0GQxahbjrcglURbncLLVbyYMmhpRJltikSMSxCzR2NT2ZWjf72tTwLzhV5EnpcMCBALUTzb9tkFzhDC0IKtPCL+CJqpCzdUqU9nqTkhSO5RNO83YNqrS/E/sZ561IfIeDcTnmLcfq1aLdFOD6Jd0fj2e08zROM6iZ6Exq4X7WaxmReh6vVzFBiQN4DQ63C4a2PT1pHuHdcFtRko3QCGd5o6Z/WftEsQNi2nZup5TjdREaHtxHy06ZAnSwcUHvGQzVqxscoFa4BL9NEQ==
+ b=PDv/+BTIuyWL5TDSdv4otq9fSAt//9hSjp2Y4zQTUXQIT9eiiitkNMegaN5SLEohluoPCJPQNRPv12T3FU9iAYcN+KwbhhhonabLqVEgPoXUsGcUBiW7sHqlIRfvua9PGrBZjEn2LdgiAataH6MtY+NdSgoru/rA2O1HMjM1+V/AamWGd938nau7PtHCYs1tPw0TQWINPMtiljdJ8dILD3jJD8CovHyU5dxu1KcOrF719Bx9ZZZnJjhYSnkkNtoWlFx3z6f+9AmGKnYWPNf8wE4X7D4Qm7MYln9fWeGYfVXBYRd43a/tvjYrrJgK+sxdzwr6RgBXzI8VtsSwsU01eA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xx5zHIIvH+pn+gy5Yl2d6pB7ycCPA9aG5GBaJKb4oUI=;
- b=vcRyKiipEKW2EaDYvG2IWZijhARfIc+YDAv7sii02MC0PTyriQh/HE8NGT2R5WifH2VME0riJw9/XCDmh3yjeTGaxwLmTz2jbb0INMSRTfkqzIshjAYsFLJtSeFjMy0eWLbHGzuJcsyALjOwOjj8I5O8MNHgjBhJgk6ru8rtRPRK9kXcek0Xc35qy4F6AzdDUpoesjE8Aq+iTwhrAY5ccuFl+9uMq7gTEoTdOfN4tP0XLBNp8JqH3TDFZqqzq5U7N/SdAag7R0NnYraPSedUGDYQfZ4CQt1O16oR5DSwtaljIQ7YX63/hTTqWq3640tmpr8/EDTbyaS8f66whzZwAw==
+ bh=s/gxNkU3iqDu4sZFpZFAii0n1kS/qPJrY9nCDhrpbwc=;
+ b=q+YINcC1tC8Q5ePCv6G3/BHxD3rOKgpylcIfVbYycd7FVlyNPe2/gGqRn93vzkfp5it08hsbm7unPFvixjMJBUT1hO07ZaoEW31NEoWjKtGpGRfdMXwdWtJRF1cWydeYYvS+aT2SiSQWE4pogWBxYmFgvXpN0TTYKRmhXSwbjHBhUOk+pQhk1SuSV+DYglPN0Lq2MYKTf98lx4bI/VR2pc/OWYOyWgg/RUIvHOk6/Cd+pOBDOUsOa7qdJjYzmKazyqKTKcluIFzmYkI5LdOi2GmrAMPAXn6g/Vqeji5c3LkkREudy+NUjKRfzTSno2JgbP84OgMHK+uymJcEohqXzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xx5zHIIvH+pn+gy5Yl2d6pB7ycCPA9aG5GBaJKb4oUI=;
- b=W7uNtaGmYoPZvo7Gv/CcbZUJVLoyJLDfEjfVyovUxg54sTrR35pPLaImb6bQDk5M/YvogGtoB8IYp9mbWlI2fiAYCBJ92bg+scf7RvmDmhl4lmAX/1Kgp4+miCMQEXctIZxUDS1J2TU7sGZVdVeoCPlSN5HTh5emBKTiAVEFZfg=
+ bh=s/gxNkU3iqDu4sZFpZFAii0n1kS/qPJrY9nCDhrpbwc=;
+ b=qkZ7tYBy8XdSrekmh5Cnov5p0M+0meQjUoels0HLIwqa5HrdzQ9rLk+DvOGCsflkHfsFv2SovfM7nzQUtuQcawoZrz6BZigwQg4p1HWN2hsAwyWNZ0ZJhppBoJAI0lzuTm/0oiuq+N6sbicxChoJnKPdZbMIh6Opl2YUzfSV56Y=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS0PR12MB8341.namprd12.prod.outlook.com (2603:10b6:8:f8::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Mon, 28 Jul
- 2025 19:59:59 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8964.026; Mon, 28 Jul 2025
- 19:59:57 +0000
-Message-ID: <9a1e3eed-da57-49f2-b3fc-3e8d6b44869a@amd.com>
-Date: Mon, 28 Jul 2025 15:59:55 -0400
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by CH3PR12MB8188.namprd12.prod.outlook.com (2603:10b6:610:120::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.27; Mon, 28 Jul
+ 2025 22:39:51 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.8964.026; Mon, 28 Jul 2025
+ 22:39:51 +0000
+Message-ID: <7fd95adc-0fe2-4494-b1b2-3ec147f92553@amd.com>
+Date: Tue, 29 Jul 2025 04:09:45 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] amdkfd: Implement kfd multiple contexts
-To: Zhu Lingshan <lingshan.zhu@amd.com>, alexander.deucher@amd.com
-Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20250725024316.9273-1-lingshan.zhu@amd.com>
+Subject: Re: [PATCH 1/2] Documentation: update APU and dGPU tables with MP0/1
+ info
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250728173733.27723-1-alexander.deucher@amd.com>
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20250725024316.9273-1-lingshan.zhu@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20250728173733.27723-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0196.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::8) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BMXP287CA0011.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:b00:2c::21) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS0PR12MB8341:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b2c14d1-4b78-45ba-631a-08ddce115389
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|CH3PR12MB8188:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6338637-de4b-4b84-c03b-08ddce27a9f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bzV1ZFA4cjNuUmxzcHh4TUh0S0dXazNhS2hFMEtzSC8rZWF1VjRHa0kycWxP?=
- =?utf-8?B?YnpLU0I5MzR5WTdONmp0VnJISkg2Z0QyWWhXaXA2S2pScklvdm9oN0xyYzN5?=
- =?utf-8?B?M0RMcytBNVpuUXZ4MGpoVGFoVjdSVVNuQ3ZqOUFPRjlEZzhTdDBwc1VNVE8y?=
- =?utf-8?B?T2l2M1E3Y05sRS9ycjRYLzNRMnVOaDI3QlV2RGdTL3E4aGZiMFFKUVVUY0l3?=
- =?utf-8?B?bEpBNXNzRFA3T1VncXFQd2VKL1VFSndaN2VUSHE4eGthSS9tSVkxeTNJR0Z4?=
- =?utf-8?B?S0JhR0FBeHMzVnBaL2IrUk9COS9ITllhM1VrSGcvTTRhRVpmUVhZUWRhTDZM?=
- =?utf-8?B?L0tCRXJ0Tnk4Z0dUeEFnaEZpMG9XVE9aK0FLVDRjZUtZQWtKcm9UZUJieVVD?=
- =?utf-8?B?aU5CRkhLZ3V1emdFa1NTWHBUR21xOVM4SGt2ZXFPY0diei9NWUFocUJ5MEsx?=
- =?utf-8?B?azE5M0NGOHlnN3J0bzZYZTFJTzA3NjZYVDQwR3NOVXk1bzhWWkxSbnhCcm9s?=
- =?utf-8?B?WDdIWnEzckRwTnJiM0RQTmxrQ2c4bS9VQUdZdTVCNHZMVEQ2Qk85SHZvMzBZ?=
- =?utf-8?B?U1UzWW5la0hiaUtzNms5NlFHVVBGaXhDZHluejVVbFlLc2s1M1gxTnBJbFFL?=
- =?utf-8?B?VnJ4T1U1Z2U2V1Z6djRCemk5eDNTR0E0QkpnZjBHNTJNeVd1dS9NNkZKV3B5?=
- =?utf-8?B?Vll5ZDlXbHJtL2tKMGkxTjZFaHdKSzNUUlloa1J4d3dVQTIyb3BmQ01kRTYy?=
- =?utf-8?B?OXB0aFU0NUZaeFlHS3ZaK1ducUlYZkFjR3RyNldON3lFcFB3TGxDQ1ovRC9x?=
- =?utf-8?B?TmFQYmJCSEs1enhzeHoyRjJUUTFZUUlvVWFGSDJCRlpGUmtPMGZpWTBtMWJN?=
- =?utf-8?B?VWhab2t6WXZ2LzRYRXlHTHd4dVJ5bFgwdlVuYnR3cnFDaVZKVVhYS1RhZjhU?=
- =?utf-8?B?MlJ1UWJDblFpbWs3dHZTaWhod2VkNm85QUN2MVVXbGRlTVBFOHE4amlmLzZM?=
- =?utf-8?B?dXF2aE03WEtFb0pqSXdpRVh4bHRPZWJjNklsRDFhbW1PZ1QwVG1QYmlTdDNX?=
- =?utf-8?B?Z0thQXRwdGR5bnY5TjdGbzhGbFBwZkJ1eHVvam4vcU55b3g5ZVk2bTl1dHc5?=
- =?utf-8?B?TlJoR0k0bHNGeUhRUzdYVDlid1JEL1lzVE82b3Flci9WMUdVUDBuRkNpSXVL?=
- =?utf-8?B?Um4zbHZ6UWJ6bko1VWVVN0l6K0hIYTg3QXQ5SXJ1d1NsQWRLNFVDdXJ0dk5q?=
- =?utf-8?B?VHYzeUNIak5xNXhqWGI1TE95Tk90bTY4MGZzTEJudWY0NUF4U0dsdnNOWFhi?=
- =?utf-8?B?SW5oblQ3TjBieStxdEtjaVlTUmdpblNoRmoxejNnWmJLU0ZBa0JjOFFUdXNO?=
- =?utf-8?B?M25hKzdGSG9FZ0toSHJqcTBxTGxycFFhTGFlbW42Slh0NlRIN285YlJaVGlB?=
- =?utf-8?B?bUtrQ2lOVHM4bU94RWNkN2s2bzM3WFBXckRjTXBPcE5OdG1namNBOGV4ekVj?=
- =?utf-8?B?aHIrek9HZ2oxdWd3TmNTUExnNDFxWkgyK3ZDTHJ5VHNESHlqbzAvVy92M1hi?=
- =?utf-8?B?Umo3YThSUFNSNEFCY2p4T095d1VTVVVsdVdCSFgwNjNYOTNJeDdETWZZQzd0?=
- =?utf-8?B?ZG1MeVhxWDFST1JoUlJQV3hNNjVUdk9mTzkxbEJ1eDNpajZvOTloUWdjMGRo?=
- =?utf-8?B?a3AxR0thOTBhYVZaaHpaV2d4N2ViYVFrbVpoMDRCZzFkS3lKR0Zuc0xiaWY2?=
- =?utf-8?B?Tmh4WE1RaHY1TjA1TTBTbkFlYjNseHM5NTh6Wm5LMThnUVZ6eGtNMG8yMkhY?=
- =?utf-8?B?Z29obUtJb1NDY201VzZVWUx3S2RtaDg4VEYvMEd0Vm1GSk9BK3ppcllGOW1J?=
- =?utf-8?B?MHJPYk5XUjgzM0I3MTNxcUJiVVdFUHRYRlJlQlN5ck9QY3J0ZGpKcFpzaTVs?=
- =?utf-8?Q?LGoRL4HhnQg=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cVkzVFNXaWZ1WGwwWStuam9VcTdGNHJoNGZzM2VVMkw0WTc3TFU2d25BTDdu?=
+ =?utf-8?B?M3dXbTMzU3JnSlA2dk92NWI0aXpCVDJ0VmtUSVBrbkZFc25OWDhKekcvNHJ1?=
+ =?utf-8?B?bWFGYm56WHEyMEpKajNmNElNK2xZbGlTaS8wM0IvMHlXNjc1TzJoTnVIMHY4?=
+ =?utf-8?B?TTJkZTlBQlhtRzlmS1JveWlVdzFOd3hOOXhaM2J2TFVydHRjOWZ5OUtwMGIx?=
+ =?utf-8?B?MEFkNmtWSnhkakh1cFdKaWlDdU1XNU1TemUyU09RbFZFWGQ1SnA0OTZIcGR0?=
+ =?utf-8?B?ZCtWUUFLUjUwWHpMZ0xmSm5YaHZvcWFudzZvT0xVcXh1Y3NHZ2hBakxCMW40?=
+ =?utf-8?B?TWEwbnIySUdaYmpnbU9IR25yLzMzMURiQklCTGtYaFA3WklnWmdUcDJVbWpE?=
+ =?utf-8?B?MDBZTFdnVHoyUmNZNW9Qb2x1czFRL2c4WVdoeXFMa3BjaWNKL1ZEL1dIbEk3?=
+ =?utf-8?B?aXQ4MHJrQVlzUnJXUnFZU2ZHMGF3YlFONHVNTlpObVpMek5BL2pUNi9EUmsy?=
+ =?utf-8?B?R0pRclV6eG44TWRYL3pKRStBZjhpNm5RbEJVNXlhKzNCcklYdXV3U2RQZHli?=
+ =?utf-8?B?QTgxczYrMnlVdFFEcnZGSUoyOFRIbGE1dW9tanQwa3dvSEhHc3Q4REY0U3RJ?=
+ =?utf-8?B?aXFYTmRkalY5aGpQUjgxajkrL1k4TVR1MXBrOGZWMWhWVW05V1FON0ZhcXNs?=
+ =?utf-8?B?Nms3K1N0NTF3SURFMHl5elA2dGlzdTI5dTZDTnhJZUFDWHBmU0xFbmJOL3NL?=
+ =?utf-8?B?OVNFcVh5ZDZXUXVTVUN3Y1hqYnFoVk5KRk5sTDdlOXBGWnlGajlVb3RtZkJ5?=
+ =?utf-8?B?eU5BTTU1Sk4vTHJMUDlVMVRlcnRBRmdBQlhEVGlIKzk4QzBKelhRd3VCU2dL?=
+ =?utf-8?B?Zno2czhaRkd2Um9wU1l1MTVMc2hYWjNwSkMzRnZ4c1M4YlU5MEI0R1BNK3l2?=
+ =?utf-8?B?dndlU29tZDdzT2FTbGRSZjFJSEdKZUVRMlMvZytLdWFRbGVKd2l1blhEdHla?=
+ =?utf-8?B?N3RjdURWclJoekNrRG43by9OUTVSejArN3lYT3hDaHAydk9NQTZpUzIxcEpP?=
+ =?utf-8?B?LzZ0b3MvQTYyU3VoYzZtdlYvakt1MmRIWkJGdHpFYWY0VmRJenNXdW1XM2Qr?=
+ =?utf-8?B?cW1kQkM4bm9qR1N5dTlrTGZOcFZWSDhyYmRYNWErRXlMVjBaUk1VUVgrR3hV?=
+ =?utf-8?B?dGtTQWJTallQa1FpMUdOMDNsOWI1alNCWWE5RXRqL3dmYmFRYnVTZVNVSUc1?=
+ =?utf-8?B?djNwcGx1RmlEU2RKeThUdUlXWkZBOGxKak5URXRweTIraDRXT1hDcnBmM3Bt?=
+ =?utf-8?B?Tys2OEtHZ2RBOS90WEN0OEVuVS9pY1puWU5qYTZWaHhhWU4vV2hxcDBxdWxw?=
+ =?utf-8?B?TGYvMVlnU0RzUlUxMjJtb01iMjFjam1TUjRLT3FaSVlGSWFsVkdrSlpJdVpP?=
+ =?utf-8?B?K2gxM2ZpWVZjeG03NHlwVUtiRndMeUh2QXp2VUEvQWo1SGVEZ2VMRUgwQmV1?=
+ =?utf-8?B?NHhESGVwU2hiNDJrWWR2bHhXaDJFT0txWDdDNGphVUpMK0Q1L1Q1YXU5SHNL?=
+ =?utf-8?B?ZTVaR0ZLNWVNbVYySEsxNmNjSmNYSEYvRmc2VkNtNk50STVvZUZBaEpVdUx4?=
+ =?utf-8?B?amhKZHF5WCtBSlYzTG5ETEFPcjZBSCtUYlFndFJsNXRVVnBNbysraHZVZnp4?=
+ =?utf-8?B?L1V2V0cwRUtDTVdlS1l4ckJ5S3Z4Z3g0WktMNi9tTjU0U1hPY2VLWTFjTkdz?=
+ =?utf-8?B?YjR4akZud0w0aGhLanNtNDd0M05QdVRhcmJSUUxKV2pIM3hEMVJrd01xb3Zo?=
+ =?utf-8?Q?3H6SYP/W3neu2nKCt3FHR8qbeBSKE3sd6kCEY=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a003cFIvZmZ5WUpXSW1aVVhqa1BCOHQwSlhKZ0gzZnRNNUVPd1BTQ01yb1dZ?=
- =?utf-8?B?K1ZkZlZOWjNveXlvZzBBY2VxUXJVMHVjZCtjNzVKM2ZSNU1DSzdRcURyaTN5?=
- =?utf-8?B?Y1ZrUDlzcS81RlN2dnBJLzJTTG5HYUJmL3lidXBwSUlrWWtWbjgzV2JXd3Rz?=
- =?utf-8?B?OFdseGxJZEk3ZnFpUUpJd0FjRStpQkU2c3NEYlZYdDhiUTZjNVhhL25ac2k1?=
- =?utf-8?B?bHlKZ3hxQ3VIdjJxK0twVDJrVGJwb1B0Tk5hT01PZVQyMlVhRTQ5SFZRMzhX?=
- =?utf-8?B?b0dVS3pGUGxHaHhRb1NCRjRDdEYzN3dnRGNzSVZlblZlYlpWWVBLQ0tJekc1?=
- =?utf-8?B?TGdEa3R6MW5nQXFvZHUxazFKQURZTG9jcUd3NGZkczVDMmVyZTdNdDd2cTRH?=
- =?utf-8?B?Szd0OEFsRFZsODlrQXg1M09heEZhSUllSnp6Sld5T3hwRmh1Rm0wNnk2QTVC?=
- =?utf-8?B?bHVyMjhybEk5WGhMMy9UcUJBaWRUditmdkNCM2Y0dGFvd0NSY3Evam5kaDdW?=
- =?utf-8?B?d1E5YlZJUENibnZSNDBGajk1RVIxckc0Q05qUm51ZFZwZnFUcXpiMU8zSU44?=
- =?utf-8?B?TVRPMVVrT3BobFN4d1haSDN1WUFDc0ZteG1rdWIwNGVxYTVlcGpaajh1dk9P?=
- =?utf-8?B?TEVDaWRQNWx4NWpZdXVUZ09kdW9mMHN6WlJWNUVYM2FXNVhjaktuOFl3Nk5k?=
- =?utf-8?B?bC95UTdGNTZJcDdEaWhhL0d0RHpuSXEvTFArSkVLdHJnVVhpR1U5azVZZ2Mw?=
- =?utf-8?B?WDhNTWEvMS9mUlBrcnB6U09aMURDbGVPdExhV2N5WnlDeUFDcHpDUGlZZWha?=
- =?utf-8?B?MWV4TDEyT294bUQ3TkVkRkErZElVRlhZKzBFVHhIMlZsUG9vRnZUWXRobnVL?=
- =?utf-8?B?UC9IZmozVlNPUWphMG1qeXJxZ21CWmVQb3hUUGdKN0EvQWUzQ2JlanBrTzZ5?=
- =?utf-8?B?YmRZWTNGZXVzOVUxbW11QVk2K2I5MEZQUVdSdm9NaUFhMnBjYTNmSXk5VUtw?=
- =?utf-8?B?SlFoWGZSaXovaFovS2RWMjB3bGh4VU1YdGlJTnZMOG81bEpXZWpvN0NuSzdw?=
- =?utf-8?B?M2gzZjNTNVUzU1U1TWJ4TkZwaVBMM1ZoZkZMUVJxWE9xQnZCZkY4WDIrdXlR?=
- =?utf-8?B?eHVuUGxyWTJkTFR4OE1GVElFaTliSjZ4MDRYMjEvY3k5Q3p6azVrd1BwZEFZ?=
- =?utf-8?B?eHhvZXJNcC9IVTJkRHZLTUMyaU5Qb3BlWWlqY0tBTGwwVVgyZjYyTERzWTYw?=
- =?utf-8?B?N0FxQXFhSGxBREVPWS8rOUl1SC84RkV2ZG5UMjE4aktKanl0U0VrdzBBcjJU?=
- =?utf-8?B?WHEwWjdWcU1nWEFXUWpyajJSVEw0OEZUR1dPWHVwVm5xWm5DeENXcEhaNm5W?=
- =?utf-8?B?MFVZc2o0ZytmWW1md3RDUi9hN1JGeGJOMHhVRWxQTkhnRFlVYW56Q0RaejhG?=
- =?utf-8?B?M2hoeVg4VmRKdkJQZGc2NFpHelVEdVFZL05rSmF2REJmNlB0MzB2NWliYXVj?=
- =?utf-8?B?ZXZUTmpIczk4a0dNc1Jxd3pVU2pzcWFwZnE4Rm1wcUlYblliSEJTRXo5QmUw?=
- =?utf-8?B?NG1UYUl1UGZrakFpeUdWdjIydVhXRGEzeVVaMkRuYlZJeWdib1d2UlZxMTRi?=
- =?utf-8?B?TG5BeGVtendjTHcwYVhwcWNqUk14NlJiRVhTNSt0WlBqZ2lmRHF4dlMvMFo4?=
- =?utf-8?B?QzV4YWFrZllwajJSWnZqSVQxRTlYZXJUdHp1MzF2bjNqNWNrRzg2RzIxZjZH?=
- =?utf-8?B?clZ1RzZmUS9SbkhVaG96emZocEh4eXFxMVBGekVrYVAwVk5DSERnY0RnL3Nr?=
- =?utf-8?B?OWkwNFlvQURIbFRkWmVuNTltck1SZ1RocmhaWUZabHBQTFhFWExkR3VQVnhx?=
- =?utf-8?B?NE9zVFBRY1gxdkJzN3VIT3N4aGo5WXhveHR4TnhDcytPUHlCczN6bkZmMVB5?=
- =?utf-8?B?WDY1MG5RM0t4QTdIK2JQU2tiWjlidWtmN0szTGxONzFHQW9YRGpZeit0RS90?=
- =?utf-8?B?Yi81WitnRWsyaW5KaUcwR2tycmFLb0EwcTFHVTQyWDdpTzRwRHF2NXBNRTh0?=
- =?utf-8?B?UHBVRFQrUk5jV25YeERTdGU0RlZKSDhESnZPU0NFVW13RGVQTS84RytMZUJr?=
- =?utf-8?Q?3rMeh+1fveJBGpDjRdAGEMnua?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ykx4cWFjWmVsZHI4ekVaU1UvSzlLNnpwS0hwZEh2amt2cGNxQjdLemVRS04y?=
+ =?utf-8?B?cW5zU056bC8zaWx4U0lOMkY4VGRTYmdFOWlyYjRtdG1vWFJKNUtueXJTOVp4?=
+ =?utf-8?B?VnFOS2JuSFhwUkw5d0ZRZDdueENrRjBaTit5blZHaDB5b1pxS1dkckVvUlhR?=
+ =?utf-8?B?VWM3QnlHakhUa1A1MmZiOE44dmNWTHNTeGc0QVYwK0pQZnZkeDdlc1dXQ2h3?=
+ =?utf-8?B?SkVwMjJYMTQ3RktUeHFxOHFOa3ZkTWJPbW9RSmZSb0kyV3VqWGNtLzdwT1h1?=
+ =?utf-8?B?dXVnUjNuZUtnR043aTNPdGhkMjN5ajlPbW5GUkV1M0t5S2pxV2pUN1dzVUZr?=
+ =?utf-8?B?Y0N3R3k1eUkzWkRrZTduWGZwNWtDTHp3V0FDcEUyWmt5K1hpVE9xWjZ5dUYz?=
+ =?utf-8?B?K0ZQcHdPNDd3SGRvVHdNa2VIWWxuS2JZQTB3aUZzVlk2VEw0NGxoQjc2UWFi?=
+ =?utf-8?B?WkZ3azMxWE11aXdVSFFITjdnM2dSUXJEaDFuNGhVZnNQMk0yQjNHbW40enMx?=
+ =?utf-8?B?WkRQeS9oNVRiSXVKdDR5bTJBWml2OVRxNWVsSk10TnU0c1N0K2sxa0FIOVRE?=
+ =?utf-8?B?c2huSFVGSXc2YmgwU25oQ2o0VnlIbVJrOWtBdTFZMGFlVHBjWUdjOVd1Tno1?=
+ =?utf-8?B?ejZhM0JOelIrUzlFOVpXWC9hWHlGdlNPRUM0Y2NFWFJpR0hKMXhhblplQTcr?=
+ =?utf-8?B?dkVqTndHcFFuaFJJZ3dQcFVPcC9EeUJidFl4cnRmeHV6ZmJYYW1KZ044MjRJ?=
+ =?utf-8?B?dDlNcHhwR3V3U1p5cDExdm4yUFF0bFUxYXhhZDNvQVpXZzdKQUE5NXVSR2ZM?=
+ =?utf-8?B?MVdYWXdoS2kycUJEYUFIdkt2Y3NxMTNUeEFmQnIrbjRtYktUQ0Q0VkpVcVJD?=
+ =?utf-8?B?L25LcXJOdWNxYkdCYjhSZjl2QVdDRDZHZzVma1NNSFNGV0hXKzg4RHRSRnBa?=
+ =?utf-8?B?Y1ZNWElyVU4ycTBiS29iUjQwcEZJbWREODJVYnJkUW9Wc294Q1NIUEx4MnhS?=
+ =?utf-8?B?M0hlZ1k5WllqZmYvSEFnbXYvNVBWai95OUVSNXphS1BhL1FaS0JBNHJSMkxQ?=
+ =?utf-8?B?UmxoWDhLVDByUGIyei9NSWx0SnM2N2tPNHBZYU10emlPZExxNUVpWmk3Vloz?=
+ =?utf-8?B?Qi9sc2hLSXZIYm05UTcwc3A3d3JZcWgyMVZwWUh0K2NxZEd3ajhLdzZLSUtH?=
+ =?utf-8?B?SWhUOUNSK1FlSkw1M1VMV3RUWTFZNnk2bGZwMTB1dzhjaVA0NVdTL2pBV1E1?=
+ =?utf-8?B?TDEwbHU1cXBMM1hoTzV5bHRZUW1kZG5hL2NQbzlzZVQ5VmhSc29HRVpHY0s1?=
+ =?utf-8?B?My9IVERoTHFyaUtPOE9HTHVqcTZqMC93cjNZdDJERyttUTQzSk5RMTN4WmZo?=
+ =?utf-8?B?OFNLR04yRXczUVhQWHBxZWFHNlh0WW11MzNtcEJZcCtxSWRLcjJSekNUaDlS?=
+ =?utf-8?B?QUlpeWJwTGcrN2NGMUZLcHg2MGhKekJYc1JRSHppY1BOQkpzOXo0UjhnQ3J4?=
+ =?utf-8?B?Qk9DcnUyTFhyZ3cveUFDb203YzRwbWFlQXFTZ3NOanUxcEl6dERWT1Z3bkJD?=
+ =?utf-8?B?RU9UUTVFbjdrYTFPSHZyNzV0Qnk4QXdUTTdQNFNuZmU2QlN3TkpKcTNhZmJX?=
+ =?utf-8?B?MXF6aTRSRGZJcjJxNjNvWjIyODM2WnEwN1JxVityQkw0dUU2RHJOa0UrUFIr?=
+ =?utf-8?B?aU1yc3dmTlJ5TE11WjQ3SHpkb3B3REFQT2VRUmJhSTYrZmNOYzZyK2p4S3V2?=
+ =?utf-8?B?Sml5b3hyKzNMUE1JeDFMYlJIdVU5TVdaSFpNT2hLb3BjOGtMVk1xQ1JCNEs1?=
+ =?utf-8?B?Wi8xcjkxUlZXdlh0clcwWHFKRGxxUFFsdktCNndqZkVuNTBUY2FqVVhhSWJl?=
+ =?utf-8?B?NjhuaUxGcU05bzNjQkxQOHFRckZFbkUwV0lOSGI4YWhxTndRa2lRSldsL21H?=
+ =?utf-8?B?bThCV1B0SE5Senc4aThaeHF3VXZGQ2lqRGtEdzlaaENmVUFWSHd0OXJwQjVU?=
+ =?utf-8?B?VWprVzg2cXd3ZzVqc3NlalRHcnZyc3N6eWVTQWhUZDVlejBiRWxoeFIxRW4r?=
+ =?utf-8?B?RHJYN2xrQThTMndNQjRrNmNFVGJTT0JFaVR6bmJZdGRXa3VQSGZoNUl6VlZa?=
+ =?utf-8?Q?5Gf86sk6mbQbLnIFhLttHFiEA?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b2c14d1-4b78-45ba-631a-08ddce115389
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6338637-de4b-4b84-c03b-08ddce27a9f0
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2025 19:59:56.9253 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2025 22:39:51.1036 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QAPJtVeAyYX81xcr/gEzYCD1FKpaZRh8dgLuLqU3fJi6X1HpGYbhVQpX9jL+xECzaoaFqj+LGZeQ3Acd+INPGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8341
+X-MS-Exchange-CrossTenant-UserPrincipalName: dRhTdMk8qCjSpr3LDQEPJ40KGO2BukT5KN56/Wa7kLCFbePeeXOUiD6EkUnQVbAYFR77ctEmIJGxoqPIOr4Q1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8188
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,151 +158,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Patches 1-7 are
+On 7/28/2025 11:07 PM, Alex Deucher wrote:
+> Add MP1 for APUs and MP0 and MP1 details for dGPUs.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3905
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 
-See my separate comments on patches 8 and 9.
+> ---
+>   .../gpu/amdgpu/amd-hardware-list-info.rst     |  4 +-
+>   .../gpu/amdgpu/apu-asic-info-table.csv        | 34 +++++------
+>   .../gpu/amdgpu/dgpu-asic-info-table.csv       | 56 +++++++++----------
+>   3 files changed, 47 insertions(+), 47 deletions(-)
+> 
+> diff --git a/Documentation/gpu/amdgpu/amd-hardware-list-info.rst b/Documentation/gpu/amdgpu/amd-hardware-list-info.rst
+> index 1786544fe7c11..e72f4ff770c45 100644
+> --- a/Documentation/gpu/amdgpu/amd-hardware-list-info.rst
+> +++ b/Documentation/gpu/amdgpu/amd-hardware-list-info.rst
+> @@ -10,7 +10,7 @@ Accelerated Processing Units (APU) Info
+>   
+>   .. csv-table::
+>      :header-rows: 1
+> -   :widths: 3, 2, 2, 1, 1, 1, 1
+> +   :widths: 3, 2, 2, 1, 1, 1, 1, 1
+>      :file: ./apu-asic-info-table.csv
+>   
+>   Discrete GPU Info
+> @@ -18,6 +18,6 @@ Discrete GPU Info
+>   
+>   .. csv-table::
+>      :header-rows: 1
+> -   :widths: 3, 2, 2, 1, 1, 1
+> +   :widths: 3, 2, 2, 1, 1, 1, 1, 1
+>      :file: ./dgpu-asic-info-table.csv
+>   
+> diff --git a/Documentation/gpu/amdgpu/apu-asic-info-table.csv b/Documentation/gpu/amdgpu/apu-asic-info-table.csv
+> index 1d50b539677f0..b479c5629146f 100644
+> --- a/Documentation/gpu/amdgpu/apu-asic-info-table.csv
+> +++ b/Documentation/gpu/amdgpu/apu-asic-info-table.csv
+> @@ -1,17 +1,17 @@
+> -Product Name, Code Reference, DCN/DCE version, GC version, VCE/UVD/VCN version, SDMA version, MP0 version
+> -Radeon R* Graphics, CARRIZO/STONEY, DCE 11, 8, VCE 3 / UVD 6, 3, n/a
+> -Ryzen 3000 series / AMD Ryzen Embedded V1*/R1* with Radeon Vega Gfx, RAVEN/PICASSO, DCN 1.0, 9.1.0, VCN 1.0, 4.1.0, 10.0.0
+> -Ryzen 4000 series, RENOIR, DCN 2.1, 9.3, VCN 2.2, 4.1.2, 11.0.3
+> -Ryzen 3000 series / AMD Ryzen Embedded V1*/R1* with Radeon Vega Gfx, RAVEN2, DCN 1.0, 9.2.2, VCN 1.0.1, 4.1.1, 10.0.1
+> -SteamDeck, VANGOGH, DCN 3.0.1, 10.3.1, VCN 3.1.0, 5.2.1, 11.5.0
+> -Ryzen 5000 series / Ryzen 7x30 series, GREEN SARDINE / Cezanne / Barcelo / Barcelo-R, DCN 2.1, 9.3, VCN 2.2, 4.1.1, 12.0.1
+> -Ryzen 6000 series / Ryzen 7x35 series / Ryzen 7x36 series, YELLOW CARP / Rembrandt / Rembrandt-R, 3.1.2, 10.3.3, VCN 3.1.1, 5.2.3, 13.0.3
+> -Ryzen 7000 series (AM5), Raphael, 3.1.5, 10.3.6, 3.1.2, 5.2.6, 13.0.5
+> -Ryzen 9000 series (AM5), Granite Ridge, 3.1.5, 10.3.6, 3.1.2, 5.2.6, 13.0.5
+> -Ryzen 7x45 series (FL1), Dragon Range, 3.1.5, 10.3.6, 3.1.2, 5.2.6, 13.0.5
+> -Ryzen 7x20 series, Mendocino, 3.1.6, 10.3.7, 3.1.1, 5.2.7, 13.0.8
+> -Ryzen 7x40 series, Phoenix, 3.1.4, 11.0.1 / 11.0.4, 4.0.2, 6.0.1, 13.0.4 / 13.0.11
+> -Ryzen 8x40 series, Hawk Point, 3.1.4, 11.0.1 / 11.0.4, 4.0.2, 6.0.1, 13.0.4 / 13.0.11
+> -Ryzen AI 300 series, Strix Point, 3.5.0, 11.5.0, 4.0.5, 6.1.0, 14.0.0
+> -Ryzen AI 350 series, Krackan Point, 3.5.0, 11.5.2, 4.0.5, 6.1.2, 14.0.4
+> -Ryzen AI Max 300 series, Strix Halo, 3.5.1, 11.5.1, 4.0.6, 6.1.1, 14.0.1
+> +Product Name, Code Reference, DCN/DCE version, GC version, VCE/UVD/VCN version, SDMA version, MP0 version, MP1 version
+> +Radeon R* Graphics, CARRIZO/STONEY, DCE 11, 8, VCE 3 / UVD 6, 3, n/a, 8
+> +Ryzen 3000 series / AMD Ryzen Embedded V1*/R1* with Radeon Vega Gfx, RAVEN/PICASSO, DCN 1.0, 9.1.0, VCN 1.0, 4.1.0, 10.0.0, 10.0.0
+> +Ryzen 4000 series, RENOIR, DCN 2.1, 9.3, VCN 2.2, 4.1.2, 11.0.3, 12.0.1
+> +Ryzen 3000 series / AMD Ryzen Embedded V1*/R1* with Radeon Vega Gfx, RAVEN2, DCN 1.0, 9.2.2, VCN 1.0.1, 4.1.1, 10.0.1, 10.0.1
+> +SteamDeck, VANGOGH, DCN 3.0.1, 10.3.1, VCN 3.1.0, 5.2.1, 11.5.0, 11.5.0
+> +Ryzen 5000 series / Ryzen 7x30 series, GREEN SARDINE / Cezanne / Barcelo / Barcelo-R, DCN 2.1, 9.3, VCN 2.2, 4.1.1, 12.0.1, 12.0.1
+> +Ryzen 6000 series / Ryzen 7x35 series / Ryzen 7x36 series, YELLOW CARP / Rembrandt / Rembrandt-R, 3.1.2, 10.3.3, VCN 3.1.1, 5.2.3, 13.0.3, 13.0.3
+> +Ryzen 7000 series (AM5), Raphael, 3.1.5, 10.3.6, 3.1.2, 5.2.6, 13.0.5, 13.0.5
+> +Ryzen 9000 series (AM5), Granite Ridge, 3.1.5, 10.3.6, 3.1.2, 5.2.6, 13.0.5, 13.0.5
+> +Ryzen 7x45 series (FL1), Dragon Range, 3.1.5, 10.3.6, 3.1.2, 5.2.6, 13.0.5, 13.0.5
+> +Ryzen 7x20 series, Mendocino, 3.1.6, 10.3.7, 3.1.1, 5.2.7, 13.0.8, 13.0.8
+> +Ryzen 7x40 series, Phoenix, 3.1.4, 11.0.1 / 11.0.4, 4.0.2, 6.0.1, 13.0.4 / 13.0.11, 13.0.4 / 13.0.11
+> +Ryzen 8x40 series, Hawk Point, 3.1.4, 11.0.1 / 11.0.4, 4.0.2, 6.0.1, 13.0.4 / 13.0.11, 13.0.4 / 13.0.11
+> +Ryzen AI 300 series, Strix Point, 3.5.0, 11.5.0, 4.0.5, 6.1.0, 14.0.0, 14.0.0
+> +Ryzen AI 350 series, Krackan Point, 3.5.0, 11.5.2, 4.0.5, 6.1.2, 14.0.4, 14.0.4
+> +Ryzen AI Max 300 series, Strix Halo, 3.5.1, 11.5.1, 4.0.6, 6.1.1, 14.0.1, 14.0.1
+> diff --git a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv b/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
+> index d2f10ee69dfcb..0f822a252fcb3 100644
+> --- a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
+> +++ b/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
+> @@ -1,28 +1,28 @@
+> -Product Name, Code Reference, DCN/DCE version, GC version, VCN version, SDMA version
+> -AMD Radeon (TM) HD 8500M/ 8600M /M200 /M320 /M330 /M335 Series, HAINAN, --,  6, --, --
+> -AMD Radeon HD 7800 /7900 /FireGL Series, TAHITI, DCE 6, 6, VCE 1 / UVD 3, --
+> -AMD Radeon R7 (TM|HD) M265 /M370 /8500M /8600 /8700 /8700M, OLAND, DCE 6, 6, VCE 1 / UVD 3, --
+> -AMD Radeon (TM) (HD|R7) 7800 /7970 /8800 /8970 /370/ Series, PITCAIRN, DCE 6, 6, VCE 1 / UVD 3, --
+> -AMD Radeon (TM|R7|R9|HD) E8860 /M360 /7700 /7800 /8800 /9000(M) /W4100 Series, VERDE, DCE 6, 6, VCE 1 / UVD 3, --
+> -AMD Radeon HD M280X /M380 /7700 /8950 /W5100, BONAIRE, DCE 8, 7, VCE 2 / UVD 4.2, 1
+> -AMD Radeon (R9|TM) 200 /390 /W8100 /W9100 Series, HAWAII, DCE 8, 7, VCE 2 / UVD 4.2, 1
+> -AMD Radeon (TM) R(5|7) M315 /M340 /M360, TOPAZ, *, 8, --, 2
+> -AMD Radeon (TM) R9 200 /380 /W7100 /S7150 /M390 /M395 Series, TONGA, DCE 10, 8, VCE 3 / UVD 5, 3
+> -AMD Radeon (FirePro) (TM) R9 Fury Series, FIJI, DCE 10, 8, VCE 3 / UVD 6, 3
+> -Radeon RX 470 /480 /570 /580 /590 Series - AMD Radeon (TM) (Pro WX) 5100 /E9390 /E9560 /E9565 /V7350 /7100 /P30PH, POLARIS10, DCE 11.2, 8, VCE 3.4 / UVD 6.3, 3
+> -Radeon (TM) (RX|Pro WX) E9260 /460 /V5300X /550 /560(X) Series, POLARIS11, DCE 11.2, 8, VCE 3.4 / UVD 6.3, 3
+> -Radeon (RX/Pro) 500 /540(X) /550 /640 /WX2100 /WX3100 /WX200 Series, POLARIS12, DCE 11.2, 8, VCE 3.4 / UVD 6.3, 3
+> -Radeon (RX|TM) (PRO|WX) Vega /MI25 /V320 /V340L /8200 /9100 /SSG MxGPU, VEGA10, DCE 12, 9.0.1, VCE 4.0.0 / UVD 7.0.0, 4.0.0
+> -AMD Radeon (Pro) VII /MI50 /MI60, VEGA20, DCE 12, 9.4.0, VCE 4.1.0 / UVD 7.2.0, 4.2.0
+> -MI100, ARCTURUS, *, 9.4.1, VCN 2.5.0, 4.2.2
+> -MI200 Series, ALDEBARAN, *, 9.4.2, VCN 2.6.0, 4.4.0
+> -MI300 Series, AQUA_VANJARAM, *, 9.4.3, VCN 4.0.3, 4.4.2
+> -AMD Radeon (RX|Pro) 5600(M|XT) /5700 (M|XT|XTB) /W5700, NAVI10, DCN 2.0.0, 10.1.10, VCN 2.0.0, 5.0.0
+> -AMD Radeon (Pro) 5300 /5500XTB/5500(XT|M) /W5500M /W5500, NAVI14, DCN 2.0.0, 10.1.1, VCN 2.0.2, 5.0.2
+> -AMD Radeon RX 6800(XT) /6900(XT) /W6800, SIENNA_CICHLID, DCN 3.0.0, 10.3.0, VCN 3.0.0, 5.2.0
+> -AMD Radeon RX 6700 XT / 6800M / 6700M, NAVY_FLOUNDER, DCN 3.0.0, 10.3.2, VCN 3.0.0, 5.2.2
+> -AMD Radeon RX 6600(XT) /6600M /W6600 /W6600M, DIMGREY_CAVEFISH, DCN 3.0.2, 10.3.4, VCN 3.0.16, 5.2.4
+> -AMD Radeon RX 6500M /6300M /W6500M /W6300M, BEIGE_GOBY, DCN 3.0.3, 10.3.5, VCN 3.0.33, 5.2.5
+> -AMD Radeon RX 7900 XT /XTX, , DCN 3.2.0, 11.0.0, VCN 4.0.0, 6.0.0
+> -AMD Radeon RX 7800 XT, , DCN 3.2.0, 11.0.3, VCN 4.0.0, 6.0.3
+> -AMD Radeon RX 7600M (XT) /7700S /7600S, , DCN 3.2.1, 11.0.2, VCN 4.0.4, 6.0.2
+> +Product Name, Code Reference, DCN/DCE version, GC version, VCN version, SDMA version, MP0 version, MP1 version
+> +AMD Radeon (TM) HD 8500M/ 8600M /M200 /M320 /M330 /M335 Series, HAINAN, --,  6, --, --, --, 6
+> +AMD Radeon HD 7800 /7900 /FireGL Series, TAHITI, DCE 6, 6, VCE 1 / UVD 3, --, --, 6
+> +AMD Radeon R7 (TM|HD) M265 /M370 /8500M /8600 /8700 /8700M, OLAND, DCE 6, 6, VCE 1 / UVD 3, --, --, 6
+> +AMD Radeon (TM) (HD|R7) 7800 /7970 /8800 /8970 /370/ Series, PITCAIRN, DCE 6, 6, VCE 1 / UVD 3, --, --, 6
+> +AMD Radeon (TM|R7|R9|HD) E8860 /M360 /7700 /7800 /8800 /9000(M) /W4100 Series, VERDE, DCE 6, 6, VCE 1 / UVD 3, --, --, 6
+> +AMD Radeon HD M280X /M380 /7700 /8950 /W5100, BONAIRE, DCE 8, 7, VCE 2 / UVD 4.2, 1, --, 7
+> +AMD Radeon (R9|TM) 200 /390 /W8100 /W9100 Series, HAWAII, DCE 8, 7, VCE 2 / UVD 4.2, 1, --, 7
+> +AMD Radeon (TM) R(5|7) M315 /M340 /M360, TOPAZ, *, 8, --, 2, n/a, 7
+> +AMD Radeon (TM) R9 200 /380 /W7100 /S7150 /M390 /M395 Series, TONGA, DCE 10, 8, VCE 3 / UVD 5, 3, n/a, 7
+> +AMD Radeon (FirePro) (TM) R9 Fury Series, FIJI, DCE 10, 8, VCE 3 / UVD 6, 3, n/a, 7
+> +Radeon RX 470 /480 /570 /580 /590 Series - AMD Radeon (TM) (Pro WX) 5100 /E9390 /E9560 /E9565 /V7350 /7100 /P30PH, POLARIS10, DCE 11.2, 8, VCE 3.4 / UVD 6.3, 3, n/a, 7
+> +Radeon (TM) (RX|Pro WX) E9260 /460 /V5300X /550 /560(X) Series, POLARIS11, DCE 11.2, 8, VCE 3.4 / UVD 6.3, 3, n/a, 7
+> +Radeon (RX/Pro) 500 /540(X) /550 /640 /WX2100 /WX3100 /WX200 Series, POLARIS12, DCE 11.2, 8, VCE 3.4 / UVD 6.3, 3, n/a, 7
+> +Radeon (RX|TM) (PRO|WX) Vega /MI25 /V320 /V340L /8200 /9100 /SSG MxGPU, VEGA10, DCE 12, 9.0.1, VCE 4.0.0 / UVD 7.0.0, 4.0.0, 9.0.0, 9.0.0
+> +AMD Radeon (Pro) VII /MI50 /MI60, VEGA20, DCE 12, 9.4.0, VCE 4.1.0 / UVD 7.2.0, 4.2.0, 11.0.2, 11.0.2
+> +MI100, ARCTURUS, *, 9.4.1, VCN 2.5.0, 4.2.2, 11.0.4, 11.0.2
+> +MI200 Series, ALDEBARAN, *, 9.4.2, VCN 2.6.0, 4.4.0, 13.0.2, 13.0.2
+> +MI300 Series, AQUA_VANJARAM, *, 9.4.3, VCN 4.0.3, 4.4.2, 13.0.6, 13.0.6
+> +AMD Radeon (RX|Pro) 5600(M|XT) /5700 (M|XT|XTB) /W5700, NAVI10, DCN 2.0.0, 10.1.10, VCN 2.0.0, 5.0.0, 11.0.0, 11.0.0
+> +AMD Radeon (Pro) 5300 /5500XTB/5500(XT|M) /W5500M /W5500, NAVI14, DCN 2.0.0, 10.1.1, VCN 2.0.2, 5.0.2, 11.0.5, 11.0.5
+> +AMD Radeon RX 6800(XT) /6900(XT) /W6800, SIENNA_CICHLID, DCN 3.0.0, 10.3.0, VCN 3.0.0, 5.2.0, 11.0.7, 11.0.7
+> +AMD Radeon RX 6700 XT / 6800M / 6700M, NAVY_FLOUNDER, DCN 3.0.0, 10.3.2, VCN 3.0.0, 5.2.2, 11.0.11, 11.0.11
+> +AMD Radeon RX 6600(XT) /6600M /W6600 /W6600M, DIMGREY_CAVEFISH, DCN 3.0.2, 10.3.4, VCN 3.0.16, 5.2.4, 11.0.12, 11.0.12
+> +AMD Radeon RX 6500M /6300M /W6500M /W6300M, BEIGE_GOBY, DCN 3.0.3, 10.3.5, VCN 3.0.33, 5.2.5, 11.0.13, 11.0.13
+> +AMD Radeon RX 7900 XT /XTX, , DCN 3.2.0, 11.0.0, VCN 4.0.0, 6.0.0, 13.0.0, 13.0.0
+> +AMD Radeon RX 7800 XT, , DCN 3.2.0, 11.0.3, VCN 4.0.0, 6.0.3, 13.0.10, 13.0.10
+> +AMD Radeon RX 7600M (XT) /7700S /7600S, , DCN 3.2.1, 11.0.2, VCN 4.0.4, 6.0.2, 13.0.7, 13.0.7
 
-Regards,
-   Felix
-
-
-On 2025-07-24 22:43, Zhu Lingshan wrote:
-> Currently kfd manages kfd_process in a one context (kfd_process)
-> per program manner, thus each user space program
-> only onws one kfd context (kfd_process).
->
-> This model works fine for most of the programs, but imperfect
-> for a hypervisor like QEMU. Because all programs in the guest
-> user space share the same only one kfd context, which is
-> problematic, including but not limited to:
->
-> As illustrated in Figure 1, all guest user space programs share the same fd of /dev/kfd
-> and the same kfd_process, and the same PASID leading to the same
-> GPU_VM address space. Therefore the IOVA range of each
-> guest user space programs are not isolated,
-> they can attack each other through GPU DMA.
->
->
->   +----------------------------------------------------------------------------------+
->   |                                                                                  |
->   |  +-----------+      +-----------+      +------------+      +------------+        |
->   |  |           |      |           |      |            |      |            |        |
->   |  | Program 1 |      | Program 2 |      | Program 3  |      | Program N  |        |
->   |  |           |      |           |      |            |      |            |        |
->   |  +----+------+      +--------+--+      +--+---------+      +-----+------+        |
->   |       |                      |            |                      |               |
->   |       |                      |            |                      |        Guest  |
->   |       |                      |            |                      |               |
->   +-------+----------------------+------------+----------------------+---------------+
->           |                      |            |                      |
->           |                      |            |                      |
->           |                      |            |                      |
->           |                      |            |                      |
->           |                   +--+------------+---+                  |
->           |                   | file descriptor   |                  |
->           +-------------------+ of /dev/kfd       +------------------+
->                               | opened by QEMU    |
->                               |                   |
->                               +---------+---------+                   User Space
->                                         |                             QEMU
->                                         |
-> ---------------------------------------+-----------------------------------------------------
->                                         |                             Kernel Space
->                                         |                             KFD Module
->                                         |
->                                +--------+--------+
->                                |                 |
->                                |   kfd_process   |<------------------The only one KFD context
->                                |                 |
->                                +--------+--------+
->                                         |
->                                +--------+--------+
->                                |     PASID       |
->                                +--------+--------+
->                                         |
->                                +--------+--------+
->                                |      GPU_VM     |
->                                +-----------------+
->
->                                   Fiture 1
->
->
-> This series implements a multiple contexts solution:
-> - Allow each program to create and hold multiple contexts (kfd processes)
-> - Each context has its own fd of /dev/kfd and an exclusive kfd_process,
->    which is a secondary kfd context. So that PASID/GPU VM isolates their IOVA address spaces.
->    Therefore, they can not attack each other through GPU DMA.
->
-> The design is illustrated in Figure 2 below:
->
->     +---------------------------------------------------------------------------------------------------------+
->     |                                                                                                         |
->     |                                                                                                         |
->     |                                                                                                         |
->     |       +----------------------------------------------------------------------------------+              |
->     |       |                                                                                  |              |
->     |       | +-----------+      +-----------+     +-----------+    +-----------+              |              |
->     |       | |           |      |           |     |           |    |           |              |              |
->     |       | | Program 1 |      | Program 2 |     | Program 3 |    | Program N |              |              |
->     |       | |           |      |           |     |           |    |           |              |              |
->     |       | +-----+-----+      +-----+-----+     +-----+-----+    +-----+-----+              |              |
->     |       |       |                  |                 |                |                    |              |
->     |       |       |                  |                 |                |        Guest       |              |
->     |       |       |                  |                 |                |                    |              |
->     |       +-------+------------------+-----------------+----------------+--------------------+              |
->     |               |                  |                 |                |                            QEMU   |
->     |               |                  |                 |                |                                   |
->     +---------------+------------------+-----------------+----------------+--------------------------+--------+
->                     |                  |                 |                |                          |
->                     |                  |                 |                |                          |
->                     |                  |                 |                |                          |
->                 +---+----+         +---+----+        +---+----+       +---+----+                 +---+-----+
->                 |        |         |        |        |        |       |        |                 | Primary |
->                 |  FD 1  |         |  FD 2  |        |  FD 3  |       |  FD 4  |                 |   FD    |
->                 |        |         |        |        |        |       |        |                 |         |
->                 +---+----+         +---+----+        +---+----+       +----+---+                 +----+----+
->                     |                  |                 |                 |                          |             User Space
->                     |                  |                 |                 |                          |
-> -------------------+------------------+-----------------+-----------------+--------------------------+----------------------------
->                     |                  |                 |                 |                          |             Kernel SPace
->                     |                  |                 |                 |                          |
->                     |                  |                 |                 |                          |
->     +--------------------------------------------------------------------------------------------------------------------------+
->     |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |
->     |        | Secondary   |    | Secondary   |   | Secondary   |   | Secondary   |            |  Primary    |   KFD Module    |
->     |        |kfd_process 1|    |kfd_process 2|   |kfd_process 3|   |kfd_process 4|            | kfd_process |                 |
->     |        |             |    |             |   |             |   |             |            |             |                 |
->     |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |
->     |               |                  |                 |                 |                          |                        |
->     |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |
->     |        |   PASID     |    |   PASID     |   |   PASID     |   |   PASID     |            |   PASID     |                 |
->     |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |
->     |               |                  |                 |                 |                          |                        |
->     |               |                  |                 |                 |                          |                        |
->     |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |
->     |        |   GPU_VM    |    |   GPU_VM    |   |   GPU_VM    |   |   GPU_VM    |            |   GPU_VM    |                 |
->     |        +-------------+    +-------------+   +-------------+   +-------------+            +-------------+                 |
->     |                                                                                                                          |
->     +--------------------------------------------------------------------------------------------------------------------------+
->                                                                                                                                    
->                                                    Figure 2
->
-> Zhu Lingshan (9):
->    amdkfd: enlarge the hashtable of kfd_process
->    amdkfd: mark the first kfd_process as the primary one
->    amdkfd: find_process_by_mm always return the primary context
->    amdkfd: Introduce kfd_create_process_sysfs as a separate function
->    amdkfd: destroy kfd secondary contexts through fd close
->    amdkfd: process svm ioctl only on the primary kfd process
->    amdkfd: process USERPTR allocation only on the primary kfd process
->    amdkfd: identify a secondary kfd process by its id
->    amdkfd: introduce new ioctl AMDKFD_IOC_CREATE_PROCESS
->
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  62 ++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  14 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 204 +++++++++++++++++------
->   include/uapi/linux/kfd_ioctl.h           |   8 +-
->   4 files changed, 231 insertions(+), 57 deletions(-)
->
