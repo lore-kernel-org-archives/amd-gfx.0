@@ -4,57 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E5E3C87FC9
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 12:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FFFBC87FC9
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 13:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1095110E4EE;
-	Mon, 28 Jul 2025 12:58:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C0210E505;
+	Mon, 28 Jul 2025 13:01:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=cachyos.org header.i=@cachyos.org header.b="gL/9WQ/q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HM09IXrB";
 	dkim-atps=neutral
-Received: from mail.ptr1337.dev (mail.ptr1337.dev [202.61.224.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72D9E10E341;
- Mon, 28 Jul 2025 08:54:04 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 05FAE2842E3; Mon, 28 Jul 2025 10:45:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cachyos.org; s=dkim;
- t=1753692331; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=hZAZQxcJny2MJlnbj6INcbeqX5pbA4FFdFvh2PmI64w=;
- b=gL/9WQ/qCqbdu8zR86gU47Fb4JEBykEZI3fYcn9RWlJ1FkRil9jRegxpKVtlMVHiuCRkvD
- eUN8qjcTZbRYiOkvX4mdgh/LxFAr5+8+kF7N59rXBpMN6Ij4pFM7K0toI9/17YaGKGKaib
- TRUqRWvjhzvFhphSevh08vs5VWbN3+rSK8oTR33/pl3tDKExtUZjXzo2iLkcAc7fqbskIw
- LuRqFnwnfmC9KGst5fDt6aVyRY9/lqAnz1lnsj7VqV6WWNJBP5H76boU0TjPx4UuuMwu9R
- DCIWav85qzoBaQQMN29prltn9IdsIgfcfFXvyThIPqE17s2r92h8R/Qfq6plxQ==
-Message-ID: <d9a1ed6d-05bb-440d-afa9-cb30315bd02d@cachyos.org>
-Date: Mon, 28 Jul 2025 15:45:25 +0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2051.outbound.protection.outlook.com [40.107.223.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E457A10E502
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Jul 2025 13:01:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eYK5D3IjAsKNfhugfKkA6vmc4dDJRgU5/n6wGG5VuE9Q4nB+y3WPWxYFNN1A8EiqvKumRL0++Hq5Y4zl03PvCGsG4BoNwXsMvHkfdn1FaR97TIEJ2eXFFl4smg2zPI0pFinwXEGJrU+hjqR1Bi3rTt4cMKDrb8wbBdYMPBZvxH3C5/Knluki/xcub3QSXJ+7zKKK4X9x0FsWmQipQ3iTXA+tb7/H43MgQByog2+gf9hDOPBJB47hcfbDYyBHQ0KKFJot9fdky275SKMmCeKDgIQnE0fmLebVVBc7FUCpy0wMUrpme0djkrC/YvwgsIG7GssS/MJyCkFyjDvm8dpRZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B1ZxdtKMgN64mMpH0vF4bBs63/pmXiZXtw2s0zP+eZk=;
+ b=sanuCyPW/hHGaIjMtD6kFUkLsBBBnByAXzph3FSRJHYaMjQIR/v1HW3TTAEY7ekeJI+E9ENCFx+u7AuXyEYtg7cpw1r/nZfv0IaLLR8RK08E3UYQ1QNyYXRG+vKYxdKJLnOXxDaY+yhhzFJSx22M/Wb6muFVS7bkwmQMi/4KglNubU/ArIVO1sBPdapVv8uNF7RpeALeh8winxK+5AwYK10HRhs0uy1OJ1H7mhT0xy2JLgKBrMBOgzVp54CVKRKc3tEkm0oL3rRuoPb/c2wf1GNz9Q3hxoc6enAMjC2VR2tMXJ2W+DfuSuRSamc1UoQGlo0a6F/fkU25pJ1JVPa5hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B1ZxdtKMgN64mMpH0vF4bBs63/pmXiZXtw2s0zP+eZk=;
+ b=HM09IXrBQI6lTfGwToPJD/mZfcrivboY6FC3bXXazA+J2EEVu4OYhI4nz6RTqt6P8X9KzRCbFO/gk/hVrIP6cmG505Q1N0Nq/mYvLkGalqbLwXv0cwmnaOckyBFDK/sTIS5nNL7D7efEicdxYn3qWHQ3G8buJi/mCmxxS8XWCEY=
+Received: from MW4PR03CA0142.namprd03.prod.outlook.com (2603:10b6:303:8c::27)
+ by MN0PR12MB5786.namprd12.prod.outlook.com (2603:10b6:208:375::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.21; Mon, 28 Jul
+ 2025 13:01:56 +0000
+Received: from SN1PEPF0002BA51.namprd03.prod.outlook.com
+ (2603:10b6:303:8c:cafe::85) by MW4PR03CA0142.outlook.office365.com
+ (2603:10b6:303:8c::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.26 via Frontend Transport; Mon,
+ 28 Jul 2025 13:01:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002BA51.mail.protection.outlook.com (10.167.242.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8989.10 via Frontend Transport; Mon, 28 Jul 2025 13:01:55 +0000
+Received: from MKMYUNXIALI01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Jul
+ 2025 08:01:54 -0500
+From: Yunxiang Li <Yunxiang.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>
+CC: Yunxiang Li <Yunxiang.Li@amd.com>
+Subject: [PATCH] drm/amdgpu: skip mgpu fan boost for multi-vf
+Date: Mon, 28 Jul 2025 09:01:27 -0400
+Message-ID: <20250728130128.875-1-Yunxiang.Li@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] Improvements to S5 power consumption
-To: Mario Limonciello <superm1@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:HIBERNATION (aka Software Suspend, aka swsusp)"
- <linux-pm@vger.kernel.org>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>,
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>
-References: <20250616175019.3471583-1-superm1@kernel.org>
-Content-Language: en-US
-From: Eric Naim <dnaim@cachyos.org>
-In-Reply-To: <20250616175019.3471583-1-superm1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
-X-Mailman-Approved-At: Mon, 28 Jul 2025 12:58:48 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA51:EE_|MN0PR12MB5786:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1dba6a8-b91a-44e4-2144-08ddcdd6edf4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?xUvN1p2A6CLZY3+gnZX+GYcU9FxP7Vg20qf+uau102HGZHyzwh2WOCLMFJVy?=
+ =?us-ascii?Q?+k44/VoUigbNgxjYMVRS9mvXnLSOgxzUtzJhudVvezVHaViUHxIcEnK7BRiF?=
+ =?us-ascii?Q?DmDOktslUuprBHwkgMRRQwKa3m3AFjsHZqQ7AyClqZNv1T+lA9WKtdjhBWaP?=
+ =?us-ascii?Q?gdKCBTNbELq/zYKkW1/VmenHV+6Uqg78V/OUg7px2BXLXSp8TFvoRH4cPdzN?=
+ =?us-ascii?Q?XPAIKCUwApppnHyW4688N9RyJ0Ep5OXlRTbXUmtjfiWVHM4YHKbJjv35gn/m?=
+ =?us-ascii?Q?lVOeI9lb7Qw01sCYVEgueLPPhinqg+ZrFRC1//RCsuNThE3IFCMWJCZXxHvl?=
+ =?us-ascii?Q?xFCxtyuto9XiGz30Sw5KjX8JCv3IFH0BWFfmzojx9jfz9GIZ6Vo0PvMHFrLD?=
+ =?us-ascii?Q?4aLN/7OmaZ0tNnNQVhceAjtG0ONFZsZ078TGbk9wFHwIVMXvesyQrr44O9WD?=
+ =?us-ascii?Q?UKw/KLVBlwgZNZtYnYARp8cEUaDinNBvEug0KVcif0dS508wb/SiXJ+uhI4N?=
+ =?us-ascii?Q?fv6s85YAkBLDjbzkBod+bYrxs/NYdiqrqk+eoREPUROtDQa2epoign1zUnF2?=
+ =?us-ascii?Q?N2Ma8CTxu6IWYstKTLPII6eRuHw6kk8lOqRTEl2vuVusGUmTTH1txeXgPrPj?=
+ =?us-ascii?Q?pzyGa4IMjSn6vmg5mYRxMh91KLipSqnfJqfhiKDV9xtNPftxn07nyNWP0nxy?=
+ =?us-ascii?Q?X0iBbUC9oNlJRgWXfhEabpIWC1HIeMkV9aMwI/RQY7xCqUFiH/tpjk6jOgRA?=
+ =?us-ascii?Q?cwkj4tUrCSm5hadysb66v4kq/uN0qtABy7fSvns6j2usIm+ReeFrK69xH8gS?=
+ =?us-ascii?Q?h0vbWRyY0CHtmMx6rpfDaCYPv3925cO2RysvinXtIwC/uRr5y6L+SLMN7FSS?=
+ =?us-ascii?Q?7/xM6a0KrQRAZ68myGT/iKNIXCHM9yyPFuAAuMw4MTMBFdWpkfAhB++gt84h?=
+ =?us-ascii?Q?fjiUeCvolxSXlFzE4HP8ufSY0Bbrt4CxrUThsfo5TonYjgYMT4Q7qeeG5BFW?=
+ =?us-ascii?Q?i9faWZ5NKD2Qi0n0OBHlivFAg/hVLcS+1gFbaKJsRdvdBG0pP5PPU3KbQx3Z?=
+ =?us-ascii?Q?XfPsQCLX0r8QvPoU1SJuCK38utbuR2FA+PxFCspA1BwYvzK8fucmdxJD4qK1?=
+ =?us-ascii?Q?u82JdMhttEz0E4BvEIMZgpiI69y8RHDl/AWFtXOlc9dvsGOSMSIYspfoWlsm?=
+ =?us-ascii?Q?6Rhzgg9lBkMu3up1fCyb6nd7mypgx8MWtE07p/pNW4s6JNGs17xTmPQHUc34?=
+ =?us-ascii?Q?gy8qjq2HeVy7YqAY8DoqMZ9mAMIHEfzw8HL3C4lYHxu6TSGdTB3khtyHOR1z?=
+ =?us-ascii?Q?ebhlUxwjwEx/GWFKQBJ2bwEvBTBU4uvRpWCJyxSf9o3BmrCyymB7Mi0IE8um?=
+ =?us-ascii?Q?pcAMr/nTbr73dRECl2+F8PFNn7Wk/OUDRqBzsm6OU30qkbLcDZBzFFIEHdqy?=
+ =?us-ascii?Q?/AYveG5nNtq2+aY3hG6NTBVsaw3GRLoa86NgSz6aVD9X02Z2O1A1nX6abiLg?=
+ =?us-ascii?Q?7NqYoyem9p43ovw3NiROErglFTIeVXQQLmDa?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2025 13:01:55.4724 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1dba6a8-b91a-44e4-2144-08ddcdd6edf4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA51.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5786
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,60 +130,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/17/25 00:50, Mario Limonciello wrote:
-> From: Mario Limonciello <mario.limonciello@amd.com>
-> 
-> A variety of issues both in function and in power consumption have been
-> raised as a result of devices not being put into a low power state when
-> the system is powered off.
-> 
-> There have been some localized changes[1] to PCI core to help these issues,
-> but they have had various downsides.
-> 
-> This series instead tries to use the S4 flow when the system is being
-> powered off.  This lines up the behavior with what other operating systems
-> do as well.  If for some reason that fails or is not supported, unwind and
-> do the previous S5 flow that will wake all devices and run their shutdown()
-> callbacks.
-> 
+On multi-vf setup if the VM have two vf assigned, perhaps from two
+different gpus, mgpu fan boost will fail.
 
-Hi Mario,
+Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I've been running this series on CachyOS since 6.16-rc3 and have no issues.
-
-Feel free to add
-
-Tested-by: Eric Naim <dnaim@cachyos.org>
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 684d66bc0b5f..e0faf7200ec5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3389,7 +3389,7 @@ static int amdgpu_device_enable_mgpu_fan_boost(void)
+ 	for (i = 0; i < mgpu_info.num_dgpu; i++) {
+ 		gpu_ins = &(mgpu_info.gpu_ins[i]);
+ 		adev = gpu_ins->adev;
+-		if (!(adev->flags & AMD_IS_APU) &&
++		if (!(adev->flags & AMD_IS_APU || amdgpu_sriov_multi_vf_mode(adev)) &&
+ 		    !gpu_ins->mgpu_fan_enabled) {
+ 			ret = amdgpu_dpm_enable_mgpu_fan_boost(adev);
+ 			if (ret)
 -- 
-Regards,
-  Eric
-> v3->v4:
->  * Fix LKP robot failure
->  * Rebase on v6.16-rc2
-> 
-> Previous submissions [1]:
-> Link: https://lore.kernel.org/linux-pm/CAJZ5v0hrKEJa8Ad7iiAvQ3d_0ysVhzZcXSYc5kkL=6vtseF+bg@mail.gmail.com/T/#m91e4eae868a7405ae579e89b135085f4906225d2
-> Link: https://lore.kernel.org/linux-pci/20250506041934.1409302-1-superm1@kernel.org/
-> Link: https://lore.kernel.org/linux-pci/20231213182656.6165-1-mario.limonciello@amd.com/ (v1)
-> Link: https://lore.kernel.org/linux-pm/20250514193406.3998101-1-superm1@kernel.org/ (v2)
-> Link: https://lore.kernel.org/linux-pm/20250609024619.407257-1-superm1@kernel.org/ (v3)
-> 
-> Mario Limonciello (5):
->   PM: Use hibernate flows for system power off
->   PCI: Put PCIe ports with downstream devices into D3 at hibernate
->   drm/amd: Avoid evicting resources at S5
->   scsi: Add PM_EVENT_POWEROFF into suspend callbacks
->   usb: sl811-hcd: Add PM_EVENT_POWEROFF into suspend callbacks
-> 
->  drivers/base/power/main.c                  |  7 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +
->  drivers/pci/pci-driver.c                   | 94 ++++++++++++++--------
->  drivers/scsi/mesh.c                        |  1 +
->  drivers/scsi/stex.c                        |  1 +
->  drivers/usb/host/sl811-hcd.c               |  1 +
->  include/linux/pm.h                         |  3 +
->  include/trace/events/power.h               |  3 +-
->  kernel/reboot.c                            |  6 ++
->  9 files changed, 86 insertions(+), 34 deletions(-)
-> 
+2.50.1
+
