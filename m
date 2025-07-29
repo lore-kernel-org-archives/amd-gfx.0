@@ -4,43 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B00C83F26
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jul 2025 09:50:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62711C83F26
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jul 2025 13:08:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D20CF10E1E3;
-	Tue, 29 Jul 2025 09:49:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03B98890CE;
+	Tue, 29 Jul 2025 13:08:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=free.fr header.i=@free.fr header.b="A7Q4pR8f";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eI6UzP1+";
 	dkim-atps=neutral
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CABE110E1E3
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 09:49:57 +0000 (UTC)
-Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
- by smtp3-g21.free.fr (Postfix) with ESMTP id 3845213F88D;
- Tue, 29 Jul 2025 11:49:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
- s=smtp-20201208; t=1753782596;
- bh=x7iMsG4KaHTbOhl7VPW4haaO7v8fmmoQfUnQctezWxk=;
- h=Date:From:To:Cc:In-Reply-To:Subject:From;
- b=A7Q4pR8f5XyVZXsKdWa1W2dt7RQY4+VZqztPJz6UucYdxCV5ea8mqeTGzggZ2+NdU
- 6fbQi/18PymrZVYM3VFGLYIOVq6eI45D2rP0xI2tHmpDaMc+WtprZp0vWfWPfkRg7+
- OVHe5M2K03hCrypjG3ePpIkb+b7HsEhKmLoiMf4tKq0SIyakxvA6YDvmEmUqBQKtWV
- xHZvrVbvXYZnVkRcOTsmyDXyeUQmyMX2iI5guEqDQEqgcSIKtxuVNhkDl6pHmvtnFU
- 0jMkztNoNJYL5I3D0DQRkotJbE162Id3Ux1R3D54M2z2X5KMHdHkxuywnKj6ZzqNqh
- 7M0V0MWMKToRA==
-Date: Tue, 29 Jul 2025 11:49:55 +0200 (CEST)
-From: Yann Dirson <ydirson@free.fr>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Message-ID: <2140760933.194259033.1753782595813.JavaMail.root@zimbra39-e7.priv.proxad.net>
-In-Reply-To: <CADnq5_Mbr_dU3Xg39wj_DiUU4pRbS_tx23eOw5SEEFvMi6ReBQ@mail.gmail.com>
-Subject: Re: Need help to dig into X11 display freezing (Renoir, Xen/QubesOS)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC32310E1F8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 13:08:41 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-b3badf1afc0so336597a12.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 06:08:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1753794521; x=1754399321; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=X68WelXsk8BJuvuughpps18Z3y4ZivBN2zfN7ftNueM=;
+ b=eI6UzP1+2EnIk9oVF5PKomzThYzouz2MyCsElzoReicwMtcQ4W4fU4sLl6pNO3r5OP
+ N4fncQdaILvXWVGPTSR5ssGpd/QD+qj0HgtdheUsBn+mkt1B7MbqMT+m7ajWRJu0vqxd
+ h7wANOpEOrrOo/sLFHOWxIRUk/n1kGKoJD/ZBQDTux7qFR7E0Xts3QiKpa1/SEYE8iCz
+ GjNf6LXHlZmIf+AdnP7GJKBLzlfqnVAPPqQ7XuxzH06rY+8kBW4L/za6iSP6Q68G2G2R
+ R/N1aqaRW4hP5SmIoHRmNywLphtCxYTWprGyZGlBECXovqyGbz5ZiOHkt9ljctHJ3eJE
+ sXJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753794521; x=1754399321;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=X68WelXsk8BJuvuughpps18Z3y4ZivBN2zfN7ftNueM=;
+ b=jBUSjKPBEXkF3qrz1d5sRDUh03ft+O9mRhYO54p+/yb4wl3qlhAK8yE2myKWSV0m1z
+ apZB8ZVkayHMC3z8DKta5d4gW0TTtRuhQ+iFh65Dcag2pM/KHYVjtsjPGDr0I15fX+db
+ wVvH719jhsLTrfnG4yqK0bH0fJF4RdC+aIYC38w5UZ6gIAGqixi/VuiNSburA9/6lRFc
+ vkn98I30KEZBr6H/TvC17UyIJwfrhVpgDE6uz1YSZ8eTuOBP97/KKe6T27dbi3SfIOk9
+ jvnK1/mppBuAyKcxyG+1Rz4d/4mGPRmY8Npazp2Mbfk1oMbMBQH83MF0p3tsLKq4iRU6
+ qolw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVpkwutUMoWUTF3RnUJ9ZOS6KViyEs9jXBoCd2ojq5unBZuKgJ5WtcIJ2elsPtdGoCuJ+rFkhC2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxLshaJp5tJrpDXbabEU7NXFjLlIYmndmAmQwhyAo1ju3hrDD+K
+ c0u5TS8d5wxoiRFCdJ6oks4hppv8UmjG1GZgSjV+QT/g9WFgexw1KAvxe6I5JjfRLEVNWKe25Jv
+ FXIgycCe/Qr8kjeGQc81mrE+DzqtfUZT3BA==
+X-Gm-Gg: ASbGncv2nKPdJQ0RzQM3KCFxuaSVakHbFB2pOPRcDIS4MkMknePuxOcEtTphuh3qB9K
+ CbyGr8lTrQbC/itlUbRu19XobDQWqz2Y1w39JGCNBZWugO8cP/Jz+JubvwxCdBWle39CxyhsTt/
+ dTQ9FAhQUc2vr8LqpmmwqEspefEDd/VVt8W/R9nleCsY/Z36KA/i8YTCBQGr351G8/HfOEABqLn
+ BxxbzwDJ+MzJxlPQrE=
+X-Google-Smtp-Source: AGHT+IH6A3PdX7vOY2nxkfeBSC+HWkB29hlGZZ2xnochjdc4+0TOHRO5+kAEwFdOyJ8WgBd3WTLExI1oKs0e/0UDD4s=
+X-Received: by 2002:a17:90b:1b4f:b0:31f:16ee:5ddf with SMTP id
+ 98e67ed59e1d1-31f16ee66b8mr2880073a91.5.1753794521204; Tue, 29 Jul 2025
+ 06:08:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20250723090624.53536-1-YuanShang.Mao@amd.com>
+ <PH0PR12MB5420F1D3878389D200D4E419E05AA@PH0PR12MB5420.namprd12.prod.outlook.com>
+ <CADnq5_MBSe2tuczKGwigygErxYUXg=O+H63NcnFnMd_C0qLwpA@mail.gmail.com>
+ <PH0PR12MB5420F3163B34DB33AF74B6D9E025A@PH0PR12MB5420.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5420F3163B34DB33AF74B6D9E025A@PH0PR12MB5420.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 29 Jul 2025 09:08:29 -0400
+X-Gm-Features: Ac12FXzmIKGM5ZK_vOuvhcdKFqFiDFGSsePlBUINhnR-HuvsaZLxY8aeQrAippY
+Message-ID: <CADnq5_O-Nc7JtjxCWOdq9Eqx66n16_a5dgJ2=PO=FSfVduCBWg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: keep job->vm in amdgpu_job_prepare_job
+To: "YuanShang Mao (River)" <YuanShang.Mao@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "cao,
+ lin" <lin.cao@amd.com>, 
+ "Zhang, Tiantian (Celine)" <Tiantian.Zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [88.120.94.119]
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: ydirson@free.fr
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,53 +89,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> De: "Alex Deucher" <alexdeucher@gmail.com>
-> =C3=80: "Yann Dirson" <ydirson@free.fr>
-> Cc: "amd-gfx list" <amd-gfx@lists.freedesktop.org>
-> Envoy=C3=A9: Lundi 28 Juillet 2025 19:20:13
-> Objet: Re: Need help to dig into X11 display freezing (Renoir, Xen/QubesO=
-S)
->=20
-> On Sun, Jul 20, 2025 at 10:39=E2=80=AFAM Yann Dirson <ydirson@free.fr> wr=
-ote:
-> >
-> > Hello there,
-> >
-> > For a few months I've been experiencing occasional freezes of the
-> > X11 display
-> > on my QubesOS RENOIR laptop.  The setup is pretty much standard for
-> > QubesOS,
-> > with both GPUs attached to dom0 and XFCE running there (and the
-> > dGPU being
-> > mostly not used).  Kernel is QubesOS' kernel-latest-6.15.4.
-> >
-> > Those freezes most often occur while the screen is blanked
-> > by xscreensaver (suspend options fully deactivated here, as suspend
-> > is broken
-> > on this platform): in this case moving the mouse does not get the
-> > unlock banner
-> > displayed, the screen stays black... except the mouse pointer is
-> > visible.  I can
-> > also switch to other virtual consoles and interact with the system,
-> > but was
-> > never able to collect any evidence of something wrong being
-> > detected.
-> >
-> > Occasionally it also happens (like yesterday) while I'm working,
-> > and the X11
-> > display just seems frozen, no clue if the input devices trigger
-> > anything in
-> > there.
-> >
-> > I guess something goes wrong but gets undetected by the driver.
-> >  Any suggestion
-> > as to extra logging/debug features to enable?
->=20
-> Is this specific to QubesOS or a general problem even on bare metal?
+On Mon, Jul 28, 2025 at 10:41=E2=80=AFPM YuanShang Mao (River)
+<YuanShang.Mao@amd.com> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Hi Alexander
+>
+> > I didn't think we actually resubmitting jobs anymore.  How are we endin=
+g up trying to resubmit in the first place?
+>
+> It is not about resubmitting. amdgpu_vm_generation will check if the VM i=
+s valid for this job to use. For example, if a gfx job depends on an sdma j=
+ob, which is already cancelled, then the gfx job should be skipped.
 
-Actually this is my main machine so QubesOS is running most of the time.
-I'm only booting bare metal on this box for targeted tests, and
-never use it long enough then to see the problem trigger.
+Ah, that makes sense.  Can you include that in the patch description?
+With that included, the patch is
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
---=20
-Yann
+> Perhaps the dependencies between tasks should be resolved by the drm inst=
+ead of amdgpu.
+
+If we can do that or check the dependencies via the job itself that
+would be better in the long term.
+
+Alex
+
+>
+> uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_v=
+m *vm)
+> {
+>         uint64_t result =3D (u64)atomic_read(&adev->vram_lost_counter) <<=
+ 32;
+>
+>         if (!vm)
+>                 return result;
+>
+>         result +=3D lower_32_bits(vm->generation);
+>         /* Add one if the page tables will be re-generated on next CS */
+>         if (drm_sched_entity_error(&vm->delayed))
+>                 ++result;
+>
+>         return result;
+> }
+>
+> Thanks
+> River
+>
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Tuesday, July 29, 2025 2:10 AM
+> To: YuanShang Mao (River) <YuanShang.Mao@amd.com>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Ch=
+ristian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org; cao, lin <lin.cao@a=
+md.com>; Zhang, Tiantian (Celine) <Tiantian.Zhang@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: keep job->vm in amdgpu_job_prepare_job
+>
+> On Mon, Jul 28, 2025 at 5:01=E2=80=AFAM YuanShang Mao (River) <YuanShang.=
+Mao@amd.com> wrote:
+> >
+> > [AMD Official Use Only - AMD Internal Distribution Only]
+> >
+> > Hi Alexander
+> >
+> >         Since Christian is on vacation. Could you help review the below=
+ patch?
+> >         If set job->vm to null in amdgpu_job_prepare_job, the job which=
+ should be skipped in amdgpu_job_run will be submitted unexpectedly.
+>
+> I think we can just remove the amdgpu_vm_generation() check in amdgpu_job=
+_run().  I didn't think we actually resubmitting jobs anymore.  How are we =
+ending up trying to resubmit in the first place?
+>
+> Alex
+>
+> >
+> > Thanks
+> > River
+> >
+> >
+> > -----Original Message-----
+> > From: YuanShang Mao (River) <YuanShang.Mao@amd.com>
+> > Sent: Wednesday, July 23, 2025 5:06 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Koenig, Christian <Christian.Koenig@amd.com>; YuanShang Mao
+> > (River) <YuanShang.Mao@amd.com>
+> > Subject: [PATCH] drm/amdgpu: keep job->vm in amdgpu_job_prepare_job
+> >
+> > job->vm is used in function amdgpu_job_run to get the page
+> > table re-generation counter and decide whether the job should be skippe=
+d.
+> >
+> > Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 7 -------
+> >  1 file changed, 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > index 45febdc2f349..18998343815e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > @@ -360,13 +360,6 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched=
+_job,
+> >                         dev_err(ring->adev->dev, "Error getting VM ID (=
+%d)\n", r);
+> >                         goto error;
+> >                 }
+> > -               /*
+> > -                * The VM structure might be released after the VMID is
+> > -                * assigned, we had multiple problems with people tryin=
+g to use
+> > -                * the VM pointer so better set it to NULL.
+> > -                */
+> > -               if (!fence)
+> > -                       job->vm =3D NULL;
+> >                 return fence;
+> >         }
+> >
+> > --
+> > 2.25.1
+> >
