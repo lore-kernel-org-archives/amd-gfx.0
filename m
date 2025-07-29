@@ -4,147 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A03EAC87FC9
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jul 2025 17:32:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2701C83F26
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jul 2025 18:04:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4564710E660;
-	Tue, 29 Jul 2025 17:32:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6464110E66A;
+	Tue, 29 Jul 2025 18:04:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UWa+wGcp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xz1Rj+Y8";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2068.outbound.protection.outlook.com [40.107.237.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9165010E047;
- Tue, 29 Jul 2025 17:32:40 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2076.outbound.protection.outlook.com [40.107.100.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5D9C10E66A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 18:04:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cl1AJWjCAZnZkIoMYcHSjvs6p4vqWY+UKb99BBGOX2wHHsOW7erbcUVS6F50EJNnP6BbiQw5NKEoGFATkI83nFhW2zontMnKEFaMyXfglxAjNsaPrCMiBtjXwCJ31ghMqN+Coc3XmSNN2+3idca93d5sotZieVmeXUUubfGJJoDxYVTF0oRlqogSMBjQChLCqSNdmtXcRegQmNoKqtiVF9dUl5p9hIP0gdv6qhjKkMqZp1E/ijgEefLXtoBTXt3kMpnriZi0LWseBq514WG1Hi+zL6S3wrD1gAl9ILJaKXBTLI6Wof7A7VcTK9/F4SEZnkdXbfTJO1ez63hrLpY7gQ==
+ b=dR0awVU0jQlN5NBWY4kfLPuue1Mb0HSa/UMwnDgkPkH7pilpwa1j/hWcel/SzlSOP7+wMXQioKj8T0tAGuOXrT668UwCe417erlmom0Q0NMElOPaOxo/OjnacTlkT8YZG7BnZh60n8KxB+gM+E/c3FUQc8X1EEjqEjJIQeCiUBiV5OZAQxbv4/gEfHtFJ8/K3s2c3XzZEv512VSMw8mtfxHFjLEcyeDAl7iUaH4NZJeyu7zlNgpArNf5oxvj3+y54LXDVK9zdSbGFkFkC4NbLCEh0Vx3elYAoKiNrr6NTDJpcrAegF78q4hRCHhDG2pbkTqi/WolAXsNT8cYTuVP3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9xG9iFLsAUVn+vjIrELaAB/RG9auZh0hFtY4+O/oZ2Y=;
- b=cBRA4oaduf79v5Y6ksj89Rc6KcGQWxsbVgFVL+CCG9v8yfdsRPKh5nebNoC7yK3mlwDLrYo0pHkpCvVk3gnD0cH/onunnIp6ZYDiwZbEfoFyE3wQu5pP3TjGZsNyqCXGh52uawNVh3OgA31fM6ovuWY7mL0FBwg8Xz81+EU3Y3DT0LIvOr0dt58/HffWvKAsrFSr+bDCg/pITRg86l5VRc6bDtosASpqDfxvykirhvaFZtJoZDXm5PdMcfvqwCbmB+yLEraU6Z2EnURavGxobH1/f39+6KOsl+HDliT8n/t04GiZqQRtoStf7KeIirTsizgFlzqwyJZgDwk/ivNbZw==
+ bh=K00j0IK36IDS5tsFCuVv6c7FfSZwKbJhiXxQRrqDS/I=;
+ b=YcpHKLEdUge/fIuEOOPl61MXCwKwUbQz0yFIktK+1VlaZwal0Nb+5LzD1y45I2GtIYP9Z9e013gVHOqcfOMO+OkbVAI+2sKvLcIKhhAcav9JaYR0T66RrGtAzG0IM82k3bPc6sUOrLO2tF11O+OpdElQM0FX36l4qa/AMl7EfADxU4uQDZG/BydrDl1H0hyhnRVQQ+VtbG2futqF+G+rkZ/mHCcYLqFDjT2diWcx7NIaBRTWpPmaP7h5bI0E6yzBYYT982iytlysDTjypM6GQZOYhrwO8dIUeLrPbswmnY+gjbCKNjjnTzmML0zRkaZ6pSc6SBDLNluxjSig8xMhaA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9xG9iFLsAUVn+vjIrELaAB/RG9auZh0hFtY4+O/oZ2Y=;
- b=UWa+wGcpg5cRc0d+g33NW1a1dZ9/wjGAoIEeN6bYj4wmrkIoLD+D+CBM5OWklzrnmimF//wAgpv71tVkQypLSpP9TJ22mQareAsVv3DuKODb3qG9oV05r7wgR+tPwuCayKX05i59+2QCN4svdcE45MB3ilvSA8JY9j3Lf8aIxYY=
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by SA5PPF0EB7D076B.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8c5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Tue, 29 Jul
- 2025 17:32:31 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::715:65fb:c3fa:9c26]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::715:65fb:c3fa:9c26%5]) with mapi id 15.20.8964.025; Tue, 29 Jul 2025
- 17:32:31 +0000
-From: "Sharma, Shashank" <Shashank.Sharma@amd.com>
-To: "xorg-announce@lists.x.org" <xorg-announce@lists.x.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "xorg@lists.x.org"
- <xorg@lists.x.org>, "Limonciello, Mario" <Mario.Limonciello@amd.com>, amd-gfx
- list <amd-gfx@lists.freedesktop.org>, Shashank Sharma
- <contactshashanksharma@gmail.com>
-Subject: [ANNOUNCE] xf86-video-amdgpu 25.0.0
-Thread-Topic: [ANNOUNCE] xf86-video-amdgpu 25.0.0
-Thread-Index: AQHcAK5XNA+pPtQag0Ou4yjIL3aZ9bRJW4kw
-Date: Tue, 29 Jul 2025 17:32:31 +0000
-Message-ID: <MW4PR12MB5667B1E738F6EEA3BFEC3C1DF225A@MW4PR12MB5667.namprd12.prod.outlook.com>
-References: <20250729172901.681337-1-contactshashanksharma@gmail.com>
-In-Reply-To: <20250729172901.681337-1-contactshashanksharma@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-07-29T17:32:30.8050000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
+ bh=K00j0IK36IDS5tsFCuVv6c7FfSZwKbJhiXxQRrqDS/I=;
+ b=xz1Rj+Y8KgwqI83SZ3tk6FVYNy7PNyZk0GzM3KLGuYcJwjyzS896u/UWFPBaIpW/TDcM2JjoWs57WBq2G+HJSWyPJ/su97BWHoAyuKyXVjqn4nkTPraHNc5OuAcB8IT8Os+l4FxoaHmOLaJhCcLYrUrkO55FDSs+cC7V8S7nblw=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB5667:EE_|SA5PPF0EB7D076B:EE_
-x-ms-office365-filtering-correlation-id: ab0143ad-5639-4469-cd0d-08ddcec5e5be
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|7053199007|8096899003|13003099007|38070700018;
-x-microsoft-antispam-message-info: =?Windows-1252?Q?rSGrYQlG3gwvgBUEsA0IyLwegnrjh3mRQQv5yb+Ee9eMrIx4CDKiKuRh?=
- =?Windows-1252?Q?RVkeW00S8NDn9QR+BPmjpo/hjtUOWsrXW/Xi4jiYMWw+GDcv9pupH2V7?=
- =?Windows-1252?Q?fxOYe6sR0k9sXbG49sww3xY8VVEZbaz1B7/B38G77NdsMY4Xd43fnMpV?=
- =?Windows-1252?Q?spuMQVyxIXnXICqdnAOJAabDBMqRX7BsF1OAgo1/ZqhdPE19xX9RU6P7?=
- =?Windows-1252?Q?4+74yqsJIgK/NfN9cdzDkLdjguazf4OEKuGw1sNv6OP/RZsKcN9UuzmI?=
- =?Windows-1252?Q?y4kj1FfP5UMqMKk5fAcleSbzDL0h8NR+QSpbwIpQGM/hP4L2GJk/hLWK?=
- =?Windows-1252?Q?JVx6MNC7yy7UlTMiF/ne//EIfXDMWMrOWzZ6xTsKXR4HA2KivaoGKJGI?=
- =?Windows-1252?Q?tr1agHewe3skdK7mNwvTYzg7keEavESU/sp8Tc4woIR1UETzofmYnkZJ?=
- =?Windows-1252?Q?/kXCUeOtxuqdgBd7s6mgBT8DwnYbAB+fgmU26DCYJIIyR2IOB9quqBYC?=
- =?Windows-1252?Q?gDTpgs3ArIFv2KySt+XQ5OYGY8VXE/y/NWcdrpDJ9fdbTWvRrq6hvFOr?=
- =?Windows-1252?Q?QRk2BtN2KA30WxsVFjwhlnGiglujLpw4rIzm8DsCE0bJF9DBzKb8fuV9?=
- =?Windows-1252?Q?xPORltvXXImvDtE5k3rnDwTxb5dgT8JzAjVxOMaA8f7PI07PEQRPGASD?=
- =?Windows-1252?Q?1cB8xOY4WIChXyphiQy3tb97/EiCSgtXDBQt3tz4MdWMQD3Yj1VEAUfM?=
- =?Windows-1252?Q?xQqXSxYEYGKTHQgP7Ew/Js1gCKeak6wf0Yi9fspL1DANWdk+VRQx2RJF?=
- =?Windows-1252?Q?j/2DOOOX2JZlfTTUrmzHL8jmSs5URlhtmHwINnPvWSTjPAav0FaP9wMJ?=
- =?Windows-1252?Q?AW6gCD8tJCmeacw+KcVVIJFH5n8sZOh3VB3XoIVGwVkT3PAFLOmaX/U6?=
- =?Windows-1252?Q?/MYb/Io0lXkChw2IqGN477MLwMDgW5SgjxfPaxpABK1uTqPKtUYJiNfi?=
- =?Windows-1252?Q?3Tp91bMr6TXS9/CCLUiNj6j5bUx3uiIHgmljZHcqZTkAmHUGHJ3GA/ix?=
- =?Windows-1252?Q?2crDj2GEjZAaVW6mVJtRcHBnO2cLojBKPu7hFsZuGJoFV0g8N5/WFPTx?=
- =?Windows-1252?Q?/fk3xcNz4SLlbVCmJXwj3seOEvfS+vJv5yqgSgp4OFlhg16vLRWmCwSz?=
- =?Windows-1252?Q?Nca5aRDHlKSuD45yweWBwYDqnoUtHJcS4eHf8BzKS3+GFlLk+PChwPHK?=
- =?Windows-1252?Q?/hCh3tvSMDtvA0MZ5X+lMsGHhDB0upMpeGlD3wJ+kKXZI1KC0frIbeXe?=
- =?Windows-1252?Q?4SgwdJD4vOYqkEWLntK02lQBcc0IyRZ/BIkZxpZ0kxk37zNkRVuXf81N?=
- =?Windows-1252?Q?nI6YGkbLOrAO1FPDAdV6FeeGB15iTrq4ln6L0exAAwks218DyGMRe4Nq?=
- =?Windows-1252?Q?cEPfAE6ttRwSz3oSEspREtZXbT56x+GtSvCDFWw4b6PnRyoiH5nHCGsA?=
- =?Windows-1252?Q?jphRBq4FqgsGFIB7Xo3nHQ6/+IlnP2PqPC0lRxI31k2yqWwvIcQ=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(8096899003)(13003099007)(38070700018);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?1xmsznNVyyjCwjGmI6a2l6mICsqc722z6wydJB8J+qbI8T2f8ZwWBi3U?=
- =?Windows-1252?Q?Slh+7ljeIaCnyValCERpv2djDStI+ySgp5bHavI51PBjAEwkAgHp2cNq?=
- =?Windows-1252?Q?+j+r/xNInJ0wSjvCdKpakZ9viSR5dNDTYUMAd9cbQGvTFQWKK5/7rst/?=
- =?Windows-1252?Q?0Wfzzl9CfpMTgzttAFgnbSV2xhOefcwEknCX4BNH1SQ56Tgs2u8HJxyz?=
- =?Windows-1252?Q?V35wzFL2OoDaB9Gp8UqBg6PetYMNCYJ51iJV+X5P3mYIABL1LKfKHixj?=
- =?Windows-1252?Q?PGQ1Od1UTlVZ2j4tZGDf6gAZmQNStfUr3kwYIh6bvUlgBlbIO4z9Su1X?=
- =?Windows-1252?Q?6xqTtaCh6MBOITIMTVNBZ17XfSFAN7Ak7XPywFq1u46EpPD7/eiecL8U?=
- =?Windows-1252?Q?Q3kOYXi99/0+o7Eu7OhjYQW2VvUCKo+A/bS7ppD5eCUjdXx+Ng6J3dqj?=
- =?Windows-1252?Q?wyuWfVXHnxtg6DLAuUWcjNNo3HH9iJAUfF553Zi2HeB8xWFDBKyszyOC?=
- =?Windows-1252?Q?gmqlFpphfsrno97XGIj1hjj0a8ewljjt2rHmG6lWvWPv/7J9OauuZ18P?=
- =?Windows-1252?Q?yVM+CKdtU98NU+fS4z45xxaAQFbLSPaJvAdmOzhDMQcgPqmDEZQNlulP?=
- =?Windows-1252?Q?1WyOlUxtbbec73n2L5UaIbaQ0GyuwQg6PPGvsCEHF3iPMMdUK0qtPhoB?=
- =?Windows-1252?Q?U+6GNlQ28ywZfZa5rfDhSlt/jUNH3i1kTW7t+vHPvBo/V8Ui/CgH1HrT?=
- =?Windows-1252?Q?Ety93EKs0zmkE8lrE2s9BpymeapJNdtQ0X4jlmdB8tZzkI8LYofyOrnA?=
- =?Windows-1252?Q?SVKaI9Zn3zE+z8Ej3W7O568VJoIC8Ub27uBgmvoldSCj078FFLa0bK9H?=
- =?Windows-1252?Q?it4OKdjA4F792nkWM7INhWw6INLAA7P9UARARKsKlRHaRdqZWaA88xNf?=
- =?Windows-1252?Q?UUWP+rGx46+FCAi3AaKlsGV8Q7ZcNz2JKGvGykIg3nOskX8AzrfE2Bco?=
- =?Windows-1252?Q?kNogrO34bUf9vQwxvpuYPiMb5EBW9ifRgYbBDAeSOYuj0mCHZPEOgVKU?=
- =?Windows-1252?Q?+Nx37YY/mBDstuEQyduymq4OWEOJku2l7A3C3jxqlW5XpyZnctOqO6Kr?=
- =?Windows-1252?Q?3egOxSVRM8oq6VYKHoyAWf91PHTN6miiauK2zZs8QjqJemFvkDCFwgwy?=
- =?Windows-1252?Q?AuLz93CRjxPGcHuYR+lT9cjxOH92kMQX3Hp0qzwX8COYmCQjlHshRpHa?=
- =?Windows-1252?Q?SDtfOJqtjbmc+tT9OP5BCk2dFKAc0PhbuuywmmflWwA7xphs4Y8eW2bA?=
- =?Windows-1252?Q?eXrFMtz7CExd5syxS26EoIDBLALYAPRUTBDR44qfsQeZWXxcWmux2QY5?=
- =?Windows-1252?Q?wwKmLMmjezCm4VDvSox3OpAmO1zCI7PMb2Krra/VQ6K5mK8zb/J47x/1?=
- =?Windows-1252?Q?t3T0wxMB59fufAmslaJxGf+dEWqj93xqWC/qAC6WoHy7uyqGV4NmTU1O?=
- =?Windows-1252?Q?7sxqSRO6XaKioueXH1aYvFXba+KUHbcMtPvFkeDkdT01M75v9tPPuDnh?=
- =?Windows-1252?Q?N8XhgTPx9y8dVFz0KQlDEx6dtJfiQMnJ6IkFKm5pzd247Ciy3wo1HrRY?=
- =?Windows-1252?Q?e/JAo6CvOJw/3x5AdXfHae0PwgxBQChxTUZOGSrCoTPfd06iS1S7iU1F?=
- =?Windows-1252?Q?EHgo9pZLbso=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_MW4PR12MB5667B1E738F6EEA3BFEC3C1DF225AMW4PR12MB5667namp_"
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by SJ2PR12MB8875.namprd12.prod.outlook.com (2603:10b6:a03:543::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Tue, 29 Jul
+ 2025 18:03:57 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8964.026; Tue, 29 Jul 2025
+ 18:03:57 +0000
+Message-ID: <68370e57-cb4e-4ebd-8d04-b198a7f2f02f@amd.com>
+Date: Tue, 29 Jul 2025 14:03:54 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/20] drm/amd/display: Determine DRM connector type more
+ accurately
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20250723155813.9101-1-timur.kristof@gmail.com>
+ <20250723155813.9101-2-timur.kristof@gmail.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20250723155813.9101-2-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0041.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fe::18) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SJ2PR12MB8875:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae263659-3322-4db1-4ccf-08ddceca49f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TFUzdUd3RGdrWlNQamZnSjhjMytGbDR0VWNrYUh6dlUyMXY1RlROWURwM3c1?=
+ =?utf-8?B?RGlMeXQzb2lHVnRRWFIrK1NGeXNMOWpNMUlUanhuK2t5S2hxWjZwWlEyd24z?=
+ =?utf-8?B?SVRQR0ZNUUdXM0VpU1h2ZkMxUDRVRTBKOUpkSVVJbUlUekJ1K1A2VlZHV0hW?=
+ =?utf-8?B?MXl5Vk93eU53TEhFRVB2c3hoKys5Zlp1blBUUFhpMUtSRVI0QS9GWVFqYkNC?=
+ =?utf-8?B?WjV3d0RETWdvZ2xYRWJjbXVHakl3UlhpMkFyZC9CeElacWtPcXEvRklwN1Fw?=
+ =?utf-8?B?VmpvU1R3RGIveVJFenQrTS91L3ZrbTZ0aHJ0SHVtVGEyV054Z0kyUVJIbmMw?=
+ =?utf-8?B?RGxuZlorZlYwejlOSFhpTEgvamVxVExGK09zQy9DVlFNN0UyWVJDRSs1VFhz?=
+ =?utf-8?B?ZERTNVhVNlB1dEZ4NU1keDdtZnVUNUplOXdvbnZPRGVzaUtOZ0VOeVk2amFW?=
+ =?utf-8?B?ckYyNzVWWTdrU3BWNGZYZTFqK1IvcG00Z0syZWdydzJ6eEdHS1RBL1d6czNw?=
+ =?utf-8?B?WHJjcXhpWGY5RkZ0a2RlZGxmdWxEd3ZubEx6RXVjSmVpajFPVzdoajFDY2E4?=
+ =?utf-8?B?RkJMbkV1eDJIV0VJTkpqVWRsZm54cEJGemVkSHlHL0pXV25vUG1uRzVBaFFt?=
+ =?utf-8?B?d2tnRWl5dWJxRW1ydEo1aWY0NU1KYklMUS92QTFIbDQzTnhINVg1K0JCb1o1?=
+ =?utf-8?B?VzhJOFZiVUw3TkNnOS9Qc292MEJkYWtNTnAwN3k3TVRaQUVFTU9tdllTSE9o?=
+ =?utf-8?B?RFEzeTBtTGM0VjVPUFJTM3Z4Nm96Ti9MdUh2ZkNHVS9xM1dMM1ZxUTJPRC9k?=
+ =?utf-8?B?WllPMEV5Nm56cEtaQXdVK0lPeG1mZ3FWZGVQbEJyaVFZYVdRV3YwYlRETWNw?=
+ =?utf-8?B?VFphdEJlZzZ3ZWdwajJNK3hsZGVEdmIvM09SMG95bE1zMlg4L1hvREdqOWVE?=
+ =?utf-8?B?RW1HT0VXTVVtQXNzOHVqb2hTdlljdnl4M1RvN2xhcFBEYU5ScmlsN212b2dv?=
+ =?utf-8?B?dlBRazNwTUNSTnBiMzVybUUzSUpvSkNUbGVYcWJ3aVczWWQ5Mm5hVFdFRjYz?=
+ =?utf-8?B?T3dMd0RrOE1UMWJCYWNjV0FJOEtMZXo2SG9ZbUF1a09wclIwaGQwL1NxcE40?=
+ =?utf-8?B?bjFEd3JpR2pSdzd6YWpwN0pnMkNNZWQvNy9CaDB1NE9IVk9OcDNGdUgxWC9C?=
+ =?utf-8?B?Vm9rY1lQTVRWSjRiNlN3aEtVejlWQXlNNFFKSnNQZnBaRXNsUHQrbVFyYi9I?=
+ =?utf-8?B?ditEZ3g3MS9uSkdNZXpSblRQUjVyNnZhM0xsNjVVaXdFbFFqcTJ1R0ZDQVZ1?=
+ =?utf-8?B?SWFQNHhDaGNFR2RoM01PMGJqQ1Y3SGlhMXZWb2tMS2o1emhpZ0RDN0NEUWhI?=
+ =?utf-8?B?R01YN1JxRm56MFBNZ25JUFNpQ0lTSmFNVjF5V2htMXdTZCtwYmYwQ1RCK3Zo?=
+ =?utf-8?B?RnVTdS92SFV4NmZkdXBJZUZSUVlENElWTG4yeHM3eE1XVHVGWmVUY0ptcDdR?=
+ =?utf-8?B?RnU1UnZ0d0hGNjhrUzBaakcxREErS2hNWVJYelpOWFFSWXJka3h1bER2MkdG?=
+ =?utf-8?B?anp0VkxqdzJYRFBNa3F3SWkvTm9aWXdUcDg5L2Z4cEI0T0RDUXJYcW9kdTRi?=
+ =?utf-8?B?MVR2QzlENWExdUVuMjNtK285N0RrT2ZzdEE0Nk9oU1pzcm5wNGlGSHRvZHNJ?=
+ =?utf-8?B?RkdtVk9UNHF1T2xmTW5FWkNBUVZRcjdyWHd4SDhrdHN2RmxBd09ZVTBSZEkw?=
+ =?utf-8?B?b1djRkFmbStqS2N2aGUxTVZ2a1IyTEY0ZnJMY0hUdU43L1RyTURrZFFlUlE4?=
+ =?utf-8?B?WW9aalkxR0xoenZqR1hCWXFOdEJpVEQzbjR0SUpNaTVJdjI4enJsZE9aeFdN?=
+ =?utf-8?B?QjRiMXpJS3JQQ0JsOUxCY0ZTNktUdjE4Mk9seGFUZGUzekNzeWllNHA1Tkp4?=
+ =?utf-8?Q?DMW3AKAYLcw=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b25wM3J3ZG9Ka08zT3o2WS85Vzl5MjJacThadEhCOTUrOGhjVUpDWHlNdGE3?=
+ =?utf-8?B?WmcrS2Rsb2VBakpzNXNhVTlsOTUzTHRtUXgrL2tGcVoyS2x4TVg0eURVcjJN?=
+ =?utf-8?B?VkxKZjdES1lTZkRLN2xBZEFRMUdwZzY0WHYyeUh2RjlHOUtyK1RQT0FvK0o5?=
+ =?utf-8?B?MEZMbjNkN3ROU0E2d3Jwb21Tc3NNSkNPNnVhUVp3S0RmN25wak9maDdsNmFR?=
+ =?utf-8?B?Y09FeXRiZFB1TE5nQmxzS2hEVmJVK0VXNkMyb2dKS0tGN3o2T0lVTmwxalI3?=
+ =?utf-8?B?ZTBaaktmM3hOYjhPWHlES08zbkRKTlBJZDAzczF3bTBLejdwaFdUdFdtYmsr?=
+ =?utf-8?B?dWNOSWx0WmtZSnd3OHpkQmY4VGZrUGtGa2UzVE1BVFBxNFZuQUdvNXlWNDhK?=
+ =?utf-8?B?VmJlcGtaSE1ESFF4WFpLN2dtYVBLU0NXTm1MZEdpaGFnUGZTejcvakwwbVVz?=
+ =?utf-8?B?M0RuQVhYOTl5SVdTdncxUjliaDdVSkFDNE13LzFpM3JTK2hlYnB4SzVjK2ow?=
+ =?utf-8?B?YlFDTExEQ0d2VFlJSG5hUEs4LzlvTGtxaXBRWk9jQzlGR2tIYm51R2RMNEtY?=
+ =?utf-8?B?b3hXdnZ4emhHSXZTMUg0K2d5UzFDWjRZYlJ3M3lKeDVnemNSdEl2Rm83L2VY?=
+ =?utf-8?B?aFdoSFY1YnlvY0Fsb2JJWEdvdzd1Ym5IdEhtNkcydVF6bEtmWDhubWo2ZGlK?=
+ =?utf-8?B?aDltUm1wWlVDL1h2NEt1U3pFMTBrd3Q3bmV4ZUJGV1hkK0czeTVidEpJVXlJ?=
+ =?utf-8?B?RHRoaWdIV0NIa1Y1akVFbDBaNUJNQTR0QkVrcS9rZ2ZCN0o3NGJkU29RaGND?=
+ =?utf-8?B?RVdRbjQxQzRkL2RrcTBINWNXRHpRdHNtbmZyL2h1R0VYZGVtRlExRHlkTlY5?=
+ =?utf-8?B?M1NWZHBCT0FCcG5pVlhCakN0a1c1UUZhN3BKWXNqTjJwMDR4ckdaWnpwR3J3?=
+ =?utf-8?B?dHdaSnhhY3ZLTC9KeFhSaUZJaVdFZjRrN0F2cXRTRnR3S3N6Tm9Selc4ZDVr?=
+ =?utf-8?B?S2o5dkxERXlXaU5hbnc3djZQY0M3ZS9MdEpBRE1GKy8wNEErMFVLSlhuT0d0?=
+ =?utf-8?B?Uk9FNjRIN2xNMkd0bHRLWFcvbkkxNllHSU4wMng1ajVmK3ptb0taT1VoNUR2?=
+ =?utf-8?B?d2lkNHRDbVNYdThPUWluTkJMTmdoNk5GRDl3eFlWTGFMNDNZZFh4NVM1Slkz?=
+ =?utf-8?B?Y1VnZkk5ZDRkUkVPeW13S0VqYlJ4cWR5Nyt5SFkxYjI2WXJRMEUxZm1QSit6?=
+ =?utf-8?B?K0RzVVJHaXJVblFVOUtEWXRYZ2tEcGJvcTRkQlRtK0VnTmxBL2x0NWo3NjRW?=
+ =?utf-8?B?MXRQNGpPOHhabkVhR0U4TzVLTmdBc0dvV0FlUUNsVEtjUG83SEQ1blQ4V0Y0?=
+ =?utf-8?B?Q2pkK3IzNFlIZzI4T0xBRXVMSGsxRlYyb3p6RzJsVFZhUnJURzJzMDZ5Yjl4?=
+ =?utf-8?B?UjQ5bm5kVnA0d2tmUEh6ZXZYL1h1d2N4Z001cXhRbVZNcGNDYmZrcVFwYjJS?=
+ =?utf-8?B?MlVuNWgzT3pRRjVFRzV4MHovOTJudTNaVXc2eFkwbUVIR0dRK0EwbkwzL20z?=
+ =?utf-8?B?UFQ1Vk1jYStQK3BzTUFVaVFTaVZoYXh1UDRpWmZXVW4xa25GNzBOd1RZOW43?=
+ =?utf-8?B?aUFKV2thQ2RIUkZ1N0Frc2tmTEt1Q3Jxa0pCV0NOM1FNWXRGU1h5V0c2MHhj?=
+ =?utf-8?B?eGRCRnFXbG90STBTWWZLMlphLzlvZ2FuUGFtVXRGSUlhMUVEVDAzWXhJTjZq?=
+ =?utf-8?B?ZHB4b0xRUTlWT0Nxdk1uRElRRStRNWtodmVnSXgzZjh0SW9RTVpGSVNkTkpQ?=
+ =?utf-8?B?QlZjajhjNlNObXpxK1ByaHk1Z3YxekVESTNmcGdMY2t6b2N4UHg1K1J3UjVC?=
+ =?utf-8?B?bVFpaWZZeFNzcVdHblBUakowYkRmbVI4cDZhWCtUSVJaUXZxL2w3MjE1bS9U?=
+ =?utf-8?B?cHRweU16THVmTjMrUzgzZys4WU4rTlA3aXlXSFA1TnlhUU54TFlzNXA5emNW?=
+ =?utf-8?B?cHNPSFhOYUxmaEQvNUpueVNGMjR4cGdRQy9nMnFybnpiMkgvMjRLMDJwNHJC?=
+ =?utf-8?B?WDFERFZDaGRBR2Y5bC83VnZsTklMNXdrczVKb1VPbG9RdExCZUxYOTkwTHNt?=
+ =?utf-8?Q?R0o4UqjGgQoN+bAK9/tZqPVY8?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae263659-3322-4db1-4ccf-08ddceca49f7
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab0143ad-5639-4469-cd0d-08ddcec5e5be
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2025 17:32:31.4627 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KypESSLBe78td3EJzlq2/nRPwwCNL4MwuVqj3Cys3ih9lWBDdA9+zSuJS/aAyuJ7MVdEecVbTqEDccXiQeLBug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF0EB7D076B
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2025 18:03:57.8090 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IUyQFtWf2/2pBD8sMb8r+SiTbtcoUtIFC4Xutc5QPpKBSFiVk8pLLRT8SSoWRbVOIW2ApL19gkBuDxSGxQEcgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8875
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,251 +162,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_MW4PR12MB5667B1E738F6EEA3BFEC3C1DF225AMW4PR12MB5667namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
 
-[Public]
 
-Resending with [ANNOUNCE] in Subject line, for the scripts.
+On 2025-07-23 11:57, Timur Kristóf wrote:
+> Previously, DC determined the DRM connector type based on the
+> signal type, which becomes problematic when a connector may
+> support different signal types, such as DVI-I.
+> 
+> With this patch, it is now determined according to the actual
+> connector type in DC, meaning it can now distinguish between
+> DVI-D and DVI-I connectors.
+> 
+> A subsequent commit will enable polling for these connectors.
+> 
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +++++++++++--------
+>  1 file changed, 16 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 096b23ad4845..c347b232ae06 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -8038,24 +8038,26 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
+>  	return 0;
+>  }
+>  
+> -static int to_drm_connector_type(enum signal_type st)
+> +static int to_drm_connector_type(uint32_t connector_id)
+>  {
+> -	switch (st) {
+> -	case SIGNAL_TYPE_HDMI_TYPE_A:
+> +	switch (connector_id) {
+> +	case CONNECTOR_ID_HDMI_TYPE_A:
+>  		return DRM_MODE_CONNECTOR_HDMIA;
+> -	case SIGNAL_TYPE_EDP:
+> +	case CONNECTOR_ID_EDP:
+>  		return DRM_MODE_CONNECTOR_eDP;
+> -	case SIGNAL_TYPE_LVDS:
+> +	case CONNECTOR_ID_LVDS:
+>  		return DRM_MODE_CONNECTOR_LVDS;
+> -	case SIGNAL_TYPE_RGB:
+> +	case CONNECTOR_ID_VGA:
+>  		return DRM_MODE_CONNECTOR_VGA;
+> -	case SIGNAL_TYPE_DISPLAY_PORT:
+> -	case SIGNAL_TYPE_DISPLAY_PORT_MST:
+> +	case CONNECTOR_ID_DISPLAY_PORT:
+>  		return DRM_MODE_CONNECTOR_DisplayPort;
+> -	case SIGNAL_TYPE_DVI_DUAL_LINK:
+> -	case SIGNAL_TYPE_DVI_SINGLE_LINK:
+> +	case CONNECTOR_ID_SINGLE_LINK_DVID:
+> +	case CONNECTOR_ID_DUAL_LINK_DVID:
+>  		return DRM_MODE_CONNECTOR_DVID;
+> -	case SIGNAL_TYPE_VIRTUAL:
+> +	case CONNECTOR_ID_SINGLE_LINK_DVII:
+> +	case CONNECTOR_ID_DUAL_LINK_DVII:
+> +		return DRM_MODE_CONNECTOR_DVII;
+> +	case CONNECTOR_ID_VIRTUAL:
+>  		return DRM_MODE_CONNECTOR_VIRTUAL;
+>  
+>  	default:
+> @@ -8440,6 +8442,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+>  			link->link_enc->features.dp_ycbcr420_supported ? true : false;
+>  		break;
+>  	case DRM_MODE_CONNECTOR_DVID:
+> +	case DRM_MODE_CONNECTOR_DVII:
+> +	case DRM_MODE_CONNECTOR_VGA:
 
-Regards
-Shashank
-________________________________
-From: Shashank Sharma <contactshashanksharma@gmail.com>
-Sent: Tuesday, July 29, 2025 7:29 PM
-To: xorg-announce@lists.x.org <xorg-announce@lists.x.org>; dri-devel@lists.=
-freedesktop.org <dri-devel@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; xorg@lists.x.org <xorg@=
-lists.x.org>; Sharma, Shashank <Shashank.Sharma@amd.com>; Limonciello, Mari=
-o <Mario.Limonciello@amd.com>
-Subject:
+This seems unrelated and would do better in a separate patch.
 
-Subject: [ANNOUNCE] xf86-video-amdgpu 25.0.0
-To: xorg-announce@lists.x.org
-Cc: xorg@lists.x.org
+Harry
 
-Alan Coopersmith (3):
-      gitlab CI: add builds against server-21.1-branch
-      Revert "use dixDestroyPixmap() instead of direct driver call"
-      Improve man page formatting
+>  		aconnector->base.polled = DRM_CONNECTOR_POLL_HPD;
+>  		break;
+>  	default:
+> @@ -8631,7 +8635,7 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
+>  		goto out_free;
+>  	}
+>  
+> -	connector_type = to_drm_connector_type(link->connector_signal);
+> +	connector_type = to_drm_connector_type(link->link_id.id);
+>  
+>  	res = drm_connector_init_with_ddc(
+>  			dm->ddev,
 
-Chris Bainbridge (2):
-      Fix segfault on dock suspend, unplug, resume
-      Free output_ids
-
-Enrico Weigelt, metux IT consult (8):
-      bump minimal xorg version to 1.18
-      drop compat with ancient xserver versions
-      dont check for HAS_DIRTYTRACKING_ROTATION: it's always enabled.
-      dont use obsolete pict_f_transform alias anymore
-      use XNFalloc() instead of xnfalloc
-      use XNFcallocarray() instead of xnfcalloc macro
-      use dixDestroyPixmap() instead of direct driver call
-      ci: compactify redundant declarations via matrix
-
-Hamza Mahfooz (1):
-      Enable TearFree if it's set to auto and VariableRefresh is enabled
-
-Herman Semenov (1):
-      Fixed AMDGPUOptions_KMS for align structures 64bit
-
-Marek Ol=9A=E1k (1):
-      Check GFX12 swizzle mode correctly
-
-Mario Limonciello (9):
-      Fix a crash when initializing with a property with no atoms
-      trivial: Add workflow rules
-      Add missing xorg-server.h header
-      Add support for the meson build system
-      Migrate CI over to meson
-      Drop support for autotools build system
-      trivial: drop unused gitignore
-      trivial: ignore .vscode directory
-      Bump version for 25.0.0 release
-
-Pierre-Eric Pelloux-Prayer (3):
-      ci: switch from testing to bookworm
-      ci: use gfx-ci/ci-deb-repo to get latest libdrm
-      Use GBM_BO_USE_FRONT_RENDERING on front_buffer alloc
-
-Uday Kiran Pichika (1):
-      Handling of color management properties
-
-git tag: xf86-video-amdgpu-25.0.0
-
-https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-25=
-.0.0.tar.xz
-SHA256: 7653cead024a6820ed1139958503278d78b4b3f80befcacf54ce87a5199b0ce2  x=
-f86-video-amdgpu-25.0.0.tar.xz
-SHA512: d143294fead7073c14100299ccab20d1f5eab8b7e36c1770b12aaade958211e1961=
-f4353dc47123c3b9af9f7a911d913def71d25b83dab3dee1d289043869891  xf86-video-a=
-mdgpu-25.0.0.tar.xz
-PGP:  https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amd=
-gpu-25.0.0.tar.xz.sig
-
-BEGIN PGP SIGNATURE:
-iQGzBAEBCgAdFiEE8REeSq+YTJdjeV/+SyW1GAUiuNkFAmiI+vwACgkQSyW1GAUi
-uNnZQwv9G2dLy/A44yG8iFfrCKt3i7Pk6A2QT5y7Q9j4xhplVv1F0V+3olYxRV4D
-uAbBvEExP/qHEtkGeIruEoXdfQ+lMLjIeyAXCVHP6qxgVHBWKwXzsD96dSkm0F+4
-lq5kHtKb8gMiFgpvPh2rNa1wlYUvwse4/wX8EJxkXedVVRcQiC/IdHXl8wAZyNdI
-4YwedqEKSejBJfCEP/AyGW5k6vNQ+2nz7F/XKb680A/FyUThlL/RYV5RtVzpL03i
-b5z/Cesc4oU9mkJprwannma7z5P2Jo6Mf/k5zmieeo+J9lS7tLxgpClyk8pe/Q5q
-telItLqWoF7YAJGLFeHgxhYsymHIOXH7OAZvarzIy1qRVjND54GNoLc43WU+y9sR
-4AEZkYhCOWZySvBdJ18t7/pYl03f3Q5SMnumDJV3LkmwTnbex2RtL/C5g3FKSAeD
-aa3U5HWUoazd3c5o+eKCQfz+VIKYUGn+c0pPeUl3Nmc/6oRNss0aTEKqXIDlYG/u
-9gzaKC99
-=3Di6RD
-END PGP SIGNATURE
-
---_000_MW4PR12MB5667B1E738F6EEA3BFEC3C1DF225AMW4PR12MB5667namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Resending with [ANNOUNCE]&nbsp;in Subject line, for the scripts.&nbsp;</div=
->
-<div id=3D"appendonsend"></div>
-<div class=3D"elementToProof"><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Regards</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Shashank</div>
-<hr style=3D"display: inline-block; width: 98%;">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<b>From:</b>&nbsp;Shashank Sharma &lt;contactshashanksharma@gmail.com&gt;<b=
-r>
-<b>Sent:</b>&nbsp;Tuesday, July 29, 2025 7:29 PM<br>
-<b>To:</b>&nbsp;xorg-announce@lists.x.org &lt;xorg-announce@lists.x.org&gt;=
-; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;<b=
-r>
-<b>Cc:</b>&nbsp;Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; xorg@=
-lists.x.org &lt;xorg@lists.x.org&gt;; Sharma, Shashank &lt;Shashank.Sharma@=
-amd.com&gt;; Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;<br>
-<b>Subject:</b> </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-size: 11pt;">Subject: [ANNOUNCE] xf86-video-amdgpu 25.0.=
-0<br>
-To: xorg-announce@lists.x.org<br>
-Cc: xorg@lists.x.org<br>
-<br>
-Alan Coopersmith (3):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gitlab CI: add builds against server-21.1-br=
-anch<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Revert &quot;use dixDestroyPixmap() instead =
-of direct driver call&quot;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Improve man page formatting<br>
-<br>
-Chris Bainbridge (2):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fix segfault on dock suspend, unplug, resume=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Free output_ids<br>
-<br>
-Enrico Weigelt, metux IT consult (8):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bump minimal xorg version to 1.18<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drop compat with ancient xserver versions<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dont check for HAS_DIRTYTRACKING_ROTATION: i=
-t's always enabled.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dont use obsolete pict_f_transform alias any=
-more<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; use XNFalloc() instead of xnfalloc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; use XNFcallocarray() instead of xnfcalloc ma=
-cro<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; use dixDestroyPixmap() instead of direct dri=
-ver call<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ci: compactify redundant declarations via ma=
-trix<br>
-<br>
-Hamza Mahfooz (1):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enable TearFree if it's set to auto and Vari=
-ableRefresh is enabled<br>
-<br>
-Herman Semenov (1):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fixed AMDGPUOptions_KMS for align structures=
- 64bit<br>
-<br>
-Marek Ol=9A=E1k (1):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Check GFX12 swizzle mode correctly<br>
-<br>
-Mario Limonciello (9):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fix a crash when initializing with a propert=
-y with no atoms<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trivial: Add workflow rules<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Add missing xorg-server.h header<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Add support for the meson build system<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Migrate CI over to meson<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Drop support for autotools build system<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trivial: drop unused gitignore<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trivial: ignore .vscode directory<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bump version for 25.0.0 release<br>
-<br>
-Pierre-Eric Pelloux-Prayer (3):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ci: switch from testing to bookworm<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ci: use gfx-ci/ci-deb-repo to get latest lib=
-drm<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Use GBM_BO_USE_FRONT_RENDERING on front_buff=
-er alloc<br>
-<br>
-Uday Kiran Pichika (1):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Handling of color management properties<br>
-<br>
-git tag: xf86-video-amdgpu-25.0.0<br>
-<br>
-<a data-auth=3D"NotApplicable" class=3D"OWAAutoLink" id=3D"OWA0885c08e-785b=
--8d8e-ce96-cf277b40fb74" href=3D"https://xorg.freedesktop.org/archive/indiv=
-idual/driver/xf86-video-amdgpu-25.0.0.tar.xz">https://xorg.freedesktop.org/=
-archive/individual/driver/xf86-video-amdgpu-25.0.0.tar.xz</a><br>
-SHA256: 7653cead024a6820ed1139958503278d78b4b3f80befcacf54ce87a5199b0ce2&nb=
-sp; xf86-video-amdgpu-25.0.0.tar.xz<br>
-SHA512: d143294fead7073c14100299ccab20d1f5eab8b7e36c1770b12aaade958211e1961=
-f4353dc47123c3b9af9f7a911d913def71d25b83dab3dee1d289043869891&nbsp; xf86-vi=
-deo-amdgpu-25.0.0.tar.xz<br>
-PGP:&nbsp; <a data-auth=3D"NotApplicable" class=3D"OWAAutoLink" id=3D"OWA97=
-1bc3bd-8ccf-e970-bdf6-ffc0708007dd" href=3D"https://xorg.freedesktop.org/ar=
-chive/individual/driver/xf86-video-amdgpu-25.0.0.tar.xz.sig">
-https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-25=
-.0.0.tar.xz.sig</a><br>
-<br>
-BEGIN PGP SIGNATURE:<br>
-iQGzBAEBCgAdFiEE8REeSq+YTJdjeV/+SyW1GAUiuNkFAmiI+vwACgkQSyW1GAUi<br>
-uNnZQwv9G2dLy/A44yG8iFfrCKt3i7Pk6A2QT5y7Q9j4xhplVv1F0V+3olYxRV4D<br>
-uAbBvEExP/qHEtkGeIruEoXdfQ+lMLjIeyAXCVHP6qxgVHBWKwXzsD96dSkm0F+4<br>
-lq5kHtKb8gMiFgpvPh2rNa1wlYUvwse4/wX8EJxkXedVVRcQiC/IdHXl8wAZyNdI<br>
-4YwedqEKSejBJfCEP/AyGW5k6vNQ+2nz7F/XKb680A/FyUThlL/RYV5RtVzpL03i<br>
-b5z/Cesc4oU9mkJprwannma7z5P2Jo6Mf/k5zmieeo+J9lS7tLxgpClyk8pe/Q5q<br>
-telItLqWoF7YAJGLFeHgxhYsymHIOXH7OAZvarzIy1qRVjND54GNoLc43WU+y9sR<br>
-4AEZkYhCOWZySvBdJ18t7/pYl03f3Q5SMnumDJV3LkmwTnbex2RtL/C5g3FKSAeD<br>
-aa3U5HWUoazd3c5o+eKCQfz+VIKYUGn+c0pPeUl3Nmc/6oRNss0aTEKqXIDlYG/u<br>
-9gzaKC99<br>
-=3Di6RD<br>
-END PGP SIGNATURE<br>
-</div>
-</div>
-</body>
-</html>
-
---_000_MW4PR12MB5667B1E738F6EEA3BFEC3C1DF225AMW4PR12MB5667namp_--
