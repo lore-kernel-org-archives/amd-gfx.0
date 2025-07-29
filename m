@@ -4,69 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF874C83F26
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jul 2025 13:50:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD3AC87FC9
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jul 2025 14:52:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EBDD10E205;
-	Tue, 29 Jul 2025 13:50:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED0B10E64B;
+	Tue, 29 Jul 2025 14:52:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nk7mtHYH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WG7IM7XD";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EA0910E205
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 13:50:30 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-31ec2ac984eso386412a91.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 06:50:30 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5340610E285
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 14:52:07 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4560cdf235cso27719045e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 07:52:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753797030; x=1754401830; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VIrNRy6DeBW3pslqdwgiuUzHqIguwHRSzT+19GQ/fuE=;
- b=Nk7mtHYHUU8nJh5khU4OIfBE5/VLnXy1To2KvSoFNql8anhRPbXCj3OI9qi3iNChFn
- 3LOvAKhIru+1z8dG05XoHdFmRC/xi8vhEAxWG+jq73Denzr43vmjReJtFYkDFrKGvKlK
- Eh8JuxSAW8CFvGxmfWzy/4Z/2arGTUwPxUfEQtHedD4nv0EqL4A0bI7y5iOeFySDVJpn
- ZNloAadIVlIbLfaMQPtG07YTraIaffxVWo0yHFXyTPFs0DgfPwz/4yfy37l6SKXH/oIN
- dFiKkBcKMHB2LyS6+Mw5vUbKgAWRwXeDA9Rqy4A1lLzCxxrq0kK7L7BqOsIella/wAky
- CMJg==
+ d=gmail.com; s=20230601; t=1753800726; x=1754405526; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=7+3ioCFsrua+PiUlPXqRNsQ1k/ZGLwzffX5kO+g7omQ=;
+ b=WG7IM7XDsa60BbcIO9/kgH0wjkDavnKkUeTKP3b4iDYdxXFIWeFQ/N6PLjEq+zQnFP
+ wgNurYkT81irbYrOm50VUTMQ7QiTaaMO0+uaymfbSpxDpEjPenC5KyTGaS+4fhxV0FhP
+ 5VHOxK6hQIzfgpzy+Qn6u4O3L1KkNcRLSSCtOGCnWSbiSTfQscqo04iBVCjJO+NzKcwt
+ OaJ1wCw/qNTdnv/oOCG3BfsfO4KLQiNfsdfVNACZmOtQhmhMSW9pFXCOlSI511VqlKnN
+ 12d8BMlfl5BXCeFyrex6+e2cu0MqjAF60EuohnkY46xAAggB3adiaPN0E09K4PSQGu60
+ z5/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753797030; x=1754401830;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VIrNRy6DeBW3pslqdwgiuUzHqIguwHRSzT+19GQ/fuE=;
- b=J8LvZdwr+xQvHTxbkpsh54uhVGE7HsSMwFYJkeLRvSiEtGKa0YDgYJv07rKomQIgoG
- oEXiqprlM+qovF/xBsUd+wP2uojfiy3OsX2/s1/w8x89EQMnXmMLexD3ceqXBt4rs7RK
- RKecWO0k2sATQqu4n9+xnyoleBFPzwgr2xkzy9TrOKVQ5kPEaSEQFeSpFoqpLaWTk89g
- IX7QwyiJ1soRl6j5D5IiHrCiaNDxX+Jo/nDFZKKMznty+Pck6fFUVUnpNAJ+lwcI5+Vx
- 5U3xntzRkXc6bLP0x0o8s0sdn1QVtc2mBDI+lrK2AB0m0PXTQrxj5c5fA6ybGLKrsG12
- jJcg==
-X-Gm-Message-State: AOJu0YxvdhhCKehD+3OkKEgztzQz21wf+HYxsL6uL5sTW7Z8w1P/ST2H
- YsXzO6U/G8FvmWAOAz9etv6Yklor1uJKBWclzW9SH2Yl0EDHpZjEftn3An8R3iBhVODKJaokhGi
- sGUCCqP8SGvwJtqB3MW9DgIbBs0CRXes=
-X-Gm-Gg: ASbGnctIzNM2OYogRH1bIPwFcj1d3jEDXOYpeNyyHp2djNyEKAZjms5DoWrufsTQ03n
- EaA02bkl6oW5ey2NVOyW/i9IGoWvGexpcSpDvKu4ETtrMHRBmT1efXl2kzy5RTq79vY/IA5o/gd
- scfOi38S7oZNlAjc+vD1QBZ5kx9JyBNvNDhzEH0bWfsUjVS0llulgeBMHj1JH+ZTcnkx2cRrF4g
- o180b9K
-X-Google-Smtp-Source: AGHT+IGDNy7Hl047ApT0fsCDEFC7hoLhQy5x59weXkOvDzuwisloH/xRRWvWLISqU1ptfDFGSK+REH21UCcrXnFamNQ=
-X-Received: by 2002:a17:90b:1b51:b0:31f:24c2:16cb with SMTP id
- 98e67ed59e1d1-31f24c21c2bmr2549533a91.6.1753797029441; Tue, 29 Jul 2025
- 06:50:29 -0700 (PDT)
-MIME-Version: 1.0
+ d=1e100.net; s=20230601; t=1753800726; x=1754405526;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7+3ioCFsrua+PiUlPXqRNsQ1k/ZGLwzffX5kO+g7omQ=;
+ b=i/H+eI+ZAx3XwgFYrmS730YKkm/G7vsMhY9JPlQhw/+ao1pheWCFYE/sTa6eg30gCe
+ 3IQfTgIvAotF549ftIAEm5P9y6MdhLhTSr7dOoc4+ADok7a1l4VB3EgOeb2Y+VnSfqaa
+ brTjZS85aPwQYJPjDV/Jj9K8+4RSu+DGd7ZFki5PfjPcqlJprsZHlyAHcWPCcxNbkp0L
+ ALy7uWjLSxQ0eImPZ+nprhD9o/uxsg4upF6Z7rhRPgTbCls8uNsbHsG2UqUOwZKX8UMC
+ tHjhrZfwxiEJa95Mhkf6R7mckMcnMaXoDbN0UAHglD3klm0poTC22rCJNbALMnqcc+Xl
+ nuBw==
+X-Gm-Message-State: AOJu0Ywxa9dnTH/G3f4biAMOi9qiKn+ircvHCxKNs7mdu1lGYht7YPw7
+ hpqP9m/cztSW5h0DKZNoiUcOdVilo0grIN0ToHJ/qrpeRxdpVyt3U8tGzGiqUA==
+X-Gm-Gg: ASbGncuDkmftNeXalqg7JcQ+K1SLXUiQtMmKOOflpgaK3dCmXwjXzr40jdgAEJDfjHI
+ pwc4xy9yjpJnmIycEC3Bzc6xcuQ/gSRlgq9O8jC+XOg5Qc1kK1rulWPGMsVVxXTG3DkbfYEgjJA
+ qJR114PUty28j7tovMeqE7aAuiaJKEizkNX4QY0GET9s3dr8m1DtUtB2GktdMMBDV9SLE9eIzPt
+ yA14eII7H4ygtH1WAG8OInsC7FQ71TgcPQ6DgwMwJ7nK3btW4hQpTobSNk9oDxfvAzjWFFh9+kQ
+ fSgtcbXcXSqL1IZ/pLDw+z3QD2K2NE8clRPpd2pO/r33EvlVO9k+1tV+ndayrXd1VYmaGeGVcl7
+ QQZHVmzPmaBK+eXdY2vgnETwCx7qnikGlTIsPWOh6Ed+XYzqtM90nhN2MaIn2SeS7pskSqR5QRl
+ szOhq6VrpPcOrH7RbM1THLEOzq5V3nqLc3shnJOMgpEJIFdhSdNWI0JxdlrEE=
+X-Google-Smtp-Source: AGHT+IE33OcbHufNQ6nCMGjNPxvh5mM+NxDMXPfSmagFDL0Yv/2oBuy9gPgR8Bb2xe4tgqJxoT5OHw==
+X-Received: by 2002:a05:600c:45c6:b0:456:f36:e927 with SMTP id
+ 5b1f17b1804b1-45892be1748mr624685e9.28.1753800725384; 
+ Tue, 29 Jul 2025 07:52:05 -0700 (PDT)
+Received: from ?IPv6:2001:4c4d:24d8:fc00:df2c:474f:f05f:68e?
+ (20014C4D24D8FC00DF2C474FF05F068E.dsl.pool.telekom.hu.
+ [2001:4c4d:24d8:fc00:df2c:474f:f05f:68e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4588e5da430sm28414135e9.24.2025.07.29.07.52.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Jul 2025 07:52:04 -0700 (PDT)
+Message-ID: <8467bd93ee8af00d7ac5e4c39c6f26d9e47f93cc.camel@gmail.com>
+Subject: Re: [PATCH 3/3] drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Date: Tue, 29 Jul 2025 16:52:03 +0200
+In-Reply-To: <CADnq5_PyD17b98yTv_2UhOyRz3pZUjP4X9BmGBq1wUcqQQ=t_Q@mail.gmail.com>
 References: <20250722155830.67401-1-timur.kristof@gmail.com>
  <20250722155830.67401-4-timur.kristof@gmail.com>
-In-Reply-To: <20250722155830.67401-4-timur.kristof@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Jul 2025 09:50:17 -0400
-X-Gm-Features: Ac12FXyH3dxJqXiajde7r1T03eFSrJHKRJItyEmcxmSKqknzXXwsL5z032j7Scw
-Message-ID: <CADnq5_PyD17b98yTv_2UhOyRz3pZUjP4X9BmGBq1wUcqQQ=t_Q@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
+ <CADnq5_PyD17b98yTv_2UhOyRz3pZUjP4X9BmGBq1wUcqQQ=t_Q@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,164 +91,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied patches 2 and 3.  Is 1 still needed with the other patch Alex menti=
-oned?
+SGksCgpUaGFua3MgZm9yIHRoZSBxdWljayByZXZpZXchCgpObywgSSB0aGluayBwYXRjaCAxIGlz
+bid0IGdvaW5nIHRvIGJlIG5lZWRlZCBpZiB0aGUgaXNzdWUgaXMgYWxyZWFkeQpiZWluZyBhZGRy
+ZXNzZWQgYnkgdGhlIG90aGVyIG9uZS4KClRpbXVyCgpPbiBUdWUsIDIwMjUtMDctMjkgYXQgMDk6
+NTAgLTA0MDAsIEFsZXggRGV1Y2hlciB3cm90ZToKPiBBcHBsaWVkIHBhdGNoZXMgMiBhbmQgMy7C
+oCBJcyAxIHN0aWxsIG5lZWRlZCB3aXRoIHRoZSBvdGhlciBwYXRjaCBBbGV4Cj4gbWVudGlvbmVk
+Pwo+IAo+IFRoYW5rcyEKPiAKPiBBbGV4Cj4gCj4gT24gVHVlLCBKdWwgMjIsIDIwMjUgYXQgMTI6
+MjPigK9QTSBUaW11ciBLcmlzdMOzZgo+IDx0aW11ci5rcmlzdG9mQGdtYWlsLmNvbT4gd3JvdGU6
+Cj4gPiAKPiA+IEFwcGFyZW50bHksIGJvdGggRENFIDYuMCBhbmQgNi40IGhhdmUgMyBQTExzLCBi
+dXQgUExMMCBjYW4gb25seQo+ID4gYmUgdXNlZCBmb3IgRFAuIE1ha2Ugc3VyZSB0byBpbml0aWFs
+aXplIHRoZSBjb3JyZWN0IGFtb3VudCBvZiBQTExzCj4gPiBpbiBEQyBmb3IgdGhlc2UgRENFIHZl
+cnNpb25zIGFuZCB1c2UgUExMMCBvbmx5IGZvciBEUC4KPiA+IAo+ID4gQWxzbywgb24gRENFIDYu
+MCBhbmQgNi40LCB0aGUgUExMMCBuZWVkcyB0byBiZSBwb3dlcmVkIG9uIGF0Cj4gPiBpbml0aWFs
+aXphdGlvbiBhcyBvcHBvc2VkIHRvIERDRSA2LjEgYW5kIDcueCB3aGljaCB1c2UgYSBkaWZmZXJl
+bnQKPiA+IGNsb2NrIHNvdXJjZSBmb3IgREZTLgo+ID4gCj4gPiBUaGUgZm9sbG93aW5nIGZ1bmN0
+aW9ucyB3ZXJlIHVzZWQgYXMgcmVmZXJlbmNlIGZyb20gdGhlIG9sZAo+ID4gcmFkZW9uIGRyaXZl
+ciBpbXBsZW1lbnRhdGlvbiBvZiBEQ0UgNi54Ogo+ID4gLSByYWRlb25fYXRvbV9waWNrX3BsbAo+
+ID4gLSBhdG9tYmlvc19jcnRjX3NldF9kaXNwX2VuZ19wbGwKPiA+IAo+ID4gU2lnbmVkLW9mZi1i
+eTogVGltdXIgS3Jpc3TDs2YgPHRpbXVyLmtyaXN0b2ZAZ21haWwuY29tPgo+ID4gLS0tCj4gPiDC
+oC4uLi9kaXNwbGF5L2RjL2Nsa19tZ3IvZGNlMTAwL2RjZV9jbGtfbWdyLmPCoMKgIHzCoCA1ICsr
+Kwo+ID4gwqAuLi4vZGMvcmVzb3VyY2UvZGNlNjAvZGNlNjBfcmVzb3VyY2UuY8KgwqDCoMKgwqDC
+oMKgIHwgMzQgKysrKysrKysrKystLS0tCj4gPiAtLS0tCj4gPiDCoDIgZmlsZXMgY2hhbmdlZCwg
+MjUgaW5zZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQKPiA+
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nsa19tZ3IvZGNlMTAwL2RjZV9jbGtf
+bWdyLmMKPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nsa19tZ3IvZGNlMTAw
+L2RjZV9jbGtfbWdyLmMKPiA+IGluZGV4IDI2ZmVlZmJiODk5MC4uZjVhZDBhMTc3MDM4IDEwMDY0
+NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nsa19tZ3IvZGNlMTAw
+L2RjZV9jbGtfbWdyLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9j
+bGtfbWdyL2RjZTEwMC9kY2VfY2xrX21nci5jCj4gPiBAQCAtMjQ1LDYgKzI0NSwxMSBAQCBpbnQg
+ZGNlX3NldF9jbG9jaygKPiA+IMKgwqDCoMKgwqDCoMKgIHB4bF9jbGtfcGFyYW1zLnRhcmdldF9w
+aXhlbF9jbG9ja18xMDBoeiA9IHJlcXVlc3RlZF9jbGtfa2h6Cj4gPiAqIDEwOwo+ID4gwqDCoMKg
+wqDCoMKgwqAgcHhsX2Nsa19wYXJhbXMucGxsX2lkID0gQ0xPQ0tfU09VUkNFX0lEX0RGUzsKPiA+
+IAo+ID4gK8KgwqDCoMKgwqDCoCAvKiBEQ0UgNi4wLCBEQ0UgNi40OiBlbmdpbmUgY2xvY2sgaXMg
+dGhlIHNhbWUgYXMgUExMMCAqLwo+ID4gK8KgwqDCoMKgwqDCoCBpZiAoY2xrX21ncl9iYXNlLT5j
+dHgtPmRjZV92ZXJzaW9uID09IERDRV9WRVJTSU9OXzZfMCB8fAo+ID4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgIGNsa19tZ3JfYmFzZS0+Y3R4LT5kY2VfdmVyc2lvbiA9PSBEQ0VfVkVSU0lPTl82XzQp
+Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBweGxfY2xrX3BhcmFtcy5wbGxfaWQg
+PSBDTE9DS19TT1VSQ0VfSURfUExMMDsKPiA+ICsKPiA+IMKgwqDCoMKgwqDCoMKgIGlmIChjbGtf
+bWdyX2RjZS0+ZGZzX2J5cGFzc19hY3RpdmUpCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgcHhsX2Nsa19wYXJhbXMuZmxhZ3MuU0VUX0RJU1BDTEtfREZTX0JZUEFTUyA9IHRydWU7
+Cj4gPiAKPiA+IGRpZmYgLS1naXQKPiA+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L3Jlc291cmNlL2RjZTYwL2RjZTYwX3Jlc291cmNlLmMKPiA+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL3Jlc291cmNlL2RjZTYwL2RjZTYwX3Jlc291cmNlLmMKPiA+IGluZGV4IDU4
+YjU5ZDUyZGM5ZC4uNTNiNjAwNDQ2NTNmIDEwMDY0NAo+ID4gLS0tCj4gPiBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY2U2MC9kY2U2MF9yZXNvdXJjZS5jCj4gPiAr
+KysKPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL3Jlc291cmNlL2RjZTYwL2Rj
+ZTYwX3Jlc291cmNlLmMKPiA+IEBAIC0zNzMsNyArMzczLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVj
+dCByZXNvdXJjZV9jYXBzIHJlc19jYXAgPSB7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgLm51bV90aW1pbmdfZ2VuZXJhdG9yID0gNiwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCAubnVtX2F1ZGlvID0gNiwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCAubnVtX3N0cmVhbV9lbmNvZGVyID0gNiwKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIC5udW1fcGxsID0gMiwKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5u
+dW1fcGxsID0gMywKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAubnVtX2RkYyA9
+IDYsCj4gPiDCoH07Cj4gPiAKPiA+IEBAIC0zODksNyArMzg5LDcgQEAgc3RhdGljIGNvbnN0IHN0
+cnVjdCByZXNvdXJjZV9jYXBzIHJlc19jYXBfNjQgPQo+ID4gewo+ID4gwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIC5udW1fdGltaW5nX2dlbmVyYXRvciA9IDIsCj4gPiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgLm51bV9hdWRpbyA9IDIsCj4gPiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgLm51bV9zdHJlYW1fZW5jb2RlciA9IDIsCj4gPiAtwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAubnVtX3BsbCA9IDIsCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAubnVtX3BsbCA9IDMsCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+Lm51bV9kZGMgPSAyLAo+ID4gwqB9Owo+ID4gCj4gPiBAQCAtOTczLDIxICs5NzMsMjQgQEAgc3Rh
+dGljIGJvb2wgZGNlNjBfY29uc3RydWN0KAo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoCBpZiAoYnAt
+PmZ3X2luZm9fdmFsaWQgJiYgYnAtCj4gPiA+ZndfaW5mby5leHRlcm5hbF9jbG9ja19zb3VyY2Vf
+ZnJlcXVlbmN5X2Zvcl9kcCAhPSAwKSB7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgcG9vbC0+YmFzZS5kcF9jbG9ja19zb3VyY2UgPQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkY2U2MF9jbG9ja19zb3Vy
+Y2VfY3JlYXRlKGN0eCwgYnAsCj4gPiBDTE9DS19TT1VSQ0VfSURfRVhURVJOQUwsIE5VTEwsIHRy
+dWUpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRj
+ZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENMT0NLX1NPVVJDRV9JRF9FWFRF
+Uk5BTCwgTlVMTCwgdHJ1ZSk7Cj4gPiAKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IC8qIERDRSA2LjAgYW5kIDYuNDogUExMMCBjYW4gb25seSBiZSB1c2VkIHdpdGggRFAuCj4gPiBE
+b24ndCBpbml0aWFsaXplIGl0IGhlcmUuICovCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgcG9vbC0+YmFzZS5jbG9ja19zb3VyY2VzWzBdID0KPiA+IC3CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGNlNjBfY2xvY2tf
+c291cmNlX2NyZWF0ZShjdHgsIGJwLAo+ID4gQ0xPQ0tfU09VUkNFX0lEX1BMTDAsICZjbGtfc3Jj
+X3JlZ3NbMF0sIGZhbHNlKTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBkY2U2MF9jbG9ja19zb3VyY2VfY3JlYXRlKGN0eCwgYnAsCj4gPiBDTE9DS19T
+T1VSQ0VfSURfUExMMSwgJmNsa19zcmNfcmVnc1sxXSwgZmFsc2UpOwo+ID4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHBvb2wtPmJhc2UuY2xvY2tfc291cmNlc1sxXSA9Cj4gPiAtwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGRjZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENMT0NLX1NPVVJDRV9JRF9Q
+TEwxLCAmY2xrX3NyY19yZWdzWzFdLCBmYWxzZSk7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGNlNjBfY2xvY2tfc291cmNlX2NyZWF0ZShjdHgsIGJw
+LAo+ID4gQ0xPQ0tfU09VUkNFX0lEX1BMTDIsICZjbGtfc3JjX3JlZ3NbMl0sIGZhbHNlKTsKPiA+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb29sLT5iYXNlLmNsa19zcmNfY291bnQg
+PSAyOwo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoCB9IGVsc2Ugewo+ID4gwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHBvb2wtPmJhc2UuZHBfY2xvY2tfc291cmNlID0KPiA+IC3CoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGNl
+NjBfY2xvY2tfc291cmNlX2NyZWF0ZShjdHgsIGJwLAo+ID4gQ0xPQ0tfU09VUkNFX0lEX1BMTDAs
+ICZjbGtfc3JjX3JlZ3NbMF0sIHRydWUpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGRjZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+
+IENMT0NLX1NPVVJDRV9JRF9QTEwwLCAmY2xrX3NyY19yZWdzWzBdLCB0cnVlKTsKPiA+IAo+ID4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBvb2wtPmJhc2UuY2xvY2tfc291cmNlc1sw
+XSA9Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGRjZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENMT0NL
+X1NPVVJDRV9JRF9QTEwxLCAmY2xrX3NyY19yZWdzWzFdLCBmYWxzZSk7Cj4gPiAtwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBwb29sLT5iYXNlLmNsa19zcmNfY291bnQgPSAxOwo+ID4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRjZTYwX2Nsb2NrX3Nv
+dXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENMT0NLX1NPVVJDRV9JRF9QTEwxLCAmY2xrX3NyY19y
+ZWdzWzFdLCBmYWxzZSk7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb29sLT5i
+YXNlLmNsb2NrX3NvdXJjZXNbMV0gPQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGRjZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENM
+T0NLX1NPVVJDRV9JRF9QTEwyLCAmY2xrX3NyY19yZWdzWzJdLCBmYWxzZSk7Cj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb29sLT5iYXNlLmNsa19zcmNfY291bnQgPSAyOwo+ID4g
+wqDCoMKgwqDCoMKgwqAgfQo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoCBpZiAocG9vbC0+YmFzZS5k
+cF9jbG9ja19zb3VyY2UgPT0gTlVMTCkgewo+ID4gQEAgLTEzNjUsMjEgKzEzNjgsMjQgQEAgc3Rh
+dGljIGJvb2wgZGNlNjRfY29uc3RydWN0KAo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoCBpZiAoYnAt
+PmZ3X2luZm9fdmFsaWQgJiYgYnAtCj4gPiA+ZndfaW5mby5leHRlcm5hbF9jbG9ja19zb3VyY2Vf
+ZnJlcXVlbmN5X2Zvcl9kcCAhPSAwKSB7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgcG9vbC0+YmFzZS5kcF9jbG9ja19zb3VyY2UgPQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkY2U2MF9jbG9ja19zb3Vy
+Y2VfY3JlYXRlKGN0eCwgYnAsCj4gPiBDTE9DS19TT1VSQ0VfSURfRVhURVJOQUwsIE5VTEwsIHRy
+dWUpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRj
+ZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENMT0NLX1NPVVJDRV9JRF9FWFRF
+Uk5BTCwgTlVMTCwgdHJ1ZSk7Cj4gPiAKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IC8qIERDRSA2LjAgYW5kIDYuNDogUExMMCBjYW4gb25seSBiZSB1c2VkIHdpdGggRFAuCj4gPiBE
+b24ndCBpbml0aWFsaXplIGl0IGhlcmUuICovCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgcG9vbC0+YmFzZS5jbG9ja19zb3VyY2VzWzBdID0KPiA+IC3CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGNlNjBfY2xvY2tf
+c291cmNlX2NyZWF0ZShjdHgsIGJwLAo+ID4gQ0xPQ0tfU09VUkNFX0lEX1BMTDEsICZjbGtfc3Jj
+X3JlZ3NbMF0sIGZhbHNlKTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBkY2U2MF9jbG9ja19zb3VyY2VfY3JlYXRlKGN0eCwgYnAsCj4gPiBDTE9DS19T
+T1VSQ0VfSURfUExMMSwgJmNsa19zcmNfcmVnc1sxXSwgZmFsc2UpOwo+ID4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHBvb2wtPmJhc2UuY2xvY2tfc291cmNlc1sxXSA9Cj4gPiAtwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGRjZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENMT0NLX1NPVVJDRV9JRF9Q
+TEwyLCAmY2xrX3NyY19yZWdzWzFdLCBmYWxzZSk7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGNlNjBfY2xvY2tfc291cmNlX2NyZWF0ZShjdHgsIGJw
+LAo+ID4gQ0xPQ0tfU09VUkNFX0lEX1BMTDIsICZjbGtfc3JjX3JlZ3NbMl0sIGZhbHNlKTsKPiA+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb29sLT5iYXNlLmNsa19zcmNfY291bnQg
+PSAyOwo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoCB9IGVsc2Ugewo+ID4gwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHBvb2wtPmJhc2UuZHBfY2xvY2tfc291cmNlID0KPiA+IC3CoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGNl
+NjBfY2xvY2tfc291cmNlX2NyZWF0ZShjdHgsIGJwLAo+ID4gQ0xPQ0tfU09VUkNFX0lEX1BMTDEs
+ICZjbGtfc3JjX3JlZ3NbMF0sIHRydWUpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGRjZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+
+IENMT0NLX1NPVVJDRV9JRF9QTEwwLCAmY2xrX3NyY19yZWdzWzBdLCB0cnVlKTsKPiA+IAo+ID4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBvb2wtPmJhc2UuY2xvY2tfc291cmNlc1sw
+XSA9Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGRjZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENMT0NL
+X1NPVVJDRV9JRF9QTEwyLCAmY2xrX3NyY19yZWdzWzFdLCBmYWxzZSk7Cj4gPiAtwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBwb29sLT5iYXNlLmNsa19zcmNfY291bnQgPSAxOwo+ID4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRjZTYwX2Nsb2NrX3Nv
+dXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENMT0NLX1NPVVJDRV9JRF9QTEwxLCAmY2xrX3NyY19y
+ZWdzWzFdLCBmYWxzZSk7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb29sLT5i
+YXNlLmNsb2NrX3NvdXJjZXNbMV0gPQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGRjZTYwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBicCwKPiA+IENM
+T0NLX1NPVVJDRV9JRF9QTEwyLCAmY2xrX3NyY19yZWdzWzJdLCBmYWxzZSk7Cj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb29sLT5iYXNlLmNsa19zcmNfY291bnQgPSAyOwo+ID4g
+wqDCoMKgwqDCoMKgwqAgfQo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoCBpZiAocG9vbC0+YmFzZS5k
+cF9jbG9ja19zb3VyY2UgPT0gTlVMTCkgewo+ID4gLS0KPiA+IDIuNTAuMQo+ID4gCg==
 
-Thanks!
-
-Alex
-
-On Tue, Jul 22, 2025 at 12:23=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@=
-gmail.com> wrote:
->
-> Apparently, both DCE 6.0 and 6.4 have 3 PLLs, but PLL0 can only
-> be used for DP. Make sure to initialize the correct amount of PLLs
-> in DC for these DCE versions and use PLL0 only for DP.
->
-> Also, on DCE 6.0 and 6.4, the PLL0 needs to be powered on at
-> initialization as opposed to DCE 6.1 and 7.x which use a different
-> clock source for DFS.
->
-> The following functions were used as reference from the old
-> radeon driver implementation of DCE 6.x:
-> - radeon_atom_pick_pll
-> - atombios_crtc_set_disp_eng_pll
->
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> ---
->  .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  5 +++
->  .../dc/resource/dce60/dce60_resource.c        | 34 +++++++++++--------
->  2 files changed, 25 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c =
-b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> index 26feefbb8990..f5ad0a177038 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> @@ -245,6 +245,11 @@ int dce_set_clock(
->         pxl_clk_params.target_pixel_clock_100hz =3D requested_clk_khz * 1=
-0;
->         pxl_clk_params.pll_id =3D CLOCK_SOURCE_ID_DFS;
->
-> +       /* DCE 6.0, DCE 6.4: engine clock is the same as PLL0 */
-> +       if (clk_mgr_base->ctx->dce_version =3D=3D DCE_VERSION_6_0 ||
-> +           clk_mgr_base->ctx->dce_version =3D=3D DCE_VERSION_6_4)
-> +               pxl_clk_params.pll_id =3D CLOCK_SOURCE_ID_PLL0;
-> +
->         if (clk_mgr_dce->dfs_bypass_active)
->                 pxl_clk_params.flags.SET_DISPCLK_DFS_BYPASS =3D true;
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-> index 58b59d52dc9d..53b60044653f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-> @@ -373,7 +373,7 @@ static const struct resource_caps res_cap =3D {
->                 .num_timing_generator =3D 6,
->                 .num_audio =3D 6,
->                 .num_stream_encoder =3D 6,
-> -               .num_pll =3D 2,
-> +               .num_pll =3D 3,
->                 .num_ddc =3D 6,
->  };
->
-> @@ -389,7 +389,7 @@ static const struct resource_caps res_cap_64 =3D {
->                 .num_timing_generator =3D 2,
->                 .num_audio =3D 2,
->                 .num_stream_encoder =3D 2,
-> -               .num_pll =3D 2,
-> +               .num_pll =3D 3,
->                 .num_ddc =3D 2,
->  };
->
-> @@ -973,21 +973,24 @@ static bool dce60_construct(
->
->         if (bp->fw_info_valid && bp->fw_info.external_clock_source_freque=
-ncy_for_dp !=3D 0) {
->                 pool->base.dp_clock_source =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_EXTERNAL, NULL, true);
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_EXTERNAL, NULL, true);
->
-> +               /* DCE 6.0 and 6.4: PLL0 can only be used with DP. Don't =
-initialize it here. */
->                 pool->base.clock_sources[0] =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_PLL0, &clk_src_regs[0], false);
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL1, &clk_src_regs[1], false);
->                 pool->base.clock_sources[1] =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_PLL1, &clk_src_regs[1], false);
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL2, &clk_src_regs[2], false);
->                 pool->base.clk_src_count =3D 2;
->
->         } else {
->                 pool->base.dp_clock_source =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_PLL0, &clk_src_regs[0], true);
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL0, &clk_src_regs[0], true);
->
->                 pool->base.clock_sources[0] =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_PLL1, &clk_src_regs[1], false);
-> -               pool->base.clk_src_count =3D 1;
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL1, &clk_src_regs[1], false);
-> +               pool->base.clock_sources[1] =3D
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL2, &clk_src_regs[2], false);
-> +               pool->base.clk_src_count =3D 2;
->         }
->
->         if (pool->base.dp_clock_source =3D=3D NULL) {
-> @@ -1365,21 +1368,24 @@ static bool dce64_construct(
->
->         if (bp->fw_info_valid && bp->fw_info.external_clock_source_freque=
-ncy_for_dp !=3D 0) {
->                 pool->base.dp_clock_source =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_EXTERNAL, NULL, true);
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_EXTERNAL, NULL, true);
->
-> +               /* DCE 6.0 and 6.4: PLL0 can only be used with DP. Don't =
-initialize it here. */
->                 pool->base.clock_sources[0] =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_PLL1, &clk_src_regs[0], false);
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL1, &clk_src_regs[1], false);
->                 pool->base.clock_sources[1] =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_PLL2, &clk_src_regs[1], false);
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL2, &clk_src_regs[2], false);
->                 pool->base.clk_src_count =3D 2;
->
->         } else {
->                 pool->base.dp_clock_source =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_PLL1, &clk_src_regs[0], true);
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL0, &clk_src_regs[0], true);
->
->                 pool->base.clock_sources[0] =3D
-> -                               dce60_clock_source_create(ctx, bp, CLOCK_=
-SOURCE_ID_PLL2, &clk_src_regs[1], false);
-> -               pool->base.clk_src_count =3D 1;
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL1, &clk_src_regs[1], false);
-> +               pool->base.clock_sources[1] =3D
-> +                       dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_I=
-D_PLL2, &clk_src_regs[2], false);
-> +               pool->base.clk_src_count =3D 2;
->         }
->
->         if (pool->base.dp_clock_source =3D=3D NULL) {
-> --
-> 2.50.1
->
