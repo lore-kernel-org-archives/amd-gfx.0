@@ -4,142 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C542C87FC9
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jul 2025 06:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DD1BC83F26
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jul 2025 06:22:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 152D910E0DC;
-	Tue, 29 Jul 2025 06:20:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B17C210E1D0;
+	Tue, 29 Jul 2025 06:21:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1LtotbB3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MeOeq31v";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B56B10E0DC
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 06:20:25 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2056.outbound.protection.outlook.com [40.107.95.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D99D10E5D2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jul 2025 06:21:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dkl7xbQmpQIRhenF0BSCE96XcKKzuO5FLtDGl9PK0iqZ5mReum8ZM6BJPQDbyVTSEeB1fWP45N3v9J6IkrGHkiOY/g44WNbR+HqUh/KK6BlF+u0q4jI8UwPK25G2oftLSCx2D9NuX5iPENF0PlchOcQkMKHbX4M77RtTt3ZlcL31TUIKohTUEt6Z9h21LyUZtbqI397f+XVhZFBT0L71aWYdpHlbggY/EeFdVNTVLFJDP5vgVL3y3dpLAe56Eltq3o6f7k8tA5Z8l6bGIdvFWq2ydhY3PQrGKjMiciOFARzDSMplLIiYI+WrQ2MJhFDuCX8GacguoObzG1ONhdtH7w==
+ b=ItSdQIAW3mOc87jFVOqSBtGzIYeK8TcVhkAQXuUONkGT8JjDixfmMjDWKyjFD13ZciKGkle2HvttCLrtip/a5ifUK3ESv73U6QJb2NfdwMnO6DHBNgrI8QY4zvLNoW65ABl1FEyHtBOQIiDoTbrDl0aqymTTc32wHAuAWk7ygbF+qK0J8WYnpLf6SRRVwFDhbX/bO8wqEs1hjK0s/8glXhFNCrK1Lp1D/NQrNb66haC4nl0BIvPYEd15fffwRss+/XzokOkBKd4IXJpJ5s2I5PEqRjceuy47NjTY0VWp9mS/oLw1Wbk7XR6zfIntdZbuv55Mo3dKbLZhHDkEVb4N8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IKsUme75mxmPO2P+TSfI9uiFojo3OUvGoV/mgfybVuQ=;
- b=PEEv4cGWMTogAVww62HehYUZO7whf+2CIgYaFr3HTfNEeg81EI5XXbi57IKDZRa2U/k0kzllza4Oqqt8GSlmXxXlNVHXKwNg2HC4en5MqtieKHbftt7KL3PXbLFHK4cVeYNwO/kVqMWmEceOjtWXggscZPTBHKs3E18a90Ac+lr+57GkWRsU/o0/zkMI/SnomGVJQ8Qe3geourOrnMWT1NO1g+sm3Zu8/ZFzrP7wt4Eqol4zQ0gLO2QtmHTgYHcmIcAPFupYvTIQfosY5BSO3dX84VHDDO+clA3PDh1zLe5S14cXUwVv6w0W5Svs9wLGt8wrVnXAnrh3jOYNOJx5GQ==
+ bh=8dzPpjmcRCRNqtNdScFhxT24aUmHp8Qb4Lk9ZRWbrb0=;
+ b=lGRcGbeMfhlqYDU7zu1VHzh1XrmiVbdRdr30d1KO9ETAlWiNe+u/bzC9oMhKLTdtc5uS/8MlMW5uplD8+6VpTTW6V8SEIPJMWmK20W6Py2stcq/JMTZohp6OZsmeXlREr8HSZjcfKJgitdULdBmI5YgpTkelGIwz0Gr/3hRUDFhjvj1YAaQ9zLGyfZOdc5OuFv84OJQyGdNQRGJqN8bCIlX3iBT/Jlnk+CN5TX+TDTidZC1mCS2FzpZ/5xSZm5VuZqiz5x8RAP9faLH/eJiT4H+WG8hdF19d5Zs21PV/6eFaEFk6bkPuf41hsTriCoChQxg9AIL1+Xy5KRICvHBmHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IKsUme75mxmPO2P+TSfI9uiFojo3OUvGoV/mgfybVuQ=;
- b=1LtotbB3NLn52Y9UTFXhHtD5hvQVB6p7cZwfDYaCpu1bNCyi9bkoMCZl950nvxJv1GOg5RoCh+IMIH50EwS3gjpKXjULQcLCEGp1YK/Ktj9Zc2NqaAn+MLjh1gzBTcl0zAUzZRf6Q52dshsq7nS28qfSP0goGOhPawfL+C+gGuI=
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by CH3PR12MB7499.namprd12.prod.outlook.com (2603:10b6:610:142::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.27; Tue, 29 Jul
- 2025 06:20:22 +0000
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd%5]) with mapi id 15.20.8964.025; Tue, 29 Jul 2025
- 06:20:22 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Effective health check before reset
-Thread-Topic: [PATCH] drm/amdgpu: Effective health check before reset
-Thread-Index: AQHcAD99r8fLowZesU2l2R025uesqrRIoNXQ
-Date: Tue, 29 Jul 2025 06:20:21 +0000
-Message-ID: <PH7PR12MB879634A5CF0F9E1C9AEF7CB7B025A@PH7PR12MB8796.namprd12.prod.outlook.com>
-References: <20250729041545.75232-1-cesun102@amd.com>
-In-Reply-To: <20250729041545.75232-1-cesun102@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-07-29T06:18:56.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=8dzPpjmcRCRNqtNdScFhxT24aUmHp8Qb4Lk9ZRWbrb0=;
+ b=MeOeq31vXOQA4U7gTEmHMelGH+PCyTAQEwQlcqbSJDioIzZr14zyceHMJYK59scTanG93lX87i2JJBzc/H+mWkIVq66/LjOWGSJEV1zqgkxxsJsnogo3TPm3E0aiLQQqgkrs8VYOLAB4iij4htWPlKK7b4oCU+2h4F2fqXfhgCI=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|CH3PR12MB7499:EE_
-x-ms-office365-filtering-correlation-id: e98c2ef4-7afb-4487-dc24-08ddce67ff90
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?CfNRhTZY8rRB5LSia/NAj2diD/vdz6n6ZGe88Fy3RBvbkSDtaClGU9zbTaqQ?=
- =?us-ascii?Q?t7TNRNFHXTsIHIPprJytdfxKuL3C1jcClYv60cPsE8/HGJxtji5kjAKn9ViP?=
- =?us-ascii?Q?BzrmJjfNMkfZrxw7x4C9BiTCbUQ+lMb9y4hir+J7EaKrB2Jzq4GfGRlK7Qbm?=
- =?us-ascii?Q?uW2LD07HAVuQNR4Ptq3K70e7pjlTcT821dRx09EfUz2DsGD7/o+hImtri4Ry?=
- =?us-ascii?Q?HUYdvtRu5X+FgTuQdllXMPJznwBUQ9KrrcTIr7Dg/vJNjv9hISNRvLAeMaEB?=
- =?us-ascii?Q?vHLMvZ+8ECS0PGmIjIh96i1LI7K4HiwUrA4SYFk0hRnNJOegKX/eY5Uzj8Z+?=
- =?us-ascii?Q?aIq5d2tNemDvK7YQKg3cnTcAxYxqE7cMOcFkKIONfSmsN0VoJ1lDRzUwg1MM?=
- =?us-ascii?Q?5H1oSdpEHggBHdnGOSuo2quWfXIRrLh0tPLH5b/JERmns9+WymWcJlHjt3iE?=
- =?us-ascii?Q?X24HOo9RVdmHbadaKyzwvPc7tZ+W00GaB3l2NC1LzhdxajdZ/KPmm/SoTtuT?=
- =?us-ascii?Q?qu9hjTblhoTGJ+vvhzZ6UPl5Jgh1XePCd4DY/7gmJ3pLc060uW0Vpgbbvvcw?=
- =?us-ascii?Q?/Ouq/CnnSdGUVMnkdjmQvQn8lqsffVn86LmOeL5CEZwZ255eebtKQH1DUD+n?=
- =?us-ascii?Q?FV3M54MHQHogDYo7eIa6C301PazQV2NFtiN09yrcTWcltZQ32Evlz6kgUJhD?=
- =?us-ascii?Q?A4rE4+JpkTENASb17XeVJf4wpUUTQCZWkwu3RkxlDplOGmAVsoyBm1zsn7kt?=
- =?us-ascii?Q?pATRVnn8gd6qULZVtkezlwnk5KW4wsjfcbOxipTEi08C3dHLG9nJAQcN1GoY?=
- =?us-ascii?Q?yQ5QNlVk/QQNAB7feMPTeD4HKmNT3G797OQaSU6lZVOywXVbYMi18gtbTUkQ?=
- =?us-ascii?Q?JbveJR49017821jc2QKGPrk7dAph7sIeL0chNQytHdHBwXQg0rxendcb3nBB?=
- =?us-ascii?Q?oJvjz3kIjvGEUik2IZeXs6UDIsxILOE66l9/vJqS3bAjIU6HKcicr7OXjpvs?=
- =?us-ascii?Q?fto0IXNPPHhPMGeSxvhEHjKVOQPs03dzKXorsDiQFjUJdZjZxSALw0ydcNsj?=
- =?us-ascii?Q?KKtO1tF01/ujLKsdaHTUXSuy0xXRHZzrmgo1snYgfti2cttxpkHuAH4k4DUa?=
- =?us-ascii?Q?rf8G6BZif+kXiXLFehi0dyzzYp2evSsks2Ld8X67gRhc0182xcePSOURvmRL?=
- =?us-ascii?Q?qOkmR/QiJpdx6yQZ8wa8yM6hTpdRUakJj5DMXNhRKNQpwV6uuy6sp1zffp34?=
- =?us-ascii?Q?0EsV74PlPUtF3W/+pLFMQf4Fv4vevPxwVJbjEoeraByk4thwpJsau0Xc2I1X?=
- =?us-ascii?Q?gl9HDzHG4CbThSYkC0Uh60vH/9VWSwBY9AyApmjx/zqX0IXRFbie+o5oCPVL?=
- =?us-ascii?Q?zHeGd46I6QXtTZfFPH+goRHxTH5HqeOd1hx+oLOhAQamyCvoL4Po8N+4wndh?=
- =?us-ascii?Q?nfhdi7PoAP9ua3OEZo1xtZAe0LI8BX4Hl2uzGoLl7W48UHYE6QEilQ=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ThHE/qOBF5SiR/ppPEjtnCRVyyqh+IcakffidqQaHP5IWWFFEds4Z5urUdne?=
- =?us-ascii?Q?RV10afZNNdtAILyTHf4SiOancTnnf/WVVGECYygscmfQGKFtHBSoEaC7yO82?=
- =?us-ascii?Q?6cgaytsPh/5p5o0L24NRB2r0YhBxWXwOU3q6+ufEKFgKZT234aLJdvKMqnMj?=
- =?us-ascii?Q?g4l6xF1Tr8yV7HVcyCts70yTs+94v0YthuhrFZ0BN5AUy+qbz5h985fr7gVX?=
- =?us-ascii?Q?JA8tY9kZew7GMQ+CFLhOvlXCFG2fl00TDIJ1EhD3hLj8EDtq3a8Dh/LI1WJe?=
- =?us-ascii?Q?ClDTT53nfdPEqgDTlXDGKE72RTNSiR3OKxOEl/Z/L3eToSQqpOmDhUvupgR8?=
- =?us-ascii?Q?yTVc8MM/29eGKymh8WxMm0zzTU0XQYYWanshTyivkdvCVjdY3tOGKTU0Eg+V?=
- =?us-ascii?Q?A0VODeI23Hp4bbofRQjYWWHhVcBayGCXBIQQEUf138V8G/W/qxjWQW7EdXAQ?=
- =?us-ascii?Q?ZSAuxmRuKgn5o6iVSkzrr+oEMk48e87Z0UDaThOnB2QPHwEidp1YKE/IT88f?=
- =?us-ascii?Q?4Sh2yZgU8HnZaIh96qdomar6BMkb+sSkXcijLiKZPWQxBEdEqMA/34duLUBZ?=
- =?us-ascii?Q?wjsUulS2r/Q0qbXtKJMiag/ODBQ/k/6sBAH+yMf11e5K2z6rrl0Db+r5YWQp?=
- =?us-ascii?Q?o7qGS4ytcN95NnngAu48hmvNh9fLhIzKByJmFd4q3At7jzC6BoswbG+K5/oa?=
- =?us-ascii?Q?U1sMnPscbEagajV271D07eBF8G2yTIXg3DzwFoeXVWvyLK2PlIrQo04Juz5h?=
- =?us-ascii?Q?FtwO98shskwynXxIRrX7WUMqF6HJWq+pOnXujXlfavK5XM5AAB8qixKAi/mz?=
- =?us-ascii?Q?4jQEX4q/WfwbFOcq6XQgEiN1aAeEeZ+W9yXvCG7E6UjvkjRBEf1JRMGOSdf0?=
- =?us-ascii?Q?nrWW0ZRNHga0QV5qSSbYZR19nOE2/nOQ/UZkr8Lbn4VFl64fIZ3bWVMMzJev?=
- =?us-ascii?Q?Uq00dmp6njHnevGbV/sDLOWutGOD540UbWFNpqBXm8fxD5RWSHJFnbQ6rD2A?=
- =?us-ascii?Q?oR4yN1+la9JjMCnBEG4dENPBKP4Hq+/rhpMa0HsQ3V1bpGZkqqn8OcVkNoNu?=
- =?us-ascii?Q?jtBD7r8TmRneapP3PLwIplvh0Fwj5hbTzQzs+QtIR89PRLn9puEo4JqF9cW2?=
- =?us-ascii?Q?Z58E8dglApzDAGbBTRrPRqGHD08Hxvwi8q75skngtm3JJfO6yLSrDrfbCE1p?=
- =?us-ascii?Q?pDsxCqpD0uVuu+t6zsUQEqXVZEjWjoPr1Q+2gKk/P8LKb+JgljRzft5y0o9P?=
- =?us-ascii?Q?KS9oESNf5XhbUWryptZ5M9zDEHlChuwiG8ru7ESGtNOnU6FjS80MwU0EcO7O?=
- =?us-ascii?Q?T188bnKLZgMKP3JdOxKhEyjJJek5P2Q4XmhvGdqAOQA6Yjv/Sw5UUTqT7ebf?=
- =?us-ascii?Q?ENIkKPSf+CgmN7p+LTqVy0oNKroc1PRWEtriT7BtBbskZaw7TTPqRt/aZyR1?=
- =?us-ascii?Q?CowaNHvRkgUanMhNwFITxNuC+c3Egk7Emym2TT2dx/rHS1Z4BT4vqOzBqAqN?=
- =?us-ascii?Q?+2pWI++Z8ZXMX4D9meESpIbjeV5W93CoAiwqBtqe9BrBOM6KAr16R8BbrTxv?=
- =?us-ascii?Q?Z/yU14I1tTpk14LhpuA=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ by LV2PR12MB5846.namprd12.prod.outlook.com (2603:10b6:408:175::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Tue, 29 Jul
+ 2025 06:21:55 +0000
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8%7]) with mapi id 15.20.8964.025; Tue, 29 Jul 2025
+ 06:21:55 +0000
+Content-Type: multipart/alternative;
+ boundary="------------0Xj2Kd8DarS9nqphK6cP9sN7"
+Message-ID: <92a7a926-b99e-4b2d-b976-caefff03844b@amd.com>
+Date: Tue, 29 Jul 2025 14:21:50 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 8/9] amdkfd: identify a secondary kfd process by its id
+To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com
+Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20250725024316.9273-1-lingshan.zhu@amd.com>
+ <20250725024316.9273-9-lingshan.zhu@amd.com>
+ <51264616-aca9-4b82-822e-7c8856b47629@amd.com>
+Content-Language: en-US
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+In-Reply-To: <51264616-aca9-4b82-822e-7c8856b47629@amd.com>
+X-ClientProxiedBy: TYCP286CA0326.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3b7::10) To SN7PR12MB7835.namprd12.prod.outlook.com
+ (2603:10b6:806:328::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|LV2PR12MB5846:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff21bd35-f05c-4488-0a63-08ddce6836b1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?c0hUMmo4M2FCL1ZjeTZlQUZ4S2VMYzF3QWw1a0gwMGU2c2tYSWhJajJxYmd5?=
+ =?utf-8?B?TGJWek9HSDMzVy9TR0l6MVdEN2gyeW1tenNtTkxFMGhVSDVkVGMvL3VYd2NI?=
+ =?utf-8?B?b3ZkVThaUUZ2RUFYTjRGYi9rdDM4dkJMT2c3Njl0S0pRMUIzdEJwZWVHaHRD?=
+ =?utf-8?B?a3VROEcrc2Fyd3MzY1ppakNETWk2MHRPcGR6Q3ZmdXN6Ymp1Q2t6OVVPL3N3?=
+ =?utf-8?B?dC9XWDU2SnlwUXhkWENNMXdFTWNTVXcrQ3d1Tk1EUGliTG0wbFIyUlVKMXhx?=
+ =?utf-8?B?b05jQXloeFVzaXhsZUpjQzZwSjZVSWhLRnA1V3pzdmlLM3FRN0Q3NkZNeVEw?=
+ =?utf-8?B?RkFuenJKNDUvT0g0RzBGemtwL0RCMGFZN1NneENrNnVrZUF3emg2RTlFUlMx?=
+ =?utf-8?B?Y0RqRFNieTdnMFlzRHYxaTFTV1VqUlJLdE5LUmtsd0F0ODNXaUJtS2RKTE84?=
+ =?utf-8?B?YmZNOU1oTFVwTFBUbXFNZ1NwTlNncU80SEZCZWRlM1B3KzlGbDNadWdmU0Ni?=
+ =?utf-8?B?Nm83THI2Y3Z6M0QxYjUyQ0MyN0lSZm92Unl5UFlydGNGOGFHYnZqWmY4aE92?=
+ =?utf-8?B?YU1iQVZFYUZoM0tIRnpkZGZIN0I5U1NKeTJqYjhWQTVKeDN6eVlxZE9vQ2NJ?=
+ =?utf-8?B?ZVlXT25LZVdpRU56N2dlQWN5SEUrb3o1eFlYODVYcWNWVHdlejBuTnArWlk3?=
+ =?utf-8?B?MVkySjRKTjJNQk5vM3N2bVdxbTlPMlRLbFZLYXJaeDgyRXgxazNFZkZla1da?=
+ =?utf-8?B?SFoyMWVtTTBETmF1ejNieVZXZTN0U3BwSE51d01Ld1FvMkNQd0o4dmxFQVBP?=
+ =?utf-8?B?L1p0OFdsTEJESE1EUXZwd3k3cXF5V1BiUDd4YXZTdzF3a2xXS1Y1cWVqVXpx?=
+ =?utf-8?B?VVd4YzQ3RHdpVzBTN2k4TVRRMWE3NXRjYUJFUFVwN0JiNS9mWGJoU1d6ckFZ?=
+ =?utf-8?B?bU9RY1I5RmZ3VFRRRVBFeGFZRVJhK3NReFYyaVpHSStyZnNOSndCN1Y4cHZO?=
+ =?utf-8?B?VjU0bC9TQzYwUTI4M3dRSUhVaDVLSS9oRUwrSFJIdVVnajJKcHpCQys1N3RP?=
+ =?utf-8?B?NDMyLzlBeWVDd2R4ak5tMXgySDhvbGp2TFhvbWFwNkRRcE9GRmt5bCtTSFBV?=
+ =?utf-8?B?Qnc0eFF4clR4VlJZUXFhdGVFOHlWcXk3QW5UTUV2K0d1ZlhtSUNTL20rZ0xr?=
+ =?utf-8?B?bzBJNWRIVmR3YmhMSGFpMkIxelhTcDFHemcrVmsydnJPZUhpT0lORmI5dGRr?=
+ =?utf-8?B?MHhaMTU3Q1R1dXR5SU81ZFpPTzk2ZG5NYnZKR1pCcVJVTmJxSlBwcVdyak52?=
+ =?utf-8?B?WXNXUFNWQkRsYlhQMUdGSVowN1RKVWQ3OXl3WTlETVZoM0p2WE50b0RIeFhF?=
+ =?utf-8?B?WC9xYXdaWklhUkx1TjhyZlZxZHJQUDhnVFdHc1VqNER0cUZPYzRlZUJaUk55?=
+ =?utf-8?B?V2MrV3NlOUJLbGRYUnB4ZUdQK3VNbGlvWllrUGtsNTJSL3RHdkhIenFpVCtQ?=
+ =?utf-8?B?WDV2Qzk3dGlaQzdGZ0Z2S09ENjZhMjEzeW02bmI5Lyt0b1ZWanJJZUZyRXkr?=
+ =?utf-8?B?eVBsdmNQQUZrZU5RWUlPYk91UzFkYVlzRWxVZVhGeGZ5ZlRZWkExeHBRVEVv?=
+ =?utf-8?B?WWk1Zy84YjB0b3FacmxlQW1IRzlLdVlUcEp3RDdQdzRBdUs0U281Tm1GZHd0?=
+ =?utf-8?B?NnBXTmk2NW13S2Rzcng2djdQSEppZmVzc1hZb2I0dG1sNEJPV3FIcnlmTGRa?=
+ =?utf-8?B?YWh6a1ZXc0Z4UG93ZHp6YzdidmpLZGxOU0ltREdZZ24wUUd4TGZhSWdKNWEy?=
+ =?utf-8?B?MHRrK0tCM3BXc3lhV3lJSHFaL1VaYkZJY2tBM1p4d1kzV0RacFlaaUVqMGJM?=
+ =?utf-8?B?OUgxaEVRZ3FTY3N0V3R5MjB0MmNIUXhRSVJEWGJDbXpMeDFvSUJDaVBQUEVY?=
+ =?utf-8?Q?haMCTUSZYwI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(8096899003); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TDh6eDIrL3dRZHkzaXRYK1FWRzFmWUtYR0FCSTY5bXIrOThxSncxbmhXbjlW?=
+ =?utf-8?B?Z20rVUNxMi9CY3FmZGs2VERsUklvT2JZMUpUbmtHWkhUY1gvLy9XeENuZ09x?=
+ =?utf-8?B?Q0lKMXFGSWlha1NKeVJYSlUrdDdBcDBqVENrNC93RnZYZDNYemlpc3RSL21i?=
+ =?utf-8?B?b1JUUGMyYUUwOWR1UTdDdERLOXdsUTM0dVJhZ09aY2locVFQSktLOE9uR2Zv?=
+ =?utf-8?B?L2NBT3pWWmlwa2c4Smx6ZlVtNnNXKyt3L0xobEJvbk1Sd2RxYmw1TU1XRHM4?=
+ =?utf-8?B?SXlaODQ1RnlhVHo5R0oyZVozWTNzSTZZSVhEMDVVTnBzaFAxZEpSVStIL2po?=
+ =?utf-8?B?bnluL3VaWWYyUm02ZEpNakF2dkFBU3ZhVXF3NGlvSGdEMndtV2h1VDRhRUMx?=
+ =?utf-8?B?YjgrSG9VZHBibVVQTlNHK0pHQUhtNGFsN0NIN284TjZmcmdkUnNPSnQzK1ow?=
+ =?utf-8?B?Z1lwM3FLelB1TnY1Nk5ET0FGaDR1Ym9KcUhYYlFtc3FyZDhxVHpja0Nob3Rz?=
+ =?utf-8?B?Wk5kam90MUNFNks4T0xtQWJaNmtCNkloRUlyQTlPT1lkWGNFUlU0TkhDaXV6?=
+ =?utf-8?B?dW51NGoydnFoTm5qVFpVb3R3dGxtR3VwRTBGNGpxaFphS0FwWndlWHZUM01Y?=
+ =?utf-8?B?aVBPa21sM3J4WjJNS0l6N3RBTHZMbVRKSEMyWjNBT0JkTHdYSmpBMHBKQm5t?=
+ =?utf-8?B?RjB0dHdySElxRFFGMmRSTGE4U3c4bEROYmwxS3V3Yk1mSE5sQ2FaUVExRnpW?=
+ =?utf-8?B?M1RJQ0pha0pocENTTFZvTFh4a1Z3NTRqM1lMdlc3RHlQczRNZTUxMmt0TGxv?=
+ =?utf-8?B?eW5oditrcldPcXZPL1FwZzRHRm9iMlR2VHJQZHZXdzRHL3pDRVBjNmYzVHcx?=
+ =?utf-8?B?bCs1cEZZWXRSODAxcWJ0Qm1NNlM5cjFPTGh3RnBZTVk1S0MrMFZCd3AzcURL?=
+ =?utf-8?B?UjJkd3laOUpTa0JQcFZPanIyQTF2SmFjMWVTYTZTU09LeHI5ZnhkSFdpNHhC?=
+ =?utf-8?B?d3RWSTZvQ0hzT2dxcWtxQWdwNkt4VzMzMGUrbXRhK00rall4Q0txK3hibGY2?=
+ =?utf-8?B?STZmd0hWVmx6Q205VmhPWkRXUlVyOG1NcERHM2JYTkVlQUltRk04VDEzQ2pK?=
+ =?utf-8?B?TUZVUXgxeE43UHVnNE92cmJ0NmRJR2czNUhGSHptMmpYdXM5d1FnQnNxS3Nl?=
+ =?utf-8?B?THVwcStzS0pSTFZwUWxYQWhZV1Rzd2hHcnNUNzNLZGk4Wkh2T0twRVRHM1BN?=
+ =?utf-8?B?YWdYYjVlemJ2bk9lajB4TUJ0K0Rqc0xlSWt5dDNmZW9hd0UyOVJYbkUzbXZE?=
+ =?utf-8?B?ME1nWGNkd0FRSk12Y1lrVUFqQ3J5bnpzajlFeGYyNzVxeFhlbUllWE0zdlRk?=
+ =?utf-8?B?ODBkNFZFc2oyamJWTXlLblBhSWxlQVYxcWxzLy9jd2psNFVQTjI0aUpFWXhN?=
+ =?utf-8?B?bytCMStWVWwyOW5NTnA0bHR0UEJ0TFdYV3RKaSs3Slp2MUNDd05RYlNxTkNL?=
+ =?utf-8?B?Tm5pWmNRTzVXQitHdUVWakRZMExER3I4ZHY5R0p0T3lpUGFqM2RrUVVFci9t?=
+ =?utf-8?B?MmdaM05mZjROUDV4d1VxNDlYSkhnL3BSWk40R2R2VE1MSXB2b2hPWjZPUG5N?=
+ =?utf-8?B?MURLYmFpQ2l0b1phb1hEZ1RMVUphMzR3TkQxQ1VJcjQvQ1BWVHRLcWZtU2Z2?=
+ =?utf-8?B?cStLVzJOODhoMGRxY0pnSjhiZXpqL3pxbUZhVU0wTzVaamhoTTZRdCtqWm5T?=
+ =?utf-8?B?aXdNemY3a25WaXJSR3dmeXVPaDFtRUF0Q0lHZWdqcENqcCs2dzJZekdaOTZv?=
+ =?utf-8?B?TUJSYy8xVW1Qck82TEJhWktZZWk2NnBRWXNndjVjdkV2eldvYTZqYmliUHZn?=
+ =?utf-8?B?amUrSVlvTmlyNGx3cXRGb3RKSmExUXJ2dEdvV2UyR3VtZEdwVkh1a044a0pC?=
+ =?utf-8?B?RHJqcUlXdzc4Rk5JOFV6clhJdHpOV2ZvVC9jRUFmZjhvN0dqYzI5bHhJayti?=
+ =?utf-8?B?dWxUdXAyS1NoaWxkV0lMODNNKzk0THlMYTk0WlBOWXBiMkc5aDhIaDZDOVo1?=
+ =?utf-8?B?WHYxUDRkQ1pXT3g2UGwrOUVyT0c0ZzFlL0J2N1ZKUDNMb1ZwRm9GZTNJUUZW?=
+ =?utf-8?Q?VV79ieHEo5Z4WhhfiRJR4k0Dz?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff21bd35-f05c-4488-0a63-08ddce6836b1
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e98c2ef4-7afb-4487-dc24-08ddce67ff90
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2025 06:20:22.0577 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pBIFxox5lFJPyt3zDf3vtTvPaySJ6KHBDD+HBjkXc2VUAKvcX1fIhKaZBe9q7CoP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7499
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2025 06:21:54.9327 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LExDZ6R53skQzQ1UK+jDdgLsD77j+DbEj16VriZFz0fTbLBrL/VdaX45eH7IjP8D59+UY1hUqEIeqITIRhintw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5846
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,98 +162,678 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+--------------0Xj2Kd8DarS9nqphK6cP9sN7
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
-> Sent: Tuesday, July 29, 2025 12:16 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao
-> <Tao.Zhou1@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
-> Subject: [PATCH] drm/amdgpu: Effective health check before reset
->
-> Move amdgpu_device_health_check into amdgpu_device_gpu_recover to ensure
-> that if the device is present can be checked before reset
->
-> Signed-off-by: Ce Sun <cesun102@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 25 +++++++---------------
->  1 file changed, 8 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 2659e3ebbe49..176712225037 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -6129,12 +6129,11 @@ static int amdgpu_device_health_check(struct
-> list_head *device_list_handle)
->       return ret;
->  }
->
-> -static int amdgpu_device_recovery_prepare(struct amdgpu_device *adev,
-> +static void amdgpu_device_recovery_prepare(struct amdgpu_device *adev,
->                                         struct list_head *device_list,
->                                         struct amdgpu_hive_info *hive)
->  {
->       struct amdgpu_device *tmp_adev =3D NULL;
-> -     int r;
->
->       /*
->        * Build list of devices to reset.
-> @@ -6155,13 +6154,6 @@ static int amdgpu_device_recovery_prepare(struct
-> amdgpu_device *adev,
->               list_add_tail(&adev->reset_list, device_list);
->       }
->
-> -     if (!amdgpu_sriov_vf(adev) && (!adev->pcie_reset_ctx.occurs_dpc)) {
-> -             r =3D amdgpu_device_health_check(device_list);
-> -             if (r)
-> -                     return r;
-> -     }
-> -
-> -     return 0;
->  }
->
->  static void amdgpu_device_recovery_get_reset_lock(struct amdgpu_device *=
-adev,
-> @@ -6449,8 +6441,13 @@ int amdgpu_device_gpu_recover(struct amdgpu_device
-> *adev,
->       reset_context->hive =3D hive;
->       INIT_LIST_HEAD(&device_list);
->
-> -     if (amdgpu_device_recovery_prepare(adev, &device_list, hive))
-> -             goto end_reset;
-> +     amdgpu_device_recovery_prepare(adev, &device_list, hive);
-> +
-> +     if (!amdgpu_sriov_vf(adev)) {
+Thanks, Felix. All issues have been fixed, and I will send out V2 soon.
 
-[Tao] so the condition is also changed.
-Please describe the issue you'd like to fix in more detail.
+Thanks
+Lingshan
 
-> +             r =3D amdgpu_device_health_check(&device_list);
-> +             if (r)
-> +                     goto end_reset;
-> +     }
+On 7/29/2025 3:48 AM, Felix Kuehling wrote:
+> On 2025-07-24 22:43, Zhu Lingshan wrote:
+>> This commit introduces a new id field for
+>> struct kfd process, which helps identify
+>> a kfd process among multiple contexts that
+>> all belong to a single user space program.
+>>
+>> The sysfs entry of a secondary kfd process
+>> is placed under the sysfs entry folder of
+>> its primary kfd process.
+>>
+>> The naming format of the sysfs entry of a secondary
+>> kfd process is "context_%u" where %u is the process id.
+>>
+>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  6 ++
+>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 82 +++++++++++++++++++++++-
+>>   2 files changed, 85 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> index de701d72aa5c..a6e12c705734 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> @@ -995,6 +995,9 @@ struct kfd_process {
+>>       /* Tracks debug per-vmid request for debug flags */
+>>       u32 dbg_flags;
+>>   +    /* kfd process id */
+>> +    u16 id;
+>> +
+>>       atomic_t poison;
+>>       /* Queues are in paused stated because we are in the process of
+>> doing a CRIU checkpoint */
+>>       bool queues_paused;
+>> @@ -1009,6 +1012,9 @@ struct kfd_process {
+>>         /* indicating whether this is a primary kfd_process */
+>>       bool primary;
+>> +
+>> +    /* The primary kfd_process allocating IDs for its secondary
+>> kfd_process, 0 for primary kfd_process */
+>> +    struct ida id_table;
+>>   };
+>>     #define KFD_PROCESS_TABLE_SIZE 8 /* bits: 256 entries */
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> index 440fde75d1e4..e1ba9015bb83 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> @@ -54,6 +54,9 @@ DEFINE_MUTEX(kfd_processes_mutex);
+>>     DEFINE_SRCU(kfd_processes_srcu);
+>>   +#define KFD_PROCESS_ID_MIN 1
+>> +#define KFD_PROCESS_ID_WIDTH 16
+>> +
+>>   /* For process termination handling */
+>>   static struct workqueue_struct *kfd_process_wq;
+>>   @@ -827,6 +830,7 @@ static void
+>> kfd_process_device_destroy_ib_mem(struct kfd_process_device *pdd)
+>>     int kfd_create_process_sysfs(struct kfd_process *process)
+>>   {
+>> +    struct kfd_process *primary_process;
+>>       int ret;
+>>         if (process->kobj) {
+>> @@ -839,9 +843,22 @@ int kfd_create_process_sysfs(struct kfd_process
+>> *process)
+>>           pr_warn("Creating procfs kobject failed");
+>>           return -ENOMEM;
+>>       }
+>> -    ret = kobject_init_and_add(process->kobj, &procfs_type,
+>> -                   procfs.kobj, "%d",
+>> -                   (int)process->lead_thread->pid);
+>> +
+>> +    if (process->primary)
+>> +        ret = kobject_init_and_add(process->kobj, &procfs_type,
+>> +                       procfs.kobj, "%d",
+>> +                       (int)process->lead_thread->pid);
+>> +    else {
+>> +        primary_process =
+>> kfd_lookup_process_by_mm(process->lead_thread->mm);
+>> +        if (!primary_process)
+>> +            return -EFAULT;
 >
->       /* We need to lock reset domain only once both for XGMI and single =
-device */
->       amdgpu_device_recovery_get_reset_lock(adev, &device_list); @@ -6956=
-,12
-> +6953,6 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
->       int r =3D 0, i;
->       u32 memsize;
+> EFAULT means "Bad address". A better error code would be ESRCH "No
+> such process".
 >
-> -     /* PCI error slot reset should be skipped During RAS recovery */
-> -     if ((amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 3)=
- ||
-> -         amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 4))=
- &&
-> -         amdgpu_ras_in_recovery(adev))
-> -             return PCI_ERS_RESULT_RECOVERED;
-> -
->       dev_info(adev->dev, "PCI error: slot reset callback!!\n");
 >
->       memset(&reset_context, 0, sizeof(reset_context));
-> --
-> 2.34.1
+>> +
+>> +        ret = kobject_init_and_add(process->kobj, &procfs_type,
+>> +                       primary_process->kobj, "context_%u",
+>> +                       process->id);
+>> +        kfd_unref_process(primary_process);
+>> +    }
+>> +
+>>       if (ret) {
+>>           pr_warn("Creating procfs pid directory failed");
+>>           kobject_put(process->kobj);
+>> @@ -863,6 +880,51 @@ int kfd_create_process_sysfs(struct kfd_process
+>> *process)
+>>       return 0;
+>>   }
+>>   +static int kfd_process_alloc_id(struct kfd_process *process)
+>> +{
+>> +    u16 ret;
+>> +    struct kfd_process *primary_process;
+>> +
+>> +    if (process->primary) {
+>> +        process->id = 0;
+>> +
+>> +        return 0;
+>> +    }
+>> +
+>> +    primary_process =
+>> kfd_lookup_process_by_mm(process->lead_thread->mm);
+>> +    if (!primary_process)
+>> +        return -EFAULT;
+>
+> ESRCH
+>
+>
+>> +
+>> +    ret = ida_alloc_range(&primary_process->id_table,
+>> KFD_PROCESS_ID_MIN,
+>> +         1 << (KFD_PROCESS_ID_WIDTH - 1), GFP_KERNEL);
+>
+> Did you mean (1 << KFD_PROCESS_ID_WIDTH) - 1? That would give you the
+> range from 1 to 0xffff, which is what I'd expect with 16-bit wide ID.
+>
+>
+>> +    if (ret < 0)
+>> +        return ret;
+>
+> You're leaking a process reference here.
+>
+>
+>> +
+>> +    process->id = ret;
+>> +
+>> +    kfd_unref_process(primary_process);
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +static void kfd_process_free_id(struct kfd_process *process)
+>> +{
+>> +    struct kfd_process *primary_process;
+>> +
+>> +    if (process->primary)
+>> +        return;
+>> +
+>> +    primary_process =
+>> kfd_lookup_process_by_mm(process->lead_thread->mm);
+>> +    if (!primary_process)
+>> +        return;
+>> +
+>> +    ida_free(&primary_process->id_table, process->id);
+>> +
+>> +    kfd_unref_process(primary_process);
+>> +
+>> +    return;
+>
+> This return statement is unnecessary.
+>
+>
+>> +}
+>> +
+>>   struct kfd_process *kfd_create_process(struct task_struct *thread)
+>>   {
+>>       struct kfd_process *process;
+>> @@ -1193,6 +1255,11 @@ static void kfd_process_wq_release(struct
+>> work_struct *work)
+>>       if (ef)
+>>           dma_fence_signal(ef);
+>>   +    if (!p->primary)
+>> +        kfd_process_free_id(p);
+>> +    else
+>> +        ida_destroy(&p->id_table);
+>> +
+>>       kfd_process_remove_sysfs(p);
+>>       kfd_debugfs_remove_process(p);
+>>   @@ -1549,6 +1616,12 @@ static struct kfd_process
+>> *create_process(const struct task_struct *thread, bool
+>>       process->queues_paused = false;
+>>       process->primary = primary;
+>>   +    err = kfd_process_alloc_id(process);
+>> +    if (err) {
+>> +        pr_err("Creating kfd process: failed to alloc an id\n");
+>> +        goto err_alloc_process;
+>
+> That's the wrong label for cleanup. You'd end up leaking the process
+> structure. You need to create a new label. See below.
+>
+>
+>> +    }
+>> +
+>>       INIT_DELAYED_WORK(&process->eviction_work, evict_process_worker);
+>>       INIT_DELAYED_WORK(&process->restore_work, restore_process_worker);
+>>       process->last_restore_timestamp = get_jiffies_64();
+>> @@ -1599,6 +1672,8 @@ static struct kfd_process *create_process(const
+>> struct task_struct *thread, bool
+>>               goto err_register_notifier;
+>>           }
+>>           BUG_ON(mn != &process->mmu_notifier);
+>> +
+>> +        ida_init(&process->id_table);
+>>       }
+>>         kfd_unref_process(process);
+>> @@ -1619,6 +1694,7 @@ static struct kfd_process *create_process(const
+>> struct task_struct *thread, bool
+>>   err_process_pqm_init:
+>>       kfd_event_free_process(process);
+>>   err_event_init:
+>> +    kfd_process_free_id(process);
+>
+> You should add a new label here
+>
+> err_alloc_id:
+>
+> Regards,
+>   Felix
+>
+>
+>>       mutex_destroy(&process->mutex);
+>>       kfree(process);
+>>   err_alloc_process:
+--------------0Xj2Kd8DarS9nqphK6cP9sN7
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <pre>Thanks, Felix. All issues have been fixed, and I will send out V2 soon.
+
+Thanks
+Lingshan</pre>
+    <div class="moz-cite-prefix">On 7/29/2025 3:48 AM, Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:51264616-aca9-4b82-822e-7c8856b47629@amd.com">On
+      2025-07-24 22:43, Zhu Lingshan wrote:
+      <br>
+      <blockquote type="cite">This commit introduces a new id field for
+        <br>
+        struct kfd process, which helps identify
+        <br>
+        a kfd process among multiple contexts that
+        <br>
+        all belong to a single user space program.
+        <br>
+        <br>
+        The sysfs entry of a secondary kfd process
+        <br>
+        is placed under the sysfs entry folder of
+        <br>
+        its primary kfd process.
+        <br>
+        <br>
+        The naming format of the sysfs entry of a secondary
+        <br>
+        kfd process is &quot;context_%u&quot; where %u is the process id.
+        <br>
+        <br>
+        Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp; |&nbsp; 6 ++
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c | 82
+        +++++++++++++++++++++++-
+        <br>
+        &nbsp; 2 files changed, 85 insertions(+), 3 deletions(-)
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        <br>
+        index de701d72aa5c..a6e12c705734 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        <br>
+        @@ -995,6 +995,9 @@ struct kfd_process {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Tracks debug per-vmid request for debug flags */
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 dbg_flags;
+        <br>
+        &nbsp; +&nbsp;&nbsp;&nbsp; /* kfd process id */
+        <br>
+        +&nbsp;&nbsp;&nbsp; u16 id;
+        <br>
+        +
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_t poison;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Queues are in paused stated because we are in the
+        process of doing a CRIU checkpoint */
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool queues_paused;
+        <br>
+        @@ -1009,6 +1012,9 @@ struct kfd_process {
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* indicating whether this is a primary kfd_process */
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool primary;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; /* The primary kfd_process allocating IDs for its secondary
+        kfd_process, 0 for primary kfd_process */
+        <br>
+        +&nbsp;&nbsp;&nbsp; struct ida id_table;
+        <br>
+        &nbsp; };
+        <br>
+        &nbsp; &nbsp; #define KFD_PROCESS_TABLE_SIZE 8 /* bits: 256 entries */
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        <br>
+        index 440fde75d1e4..e1ba9015bb83 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        <br>
+        @@ -54,6 +54,9 @@ DEFINE_MUTEX(kfd_processes_mutex);
+        <br>
+        &nbsp; &nbsp; DEFINE_SRCU(kfd_processes_srcu);
+        <br>
+        &nbsp; +#define KFD_PROCESS_ID_MIN 1
+        <br>
+        +#define KFD_PROCESS_ID_WIDTH 16
+        <br>
+        +
+        <br>
+        &nbsp; /* For process termination handling */
+        <br>
+        &nbsp; static struct workqueue_struct *kfd_process_wq;
+        <br>
+        &nbsp; @@ -827,6 +830,7 @@ static void
+        kfd_process_device_destroy_ib_mem(struct kfd_process_device
+        *pdd)
+        <br>
+        &nbsp; &nbsp; int kfd_create_process_sysfs(struct kfd_process *process)
+        <br>
+        &nbsp; {
+        <br>
+        +&nbsp;&nbsp;&nbsp; struct kfd_process *primary_process;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (process-&gt;kobj) {
+        <br>
+        @@ -839,9 +843,22 @@ int kfd_create_process_sysfs(struct
+        kfd_process *process)
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warn(&quot;Creating procfs kobject failed&quot;);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOMEM;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        -&nbsp;&nbsp;&nbsp; ret = kobject_init_and_add(process-&gt;kobj,
+        &amp;procfs_type,
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procfs.kobj, &quot;%d&quot;,
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (int)process-&gt;lead_thread-&gt;pid);
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (process-&gt;primary)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = kobject_init_and_add(process-&gt;kobj,
+        &amp;procfs_type,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procfs.kobj, &quot;%d&quot;,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (int)process-&gt;lead_thread-&gt;pid);
+        <br>
+        +&nbsp;&nbsp;&nbsp; else {
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; primary_process =
+        kfd_lookup_process_by_mm(process-&gt;lead_thread-&gt;mm);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!primary_process)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EFAULT;
+        <br>
+      </blockquote>
+      <br>
+      EFAULT means &quot;Bad address&quot;. A better error code would be ESRCH &quot;No
+      such process&quot;.
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">+
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = kobject_init_and_add(process-&gt;kobj,
+        &amp;procfs_type,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; primary_process-&gt;kobj, &quot;context_%u&quot;,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process-&gt;id);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_unref_process(primary_process);
+        <br>
+        +&nbsp;&nbsp;&nbsp; }
+        <br>
+        +
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warn(&quot;Creating procfs pid directory failed&quot;);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kobject_put(process-&gt;kobj);
+        <br>
+        @@ -863,6 +880,51 @@ int kfd_create_process_sysfs(struct
+        kfd_process *process)
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
+        <br>
+        &nbsp; }
+        <br>
+        &nbsp; +static int kfd_process_alloc_id(struct kfd_process *process)
+        <br>
+        +{
+        <br>
+        +&nbsp;&nbsp;&nbsp; u16 ret;
+        <br>
+        +&nbsp;&nbsp;&nbsp; struct kfd_process *primary_process;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (process-&gt;primary) {
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process-&gt;id = 0;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
+        <br>
+        +&nbsp;&nbsp;&nbsp; }
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; primary_process =
+        kfd_lookup_process_by_mm(process-&gt;lead_thread-&gt;mm);
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (!primary_process)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EFAULT;
+        <br>
+      </blockquote>
+      <br>
+      ESRCH
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">+
+        <br>
+        +&nbsp;&nbsp;&nbsp; ret = ida_alloc_range(&amp;primary_process-&gt;id_table,
+        KFD_PROCESS_ID_MIN,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &lt;&lt; (KFD_PROCESS_ID_WIDTH - 1), GFP_KERNEL);
+        <br>
+      </blockquote>
+      <br>
+      Did you mean (1 &lt;&lt; KFD_PROCESS_ID_WIDTH) - 1? That would
+      give you the range from 1 to 0xffff, which is what I'd expect with
+      16-bit wide ID.
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">+&nbsp;&nbsp;&nbsp; if (ret &lt; 0)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;
+        <br>
+      </blockquote>
+      <br>
+      You're leaking a process reference here.
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">+
+        <br>
+        +&nbsp;&nbsp;&nbsp; process-&gt;id = ret;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; kfd_unref_process(primary_process);
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; return 0;
+        <br>
+        +}
+        <br>
+        +
+        <br>
+        +static void kfd_process_free_id(struct kfd_process *process)
+        <br>
+        +{
+        <br>
+        +&nbsp;&nbsp;&nbsp; struct kfd_process *primary_process;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (process-&gt;primary)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; primary_process =
+        kfd_lookup_process_by_mm(process-&gt;lead_thread-&gt;mm);
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (!primary_process)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; ida_free(&amp;primary_process-&gt;id_table,
+        process-&gt;id);
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; kfd_unref_process(primary_process);
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; return;
+        <br>
+      </blockquote>
+      <br>
+      This return statement is unnecessary.
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">+}
+        <br>
+        +
+        <br>
+        &nbsp; struct kfd_process *kfd_create_process(struct task_struct
+        *thread)
+        <br>
+        &nbsp; {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *process;
+        <br>
+        @@ -1193,6 +1255,11 @@ static void kfd_process_wq_release(struct
+        work_struct *work)
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ef)
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_fence_signal(ef);
+        <br>
+        &nbsp; +&nbsp;&nbsp;&nbsp; if (!p-&gt;primary)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_process_free_id(p);
+        <br>
+        +&nbsp;&nbsp;&nbsp; else
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ida_destroy(&amp;p-&gt;id_table);
+        <br>
+        +
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_process_remove_sysfs(p);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_debugfs_remove_process(p);
+        <br>
+        &nbsp; @@ -1549,6 +1616,12 @@ static struct kfd_process
+        *create_process(const struct task_struct *thread, bool
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process-&gt;queues_paused = false;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process-&gt;primary = primary;
+        <br>
+        &nbsp; +&nbsp;&nbsp;&nbsp; err = kfd_process_alloc_id(process);
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (err) {
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;Creating kfd process: failed to alloc an
+        id\n&quot;);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_alloc_process;
+        <br>
+      </blockquote>
+      <br>
+      That's the wrong label for cleanup. You'd end up leaking the
+      process structure. You need to create a new label. See below.
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">+&nbsp;&nbsp;&nbsp; }
+        <br>
+        +
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_DELAYED_WORK(&amp;process-&gt;eviction_work,
+        evict_process_worker);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_DELAYED_WORK(&amp;process-&gt;restore_work,
+        restore_process_worker);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process-&gt;last_restore_timestamp = get_jiffies_64();
+        <br>
+        @@ -1599,6 +1672,8 @@ static struct kfd_process
+        *create_process(const struct task_struct *thread, bool
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_register_notifier;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG_ON(mn != &amp;process-&gt;mmu_notifier);
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ida_init(&amp;process-&gt;id_table);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_unref_process(process);
+        <br>
+        @@ -1619,6 +1694,7 @@ static struct kfd_process
+        *create_process(const struct task_struct *thread, bool
+        <br>
+        &nbsp; err_process_pqm_init:
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_event_free_process(process);
+        <br>
+        &nbsp; err_event_init:
+        <br>
+        +&nbsp;&nbsp;&nbsp; kfd_process_free_id(process);
+        <br>
+      </blockquote>
+      <br>
+      You should add a new label here
+      <br>
+      <br>
+      err_alloc_id:
+      <br>
+      <br>
+      Regards,
+      <br>
+      &nbsp; Felix
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        mutex_destroy(&amp;process-&gt;mutex);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(process);
+        <br>
+        &nbsp; err_alloc_process:
+        <br>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------0Xj2Kd8DarS9nqphK6cP9sN7--
