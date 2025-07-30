@@ -4,148 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F259C83F26
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 16:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 729D7C83F26
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 17:03:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBF1110E21B;
-	Wed, 30 Jul 2025 16:29:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1EBE10E0C0;
+	Wed, 30 Jul 2025 17:03:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EKJeRfg5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fFkC3vVW";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A29D10E21B
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 16:29:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uK9dybqraba5H1IzLgi1KIXbXUIZKvQZzyQcAvXucV0bn7jjvBkJpqQSIWvPilNdTUpRTmRZj5MRThr3PyEwlZGkH3RTilYu9TIjaLtfq7N10uOonJQ2Ku26isti/lQh/HAGiWK3w5Qal+MeWCOr11zV25rRtt7F0mZnpqyBPNE5qdtUACS0PH6zuwJgYFCemg1fsonDzPt2/SFArtqTYfC896WvxBLzyb1EJZkd3x+1Ic6LyZxtEH1JNvd/etqmEQ54xkTlgtu29tfl2KlPs0vX0J1XDskCuQ0EWkQ2MzB2uG3hZvlSxOWBOyUrgPVbecZrXzx6pXvhuz+yuAHwqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6sY6NE/1/h5Fpt5DSFErSr9nFATPLjI+EXu+T8GMgeY=;
- b=ZlCTBlfmvKTjVScx8x8mkBhk+WF6wy5WlxuOWTxlcm0NhUwgGetmaKQ+qg39/Z0A9K6N6TWux+isnHPh4Nm6pK00CEVXzGdsjoUNa+6FNNBivNyEzAdr+7Q3DA8xzAE9JqnaOTRfoSRf7SGrcuT+8lBEZoJbpnFqMTp+Y9onv0PMH1wARTUjH4tTSy1C6CW5bP4rjFERdXDO3OK93NioIpkhJoObW72jsL6HcWjMUWmCkTsaJePIDg1A73axXAJmCXN1+44gIipNHW/iQIRynnXe+NFpoGkHkL8+OINNBSJBXn/eszMVtUzvttbTatSVhOjYNHpf0SmOpP7e0oa6Zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6sY6NE/1/h5Fpt5DSFErSr9nFATPLjI+EXu+T8GMgeY=;
- b=EKJeRfg5ZqdpFnocT9XxTpCkWo6K2Gx9K43LGKjRkqvHMRLPVKBmRtl8F6l4ru1Xsw0/cQDEHnmJkkvYZv+wdAbHpwm6pFSJKR5qAsN+HiBjV3b2z95cr127m9cCv2zrfOAjlkvTFQI86I8wJu9MOzbEDdhSbmaYuqhrmFRuBvk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CH3PR12MB8879.namprd12.prod.outlook.com (2603:10b6:610:171::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.11; Wed, 30 Jul
- 2025 16:29:28 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8964.026; Wed, 30 Jul 2025
- 16:29:28 +0000
-Message-ID: <96c3a9c5-f9e7-4b32-8a42-b931b9b96e85@amd.com>
-Date: Wed, 30 Jul 2025 12:29:24 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/20] Analog connector support in DC
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDEEB10E0C0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 17:03:47 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4589b3e3820so238025e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 10:03:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1753895026; x=1754499826; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pgwE2d9rw7RXrV+FrBRUpInzGqDK6Ag6Y8yZ2IPmgjM=;
+ b=fFkC3vVWo5LafnFRPW5mq4+llwCtwNnkXTHHoLVicvK/2t8+yyLzZbIs18buEHa4no
+ 6cI7XlsFqCAKIgC4vCfLceJ00EqjzNf3Fv9hm/pGPlsU4bFPQVE29oLTNMvD4xx296cu
+ Gx6gakqTWwHsmWlIhz3kt63da9espdgR3j4E8LYOJC5uSjjrehhE0tz4WxMlcq8aVz5I
+ vUVTwGE4HGxgyUaghbJGrQDSzxzn3dAUVohvrUNE0IQXRbT03N5FtIa/bFdIGUe4k/na
+ nDTgzgyO189dn2NzelKDiNUrC7Pj0IuW1/1dx5izWWKTHmLDa4H3XOxWmhOcdQpMqn38
+ ZG1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753895026; x=1754499826;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=pgwE2d9rw7RXrV+FrBRUpInzGqDK6Ag6Y8yZ2IPmgjM=;
+ b=QZDQ4ZTzVXiMt7jD6Es/HULzRH+gSQL+idI680N9d9j+T/Za5CWGXJUr3cbWkVxM3/
+ 4Fz4yGiM5jOsdDyQRdI2nGaS9VXDdfCCsOXJphfeFTVN+Rrc8r8FUkjh7W71FnURUBzq
+ SmD1kbQmQQDA6FIVAOKr8kpXo+59PakTxDO/1RqLSnlBZALNAEOIoX6UnF9qUvTO+R9H
+ NDI0YpWKfAm17SbTfNRf9L+hpUvlKxLXizefI6NkVIhJiY8X6dngTvNxoVQK8DFbF8Rf
+ bN5w6qWElzLqKKmy5PkEurqwRL9lXL9RMuFrWr58rvY2uGt8ztQC66tr9UHqtOTHgHeb
+ nBCA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVF5I1Hmm/3lugQ3PLEi0/XcDRjFB/Je1TIs5HHP35cqdY8VfA+d9FzV7luXJQfVki1x4Lt3qqV@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwwlKKTbQWYEHMsBAQZlvxrpoCFj0cQtKKu1llYe9GV6vkmVgE3
+ Rj2HT4Ap5KW6qkbKm9zJR/vaNc8WqxTEYIpHjufBOZlbSHfQYt/pNilN
+X-Gm-Gg: ASbGncuiz++/vyrMH0XAgwiArLVawgXOHje+6pwhVoQ+lAqK1S6ZZ7hoUcci/UDU7eX
+ dG1/fm2PuAOAw5PlTjOvwZB3+XFhWeNG8t+EDTq3biFbLL9zUKQDYJslcqqP36oyWQv8FkLUm9b
+ Hv6Md/hCX+XejVXEMalzW4jqcXFH2glDlCJGIztti8mLXUdxqocCwlTRbKLfXfz64jzd4R6Zw4F
+ RbdVvAy2GKTWQAK77Q5diNW+8blX6LQVXvObCbzLjo6yVH9RFE+qcnb4DVCChK+ilFt9HBJ/8IN
+ f2WfgS5bQqNJL5leZ7FDYRvFvojAI1NOSFJkdNUNA/rpFnwG27eThGQyPgFG6GB5HDNhbk8DQmR
+ VWcc5CWMYR/mUhSiaSdW2cXq1rTLUKGHvOU3mUwAqxuhadPvJpTMqcba8dGakMxgPC/A56Y3NX7
+ obY9AQgF7DohbsUQyp7ESCKv5xChx9Cdnwyxpb7yMMJ37R6LWTFebSPKbRgBvGi+n0AlxkNRdE
+X-Google-Smtp-Source: AGHT+IED5KtvaSzr0e3QDiKyMuv6yss1aNEVlPvTj4iQuZYLxMqyAarAlEVowWhsmtLb7fu7nEVA/g==
+X-Received: by 2002:a05:600c:8812:b0:456:2397:817 with SMTP id
+ 5b1f17b1804b1-458930ecbccmr25181745e9.13.1753895026129; 
+ Wed, 30 Jul 2025 10:03:46 -0700 (PDT)
+Received: from ?IPv6:2001:4c4d:24d8:fc00:b1a6:598e:5b78:7d57?
+ (20014C4D24D8FC00B1A6598E5B787D57.dsl.pool.telekom.hu.
+ [2001:4c4d:24d8:fc00:b1a6:598e:5b78:7d57])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b795e199b6sm3191418f8f.20.2025.07.30.10.03.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Jul 2025 10:03:44 -0700 (PDT)
+Message-ID: <54dd7186188f0deaf07570c16f5b3c3b9b263cc9.camel@gmail.com>
+Subject: Re: [PATCH 01/20] drm/amd/display: Determine DRM connector type
+ more accurately
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Wed, 30 Jul 2025 19:03:43 +0200
+In-Reply-To: <a2c6a809-183e-443e-b10f-a271c0e89058@amd.com>
 References: <20250723155813.9101-1-timur.kristof@gmail.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20250723155813.9101-1-timur.kristof@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0050.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::8) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ <20250723155813.9101-2-timur.kristof@gmail.com>
+ <68370e57-cb4e-4ebd-8d04-b198a7f2f02f@amd.com>
+ <c88ac1d6cc039984f9dbb58f923fb62e505ffcec.camel@gmail.com>
+ <a2c6a809-183e-443e-b10f-a271c0e89058@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CH3PR12MB8879:EE_
-X-MS-Office365-Filtering-Correlation-Id: e63fe699-a420-4afa-94c4-08ddcf8640d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M3hDdDJhMGk1NVFvdXVVTUJmVllWaWJMUVVKVlk5R01pNjRDY0NrOVYzZER4?=
- =?utf-8?B?cWZ2QStVeG5TRGxSaS9aOTJwTTNNS0cwQUtRcVZUSytkVWpQYjdTc3paZVlD?=
- =?utf-8?B?R3Q0YnQ1dGQ3SUZRVE1xUm1XUlJuOWN6NVlyZUhNNkNDQ3A5Z2FVcDVFaU9n?=
- =?utf-8?B?Z1h2WGtJdDBOejFYM3NoUDZhaEV0U2NYd3F6WmRUUnlCM3lDMlRxdEQrUXc5?=
- =?utf-8?B?ak1NWGRBYklQVHhKZjFqUlMxbGlieVRwdTBiRG9LTEY2VVZzREZTcHpuaDdN?=
- =?utf-8?B?eThFTTNyMWN2bW1EbUJMMG9lQVlrVnpZeWhvY0xFYVltYjc1ZVArZ2tuUXJM?=
- =?utf-8?B?MUEwTnhRV3p5WGlFZXpXbDNLWm9Kc2JqUmtXQjJVTGl4b0swaUttU0h5dS9U?=
- =?utf-8?B?MnhWOHpIbDVVTldMdkk4Tm9UQ0U1YnJpakF3T1lpbzl1Q2RHYVhUb1FhSmhV?=
- =?utf-8?B?bU4zYXhybVBiVmZ3TEgrMTBRT0hyaFhXZitzQjFBYmpzNXNjZGlvcGdjWFpp?=
- =?utf-8?B?SnBpSDVJN29udkFjYUVWckl1eTZlMjFvd3BQWTROZzlNR2c3OG1GZWMvaFZW?=
- =?utf-8?B?T084cTdqQm0vRnY0Ry9qeEZmOWJMc0xYazFTeEN1dkNZaFZUVUZET3RxMGN5?=
- =?utf-8?B?dHQyNFd2ckJmam1QYWVmV0hjUmNSdjFtOTIyVzE1bDdPb0NITld6TGR1TCtv?=
- =?utf-8?B?VmYzSlNRYnBxVXJwSEo4VEJLZU13VUJKZTlqajVaQzNxdHJzWmF3aHF5cGZt?=
- =?utf-8?B?NE8zenZXdm4wZnFMSVNHNDFXakc5V2FHY1cvMFIyYkpuUFpNQTFNMzM3Yi95?=
- =?utf-8?B?K3YwM3JBVUhlQmdVQ3VoOE1GKzV4YTNoQittSkJncHRpWjdWaVBidlYwTi8v?=
- =?utf-8?B?eWNKMER1d2RadFhrbDRqb0wxeFBMUUtNUEtGN2VlcUhGZ2VkZ1oyZGVkU1RD?=
- =?utf-8?B?c2RnNktKZ3FKaVlEZlR2aGFWcndMenkwdUpZMlkzVE5ITk5vMy9ZbnNiNys1?=
- =?utf-8?B?OTJtTTBub1g3SWVwME9XU3J1MVVOeS9zTVcyUmdmZ2VCYXFXb3lQZkcrRHo5?=
- =?utf-8?B?WnhuejhvSXFtTmxnd3hxajJBTW1BZ2dXZm1yKzRKY0xhbmxMOW44Q1VmSHgx?=
- =?utf-8?B?MVNySk96c0hTWi81VCtweU51dXRRTkhtRUNJU2VkcFhRWGlGOXV3Yk51NHFT?=
- =?utf-8?B?TVFkTlJBeUlTUVBFbUt4dmhqaHFDejdSekRHS1lnaHlVUmxnNytIbzdtQUlD?=
- =?utf-8?B?ZEQ5TEdWV2l3bEFYZ1ZNSXplZGYyTTZvZHpJQWI4ajRlZWR0NGZ1cGZ6QWxM?=
- =?utf-8?B?blEyQkdqWTFEK0xpSGZZdlluVTJMU2Fzc3pqdWRjUGVYQ1gzMUJLL3RUdEdJ?=
- =?utf-8?B?SDVXT1VXa05Xa3BRcFpZNjVPNmZnUEZ0OWFZcDY4d3dwTUU5TG9CQjduK2FL?=
- =?utf-8?B?UEEzbk5tNjdQN2RoM3BVZnl1RkZRZHJDOW5ydE5ZUDJiMEJhbjY2Q2VjVWZT?=
- =?utf-8?B?TUtuN2xtTzR3bG1keWpqTy9nT3J4Tmt2OFQ0ZFpndlVXT1E1OFl5SkxlSVJH?=
- =?utf-8?B?R3lLVUJkT2sxN3RsL3FxV0lydGp0OGVoTTZVMGFORHJOSFAwRmQvaUFvTFpW?=
- =?utf-8?B?ejNHWGdaa3pRUkxtUjJlb3Q4eHpRaG5rSnR3OUEwbnVxc0doaE5HUHRoTEpj?=
- =?utf-8?B?N2ZjRzFReW0ya1JoKzUrd25HTVV0cTZqVU1sTGgzTFNGRURSVWZKRVNVSDhN?=
- =?utf-8?B?d1hxeC9VM3lJaFFFVC9pK241amtnY3VwUnZlYjRyTWR1QXNrd1hUc3liTDQ4?=
- =?utf-8?B?ZCt5K0x3K0k1akdkczRyMWRGUUtOdTZmU3JKZlNBNnFtTG1iZEFkNHJ4Vlgr?=
- =?utf-8?B?eTR3WUdSQUNJaFRNdjZkMGExL2JIT1pUVmVDRURnVm5MMW0yUzBkVVNYSFBq?=
- =?utf-8?Q?yGC/sYJ9MxE=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUtEMVZ1WHpXTGtaTjJyTk91U2JtQjg2SHBqaDRXSnVRQ20yMHBMSnlNNG1G?=
- =?utf-8?B?d1RreWgzTGZxQWNwYVFDQnM4YUIwdi8xQWpYRDlmbXVmbDVrMWNydEt6cUpD?=
- =?utf-8?B?QzZkMkplLzJ0bXU1RjRSNSszb2pjb25jZ0RNTnlCYkl0NUlCTmxDc0hnVXBy?=
- =?utf-8?B?NTRNYXQzOW5EODVnbWVwenNIUUZiRkhIb1preXhRR25nVnRoaHpLdHZLdG5M?=
- =?utf-8?B?aTI4T2pQRXM4YUpBbXkyYldLRXp1enAxVThsT2xyU1FLMWdoMUdDNGQxZFhQ?=
- =?utf-8?B?elZWMjVVSVJkZkF0UDFLMUNrUGJEMHdadDRjU1A2RXpaVnBtejk4azhMQ0lD?=
- =?utf-8?B?amlLdSsycjdESHBLamtscGtaeG8rQ1ZtMkQrQk5vanhydXNOdkErTmNTa2tB?=
- =?utf-8?B?dHlOcGUwNXlUckFxV0pKUUhaY3IwVDdhZWQrRUdpTVUyVjJYc2k3Vk9sOFFD?=
- =?utf-8?B?S3VuQVZWTkNtdWNEOGp4NlBOVko3OGsvcFh5STBIdzFScUorLzVTZzF6dXp4?=
- =?utf-8?B?eDZUVHVhRFJycGtMQ2pscGVJdExWQWFkS3phYTIrS0hEckI0aHJQQmRlQjR2?=
- =?utf-8?B?dzQ1ME0rMGlWejdIOVhidDYrcVl1MTlnakwvYVA3bkdEbWVsZjZucVo4RE5W?=
- =?utf-8?B?a2lPVHlaYndqd2JrT1N0WVpPekRqVktZQ1JCV2ZMYkE0ZUcvYzFTL2d3dFpa?=
- =?utf-8?B?RWZxMno5N3NtcEZySmxndnQ2dHNFaTJLZ01Sa2Jaby82aXh3bFAwT0dPUlph?=
- =?utf-8?B?eDlSUFVUc29qNjlkVDJGMzJ0Ni9kRUc5Rld1djBJN3U0a2ZPdU9ud25yc0RR?=
- =?utf-8?B?UlpBeWZXQTRJOU5nZVF5UmtqeVBjTG9CZExoL01EWDd0VmgvaFZwOVpHdGZh?=
- =?utf-8?B?Zy96V3ZpRm1sK2pNS1hLQkNQd0VNUUZrK0k3VERyMWQrTzBpL3NrNklBdnhF?=
- =?utf-8?B?bGxBSFNaMy9FMzM1Tm9RTUlWeTFpM0JROWZJMkw3YnZiT3JBNzNGY2NzTWJF?=
- =?utf-8?B?VlhWMFg3djNlZW42MnBQOWQ1S2RSNjdEYVBnalFvN0p0YTBqbEVPa0p4UFk3?=
- =?utf-8?B?cmtyTE1SZmhUdzJYWitYMVI1bUdTWW9WM0N5aldyTVowbk04dHNmY2lLaWFu?=
- =?utf-8?B?MERWTmM4bGx5VWZIa0pMWDZSOG1jdzBmSjVVRE85RHg4WkJZM0VxUEVieDZ4?=
- =?utf-8?B?K0JXOXRwTHZzaXlQUnoya0NjZjUyaFJnMjdZYlBKK0tzYW5NTVk4OHoxS3lM?=
- =?utf-8?B?SkpQdDFvb2ZoVURUWktQNno0bEhUUFQwWUVhaVN0aUhONGtnK05JdExWQWts?=
- =?utf-8?B?eEF2VG9Gam55M0VMSm1tMzNMdG9lZGd3RE01Vnk3REM1c1BiczJlNjNPTS9V?=
- =?utf-8?B?ejFSWHArbHhKbW9GOGNEM25OdGovUkhhbDhZR0F2VnJJVHJ3WUZFdjVJaVBH?=
- =?utf-8?B?N2thMlNNUUlGYTRHMDltOGZ3dVNTUGNCZno0SVltSWZmYVJHOWd0SjN0Sit1?=
- =?utf-8?B?a2xNTGhkZkdwZ3c0VHJGQmxZbGJtVWYyMUJHc1hwY2tOc2NZRzYxQkNSZlcz?=
- =?utf-8?B?SVd0dmpiL21oZVhhUXFVMmo0YUdRTG9TMWN2Z3l2djZjbElsY3U5RlF6TlJB?=
- =?utf-8?B?OHFKbVJIdS9aa1duYnRCNmIySzYyWWwrRGN4NmVyQ0RNbDdQcEE4bmllVmor?=
- =?utf-8?B?cDQ5QWJkc0FpdnFxTkFUd1crUXBxLzdwNE9zMWVXcWdiUVVQS2V5bWdQeXpJ?=
- =?utf-8?B?d2MwbkdSQ1lUU0l2T1JzVmgxajMrazNnd2JXcTFsQUlnUE5yZHVoT3ZaMUVo?=
- =?utf-8?B?TjAxUlIrV1RlR0QzRnJlSzZXTExlV3F3eURhM1I1M2gzcTRkRU1XWHB2YWZy?=
- =?utf-8?B?VHlVdWtZOGJYaHdYdlVqUkk2d2lpaGc3WmdISlBZb292RXZsaEt1VHlyUXpz?=
- =?utf-8?B?ZVlGMEtaTHRSbFVCTjludzRBaWY2U09pZm5ldEt6aEdMSGN6VmlIUnFsT1pq?=
- =?utf-8?B?WE1HbVpnSWZXSmQvUFFZYjhmOS9MQllWa3phMDlwWE5pbmM0OFRyOXl0NWhk?=
- =?utf-8?B?YmdKNjdIaG94NUt2RUpJZmVTNFZFa1FRR1FjNWRycEl0dmlGaGJaNDdhWGFB?=
- =?utf-8?Q?hhyIQQKMo+0UM1iiLrQJrtigi?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e63fe699-a420-4afa-94c4-08ddcf8640d5
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2025 16:29:27.8994 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z+sNDaVc7bA+p7EAvwSXzjiggn84YIjz8NBLcynut7eYBqlraeMx1xEQAEPnttQp0TLsXJ3+BfYMepYlkyCCZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8879
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,106 +95,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, 2025-07-30 at 10:30 -0400, Harry Wentland wrote:
+>=20
+>=20
+> On 2025-07-30 03:40, Timur Krist=C3=B3f wrote:
+> > On Tue, 2025-07-29 at 14:03 -0400, Harry Wentland wrote:
+> > >=20
+> > >=20
+> > > On 2025-07-23 11:57, Timur Krist=C3=B3f wrote:
+> > > > Previously, DC determined the DRM connector type based on the
+> > > > signal type, which becomes problematic when a connector may
+> > > > support different signal types, such as DVI-I.
+> > > >=20
+> > > > With this patch, it is now determined according to the actual
+> > > > connector type in DC, meaning it can now distinguish between
+> > > > DVI-D and DVI-I connectors.
+> > > >=20
+> > > > A subsequent commit will enable polling for these connectors.
+> > > >=20
+> > > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > > ---
+> > > > =C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28
+> > > > +++++++++++----
+> > > > ----
+> > > > =C2=A01 file changed, 16 insertions(+), 12 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > index 096b23ad4845..c347b232ae06 100644
+> > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > @@ -8038,24 +8038,26 @@ static int
+> > > > dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state
+> > > > *state,
+> > > > =C2=A0	return 0;
+> > > > =C2=A0}
+> > > > =C2=A0
+> > > > -static int to_drm_connector_type(enum signal_type st)
+> > > > +static int to_drm_connector_type(uint32_t connector_id)
+> > > > =C2=A0{
+> > > > -	switch (st) {
+> > > > -	case SIGNAL_TYPE_HDMI_TYPE_A:
+> > > > +	switch (connector_id) {
+> > > > +	case CONNECTOR_ID_HDMI_TYPE_A:
+> > > > =C2=A0		return DRM_MODE_CONNECTOR_HDMIA;
+> > > > -	case SIGNAL_TYPE_EDP:
+> > > > +	case CONNECTOR_ID_EDP:
+> > > > =C2=A0		return DRM_MODE_CONNECTOR_eDP;
+> > > > -	case SIGNAL_TYPE_LVDS:
+> > > > +	case CONNECTOR_ID_LVDS:
+> > > > =C2=A0		return DRM_MODE_CONNECTOR_LVDS;
+> > > > -	case SIGNAL_TYPE_RGB:
+> > > > +	case CONNECTOR_ID_VGA:
+> > > > =C2=A0		return DRM_MODE_CONNECTOR_VGA;
+> > > > -	case SIGNAL_TYPE_DISPLAY_PORT:
+> > > > -	case SIGNAL_TYPE_DISPLAY_PORT_MST:
+> > > > +	case CONNECTOR_ID_DISPLAY_PORT:
+> > > > =C2=A0		return DRM_MODE_CONNECTOR_DisplayPort;
+> > > > -	case SIGNAL_TYPE_DVI_DUAL_LINK:
+> > > > -	case SIGNAL_TYPE_DVI_SINGLE_LINK:
+> > > > +	case CONNECTOR_ID_SINGLE_LINK_DVID:
+> > > > +	case CONNECTOR_ID_DUAL_LINK_DVID:
+> > > > =C2=A0		return DRM_MODE_CONNECTOR_DVID;
+> > > > -	case SIGNAL_TYPE_VIRTUAL:
+> > > > +	case CONNECTOR_ID_SINGLE_LINK_DVII:
+> > > > +	case CONNECTOR_ID_DUAL_LINK_DVII:
+> > > > +		return DRM_MODE_CONNECTOR_DVII;
+> > > > +	case CONNECTOR_ID_VIRTUAL:
+> > > > =C2=A0		return DRM_MODE_CONNECTOR_VIRTUAL;
+> > > > =C2=A0
+> > > > =C2=A0	default:
+> > > > @@ -8440,6 +8442,8 @@ void
+> > > > amdgpu_dm_connector_init_helper(struct
+> > > > amdgpu_display_manager *dm,
+> > > > =C2=A0			link->link_enc-
+> > > > > features.dp_ycbcr420_supported ? true : false;
+> > > > =C2=A0		break;
+> > > > =C2=A0	case DRM_MODE_CONNECTOR_DVID:
+> > > > +	case DRM_MODE_CONNECTOR_DVII:
+> > > > +	case DRM_MODE_CONNECTOR_VGA:
+> > >=20
+> > > This seems unrelated and would do better in a separate patch.
+> > >=20
+> > > Harry
+> >=20
+> > Keep in mind that currently DC recognizes DVI-I as DVI-D, but after
+> > this patch they will be recognized correctly as DVI-I. So without
+> > this
+> > part, the patch will regress the hotplug capability of those ports.
+> >=20
+>=20
+> How will it regress when your patch series introduces analog support?
+> Without that there shouldn't be DVII or VGA connectors.
+>=20
+> Harry
 
+DVI-I can carry either an analog or a digital signal.
 
-On 2025-07-23 11:57, Timur Kristóf wrote:
-> This series adds support for analog connectors to DC for DCE6-10.
-> There are two reasons to add this support:
-> 
-> 1. GPUs that already use DC by default and have analog connectors.
-> Some Tonga and Hawaii graphics cards in fact have DVI-I connectors,
-> and the analog part doesn't work by default. This functionality
-> regressed when switching from the amdgpu legacy display code to DC.
-> 
-> 2. GPUs that don't use amdgpu by default yet.
-> Currently, SI (GFX6) and CIK (GFX7) don't use amdgpu by default
-> yet, and missing analog connector support is cited as one of the
-> main reasons why not.
-> 
-> With this analog support added to DC, we could already fully switch
-> CIK discrete GPUs to use DC and switch them to the amdgpu driver.
-> For GFX7 APUs and SI, further fixes are needed before enabling DC.
-> 
-> Before starting this work, I asked Harry and Alex about how best
-> to do it and we agreed that we'd like to use the VBIOS to set up
-> the DAC. So I used the amdgpu legacy display code as a reference.
-> The first few commits add some minor changes to DC to prepare for
-> supporting analog stream and link encoders, then analog link
-> detection is added along with polling, and finally DAC load
-> detection support, which is useful for old displays and adapters.
-> 
+Before this patch, the DVI-I ports were recognized by DRM as
+DRM_MODE_CONNECTOR_DVID and their digital part was already working.
+That means you can plug in a digital DVI cable in a DVI-I port and it
+will work today.
 
-The series looks good to me.
+After this patch they will be recognized as DRM_MODE_CONNECTOR_DVII
+instead, so in order to keep the same behaviour as before and avoid
+regressing the digital part, we need to set DRM_CONNECTOR_POLL_HPD, and
+in order to do that we need to add DRM_MODE_CONNECTOR_DVII to this
+switch statement.
 
-Patches 2-20 are
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+That being said, I can move this hunk to a separate patch before this
+one. That way there is going to be no regression and this patch stays
+simpler.
 
-Patch 1 is probably good, just waiting for feedback on my comments.
+Does that sound ok to you?
 
-Though I would like to send this through our weekly testing cycle
-before we merge to ensure it doesn't regress DCN in some non-obvious
-ways.
+Timur
 
-Harry
-
-> Please let me know what you think.
-> 
-> Timur Kristóf (20):
->   drm/amd/display: Determine DRM connector type more accurately
->   drm/amd/display: Add analog bit to edid_caps
->   drm/amd/display: Introduce MAX_LINK_ENCODERS
->   drm/amd/display: Hook up DAC to bios_parser_encoder_control
->   drm/amd/display: Add SelectCRTC_Source to BIOS parser
->   drm/amd/display: Get maximum pixel clock from VBIOS
->   drm/amd/display: Don't use stereo sync and audio on RGB signals
->   drm/amd/display: Don't try to enable/disable HPD when unavailable
->   drm/amd/display: Add concept of analog encoders
->   drm/amd/display: Implement DCE analog stream encoders
->   drm/amd/display: Implement DCE analog link encoders
->   drm/amd/display: Support DAC in dce110_hwseq
->   drm/amd/display: Add analog link detection
->   drm/amd/display: Poll analog connectors
->   drm/amd/display: Add DCE BIOS_SCRATCH_0 register
->   drm/amd/display: Make get_support_mask_for_device_id reusable
->   drm/amd/display: Add DAC_LoadDetection to BIOS parser
->   drm/amd/display: Use DAC load detection on analog connectors
->   drm/amd/display: Add common modes to analog displays without EDID
->   drm/amdgpu: Use DC by default for Bonaire
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   1 -
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 144 +++++++--
->  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   5 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   1 +
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |   8 +
->  .../gpu/drm/amd/display/dc/bios/bios_parser.c |  95 +++++-
->  .../drm/amd/display/dc/bios/command_table.c   | 286 ++++++++++++++++++
->  .../drm/amd/display/dc/bios/command_table.h   |   6 +
->  .../drm/amd/display/dc/core/dc_link_enc_cfg.c |   4 +-
->  .../gpu/drm/amd/display/dc/core/dc_resource.c |   8 +
->  .../gpu/drm/amd/display/dc/dc_bios_types.h    |   9 +
->  drivers/gpu/drm/amd/display/dc/dc_types.h     |   5 +
->  .../drm/amd/display/dc/dce/dce_link_encoder.c | 100 ++++++
->  .../drm/amd/display/dc/dce/dce_link_encoder.h |  21 +-
->  .../amd/display/dc/dce/dce_stream_encoder.c   |  14 +
->  .../amd/display/dc/dce/dce_stream_encoder.h   |   5 +
->  .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  75 ++++-
->  .../gpu/drm/amd/display/dc/inc/core_types.h   |   8 +-
->  .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |  24 ++
->  .../drm/amd/display/dc/inc/hw/link_encoder.h  |   2 +
->  drivers/gpu/drm/amd/display/dc/inc/resource.h |   1 +
->  .../amd/display/dc/link/hwss/link_hwss_dio.c  |  19 +-
->  .../drm/amd/display/dc/link/link_detection.c  | 123 +++++++-
->  .../gpu/drm/amd/display/dc/link/link_dpms.c   |   9 +-
->  .../drm/amd/display/dc/link/link_factory.c    |  31 ++
->  .../dc/resource/dce100/dce100_resource.c      |  28 +-
->  .../dc/resource/dce110/dce110_resource.c      |   2 +
->  .../dc/resource/dce112/dce112_resource.c      |   2 +
->  .../dc/resource/dce120/dce120_resource.c      |   1 +
->  .../dc/resource/dce60/dce60_resource.c        |  26 +-
->  .../dc/resource/dce80/dce80_resource.c        |  23 +-
->  .../amd/display/include/bios_parser_types.h   |  11 +-
->  .../display/include/grph_object_ctrl_defs.h   |   1 +
->  .../drm/amd/display/include/signal_types.h    |   5 +
->  34 files changed, 1027 insertions(+), 76 deletions(-)
-> 
-
+>=20
+> > That said, sure, I can move this part to a separate commit before
+> > this
+> > one, if you prefer.
+> >=20
+> > Timur
+> >=20
+> > >=20
+> > > > =C2=A0		aconnector->base.polled =3D
+> > > > DRM_CONNECTOR_POLL_HPD;
+> > > > =C2=A0		break;
+> > > > =C2=A0	default:
+> > > > @@ -8631,7 +8635,7 @@ static int
+> > > > amdgpu_dm_connector_init(struct
+> > > > amdgpu_display_manager *dm,
+> > > > =C2=A0		goto out_free;
+> > > > =C2=A0	}
+> > > > =C2=A0
+> > > > -	connector_type =3D to_drm_connector_type(link-
+> > > > > connector_signal);
+> > > > +	connector_type =3D to_drm_connector_type(link-
+> > > > >link_id.id);
+> > > > =C2=A0
+> > > > =C2=A0	res =3D drm_connector_init_with_ddc(
+> > > > =C2=A0			dm->ddev,
