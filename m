@@ -4,81 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0698EC87FC9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 08:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEC9BC87FC9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 09:25:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3B3110E084;
-	Wed, 30 Jul 2025 08:19:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 453E810E051;
+	Wed, 30 Jul 2025 09:25:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YFCbOwbY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="27uIF1je";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11A6810E084
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 08:19:24 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4563bc166a5so3295565e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 01:19:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753863562; x=1754468362; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qmKjOzeyQMIZhibyQLuAbd6+laxFAg3QswPHaTEJkPg=;
- b=YFCbOwbYGgbfmOh0UniyXxLkRspJKV4hrlAYsII5Y8G+8Zboo8T/m6k/tN021G/qIy
- 9yTs0Wg5sNjab33MNmSXt70WusCdrf8ppYAAjX2/pjELPAfOaqWfreBlGLmcHGfESw+f
- I4gfKLbB8ZUanUYav9KodX6unQqiy4XY+hzBR8xssdM3gJbFmtMwwA8p+0R+z2uBpWRs
- sKiZPcIha+JvRz8NH3sNox1Oh4EjaLMycsGm3VEH08HZh4S5sGSJE8tmu9hdgLa/yD2V
- NH0NuL9e2jwe4yN3fQlxOsAVuFCjqiEp7/AtUPJNaBdDuTfo4vL/RNljPTgNfXDl2h7A
- ANoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753863562; x=1754468362;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=qmKjOzeyQMIZhibyQLuAbd6+laxFAg3QswPHaTEJkPg=;
- b=HD5aipDUXZx6J4W5VZK4VzRip1Ldg87F5QnQ/Ri/3pZ29/WlFlQdBBr0rGfyNtzPql
- GMoqmP7eLpBLQoAemoSg+8UEuXvXnuLAXrvHI0hoZc5Qk/YpA17ZCVfN++1Wuy/o2QV2
- yhjiw0/SN4O78LdF27wq708Qdw3+TRY8GRQ9KVB0cvh+cHJjMXf9ls+P//hGkqnM4Uls
- OC0J3kna6s+0RNIMPAISWYy3VcY6v7GiG93ysHx6GJ8SFrDAM4dqTPlc0bz8Pce9dnOl
- FYdLKH//icT8UnWHoH4dRNARsu6+q3/UEpZaHhYUuXzZZGnuZV2CIhPzG7sALFV/Vmk+
- IMlg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWWtcFUrf07zcKiU/EHJ2EYbaGwk6faZqjngt0Z3dEwedNIdf5NsIoFOdEnf7nNA171DfjCj2gM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1Tt3M3XOR9kAaXas2lA24VI2TILQBCUdWV2z28ukrnxeb1eTd
- Jb+/tRQQA6nH9sl0vrMxviDfc3Qt/QPOgn1OnhASAk/0dmUeA8cAVjhb
-X-Gm-Gg: ASbGncuhciNbrpcseJEsK5bkMBshl1ETaYGXYt2jEnltpKnfmv9iLWIaVJzfeC7Tkq8
- V/y6FV2bnhv7pW2SWn+jPp49+JAbzrzswiXXtEsAx5Oyep4pWsOi50hcyw0MUX+1NNc1yWmjjm+
- RUAqE3g1ZXk4wOsY7/uA8cVr+gXlAjixsqIe30L5qmx3pO8CLQalgqPFeC9NODte6K7sz8la07H
- koGt9vajEvXDpXImvtyStQgDJ9uGGSgmFqq2ZeB+wRzF2YCcG5vUxqmLfRTAPNNqOWEcxooysdv
- /qjwElXbBvl9DHFD3PlUIBAnDifxANI9HWPVii+tFGtfYCye+oOKNtBB1KHS/9v3n4Vs5ehBuqR
- sTnzLJSo0u3TiROU6Q5oWpxoi0sU5sczk/uEp8f5ZJGzh0QUa4u06dXTMq2i2+AKYy2LqvNocej
- F/LyfrRFLbnpMBncaDTCmTf7ZnV1UVfw0SY1R0sFnc/3wD67AA6caMfy86IOrnHrl1Y5xEtZDO
-X-Google-Smtp-Source: AGHT+IF4i+ea0fLdxAwth9NpBsGC8W3fnyE2TmLg8TwH1zuncaX4mg2IPgRVIvTgn4NjsKVIbniZ4w==
-X-Received: by 2002:a05:600c:78f:b0:456:12ad:ec3d with SMTP id
- 5b1f17b1804b1-4588d17968dmr37643395e9.14.1753863562248; 
- Wed, 30 Jul 2025 01:19:22 -0700 (PDT)
-Received: from ?IPv6:2001:4c4d:24d8:fc00:b1a6:598e:5b78:7d57?
- (20014C4D24D8FC00B1A6598E5B787D57.dsl.pool.telekom.hu.
- [2001:4c4d:24d8:fc00:b1a6:598e:5b78:7d57])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4588d89c50fsm36009035e9.0.2025.07.30.01.19.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jul 2025 01:19:21 -0700 (PDT)
-Message-ID: <7d1df06a6b19dc2d8e78059efb6e26f00bdb280a.camel@gmail.com>
-Subject: Re: [PATCH 07/20] drm/amd/display: Don't use stereo sync and audio
- on RGB signals
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
-Date: Wed, 30 Jul 2025 10:19:21 +0200
-In-Reply-To: <1ef9ce5a-0b6d-4d0d-834d-d1f6b0dc12bd@amd.com>
-References: <20250723155813.9101-1-timur.kristof@gmail.com>
- <20250723155813.9101-8-timur.kristof@gmail.com>
- <1ef9ce5a-0b6d-4d0d-834d-d1f6b0dc12bd@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D836410E051
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 09:25:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xrAVsZZHFJdDMoB6TvTQLLSv1Q7zgR4o7fcSzU1aInru2fCWLEdgNDZjhUk2fiSSlHQUZDSXjfNNbENjOeeiFT5f8zJf1bpI/9XRmbv2r630yAqWU5S4cizD17tZg6shlpsBziAhbLW/o02kWOfj91iLMgkUMD0uJruBuct7B71ZYgkUBwe9Z0JWeBL7nVB2iGaVVBNpwT8iGG2lZwS3clepnJrPECDyrieVfxpEPb6Jreav7Pe01fXL7O0MEGBZ/3IamWg4BYUUsvN2DD/L33PekBPv9NQWrlSZz3WcAOrLjsU+ZSAZQhnLTLH+KIyoGgPebq9jjR8+IpLEEJL4Cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+5vASOIC8UWypzslFMTB6zWlkobVE6osh9uPF3py2EY=;
+ b=BGQOsxTfwBuLjBLxPtTao4HFCJ4hnYKGJLEB0JK48YBc6CJAQNlx4DE/DLf77kFCAOnFRSh21U/KtOOO9DstI++qkQNVXfKsi5pCOCGuKvdYuHpn1ZeEkUC0cgfFk/xMBXlpt3nt+AmN5mnBF2znq9GF0nzD+Qu/x6gyuy0oqKPrKwe/kgEbbYuNT20zj1egAL3gdcoL59lwu8WhjW0GLt6y13QYe6oFxNCLAYm+0V58rSub3fkxJPUMp0QowXPfZfUArkWZWPigi+SGrucNTPAxpUOhD2TyGiBgDxZT9o/aoEgFkPoQsIJX6tt6le5RocAgTaEWK0k4KCJ9Wh8sQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+5vASOIC8UWypzslFMTB6zWlkobVE6osh9uPF3py2EY=;
+ b=27uIF1jeKYxZFdR45NX7xJv1LjWpwn0LxdYiLXQXKUQ3HFU5ioxMBvgWrw6YIkaVn2f3BhLoSkyQTZyGQ6gM71UdoU3yg6xC8XOd2aicj/uhXp5VqusiA7n3XgG1uwKvPLL+2/TFqzt7ZhuaH/BY1S3sMasuSc/TFwg6Oxsyny8=
+Received: from BY5PR20CA0003.namprd20.prod.outlook.com (2603:10b6:a03:1f4::16)
+ by IA1PR12MB8556.namprd12.prod.outlook.com (2603:10b6:208:452::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.11; Wed, 30 Jul
+ 2025 09:25:27 +0000
+Received: from SJ5PEPF000001F5.namprd05.prod.outlook.com
+ (2603:10b6:a03:1f4:cafe::54) by BY5PR20CA0003.outlook.office365.com
+ (2603:10b6:a03:1f4::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.11 via Frontend Transport; Wed,
+ 30 Jul 2025 09:25:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001F5.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8989.10 via Frontend Transport; Wed, 30 Jul 2025 09:25:26 +0000
+Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 30 Jul
+ 2025 04:25:24 -0500
+From: Xiang Liu <xiang.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, Xiang Liu <xiang.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Skip poison aca bank from UE channel
+Date: Wed, 30 Jul 2025 17:24:54 +0800
+Message-ID: <20250730092454.58644-1-xiang.liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F5:EE_|IA1PR12MB8556:EE_
+X-MS-Office365-Filtering-Correlation-Id: cff7b60e-f698-4925-b2a3-08ddcf4b04d7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OMLaBuM62D9pbQSIBdyoKjZ81ScT5d/BEhvMxy3U63B/Flst3reCOPJ+2reO?=
+ =?us-ascii?Q?eAMA5XvbUFzVxjhTmYV2Xa+mfpw/FiBowVZ5YUOjAHrmmVP8UQiHgSnBjd5M?=
+ =?us-ascii?Q?ZrnbomHnpb4y+MA5NrjxWKGQaduG1KG1kyE4HCawX1ute5mlKcxytt+Fo5dG?=
+ =?us-ascii?Q?SOjjDy/vp0uLeG4tnwKOG7jIh5ld3+f/Yf+8RmTPbP7wIbERKuOJxJTFGKfx?=
+ =?us-ascii?Q?xyd1Wci4ZnDqpR+ACV+MlOFD97KNWX/3OrLpU4fU5/AC0KGhsIGcoCF608aQ?=
+ =?us-ascii?Q?CDx1l0xhEVjaD21Y1jqVDmkIzBSVH5RItGfBwUelNb0BPtaHRwyTq5YWwHok?=
+ =?us-ascii?Q?JX2oZ3+Ub1mvLY6Yk/qx1Awqt2nwqwkIT4I5KS4whXxjafFuyvs5BC24T3WB?=
+ =?us-ascii?Q?asZwiu53hyqidPmtWsw9eyV58FnFYELd4GbNt2E+6GyWmMPWV/P/FT19yh8K?=
+ =?us-ascii?Q?+qtweMFLlNo1c2kEo2Kgslb9kDBhod3IhxG0ChW4nxHWHp3xd68ZE4UoKRxp?=
+ =?us-ascii?Q?YJ6mrYpL2zf+g7A97DU+Ov6KgFNbk+KUNCTTMtk0pRD5PNcaUYBHdkwykor5?=
+ =?us-ascii?Q?NxJxDSyh201WSneMuL+kEYOaXppaBZiN5qb0FC+f3QwKwSPsDzAH2vg88OPV?=
+ =?us-ascii?Q?pleiHs5+mHtDyH9qTSWYugqzMLUH3gr3DJHuMjG7PSE1p/3nXRdCeQygpIeV?=
+ =?us-ascii?Q?bR6wE+AVa2t04qi8sTNJCnO20/PnOpanEaNkmQAFqj6hM9Nb1OQDs9mTtOqT?=
+ =?us-ascii?Q?OC7OxvUZR7DI6xHhDreYamS1Pjslrgz0NyqkfpzOK78+DdQFXbFfCOTt1PGl?=
+ =?us-ascii?Q?LBZslwD3KQxyBKQz8qc1VZXKAnM/hurfn/YlaQethXrQaY0mE15kvbqts2ZJ?=
+ =?us-ascii?Q?bPc0Lmgi7qGANfm+3NoWSgdRttQAj02R50MjA1qSiZLn9DZl90rFsmj0Txc3?=
+ =?us-ascii?Q?wryZ8vmi+JlTb+DJaTyEovktMarltq42ioUve6F8bObkWdVIW1K5TxipTiYk?=
+ =?us-ascii?Q?qtTG8GprkQDVm65EB5HLPqPfqwUggZzejeTUo2tDI8xFpp6ERtPGJRroSHeD?=
+ =?us-ascii?Q?vID7yDQg/i3+UW5GwZ5tJF198Tp9W0hKtlzFnCzMuqUz8LZozILY3wIbCPeo?=
+ =?us-ascii?Q?LnjZSbqClI9PEl3TDLxf3aFf96bktjA40rQeMagbUyVXVfp0RjhHEEZZD3D2?=
+ =?us-ascii?Q?uvH0i3R6DDHo2BdtJpvB/jmRMCpvBIcHyKgV+1Ga6ZrVDY6fYShTwR93K6tu?=
+ =?us-ascii?Q?pfgpo66AYddTUMY/jjDX0q6S57yqCF1B3m44aoGoFfLNNETcqS/6ygZIcBGZ?=
+ =?us-ascii?Q?16iJgnI1PPHSYrLLbhihPyficioubd/x+9fEr9tqapZ9yPS7wbAgmhcNLU+5?=
+ =?us-ascii?Q?/WIekqvBgNW83KHBA3eiHJQW5au3eTizRj8M1MbplEfVHfCgQ7txDSGIs6HQ?=
+ =?us-ascii?Q?/vKhdWa6uVPyJDBAq+TUbr3HZsYX/oxvhvVKmVEyIH41vTXmDSyn2ana8WaR?=
+ =?us-ascii?Q?w/x1ZxTXmwpxOsGCZ1hOHKy/WeNt7p8bi2rX?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2025 09:25:26.5871 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cff7b60e-f698-4925-b2a3-08ddcf4b04d7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8556
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,120 +130,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-07-29 at 14:21 -0400, Harry Wentland wrote:
->=20
->=20
-> On 2025-07-23 11:58, Timur Krist=C3=B3f wrote:
-> > Features like stereo sync and audio are not supported by RGB
-> > signals, so don't try to use them.
-> >=20
->=20
-> Where does it say that?
->=20
-> Harry
+Avoid GFX poison consumption errors logged when fatal error occurs.
 
-1. Audio
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 47 ++++++++++++++-----------
+ 1 file changed, 26 insertions(+), 21 deletions(-)
 
-VGA ports (and the analog part of DVI-I ports) simply cannot carry
-audio. So there is no hardware to control any audio, therefore there is
-nothing for this code to enable, which is why I added those ifs to not
-even try to enable audio on analog video signals.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index 3835f2592914..59dbb9257096 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -125,6 +125,27 @@ static void aca_smu_bank_dump(struct amdgpu_device *adev, int idx, int total, st
+ 		RAS_EVENT_LOG(adev, event_id, HW_ERR "hardware error logged by the scrubber\n");
+ }
+ 
++static bool aca_bank_hwip_is_matched(struct aca_bank *bank, enum aca_hwip_type type)
++{
++
++	struct aca_hwip *hwip;
++	int hwid, mcatype;
++	u64 ipid;
++
++	if (!bank || type == ACA_HWIP_TYPE_UNKNOW)
++		return false;
++
++	hwip = &aca_hwid_mcatypes[type];
++	if (!hwip->hwid)
++		return false;
++
++	ipid = bank->regs[ACA_REG_IDX_IPID];
++	hwid = ACA_REG__IPID__HARDWAREID(ipid);
++	mcatype = ACA_REG__IPID__MCATYPE(ipid);
++
++	return hwip->hwid == hwid && hwip->mcatype == mcatype;
++}
++
+ static int aca_smu_get_valid_aca_banks(struct amdgpu_device *adev, enum aca_smu_type type,
+ 				       int start, int count,
+ 				       struct aca_banks *banks, struct ras_query_context *qctx)
+@@ -163,6 +184,11 @@ static int aca_smu_get_valid_aca_banks(struct amdgpu_device *adev, enum aca_smu_
+ 
+ 		bank.smu_err_type = type;
+ 
++		if (type == ACA_SMU_TYPE_UE &&
++		    ACA_REG__STATUS__POISON(bank.regs[ACA_REG_IDX_STATUS]) &&
++		    !aca_bank_hwip_is_matched(&bank, ACA_HWIP_TYPE_UMC))
++			continue;
++
+ 		aca_smu_bank_dump(adev, i, count, &bank, qctx);
+ 
+ 		ret = aca_banks_add_bank(banks, &bank);
+@@ -173,27 +199,6 @@ static int aca_smu_get_valid_aca_banks(struct amdgpu_device *adev, enum aca_smu_
+ 	return 0;
+ }
+ 
+-static bool aca_bank_hwip_is_matched(struct aca_bank *bank, enum aca_hwip_type type)
+-{
+-
+-	struct aca_hwip *hwip;
+-	int hwid, mcatype;
+-	u64 ipid;
+-
+-	if (!bank || type == ACA_HWIP_TYPE_UNKNOW)
+-		return false;
+-
+-	hwip = &aca_hwid_mcatypes[type];
+-	if (!hwip->hwid)
+-		return false;
+-
+-	ipid = bank->regs[ACA_REG_IDX_IPID];
+-	hwid = ACA_REG__IPID__HARDWAREID(ipid);
+-	mcatype = ACA_REG__IPID__MCATYPE(ipid);
+-
+-	return hwip->hwid == hwid && hwip->mcatype == mcatype;
+-}
+-
+ static bool aca_bank_is_valid(struct aca_handle *handle, struct aca_bank *bank, enum aca_smu_type type)
+ {
+ 	const struct aca_bank_ops *bank_ops = handle->bank_ops;
+-- 
+2.34.1
 
-As a side note, DVI-D ports (and the digital part of DVI-I ports) may
-have a non-standard extension to carry digital audio signals, but that
-is not revelant to supporting analog displays.
-
-2. Stereo sync
-
-With regards to stereo sync, I didn't find any reference to this in the
-legacy display code, so I assumed either it is unsupported or the VBIOS
-already sets it up correctly. At least, considering that the legacy
-code didn't bother setting it up, we don't lose any functionality if we
-leave it out of DC as well.
-
-That being said, upon some further digging in the DCE register files, I
-found a register called DAC_STEREOSYNC_SELECT so maybe I could
-investigate using that. Maybe it would be better to work with the
-registers directly instead of the VBIOS? Would it be okay to
-investigate that further in a future patch series once this one is
-merged?
-
-Thanks,
-Timur
-
-
-
->=20
-> > Also add a dc_is_rgb_signal similar to other dc_is_*_signal.
-> >=20
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c | 3 ++-
-> > =C2=A0drivers/gpu/drm/amd/display/dc/link/link_dpms.c=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 6 ++++-
-> > -
-> > =C2=A0drivers/gpu/drm/amd/display/include/signal_types.h=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 | 5 +++++
-> > =C2=A03 files changed, 11 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git
-> > a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > index b68bcc9fca0a..f3470716734d 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > @@ -115,7 +115,8 @@ void setup_dio_stream_attribute(struct pipe_ctx
-> > *pipe_ctx)
-> > =C2=A0	struct dc_stream_state *stream =3D pipe_ctx->stream;
-> > =C2=A0	struct dc_link *link =3D stream->link;
-> > =C2=A0
-> > -	if (!dc_is_virtual_signal(stream->signal))
-> > +	if (!dc_is_virtual_signal(stream->signal) &&
-> > +		!dc_is_rgb_signal(stream->signal))
-> > =C2=A0		stream_encoder->funcs->setup_stereo_sync(
-> > =C2=A0				stream_encoder,
-> > =C2=A0				pipe_ctx->stream_res.tg->inst,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> > b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> > index 8c8682f743d6..d6b7347c6c11 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> > @@ -2369,7 +2369,8 @@ void link_set_dpms_off(struct pipe_ctx
-> > *pipe_ctx)
-> > =C2=A0			set_avmute(pipe_ctx, true);
-> > =C2=A0	}
-> > =C2=A0
-> > -	dc->hwss.disable_audio_stream(pipe_ctx);
-> > +	if (!dc_is_rgb_signal(pipe_ctx->stream->signal))
-> > +		dc->hwss.disable_audio_stream(pipe_ctx);
-> > =C2=A0
-> > =C2=A0	update_psp_stream_config(pipe_ctx, true);
-> > =C2=A0	dc->hwss.blank_stream(pipe_ctx);
-> > @@ -2656,7 +2657,8 @@ void link_set_dpms_on(
-> > =C2=A0		enable_stream_features(pipe_ctx);
-> > =C2=A0	update_psp_stream_config(pipe_ctx, false);
-> > =C2=A0
-> > -	dc->hwss.enable_audio_stream(pipe_ctx);
-> > +	if (!dc_is_rgb_signal(pipe_ctx->stream->signal))
-> > +		dc->hwss.enable_audio_stream(pipe_ctx);
-> > =C2=A0
-> > =C2=A0	if (dc_is_hdmi_signal(pipe_ctx->stream->signal)) {
-> > =C2=A0		set_avmute(pipe_ctx, false);
-> > diff --git a/drivers/gpu/drm/amd/display/include/signal_types.h
-> > b/drivers/gpu/drm/amd/display/include/signal_types.h
-> > index a10d6b988aab..825a08fcb125 100644
-> > --- a/drivers/gpu/drm/amd/display/include/signal_types.h
-> > +++ b/drivers/gpu/drm/amd/display/include/signal_types.h
-> > @@ -118,6 +118,11 @@ static inline bool dc_is_dvi_signal(enum
-> > signal_type signal)
-> > =C2=A0	}
-> > =C2=A0}
-> > =C2=A0
-> > +static inline bool dc_is_rgb_signal(enum signal_type signal)
-> > +{
-> > +	return (signal =3D=3D SIGNAL_TYPE_RGB);
-> > +}
-> > +
-> > =C2=A0static inline bool dc_is_tmds_signal(enum signal_type signal)
-> > =C2=A0{
-> > =C2=A0	switch (signal) {
