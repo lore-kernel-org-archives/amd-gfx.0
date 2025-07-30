@@ -4,80 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C085C87FC9
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 07:41:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3C72C87FC9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 07:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 033A710E41D;
-	Wed, 30 Jul 2025 07:41:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 607F110E0A2;
+	Wed, 30 Jul 2025 07:43:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JvolLvO1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="odl6B6A0";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD6510E41D
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 07:41:02 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-455b00283a5so36899665e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 00:41:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753861261; x=1754466061; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kVKhywp1/s9Ie1k6DAJdvScjIIu8ZvRx4F3+BnRWkTo=;
- b=JvolLvO1Qce1uqw8H4EehR7vx+5xfQsrrmPB2pI4VUndb7moqibEnU7VNjdHd84cJF
- TAyq5OIckzFLYCtpentjaOmI56ElyQdO/3rSaZlBFlbBZgrKJYO7DWbjUBIQ4oTFsodC
- 1/uZ6qhfcWGirEu0q5BBTgq8TG+3JSzPTkYwoj3QarpqB4Qtn44k3pHuIsy96a1Pd1hu
- wqRWqBTjJhtTN+eQ38277JU7wE89+PJbnvz+vMFiprNoIOK4MhbtKTV0tLIxy7tqEH4l
- V38BjJzZX7J5S5rNAIldiKLn6/y1nh09UO4MutH7L5mQQSDhOpKfupMROu69FqwdXiHW
- 3wFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753861261; x=1754466061;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=kVKhywp1/s9Ie1k6DAJdvScjIIu8ZvRx4F3+BnRWkTo=;
- b=mIsKfjlNMT5VSLqGbCdpxLPU+Cl6NWtEvDuOi+3pTvVHqtVgBRB/+sP43t6LzGNXlo
- D3CJhny0jQbFrzCrpCFDtEuz3qhP4+nptWJH5MQ8FP872JKAIz6eJLAU+5TmqHRUxRhR
- WuWjgdppBlr6ZrH+DRDJmNo5McMwKvn691by1isa+dt5QemJAYW9vcFBX6bU6GNbqOkM
- bR3l43EjKEpCBjg0TPvBSTGl7i9HPNja0vxHTzdmELd01DBjjEVFUpF5DbI+mnvPFnVA
- 9KeSYs1A2P7P12xGDV7qoRYpqIs4MM3IYaNHu03CPj9YfWC4q0Lyzg1CO001DMa0CaZn
- Ytnw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXln3QPyK5aBsQGOaBC//kD4Ac/GL3Ov4KQ2OQCYvgUm9mIZVqd/apb7H/sXi9RuiggdWph9usp@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSKH0OdF57lw27CrVuE0GvXYsCLdSmclCpVrGxZRL5477G2bCl
- gXwPqvIRWElIjEAub4TVLAuI/yxaMWqhYL9dbO/M4oZxWtBXD0Nk+01n
-X-Gm-Gg: ASbGncuNbhIGmVO0taSykLn67bEkoDla6F+yhDEqYF2UVlEV2KXbep2mvQZU2PbDYuN
- Z6Uf9VkfyTFCjA9Plueev8N5bzGdSsI1E85teo0hOx6cos0hTje6l1wWf/bsGH/Ay0t5MLad9kh
- s0+fVFQkfxJo1Tr9QtdGipho0ojHY3iHERo+lG1f6TD3h/KjUimKZ4peCqyL7l2cBzTzUe13lPv
- SYLNuIU6WiyARSAbMgS4cmRR8GnbtYlg71tAD8fJXZ9aKi/PQsU0fshlv+H+3axCQ26eIsid2lC
- /zTj+YBQ+KrzXDrChWCKCQ++5oUass78MXP6kF2UyMSYITEJ9tkOIFNeoKqKTlQiWmYLrcgiKry
- L9E6uHrDqC6BfTDJwg0V9JmjB8SIDJnIVKR7ufvQqUjRuhtJaYDUhLIE8KcsFsqMW3SIQRYgWKM
- NN1jGdOfjfGROhBmST5uN+kvsDQRFoMHZfIXNd656k6KCyZj9Ldd14BCE/J4bepQ==
-X-Google-Smtp-Source: AGHT+IFg6bbTXNlr/1NpGuWrsiO0rQFpBAkV8dJVPwINkmFBtI7fhSdbi9l6bjhqCgjbkD5hVAIx4g==
-X-Received: by 2002:a05:600c:3ba7:b0:456:285b:db29 with SMTP id
- 5b1f17b1804b1-45892bd1b03mr19622475e9.29.1753861260447; 
- Wed, 30 Jul 2025 00:41:00 -0700 (PDT)
-Received: from ?IPv6:2001:4c4d:24d8:fc00:b1a6:598e:5b78:7d57?
- (20014C4D24D8FC00B1A6598E5B787D57.dsl.pool.telekom.hu.
- [2001:4c4d:24d8:fc00:b1a6:598e:5b78:7d57])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45899fb191fsm10091085e9.21.2025.07.30.00.40.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jul 2025 00:41:00 -0700 (PDT)
-Message-ID: <d3c18faac0871caae3eb70f4d912a635d175b234.camel@gmail.com>
-Subject: Re: [PATCH 03/20] drm/amd/display: Introduce MAX_LINK_ENCODERS
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
-Date: Wed, 30 Jul 2025 09:40:59 +0200
-In-Reply-To: <06c41d3c-2f5a-4368-8b2e-aa718c2af96c@amd.com>
-References: <20250723155813.9101-1-timur.kristof@gmail.com>
- <20250723155813.9101-4-timur.kristof@gmail.com>
- <06c41d3c-2f5a-4368-8b2e-aa718c2af96c@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CBFB10E0A2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 07:43:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w7M/LhC4GPCx8NVtHEgubuh4VBv/CmQWsk4JOMyrOOBYAny9FY7LWI4VNv+yOwUltkA8md+vkYmOksdWIZLpUYzjjoBe7W6vn4ZEc/9n4z6wEuvuengix4jIuGjFEHaY8t0bayROEmCuXUTWIvc75S++eSz3uwi12whkXm/2dY0gT5GIk+C/fkCwlD9DtQvVh+9hv+uqLrNfDsR7mhgP8YGyM5+vrt5wN0xNtuzaha6gtIwfUxBzdn7jbh6ZVtc9nd2yKrY9HGAu76a7tKi1YxOL5485qEIWwC0r1ZQiP6rWC8+lFB346QsAZ3EqAbPl+/gfENHMggXUHYalOik3Uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PEiNVmAGsC6CmRVx/mhkeEprNm+4mZYM580onq6WGJ4=;
+ b=P7ZXKOIxvHh6n+zf8wZ0EMr2uobYiafU/RqPyrRGP+WCc9mpcKC8H/6xQm9RgqA/qB8PqJFSkA5zWJX9zxNFbtpJJEHPR+YH41PPp1Vz6pLZ3e202t361g8z9RZDsrDsS2xovhYhXfdqLY83D/2GoYWBt9LqYTOK6+nvDMe8nsk4kT8OC8O2zykYq1CtKx/7iT8IhBIZZOW/ghqAq5Ean2/NFp0pc8qgwaLVwdgTTetHHBKYZKcAfOmi1F70K0x1i0FlD0gQh8cEZxZiyTC/IvqsOAB/aiyENVbMYgT2DvgTQyvT+wsyX6Ty5YImZC/99q9jTw/ggG4szkGaYfpt6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PEiNVmAGsC6CmRVx/mhkeEprNm+4mZYM580onq6WGJ4=;
+ b=odl6B6A0pLxOXsdPWIzQipmrLvF6hTtGOMkxzKbk29/iVX7kNSj1vD51TSV41eWrckskbjUdEwYkGfbDqk0jWvaCgmcie/oIEU3NaBQZ7qFz6Wdt58bGc+UfNocdM0c6sExApNpcp5M1/Rh9aMpR4TG2tmUL0NjAacJa5ROzpuU=
+Received: from MN2PR22CA0011.namprd22.prod.outlook.com (2603:10b6:208:238::16)
+ by MW4PR12MB6732.namprd12.prod.outlook.com (2603:10b6:303:1ea::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.11; Wed, 30 Jul
+ 2025 07:43:53 +0000
+Received: from BN2PEPF000044A1.namprd02.prod.outlook.com
+ (2603:10b6:208:238:cafe::42) by MN2PR22CA0011.outlook.office365.com
+ (2603:10b6:208:238::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.11 via Frontend Transport; Wed,
+ 30 Jul 2025 07:43:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000044A1.mail.protection.outlook.com (10.167.243.152) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8989.10 via Frontend Transport; Wed, 30 Jul 2025 07:43:52 +0000
+Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 30 Jul
+ 2025 02:43:50 -0500
+From: Xiang Liu <xiang.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, Xiang Liu <xiang.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Skip poison aca bank from UE channel
+Date: Wed, 30 Jul 2025 15:43:13 +0800
+Message-ID: <20250730074313.55516-1-xiang.liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A1:EE_|MW4PR12MB6732:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79ae5f56-762c-45b5-b6b2-08ddcf3cd477
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ww0uInP2Gbe5v6/fs4a6LK01fKrkrd7wpEryxnVNRYx7vLBeoIOhHztXT/GF?=
+ =?us-ascii?Q?arCkrqLymIxMYrmx8/2YAORkjL7ru3yU2S6ZbdJ5OtTBF+OcaxsxMWrMI0XB?=
+ =?us-ascii?Q?aEkA09OGLiwP1uTtoSYnduDYc2xI5FxhikRojCFyTFojC+PkIiBHTn7Wp6iC?=
+ =?us-ascii?Q?tU9z7bMGtp4hVJ1vhey8tNc/ibGguL5FHLGYqsO2oLz3CnxR8FJlWAHTdE/O?=
+ =?us-ascii?Q?zCxxF00xrrN1+yiCpADub//BLtPF/kqrSxsALaEOFmxQ/wE7ewDRcto+UsLh?=
+ =?us-ascii?Q?ktNRx4OWWitrIex2q1V3wLFyIJexYHQZdwVgm7IwwaJmYlj32Q8fX2G49agf?=
+ =?us-ascii?Q?gNLj7+YWYbTm/fwebnMs1c9HNjP7Ys/luBI3kvj7yoweAnnlN6RB/yYSXO00?=
+ =?us-ascii?Q?1QMJ/vl7FBkq9F8NEcel+7G1CDPiVe8Ifsbva26O1uRsXKW5tG09EBARiLd9?=
+ =?us-ascii?Q?vjVYCPmFTX12Yd9/NQn5HdrQqtSteT69J7gLu1sYkmTOhFL8/U8YgyVi9hD4?=
+ =?us-ascii?Q?12W9iKbozOiPX4VXqTIFT/Bz7h+JgbIR7crdbb0UeZHdaqE662LlIm0C/Nsh?=
+ =?us-ascii?Q?fXcqDtYy7sXdCGQbaEkcf4C/+oc6DrNw26nU59+ogDzduwWq2qI37y+3T2Ai?=
+ =?us-ascii?Q?bZWT2zch1lfa/lFhlKgPuxm8INpVIjeGrmGhIcdX1/uC6fgA01PigKFFbZOs?=
+ =?us-ascii?Q?EGuyx1qmiA6AmO1au2pC1yG32dBDR4k/M9lN6WfxGDUaoJgvO5l6IZzauIhN?=
+ =?us-ascii?Q?hVLoVT+1YbyLc/2U0dFX7DiP1NLBm/+5qzR3QrPLKxreAUUO/DzG8dV0udAq?=
+ =?us-ascii?Q?54yStDbaSjn9DvvKFttmfxJluJYMwwSjVnOrNrLy43+8LWYzMRr+czsCH+d9?=
+ =?us-ascii?Q?mVoNkeRjCDj4YzAlEBgbkS5ZYVlBR0l3X/3bwwccI2530O4hYUOSxiV/JtqC?=
+ =?us-ascii?Q?Yc2hzUMfsz/Io6GrHmFwQpJPcOD2H2az71iR4AwOJjBdusU3rFY489dZcxfQ?=
+ =?us-ascii?Q?FRSyiwWWA5pEIL8qtR19lw94WvLZTW8AvNuXXeq20pK9oDVpbVssC4C2aQik?=
+ =?us-ascii?Q?zQzha/E1Lhi0hNPospuptDL+GrmtxJZApNs9BSm6iKBn0VcTKG2arFuL4shX?=
+ =?us-ascii?Q?HesdggfeFixuaIeXyxIs6uNgQ7JJ+KPvaJHdJpxWf+1GfIT+NqBR8AsXzu9h?=
+ =?us-ascii?Q?TSa0MUTCnPuhy/Q+k6QXya4sqIJoItTA4CiDaxrv9TRKXu1SpkdPPDKncskQ?=
+ =?us-ascii?Q?30HUJbJ9NoOF7HC4ydTWM+fJ+4LSrIh1Mh6zLcrHEodyua1hS1FimgXFBURl?=
+ =?us-ascii?Q?XP03Fr26FrLcP7tO8JoicUZlGD/FrwiV0FKJtb2OPyWpAvLl4t6svp45BzEx?=
+ =?us-ascii?Q?2boi8obJvr49sEv6QoIRRziwWcKBMSn98NdGPIDh+fHsdu2BoKlNnZOO1BUM?=
+ =?us-ascii?Q?AhsaBwWMJ0bgpfYH3BzKOPNghbXlYXQF3xgz5wryjUv6SpA8habRdWkzrLAL?=
+ =?us-ascii?Q?C5US5sqyWOPT0WdgQegQAzr5e8JTa/mgZUSV?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2025 07:43:52.5655 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79ae5f56-762c-45b5-b6b2-08ddcf3cd477
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A1.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6732
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,132 +130,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-07-29 at 14:06 -0400, Harry Wentland wrote:
->=20
->=20
-> On 2025-07-23 11:57, Timur Krist=C3=B3f wrote:
-> > We are going to support analog encoders as well, not just digital,
-> > so we need to make space for them in various arrays.
-> >=20
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> > =C2=A0.../drm/amd/display/dc/core/dc_link_enc_cfg.c |=C2=A0 4 ++--
-> > =C2=A0.../gpu/drm/amd/display/dc/inc/core_types.h=C2=A0=C2=A0 |=C2=A0 8=
- +++----
-> > =C2=A0.../gpu/drm/amd/display/dc/inc/hw/hw_shared.h | 24
-> > +++++++++++++++++++
-> > =C2=A03 files changed, 30 insertions(+), 6 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
-> > b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
-> > index 814f68d76257..d86482611b3f 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
-> > @@ -522,10 +522,10 @@ struct link_encoder
-> > *link_enc_cfg_get_link_enc_used_by_link(
-> > =C2=A0struct link_encoder *link_enc_cfg_get_next_avail_link_enc(struct
-> > dc *dc)
-> > =C2=A0{
-> > =C2=A0	struct link_encoder *link_enc =3D NULL;
-> > -	enum engine_id encs_assigned[MAX_DIG_LINK_ENCODERS];
-> > +	enum engine_id encs_assigned[MAX_LINK_ENCODERS];
-> > =C2=A0	int i;
-> > =C2=A0
-> > -	for (i =3D 0; i < MAX_DIG_LINK_ENCODERS; i++)
-> > +	for (i =3D 0; i < MAX_LINK_ENCODERS; i++)
-> > =C2=A0		encs_assigned[i] =3D ENGINE_ID_UNKNOWN;
-> > =C2=A0
-> > =C2=A0	/* Add assigned encoders to list. */
-> > diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-> > b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-> > index f0d7185153b2..55daf348293e 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-> > +++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-> > @@ -274,7 +274,7 @@ struct resource_pool {
-> > =C2=A0	/* An array for accessing the link encoder objects that
-> > have been created.
-> > =C2=A0	 * Index in array corresponds to engine ID - viz. 0:
-> > ENGINE_ID_DIGA
-> > =C2=A0	 */
-> > -	struct link_encoder *link_encoders[MAX_DIG_LINK_ENCODERS];
-> > +	struct link_encoder *link_encoders[MAX_LINK_ENCODERS];
-> > =C2=A0	/* Number of DIG link encoder objects created - i.e.
-> > number of valid
-> > =C2=A0	 * entries in link_encoders array.
-> > =C2=A0	 */
-> > @@ -508,7 +508,7 @@ struct pipe_ctx {
-> > =C2=A0struct link_enc_cfg_context {
-> > =C2=A0	enum link_enc_cfg_mode mode;
-> > =C2=A0	struct link_enc_assignment
-> > link_enc_assignments[MAX_PIPES];
-> > -	enum engine_id link_enc_avail[MAX_DIG_LINK_ENCODERS];
-> > +	enum engine_id link_enc_avail[MAX_LINK_ENCODERS];
-> > =C2=A0	struct link_enc_assignment
-> > transient_assignments[MAX_PIPES];
-> > =C2=A0};
-> > =C2=A0
-> > @@ -520,8 +520,8 @@ struct resource_context {
-> > =C2=A0	uint8_t dp_clock_source_ref_count;
-> > =C2=A0	bool is_dsc_acquired[MAX_PIPES];
-> > =C2=A0	struct link_enc_cfg_context link_enc_cfg_ctx;
-> > -	unsigned int
-> > dio_link_enc_to_link_idx[MAX_DIG_LINK_ENCODERS];
-> > -	int dio_link_enc_ref_cnts[MAX_DIG_LINK_ENCODERS];
-> > +	unsigned int dio_link_enc_to_link_idx[MAX_LINK_ENCODERS];
-> > +	int dio_link_enc_ref_cnts[MAX_LINK_ENCODERS];
-> > =C2=A0	bool is_hpo_dp_stream_enc_acquired[MAX_HPO_DP2_ENCODERS];
-> > =C2=A0	unsigned int
-> > hpo_dp_link_enc_to_link_idx[MAX_HPO_DP2_LINK_ENCODERS];
-> > =C2=A0	int hpo_dp_link_enc_ref_cnts[MAX_HPO_DP2_LINK_ENCODERS];
-> > diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> > b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> > index 41c76ba9ba56..dc9b9f22c75b 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> > +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> > @@ -45,7 +45,31 @@
-> > =C2=A0#define MAX_PIPES 6
-> > =C2=A0#define MAX_PHANTOM_PIPES (MAX_PIPES / 2)
-> > =C2=A0#define MAX_LINKS (MAX_PIPES * 2 +2)
-> > +
-> > +/**
-> > + * define MAX_DIG_LINK_ENCODERS - maximum number of digital
-> > encoders
-> > + *
-> > + * Digital encoders are ENGINE_ID_DIGA...G, there are at most 7,
-> > + * although not every GPU may have that many.
-> > + */
-> > =C2=A0#define MAX_DIG_LINK_ENCODERS 7
-> > +
-> > +/**
-> > + * define MAX_DIG_LINK_ENCODERS - maximum number of analog link
-> > encoders
->=20
-> _DAC_, not _DIG_
->=20
-> Harry
+Avoid GFX poison consumption errors logged when fatal error occurs.
 
-That's a typo, will fix.
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Timur.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index 3835f2592914..e9ba546c36ae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -163,6 +163,10 @@ static int aca_smu_get_valid_aca_banks(struct amdgpu_device *adev, enum aca_smu_
+ 
+ 		bank.smu_err_type = type;
+ 
++		if (type == ACA_SMU_TYPE_UE &&
++		    ACA_REG__STATUS__POISON(bank.regs[ACA_REG_IDX_STATUS]))
++			continue;
++
+ 		aca_smu_bank_dump(adev, i, count, &bank, qctx);
+ 
+ 		ret = aca_banks_add_bank(banks, &bank);
+-- 
+2.34.1
 
->=20
-> > + *
-> > + * Analog encoders are ENGINE_ID_DACA/B, there are at most 2,
-> > + * although not every GPU may have that many. Modern GPUs
-> > typically
-> > + * don't have analog encoders.
-> > + */
-> > +#define MAX_DAC_LINK_ENCODERS 2
-> > +
-> > +/**
-> > + * define MAX_LINK_ENCODERS - maximum number link encoders in
-> > total
-> > + *
-> > + * This includes both analog and digital encoders.
-> > + */
-> > +#define MAX_LINK_ENCODERS (MAX_DIG_LINK_ENCODERS +
-> > MAX_DAC_LINK_ENCODERS)
-> > +
-> > =C2=A0#define MAX_DWB_PIPES	1
-> > =C2=A0#define MAX_HPO_DP2_ENCODERS	4
-> > =C2=A0#define MAX_HPO_DP2_LINK_ENCODERS	4
