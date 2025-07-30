@@ -4,79 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B573C87FD8
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 07:24:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1045C87FD5
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 07:24:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1332310E721;
-	Thu, 31 Jul 2025 07:24:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE29D10E71F;
+	Thu, 31 Jul 2025 07:24:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SW9PqX71";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="A1WW7fok";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B65F10E081;
- Thu, 31 Jul 2025 02:08:16 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4561a4a8bf2so3984315e9.1; 
- Wed, 30 Jul 2025 19:08:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753927694; x=1754532494; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-disposition:mime-version
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ttbMdEkxoTUOprk+YRVdSAOn6EZRYe2hYPzeU8X5k20=;
- b=SW9PqX71VB9evoggmb1jkRxsUgij7wqGfFWcVLSKsnf69MIpVNAj2hMsXgnNAvTMay
- 5DXqp3fb0NdkVigMHzphsr4xvvlZANeeydFabc8GDJtNNlBk9vBXOduql7TeeQwvdnVu
- k057XmngSt1yGZXOwvABpw+dxwIvCJAnqLsxJG2mXqJVa/tYX5I5nCJXvU2noI19LVSI
- e83sUmuBU1KlPTsvIPMRXBA4mmBQhVIHxboGqUNbAL5roojJKNM/a5hxAtVNWiglf4Cd
- qU1ERcoWs2BTai27ssZ5cq8rc+xqOHRPRJ+RpS3sfB/n79YxsEdES3jsnsFLe3CUJ9fB
- dw6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753927694; x=1754532494;
- h=content-transfer-encoding:content-disposition:mime-version
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ttbMdEkxoTUOprk+YRVdSAOn6EZRYe2hYPzeU8X5k20=;
- b=g+v5hoe64tyiOTDoRmahemCsS1FWyYAsBmiiYPeKr5ve2WSc9/rRel1UgssrZJG0X2
- PUM4kc1c1buluZHocpkW9MyVBMoZWzNoO+9w26P0byDu/ANzAmxvZIu4FXop4SCvga6x
- zHe9m2XA6RvD0WKs6hVed8RRero1LWAvw+7j7Rmwhp4FGZ2DsLSxbie9lHMWCnQucOdt
- cJOMjS6577nOXVViGys+IX+D0ihcp8tgPE4lsegbdN5M9p1Sg2xKb6gFNDHD8WmjhesN
- nYc2WfDpW+ZSTvBrJ4x7ZeedBVd9ykQ1fi/IUJGShz14KuqYqTALXmhWmrcZFPQLqkCQ
- andg==
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF1B10E45A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 22:20:16 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 3429833AD35
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 23:20:14 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1753914014; bh=VFe9p015ScIXFiUtnB4KEjmtx4DIA5kZoIwCWD6o93o=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=A1WW7fokFy0bwUQbkjuYBWxnvyUrcBNYS7dm4efRVXWyrBXcjUnN/tpFTNWVx/IwD
+ NRtwILD851gishy0dpV3MavPWDVOItzvqccuw2hyQryOj7iZeqLr2/u2g8GkcHoHc9
+ hYrhqkJhhfofeNJghjAKCXf2V/cPp5m85dLYeIVVRuYqUO91YRaY/MLKjcXWzZWnP8
+ 3GtlMjr/ZmH3aTgmUabV6BohwsvetfEaJQTzPu6ENrkmDK2zbEGHgZfMM50WPvRd9p
+ L+lK82Ij8Qws6wjRIDD2RbR38flWm8+XM746d6s9wxIwKtTd5ub1KmpwHLS1kuTbfB
+ 3R5AirlaCzj5g==
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-ae401ebcbc4so50758066b.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 15:20:14 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUaaLVPIQL5XrD5BbHdTRcK85nXvxjgD/sYx8ve+6mHhBe3YUu7uPKfLO+7OMWpxmV085xF4mxf@lists.freedesktop.org,
- AJvYcCX0e8CNp9HInF14X220TKP7mViOADbop6RxHH5js9OC+JSxlAMkvp6C05oCpiML33IUXwTlYwcTAnHI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+ZaQRDinxLp6Plo+bXpmM1mx0jxX/ct/o1H82f9kL3gnSjbZX
- dPhY9bzaRHXG9+oIBg6+OLIcSjNgKCmFL7HRjnS1M+bhNa0jLEuw6w/I
-X-Gm-Gg: ASbGnctnPvFdJUgtnzKRvYZG4fKGm+Z49Gg1Ed0r99FE2X2W/0s2VxO/4y1nTFBYydJ
- /d/RyYjqfJbtCo0gZPbr1VvoQ2CbQc0jrnpqfCj0FebqCzC41HZlv3w3q0rfSepjMtkWOmObGbz
- hS5PHZa+oTeS9QFhWAxZD6+pwZdWrYlwTuZdwZzx9wnFDBS7cdgNUQsZPshRX18qFuyR5qmNn4n
- wypxxjU0AZbbJSPLsfjQc0w9ONiUdCfAcwMHZAGwzA45DxgYIkIG80B9ClVqOb1lXCPr3X3pIgt
- PSeKkqS+XWk+vu1jhsOi6oKu8TpdOG/iLR9r/v4q4UmE0u7x7JqkAdCmRjW+2DhQ/0Ddq1ZZLHN
- x0LNvDkVGe+XC36nFeXQVqg==
-X-Google-Smtp-Source: AGHT+IHsylB7+NHRuBW9mU53rbrnh3rovtARDLzE2S2cbV7OlcCzjAu5Wxz6+1u5fMJj5KOTcLkQ5g==
-X-Received: by 2002:a05:600d:108:20b0:456:26ad:46d2 with SMTP id
- 5b1f17b1804b1-45893943cefmr25724855e9.6.1753927694491; 
- Wed, 30 Jul 2025 19:08:14 -0700 (PDT)
-Received: from pc ([165.51.119.21]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4589ee4f239sm7657055e9.21.2025.07.30.19.08.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jul 2025 19:08:14 -0700 (PDT)
-Date: Thu, 31 Jul 2025 03:08:11 +0100
-From: Salah Triki <salah.triki@gmail.com>
-To: Markus Elfring <Markus.Elfring@web.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: salah.triki@gmail.com
-Subject: [PATCH V2] drm/amdgpu: check return value of xa_store()
-Message-ID: <aIrQC78VWg17Iqhf@pc>
+ AJvYcCVA2Ppf+13K3NfXj4DI3UZQytMxYoLPz20XMf8XVECrlwbBslwvnG+1SMnd+OtN0leNWZxUVOjP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBUF+4Z8CwpU9+4kZxp6JAQzvKnKZNZ+fUdRfbOgTGE7kWXFQC
+ gUfJLCIzxI04T57Nr3f0rbkqCEcK0eoEPSsoRasklSBcIQ1LGjovSWjwr9llRlkq1FZFC07r7eS
+ TsyOZlnXcqlDVkofoG42/+Pff6lKY4Pw=
+X-Google-Smtp-Source: AGHT+IGrMBZGy5sXw9fDxKrPXXODpJH0qzo+VZMCFtIwn5IPDMz8rz35sNaVWierReo4AF8x++Fwmg7nTN20Hh3ZZTk=
+X-Received: by 2002:a17:906:dc94:b0:ae2:4630:7de4 with SMTP id
+ a640c23a62f3a-af8fd941362mr544215266b.34.1753914013595; Wed, 30 Jul 2025
+ 15:20:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+References: <20250730080902.6849-1-michel@daenzer.net>
+In-Reply-To: <20250730080902.6849-1-michel@daenzer.net>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Thu, 31 Jul 2025 00:20:02 +0200
+X-Gmail-Original-Message-ID: <CAFZQkGy2m8OS-1FZdCT9tShs2soy5mtz4CVWfBhPW7dPWq_cZQ@mail.gmail.com>
+X-Gm-Features: Ac12FXxA7NtfqVWv0wU22D7MG4YZT1Y6xjAau-cKuTf8C2ffY4zU-r9J0BOWXMY
+Message-ID: <CAFZQkGy2m8OS-1FZdCT9tShs2soy5mtz4CVWfBhPW7dPWq_cZQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Add primary plane to commits for correct
+ VRR handling
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 31 Jul 2025 07:24:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,59 +70,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The `xa_store()` function can fail due to memory allocation issues or other
-internal errors. Currently, the return value of `xa_store()` is not
-checked, which can lead to a memory leak if it fails to store `numa_info`.
+I can confirm that this works. Thank you!
 
-This patch checks the return value of `xa_store()`. If an error is
-detected, the allocated `numa_info` is freed, and NULL is returned to
-indicate the failure, preventing a memory leak and ensuring proper error
-handling.
+- Xaver
 
-Signed-off-by: Salah Triki <salah.triki@gmail.com>
-Fixes: 1cc823011a23f ("drm/amdgpu: Store additional numa node information")
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
----
-Changes in v2:
-    - Improve description
-    - Add tags Fixes and Cc
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index f5466c592d94..b4a3e4d3e957 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -876,7 +876,7 @@ static inline uint64_t amdgpu_acpi_get_numa_size(int nid)
- 
- static struct amdgpu_numa_info *amdgpu_acpi_get_numa_info(uint32_t pxm)
- {
--	struct amdgpu_numa_info *numa_info;
-+	struct amdgpu_numa_info *numa_info, *old;
- 	int nid;
- 
- 	numa_info = xa_load(&numa_info_xa, pxm);
-@@ -898,7 +898,11 @@ static struct amdgpu_numa_info *amdgpu_acpi_get_numa_info(uint32_t pxm)
- 		} else {
- 			numa_info->size = amdgpu_acpi_get_numa_size(nid);
- 		}
--		xa_store(&numa_info_xa, numa_info->pxm, numa_info, GFP_KERNEL);
-+		old = xa_store(&numa_info_xa, numa_info->pxm, numa_info, GFP_KERNEL);
-+		if (xa_is_err(old)) {
-+			kfree(numa_info);
-+			return NULL;
-+		}
- 	}
- 
- 	return numa_info;
--- 
-2.43.0
-
+Am Mi., 30. Juli 2025 um 10:09 Uhr schrieb Michel D=C3=A4nzer <michel@daenz=
+er.net>:
+>
+> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+>
+> amdgpu_dm_commit_planes calls update_freesync_state_on_stream only for
+> the primary plane. If a commit affects a CRTC but not its primary plane,
+> it would previously not trigger a refresh cycle or affect LFC, violating
+> current UAPI semantics.
+>
+> Fixes e.g. atomic commits affecting only the cursor plane being limited
+> to the minimum refresh rate.
+>
+> Don't do this for the legacy cursor ioctls though, it would break the
+> UAPI semantics for those.
+>
+> Suggested-by: Xaver Hugl <xaver.hugl@kde.org>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3034
+> Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> index 2551823382f8..010172f930ae 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> @@ -661,6 +661,15 @@ static int amdgpu_dm_crtc_helper_atomic_check(struct=
+ drm_crtc *crtc,
+>                 return -EINVAL;
+>         }
+>
+> +       if (!state->legacy_cursor_update && amdgpu_dm_crtc_vrr_active(dm_=
+crtc_state)) {
+> +               struct drm_plane_state *primary_state;
+> +
+> +               /* Pull in primary plane for correct VRR handling */
+> +               primary_state =3D drm_atomic_get_plane_state(state, crtc-=
+>primary);
+> +               if (IS_ERR(primary_state))
+> +                       return PTR_ERR(primary_state);
+> +       }
+> +
+>         /* In some use cases, like reset, no stream is attached */
+>         if (!dm_crtc_state->stream)
+>                 return 0;
+> --
+> 2.50.0
+>
