@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5B25C87FCB
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 19:00:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 954F6C87FCC
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 19:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7201010E450;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3FB910E45E;
 	Wed, 30 Jul 2025 19:00:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NU2TKVpa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ylIZ0iBN";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2061.outbound.protection.outlook.com [40.107.212.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99D9E10E450
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2058.outbound.protection.outlook.com [40.107.93.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA2510E45D
  for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 19:00:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YbWazfzUMbGg8Owo2nslvKJCwnma3dRR/J4cKJhq15yAfKnmqYe8p9AcNZ7vWAvUhPMzXX7l5Yi8fd7JIec0rjP3mYaK3WX++kkOEI9hCUhoOcFi6tzMGccDxcO4EmOlcmqr5nJg2hzx5cF1nFLE2MIEHn7SZ8FkhVwBMUqFB07MMXbnjTqEp+tvPfi9HYRXUiRNySXFlbpYGyKE2/Q5F8h8fON0smhK+Bvu0+VQYVXF5IsM1/RHmtFI9IZ0zklXCqsIZFwGFTZV1CL2TcwGDewsYzmkhPzapYsFoqSoVMAnG7nDxI1gbiOfEHCik1ZN5ay5LO4GEK/TQrMTbsiM4w==
+ b=h5NNvYtQ769rhAQEbNQS90qXsiuVECrWoeTFC82xmEm+NWlvc5V24Inw1y7Ne8j7QzGCPVERyldNgCkLR0l7DMdliIKLX1oKqPHe37bEeebqj8RvbJAbbSMAyKtpycqT66mL/GJiXdasN6OOpIgHVHfh7/ogs4e7GTTMu7GpLsVE29DwiImWGKWRsoXI9u/XNTeoMlQ2lrj+NPXJv53Quy7o8mLj8lU2ph+JSpShAiyO5NLP6v9qykAusXyYQ0hRWpTTJIPWDFsQnsYLp4HKEGi07Iqr0y+Q/LT75X03PIW7svkTgl6AjMvq7b9bxtD4R7F85poXtdh9Q0c+SwfrSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RCzc92Dv4mvuS38Lh6X8M+FoK7MPiAS3L+G4625w28E=;
- b=DioZiMkbQJWNjQv8//A8Sw5E7vLQq0t5tvrnb1gmvLxPa1QRY4JZZwRaBvoK/tJb+9+bdkzhdO1adWzg1ys8lhogl8CqA2XIoRTgv9jZc3/REc5whxCJGAHmSUeYXprlKDR7FCkJ67qjBP6CbuI1qwn5I+1REZkguhdGlV/wPOfb1VBhsJfIOvSX98cMKtCnrATOlq4gSaUZDMwktlZ0pdAU9erOLueYzF5yXkHhNOwvIXcy3Odo7KuAdH4nSzSuCuM0Ld9jJQZwbkE8Ou6uBpfR90svfxKmasJHtKvpo4/E5N2Sn+GORc7CxB0MyXK5g4QDxbCecEPqoHTqQ3ezqA==
+ bh=bDJ7oUSjNOBiHdtyykm6ASUMb4a5VIWgUwvbWaFmRSo=;
+ b=LOTe0F/gVlAcbestdTdf95GRfceBOtmj9nAXcXcn3v0k4SPeZxV1yfgUaEjiUuI2UbwDzIInfAPftlrVdAxrPvlCtbHpAaS/QzcC5rbY0nvbh7NfhOMTFzmus56xItKF3TrLc9VgUdHyEjlX+CA8nkLR0z08dwtqPk5CysNQGhA6L2+i7WAtn4/ZPBslmd33dJixqwaFyIPBRyfqPoSUhySSIff9sHnNq1R6RWXlINeYlqdH5oofMQXLI172ltjzalC5ieWg9sHU1yac0SiF6DuN7Xc+ne/BJZsdl0W55IAiRFr+8J96a1iVa3XV2c4rTpOT/Psp9a1o7mHxCLQ+sA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RCzc92Dv4mvuS38Lh6X8M+FoK7MPiAS3L+G4625w28E=;
- b=NU2TKVpayysNeOkYu0iWWtvkt88XHJDsslt9AMjrFayfQeFCEPqIJVPw6sjBTRm0CdGAjOKloGMI0Rlu+3UzDtk3NcfZzPXnTP9kuFJbBKDaWxNGNAOgg4yk3QjKmyFy+0ZvbYCceza+zwkDSKaaKgS7whPLMxvonL5xE/sf7OI=
-Received: from MN2PR22CA0017.namprd22.prod.outlook.com (2603:10b6:208:238::22)
- by DS2PR12MB9664.namprd12.prod.outlook.com (2603:10b6:8:27b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.11; Wed, 30 Jul
- 2025 19:00:45 +0000
+ bh=bDJ7oUSjNOBiHdtyykm6ASUMb4a5VIWgUwvbWaFmRSo=;
+ b=ylIZ0iBN8ZAwd7pfLe7hyINoabgtsvYrXThNgyrH25Z2vPZmzbd/ZHuOy8K1Hl88MNbdVNpl3KdeDvR4ZL6PORZEy8olH/Vdk1SI1fGqc5Qxm/9v1RcgMJBD0SDqqE8j6Mfkb2a+MpzptpplAM3q3z5+2q27w4z21NX6HzX6Z0Q=
+Received: from MN2PR22CA0004.namprd22.prod.outlook.com (2603:10b6:208:238::9)
+ by MN0PR12MB6002.namprd12.prod.outlook.com (2603:10b6:208:37e::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Wed, 30 Jul
+ 2025 19:00:46 +0000
 Received: from BN1PEPF00005FFC.namprd05.prod.outlook.com
- (2603:10b6:208:238:cafe::c2) by MN2PR22CA0017.outlook.office365.com
- (2603:10b6:208:238::22) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:238:cafe::5e) by MN2PR22CA0004.outlook.office365.com
+ (2603:10b6:208:238::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.12 via Frontend Transport; Wed,
- 30 Jul 2025 19:00:43 +0000
+ 30 Jul 2025 19:00:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,14 +50,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
  BN1PEPF00005FFC.mail.protection.outlook.com (10.167.243.228) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8989.10 via Frontend Transport; Wed, 30 Jul 2025 19:00:43 +0000
+ 15.20.8989.10 via Frontend Transport; Wed, 30 Jul 2025 19:00:46 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 30 Jul
- 2025 14:00:42 -0500
+ 2025 14:00:43 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 30 Jul 2025 14:00:41 -0500
+ Transport; Wed, 30 Jul 2025 14:00:42 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,11 +65,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Duncan Ma <Duncan.Ma@amd.com>, Charlene Liu
- <charlene.liu@amd.com>
-Subject: [PATCH 02/12] drm/amd/display: Adjust AUX-less ALPM setting
-Date: Wed, 30 Jul 2025 14:58:53 -0400
-Message-ID: <20250730185903.1023256-3-Roman.Li@amd.com>
+ <alex.hung@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Subject: [PATCH 03/12] drm/amd/display: fix dmub access race condition
+Date: Wed, 30 Jul 2025 14:58:54 -0400
+Message-ID: <20250730185903.1023256-4-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250730185903.1023256-1-Roman.Li@amd.com>
 References: <20250730185903.1023256-1-Roman.Li@amd.com>
@@ -80,52 +79,52 @@ Received-SPF: None (SATLEXMB03.amd.com: Roman.Li@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFC:EE_|DS2PR12MB9664:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b1be89c-983e-4833-571f-08ddcf9b62b7
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFC:EE_|MN0PR12MB6002:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58b00454-8ed2-499a-d03a-08ddcf9b6458
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lMa5qlhN9cheQq/Nb10n8BlpBO2hMVJC1yu398M07N72sWflkTiDQrlbWTOm?=
- =?us-ascii?Q?5Y4uzzuFgORH1h7G1ICZU1NmGT4RxWZKIFZ3aag5vNkOMVWohDfk9mX7IEjV?=
- =?us-ascii?Q?gki8qLEk/nXYlGGLcswA8c4umPnRPKutkYDJN4i0yErZNJTXqFEHHlLSEYOF?=
- =?us-ascii?Q?TaMSbDbsYLWkOmIzOCgkaewFZWUQBMaoyXh0+90PSovcEmSK+B0izsmD1Cks?=
- =?us-ascii?Q?v5mihse7nevCYjQQjECU6PYSy2Xwc6Qr4tC+3K9BijfFke7x8mmGvJh/0Tkp?=
- =?us-ascii?Q?iaazf5L523Hz6QeOpu9cgPf61GqwuWipZn49OVlW80GQy5l/OJLlH6wZFyXQ?=
- =?us-ascii?Q?2QuI7QSvfxczbLJiOoRJQPoDTCzByLk9NhlPIYAZCGpaRrWmMPrTXTt/ZP2w?=
- =?us-ascii?Q?TSwh675ewkfLPlmP7mUGHZwci1T+xbTvoTKS0z7W5N4vkRfRbNly7ZDl1XaX?=
- =?us-ascii?Q?aqM0fEEEwJ4WFXHGbthtCAHNCoam/SITkgL2ibTwJtfl68MpxECFaytvaLik?=
- =?us-ascii?Q?pV0H8V/H4vQv3JRu8dRSECP9k7hkdsvCPcEIUNhs7qWktbkHPSG8AgAhPi9k?=
- =?us-ascii?Q?A3BfBqbs32kp6TUML3qA8NylGZFXehciGUvRyEIR2Zf4loID1EuFybhquUtR?=
- =?us-ascii?Q?wGKHN6w5r/IlS8/6sig/+/S0jO4W92hsVZBncLN9R2p3vr2qIRNzWpM9qfDu?=
- =?us-ascii?Q?VzqFs/i2Z+zjY0og9QIoLSFxRmHJQTKYs4NGIYhr0Fem8Ch3+oZvY/jNcGxY?=
- =?us-ascii?Q?aVlOw3fyyzpeOnxbEdBHCnFXj4vOPlFW0M+qC5VXRlHCfleoF9UbCAmZcskO?=
- =?us-ascii?Q?sEMO9kMWnlj0sLn83UBJr+ttEqBHJOAXJ0BqfPZxhBVFxSRh8PNQtjplhtko?=
- =?us-ascii?Q?iwCijHsCnPqTz2mQjnxYrUKKU9/5/pps8NHu1gq+Yv2/GEV95XQx3PmFWsGO?=
- =?us-ascii?Q?oWpS+/sKfI1oqXbJfeioDh7PEr8WkQ37fy0r5BlZ+N9duQFaKQUCc+r6TYcp?=
- =?us-ascii?Q?xbCvWSDWVTBxcc5s5p+0nVtngGVOqfNCgNjwuf4kltcHAy9HYiOwN6w5W2oB?=
- =?us-ascii?Q?Evvv5dndmH5STjlYKuEExaeIEQdigpqvn7m5Q0t6nUpSUx88kZaaKHP99+Zq?=
- =?us-ascii?Q?jNKAVNwJJ+TButIFRX26Zavmagm+KE9bVFnXxWKrl0EZnExXkEQnABU4qzvw?=
- =?us-ascii?Q?BbSCt5Rh9LIiKLlIpFBf7EI5QPxZ7cq3+JrjoWormwctJyH7fSNGJTpm/tgJ?=
- =?us-ascii?Q?IXJkFB70+q07PUnOZZc6bQWelhyxH3BtoLWDgoaLRScH/7eYMJ0jHJhwygQg?=
- =?us-ascii?Q?c7RxUzq9uPS7qs2cFXfgU+XqaMCFcmL3FE1FsxBge6QPTjX7SKuSqK7Tjr6x?=
- =?us-ascii?Q?+VTRfsKzd7qzGfVQboQP3P9U0VAaav/QhJnWN1jA7Wxy/3poJXFsWPv4KrUE?=
- =?us-ascii?Q?KbiZemAdVEIZd9lzrW6LWTiVnEzEuWBqKy8c0gxLriySFcfez9rRsn5LObRo?=
- =?us-ascii?Q?qWr4b0tsKr3E6EOzuYXDuCJw9mRZMEEnYD6i?=
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Kb2dIGjEsjzOkPk5Bf74A8ZjWzO+vkVzZ/QCVRwVG8CZxeYKsEWPDq0CLTRW?=
+ =?us-ascii?Q?cjqfqCiY/8xeqRsqavLJDqoLXycZux6CMLyOAC3kHQ+JNk5DBX9QHv7Z0vce?=
+ =?us-ascii?Q?cDkuvsVqWiOq6QRMv1GPAq+AQ9qHYNhzzSiySnhaCl9FUyZkZgHQzvubRR2P?=
+ =?us-ascii?Q?7RFQDZT3q0c+DQ8QlX/0mW4QLtRMDbQa8caM0d/0B0+hl4VuiVw7qEunDw2W?=
+ =?us-ascii?Q?NpPsQY8JPGb+4KJdfl1ylLFrwZ9x9tnN1opz/zPQHwvJG4yffQdqlSMv5qHk?=
+ =?us-ascii?Q?jmCDec/4EISf1ebSqKnC0FchaXtRa8ITTGI1ECAZQuHCGSJB6tXjGynVRE97?=
+ =?us-ascii?Q?9harkaqzs9KDoP1DPxr7GMXXJ0rYjB4ZABjN9Yy+rkOE2OS9TRSAh/WuKPjv?=
+ =?us-ascii?Q?ZZM3CZ6L0u3vhGco0/OMZlsDkBhDCYtFlaOF7iTnjrLPLuEmZRZszSjaMIM0?=
+ =?us-ascii?Q?7opvI0kRsjkYrIF7nGl8NXcMgVBGSRW4tr9vec4GsZe6Em1TgDfEWrnJT4nu?=
+ =?us-ascii?Q?0KRYCxrAW0e5o+UvZVpSWxxlxU6qaBlT1Qo8ST8cpeYQ2s/QdCvItUeEAJg0?=
+ =?us-ascii?Q?Zbbp0Nyk7I12Yvg6ok1wdb/nAko54sNs7M/g5nawUhMLk4bH0dPJEwmWLQ6F?=
+ =?us-ascii?Q?qZT4SQqO4+CqF+kFTDiLkRGW+f5ECWnT+FARQSjEQ6VKycAtdfNkwqnYQ/jv?=
+ =?us-ascii?Q?8YLhK7EqMMQ/SA5YwV85I3k7czzlTWQhS608CAWNp1g8p6j93c9TmnVrxxxi?=
+ =?us-ascii?Q?YvtEzGOr9IDfEzY0mzQAn19Wb8WD7URDmJykrGvawh+wZFw3NCayF29BTHE/?=
+ =?us-ascii?Q?Pcm1/HjJRhDJEykWQC2m8TvtauODGoYsFw9TwH2CSlFElV53YQCSSj5p+4/x?=
+ =?us-ascii?Q?03ucSf0Qm3x+Rv8cWWu3pZTEq+MLU88BSBo96wty2QDWO006/LaoW8YKmcnr?=
+ =?us-ascii?Q?6v401FGvT6yu9p4EOLUVjf6LA3PRtTuC8SihM8pPFsPqc2yzogHAziNj80dt?=
+ =?us-ascii?Q?npbERLgitckBGeP+F5qpeSrgrOox0L47Qt0iUpqr90vcPV1NZWk75/0UmuWe?=
+ =?us-ascii?Q?faLLBBDm7Io7nZAf52gSYZGhZvKqlYRSS6WtUm8bwyNbX8kVDxxOlN/FtUu8?=
+ =?us-ascii?Q?+BVuGdcVJf4+1MFmrmj2UbFyEWQYFf+sK/CyQF+P/z9WAoxg0vkRjmEN1qlY?=
+ =?us-ascii?Q?+LIdhyw2ELRAJLJaHgTnBEeT9WXn8Okr3PceLvAWGaSDMAoCmrQi7hZh7h/l?=
+ =?us-ascii?Q?DHRCNfrGqsqdyQE8QhA/j8dYf5KD8P0Rv0Snr+y/hMJUk+lIX/WHiervBmoa?=
+ =?us-ascii?Q?Og+efzY7sPdBJlM3Yj+bbJUJsWrmpD2FNKwlH/JIEWHSZ0bkzvWjLR7nBAcz?=
+ =?us-ascii?Q?UKzvbiORCOqZ7GH+aecjQJqw4pZ6QJ8Kc99m7/UUxswdAzlizpZ5QGKeyCNa?=
+ =?us-ascii?Q?pFjvhtvFDzhQTUfOso7ZppNjhitslAAjE7hfIp+zp8rWpx18W2519BKqUsFd?=
+ =?us-ascii?Q?1TKOz64J2fD0Rv7tse19Q9nY9A0n1a43ev3n?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2025 19:00:43.9107 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b1be89c-983e-4833-571f-08ddcf9b62b7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2025 19:00:46.6482 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58b00454-8ed2-499a-d03a-08ddcf9b6458
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9664
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6002
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,31 +139,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Duncan Ma <Duncan.Ma@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[Why & How]
-Change ACDS period to support LTTPR.
+Accessing DC from amdgpu_dm is usually preceded by acquisition of
+dc_lock mutex. Most of the DC API that DM calls are under a DC lock.
+However, there are a few that are not. Some DC API called from interrupt
+context end up sending DMUB commands via a DC API, while other threads were
+using DMUB. This was apparent from a race between calls for setting idle
+optimization enable/disable and the DC API to set vmin/vmax.
 
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Signed-off-by: Duncan Ma <Duncan.Ma@amd.com>
+Offload the call to dc_stream_adjust_vmin_vmax() to a thread instead
+of directly calling them from the interrupt handler such that it waits
+for dc_lock.
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- .../drm/amd/display/dc/link/protocols/link_edp_panel_control.c  | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 55 +++++++++++++++++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 14 +++++
+ 2 files changed, 63 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index be714cbf6615..2c3e2945124a 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -1046,7 +1046,7 @@ bool edp_setup_replay(struct dc_link *link, const struct dc_stream_state *stream
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index c71167ffdb76..6762fc7de769 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -530,6 +530,50 @@ static void dm_pflip_high_irq(void *interrupt_params)
+ 		      amdgpu_crtc->crtc_id, amdgpu_crtc, vrr_active, (int)!e);
+ }
  
- 		if (link->replay_settings.config.alpm_mode == DC_ALPM_AUXLESS) {
- 			alpm_config.bits.ALPM_MODE_SEL = 1;
--			alpm_config.bits.ACDS_PERIOD_DURATION = 1;
-+			alpm_config.bits.ACDS_PERIOD_DURATION = 0;
++static void dm_handle_vmin_vmax_update(struct work_struct *offload_work)
++{
++	struct vupdate_offload_work *work = container_of(offload_work, struct vupdate_offload_work, work);
++	struct amdgpu_device *adev = work->adev;
++	struct dc_stream_state *stream = work->stream;
++	struct dc_crtc_timing_adjust *adjust = work->adjust;
++
++	mutex_lock(&adev->dm.dc_lock);
++	dc_stream_adjust_vmin_vmax(adev->dm.dc, stream, adjust);
++	mutex_unlock(&adev->dm.dc_lock);
++
++	dc_stream_release(stream);
++	kfree(work->adjust);
++	kfree(work);
++}
++
++static void schedule_dc_vmin_vmax(struct amdgpu_device *adev,
++	struct dc_stream_state *stream,
++	struct dc_crtc_timing_adjust *adjust)
++{
++	struct vupdate_offload_work *offload_work = kzalloc(sizeof(*offload_work), GFP_KERNEL);
++	if (!offload_work) {
++		drm_dbg_driver(adev_to_drm(adev), "Failed to allocate vupdate_offload_work\n");
++		return;
++	}
++
++	struct dc_crtc_timing_adjust *adjust_copy = kzalloc(sizeof(*adjust_copy), GFP_KERNEL);
++	if (!adjust_copy) {
++		drm_dbg_driver(adev_to_drm(adev), "Failed to allocate adjust_copy\n");
++		kfree(offload_work);
++		return;
++	}
++
++	dc_stream_retain(stream);
++	memcpy(adjust_copy, adjust, sizeof(*adjust_copy));
++
++	INIT_WORK(&offload_work->work, dm_handle_vmin_vmax_update);
++	offload_work->adev = adev;
++	offload_work->stream = stream;
++	offload_work->adjust = adjust_copy;
++
++	queue_work(system_wq, &offload_work->work);
++}
++
+ static void dm_vupdate_high_irq(void *interrupt_params)
+ {
+ 	struct common_irq_params *irq_params = interrupt_params;
+@@ -579,10 +623,9 @@ static void dm_vupdate_high_irq(void *interrupt_params)
+ 				    acrtc->dm_irq_params.stream,
+ 				    &acrtc->dm_irq_params.vrr_params);
+ 
+-				dc_stream_adjust_vmin_vmax(
+-				    adev->dm.dc,
+-				    acrtc->dm_irq_params.stream,
+-				    &acrtc->dm_irq_params.vrr_params.adjust);
++				schedule_dc_vmin_vmax(adev,
++					acrtc->dm_irq_params.stream,
++					&acrtc->dm_irq_params.vrr_params.adjust);
+ 				spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
+ 			}
  		}
+@@ -672,8 +715,8 @@ static void dm_crtc_high_irq(void *interrupt_params)
+ 					     acrtc->dm_irq_params.stream,
+ 					     &acrtc->dm_irq_params.vrr_params);
  
- 		dm_helpers_dp_write_dpcd(
+-		dc_stream_adjust_vmin_vmax(adev->dm.dc, acrtc->dm_irq_params.stream,
+-					   &acrtc->dm_irq_params.vrr_params.adjust);
++		schedule_dc_vmin_vmax(adev, acrtc->dm_irq_params.stream,
++				&acrtc->dm_irq_params.vrr_params.adjust);
+ 	}
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 67c3a7a967f2..94f312bae9ac 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -153,6 +153,20 @@ struct idle_workqueue {
+ 	bool running;
+ };
+ 
++/**
++ * struct dm_vupdate_work - Work data for periodic action in idle
++ * @work: Kernel work data for the work event
++ * @adev: amdgpu_device back pointer
++ * @stream: DC stream associated with the crtc
++ * @adjust: DC CRTC timing adjust to be applied to the crtc
++ */
++struct vupdate_offload_work {
++	struct work_struct work;
++	struct amdgpu_device *adev;
++	struct dc_stream_state *stream;
++	struct dc_crtc_timing_adjust *adjust;
++};
++
+ #define MAX_LUMINANCE_DATA_POINTS 99
+ 
+ /**
 -- 
 2.34.1
 
