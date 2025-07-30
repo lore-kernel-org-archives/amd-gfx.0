@@ -4,60 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9123BC83F26
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 13:05:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE2D5C87FCB
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 14:27:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0495E10E6B5;
-	Wed, 30 Jul 2025 13:05:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75D8B10E20B;
+	Wed, 30 Jul 2025 14:27:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="KC1syJUy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qz9PjzNT";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CF5210E421;
- Wed, 30 Jul 2025 07:56:20 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4bsPfm6Qhqz9sXg;
- Wed, 30 Jul 2025 09:56:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1753862177; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ontXPx/waFW2vwfIZhpDrxs80xPxqKi4ay9J8j5IdJo=;
- b=KC1syJUy48BcRqN+svY6GQK8ljjnSpA06DlfPue5hKjzjG71lcZng0lgjaAwijMDItIiTx
- 0sGs/9JAVW6TPvkUjRA01YM+OpdjKZh9lUp/7AOo85K0O03gz8p1B5ZOzrJ/SkIdJBPOjl
- 2fLvd+1JOWCUnZ+0Z0LkOfmGWV7hTShJRwGNrdNLJtAy+ZEjQjeQ7xGDExMMFCDiVuvapz
- OufRhfvCjmKQ8ibDztQeUmXjPUBuDl7C/Uh1t/x+QDqmKvUM5b5zZQzTiGMZfR7T9mfy18
- vyeC30qhe/LgkZ0Bx9nsOQTCoXQgQeOelNvTwF7xIxwwIdmg1jZh7FXQ7qrICA==
-Message-ID: <dda766b27e9a7035dee2f6368b882cc628a73772.camel@mailbox.org>
-Subject: Re: [RFC v7 10/12] drm/sched: Break submission patterns with some
- randomness
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Pierre-Eric Pelloux-Prayer
- <pierre-eric@damsy.net>, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Date: Wed, 30 Jul 2025 09:56:11 +0200
-In-Reply-To: <0312116d-b216-4afb-bf9f-210b553fed7f@igalia.com>
-References: <20250724141921.75583-1-tvrtko.ursulin@igalia.com>
- <20250724141921.75583-11-tvrtko.ursulin@igalia.com>
- <fe05e8fd-d56f-4b32-a65b-46c9ef6df9c7@damsy.net>
- <0312116d-b216-4afb-bf9f-210b553fed7f@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4F5F10E20B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 14:27:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qpK12GPtQ9gYyOEnD2cfSmZRHqutSqzmKorLozXFCvc/i3915LvyO7syi6zTh9UrEgTYZwWPZJbxm8i9SNlYyroPMM3SU7m7QHzz+TmzkKNESd/Rmz0sdje6mKLB4KLnVmcpE8jBsFE7LC99/7JIktifaJvzK17JgbTTrUcVMUZvXjsOCPUdos56JPw/Cs9p476pa3RHzE3YHy3YFrTrIBrnA3j09TtxknB7bGb1DtjH/5R1fEBPmAqtTcb7gXdZLswhywTuxOG/hs5vBEdJK5JJoqlTNh5Ywlw0yh9wCabkovUi/pI7J1nC0eQhtew13uuWyVcSIprqbGyJRwR0MQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Np6sMUkjDjNLklnLlh/o4U+hMeEtV+8QQJgDhypSsa4=;
+ b=mhhBOs7bfEYMGaKrjK0e786wwvFSpLdxXTwXd3uWI7Zfww/iDjmJCb2XgQAaYSwuXSjg84mbWetbQrGNG0vkB9kgVXq8g0OMFDetwtJFtg3MwK8G6b1n5uXgVui8rscbE0rPg0tgkm2tkxGCwjNinvTJlPVkbLry/AlTUsjo9pDduTzOZACY4Ppi9KucRp0fTcX11p+cauZkNMwWWlVtm+SjjD2FY8e1bd/9bsrKh5IOnvkIplgPAHqqcBvWeNFDzartebXaxuZcysqObgCWCjmm/ZzWcO8tpMqcSXPFCHOSNtzQaxjNX+RTQ+fWRdCR86fOmVL1uFGH+Sk4OKk4iA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Np6sMUkjDjNLklnLlh/o4U+hMeEtV+8QQJgDhypSsa4=;
+ b=Qz9PjzNTBzLaklNvc48J2RWaC9XvW1z3SdVdAysXAPH6NSDYiZ2qWHg1u69glDxj3N42Ec1n68I8Z1LXOXcF7UWzTkJueqm9yOM2C4VJAcfKxNRwy7xsV8xallb9QVa8m8LldkLSZ0hYGGxKnPnVR1y+qJH5NCBc3/mp8Y4HA3k=
+Received: from CH2PR04CA0007.namprd04.prod.outlook.com (2603:10b6:610:52::17)
+ by SA1PR12MB7368.namprd12.prod.outlook.com (2603:10b6:806:2b7::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.21; Wed, 30 Jul
+ 2025 14:27:12 +0000
+Received: from CH2PEPF00000140.namprd02.prod.outlook.com
+ (2603:10b6:610:52:cafe::d2) by CH2PR04CA0007.outlook.office365.com
+ (2603:10b6:610:52::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.13 via Frontend Transport; Wed,
+ 30 Jul 2025 14:27:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8989.10 via Frontend Transport; Wed, 30 Jul 2025 14:27:12 +0000
+Received: from shaoyunl-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 30 Jul
+ 2025 09:27:11 -0500
+From: Shaoyun Liu <shaoyun.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Shaoyun Liu <shaoyun.liu@amd.com>
+Subject: [PATCH 1/2] drm/amd/include : Update MES v12 API header(INV_TLBS)
+Date: Wed, 30 Jul 2025 10:26:50 -0400
+Message-ID: <20250730142650.7167-1-shaoyun.liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MBO-RS-META: 1mzkczf3cpqwsa463waf8qbkcwfo7yts
-X-MBO-RS-ID: 2d58de4d89f905860c1
-X-Mailman-Approved-At: Wed, 30 Jul 2025 13:05:41 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|SA1PR12MB7368:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86716778-7ea3-4a42-8591-08ddcf752ca9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|376014|1800799024|3613699012; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BklOUgDCTRzVoBOLJZ4Tw16XzkhU8FRon8b974j+vY3PKq7FZZas8kARlpHr?=
+ =?us-ascii?Q?aBThgPX6+lKGaKF9JG/OzeiEgHmMkNT8ce6+4mPrq6ie2xbc1MdYRyKQTAYu?=
+ =?us-ascii?Q?LXOWXprL5LutMjZ9g9AwenvM55VyzeIZgEoqU9kW725QKhGgOTwMRnTg5Z8k?=
+ =?us-ascii?Q?sLVR/vc7jsWJgMPkb0/aMW/CfTjU1kofrifBTgr1lt6TnEN/a8vHpaRs8KcN?=
+ =?us-ascii?Q?6Fo9DTRIhI6xvvUo0VsfjFTNpyGreVjdPgNcLE5VyFyXjsj6BiSpDzgo/ceq?=
+ =?us-ascii?Q?zmTb7FVHuPeTTIkEC0mNmo6TCy3R11XAWzJV4Piur4/hQ27W8PsMYQzGGRgA?=
+ =?us-ascii?Q?77sbggbwBv8ASgrZkrj84s4N8HUCcrORTfkzmfAyZf1BciVQKU6+Kw959P9P?=
+ =?us-ascii?Q?d3/bKuF/XJsvPRPn+6a5xqeoUBAfos16Owimz2HlB65w94A1daTfKPqySpyW?=
+ =?us-ascii?Q?9SqiePNnw3NmqxtaPEusg8UqIfplb5h7lh9cJWvORL67zdaD5N3jrTH0fE+a?=
+ =?us-ascii?Q?cJDZdfeMQnuBvwtD80dwG7hU2JtofjTaA0tAGaX9chkzAH4mb7Mp2+9z/cbt?=
+ =?us-ascii?Q?vP7FAE41rlLNPpVRXRR898F8ARrYv0/l6YuhQ8XpOBEfjChqk59a9dUILFen?=
+ =?us-ascii?Q?2XN/f5N5xYHIxPNhrRgQ3E24HffCk2DV12zUCKs0amT9wC1KW+xWiHzfT2wL?=
+ =?us-ascii?Q?pzjdo+1xFRB5IP2cVryBRxgduugjkXnWMRzHz+rRKvl/INYbxyxhMNiiNvVS?=
+ =?us-ascii?Q?aVQxS8PVkfuzFSaagmLLWXRA05Xj3vZm5wiJUHnm/Uec3vhSpXHI185dYo++?=
+ =?us-ascii?Q?KN1U9YRqNqtjZTI3eu6BqbsKSdBLkSY3MJf2mlFQD+sXEOGKdxgvmB3iIVbJ?=
+ =?us-ascii?Q?P1j2Q46XptswedPlmmBy4EqXgQN/tExHsRRSsWR+9NJ3Z2NoglV0kQks7PPZ?=
+ =?us-ascii?Q?MBzoXlB10JTc3rW0MRgDpr21xAo6k7gT0+C0xwFODjQvxFOS7ruB518z6q2c?=
+ =?us-ascii?Q?RNE6JPjp7wuPjSwPgXeHp3h52MIJ9rVDMoYHcc0d5AgW563JOvBDP05qIAvm?=
+ =?us-ascii?Q?o+TRfVUnQetc3kWOacFs4r16Yc+QghYt/oCIS6Nt+5Bw8fzfcg9fXoqi+MO+?=
+ =?us-ascii?Q?r/k817iqCcGB2MqYeyWr7MIhMkppEbcO6QMz0PZy3A3G0CT5DeWeh+bo/NtH?=
+ =?us-ascii?Q?uL08nsYSS1vlM6uShKkKVbX1eL+raE56eldqVnMtfXuOi/caHgltC0L3tIkr?=
+ =?us-ascii?Q?NTnk99PMHh4pSKe2iW0jKmcW1qmW6SSi+YwLx+9YA1Neu/2mH8+qjVJMtlx4?=
+ =?us-ascii?Q?zucudKynYXQFcocX6M6PAFFio9eF9lpwmhAQSHEBfPE80+hBgwAduoJdLYiY?=
+ =?us-ascii?Q?h0vlcz/m57cEp/si5nynMx7jlaLvrls0+sfiWoQLjLswI/ye13eJ1Tu8tX8x?=
+ =?us-ascii?Q?lcEUgygi5PSUIkTKFaY2y+E0KR/t7g0ryD8u070Br5AQ3VQ4GvnC2QPQguGr?=
+ =?us-ascii?Q?wlATGGZJXHoLBiTBjBjb8uYG2ZOuxm3xf332RoZg27bnUdjV6t6EswWtT9ZC?=
+ =?us-ascii?Q?Qg6hsbWE0sT83Sf97G4=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024)(3613699012);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2025 14:27:12.3371 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86716778-7ea3-4a42-8591-08ddcf752ca9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000140.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7368
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,216 +128,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-07-28 at 12:14 +0100, Tvrtko Ursulin wrote:
->=20
-> On 28/07/2025 10:28, Pierre-Eric Pelloux-Prayer wrote:
-> > Le 24/07/2025 =C3=A0 16:19, Tvrtko Ursulin a =C3=A9crit=C2=A0:
-> > > GPUs generally don't implement preemption and DRM scheduler definitel=
-y
-> > > does not support it at the front end scheduling level. This means
-> > > execution quanta can be quite long and is controlled by userspace,
-> > > consequence of which is picking the "wrong" entity to run can have a
-> > > larger negative effect than it would have with a virtual runtime base=
-d=20
-> > > CPU
-> > > scheduler.
-> > >=20
-> > > Another important consideration is that rendering clients often have
-> > > shallow submission queues, meaning they will be entering and exiting =
-the
-> > > scheduler's runnable queue often.
-> > >=20
-> > > Relevant scenario here is what happens when an entity re-joins the
-> > > runnable queue with other entities already present. One cornerstone o=
-f=20
-> > > the
-> > > virtual runtime algorithm is to let it re-join at the head and depend=
- on
-> > > the virtual runtime accounting to sort out the order after an executi=
-on
-> > > quanta or two.
-> > >=20
-> > > However, as explained above, this may not work fully reliably in the =
-GPU
-> > > world. Entity could always get to overtake the existing entities, or =
-not,
-> > > depending on the submission order and rbtree equal key insertion
-> > > behaviour.
-> > >=20
-> > > We can break this latching by adding some randomness for this specifi=
-c
-> > > corner case.
-> > >=20
-> > > If an entity is re-joining the runnable queue, was head of the queue =
-the
-> > > last time it got picked, and there is an already queued different ent=
-ity
-> > > of an equal scheduling priority, we can break the tie by randomly
-> > > choosing
-> > > the execution order between the two.
-> > >=20
-> > > For randomness we implement a simple driver global boolean which sele=
-cts
-> > > whether new entity will be first or not. Because the boolean is globa=
-l=20
-> > > and
-> > > shared between all the run queues and entities, its actual effect can=
- be
-> > > loosely called random. Under the assumption it will not always be the=
-=20
-> > > same
-> > > entity which is re-joining the queue under these circumstances.
-> > >=20
-> > > Another way to look at this is that it is adding a little bit of limi=
-ted
-> > > random round-robin behaviour to the fair scheduling algorithm.
-> > >=20
-> > > Net effect is a significant improvemnt to the scheduling unit tests w=
-hich
-> > > check the scheduling quality for the interactive client running in
-> > > parallel with GPU hogs.
-> > >=20
-> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > Cc: Danilo Krummrich <dakr@kernel.org>
-> > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > Cc: Philipp Stanner <phasta@kernel.org>
-> > > Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> > > ---
-> > > =C2=A0 drivers/gpu/drm/scheduler/sched_rq.c | 10 ++++++++++
-> > > =C2=A0 1 file changed, 10 insertions(+)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/=
-=20
-> > > scheduler/sched_rq.c
-> > > index d16ee3ee3653..087a6bdbb824 100644
-> > > --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> > > +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> > > @@ -147,6 +147,16 @@ drm_sched_entity_restore_vruntime(struct=20
-> > > drm_sched_entity *entity,
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 * Higher priority can go first.
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 */
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 vruntime =3D -us_to_ktime(rq_prio - prio);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else {
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 s=
-tatic const int shuffle[2] =3D { -100, 100 };
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 s=
-tatic bool r =3D 0;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /=
-*
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 * For equal priority apply some randomness to break
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 * latching caused by submission patterns.
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 */
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 v=
-runtime =3D shuffle[r];
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r=
- ^=3D 1;
-> >=20
-> > I don't understand why this is needed at all?
-> >=20
-> > I suppose this is related to how drm_sched_entity_save_vruntime saves a=
-=20
-> > relative vruntime (=3D entity rejoins with a 0 runtime would be impossi=
-ble=20
-> > otherwise) but I don't understand this either.
->=20
-> Two things (and a bit more) to explain here for the record. And as=20
-> agreed off-line I need to add some more code comments for this are in
-> the next respin.
->=20
-> First the saving of "vruntime - min_runtime" when entity exits the=20
-> run-queue.
->=20
-> That is a core CFS concept AFAIU which enables the relative position of=
-=20
-> the entity to be restored once it re-enters the rq.
->=20
-> It only applies on the scenario when the picked entity was not the head=
-=20
-> of the queue, due the actual head being not runnable due a dependency.
->=20
-> If the picked entity then leaves the queue and re-joins, this relative=
-=20
-> vruntime is used to put it back where it was relative to the unready=20
-> entity (which may have became ready by now and so it needs to be picked=
-=20
-> next and not overtaken so easily.)
+The requirement from driver side is to have an API that can do the
+tlb invalidation on dedicate pasid since driver don't know the vmid
+and process mapping.
+Make the API generic to support different tlb invalidation related
+request. Driver can specify pasid, vmid, hub_id and vm address range
+need to be invalidated.
+With this API the old INV_GART in MISC Op can be deprecated.
 
-I'm afraid I also don't get it completely. So you're saying that with
-this jitter-mechanism we can preserve the relative order of entities?
-But the actual patch title says that it's about breaking such patterns,
-or isn't it? "Break submission patterns"
+Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
+---
+ drivers/gpu/drm/amd/include/mes_v12_api_def.h | 34 +++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-Maybe you can help improve my understanding by us reversing the
-question:
-
-If that jitter-mechanism is dropped, what will be the negative
-consequence?
-
-Entities with similar vruntimes would always run in the same order,
-correct? So the patch is not so much about GPU time fairness, but about
-response / delay fairness.
-
-
-P.
-
->=20
-> It has to be the relative vruntime that is preserved, ie. entity which=
-=20
-> re-enters cannot simply keep its previous vruntime, since by then that=
-=20
-> could lag significantly behind the vruntime of other active entities,
-> which in turn would mean the re-joining entity could be head of the=20
-> queue for a long time.
->=20
-> Second part is the special case from the quoted patch and that only=20
-> applies to entities which are re-joining the queue after having been=20
-> picked from the head _and_ there is another entity in the rq.
->=20
-> By the nature of the CFS algorithm the re-joining entity continues with=
-=20
-> the vruntime assigned from the current rq min_vruntime. Which puts two=
-=20
-> entities with the same vruntime at the head of the queue and the actual=
-=20
-> picking order influenced by the submit order (FIFO) and rbtree sort=20
-> order (did not check). But in any case it is not desirable for all the=
-=20
-> description of GPU scheduling weaknesses from the commit text (this patch=
-).
->=20
-> For this special case there are three sub-paths:
->=20
-> =C2=A0 1. Re-joining entity is higher scheduling prio -> we pull its vrun=
-time=20
-> a tiny bit ahead of the min_vruntime so it runs first.
->=20
-> =C2=A0 2. Lower re-joining prio -> the opposite of the above - we explici=
-tly=20
-> prevent it overtaking the higher priority head.
->=20
-> =C2=A0 3. Equal prio -> apply some randomness as to which one runs first.
->=20
-> Idea being avoidance of any "latching" of the execution order based on=
-=20
-> submission patterns. Which kind of applies a little bit of=20
-> round/random-robin for this very specific case of equal priority entity=
-=20
-> re-joining at the top of the queue.
->=20
-> Regards,
->=20
-> Tvrtko
->=20
+diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+index d85ffab2aff9..a17efbd17272 100644
+--- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
++++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+@@ -66,6 +66,7 @@ enum MES_SCH_API_OPCODE {
+ 	MES_SCH_API_SET_SE_MODE			= 17,
+ 	MES_SCH_API_SET_GANG_SUBMIT		= 18,
+ 	MES_SCH_API_SET_HW_RSRC_1               = 19,
++	MES_SCH_API_INV_TLBS                    = 20,
+ 
+ 	MES_SCH_API_MAX = 0xFF
+ };
+@@ -870,6 +871,39 @@ union MESAPI__SET_GANG_SUBMIT {
+ 	uint32_t max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
+ };
+ 
++/*
++ * @inv_sel        0-select pasid, 1-select vmid
++ * @flush_type     0-old style, 1-light weight, 2-heavyweight, 3-heavyweight2
++ * @inv_sel_id     specific pasid when inv_sel is 0 and specific vmid if inv_sel is 1
++ * @hub_id         0-gc_hub, 1-mm_hub
++ */
++struct INV_TLBS {
++	uint8_t     inv_sel;
++	uint8_t     flush_type;
++	uint16_t    inv_sel_id;
++	uint32_t    hub_id;
++	/* If following two inv_range setting are all 0 , whole VM will be invalidated,
++	 *  otherwise only required range be invalidated
++	 */
++	uint64_t    inv_range_va_start;
++	uint64_t    inv_range_size;
++	uint64_t    reserved;
++};
++
++
++union MESAPI__INV_TLBS
++{
++    struct
++    {
++        union MES_API_HEADER    header;
++        struct MES_API_STATUS   api_status;
++        struct INV_TLBS         invalidate_tlbs;
++    };
++
++    uint32_t max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
++};
++
++
+ #pragma pack(pop)
+ 
+ #endif
+-- 
+2.34.1
 
