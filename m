@@ -4,148 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B9B0C87FCB
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 07:36:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DEDFC87FC9
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 07:40:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF19510E414;
-	Wed, 30 Jul 2025 07:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1785D10E078;
+	Wed, 30 Jul 2025 07:40:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4xef0aW0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hW/AkFQZ";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2070.outbound.protection.outlook.com [40.107.92.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCA4610E414
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 07:36:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m7xVLR5dLv4HS21SkZrqItY9QuJ3+LqDScI4+Oi0bmOeAnTw+YN/B5cZyv42bGckvY7cuU6RBkuV0pnU/0AOe/VNwIdR/b39JuW/dPZuikZhb6yqASOFhVFbC5wWYQTo66gewunx7nf9RuqOKITOuTbdxXsnte4jMzHEL0S6DieWBB97xrfGIdQy7mI3tZpGViD7SZSPyDU//XS2iIJou4/dy5VaMjfwpJ5VzOweDVGr2Vqq983vgUNEiPTwGFxDkVLM8ubcMqB/wXDNgvBzEMydAnnTO0ILlSGnd2PKPVvYyuKZOCyc91wuG50zdPSOpOxTSpj9M+DqFrvXN3zk0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UohfdKng2mpirOXASJaKwtLNJ0RMFPJPoRi1QVR2uRE=;
- b=QEqs275FA3gcvVQTrpdJAD3RnhbLXMRhsiP4Op/HIWnqcQWI/AUFqWxcg8vRIm17q112pGBnte1zqBH1hUcVxJgxh5862Z2AABxYe2pRIGFBF5IrI3oZ63cz7pAlAtG6McEKaIHi/LN3ZQ8afjWeM7V/B3zsogbVIgQDV/gCUuMNxc5o29Cl+OaYbebzbB5idx4xynLvokr/9I05cthD+Co7J/a1KbIvA6Rw+GgKFXaRFP5IjEwtr24cdzYlqe4VtEVjhnfTZ3snGSW9OJIS2m7uQF0jm5G4Di6x9JOkwgagq76umEf2mfRh4Op8zG8cJbPhO9UEIhZtBTJ7HbtteQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UohfdKng2mpirOXASJaKwtLNJ0RMFPJPoRi1QVR2uRE=;
- b=4xef0aW0O5GGsfyL06yJ+F+lDWPG/fdTX5Rti0BuJLGwAONMkQFzPI3J2Rb+TWHyTZgXoQijw7ZDwaAtqIrulRGZ3l4d8xzFMvmDF2O9OgKtcut2T59sXJuELF2TbA92dXr8dUrnwlKUrOvq+g6TqK1NP0pKKWC9h/HoAbgJWG4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
- by MW5PR12MB5649.namprd12.prod.outlook.com (2603:10b6:303:19d::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Wed, 30 Jul
- 2025 07:36:16 +0000
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c]) by PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c%4]) with mapi id 15.20.8964.023; Wed, 30 Jul 2025
- 07:36:10 +0000
-Message-ID: <887f1792-1d76-454c-b8a4-4fdb0de2c9a4@amd.com>
-Date: Wed, 30 Jul 2025 13:06:02 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Effective health check before reset
-To: Ce Sun <cesun102@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, tao.zhou1@amd.com
-References: <20250729070117.76523-1-cesun102@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20250729070117.76523-1-cesun102@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0094.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:2af::7) To PH7PR12MB7820.namprd12.prod.outlook.com
- (2603:10b6:510:268::8)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3182010E41B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 07:40:37 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4561607166aso3675865e9.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 00:40:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1753861236; x=1754466036; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PjzwSGQ7KvLMFxqNNCt98j7LHzaqcDg9LLSZJ+YJ5ds=;
+ b=hW/AkFQZ6XveFjhpansj4i6JSYxIA2jW6Hj8JP2C3yeBbBhb2MO+4FrUM087AEJHeL
+ 9RqNb2XTwZQVcA0/BpRxCBPKOLeqYtkjIKLtoVPNSoGZlWciid1l8zG8EqpsBRID4gqp
+ Vete5TO4e0DqVbMV8Gv33an0+zf5f1nAjC5K0coMLNPG9ELHNZnt6HNUUkwDR87DBpgC
+ H+6TYb6dDbqQBBe/6HvaiFqeSLfrFOSpk/3vVBXNYqgJ52VmsHbxcvmmmZ8s19ru1Dwl
+ SWvLBzrPTlwTxfyEkCMgACY73xAOrZeSAQhf6Vynu/qqwnRDGOzBClaeR/v2rdXXE8v8
+ KyKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753861236; x=1754466036;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=PjzwSGQ7KvLMFxqNNCt98j7LHzaqcDg9LLSZJ+YJ5ds=;
+ b=Kut5cwcW8b9HM1EMIhA80KPfIJvvegqY57p6Ru8DcdGHrbkeP0gjzKsmnXXpUtxfhO
+ ni/F7L+Zo8cTQiOF9ueGfr5u50VqiaszxmSEr3qiwr/gxOg0CDO7uPeSjZGV0qDAJWhD
+ o2u62Q1hqqQ+rRwrkXfv2JIc38rkAUuB2B2PyRLf60U/+xKhKHrUKkJ8VVNctmivW9PO
+ B6OJUfUgIAtZs/HuctbFXEtaty/DAEEDEb9pd2k2BKhZWyim84OiHHSbJcX5XKJFDsqQ
+ sMhLejWk6N6z82f604Qy7r3DzCUk4sXowZMGJ7ObW8Oe0KonBDL3+FoioUgwGI9w7pZn
+ OoLA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXBUJi6ww/fGi6bOCVQMwPtbKO6Jat8Fj9qHVllMlRIAwmj0FVvzC3tbPACKsaV681AJxHgxRq5@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHTRhu6Y5818nwjEJ1IQd8q40B2Sh91yjIsdhTd19nvLHn2a3Q
+ 9WmFysWoAHgy1Qa7qaoBcYIBnqcvRCRrZrnfdq1SmthiaI10hPI+REf4
+X-Gm-Gg: ASbGncsEzIEtWfBOVjOH6nYJ2SyfmLLBusl/WWkfA1ix8hqTMmNNec4Wqu+W0C91BTi
+ 57NQ0zlcwfJJuELBCZMggCyyu+OZzI9txXSs1VaRsrlnUTrVo39eyhy4DjuW+kBdcspZ5molF9S
+ t+OCR/LSfRUzdHh+ZujW7YJgDR3IlP9H0Kyt6dlpzW1lrh+YoznNMwcj+u3k+DicqYzsvvDu3MT
+ jRN0sQz1cM29Bc25oIE5qO0h7yJxyr2E28q4SdZqiOR/fslm3a4xCIJqOonRzzAL3vcNPBfhH+j
+ Oc9Rw2Eq9172UPM3HBlRfpgPJYHh1zHclNTqW4X+enBGH8Iop7FrY8wjJ+/VNYbQVX8/ksI6j7m
+ 5CWw/2hq+ocSM+isIv16hz/Fz9/7dM98pgAejrlIqxjzrTrpAb6rmyGWriDt7ca9Pn8hKW+mWVD
+ HKh5dnitbHa6t/SuvDdpMe/g6uXLEPbPP/T6e5zhMHYfbjevdDt17ic5xnZBAIXw==
+X-Google-Smtp-Source: AGHT+IFFfmTdKmvd4y/HIADMOh/qp4rBV82Qs3tqJkhCi4bXtEVOp9W2iQxLaXmoqe1u046EUelW+A==
+X-Received: by 2002:a5d:5f90:0:b0:3b7:8d6f:9fe2 with SMTP id
+ ffacd0b85a97d-3b794fed8f0mr1463133f8f.23.1753861235411; 
+ Wed, 30 Jul 2025 00:40:35 -0700 (PDT)
+Received: from ?IPv6:2001:4c4d:24d8:fc00:b1a6:598e:5b78:7d57?
+ (20014C4D24D8FC00B1A6598E5B787D57.dsl.pool.telekom.hu.
+ [2001:4c4d:24d8:fc00:b1a6:598e:5b78:7d57])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b78404f5b0sm11468647f8f.41.2025.07.30.00.40.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Jul 2025 00:40:34 -0700 (PDT)
+Message-ID: <c88ac1d6cc039984f9dbb58f923fb62e505ffcec.camel@gmail.com>
+Subject: Re: [PATCH 01/20] drm/amd/display: Determine DRM connector type
+ more accurately
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Wed, 30 Jul 2025 09:40:34 +0200
+In-Reply-To: <68370e57-cb4e-4ebd-8d04-b198a7f2f02f@amd.com>
+References: <20250723155813.9101-1-timur.kristof@gmail.com>
+ <20250723155813.9101-2-timur.kristof@gmail.com>
+ <68370e57-cb4e-4ebd-8d04-b198a7f2f02f@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|MW5PR12MB5649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 506fbaf0-7c2d-4193-6e91-08ddcf3bc07b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?U0lWbEI5RG9lYW1CWXlvbkVmMkNZNzFwdXp0dWFvdG4zNGJmZ2hBMzV2WXZH?=
- =?utf-8?B?SGlYU21MK1FLMjZ6d0tya1oyOElKY3BRWGk3VHQyUiswUDlZUngyeDVjZW1B?=
- =?utf-8?B?WUQyekxreTRIYTF3U2c5RWFET1BLQ2N2N1l4RnZoZUk2bXUxaW9HR0dYb01i?=
- =?utf-8?B?VTEzUHpDRkdpcVpXdEJHakRudkszRDRLUGR6YkV2eWxGejIxelVZUFl3SkJz?=
- =?utf-8?B?Zlh2WitLd2o2QnYrWTVwM0FBNVFVTU83Q2w2SUdUZ1cyZE5kU2FEeENMWkN3?=
- =?utf-8?B?ei95UGdIMWwxbWhKK2NxeVVRZkFUYmZzRFZnRUhuQnErR2xYaFBFSXVFK3pZ?=
- =?utf-8?B?NmF6UHk0ZXdMSDB3aDZSZkZZdUYvaTA4NTd2VDBQVUN5WmxsZ2hwTmVIQkZj?=
- =?utf-8?B?b0czejB2TU10RURNdDNwZElvOWhqYnl6VWdQQ1ZHN3R5TjVPNTNXbGN3MUdy?=
- =?utf-8?B?YWpGSm5pakwzYmpEbDFJMU9lZjBRb2w2VjJqRkxZQWo2ZHFKOGxSU05LZHFS?=
- =?utf-8?B?ZkQwN0w2Y21DR3czdk5RUVNnRGhCZFhMMTNlem9MaS9qcVBUN3huajJPbmhm?=
- =?utf-8?B?dVRCMFhMWXYyWDhjN08yTVl0MlhzNzBSQTQ2TzR4VHVSc3FSL1AyNTJwNStm?=
- =?utf-8?B?QS9IYzB6WE5oQk1NeUprYTAvUVN5ZGRtUFBZS0xXd0NycXdVWGFWMVozeDdL?=
- =?utf-8?B?dGh3a29QNitiYUxvOVc1T1dDVGdTMTVKSVV1SjBmQWlGVXBGcVcxb3dsdFY1?=
- =?utf-8?B?eGNrQVpta2JjMnRBOU5ROVllNytCckRHUGI5TDlBYUJDcEpUbUpoUlAyYTRt?=
- =?utf-8?B?am9HcSt3TmwxclhGTmJtZXN1ODg5Vjdhd0s3eHNOZkVXZklZYnU1eTArazBl?=
- =?utf-8?B?cnlEMkFlWWJ3NExuTU1TVmRpWThPWkEwZG1zaDdCdHcwdGxuMDNNdWFOV3lC?=
- =?utf-8?B?V0ZjYndwNHExaitDZEZlQ3MxTldRbVJjMnJzK212OVFZSjg0V1cvS0JUSENB?=
- =?utf-8?B?azM3cU9sbE5QKzBGN0tDT3pyMWRFMXF2bFZBTnNZWDJPK1daWDNXYzdwNlVi?=
- =?utf-8?B?NTMrZDhlcVlYSEFXVHo4d21WWlJ5YTFhb1JoelVaYktkZU9xNkNyeWZzMXdX?=
- =?utf-8?B?TnNQeEVPQzYvUHFSYnRDblRQWklHQUZSUjFUM2NBTWhrdGk4MTJkcUlQNWYx?=
- =?utf-8?B?TW1GK3BDd2RnQWk1RXRCbFhiT3JMSU9TWG1ka1VBd1NPc28ySlM0UFVsdlhP?=
- =?utf-8?B?RmVhNllFWFRDVjNnZkFXcjlnNS84R1lWV3FzRFFUYnlEZlZoNEpuWnM0SVhu?=
- =?utf-8?B?MUhoMXh5anphUWl5bGFNZmtyK2NVSjd2Uk9YMXlRdGZxczFYQ1JsdG9oUnFr?=
- =?utf-8?B?SUFjRENKSmtYVTJpZXJjdHozUkp3L0kzdTljZkY3eGdZUUhaMWExdFRaci9O?=
- =?utf-8?B?bFlUL05OM2pSYUs3SEJsbHpYSGNFdUhlMEdwQU5hQmV5c1B2elVvZ1RJNkdR?=
- =?utf-8?B?ZERoUzJ4bi8zeFlEYVFUcjhQaDY3UnVwZXExNGRjZjRnand0ejBtbnpzdk83?=
- =?utf-8?B?QmI4K3J5eVJmN0ZDSFdzbjZacVBFdVJ0YUVmUmUreFFBNGNkWlpFdVVjbjhW?=
- =?utf-8?B?cGhVM3JDa0Y5bUpuQ2U3M3NJRk1GdlR5S1VFaHdaRTZtWGYrQnpRNmRsMWM2?=
- =?utf-8?B?cmtzTG5nVklUVWxtQ0FlZ3crZFp3RmhXSVEzUGxDY3dpL3UyMzVXRlFBOE1q?=
- =?utf-8?B?b2FDNXlCQWhoZ0REZ0dNVkUwVVBSdExvdU8xUmZmamlvMHJGM3pYK1ZQOFhX?=
- =?utf-8?B?QXE1K3JOdUNSZDZJWVdMdjgzWlNicXRpaTREZngwUzZoMnhjekxBQ1krQTZI?=
- =?utf-8?B?d3QwUzhhKzdoNldaMmlmYVJBcUc1bjBNOUhlZGJCUlZzYklWS2dYbThkbUxr?=
- =?utf-8?Q?samxaKex8Ac=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVc5YnFZVHA0THhWZjg0S2NuckkvTGlsRXFWdU5yczh3OWJCUDYwZm1qZGhv?=
- =?utf-8?B?a3h2a0o4NE10RWt3bUdrYVhEUitqaEI4K29tbU1aQm93bDVmNFAwaHlMYjVu?=
- =?utf-8?B?R0orMG96ME1BdURKV1llUloxdFRaK2dQaUVEVThXR0tINXNjQTRBb3c3akxn?=
- =?utf-8?B?cVlMVGNkUE1jSEdZV0ZiMWVCam96SzMzNHZEdUdTS09iTi95c2xkZnl3QVNT?=
- =?utf-8?B?MHRCcFE5cUVaT2dUckYwYUovdU4zdTRydTJwVWtRL0NSWDVsM1hORWlWYkVD?=
- =?utf-8?B?VGZSRmtVeUJ6R2xkQ2o4VVVjNzR5cG90ZkRnWEtHK2dUb0htWG9HaDAzeUFB?=
- =?utf-8?B?dVdFNUdLVWFZeDMwZ3FCaDFxazZZVmFkSFhtS3llbGZ4dlZ3UEdxWTVuL3B5?=
- =?utf-8?B?LzdURkMvNGFuTjBwWG9oZTdwajgvNW1JU0ZPMXVGZ0llcGNZY2dqbUw4bGo3?=
- =?utf-8?B?ZWN5aWluaHdoVDZDZlZuM0tLTkZFK0ZVRC80OVpMdG5xOU5PcTcxUk1tWjNM?=
- =?utf-8?B?TjJaN1o3RkVMZ2EwRUJvbmxNSzNDZ2JUak9QZWE0TVpBRXk0Q3YyNGMxc1Jk?=
- =?utf-8?B?V3hkT0o5VDZOcXRzQ2d2eGIvVVJ3SjIxeldyY09QS1B2T1NvdHJLQzRPMXlS?=
- =?utf-8?B?YktVd1ludnRybE92cUZKbUtvMlhrSjEvTnBtNHJ1YzhtTjNWT0cyL1VFa0px?=
- =?utf-8?B?eEhodnFlZ0xGSGRDWnpvd1AzQ1puVUlDOUk5UmZyemNlOUpCU01sRWlkZWVk?=
- =?utf-8?B?N0xTbEc3ekozQ1FYNmpZTDk2TVpvV1BtME9GcFNscHF6Y2lUUko0MnEva2t5?=
- =?utf-8?B?NFZIQWdkRGJUUUlvTXRxemhrWXQwQk5kQlpFdk5Ba1N3RUpYUjM0bE5sbTB5?=
- =?utf-8?B?b2F2MEtLYXRHcldjb0pUT25kZTN0RThKZmZtUFdyM0dNVmVWMFNCdURQVGNR?=
- =?utf-8?B?dExBNGM5NHk0Wml1dFVWaUxBVy8yeGFCMkxjRmZYOXN4SHRoTWNqYm9TeFJu?=
- =?utf-8?B?MWpRTUJxNERlUzU1MmJGeExiTUxYaFVqMERzZU0walFxV2hxTE1mc1VGc01Q?=
- =?utf-8?B?T21USFN1T2UxLzE4TUxENklpNWI1dTQ4MFY5U2tubDlGL1NxbVlOaUNsN2RR?=
- =?utf-8?B?Q29kNmt1elBEODZHVDdHVEtoYzdZZHhBaE0rRzJTK2Q3VW84WklKYVVBMG1H?=
- =?utf-8?B?STJTcDVlS1BZL3kyVFkvajNhU1pMYjE3b2ptbkhBM3drbEpQWTBZaFpTRDcw?=
- =?utf-8?B?ZmtRb2o5QWVROUc1cFZXc2haYU51akxRWVg5cGhBeUJNWGVlenpITXVoZUlr?=
- =?utf-8?B?dkF6SkY3Z2RuYU1FZkdzajdRMUJuQWRIbWxqOU1iYjBlNVpjL0FrOVMvWlJq?=
- =?utf-8?B?aEZLUklaVUhucDFLbU9PVVhVUkw3b1J1U05lUDJmR2E5T1RwVkxUZ1ptY0pB?=
- =?utf-8?B?eGtCS3dBZFkwWktKSDhVSFRBeWVwVFRCTlZxUHhBa0tkdENudGVTbGhaa2E4?=
- =?utf-8?B?K2VYck93MmFzbm9SS1BVS3ppVkt3M0VBQ3pIdkgrejBzbU1zZnJITzVhZXdl?=
- =?utf-8?B?QzZxdi9YUTRmZ0tydmkrd0hkRXFsVDVYZyt6YUJWVWRtdVJTMzIrK29RR2R2?=
- =?utf-8?B?cjZnNVNFTXhDNzZGaFpKWFY3RXI3TkMxRERIbGIvRmFyVWQyeG5WZHR4aDN6?=
- =?utf-8?B?ZGorVUlTZ2VwT040bXN0RWluVXB1UmpQTXBZME1jb1NGWjBqZU9zcWlmNFUw?=
- =?utf-8?B?VkthWXc2THJyemt1cDlaYUhWdXRoWVM1bmwwTjRXQmhxcWp0OHRtNEp1WUw0?=
- =?utf-8?B?NmNpMUtJTUxRTGFzVnVIZDNIb0lKNDZSU3RlV09aYnBRKzM5Yk5MTWFOdVYw?=
- =?utf-8?B?ZWpwZ0owM3lWcGdkUEFPc0hPWVhoM1p0WmxhbmtKclhHVTEyeTZ5MDhDZXJZ?=
- =?utf-8?B?ODVIR215WGpHQ3dnZm9GT3ZvdktDTnk3Q1krSFN6Z2IyTWE4QlBtNlhTcE5a?=
- =?utf-8?B?N2Iwc3FlTHZwcjhVY0wyRkx1R0lwb2tyL05HTzhRTlgyL2Nrb0tSQkVzSnNy?=
- =?utf-8?B?aHJZZEphaTg5U3BrbEdoajFxREFQM2k2eWljTFRTQ3YwTWJpTEMrZkp6VVhO?=
- =?utf-8?Q?6OKUL1giek8X6Lvor3IqxYxS4?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 506fbaf0-7c2d-4193-6e91-08ddcf3bc07b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2025 07:36:10.0384 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z9hp4RASCc1LXWVASgs+eFCBWS1iCKM+TCUHypfhGRiuNvfhOoJ3kME3zqzSK+gV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5649
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,100 +93,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 2025-07-29 at 14:03 -0400, Harry Wentland wrote:
+>=20
+>=20
+> On 2025-07-23 11:57, Timur Krist=C3=B3f wrote:
+> > Previously, DC determined the DRM connector type based on the
+> > signal type, which becomes problematic when a connector may
+> > support different signal types, such as DVI-I.
+> >=20
+> > With this patch, it is now determined according to the actual
+> > connector type in DC, meaning it can now distinguish between
+> > DVI-D and DVI-I connectors.
+> >=20
+> > A subsequent commit will enable polling for these connectors.
+> >=20
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > ---
+> > =C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +++++++++++---=
+-
+> > ----
+> > =C2=A01 file changed, 16 insertions(+), 12 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 096b23ad4845..c347b232ae06 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -8038,24 +8038,26 @@ static int
+> > dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
+> > =C2=A0	return 0;
+> > =C2=A0}
+> > =C2=A0
+> > -static int to_drm_connector_type(enum signal_type st)
+> > +static int to_drm_connector_type(uint32_t connector_id)
+> > =C2=A0{
+> > -	switch (st) {
+> > -	case SIGNAL_TYPE_HDMI_TYPE_A:
+> > +	switch (connector_id) {
+> > +	case CONNECTOR_ID_HDMI_TYPE_A:
+> > =C2=A0		return DRM_MODE_CONNECTOR_HDMIA;
+> > -	case SIGNAL_TYPE_EDP:
+> > +	case CONNECTOR_ID_EDP:
+> > =C2=A0		return DRM_MODE_CONNECTOR_eDP;
+> > -	case SIGNAL_TYPE_LVDS:
+> > +	case CONNECTOR_ID_LVDS:
+> > =C2=A0		return DRM_MODE_CONNECTOR_LVDS;
+> > -	case SIGNAL_TYPE_RGB:
+> > +	case CONNECTOR_ID_VGA:
+> > =C2=A0		return DRM_MODE_CONNECTOR_VGA;
+> > -	case SIGNAL_TYPE_DISPLAY_PORT:
+> > -	case SIGNAL_TYPE_DISPLAY_PORT_MST:
+> > +	case CONNECTOR_ID_DISPLAY_PORT:
+> > =C2=A0		return DRM_MODE_CONNECTOR_DisplayPort;
+> > -	case SIGNAL_TYPE_DVI_DUAL_LINK:
+> > -	case SIGNAL_TYPE_DVI_SINGLE_LINK:
+> > +	case CONNECTOR_ID_SINGLE_LINK_DVID:
+> > +	case CONNECTOR_ID_DUAL_LINK_DVID:
+> > =C2=A0		return DRM_MODE_CONNECTOR_DVID;
+> > -	case SIGNAL_TYPE_VIRTUAL:
+> > +	case CONNECTOR_ID_SINGLE_LINK_DVII:
+> > +	case CONNECTOR_ID_DUAL_LINK_DVII:
+> > +		return DRM_MODE_CONNECTOR_DVII;
+> > +	case CONNECTOR_ID_VIRTUAL:
+> > =C2=A0		return DRM_MODE_CONNECTOR_VIRTUAL;
+> > =C2=A0
+> > =C2=A0	default:
+> > @@ -8440,6 +8442,8 @@ void amdgpu_dm_connector_init_helper(struct
+> > amdgpu_display_manager *dm,
+> > =C2=A0			link->link_enc-
+> > >features.dp_ycbcr420_supported ? true : false;
+> > =C2=A0		break;
+> > =C2=A0	case DRM_MODE_CONNECTOR_DVID:
+> > +	case DRM_MODE_CONNECTOR_DVII:
+> > +	case DRM_MODE_CONNECTOR_VGA:
+>=20
+> This seems unrelated and would do better in a separate patch.
+>=20
+> Harry
 
+Keep in mind that currently DC recognizes DVI-I as DVI-D, but after
+this patch they will be recognized correctly as DVI-I. So without this
+part, the patch will regress the hotplug capability of those ports.
 
-On 7/29/2025 12:31 PM, Ce Sun wrote:
-> Move amdgpu_device_health_check into amdgpu_device_gpu_recover to
-> ensure that if the device is present can be checked before reset
-> 
-> The reason is:
-> 1.During the dpc event, the device where the dpc event occurs is not
-> present on the bus
-> 2.When both dpc event and ATHUB event occur simultaneously,the dpc thread
-> holds the reset domain lock when detecting error,and the gpu recover thread
-> acquires the hive lock.  The device is simultaneously in the states of
-> amdgpu_ras_in_recovery and occurs_dpc,so gpu recover thread will not go to
-> amdgpu_device_health_check.  It waits for the reset domain lock held by the
-> dpc thread, but dpc thread has not released the reset domain lock.In the dpc
+That said, sure, I can move this part to a separate commit before this
+one, if you prefer.
 
-This will need more explanation. Health check doesn't take any lock. It
-looks like moving around the function only affected the timing and not
-causing any logical change.
+Timur
 
-> callback slot_reset,to obtain the hive lock, the hive lock is held by the
-> gpu recover thread at this time.So a deadlock occurred
-> 
-> Signed-off-by: Ce Sun <cesun102@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 +++++++---------------
->  1 file changed, 8 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 343155f5375c..efe98ffb679a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -6128,12 +6128,11 @@ static int amdgpu_device_health_check(struct list_head *device_list_handle)
->  	return ret;
->  }
->  
-> -static int amdgpu_device_recovery_prepare(struct amdgpu_device *adev,
-> +static void amdgpu_device_recovery_prepare(struct amdgpu_device *adev,
->  					  struct list_head *device_list,
->  					  struct amdgpu_hive_info *hive)
->  {
->  	struct amdgpu_device *tmp_adev = NULL;
-> -	int r;
->  
->  	/*
->  	 * Build list of devices to reset.
-> @@ -6153,14 +6152,6 @@ static int amdgpu_device_recovery_prepare(struct amdgpu_device *adev,
->  	} else {
->  		list_add_tail(&adev->reset_list, device_list);
->  	}
-> -
-> -	if (!amdgpu_sriov_vf(adev) && (!adev->pcie_reset_ctx.occurs_dpc)) {
-> -		r = amdgpu_device_health_check(device_list);
-> -		if (r)
-> -			return r;
-> -	}
-> -
-> -	return 0;
->  }
->  
->  static void amdgpu_device_recovery_get_reset_lock(struct amdgpu_device *adev,
-> @@ -6453,8 +6444,13 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->  	reset_context->hive = hive;
->  	INIT_LIST_HEAD(&device_list);
->  
-> -	if (amdgpu_device_recovery_prepare(adev, &device_list, hive))
-> -		goto end_reset;
-> +	amdgpu_device_recovery_prepare(adev, &device_list, hive);
-> +
-> +	if (!amdgpu_sriov_vf(adev)) {
-> +		r = amdgpu_device_health_check(&device_list);
-> +		if (r)
-> +			goto end_reset;
-> +	}
->  
->  	/* We need to lock reset domain only once both for XGMI and single device */
->  	amdgpu_device_recovery_get_reset_lock(adev, &device_list);
-> @@ -6952,12 +6948,6 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
->  	int r = 0, i;
->  	u32 memsize;
->  
-> -	/* PCI error slot reset should be skipped During RAS recovery */
-> -	if ((amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
-> -	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4)) &&
-> -	    amdgpu_ras_in_recovery(adev))
-> -		return PCI_ERS_RESULT_RECOVERED;
-> -
-
-This is not related to health check logic. This should be a different patch.
-
-Thanks,
-Lijo
-
->  	dev_info(adev->dev, "PCI error: slot reset callback!!\n");
->  
->  	memset(&reset_context, 0, sizeof(reset_context));
-
+>=20
+> > =C2=A0		aconnector->base.polled =3D DRM_CONNECTOR_POLL_HPD;
+> > =C2=A0		break;
+> > =C2=A0	default:
+> > @@ -8631,7 +8635,7 @@ static int amdgpu_dm_connector_init(struct
+> > amdgpu_display_manager *dm,
+> > =C2=A0		goto out_free;
+> > =C2=A0	}
+> > =C2=A0
+> > -	connector_type =3D to_drm_connector_type(link-
+> > >connector_signal);
+> > +	connector_type =3D to_drm_connector_type(link->link_id.id);
+> > =C2=A0
+> > =C2=A0	res =3D drm_connector_init_with_ddc(
+> > =C2=A0			dm->ddev,
