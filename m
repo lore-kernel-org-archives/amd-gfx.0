@@ -4,134 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CCD9C87FCC
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 13:14:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 513B2C87FCC
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 15:37:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0BAE10E46F;
-	Thu, 31 Jul 2025 13:14:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF5E110E289;
+	Thu, 31 Jul 2025 15:37:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="eTzHsBN9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FcZ/2Bah";
 	dkim-atps=neutral
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11013006.outbound.protection.outlook.com [52.101.127.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FB3710E255;
- Thu, 31 Jul 2025 07:55:09 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2084.outbound.protection.outlook.com [40.107.237.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A53510E289
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 15:37:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EXJf6me+7k6Vnvm09C5kbR5KEVfBoykvj693sz/h71RLhr79UGNvwg+1Czx1ZG3SrFOU6Eiz1VWgCJWky5ofHZ1o5X2fyI85RavMng0CS6ehvjhzcicBvAKncuz9BEsBmO9QHw3JBa144skSewyYD2cfhnGA+DgckJODOt4D2OYxOy+l/sOuYE9S+ckd+2SqCiyRI5ySL8gEDuZt34rOcirs+FDt7q23v1VvBrp3++77BK4BY5QypUHPY5zvIKWbwcvdW/w+ufp+9MfyPWDVr6n9ySFS/tLbreMfboMts5FW5B4Csi7fwvgD/pz4dV2FCbGFiPU+WtDUqnJJArj/bg==
+ b=H966L1NL/Vjv8Xfk7S7Epemr0Tfj+2b2DzveJXgk6r+ebVCZqgEkrJpmQTMnhW3t52RU1QETduOfZLanppusIt/kPpHVdvrDxHjCkZkLPwZ9uAqJQzkAsZLAX+bQtg7+40hX9kkP4N+sPc1ol0Wss5TYBXxGkBGWKksGGhJogHscxLo7uogGwdX8Wl+Vs914N0qyJGg8hyVYXW72VVLXLc1Ohbbmg6WQ/OqQKJ7lPMP/Tmy6pa5a84Bn1A4d5oglxsZyQ87CvFwhVDfSkcU9PtghoWxPVDl0+3/bGRCOYMkIfX3JuxAJ7BlBFCAVHB9hfsYyBKglF8Dr6XX0NwKSDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SwgXK0RvEiV5p5SnEBt02Sfw2K5rfDxEf2dS6Ax3QNA=;
- b=H+nv3gRKkkLtmsSZpb4gFjchJjW7FEiASwo9VCE2gU2mPqUnHOExo632nvuu7B76jRi/ecJqt8QK5EqsSujmQSE/8Amw+6Kg83b6g/XzepONt68BZn8DQ6OTO0MRFbj0TDq/nnHqGbo0eMvneZPhk1cPZc22+eVM8xfDxw2fKxT54yq4bJg3dEg4Pz79U/heIG8BhQ30+UZU1nKMoXrLjRme3tP6xvsukN7C5UZ5Id4xUxqAq/HfYlkxc1TmcuKZT1/LcAPWztYj9HeJ674YMEmms5TeqXH9324xc0MehbGqz8sj6YVgWmk4qWHdNyrbm3yBVAWXFxc27XuMOQNwhA==
+ bh=G5HUMWZtb4N7Na4t506lYn4l7MKs6kcTgPQaq8pZ4LE=;
+ b=MzfMBxo96/KrrbweO8o1Yu0Te76s4sML4geFrur0ypLqd1mG9RudjxK414OlvpSzaC6WyEdt4d9vPdz6PYZGfDlOSWZgGK9Zt2NCKO+MkHVBchB3rb5mAyPRC1xiZJsQbhQs9ZdqkBg7eTgKNUAlO7Mr6cIPTuelhmnJZvLNDDGg4tGoQlnmMjQEMJHy8duuoN356e15gi6RNPhybtE1E8jPbluIBPxZBmghwEU0PNseNgj3EvtNblhXlzNgy+upHWhW+4Ku7CajmxWc3iWk8oBleVCWhnM8LWRxpiB+x2nE7k3P12sNIb1kPGc77nutTELIjGC5aBFbd30SCmbC5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SwgXK0RvEiV5p5SnEBt02Sfw2K5rfDxEf2dS6Ax3QNA=;
- b=eTzHsBN99xeoacT/zIrlC4n0z+jBRiDYzzXepvw6YkeuVR4w5z8Kz7NOJAk5KORNkiSjM9PVEmDWLoP7RXm9aHIcSfNSsBnCktDguJuuqzmSup31SYojhxl+uYhBnwXxKGXPWfZbfxydRsDgFIxJbKZa0Lc+k9lucCfvSIbxaFywYZikFMgUKp5pY/vR+gRQ6wgHws81sFe6HhI8oHNGKW90/kHDaBdCBRVA+d11AnuPGfMk/BRHFvxoaFWlVdFvGNzag7IMT1r91jp5TRo10eMqr9OKR896WHbX5WX6kfJy60gbHnzogtcyL+z4tVsjJ6mJJNklzctJpDAtVavfoA==
+ bh=G5HUMWZtb4N7Na4t506lYn4l7MKs6kcTgPQaq8pZ4LE=;
+ b=FcZ/2Bahc1arlrCFo6n0oufjbApH/NOihD06lnhmi4wrn9Ubrubx5JKGNj+nWs4e/icThRvYmgNboA4o8uUKtdbYHyw78sx/PiwPiuzakcFNbg82McBjTu2k8TwkAB4yxtrTIkZ1gstUGyCSFbBEEIB31/z7idFx2sT7Wz5gc+s=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from TYSPR06MB7008.apcprd06.prod.outlook.com (2603:1096:400:469::8)
- by TY0PR06MB6801.apcprd06.prod.outlook.com (2603:1096:405:12::5) with
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by PH0PR12MB7469.namprd12.prod.outlook.com (2603:10b6:510:1e9::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.11; Thu, 31 Jul
- 2025 07:55:02 +0000
-Received: from TYSPR06MB7008.apcprd06.prod.outlook.com
- ([fe80::41f3:1597:2953:65f2]) by TYSPR06MB7008.apcprd06.prod.outlook.com
- ([fe80::41f3:1597:2953:65f2%4]) with mapi id 15.20.8989.010; Thu, 31 Jul 2025
- 07:55:02 +0000
-From: Xichao Zhao <zhao.xichao@vivo.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Xichao Zhao <zhao.xichao@vivo.com>
-Subject: [PATCH] drm/amd/display: Clean up coding style
-Date: Thu, 31 Jul 2025 15:54:50 +0800
-Message-Id: <20250731075450.626428-1-zhao.xichao@vivo.com>
-X-Mailer: git-send-email 2.34.1
+ 2025 15:37:05 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8989.011; Thu, 31 Jul 2025
+ 15:37:05 +0000
+Message-ID: <7bae9003-933d-49bc-969d-abf45424b825@amd.com>
+Date: Thu, 31 Jul 2025 11:37:02 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/20] drm/amd/display: Don't use stereo sync and audio on
+ RGB signals
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20250723155813.9101-1-timur.kristof@gmail.com>
+ <20250723155813.9101-8-timur.kristof@gmail.com>
+ <1ef9ce5a-0b6d-4d0d-834d-d1f6b0dc12bd@amd.com>
+ <7d1df06a6b19dc2d8e78059efb6e26f00bdb280a.camel@gmail.com>
+ <714ca8d3-5da7-4266-b258-aba3fbed4a40@amd.com>
+ <ada40fc10d06f8b4699ac128a56e59263d30c6d9.camel@gmail.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <ada40fc10d06f8b4699ac128a56e59263d30c6d9.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TY2PR02CA0062.apcprd02.prod.outlook.com
- (2603:1096:404:e2::26) To TYSPR06MB7008.apcprd06.prod.outlook.com
- (2603:1096:400:469::8)
+X-ClientProxiedBy: YQZPR01CA0126.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:87::6) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYSPR06MB7008:EE_|TY0PR06MB6801:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15d6ae3d-b2d6-4400-3b5c-08ddd0078e04
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|PH0PR12MB7469:EE_
+X-MS-Office365-Filtering-Correlation-Id: 821709e8-66b5-4e0f-0dda-08ddd0481a2e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|52116014|376014|7416014|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ZjkZ5mkva0nsI5Y/481bqULFHIdyohi3uXWP45hf/eNedh9PUlZkus2Bpfyw?=
- =?us-ascii?Q?qkAAZMkraAqrxO3FyhkZHkNXaxxROLeHIO08A7HthwXNzgki+BEE7RSshtqr?=
- =?us-ascii?Q?1by0ozcwgFuDxK8/XGxD0ZX4fCd5gp8RrQw1S/FGlrjFRbMrcIWZDEGOxx0B?=
- =?us-ascii?Q?YP/2gkvfv/uN8dvToK5yuihz+5neSlI2hPis+KhHNGgc4soHWCV8raJnRPzK?=
- =?us-ascii?Q?jduaaauNCM0PoueDSSoWaB5YFTXqdYgEiEf1rlG6HVswKokl23J7p8zElwPd?=
- =?us-ascii?Q?PsKCO1yzpEQfsQCFFDBVolngYfIJdPQzhWsnuR0DIBzoiwmA3zNudpn4xtEn?=
- =?us-ascii?Q?SnGPskKPcwpP58syjOu3bJGBUxEVcf16vGttuXzxWjXaxQ6Khsd6SSlKwe1G?=
- =?us-ascii?Q?8ycKqApDi/5yIePYTe4Uqvx5tKG+OBE8kzIGW/+YWh7NEaZzkRLLJ7EiFCZB?=
- =?us-ascii?Q?nz+8kDjbfyNJJjlRUaDWUTRKTe/ilmBXHVf+kO9L3TPlNv4swpHA54feEih6?=
- =?us-ascii?Q?HkVWFO4fDClPqaQSkOpErlwZe4pVq5SUuxERIGZhvBf8x5Hsi4XZ/H2IORQF?=
- =?us-ascii?Q?RmdEaG/2uyIqPX2eGaB0zWCjglmoxNz9T4yZCnOY2q/5itRf1NII+e+OB56X?=
- =?us-ascii?Q?3fhJZp8ck/+NaPVrJ0teZBScO0bFbgtM0z+6iGuQr9bPmVR97PqOcWnj1FuD?=
- =?us-ascii?Q?QKMQQO0L7HJM02ExlIkgPoKlhOqEchpUD5jmbCLBrnLXLOCsYa5ZJzsA+kUl?=
- =?us-ascii?Q?ODkZ6N2gohOwI/+tScdIHpLNSSVW3LVxJ0L1y43Z/dOpLvmMtWO4bBG78jbi?=
- =?us-ascii?Q?FMIJgLkofIBytHLiEKg4NDsxfrtBQA9Gn1j8y18B3XAMibuF9RBuQBZUtcvb?=
- =?us-ascii?Q?3etMJeosa9K8u1WV/YCme4XO3Ko4aXT/n/wlE9cx3vrvHuRfrVyax4YaslSX?=
- =?us-ascii?Q?x/yVdZJDy08qJbTCtg1ukhGWb/UQslCQYULA9FOxT6pHpNDZKYcnHlckU2vW?=
- =?us-ascii?Q?tPL2v7Jz8smbbBFBqn1wsdEwgzHOTf7LZYzwPBvWge/1a7YrmDO4ZRGC6O5P?=
- =?us-ascii?Q?UEbb612WgJbILKwCVxVFr5GfqL1lqpy2zqn6CMoJM8xyGGklcm6Le2UU6UXh?=
- =?us-ascii?Q?uJywHFP+O9B3tkaAXAxN5RcuKGyu/Ml+v6yPjLDH9UU7GnM//68ZKQLRnBIT?=
- =?us-ascii?Q?aeL63P1KWh/2ZTUP6teWQoNKqCrJLCXNIQ5dyy5NQ/SpLriyUrGfGboyLgFs?=
- =?us-ascii?Q?XqI9d/x4ipem+0UcU9mc3JZh76m7Hz1rzDvpu8BXrbr0AGGcf6x7m3dmerNi?=
- =?us-ascii?Q?7rgtgRXsWniHqVUbopta0SmhwiWKi7ULvy5gA++VLyVryewfIIwN51XPbCyg?=
- =?us-ascii?Q?uli19hhHqT88o6pp2QXZJN9a2VRqC9DgDfV0lDJVrMCvYwLlkk49NSIXu2Gm?=
- =?us-ascii?Q?go5Te/8aDtgMIK6B+3dkE+izcWxi0bJQ8BVB9zulBJSM+J9BD5mhFA=3D=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UnkvNTJpcEMzNGg4TFlBMnZDbGltTldzUHFURHJoTDJNNitYUGFJUEc3cFp0?=
+ =?utf-8?B?U3JpUTRmR2VRZ0EzMzRrSU1qbWNGS0p4WExOc2NoNXlWVFdyYU9jQ3REUlBH?=
+ =?utf-8?B?cm9CczMrUzBpZDFJTDRPUXFtUlc0eFBlelVJSVdHNlhmUTBNOVF5V1ZvWUR6?=
+ =?utf-8?B?OEhkNG9acW5neUY4R0RPR056T0QrT1B0bGJwODlaTnkrVXlNRHo0Yis0MmNN?=
+ =?utf-8?B?alptSDdNQ3Q5K2JxSS9QNzA5YkVRT1hkQ3ZRVGJHVDJTVlpNbkZ0a0VlR3JG?=
+ =?utf-8?B?VzAyVUtMa0gwdENMTkpDU3I0Q29NYnhSa295elc5aFljdEdzdTRLYnJiM3oy?=
+ =?utf-8?B?WVBORUYwMnlPeng3SG1wL2Rqd05RYndNSGxycDNpUnhydTQwZk85a0NoT2ty?=
+ =?utf-8?B?cXRSdmpldzFSNEZxRTJNQjRZeXNVdmdjVnlWVW9GazB1YTFWQ21GdHhVVFZy?=
+ =?utf-8?B?b3hPR2l1bDNZVUE4eTA2QUFDTUUzZ1RyTHZmM2VKTldsR29kTlBoOHZHb0xl?=
+ =?utf-8?B?ZWxOWmZKZ2R3K2ZQRnhyVUw4Z1FDZW5IblYxZUNNTCtxYWlydmxnUkVlRWFp?=
+ =?utf-8?B?b3FRZmdEVW8vS1NEcVJGR1NRSEx5b1pSdW42VFdzNlkyUFpKek5DRDBONU5C?=
+ =?utf-8?B?SjJHT2JCZDhQeU9YWC9IcFBjS1hlUWpSSGxFb20yYUxCVndZaVlXZVd0Nm4x?=
+ =?utf-8?B?ejdZMVFNODlrYWJ4MzZIMUZRdFFHbXRnc053S3JKb3NKWk1sVFpOaC82bW4y?=
+ =?utf-8?B?dVpydm5XelZmTXVqa01DNllQK3hsY3F2MjZNbVBCeThQdkQzS0E1RUZOZkgw?=
+ =?utf-8?B?SnJjL05DMjNjWXMwRU5UbnBvbmhXZEhhRHFRWk03d2Ezd1h2Qm5IQVRXMVhH?=
+ =?utf-8?B?MlZsZ0VwTnRzUjAxTEhzNDVZbWZVcFdWeXRmZDZtakdWVVpkeUh5eVAzWVda?=
+ =?utf-8?B?dXU4OEJBVTh5MFQ3cjZqTFpYVGJxUXMxMExGSkYrcEVNcmcrVG9DODJXdSs5?=
+ =?utf-8?B?SEx1THo0R0gvRWxhUWVwd2F3a29YOFRyU0ljSGFXclB5WG5tZmJXd0VWKys1?=
+ =?utf-8?B?NHp2RVdERm9TUDRsUkRHMTIwWHNhUWRUaGxjTnk1TjRPcEtVYk1MTGh3VlYy?=
+ =?utf-8?B?dmNZV0szS29Gd2JscS9EVmJleU9DeGptR1FhK3FxRGNVelBQV0RuVHdadUVY?=
+ =?utf-8?B?ZHFqc2cxZDBpZys5b1ZJcENkTS9CeDVnVlBjdGF4cENYTWFFMGUvdlUzOUhh?=
+ =?utf-8?B?QVlleWNUa21QUk9PMmFHLzdoNmxYMTR2YS9ENXhhN3JBVnZ1SnVIaW90WTNK?=
+ =?utf-8?B?ek9Cc0M1UXRyN2FUdXJNOW8wWWlSRXdTNWRhd2M4d2pab3VQWW11MEMrN0da?=
+ =?utf-8?B?YkFHMW1ienlkMmFaVThIdlFqRlhyZWs5OUpqYng2L2FVNHh4RldCSGZnVXJm?=
+ =?utf-8?B?a0NwOUNKR3JkYmJxbnkySVZJYkw4OG9qZVMzbnR2dXFFU00wekNXbE5WTHBi?=
+ =?utf-8?B?N1FzS2pBeG1Zb2xQQVZ4TElqRm5BajdiYTJPOGV2MjRJUEN6cUh2THhHd2hW?=
+ =?utf-8?B?UElyRVJOUURwREdTTGVzUjN0d2ZMRUw3N3pFc21nNC9WTkQ5VVJsN0hOcFZ0?=
+ =?utf-8?B?TmdoTFZidUVvZjVhWEVOVTVHWldXTFJnS3UwR0NBSThDYmFWMy9DYWlJNEVS?=
+ =?utf-8?B?NmZZUzRYbWZRc09MNjQ1UDBHREJSZUlEd3BRSUxEK3BiMmM0aEw3aUlldENL?=
+ =?utf-8?B?WHNLdnluRjR4ek1CMDE3NUF0R3ZDUUppMU9YbXNlMkVsbmtCbytPOWwxK3o5?=
+ =?utf-8?B?NEFnN2l6RkhyeXNzMmE1QzNIZ2xXZ2kyMlpBMHd2SWFMRExDcTdCL05KckFZ?=
+ =?utf-8?B?dVo2Y1pPeWZMQjVwYU9mSnlkQTk5T3FIRUZ1cnBBWnlxTUNmbHIwWVBhSjFS?=
+ =?utf-8?Q?v6BOJ7ASiYM=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYSPR06MB7008.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(52116014)(376014)(7416014)(38350700014);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?xg2PFo7Q96B9e3kBFXAPmOUmFWwc8WmVkO23AzK36G90uwQT315xU901UH+J?=
- =?us-ascii?Q?ipZnUuSpWakYwq8kIPzWnuQAqdyOiRxFym6w7P3IyQ7urqkVxPOcVcsF3fHz?=
- =?us-ascii?Q?YoQ86NndTNITJtcPezAYaE1Xkd+riSblQ0p+uWBcol33tHpRh9pXfIonxp8B?=
- =?us-ascii?Q?7O0ALCdcbkXcWnps6dJF6SnfELIFPIyS6eOQ3K6AJ7xByqSSFMdFSu246836?=
- =?us-ascii?Q?HEbkpGbY+i5iAAEX8UvwQ+cY5BwMZggUeU+pTQ2mfKnAxsdYcFrsWRA6Z58M?=
- =?us-ascii?Q?yR5ddLYjb00RvbxOZJW4n+CiLEG102dgIOCSCRHA6/+tJ4vVpcfYudYeYHpm?=
- =?us-ascii?Q?ycLerZZstaLor7F5cavbwCUHfNkKWPQjWOaezIN1eGjFJiVsAXCWV9xulhkz?=
- =?us-ascii?Q?0QOIDUgcpp16c+C5CdnZmkItHtEAT1DvXxwmGRTDhpiiTraORb884HmEb1Ap?=
- =?us-ascii?Q?uh9qnj8mQZ8wryzw2NeCFVnpm++73phlVn9ZliE7kyOFf+CXBF7EhsyozDmu?=
- =?us-ascii?Q?gIEUmIF8l+75N0wd+hrXka07WE1EU0RaXORS4ZzpkqnliBiqjyWg1pfIzkDZ?=
- =?us-ascii?Q?VWLgj4XpGrF02Sypdfwi5LrCdi49i+98hEK+NTWGMXL+tAYaIgZeydL1w2rV?=
- =?us-ascii?Q?FrwWe0jgfBFISXFuuukcmSCKnIKueMKfxN0BbyzmOJ0JDhF1Luem8s/ssKFz?=
- =?us-ascii?Q?0tcHATvgp8lNFdrDl6f1NTZdAyWXhVqBv+LmyXI8KestYzNL0bbWdkNqP8E0?=
- =?us-ascii?Q?+bzIJJEq8x+mdBXnDsSBBvLE3y99mmXXAo8jebUkEmghPKojb96pcBKEZeoh?=
- =?us-ascii?Q?rQ62afnaPvN0zLzkRyhsE0rC6x4CwV6V9dwH9j23Dnsf9BigTihupOb3zSsv?=
- =?us-ascii?Q?Lf1mmuhC9eLJo+XDgKIkxhuJayrgBBlRZUsGc0wp/wsJtMNMKy7YVfSlC4Qy?=
- =?us-ascii?Q?D46rGdxcvmmwN5cYsaBr0+ezpEhrK94ahED6G/an7hqA6C+aVmRBYQBAEo9c?=
- =?us-ascii?Q?WP52K8yCmL5sOL0uo5O5SYb+f12BvjUPXmAUUX+oq+rbPMFz0bvQODSLHw2d?=
- =?us-ascii?Q?X0YX3oGLK0gIwRA57cv1cq11MaBEih+tT6RRaoWErmncSm7ANiq481lQrDiw?=
- =?us-ascii?Q?go81FRO/JbzhMepLSqOuCKIOteq7+q9aaOnsIM16trmtK30p29SzU3WIHogP?=
- =?us-ascii?Q?LYpraX3NAwOXLJWhyY4VxlluQgAOTgmh5VS+ntY5BzI0Fy6PWc2Zr+9tj9XM?=
- =?us-ascii?Q?yqNoU0uQ9JdHKz8GTkagP5YYfZ3ND6ZAlQQug1Rzn9IvmnwHe1aJqUKWkLLS?=
- =?us-ascii?Q?G6AvhQxTFboTvvHfTAAYvB/5fOGV80uyTkiHmF+jTv4HUiKp07H3rWgAJsg+?=
- =?us-ascii?Q?BiCP/yPVsPJwaWgDuSpIDw8nB+z8EQ0noD8idY24vZBGs7okNbKIx4U3qfH2?=
- =?us-ascii?Q?8497fUhxYLM76hCYqEeG+jCQjRs0MG+omO9cLaJvvOrtF6iR8d3hFyeXz/Yf?=
- =?us-ascii?Q?7KaX3axMjO8hvumzlYu9stIA5jD+mwYHBUoi39dlM8fglpnEco9pYIrcjHzM?=
- =?us-ascii?Q?gsQdwsi6mhGXir5KkQ1+cQQkSrb/WSK1l4q78Z5x?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15d6ae3d-b2d6-4400-3b5c-08ddd0078e04
-X-MS-Exchange-CrossTenant-AuthSource: TYSPR06MB7008.apcprd06.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTZYQlFrMjRUcWZFaGZzRjlBVm9Nazh6czE4c3l3QUY5alVRRjFiZlcxTHU0?=
+ =?utf-8?B?SFpMU3NYVkNjOHJSZHZXZ21uSlhHYlZmYXIxWEhKSStrVkM3QURGT3VDc2lx?=
+ =?utf-8?B?Q3RVd2lWcXphUHRCZEYxR09jQm5xT1htRWt5SE1acEFxMnRmM3NEOHlLSG9j?=
+ =?utf-8?B?bmFaRzdOeDJEbVZxT0MwSjNQZ3hwQi9oUW1jb2N2S1JYWEpUSWtHM2VMbGp1?=
+ =?utf-8?B?YVRkTk1PeVhZTGNLUkNEWUVuNEdLZWlnTjl0N1M5WlZna05weWszTEVONFhR?=
+ =?utf-8?B?dXlWdGxVKzFzRU16SmdZRHdBSGVYcFd1YzdFWGdyWG11aGxiYWhNek0vOXRP?=
+ =?utf-8?B?UDkrNGlBZUxxUllBY3laQmx0N3JMZEh0UHF0UEhRZ3duaFBwRWZWRi9PenFJ?=
+ =?utf-8?B?Y0Q0VzluN0hFNlE5TWEwNThaOVZnZ3M3aW1jZmlsRHNqV3dNODA3alJsK1JM?=
+ =?utf-8?B?Y01MVDlnWjdLMHJsQ21hdXFmbi9VWkZNdWl1cFU1YmxrZHpiWGJEd0VzTVFx?=
+ =?utf-8?B?R1V2emU1NWF6UGFYTGlINksremgvUFI5L0poWE13aGZCWUxuQmxuK3pkd2g2?=
+ =?utf-8?B?TUoxa1dHNGpZLzFQc1MrRmhORGErb0xqbWg4QTFIN1ZWZkJFR2llMkE2dm8z?=
+ =?utf-8?B?S1R0bkJGd01odkQvR200cG5weWVqVDhKQjI3YXU4UUJiUnoyS0dORE9wd3pt?=
+ =?utf-8?B?SWFVVHNHMDZvUklFc0Z2U1AwTFhOV0RvRS9jREptMkM3NWRSQUZtMXVlZUEw?=
+ =?utf-8?B?dG5Dayt0aHI3VjN2SFFMQjNDVytCSXA4ZGxJVkd1S2xuUTVGdkMwajEzVXgr?=
+ =?utf-8?B?NUNYcEpIZ21kWGtCZVpTL2Zpak9SZm1zaTJPTzNBZ1J0SzZwZFZ1QVF4Wnoy?=
+ =?utf-8?B?dC94Qmd0QTFsbHd4T3FxNmNYeFRuZmlZNjhvVkFZTFNBTG0zNG1aVFdwRzQ0?=
+ =?utf-8?B?eHVPZjVYam0zVjR3UGw4d1pINHVqV1ZSR1lpYk9JamJULzhnenM3T1pSSjcw?=
+ =?utf-8?B?Y011YVVBWGEzcWlVakpPMG1WRllhNkg5RlBDRHl1azJSTEYrZGUyVFgrYjFG?=
+ =?utf-8?B?U3craFhwNHM2NnV2MDdqMVhPVzlwSDBMK0xtNnZzMmVzdmlzdHNlMTYzNlRR?=
+ =?utf-8?B?WVZRM2hibUtvRCtFKzlWYTd6KzFjOUZXdy85L1V5TFBuajliQWZkN0V6Zk94?=
+ =?utf-8?B?L0tURzZ6eHpYc0k5UG41NmUvMDVTOFJiUGh4aXNZWkxWZitnWHNkcWZmMSt5?=
+ =?utf-8?B?RmFWZXJUc2RHdjdXNGZTV2dmVTRSS2ZWb2FXSldWZkh0bTI2eUswK0RJVnll?=
+ =?utf-8?B?UzNhM1A5Ny9Sdi94TzZQYXY5Rmk2NS9BWjRQQkk1Y0wwVXdoL2diV29yMEhN?=
+ =?utf-8?B?M0dTVFgvMUtYcU1laHpXWllsWk1seGpUSnltZStaYVZjb0VZMWFZaEk0Y1Mv?=
+ =?utf-8?B?N0h3cUxhd0V4OUhzb0xxazlMN00wZFhqd2tOeFJHT0RZeGVMUkFDOU55Z2xY?=
+ =?utf-8?B?R0xycWU4UWo4bHUyRitNMUdkSUY2YnlYWHkvblYxa09vNHRDWVZLc0xFUEFT?=
+ =?utf-8?B?NzZtbXhJZHpOWjU2R0k0YkVoc0hzN2VTN0k4WEdoVTA2SUhmSjJaUU10cGFU?=
+ =?utf-8?B?eVNCSVIxMDNiWURQUDRHdTBqelFlQXBmR2hTUjZCZmVVVUhRUnBFK25sU0h5?=
+ =?utf-8?B?NW4zc2xIN21jZExoU2Y4c0NOWnVkdlJvVVRKZXFEYnp0cUlVTkpqMHhXSzQy?=
+ =?utf-8?B?OE9qTWRENWtPcGQvSGEwQXpxTUZCUkc5NGF3a1RsQ1dtaGZZUkJjK2M5VGlv?=
+ =?utf-8?B?a3oyZkNUeCtpTVVMQUpqVjFmbDUyK0hJaXpucWxVdUFrcTNPNHlNUzFQK3Qx?=
+ =?utf-8?B?R1d0dFR1clpSbElKTzhPSFRSUEVsb25Ha3o2SHpUbGRsL2FyRUpPWHNkTVNE?=
+ =?utf-8?B?OVZNQ0MybVBRam9Pek1vczEzRHNCRWpPNml5MUNWcndGVWZNelV4NERWNWN2?=
+ =?utf-8?B?UzV1ZUN0MEhiVmtOK1VPdnZKZDJCdHhtb3krTWJWSkhHMjg2K0Z6L0RlQ0tt?=
+ =?utf-8?B?WGRDOUMxcFByRmozOFVEMUJENWV0cTZLUi9rbG0yeGRSSlExbWxSRy8vRU9v?=
+ =?utf-8?Q?jwLVwS8R+m6RqHQ6kHPG2V/Tj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 821709e8-66b5-4e0f-0dda-08ddd0481a2e
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2025 07:55:02.4702 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2025 15:37:05.3771 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h2/Ft/xdDXcYwIFjhuxJj+92bAuyyGEb90CD4pw12YpKWnbGvrB3gr5d5v0/tNahD1MXyojq3S2qmidOvvPnbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB6801
-X-Mailman-Approved-At: Thu, 31 Jul 2025 13:14:18 +0000
+X-MS-Exchange-CrossTenant-UserPrincipalName: S+IpLQhXfCumGVO9CJcRROBlGYvfIh9C4zLOrIxl8tkyJPLfZ+Ish3/yw0gbQQYqryJoiNL7qzYEKzkMHBc9CQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,48 +166,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adjust whitespace around operators to improve code readability
-and comply with kernel coding style guidelines.
 
-These changes are purely stylistic and introduce no
-functional modifications.
 
-Signed-off-by: Xichao Zhao <zhao.xichao@vivo.com>
----
- .../amd/display/dc/link/protocols/link_dp_capability.c    | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+On 2025-07-30 13:08, Timur Kristóf wrote:
+> On Wed, 2025-07-30 at 10:34 -0400, Harry Wentland wrote:
+>>
+>>
+>> On 2025-07-30 04:19, Timur Kristóf wrote:
+>>> On Tue, 2025-07-29 at 14:21 -0400, Harry Wentland wrote:
+>>>>
+>>>>
+>>>> On 2025-07-23 11:58, Timur Kristóf wrote:
+>>>>> Features like stereo sync and audio are not supported by RGB
+>>>>> signals, so don't try to use them.
+>>>>>
+>>>>
+>>>> Where does it say that?
+>>>>
+>>>> Harry
+>>>
+>>> 1. Audio
+>>>
+>>> VGA ports (and the analog part of DVI-I ports) simply cannot carry
+>>> audio. So there is no hardware to control any audio, therefore
+>>> there is
+>>> nothing for this code to enable, which is why I added those ifs to
+>>> not
+>>> even try to enable audio on analog video signals.
+>>>
+>>
+>> My bad, I was thinking RGB as opposed to YCbCr. Forgot that we use
+>> RGB signal to refer to VGA.
+> 
+> Sorry for the confusion.
+> 
+>>
+>>> As a side note, DVI-D ports (and the digital part of DVI-I ports)
+>>> may
+>>> have a non-standard extension to carry digital audio signals, but
+>>> that
+>>> is not revelant to supporting analog displays.
+>>>
+>>> 2. Stereo sync
+>>>
+>>> With regards to stereo sync, I didn't find any reference to this in
+>>> the
+>>> legacy display code, so I assumed either it is unsupported or the
+>>> VBIOS
+>>> already sets it up correctly. At least, considering that the legacy
+>>> code didn't bother setting it up, we don't lose any functionality
+>>> if we
+>>> leave it out of DC as well.
+>>>
+>>> That being said, upon some further digging in the DCE register
+>>> files, I
+>>> found a register called DAC_STEREOSYNC_SELECT so maybe I could
+>>> investigate using that. Maybe it would be better to work with the
+>>> registers directly instead of the VBIOS? Would it be okay to
+>>> investigate that further in a future patch series once this one is
+>>> merged?
+>>>
+>>
+>> I don't think DC supports stereo sync currently. I'm not sure there
+>> is
+>> much value in pursuing that.
+> 
+> If stereo sync is not supported, what does setup_stereo_sync() do?
+> 
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index e0c4416993d9..caddb7dfb133 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -1525,8 +1525,8 @@ bool read_is_mst_supported(struct dc_link *link)
- 		return false;
- 	}
- 
--	rev.raw  = 0;
--	cap.raw  = 0;
-+	rev.raw = 0;
-+	cap.raw = 0;
- 
- 	st = core_link_read_dpcd(link, DP_DPCD_REV, &rev.raw,
- 			sizeof(rev));
-@@ -2125,13 +2125,13 @@ void detect_edp_sink_caps(struct dc_link *link)
- 						&backlight_adj_cap, sizeof(backlight_adj_cap));
- 
- 	link->dpcd_caps.dynamic_backlight_capable_edp =
--				(backlight_adj_cap & DP_EDP_DYNAMIC_BACKLIGHT_CAP) ? true:false;
-+				(backlight_adj_cap & DP_EDP_DYNAMIC_BACKLIGHT_CAP) ? true : false;
- 
- 	core_link_read_dpcd(link, DP_EDP_GENERAL_CAP_1,
- 						&general_edp_cap, sizeof(general_edp_cap));
- 
- 	link->dpcd_caps.set_power_state_capable_edp =
--				(general_edp_cap & DP_EDP_SET_POWER_CAP) ? true:false;
-+				(general_edp_cap & DP_EDP_SET_POWER_CAP) ? true : false;
- 
- 	set_default_brightness_aux(link);
- 
--- 
-2.34.1
+My bad. Not sure then. But no objection if you want to explore it.
+
+Harry
+
+>>
+>>>>> diff --git a/drivers/gpu/drm/amd/display/include/signal_types.h
+>>>>> b/drivers/gpu/drm/amd/display/include/signal_types.h
+>>>>> index a10d6b988aab..825a08fcb125 100644
+>>>>> --- a/drivers/gpu/drm/amd/display/include/signal_types.h
+>>>>> +++ b/drivers/gpu/drm/amd/display/include/signal_types.h
+>>>>> @@ -118,6 +118,11 @@ static inline bool dc_is_dvi_signal(enum
+>>>>> signal_type signal)
+>>>>>  	}
+>>>>>  }
+>>>>>  
+>>>>> +static inline bool dc_is_rgb_signal(enum signal_type signal)
+>>
+>> To avoid confusion with people that haven't worked on analog
+>> signals in years (or ever) it might be better to name this
+>> dc_is_analog_signal.
+>>
+>> Harry
+> 
+> Sounds good, I'll rename it in the next version of the series.
+> To further ease the confusion, what do you think about renaming
+> SIGNAL_TYPE_RGB to SIGNAL_TYPE_ANALOG?
+> 
+> Thanks,
+> Timur
+> 
+> 
+>>
+>>>>> +{
+>>>>> +	return (signal == SIGNAL_TYPE_RGB);
+>>>>> +}
+>>>>> +
+>>>>>  static inline bool dc_is_tmds_signal(enum signal_type signal)
+>>>>>  {
+>>>>>  	switch (signal) {
 
