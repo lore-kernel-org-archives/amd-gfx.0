@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1D3BC87FCC
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 09:44:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 600EDC83F17
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 09:44:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4712510E744;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D9B410E745;
 	Thu, 31 Jul 2025 09:44:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WfkwxAZe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DaHN7iJy";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC3C710E260
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 09:44:16 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-3b782cca9a0so568208f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 02:44:16 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B76710E745
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 09:44:18 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4561ed868b5so1702915e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 02:44:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753955055; x=1754559855; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1753955057; x=1754559857; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=O20uDbVY81dZwSqvDtQG4ukhsb4J7rbpMVm451fexdc=;
- b=WfkwxAZebke18xIjzWpqs8o+1LUASK9e15sE99vTA12CVxNZvI+lV8vkTg7Pz0Rmur
- Ei8R9MYqWKN2q2OVT/fQ2paJ3UhUefXl13pQL6h5lLQKwW+wosLHgPyvnVbK7k7apUen
- USxvEPgk0XyqJXy4sBc/Y7z3x2aex7FoURhyDqC6hrQOJ+3BE3RNqRnuKuGX1Pr3zQ1a
- 6OUZ/s5HfhYLByOIo/g2NuvN4MJIgnSYiLFD03sV+ZPLE8DqrEFRrLDAIttwXJl0/XPY
- gBt0scs/+7rX1r5n9nwp8JfZBeVsfEdZ10e6zOgpo556foQmVjF/ACD+o4C2vrld/VOR
- MGEw==
+ bh=18EWQRVjeD48y6J2w9JLfojFWsvNuxCtAypVPakRPuE=;
+ b=DaHN7iJy8WQZ0nsR+mjwb7MJJCKBx7/H0rtyDU7zb4b1kC7XjMIv+AE2gWoYqT0oB+
+ IBUSnxVStO5ZH3t7W4gezcQLuVC3cryp44Zjhc8hCdvDbV2jvMYmQ6JOIVFNf6SZ0NtR
+ W8JYek2EJ5pwHMh1jSlNDhHhKNiM9/wWHTJ7OXW1mcaUo4cIpkODN3cKntD2qoG1VP7x
+ +0/7+69J/LkSNhhGJPOblz8EkUGbbJz8VfJSqJY/K5cGwe6Fr1wPLc5UWu0eKlzd21MB
+ mtzonIltfX6KNgDSWyvgP9HSDjuV3ZYofDxj247KOPzTjuCBS4Plrz7RH2uOci89gHrI
+ UV8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753955055; x=1754559855;
+ d=1e100.net; s=20230601; t=1753955057; x=1754559857;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=O20uDbVY81dZwSqvDtQG4ukhsb4J7rbpMVm451fexdc=;
- b=R1IJrWsRcBM0BI8XSEJcCpKQM1E8bwiuIcRZCQ9MK1QjMxfCRF1mTUM+lnXy3ydJMx
- 8T6rmBKDpsHS1vD8f7JGNbuvpO8vw8E6l6Za7+ERVfUVhaF/cMhqEIWWcdRBYIseKYW2
- 2jjC+e5cXxx85txxbhPoQA8gami6wdQx4rJK+qDm6YQ+EcKQS5omYhdGZVyE+ecseEtS
- QDsAvHoo3qX321f3RKeHRY6OqXqT7WZp+ynRcic6lTI0i0qaZ9aVSvroi627sfqS+ytN
- duFV/V2ScTWjlFKzNk8IO1Gi0QJKYE9qrJP/V3SM6CH3wOlbDyb1BSsVig48JkG0V1qH
- /I4g==
-X-Gm-Message-State: AOJu0YwiVUG6WZgmDOm2AObuaWio1qMx24F8a5qfPp63tUh5WbQCqjPO
- RbDPGqQlA3mEjKkD8Tss2S8SX6apIz0F6wNTz5ponC3vZZnrInfMq2aZOiD+Cw==
-X-Gm-Gg: ASbGncvT6JV8yY53qDTMUIpMS5lSEQ3wnJm8hQhF3sxc2RNMv0EDLUHZfQdnq+nHtK3
- QM1nmVmnGhLc4zOftMVzVCXTAPl8Up1mcZ6ofnhR/fkpbcssPSF9nmwLFLpjj/EnvGa39m1DirZ
- 2Xxyj6FRLqWhfxCMvMLBzf+iHojgKqgvxP2nCk4Xk70GciG/huI1TVmKM4YjIF2SCSX/oVtbyF5
- Q+yQl3V/nKEMMbF0bI/hwSGGhO7cQBjoogRoRrER9uDCRPbxLU6J6AgBy72xvy+XuYev7gXaeFZ
- 8e/nOGX261jj0JgqtD1SSdBU+WpR61zut7tQQD/iYqAkrF25y7tmUMrwwwQaRBO7J8y+xjn6rCF
- ro1gxpqbUmweUR10oGUvQZRupGQfAUqMBaHDsMAcmTQEKR8FfEMQ3Ygm0WH7Gz6b2fpawTu9KOI
- rmQpYzGM4h3AoDtQ11+0OVyCgaz5LgQz+pyEuAWvWz
-X-Google-Smtp-Source: AGHT+IGBufhk05bRGT2D93tlaNROwblBMqkTlIqjIKvd0GSIxJqYovFNoLhuCSzT0+rJ6HupEHG98g==
-X-Received: by 2002:a05:6000:208a:b0:3b7:9d99:c0cc with SMTP id
- ffacd0b85a97d-3b79d99c3bbmr1106833f8f.51.1753955054978; 
- Thu, 31 Jul 2025 02:44:14 -0700 (PDT)
+ bh=18EWQRVjeD48y6J2w9JLfojFWsvNuxCtAypVPakRPuE=;
+ b=kQynjdy5tdmpdajH7apw8xEJg2mnnKZUAdNIznlv90TA99+hRfKD1mP1a6+aThMAIs
+ dkh2v/160mpKCRnJqfBBj6pkQbg7NPTIn2FekKZ+HnE9KJeQJCFrlSLRFgXL7orXw9D8
+ h06IshESJvaS9GcNRteEEIr+G6/UJIkRS/ema6uBSaDkCccLGj7yTirI+GzysWOmfpv2
+ uhCj5X46Qr6KkVup88SUxWXyh+WdDWCb8l/TlhdB+WOT0NEW1xOiJwaM88uGmXG315Il
+ 0gW+fY6BFBSzQECNwmLC4U6FKSB79BvFDtD95CjW6GvvM7HmjnSoJon/I6vVx4JIBHXH
+ w4BA==
+X-Gm-Message-State: AOJu0YykdoG0wcnvDUyjwYUtg1i1yIpKgEFQ+lAkvXLHE1piWaQEaTky
+ PdNOw247Bf8luVKA2k3cECgqX5qZ2SJjHRKrNm6RiSO1NAkUw1dqtnWJOMfiSA==
+X-Gm-Gg: ASbGncvjQfFy8ZKz7nQQok7nz2+CbX495je+zozYDmbgEIbh0ueK9A4TnzsO0pv16e7
+ QjLGcJwh9atd3KynqQQFeoPVERLu2p/wV0IQBN5o60dyzG8YFCiXLsUlCHkcN2hkaX5P9Vag0aT
+ QoB9/0FUIn/M2ngaDHaQrHuv/rT+F94V9HFEKnmZfTtjy/LZpl+tHBm6rRQtd2Rs0YjuZ1HWOZ6
+ UWQrLLAVAJgQU9XK0aljZJMMv18GEUAqfgsPXmZcd8oLIMQ+H2reMKm+PAUenrnuQalXS+06cCV
+ jRV2BAWIVQLclUB5M6Cb1Amv1WI2KneqEIjQ1YROup+vCjMNS5Aga/tuUqQ0jrvMzRJJBpM4H9d
+ DeYz8kow9RgpG/D+8kNY+xMgWZcVm8EGl+cB8AFNeMIjIJoyh29S5732kg+QH6k79Yx8VBrqjMz
+ UetF3mKcj0pUWFRG9div3LcbSTJVmaug==
+X-Google-Smtp-Source: AGHT+IFuqfNxa+s2G/RjsxbaR0pynAjz4G6XgEirlVPPLjBZr6IYW0OYoXX9Un2z/CkeRbbjjJBexg==
+X-Received: by 2002:a05:600c:3e8f:b0:456:201a:99f with SMTP id
+ 5b1f17b1804b1-45892bc022bmr62866745e9.18.1753955056969; 
+ Thu, 31 Jul 2025 02:44:16 -0700 (PDT)
 Received: from Timur-Hyperion
  (20014C4E24DDB700267C66B850A0E369.dsl.pool.telekom.hu.
  [2001:4c4e:24dd:b700:267c:66b8:50a0:e369])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4589536b3b4sm58252835e9.3.2025.07.31.02.44.13
+ 5b1f17b1804b1-4589536b3b4sm58252835e9.3.2025.07.31.02.44.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Jul 2025 02:44:13 -0700 (PDT)
+ Thu, 31 Jul 2025 02:44:15 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 1/7] drm/amd/display: Don't overclock DCE 6 by 15%
-Date: Thu, 31 Jul 2025 11:43:46 +0200
-Message-ID: <20250731094352.29528-2-timur.kristof@gmail.com>
+Subject: [PATCH 2/7] drm/amd/display: Adjust DCE 8-10 clock,
+ don't overclock by 15%
+Date: Thu, 31 Jul 2025 11:43:47 +0200
+Message-ID: <20250731094352.29528-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250731094352.29528-1-timur.kristof@gmail.com>
 References: <20250731094352.29528-1-timur.kristof@gmail.com>
@@ -89,28 +90,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Adjust the nominal (and performance) clocks for DCE 8-10,
+and set them to 625 MHz, which is the value used by the legacy
+display code in amdgpu_atombios_get_clock_info.
+
+This was tested with Hawaii, Tonga and Fiji.
+These GPUs can output 4K 60Hz (10-bit depth) at 625 MHz.
+
 The extra 15% clock was added as a workaround for a Polaris issue
-which uses DCE 11, and should not have been used on DCE 6 which
-is already hardcoded to the highest possible display clock.
+which uses DCE 11, and should not have been used on DCE 8-10 which
+are already hardcoded to the highest possible display clock.
 Unfortunately, the extra 15% was mistakenly copied and kept
 even on code paths which don't affect Polaris.
 
-This commit fixes that and also adds a check to make sure
-not to exceed the maximum DCE 6 display clock.
+This commit fixes that and also	adds a check to	make sure
+not to exceed the maximum DCE 8-10 display clock.
 
 Fixes: 8cd61c313d8b ("drm/amd/display: Raise dispclk value for Polaris")
 Fixes: dc88b4a684d2 ("drm/amd/display: make clk mgr soc specific")
-Fixes: 3ecb3b794e2c ("drm/amd/display: dc/clk_mgr: add support for SI parts (v2)")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- .../gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c  | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
-index 0267644717b2..cfd7309f2c6a 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
-@@ -123,11 +123,9 @@ static void dce60_update_clocks(struct clk_mgr *clk_mgr_base,
+x
+---
+ .../drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+index 26feefbb8990..69e9540f553b 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+@@ -72,9 +72,9 @@ static const struct state_dependent_clocks dce80_max_clks_by_state[] = {
+ /* ClocksStateLow */
+ { .display_clk_khz = 352000, .pixel_clk_khz = 330000},
+ /* ClocksStateNominal */
+-{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 },
++{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 },
+ /* ClocksStatePerformance */
+-{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 } };
++{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 } };
+ 
+ int dentist_get_divider_from_did(int did)
+ {
+@@ -400,11 +400,9 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr_base,
  {
  	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
  	struct dm_pp_power_level_change_request level_change_req;
