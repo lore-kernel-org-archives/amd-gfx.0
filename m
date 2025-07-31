@@ -4,65 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E8F9C87FD9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E928C87FDB
 	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 07:24:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5002110E711;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69BB210E72A;
 	Thu, 31 Jul 2025 07:24:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nfraprado@collabora.com header.b="RSWTzA4Q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LYFKgB32";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 874A810E387;
- Wed, 30 Jul 2025 21:42:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1753911753; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ZUq4TMpmPLGCyyUN7vfBqrygD0X+BuKEPoWTDoreS4mYfiUv4ixBQOHmVuaOLd7kbXa6Hx/WsAF7AdGUWIJtBK+oKl8CFl4np5EVHte8w64gKhS00B8NzQFstRVmpnap74h3TmQMX3nvHTNyQInuTg4xeVp+klDdEqU7PPkULOk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1753911753;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=tDwqJNnbeCGx3m5FbRR2/yW5Q9kGf4UwpcQNheNkTlo=; 
- b=fkBRZG5k8wPnL/gwSDlKcMh3v8ewh3I9iVs3crjezs3K+WNZFZ+M2F/dajef1NlK3GiClKKM8AWJZw4Utyu9zz2qbjZ1VE/IDbM7ltRSdf5eJOIPcnlHsNmG0/rZKzd3luSAlAzETx0P2dafL9PTDc+ZjoLcVItyz/Cug63Oz2o=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nfraprado@collabora.com;
- dmarc=pass header.from=<nfraprado@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1753911753; 
- s=zohomail; d=collabora.com; i=nfraprado@collabora.com;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=tDwqJNnbeCGx3m5FbRR2/yW5Q9kGf4UwpcQNheNkTlo=;
- b=RSWTzA4Qv+Lxrqd54eLeEr5oUZjZWiSjCuBoxXV527Lz5phCYSZi1SqHMXhOUUeo
- SXiTkFatVjZiLIFZ8h/1sX2/nc/yFXHcgzYh2+Sp9R7f6W/UPifQpCxQFs4foqGdVMc
- kpUCo1oIo+BK8FpH8mvzo0rc9p8sQ/xdOYf0o9U0=
-Received: by mx.zohomail.com with SMTPS id 17539117502288.545850020648345;
- Wed, 30 Jul 2025 14:42:30 -0700 (PDT)
-Message-ID: <9183e2effaf17f7d98fbb4f18d1c8e502d8f20e4.camel@collabora.com>
-Subject: Re: [PATCH V10 18/46] drm/vkms: add 3x4 matrix in color pipeline
-From: =?ISO-8859-1?Q?N=EDcolas?= "F. R. A. Prado" <nfraprado@collabora.com>
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com, 
- leo.liu@amd.com, ville.syrjala@linux.intel.com,
- pekka.paalanen@collabora.com, 	contact@emersion.fr, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, 	shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, 
- aleixpol@kde.org, xaver.hugl@gmail.com, victoria@system76.com,
- daniel@ffwll.ch, 	uma.shankar@intel.com, quic_naseer@quicinc.com,
- quic_cbraga@quicinc.com, 	quic_abhinavk@quicinc.com, marcan@marcan.st,
- Liviu.Dudau@arm.com, 	sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, 	louis.chauvet@bootlin.com,
- arthurgrillo@riseup.net, Daniel Stone	 <daniels@collabora.com>
-Date: Wed, 30 Jul 2025 17:42:20 -0400
-In-Reply-To: <20250617041746.2884343-19-alex.hung@amd.com>
-References: <20250617041746.2884343-1-alex.hung@amd.com>
- <20250617041746.2884343-19-alex.hung@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.1-1 
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA3810E702;
+ Thu, 31 Jul 2025 05:36:51 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-3a54700a46eso265860f8f.1; 
+ Wed, 30 Jul 2025 22:36:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1753940210; x=1754545010; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=c1dd0Ga2iTCujV4ta9gqgLx9Y4mluBxA0AcKr2gNUmQ=;
+ b=LYFKgB32r4n/ypTJVElUxt8NzhZ86zOmT6XDEHjhtnviLj10ukKtJAHSTmjDkjT6E+
+ D8/hrEURRSc/HJ2YCRp4+QqVQGmT2/JjdAAKRB7c+d2M0IuHqAjtunMXYF47a2L3Ey+2
+ 1BHMcJJ8FyHzzTG7+2/jTJ5xnElJ/q8Zi9TX89spKfC+O2idRGXpt4tEnx/AIseW2z2F
+ hpcA4zYz271Y/n9iGG6z2tzBPH0UXNsGg9kGwTe1RBL7Uc0tm9eMlh4gRCWnR8yAvjmG
+ T7VimEOHMOVkL5wj5XbdGbex9159eOSbpzdLIt98735mYpJaYs5lQ8PW6fB1VXgwBJTZ
+ 7yUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753940210; x=1754545010;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=c1dd0Ga2iTCujV4ta9gqgLx9Y4mluBxA0AcKr2gNUmQ=;
+ b=knt/Gj6IeknNZC4u2vZAPsFsMmq0fsi835QvmjFSPl1l6LqlTU2RnpKrG7L2YGvaMT
+ yUJzlS56p4e5zyi6WjdlVTBYRLGQrhMnkBL4UMBXGez7bWUjGtPEl2iopVXWcxPLo0UE
+ Fdde9H5x/pxG5SeS6cdi8X0w2EHecplcoWsT14KuU5tDZbqT+V/U2aEWlqvEkXlrVLdf
+ +4rLiaZCFCtQLK7x5eUCjYeDG15vZxUEfX3Km5T/V7YYotzY98cFJhwU/6uP3/tMikOQ
+ PEs2gRXUQv1z+g1vxRjDZqcbiBGOQqAO2HjaNylnIR3o0knRKec3cKNqlVnTjX43cpkT
+ M6+A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV+Nb8iRO7myWRNnJXJucT77GRdnPcoG/fKMUKeGfBsG70ZmBmMY3KopsMZ+A/MnTtczGUUuFBCBk8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZ2X14AMpK99O5W4mlHwwPZOKfHumIbTaRjZJlaza0zYh6ARho
+ AMKrANbChmuHrtVdb/+R+sowz2uaI+I6/zgXV2ViC+yqdRKB9MYL47Qq
+X-Gm-Gg: ASbGncv59wwTHwLUvxcPt/FfdLoVNvUDcwzo9+y1RN+Oa3XXIjyPp3F67NvYzeQGKlq
+ GafndNQVulYKyZg4/nqflzWDR2fTkKKIBhVMwxlBjEJcTad25ExA2rlTypvRo/RlQHOerwVfqvj
+ SSLtY/WHyLDsTNWjDXKIbxUE+OLYIGzJhlnUi14wm2sMdljLWn9ffFM+GRcLQmtl5K5r+ORmYhy
+ 09HGwC2aWhQC8hj/itZjIDiF/Uk99/0k8bJ85rxBZ/36GO3cUL8CJxnYC9omb0SWGUXsL2CzGIQ
+ lMrZECxKazCrCHkydSeiMMqy1g/4hTspj0quNExpEzhPyFKJ13RhgBMw2qaOgKp0MqWsoE8YOwY
+ vfbJIgu3u0yENG4zn9eNJ1uUClCzpmpKlOoCHhqoVoBmhUKD6fXcggASM43u/
+X-Google-Smtp-Source: AGHT+IGlIhfe1+ha/9LeqXoxdlGCP3fC0KLx/czzY6T8qRlm4KfCZ4cgQx6QeotUnn1aepuzecDbCQ==
+X-Received: by 2002:a05:6000:288a:b0:3b7:9477:f4ad with SMTP id
+ ffacd0b85a97d-3b794fe92c2mr4075356f8f.36.1753940209428; 
+ Wed, 30 Jul 2025 22:36:49 -0700 (PDT)
+Received: from [192.168.1.205]
+ (dynamic-176-005-138-071.176.5.pool.telefonica.de. [176.5.138.71])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-3b79c3ac093sm1149137f8f.9.2025.07.30.22.36.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Jul 2025 22:36:48 -0700 (PDT)
+From: Philipp Zabel <philipp.zabel@gmail.com>
+Date: Thu, 31 Jul 2025 07:36:37 +0200
+Subject: [PATCH RFC 4/6] drm/amdgpu: don't wake up the GPU for some
+ AMDGPU_INFO queries
 MIME-Version: 1.0
-X-ZohoMailClient: External
-X-ZohoMail-Owner: <9183e2effaf17f7d98fbb4f18d1c8e502d8f20e4.camel@collabora.com>+zmo_0_nfraprado@collabora.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250731-b4-dont-wake-next-v1-4-e51bdc347fa3@gmail.com>
+References: <20250731-b4-dont-wake-next-v1-0-e51bdc347fa3@gmail.com>
+In-Reply-To: <20250731-b4-dont-wake-next-v1-0-e51bdc347fa3@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Philipp Zabel <philipp.zabel@gmail.com>
+X-Mailer: b4 0.15-dev-a9b2a
 X-Mailman-Approved-At: Thu, 31 Jul 2025 07:24:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,106 +94,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-06-16 at 22:17 -0600, Alex Hung wrote:
-> From: Harry Wentland <harry.wentland@amd.com>
->=20
-> We add two 3x4 matrices into the VKMS color pipeline. The reason
-> we're adding matrices is so that we can test that application
-> of a matrix and its inverse yields an output equal to the input
-> image.
->=20
-> One complication with the matrix implementation has to do with
-> the fact that the matrix entries are in signed-magnitude fixed
-> point, whereas the drm_fixed.h implementation uses 2s-complement.
-> The latter one is the one that we want for easy addition and
-> subtraction, so we convert all entries to 2s-complement.
->=20
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
-> ---
-> V9:
-> =C2=A0- Update function names by _plane_ (Chaitanya Kumar Borah)
->=20
-> v8:
-> =C2=A0- Replace DRM_ERROR with drm_err (Louis Chauvet)
->=20
-> v7:
-> =C2=A0- Fix checkpatch warnings
-> =C2=A0 - Change kzalloc(sizeof(struct drm_colorop) ...) to
-> kzalloc(sizeof(*ops[i]) ...)
-> =C2=A0 - Change i-1to i - 1
-> =C2=A0 - Add a new line at EOF
->=20
-> v6:
-> =C2=A0- pre-compute colors (Louis Chauvet)
-> =C2=A0- round matrix output (Louis Chauvet)
->=20
-> =C2=A0drivers/gpu/drm/vkms/vkms_colorop.c=C2=A0 | 34
-> +++++++++++++++++++++++++++-
-> =C2=A0drivers/gpu/drm/vkms/vkms_composer.c | 33
-> +++++++++++++++++++++++++++
-> =C2=A02 files changed, 66 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c
-> b/drivers/gpu/drm/vkms/vkms_colorop.c
-> index 2fb74b2bd001..70be35804ea9 100644
-> --- a/drivers/gpu/drm/vkms/vkms_colorop.c
-> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
-> @@ -12,7 +12,7 @@ static const u64 supported_tfs =3D
-> =C2=A0	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
-> =C2=A0	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF);
-> =C2=A0
-> -#define MAX_COLOR_PIPELINE_OPS 2
-> +#define MAX_COLOR_PIPELINE_OPS 4
-> =C2=A0
-> =C2=A0static int vkms_initialize_color_pipeline(struct drm_plane *plane,
-> struct drm_prop_enum_list *list)
-> =C2=A0{
-> @@ -48,6 +48,38 @@ static int vkms_initialize_color_pipeline(struct
-> drm_plane *plane, struct drm_pr
-> =C2=A0		goto cleanup;
-> =C2=A0	}
-> =C2=A0
+Don't wake the GPU if the AMDGPU_INFO query doesn't need to power up the
+GPU.
 
-This should also update the comment above as it still says "2nd op: 1d
-curve", but 2nd op is now a 3x4 matrix.
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2295
+Signed-off-by: Philipp Zabel <philipp.zabel@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 59 +++++++++++++++++++++++++++------
+ 2 files changed, 49 insertions(+), 11 deletions(-)
 
---=20
-Thanks,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 732f398922da5..79d31ac6a7b37 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2961,6 +2961,7 @@ static const unsigned int no_wake_ioctl_list[] = {
+ 	DRM_IOCTL_MODE_LIST_LESSEES,
+ 	DRM_IOCTL_MODE_GET_LEASE,
+ 	DRM_IOCTL_MODE_REVOKE_LEASE,
++	DRM_IOCTL_AMDGPU_INFO,
+ };
+ 
+ long amdgpu_drm_ioctl(struct file *filp,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 190602bacbcdf..fe1347a4075c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -732,7 +732,17 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
+ 	}
+ 	case AMDGPU_INFO_TIMESTAMP:
++		ret = pm_runtime_get_sync(dev->dev);
++		if (ret < 0) {
++			pm_runtime_put_autosuspend(dev->dev);
++			return ret;
++		}
++
+ 		ui64 = amdgpu_gfx_get_gpu_clock_counter(adev);
++
++		pm_runtime_mark_last_busy(dev->dev);
++		pm_runtime_put_autosuspend(dev->dev);
++
+ 		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
+ 	case AMDGPU_INFO_FW_VERSION: {
+ 		struct drm_amdgpu_info_firmware fw_info;
+@@ -873,6 +883,12 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 
+ 		alloc_size = info->read_mmr_reg.count * sizeof(*regs);
+ 
++		ret = pm_runtime_get_sync(dev->dev);
++		if (ret < 0) {
++			pm_runtime_put_autosuspend(dev->dev);
++			goto out;
++		}
++
+ 		amdgpu_gfx_off_ctrl(adev, false);
+ 		for (i = 0; i < info->read_mmr_reg.count; i++) {
+ 			if (amdgpu_asic_read_register(adev, se_num, sh_num,
+@@ -882,11 +898,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 					      info->read_mmr_reg.dword_offset + i);
+ 				kfree(regs);
+ 				amdgpu_gfx_off_ctrl(adev, true);
++				pm_runtime_mark_last_busy(dev->dev);
++				pm_runtime_put_autosuspend(dev->dev);
+ 				ret = -EFAULT;
+ 				goto out;
+ 			}
+ 		}
+ 		amdgpu_gfx_off_ctrl(adev, true);
++		pm_runtime_mark_last_busy(dev->dev);
++		pm_runtime_put_autosuspend(dev->dev);
++
+ 		n = copy_to_user(out, regs, min(size, alloc_size));
+ 		kfree(regs);
+ 		ret = (n ? -EFAULT : 0);
+@@ -912,7 +933,8 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		dev_info->num_shader_arrays_per_engine = adev->gfx.config.max_sh_per_se;
+ 		/* return all clocks in KHz */
+ 		dev_info->gpu_counter_freq = adev->clock.xclk * 10;
+-		if (adev->pm.dpm_enabled) {
++		ret = pm_runtime_get_if_active(dev->dev);
++		if (ret == 1 && adev->pm.dpm_enabled) {
+ 			dev_info->max_engine_clock = amdgpu_dpm_get_sclk(adev, false) * 10;
+ 			dev_info->max_memory_clock = amdgpu_dpm_get_mclk(adev, false) * 10;
+ 			dev_info->min_engine_clock = amdgpu_dpm_get_sclk(adev, true) * 10;
+@@ -925,6 +947,10 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 				dev_info->min_memory_clock =
+ 					adev->clock.default_mclk * 10;
+ 		}
++		if (ret == 1) {
++			pm_runtime_mark_last_busy(dev->dev);
++			pm_runtime_put_autosuspend(dev->dev);
++		}
+ 		dev_info->enabled_rb_pipes_mask = adev->gfx.config.backend_enable_mask;
+ 		dev_info->num_rb_pipes = adev->gfx.config.max_backends_per_se *
+ 			adev->gfx.config.max_shader_engines;
+@@ -1125,13 +1151,19 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		if (!adev->pm.dpm_enabled)
+ 			return -ENOENT;
+ 
++		ret = pm_runtime_get_sync(dev->dev);
++		if (ret < 0) {
++			pm_runtime_put_autosuspend(dev->dev);
++			return ret;
++		}
++
+ 		switch (info->sensor_info.type) {
+ 		case AMDGPU_INFO_SENSOR_GFX_SCLK:
+ 			/* get sclk in Mhz */
+ 			if (amdgpu_dpm_read_sensor(adev,
+ 						   AMDGPU_PP_SENSOR_GFX_SCLK,
+ 						   (void *)&ui32, &ui32_size)) {
+-				return -EINVAL;
++				ret = -EINVAL;
+ 			}
+ 			ui32 /= 100;
+ 			break;
+@@ -1140,7 +1172,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			if (amdgpu_dpm_read_sensor(adev,
+ 						   AMDGPU_PP_SENSOR_GFX_MCLK,
+ 						   (void *)&ui32, &ui32_size)) {
+-				return -EINVAL;
++				ret = -EINVAL;
+ 			}
+ 			ui32 /= 100;
+ 			break;
+@@ -1149,7 +1181,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			if (amdgpu_dpm_read_sensor(adev,
+ 						   AMDGPU_PP_SENSOR_GPU_TEMP,
+ 						   (void *)&ui32, &ui32_size)) {
+-				return -EINVAL;
++				ret = -EINVAL;
+ 			}
+ 			break;
+ 		case AMDGPU_INFO_SENSOR_GPU_LOAD:
+@@ -1157,7 +1189,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			if (amdgpu_dpm_read_sensor(adev,
+ 						   AMDGPU_PP_SENSOR_GPU_LOAD,
+ 						   (void *)&ui32, &ui32_size)) {
+-				return -EINVAL;
++				ret = -EINVAL;
+ 			}
+ 			break;
+ 		case AMDGPU_INFO_SENSOR_GPU_AVG_POWER:
+@@ -1169,7 +1201,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 				if (amdgpu_dpm_read_sensor(adev,
+ 							   AMDGPU_PP_SENSOR_GPU_INPUT_POWER,
+ 							   (void *)&ui32, &ui32_size)) {
+-					return -EINVAL;
++					ret = -EINVAL;
+ 				}
+ 			}
+ 			ui32 >>= 8;
+@@ -1188,7 +1220,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			if (amdgpu_dpm_read_sensor(adev,
+ 						   AMDGPU_PP_SENSOR_VDDNB,
+ 						   (void *)&ui32, &ui32_size)) {
+-				return -EINVAL;
++				ret = -EINVAL;
+ 			}
+ 			break;
+ 		case AMDGPU_INFO_SENSOR_VDDGFX:
+@@ -1196,7 +1228,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			if (amdgpu_dpm_read_sensor(adev,
+ 						   AMDGPU_PP_SENSOR_VDDGFX,
+ 						   (void *)&ui32, &ui32_size)) {
+-				return -EINVAL;
++				ret = -EINVAL;
+ 			}
+ 			break;
+ 		case AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK:
+@@ -1204,7 +1236,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			if (amdgpu_dpm_read_sensor(adev,
+ 						   AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK,
+ 						   (void *)&ui32, &ui32_size)) {
+-				return -EINVAL;
++				ret = -EINVAL;
+ 			}
+ 			ui32 /= 100;
+ 			break;
+@@ -1213,7 +1245,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			if (amdgpu_dpm_read_sensor(adev,
+ 						   AMDGPU_PP_SENSOR_STABLE_PSTATE_MCLK,
+ 						   (void *)&ui32, &ui32_size)) {
+-				return -EINVAL;
++				ret = -EINVAL;
+ 			}
+ 			ui32 /= 100;
+ 			break;
+@@ -1238,8 +1270,13 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		default:
+ 			DRM_DEBUG_KMS("Invalid request %d\n",
+ 				      info->sensor_info.type);
+-			return -EINVAL;
++			ret = -EINVAL;
++			break;
+ 		}
++		pm_runtime_mark_last_busy(dev->dev);
++		pm_runtime_put_autosuspend(dev->dev);
++		if (ret < 0)
++			return ret;
+ 		return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
+ 	}
+ 	case AMDGPU_INFO_VRAM_LOST_COUNTER:
 
-N=C3=ADcolas
+-- 
+2.50.1
 
-> +	ret =3D drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	drm_colorop_set_next_property(ops[i - 1], ops[i]);
-> +
-> +	i++;
-> +
-> +	/* 3rd op: 3x4 matrix */
-> +	ops[i] =3D kzalloc(sizeof(*ops[i]), GFP_KERNEL);
-> +	if (!ops[i]) {
-> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
-> +		ret =3D -ENOMEM;
-> +		goto cleanup;
-> +	}
-> +
-> +	ret =3D drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	drm_colorop_set_next_property(ops[i - 1], ops[i]);
-> +
-> +	i++;
-> +
-> +	/* 4th op: 1d curve */
-> +	ops[i] =3D kzalloc(sizeof(*ops[i]), GFP_KERNEL);
-> +	if (!ops[i]) {
-> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
-> +		ret =3D -ENOMEM;
-> +		goto cleanup;
-> +	}
-> +
