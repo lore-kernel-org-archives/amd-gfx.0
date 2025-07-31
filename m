@@ -4,56 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B343C87FCB
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 13:29:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37ABBC87FCA
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 13:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D890310E84B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC57910E84D;
 	Fri,  1 Aug 2025 13:29:30 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AE6610E7F8
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 22:49:54 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-3b780bdda21so166150f8f.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 15:49:54 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1095510E042;
+ Thu, 31 Jul 2025 15:17:37 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4538bc52a8dso4829395e9.2; 
+ Thu, 31 Jul 2025 08:17:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754002193; x=1754606993;
+ d=1e100.net; s=20230601; t=1753975055; x=1754579855;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Wc9ek6aaVKonfIPjNqyESsyoNzdJmvCzdh+JBlfPVC4=;
- b=jIAxYhsmEXSflJLo258IsVj1k6cIscE0bLIUvSQcFP58zq3geymkl+jXqAUaXZIsOS
- rZCMIFXz6hUYMPdgBE6r2h1fut8qg8AvqzAocAgn6mwWRHoHlNk4SL43lf5Me2sB50fg
- fNeSJ+GFmZV/ndUk7aXXV6jt8BiTdvx+7kdlIrkCP5n/dEYgTjyTlM0YbiHob6ar76dF
- FnAhpKlGCLRwE0gqRGXxYtN+x9J0Zeos5mqxTfJiv73huDDoUNMyS+bZYPDGkH4IFjwT
- TvG2Vd6dJBED4Eb4KsLC5PsbNdrTBnWU8gkFtviquVYAzUOa56MEF/K3GQCZiE7zPsrY
- uKEQ==
-X-Gm-Message-State: AOJu0YzN6bRJ7naTWWJABQkf6XTrt72J30sO/JiCJxJzWOTjuzv3N4NX
- nIe98Q5OPBirNtPInj2ax41sC/4oTwC53aTdzFhoH2wyat92b/isA2+XOETLVEX4/W8=
-X-Gm-Gg: ASbGncvGWGB7ImgvyGDucFkBJon9Fof9wBf9jWv3YjNzsFLJhOYJzi9AbgKEup11ygH
- eHkZJWZ7biGVEd8EupHBJn+hlWw7AtEuiLktkhdJ/VYJojlocH/HXGlvkGypz7rUcmRPOPFQ+lI
- 6ppyi8fMhhvdi1segaDgXFQJx8pgq+BNACnE1++cEI9qn1Fclnua+NArvBA1wIIwAiRJnXhrly6
- Z1RrR7sJWifA+B8I/0EfOhjerrQJjLtho2/QAkFKbs7ujoAE8eooNfL+kUMUHwoSokQUuZR+jS8
- m8JFuE06AzIL5aVfeN17v4pHHMv44i8Hy2PH5UanIV64amgjojp0a213uc0kAamob8hs3kth80J
- ccKgJsgY16OkBXTUzpum9J44Xpty2xWV23jfkCABdQIAF
-X-Google-Smtp-Source: AGHT+IH/QRfHUl0ze+TBD94j9NRq5TgwFo4oY5S1WrliB480E7I6ymna+pJOU1WNQcbWSpmQ/ifiSw==
-X-Received: by 2002:a05:6000:2585:b0:3b7:8b1b:a9d5 with SMTP id
- ffacd0b85a97d-3b795018812mr6881190f8f.51.1754002193375; 
- Thu, 31 Jul 2025 15:49:53 -0700 (PDT)
+ bh=vG9n71NDhvvhpS5AF7y2C5d06t++b4vuCCmviXKpMXI=;
+ b=HTMFOK71smMdI/lOXNi/Hr4ktK+TaIG6ZsEvt3KTXidDR46uEP3nMcNI4Zips7eOQc
+ EGSsaBDvhKNQcqSVrrkkis+QeaC9XUpdtMze4oeXFKR8I6VgqhI8YhuPwwyiwNkvWckq
+ S68sWOcbA1EAgy2V7kvq6ElD9EcH52cpstes6R2vpaLKud5UFNG6JrjA5YJZC9ixuW18
+ XN/fQJEfbgQ9ayhVzbFYXB+NT641x5yOc7DMg+bDGS3NmaUjDOmMnWHa8x6onCfdQns+
+ BCrHS3/A2AZdgWAmvgKf6xylktUpptjihKBxAT2SUgygcajhCKlyW2nu7mgZ318Txzok
+ JRXg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUx+MifmkeI2PzBlChJrRYOL3doFB+LlqLPoqS76adkRz4EQyH6ntmGyEbk2efnSUXEOcE+8IpTgb3/@lists.freedesktop.org,
+ AJvYcCXyypwoXs1QbHM1ekwLWv/ij6W/NN6WmjLtGmhQOJooJy9bkFpGliyDRSLi4R8jkg7RMQ9hiyJw@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzo+WXHTXvY3q7O0a5YkCLvatDp4RmHno5dQ/yFulA6DatMWFqt
+ g/v7F6W5M6kUF7eByOMAdxbS8u5tiixo6o+mX7wCWTAV0XJFuKIpVXJe0K6cg8vKn90=
+X-Gm-Gg: ASbGncuAXSwWVPA2VCSvjf2UL9TZqWbQ4mfMsN8xBdnEawsM/1rgYFrJ/Qg4wrCJTtf
+ fXQrIeuTegwB2TdhM5pMCKRYn+Tv0P6cuKvp8QSs/htGrU2br47gHqtzp2mycZJ/V8DiJGdr6jL
+ qVNKtDpWvhpnw3oP4Dbv+/YGpqtCpQpmMNNV0P/SRHzcaSxjg/unpA3HiAcYlawdXiKLroYFd2Y
+ JuExHzKcbmjP/XPtlWCxrK1SPif/wtOzqy2NHRJCDtfnEp64th/0kYdl9akiQiXXQEOYB9ooHXn
+ M0u3L2f6CLJyPpDvuy4a7xteuZWoLe1hdwZAybwb94VPW5k5F+SsjmnugGdgiP7H/Lr7c7Rf+zR
+ gAX8xmEj3HUydyg14MEr297RjO5A0s/KE9+kqW9nf9Hiv
+X-Google-Smtp-Source: AGHT+IFLGMykw8L7Mi6+jHo4qQa+KzbEszEWWNjWZr6/HQ6oWJ9JrG/AadoKcKApGnU4fzd7e0ti+Q==
+X-Received: by 2002:a05:600c:1da8:b0:456:1006:5415 with SMTP id
+ 5b1f17b1804b1-45892b92eb2mr65403925e9.6.1753975055303; 
+ Thu, 31 Jul 2025 08:17:35 -0700 (PDT)
 Received: from xavers-framework.fritz.box
  ([2a04:7d84:aac9:db50:f8c3:4ba6:f1c6:fef5])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c469582sm3692560f8f.52.2025.07.31.15.49.52
+ 5b1f17b1804b1-4589ee4f089sm33092425e9.20.2025.07.31.08.17.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Jul 2025 15:49:52 -0700 (PDT)
+ Thu, 31 Jul 2025 08:17:34 -0700 (PDT)
 From: Xaver Hugl <xaver.hugl@kde.org>
-To: amd-gfx@lists.freedesktop.org
-Cc: xaver.hugl@kde.org,
-	alexdeucher@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] amdgpu/amdgpu_discovery: increase timeout limit for IFWI init
-Date: Fri,  1 Aug 2025 00:49:51 +0200
-Message-ID: <20250731224951.8631-1-xaver.hugl@kde.org>
+To: dri-devel@lists.freedesktop.org
+Cc: xaver.hugl@kde.org, andrealmeid@igalia.com, chris@kode54.net,
+ naveen1.kumar@intel.com, ville.syrjala@linux.intel.com,
+ mdaenzer@redhat.com, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, alexdeucher@gmail.com,
+ arun.r.murthy@intel.com
+Subject: [PATCH v2] drm: don't run atomic_async_check for disabled planes
+Date: Thu, 31 Jul 2025 17:17:32 +0200
+Message-ID: <20250731151732.9295-1-xaver.hugl@kde.org>
 X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -72,39 +77,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With a timeout of only 1 second, my rx 5700XT fails to initialize,
-so this increases the timeout to 2s.
+It's entirely valid and correct for compositors to include disabled
+planes in the atomic commit, and doing that should not prevent async
+flips from working. To fix that, this commit moves the plane check
+to after all the properties of the object have been set, and skips
+the async checks if the plane was and still is not visible.
 
-Closes https://gitlab.freedesktop.org/drm/amd/-/issues/3697
+Fixes: fd40a63c drm/atomic (Let drivers decide which planes to async flip)
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4263
 
 Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
-Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_atomic_uapi.c   | 51 +++++++++++++++++++----------
+ drivers/gpu/drm/drm_crtc_internal.h |  3 +-
+ drivers/gpu/drm/drm_mode_object.c   |  3 +-
+ 3 files changed, 38 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 6d34eac0539d..ae6908b57d78 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -275,7 +275,7 @@ static int amdgpu_discovery_read_binary_from_mem(struct amdgpu_device *adev,
- 	int i, ret = 0;
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index c2726af6698e..df298ac49dcd 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1011,7 +1011,8 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 			    struct drm_mode_object *obj,
+ 			    struct drm_property *prop,
+ 			    u64 prop_value,
+-			    bool async_flip)
++			    bool async_flip,
++			    bool *needs_async_plane_check)
+ {
+ 	struct drm_mode_object *ref;
+ 	u64 old_val;
+@@ -1068,7 +1069,6 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 		struct drm_plane *plane = obj_to_plane(obj);
+ 		struct drm_plane_state *plane_state;
+ 		struct drm_mode_config *config = &plane->dev->mode_config;
+-		const struct drm_plane_helper_funcs *plane_funcs = plane->helper_private;
  
- 	if (!amdgpu_sriov_vf(adev)) {
--		/* It can take up to a second for IFWI init to complete on some dGPUs,
-+		/* It can take up to two seconds for IFWI init to complete on some dGPUs,
- 		 * but generally it should be in the 60-100ms range.  Normally this starts
- 		 * as soon as the device gets power so by the time the OS loads this has long
- 		 * completed.  However, when a card is hotplugged via e.g., USB4, we need to
-@@ -283,7 +283,7 @@ static int amdgpu_discovery_read_binary_from_mem(struct amdgpu_device *adev,
- 		 * continue.
- 		 */
+ 		plane_state = drm_atomic_get_plane_state(state, plane);
+ 		if (IS_ERR(plane_state)) {
+@@ -1084,22 +1084,14 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 				ret = drm_atomic_plane_get_property(plane, plane_state,
+ 								    prop, &old_val);
+ 				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
++				if (ret)
++				    break;
+ 			}
  
--		for (i = 0; i < 1000; i++) {
-+		for (i = 0; i < 2000; i++) {
- 			msg = RREG32(mmMP0_SMN_C2PMSG_33);
- 			if (msg & 0x80000000)
- 				break;
+-			/* ask the driver if this non-primary plane is supported */
+-			if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
+-				ret = -EINVAL;
+-
+-				if (plane_funcs && plane_funcs->atomic_async_check)
+-					ret = plane_funcs->atomic_async_check(plane, state, true);
+-
+-				if (ret) {
+-					drm_dbg_atomic(prop->dev,
+-						       "[PLANE:%d:%s] does not support async flips\n",
+-						       obj->id, plane->name);
+-					break;
+-				}
+-			}
++			/* Need to ask the driver if this non-primary plane is supported.
++			 * Note that this can't happen here, as the full state of the plane
++			 * is not known yet */
++			*needs_async_plane_check |= plane->type != DRM_PLANE_TYPE_PRIMARY;
+ 		}
+ 
+ 		ret = drm_atomic_plane_set_property(plane,
+@@ -1394,6 +1386,10 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	int ret = 0;
+ 	unsigned int i, j, num_fences;
+ 	bool async_flip = false;
++	bool needs_async_plane_check = false;
++	struct drm_plane *plane;
++	struct drm_plane_state *old_plane_state;
++	struct drm_plane_state *new_plane_state;
+ 
+ 	/* disallow for drivers not supporting atomic: */
+ 	if (!drm_core_check_feature(dev, DRIVER_ATOMIC))
+@@ -1450,6 +1446,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	copied_props = 0;
+ 	fence_state = NULL;
+ 	num_fences = 0;
++	needs_async_plane_check = false;
+ 
+ 	for (i = 0; i < arg->count_objs; i++) {
+ 		uint32_t obj_id, count_props;
+@@ -1512,7 +1509,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 			}
+ 
+ 			ret = drm_atomic_set_property(state, file_priv, obj,
+-						      prop, prop_value, async_flip);
++						      prop, prop_value, async_flip,
++						      &needs_async_plane_check);
+ 			if (ret) {
+ 				drm_mode_object_put(obj);
+ 				goto out;
+@@ -1521,6 +1519,25 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 			copied_props++;
+ 		}
+ 
++		if (needs_async_plane_check) {
++			plane = obj_to_plane(obj);
++			old_plane_state = drm_atomic_get_old_plane_state(state, plane);
++			new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++			/* only do the check if the plane was or is enabled */
++			if (old_plane_state->visible || new_plane_state->visible)
++			    ret = -EINVAL;
++			if (ret &&
++			    plane->helper_private &&
++			    plane->helper_private->atomic_async_check) {
++				ret = plane->helper_private->atomic_async_check(plane, state, true);
++			}
++			if (ret) {
++				drm_dbg_atomic(dev, "[PLANE:%d:%s] does not support async flips\n",
++						obj->id, plane->name);
++				break;
++			}
++		}
++
+ 		drm_mode_object_put(obj);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index 89706aa8232f..111907a55d9b 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -260,7 +260,8 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 			    struct drm_file *file_priv,
+ 			    struct drm_mode_object *obj,
+ 			    struct drm_property *prop,
+-			    u64 prop_value, bool async_flip);
++			    u64 prop_value, bool async_flip,
++			    bool *needs_async_plane_check);
+ int drm_atomic_get_property(struct drm_mode_object *obj,
+ 			    struct drm_property *property, uint64_t *val);
+ 
+diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
+index e943205a2394..ec471536cfbc 100644
+--- a/drivers/gpu/drm/drm_mode_object.c
++++ b/drivers/gpu/drm/drm_mode_object.c
+@@ -540,7 +540,8 @@ static int set_property_atomic(struct drm_mode_object *obj,
+ 						       obj_to_connector(obj),
+ 						       prop_value);
+ 	} else {
+-		ret = drm_atomic_set_property(state, file_priv, obj, prop, prop_value, false);
++		ret = drm_atomic_set_property(state, file_priv, obj, prop, prop_value,
++					      false, NULL);
+ 		if (ret)
+ 			goto out;
+ 		ret = drm_atomic_commit(state);
 -- 
 2.50.1
 
