@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF815C87FCB
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 19:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0F54C83F17
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 06:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B6B10E120;
-	Wed, 30 Jul 2025 19:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 432F810E24F;
+	Thu, 31 Jul 2025 06:09:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GS90Vm+4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Dhyv1Mt9";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78CBA10E120
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 19:17:25 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2057.outbound.protection.outlook.com [40.107.244.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7FD410E24F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 06:09:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vlVLVT4r0ju1YKpxvC6Y/HdXoopU4n4WR5zN7phtTScGPaD5d6EEhGzj7mTkAJR9QmK4GQAwraNocw/v6j8Bi8cgYHTiy0/6hyKLn9WT7LsTYaCqov3Vv+GOlSHCogTJB6uv0CtCYQdJWXNB9HJWGBtUnwxVrSP1e64wIEjetlksHRfhEzp1szY0fZuVK4VPoTuvHVxRfIchxJ5v6oqgQeKzulDbFhelIUV8rPRHivkHsJJ/lrlrB1ZZROMR0oW/Dk5W5gcp+y3PcP6ncjGKpR0EmUpGcEt45uFz4Rm59DzRPevSTXr4xDPegPuCtxyiP3VnySN+4cd0znwc4ijtHA==
+ b=Kq4tpqWOnaHYbc8pcZv+xkzPtdJ12cKHBv/IRv6rm3wKQ/3DunUUBxedI8FoufxhU3nPDybmTirDzh3YbceU+Dx8pVT4zXv9UYiPUl8N/EzeDEjKdLdhxY+8RFVhKEyaeEXgeTXfvg6Ut+JyA4TP7q5DqHQv/+Efnm9YrwnaSp5G/GHghof27i+paIGNbI1sAvOctjA4/vf8iFBdXg8Y+QJo92Owc/9GZ2QfLh7zPDfMS+qm0t6F2xsp9Qvea1GW9MV4rYHCUblCUEDCBeD7hDSd8t62YJcyTfVYOpLUwA/vEqCtFNldwxX+n5cIYzj2KdsCw5C1kO4Y+m1FsqUwCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PgUpq1ekaigsabYPokLgyxrpk/QN2ScBB1A1PT1jpU8=;
- b=WAIuJ/qCTewM/fJKq+BQagdU76eFoliZdM4UNFhxrykI8fmIHh6yBqbT2Ha0Si+5X+F5p/V1G4aced62hksX/se5s8NBoczmQP2bVn+x8xs2/V9XO52D34U50WIE5FEdXECGml90+tAnXLF7EKdhsaSZfzlF3zCU9Uo2DlxA83FLS2FJFg+ITR+R4sI3dmcKGVMSFuT13VYBq4WLhQ2Q+TVmdjd5ggRkJCvHiwLW+QoSDHGUuRojclHYR4YBWGGvwXGGHVIhaP8W3G4wnrA93uHToTKLRRnNLnKsyCFb1kMPX/GV6umYPWm8FdGT71yjAvb8uloWrCzMf/almHLpLQ==
+ bh=w0GUcB24yqJV7f+rELz78yRTMo3dCdEPVodKgVHL0oU=;
+ b=i/4gaqvxytkfiNaHjVIYPvswe8mq7GR1PR6RHS1ecL2EsUr/xlIWGL7XopNh/EZOMULgp3pGrHAyE9X5T9mIJoGoTU1e+4oar3sfwU3ggR/PKmOR/TUpOGM8eQgaUmY18JxgYcM3XJiBATQwvgD5Tm2bqe83dT+IvUhdQfS4FIl+u3g6dydWCtWSFcDBGxh4zkgFfpLxfQ16sOIH/YHg0GlY/4s/SPX9k7yucg1nmZ8gFMLEG52kn5rrsTVMAeBFgaW/I/cTNSkyq7te6nHj7xjZ1coRUxYKSN9riNMqkluHvhUR3MDkqUF2uw3xZ5AHAzwQ00uOMdJu/TWhKLRuSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PgUpq1ekaigsabYPokLgyxrpk/QN2ScBB1A1PT1jpU8=;
- b=GS90Vm+4o75VFYCpAyfYY8qrqOQ/91onoVRsTGLObBRhUDZSsngBIFt4iMTvN61uxMUqy2oR1VPvpPJPnhb3BDYYxTLW9Scafn865fSeDtoOBE8UxjdMhOcxTImOgYVreoim8uJyUgUrxFpzzLk5PGFew10zttXU7nXcJoiOuG8=
-Received: from DM5PR07CA0087.namprd07.prod.outlook.com (2603:10b6:4:ae::16) by
- PH0PR12MB7862.namprd12.prod.outlook.com (2603:10b6:510:26d::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8989.11; Wed, 30 Jul 2025 19:17:21 +0000
-Received: from CY4PEPF0000FCC5.namprd03.prod.outlook.com
- (2603:10b6:4:ae:cafe::fc) by DM5PR07CA0087.outlook.office365.com
- (2603:10b6:4:ae::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.12 via Frontend Transport; Wed,
- 30 Jul 2025 19:17:20 +0000
+ bh=w0GUcB24yqJV7f+rELz78yRTMo3dCdEPVodKgVHL0oU=;
+ b=Dhyv1Mt9nAWbkKR2PF0+j9rt3Y/ALWivoTmdrfCaB3AvLlbRfbSYX2JKoUSPDEjRJwLO828FvcmsVaCMK3GT34SJ/3WdANWoJj5D/SapAbP4AAJIysniseei+mISi7sQ6A3vs64MqCkOEWxV8ETLtM45fvUlkp5wjxSZFwGRap8=
+Received: from SJ0PR03CA0166.namprd03.prod.outlook.com (2603:10b6:a03:338::21)
+ by SJ2PR12MB8717.namprd12.prod.outlook.com (2603:10b6:a03:53d::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Thu, 31 Jul
+ 2025 06:09:49 +0000
+Received: from SJ1PEPF00002327.namprd03.prod.outlook.com
+ (2603:10b6:a03:338:cafe::a4) by SJ0PR03CA0166.outlook.office365.com
+ (2603:10b6:a03:338::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.12 via Frontend Transport; Thu,
+ 31 Jul 2025 06:09:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,87 +48,75 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000FCC5.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ SJ1PEPF00002327.mail.protection.outlook.com (10.167.242.90) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8989.10 via Frontend Transport; Wed, 30 Jul 2025 19:17:20 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ 15.20.8989.10 via Frontend Transport; Thu, 31 Jul 2025 06:09:49 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 30 Jul
- 2025 14:01:12 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 30 Jul
- 2025 14:01:02 -0500
-Received: from roman-vdev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 30 Jul 2025 14:01:01 -0500
-From: <Roman.Li@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 31 Jul
+ 2025 01:09:46 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Reza Amini <reza.amini@amd.com>, Krunoslav Kovac
- <krunoslav.kovac@amd.com>
-Subject: [PATCH 09/12] drm/amd/display: Fixing hubp programming of 3dlut fast
- load
-Date: Wed, 30 Jul 2025 14:59:00 -0400
-Message-ID: <20250730185903.1023256-10-Roman.Li@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250730185903.1023256-1-Roman.Li@amd.com>
-References: <20250730185903.1023256-1-Roman.Li@amd.com>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
+ <Asad.Kamal@amd.com>, <Ce.Sun@amd.com>, <kevinyang.wang@amd.com>
+Subject: [PATCH] drm/amd/pm: Add priority messages for SMU v13.0.6
+Date: Thu, 31 Jul 2025 11:39:20 +0530
+Message-ID: <20250731060920.1694915-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC5:EE_|PH0PR12MB7862:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ab26857-7abe-418f-3848-08ddcf9db4d3
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002327:EE_|SJ2PR12MB8717:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b90febb-7594-4e21-5d0b-08ddcff8db32
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?o6Y2eZs7vuKyEDPVEikuneD42YoIjGDhGco0hoRmM9MF8mPgdnYSlJ0tNkMj?=
- =?us-ascii?Q?rco5fWdbs5BluTozSLLdXF+PUk2WA9jS7xqqJDH45T6KT6JhbT9suc4CArpX?=
- =?us-ascii?Q?bt8KXIzaMZEgYfE80HjWUT3JIBJTCa08e8p0lBYHEQwkvS04+Coe4iqP3LhV?=
- =?us-ascii?Q?UpFCaw4PppBk05c8IMgAXURAeB63c/xViS/0dhqotiqKjzktsBZTwbSU6JzJ?=
- =?us-ascii?Q?QhDT+HxLgNxRvtObd94BtLhMy/jKiyEYtPkOFhFkg1lMAfKM1sh8r6zmOeDq?=
- =?us-ascii?Q?fD3q3WVnz6pWyKy5cofR1U++YFpepU6xglVjXVw6zQTib1bOAcidYzn+fbhG?=
- =?us-ascii?Q?yAjdAJSz7Ba6ltGD/lf+b7+6wDKpZ2sftbg+T4i3xnAdVHvW8vGVs6I2fS/Q?=
- =?us-ascii?Q?+GC8jkrwnnTqvwGmNvNI4INfNlFyD+/uZXN/I2kaXyZOOIoXbihYYO6IQRUJ?=
- =?us-ascii?Q?vArXEtoQrFqbFyqn88AloZ7I81eSToc7dQbioZmF38FhbFZdHZYSSA8d3wF6?=
- =?us-ascii?Q?Eu0TfCxTtMdLW5juEEPbDtzRGD8lZ5N0yGz1bCQaUmnKoJ0cn9DfeYZRt3Aa?=
- =?us-ascii?Q?RDKqyDEDMeAUQCHq59SEuLhXIH4VYYFTRu9PhD6WKOh+lqkXeoTfdwkl2Vy3?=
- =?us-ascii?Q?IY9HTQ4cOrAkGCFux7F7nO6STsXumXl/sFcgNOJjlZOGmC5MzZ9JLxU2vvSU?=
- =?us-ascii?Q?aC92buQIdwBHRiH34Vfsau/dZGs4wcCmTy+Sj6k2pXMni2vHlZiHKr26sCQl?=
- =?us-ascii?Q?Deu5Jcs6KY/D24AvGqWtnNEd/Q1XlQ5P3ZOsSqC8/J7y9ohNeEzxBBLsoPa3?=
- =?us-ascii?Q?uqZc5mORrhPvSx49ab40lFXYru42LEcYA1lM9PfYaHNkdKfvJZL1FbiUGT1k?=
- =?us-ascii?Q?USIqGdgWMheZ5bwQqmbDH32mBkHFCTBrbWUbgOR9HSyR6pra1u7BsENC2O5O?=
- =?us-ascii?Q?1dYaE00PyPQxwzv4DFe+ttP60Yx7yE+Blg/wevhvr6urTwDYZH7fX7zZ4cyV?=
- =?us-ascii?Q?aB0IrDsFZRfWKOCagQL5DbcYG+JUJ+UICYFIIaDGA4m7yoWFStl7Ej9SFfA7?=
- =?us-ascii?Q?ClEY/hRtYX55KPJxMqz4FGp56zFd0CQeYh5ilBOSmabFkQASgMNe7o1lb5dp?=
- =?us-ascii?Q?8C+smjg2szMMcXAkJxNslGje2HgXvFGgr1rLldw3fiwrZKyVQ/Me7fzE08ZR?=
- =?us-ascii?Q?/MMPGTg1CMvuiU1pelv5hwb9BHQPIQCY73tawIq9Ia8MdgechHN2SzwUqCC2?=
- =?us-ascii?Q?hzpvtz5Q3x/ghw2gzXySU/F/7Xcr3KkRNI8QoGaWpQTwryS7HkXHo+oJE6dT?=
- =?us-ascii?Q?Tg52+DXkdnoENd3igRl4CP8rmfcPm/qdEjgHmelzutyqdXHZnZoJ8gkUqAIh?=
- =?us-ascii?Q?tnPYOHA4wx9Su9N+EudZBAtK49qFjGnW9Z7YnqvmHbMTstu8rEjC/M91mgUZ?=
- =?us-ascii?Q?6fN7fEswrCDQNMBqPS8j1QVmoZHKEnpdRNehcrHsafYudtdMecNeE1MdFYLO?=
- =?us-ascii?Q?hY8INOwEgCECDyL0NlvMKarBos7jQ+qJGkvw?=
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Hc2bA1kwn0u5in29aOfKU0GjUtSjXxjlVYV8rYbmW6y3VTD0tww3HwyDHRw5?=
+ =?us-ascii?Q?Ewij9CYv/n2LaEl4TZ3U3c6mUH0GvEurZT5fYGkZZxcJZPNHOnHeN4PHozk4?=
+ =?us-ascii?Q?lmdQT5ah1ySjxEtBqYHlCjew4QUt9CaIU47bwtKTg2hJFKTlxQ866HmU5wat?=
+ =?us-ascii?Q?G4R5ytBsyGx4+S7KVEBigm1a+l/4u1EECLARRslvywtc+ABS+lJiHJsBg2ju?=
+ =?us-ascii?Q?sq9IIcDp/ie62M8qxjI18guo0DKLuPeHNv0BZi1Tuio93homZFI8XhjbRKZW?=
+ =?us-ascii?Q?YeVD84mSDTqiA7TcYkeHZJ/1IEPcaXMSzo3p9tKDxKQcj3u7kmxLf8rePyAE?=
+ =?us-ascii?Q?Imm58F9h9O77kAJJo/1LZ7bVDj+RCTNHIWmPsXhpFhK28lmxeQ6wK5tfpHWz?=
+ =?us-ascii?Q?aVYtzFH9kpZuO7M6zs9UNusBxUo+kPd8YW1lkkYrWyPWyIQ7kukPC08z3yHf?=
+ =?us-ascii?Q?Yjh14DI6ZmJmpeeouBIm8hIQIbb4lHF7TDZhESTFa7Sacy2owIEkKa3+kF5V?=
+ =?us-ascii?Q?Yc1vGdtna0W53PCEoTGzSh7Xj419VaYQhpOMvBWcnfb4qgC2B4ZFnPr1e6rn?=
+ =?us-ascii?Q?AQ63JsSuZ01y+30OayLvonfesP9P7fRylg7+07sBbtCojJTR4QP+R5vqdGCG?=
+ =?us-ascii?Q?ygwXSmEdSHXsuXMujWTO8n1oqQzlVDThSkXbkt1nUXWZDQ829SQwbT+bMhZN?=
+ =?us-ascii?Q?OWiHrbiedUT6UXoxZie59EMR0ZPN0Qxp8u1UJYawrTbnOQ6GAItYITf3MOpx?=
+ =?us-ascii?Q?zqnetlGgp82MNGjb9BY3pZDK7o38k97a/knlfPs9iQgKW4vffKrC7zXQHC+t?=
+ =?us-ascii?Q?mNheXq02cKQegesMbMcC2n8dUqGEle48442qIlHpZtHxRNoVZvAD9EMby7JM?=
+ =?us-ascii?Q?OJHJ6s6qMgprrmFrzqNtE8MJ+kIuPfg1fSGjd1yf7qI6lA9XURh4kbSlmVAj?=
+ =?us-ascii?Q?iPmrdhGh3c417qN/YKZcsv0PvhjhH0dUvpOahXhIzH5sa4+5JefL7Pku74Mq?=
+ =?us-ascii?Q?PM+kNA0U/32XbrNmO4XLioZPObJwzpe1TeRkzbCDvj0zNvaGwjU2Iso/49OM?=
+ =?us-ascii?Q?1FrobSUo0/RCUQzsi/GPFIArKFMrw74U4FTiDs+vsrSPE7YHx+AoedXaH1ih?=
+ =?us-ascii?Q?bFnOW+pYIDFgtJddKOTYwLio4Jsdcf27PkZaro9BIw7BZSArrra+gDc97VIX?=
+ =?us-ascii?Q?RkVGSvjOQ9JNW/96rzmfssRUlt787BnKo3WVx+dcjnwwpyuUjzpbxeGtWlqZ?=
+ =?us-ascii?Q?M8fwNO8+6xG38ZlUW2R7WlWHAUvEdjGeRu79+FQVXm99/esfnVFdtxBBzK8k?=
+ =?us-ascii?Q?s/Vq2SXjz4C+AmlVTNsCZKpBEHJzPxbqVazou4cZ+OXEeAYDUdU4eelbjM9u?=
+ =?us-ascii?Q?rYow5j07ceGSdp+tTrdLnVb7iSF8eBrtWaQyQiGC48pwd8/kk7dMNKljDJgQ?=
+ =?us-ascii?Q?zUweENB+YDfkXTIEdZIhqrr/Hb0ZjYC1E2ZABb3RyaM2A25XwpKqeoZNdCOG?=
+ =?us-ascii?Q?ox2Cj8i8QT1tDZm4K4ZXhhHipbeyxevJFN5Q?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2025 19:17:20.6156 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ab26857-7abe-418f-3848-08ddcf9db4d3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2025 06:09:49.1495 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b90febb-7594-4e21-5d0b-08ddcff8db32
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC5.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002327.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7862
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8717
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,338 +131,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Reza Amini <reza.amini@amd.com>
+Certain messages will processed with high priority by PMFW even if it
+hasn't responded to a previous message. Send the priority message
+regardless of the success/fail status of the previous message. Add
+support on SMUv13.0.6 and SMUv13.0.12
 
-[why]
-HUBP needs to know the size of the lut's destination in MPC.
-This is currently defaulted to 17, and needs to be set for specific
-lut size.
-
-[how]
-Define and apply the missing hubp field. Taking this opportunity
-to consolidate the programming of 3dlut into a hubp and mpc function.
-
-Reviewed-by: Krunoslav Kovac <krunoslav.kovac@amd.com>
-Signed-off-by: Reza Amini <reza.amini@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h           | 26 ++++++++
- .../amd/display/dc/hubp/dcn10/dcn10_hubp.h    |  1 +
- .../amd/display/dc/hubp/dcn20/dcn20_hubp.h    |  1 +
- .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  | 38 +++++++++++
- .../amd/display/dc/hubp/dcn401/dcn401_hubp.h  |  4 ++
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 63 ++++++++++++++-----
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  | 19 +++++-
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   | 11 ++++
- 8 files changed, 148 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c  |  2 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             | 14 +++++++++-----
+ 4 files changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 5653c1673aec..c013b28207a1 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1311,6 +1311,32 @@ union dc_3dlut_state {
- };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+index d7a9e41820fa..aaf148591a98 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+@@ -469,6 +469,7 @@ enum smu_feature_mask {
+ /* Message category flags */
+ #define SMU_MSG_VF_FLAG			(1U << 0)
+ #define SMU_MSG_RAS_PRI			(1U << 1)
++#define SMU_MSG_HI_PRI			(1U << 2)
  
- 
-+#define MATRIX_9C__DIM_128_ALIGNED_LEN   16 // 9+8 :  9 * 8 +  7 * 8 = 72  + 56  = 128 % 128 = 0
-+#define MATRIX_17C__DIM_128_ALIGNED_LEN  32 //17+15:  17 * 8 + 15 * 8 = 136 + 120 = 256 % 128 = 0
-+#define MATRIX_33C__DIM_128_ALIGNED_LEN  64 //17+47:  17 * 8 + 47 * 8 = 136 + 376 = 512 % 128 = 0
-+
-+struct lut_rgb {
-+	uint16_t b;
-+	uint16_t g;
-+	uint16_t r;
-+	uint16_t padding;
-+};
-+
-+//this structure maps directly to how the lut will read it from memory
-+struct lut_mem_mapping {
-+	union {
-+		//NATIVE MODE 1, 2
-+		//RGB layout          [b][g][r]      //red  is 128 byte aligned
-+		//BGR layout          [r][g][b]      //blue is 128 byte aligned
-+		struct lut_rgb rgb_17c[17][17][MATRIX_17C__DIM_128_ALIGNED_LEN];
-+		struct lut_rgb rgb_33c[33][33][MATRIX_33C__DIM_128_ALIGNED_LEN];
-+
-+		//TRANSFORMED
-+		uint16_t linear_rgb[(33*33*33*4/128+1)*128];
-+	};
-+	uint16_t size;
-+};
-+
- struct dc_rmcm_3dlut {
- 	bool isInUse;
- 	const struct dc_stream_state *stream;
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h
-index f8f991785d4f..0b7547d5b488 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h
-@@ -671,6 +671,7 @@ struct dcn_fl_regs_st {
- 	uint32_t lut_done;
- 	uint32_t lut_addr_mode;
- 	uint32_t lut_width;
-+	uint32_t lut_mpc_width;
- 	uint32_t lut_tmz;
- 	uint32_t lut_crossbar_sel_r;
- 	uint32_t lut_crossbar_sel_g;
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h
-index 62369be070ea..f325db555102 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h
-@@ -264,6 +264,7 @@
- 	type HUBP_3DLUT_DONE;\
- 	type HUBP_3DLUT_ADDRESSING_MODE;\
- 	type HUBP_3DLUT_WIDTH;\
-+	type HUBP_3DLUT_MPC_WIDTH;\
- 	type HUBP_3DLUT_TMZ;\
- 	type HUBP_3DLUT_CROSSBAR_SELECT_Y_G;\
- 	type HUBP_3DLUT_CROSSBAR_SELECT_CB_B;\
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-index 705b98b1b6cc..5028180ad80a 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-@@ -127,6 +127,43 @@ void hubp401_program_3dlut_fl_format(struct hubp *hubp, enum hubp_3dlut_fl_forma
- 	REG_UPDATE(_3DLUT_FL_CONFIG, HUBP0_3DLUT_FL_FORMAT, format);
- }
- 
-+void hubp401_program_3dlut_fl_config(
-+	struct hubp *hubp,
-+	struct hubp_fl_3dlut_config *cfg)
-+{
-+	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
-+
-+	uint32_t mpc_width = {(cfg->width == 17) ? 0 : 1};
-+	uint32_t width = {cfg->width};
-+
-+	if (cfg->layout == DC_CM2_GPU_MEM_LAYOUT_1D_PACKED_LINEAR)
-+		width = (cfg->width == 17) ? 4916 : 35940;
-+
-+	REG_UPDATE_2(_3DLUT_FL_CONFIG,
-+		HUBP0_3DLUT_FL_MODE, cfg->mode,
-+		HUBP0_3DLUT_FL_FORMAT, cfg->format);
-+
-+	REG_UPDATE_2(_3DLUT_FL_BIAS_SCALE,
-+		HUBP0_3DLUT_FL_BIAS, cfg->bias,
-+		HUBP0_3DLUT_FL_SCALE, cfg->scale);
-+
-+	REG_UPDATE(HUBP_3DLUT_ADDRESS_HIGH,
-+		HUBP_3DLUT_ADDRESS_HIGH, cfg->address.lut3d.addr.high_part);
-+	REG_UPDATE(HUBP_3DLUT_ADDRESS_LOW,
-+		HUBP_3DLUT_ADDRESS_LOW, cfg->address.lut3d.addr.low_part);
-+
-+	//cross bar
-+	REG_UPDATE_8(HUBP_3DLUT_CONTROL,
-+		HUBP_3DLUT_MPC_WIDTH, mpc_width,
-+		HUBP_3DLUT_WIDTH, width,
-+		HUBP_3DLUT_CROSSBAR_SELECT_CR_R, cfg->crossbar_bit_slice_cr_r,
-+		HUBP_3DLUT_CROSSBAR_SELECT_Y_G, cfg->crossbar_bit_slice_y_g,
-+		HUBP_3DLUT_CROSSBAR_SELECT_CB_B, cfg->crossbar_bit_slice_cb_b,
-+		HUBP_3DLUT_ADDRESSING_MODE, cfg->addr_mode,
-+		HUBP_3DLUT_TMZ, cfg->protection_bits,
-+		HUBP_3DLUT_ENABLE, cfg->enabled ? 1 : 0);
-+}
-+
- void hubp401_update_mall_sel(struct hubp *hubp, uint32_t mall_sel, bool c_cursor)
+ /* Firmware capability flags */
+ #define SMU_FW_CAP_RAS_PRI		(1U << 0)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index 02a455a31c25..17e0303f603b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -106,7 +106,7 @@ const struct cmn2asic_msg_mapping smu_v13_0_12_message_map[SMU_MSG_MAX_COUNT] =
+ 	MSG_MAP(GetDpmFreqByIndex,		     PPSMC_MSG_GetDpmFreqByIndex,		1),
+ 	MSG_MAP(SetPptLimit,			     PPSMC_MSG_SetPptLimit,			0),
+ 	MSG_MAP(GetPptLimit,			     PPSMC_MSG_GetPptLimit,			1),
+-	MSG_MAP(GfxDeviceDriverReset,		     PPSMC_MSG_GfxDriverReset,			SMU_MSG_RAS_PRI),
++	MSG_MAP(GfxDeviceDriverReset,		     PPSMC_MSG_GfxDriverReset,			SMU_MSG_RAS_PRI | SMU_MSG_HI_PRI),
+ 	MSG_MAP(DramLogSetDramAddrHigh,		     PPSMC_MSG_DramLogSetDramAddrHigh,		0),
+ 	MSG_MAP(DramLogSetDramAddrLow,		     PPSMC_MSG_DramLogSetDramAddrLow,		0),
+ 	MSG_MAP(DramLogSetDramSize,		     PPSMC_MSG_DramLogSetDramSize,		0),
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 9cc294f4708b..c22b3f646355 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -145,7 +145,7 @@ static const struct cmn2asic_msg_mapping smu_v13_0_6_message_map[SMU_MSG_MAX_COU
+ 	MSG_MAP(GetDpmFreqByIndex,		     PPSMC_MSG_GetDpmFreqByIndex,		1),
+ 	MSG_MAP(SetPptLimit,			     PPSMC_MSG_SetPptLimit,			0),
+ 	MSG_MAP(GetPptLimit,			     PPSMC_MSG_GetPptLimit,			1),
+-	MSG_MAP(GfxDeviceDriverReset,		     PPSMC_MSG_GfxDriverReset,			SMU_MSG_RAS_PRI),
++	MSG_MAP(GfxDeviceDriverReset,		     PPSMC_MSG_GfxDriverReset,			SMU_MSG_RAS_PRI | SMU_MSG_HI_PRI),
+ 	MSG_MAP(DramLogSetDramAddrHigh,		     PPSMC_MSG_DramLogSetDramAddrHigh,		0),
+ 	MSG_MAP(DramLogSetDramAddrLow,		     PPSMC_MSG_DramLogSetDramAddrLow,		0),
+ 	MSG_MAP(DramLogSetDramSize,		     PPSMC_MSG_DramLogSetDramSize,		0),
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 59f9abd0f7b8..f1f5cd8c2cd9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -256,11 +256,12 @@ static int __smu_cmn_ras_filter_msg(struct smu_context *smu,
  {
- 	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
-@@ -1033,6 +1070,7 @@ static struct hubp_funcs dcn401_hubp_funcs = {
- 	.hubp_program_3dlut_fl_crossbar = hubp401_program_3dlut_fl_crossbar,
- 	.hubp_get_3dlut_fl_done = hubp401_get_3dlut_fl_done,
- 	.hubp_clear_tiling = hubp401_clear_tiling,
-+	.hubp_program_3dlut_fl_config = hubp401_program_3dlut_fl_config,
- };
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t flags, resp;
+-	bool fed_status;
++	bool fed_status, pri;
  
- bool hubp401_construct(
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
-index 608e6153fa68..887b479ed1d7 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
-@@ -349,6 +349,10 @@ void hubp401_program_3dlut_fl_format(struct hubp *hubp, enum hubp_3dlut_fl_forma
+ 	flags = __smu_cmn_get_msg_flags(smu, msg);
+ 	*poll = true;
  
- void hubp401_program_3dlut_fl_mode(struct hubp *hubp, enum hubp_3dlut_fl_mode mode);
- 
-+void hubp401_program_3dlut_fl_config(
-+	struct hubp *hubp,
-+	struct hubp_fl_3dlut_config *cfg);
-+
- void hubp401_clear_tiling(struct hubp *hubp);
- 
- void hubp401_vready_at_or_After_vsync(struct hubp *hubp,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index 39910f73ecd0..79c9bea78c47 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -328,19 +328,25 @@ static void dcn10_log_hubp_states(struct dc *dc, void *log_ctx)
- 	}
- 
- 	DTN_INFO("\n=======HUBP FL======\n");
--	DTN_INFO(
--		"HUBP FL:  Enabled  Done  adr_mode  width  tmz  xbar_sel_R  xbar_sel_G  xbar_sel_B  adr_hi  adr_low  REFCYC  Bias   Scale       Mode      Format\n");
-+	char pLabels[18][50] = {
-+		"inst", "Enabled ", "Done ", "adr_mode ", "width ", "mpc_width ",
-+		"tmz", "xbar_sel_R", "xbar_sel_G", "xbar_sel_B", "adr_hi ",
-+		"adr_low", "REFCYC", "Bias", "Scale", "Mode",
-+		"Format", "prefetch"};
-+
- 	for (i = 0; i < pool->pipe_count; i++) {
- 		struct dcn_hubp_state *s = &(TO_DCN10_HUBP(pool->hubps[i])->state);
- 		struct dcn_fl_regs_st *fl_regs = &s->fl_regs;
-+		struct _vcs_dpi_display_dlg_regs_st *dlg_regs = &s->dlg_attr;
- 
- 		if (!s->blank_en) {
--			DTN_INFO("[%2d]:  %5xh  %6xh  %5d  %6d  %8xh  %2xh  %6xh  %6d  %8d  %8d  %7d  %8xh %5x %5x %5x",
-+			uint32_t values[] = {
- 					pool->hubps[i]->inst,
- 					fl_regs->lut_enable,
- 					fl_regs->lut_done,
- 					fl_regs->lut_addr_mode,
- 					fl_regs->lut_width,
-+					fl_regs->lut_mpc_width,
- 					fl_regs->lut_tmz,
- 					fl_regs->lut_crossbar_sel_r,
- 					fl_regs->lut_crossbar_sel_g,
-@@ -351,8 +357,13 @@ static void dcn10_log_hubp_states(struct dc *dc, void *log_ctx)
- 					fl_regs->lut_fl_bias,
- 					fl_regs->lut_fl_scale,
- 					fl_regs->lut_fl_mode,
--					fl_regs->lut_fl_format);
--			DTN_INFO("\n");
-+					fl_regs->lut_fl_format,
-+					dlg_regs->dst_y_prefetch};
-+
-+			int num_elements = 18;
-+
-+			for (int j = 0; j < num_elements; j++)
-+				DTN_INFO("%s \t %8xh\n", pLabels[j], values[j]);
- 		}
- 	}
- 
-@@ -541,19 +552,43 @@ static void dcn10_log_color_state(struct dc *dc,
- 		 dc->caps.color.mpc.ogam_ram,
- 		 dc->caps.color.mpc.ocsc);
- 	DTN_INFO("===== MPC RMCM 3DLUT =====\n");
--	DTN_INFO("MPCC:  SIZE  MODE  MODE_CUR  RD_SEL  30BIT_EN  WR_EN_MASK  RAM_SEL  OUT_NORM_FACTOR	FL_SEL	OUT_OFFSET	OUT_SCALE	FL_DONE	SOFT_UNDERFLOW	HARD_UNDERFLOW MEM_PWR_ST	FORCE	DIS	MODE\n");
-+	char pLabels[19][50] = {
-+		"MPCC", "SIZE", "MODE", "MODE_CUR", "RD_SEL",
-+		"30BIT_EN", "WR_EN_MASK", "RAM_SEL", "OUT_NORM_FACTOR", "FL_SEL",
-+		"OUT_OFFSET", "OUT_SCALE", "FL_DONE", "SOFT_UNDERFLOW", "HARD_UNDERFLOW",
-+		"MEM_PWR_ST", "FORCE", "DIS", "MODE"};
-+
- 	for (i = 0; i < pool->mpcc_count; i++) {
- 		struct mpcc_state s = {0};
- 
- 		pool->mpc->funcs->read_mpcc_state(pool->mpc, i, &s);
--		if (s.opp_id != 0xf)
--			DTN_INFO("[%2d]:  %4xh  %4xh  %6xh  %4x  %4x  %4x  %4x  %4x %4xh  %4xh  %6xh  %4x  %4x  %4x  %4x  %4x  %4x  %4x\n",
--				i, s.rmcm_regs.rmcm_3dlut_size, s.rmcm_regs.rmcm_3dlut_mode, s.rmcm_regs.rmcm_3dlut_mode_cur,
--				s.rmcm_regs.rmcm_3dlut_read_sel, s.rmcm_regs.rmcm_3dlut_30bit_en, s.rmcm_regs.rmcm_3dlut_wr_en_mask,
--				s.rmcm_regs.rmcm_3dlut_ram_sel, s.rmcm_regs.rmcm_3dlut_out_norm_factor, s.rmcm_regs.rmcm_3dlut_fl_sel,
--				s.rmcm_regs.rmcm_3dlut_out_offset_r, s.rmcm_regs.rmcm_3dlut_out_scale_r, s.rmcm_regs.rmcm_3dlut_fl_done,
--				s.rmcm_regs.rmcm_3dlut_fl_soft_underflow, s.rmcm_regs.rmcm_3dlut_fl_hard_underflow, s.rmcm_regs.rmcm_3dlut_mem_pwr_state,
--				s.rmcm_regs.rmcm_3dlut_mem_pwr_force, s.rmcm_regs.rmcm_3dlut_mem_pwr_dis, s.rmcm_regs.rmcm_3dlut_mem_pwr_mode);
-+		if (s.opp_id != 0xf) {
-+			uint32_t values[] = {
-+				i,
-+				s.rmcm_regs.rmcm_3dlut_size,
-+				s.rmcm_regs.rmcm_3dlut_mode,
-+				s.rmcm_regs.rmcm_3dlut_mode_cur,
-+				s.rmcm_regs.rmcm_3dlut_read_sel,
-+				s.rmcm_regs.rmcm_3dlut_30bit_en,
-+				s.rmcm_regs.rmcm_3dlut_wr_en_mask,
-+				s.rmcm_regs.rmcm_3dlut_ram_sel,
-+				s.rmcm_regs.rmcm_3dlut_out_norm_factor,
-+				s.rmcm_regs.rmcm_3dlut_fl_sel,
-+				s.rmcm_regs.rmcm_3dlut_out_offset_r,
-+				s.rmcm_regs.rmcm_3dlut_out_scale_r,
-+				s.rmcm_regs.rmcm_3dlut_fl_done,
-+				s.rmcm_regs.rmcm_3dlut_fl_soft_underflow,
-+				s.rmcm_regs.rmcm_3dlut_fl_hard_underflow,
-+				s.rmcm_regs.rmcm_3dlut_mem_pwr_state,
-+				s.rmcm_regs.rmcm_3dlut_mem_pwr_force,
-+				s.rmcm_regs.rmcm_3dlut_mem_pwr_dis,
-+				s.rmcm_regs.rmcm_3dlut_mem_pwr_mode};
-+
-+			int num_elements = 19;
-+
-+			for (int j = 0; j < num_elements; j++)
-+				DTN_INFO("%s \t %8xh\n", pLabels[j], values[j]);
-+		}
- 	}
- 	DTN_INFO("\n");
- 	DTN_INFO("===== MPC RMCM Shaper =====\n");
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-index cee29e89ec5c..198a28bd8e28 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-@@ -89,7 +89,7 @@ enum hubp_3dlut_fl_addressing_mode {
- enum hubp_3dlut_fl_width {
- 	hubp_3dlut_fl_width_17 = 17,
- 	hubp_3dlut_fl_width_33 = 33,
--	hubp_3dlut_fl_width_transformed = 4916
-+	hubp_3dlut_fl_width_transformed    = 4916, //mpc default
- };
- 
- enum hubp_3dlut_fl_crossbar_bit_slice {
-@@ -99,6 +99,22 @@ enum hubp_3dlut_fl_crossbar_bit_slice {
- 	hubp_3dlut_fl_crossbar_bit_slice_48_63 = 3
- };
- 
-+struct hubp_fl_3dlut_config {
-+	bool enabled;
-+	enum hubp_3dlut_fl_width width;
-+	enum hubp_3dlut_fl_mode mode;
-+	enum hubp_3dlut_fl_format format;
-+	uint16_t bias;
-+	uint16_t scale;
-+	struct dc_plane_address address;
-+	enum hubp_3dlut_fl_addressing_mode addr_mode;
-+	enum dc_cm2_gpu_mem_layout layout;
-+	uint8_t protection_bits;
-+	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_y_g;
-+	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cb_b;
-+	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cr_r;
-+};
-+
- struct hubp {
- 	const struct hubp_funcs *funcs;
- 	struct dc_context *ctx;
-@@ -288,6 +304,7 @@ struct hubp_funcs {
- 			enum hubp_3dlut_fl_crossbar_bit_slice bit_slice_cb_b,
- 			enum hubp_3dlut_fl_crossbar_bit_slice bit_slice_cr_r);
- 	int (*hubp_get_3dlut_fl_done)(struct hubp *hubp);
-+	void (*hubp_program_3dlut_fl_config)(struct hubp *hubp, struct hubp_fl_3dlut_config *cfg);
- 	void (*hubp_clear_tiling)(struct hubp *hubp);
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-index 7641439f6ca0..14f0304e3eb9 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-@@ -115,6 +115,16 @@ enum MCM_LUT_ID {
- 	MCM_LUT_SHAPER
- };
- 
-+struct mpc_fl_3dlut_config {
-+	bool enabled;
-+	uint16_t width;
-+	bool select_lut_bank_a;
-+	uint16_t bit_depth;
-+	int hubp_index;
-+	uint16_t bias;
-+	uint16_t scale;
-+};
-+
- union mcm_lut_params {
- 	const struct pwl_params *pwl;
- 	const struct tetrahedral_params *lut3d;
-@@ -1098,6 +1108,7 @@ struct mpc_funcs {
- 	 * MPC RMCM new HW sequential programming functions
++	pri = !!(flags & SMU_MSG_HI_PRI);
+ 	/* When there is RAS fatal error, FW won't process non-RAS priority
+ 	 * messages. Don't allow any messages other than RAS priority messages.
  	 */
- 	struct {
-+		void (*fl_3dlut_configure)(struct mpc *mpc, struct mpc_fl_3dlut_config *cfg, int mpcc_id);
- 		void (*enable_3dlut_fl)(struct mpc *mpc, bool enable, int mpcc_id);
- 		void (*update_3dlut_fast_load_select)(struct mpc *mpc, int mpcc_id, int hubp_idx);
- 		void (*program_lut_read_write_control)(struct mpc *mpc, const enum MCM_LUT_ID id,
+@@ -272,15 +273,18 @@ static int __smu_cmn_ras_filter_msg(struct smu_context *smu,
+ 				smu_get_message_name(smu, msg));
+ 			return -EACCES;
+ 		}
++	}
+ 
++	if (pri || fed_status) {
+ 		/* FW will ignore non-priority messages when a RAS fatal error
+-		 * is detected. Hence it is possible that a previous message
+-		 * wouldn't have got response. Allow to continue without polling
+-		 * for response status for priority messages.
++		 * or reset condition is detected. Hence it is possible that a
++		 * previous message wouldn't have got response. Allow to
++		 * continue without polling for response status for priority
++		 * messages.
+ 		 */
+ 		resp = RREG32(smu->resp_reg);
+ 		dev_dbg(adev->dev,
+-			"Sending RAS priority message %s response status: %x",
++			"Sending priority message %s response status: %x",
+ 			smu_get_message_name(smu, msg), resp);
+ 		if (resp == 0)
+ 			*poll = false;
 -- 
-2.34.1
+2.49.0
 
