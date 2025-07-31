@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C61A2C87FD2
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 07:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D3B4C87FCA
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 07:24:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA5810E715;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8BC610E71C;
 	Thu, 31 Jul 2025 07:24:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dUP9OEBC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bh2IRQk2";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B08DC10E702;
- Thu, 31 Jul 2025 05:36:49 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4561a4a8bf2so5091265e9.1; 
- Wed, 30 Jul 2025 22:36:49 -0700 (PDT)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E547F10E702;
+ Thu, 31 Jul 2025 05:36:53 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-3b7961cf660so385946f8f.1; 
+ Wed, 30 Jul 2025 22:36:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753940208; x=1754545008; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1753940212; x=1754545012; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=cYq6/WMdCGI3NVumhbssuyW0E52SNpXkJoe+qhP+t+w=;
- b=dUP9OEBCJXCRhjgr/g/cYEKcqjqzoMezO+zocJIghHUJ0TicG6sgbu5HkuEj4QnN7G
- yuF4KEP6F+w5Tsr6Aliss6AkLjFr0Z+xC9+DjYyPbCX1mlPykI5CtQnuGARfJJMvleec
- IJfs6zLpM1Et4pBZBkQXIMsp5Wy6wyabGm9mIozCxiAZqgvhyAc1UP0T1xjwb8EQMzkq
- g3Aot/qcu4NmWb1h7uPE7jt7S9F99NU1Vht8imoXbbj6r/aczbmCF7SXaNApReI5dOKv
- 0X4y9SLeSEZDvjfLcSVYC0zaTToki+8aDr8fwwbjLw2cALcQ+KKx5tMSioj1xz4TwQ8d
- SXzQ==
+ :reply-to; bh=AMZpWfQTqvxub6EnV2WBq7DOhIOcnfoMYMkFRXtjCnQ=;
+ b=bh2IRQk2jCs/AMk9UbOZCQ3577v3gWPclVotnlaL/fyDeHMZegAHAhWDfyV4YnsSAU
+ zL+eTjgkKjOpsdxPApR6h4SfRNWOQZ2/VnhD9XOWOeHz5dvQNHCvURDeBfrVGgYqSegG
+ Y93O57elqImaO3c2Ag5u+LL9TScNGRm73n5i+0FdfXrKqRBrIjpwM2oU7GjuzKFfReSo
+ cvjq3uMSh6Hoe1RabLuO9hF3vPqiLRfHrIc6USMU4EX/GDygyILVDgXnPI2AE3hDAlNs
+ 3cGlf/0XvLZxeeDc4iX3pH//cODw1RHCAWnbOxciDsjb76tksVT/wSUc+5YIRb+ujwP1
+ rBwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753940208; x=1754545008;
+ d=1e100.net; s=20230601; t=1753940212; x=1754545012;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=cYq6/WMdCGI3NVumhbssuyW0E52SNpXkJoe+qhP+t+w=;
- b=mHBDSAHKM+6U/QkdRoa9S9pKOFeCMS01ypnzn2tezeLLhJAOg8UWMErpQvvDUxdJTC
- 0pBi0xmGiOYEL+lwWTcD5yTtoe1cKpp6Ng76E8SLngWPDEuaUSxyJXswdnyNqd7hNHPa
- l9OPv4rn/V72W2WEd/EiKR5Xv6qI+o05madcuKwxEsHz+JCpFBGzQKCpYO49jHLTUmMk
- DMxcjGqis5x1KtgNpk1zkaxttikz2P0WxE6XHt49D2XoqxAYmuEJ8X/JjRYb0LzXxc85
- SpQXMFvnyCX8OW3qlCYrfGPBQka3jn9/hvZb9bvskAZzdocr7PG0ACxyS22r2iYCLTQq
- m2Gg==
+ bh=AMZpWfQTqvxub6EnV2WBq7DOhIOcnfoMYMkFRXtjCnQ=;
+ b=wYLXH5TK998ULf7fd/m9KHvUsw9FaW8QUdWzVlgy1YxoHX8HLaoomDgMqcj/0ovB4N
+ qu+s/cSr1QsGRjptOma/QMYCP5KyH8txG3BszbzSBEMflsmj2g6VedkFQOBiM93fAig9
+ e0/nsp9NFBuixlCoB68/3pwXadgieukzVxkviEIJveaHy+yHNihPBEKG3CbTzNEKk4cI
+ 8Ozf/Cq7qQ6MByXtRXdxkT1+JzjQtezFlJu+7fbdjrqQN1Xums7o/n58Kl3+J9SIZl+p
+ +iS5fbKYdY5uUtwHSrBhB3vpWfwVtOQHursQWmqxdsNNWuRRBs+q/7zOZZaxpRP5IeuY
+ x8xg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEyihSU2A08sbWSC+NCD2Q3u8HEEuEwqja+r1kIlgVhrXyDYMvLoRVI0j/wqqeuSrsod4o7f/FPPo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx47HRKBGCb+pyVs232pmBhtTkjauWDX8gzAynwpYuZFNWWaNdN
- 0SOXYUWwUfRsJ2y15uK7uGNTPmP/mfBUUQ6dte1nRk+vPr6N3mTYVZd8
-X-Gm-Gg: ASbGncuMci3h0fMO+Ff1vDZ+NDaYnjK9/F6pz5TkLwPUUNu53ywxgIg43pCD4BMOa2g
- 9qJq1JYmgLxzpKznwrd/kMOvzui/1m38vOwWvapFttsf6sqGTZ3pFLoBl6CjDMZ23FZmp5FgFF/
- GHXyiMQAlO7G7l/dYein1kEUqn5tnsvqN1QY2gu/YZQ/3ZpF2F+mRIyoatxZDMY4gtLo+gLQYzt
- WjrGxJPqZhaQ7KK7b4ItsVnSwiynWf1muqz0Nmveqblum/MmFnUNzeMQlnfcARKfSfK+j227ltO
- wmHsyo6RoSc7fRR2fwfwNcuXwoKmJzkgKylkEx71PzZZ258oNXOdRUlHux6gvn8i1UjOXT5Buhc
- R183khlaXtdAEL58iKsFfQW5wBJ6fpeZKojh/1QKMVSfbZ4Fc8pLAtI5qckPA
-X-Google-Smtp-Source: AGHT+IEp5VCzLJr0X68P0qy3TU0LoV0niMRhq9/WEWNUYlkHD0hdkBSjsI1HL68vgVh52+E/1wlU1A==
-X-Received: by 2002:a05:600c:518f:b0:456:1d06:f38b with SMTP id
- 5b1f17b1804b1-45892b9da13mr49754965e9.8.1753940207960; 
- Wed, 30 Jul 2025 22:36:47 -0700 (PDT)
+ AJvYcCWbAanTNSNZfvRJ3jmLAwQxYGuk0ybaWAqF48HTAP4bLp7Vl2/KCk2sYjPX6D9GnWYlQBmW0lQHy3o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxEsrvJfzSwAeF+u10I2szvlaXye63bLIOF6x3tfqXRNz7evjiz
+ x4bjjmR70b/kLlqLWvuMEvuckPtJTe8bkB8j3L2A6TyVZfI8YCUaYSzc
+X-Gm-Gg: ASbGnct5dmXxRFiYeCr739TNjsCiBTCzx0uKIVG+WI0KgFQ3cThnX2nYU3EF/CzoOpz
+ Xw5Vw0EoB4s5VC83htgfPGZCTdXLEdfZBHV/Tf4Cm1NPHL1oL6lLzLBwLnKCkKULUNHFVvXQwbA
+ brjX0hSMGqraAff0+qp99aQi/0FQMqsCOj9A4I+SuypDazBY7cQVAgxBxKNsVe7rKnMDeaw/djp
+ vB0/3TKz+oZrxCCOyW32Hpy7mxdTfh3d6KIwlDY9oyFVXRaWRgqTJwESFVyb7A42EFwyW3OuyvU
+ TiR9/Gti4Comeg5PGeO5kvPC0Fo1d2fa0CedWaopkF+LfCvCza2p+oi3lWj5CCuRqrf8U6SeLV4
+ EvZ0datceQYjmqM2M47Ab68yDxA7UrfRBFJM6KdBRCyLw1dtcW2YfzpnWCYrUWgoEtTduaoo=
+X-Google-Smtp-Source: AGHT+IHdfzXx9K06cb/UnitGjPmvC7D+NZDjqSkxgc5T7oHEjmuUebpFeyLmNYxu/axLoj3DiwsXzg==
+X-Received: by 2002:a05:6000:200e:b0:3b4:9721:2b31 with SMTP id
+ ffacd0b85a97d-3b794fc2684mr4609111f8f.5.1753940212394; 
+ Wed, 30 Jul 2025 22:36:52 -0700 (PDT)
 Received: from [192.168.1.205]
  (dynamic-176-005-138-071.176.5.pool.telefonica.de. [176.5.138.71])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3ac093sm1149137f8f.9.2025.07.30.22.36.46
+ ffacd0b85a97d-3b79c3ac093sm1149137f8f.9.2025.07.30.22.36.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jul 2025 22:36:47 -0700 (PDT)
+ Wed, 30 Jul 2025 22:36:51 -0700 (PDT)
 From: Philipp Zabel <philipp.zabel@gmail.com>
-Date: Thu, 31 Jul 2025 07:36:36 +0200
-Subject: [PATCH RFC 3/6] drm/amdgpu: don't query xclk in AMDGPU_INFO_DEV_INFO
+Date: Thu, 31 Jul 2025 07:36:39 +0200
+Subject: [PATCH RFC 6/6] drm/amdgpu: don't wake up the GPU for syncobj
+ feature detection
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250731-b4-dont-wake-next-v1-3-e51bdc347fa3@gmail.com>
+Message-Id: <20250731-b4-dont-wake-next-v1-6-e51bdc347fa3@gmail.com>
 References: <20250731-b4-dont-wake-next-v1-0-e51bdc347fa3@gmail.com>
 In-Reply-To: <20250731-b4-dont-wake-next-v1-0-e51bdc347fa3@gmail.com>
 To: Alex Deucher <alexander.deucher@amd.com>, 
@@ -93,56 +94,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cache the xclk rate during amdgpu_device_init() and return the cached
-value in the AMDGPU_INFO_DEV_INFO query.
-This will allow to avoid waking up the GPU for this query later.
+Don't wake the GPU if the SYNCOBJ_CREATE/DESTROY/WAIT ioctls are used
+to detect syncobj features before the GPU is powered up.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2295
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2295
 Signed-off-by: Philipp Zabel <philipp.zabel@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 2 +-
- 3 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index e33c90c44697e..35827a0cca780 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -431,6 +431,7 @@ struct amdgpu_clock {
- 	struct amdgpu_pll spll;
- 	struct amdgpu_pll mpll;
- 	/* 10 Khz units */
-+	u32 xclk;
- 	uint32_t default_mclk;
- 	uint32_t default_sclk;
- 	uint32_t default_dispclk;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 79d0ff0bda290..44a8fad60512e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4818,6 +4818,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (r)
- 		goto failed;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 79d31ac6a7b37..b12342e917193 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2981,6 +2981,14 @@ long amdgpu_drm_ioctl(struct file *filp,
+ 		}
+ 	}
  
-+	adev->clock.xclk = amdgpu_asic_get_xclk(adev);
++	if (wake && unlikely(!fpriv->initialized)) {
++		/* Allow syncobj feature detection before GPU wakeup */
++		if (cmd == DRM_IOCTL_SYNCOBJ_CREATE ||
++		    cmd == DRM_IOCTL_SYNCOBJ_DESTROY ||
++		    cmd == DRM_IOCTL_SYNCOBJ_WAIT)
++			wake = false;
++	}
 +
- 	return 0;
- 
- release_ras_con:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 60f36e03def2a..190602bacbcdf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -911,7 +911,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		dev_info->num_shader_engines = adev->gfx.config.max_shader_engines;
- 		dev_info->num_shader_arrays_per_engine = adev->gfx.config.max_sh_per_se;
- 		/* return all clocks in KHz */
--		dev_info->gpu_counter_freq = amdgpu_asic_get_xclk(adev) * 10;
-+		dev_info->gpu_counter_freq = adev->clock.xclk * 10;
- 		if (adev->pm.dpm_enabled) {
- 			dev_info->max_engine_clock = amdgpu_dpm_get_sclk(adev, false) * 10;
- 			dev_info->max_memory_clock = amdgpu_dpm_get_mclk(adev, false) * 10;
+ 	dev = file_priv->minor->dev;
+ 	if (wake) {
+ 		ret = pm_runtime_get_sync(dev->dev);
 
 -- 
 2.50.1
