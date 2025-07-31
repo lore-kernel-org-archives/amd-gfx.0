@@ -4,84 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5326C88CB5
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 07:24:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96713C87FCC
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 08:22:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 786AD10E72C;
-	Thu, 31 Jul 2025 07:24:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D78510E25C;
+	Thu, 31 Jul 2025 08:22:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hXa7fcaW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BfrfL38Z";
 	dkim-atps=neutral
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37D9B10E702;
- Thu, 31 Jul 2025 05:36:45 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-3b77b8750acso231883f8f.0; 
- Wed, 30 Jul 2025 22:36:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753940204; x=1754545004; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=9wjzRFN4mNt2Ahno1y82ZVBSbr4UOHx9K5gFPebp1jI=;
- b=hXa7fcaWJ+2Qht1MzVCEU7Rlf6fr/ZUIIarTooDg/CZvhD+INQpPMytJiqlSKibBFp
- RiZ6Z6aMBW1rawHdH79min+ripME/V/nAjW78jcZYQlwcrNxek3sE/CVje0GQwiii3m7
- Vyo7XD5V4Kil5DlIeh/8iuU4gwWrXzOwxmQD3VxBdSZR83AHcgmWFgAZusVqFRDwVY/y
- oZL65z7dsSXHmEY9vok09Z17gdY7ZpxgnkbzprRSw3xknz2/1a2MXBlnm9Pk2bLDr2m2
- IF/b7p4378fl9/ZDuCfVevRU+q2RTJdIZNCPByFwfCf9zMwxEpbaRvvWFphmWChNO7IT
- Sf2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753940204; x=1754545004;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=9wjzRFN4mNt2Ahno1y82ZVBSbr4UOHx9K5gFPebp1jI=;
- b=pcQF2de9YsOORmHCnlZvC/eB2/Le0dArO62Z2SrsAXNhBy6Uro7TX9pHksYrKS3twV
- dPZfi08breew5Gqw78+S4z2cHkMYsIzlVybaT5cdZ5PDD4JPEze/s3SXdHQiFp2V5aiv
- ysyWtnh0LKNV/rBc+ozcI8tR9eX63OYdWC3e2AqoUsb4WJNVvO/bDvqgItXBuzi7o3gK
- SglPa3bD+tuopsx0ajjdiCpG3QQdJqGHwoucVJIBCAPQYEiYu7BJr1USKI6vknSsxjfU
- RXtFQo6hCEX/7L18zNOTT0hWBTbB6LfWSFeQN+spWTmLhKmdm7i250UnwqVm2zTE7ICG
- p05A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWtrCI352zMaYPfpc+KS3Z8QDCaXhlbHLkJ7nN3drTF0zpxwORW1eFy+CcqqiV4Jf8olnb9JRrAz8U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxKRn+ZvqiOC6qT9s3zt5OSs0nJ4QnNt4g7KEOoM0nni+ZICg88
- R8ZXaefawLd/Iy2+2efNiZDh5qJx8CfUsHnuC2JpuwWWxSGYhxR0+MkW
-X-Gm-Gg: ASbGncvnmfoC5RjVUmY6WaIrPUHzBalmgcxV7wPM6bVK0j30f0aI/9kIM9ToUije7M6
- CSFE3LmKD/G6/t2tXMZ7oQBy7g87lGphP8lgvDIMI5+B1j/KOBqZMsOUx1A38Nuol16KqdXJkYU
- mHKVCjRb8kKmKy5gwv5YKXAKce+0z9qRMit/i9nKcUycdjt95xDn48EnuCK0C7FLw8RC9vDmTBm
- EDUP/d4LtwhfzG5Hnzv8A1+Q063pOA1gjz6lTG6HSj20R9CjRRFZT0JVI00VJs4YrD2V79TphvN
- OWv9gqehYX1ltATRpOBiSR90WkVMiz4hvJAzWhxtYnbADoMbmqFeLUACgn8ZZGi4IO7rSXMIF9I
- l/Ko7nzwftTeg2u4bcTf3iCDQe/gWjrCGKOVnJT4N/MKLouqVQa628gHVK4Ia
-X-Google-Smtp-Source: AGHT+IHZzT2X7dcyUlKwCrocUxoHjRp8HDiN+RWizQinctQQjrI6tN9tQPybT24AfCWIZ5kXsrV/ig==
-X-Received: by 2002:a05:6000:2dc2:b0:3b7:908e:e4ac with SMTP id
- ffacd0b85a97d-3b79d42097dmr494133f8f.2.1753940203459; 
- Wed, 30 Jul 2025 22:36:43 -0700 (PDT)
-Received: from [192.168.1.205]
- (dynamic-176-005-138-071.176.5.pool.telefonica.de. [176.5.138.71])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3ac093sm1149137f8f.9.2025.07.30.22.36.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jul 2025 22:36:41 -0700 (PDT)
-From: Philipp Zabel <philipp.zabel@gmail.com>
-Subject: [PATCH RFC 0/6] amdgpu: Avoid powering on the dGPU on
- vkEnumeratePhysicalDevices()
-Date: Thu, 31 Jul 2025 07:36:33 +0200
-Message-Id: <20250731-b4-dont-wake-next-v1-0-e51bdc347fa3@gmail.com>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2064.outbound.protection.outlook.com [40.107.236.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49ABB10E25C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 08:22:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R8jBB80wJZzK769SZn67hZL6kpjkeyZtICKxlVWDI30InT7TA7nrMKBzc+ek0eZ1/4BUArExsEyFkZqEavCj4w0D0dPud25AXkRKqeJtkkbPTfxRVmeD42yHDxdR2GOfBIq57+RDEfBC49JLqNqS2aiWVH+egrKXHlGIAs5vNLWEI8AUyxyIlE1j6uYPZ5xPdHmDDxvrfwFM41obrajktiFjA5EIiyFuFFFEePexX6crNFgCwxLQdZabnLcZUM/1ks1sqNjPAVgOrHoVI+pZtWF/N27yaRtyIpu4J5a5fnOMj4wJ55t19svV6FJGlEjOVi9/KpVjqrjuDnf7MADtrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y3aqlXpIu09viDaoEshhzaCgM/+aW0YlVmMnyez/TWc=;
+ b=pSVDAg8hLDFBKXOibPGYMUyfzuTn6mEr8lxCtVJrZD1LISIYfNWw/T2Fim1V32NPhJS/kUV8q1UJYTTbacGV/WeaerOb+n1wYj6FhRDnvcVJ9o/j83bQYLhhkes/JHkAapiDoWDDgw0Ub5csnAmerOK6D+4BV5UakzKrxFdeRIpeteU4dHwZHMql7GSf4dmKq8oIMtcNwyzjb+y6IQlpgrYef04n8xrYKBBX9cgxU2O9n2FJzDlBJldfMaG0LMU58TIqcLKgZ1CmiMpIhUcBHrXJeDhSRn0uPAYIIryE4WZwYGSqMoz/8GRO3mN40fTIKkfeVlQvsINHUxQQlNmvXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y3aqlXpIu09viDaoEshhzaCgM/+aW0YlVmMnyez/TWc=;
+ b=BfrfL38Z1DFG3pQ+ZXGEwiwUms7sUZ5WZR4cdxWndZwVgtEG/qL97OfscxDcZx3FBO8YMNmRo5EoaIFFE2T7m6Tt41mHg1RqWZajouPNt0fh08H74DvUiweIjpY7Qg+oKziR83zA+nFRLMGIIh35mjw5f4xi5zXNlcMsCsy4OYI=
+Received: from MN2PR08CA0004.namprd08.prod.outlook.com (2603:10b6:208:239::9)
+ by CY8PR12MB7681.namprd12.prod.outlook.com (2603:10b6:930:84::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.23; Thu, 31 Jul
+ 2025 08:22:17 +0000
+Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
+ (2603:10b6:208:239:cafe::a6) by MN2PR08CA0004.outlook.office365.com
+ (2603:10b6:208:239::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.13 via Frontend Transport; Thu,
+ 31 Jul 2025 08:22:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8989.10 via Frontend Transport; Thu, 31 Jul 2025 08:22:16 +0000
+Received: from marui-Super-Server.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Thu, 31 Jul 2025 03:22:15 -0500
+From: Heng Zhou <Heng.Zhou@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Heng Zhou <Heng.Zhou@amd.com>
+Subject: [PATCH] drm/amdgpu: fix nullptr error of amdgpu_vm_handle_moved
+Date: Thu, 31 Jul 2025 16:21:56 +0800
+Message-ID: <20250731082157.25816-1-Heng.Zhou@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOEAi2gC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI1MDc2MD3SQT3ZT8vBLd8sTsVN281IoSXUPztGQDI0NDE2NjQyWgvoKi1LT
- MCrCZ0UpBbs5KsbW1ABBVMXpoAAAA
-X-Change-ID: 20250730-b4-dont-wake-next-17fc02114331
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>, 
- Philipp Zabel <philipp.zabel@gmail.com>
-X-Mailer: b4 0.15-dev-a9b2a
-X-Mailman-Approved-At: Thu, 31 Jul 2025 07:24:00 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|CY8PR12MB7681:EE_
+X-MS-Office365-Filtering-Correlation-Id: baa32dd7-c51b-4355-3ba2-08ddd00b5c16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?juaP/GJjD9unBkF4VtoPNgKkNAuVaIIIqXPQFD080kI6RIl5QjhfkVVkdFp9?=
+ =?us-ascii?Q?d0+7BoGr3iGbjWafFgbD41zfWvw1haGFwGKnilzriGi9ivXnPI4kYVCqE3FI?=
+ =?us-ascii?Q?8HwludijWi2hIShgwp21HkG1bSZpqMPLkQgqxYxpt/ccZBt9FxkmvRRxgRWy?=
+ =?us-ascii?Q?lmxk6OMUoQYEpu7mE/sMxhnjN8NAL3Z8fsjWxSmxFAYzYg0uEuCi3UAkQyHU?=
+ =?us-ascii?Q?xWooBHvcqpImdqifEUgDJysUcqcajd+tO9XOj6s6U0sAKkz8vDIvZd+chLdQ?=
+ =?us-ascii?Q?MPhVdz4G6Ww5R2G6oDZXe97necZrfgF6XmngtBByWcM7pwqiG9HnmXaR6x7Q?=
+ =?us-ascii?Q?w+Q0CCtysBO+BKbdL4r3+1vvKbZ0STTnAKSvHwJ8PxL4V5iHguY9s3fEawbV?=
+ =?us-ascii?Q?mJUnvwBMYEvMKFnUQs0eEIDmaR0TbHlrjwUF7BFPepe+sbAOztcAGZbIvdO3?=
+ =?us-ascii?Q?GEFIc1uhQxlG/crn+85E7F2RW65BymTFQzBkJyRc8RW2RzQAC6hmhsQ7Q1ii?=
+ =?us-ascii?Q?E+xhcfN+HMzQdeO+uckrTesWjXAi/iw1M6QW76LlSJpAizW95heEFwtjA5Av?=
+ =?us-ascii?Q?2zarXrg4yYsz3+k/aFojlbj1rs4O8OI7rTQcf1ep9PUVEHZKAWmL/acgcm2A?=
+ =?us-ascii?Q?hreWzyZxGdfKexz2tDLKwpoBJSbcq6o2iD9CsZtJofqLKlkN72JR4luiTfe8?=
+ =?us-ascii?Q?fnlkuWnV8IBWU7u3ft5yz6rKBEoeIHOCD3AQvjvMOewpdFfSLm8lDLEoQuY9?=
+ =?us-ascii?Q?Pbj03EnMCKJN8QAB8x635Ihptzoki8gnVBsbA9dUtdzFRTObWH546lS4okR6?=
+ =?us-ascii?Q?r0c1vBsGgSQXtRJrqCNFqatqyCfOq/k06kHDJtkIYlb/hugAhIcS0hF2o80Z?=
+ =?us-ascii?Q?74ci8fFTWe4va6Zpy540DwuGp+0bj1lQUpMSm2IO4/z+upJAZb088/17awPP?=
+ =?us-ascii?Q?DCm8lqoPxHWEdFU72WLqJKrG6bYPZ+l9DDaBSeqMuNG2+WjX71UFNE1ZWh31?=
+ =?us-ascii?Q?un8A9CxtZpeZEGckAqiw/1uzjWSk3s5C+jU70ywO6A5QnoHdKr3jm+D9x2MN?=
+ =?us-ascii?Q?gETmcU6n+AzBT8JT1JlD63TJwOtSxq+EFEo2uyRRY1UEqgKsSPSo/lzhkiG9?=
+ =?us-ascii?Q?eKDAqQ2WdPc3YbYp/8IKZWFjSVq1iIyn5fHmSbpUfEM+abZPLNxxLUdKWKBw?=
+ =?us-ascii?Q?2DHyFBtYVIKsGL5mDeYzDTi/GxXLWLoN2Da+D59iUIyq4+Q8wPZqZASN6D5b?=
+ =?us-ascii?Q?/8Mn1yc3i5QuDUi9cmqwEZUJM3bOIcIJihDUjO95xnYSo7ddkgDMZy7yGaQx?=
+ =?us-ascii?Q?gq1mhcfkoOD0kvInnKLPw+T7Awfm5Oq8lLLfLh52DQ/dlFvt9i4UqZKzvbVv?=
+ =?us-ascii?Q?xWN76LQPUsJsTrTlI2mTrggj8GZzVH7V8BuFOPRUPt76yJNJmcU/DDKDzhGp?=
+ =?us-ascii?Q?z9wgC46OBefZLGdQgc62ixirXqRsjrBEMCy5rsHr20HCOE6uNDGhGjRtxZ+g?=
+ =?us-ascii?Q?R+R65wnN9g8dgdA37jXmKP9uAg0rtfWauTWh?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2025 08:22:16.4222 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: baa32dd7-c51b-4355-3ba2-08ddd00b5c16
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB55.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7681
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,53 +130,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an attempt at fixing amd#2295 [1]:
+If a amdgpu_bo_va is fpriv->prt_va, the bo of this one is always NULL.
+So, such kind of amdgpu_bo_va should be updated separately within
+amdgpu_vm_handle_moved.
 
-  On an AMD Rembrandt laptop with 680M iGPU and 6700S dGPU, calling
-  vkEnumeratePhysicalDevices() wakes up the sleeping dGPU, even if all
-  the application wants is to find and use the iGPU. This causes a delay
-  of about 2 seconds on this system, followed by a few seconds of
-  increased power draw until runtime PM turns the dGPU back off again.
-
-[1] https://gitlab.freedesktop.org/drm/amd/-/issues/2295
-
-Patch 1 avoids power up on some ioctls that don't need it.
-Patch 2 avoids power up on open() by postponing fpriv initialization to
-the first ioctl() that wakes up the dGPU.
-Patches 3 and 4 add AMDGPU_INFO to the list of non-waking ioctls,
-returning cached values for some queries.
-Patch 5 works around an explicit register access from libdrm.
-Patch 6 shorts out the syncobj ioctls while fpriv is still
-uninitialized. This avoids waking up the dGPU during Vulkan syncobj
-feature detection.
-
-regards
-Philipp
-
-Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+Signed-off-by: Heng Zhou <Heng.Zhou@amd.com>
 ---
-Alex Deucher (1):
-      drm/amdgpu: don't wake up the GPU for some IOCTLs
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-Philipp Zabel (5):
-      drm/amdgpu: don't wake up the GPU when opening the device
-      drm/amdgpu: don't query xclk in AMDGPU_INFO_DEV_INFO
-      drm/amdgpu: don't wake up the GPU for some AMDGPU_INFO queries
-      drm/amdgpu: don't wake up the GPU for mmGB_ADDR_CONFIG register read
-      drm/amdgpu: don't wake up the GPU for syncobj feature detection
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h         |   5 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  80 +++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c  |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     | 137 +++++++++++++++++++++-------
- 6 files changed, 194 insertions(+), 36 deletions(-)
----
-base-commit: 6ac55eab4fc41e0ea80f9064945e4340f13d8b5c
-change-id: 20250730-b4-dont-wake-next-17fc02114331
-
-Best regards,
---  
-Philipp Zabel <philipp.zabel@gmail.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 283dd44f04b0..f88b3e3448f5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -578,7 +578,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	struct amdgpu_vm_bo_base *bo_base;
+ 	struct amdgpu_bo *bo;
+ 	int r;
+-
++	
+ 	if (vm->generation != new_vm_generation) {
+ 		vm->generation = new_vm_generation;
+ 		amdgpu_vm_bo_reset_state_machine(vm);
+@@ -1608,6 +1608,17 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+ 	while (!list_empty(&vm->invalidated)) {
+ 		bo_va = list_first_entry(&vm->invalidated, struct amdgpu_bo_va,
+ 					 base.vm_status);
++
++		/* bo_va->base.bo is NULL only when bo_va is a prt_va */
++		if (!bo_va->base.bo) {
++			spin_unlock(&vm->status_lock);
++			r = amdgpu_vm_bo_update(adev, bo_va, false);
++			if (r)
++				return r;
++			spin_lock(&vm->status_lock);
++			continue;
++		}
++
+ 		resv = bo_va->base.bo->tbo.base.resv;
+ 		spin_unlock(&vm->status_lock);
+ 
+-- 
+2.43.0
 
