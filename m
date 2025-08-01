@@ -4,81 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8718C87FCB
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 13:29:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2623BC87FD2
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 13:29:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B6610E854;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE6610E855;
 	Fri,  1 Aug 2025 13:29:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ltt21jQZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kJYv3e+m";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F57810E2B6
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 18:17:32 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2401248e4aaso16295535ad.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 11:17:32 -0700 (PDT)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C06D10E3AC;
+ Fri,  1 Aug 2025 06:11:34 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-313910f392dso428156a91.2; 
+ Thu, 31 Jul 2025 23:11:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1753985851; x=1754590651; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ko+E3oR4W+9XRH6XslAZTMmOJxda8PZJ1FffJrGkJ1Y=;
- b=ltt21jQZEa74QsiBRu4nSC7PgOAs4xPuCxfsUFCkm5AUwN1Q6CO2Ma3kk9AB0VvMkn
- IOpdf5bNNw74eTLxY1jg+CZI/dQKWFRuDcmkDTv1lwq/fAAWWECRyHW4p/s0qky5CjRu
- /0ku6iEALoDyIv3YYnI5aI74Mmm46p4PHfJtgmni23GAMzM8bYBPa/ENk3lyq+oIAbjl
- XZZJnbEvvybc87dy8DRmcZgeHUeoOV9K2DRD5oeTA9+Ojte6vao8LTCL0MyaSSMT48IW
- iP/UxexoLNu6X4TCot4/xlsItcNR7CIBMu5zhysZq2V3G1Gd13Zi3QXfO6S2412FyWUf
- 5Edg==
+ d=gmail.com; s=20230601; t=1754028694; x=1754633494; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0ko16HVi9ZPbBwhIj2VqJyHD6N02PwGWvkY6qgm70FA=;
+ b=kJYv3e+m5LH7ja9jT2lVIAln3PKjNqcriBeOjOvBDnD5AilXPhJg+XMyic0t75EaNq
+ 2FV0L4rBBaoqZ98Hnz6UH1Y75qXArCzm1LFrugbiKgXAtej68s/YfHe/2WYtL1EhDE/h
+ gRmHB7sGy1DU92gZuXoFaWECHtYR48NX5VzEyoisFYYOVHJvv2mCJpqt88YtZo+q/U3D
+ +AIRjeMd5pH6KscFTpoMqL8s+NGZ033YPGmbRZua6NoRwm/2FMIXW4fHTDfb/i8hyXwU
+ KZPXOC6cynHIWnNqUuLnXX73YQV4HZVdV+0Eac5/KPRlYMSot9cYb7SGDuM9TCIQ6BeA
+ JZBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753985851; x=1754590651;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ko+E3oR4W+9XRH6XslAZTMmOJxda8PZJ1FffJrGkJ1Y=;
- b=XNNVgr7Dv1H5KdZ/kkN59cKn2sQvtMAJ4DhNm39GGgIxjjWFFrrfoldl9Ma7upiRRi
- sDEO11XF9qKKEBwJQD97BzT4UUcC99wsuLfu4n9jNb9KXuo9IWC2Opj1XTjE1Z8eFYX2
- tK61jU7NM4LGj9s7usO1v66QzCX/QQs5Y8PTh4gecI138lSnvD92h9Pwxk0HTQOISmVQ
- p7JHQ3cM7qy1scE+NW2btE6GORdROc8b+P+D93f6U0HOx7ybgEbUYJfjdK8VVx7g/VcL
- Y0dup5mCJAJ+z8Bgf+0uhn45zcNE8DHZ+uYCI4u8lR2J7YKbwe26PhX9zf7iIMx1ME55
- OuJA==
+ d=1e100.net; s=20230601; t=1754028694; x=1754633494;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0ko16HVi9ZPbBwhIj2VqJyHD6N02PwGWvkY6qgm70FA=;
+ b=iGptHzp5/9A7p1tPBR2aVHSJ4KDOX1wuYtwZHfleeuSS05ZUPV5VjWICW5w5sRvjZo
+ MllIXVGmc+J5c3U40njMwP5eC7z4OLxRLxeYL2MemH7mfaP/Dr7x75jPZmt8hGtMN93w
+ fWEGK3xtTGTF7RyqRg7ZetpzxHbHLLmapHkO/0k8/2+BqA7jfxJQ2RhW4h43uiVXUTPg
+ osbCViwoXNXvPOOO8S/l20m04gPNeHIKDmv1VrC9sQzJTRebr40ronhPy034uwdYuqnq
+ BYmOBDohu5F/cvwzZnFM3FVA3kstWOe9OjAvpi+L8uTovWmVAmKzGgiKChvtOh3g3+X9
+ tCHA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXL9QX9VELvzH/sD7fm67sspwIQww64hxobS0Hc53bK7mPS4Izw2uKgcZbS/5jVLiLRx19VZxx9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxiYOZN+0wAYdcuMWUrBVu70tfBI7a0zQqMgaZMiPDDyKwYONqN
- g7xYVjWoDSV5pM1dhthReXW8bctBakDgftu6Nz6SLxdQ53f3r+zPQ21FUpTwq70vcNw=
-X-Gm-Gg: ASbGncsGbJCJjKd7IpiwLmLt1xTzTf8LcPotvEZJVP4ONGRDDGTUg0qJkmN2eZZSb5b
- 556/k4LWbHQvrNB0CeGIkKnYbREFT/ktUKptQ2Cha9yr2x5gG4MqMicjxlrKVdj9DOslXcZTfrp
- VjsEWFqwm3FloWNUoyfBPLhNkEFmtPMORSOjmn0yoYll+jreS2Gwy9EeyzDttrydQzWNWuU0fj/
- mhKIK9eYkdf9/UV6BEwOGZrU0V+St8C/SMYj5v+5uQF5u8W/9YAVbQbbpCZhBy9nZB7FgsAe5Xk
- fojxPatRbv6tmiYhIIaBgmrXLCViv5PI8eA7NTSyT48xY7EaWJRnNDhrd/rnJBjKoCw8UxWacKw
- JAdUAQZMIYNIlRoexMPZMQtj5qY8myA==
-X-Google-Smtp-Source: AGHT+IFptIyiPCQAr4K9I9q2LxI/H2znEXUjIk9SB8OaIyTmC1dTpj+7408uLyZUSVSamCN8Ns2kew==
-X-Received: by 2002:a17:902:e890:b0:224:910:23f0 with SMTP id
- d9443c01a7336-24096b3d823mr127116295ad.49.1753985851577; 
- Thu, 31 Jul 2025 11:17:31 -0700 (PDT)
-Received: from localhost ([2405:201:c00c:2854:bfcd:fa29:9fd7:ab48])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241d1f101d1sm23488235ad.62.2025.07.31.11.17.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Jul 2025 11:17:31 -0700 (PDT)
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-To: imre.deak@intel.com
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- broonie@kernel.org, christian.koenig@amd.com, dakr@kernel.org,
- dri-devel@lists.freedesktop.org, lyude@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tomi.valkeinen@ideasonboard.com, tzimmermann@suse.de,
- ville.syrjala@linux.intel.com,
- Linux Kernel Functional Testing <lkft@linaro.org>
-Subject: [PATCH 0/3] drm: Fix initializing format info in drm_framebuffer
-Date: Thu, 31 Jul 2025 23:47:05 +0530
-Message-ID: <20250731181705.159893-1-naresh.kamboju@linaro.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250728101603.243788-1-imre.deak@intel.com>
-References: <20250728101603.243788-1-imre.deak@intel.com>
+ AJvYcCVMLjFtG83AT/pRpqqdFO5QvEy4uH1q/M77GjVqjTDGccqgl2cI/YwtmVmGBRITQeCeCaDKQBsg@lists.freedesktop.org,
+ AJvYcCW+12S/+t/jCeN0o9H51xTBahGylMz1kBX7Yzb6IJWj9dzglEO3qfqnmDacE3eG/YH3sid71QpSR/22@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxbc8karcbXlCBLrmPnFa8iEyCUTYoDMxp9G2+oHAfM2WYEqWXJ
+ hLqkweLFiQBM9ECojS+luiYYhRgB17vKUGUFsHOqWP92rXHeBxePZUf5YiffT0wUcO4Yz113gH7
+ fWytxLddlb/hrJ2FuG/BmjNHVUYGKJWU=
+X-Gm-Gg: ASbGncv8gbanjVPJtujRaH6k8g/Xxo7w/VnL6RJKqhS5D9o8de1172lJDRDtSWe8MtT
+ QZBd5twrZkw1pT6PhF9Slnk/Nu1P87nPLCCZa8oNFSFb7TI7WrRPs9qxtJv/V/BHBUzLOI3AHR4
+ eqawd1ZewJlvbS88MZWkbZ7BHgDi5Ea9yw3ujtusV9BBEfCoITh7Hv4Km7KnzDlwNsWTdt7edCK
+ JGzYJo=
+X-Google-Smtp-Source: AGHT+IHP5f0oXGiOrttrHBImpIiuQeP4ljVNIuB7tpCkUe7xYlaM0ikqTUnOdcQq1Ul7QI4J9HRPqfYROgBiKnI0g/k=
+X-Received: by 2002:a17:90b:2cc6:b0:312:2bb:aa89 with SMTP id
+ 98e67ed59e1d1-31f5de34a48mr14645187a91.20.1754028693622; Thu, 31 Jul 2025
+ 23:11:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250731-b4-dont-wake-next-v1-0-e51bdc347fa3@gmail.com>
+ <20250731-b4-dont-wake-next-v1-5-e51bdc347fa3@gmail.com>
+ <CADnq5_PG1Am4OGkfKo9o9cfnvSdzwRFeYudbvw220+P1AHO4xA@mail.gmail.com>
+In-Reply-To: <CADnq5_PG1Am4OGkfKo9o9cfnvSdzwRFeYudbvw220+P1AHO4xA@mail.gmail.com>
+From: Philipp Zabel <philipp.zabel@gmail.com>
+Date: Fri, 1 Aug 2025 08:11:21 +0200
+X-Gm-Features: Ac12FXy4Bp7cHwpfA3_SJEVsnOgcLffltweyrxbaKSDp7VKM1SkzOyKNjBrWNao
+Message-ID: <CA+gwMcc41Hh=or7NLMnG++miHj_dNLZ04iFYdf=U7_LLG1gSZw@mail.gmail.com>
+Subject: Re: [PATCH RFC 5/6] drm/amdgpu: don't wake up the GPU for
+ mmGB_ADDR_CONFIG register read
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Content-Type: multipart/alternative; boundary="000000000000359306063b47a15a"
 X-Mailman-Approved-At: Fri, 01 Aug 2025 13:29:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,18 +90,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> This patchset fixes initializing the format info in drm_framebuffer by
-> drm_helper_mode_fill_fb_struct() in the omap, nouveau, radeon drivers
-> after patch [1] in patchset [2], the latter one missing the conversion
-> of these 3 drivers. This patchset converts the 3 drivers similarly to
-> the other drivers converted by [2].
+--000000000000359306063b47a15a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> This patchset was only compile tested.
+On Thu, Jul 31, 2025 at 9:38=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
 
-> [1] https://lore.kernel.org/all/20250701090722.13645-20-ville.syrjala@linux.intel.com
-> [2] https://lore.kernel.org/all/20250701090722.13645-1-ville.syrjala@linux.intel.com
+> On Thu, Jul 31, 2025 at 3:33=E2=80=AFAM Philipp Zabel <philipp.zabel@gmai=
+l.com>
+> wrote:
+> >
+> > Don't wake the GPU if libdrm queries the mmGB_ADDR_CONFIG register
+> > value during amdgpu_query_gpu_info_init(). Instead, return the already
+> > cached value adev->gfx.config.gb_addr_config.
+> >
+> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2295
+> > Signed-off-by: Philipp Zabel <philipp.zabel@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > index fe1347a4075c4..ed4d7d72f2065 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > @@ -883,6 +883,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
+> *data, struct drm_file *filp)
+> >
+> >                 alloc_size =3D info->read_mmr_reg.count * sizeof(*regs)=
+;
+> >
+> > +               if (info->read_mmr_reg.dword_offset =3D=3D 0x263e &&
+>
+> I think the offset of this register varies across chip families.
+> You'll need some way to determine what the offset is for each family.
+>
 
-Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
+Thank you. This workaround was specifically intended for the following call
+in libdrm [1]:
 
-Test job,
- - https://lkft.validation.linaro.org/scheduler/job/8377982
+        r =3D amdgpu_read_mm_registers(dev, 0x263e, 1, 0xffffffff, 0,
+                                             &dev->info.gb_addr_cfg);
+
+[1]
+https://gitlab.freedesktop.org/mesa/libdrm/-/blob/9ea8a8e93d542fe61d82716d1=
+a721e8d1d257405/amdgpu/amdgpu_gpu_info.c#L215-216
+
+which also seem to hard-code the dword_offset?
+
+The same is now copied into Mesa [2] as:
+
+   r =3D ac_drm_read_mm_registers(dev, 0x263e, 1, 0xffffffff, 0,
+&info->gb_addr_cfg);
+
+[2]
+https://gitlab.freedesktop.org/mesa/mesa/-/blob/c64c6a0c31f9cb1339bc700d236=
+932171f7444a3/src/amd/common/ac_linux_drm.c#L722
+
+regards
+Philipp
+
+--000000000000359306063b47a15a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Thu, Jul 31, 2025 at 9:38=E2=80=AFPM Alex =
+Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">O=
+n Thu, Jul 31, 2025 at 3:33=E2=80=AFAM Philipp Zabel &lt;<a href=3D"mailto:=
+philipp.zabel@gmail.com" target=3D"_blank">philipp.zabel@gmail.com</a>&gt; =
+wrote:<br>
+&gt;<br>
+&gt; Don&#39;t wake the GPU if libdrm queries the mmGB_ADDR_CONFIG register=
+<br>
+&gt; value during amdgpu_query_gpu_info_init(). Instead, return the already=
+<br>
+&gt; cached value adev-&gt;gfx.config.gb_addr_config.<br>
+&gt;<br>
+&gt; Link: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/2295"=
+ rel=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.org/drm/am=
+d/-/issues/2295</a><br>
+&gt; Signed-off-by: Philipp Zabel &lt;<a href=3D"mailto:philipp.zabel@gmail=
+.com" target=3D"_blank">philipp.zabel@gmail.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 10 ++++++++++<br>
+&gt;=C2=A0 1 file changed, 10 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_kms.c<br>
+&gt; index fe1347a4075c4..ed4d7d72f2065 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; @@ -883,6 +883,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, voi=
+d *data, struct drm_file *filp)<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0alloc_siz=
+e =3D info-&gt;read_mmr_reg.count * sizeof(*regs);<br>
+&gt;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (info-&gt;r=
+ead_mmr_reg.dword_offset =3D=3D 0x263e &amp;&amp;<br>
+<br>
+I think the offset of this register varies across chip families.<br>
+You&#39;ll need some way to determine what the offset is for each family.<b=
+r></blockquote><div><br></div><div style=3D"font-family:courier new,monospa=
+ce" class=3D"gmail_default">Thank you. This workaround was specifically int=
+ended for the following call in libdrm [1]:<br><br>=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 r =3D amdgpu_read_mm_registers(dev, 0x263e, 1, 0xffffffff, 0,<br>=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0&amp;dev-&gt;info.gb_addr_cfg);<br><br>[1] <a href=3D"https://gitlab.=
+freedesktop.org/mesa/libdrm/-/blob/9ea8a8e93d542fe61d82716d1a721e8d1d257405=
+/amdgpu/amdgpu_gpu_info.c#L215-216">https://gitlab.freedesktop.org/mesa/lib=
+drm/-/blob/9ea8a8e93d542fe61d82716d1a721e8d1d257405/amdgpu/amdgpu_gpu_info.=
+c#L215-216</a><br><br>which also seem to hard-code the dword_offset?</div><=
+div style=3D"font-family:courier new,monospace" class=3D"gmail_default"><br=
+></div><div style=3D"font-family:courier new,monospace" class=3D"gmail_defa=
+ult">The same is now copied into Mesa [2] as:<br><br>=C2=A0 =C2=A0r =3D ac_=
+drm_read_mm_registers(dev, 0x263e, 1, 0xffffffff, 0, &amp;info-&gt;gb_addr_=
+cfg);<br><br>[2] <a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-/blob=
+/c64c6a0c31f9cb1339bc700d236932171f7444a3/src/amd/common/ac_linux_drm.c#L72=
+2">https://gitlab.freedesktop.org/mesa/mesa/-/blob/c64c6a0c31f9cb1339bc700d=
+236932171f7444a3/src/amd/common/ac_linux_drm.c#L722</a></div></div><div cla=
+ss=3D"gmail_quote gmail_quote_container"><br><div style=3D"font-family:cour=
+ier new,monospace" class=3D"gmail_default">regards</div><div style=3D"font-=
+family:courier new,monospace" class=3D"gmail_default">Philipp</div><br></di=
+v></div>
+
+--000000000000359306063b47a15a--
