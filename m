@@ -4,68 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67285C87FD3
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Aug 2025 08:28:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BB67C87FC9
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 Aug 2025 08:28:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0FE410E332;
-	Sat,  2 Aug 2025 08:28:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ethancedwards.com header.i=@ethancedwards.com header.b="SGNbONkT";
-	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C19F10E323;
- Sat,  2 Aug 2025 01:51:37 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4bv5CG2YH0z9sNZ;
- Sat,  2 Aug 2025 03:41:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ethancedwards.com;
- s=MBO0001; t=1754098906;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=hC33MpvR7EnAum2rPEi+BrxfSU2s+0/kfdHWysXARnw=;
- b=SGNbONkTIJ3xq0bJkKblq7p6wXInscD86UVia9dEBidHpbsISkPqYLmgQ43YWKOHswxW2r
- 2NIY+0WCd8Ufk0J62tYyd4kIROw9a7N1C0jdFx4GOPmYx+I2KXWViXY/QtxrpCug6DbG6n
- XIJyb65POgKRytjYriWfak3aHbkgXHJS/eV09Bnh5MEZeDp/Tbbm9iprGrCBBxt8T4ZTJl
- WSDpcRdC5oOzY/1Faa8vGAoyn64GxYT0PkXTb7ZSzMvEr7MASFTMJKvm9MLuDBOckMihRN
- GXM6HbrQeX/bMoOiITD8dCzMDizRN6xqhFklTcCuPZg6z60+/KgQFgcElKsRAA==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of ethan@ethancedwards.com designates
- 2001:67c:2050:b231:465::102 as permitted sender)
- smtp.mailfrom=ethan@ethancedwards.com
-From: Ethan Carter Edwards <ethan@ethancedwards.com>
-Date: Fri, 01 Aug 2025 21:41:42 -0400
-Subject: [PATCH] drm/amdgpu/gfx10: remove redundant repeated null checks
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FAC010E333;
+	Sat,  2 Aug 2025 08:28:41 +0000 (UTC)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C09F210E869;
+ Fri,  1 Aug 2025 14:06:35 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-af922ab4849so254364366b.3; 
+ Fri, 01 Aug 2025 07:06:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754057193; x=1754661993;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=A0A5xi+3xpovbOffaEI0YAyQFVVclpkd8BxIERvxAbg=;
+ b=fVAhnnWp9zZ4a9hkLmnTMiqTYIl7YTs1aQaU5MNF1hwms5q3Wfh8jigSDDjR9QwSfe
+ HeIv9Bi7tAFDthnlEB3qy8YgAxQa7+DAuCOAFxTjqKBYhxtLYFvLMa6uEnhpz0zpILex
+ jkCy3Agmcgh2N6nq1A4FABLM8P/2tU7HwqWz3UioAsznmkBH1+ZLTjbefYan/luOdWiO
+ d8EvnoVLm0sqbFXzXng04MWn7Bc+KQji+8Do3vUnkRsLo0Etp5ysXCbKLXT/haIT6xVI
+ JtUWI3i3IO5dL8PeLr1ck77KkvF1GRA9Ygnzjw8lfcaM+TJKc4zgpR0KIR/ehlLdTVzW
+ /Enw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUF2Pn8GaBH6zrucuv65oWIvynElKBymiaA/g8QJ2CDdlfaMha7rsn17ZT6bX4dY6Ee6N9s+zY4@lists.freedesktop.org,
+ AJvYcCUTKTfYLlppozyK/ng0mVmYptoUE8lz6Gb6vfJTyudMVu0V4iisw9sephYoTQfi3buvljqUTBw9ZwoB@lists.freedesktop.org,
+ AJvYcCVg/yX4P56ibo6b3PF/dTOVZqIcg7+jaOFqEKsNSj+JsCvr6beRWL3fDEK8Hc/eohQrFnWaEnuqbaeg@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx4pubdWE1O49Fru16iE9ilePg7VcBMeqb4xp59yk1Kzi/ma9q3
+ XNFdMEsdNCElGtiZ/agwsQ5K72gOicmzXo81EVwRTNa8u6QWNJHfGWsYJK8mhl5IY0A=
+X-Gm-Gg: ASbGncvtlEdtPwbBEzgyb2wZJF0A7NTIdc4OVNKeRLfW5DHInQL2afBbZzeknqOvdNS
+ TrsUkCHInk0xV/xfBNjpv1n/Sz+pGOoCCErw6aBZhTShiK0DwyqYzWMPI9n92SSvVwNpmVKOqfX
+ 2mLvvDsvFg/xSQrOT3GZhS5LlIfDX8/iLAvS9rRVcwoxbHlFPPiWLZwHCCaewVnGt2mV7ERMvy7
+ xIwE7f01Jp43letPtaVqyU8Sx0AtF7bHXRjPN6VAoP2GH3dpvMZGkISgQgbJ/u2O67QM9TLqwP7
+ syeore4eNQlxzW0zAXebFPEVJfbpX+bRuIcWMMzFQwUhONgKwnUhdCEvPaET0d2SV5kvspKp6CL
+ LBc6RkZYBgh2P92lMfGdm03ZecR35vJtPPhq0aGnwALKFimbKnGqtMC1INFe8ngZ9XoQIpW8=
+X-Google-Smtp-Source: AGHT+IF9O6P4/j4Zk2x8CleHxTXZA99WC1/fgwWkY8+gyU6BBMObEQIlufj1QeBI27OMXuLiBRyjIw==
+X-Received: by 2002:a17:906:37da:b0:af9:3b4f:a536 with SMTP id
+ a640c23a62f3a-af93b4fb5a6mr113834366b.45.1754057192609; 
+ Fri, 01 Aug 2025 07:06:32 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com.
+ [209.85.218.52]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a1e833dsm290953266b.64.2025.08.01.07.06.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Aug 2025 07:06:32 -0700 (PDT)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-af922ab4849so254357966b.3; 
+ Fri, 01 Aug 2025 07:06:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUG450r5zQYYk3EDvlwWURAEqucKufdyrSq9IawLtsyPkdZahU6o4k221mRf412dYr/ViQxcxq7XbFB@lists.freedesktop.org,
+ AJvYcCUnfpohICGjiwP5EVUxLFVtKycU9DjC55W7nCOpPqK+aXNuf7d55QDZcsnAULMO7ByPBAB31zRz@lists.freedesktop.org,
+ AJvYcCV6yrPiJcLuO/Jtz8UzgL6BovnSP4ryqtYzvGJ8VGJ6y2oHl9+QtNZOR0MRfv9w17e5Pj36QvZXAkRz@lists.freedesktop.org
+X-Received: by 2002:a17:906:dc8c:b0:ae2:9291:9226 with SMTP id
+ a640c23a62f3a-af931992ab9mr376411666b.59.1754057191885; Fri, 01 Aug 2025
+ 07:06:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250801-amdgfx10-v1-1-e1dcbe18d84e@ethancedwards.com>
-X-B4-Tracking: v=1; b=H4sIANVsjWgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI1MDCwND3cTclPS0CkMD3TRLs2QT4+Qkg2RTSyWg8oKi1LTMCrBR0bG1tQA
- mRLYJWgAAAA==
-X-Change-ID: 20250801-amdgfx10-f96c43cb0c59
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, 
- Ethan Carter Edwards <ethan@ethancedwards.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1786;
- i=ethan@ethancedwards.com; h=from:subject:message-id;
- bh=tzPbGNY/HtNHNCn/spEV2iQKJagDaRpg4U+Fv4M44/o=;
- b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0o0bkp2QXk4ekFKWGJEOXFoNThlVGp6e
- GhQcXlVeFpQVG1YTi8xbXVjcjA3SW0wM2VUL2orcWVkQWtxTDZnCko5bEZZT2sySjY1dXFjT0Zz
- VE02U2xrWXhMZ1laTVVVV2Y3bktLYzkxSnloc1BPdlN4UE1IRllta0NFTVhKd0MKTUpHZ1N3ei9
- 5OE1mZnJHTGRYMXkxaTVLYzZYdXlROEJPaHZ1cDcvVWZyNHYzY1ExYk9kZFQ0Yi9vVnRLR2VSdQ
- ptMDh2OHVDUkNwMjhlb1AvbTZSNHNZOU5pNjd2Wm4zR0k5UFBEQUFaUDA0bQo9bHgySQotLS0tL
- UVORCBQR1AgTUVTU0FHRS0tLS0tCg==
-X-Developer-Key: i=ethan@ethancedwards.com; a=openpgp;
- fpr=2E51F61839D1FA947A7300C234C04305D581DBFE
-X-Rspamd-Queue-Id: 4bv5CG2YH0z9sNZ
+References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
+ <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
+In-Reply-To: <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 1 Aug 2025 16:06:17 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUamdfu4VH8H9oyA_uhF8Jx8zDi2jfPmiy_-r2u-LU23g@mail.gmail.com>
+X-Gm-Features: Ac12FXyqNVzOuQuexYljmDDN0_xmYa1ngs423zaCF76oVKZNARv5QvM4zwy2PHA
+Message-ID: <CAMuHMdUamdfu4VH8H9oyA_uhF8Jx8zDi2jfPmiy_-r2u-LU23g@mail.gmail.com>
+Subject: Re: [PATCH 5/8] drm/msm/dpu: use drmm_writeback_connector_init()
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, "Kandpal,
+ Suraj" <suraj.kandpal@intel.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ DRI Development <dri-devel@lists.freedesktop.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Sat, 02 Aug 2025 08:28:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,54 +114,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The repeated checks on grbm_soft_reset are unnecessary. Remove them.
+s@msm/dpu@renesas/r-car@ in the Subject.
 
-Signed-off-by: Ethan Carter Edwards <ethan@ethancedwards.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 24 +++++++++++-------------
- 1 file changed, 11 insertions(+), 13 deletions(-)
+Gr{oetje,eeting}s,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 7bd506f06eb155de7f2edb2c1c9d5ed7232b16fc..264183ab24ec299425e6a6d0539339ee69f60c24 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -7668,19 +7668,17 @@ static int gfx_v10_0_soft_reset(struct amdgpu_ip_block *ip_block)
- 		/* Disable MEC parsing/prefetching */
- 		gfx_v10_0_cp_compute_enable(adev, false);
- 
--		if (grbm_soft_reset) {
--			tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
--			tmp |= grbm_soft_reset;
--			dev_info(adev->dev, "GRBM_SOFT_RESET=0x%08X\n", tmp);
--			WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
--			tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
--
--			udelay(50);
--
--			tmp &= ~grbm_soft_reset;
--			WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
--			tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
--		}
-+		tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-+		tmp |= grbm_soft_reset;
-+		dev_info(adev->dev, "GRBM_SOFT_RESET=0x%08X\n", tmp);
-+		WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
-+		tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-+
-+		udelay(50);
-+
-+		tmp &= ~grbm_soft_reset;
-+		WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
-+		tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
- 
- 		/* Wait a little for things to settle down */
- 		udelay(50);
+                        Geert
 
----
-base-commit: b9ddaa95fd283bce7041550ddbbe7e764c477110
-change-id: 20250801-amdgfx10-f96c43cb0c59
-
-Best regards,
 -- 
-Ethan Carter Edwards <ethan@ethancedwards.com>
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
