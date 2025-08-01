@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7222FC87FCB
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 14:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EE28C87FDA
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 14:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01A8410E891;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A8CC10E895;
 	Fri,  1 Aug 2025 14:33:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="nqLulVtb";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lwESAIfc";
 	dkim-atps=neutral
 Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58B7410E88E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F68F10E889;
  Fri,  1 Aug 2025 14:33:16 +0000 (UTC)
-Received: from relay15.mail.gandi.net (relay15.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::235])
- by mslow3.mail.gandi.net (Postfix) with ESMTP id BE2B0581315;
- Fri,  1 Aug 2025 14:08:43 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id D9BC84427F;
- Fri,  1 Aug 2025 14:08:37 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::224])
+ by mslow3.mail.gandi.net (Postfix) with ESMTP id 09EF4580FF0;
+ Fri,  1 Aug 2025 14:08:11 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 86918444D0;
+ Fri,  1 Aug 2025 14:08:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1754057321;
+ t=1754057289;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=DT/B7nWQm3jBpI4/2Q5ABPRmhE5YIV8bCYAU/9kaD8o=;
- b=nqLulVtbz3q0HluJf/mc6ghoL2SA7xDUJBKiY94czuSax+T5tlC/HHb03wlpFnSB5j9OMr
- uiXWCC1hIxutloDvQ+ONTdFRhQT8XSbYWlf7gU4ImG2OfLrAjs4vanEkQxPJGFSZVg5Y2X
- JQrk8LgQOuotbxNPerYFCPupZ2GVF5gX8yT7RekPdtxADWGOQ/BnBM0s3wIiZuJbsA1Obq
- rQIrgNDWps/EjwmbJmPQzf8u72FVQ4qz6LyS9yZpmO8M6w4hVEEeB34t+hzzDD/svTM6V8
- hBQviIZn6ZlEE9n3A5T1xZ4EJLgLIVqarPjyfEMubQX7h0iA6GUxg0nrebWmHg==
-Message-ID: <6cbe8955-cb34-43fc-9950-0fec4b7cac3e@bootlin.com>
-Date: Fri, 1 Aug 2025 16:08:37 +0200
+ bh=bMs8CmXxlCL5em1U2cNHyW434Syw+11/Rs9F/pxqQnc=;
+ b=lwESAIfc4K1NTo02wUMiSzM0b1E3YQ7Avsfpe4bTcJKwQUJKOxQTmZIewJ5l41efE/gxbj
+ 4PabRfjEvWpl8m8/2pMPsbf2DHn5coVpFkRtBLWsDtBRahqJDUPdHiK3RQBYRVP+n+zlPa
+ KzjE7GZkUjvBpMjO+0ndIDkdH8/t7394EEyDIyH6FU2nQfaxJCw5jRhu2prKAX89HvxDkN
+ gQwqY7uj2/WCqRoHS/Yll9Cl/WduXWD7A6Vqx8ll6l7J0DBl+zQSUOOJsFqZ3ziNcR8H+c
+ YC5xvTdc91YjS5ji28HzIFYvIqj3NBbpCqbID8812z39tLu+/mfIim+pG8STVw==
+Message-ID: <bfb8a882-1179-4ba8-98eb-5da12b2edfc2@bootlin.com>
+Date: Fri, 1 Aug 2025 16:08:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] drm/msm/dpu: use drmm_writeback_connector_init()
+Subject: Re: [PATCH 1/8] drm/amd/display: use drmm_writeback_connector_init()
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  "Kandpal, Suraj" <suraj.kandpal@intel.com>,
@@ -65,7 +65,7 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
 References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
- <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
+ <20250801-wb-drop-encoder-v1-1-824646042f7d@oss.qualcomm.com>
 Content-Language: en-US
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
@@ -122,13 +122,14 @@ Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  wDN7ORknPndzxrq3CyB7b/Tk1e8Qx+6HU/pnMb4ZqwwMwZAMk24TZpsgg28o9MQiUNzad0h2
  gIszbeej9ryrtLHxMzyK8yKhHoI2i2ovxy5O+hsWeAoCPE9xwbqnAjLjOn4Jzd/pPovizrq/
  kUoX66YgvCuHfQMC/aBPLnVunZSP23J2CrkTrnsUzw==
-In-Reply-To: <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
+In-Reply-To: <20250801-wb-drop-encoder-v1-1-824646042f7d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-GND-State: clean
 X-GND-Score: -100
 X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddutdefkeelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfesthekredttddvjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeekieevtdefgedtkeehteehtddttdefhffhgeejleejjeeluddvhfdugedvkeehveenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfeegpdhrtghpthhtohepughmihhtrhihrdgsrghrhihshhhkohhvsehoshhsrdhquhgrlhgtohhmmhdrtghomhdprhgtphhtthhopehjrghnihdrnhhikhhulhgrsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepshhurhgrjhdrkhgrnhguphgrlhesihhnthgvlhdrtghomhdprhgtphhtthhopehhrghrrhihrdifvghnt
  hhlrghnugesrghmugdrtghomhdprhgtphhtthhopehsuhhnphgvnhhgrdhlihesrghmugdrtghomhdprhgtphhtthhopehsihhquhgvihhrrgesihhgrghlihgrrdgtohhmpdhrtghpthhtoheprghlvgigrghnuggvrhdruggvuhgthhgvrhesrghmugdrtghomhdprhgtphhtthhopegthhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomh
+X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,61 +152,70 @@ Le 01/08/2025 à 15:51, Dmitry Baryshkov a écrit :
 > connector instance.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+
 > ---
->   .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++++++++++++-------
->   1 file changed, 16 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  2 +-
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 18 +++++++++++++-----
+>   2 files changed, 14 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> index 8cd37d7b8ae281cbc1fd8cbb243c621174517e23..9986a10e8114680e9da48986f4ca3ce6ec66b8cb 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> @@ -134,7 +134,6 @@ static void rcar_du_wb_conn_reset(struct drm_connector *connector)
->   static const struct drm_connector_funcs rcar_du_wb_conn_funcs = {
->   	.reset = rcar_du_wb_conn_reset,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 096b23ad4845d365dad707deed4e3e84b1f9945d..a9948e8d67a6e9556d21090b5cdd101258d62480 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -10003,7 +10003,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
+>   		return;
+>   	}
+>   
+> -	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
+> +	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
+>   	if (!acrtc) {
+>   		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
+>   		kfree(wb_info);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> index d9527c05fc878ef6916782ff9fde847813938461..80c37487ca77c0494eaf769c5b9a3c53486aa52d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> @@ -171,7 +171,6 @@ static const struct drm_encoder_helper_funcs amdgpu_dm_wb_encoder_helper_funcs =
+>   
+>   static const struct drm_connector_funcs amdgpu_dm_wb_connector_funcs = {
 >   	.fill_modes = drm_helper_probe_single_connector_modes,
 > -	.destroy = drm_connector_cleanup,
->   	.atomic_duplicate_state = rcar_du_wb_conn_duplicate_state,
->   	.atomic_destroy_state = rcar_du_wb_conn_destroy_state,
->   };
-> @@ -202,15 +201,25 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
->   {
->   	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
->   
+>   	.reset = amdgpu_dm_connector_funcs_reset,
+>   	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> @@ -190,17 +189,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
+>   	struct dc *dc = dm->dc;
+>   	struct dc_link *link = dc_get_link_at_index(dc, link_index);
+>   	int res = 0;
 > +	struct drm_encoder *encoder;
 > +
-> +	encoder = drmm_plain_encoder_alloc(&rcdu->ddev, NULL,
+> +	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
 > +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
 > +	if (IS_ERR(encoder))
 > +		return PTR_ERR(encoder);
 > +
-> +	drm_encoder_helper_add(encoder, &rcar_du_wb_enc_helper_funcs);
+> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
 > +
-> +	encoder->possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
-
-drm_crtc_mask?
-
-With this:
-
-Reviewed-by: Louis Chauvet <louis.chauvet>
-
-> +
->   	drm_connector_helper_add(&wb_conn->base,
->   				 &rcar_du_wb_conn_helper_funcs);
+> +	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
 >   
-> -	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
-> -					    &rcar_du_wb_conn_funcs,
-> -					    &rcar_du_wb_enc_helper_funcs,
-> -					    writeback_formats,
-> -					    ARRAY_SIZE(writeback_formats),
-> -					    1 << drm_crtc_index(&rcrtc->crtc));
-> +	return drmm_writeback_connector_init(&rcdu->ddev, wb_conn,
-> +					     &rcar_du_wb_conn_funcs,
-> +					     encoder,
-> +					     writeback_formats,
-> +					     ARRAY_SIZE(writeback_formats));
->   }
+>   	wbcon->link = link;
 >   
->   void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
+>   	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
+>   
+> -	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+> +	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+>   					    &amdgpu_dm_wb_connector_funcs,
+> -					    &amdgpu_dm_wb_encoder_helper_funcs,
+> +					    encoder,
+>   					    amdgpu_dm_wb_formats,
+> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
+> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
+> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
+>   
+>   	if (res)
+>   		return res;
 > 
 
 -- 
