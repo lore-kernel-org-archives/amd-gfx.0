@@ -4,66 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E518C87FD2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1110C87FCB
 	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 13:29:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5298E10E84E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7905C10E851;
 	Fri,  1 Aug 2025 13:29:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nfraprado@collabora.com header.b="S7q0Dm1A";
-	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9447F10E107;
- Thu, 31 Jul 2025 22:11:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1753999900; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=FTQOke1wXXBsJp1pesALpiGt1rXkwXFv5K2Obk6GXM9rE0KZ9clM7HHJxwUG/mtMTlSZQkC0/Pn7lagbw+INNA92N7ezzjWJfNi5G8hBgSho+xH8WyhJrBvcRKxriz6Ix6T4WD+e9UQWvvwjH1H5wPtbypGHDWH0RR7HGt6iIJk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1753999900;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=SJekZKIs4xkWlDPe5Nspf1dfkuNrbOGVSx9x/miPPkw=; 
- b=iaK6aXf8S3oxMHUh0OwbHiBgUrFndo4NpranHjt9cNfD2UdXO6N565sylp5jZXqHQ8eG6h1zR/YEmmclONwT9xEK1R0M5SlXVINnjO02fvY3w4fP4ekDvbciy/5bhbVnlRZZe5+lPMOxVcfLrPgolTpB06fA0gchmtR+kJs9M14=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nfraprado@collabora.com;
- dmarc=pass header.from=<nfraprado@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1753999900; 
- s=zohomail; d=collabora.com; i=nfraprado@collabora.com;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=SJekZKIs4xkWlDPe5Nspf1dfkuNrbOGVSx9x/miPPkw=;
- b=S7q0Dm1AFcNfkvM/eO9q+HKcZvPMw529SG3OTVxwNWAjFWzw5aoiqB9LHL10HP1J
- 3tELsT68TB9o0XmVDqEukW8Dol3RCpCKrswc5SIVlULDTxjyKr9DQyMTHtce/+HHdAO
- YxBKdDQcp0y07fwkaId/fdcXIPJyVae78AV305WM=
-Received: by mx.zohomail.com with SMTPS id 1753999896732929.7894287121911;
- Thu, 31 Jul 2025 15:11:36 -0700 (PDT)
-Message-ID: <07cd16202b742b37a0d4f70ff8d3a7a3ce3b1648.camel@collabora.com>
-Subject: Re: [PATCH V10 13/46] drm/colorop: Add destroy functions for color
- pipeline
-From: =?ISO-8859-1?Q?N=EDcolas?= "F. R. A. Prado" <nfraprado@collabora.com>
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com, 
- leo.liu@amd.com, ville.syrjala@linux.intel.com,
- pekka.paalanen@collabora.com, 	contact@emersion.fr, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, 	shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, 
- aleixpol@kde.org, xaver.hugl@gmail.com, victoria@system76.com,
- daniel@ffwll.ch, 	uma.shankar@intel.com, quic_naseer@quicinc.com,
- quic_cbraga@quicinc.com, 	quic_abhinavk@quicinc.com, marcan@marcan.st,
- Liviu.Dudau@arm.com, 	sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, 	louis.chauvet@bootlin.com,
- arthurgrillo@riseup.net, Daniel Stone	 <daniels@collabora.com>
-Date: Thu, 31 Jul 2025 18:11:33 -0400
-In-Reply-To: <20250617041746.2884343-14-alex.hung@amd.com>
-References: <20250617041746.2884343-1-alex.hung@amd.com>
- <20250617041746.2884343-14-alex.hung@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.1-1 
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D461F10E847;
+ Fri,  1 Aug 2025 13:11:06 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-3b786421e36so1251513f8f.3; 
+ Fri, 01 Aug 2025 06:11:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754053865; x=1754658665;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WU58hiZv14QoAb2coHWJzb0B6YUhtUSyBlxR4s/xk3Y=;
+ b=jcaZcq1dhEizPE7EOS6pAWB2A9tByYa5o26EpkDc4clwYnNyp80aMCfPNoV9a9aIf2
+ 1eK+Yv2F0TDXmRcBr+TSRzrWucuIUmr+oAAgWgSAD1L6j1o/gZX9YHaCL+OAo5YAe2tV
+ Ww4CLhHhDOUwTScNsmAxx0wZO5U/j3/AAYVMD6yTwbk3Zzt5NGeMAlJKfIysm6Qq0vgC
+ E+2uDL7rBETYRnyPUG2xnkAYzcXeKA2Xuo+EouvavluQCmMvKfhSnicE4Fx/gHfMtAE7
+ So8goNcD3dTOKEB9rmlJkKY9OteZoxfbXkP1wsCs9Ofp0SsRsLKS7k5HsEjln1+zsHwn
+ SbUg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUYhziri16hpW7siyFcmNsoze/Mlku6MlO4OLVcMjnjUxb/aQsZtWqcpNrP5fVEhbrWsKfscRJT@lists.freedesktop.org,
+ AJvYcCW1hPLQjCuolcO0cnQ30LxLkPPfL+sjZcHyNq0p4qGmMRsfKzD5vAe0emdEhdIhVSHuRGpBAagrlJju@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQ9+ua99wARCDKSdiQxr+hsW/X08NmbjpYok3jKA0WjFGTN0d7
+ zS2hwrbcgHar2mecvjGdJYnOwbLpwC6X7EyAZs3+7b9JGuvhb/rH4ceTiPXdEHrGaLc=
+X-Gm-Gg: ASbGncvW05vxprGKEwLCgafGhHiarUEqelHeS+gSl8SojUF4qaBCO7NZ1RGe7UEIIt2
+ o5NxK94RxNE3n8siWPz1yu3UxqE5Yq6dqX3Rpy3EZ/QUjn+B6Ohm2LmqZIb9Vy7Y6QQouARCGHY
+ CpuxwvYl1EftZr0xNPQ+RtSKQ78WPm1U+XUBswzfwUja8KzMVMh+GfLwhOHMMANchTT8DjybKJ0
+ 7iRf39TqIZIO2Ka6dS+DXBP37Rx/INgHrjK20cDRdRuYxAiwP/B+DsVrmGjv1Vh1cdWy7hBTTE/
+ TQVb//4EqxGobh8HPXEMMVKB2TR5hMttkDP5CqM9f5UG0JbBAAdN4yyaBws/SD36NjixPZ6dDwv
+ jH+ULUEtIEsZyak09qlNb/v08wO+EGfPQ8J+Xyk/oMSj+uK/+bJtQ79w=
+X-Google-Smtp-Source: AGHT+IH1aibYc/RancdGBgJIc2PbDVdcjUdNJ0HKf9lkBt5l67CDRMmhfSnUiSN/5c9Ucyn6dxgPHg==
+X-Received: by 2002:a05:6000:2890:b0:3b7:7cb5:a539 with SMTP id
+ ffacd0b85a97d-3b794fed101mr9316042f8f.18.1754053865135; 
+ Fri, 01 Aug 2025 06:11:05 -0700 (PDT)
+Received: from xavers-framework.fritz.box
+ ([2a04:7d84:aacc:d4a0:5576:52b6:171a:57c8])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4589536bc34sm103315635e9.2.2025.08.01.06.11.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Aug 2025 06:11:04 -0700 (PDT)
+From: Xaver Hugl <xaver.hugl@kde.org>
+To: dri-devel@lists.freedesktop.org
+Cc: andrealmeid@igalia.com, chris@kode54.net, naveen1.kumar@intel.com,
+ ville.syrjala@linux.intel.com, mdaenzer@redhat.com,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ alexdeucher@gmail.com, arun.r.murthy@intel.com,
+ Xaver Hugl <xaver.hugl@kde.org>
+Subject: [PATCH v3] drm: don't run atomic_async_check for disabled planes
+Date: Fri,  1 Aug 2025 15:10:53 +0200
+Message-ID: <20250801131053.6730-1-xaver.hugl@kde.org>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-X-ZohoMailClient: External
-X-ZohoMail-Owner: <07cd16202b742b37a0d4f70ff8d3a7a3ce3b1648.camel@collabora.com>+zmo_0_nfraprado@collabora.com
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 01 Aug 2025 13:29:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,81 +77,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-06-16 at 22:16 -0600, Alex Hung wrote:
-> The functions are to clean up color pipeline when a device driver
-> fails to create its color pipeline.
->=20
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
-> Reviewed-by: Simon Ser <contact@emersion.fr>
-> Reviewed-by: Melissa Wen <mwen@igalia.com>
-> ---
-> v9:
-> =C2=A0- Move from from latest commit to here, and
-> drm_colorop_pipeline_destroy
-> =C2=A0=C2=A0 is called in respective commits.
->=20
-> =C2=A0drivers/gpu/drm/drm_colorop.c | 36
-> +++++++++++++++++++++++++++++++++++
-> =C2=A0include/drm/drm_colorop.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 ++
-> =C2=A02 files changed, 38 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/drm_colorop.c
-> b/drivers/gpu/drm/drm_colorop.c
-> index 7b3ecf7ddd11..57a8c1063fdd 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -135,6 +135,42 @@ static int drm_plane_colorop_init(struct
-> drm_device *dev, struct drm_colorop *co
-> =C2=A0	return ret;
-> =C2=A0}
-> =C2=A0
-> +/**
-> + * drm_colorop_cleanup - Cleanup a drm_colorop object in
-> color_pipeline
-> + *
-> + * @colorop: The drm_colorop object to be cleaned
-> + */
-> +static void drm_colorop_cleanup(struct drm_colorop *colorop)
-> +{
-> +	struct drm_device *dev =3D colorop->dev;
-> +	struct drm_mode_config *config =3D &dev->mode_config;
-> +
-> +	list_del(&colorop->head);
-> +	config->num_colorop--;
-> +
-> +	kfree(colorop->state);
-> +}
-> +
-> +/**
-> + * drm_colorop_pipeline_destroy - Helper for color pipeline
-> destruction
-> + *
-> + * @plane: - The drm_plane structure containing the color_pipeline
-> + *
-> + * Provides a default color pipeline destroy handler for a planes.
-> + */
-> +void drm_colorop_pipeline_destroy(struct drm_plane *plane)
-> +{
+It's entirely valid and correct for compositors to include disabled
+planes in the atomic commit, and doing that should not prevent async
+flips from working. To fix that, this commit moves the plane check
+to after all the properties of the object have been set, and skips
+the async checks if the plane was and still is not visible.
 
-This function implies it only cleans up the colorops in the color
-pipeline of a specific plane, but it actually cleans up all colorops in
-the drm_mode_config of a device.
+Fixes: fd40a63c drm/atomic (Let drivers decide which planes to async flip)
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4263
 
---=20
-Thanks,
+Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 51 +++++++++++++++++++++----------
+ 1 file changed, 35 insertions(+), 16 deletions(-)
 
-N=C3=ADcolas
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index c2726af6698e..2ae41a522e92 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1068,7 +1068,6 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 		struct drm_plane *plane = obj_to_plane(obj);
+ 		struct drm_plane_state *plane_state;
+ 		struct drm_mode_config *config = &plane->dev->mode_config;
+-		const struct drm_plane_helper_funcs *plane_funcs = plane->helper_private;
+ 
+ 		plane_state = drm_atomic_get_plane_state(state, plane);
+ 		if (IS_ERR(plane_state)) {
+@@ -1084,21 +1083,8 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 				ret = drm_atomic_plane_get_property(plane, plane_state,
+ 								    prop, &old_val);
+ 				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
+-			}
+-
+-			/* ask the driver if this non-primary plane is supported */
+-			if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
+-				ret = -EINVAL;
+-
+-				if (plane_funcs && plane_funcs->atomic_async_check)
+-					ret = plane_funcs->atomic_async_check(plane, state, true);
+-
+-				if (ret) {
+-					drm_dbg_atomic(prop->dev,
+-						       "[PLANE:%d:%s] does not support async flips\n",
+-						       obj->id, plane->name);
+-					break;
+-				}
++				if (ret)
++				    break;
+ 			}
+ 		}
+ 
+@@ -1394,6 +1380,10 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	int ret = 0;
+ 	unsigned int i, j, num_fences;
+ 	bool async_flip = false;
++	struct drm_plane *plane;
++	struct drm_plane_state *old_plane_state = NULL;
++	struct drm_plane_state *new_plane_state = NULL;
++	u64 fb_id = 0;
+ 
+ 	/* disallow for drivers not supporting atomic: */
+ 	if (!drm_core_check_feature(dev, DRIVER_ATOMIC))
+@@ -1521,6 +1511,35 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 			copied_props++;
+ 		}
+ 
++		if (async_flip && obj->type == DRM_MODE_OBJECT_PLANE &&
++		    obj_to_plane(obj)->type != DRM_PLANE_TYPE_PRIMARY) {
++			/* need to ask the driver if this plane is supported */
++			plane = obj_to_plane(obj);
++			old_plane_state = drm_atomic_get_old_plane_state(state, plane);
++			new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++			ret = drm_atomic_plane_get_property(plane, new_plane_state,
++							    dev->mode_config.prop_fb_id,
++							    &fb_id);
++			if (ret)
++				break;
++			/*
++			 * Only do the check if the plane was or is enabled.
++			 * Note that the new state doesn't have "visible" set yet,
++			 * so this uses fb_id instead.
++			 */
++			if (old_plane_state->visible || fb_id)
++				ret = -EINVAL;
++			if (ret && plane->helper_private &&
++			    plane->helper_private->atomic_async_check) {
++				ret = plane->helper_private->atomic_async_check(plane, state, true);
++			}
++			if (ret) {
++				drm_dbg_atomic(dev, "[PLANE:%d:%s] does not support async flips\n",
++						obj->id, plane->name);
++				break;
++			}
++		}
++
+ 		drm_mode_object_put(obj);
+ 	}
+ 
+-- 
+2.50.1
 
-> +	struct drm_device *dev =3D plane->dev;
-> +	struct drm_mode_config *config =3D &dev->mode_config;
-> +	struct drm_colorop *colorop, *next;
-> +
-> +	list_for_each_entry_safe(colorop, next, &config-
-> >colorop_list, head) {
-> +		drm_colorop_cleanup(colorop);
-> +		kfree(colorop);
-> +	}
-> +}
-> +EXPORT_SYMBOL(drm_colorop_pipeline_destroy);
-> +
