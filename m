@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 700B1C87FCA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA749C88CB9
 	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 14:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B65210E897;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF89E10E89A;
 	Fri,  1 Aug 2025 14:33:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ReLIBB/U";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="SkSh08/8";
 	dkim-atps=neutral
 Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D81E10E88C;
- Fri,  1 Aug 2025 14:33:16 +0000 (UTC)
-Received: from relay15.mail.gandi.net (relay15.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::235])
- by mslow3.mail.gandi.net (Postfix) with ESMTP id 843B55811AD;
- Fri,  1 Aug 2025 14:08:36 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 53FAC44231;
- Fri,  1 Aug 2025 14:08:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE2BE10E893;
+ Fri,  1 Aug 2025 14:33:17 +0000 (UTC)
+Received: from relay15.mail.gandi.net (relay15.mail.gandi.net [217.70.178.235])
+ by mslow3.mail.gandi.net (Postfix) with ESMTP id D5E2258132B;
+ Fri,  1 Aug 2025 14:08:50 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 7F96044231;
+ Fri,  1 Aug 2025 14:08:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1754057314;
+ t=1754057329;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=rqvkpsa3u8eBjFb86OL5k8iG+0mAxnFGtbjvxDDOxYA=;
- b=ReLIBB/UgjeRdseK8WhHpYoaZbSHYTkSdAoRD/RkOtNQE5Vuay4aZa8UIHraif66DJBr/2
- p+1ZSEcEx3RhLOoQgCTIlvnAulVB83W1XY92G4BsYbUHpDFGQYZdZ82ZLaDWAbHTw2M7bR
- Q0Mn7tUsP3xdra8jngxiUDa8D+nV0IzNljnr9skymPDjy8Zyz27B+xlPhb6ZbKnT4zih+1
- TeC/W1mvW6Eshs3XmVGf8U9OrsxkqsKBgyTJROjCCAYdqYAOFdep8si3+eG/Fgc9EwTPmr
- 2eBZpStToqsDHkNIW/j5tjoSTsF0LIduGvVd3bz3g/1T4uLdz82S6D3zRqVkLA==
-Message-ID: <ecad509b-7abe-47b9-b0ee-d4db5c38d841@bootlin.com>
-Date: Fri, 1 Aug 2025 16:08:30 +0200
+ bh=zz6NA4uapOztJ4NsPRPcBnHgoQAH/g4WcUkJndo5k1w=;
+ b=SkSh08/8AoRUWnIo0lMpI1bG1Z3eSR0y2EN3kghYVbC39M0bnB+klcWbiiHAr1cl+xYgRq
+ pzdW5fsqaIdsHh4MJNEr/eoO2vqBUhFXE83/HbWcst6r27mu+/jHStce8TD80w1fKZDvvp
+ CRdgrC8ePAhSp8n+3VUnyxm+zAqt85PMiIBSdbjveBnWgluxIYtRuw8kXMzeqiYrUB5ONo
+ nD3tqCZoPpRYn9QJ9f/uU1aDRwwi9MJ8zsmcd/wbaIneiVaCy+7gT/5NbpEKYr/pPv/R+r
+ QR2xEaN0NR8jf5ZwawQuqt/h9IkZ5N1f5cgEqDwUnMSPFtDVzAj2dqhXX50+lQ==
+Message-ID: <b92e89d2-5bd8-4228-872e-6e5ae9b4b054@bootlin.com>
+Date: Fri, 1 Aug 2025 16:08:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/8] drm/vc4: use drmm_writeback_connector_init()
+Subject: Re: [PATCH 7/8] drm: writeback: drop excess connector initialization
+ functions
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  "Kandpal, Suraj" <suraj.kandpal@intel.com>,
@@ -65,7 +65,7 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
 References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
- <20250801-wb-drop-encoder-v1-6-824646042f7d@oss.qualcomm.com>
+ <20250801-wb-drop-encoder-v1-7-824646042f7d@oss.qualcomm.com>
 Content-Language: en-US
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
@@ -122,12 +122,12 @@ Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  wDN7ORknPndzxrq3CyB7b/Tk1e8Qx+6HU/pnMb4ZqwwMwZAMk24TZpsgg28o9MQiUNzad0h2
  gIszbeej9ryrtLHxMzyK8yKhHoI2i2ovxy5O+hsWeAoCPE9xwbqnAjLjOn4Jzd/pPovizrq/
  kUoX66YgvCuHfQMC/aBPLnVunZSP23J2CrkTrnsUzw==
-In-Reply-To: <20250801-wb-drop-encoder-v1-6-824646042f7d@oss.qualcomm.com>
+In-Reply-To: <20250801-wb-drop-encoder-v1-7-824646042f7d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddutdefkeelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfesthekredttddvjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeekieevtdefgedtkeehteehtddttdefhffhgeejleejjeeluddvhfdugedvkeehveenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfeegpdhrtghpthhtohepughmihhtrhihrdgsrghrhihshhhkohhvsehoshhsrdhquhgrlhgtohhmmhdrtghomhdprhgtphhtthhopehjrghnihdrnhhikhhulhgrsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepshhurhgrjhdrkhgrnhguphgrlhesihhnthgvlhdrtghomhdprhgtphhtthhopehhrghrrhihrdifvghnt
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddutdefkeelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfesthekredttddvjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeekieevtdefgedtkeehteehtddttdefhffhgeejleejjeeluddvhfdugedvkeehveenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedvnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfeegpdhrtghpthhtohepughmihhtrhihrdgsrghrhihshhhkohhvsehoshhsrdhquhgrlhgtohhmmhdrtghomhdprhgtphhtthhopehjrghnihdrnhhikhhulhgrsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepshhurhgrjhdrkhgrnhguphgrlhesihhnthgvlhdrtghomhdprhgtphhtthhopehhrghrrhihrdifvghnt
  hhlrghnugesrghmugdrtghomhdprhgtphhtthhopehsuhhnphgvnhhgrdhlihesrghmugdrtghomhdprhgtphhtthhopehsihhquhgvihhrrgesihhgrghlihgrrdgtohhmpdhrtghpthhtoheprghlvgigrghnuggvrhdruggvuhgthhgvrhesrghmugdrtghomhdprhgtphhtthhopegthhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomh
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,45 +146,121 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 Le 01/08/2025 à 15:51, Dmitry Baryshkov a écrit :
-> Use drmm_plain_encoder_alloc() to allocate simple encoder and
-> drmm_writeback_connector_init() in order to initialize writeback
-> connector instance.
+> Now as all drivers have been converted to
+> drmm_writeback_connector_init(), drop drm_writeback_connector_init() and
+> drm_writeback_connector::encoder field, they are unused now.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 > ---
->   drivers/gpu/drm/vc4/vc4_txp.c | 9 ++++-----
->   1 file changed, 4 insertions(+), 5 deletions(-)
+>   drivers/gpu/drm/drm_writeback.c | 55 -----------------------------------------
+>   include/drm/drm_writeback.h     | 18 --------------
+>   2 files changed, 73 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/vc4/vc4_txp.c b/drivers/gpu/drm/vc4/vc4_txp.c
-> index 42acac05fe47861ced226a4f64661f545e21ddb5..fef4e4ee47cf41d40de47c5201f0349dc36c56bd 100644
-> --- a/drivers/gpu/drm/vc4/vc4_txp.c
-> +++ b/drivers/gpu/drm/vc4/vc4_txp.c
-> @@ -377,7 +377,6 @@ vc4_txp_connector_detect(struct drm_connector *connector, bool force)
->   static const struct drm_connector_funcs vc4_txp_connector_funcs = {
->   	.detect = vc4_txp_connector_detect,
->   	.fill_modes = drm_helper_probe_single_connector_modes,
-> -	.destroy = drm_connector_cleanup,
->   	.reset = drm_atomic_helper_connector_reset,
->   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
->   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-> @@ -601,10 +600,10 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
+> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+> index 95b8a2e4bda69230591b50be15d14d0b3692373b..1a01df91b2c5868e158d489b782f4c57c61a272c 100644
+> --- a/drivers/gpu/drm/drm_writeback.c
+> +++ b/drivers/gpu/drm/drm_writeback.c
+> @@ -142,61 +142,6 @@ static int create_writeback_properties(struct drm_device *dev)
+>   	return 0;
+>   }
 >   
->   	drm_connector_helper_add(&txp->connector.base,
->   				 &vc4_txp_connector_helper_funcs);
-> -	ret = drm_writeback_connector_init_with_encoder(drm, &txp->connector,
-> -							encoder,
-> -							&vc4_txp_connector_funcs,
-> -							drm_fmts, ARRAY_SIZE(drm_fmts));
-> +	ret = drmm_writeback_connector_init(drm, &txp->connector,
-> +					    &vc4_txp_connector_funcs,
-> +					    encoder,
-> +					    drm_fmts, ARRAY_SIZE(drm_fmts));
->   	if (ret)
->   		return ret;
+> -static const struct drm_encoder_funcs drm_writeback_encoder_funcs = {
+> -	.destroy = drm_encoder_cleanup,
+> -};
+> -
+> -/**
+> - * drm_writeback_connector_init - Initialize a writeback connector and its properties
+> - * @dev: DRM device
+> - * @wb_connector: Writeback connector to initialize
+> - * @con_funcs: Connector funcs vtable
+> - * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
+> - * @formats: Array of supported pixel formats for the writeback engine
+> - * @n_formats: Length of the formats array
+> - * @possible_crtcs: possible crtcs for the internal writeback encoder
+> - *
+> - * This function creates the writeback-connector-specific properties if they
+> - * have not been already created, initializes the connector as
+> - * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
+> - * values. It will also create an internal encoder associated with the
+> - * drm_writeback_connector and set it to use the @enc_helper_funcs vtable for
+> - * the encoder helper.
+> - *
+> - * Drivers should always use this function instead of drm_connector_init() to
+> - * set up writeback connectors.
+> - *
+> - * Returns: 0 on success, or a negative error code
+> - */
+> -int drm_writeback_connector_init(struct drm_device *dev,
+> -				 struct drm_writeback_connector *wb_connector,
+> -				 const struct drm_connector_funcs *con_funcs,
+> -				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> -				 const u32 *formats, int n_formats,
+> -				 u32 possible_crtcs)
+> -{
+> -	int ret = 0;
+> -
+> -	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
+> -
+> -	wb_connector->encoder.possible_crtcs = possible_crtcs;
+> -
+> -	ret = drm_encoder_init(dev, &wb_connector->encoder,
+> -			       &drm_writeback_encoder_funcs,
+> -			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+> -	if (ret)
+> -		return ret;
+> -
+> -	ret = drm_writeback_connector_init_with_encoder(dev, wb_connector, &wb_connector->encoder,
+> -			con_funcs, formats, n_formats);
+> -
+> -	if (ret)
+> -		drm_encoder_cleanup(&wb_connector->encoder);
+> -
+> -	return ret;
+> -}
+> -EXPORT_SYMBOL(drm_writeback_connector_init);
+> -
+>   static void delete_writeback_properties(struct drm_device *dev)
+>   {
+>   	if (dev->mode_config.writeback_pixel_formats_property) {
+> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
+> index c380a7b8f55a3616fa070c037d5cc653b0061fe6..879ca103320cc225ffb3687419088361315535fc 100644
+> --- a/include/drm/drm_writeback.h
+> +++ b/include/drm/drm_writeback.h
+> @@ -24,17 +24,6 @@ struct drm_writeback_connector {
+>   	 */
+>   	struct drm_connector base;
 >   
+> -	/**
+> -	 * @encoder: Internal encoder used by the connector to fulfill
+> -	 * the DRM framework requirements. The users of the
+> -	 * @drm_writeback_connector control the behaviour of the @encoder
+> -	 * by passing the @enc_funcs parameter to drm_writeback_connector_init()
+> -	 * function.
+> -	 * For users of drm_writeback_connector_init_with_encoder(), this field
+> -	 * is not valid as the encoder is managed within their drivers.
+> -	 */
+> -	struct drm_encoder encoder;
+> -
+>   	/**
+>   	 * @pixel_formats_blob_ptr:
+>   	 *
+> @@ -148,13 +137,6 @@ drm_connector_to_writeback(struct drm_connector *connector)
+>   	return container_of(connector, struct drm_writeback_connector, base);
+>   }
+>   
+> -int drm_writeback_connector_init(struct drm_device *dev,
+> -				 struct drm_writeback_connector *wb_connector,
+> -				 const struct drm_connector_funcs *con_funcs,
+> -				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> -				 const u32 *formats, int n_formats,
+> -				 u32 possible_crtcs);
+> -
+>   int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
+>   				struct drm_writeback_connector *wb_connector,
+>   				struct drm_encoder *enc,
 > 
 
 -- 
