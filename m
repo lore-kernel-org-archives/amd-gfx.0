@@ -4,70 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F598C87FCB
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 14:03:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B4D1C87FCB
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 14:06:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB9EB10E859;
-	Fri,  1 Aug 2025 14:03:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E0510E86E;
+	Fri,  1 Aug 2025 14:06:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Weu1kHxf";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rh4XrDsc";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A148E10E859
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Aug 2025 14:03:21 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-23fef63da72so3822355ad.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 Aug 2025 07:03:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754057001; x=1754661801; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Q8adeH62axoIq/DKSfe5XejZ3ToooOfHkkLz+AVHDH0=;
- b=Weu1kHxfAK8ZWYH/UmYWiDLFguVX0xZpw31fXZ0LA79mVS8E9OiK6Pl4zZ1ZpRBXN7
- h0BUeitZUYan5iyHpAo3x1BY4rGoBwD7OvOmDwGRnxSB+gmNF3MCdjxQOT5gDRGVxrVt
- s+7ljjDq7C0D/wlDLYOgkgX5vQYlzMwfP+Lo4S8vti2JiWKlLDJ6r4vPdMtmhA9qhUQW
- ODqiRNX7w3sA9TM0ryGjGYVzEjWz/VfuXA9N/uqF7ugb4TLrgs2edUCiRyr39IbI8dag
- 7s0N4G7LXBYBCql3vnVp2p0KUk2iP6qbqSjqWhe90tyNnZskgiM45rwuVN+V1k/MxVN5
- hT2A==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DDE710E869
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Aug 2025 14:06:13 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57197hkg001415
+ for <amd-gfx@lists.freedesktop.org>; Fri, 1 Aug 2025 14:06:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=X5mYO9TNcqG6LvwHvkvNnoW7
+ mrgbAWbzpJxMDANF+yw=; b=Rh4XrDscXyf2Oo02oBHA4UuChG3U+1dh+T7OZAib
+ VOuvM1m8SWmIm9s0HizjkP+In4P+XyxFB4XZx7IO7Jk/zzYjW/kIu9MAoHDfanDt
+ ZK6ZqoVyXjZ4oZ9aQZ//45SiMCQnN1Md4SWDUjpVylMLrsI6fDTO6e1lMPCbcul0
+ oj45dL+plcwt4ZOUYWeVSm6+aXgBwJX1E3S9fNMRuKw5jxIHAfkXX8Cu7W2h2xE2
+ KUNOSM2i5MN6SzVqn+zzuAD2NNXnZ3nFwYlKDBiFE8zuStZ6F5rYuv5nXO0iq51Y
+ M0bXcC1Vu0z1BSpGM0cpy9kLcSbf0lYPsu/KiiErHey7GA==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 484nyuchkn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 Aug 2025 14:06:12 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-b42218e4a59so1326769a12.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 Aug 2025 07:06:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754057001; x=1754661801;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Q8adeH62axoIq/DKSfe5XejZ3ToooOfHkkLz+AVHDH0=;
- b=M0molKp5Zr9g12+KQDhzCFWGLdVZ5/VkVguX5mIk0XOalskvkGj878ZvF/3BOACPnB
- aCYJJ0c6oJlqZdE5ZXzeIlEAt9LixT0888ZyK7Nvk+TZAE7fVFOE7j/6KTpzjjRDVz8i
- 3tMD1YcusHO8UG8FO7UNDeNRYXue3K1ZHbfPauaFrGBovdJs/NFzsmowlO5XJlknYU56
- BPGjUA6xDW1OpiEvAst9ekw+BCcejKlyfNk+4qH1sdOUdaX6GDL2ovAFUsg+1kxy/6YO
- YCCeEMa7SIsytsdFAg1oB+4jUkDdKLHgP2GdyFP7Ez+YS4P54EBSKkp0EymC6EDGy9Pb
- FZBA==
-X-Gm-Message-State: AOJu0YzzNA/kDJtM/7opyJGZJTY9UIUld+c4TD9YFgVHUoGQRmQ2R3zi
- 3W++orDOttO/JbjI5lSIXx84gVFGujdlE2L640MjBMKT/50KH3NzSe+Lt2nG9qZqWv79D9IRklo
- Fob0EjvsEQsGiKa158SNZ4PqC9ul/OBg=
-X-Gm-Gg: ASbGncvWuIidWnGDm/yTN6eFxOCPt3WKEKvIv235svTZZiU++VH1IC3s7M8NA10EFvA
- 6ip+PclfHI0wIOQt+cyk2Q7tUkoR3ps3VvCGcQCsYzoei+wXdQe0eWDH6SIET6fBDQSFdROECsM
- Usb/dOp38IHpvFidzsg8P8b+LteIysNTGvWw3lfP9EKRrgLgUcG4R6016KKBWx9mGp2qCMusDOg
- fqbkC/M
-X-Google-Smtp-Source: AGHT+IG2F8ey2QD23aBUz/AMTUrD365Atz6NrdDOQZbXB77qVN+qcJUhGXee0s6tSezDFA0WkDvyt+Cnw8HE9muLfRI=
-X-Received: by 2002:a17:90b:4c48:b0:31f:3f3:4516 with SMTP id
- 98e67ed59e1d1-31f5dd9ccd4mr6770412a91.2.1754057000694; Fri, 01 Aug 2025
- 07:03:20 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1754057171; x=1754661971;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=X5mYO9TNcqG6LvwHvkvNnoW7mrgbAWbzpJxMDANF+yw=;
+ b=va4NfXkJFIYMUt4fI/NLN/PTDdo9mt9mYESSORa5gn405JGgpnlvOSxCJEBkQn9Yf7
+ PgBop9yhLkoKxEl0RkIOGc5bO6trTq8fYrEsu3u5GesSKHGDmezagRu432wYwHn7+gS8
+ BoQD79MIjQtponfSdNg6W69+Yq6UhRqazgbICripBC/ZW2X3XzaiNuXUkutO7kw9EUZ1
+ NF9iZ+Xf21XoZuNiIuOlF96UhPlUY0g2DoVcifjVeWjZwYpzsqJX0TnPGG4Y/Ctd6BOp
+ fYmqCVFugl5YB2nWSXJUYplGmGOZ8VdsFD47FK+rmBPbVWeLzKohpid+JR05rG48zikm
+ 8snw==
+X-Gm-Message-State: AOJu0Yxr/bRU1E0utCsNAz6lvCEi+xsHuaNdB7CnuglCM/a4J09ioG4A
+ f5Pt+D64uHnGMHtFET+JKb1V52v+QNzjIkdx54l7BHPSilTFuLWobi0r5YH8Rx+VvZJVBDSlYrh
+ Devy9cb7t7XhVBopGcvZ7+/P0l0EWuODuc/Ia+FRfHnK4LuCgY0NjdFNvXaEESnM2ZZ4qAj+oxM
+ mk
+X-Gm-Gg: ASbGncvd/DUYUJAOEJNAdbZ3SAsdhdidTMq2PZzkeV30UCM2dG28wzFEGO3t2xMN3sL
+ s4Hn0m10U5Ovq68DvH+YToAz+38djUyZoiL9GnVn+/KFE2bFzb/JPZ829qaFx7Eqg7B0cp9rvOg
+ Q7rNoN8nEuZ0EJSWGOdB5GmYkEcRigQvUZGJYymsm7bqUdXePOyFLJmVlQm4gP9i0iK8jIagPRo
+ Po82pP6hkB9IGGm5QtB2xFsot2k/GBj+aSMgKpg29qIQmOJC2Cb5F+O7lc1t/7K5RVWKO/5nVq/
+ d35jl6e64GGaf1eK1xpmdM6owJf8vhXL1VmWnZHWi1qLxx+Kg2/F/OA1ZavYc8ke/v1ushULSTq
+ DlEsALlkQEtXM+sh9+zvA450e7UhKJetRzpNrzuQ0EZ4rbfIrrLz4
+X-Received: by 2002:a05:6a21:33a5:b0:239:29ea:9c97 with SMTP id
+ adf61e73a8af0-23dc0ec463emr20483666637.24.1754057170875; 
+ Fri, 01 Aug 2025 07:06:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGitYNtTnXOBq8raaQNZX9YeStN7g/CeoibFIFiLag1gYHl4anqkXU57qCgbVhM4DI8a/qNMg==
+X-Received: by 2002:a05:6a21:33a5:b0:239:29ea:9c97 with SMTP id
+ adf61e73a8af0-23dc0ec463emr20483562637.24.1754057170060; 
+ Fri, 01 Aug 2025 07:06:10 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-332388fc7d0sm5621721fa.59.2025.08.01.07.06.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Aug 2025 07:06:09 -0700 (PDT)
+Date: Fri, 1 Aug 2025 17:06:07 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 5/8] drm/msm/dpu: use drmm_writeback_connector_init()
+Message-ID: <z4ewbwtrqnem3af2tuket4wpgsulo6f6vy54hnhxrcx56hdx23@i5nuuiw3j36g>
+References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
+ <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20250801074020.4099827-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20250801074020.4099827-1-Jesse.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 1 Aug 2025 10:03:07 -0400
-X-Gm-Features: Ac12FXxenn0n4j8-OWFJ-yEg41EdDbpo9pKP5zGWygoRkRmQ00RcXAvnbY232AA
-Message-ID: <CADnq5_Nf=V2Q--_kPfD2XhXVSXGJsMn6vFxw9cF42qZpa5rwOQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Update SDMA firmware version check for user
- queue support
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
+X-Proofpoint-GUID: 9MccfodQefS5pe2X7b9lUgEnIx0s2hA4
+X-Proofpoint-ORIG-GUID: 9MccfodQefS5pe2X7b9lUgEnIx0s2hA4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDEwNSBTYWx0ZWRfX2wZK2xhoiY2d
+ x7dOh3EH2W7MgBPnYlU7QQRkJUSGleRKyRqDOy10+m1Z16Xq4iXQvSuGATvnW0LhRTv5rsamg0J
+ Nw5b/LQPQUROfmggsASnmanU5JSV6zrybxdYinzBcDQo8AIeg1Qa21jOm+YpHu2v4RklZ6VmG0P
+ yU7osKsTZWSGoFpuwah2PINknq7vx0LRWAhdU8K9Y6pbFKOa+LbfpAcOmhoUSAdfMPpFQArqHVW
+ U9O94eOC3n6iOLcWVH5S4aXC5C7j5YV1rNC86dHN9xT3CjOszimgDgIELamrjdlJuJD8f/yrqCb
+ RULTRf6OeacnLiQog5DQAYTkwgjZp8YuqzmvCnTKtHS352/Ub4ZRcGWkxEA3dD9JXjnTCZltlx/
+ XmIQT7Nob5cJKzZKlzEd2eaigCJkZsl7aj0jyy2QjG7PDe7jIt4t7tIwqRjN5V1sjKKdpIbG
+X-Authority-Analysis: v=2.4 cv=CLoqXQrD c=1 sm=1 tr=0 ts=688cc9d4 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=noEQxEA5MoPOL7h678AA:9 a=CjuIK1q_8ugA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-01_04,2025-08-01_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 adultscore=0 suspectscore=0 mlxlogscore=999 spamscore=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2508010105
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,45 +146,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 1, 2025 at 3:48=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> wr=
-ote:
->
-> This commit fixes a firmware version check for enabling user queue
-> support in SDMA v7.0. The previous version check (7836028) was
-> incorrect and could lead to issues with PROTECTED_FENCE_SIGNAL
-> commands causing register conflicts between MCU_DBG0 and MCU_DBG1.
->
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-
-Please add:
-Fixes: 71f82efdc1ad ("drm/amdgpu/sdma7: add ucode version checks for
-userq support")
-With that,
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-
+On Fri, Aug 01, 2025 at 04:51:13PM +0300, Dmitry Baryshkov wrote:
+> Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> drmm_writeback_connector_init() in order to initialize writeback
+> connector instance.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v7_0.c
-> index ba1f3e3b6eb6..d50db12a44a5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-> @@ -1357,7 +1357,7 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_block=
- *ip_block)
->         switch (amdgpu_ip_version(adev, SDMA0_HWIP, 0)) {
->         case IP_VERSION(7, 0, 0):
->         case IP_VERSION(7, 0, 1):
-> -               if ((adev->sdma.instance[0].fw_version >=3D 7836028) && !=
-adev->sdma.disable_uq)
-> +               if ((adev->sdma.instance[0].fw_version >=3D 7966358) && !=
-adev->sdma.disable_uq)
->                         adev->userq_funcs[AMDGPU_HW_IP_DMA] =3D &userq_me=
-s_funcs;
->                 break;
->         default:
-> --
-> 2.49.0
->
+>  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++++++++++++-------
+>  1 file changed, 16 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> index 8cd37d7b8ae281cbc1fd8cbb243c621174517e23..9986a10e8114680e9da48986f4ca3ce6ec66b8cb 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> @@ -134,7 +134,6 @@ static void rcar_du_wb_conn_reset(struct drm_connector *connector)
+
+And I used wrong subject prefix here... I will fix it for v2 after
+getting feedback on the series.
+
+
+-- 
+With best wishes
+Dmitry
