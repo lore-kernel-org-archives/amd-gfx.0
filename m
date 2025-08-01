@@ -4,78 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2623BC87FD2
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 13:29:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C78C2C87FD2
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 13:51:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE6610E855;
-	Fri,  1 Aug 2025 13:29:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBF2510E85E;
+	Fri,  1 Aug 2025 13:51:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kJYv3e+m";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HBASkNa/";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C06D10E3AC;
- Fri,  1 Aug 2025 06:11:34 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-313910f392dso428156a91.2; 
- Thu, 31 Jul 2025 23:11:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754028694; x=1754633494; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=0ko16HVi9ZPbBwhIj2VqJyHD6N02PwGWvkY6qgm70FA=;
- b=kJYv3e+m5LH7ja9jT2lVIAln3PKjNqcriBeOjOvBDnD5AilXPhJg+XMyic0t75EaNq
- 2FV0L4rBBaoqZ98Hnz6UH1Y75qXArCzm1LFrugbiKgXAtej68s/YfHe/2WYtL1EhDE/h
- gRmHB7sGy1DU92gZuXoFaWECHtYR48NX5VzEyoisFYYOVHJvv2mCJpqt88YtZo+q/U3D
- +AIRjeMd5pH6KscFTpoMqL8s+NGZ033YPGmbRZua6NoRwm/2FMIXW4fHTDfb/i8hyXwU
- KZPXOC6cynHIWnNqUuLnXX73YQV4HZVdV+0Eac5/KPRlYMSot9cYb7SGDuM9TCIQ6BeA
- JZBw==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D08910E859
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Aug 2025 13:51:21 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 571Cob5s010182
+ for <amd-gfx@lists.freedesktop.org>; Fri, 1 Aug 2025 13:51:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=R5/BhHZWXHfoz2PoAt8iPP
+ dFYjTG2bedIk3AU8wQfSM=; b=HBASkNa/Hs0jzEUfn96lq/l0dTsR7WwCRZ9RvA
+ qB9MjzTzt1vriGZRyYaQRSKNBcJgKm9wvwqONDJYP7GuRxfNATw1LsVhdEFVFbYD
+ 7wjrslaRLBoAkTJ3d5iZvYr06nWoUswLyIortj2vIabtDE1ebc3o6deiCd+FmOvr
+ GZGjRkmVCxJr9M0d+3GCiJZgbsp2epP/OmnI8FmK0sbnz2X8sashd2IDdyAZEAoK
+ e8yQE6Lr6WorHOPbMZqWkd5AJii2P8o1CBZYEFA2k5jSqMatJLyH51+Dv/S/f6bp
+ ZLVkr94qUy7F3dpg5oxw9MtqphMTwrKwZHO63y0nyslNS37A==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 488q7xsja8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 Aug 2025 13:51:20 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4ab801d931cso41442931cf.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 Aug 2025 06:51:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754028694; x=1754633494;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1754056279; x=1754661079;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=0ko16HVi9ZPbBwhIj2VqJyHD6N02PwGWvkY6qgm70FA=;
- b=iGptHzp5/9A7p1tPBR2aVHSJ4KDOX1wuYtwZHfleeuSS05ZUPV5VjWICW5w5sRvjZo
- MllIXVGmc+J5c3U40njMwP5eC7z4OLxRLxeYL2MemH7mfaP/Dr7x75jPZmt8hGtMN93w
- fWEGK3xtTGTF7RyqRg7ZetpzxHbHLLmapHkO/0k8/2+BqA7jfxJQ2RhW4h43uiVXUTPg
- osbCViwoXNXvPOOO8S/l20m04gPNeHIKDmv1VrC9sQzJTRebr40ronhPy034uwdYuqnq
- BYmOBDohu5F/cvwzZnFM3FVA3kstWOe9OjAvpi+L8uTovWmVAmKzGgiKChvtOh3g3+X9
- tCHA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVMLjFtG83AT/pRpqqdFO5QvEy4uH1q/M77GjVqjTDGccqgl2cI/YwtmVmGBRITQeCeCaDKQBsg@lists.freedesktop.org,
- AJvYcCW+12S/+t/jCeN0o9H51xTBahGylMz1kBX7Yzb6IJWj9dzglEO3qfqnmDacE3eG/YH3sid71QpSR/22@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxbc8karcbXlCBLrmPnFa8iEyCUTYoDMxp9G2+oHAfM2WYEqWXJ
- hLqkweLFiQBM9ECojS+luiYYhRgB17vKUGUFsHOqWP92rXHeBxePZUf5YiffT0wUcO4Yz113gH7
- fWytxLddlb/hrJ2FuG/BmjNHVUYGKJWU=
-X-Gm-Gg: ASbGncv8gbanjVPJtujRaH6k8g/Xxo7w/VnL6RJKqhS5D9o8de1172lJDRDtSWe8MtT
- QZBd5twrZkw1pT6PhF9Slnk/Nu1P87nPLCCZa8oNFSFb7TI7WrRPs9qxtJv/V/BHBUzLOI3AHR4
- eqawd1ZewJlvbS88MZWkbZ7BHgDi5Ea9yw3ujtusV9BBEfCoITh7Hv4Km7KnzDlwNsWTdt7edCK
- JGzYJo=
-X-Google-Smtp-Source: AGHT+IHP5f0oXGiOrttrHBImpIiuQeP4ljVNIuB7tpCkUe7xYlaM0ikqTUnOdcQq1Ul7QI4J9HRPqfYROgBiKnI0g/k=
-X-Received: by 2002:a17:90b:2cc6:b0:312:2bb:aa89 with SMTP id
- 98e67ed59e1d1-31f5de34a48mr14645187a91.20.1754028693622; Thu, 31 Jul 2025
- 23:11:33 -0700 (PDT)
+ bh=R5/BhHZWXHfoz2PoAt8iPPdFYjTG2bedIk3AU8wQfSM=;
+ b=piIsHfMT17EQfPz3R8nxin3+pHaHEfs0yfCRvl0XRj7Vgg+DeSjAkoDAjrtG+3caNF
+ +wIyuU77HJh8LeAdgraUn7PgrIMynIpKSXGXZC7saNc0v6Rgct1vGoKTfAe8vfnI0f06
+ Uos/yds4QwpiFsBuC8RIctnVL/G9LopaTRzSXx/OuY1oLqBu8D2+jh249XmgNelrWOqk
+ uXWzTSoi9QnmvWB7eIS59lqQQzVwIT2/Uz1Jx6FCLIPoA1m16r6V9CctUxOI0oo5Ru28
+ 0AWC69qse3PcW76zs93VnV4xY9+g6s+i/NMg6GgvWHR2oEkgR9g/0dQU+YzSN5CaMVhT
+ GmFg==
+X-Gm-Message-State: AOJu0Yz4kPyd1k5tMuSShILn7TFXrius86vQBfsCsEETLr3MdITLBDj9
+ zLEakV86VRFhdN+XUfmKeOLYcqCSPyiJFkKHQxBIBeauhMzM4Em3AQXwn6hzC1eQbepNVR4uJbD
+ ngh3lWdBQjGIpFmf33EherX2PYSjzLKcF3GTM05JVygjtsI8WkvhiIB3B7+iIub5u2ez1
+X-Gm-Gg: ASbGnct1N//X0jMoVQY00S9bQ3Wb2spK4gxL+SDTKWg8qrXxGO9fN5ScDrzTCVDKPnR
+ lNtzbu92K6qXOlz6LFsPL2fFELjfnwbslKFZgpBfFMf945Ytw1mwTQnS8lQjL6coxyWRZgXz9TU
+ BBw0SKpZucUY55SzpU2H3CcsskCR3XdY6J0coil5S0k9Gdm0pn5rUR0Fd9qDYMsonhCSn8lxMBs
+ RHFM8H1Hv8yGkERa8MXV2shgsvDmv/U0PsqhulAwOASBstwGdK9SLQ2AK5lXAonQwd352dr7YKM
+ hYrCkW5+kr+59+7ePPU9KwWDyYUrdoMLSHfY/0pabn2ZLxPmAXRz7fg9EjhN49zj2xPN6gDdFkb
+ W4UT3N54yc1f6PBvkjAKbIwBXgTyw/Uve8dPBflF6YdKwZw5OMkDQ
+X-Received: by 2002:ac8:5784:0:b0:4ab:95a7:71d1 with SMTP id
+ d75a77b69052e-4aedbe7beb9mr161744401cf.55.1754056278927; 
+ Fri, 01 Aug 2025 06:51:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFtbade6pZ9wkxnorEF6axWOtrohHvqQculMvY2mHe46exVpYNBH602aw6FU7DeF5T4f4fIgQ==
+X-Received: by 2002:ac8:5784:0:b0:4ab:95a7:71d1 with SMTP id
+ d75a77b69052e-4aedbe7beb9mr161743521cf.55.1754056278246; 
+ Fri, 01 Aug 2025 06:51:18 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-33238273006sm5917801fa.9.2025.08.01.06.51.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Aug 2025 06:51:17 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 0/8] drm: writeback: clean up writeback connector
+ initialization
+Date: Fri, 01 Aug 2025 16:51:08 +0300
+Message-Id: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20250731-b4-dont-wake-next-v1-0-e51bdc347fa3@gmail.com>
- <20250731-b4-dont-wake-next-v1-5-e51bdc347fa3@gmail.com>
- <CADnq5_PG1Am4OGkfKo9o9cfnvSdzwRFeYudbvw220+P1AHO4xA@mail.gmail.com>
-In-Reply-To: <CADnq5_PG1Am4OGkfKo9o9cfnvSdzwRFeYudbvw220+P1AHO4xA@mail.gmail.com>
-From: Philipp Zabel <philipp.zabel@gmail.com>
-Date: Fri, 1 Aug 2025 08:11:21 +0200
-X-Gm-Features: Ac12FXy4Bp7cHwpfA3_SJEVsnOgcLffltweyrxbaKSDp7VKM1SkzOyKNjBrWNao
-Message-ID: <CA+gwMcc41Hh=or7NLMnG++miHj_dNLZ04iFYdf=U7_LLG1gSZw@mail.gmail.com>
-Subject: Re: [PATCH RFC 5/6] drm/amdgpu: don't wake up the GPU for
- mmGB_ADDR_CONFIG register read
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEzGjGgC/x3MMQqAMAxA0atIZgNVKFWvIg7aRM3SlhRUKN7d4
+ viG/wtkVuEMU1NA+ZIsMVR0bQP+XMPBKFQNvemtGUyH94akMSEHH4kVR7ca7+xGlhzUKinv8vz
+ HeXnfD6NH1jNhAAAA
+X-Change-ID: 20250801-wb-drop-encoder-97a0c75bd5d7
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Content-Type: multipart/alternative; boundary="000000000000359306063b47a15a"
-X-Mailman-Approved-At: Fri, 01 Aug 2025 13:29:30 +0000
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2072;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=R+5orXaZWYFqlHQCgWzWcWIKZBQ4MU2KJjCzPihl1hE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBojMZSfeMebHGzi1ad5D9OJIiWxXkAsbLdE3xg4
+ nZazyGjsZCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaIzGUgAKCRCLPIo+Aiko
+ 1SdmCACyivvAMPFOURSFjenFZ8ROTLDqjmHCkE57/8pbDDtOmnvDfJ7Fi6i01/G4wEPnTGHed44
+ N+uX0xC10aDYDljZbg9Ye2oCBvC8b8VJfxf1JuBphl5iqinO8bjED8LaJHe/Z1IQHal1TB2a/oo
+ PG6bYJEhwq7tv9+s0dTyKqvksmESoD0WDb1DipCPoHx0hVqHvZ1tmNdtf7u/JgHibuAZQ45snAg
+ 0cRP4v//GNyZU6xiXtGe3Y7K95lbOvjZiSFO2fwFx9NrdrFXD+QX3+JaMCInjnjVO/qKNVipJ10
+ sML3WPF2VNylJRkIVccwbCu8kIidTpUocxHhmfn3G52M6APm
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=EqPSrTcA c=1 sm=1 tr=0 ts=688cc658 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=cFjmsF-WLDi_aLc5EnEA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: x7dxp_eewReHxCuw16TwKtxW90qbLJ8a
+X-Proofpoint-GUID: x7dxp_eewReHxCuw16TwKtxW90qbLJ8a
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODAxMDEwMyBTYWx0ZWRfX8Ib1U4HFRHHd
+ VTio/Vv9holieeYv5PIAVACvmiYYTcpDbiZNkyQId6UFVy72Y3+ms4ZVp7aUwmobyOUtjKUFikr
+ hE8+O4tQitRAK13I9vg7BI2a3TanIc/ySMCMayHyth6BHm0hWliUiOfKAjklpqiCe/JHOnEwXIq
+ O37W+e7fxWcWlXQAjto3pl9tGhsW2SqIAzqe/K/pF9H0SPg4O8AneLgRxOSJ550lL1aIXT0eWxq
+ Lh/FKDOnLcQDVvj4EsnwsCZiz3qfioz/6sWpZdTCB+m96a80uqDBYUJx9TLR+mbdzZl7ZBHxkXi
+ QL1E39NJ3vLG33L58V/tz2s2Y+7k0JfJXj6wY3Y8tc1nEz8lndPzxhpNzl2ngSJh6zRrTLDzAx3
+ ifBopyma24cGZ/c3KUouLlr9yNDO7IZIJqC9Sg5NUR3gppfUGEbNYIDZvu8GLbIEjK9Eom32
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-01_04,2025-08-01_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 mlxlogscore=935
+ impostorscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 malwarescore=0
+ phishscore=0 mlxscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2508010103
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,134 +160,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000359306063b47a15a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Drivers using drm_writeback_connector_init() / _with_encoder() don't
+perform cleanup in a manner similar to drmm_writeback_connector_init()
+(see drm_writeback_connector_cleanup()). Migrate all existing drivers
+to use drmm_writeback_connector_init(), drop
+drm_writeback_connector_init() and drm_writeback_connector::encoder
+(it's unused afterwards).
 
-On Thu, Jul 31, 2025 at 9:38=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
+This series leaves former drm_writeback_connector_init_with_encoder()
+(renamed to drm_writeback_connector_init as a non-managed counterpart
+for drmm_writeback_connector_init()). It is supposed to be used by
+drivers which can not use drmm functions (like Intel). However I think
+it would be better to drop it completely.
 
-> On Thu, Jul 31, 2025 at 3:33=E2=80=AFAM Philipp Zabel <philipp.zabel@gmai=
-l.com>
-> wrote:
-> >
-> > Don't wake the GPU if libdrm queries the mmGB_ADDR_CONFIG register
-> > value during amdgpu_query_gpu_info_init(). Instead, return the already
-> > cached value adev->gfx.config.gb_addr_config.
-> >
-> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2295
-> > Signed-off-by: Philipp Zabel <philipp.zabel@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > index fe1347a4075c4..ed4d7d72f2065 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > @@ -883,6 +883,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
-> *data, struct drm_file *filp)
-> >
-> >                 alloc_size =3D info->read_mmr_reg.count * sizeof(*regs)=
-;
-> >
-> > +               if (info->read_mmr_reg.dword_offset =3D=3D 0x263e &&
->
-> I think the offset of this register varies across chip families.
-> You'll need some way to determine what the offset is for each family.
->
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (8):
+      drm/amd/display: use drmm_writeback_connector_init()
+      drm/komeda: use drmm_writeback_connector_init()
+      drm/mali: use drmm_writeback_connector_init()
+      drm/msm/dpu: use drmm_writeback_connector_init()
+      drm/msm/dpu: use drmm_writeback_connector_init()
+      drm/vc4: use drmm_writeback_connector_init()
+      drm: writeback: drop excess connector initialization functions
+      drm: writeback: rename drm_writeback_connector_init_with_encoder()
 
-Thank you. This workaround was specifically intended for the following call
-in libdrm [1]:
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   | 18 ++++--
+ .../drm/arm/display/komeda/komeda_wb_connector.c   | 30 ++++++----
+ drivers/gpu/drm/arm/malidp_mw.c                    | 25 ++++----
+ drivers/gpu/drm/drm_writeback.c                    | 69 +++-------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      | 10 +---
+ .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++---
+ drivers/gpu/drm/vc4/vc4_txp.c                      |  9 ++-
+ include/drm/drm_writeback.h                        | 22 +------
+ 9 files changed, 77 insertions(+), 131 deletions(-)
+---
+base-commit: 94f208ff622b09309358abaf26d7acca0c318fae
+change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
 
-        r =3D amdgpu_read_mm_registers(dev, 0x263e, 1, 0xffffffff, 0,
-                                             &dev->info.gb_addr_cfg);
+Best regards,
+-- 
+With best wishes
+Dmitry
 
-[1]
-https://gitlab.freedesktop.org/mesa/libdrm/-/blob/9ea8a8e93d542fe61d82716d1=
-a721e8d1d257405/amdgpu/amdgpu_gpu_info.c#L215-216
-
-which also seem to hard-code the dword_offset?
-
-The same is now copied into Mesa [2] as:
-
-   r =3D ac_drm_read_mm_registers(dev, 0x263e, 1, 0xffffffff, 0,
-&info->gb_addr_cfg);
-
-[2]
-https://gitlab.freedesktop.org/mesa/mesa/-/blob/c64c6a0c31f9cb1339bc700d236=
-932171f7444a3/src/amd/common/ac_linux_drm.c#L722
-
-regards
-Philipp
-
---000000000000359306063b47a15a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Thu, Jul 31, 2025 at 9:38=E2=80=AFPM Alex =
-Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">O=
-n Thu, Jul 31, 2025 at 3:33=E2=80=AFAM Philipp Zabel &lt;<a href=3D"mailto:=
-philipp.zabel@gmail.com" target=3D"_blank">philipp.zabel@gmail.com</a>&gt; =
-wrote:<br>
-&gt;<br>
-&gt; Don&#39;t wake the GPU if libdrm queries the mmGB_ADDR_CONFIG register=
-<br>
-&gt; value during amdgpu_query_gpu_info_init(). Instead, return the already=
-<br>
-&gt; cached value adev-&gt;gfx.config.gb_addr_config.<br>
-&gt;<br>
-&gt; Link: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/2295"=
- rel=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.org/drm/am=
-d/-/issues/2295</a><br>
-&gt; Signed-off-by: Philipp Zabel &lt;<a href=3D"mailto:philipp.zabel@gmail=
-.com" target=3D"_blank">philipp.zabel@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 10 ++++++++++<br>
-&gt;=C2=A0 1 file changed, 10 insertions(+)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_kms.c<br>
-&gt; index fe1347a4075c4..ed4d7d72f2065 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-&gt; @@ -883,6 +883,16 @@ int amdgpu_info_ioctl(struct drm_device *dev, voi=
-d *data, struct drm_file *filp)<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0alloc_siz=
-e =3D info-&gt;read_mmr_reg.count * sizeof(*regs);<br>
-&gt;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (info-&gt;r=
-ead_mmr_reg.dword_offset =3D=3D 0x263e &amp;&amp;<br>
-<br>
-I think the offset of this register varies across chip families.<br>
-You&#39;ll need some way to determine what the offset is for each family.<b=
-r></blockquote><div><br></div><div style=3D"font-family:courier new,monospa=
-ce" class=3D"gmail_default">Thank you. This workaround was specifically int=
-ended for the following call in libdrm [1]:<br><br>=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 r =3D amdgpu_read_mm_registers(dev, 0x263e, 1, 0xffffffff, 0,<br>=C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0&amp;dev-&gt;info.gb_addr_cfg);<br><br>[1] <a href=3D"https://gitlab.=
-freedesktop.org/mesa/libdrm/-/blob/9ea8a8e93d542fe61d82716d1a721e8d1d257405=
-/amdgpu/amdgpu_gpu_info.c#L215-216">https://gitlab.freedesktop.org/mesa/lib=
-drm/-/blob/9ea8a8e93d542fe61d82716d1a721e8d1d257405/amdgpu/amdgpu_gpu_info.=
-c#L215-216</a><br><br>which also seem to hard-code the dword_offset?</div><=
-div style=3D"font-family:courier new,monospace" class=3D"gmail_default"><br=
-></div><div style=3D"font-family:courier new,monospace" class=3D"gmail_defa=
-ult">The same is now copied into Mesa [2] as:<br><br>=C2=A0 =C2=A0r =3D ac_=
-drm_read_mm_registers(dev, 0x263e, 1, 0xffffffff, 0, &amp;info-&gt;gb_addr_=
-cfg);<br><br>[2] <a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-/blob=
-/c64c6a0c31f9cb1339bc700d236932171f7444a3/src/amd/common/ac_linux_drm.c#L72=
-2">https://gitlab.freedesktop.org/mesa/mesa/-/blob/c64c6a0c31f9cb1339bc700d=
-236932171f7444a3/src/amd/common/ac_linux_drm.c#L722</a></div></div><div cla=
-ss=3D"gmail_quote gmail_quote_container"><br><div style=3D"font-family:cour=
-ier new,monospace" class=3D"gmail_default">regards</div><div style=3D"font-=
-family:courier new,monospace" class=3D"gmail_default">Philipp</div><br></di=
-v></div>
-
---000000000000359306063b47a15a--
