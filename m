@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE1DDC87FCA
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 14:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7222FC87FCB
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Aug 2025 14:33:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3B710E88B;
-	Fri,  1 Aug 2025 14:33:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01A8410E891;
+	Fri,  1 Aug 2025 14:33:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="eo+bwKOK";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="nqLulVtb";
 	dkim-atps=neutral
 Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FB2010E88B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58B7410E88E;
  Fri,  1 Aug 2025 14:33:16 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::224])
- by mslow3.mail.gandi.net (Postfix) with ESMTP id A62E6580F38;
- Fri,  1 Aug 2025 14:08:06 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 1731844424;
- Fri,  1 Aug 2025 14:07:59 +0000 (UTC)
+Received: from relay15.mail.gandi.net (relay15.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::235])
+ by mslow3.mail.gandi.net (Postfix) with ESMTP id BE2B0581315;
+ Fri,  1 Aug 2025 14:08:43 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id D9BC84427F;
+ Fri,  1 Aug 2025 14:08:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1754057284;
+ t=1754057321;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4ZPE0arVZrZCWGCYC1cLTGI6rUOm9sk79v79dZdP6wY=;
- b=eo+bwKOKbwnW5hxg3HVFwA+Be46TNSR2ST+HIA7Pij2mTxwriCXqVf89gOyjjfP+Sk6TQr
- QilxgdP5sWxghrofEv9kq4BPGEsu0ZJ1ehRvFFO0J8nCFUHb0LnQ5yF2xWnrtxrKxe7IFu
- v/IzaSudUrY1CY0Y5LtsBxQK1X/d36m44TqPth3ILe30ufwCnDUtjsHbDhOdOnoWmRQXPp
- WUVNX0pNVIu462bmdpo3eYhCVB3MshWzmGBhJVKQcFmm3qxkhLNwteft4HCIxNVxbOseov
- sPBYGMPu/5QMJJ/yulTvuZTRaKJjs/VK4hui6ND1AzXezJQWa90NKH8vxPM3Gw==
-Message-ID: <3c522dd8-0e56-4ab3-84da-d9193137d4fe@bootlin.com>
-Date: Fri, 1 Aug 2025 16:07:58 +0200
+ bh=DT/B7nWQm3jBpI4/2Q5ABPRmhE5YIV8bCYAU/9kaD8o=;
+ b=nqLulVtbz3q0HluJf/mc6ghoL2SA7xDUJBKiY94czuSax+T5tlC/HHb03wlpFnSB5j9OMr
+ uiXWCC1hIxutloDvQ+ONTdFRhQT8XSbYWlf7gU4ImG2OfLrAjs4vanEkQxPJGFSZVg5Y2X
+ JQrk8LgQOuotbxNPerYFCPupZ2GVF5gX8yT7RekPdtxADWGOQ/BnBM0s3wIiZuJbsA1Obq
+ rQIrgNDWps/EjwmbJmPQzf8u72FVQ4qz6LyS9yZpmO8M6w4hVEEeB34t+hzzDD/svTM6V8
+ hBQviIZn6ZlEE9n3A5T1xZ4EJLgLIVqarPjyfEMubQX7h0iA6GUxg0nrebWmHg==
+Message-ID: <6cbe8955-cb34-43fc-9950-0fec4b7cac3e@bootlin.com>
+Date: Fri, 1 Aug 2025 16:08:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] drm: writeback: rename
- drm_writeback_connector_init_with_encoder()
+Subject: Re: [PATCH 5/8] drm/msm/dpu: use drmm_writeback_connector_init()
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  "Kandpal, Suraj" <suraj.kandpal@intel.com>,
@@ -66,7 +65,7 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
 References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
- <20250801-wb-drop-encoder-v1-8-824646042f7d@oss.qualcomm.com>
+ <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
 Content-Language: en-US
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
@@ -123,14 +122,13 @@ Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  wDN7ORknPndzxrq3CyB7b/Tk1e8Qx+6HU/pnMb4ZqwwMwZAMk24TZpsgg28o9MQiUNzad0h2
  gIszbeej9ryrtLHxMzyK8yKhHoI2i2ovxy5O+hsWeAoCPE9xwbqnAjLjOn4Jzd/pPovizrq/
  kUoX66YgvCuHfQMC/aBPLnVunZSP23J2CrkTrnsUzw==
-In-Reply-To: <20250801-wb-drop-encoder-v1-8-824646042f7d@oss.qualcomm.com>
+In-Reply-To: <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddutdefkeelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfesthekredttddvjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeekieevtdefgedtkeehteehtddttdefhffhgeejleejjeeluddvhfdugedvkeehveenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfeegpdhrtghpthhtohepughmihhtrhihrdgsrghrhihshhhkohhvsehoshhsrdhquhgrlhgtohhmmhdrtghomhdprhgtphhtthhopehjrghnihdrnhhikhhulhgrsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepshhurhgrjhdrkhgrnhguphgrlhesihhnthgvlhdrtghomhdprhgtphhtthhopehhrghrrhihrdifvghnt
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddutdefkeelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfesthekredttddvjeenucfhrhhomhepnfhouhhishcuvehhrghuvhgvthcuoehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeekieevtdefgedtkeehteehtddttdefhffhgeejleejjeeluddvhfdugedvkeehveenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfeegpdhrtghpthhtohepughmihhtrhihrdgsrghrhihshhhkohhvsehoshhsrdhquhgrlhgtohhmmhdrtghomhdprhgtphhtthhopehjrghnihdrnhhikhhulhgrsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepshhurhgrjhdrkhgrnhguphgrlhesihhnthgvlhdrtghomhdprhgtphhtthhopehhrghrrhihrdifvghnt
  hhlrghnugesrghmugdrtghomhdprhgtphhtthhopehsuhhnphgvnhhgrdhlihesrghmugdrtghomhdprhgtphhtthhopehsihhquhgvihhrrgesihhgrghlihgrrdgtohhmpdhrtghpthhtoheprghlvgigrghnuggvrhdruggvuhgthhgvrhesrghmugdrtghomhdprhgtphhtthhopegthhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomh
-X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,85 +146,66 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 Le 01/08/2025 à 15:51, Dmitry Baryshkov a écrit :
-> Rename drm_writeback_connector_init_with_encoder() to
-> drm_writeback_connector_init() and adapt its interface to follow
-> drmm_writeback_connector_init().
+> Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> drmm_writeback_connector_init() in order to initialize writeback
+> connector instance.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->   drivers/gpu/drm/drm_writeback.c | 14 +++++++-------
->   include/drm/drm_writeback.h     | 10 +++++-----
->   2 files changed, 12 insertions(+), 12 deletions(-)
+>   .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++++++++++++-------
+>   1 file changed, 16 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> index 1a01df91b2c5868e158d489b782f4c57c61a272c..ec2575c4c21b7449707b0595322e2202a0cf9865 100644
-> --- a/drivers/gpu/drm/drm_writeback.c
-> +++ b/drivers/gpu/drm/drm_writeback.c
-> @@ -235,7 +235,7 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
->   }
->   
->   /**
-> - * drm_writeback_connector_init_with_encoder - Initialize a writeback connector with
-> + * drm_writeback_connector_init - Initialize a writeback connector with
->    * a custom encoder
-
-If I understood correctly your series you want to reduce the usage of 
-non-drmm writeback, so maybe we can add a comment to direct poeple to 
-drmm variant to avoid new usage of this API?
-
-With or without this:
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-
->    *
->    * @dev: DRM device
-> @@ -263,11 +263,11 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
->    *
->    * Returns: 0 on success, or a negative error code
->    */
-> -int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
-> -					      struct drm_writeback_connector *wb_connector,
-> -					      struct drm_encoder *enc,
-> -					      const struct drm_connector_funcs *con_funcs,
-> -					      const u32 *formats, int n_formats)
-> +int drm_writeback_connector_init(struct drm_device *dev,
-> +				 struct drm_writeback_connector *wb_connector,
-> +				 const struct drm_connector_funcs *con_funcs,
-> +				 struct drm_encoder *enc,
-> +				 const u32 *formats, int n_formats)
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> index 8cd37d7b8ae281cbc1fd8cbb243c621174517e23..9986a10e8114680e9da48986f4ca3ce6ec66b8cb 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> @@ -134,7 +134,6 @@ static void rcar_du_wb_conn_reset(struct drm_connector *connector)
+>   static const struct drm_connector_funcs rcar_du_wb_conn_funcs = {
+>   	.reset = rcar_du_wb_conn_reset,
+>   	.fill_modes = drm_helper_probe_single_connector_modes,
+> -	.destroy = drm_connector_cleanup,
+>   	.atomic_duplicate_state = rcar_du_wb_conn_duplicate_state,
+>   	.atomic_destroy_state = rcar_du_wb_conn_destroy_state,
+>   };
+> @@ -202,15 +201,25 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
 >   {
->   	struct drm_connector *connector = &wb_connector->base;
->   	int ret;
-> @@ -284,7 +284,7 @@ int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
+>   	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
 >   
->   	return ret;
+> +	struct drm_encoder *encoder;
+> +
+> +	encoder = drmm_plain_encoder_alloc(&rcdu->ddev, NULL,
+> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (IS_ERR(encoder))
+> +		return PTR_ERR(encoder);
+> +
+> +	drm_encoder_helper_add(encoder, &rcar_du_wb_enc_helper_funcs);
+> +
+> +	encoder->possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+
+drm_crtc_mask?
+
+With this:
+
+Reviewed-by: Louis Chauvet <louis.chauvet>
+
+> +
+>   	drm_connector_helper_add(&wb_conn->base,
+>   				 &rcar_du_wb_conn_helper_funcs);
+>   
+> -	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
+> -					    &rcar_du_wb_conn_funcs,
+> -					    &rcar_du_wb_enc_helper_funcs,
+> -					    writeback_formats,
+> -					    ARRAY_SIZE(writeback_formats),
+> -					    1 << drm_crtc_index(&rcrtc->crtc));
+> +	return drmm_writeback_connector_init(&rcdu->ddev, wb_conn,
+> +					     &rcar_du_wb_conn_funcs,
+> +					     encoder,
+> +					     writeback_formats,
+> +					     ARRAY_SIZE(writeback_formats));
 >   }
-> -EXPORT_SYMBOL(drm_writeback_connector_init_with_encoder);
-> +EXPORT_SYMBOL(drm_writeback_connector_init);
 >   
->   /**
->    * drm_writeback_connector_cleanup - Cleanup the writeback connector
-> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
-> index 879ca103320cc225ffb3687419088361315535fc..958466a05e604b387722610fc11f9e841316d21b 100644
-> --- a/include/drm/drm_writeback.h
-> +++ b/include/drm/drm_writeback.h
-> @@ -137,11 +137,11 @@ drm_connector_to_writeback(struct drm_connector *connector)
->   	return container_of(connector, struct drm_writeback_connector, base);
->   }
->   
-> -int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
-> -				struct drm_writeback_connector *wb_connector,
-> -				struct drm_encoder *enc,
-> -				const struct drm_connector_funcs *con_funcs, const u32 *formats,
-> -				int n_formats);
-> +int drm_writeback_connector_init(struct drm_device *dev,
-> +				 struct drm_writeback_connector *wb_connector,
-> +				 const struct drm_connector_funcs *con_funcs,
-> +				 struct drm_encoder *enc,
-> +				 const u32 *formats, int n_formats);
->   
->   int drmm_writeback_connector_init(struct drm_device *dev,
->   				  struct drm_writeback_connector *wb_connector,
+>   void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
 > 
 
 -- 
