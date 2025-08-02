@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D1BC87FDA
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Aug 2025 16:06:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 322FFC87FD3
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 Aug 2025 16:06:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A164910E0FA;
-	Sat,  2 Aug 2025 16:06:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A48CE10E16B;
+	Sat,  2 Aug 2025 16:06:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GXp3rEu3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WCsYqj7u";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95ACC10E05E
- for <amd-gfx@lists.freedesktop.org>; Sat,  2 Aug 2025 16:06:08 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-458bc3ce3beso3265465e9.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 02 Aug 2025 09:06:08 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE74210E16B
+ for <amd-gfx@lists.freedesktop.org>; Sat,  2 Aug 2025 16:06:09 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-3b7910123a0so3201957f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 02 Aug 2025 09:06:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754150767; x=1754755567; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754150768; x=1754755568; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WGUdDrG4u4G11IhyLJAeGTzpaXW3V7jNcpVJw1BIoqY=;
- b=GXp3rEu3W029ZzPRqFyWPZFenXEhu1Pj0Q0n5KESekIg8r2/CtT4fL6urFHyHGFp+2
- S1qQpDicjzDzeN//sgWeezwthAGOHK2hFvN7kucXD/CF6vFbwf6CR/uB29pQLMYGtIcl
- F33ZvTbeRCIRI4/CFRelFsamWfzt5KhQf7Dlo+ReXNHGcJJR/qP5harnlng7GbnALSm5
- NwvBOc+mNi9K/arnOdKUfa3AxjsLMQWBZ6wvnUaR3FHxJ51K4shf4NfHi9Q6XHUB4CS7
- VDqRi4rpRddTRCdGPupZ3qm77ryODP0aibANtTYe3AX6fyW6mLuHmqS22EWYe6BBPv30
- WmMQ==
+ bh=6zAZThbPUGQe8RdZq2V98JmB9W6AqDrcstZDvTgMxG0=;
+ b=WCsYqj7uaEgbwijeSXKurQFPR1Xoe6u1dsC0QpuuNXObf2e3vsUOiN2KqL35O77M4H
+ 8SPYoC8gwK+nBa3TwJze5Up6bk1OwhydKBQgsYbTTEzNyxF+w3iUlfJber1EkFgLbjIT
+ nbvy7/VlY49lAkH2rcpOV2hgdV55xr8tP1EQCBD2RGGJcOr6nJrMqn+13LaE4fbbubKj
+ bXJ5EMxu1/H24L+wwuXoCb+V9H2frlwAfV4Lg7RI4WsoO+5gfoJajX9aptG56xjqpb8a
+ ltjPHSoqcmmqGYf/Eu6iPX9Xd+IDnF5MPaATkXraVOSwrr/IVYNJEqxj7rlCfJfFBwyf
+ JupQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754150767; x=1754755567;
+ d=1e100.net; s=20230601; t=1754150768; x=1754755568;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=WGUdDrG4u4G11IhyLJAeGTzpaXW3V7jNcpVJw1BIoqY=;
- b=eX4nTU2Nf7ojgY3GI5V43D8cYJbuGWWzwN+fKZQlAr8zFhcokC3Myb+mbZkdOP0L24
- +cvOKnUvSsCVqTe4OrHgXXpuwEjhTHnBjdBchLV5iRTENjDXyNo8YhR7Yqj89yJfna+n
- CMj4zPHcriECbw5aVQUZX1Z14atyvIMwlqdXP97RMHVuVVLD42FvpVYY20dWlH4j3OT9
- MIOggYRdFgKtt+HgwF62IiQTgLl9KlWiZyfA27YgWZFwUg4h0EIcPC62blgGnyXAdis3
- Af60KKqM0l8Dj9EUkbhEK2WNBGeFTVrvyjdwwO3136lgOnO9BHVgLSraXI4BnVGw7MNm
- Gx3g==
-X-Gm-Message-State: AOJu0Ywk043ksr72jTTkN2r9Oti+hZWBkyKgulfeiCL0D//tIFd/oJYc
- OE3RaOVV+s+EiRmGqSlndgP+KDDlCr9aQhOMzCLcmuebtJJWfdH8ZUHg91DIIA==
-X-Gm-Gg: ASbGnctNvJ2JPdbxqDebvEpX2aY+KldSA212crB/719arIQ5Qk2nrwVqk5o+5hp6sFN
- KW9tlERO54EPQ89jShGsIBbM50qOfDo+Nzdt8VMu+VzOsctgS+H9LReyjSBLR7YXmBpjep3i5ro
- qDIMrBgvdozd9nONh8S3hFjCjLkeC+xJ1MfoxmLqOOcES+QRmxd0bYdITaSUjCuO8FOKKJwqIVx
- /mW0XOIS0arFzQzezlDVsz31eD/99KbH7xrIqhuaTMBjVOwOlBZAIUZyKQRTfTcMlzZJxFQ6K2D
- Zq9G7E+pM9Qu2VdrJidpSG2kXmLKtRtkJzPOrwHh+tpfA6syi+L0iFf0MpzdSR/z8F3ir6FqrTD
- cpoSvOs3bf5M0ZcEXKEBOVJj9nCSoyyNIPfOOgjJTIUznfanJ9ykR0SeRoO5K4LThzBRWEut89e
- bP8u8sT3XWAlAduw1o90c=
-X-Google-Smtp-Source: AGHT+IFN7KoTnpPzukEtpte/FZpc3wmYcj4VTagG9scW22LZUfFyd3hthN4a/iIrEYhgs+iU071O9Q==
-X-Received: by 2002:a05:600c:4683:b0:43c:f8fc:f697 with SMTP id
- 5b1f17b1804b1-458b69df312mr28080955e9.9.1754150767037; 
+ bh=6zAZThbPUGQe8RdZq2V98JmB9W6AqDrcstZDvTgMxG0=;
+ b=mrbjEs128v5DgWuugixaVegy/8K8w4OHwvy4F55gkiR0H8OBhzwipGo3m7G88P1UHr
+ wcDUribAB74NqEgj/7tOc8xDHvQexRqp/265coodx0XYHs98n0dmIJv6IgaMJU2KRVbX
+ xrUciDH7vBQOXl5pmanBbQmw5hf/eXPXg5qW6BgMuarJrVev3h4cPfQhkHK0Fl97yr4v
+ Jaj5wJLnDUOd+sb1MGoT5raVfe/htjP7QPV7GcRkmGrD2XkQVdoOCwqwm7HHrhNzMxPu
+ A3X+ygqYG0HIO2KJ4QseHAodCbXBacs7y+Xr8fnEt7oarxW9HPv6SiM+xW7fuP0N6m3S
+ +Ysw==
+X-Gm-Message-State: AOJu0YzTAv30cX/JX9hlVGLdkbokpAPDjVlMS9Lj7o5G2ZzbziUoVa/d
+ 6kit0grsdnJ+/cyRkfnEd+4jkJGD6bkvxpxGUY8TA3Smdllge2eXmc/pvYXAqQ==
+X-Gm-Gg: ASbGncsiewogwQjH05UUbAALs3OQCaj4X7kOR84VxMIw3BQ7fe3yT4yZTQsCDqRfz+N
+ OOsztgU3CwBYdOrnU2SWp8stUMtVlP9Tgo3Qrd61mn4MqzKhR98sDZ1gAjZZ3PJFZ4CAWeZoMO7
+ 8pV+CKZaMvTRm803HNZKfPN1HLJYxnGIq5BY/BbW6vE4cSsagLDkFiXHIK9XnJcYKat0Yt1WINE
+ uw/PBLPMNFwQNwbg3zbFUcf3t9YH15cfl6vg+pqicd0h/6CTCf/eRO+qGfgnN/JMw1RCCvsSnPy
+ 9Ze3iLqHXQsZYsiwN6yHn4NKsj5NNNbQWvVe8r8h/xGZMWaR5w3jUrF3AXCcDtjkxknLIu/jUbI
+ UTkjLGU4bkp2y3yP6uH7pRevAwRLCt9piz2ZkSBCZ01dLsZM/1gBlcdJNzIJLfES9dWs5YDwYsV
+ yFaslfembs9k0mOAubHxQ=
+X-Google-Smtp-Source: AGHT+IHJepswvFiBv0yzCa9xPhYS5wyrYOcNv4+MVOhTghl9TDROdNgITjxrbbY3FXq0ourIW8AGLg==
+X-Received: by 2002:a05:6000:26cb:b0:3b7:90df:c53e with SMTP id
+ ffacd0b85a97d-3b8d94ba720mr2494874f8f.28.1754150767821; 
  Sat, 02 Aug 2025 09:06:07 -0700 (PDT)
 Received: from Timur-Hyperion
  (20014C4E24DDB700267C66B850A0E369.dsl.pool.telekom.hu.
  [2001:4c4e:24dd:b700:267c:66b8:50a0:e369])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458953cfcc1sm151164245e9.17.2025.08.02.09.06.06
+ 5b1f17b1804b1-458953cfcc1sm151164245e9.17.2025.08.02.09.06.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 09:06:06 -0700 (PDT)
+ Sat, 02 Aug 2025 09:06:07 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/3] drm/amd/display: Disable VRR on DCE 6
-Date: Sat,  2 Aug 2025 18:06:01 +0200
-Message-ID: <20250802160602.12698-3-timur.kristof@gmail.com>
+Subject: [PATCH 3/3] drm/amd/display: Don't use non-registered VUPDATE on DCE 6
+Date: Sat,  2 Aug 2025 18:06:02 +0200
+Message-ID: <20250802160602.12698-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250802160602.12698-1-timur.kristof@gmail.com>
 References: <20250802160602.12698-1-timur.kristof@gmail.com>
@@ -89,65 +89,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DCE 6 was not advertised as being able to support VRR,
-so let's mark it as unsupported for now.
+The VUPDATE interrupt isn't registered on DCE 6, so don't try
+to use that.
 
-The VRR implementation in amdgpu_dm depends on the VUPDATE
-interrupt which is not registered for DCE 6.
+This fixes a page flip timeout after sleep/resume on DCE 6.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 +++-
- drivers/gpu/drm/amd/display/dc/dc_helper.c        | 5 +++++
- drivers/gpu/drm/amd/display/dc/dm_services.h      | 2 ++
- 3 files changed, 10 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 ++++++++++++-------
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 16 ++++++++------
+ 2 files changed, 23 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c71167ffdb76..470f831a17f7 100644
+index 470f831a17f7..e8d2ba58cbfa 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10689,6 +10689,8 @@ static void get_freesync_config_for_crtc(
- 		} else {
- 			config.state = VRR_STATE_INACTIVE;
- 		}
-+	} else {
-+		config.state = VRR_STATE_UNSUPPORTED;
- 	}
- out:
- 	new_crtc_state->freesync_config = config;
-@@ -12590,7 +12592,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+@@ -2981,14 +2981,20 @@ static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+ 				drm_warn(adev_to_drm(adev), "Failed to %s pflip interrupts\n",
+ 					 enable ? "enable" : "disable");
  
- 	dm_con_state = to_dm_connector_state(connector->state);
- 
--	if (!adev->dm.freesync_module)
-+	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
- 		goto update;
- 
- 	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_helper.c b/drivers/gpu/drm/amd/display/dc/dc_helper.c
-index 51e41aed7316..5a365bd19933 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_helper.c
-@@ -755,3 +755,8 @@ char *dce_version_to_string(const int version)
- 		return "Unknown";
- 	}
- }
+-			if (enable) {
+-				if (amdgpu_dm_crtc_vrr_active(to_dm_crtc_state(acrtc->base.state)))
+-					rc = amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, true);
+-			} else
+-				rc = amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, false);
+-
+-			if (rc)
+-				drm_warn(adev_to_drm(adev), "Failed to %sable vupdate interrupt\n", enable ? "en" : "dis");
++			if (dc_supports_vrr(adev->dm.dc->ctx->dce_version)) {
++				if (enable) {
++					if (amdgpu_dm_crtc_vrr_active(
++							to_dm_crtc_state(acrtc->base.state)))
++						rc = amdgpu_dm_crtc_set_vupdate_irq(
++							&acrtc->base, true);
++				} else
++					rc = amdgpu_dm_crtc_set_vupdate_irq(
++							&acrtc->base, false);
 +
-+bool dc_supports_vrr(const enum dce_version v)
-+{
-+	return v >= DCE_VERSION_8_0;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_services.h b/drivers/gpu/drm/amd/display/dc/dm_services.h
-index 7b9c22c45453..7b398d4f4439 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_services.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_services.h
-@@ -311,4 +311,6 @@ void dm_dtn_log_end(struct dc_context *ctx,
++				if (rc)
++					drm_warn(adev_to_drm(adev), "Failed to %sable vupdate interrupt\n",
++						enable ? "en" : "dis");
++			}
  
- char *dce_version_to_string(const int version);
+ 			irq_source = IRQ_TYPE_VBLANK + acrtc->otg_inst;
+ 			/* During gpu-reset we disable and then enable vblank irq, so
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 2551823382f8..f2208e4224f9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -298,13 +298,15 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
  
-+bool dc_supports_vrr(const enum dce_version v);
-+
- #endif /* __DM_SERVICES_H__ */
+ 	irq_type = amdgpu_display_crtc_idx_to_irq_type(adev, acrtc->crtc_id);
+ 
+-	if (enable) {
+-		/* vblank irq on -> Only need vupdate irq in vrr mode */
+-		if (amdgpu_dm_crtc_vrr_active(acrtc_state))
+-			rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, true);
+-	} else {
+-		/* vblank irq off -> vupdate irq off */
+-		rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, false);
++	if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
++		if (enable) {
++			/* vblank irq on -> Only need vupdate irq in vrr mode */
++			if (amdgpu_dm_crtc_vrr_active(acrtc_state))
++				rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, true);
++		} else {
++			/* vblank irq off -> vupdate irq off */
++			rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, false);
++		}
+ 	}
+ 
+ 	if (rc)
 -- 
 2.50.1
 
