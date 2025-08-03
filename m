@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17EADC87FDB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4156CA0EDB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 316A410E4E1;
-	Mon,  4 Aug 2025 07:30:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD78F10E404;
+	Mon,  4 Aug 2025 07:30:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W51aprOC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qeq8OgCk";
 	dkim-atps=neutral
 Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
  [209.85.166.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF1E110E4D3;
- Sun,  3 Aug 2025 03:59:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 516EC10E4CC;
+ Sun,  3 Aug 2025 03:59:51 +0000 (UTC)
 Received: by mail-il1-f180.google.com with SMTP id
- e9e14a558f8ab-3e3d94aa969so14697795ab.1; 
- Sat, 02 Aug 2025 20:59:48 -0700 (PDT)
+ e9e14a558f8ab-3e3ee9c7815so14654155ab.3; 
+ Sat, 02 Aug 2025 20:59:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193588; x=1754798388; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193590; x=1754798390; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2Y2j3K6T9pEbVJmy/1+mQG/Hh4BA91G5pqycFLMj9u0=;
- b=W51aprOCV46e2biXaFhuclrMZ8TADx1QHMW6kg74Xo2XdrvwRkT5vx2TlXoEXWAWsp
- 77GXVeqNe0amZK3oLjMMNkfrv3hvWS13JM3UVz7WaD2klGF+SaIFbU+vUzPNqsosi9dY
- VHE0dSwU8IQwKhmeJpVLnvQsZcIE7iZG+R3xCp7RL2FDCuZDsiC35NbOYFXC95Cq8uCc
- oIJWg3HtijSx0rjogZDrFzwH98cWbKsKcOR9MRdDBHPtYiVRFiODtwF5bZRV8E0RbRsD
- y8Kud+AnObn5NR0QuPuvJYAmn+fBGZoILVHUlGI6FGvvmA1jdMvptu9S1H9fijT95ZO2
- bGnw==
+ bh=Ec8mexx4J8gKYlYC4pXrJdWhIH/flCkBKAIsxaGo12M=;
+ b=Qeq8OgCkVkDvGqWDvKnYyjcIHyGCF66c9UgfJt56XBkGvZf8YRHyOg2i5W2nD2ZMYM
+ r0IwC8de0cz2vLxkysxiMYxSUWCE+Dv8o17PLZcZes6IKTUdrDGOlgFHjGOLDCnakMi/
+ md8xuc39rJLeulIxPD6UKnCUvAqNd/mG6JF6imjSrDUkGH/8XfHnmYOcCDdlLSgjuEbb
+ /LFqybVa0PQPTo7gqGImeVefmmwUIYYa/YNq4tZOdjdarfin4oLsInDU5BshGbXCzm2R
+ Mt/iFytWMkzVxmPneGsu2EGcf5dd3pPRucL++m0kpuiFDBcqFOOAxnmVorGiD6zJPNI9
+ jiJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193588; x=1754798388;
+ d=1e100.net; s=20230601; t=1754193590; x=1754798390;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2Y2j3K6T9pEbVJmy/1+mQG/Hh4BA91G5pqycFLMj9u0=;
- b=lcwJnXUx4XO3MGSABxhpFgqkUvBnyKhDPHbJCSjAgJkpat6RRKRC/OF6BYUECweeys
- ZK1Yg8i+/B3J9yjTNmNhSjyjNlhTQ0famJUCc8xhJh/iopc1XHJN7i2HbFo2IWi0o3fF
- ohSMsr24b6e54gmjrqfWrbEoyBZ6cQt4zI0hK+xn9cXTDA2DuAB21Z6nNGs7t3kKcalJ
- BeJ2WYmmV2qnycskT7svWi+G+dE6h7OnIJE5XUiCoyv+c8X2qEYCy5VILSDNHRoPMb9r
- y4VwdC4s8FnH9yoEvd+mispCN63d1RJ422lMRLKqWPPX5axthp7/4sPLB+tQPQmwqkkQ
- 6UuQ==
+ bh=Ec8mexx4J8gKYlYC4pXrJdWhIH/flCkBKAIsxaGo12M=;
+ b=bcoCI54kKaoXaD70kA45oMvH/hQvqDhkBgK5X0n/QRQVmR8/VglP7BUakY2oaDqPht
+ Lv74cFU7deyrncst+Je6uGw6Sn7OIBgs1PDm9Upiz2ruvfb0CpWFeNmF8Z3hi1U961qv
+ 14+hHviGfeN/NvvGdCkNKqXmzL7wbrBkKP3xHlep7Z8cff/csq9Pjdj4Fkhz28TDihzY
+ XdESePn1dcj8U2UyL06orK8k75cZxBeA+SQvTe2/wrPx8mENjnYfaDm036zjABAFOIsp
+ SH3N/z8rvo9RI+xDXrGLUiebsp14fL6b9YFJkmcb7dXeKqChnHz9YRw0Q3EAUT9n4XzJ
+ 1SaQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUs/LEEUHxvRypeFZKdH65xmPLaA/gpu/mU1MH7xh/bSW1tvZbKb5BwwlJYEME6LvyEEdF/T33g+FOuqgLy2w==@lists.freedesktop.org,
- AJvYcCWgCzRuPvFyD1E5d44v/aQYe0/r56R9hb7hf30YzLMCQZT2rE7P+SOtN3VPAxDTAp8JJ1tLFb86hNLj@lists.freedesktop.org,
- AJvYcCXiefqWb08/nvvbulfOpGp5sNujNLLetkvT2x48Lzdssf8EBHYtkwLztJ5iTwED1848x1V4ObED@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxgbffgRacI7MYZs6VkRtU1eL9e3nIMOA40cpgX/kZoJlX4lowG
- maTIQVNi0L4Lo7Da+T0O9ZE0WQ9XUkOJBxCHHQY4t1ceG0z1lC6TzZNn
-X-Gm-Gg: ASbGncssC0tCcDMuM/d1n7vpowXKcBzFUAPJaPjOn7Vqm9oVgymsqGqUsl7lG8aTOF5
- jkepgwaMEk6w8E+XngwVEARnXWtYdWRLknTPAJSx33SE9LMImqemqyzbcTTsEkejUKsNafhzeKl
- FPtLSDlJdRTWokIerjXHxrzupL6RRJMkFYBB06AqlfOyitY6rl69XaWuN0wk6+Cgq/0yKCVNZxS
- fIYRPYdC+/4ZZTbUc8m1uXiCtIHE8qLlnwW8/Yb7Zxwk3ozPeQlZWv9Y5jd0J0hdWt2speu+uUY
- /jV+nsMgJcUBHUUHnW2RIAaHPXnXrcCxA4/rXQ0LWRb9JwYVL6ugBwJdSHBZjeJImvK2igbU7I4
- BozCnZ+mhN5yXUcw6yhNYeOAS1G9wA9ROeVeqXWXFwy1nDncsVg+dsj0oP19FC8+aTDB0WOJ1Do
- Dy7Q==
-X-Google-Smtp-Source: AGHT+IG5rAfDnGWWHI38mC3T85otZ6jr6iMt5B4TFAIz2EjPIhuXzfVe7WbaaJ0FoMpD7p5DssgRSA==
-X-Received: by 2002:a05:6e02:164f:b0:3e2:a749:250b with SMTP id
- e9e14a558f8ab-3e41615d149mr81988415ab.14.1754193587969; 
- Sat, 02 Aug 2025 20:59:47 -0700 (PDT)
+ AJvYcCUY9ijsQZK2TT5OQ0D4LCWVehe2+ch8zNUFSWNIV9MNjFa4dZyRa9z4c2bEVnJ5rMs7vinJd4K9@lists.freedesktop.org,
+ AJvYcCVd6N+cUYTHZg/wQsXrmC/rUZIK8um+ATSzbpGngom1ovFoIZTS6pB6y2IKYAGEXyndqqHeZXFzj9InUkcYug==@lists.freedesktop.org,
+ AJvYcCW7slxaQGusrSpE8r+L2GhCgPMtXOClRHg6xMUVxk+xVdzcjflsIk5IqJyAkxVz8K67Tq6KpD9A8wUb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzsrGsyOSwMZf5DLOrLm3p0SjFm1dCrhhuPXdNvRGm2FwhX+D+i
+ PFXTuO1ktmBcLqxs3U+BU/bClSgnIjderOXfctueHwY+BAecdUQ3rYgh
+X-Gm-Gg: ASbGnctFm38fhStwQaowvVVppN8mLznp8DEhwGZwxtB9Ceg7BrUGZLtD9DDyZK1JE0m
+ tFPWVN24BaxgAf8fBzaAd+IsbrfICZF8NtHJQIC03xnzWxLLRLu247+DF/bMQiBp5WLSmR0cQgA
+ lLjgyoc5y5jGNaokinKqhxAWG0CaEsy6SleYYj+uwNF1Qcv3IEDEbQHEpelNtErmGn0Du+UiYO1
+ t53uESqZNts5gxIio8R1EvLRaMct+kJN+vQd/yN/gN4Pg6Tf2qbgAepRT6mbyjP6z3P5wcXO0VD
+ N16PowRUVYcIbfgitKlOpTQgfuJtsVZrG15T5vfxaBlILWGeLABKKjGl+pWdZn363l/oB3jPlRI
+ vImGavHCgs0bWBRczeSaFl2KA3YOq31y43ULugECygsniLpviunTQg7BPF4sTokKzyZ5tTuC1Qc
+ ALiQ==
+X-Google-Smtp-Source: AGHT+IF/wtqWPX2Zi7GTVg1C35Kj0vqsIIXy5Rg7Uw34TkqPQk+fiEKJa0lSA2jtCZZXOMZn37J89w==
+X-Received: by 2002:a05:6e02:216d:b0:3e4:ba2:2cd1 with SMTP id
+ e9e14a558f8ab-3e41617ffa8mr84699525ab.16.1754193590548; 
+ Sat, 02 Aug 2025 20:59:50 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.46
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:59:47 -0700 (PDT)
+ Sat, 02 Aug 2025 20:59:50 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -77,9 +77,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 51/58] drm-dyndbg: add DRM_CLASSMAP_USE to udl driver
-Date: Sat,  2 Aug 2025 21:58:09 -0600
-Message-ID: <20250803035816.603405-52-jim.cromie@gmail.com>
+Subject: [PATCH v4 53/58] drm-dyndbg: add DRM_CLASSMAP_USE to the gud driver
+Date: Sat,  2 Aug 2025 21:58:11 -0600
+Message-ID: <20250803035816.603405-54-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -100,28 +100,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The udl driver has a number of DRM_UT_* debugs, make them
+The gud driver has a number of DRM_UT_* debugs, make them
 controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
 that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/udl/udl_main.c | 2 ++
+ drivers/gpu/drm/gud/gud_drv.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
-index bc58991a6f144..5ae66ffd72bd6 100644
---- a/drivers/gpu/drm/udl/udl_main.c
-+++ b/drivers/gpu/drm/udl/udl_main.c
-@@ -21,6 +21,8 @@
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 5385a2126e45f..5b6797b80ff01 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -32,6 +32,8 @@
  
- #define NR_USB_REQUEST_CHANNEL 0x12
+ #include "gud_internal.h"
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
- #define WRITES_IN_FLIGHT (20)
- #define MAX_VENDOR_DESCRIPTOR_SIZE 256
+ /* Only used internally */
+ static const struct drm_format_info gud_drm_format_r1 = {
+ 	.format = GUD_DRM_FORMAT_R1,
 -- 
 2.50.1
 
