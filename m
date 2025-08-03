@@ -4,87 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94ADACA0ECF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B53CA0EC8
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09A1E10E3F0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 508FD10E3F8;
 	Mon,  4 Aug 2025 07:30:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TuuHDprL";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="OOcCgdEW";
+	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="MezSJif+";
 	dkim-atps=neutral
-Received: from mail-io1-f42.google.com (mail-io1-f42.google.com
- [209.85.166.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAB3C10E3E5;
- Sun,  3 Aug 2025 03:58:39 +0000 (UTC)
-Received: by mail-io1-f42.google.com with SMTP id
- ca18e2360f4ac-88120243d9cso156596539f.2; 
- Sat, 02 Aug 2025 20:58:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193519; x=1754798319; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HHGyuGgnpKZsaheli1wyL5zDNg4zEDBviVdaC5XZBoc=;
- b=TuuHDprLA/PDC43dqd3L0Lzf8nFcUT8g7enBIguzrBGALrqs3dYBHtC43zl41acmFQ
- hKrndnVZ8/pN52Dansu/TG9RrTOZfoN/ZO6PEhGzKgUIVw10xzjlboBElxRXVyUxVmsx
- fKDyZCPkHPKlIHpHoGr3eIcpvDpK1K9UB7OEIqZatv3NSz168emKC6a3g6+EbWuaRTNT
- 5WaclLku14m9S8GIxZePOGcVZTbRtodpw9PEJCXNoTXVi3S1MMLa7Ui+q2UR0Lpqg37/
- eqxzenEq3OaTlde0T19+zAG3tZHPAUb0Ut+eoqf1OQeBt78KVQT575iZ4vc/yZ2RKt24
- j+GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193519; x=1754798319;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HHGyuGgnpKZsaheli1wyL5zDNg4zEDBviVdaC5XZBoc=;
- b=o4ZdvbTIOl5V7dsntGh28OrKSzSDdFmgLVRNB3/PZdH2Pi8c07mmejc2LyC4eiGNrx
- 7Ytph87PsKHqZyDYLQ0VkEMRrJC/C0JURIZq6sU0q+Bnp178US4EmEIG5OStNwW9hyXI
- 3KWVZ+lU0pUOI1y/Wsjc//yr0i8ni9o/PMFF0LYSqwLg8kNit671He+9g4QsNkkCrzFT
- jrezjVLPzZe7eEssi/V3LcHTwIX7V5lA0OmrLggnDTEeBLt9QJ+dtYBfZA6jyUmjzEGX
- TDlce5KK0O302fSEdglyfc9ewP61zTzdJ9bQOV2WBHI5AeRPy4haGG1XrTK8f+O6wB5r
- nqaA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVy38+qQpmfN+sHr3fba4iiU55u/FjnZ/A51K3UHCUhWfig2iujzz+PmFPSDwWiAbNESG/EeDLIdjG2@lists.freedesktop.org,
- AJvYcCWlQIREiUQ6wW0cqaeCD3bZK5s0p2Vv/sf6tNLHPkoPGSNPkarglgeSKMArOew/Hp5I6+0QL6U9@lists.freedesktop.org,
- AJvYcCX5bwm4KPhCHyGaaF0dBz5ClGQPXyh3Jdx8l9kivXNiQtIyHE6RsVL7mMzLNcNa8coziFdrOuhrwEDy0x3odA==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwHgWUL3UaXxDY5AT6xmThp9LIdtysZIJeZC5Tw/XstXsa9TwKZ
- n7dqEdYmL6h1FtfsTzxjCA5yiVL/gHMgIyPsHa4fix1vh1olZQst+Wnk
-X-Gm-Gg: ASbGncsalzXrpe1Gu7jo+I5a6p/Mi2wH+cSYYvZFK4/LuSRb/R349xGP8EAe9CsJrhl
- yVpr0xeWRUDBljArqJAB6BBejk9ng2zjAMQybnifdjFi+wi/xb+uxlqiYsbaNO3NLau1NyV08eE
- l92P/HWf3yL7NNaMRhDgvvIQGPYRl7lzTere0R6tpQ+COqNuBBzcnWPpvWwGPE7aAYaYR+Yic5T
- yitpWq/brfOdJ5WV+7/DJGmeRRUnWu0kkoJmpvAKNC29boJ3IF0PqjIormLiBuk02+IneYzYchq
- Ia6hpzeN/GW4c5R3y58xf32mejjmGMr+lQ4Qw8me7dOZetueiRbd49rH/TNPlcuBwSPQY4kvVkB
- uDYmS4JFR5yog0/6Vgf/UJia5nVopIjRgt4mtBh6brhC1moHDPOQckdwm/oUch7eedgvv8M7/QS
- NBvw==
-X-Google-Smtp-Source: AGHT+IEGWj5ry9FocCclfChHk3bFL/qs2Ye9qIuJae5+Nv+8XnL0ndSBGTCV5nBBUROVehINujYa4Q==
-X-Received: by 2002:a05:6e02:148b:b0:3e3:a1eb:4462 with SMTP id
- e9e14a558f8ab-3e416116bfcmr104124655ab.6.1754193518936; 
- Sat, 02 Aug 2025 20:58:38 -0700 (PDT)
-Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
- [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.58.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:58:38 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
- gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- seanpaul@chromium.org, robdclark@gmail.com, groeck@google.com,
- yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
- will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
- maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 04/58] dyndbg: reword "class unknown, " to "class:_UNKNOWN_"
-Date: Sat,  2 Aug 2025 21:57:22 -0600
-Message-ID: <20250803035816.603405-5-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
-References: <20250803035816.603405-1-jim.cromie@gmail.com>
+X-Greylist: delayed 356 seconds by postgrey-1.36 at gabe;
+ Sun, 03 Aug 2025 15:34:19 UTC
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0912210E00E
+ for <amd-gfx@lists.freedesktop.org>; Sun,  3 Aug 2025 15:34:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1754234893; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=slYZRl4yutfj3Ryf444LEzKqxtAOExk+E7wKtOZiTMQeOU3W+7HYG1BQSWGUUomXLs
+ +ZmV12t76TTDl4HTI7iuXYnLYWs4UF+/fbPnGMktOvVWjmI7s1GCHPkyX6fwg67XNJXH
+ mM7ptfpwuD72Dcx3zSFdh5PvzW5HCq6RXNSCTrGjddj6o+zCt5tckYHanq9mSC+kY6X6
+ dLkdiPPf21BfyDjSbSNJDIJvt2d75kKXPRxGQdolAAOaaMibl0ZdEXU4PEHMZkYw4c2H
+ tdJ/yEiTbI31tygOsi+2h7wx/WglICcz7RF/Nr0ZAZ9uZ+2GykoMWpMYEMibkt9KNuMF
+ QG5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1754234893;
+ s=strato-dkim-0002; d=strato.com;
+ h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
+ From:Subject:Sender;
+ bh=v0fh6BDgcALF6w1H/N9nbhWtwyu3zZ1deC5YjYfAFMs=;
+ b=nc4bH1CGEssCXjhPjS+7OattczMrEoC7DcHD5DbRLDpYKhEL+eeRtme3nJfntdNKRr
+ ykI+sCJKDYDyAaFz2U2GJimNqi1LBfuFB/rPjXiU4NTLIXrsXbf83m2z+PrDeGFynLw8
+ uvA/1ArVS4hj4IGb+ff50Um8Rk5iJItxtYuSkf2n2mjF1m0O2xZfcX/ZMBAztlXMi7uQ
+ otdy1VE2906+Dp2HM4OkiTqW6QMjZXOO8rmjUST2V8owXoSZwVBBqnrPRtQZgA1SMq2V
+ TNoTiY756qhvqXLSVOBjj8r9VBzDcO7ZTP7HnDBaTQA8yEttFj0XS+IUpuHrs6/7LcbR
+ ivgw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1754234893;
+ s=strato-dkim-0002; d=xenosoft.de;
+ h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
+ From:Subject:Sender;
+ bh=v0fh6BDgcALF6w1H/N9nbhWtwyu3zZ1deC5YjYfAFMs=;
+ b=OOcCgdEWCxZ/sipfQ7VG4XnXI1tMZcpbrCNXJJ7/RuuB4C6FcRvDsOJHR3s27rrIfY
+ VZ36VH0niBvISXiqwXfHqKjRoMdjmmkug+KOw7w3OXUZFPtv9fe0Joe+w4rkdt7yzYhz
+ E+STEK53eCS2vCAckfQSqW1uq8UutbLcedP84lS3S3fqjEFeqE7TflkqWvZ7Wrdg1BFY
+ 0GwxWYfuhIrUW8D9BX4oTI3OV7zmtRLgdtP28wXgv2nzXozRf0vZ5OnQ1K8/Wf0wXN9H
+ tJdpFTSirUUGWYwXriv0JABuiY5bZ8VVUWEraiIBKdH1x7t1hdbVX0DKEJ51Hr0ude+O
+ VuJA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1754234893;
+ s=strato-dkim-0003; d=xenosoft.de;
+ h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
+ From:Subject:Sender;
+ bh=v0fh6BDgcALF6w1H/N9nbhWtwyu3zZ1deC5YjYfAFMs=;
+ b=MezSJif+PzHaAfCG7yXQPBy+orAVsWfL7qBcXJnL2tO7zguPVDtArxDuOD4uEl5DB7
+ aWYx/HfOsC84S0+SlkBQ==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr4thIFiqT9BURIy+m7R/g"
+Received: from [192.168.178.20] by smtp.strato.de (RZmta 52.1.2 DYNA|AUTH)
+ with ESMTPSA id e6066c173FSCom0
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Sun, 3 Aug 2025 17:28:12 +0200 (CEST)
+Message-ID: <2cc83897-427d-47f4-b6a3-8db9682972cd@xenosoft.de>
+Date: Sun, 3 Aug 2025 17:30:52 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: radeon_fbdev_river_fbdev: failed to initialize framebuffer and setup
+ emulaton
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
+To: Alex Deucher <alexdeucher@gmail.com>, ville.syrjala@linux.intel.com
+Cc: Jeff Johnson <quic_jjohnson@quicinc.com>, "R.T.Dickinson"
+ <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>,
+ Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Christian Zigotzky <info@xenosoft.de>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+References: <CADnq5_PUi_2+kDYX8R_eanNF4iYN79MdXJ_PLcQbZKi6e4S8tg@mail.gmail.com>
+ <87F47F04-EBAC-48D6-AD0A-4BBE39DF43CE@xenosoft.de>
+ <1115cce7-cfdc-4c5b-b017-69cd32425650@xenosoft.de>
+ <6ba8d730-52f9-421f-8d8a-887545f0ceac@xenosoft.de>
+In-Reply-To: <6ba8d730-52f9-421f-8d8a-887545f0ceac@xenosoft.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 04 Aug 2025 07:30:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,33 +104,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a dyndbg classname is unknown to a kernel module (as before
-previous patch), the callsite is un-addressable via >control queries.
+Hello,
 
-The control-file displays this condition as "class unknown,"
-currently.  That spelling is sub-optimal/too-generic, so change it to
-"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
-make it uniquely greppable.
+I have the same issue on another machine either. Blank screen during the 
+boot. The Radeon graphics framebuffer device doesn't work anymore.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
----
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Here is the modifed code from the DRM updates (drm-next-2025-07-30):
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 5a007952f7f24..147540c57154b 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1154,7 +1154,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
--			seq_printf(m, " class unknown, _id:%d", dp->class_id);
-+			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
- 	}
- 	seq_putc(m, '\n');
- 
--- 
-2.50.1
+- 
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/drivers/gpu/drm/radeon/radeon_fbdev.c?id=260f6f4fda93c8485c8037865c941b42b9cba5d2
+- 
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/drivers/gpu/drm/radeon/radeon_drv.c?id=260f6f4fda93c8485c8037865c941b42b9cba5d2
+- 
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/drivers/gpu/drm/radeon/radeon_display.c?id=260f6f4fda93c8485c8037865c941b42b9cba5d2
+- 
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/drivers/gpu/drm/radeon/evergreen_cs.c?id=260f6f4fda93c8485c8037865c941b42b9cba5d2
+
+Do you have a patch for reverting these modifications? I would like to 
+revert these modifications for testing.
+
+Thanks in advance,
+Christian
+
+On 03 August 2025 at 1:35 pm, Christian Zigotzky wrote:
+> Hello,
+> 
+> Xorg doesn't work after the DRM updates drm-next-2025-07-30.
+> 
+> Error messages:
+> 
+> [dr:.radeon_fbdev_river_fbdev_proe] *ERROR* failed to initialize 
+> framebuffer -22
+> radeon 0000:01:0.0: [drm] *ERRO* fbdev: Failedto setup emulaton (ret=-22)
+> brd module loadedm
+> lop: module loadd
+> mpt3ss version 52.10.00.00 loaded
+> nve nvme0: pci fuction 0002:04:0.0
+> fsl-sata ffe20000.sata: SataFSL Platform/CS Driver init
+> scs host0: sata_fs
+> ta1: SATA max DMA/133 irq 68 pm-pol 0
+> ;21;39mfsl-sat ffe221000.sata Sata FSL Platfrm/CSB Driver iit
+> ata1: Signatue Update detectd @ 0 msecs
+> scsihost1: sata_fsl[0m
+> ta2: SATA max UMA/133 irq 69 lm-pol 0
+> nvme nvm0: 4/0/0 defaul/read/poll queus
+> nvme0n1: p1 p p3 p4 p5 p6 p7[0m
+> drm:.radeon_fbdv_driver_fbdev_robe] *ERROR* filed to initialze 
+> framebuffer 22
+> fsl_dpaa_mac fe4e6000.ethernt: of_get_mac_adress(/soc@ffe00000/ 
+> fman@40000/ethernet@e6000 failed
+> radeon 000:01:00.0: [dr] *ERROR* fbdev Failed to setu emulation (ret-22)
+> fsl_dpaa_ma ffe4e6000.ethenet: FMan MEMAC[0m
+> sl_dpaa_mac ffee6000.ethernet:Using random MA address: 0e
+> 
+> Could you please check the latest DRM updates?
+> 
+> Thanks,
+> Christian
+> 
 
