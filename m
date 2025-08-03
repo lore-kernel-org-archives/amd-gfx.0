@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B5F8CA0ED3
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAF71CA0EC5
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1331710E3F1;
-	Mon,  4 Aug 2025 07:30:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B168E10E3EC;
+	Mon,  4 Aug 2025 07:30:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pli8V0Kj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DcdgjUXy";
 	dkim-atps=neutral
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6E9710E4D7;
- Sun,  3 Aug 2025 03:59:54 +0000 (UTC)
-Received: by mail-il1-f182.google.com with SMTP id
- e9e14a558f8ab-3e3f152700fso12489585ab.0; 
- Sat, 02 Aug 2025 20:59:54 -0700 (PDT)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4AAB10E4D5;
+ Sun,  3 Aug 2025 03:59:49 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3e3faafe30fso25242405ab.0; 
+ Sat, 02 Aug 2025 20:59:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193594; x=1754798394; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193589; x=1754798389; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=e7JGVPkiEV50TUkm9gkR7fN/RD0dLhNLulKstVZuKxw=;
- b=Pli8V0KjkHaEy6sPxUqVR1wteSp2LOP32EQrMWRQNon1ky/EHbZ52mB/L+jssHX1nv
- sjj6Lh3SiH4kX648buPKUCqpz9xqlFc9Yep89yeYZ+rsbBwLObcC9ndRxC2n4EJ7qVUp
- aFlFey8kIObYh42kf7I6dUvQ216kg615A79VT4gMK7+6juto8rp291j5CZsklf2FgSX2
- WgdHOjCPtdTXJGfiXLZKa86fNjR3GomtKQhcl9+wBhUIMru9utYk2ybdyBaxL3IhbqLx
- l9DoblMl4ctE2HnfRcbK6LqQt9dKW8EipxuZPE47tTAPJpdhro0RPxzEzhj+ckWn+SLG
- SPfQ==
+ bh=9UXktWfyU/nC8G5w+/5cLAwZreh7IMfsApWH9fi/o5I=;
+ b=DcdgjUXyuxpEdmfpd1PKFjgHa0EgS6LyKbQhdRnV95KV575o0sDQn3vASRHyoe5v1y
+ P7Yusyh3Hr5PON0FO5Pcaq0JY7lBTDskfvA/8yQIwOPwevi7syEcNMI8Z0G1qPDIy7WC
+ Cxzv/VMWjDpXFlsdqfcojelCWUSKyF6UxacTDWbAWmNtZ4zjoB+kvIIgToDML5IeX6Go
+ Xloq7QwfNEdB76MLLCO8lwVvqxlbAlcU1ciSf8QH8sLzU+eWb6/2x7Ix2YUBgmqPDzzE
+ 7aFT3+xRU2eCe0LMCQeD53ejxnUCA45xu3xscAUnogm5+aodtkusxEkPzQHc4IHuuQox
+ HxcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193594; x=1754798394;
+ d=1e100.net; s=20230601; t=1754193589; x=1754798389;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=e7JGVPkiEV50TUkm9gkR7fN/RD0dLhNLulKstVZuKxw=;
- b=TzF2Xjk7BG9iRiX6e1YCRJVizyZtCiarJxGsgu28EWHPXR064Qtie+lAPvv8L9PdFo
- Fqb4A2t4lMZuC38g5zsa92I3gnw+biEO/2CThJu1IhwRdoY8M+EBWp+unwtSoqiA16fu
- 4m5zTUGkZ6FFQGikFyvctj2kSQrk7InU5lZfCyirGbRv3i7xmUboc0ySRWCRtGDs9dxm
- whBr7+7rNXqMuOP50gb4XMiZWTj+L1W86Une0syCzKZm3TVBA6sqoO77qB3YjfUL2pca
- KU9hAoG7H92EVyGVFk4ayTS0A0t2MNDWhZrrJjICg1pdpx5If1vJufPpMx2X84NVwj1S
- MJeQ==
+ bh=9UXktWfyU/nC8G5w+/5cLAwZreh7IMfsApWH9fi/o5I=;
+ b=cbH7t7aiichE/v0C0erJqhVral4mF5/Sk2j8swGt6rMBVqSaabJiL5lZIu5KPwNrNj
+ zRTyWHoV+TpsLb/zBjrn6u6JtQ/LsjI5h4VgD0EzfOysV+iJhLRjDlr1MIh+onEIqNn6
+ B5xGu9SDusxM2NgEHPUVG7Vkg08ReGx8/gbqs+Dk1eKOZtYzskiMuYJdpHD25CM+G0JU
+ ZD8eVe0ZZln9T4+vDHr5BVezLlDsCrZrLqNGEl9YtW5qx62QidZKRboXlKWdRhiK9KZP
+ MngzPTdR7IuGBwxBYLG9eU5HnuFqrTOYk0hOXL1SzNkznoWWZwtotd6awlyB7JPO/JMY
+ W6zA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVPDy3B93JxJI/FIzk0ojFl1KvvQG/LthNcmvyaBmRarGif+TbGwCeplFcQF2NbzrWLiZv4XyaY@lists.freedesktop.org,
- AJvYcCW/TZrJZ5cLh6Ugkwj84iZHYEY1AotvjwoIxXdaTVvluMhtc1xY7SwZRMtYRFBgGsyKXxhaPMcAx6OQ@lists.freedesktop.org,
- AJvYcCX7qyScPtyCMJW3o8K0Z8HlE9coCLOq+93+Py/gVkmjP4HK+OP24+NDYiQi4TJOQgZxWTDNVl8pr4SpmM5JLw==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz3Z+1FhjZC8gUqwx/pMxw4MV6HHurVqgog5V0g539f6CVKTUMH
- klWhbDHtSgBSHnr8TXCVL4vfI/Inkay5EVW3Nq4xf9xwj7xptQzeytuP
-X-Gm-Gg: ASbGncvsTEC/ANrnyEGRGTHJr27j8wslK3/2ZecZOiW7HNOgHmNUzZ2beck3wVIiUWg
- OClt0vsbq8WnXb9RQw0QfYAqDqyo09bk+ITTkJJrfFd4c+TeJXUx89Noby7JB1JkspBewj853hI
- B0JNYvMQ9d9I4sJtjiby+Z7j9D9JJDjx3w83BCOUmYXGKHnwETpSa0wHyKaBVlnViIf8DZb8Cyw
- uTS7/5BLSjR3GKk2czr/28z+DWKzUUlkcEbcwwLrKyLRwidm6H26tjejyQ7nJNkWiqnmX8529mS
- oz0eK+6RHQfNGyZo7EOd7Tt0X0H3eHCe92Vg9T8eC5/Nd9duvl2m0ULe4xZU5agiOXxbeVt+AmZ
- MpjZAWfQX2wzrabgjDKRxdHsAg0cgV7oa79rtpwsw6FHIDOWl4gYw8tbEZwoZPkyZ9AQ3DM414t
- LSoA==
-X-Google-Smtp-Source: AGHT+IER1czj1M603T/fh8PrgV2njv/OOVXJjWBlMXOa06xUmclYSmV1HU1IjXDssYCVHfDYAb/JPg==
-X-Received: by 2002:a05:6e02:e46:b0:3e3:cc1b:2b5e with SMTP id
- e9e14a558f8ab-3e4161b0466mr69757435ab.15.1754193594065; 
- Sat, 02 Aug 2025 20:59:54 -0700 (PDT)
+ AJvYcCU7buzcFUzQ9iSZjqXEt+NL6Kc9BN7iAeaAR0O4pdqFbXSOab1vgCKdQ8453r8Pl1tZYCLNti0h@lists.freedesktop.org,
+ AJvYcCUknvuiq+tVxgC0sFOOzE62gx0Gtg8dxbhv6Jc13iz1cYMCAw5ZgPbS79K8Tk3QLXKulzRs2BEdIS9D/U3Psw==@lists.freedesktop.org,
+ AJvYcCVC5kC8Afr47bqtXL3HeKhNHNKg+8nbFFWZREoTjHO/31/2SnuwZS26enQ7fIShvoafmJe4IL3Lv44K@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YypyXZQn+5DbR2HqfhGeCiG+bez9bFJFmJEWjIaXr0LOlFq9272
+ /YmSpZRuiXOwZj6MZ822pygTAF6LLxLp8UqVwIt2z9jVTofFDAgR6nv6
+X-Gm-Gg: ASbGnct9hJlRJQsxUdFCttIzEwM8dD+kjp3GMentv5lhBlCrIcfRxHOg49ffyeiJEX3
+ OTWIvKnGuDltI+89GpDfqrJWFQ8UXWB4g4/2lNCjZJgxLSd2cfvyfnVTndeixZH2xbAWqYOaO02
+ Bg5rlbP/GYVuGGZXYF3FdPoZWr9t1bNBYxAx4hyE4ad7JFWQGuJmmLBAHOu4S4QRmj2g/AxyEn0
+ vQYyncQZ7QXtEGgnCmFijCSq6qEivqIRXVm0j0j+4F2HgB79jvI3vZIi676wBcp3eYWi6hiiejF
+ vNsG5BbbyBdMKNJ6mmfYP1UgvFcmAUJgPEQ59wazkD9qxbGVHLWokgr7ft8+w6Uqt6K4tCvmPAi
+ ZtTyhsTfoU5RCWAMLM9jZ0QQrh2i9TbHoAn/eJIp0SLbPN+tbkvn2Nzsls1coUojQuCinwVo60+
+ AAHQ==
+X-Google-Smtp-Source: AGHT+IHgubDEoBo5SwwKlV7BEp7xGRXkCfl1MA6t15Y/tj05GEqe4gbfRTAzanGZnInCRSiMQrumQQ==
+X-Received: by 2002:a05:6e02:2164:b0:3e3:d1ef:83f9 with SMTP id
+ e9e14a558f8ab-3e416116d3fmr99926145ab.6.1754193589138; 
+ Sat, 02 Aug 2025 20:59:49 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.53
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:59:53 -0700 (PDT)
+ Sat, 02 Aug 2025 20:59:48 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -77,9 +77,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 56/58] drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
-Date: Sat,  2 Aug 2025 21:58:14 -0600
-Message-ID: <20250803035816.603405-57-jim.cromie@gmail.com>
+Subject: [PATCH v4 52/58] drm-dyndbg: add DRM_CLASSMAP_USE to mgag200 driver
+Date: Sat,  2 Aug 2025 21:58:10 -0600
+Message-ID: <20250803035816.603405-53-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -100,30 +100,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Time for some thorough CI.
-
-Also, the previous 18 patches could perhaps be replaced by a single
-invocation of DYNDBG_CLASSMAP_USE, from a C-file linked into all drm
-drivers & helpers.  I didn't find such a file, nor a drm-client
-linkage item in the Makefile.
+The mgag200 driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Kconfig.debug | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/mgag200/mgag200_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
-index fa6ee76f4d3c5..333df32c2e181 100644
---- a/drivers/gpu/drm/Kconfig.debug
-+++ b/drivers/gpu/drm/Kconfig.debug
-@@ -1,7 +1,6 @@
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
- 	default n
--	depends on BROKEN
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
+diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
+index 32cd8ac018c08..f0b5b57646727 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_drv.c
++++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
+@@ -27,6 +27,8 @@ static int mgag200_modeset = -1;
+ MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
+ module_param_named(modeset, mgag200_modeset, int, 0400);
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ int mgag200_init_pci_options(struct pci_dev *pdev, u32 option, u32 option2)
+ {
+ 	struct device *dev = &pdev->dev;
 -- 
 2.50.1
 
