@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD8DCA0EC7
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CCB4CA0ED6
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F05D310E3EE;
-	Mon,  4 Aug 2025 07:30:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97DDB10E3FD;
+	Mon,  4 Aug 2025 07:30:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hG8m9Gz0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mPxdTiEC";
 	dkim-atps=neutral
-Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
- [209.85.166.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B79A210E05F;
- Sun,  3 Aug 2025 03:58:36 +0000 (UTC)
-Received: by mail-il1-f170.google.com with SMTP id
- e9e14a558f8ab-3e3d0cba6a7so12044955ab.0; 
- Sat, 02 Aug 2025 20:58:36 -0700 (PDT)
+Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
+ [209.85.166.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7E6C10E4C9;
+ Sun,  3 Aug 2025 03:59:37 +0000 (UTC)
+Received: by mail-il1-f169.google.com with SMTP id
+ e9e14a558f8ab-3e40212e6ceso14463545ab.0; 
+ Sat, 02 Aug 2025 20:59:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193516; x=1754798316; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193577; x=1754798377; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VfwMXVBLo5LDCQiepRGuFL3bGQZQgq3Btw/uQ5I/5wQ=;
- b=hG8m9Gz05o03DiYKVD866FUHkGFfW7hae9iHRw07RRG1m3H2PLFTXSfKhHw2TNCATw
- qOMFO6ZuCSwWLUCRQVHath3j101RZOnTrncTY8A+tTXK3ZPTWdz5kVm0Wz0Cdaw0ycQi
- h3enrfE7HpAQBEZwTQLARn99TIFd2vuSjK+8RSQCklQ5u9WjafPfrYAZSoiUg4dJFnDH
- x8Q1tDcYqUtGtUC42ZBdedSGc9A+illpKbN2KcNJb/DETs8CmITJK8z1O6lGXLBnLvCH
- DuCwcw9IwrpUsd0Mz2jiFsKY3n0l/rzNfl8orTP2Nlca2wWheLOuvb7WdO2UrH2zZLsj
- mFPA==
+ bh=QFh2RZochPrtpmKEJNCfPiOKK4EQdlmU3N2ti5dUWmM=;
+ b=mPxdTiECCYH8slfPRcO/ftQqepkBFZrB9nzA6BdcV4YI9I1+HPRZfEaKfEbE6mYJnj
+ 8TxKGHedmuJ8S+7kzqdESobcjyeODyPerHZ62kDi5KKv6wtn4rS7L/jQosLaX+6AAOdX
+ 6vg+sTJQ6qjeqPrX+vf7JqDpKKSpdCuqU/JuTkiyUrobl/1XJOo2VOsdQa7KNXBAfYzT
+ eCKgZKWNS63TErlK53ZvTW7Pl2lAOQ6OO4x+E7yncwUtp6w9Gs/PGi4yMsF4ZjgbevWh
+ BaApTulb2m6GTWFnUTnEHDbPhDn29HTAwUe2T7McAvaVCjw7JeluKZ2y+pVp5Ed9xLXt
+ S1fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193516; x=1754798316;
+ d=1e100.net; s=20230601; t=1754193577; x=1754798377;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=VfwMXVBLo5LDCQiepRGuFL3bGQZQgq3Btw/uQ5I/5wQ=;
- b=e6tgII+SW/agOOSKWwJw7VydDI8XybG843q/f3i1ZaK0A4yFqh/Q61HwoN6eoK08/z
- XlVQ8ma/L2FKLBmtKdLOcbcvK43fHcIJPEx1628SzuHh9VXy9ZJ7EEJg8tU99CEJd83A
- JGXxX2FeY8c0TmvVgOuCLQ2gPbCFVu/4V6hBOvcUmn0RODyZbaExTMdenrXTbxt7nLQV
- +yZjb6uCZmRTCZnPQwq3Clq7tjkCZnAsmQlZmj/dKYUJrspNU1o9mWNax4cBTM9npGTb
- galBGpdj54ga3tk54V7/3NK/2a4/5PCLqjphM3RLVZon3JxmfYniezG9Irjta9KeTp/U
- vgZg==
+ bh=QFh2RZochPrtpmKEJNCfPiOKK4EQdlmU3N2ti5dUWmM=;
+ b=hsYoYZ36lYDw6lGVoTfNBm51XsGXLE3S2QpMl5Qgx8WW6s8bgGOcHPcry/8vL/eakK
+ BAyYXWY71aWaUOLIBZH4xo05EFf5y/ZHRpIK04sZGHBJPj413qglLBcM6Xypl5pqN6p7
+ dMqT5JhJZD0BhArF7CvO1geKaHn9wcXLTay0ZQhYw2kMZ9ihK/w6tgiOQHEVlBL/G7iY
+ MbjWnq8jkVwD4G13hqAe82FTVgi00hPAvp2QtpsrJX04t1XoudJE7d8krJbzcGjOG4gm
+ A1J3EyRZJc6yJoYGBp98gwbdzBet5qeu3OqZyQ1DL6HG1CjQ0HgXU8JrS2OdsVMjOw6X
+ 0R4Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU1fR3qP7Fva8mwJAphuOVZa3pyMVD06K0LnlefYbXP3JmN0c6210orGhmVbjcX5Oxi7dgnPD8NkM+nSxG6hQ==@lists.freedesktop.org,
- AJvYcCUoy9xVaZ7hiCCRNMufvy9z+i2nhmC5pocGx4EFSJIjS2eMVoFuQeXeziPDEoohL8X8vQLYQkEphWBs@lists.freedesktop.org,
- AJvYcCWu2k1y5JjA1Xj+TKAhBGavqz9hyCNK16PmFi8iLkcRS2J3qFswgd56oHdyVD96ByV4J3pX3joi@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx75BRb1JsUfkAHs42xMfOn1Fe/IXP/oVFoNOmhTKc8gmV5HfzO
- PUxMRNlscVhAepLS+W+/tTmp1dvceLBEV4KAfcpsFo7USys0DGcHvnEp
-X-Gm-Gg: ASbGncvUXJ6jMDekC0i/dv5bsN3HG6IwtkoTYAecEDm1CFjfv9Jo6pKF79ajSjpssdm
- wHa/gqUfoP0HeksjWIpyth9LVL8xejToJxSMDl5krkbocNKcJgd8iDhueVc4U8zk9XldREUWBOA
- 8fO3Ls12L0ptlhOwKe0H3WXhOEtIzIgjL22KOI2V/mid6DQ9Nxl6g7E1W+zPGRpHjHhK7Nm11nn
- imJYDD5ls0YJm+4TOVUWOBeDd6jlTb8gYA7h95BWG6gc30Iz9DPlssrPxsWR7ttlx/OKk2+fUk9
- K9UI5LsDHj8FO1nPcgdOhrXYYudQe7C0tkMhT7ogFLW9xnv8Z9uAyL9ADxMcQ6wUrrYmfVZ3VXh
- 8c3kmORNj10I5rAZm4/vk/yPG7d9ACIol0Dw3di+MSDQxOGhI3hic2j46wKEpyG+4xKYqMyL9Uc
- ImFA==
-X-Google-Smtp-Source: AGHT+IEFfqhK3Yu96GZwkzn3H2xfn17hF1ni9VF+BRmo2ZqR7bTqyB9jhLRitAgzMOgRv2m2JMXKjg==
-X-Received: by 2002:a05:6e02:2612:b0:3e3:d8af:3847 with SMTP id
- e9e14a558f8ab-3e416181770mr93924425ab.16.1754193515916; 
- Sat, 02 Aug 2025 20:58:35 -0700 (PDT)
+ AJvYcCUgVHfhZ+ibyj1UFettCjfr4vKZdWXSHnB7fBE//NdljNas12Mxwh8dC5QTFe3t4ZlPkl2eNmHC@lists.freedesktop.org,
+ AJvYcCUiD7e+8J/HBYlekG9oBPdXjyuwl+gIbc4H2xkaC+P/E+5zeli1qGDz6WedsCEibr1Rp7DnwiMgnBnZAp95OQ==@lists.freedesktop.org,
+ AJvYcCVIucUWsbvLbrhjD01NrRs5LiyT5523gHYM5i230Y9oiTk1grHAaSf9GPHnQRZqAEcVvnb3soZjWZA6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4QGOc0JW1Pe/Sim+yWTaHriU/6d4T4IdMuyAt4TEEWap+wu6Q
+ Je2+W25zb6U72vvVg+fee4z8AIIJQYn9j5B0dScPA9V1x0zSmbjq41MB
+X-Gm-Gg: ASbGnctGRBKVOlsZ3omOMoCqUc7GXNZzBcScMXT2EHeNd+0W7Q6Z3PPOq7Gu8s0U9a+
+ f1K00+ASSYxA5vgB/uQRPWS+F3rLrdEs7qEepD8vwczhke4NPavDnhBLYgUfS8EtNcJGUljgqUk
+ OrpB6SOWaBEuYWmAP2FUOULDNnnzJWxAgmLDrgGjWKmgeLCHz7qn5/c/XmA2uWbS9NUY/ubz+OZ
+ v+Xb0ymHXhaJOgZbzIxODDTAWMVOG+23cRAhxygteABrVE2BWPrAeLAJqvlXmMaocgYATM78yTk
+ QJbL8cBMiNumwWF4L8f0N04dYcGNJSoI+1DB06vDjfCgQ8R0IHpVPhqP9iMjCmOvbflSwysHRWj
+ celkPgK4lo678v2RaUwRhYrBGluq9QUipCfoTC5NlDpaWtaYt73FYZP9YoswO8kB1IGQWNsbxxv
+ xIbA==
+X-Google-Smtp-Source: AGHT+IHpBDdR6FigTlQRJF71kEZPG5C4dRibFN0rdBgPoSfyb0NYf4gIgt2t1ZdaE/8lcZCX/fEPYQ==
+X-Received: by 2002:a05:6e02:32c4:b0:3df:3ad6:bfb2 with SMTP id
+ e9e14a558f8ab-3e416180bbbmr90758155ab.17.1754193576851; 
+ Sat, 02 Aug 2025 20:59:36 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.58.34
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:58:35 -0700 (PDT)
+ Sat, 02 Aug 2025 20:59:36 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -76,11 +76,10 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com,
- linux-doc@vger.kernel.org
-Subject: [PATCH v4 02/58] docs/dyndbg: explain flags parse 1st
-Date: Sat,  2 Aug 2025 21:57:20 -0600
-Message-ID: <20250803035816.603405-3-jim.cromie@gmail.com>
+ linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
+Subject: [PATCH v4 43/58] drm-dyndbg: add DRM_CLASSMAP_USE to virtio_gpu
+Date: Sat,  2 Aug 2025 21:58:01 -0600
+Message-ID: <20250803035816.603405-44-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -101,45 +100,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When writing queries to >control, flags are parsed 1st, since they are
-the only required field, and they require specific compositions.  So
-if the flags draw an error (on those specifics), then keyword errors
-aren't reported.  This can be mildly confusing/annoying, so explain it
-instead.
+virtio_gpu has 10 DRM_UT_CORE debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
-cc: linux-doc@vger.kernel.org
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- Documentation/admin-guide/dynamic-debug-howto.rst | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 4ac18c0a1d953..63a511f2337bc 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -109,9 +109,18 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
- the flags-spec, all constraints are ANDed together.  An absent keyword
- is the same as keyword "*".
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+index e32e680c71979..4487b5a41cbda 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.c
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+@@ -48,6 +48,8 @@ static const struct drm_driver driver;
  
--
--A match specification is a keyword, which selects the attribute of
--the callsite to be compared, and a value to compare against.  Possible
-+Note: because the match-spec can be empty, the flags are checked 1st,
-+then the pairs of keyword values.  Flag errs will hide keyword errs:
-+
-+  bash-5.2# ddcmd mod bar +foo
-+  dyndbg: read 13 bytes from userspace
-+  dyndbg: query 0: "mod bar +foo" mod:*
-+  dyndbg: unknown flag 'o'
-+  dyndbg: flags parse failed
-+  dyndbg: processed 1 queries, with 0 matches, 1 errs
-+
-+So a match-spec is a keyword, which selects the attribute of the
-+callsite to be compared, and a value to compare against.  Possible
- keywords are:::
+ static int virtio_gpu_modeset = -1;
  
-   match-spec ::= 'func' string |
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
+ module_param_named(modeset, virtio_gpu_modeset, int, 0400);
+ 
 -- 
 2.50.1
 
