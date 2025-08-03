@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F04DC87FDB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3D7CC87FD3
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3425710E34B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5878410E34F;
 	Mon,  4 Aug 2025 07:30:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WFEmtTfX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gNLwl7Ko";
 	dkim-atps=neutral
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
- [209.85.166.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1EF410E4B2;
- Sun,  3 Aug 2025 03:58:51 +0000 (UTC)
-Received: by mail-il1-f178.google.com with SMTP id
- e9e14a558f8ab-3e3e926fdeaso12248215ab.1; 
- Sat, 02 Aug 2025 20:58:51 -0700 (PDT)
+Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
+ [209.85.166.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 083E810E3E5;
+ Sun,  3 Aug 2025 03:59:01 +0000 (UTC)
+Received: by mail-il1-f174.google.com with SMTP id
+ e9e14a558f8ab-3e3e4a5715dso8642905ab.3; 
+ Sat, 02 Aug 2025 20:59:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193531; x=1754798331; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193540; x=1754798340; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1JCLCVuCy1Iq9Gw35PtEgUXRGWUdACaICRLzJa5akkQ=;
- b=WFEmtTfXLyutBznVKdPW/YCr846CGP+iWIa0NExplO1lqlaHMEASu3ZVvdcPiKcVBk
- LOXngOlfr7BRjv2ZSXq7qbSP6oSG8n+WrpZ7pFMU3+bf43gkKendHYkQl/YPiVX0fK/U
- xtxd/xEfjlWJJbXMgBLLJN0HZ6UEWfdBfWfuTBpAp//OIVB7WhObH87TnImHgR3I/KcP
- QyF+sskfRpD+g8uaCdELCoL9/X6ADPKNcKMdy9i/v494+GgJv5QlHaNw/s6TU3rAVAfR
- fr2x+WKw63Tb8cnSiVAsWbUfwM6z3YTF6S4XhxujHZJNHSeccUUkVOGstl0FdhIboo4C
- NSlg==
+ bh=s7NHmQkQ5gysWD4rwW/j5R3bG6qHLaOgggFqVWsv12Q=;
+ b=gNLwl7Ko1zswlccCZ3HRFc0E+0Z+H6jGzimYAaJQLM8TR7FdINi/wXssDGYmAKvjvz
+ haZwr7+9Lidh6nd5BSihrkc678ikm526xt2zeGTAO6e2Pc8tueODAQTMGQpe5lqMYIN5
+ dw2P6/rF+xY60kfT/tI3ej0Tk1ygGOGC6ucdyWSWmVUjhpvp97Sh3Taq8B4bWWAMW3Ez
+ xdPG7Zj+9WH3KzSSMc3muPEf5CYT81/lEI4D35ln5AQIpMxHWIFYlKZvxjvTcz4uUX68
+ lr4yn6ne0MD1ZC6hQw2WiAPnfAdCrGpBp+S2MVx1aST6zxqBuisjfMIi/cjgdjc7p2Ce
+ ZS+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193531; x=1754798331;
+ d=1e100.net; s=20230601; t=1754193540; x=1754798340;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1JCLCVuCy1Iq9Gw35PtEgUXRGWUdACaICRLzJa5akkQ=;
- b=jlBNHAi8wgXul3vuLcZnagxwtsYpmZKR90Q3wEgsAseqr5pYWjyPUi4OMEbBJOnp0c
- dw+DB3/nYS2+PylZq0f/KubiR0d99Pndbgb7gsrepEf8FhB9O8k6GBLNinC8bKkU+PaE
- MFWDZqwSToJqTeZyPLO4pm6IdOmTwEofjGeTAbn5gydFQ6p+posezSOmNAcAcEig17be
- Wr3CfmSWqn2sXEn8W41LdEx0llzztPIP+naYpcaLct4Wj9KYJIFprvg8EiGnVzHt5Xt1
- INA4kphAd23AajyujOFJX5eL93kcxBbhQeycs3KwNtUpX3o05gC8GBaxdUVXnVSeLTOn
- Q7Fg==
+ bh=s7NHmQkQ5gysWD4rwW/j5R3bG6qHLaOgggFqVWsv12Q=;
+ b=mi0zwxR7rOXIMhmzJ+OrbCnNBPC7pkfrxuvq5k4W8KDjHT0AYzTgTPy0pLMil1hNc3
+ wLMvFFUllh87aMP+MNv1SggQeVNI0JjSnmNUgUfIYd9HhbQPoYcuZmFtft/trSa+LFl2
+ TrMlW44BcuexfavrtBZVm8dVzygxSuvN1BpL6ydPRljokGLp/9hmpQubeZ9ST5YFWMGp
+ C2b34QTS5hodZPktCc79tnjSMkOz7Hjw/6Y4WmEhovUpPCziHklGtIHS3orxcZJV5+Tf
+ 2oU/5g2bBwDxzbPCW/9LbM3apgC00nbW47h9/3Mj4amQ7GiCrvbcUm8hX5l7wPiu9wnH
+ abOw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVFikGs2YeITCWilyuRyNsUnkVvfpDGRbXF7ahINqNfts0uNQrvcTxzFUv6RF2if7tswggKTsf3sbc1OPQB1g==@lists.freedesktop.org,
- AJvYcCW3DA/1bUN/Hh6Z1OrXtTplZ8G9SGvGk5PHdUQVc2mqE7c72Jk0NU9+u6dieU/nnb9udMNiYDw1AQvB@lists.freedesktop.org,
- AJvYcCXqe/9GPre0jQb4SdefKRv46E0RjU3nBg4v1UoJq0bpLJSgDell3C2nUdBOtxAflw8MX6zCz3JS@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzbMrNJxuum3TSAUK8EKObJvrQVVTCWJPNkVIrlkll8+jxemikX
- dWxcN5jSRPCG903+um+Ku6bTp8TNGiaFTNp685MUEo1Yh/3r1zWvdyM8
-X-Gm-Gg: ASbGnctuBIxfYNUh3VoxLTRCuswZ93aS0ns5xR4MsN6RxC6mcJ1M4L26x47spvxTcKN
- 0a1j605feWC4WHQUi8AgSbylyt+YEw5xHyecbEQTKsZ4vpENW0CIGtgKs4Gc6AcLx8EoQgY+3CL
- RQDNu0gD/Kld6NfPTiN6RCTdCQEu+s2hjpGR4mApb+ybrMWU5jJDDUzDvL++oHIjfSruR9B4VXS
- b23d2ACGBjo/LUIVf+chEkYGfK1tHjXKM2UJIm8M7u+dO+WGoo0c4P5gDb98ucrfafWeRcnVIZh
- EzFQAkp8czi8L30c5HfQl8YQi8W4kOibJZ/zWjbTJ8OIn+7WOyqTLhdq+JBJ7UsoovXA+qFMtx2
- hXiSBT65Kd/9fxjyRV4e320queiFMe8+78ji8uCbfaD8XMCkqHqMkXpq9+hLCRI3OyPavpOlEK8
- wohw==
-X-Google-Smtp-Source: AGHT+IELdpv7uUZAZBrGCo6vRMKsduTbeRMcIYAoxynvAlTrmV87SOcUm0eDA5nlXTZa0W/xhKLP5A==
-X-Received: by 2002:a92:cda6:0:b0:3e2:a8d7:cbc0 with SMTP id
- e9e14a558f8ab-3e41610d612mr96883205ab.2.1754193530845; 
- Sat, 02 Aug 2025 20:58:50 -0700 (PDT)
+ AJvYcCVIAL1Gu2I5hGZiCoza9D5yaspUcucuToq7/CJ+Ar+dLAM2GE7Aqo/Cxa6b/WF6tyHH4ayrJ0mF@lists.freedesktop.org,
+ AJvYcCVmgdOCvgoqKshKym22PLEeTMQRHNsxeukbjV5FESC74hX7uoCbASfhxxlS9Rts1qE77ibRYyeFJ+Eu4/+j8A==@lists.freedesktop.org,
+ AJvYcCWagcbLzrbgblQgHZWN11/oTKGoL/J8IWUjJFxqy7F+SszvDdeMz3mMDinlurUHfeI5EbExLf2inylM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yys7L0t29aTN1Ho+ggdcRZDAXEZGP1kBGr5qT+VhvoDWmyXLvpt
+ QJkNK3h0YrbQt8f3YXbfWi8Q4mYU+6zC2WqShb1qn6sDFkKvMt+FnneG
+X-Gm-Gg: ASbGncsQhDfZ9Jd52N7N4ioWrfqxaVBQ1TAMbt/UfyaQ8vPq68Twp48XfM7X9L931aZ
+ Pn0rso9gFE3SZhfKcWfx6NXTl1jP0l9urvkCH3WcTims56VAX+FhYr9p2hlkCUkOynZTN6ZQli7
+ QzsIklIcpCbRwZnc6jb18SCNEbCovi3rFwMa+HY3Km3/fHFiPrmx0niZpu+dBd17WHQNW54di3/
+ cU9XQ6Rvo2Wo48PMYrE5ThcZ3Ximky974mpCRk7SRSsY4sRy8/PjzL9FvVwu38BuSgPsUYPVeWe
+ o5am4wSgMCsFHwCxDQaIjaTvR3gHrIvIEvedwOn4TapgxZiSpou93cuQVqY9K9xYvDRTw+FsL4I
+ abncx/9hFH6Zmbc37G4brflExV5h/eVykv+hciRb6zcYuPHRpgBQL5vOKn2mp+ndJ+T7S9YzR9/
+ PXOQ==
+X-Google-Smtp-Source: AGHT+IHGjrGeB/JwKNMq2lNHvYPJcP3h9GIpyCQ+sHPo7dWlzj+a9+9jFlwqwwnEMpSJYhvD73NT9A==
+X-Received: by 2002:a05:6e02:2194:b0:3d9:65b6:d4db with SMTP id
+ e9e14a558f8ab-3e416191d1dmr96253475ab.12.1754193540188; 
+ Sat, 02 Aug 2025 20:59:00 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.58.49
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.58.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:58:50 -0700 (PDT)
+ Sat, 02 Aug 2025 20:58:59 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -77,9 +77,10 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 12/58] dyndbg: macrofy a 2-index for-loop pattern
-Date: Sat,  2 Aug 2025 21:57:30 -0600
-Message-ID: <20250803035816.603405-13-jim.cromie@gmail.com>
+Subject: [PATCH v4 18/58] dyndbg: change __dynamic_func_call_cls* macros into
+ expressions
+Date: Sat,  2 Aug 2025 21:57:36 -0600
+Message-ID: <20250803035816.603405-19-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -100,65 +101,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dynamic-debug has several __sections, each with <vecname>,
-num_<vecname>, and it iterates over these with a 2-index for-loop.
-These loops are fiddly with the 2 names.
+The Xe driver's XE_IOCTL_DBG macro calls drm_dbg() from inside an if
+(expression).  This breaks when CONFIG_DRM_USE_DYNAMIC_DEBUG=y because
+the invoked macro has a do-while-0 wrapper, and is not an expression.
 
-We have only 2 such loops now, but are getting more soon; lets
-embed/abstract the fiddlyness in the for_subvec() macro, and avoid
-repeating it going forward.
+   if (cond && (drm_dbg("expr-form"),1)) {
+      ... do some more stuff
+   }
+
+Fix for this usage by changing __dynamic_func_call_cls{,_no_desc}
+macros into expressions, by replacing the do-while-0s with a ({ })
+wrapper.  In the common usage, the trailing ';' converts the
+expression into a statement.
+
+   drm_dbg("statement form");
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+---
+ include/linux/dynamic_debug.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 283926530a43b..7c5a1ae2c0a65 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -128,6 +128,21 @@ do {								\
- #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
- #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 769f02456c8e0..1785ef5b93b15 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -217,20 +217,20 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+  * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
+  * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
+  */
+-#define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
++#define __dynamic_func_call_cls(id, cls, fmt, func, ...) ({	\
+ 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
+ 	if (DYNAMIC_DEBUG_BRANCH(id))				\
+ 		func(&id, ##__VA_ARGS__);			\
+-} while (0)
++})
+ #define __dynamic_func_call(id, fmt, func, ...)				\
+ 	__dynamic_func_call_cls(id, _DPRINTK_CLASS_DFLT, fmt,		\
+ 				func, ##__VA_ARGS__)
  
-+
-+/*
-+ * simplify a repeated for-loop pattern walking N steps in a T _vec
-+ * member inside a struct _box.  It expects int i and T *_sp to be
-+ * declared in the caller.
-+ * @_i:  caller provided counter.
-+ * @_sp: cursor into _vec, to examine each item.
-+ * @_box: ptr to a struct containing @_vec member
-+ * @_vec: name of a sub-struct member in _box, with array-ref and length
-+ */
-+#define for_subvec(_i, _sp, _box, _vec)				       \
-+	for ((_i) = 0, (_sp) = (_box)->_vec;			       \
-+	     (_i) < (_box)->num_##_vec;				       \
-+	     (_i)++, (_sp)++)
-+
- static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- {
- 	/* trim any trailing newlines */
-@@ -155,7 +170,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	struct ddebug_class_map *map;
- 	int i, idx;
- 
--	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-+	for_subvec(i, map, dt, classes) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -1220,8 +1235,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * the builtin/modular classmap vector/section.  Save the start
- 	 * and length of the subrange at its edges.
- 	 */
--	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
--
-+	for_subvec(i, cm, di, classes) {
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
- 			if (!nc) {
- 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+-#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) do {	\
++#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) ({	\
+ 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);		\
+ 	if (DYNAMIC_DEBUG_BRANCH(id))					\
+ 		func(__VA_ARGS__);					\
+-} while (0)
++})
+ #define __dynamic_func_call_no_desc(id, fmt, func, ...)			\
+ 	__dynamic_func_call_cls_no_desc(id, _DPRINTK_CLASS_DFLT,	\
+ 					fmt, func, ##__VA_ARGS__)
 -- 
 2.50.1
 
