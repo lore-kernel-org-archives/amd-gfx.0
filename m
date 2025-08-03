@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 358B1CA0EC5
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC01CA0EC6
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0C1B10E35C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E133610E35F;
 	Mon,  4 Aug 2025 07:30:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gYo9DAwI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e05QlMUM";
 	dkim-atps=neutral
-Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
- [209.85.166.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC9EE10E4A8;
- Sun,  3 Aug 2025 03:58:43 +0000 (UTC)
-Received: by mail-il1-f170.google.com with SMTP id
- e9e14a558f8ab-3e3d7b135c2so40558315ab.1; 
- Sat, 02 Aug 2025 20:58:43 -0700 (PDT)
+Received: from mail-il1-f177.google.com (mail-il1-f177.google.com
+ [209.85.166.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D72810E3E5;
+ Sun,  3 Aug 2025 03:58:41 +0000 (UTC)
+Received: by mail-il1-f177.google.com with SMTP id
+ e9e14a558f8ab-3e3ea9e8154so15985435ab.2; 
+ Sat, 02 Aug 2025 20:58:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193523; x=1754798323; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193520; x=1754798320; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5LKFK2FQkGbRBipMPdzUP2qSKsnxzgWO8ffhfoPvu04=;
- b=gYo9DAwIwGF57UNx3UDfLJ7aMDyxsWy2A0kc2TwnHqNbKP7swbq+WU8BFie+EthO+6
- paMXrP4FGlAgHbH3OUKkN8oX8H0tcvauvoc7LSPrNEKiWP2r9F23uggDHp3xZwuZ7KsK
- /wV+3K8+7Rnq312ksBu3imS7ftj2FgM+D8N7Prls6LhZuZM2uHIgOyg5jWn6IkCfSZaI
- /EJEEu4yesV33JdIXDAhU9futy2B44ihNOBbjs/3O1xIQS12ceGaKV6BiMhUZRpb7dzg
- Sgus/aDHoIBjkgkzYMwmLAC2VpfPOHVKS+plvjyjr2TyU5YQ5jVmS+oKMhenU+qetCU0
- ek9g==
+ bh=kfqa6P75QZanGMFi9p8HAZ4Dyz8oIWbnQ0m74z0/sC8=;
+ b=e05QlMUMv7ZT4iQwciEQyd3i6fgeYcEQHacep5/7b9SCeIW/WP/v9BARvAOgz4epNv
+ WMZR5jtM5OSNu9dtwKxah6Wkon5J3pxzPqej+0SfyuqLx0ugy/ut1JXuzVFA2UoBnbdZ
+ BYatHvWFNGccnXxNs9vNUIMX8i3NHoFjdTl0eYnW9z95mhRq7LM3fsEYcxHZGU3CzHzK
+ BuU/bwSPpyV+kQW+w79neilQRjbYcVXJVDMGzHrYKt7vxGNjhlF9FWtptekj9kQAJp4Y
+ MqvzYRYWaAf6hrlEzBF8sKayjpJH2yKoJPUyfNB8+5e2bzZna2PZ8Y6xjb/91ICRRQo7
+ u5Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193523; x=1754798323;
+ d=1e100.net; s=20230601; t=1754193520; x=1754798320;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5LKFK2FQkGbRBipMPdzUP2qSKsnxzgWO8ffhfoPvu04=;
- b=tdtvp/uKR0uGUfaomXEedf7eJbt3X6l85Y4dNwArnTxaQvlWEbAbwlJAIKFnt5Fuip
- R0HCA7pNh7xmAyD0Ko2D7L19sCFes219/9DKGBHnAgs8c5ejJbL1X6lw9JRBgehPsei3
- zCWdxDi5y5+DzjnhUc1Yy9fNdIxPsDqwr32oNvPNFLSpjbANh7nZFh8dKRB94Yz+vDdM
- aYp+8QH7ZsbXvImUQmlPISsGfkZaN83p7VEZ+v35tIm3pvlKi0C7fMA+9TETPVPzuR7i
- 0Vv6/6WdH3T36CCxYR/eUSs3l7zJSnfPEL5qo5DZK5ZNWBFCyqBM5FjD71kXu9Fuga+s
- KNZg==
+ bh=kfqa6P75QZanGMFi9p8HAZ4Dyz8oIWbnQ0m74z0/sC8=;
+ b=ckHOC+y4iuOCyb6IPpVsOexvozhdH+DuRrZ/0vXp3hpsHhsWJ5TWzXexYJAGEWRCZB
+ mumhCmCTlQTA+P3I7+Kzs+JmWsfpIhIT12PXCq79ma3FFQwjgl7S83aeAKCA1Jmvso1b
+ Sc9349WokiHfLFoqssnCLJV0ul7/49BN9nmKstNL7hr0s04NvRoNSXA31h8WusWm42up
+ swRh+c6+cOZNmvEO2txf+zULWREwwTSCLTFo//SANmI4qX/4GL+TEiY3aP0R83Anviyt
+ l23Or00ovJHg/XjiZ20bgYmWtRQKkO/ad9dJ/xqxFOY33kWOXXY8lOiShrowTaUXS+mu
+ 2Pow==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU+uW6SB2UIAhUaPtgIELzU4rk/Rhq1/A2I9eyW+ODWeV7weRtW707rl4+pwRFJOm8+NZ7rMFfqmw6IDvPl3A==@lists.freedesktop.org,
- AJvYcCVkSIClPToMjFHO8vEHb3Lkij1phcuWuFohXhpJUevZ+NPVNjnuhy5Kf6PzagkHUybpMgOMSKzwYgi8@lists.freedesktop.org,
- AJvYcCWjLZWJrg1xGAYqLl2HzD5ZQO2YDbvEaQVF6myQo7WXCVT3DP27ul0pFVkFIIPPtbeue5kKiZJn@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yylwtaq9tpXIcI1vfTHLZqkNDla52SnkIJMbgfAeEU8EWPzR5Da
- +ZygUIyQ7YAoX6oQdRgyLMnwSBZNB4iAoHquedxf4ZW3uGid8QJvGWx6
-X-Gm-Gg: ASbGnctsB/CO3L+sk0c0oe5G8SVHO5vf3MXEBG1Z0SonwOKOSAHnnhZ7MOqeKjQXc0+
- 5IhzjzBzwFF5YkEPp3SOfBs/xjsZWsKdifvETWo24KZR3RLTeT2S5k5mm4XmhEGO/pBMS1KQnBY
- C9rOFlHqzgK95wIU9f+KE+e8Ye21aVlttWYnxOUfjIq95CmADUwftUSlIUBOjjKs+7f4Fuko8Nm
- u4GIUnKS3PzJzk/NjKW37Bw2OmEFT3UXCyL7N+jn68GfIrzP5YvagVFRa71lsQGS1iTgmIbak9J
- KA4yvk8L8sEwkuaGY5w22vJ+gF75Pf1J9wh4RuLXYD7hy4OhuC2744CexKBX5UuC/O38drTWqkc
- 0W+uJHQ7+0pizqGkSvS1eV3cw7PavyMNJbFILZUSDuzKb/QUsEURFRR0GZUlqZpRlgJACJPAnlU
- UV92sUfkbruTgNuGyuz0QBb2Q=
-X-Google-Smtp-Source: AGHT+IEK8/vwYm1R/fsAxFG9PU2vcozrYZR6RghCEJBk18PG9+D3j285L0ye3PQbY3Q2FqB5Lv0cRw==
-X-Received: by 2002:a05:6e02:2220:b0:3e4:1162:6761 with SMTP id
- e9e14a558f8ab-3e416128e06mr102803815ab.9.1754193523038; 
- Sat, 02 Aug 2025 20:58:43 -0700 (PDT)
+ AJvYcCU6V6IZSdXIPVqNdZD5QduVk2cck/xdzBtLEwIIMH7AC0064nC1fGW18BsXaNlcizjynB60zR1gTe4X@lists.freedesktop.org,
+ AJvYcCUeduMK3jgIHJAf8omb/EY4paBNUK36C5MVAILZd2OoB3u8J1FZMoM/ViJcjge9pTrAFJAOk8+c@lists.freedesktop.org,
+ AJvYcCV0zW62AdV4BAJe7ZwkkeCHMFYuRHRoz83NnhVfvRAmdPp7sJ2kGkwte8zPab7b3LebTQfBs2K8RD5w7233AA==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9gwBBljpHSxe21GUPfT2za6hsNrI7nN2oBhj2Rt0/OMD760yP
+ R2fZ5wM/9ozgUj7zyr9sWgMDxB3ZFv7nA2MlEDVayxXUFEx7TL0mBoer
+X-Gm-Gg: ASbGncshtgYsMfyMGp6wpoP7tkCPvil46VgWOE9qnjfnGq3wMVCGOWonlDAXeBK3Q/m
+ EQDldkb3cV2P4ffSObVI3AOkf8G9sPcQUEGkD6bLxQ4TbpALttausUvVC/uBD9cAvuAQsM0GcC0
+ woya8XEL6Kmvg4LreUhfUJbo26IF0m2+ChXlgB8nMC2wKNytYUrQUtOUP6BkuBc0jqWTx4EZ++x
+ 654QbhGHQlzyDFTaghgcyBS8clVUpzVeg/pfbzk+6HYHMenjJJHbKqdaVGo7OeZer9ePS0lsrpQ
+ iQY/mbi9lsSRE6tGydt1Hr5JrVkawxaLpFlL8EeG4qRJkjGp196uoikb5lhyBDMM2vT/yCApcWz
+ 7qpwu8BFVGCi8J5YqGkOi73bP5H/5nAQ+Pptb/XlP8GO1AUmrtytPk7xn9vJf+kYsjJQHKLKw/o
+ OgMQ==
+X-Google-Smtp-Source: AGHT+IHF9fqXIQ9Dy28IS+EYItwaYkEB1EPsxWBXZaRJEXylDi+/C1dLpmjsAMSA//MVYJtcdRokew==
+X-Received: by 2002:a05:6e02:360b:b0:3e2:c62c:5531 with SMTP id
+ e9e14a558f8ab-3e41618bf16mr95994745ab.20.1754193520351; 
+ Sat, 02 Aug 2025 20:58:40 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.58.41
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.58.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:58:42 -0700 (PDT)
+ Sat, 02 Aug 2025 20:58:40 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -77,9 +77,10 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 07/58] dyndbg: tweak pr_fmt to avoid expansion conflicts
-Date: Sat,  2 Aug 2025 21:57:25 -0600
-Message-ID: <20250803035816.603405-8-jim.cromie@gmail.com>
+Subject: [PATCH v4 05/58] dyndbg: make ddebug_class_param union members same
+ size
+Date: Sat,  2 Aug 2025 21:57:23 -0600
+Message-ID: <20250803035816.603405-6-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -100,29 +101,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Disambiguate pr_fmt(fmt) arg, by changing it to _FMT_, to avoid naming
-confusion with many later macros also using that argname.
+struct ddebug_class_param keeps a ref to the state-storage of the
+param; make both class-types use the same unsigned long storage type.
 
-no functional change
+ISTM this is simpler and safer; it avoids an irrelevant difference,
+and if 2 users somehow get class-type mixed up (or refer to the wrong
+union member), at least they will both see the same value.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/dynamic_debug.h | 2 +-
+ lib/dynamic_debug.c           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index ff44ec346162a..b9afc7731b7ca 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -124,7 +124,7 @@ struct _ddebug_info {
+ struct ddebug_class_param {
+ 	union {
+ 		unsigned long *bits;
+-		unsigned int *lvl;
++		unsigned long *lvl;
+ 	};
+ 	char flags[8];
+ 	const struct ddebug_class_map *map;
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 55df35df093b0..2751056a5240d 100644
+index 147540c57154b..55df35df093b0 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -11,7 +11,7 @@
-  * Copyright (C) 2013 Du, Changbin <changbin.du@gmail.com>
-  */
+@@ -799,7 +799,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
  
--#define pr_fmt(fmt) "dyndbg: " fmt
-+#define pr_fmt(_FMT_) "dyndbg: " _FMT_
- 
- #include <linux/kernel.h>
- #include <linux/module.h>
+ 	case DD_CLASS_TYPE_LEVEL_NAMES:
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+-		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
++		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
+ 	default:
+ 		return -1;
+ 	}
 -- 
 2.50.1
 
