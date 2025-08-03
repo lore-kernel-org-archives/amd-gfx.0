@@ -4,76 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 322FFC87FD3
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Aug 2025 16:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 454A1C87FD2
+	for <amd-gfx@archiver.kernel.org>; Sun,  3 Aug 2025 02:27:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A48CE10E16B;
-	Sat,  2 Aug 2025 16:06:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DFC210E1A1;
+	Sun,  3 Aug 2025 02:27:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WCsYqj7u";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QW1qMXbu";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE74210E16B
- for <amd-gfx@lists.freedesktop.org>; Sat,  2 Aug 2025 16:06:09 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-3b7910123a0so3201957f8f.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 02 Aug 2025 09:06:09 -0700 (PDT)
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
+ [209.85.219.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88B2E10E05F
+ for <amd-gfx@lists.freedesktop.org>; Sun,  3 Aug 2025 02:27:56 +0000 (UTC)
+Received: by mail-qv1-f41.google.com with SMTP id
+ 6a1803df08f44-7074bad055eso14485496d6.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 02 Aug 2025 19:27:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754150768; x=1754755568; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6zAZThbPUGQe8RdZq2V98JmB9W6AqDrcstZDvTgMxG0=;
- b=WCsYqj7uaEgbwijeSXKurQFPR1Xoe6u1dsC0QpuuNXObf2e3vsUOiN2KqL35O77M4H
- 8SPYoC8gwK+nBa3TwJze5Up6bk1OwhydKBQgsYbTTEzNyxF+w3iUlfJber1EkFgLbjIT
- nbvy7/VlY49lAkH2rcpOV2hgdV55xr8tP1EQCBD2RGGJcOr6nJrMqn+13LaE4fbbubKj
- bXJ5EMxu1/H24L+wwuXoCb+V9H2frlwAfV4Lg7RI4WsoO+5gfoJajX9aptG56xjqpb8a
- ltjPHSoqcmmqGYf/Eu6iPX9Xd+IDnF5MPaATkXraVOSwrr/IVYNJEqxj7rlCfJfFBwyf
- JupQ==
+ d=gmail.com; s=20230601; t=1754188075; x=1754792875; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=B5KmXqrjkyuxBEgOpuVWWM/d2rFbcL5c72cCU9ANjTw=;
+ b=QW1qMXburx6UyZsbpWrG+9l2lZju2bRuojwiOP/LCD7z5+nuqY1mKRYE64lYljfFqH
+ Quu07cmXRMN1FH4d/G73e3VbT0083RFCd131U9LqpyXyelnO6tVOhp4/0rqPfhusa2oy
+ RsGJpVXgVKgRSGWUvox49QX8C9VjxMTdnAnxoXjuHh/zbyLLecaGDI8YipGhbbpyFjcl
+ 49LHDsNo6g0j6i01uCiYudH/4vPvaa8UfG0963KpkYVRBlxIKeobaqL5/o9y5ipZuBLY
+ ml8eoujbVh5KZ0CPMwqP8s3ZFr3D9llq3OIkzTgW20nYANLQUlIHsLTPSUXk3yk8XIw1
+ 162g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754150768; x=1754755568;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6zAZThbPUGQe8RdZq2V98JmB9W6AqDrcstZDvTgMxG0=;
- b=mrbjEs128v5DgWuugixaVegy/8K8w4OHwvy4F55gkiR0H8OBhzwipGo3m7G88P1UHr
- wcDUribAB74NqEgj/7tOc8xDHvQexRqp/265coodx0XYHs98n0dmIJv6IgaMJU2KRVbX
- xrUciDH7vBQOXl5pmanBbQmw5hf/eXPXg5qW6BgMuarJrVev3h4cPfQhkHK0Fl97yr4v
- Jaj5wJLnDUOd+sb1MGoT5raVfe/htjP7QPV7GcRkmGrD2XkQVdoOCwqwm7HHrhNzMxPu
- A3X+ygqYG0HIO2KJ4QseHAodCbXBacs7y+Xr8fnEt7oarxW9HPv6SiM+xW7fuP0N6m3S
- +Ysw==
-X-Gm-Message-State: AOJu0YzTAv30cX/JX9hlVGLdkbokpAPDjVlMS9Lj7o5G2ZzbziUoVa/d
- 6kit0grsdnJ+/cyRkfnEd+4jkJGD6bkvxpxGUY8TA3Smdllge2eXmc/pvYXAqQ==
-X-Gm-Gg: ASbGncsiewogwQjH05UUbAALs3OQCaj4X7kOR84VxMIw3BQ7fe3yT4yZTQsCDqRfz+N
- OOsztgU3CwBYdOrnU2SWp8stUMtVlP9Tgo3Qrd61mn4MqzKhR98sDZ1gAjZZ3PJFZ4CAWeZoMO7
- 8pV+CKZaMvTRm803HNZKfPN1HLJYxnGIq5BY/BbW6vE4cSsagLDkFiXHIK9XnJcYKat0Yt1WINE
- uw/PBLPMNFwQNwbg3zbFUcf3t9YH15cfl6vg+pqicd0h/6CTCf/eRO+qGfgnN/JMw1RCCvsSnPy
- 9Ze3iLqHXQsZYsiwN6yHn4NKsj5NNNbQWvVe8r8h/xGZMWaR5w3jUrF3AXCcDtjkxknLIu/jUbI
- UTkjLGU4bkp2y3yP6uH7pRevAwRLCt9piz2ZkSBCZ01dLsZM/1gBlcdJNzIJLfES9dWs5YDwYsV
- yFaslfembs9k0mOAubHxQ=
-X-Google-Smtp-Source: AGHT+IHJepswvFiBv0yzCa9xPhYS5wyrYOcNv4+MVOhTghl9TDROdNgITjxrbbY3FXq0ourIW8AGLg==
-X-Received: by 2002:a05:6000:26cb:b0:3b7:90df:c53e with SMTP id
- ffacd0b85a97d-3b8d94ba720mr2494874f8f.28.1754150767821; 
- Sat, 02 Aug 2025 09:06:07 -0700 (PDT)
-Received: from Timur-Hyperion
- (20014C4E24DDB700267C66B850A0E369.dsl.pool.telekom.hu.
- [2001:4c4e:24dd:b700:267c:66b8:50a0:e369])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458953cfcc1sm151164245e9.17.2025.08.02.09.06.07
+ d=1e100.net; s=20230601; t=1754188075; x=1754792875;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=B5KmXqrjkyuxBEgOpuVWWM/d2rFbcL5c72cCU9ANjTw=;
+ b=iojX0qf8ib8WtRmRF4DcmF1Lr0r2p+ikf+TFSuSQeWmFvLqrT/MzKjIu7shXdSbN4x
+ 2G9sAsQJbOABWKOAgAy43j5+MafzmGGLO39tEtS8FavxF1R5CH84zanFKbDKM76fF0Po
+ 4tSNP6wWQanylN838wkSpbL2+mAwo1rwWHXC0IzmjNt2vrl3KZYAIs2xzreC1iV+Fhar
+ qmvy9Q2l6Akt2fOUxdxpWtETgpZVPjhnpV5xTIJjsKGArFNQl4RfQCg0JP6wCnYZK5jp
+ NrM7zvNR3L1/rglj/zulczs6oSjyXwPAOJqpyJ4VOk7KDSLJsJf+KdvMn2AhkXDUtuYo
+ uaeg==
+X-Gm-Message-State: AOJu0YxFEx2Z69ZRj1LPWMOrcoMBOKyhZnnywYOkvU0L6FbB5XPnBbIu
+ la12DmtT8Y2Wk3UJV013jUtDw4gntsbd2Ubo+ayhM5ahmWCgxpp7t7BXWNuGvLpH
+X-Gm-Gg: ASbGnctuc8Nn4lAPzcageASmGUd4yJ4TJnG73/MogjXAfkIjAmXo2U+F29iZL2w16if
+ +eXPuDBGFalNEE/FdN/l2pFfGiIEN629peyvJNANDzUeP+31d5zatUvtmZ19oc3N35hd8CjilXc
+ PBoIGyQBpgjsDO01nbiFP41GAJuZUKwbwm0FSrPUewgSgvFoDzbkHzBl5KKbBVWXmt/s9oAy6wj
+ 3Jpu+xy+Fs2BFj+LEYj/61rd9AYrTWg81VwdkF6Jj2kl0ThLSr0rP0GKguU4NYuuH/8fQZK6YEV
+ Kh1n2yYDyL8kICDJubcIzF+Q67CXYovk+V0mTzfoDy/fTAOhSdV/BBzjcmROTQMYcLJQ3iMY8pp
+ sGdapHvy/HyN0AGG67L2o+OceB+Q=
+X-Google-Smtp-Source: AGHT+IEbOSGAwnBriJKP7HzEOa2Vf15Itp9xKglNS6QFBtXT4YwaGVLoj4adw6/0HAdYi0OWmIy/RA==
+X-Received: by 2002:ad4:5749:0:b0:709:205a:d90c with SMTP id
+ 6a1803df08f44-70935f0e681mr76535556d6.3.1754188075080; 
+ Sat, 02 Aug 2025 19:27:55 -0700 (PDT)
+Received: from Xander ([104.251.39.208]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-7077c9dc383sm40959946d6.16.2025.08.02.19.27.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 09:06:07 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+ Sat, 02 Aug 2025 19:27:54 -0700 (PDT)
+From: Alexandre Demers <alexandre.f.demers@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 3/3] drm/amd/display: Don't use non-registered VUPDATE on DCE 6
-Date: Sat,  2 Aug 2025 18:06:02 +0200
-Message-ID: <20250802160602.12698-4-timur.kristof@gmail.com>
+Cc: alexander.deucher@amd.com
+Subject: [PATCH] amdgpu doc: Remove VCE support as OLAND's features
+Date: Sat,  2 Aug 2025 22:27:31 -0400
+Message-ID: <20250803022731.2033153-1-alexandre.f.demers@gmail.com>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250802160602.12698-1-timur.kristof@gmail.com>
-References: <20250802160602.12698-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,77 +81,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The VUPDATE interrupt isn't registered on DCE 6, so don't try
-to use that.
+OLAND doesn't support VCE at all, but it does support UVD (3 or 4,
+depending of the sources).
 
-This fixes a page flip timeout after sleep/resume on DCE 6.
-
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 ++++++++++++-------
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 16 ++++++++------
- 2 files changed, 23 insertions(+), 15 deletions(-)
+ Documentation/gpu/amdgpu/dgpu-asic-info-table.csv | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 470f831a17f7..e8d2ba58cbfa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2981,14 +2981,20 @@ static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
- 				drm_warn(adev_to_drm(adev), "Failed to %s pflip interrupts\n",
- 					 enable ? "enable" : "disable");
- 
--			if (enable) {
--				if (amdgpu_dm_crtc_vrr_active(to_dm_crtc_state(acrtc->base.state)))
--					rc = amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, true);
--			} else
--				rc = amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, false);
--
--			if (rc)
--				drm_warn(adev_to_drm(adev), "Failed to %sable vupdate interrupt\n", enable ? "en" : "dis");
-+			if (dc_supports_vrr(adev->dm.dc->ctx->dce_version)) {
-+				if (enable) {
-+					if (amdgpu_dm_crtc_vrr_active(
-+							to_dm_crtc_state(acrtc->base.state)))
-+						rc = amdgpu_dm_crtc_set_vupdate_irq(
-+							&acrtc->base, true);
-+				} else
-+					rc = amdgpu_dm_crtc_set_vupdate_irq(
-+							&acrtc->base, false);
-+
-+				if (rc)
-+					drm_warn(adev_to_drm(adev), "Failed to %sable vupdate interrupt\n",
-+						enable ? "en" : "dis");
-+			}
- 
- 			irq_source = IRQ_TYPE_VBLANK + acrtc->otg_inst;
- 			/* During gpu-reset we disable and then enable vblank irq, so
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 2551823382f8..f2208e4224f9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -298,13 +298,15 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
- 
- 	irq_type = amdgpu_display_crtc_idx_to_irq_type(adev, acrtc->crtc_id);
- 
--	if (enable) {
--		/* vblank irq on -> Only need vupdate irq in vrr mode */
--		if (amdgpu_dm_crtc_vrr_active(acrtc_state))
--			rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, true);
--	} else {
--		/* vblank irq off -> vupdate irq off */
--		rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, false);
-+	if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
-+		if (enable) {
-+			/* vblank irq on -> Only need vupdate irq in vrr mode */
-+			if (amdgpu_dm_crtc_vrr_active(acrtc_state))
-+				rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, true);
-+		} else {
-+			/* vblank irq off -> vupdate irq off */
-+			rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, false);
-+		}
- 	}
- 
- 	if (rc)
+diff --git a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv b/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
+index d2f10ee69dfc..f4dde71b5654 100644
+--- a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
++++ b/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
+@@ -1,7 +1,7 @@
+ Product Name, Code Reference, DCN/DCE version, GC version, VCN version, SDMA version
+ AMD Radeon (TM) HD 8500M/ 8600M /M200 /M320 /M330 /M335 Series, HAINAN, --,  6, --, --
+ AMD Radeon HD 7800 /7900 /FireGL Series, TAHITI, DCE 6, 6, VCE 1 / UVD 3, --
+-AMD Radeon R7 (TM|HD) M265 /M370 /8500M /8600 /8700 /8700M, OLAND, DCE 6, 6, VCE 1 / UVD 3, --
++AMD Radeon R7 (TM|HD) M265 /M370 /8500M /8600 /8700 /8700M, OLAND, DCE 6, 6, -- / UVD 3, --
+ AMD Radeon (TM) (HD|R7) 7800 /7970 /8800 /8970 /370/ Series, PITCAIRN, DCE 6, 6, VCE 1 / UVD 3, --
+ AMD Radeon (TM|R7|R9|HD) E8860 /M360 /7700 /7800 /8800 /9000(M) /W4100 Series, VERDE, DCE 6, 6, VCE 1 / UVD 3, --
+ AMD Radeon HD M280X /M380 /7700 /8950 /W5100, BONAIRE, DCE 8, 7, VCE 2 / UVD 4.2, 1
 -- 
 2.50.1
 
