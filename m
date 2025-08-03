@@ -4,90 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93311CA0ED9
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D950CA0ECC
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAD4510E3FE;
-	Mon,  4 Aug 2025 07:30:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C292410E408;
+	Mon,  4 Aug 2025 07:30:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="ccy9CSRv";
-	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="S9UHsKiX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VhGsDdkm";
 	dkim-atps=neutral
-X-Greylist: delayed 355 seconds by postgrey-1.36 at gabe;
- Sun, 03 Aug 2025 11:38:46 UTC
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F04010E009
- for <amd-gfx@lists.freedesktop.org>; Sun,  3 Aug 2025 11:38:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1754220760; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=coGiJ2glh+WFSDRY2Rz4qXmCrRMeU1StWuSyTYpuL2liePIHN6PAkg//hzJU4JRc59
- AghTVr0QvAtDX6MvT3fNr4it1DoQBRnGnOgpZL80Gv+b7/iyYYklBqTBcok1SO7zKQLu
- EOL306SDqjHrTENu7RJNH63M74he4M96bxc8pAKrhGoLEt5pWWARnxCaIyd1CZee0uA0
- cv9168n4+2jBZrSmHyqvpjFSKbCbZSg+K+B2CSlGDEbudk7VDEnnpzVd0uCQHd6r70QZ
- rFkrtXxXLMOLSzP+wegpQcb+bYM4oxDwqTdiyBQTe3/ki5eG1q3ImyQziOK7VY/x23e6
- yY9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1754220760;
- s=strato-dkim-0002; d=strato.com;
- h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
- From:Subject:Sender;
- bh=SNEoyn7T9Jf3eY4s0gy6qI079kIQlXQ2LEXIgvF5lX0=;
- b=URDBeuBUOXe3gbCBtKXLTvZ91lfCGaP4iYZOgVuU2n2mO7hNXagdaDechonOnatK1g
- D1AuiU74N1Q+B37AZYXFlfFDFaCvXpL2hCjsIQFd45ZjFrIutfcsJiArMaRCXn5lIeCY
- BMx5sFKqcoXBTS0UWyl/YIR+vfvCJUwhH6hXvuRsjOylmZVFK6p9zBI7e8PdilMZ8Gbo
- okeL8U4pWKeCovgaBd7BR9iQ1JMRj0CShdPVIddGpQeeuMpJzgSJgU2ltI3/QloKvJgu
- jq26V8k+FvhlMSMOjv4bA2T3WtyZpSh3fap6Av4mm3j1xgidVVflzEvoMtvUTJzbTFvn
- gxBA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1754220760;
- s=strato-dkim-0002; d=xenosoft.de;
- h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
- From:Subject:Sender;
- bh=SNEoyn7T9Jf3eY4s0gy6qI079kIQlXQ2LEXIgvF5lX0=;
- b=ccy9CSRvcwfsag+0pITwPYYGpp6vVQ9Kx1Kej905OLWneUOI6Q2nu0WdWB1ag0ci6G
- SCVcofRfa4AJ6teMPpBLpBlhNnS2EXqgWntNiw0SCizeP49sINy83xrremtlzSdVD0Ir
- 0yu1MjkeH8YmZ+HVIoU+VKTSVIcNY91UTgQXSy3qbTCI5IaUaIKda3npL9BHXcno21gT
- xU9evMe6lJEll7w6e4++0Dz2kHXjbF1KU/WG/lLIeFYNO41smf84KXB/DhcxX2uVnlOG
- nhxbKikovko0qN3MjvjG73E6jte+rPpgA1eJxYZtLuZiBHLjw/JGV7dqaZVyvpTqbFzW
- DwhA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1754220760;
- s=strato-dkim-0003; d=xenosoft.de;
- h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
- From:Subject:Sender;
- bh=SNEoyn7T9Jf3eY4s0gy6qI079kIQlXQ2LEXIgvF5lX0=;
- b=S9UHsKiXOIs7LMgGBI9lHMLzpYD7+0vw6ZKc1re/8nQbdt/uWvBpWcu7nhRkhesgDb
- fr5ehCMPaFEuEa8Bm2CQ==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6P1rfO5KiO55fErqxOiEafo+kdhkEpPpx41Heyt0x3tq7WaTEcs/"
-Received: from [IPV6:2001:16b8:50d5:5a00:c7b:b07e:8953:b246]
- by smtp.strato.de (RZmta 52.1.2 AUTH) with ESMTPSA id e6066c173BWcoUF
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Sun, 3 Aug 2025 13:32:38 +0200 (CEST)
-Message-ID: <6ba8d730-52f9-421f-8d8a-887545f0ceac@xenosoft.de>
-Date: Sun, 3 Aug 2025 13:35:18 +0200
+Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
+ [209.85.166.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89E8510E4D0;
+ Sun,  3 Aug 2025 03:59:52 +0000 (UTC)
+Received: by mail-il1-f174.google.com with SMTP id
+ e9e14a558f8ab-3e3d0cba6a7so12047565ab.0; 
+ Sat, 02 Aug 2025 20:59:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754193592; x=1754798392; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UUd0OZUdA8b96Ytm4NIRmXIDrelAvQRst6I1taJ2Nl0=;
+ b=VhGsDdkmvW61gM4H9qXQt8IWGSYyCsx5JWhRxZK/+xaS8WXnWDISEnszDGOyKFcdnO
+ FHcPP+XYTZNjh527err/XVBmg8FmjccPZosa8JwTCAzL+DRfGU+ZGrfThA/ViWziQnmz
+ DiPVD/o9MGGPvLHU5mxPyArBxcmIGbrUgdNS9heloK2cJSO6fN4Muv67NgJYoxK6koMq
+ taLJWTYXs0fWKIikzdMT3oVmJYygnmpIRpqENxvqf1iIJf6kmvSndQOkB8aIBXguCl6L
+ EF3WY4henVEzhT8Vi8yZM3UG9RXTadmVN9k7jqiLwNwulAsNWg26kFRvwdTLfP7jAjg1
+ CmkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754193592; x=1754798392;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UUd0OZUdA8b96Ytm4NIRmXIDrelAvQRst6I1taJ2Nl0=;
+ b=rQZe5aUXw7FHN862LiZOZj6TyjoUXbu+JJeWOkGHJ/1peK4FFJRYRXGET2PWni9/Iq
+ 7uWNDJBU9vxG6sJo3MQ/Zb9CACID2OK2GaWF1hCH7D1Hlyzy8e05L49AAycK4gg3qYoP
+ PWXkUa4RK+lobeikCbwPqTytqBI31zWzJFanhg8rs1REEDVoCY4hz8AwPOHPV859j128
+ 5lWu+71QbxTANu9L+ELXRTfoVGKZlMpeyF3HVeT2qTA61m9gWCIypyHqDErKVQg+Gdpm
+ 57B99Kj1qNufUp96Pp86zCp5YNTZHw2m+V3nAk0ECsjR1Vf2wPe3dzSznAgRvLrQbsWm
+ DfLQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVIk4a5RayMpUdAbB3sU6UMF0GMHe2Abc2Bc6V9ledsU9mb9ziNDqmOBVSD12UohjvFKpfCR9IpIMNx@lists.freedesktop.org,
+ AJvYcCVmwSOUgDQ6vfDTenlk+x0rz2yhNStq1lw4wzAzr3Wg1r7LdbGbdWEB1t5qHLv0JujN0RhL/V7i3OsLnkT9qw==@lists.freedesktop.org,
+ AJvYcCVt4L7bwBBEkGPw9wp9hlXzXqo5qee1ymCTWjh9C/8+r2gc/LgY4RDE3NeATWhtvm7TmMeYPwiR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YytJY3h2ZNl0wz5zN55/IOqH5FDdxIHN91uYVUqyiETYBuYJDyZ
+ BHYndkzEwxrcPVSOp5w4WwhBHe2BCLa8a2k72ZwRul8Huek7u5y6D0tV
+X-Gm-Gg: ASbGnctQZzhHrYHCfIf0YQBlp6sGMQzmVqzHNE+TOP/eAulfejftpj4Zh5Z54xjLPam
+ I9o31DyIriFNRz7l8F1VEAsqstLAzYYtTWF60LJahgS2H1byHxVOY/97Y9fT/yxLQFyfW28SeWI
+ TTY2293JA5y0z53UxKPJB1dnlpknzgbpJMHg6jNMpbHpugt7gewgvPE14xHCIjLU8zsnKPkTP/9
+ HScWirYagLmtbqkiX65rB2obkygAxhpqp3bWcsDosIOsHI76ZTJcZOxtU+BvA2GktLzx4Eu0XUg
+ JzHTYMf/XPBWyIMhWAquffPWudPdzxaGN4Hz9GwUv2GeTy32T+HIeZhmZS42iogSHVuB0XhocUP
+ 3WJ+6qYLGUjC5OwL49cox7TVAztcI6Jyv9uC6KONMN/LSXrpkBxXCLICCb6YOpQqPnIY/oasOG1
+ auHw==
+X-Google-Smtp-Source: AGHT+IEyhw5mUB/eNoeEely1BTFanJ4yHz9P0sfCu6Pe+TFRcVR4LSDg6aFmHhG3P/FtSBF/ZASr8Q==
+X-Received: by 2002:a05:6e02:1fe8:b0:3e4:b9a:8ae7 with SMTP id
+ e9e14a558f8ab-3e4161081afmr88579355ab.7.1754193591790; 
+ Sat, 02 Aug 2025 20:59:51 -0700 (PDT)
+Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
+ [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 02 Aug 2025 20:59:51 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ seanpaul@chromium.org, robdclark@gmail.com, groeck@google.com,
+ yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
+ will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
+ maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
+Subject: [PATCH v4 54/58] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
+Date: Sat,  2 Aug 2025 21:58:12 -0600
+Message-ID: <20250803035816.603405-55-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
+References: <20250803035816.603405-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: radeon_fbdev_river_fbdev: failed to initialize framebuffer and setup
- emulaton
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
-To: Alex Deucher <alexdeucher@gmail.com>, ville.syrjala@linux.intel.com
-Cc: Jeff Johnson <quic_jjohnson@quicinc.com>, "R.T.Dickinson"
- <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>,
- Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Christian Zigotzky <info@xenosoft.de>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-References: <CADnq5_PUi_2+kDYX8R_eanNF4iYN79MdXJ_PLcQbZKi6e4S8tg@mail.gmail.com>
- <87F47F04-EBAC-48D6-AD0A-4BBE39DF43CE@xenosoft.de>
- <1115cce7-cfdc-4c5b-b017-69cd32425650@xenosoft.de>
-In-Reply-To: <1115cce7-cfdc-4c5b-b017-69cd32425650@xenosoft.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 04 Aug 2025 07:30:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,38 +100,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+The qxl driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
-Xorg doesn't work after the DRM updates drm-next-2025-07-30.
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Error messages:
-
-[dr:.radeon_fbdev_river_fbdev_proe] *ERROR* failed to initialize 
-framebuffer -22
-radeon 0000:01:0.0: [drm] *ERRO* fbdev: Failedto setup emulaton (ret=-22)
-brd module loadedm
-lop: module loadd
-mpt3ss version 52.10.00.00 loaded
-nve nvme0: pci fuction 0002:04:0.0
-fsl-sata ffe20000.sata: SataFSL Platform/CS Driver init
-scs host0: sata_fs
-ta1: SATA max DMA/133 irq 68 pm-pol 0
-;21;39mfsl-sat ffe221000.sata Sata FSL Platfrm/CSB Driver iit
-ata1: Signatue Update detectd @ 0 msecs
-scsihost1: sata_fsl[0m
-ta2: SATA max UMA/133 irq 69 lm-pol 0
-nvme nvm0: 4/0/0 defaul/read/poll queus
-nvme0n1: p1 p p3 p4 p5 p6 p7[0m
-drm:.radeon_fbdv_driver_fbdev_robe] *ERROR* filed to initialze 
-framebuffer 22
-fsl_dpaa_mac fe4e6000.ethernt: 
-of_get_mac_adress(/soc@ffe00000/fman@40000/ethernet@e6000 failed
-radeon 000:01:00.0: [dr] *ERROR* fbdev Failed to setu emulation (ret-22)
-fsl_dpaa_ma ffe4e6000.ethenet: FMan MEMAC[0m
-sl_dpaa_mac ffee6000.ethernet:Using random MA address: 0e
-
-Could you please check the latest DRM updates?
-
-Thanks,
-Christian
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index 417061ae59eb4..c18577a3153d6 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -66,6 +66,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
+ MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
+ module_param_named(num_heads, qxl_num_crtc, int, 0400);
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static struct drm_driver qxl_driver;
+ static struct pci_driver qxl_pci_driver;
+ 
+-- 
+2.50.1
 
