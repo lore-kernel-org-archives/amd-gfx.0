@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B17C87FCA
-	for <amd-gfx@archiver.kernel.org>; Sun,  3 Aug 2025 16:10:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EDABC87FCA
+	for <amd-gfx@archiver.kernel.org>; Sun,  3 Aug 2025 16:27:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B19310E1F5;
-	Sun,  3 Aug 2025 16:10:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07EBA10E02A;
+	Sun,  3 Aug 2025 16:27:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GaCOK9gF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jbdBaKyP";
 	dkim-atps=neutral
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E20610E1F2
- for <amd-gfx@lists.freedesktop.org>; Sun,  3 Aug 2025 16:10:22 +0000 (UTC)
-Received: by mail-oi1-f172.google.com with SMTP id
- 5614622812f47-433f984817dso751375b6e.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 03 Aug 2025 09:10:22 -0700 (PDT)
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED88E10E02A
+ for <amd-gfx@lists.freedesktop.org>; Sun,  3 Aug 2025 16:27:10 +0000 (UTC)
+Received: by mail-oi1-f169.google.com with SMTP id
+ 5614622812f47-4338d0596f7so919943b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 03 Aug 2025 09:27:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754237422; x=1754842222; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754238430; x=1754843230; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=dwdECRrE9QKVnbOWRUKjOMxVgus4id+EjrMd+8SG4OQ=;
- b=GaCOK9gF1aMY9fi+uyFBb9HUPm0FkMetLPgeOkjqObfAAZb5IGQ5ioHrErJOwIJ4Rt
- ++jGdMXjjbXAymxljV8WN9CvJJpdNx2NLDWuQb+xw4bCAg2H863iDURS9ys+TxgvGIKn
- gOYorOS9T500qAyN+gib/mLgS4iT3VFftAhkVY17E1kpNKn08gAXtu2mesx2B/VAlRRm
- jFwUMtVpnyKpjxF8vaUEL/9jX2yU3NGAVUA3ypb6oYIG+cer93JYvpuhxY2ZK2zzomou
- mHlcuwsO5NV2v8XdsgnPZMGT2MFggI/qtA8iRkco7sQ6TKPU3xOLQS1OReDCOyg7YaWV
- VXYA==
+ bh=LI2Dzn65MJoL8h+nOMp3ODH04CxpFN2pknSSpWOjBa0=;
+ b=jbdBaKyPVzoqIYki0JFhGxGxcbXR2NnY6LSbHrNyRuZyjDrc4DolfTmXHNXr1+uC54
+ WhgWqACfgxH8oemjg3oqLrIao2RrDcoUtZ+9pIIkF8owlk62yy1izVn88HZ8eTuQp6gx
+ BVkniwRN85hezCyt1PrcM/4uuthaOAS0w7IUtCXUXPBzlN3me+OWXutsAlCK3BVTndlY
+ NJjsv3K/wAcrEErb+sqchoIVHLtXB6Pm6iczHkT9qTxKOG4KQ8ADq/cDSBgSulnDRgEF
+ V5U+ZqvGvgf9wKVkxaxSs6RTYn0qvcqMQKqQRxnQQ4fzQHlKvSpGUbYprh5UM7RRKCBf
+ TJWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754237422; x=1754842222;
+ d=1e100.net; s=20230601; t=1754238430; x=1754843230;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=dwdECRrE9QKVnbOWRUKjOMxVgus4id+EjrMd+8SG4OQ=;
- b=nrm8Uk0tNIF0B9wUzM3kQR7N/OhiGjzoVpKLjuJGoSHquSvkan0I4jJqn6e7nDGRxg
- ILb0rOHjmySX5zT0xbVOyHVfu+DnzuS7RCEX4GA4fBBg28rFO3bWlOdpR8UUrIlEjEgz
- c/1gMNQBHn1kWi9E/pIHKLEhPni/8A2qL/OzOU8jT0iQUMUcDFNLJDFqbYMp6HuF7LIJ
- /exQFfKLLO3W/g1cXcODlaSlATEzTvXkdHiY13gh5K46MGzl/EdYFF555TSq+mW6dusE
- xIAjFpveD2ANK9ZaF7XnZPkaPHkQevFwQzjVCGzj2ouWMg2wXAo6Qw4pJELr5aNBZV+U
- Vo2Q==
-X-Gm-Message-State: AOJu0YyNXzCSCxz08juHat0ocNiTHhGacEh87su3MRbW0EN/Qway39vZ
- b02APjBJ90ppIj+JDORzEDIbojTLCuA/mZyZL98snqtlIH6ho7qjta9oFqJGBpWFgnLhSSPQ2Ox
- uxsE7/NLEt/4wPwwj+mM6T0YqPOEsqB4=
-X-Gm-Gg: ASbGncsThFcIK0kuYLwK8JIgBEFCd4z2m4AhnseRtgxBB6nP5F/VaAmQNkF4occqsyq
- Z+tuxSkc45sqzbcbyNmwEFp26vqVFpJWZTkTOBayhi7ath/BGKzR9hD5+q+zyoPNB3Qpc2SRxA5
- LnOeJiUkh6tW79eRVMHKB6LPNgSMbM7f5OGcSQ1/fbNefPRykCC1VO8/PLCKLoS+uknY5VZeBp5
- dymnfNOFsE5QpMGzJc=
-X-Google-Smtp-Source: AGHT+IHjRMMJQK02Eil3Q/qI3qvTodeCtFsY49/TQoVSebrDQ2Av+ZOArw1NCBFwJOMoL+W/pD4Cdka0mwSo6fZ+Txk=
-X-Received: by 2002:a05:6808:6909:b0:434:914:e185 with SMTP id
- 5614622812f47-4340914eaeamr485001b6e.25.1754237421601; Sun, 03 Aug 2025
- 09:10:21 -0700 (PDT)
+ bh=LI2Dzn65MJoL8h+nOMp3ODH04CxpFN2pknSSpWOjBa0=;
+ b=JTChx/RskezbjcO4Ng4CRQv128ZmGoq3S5Pg/j7drOImRg9/rU0TAqWOZlx22t6rWr
+ qg8rTrod0LRk5eb5q7WW9BhiE72mAzdbFTt/SBA9XZGMVN5EQoVKdQz7YNKDYtS8BVT8
+ HFeC510K4VlQp+fNn86kZwFGj2TpVu9z3T0rukn5P0aDqNKKV3NV3KccInf6feBHaab0
+ HJd8Pp6uVcwqf4AzBRJdNNyDmaEmsKUy4W0oYEzmBo5c+EeGDBISm0nolDuiN6vY9Wl0
+ SL4s2NWIuTIf+mOy/tYy8dwg1/CnTDAx8upCIrwys3/kEM1XFh3xSBb2iUFJj2DCAi3I
+ gsmg==
+X-Gm-Message-State: AOJu0Yx5XH5jjZBbX2maG1mBSkLVTeI/MbIqZWZCAv6VD9pi1fw1d7Oj
+ ET3Nzzwk1SMuu4+Hg+tF0RAQbIK0LdQiY6Wp/+8Z9s0FMsXvSARbjI62DQEu3qnFYRLVxb2oZUw
+ Pai82kvJTywPWLjCx1pkl2gxObCrp9LxDL22W
+X-Gm-Gg: ASbGncsuHeQMbpIREnGBfoElcod4XkmxxwTF9zqpZSfKmQ+Ae0qDLvf49XDIPvpP5RH
+ h5J58dtI7mRsKF9zeHzRZFlpeYN1QXM5HhjNsGznPPVUO9Hv6sbu7LDlVFoM1IilVsybh1/6pCS
+ KhjiHpOAw4QrE0LJ8NidkvABuGW7H3A5ZLpavhUEOZ44waa+L9yfOnJ5urj3VPEFBjN5CtefDY2
+ jqE1MSb
+X-Google-Smtp-Source: AGHT+IHUpB2kh+hG+Q6khjnhsRrnfsFhKVDVg0zfY9qQ0YYS+3nhQ2uHG1V/g40rrQam33Wvm/8BxmKOI5Hdhkz7REY=
+X-Received: by 2002:a05:6808:66c7:b0:42c:5291:8ec with SMTP id
+ 5614622812f47-433f0309c08mr2696460b6e.18.1754238430149; Sun, 03 Aug 2025
+ 09:27:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250723155813.9101-11-timur.kristof@gmail.com>
- <a90cee9d-4be0-431e-abf7-e55da92c42d5@gmail.com>
- <CAFF-SiUrWyz68xPd4+mRB1SSr0F-MO8v_s32E-gw7zkKPS7D1w@mail.gmail.com>
-In-Reply-To: <CAFF-SiUrWyz68xPd4+mRB1SSr0F-MO8v_s32E-gw7zkKPS7D1w@mail.gmail.com>
+References: <20250723155813.9101-12-timur.kristof@gmail.com>
+ <382a6232-c500-4d5e-96d4-0444947130ea@gmail.com>
+ <CAFF-SiX_FipFpaZyQaFEE5raFN2zz_yQPYUkBq2kRzLP1PHyZg@mail.gmail.com>
+In-Reply-To: <CAFF-SiX_FipFpaZyQaFEE5raFN2zz_yQPYUkBq2kRzLP1PHyZg@mail.gmail.com>
 From: Alexandre Demers <alexandre.f.demers@gmail.com>
-Date: Sun, 3 Aug 2025 12:10:10 -0400
-X-Gm-Features: Ac12FXxHUtjIwZMo20Fxl0Y07DCdR4U82aFwzJCWWYctW01fG7MI3CKpL9K8wrg
-Message-ID: <CAPEhTTEYcD4WmweMwBWHkawxxZzNCZgJPAF3enL9-_nJxh2HCg@mail.gmail.com>
-Subject: Re: [PATCH 10/20] drm/amd/display: Implement DCE analog stream
- encoders
+Date: Sun, 3 Aug 2025 12:26:59 -0400
+X-Gm-Features: Ac12FXywvdhJiNFgkHIUktV3RP-rh0kjxGU3EAlmp17u8La95ZMBSNBDcywOMHc
+Message-ID: <CAPEhTTEy9J9_zza9p-pnVVMGcxCrKkfOAdy54YVkJofCsNJTsA@mail.gmail.com>
+Subject: Re: [PATCH 11/20] drm/amd/display: Implement DCE analog link encoders
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
 Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/alternative; boundary="0000000000005dc6e5063b783a63"
+Content-Type: multipart/alternative; boundary="0000000000007aff0e063b78767f"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,188 +80,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000005dc6e5063b783a63
+--0000000000007aff0e063b78767f
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Timur,
-
-I agree with you about the coding style (the prefix), it was more of a
-general comment since the style is inconsistent with some other parts in
-the DC code.
-
-If the code applies to any DCE version (even though it is unclear if any >
-DCE 10 is in the field with a DAC), then it's good for me. My only
-remaining concern would be about encountering one of those special GPU
-cards hardly testable. But this seems unlikely.
-
-Alexandre
-
-On Fri, Aug 1, 2025 at 5:29=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@gm=
+On Fri, Aug 1, 2025 at 6:02=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@gm=
 ail.com>
 wrote:
 
 >
+>
 > 2025. augusztus 1., p=C3=A9ntek d=C3=A1tummal Alexandre Demers <
 > alexandre.f.demers@gmail.com> ezt =C3=ADrta:
-> >> Add stream encoders for DCE6-10 only, because there are definitely
-> >> graphics cards with analog connectors out there with these DCE
-> >> versions. I am not aware of newer ones.
-> >
-> >> Considering that all stream encoder functions currently have to do
-> >> with digital streams, there is nothing for an analog stream
-> >> encoder to do, making them basically a no-op.
-> >> That being said, we still need some kind of stream encoder to
-> >> represent an analog stream, and it is beneficial to split them from
-> >> digital stream encoders in the code to make sure they don't
-> >> accidentally write any DIG* registers.
+> >> We support two kinds of analog connections:
+> >>
+> >> 1. VGA, which only supports analog signals:
+> >> For VGA, we need to create a link encoder that only works with the
+> >> DAC without perturbing any digital transmitter functionality.
+> >> This is achieved by the new dce110_analog_link_encoder_construct.
+> >>
+> >> 2. DVI-I, which allows both digital and analog signals:
+> >> The DC code base only allows 1 encoder per connector, and the
+> >> preferred engine type is still going to be digital. So, for DVI-I
+> >> to work, we need to make sure the pre-existing link encoder can
+> >> also work with analog signals.
 > >>
 > >> Signed-off-by: Timur Krist=C3=B3f <timur.kristof at gmail.com>
 > >> ---
-> >> .../drm/amd/display/dc/dce/dce_stream_encoder.c | 14 ++++++++++++++
-> >> .../drm/amd/display/dc/dce/dce_stream_encoder.h | 5 +++++
-> >> .../display/dc/resource/dce100/dce100_resource.c | 6 ++++++
-> >> .../amd/display/dc/resource/dce60/dce60_resource.c | 8 ++++++++
-> >> .../amd/display/dc/resource/dce80/dce80_resource.c | 8 ++++++++
-> >> 5 files changed, 41 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> >> index 1130d7619b26..f8996ee2856b 100644
-> >> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> >> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> >> @@ -1567,3 +1567,17 @@ void dce110_stream_encoder_construct(
-> >> enc110->se_shift =3D se_shift;
-> >> enc110->se_mask =3D se_mask;
-> >> }
-> >> +
-> >> +static const struct stream_encoder_funcs dce110_an_str_enc_funcs =3D =
-{0};
-> >> +
-> >> +void dce110_analog_stream_encoder_construct(
-> >> + struct dce110_stream_encoder *enc110,
-> >> + struct dc_context *ctx,
-> >> + struct dc_bios *bp,
-> >> + enum engine_id eng_id)
-> >> +{
-> >> + enc110->base.funcs =3D &dce110_an_str_enc_funcs;
-> >> + enc110->base.ctx =3D ctx;
-> >> + enc110->base.id =3D eng_id;
-> >> + enc110->base.bp =3D bp;
-> >> +}
+> >> .../drm/amd/display/dc/dce/dce_link_encoder.c | 100 ++++++++++++++++++
+> >> .../drm/amd/display/dc/dce/dce_link_encoder.h | 21 ++--
 > >
-> > Since we are adding analog stream encoder support only up to DCE10,
-> wouldn't it be better if the prefix "dce100_" was used instead? I know
-> there are a few functions in there that use "dce110_" as prefix and are
-> replaced by functions specific to the DCE versions that behave differentl=
-y
-> (we even have dce60_ and dce80_ in the current patch), but this seems off
-> otherwise.
+> > I have the same comment about the use of "dce110_" prefix under
+> general/global DCE code that I left on the previous patch.
 > >
-> > IMO, if thie DCE code should be revisited, "dce_" should be the general
-> prefix instead of "dce110_", with "dceXY_" being specific (as it is right
-> now).
+> > For consistency with the current code, I understand why this prefix is
+> used, but I'd gladly clean this up once the patches have landed in if the=
+re
+> is a common agreement.
+> >
 > > Alexandre
 >
 > Hi Alexandre,
 >
-> Two reasons:
+> With regards to the coding style. I already replied to your other thread
+> about it, let's have that conversation there.
 >
-> 1. As best as I can tell, all DCE versions use dce110_stream_encoder
-> regardless of its name. I agree that this is somewhat counter-intuitive b=
-ut
-> I wanted to follow the conventions in the rest of this file.
+> With regards to the link encoders specifically. Due to DVI-I, we need
+> dce110_link_encoder to handle analog signals in addition to digital, so t=
+he
+> question about this part is, is there any need to have a separate
+> dce110_analog_link_encoder? When I wrote the patch I felt yes, but now I
+> feel maybe we should just let dce110_link_encoder handle VGA as well.
 >
-> 2. It is unclear which DCE versions actually have a DAC. On one hand ther=
-e
-> is some conversation on this ML that suggests that Hawaii and newer don't
-> have a DAC, which is apparently wrong. Looking at the register headers, a=
-ll
-> DCE including the latest one have the DAC registers. Theoretically, if
-> there were newer GPUs with DAC, this code would work fine on them too.
+> What do you think about that?
 >
-> If you are not happy with the code style, I respect that but I would like
-> if we tackled that separarely.
->
-> With these series, I want to just focus on fixing things and getting DC t=
-o
-> work on SI and CIK with the least possible risk of breaking things.
->
-> Best regards,
+> Thanks,
 > Timur
+>
+>
+> Since a distinction is already made in the code between digital and analo=
+g
+encoders, I would be tempted to go with the dce110_analog_link_encoder so
+it may be just easier/quicker to distinguish what this part of code does.
 
---0000000000005dc6e5063b783a63
+Alexandre
+
+--0000000000007aff0e063b78767f
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hi Timur,</div><div><br></div><div>I agree with you a=
-bout the coding style (the prefix), it was more of a general comment since =
-the style is inconsistent with some other parts in the DC code.</div><div><=
-br></div><div>If the code applies to any DCE version (even though it is unc=
-lear if any &gt; DCE 10 is in the field with a DAC), then it&#39;s good for=
- me. My only remaining concern would be about encountering one of those spe=
-cial GPU cards hardly testable. But this seems unlikely.</div><div><br></di=
-v><div>Alexandre</div></div><br><div class=3D"gmail_quote gmail_quote_conta=
-iner"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Aug 1, 2025 at 5:29=E2=
-=80=AFPM Timur Krist=C3=B3f &lt;<a href=3D"mailto:timur.kristof@gmail.com">=
-timur.kristof@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex"><br>2025. augusztus 1., p=C3=A9ntek d=C3=A1tummal Al=
-exandre Demers &lt;<a href=3D"mailto:alexandre.f.demers@gmail.com" target=
-=3D"_blank">alexandre.f.demers@gmail.com</a>&gt; ezt =C3=ADrta:<br>&gt;&gt;=
- Add stream encoders for DCE6-10 only, because there are definitely<br>&gt;=
-&gt; graphics cards with analog connectors out there with these DCE<br>&gt;=
-&gt; versions. I am not aware of newer ones.<br>&gt;<br>&gt;&gt; Considerin=
-g that all stream encoder functions currently have to do<br>&gt;&gt; with d=
-igital streams, there is nothing for an analog stream<br>&gt;&gt; encoder t=
-o do, making them basically a no-op.<br>&gt;&gt; That being said, we still =
-need some kind of stream encoder to<br>&gt;&gt; represent an analog stream,=
- and it is beneficial to split them from<br>&gt;&gt; digital stream encoder=
-s in the code to make sure they don&#39;t<br>&gt;&gt; accidentally write an=
-y DIG* registers.<br>&gt;&gt;<br>&gt;&gt; Signed-off-by: Timur Krist=C3=B3f=
- &lt;timur.kristof at <a href=3D"http://gmail.com" target=3D"_blank">gmail.=
-com</a>&gt;<br>&gt;&gt; ---<br>&gt;&gt; .../drm/amd/display/dc/dce/dce_stre=
-am_encoder.c | 14 ++++++++++++++<br>&gt;&gt; .../drm/amd/display/dc/dce/dce=
-_stream_encoder.h | 5 +++++<br>&gt;&gt; .../display/dc/resource/dce100/dce1=
-00_resource.c | 6 ++++++<br>&gt;&gt; .../amd/display/dc/resource/dce60/dce6=
-0_resource.c | 8 ++++++++<br>&gt;&gt; .../amd/display/dc/resource/dce80/dce=
-80_resource.c | 8 ++++++++<br>&gt;&gt; 5 files changed, 41 insertions(+)<br=
->&gt;&gt;<br>&gt;&gt; diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_s=
-tream_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c<b=
-r>&gt;&gt; index 1130d7619b26..f8996ee2856b 100644<br>&gt;&gt; --- a/driver=
-s/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c<br>&gt;&gt; +++ b/drivers=
-/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c<br>&gt;&gt; @@ -1567,3 +15=
-67,17 @@ void dce110_stream_encoder_construct(<br>&gt;&gt; enc110-&gt;se_sh=
-ift =3D se_shift;<br>&gt;&gt; enc110-&gt;se_mask =3D se_mask;<br>&gt;&gt; }=
-<br>&gt;&gt; +<br>&gt;&gt; +static const struct stream_encoder_funcs dce110=
-_an_str_enc_funcs =3D {0};<br>&gt;&gt; +<br>&gt;&gt; +void dce110_analog_st=
-ream_encoder_construct(<br>&gt;&gt; + struct dce110_stream_encoder *enc110,=
-<br>&gt;&gt; + struct dc_context *ctx,<br>&gt;&gt; + struct dc_bios *bp,<br=
->&gt;&gt; + enum engine_id eng_id)<br>&gt;&gt; +{<br>&gt;&gt; + enc110-&gt;=
-base.funcs =3D &amp;dce110_an_str_enc_funcs;<br>&gt;&gt; + enc110-&gt;base.=
-ctx =3D ctx;<br>&gt;&gt; + enc110-&gt;<a href=3D"http://base.id" target=3D"=
-_blank">base.id</a> =3D eng_id;<br>&gt;&gt; + enc110-&gt;base.bp =3D bp;<br=
->&gt;&gt; +}<br>&gt;<br>&gt; Since we are adding analog stream encoder supp=
-ort only up to DCE10, wouldn&#39;t it be better if the prefix &quot;dce100_=
-&quot; was used instead? I know there are a few functions in there that use=
- &quot;dce110_&quot; as prefix and are replaced by functions specific to th=
-e DCE versions that behave differently (we even have dce60_ and dce80_ in t=
-he current patch), but this seems off otherwise.<br>&gt;<br>&gt; IMO, if th=
-ie DCE code should be revisited, &quot;dce_&quot; should be the general pre=
-fix instead of &quot;dce110_&quot;, with &quot;dceXY_&quot; being specific =
-(as it is right now).<br>&gt; Alexandre<br><br>Hi Alexandre,<br><br>Two rea=
-sons:<br><br>1. As best as I can tell, all DCE versions use dce110_stream_e=
-ncoder regardless of its name. I agree that this is somewhat counter-intuit=
-ive but I wanted to follow the conventions in the rest of this file.<br><br=
->2. It is unclear which DCE versions actually have a DAC. On one hand there=
- is some conversation on this ML that suggests that Hawaii and newer don&#3=
-9;t have a DAC, which is apparently wrong. Looking at the register headers,=
- all DCE including the latest one have the DAC registers. Theoretically, if=
- there were newer GPUs with DAC, this code would work fine on them too.<br>=
-<br>If you are not happy with the code style, I respect that but I would li=
-ke if we tackled that separarely.<br><br>With these series, I want to just =
-focus on fixing things and getting DC to work on SI and CIK with the least =
-possible risk of breaking things.<br><br>Best regards,<br>Timur
-</blockquote></div>
+<div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Fri, Aug 1, 2025 at 6:02=E2=80=AFPM Timur =
+Krist=C3=B3f &lt;<a href=3D"mailto:timur.kristof@gmail.com">timur.kristof@g=
+mail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
+ft:1ex"><br><br>2025. augusztus 1., p=C3=A9ntek d=C3=A1tummal Alexandre Dem=
+ers &lt;<a href=3D"mailto:alexandre.f.demers@gmail.com" target=3D"_blank">a=
+lexandre.f.demers@gmail.com</a>&gt; ezt =C3=ADrta:<br>&gt;&gt; We support t=
+wo kinds of analog connections:<br>&gt;&gt;<br>&gt;&gt; 1. VGA, which only =
+supports analog signals:<br>&gt;&gt; For VGA, we need to create a link enco=
+der that only works with the<br>&gt;&gt; DAC without perturbing any digital=
+ transmitter functionality.<br>&gt;&gt; This is achieved by the new dce110_=
+analog_link_encoder_construct.<br>&gt;&gt;<br>&gt;&gt; 2. DVI-I, which allo=
+ws both digital and analog signals:<br>&gt;&gt; The DC code base only allow=
+s 1 encoder per connector, and the<br>&gt;&gt; preferred engine type is sti=
+ll going to be digital. So, for DVI-I<br>&gt;&gt; to work, we need to make =
+sure the pre-existing link encoder can<br>&gt;&gt; also work with analog si=
+gnals.<br>&gt;&gt;<br>&gt;&gt; Signed-off-by: Timur Krist=C3=B3f &lt;timur.=
+kristof at <a href=3D"http://gmail.com" target=3D"_blank">gmail.com</a>&gt;=
+<br>&gt;&gt; ---<br>&gt;&gt; .../drm/amd/display/dc/dce/dce_link_encoder.c =
+| 100 ++++++++++++++++++<br>&gt;&gt; .../drm/amd/display/dc/dce/dce_link_en=
+coder.h | 21 ++--<br>&gt;<br>&gt; I have the same comment about the use of =
+&quot;dce110_&quot; prefix under general/global DCE code that I left on the=
+ previous patch.<br>&gt;<br>&gt; For consistency with the current code, I u=
+nderstand why this prefix is used, but I&#39;d gladly clean this up once th=
+e patches have landed in if there is a common agreement.<br>&gt;<br>&gt; Al=
+exandre<br><br>Hi Alexandre,<br><br>With regards to the coding style. I alr=
+eady replied to your other thread about it, let&#39;s have that conversatio=
+n there.<br><br>With regards to the link encoders specifically. Due to DVI-=
+I, we need dce110_link_encoder to handle analog signals in addition to digi=
+tal, so the question about this part is, is there any need to have a separa=
+te dce110_analog_link_encoder? When I wrote the patch I felt yes, but now I=
+ feel maybe we should just let dce110_link_encoder handle VGA as well.<br><=
+br>What do you think about that?<br><br>Thanks,<br>Timur<br><br><br></block=
+quote><div>Since a distinction is already made in the code between digital =
+and analog encoders, I would be tempted to go with the dce110_analog_link_e=
+ncoder so it may be just easier/quicker to distinguish what this part of co=
+de does.</div><div><br></div><div>Alexandre</div></div></div>
 
---0000000000005dc6e5063b783a63--
+--0000000000007aff0e063b78767f--
