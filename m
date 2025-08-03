@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77783CA0EDA
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D27C4CA0ECB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8833110E403;
-	Mon,  4 Aug 2025 07:30:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4BB810E3FF;
+	Mon,  4 Aug 2025 07:30:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UmHvnWbs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NwaMrGZM";
 	dkim-atps=neutral
-Received: from mail-il1-f177.google.com (mail-il1-f177.google.com
- [209.85.166.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEE2310E4CB;
- Sun,  3 Aug 2025 03:59:33 +0000 (UTC)
-Received: by mail-il1-f177.google.com with SMTP id
- e9e14a558f8ab-3e3d31a9ac7so12935125ab.0; 
- Sat, 02 Aug 2025 20:59:33 -0700 (PDT)
+Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
+ [209.85.166.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A514410E4D7;
+ Sun,  3 Aug 2025 03:59:56 +0000 (UTC)
+Received: by mail-il1-f179.google.com with SMTP id
+ e9e14a558f8ab-3e3f0f29d09so9438325ab.2; 
+ Sat, 02 Aug 2025 20:59:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193573; x=1754798373; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193596; x=1754798396; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aX0wy3dIOkODQINpUya7i2089vNboqetAJr/ccri1K0=;
- b=UmHvnWbshc3G4Mrm8+DMaBm2CVy5bo63ZDeZCXf3rXiv61RuKczsSAf3RjuoxjeNl+
- o/O3MJHpiOnyNPWU6Vbpb5woegKfiWhQi6K8t1AmtHh3Qk0OFTGNNT/PSmHAZOP68ANl
- 1y5kNr16UA2bjOkPKSd1Ii0wTt06EPvepEWiBE3rAO40yao41aW1W89dyg6QaHj5Gbus
- FRECmoCOwNQuiZkplNilELyHLWpUPZGYZBJ1Zd9OcVROW6XuA72RP8oth9rJydycWtyT
- 08urwfLitbh76dpvpGPgmQJq5DaYPCwdBtsfnwYTIQ/VLPA4yBAIyGhF4Rj7jd4fScmn
- t3Zg==
+ bh=1ayWtPygJ2HBDiY24yxyRlwrUyqnG3sxcO8anqfHfeE=;
+ b=NwaMrGZMddoYWBdra2/DP7JD8uy1falHJ3NIRHv8pzvp6c1N0jlPvO7/weGV9Vragp
+ U3E3FAnzmCBcczMm4eNg+Y9+vuJOw3pnL8Tw91U3hg1R22FItW4IzYzLiUlgNWiyWq+n
+ S6jxsyShmcXUu3AVlrjV7XglCISIxD9+gr2+4ocvnobp6r0mplTwNbUFzdrb5e45B+fi
+ mf9dGC14ba77/t4mI9DBI9jI/Dm/IN+i3iVGWOraPdHBBt0kYHYjrfbBn5vEkMDkoyJr
+ 4NVBBs44yh3BouVyu9AClWleoc+HqIMOfC1DUBLlFeK62PfW0sTpBfL3lvxl6kvrS8+V
+ xQ7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193573; x=1754798373;
+ d=1e100.net; s=20230601; t=1754193596; x=1754798396;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=aX0wy3dIOkODQINpUya7i2089vNboqetAJr/ccri1K0=;
- b=akpQIqM/rqfE4IvkQBa6KqHUOwTTzKEeLkC7yCuMjvB6maoQWnZKCc/vNcEi2JQhXC
- HUVWkq0FVQI3zgvVpqmvxQhPAlEfj03J6GCKkqXN+TvmbidyAHFwD7k3bcXQ3rbEfe6X
- MUM4qOL9NVm+WHEftsaepGXdBXl7YLG9ak0IkYOjR3H+E4JM88Csfs4ZsgGhMvjNfypA
- XTdGJkpvjcv2glOZDdXdEz6VhqZsYx8foeufe4cTr7aqxhMwcicI3ttvTdtthDmJLO1Y
- uvUr7dc2/6WfSy/uZe+7D/aVWN4OtYl+H+4ZYzjDaSALMT7hMqi0hsCr+5Kt/0BZIfhZ
- 3j9w==
+ bh=1ayWtPygJ2HBDiY24yxyRlwrUyqnG3sxcO8anqfHfeE=;
+ b=EGR5Lz2uuzr2XP/dF2rFdjQ2yfyRcTdOkpb7ussyFsTUOWxySkcleQha+5MloKIu7B
+ OyzaXb/v6kWmOmZHErHWdMKj2yiHS+eTTWO+i/3B5hLb/AhGkhfa4yuY48mEcSpvGcVX
+ L6sCK6PL6PxTdA704sex7BjWtqS9hTWEAbuzTbgPn1+fbNICHKdg+h8MxA+P/TpmSZPP
+ ijEr9k0L9MDhJrE4JgEx9zF117vCsARCeihTyGnB1xHp+W4Tp9Z/uOrugOUJ7LmUpI8g
+ eHJTuaUpBne1Zg7XiA7kBWFngA6WV7Y5goefSDOo30zdfCdOndZl+WSKO/Di+6KuOhIk
+ Sheg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOhkCe7z82oGKRCafjx/UpA9fplibDl2CUTxBwdRNH4a5qXPqVMe8eT0NWo7E9b3j05TiBgg6GFs+V@lists.freedesktop.org,
- AJvYcCUvQZr2RPc+x+yB6utB+gxw26tG8iBPAtsuxVJFVr6S+yHBhGIjkS7l8QZb2ALjvVXhwDXQqn6uDKpH1zdrCg==@lists.freedesktop.org,
- AJvYcCWhsl+WRaspF8LKNKw/Hj/5mcUVm4Uu4H9GISOkxBH7fb8Iygp9H4HHSpkPW0Hw+Hn1TIDJqVli@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwxvyZZoa2kSZe80h9utjKIIpEsiMC9XwmxmCx6g84+8hiFBBhM
- 4l9UMfDgwGD+I4aOQ0Z+ymWsnEDXYpnrcnpknnPxp4CHRU2cCvwjGbag
-X-Gm-Gg: ASbGncsu0GZoAfEPKy7lNLLcF95QNwoZE+qxgylG7wRVO6B6pwTgQmuU7B6i92/X75z
- Dp27UeDl6zucTze3SNLewGs5211YKdgcbIIW6CDs3mizwbNkfSrXKWfICCnKZnCws+qBvfv9V0t
- k6xWjsqhSKLVYF5ZxwDRsz7aZ9zobvBqdcSPd88oQbpvrKXqbrdQR1Q2yUZ1KFhEEEEOvVyhHmS
- sHEyoOZD4Uunpou7c3UlkqTFwYSM9+K8CjyVWke7DRfQHSNOLHfb+JmNbeHsHQFhFNGAYm73NOM
- C/qtxI1fzO4q8Wq+zzCKboIGXYbz5eZHvStrOuQCKHu7FgB1Zmuebir76uH5+pKXcBoM4S7sewN
- AQNoD0EfpjeealS6VuMFOb37kW3vaD9b8y/Y8DjwAEAM7xZgCcxMa5eVP/IcoFeKJw3ZC/jArvJ
- y9UA==
-X-Google-Smtp-Source: AGHT+IGc+JsMKOicIj4OsJejzSDjbJADbBCmxpF9C67GucCVwf4NPItA66Nt3F/BJKgx0ySRSJwRNw==
-X-Received: by 2002:a05:6e02:228f:b0:3df:5333:c2ab with SMTP id
- e9e14a558f8ab-3e4163772c7mr75665075ab.17.1754193572894; 
- Sat, 02 Aug 2025 20:59:32 -0700 (PDT)
+ AJvYcCUo9k4ijcFgmobSqLUoM7XCYgNFsrsnOZyufe18hRtvLaI+QqFHGse9nZSSbvJ8H+9Qs75+bmhiLvZW9bl5bQ==@lists.freedesktop.org,
+ AJvYcCUqDltDmajz5ieUrdBwprSwcUVj9Y7oBkVY0TZGfzOYmDhwJU2vOS96n5z8iwjGpE+0W/5va/ul@lists.freedesktop.org,
+ AJvYcCXGMbQ9T4ev2D+WqZVflO4t0WqL5MCfxqb5yUPX6w4Ly+GV4aW3gPebAYihAYwA0bwD0dHxGbxwFgw7@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwbbyscI1i+5B4ZitoOyp24xJImeupL3kw3baEkif1U5K35mN7T
+ L5aIERPRNjArKsB8vACtcnPJ9N770GEZvJSUovT6vyu4JOe6y5p5xoNY
+X-Gm-Gg: ASbGncvZIivhStFsmPDEfUukVSl5w7EcwZkwC5Q4vU1WgMs2co6DTs2AScxZrF1APX7
+ 0K/x34caL1Z5mE+JPhEkhLnPYKNgLMMXLKIBqFJ9n48aJOyGJ6DODbM+PGoXK07X2C3nmevNwpx
+ kd07kBkXky7EuHcSllvxu1b8hJpmrd6ucpS8w2d7LWO9/XFRIW3s18Zc3RQ90cuA/euSGe7a0bX
+ 7eK++Xk2GuFXzgid0R/2anH1OevBDjenVW0h7o3P6DSQGaXtYsru0/EdwmSu0JS93zlpylCEXDa
+ MYW72DHwHhyrPQ/BtbiWx4L3mprFiNV9rnRgTWP7P9RBwhXfqzhVw9jV7kRn+yPuubcmo8r7DcI
+ 1Cdfpown8x6ovIvBqXNeV3fjoMIlkZzsTwZ0crZNfztfC9oAqgy8GTjo0XkTpyQmvIsOwXYwjPq
+ Pmo3KPNDlFLyZZ
+X-Google-Smtp-Source: AGHT+IE//iz8Ix/2Qpq304M23ozJJJm9YUKRCP4zX/GxkzB5VUsrG11JTXPFJK78GVVmx4p1MZOr2A==
+X-Received: by 2002:a05:6e02:3093:b0:3e4:6d6:b436 with SMTP id
+ e9e14a558f8ab-3e41618be54mr108220825ab.12.1754193595853; 
+ Sat, 02 Aug 2025 20:59:55 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.31
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:59:32 -0700 (PDT)
+ Sat, 02 Aug 2025 20:59:55 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -76,14 +76,21 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 40/58] drm-dyndbg: DRM_CLASSMAP_USE in drm_dp_helper
-Date: Sat,  2 Aug 2025 21:57:58 -0600
-Message-ID: <20250803035816.603405-41-jim.cromie@gmail.com>
+ linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com,
+ kernel test robot <lkp@intel.com>, Min Ma <min.ma@amd.com>,
+ Lizhi Hou <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v4 57/58] amdxdna: add -DDYNAMIC_DEBUG_MODULE to cflags - RFC
+Date: Sat,  2 Aug 2025 21:58:15 -0600
+Message-ID: <20250803035816.603405-58-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 04 Aug 2025 07:30:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -100,44 +107,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
+with DRM_USE_DYNAMIC_DEBUG=y now un-BROKEN
 
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
+for configs like:
 
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+  CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+  # CONFIG_DYNAMIC_DEBUG is not set
+  CONFIG_DYNAMIC_DEBUG_CORE=y
+
+this module gets macro breakage:
+
+                 from ../drivers/accel/amdxdna/aie2_ctx.c:8:
+../drivers/accel/amdxdna/aie2_ctx.c: In function ‘aie2_hwctx_restart’:
+../include/drm/drm_print.h:578:9: error: implicit declaration of function ‘_dynamic_func_call_cls’ [-Wimplicit-function-declaration]
+  578 |         _dynamic_func_call_cls(cat, fmt, __drm_dev_dbg,         \
+      |         ^~~~~~~~~~~~~~~~~~~~~~
+../include/drm/drm_print.h:663:9: note: in expansion of macro ‘drm_dev_dbg’
+  663 |         drm_dev_dbg(__drm_to_dev(drm), DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
+      |         ^~~~~~~~~~~
+../include/drm/drm_print.h:681:33: note: in expansion of macro ‘drm_dbg_driver’
+  681 | #define drm_dbg(drm, fmt, ...)  drm_dbg_driver(drm, fmt, ##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~~~
+../drivers/accel/amdxdna/amdxdna_pci_drv.h:15:41: note: in expansion of macro ‘drm_dbg’
+   15 | #define XDNA_DBG(xdna, fmt, args...)    drm_dbg(&(xdna)->ddev, fmt, ##args)
+      |                                         ^~~~~~~
+../drivers/accel/amdxdna/aie2_ctx.c:76:17: note: in expansion of macro ‘XDNA_DBG’
+   76 |                 XDNA_DBG(xdna, "hwctx is not ready, status %d", hwctx->status);
+      |                 ^~~~~~~~
+
+These sources include drm_print.h, which includes dynamic_debug.h and
+then checks DRM_USE_DYNAMIC_DEBUG, to decide if drm_dbg() rides on
+dynamic-debug underneath.
+
+DRM_USE_DYNAMIC_DEBUG is possible with DYNAMIC_DEBUG_CORE alone, but
+dynamic_debug.h also requires DYNAMIC_DEBUG_MODULE before defining
+those macros above.
+
+drm/Makefile adds this to cflags on behalf of all drivers, do so for
+this driver.  TBC: do subdir-cflags in drivers/accel/Makefile instead,
+for all accel/* modules.
+
+RFC: Maybe decouple from DRM, at least the DRM_USE_DYNAMIC_DEBUG
+itself (ie just CONFIG_DYNAMIC_DEBUG_CORE).  Its not obvious that
+XDNA_DBG should be categorized with DRM_UT_DRIVER by default.
+
+Do we need a new DRM_UT_ACCEL category ?
+
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202508012015.2l89ZOLg-lkp@intel.com/
+CC: Jason Baron <jbaron@akamai.com>
+CC: Min Ma <min.ma@amd.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>
+CC: Oded Gabbay <ogabbay@kernel.org>
+CC: dri-devel@lists.freedesktop.org
+CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+CC: Maxime Ripard <mripard@kernel.org>
+CC: Thomas Zimmermann <tzimmermann@suse.de>
+CC: David Airlie <airlied@gmail.com>
+CC: Simona Vetter <simona@ffwll.ch>
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ drivers/accel/amdxdna/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index ea78c6c8ca7a6..f296fb9de0aa9 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -43,17 +43,7 @@
+diff --git a/drivers/accel/amdxdna/Makefile b/drivers/accel/amdxdna/Makefile
+index 0e9adf6890a01..800f81f5a7023 100644
+--- a/drivers/accel/amdxdna/Makefile
++++ b/drivers/accel/amdxdna/Makefile
+@@ -1,5 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
  
- #include "drm_dp_helper_internal.h"
- 
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DRM_CLASSMAP_USE(drm_debug_classes);
- 
- struct dp_aux_backlight {
- 	struct backlight_device *base;
++ccflags-$(CONFIG_DYNAMIC_DEBUG_CORE) += -DDYNAMIC_DEBUG_MODULE
++
+ amdxdna-y := \
+ 	aie2_ctx.o \
+ 	aie2_error.o \
 -- 
 2.50.1
 
