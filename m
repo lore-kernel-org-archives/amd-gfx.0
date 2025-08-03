@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0983CCA0ECE
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37813CA0ED1
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 07:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA5F10E3E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6F8210E3ED;
 	Mon,  4 Aug 2025 07:30:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SzLDC3l2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lm9I2OBt";
 	dkim-atps=neutral
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
- [209.85.166.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0754D10E4DA;
- Sun,  3 Aug 2025 03:59:58 +0000 (UTC)
-Received: by mail-il1-f179.google.com with SMTP id
- e9e14a558f8ab-3e3f152700fso12489755ab.0; 
- Sat, 02 Aug 2025 20:59:57 -0700 (PDT)
+Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
+ [209.85.166.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFA010E4BE;
+ Sun,  3 Aug 2025 03:59:21 +0000 (UTC)
+Received: by mail-il1-f178.google.com with SMTP id
+ e9e14a558f8ab-3e3dbda56a5so9951315ab.2; 
+ Sat, 02 Aug 2025 20:59:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193597; x=1754798397; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193560; x=1754798360; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=p6zBJEgANuVffuY9NQJyHG8/+Xeax9coZJWuW6ZJ2WM=;
- b=SzLDC3l22MaKFjvgO5c5XhUoUqNGeRQ/Ps5dg6AjSI9kX2G+zT5+UUOoWFfylmvWB0
- 3iOvM9+UEmILWB8admPVOe6pa9Fdc6rjwJJsOlMco/CiahA4hJGbRmintJbPErNVktoy
- UtlJC1Bp67BwvkbpkzYP87IJw45AzO55biuL0rel1KaSXMvPl9isKXIaPxq8Xc79s2or
- MUNZ2aAN+YseUarIQJiUPYvvumTYFUUx8yYaK+2pzIrnmj284H12EXartEYn7nFScwnt
- YFOg64PfHoV1u2J2R7SCBh/glVhs1Sur7YemrRBQ3NBIAnMtFeeWo6eG1C7QQRGLuXrM
- DB8Q==
+ bh=QtM07pJzYNN+E8iBAeVUHbxcWX+I3Pz7zufEOWphlcs=;
+ b=Lm9I2OBtgZpEpcu/j6f4lFafUcH4dRXTSYXHrmI7fQHco/yW+KkLJ67Cl29lOpBzLr
+ sx5BeixQk94F7UUo5rNKVu3sstSa1ZW2sr59K9QeZxHlx1HWjtGndZZyyVEjh83WQYMU
+ VVSZk0TAAHapU1YXLT+B5zkPBggxSDoi7/wAN21ACh+8Tpqug9UNulZnqZwzMKar1Hat
+ gCMDyJsFke6a4QY4hXTEOjywD8duK4j5BF056dNA1/IqUhegwNh2FqKU3Z9yqwwehHmr
+ bfBB86Ure/qCZPbvWie/WgKDFTY6ytiCbtl7Wq/1owkhXdSmVEO3P2qB9rr67V0gLfqJ
+ 8ROA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193597; x=1754798397;
+ d=1e100.net; s=20230601; t=1754193560; x=1754798360;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=p6zBJEgANuVffuY9NQJyHG8/+Xeax9coZJWuW6ZJ2WM=;
- b=Nv8kTryvDn/SbfIlmEAf8Y3VbN5g+/PsUDWzeEvoPWcXvLfwiWXjjsSdTjIfQtzwOb
- aD69jPP977mXsmfSr6YmLDmXjRhxDnG/Rv89cNJZHjcv4d102Fk2KFs+0ASClNMGKaU3
- gEYM85uaWCOAQEWpZx1AFAWUZIz8yvn5/JcPvPpkShzH4kFYHNtL+IQnMnceHPq9SyP/
- sVIVDRTQ3MZfREFI7nKU65zgHAOyOem/Pl/J3Wr0TgteFc49pDqH06OrgpEz7J2xeR7Z
- DUvSlbHGJZIZs1ZfXb11MYGqREsqD8TM3sjbbdC3GcGPNNwooXrhvcFfAFAA7DqE58xU
- cONQ==
+ bh=QtM07pJzYNN+E8iBAeVUHbxcWX+I3Pz7zufEOWphlcs=;
+ b=a9OFuBBR9jTROjfvwXMxfYvzQn+79MlP6+hPnQ3QnzVHR2rg4b2xiRnfYsHRQOwTQG
+ 1c6Ljb/kZg1IeHl+njOyAXde+dVO8WxUdBs2nahvzqVzKCt/Kkira8RXi3fZWvJwTHrz
+ rokpvFcZfDuGnNVCHT7YsUJnbgz3moztOCvPK7pIYIU8NfTY3euUvxHH1Jv9aI1rnKTD
+ RdCzHCQMtwKFVygYSJLCGsMVGBfWoCFc1oHfX2ao3r+A4gihwZfHff4i5vUSo76qbN0h
+ 6tKM3eM2B84SDnsuFO4Ir6jv5F6F+JtOoXUKvbfmEiecjq8MAuYX1KMN2IMLgKDyF94Q
+ AjIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUcb3VnuyR9+Eyn1qD59X/gFrx9SoIlXNv7NAvvPAZ+vMdah85XLeMRXoBvtplMfHEwrxP/2SlcjWmQ2HCBpQ==@lists.freedesktop.org,
- AJvYcCW604kGVv+iu+7/Ezq+DBNnmqwvl9mNLAOXxsQGVp4dYSqXocL0pMOpYrYx/9RKzNv8UUcKUnfj@lists.freedesktop.org,
- AJvYcCWrPP+srOizS6ob5uKWpLFtpa7nlmI+r0QxOZujT6B6AOJxOUWsPc//YPasPn/Q/B7DIF3krJkfIsba@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzetdHpgcWFwSQaC7Asdeov3nDV1Gy+JxwEKWsTB1AcFP1aT93h
- ZaogkDMgTcijOBdeYCTU8N5SFPcWahhK0i/klMzpZ0TrVjfJ5I/t4YzV
-X-Gm-Gg: ASbGncujqbyJOwmzsOvGyeXWan/SZChgVSfhXjvHjdELDb5TdxGPa37bWIdo2n+QM6I
- iRlQE2nyCeG+nZ8LIwKNDVWw8zzNn1rBwxgzHtHKrPL3yLsSlrBjxHLqHUFjkuJYjNi3Dc598vI
- V9vNEy4GnKJBab5WZiETcgvNsJHE1L+nQ/bMy/LoWfIXg3Msp3Jskp8yyLz3pSeIkG3guHdabdx
- UoXea8g05ZrWMmQCgoa8w3Y+lNar+GfDQ10H94gh/YrxIPNaa0+RNVZhXG3/y6m6kE1kFfaq8DC
- 2IRoV7uVNTZLjvgppBbgytyqFHdhN00VQwnYlGjV451gEf13HKt+stVUo95zMB4m71Wote7eh7V
- 1Iwz9AW5ueTsF7iRg+hej8YavPn8Lju/1udLaXkkAKnnzt+wG9k4wImA8Q5RMm/MpWPvYZcP/od
- DwPnTynDTuy7Id
-X-Google-Smtp-Source: AGHT+IGUOgHvStYGi2AGuiva7QKSCj6X9DfG9+bxlaldERvaqq+8SW2QK11YiYCBPzmbmAT64CKkJw==
-X-Received: by 2002:a05:6602:6c01:b0:881:4a70:4651 with SMTP id
- ca18e2360f4ac-88168309e74mr805665539f.3.1754193597187; 
- Sat, 02 Aug 2025 20:59:57 -0700 (PDT)
+ AJvYcCUAuc3Jtyj6DDr6SRQkErHfC4Jknrpg6HSlOVIH1RBeEyFMg5BGfcMkrCvPtfJLpSB5a1jO56z89POSgp2+gw==@lists.freedesktop.org,
+ AJvYcCUfBSKjmAdiVT+xvOtGWML0ObWSgMF/jqQFJZS9ptFVMSSUbhwAxjDvmrqu1YS4czdJ4lKrRAgZ@lists.freedesktop.org,
+ AJvYcCVC7wnvL+dS9QVpkzevb75qKF0V2kIouGrnXlSsJqNmuIrs467LXTuBpVMoS1bw0tIB0JNtXQwD+tU6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzyKXP1flmxzh8CUSI+ELnUqb1PhuLxtfI4Oq4nA84Gz4sF5KjZ
+ U+n6F3BOkNeVkT1eaSPl9LmzJTy+5N+1LLt8tYGe7wG1PWmZ1tDNIKZn
+X-Gm-Gg: ASbGncvEk98Xgp/z5gU2sOhjTCcBPo/4bZaHx/kdX5uxqRUbtxO4GZr7uFYILojmw2M
+ oE4YVGg+1cgZFFFahnhTFe2AJ1+b04l4WUpARkDiC3UCDYHqS0y1H1+KAshjbwP7nPAkIbmnuxL
+ FkZ4Cn4txw9UMh7FRIqdSsPX41TSh1Hl0CA/GjQMI88tzi+4ARacepJjeZk/o6C6PEKHHalw5po
+ EsS6Z/wHPIv+CQd+KWR/z66+kZZ+PJN3uGFmYsWw6/7eb1CT+L6B8JARDOUVuzQN/YXT6mwTijS
+ k10PERDiDdV5YjDc4JfLMqEYjjOikN0EBNWteuiuONTOGDhFMvWXQLdJbY5cjBf9TuFNAQJLnec
+ sBOu1LnxIhZ+yuyKmciWCeoubSa0x2d7Mdu2Vxcwkk7HVUocMp/UyCSno00xrbs46YUw1AeTjjM
+ 96u8hkWHA/FD4TYbO8WaXiOmQ=
+X-Google-Smtp-Source: AGHT+IEkAFQydYpFJvb1kzqjmURuxfZ7yJ+hop2qWEkeOQ2xbV3exZjxsMe8uB4jwvdg4HEc9Ir9zQ==
+X-Received: by 2002:a05:6602:6206:b0:875:ba1e:4d7e with SMTP id
+ ca18e2360f4ac-8816832db31mr945512039f.6.1754193560218; 
+ Sat, 02 Aug 2025 20:59:20 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.55
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:59:56 -0700 (PDT)
+ Sat, 02 Aug 2025 20:59:19 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -77,10 +77,10 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 58/58] accel: add -DDYNAMIC_DEBUG_MODULE to subdir-cflags -
- RFC
-Date: Sat,  2 Aug 2025 21:58:16 -0600
-Message-ID: <20250803035816.603405-59-jim.cromie@gmail.com>
+Subject: [PATCH v4 31/58] dyndbg: add _DPRINTK_FLAGS_INCL_LOOKUP for +mfsl
+ flags
+Date: Sat,  2 Aug 2025 21:57:49 -0600
+Message-ID: <20250803035816.603405-32-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -101,72 +101,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently amdxdna uses drm_dbg, so it needs this cflag in order to
-compile; it currently gets the cflag from its own Makefile.
+dyndbg's dynamic prefixing can get expensive; each enabled callsite's
+prefix is sprintf'd into stack-mem, every time a pr_debug is called.
 
-If other accel modules want to use DRM.debug, they will need this flag
-too, so add it in accel/Makefile.
+A cache would help, if callsites mark _DPRINTK_FLAGS_PREFIX_CACHED
+after saving the prefix string.  But not just yet.
 
-NOTE: ivpu has its own CLASS-ish dbg system:
+_DPRINTK_FLAGS_INCL_LOOKUP distinguishes from _DPRINTK_FLAGS_INCL_ANY
+by selecting *only* module,file,function fields to compose the
+cacheable part of the (+tmfsl) dynamic prefix:
 
-./drivers/accel/ivpu$ grep IVPU_DBG_ *
-ivpu_drv.c:MODULE_PARM_DESC(dbg_mask, "Driver debug mask. See IVPU_DBG_* macros.");
-ivpu_drv.h:#define IVPU_DBG_REG	 BIT(0)
-ivpu_drv.h:#define IVPU_DBG_IRQ	 BIT(1)
-ivpu_drv.h:#define IVPU_DBG_MMU	 BIT(2)
-ivpu_drv.h:#define IVPU_DBG_FILE	 BIT(3)
-ivpu_drv.h:#define IVPU_DBG_MISC	 BIT(4)
-ivpu_drv.h:#define IVPU_DBG_FW_BOOT BIT(5)
-ivpu_drv.h:#define IVPU_DBG_PM	 BIT(6)
-ivpu_drv.h:#define IVPU_DBG_IPC	 BIT(7)
-ivpu_drv.h:#define IVPU_DBG_BO	 BIT(8)
-ivpu_drv.h:#define IVPU_DBG_JOB	 BIT(9)
-ivpu_drv.h:#define IVPU_DBG_JSM	 BIT(10)
-ivpu_drv.h:#define IVPU_DBG_KREF	 BIT(11)
-ivpu_drv.h:#define IVPU_DBG_RPM	 BIT(12)
-ivpu_drv.h:#define IVPU_DBG_MMU_MAP BIT(13)
-ivpu_drv.h:	if (unlikely(IVPU_DBG_##type & ivpu_dbg_mask))                         \
+-t  thread-id. not part of the "callsite" info, its from current.
+    doesn't belong in the cache. it would spoil it.
+    do it in outer: dynamic_emit_prefix()
 
-./drivers/accel/ivpu$ grep ivpu_dbg * | cut -f1,2 -d, | cut -d: -f2- | perl -pe 's/\s+/ /' | sort -u
-extern int ivpu_dbg_mask;
- if (unlikely(IVPU_DBG_##type & ivpu_dbg_mask))                         \
-int ivpu_dbg_mask;
- ivpu_dbg_bo(vdev, bo
- ivpu_dbg(vdev, BO
- ivpu_dbg(vdev, FILE
- ivpu_dbg(vdev, FW_BOOT
- ivpu_dbg(vdev, IPC
- ivpu_dbg(vdev, IRQ
- ivpu_dbg(vdev, JOB
- ivpu_dbg(vdev, JSM
- ivpu_dbg(vdev, KREF
- ivpu_dbg(vdev, MISC
- ivpu_dbg(vdev, MMU
- ivpu_dbg(vdev, MMU_MAP
- ivpu_dbg(vdev, PM
- ivpu_dbg(vdev, REG
-module_param_named(dbg_mask, ivpu_dbg_mask
-static inline void ivpu_dbg_bo(struct ivpu_device *vdev, struct ivpu_bo *bo
+-mfs  module, function, source-file
+    they are "lookups", currently to struct _ddebug fields.
+    could be accessor macros to "compressed" tables.
+    then they might be worth caching, ready for reuse.
 
-This looks readily convertible to a dyndbg classmap and controlling kparam.
+-l  line
+    this info could go either way.
+    I elected to include it in LOOKUP, so in cache/inner fn.
+    this makes cache larger but avoids sprintf %d each time.
+    smaller cache needs smarter key.
+
+All enabled together, they compose a prefix string like:
+
+  # outer -----inner----------------------
+  "[tid] module:function:sourcfile:line: "
+
+So this patch extracts _DPRINTK_FLAGS_INCL_LOOKUP flags-combo out of
+_DPRINTK_FLAGS_INCL_ANY, then redefs latter.
+
+Next re-refactor dynamic_emit_prefix inner/outer fns accordingly.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/accel/Makefile | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/dynamic_debug.h | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
-index a301fb6089d4c..e437549cba8ac 100644
---- a/drivers/accel/Makefile
-+++ b/drivers/accel/Makefile
-@@ -1,5 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 0f7476456614e..d64f13a7a7394 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -40,10 +40,11 @@ struct _ddebug {
+ #define _DPRINTK_FLAGS_INCL_SOURCENAME	(1<<5)
+ #define _DPRINTK_FLAGS_PREFIX_CACHED	(1<<7)
  
-+subdir-cflags-$(CONFIG_DYNAMIC_DEBUG_CORE) == -DDYNAMIC_DEBUG_MODULE
-+
- obj-$(CONFIG_DRM_ACCEL_AMDXDNA)		+= amdxdna/
- obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
- obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
+-#define _DPRINTK_FLAGS_INCL_ANY		\
+-	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
+-	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID |\
+-	 _DPRINTK_FLAGS_INCL_SOURCENAME)
++#define _DPRINTK_FLAGS_INCL_LOOKUP					\
++	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |	\
++	 _DPRINTK_FLAGS_INCL_SOURCENAME | _DPRINTK_FLAGS_INCL_LINENO)
++#define _DPRINTK_FLAGS_INCL_ANY						\
++	(_DPRINTK_FLAGS_INCL_TID | _DPRINTK_FLAGS_INCL_LOOKUP)
+ 
+ #if defined DEBUG
+ #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
 -- 
 2.50.1
 
