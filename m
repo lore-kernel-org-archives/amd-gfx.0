@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC74EC87FCF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 17:17:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8DAAC87FCB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 17:19:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F9EC10E360;
-	Mon,  4 Aug 2025 17:17:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74BFF10E179;
+	Mon,  4 Aug 2025 17:19:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lrHrqA8K";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mDpn+4Nr";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0BF310E360
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 17:17:10 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-240240f1478so9786175ad.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 10:17:10 -0700 (PDT)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6809810E179
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 17:19:28 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-32130f6cfbbso219131a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 10:19:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754327830; x=1754932630; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754327968; x=1754932768; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fEG+Z0RUFNyE68XDSCxSMirBktlz2o/elTXo9HkwFpw=;
- b=lrHrqA8K1tt4k4CKyFzseYCsY+vUBPojnjWQZG2utWGGRVBWvlkWpzMvZqVjOoMRTk
- k9acrndMYf7a5/uEUGbpdFoJaqwEynaGBDwhi+O+ePEIgdgckNSsIW1XVOkm6W29dbmk
- uWzxZkDko3rcRwRBq+6319Td2Xm0wgTdtzkakL2mwMEPfr9kwsfAHP3LIU3tUfU9yAmf
- 8RfkvxVKLZ2bU5pUY+MJmbVbSdmnxfJA//mwW9K02Pnc2Kepgv/O/odSzrWc9nwiparP
- +KtXxaNQMIRHFkto2kT+ct0Sd/kQBaKqAlrTYEMmERYzUBqxwfT1l0ibbnhFipv2BkML
- jjuQ==
+ bh=UyXkypvQ8K0ixFUVQwJ0ZzX6xWZKiFe5shuQDMHlUsM=;
+ b=mDpn+4Nr57iUTV3ZYnNdBqGgIJDt0lJJCHagX+yEavqe+5yrnYdLlT8nOQVC6E1tIJ
+ vngIieKU0+o7lE+gnzoYTGCiaBi4K1LV4oRjlxGScf15G7S5vr+JqWUe6f5spxqFROsG
+ 3nGPA5UH7ncU4t2DaOhbwFk6ebXFr8Kceoj0z4Tg3KZeWIRthGM3y8ZGPsLqCpMLcEEA
+ fEXfxWhZF7W6CoUw68wYWmsoSkp7zkz69f/DdxKD9snivnNDKbgPlzP99ldsFndOHPdi
+ k4anDoCOI5kJ0dDZ1nZkkPEHJaCCqOOyZyZOr9B8HNXjGyfwsn/VTIYVpD109x9ljams
+ ZGjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754327830; x=1754932630;
+ d=1e100.net; s=20230601; t=1754327968; x=1754932768;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fEG+Z0RUFNyE68XDSCxSMirBktlz2o/elTXo9HkwFpw=;
- b=ZMPNhAfzMqPDUmAv3vmeoDvUQdraJ5jAJuTB3vsYuInnl5KztsZVuVxNCEg5wU0vru
- 0kBhqc42W//ML3+zoHSLDu+ikR5p2fNJy7HHIAB1ftsdPGAwPR/0gxwCbcI1jxi4WQ7S
- RYpaEjqvTbViLZfponRUGnMhjK4b7BTI7kQeL+884QE5iZ5dUUoLCKFi62DB1I2F3Shu
- Cy2lo482eThmR0oSSyaqQQ9D/PlR30dYmCaCLbml6Zl9fRwQxJQZiE2m4qSvcXcFLx3D
- AfvHbU2E2u8tWZOZJkikDqXFmY0fXJw+jcVmbpEVFwn8ac7ysIslbk9eUmV2x399oJeq
- BMKA==
-X-Gm-Message-State: AOJu0Yw9uB//0pRHteMyAFsiUSwnGp74brUGXATny/TtK1ygJkMcmdYN
- V0xjxAjab5kWnynfAd1H/rsLbrBr+BA7jNuUFNUM8RPzAfLp46dV22ujXA7wUPFTly3h7RHMnl7
- CzXfIrFJECjUPLtKjHOk7WucZMV/ojwMjLnpQ
-X-Gm-Gg: ASbGncsGwuqpqvfUsZ+bnZz4CW7KFNAIvTN9fMAuMrMfR0FhehUPQ9vSVinQNkjRz7u
- n7qSNWcLqOESdGUsFVwS8WfbuVFXcG02fqieIicVn0/voqBazHIfu3t49WzkWisgt/8/6z+Vx9Z
- eZDZfH5T9NqJF2N2QQ8v4HOA/oEBlUa9lR73Yfx0DrkDw7cgJDRSCv+yM52Iw9qv07XwB8dmnhk
- 3NFC5sI
-X-Google-Smtp-Source: AGHT+IFpsVzM8OaGn7ygTRORgK9310GYmhM+/N3wL/UTAntxkbjj7UyqY4E/doaFWs+tZO7pPdrwQWyxR6biRQjc52c=
-X-Received: by 2002:a17:902:d2ca:b0:240:280a:5443 with SMTP id
- d9443c01a7336-24246f2d787mr58534465ad.3.1754327830276; Mon, 04 Aug 2025
- 10:17:10 -0700 (PDT)
+ bh=UyXkypvQ8K0ixFUVQwJ0ZzX6xWZKiFe5shuQDMHlUsM=;
+ b=eC44hU+de0qlcZvy6tGoh8I2TZjbsi3zkHEsOnEe4HYEORPZ6Zrl9iWhIz1Kni8yzQ
+ KaXRbJLSbZP3Be/Vqtj4+MdYiaURpfmE6jiTamYtbde+/NqKu8Bc595l1H2H+2f9ARNC
+ BeYBc37DFRjd/RwF+p6XHfniPAKegp87ijlHZkVfshZXwP1cyZQYI6vdWtGMQhP5io6B
+ TRNJdBiKqZYkk81jMrqPO8KGA62rA7SmopJrX+zWIv451lk2piicBxw1k/apiF7nQqgN
+ 1YAYk3tdESICKJ4payNMGSuMDMQFkRNLjJfsjOk5lSHRXQ8PjE+/kcgw2+CIQl+yH0EG
+ NRpA==
+X-Gm-Message-State: AOJu0Yzu2YkHsnqGLZqf2BH5zE348cac488BiPWKiX3xch2SNoA1HefP
+ CaAD5G6P4l5+wNlM+sQ6GmUpaByL15LJ3dgdN3BI0IMeBt6EpxbFIHNbxF8w2lR8p13+K9s2QYX
+ jAJCtxaoewGj/Nz00nPq1cKmK9joGEpEHW4hW
+X-Gm-Gg: ASbGncviAeDTQJ4R/GZByhQj4C4aqVVd6EKeqgmT1GvPNMdbQWLCBx5/K4FVtFJ7bLk
+ kvrUVBuWyNv5nuU9zgMKb/thYeIk6yZwpzamnoLPi2c0WqtCgc3M8Ctmw9sq9XCwjEXx3uHGl7G
+ VJ3ie40GEIsh0VNdwTE+5RYbBfnd133AuVw6zyqJcwFWQaGSazDOLgw6UumArH5LPUerpq2r8sN
+ t+kxXM2
+X-Google-Smtp-Source: AGHT+IHoVXz7Wof13wfaNq4JFFoUgzLc1hK/cLkQQzt2my2owV5N9SxfnY3Dm+Y3eytO/2AbY1/Rj41dYTUrYJEL7Ic=
+X-Received: by 2002:a17:90b:3887:b0:31e:ff94:3fae with SMTP id
+ 98e67ed59e1d1-321162a2892mr5864951a91.4.1754327967455; Mon, 04 Aug 2025
+ 10:19:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250804084029.863138-1-Jesse.Zhang@amd.com>
- <20250804084029.863138-8-Jesse.Zhang@amd.com>
-In-Reply-To: <20250804084029.863138-8-Jesse.Zhang@amd.com>
+ <20250804084029.863138-9-Jesse.Zhang@amd.com>
+In-Reply-To: <20250804084029.863138-9-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 4 Aug 2025 13:16:58 -0400
-X-Gm-Features: Ac12FXwbfNydTNUsvfiG-imGRxcBI9XBdf2n4gd2y4AJx3eQ1-EwBVCDkXKWg78
-Message-ID: <CADnq5_NOs_cmJBfUwFNP8J=_88B9+XxGbyC5DkRzq+bd8DmRbA@mail.gmail.com>
-Subject: Re: [v6 08/13] drm/amdgpu: adjust MES API used for suspend and resume
+Date: Mon, 4 Aug 2025 13:19:14 -0400
+X-Gm-Features: Ac12FXzoM_sr9a9iWvOXP69ndF9pVtqgIBsyGqxPkCsc0-pECUaWbyA0T6QRp-k
+Message-ID: <CADnq5_MOzVBUDjcimZ+tCXMA4a_h17tUm6U__sUkost6yn0_kg@mail.gmail.com>
+Subject: Re: [v6 09/13] drm/amd/amdgpu: Implement MES suspend/resume gang
+ functionality for v12
 To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian Koenig <christian.koenig@amd.com>
@@ -82,108 +83,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 4, 2025 at 4:41=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> wr=
+On Mon, Aug 4, 2025 at 4:48=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> wr=
 ote:
 >
-> Use the suspend and resume API rather than remove queue
-> and add queue API.  The former just preempts the queue
-> while the latter remove it from the scheduler completely.
-> There is no need to do that, we only need preemption
-> in this case.
+> This commit implements the actual MES (Micro Engine Scheduler) suspend
+> and resume gang operations for version 12 hardware. Previously these
+> functions were just stubs returning success.
 >
-> V2: replace queue_active with queue state
-> v3: set the suspend_fence_addr
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 51 ++++++++++++++++++++++
->  1 file changed, 51 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 44 ++++++++++++++++++++++++--
+>  1 file changed, 42 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index a871bac71e1e..8934d7113d58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -395,10 +395,61 @@ mes_userq_mqd_destroy(struct amdgpu_userq_mgr *uq_m=
-gr,
->         amdgpu_userq_destroy_object(uq_mgr, &queue->mqd);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v12_0.c
+> index 579720695e9e..9c86dfdef1bb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -569,13 +569,53 @@ static int mes_v12_0_unmap_legacy_queue(struct amdg=
+pu_mes *mes,
+>  static int mes_v12_0_suspend_gang(struct amdgpu_mes *mes,
+>                                   struct mes_suspend_gang_input *input)
+>  {
+> -       return 0;
+> +       union MESAPI__SUSPEND mes_suspend_gang_pkt;
+> +       int pipe;
+> +
+> +       memset(&mes_suspend_gang_pkt, 0, sizeof(mes_suspend_gang_pkt));
+> +
+> +       mes_suspend_gang_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
+> +       mes_suspend_gang_pkt.header.opcode =3D MES_SCH_API_SUSPEND;
+> +       mes_suspend_gang_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +
+> +       mes_suspend_gang_pkt.suspend_all_gangs =3D input->suspend_all_gan=
+gs;
+> +       mes_suspend_gang_pkt.gang_context_addr =3D input->gang_context_ad=
+dr;
+> +       mes_suspend_gang_pkt.suspend_fence_addr =3D input->suspend_fence_=
+addr;
+> +       mes_suspend_gang_pkt.suspend_fence_value =3D input->suspend_fence=
+_value;
+> +
+> +       if (mes->adev->enable_uni_mes)
+> +               pipe =3D AMDGPU_MES_KIQ_PIPE;
+> +       else
+> +               pipe =3D AMDGPU_MES_SCHED_PIPE;
+
+I think this should probably be AMDGPU_MES_SCHED_PIPE always.
+
+> +
+> +       return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+> +                       &mes_suspend_gang_pkt, sizeof(mes_suspend_gang_pk=
+t),
+> +                       offsetof(union MESAPI__SUSPEND, api_status));
 >  }
 >
-> +static int mes_userq_preempt(struct amdgpu_userq_mgr *uq_mgr,
-> +                            struct amdgpu_usermode_queue *queue)
-> +{
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       struct mes_suspend_gang_input queue_input;
-> +       struct amdgpu_userq_obj *ctx =3D &queue->fw_obj;
-> +       int r;
+>  static int mes_v12_0_resume_gang(struct amdgpu_mes *mes,
+>                                  struct mes_resume_gang_input *input)
+>  {
+> -       return 0;
+> +       union MESAPI__RESUME mes_resume_gang_pkt;
+> +       int pipe;
 > +
-> +       if (queue->state !=3D AMDGPU_USERQ_STATE_MAPPED)
-> +               return 0;
-> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_PREEMPTED)
-> +               return 0;
+> +       memset(&mes_resume_gang_pkt, 0, sizeof(mes_resume_gang_pkt));
 > +
-> +       memset(&queue_input, 0x0, sizeof(struct mes_suspend_gang_input));
-> +       queue_input.gang_context_addr =3D ctx->gpu_addr + AMDGPU_USERQ_PR=
-OC_CTX_SZ;
-> +       queue_input.suspend_fence_addr =3D queue->fence_drv->gpu_addr;
+> +       mes_resume_gang_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
+> +       mes_resume_gang_pkt.header.opcode =3D MES_SCH_API_RESUME;
+> +       mes_resume_gang_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +
+> +       mes_resume_gang_pkt.resume_all_gangs =3D input->resume_all_gangs;
+> +       mes_resume_gang_pkt.gang_context_addr =3D input->gang_context_add=
+r;
+> +
+> +       if (mes->adev->enable_uni_mes)
+> +               pipe =3D AMDGPU_MES_KIQ_PIPE;
+> +       else
+> +               pipe =3D AMDGPU_MES_SCHED_PIPE;
 
-You need to allocate a separate buffer for this.  You should also set
-the fence value we are waiting for.  The driver then needs to wait on
-this fence location to make sure the suspend is complete.  You can use
-a wb allocation similar to the status stuff in
-mes_v11_0_submit_pkt_and_poll_completion().
-
-I think you also need to specify the doorbell offset for the queue you
-want to target since this function is per queue.
-
-Alex
+I think this should probably be AMDGPU_MES_SCHED_PIPE always.
 
 > +
-> +       amdgpu_mes_lock(&adev->mes);
-> +       r =3D adev->mes.funcs->suspend_gang(&adev->mes, &queue_input);
-> +       amdgpu_mes_unlock(&adev->mes);
-> +       if (r)
-> +               dev_err(adev->dev, "Failed to suspend queue, err (%d)\n",=
- r);
-> +       return r;
-> +}
-> +
-> +static int mes_userq_restore(struct amdgpu_userq_mgr *uq_mgr,
-> +                           struct amdgpu_usermode_queue *queue)
-> +{
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       struct mes_resume_gang_input queue_input;
-> +       struct amdgpu_userq_obj *ctx =3D &queue->fw_obj;
-> +       int r;
-> +
-> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_HUNG)
-> +               return -EINVAL;
-> +       if (queue->state !=3D AMDGPU_USERQ_STATE_PREEMPTED)
-> +               return 0;
-> +
-> +       memset(&queue_input, 0x0, sizeof(struct mes_resume_gang_input));
-> +       queue_input.gang_context_addr =3D ctx->gpu_addr + AMDGPU_USERQ_PR=
-OC_CTX_SZ;
-> +
-> +       amdgpu_mes_lock(&adev->mes);
-> +       r =3D adev->mes.funcs->resume_gang(&adev->mes, &queue_input);
-> +       amdgpu_mes_unlock(&adev->mes);
-> +       if (r)
-> +               dev_err(adev->dev, "Failed to resume queue, err (%d)\n", =
-r);
-> +       return r;
-> + }
-> +
->  const struct amdgpu_userq_funcs userq_mes_funcs =3D {
->         .mqd_create =3D mes_userq_mqd_create,
->         .mqd_destroy =3D mes_userq_mqd_destroy,
->         .unmap =3D mes_userq_unmap,
->         .map =3D mes_userq_map,
-> +       .preempt =3D mes_userq_preempt,
-> +       .restore =3D mes_userq_restore,
->         .detect_and_reset =3D mes_userq_detect_and_reset,
->  };
+> +       return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+> +                       &mes_resume_gang_pkt, sizeof(mes_resume_gang_pkt)=
+,
+> +                       offsetof(union MESAPI__RESUME, api_status));
+>  }
+>
+>  static int mes_v12_0_query_sched_status(struct amdgpu_mes *mes, int pipe=
+)
 > --
 > 2.49.0
 >
