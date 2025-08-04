@@ -4,74 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 148F8C87FD1
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:34:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7578EC87FCF
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A775F10E562;
-	Mon,  4 Aug 2025 14:34:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C3610E583;
+	Mon,  4 Aug 2025 14:43:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MMvhJaKy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jquUNjxe";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAD3A10E562;
- Mon,  4 Aug 2025 14:34:05 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-b2700de85d0so408458a12.2; 
- Mon, 04 Aug 2025 07:34:05 -0700 (PDT)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4330910E583
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 14:43:05 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-32127d5f63eso156476a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 07:43:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754318045; x=1754922845; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754318584; x=1754923384; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ThPz4EG6ZmgX+GG9SQyYVrMb+M6NgBy3ZDuWSe5fSmc=;
- b=MMvhJaKyB6pEGXDKn5iggoRVsUiV7L1sWcvrwI3OGd1ssXDh81UFVYCtc0IQBZ6fka
- OauJgaTAbUmodZ6i4WzvLaEGDTWlBixHYIiYfdsP+frtOig2QJj+bOB5fVWxnJLtQXvO
- MN67aOkTZOgCTsbaeKiuTm7Ty7cmFPg9tYn03sK3ZVutvoAcT9x18vKVCLlJ4vODec/2
- cLGuAYM6cjvDEqER8HRGMgnKvHTekU8xy7n8tFmI7o+h7Nds/E3o0KXYNc7jB4hHpYZV
- 6cD4/YtwUb8Jn/y+22nvtNI4ZP7Kk+md5vx1uHpcPotWz966r0r4joOCX6VmP/HxaUmD
- 9r0w==
+ bh=mZew77Vq4pRHzqWzeExKnFv5JWynzaRBAaz121Z9QjY=;
+ b=jquUNjxeCiZeQfgYzq6x27rNisk2bJ7TizpaTz0pW4hafRYZMnliV7e/PLhXdEVq2e
+ o7g9vT22VovKmW5tEX98XQopz/CI8+Lf84y3jguP4657Gfl0sjdn8nGy6Ftaw71tm+JI
+ M/insZxG+euxtd1I5xwGbuwzQqjbzY2zSZgW5/LW6wnzhKBpHqcwxiI+8BMqHg/en/un
+ Yy7Gu0r/q4ZETkcUwO81XUFm7Yknwfe4nzxxlTv1Qu7wx7vrlWUYuBBZw+F7h7K0A2i6
+ vkS+GXMRkr2j/OtjXXfV1WDSc2IAOx9MmLarwlvhnQ207mKkt95CdQgC5zttGK2eCHHF
+ sOkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754318045; x=1754922845;
+ d=1e100.net; s=20230601; t=1754318584; x=1754923384;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ThPz4EG6ZmgX+GG9SQyYVrMb+M6NgBy3ZDuWSe5fSmc=;
- b=bRjDm3M4z2fZ7OOyNTxT/M/b1YT78i5G0p2g5uEyXvqJEBHltBOmgY15+mqweU3rP0
- HsPJR49NBFx3bWUvCiy/icejhfEEUFYtFAwLtqL/ekyeHY77gGkVe3SocTVsNEtZXeey
- MdStXmrBtb9AoMVHytXvnz3NBJby0yHhfJJcIGWm1VxFbv3Z46SFmexA1/w1xNOEWovT
- 6LE8m+suU+Te05yFYAgy3cZl7AG2Kfz3FzE+GohwISBz5pPyeruqWmx66EHHhqr1f7lI
- GLPo5iHHYxmFlrhn9j9oyK9GwetsUWeumg0ZObEHFyNQwjFJRVV8ZDKNV0yTF5wsi36w
- L28w==
+ bh=mZew77Vq4pRHzqWzeExKnFv5JWynzaRBAaz121Z9QjY=;
+ b=huTwCyO2ykFh/PVU011hDs1KWyyy4S40e+GOELtGPIrt/0166oY1x5L1Sr/WSg7ULC
+ vHCFt8VCdxYUjwV1oFvgt+bE1/6arG1NCAocXg2bTbqGPErVtLX6KmmEGyLrjd/mMZT6
+ dYc22b7GX6UEb8yL4wGhbNQV4koRbSHi0dA8WCraKMA0WWfP0maqROzY9EXFXMUHfytS
+ LDoUPttiok7HMCLetxyIqwnUoX7h36lRBqtlMfqlNx2jIXSjnXXbsLnU7YLsvqCrzPC0
+ DyHFjVkNLb+jWdUurPhtjVMCvioyCQkcKi1KvZlxhBi35R42PBh9ePI1rCGhMs7ZFXw3
+ 5bGw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUo6/ZoVbFPFsYLFPuChpC9eJse92WT6WwLxEGHdlF1BmPFbC5g50BM4ODaT8vm+FcWy/QevFAI@lists.freedesktop.org,
- AJvYcCWtKKLgC7HJ38C94D39SgZziVgteLTo8RfS1FkxhcGcne0H0DnsP8Bt2sVQmcyrZQYpj5Jmy1JdGons@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwhS0lW91MpAXAupx4ihngNAmkQM8oGiHDfon3mrmH3UU5LedFq
- inc4Jp9Pgv5XM2UmY+51xPpEOBP2IFlgIY7Ub2dYFBB/IFkF5AD0urReog9xNYawSnTlQcrxo8P
- XvS3chRQceDariV0n5To+AArt77XdplI=
-X-Gm-Gg: ASbGncvMBbK6nN785Ow9ZiXEKqw6S13oW7O99NmfBJI2pEL7A2NSky+VhR8nfl9AMpF
- NMTTll4lPOMAhUc37O7cgw1B9jL1hOZwuCenT8eUlod7JbICLly36Kb6pBOlLXXxubbkp1xcGFd
- Pi5bvzhF3OECc0LQe2rVsNzwapkc2GOhC2GZiGPL+0JdGXfGtg/Kw8ZeOpjJqmeYD7LdG/xCnwF
- vUuLa5T
-X-Google-Smtp-Source: AGHT+IH2SjTWTgUng0xb8MVNI07treE0Rf1uZrlyLZS28ps1VWH5GeUrd451Qm6fRobbn3ai1A5EuPF9RQCs85dAYm4=
+ AJvYcCX0vANRjGdNe9eui7H2m7wrR6ESGB4ZxvlQGZXbwOQx8p5s3155hozAe/tqecIRaajs6VxDEHux@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxSAOnwcveGN183LIq1u2GF886AU/C8ByV9ViC5MHB+Y3GOkxiy
+ /QjVcNP7YPKBTLfRhSF24GSdj7uxncL7dEROti3zN5gyu+K1SM2iq7xJW4PaiggBTFsL731BsYJ
+ 7PQHyF5bLCo5ZXMPiZqpoXRnRaVi9rB0=
+X-Gm-Gg: ASbGncuCeYlTw135rrzqmEOjv6QdTGFe2K6SUXv8j3UUlggZl/+VTzmVCNapuP/ls8y
+ H3uBpkVAQ4IET5uhUH5kMygFYXN49VMnAqXZ5yk6haHEFNnoG2CtR0Rvh1A5SI4jY8QDWxm+YzR
+ mHNjPnrirNDBxm44tHUj32xAr0Z307gXCnN4om1f4NLibjWmxNdHO936JOIXXfl8Q3EERvCGdiK
+ 9klYZgr+7U2O9IaaI8=
+X-Google-Smtp-Source: AGHT+IHVSj80KJwNH4YI+iqSzNiYfR/hb1veI0XP1yIqG04eqM6MQ5Qn77isDPYP1PCASf4K/gj2u5ROXPDRru7U58U=
 X-Received: by 2002:a17:90b:1804:b0:31f:55a7:6504 with SMTP id
- 98e67ed59e1d1-321162c71c9mr6274051a91.5.1754318045294; Mon, 04 Aug 2025
- 07:34:05 -0700 (PDT)
+ 98e67ed59e1d1-321162c71c9mr6290659a91.5.1754318584479; Mon, 04 Aug 2025
+ 07:43:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250801-amdgfxv9-v1-1-0b9670ab5509@ethancedwards.com>
-In-Reply-To: <20250801-amdgfxv9-v1-1-0b9670ab5509@ethancedwards.com>
+References: <CADnq5_PUi_2+kDYX8R_eanNF4iYN79MdXJ_PLcQbZKi6e4S8tg@mail.gmail.com>
+ <87F47F04-EBAC-48D6-AD0A-4BBE39DF43CE@xenosoft.de>
+ <1115cce7-cfdc-4c5b-b017-69cd32425650@xenosoft.de>
+ <6ba8d730-52f9-421f-8d8a-887545f0ceac@xenosoft.de>
+ <2cc83897-427d-47f4-b6a3-8db9682972cd@xenosoft.de>
+In-Reply-To: <2cc83897-427d-47f4-b6a3-8db9682972cd@xenosoft.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 4 Aug 2025 10:33:52 -0400
-X-Gm-Features: Ac12FXzEWmuF5wDSj54XY1blu563_2bdAIUexGomIzDirrtij04qOUL9B36nQoM
-Message-ID: <CADnq5_Nzia7kvqBYxVwnRASFHyWWDPPrA-qBsLH4OxP_S49L5Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx9: remove redundant repeated null checks
-To: Ethan Carter Edwards <ethan@ethancedwards.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel-janitors@vger.kernel.org
+Date: Mon, 4 Aug 2025 10:42:53 -0400
+X-Gm-Features: Ac12FXxHnqxgWPlbY24YJlBB8xzNoT512tqD7nkD3769V9O-pXqwC-E-XOiQyJg
+Message-ID: <CADnq5_OpJdbc4YKtV-9+5JyeKyqd4+irhT6OtFq_K9KJF24VSQ@mail.gmail.com>
+Subject: Re: radeon_fbdev_river_fbdev: failed to initialize framebuffer and
+ setup emulaton
+To: Christian Zigotzky <chzigotzky@xenosoft.de>
+Cc: ville.syrjala@linux.intel.com, Jeff Johnson <quic_jjohnson@quicinc.com>, 
+ "R.T.Dickinson" <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>, 
+ Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au, 
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Christian Zigotzky <info@xenosoft.de>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,66 +94,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Aug 2, 2025 at 4:33=E2=80=AFAM Ethan Carter Edwards
-<ethan@ethancedwards.com> wrote:
+On Sun, Aug 3, 2025 at 11:28=E2=80=AFAM Christian Zigotzky
+<chzigotzky@xenosoft.de> wrote:
 >
-> The repeated checks on grbm_soft_reset are unnecessary. Remove them.
+> Hello,
 >
+> I have the same issue on another machine either. Blank screen during the
+> boot. The Radeon graphics framebuffer device doesn't work anymore.
+>
+> Here is the modifed code from the DRM updates (drm-next-2025-07-30):
+>
+> -
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/di=
+ff/drivers/gpu/drm/radeon/radeon_fbdev.c?id=3D260f6f4fda93c8485c8037865c941=
+b42b9cba5d2
+> -
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/di=
+ff/drivers/gpu/drm/radeon/radeon_drv.c?id=3D260f6f4fda93c8485c8037865c941b4=
+2b9cba5d2
 
-Same comment as the gfx10 patch.  These are necessary.
+This change just bumps the driver version it shouldn't affect the fbdev.
+
+> -
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/di=
+ff/drivers/gpu/drm/radeon/radeon_display.c?id=3D260f6f4fda93c8485c8037865c9=
+41b42b9cba5d2
+> -
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/di=
+ff/drivers/gpu/drm/radeon/evergreen_cs.c?id=3D260f6f4fda93c8485c8037865c941=
+b42b9cba5d2
+
+This only affects acceleration, it should not affect fbdev.
+
+What chip are you using?  Can you attach your full dmesg output?  Can
+you bisect?  This cultrit could be a core drm change.
 
 Alex
 
-> Signed-off-by: Ethan Carter Edwards <ethan@ethancedwards.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 24 +++++++++++-------------
->  1 file changed, 11 insertions(+), 13 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_0.c
-> index 6a9cf3587cc6f0a0d00ab1c109fd599dd8aa2579..a6ff9a137a83a93cde0b0c9c9=
-e51db66374bcbee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -4175,19 +4175,17 @@ static int gfx_v9_0_soft_reset(struct amdgpu_ip_b=
-lock *ip_block)
->                 /* Disable MEC parsing/prefetching */
->                 gfx_v9_0_cp_compute_enable(adev, false);
+> Do you have a patch for reverting these modifications? I would like to
+> revert these modifications for testing.
 >
-> -               if (grbm_soft_reset) {
-> -                       tmp =3D RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-> -                       tmp |=3D grbm_soft_reset;
-> -                       dev_info(adev->dev, "GRBM_SOFT_RESET=3D0x%08X\n",=
- tmp);
-> -                       WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
-> -                       tmp =3D RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-> -
-> -                       udelay(50);
-> -
-> -                       tmp &=3D ~grbm_soft_reset;
-> -                       WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
-> -                       tmp =3D RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-> -               }
-> +               tmp =3D RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-> +               tmp |=3D grbm_soft_reset;
-> +               dev_info(adev->dev, "GRBM_SOFT_RESET=3D0x%08X\n", tmp);
-> +               WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
-> +               tmp =3D RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-> +
-> +               udelay(50);
-> +
-> +               tmp &=3D ~grbm_soft_reset;
-> +               WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
-> +               tmp =3D RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
+> Thanks in advance,
+> Christian
 >
->                 /* Wait a little for things to settle down */
->                 udelay(50);
->
-> ---
-> base-commit: b9ddaa95fd283bce7041550ddbbe7e764c477110
-> change-id: 20250801-amdgfxv9-30357749717e
->
-> Best regards,
-> --
-> Ethan Carter Edwards <ethan@ethancedwards.com>
+> On 03 August 2025 at 1:35 pm, Christian Zigotzky wrote:
+> > Hello,
+> >
+> > Xorg doesn't work after the DRM updates drm-next-2025-07-30.
+> >
+> > Error messages:
+> >
+> > [dr:.radeon_fbdev_river_fbdev_proe] *ERROR* failed to initialize
+> > framebuffer -22
+> > radeon 0000:01:0.0: [drm] *ERRO* fbdev: Failedto setup emulaton (ret=3D=
+-22)
+> > brd module loadedm
+> > lop: module loadd
+> > mpt3ss version 52.10.00.00 loaded
+> > nve nvme0: pci fuction 0002:04:0.0
+> > fsl-sata ffe20000.sata: SataFSL Platform/CS Driver init
+> > scs host0: sata_fs
+> > ta1: SATA max DMA/133 irq 68 pm-pol 0
+> > ;21;39mfsl-sat ffe221000.sata Sata FSL Platfrm/CSB Driver iit
+> > ata1: Signatue Update detectd @ 0 msecs
+> > scsihost1: sata_fsl[0m
+> > ta2: SATA max UMA/133 irq 69 lm-pol 0
+> > nvme nvm0: 4/0/0 defaul/read/poll queus
+> > nvme0n1: p1 p p3 p4 p5 p6 p7[0m
+> > drm:.radeon_fbdv_driver_fbdev_robe] *ERROR* filed to initialze
+> > framebuffer 22
+> > fsl_dpaa_mac fe4e6000.ethernt: of_get_mac_adress(/soc@ffe00000/
+> > fman@40000/ethernet@e6000 failed
+> > radeon 000:01:00.0: [dr] *ERROR* fbdev Failed to setu emulation (ret-22=
+)
+> > fsl_dpaa_ma ffe4e6000.ethenet: FMan MEMAC[0m
+> > sl_dpaa_mac ffee6000.ethernet:Using random MA address: 0e
+> >
+> > Could you please check the latest DRM updates?
+> >
+> > Thanks,
+> > Christian
+> >
 >
