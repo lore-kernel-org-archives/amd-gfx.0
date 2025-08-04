@@ -4,77 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC5FC87FD1
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 13:42:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 540C3C87FCF
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:16:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5232410E545;
-	Mon,  4 Aug 2025 13:42:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAED510E09A;
+	Mon,  4 Aug 2025 14:16:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fnV+xuPN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O23p0X7n";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD8EA10E53E
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 13:42:02 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-458bc3ce3beso11755125e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 06:42:02 -0700 (PDT)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9FE010E09A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 14:16:23 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-b3510c22173so499113a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 07:16:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754314921; x=1754919721; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1754316983; x=1754921783; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tsC/qgiY+Z2JJJsgXTIx3HSug3pvIom3Qzy91d2FNw0=;
- b=fnV+xuPNHMW4pNM9sqSSJxsMrRpdlSLZmGTzkJQ30OZOVoXWGFmIi9Fxdw95dTXpBk
- bH6iw8O88Q6HXb90S3zMnYjNbMj0yOaEJ6su86xYQrDxFUrHGKwlJJJ6Nkgi/DZxbRxv
- vl9Ncd+5K/PqA4jV/IDnUlQAD3zFDP/JZrfeS62PRs7kKXO4tPScYsR1pEIKAmLEHOe9
- 8j/wZlImZd7nDR2mGEg1mkiupwJGPI9zPqcUB1aL/V1qRFYuaA/WTAXHMN1/Ym02nVTE
- yOfQMDylppq/k0s5Ilb84vT4/epQ2RoeynW2Kq8PizoEWYUlvSALLVFB7zwnywwcZhyb
- z9sw==
+ bh=TmvTMUm/ICs/ahFcRTrwKfKZlA+J5p75DnclZMp8JVE=;
+ b=O23p0X7n6UPwXDz/INsqhYyf8h0TepAWHOrvx1xG/bGjnEBMNiObSlfZcNIi2VjB/9
+ LYqF5juLldZ+n4GiJAoMI8SZYSHWcA8BDomr6EPo2V8fOMMlLGn2OgkkZMKweuAcFiX5
+ N7iNWGx9/3Uqtfsbl/11cJp/79G87rz2nlRrUBr2V8vqdZ59thqTeScJty0j2s5S+mf1
+ RQXu9BsPuV6MEb+tUfUgpBRr25wngv/zk9oSOpo+W2/6so7m2gv98Cz4wjE03L0+y4FK
+ BX8btNZuClsaDJNqIGAKhPBGgWG9Ll9uvUMKw1ZwCGLtuajBzMQTap2tHaDPrWwh/b54
+ EgZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754314921; x=1754919721;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1754316983; x=1754921783;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tsC/qgiY+Z2JJJsgXTIx3HSug3pvIom3Qzy91d2FNw0=;
- b=n+TZ2Q0MJwyVcCAu1dYGoGXX/FuB4x6OkCBwXC+rkHmQQYwYc5+zP0hol88iLwjbt8
- YgBkPaqdLLq7kHSNpy8IOJlWAXtAMgpeJTiwA+BFpIduyVfNZck3XNGYB+UQZnKOr1Pf
- 2KcDlAqMvFChn13J6NjxUW9AZ3ReZjKLtGuQ1tCD1/Tz4HHEGORgq2NfxEQc27WHiFcx
- qpLDqKFCeQrq7sN5RXhm4/NpHKYo/3UaCI9T6pmgcXmkJ+zHTrUqEJkY+7sjYbSd/hdJ
- EUz4OLxR3W5a1aRbh5g5PgfrZmNOpS3qzMUDh48oupHbEqwAJzDh0tJpuExMVNzuH3ck
- DLHw==
-X-Gm-Message-State: AOJu0Yy92YxDy2tXwn4RCRhsH/J1Vw2cA4KQvrBuc5v7NKfYGyhSbTX4
- WjVRMA8czk/F8/Wb+Y3bZqBgj1KYpJieoWXTZqvZAimelRa5nl5/izDxFai6CA==
-X-Gm-Gg: ASbGncvDrJ9w2K2RoVDXgVStLSVaNdH5FnHjwF1lU3C6QXK3Ge+uV4N2U2ExJpuJgPm
- GL0KNx9Klyc5OOE6M/TJmI9Mzij1AFRc93Wgp+GuTokxoeFXmg0Cr6j+nhCIk5RFM1v1CBdvTqD
- OUCdOicRnwrtcRzY+z/vKg0ibJ/qIjpWhP88PjM9v422INCEAmbK5GG7LRLSKJTstKGH159AUja
- WpBYWggUyDrcLo7pAOaCgas+hInsBpcbc85iMvUJQHGA3MLgtWxH34vdhDhdXBvgc7febbTMOcK
- dkl5CTe7+UrZDE93/xYUuC/9zkz32Q/zoEeHeEXX9RjbtDp1ghuZlxQUtn8wU/J4plVz7ZeMwE1
- Wilq3/nlwUcMGqVn6rosUK/DI2o0hY1mTfTwY4axSXX9DLYo2diUZxqgyLWvtHB8zEhoBy9cTnj
- sNs50z3EV8aH9fd0hhmeL+wk88cyc2zvz5Boci
-X-Google-Smtp-Source: AGHT+IEKdW4PFtlARBbwfxSfq5EzUvGA54tHVLaD+8oKpOhxoKhzlrxVX1WkBhB5W43erBk9kOl5iQ==
-X-Received: by 2002:a05:6000:420b:b0:3b7:90c7:3277 with SMTP id
- ffacd0b85a97d-3b8d94708d4mr6887836f8f.17.1754314921195; 
- Mon, 04 Aug 2025 06:42:01 -0700 (PDT)
-Received: from Timur-Hyperion.home
- (20014C4E24DABD00A4734C1D2078832B.dsl.pool.telekom.hu.
- [2001:4c4e:24da:bd00:a473:4c1d:2078:832b])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4589ee621adsm172056395e9.30.2025.08.04.06.42.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Aug 2025 06:42:00 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 6/6] drm/amd/pm: Fix SI DPM issues with high pixel clock
-Date: Mon,  4 Aug 2025 15:41:54 +0200
-Message-ID: <20250804134154.95875-7-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250804134154.95875-1-timur.kristof@gmail.com>
-References: <20250804134154.95875-1-timur.kristof@gmail.com>
+ bh=TmvTMUm/ICs/ahFcRTrwKfKZlA+J5p75DnclZMp8JVE=;
+ b=jqVoFnkFzxGxHC785QqmnB49qFoW4IkDBhUhrpY/yaffTZ8j8/MuZi0zg6r/5yp/BZ
+ 9xU06bDHpwSV06S9r8P5/drF4H7hkuiUUbf42zRXp4tzZ/KtrcsV0v0RAQqq13aXceml
+ IWCehMHTP3ekTbH6gfZxG718ab4dslKV3zKoRRK6622obxO/M/usryAYZeYu5JhYUm8Z
+ iMp59NkVYfx1hXwyBBy1+vO8ZieiubGB5uQfPT5s6e0Th4YrfPLrx5SlcUTcfqFhahHj
+ q+4Jgz5ROgwhvjL5yXeRAkWbWkodC30YirfdfD6W7Z3iJYn9asVZx6KwRKge/j53etRQ
+ 3TSA==
+X-Gm-Message-State: AOJu0YyNtQLoH6oe7MfExYJeYrtc4gHBdVHpn7Nc3BtNk1GxlLhSM9t7
+ eaTfXeBBpzjeArdm0ccDHq+OvQaqQ90lx5MzXv7x87t3R35WJa6mzIWpBIBgUAi1DmFl+ZZO3Ba
+ AQ7h//mhyvqXWZt8GDOzyA7dFYIJsnJs=
+X-Gm-Gg: ASbGncsIxSvTZPigEGGdJU3hNBkkl/yEZSp+KrFsUrCpmgjo2LqTRPCZMrDkksTGVo4
+ NetR6d3NhInI67EUJchEnubAcqYcS9CT2MeMr+PQxQO0wpFF1ANiWnP8SqSdFMDS+2Bmn69phSW
+ 6Oc5731afBMWZ5QFEX4bL3h2tl9aQ4W+sz2Nn2rC7jmtPtF0UrDPwR7ot+jAyACZjYKDlO0MIoZ
+ s1x4yVn
+X-Google-Smtp-Source: AGHT+IEq9ico+45e/lWfZTSuRxPqOjzXQJMO2yAHWmdAa65USJLAotkgDCF+yqF+5AE4SZTACL6/e7N5WK72/jKfKNA=
+X-Received: by 2002:a17:902:ef4e:b0:240:729c:a022 with SMTP id
+ d9443c01a7336-24246fef45bmr57133095ad.11.1754316983052; Mon, 04 Aug 2025
+ 07:16:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250730155900.22657-1-alexander.deucher@amd.com>
+In-Reply-To: <20250730155900.22657-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 4 Aug 2025 10:16:11 -0400
+X-Gm-Features: Ac12FXwJy7sUb93YuMFGFJPMXM7DzaATuAsXfBApHodn4ZPc1FpuDIyjdvdjb4g
+Message-ID: <CADnq5_NtBWyQozzv2wih6cp7Ado+nBf7hd_N+oGXsd0H_JadKg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/discovery: fix fw based ip discovery
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,89 +80,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We define "high pixelclock" for SI as higher than necessary
-for 4K 30Hz. For example, 4K 60Hz and 1080p 144Hz fall into
-this category.
+Ping?
 
-When a high pixel clock display is connected, always disable
-memory clock switching to solve some flickering that can be
-observed on Tahiti and Pitcairn on 4K 60Hz displays.
+Alex
 
-When two high pixel clock displays are connected to Oland,
-additionally disable shader clock switching, which results in
-a higher voltage, thereby addressing some visible flickering.
-
-Ideally, these issues would be solved by introducing something
-like dce_calcs, but we don't have that for old GPUs, so
-ad-hoc fixes become necessary.
-
-Fixes: 841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 37 ++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-index e9f034ade214..7bfe39a7d653 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-@@ -3443,12 +3443,14 @@ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
- {
- 	struct  si_ps *ps = si_get_ps(rps);
- 	struct amdgpu_clock_and_voltage_limits *max_limits;
-+	struct amdgpu_connector *conn;
- 	bool disable_mclk_switching = false;
- 	bool disable_sclk_switching = false;
- 	u32 mclk, sclk;
- 	u16 vddc, vddci, min_vce_voltage = 0;
- 	u32 max_sclk_vddc, max_mclk_vddci, max_mclk_vddc;
- 	u32 max_sclk = 0, max_mclk = 0;
-+	u32 high_pixelclock_count = 0;
- 	int i;
- 
- 	if (adev->asic_type == CHIP_HAINAN) {
-@@ -3476,6 +3478,41 @@ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
- 		}
- 	}
- 
-+	/* We define "high pixelclock" for SI as higher than necessary for 4K 30Hz.
-+	 * For example, 4K 60Hz and 1080p 144Hz fall into this category.
-+	 * Find number of such displays connected.
-+	 */
-+	for (i = 0; i < adev->mode_info.num_crtc; i++) {
-+		if (!(adev->pm.dpm.new_active_crtcs & (1 << i)) ||
-+			!adev->mode_info.crtcs[i]->enabled)
-+			continue;
-+
-+		conn = to_amdgpu_connector(adev->mode_info.crtcs[i]->connector);
-+
-+		if (conn->pixelclock_for_modeset > 297000)
-+			high_pixelclock_count++;
-+	}
-+
-+	/* These are some ad-hoc fixes to some issues observed with SI GPUs.
-+	 * They are necessary because we don't have something like dce_calcs
-+	 * for these GPUs.
-+	 */
-+	if (high_pixelclock_count) {
-+		/* High pixelclock displays need higher memory bandwidth.
-+		 * Disable memory clock switching in order to:
-+		 * - Solve visible display flickering
-+		 * - Avoid starving other clients of the memory controller
-+		 */
-+		disable_mclk_switching = true;
-+
-+		/* On Oland, we observe some flickering when two 4K 60Hz
-+		 * displays are connected, possibly because voltage is too low.
-+		 * Raise the voltage by requiring a higher SCLK.
-+		 */
-+		if (high_pixelclock_count > 1 && adev->asic_type == CHIP_OLAND)
-+			disable_sclk_switching = true;
-+	}
-+
- 	if (rps->vce_active) {
- 		rps->evclk = adev->pm.dpm.vce_states[adev->pm.dpm.vce_level].evclk;
- 		rps->ecclk = adev->pm.dpm.vce_states[adev->pm.dpm.vce_level].ecclk;
--- 
-2.50.1
-
+On Wed, Jul 30, 2025 at 12:18=E2=80=AFPM Alex Deucher <alexander.deucher@am=
+d.com> wrote:
+>
+> We only need the fw based discovery table for sysfs.  No
+> need to parse it.  Additionally parsing some of the board
+> specific tables may result in incorrect data on some boards.
+> just load the binary and don't parse it on those boards.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4441
+> Fixes: 80a0e8282933 ("drm/amdgpu/discovery: optionally use fw based ip di=
+scovery")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  5 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 72 ++++++++++---------
+>  2 files changed, 41 insertions(+), 36 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index efe98ffb679a4..b2538cff222ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2570,9 +2570,6 @@ static int amdgpu_device_parse_gpu_info_fw(struct a=
+mdgpu_device *adev)
+>
+>         adev->firmware.gpu_info_fw =3D NULL;
+>
+> -       if (adev->mman.discovery_bin)
+> -               return 0;
+> -
+>         switch (adev->asic_type) {
+>         default:
+>                 return 0;
+> @@ -2594,6 +2591,8 @@ static int amdgpu_device_parse_gpu_info_fw(struct a=
+mdgpu_device *adev)
+>                 chip_name =3D "arcturus";
+>                 break;
+>         case CHIP_NAVI12:
+> +               if (adev->mman.discovery_bin)
+> +                       return 0;
+>                 chip_name =3D "navi12";
+>                 break;
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_discovery.c
+> index 81b3443c8d7f4..27bd7659961e8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -2555,40 +2555,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_=
+device *adev)
+>
+>         switch (adev->asic_type) {
+>         case CHIP_VEGA10:
+> -       case CHIP_VEGA12:
+> -       case CHIP_RAVEN:
+> -       case CHIP_VEGA20:
+> -       case CHIP_ARCTURUS:
+> -       case CHIP_ALDEBARAN:
+> -               /* this is not fatal.  We have a fallback below
+> -                * if the new firmwares are not present. some of
+> -                * this will be overridden below to keep things
+> -                * consistent with the current behavior.
+> +               /* This is not fatal.  We only need the discovery
+> +                * binary for sysfs.  We don't need it for a
+> +                * functional system.
+>                  */
+> -               r =3D amdgpu_discovery_reg_base_init(adev);
+> -               if (!r) {
+> -                       amdgpu_discovery_harvest_ip(adev);
+> -                       amdgpu_discovery_get_gfx_info(adev);
+> -                       amdgpu_discovery_get_mall_info(adev);
+> -                       amdgpu_discovery_get_vcn_info(adev);
+> -               }
+> -               break;
+> -       default:
+> -               r =3D amdgpu_discovery_reg_base_init(adev);
+> -               if (r) {
+> -                       drm_err(&adev->ddev, "discovery failed: %d\n", r)=
+;
+> -                       return r;
+> -               }
+> -
+> -               amdgpu_discovery_harvest_ip(adev);
+> -               amdgpu_discovery_get_gfx_info(adev);
+> -               amdgpu_discovery_get_mall_info(adev);
+> -               amdgpu_discovery_get_vcn_info(adev);
+> -               break;
+> -       }
+> -
+> -       switch (adev->asic_type) {
+> -       case CHIP_VEGA10:
+> +               amdgpu_discovery_init(adev);
+>                 vega10_reg_base_init(adev);
+>                 adev->sdma.num_instances =3D 2;
+>                 adev->gmc.num_umc =3D 4;
+> @@ -2611,6 +2582,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_d=
+evice *adev)
+>                 adev->ip_versions[DCI_HWIP][0] =3D IP_VERSION(12, 0, 0);
+>                 break;
+>         case CHIP_VEGA12:
+> +               /* This is not fatal.  We only need the discovery
+> +                * binary for sysfs.  We don't need it for a
+> +                * functional system.
+> +                */
+> +               amdgpu_discovery_init(adev);
+>                 vega10_reg_base_init(adev);
+>                 adev->sdma.num_instances =3D 2;
+>                 adev->gmc.num_umc =3D 4;
+> @@ -2633,6 +2609,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_d=
+evice *adev)
+>                 adev->ip_versions[DCI_HWIP][0] =3D IP_VERSION(12, 0, 1);
+>                 break;
+>         case CHIP_RAVEN:
+> +               /* This is not fatal.  We only need the discovery
+> +                * binary for sysfs.  We don't need it for a
+> +                * functional system.
+> +                */
+> +               amdgpu_discovery_init(adev);
+>                 vega10_reg_base_init(adev);
+>                 adev->sdma.num_instances =3D 1;
+>                 adev->vcn.num_vcn_inst =3D 1;
+> @@ -2674,6 +2655,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_d=
+evice *adev)
+>                 }
+>                 break;
+>         case CHIP_VEGA20:
+> +               /* This is not fatal.  We only need the discovery
+> +                * binary for sysfs.  We don't need it for a
+> +                * functional system.
+> +                */
+> +               amdgpu_discovery_init(adev);
+>                 vega20_reg_base_init(adev);
+>                 adev->sdma.num_instances =3D 2;
+>                 adev->gmc.num_umc =3D 8;
+> @@ -2697,6 +2683,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_d=
+evice *adev)
+>                 adev->ip_versions[DCI_HWIP][0] =3D IP_VERSION(12, 1, 0);
+>                 break;
+>         case CHIP_ARCTURUS:
+> +               /* This is not fatal.  We only need the discovery
+> +                * binary for sysfs.  We don't need it for a
+> +                * functional system.
+> +                */
+> +               amdgpu_discovery_init(adev);
+>                 arct_reg_base_init(adev);
+>                 adev->sdma.num_instances =3D 8;
+>                 adev->vcn.num_vcn_inst =3D 2;
+> @@ -2725,6 +2716,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_d=
+evice *adev)
+>                 adev->ip_versions[UVD_HWIP][1] =3D IP_VERSION(2, 5, 0);
+>                 break;
+>         case CHIP_ALDEBARAN:
+> +               /* This is not fatal.  We only need the discovery
+> +                * binary for sysfs.  We don't need it for a
+> +                * functional system.
+> +                */
+> +               amdgpu_discovery_init(adev);
+>                 aldebaran_reg_base_init(adev);
+>                 adev->sdma.num_instances =3D 5;
+>                 adev->vcn.num_vcn_inst =3D 2;
+> @@ -2751,6 +2747,16 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_d=
+evice *adev)
+>                 adev->ip_versions[XGMI_HWIP][0] =3D IP_VERSION(6, 1, 0);
+>                 break;
+>         default:
+> +               r =3D amdgpu_discovery_reg_base_init(adev);
+> +               if (r) {
+> +                       drm_err(&adev->ddev, "discovery failed: %d\n", r)=
+;
+> +                       return r;
+> +               }
+> +
+> +               amdgpu_discovery_harvest_ip(adev);
+> +               amdgpu_discovery_get_gfx_info(adev);
+> +               amdgpu_discovery_get_mall_info(adev);
+> +               amdgpu_discovery_get_vcn_info(adev);
+>                 break;
+>         }
+>
+> --
+> 2.50.1
+>
