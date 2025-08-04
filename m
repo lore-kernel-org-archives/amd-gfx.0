@@ -4,60 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4625C87FCB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:43:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42A07C87FCF
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:55:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5050989364;
-	Mon,  4 Aug 2025 14:43:46 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id DE04589364
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 14:43:44 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5C02322BE
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 07:43:36 -0700 (PDT)
-Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2D17E3F738
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 07:43:44 -0700 (PDT)
-Date: Mon, 4 Aug 2025 15:43:12 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 0/8] drm: writeback: clean up writeback connector
- initialization
-Message-ID: <aJDHAF69VOEHwcKO@e110455-lin.cambridge.arm.com>
-References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9D6910E00F;
+	Mon,  4 Aug 2025 14:55:36 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XfcxO7cz";
+	dkim-atps=neutral
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5303610E00F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 14:55:35 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-b350c85cf4eso509369a12.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 07:55:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754319335; x=1754924135; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=L9ag/xvJNK9FJlxGchf91rK9nnb+w66rFV4LrQzA80Y=;
+ b=XfcxO7czRWrRT71Vw8oPeYjnGVIW+iqx/bCdAVxpPNesiZ56b8oHmk/GQvi9o/qP08
+ xo6+La/+mck/7dDXnHdWG3+CYQZWcYxuF1LJNbuB71o+PPIyiJC/BuYTAfYUZ+HY5E5U
+ 5mG1kJfh8b2IP4x5jAPdU1UezbV5gMyM+TIrX8ZIE7pT7AzD//0Aj8WZy/tNPQa0xzyE
+ knjpZ+guKA7sASn51cRXGlHONYAtiwwhl+/O0lN9UBBBLQmK1kcv818MqmUGJdWmk5VG
+ /uDCk3S5lc8Q8UFyXBARZAtwYLiuZB9Pv0cOsF+JvD8oDHNRJgDQXKJQzIgahorPhE3Y
+ cZJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754319335; x=1754924135;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=L9ag/xvJNK9FJlxGchf91rK9nnb+w66rFV4LrQzA80Y=;
+ b=bXnL1PcLiVQ2/+2btSfD7i3weonjqgPx7KvyBVuynJAfCnACv8Ksxqb8npI4L2Q5Kw
+ K7MB68SEkd8pk1Qjt6mYxpAWDiSS/Ige0LXfaSR8qdG1VcbtIcJ/u3O1QxgGj/gOiAJ/
+ ZHsoRq22LMv+Wkh5EvcDfFsxWBYaPcj/rluLJmv5GMKUOZibdiu4AnCoW5kIhSFm6vqu
+ 0mk7M0UcLoFaVS3Si8w6l0hGlwQ8/eoGz9ebVpVhZSQpE46om5WdwOitLJ9R85cAAH1+
+ doRHHTN1KxVoNc+jIepKpFn7B0u2JVluvQoVOGIrNsZxqvXIpPlAZM1qqwrhThipJTF+
+ LTZg==
+X-Gm-Message-State: AOJu0YzsKEOn49JjgEm/RaCKLNAGUMASsNjKZmqsS+sEqwkJp1a6W/hN
+ w9MFCmfhyQxCUb2kZaKJ2hkf+vYLaeBk1AUpHKS22tXS8YYYiP3qkxBOyGx569eoNd+mUwhIjjZ
+ 3ZIXoBY5R96bwrHAD3hIhZLdLZRk8KxQ=
+X-Gm-Gg: ASbGncs+qtj09hYOTCHVQUtmYpA4dYXMkJ6DGFQeZgpp8J1dhty56eoJVtmpPofojoo
+ w6Ng+LZsY3jX8PvXgstZCAHg1/jySNdmj7dc+MHCIV24uwdV7dO2+aOIH+LV7d+RzOOWe8gyLnU
+ WXIlvbCslftwFocza9kvUvfwyhoCdQFhOA+R0WPfqHy0UZM0GkfJivt2ULzg6HyrRtwz/vPSxCD
+ f2sPPus
+X-Google-Smtp-Source: AGHT+IHpcu4bIE/OBBqla+4XOCscN1zE2fLtU2gSprnY9n+DGQWTJ3mSU0569U91KAI+L2U7C7KV6SvlG+fHHKh4unc=
+X-Received: by 2002:a17:90b:1d03:b0:31f:ea:ca84 with SMTP id
+ 98e67ed59e1d1-321161e12c3mr6200233a91.2.1754319334648; Mon, 04 Aug 2025
+ 07:55:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
+References: <20250803022731.2033153-1-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250803022731.2033153-1-alexandre.f.demers@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 4 Aug 2025 10:55:22 -0400
+X-Gm-Features: Ac12FXwfPk0kxOzhfwYXf0lMRC_y8tJvCn3jQUFjgdxz5aw9MU1NSLJSdW-nIs0
+Message-ID: <CADnq5_MZ3pZxv2GwmzCiW3k8o8XweB8kYDR5o+EtgfC2=81fMw@mail.gmail.com>
+Subject: Re: [PATCH] amdgpu doc: Remove VCE support as OLAND's features
+To: Alexandre Demers <alexandre.f.demers@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,81 +80,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Applied.  Thanks!
 
-On Fri, Aug 01, 2025 at 04:51:08PM +0300, Dmitry Baryshkov wrote:
-> Drivers using drm_writeback_connector_init() / _with_encoder() don't
-> perform cleanup in a manner similar to drmm_writeback_connector_init()
-> (see drm_writeback_connector_cleanup()). Migrate all existing drivers
-> to use drmm_writeback_connector_init(), drop
-> drm_writeback_connector_init() and drm_writeback_connector::encoder
-> (it's unused afterwards).
-> 
-> This series leaves former drm_writeback_connector_init_with_encoder()
-> (renamed to drm_writeback_connector_init as a non-managed counterpart
-> for drmm_writeback_connector_init()). It is supposed to be used by
-> drivers which can not use drmm functions (like Intel). However I think
-> it would be better to drop it completely.
+Alex
 
-The intent of _init_with_encoder() was to be a special case for drivers
-that use their own specific encoder and the rest use the generic function
-that creates the virtual encoder inside the call. The API for
-_init_with_encoder() was actually introduced 4 years after the original
-patch, so that should give a hint.
-
-drmm_writeback_connector_init() is more like _init_with_encoder() and
-I don't remember reviewing it, so I'm not sure why that was considered
-to be the better behaviour for the managed version. Now you're moving
-all the drivers to the managed version and you have to duplicate code
-in each driver to create the ENCODER_VIRTUAL encoder.
-
-I'm not against the changes being made in the series, I just want to
-see a better justification on why _init_with_encoder() behaviour is
-better than the previous default that you're removing.
-
-Best regards,
-Liviu
-
-
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Sat, Aug 2, 2025 at 10:38=E2=80=AFPM Alexandre Demers
+<alexandre.f.demers@gmail.com> wrote:
+>
+> OLAND doesn't support VCE at all, but it does support UVD (3 or 4,
+> depending of the sources).
+>
+> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 > ---
-> Dmitry Baryshkov (8):
->       drm/amd/display: use drmm_writeback_connector_init()
->       drm/komeda: use drmm_writeback_connector_init()
->       drm/mali: use drmm_writeback_connector_init()
->       drm/msm/dpu: use drmm_writeback_connector_init()
->       drm/msm/dpu: use drmm_writeback_connector_init()
->       drm/vc4: use drmm_writeback_connector_init()
->       drm: writeback: drop excess connector initialization functions
->       drm: writeback: rename drm_writeback_connector_init_with_encoder()
-> 
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   | 18 ++++--
->  .../drm/arm/display/komeda/komeda_wb_connector.c   | 30 ++++++----
->  drivers/gpu/drm/arm/malidp_mw.c                    | 25 ++++----
->  drivers/gpu/drm/drm_writeback.c                    | 69 +++-------------------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      | 10 +---
->  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++---
->  drivers/gpu/drm/vc4/vc4_txp.c                      |  9 ++-
->  include/drm/drm_writeback.h                        | 22 +------
->  9 files changed, 77 insertions(+), 131 deletions(-)
-> ---
-> base-commit: 94f208ff622b09309358abaf26d7acca0c318fae
-> change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
-> 
-> Best regards,
-> -- 
-> With best wishes
-> Dmitry
-> 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+>  Documentation/gpu/amdgpu/dgpu-asic-info-table.csv | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv b/Document=
+ation/gpu/amdgpu/dgpu-asic-info-table.csv
+> index d2f10ee69dfc..f4dde71b5654 100644
+> --- a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
+> +++ b/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
+> @@ -1,7 +1,7 @@
+>  Product Name, Code Reference, DCN/DCE version, GC version, VCN version, =
+SDMA version
+>  AMD Radeon (TM) HD 8500M/ 8600M /M200 /M320 /M330 /M335 Series, HAINAN, =
+--,  6, --, --
+>  AMD Radeon HD 7800 /7900 /FireGL Series, TAHITI, DCE 6, 6, VCE 1 / UVD 3=
+, --
+> -AMD Radeon R7 (TM|HD) M265 /M370 /8500M /8600 /8700 /8700M, OLAND, DCE 6=
+, 6, VCE 1 / UVD 3, --
+> +AMD Radeon R7 (TM|HD) M265 /M370 /8500M /8600 /8700 /8700M, OLAND, DCE 6=
+, 6, -- / UVD 3, --
+>  AMD Radeon (TM) (HD|R7) 7800 /7970 /8800 /8970 /370/ Series, PITCAIRN, D=
+CE 6, 6, VCE 1 / UVD 3, --
+>  AMD Radeon (TM|R7|R9|HD) E8860 /M360 /7700 /7800 /8800 /9000(M) /W4100 S=
+eries, VERDE, DCE 6, 6, VCE 1 / UVD 3, --
+>  AMD Radeon HD M280X /M380 /7700 /8950 /W5100, BONAIRE, DCE 8, 7, VCE 2 /=
+ UVD 4.2, 1
+> --
+> 2.50.1
+>
