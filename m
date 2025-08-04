@@ -4,69 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D84C87FCB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 15:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E422C87FCB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 15:43:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F37310E594;
-	Mon,  4 Aug 2025 15:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F33D10E5A7;
+	Mon,  4 Aug 2025 15:43:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y1SbeSs8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LN3ivJNF";
 	dkim-atps=neutral
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7395510E594
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 15:33:24 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-b350c85cf4eso514897a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 08:33:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754321604; x=1754926404; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=N0GwzgqhVbFZD2jUokUudYKiZ+5INPhDFnP12OF82tg=;
- b=Y1SbeSs8838gviItF4GTPyJ6EKSvlQWcHmg6kdd9nnaP2XxILBbjcBOjVrAbQe1E8Q
- t3UvsPPh1e08QOyPPQNXrOLhiNpydvrxzBQ+BW+vSs1rjglePoiv1cPaY7W3fVmP02wK
- Z0DL5n7P8hLEylUmiDtnOQihg+03P2ALnj+rX2qggH5gEVuwtAnXiyNJBcsJdaOQFxg0
- IA+l0JeQFPwM1go3oMJGV/usFvkdnqsDQCSk98l8wjtm9NC7JE/ZxFy8oyT8NIoldPaf
- 9s24wDvqPZyMrw5X3plxDDTBqRh9v2a378gcou7WIzA89EDKuNHCLTuWfs/mpoci9iJn
- J4iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754321604; x=1754926404;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=N0GwzgqhVbFZD2jUokUudYKiZ+5INPhDFnP12OF82tg=;
- b=jRHFwdq2FrdMvHOuwL204D5Wau499AIIAZI8oxHxCDVktqBlj4iJmTZ54n8eiVjlDd
- Plsgxt+3zJmsqrUdZDfIDRWJ/CI4Cb+IoueOPs+wk7PAWagmFiZdTjVoIj6KKxphvUjO
- MyoFs5c1yaRA+GsmR7+F0g8bta+wlSHMkCbLtW3hI6xOp84H8UZeDq41K/chAIVMXY2y
- BCC46abYNrfIaMozIZ5zEIhm44BD6BFi49LBpxiqGvBdeFTaVfpggKblsQKX3p4GRRCG
- jtJ33IYjfT4AIjtoa8wpm3MGvw6MUZumMJTUqFiqogXWbsPh0KWRjsDZqX5HcnKjsIDP
- N4vw==
-X-Gm-Message-State: AOJu0YyE6fMOSVa55UyEEYSrnqSV4kpG8fAeZpLzm+vmMOD8DfT/UR3m
- 2VDbCFpWW9IXS8rLC21ypSK0KwmIFiMjfJG3dvzzcCQ+ld/EIH8JRdAom+wWXxwtsyRPbMKDeEv
- LXJCWjG3U9+2Csq5/EgNkzuiyeRSGbIQ=
-X-Gm-Gg: ASbGncu0zWgoOkAl7BU1pPXNTDnzzicV2BXbmKUTMsY9zWRKSu9EjFOUbKec/tHIKKQ
- JupKIV41szpOhrvaAYQIDJClyb7KiWSxsvbtSQ5/mf1p8YPDW1i83gAIR/h8i8whGSgzr8q+CPv
- r1seIPLHWU17xvEwQOyxIrtzq9J3f/vJA0AYijpxMzwLU2l1UIHkqtoc4WP9rZ9XZQ0lxZVpesU
- XnIPrCO
-X-Google-Smtp-Source: AGHT+IHl/BXUTL/JpLxFh0OAwTOt1cwH/A1CAan7PyRT0WVTtLyES0gjI4G0CK96v5kkes7KnmpD3X1S6w1qdrZDg4U=
-X-Received: by 2002:a17:90b:1c10:b0:312:e9d:4001 with SMTP id
- 98e67ed59e1d1-321162d2568mr5330372a91.8.1754321603633; Mon, 04 Aug 2025
- 08:33:23 -0700 (PDT)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1059610E5A5
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 15:43:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jGFaDD7TKK1Ez1VpIfPv+PP3JdAdvUXY3ncBaRC44JogCxQ+Jr6U//TJiiwhGOoAx+wBiYlw2stDfUgm+7IM4U/SxGt9qogHF/LXkG3Ec4GZHJV9SSZni3IM4cuz19cmorvMOC/6U5SQYyCiJ+omo8fkHHX8Zda2sULuFR25gXZZprA6EgVlMq8gvtXDE6VW/9n3lJSdAjDgkXbAt99K//Zjd+g/ycVXX2rpX4f05HSYdHNZJzR89B9e5bdf/rjOKecPncvXvIHfLf7S5k6tfEv/XPFXO3XyBi+O8ehBYn6iM/WHENu87mHV5k7tqHnZ7tnvWXnXh0+dul9opELh8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xzaq3CWUF9dRxVVUk//M5KJ9HXPPVRNgmrsjCFT7erE=;
+ b=jbzHeH4Q/rvmaOq7pSyFBiaANgws+2BFqHeLTIOO7+Mijq7e34jDLu2LXz8Z5ripFNSD6SDGW1mUajgUk18d5EAkiMuv3Ue6+bcPfgkMc7Z054YZwKsHozcqwuVNzwFRRuXlNuUVFtQoc71mDs2lDOJLNC6jeZIGK9B8rX6lvLaWSUoDHqiob9N82cCrfocY/n42o9HgUe5qNxIH1VASzIevOMh89nVb6B1Yh4UQ7ARMErZ8fK4T5rE9v+XM8QP0RWRVGg3gOE6vN1e76c4T65bday+KJspIU+bnahWswdN5JYAVaVVkEvHBPLuFrfXwEdDcRhPloMgWZnf/tFIaHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xzaq3CWUF9dRxVVUk//M5KJ9HXPPVRNgmrsjCFT7erE=;
+ b=LN3ivJNF+xYA3wdgoTadkxa42hbbdArsPSwwmFwHSrlwBJVMvFMxBrr/CTRTUPy9LFBjEj6vhhlkgWb78PCrNPTz68Ajc8q64bqfWZyFyb8Nn7A3Qo8yRURXZTLZRJP0vXKsiS3LJE/3ZtZ2lD8HYQ6JEdzuKSBUehlChH1dTEA=
+Received: from SCVP298CA0002.CHLP298.PROD.OUTLOOK.COM (2603:10d6:300:14e::12)
+ by LV5PR12MB9825.namprd12.prod.outlook.com (2603:10b6:408:2ff::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.18; Mon, 4 Aug
+ 2025 15:43:26 +0000
+Received: from SJ1PEPF00001CE0.namprd05.prod.outlook.com
+ (2603:10d6:300:14e:cafe::fd) by SCVP298CA0002.outlook.office365.com
+ (2603:10d6:300:14e::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.27 via Frontend Transport; Mon,
+ 4 Aug 2025 15:43:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE0.mail.protection.outlook.com (10.167.242.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9009.8 via Frontend Transport; Mon, 4 Aug 2025 15:43:25 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 4 Aug
+ 2025 10:43:22 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: add missing vram lost check for LEGACY RESET
+Date: Mon, 4 Aug 2025 11:43:08 -0400
+Message-ID: <20250804154308.1173304-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-References: <20250804134154.95875-1-timur.kristof@gmail.com>
- <20250804134154.95875-6-timur.kristof@gmail.com>
-In-Reply-To: <20250804134154.95875-6-timur.kristof@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 4 Aug 2025 11:33:12 -0400
-X-Gm-Features: Ac12FXwCxI4k785LnvBGd5yZQq7mLBHajxXABqkKuP1E947ZRr1rDMczWdh70YM
-Message-ID: <CADnq5_PXfjhGGWdfRuVz=0QqZq7U32_VGpsNeuTpTH82Xx8_sg@mail.gmail.com>
-Subject: Re: [PATCH 5/6] drm/radeon: Fix si_upload_smc_data
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE0:EE_|LV5PR12MB9825:EE_
+X-MS-Office365-Filtering-Correlation-Id: 457ed3d3-7f23-4ac8-c150-08ddd36da66a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?C4RosCpwy39C6yJRgrX3q373lhUoli+6XnkgKF+reZoa9Lr1miIA9xjTCs6R?=
+ =?us-ascii?Q?r4q7fYDTAGcOdAGXIjoLdbsF8yu7srFSxzYtM6wlolEUCuCRhUMH1/f79CH2?=
+ =?us-ascii?Q?10wedIbZvPIr0lyFxBJ5PBB1g7OyyiiW+gjaxQBhTZN53GN8SdiZlQmXDh80?=
+ =?us-ascii?Q?SOCT2Y+aSGPUa8SpCEpT4iyuGrk3mXspZUQTUA0tL81vm/oxGJP3MeYsINuw?=
+ =?us-ascii?Q?YqTqMtOG9N+DO9yWyAMKkj+vVfyZS/Agp4CdWun5igBh2+Ui96BFAjZZxDjc?=
+ =?us-ascii?Q?b5n5CkmWJR+A/uG+jQVA/POvy8xsTCZJ0iDW8Oo9DhsmODjHBUUZ9z+E7gAM?=
+ =?us-ascii?Q?DQyOE10zBnqwMPQUXhWZlsUb5osT5WNqlPrD8aycX7Ew1/6Wzz+ziKfNelDx?=
+ =?us-ascii?Q?3ATluTWGhV2DCN7nBMilQEWCYN9dI+iFaTVkEer0CHIMuOvZV3rO0SO5Ae0h?=
+ =?us-ascii?Q?ZpxXF40eJ7PfHwHWwAcJ8MNrZUvegbmbwTeCBxwNg4j9F5HFjCJhWusv+SdB?=
+ =?us-ascii?Q?8f+cRHpHGjYJ7aIiGABihfTsbHy1TwPQFWhXqSMkJFswbBcjNXUyx1IdUMsf?=
+ =?us-ascii?Q?ytHMZ6ib4Uw5q9jseqp0vH1MCWGDG5vf97IR/Sx0fz79746lNZyJpSlRavj/?=
+ =?us-ascii?Q?PW93FbvZfikEwm9C6fJKCX6k+y97PTUs1fKfeFIJZedQiOtTLsvcNq3dQJs1?=
+ =?us-ascii?Q?x/50nq5RfTzZayY9Tie4osH+a8ZHc2Ys8xP5myYbYxCwxV1QiSSObpzKSudo?=
+ =?us-ascii?Q?8RcKfB5jEgvsotNdThDLsYkBapNj0DkcARblhQWUJDVrjo2nUkzP/CJozg+x?=
+ =?us-ascii?Q?hMF7lW10ptpmuSCug48iWw7YSrZE05QwlpqlIsB6urALbE3OxSzozy5p6mIT?=
+ =?us-ascii?Q?T8f2ux07K2xxwmagw8soyWbSCF1GP5MkRxSdvJ99DnZl925rSewwVpjiIIgo?=
+ =?us-ascii?Q?olPawnIUIuXRNUTTFp8PrImI0qaWqLniOJdYLqVY7Fwyxv1tIv6kpzs+wAZ3?=
+ =?us-ascii?Q?zlf1jQiDUTuDWTVu71IxdOoEPfdEsBxGg1/spYRojtt5TfKiOE7m+ZtdsQ1y?=
+ =?us-ascii?Q?tESlsDeFUEKj5f+r4JpvoFL5K4pT2PMDDPal2740xqptXAEgEqKd5V9p7+sf?=
+ =?us-ascii?Q?SkBQkhjnU/JkPAYOFy+l0O6ApSYF4eEeopkVW0VMdL42oqu7T2OQ/GBZ6CI8?=
+ =?us-ascii?Q?lmwBv72wtJmY91tm4vPn5D4bjoPqTsHdLzr83HBBpRx7tDRMFPM4fY83WQBW?=
+ =?us-ascii?Q?0TkB9bLtJvXRbmmakE18oDbQfzftmokjv+mYbiJoy0+bNy4ggFJ+EA9lqIk1?=
+ =?us-ascii?Q?xO+KC/ywX9/ZS2CeWLgMx+OlUusmJachaFCynXpIMJbWIWo1y0qy5NTRZ6QJ?=
+ =?us-ascii?Q?JfqRscAweAWocqeOAy3q2375EnPsU7XugheayVXBTCwj+GtFQJXdEJgaobtx?=
+ =?us-ascii?Q?a4dMXogQvsic0RbngpFKGsIcD3PgwMBLGk0v7nxh94XBflQJcRyCmQ/BSlSG?=
+ =?us-ascii?Q?TNxlMIvihHwSH9bjgIcqhJbAdqRafRHzzPI9?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2025 15:43:25.2030 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 457ed3d3-7f23-4ac8-c150-08ddd36da66a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9825
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,96 +130,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 4, 2025 at 9:48=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@gm=
-ail.com> wrote:
->
-> Backport of the fix to the same amdgpu issue.
->
-> The si_upload_smc_data function uses si_write_smc_soft_register
-> to set some register values in the SMC, and expects the result
-> to be PPSMC_Result_OK which is 1.
->
-> The PPSMC_Result_OK / PPSMC_Result_Failed values are used for
-> checking the result of a command sent to the SMC.
->
-> However, the si_write_smc_soft_register actually doesn't send
-> any commands to the SMC and returns zero on success,
-> so this check was incorrect.
->
-> Fix that by correctly interpreting zero as success.
-> This seems to fix an SMC hang that happens in si_set_sw_state.
->
-> Fixes: a9e61410921b ("drm/radeon/kms: add dpm support for SI (v7)")
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+Legacy resets reset the memory controllers so VRAM contents
+may be unreliable after reset.
 
-Same comment here as the previous patch.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 3fb41c42cc051..6119302aa0661 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3274,6 +3274,7 @@ static bool amdgpu_device_check_vram_lost(struct amdgpu_device *adev)
+ 	 * always assumed to be lost.
+ 	 */
+ 	switch (amdgpu_asic_reset_method(adev)) {
++	case AMD_RESET_METHOD_LEGACY:
+ 	case AMD_RESET_METHOD_LINK:
+ 	case AMD_RESET_METHOD_BACO:
+ 	case AMD_RESET_METHOD_MODE1:
+-- 
+2.50.1
 
-
-> ---
->  drivers/gpu/drm/radeon/si_dpm.c | 31 +++++++++++++++++++------------
->  1 file changed, 19 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_=
-dpm.c
-> index 47fba85436a7..8bda1e655468 100644
-> --- a/drivers/gpu/drm/radeon/si_dpm.c
-> +++ b/drivers/gpu/drm/radeon/si_dpm.c
-> @@ -5257,6 +5257,7 @@ static int si_upload_smc_data(struct radeon_device =
-*rdev)
->  {
->         struct radeon_crtc *radeon_crtc =3D NULL;
->         int i;
-> +       int ret;
->
->         if (rdev->pm.dpm.new_active_crtc_count =3D=3D 0)
->                 return 0;
-> @@ -5274,20 +5275,26 @@ static int si_upload_smc_data(struct radeon_devic=
-e *rdev)
->         if (radeon_crtc->line_time <=3D 0)
->                 return 0;
->
-> -       if (si_write_smc_soft_register(rdev,
-> -                                      SI_SMC_SOFT_REGISTER_crtc_index,
-> -                                      radeon_crtc->crtc_id) !=3D PPSMC_R=
-esult_OK)
-> -               return 0;
-> +       ret =3D si_write_smc_soft_register(
-> +               rdev,
-> +               SI_SMC_SOFT_REGISTER_crtc_index,
-> +               radeon_crtc->crtc_id);
-> +       if (ret)
-> +               return ret;
->
-> -       if (si_write_smc_soft_register(rdev,
-> -                                      SI_SMC_SOFT_REGISTER_mclk_change_b=
-lock_cp_min,
-> -                                      radeon_crtc->wm_high / radeon_crtc=
-->line_time) !=3D PPSMC_Result_OK)
-> -               return 0;
-> +       ret =3D si_write_smc_soft_register(
-> +               rdev,
-> +               SI_SMC_SOFT_REGISTER_mclk_change_block_cp_min,
-> +               radeon_crtc->wm_high / radeon_crtc->line_time);
-> +       if (ret)
-> +               return ret;
->
-> -       if (si_write_smc_soft_register(rdev,
-> -                                      SI_SMC_SOFT_REGISTER_mclk_change_b=
-lock_cp_max,
-> -                                      radeon_crtc->wm_low / radeon_crtc-=
->line_time) !=3D PPSMC_Result_OK)
-> -               return 0;
-> +       ret =3D si_write_smc_soft_register(
-> +               rdev,
-> +               SI_SMC_SOFT_REGISTER_mclk_change_block_cp_max,
-> +               radeon_crtc->wm_low / radeon_crtc->line_time);
-> +       if (ret)
-> +               return ret;
->
->         return 0;
->  }
-> --
-> 2.50.1
->
