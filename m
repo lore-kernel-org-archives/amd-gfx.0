@@ -4,77 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE746C87FCF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 16:09:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52A8CC87FCB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 16:16:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68E4910E5B2;
-	Mon,  4 Aug 2025 16:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D543310E0E2;
+	Mon,  4 Aug 2025 16:16:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dXTgJF0w";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ldv3K6Ms";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E15F10E5B2
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 16:09:45 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-3b78d337dd9so2202311f8f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 09:09:45 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B8E410E0E2
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 16:16:55 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-458aee6e86aso20549875e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 09:16:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754323784; x=1754928584; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754324213; x=1754929013; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
  :date:message-id:reply-to;
- bh=3IvGO8Dt4fb7FV7FpEi0FYquDJy8Xo/Y2vFyXgO8ulA=;
- b=dXTgJF0wVghWVC+K0UwanMpveXc+3hERoad4ayOLwheS+/Wouqw2zPqboqvzPHarwc
- fBWhl2VTlLHqxuY1E3iJlzY3Jg74brZ+q7q9h5PytV7IXC07trfh9tYdNjID3Y1nHpoX
- AXRR0AoP+ZcU0Xm90H3tUuZABWiyaVIL0sbux7nnW3O0aknnu1NqXTPzqJ3TzIwgB3e1
- 1CTAO0WUE1TeH/GS1tTJ+HfLQalqKCOwJIVjTNyg2yw1weqF0df5SREcTuWH+BKDKipv
- ReqDO7x4Q6v6gd8k9DUypXftsAv8C2xhlEvkFyDuWeJudbAvtXLv6ua8hHAYNrs/h0aS
- V7Zg==
+ bh=iT1C2KRrB15hU/Iu9fhPeGYhxHiiohmsxMedxHqxdnU=;
+ b=Ldv3K6MsNT1p1+e/D4hzk8kql4WHq3Dt3zhYEawEdCBj8dke6QNMnPjsz0mYfCQs9N
+ A/kFjGN/uLUYJEJFsPiia86yb5t6mhO3jAvsrxb68fGTZaR08YPsUrf5gYwQ4Xtbxy0x
+ pkOeEdTovmxsCSPND/fBIVabjE+Uo/hWgIPQ9F3ESQcgexyhZjWeHQKWximinj3K7XyI
+ z423rEdM/tWNj4pWACdpte0pLY0qrJZTVZ4PqJOswCf67EEkC4hpa3vhEV8VH9JUZQNz
+ EJMVwS2LveYePJop7VFDmF85zz1vwRVxYWy2tGdtJhKtdt2iHgb3Tb0T9iM27c/46ROG
+ 7Img==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754323784; x=1754928584;
+ d=1e100.net; s=20230601; t=1754324213; x=1754929013;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=3IvGO8Dt4fb7FV7FpEi0FYquDJy8Xo/Y2vFyXgO8ulA=;
- b=LjxptdeaqlPhjJkvzdN61eAi1iQ7AASxnzlEc8FXNZNIIBM5pzq88htaQMwTdI5Xxu
- tNJjjs1zGjYQAcymA/ifmNdG5ZFHLFfKGxhseQz4zPokhd+PWl7HzIw/aJ8903PwN4NI
- ZgiSo+V94H3YtRnLgFyei0FdxG8NBI++TjbTSXOgYGOUM0/oLowHIG3PJV80D1S3p5AH
- Q4OfhZm7DPGvF4fYE32hRW6LRZk+i//zN8SWeEpsbztU1OjPsU5rh1wIf22yh4sCNOWa
- M3YxyblIkITJ2zNd7OItQ1bNAk7C2m5AgzJ/jOPv/VIAnerl0kcf3Gv994VzX3BOdd/N
- TjCA==
-X-Gm-Message-State: AOJu0Yxc91No1EcGL1/wgP0Q0hVSziUSjq/iJMrou7oJHRGHUs3Hsdpl
- 5syYkOrsraf5+vqIwGTaesM9g3EqzYqrLyKlTMfnNURv27Sd1GCYv3JR
-X-Gm-Gg: ASbGncvTgrOuhlaNbZSaK6E7ahShCmMQ+htN4kg4QPSEpTdSywlxmN7UldjG8qD8l8F
- 079IRzl4lXz4XMFUnVQOjLHlpaEpHJW/AtZUu6nTbjHYBpJDjLzAhZ4vSec46Eg+yXRAFw1GVpN
- aL/oz22RCiQ70olrZ58tPsFrwLSdFHCdUMfb2l7Xu60kpkLw/bFdwrqdDzsmHFOd40/890orwiH
- YQEOh5OGCxWOSg6ubnds2pVh7TxuMLNkgyMKcVsmalHdbPPi3hVkk3Q2gb1Q/Xp2Vf/4+r9eYbD
- M3SicNm5CVRVNHYrb1EtywpPi/hmqfAeiz4IWWeAqnTXy6f4Slf+1vnw/fDRwJQCoNn5IvSJ5Og
- f4t+XiR0MThSd46ft0QZLLxeFRbHcha5uhCVIzhrFIPf0zodtA+jaF/HdXSaF2T3Scrw/6mYQzX
- 2TneIytbS5Z+Zdnw/UPSdwyDzCIiuo/+KIyG8F4UYal2iS8YOXXd1NQ/E3OAafWg==
-X-Google-Smtp-Source: AGHT+IHoz8V8CH+7aCCT4edflCcA1/hf6k0jS2d71kbHagS8zXT77PiDPhFFHQxNaZ2xHl4G8XxBRw==
-X-Received: by 2002:a05:6000:2902:b0:3b7:895c:1562 with SMTP id
- ffacd0b85a97d-3b8d94649f4mr8572795f8f.11.1754323782298; 
- Mon, 04 Aug 2025 09:09:42 -0700 (PDT)
+ bh=iT1C2KRrB15hU/Iu9fhPeGYhxHiiohmsxMedxHqxdnU=;
+ b=U259yo043zzJao18sTq8EJpndNU+rEu1VxOwkI0Q5XgA+tQMIhebtyxZxyKYOegLIa
+ uk+rWs7UCSchBZKxnoeHBPwzwgptDVLxew8kYpsr2LwBGJ926qnX2Fk+pgD0Uqyf50A1
+ ygYg5nZhWAvXXr9XGHIiQZrEABQGRgQccI4UYS635vO96Qv5jnOnkiKgigw1MO8fFzLv
+ QLtIF3Hk63tWeSg96MaIx0i+Qj0mIFl5oe4Z+yFN7aiHnQyNdf5P/SxEU3j1YyLhpzpI
+ tB8j4kR0BVEfT614Rfs+wY2J5/9/LbdKVWIJc6uyMqzOlfqLf+SNM0XdAc4gkE1WZ3ZG
+ LttA==
+X-Gm-Message-State: AOJu0Yzphi7QFIW7I7+Fqd1xehuHDMqGexNgKiFjmfiE+90FW9MsygoK
+ MYBhDQvzrffh/MSPcPBz7Pce/C0NdIOs5sjRFVqhk+D+mC4HMTi2Y+j8
+X-Gm-Gg: ASbGncuryU7UsN0nrEmAEHzG28P6Tt+fpO8vkubbnUcU2Pp8F8qQZrhGNGACz/lTNEN
+ JqqCgrg2PxEhWfpVZk7qmqNqKTJbZKup2gTzYsNSCPyWjdqg4mYPBwtPj/s8ZVEsTM2GdA6hkDH
+ C4TB8BsrZGn0rdtL6F6nExWoNkqqxWgYRcIcj1ctqwKKfnbuk/Nws0eMzMhlB8WDsfokSiuM7Gf
+ qhyR9Zzk0TGyHIB3gfiny7o9l1SEeSxxAjoMRCZjMpKOlPZGeHAB/O0etX3MUfdWBA2WDJwCZOV
+ dcZ/c9ucGQLUw2NI+rGiSyCW3b4FRYx2eWrncSvVUzWYhgR/+o/vn35vvqarHeAmCqudM00SyXS
+ HC3fnfeymyTn9emMz1eaqRaPk0MkVAbXO9sJsJo69+vDj7iRbzHzNGKxnqtb2Ymaui3/+oKbE45
+ ck+zcsAu2RndztIRNRq+PHVAN2n0Jzd3qTtBB7/f1RDGOwQeMWe/ZcQDKf6LHPvQ==
+X-Google-Smtp-Source: AGHT+IGUpHOaOtKJzne2VUTaqDO7BI0i5SQDkYouH0HdFbZqn9rFCXnBG2wlzP3h9p+hfVgqnvnnGA==
+X-Received: by 2002:a05:6000:2a11:b0:3b8:eb7d:910c with SMTP id
+ ffacd0b85a97d-3b8eb7d9159mr340402f8f.43.1754324213229; 
+ Mon, 04 Aug 2025 09:16:53 -0700 (PDT)
 Received: from ?IPv6:2001:4c4e:24da:bd00:a473:4c1d:2078:832b?
  (20014C4E24DABD00A4734C1D2078832B.dsl.pool.telekom.hu.
  [2001:4c4e:24da:bd00:a473:4c1d:2078:832b])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c47ca5fsm15760236f8f.63.2025.08.04.09.09.41
+ ffacd0b85a97d-3b8e0b2d2fasm5895468f8f.50.2025.08.04.09.16.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Aug 2025 09:09:41 -0700 (PDT)
-Message-ID: <2de9270e32cf9e69edd72f3f6ce284b07901fa86.camel@gmail.com>
-Subject: Re: [PATCH 3/6] drm/radeon: Disable ULV even if unsupported
+ Mon, 04 Aug 2025 09:16:52 -0700 (PDT)
+Message-ID: <4c002dfef88f033832d0be5221fed0019c0feaf0.camel@gmail.com>
+Subject: Re: [PATCH 4/6] drm/amd/pm: Fix si_upload_smc_data
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 To: Alex Deucher <alexdeucher@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
-Date: Mon, 04 Aug 2025 18:09:41 +0200
-In-Reply-To: <CADnq5_NoepbUzAczVq-t2P1jKweq6h2bOfHU9jqyupSszToXZg@mail.gmail.com>
+Date: Mon, 04 Aug 2025 18:16:51 +0200
+In-Reply-To: <CADnq5_P6EsOrX8e8B3bRh_KEaPVisUAEWxZ9uXX62TY=a-dO3g@mail.gmail.com>
 References: <20250804134154.95875-1-timur.kristof@gmail.com>
- <20250804134154.95875-4-timur.kristof@gmail.com>
- <CADnq5_NoepbUzAczVq-t2P1jKweq6h2bOfHU9jqyupSszToXZg@mail.gmail.com>
+ <20250804134154.95875-5-timur.kristof@gmail.com>
+ <CADnq5_P6EsOrX8e8B3bRh_KEaPVisUAEWxZ9uXX62TY=a-dO3g@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,70 +91,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-08-04 at 11:24 -0400, Alex Deucher wrote:
-> On Mon, Aug 4, 2025 at 10:18=E2=80=AFAM Timur Krist=C3=B3f
-> <timur.kristof@gmail.com> wrote:
-> >=20
-> > Backport of the same commit to amdgpu.
-> > This commit fixes some instability on Tahiti.
->=20
-> Have you tested this with radeon?
->=20
-> Alex
+T24gTW9uLCAyMDI1LTA4LTA0IGF0IDExOjMyIC0wNDAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4g
+T24gTW9uLCBBdWcgNCwgMjAyNSBhdCA5OjQy4oCvQU0gVGltdXIgS3Jpc3TDs2YKPiA8dGltdXIu
+a3Jpc3RvZkBnbWFpbC5jb20+IHdyb3RlOgo+ID4gCj4gPiBUaGUgc2lfdXBsb2FkX3NtY19kYXRh
+IGZ1bmN0aW9uIHVzZXMgc2lfd3JpdGVfc21jX3NvZnRfcmVnaXN0ZXIKPiA+IHRvIHNldCBzb21l
+IHJlZ2lzdGVyIHZhbHVlcyBpbiB0aGUgU01DLCBhbmQgZXhwZWN0cyB0aGUgcmVzdWx0Cj4gPiB0
+byBiZSBQUFNNQ19SZXN1bHRfT0sgd2hpY2ggaXMgMS4KPiA+IAo+ID4gVGhlIFBQU01DX1Jlc3Vs
+dF9PSyAvIFBQU01DX1Jlc3VsdF9GYWlsZWQgdmFsdWVzIGFyZSB1c2VkIGZvcgo+ID4gY2hlY2tp
+bmcgdGhlIHJlc3VsdCBvZiBhIGNvbW1hbmQgc2VudCB0byB0aGUgU01DLgo+ID4gCj4gPiBIb3dl
+dmVyLCB0aGUgc2lfd3JpdGVfc21jX3NvZnRfcmVnaXN0ZXIgYWN0dWFsbHkgZG9lc24ndCBzZW5k
+Cj4gPiBhbnkgY29tbWFuZHMgdG8gdGhlIFNNQyBhbmQgcmV0dXJucyB6ZXJvIG9uIHN1Y2Nlc3Ms
+Cj4gPiBzbyB0aGlzIGNoZWNrIHdhcyBpbmNvcnJlY3QuCj4gPiAKPiA+IEZpeCB0aGF0IGJ5IGNv
+cnJlY3RseSBpbnRlcnByZXRpbmcgemVybyBhcyBzdWNjZXNzLgo+ID4gVGhpcyBzZWVtcyB0byBm
+aXggYW4gU01DIGhhbmcgdGhhdCBoYXBwZW5zIGluIHNpX3NldF9zd19zdGF0ZS4KPiA+IAo+ID4g
+Rml4ZXM6IDg0MTY4NmRmOWY3ZCAoImRybS9hbWRncHU6IGFkZCBTSSBEUE0gc3VwcG9ydCAodjQp
+IikKPiA+IFNpZ25lZC1vZmYtYnk6IFRpbXVyIEtyaXN0w7NmIDx0aW11ci5rcmlzdG9mQGdtYWls
+LmNvbT4KPiA+IC0tLQo+ID4gwqBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2xlZ2FjeS1kcG0vc2lf
+ZHBtLmMgfCAzMSArKysrKysrKysrKysrLS0tLS0KPiA+IC0tLS0KPiA+IMKgMSBmaWxlIGNoYW5n
+ZWQsIDE5IGluc2VydGlvbnMoKyksIDEyIGRlbGV0aW9ucygtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9sZWdhY3ktZHBtL3NpX2RwbS5jCj4gPiBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG0vbGVnYWN5LWRwbS9zaV9kcG0uYwo+ID4gaW5kZXggMzNiOWQ0YmVl
+Yzg0Li5lOWYwMzRhZGUyMTQgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
+L2xlZ2FjeS1kcG0vc2lfZHBtLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vbGVn
+YWN5LWRwbS9zaV9kcG0uYwo+ID4gQEAgLTU4MjAsNiArNTgyMCw3IEBAIHN0YXRpYyBpbnQgc2lf
+dXBsb2FkX3NtY19kYXRhKHN0cnVjdAo+ID4gYW1kZ3B1X2RldmljZSAqYWRldikKPiA+IMKgewo+
+ID4gwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9jcnRjICphbWRncHVfY3J0YyA9IE5VTEw7
+Cj4gPiDCoMKgwqDCoMKgwqDCoCBpbnQgaTsKPiA+ICvCoMKgwqDCoMKgwqAgaW50IHJldDsKPiA+
+IAo+ID4gwqDCoMKgwqDCoMKgwqAgaWYgKGFkZXYtPnBtLmRwbS5uZXdfYWN0aXZlX2NydGNfY291
+bnQgPT0gMCkKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPiA+
+IEBAIC01ODM3LDIwICs1ODM4LDI2IEBAIHN0YXRpYyBpbnQgc2lfdXBsb2FkX3NtY19kYXRhKHN0
+cnVjdAo+ID4gYW1kZ3B1X2RldmljZSAqYWRldikKPiA+IMKgwqDCoMKgwqDCoMKgIGlmIChhbWRn
+cHVfY3J0Yy0+bGluZV90aW1lIDw9IDApCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgcmV0dXJuIDA7Cj4gPiAKPiA+IC3CoMKgwqDCoMKgwqAgaWYgKHNpX3dyaXRlX3NtY19zb2Z0
+X3JlZ2lzdGVyKGFkZXYsCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAKPiA+IFNJX1NNQ19TT0ZUX1JF
+R0lTVEVSX2NydGNfaW5kZXgsCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2NydGMtPmNy
+dGNfaWQpICE9Cj4gPiBQUFNNQ19SZXN1bHRfT0spCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCByZXR1cm4gMDsKPiA+ICvCoMKgwqDCoMKgwqAgcmV0ID0gc2lfd3JpdGVfc21jX3Nv
+ZnRfcmVnaXN0ZXIoCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LAo+ID4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgU0lfU01DX1NPRlRfUkVHSVNURVJfY3J0Y19p
+bmRleCwKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9jcnRjLT5jcnRj
+X2lkKTsKPiA+ICvCoMKgwqDCoMKgwqAgaWYgKHJldCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIHJldHVybiByZXQ7Cj4gPiAKPiA+IC3CoMKgwqDCoMKgwqAgaWYgKHNpX3dyaXRl
+X3NtY19zb2Z0X3JlZ2lzdGVyKGFkZXYsCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAKPiA+IFNJX1NN
+Q19TT0ZUX1JFR0lTVEVSX21jbGtfY2hhbmdlX2Jsb2NrX2NwX21pbiwKPiA+IC3CoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBhbWRncHVfY3J0Yy0+d21faGlnaCAvCj4gPiBhbWRncHVfY3J0Yy0+bGluZV90aW1l
+KSAhPSBQUFNNQ19SZXN1bHRfT0spCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBy
+ZXR1cm4gMDsKPiA+ICvCoMKgwqDCoMKgwqAgcmV0ID0gc2lfd3JpdGVfc21jX3NvZnRfcmVnaXN0
+ZXIoCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LAo+ID4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgU0lfU01DX1NPRlRfUkVHSVNURVJfbWNsa19jaGFuZ2VfYmxv
+Y2tfY3BfbWluLAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2NydGMt
+PndtX2hpZ2ggLyBhbWRncHVfY3J0Yy0+bGluZV90aW1lKTsKPiA+ICvCoMKgwqDCoMKgwqAgaWYg
+KHJldCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7Cj4gPiAK
+PiA+IC3CoMKgwqDCoMKgwqAgaWYgKHNpX3dyaXRlX3NtY19zb2Z0X3JlZ2lzdGVyKGFkZXYsCj4g
+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAKPiA+IFNJX1NNQ19TT0ZUX1JFR0lTVEVSX21jbGtfY2hhbmdl
+X2Jsb2NrX2NwX21heCwKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfY3J0Yy0+d21fbG93
+IC8KPiA+IGFtZGdwdV9jcnRjLT5saW5lX3RpbWUpICE9IFBQU01DX1Jlc3VsdF9PSykKPiA+IC3C
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+ID4gK8KgwqDCoMKgwqDCoCBy
+ZXQgPSBzaV93cml0ZV9zbWNfc29mdF9yZWdpc3RlcigKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGFkZXYsCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBTSV9TTUNf
+U09GVF9SRUdJU1RFUl9tY2xrX2NoYW5nZV9ibG9ja19jcF9tYXgsCj4gPiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfY3J0Yy0+d21fbG93IC8gYW1kZ3B1X2NydGMtPmxpbmVf
+dGltZSk7Cj4gPiArwqDCoMKgwqDCoMKgIGlmIChyZXQpCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+IAo+IFRoaXMgcGF0Y2ggY2hhbmdlcyB0aGUgYmVoYXZp
+b3Igb2YgdGhpcyBmdW5jdGlvbiAoaS5lLiwgaXQgYWx3YXlzCj4gcmV0dXJucyAwIGJlZm9yZSB0
+aGlzIHBhdGNoKS7CoCBOb3Qgc3VyZSBpZiB0aGF0IG1hdHRlcnMgb3Igbm90LsKgIEkKPiB0aGlu
+ayB0aGlzIGNvdWxkIGJlIHNpbXBsaWZpZWQgdG8gc29tZXRoaW5nIGxpa2UgdGhlIGZvbGxvd2lu
+ZyB0bwo+IHJldGFpbiB0aGUgY3VycmVudCBiZWhhdmlvci4KCkFjdHVhbGx5IG5vdyB0aGF0IEkg
+dGhpbmsgb2YgaXQgbW9yZSwgSSB0aGluayBpdCBtYXkgYmUgZW50aXJlbHkKdW5uZWNlc3Nhcnkg
+dG8gY2hlY2sgdGhlIHJldHVybiB2YWx1ZS4KCnNpX3VwbG9hZF9zbWNfZGF0YSBjYWxsczoKc2lf
+d3JpdGVfc21jX3NvZnRfcmVnaXN0ZXIKYW1kZ3B1X3NpX3dyaXRlX3NtY19zcmFtX2R3b3JkCnNp
+X3NldF9zbWNfc3JhbV9hZGRyZXNzCgpUaGlzIGxhc3Qgb25lLCBzaV9zZXRfc21jX3NyYW1fYWRk
+cmVzcyByZXR1cm5zIC1FSU5WQUwgd2hlbiBpdHMKc21jX2FkZHJlc3MgcGFyYW1ldGVyIGlzIG5v
+dCBkd29yZC1hbGlnbmVkIG9yIG91dCBvZiBib3VuZHMuIE90aGVyd2lzZQphbGwgb2YgdGhlIGFi
+b3ZlIGZ1bmN0aW9ucyByZXR1cm4gMCAoc3VjY2VzcykuIENvbnNpZGVyaW5nIHRoYXQgYWxsIG9m
+CnRoZSBhZGRyZXNzZXMgcGFzc2VkIGJ5IHNpX3VwbG9hZF9zbWNfZGF0YSBhcmUgY29tcGlsZSB0
+aW1lIGNvbnN0YW50cywKd2Uga25vdyB0aGV5IGFyZSBjb3JyZWN0IHNvIHRoZXJlIGlzIG5vIHJl
+YXNvbiB3aHkgYW55IG9mIHRob3NlCmZ1bmN0aW9ucyB3b3VsZCByZXR1cm4gYW4gZXJyb3IuCgpM
+b29raW5nIGF0IG90aGVyIGNhbGxlcnMgb2Ygc2lfd3JpdGVfc21jX3NvZnRfcmVnaXN0ZXIsIEkg
+c2VlIHRoYXQgdGhleQpkb24ndCBjaGVjayB0aGUgcmV0dXJuIHZhbHVlIGF0IGFsbC4KClNvLCBJ
+J2QgYWN0dWFsbHkgc2ltcGxpZnkgdGhpcyBldmVuIG1vcmUgYW5kIGp1c3Qgbm90IGNoZWNrIHRo
+ZSByZXR1cm4KdmFsdWVzLiBXaGF0IGRvIHlvdSB0aGluayBhYm91dCB0aGF0PwoKCj4gCj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vbGVnYWN5LWRwbS9zaV9kcG0uYwo+IGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9sZWdhY3ktZHBtL3NpX2RwbS5jCj4gaW5kZXggNTJlNzMy
+YmU1OWUzNi4uM2RkMDExNWFhMTVmOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3BtL2xlZ2FjeS1kcG0vc2lfZHBtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2xl
+Z2FjeS1kcG0vc2lfZHBtLmMKPiBAQCAtNTgzNiwxNyArNTgzNiwxNyBAQCBzdGF0aWMgaW50IHNp
+X3VwbG9hZF9zbWNfZGF0YShzdHJ1Y3QKPiBhbWRncHVfZGV2aWNlICphZGV2KQo+IAo+IMKgwqDC
+oMKgwqDCoMKgIGlmIChzaV93cml0ZV9zbWNfc29mdF9yZWdpc3RlcihhZGV2LAo+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAKPiBTSV9TTUNfU09GVF9SRUdJU1RFUl9jcnRjX2luZGV4LAo+IC3CoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBhbWRncHVfY3J0Yy0+Y3J0Y19pZCkgIT0KPiBQUFNNQ19SZXN1bHRfT0spCj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9jcnRjLT5jcnRjX2lkKSkKPiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4gCj4gwqDCoMKgwqDCoMKgwqAgaWYgKHNpX3dy
+aXRlX3NtY19zb2Z0X3JlZ2lzdGVyKGFkZXYsCj4gCj4gU0lfU01DX1NPRlRfUkVHSVNURVJfbWNs
+a19jaGFuZ2VfYmxvY2tfY3BfbWluLAo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfY3J0Yy0+
+d21faGlnaCAvCj4gYW1kZ3B1X2NydGMtPmxpbmVfdGltZSkgIT0gUFBTTUNfUmVzdWx0X09LKQo+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfY3J0Yy0+d21faGlnaCAvCj4gYW1kZ3B1X2NydGMt
+PmxpbmVfdGltZSkpCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+
+IAo+IMKgwqDCoMKgwqDCoMKgIGlmIChzaV93cml0ZV9zbWNfc29mdF9yZWdpc3RlcihhZGV2LAo+
+IAo+IFNJX1NNQ19TT0ZUX1JFR0lTVEVSX21jbGtfY2hhbmdlX2Jsb2NrX2NwX21heCwKPiAtwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2NydGMtPndtX2xvdyAvCj4gYW1kZ3B1X2NydGMtPmxpbmVf
+dGltZSkgIT0gUFBTTUNfUmVzdWx0X09LKQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfY3J0
+Yy0+d21fbG93IC8KPiBhbWRncHVfY3J0Yy0+bGluZV90aW1lKSkKPiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4gCj4gwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4g
+Cj4gCj4gPiAKPiA+IMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+ID4gwqB9Cj4gPiAtLQo+ID4g
+Mi41MC4xCj4gPiAK
 
-Considering that ULV is currently always marked as unsupported by both
-radeon and amdgpu, and that the same patch fixes a real issue on
-amdgpu, I assume it would improve stability on radeon too.
-
-I leave it up to your judgement whether it's a good idea to apply this
-to radeon or not.
-
-That said, I haven't got a specific issue which this fixes on radeon.
-I only tested that Tahiti can boot with radeon with this patch
-included, but didn't do detailed testing other than that. Do you have
-something specific in mind that I should try?
-
-Timur
-
->=20
-> >=20
-> > Fixes: a9e61410921b ("drm/radeon/kms: add dpm support for SI (v7)")
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/radeon/si_dpm.c | 7 +++++--
-> > =C2=A01 file changed, 5 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/radeon/si_dpm.c
-> > b/drivers/gpu/drm/radeon/si_dpm.c
-> > index 9deb91970d4d..47fba85436a7 100644
-> > --- a/drivers/gpu/drm/radeon/si_dpm.c
-> > +++ b/drivers/gpu/drm/radeon/si_dpm.c
-> > @@ -5073,10 +5073,13 @@ static int si_disable_ulv(struct
-> > radeon_device *rdev)
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct si_power_info *si_pi =
-=3D si_get_pi(rdev);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct si_ulv_param *ulv =3D=
- &si_pi->ulv;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PPSMC_Result r;
-> >=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D si_send_msg_to_smc(rdev, PP=
-SMC_MSG_DisableULV);
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Only care about SMC reply when=
- ULV is supported. */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ulv->supported)
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 return (si_send_msg_to_smc(rdev,
-> > PPSMC_MSG_DisableULV) =3D=3D PPSMC_Result_OK) ?
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0 : -EINVAL=
-;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 return (r =3D=3D PPSMC_Result_OK) ? 0 : -EINVAL;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
-> > =C2=A0}
-> > --
-> > 2.50.1
-> >=20
