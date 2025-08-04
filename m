@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40E9FC87FCF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 15:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42F2AC87FCF
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 16:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCED510E5A8;
-	Mon,  4 Aug 2025 15:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1B2010E5A9;
+	Mon,  4 Aug 2025 16:00:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TNeykQum";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GA9El5EM";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95EED10E5A8
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 15:59:51 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-31ec977d203so937983a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 08:59:51 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F03810E5AF
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 16:00:08 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-31ef3e9f0adso370747a91.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 09:00:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754323191; x=1754927991; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754323207; x=1754928007; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=f4ViIU+L6PJklcBVMDTNpmLuvcBqBMRpyevJ44pjIzo=;
- b=TNeykQumlFk9zeY1eyHY2sTtquMbcX3cpV0dxPubmBlvLtBGeQbwyYW38bqapGdwpL
- E2AP4lLZIKkcUaCUX3BA2bhl57OQ2ZJCfPFPGCOhvOJ+v5ursxaTipUUqbKBojVdY/DC
- QWpSPgDyqyt+zg1tiH/cG3NkPt2SXJJlfYSsWPHJqSo65DgXhck4RK3X9isZF+Qtcz66
- 51mYC6Gec0GcL/97bPGHYmWDjJCpHjy9sGwguvDjT+GI9iRPTShwU9/8sWIVt61yqc2I
- jKzG0+yHIYt0Dk/3H0If8EdJPxhWYb2lel+7mxdXb3TfZtKh20WD+VE9Kap9l04bDmHg
- gm2g==
+ bh=gn+wyP2gZMhECxcWMr0bp9XbjqXUSh0w5yuYX9b/ZsE=;
+ b=GA9El5EMH3CcaeRQxuBQLgR1ssOu05gyAcjZYdKmY9tCdZh559CyNx8JzIdOW9uF7j
+ hrJH7b5Vh563cU12iGWZ46pu/nMfaSQOfJPXiXD39+GtDqOC8xQP6wLuS4Rfgwb9zOJJ
+ F+Z6RjEyRUke/Xgs7wYWWwaRBP73tnwK73ExpcLOQaB83VgSasEJsCZMh1c7e61UMRtO
+ kyPvGrjDo62FLpofBBs3Q7P9XRXeyrs9k8TezBD8t+y90XfO2yYKPCzUncEUcgCsloT2
+ Rj7HRz2RFB6zHLb6GQnAR9n3KeLLfLb8ZeAkBmWX0cBZkLaLfy/90pulfE7kZbSG6WkI
+ skLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754323191; x=1754927991;
+ d=1e100.net; s=20230601; t=1754323207; x=1754928007;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=f4ViIU+L6PJklcBVMDTNpmLuvcBqBMRpyevJ44pjIzo=;
- b=cD6G4iHCb778TGko7G3CkawWw6RZ4aGtQS0nl48SIly9IfG3zhxB6qm9MKnkXarq2x
- AgyutadHt5bNtN1NdUeMufca2QTSQXHdclUv6zlYeaxpAq1Rgf28AGwNYylKklLMTEfZ
- Mq7XV582cFG9O7FGaExEtB72Zyv5hFWP2kvnfht+Aq3G3R5LuTEjFTXXvAimO/rr3SP6
- Z6SD+xDl7TwdWUTlwVMh8JX2jrVVtzWZ2wxRt+7v6lhLRn3BgtWnhKgdeLezGOWpb3T0
- X5jFCpFCQK5K+OUiTmb4s6bl6DFi8AbrkbPi8JABZbYEYmax5mzkTf5EHA3+Nj8paQc6
- XqDg==
-X-Gm-Message-State: AOJu0YydBg5YkWKTJcIidqT/Xmz1ue/KtiRHmG/twZMzgQ3keXJOaeLH
- jfvyJGk4irFi1VI3Y4PtDhq71+JUmgWtwRWxkBa3kVj0E3gHKmfzgNHt99lVAwVyJJ2s9044ggK
- 3PSQ3lrM77Hgb/eUoAXU/DfxLH9RICds=
-X-Gm-Gg: ASbGncsPSbRDwTJ/vbPULshkooolB1w2+DCxRXK6m9vf73xgBI0e16Onf/SIfbAWQ1E
- gycEWKR5dit1aYbUNhy0becvwy8l8dQIiJUy3AOo398gf0+uINDu1+gNG5cQ/MoZzo76WOLkalh
- UxA27SXEAGEGTa8PooNcG4QFpGj2wOm9u40Xaq7w35Foa6/fBIXz1Q8ZqpIOFE99HTX+pubnfpu
- BtPC23B
-X-Google-Smtp-Source: AGHT+IFLUopcyIFFQG0/kWK0qObzFzyLxbk9fVEZcb6plRcC8zkAxmnYZTmLW+l4ruS1PNZT5W9iQ3eFUKMqlKwXusY=
-X-Received: by 2002:a17:90b:1b06:b0:31f:24c2:16cb with SMTP id
- 98e67ed59e1d1-321162cd92dmr5665277a91.6.1754323190922; Mon, 04 Aug 2025
- 08:59:50 -0700 (PDT)
+ bh=gn+wyP2gZMhECxcWMr0bp9XbjqXUSh0w5yuYX9b/ZsE=;
+ b=M3WEdcrT7lFAuxkFBZe5jNovRgaFPR92MdSF2GnYr+wQUT1X8Dafd0rO9Q2ver6oqQ
+ Fb3XI9p5VMC43F3SIdONzwsurDiih+ipabqUbBmiabFIFFwh5wYUglLmf3ZlwfnH2Muy
+ wbSs/e62B0x4MqRqTnUuTMEuVA6ktkSRGw/RTzuY5K9lB6BXO1aJHdRhj/MIvd9s7+92
+ wIdinN6PBizMLdb2Yv0GvtWpDidMiBsFLjxRzMmX/QuRmsdBdkZbl/wXcNlqQUy3X+NV
+ 2acN9+1r9P4W0ID6+C9whveGBV4F/7itjeo21mlrOSxfR5xpHyEeWJndDt2rwYhtglt3
+ dl/g==
+X-Gm-Message-State: AOJu0YzIQnxrOsXNrmBid+6OnOr3mVa2gvOmqyyHYOVU+qaR2DrpCMli
+ HIVEyFzDNlv1M3dc6TlWAyQUzN1g401YZbDPKlq1qA/Z8Awm3WjO4d/MR1Kd38N+PDsmg4FSUT9
+ mPw5h2uRicU1kTeFIVVSiJMJ5HErewyQ=
+X-Gm-Gg: ASbGncsbQ+j7PIoSjQRS2TG2ELP4Qhc6QZ+WXyT0zdJt/FaawuDIFvdm83DmdmXCBj8
+ K7oL42zqZNWC+4Hu48FVDJCoRxmP4Dr/6I0tsUrX4Gz0u2ju3qYEwcuSq6hYIcn8gmz3sx5tB5M
+ i7V4pbKIXFtFbFTge1f1fGUMM471bb2YqfLfGDvgDJHUGM8t+f2Yody9XoqJ4gfONUMysVPiYjZ
+ lPoKaD0gld8TDgBIMU=
+X-Google-Smtp-Source: AGHT+IHBWjznhnw3gFjmVKOSODS8SkS4vmjnPx1OnIuUr9iR1cENmiAbwLjlscNaiiExiW3W6a+FuTp1TRJaasvFswY=
+X-Received: by 2002:a17:90b:38cf:b0:31f:23f0:2df8 with SMTP id
+ 98e67ed59e1d1-321162c7222mr4839966a91.6.1754323207460; Mon, 04 Aug 2025
+ 09:00:07 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250731094352.29528-1-timur.kristof@gmail.com>
- <20250731094352.29528-7-timur.kristof@gmail.com>
-In-Reply-To: <20250731094352.29528-7-timur.kristof@gmail.com>
+ <20250731094352.29528-8-timur.kristof@gmail.com>
+In-Reply-To: <20250731094352.29528-8-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 4 Aug 2025 11:59:38 -0400
-X-Gm-Features: Ac12FXw-FGNoeEBHGJ6uUbIQTgoUBqtLmE8-bE0OzGlgsdMYRd2IWTe9hAns3Og
-Message-ID: <CADnq5_PaGVf9AO1tWVq=UTftp=oLfQ526uUXrKm621Gufk8YuQ@mail.gmail.com>
-Subject: Re: [PATCH 6/7] drm/amd/display: Don't print errors for nonexistent
- connectors
+Date: Mon, 4 Aug 2025 11:59:55 -0400
+X-Gm-Features: Ac12FXxJme19djAfF-QF7n1jHWDE3FQg8r9bb_ktvXAgz00PdsE5s4tPrEW118E
+Message-ID: <CADnq5_Oj_B=kPin_zJz-pzs6rgdpivEM7_CA2w36XxO1LGwJKA@mail.gmail.com>
+Subject: Re: [PATCH 7/7] drm/amd/display: Fix fractional fb divider in
+ set_pixel_clock_v3
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -82,86 +82,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 31, 2025 at 2:03=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
+On Thu, Jul 31, 2025 at 5:53=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
 mail.com> wrote:
 >
-> When getting the number of connectors, the VBIOS reports
-> the number of valid indices, but it doesn't say which indices
-> are valid, and not every valid index has an actual connector.
-> If we don't find a connector on an index, that is not an error.
+> For later VBIOS versions, the fractional feedback divider is
+> calculated as the remainder of dividing the feedback divider by
+> a factor, which is set to 1000000. For reference, see:
+> - calculate_fb_and_fractional_fb_divider
+> - calc_pll_max_vco_construct
 >
-> Considering these are not actual errors, don't litter the logs.
+> However, in case of old VBIOS versions that have
+> set_pixel_clock_v3, they only have 1 byte available for the
+> fractional feedback divider, and it's expected to be set to the
+> remainder from dividing the feedback divider by 10.
+> For reference see the legacy display code:
+> - amdgpu_pll_compute
+> - amdgpu_atombios_crtc_program_pll
 >
-> Fixes: 60df5628144b ("drm/amd/display: handle invalid connector indices")
+> This commit fixes set_pixel_clock_v3 by dividing the fractional
+> feedback divider passed to the function by 100000.
+>
+> Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
 > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/display/dc/bios/bios_parser.c |  5 +----
->  drivers/gpu/drm/amd/display/dc/core/dc.c          | 15 ++++++++++++++-
->  2 files changed, 15 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/bios/command_table.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/=
-gpu/drm/amd/display/dc/bios/bios_parser.c
-> index 67f08495b7e6..154fd2c18e88 100644
-> --- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-> +++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-> @@ -174,11 +174,8 @@ static struct graphics_object_id bios_parser_get_con=
-nector_id(
->                 return object_id;
->         }
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table.c b/driver=
+s/gpu/drm/amd/display/dc/bios/command_table.c
+> index 2bcae0643e61..58e88778da7f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+> @@ -993,7 +993,7 @@ static enum bp_result set_pixel_clock_v3(
+>         allocation.sPCLKInput.usFbDiv =3D
+>                         cpu_to_le16((uint16_t)bp_params->feedback_divider=
+);
+>         allocation.sPCLKInput.ucFracFbDiv =3D
+> -                       (uint8_t)bp_params->fractional_feedback_divider;
+> +                       (uint8_t)(bp_params->fractional_feedback_divider =
+/ 100000);
+>         allocation.sPCLKInput.ucPostDiv =3D
+>                         (uint8_t)bp_params->pixel_clock_post_divider;
 >
-> -       if (tbl->ucNumberOfObjects <=3D i) {
-> -               dm_error("Can't find connector id %d in connector table o=
-f size %d.\n",
-> -                        i, tbl->ucNumberOfObjects);
-> +       if (tbl->ucNumberOfObjects <=3D i)
->                 return object_id;
-> -       }
->
->         id =3D le16_to_cpu(tbl->asObjects[i].usObjectID);
->         object_id =3D object_id_from_bios_object_id(id);
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/a=
-md/display/dc/core/dc.c
-> index cf3893a2f8ce..33d6a5116aad 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -217,11 +217,24 @@ static bool create_links(
->                 connectors_num,
->                 num_virtual_links);
->
-> -       // condition loop on link_count to allow skipping invalid indices
-> +       /* When getting the number of connectors, the VBIOS reports the n=
-umber of valid indices,
-> +        * but it doesn't say which indices are valid, and not every inde=
-x has an actual connector.
-> +        * So, if we don't find a connector on an index, that is not an e=
-rror.
-> +        *
-> +        * - There is no guarantee that the first N indices will be valid
-> +        * - VBIOS may report a higher amount of valid indices than there=
- are actual connectors
-> +        * - Some VBIOS have valid configurations for more connectors tha=
-n there actually are
-> +        *   on the card. This may be because the manufacturer used the s=
-ame VBIOS for different
-> +        *   variants of the same card.
-> +        */
->         for (i =3D 0; dc->link_count < connectors_num && i < MAX_LINKS; i=
-++) {
-> +               struct graphics_object_id connector_id =3D bios->funcs->g=
-et_connector_id(bios, i);
->                 struct link_init_data link_init_params =3D {0};
->                 struct dc_link *link;
->
-> +               if (connector_id.id =3D=3D CONNECTOR_ID_UNKNOWN)
-> +                       continue;
-> +
->                 DC_LOG_DC("BIOS object table - printing link object info =
-for connector number: %d, link_index: %d", i, dc->link_count);
->
->                 link_init_params.ctx =3D dc->ctx;
 > --
 > 2.50.1
 >
