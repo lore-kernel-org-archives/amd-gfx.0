@@ -4,36 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8415C87FDA
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 08:04:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 167D2C87FDA
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 08:21:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34B7810E078;
-	Mon,  4 Aug 2025 08:04:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37EEC10E41E;
+	Mon,  4 Aug 2025 08:21:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=daenzer.net header.i=@daenzer.net header.b="KOSSPBPp";
+	dkim=pass (2048-bit key; unprotected) header.d=daenzer.net header.i=@daenzer.net header.b="hBrNqal8";
 	dkim-atps=neutral
 Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E07210E078
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 08:04:03 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; t=1754294640; x=1754899440; s=webland;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDA4F10E41C;
+ Mon,  4 Aug 2025 08:20:57 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; t=1754295656; x=1754900456; s=webland;
  d=daenzer.net; c=relaxed/relaxed; v=1;
- bh=KehkOffdbgcwubwwS956qJDBYYjb4hEiB8835z+ZSpk=;
+ bh=tVlaRrF455NeT0pqU2MICwd635g4QbHhsjdB3YKhO20=;
  h=From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:References;
- b=KOSSPBPpu65PoRzSeXJN7MNW3u48C+Q1GZtgOAaTDRPZp+y5UupRGbd9RYDvQk9Y08Uhe9cGBrIfJKSa/5jfXc73YwzdhRKooY4aSVVhFR/QZWRYTrt+ksvv/jShtfg/2lKx5vA8rPxZUqw3N2jFyBR4t5RjhBM1kOCa0Tkc18TNRUezkt04qhVhaou/umLVgX4jPBvIaJgeo59wB/N2oN3F2KnrDYWKw9z13kqc7ERdntiYJ2RIJEKvRu5tU49O8wsd3o+xhwIA5xjaQGBDV0EfMt0N+HmRwTRdmawuj/InVc+SZj9CpwEDMq3Uo8+vPs+WQCovogT5Mo7Yz4Ffeg==
+ b=hBrNqal8czifH5hyRyTlrX/2GTXZU+E4PwRQtWk7f8qOI0NDxYK1RWdouQcXBCE48pIxz4cIlhl60AjDq/rkXMWq+xbAw0sOU7L2ch23YTeQMd972AJsvTQMRiy8u4sK4twLhYjViUzSDAue7aFdYzROS0OSspP2ybyqTZ76nnpKpq9xA3MvZJi6ApbW1zMyaX+ObXPuLRAcxDltxSjVmVdFzY1YRJNjfQgEdCIMqt0HpFvxuyjvR5pUEdk5L9LOObBnP2y1CSkg1aU6xgBx81dSRxt3qvstdywl9ZS1XtWeKJYfcMOQ7EPZAfK7DKk78w7wUYiKRCr0Af5SmPKf+g==
 Received: from [192.168.1.137] ([213.144.156.170])
  by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202508041003592997; Mon, 04 Aug 2025 10:03:59 +0200
-Message-ID: <3f54ad00-4d07-4027-9afe-380a34419784@daenzer.net>
-Date: Mon, 4 Aug 2025 10:03:58 +0200
+ 01202508041020555526; Mon, 04 Aug 2025 10:20:55 +0200
+Message-ID: <f6c82f73-cf3c-48b1-95e4-650297306636@daenzer.net>
+Date: Mon, 4 Aug 2025 10:20:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Add primary plane to commits for correct
- VRR handling
+Subject: Re: [PATCH 4/4] drm/amd/display: Update HW_DONE_DEADLINE property
+ value on modeset
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Hung <alex.hung@amd.com>, Xaver Hugl <xaver.hugl@kde.org>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20250730080902.6849-1-michel@daenzer.net>
- <5620e30c-d953-4cd3-993d-0aea878574a1@amd.com>
+ Alex Hung <alex.hung@amd.com>, Uma Shankar <uma.shankar@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>, victoria@system76.com,
+ David Turner <david.turner@raspberrypi.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20250724165220.1189129-1-michel@daenzer.net>
+ <20250724165220.1189129-5-michel@daenzer.net>
+ <84a221e1-5675-4aca-a068-6f9408b96e40@amd.com>
 From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
 Content-Language: en-CA
 Autocrypt: addr=michel@daenzer.net; keydata=
@@ -54,7 +57,7 @@ Autocrypt: addr=michel@daenzer.net; keydata=
  GNtfiYKmbTkj1tMZJ8L6huKONaVrASFzLvZa2dlc2zja9ZSksKmge5BOTKWgbyepEc5qxSju
  YsYrX5xfLgTZC5abhhztpcJGBBgRAgAGBQI7HoVFAAoJEFqBr45q27IAlscAnjICalDn2zB1
  fXqoOkGsTwElvKa5AJ9FhyKJpysFRcejfdZwrwl9xb4oOg==
-In-Reply-To: <5620e30c-d953-4cd3-993d-0aea878574a1@amd.com>
+In-Reply-To: <84a221e1-5675-4aca-a068-6f9408b96e40@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,31 +74,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 31.07.25 19:27, Harry Wentland wrote:
-> On 2025-07-30 04:09, Michel Dänzer wrote:
->> From: Michel Dänzer <mdaenzer@redhat.com>
->>
->> amdgpu_dm_commit_planes calls update_freesync_state_on_stream only for
->> the primary plane. If a commit affects a CRTC but not its primary plane,
->> it would previously not trigger a refresh cycle or affect LFC, violating
->> current UAPI semantics.
->>
->> Fixes e.g. atomic commits affecting only the cursor plane being limited
->> to the minimum refresh rate.
->>
->> Don't do this for the legacy cursor ioctls though, it would break the
->> UAPI semantics for those.
->>
->> Suggested-by: Xaver Hugl <xaver.hugl@kde.org>
->> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3034
->> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+On 31.07.25 22:51, Harry Wentland wrote:
+> Thanks for the series. It makes sense to me.
+
+I'm glad to hear it, thanks for taking a look.
+
+May I take this as R-b?
+
+
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 0b8ac9edc070..e78249b55345 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -10021,6 +10021,21 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
+>>  	drm_writeback_queue_job(wb_conn, new_con_state);
+>>  }
+>>  
+>> +static void
+>> +update_hw_done_deadline(struct dm_crtc_state *dm_new_crtc_state)
+>> +{
+>> +	struct dc_stream_state *stream = dm_new_crtc_state->stream;
+>> +	struct dc_crtc_timing *timing = &stream->timing;
+>> +	struct drm_crtc *crtc = dm_new_crtc_state->base.crtc;
+>> +	uint32_t deadline_lines, deadline_us;
+>> +
+>> +	/* XXX: My guess, AMD display team to the rescue! */
+>> +	deadline_lines = timing->v_total - timing->v_addressable - timing->v_front_porch;
 > 
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> This works on DCE. On DCN we'll need to take the offset into account.
+> This diff on top of your changesshould do it, but it's not tested.
+> The dc_stream changes probably fit in their own patch.
 
-Thanks Harry.
+Thanks, I'll incorporate it.
 
 
-It occurred to me that Cc: stable might be appropriate for this fix, what do you think?
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 629fd21a611f..314074527216 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -10082,11 +10082,19 @@ update_hw_done_deadline(struct dm_crtc_state *dm_new_crtc_state)
+>         struct dc_crtc_timing *timing = &stream->timing;
+>         struct drm_crtc *crtc = dm_new_crtc_state->base.crtc;
+>         uint32_t deadline_lines, deadline_us;
+> +       int vupdate_offset = dc_stream_get_vupdate_offset_from_vsync(stream);
+> +
+> +       /* note:
+> +        * vupdate_offset is non-existant on DCE and function will return 0
+> +        * vupdate_offset could be positive or negative on DCN
+> +        * vupdate_offset depends on timing and HW bandwidth requirements
+> +        */
+> +       deadline_lines = timing->v_total - timing->v_addressable -
+> +                        timing->v_front_porch - vupdate_offset;
+Hmm, if it depends on bandwidth, we'll need to recalculate it for all CRTCs after a modeset for any of them, right?
 
 
 -- 
