@@ -4,83 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1923DCA0EC1
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 07:11:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01352C87FCB
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 07:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EFF110E5F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F40510E5EF;
 	Tue,  5 Aug 2025 07:11:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ijR8oufs";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="S8hcJMbF";
 	dkim-atps=neutral
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B2E810E057;
- Mon,  4 Aug 2025 22:14:25 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-af93bcaf678so418288666b.0; 
- Mon, 04 Aug 2025 15:14:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754345664; x=1754950464; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wisiRrg+vvrG3KCZ6C6S2W8R36Ns6oiSgAxK06Zc3F0=;
- b=ijR8oufsiNXRAhok/HlHIf+I2IzS6OwXUptw1qHe5Bio93R8uWdQJAKxszMtntvTiz
- jz2WNeFYTu0VgrvMvpyQOKKyRoUWfINNlsci3ndNuExR+RUAhshXRJ/ASszw4IrUYtKd
- MhTRCJzY7lRtoQzZydJl9iledbxyTvoSSAR1/VEKjlTjRJnKyzAe1peATDyilH5mYUEj
- p+okC46nCCJWulQ16GuT65Nfo0jZDxyM5Lj8EadAqq8zwnFqTHvmcy5tyw7zQbLLJl63
- f+CNQDa7xW/Va/pgIrzPMDZgKmHoMbEvLYoRPruVoPUt2tAS7E7+/UsWlnt4Ef3egJF+
- bv0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754345664; x=1754950464;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wisiRrg+vvrG3KCZ6C6S2W8R36Ns6oiSgAxK06Zc3F0=;
- b=BxAxY6+sWixaVM33xfcjgX9KNV6OUtrgDfWMXxFbhTVr5BqtN97Plc60iCyS66nuGU
- b8RS8S+Sn/0d9mjHqtTENB0vmIYAU+Qd8ZVlMSOsRhHybI+v4dDSoIBZnrElqgqoRIbt
- BTz7pfwam6VZQzM+w/v8jjCZfN7DZdja7uDGbRiMUi+9eebL01MqkNaXJjPO0vylJx2B
- /WRTES0grqcS+J06mUjPxMfFe/5dqcYt1L2kzs6qsGwh2DFiDfrlKUWEHe2tQ9DZ/GPe
- F9vOg49mRh/CrvkzVYVarDpOLGXqfIwDwlkl4kT0BVF1wCxYnO9Kqpz+ifvl7FA53aq3
- GVBQ==
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E297610E0F8;
+ Mon,  4 Aug 2025 21:32:47 +0000 (UTC)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 886AC33C4C8;
+ Mon,  4 Aug 2025 22:32:43 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1754343165; bh=ri6Z3M8MrO5vhZyfkInL7BZL2j6omfZd348uMVjNNiY=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=S8hcJMbFOaIWEbtqS8vzP/rsu3Sgc9IHa4nT1AiATnEr+G8SKR8iI75OKkbLlq45a
+ aP675LzQun0XSah6qnO08L2zp38G7ccApm7R2/g2sdb5gb7zWdbbHXS7uwqQytGxZY
+ l3DbTWvWpuRXi/Soh3mP3+F0poBm/HY70vIcCpCboY4ygCKBzHuFaW/kYKZ8i/wco3
+ /hSCbpi3sFSzMSLafGAkB3FVDZjHSERo/k9yytS0CMxBOlj6DcLeakkKV4m/IGQ6iv
+ f28NuJKJXYfrfItYoLk4fM9q0d1sQ5O1asa1fkgXlnlA3An4ALp1D6Ur86fDjGSIsM
+ vpD1xQxZT1lwQ==
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-af93bcaf678so415054266b.0; 
+ Mon, 04 Aug 2025 14:32:43 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUWwkFgDmwksFcR4Gn0Ec//2lnm9oHPWpAt3ygQT+SBe07cwaQF6JyNAzuV0Z/r4/8txz0nWqILdmyVDhNeXA==@lists.freedesktop.org,
- AJvYcCWiC7SBkh05sxROx44HBqdNsvGk7pgJYYrQehHslXGIp4g0DiMm8FjllCflkDe444bczJQnJmWkrnO9@lists.freedesktop.org,
- AJvYcCXspRSfQMQCS4UGZCe/XWfXGNkxbm/Z0MRSPZT223a1St50W6DuTkYqOpaYS3mk23x2YU4oYn49@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+wNoNho5KsUJCTht5hYTOE+8PaXDQcmvWtWjxlgFOFi/dnae+
- EQ97HxjnTqBZgREbNTZXpURl8MUlLO2gPsWJA6X5+yDp7JZf74V8q3yMfF71kO8I/ERWCpFknqk
- 8BL+ubgjuE7QNdk/9UZYDm0iPhtGmAa0=
-X-Gm-Gg: ASbGncvW9uPw7YXQW9RhtUZwr/bAwaP987BTO+VW++kcw2KK+sgvy7GDiGkTlgLWNZi
- YMH1ak+crM/ISPqh+XCXmpTF8aEl+Hzy8/gLTU2M3jgI6loJC89gB3MegIJP7eN3nGfTIYjLEJU
- 7jjhDELPdRyNQftwnJW2D8Vj+Zyh8ZDNgJA1/PuOcJ7gfsKqsZh9vV+WcQXtx9BKYyVm/lVJC+7
- NcYH6H4r++CREx+RpL2m2JuZvM8/rIchMzz/k2aag==
-X-Google-Smtp-Source: AGHT+IGhcxxZW/XaxGygtgVL92+KDX0RFQp1GyDfbyswDU5I/dAg1UVhwPLtUa8+qRclx9wd1ZAky8KQTEzz9psYc7Y=
-X-Received: by 2002:a17:907:6096:b0:aec:5478:9697 with SMTP id
- a640c23a62f3a-af9401af456mr998549166b.34.1754345663839; Mon, 04 Aug 2025
- 15:14:23 -0700 (PDT)
+ AJvYcCVRxispOTn1jK86Q3JJfq1ZpJqUxFeFv8xyg2eCdwHTy00TXD2yfVcqRwXV0LnpqBW02bCBmH0QeKwk@lists.freedesktop.org,
+ AJvYcCXMVeMtRR4uNMs7Zg0pi1CmGQDMmsxZaMXu22QWNqJQ6cz+J4eEWyG9Onmes6BlQF9nCoQACjaa@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwOlJ09KJMbTk3aptLteDurCVhWYWunG8Rtu2ypwFZVa5xNFVwM
+ GkytTS2jY+8iEocyX5JMYr3Qc9hiW9DSqsAMMK8WVwH3JORrVnxjucjypW2VgLgrFfhA/HorLZj
+ soCswtV+3SHBvNiawsacpjfVb11HrOto=
+X-Google-Smtp-Source: AGHT+IF/ky9b0+aGyvxmzBA/wi9xesdjpkTkAbyZWzdSGALTO9Liu72BxrfMri8mIqXSnpI9VP4SMmyolONLGdwUBvM=
+X-Received: by 2002:a17:906:f59f:b0:ae3:6cc8:e426 with SMTP id
+ a640c23a62f3a-af93ffc9053mr941711966b.9.1754343162353; Mon, 04 Aug 2025
+ 14:32:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250617041746.2884343-1-alex.hung@amd.com>
- <20250617041746.2884343-41-alex.hung@amd.com>
- <xn27XZjdRP83I8eaTGnDdLyvppJUppZ_GVsnDJQ1wK3UINAwh4FEutAlh02CtvZoPbB4D7zhof9rGj1DsxHpccpGK7ID-S-DjGi5VRhAD8I=@emersion.fr>
- <3f3f50e5-3a60-4d7e-855b-773c868ca14b@amd.com>
- <u6jeWkMGEK4azl2nj_tqzX19ev7_J5wxY80sKlAalWOXesDjDhDwuPwQz5ttsqlAiSlhVwnQpyWt80cdNtUfINqaxjtSkGA4h10Qj16nl3g=@emersion.fr>
-In-Reply-To: <u6jeWkMGEK4azl2nj_tqzX19ev7_J5wxY80sKlAalWOXesDjDhDwuPwQz5ttsqlAiSlhVwnQpyWt80cdNtUfINqaxjtSkGA4h10Qj16nl3g=@emersion.fr>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Tue, 5 Aug 2025 00:14:12 +0200
-X-Gm-Features: Ac12FXzenHZnNmlPOztYLEL_4svUHRyuto5lMln0IrH0H6NdbSLtNP9rVm3N3hY
-Message-ID: <CAFZQkGyj7=N2UcbBnjv7Az3oHSD2LXaAx5wzccpSt_UEhH3NZw@mail.gmail.com>
-Subject: Re: [PATCH V10 40/46] drm/colorop: Define LUT_1D interpolation
-To: Simon Ser <contact@emersion.fr>
-Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org, 
- harry.wentland@amd.com, leo.liu@amd.com, ville.syrjala@linux.intel.com, 
- pekka.paalanen@collabora.com, mwen@igalia.com, jadahl@redhat.com, 
- sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com, 
- joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com, 
- arthurgrillo@riseup.net, Daniel Stone <daniels@collabora.com>
+References: <20250801131053.6730-1-xaver.hugl@kde.org>
+ <ad9b68cc-4a33-406a-9512-ff5f5460bf99@intel.com>
+In-Reply-To: <ad9b68cc-4a33-406a-9512-ff5f5460bf99@intel.com>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Mon, 4 Aug 2025 23:32:31 +0200
+X-Gmail-Original-Message-ID: <CAFZQkGwviMAshk5gSF0pDmkqbfZT=6FHCfNq6PWj8srNEXjX7w@mail.gmail.com>
+X-Gm-Features: Ac12FXx3qnl-ZL78AY877KImUixgVXTZBRgwxLYn8JvgBzilUH_iYdJ6TeJ9kV4
+Message-ID: <CAFZQkGwviMAshk5gSF0pDmkqbfZT=6FHCfNq6PWj8srNEXjX7w@mail.gmail.com>
+Subject: Re: [PATCH v3] drm: don't run atomic_async_check for disabled planes
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>
+Cc: dri-devel@lists.freedesktop.org, andrealmeid@igalia.com, chris@kode54.net, 
+ naveen1.kumar@intel.com, ville.syrjala@linux.intel.com, mdaenzer@redhat.com,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ alexdeucher@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 05 Aug 2025 07:11:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -97,17 +72,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> It would become mutable only for hardware that supports switching the
-> interpolation. It would remain immutable otherwise.
-Please let's avoid making (more) properties *sometimes* immutable, it
-just makes it easier to use KMS wrong, with no benefits to it.
-If a compositor is written against a driver/hardware where it's
-mutable, it's easy to assume that the property would always be
-mutable, but that same code will not work on setups where it's
-immutable - as the kernel (atm even silently, without a warning!)
-rejects every commit touching immutable properties, even if you set it
-to the one supported value.
+Am Mo., 4. Aug. 2025 um 11:54 Uhr schrieb Murthy, Arun R
+<arun.r.murthy@intel.com>:
+>
+> On 01-08-2025 18:40, Xaver Hugl wrote:
+> > It's entirely valid and correct for compositors to include disabled
+> > planes in the atomic commit, and doing that should not prevent async
+> > flips from working. To fix that, this commit moves the plane check
+> > to after all the properties of the object have been set,
+> I dont think this is required. Again the plane states will have to be
+> fetched outside the set_prop()
+>
+> Alternate approach
+> @@ -1091,8 +1091,16 @@ int drm_atomic_set_property(struct
+> drm_atomic_state *state,
+>
+>                          /* ask the driver if this non-primary plane is
+> supported */
+>                          if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
+> -                               ret = -EINVAL;
+> +                               /*
+> +                                * continue if no change in prop on
+> non-supported async planes as well
+> +                                * or when disabling the plane
+> +                                */
+> +                               if (ret == 0 || (prop ==
+> config->prop_fb_id && prop_value == 0))
+This would allow disabling a plane in an async commit that was
+previously enabled, not sure that should be allowed? Also, if the
+property is fb_id, ret would be used uninitialized. But you're right,
+this should be fixable with smaller changes. Probably best to keep it
+minimal for the bugfix.
 
-A property should imo only be immutable if it's truly meant to be a
-read-only API (forever), like with immutable property blobs or plane
-types.
+Looking more at this code, I also notice that it currently allows you
+to change *any* property on overlay planes in an async flip, which
+doesn't seem right.
+
+> +  drm_dbg_atomic(prop->dev,
+> + "[PLANE:%d:%s] continue async as there is no prop change\n",
+> +                                                      obj->id,
+> plane->name);
+> +                               else
+> +                                       ret = -EINVAL;
+>
+>                                  if (plane_funcs &&
+> plane_funcs->atomic_async_check)
+>
+> Thanks and Regards,
+> Arun R Murthy
