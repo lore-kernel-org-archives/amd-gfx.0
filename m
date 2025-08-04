@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 709B5C87FCB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 11:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 840DFC87FCF
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 11:06:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B46810E17E;
-	Mon,  4 Aug 2025 11:06:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF8410E430;
+	Mon,  4 Aug 2025 11:06:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DeIttWA2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZvtuBqOh";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F3E410E430
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 11:06:32 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2046.outbound.protection.outlook.com [40.107.96.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4300810E430
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 11:06:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fcOCE75O103HymWQR2zzTQw5JLtAyMuaHvq+MljCcQzW47Laky+I97H4pqGWP2kWdYhSFDSRnCoxiN57XW2kzBzmVX9xKTdUcmkrm6cX/9Yf141H/hk/vz4wfSbQcfsU2bDBPE5Q6SL9I9ajuZDpm5f8BBHUqIYE47cxezlBmgpm+KtbO3tOIsEmzgDw/nqMqaCFDJYZrplN12Jrfsxw8/i9mTTu4iTqeyZ7QwGhz5X8SbCh16k35LE7OSjBeEtdfMTP4gti/HxzaKMUQuz6qLEWemKM59ykO1lVj4yWtYFK8kFSM5y3MJ4E+JAIKgQQkBlo9ix4DPlTgIxC8loQsw==
+ b=kd7ugj66exYmcWTXsV2oXCIOHQ7NgUXGnXqUSdzIK87vpSx37HXh6FlcHkxlzBz2BzRFM6ThkxsDrvRWTB+hqGvEBlF478jqRrRpZwVuBy+5fXkfqkMrNdLGtDEbA9GYj7VcbPFV1PZBwSOIZevjTj4iY2j6F7k9G4JzBC3nUXa+SFx0vf2KCWGJgPgRazITfzHiL1uCDBfuYIdb1uC55mwXGxF3ef61236i98qqnvRm6Y/izYbBinkgWGQ80v1lvbKHVOKiEIAlbclimFaUWxxu+IScZsgdJc+0qFzE7+7EtX+T8FJ3Wg+iQGkngV+k4AvtuoXhy4rvbPieCAgZYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rvh6Oaq6Bgp7rSEJRlgBo345gayXwhcgXV4k3CtCLJY=;
- b=LxDIqmwFzqr0D28Y0zGM4TQVoVzAiWQXETGBnNd2iAXJXOoPfw9hp9RlZg+C/Xycm901FBS3CmdVoKaaNqkuyy9y60GVo/6JhxNy/YTtMrsnTiFzOHrB+C2WTqIV2KOhBY+i4DRAyJYFJNIqlRyINK/HM2mbYz3ENpTVXIPHk6l86Xe47s5auuCAxQgWzdReCOgCt7/4/KyKegJ6UMysGeptfC3OomHJqUhdt9aM1fcrXmecev6JfeBLezBGJoG7NjMJkOaynBBvQzdWmvIUPe8UlzTnZ4rZ/vgTil6dPhifMa7Qe6V+bMzUq6WFK9GPuCHSVCHsaFNF5kbKlChAhA==
+ bh=rr9QMnEO4RbrdwUjhEeNwby5icZyhHjNl/IbMPA8G+E=;
+ b=TpK6A3v2TLIXPqNzjsLrGX3/8IyhSR1EOsRM0GIOVhYFwTIWY4UMctobcq7qB62ybW5LrlWhIFbyM2JSYqcqcoarg3jKXj3kSuE/kgR4nSJa4IB1v0d3aSObrTkEfzW1z9Kifde9s68K0PtARZsD9D6ounkIiaVI2C1ao7CxaK4rx12Xme6ip4BuUhslcDgz0ehjhQvQSXaDtswEbaEFjZmjE/HK4ylerkEZWAqAHMlibUe7NIpBvr/BSv6l3pSCbT7nlTn1suMoMTqL1kwgTUaMXadhF9+TUwlEiiBhcrnOFjcQDllYQwIqX0OFuvLeHdUmLXS0q6Gkv+W4+K4pRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rvh6Oaq6Bgp7rSEJRlgBo345gayXwhcgXV4k3CtCLJY=;
- b=DeIttWA2EkudJdCTpypI41IGiZ7M3EXKN0Op59eATuzm3tcTBx+Y9DBPqs+UIsYYID4peHh2UgJ2kCwdcTpX+oeIA1+94xIPkBf27RPaWulmjkroGMIRYZcYjEOl+z9P1QwWfFPvqkD974G82GlQ8i2xF6lSmuLjFGuX9bZDw7A=
-Received: from SJ0PR03CA0151.namprd03.prod.outlook.com (2603:10b6:a03:338::6)
- by DS7PR12MB8290.namprd12.prod.outlook.com (2603:10b6:8:d8::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.20; Mon, 4 Aug
- 2025 11:06:28 +0000
-Received: from MWH0EPF000989E9.namprd02.prod.outlook.com
- (2603:10b6:a03:338:cafe::ab) by SJ0PR03CA0151.outlook.office365.com
- (2603:10b6:a03:338::6) with Microsoft SMTP Server (version=TLS1_3,
+ bh=rr9QMnEO4RbrdwUjhEeNwby5icZyhHjNl/IbMPA8G+E=;
+ b=ZvtuBqOhW99oyTFT+Sb/suFi3qJMyh6QzVxx3Ip2JvnKnDW8DIPKQkHYD2mYMmVVdLMGFZx1gNRSKAUnfMwNdzEqJS1+618rIPLJcXjdaq/pOCjY21LYQ0b016shIHTf72jrjV6rU01WZo4OfpSZjDqWjPyjdgYMOrz3EoaYz4I=
+Received: from MW4PR03CA0359.namprd03.prod.outlook.com (2603:10b6:303:dc::34)
+ by DM3PR12MB9389.namprd12.prod.outlook.com (2603:10b6:0:46::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8989.18; Mon, 4 Aug 2025 11:06:30 +0000
+Received: from MWH0EPF000989E7.namprd02.prod.outlook.com
+ (2603:10b6:303:dc:cafe::83) by MW4PR03CA0359.outlook.office365.com
+ (2603:10b6:303:dc::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.20 via Frontend Transport; Mon,
- 4 Aug 2025 11:06:27 +0000
+ 4 Aug 2025 11:06:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E9.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ MWH0EPF000989E7.mail.protection.outlook.com (10.167.241.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9009.8 via Frontend Transport; Mon, 4 Aug 2025 11:06:27 +0000
+ 15.20.9009.8 via Frontend Transport; Mon, 4 Aug 2025 11:06:29 +0000
 Received: from localhost.localdomain.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 4 Aug 2025 06:06:25 -0500
+ 15.1.2507.39; Mon, 4 Aug 2025 06:06:27 -0500
 From: Zhu Lingshan <lingshan.zhu@amd.com>
 To: <alexander.deucher@amd.com>, <felix.kuehling@amd.com>
 CC: <ray.huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
  <lingshan.zhu@amd.com>
-Subject: [PATCH V3 00/13] amdkfd: Implement kfd multiple contexts
-Date: Mon, 4 Aug 2025 19:05:37 +0800
-Message-ID: <20250804110550.261311-1-lingshan.zhu@amd.com>
+Subject: [PATCH V3 01/13] amdkfd: enlarge the hashtable of kfd_process
+Date: Mon, 4 Aug 2025 19:05:38 +0800
+Message-ID: <20250804110550.261311-2-lingshan.zhu@amd.com>
 X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20250804110550.261311-1-lingshan.zhu@amd.com>
+References: <20250804110550.261311-1-lingshan.zhu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,52 +73,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|DS7PR12MB8290:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2384e20c-dae4-485a-6d28-08ddd346f595
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E7:EE_|DM3PR12MB9389:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8bca3afa-cef4-41c3-172f-08ddd346f6c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?A/GyT35RQQBQio/1leXuubxwKd0kaZpieyu0zt/95qoYQs/sL3KJztYeFtAM?=
- =?us-ascii?Q?4ES19+HtgTASla+CV7wG/cq1KcKlpHp9cWKX4M5lO0T5g330MD3SUGobnyhG?=
- =?us-ascii?Q?oUER/HUE8swiU+ZrpMcecInYnkIs+c2uP0+Jn2ratKZM9pAjwqo220dnZOOx?=
- =?us-ascii?Q?CpiCOxRK8yCB0jsiB30CIJ1GJJibdoqUB6ikLszv5L2Ul0FVvzmT8a3htmIQ?=
- =?us-ascii?Q?q8fMezilC/el/+Mzf6MPUdP5iPkGRbnR1l+VhR8O0NLsuLxk62X5CkeBDt5f?=
- =?us-ascii?Q?VEjuO1EG4U9aJ6CuaRY3C4iyrBt0lhcOdyzYnJ5Ao1iI5BJbPZ/rIR+oL985?=
- =?us-ascii?Q?5h6rKoXYckhA1HutC9BLtAk8pslI4WyHnXcQNpDfetvrLWfnELNj7FE8LpEt?=
- =?us-ascii?Q?lYsmlhUKkL3a1Sxk/UUE06Arf4QPRrs/atLBK/1+ks45zd0a7GSSXJUCCDs3?=
- =?us-ascii?Q?lR8tPaY8H2JwCsznIm8q8bf8NLOUhgyMumYZ0RcRgctr5byYoRgLRlM0+Kll?=
- =?us-ascii?Q?262hGRRNcpfSBNEbxtdyycdjl2p3CfHFcKKTV/ePYsjYkmEqHVmZDUiuh1hb?=
- =?us-ascii?Q?DhI5DTR6xvXYgkYZ9JZmux6H/JiIi5tkgGCCxRFG9XvYiNxDy1pIln3pRtmc?=
- =?us-ascii?Q?Jf4mvIn9N+8HvqKyEv2EFbhKBP/HMWNvRIHNVud5OCD6/bIMjkrkRtCIpdvg?=
- =?us-ascii?Q?cTviDwPvHUY0mW06Srery2fDWx3T8SJfw4/GpgbTRJZcDzH3GpcVFgnnWouR?=
- =?us-ascii?Q?jReh4srzqqJ8ZhmBdN25rpPtcD6NyCz4nW63N4nPi228kcYAXn1LfDDFcQpb?=
- =?us-ascii?Q?LjLRCW0oJ3K93v2jNyF9m9OxoWfnXulaPnaATbWNevoAO9q9dSDC6QWvK/o2?=
- =?us-ascii?Q?VLDKLrNzNe+paE/6/SOGyRZab6554YPwkK/IEJlxdrAF5YfNlC8FH8kw0O6P?=
- =?us-ascii?Q?YDs7twA4vAmlZrFy4AgF0m2c5+u06ZjsNuvOpk9ZXtVURjjrLAoaDwd10zPF?=
- =?us-ascii?Q?ZMPb2cHAQ48Hdks/jAXwQH0KSgKYafsDf4cmOuRyOWJ1rMOEsUOctdm6gndb?=
- =?us-ascii?Q?TGUZySIHs5J8DBPH1e5FWStd+MI/fxOHrsGhb6VZmuA5LBsGvHa4KhUu8V2k?=
- =?us-ascii?Q?jM5v0/o1ecmxRY0P1sJmF3w8XRjuJldhQWx6PKBbyRyktbNah97sYLgAGboU?=
- =?us-ascii?Q?FGxsJHHZ1chu0bRRdZSvbSWvEVaQYrovqqdIO7awkicNyELMEHhVmlw9FKxT?=
- =?us-ascii?Q?ViuErD2G+MKBLTi54UiuoGgyHVEzi2FvCHsleSygx+CtHW88RPpxwgeTRlZb?=
- =?us-ascii?Q?1S/CYJ68W8vXX52pq1hL6kP3CMv1h9/XpYK9enHppfEkR+irH3jjPLO70GWU?=
- =?us-ascii?Q?exOxMp/CVIGrkjvVhO9TBBctueSSSsKK5WxJJHtO1guBZ+6T9Y1HBtP1bZAg?=
- =?us-ascii?Q?D1JOUe49Xgx25KrpuehMGVfSifAhj3bnZux3jf7meHj3f5zepO/Ei9x36jR8?=
- =?us-ascii?Q?T51jQ1uwyh+Dtnjv69FQFniMo13yoVdRwWo4?=
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?1/6mIRk8idhmO+1lmJzIDp5eEpAYJAQrP+OlC7705R8XnsY3Qnxy/TdRA5L1?=
+ =?us-ascii?Q?+apEUgG4JdIodxTsrlu2tB0ie41byneN37SByf9OOod+MCZaEoaGTPNI0vYl?=
+ =?us-ascii?Q?du5USLyK8nqHqCtgSk3Kl1tIt5ucfTRTXu+btCSjfMXac+Vy2r5CdXIacsVB?=
+ =?us-ascii?Q?6R4RRgFQmxiNuyuUhD0v4/zKEqtnKyhNBH1EH5xOTFpRgKb1LS5PqRmNENYG?=
+ =?us-ascii?Q?xPnSmaxwlChbq0vRjD4xWOC1eM8LE++lJewXW5IKDgsIr+XiOZNmeavdAu4P?=
+ =?us-ascii?Q?/zfEGjy37a2wdtGpje7vvmTYERNEOAoLAP4opfKTJF6O/YW+LOFdLPfjwSBO?=
+ =?us-ascii?Q?znhUUE6nyNwCC+0V6ULdwq0E4lpR89uFV7f8btjQf0My6FMdPrJqsUBmeZ6Q?=
+ =?us-ascii?Q?/sMhJa+nXTLDYIQGleOWXrkOVnn1xcgB9/HxfCsHYllBEUdIqtDZ9AAbpW+/?=
+ =?us-ascii?Q?l0OYk9xoakHMgtW3+2TQ1iuxXXTS65/fVAKaBOq2enDe7Eru9fDpdON+PdcL?=
+ =?us-ascii?Q?TgdVFzvpV3CSZAB5/w4ff2qgEnIC3gUqmMFlEMGmCP/q4u1kkSos6R8fC26u?=
+ =?us-ascii?Q?hewNa8maNZ1WExCb0vXbg4kUORTYmpNu6MN0N+KDDuDeG9UoeSVkTvWDQFGk?=
+ =?us-ascii?Q?w/pPpzwWMLJoGtyNo92sr09LJaL2xqut1FcQohIqdN7WfPnWTTidV8qBi/Up?=
+ =?us-ascii?Q?IgyfiUZnkz7ODTWR8U/afiwKjrnwT7gdbUBeUDoLLejlzXUQF2LiK4UH71ti?=
+ =?us-ascii?Q?JkaQ99RwfD0ph7SAGvceu2DmOTVCVds4G4bZ0FvO2+KUwLCWoQokDXhn5gEw?=
+ =?us-ascii?Q?QC2yjF9qzIYyOgd4DzmI/5e/ACQAa0/LGUBzJvd7ie2ZqTJoHuHJSebrWv/r?=
+ =?us-ascii?Q?x//HdvyOVI01jVWqzo4EZEYbdpzlfk5ds9i+UsnwT7intP9tT+nMbD356/tL?=
+ =?us-ascii?Q?StSp2y4XPsLKjud6YgUObQIFVtztkl44wKfW0TpPMOSKvXNCYv4EVX4RSSFx?=
+ =?us-ascii?Q?g0zwjU+gZMWeHr+fuQ5Jc44a5Iu9pnm3kVoU9f/CUv7EO9hufDZosraGYm95?=
+ =?us-ascii?Q?wT3B9Zj+304yuStF4A5wVKOCV3llE3SwCxE0joFA0e/nGPsHwzssXFW35m+4?=
+ =?us-ascii?Q?rfNoI5A0LoWOF5Q3MgOXCweVyuXA48BvEm7w/SFXD4kCt8BLokruGZU1zSev?=
+ =?us-ascii?Q?d1teT3txB5POPn5aWsN5/KjUOLooSuxcVu/BccrC7Re3V2oEIo+Vs44bT05+?=
+ =?us-ascii?Q?wXP1Vg2MCRJxqbMRReUEisG1nOe6pyOPyVH92f4OIULYgyl8BQ8cORZeEg9T?=
+ =?us-ascii?Q?mba8L5VeiC8h6bTIae4bZNO1dp906H0djHeGwMcQv+qce+Lps1XqpSGEUux1?=
+ =?us-ascii?Q?QqZAluXRmGZsXmzl0uXvzegUURRjg1w2sG9RY6ViV3zM8dcNooDFC2ay8m/B?=
+ =?us-ascii?Q?U0kc54p8hpUxht9inS40AANNRclyr/KIvW9+q/YMtOyH7h5REJx/lXNzCb0K?=
+ =?us-ascii?Q?fKsv+Qc7XPGUU26uNU7JGG7g8XiN4Auk7to9?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2025 11:06:27.6501 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2384e20c-dae4-485a-6d28-08ddd346f595
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2025 11:06:29.6682 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8bca3afa-cef4-41c3-172f-08ddd346f6c9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E7.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8290
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9389
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,201 +133,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently kfd manages kfd_process in a one context (kfd_process)
-per program manner, thus each user space program
-only onws one kfd context (kfd_process).
+This commit enlarges the hashtable size of
+kfd_process to 256, because of the multiple
+contexts feature allowing each application
+create multiple kfd_processes
 
-This model works fine for most of the programs, but imperfect
-for a hypervisor like QEMU. Because all programs in the guest
-user space share the same only one kfd context, which is
-problematic, including but not limited to:
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-As illustrated in Figure 1, all guest user space programs share the same fd of /dev/kfd
-and the same kfd_process, and the same PASID leading to the same
-GPU_VM address space. Therefore the IOVA range of each
-guest user space programs are not isolated,
-they can attack each other through GPU DMA.
-
-
- +----------------------------------------------------------------------------------+
- |                                                                                  |
- |  +-----------+      +-----------+      +------------+      +------------+        |
- |  |           |      |           |      |            |      |            |        |
- |  | Program 1 |      | Program 2 |      | Program 3  |      | Program N  |        |
- |  |           |      |           |      |            |      |            |        |
- |  +----+------+      +--------+--+      +--+---------+      +-----+------+        |
- |       |                      |            |                      |               |
- |       |                      |            |                      |        Guest  |
- |       |                      |            |                      |               |
- +-------+----------------------+------------+----------------------+---------------+
-         |                      |            |                      |
-         |                      |            |                      |
-         |                      |            |                      |
-         |                      |            |                      |
-         |                   +--+------------+---+                  |
-         |                   | file descriptor   |                  |
-         +-------------------+ of /dev/kfd       +------------------+
-                             | opened by QEMU    |
-                             |                   |
-                             +---------+---------+                   User Space
-                                       |                             QEMU
-                                       |
----------------------------------------+-----------------------------------------------------
-                                       |                             Kernel Space
-                                       |                             KFD Module
-                                       |
-                              +--------+--------+
-                              |                 |
-                              |   kfd_process   |<------------------The only one KFD context
-                              |                 |
-                              +--------+--------+
-                                       |
-                              +--------+--------+
-                              |     PASID       |
-                              +--------+--------+
-                                       |
-                              +--------+--------+
-                              |      GPU_VM     |
-                              +-----------------+
-
-                                 Fiture 1
-
-
-This series implements a multiple contexts solution:
-- Allow each program to create and hold multiple contexts (kfd processes)
-- Each context has its own fd of /dev/kfd and an exclusive kfd_process,
-  which is a secondary kfd context. So that PASID/GPU VM isolates their IOVA address spaces.
-  Therefore, they can not attack each other through GPU DMA.
-
-The design is illustrated in Figure 2 below:
-
-   +---------------------------------------------------------------------------------------------------------+                    
-   |                                                                                                         |                    
-   |                                                                                                         |                    
-   |                                                                                                         |                    
-   |       +----------------------------------------------------------------------------------+              |                    
-   |       |                                                                                  |              |                    
-   |       | +-----------+      +-----------+     +-----------+    +-----------+              |              |                    
-   |       | |           |      |           |     |           |    |           |              |              |                    
-   |       | | Program 1 |      | Program 2 |     | Program 3 |    | Program N |              |              |                    
-   |       | |           |      |           |     |           |    |           |              |              |                    
-   |       | +-----+-----+      +-----+-----+     +-----+-----+    +-----+-----+              |              |                    
-   |       |       |                  |                 |                |                    |              |                    
-   |       |       |                  |                 |                |        Guest       |              |                    
-   |       |       |                  |                 |                |                    |              |                    
-   |       +-------+------------------+-----------------+----------------+--------------------+              |                    
-   |               |                  |                 |                |                            QEMU   |                    
-   |               |                  |                 |                |                                   |                    
-   +---------------+------------------+-----------------+----------------+--------------------------+--------+                    
-                   |                  |                 |                |                          |                             
-                   |                  |                 |                |                          |                             
-                   |                  |                 |                |                          |                             
-               +---+----+         +---+----+        +---+----+       +---+----+                 +---+-----+                       
-               |        |         |        |        |        |       |        |                 | Primary |                       
-               |  FD 1  |         |  FD 2  |        |  FD 3  |       |  FD 4  |                 |   FD    |                       
-               |        |         |        |        |        |       |        |                 |         |                       
-               +---+----+         +---+----+        +---+----+       +----+---+                 +----+----+                       
-                   |                  |                 |                 |                          |             User Space     
-                   |                  |                 |                 |                          |                            
--------------------+------------------+-----------------+-----------------+--------------------------+----------------------------
-                   |                  |                 |                 |                          |             Kernel SPace   
-                   |                  |                 |                 |                          |                            
-                   |                  |                 |                 |                          |                            
-   +--------------------------------------------------------------------------------------------------------------------------+   
-   |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |   
-   |        | Secondary   |    | Secondary   |   | Secondary   |   | Secondary   |            |  Primary    |   KFD Module    |   
-   |        |kfd_process 1|    |kfd_process 2|   |kfd_process 3|   |kfd_process 4|            | kfd_process |                 |   
-   |        |             |    |             |   |             |   |             |            |             |                 |   
-   |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |   
-   |               |                  |                 |                 |                          |                        |   
-   |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |   
-   |        |   PASID     |    |   PASID     |   |   PASID     |   |   PASID     |            |   PASID     |                 |   
-   |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |   
-   |               |                  |                 |                 |                          |                        |   
-   |               |                  |                 |                 |                          |                        |   
-   |        +------+------+    +------+------+   +------+------+   +------+------+            +------+------+                 |   
-   |        |   GPU_VM    |    |   GPU_VM    |   |   GPU_VM    |   |   GPU_VM    |            |   GPU_VM    |                 |   
-   |        +-------------+    +-------------+   +-------------+   +-------------+            +-------------+                 |   
-   |                                                                                                                          |   
-   +--------------------------------------------------------------------------------------------------------------------------+   
-                                                                                                                                  
-                                                  Figure 2  
-
-Appendix, a minimal test program:
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/ioctl.h>
-#include <linux/kfd_ioctl.h>
-int main() {
-	int fd1, fd2, ret;
-
-	// open FDs
-	fd1 = open("/dev/kfd", O_RDWR);
-	if (fd1 < 0) {
-		perror("Failed to open FD1 /dev/kfd");
-		return EXIT_FAILURE;
-	}
-
-	printf("FD1 == %d /dev/kfd opened successfully\n", fd1);
-
-	getchar();
-
-	fd2 = open("/dev/kfd", O_RDWR);
-	if (fd2 < 0) {
-		perror("Failed to open FD2 /dev/kfd");
-		return EXIT_FAILURE;
-	}
-
-	printf("FD2 == %d /dev/kfd opened successfully\n", fd2);
-
-	getchar();
-
-	// create a new secondary context
-	ret = ioctl(fd2, AMDKFD_IOC_CREATE_PROCESS);
-	printf("AMDKFD_IOC_CREATE_PROCESS ioctl ret = %d\n", ret);
-
-	getchar();
-
-	// close FDs
-	close(fd2);
-	getchar();
-	close(fd1);
-	getchar();
-
-	return EXIT_SUCCESS;
-}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 67694bcd9464..8a33e6ee6369 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1011,7 +1011,7 @@ struct kfd_process {
+ 	bool gpu_page_fault;
+ };
  
-
-
-Zhu Lingshan (13):
-  amdkfd: enlarge the hashtable of kfd_process
-  amdkfd: mark the first kfd_process as the primary one
-  amdkfd: find_process_by_mm always return the primary context
-  amdkfd: Introduce kfd_create_process_sysfs as a separate function
-  amdkfd: destroy kfd secondary contexts through fd close
-  amdkfd: process svm ioctl only on the primary kfd process
-  amdkfd: process USERPTR allocation only on the primary kfd process
-  amdkfd: identify a secondary kfd process by its id
-  amdkfd: find kfd_process by filep->private_data in kfd_mmap
-  amdkfd: process pointer of a HIQ should be set to NULL
-  amdkfd: remove DIQ support
-  amdkfd: remove test_kq
-  amdkfd: introduce new ioctl AMDKFD_IOC_CREATE_PROCESS
-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  73 +++++-
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |   6 +-
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |  60 +----
- .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |   4 -
- .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |   4 -
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  15 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 223 ++++++++++++------
- .../amd/amdkfd/kfd_process_queue_manager.c    |  39 +--
- include/uapi/linux/kfd_ioctl.h                |   8 +-
- 9 files changed, 248 insertions(+), 184 deletions(-)
-
+-#define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
++#define KFD_PROCESS_TABLE_SIZE 8 /* bits: 256 entries */
+ extern DECLARE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
+ extern struct srcu_struct kfd_processes_srcu;
+ 
 -- 
 2.47.1
 
