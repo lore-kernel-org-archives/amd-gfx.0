@@ -4,77 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E359DC87FCB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 15:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDD10C87FCB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 15:21:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CDC010E213;
-	Mon,  4 Aug 2025 15:09:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E95A10E58C;
+	Mon,  4 Aug 2025 15:21:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RVNl8Vra";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GE21Myxl";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9283110E213;
- Mon,  4 Aug 2025 15:09:09 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-31f3f978cd1so750591a91.2; 
- Mon, 04 Aug 2025 08:09:09 -0700 (PDT)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43BE510E58E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 15:21:05 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-b3f2f8469b7so464801a12.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 08:21:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754320149; x=1754924949; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754320865; x=1754925665; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0pWmlnlbINt5DgzqX/LhMW6Smiak/fMhtF3KImHodSQ=;
- b=RVNl8VrattZTLSWOUGE5fLpB4hxke4Ty4PdC4JsTnKghG5rluSq3KAikptrI1Y8GgH
- /dCUr7MeZvyFfKR0MpLrmfry/uabw2mVHmfQT+K52SqmLp5d4TcMVCi1uXr4Ttyd5vU/
- 8h1zEGijeoZOgXkh+xaDNJ2GJoPNC9tjArr+PiSEGkJOgBrgLzaqMLAooJjQuKCbow/i
- dO9ZQkB5pqK2Yr1ire+a5Apmt6QW9yXKvpmMN09bVd/XcGLq6Hva4o5Mzdq1DuCcW4mK
- l+97u/AmXtpGGtfz1iIXqMgvHMezIdsx5T8NKczNtiOmGKQwge1vMo72TWomc9xXblXO
- lcoQ==
+ bh=yhwYFnkLI+C2OORRE2EoEdcjCJEPI5tdEv4OIDNlwZc=;
+ b=GE21MyxlVRj8NS41qlW4HzfMfpPqzN6syjoYAuKiewiAh+olt4QvvEN1wdSKAJP2ji
+ JAi5W+BXrldhZSrmqmSCy0J/noWHFEkutUqv03dHWta7XY6tjlE2Xby9+b5UkF51iInc
+ xAEeSKgKtZpeOSGMxUFyo8KDmieySOWypJ0hXMGK1s8RMWf5m6Nc7CCGgIRtlQr60Tju
+ pTZfHYLZE6pQSBcv/Wy4SeDfIfT5bKS0gbDQFLU152zNmMWwtDCVTJXRCjc0q52LS+mU
+ +WNFoxdrkSqRHjP8qvz+2m2zPWpL2Oo2ZrK0snv4hD9F/U3hbVQghFJJ4D+F3wM51Bp/
+ Kqrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754320149; x=1754924949;
+ d=1e100.net; s=20230601; t=1754320865; x=1754925665;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0pWmlnlbINt5DgzqX/LhMW6Smiak/fMhtF3KImHodSQ=;
- b=j6IFuC/rMT+6S747rx9oC0noihb6gZjSYVQCsQsDZHnx+B1UVl64ljVkAgLSeNfV1D
- HTU0cKmP2bfDqnlB5WEqQVXaUJVfsPXkG3+sJ1DPic1gnYa5/nbiWJfQuobJcfmeFc91
- qbbgC5cqwAMTklumWnXZ22xzQkafSkEvImEFbPqJJj1tNpPb1zhvf6hE6ey0DhM8YrFT
- TfpYsTD/OST6OccZ+TRWZTiW39VfF87oKgNVIhh/NbcCPjNxNxvgnB4PA864XUmkIfsu
- dI56k+9puPZ+EqZce2AKCOij2YsUGJ4ojk4lfGF2564PENtbCaFbmVVrZQ099OjKMi8g
- qITA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWadcynmB43irvesu/+Sq/yc/Ww4Tuyj2YPHC0NsgZ3mJ8SL2ZiawmPz+fAiDcLLBZVApmdzwuR3KeK@lists.freedesktop.org,
- AJvYcCXQXLYLKHvAG735QsnR0Q065SFwkkV2UTAMBDuG9u9zyihaJ4ljMUO3TVDJcST5s3ByByce1XDX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyoRuGnanH3ztWhrTq9yRvU3qlpGrysum/UP5x913BlwRhWlN3j
- ZQ5PP/mV0iKnP72SSud4UBR+WSw+0v7g4EHGidpTILipbv/p3gbY/AZuiZ00kS6QGLMYxd2Qg7g
- VtX5pcM4mwFy8R9Ee44a7aJheLcoxlO0=
-X-Gm-Gg: ASbGncte3Z0W5/gw+bEUR/Khk2XghLyRCwkRCV/pgcO+lrTb3wjslGfoKJgHH6IFPU/
- mk+XJI8UJrPKiNuFBwrl6sCcwrcuAmB0Kfn7k/1apX9e+ZIa4lt3GDEJ7Q7uA+l4Q9ukKtzA+yo
- TmU8soA3MAM2jjkPqST5xkhxR9xw9QlC+srRHg2M5bZLW06BK/tVSdFeywpzFPGnL4plZWLpPxa
- dw4dhq6WiNPlZsVsLQ=
-X-Google-Smtp-Source: AGHT+IHMFTyHef6/XrO0koXR/RYvYL+mNs96k9z60jF3FuBiwe69QFy4KV4xUVhlsAx611Q1Vntkh6D2HZ+92HzrCTY=
-X-Received: by 2002:a17:90b:1d05:b0:31f:3d6:6d98 with SMTP id
- 98e67ed59e1d1-321162cd943mr6369334a91.5.1754320148948; Mon, 04 Aug 2025
- 08:09:08 -0700 (PDT)
+ bh=yhwYFnkLI+C2OORRE2EoEdcjCJEPI5tdEv4OIDNlwZc=;
+ b=su9aLPRZAOQVqONAfvSa7/z1VUDoLOkn+zzZR4Nkk7e5sCs9XDYE27R9EjgoQXN0LO
+ UuUW1CXmFUkh0ifZasmU9vNyQRLwtujgu9USWZF7AfASq/xusaLArjHdJOeFBSdey/WK
+ aGjLMjuTmDIsbrbpazKfu7zmSG0P62N8dZe4sLmqMqQprRHkIx5ykHejv7lzoYC98Dhx
+ y0Ca7796d7xzHUj/ei9kxCx8aBDDtIVcfWKjXYmdYeLy1+Fvsov+sVHaidaKB00ghjph
+ EqZM4iP2AUDGC0Qyf3Cy47w7vKq+qpJ4/iwIgnH66Viy7S4cGMvtp14nEN5/PqnMrBKF
+ XIOw==
+X-Gm-Message-State: AOJu0YyrLGAj9R6R81jcoTnNRONSsGVnZbzvgzYCZPVk9krs/td2Lg6z
+ T3qnGd4VEv4Qbrde5/XAXqsZoEo8JQqWqew0EJ8czR/WKxSxKRDYgVYGV4TxrbcIY+UAWy9WpNz
+ v2DaRrckqSx+YQHpmS633BnX+yu6Ottg=
+X-Gm-Gg: ASbGncueeGImN3HOtK3nnIfOr8ndDBLzGJWO9QvwH6JuWCpt0KUcKHpVpmsveYGpa/s
+ BZecZ+J7tz1P4iyrxXP5DVRuYF403kaV7arRyyrDB7hwQYBB6STwHSmjblcffu0nO7d9ePDiLZH
+ S03wEAYf+8FcJUKQyZUU58oC08Oo7ymOzJucYCODtlJ+bRBDJyglTpHV+Qj1G376l9fekUYFb0v
+ oVJQov7
+X-Google-Smtp-Source: AGHT+IEWRCMj4oH/i6QBOuwIZB0PzHMKIVA0G7Z2UpLGakz2mqtvOwMWcRrMcnKDRW1L4fXMzeAMwW+AEkHgwYJcQRs=
+X-Received: by 2002:a17:90b:1804:b0:31f:55a7:6504 with SMTP id
+ 98e67ed59e1d1-321162c71c9mr6372347a91.5.1754320864574; Mon, 04 Aug 2025
+ 08:21:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250801-amdgfx10-v1-1-e1dcbe18d84e@ethancedwards.com>
- <CADnq5_N+bQppUAD-qR8QC8M6nW+oRF8+7z=Qakcxc=a6Z8q4Gg@mail.gmail.com>
- <c82931b5-0de2-4e45-a80b-3a90b0cc98a2@suswa.mountain>
-In-Reply-To: <c82931b5-0de2-4e45-a80b-3a90b0cc98a2@suswa.mountain>
+References: <20250804134154.95875-1-timur.kristof@gmail.com>
+ <20250804134154.95875-2-timur.kristof@gmail.com>
+In-Reply-To: <20250804134154.95875-2-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 4 Aug 2025 11:08:57 -0400
-X-Gm-Features: Ac12FXzrs51YUGCsmGY-ztatDva8cn8ius8nZTcTZJWx1B0F2phV965iupSHQcc
-Message-ID: <CADnq5_Mk3FO_tvxFo+fJgqskVc7qtGv74VM6EStx_BcVpahXEQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx10: remove redundant repeated null checks
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Ethan Carter Edwards <ethan@ethancedwards.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel-janitors@vger.kernel.org
+Date: Mon, 4 Aug 2025 11:20:53 -0400
+X-Gm-Features: Ac12FXykWuRDbeO_XgDPR7QTq1drc3SALID9ol4cDsWjT7DEIYt4Sml9RN38abQ
+Message-ID: <CADnq5_O5F5UAC17CE4mwOx_5pbTKzv73Yuj=-_cA06G3hQeQJQ@mail.gmail.com>
+Subject: Re: [PATCH 1/6] drm/amdgpu: Power up UVD 3 for FW validation
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Christian Koenig <christian.koenig@amd.com>, Leo Liu <leo.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,31 +82,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 4, 2025 at 10:49=E2=80=AFAM Dan Carpenter <dan.carpenter@linaro=
-.org> wrote:
+On Mon, Aug 4, 2025 at 9:58=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@gm=
+ail.com> wrote:
 >
-> On Mon, Aug 04, 2025 at 10:32:43AM -0400, Alex Deucher wrote:
-> > On Sat, Aug 2, 2025 at 4:22=E2=80=AFAM Ethan Carter Edwards
-> > <ethan@ethancedwards.com> wrote:
-> > >
-> > > The repeated checks on grbm_soft_reset are unnecessary. Remove them.
-> > >
-> >
-> > These are not NULL checks and they are necessary.  The code is
-> > checking if any bits are set in that register.  If not, then we can
-> > skip that code as there is nothing to do.
-> >
+> Unlike later versions, UVD 3 has firmware validation.
+> For this to work, the UVD should be powered up correctly.
 >
-> It's not a null check, but it is a nested check and it's a local
-> variable so the patch is correct enough.  At this point we know that
-> grbm_soft_reset can't be zero.
+> When DPM is enabled and the display clock is off,
+> the SMU may choose a power state which doesn't power
+> the UVD, which can result in failure to initialize UVD.
 
-It can be 0 as far as I can see.  If none of the GRBM_STATUS bits are
-set, then we never set any of the bits in grbm_soft_reset.
++ Christian, Leo
+
+That doesn't seem right to me.  IIRC, the driver always set the UVD
+PLL directly on SI and I don't think SI supported any kind of UVD
+power gating. I guess it's probably some sort of subtle sequencing
+difference between radeon and amdgpu.  Unless Christian or Leo have
+any ideas, I think the patch is probably fine.
 
 Alex
 
 >
-> regards,
-> dan carpenter
+> Fixes: b38f3e80ecec ("drm amdgpu: SI UVD v3_1 (v2)")
+> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/=
+amdgpu/uvd_v3_1.c
+> index 5dbaebb592b3..9ad06c1e150d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> @@ -633,6 +633,12 @@ static int uvd_v3_1_hw_init(struct amdgpu_ip_block *=
+ip_block)
+>         int r;
+>
+>         uvd_v3_1_mc_resume(adev);
+> +       uvd_v3_1_enable_mgcg(adev, true);
+> +
+> +       if (adev->pm.dpm_enabled)
+> +               amdgpu_dpm_enable_uvd(adev, true);
+> +       else
+> +               amdgpu_asic_set_uvd_clocks(adev, 53300, 40000);
+>
+>         r =3D uvd_v3_1_fw_validate(adev);
+>         if (r) {
+> @@ -640,9 +646,6 @@ static int uvd_v3_1_hw_init(struct amdgpu_ip_block *i=
+p_block)
+>                 return r;
+>         }
+>
+> -       uvd_v3_1_enable_mgcg(adev, true);
+> -       amdgpu_asic_set_uvd_clocks(adev, 53300, 40000);
+> -
+>         uvd_v3_1_start(adev);
+>
+>         r =3D amdgpu_ring_test_helper(ring);
+> --
+> 2.50.1
 >
