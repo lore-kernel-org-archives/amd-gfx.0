@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35C06C87FCB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B6AC87FDA
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:18:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE6E610E366;
-	Mon,  4 Aug 2025 14:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3A9410E534;
+	Mon,  4 Aug 2025 14:18:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BSzJ2Ixh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gvJGoYig";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2052.outbound.protection.outlook.com [40.107.100.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F1BF10E518
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 14:18:16 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2075.outbound.protection.outlook.com [40.107.236.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4046310E522
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 14:18:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=laG4aoWH5Gd+pq6b9jz1rSXpvVlruw5ox3UUpZxI/9683/vU38F8QSC4Zolca4MentbWmyE4j3EDxAB4A0phteSQcs+qeI6JchiojwgX7PUKJsLOIWCNPxtKWmnaHQWlI9GUJ2bi1CiDTgtn6uE9ff0QFRInagS4WzXevhuxVDVvJGve0Qs1gC29sACsTKbprLLR0JwSBm1apKZs05TB9OKeMqArzPC0s4bS0HlSDstuBaxiE5Kb2zO9CcCERFfAttnOANlXPWfQ4t3Agku3hmOr0+4Xa4qgg6w1mEeNRe/79nZcQgHxaU92OKTLjw0UJWZMpeQqoPTp4ppa6yM2Gw==
+ b=FdcwozKry39G21V2Y1obN/QevLjC20cNceJkNi3mTdaRhCgEyYWm7npElyouXpjzj8Gj9/yrbJBkCp97Zh8dwlwDbqiP7rkiVZaXWUjKCESV3laFos02nlnmffDczKYeM3rGrvt8WXQXv24OIqF04hGansj44VURwb4Ug7nh9TMbK7/vgW6o0UKfF4bucGq/+dv9k5UyBZ2Wm7uX/0rc3UOybkRAayusnafTyYW10tLJUwa0SAF5BWey4hTAcS/n44QORtl1byzgFXYayMZh4H+UEFvH12nDar2BHNURkHwBFlxaYHUB1gNOI2jL0DxeYB5vui/UoDiwXD4A2dTFQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PPdADyhgVrkcX1TadMl7Rdm1yAxNsXtuEerI7P1jbcs=;
- b=HyJOnGpJkgkjs0gi4/FYGUJQPXPvPaKLHCoVCo/rBTSHaEBYe7dvRu06WH+v7nsI72u+HpiFFzXIx2Wt8N7QGLU19SKMYCt0TugFkdQcVKKNY869sWdfCH06wGbSyoDL9yNLAzUgLgTQd4TcIFT04xEPYveRKy3bZNCub1MeRh2m75DtaqgnsrX4lZq15Sn+WbQ2aut0TSye8QEWX3d/fWpO0LUR3oeDx04tfrYaG71oFlBnrHWWS4KhDeraZ4kojZqwUiRaFQLtP+52shRrFcaPv4BYFLubTFbCdDjJ7GWG0XY/Axz/+pKIN5F6pIhXpv0NavptuCnLIEAHmm3pHg==
+ bh=GMaJzbM6my4HLCzC0xUCRvpMlom9siPsEQ5Rqq6i3SY=;
+ b=d2UPiaZWb7nerBy31313wcPFrphx3YHV+tduK9AfeqXOzYWHgHKQCPdYo2/xkwV80hEO7K+e5Cstmrlm3Pr5B9XDaimpyV9784BzX4vLGHchtxqdncpzLKNQlCbHFxDbwjIKZWLnqrGyboPyIHuvXakVPX0kgR1EVkv3+SaunEDIG1E2Qs4nPxlXY45g50asrs2aDPy2fuYcw3hXjBcp0ULOv8cMVJO2fLrYm/jRhDYX6zC4fg1/8YcIaD5qxYsCiqgcLJ8mI9AnYCJ27jz1LAPurS+muwzfDF1xxTs7SkdDTV7vQWYku323CaNU3U4XTHZ1NQQ0LPiR5HDjOwgcsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PPdADyhgVrkcX1TadMl7Rdm1yAxNsXtuEerI7P1jbcs=;
- b=BSzJ2IxhgRGk4hpaZCbe2f3n+OK7WawJze9OFW1SwNGk7Tczmz7+FmerNLaN/lTzUkEYBUUGaX+oxbRg66JOi7kbOYXg7EniG0AyVRg3Z0fGxDldEoXiHEcQIqfFbTcjrRB5PFdrBIQN4rum9z/qeHUTQT1qala3MbTqridM39E=
-Received: from BN9PR03CA0987.namprd03.prod.outlook.com (2603:10b6:408:109::32)
- by DM4PR12MB6448.namprd12.prod.outlook.com (2603:10b6:8:8a::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8989.20; Mon, 4 Aug 2025 14:18:12 +0000
-Received: from BL6PEPF0001AB77.namprd02.prod.outlook.com
- (2603:10b6:408:109:cafe::ec) by BN9PR03CA0987.outlook.office365.com
- (2603:10b6:408:109::32) with Microsoft SMTP Server (version=TLS1_3,
+ bh=GMaJzbM6my4HLCzC0xUCRvpMlom9siPsEQ5Rqq6i3SY=;
+ b=gvJGoYigSN0U18dFIU3WaGTpdUpWqRSrN/L5gokOfc6FN2hZU+/xp0dObEG2bxA1Nbpr09/lB8JiCd2MhcUvj83oS7KzyhBaTFV4v+qIrhmKBmCH3ghV5WvrMlnwvuPYhjMd4HSoZhFO97tzArj6h2zjmzBVEYH8kyYUVekoE/k=
+Received: from BN9P221CA0015.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::20)
+ by CYYPR12MB8701.namprd12.prod.outlook.com (2603:10b6:930:bf::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.20; Mon, 4 Aug
+ 2025 14:18:14 +0000
+Received: from BL6PEPF0001AB74.namprd02.prod.outlook.com
+ (2603:10b6:408:10a:cafe::2f) by BN9P221CA0015.outlook.office365.com
+ (2603:10b6:408:10a::20) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.21 via Frontend Transport; Mon,
- 4 Aug 2025 14:18:12 +0000
+ 4 Aug 2025 14:18:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB77.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ BL6PEPF0001AB74.mail.protection.outlook.com (10.167.242.167) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9009.8 via Frontend Transport; Mon, 4 Aug 2025 14:18:11 +0000
+ 15.20.9009.8 via Frontend Transport; Mon, 4 Aug 2025 14:18:13 +0000
 Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 4 Aug
- 2025 09:18:09 -0500
+ 2025 09:18:11 -0500
 From: Asad Kamal <asad.kamal@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <lijo.lazar@amd.com>
 CC: <hawking.zhang@amd.com>, <le.ma@amd.com>, <shiwu.zhang@amd.com>,
  <alexander.deucher@amd.com>, <asad.kamal@amd.com>
-Subject: [PATCH v3 1/6] drm/amd/pm: Add dpm interface for temp metrics
-Date: Mon, 4 Aug 2025 22:17:52 +0800
-Message-ID: <20250804141757.643501-1-asad.kamal@amd.com>
+Subject: [PATCH v3 2/6] drm/amd/pm: Add smu interface for temp metrics
+Date: Mon, 4 Aug 2025 22:17:53 +0800
+Message-ID: <20250804141757.643501-2-asad.kamal@amd.com>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20250804141757.643501-1-asad.kamal@amd.com>
+References: <20250804141757.643501-1-asad.kamal@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,52 +73,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB77:EE_|DM4PR12MB6448:EE_
-X-MS-Office365-Filtering-Correlation-Id: a77b1b4d-a7b8-43a0-8ab9-08ddd361be5a
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|CYYPR12MB8701:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4c48c68-1960-4c4b-81a7-08ddd361bfb0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?glkt+EH5oM88S5ud0zynE+vXaiwIgQDhPg7V7BRb01waSjWGbYvLQ8mPOgWi?=
- =?us-ascii?Q?zAjz150KBGxj3hwC7k7BoKBP1PM/ujomZfgLppaw2IaTp9rd936iF+p8XahV?=
- =?us-ascii?Q?2HslVE6jqaz6RexqpN27pocF2xIcLF3lAIQeiM4tHyK48BT+wawSsvtCa8zb?=
- =?us-ascii?Q?7rLQ6TUiItajgIJxR8V9vxBF41ozOf9m0UN6vXi0AzbppRIvOGV5VrXgbFtj?=
- =?us-ascii?Q?4oJA4D4yeQdof6pJhjNL++bDb1cyfQZpSYO0DzSznfGpFjrKR6J6hfI0DD7M?=
- =?us-ascii?Q?hbloBTKpsHsH59QZzD6quBxT6DDeMD22h2JtkNavlY4qgkuVcy/fbjbS6nGB?=
- =?us-ascii?Q?JpNgV+++Tzs3ABENoHKX8JxrDYKtJUDuuZcgBoMU2uMxNldeC/fERHhzMsn/?=
- =?us-ascii?Q?0bjJvP8vzHEC8U6XknZWuOrNFfqCPkXQmerrMDNkME5Qu+vLdY33xf6hgSKs?=
- =?us-ascii?Q?2ozRJi7FMPNAi9kKXgC7uVSkNoD5Cz6lqj3sQZ+10Sgjjx1L6eXDF0KRe9h4?=
- =?us-ascii?Q?GbmBhGbByoKyrZhpPBMjUsREbal7TWj1Mwg6m7PKCwpnzaCLE2XFYdON3YqP?=
- =?us-ascii?Q?S+LE8RBPSeAg+A1Ep6/gUu0nTVU9xZNXp3U4fibFp7zhAUohfre3q4Rgq2Zr?=
- =?us-ascii?Q?wQbsVeoOa9JazSPb9diwpy0Af2ncvwJx/NFgCA0NAIJ7WG3gU+QLFjl68MMW?=
- =?us-ascii?Q?gE4Myh0lKbeKdxXSrL/tNuOG2YwAm8BBKbdsHCwQSG/82YlS5C5UIL9XiS1X?=
- =?us-ascii?Q?L+LH2TZGQOVTR04WsiSSQoD6wBi2UeR8BrVpVWDvnDt43Ybl5o6FP5+fZw4J?=
- =?us-ascii?Q?Sh4JkF9NJ84IKalbFALJV9iibphWeJ/FfKB/USCLWtYetX+XGIPmH/BlZOSA?=
- =?us-ascii?Q?qwKcegfeQOHmC7ZNtpz9F3wImZsN3pTKrOjAnA5bdvYzXb+AD1zxSlF9H4dZ?=
- =?us-ascii?Q?bhY0un4+gsjQ7LK3MPJ1LICDLlHrMQg9L90/oDlwUDwYOhRcKZ4YkhUjaJmr?=
- =?us-ascii?Q?72QK+7taEBXoa/Jr4kvIXhr5OvWEeQ/sdM5RjTgNzD4mIImdeJVCDLYW82Xs?=
- =?us-ascii?Q?Sy9lLD4TGYfsNvch4ZP015E2utUrmo1PPqLSbvkvgY7ZKzghKB5LRXrUSRyW?=
- =?us-ascii?Q?uQUT7FxextqNKPqrIIXHtrAPqu88BSC2FNlLOud6gSBZT6SHSrApYiXzAVKS?=
- =?us-ascii?Q?Xd22VJg3FAw5woffjeG/pK/uQaudgBirgpyWgLoxBE9mLbeHI+GqHXdGDXYT?=
- =?us-ascii?Q?kF2N15nC1zrMqbOp3OC1cPnhPyVvCtRNasaeuNYeqzRoD2XCdi5A4Mg40JHk?=
- =?us-ascii?Q?GgV7GoPsHBObSqqXfrmqUayVMOML+IKAFYuM55t5PqYNOmOxKYngk/V5AQTB?=
- =?us-ascii?Q?sfOmcFSJ5EmllY0HGad1KefXvL6rwO2zNmdOWXHdeuCiWL4BKZyNolHfgmgG?=
- =?us-ascii?Q?SFpwGuSFWyUZqrEmH3ov3LXE3GBH8AG/8tW/y/314TgMTh25tMpaKJbvSyOP?=
- =?us-ascii?Q?lU3xHvQ84eaRqeG4iByndBV9UKZI4ubSUhRs?=
+ ARA:13230040|82310400026|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eRnnUyPMXCP1KAP9LAMx23Drm4rOiWQLfaeZeJlGPkl01dx5adCrTX6I7Dbw?=
+ =?us-ascii?Q?2+1HLD1cuHZPA0KeqNXNBFclqIHshHjGXMqF1CwzSdyA0LlSDw4qzk6NTOi1?=
+ =?us-ascii?Q?63JaJpMGMhPbC5klZvRZRBh8LrNsXd0TZLycRea0mxJ+WtUrZZfmgeEDWY6g?=
+ =?us-ascii?Q?x3yzdmGiuW38WHnOZ3sILK+XOnqudMH0PTGNogqYd15uLNt5shi4g5sD3F3L?=
+ =?us-ascii?Q?SYDWiY/NblFcy/QX3/40tCiahA7I6Ntwqfn0ZSBriWdKdhYq8EAQi2buwGSf?=
+ =?us-ascii?Q?qxGtWAbv1UPFx5lFikAk9oYpuwLkQF8Ig+mPOL8kxzHDZXbd8QzTl3bfC3Rh?=
+ =?us-ascii?Q?nWWVQTwJWFF6S3OtBBxuyjTAwcI+ZFg4INZsr3jRJrPuLyHq05cQOfYWmj01?=
+ =?us-ascii?Q?qPthO2MGWrhVmctDB+yy8imxp0S39MVcO4Jiza1cBDXSh7AFYe/tN1tMLrWz?=
+ =?us-ascii?Q?mMBdRPSQq13RwWtKUFBz2/x0k4aywdFvvl8crz1ernvei7aiMPx/d6t6ebHv?=
+ =?us-ascii?Q?OxDOTWZ2RAPNwyK9tGq8IviRWwfcRhT9/9gGFDthnO/3PLND4Q4bjo5gw+uF?=
+ =?us-ascii?Q?eKihqEtp5ROAn/mFyIibEYgH/Cpf/srHr0m5IT/cZwXRRrIZafbFX1MX5VFo?=
+ =?us-ascii?Q?cJ4hU2q3C4uvz2FG2aTGBr1wmFqIJZyY2H01tLDsfvoOv5jfdKO7Bs5kSodA?=
+ =?us-ascii?Q?7KXcWbWQkIKC8NzgDem8EleXX0hk5wmJOoyZwIU6F8izthWuSEVH3zoPjVCi?=
+ =?us-ascii?Q?ct+5nMtXwHrwBJfMJKz9yi2O9bRrawrgOAQxZFqRj2UGC7R8r0/UNkWkw+NR?=
+ =?us-ascii?Q?jI38ZXFbzNPXBeUCvm7umdi4c1BvvJj7jsuaLJXDvGZEs2cXppwDaezV2FCG?=
+ =?us-ascii?Q?vBg1RsMFqQOx0autyGB4xXzgLRZ4TrRDbgMjwHZ/KYP9TlNoiDDZRG+GTFR0?=
+ =?us-ascii?Q?BSkbivj71yOthfypU0pxKIFLd/vPknkfIGlr6x6xgIIKeYxj+VKEHyUhdwTX?=
+ =?us-ascii?Q?yLbGTviJJVlYBDhB7KrhicK/HV0b+6E/tegl2RvlMa+A1ZdUzLLy8GUqJ+Mw?=
+ =?us-ascii?Q?Dg44EhcIoPxkT81bKQ5fTgmxxNVd2NkFFiYRxWJCp8gtilKiBSYPyT+761ru?=
+ =?us-ascii?Q?g3bmxCywTmdhkDMnvEwIdPCXrv588GF0dx+DNeQ1FOSqSSax2dRFcaS+H7b4?=
+ =?us-ascii?Q?XkeTqDqw2FzltjdFsizyKNOMzM9BprLxSu+X4eSSrQBXq5EW3S800kflXkrr?=
+ =?us-ascii?Q?/vcAGv75Bcpp0iU7hpNfxh5ASn/DS+F8i+7iDc/ZNNyRO8zDPXzqSZF6IWA7?=
+ =?us-ascii?Q?owL7QCmd4fQP+lPi+E+g/RsYqurNMaXOqG+sjY9V2wQYmN8uovkXktZ0a8oZ?=
+ =?us-ascii?Q?8LOhxiN5HCa0cVR5Os39s1CyVAY5B08zrgpFfxGFSBAYSPDr6i3vZH4+JEy8?=
+ =?us-ascii?Q?k3jE+PqGetJF7x0i1EFUxjKGUDsriO4+8eyBhzJgao31BdCipHtphjlt6FM8?=
+ =?us-ascii?Q?4IfnzEpxt0p+tfWtUfJLhY8qvHW3IoKTia2E?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2025 14:18:11.4936 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a77b1b4d-a7b8-43a0-8ab9-08ddd361be5a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2025 14:18:13.7337 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4c48c68-1960-4c4b-81a7-08ddd361bfb0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB77.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB74.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6448
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8701
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,217 +133,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add dpm interface to get gpuboard/baseboard temperature metrics
+Add smu interface to get baseboard/gpuboard temperature metrics
 
-v2: Add temperature metrics support check(Lijo)
-
-v3: Return error code in case of operation not supported(Lijo)
+v2: Rename is_support to is_supported(Lijo)
 
 Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 ---
- .../gpu/drm/amd/include/kgd_pp_interface.h    | 81 +++++++++++++++++++
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 60 ++++++++++++++
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  4 +
- 3 files changed, 145 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 29 +++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 27 +++++++++++++++++
+ 2 files changed, 56 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index e2b1ea7467b0..2f7e4b5bebf3 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -30,6 +30,12 @@ extern const struct amdgpu_ip_block_version smu_v12_0_ip_block;
- extern const struct amdgpu_ip_block_version smu_v13_0_ip_block;
- extern const struct amdgpu_ip_block_version smu_v14_0_ip_block;
- 
-+enum smu_temp_metric_type {
-+	SMU_TEMP_METRIC_BASEBOARD,
-+	SMU_TEMP_METRIC_GPUBOARD,
-+	SMU_TEMP_METRIC_MAX,
-+};
-+
- enum smu_event_type {
- 	SMU_EVENT_RESET_COMPLETE = 0,
- };
-@@ -496,6 +502,8 @@ struct amd_pm_funcs {
- 	int (*set_df_cstate)(void *handle, enum pp_df_cstate state);
- 	int (*set_xgmi_pstate)(void *handle, uint32_t pstate);
- 	ssize_t (*get_gpu_metrics)(void *handle, void **table);
-+	ssize_t (*get_temp_metrics)(void *handle, enum smu_temp_metric_type type, void *table);
-+	bool (*temp_metrics_is_supported)(void *handle, enum smu_temp_metric_type type);
- 	ssize_t (*get_xcp_metrics)(void *handle, int xcp_id, void *table);
- 	ssize_t (*get_pm_metrics)(void *handle, void *pmmetrics, size_t size);
- 	int (*set_watermarks_for_clock_ranges)(void *handle,
-@@ -1595,6 +1603,79 @@ struct amdgpu_pm_metrics {
- 	uint8_t data[];
- };
- 
-+enum amdgpu_vr_temp {
-+	AMDGPU_VDDCR_VDD0_TEMP,
-+	AMDGPU_VDDCR_VDD1_TEMP,
-+	AMDGPU_VDDCR_VDD2_TEMP,
-+	AMDGPU_VDDCR_VDD3_TEMP,
-+	AMDGPU_VDDCR_SOC_A_TEMP,
-+	AMDGPU_VDDCR_SOC_C_TEMP,
-+	AMDGPU_VDDCR_SOCIO_A_TEMP,
-+	AMDGPU_VDDCR_SOCIO_C_TEMP,
-+	AMDGPU_VDD_085_HBM_TEMP,
-+	AMDGPU_VDDCR_11_HBM_B_TEMP,
-+	AMDGPU_VDDCR_11_HBM_D_TEMP,
-+	AMDGPU_VDD_USR_TEMP,
-+	AMDGPU_VDDIO_11_E32_TEMP,
-+	AMDGPU_VR_MAX_TEMP_ENTRIES,
-+};
-+
-+enum amdgpu_system_temp {
-+	AMDGPU_UBB_FPGA_TEMP,
-+	AMDGPU_UBB_FRONT_TEMP,
-+	AMDGPU_UBB_BACK_TEMP,
-+	AMDGPU_UBB_OAM7_TEMP,
-+	AMDGPU_UBB_IBC_TEMP,
-+	AMDGPU_UBB_UFPGA_TEMP,
-+	AMDGPU_UBB_OAM1_TEMP,
-+	AMDGPU_OAM_0_1_HSC_TEMP,
-+	AMDGPU_OAM_2_3_HSC_TEMP,
-+	AMDGPU_OAM_4_5_HSC_TEMP,
-+	AMDGPU_OAM_6_7_HSC_TEMP,
-+	AMDGPU_UBB_FPGA_0V72_VR_TEMP,
-+	AMDGPU_UBB_FPGA_3V3_VR_TEMP,
-+	AMDGPU_RETIMER_0_1_2_3_1V2_VR_TEMP,
-+	AMDGPU_RETIMER_4_5_6_7_1V2_VR_TEMP,
-+	AMDGPU_RETIMER_0_1_0V9_VR_TEMP,
-+	AMDGPU_RETIMER_4_5_0V9_VR_TEMP,
-+	AMDGPU_RETIMER_2_3_0V9_VR_TEMP,
-+	AMDGPU_RETIMER_6_7_0V9_VR_TEMP,
-+	AMDGPU_OAM_0_1_2_3_3V3_VR_TEMP,
-+	AMDGPU_OAM_4_5_6_7_3V3_VR_TEMP,
-+	AMDGPU_IBC_HSC_TEMP,
-+	AMDGPU_IBC_TEMP,
-+	AMDGPU_SYSTEM_MAX_TEMP_ENTRIES = 32,
-+};
-+
-+enum amdgpu_node_temp {
-+	AMDGPU_RETIMER_X_TEMP,
-+	AMDGPU_OAM_X_IBC_TEMP,
-+	AMDGPU_OAM_X_IBC_2_TEMP,
-+	AMDGPU_OAM_X_VDD18_VR_TEMP,
-+	AMDGPU_OAM_X_04_HBM_B_VR_TEMP,
-+	AMDGPU_OAM_X_04_HBM_D_VR_TEMP,
-+	AMDGPU_NODE_MAX_TEMP_ENTRIES = 12,
-+};
-+
-+struct amdgpu_gpuboard_temp_metrics_v1_0 {
-+	struct metrics_table_header common_header;
-+	uint16_t label_version;
-+	uint16_t node_id;
-+	uint64_t accumulation_counter;
-+	/* Encoded temperature in Celcius, 24:31 is sensor id 0:23 is temp value */
-+	uint32_t node_temp[AMDGPU_NODE_MAX_TEMP_ENTRIES];
-+	uint32_t vr_temp[AMDGPU_VR_MAX_TEMP_ENTRIES];
-+};
-+
-+struct amdgpu_baseboard_temp_metrics_v1_0 {
-+	struct metrics_table_header common_header;
-+	uint16_t label_version;
-+	uint16_t node_id;
-+	uint64_t accumulation_counter;
-+	/* Encoded temperature in Celcius, 24:31 is sensor id 0:23 is temp value */
-+	uint32_t system_temp[AMDGPU_SYSTEM_MAX_TEMP_ENTRIES];
-+};
-+
- struct amdgpu_partition_metrics_v1_0 {
- 	struct metrics_table_header common_header;
- 	/* Current clocks (Mhz) */
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 71d986dd7a6e..8e19054578f7 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -2037,6 +2037,66 @@ int amdgpu_dpm_get_dpm_clock_table(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index b47cb4a5f488..8b015107f761 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -3831,6 +3831,33 @@ int smu_set_pm_policy(struct smu_context *smu, enum pp_pm_policy p_type,
  	return ret;
  }
  
-+/**
-+ * amdgpu_dpm_get_temp_metrics - Retrieve metrics for a specific compute
-+ * partition
-+ * @adev: Pointer to the device.
-+ * @type: Identifier for the temperature type metrics to be fetched.
-+ * @table: Pointer to a buffer where the metrics will be stored. If NULL, the
-+ * function returns the size of the metrics structure.
-+ *
-+ * This function retrieves metrics for a specific temperature type, If the
-+ * table parameter is NULL, the function returns the size of the metrics
-+ * structure without populating it.
-+ *
-+ * Return: Size of the metrics structure on success, or a negative error code on failure.
-+ */
-+ssize_t amdgpu_dpm_get_temp_metrics(struct amdgpu_device *adev,
-+				    enum smu_temp_metric_type type, void *table)
++static ssize_t smu_sys_get_temp_metrics(void *handle, enum smu_temp_metric_type type, void *table)
 +{
-+	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	int ret;
++	struct smu_context *smu = handle;
 +
-+	if (!pp_funcs->get_temp_metrics ||
-+	    !amdgpu_dpm_is_temp_metrics_supported(adev, type))
++	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
 +		return -EOPNOTSUPP;
 +
-+	mutex_lock(&adev->pm.mutex);
-+	ret = pp_funcs->get_temp_metrics(adev->powerplay.pp_handle, type, table);
-+	mutex_unlock(&adev->pm.mutex);
++	if (!smu->smu_temp.temp_funcs || !smu->smu_temp.temp_funcs->get_temp_metrics)
++		return -EOPNOTSUPP;
++
++	return smu->smu_temp.temp_funcs->get_temp_metrics(smu, type, table);
++}
++
++static bool smu_temp_metrics_is_supported(void *handle, enum smu_temp_metric_type type)
++{
++	struct smu_context *smu = handle;
++	bool ret = false;
++
++	if (!smu->pm_enabled)
++		return false;
++
++	if (smu->smu_temp.temp_funcs && smu->smu_temp.temp_funcs->temp_metrics_is_supported)
++		ret = smu->smu_temp.temp_funcs->temp_metrics_is_supported(smu, type);
 +
 +	return ret;
 +}
 +
+ static ssize_t smu_sys_get_xcp_metrics(void *handle, int xcp_id, void *table)
+ {
+ 	struct smu_context *smu = handle;
+@@ -3903,6 +3930,8 @@ static const struct amd_pm_funcs swsmu_pm_funcs = {
+ 	.get_dpm_clock_table              = smu_get_dpm_clock_table,
+ 	.get_smu_prv_buf_details = smu_get_prv_buffer_details,
+ 	.get_xcp_metrics                  = smu_sys_get_xcp_metrics,
++	.get_temp_metrics             = smu_sys_get_temp_metrics,
++	.temp_metrics_is_supported      = smu_temp_metrics_is_supported,
+ };
+ 
+ int smu_wait_for_event(struct smu_context *smu, enum smu_event_type event,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index b52e194397e2..b490c39e313e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -396,6 +396,10 @@ struct smu_dpm_context {
+ 	struct smu_dpm_policy_ctxt *dpm_policies;
+ };
+ 
++struct smu_temp_context {
++	const struct smu_temp_funcs      *temp_funcs;
++};
++
+ struct smu_power_gate {
+ 	bool uvd_gated;
+ 	bool vce_gated;
+@@ -529,6 +533,7 @@ struct smu_context {
+ 	struct smu_table_context	smu_table;
+ 	struct smu_dpm_context		smu_dpm;
+ 	struct smu_power_context	smu_power;
++	struct smu_temp_context		smu_temp;
+ 	struct smu_feature		smu_feature;
+ 	struct amd_pp_display_configuration  *display_config;
+ 	struct smu_baco_context		smu_baco;
+@@ -623,6 +628,28 @@ struct smu_context {
+ 
+ struct i2c_adapter;
+ 
 +/**
-+ * amdgpu_dpm_is_temp_metrics_supported - Return if specific temperature metrics support
-+ * is available
-+ * @adev: Pointer to the device.
-+ * @type: Identifier for the temperature type metrics to be fetched.
-+ *
-+ * This function returns metrics if specific temperature metrics type is supported or not.
-+ *
-+ * Return: True in case of metrics type supported else false.
++ * struct smu_temp_funcs - Callbacks used to get temperature data.
 + */
-+bool amdgpu_dpm_is_temp_metrics_supported(struct amdgpu_device *adev,
-+					  enum smu_temp_metric_type type)
-+{
-+	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	bool support_temp_metrics = false;
-+
-+	if (!pp_funcs->temp_metrics_is_supported)
-+		return support_temp_metrics;
-+
-+	if (is_support_sw_smu(adev)) {
-+		mutex_lock(&adev->pm.mutex);
-+		support_temp_metrics =
-+			pp_funcs->temp_metrics_is_supported(adev->powerplay.pp_handle, type);
-+		mutex_unlock(&adev->pm.mutex);
-+	}
-+
-+	return support_temp_metrics;
-+}
-+
- /**
-  * amdgpu_dpm_get_xcp_metrics - Retrieve metrics for a specific compute
-  * partition
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index 768317ee1486..09962db988d6 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -526,6 +526,8 @@ int amdgpu_dpm_set_power_profile_mode(struct amdgpu_device *adev,
- int amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void **table);
- ssize_t amdgpu_dpm_get_xcp_metrics(struct amdgpu_device *adev, int xcp_id,
- 				   void *table);
-+ssize_t amdgpu_dpm_get_temp_metrics(struct amdgpu_device *adev,
++struct smu_temp_funcs {
++	/**
++	 * @get_temp_metrics: Calibrate voltage/frequency curve to fit the system's
++	 *           power delivery and voltage margins. Required for adaptive
++	 * @type Temperature metrics type(baseboard/gpuboard)
++	 * Return: Size of &table
++	 */
++	ssize_t (*get_temp_metrics)(struct smu_context *smu,
 +				    enum smu_temp_metric_type type, void *table);
- 
++
++	/**
++	 * @temp_metrics_is_support: Get if specific temperature metrics is supported
++	 * @type Temperature metrics type(baseboard/gpuboard)
++	 * Return: true if supported else false
++	 */
++	bool (*temp_metrics_is_supported)(struct smu_context *smu, enum smu_temp_metric_type type);
++
++};
++
  /**
-  * @get_pm_metrics: Get one snapshot of power management metrics from PMFW. The
-@@ -613,5 +615,7 @@ ssize_t amdgpu_dpm_get_pm_policy_info(struct amdgpu_device *adev,
- int amdgpu_dpm_reset_sdma(struct amdgpu_device *adev, uint32_t inst_mask);
- bool amdgpu_dpm_reset_sdma_is_supported(struct amdgpu_device *adev);
- int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask);
-+bool amdgpu_dpm_is_temp_metrics_supported(struct amdgpu_device *adev,
-+					  enum smu_temp_metric_type type);
- 
- #endif
+  * struct pptable_funcs - Callbacks used to interact with the SMU.
+  */
 -- 
 2.46.0
 
