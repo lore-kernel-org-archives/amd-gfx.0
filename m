@@ -4,80 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB5C4C87FCB
-	for <amd-gfx@archiver.kernel.org>; Sun,  3 Aug 2025 20:08:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04837C87FCB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 01:56:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C6B10E06E;
-	Sun,  3 Aug 2025 20:08:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0F910E20F;
+	Mon,  4 Aug 2025 01:56:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iqKrkf0e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IlQ4Q9kQ";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB2E310E06E
- for <amd-gfx@lists.freedesktop.org>; Sun,  3 Aug 2025 20:08:08 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-458b49c98a7so12151965e9.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 03 Aug 2025 13:08:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754251687; x=1754856487; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=5rfE9XizxzYHhGHJpdatqE11cFZzfhNVbW8M+4bRpB0=;
- b=iqKrkf0e/xIg5mv2/IdRMvhzrJi4M2X8hB+1MNX8+//raAp2XPV8Kuo3+4yHIlh+C5
- 4hXIt5dNzUyGOMTTVgOpCj9fcI0VkwG+cIzlyESbW+gosY8iKBm9mexHafSUbb4wfgYB
- LjS7Ws+Ep5LPByqXeCFpJ+Pm+e8IhjGqdWHVs/es7H9e4YzenZ8AzszSjdvVYCkTXaJ4
- j1kSFSe+/vW3dzcu70HwccFIXu3lW4eJZv+q1n6NyJem3GGXFK4t9Ix8SD2I3Fy2Mqh3
- fncnbctY3frC69c1njqSXSifsuaBCzh5jei6UfiFkCbyU/6PY6Fw8zJLeB6+r7zsMGCT
- YhNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754251687; x=1754856487;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=5rfE9XizxzYHhGHJpdatqE11cFZzfhNVbW8M+4bRpB0=;
- b=vszJeCGDjjU/8+tg8QEMsFW+J07eJRGLtXO5JdDPXVHew8oe1w0sYeVFN5aJ4Ynhtg
- jIvuM+UFX/TdNEm40+2TBDU0BN+XEHh2Utln0Y+ijV+pnZycebEOkRAKhYjFjmIoTeA5
- uxuV0xFog31ezYNuE9GE1NvSm9KrwqtU8aI63AWB4vINQO0ZH6TC6JkDMb1VY2JiPVd5
- ONQi30ZNPSsSZ+cOwqhp9bKigMXAVEeo9s56IUerNoFGNRPl2VN4sIkniOtj/CgdttxY
- crpShhbqHLVa3JHc1WW7BEsihyDk5u3jqbH5kUAdyKXaXNv7NcsDX8gtgb2uUoDwGTk7
- XhkQ==
-X-Gm-Message-State: AOJu0YwnNYJ7jeKsbIojqjHXeSJGHnnKQ4Q7QjuJ+WIKjLI6N0kxb7Hk
- 6E/ABzw2OgCDGs/O3F8tcrf2dO26fF7Y/tt8QesPFpdiJVpDL/npwXse
-X-Gm-Gg: ASbGncu9EGfK4fuunWt/Q5UDQlva3twyeUcFelH/Hw/qLuw0xjPSIOsJA7Zw1adl/9N
- 2ROb9iyqBb5sWqOe591YG0xoItlKUNh7exOeqPTMdi17Fv+9xDm7aqJMbKgdtq5PKN+FZtKuKYe
- hWw14zpUZ+bP5PwjChJa+4AejIVKsJ0c5AtJQhsc83xZjRHHtW50BRICaSbjT1pfiSMDo826M66
- QImolwZ+haOLlZTpeipx7nCkWQlV1YziOJ+Xfp0UQZ5gMP4S4+TfsMeVCKKndFJvvHqu1z66fY3
- sk7l19zfX07eN6AvJD1FjLAOHIS5t6ssnUppEctcN9MZiMTjCYCDgbriSR299HA9MnOf40BlvVI
- 5oxVl3SDszHvDgFrDlE9lDNvmVzG7ySOptkHMsqWymBHOheKskYdratdu5sXfarxxj9e6uviEc9
- ahbtsfMuyE7jRwk+dpFd9pQuPh1GooVT9heJbfra42UulrcgeqbUm6kLUCecyaPw==
-X-Google-Smtp-Source: AGHT+IHf9a+f132i0hHcCKLBAk7tg507Ap9uu9xREdFhmpJq6kWGneNSY9JxSJmUs/9sLReM9a/JTw==
-X-Received: by 2002:a05:600c:4f50:b0:456:18f3:b951 with SMTP id
- 5b1f17b1804b1-458b9bf7efdmr55898145e9.15.1754251686999; 
- Sun, 03 Aug 2025 13:08:06 -0700 (PDT)
-Received: from ?IPv6:2001:4c4e:24da:bd00:a473:4c1d:2078:832b?
- (20014C4E24DABD00A4734C1D2078832B.dsl.pool.telekom.hu.
- [2001:4c4e:24da:bd00:a473:4c1d:2078:832b])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3bf970sm13064324f8f.25.2025.08.03.13.08.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Aug 2025 13:08:05 -0700 (PDT)
-Message-ID: <098b22431f51d462860459e443210ab16e8b90fd.camel@gmail.com>
-Subject: Re: [PATCH 11/20] drm/amd/display: Implement DCE analog link encoders
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Alexandre Demers <alexandre.f.demers@gmail.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Date: Sun, 03 Aug 2025 22:08:04 +0200
-In-Reply-To: <CAPEhTTEy9J9_zza9p-pnVVMGcxCrKkfOAdy54YVkJofCsNJTsA@mail.gmail.com>
-References: <20250723155813.9101-12-timur.kristof@gmail.com>
- <382a6232-c500-4d5e-96d4-0444947130ea@gmail.com>
- <CAFF-SiX_FipFpaZyQaFEE5raFN2zz_yQPYUkBq2kRzLP1PHyZg@mail.gmail.com>
- <CAPEhTTEy9J9_zza9p-pnVVMGcxCrKkfOAdy54YVkJofCsNJTsA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2069.outbound.protection.outlook.com [40.107.96.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B78A310E20F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 01:56:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PCBaWQWOT5uxan+NXnMHT9DR1DyW24eJUeHbZT5jQPbaQG9gjCC+N3adaWcilSJLdTPcpNMDLpNsqoPes9AfQFcU6TjmUPLmAS1cazVNkr54sQVJiAdF7BqPBJ0JJnuL9GrWqC2eht/xncV9uuqMJih9uJOmjFXAKtea+8apJyk5mYe2G0Gkl57+rv4lzi216qI07/mtht/OphwUxHwEAtZ7PjZueFmLA2926OaK1Hx6DXxa7phVJPCQATDKZhHWBJ+Pnub5vyA5IwKBnT8OrPyzYmcSmiXtV9BfxSsTO5CMagWm9LGEdEMDvpCZcfUleWjCVZ8usaWNRCFPCjYJww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=idt4nHE95GHxc16G43fwI5x1ixPnODFXnTD645nalz0=;
+ b=v3owLGSN2m66hXXML9aGl8d5qwb2sVl9kmsyJ8S2KPEygIQxe7pdRY6p2RbKVmh8RkgV/GBSavEEXViKibLFvDtCNbjCe/U9O4tTHLaM+QLPfUYdu/li6wtLYsnihVU09VNxA/vJ/KpSBMDrqGbGWoTFOYlwX1bZjN54tpbn7A+MtatAeN0RXAvJxUE3tTrJOxfoD8jQBXu7xF9BBqRPHxcA8tY2z2WOsyqJTAVcFzU5gd8o5s+IV/+6geNAMRMmUrpli+Lo/QhsacCpZER1/qCtHROzdoFmP9ryLHz8nxSU/S2e3Q9TJonQq55OTjlPbYDtdVNyvt9PB+YoRumh+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=idt4nHE95GHxc16G43fwI5x1ixPnODFXnTD645nalz0=;
+ b=IlQ4Q9kQB1N/H9IsNLWOUbasQvSH01oNHelaI9RxdImTOtGNhzWs5jLHwdcCEg52MnHL85WvO5v5iXeE6UG0i9u8vWiGarhHDu8S2rYvHBxkQfSuCur1+s1MHhCp0gXiG6DLyDRZ73Xpoy6l9JRKKPGybWCwuvs9QrokgaDUZCA=
+Received: from PH7PR12MB7988.namprd12.prod.outlook.com (2603:10b6:510:26a::22)
+ by CY3PR12MB9579.namprd12.prod.outlook.com (2603:10b6:930:10a::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.18; Mon, 4 Aug
+ 2025 01:56:27 +0000
+Received: from PH7PR12MB7988.namprd12.prod.outlook.com
+ ([fe80::ab36:388d:7b1e:a196]) by PH7PR12MB7988.namprd12.prod.outlook.com
+ ([fe80::ab36:388d:7b1e:a196%4]) with mapi id 15.20.8989.018; Mon, 4 Aug 2025
+ 01:56:26 +0000
+From: "Yang, Stanley" <Stanley.Yang@amd.com>
+To: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Fix vcn v4.0.3 poison irq call trace on
+ sriov guest
+Thread-Topic: [PATCH 2/2] drm/amdgpu: Fix vcn v4.0.3 poison irq call trace on
+ sriov guest
+Thread-Index: AQHcAetlGZHUapeVsUy5D5ikJYHG67RRwfIw
+Date: Mon, 4 Aug 2025 01:56:26 +0000
+Message-ID: <PH7PR12MB7988AE6C18FD01D6775A09549A23A@PH7PR12MB7988.namprd12.prod.outlook.com>
+References: <20250731071837.77141-1-xiang.liu@amd.com>
+ <20250731071837.77141-2-xiang.liu@amd.com>
+In-Reply-To: <20250731071837.77141-2-xiang.liu@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-08-04T01:55:46.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB7988:EE_|CY3PR12MB9579:EE_
+x-ms-office365-filtering-correlation-id: 4ae14f47-0dcd-42cd-ffae-08ddd2fa1f4c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?e0JCxV479qzTryH0INojnDXd8X5A/csaVa+8+5sKWcXr1zx/Gc7GoVRTpdwl?=
+ =?us-ascii?Q?876iOw84vjyH9YrXV3OOFJz9eA2DHjByGFi9YFTYb4IUXuc3kZ80AWN5vpFb?=
+ =?us-ascii?Q?xrVpffcMURLt94ToLmWQlTpgZUJRAHVWpn/YoLuQF7tbGzLBUjpt8ZUPZ5f0?=
+ =?us-ascii?Q?T75WyqElV9CqQHFPSiSww8sPa1Kj9r71/HkrsTpIV2ujpsQlzSA/C/PMzhHs?=
+ =?us-ascii?Q?SbYkAZwsvntHeyx2SNmI8BEbhK50keCDfmvabv7FAKYwfurZykyPDytTNvGZ?=
+ =?us-ascii?Q?sBjmVyXIiv2YLqqSJAAA9GNPMcXuSJF3tdEC+tBS7Z67LbPnT5Ys7AXhvicY?=
+ =?us-ascii?Q?oYPHFKoxeNsh3tIyo6x+aN2JCvaufUMczYiwUMEVwnc64aV1/Jz0d/EgVADE?=
+ =?us-ascii?Q?5WXOGBSCQpLJx+P97Ku3WFx8AB1yiXLQX87MAPhLxaZOLoID1QfXjpq3QqoZ?=
+ =?us-ascii?Q?KOPzN7giUuPkGpSqS3ts8/NJMz9mfpBorxGaJMqq4wwY/b5EijOjBB39kMwC?=
+ =?us-ascii?Q?nFECxjGJeWq2Wr6uR9DCi1qWV1ix/ol70NVcpPD7SCirFa6NLdP2YzgORQtM?=
+ =?us-ascii?Q?f6vuLNn4P8MPL8jl3CB8j8F6Zee2lIIb7TmEA3fR85rZIrpZ3ZneUitbxAv+?=
+ =?us-ascii?Q?2g+Fck+h4yAtmWPCcg8ABUy1kRqPn9eqJtMzobjMrru5OqfZuhVKBtW/7m9a?=
+ =?us-ascii?Q?B3cuTjMr21APeeaNSr/FbRkdEaR2YoWxL0JKE/vgvHe0468ToNF4Gj3M4zeR?=
+ =?us-ascii?Q?z0xa72dpA8GpFfau7qtDjJLriYlihZGKoveq9X7rFlBJbs1XeIgLwAxD9f58?=
+ =?us-ascii?Q?53o0DkOXWODoDgpUDYfyYNPd3drliKXLCKsnz2rWDKOel2uZooaY4ZdUBoBo?=
+ =?us-ascii?Q?O2MkkSMYT0av6UQllNF97hIpb8AYiPtd2dkOaYZzd47tld3+CPud7vQwdYjX?=
+ =?us-ascii?Q?A3JNbjyjEiojOC9d+3SKrIFH9yZSEgTSkVNQ1uKE013DhhcojUB4hiaqMCh9?=
+ =?us-ascii?Q?FxAxWiiECOiu6dDM/8uEGefRf0Md9JooGq/zi3OHfb+CEVBuQ9hA8BjMWwyX?=
+ =?us-ascii?Q?VVmMNJypLC+ZOy+DSnjwVmLfSu5uA3Ru+Drqv2P98sex5nVJaCgmGXAe+cXl?=
+ =?us-ascii?Q?8wEITx6PDvHuLCMkg+QkHufuE9IAj/Hklx/yHyrCgTpiWC9UrF5NgEU9444O?=
+ =?us-ascii?Q?1Q8vzrvjCQfxSJ1wcGse3WN0yMtnsvhSFBgdVjZg3sPXNtjVVUIVhXKnYimq?=
+ =?us-ascii?Q?OFYoKLpyksD3mXRPbIz8jiEgMqY2U2MI0WqW3mzT4pKDwNJ9l6DUhm5wCfuC?=
+ =?us-ascii?Q?J5gG/Fk4DzORn+Qmbax0zH1EztjLhzgPMHcLex583Az64j8+t8q4BIzZTfb1?=
+ =?us-ascii?Q?pzHjdByTWu1un7uBhxJQCN0wSaHv74sDn3SkXWmRVuAt568fTMxdXD9NZ7Q9?=
+ =?us-ascii?Q?QI1/xJIc7DZX8B9nuhiHVU6C44evmf6gh/uiXAFgxxzvzABoDnfH4w=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB7988.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YvvvgMEFl1cMvEp9clBsJHSJ3k7ZhHfsg1SGMEcKQobOfRiXAVb7422mkWLI?=
+ =?us-ascii?Q?gcvjpYV/3L0NxT+KcJyDWwNLSfKiOq6bLFIj0RxAIsIsRIpxgTZWx5Hw5C1G?=
+ =?us-ascii?Q?WFx0t1h6ZSRgGtpD2LIJwj7aEj9zZcLhyiQ9ao9QNCYbM8ykvUzeo4OknAc6?=
+ =?us-ascii?Q?Gnurl6OQ8uBDPXIsO9OGewOxBhrmOd2l7Z4oKy2Q9fSv7Igmn/d4JmayI3Hz?=
+ =?us-ascii?Q?6f/wvIhm/GUOUOI78iResHib/bkxBpwYfV3swR8OW64Dq1apSVRClAZ93amP?=
+ =?us-ascii?Q?BOIhFgORDc89JdPo1JOumGlmz56JqCm6AwzNu32XUOafI4NoQON2EEGmIngv?=
+ =?us-ascii?Q?iMpPMMZKkmiz4igE73LWGZrik3U0MUEhOPAVQ0cPTIOrm3/Uk28dsUrX4+rg?=
+ =?us-ascii?Q?8PEIkjenVuUKdb9Jd6lR9Mp/DMg2IR8nO9D+4lWAtbdtx0aPKX0D5+tOH82P?=
+ =?us-ascii?Q?8WgZuNYJ+ec+Iw27G+HbUsDiIyPU0JKTSgzfqPsVUJlmkfKQuw6SNXivymI9?=
+ =?us-ascii?Q?0TuAzZc8kjx4qvSmplPcMdu14ASA6g0AntiAdzOkYDaAjPaFITkeMZtGI80U?=
+ =?us-ascii?Q?ELP1aoBkNurr5AXkjEqnYi+2wFs/U9uvyUb76RFFnCfcuNt4Fr2ssOdcvLQi?=
+ =?us-ascii?Q?ca8dwsF3HO24yxIG+3OUGW4Szc5RG3GM2zJVJuYRWAzrEbaQmDVoHUTK4ZK6?=
+ =?us-ascii?Q?fXtjjvLgc9fmPzqM2PJ7Kb309eBcfykuTiHzwJ6Vhiz5Evyh0Zv6r+lnw0lj?=
+ =?us-ascii?Q?Ryu6MXDwRcYp/nj9bv+jT1wvJwDTKSr/8hsgdRBKCtlcz2r4+/H5+EcQtAqe?=
+ =?us-ascii?Q?PDl9v6A81Q9hNQSqRseEpwN7ThdYYeq/39QFkc1gqxEbPAxlcFjmPvNhY/yU?=
+ =?us-ascii?Q?OKDtvuI4tqYX3seL3tYu00AF2PjeR1vEMWtKVf57IUnvzgn5afpW0in7Yo44?=
+ =?us-ascii?Q?uRyOsBST4AKoJrqkK9cM9ecE2bsusQOefVYV6fT3s9grcCRKbycG+JL7Z3Df?=
+ =?us-ascii?Q?UIN6CDh5eZLJYe/TDIJnsMLsUq/7v+jRaEOnN6Um0RNEiyGSR7Wsyk2gpp0R?=
+ =?us-ascii?Q?pmZhwquI0qg35VsEI9FX7uWjlG470NUxo3lb1FGE7vU1tori5mw5RL3PIsEW?=
+ =?us-ascii?Q?2uabSspEHLtXoi5QpVNQZAH8MA6Jq3V70o3j3xj7TT7GTBeBuZGnRTYlX11G?=
+ =?us-ascii?Q?KlzgnpcXGzymt3cHEdkxTaEOm2DimeAE9PnSoVQLYW0SITEBOPBKeBmc1n6t?=
+ =?us-ascii?Q?lQx6Hjjm1aECN3YVoJsUvxTFnSrCnS6a3zLHKkAggeJ2tWimf/AVU7w5TxmU?=
+ =?us-ascii?Q?UKLmPmN37HA8gAVhdgCm7sqMxLKDMaS5ZGlAw2ad0YKd94U1rnf5D2Vj2Fmu?=
+ =?us-ascii?Q?FM8uHqeCddyAUSRVxv162WK52QigCyZiktBo2B45cK0PCkV4DObZ6A8L3ym7?=
+ =?us-ascii?Q?c44zo5Pol/uc+vQewLpyFE9cTT8WcnBHs20f02W7Db3X7haHHAzy9rIKxgkJ?=
+ =?us-ascii?Q?0j21+02lgz6yGWIF3xNiMP1r4AoizRhrtGxJAE1cv9vkPrGbe+KoJNDjd4hL?=
+ =?us-ascii?Q?nwyK54JYDhTk6uWfjfg=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7988.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ae14f47-0dcd-42cd-ffae-08ddd2fa1f4c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2025 01:56:26.4848 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gHVRd/oSCdOe8DLIpWfFZXuPttbgktl5VNgVt80eG5+E8p/8EYTDDJEp66vk3nztCS6K7axz0KdWs9TS+cCmVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9579
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,47 +157,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 2025-08-03 at 12:26 -0400, Alexandre Demers wrote:
-> On Fri, Aug 1, 2025 at 6:02=E2=80=AFPM Timur Krist=C3=B3f
-> <timur.kristof@gmail.com> wrote:
-> >=20
-> > Hi Alexandre,
-> >=20
-> > With regards to the coding style. I already replied to your other
-> > thread about it, let's have that conversation there.
-> >=20
-> > With regards to the link encoders specifically. Due to DVI-I, we
-> > need dce110_link_encoder to handle analog signals in addition to
-> > digital, so the question about this part is, is there any need to
-> > have a separate dce110_analog_link_encoder? When I wrote the patch
-> > I felt yes, but now I feel maybe we should just let
-> > dce110_link_encoder handle VGA as well.
-> >=20
-> > What do you think about that?
-> >=20
-> > Thanks,
-> > Timur
-> >=20
-> >=20
-> >=20
->=20
-> Since a distinction is already made in the code between digital and
-> analog encoders, I would be tempted to go with the
-> dce110_analog_link_encoder so it may be just easier/quicker to
-> distinguish what this part of code does.
->=20
-> Alexandre
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Well, that's the issue. The distinction isn't really there:
+The series is Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>
 
-- dce110_link_encoder does both analog and digital for DVI-I
-- dce110_analog_link_encoder can only do analog for VGA
+Regards,
+Stanley
+> -----Original Message-----
+> From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+> Sent: Thursday, July 31, 2025 3:19 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Yang, Stanley
+> <Stanley.Yang@amd.com>; Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu: Fix vcn v4.0.3 poison irq call trace on =
+sriov
+> guest
+>
+> Sriov guest side doesn't init ras feature hence the poison irq shouldn't =
+be put
+> during hw fini.
+>
+> Fixes: d260e486d34d ("drm/amdgpu: Register aqua vanjaram vcn poison
+> irq")
+>
+> [25209.468816] Call Trace:
+> [25209.468817]  <TASK>
+> [25209.468818]  ? srso_alias_return_thunk+0x5/0x7f [25209.468820]  ?
+> show_trace_log_lvl+0x28e/0x2ea [25209.468822]  ?
+> show_trace_log_lvl+0x28e/0x2ea [25209.468825]  ?
+> vcn_v4_0_3_hw_fini+0xaf/0xe0 [amdgpu] [25209.468936]  ?
+> show_regs.part.0+0x23/0x29 [25209.468939]  ? show_regs.cold+0x8/0xd
+> [25209.468940]  ? amdgpu_irq_put+0x9e/0xc0 [amdgpu] [25209.469038]  ?
+> __warn+0x8c/0x100 [25209.469040]  ? amdgpu_irq_put+0x9e/0xc0
+> [amdgpu] [25209.469135]  ? report_bug+0xa4/0xd0 [25209.469138]  ?
+> handle_bug+0x39/0x90 [25209.469140]  ? exc_invalid_op+0x19/0x70
+> [25209.469142]  ? asm_exc_invalid_op+0x1b/0x20 [25209.469146]  ?
+> amdgpu_irq_put+0x9e/0xc0 [amdgpu] [25209.469241]
+> vcn_v4_0_3_hw_fini+0xaf/0xe0 [amdgpu] [25209.469343]
+> amdgpu_ip_block_hw_fini+0x34/0x61 [amdgpu] [25209.469511]
+> amdgpu_device_fini_hw+0x3b3/0x467 [amdgpu]
+>
+> Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> index c51dc401226a..c6450ed65c12 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> @@ -384,7 +384,7 @@ static int vcn_v4_0_3_hw_fini(struct
+> amdgpu_ip_block *ip_block)
+>                       vinst->set_pg_state(vinst, AMD_PG_STATE_GATE);
+>       }
+>
+> -     if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__VCN))
+> +     if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__VCN) &&
+> +!amdgpu_sriov_vf(adev))
+>               amdgpu_irq_put(adev, &adev->vcn.inst->ras_poison_irq, 0);
+>
+>       return 0;
+> --
+> 2.34.1
 
-At this point I feel that adding the dce110_analog_link_encoder just
-creates unnecessary confusion.
-
-Since dce110_link_encoder does both analog and digital already, it will
-make more sense to have just dce110_link_encoder. I'll make that change
-in v2 of this series.
-
-Timur
