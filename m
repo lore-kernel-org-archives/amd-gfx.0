@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48E18CA0EC0
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 13:42:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D923C87FD1
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 13:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0557A10E53A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02CAD10E218;
 	Mon,  4 Aug 2025 13:42:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MTSUT2J/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J8+SF4xW";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 390AE10E54C
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFF9410E547
  for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 13:41:59 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-451d3f72391so38560675e9.3
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-459ddada9b1so6055175e9.0
  for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 06:41:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20230601; t=1754314918; x=1754919718; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Idoy5WwLKWF+SBzDY9k8s7PPcESyZCL2yK9T80XtUqU=;
- b=MTSUT2J/WGQ8nZNn8kpQeXhYIWk7tc8yq0gyqdlyVfe3mNqyjqPA3vWUazUOe7vgM0
- 05SYHrFm5zSavQ8VYkfQ5q849whnfroSa8kX35SckjygOv/jDoLhWUbekQSWXohfOwvD
- Rd9lrM46T04rWRfQOuVwXUnawSwAr26BNTAvhDXC9GJXkFookH2MBqXXGGJqElpmLUpl
- QZJaSOyFxlUe2IrfObv89FT1YxYPmL+MrUnXTYuzIGPw/qwKH1yAv+HOyJOCmpPezNwT
- mSODEiBzKV1u7sqK2TJnhwIi0T4dlG/i9nFF/Bw6sxNzFrvOqh9TsmO9XfaN5YlKZqcU
- ZFqg==
+ bh=JaSdc0BSgIHLfjLQqOtSaVAqfWc35w9KEE/WEn80kFA=;
+ b=J8+SF4xWosBc+95SwPTx7hINCisIqiSRJ2ukVIyVY6W+/uJuLn4ZClVQL0dhWLqp2F
+ JDrbo1A8dujPu5FitEw6BiTuDlB40dpummvqPd5eVA23/yEBS7UF94h+zuSLxfsOZmEL
+ 77KPcNRG1f3qWQWScu17LBzg/bU6JzCtUTgxy0TJCvNEe+55GtchIKD+avGpRHR+DlYv
+ 3d5Z6NIft1h+dUobciHHMavrOpoZb9lYrmRSNNaIoKQwUPXK2aPpz8OTOatWaRFQdgVw
+ 6XE7xDzISZl7izaCcq9YrDK9/Rjqmy/DxmekO6dTzOjE4sE/VrSyIe40TyBO9Ts3pfgN
+ lj1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1754314918; x=1754919718;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Idoy5WwLKWF+SBzDY9k8s7PPcESyZCL2yK9T80XtUqU=;
- b=KvDd3ybWkIA6GOO0708MccV7flpNuanRim0WX1Jq5diIR12blwjqtOllDvuRTeZa3C
- CxhnP+rAa8eqq8+txfrGGSSUO7cMVHvMgEhq7N59+ih4rzP+zFDNzm5FQ7z7rFkKvZw+
- XypTh48q32Mx60h5aQA584pwlFa3Ckqt9S5wl3j4RumDh/US1gVISw6GhYA1Uibm2c4b
- vFKKVaSXgR8j5HnUg2k544euWqm1u+eVB+tvoYSQAAQOH+iNLaDXCUyg81ltFclXknOH
- jSdmmpX+O0mN20J0r9XJ6dtR5AU0wKxViNoIehxCRz8dPuqHFa47BtYe9r84UVM5MFf0
- HFew==
-X-Gm-Message-State: AOJu0YxrkkkMJnSLFfd0heWgq+jKoLWogY7e6MXS4fxVdVw1VbX6AzSX
- MtvYQTL91o5VqIN6T7rgTbcR28IbHdDv1zR/tbUed4Q2rzCGW4vFSq5aiAMrTw==
-X-Gm-Gg: ASbGnctI3p8TgEZ0V9y3CZMO+26PVPOM8T9qYkzoipRZJtMB/fXkH7njOZ6OAVqnokY
- uqzlpVJdrl5INIcaU+YjnCIsxMiHABEI27UHhDiIYAfY21PP8IFH5E29mgIWvRi+1b5XuOHkoVE
- nJi02boVKtGJP3A7yR8kqF43KcU8LwUrVOuZTVfSWV3JU9ylGYKibVimv6an2KKvphiw01++4j8
- 2SBsjtovQh8ApQGV+lilrXbylimPP8ijFw+8Nx3/1gNi2k5W9Y4NOXQrryThS11KFV/f3YaItc0
- nZEJVm/Pk/PmREDqhOAJiZvVSf3Rs0PKb3aOCNK44rvVuCkgB5CRF9JBS5RHMHvp03TuyShZU/O
- o4z/s6euQfWLsFwaC3Wg0g5eR3RTDsU0UxKD4rKq861BuZDcXkcHfp//Qcc//P4tjPjWVZNglf6
- h1d84yN18gX6Of8h8qdhgSKGV914oAHIlk7wvY
-X-Google-Smtp-Source: AGHT+IGhgENgPrFMkZOOo7xCfujzJs59/G80uHn0SsUcASYg9YgGPzybduF1dO7yFBc2qMq7Ed3hVQ==
-X-Received: by 2002:a5d:584c:0:b0:3b6:46d:fb70 with SMTP id
- ffacd0b85a97d-3b8d9486654mr7237167f8f.25.1754314917464; 
- Mon, 04 Aug 2025 06:41:57 -0700 (PDT)
+ bh=JaSdc0BSgIHLfjLQqOtSaVAqfWc35w9KEE/WEn80kFA=;
+ b=WJonDZu2tEJSpXIv/2A/d27ePRlySXWJD5YjbU5zGvQYdjnZ/ji/7VSTjUdrrfS+ql
+ qs95E8fMbhjN+8saw8q+vghRXS5yLlpvELwCjsKdP2dhZUSXJ4H7gQx94mjwYllcljge
+ VMLo7HUMliSNnT2Xz43gBU0lmq/Ww9DsIKfCw0goo5LTn9F0gVivGpUmc8N5s99AZl4E
+ 8iiZpfgQoQvWvmi7F2kCtbEwEei3Bx7grekE4lwrIphG9vPTlYt31u3a9nd6tlPqoZ58
+ pLmxgSvJu//ppQCsXWRO5atCKVzCgCUoD9hxmTZg7GoLR5gOqlPbtWE/ClXKs1kHM0cD
+ mymA==
+X-Gm-Message-State: AOJu0Yz2h3+aczxv53dU6ssDKtmTKSg64kIcqy1nLnTgmLHawNynMW0A
+ akG/BkpahsfSszwSJDr3ouKGVWkVnWXmoZgFByUfXBvoXHMYlQMFKkEgCERm8Q==
+X-Gm-Gg: ASbGncvFhG5t1SGuLqSJf1Bw/7PIy4EZyyI8C9VtcH+NSeIIcqxuQqiSZRH91MLLaaU
+ ZJYZ0O/GI/Z3aiyUt97UVSDLPyETJ3AUcQpJvAYFfmWjPxKq5YJ1lzDbcDFx/AWKpWf5cyms7kf
+ X+FLuFINf9rLZOeup0+tnHuufJ2oxNaPuMVXnLEGtOWKRHJkcHDMsANNJXqxE7smKKbUFJfJrkX
+ albKIC+1xXY603byZ+nyl8S/rdYDgfljOKYy0qLS5JyNUI2t41srwa3b2+qLEpyI8nOrmdrnAEt
+ kubAltUv+sUDMZdvr2rBbFHjUL1RA0Oko0Fvqdmqv2g/2jJ4BwO75al788B6M3ZSlDnaTmM+8b7
+ 6d+CxlsnlKcasMWNCxei+Zx1y/wQeccHofDEfdbytsfTtR8Io7l8//sNp/nYqH5dHLAH2fSc9lv
+ IADbf0fF2ciZoMo1IGF+xNz1rifQ==
+X-Google-Smtp-Source: AGHT+IHkBIajBr+b6sQ73Qlw4p5ku+Fpt0yE+HQQPA0gwiansdT0h103p27wQ5B4BaKQS0iLCq0EmQ==
+X-Received: by 2002:a05:600c:1e8c:b0:456:11cc:360d with SMTP id
+ 5b1f17b1804b1-458b69de114mr73441415e9.9.1754314918221; 
+ Mon, 04 Aug 2025 06:41:58 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24DABD00A4734C1D2078832B.dsl.pool.telekom.hu.
  [2001:4c4e:24da:bd00:a473:4c1d:2078:832b])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4589ee621adsm172056395e9.30.2025.08.04.06.41.56
+ 5b1f17b1804b1-4589ee621adsm172056395e9.30.2025.08.04.06.41.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 04 Aug 2025 06:41:57 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 1/6] drm/amdgpu: Power up UVD 3 for FW validation
-Date: Mon,  4 Aug 2025 15:41:49 +0200
-Message-ID: <20250804134154.95875-2-timur.kristof@gmail.com>
+Subject: [PATCH 2/6] drm/amd/pm: Disable ULV even if unsupported
+Date: Mon,  4 Aug 2025 15:41:50 +0200
+Message-ID: <20250804134154.95875-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250804134154.95875-1-timur.kristof@gmail.com>
 References: <20250804134154.95875-1-timur.kristof@gmail.com>
@@ -89,46 +89,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Unlike later versions, UVD 3 has firmware validation.
-For this to work, the UVD should be powered up correctly.
+This commit fixes some instability on Tahiti.
 
-When DPM is enabled and the display clock is off,
-the SMU may choose a power state which doesn't power
-the UVD, which can result in failure to initialize UVD.
+Sometimes UVD initialization would fail when using DC.
+I suspect this is because DC doesn't immediately turn on the
+display clock, so it changes how DPM behaves.
 
-Fixes: b38f3e80ecec ("drm amdgpu: SI UVD v3_1 (v2)")
+Fixes: 841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-index 5dbaebb592b3..9ad06c1e150d 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-@@ -633,6 +633,12 @@ static int uvd_v3_1_hw_init(struct amdgpu_ip_block *ip_block)
- 	int r;
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index 52e732be59e3..33b9d4beec84 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -5639,10 +5639,13 @@ static int si_disable_ulv(struct amdgpu_device *adev)
+ {
+ 	struct si_power_info *si_pi = si_get_pi(adev);
+ 	struct si_ulv_param *ulv = &si_pi->ulv;
++	PPSMC_Result r;
  
- 	uvd_v3_1_mc_resume(adev);
-+	uvd_v3_1_enable_mgcg(adev, true);
++	r = amdgpu_si_send_msg_to_smc(adev, PPSMC_MSG_DisableULV);
 +
-+	if (adev->pm.dpm_enabled)
-+		amdgpu_dpm_enable_uvd(adev, true);
-+	else
-+		amdgpu_asic_set_uvd_clocks(adev, 53300, 40000);
++	/* Only care about SMC reply when ULV is supported. */
+ 	if (ulv->supported)
+-		return (amdgpu_si_send_msg_to_smc(adev, PPSMC_MSG_DisableULV) == PPSMC_Result_OK) ?
+-			0 : -EINVAL;
++		return (r == PPSMC_Result_OK) ? 0 : -EINVAL;
  
- 	r = uvd_v3_1_fw_validate(adev);
- 	if (r) {
-@@ -640,9 +646,6 @@ static int uvd_v3_1_hw_init(struct amdgpu_ip_block *ip_block)
- 		return r;
- 	}
- 
--	uvd_v3_1_enable_mgcg(adev, true);
--	amdgpu_asic_set_uvd_clocks(adev, 53300, 40000);
--
- 	uvd_v3_1_start(adev);
- 
- 	r = amdgpu_ring_test_helper(ring);
+ 	return 0;
+ }
 -- 
 2.50.1
 
