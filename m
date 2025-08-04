@@ -4,76 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89DC4C87FCB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 16:00:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31DA1C87FCB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 16:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 344E310E5AE;
-	Mon,  4 Aug 2025 16:00:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB4F410E5B0;
+	Mon,  4 Aug 2025 16:04:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XAEgUdad";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C/Ax49EV";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D35BF10E5AE
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 16:00:44 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-459d44d286eso5895895e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 09:00:44 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B91D510E5B0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 16:04:03 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-3b780bdda21so3088236f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 09:04:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754323243; x=1754928043; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754323442; x=1754928242; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
  :date:message-id:reply-to;
- bh=W8yzmmKzpiubwpS9Fkb+g3BjPWivLvkuy50JRZSCY7I=;
- b=XAEgUdad/KFcTLwY34d1x1TPDFt74qnq5D9GjlZCIyGbU3qreiqmoQ7PkaE+ITJLO/
- +XKOSLB4K8tFU7rW/VdnnAs15e/8nUqe1oUClC/0q5MX4YZBozz2uPmhvZr3CxAV74de
- fF66Lfq5kEpu1bHs6aQjI0Eh26f4WvavLO38Ne6txnNnVX7mWZ/00NG3OiNR2+ckC/VE
- SPGLTRvHI4I8NVFbzUUy3i+6HV9p8SF5PQcqVO3ffZxIY0KUABWC3MAWiV+ywSaEfpwj
- o7JRtnyAHg3U77Qj65o9FG5Y9LCKyozHxK2gQosHImoLBtuR94/fNbVLLTlWVdXf7lVZ
- S72w==
+ bh=9PCYTdQGY8OZH1XxQ9Pd2d8enjjc4k4hXlMb7paUOWo=;
+ b=C/Ax49EVXt2KRaCyayYp4wnyr7u7SRwTC2NJynj7KrhkbV/my+WWpG1TG+0Eh6Srs+
+ eXbmJPkeZGuanJ1bPmlB09iw7vQ16ukgvKz+16cjrz41Qdf+3o+6I1tjhGz0XXZTxX2I
+ BGqw44jk/RoKjG6Ea8mmw5am+QXJoINHIzEhyVQ6StAz2IpQwl4mEad7KtaBQvsB7rs3
+ KncF6lPSZ+6Hh71QKpJQmTZz0KKJQ5xlmtg78i+nYIxTf/XpI3cth/zmdBCmZFLnWymQ
+ aANSDjVRMpLZNRd+NIYNqiTOEDK6AmFGWefs+9pwFcoQKVxe3dLEhefSv8rK0Hu6n07p
+ kOYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754323243; x=1754928043;
+ d=1e100.net; s=20230601; t=1754323442; x=1754928242;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=W8yzmmKzpiubwpS9Fkb+g3BjPWivLvkuy50JRZSCY7I=;
- b=rr4BX6czcyqdcZr5Vnp8QJUkFK9urrmGTsXags/H0PICIC6H9N3mM1PpCuDSJAZ1tT
- RMEvmJnBL4mQtVWziLQs1YifI68lxY+y2xMkGfwsvTY8yw86Jm/2Q5JicBR34tzsiBLh
- /mRBbJoPSkY2QaR/rNpkAutP/odltYgRs8G6HXyEv5HOpOWm9cwhANNGLxG5sZISa6fD
- pZXrb72gVPQtduYL2Rnah5SOuc7xWebKm2jpIprlvGzKUa6sEcWrOT3NPVB02LkQgbTD
- WUd5NH+HzNYaSd7r4VUqOXCyzCUE1xyoqlFc/2vDB+SpXYIl7BGWGBlvFi6W6zi17zwm
- p2XA==
-X-Gm-Message-State: AOJu0YzW/vdDmGaP3Kvsk2LOSMnGWqioHPqoq0uWdSY02tI83jFvlUYh
- 8ZeQdYhaDJDJXBdemX8Rsw/hgpHvcwakUkDRhGoEc14u7B+4N0UhDHz3
-X-Gm-Gg: ASbGncvtMgFs9/98K+B6neMyLiCHIg9lYfy5chiQ5Nb8mF9jBBO4fN5LVS5AI5ZZcJl
- QDovprKK/LvZeo9n+V3XDjT/bQNttxui/jsv5+JsdP9FwddXLalg7XjARPSTJmPF8faIJht7Pcl
- +ZA/tci/y165fjjYEzn1d8lHmVkgpCLSQuk22bpYxZqz9auVTiCYezh9yO5u1mPnCh1nJMQOGzx
- d7UUZffZfsEspaPRRUaOUu6nYp02OAi86m+ln7acXdV89P/4qYC4wamW4JtuMd/pH2XlS34kpAG
- 7nLzYWwbsom2aZB9fWs1DAOAHfEyn2mEEr3GwyNjHawFje+MRFujQUXTum2VeEMyIXKCdOwcyt2
- KWJREowrN6PEaHpNyzqoltAlr7QZMDCn6n8suhBdSTjHUmF/nsvfq8qgVj1C2HeSEdiJSMwvdcR
- hsV/vGWib2JK10MyB25Vs3PelPcfM+ltXMbyrsbfpYR/hetEKoDCFa0OL9k5DCqw==
-X-Google-Smtp-Source: AGHT+IG78HWhnamFdzrH4ImCCAMPBjzojKGND1dcpcd1X8QGV0h7tDpvGvXMkFOQUokiLraU6AmHyQ==
-X-Received: by 2002:a05:6000:2506:b0:3b6:5d0d:9826 with SMTP id
- ffacd0b85a97d-3b8ebed5295mr66882f8f.21.1754323242928; 
- Mon, 04 Aug 2025 09:00:42 -0700 (PDT)
+ bh=9PCYTdQGY8OZH1XxQ9Pd2d8enjjc4k4hXlMb7paUOWo=;
+ b=EMIEcK8aicl5UuzNGFjaCMz+q5hE03JcvHZxJBfmVSr4nfDFFmy+4bUe5W5jg8AAXS
+ 6kravuMBr6Fut2oiawGmEy+Y+2UfI8fPc1h0cBg7SrrabiaEdWmBFpNtlBVgdox5YRGO
+ UkjMNoteCbdYhyw25nS/GwnbY8JX88IA8DPsCI+hhfivLXB3iBGqRp5oaHIdUmxsv67r
+ SoBMFZDSeni+4GYo737wQDuwxW2V9T51d/AqDvdu4zj6qMByUQ+8o9CNdqI2ry/bKDnt
+ OVFp7msMVPOqR/07+Ikb02C6okn94Sm7JZIROKpA1VYN6xIoj+ge4U6IU15ha3DCkCmK
+ L4+g==
+X-Gm-Message-State: AOJu0Yxb8rbQv5NwpxJZZY9oO9gs9oINHq8AMAR8Ni+9KnaO0OUyjF8a
+ lpLsbdwsneS7A5nNaKJtdH+wjPsdcHaVaqX/SEY89rjBOdRaiseGFVnk
+X-Gm-Gg: ASbGncvu3u2lsANcBka35hv0yk6RJXiEYI+aauac+mp9SHPI9ngcjzL5u9lWvdew6D6
+ +EHOsKO0FmHv6RYtXHQPzcEA0VtiJn/b1RJnMS8kKtTlfZxgn51CjA3rFyVOfJZzwcZJjsUGJZk
+ 4Zq257zK0X7mD3hVEkTi+F0aGUSBFHKvPNK/GIGuwCS9zel56ypiei2DCQ17y5zN5AlCYf6gXSG
+ jf8waBglbtaQL6arK1yePYqkq0QHda3BYDBZQ+ZaQus6LFHFDMsEWLCd3YmY7PEEHE5vNslSnVj
+ pcXckY10GdJfB1W8MdO45cfiNoM6xKN0ksKkRac7XA2Q2KzsleWBbzIVtVR53KXGwHmZL1SM/Z4
+ wVt5mQyl+AQHOza1SYePLwH/EcVVCZDUURs5NZGuqS3WlS69u3BiZC4O7/OrNoB62JBZsgu0ujM
+ JDcivN2muPvIZ/CXavrbpFDPHeJvfeOEw4mRfU4V7HfcrHLAc119ctdLWQwMYjmA==
+X-Google-Smtp-Source: AGHT+IEvQwtveH1rGfw1hnBju597k3rfQgJpUQV00eja8FEptGMCQXxjYCT7wHqNE6VZrPJw4PLcVw==
+X-Received: by 2002:a05:6000:2083:b0:3b7:8c83:db18 with SMTP id
+ ffacd0b85a97d-3b8d94645f0mr7129039f8f.6.1754323442123; 
+ Mon, 04 Aug 2025 09:04:02 -0700 (PDT)
 Received: from ?IPv6:2001:4c4e:24da:bd00:a473:4c1d:2078:832b?
  (20014C4E24DABD00A4734C1D2078832B.dsl.pool.telekom.hu.
  [2001:4c4e:24da:bd00:a473:4c1d:2078:832b])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45923c34af8sm70976645e9.24.2025.08.04.09.00.42
+ ffacd0b85a97d-3b79c4530b3sm16455166f8f.34.2025.08.04.09.04.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Aug 2025 09:00:42 -0700 (PDT)
-Message-ID: <aec0376f34db68c9e62d8ef5b8b5c51fe2eac5e2.camel@gmail.com>
-Subject: Re: [PATCH 1/6] drm/amdgpu: Power up UVD 3 for FW validation
+ Mon, 04 Aug 2025 09:04:01 -0700 (PDT)
+Message-ID: <98b288895c31c3c94fe7a23f6694b583caae5f65.camel@gmail.com>
+Subject: Re: [PATCH 2/6] drm/amd/pm: Disable ULV even if unsupported
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>, Christian Koenig
- <christian.koenig@amd.com>, Leo Liu <leo.liu@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
-Date: Mon, 04 Aug 2025 18:00:41 +0200
-In-Reply-To: <CADnq5_O5F5UAC17CE4mwOx_5pbTKzv73Yuj=-_cA06G3hQeQJQ@mail.gmail.com>
+Date: Mon, 04 Aug 2025 18:04:00 +0200
+In-Reply-To: <CADnq5_PPfscSbxEhmDXzcgcQNX3RecMzUwZMsXm5Cm+g72uDaA@mail.gmail.com>
 References: <20250804134154.95875-1-timur.kristof@gmail.com>
- <20250804134154.95875-2-timur.kristof@gmail.com>
- <CADnq5_O5F5UAC17CE4mwOx_5pbTKzv73Yuj=-_cA06G3hQeQJQ@mail.gmail.com>
+ <20250804134154.95875-3-timur.kristof@gmail.com>
+ <CADnq5_PPfscSbxEhmDXzcgcQNX3RecMzUwZMsXm5Cm+g72uDaA@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
@@ -92,110 +91,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-08-04 at 11:20 -0400, Alex Deucher wrote:
+On Mon, 2025-08-04 at 11:24 -0400, Alex Deucher wrote:
 > On Mon, Aug 4, 2025 at 9:58=E2=80=AFAM Timur Krist=C3=B3f
 > <timur.kristof@gmail.com> wrote:
 > >=20
-> > Unlike later versions, UVD 3 has firmware validation.
-> > For this to work, the UVD should be powered up correctly.
+> > This commit fixes some instability on Tahiti.
 > >=20
-> > When DPM is enabled and the display clock is off,
-> > the SMU may choose a power state which doesn't power
-> > the UVD, which can result in failure to initialize UVD.
+> > Sometimes UVD initialization would fail when using DC.
+> > I suspect this is because DC doesn't immediately turn on the
+> > display clock, so it changes how DPM behaves.
 >=20
-> + Christian, Leo
->=20
-> That doesn't seem right to me.=C2=A0 IIRC, the driver always set the UVD
-> PLL directly on SI and I don't think SI supported any kind of UVD
-> power gating. I guess it's probably some sort of subtle sequencing
-> difference between radeon and amdgpu.=C2=A0 Unless Christian or Leo have
-> any ideas, I think the patch is probably fine.
+> Is this the right description for this patch?=C2=A0 I thought you had sai=
+d
+> this fixed something else.
 >=20
 > Alex
 
-Hi,
+Yes, this patch together with the previous one fixes the "amdgpu: UVD
+Firmware validate fail" when I enable DC on Tahiti.
 
-These are my observations about how the UVD clock works on SI:
+Last week I thought this also fixed the "si_set_sw_state failed", but
+that turned out to be wrong. For that one, I sent a separate patch
+which involves a different fix.
 
-1. It seems that the SMC needs to know whether UVD is enabled or not,
-and the UVD clocks are included as part of the power states. See:
-si_convert_power_state_to_smc
-si_convert_power_level_to_smc
-
-On SI the default power state doesn't set the UVD clocks,
-and SI has a specific power state to be used with UVD. Actually
-amdgpu_dpm_enable_uvd has a special case code path for SI, where it
-sets this power state. If I print the power states from
-si_parse_power_table, it indeed confirms that there is only one power
-state that has non-zero UVD clocks, and the rest of them just have the
-UVD clocks at zero.
-
-It's unclear to me what happens if we try to enable UVD clocks when we
-selected a power state that doesn't include them (ie. when we don't
-tell the SMC that UVD is active).
-
-2. When setting a power state that enables UVD, the UVD clock is
-enabled either before or after the engine clock by si_dpm. This is done
-so in both radeon and amdgpu, see:
-si_dpm_set_power_state
-ni_set_uvd_clock_before_set_eng_clock
-ni_set_uvd_clock_after_set_eng_clock
-
-The specific sequence in which the UVD clock is enabled by
-si_dpm_set_power_state leads me to the conclusion that
-amdgpu_asic_set_uvd_clocks should not be directly called on SI outside
-of the DPM code.
-
-Please correct me if I misunderstood the code.
-
-Thanks,
 Timur
-
 
 >=20
 > >=20
-> > Fixes: b38f3e80ecec ("drm amdgpu: SI UVD v3_1 (v2)")
+> > Fixes: 841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
 > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > > ---
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c | 9 ++++++---
-> > =C2=A01 file changed, 6 insertions(+), 3 deletions(-)
+> > =C2=A0drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 7 +++++--
+> > =C2=A01 file changed, 5 insertions(+), 2 deletions(-)
 > >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> > b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> > index 5dbaebb592b3..9ad06c1e150d 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> > @@ -633,6 +633,12 @@ static int uvd_v3_1_hw_init(struct
-> > amdgpu_ip_block *ip_block)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int r;
+> > diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> > b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> > index 52e732be59e3..33b9d4beec84 100644
+> > --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> > +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> > @@ -5639,10 +5639,13 @@ static int si_disable_ulv(struct
+> > amdgpu_device *adev)
+> > =C2=A0{
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct si_power_info *si_pi =
+=3D si_get_pi(adev);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct si_ulv_param *ulv =3D=
+ &si_pi->ulv;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PPSMC_Result r;
 > >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uvd_v3_1_mc_resume(adev);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uvd_v3_1_enable_mgcg(adev, true);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D amdgpu_si_send_msg_to_smc(a=
+dev, PPSMC_MSG_DisableULV);
 > > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (adev->pm.dpm_enabled)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Only care about SMC reply when=
+ ULV is supported. */
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ulv->supported)
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 return (amdgpu_si_send_msg_to_smc(adev,
+> > PPSMC_MSG_DisableULV) =3D=3D PPSMC_Result_OK) ?
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0 : -EINVAL=
+;
 > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 amdgpu_dpm_enable_uvd(adev, true);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 amdgpu_asic_set_uvd_clocks(adev, 53300, 40000);
+=A0=C2=A0=C2=A0 return (r =3D=3D PPSMC_Result_OK) ? 0 : -EINVAL;
 > >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D uvd_v3_1_fw_validate(a=
-dev);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (r) {
-> > @@ -640,9 +646,6 @@ static int uvd_v3_1_hw_init(struct
-> > amdgpu_ip_block *ip_block)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 return r;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uvd_v3_1_enable_mgcg(adev, true);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_asic_set_uvd_clocks(adev, =
-53300, 40000);
-> > -
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uvd_v3_1_start(adev);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D amdgpu_ring_test_helpe=
-r(ring);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+> > =C2=A0}
 > > --
 > > 2.50.1
 > >=20
