@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E8C3C87FCF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 15:58:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64BF5C87FCF
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 15:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0327A10E59D;
-	Mon,  4 Aug 2025 15:58:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0278E10E5BB;
+	Mon,  4 Aug 2025 15:58:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RLLoKKZx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KxYh290d";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A022910E59D
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 15:58:04 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-76bde8901f6so158156b3a.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 08:58:04 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 968AA10E5AE
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Aug 2025 15:58:23 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-312a806f002so775895a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 08:58:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754323084; x=1754927884; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754323103; x=1754927903; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GPnu3FRuLnuhZrVJ9OgqlRYeDMVNU1xe0Ubi1sOanYI=;
- b=RLLoKKZxd0Mlduiatv9k3P006Ug3kCdUeW0mq04heXYaB+VOjDtfckCtdyZaFThSu5
- V1O9ZKyx9lBboo8zEjEKx4FJUmSEHolP7rwZ8mM2eV1ehwgdiwrElat0g1Yv5C2d8box
- wjdTJtUqZqTkvrC8zak69/kLOdals2qPXths75OPEYtOaGJ5AnzAMISb+Rf6t6N+wCL7
- 6ZoF3sbM5STa3eGoBbRK+gjm4WYdVel/r6vBeJA3eUUCfdoAOtRqafd4xwi/+cHwxA61
- 3kph6UibBmKB/IBoEauvM23VHQNjGBF5jI5/jyLjjTKZ4dL/PHLMuhuMjE669C9CibEr
- 28nQ==
+ bh=F/5tNMcW1T+Zopu6lk/4HohrXw52V/G/u7CsUzdl8XE=;
+ b=KxYh290dnI7yQ7swk5dD2I2UDuX0hw64qZkjcVOphu+EfH6ZmSzPlDBecJ6ZixmeVk
+ JtwKeveSkd+NcE8K7+27tf01qOaFbtpMtztLy/7FLmEZDJrENF6cVdtR2nOz8Y1Yjmse
+ gh/cwN+Infgf+NHVkDQjLP2mL51dEERrx0X0MApfP4tAu2nykj7bp5bnr00urmbq7xwc
+ Op8R9hWCW5zmqmox6N1u43VGp1N8p4D9oVJtK0fDNVPihqSVzqItyxAlumtyq/XFteKD
+ vNz/ap6mxdBIQ4Zsp3+kZ0qPF/DC0ASnt0335Yx/oBCBIykjFY1sM+KmV/e6cH+dHl8T
+ /P4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754323084; x=1754927884;
+ d=1e100.net; s=20230601; t=1754323103; x=1754927903;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GPnu3FRuLnuhZrVJ9OgqlRYeDMVNU1xe0Ubi1sOanYI=;
- b=nHdtFwpHvIskNWGTJbvuikR7HSdkHU8akKAfmpF1nHo7YHrk6BFGQAIVfXSM4jHemx
- cCRD/LCcNOtWHEvH2bfJKzwYntHxGfUL3GT0HEIehbXdWZfHnkrjuWWZnxC5Or2//feC
- zVVa4xnbJ+jlsJxKkK5+srR2B64S/ZEGvhF2gCWVPiHtjBPMgpmAI775QCbOIVlsOC36
- E1z0UTOdmc41YoTx0pjwHPfvUde4gLmdCrlcF8nkLX+P26IwpgsxtgKOizUOdICjiqCq
- G98Hzt02A3VVLB+1GYgtmFnsrhME01T+t4A/NtAL2XBnaXHfJlMK0gRnlT9Km2YE/2KL
- NFIg==
-X-Gm-Message-State: AOJu0Yybggbv+lwtweGqqII9HJmU53HvdIU3WvzHtboaHI8jSchfx2WY
- yMgfaL1afJPvWeOM84Z+wq/QiL2rfkttlkUU5S/ZkrMT6fGYZlHHLAjTSmkg6rmUZBjYdq1MgC5
- UXQa7+9DzPw4XdfPkk364QjTe2tE9t3w=
-X-Gm-Gg: ASbGncu1kzebwLbeCA6QmSeQ5AWz/NlK3tYROGpt1J5Oa/vZ0sbfQAcEd9rwqzIzTBj
- yO0t/58DSPtuRrF4hhqogP4Wo4pyzrlBbYfzGwt4l2SoOddqwBC6ARQxIMwUSJjQL+F+ZplJmUN
- W8Zy54i3QA4ya5RfhNaZbCocJw4mh2N0fo9al4jiQun/M63MXQA6WeDJNEtswARGgxmbaNuuvx9
- a0UPCt6
-X-Google-Smtp-Source: AGHT+IEIxOpmXEYNljXJkzU7wS1t5DUxXPouBgB3p/aOx1Bl95kZCnvc0RnOftdq+p3NWG/+P2d2E/8HvgGq+6LJSOg=
-X-Received: by 2002:a05:6a21:3d89:b0:240:28e:c333 with SMTP id
- adf61e73a8af0-240028ec620mr2491995637.2.1754323083973; Mon, 04 Aug 2025
- 08:58:03 -0700 (PDT)
+ bh=F/5tNMcW1T+Zopu6lk/4HohrXw52V/G/u7CsUzdl8XE=;
+ b=nTNdUueHNA12XvcplciwCozOgjLF4uG+Hzkz0bg/02OoDCYzQiPKndYBRqR/xcp6tA
+ GZDK5JnZ28nAvdNJRY2k8DbGjcH7tMwOdr9/5koREnA/RG6BkR64kCKJ6kXPMM3MjikH
+ ZQTCsenb07fv43Ww28b2MT378ZKMpWCJwRAUW84xQ7K2eltOdvRkJplCfCZkif6agQdE
+ Ul8+KrxlrWv5UwYRC1YrEC2RlerX2w0w7W7rGzAommFcv928NCKtFekqTRO3OkEYZ1Qc
+ C5CoBiHdzsW5WRj0w4npdeQdU0m1bMZAVIguoK+8xD/+WMYf79M11t8KbWoL9F0QvhoH
+ CsOw==
+X-Gm-Message-State: AOJu0Yz8qwxOSJd+wR42U0Mp5u75fYgnzYrbo0L/7J2gSbmxVvPi1poW
+ bNqoqUy2ovTrXJMmFp9OxqjYTqowKCXhY3LopitAxsX/NQtRasaBNVmzrhmvu1cMA5NP4zb8eWD
+ pKQ7/UztXPRSejppmGZtjvHacVsE7QamTLCvd
+X-Gm-Gg: ASbGnctR+Pi+6fctyoobAB7eMjgtkVUQrHvsWIPTib7oxWZX2kxnawxSheDygN4x+4Y
+ YC6JpmXd7vChrcLGi+5gECwNq7UKK0CxBaJrAeziCHSeYoiYz27cCw5yLEIQuzHQax5brhWJb3f
+ HDNbLQYrPXUtnbSIVGP48conYGNoe4VnGo7rcYrjW0GrnHRviUc/0x4/D6VN0O6hlaf5Se2u3A4
+ Kjiq89KQ+PKw6oLj+k=
+X-Google-Smtp-Source: AGHT+IGM997l86FPy5p9h+ZJbyVe2bkRQpsSJeHz31iT8vQbvA4OEmokWiOXXReRskP1jzmyyNpskfyAPURzcHSQ/Js=
+X-Received: by 2002:a17:90a:d08:b0:321:3e03:e39f with SMTP id
+ 98e67ed59e1d1-3213e03e4a2mr1554383a91.6.1754323102845; Mon, 04 Aug 2025
+ 08:58:22 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250731094352.29528-1-timur.kristof@gmail.com>
- <20250731094352.29528-4-timur.kristof@gmail.com>
-In-Reply-To: <20250731094352.29528-4-timur.kristof@gmail.com>
+ <20250731094352.29528-5-timur.kristof@gmail.com>
+In-Reply-To: <20250731094352.29528-5-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 4 Aug 2025 11:57:52 -0400
-X-Gm-Features: Ac12FXzRKVwbQSRyqY8bX3c8NueYMCOo1iajte3Oa-lORJnbc84LWWdwx1ceQsg
-Message-ID: <CADnq5_NFX4H9EvDUG5VOXqWvvF7c1V37t5r-LKC1BT_XCQ9U3g@mail.gmail.com>
-Subject: Re: [PATCH 3/7] drm/amd/display: Find first CRTC and its line time in
- dce110_fill_display_configs
+Date: Mon, 4 Aug 2025 11:58:11 -0400
+X-Gm-Features: Ac12FXzMUrA3PVYfInqg0GD8lnzSeYThLhQsdoKqPRvDSEVakVOq92WpCQ8J6GI
+Message-ID: <CADnq5_OEogbpQnBM=agZymGNvN-RztkEG8mZ9XMTfD_x778YGw@mail.gmail.com>
+Subject: Re: [PATCH 4/7] drm/amd/display: Fill display clock and vblank time
+ in dce110_fill_display_configs
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -82,87 +82,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 31, 2025 at 6:03=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
+On Thu, Jul 31, 2025 at 5:53=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
 mail.com> wrote:
 >
-> dce110_fill_display_configs is shared between DCE 6-11, and
-> finding the first CRTC and its line time is relevant to DCE 6 too.
-> Move the code to find it from DCE 11 specific code.
+> Also needed by DCE 6.
+> This way the code that gathers this info can be shared between
+> different DCE versions and doesn't have to be repeated.
 >
 > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  .../dc/clk_mgr/dce110/dce110_clk_mgr.c        | 30 ++++++++++++-------
->  1 file changed, 20 insertions(+), 10 deletions(-)
+>  .../drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |  2 --
+>  .../drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c | 10 +++-------
+>  .../drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c   |  2 --
+>  3 files changed, 3 insertions(+), 11 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c =
+b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> index 69e9540f553b..17a8b46b0818 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> @@ -386,8 +386,6 @@ static void dce_pplib_apply_display_requirements(
+>  {
+>         struct dm_pp_display_configuration *pp_display_cfg =3D &context->=
+pp_display_cfg;
+>
+> -       pp_display_cfg->avail_mclk_switch_time_us =3D dce110_get_min_vbla=
+nk_time_us(context);
+> -
+>         dce110_fill_display_configs(context, pp_display_cfg);
+>
+>         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, si=
+zeof(*pp_display_cfg)) !=3D  0)
 > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr=
 .c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-> index f8409453434c..baeac8f1c04f 100644
+> index baeac8f1c04f..13cf415e38e5 100644
 > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
 > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-> @@ -120,9 +120,12 @@ void dce110_fill_display_configs(
->         const struct dc_state *context,
->         struct dm_pp_display_configuration *pp_display_cfg)
->  {
-> +       struct dc *dc =3D context->clk_mgr->ctx->dc;
+> @@ -124,6 +124,9 @@ void dce110_fill_display_configs(
 >         int j;
 >         int num_cfgs =3D 0;
 >
-> +       pp_display_cfg->crtc_index =3D dc->res_pool->res_cap->num_timing_=
+> +       pp_display_cfg->avail_mclk_switch_time_us =3D dce110_get_min_vbla=
+nk_time_us(context);
+> +       pp_display_cfg->disp_clk_khz =3D dc->clk_mgr->clks.dispclk_khz;
+> +       pp_display_cfg->avail_mclk_switch_time_in_disp_active_us =3D 0;
+>         pp_display_cfg->crtc_index =3D dc->res_pool->res_cap->num_timing_=
 generator;
-> +
+>
 >         for (j =3D 0; j < context->stream_count; j++) {
->                 int k;
+> @@ -243,13 +246,6 @@ void dce11_pplib_apply_display_requirements(
+>         pp_display_cfg->min_engine_clock_deep_sleep_khz
+>                         =3D context->bw_ctx.bw.dce.sclk_deep_sleep_khz;
 >
-> @@ -164,6 +167,23 @@ void dce110_fill_display_configs(
->                 cfg->v_refresh /=3D stream->timing.h_total;
->                 cfg->v_refresh =3D (cfg->v_refresh + stream->timing.v_tot=
-al / 2)
->                                                         / stream->timing.=
-v_total;
-> +
-> +               /* Find first CRTC index and calculate its line time.
-> +                * This is necessary for DPM on SI GPUs.
-> +                */
-> +               if (cfg->pipe_idx < pp_display_cfg->crtc_index) {
-> +                       const struct dc_crtc_timing *timing =3D
-> +                               &context->streams[0]->timing;
-> +
-> +                       pp_display_cfg->crtc_index =3D cfg->pipe_idx;
-> +                       pp_display_cfg->line_time_in_us =3D
-> +                               timing->h_total * 10000 / timing->pix_clk=
-_100hz;
-> +               }
-> +       }
-> +
-> +       if (!num_cfgs) {
-> +               pp_display_cfg->crtc_index =3D 0;
-> +               pp_display_cfg->line_time_in_us =3D 0;
->         }
->
->         pp_display_cfg->display_count =3D num_cfgs;
-> @@ -232,16 +252,6 @@ void dce11_pplib_apply_display_requirements(
->
+> -       pp_display_cfg->avail_mclk_switch_time_us =3D
+> -                                               dce110_get_min_vblank_tim=
+e_us(context);
+> -       /* TODO: dce11.2*/
+> -       pp_display_cfg->avail_mclk_switch_time_in_disp_active_us =3D 0;
+> -
+> -       pp_display_cfg->disp_clk_khz =3D dc->clk_mgr->clks.dispclk_khz;
+> -
 >         dce110_fill_display_configs(context, pp_display_cfg);
 >
-> -       /* TODO: is this still applicable?*/
-> -       if (pp_display_cfg->display_count =3D=3D 1) {
-> -               const struct dc_crtc_timing *timing =3D
-> -                       &context->streams[0]->timing;
-> -
-> -               pp_display_cfg->crtc_index =3D
-> -                       pp_display_cfg->disp_configs[0].pipe_idx;
-> -               pp_display_cfg->line_time_in_us =3D timing->h_total * 100=
-00 / timing->pix_clk_100hz;
-> -       }
-> -
 >         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, si=
 zeof(*pp_display_cfg)) !=3D  0)
->                 dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg)=
-;
->  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c=
+ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> index cfd7309f2c6a..7044b437fe9d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> @@ -109,8 +109,6 @@ static void dce60_pplib_apply_display_requirements(
+>  {
+>         struct dm_pp_display_configuration *pp_display_cfg =3D &context->=
+pp_display_cfg;
+>
+> -       pp_display_cfg->avail_mclk_switch_time_us =3D dce110_get_min_vbla=
+nk_time_us(context);
+> -
+>         dce110_fill_display_configs(context, pp_display_cfg);
+>
+>         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, si=
+zeof(*pp_display_cfg)) !=3D  0)
 > --
 > 2.50.1
 >
