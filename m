@@ -4,149 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4F2DC87FD1
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 14:31:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94AC4C87FD1
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 14:47:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 699E510E385;
-	Tue,  5 Aug 2025 14:31:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 266FC10E6A4;
+	Tue,  5 Aug 2025 14:47:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FHKicPN0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iKeMy0g/";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2047.outbound.protection.outlook.com [40.107.95.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5C4710E385
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Aug 2025 14:31:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b0jM1rH4Jf7SMZ2B2+u5AN0u4YScikRyT2xbnhzbFYk3VBdxqaKf1S4NJkuUWf4t1hh56UxTQwQIHsaQkdFO+VxCjkpHU7ZQc8x1/p9/1yB2t/68tykX+S+uQAxD4KSZ9aEESQgHL1jM0Mg5wMgsSqL/N8bLn6INvZEN8pRXklyWL2Wpr0xIyiQJeylRZePC2JOeESCx1A4ouHzxyhcVzULQLQZYpBbb+3x5P1PiKjFDwSDjUIDtvYpjwckZnOeyXULLc4u6ciiKjxq+LnKzOWevtAGx/ZBn+j8YQt4rPWn2zpC4I+/Qf3VDvkysEmNX2AA0VBzD2rSKOasHIEfFIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qJuZuhLzzkmwi1O/2DCATW1WxQPrtqh9XqL+/QpYFlw=;
- b=B+I735MTCIMxv+rgTTFaVk/Wqo1FsZgbVVNq958MZ3vG/FPnxmm4lI++Yn5+DL4LD8WRF9eCn0dWbjjvRT+R9ER3nRMh+ATq+XBSN6HOaTmBkPsLma9RT3bYjAM2W47EBP5ia3FFPkXRfF1aNlbMhraNkYcefx+b9Fum1Qm2Ty9C2ZmwPdCxu80aLlgfFWjajNBb+3+Bs7EqMDEMJyRjlWnGrdnRr5jGbxIr0anccBJirNIL84HSc63dSj2M5gCh4B6JgNhEXg0GZWCOyG6X9E3eVdU9H1FSHZNXUfmH7XiKzTwL+Skaq485Li1ODba/8jFSe0h+HD9q8D2rxrFYHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qJuZuhLzzkmwi1O/2DCATW1WxQPrtqh9XqL+/QpYFlw=;
- b=FHKicPN0dW83hLgrfg1Euxxzs7uLhR8fodYCLH5y/Rww1B1t3xuZT77iL+0knRrwjnZvKQJZf6ExdEtiyhpgVYi6T3mCv5lwBdrt6clL+s3kPawzd01HPYUVTqIOj3RTs7IcbQFE5OJJGSXliyQhbl4zNfUQ3T0f23vJik8nRWU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
- by LV9PR12MB9808.namprd12.prod.outlook.com (2603:10b6:408:2e7::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.14; Tue, 5 Aug
- 2025 14:31:38 +0000
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c]) by PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c%5]) with mapi id 15.20.8989.017; Tue, 5 Aug 2025
- 14:31:38 +0000
-Message-ID: <38878190-c6e1-4bef-81c8-b58834e2c30a@amd.com>
-Date: Tue, 5 Aug 2025 20:01:32 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: Increase cache interval time
-To: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: hawking.zhang@amd.com, le.ma@amd.com, shiwu.zhang@amd.com,
- alexander.deucher@amd.com
-References: <20250805142834.668322-1-asad.kamal@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20250805142834.668322-1-asad.kamal@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0075.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26d::12) To PH7PR12MB7820.namprd12.prod.outlook.com
- (2603:10b6:510:268::8)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 186FE10E17C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Aug 2025 14:47:22 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-31ed2c4cfcbso341454a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 05 Aug 2025 07:47:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754405241; x=1755010041; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=s7uekZDQLE4oIdcM8aNX281uSLcr5MsP5Zzcui2Zcwc=;
+ b=iKeMy0g/Jasj0VgwgDOP+GmFxeTY5cRulOYJWvV8hX+paJEXYELRFPRAkbe3iezVxg
+ HY9UiQFMBoo723GaQIKIYjfUQDXd9KTHLunyR6h88NG1ZHAa0pVPC7YA93rN4KN/SVPl
+ 9PVaFPkZ+vMON2mwYunQ8yyFn6rP5gMwIGKxqoO97nhITh/AvmTMf8Zh6Vnn7+DYWASa
+ 0lfNlOLQ/FGnfxkiK1l9gEk+0LzVjCwPdMnjjATMrsWJ0BEcSTeBXR4ka/otAtvMjfJ8
+ RYegkfx12T1XNlseUZ7RA2vOM1tY09JJhlE4WUa7d5lF/kIBZuf2xWiGMRXsgS8I+JSr
+ 6HVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754405241; x=1755010041;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=s7uekZDQLE4oIdcM8aNX281uSLcr5MsP5Zzcui2Zcwc=;
+ b=TbXNHWNPN9m0UOoM0eAIMSZ8FyKfDJXRx8gxbacI5B6ZRz7N48rr5B2EoZH9dfpGyC
+ aTO+BzTgDTvXjyfiFaetRXAik11Xd4U0a5KFp2zvVRPLevyi0yOnSHsVff/3TSrUUmgA
+ zteoKg4A2uzIKQDeRTLMYCX4qR3PpOThu3kSh8ukwZQM+1pG0WA/k8D7faxyONk7Jl1R
+ iTUAcKC1p8zvupX+MPN2E3O3Elisb4YNrLq3tKN47NmE94laRcDukzXG6db72dqYTRJz
+ K1HG3n5VIhwOKVX1fX/4tM6StVi2KDyu42v2l0NRfOcHetbQnhYAWLRnol+okIzsZj8o
+ vbRw==
+X-Gm-Message-State: AOJu0YxPqjRDBs7grA3eAxhJHFm67Y7ujWuVSBLxJ5B0lLKrM7JjLCer
+ XtFU3fu9MIMLLj5QpRqpZV09/BiN5+AiLpNR8YSostS+84Jv9ArNE7VQ84b3bGPDyG9kVlJmi+H
+ QJW49x7rusOWBfecr+tJGlZdhKhJFjRYicA==
+X-Gm-Gg: ASbGncuaT4iXY7BfrXOwmkqE6turYEtTip47CyPoVLKXNFVRGH3d0l2ClUjb25yinXU
+ JVJAg5FQCcillNfwD3vZJYglccgbK87KCSNESf7G8+wENMO4UHL65VSc2U6S6bfUwfvP5hHgZ0I
+ Gbhkj700MMmd8W5fXX1NwjsPqY9J6JHVVVlz0SvRsEIw6ZxQf+X3jxjt1WnxvQ1JevzcuA37QnX
+ r3RrNGr
+X-Google-Smtp-Source: AGHT+IF1LqEWn5YqrvoQSlM+OuOD8Jp0ShuPfCgnt+GpsOwvoDJ1HO/EyhdvP4KHw6qsoZL2IzmRWK6NQ5+zHz4YWtE=
+X-Received: by 2002:a17:90b:288e:b0:321:29c4:e7c3 with SMTP id
+ 98e67ed59e1d1-32129c4e9damr5486278a91.3.1754405241352; Tue, 05 Aug 2025
+ 07:47:21 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|LV9PR12MB9808:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6fa839a2-abf8-496c-8f7c-08ddd42cc978
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bkswVENjZTFTVTRUV0FiNm1RRXVXanU3TVlhTHJ4QXE1R1NxNnozaVgzNEdu?=
- =?utf-8?B?dzFPQnJoL0ZmUHhEcVU0M2hvU08wTGR4bjRTRlowbE9uYk1Id2wrWjNsY3E3?=
- =?utf-8?B?ZmlpaXkxQ0YrYmRIbURXRXUzdEttT0FTb0J1T05hK3NCSDBVQXN3MmJqQ2hz?=
- =?utf-8?B?TjVGeHpiNEorT1oyb2NHa0I2eUtHa1dtcExDWEhNZm9hZHh2WHMrTnRGT0NQ?=
- =?utf-8?B?UjR4ZWlGNzNhbGx2eUcxSnlUYnVYUlZXb0ZWVTllRXdpMGs2U2lUYitlQkh6?=
- =?utf-8?B?V2FnV0VyY2RVc3RENWhKSC9TVlRpWkJ0MXAzWHlDMGxmT2pQaWIxU2x4MmFV?=
- =?utf-8?B?NlV0QlhKVjFpRXJzL1p6TzZvVFlOVUk2dzErTXIzY3pxYkNVQkFIeWUvdkdr?=
- =?utf-8?B?d2lXNkUyRWhVL0hiYVBTRTc5dUhjWExES3NwTEFqajlpNlh0Yy9YbzByUWVE?=
- =?utf-8?B?TFlLVHB6eUVWTXlMYTB3QlVLQmpyUHQ0M1JDemNUMW5Md0FHbTZWbkV5eEdQ?=
- =?utf-8?B?T01MbmxMazU3Rjd0UmpXOFRhNlFjWHJCbC8zLzQyTWdsV3YrTS9iY2RUVjlv?=
- =?utf-8?B?QjZ0ZjRuOTFJTHAvc1h2VG9mZUdGN0xWTDN0eEhnOWwrRUpwVmFITnVRTlls?=
- =?utf-8?B?MVRBb0Z4TlkzRW1RbmlBWkhrWTA4eFMvc3FLQkVua25lc3k1Wit0eFp2UXE5?=
- =?utf-8?B?SUVobkZqVmdBTHArd1AyRzl5bUEzV0hVekN1UjJjRmZhUTlhWVZ6c0Jlbm94?=
- =?utf-8?B?ajZoV1NPZXNYd1B3QlhUN3dnbkw5UXE2eGVCMjc4OTR0RjZmWnZBZm1acVZo?=
- =?utf-8?B?WFdtZ3pzbS84UnArUFBzT0dIYVg1U3JRZmtJZHFGTjROSGY1WmladG1HWmlo?=
- =?utf-8?B?NXZzQjBHQXNnOHVtbFZMRU9vL3NzVTdTSW1SU1BjbTlTTCtlVFdJNHJmRS9B?=
- =?utf-8?B?Q1F6NHRYNHdqZzcxYjAyMjZrTFJISnpKUTd5TVBsRzdIZXlIckhYRGx2V0F2?=
- =?utf-8?B?ZVlTeWlGOTFvdU5vRTV4ampSZHVtQmZCdmFycmh3ZTYwSVliQ0dCSHFseHh0?=
- =?utf-8?B?by9DUDZESWtRaWJGZWkzNmlsczhBbDFPOTZHdGh4TnR3ci83OHNvMWpubkdy?=
- =?utf-8?B?WWdNVmRHenpPNTMxRVhONFpOQk1vRDZsVlJ6YjJXaHhsNWxtOXE5RnZPVEtO?=
- =?utf-8?B?ZFVVM2V2bjdtcXdudmp0OHdSQ2lITC9PZGsvVjlwelpRM0lONVl3aCtpczcw?=
- =?utf-8?B?ckdoVnlNd3E2TytOWTIycDlzak83cVlqb0dyeWtuSkNOczJiWm16aEtXcUky?=
- =?utf-8?B?SW1FeStaejhjdHN0UG54clhueWF2T0ttRjZDNXc2Vm1VazdYMDVNbzlkcTg5?=
- =?utf-8?B?TFpVVGJMeEFTWUtZNkZYNWhJMUdCeW8wcjR0N2k3OEJtaXl6cUNuTXBJN1Qr?=
- =?utf-8?B?Zk1ab2Z2UWIzYlQrT3o2WndqVThHZmsrbjFmNHZZSU5yWklDMlA0bDFtcWdw?=
- =?utf-8?B?Y0hxN1UwU2NhbDlmK3EreVVWaDYyRzVDTHIzdHQyaXI1QkdXWG4za0VGL3dD?=
- =?utf-8?B?Y2ZlWDV0SnZ5YXhOSW1FSjhMd1M2UWlEbTdPU2Z5YnJQSnlLY3dnc0ZSbFN4?=
- =?utf-8?B?aVFxVGxENTZta2VEWk50ZER6TDArVkRHTE4rVjltZERLYUp6aG9FckNmYUp0?=
- =?utf-8?B?WnQ5cVpUazFQMHhab3JXMXN5MUZtSnB0eitENm5wdlgxSExYY29jL1JIVlNC?=
- =?utf-8?B?aXdaTHEwZDNkMFRnNkpKaGxKeTlDUVprdDY3eDk4TDBBVWJTbHRBWURIQXhx?=
- =?utf-8?B?dEt4TFlnYnZVMzVrUkR3SDJ6Z0hVMDBUSjZBSDBISkxXYzc3NHYzWHl6ek1Y?=
- =?utf-8?B?ZUJhYUR0RVBNaHhMQUx1cnJEMnR0VHQ1aytQR2xVa05iWU1YcmN4TGtzVkts?=
- =?utf-8?Q?Ygz5FZDf+aI=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R1MxbDNVaVozWTFiUWRKZHhpY2d4OTNDOUdrWkpqOHFDM1JEOEFRRjd5SkJG?=
- =?utf-8?B?UDgwRXM5NnF1d09aR3I4TzROSytvYjBZWUxObzl1STl6SlpwS1pZQ3hPMzQ5?=
- =?utf-8?B?OVFCZTIxS3dwdURRRktOdkk0ZzBUcUg2UC9hck92SlJFL1lhMFQySzlsUms3?=
- =?utf-8?B?aERCK1ZmbE8yQWJHSFBNVlhJVXh3Y3FqNVBqNFNsMFNwYnVNeEJmT2I0STVR?=
- =?utf-8?B?QXE4VE4yK3Mza3NOektYcFpCam9sSEtGVlk4M2ZBaHFpUHhlYk52M1NNNEpD?=
- =?utf-8?B?NWw2UWU2MVliM2RTZ3JCYkZPWk1RV0N6UGdBUklXWTdKeGFKUUwwd1hWMjVr?=
- =?utf-8?B?dGpBK3ErQzFSd3dhK2JRL0VZUVk5SVd3NEdlTDlQSVZFVXFYK1B4L2s5VkM3?=
- =?utf-8?B?K1p4SDRjWTBCcHZibGs5VS9od09TYmVLeWpscXQxeUhLRkJVZHFleXdYTVpl?=
- =?utf-8?B?UldhdGtrMzAyUng0ZnREbzd5YU1PWWhRMndZV0dIcDBKNDlpUDdEZEZTUVY5?=
- =?utf-8?B?QVhTcUcxTnJZRXNBbjZVZ3RJdnRsa1g4VjBSa2o1anZwUGJmYTBkTWtaTjFq?=
- =?utf-8?B?ekc3Q1hvdkR0TnZVN21rNjY2M3hic0ZCemo2cnZxQ3VRNXN0YVJTMEVNWnc1?=
- =?utf-8?B?MDF5YUxTUzN2VE9BdkF1TzF2dTRiYjg3L0VmVnlRaUdZa0NCZ3JsMHYrc0kw?=
- =?utf-8?B?ZXJGUmdxZVB4OWRNYWtReE9pT0N2MHNpWUVaczkvbHRsK0dudk96bVZ5aTNO?=
- =?utf-8?B?T01KVDA2emUyVWxxazdVbTRPa2EvUVU3cG1VeXMwelhKcFFKb0lGcHdVNFov?=
- =?utf-8?B?Slk4NkdZbW5HOWFZNDQ5dWRVT2VPcWd0aTNlejlxRDk5T1Zld0RHSGVWRXJP?=
- =?utf-8?B?QVc3aGZoaTNxcXZDcjE2b0xjd3ZoQW9DRzAvbWZ2VzBMRlkvOUdVVjA2ZHoy?=
- =?utf-8?B?UHlISEZ0V1ZnSk5IZXBUMGhtbW54N2w4Z0MrZ0Q0QktRMnN5WFE0enJyTXlE?=
- =?utf-8?B?OFNIcTZoQzJyd2RLeis5QnJvOWJmL0pwNVU2RXNsYlk4WmtFNldmMHhuYi8v?=
- =?utf-8?B?MWJZUjFadkdHN1Z4bEVUSW9KOU5zTEptL1BFYU5oQnIrM2d1aC9vVEdXM2xY?=
- =?utf-8?B?S24rWk00OTVqVHBGR1RaYzlZdFB4RkFBcHhnTU1iL0c5c3Nwb1c0UVU3Y2Nq?=
- =?utf-8?B?akNVVFBMQnNSbk81RWtSRU96OE0xQmRPSTlrREJOTHExbmMrcWhFRjZ3d2tT?=
- =?utf-8?B?cEY4TStwb1dvZ3hWNUl6R2R5SHlxcjRINWhwaXpybjNLcmlIMG5lT25vVStY?=
- =?utf-8?B?SGUyYmNaVzdsbDhYbmZXR2RCYU1qdjg3NnFuZjJ2R3FsSnNqVHhKU2NRSDc5?=
- =?utf-8?B?c1BsbDJvcitwaVVvOEN3YXJNM3BTdjk4YU5HWE1lRGFFRTBlOG1nMFNHUFB6?=
- =?utf-8?B?VDA4U0U2Q1NCamVxZjNVZGRucWZMVlZOYktZUWduY2ROZTJKZ1RzR2N1aEts?=
- =?utf-8?B?Q2NxeThQdkFNT3Y5YytzTFRzZjhieHJhaVAyelpZRnBEZDBWUDdvdkcvc2Uy?=
- =?utf-8?B?a1piUGF1NkNJcE10WmYvTEIrS3NCaUp2L2EvQW1vOU5DZTA0bmZzSWxUeW1H?=
- =?utf-8?B?TE9DRG9nSVBEdXo5Z2EvNklpVWVldW16REVucGQyRmx5VHRGTGkyN3l2TjJj?=
- =?utf-8?B?cU5OSDNwSHo1dHhGSHdzeVFvazRlZ29KWXJmcHJ5Mnl5OHBtUDFuY1kxOHRI?=
- =?utf-8?B?dEpBeXpLN3JRdXV0b1BOOWJ4MFFQZU1DbE03ZjdaR1NVUThPVkRPaHBkZ0to?=
- =?utf-8?B?cXQ3bzZOT2VpTGl0N1BpMkRkMktYQWpxei9FazlOd0g0UllGNjZjR0p5RFpB?=
- =?utf-8?B?R216VmRsZTROZmVzOUlsTC9DQkZIRmxpcWoyWGVxZ003bWlkYzBsUkE4Tk42?=
- =?utf-8?B?OU9RQjlxY000ZnVJUU9wN1I5Y1AwRGxoV1k3R3RxcXZZYklOQ0dRdzVMT0w2?=
- =?utf-8?B?TXgzSXFmTkt5Zms1aU90VVllck5DUzNEY3UrbHo1S2JOZjJvc2xjNWJCbDBB?=
- =?utf-8?B?eWNmMmRrNGI0WGZ1NWdYdDBuMGhMQmZwck8zenVkQ0xRZ1MveHFRR2hMcnpL?=
- =?utf-8?Q?jSY8IEmm2+cPiC++VRkBpWcQ/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fa839a2-abf8-496c-8f7c-08ddd42cc978
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2025 14:31:38.3400 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YJi9ljKHz3uljmBbTPk4pQA3U+FsbvzzGYzoK5QL4zHg1s2ppUoNeZeL2c+OSdmr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9808
+References: <20250805142834.668322-1-asad.kamal@amd.com>
+In-Reply-To: <20250805142834.668322-1-asad.kamal@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 5 Aug 2025 10:47:07 -0400
+X-Gm-Features: Ac12FXw07OGdJ3hqvb3pV5lvl5tlx59mPW3J0Xw7GKjNOR1d9cc_eDCmXiipfWc
+Message-ID: <CADnq5_P=D1E-9QCA0XCX9bLnBe+L9AydpKNLBi4cz1yQ3GK2tA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Increase cache interval time
+To: Asad Kamal <asad.kamal@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, lijo.lazar@amd.com, hawking.zhang@amd.com, 
+ le.ma@amd.com, shiwu.zhang@amd.com, alexander.deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,37 +81,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 8/5/2025 7:58 PM, Asad Kamal wrote:
+On Tue, Aug 5, 2025 at 10:38=E2=80=AFAM Asad Kamal <asad.kamal@amd.com> wro=
+te:
+>
 > Increase cache interval time to 50 ms while fetching system
 > metrics table for smu_v13_0_12
-> 
+>
+
+Can we move the caching up to the device independent level?  It would
+be nice to have this for other GPUs.
+
+Alex
+
 > Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-
-You may add additional info in commit description like this data is
-expected to be polled less frequently.
-
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-Thanks,
-Lijo
-
 > ---
 >  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driv=
+ers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
 > index fca50f6a8ef6..2ee61c7e8bc8 100644
 > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
 > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-> @@ -372,7 +372,7 @@ static int smu_v13_0_12_get_system_metrics_table(struct smu_context *smu, void *
->  	if (bypass_cache || !smu_table->tables[SMU_TABLE_TEMP_METRICS].metrics_time ||
->  	    time_after(jiffies,
->  		       smu_table->tables[SMU_TABLE_TEMP_METRICS].metrics_time +
-> -		       msecs_to_jiffies(1))) {
-> +		       msecs_to_jiffies(50))) {
->  		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_GetSystemMetricsTable, NULL);
->  		if (ret) {
->  			dev_info(smu->adev->dev,
-
+> @@ -372,7 +372,7 @@ static int smu_v13_0_12_get_system_metrics_table(stru=
+ct smu_context *smu, void *
+>         if (bypass_cache || !smu_table->tables[SMU_TABLE_TEMP_METRICS].me=
+trics_time ||
+>             time_after(jiffies,
+>                        smu_table->tables[SMU_TABLE_TEMP_METRICS].metrics_=
+time +
+> -                      msecs_to_jiffies(1))) {
+> +                      msecs_to_jiffies(50))) {
+>                 ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetSystemMetric=
+sTable, NULL);
+>                 if (ret) {
+>                         dev_info(smu->adev->dev,
+> --
+> 2.46.0
+>
