@@ -4,136 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B3D0C87FD1
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 04:58:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E107C87FCB
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 05:43:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A757210E46A;
-	Tue,  5 Aug 2025 04:58:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18EEF10E07A;
+	Tue,  5 Aug 2025 05:43:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Kzt5V+6x";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mp+/e3st";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7467110E469
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Aug 2025 04:58:14 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 574Gmwmd011524
- for <amd-gfx@lists.freedesktop.org>; Tue, 5 Aug 2025 04:58:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=ZJk8ZPcKnOpx2SNNbdPGbHCx
- Lccj6TZBqXskHVjiVyc=; b=Kzt5V+6xQ4sPGQZHZZzOITFZ/wk0ZUSxsrZL0Vnp
- Xx1l01K2Gu43cr0/LJFnlvqqBsMZVzzkKApUXwa+gkvaZyfRb+LckZUXlnS2xeaa
- gc/UB7HiQAMs0jcn35W7ZNKSvcBqC5D8Zp+uQY50gOwxMCyxWylqdHi/tw3PlD0/
- 6nm/gR0Az9SnA620lLuc3hPNoySvKw54dIVv9M2lSBDJYEK/qwWd+ngG4jL75hL+
- u0qjloA8qwCPjIkElxnwGXW4gnzohY/0A2PdtmqjoE/Aii48Ik0TGNxr1tonRnNB
- pLAkMIuntt06gt4WqMEXjC7JW5w3W8VkvRnUnkVbU+OinQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 489buqq75u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 Aug 2025 04:58:12 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7e6857795eeso1100640685a.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Aug 2025 21:58:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754369889; x=1754974689;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZJk8ZPcKnOpx2SNNbdPGbHCxLccj6TZBqXskHVjiVyc=;
- b=tPY+tSgWrjBj8NyE/usqNXuagSSASwbJJuf8eGIeTLnOLUteK3CRHaHxjK00jijRCe
- Pz+lWwPWvl2xfeIkm+cnYcMchwYoXnRpEGqXkj4INa3exwU9gPORmK4GuJVqx1Ckzwzo
- u7NCdRbj1KxGruoi3bIKrG7HwoqkyHvTBAD0nNWCS1XXCucCS7CpMNlPtGNBKyDgFGKa
- 8PmrpRs51gt30fBMiNlpwfgov1zF0AVQY6NJYvycZrysEGQr76NhGfOz6GV8K7jw9pZ1
- OOEzA/rL1AMfk3ZvZ3/OveYkIx8BbO+EAOyYVf0qDyRZRVEOqR5ZLl6cmZk9BceebeA+
- kaNQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVykuAb2qbLdA7VrRyxVrE938S1K2EfZeTb7U3xglyKwkkX/oIACKG4y1kzk2ckzOf4hGO5WV38@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwIW2Jz89RIE08dNxoFIqvsVEjzYN8zwSUmSacKRdHynk2gw5xS
- PGn3seMeBQ3620WaLPFb4hXIViiZi37xfc0o/bmCe1zY6xW7JathXrhx2PgOUDWKxL8iX141Rqj
- 2ehxsG9PpK71BIs2/INvjqx23eAv5OtME2uOk3jQNCHc98XSONU+rUyvodpq2CMKryWwt
-X-Gm-Gg: ASbGnctRD+cNggl5jcwYqBEuL1UM7EtJeNlKjKf127H08TpJEFiG2m+26Hv4UwLqQAx
- ymlcZ2ZB+29rF+EGK8nnHcYBDsXSbmHGfQCyG2G0S5/s8q6Tu16BOiT4jJRdOnXt5WLxgbEJ0KV
- emQgCmYs+40D3hE9Ofsxgo+0PntGm+iQulTK/KWoF6SeXQ3nSvkOc8Cgbyr3KNDytW6ae+szlwl
- LHD/k+JTOMspkWJamDWvFR2+0uB7G1rI8wY2r+nq5Ipi6IJ3GY/z3yudDNsfPehtaP6Zx6yhmNn
- SrWODqAOiJwtwqTGnJVgc3xJzvSWKe/F0fAUA4VX14rqMkJDuUqrFJHXC3qVw87mNLYXiTYyl0j
- YuaMnAGjkU6EvUdt87xHAVgVTVCUGLZLvua/+yPedTQJy00P60qdU
-X-Received: by 2002:a05:620a:a512:b0:7e6:5ef5:846b with SMTP id
- af79cd13be357-7e6963b8367mr1194540685a.65.1754369888912; 
- Mon, 04 Aug 2025 21:58:08 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHsXtKxDheFJG11QuYaCVPiIu+728m5NKJMdNbg0+TAMsOq+9gDo86NZhO5c8LUFYsWbjmH9Q==
-X-Received: by 2002:a05:620a:a512:b0:7e6:5ef5:846b with SMTP id
- af79cd13be357-7e6963b8367mr1194538285a.65.1754369888391; 
- Mon, 04 Aug 2025 21:58:08 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b889ac54fsm1866911e87.62.2025.08.04.21.58.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Aug 2025 21:58:06 -0700 (PDT)
-Date: Tue, 5 Aug 2025 07:58:04 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 0/8] drm: writeback: clean up writeback connector
- initialization
-Message-ID: <pwnrvebmf77p77z3pn53kzivy5t5qglh3ngdmj33f7i7v5r4jg@sseokeuqindn>
-References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
- <aJDHAF69VOEHwcKO@e110455-lin.cambridge.arm.com>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2057.outbound.protection.outlook.com [40.107.236.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69C4910E07A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Aug 2025 05:43:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rOg0AogpIh0rauZWsj8gyAhUsueRiLRIBNV7Dy+x/gxdvhFdhzP4vAOjFIZj86r62suiJFUJqGEUt33nwyCYRm+L6Nqwth0fkgqkYmlh6v7OcRuWsLsFwhB0YPWxBLHwLOpgzguvObTUV8+vNxfedtDYEmb2oFsWcjmB0XLu4LmNdFE9tRgVk0H8pxvg1XViCa1RNBSOgw0HX05XusKOAL7gL8ybPMOVbsL0Tn/HzH4APq3sfe7mzLDLWX04iXIOpRBfGx46YDNpAFEhXWyjSLrHXhdnP6CsCdrvHukoHgbGW44w9PG8APk3triFDB9zYfKTvnymaDqy9a1VwsD/eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ntsTzHQ1nc7220stjvYYYp9KA+eENXR6xZ6wwGfrzC0=;
+ b=fsn5NDIsqMFnY1SZcMBMcgEc3EdgrZ4S/AYm15jabJL343+keGTryUYum/yBa+9ANQwFTkQG+2a0Dq+dnKkbd9AXrWSrnXR8cg1TyaJhbCdA1ZJicm7wOpyxKn3gmC4eP4ao9O+9KoyRfMDpL11s70AJ+8E5J60Kgg5K2idAew14KTomKj6eGQPRLcQ7JpIcag2mniYFRvIKc6XvfURxssdf57gsi0scIR3gNecxq/rIge+6SpTNy0yd0GggaR1GZK3iFD1x4WYjzMSpCJdw2fImurLULcgXzqLV+uPzLJOPt5g5gm7xsn9RkOd6gmQvcVxUXqO2UmPAgiPjbbVPJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ntsTzHQ1nc7220stjvYYYp9KA+eENXR6xZ6wwGfrzC0=;
+ b=mp+/e3st8WH1In+P5rRMt3Ni80fIcdK0sImWoJoR3kRVRFEE+w8y0n5nbHSueWhCf7/+G5NJ+6+mS+fGNvd8BU+FOKCVsX4uBd6VmLEBgOweYooxUSb7Ue60AS2U5EKhK0G4+Yo9ZawycAvC5CIPQZ5SAEhSmXWoi9I1E6Nn8lA=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by DS0PR12MB7827.namprd12.prod.outlook.com (2603:10b6:8:146::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.13; Tue, 5 Aug
+ 2025 05:43:28 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009%7]) with mapi id 15.20.9009.013; Tue, 5 Aug 2025
+ 05:43:28 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Generate BP threshold exceed CPER once
+ threshold exceeded
+Thread-Topic: [PATCH] drm/amdgpu: Generate BP threshold exceed CPER once
+ threshold exceeded
+Thread-Index: AQHcBbtBrGJY2dsdnUCj8l1R74kRkrRTjB2w
+Date: Tue, 5 Aug 2025 05:43:28 +0000
+Message-ID: <BN9PR12MB525714C576F42849B84E873BFC22A@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20250805034413.102087-1-xiang.liu@amd.com>
+In-Reply-To: <20250805034413.102087-1-xiang.liu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-08-05T05:42:53.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DS0PR12MB7827:EE_
+x-ms-office365-filtering-correlation-id: 6a142d54-eaf9-4ea3-33c9-08ddd3e300d4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?mQkIz1TByRQb9Ur+qHL3aQ6UyI3R5ULSIB91KqVwjkt7PnVZNp+V6CsFwn9M?=
+ =?us-ascii?Q?sJkG4Kx0UJkcwwi+6Qyu3hdr2WfBJ2dXc1gm1/he8H/5Ip6SB3yzGag7lH2C?=
+ =?us-ascii?Q?A7IGV+Uv+fhc/NEnv2OU6V47OrL12hQpfNqbJGRyTMuRhP8j/DhYxbacG0JN?=
+ =?us-ascii?Q?Cbo4MouVD5JYrnP80dGhwuUETiJBYgDGWivrtkpxTF4rPtbpN20NE5tM5EKR?=
+ =?us-ascii?Q?H04/ahJ340DNXJYKKDkTTa+gnhBVA3q4v0SA1iRbTo/qHTaFoU5yK2Y1ug+c?=
+ =?us-ascii?Q?RAJ30cMU0F33/cf+O3toQcy/zDpfpOo+fCSsiQ+mU8NJ8qj+CsxtNsIWjUHS?=
+ =?us-ascii?Q?hFPXdmcN4lhgLctdImEXJOaJIb4IgZdtHE6GupN8dgXlaIjEa7Kf7+h3D2mO?=
+ =?us-ascii?Q?hmF8Kx0u9pcf3td/+brMbxWc7Mfs6wMti6Y6psUkwzpuLnRkZuY3Bzs2CTJ0?=
+ =?us-ascii?Q?r6ZYKasPD/kXiDEswOKpWihJjJJmygXjtzYbn2EorbrX2Z3cifGzUc3DJXv9?=
+ =?us-ascii?Q?45wUJY6O7aEfRLw5rRTU5h4ZdBnNJw6LIw92ILzghZQRhS+xodpkfKVMhtNE?=
+ =?us-ascii?Q?h+dwh14c/E/uJ3PqXrH9F6at0Wg60bmTQhMmJ6QD1tPswqjlLUwnxjmNULvm?=
+ =?us-ascii?Q?DtcJezubkOfgTwPUWZxhzvK7ebFl0GijfazmJ+LXW34cdSomh/fdMSTrfkX2?=
+ =?us-ascii?Q?31AyY55/WYfY/AWqf/SPC5r1/NcIPTWZ8XAcSwkIeSg4BanQ4zWoln1M3M/4?=
+ =?us-ascii?Q?T94twif7Msoax8Ojcl6r6ky87VQd4kRzD1wstliuTTI1JuTqRY2Zr5cHNFgv?=
+ =?us-ascii?Q?Tokl199S13FijCe0GfJmGT08MQtL4PJy1/x/QxEUe8AHJgPWjEq7rXptKJPT?=
+ =?us-ascii?Q?/HFoxCgD/NFbSroqg+ewGRxW0Uw4CQoqXLZ3j+zuZ4TSrLSgAoRnxG7Ukkv+?=
+ =?us-ascii?Q?53EagpdFyP38zwdKvXAFNm2vl/7OIqv7e7zcgnqWqdUd/yL94k8+QDlRM3st?=
+ =?us-ascii?Q?nlzC+7HvrQXfc2GJZmoNQmchywqOhMzJeFnxLHrDbtIjX8mrxQD8oo5+daWj?=
+ =?us-ascii?Q?ynJgyIjbAfFEYlB00d78NX1WhXRtlXKD6KDoHsNjUwEJSwzt/RTF7XMnfHk9?=
+ =?us-ascii?Q?yVg6XefxbmTpbiUkcFCmnSX0nWcZnIIwqnpY8qABK4mt0g4fwi4NyBgHAYu+?=
+ =?us-ascii?Q?haMFDZ64afSNHv47yMokBFwVBoAWwFy61ZNxIbbEKvDf0vuZOv/l1LSgpdeT?=
+ =?us-ascii?Q?HV9CiSJ+A/M+xm02CgR7RiW6nqWH6nM6nzp46YZAXxdVw+RB/UCRfqIAraCT?=
+ =?us-ascii?Q?zEGdhnFUJslbgmU3Tgh6ABOjqSVQaaZJPpGQT0/yW8V1/XckkTpkLQW02bsb?=
+ =?us-ascii?Q?ZbUqOO7Z7ymdF9hMuUsciJSK7s263ZJnMUxSZL0u5WppD2CohyAvMdtuS9aH?=
+ =?us-ascii?Q?oF9skBt2C4dSGYyL8oClnw3slgR8EtnvbfQT0c9G7R/pG08v2iQA1VaRUVJX?=
+ =?us-ascii?Q?5GuH19w4ooZMYu4=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?RGJ9MihR9a1j1/HqJPWK5aDvwk9+CcfC5I+voz+Xg002EjIc6vAGGPEFTkB0?=
+ =?us-ascii?Q?Fk2+uWDyGgogQ9gFY8WbKgvW4+2Oop1T35VF+IyXp1ZdcQyn5xDREnNadxYR?=
+ =?us-ascii?Q?TeygmBOP2/70vCAH0Wn++KcpVpGA9v9JYUOL4jV0hGmfnUifC5fRcSOdLL3n?=
+ =?us-ascii?Q?w3xxnItFN+ZhhLRrZfdmyceWo6HnRhpriYn5jPrYDGNNO8nLaGBAY6p2UI2K?=
+ =?us-ascii?Q?CczDRCJ9LDcrdPHmH/mPgEjytoKJ+asXndqVTDQvONy7hADz+e07DRFUrk/Z?=
+ =?us-ascii?Q?GnfrDUeS3DQg3QrkfQzrLPipo/tfVpuXgTGCw8Im/3+/wCnlRZtAQyUxORx/?=
+ =?us-ascii?Q?YeOQrU3q1OxRxYvd3xIj5uWl9XmexCitXsuopwupWK2zhmlYRUcg9Up9EAcY?=
+ =?us-ascii?Q?jaVt7abmvZCPVLMNfWfHHIRpPqLOPpw9gDeEoPSPob4sIu+aNwzD6MSUChZx?=
+ =?us-ascii?Q?fRl85Z0R11l0bA7d6mvt/H7unmckahGkbIpAgesEFMyj288tGJ5sAKSW5n1s?=
+ =?us-ascii?Q?i8EKaGfTKFAeMvUKLxDkjZ+mKkoObscLKL7hi+gbkCVmVlnEO/jTRbFUCx78?=
+ =?us-ascii?Q?/DgxZYUUM5m6XQsnqhI9gcUTUSTSKVTIC5rH91rUNHvi7ANXse/n2P7GhMbh?=
+ =?us-ascii?Q?9e9H4YXt1BTc7nWGnDODEJ9kdAo+DYExkZNVyfBODD/X+k3JaeG7VednMvG1?=
+ =?us-ascii?Q?xPz9xEGguunc8Tac7zettmaRDE8djiPmwsLMX8hlMutYBRQ6geSlIZ98VTgm?=
+ =?us-ascii?Q?WbbX+NoibS2H3Y3wgmt6oJpp/hMJdQvV9RQP1U4VeyRHQNfKaClvGj/VAIey?=
+ =?us-ascii?Q?dmpwIjKeBQ7k7zURcSu8X58ucgUAqU3dDxs0l0rDmMz3CBeC862Efx/vzeVm?=
+ =?us-ascii?Q?0/d/HXDJZ8nIT1geWTNlvGKK5WLGPqFojR+Sq7+hPoFwEG0SKTqdCiE4+HZS?=
+ =?us-ascii?Q?OVI1pUBPFIzqLGvaSevNm5+dXupTcew3j/Mkhqi8fAj5m5/6xw2lObez2Wk5?=
+ =?us-ascii?Q?CaRdQAw1m3Na0Si1Mn5drYfoVwmpUeXyNCVZL9EkNuywbea4+XU+wUc3ZGWy?=
+ =?us-ascii?Q?cnOAP73kd1sBBCkCGZIIwV5mymiTEGRDFxrUaVyYITT6UvrB0H+SdmeAuSOo?=
+ =?us-ascii?Q?ze/sX0wDmRh1KWEWRTpmVy0oH9K3eE6JahTU8rVHzvxh2AuPE9gUgVZ1bnZf?=
+ =?us-ascii?Q?KTh3+DUHoCdtZlI2q32hB+d9dX4Euc4ZWvRsBv7sw66kj7qif8oaYNJJsXkp?=
+ =?us-ascii?Q?ydgMWfHZiiBvv+tiXdQS+ieVt1ItKMGORWL+WuMpy2jtfmyAr6guCExBdjyi?=
+ =?us-ascii?Q?56FiHeQj8xEZrF/SICNd5i+Tz0mcUFtb1ya5JXCFxw4mLVi9TGisXeSyEwsp?=
+ =?us-ascii?Q?iKwA7JKSAYrzl5s7ZPCJSgY3eDmW+lxYWTxoOCubhcVWCbh1rEbyheYmR8wO?=
+ =?us-ascii?Q?dxpqK01jE/q8oxJrsV+5JYJLTE3ZtRovMH+n4MOJE1DvhdagsujTMWGlJSR7?=
+ =?us-ascii?Q?D0G9IUIwXLWUVvegbakq/kTAyiIq+qNGKafLfc5/i3+bd9wN1J5g5GSpfHlf?=
+ =?us-ascii?Q?PkCy0h5KAfLXAHz5iZ8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aJDHAF69VOEHwcKO@e110455-lin.cambridge.arm.com>
-X-Proofpoint-GUID: 9XITv37_0m5ygC0r-Y54VrOOfs3wvFa8
-X-Authority-Analysis: v=2.4 cv=VZT3PEp9 c=1 sm=1 tr=0 ts=68918f64 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=DSBK3S_xfJQIu1nZ6GAA:9
- a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA1MDAzNCBTYWx0ZWRfXycIXdnObNEc6
- IQ19inLkaVun2RL4qxb/Sa+XKaO6LvbEbo+yFybyz25GMGRxwE5yW4mALxBxIjE9qG1itc69YrD
- JFtKNkB6YWJ1tRA4uINSdI3Fa+1DQEJNgjT5uh0z5CBG+erSEfvM5zbEhD8Pxt9OA2Ks4NyRljY
- 675g7vzVRp4APlto+mn7wKC1dPHKC6xSvgyG8K7q94/obPNGUclYosL53kpL6SFFf08snfsgr9z
- KQyP0xghSyUPNpZB+zrkToFdZPEzSSUUsKxhZaUPmBM/aYhQ8+wljBDYBBNwx/L2dGdtJq8VK6M
- 4q0jXL8MaKFogofqBC0fisHrhFnmkeD+WNOBk4W90ZusoNhjgyZNN0dHKbI0r1dGVRqn+3yR7Yd
- Tf6ynJ0IZP7QvhTKsOCdfmT50IksiLdjaYclxsL0KFsGBKEDP4O7GzuIy8neIzsIbFZi9MLB
-X-Proofpoint-ORIG-GUID: 9XITv37_0m5ygC0r-Y54VrOOfs3wvFa8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-05_01,2025-08-04_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=999 malwarescore=0 bulkscore=0 phishscore=0
- spamscore=0 mlxscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
- lowpriorityscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2505280000 definitions=main-2508050034
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a142d54-eaf9-4ea3-33c9-08ddd3e300d4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Aug 2025 05:43:28.1375 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Myfj0qR+scjsrufcY+2Q1QzsrxT5wxDVr4tzxHR/KsT2GbXEslvTi0MecqyKu9JMKnuTIbER8vPRB9wVy0DRFA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7827
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,53 +156,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 04, 2025 at 03:43:12PM +0100, Liviu Dudau wrote:
-> Hi,
-> 
-> On Fri, Aug 01, 2025 at 04:51:08PM +0300, Dmitry Baryshkov wrote:
-> > Drivers using drm_writeback_connector_init() / _with_encoder() don't
-> > perform cleanup in a manner similar to drmm_writeback_connector_init()
-> > (see drm_writeback_connector_cleanup()). Migrate all existing drivers
-> > to use drmm_writeback_connector_init(), drop
-> > drm_writeback_connector_init() and drm_writeback_connector::encoder
-> > (it's unused afterwards).
-> > 
-> > This series leaves former drm_writeback_connector_init_with_encoder()
-> > (renamed to drm_writeback_connector_init as a non-managed counterpart
-> > for drmm_writeback_connector_init()). It is supposed to be used by
-> > drivers which can not use drmm functions (like Intel). However I think
-> > it would be better to drop it completely.
-> 
-> The intent of _init_with_encoder() was to be a special case for drivers
-> that use their own specific encoder and the rest use the generic function
-> that creates the virtual encoder inside the call. The API for
-> _init_with_encoder() was actually introduced 4 years after the original
-> patch, so that should give a hint.
-> 
-> drmm_writeback_connector_init() is more like _init_with_encoder() and
-> I don't remember reviewing it, so I'm not sure why that was considered
-> to be the better behaviour for the managed version. Now you're moving
-> all the drivers to the managed version and you have to duplicate code
-> in each driver to create the ENCODER_VIRTUAL encoder.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-This follows e.g. the process of deprecating drm_simple_* /
-drm_simple_encoder. The drivers are expected to open code empty encoder
-handling on their own.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-> I'm not against the changes being made in the series, I just want to
-> see a better justification on why _init_with_encoder() behaviour is
-> better than the previous default that you're removing.
+Regards,
+Hawking
+-----Original Message-----
+From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+Sent: Tuesday, August 5, 2025 11:44
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Liu, Xiang(Dean) <Xiang.Liu@amd=
+.com>
+Subject: [PATCH] drm/amdgpu: Generate BP threshold exceed CPER once thresho=
+ld exceeded
 
-This was triggered by the discussion of Intel writeback patchset, see
-the threads for first three patches of [1]. We have an optional
-non-pointer field inside drm_writeback_connector, which can be left
-uninitialized (or zero-filled). I have checked and the drivers are not
-actually using the embedded connector for anything after linking it to
-the drm_connector. So, by removing the encoder from the
-drm_writeback_connector structure we are tying a loose end.
+The bad pages threshold exceed CPER should be generated once threshold exce=
+eded, no matter the bad_page_threshold setted or not.
 
-[1] https://lore.kernel.org/dri-devel/20250725050409.2687242-1-suraj.kandpal@intel.com/
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 4 ++++
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c            | 4 ----
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
--- 
-With best wishes
-Dmitry
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_ras_eeprom.c
+index b66e09ad0cc9..e3d7071b5853 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -763,6 +763,10 @@ amdgpu_ras_eeprom_update_header(struct amdgpu_ras_eepr=
+om_control *control)
+                dev_warn(adev->dev,
+                        "Saved bad pages %d reaches threshold value %d\n",
+                        control->ras_num_bad_pages, ras->bad_page_cnt_thres=
+hold);
++
++               if (adev->cper.enabled && amdgpu_cper_generate_bp_threshold=
+_record(adev))
++                       dev_warn(adev->dev, "fail to generate bad page thre=
+shold cper
++records\n");
++
+                if ((amdgpu_bad_page_threshold !=3D -1) &&
+                    (amdgpu_bad_page_threshold !=3D -2)) {
+                        control->tbl_hdr.header =3D RAS_TABLE_HDR_BAD; diff=
+ --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgp=
+u_dpm.c
+index 0d94cc04e322..607e3048eacb 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -764,10 +764,6 @@ int amdgpu_dpm_send_rma_reason(struct amdgpu_device *a=
+dev)
+        ret =3D smu_send_rma_reason(smu);
+        mutex_unlock(&adev->pm.mutex);
+
+-       if (adev->cper.enabled)
+-               if (amdgpu_cper_generate_bp_threshold_record(adev))
+-                       dev_warn(adev->dev, "fail to generate bad page thre=
+shold cper records\n");
+-
+        return ret;
+ }
+
+--
+2.34.1
+
