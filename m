@@ -4,144 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B67DC87FCB
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 16:24:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D6A5C87FCB
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 16:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F372A10E6C0;
-	Tue,  5 Aug 2025 16:24:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 857E710E6CF;
+	Tue,  5 Aug 2025 16:28:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kyEh3oV8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vZRLu1hG";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2047.outbound.protection.outlook.com [40.107.220.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EFCA10E6C0
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Aug 2025 16:24:13 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E3E310E6DC;
+ Tue,  5 Aug 2025 16:28:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W4DYs0HXUtgUSd514O0CDruo6b6K/4CJROTXCJ+fALY0VDnWwMr6gityLicn44KgyYHCbjczleuG7DHGWagVz/vmdswhluwQi/encRJ0h6LziVgQobosJOJq3jOsRVU4cA+HKjdkhhwtyRTLqWIjmNYGgmfdx6oLjTL/FsmR+yKLZXOsLxKM1NfbPsz907++bUy5IjE8axtFBytPVMO7IoPlfI1QzN4dhrhUXUcZjh1WO9rM6ZKpyYyRgrazIlqhEWHlDIEpz/TIJYzbjXl1uQDh5ybvUBdnS+gqHfcCvBngqY6foST7tTYvnahVu54gLyGVJFcgR6u7LxMMmam4Vg==
+ b=i35/oC+Xc937Ev9FQoPkQePkDunoynT7oQUANm7kvNDMZu/QI42cgkEhXNu2P5qLII5gfaZB67fgFHw1czQsJ664wP8euioYZcSK/DHCGSN2pc03EGe9Q8xmcbDFm5RhAcRTPGl87uNHtvR3dxX91VONMLQ/ATJ4sbawPRmfU2uRQiQLg2T/PDZy0wh4UNO9JoYe+9XBxMl3XxeSZYeWCj24fwdoN8qwb4P7Zrdy8SZpQy/kZauo6tK/Lsbrk8PwHBiZ7jB92LenInvMxU0YKMkKoKlfO/a8owM7tJGBLM0Qu3OWlb6ewsS9QxCETgGuuihgf2aV6BxNTHmaOzASmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f8RXtyCFDi2bmpTTSsQuytIkFXbSYU12h3h8w5mKlQw=;
- b=w3VsdIClPRrnh+apQNBYoJSDeF8lROct2g2azdlXDNKNyzkRm4/k0wU837hYx0VrHage+u0CRAyjfnsROc4GVsSShqv2Oy8Qg2WH2W84tJT9Gvf6TByFCPmrhUiteWCfr+yKtYk2jXtWrrRI493qL1iZTtGkcuWd51Ei3Nv59NGj1Fsegyu4/y5Q91vYh6BMZ8L9gs6J29UyWbQKZPFPOBcOLDdkM7pRHvoxc6lmdFNgtyuONYH2U2SFuFMJR+kCahj5tnEhriW5h3EqXHqNGNnib2XgnMUCNHOmuzUjq9OCu2eeel2duYBkdA6vDCt/tmLPaOPUhVcqfGn7yDdHzw==
+ bh=j3Mz17x4EeyjmPFCwt9Fjyy0m6NrqfX5VrYdVY8MCYM=;
+ b=uh8daKAfs2cv0MUT4WSTkwDNmiT1rUkv9GIC8m9x8cjP2uYQPiwo+Y9NGJFBV7GGp4hZUIb1jr/PuhdEHo4j9KSQ7DAThXYoL0m7Z87pufiipn/VVoInxnCI74FIpQZMDwodyYRKoLNDQffRVKkE4ZDmmvi3ObepL1iC7d3eZFTs9flOuyfLDSCoMVuKBkasmVxYbdrbs48MmLB0VmoKZvVuY+S4qflGexEWv4iaq7uoMOhIryNb2W1UkO1jl3y6qFlYYjKb/aBPHQ1E0uzA5hMFdipoUsV43NIYltQ5p0wKGaiV7bSeX1mh+g53YOBxiOnRbKN9hf3UP2dCQyTNVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f8RXtyCFDi2bmpTTSsQuytIkFXbSYU12h3h8w5mKlQw=;
- b=kyEh3oV8gJIVF+ZfPrlSgSBhZMoR1PpH5F3E2BJP3fT3t5KHsZAljMu9g/7G5UNL7T6nWqL1dzHIPivvdBc/7epUwXdZAx4VtSbzeFShL8ppfCZ2Qhmo7Z9j6Ieu9gPU6LH61xPaiHsU2s1L8UUx3a8Lt/Fv3oDwA3jM+nIvgnA=
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
- by MW4PR12MB7383.namprd12.prod.outlook.com (2603:10b6:303:219::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.22; Tue, 5 Aug
- 2025 16:24:10 +0000
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c]) by PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c%5]) with mapi id 15.20.8989.017; Tue, 5 Aug 2025
- 16:24:10 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Kamal, Asad" <Asad.Kamal@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
- "Zhang, Morris" <Shiwu.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>
-Subject: Re: [PATCH v2] drm/amd/pm: Increase cache interval time
-Thread-Topic: [PATCH v2] drm/amd/pm: Increase cache interval time
-Thread-Index: AQHcBiDHSr02G9WADUOjYHgPAFCHOLRUPdTW
-Date: Tue, 5 Aug 2025 16:24:10 +0000
-Message-ID: <PH7PR12MB78203D095018F51230B8037B9722A@PH7PR12MB7820.namprd12.prod.outlook.com>
-References: <20250805155058.669805-1-asad.kamal@amd.com>
-In-Reply-To: <20250805155058.669805-1-asad.kamal@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-08-05T16:21:57.9838117Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-x-ms-reactions: allow
-authentication-results: dkim=none (message not signed)
+ bh=j3Mz17x4EeyjmPFCwt9Fjyy0m6NrqfX5VrYdVY8MCYM=;
+ b=vZRLu1hGQcREkUH4fxaud7cNsJWmPTWKQFQbSQl+2fNYpQbNTxOp5MyLVU3Q+/FOc4qp1Hk3vaMSQCOR6DMMmZFWHtrLYTD6itTwngqPYO2l5xY1Jo7iPzQr2JumT3g+iXzZSN2FkSRvADFWrgffcadxuOsK8syi5GBSspvoM6s=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB7820:EE_|MW4PR12MB7383:EE_
-x-ms-office365-filtering-correlation-id: ff8a463b-c15f-4dc8-8ff1-08ddd43c823e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7053199007|8096899003|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?OVX9erob9MP+rdt5FmOQkHE94w9Ik86BjOTV/ECNU8kbMdUIvCYAcGFK6ayz?=
- =?us-ascii?Q?be1Vn6I3BCYeAS8v+ZBtOmzKZQAFdJVR0p/ggnjIuXxl7JyQZnyhAnNKbvUy?=
- =?us-ascii?Q?EXJXnr+UGj6KN+EhZauL00wsyV6pK+Jtc1m91u/yaWGZV4H5VYtpTvnEKlfX?=
- =?us-ascii?Q?PWJQ1fnPs91gL0zythLvC5kPGav6T6+3FZN7h9uu+XuVfXzZbcdlYu20fbDJ?=
- =?us-ascii?Q?8sv9RzOeRLb/aygFyGbgSYlbQ4MXSws9w3gHHRZqtJfasukyODQcHUOW51Ak?=
- =?us-ascii?Q?qY0iIW8FKzZ8Si3ZdMFGvW0+2oFlSiWWvW8UWtveU10A17cMqfs4s8OvXN79?=
- =?us-ascii?Q?iM8GSzBviPbMvAagBOpKvFx6Otq8DbfVDh+16DuAoxZLoO3f8s/BV7tVCdVO?=
- =?us-ascii?Q?INT0KpVHuJZ79hVYuhw/d63sn0Zkc7sv2bI0lK2QKyrem1tTuFaqSS2gfAcH?=
- =?us-ascii?Q?VTMZECFoqOCclGSyH/5Ml/g8BTVmpW+WupI/hWM/oZkH6oXCcXrZPtspZJ0o?=
- =?us-ascii?Q?PVga0yTK0FuBSnU5umn08a6bZTFogJ1CYzk47y5GsGN2xWc6pN5LnVDEoLCq?=
- =?us-ascii?Q?9Yni/ZC7DU9QCG8/Oh4Jrm8IE0XAK8Z+Ah0O+GTg2vLhjoJHZrpdlX66sc6k?=
- =?us-ascii?Q?JrEJzENU19ncqNXXvqfKW/DMDDS3EXcfPCs18DQjf5tp9m0eFDnZC+P5Tjzx?=
- =?us-ascii?Q?MH++VK9BX0Oo8JW8jjRs5c2PHm3QHr8fd8Ru/DCS+BHwnb9ROqXHnOz/4Sl2?=
- =?us-ascii?Q?IwJn5wYPE8ogDpZydXigeyDKWMwJwoMccnnf3xzjo4MDKOFVlqEcSjlxLgLb?=
- =?us-ascii?Q?DATrJd0sJk/GT73W0rYITlay+Js0020RW5goOVkfYGX0R7mLkSTbp2hFhwlm?=
- =?us-ascii?Q?nYRNnba0B04i9I1nG5ZGaJ9xwfA858ITjl/ldy3nuUnE9kh5dJBE4fL3NA0W?=
- =?us-ascii?Q?x6huDGVt9gO1DECKkxwbEIFkAUhQBr1iE38WTO9CejIomj+cHFwTQYlmEgvG?=
- =?us-ascii?Q?A4AMwhefe42pEXHDvTryqP9Ec5Oj8/4uQnZp6L56ZL/4c/CrdpbJkB4bMLc4?=
- =?us-ascii?Q?QHGB9w6ExeOSWE/8owCokZvg8d5vBeO4Tl5hLWIVG/DxpSyVTyIj02MQN5Dc?=
- =?us-ascii?Q?BdCqO0mnFtQaeANCDm+WshzXSRyhtK2z1ALVu12/IY9DNxe2oNEql6KngAU8?=
- =?us-ascii?Q?Z7sJmUVxB9oVgnyRL5DJ6AYB8ZTsNLGzQ+F6NYYUS+g8XxhwIMN3doVDhK+Y?=
- =?us-ascii?Q?54yJa6sBb5duErikPzMlnwb7sduXOD/IWjoM6+08t/mLw50xD1lAUy4VK0HX?=
- =?us-ascii?Q?5Ko8rwZgCE+sheq5VPJ7sc2D9UGNS1y3TCx8ckXhHrM3PLRyPfet0M2mmFJM?=
- =?us-ascii?Q?NCbqI0bccc+DJz0CGLdeIpMkMGCSsb6guZGR4XfQyb37jX5J0J7yF8EtyEjx?=
- =?us-ascii?Q?sg1FedanR8ZQTaqNaYsRbcPtBKHol8NBkHsqt0gDxFtxZonHorOGAA=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(8096899003)(38070700018);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?loIcLAO1MmKXoU/V3L8MHTq08zBk0W3jfP8nZCQcLaOEn0KWA+hZHF+Lracz?=
- =?us-ascii?Q?T9zJcGw3yBFuBXik97rPyKkGVUWs16KND0aeYHfScMvFcrcTHffy5iQ5nTEB?=
- =?us-ascii?Q?wxhJ2a458DNaN28A4LYDGpVAkrdcq0SXJU3EosdgCT7B5osmViD95mSO6pZt?=
- =?us-ascii?Q?lAL2wjFWtfhcLTobuLThPMaA3zKbhZFl18OT5PMC9IdtufK+vhShvFvYmlPU?=
- =?us-ascii?Q?FcRDFg02CNv5uYxEayPCy38/k4dNv/LHJFQvP8elnYIsEMVsJrbHJ4ZxlozI?=
- =?us-ascii?Q?dl4r3hIy3XMJYwv+iEImVYWftiOHyEc1qEvRvOAvAxKeWCMXgXtcgBlG8v/T?=
- =?us-ascii?Q?EXW1qT1Ld/EyHhm9dxQKWqQrAIjMCR5VZaEwC2EU6vr6WPIlY6ZN3cyS14MV?=
- =?us-ascii?Q?n3COMBlO74htJ4aOqEfblhLiNfM1jduvH9REMi27oRoTlBYFVYh9A577Aqgt?=
- =?us-ascii?Q?rhCYhLzWaY2lppjCahYo+UeFEoetB5UpGUYwjL/Xvy+H6fABq2lf1ClYgXvi?=
- =?us-ascii?Q?XtIg9TsHJVgXscneLMuz0RzVm5XoJycW+hlblBgBjjzK78Td1eRojmD4KK1v?=
- =?us-ascii?Q?yzfTbWnjbfbNdPnrpoq3jK0qeLhH6zKCWHQh72Qv9GuxVaw7NwnQKf/2/BI8?=
- =?us-ascii?Q?km9hOMbmItTYkRy9cqwGyPtJx8Qgg5HSNdU6VNUqlczfqUZcQSfFSCnK3eI0?=
- =?us-ascii?Q?00M9UjaZ5K2QU3GazvsHw1cXJUzuj62Z6L63MlgA7ZHxbQHZfTDWBJaJ6TFD?=
- =?us-ascii?Q?3AeS6s6UrBDZf/pLJHgvcbgfGj+ISVwC83JfuercV4h/uWPu0v7IwjTkP8eA?=
- =?us-ascii?Q?SQWpGWJ8CqF12AVg9Sr0mi4O2YSeFqIzY7yTlDZCFgObSkdbHy4ytPeQ8Xl8?=
- =?us-ascii?Q?22+UD0BtEBiEUsnLtUha7pHgFlLgk5/B9jcCgBkMdIJrWOvbEoGSQ+ksBxL0?=
- =?us-ascii?Q?Ff6tSM6T85K/LInJKlHGR65uivvPMBhIU3LSTtxYhyfboWR1jB8k/jt0s7Kn?=
- =?us-ascii?Q?HIG6fcmcpCjSTwRwz3+d9J10BjrOrmwjAAXXUWX2/ZvIa4HeKpWqVzBYNZ6m?=
- =?us-ascii?Q?sPhq6/HS+XMXAMyxcip8kDrYjRKaoiEVFtwzz1+IgrzuUO+T5znghK+sihRx?=
- =?us-ascii?Q?LLp1GDUTDXL3koBFlHj+MfHf2LimeF0G7ISqWdhPNJNxzvZWOvIsHCJuhl6e?=
- =?us-ascii?Q?1OQzLYnle9J1DDKovccfGEeg1HP11YVbLgEAh3dwAieOOXbOASaaaBZ5sV2m?=
- =?us-ascii?Q?GOMG8pKL635bE3+59zrAbPsjyvYcK33dZmozaTdrKNulabrXihNXYCnY0JBu?=
- =?us-ascii?Q?SpLx2OWoCQAyrvK9fGtWxHbFVFsclQ5NNscVOkacbkiRPXUQ/SGkfRhsumiN?=
- =?us-ascii?Q?RLPrPy6hyjyLLCdAcxZJyIhS+KatB2GVhKd5ROxIvkWhWHQUJ9/7IKTLInfo?=
- =?us-ascii?Q?QnHc0OFk4akELu1wJEOF5StWcza4c52UDzpqrmqPWbvby73l+ZUl2eyg83a7?=
- =?us-ascii?Q?W+ouEmpU10cFEjcFopii+KTvpJapu8WJkI2pQc9ZEx9If6ROjlgULDWytKjm?=
- =?us-ascii?Q?/PGfwxltnGJ8iFmriZH5kfG+wDulBN8iMGY10z/7?=
-Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB78203D095018F51230B8037B9722APH7PR12MB7820namp_"
+Received: from SJ0PR12MB5438.namprd12.prod.outlook.com (2603:10b6:a03:3ba::23)
+ by CYXPR12MB9443.namprd12.prod.outlook.com (2603:10b6:930:db::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.14; Tue, 5 Aug
+ 2025 16:28:47 +0000
+Received: from SJ0PR12MB5438.namprd12.prod.outlook.com
+ ([fe80::65b2:12d5:96ba:dd44]) by SJ0PR12MB5438.namprd12.prod.outlook.com
+ ([fe80::65b2:12d5:96ba:dd44%4]) with mapi id 15.20.8989.015; Tue, 5 Aug 2025
+ 16:28:47 +0000
+Message-ID: <0eaf1411-f438-4b1a-8c75-7b03ee23a85e@amd.com>
+Date: Tue, 5 Aug 2025 12:28:44 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] drm/amd/display: Update HW_DONE_DEADLINE property
+ value on modeset
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ Leo Li <sunpeng.li@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Uma Shankar <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
+ victoria@system76.com, David Turner <david.turner@raspberrypi.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20250724165220.1189129-1-michel@daenzer.net>
+ <20250724165220.1189129-5-michel@daenzer.net>
+ <84a221e1-5675-4aca-a068-6f9408b96e40@amd.com>
+ <f6c82f73-cf3c-48b1-95e4-650297306636@daenzer.net>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <f6c82f73-cf3c-48b1-95e4-650297306636@daenzer.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0415.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10b::25) To SJ0PR12MB5438.namprd12.prod.outlook.com
+ (2603:10b6:a03:3ba::23)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5438:EE_|CYXPR12MB9443:EE_
+X-MS-Office365-Filtering-Correlation-Id: a509186a-cce7-4af2-6c53-08ddd43d2751
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ODZtT0ZYVU9KMHNYTm5lUEVqYVMxWHdZdlMwcmYwNjVtT2lVZ2Zpb21oZjlT?=
+ =?utf-8?B?WFZuSi9sKzlxZmpRcmV1Q3hnQTFIK3FPUWtnMEl4cDZIZ0lXOWMyUkpqZHBo?=
+ =?utf-8?B?RWlBcDhxVTBOd3JtY3VLaUVEUnNNN1lIS1Jlb1FHTndDZHpxLzZVMlhPcUho?=
+ =?utf-8?B?eFBoZEovRldYLzRkcm9jU2hDZnNuNEd1SXpiTkZtRGl0WU5wbTJ6enJiaEtH?=
+ =?utf-8?B?NHJnbGFVbWxlQ0hDc0NybVhaZVBYejExemhkdVlrZEZPNlBPblNqQnNRVUlk?=
+ =?utf-8?B?MEJJMVc4RzFXRnVOYVRRYU15THhUYXZCM2dEVTJKMW9CbzcyT3dLdm51Qlpm?=
+ =?utf-8?B?N1paLzQ0QkJCaVNHZWR2YnIxYlpZTmtjMGpPbkdyS0gxb2dPSGl1L2U4QmlE?=
+ =?utf-8?B?MWJYTEduNTgzakhrRFk4TlBHRVJIcVdGL3hHQWxSRmVWa0F2Zk15amlvaHY5?=
+ =?utf-8?B?dXNUZVV3UStvSzl0eTZKVFR4LzdLUFl0bWNyQ2lFSEYyOFRxdkVBZ1JHNkdH?=
+ =?utf-8?B?aGlndFRHSk1scXF6dHNITGVNRDZYblJwejE5ZHUrMUFwZldMSVZ5NmpBekZl?=
+ =?utf-8?B?N3JycTl3Y3ZNTGZzb0tkZnJrY0J6M1l3eHdOdUh5cmI3TVRVeUQ1TElKVTFa?=
+ =?utf-8?B?K1c3cG1UZEhBeEg1NnFNRjY4VHFwNnlTd3FyaFFFUHk1dDNCcG9Qemxab3kr?=
+ =?utf-8?B?bVVKKzBiKzdqMFpTLzM3ZlBsOGNmWndDem14SWI0a3EvbHBSWW14bEdBekN5?=
+ =?utf-8?B?YVc2bFV1RjlIa01rK2pQRFJMT2RlKzFQVm1SN3ltM0JoMitBM1dHVHZwaTZ1?=
+ =?utf-8?B?L2t0eHR6M21pVlhzVWgzTjVqeXlTMGhKQnppZlFQd3hnSlREMm1nelFhNENW?=
+ =?utf-8?B?cEhKd3Jua1NXejlsZGdndThQNmMwcStDK3ZaQkNFL0xFRGdYNzVLUFd4QURL?=
+ =?utf-8?B?cUtBNmxDRlMrZ3FYYS9LMUZ6cnF5NDRCWnlLaWdvaExWNTlEYTYvdHU5cDlm?=
+ =?utf-8?B?OXZKa2hJOVRjc3ZoY3h0TGwrU2NndWZTSzVwb1A1QmtmVE9PZndtS1VKSlhW?=
+ =?utf-8?B?TlRHTzNINXFndStEWEJXeWpybk1yVW5uMTNTWElobzhTMVV1aTlacFkzZ0pr?=
+ =?utf-8?B?S0ZNNzRtVk9lcFFFczJSM1V0VDZNV3lRN21IWDRiRTNtSTAwazYzWnlZSHRs?=
+ =?utf-8?B?cXZDYTFTMlBFWDUzcmlZR1NiQktqKzVqOHJaUlRna0JtdFdwby84RnFzQk15?=
+ =?utf-8?B?dThVNEFzYWc3eWpycTgwdlQ2LzU1ekhMSHhTQ3pDczJZSGVQK3JucFc1SDly?=
+ =?utf-8?B?T3U2MU9NZjZCTStpaDZjYmlCSkhWckp5amNSNUdKTUJxYUZqWVd5NkczOXZm?=
+ =?utf-8?B?d1VNNCtHSktQdkozNjc4V29kWXNzUlB5TmJPYUxzbnRiSUIvdnQ4SXd3TSsy?=
+ =?utf-8?B?R3VKVGhyNm4yb3FxRDc2OU84MmFaYjdZZERXQm9YV1NHeUxNNVhOUW8xSFhz?=
+ =?utf-8?B?OHhNTUlJZnAzNC9IUzdwWHB2bkdCeGNsdnVnOFV4NDk5Z3k0MFhXWWc3ZmRB?=
+ =?utf-8?B?aFpzSXhRSWRRWDRZYzZrUnB0QWNqUjVUdWE3ZS9TQk5qUGFNcVZOUGtZcm9z?=
+ =?utf-8?B?R3hvem9VVWkycHZaTnRuUUR1SjYxdUx4bGFwOXEycU1pMXk4SjRUcUxONGNV?=
+ =?utf-8?B?NWJHeUI4MVN3VHVzNklLSnRVVW5IdzFacG52VjkzeEFlQ2tvanlXQlpGQ095?=
+ =?utf-8?B?REQrVVN6T044cHdGZFcwa2JvV2FVbU9wQ1ZBODdpQ2p4b1RPLzlwRFQ2MmpS?=
+ =?utf-8?B?aXFoZm1kRFBETkxhS1pFSXZKVjZ4SC9yNHZiM0w2QXZUSyt0cjRUVS9ndEFn?=
+ =?utf-8?B?eGdnN3BaSGRlOU1oU09ob2dIdXlFdHppQkMzcWtiKzh5MmtXb1NQQmhENU5O?=
+ =?utf-8?Q?9kdgE64N5dg=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5438.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHZsVWIvc1E5cEVVelJ5djYzOGVQbVQvbEtGWEQzN2p6TlBJYkV4ajMyY1hz?=
+ =?utf-8?B?aHkybloxK3ViYVRpWllPd2cwd0hXUTNTbGJYVWI0MmN4YUw5OVdKT0tKQTh3?=
+ =?utf-8?B?TmhyNHpPN3FhNzFhVmdLcGI5VWsvcWxTUFJJN3dEcDUrMkRMOXJpd3E5Nk5R?=
+ =?utf-8?B?cHFKQ2M2dmVsK3ZqZ2dGUlkyZU5pUDBQWFV1S1NraDFUTWNkOUNmMWhVS1hP?=
+ =?utf-8?B?VCtlSjdJVWdUdndmbnRmY3JqTnptYVRCbXBHUmcyMS9pSlpUV2N5SmZvWkJK?=
+ =?utf-8?B?Ujg4REJzNzRqUjBld2M3clFsUkRLcUZFZElCb3gzN3FJMG9RMk9JaG0vZG50?=
+ =?utf-8?B?bUY1SWNiYmdZTFJremF3T1ExdVFiWjd0cUtoWFBNV0VBak96VnFTRzROSGZt?=
+ =?utf-8?B?T3Q2OWRQbTAzc21aMENaSG9oUlprSGl2c3ZtN08wTmhUN1pIYjFrV21Fd05N?=
+ =?utf-8?B?ZmpZcW44ZlAvTlJIQ20vWVg4QlFneDFvbStOeDVXbk9YamdibkxzSFlYWm9L?=
+ =?utf-8?B?dkk0azh1cVgvUmlBelh6V21EU1RKSTNEL2ZCajlZYndxdm1wUE5yUTZDR1px?=
+ =?utf-8?B?MGhDcTFBc1dmazg3cFlJdTB1d1ZVUDQ4S0NZRWZBZ0I0R3hxWUcyTTczdmJ2?=
+ =?utf-8?B?RUpPaHBXM25Ga2VONWFBcnpOSWplU1YwcGQ1dGxhZ3RpOU0weVhaMERVS0NF?=
+ =?utf-8?B?L0dRU3dRRERIYkNtTm91VUdpK3FNY05OU2hjZEJOdXlKNnlkdXlscUhDdGlp?=
+ =?utf-8?B?NHI3aFcxbkUxWkpkVVFjMDdxM0VoY1h2M1ltZU8zVyt6RWsxd0xMZUpzaGNU?=
+ =?utf-8?B?Uml3ZUh4Uk9INytxRUEyQUp4QUhuWGsrSzVyOVVoRlJIaFFkaTJwbXhyeXRa?=
+ =?utf-8?B?VXV3YzZMYWZocU12L3lPaFRncy8vVGdqWWcvb3ZOaytHZHRTWTRueW1EYkFC?=
+ =?utf-8?B?UHpjWWp4aGdTWEp4c0dwN2owekU4YmtQd0RCb3B5dllMaktZaExzZVUvbmRG?=
+ =?utf-8?B?Y3F0Mnk1d293MEdtVThxZDNxT0ozZm5NOFdXSU1tV0MrUlF4ZTE5Z2JNRE55?=
+ =?utf-8?B?cnpTUjBVWTBqMkpiL21nSTNHUHdNOE5OZmJiV0Z0cG9kcG1pK0RaOUxHb2Q0?=
+ =?utf-8?B?NlIvV054dGFxdW9zcWJBL0N1NVdMUXdVQmd2UDR0bElZNlFmT0cybzlZVlRU?=
+ =?utf-8?B?UGhIb1pxdmUrSXE2Mkt3QzROb2V5NEhqS1lZZHQranJxVXRtQksyVWtxQkxq?=
+ =?utf-8?B?QkorVUxwM1Q5aHZabWc3WStLUHJFak5nZkRoYTJ1eXhQTUxOSHpDMTA5TzlL?=
+ =?utf-8?B?T1JlbXNTZzlQRFRzdFFQY25Fcmptc2ZxOU9aTTIveStiOTZIWWFZZHlFMnAz?=
+ =?utf-8?B?U3AxUXEvc0tFQlhITE9DYWdMalUvL2hMaXZ3bU5SR2ZSUUlLcXMyL1h3Y1pZ?=
+ =?utf-8?B?d3k0dlZnNUd3UHlxSCtaOXpZbFNyQzRuQmlneEgrOXRQUVVGak9nZzgrWUhT?=
+ =?utf-8?B?a0ZUSGx2NlFuYmcwRXZzZEdnQ1FCaDB2Nm9uZ3VsMDFwZTZXWVI0U3NiRHht?=
+ =?utf-8?B?ZWk1dUovSWt5TUl2VDRDMzlvcEx5enVJZDJLUHNDTkdaMUFqaTNidXJpbzdL?=
+ =?utf-8?B?U0NTVTlhVi95UlQ1TXlkaFB2WXN2NXUxYk4wSkw1MEtKQ1RPRjFUNmhnTS9R?=
+ =?utf-8?B?eXpzcGwyNHM5bVdGcDlkdTFoOU5HbmwwcnZ0eE55bjdZMnFtSS96OUI1NnZx?=
+ =?utf-8?B?eHMvV3hYakxuTTMwRlZ4Q2h1MFFjaTJoTDVRMG9IT3JoUW1RZElkOFVJV3Rr?=
+ =?utf-8?B?em5yM0JUL2dpdE01NHJsWWNKNXNSY1IzU3VZMzBvZFBlNXA1bjE3N2QwVUJx?=
+ =?utf-8?B?aEFEZm9JUE5ub1R0ODN4elNmbUFRcVFjMUE4MUpka0pOK1ZvaUxiaVZVQnlv?=
+ =?utf-8?B?aGZwKy91RzlRODdManVTVVMyRXdDVDAyMDdENytTMTE5Q3Vsdmw2c3dxMFlE?=
+ =?utf-8?B?ZlBMSXdReUhkZDJSZ0RxKzI5bk5mUjJMZ1M4bk9QT1BlSytNV21lYmlKeTRB?=
+ =?utf-8?B?bExhc2lqaDZKRFY3emx3NEFZYUlaZ0pzZWZwV2tIMkwxdXJOOVArZ0FlNThJ?=
+ =?utf-8?Q?BJLFk2lov+AvZQC6Y5AEDkQxb?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a509186a-cce7-4af2-6c53-08ddd43d2751
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5438.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff8a463b-c15f-4dc8-8ff1-08ddd43c823e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Aug 2025 16:24:10.4475 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: shpvpyB2IdmJhcE8skYrbBoWo9ToflIyCMNIKusowvicQi10NxoNjsxq4O4//Gv2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7383
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2025 16:28:47.7363 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WPRsioqKZhlF06/bLWnMTXJMuMIE+dr/381KRkyFUV9vY/GerfavN6xHAXJiV7X+8+7H6zu1pygK/wTuNjuCmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9443
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,339 +167,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB78203D095018F51230B8037B9722APH7PR12MB7820namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-Hi Asad,
-
-Sorry, after initing the cache interval time, I meant to move the cache tim=
-e check logic to swsmu level and not at smu v13.0.12. I believe this was th=
-e original ask from Alex.
-
-Other SOCs can customize if required by adjusting the cache interval.
-
-Thanks,
-Lijo
-________________________________
-From: Kamal, Asad <Asad.Kamal@amd.com>
-Sent: Tuesday, August 5, 2025 9:20:58 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Lazar, L=
-ijo <Lijo.Lazar@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, =
-Morris <Shiwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com=
->; Kamal, Asad <Asad.Kamal@amd.com>
-Subject: [PATCH v2] drm/amd/pm: Increase cache interval time
-
-Increase cache interval time to 50 ms while fetching system
-metrics table for smu_v13_0_12 since polling interval is less frequent for
-this data.
-
-v2: Make caching interval soc independent, however customization can be
-done in soc specific callbacks(Alex/Lijo)
-
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c             | 4 ++++
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h         | 3 +++
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 9 ++++-----
- 3 files changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c
-index dc48a1dd8be4..c62d68d7410f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1162,8 +1162,12 @@ static void smu_free_dummy_read_table(struct smu_con=
-text *smu)
-
- static int smu_smc_table_sw_init(struct smu_context *smu)
- {
-+       struct smu_table_context *smu_table =3D &smu->smu_table;
-         int ret;
-
-+       smu_table->tables[SMU_TABLE_TEMP_METRICS].cache_interval =3D
-+               AMDGPU_TEMP_METRICS_CACHE_INTERVAL;
-+
-         /**
-          * Create smu_table structure, and init smc tables such as
-          * TABLE_PPTABLE, TABLE_WATERMARKS, TABLE_SMU_METRICS, and etc.
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/dr=
-m/amd/pm/swsmu/inc/amdgpu_smu.h
-index 611b381b9147..7a52c00c700e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -32,6 +32,8 @@
- #include "smu_types.h"
- #include "linux/firmware.h"
-
-+#define AMDGPU_TEMP_METRICS_CACHE_INTERVAL     50
-+
- #define SMU_THERMAL_MINIMUM_ALERT_TEMP          0
- #define SMU_THERMAL_MAXIMUM_ALERT_TEMP          255
- #define SMU_TEMPERATURE_UNITS_PER_CENTIGRADES   1000
-@@ -258,6 +260,7 @@ struct smu_table {
-         struct amdgpu_bo *bo;
-         uint32_t version;
-         unsigned long  metrics_time;
-+       uint32_t cache_interval;
- };
-
- enum smu_perf_level_designation {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driver=
-s/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-index fca50f6a8ef6..5ead66375d38 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-@@ -361,18 +361,17 @@ int smu_v13_0_12_get_smu_metrics_data(struct smu_cont=
-ext *smu,
-         return 0;
- }
-
--static int smu_v13_0_12_get_system_metrics_table(struct smu_context *smu, =
-void *metrics_table,
--                                                bool bypass_cache)
-+static int smu_v13_0_12_get_system_metrics_table(struct smu_context *smu, =
-void *metrics_table)
- {
-         struct smu_table_context *smu_table =3D &smu->smu_table;
-         uint32_t table_size =3D smu_table->tables[SMU_TABLE_SMU_METRICS].s=
-ize;
-         struct smu_table *table =3D &smu_table->driver_table;
-         int ret;
-
--       if (bypass_cache || !smu_table->tables[SMU_TABLE_TEMP_METRICS].metr=
-ics_time ||
-+       if (!smu_table->tables[SMU_TABLE_TEMP_METRICS].metrics_time ||
-             time_after(jiffies,
-                        smu_table->tables[SMU_TABLE_TEMP_METRICS].metrics_t=
-ime +
--                      msecs_to_jiffies(1))) {
-+                      msecs_to_jiffies(smu_table->tables[SMU_TABLE_TEMP_ME=
-TRICS].cache_interval))) {
-                 ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetSystemMetrics=
-Table, NULL);
-                 if (ret) {
-                         dev_info(smu->adev->dev,
-@@ -544,7 +543,7 @@ static ssize_t smu_v13_0_12_get_temp_metrics(struct smu=
-_context *smu,
-         else if (type  =3D=3D SMU_TEMP_METRIC_BASEBOARD)
-                 smu_cmn_init_baseboard_temp_metrics(baseboard_temp_metrics=
-, 1, 0);
-
--       ret =3D smu_v13_0_12_get_system_metrics_table(smu, metrics, false);
-+       ret =3D smu_v13_0_12_get_system_metrics_table(smu, metrics);
-         if (ret) {
-                 kfree(metrics);
-                 return ret;
---
-2.46.0
 
 
---_000_PH7PR12MB78203D095018F51230B8037B9722APH7PR12MB7820namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 2025-08-04 04:20, Michel Dänzer wrote:
+> On 31.07.25 22:51, Harry Wentland wrote:
+>> Thanks for the series. It makes sense to me.
+> I'm glad to hear it, thanks for taking a look.
 >
-</head>
-<body>
-<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-Hi Asad,</div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-<br>
-</div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-Sorry, after initing the cache interval time, I meant to move the cache tim=
-e check logic to swsmu level and not at smu v13.0.12. I believe this was th=
-e original ask from Alex.</div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
-o, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"auto">
-Other SOCs can customize if required by adjusting the cache interval.</div>
-<div id=3D"ms-outlook-mobile-body-separator-line" dir=3D"auto"><br>
-</div>
-<div id=3D"ms-outlook-mobile-signature" style=3D"font-family: Aptos, Aptos_=
-MSFontService, -apple-system, Roboto, Arial, Helvetica, sans-serif; font-si=
-ze: 12pt;" dir=3D"auto">
-<div dir=3D"auto">Thanks,</div>
-<div dir=3D"auto">Lijo</div>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kamal, Asad &lt;Asad.=
-Kamal@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, August 5, 2025 9:20:58 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Ma, Le &lt;Le.Ma@a=
-md.com&gt;; Zhang, Morris &lt;Shiwu.Zhang@amd.com&gt;; Deucher, Alexander &=
-lt;Alexander.Deucher@amd.com&gt;; Kamal, Asad &lt;Asad.Kamal@amd.com&gt;<br=
->
-<b>Subject:</b> [PATCH v2] drm/amd/pm: Increase cache interval time</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Increase cache interval time to 50 ms while fetchi=
-ng system<br>
-metrics table for smu_v13_0_12 since polling interval is less frequent for<=
-br>
-this data.<br>
-<br>
-v2: Make caching interval soc independent, however customization can be<br>
-done in soc specific callbacks(Alex/Lijo)<br>
-<br>
-Signed-off-by: Asad Kamal &lt;asad.kamal@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 4 ++++<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; | 3 +++<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 9 ++++-----<b=
-r>
-&nbsp;3 files changed, 11 insertions(+), 5 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c<br>
-index dc48a1dd8be4..c62d68d7410f 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-@@ -1162,8 +1162,12 @@ static void smu_free_dummy_read_table(struct smu_con=
-text *smu)<br>
-&nbsp;<br>
-&nbsp;static int smu_smc_table_sw_init(struct smu_context *smu)<br>
-&nbsp;{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *smu_table =
-=3D &amp;smu-&gt;smu_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;tables[SMU_TABLE_TEMP_M=
-ETRICS].cache_interval =3D<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; AMDGPU_TEMP_METRICS_CACHE_INTERVAL;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Create smu_table s=
-tructure, and init smc tables such as<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * TABLE_PPTABLE, TAB=
-LE_WATERMARKS, TABLE_SMU_METRICS, and etc.<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/dr=
-m/amd/pm/swsmu/inc/amdgpu_smu.h<br>
-index 611b381b9147..7a52c00c700e 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h<br>
-@@ -32,6 +32,8 @@<br>
-&nbsp;#include &quot;smu_types.h&quot;<br>
-&nbsp;#include &quot;linux/firmware.h&quot;<br>
-&nbsp;<br>
-+#define AMDGPU_TEMP_METRICS_CACHE_INTERVAL&nbsp;&nbsp;&nbsp;&nbsp; 50<br>
-+<br>
-&nbsp;#define SMU_THERMAL_MINIMUM_ALERT_TEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; 0<br>
-&nbsp;#define SMU_THERMAL_MAXIMUM_ALERT_TEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; 255<br>
-&nbsp;#define SMU_TEMPERATURE_UNITS_PER_CENTIGRADES&nbsp;&nbsp; 1000<br>
-@@ -258,6 +260,7 @@ struct smu_table {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t version;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long&nbsp; metric=
-s_time;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t cache_interval;<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;enum smu_perf_level_designation {<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driver=
-s/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c<br>
-index fca50f6a8ef6..5ead66375d38 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c<br>
-@@ -361,18 +361,17 @@ int smu_v13_0_12_get_smu_metrics_data(struct smu_cont=
-ext *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--static int smu_v13_0_12_get_system_metrics_table(struct smu_context *smu, =
-void *metrics_table,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool bypass_cach=
-e)<br>
-+static int smu_v13_0_12_get_system_metrics_table(struct smu_context *smu, =
-void *metrics_table)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
-smu_table =3D &amp;smu-&gt;smu_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t table_size =3D sm=
-u_table-&gt;tables[SMU_TABLE_SMU_METRICS].size;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *table =
-=3D &amp;smu_table-&gt;driver_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bypass_cache || !smu_table-&gt;ta=
-bles[SMU_TABLE_TEMP_METRICS].metrics_time ||<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_table-&gt;tables[SMU_TABLE_T=
-EMP_METRICS].metrics_time ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ti=
-me_after(jiffies,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&=
-gt;tables[SMU_TABLE_TEMP_METRICS].metrics_time +<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msecs_to_jiffies(1))) =
-{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msecs_to_jiffies(smu_t=
-able-&gt;tables[SMU_TABLE_TEMP_METRICS].cache_interval))) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetSystemMe=
-tricsTable, NULL);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_i=
-nfo(smu-&gt;adev-&gt;dev,<br>
-@@ -544,7 +543,7 @@ static ssize_t smu_v13_0_12_get_temp_metrics(struct smu=
-_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (type&nbsp; =3D=3D=
- SMU_TEMP_METRIC_BASEBOARD)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu_cmn_init_baseboard_temp_metrics(baseboard_temp_me=
-trics, 1, 0);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_v13_0_12_get_system_metri=
-cs_table(smu, metrics, false);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_v13_0_12_get_system_metri=
-cs_table(smu, metrics);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; kfree(metrics);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
--- <br>
-2.46.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> May I take this as R-b?
 
---_000_PH7PR12MB78203D095018F51230B8037B9722APH7PR12MB7820namp_--
+Yes, please do. :)
+
+Harry
+
+>
+>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 0b8ac9edc070..e78249b55345 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -10021,6 +10021,21 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
+>>>  	drm_writeback_queue_job(wb_conn, new_con_state);
+>>>  }
+>>>  
+>>> +static void
+>>> +update_hw_done_deadline(struct dm_crtc_state *dm_new_crtc_state)
+>>> +{
+>>> +	struct dc_stream_state *stream = dm_new_crtc_state->stream;
+>>> +	struct dc_crtc_timing *timing = &stream->timing;
+>>> +	struct drm_crtc *crtc = dm_new_crtc_state->base.crtc;
+>>> +	uint32_t deadline_lines, deadline_us;
+>>> +
+>>> +	/* XXX: My guess, AMD display team to the rescue! */
+>>> +	deadline_lines = timing->v_total - timing->v_addressable - timing->v_front_porch;
+>> This works on DCE. On DCN we'll need to take the offset into account.
+>> This diff on top of your changesshould do it, but it's not tested.
+>> The dc_stream changes probably fit in their own patch.
+> Thanks, I'll incorporate it.
+>
+>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 629fd21a611f..314074527216 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -10082,11 +10082,19 @@ update_hw_done_deadline(struct dm_crtc_state *dm_new_crtc_state)
+>>         struct dc_crtc_timing *timing = &stream->timing;
+>>         struct drm_crtc *crtc = dm_new_crtc_state->base.crtc;
+>>         uint32_t deadline_lines, deadline_us;
+>> +       int vupdate_offset = dc_stream_get_vupdate_offset_from_vsync(stream);
+>> +
+>> +       /* note:
+>> +        * vupdate_offset is non-existant on DCE and function will return 0
+>> +        * vupdate_offset could be positive or negative on DCN
+>> +        * vupdate_offset depends on timing and HW bandwidth requirements
+>> +        */
+>> +       deadline_lines = timing->v_total - timing->v_addressable -
+>> +                        timing->v_front_porch - vupdate_offset;
+> Hmm, if it depends on bandwidth, we'll need to recalculate it for all CRTCs after a modeset for any of them, right?
+>
+>
+
