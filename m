@@ -4,155 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74784C87FD3
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Aug 2025 13:17:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFDA1C87FCB
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Aug 2025 14:09:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 095F710E77B;
-	Wed,  6 Aug 2025 13:17:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87E4610E77F;
+	Wed,  6 Aug 2025 14:09:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="adxJZ7m1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Lho5AP8t";
 	dkim-atps=neutral
 Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2068.outbound.protection.outlook.com [40.107.101.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1C9610E77F;
- Wed,  6 Aug 2025 13:17:18 +0000 (UTC)
+ (mail-mw2nam04on2087.outbound.protection.outlook.com [40.107.101.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C3BC10E080
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Aug 2025 14:09:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UCpAEQaGTObpXMDVR8VRprljkcnzl9P/sC21yv6q6FmKkZCznOvCAmxIDdyw/DQG27rwvhVYljXlmRQm13IYdDEJlSXEaR7Ona10DseYT/fx3BupQf4Ohkz9QsR1xIMWld4nkmlW9O2R4Rokjri76j//B9CDj+EJq+Ki6dswI6pAYVFUqmzYHOnBMn9HkVS6NNJg+Q6TXB+zWp89IdP1iykcTDBF2fgikH+EPyyA/o8pL4206KdrM384uRwh6glNO2aLZSs/iwx7ujVsjTfiBQhwbx2tz9F3YvLLXlfe0ctgCrLZlDmWPh7tIMIRW1/ogcAEDGUorlvdutR7iaUeAA==
+ b=nmM5V06MpWzayyV4tfit8LA/IqY2TsV3ZE4CCYs6pUzWDYs/6e+NcQ1djNqTvaef/KT6+7sM4T5NXd7r8BuH8BFcr0PZ9J8rHHHS6SC+0zgbGwA/joU+r6TljxsLpgtkfTNhfg6epcvIUHfcYsIAysqKxNBf2tYERcu/WpQhstfkt7dWxu/6cmt0rQomZlvreS81gO6Q7AvA4rkfECBrGa1vV81jRrMac8hcqIUtsNSC30pX4a+PKczIPZ17c6EJo2kHVOMu502Vx32oecbcERomXjHXAq8C6flRc0rq64yMcuwO+JpL4pvZ04uh1cqu6taR/E8SQhPU9O4GJ2upaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AlY3MJpmStMAJBWMxjh8PRx/A6fiSbxuWSLcBmkK7d0=;
- b=QrxudxTg7KVqj7LUNSDnNC9fkgaPw8/x5slnTJO1gey1k67YB1+1nEUF6Pz+AMx8a8fjQikZavNrBE4VfJ10vWGuPPgHjDaupYrRF+fGrWlKVfbYPp7dw2pZErTlfX/MT2MiT1JuabVpsXClmEsmbRrg+WHqdnCpAreqsPIZs1lz3yhlROZ8M5n9cYtF+peJKzuc7y88MyL3748ez4cUyz/ObUbFG/wdjNYpH3oBtIPUj1FwhVozTCgOm7XdOKN836hhJVWlnX32QLLcFNEjXBIvpNBEjv95YrWdEsYE4nQjG1VMApvlxlkDT9SEVh54vSual/7z8BQv6xTz03Yi9A==
+ bh=q/GXQzBlrjLADzdDviE2CojsutpYByt66pwA+DaPdzM=;
+ b=OejgIeLGEi9x6dEjph15FF8ge1GZ63fZhOQp5cEr2qMaPR9ak9g1eRw4c9ONpX1nGt+n1a/iTrXoNU4OWPrgkbo6ZBqcw83Q6Usz365ckKPwSJqMGLM+PpFm7JTp/Psv/bkxGR2YTpFbaSNR72zacJSlnlDSyn2X+05bJZdTikTEZ7glkdWpC8w/X/y2viFL5oiia0UURkMEb8aa/O26xQpk6/bXZtgWTZUeE1AvAMBVB9qeSYbUlmvghAwV57bW0WMjEqzvbCf6l1fccQxoTKCUJFMpP6BtPI6pkuEWd+GTg+P4sYBSk38taGdWNAuPgMu7GAAp07ur9vIC5WSVIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AlY3MJpmStMAJBWMxjh8PRx/A6fiSbxuWSLcBmkK7d0=;
- b=adxJZ7m1Zo7Ju9lIY1LJ233GbmwuexXe0jtQC/w9aZv6IPsfZvC97kmtBZPi3l1m4vEtjWEQ2eQj6uL3Gu41m4Xbh7wOqC8d3qzb6n6xySNP1F5rq6VdxSzRzLjHjNZ9sqfqfZEeSV2Rnpp+dFlGNVD89R447TlJciG9OC8ukfU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB7609.namprd12.prod.outlook.com (2603:10b6:930:99::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.13; Wed, 6 Aug
- 2025 13:17:15 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8989.018; Wed, 6 Aug 2025
- 13:17:14 +0000
-Message-ID: <ce732501-131d-420d-ad75-61ae987f51d0@amd.com>
-Date: Wed, 6 Aug 2025 15:17:09 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/6] amdgpu: Avoid powering on the dGPU on
- vkEnumeratePhysicalDevices()
-To: Philipp Zabel <p.zabel@pengutronix.de>,
- Philipp Zabel <philipp.zabel@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20250731-b4-dont-wake-next-v1-0-e51bdc347fa3@gmail.com>
- <601a40fd-e508-4e9d-8dd3-14329f3a637b@amd.com>
- <41b37595c42e4f492704a31970936d52b96dae97.camel@pengutronix.de>
+ bh=q/GXQzBlrjLADzdDviE2CojsutpYByt66pwA+DaPdzM=;
+ b=Lho5AP8tGy9Eb5eIISDve0gCb2jPuHQfYY/a9yQp6azd/JEDbS5K9h3I/3bSD7BSZ1FADzr9jYiD8pDU5sLBPOuy71gB88RYDZHipQJUG0sL+MreE6r4XXmFd0ZLYEXz0XQ9Sczo9Ol8cJs7d+4cnBzoCFvfNhKkuj2WwSXexww=
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.20; Wed, 6 Aug
+ 2025 14:09:33 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51%5]) with mapi id 15.20.8989.020; Wed, 6 Aug 2025
+ 14:09:32 +0000
+From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Hung, Alex"
+ <Alex.Hung@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Dan
+ Carpenter <dan.carpenter@linaro.org>, "Li, Roman" <Roman.Li@amd.com>, "Chung, 
+ ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Wu, Ray" <Ray.Wu@amd.com>, "Wheeler, Daniel"
+ <Daniel.Wheeler@amd.com>, "Kazlauskas, Nicholas"
+ <Nicholas.Kazlauskas@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Add NULL check for stream before
+ dereference in 'dm_vupdate_high_irq'
+Thread-Topic: [PATCH] drm/amd/display: Add NULL check for stream before
+ dereference in 'dm_vupdate_high_irq'
+Thread-Index: AQHcBtD4ZhgePigNt0yjyF8fu2YGMrRVqbIR
+Date: Wed, 6 Aug 2025 14:09:32 +0000
+Message-ID: <CH0PR12MB5284089EF7CA43DC4B232B9F8B2DA@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <20250806125155.3615401-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250806125155.3615401-1-srinivasan.shanmugam@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <41b37595c42e4f492704a31970936d52b96dae97.camel@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0234.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e9::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-08-06T14:09:30.894Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|CY5PR12MB6132:EE_
+x-ms-office365-filtering-correlation-id: 5ccc7ad5-dddb-4d82-cb77-08ddd4f2ddf7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|8096899003|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?lidCidCwhe+pevYbu7wDV+8/dwgU4cHrV4pYE8PrtJad4kbnZvlV48wO7uJG?=
+ =?us-ascii?Q?p/fgBEnsLpha6mSqnHsLzgMIIJAVmyI3wpc4MIAAYPMzFz82PEmGSis2NUKY?=
+ =?us-ascii?Q?Eg4kyuIUn8mVn2uWf1yRnk6ybdKzsOADvrfRFInW1gJo8O5GyuUbLstC3u4i?=
+ =?us-ascii?Q?iu6g3MFGUf0bzxfSYEb0jl9iLs6uCuuxWm+XvnxC7ieb29kxeQR0TEJy3Bol?=
+ =?us-ascii?Q?o5uWgdgmlEtha7qMU2gPxRBNz7qYw3lz3Z1JtOp8uu5E126pAJfs9cN2sSES?=
+ =?us-ascii?Q?yUGkOjKesTjvHvjQXYE1kfYT+y5Vqytk2yAqhI06EcNRHRZ/cHnFmfsdsZYt?=
+ =?us-ascii?Q?a2wFfWWXotdMwbdPipYm2HiEMJ4ofCkp7KEJCeg+1nn8m/uQsTUCRgPlop62?=
+ =?us-ascii?Q?lAejx20XCQtXNZyiu64GAeQ5psa2xsdDb2MWiWob5SLFxS9NXqMcI33Cfna+?=
+ =?us-ascii?Q?mTXNOvr078QKnIYmOoA4vt8AoMoP5IPwDw9w1TWpNgfJfak8+bVm3C72bcTn?=
+ =?us-ascii?Q?9X6o/sfMJ1uY9b+hA+umF8L4zdU3TKm9RIF61FFaFmVgKnN8h5vZGQSs4StT?=
+ =?us-ascii?Q?sSaYJMhylqB1amOStbOOngC5bqkHm75k7fBjW9YhxTavLfETl7efWa1sIVcJ?=
+ =?us-ascii?Q?ue0B3q+DoC+pNM93ZHmZcAr/0AlvdNtxArQ0WIeoIOXEqqfaHECGAjn3jHlE?=
+ =?us-ascii?Q?ldBL4LnXMteWmUVP10//spFkj/+HeYnZXT/Rc92hTRboPU5EwHeIl1GLcuS7?=
+ =?us-ascii?Q?3/itinRZwhYErfgk2GWKTAqbRPxqq0oWKokMDlf36fC99Rcj7bLawvP7Nqtn?=
+ =?us-ascii?Q?/gRpuM5o2tCT6TRXp4Y9B12IbtKooEW+DMBWrap2IbTmwBnLhghyEYPqTH+t?=
+ =?us-ascii?Q?iKi/xVQnGmg3ay01WPJ/6VcrlHI9r/pyTR5OrxnEQo86sbJnzTRU5QEu93s+?=
+ =?us-ascii?Q?KWv+F03EBhD68glCcOUcfVKMCMmlz8NR8HAP6BBdLuizI5hofUxjfnCkRuoV?=
+ =?us-ascii?Q?0jZPxLvCeXS9U/gC0q4HQnlc4Hcg61GybLlhJJM+P1lv/tYZD6fZzZBZJ4PM?=
+ =?us-ascii?Q?+8BEy27PuFdf/DGUpLNSP+Y1dWnpF2hOBK39LezG/itqRDT2qtip++6z8uMA?=
+ =?us-ascii?Q?5FwUyHn6FmOFicNMYXA4NwLgGXUgYMGRfz5PCwEcz6GQgEjjoKcHqC7gXLOW?=
+ =?us-ascii?Q?Cf+dQor4vBHjf0p7N5wBLibFEJ9BHI+Pz4yL6MaQsUkoi4BGNe/5GVrqbpdb?=
+ =?us-ascii?Q?TOrrsH6hur1ZQULud1tGBlJXKk9rF4DIawUGUlrce6JbaluFerzdjl5Asqpd?=
+ =?us-ascii?Q?4VOF023FIfThhg/bzpvGCjzfKbd+TjzC2oHdpmrL809L8GteAZ1ouIpY5MmR?=
+ =?us-ascii?Q?KKHlyWtLjfO6+mYpwLj8Bb9NcxiFBQIr08Jgx/7I9hLcC5vm6iWRHeMuHjm4?=
+ =?us-ascii?Q?fzHGDIky1e1jekVj6Xbcb5sbsM5TzTmtqnaQL2FIOZlr2okBuZLsiXvxKSov?=
+ =?us-ascii?Q?PnxxbyAFT1UoCv8=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(7053199007)(38070700018);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kp4bGY02/EzBBnoHhEJWrqblAchWLnKEl7iUwGTcquLGgB9EdOTdpf9keyEY?=
+ =?us-ascii?Q?UhRfymi1IpgEm1EytEfc7g2WpBvatduS+O805TuEjmAP6BFYDJT4a+5r+UN+?=
+ =?us-ascii?Q?U/hYqe0+z3LMbxl16QDMGOYzJplwt7snoKHzz/ZkeOA2pr6QG8eewaMJOE+h?=
+ =?us-ascii?Q?ptY3sDGC68LNJxOkCSLvrkNNzfbQwQg0PXeAw5TktPB9GGQ7k0i70CHEgXFP?=
+ =?us-ascii?Q?73/rl6hJCjyNDgqBRXQ1B1ezyFgLvNXBL/qf5akh87U3P14IJJhMW0E6VpHY?=
+ =?us-ascii?Q?aYvSp9MWCkphbLMkCfes0qWu6zRBV6tkAaJiDX3lSCIBRM5T3zUN4QgZLMfp?=
+ =?us-ascii?Q?IVGkLFLUqzImSZgAY8wXAPuaevzpXHWFYbSh5dKAvgApZN19bN87a1apIRHu?=
+ =?us-ascii?Q?k0b0LsKaXZlL+P08P3EL1tUqwIuy+kMv/uXkhz+ulEDDQdBD5S61J97B2WVS?=
+ =?us-ascii?Q?IbRbgohdwa1irNw1UnsT5xeRkWSBq3yEp1Pc1x6szCXbjPfzZQPA7mzD33zE?=
+ =?us-ascii?Q?rxTTx07rv4jbF7XAjjm8ArFp+H986eY12UFyIcMRQE+PkNWluTizckWrdN41?=
+ =?us-ascii?Q?Zm0dDvDdfg7bUmDHfKtNLim74bqkNxZVGye2UbMgcYpodi0Gbt/dlVTR/BTz?=
+ =?us-ascii?Q?xSD2gRsCwXTL/WyjftTxpO8tQraK/DBZcLKNBEsx9/HESVE879BNd+jfV1fD?=
+ =?us-ascii?Q?nTfUUeS4uU/XjzapLaS5mihmhl/o2YyDihKJc4bfB7m5ZTqnHzJddCnHnyob?=
+ =?us-ascii?Q?+UGWfHJw8TM0kCmqcA7Apuep4QFpH7tcQ47JYptFh9dI87YehO58icG5zn9y?=
+ =?us-ascii?Q?LqNALTAWQcEeoNynvCRyx58Af2x1+bG55ju6oJ2shbVWk8+jkIQq6JjqIrMy?=
+ =?us-ascii?Q?bkfGJhWBFZh+gatVyEfIspk+17OMb3BhknkRvIUXv+9WzJFHveEtvYVSAuWB?=
+ =?us-ascii?Q?YR2IfGK8RuKh/z3YlAl9Yd44R/iipacsXvuofGDzp/tWATYRTzVtOmnt0pBA?=
+ =?us-ascii?Q?dlbV3cGucRCQGlAtWk5/cyeIBlrTlh4oz7Ultri5LzQAPQRn/7lLK7KOpyT1?=
+ =?us-ascii?Q?3XdM/l62oP9YmfvNTdMr5braOswH7U8H/JsBlnKodXbQNE65VXSsPzAvH+h0?=
+ =?us-ascii?Q?zLZhQSdx0t1RUtM+GSydePT76uwPJl9fKOTPvlc+o3CAHJvzxo7Nr3UpJq1E?=
+ =?us-ascii?Q?qFXvJ6OID4oACj5D9ADi1Bm0C/CdxfptgTA+zlHcmmv4b2K9+vEuc0VWGs9n?=
+ =?us-ascii?Q?FY7c8NraQfFf3j7Od+MjjGFx3xv9BJU5lb25Ypc+WDw9Em6/baEePnU2VSYc?=
+ =?us-ascii?Q?gQWsHtLhNS4nerfBbj8GAxz+eodqXvBGyZQLZ+rshWa12uz0pLIpQwKR1tt/?=
+ =?us-ascii?Q?/o2s99ntuqSBEwUeArs3Vo3kfWUC4K/5Yk5oppMGUQQKALhCP7aX/xxiJ38W?=
+ =?us-ascii?Q?v8sYpNHhvahFbK8ZYb/yIhfUj81XnqreASeGOmg7VYn5EPTdUKtIXVuMsLZ5?=
+ =?us-ascii?Q?a1mVnK2E7REq+A8D7OHFgr0B/7GCJSTsQPQTBHqCqNXc5Fes3Kk73XCNTFbI?=
+ =?us-ascii?Q?aZkPPzB5k5DauL0QsBI=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH0PR12MB5284089EF7CA43DC4B232B9F8B2DACH0PR12MB5284namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7609:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa35d472-736a-4306-6e2d-08ddd4eb8f67
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?R2dkSkt0TzJNRGVLRU43OTlqQkFLS1N0WmFHbkRGOFQ4SEZtUEVyQncxNUJH?=
- =?utf-8?B?Z0IwTGo1RWtTNDQrTmNNVzFvSmxXNHRJNTZ3U3JxQ1F2cm9RV2UxUGVwOHN0?=
- =?utf-8?B?aHpERjhRRGRzS0M4bXpuWU9wdVJFUTBycU8xbUZkOG01dTNxRlllV0duaW8y?=
- =?utf-8?B?MVphYzZPalU4UDUrb3FXdXRIdmtlV3J0Q1hzSzJzZXBXbDFMbHNUNjVNSUNS?=
- =?utf-8?B?cTBFRWM4cmovcXRIWWZVdjNVODBjZUt1U25mTTNpN3VmeWpMc3ZBOEQ4TElE?=
- =?utf-8?B?ZERzQUtoSjh6aytnS1RyQjBOZjRZNHMxS0xTZ1BDZXdhaElHcTExSXo2RFFK?=
- =?utf-8?B?WmNBYnFFbm55enZrN0ltK0JHakFLWFpGakd5d1p2R2hBbHV4RXRtYm56ZCtr?=
- =?utf-8?B?alhwYktKQXdvMzlyNGRURVZVNUdmS0V0VmYxRWN1VW9ZS3FxZDRubHpHQUFB?=
- =?utf-8?B?NUpLb3BEaHVtcEhjLzU0WVVIZnREV2lJcWdDN2hMTlFHaWU4a2lYcnVLQUFY?=
- =?utf-8?B?OGJ5Zml1Y3ZYNDcyZ3V0MkNYSGVoNDhxWHNmbnAxZ2E5VEtnQnkzd3QrNm1F?=
- =?utf-8?B?dGxZT1FYODlUZ0VQNStPaVR5L2NTcFdJZTFBSjFxQyt4aTdSTUMzaW1KWEpq?=
- =?utf-8?B?WnFwM2Rob0FzdEJLS1VkZSsrWStRdzdlc0Ezdk9NRGpYQ0NUd2NmT2tLT1hM?=
- =?utf-8?B?TDBwNEd6YjZnUFFvaTRBQkxtMitZUEpYaWJ2c2l1QzhtZkhQWFpzanZNRWhT?=
- =?utf-8?B?MFZhalJGc2RmM1BlMjZRcU9SUFhwRmVGay94L1JrVkwybjNrUVFFekJCMUNP?=
- =?utf-8?B?REFvcjNZSU43R0FrcS85MjB1Y0VhN2o1YWRzZFRoRWNmTFBNVEJNT1pqSzIx?=
- =?utf-8?B?RmFKdys1WkpubHljY1lBeXJCbDVpMzBtcnZzRGlNK29UUkdPUVFjc3A1ZzZm?=
- =?utf-8?B?L3VOeDhmWUFGaFExalU4MFNsbi93TTRnWG1PWmM1aUJxVlE3aGNhVHkrS3Vh?=
- =?utf-8?B?MnlJRXpXTEFmSTlFSzg4T2U2TnhJVnFCWjJ3VTQ2bi8ybkZLY1BwRlNsdDJh?=
- =?utf-8?B?N3VzcE4rU0ZTUXVsTFd4RU5XNWNNUDNlRSsrS0l2dXkwSlZBTjZRV3B6VE0x?=
- =?utf-8?B?amZZOFFiNEFyVXFpUERvVzZ4YXN5RWlRenV4bjhEek95ZnNUQW5zWVRhRklY?=
- =?utf-8?B?N1lQSTJabERYUTRvT2FvSEhFVldsSXhsS2ZxMi9hdExuYmpwVnlBV1FZMlJj?=
- =?utf-8?B?NEJtSTkyNTN6UFZxOUUrN0RJNmw0SDhFUGZablRWbStETlRtWjJMRE9wMnB0?=
- =?utf-8?B?VEFmZUlUSDd3OW9VazEzZitTbkJjZ255WU5CSk5jRXU5L1FoM25yZi84QzJ3?=
- =?utf-8?B?cGlCWWxlOHVEWUd1eWdSY1lGa2hCRnkydUM4RUJaNHVFdFpXMzgxRVVRS2c3?=
- =?utf-8?B?bkdjY3hjRGV3L2hxelFkWVBLMmlBOXNKTjg4R2R0V2V3YUpqZnVPQm1McGNq?=
- =?utf-8?B?dElueWhPb2FUZnRlZDBZbXlZeXFib29oNG0xZzNkbS9CVlZJVWpPVlplZmZq?=
- =?utf-8?B?dDhqK3M0N0FuUjR2UndWUkE4SzlKSjgyRWlvOW9XRkxaR0JBcElyTmN1WFVl?=
- =?utf-8?B?UzV5YjZmQTJMOE5CMEdFdGFVclpUY2I3UHdhSCtLMnJSNHBnY01sd29kaE1K?=
- =?utf-8?B?SU1EcGVBQXl5Ym9sd1l2bWY3bG52TUMvUFV1b3l1dld6bVFERVRvTXQyS2Ur?=
- =?utf-8?B?b0ZkV2JBYUp1OFNhMUxlSUxnL2hJWkxhYVhuSlRCMVJhMFRNWk9qTEJXRjdD?=
- =?utf-8?B?NTFRU3NzalNOUFNpOEZwQ3krWllZdDNIVmpwbjFoTWdCZmE5cGowMVFRakNr?=
- =?utf-8?Q?6CMtHL9HZr1pa?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SGtWQUs5alZJZkJaQjlKUTZOUjBrNWdvSWNHUUcyUUQ3VFBGS2hRRkNsWUJx?=
- =?utf-8?B?dmxWOHlRU0VJTGR3bW4yNlBnbzFCaktudXpLTWxRR0tndEhNKzZsM0RyZldv?=
- =?utf-8?B?WDNMSTN2M2xRRm40VlUvbGJLK0FXdkpCdTZ1NWF2SWxRYUxJdTJsSjJiRDVR?=
- =?utf-8?B?QzdBaHF5akR6elRDZ2RQeFQ4S1dVeXhOVDA5cE1KMUxLUTJBQUl3dmFBL3pm?=
- =?utf-8?B?cUZaT2pjYThtOEVuZ1FOQU1kUW52cTNQbENVT3ZTWEtCVHhiSmlqWUtOL1hN?=
- =?utf-8?B?bjd6NktLVkphUWJ6ZG1iVkNvMnR3TjVrcy92eXJWU0hUYlhFQWRVUW5iUzYz?=
- =?utf-8?B?eVFnaXZ2MlF2czU5TXd5bWZJRW53VDU5bHlMREpObEMzRVh4MytFelJFeFpw?=
- =?utf-8?B?YXZDM2FsUFdjby9tK0xDaG94cTJHbitBMU5FRDF5MEh4dW14NWpTT3pSSzcv?=
- =?utf-8?B?ek1NTmV2Vi9xUVRRdTd6OVlQeVhZZzQ1Y1B6SWJwVWtWY2xYdDFqYWpBWUhC?=
- =?utf-8?B?Vk5QQzRQRjdZK1g4NUMyK3J1Y29PNlZOZk9DSHdDcHdUSEI4MmxkaEpFdmtl?=
- =?utf-8?B?RzB6TFUxZUh5Uzl4TkhNV24wOGJnZzF4VVk0Y0Z4NVpCU3djZDJlYkVpWGRx?=
- =?utf-8?B?MTZ5d25GWGNDUndlTUlBVHlBMGVSWE5WdEt5bzNNRzYrOGJlM3pzR256bldj?=
- =?utf-8?B?L2NjUG1yWk9Lb0ZzQnNEclVPd2krckNiVzNHa1labDdpSERncFBVQXhGelN6?=
- =?utf-8?B?VDN3RWNSVGNqVGdjU04rZzdJdDZIT0RYSkJtSGhPU1RXV3NEZzlMcWRpaC85?=
- =?utf-8?B?WW5VM21KSVljQk5wY0w0YUlFc2EyWXgxN0JKQmVoc1l1L2trNmJBN0ZxVjBh?=
- =?utf-8?B?RVkyTGJYeE5HT3VtZlN3MHNNVjcwZ3JPQmhrVXdrbDhKT0ZaS0d2MFNuM2FD?=
- =?utf-8?B?RWV4NkNtMkp5U0ZtQkJwdEFab3JsckRrMFdkcGMydTE0akQzVWhucE5BazBM?=
- =?utf-8?B?ZG5ISURtWUdiZ1ROVVpsWWNJOFFESWozNVE0R0pZMzU1aHo0ZEh2WTBLb3NW?=
- =?utf-8?B?bXZRUnRlMnNQK2NKeHU2cVJNdktVaDBRVXdTM05IM2tyd21Sb1pLZU1SalVm?=
- =?utf-8?B?TFV5TDl3VFJSTStxWG1QVC9CWGRKRTkzOTYvS2V5RVZkbFhVRjcrdWQ1Uk1J?=
- =?utf-8?B?MTQ4U25tQmF5RzJXUGl1T0t4cXp0TzhlSGpBTHExQXRvSUpTSWc4eXdpak9H?=
- =?utf-8?B?dGJCUDZQQmhwTnBGTy84U1lZN2FWT2Rwa28yZjFCWVgvY0FOeTRTTldJRTVS?=
- =?utf-8?B?ZmtONHNrb1pXZTRLYVhabkkxNnR1Qm1NUWxSYXhicFlIQ3MwdUtPQnpwMzdI?=
- =?utf-8?B?WmNzZ3lkQUk3SGJpSTVLVjVSdDJVbktlQnl0cHFmUDZjSHBudFdKN3BNTU5B?=
- =?utf-8?B?NVNweVB1T1F5YUJ1RXBZQTlSMDgzVFNlbHRRNDhQKzY2Z0cxZzVIL0RKNTR0?=
- =?utf-8?B?OVNQa0FZSjdQNlh2bEVKUUU4SWhQcWtCZ3RtcGxRcnRleTRBaGVlbU0xTHVt?=
- =?utf-8?B?dmNBQi9BQlVybDVYdkhLZitGelV0Q3pTeHhhUTYzNHVxUVQzTlNzMHNtUUsw?=
- =?utf-8?B?MkVOeTUvYzNJY3hYck01djlSV3VWbHBqNVI4eVpTQkRzaUYzeGVmREdDeEhR?=
- =?utf-8?B?bFJOYmg0Z1UvMktIdjlvVi9JR1BjeVBvQmdCTnhsdnlBcWptdFlzT3NRVC9P?=
- =?utf-8?B?NFI4MWU0OWk5N2ViWk5nZjgxQjY1R21xMGdnZ09wSUFTTjE2MU9ZWmh3OVZp?=
- =?utf-8?B?Q3EvSFFJejl1WktDZTVKZXNPTmR1b0RwaEprWFFvalI5U0k5LzRpbU91bWFN?=
- =?utf-8?B?STh5amF2aWNOLzNSdXJSYnhyVTJ2K2lSWkd3OE5JeFVkbXZxc3h3K2JSbU9u?=
- =?utf-8?B?djNwbGtTV0FrYWNUdGcwb2FJS2xsQTJXem5GMXgxUzQ5SkRCR0tjRjhGYjlm?=
- =?utf-8?B?OWJBNHpqdHNuR2x0TUZYSWpMMUlaSE9CN3prTEt0SDlQUWhpK1hDWjFIS1hw?=
- =?utf-8?B?WE5yNHJyZGtjSGpnbVNuZ080Ry9DV2MzdExqUWZJcFE5YjZnRE96SmFhRFhv?=
- =?utf-8?Q?BC9dJ0PS7vjyCL6EG5p0YiS0t?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa35d472-736a-4306-6e2d-08ddd4eb8f67
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2025 13:17:14.6912 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 107MWuntGa4n7F3i3W3hOZ9dMLJIkiE5WzVZEiJEjd4kTN0h4kybO02uc2+uGFlp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7609
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ccc7ad5-dddb-4d82-cb77-08ddd4f2ddf7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2025 14:09:32.7448 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JHkBR1/TafCbfyW5wxyVkXXueZLrbvowYz/Sjl2GSxYfA69QOK6eDPs4rSRMkv9MGnxZ4c9DhDAvrzcwblWoDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6132
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,90 +162,323 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 06.08.25 12:15, Philipp Zabel wrote:
-> On Mi, 2025-08-06 at 10:58 +0200, Christian König wrote:
->> On 31.07.25 07:36, Philipp Zabel wrote:
->>> This is an attempt at fixing amd#2295 [1]:
->>>
->>>   On an AMD Rembrandt laptop with 680M iGPU and 6700S dGPU, calling
->>>   vkEnumeratePhysicalDevices() wakes up the sleeping dGPU, even if all
->>>   the application wants is to find and use the iGPU. This causes a delay
->>>   of about 2 seconds on this system, followed by a few seconds of
->>>   increased power draw until runtime PM turns the dGPU back off again.
->>>
->>> [1] https://gitlab.freedesktop.org/drm/amd/-/issues/2295
->>>
->>> Patch 1 avoids power up on some ioctls that don't need it.
->>> Patch 2 avoids power up on open() by postponing fpriv initialization to
->>> the first ioctl() that wakes up the dGPU.
->>> Patches 3 and 4 add AMDGPU_INFO to the list of non-waking ioctls,
->>> returning cached values for some queries.
->>> Patch 5 works around an explicit register access from libdrm.
->>> Patch 6 shorts out the syncobj ioctls while fpriv is still
->>> uninitialized. This avoids waking up the dGPU during Vulkan syncobj
->>> feature detection.
->>
->> This idea came up multiple times now but was never completed.
->>
->> IIRC Pierre-Eric last worked on it, it would probably be a good idea to dig up his patches from the mailing list.
-> 
-> Thank you, I wasn't aware of those patches [1]. Pierre-Eric did mention
-> them in https://gitlab.freedesktop.org/mesa/mesa/-/issues/13001, but I
-> didn't pick up on that back then.
-> 
-> [1] https://lore.kernel.org/all/20240618153003.146168-1-pierre-eric.pelloux-prayer@amd.com/
-> 
-> Is that the latest version?
+--_000_CH0PR12MB5284089EF7CA43DC4B232B9F8B2DACH0PR12MB5284namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I honestly don't know. @Pierre-Eric?
 
-> It looks to me like the review stalled out
-> on a disagreement whether the GB_ADDR_CONFIG query should be a separate
-> ioctl or whether it should be added to drm_amdgpu_info_device. The
-> discussion was later continued at
-> https://gitlab.freedesktop.org/mesa/libdrm/-/merge_requests/368,
-> seemingly coming to the conclusion that keeping the register read (but
-> cached) is the way to go? I didn't find a newer series with that
-> implemented.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Could be that Pierre-Eric dropped the work after that.
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-But IIRC we already use a cached value for GB_ADDR_CONFIG because of GFXOFF.
+--
 
 Regards,
-Christian.
+Jay
 
-> 
->>>
->>> regards
->>> Philipp
->>>
->>> Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
->>> ---
->>> Alex Deucher (1):
->>>       drm/amdgpu: don't wake up the GPU for some IOCTLs
->>>
->>> Philipp Zabel (5):
->>>       drm/amdgpu: don't wake up the GPU when opening the device
->>>       drm/amdgpu: don't query xclk in AMDGPU_INFO_DEV_INFO
->>>       drm/amdgpu: don't wake up the GPU for some AMDGPU_INFO queries
->>>       drm/amdgpu: don't wake up the GPU for mmGB_ADDR_CONFIG register read
->>
->> That is both unnecessary an insufficient. Unnecessary because we already have a mechanism to cache register values and insufficient because IIRC you need to add a bunch of more registers to the cached list.
-> 
-> This series was (just barely) sufficient for my purpose, which was only
-> to make vkEnumeratePhysicalDevices() not wake the dGPU on my Laptop.
-> I didn't realize there already was a caching mechanism in the lower
-> layers.
-> 
->> See Pierre-Erics latest patch set, I think we already solved that but I'm not 100% sure.
-> 
-> If I found the correct version, it seems Sima's suggestion of pushing
-> runtime pm handling down from amdgpu_drm_ioctl into the amdgpu ioctl
-> callbacks [2] would be the best first next step?
-> 
-> [2] https://lore.kernel.org/amd-gfx/ZnvJHwnNAvDrRMVG@phenom.ffwll.local/
-> 
-> regards
-> Philipp
 
+________________________________
+From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
+Sent: Wednesday, August 6, 2025 8:51 AM
+To: Hung, Alex <Alex.Hung@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd=
+.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; SHANMUGA=
+M, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Dan Carpenter <dan.carpenter@=
+linaro.org>; Li, Roman <Roman.Li@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHsua=
+n.Chung@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Wu, Ray <Ray.Wu=
+@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com>; Kazlauskas, Nicholas <=
+Nicholas.Kazlauskas@amd.com>
+Subject: [PATCH] drm/amd/display: Add NULL check for stream before derefere=
+nce in 'dm_vupdate_high_irq'
+
+Add a NULL check for acrtc->dm_irq_params.stream before
+accessing its members.
+
+Fixes below:
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:623
+dm_vupdate_high_irq() warn: variable dereferenced before check
+'acrtc->dm_irq_params.stream' (see line 615)
+
+614     if (vrr_active) {
+615             bool replay_en =3D acrtc->dm_irq_params.stream->link->repla=
+y_settings.replay_feature_enabled;
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+616             bool psr_en =3D acrtc->dm_irq_params.stream->link->psr_sett=
+ings.psr_feature_enabled;
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ New dereferences
+
+617             bool fs_active_var_en =3D acrtc->dm_irq_params.freesync_con=
+fig.state
+618                     =3D=3D VRR_STATE_ACTIVE_VARIABLE;
+619
+620             amdgpu_dm_crtc_handle_vblank(acrtc);
+621
+622             /* BTR processing for pre-DCE12 ASICs */
+623             if (acrtc->dm_irq_params.stream &&
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ But the existing code assum=
+ed it could be NULL. Someone is wrong.
+
+624                 adev->family < AMDGPU_FAMILY_AI) {
+625                     spin_lock_irqsave(&adev_to_drm(adev)->event_lock, f=
+lags);
+
+'Fixes: 7a586ce03c42 ("drm/amd/display: more liberal vmin/vmax update for f=
+reesync")'
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: ChiaHsuan Chung <chiahsuan.chung@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Ray Wu <ray.wu@amd.com>
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 31ea57edeb45..c0d31c26850d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -611,7 +611,7 @@ static void dm_vupdate_high_irq(void *interrupt_params)
+                  * page-flip completion events that have been queued to us
+                  * if a pageflip happened inside front-porch.
+                  */
+-               if (vrr_active) {
++               if (vrr_active && acrtc->dm_irq_params.stream) {
+                         bool replay_en =3D acrtc->dm_irq_params.stream->li=
+nk->replay_settings.replay_feature_enabled;
+                         bool psr_en =3D acrtc->dm_irq_params.stream->link-=
+>psr_settings.psr_feature_enabled;
+                         bool fs_active_var_en =3D acrtc->dm_irq_params.fre=
+esync_config.state
+@@ -620,8 +620,7 @@ static void dm_vupdate_high_irq(void *interrupt_params)
+                         amdgpu_dm_crtc_handle_vblank(acrtc);
+
+                         /* BTR processing for pre-DCE12 ASICs */
+-                       if (acrtc->dm_irq_params.stream &&
+-                           adev->family < AMDGPU_FAMILY_AI) {
++                       if (adev->family < AMDGPU_FAMILY_AI) {
+                                 spin_lock_irqsave(&adev_to_drm(adev)->even=
+t_lock, flags);
+                                 mod_freesync_handle_v_update(
+                                     adev->dm.freesync_module,
+--
+2.34.1
+
+
+--_000_CH0PR12MB5284089EF7CA43DC4B232B9F8B2DACH0PR12MB5284namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 10pt; color: rgb(0, 0, 255);" cl=
+ass=3D"elementToProof">
+[AMD Official Use Only - AMD Internal Distribution Only]</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Reviewed-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;</div>
+<div id=3D"Signature">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+--</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Jay<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> SHANMUGAM, SRINIVASAN=
+ &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, August 6, 2025 8:51 AM<br>
+<b>To:</b> Hung, Alex &lt;Alex.Hung@amd.com&gt;; Pillai, Aurabindo &lt;Aura=
+bindo.Pillai@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Dan Carpen=
+ter &lt;dan.carpenter@linaro.org&gt;; Li, Roman &lt;Roman.Li@amd.com&gt;; C=
+hung, ChiaHsuan (Tom) &lt;ChiaHsuan.Chung@amd.com&gt;; Wentland,
+ Harry &lt;Harry.Wentland@amd.com&gt;; Wu, Ray &lt;Ray.Wu@amd.com&gt;; Whee=
+ler, Daniel &lt;Daniel.Wheeler@amd.com&gt;; Kazlauskas, Nicholas &lt;Nichol=
+as.Kazlauskas@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Add NULL check for stream before d=
+ereference in 'dm_vupdate_high_irq'</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Add a NULL check for acrtc-&gt;dm_irq_params.strea=
+m before<br>
+accessing its members.<br>
+<br>
+Fixes below:<br>
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:623<br>
+dm_vupdate_high_irq() warn: variable dereferenced before check<br>
+'acrtc-&gt;dm_irq_params.stream' (see line 615)<br>
+<br>
+614&nbsp;&nbsp;&nbsp;&nbsp; if (vrr_active) {<br>
+615&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ bool replay_en =3D acrtc-&gt;dm_irq_params.stream-&gt;link-&gt;replay_sett=
+ings.replay_feature_enabled;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>
+616&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ bool psr_en =3D acrtc-&gt;dm_irq_params.stream-&gt;link-&gt;psr_settings.p=
+sr_feature_enabled;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; ^^^^^^^^^^^^^^^^^^^^^^^^^^^ New dereferences<br>
+<br>
+617&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ bool fs_active_var_en =3D acrtc-&gt;dm_irq_params.freesync_config.state<br=
+>
+618&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D=3D VRR_STATE_ACTIVE_VA=
+RIABLE;<br>
+619<br>
+620&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ amdgpu_dm_crtc_handle_vblank(acrtc);<br>
+621<br>
+622&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ /* BTR processing for pre-DCE12 ASICs */<br>
+623&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ if (acrtc-&gt;dm_irq_params.stream &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^^^^^^^^^^^^^^^^^^^^^^^^^^^ But the=
+ existing code assumed it could be NULL. Someone is wrong.<br>
+<br>
+624&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;family &lt; AMDGPU_FAMILY_AI) {<br>
+625&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock_irqsave(&amp;ade=
+v_to_drm(adev)-&gt;event_lock, flags);<br>
+<br>
+'Fixes: 7a586ce03c42 (&quot;drm/amd/display: more liberal vmin/vmax update =
+for freesync&quot;)'<br>
+Reported-by: Dan Carpenter &lt;dan.carpenter@linaro.org&gt;<br>
+Cc: Alex Hung &lt;alex.hung@amd.com&gt;<br>
+Cc: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
+Cc: Roman Li &lt;roman.li@amd.com&gt;<br>
+Cc: ChiaHsuan Chung &lt;chiahsuan.chung@amd.com&gt;<br>
+Cc: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
+Cc: Ray Wu &lt;ray.wu@amd.com&gt;<br>
+Cc: Daniel Wheeler &lt;daniel.wheeler@amd.com&gt;<br>
+Cc: Nicholas Kazlauskas &lt;nicholas.kazlauskas@amd.com&gt;<br>
+Signed-off-by: Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;<br=
+>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++---<br>
+&nbsp;1 file changed, 2 insertions(+), 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index 31ea57edeb45..c0d31c26850d 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -611,7 +611,7 @@ static void dm_vupdate_high_irq(void *interrupt_params)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; * page-flip completion events that have been qu=
+eued to us<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; * if a pageflip happened inside front-porch.<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (vrr_active) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (vrr_active &amp;&amp; acrtc-&gt;dm_irq_params.stream) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool =
+replay_en =3D acrtc-&gt;dm_irq_params.stream-&gt;link-&gt;replay_settings.r=
+eplay_feature_enabled;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool =
+psr_en =3D acrtc-&gt;dm_irq_params.stream-&gt;link-&gt;psr_settings.psr_fea=
+ture_enabled;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool =
+fs_active_var_en =3D acrtc-&gt;dm_irq_params.freesync_config.state<br>
+@@ -620,8 +620,7 @@ static void dm_vupdate_high_irq(void *interrupt_params)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_dm_crtc_handle_vblank(acrtc);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* BT=
+R processing for pre-DCE12 ASICs */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (acrtc-&gt;dm=
+_irq_params.stream &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; adev-&gt;family &lt; AMDGPU_FAMILY_AI) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;fam=
+ily &lt; AMDGPU_FAMILY_AI) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock_irqsave(&amp;adev_to_d=
+rm(adev)-&gt;event_lock, flags);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mod_freesync_handle_v_update(<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt=
+;dm.freesync_module,<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CH0PR12MB5284089EF7CA43DC4B232B9F8B2DACH0PR12MB5284namp_--
