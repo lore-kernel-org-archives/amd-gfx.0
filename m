@@ -4,157 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB7F2C87FD1
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 20:41:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E6FEC87FD1
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Aug 2025 00:35:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D15710E392;
-	Tue,  5 Aug 2025 20:41:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94F7B10E107;
+	Wed,  6 Aug 2025 00:35:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iBQu7+Og";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D66XSKFp";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8457110E0A1;
- Tue,  5 Aug 2025 20:41:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CjIq9aJ53x8xqBwjGTrCxP7Tljh1H3n4NEKXGdguLPQ+SWILzwxvfNpWLdHz50UvqrQ0J+kzcSibv0zAm/hX7hvbzl95GhFI199M2YOKchNTSVS/riKaRcOg2YF8tSlaqSDEj6KqAXjVQbveJSQmkiCrZVKvRpOEN+RJAYB6Y+a0glNh1awaQ9+PWQ3d8m1L23oPieuJ5a4vApohUVE4S3TqAmPDjLClwXd4zfmhahAYt9Mf5e4o5lko9Gf04I4hyP4ZZCfS9APiAsrs9XnErsLNsnJMKqrB4BDmYYuB/oHtthYbJNNqJ7NDgSPvL90TAtsLg3AU/1otYv8Hpjk9Eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P10MeWNSIk7uAdOEVvaokzcz3eLh4g+AFw2GN+D0Ha8=;
- b=jXT/N/sMbqGggYyaUbqwFTfTqk5KJnPKBo2TnTj/OHVja1Wol4us92K+CGilhbOyk7gGImPmkmZLstQx29Gj1GYbojaT6moY5D3zGo0SAgfa6qOzNCwj5Z6XZM8moIOxrC5p8v+sDvXhdTu3G3w4JEjMs7ZLyps4vjdCXd8SWHbobkMuVbZCffSbM5SUBCpxYnwQ8HMb/BRMYViptEePUUeWgTEQuQpIGFzjntPDuuhkYINej/OG7tPV0TcRSXY2OMISBtxkoG1x36Djg7PpHwVVER9td4XDDqIg2vSZ4dw+qOsOCprxjgC7vAKNYSib+Ty1QCWa5EncvZ3AbepltQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P10MeWNSIk7uAdOEVvaokzcz3eLh4g+AFw2GN+D0Ha8=;
- b=iBQu7+Og+n1IuaJF+pAyGZo+7gWTVs4UwirN1MHqjLxX15VdLTWx8FQ67OqU/dRQo+oxU4bKBVj2XE1VY12aVDKXM+BiObolGEOIHWKGaSrqdrg/keVLqwTXimdUJsLneUBbCp/+LS84jcZLuAgB3/eom+flhcpUcT8IEQkxuwo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW6PR12MB9000.namprd12.prod.outlook.com (2603:10b6:303:24b::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.20; Tue, 5 Aug
- 2025 20:41:20 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%4]) with mapi id 15.20.8989.020; Tue, 5 Aug 2025
- 20:41:20 +0000
-Message-ID: <c19bfa2b-12a4-4545-b6d5-1ab0c8b829b3@amd.com>
-Date: Tue, 5 Aug 2025 16:41:17 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported IOCTLs
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "McRae, Geoffrey" <Geoffrey.McRae@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20250708042219.180109-1-geoffrey.mcrae@amd.com>
- <470a613e-d85d-4943-aa48-7590d84f7fd2@amd.com>
- <PH7PR12MB55958988869861DF44D3D007884EA@PH7PR12MB5595.namprd12.prod.outlook.com>
- <BL1PR12MB5144018C868ED8C6566B8B84F74EA@BL1PR12MB5144.namprd12.prod.outlook.com>
- <5878b6eb-7961-4ffb-aebd-601868163de6@amd.com>
- <103de0a1-22bd-4389-9f5b-c1283497387c@amd.com>
- <d9ccf4e8-afed-4206-8f5e-b9e2bc02dae0@amd.com>
- <BL1PR12MB51449F87DEA24FCA2F225859F722A@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <BL1PR12MB51449F87DEA24FCA2F225859F722A@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0050.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::8) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4262610E107
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Aug 2025 00:35:11 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-45994a72356so3222935e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 05 Aug 2025 17:35:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754440510; x=1755045310; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=/BIrAoibcrvI570WVyqnuR09ebV0XLfzki+UZ4cO0fw=;
+ b=D66XSKFpEgKsv/VWeXs9v11whUtCYYuVclb46jcWxobDPiapXgoYEj7Kr+A6sxv31v
+ mXm1lnNBIVrRlH0hb7u5uzHcHNB2N/K/vRXBuGMcKtP1x/KMYOYEWgn4Sa7OqI+Wf8+w
+ OftKVy5a/ZGTRDT7Rs/4f3+piRy5c8TuWq/JqrPx46pV7tRLZqbyMhFp6Hbj4qOUDUlp
+ F8+uRHIHWmSBo4cnG6w0Lfq8+fOl1v7+K7+aQ6vg5QmdNxMTNa06Fgj1JuOTKNrTS/sy
+ INmy8Bp5Vj9aoXJIdzNyPgl0om08YfS3tzZBNZ1Xm8fMQ94rAMNlxQgE+CXxL4ngpEuq
+ sSJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754440510; x=1755045310;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/BIrAoibcrvI570WVyqnuR09ebV0XLfzki+UZ4cO0fw=;
+ b=F9eZeHb+5JvwlTa8B+DEjfbz32Yxwapf2oItsSS/Ez7xwoCBLy8pigBEDK9OS6Pz/4
+ Vi5b2+POX5ijLVyCmZl3I7FaXlPdYylqn7TdcKPtDanOd1ppwZqUBLBqPf9vXw402AEj
+ xD3bf8X/wREU3fMFdWneU5Jr3DYFDFBl6PRc684/3No16bbDXXlGXrZc3H7jgLrVb41W
+ /BmnyKQwgTy/9QdLRMLkCxfHXD1pDQJrEzduRqux4xuKsDpB/DDPGHMj1mHm/vC0jZNW
+ JD6Io60vTKLpGP523TbVKAFa5i3cmgO/Y1NevAvL83d4MNykRs0Vjlq7O0/V+p/TN5NY
+ 1udQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU3PvjFuWjUCw8jbakwd0GIirXqVEBG2+Jhf9/L0cIYiZN9KP1q3RHO3K/9z7xVs3wqxJu6qvg2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxnEgOVIofm/OmPHel25WdpaKBFnNmFJ43dv4eYpv8eYF7ZRmbt
+ r6KD5xXCLCwCPhgS5C0fRpnKnhnFhmMcNJw1KoJCeNZHzw992wJwOaGc
+X-Gm-Gg: ASbGncuRqpsDCb2GlXDWPbjEV7Inf3cyhr+o2brZj8OaqX4WLPH3Hiwp0VSRPI4Iydf
+ Iz9t10dS2UBRYLBWbTFmStXtgcS6TtNHAoLwar1tW7oEGE0QHjUj0alYJ0X3lEyvjzcck4JOcLV
+ HHnCSFb3/kEyZ/kvR2MzIwbvd3sqwypGfS9o0wxpLy1dQ36Z3Oy06ltyd1smHM0y5mr2BdeGuI7
+ gRxST0QNuN+N4Yw9JyHqy5TEgWIUL9ZZpzIjRbRV7wWBvHGUCBUOPNMZCqh9q1/L8YyE/kDxGiO
+ K27rxDny1GUZhpnbOqv3IL86NaRa3BBPfKjiiuLHM/tUBa6vw4ziXEX4oQGGL7IH3QQCi7sSrB1
+ 2B1RZXuuUuyVIXr78Rxoin91G9zt4GKuZWoNShDz4nszOsIWU2XbvnE0wxSC5DLfJ4CDRue4qqN
+ 3bIpaGrftnRycJ+qDEt2xoJy3UpjGzM97LZ+fOe3a9RRAmliO0wot06AAzyKhQXfKK8tylgNZa
+X-Google-Smtp-Source: AGHT+IH4zboNm+wbWphdpaxi6np/KeXtM8/jahfna2egUi5JhPZLJlrlQJUVVIq0cpfWQfD9mCwNWw==
+X-Received: by 2002:a05:600c:6211:b0:43c:ed33:a500 with SMTP id
+ 5b1f17b1804b1-459e70f04bfmr6492565e9.10.1754440509487; 
+ Tue, 05 Aug 2025 17:35:09 -0700 (PDT)
+Received: from ?IPv6:2001:4c4e:24da:bd00:bf67:748c:caa0:fc72?
+ (20014C4E24DABD00BF67748CCAA0FC72.dsl.pool.telekom.hu.
+ [2001:4c4e:24da:bd00:bf67:748c:caa0:fc72])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-459e075805csm65732205e9.4.2025.08.05.17.35.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Aug 2025 17:35:08 -0700 (PDT)
+Message-ID: <8baae4b5b5af6078a27c8a20202fa1b660fc8aef.camel@gmail.com>
+Subject: Re: [PATCH 1/6] drm/amdgpu: Power up UVD 3 for FW validation
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex
+ Deucher <alexdeucher@gmail.com>
+Cc: Leo Liu <leo.liu@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Wed, 06 Aug 2025 02:35:07 +0200
+In-Reply-To: <99761dc3-7814-42be-8d08-c8ff7b2a76cf@amd.com>
+References: <20250804134154.95875-1-timur.kristof@gmail.com>
+ <20250804134154.95875-2-timur.kristof@gmail.com>
+ <CADnq5_O5F5UAC17CE4mwOx_5pbTKzv73Yuj=-_cA06G3hQeQJQ@mail.gmail.com>
+ <aec0376f34db68c9e62d8ef5b8b5c51fe2eac5e2.camel@gmail.com>
+ <CADnq5_MGRH2D1YnhxGLLLJft5FvLaNKzhDgwWu_LPb0NvCK6Tg@mail.gmail.com>
+ <99761dc3-7814-42be-8d08-c8ff7b2a76cf@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW6PR12MB9000:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3e9c4d8-dd0f-4ee6-7adf-08ddd4606eed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y0Fpb2VBV0k4VW9SOHg2bGJvMUsrbHY4R1JydXRIUnN5eUdjQnJWU0lOZEtO?=
- =?utf-8?B?b0Z4OTE2RDVMMUMyR3BwemJobkl1L1hPa2QzUkhPTHFjbnhjVVZNalhyQnYy?=
- =?utf-8?B?Z1hRNFcwQmdyRmRqY0RFQXNhMHRvemVlY2NyYTdXcWZVaHRmUEVPRS85K0FL?=
- =?utf-8?B?UzBMeGMrcCtrbUN3VXRGY1dNUCtrYWdtK1EwWFBVampyL2ZVL09tT0ExQ2hh?=
- =?utf-8?B?Tk5tbUppTTEzMU9jWkFLM2pCdkN6cjlJeU9QV1RtZXlxNnZvMlQ3MU82WjVa?=
- =?utf-8?B?SFJxTVI5R0FrZ2I5UWJiaVEzNjRvc2QwOVcwOWFHSFh0Q0tvVGdkMkx0Zjlm?=
- =?utf-8?B?cHZZaERkV2tLNUdScGNYN3dIVWV6dW5aaG5Pay8wZDI4K0pqSXFub2NvZmZW?=
- =?utf-8?B?Y2UxdDBQNUxBQlpEcGI4RXl4bmZtbURZeWwxRjd3aE1HcmFPV0RxUTVZYlp0?=
- =?utf-8?B?aHFZWjdBdHJQb2tmTVd3elBQa2FVL2M0Ym4rYm5TcG94U2NkM1ZrV3RCZ1I2?=
- =?utf-8?B?bnhoVGYyc1NkU3dHM0QwVEU2dGV5VXdXaDlrYW12bW1TTld3YWMrOHFqNnQ0?=
- =?utf-8?B?OW1IUzA5a09TYi93WWpEaGNnT3Uza1hsR3U1bEdXVUhrejZQWDhzaWpnbndU?=
- =?utf-8?B?cXMvTk9ZS0dNcnFyOU00N05aWm1YQmFrVVI3VjA3SHc0NTZ0Tkt3NHBxNnI2?=
- =?utf-8?B?K2hQQlZXck9wMUV0QmZGUW1lSCtSUDRPMlc5MmdDSnNicUZUUVhaV3NRMkNj?=
- =?utf-8?B?b1dtenZQcWJoQ3M3elE0bHpzcEJVR3pEQVUxOG1yL2FxWHhFQ0s2QWJ2SDQ0?=
- =?utf-8?B?dTVVcko0dUk3WDJYeHFRZExLYis3Szlpam9NaVRoYTJOZGwveEFtZHpNZGxr?=
- =?utf-8?B?L2RpeHY4c0tJa3FVeS9GYnQyS3pKdFpIWlVVZC9UV2ZLNmwvb0UvUExhbWdE?=
- =?utf-8?B?bFJmWVk4WWJ6dWxzYTltWHFCa3VsSEw1NFFVaVMyaVhHU0phWHRVK1BWZjlE?=
- =?utf-8?B?cWp6NzdxUlhPOHpFZ0hLUGZkSXlzKzM5OFZxWkxsVjJkdWF1bXZubHN1MDVa?=
- =?utf-8?B?aERacUZJSXFqZUVDdXBCaFlQWlBreDRBZWJ6VFBpOFRVdnJ5Y3lLNi9UL1Rp?=
- =?utf-8?B?bURpbFNFUmxhNmgvZkFTSVVjV0FxUEYzZFdsUVBpZG1SUkY3d1dhcjhjTnRw?=
- =?utf-8?B?RCtLd08vREQwOFkwRTh0OXdTcmEyQXRYSjR6MW9qQlNQRkxGbEtmSXI1cTVV?=
- =?utf-8?B?S3ZLRUZBZVc0MDFHc3B2TFM1Uzk3NVJtRlRXVk81T0lsWGVOcVowcHVhVzVm?=
- =?utf-8?B?UkJxMHJGT0JpZlZyaFFNT0dDRWdGQjBwY0krTzN6UDdwZEExTGExUUhSU0dC?=
- =?utf-8?B?T056Mkh0ZThYSmt2WURHZXRWQTZkdjhxZG10Q3EwZFJIM21XZEpVS3M1UHcr?=
- =?utf-8?B?VGtockhHTXNqczlTZGttdnRUdWE2YnpJN2YvVVRCUisxYUVQcTFpbG5kdlRt?=
- =?utf-8?B?OFRBVklMQ0xscGMvRUJhU094VTFPUlQvL2tJcUwwV1dhaEYvdUZlaXRtdUFa?=
- =?utf-8?B?Qm9Sc21EVG1HZnh2R1RZbWlwQU9LcGxKdEg4WXVxMUR2R2lLMlZTV2dxN3VB?=
- =?utf-8?B?TFdTTDZZT3JNbWVFN2JpTjQ1Umx0UllNN3lWaGhPdHI2S3ZNRnArMjVGUXhT?=
- =?utf-8?B?dGI5clB5UlBVZnczVFZiOHpCZ1VqcUQyOHlVblI5NXpTV3E0dXUxSWY1aEdI?=
- =?utf-8?B?dW42bGFMOWM5MHJILzl2RGRhYkFZRGhNdGtwR296SzlrM0ppcEV4ZmU4aXJn?=
- =?utf-8?Q?qHsGWziybPcCagTVncCn60sfvOChEZ4ghQyxs=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWhFTWJJaHpHYmRFY09RalYraWt0M3owODRVUWUvWWpYUVJkaUJEbld0c1BC?=
- =?utf-8?B?TzFRRjc0REhVazVxK0ZRdGtsLzBCWWpNcjVBRjhyd3hwcWp4TWlmblByNjJY?=
- =?utf-8?B?NGw1UTRlSm5FdVd6eW9nYXlXcUp0TStJVzhBM282OWdQRkdkTGlETklQb3dU?=
- =?utf-8?B?aHFncmg2RjhNQTdOb3o1Wm4zckpBcU5sL25QNU9LMTlyWmsxOXNCM1dodUph?=
- =?utf-8?B?YjQ1MGg1TjdOZEhTK0JIR0VQMURxdjV5OWZWM1FIMURBMDcvc3kyaHZIZ1Jt?=
- =?utf-8?B?Y0wydDVIWDdTNHVFOFpNcktWT2JiUmF0ZU5rU295Qzh5VGtJbVJnSjhhb3Bu?=
- =?utf-8?B?Ni9Ia1loRFpWSXVjY1BtNTYwSVc5cGVlRFQyZmZnbnZ4RDdHRVRhUmxzS1Nk?=
- =?utf-8?B?Ui9BZnU4YUpwRkZ6czJnTE5oc2kzaXpFYnUzOUVIY3ZnT2F1citKWGNkRVFD?=
- =?utf-8?B?UUd2MFVPZHA5WVpaV09VNWZ6YkloNGprK1UwL0xXSGY3WmtaT3NiTHlsa1lp?=
- =?utf-8?B?TXdpUEVYR1FJU0FZZzVuS2k5Z0JIVXlHM0xMdDUxVmNVSDBHc1BhZk1LaG8r?=
- =?utf-8?B?a2NIWjUwUmt2ZS9nY052YmlmY0d3UU1oWENOSWdlZUNCMUk0Vi8vVzJDaE80?=
- =?utf-8?B?THgxeURYUUc2VTBCeWovZnRyaytrbVRxbHdJK2UrcUcrakFDSUZZeTk4TE5X?=
- =?utf-8?B?U1hOdVNnbnFoK2JtWFZKcENVa0N5SzNQMTBJZXBwd29KR0lDdktOUlB5NTls?=
- =?utf-8?B?WDFENE9jaGlqNldUVUxHTlZmemdSMFdmelBGUTRmWlBFTFYrcnBKeHByM3hy?=
- =?utf-8?B?ZUt4Rm1KbXVvYlFQNFJaSm1tdU5IQnJ5bU8xbWdEUitGdmJBVE42Tkh3TTZ6?=
- =?utf-8?B?bFV6NlVIdDMwNG9RQVp0RldLRnVVVGhYNmhuNnFTTUdzdGh3R3ZnOCsybzdp?=
- =?utf-8?B?OGZJL1VVUnZMd0M1VXdZUVY3WXY4RUUxT1MwSVJ5WW9NNHY3WEpmOUNZcnkz?=
- =?utf-8?B?VUNLYkYvcHhEV0FUQTB1Rm9NUDdqcUlSN3NCMVFZNkREeVRONWhKUC8wcXgv?=
- =?utf-8?B?eVpaWlN2NXFQWUx6b0Y2NXZib1daRWtycEdnQWNwb1ZzR0VFYTJFd1VDdXZh?=
- =?utf-8?B?VDBLdmZNdGZtWVpMMlN1bENaWitiYy83aGNaSTJuNVlMMzFaSGFVSG5LVktN?=
- =?utf-8?B?V1hQNGdUazRKQWJSaG51c0JTT0VzdVVBZWNMbkJXMmJEVmZVTmhnUmNEYnFa?=
- =?utf-8?B?d0xPb0xESFhrb3FJdWFMczU3TTRCZlIxYVVaOVNoN21oYzZPVVdFUVc3cnJR?=
- =?utf-8?B?UWt4R1lJVmEveTRub3pteitxdFV6aGpKMHhBOUNPcDFIdzVUR09oSkFuZ284?=
- =?utf-8?B?QW1ybEVRQXVRU3NjdjRaMmdZT2RuZEFIdncwaHVRdjZMQjN3azMxcjdoandC?=
- =?utf-8?B?ZmwzdlpleHc1NWlxZVJ0djFPT0duc0w5elVtSkEyOXdpL3hCYTYzYndGVWJK?=
- =?utf-8?B?SmpTZEVLQ1JXM1NRQ0JPUWhhS2YrZThRU2hFZmhYM0VRM0E2L2VzNGFmTld6?=
- =?utf-8?B?VVBUVjdRdEpWOHdSMzNOWk1JY1labHVtWFJENGpmMmU2MlNBdVJLNkZwUnBo?=
- =?utf-8?B?dEV6Tmd5SUx4TllpQ2tsdnF5eld0WXBJR3puMlBsQlF3UnZIQitRRVJLNVM1?=
- =?utf-8?B?V2gwYUU1TFIrdXhrT25MaTZZTVNLS2ppQTlJMm5zdlVhRFVHUURFVUR1MDhu?=
- =?utf-8?B?aHdISmlvbTBSV1ZJeHlnTk9HenM5aVVPOCtEbFZiV3JxTHlheDRtOU9naGtk?=
- =?utf-8?B?NzVTTzVQcU5RZXl0VnphNjhLcWRESWV6SVpZMU12dzJNS1hFeW9nTnJndGpG?=
- =?utf-8?B?N1l5Q1RMT3F4dGp5c0lYYmdDanZlQzRtclF4OSs5NzBWeDFVaGdmdHBpTFRy?=
- =?utf-8?B?Rks5aWtXdFlCVWxyaVN0NU14LzRjanF0V1cwRythUktNQ0VoZW04QjZoZ0R4?=
- =?utf-8?B?Qnp0YmFHc1hxaFkvYk1yekp1SERINDE4NUpJWlA1ZUwxYk9XQlppUHNtL2hS?=
- =?utf-8?B?ZDM4TDNEbm9pZVVwLzdZaHcvMmJSR0tQQis5clhjWUFYbVRKOStPWnBpV1VH?=
- =?utf-8?Q?Z0WgVgmDKYKR4ijxaUO0HKocm?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3e9c4d8-dd0f-4ee6-7adf-08ddd4606eed
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2025 20:41:20.2453 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XGSmmh1HWIaDbeq+jBygNy4mpC05cZzgyPJORgcdaEFc3kKDjz/J0Z7ZjSaovvRy9r104+kMIxPzNFFsmgjYNA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,171 +97,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-08-05 15:56, Deucher, Alexander wrote:
-> [Public]
->
->> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Wednesday, July 9, 2025 5:02 AM
->> To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>; McRae, Geoffrey
->> <Geoffrey.McRae@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
->> Subject: Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for unsupported
->> IOCTLs
->>
->>
->>
->> On 7/9/2025 2:09 PM, Christian König wrote:
->>> On 09.07.25 06:56, Lazar, Lijo wrote:
->>>> On 7/8/2025 8:40 PM, Deucher, Alexander wrote:
->>>>> [Public]
->>>>>
->>>>>
->>>>> I seem to recall -ENOTSUPP being frowned upon for IOCTLs.
->>>>>
->>>>>
->>>> Going by documentation -
->>>> https://dri.freedesktop.org/docs/drm/gpu/drm-uapi.html
->>>>
->>> Good point.
->>>
->>>> EOPNOTSUPP:
->>>> Feature (like PRIME, modesetting, GEM) is not supported by the driver.
->>>>
->>>> "Note that ENOTTY has the slightly unintuitive meaning of “this IOCTL
->>>> does not exist”, and is used exactly as such in DRM"
->>>>
->>>> Since KFD ioctls could eventually be supported in drm node,
->>> That's certainly not going to happen.
->>>
->>> We are currently in the process of deprecating the KFD IOCTLs and either using
->> the existing DRM render node ones or coming up with new IOCTL/additions to the
->> existing ones.
->> I really meant to convey this to justify using drm documentation as the background
->> for picking error codes for KFD ones also. At least for any new error code returns,
->> definitions will remain consistent across both.
-> In this case, I think -ENOTTY makes sense per the documentation.  Patch is:
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+On Mon, 2025-08-04 at 20:59 +0200, Christian K=C3=B6nig wrote:
+> On 04.08.25 19:45, Alex Deucher wrote:
+> > On Mon, Aug 4, 2025 at 12:00=E2=80=AFPM Timur Krist=C3=B3f
+> > <timur.kristof@gmail.com> wrote:
+> > >=20
+> > > On Mon, 2025-08-04 at 11:20 -0400, Alex Deucher wrote:
+> > > > On Mon, Aug 4, 2025 at 9:58=E2=80=AFAM Timur Krist=C3=B3f
+> > > > <timur.kristof@gmail.com> wrote:
+> > > > >=20
+> > > > > Unlike later versions, UVD 3 has firmware validation.
+> > > > > For this to work, the UVD should be powered up correctly.
+> > > > >=20
+> > > > > When DPM is enabled and the display clock is off,
+> > > > > the SMU may choose a power state which doesn't power
+> > > > > the UVD, which can result in failure to initialize UVD.
+> > > >=20
+> > > > + Christian, Leo
+> > > >=20
+> > > > That doesn't seem right to me.=C2=A0 IIRC, the driver always set th=
+e
+> > > > UVD
+> > > > PLL directly on SI and I don't think SI supported any kind of
+> > > > UVD
+> > > > power gating. I guess it's probably some sort of subtle
+> > > > sequencing
+> > > > difference between radeon and amdgpu.=C2=A0 Unless Christian or Leo
+> > > > have
+> > > > any ideas, I think the patch is probably fine.
+>=20
+> Oh my, that stuff was last at the front of my head a long long time
+> ago.
 
-I agree.
+Thanks for taking the time to reply anyway!
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+>=20
+> > > >=20
+> > > > Alex
+> > >=20
+> > > Hi,
+> > >=20
+> > > These are my observations about how the UVD clock works on SI:
+> > >=20
+> > > 1. It seems that the SMC needs to know whether UVD is enabled or
+> > > not,
+> > > and the UVD clocks are included as part of the power states. See:
+> > > si_convert_power_state_to_smc
+> > > si_convert_power_level_to_smc
+>=20
+> Correct, yes. The design was that either the KMD or the SMC could
+> program the PLLs.
+>=20
+> > >=20
+> > > On SI the default power state doesn't set the UVD clocks,
+> > > and SI has a specific power state to be used with UVD. Actually
+> > > amdgpu_dpm_enable_uvd has a special case code path for SI, where
+> > > it
+> > > sets this power state. If I print the power states from
+> > > si_parse_power_table, it indeed confirms that there is only one
+> > > power
+> > > state that has non-zero UVD clocks, and the rest of them just
+> > > have the
+> > > UVD clocks at zero.
+> > >=20
+> > > It's unclear to me what happens if we try to enable UVD clocks
+> > > when we
+> > > selected a power state that doesn't include them (ie. when we
+> > > don't
+> > > tell the SMC that UVD is active).
+>=20
+> IIRC there were two possibilities.
+>=20
+> Either you let the SMC handle the clocks in which case it would lower
+> the GFX clock in favor of stable UVD clocks.
+>=20
+> Or the KMD would lock the SMC to the highest level and then program
+> the UVD clocks manually.
+
+As far as I see the si_dpm code does a mixture of the above two.
+When UVD is enabled, it selects the VBIOS-provided UVD power state and
+then it manually enables the UVD clocks to the value provided by the
+VBIOS.
+
+When the UVD ring is not used anymore, it then shuts the UVD clock down
+manually.
+
+(I assume then it goes back to a normal power state but I haven't
+actually verified that.)
+
+>=20
+> The later was not really validated but requested by a lot of people
+> because otherwise you got a GFX performance reduction whenever you
+> used UVD.
+
+Yes, the UVD power state from the VBIOS indeed has lower shader clocks
+compared to the normal power state.
+
+>=20
+> > >=20
+> > > 2. When setting a power state that enables UVD, the UVD clock is
+> > > enabled either before or after the engine clock by si_dpm. This
+> > > is done
+> > > so in both radeon and amdgpu, see:
+> > > si_dpm_set_power_state
+> > > ni_set_uvd_clock_before_set_eng_clock
+> > > ni_set_uvd_clock_after_set_eng_clock
+> > >=20
+> > > The specific sequence in which the UVD clock is enabled by
+> > > si_dpm_set_power_state leads me to the conclusion that
+> > > amdgpu_asic_set_uvd_clocks should not be directly called on SI
+> > > outside
+> > > of the DPM code.
+> > >=20
+> > > Please correct me if I misunderstood the code.
+>=20
+> That sounds correct to me.
+
+Thanks!
+
+Sounds like the patch is correct, then.
+
+>=20
+> >=20
+> > Yeah, I don't remember the clock dependencies.=C2=A0 I thought that you
+> > should be able to program the UVD PLLs any time you wanted and the
+> > ordering only mattered when you were also changing the sclk.
+> > Programming the PLLs directly works as is in radeon, but I guess
+> > maybe
+> > we init DPM in a different order in radeon vs amdgpu.
+> >=20
+> > It would also probably be a good idea to disable the UVD clocks
+> > again
+> > after IP init to save power. E.g., something like:
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (adev->pm.dpm_enabled)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 amdgpu_dpm_enable_uvd(adev, false);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 amdgpu_asic_set_uvd_clocks(adev, 0, 0);
+>=20
+> IIRC we always disabled the PLL manually when UVD was unused because
+> the SMC sometimes failed to do this.
 
 
->
->
->> Thanks,
->> Lijo
->>
->>> Background is that some of the KFD IOCTLs have design flaws which are unfix
->> able.
->>> Regards,
->>> Christian.
->>>
->>>> it seems
->>>> better to go with ENOTTY.
->>>>
->>>> Thanks,
->>>> Lijo
->>>>
->>>>> Alex
->>>>>
->>>>>
->>>>>
->>>>> *From:*McRae, Geoffrey <Geoffrey.McRae@amd.com>
->>>>> *Sent:* Tuesday, July 8, 2025 5:13 AM
->>>>> *To:* Koenig, Christian <Christian.Koenig@amd.com>; Kuehling, Felix
->>>>> <Felix.Kuehling@amd.com>
->>>>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
->>>>> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
->>>>> *Subject:* Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for
->>>>> unsupported IOCTLs
->>>>>
->>>>>
->>>>>
->>>>> [AMD Official Use Only - AMD Internal Distribution Only]
->>>>>
->>>>>
->>>>>
->>>>> I am happy to use EOPNOTSUPP but I must point out that this is not
->>>>> the pattern used across the kernel, the standard is to use ENOTTY,
->>>>> which is also the default that fs/ioctl.c returns when no handler is present.
->>>>> Userspace tooling such as strace and glibc specifically expectect
->>>>> ENOTTY to indicate invalid or unsupported IOCTL.
->>>>>
->>>>> --------------------------------------------------------------------
->>>>> ----
->>>>>
->>>>> *From:*Koenig, Christian <Christian.Koenig@amd.com
->>>>> <mailto:Christian.Koenig@amd.com>>
->>>>> *Sent:* Tuesday, 8 July 2025 5:01 PM
->>>>> *To:* McRae, Geoffrey <Geoffrey.McRae@amd.com
->>>>> <mailto:Geoffrey.McRae@amd.com>>; Kuehling, Felix
->>>>> <Felix.Kuehling@amd.com <mailto:Felix.Kuehling@amd.com>>
->>>>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com
->>>>> <mailto:Alexander.Deucher@amd.com>>; amd-gfx@lists.freedesktop.org
->>>>> <mailto:amd-gfx@lists.freedesktop.org>
->>>>> <amd-gfx@lists.freedesktop.org
->>>>> <mailto:amd-gfx@lists.freedesktop.org>>;
->>>>> dri-devel@lists.freedesktop.org
->>>>> <mailto:dri-devel@lists.freedesktop.org> <dri-
->>>>> devel@lists.freedesktop.org
->>>>> <mailto:dri-devel@lists.freedesktop.org>>
->>>>> *Subject:* Re: [PATCH v2 1/1] drm/amdkfd: return -ENOTTY for
->>>>> unsupported IOCTLs
->>>>>
->>>>>
->>>>>
->>>>> On 08.07.25 06:22, Geoffrey McRae wrote:
->>>>>> Some kfd ioctls may not be available depending on the kernel
->>>>>> version the user is running, as such we need to report -ENOTTY so
->>>>>> userland can determine the cause of the ioctl failure.
->>>>> In general sounds like a good idea, but ENOTTY is potentially a bit
->>>>> misleading.
->>>>>
->>>>> We usually use EOPNOTSUPP for that even if its not the original
->>>>> meaning of that error code.
->>>>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com
->>>>>> <mailto:geoffrey.mcrae@amd.com>>
->>>>>> ---
->>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 8 ++++++--
->>>>>>   1 file changed, 6 insertions(+), 2 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>>>>> index a2149afa5803..36396b7318e7 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>>>>> @@ -3253,8 +3253,10 @@ static long kfd_ioctl(struct file *filep,
->>>>>> unsigned int cmd, unsigned long arg)
->>>>>>         int retcode = -EINVAL;
->>>>>>         bool ptrace_attached = false;
->>>>>>
->>>>>> -     if (nr >= AMDKFD_CORE_IOCTL_COUNT)
->>>>>> +     if (nr >= AMDKFD_CORE_IOCTL_COUNT) {
->>>>>> +             retcode = -ENOTTY;
->>>>>>                 goto err_i1;
->>>>>> +     }
->>>>>>
->>>>>>         if ((nr >= AMDKFD_COMMAND_START) && (nr <
->>>>>> AMDKFD_COMMAND_END)) {
->>>>>>                 u32 amdkfd_size;
->>>>>> @@ -3267,8 +3269,10 @@ static long kfd_ioctl(struct file *filep,
->>>>>> unsigned int cmd, unsigned long arg)
->>>>>>                         asize = amdkfd_size;
->>>>>>
->>>>>>                 cmd = ioctl->cmd;
->>>>>> -     } else
->>>>>> +     } else {
->>>>>> +             retcode = -ENOTTY;
->>>>>>                 goto err_i1;
->>>>>> +     }
->>>>>>
->>>>>>         dev_dbg(kfd_device, "ioctl cmd 0x%x (#0x%x), arg 0x%lx\n",
->>>>>> cmd, nr, arg);
->>>>>>
+Yes, as I mentioned in my previous mail the PM code does that already
+when the UVD ring is not in use anymore. So it's not necessary to add
+any code to shut it down.
+
+Maybe I should edit the commit to explain that in a comment?
+
+Thanks,
+Timur
+
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Alex
+> >=20
+> >=20
+> > >=20
+> > > Thanks,
+> > > Timur
+> > >=20
+> > >=20
+> > > >=20
+> > > > >=20
+> > > > > Fixes: b38f3e80ecec ("drm amdgpu: SI UVD v3_1 (v2)")
+> > > > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > > > ---
+> > > > > =C2=A0drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c | 9 ++++++---
+> > > > > =C2=A01 file changed, 6 insertions(+), 3 deletions(-)
+> > > > >=20
+> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> > > > > b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> > > > > index 5dbaebb592b3..9ad06c1e150d 100644
+> > > > > --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+> > > > > @@ -633,6 +633,12 @@ static int uvd_v3_1_hw_init(struct
+> > > > > amdgpu_ip_block *ip_block)
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int r;
+> > > > >=20
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uvd_v3_1_mc_resume(ade=
+v);
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uvd_v3_1_enable_mgcg(adev, =
+true);
+> > > > > +
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (adev->pm.dpm_enabled)
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 amdgpu_dpm_enable_uvd(adev, true);
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 amdgpu_asic_set_uvd_clocks(adev, 53300,
+> > > > > 40000);
+> > > > >=20
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D uvd_v3_1_fw_vali=
+date(adev);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (r) {
+> > > > > @@ -640,9 +646,6 @@ static int uvd_v3_1_hw_init(struct
+> > > > > amdgpu_ip_block *ip_block)
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 return r;
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > >=20
+> > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uvd_v3_1_enable_mgcg(adev, =
+true);
+> > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_asic_set_uvd_clocks(=
+adev, 53300, 40000);
+> > > > > -
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uvd_v3_1_start(adev);
+> > > > >=20
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D amdgpu_ring_test=
+_helper(ring);
+> > > > > --
+> > > > > 2.50.1
+> > > > >=20
