@@ -4,150 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33E5FC87FD3
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Aug 2025 14:56:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB02EC87FD3
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Aug 2025 15:17:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B91F710E793;
-	Wed,  6 Aug 2025 14:56:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81C4D10E2A4;
+	Wed,  6 Aug 2025 15:17:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5scewFkJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1M7MieGO";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB0A110E790
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Aug 2025 14:56:23 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36EC310E2A4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Aug 2025 15:17:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fmuIV2GYg09ot/uqIC6bq4JoHut5RE1HPIoOOq8TjaNwT17ENuGkOYlAVc9IzE1I+IXKqiMrIyYrjooqGTD21LQ1tOxCX3reyo2mBqLdCkK50f2YhjJeVlLsn4Ow15EZGV8bQjZwj+3aOzAbFQhrFilkhuO1AT0W7CpSUULHPovXccRoiLUD7phS7PKGKP4+vNstyeHUu6wZwBxJcuPEp0wwM/JD1t1tzbkQseYPa3wKemzBiXScgzALsepTYfFhCfbctucnX1IutUtIGpxD1y9yr9XXghwYfiO0b1iatpRqDvBBEkeN5OfBDspJiOgLZc1/qoxSPp7VDEhSVbRB4w==
+ b=MhU7zPBs1ix1hXt/ubx/lr2Aqa2cNVTZTgdmSlzZY8XHc16M5MmebnO16D6hqpmCawd2LwcD5QplvHQ9j+5YyJi2lcznbWEO1y6eIoqCOLdaMG73878pNi2FuOXwgnmxP3pvJClDg4NHvr4I+ry8jDXj3PCqCZBb/8n902tjzZ+HWMExHYwxtS6FaBsMLjz6twRtkEeu2t921su2L0VBYtVqAw+2FdjZvC0Z7S0sLtrchbyg8zW85AAvxMkpuDWOxqpXmNXtcl0+GWN90+oauJGq+98uKXtUedu7PGcUSQDGitCO36DHfazOqb9ZTSJFEKCYisZcg0YuYhofe2CSHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=03PGA2wBktB9QS4dOcvT2EuU9UIvH1/TdsphDsmplmk=;
- b=LdO1OXoekftrEk55xElJFex3v6GSYWEq/dcScMGKo3m+aPPyr3Ai6bnDYlacdI0mdDqwsjhqpDhok+m+1iE/y+wl3KfXvyTg7PYUBOKz3wFgmh8K28kqW4mFAPHNwgkyP9DnsijRt3hlZidnpWuLFTlyhTNShfE/hnSBZsQ9649RMwHiOiWSRcJ0Wph0vK7mtVcGoxGJ+ufBxntVCQ6/C1TAUKLHlKCU7hcknZ8jCI/fMe/XskLlmHNYnFEFVBniDzs5PN9w6vCoM55XFyHuAr2jtPZ6MLNBXxapVgs1Fx4uOmyPtFxaG05mMxt5mDwSo121Sas2XoCXKkur4Je+lQ==
+ bh=Nb7pozuBI5GCIbfUfXgplQ7rzkWGdfeppRjCqzl7Ong=;
+ b=yRlA4NPpO9IbjmVfnO52kjNCHQ5xgLJbYXB2sHp1/Twm3Z2CxwTnpoDSEZ4F1mUotNkIuS/XdzQUpsabjw8XxOK6bR7c8JOdClJSVmRA1Y6KFhXREPShTYm3cC6xM+UpUq+zkHoRqBVgwox0XU7c1WNwNzJnCUv6l0C/V6+PyUt21GCrh7XzRozZf++vOYaOrTmdLEOaTud6Zu5QyT0SRFyoLoy0g14Vg+JLo/SU8P3EJsqdPnVQq+C2TAeOdWGYZ82YUqBdZp5Dx70lCjnQC9MSi6MWJaiOvV6k2ThvuaOKsp1em3kzUL7wQf8TRsHwq1MHHuMXPFDkWD0tCoxenQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=03PGA2wBktB9QS4dOcvT2EuU9UIvH1/TdsphDsmplmk=;
- b=5scewFkJrsqM0hx0PhuWGzC+44z151wzPKNlaH//5ad4afjUEYOterIAS/ok/BOrFx0fJlzEkA3V1301Y/mCyAh3AZJyKcsFHHVNPliIj97+hA+ocpRgxjRsfnooswcC93H12nzdCO8YP2meQSU8+tPaG+G88Y4NAsS6JQiF7g0=
+ bh=Nb7pozuBI5GCIbfUfXgplQ7rzkWGdfeppRjCqzl7Ong=;
+ b=1M7MieGO7tX2QZeCcKNFeiXzlxkAwBsCXHSfXrQa36PInmMjeSVQFTYRG0h3cFEUvLWPy7eyENTmcB+c7hNpUMWFHljUaxkiwJ6RSnfHlx6ULYQd5thEh1ETc1ARsakOlke/jYJVKh2dxDhTPkOuuSi017HqAC+5F3HFoYLtn1c=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5438.namprd12.prod.outlook.com (2603:10b6:a03:3ba::23)
- by CYXPR12MB9280.namprd12.prod.outlook.com (2603:10b6:930:e4::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.13; Wed, 6 Aug
- 2025 14:56:18 +0000
-Received: from SJ0PR12MB5438.namprd12.prod.outlook.com
- ([fe80::65b2:12d5:96ba:dd44]) by SJ0PR12MB5438.namprd12.prod.outlook.com
- ([fe80::65b2:12d5:96ba:dd44%4]) with mapi id 15.20.8989.015; Wed, 6 Aug 2025
- 14:56:18 +0000
-Message-ID: <fba517c2-2626-41f7-a09d-31fd028e1aa9@amd.com>
-Date: Wed, 6 Aug 2025 10:56:15 -0400
+Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
+ by BN5PR12MB9485.namprd12.prod.outlook.com (2603:10b6:408:2a8::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.14; Wed, 6 Aug
+ 2025 15:17:09 +0000
+Received: from PH7PR12MB7820.namprd12.prod.outlook.com
+ ([fe80::7606:59:8d0d:6d4c]) by PH7PR12MB7820.namprd12.prod.outlook.com
+ ([fe80::7606:59:8d0d:6d4c%5]) with mapi id 15.20.8989.017; Wed, 6 Aug 2025
+ 15:17:09 +0000
+Message-ID: <eca66cd1-aaa3-4ec2-aecc-bbed7f44f7ae@amd.com>
+Date: Wed, 6 Aug 2025 20:47:03 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/20] drm/amd/display: Determine DRM connector type more
- accurately
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20250723155813.9101-1-timur.kristof@gmail.com>
- <20250723155813.9101-2-timur.kristof@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/discovery: fix fw based ip discovery
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+References: <20250730155900.22657-1-alexander.deucher@amd.com>
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20250723155813.9101-2-timur.kristof@gmail.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20250730155900.22657-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0125.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:5::28) To SJ0PR12MB5438.namprd12.prod.outlook.com
- (2603:10b6:a03:3ba::23)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN4PR01CA0090.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:2ae::11) To PH7PR12MB7820.namprd12.prod.outlook.com
+ (2603:10b6:510:268::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5438:EE_|CYXPR12MB9280:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4ddd364-c5b6-4c39-3292-08ddd4f9662a
+X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|BN5PR12MB9485:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b3bf221-ee08-4fee-68da-08ddd4fc4faf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OUFwL00vR0FBMWJHSENGQ3NyRGNSbUI2V240TERXajZKdFN4Zmt2blZhNFVt?=
- =?utf-8?B?Q3NaVldrcVF5YmplaVNndEl5bnNBTUowUnVncnBIeXVTS3FXOXZncHk0Nnc4?=
- =?utf-8?B?Q3NEY1JHb1ZoWTlaUlBQSXdmbVhRZGNpQnFFQmxZLzMwczNqYjl5aithM1VB?=
- =?utf-8?B?SS81YW5wWVlJdzNBZzNGcXFjZjJSTE55NG80NXlWNkViVFZkRWs5YW1NRGZW?=
- =?utf-8?B?cnJVb2p0TTJOK0dURnc3WndlMnlDTDFlalJEbDU4SXdkWFd2dno1dkZYdkgx?=
- =?utf-8?B?dmxYNi9XT0YwNUhwQUVybU9mVDZleGtuNHRkeW9JNXF2NnJKK0s2cVVid1VZ?=
- =?utf-8?B?bnJCaUhrd3NTSUh0LzRMdGFUQU1QckJPNTJncDV0RC8wWjcwUUlkQVY1ZzVq?=
- =?utf-8?B?cG1EVlB2eE0zc3NLcFc4SUZvZlBpaHAxZ2U0TnI0akZQS3RBVzFZUE1FMHRU?=
- =?utf-8?B?cWp5TldaVGJWek1VYVZqWjArR2IxNm1Pc0tVeXRrWnFEaWFtOENiWExQTktn?=
- =?utf-8?B?OXk5bmg4dzRBQVhjbWxoSDNmbVVNUHh1U0FhUGFEeVJTS0hZcW9GSWh6VlFF?=
- =?utf-8?B?OW50Z1dWeEVEemY5MktocEN6RUkxamtCQlBaOVo1Z1RNcURVOUFXMTVjQjBm?=
- =?utf-8?B?YXh6MHFwNDdYdFFwTGZwRUo5ZXJnNjYvc2hjT2VFZndSRHVzTmdJQ20xdnp4?=
- =?utf-8?B?V25QTTR4QnVBSHY4eXdQV3RNT2llQ2t0QVU3V3FhSEhBOVhxck10cjFoQlVr?=
- =?utf-8?B?TTF4TkhxbFBDUkVwdWZzc1NBaURHVW4zVk0yK2NnU29ocTBkK2hvYUViMlR6?=
- =?utf-8?B?NmlRTDFNWEpudkthMzBrc2xOSG5KSU9JS3hDdFVrRTROV3NsV29IZnN6RzNS?=
- =?utf-8?B?MElQMnBhWGVocEt5QVdONVYrMm0waTdEaTlNQm9OV2svTjdFa0dEdjlVWXRM?=
- =?utf-8?B?b2VJOG9YOHFvNTlNUW5ZNUNTeERmUGpvM1p0NUo5cUJzVTNrTUhwaUZsN1ZR?=
- =?utf-8?B?QkIxSTZDMXZ6cEJCcFo1UUxBVnAxVjZTQ290ZFlTV1hWT2F3Tlh6cXlpbFIz?=
- =?utf-8?B?MzNHQnBMZkVwTlVHNGZDQU5qMkVyTFNYK2MzSUdEaHZWamNXc3VhUjBuQTBM?=
- =?utf-8?B?dlhhVDZ2cTFLSDA0S2Z1d3dnSThLU082c05lWWlrd3BFeTFTemlNc1RqYUlI?=
- =?utf-8?B?TXNCWFZCRmJIMUs5VHpBa1J4SGxGbkVvdnV3MFJ4SXRWSUdCRDJFNTczbHNa?=
- =?utf-8?B?bzdiVDd1RGZFNWRKa3VVUkwralJuZ3RYV0tZSHZ1ZEd1U0l6RWd0TWNQelRv?=
- =?utf-8?B?bjVmRUE1RUhlUlJXMEZTMEs1bW5IdkhLdDFaREs1K1IrOE5pcERFOEhVWGMy?=
- =?utf-8?B?R041eE9uOVB2b21HQTNvdDZoM1EvY0ljdnlkVWwzV2ppUTh4YW9QZlpjK2xC?=
- =?utf-8?B?TkdGandrdWpMVFF3TmFoTG1TRW5IRUNFTHJYNjdLSWVDOG9jYXBKYkxxV2Rz?=
- =?utf-8?B?UWxjYklpRHEyc2plUEpBYXZ4YlliQy9XTXc5NUhEOUEyMStpS0xYUi9vSmZn?=
- =?utf-8?B?QnJmMHovVnlZaXpLc3Q2ZnBXWUlyMkl3TW9YWnhJVVdsb1ZmUDdyTFl6RUFx?=
- =?utf-8?B?UitXd1R1MVlTVkNZdU9EbUtlRWwzWnpMZDdUZHM5NThtME9venF1NlArUjRZ?=
- =?utf-8?B?VWlsKzdIamZ3S3NGZFRBYTEweEFYSDRFQlhzRTByYzVWbUdCZGprRGtsUzFQ?=
- =?utf-8?B?VXJFR1ZrZ0VObEtoYTZuNW1pZjdQdWt5cFVmWGVGRHJyODFNdlVWcmhMQmJE?=
- =?utf-8?B?MU1SV1ZDc2JOUzVPdU5JdmdRR3BnSEZsaGJUNWFuOEl4d0R0Q1RzVjNuZ0xl?=
- =?utf-8?B?V1lVS0l5Ukk0Sk5yMUZiR0poWUNGZmRlVmtneThRRkIxRElIQ2htelZmNlVk?=
- =?utf-8?Q?V1rjZ/YjLIo=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dWkwclJGb3FXS1ZpRk53WUJyUlVNcE5CcnRtbGFFc2R1OUxyQ3FDcndxZWE3?=
+ =?utf-8?B?bldPRjJTUlp4WkRpV2cvcE5sNHp2YmVXdGRyUDFZZ2lIQUtqZDhLZ3ZSTkxR?=
+ =?utf-8?B?VVdUQ3BKdG92aWEzVWRNWXBrRXVvNm5uYk5QUkZOSGQwMHRsSU93ejh4d0dU?=
+ =?utf-8?B?N3dPTUMvYWx6TmVWckpQSzk5ZW1yaVdMcEdhaERrclJ6MTE5L1dwSmg2Y2xG?=
+ =?utf-8?B?NVhKSDV1Z2VDQStSUWRRT0pPOXViaDB3YmV2Q1BLbHZjeWxhYzcvNXZVRmpK?=
+ =?utf-8?B?d1JKZXI3TUpQL05EZUFFSnlyekFKUWE1RDVPN2dEVVVVMFdBQk9OYVdXc3Vy?=
+ =?utf-8?B?c1ZMaVVVWnBqUXBaelU2cDQvdmRRRVZzTGs4VUp5eTRhRGxBVC9tcDJPM0ZT?=
+ =?utf-8?B?SkFzbUdNaUFZNEY5QjdPY3Jkb0wwSGVIVjVPS0Y2MHNOK2IvV2tnZUtwa2p4?=
+ =?utf-8?B?SmdxaHZ6OENwYnpTU2EwQk5PMUU3NmZ0YTRVRnBDbWhJTVhJdEFOZEMzVWkw?=
+ =?utf-8?B?WUJXMThqK2hQYUJFaFRiZWM4ek41dThUeTF2aTgxY3A0WDV6TUszQ3ZnSGJr?=
+ =?utf-8?B?WTdjUmlWekVIN3g0c3FMbFQrS2hwbWs4bmJMRUJ4dkVQNzVRZW9ZdVpXdllv?=
+ =?utf-8?B?SVhheW0xK3lvUnMvbEZrTDRxWGdRM005UjNKcENyZzNVOW1vVjJFVjMyUXpK?=
+ =?utf-8?B?Q3BER1VVMVhncnpBdCtiNEVkcVRpbzdHWUE2WmtlUWhLR1RWUjJyYTNDSXJ4?=
+ =?utf-8?B?QzE0RzFENVgzUUduVkMxNlc2Y1Y5UkhXMW1TZDhMWW4rMlZoWTkvbGdNOU5k?=
+ =?utf-8?B?dUFKazNuYXBVRmZOUTdSSnNqdE5OVUdDOUh5amc3UVNYbC9VMWZWMkxSbVU5?=
+ =?utf-8?B?YzlicDc3YnZVVm5xV1FZNGkyZ0EzMjR3RFpzWjE2REpKWHBsRFJlN2R0UW5X?=
+ =?utf-8?B?eWFFRVI2d0hONTBDOUIxWmdRSFN1Y1UzcnE5N1h3Q2J4MTZCc1pTcEN5SUtO?=
+ =?utf-8?B?VnNBZ2xkRGsvT3pOdXBmMUk1a29VZ21sejk1bkpWMjk1cm9GS0tuM2tKc1VL?=
+ =?utf-8?B?Qk9qMTJIUEF1b2dSYXVadnJSRU40ZGxKVG02Z3JFaFdjMHNqKzk0czRJVjNY?=
+ =?utf-8?B?Vmo1czFqeWJ4Z0hERG9IaGNHSlZydS8rcGlXOGhTcGdodkl4ck1sSDA0Szhq?=
+ =?utf-8?B?TUNKN1c5Y0lhcTB3R0ZDcFN5OUpFTHVadkhIbE8yWHZpb2prWGNacVQ1N09k?=
+ =?utf-8?B?ZGZzMDBkYzRSQzEvSXBjNUwxU3pjV1VnK0p1NDZjRUZ3dFpYd1NrdlB0RmIr?=
+ =?utf-8?B?aGI1MFpxa0ttUHM1QUc0UXhVL29OUlNzaEh0bVdQNHRFY2NFUkZObFRxUHpn?=
+ =?utf-8?B?NjlaZjdvOE1RZXBWd0dLODlOOVRiSC9DZXlBNnUwZGF5SGRERXFSemoyT0t6?=
+ =?utf-8?B?MlRjTjB6amNnRVYzSWhUNG5ITEFPTkNGODJXSElqMTRpM05vZVBiUHdkWkpU?=
+ =?utf-8?B?R2NqdTgwRjJVQlBacVBDRGRtNU9uK1lXQmpBcDVzL3d5dy9jd0VPTlNHNUtm?=
+ =?utf-8?B?YmFlclZ4NFdPYTZJazhyM0VpQTZucldua0NDTWVLNUdiUGxwTGlnSGh4QTE3?=
+ =?utf-8?B?S0x0T1JzR1RXZnhnb3puOFJaWHhlMWlCS3JDbHJiQTNtZjBGQVNIay9lMStY?=
+ =?utf-8?B?Q0c4MTd0bzdJTm1DZVM4Y3k4Q0VEUGJiOGkya2FJSFBnUElDTElad3c5SEtK?=
+ =?utf-8?B?ZkwzRjBLcVYzdzF0WDcxUEpEMEZ1c3BTZ1VKalRwSWlOcDNRdU9DRkQ4S09w?=
+ =?utf-8?Q?pCViZ9JAiu9HZwvEjVE9evmvV/nNF9jZISfK8=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5438.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGFjV29ycnM4N1hwOU84c20wc00xNEpFaWtlSHZtTW40bzBwOHo4MTBqRHBP?=
- =?utf-8?B?NTNLWkYrcnVUM0YwZmIzbzlVQVh5ampYYVNTTW8rRHdlZDAzNlhGUFExeFdZ?=
- =?utf-8?B?bStiK2s3V2NTT1Z2SVpiYmdHVDJJbzhTeFFDQzVvakhIaG5nSHgwSnh4SnNT?=
- =?utf-8?B?ajhoc2RQTnl2a2lIdjBJeC8wRDVzKzB4bXg1dlBjQzBJWnV5QWJHWHZWQVAx?=
- =?utf-8?B?WWFoc3BwZkJtci9GV2UzU1BPRnpiM0p1WTNUaXlJc0VDR3VkSzYxRmJRcmc2?=
- =?utf-8?B?ZjhmRDY4VzNVODhrTmEraS9BSDlRbWFURlhrSWxBSEwvOWZYUFBVMXRBZGFB?=
- =?utf-8?B?NUJWL0FSTEVHTGxXSDFsakNQdFdWSWtpQUNQRnpSdy9vSU5oUmorcWJWU0l4?=
- =?utf-8?B?Y1VsSHJCS1R3L3JUaTArVGp0WlpFWUZiWndmK2RxdEFLOFRFaHVFMWNlQnFa?=
- =?utf-8?B?YkJxRFdVWUJSZ3Fiait6NVR1ZHV2SUgyaGxPKzF0SitXZVVKcXd2WHNtaFpP?=
- =?utf-8?B?YXJ3ZDlWQ2FMV29ieUEyTE9HcUxjQmYvaHFieDQ0eENCSWJQd3ZhVnNqVkpp?=
- =?utf-8?B?VU85SkZ4Tld5MHc5RnBiQTRyMjJuUXpnSWFvSU1LdnBPM1gyN2hyd3Vyc0d3?=
- =?utf-8?B?ckJYK0NrM2dveGI4MXNMRkZRQnpMZTNYZXhrZEcvd3NqMDc3WUdVSE1qVlkz?=
- =?utf-8?B?V0JWbGtJc3FLZy95OWlJUUJPdkNHQ2tEak93bTRsakk4N0ZoZWhoZGxCSTlD?=
- =?utf-8?B?dlFLT245NWU5R0o0SHNqNzFMeDQ5c2Npem5HaHg5YnRuRmJJRXhvQmxxMHBV?=
- =?utf-8?B?YjZXNVFGQ2FneGNlbjlVQ0lOdEE4UWg0ekhwRHNhb0hBTjlBV1lqWHR1aW4r?=
- =?utf-8?B?TnJGN0FLaWZuV2RndHJ1enBHd3FvZElKSTRDUDJXWE1xcC9qVzZJYWw0SE91?=
- =?utf-8?B?dnlIbHNTR0ZSYUlZaUVxdFFMYWJhRE9YeERJcjl6cDBXemF1cTcrSnBqSmxq?=
- =?utf-8?B?cDJiTjRpM2RRZWR1czkySlNKLzRSb3AxZmRSTXdmSmtPa2dEc1ZhNW1ZUG05?=
- =?utf-8?B?UjdzazRqVWdzc3JUdnNwZWhacTllWFplamt4clZhV29nQ0NxZEZyb2IxQmQ1?=
- =?utf-8?B?dGs3Q0plaUN6VDR0MitqU2RYNC9FcERjVEtDSkdydXl4SS9CR2dzSjRjRnlt?=
- =?utf-8?B?WW1nQU05dENYOCtLRHRJOHkxeC9GV05GY01oVGpVc045RWhTQkV2eE9LZmhu?=
- =?utf-8?B?MkVjTnV2a0p5UmdPRHZNdlV1NEZ3MXpwY3J2MW1VNHF5VXNOdlFqM0V3OVhs?=
- =?utf-8?B?aTFqa2c2RXdvU20vbFU3L0VLajRtQU05d3RXM0hPMkZtUFpkdnQweVliRXV4?=
- =?utf-8?B?Znllb2JkYmp1TUF6VkZMUEhpMnBYa3lBUXhqdjV0akhoTTR2bjNMeVJHeHIz?=
- =?utf-8?B?eXNpa1ZFT2p3NTFKN2ZqcHJ5dXYzV0tGcnUzYmdhVkk4N2lDNDFLQVpyY0Yx?=
- =?utf-8?B?VjJBWFN1NHhneTJib2wvQStBSGRnWE1WaFZqUmVUdVZDOGE4N0lGZm1KZlhY?=
- =?utf-8?B?U2NybW9vNmQrWEpGVFloNWVXVWVRN29PQVdSSzBVMmdSVmRVNjdvbE41YVQ5?=
- =?utf-8?B?RmRld3I4V3Y4OXdJaUx4OFh0N3NZckZuRE9jWTRXMnNibjA4MTc1MEZucWRF?=
- =?utf-8?B?Y2lsMnNUTFpINm9lT2p4K3pOVENxb0ZlOUcybXJQdWlYdi9tMGswdDFJNU1N?=
- =?utf-8?B?dnY0czR2UmhBSFhIWEF6eU1qcWtUVHdxRHQ4aGZDV2FjaUkxSDlUa0QzS3Aw?=
- =?utf-8?B?Rzd6Mjg2cER3KzZWeHdQNE5SQmhlYW90TTYzUTExSUw5YVRQYjAvc0RxalV0?=
- =?utf-8?B?NW5ybFRjTDNqN3NiYXRyVFZueDBiY0dOMHBjRHZFdHRnOU9ZbTNnbzYvNnFX?=
- =?utf-8?B?M0o4UWRuc2ltNEcvUVNUeGVkMElERkgvNWJCV2dJaHA2WVA3QlJmVnZVK29M?=
- =?utf-8?B?SHhBT3JlNklJOE83TjR5QTBkbHg4aEgrOHhVV2VLK2pQQVZIZEd0VjlNVFpl?=
- =?utf-8?B?bVgvWDNOM0hOcjJwUW8vK2Y2MmdnN1dKam9jWnArS2doVTJVZXlwUCtjRW9s?=
- =?utf-8?Q?D6KzmrklAjRziIcq5wOmwx9BS?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clNmZzVnTWUwdDA3aUtQM3Rmc0JKTWMyc1FmeWdTWE9YVFA0ZDJudEMvWFoy?=
+ =?utf-8?B?YzFqM1J5UU5NYUNoTVVNRGRyRlNoM1dKMVZTZlpKa2xNc3JwdHh5RmhLSWQ2?=
+ =?utf-8?B?dC9YZG9MOVdtUHRrMGxUbzFFK0wrZE54U3UvQzRyeGtxanE0K2wwdExKVUFL?=
+ =?utf-8?B?NlVvemNJMXRzOE5NNzNvcTVVK2l2R0M3TjdWazZpaXVyYlJNSmpGRXlTYk04?=
+ =?utf-8?B?YXE4NFNwd0RqWkIxUVNjaTFuWTBIdnppSEYyL2RGWmRESHpueEIrd0lNdEZC?=
+ =?utf-8?B?cjhRNVh4ajlZUVBJdFpacDFMUTh1QnB3dWhaZ0t5MFFEdXl4MWtrcnlmWXhm?=
+ =?utf-8?B?bVk0Y2ozUnhTWjdpNEhTeHpjcDJMbHpMbkhSUFUxNzJEWjJKL0F1YWtyK0xv?=
+ =?utf-8?B?aEc2NExkc3E3UlZQbUtWWG1WQitMSDFlbnVnRVhQVmdvRlFZdGdoUFRWeXNO?=
+ =?utf-8?B?MEpERVpRbWRsNm16eVFMclV2NWpXaDNEWHZPRStoWUM4RDlzK0VEemNSWmNt?=
+ =?utf-8?B?TWkrMmdkcGZCTGFQbWlzK09YZHFrTVpLckoyVFA5NnF2RDJucmRpT2Y3a1Er?=
+ =?utf-8?B?K3dQREFQaHhiYXpZYzk2ejQ0amN5ZmRWRis5bGpRcVF0Yyt5clVCQnJOdlhS?=
+ =?utf-8?B?YWVjQ0dVYWJKVVBnL1p3T1psMm5CSU5TdDMyVTgvbFd3cEk5TVcwZzlvMjdz?=
+ =?utf-8?B?V3RVcGdHcTVMSmNyNDZ0K0kvYnhVSjdIblVwT2Irc2ZMUFpHbFV1ZkQwbVB6?=
+ =?utf-8?B?TVJuQUVKNWp3UmtMeEJuc01CRzFKaVZrQTBFV2VOenpMcURaRks2R204ejM0?=
+ =?utf-8?B?VkFZdUFwcHhSRE9abjQ0UFQwS3h0NTE4RmIra2NoYzZDWDIzY3Q4c09nT3hD?=
+ =?utf-8?B?QWwyc1Z4N2VMbEw3c3Z2V2VDUUtZTkhEVEJsek5VSVI4UnZsT0tDeE5JYWh2?=
+ =?utf-8?B?b2lxaW1zVFREcExoZHdlN3dHTjRxUjNSSFRFb1M4dFJzNWZZSEdPR2tqcS80?=
+ =?utf-8?B?S3hFbStraFYzMmR5bFFqTUlCcXN1eXdwVmtBU1V6T1dOQ1RLTjlzZTJQdGlT?=
+ =?utf-8?B?VDQ3K0RhaG1sMGMxUTBObGJDaWJjN1hlMkVXRzZadlhZSlBzcGR2M2x2VDZl?=
+ =?utf-8?B?ZlJJQklDTVp4SHhMQVlpQ256R0paSHJHM0plemlZdTlLWkx2c0ZJaHFPNVBM?=
+ =?utf-8?B?bmJJZWVjRCtMdGk4NHFaY25Fa0hVNkRTNDhJTGVvQnFnbzBzODVONjNJaWRi?=
+ =?utf-8?B?OHhKY3k5ajVLMzNQbDdsWUw3ckxDbDhXOTl5aFZ4QlNSZHd3di9lSnNsUEpY?=
+ =?utf-8?B?VWZKU2c1UWRvSTZBSXFNbzFMeUFLd2Y1c25WYWR3Q1E0NWVkeEV5eXpzMC9O?=
+ =?utf-8?B?R1lYa3IrZHo3WjZIYTIyd00zM3R3SndBdzNtWmtiN01wNTl5cVE2ZnZjcHls?=
+ =?utf-8?B?OVNUSlA2UitxQU1aZyt3SzVIaXFjRGkwSHowdnBMNUxibGpNR2I0cmJkNUpV?=
+ =?utf-8?B?RzBOQTlmK0ZVTUpHemNkYjg1eHJhbXE5ZlozRnhFUC9pRW5zalJ1SFh5Wmxt?=
+ =?utf-8?B?WFpZSWlqYW9FRmkzbDZ4a3E1WktGRXJiOXA2REZUYWhHMnJsZW1rTFJRRita?=
+ =?utf-8?B?M2JidEIvTVAwaEQ4R0pXaW00dEZkUGdUaGRiNGVnK2J2YUxjTzlFYnJnTmxh?=
+ =?utf-8?B?TDVoallMZlY1RldSOXNweXNTTDJjb2dDUkFEWDdKei9UcFRjQmJyWWtobEhX?=
+ =?utf-8?B?Q3RpNkFkRVNoZ2VTZmVJYXpVM05VQnRlNU1VVWcyM0crRDhQY3RGMlhyWDQ2?=
+ =?utf-8?B?b0V3VFVhdEp3MXhKcFptMHBuQ2dQcHFrcFI2UkJVL3R0ZUxURUxlZThjNnVE?=
+ =?utf-8?B?cG5PaENPeXQxUDhSdlAraXp1TFpvQ0gzWDZWVHIvT0sxbkN4ckNvSVpZK1BR?=
+ =?utf-8?B?eVNpQWtSVDRzeWFuRnlYVGNHYmNWd1VJdVRaVjFqU0orL3FGcEk0ajRLbnZX?=
+ =?utf-8?B?K2h5KzZ4SkF3UFJDWHZ3WEdWSUVkS2tCbjNyei9FOE8yRUlsVUpxYmNjZG1L?=
+ =?utf-8?B?TEYzZE1ldHZ4anlCZEdRQjNMWGZ3R0Y1cXZrQkwzQ3lsS0JibHFnV3RaZGFo?=
+ =?utf-8?Q?16Ze8z2VW0Y7R+hHrk9hGN3U+?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4ddd364-c5b6-4c39-3292-08ddd4f9662a
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5438.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b3bf221-ee08-4fee-68da-08ddd4fc4faf
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2025 14:56:18.4917 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2025 15:17:09.4054 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4mXrujsU2n6pOowuM13KKX8N3OYBWJ/JuoClvb/rG9FJjBubZvEyukmuFXLSYlGqxzddcY3mpEedj+ic5svCKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9280
+X-MS-Exchange-CrossTenant-UserPrincipalName: 87ZW5Ydn0RaM7H/4B8cbbbFzgcr8r9fM1sA95r2TzdLAdjX57UtjvogbgkNRqwbs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9485
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,104 +158,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-07-23 11:57, Timur Kristóf wrote:
-> Previously, DC determined the DRM connector type based on the
-> signal type, which becomes problematic when a connector may
-> support different signal types, such as DVI-I.
+
+
+On 7/30/2025 9:29 PM, Alex Deucher wrote:
+> We only need the fw based discovery table for sysfs.  No
+> need to parse it.  Additionally parsing some of the board
+> specific tables may result in incorrect data on some boards.
+> just load the binary and don't parse it on those boards.
 > 
-> With this patch, it is now determined according to the actual
-> connector type in DC, meaning it can now distinguish between
-> DVI-D and DVI-I connectors.
-> 
-> A subsequent commit will enable polling for these connectors.
-> 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4441
+> Fixes: 80a0e8282933 ("drm/amdgpu/discovery: optionally use fw based ip discovery")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Hi Timur,
+One generic question - if discovery content is completely ignored by
+driver, how external tool using sysfs could consume the data? Wouldn't
+there be a mismatch in the config?
 
-this patch regresses the kms_bw IGT test with Navi 31 and 48
-with a single 4k60 DP display connected. These subtests fail
-when they should pass:
+Thanks,
+Lijo
 
-linear-tiling-2-displays-1920x1080p
-linear-tiling-2-displays-2160x1440p
-linear-tiling-2-displays-2560x1440p
-linear-tiling-2-displays-3840x2160p
-linear-tiling-3-displays-1920x1080p
-linear-tiling-3-displays-2160x1440p
-linear-tiling-3-displays-2560x1440p
-linear-tiling-3-displays-3840x2160p
-linear-tiling-4-displays-1920x1080p
-linear-tiling-4-displays-2160x1440p
-linear-tiling-4-displays-2560x1440p
-linear-tiling-4-displays-3840x2160p
-
-We confirmed with a revert of this patch.
-
-Harry
-
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 > ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +++++++++++--------
->  1 file changed, 16 insertions(+), 12 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  5 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 72 ++++++++++---------
+>  2 files changed, 41 insertions(+), 36 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 096b23ad4845..c347b232ae06 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -8038,24 +8038,26 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
->  	return 0;
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index efe98ffb679a4..b2538cff222ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2570,9 +2570,6 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
 >  
-> -static int to_drm_connector_type(enum signal_type st)
-> +static int to_drm_connector_type(uint32_t connector_id)
->  {
-> -	switch (st) {
-> -	case SIGNAL_TYPE_HDMI_TYPE_A:
-> +	switch (connector_id) {
-> +	case CONNECTOR_ID_HDMI_TYPE_A:
->  		return DRM_MODE_CONNECTOR_HDMIA;
-> -	case SIGNAL_TYPE_EDP:
-> +	case CONNECTOR_ID_EDP:
->  		return DRM_MODE_CONNECTOR_eDP;
-> -	case SIGNAL_TYPE_LVDS:
-> +	case CONNECTOR_ID_LVDS:
->  		return DRM_MODE_CONNECTOR_LVDS;
-> -	case SIGNAL_TYPE_RGB:
-> +	case CONNECTOR_ID_VGA:
->  		return DRM_MODE_CONNECTOR_VGA;
-> -	case SIGNAL_TYPE_DISPLAY_PORT:
-> -	case SIGNAL_TYPE_DISPLAY_PORT_MST:
-> +	case CONNECTOR_ID_DISPLAY_PORT:
->  		return DRM_MODE_CONNECTOR_DisplayPort;
-> -	case SIGNAL_TYPE_DVI_DUAL_LINK:
-> -	case SIGNAL_TYPE_DVI_SINGLE_LINK:
-> +	case CONNECTOR_ID_SINGLE_LINK_DVID:
-> +	case CONNECTOR_ID_DUAL_LINK_DVID:
->  		return DRM_MODE_CONNECTOR_DVID;
-> -	case SIGNAL_TYPE_VIRTUAL:
-> +	case CONNECTOR_ID_SINGLE_LINK_DVII:
-> +	case CONNECTOR_ID_DUAL_LINK_DVII:
-> +		return DRM_MODE_CONNECTOR_DVII;
-> +	case CONNECTOR_ID_VIRTUAL:
->  		return DRM_MODE_CONNECTOR_VIRTUAL;
+>  	adev->firmware.gpu_info_fw = NULL;
 >  
+> -	if (adev->mman.discovery_bin)
+> -		return 0;
+> -
+>  	switch (adev->asic_type) {
 >  	default:
-> @@ -8440,6 +8442,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
->  			link->link_enc->features.dp_ycbcr420_supported ? true : false;
+>  		return 0;
+> @@ -2594,6 +2591,8 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+>  		chip_name = "arcturus";
 >  		break;
->  	case DRM_MODE_CONNECTOR_DVID:
-> +	case DRM_MODE_CONNECTOR_DVII:
-> +	case DRM_MODE_CONNECTOR_VGA:
->  		aconnector->base.polled = DRM_CONNECTOR_POLL_HPD;
+>  	case CHIP_NAVI12:
+> +		if (adev->mman.discovery_bin)
+> +			return 0;
+>  		chip_name = "navi12";
+>  		break;
+>  	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 81b3443c8d7f4..27bd7659961e8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -2555,40 +2555,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>  
+>  	switch (adev->asic_type) {
+>  	case CHIP_VEGA10:
+> -	case CHIP_VEGA12:
+> -	case CHIP_RAVEN:
+> -	case CHIP_VEGA20:
+> -	case CHIP_ARCTURUS:
+> -	case CHIP_ALDEBARAN:
+> -		/* this is not fatal.  We have a fallback below
+> -		 * if the new firmwares are not present. some of
+> -		 * this will be overridden below to keep things
+> -		 * consistent with the current behavior.
+> +		/* This is not fatal.  We only need the discovery
+> +		 * binary for sysfs.  We don't need it for a
+> +		 * functional system.
+>  		 */
+> -		r = amdgpu_discovery_reg_base_init(adev);
+> -		if (!r) {
+> -			amdgpu_discovery_harvest_ip(adev);
+> -			amdgpu_discovery_get_gfx_info(adev);
+> -			amdgpu_discovery_get_mall_info(adev);
+> -			amdgpu_discovery_get_vcn_info(adev);
+> -		}
+> -		break;
+> -	default:
+> -		r = amdgpu_discovery_reg_base_init(adev);
+> -		if (r) {
+> -			drm_err(&adev->ddev, "discovery failed: %d\n", r);
+> -			return r;
+> -		}
+> -
+> -		amdgpu_discovery_harvest_ip(adev);
+> -		amdgpu_discovery_get_gfx_info(adev);
+> -		amdgpu_discovery_get_mall_info(adev);
+> -		amdgpu_discovery_get_vcn_info(adev);
+> -		break;
+> -	}
+> -
+> -	switch (adev->asic_type) {
+> -	case CHIP_VEGA10:
+> +		amdgpu_discovery_init(adev);
+>  		vega10_reg_base_init(adev);
+>  		adev->sdma.num_instances = 2;
+>  		adev->gmc.num_umc = 4;
+> @@ -2611,6 +2582,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>  		adev->ip_versions[DCI_HWIP][0] = IP_VERSION(12, 0, 0);
+>  		break;
+>  	case CHIP_VEGA12:
+> +		/* This is not fatal.  We only need the discovery
+> +		 * binary for sysfs.  We don't need it for a
+> +		 * functional system.
+> +		 */
+> +		amdgpu_discovery_init(adev);
+>  		vega10_reg_base_init(adev);
+>  		adev->sdma.num_instances = 2;
+>  		adev->gmc.num_umc = 4;
+> @@ -2633,6 +2609,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>  		adev->ip_versions[DCI_HWIP][0] = IP_VERSION(12, 0, 1);
+>  		break;
+>  	case CHIP_RAVEN:
+> +		/* This is not fatal.  We only need the discovery
+> +		 * binary for sysfs.  We don't need it for a
+> +		 * functional system.
+> +		 */
+> +		amdgpu_discovery_init(adev);
+>  		vega10_reg_base_init(adev);
+>  		adev->sdma.num_instances = 1;
+>  		adev->vcn.num_vcn_inst = 1;
+> @@ -2674,6 +2655,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>  		}
+>  		break;
+>  	case CHIP_VEGA20:
+> +		/* This is not fatal.  We only need the discovery
+> +		 * binary for sysfs.  We don't need it for a
+> +		 * functional system.
+> +		 */
+> +		amdgpu_discovery_init(adev);
+>  		vega20_reg_base_init(adev);
+>  		adev->sdma.num_instances = 2;
+>  		adev->gmc.num_umc = 8;
+> @@ -2697,6 +2683,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>  		adev->ip_versions[DCI_HWIP][0] = IP_VERSION(12, 1, 0);
+>  		break;
+>  	case CHIP_ARCTURUS:
+> +		/* This is not fatal.  We only need the discovery
+> +		 * binary for sysfs.  We don't need it for a
+> +		 * functional system.
+> +		 */
+> +		amdgpu_discovery_init(adev);
+>  		arct_reg_base_init(adev);
+>  		adev->sdma.num_instances = 8;
+>  		adev->vcn.num_vcn_inst = 2;
+> @@ -2725,6 +2716,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>  		adev->ip_versions[UVD_HWIP][1] = IP_VERSION(2, 5, 0);
+>  		break;
+>  	case CHIP_ALDEBARAN:
+> +		/* This is not fatal.  We only need the discovery
+> +		 * binary for sysfs.  We don't need it for a
+> +		 * functional system.
+> +		 */
+> +		amdgpu_discovery_init(adev);
+>  		aldebaran_reg_base_init(adev);
+>  		adev->sdma.num_instances = 5;
+>  		adev->vcn.num_vcn_inst = 2;
+> @@ -2751,6 +2747,16 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>  		adev->ip_versions[XGMI_HWIP][0] = IP_VERSION(6, 1, 0);
 >  		break;
 >  	default:
-> @@ -8631,7 +8635,7 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
->  		goto out_free;
+> +		r = amdgpu_discovery_reg_base_init(adev);
+> +		if (r) {
+> +			drm_err(&adev->ddev, "discovery failed: %d\n", r);
+> +			return r;
+> +		}
+> +
+> +		amdgpu_discovery_harvest_ip(adev);
+> +		amdgpu_discovery_get_gfx_info(adev);
+> +		amdgpu_discovery_get_mall_info(adev);
+> +		amdgpu_discovery_get_vcn_info(adev);
+>  		break;
 >  	}
 >  
-> -	connector_type = to_drm_connector_type(link->connector_signal);
-> +	connector_type = to_drm_connector_type(link->link_id.id);
->  
->  	res = drm_connector_init_with_ddc(
->  			dm->ddev,
 
