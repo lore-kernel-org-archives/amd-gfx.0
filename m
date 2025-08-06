@@ -4,71 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B23EFC87FD3
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Aug 2025 18:05:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E5FC87FD3
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Aug 2025 18:14:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 481FA10E2FC;
-	Wed,  6 Aug 2025 18:05:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 791F910E301;
+	Wed,  6 Aug 2025 18:14:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dlV/oJId";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D8kZIIqN";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8F610E2FC
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Aug 2025 18:05:54 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-b34b770868dso10907a12.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 Aug 2025 11:05:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754503553; x=1755108353; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lHJF+scpHWabcy+3GRU3PMxJmlxd7RRyyyeaVATCPyE=;
- b=dlV/oJIdppt/uootvBxvAp540KMFn9s2X/+Z8KG7SMSwoThyG8yfdZ951FV3G8aNgX
- oOwPV6n+80BxZtcbvWhMY314ct2TYsu5+vWRiQVzuwxM33j1sk6VPEibfND/HaYZECWw
- mwxUI6Tqw/BtBtfFzKUvL5/8Z46j+tXH/vLmQeY8nkZ5ExEDeZ1aVDkq4Aw+D73hDH19
- U0pk4Dq8fY6hT3JC5RfgnbN/LPtQrIWq5+c0QqTPWntDKnbBi+SszT4sHtsw+V4N20d4
- d8Y/ORWK5dBF/3t7aFOqnJA4Ar3gNs+RngONTAOw26RXgR/KP+zlatUQKrJRr6ftxRNn
- vj3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754503553; x=1755108353;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lHJF+scpHWabcy+3GRU3PMxJmlxd7RRyyyeaVATCPyE=;
- b=EOyI7riKHM1PywLqBX/5XX7h13DFvmAPwsg+m7nRgDoBumBdT91wUJftO6svHm3FmS
- dQoEkS/5OD9bxOUGnPLRKzPXZbFGirFRoaT76muBD3hTNe+BZ6+iyboupMqjDssdBDM7
- 2MQUerpwvTAQQDT12sZnZfm0w3aNHnM+RLEsB65hKK6WbuDan+TcUtbECbqun++YhVFM
- nc+NxRzLiuG/vJOQChTTXLoNIoTWBnSRnXfbPqs8dueHpga0MoDpdcj+eSLOHgUW2KUP
- adc/LjsWSbmZp7DW2U9pjGnof+QkiTMOws5/+Ki4IdxFro5YJbV9gn7jll07ufQ60Nab
- +e8A==
-X-Gm-Message-State: AOJu0Yw056R/x4P2e+5AUWK1Z1vhyGQ0A4MynsZukEe9rJRwDV3ELDVL
- XQtYcvlax/AqWGK1YG8aN2fwQPVk3nL5j5UHDehK7phwXuVPNGeVARk9l+O8gTMaxFVDm6exi++
- TeHIChSg3llaBTSKkUN4jcVIg7pQQN/U=
-X-Gm-Gg: ASbGnctPfqa3hH0oxQXSFniVsTnE070pXfIU3/FABO2V8yoVqCIXJ0KovCbNADiG1R2
- v5plyuUj0z2TxDcRXIzWhcIGQ804CnSCP8uhS/U1GuHowjQ9ipTR+lApZirxHupF06YkuYych4x
- Gpt+tlGLtYbIMLq1Qz1q6pV/ORxzh2AW4DlEMjk6+0vO6NiPaPqGOkhm9igrjJz/aZgc3SXkr7Y
- MK2BWcV6BheYkiX6512qmUxhpXBGA==
-X-Google-Smtp-Source: AGHT+IHrBoND25rHtxzv1fJYRj1yIUy0iK8bkmMBoXhDIePmg6JEdNX3+WPGLDPIgTLsUOmoxzjzQPOYVb81XR34R70=
-X-Received: by 2002:a17:902:f691:b0:240:4d65:508f with SMTP id
- d9443c01a7336-2429f559670mr24791275ad.6.1754503553443; Wed, 06 Aug 2025
- 11:05:53 -0700 (PDT)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 483EC10E301
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Aug 2025 18:14:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PHZeJyavha+5q6KQQb+09zsJVE2wKg/Ohl1LDJueaae/COmakoMXSTNNGQ7bMjMYqtMtydbm9gJAkPcooptzzwIH747Y9JWmraC02NuSY7FI4InbzNwJPE4MnIO79pVMCQ2XOffiIlbN6orovMJYuLY/d+spsMSbMlig3AIvGQ/KT+x8OIClA2inZ2XVI/CQA0PKWO84nYE4VQtJ7VwySAe4DmCEiQnbBRkzgZYZkkvOWex1zPe982mdVw0/dNgzkAZqPotVe5QpZE1HAnZPm362QB83BspuZLvFW1WIETN51IQRu/GPkQf2i0trGkZ1rF91gzo0USjx+wsJ0W5SYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8vJsm4Lbscz/Po3zJ45NN8xVAzT2ghQocUxztmUTuw0=;
+ b=hiGYMIVdH9OrykP3+O/c3qBg7Ev2Wxcauz2j7PMraPuSpNbsmUdQ5GzqfAXEjwMaSlyKxynI5HuDi3Iv1qTwyGy8GVBachtdMw1YpL0/Vu/nqRlOBqAzf2hYR106GBh2BSZRtUgAeKwkze57wd42Pf6T20njYLK0TbuED9fWyRO6mHWdFOqLu5VlJ+4Zirr68j10WfQPs3YegnkMYDoDlxHJRCiDuL3hwaEvgOPPnjP4R9IwJeblMThD6QVCKWapZKRHWOU5JH3UyOYXeqEMnLiguUzJYFUdRxkwM3HiFjzE++2ubcCcyVlUwHtJdVoDd0ft1F6AorhJ1wmmk6smbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8vJsm4Lbscz/Po3zJ45NN8xVAzT2ghQocUxztmUTuw0=;
+ b=D8kZIIqNlfITK+H5c3YLnSFuPbfmyGwoaoeU66kGXng6K057+jLfUr9JZLgL8jCu7xbaX44b19/CKvNgDkeFNjqPVKTVdq0TZ2SPxvAsc8/fa1pUOkws7yv561JzPeTolVutFta1iAT+tODM83sRG8UAH0CfDg9BNuROhGsRzgo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5438.namprd12.prod.outlook.com (2603:10b6:a03:3ba::23)
+ by LV8PR12MB9084.namprd12.prod.outlook.com (2603:10b6:408:18e::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.13; Wed, 6 Aug
+ 2025 18:14:02 +0000
+Received: from SJ0PR12MB5438.namprd12.prod.outlook.com
+ ([fe80::65b2:12d5:96ba:dd44]) by SJ0PR12MB5438.namprd12.prod.outlook.com
+ ([fe80::65b2:12d5:96ba:dd44%4]) with mapi id 15.20.8989.015; Wed, 6 Aug 2025
+ 18:14:02 +0000
+Message-ID: <598e36e4-7b96-4f13-8461-1abd650c16da@amd.com>
+Date: Wed, 6 Aug 2025 14:13:59 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/20] drm/amd/display: Determine DRM connector type more
+ accurately
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+References: <20250723155813.9101-1-timur.kristof@gmail.com>
+ <20250723155813.9101-2-timur.kristof@gmail.com>
+ <fba517c2-2626-41f7-a09d-31fd028e1aa9@amd.com>
+ <CAFF-SiUuwwz09Vz90HOTuCcdUt5DXgFLR5EkxWUO1V7uDEOnbA@mail.gmail.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <CAFF-SiUuwwz09Vz90HOTuCcdUt5DXgFLR5EkxWUO1V7uDEOnbA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQZPR01CA0159.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8c::17) To SJ0PR12MB5438.namprd12.prod.outlook.com
+ (2603:10b6:a03:3ba::23)
 MIME-Version: 1.0
-References: <20250730142719.7184-1-shaoyun.liu@amd.com>
- <CADnq5_Ma7Ft1_DQ8aD9B_eGE3J1GPRhAx-U1MvVxbw12mrqM0A@mail.gmail.com>
- <CH0PR12MB5372F959293B08C0EB9D25C0F42DA@CH0PR12MB5372.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB5372F959293B08C0EB9D25C0F42DA@CH0PR12MB5372.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 Aug 2025 14:05:41 -0400
-X-Gm-Features: Ac12FXy_7mEVRfnsy_Rx2l3D8VPONWJZcEjWGgTkz_row6jnyac6Q2FfML22WPw
-Message-ID: <CADnq5_PYLEiqb+zzE9a_K9U5ZvUpXfhgkEHzmJ61QnkBZC86BQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/amdgpu : Use the MES INV_TLBS API for tlb
- invalidation on gfx12
-To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5438:EE_|LV8PR12MB9084:EE_
+X-MS-Office365-Filtering-Correlation-Id: f15d5bf7-66b3-46bf-38b6-08ddd51505cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y1F2L1RGS01CK0FTNER3MmJOVFRjYVNoVnZvWE9FazdibHliTFpyZ09vK3A2?=
+ =?utf-8?B?djBUdUlTRGo3bVk1KzRKQUJ6WEhCcEMvQzQzQllReFBDMERqelR6U2ZocVhQ?=
+ =?utf-8?B?WjBCRUtvRlBKUEt2cHpoeFpqNlJscUd4eHMrWmp2cFpxK2c4WnRaYnVHWmZG?=
+ =?utf-8?B?OHllT0tXSzYxN21IS3hUMUtiUzJEajhUa1MyV0Vrd1c2TEpyaHA5cDJQL01M?=
+ =?utf-8?B?Uk9nOExHQVFxeGI5WDBDU0kvZHdiSlFibTdISkUvMm52ZldTT2ZSUVhyOXla?=
+ =?utf-8?B?V0NPbHlOdU9GSkN0VlovK0lOSzRyVm9CV0lyV3dmWlZnUktqU3NlcGZFU05t?=
+ =?utf-8?B?Y0FIY2I5NXA2T3gzRVllUmhWTkVrV01jY2VpOVcxeVFMOXNCZ0hNUDg1YXJX?=
+ =?utf-8?B?V20wNVJvT2ZrQitwZDdQRVplOEl0dkUwcmlOMGdwamlIMWRBTmxXN01hVGhI?=
+ =?utf-8?B?MWpOcWlNTzRGdnFRQjJRTnozMVhRejUvOFFDN1haVW9XNG1KcDNiTUswTHBM?=
+ =?utf-8?B?SWNVeXBHbnRsaFQrWDd5V01BWEg2QUZqd0hGRThZVkFoMGNkalB5L0lvSXdJ?=
+ =?utf-8?B?Q05BdjVlRGVtWkhtZEhCSTdlZEdVUzBoMzhJWVN2bnZTOStmK09vUXBXSjli?=
+ =?utf-8?B?Y3d6Qzh6bmpCSU5zbEk1dThBd0srWFZROWo3eHI3UHNXQktENU5RK0xTQUwx?=
+ =?utf-8?B?V2RMekZRbGNXWERsS3B1WnQwUWF1Q2JlNnlnS3BlVGdqVk95M05hbnRBUWti?=
+ =?utf-8?B?NjcvWUQ5RUV6enlNTnEwWnI1K3F4TXE1YWJQTTdSdmJkMUJGR2FReDZwWTdq?=
+ =?utf-8?B?Y2oxa2VEUmdOM0ZJcDNPc1lhSDNIc0J3NTU3aDJlUVFEYXhJNWNSTDNjMmo1?=
+ =?utf-8?B?SzdJbTQ0a1lRb2gzL1RBL3BvNzVkNEJBYnJzVGQwZmoxaml0aXhLQjk0VWRC?=
+ =?utf-8?B?RTZUbnRCNG5KQ1R5blozd0VHT29mamJ0U3JaWGEza3ZMY25FVGRhNlpFRTlO?=
+ =?utf-8?B?NkU2TUZwRHJidU5acWxmY3lvSmhYUmNpNlI4ZEp6bzNYQ0ErYk9jeEdjU2wy?=
+ =?utf-8?B?Y2ZGbCt2SlpNVElPSW10ZHF5UGljT1V0L0ZIejNYamlpKzl1MzRTSkFQeHBW?=
+ =?utf-8?B?SjNYWU1jZTdlWDlselRDM2hJSVExclJnTjhIK1JDQTQwM2hmNFBKRGpzZDBL?=
+ =?utf-8?B?elN0MkN2OVFpaWhXbkREb05hTVBYaG5RK2dWZXFRMUc2aU80RXFxdzRKZXY0?=
+ =?utf-8?B?U0lFWENkMVlKWkxlQ0poNEFBMHI5RjR0LzZuZDd2M29zVnhFWEFONHdWWUcx?=
+ =?utf-8?B?R2k0a3RUMWp2MEs5Y3IvSnlhaU9vZWRFblNNWmVtL2l6MHRtK09paVVsY1hZ?=
+ =?utf-8?B?YVBoVlhlRGw5NDBTMXlFeXR3L0x2YWRqZ3F2a2U3R2RSV1NWenl1VnpZSU9r?=
+ =?utf-8?B?WWlrRkdvTHNleVVaMUZHa3I4ZVhuRXMyWkFZL2pHcGtzOVhESWZBWnY1OGdo?=
+ =?utf-8?B?RWROQ2ZoWUxGMmFidjdtWW1ZcSt3QXgweStoSHJ6ZEYrVTVFd2xnaTMyeExy?=
+ =?utf-8?B?aHFPWmFOR09HMVBleUpXdFRocmFUclBZekdhbHRwQzVySlkycFBvU203ZHRn?=
+ =?utf-8?B?b3M5ZHZkWmFCKzVyUmZMeW5XMWNwZXNLdXJOQ0dicVhabE9oQTMwT0UrUmw2?=
+ =?utf-8?B?V1hIVE12VlJQSENKVWFXdm9rS21CQXd3SmYrWVdiWHFoalVvdDZBSkFFKzlu?=
+ =?utf-8?B?YVBrUWlNMmRyL0wycHFPL2V0SzhxMG9yd2oyL0hjSmR4QkJxeDRKVmJFSThs?=
+ =?utf-8?Q?w22e73z1nlegq5WymDddIGyMusSYSJB3UVNx0=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5438.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0Rka0k3Yi82S2ZQVWpmZ2x6c0M4azk0cTUrS3ZWbmxvZWJaL244Q3hOWDBo?=
+ =?utf-8?B?STVHclFZUHV1WEZLUG9CVGJIVVgrY1E0a2dPcUU3VFJ0UnF6MzBhYjUwdS9B?=
+ =?utf-8?B?QTNoaTFDMXFueDFmdU5YbmZBR2J0U0RvMmJRTzJiMmdqekhHeFpSRTUrVkJz?=
+ =?utf-8?B?c3lOaTEzOFZwcWQ5NHFaU0JNaUJwMm1WSVFsMmJqY2xyUTlUdU1TOFlGbkpF?=
+ =?utf-8?B?K2xxMGg1NEFMMmRiazcxR3dLOFc4RDExU3hLYmZRRTA1ZTE0aFB3b0pVNThF?=
+ =?utf-8?B?UWNES3NtUmVJMmxrdm1xY3p5L3BMNitEV0RlZHdSQVNDdjZieWZ2K2gyMk5F?=
+ =?utf-8?B?YWJFY1FtbjJtWTFXeVB5OUFjRWNOREFNL2VuQjY2U01qZU1GRTlVT3NETHZD?=
+ =?utf-8?B?S0tWTjhHZVdobVdjaTVFb1JXcVBqZXBxZVJWLzViTnNONTQ4eHhSTnBQbEtk?=
+ =?utf-8?B?RTkreFN0SHExd0VsdHVLNEsxTWxuWkF3NnFYTDVNanRqVGU1Und0ZUJLTHcz?=
+ =?utf-8?B?ZzhNd1dUZmFhby9NV01nYnR5QytVZE91U3dydTNRRnJwRW1UM2V2ZXNQNmJa?=
+ =?utf-8?B?blJPR1VVMUpuK2R5QUdHY0JqQnBIK0NwaDZldnoyZC9XMEJyVWJUY0V1cERN?=
+ =?utf-8?B?L0ttQzR3Rnl1NmprUlRvNUlUVmVncEY0RE8rZFR3SStPdkZMVHlQQVRXRDJh?=
+ =?utf-8?B?ajcvRk8wMGNFRUNUVlJ2enFTNXFzajFtQlFIcW8rb2NySkdHcjRMbUZjMS9X?=
+ =?utf-8?B?ZVdac3NNditkNlZhUm5HTVFRdytwNm5xeVRsZGQ4am5qWGhVU1ZTOUNnOEM1?=
+ =?utf-8?B?dXp3dFZzRjhtaHBZUXlHd2hzNXdXWE0yL21GNWRmOWdDMGE5Uk8rYUZBQ1ZK?=
+ =?utf-8?B?YWFyUmpSQ3BUczA0TVJkbE15Q3lQdDFOOXJRdDJuSWVVZDdvbmFnelhmemhZ?=
+ =?utf-8?B?WGVVWER5M09RRi83MXg0Sk5kSFJTQnFKOE4vdkRKVW1NWXRhU1RHZGZGSVU2?=
+ =?utf-8?B?K1RtYmwzbjRBcmlqNjM3SnJiQ2dqcFU1dmxXdjJkc09uS2RyUHpnSVRHOG5D?=
+ =?utf-8?B?bmwvemwxcWpQQkJIZjZzMnppcGZqMmdyTnJNOFNXVEc1RThLek1LcjVvMUl5?=
+ =?utf-8?B?NGJ0d3BsWUN4TmJSMytFUGFOUDgrQXdPZ3dobVA2UTlnTXpKcVV4K2hjTTYr?=
+ =?utf-8?B?SHpuMWhtWng3Z1FjQnA1RXl6bWVnczc4NHVMcmVqbjA4bEtSZjRKT2k4MmJ5?=
+ =?utf-8?B?MGg3WXY5SklRZXpXSmxrOXBYWnJ4TVdUdk9Fc1o5YmtTSUU3NFdQRnIxOUVx?=
+ =?utf-8?B?b2NOQnZXZUMzTi84ekw2THZ2dEJJdExpWWFzV1RCdElqWjFrNzIvLzB3MVNG?=
+ =?utf-8?B?SFFhMnBUWnFKaGp4WFliMDN6WmZncStRNlBiRi9rdTlUYjhxRE82dnV3YXNs?=
+ =?utf-8?B?T1Z6M25IeStqYTdscm9PdThoeURhTXlwM2w0dzZ0VXVjTnF6cjlCSmtpMFR5?=
+ =?utf-8?B?NDh4VUFYMUxxOWZONW5hN0o1aCtwZ2IxTGluSSsxSXRMaDlNRGhPMGtqRVdz?=
+ =?utf-8?B?bXZkeTA1WUZNZDE1cEZHRFkxUjQxTUlYbVVicmdTdjcyaGdtNGczV2doQWRS?=
+ =?utf-8?B?MUJhZ3o3WUwwSUVwNmpOcEVhRDBpa2VZRW9iY2Jvc250Zk5nQ0JERldYMnk3?=
+ =?utf-8?B?YWFvVkJVbDZKZDNGdjRkc2s0bVdycmluTXhtaFNEeUtBUUplTW9kdDdxanV4?=
+ =?utf-8?B?U3E0Q2RtZUl2eW5CTTNPK3VSdGZYZ284MHhBUWIrRGs5WFIzczFwWERuQ3Vl?=
+ =?utf-8?B?UXhtM3dDREVXQlY2N053SG81aEZaRURxYk9QdFh2ZlBBMFVoR2hDTEE2cmo2?=
+ =?utf-8?B?anYvWmpDcWkxaDh6czZiYlIvR3NXQk9RNlpXOThCRnNLOW1QVjZJdFJmeWN6?=
+ =?utf-8?B?YlR2TGI1WEN4M2ZsaXBXU29wbjk1YUNPNW5kREVnZ1dKTXlTVFFlY0ViTjN5?=
+ =?utf-8?B?Y1EwamcxdzN4SzFoOTlpcFB5Sythd3pBV1dKMnJYNzkvWXFMQmdPRnZZdHRa?=
+ =?utf-8?B?Wm4xUzlnV1pZZE50UHVGODUvZXFqWW44bXI5VDlWSmJuMHBCYXVTZzloRGxI?=
+ =?utf-8?Q?ZKXYXdSFPwZTtZVbc/aTK7kOC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f15d5bf7-66b3-46bf-38b6-08ddd51505cc
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5438.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2025 18:14:02.6216 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DJHi+z5HNSdbBLCSf2LlXjz5hjTULtsYvCuY7gJrJb7zbWWJfH/yUCyikzyJKixsPg03il3TTzBpJqspanSdXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9084
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,172 +162,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 6, 2025 at 2:02=E2=80=AFPM Liu, Shaoyun <Shaoyun.Liu@amd.com> w=
-rote:
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex D=
-eucher
-> Sent: Wednesday, August 6, 2025 1:45 PM
-> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Subject: Re: [PATCH 2/2] drm/amd/amdgpu : Use the MES INV_TLBS API for tl=
-b invalidation on gfx12
->
-> On Wed, Jul 30, 2025 at 10:33=E2=80=AFAM Shaoyun Liu <shaoyun.liu@amd.com=
-> wrote:
-> >
-> > From MES version 0x81, it provide the new API INV_TLBS that support
-> > invalidate tlbs with PASID.
-> >
-> > Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
-> > --->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  9 +++++++++
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 15 +++++++++++++++
-> > drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  | 24 ++++++++++++++++++++++++
-> >  3 files changed, 48 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> > index c0d2c195fe2e..f4c40f1aecd2 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> > @@ -280,6 +280,12 @@ struct mes_reset_queue_input {
-> >         bool                               is_kq;
-> >  };
-> >
-> > +struct mes_inv_tlbs_pasid_input {
-> > +       uint16_t        pasid;
-> > +       uint8_t         hub_id;
-> > +       uint8_t         flush_type;
-> > +};
-> > +
-> >  enum mes_misc_opcode {
-> >         MES_MISC_OP_WRITE_REG,
-> >         MES_MISC_OP_READ_REG,
-> > @@ -367,6 +373,9 @@ struct amdgpu_mes_funcs {
-> >
-> >         int (*reset_hw_queue)(struct amdgpu_mes *mes,
-> >                               struct mes_reset_queue_input *input);
-> > +
-> > +       int (*invalidate_tlbs_pasid)(struct amdgpu_mes *mes,
-> > +                             struct mes_inv_tlbs_pasid_input *input);
-> >  };
-> >
-> >  #define amdgpu_mes_kiq_hw_init(adev) (adev)->mes.kiq_hw_init((adev))
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> > index feb92e107af8..323ec04094ed 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> > @@ -339,6 +339,21 @@ static void gmc_v12_0_flush_gpu_tlb_pasid(struct a=
-mdgpu_device *adev,
-> >         uint16_t queried;
-> >         int vmid, i;
-> >
-> > +       if (adev->enable_uni_mes && adev->mes.ring[0].sched.ready &&
->
->
-> maybe specify the pipe index explicitly?  E.g.,,
-> adev->mes.ring[AMDGPU_MES_SCHED_PIPE].sched.ready
-> I always forget which index is KIQ and which is SCHED.
->
-> [shaoyunl] ok .
->
-> > +           (adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D
-> > + 0x81) {
-> > +
-> > +               struct mes_inv_tlbs_pasid_input input =3D {0};
-> > +               input.pasid =3D pasid;
-> > +               input.flush_type =3D flush_type;
-> > +               adev->mes.funcs->invalidate_tlbs_pasid(&adev->mes, &inp=
-ut);
-> > +               if (all_hub) {
-> > +                       /* hub_id =3D 1 means  for mm_hub*/
-> > +                       input.hub_id =3D 1;
-> > +                       adev->mes.funcs->invalidate_tlbs_pasid(&adev->m=
-es, &input);
-> > +               }
-> > +               return;
-> > +       }
-> > +
-> >         for (vmid =3D 1; vmid < 16; vmid++) {
-> >                 bool valid;
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > index 6b222630f3fa..2e9191fffaf1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > @@ -108,6 +108,7 @@ static const char *mes_v12_0_opcodes[] =3D {
-> >         "SET_SE_MODE",
-> >         "SET_GANG_SUBMIT",
-> >         "SET_HW_RSRC_1",
-> > +       "INVALIDATE_TLBS",
-> >  };
-> >
-> >  static const char *mes_v12_0_misc_opcodes[] =3D { @@ -879,6 +880,28 @@
-> > static int mes_v12_0_reset_hw_queue(struct amdgpu_mes *mes,
-> >                         offsetof(union MESAPI__RESET, api_status));  }
-> >
-> > +static int mes_v12_0_inv_tlbs_pasid(struct amdgpu_mes *mes,
-> > +                                   struct mes_inv_tlbs_pasid_input
-> > +*input) {
-> > +       union MESAPI__INV_TLBS mes_inv_tlbs;
-> > +
-> > +       memset(&mes_inv_tlbs, 0, sizeof(mes_inv_tlbs));
-> > +
-> > +       mes_inv_tlbs.header.type =3D MES_API_TYPE_SCHEDULER;
-> > +       mes_inv_tlbs.header.opcode =3D MES_SCH_API_INV_TLBS;
-> > +       mes_inv_tlbs.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
-> > +
-> > +       mes_inv_tlbs.invalidate_tlbs.inv_sel =3D 0;
-> > +       mes_inv_tlbs.invalidate_tlbs.flush_type =3D input->flush_type;
-> > +       mes_inv_tlbs.invalidate_tlbs.inv_sel_id =3D input->pasid;
-> > +       mes_inv_tlbs.invalidate_tlbs.hub_id =3D (uint32_t)input->hub_id=
-;
-> > +
-> > +       return mes_v12_0_submit_pkt_and_poll_completion(mes,
-> > + AMDGPU_MES_KIQ_PIPE,
->
-> Should this be  AMDGPU_MES_KIQ_PIPE or AMDGPU_MES_SCHED_PIPE?  This seems=
- to differ from the check above in gmc_v12_0_flush_gpu_tlb_pasid().
->
-> Alex
->
-> [Shaoyun.liu] What I want is submit to the  kiq pipe when unified MES is =
-ready , the above  check is for MES is ready or not. We would like all none=
- running-list related operation  been submitted to KIQ so it won't create a=
-ny unnecessary delay or impact on process schedule decision . It's like ori=
-ginal driver usage for KIQ . The  sched pipe (HIQ) will be  used for all us=
-er queues.
->
 
-In that case, should we check if both pipes are ready in
-gmc_v12_0_flush_gpu_tlb_pasid()?
 
-Alex
+On 2025-08-06 13:45, Timur Kristóf wrote:
+> 
+> Harry Wentland <harry.wentland@amd.com <mailto:harry.wentland@amd.com>> ezt írta (időpont: 2025. aug. 6., Sze 16:56):
+> 
+>     On 2025-07-23 11:57, Timur Kristóf wrote:
+>     > Previously, DC determined the DRM connector type based on the
+>     > signal type, which becomes problematic when a connector may
+>     > support different signal types, such as DVI-I.
+>     >
+>     > With this patch, it is now determined according to the actual
+>     > connector type in DC, meaning it can now distinguish between
+>     > DVI-D and DVI-I connectors.
+>     >
+>     > A subsequent commit will enable polling for these connectors.
+>     >
+> 
+>     Hi Timur,
+> 
+>     this patch regresses the kms_bw IGT test with Navi 31 and 48
+>     with a single 4k60 DP display connected. These subtests fail
+>     when they should pass:
+> 
+>     linear-tiling-2-displays-1920x1080p
+>     linear-tiling-2-displays-2160x1440p
+>     linear-tiling-2-displays-2560x1440p
+>     linear-tiling-2-displays-3840x2160p
+>     linear-tiling-3-displays-1920x1080p
+>     linear-tiling-3-displays-2160x1440p
+>     linear-tiling-3-displays-2560x1440p
+>     linear-tiling-3-displays-3840x2160p
+>     linear-tiling-4-displays-1920x1080p
+>     linear-tiling-4-displays-2160x1440p
+>     linear-tiling-4-displays-2560x1440p
+>     linear-tiling-4-displays-3840x2160p
+> 
+>     We confirmed with a revert of this patch.
+> 
+>     Harry
+> 
+> 
+> Hi Harry,
+> 
+> Also, can you please help me figure out how do I reproduce this on my own?
+> 
 
->
-> > +                       &mes_inv_tlbs, sizeof(mes_inv_tlbs),
-> > +                       offsetof(union MESAPI__INV_TLBS, api_status));
-> > +
-> > +}
-> > +
-> >  static const struct amdgpu_mes_funcs mes_v12_0_funcs =3D {
-> >         .add_hw_queue =3D mes_v12_0_add_hw_queue,
-> >         .remove_hw_queue =3D mes_v12_0_remove_hw_queue, @@ -888,6 +911,=
-7
-> > @@ static const struct amdgpu_mes_funcs mes_v12_0_funcs =3D {
-> >         .resume_gang =3D mes_v12_0_resume_gang,
-> >         .misc_op =3D mes_v12_0_misc_op,
-> >         .reset_hw_queue =3D mes_v12_0_reset_hw_queue,
-> > +       .invalidate_tlbs_pasid =3D mes_v12_0_inv_tlbs_pasid,
-> >  };
-> >
-> >  static int mes_v12_0_allocate_ucode_buffer(struct amdgpu_device
-> > *adev,
-> > --
-> > 2.34.1
-> >
+- Build IGT using the guide at https://gitlab.freedesktop.org/drm/igt-gpu-tools
+  (it's really just meson and ninja)
+- Switch to a free VT (e.g., Ctrl+Alt+F3)
+- log in as root
+- run the test tests/kms_bw
+  (optionally use --list-subtests to list subtests, and
+   --run-subtest <subtestname> to run a subtest)
+
+> At the moment I don't see what is there that would make a difference to Navi 31 or 48.
+> 
+
+Not sure either. But that's why we have these tests because
+they often catch things that aren't obvious.
+
+Harry
+
+> Thanks,
+> Timur
+> 
+> 
+> 
+>     > Signed-off-by: Timur Kristóf <timur.kristof@gmail.com <mailto:timur.kristof@gmail.com>>
+>     > ---
+>     >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +++++++++++--------
+>     >  1 file changed, 16 insertions(+), 12 deletions(-)
+>     >
+>     > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>     > index 096b23ad4845..c347b232ae06 100644
+>     > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>     > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>     > @@ -8038,24 +8038,26 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
+>     >       return 0;
+>     >  }
+>     > 
+>     > -static int to_drm_connector_type(enum signal_type st)
+>     > +static int to_drm_connector_type(uint32_t connector_id)
+>     >  {
+>     > -     switch (st) {
+>     > -     case SIGNAL_TYPE_HDMI_TYPE_A:
+>     > +     switch (connector_id) {
+>     > +     case CONNECTOR_ID_HDMI_TYPE_A:
+>     >               return DRM_MODE_CONNECTOR_HDMIA;
+>     > -     case SIGNAL_TYPE_EDP:
+>     > +     case CONNECTOR_ID_EDP:
+>     >               return DRM_MODE_CONNECTOR_eDP;
+>     > -     case SIGNAL_TYPE_LVDS:
+>     > +     case CONNECTOR_ID_LVDS:
+>     >               return DRM_MODE_CONNECTOR_LVDS;
+>     > -     case SIGNAL_TYPE_RGB:
+>     > +     case CONNECTOR_ID_VGA:
+>     >               return DRM_MODE_CONNECTOR_VGA;
+>     > -     case SIGNAL_TYPE_DISPLAY_PORT:
+>     > -     case SIGNAL_TYPE_DISPLAY_PORT_MST:
+>     > +     case CONNECTOR_ID_DISPLAY_PORT:
+>     >               return DRM_MODE_CONNECTOR_DisplayPort;
+>     > -     case SIGNAL_TYPE_DVI_DUAL_LINK:
+>     > -     case SIGNAL_TYPE_DVI_SINGLE_LINK:
+>     > +     case CONNECTOR_ID_SINGLE_LINK_DVID:
+>     > +     case CONNECTOR_ID_DUAL_LINK_DVID:
+>     >               return DRM_MODE_CONNECTOR_DVID;
+>     > -     case SIGNAL_TYPE_VIRTUAL:
+>     > +     case CONNECTOR_ID_SINGLE_LINK_DVII:
+>     > +     case CONNECTOR_ID_DUAL_LINK_DVII:
+>     > +             return DRM_MODE_CONNECTOR_DVII;
+>     > +     case CONNECTOR_ID_VIRTUAL:
+>     >               return DRM_MODE_CONNECTOR_VIRTUAL;
+>     > 
+>     >       default:
+>     > @@ -8440,6 +8442,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+>     >                       link->link_enc->features.dp_ycbcr420_supported ? true : false;
+>     >               break;
+>     >       case DRM_MODE_CONNECTOR_DVID:
+>     > +     case DRM_MODE_CONNECTOR_DVII:
+>     > +     case DRM_MODE_CONNECTOR_VGA:
+>     >               aconnector->base.polled = DRM_CONNECTOR_POLL_HPD;
+>     >               break;
+>     >       default:
+>     > @@ -8631,7 +8635,7 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
+>     >               goto out_free;
+>     >       }
+>     > 
+>     > -     connector_type = to_drm_connector_type(link->connector_signal);
+>     > +     connector_type = to_drm_connector_type(link->link_id.id <http://link_id.id>);
+>     > 
+>     >       res = drm_connector_init_with_ddc(
+>     >                       dm->ddev,
+> 
+
