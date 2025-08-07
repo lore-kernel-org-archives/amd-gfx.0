@@ -4,78 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1321C87FDA
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Aug 2025 13:01:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52AC8C87FCF
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Aug 2025 13:20:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B7BE10E843;
-	Thu,  7 Aug 2025 13:01:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECF6210E842;
+	Thu,  7 Aug 2025 13:20:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D63bBk+0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DBQ+NcAs";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 693BC10E83F;
- Thu,  7 Aug 2025 13:01:42 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-b4274585be2so30142a12.3; 
- Thu, 07 Aug 2025 06:01:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754571702; x=1755176502; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=csit/92fkpbpiZ6AKL4lpm9dy77IvCLE9nFZVONA38c=;
- b=D63bBk+0/CboXCRUMhwRlG9h/8W90uBp93v7LXecAIdhA00LI2JOfFIYMMQixvBrO7
- aTQgp1pakkyqe7SHQhnyJXoUs95kZz72pTIK3hKW/M+8C1p6Di55C449gFPhKLdLl5zT
- /+TwHhSLBTDIRMBTFl2CLUmBVgCWuXL0r1SbswCjn9WUevCK2ARjx2iqDGSVEJsyxRHw
- jA2mn7K+wTtIMDf4FQjTa5fOf0I1SSSMsD02C9CUP5QG6lbv6egbi7sdeDNufEtUx3oP
- oBAfVYkt9OXT1bGEzludiLLOclCdag2wE/wBpT5AlmvoLTC5QoUuLH35MYKcIoVWFqrw
- fwlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754571702; x=1755176502;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=csit/92fkpbpiZ6AKL4lpm9dy77IvCLE9nFZVONA38c=;
- b=VVpF4vvSmxyLRIe7vZNCxHWIR2E7xbmpo5uPbhgxnMpB87O79Gzb7F4qCZaZx/QPaL
- MryDYcafX71KBrSz0tynoRqtIaQMdngg37eyoPla9CmzP1qB4Yqbgjm9KUMz9aKAfhFX
- tqRGJJ9UxzWtHkes5U4a9eLrU3YPMRlWN8+4XQDToP2Vp2WYwo7U3nY/XnDvKZ2CGnn5
- Sw4R27icYDF3c1KogiWrVFD8vRovwPolS5qoi5f8stiEOQOWldyPajvQNFrtskNG94+y
- s+hZuLFVwxFxYt5uV/emzWpZZxSFzKPZRQd/ehD1FVxE6faPdirZQLPqwYAXFvY5cjzw
- G0pg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUMG1nbhBiV10BctUMxi9z8WpGeh8O8C0R3sEQ8tE5C8QMDAsmvFfZiPimeeFwyUpNFPTzTyGgtGuxS@lists.freedesktop.org,
- AJvYcCW8Nma8pBsyDCb8RMK80mXND5vVPE2/qlbU72ZMI+BhIlOF7teGr5fG8wOVXr6sCcBiAk4f4Ox+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzPmmWYzz+6xXpmCO5NSa3+0Yn/Ib+HjQW1apV+gGiEGgX73aLA
- wHRXf2mdtEa/c2FVwqfW4N0oXGWV6d1X5vbb7SQO93CpoyWb2nVyJVSCi/ld0K8ahPqjlgUl/Az
- fbKM3zMUCnJ8pAL1hImUhQeRsoFw6zz6F0wWI
-X-Gm-Gg: ASbGncvYB5t2vHZJTzn5o3DYp9ezDOTTXAyvEkFxicagoFILVVfJw/hsa3zxD009RRH
- hfYxy0a2VSKdUuZxHV9BBwkEMlgz5FdGZnCtk9/mNOajw9HPVyT/Bv0P5chaa5qUUMyHv7u2dJj
- Cw3SPqBEiuzIEQQ+AhWVEljHNimeBiAtx+X7gPpoaM4IGugId6YXZpRT6zc2fsjDqxFTto8J+z/
- 9LUNXQ=
-X-Google-Smtp-Source: AGHT+IFTun8YI94ci/htHjX014sLvLSf/LonYrs5Z2b9fGtFLhJvbnYFieTgtNA2IiUvjT3cJXScNPm71K7j1e/5FUw=
-X-Received: by 2002:a17:902:ea0e:b0:240:764e:afab with SMTP id
- d9443c01a7336-2429f4c6eafmr53528225ad.6.1754571701352; Thu, 07 Aug 2025
- 06:01:41 -0700 (PDT)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41D1610E842;
+ Thu,  7 Aug 2025 13:20:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vOXKocS2oB+Z4eUGdvrWsQKRz8zSr7BKaAjsXDNfNOgsIoCpA04Ipa2X7zdftMo7aj7so9wwL5UoCDEt2DhPxUJCIl0mCvZOSofTUrc09oWitiiJEQjHyfg73Gl4G/FsMkMk/w3eBvSjLG4+hT5y3BZTg9GIedyD53ZINEnnCFNDgUNB8lGSTkfqBnw9+vK7VRDoH/ZynYjdBYRdMpeBsZyaYOvw6oKQKbUzIa1J5rnq+ELv6OvU3XRGJhyf4Xt0j2ZTlUjTWBlYxtQzs5G+aIR3DhnT23VTz9DYKO0IXda4IJ7DKv1an6crzKUIzGXvXGvEsmSsp1GmSt8ZVckllQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EmYxk7a6yqSrw2C86A4HmkKjggKC2dmCou2rIyRjIKc=;
+ b=WVEzlMNOGVLmYWNPNXWzzg1ac9oyhi5KcE19qm5HK3i6Vi90eenUKiFFplAo8ymxjS7RE4cUQrxeL/b/TeHU3z2E+n56yB7tkZU2BAI9Yc88jf2Pk3oEDtqINkz+l7kLNTxmtPganlXLoRfW0TQFIiIqxtPwI+ASnQp19GZxaxZd73KbowUh43wkx8utWwcOpnlDZ6X4TeCplp5xSpkUPYOKMKMCJpzEwHFoNaCKtbqqNA6NeV92zumiUCjZIElNxxyClTVxx6KlDQzAaoWbWJj9uR0s4OaOkZo6Rs3OcnXeJHL4XJ7mG8RU/Rctt6/SCemU7g4pnN2kwWMSHGjL+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EmYxk7a6yqSrw2C86A4HmkKjggKC2dmCou2rIyRjIKc=;
+ b=DBQ+NcAsorte3k9FEWHpj/V/nMoFEQM+ACeV/VSOuNKsyHG2YPuzNQWiug3yYQxYD6FA+AJpW4zY67AJoqvt38qvtIXF5wOqtY0BxsyNsuWF7XGILc1trudug/vQ2N0DSN0R04L/VMO7X2ebotufhWuEHt0RxUhgq0pN8qnL008=
+Received: from CH5PR04CA0014.namprd04.prod.outlook.com (2603:10b6:610:1f4::26)
+ by DS7PR12MB6336.namprd12.prod.outlook.com (2603:10b6:8:93::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9009.14; Thu, 7 Aug 2025 13:20:48 +0000
+Received: from CH1PEPF0000AD82.namprd04.prod.outlook.com
+ (2603:10b6:610:1f4:cafe::f5) by CH5PR04CA0014.outlook.office365.com
+ (2603:10b6:610:1f4::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.16 via Frontend Transport; Thu,
+ 7 Aug 2025 13:20:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD82.mail.protection.outlook.com (10.167.244.91) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9009.8 via Frontend Transport; Thu, 7 Aug 2025 13:20:47 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Aug
+ 2025 08:20:46 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-6.17
+Date: Thu, 7 Aug 2025 09:20:29 -0400
+Message-ID: <20250807132030.1168068-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-References: <20250807094719.56145-1-oushixiong1025@163.com>
-In-Reply-To: <20250807094719.56145-1-oushixiong1025@163.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 7 Aug 2025 09:01:29 -0400
-X-Gm-Features: Ac12FXyRTfguGuFdTmafc0zCGvXHu-uSSEEJTDTQOrDFi2VatI0j0G8E3SWv1N4
-Message-ID: <CADnq5_PSiQOqTF1VuJNOtSS1M8K5Ycp09PijaDn2eVUiWiCqwg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: skip disabling audio when device is unplugged
-To: oushixiong1025@163.com
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sunil Khatri <sunil.khatri@amd.com>, 
- Alexandre Demers <alexandre.f.demers@gmail.com>,
- Boyuan Zhang <boyuan.zhang@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD82:EE_|DS7PR12MB6336:EE_
+X-MS-Office365-Filtering-Correlation-Id: 753f8f78-e012-433e-38bc-08ddd5b538cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NVh6WVRtV2xUdzFvYUIvcEVIV0lJNFVXRDhXR2RCVHB2KytxNTZCS2pHUjR5?=
+ =?utf-8?B?czlVajQ4dHZqYnhUdXNMK3I2WUQ2emdPRnRWT1Z6U05nWTFiNmV3UTJ2Z0FL?=
+ =?utf-8?B?aEE5RWpYb3M5N3pjREJaRFJ4L0NjMVNGcTZVckVFVWQ0R29FNkN5dWtrQisx?=
+ =?utf-8?B?cGQ0Rk91UFJzL3RGdDBoWTlVRm13TFluU2NTQ2tSYWxMamxqamJxVlRkTE5k?=
+ =?utf-8?B?aE9iL1hRaUd3SDh5NTNIM0dXNDJIa2o0bnpmMjBTbFQ1QWkwS0RKOWN3cFR4?=
+ =?utf-8?B?eDMrVklJNSswVThiUUVxZEljZnNFZi9IeWxpbEhqUFM1NDIyL3dZODFIaVEy?=
+ =?utf-8?B?amg1YWo2NEtTc0oyK1NrR1dHc0xyaUk2bzRzUExjL0FMK2Nvck1WVFNBZHRW?=
+ =?utf-8?B?OWZlYUwxV2IwRjBBWVQ0RXhJNXIwbFM0TWF5c3Rmei8wNGFlR2c2K1RCUXVJ?=
+ =?utf-8?B?NUUwZU5sU0JiSDRrZjZCVE1DOVdUbHh4V05aMXpMR1lNdVpTU21sQjgzZHgx?=
+ =?utf-8?B?RHNkMkovcml6LzM0Rjh5bHYzenpDWXNUVkdJMkxEM2pJMzc0YmxyM1JFM1A0?=
+ =?utf-8?B?YkxLUFpSYkpaaDVFT252L3NQb2tXd3lnSnMySm52R1JDdXBxVlpzQXdONjZX?=
+ =?utf-8?B?azJtU3NZNE56dmlsNjZKUEtaaXdsaHRFc00wekVoZjFISVc4YVp6emU5bUl2?=
+ =?utf-8?B?Z3hRZUNHaW13eGpCSWppYUs3bTNOb2U0cWFuUTVDTnJLMEZWTUZXNEhyUXJ4?=
+ =?utf-8?B?UUxDUWtTSFJtSklKV0ErVnVjRlNjNmI3Sk1hVG5SR2V1M05yb1hvdXBRN1ps?=
+ =?utf-8?B?VEtONkJMdzdSdWV3U09sbGJaTUN2TkRnU1hORkl5ZWRjQ01tdnZZS2xzU3c1?=
+ =?utf-8?B?WHdDSFdPeWhLUG1XeWJNVnNNSDlRNTNDdUkxQWJQcVd3MWpVVG1LbEQ0WWl3?=
+ =?utf-8?B?ZnZNck1tblluUlNzRHRWZ3FzSGEremp3L2NVeDYyclZaMnlJSENQNHA3aTk2?=
+ =?utf-8?B?dytnSytlTVFHT1MrcmVEaUxQWkNkaVZKcTkvdklEVm9pOXVOMVo1ZU1RQThp?=
+ =?utf-8?B?eDZ5cTFrbEdGSk9SdDNkZnpsTlFrYUdLY3FSbEFsYTczZDhQYmo0V3dHUG9a?=
+ =?utf-8?B?YmdaV3o0OTkxTmVZRzg2QVV2b0R1akpYZytWRHBrMjRYS0JEc1BqQ0prL2ph?=
+ =?utf-8?B?dFVTaUthaDZ0bzZpMWFkODB0UEpJRmVhOVlOTjEwcHdYb1ZtNkRJRCtoVENB?=
+ =?utf-8?B?eHBFZTlHV24yNEEvTzR1N1ZpZHV2eGJCb0szYzhtMzBoNU16YmZPYUdacjNz?=
+ =?utf-8?B?ZEFVNmZ1N3kxSEVlR1VmaitYMlZBMzNYYzZ1VnE1MmJUUUhtcXJ4ZTlrYnNW?=
+ =?utf-8?B?ZmtEeWsyWklkTTRabE5qeFJ3LzJPQTgwMnlwUWpibklxOFk0d0tOMzQ1ZFox?=
+ =?utf-8?B?eTFISldsOVdqbi9RYkhGUVVTaTg1OXZDaytLSnl2MEV2SG5PVG5EZUN1SlM3?=
+ =?utf-8?B?dXNKbDBhUWxjeUxrMjF3MHBPam1jc0VNMEV5TkpRVjVmTGxKTFQ5d1RadWlw?=
+ =?utf-8?B?cDg0bk5iL0lkM3hSRWhtcFNGYmpyaS9Uek9NTVluck8wWmZsaEsxNUpEZWN1?=
+ =?utf-8?B?T01CdzRIYzhuM3pqRjlLMDlGRGJLT1pSUGZvU0dBcjd4RWd5VG5hdmMxWFB1?=
+ =?utf-8?B?dVI1WjlvUjg3SmdxbjVpWTFTUzFpeHcwOU8xcUl4NXgxUmhNdWFWNUpxOUx5?=
+ =?utf-8?B?OUlLYlpaMG13ZkI4YlNWbEJ6TWYxdXNkSjQ0T0dtNE5nbVRHWVNvS1pDZXN5?=
+ =?utf-8?B?K3ZmYmxiVVhkOThWSmpvemRHbE1pWXJLYUhmMUwxSVc2eU9ZOHlqeXhrM01E?=
+ =?utf-8?B?ZzU2RjRla0hIUlU1K1FuZEFUWHpjWmExVFRiLzNsS21Edk84MVNINzlWSThU?=
+ =?utf-8?B?VUVueGJsekhSNW8xbnVmRU1OQmNyRU9kVHIvakh2TG94ck4wRlV0REF6c0ZG?=
+ =?utf-8?B?c0FBTDh2YTBBPT0=?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2025 13:20:47.4612 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 753f8f78-e012-433e-38bc-08ddd5b538cc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD82.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6336
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,91 +139,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 7, 2025 at 5:53=E2=80=AFAM <oushixiong1025@163.com> wrote:
->
-> From: Shixiong Ou <oushixiong@kylinos.cn>
->
-> When Stopping lightdm and removing amdgpu driver are executed, the follow=
-ing
-> error is triggered probably:
+Hi Dave, Simona,
 
-There's already a patch to fix this here:
-https://gitlab.freedesktop.org/drm/amd/-/issues/4481
+Fixes for 6.17.
 
-Alex
+The following changes since commit 6531a2cf07ef156956840853692755cc7e1621b7:
 
->
-> Unable to handle kernel paging request at virtual address 0000000000005e0=
-0
-> .....
-> [ 2] [T10084] Call trace:
-> [ 2] [T10084]  amdgpu_device_wreg.part.0+0x58/0x110 [amdgpu]
-> [ 2] [T10084]  amdgpu_device_wreg+0x20/0x38 [amdgpu]
-> [ 2] [T10084]  dce_v6_0_audio_endpt_wreg+0x64/0xd8 [amdgpu]
-> [ 2] [T10084]  dce_v6_0_sw_fini+0xa0/0x118 [amdgpu]
-> [ 2] [T10084]  amdgpu_device_ip_fini.isra.0+0xdc/0x1e8 [amdgpu]
-> [ 2] [T10084]  amdgpu_device_fini_sw+0x2c/0x220 [amdgpu]
-> [ 2] [T10084]  amdgpu_driver_release_kms+0x20/0x40 [amdgpu]
-> [ 2] [T10084]  devm_drm_dev_init_release+0x8c/0xc0 [drm]
-> [ 2] [T10084]  devm_action_release+0x18/0x28
-> [ 2] [T10084]  release_nodes+0x5c/0xc8
-> [ 2] [T10084]  devres_release_all+0xa0/0x130
-> [ 2] [T10084]  device_unbind_cleanup+0x1c/0x70
-> [ 2] [T10084]  device_release_driver_internal+0x1e4/0x228
-> [ 2] [T10084]  driver_detach+0x90/0x100
-> [ 2] [T10084]  bus_remove_driver+0x74/0x100
-> [ 2] [T10084]  driver_unregister+0x34/0x68
-> [ 2] [T10084]  pci_unregister_driver+0x24/0x108
-> [ 2] [T10084]  amdgpu_exit+0x1c/0x3270 [amdgpu]
-> [ 2] [T10084]  __do_sys_delete_module.constprop.0+0x1d0/0x330
-> [ 2] [T10084]  __arm64_sys_delete_module+0x18/0x28
-> [ 2] [T10084]  invoke_syscall+0x4c/0x120
-> [ 2] [T10084]  el0_svc_common.constprop.0+0xc4/0xf0
-> [ 2] [T10084]  do_el0_svc+0x24/0x38
-> [ 2] [T10084]  el0_svc+0x24/0x88
-> [ 2] [T10084]  el0t_64_sync_handler+0x134/0x150
-> [ 2] [T10084]  el0t_64_sync+0x14c/0x150
-> [ 2] [T10084] Code: f9401bf7 f9453e60 8b150000 d50332bf (b9000016)
-> [ 2] [T10084] ---[ end trace 0000000000000000 ]---
->
-> The adev->rmmio has been unmmaped in amdgpu_device_fini_hw().
->
-> So skip disabling audio when device is unplugged.
->
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-> ---
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index 276c025c4c03..48b29990da7f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -23,6 +23,7 @@
->
->  #include <linux/pci.h>
->
-> +#include <drm/drm_drv.h>
->  #include <drm/drm_edid.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_modeset_helper.h>
-> @@ -1459,8 +1460,10 @@ static void dce_v6_0_audio_fini(struct amdgpu_devi=
-ce *adev)
->         if (!adev->mode_info.audio.enabled)
->                 return;
->
-> -       for (i =3D 0; i < adev->mode_info.audio.num_pins; i++)
-> -               dce_v6_0_audio_enable(adev, &adev->mode_info.audio.pin[i]=
-, false);
-> +       if (!drm_dev_is_unplugged(adev_to_drm(adev))) {
-> +               for (i =3D 0; i < adev->mode_info.audio.num_pins; i++)
-> +                       dce_v6_0_audio_enable(adev, &adev->mode_info.audi=
-o.pin[i], false);
-> +       }
->
->         adev->mode_info.audio.enabled =3D false;
->  }
-> --
-> 2.25.1
->
+  Merge tag 'drm-xe-next-fixes-2025-07-31' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-next (2025-08-01 07:09:16 +1000)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.17-2025-08-07
+
+for you to fetch changes up to 81699fe81b0be287fb28b6210324db48e8458d9f:
+
+  drm/amdgpu: add missing vram lost check for LEGACY RESET (2025-08-06 16:54:25 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.17-2025-08-07:
+
+amdgpu:
+- GC 9.5.0 fixes
+- SMU fix
+- DCE 6 DC fixes
+- mmhub client ID fixes
+- VRR fix
+- Backlight fix
+- UserQ fix
+- Legacy reset fix
+- Misc fixes
+
+amdkfd:
+- CRIU fix
+- Debugfs fix
+
+----------------------------------------------------------------
+Alex Deucher (4):
+      drm/amdgpu: update mmhub 3.0.1 client id mappings
+      drm/amdgpu: update mmhub 3.3 client id mappings
+      drm/amdgpu/discovery: fix fw based ip discovery
+      drm/amdgpu: add missing vram lost check for LEGACY RESET
+
+Amber Lin (1):
+      drm/amdkfd: Destroy KFD debugfs after destroy KFD wq
+
+David Yat Sin (1):
+      drm/amdkfd: Fix checkpoint-restore on multi-xcc
+
+Jesse.Zhang (1):
+      drm/amdgpu: Update SDMA firmware version check for user queue support
+
+Lijo Lazar (3):
+      drm/amdgpu: Update supported modes for GC v9.5.0
+      drm/amdgpu: Update external revid for GC v9.5.0
+      drm/amdgpu: Add NULL check for asic_funcs
+
+Mario Limonciello (3):
+      drm/amd: Restore cached power limit during resume
+      drm/amd: Restore cached manual clock settings during resume
+      drm/amd/display: Revert "drm/amd/display: Fix AMDGPU_MAX_BL_LEVEL value"
+
+Michel Dänzer (1):
+      drm/amd/display: Add primary plane to commits for correct VRR handling
+
+Siyang Liu (1):
+      drm/amd/display: fix a Null pointer dereference vulnerability
+
+Timur Kristóf (2):
+      drm/amd/display: Don't overwrite dce60_clk_mgr
+      drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
+
+Xaver Hugl (1):
+      amdgpu/amdgpu_discovery: increase timeout limit for IFWI init
+
+YuanShang (1):
+      drm/amdgpu: Retain job->vm in amdgpu_job_prepare_job
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |  76 ++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |   7 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c           |   3 +-
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c          |  57 ++++++-----
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c            | 105 ++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 |   2 +
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_module.c            |   2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |  61 ++++++++++--
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  20 +++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   8 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |   9 ++
+ drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c   |   1 -
+ .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |   5 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  19 ++--
+ .../amd/display/dc/resource/dce60/dce60_resource.c |  34 ++++---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  16 ++++
+ 20 files changed, 321 insertions(+), 119 deletions(-)
