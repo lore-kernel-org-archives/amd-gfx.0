@@ -4,147 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EC04C87FD3
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 06:59:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C15CEC87FD3
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 07:32:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 265E910E4CD;
-	Fri,  8 Aug 2025 06:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A385210E4D1;
+	Fri,  8 Aug 2025 07:32:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PDh+m0So";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="UulJonZ9";
+	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="65Jy9w0g";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2062.outbound.protection.outlook.com [40.107.96.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61CD710E4CD
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 06:59:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h5K6r+LSK+YnlSZEfYKiDEaloog/byKsSbhouA9kgwIYcpsqo3xLVmHFJk/L3sEJAhRT3FZyh7RlLLiKev9sn58ZKBAY6nd+pEJECaU/2Buu2pgz1sCnY5K8drMq3Rzds+90rcXh/K/Q6StBIKTXYtto5EhTJ7ZGxd8E47wS8eADe4ynqrRFWN/DUQ3fiutCurS40jWtxDRs91LBWr8OQPoF9DgGMZuYgtfyDV4t0q4+d0EWqRfbQ5F8Tp8xkXj7kHGBcE/xEzmAIrsn6uf6IjNoiwEWxMW0sphNzYUv0ZoljibXmIx7u0KpoFWBGKqi/yk78sfQ3+JTyTpclh/QVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Al/mTnq7tnvrFYzf9xTKqkcbOJeVykv0a9mF5wRTuXo=;
- b=umRSpQDOtBF0KI/SX42CBc6H/9GbEuG7uN09T6C7K91uv1oSQJ0xNWtFrrP+8ZvGqPzPVNckkoAMOSByT8pDCSLzzMfhuyZOA8eX/veonyBMeYVR0DnYK8/AOD3JgYhRLtvHlxY4cSHOdqwCKtgxGiCPVC23sgRUwy5kXTCzpZpyXshe4o2MxV6IhU3wxIvEU9dG7RinBsvokPbqfohUVwfJ9Z3MFaKIXww1qPyJ3N1oG1Sd8VGUwlSBSGyakPt7+i6NnEfm0XX2R8kVXo3E7cQ0u8SEccHsuivDjqS9EoJpvFADPnIDCYhaKOVgVngjsPY+x1vL98KE5A+boPTaSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Al/mTnq7tnvrFYzf9xTKqkcbOJeVykv0a9mF5wRTuXo=;
- b=PDh+m0SofmBzOxBlD3aYzLg9Fn0QcHLJ+6WXoWHXkB4B9p7ZzuQNh0jlCMpXzzKGT8dPOzYacb1lFNFkr8PZcxM7MtNUIYPm5JiUGHCv1G57jiLoa46Dd5uWS587yZH9VNw7H7zH2ZceD9aHCOve3br1k/DlAjsQMbrBZWIr6R8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
- by SJ5PPFCD5E2E1DE.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::9a2) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.23; Fri, 8 Aug
- 2025 06:59:09 +0000
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c]) by PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c%5]) with mapi id 15.20.8989.017; Fri, 8 Aug 2025
- 06:59:09 +0000
-Message-ID: <45bded3a-e3c7-421e-8cd9-ec268fca7db7@amd.com>
-Date: Fri, 8 Aug 2025 12:29:04 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: set uuid for each partition in topology
-To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20250807204948.286132-1-jinhuieric.huang@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20250807204948.286132-1-jinhuieric.huang@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EEBA10E860;
+ Thu,  7 Aug 2025 14:12:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1754575863; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=GTCLAUlx1j4sBDnHpJvrTICj2PTgKxHOjoaajiTXmLvjhuds+R8gJXCKNYqQiHN0Vy
+ beKK9gS/xenWogwmK+/hzmRRjyCZGFjP7mDnN91buCiLzafQeAyEUeqAQwIoJpZNEZXp
+ cXDB6EOpR6ty6vXp1nPJkft+9jIpt+3xLAUQtAPVx0XaVWi8oGTHuPFEBU18IWwdxReR
+ y495tDexQKj6+gP1N6OjDvOXNkGMt90okplWfFQDxpCKlCerWupmcvasW00p8dy/dduV
+ E9t8l8mO8cQ0NIvgdDxlog1AtCgZp7X2iZmBIo3WEZZlyEFJU3rhAO03S7T+UAaOiK/k
+ FMJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1754575863;
+ s=strato-dkim-0002; d=strato.com;
+ h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+ From:Subject:Sender;
+ bh=Fi7s1UkIuqw0mEFnNe9HGhSrdVwj64AYbKwdHjWG7vc=;
+ b=cR+kvaL/7IOKB0cVpcBkDPK7J7nFcEiQKjdbHNkWejL+LFmp3Q9ccLBZStDtMAnqQ1
+ Ol4vYPSh8TdEatPkfaYSzzs+xDvRpNfpzn4iY5hI2TgFH5vve1al3sjCpZqUVrbZgHNa
+ ZTgUH/9dO9xXjHKfEloykPfbrdHxfghKwZvRI1oitdPM3T0L/j9rfU5kBBanudRpGI3N
+ +mtBgqTGuMXFEn8weUXz9EQ4Edd6+MxR+akVevf2ExF1ophmqfoflC9AKx2khA74sSht
+ OkB0ePWpGTrU5U2gU5p7CdBRjU3SgE5JqtGIqBbHv1rJFUhJ+4UBHyyAB3NbykRFxkp3
+ SFaA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1754575863;
+ s=strato-dkim-0002; d=xenosoft.de;
+ h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+ From:Subject:Sender;
+ bh=Fi7s1UkIuqw0mEFnNe9HGhSrdVwj64AYbKwdHjWG7vc=;
+ b=UulJonZ9uLMI0KbTW7Z/so0pOQkVcT7+lq7kOLPxv5OeEg8ctnXTiIMTQqXgHsfWiT
+ SANLS+DXhUgltTssh/GPAtdqcPZa1gjfTfw+bJn5a3kLhXITVH/SmOHra0gyGJjtc+sB
+ rg4/vWk393q1J6XkRWa9ABhhu4vXbYte1B4Psd6sOGXpLD/0wmy6r3/lXhCms52HYvXp
+ o4As5ThMZQzSQSoXezL+xINm0no8FuLFDHFkacBpDz2kUawnRoPOhLs1tJee509uoSY7
+ rP3mfrI76kftccAiZj9a87PP/pKQUvrdpKl4TH5XFLzdHsVVh6j6ThmL3l6xW/2iM2im
+ wryA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1754575863;
+ s=strato-dkim-0003; d=xenosoft.de;
+ h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+ From:Subject:Sender;
+ bh=Fi7s1UkIuqw0mEFnNe9HGhSrdVwj64AYbKwdHjWG7vc=;
+ b=65Jy9w0gDriyzZ63kan5GMCxTcAcE3TftfWC+mymZMUey79YbuTAspvWg2pZPPX21/
+ q+CAhhT2uiO15uE8OABw==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5m2s3jFWinvWQAExapN1WKXrI0REZC0pX5emA=="
+Received: from smtpclient.apple by smtp.strato.de (RZmta 52.1.2 AUTH)
+ with ESMTPSA id e6066c177EB34EZ
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 7 Aug 2025 16:11:03 +0200 (CEST)
+Content-Type: multipart/alternative;
+ boundary=Apple-Mail-12B86B8C-A310-4918-BF15-0E45D471C480
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0059.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::13) To PH7PR12MB7820.namprd12.prod.outlook.com
- (2603:10b6:510:268::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|SJ5PPFCD5E2E1DE:EE_
-X-MS-Office365-Filtering-Correlation-Id: 454d10ed-14fb-4f96-1e62-08ddd64912b7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YTdLQ0p3Z0JSaUIwRmNicnN3WGdWcDVSTHQ5Y2FEUHM4R0djQk9wTVRFSG9p?=
- =?utf-8?B?QVNsb1pKVm9CNVFPNjdSOEdadUJ3dGdoYTBpR0NOQ0R4SXFCeldod09aVnps?=
- =?utf-8?B?a0VCVmZ1Y1FwREtNOVU1dVpSVWhUMkh5eXB6TGc2SVBIMitkMkhvVjgwRDZv?=
- =?utf-8?B?M2RzM0ZIaTNiaHYxTmhlNHlnV1RuTzMwZkVGd1VDOEJDK1VOelhlZ3QyUzFI?=
- =?utf-8?B?WnNaZnpXdzkxSXhURVhjdHhDTjVydmlDRitzT20zMnhEMGVXdHRobGxRdHlF?=
- =?utf-8?B?STY3SkYrdDY2TkZvVmZkUkV5SDJmRTFZYXZnT1llQ2lSRzV3NHRBREJMbkJS?=
- =?utf-8?B?WVNCdVhibllabUh1OFNPUWM1bCttb2oyd2tCZHdqS3ExSkJJbzNrbzFuK0Nh?=
- =?utf-8?B?VExkRnZiSGs0V1U2S3ZPcEtWVVZwKzBnbFJ0WTd3OStTaGpNL25GNVcrdndH?=
- =?utf-8?B?N1JRQllWSVRPeFYxSDF1Wit2bTRmR29PbVZWbFUxNmprN2FHVnRselhLekZT?=
- =?utf-8?B?bDFrMlVDSDA5R2JFUTQ5aVkzWUNldXhTUEpYckxpQ293VU9DMkVKMW1RSzZW?=
- =?utf-8?B?NlF6bGhNYU1weVZ5QVd1RzJqQXlkVndiMjJWUnlLOTBRVnZUemRHUzVZVWhx?=
- =?utf-8?B?R2ZpbTB1a0IzczN3Rk5RUGE1MjdrT1g1UzZtWWdhd2dsL2crdmliT0l5NDhX?=
- =?utf-8?B?ZnpvNDRrRzU5UXhCbnM1R2NNdlpmak5EaWZBQVFCM3ZubE52ZTlpR1UzL0pJ?=
- =?utf-8?B?Nm9OTWd2N3JlcTU4VmJKZm5EZ0prc3pNOUU5VjlQM2lhRklkQlRrV2ZpS3JR?=
- =?utf-8?B?TVlabzlSUFlFa0dlMjdNQnY5ZVgrVDBseXFnejl5KzlPUERpTDZ4ME5BeDFC?=
- =?utf-8?B?YVE5R1owZkxtUVBPdmljZE1qcmhUZWhTTGMvM3pjNzdscmRqb2Y4YThtdlR3?=
- =?utf-8?B?TnFNWkVaSjFXOElpSHhMMnh1aFdYckF4dTJsVUY1cXBFWlhxSEhLUjh4aDM3?=
- =?utf-8?B?NnE0STJKQW13bnhJclJlakdRS09nWEt0RmltZ0o1Ym9KQ1FNODNGNHR0U2RM?=
- =?utf-8?B?L2tDZ1ExRlYzbitpQ3RxRFA1Uis5Y3dzSm9qMHRKbjZDbk9UaWxpZUlid29x?=
- =?utf-8?B?RnNxc29RQ2tPYzhzWlBYTUM5UFRQNk1kM2lRYjkwbU9IeEk0KzJNK1IrZDJC?=
- =?utf-8?B?aU9mS0k5V3NzaWdhMXovWXlsVXcySWpoVVFha01GODYzUUdMb0E5dVdsZlRa?=
- =?utf-8?B?QkFzeGU0TEJ3MVl5a0xQOVVDVjd1Wng2OUFPN0VMeTZUYzM2Qk81dFVlRmFq?=
- =?utf-8?B?YldIQmhyNytvRFEvZXFidWJidFMyQkVPSDdzbWVwODY4QnZlUTZJRmxMNSt2?=
- =?utf-8?B?N0F5YktCSlhHanJnVmh5Z3pORVJTeks4eFdpNS9CZmtqaVl5YzEyejFXWDN2?=
- =?utf-8?B?SjRVaUd4Rk5nL3hKTzZrbmJ1ellJZzJtbEs2QVlUVEhVSzEzdTMyL0FOSm1x?=
- =?utf-8?B?YXdHc3VCVG5jVUpuMnVQcVRSL0RxT0NaSjR4V05uR1VVcjFobVBxMzR0NmUx?=
- =?utf-8?B?WkxIOURWRjAyWXRCdWhXQWhwTUhmTEp4ajFpcXUySG1vRzFLSHMwckUzM0N1?=
- =?utf-8?B?VFExWE5CcWtZVTllclQ4bXFnWkFqaUhIbDBYdHV1d0RrTWFEQ2F0N285TVRL?=
- =?utf-8?B?aWc5am1zL3NBTndpUXZpV2xVMEhhMnk1cTRUQWZrQmo4TlhnWFptSklxUldl?=
- =?utf-8?B?UXVMR0ZWaHNxZXhzWkoyQ252aUYrc1dBdEhZYTNjK3NYOTNSMzhOd0FINVhl?=
- =?utf-8?B?WDZaRlhzSFVmU01KTHVvL1dwL2w5RjIrbnNLRXAyaFV0bGhPKzZYR2NaYk8z?=
- =?utf-8?B?MXdtUFVLSHdGejQ5RjBmRUE0VVdzUVcwYUVxSkFYM0pMbDNNajNGUk0vVkta?=
- =?utf-8?Q?CPPxQTeHzpc=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U3BOWG84RSt0UXdIOEkzc2krMy9sWnJSRWc5SXpOV2JrVldZdysxVGZzRWhw?=
- =?utf-8?B?QndsZFhTVXV6VVk4Y1RqdUFGS2xwK2Q1NjkxRktHWW80c2FPdlZKKy8xTWZt?=
- =?utf-8?B?Z1hGN28rWEgvaXJwM1pWNEhhd2EyWmhhZm5mOE5zeW44MWVtM1NiaHdxandW?=
- =?utf-8?B?bHo2cVQ1Uko4MEZ6UFdrbzhhM2R3NW9GOXpVdVFPSTZrMDkwb2hJOUdnU2hM?=
- =?utf-8?B?NnJ2QW0rcS9ja29HbmYrdXRDOEZiTUZhQkEyUWJkQk1XS085UHZhOWVtN2xJ?=
- =?utf-8?B?U0UyR3RiYUlSc0VidERxUUpsWSsyMmFZWVBzd1dsN21HNWlCUEQ3VjdIUFEv?=
- =?utf-8?B?REVscjVPd3RQK2RZcngwMFd4ekRRZ0t1S0J0aHJ3NHZBbENId3doTFA3MkRo?=
- =?utf-8?B?a0NubzR4d0dVWnduTUxZQWwwN3pGOHozTlpLWEFaSEZLbXFHZTJFS1RubTA0?=
- =?utf-8?B?WlV0VGFLSkdicjgvVXhON3hzNnZWSjJSVjhNdTB6YjB2eCtvMER5YXR1V1RG?=
- =?utf-8?B?bm9ZUDhETlBvQ3lCSjVXVGRzdkFzZkhxUWczZW93UXhHd05HeTFJTW4wSkgw?=
- =?utf-8?B?QnkyNE1nODMrSEk0ZnB1YzMxSlAzQjczZU9pQmFLWkRPc3NMcE50cmNzeksy?=
- =?utf-8?B?UHhMZm55TStaZnJxaHVWQTMxU21vb1dkV2NDdDVRSE4ycndoaVRXQzBBOGh2?=
- =?utf-8?B?c2FTb1ZCWVJTdkpKQ2t5M3lnUnVIRTdKUk4vMjNZdVB3V3dKWUM0bDJZbjdU?=
- =?utf-8?B?enNtRS9JNFluVE9CakF2VnNxYXhBZGUzZmhBVEVGbHhERTR5bWNaay9ta1l5?=
- =?utf-8?B?WWlKOXArT1JLc1BxcFFPRnFXbDBsc0pDaXBtOTZBSmpEcFR0aE5NVmpZNTRD?=
- =?utf-8?B?WjRYYXY4THFsU2toWFMrWklaeDN5cHJIWFVwbk85MThlU1ZxL2dHQjZ5d3Mz?=
- =?utf-8?B?ZTlBL0NUSEFZcW05OGNzVmxkNER2UW8yQUp2SnNzOVYzd3JRQ3pUbi9pWUxj?=
- =?utf-8?B?bzN6VFpzVW9lSFhTS3c2Z0FlcDg0c0d3bHZzNmRPSmROQXM1WUJFMFJLaVoy?=
- =?utf-8?B?VWtVREQ0VHNLTFFFWlU4aXdFQ0J6QWxZbE5sRjhST1Njc0RMemdWOGcyR3NG?=
- =?utf-8?B?OE9WME8ycUl2WExRTllJTm5iZlgzb2NZWjBOS2hNNXZ1MVFuNTUwVExxZTk1?=
- =?utf-8?B?cWZoZ0xkU3Z6ZVJGZ3Vmd1BxNytSeHJkZG9sTTdOK0dQNkZLZHdQSkhsZS9p?=
- =?utf-8?B?bWJreFVYWWlmQWhIUVJOQkNYeXNTQVZvR0RYSnBXc25CWnQ3S2xGVWsyRkp5?=
- =?utf-8?B?cm9KcDhNNkUrZjVoQTJndHBmYy9GR0dyaTJ6RHRHaWFlc1J5cWNFTldhL3E3?=
- =?utf-8?B?VEtWQkxhNU9UaVFlV2Z1Sjc0R1hIOXVSdWQ3dzZTaEJSaUhKODFPUUhxM3RN?=
- =?utf-8?B?MjkxM2htYzFDcmpMTVlQWkpzS3RzSllqMmNqektlMVVMdUtIa1N4QzZaMXdp?=
- =?utf-8?B?RXgyLzVxT25LT0lHZTJ6NElYZGpQSXJ6VVMydzYzZ1ZiMkZhZUpydnpVclJs?=
- =?utf-8?B?L1pManh3elNvQUhGTnNkYkJmeGV4THdSQ3Q3WkthOTI1R2sxT1JRREF2eUFE?=
- =?utf-8?B?cnYxaDlGcUFJQjdPMFJOTmxMdTlLRVJjUEY4U3NKenFFdjhUWlZmUklPUkNG?=
- =?utf-8?B?TWp4R2NQR2czKzdja0VHQmJhTzRSa0t6d3ZKYm02cmJPL0ZLSGdnYzd6L01E?=
- =?utf-8?B?RlpwMVZmU3JmbU13ek8vbTBaaGtOWHpiZHBJVkpIb3Q3K01mWnpYUWd6MldV?=
- =?utf-8?B?WFIveG5OS3ozUm83UVM3SkN1a05UbE8yVm4wbHhYMVBFaTBRektRRHlhNW5m?=
- =?utf-8?B?SmRObFJacDBlWHNDWGpLWXNBeC80TVE5L00yb2RBZVFGb3hzdU9XaWx4NXBh?=
- =?utf-8?B?YUVBZlVYeEsvNkhaRlFZblIxZzhwSHVZZkh4WFlLMTNib1puaG9TWGxadVVn?=
- =?utf-8?B?WjFJd1J3aFBBajFmaWVuWXpuSmxSZ2tBS2dEcWZyRjlHaUpSZ1NhNEUxM1Ft?=
- =?utf-8?B?NHZpSUhIWDJ5emdRYjBhaGhQbFlUd045d2NoWC9aR1V4UnMzYUIwN0lZNkxW?=
- =?utf-8?Q?K7e0jhHo/3M1oARlzkgzBsK99?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 454d10ed-14fb-4f96-1e62-08ddd64912b7
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2025 06:59:09.4894 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QHHI9TiTWIUnSeMRTrGxKJAsCSp+RMvDQQEvBsfmOsF1MV0PM8gWVNXdksXV7hD3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFCD5E2E1DE
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
+Mime-Version: 1.0 (1.0)
+Subject: radeon_fbdev_river_fbdev: failed to initialize framebuffer and setup
+ emulation
+Date: Thu, 7 Aug 2025 16:10:52 +0200
+Message-Id: <DA680712-472D-46BE-A2DF-9E923A4E6EE1@xenosoft.de>
+References: <CAHkrCmHKSR+3gCjs7E=Qnini_CCEa+wjx9gWNPMjSWWFOScQtw@mail.gmail.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, ville.syrjala@linux.intel.com,
+ Jeff Johnson <quic_jjohnson@quicinc.com>,
+ Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Christian Zigotzky <info@xenosoft.de>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ "R.T.Dickinson" <rtd2@xtra.co.nz>, mario.limonciello@amd.com,
+ bhelgaas@google.com, benato.denis96@gmail.com, Yijun_Shen@Dell.com,
+ david.perry@amd.com, rafael@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <CAHkrCmHKSR+3gCjs7E=Qnini_CCEa+wjx9gWNPMjSWWFOScQtw@mail.gmail.com>
+To: mad skateman <madskateman@gmail.com>
+X-Mailer: iPhone Mail (22G86)
+X-Mailman-Approved-At: Fri, 08 Aug 2025 07:32:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,37 +104,218 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+--Apple-Mail-12B86B8C-A310-4918-BF15-0E45D471C480
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 8/8/2025 2:19 AM, Eric Huang wrote:
-> Currently each kfd compute partition/node is sharing
-> the same uuid of AID, which doen't meet the CUDA spec
-> for visible device, so corresponding XCD id for each
-> partition in smu has been assigned to xcp, and exposed
-> to kfd topology.
-> 
-> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index 4ec73f33535e..14b5fa670727 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -530,7 +530,7 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
->  		sysfs_show_32bit_prop(buffer, offs, "sdma_fw_version",
->  				      dev->gpu->kfd->sdma_fw_version);
->  		sysfs_show_64bit_prop(buffer, offs, "unique_id",
-> -				      dev->gpu->adev->unique_id);
-> +				      dev->gpu->xcp->unique_id);
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"><div dir=3D"ltr">I bisecte=
+d today.</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">git clone https://=
+gitlab.freedesktop.org/drm/kernel a</div><div dir=3D"ltr"><br></div><div dir=
+=3D"ltr">git bisect start</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">g=
+it bisect good 2f29b5c231011b94007d2c8a6d793992f2275db1</div><div dir=3D"ltr=
+">(Good: video: screen_info: Relocate framebuffers behind PCI bridges)</div>=
+<div dir=3D"ltr"><br></div><div dir=3D"ltr">git bisect bad f62408efc8669b825=
+41295a4611494c8c8c52684</div><div dir=3D"ltr">(Bad: drm/xe/vf: Disable CSC s=
+upport on VF)</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">4d4c10f763d78=
+08fbade28d83d237411603bca05 is the first bad commit</div><div dir=3D"ltr">co=
+mmit 4d4c10f763d7808fbade28d83d237411603bca05</div><div dir=3D"ltr">Author: M=
+ario Limonciello &lt;mario.limonciello@amd.com&gt;</div><div dir=3D"ltr">Dat=
+e: &nbsp; Wed Apr 23 23:31:32 2025 -0500</div><div dir=3D"ltr"><br></div><di=
+v dir=3D"ltr">&nbsp; &nbsp; PCI: Explicitly put devices into D0 when initial=
+izing</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">&nbsp; &nbsp; AMD BIO=
+S team has root caused an issue that NVMe storage failed to come</div><div d=
+ir=3D"ltr">&nbsp; &nbsp; back from suspend to a lack of a call to _REG when N=
+VMe device was probed.</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">&nbs=
+p; &nbsp; 112a7f9c8edbf ("PCI/ACPI: Call _REG when transitioning D-states") a=
+dded</div><div dir=3D"ltr">&nbsp; &nbsp; support for calling _REG when trans=
+itioning D-states, but this only works</div><div dir=3D"ltr">&nbsp; &nbsp; i=
+f the device actually "transitions" D-states.</div><div dir=3D"ltr"><br></di=
+v><div dir=3D"ltr">&nbsp; &nbsp; 967577b062417 ("PCI/PM: Keep runtime PM ena=
+bled for unbound PCI devices")</div><div dir=3D"ltr">&nbsp; &nbsp; added sup=
+port for runtime PM on PCI devices, but never actually</div><div dir=3D"ltr"=
+>&nbsp; &nbsp; 'explicitly' sets the device to D0.</div><div dir=3D"ltr"><br=
+></div><div dir=3D"ltr">&nbsp; &nbsp; To make sure that devices are in D0 an=
+d that platform methods such as</div><div dir=3D"ltr">&nbsp; &nbsp; _REG are=
+ called, explicitly set all devices into D0 during initialization.</div><div=
+ dir=3D"ltr"><br></div><div dir=3D"ltr">&nbsp; &nbsp; Fixes: 967577b062417 (=
+"PCI/PM: Keep runtime PM enabled for unbound PCI devices")</div><div dir=3D"=
+ltr">&nbsp; &nbsp; Signed-off-by: Mario Limonciello &lt;mario.limonciello@am=
+d.com&gt;</div><div dir=3D"ltr">&nbsp; &nbsp; Signed-off-by: Bjorn Helgaas &=
+lt;bhelgaas@google.com&gt;</div><div dir=3D"ltr">&nbsp; &nbsp; Tested-by: De=
+nis Benato &lt;benato.denis96@gmail.com&gt;</div><div dir=3D"ltr">&nbsp; &nb=
+sp; Tested-By: Yijun Shen &lt;Yijun_Shen@Dell.com&gt;</div><div dir=3D"ltr">=
+&nbsp; &nbsp; Tested-By: David Perry &lt;david.perry@amd.com&gt;</div><div d=
+ir=3D"ltr">&nbsp; &nbsp; Reviewed-by: Rafael J. Wysocki &lt;rafael@kernel.or=
+g&gt;</div><div dir=3D"ltr">&nbsp; &nbsp; Link: https://patch.msgid.link/202=
+50424043232.1848107-1-superm1@kernel.org</div><div dir=3D"ltr"><br></div><di=
+v dir=3D"ltr">&nbsp;drivers/pci/pci-driver.c | &nbsp;6 ------</div><div dir=3D=
+"ltr">&nbsp;drivers/pci/pci.c &nbsp; &nbsp; &nbsp; &nbsp;| 13 ++++++++++---<=
+/div><div dir=3D"ltr">&nbsp;drivers/pci/pci.h &nbsp; &nbsp; &nbsp; &nbsp;| &=
+nbsp;1 +</div><div dir=3D"ltr">&nbsp;3 files changed, 11 insertions(+), 9 de=
+letions(-)</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">I bisected with a=
+ ATi Radeon 7000 / VE (-device ati-vga,model=3Drv100) :-)</div></div><div di=
+r=3D"ltr"><br><blockquote type=3D"cite">On 04 August 2025 at 06:26 pm, mad s=
+kateman &lt;madskateman@gmail.com&gt; wrote:<br><br></blockquote></div><bloc=
+kquote type=3D"cite"><div dir=3D"ltr">=EF=BB=BF<div dir=3D"auto">I am using t=
+he R580 chip which is the Radeon X1950 XT.<div dir=3D"auto"><br></div><div d=
+ir=3D"auto">The board i am using is a T1042 PowerPC based one with e5500 cor=
+e.</div><div dir=3D"auto"><br></div><div dir=3D"auto">I also lost the abilit=
+y to start Xorg and therefore just a blank screen.</div><div dir=3D"auto"><b=
+r></div><div dir=3D"auto">Dave</div><div dir=3D"auto"><br></div><div dir=3D"=
+auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div></di=
+v><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" clas=
+s=3D"gmail_attr">Op ma 4 aug 2025, 18:04 schreef Christian Zigotzky &lt;<a h=
+ref=3D"mailto:chzigotzky@xenosoft.de">chzigotzky@xenosoft.de</a>&gt;:<br></d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
+1px #ccc solid;padding-left:1ex"><br>
+On 04 August 2025 at 04:42 pm, Alex Deucher wrote:<br>
+&gt; On Sun, Aug 3, 2025 at 11:28=E2=80=AFAM Christian Zigotzky<br>
+&gt; &lt;<a href=3D"mailto:chzigotzky@xenosoft.de" target=3D"_blank" rel=3D"=
+noreferrer">chzigotzky@xenosoft.de</a>&gt; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; Hello,<br>
+&gt;&gt;<br>
+&gt;&gt; I have the same issue on another machine either. Blank screen durin=
+g the<br>
+&gt;&gt; boot. The Radeon graphics framebuffer device doesn't work anymore.<=
+br>
+&gt;&gt;<br>
+&gt;&gt; Here is the modifed code from the DRM updates (drm-next-2025-07-30)=
+:<br>
+&gt;&gt;<br>
+&gt;&gt; -<br>
+&gt;&gt; <a href=3D"https://web.git.kernel.org/pub/scm/linux/kernel/git/torv=
+alds/linux.git/diff/drivers/gpu/drm/radeon/radeon_fbdev.c?id=3D260f6f4fda93c=
+8485c8037865c941b42b9cba5d2" rel=3D"noreferrer noreferrer" target=3D"_blank"=
+>https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff=
+/drivers/gpu/drm/radeon/radeon_fbdev.c?id=3D260f6f4fda93c8485c8037865c941b42=
+b9cba5d2</a><br>
+&gt;&gt; -<br>
+&gt;&gt; <a href=3D"https://web.git.kernel.org/pub/scm/linux/kernel/git/torv=
+alds/linux.git/diff/drivers/gpu/drm/radeon/radeon_drv.c?id=3D260f6f4fda93c84=
+85c8037865c941b42b9cba5d2" rel=3D"noreferrer noreferrer" target=3D"_blank">h=
+ttps://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/d=
+rivers/gpu/drm/radeon/radeon_drv.c?id=3D260f6f4fda93c8485c8037865c941b42b9cb=
+a5d2</a><br>
+&gt; <br>
+&gt; This change just bumps the driver version it shouldn't affect the fbdev=
+.<br>
+&gt; <br>
+&gt;&gt; -<br>
+&gt;&gt; <a href=3D"https://web.git.kernel.org/pub/scm/linux/kernel/git/torv=
+alds/linux.git/diff/drivers/gpu/drm/radeon/radeon_display.c?id=3D260f6f4fda9=
+3c8485c8037865c941b42b9cba5d2" rel=3D"noreferrer noreferrer" target=3D"_blan=
+k">https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/di=
+ff/drivers/gpu/drm/radeon/radeon_display.c?id=3D260f6f4fda93c8485c8037865c94=
+1b42b9cba5d2</a><br>
+&gt;&gt; -<br>
+&gt;&gt; <a href=3D"https://web.git.kernel.org/pub/scm/linux/kernel/git/torv=
+alds/linux.git/diff/drivers/gpu/drm/radeon/evergreen_cs.c?id=3D260f6f4fda93c=
+8485c8037865c941b42b9cba5d2" rel=3D"noreferrer noreferrer" target=3D"_blank"=
+>https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff=
+/drivers/gpu/drm/radeon/evergreen_cs.c?id=3D260f6f4fda93c8485c8037865c941b42=
+b9cba5d2</a><br>
+&gt; <br>
+&gt; This only affects acceleration, it should not affect fbdev.<br>
+&gt; <br>
+&gt; What chip are you using?&nbsp; Can you attach your full dmesg output?&n=
+bsp; Can<br>
+&gt; you bisect?&nbsp; This cultrit could be a core drm change.<br>
+&gt; <br>
+&gt; Alex<br>
+&gt; <br>
+&gt;&gt;<br>
+&gt;&gt; Do you have a patch for reverting these modifications? I would like=
+ to<br>
+&gt;&gt; revert these modifications for testing.<br>
+&gt;&gt;<br>
+&gt;&gt; Thanks in advance,<br>
+&gt;&gt; Christian<br>
+&gt;&gt;<br>
+&gt;&gt; On 03 August 2025 at 1:35 pm, Christian Zigotzky wrote:<br>
+&gt;&gt;&gt; Hello,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Xorg doesn't work after the DRM updates drm-next-2025-07-30.<br=
+>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Error messages:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; [dr:.radeon_fbdev_river_fbdev_proe] *ERROR* failed to initializ=
+e<br>
+&gt;&gt;&gt; framebuffer -22<br>
+&gt;&gt;&gt; radeon 0000:01:0.0: [drm] *ERRO* fbdev: Failedto setup emulaton=
+ (ret=3D-22)<br>
+&gt;&gt;&gt; brd module loadedm<br>
+&gt;&gt;&gt; lop: module loadd<br>
+&gt;&gt;&gt; mpt3ss version 52.10.00.00 loaded<br>
+&gt;&gt;&gt; nve nvme0: pci fuction 0002:04:0.0<br>
+&gt;&gt;&gt; fsl-sata ffe20000.sata: SataFSL Platform/CS Driver init<br>
+&gt;&gt;&gt; scs host0: sata_fs<br>
+&gt;&gt;&gt; ta1: SATA max DMA/133 irq 68 pm-pol 0<br>
+&gt;&gt;&gt; ;21;39mfsl-sat ffe221000.sata Sata FSL Platfrm/CSB Driver iit<b=
+r>
+&gt;&gt;&gt; ata1: Signatue Update detectd @ 0 msecs<br>
+&gt;&gt;&gt; scsihost1: sata_fsl[0m<br>
+&gt;&gt;&gt; ta2: SATA max UMA/133 irq 69 lm-pol 0<br>
+&gt;&gt;&gt; nvme nvm0: 4/0/0 defaul/read/poll queus<br>
+&gt;&gt;&gt; nvme0n1: p1 p p3 p4 p5 p6 p7[0m<br>
+&gt;&gt;&gt; drm:.radeon_fbdv_driver_fbdev_robe] *ERROR* filed to initialze<=
+br>
+&gt;&gt;&gt; framebuffer 22<br>
+&gt;&gt;&gt; fsl_dpaa_mac fe4e6000.ethernt: of_get_mac_adress(/soc@ffe00000/=
+<br>
+&gt;&gt;&gt; fman@40000/ethernet@e6000 failed<br>
+&gt;&gt;&gt; radeon 000:01:00.0: [dr] *ERROR* fbdev Failed to setu emulation=
+ (ret-22)<br>
+&gt;&gt;&gt; fsl_dpaa_ma ffe4e6000.ethenet: FMan MEMAC[0m<br>
+&gt;&gt;&gt; sl_dpaa_mac ffee6000.ethernet:Using random MA address: 0e<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Could you please check the latest DRM updates?<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Thanks,<br>
+&gt;&gt;&gt; Christian<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;<br>
+<br>
+Hello Alex,<br>
+<br>
+Thanks for your answer.<br>
+<br>
+I use a BARTS chip (Radeon HD6870). I would like to bisect but I don't <br>
+have time for it currently. Sorry<br>
+<br>
+There are some other user reports:<br>
+<br>
+- <a href=3D"https://forum.hyperion-entertainment.com/viewtopic.php?p=3D6060=
+6#p60606" rel=3D"noreferrer noreferrer" target=3D"_blank">https://forum.hype=
+rion-entertainment.com/viewtopic.php?p=3D60606#p60606</a><br>
+- <a href=3D"https://forum.hyperion-entertainment.com/viewtopic.php?p=3D6059=
+5#p60595" rel=3D"noreferrer noreferrer" target=3D"_blank">https://forum.hype=
+rion-entertainment.com/viewtopic.php?p=3D60595#p60595</a><br>
+<br>
+They use other Radeon graphics chips.<br>
+<br>
+Bug report: <a href=3D"https://github.com/chzigotzky/kernels/issues/15" rel=3D=
+"noreferrer noreferrer" target=3D"_blank">https://github.com/chzigotzky/kern=
+els/issues/15</a><br>
+<br>
+What do you think about the following commit?<br>
+<br>
+Link: <br>
+<a href=3D"https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linu=
+x.git/commit/?id=3D0e7d5874fb6b80c44be3cfbcf1cf356e81d91232" rel=3D"noreferr=
+er noreferrer" target=3D"_blank">https://web.git.kernel.org/pub/scm/linux/ke=
+rnel/git/torvalds/linux.git/commit/?id=3D0e7d5874fb6b80c44be3cfbcf1cf356e81d=
+91232</a><br>
+<br>
+@Hypex<br>
+Could you please attach your full dmesg output?<br>
+<br>
+Thanks,<br>
+Christian<br>
+</blockquote></div>
+</div></blockquote></body></html>=
 
-This needs a NULL check. If KFD has xcp, use its id; else show from the
-device.
-
-Thanks,
-Lijo
-
->  		sysfs_show_32bit_prop(buffer, offs, "num_xcc",
->  				      NUM_XCC(dev->gpu->xcc_mask));
->  	}
-
+--Apple-Mail-12B86B8C-A310-4918-BF15-0E45D471C480--
