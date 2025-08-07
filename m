@@ -4,124 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3163C87FCF
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Aug 2025 20:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8527C87FCA
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Aug 2025 20:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5300910E888;
-	Thu,  7 Aug 2025 20:23:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A83710E493;
+	Thu,  7 Aug 2025 20:34:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X9RpjCVC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IhjP4qc+";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D1AF10E48F
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Aug 2025 20:23:16 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA06010E493
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Aug 2025 20:34:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ObEtVSG3iTBoUEAEtnhc+ITRvzsFOLyF3Ut4x+1LLFYJKU2wFn2j4Mxa1k4RWap2tG2cB7GodxN2P/YFonnlJyOpQqWoeckFDoq8sul8gHdUp6UnZf/pJ2F2GkUkisSHsqaa4GeQwdbk/DmfedkTj8RP/yF1EwK+J1dq+Yh2ctZob+6JWNp+AlvVNVB71rDh0Nycs6Nqda92U2d/V6cYC5brx1BEe6b50Vc46+up1EvBWoB4tWv7CQzcWjQMvV2MJIsDadE93HSB9H9vS7WI+l5mtUlZuU6H/SNL0zbgl7h6KLyX2FbehmF5M8lma/u6h7Mnaz65BWx+3UE/HYD8vg==
+ b=CVvDFsFWx+udQdzPJ60ON6m0v5gEf1YrOk8I/dn6rBkKgpJtIHvMsO1iyY5KNnGEzxlhIeS/faO/D9Z/Jzn8YbjDKzHC6dW8grcNzJftScKbPX4Ct47bC9YZdO+fE690+OhdfLSO/PD3VZLuR7wVXF7YRArG3mY4Evwb8cjZPpGslGl0on8T//Bc9n9e77oTuPJm6MHhI4i9p/3ADL9g1XZ3oNOZbM0xaNJ6LSqEjxBnGVIoKL8Dteh/2yqCk+FwU+zNZQNO1j/U/60GwE2EPCEvNHXlBaVQAMNsVCZLNtpQipSwDIjgEwFY80ItOuRReWjqBeVYCj+485YZ2gZFHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uNwtEsxj6l/tgLpVAYjhf8yRSWDgsrpZCAh9++qajCE=;
- b=Foo7xgk69RSIHCo6cvBtiBXRnL1pjNP144ZgcG9SqcRT6TOhRmMIm4cjrdStH/a9Ib6YeEJw30Mjh81hP9VXG1OdH6zPoVKDaUewhnJZRot39T89U2ZsIqsCr8GnGsxIiGJ3f1s0fWA3LdDEl+nCem6adE2mKfQFcnAJpwMMg6Df8Er01U+wK+Lw5oRo2oOXPkqIWeX3bVe9OuKPFyaXN1e2TZSPoUhIIGr+jzyjqdShu19/heTcAJlK9UwA/GH/f9GZzp/o8UUb2vVOeEEiZiR7sOEUhuME9zw/qkaVRQgloMW1g4gPyYRzPlQY5x+L19p02rYCkcodDRUoRwRw/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=qN+8o/7MyUyCIIGKknJ39zzm22yNuBZGGXIHAyYl4aY=;
+ b=rDaihrJbvkdGA0Nm5otEdfJODgeZTRLl2HSiHi01Mer6yME/RXRFHlJQe8uERkk12aAlODTvYcrI0u5ahVmVV46acshcGuL4sLE1sgrxXvISc+iKFu0HP13pZd+rv9neB5rsEUUmh9Sy0ANIpBAhOvlmzD6d7jxlQaXMKowgODP+4dvBtI+/simFeai5T54hEngFWrXnQvOYwUMnWar8K9w2lxXVNMBWiyPvqNmFrp0PU7CDzxWnFWzucGmrowAPJMkrlhxmAHmwxY52twZmkaP4OxX1z1LcL872HbohujX3znCXnhFYOjGvCM4rP41MSstxvVCh/VTXWZgftcf+ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uNwtEsxj6l/tgLpVAYjhf8yRSWDgsrpZCAh9++qajCE=;
- b=X9RpjCVCr6D08himRWulTkd9CQcuk2rlDmXvyBwoHS9YQzzigZG1XW3dkfxUuMbA2Bdl0ssVQ3gtCHPLR3fbkBx7X+8/ITnHUkuylame2qhGEagqzwJba5XVSQKpadQPrTBP50vs5u4FWIHTyvgMSkY6f9X7XnPG3Rz3FqcogF4=
-Received: from BN9PR03CA0440.namprd03.prod.outlook.com (2603:10b6:408:113::25)
- by BL4PR12MB9484.namprd12.prod.outlook.com (2603:10b6:208:58e::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.16; Thu, 7 Aug
- 2025 20:23:13 +0000
-Received: from BL02EPF00021F68.namprd02.prod.outlook.com
- (2603:10b6:408:113:cafe::bc) by BN9PR03CA0440.outlook.office365.com
- (2603:10b6:408:113::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.16 via Frontend Transport; Thu,
- 7 Aug 2025 20:23:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00021F68.mail.protection.outlook.com (10.167.249.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9009.8 via Frontend Transport; Thu, 7 Aug 2025 20:23:12 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Aug
- 2025 15:23:11 -0500
-From: David Francis <David.Francis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <tvrtko.ursulin@igalia.com>, <Felix.Kuehling@amd.com>,
- <David.YatSin@amd.com>, <Chris.Freehill@amd.com>, <Christian.Koenig@amd.com>, 
- <dcostantino@meta.com>, <sruffell@meta.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <Alexander.Deucher@amd.com>, David Francis
- <David.Francis@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
-Subject: [PATCH v11 3/3] drm/amdgpu: Allow kfd CRIU with no buffer objects
-Date: Thu, 7 Aug 2025 16:22:45 -0400
-Message-ID: <20250807202245.2970262-4-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250807202245.2970262-1-David.Francis@amd.com>
-References: <20250807202245.2970262-1-David.Francis@amd.com>
-MIME-Version: 1.0
+ bh=qN+8o/7MyUyCIIGKknJ39zzm22yNuBZGGXIHAyYl4aY=;
+ b=IhjP4qc+cP2eoy5/siF4uVwNE9f+zN8uYBPU8TdQVbnfhFSuyT1g3OuZwUROflmK9/FkKKgvKr7ukK14FiaXCC8nkZ9AHEdaudwcTcEDsN2e8inF2x0f6uI8NraSqoDP6Y5dCw3Hcf1MHtXl84AnqY6JqXkc/sVPRq8hNSIxPxQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by SN7PR12MB7912.namprd12.prod.outlook.com (2603:10b6:806:341::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.15; Thu, 7 Aug
+ 2025 20:34:16 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.9009.017; Thu, 7 Aug 2025
+ 20:34:15 +0000
+Message-ID: <e68d8be2-4687-4a51-a2ac-1ecc73cef355@amd.com>
+Date: Thu, 7 Aug 2025 16:34:13 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/20] drm/amd/display: Add analog link detection
+From: Harry Wentland <harry.wentland@amd.com>
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20250723155813.9101-1-timur.kristof@gmail.com>
+ <20250723155813.9101-14-timur.kristof@gmail.com>
+ <fd4adcc9-44bd-4f54-b37c-3eb4dc286b03@amd.com>
+Content-Language: en-US
+In-Reply-To: <fd4adcc9-44bd-4f54-b37c-3eb4dc286b03@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT4PR01CA0215.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ad::24) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F68:EE_|BL4PR12MB9484:EE_
-X-MS-Office365-Filtering-Correlation-Id: eecd6528-8f92-4cba-6f2a-08ddd5f03bc7
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SN7PR12MB7912:EE_
+X-MS-Office365-Filtering-Correlation-Id: a97652c9-cf55-48b2-ab20-08ddd5f1c6af
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?42OHMInSRvQBTEJkXPoZxZne+CBV7T9werSyWxh4CJEx+LcZUInmgZG0pN3g?=
- =?us-ascii?Q?oBr1kMwjJdQEMylU9oG2hPykPukL/EQIez9DMSQJQvSc2xn7lvj1C6Zg5xV0?=
- =?us-ascii?Q?aGbQEhe+6IAcoDAwBJXdSKY+Ta7+uqrHtSis9HE/uVIg3DpabHo7wUgsgnAS?=
- =?us-ascii?Q?VN8SgGS6oTVpGUUDiAM48BBTBNSgijnGhxlI1zA4taneJTb0s1Khy+M3GHXx?=
- =?us-ascii?Q?NBH8GjxyOLNuvlrXUGT0zRGiyvqD1IW1/EYlCaX3z0D7GBv6IKyVrMCuCArH?=
- =?us-ascii?Q?IVAQe+a0UP38O4HGgdvKKjuvZQnUEGRfBhYqgGb/IIBzP85NYjU5pCf1LZmN?=
- =?us-ascii?Q?uqW8fsAezUMWoibsQCCncMGbAVrmkL3Uw4MFjRmf0mEWmE+YKMB1c+mvn/nA?=
- =?us-ascii?Q?Z+acDORFJVQgLO3Kg7if72hfUZqGkadrcX98vD5xmSo/xL5OuwGwnGYgL7ZX?=
- =?us-ascii?Q?wtUnnpbxTmy8qfpLRM98z9/bJ3Z5MYJl9amI0gPSXmWTBRfqRA2jCFSzch9R?=
- =?us-ascii?Q?15qy00lcrWxuUXO9ovzlYDjjU/yO+pAH8OmVUyHNN7QRow/ellIVDxmIYaMg?=
- =?us-ascii?Q?UUT7g015u526N7Gr9Z1IxI7tXYU9U1cQeFRpYeoBnKMlwUkzr60JOyyHEqlp?=
- =?us-ascii?Q?RL2rNsX+Gq1SB7yxJ6LfCcVzqh7nUiepcq/PQFaNbR4ya2XjlBa9QSSgZGWD?=
- =?us-ascii?Q?a0fx4cXIibEl/AJlEM4foTT2GooIF09A6XL4xq17NTenEe++O00N/dbGaV18?=
- =?us-ascii?Q?HIO2jVNRdxqN4Sb1h1U+qFhfecmjedyMwI86/71CQRRSqG+v6dyR2eOipkEX?=
- =?us-ascii?Q?Lvh1FGQclPR0hQXXk3Z+aLDtQ+HOPT483XfGZFyWMCSlP37cOHkX2f6dJZnF?=
- =?us-ascii?Q?wJmeGdArDfEuL6yT4Bw0UmuyQ4BvLNkEGkrhxzQ7dSxLHke2GN4JM3y9F660?=
- =?us-ascii?Q?hrlCdjZVIDyQChlG6fc9x3ZGu2NetYUMGFitFYdo63StWh1+VzF+DQRYeQvv?=
- =?us-ascii?Q?fHHDmuLpBj0pq9s78WTtuIFaW/o7QlRhG3Kbm0h8jrspplEolkWXGN+6Dyuw?=
- =?us-ascii?Q?DC5tNMDyKydMBQedghh9QPh9IXdYYyxecIYtrqnH2RVY7FlcGvht66OpDuir?=
- =?us-ascii?Q?l5YkPBqnVg77iYKVOIGvFm/dmEyLzryD7lpih+KBCya1gdcOiaAB7NukXs/1?=
- =?us-ascii?Q?jqyvD0TOeupKV+KONVjJc6rKzRdx9qNroTw09Rmf0y6Ck7Xq1pyrJ2NPSrIn?=
- =?us-ascii?Q?BnR7KVPgTLzGLrH8GahqkzcfXJlFr8hULtbK8X53p3Kcpao1LUAnIeCPNP/R?=
- =?us-ascii?Q?Jj/Ooa4CipK5TWMmSFGRFYMD/9ueGeY25LTCAa6TOxXjMRHmbdKlSEyKtjni?=
- =?us-ascii?Q?KmM2dk4+ulRLWI2lFuvAHrH/uuVhY7nEAxY+KBR7Sa3By8hDAkojXsVGK0Iu?=
- =?us-ascii?Q?3MQT+XvsekDDxSL0kn2EvtRmjIHj6n5lx6/a46NRtbWawdTZBVsGnGU676ck?=
- =?us-ascii?Q?Y3inr9uwwggUaSqhyxPMzo+aSTYhpnz0uMO3?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cG5zcXdZbFJZdnlQcXRwREpuSGN1emd0OStBUmNsdm1janFoWUVMS3MxSGhu?=
+ =?utf-8?B?QUtGZFIzT1lPZkxEWFZLVXhiWUgvWHBFMjd4WlBTS2dCYWlpdnRMbW1mMVFk?=
+ =?utf-8?B?cXhXY2RaajBHSGtPT3pYa1Rab25JL2JNVk1maS9pSnZBZDRWTzRPaVMzWEhE?=
+ =?utf-8?B?WVlTdWRhNW14SnRKMG5PTVdZbXVvUUJFMTQ5cDQ3dlJodVM5ZTRxL2NSTjVD?=
+ =?utf-8?B?VU5XdmF5dktoTmZYbUlydHJKYnk1Si9rWktHWWlYZ1MrOG9OWENQdmE1OW5K?=
+ =?utf-8?B?ZnpvVVRLRTZ1TGkxekNybUFSdHdIVVB4V0tJR1FaL3JudUswZDdsN2NkTGtl?=
+ =?utf-8?B?djRMVVB6YmJoSkNKM2JBb0pDYXRoeUtZb05LaEo1enpsZ0w3RzQ4SDZOMEtE?=
+ =?utf-8?B?TGtOc3prRnZURW9jYlRYbFFJMmNHcWtKQ1QvYnVWWG9xcGFCYnN2OHRxNVFx?=
+ =?utf-8?B?aWd1b1R1dG5nNUVQb1NxTklZZU5Zc1FwQ2Jhajd3bkFBSm9HZmcwUGliaU9R?=
+ =?utf-8?B?OWlqeW1OajB6RmZYUVc4MkplRGJnalRENnhQWURteWJFOGhNam51Q0tseHVO?=
+ =?utf-8?B?S29jNnVMKzNtdXNPRzdzUnVxbkR6Y0FVNHQ3eUdjcGQ2QWhUcHNDOVphYmh3?=
+ =?utf-8?B?cDZqV29BOTFBMEFESW00WllwRmtoQnpwQUMrRDVQcjNsbUtYTFFpcTlxbElE?=
+ =?utf-8?B?aWZWSUpaMWMyamZHeFdxRzlVR2M5MUdrQkp1bENKR3JXUkxFQmwydmFWd1Vz?=
+ =?utf-8?B?dUhHUTRBamtjT0tWNTJ6aStsV0I0MW5ZRURzNm5ORGJzVFFLSTRrMmRNSXVC?=
+ =?utf-8?B?M003VkxZZituclRnV0xINVRvb3ZGcWFudFpvS041U2lKb0xtQWdQanYra2ts?=
+ =?utf-8?B?T3NLR1MvT0x1RU5zNFE0c3MwenpWOVI2VjFjZFd6a1JUTlpjeGJrVjNRaWJR?=
+ =?utf-8?B?cUVETGxzTnpLeCt5YXFwbXhuWlJzakx6SHQwSzdjUFYwUmp6R0hBZGpkYVY4?=
+ =?utf-8?B?dXpwSmdueHBEcitDN2s0Y2JQRG94eGFKNGxJbVZsNEd3aUo0QS9IZGlhU3p1?=
+ =?utf-8?B?NmVoazV2Y25kaUxBVUxwekhqQkRETk5EaVZKbURUOU1VZXYvTFJLWDhzeGRZ?=
+ =?utf-8?B?TnlhRUdwa2IyaWszVFdoY21mVWh3UkxPbG92aW1mb1c2TjhreGNXWUgzcWsz?=
+ =?utf-8?B?R2VOT1dFQ0hLRFVnTlJFZUF0eVkzb2tiSTdQLzVuNFFEVGExSFl5M2dyZHMz?=
+ =?utf-8?B?aUJFYXRVb044czlSbG9ZN0hUQUVrQks1RGZDQ0RlelpvcFVwa2N3RVZSdDk5?=
+ =?utf-8?B?Q3pFem5LalYvR2VZWE44N3lISUhpOXhXSm1VQWUxZXZ3dHJRdDEwei84bXUy?=
+ =?utf-8?B?TmxrVEo4bkIxSUo2ZDNKTFl2UndXcDNiMVhPZHlXWlVOdEpYSlNtQTV0c2Va?=
+ =?utf-8?B?SUxDYnVJamphL2xUK1RhNnVaT3FpNEErV05paVZpSkZyWVlBaytjQkN6QjhY?=
+ =?utf-8?B?K3p1UHZ5K29pRVh6aGhBeGlKZDFqQUU2aFVVU1JkTGx0NGMwOVFjSHVHaCt5?=
+ =?utf-8?B?WDVFSytvSTRUZXpmaVQ0TlF0dUp3bENhcjF2aG1WcnNUNUhEUnRZeG9LcFV3?=
+ =?utf-8?B?cGYxNDVyQ0N5bGpkTk5KRWxQR2dtNlFkVTQzZEQ4citsNFlHaVF4SVdhZ2t1?=
+ =?utf-8?B?bUFJeUZadGFqSGM1QkJKZXR6aUJLUzV4VHFtcy9QdVdFb2ZlblU1K1FPdjhO?=
+ =?utf-8?B?eVR2WHFOdXdPYVN2MHV6eVhCc21IZUZWc0xBTHRpd2xHdUl4a0pXbWtRSk56?=
+ =?utf-8?B?YmdHRUJ4dk5zbkJsVjlIdkMydFNvdlZUUm9YcWoyWmxrcEZLdHlBamczSERH?=
+ =?utf-8?B?WStHUUcxMUVQUkJNOHlhR3l2Q216ZXFKcjdwSzdpT2t1R2d0MU9mZlZQS2xv?=
+ =?utf-8?Q?LC3zX/yKDyI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHFCY0J3aUUrNWFYWnh1N2daVnRIZ0dvcndwdHp2T3NJOG80aVExTjVkUk9s?=
+ =?utf-8?B?MU9IbGVUeER4VnQzdW9Kdi8wS0RxSVFQd0MxQWYwZGRmaVprUE1PeURhdmRS?=
+ =?utf-8?B?cVZFVDBYR0tOdnQ3VDV3dGgyZ0tEeUZZM3VwNVp2WHRXa05WNnZZMHJlRVdV?=
+ =?utf-8?B?aVZJNHgyTUhvV0tVN292VWR4YnRGMUhEaGg0VHJTYUlCM1FtUGgyRVlDdGhY?=
+ =?utf-8?B?QVpSTWVCMXkzUWhoTVV3cUR0cmNXQmdiNHN3aTdsUkVpWFNGaDYrVCtyQk8y?=
+ =?utf-8?B?bENMKzJzdHFCZWRHNklhcERIWDBpc0trdkxqMUwrTi90c0NCWGZ5c3JrUlR1?=
+ =?utf-8?B?NTcrYk5XbHg2b0U4cUlWeWx1NU8yT1RYbWNvekFRbEhDTWIwZ0ZwZHk4WkJY?=
+ =?utf-8?B?MEt2OXNNd2JYNnlybFI4M2xremk2U2FkRSt3ZVFHQXpaN0JxWG1MVDhwOXFx?=
+ =?utf-8?B?ZEErWUJ1TVRaTmpmK3pmQ1BMR0hOeXFrdmF0UEF4dWhoZHM3VEduWCt6ay9k?=
+ =?utf-8?B?ZlFreUZnTURJaGJGRm5tWU9kb2s4NTYrbllMencvVUtvVjdVNyt4azgvU0J2?=
+ =?utf-8?B?TGhOMGkzTGxrWnpZUEwwRUcrOEFNRkxCRlI4U0s2ZXhIOUswb1ptSVBEYTBr?=
+ =?utf-8?B?R29zUjhwZkJuc3huZ3hhcWxGdWpXbXlocDNoakJ2UzhDVTNLcWl5VmNzWndu?=
+ =?utf-8?B?aGpHQTRoWk5OUHQ3aTZvQXlFaXluSGloaG9rSjhuUUU0UFRBbnRVcnp4QzR3?=
+ =?utf-8?B?b3pwelZuTXVZVDJKWmJWQVlnOWpiUHJHSWRyVnQwQkRieU45VDAvV0hWU2Nn?=
+ =?utf-8?B?VnN6YWJvVHNsaG55dDZReGRkOTVZbEJkbG1URUpORFdsWng1Zzg4dVpEUDJI?=
+ =?utf-8?B?b1pmT0g4cjR0TytLdGtOb25qWjF4WGJoVE52bjg4aE16Y04rZ2hodXduZ1lr?=
+ =?utf-8?B?UVNWQXNOb0pGSjZ4K2xGOTU1Ui9aTFdLLzRZeUhjT2J4a3QvNlA5S0lWNFlR?=
+ =?utf-8?B?c0dML3ZkeVU3dURWWUNXdStmT21GWWVvZkxSSjloRHJpd1FpUFgwMXB4RWlx?=
+ =?utf-8?B?TDByWHNFbFZHaWJrV2RYM3Y1QmF2MEtZdWF2d204VWdzQTU2bVBObFJDUjVa?=
+ =?utf-8?B?VlhLbXNtM2prWFg1WFFwZzhGbmY5YmxXUkY3VXlOTlFsdXk3MkxHRyt4NjRZ?=
+ =?utf-8?B?bE5CbDhEc2NpalFUUWxNN1p4dVdMWGVtc0k2enRpSExRRDZpNDJLL015TTJi?=
+ =?utf-8?B?VlNWNFJhWU0wVmtSZWl2NkRIY3R4VjRPeU93bE1CREt1Q2Q4djBlNFpkZktV?=
+ =?utf-8?B?bXVxcFNsMVhGL093SFpSWFpuNDJaMnQxS3JUdFNvYW90L0NRRU91QzBSYUVS?=
+ =?utf-8?B?NHMxaVBOYy85bkVVd21DWjkzZlV3QmNQOVNTN0VLRk9sSTlaNmM5M21JbVUz?=
+ =?utf-8?B?OHk0RjdpWFZxdXpkR2ltd2lBTVlyMEVRemV0NWNUSWRTd01oWC93OGEvVDB5?=
+ =?utf-8?B?c2tPd0pLNXdTWkVJZ3RqQSsvaGliWGRjdlk2SitaRE5jRERHV2F2bHo0cXhN?=
+ =?utf-8?B?WFZPOFdUTVA4NVVLTUFhMnE2Rjh4K1lPVXFqOXlpeDZOT3pWZzAxWUE0eW84?=
+ =?utf-8?B?S0lnZ05nWXA5QUUxWE1aeFdPZWFqdWRWSmpQL0JsNER3OWZzdVRiZ0xaMS93?=
+ =?utf-8?B?aXAxSGVOUlh2T1lXZmxIQTFGV3VJbnRnQ016djZ2elVDWVJJWWVmZm5TR1I2?=
+ =?utf-8?B?OTV6R3lBOFdvNG5wZmFMZzFvdDFZY1VMeTIzMkxqcFBCUlFDOTI2L2FmS1hM?=
+ =?utf-8?B?MXVPelpQMnM0NkRmL3dqNG1mSWJHd3ErQmhFSTNJMDRKaTdzYVNWYnNyUTJl?=
+ =?utf-8?B?ZVllRWsraENzT2VpVEdvekRLaDVjcEQ5dzhVVlZNc2FxMnBKQ1A2K1drZU5z?=
+ =?utf-8?B?U2VBNWt2MjhjVXN3L1RxbWF1UmFoL3NjcXk1S1hKWERGdUN4LzIvYklLTVlp?=
+ =?utf-8?B?UHkyTkF1S2xFMVdoL0pOQ3BpVXB5eFRnd3ZXR3RkR1BpNzFLejRZNWdxMUgw?=
+ =?utf-8?B?VGQwTG41a0ExQmpNWUd5V3lFYTZVZG9IN2JLSU5SbGFaR3FFNDNhVmozUHlW?=
+ =?utf-8?Q?PZ1XxUaWrh8rVIowVafnVQMTf?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2025 20:23:12.7832 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eecd6528-8f92-4cba-6f2a-08ddd5f03bc7
+X-MS-Exchange-CrossTenant-Network-Message-Id: a97652c9-cf55-48b2-ab20-08ddd5f1c6af
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2025 20:34:15.7033 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F68.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9484
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L0QgVnkVgaA/HX9lYeQqq9Pt5CAhMR2f3pbpz4r5pMUkNWhI2FOhUOcomUrr5xCKGgO9WVjsuNVVZ9gWWfg1TQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7912
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,32 +162,234 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The kfd CRIU checkpoint ioctl would return an error if trying
-to checkpoint a process with no kfd buffer objects.
 
-This is a normal case and should not be an error.
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: David Francis <David.Francis@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On 2025-08-07 15:12, Harry Wentland wrote:
+> On 2025-07-23 11:58, Timur Kristóf wrote:
+>> Analog displays typically have a DDC connection which can be
+>> used by the GPU to read EDID. This commit adds the capability
+>> to probe analog displays using DDC, reading the EDID header and
+>> deciding whether the analog link is connected based on the data
+>> that was read.
+>>
+>> As a reference, I used the following functions:
+>> amdgpu_connector_vga_detect
+>> amdgpu_display_ddc_probe
+>>
+>> DAC load detection will be implemented in a separate commit.
+> 
+> Another regression in our internal testing with this patch, unfortunately
+> only on not-yet released HW.
+> 
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 828a9ceef1e7..f7f34b710d3e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2566,8 +2566,8 @@ static int criu_restore(struct file *filep,
- 	pr_debug("CRIU restore (num_devices:%u num_bos:%u num_objects:%u priv_data_size:%llu)\n",
- 		 args->num_devices, args->num_bos, args->num_objects, args->priv_data_size);
- 
--	if (!args->bos || !args->devices || !args->priv_data || !args->priv_data_size ||
--	    !args->num_devices || !args->num_bos)
-+	if ((args->num_bos > 0 && !args->bos) || !args->devices || !args->priv_data ||
-+	    !args->priv_data_size || !args->num_devices)
- 		return -EINVAL;
- 
- 	mutex_lock(&p->mutex);
--- 
-2.34.1
+While this shows on unreleased HW I wouldn't be surprised if it
+repros on other (recent-ish) APUs (integrated GPUs). It's just
+that this week's test was on currently unreleased HW.
+
+Harry
+
+> I wonder if pipe-ctx->stream could be NULL in some cases.
+> 
+> Harry
+> 
+>>
+>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+>> ---
+>>  .../amd/display/dc/link/hwss/link_hwss_dio.c  | 16 ++--
+>>  .../drm/amd/display/dc/link/link_detection.c  | 80 ++++++++++++++++++-
+>>  .../gpu/drm/amd/display/dc/link/link_dpms.c   |  3 +
+>>  .../drm/amd/display/dc/link/link_factory.c    |  3 +
+>>  4 files changed, 95 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
+>> index f3470716734d..b9ebb992dc98 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
+>> @@ -58,8 +58,9 @@ void setup_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
+>>  		return;
+>>  	}
+>>  
+>> -	link_enc->funcs->connect_dig_be_to_fe(link_enc,
+>> -			pipe_ctx->stream_res.stream_enc->id, true);
+>> +	if (!dc_is_rgb_signal(pipe_ctx->stream->signal))
+>> +		link_enc->funcs->connect_dig_be_to_fe(link_enc,
+>> +				pipe_ctx->stream_res.stream_enc->id, true);
+>>  	if (dc_is_dp_signal(pipe_ctx->stream->signal))
+>>  		pipe_ctx->stream->ctx->dc->link_srv->dp_trace_source_sequence(pipe_ctx->stream->link,
+>>  				DPCD_SOURCE_SEQ_AFTER_CONNECT_DIG_FE_BE);
+>> @@ -98,10 +99,13 @@ void reset_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
+>>  	if (stream_enc->funcs->enable_stream)
+>>  		stream_enc->funcs->enable_stream(stream_enc,
+>>  				pipe_ctx->stream->signal, false);
+>> -	link_enc->funcs->connect_dig_be_to_fe(
+>> -			link_enc,
+>> -			pipe_ctx->stream_res.stream_enc->id,
+>> -			false);
+>> +
+>> +	if (!dc_is_rgb_signal(pipe_ctx->stream->signal))
+>> +		link_enc->funcs->connect_dig_be_to_fe(
+>> +				link_enc,
+>> +				pipe_ctx->stream_res.stream_enc->id,
+>> +				false);
+>> +
+>>  	if (dc_is_dp_signal(pipe_ctx->stream->signal))
+>>  		pipe_ctx->stream->ctx->dc->link_srv->dp_trace_source_sequence(
+>>  				pipe_ctx->stream->link,
+>> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>> index 827b630daf49..fcabc83464af 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>> @@ -942,6 +942,12 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+>>  			break;
+>>  		}
+>>  
+>> +		case SIGNAL_TYPE_RGB: {
+>> +			sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C;
+>> +			sink_caps.signal = SIGNAL_TYPE_RGB;
+>> +			break;
+>> +		}
+>> +
+>>  		case SIGNAL_TYPE_LVDS: {
+>>  			sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C;
+>>  			sink_caps.signal = SIGNAL_TYPE_LVDS;
+>> @@ -1133,9 +1139,17 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+>>  				sink = prev_sink;
+>>  				prev_sink = NULL;
+>>  			}
+>> -			query_hdcp_capability(sink->sink_signal, link);
+>> +
+>> +			if (!sink->edid_caps.analog)
+>> +				query_hdcp_capability(sink->sink_signal, link);
+>>  		}
+>>  
+>> +		/* DVI-I connector connected to analog display. */
+>> +		if ((link->link_enc->connector.id == CONNECTOR_ID_DUAL_LINK_DVII ||
+>> +		     link->link_enc->connector.id == CONNECTOR_ID_SINGLE_LINK_DVII) &&
+>> +			sink->edid_caps.analog)
+>> +			sink->sink_signal = SIGNAL_TYPE_RGB;
+>> +
+>>  		/* HDMI-DVI Dongle */
+>>  		if (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A &&
+>>  		    !sink->edid_caps.edid_hdmi)
+>> @@ -1228,6 +1242,64 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+>>  	return true;
+>>  }
+>>  
+>> +/**
+>> + * Evaluates whether an EDID header is acceptable,
+>> + * for the purpose of determining a connection with a display.
+>> + */
+>> +static bool link_detect_evaluate_edid_header(uint8_t edid_header[8])
+>> +{
+>> +	int edid_header_score = 0;
+>> +	int i;
+>> +
+>> +	for (i = 0; i < 8; ++i)
+>> +		edid_header_score += edid_header[i] == ((i == 0 || i == 7) ? 0x00 : 0xff);
+>> +
+>> +	return edid_header_score >= 6;
+>> +}
+>> +
+>> +/**
+>> + * Tries to detect a connected display by probing the DDC
+>> + * and reading the EDID header.
+>> + * The probing is considered successful if we receive a
+>> + * reply from the DDC over I2C and the EDID header matches.
+>> + */
+>> +static bool link_detect_ddc_probe(struct dc_link *link)
+>> +{
+>> +	if (!link->ddc)
+>> +		return false;
+>> +
+>> +	uint8_t edid_header[8] = {0};
+>> +	bool ddc_probed = i2c_read(link->ddc, 0x50, edid_header, sizeof(edid_header));
+>> +
+>> +	if (!ddc_probed)
+>> +		return false;
+>> +
+>> +	if (!link_detect_evaluate_edid_header(edid_header))
+>> +		return false;
+>> +
+>> +	return true;
+>> +}
+>> +
+>> +/**
+>> + * Determines if there is an analog sink connected.
+>> + */
+>> +static bool link_detect_analog(struct dc_link *link, enum dc_connection_type *type)
+>> +{
+>> +	/* Don't care about connectors that don't support an analog signal. */
+>> +	if (link->link_enc->connector.id != CONNECTOR_ID_VGA &&
+>> +		link->link_enc->connector.id != CONNECTOR_ID_SINGLE_LINK_DVII &&
+>> +		link->link_enc->connector.id != CONNECTOR_ID_DUAL_LINK_DVII)
+>> +		return false;
+>> +
+>> +	if (link_detect_ddc_probe(link)) {
+>> +		*type = dc_connection_single;
+>> +		return true;
+>> +	}
+>> +
+>> +	*type = dc_connection_none;
+>> +	return true;
+>> +}
+>> +
+>>  /*
+>>   * link_detect_connection_type() - Determine if there is a sink connected
+>>   *
+>> @@ -1238,6 +1310,7 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+>>  bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *type)
+>>  {
+>>  	uint32_t is_hpd_high = 0;
+>> +	bool supports_hpd = link->irq_source_hpd != DC_IRQ_SOURCE_INVALID;
+>>  
+>>  	if (link->connector_signal == SIGNAL_TYPE_LVDS) {
+>>  		*type = dc_connection_single;
+>> @@ -1261,6 +1334,8 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
+>>  		return true;
+>>  	}
+>>  
+>> +	if (!supports_hpd)
+>> +		return link_detect_analog(link, type);
+>>  
+>>  	if (!query_hpd_status(link, &is_hpd_high))
+>>  		goto hpd_gpio_failure;
+>> @@ -1269,6 +1344,9 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
+>>  		*type = dc_connection_single;
+>>  		/* TODO: need to do the actual detection */
+>>  	} else {
+>> +		if (link_detect_analog(link, type))
+>> +			return true;
+>> +
+>>  		*type = dc_connection_none;
+>>  		if (link->connector_signal == SIGNAL_TYPE_EDP) {
+>>  			/* eDP is not connected, power down it */
+>> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+>> index d6b7347c6c11..ac25d89a4148 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+>> @@ -2256,6 +2256,9 @@ static enum dc_status enable_link(
+>>  		enable_link_lvds(pipe_ctx);
+>>  		status = DC_OK;
+>>  		break;
+>> +	case SIGNAL_TYPE_RGB:
+>> +		status = DC_OK;
+>> +		break;
+>>  	case SIGNAL_TYPE_VIRTUAL:
+>>  		status = enable_link_virtual(pipe_ctx);
+>>  		break;
+>> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+>> index 71c10a1261b9..c9725fd316f6 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+>> @@ -555,6 +555,9 @@ static bool construct_phy(struct dc_link *link,
+>>  	case CONNECTOR_ID_DUAL_LINK_DVII:
+>>  		link->connector_signal = SIGNAL_TYPE_DVI_DUAL_LINK;
+>>  		break;
+>> +	case CONNECTOR_ID_VGA:
+>> +		link->connector_signal = SIGNAL_TYPE_RGB;
+>> +		break;
+>>  	case CONNECTOR_ID_DISPLAY_PORT:
+>>  	case CONNECTOR_ID_MXM:
+>>  	case CONNECTOR_ID_USBC:
+> 
 
