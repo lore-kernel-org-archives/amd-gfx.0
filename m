@@ -4,134 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22452C87FCA
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Aug 2025 22:04:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20A7BC87FCA
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Aug 2025 23:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCECB10E197;
-	Thu,  7 Aug 2025 22:04:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B08710E189;
+	Thu,  7 Aug 2025 23:31:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Io78T+cf";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aMPAiBvr";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2045.outbound.protection.outlook.com [40.107.96.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29CE210E197
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Aug 2025 22:04:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AxDbiYwRw+Vcqd5gRDADEgP20g74V4nkj1e7i5gR2souU+bsJ9vACogyH4Fn1dquKaPeSI58L3tCHGte5w2I6Wjiu84E6o6c9Ez+dAAw2JN1uC8NyFZwB8ooJKZx5Dm3joL8YCkOQ7kGWuchkZdugFb9lBINGRvhX7kxjP/VCLYGgxm7XrVg3QnyDju9C6nura6kYWQt/IzIotqhtbEUnSnLlWf/8ob74DdvYPmKKq9eT/ntyIs1hoTfBk54vGVQZOzEFSZfLrRWxki+CrY107aU2unKLSR16Chw4U1EZ5N/KJ6ggJpeUTPmw4tq59UCAouuP6JyIX1GbfPfGbqIzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MQ6USezJckqDWBBUBYpW4sLxRLIgxSdLRWm4ZItxbAA=;
- b=fcXWkIh63o4OezOWtCefq5endJBr+rFropBAijJes2KFJbJuQOQoaBKLZtjhktOIHkYOT5mQiL4rASoiTGup9/hwJ7ltr7jSWwhWOysQu9iuw8otvzFuOFciV+Lh0KwK7rOh1emEWCcc7ax9HNyF6MlCEvIGpj8uW/WwrbJWvYhNwaozejNEdB8QE5cJp+2tcvtITrLtUnropyQFRM0/31Qile/s0EvlJFzocTdUc6T0Os8nb1eJXfPjEaWyDHYvz4XTpWkrctRznKhj1KwcGLeD4mZj4sw5t27xzFjTxQsdJyTdP1lsVwsinhrJcZLk6kGLMC6P1sktQ/wzd3kg7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MQ6USezJckqDWBBUBYpW4sLxRLIgxSdLRWm4ZItxbAA=;
- b=Io78T+cfOk8BUXer5B8Ud8Fhn57LDP21YukXN/xV3N+5u81P3j/YaCBn+XOlXyz/31fKg7O/TFNJ3+Mod9daGWZF651PhHE4p2NI+A8eCAL0Qy2krRXM4IFeGLQQFlYwdaCb7GRcDLELSjv0hQr00rHVYH/w/UTkZZZT8i24RdA=
-Received: from SN7P220CA0020.NAMP220.PROD.OUTLOOK.COM (2603:10b6:806:123::25)
- by MN2PR12MB4423.namprd12.prod.outlook.com (2603:10b6:208:24f::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.14; Thu, 7 Aug
- 2025 22:04:36 +0000
-Received: from SN1PEPF000252A1.namprd05.prod.outlook.com
- (2603:10b6:806:123:cafe::32) by SN7P220CA0020.outlook.office365.com
- (2603:10b6:806:123::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.14 via Frontend Transport; Thu,
- 7 Aug 2025 22:04:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF000252A1.mail.protection.outlook.com (10.167.242.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9009.8 via Frontend Transport; Thu, 7 Aug 2025 22:04:35 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Aug
- 2025 17:04:29 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Aug
- 2025 17:04:29 -0500
-Received: from AB350-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 7 Aug 2025 17:04:29 -0500
-From: <vitaly.prosyak@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Vitaly Prosyak <vitaly.prosyak@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: add to custom amdgpu_drm_release
- drm_dev_enter/exit
-Date: Thu, 7 Aug 2025 18:04:18 -0400
-Message-ID: <20250807220418.37185-1-vitaly.prosyak@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ADAF10E189
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Aug 2025 23:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=fQZVVEVI1AsfI9un4ymt8KPJEt8BWLqqpgOOJ/67hqE=; b=aMPAiBvrLE+iHi2W6eiQ/bQdgy
+ FERSoWxLpFHJx6S9yDTuAzn/dMOQfwSs+WT0CLfIBBhHmOfa9MThwr9UZHGUCMTJIziKPPtrCI0VN
+ 0+UM6QItK+d4BUpwPdNzls2awp1PQIRzct7lN5aXM49d9dBdTcLtbdBgmsT1qXVFmatfpGKxoKCOM
+ 80KUOa5usYKCeEvst54lZKoyPljW7WSnxelMJr1C/5B50CebM6BPfRVoeF4/IwHXOpR9F5vtqhnZ3
+ VRDRjSPy3ouEbQIeq1nRdVxSlMXi2zX13caDM+YRL0IY0xQ7feE+ES8yE0Dva98uIPPRst5eKXJjV
+ fE0wOKrg==;
+Received: from [104.193.135.201] (helo=debian.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1ukA4s-00BF8a-H0; Fri, 08 Aug 2025 01:31:18 +0200
+Date: Thu, 7 Aug 2025 17:31:14 -0600
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Timur =?utf-8?Q?Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Fix DP audio DTO1 clock source on DCE 6.
+Message-ID: <xmdk2cncflqglv7jn5yrzkhhvnth5fxp6ekv7lnp5ruzpinhkv@5rxk6sj7fosd>
+References: <20250802155153.6432-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A1:EE_|MN2PR12MB4423:EE_
-X-MS-Office365-Filtering-Correlation-Id: 002db11d-1b10-4776-17bf-08ddd5fe65a8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QW8vOTJpUHNhMEtsQzhFRGFTZUdNZTE3SkZiS0tUU3crUUZ5c1ZWQWFLWkda?=
- =?utf-8?B?MWdSYzJVVVlqWk1sTURGTWxYbEZtVEJsWkFMeHk4eHQ5Nk44QnVUaXIrTG1s?=
- =?utf-8?B?a2htMWdsS3A0dTNTMFRyNDc4dmVuczNVTlRRYVpUWUNDQ1BwSW0zUGloSm94?=
- =?utf-8?B?bGR4MjNRVEhoZm5Rc3JVcUtFbkFXRVA1Rkt6VWFOOUN6dGZ5aFBocXVBYlFj?=
- =?utf-8?B?WTVWOFlqQkpNTmlIaHNPRHI5NDR0OU9mY1Y4b0k3REIwb2JVQ1V5NFhuNkor?=
- =?utf-8?B?cnRBWEZmQzM3RFJsUEVlVTYxdDNFYlZYWDI2cTdVeWk0MTVMakpuOCtZNTlr?=
- =?utf-8?B?MlhtK2hiTnAyUEgyUmtMTzREVjRZbG1YbytCR0J6cFpvYWM2SXBWRFhTR3pX?=
- =?utf-8?B?bkhMbkpWWWpHQjlXY3krWENxbmJ2Z0prK2hsSjh3YjBLNHF3QllKYWY4Y0d6?=
- =?utf-8?B?MFRxTHBWazRHYi9seGdGU1BRSzBvcE1tSjlHYlZYU2QwSVgrQUhSSVR1NFU3?=
- =?utf-8?B?ODF0ZmxIbmhFVnlIa2lKRWRYUytydmFWRXhyeHM0UldxaVdERUFaM0FpVHow?=
- =?utf-8?B?ZGErNDV2WXB2WkxxeFFSK3puTGJBV1o0Qnl5NlMwazRJNUwxU1l1cHhzUWRo?=
- =?utf-8?B?UldWS09GSUtOOVhSZnYzV0wxQitmbVk5VmEvc1JvY0MzTG5FVjVFZmw3R0Rh?=
- =?utf-8?B?UzlFY1ZzakgyRFlmTHFQUzZLRWZSVHRma2g0bUVIZ2hwL1Z3ZWF0TkR1UEJL?=
- =?utf-8?B?cWNScWpuN2F5N3p6WTJ3T2dGN0p0TjFWbytpL1NUTGlaSEduOGJlRlFNVzZR?=
- =?utf-8?B?TzFxMnh3QloxdCtIdExZNnlDZ0JPeFhEUVdqQlQreVN2VmM1Y2NnZlhpN240?=
- =?utf-8?B?Yk1NdVUvdytmTjFCREkwazhzL1JlZ3RNbU42NUVWUzY4V1VGZ21jdngwUEJq?=
- =?utf-8?B?cnkrc29Ra0NKaS9nN0FYMUVGUnhPN054SGwzSnRxclNyWE8yL2hVZlpsTXVk?=
- =?utf-8?B?SktsTk9WM2wzaWg4MUNXNmNJU1pUUVVkSUpJYjlzdkxQQ1g1ZEJXamwvcGtv?=
- =?utf-8?B?WHV3cFd3WDlLT1dJWENMUk8xL1EyZ2ZyTlpUK283T1E2LzBpM1M5VjdpeHQ5?=
- =?utf-8?B?WFpwRHBqTkdweit4bHVUZk5YaFlQb3NyTExtWUNtWXpFdEtwR25NZ0llMUln?=
- =?utf-8?B?N1RHd3JIWDVNMVQ5cEh1dTRHQWxQRU9temxTcEoxeHhOc203TzNoNk9hNXpS?=
- =?utf-8?B?bGhCRU5ndjVqZUxxMlNZZjJyNjJhejZucmFXczIrRkZneUpJTG9ick9lTDky?=
- =?utf-8?B?dTczUk5ROVRWVDRzbXdGQUJnVHdzNFBYNzV4dVY1WENhQ3VWTzIyY0YxMitp?=
- =?utf-8?B?TmNlc1FJeURCTTVJWUx0NnlkcmhGL3B3K3JFeUpLNFBNcWt3ZjJGYm9ZWGQw?=
- =?utf-8?B?RUgzS24zeGpwTUQ2OXMrd1hRUU9mc2tPSk12TkFqQXQ1ajNMc2ZSelVSSXhh?=
- =?utf-8?B?SkRMdDFZbEhidWJpTUZPNEFzSUM5WDVueXZTRDhDbFlRKzZLR2JScXBhY2tO?=
- =?utf-8?B?NHlPK2pIZzhML0RHUUFiOVloS2oyaUx2U1YyaFJBdy9iUFkvYzBtaEdBdVFZ?=
- =?utf-8?B?QmxMejdvMm1FMXBKelpPbzZCWWQvZnoyNlRkR3hwZEx2bXRoL2VKeWQybTZO?=
- =?utf-8?B?dDJ0WDl4eE5aMjlJcGg4Rmp1N2F1K1J1bnJkYy9icEd0RFFseE5NbzlnTGU4?=
- =?utf-8?B?L1dmZUhrZU5iYjdSSlZCODc4WloxMXVPWlo5U2VuaDlXZDR2cEEvdlF1OTBY?=
- =?utf-8?B?YkRoWC9CWE9TNmRla2h5WVBrNHRseVdnaktkS1luL2k2MjRraldwSFh0UFM3?=
- =?utf-8?B?SjFDWGJWNnoxTGgvN0RZMCtMRkhjcys0aitVb2dwcDlaTUpFRmtST09wNnNm?=
- =?utf-8?B?N0JIVjlFYnJpcndKWVpMd1RMQVExTHdyeTAxVnVneWJLRm1xcjVSbi9MYzk1?=
- =?utf-8?B?L296TG1DVGJuUFpwdXB6S3FmTGZlVVB5WFVsNGIwelhybXd1V3FJcWZ5SVVq?=
- =?utf-8?Q?nee5vH?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2025 22:04:35.9673 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 002db11d-1b10-4776-17bf-08ddd5fe65a8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4423
+In-Reply-To: <20250802155153.6432-1-timur.kristof@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,40 +61,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+On 08/02, Timur Kristóf wrote:
+> On DCE 6, DP audio was not working. However, it worked when an
+> HDMI monitor was also plugged in.
+> 
+> Looking at dce_aud_wall_dto_setup it seems that the main
+> difference is that we use DTO1 when only DP is plugged in.
+> 
+> When programming DTO1, it uses audio_dto_source_clock_in_khz
+> which is set from get_dp_ref_freq_khz
+> 
+> The dce60_get_dp_ref_freq_khz implementation looks incorrect,
+> because DENTIST_DISPCLK_CNTL seems to be always zero on DCE 6,
+> so it isn't usable.
+> I compared dce60_get_dp_ref_freq_khz to the legacy display code,
+> specifically dce_v6_0_audio_set_dto, and it turns out that in
+> case of DCE 6, it needs to use the display clock. With that,
+> DP audio started working on Pitcairn, Oland and Cape Verde.
+> 
+> However, it still didn't work on Tahiti. Despite having the
+> same DCE version, Tahiti seems to have a different audio device.
+> After some trial and error I realized that it works with the
+> default display clock as reported by the VBIOS, not the current
+> display clock.
+> 
+> The patch was tested on all four SI GPUs:
+> 
+> * Pitcairn (DCE 6.0)
+> * Oland (DCE 6.4)
+> * Cape Verde (DCE 6.0)
+> * Tahiti (DCE 6.0 but different)
+> 
+> The testing was done on Samsung Odyssey G7 LS28BG700EPXEN on
+> each of the above GPUs, at the following settings:
+> 
+> * 4K 60 Hz
+> * 1080p 60 Hz
+> * 1080p 144 Hz
+> 
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>  .../display/dc/clk_mgr/dce60/dce60_clk_mgr.c  | 21 ++++++-------------
+>  1 file changed, 6 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> index 0267644717b2..883591706db9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> @@ -83,22 +83,13 @@ static const struct state_dependent_clocks dce60_max_clks_by_state[] = {
+>  static int dce60_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base)
+>  {
+>  	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> -	int dprefclk_wdivider;
+> -	int dp_ref_clk_khz;
+> -	int target_div;
+> +	struct dc_context *ctx = clk_mgr_base->ctx;
+> +	int dp_ref_clk_khz = 0;
+>  
+> -	/* DCE6 has no DPREFCLK_CNTL to read DP Reference Clock source */
+> -
+> -	/* Read the mmDENTIST_DISPCLK_CNTL to get the currently
+> -	 * programmed DID DENTIST_DPREFCLK_WDIVIDER*/
+> -	REG_GET(DENTIST_DISPCLK_CNTL, DENTIST_DPREFCLK_WDIVIDER, &dprefclk_wdivider);
+> -
+> -	/* Convert DENTIST_DPREFCLK_WDIVIDERto actual divider*/
+> -	target_div = dentist_get_divider_from_did(dprefclk_wdivider);
+> -
+> -	/* Calculate the current DFS clock, in kHz.*/
+> -	dp_ref_clk_khz = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR
+> -		* clk_mgr->base.dentist_vco_freq_khz) / target_div;
+> +	if (ASIC_REV_IS_TAHITI_P(ctx->asic_id.hw_internal_rev))
+> +		dp_ref_clk_khz = ctx->dc_bios->fw_info.default_display_engine_pll_frequency;
+> +	else
+> +		dp_ref_clk_khz = clk_mgr_base->clks.dispclk_khz;
+>  
+>  	return dce_adjust_dp_ref_freq_for_ss(clk_mgr, dp_ref_clk_khz);
+>  }
+> -- 
+> 2.50.1
+>
 
-User queues are disabled before GEM objects are released
-(protecting against user app crashes).
-No races with PCI hot-unplug (because drm_dev_enter prevents cleanup
-if device is being removed).
+Very nice patch! I checked the mentioned functions, and it looks correct
+to me.
 
-Cc: Christian KÃ¶nig <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+I added other display folks for further review/validation. It could be a
+good idea to include this patch in the next week's promotion.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 4ff3a2eaaf55..32caaef522a1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2920,11 +2920,14 @@ static int amdgpu_drm_release(struct inode *inode, struct file *filp)
- {
- 	struct drm_file *file_priv = filp->private_data;
- 	struct amdgpu_fpriv *fpriv = file_priv->driver_priv;
-+	struct drm_device *dev = file_priv->minor->dev;
-+	int idx;
- 
--	if (fpriv) {
-+	if (fpriv && drm_dev_enter(dev, &idx)) {
- 		fpriv->evf_mgr.fd_closing = true;
- 		amdgpu_eviction_fence_destroy(&fpriv->evf_mgr);
- 		amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
-+		drm_dev_exit(idx);
- 	}
- 
- 	return drm_release(inode, filp);
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+
+Thanks
+
 -- 
-2.34.1
-
+Rodrigo Siqueira
