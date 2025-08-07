@@ -4,127 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52AC8C87FCF
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Aug 2025 13:20:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 207B0C87FCF
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Aug 2025 13:22:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECF6210E842;
-	Thu,  7 Aug 2025 13:20:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8D6810E845;
+	Thu,  7 Aug 2025 13:22:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DBQ+NcAs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hXwG+Q5K";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41D1610E842;
- Thu,  7 Aug 2025 13:20:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vOXKocS2oB+Z4eUGdvrWsQKRz8zSr7BKaAjsXDNfNOgsIoCpA04Ipa2X7zdftMo7aj7so9wwL5UoCDEt2DhPxUJCIl0mCvZOSofTUrc09oWitiiJEQjHyfg73Gl4G/FsMkMk/w3eBvSjLG4+hT5y3BZTg9GIedyD53ZINEnnCFNDgUNB8lGSTkfqBnw9+vK7VRDoH/ZynYjdBYRdMpeBsZyaYOvw6oKQKbUzIa1J5rnq+ELv6OvU3XRGJhyf4Xt0j2ZTlUjTWBlYxtQzs5G+aIR3DhnT23VTz9DYKO0IXda4IJ7DKv1an6crzKUIzGXvXGvEsmSsp1GmSt8ZVckllQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EmYxk7a6yqSrw2C86A4HmkKjggKC2dmCou2rIyRjIKc=;
- b=WVEzlMNOGVLmYWNPNXWzzg1ac9oyhi5KcE19qm5HK3i6Vi90eenUKiFFplAo8ymxjS7RE4cUQrxeL/b/TeHU3z2E+n56yB7tkZU2BAI9Yc88jf2Pk3oEDtqINkz+l7kLNTxmtPganlXLoRfW0TQFIiIqxtPwI+ASnQp19GZxaxZd73KbowUh43wkx8utWwcOpnlDZ6X4TeCplp5xSpkUPYOKMKMCJpzEwHFoNaCKtbqqNA6NeV92zumiUCjZIElNxxyClTVxx6KlDQzAaoWbWJj9uR0s4OaOkZo6Rs3OcnXeJHL4XJ7mG8RU/Rctt6/SCemU7g4pnN2kwWMSHGjL+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EmYxk7a6yqSrw2C86A4HmkKjggKC2dmCou2rIyRjIKc=;
- b=DBQ+NcAsorte3k9FEWHpj/V/nMoFEQM+ACeV/VSOuNKsyHG2YPuzNQWiug3yYQxYD6FA+AJpW4zY67AJoqvt38qvtIXF5wOqtY0BxsyNsuWF7XGILc1trudug/vQ2N0DSN0R04L/VMO7X2ebotufhWuEHt0RxUhgq0pN8qnL008=
-Received: from CH5PR04CA0014.namprd04.prod.outlook.com (2603:10b6:610:1f4::26)
- by DS7PR12MB6336.namprd12.prod.outlook.com (2603:10b6:8:93::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9009.14; Thu, 7 Aug 2025 13:20:48 +0000
-Received: from CH1PEPF0000AD82.namprd04.prod.outlook.com
- (2603:10b6:610:1f4:cafe::f5) by CH5PR04CA0014.outlook.office365.com
- (2603:10b6:610:1f4::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.16 via Frontend Transport; Thu,
- 7 Aug 2025 13:20:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD82.mail.protection.outlook.com (10.167.244.91) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9009.8 via Frontend Transport; Thu, 7 Aug 2025 13:20:47 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Aug
- 2025 08:20:46 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-fixes-6.17
-Date: Thu, 7 Aug 2025 09:20:29 -0400
-Message-ID: <20250807132030.1168068-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.50.1
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA55210E848
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Aug 2025 13:22:40 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-b34dde96cbfso164663a12.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Aug 2025 06:22:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754572960; x=1755177760; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qBLgWcNdKKL+c6CWz+xLK1vUo5/I98i0yfBsTzP5b0c=;
+ b=hXwG+Q5KNQ7vlElioT6TOMamx7g+Acr7dMt28QtpwhF6PcOtNNcHcNjwRHCZyDgUjo
+ rTRfQImSkT4VhnXhdjB3bDj8xDo7hbJxhxiDraoFrNuh0/KofnG0hhrNzlP0o6QNBseJ
+ MqUxx5QSiUvpYwObjIPclsNruAKeNBmDvKj5LfgzYD9wl0sMyOSiUO3dlzlY+pG1bHhR
+ 7ueEqBdORsigHqC9uVvoKDqKZetbjJFHSdJEg6VfnAfMYWaY37uq7R+MnME7Tex1E+i1
+ uG0OBscqhvudv9dqTXE/pnpf9YMPpU5nU3wgkHYZsb+H6PWX7sDwhNRy4XcrEdgGLymB
+ TVnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754572960; x=1755177760;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qBLgWcNdKKL+c6CWz+xLK1vUo5/I98i0yfBsTzP5b0c=;
+ b=EDOHx+jw3tH+3S5RHwwMs9hNqIUnKS6n+zwi5LJqjfTz8z3mnceZDHKoWDiMJDbdrT
+ vXru2hGc3UqqLeLbKmoSAnCF4BkuqMIklJCRzRjp4eRN2DBkhg+SFoEYmuy/bc5Dv+b/
+ 7w4q6j27hCqtxYdf4Vq7Setna1XWDMT8BOkSjxxFXqsPdIOm0Rwxhw7C6GkHWth2QY9v
+ Rzpfm39SRW3KCwfkqta4cCaOd9LI3UObA5AVkzzZGkeYKwJkDJE0WKA78HfcCkC22auc
+ 1VkQAAi4rS410S/a64+CaedZOSpaZTlGlPqv6owgzQVg3NBU8Ugc+oIvCs6WGxlIvkfh
+ myMQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX0aY6eZolBe+sw9p+plv7/7RKYRpYJdYzqVHtFXuw4cZ5DU+Cr5ZXdEfxoMhhEl48RX92dAjoB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4fwlxU9anPfGummgENgNUwtzH9IJFKUzZ5mC26rGKxl+WUCL9
+ 7SizneiThy8QTInEdtqAR1r1u8PMMnB2tBjy1iM6/bHarhgpoHnnZDHTSDCk7D9c6C4NZcCpAU7
+ vBhZ/M9gjo3c0eNFPs4PXisGzgPcZfwA=
+X-Gm-Gg: ASbGncu+h5eLeSOzawmiXxWBXSNfygCN0Ika/dNoh0GIG7gair09tbHa3J3aKkygofQ
+ hYxIWPZYQ8kNf6OsSh7bUh8RHz7OFG8Y4d5PvU2D7Ph536kecz/F6G5+lHcKufKxFfo5HANsJLm
+ AVgHNqFUd2gVbIAkGojxlxKJ/MWyv7ziNPV2Kh4LiHPlkCnnxQB6o1CJBxxisVnLevlLRA+IMvi
+ T00s5kxigpp49daQQ==
+X-Google-Smtp-Source: AGHT+IF8fR/1l9ddcOZBGbCKA93yu6s1R/ihS2oTPPuTR2cJ59KyKeqri4LkhBkM/c2KNFRlrjO7glXwzyyQIHjvpfk=
+X-Received: by 2002:a17:902:eccc:b0:240:bd35:c4ec with SMTP id
+ d9443c01a7336-2429f57dee5mr45038595ad.6.1754572960214; Thu, 07 Aug 2025
+ 06:22:40 -0700 (PDT)
 MIME-Version: 1.0
+References: <hzobspwqosrmrdmzicwabpsr4lcisuwck5nfsh5qwkoek562to@ybja5yzucsbh>
+In-Reply-To: <hzobspwqosrmrdmzicwabpsr4lcisuwck5nfsh5qwkoek562to@ybja5yzucsbh>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 7 Aug 2025 09:22:28 -0400
+X-Gm-Features: Ac12FXzuJJkCN1IGOiozt5mLOba8o-9jtwNjiMmaEbi49o_GzeP0ofj_YABcV-g
+Message-ID: <CADnq5_O1PyEqtK-GGPgPzkMDeNmTCFFNDLd-+73NDqFtPVL2oA@mail.gmail.com>
+Subject: Re: Is amdgpu open to converting logging to drm_* functions
+To: Brahmajit Das <listout@listout.xyz>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, sean@poorly.run, 
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD82:EE_|DS7PR12MB6336:EE_
-X-MS-Office365-Filtering-Correlation-Id: 753f8f78-e012-433e-38bc-08ddd5b538cc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NVh6WVRtV2xUdzFvYUIvcEVIV0lJNFVXRDhXR2RCVHB2KytxNTZCS2pHUjR5?=
- =?utf-8?B?czlVajQ4dHZqYnhUdXNMK3I2WUQ2emdPRnRWT1Z6U05nWTFiNmV3UTJ2Z0FL?=
- =?utf-8?B?aEE5RWpYb3M5N3pjREJaRFJ4L0NjMVNGcTZVckVFVWQ0R29FNkN5dWtrQisx?=
- =?utf-8?B?cGQ0Rk91UFJzL3RGdDBoWTlVRm13TFluU2NTQ2tSYWxMamxqamJxVlRkTE5k?=
- =?utf-8?B?aE9iL1hRaUd3SDh5NTNIM0dXNDJIa2o0bnpmMjBTbFQ1QWkwS0RKOWN3cFR4?=
- =?utf-8?B?eDMrVklJNSswVThiUUVxZEljZnNFZi9IeWxpbEhqUFM1NDIyL3dZODFIaVEy?=
- =?utf-8?B?amg1YWo2NEtTc0oyK1NrR1dHc0xyaUk2bzRzUExjL0FMK2Nvck1WVFNBZHRW?=
- =?utf-8?B?OWZlYUwxV2IwRjBBWVQ0RXhJNXIwbFM0TWF5c3Rmei8wNGFlR2c2K1RCUXVJ?=
- =?utf-8?B?NUUwZU5sU0JiSDRrZjZCVE1DOVdUbHh4V05aMXpMR1lNdVpTU21sQjgzZHgx?=
- =?utf-8?B?RHNkMkovcml6LzM0Rjh5bHYzenpDWXNUVkdJMkxEM2pJMzc0YmxyM1JFM1A0?=
- =?utf-8?B?YkxLUFpSYkpaaDVFT252L3NQb2tXd3lnSnMySm52R1JDdXBxVlpzQXdONjZX?=
- =?utf-8?B?azJtU3NZNE56dmlsNjZKUEtaaXdsaHRFc00wekVoZjFISVc4YVp6emU5bUl2?=
- =?utf-8?B?Z3hRZUNHaW13eGpCSWppYUs3bTNOb2U0cWFuUTVDTnJLMEZWTUZXNEhyUXJ4?=
- =?utf-8?B?UUxDUWtTSFJtSklKV0ErVnVjRlNjNmI3Sk1hVG5SR2V1M05yb1hvdXBRN1ps?=
- =?utf-8?B?VEtONkJMdzdSdWV3U09sbGJaTUN2TkRnU1hORkl5ZWRjQ01tdnZZS2xzU3c1?=
- =?utf-8?B?WHdDSFdPeWhLUG1XeWJNVnNNSDlRNTNDdUkxQWJQcVd3MWpVVG1LbEQ0WWl3?=
- =?utf-8?B?ZnZNck1tblluUlNzRHRWZ3FzSGEremp3L2NVeDYyclZaMnlJSENQNHA3aTk2?=
- =?utf-8?B?dytnSytlTVFHT1MrcmVEaUxQWkNkaVZKcTkvdklEVm9pOXVOMVo1ZU1RQThp?=
- =?utf-8?B?eDZ5cTFrbEdGSk9SdDNkZnpsTlFrYUdLY3FSbEFsYTczZDhQYmo0V3dHUG9a?=
- =?utf-8?B?YmdaV3o0OTkxTmVZRzg2QVV2b0R1akpYZytWRHBrMjRYS0JEc1BqQ0prL2ph?=
- =?utf-8?B?dFVTaUthaDZ0bzZpMWFkODB0UEpJRmVhOVlOTjEwcHdYb1ZtNkRJRCtoVENB?=
- =?utf-8?B?eHBFZTlHV24yNEEvTzR1N1ZpZHV2eGJCb0szYzhtMzBoNU16YmZPYUdacjNz?=
- =?utf-8?B?ZEFVNmZ1N3kxSEVlR1VmaitYMlZBMzNYYzZ1VnE1MmJUUUhtcXJ4ZTlrYnNW?=
- =?utf-8?B?ZmtEeWsyWklkTTRabE5qeFJ3LzJPQTgwMnlwUWpibklxOFk0d0tOMzQ1ZFox?=
- =?utf-8?B?eTFISldsOVdqbi9RYkhGUVVTaTg1OXZDaytLSnl2MEV2SG5PVG5EZUN1SlM3?=
- =?utf-8?B?dXNKbDBhUWxjeUxrMjF3MHBPam1jc0VNMEV5TkpRVjVmTGxKTFQ5d1RadWlw?=
- =?utf-8?B?cDg0bk5iL0lkM3hSRWhtcFNGYmpyaS9Uek9NTVluck8wWmZsaEsxNUpEZWN1?=
- =?utf-8?B?T01CdzRIYzhuM3pqRjlLMDlGRGJLT1pSUGZvU0dBcjd4RWd5VG5hdmMxWFB1?=
- =?utf-8?B?dVI1WjlvUjg3SmdxbjVpWTFTUzFpeHcwOU8xcUl4NXgxUmhNdWFWNUpxOUx5?=
- =?utf-8?B?OUlLYlpaMG13ZkI4YlNWbEJ6TWYxdXNkSjQ0T0dtNE5nbVRHWVNvS1pDZXN5?=
- =?utf-8?B?K3ZmYmxiVVhkOThWSmpvemRHbE1pWXJLYUhmMUwxSVc2eU9ZOHlqeXhrM01E?=
- =?utf-8?B?ZzU2RjRla0hIUlU1K1FuZEFUWHpjWmExVFRiLzNsS21Edk84MVNINzlWSThU?=
- =?utf-8?B?VUVueGJsekhSNW8xbnVmRU1OQmNyRU9kVHIvakh2TG94ck4wRlV0REF6c0ZG?=
- =?utf-8?B?c0FBTDh2YTBBPT0=?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2025 13:20:47.4612 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 753f8f78-e012-433e-38bc-08ddd5b538cc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD82.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6336
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,100 +83,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+On Thu, Aug 7, 2025 at 9:13=E2=80=AFAM Brahmajit Das <listout@listout.xyz> =
+wrote:
+>
+> Hello Alex, Christian,
+>
+> I'm a mentee at Linux kernel Bug Fixing Summer 2025. I came across the
+> TODO list on the kernel doc, and specifically this section[0]. Would
+> amdgpu be open to this conversion. I saw that before starting it is
+> recommended to talk with Sean and the relevant maintainer. Hence I'm
+> emailing you folks.
 
-Fixes for 6.17.
+It would be nice to get rid of the old DRM_INFO/ERROR/DEBUG macros and
+replace them with the dev_ or drm_ replacements.
 
-The following changes since commit 6531a2cf07ef156956840853692755cc7e1621b7:
+Alex
 
-  Merge tag 'drm-xe-next-fixes-2025-07-31' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-next (2025-08-01 07:09:16 +1000)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.17-2025-08-07
-
-for you to fetch changes up to 81699fe81b0be287fb28b6210324db48e8458d9f:
-
-  drm/amdgpu: add missing vram lost check for LEGACY RESET (2025-08-06 16:54:25 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.17-2025-08-07:
-
-amdgpu:
-- GC 9.5.0 fixes
-- SMU fix
-- DCE 6 DC fixes
-- mmhub client ID fixes
-- VRR fix
-- Backlight fix
-- UserQ fix
-- Legacy reset fix
-- Misc fixes
-
-amdkfd:
-- CRIU fix
-- Debugfs fix
-
-----------------------------------------------------------------
-Alex Deucher (4):
-      drm/amdgpu: update mmhub 3.0.1 client id mappings
-      drm/amdgpu: update mmhub 3.3 client id mappings
-      drm/amdgpu/discovery: fix fw based ip discovery
-      drm/amdgpu: add missing vram lost check for LEGACY RESET
-
-Amber Lin (1):
-      drm/amdkfd: Destroy KFD debugfs after destroy KFD wq
-
-David Yat Sin (1):
-      drm/amdkfd: Fix checkpoint-restore on multi-xcc
-
-Jesse.Zhang (1):
-      drm/amdgpu: Update SDMA firmware version check for user queue support
-
-Lijo Lazar (3):
-      drm/amdgpu: Update supported modes for GC v9.5.0
-      drm/amdgpu: Update external revid for GC v9.5.0
-      drm/amdgpu: Add NULL check for asic_funcs
-
-Mario Limonciello (3):
-      drm/amd: Restore cached power limit during resume
-      drm/amd: Restore cached manual clock settings during resume
-      drm/amd/display: Revert "drm/amd/display: Fix AMDGPU_MAX_BL_LEVEL value"
-
-Michel Dänzer (1):
-      drm/amd/display: Add primary plane to commits for correct VRR handling
-
-Siyang Liu (1):
-      drm/amd/display: fix a Null pointer dereference vulnerability
-
-Timur Kristóf (2):
-      drm/amd/display: Don't overwrite dce60_clk_mgr
-      drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
-
-Xaver Hugl (1):
-      amdgpu/amdgpu_discovery: increase timeout limit for IFWI init
-
-YuanShang (1):
-      drm/amdgpu: Retain job->vm in amdgpu_job_prepare_job
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |  76 ++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |   7 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c           |   3 +-
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c         |   5 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c          |  57 ++++++-----
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c            | 105 ++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             |   2 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c                 |   2 +
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_module.c            |   2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |  61 ++++++++++--
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  20 +++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   8 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |   9 ++
- drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c   |   1 -
- .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |   5 +
- drivers/gpu/drm/amd/display/dc/core/dc.c           |  19 ++--
- .../amd/display/dc/resource/dce60/dce60_resource.c |  34 ++++---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  16 ++++
- 20 files changed, 321 insertions(+), 119 deletions(-)
+>
+> I guess you can also refer to this,
+> https://patchwork.freedesktop.org/patch/msgid/20191219161722.2779994-1-da=
+niel.vetter@ffwll.ch
+>
+> [0]:
+> https://docs.kernel.org/gpu/todo.html#convert-logging-to-drm-functions-wi=
+th-drm-device-parameter
+>
+> --
+> Regards,
+> listout
