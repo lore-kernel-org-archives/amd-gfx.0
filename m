@@ -4,73 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A4F8C87FCB
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 19:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04056C87FDA
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 19:33:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3C3310E971;
-	Fri,  8 Aug 2025 19:04:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9843910E974;
+	Fri,  8 Aug 2025 19:33:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MMYYQASd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5GjcQB+l";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5053710E971
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 19:04:15 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-23ff92d05acso4316085ad.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Aug 2025 12:04:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754679855; x=1755284655; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jWRVAGBe8pdgKFIn1c23sjWvCS8QGH2IExxZPsGUNOQ=;
- b=MMYYQASdxewweezEtBHln/eGGBTX6Ug/n+oy3uwB8/l9bShnGY1XdEyKuAGlqn5t1H
- NogVjwm1MVdmf4wB7XRnDqDm8KQwCJJ0BxG+ncAHyDr3nqEKl5zXWbZJURyuz1I/oUZV
- gdNElobVOc2bRY0NQlMkL/Hp3Ux6MI76wo6lYvMunMNGDukHu44TH03bgvnNbFQXqzwv
- uMfbZMuHpuU6/wfZfYo21V2JrQFFhW26O16NvpfRT0Q1uyu9My9rKpPT704cN1P5ok3z
- AjEzZhLtU4eiey9Xy8PuTSIivDnjvD8gv+knp/aXjusODX4BRzHRqYUkaAvZUPOJ7xa+
- mNWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754679855; x=1755284655;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jWRVAGBe8pdgKFIn1c23sjWvCS8QGH2IExxZPsGUNOQ=;
- b=ku7IgWX//LpEQuiGbFDE77wP7b66oAS+LIkwY/3AWOm3TIxiUnfAixeG+pRjKrctg/
- ugpFpBPhVJKdPBn22B0GXrVQMP45/aEqxL+P76yLgu6DnvpSmqgJ/adD4HoZEYGbV3XY
- GaV1EIDkcz4acFlJQ78AsqP8hYKNBlv+Ga2QnN/8o7HRwWrTx8i4AlJpQ0eI3lMmJAkT
- NRWfXh9q2HFhyj3pb2Ev4otE7Mo8AnYUB1TYXMkWD4N4PPgTkzBNbjyv5XG9zzq4Gg9g
- 2B333EhqDQEY5b+jKkHkcsvqqIOAjRH7In+jzjxfT4If6ThMyGx/YQFtRsESRgA2mE9I
- rTaA==
-X-Gm-Message-State: AOJu0YwnAoNh+2GoB4WbWGJj1QDbk5LazP+xKa32/E2pE12PeckJyV0c
- KSLqQeaLTck52Oz0n/5fOKvVvbO4YvBbl5oqkU2DqYAtkRfn2IGsalSLnrs2WegUz8IS0ZOUk5r
- +LwP6Z+FNzaqQpigIZfQ1nZWNyq3udWY=
-X-Gm-Gg: ASbGncudXXPhUWlxr0vy3vk9r2WYYR6gjTsiY5MG9VyuGKwtzfRX5OJd9tKICHKQMS4
- Ae173Ni4dl2de7FVWqM3/TX878NprWhR40xMHZuqsJh6EWC9H08rV4L2KgD9ZBc6LNHM3CxP+zH
- SSfO0d7lUH1Jce/7OU8LpS75+933SF/ige7qa+SeoY7Mfwr5/hnxPoexs/dYLQhcFketol/gIkL
- bgR8mu7qpcqaAOCiQ==
-X-Google-Smtp-Source: AGHT+IGkp+L5ANZthAdg4JCG57yHn2qf3f6h/oO1I/QRRJZ5qzG/Iba4qlt56+LU5uyC3GqlnA5B251wkHn9ErNo+4Q=
-X-Received: by 2002:a17:902:f548:b0:240:79df:48b0 with SMTP id
- d9443c01a7336-242d35721f7mr485945ad.0.1754679854636; Fri, 08 Aug 2025
- 12:04:14 -0700 (PDT)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE96510E0BC
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 19:33:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BRJ0JQdOWVYmLHjlPEpiBPcrqvWwgyMgfhX/X9WM4B19H7nexTzfLfDx9SxEL89P1qZL7QE/bEd4BxYlSjU3cDR4J42VomUZvWaLaj2+hJKmPrk7dG7Jt+vSo1tokVEZdooUJEU10QuJcWYaJwywXHutkBLM+DrvH+CKY7t0RMNTYzoUJVhwwHaHhES+LOZ8W65UspQrSxPyu9iiiQdmX+IGVyYvshg/+UGEqouTwm9clNu7uF4+oyBrf897m4pMS8pmEmCPJExubkMIvJi2MYHQFs6T4Cxky6ooiiG+YZWFf9s+uKet0VCglnhNx17LCwS38AlMMpHPawclXLWQ5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m4pVySsji8Zm4xZNb11ad2PmdKPiPPuk0iHZTLFbJXo=;
+ b=LXZ9yqyLg/f+sX1rC3f+cuuNnMbrGESs4PufwftZ53+aL1Wu2R6AneoQRre1Z0D8/35UXnn+1Mu5bHRdy5PMpKsdgYWQnvKxRkKRIMk/0GhNCPmexwP8T1bCibCwadXPuyUZaFreTZVQ+w8GKTsvJ27j68yKoewxRGydxVzvU/ydiVwtsknhDh9xVA7BxvowhwG/DTk3cGyh60bXSsg9XT53Q9hFlIqCeEObGl0Hz8T6+ah+D6VwXl6xm/pEAhkMdRUVHO0AOps6OdktS+guVm5VwQzM/7tx07bCluLFgJMfkCMIPEJncJixaasecjsDfcr2GNXjk5FSJ/45Hf6cMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m4pVySsji8Zm4xZNb11ad2PmdKPiPPuk0iHZTLFbJXo=;
+ b=5GjcQB+l49UQ01cT49/fCjVLYcXQh4sb2mIj6hoLVF0pJDSDK5ScuUHsCvTjwqj5Wxlfu4tO8QSj0Qp5KagT6ZewnmUo75/wbM8GuGpenx1p92GMRjtQAzEMnupqJUS0VmwBXg7Bgl1SzFEGjkZg+UZX21gfEtbyCzH2fESn7YA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by SJ2PR12MB7943.namprd12.prod.outlook.com (2603:10b6:a03:4c8::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.18; Fri, 8 Aug
+ 2025 19:33:36 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%4]) with mapi id 15.20.8989.020; Fri, 8 Aug 2025
+ 19:33:36 +0000
+Message-ID: <83fc2476-de21-4869-abc9-54ebd9aef146@amd.com>
+Date: Fri, 8 Aug 2025 15:33:34 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: Handle lack of READ permissions in SVM mapping
+To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250805145743.104650-1-kent.russell@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20250805145743.104650-1-kent.russell@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0081.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:4::14) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20250804134154.95875-1-timur.kristof@gmail.com>
- <20250804134154.95875-5-timur.kristof@gmail.com>
- <CADnq5_P6EsOrX8e8B3bRh_KEaPVisUAEWxZ9uXX62TY=a-dO3g@mail.gmail.com>
- <4c002dfef88f033832d0be5221fed0019c0feaf0.camel@gmail.com>
- <CADnq5_MSd5CeDwFH2n7fqNtmt9iiXaRrruSJJ887dG_CK=4jGQ@mail.gmail.com>
- <11315cd2289dd111db673b0d3832f373d268c833.camel@gmail.com>
-In-Reply-To: <11315cd2289dd111db673b0d3832f373d268c833.camel@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 8 Aug 2025 15:04:02 -0400
-X-Gm-Features: Ac12FXyTTjV3-B-7sPIGLEuFMhF6JHhtr7bxGqt9rJm20LuCDDZ-nykI9vE_YME
-Message-ID: <CADnq5_NmfCoB-Bk+TC9WafXdvMhQr9sUyoodnhOf5__TY5mr5g@mail.gmail.com>
-Subject: Re: [PATCH 4/6] drm/amd/pm: Fix si_upload_smc_data
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SJ2PR12MB7943:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5998ef3b-9e80-4819-31d1-08ddd6b27815
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZklMZm9LbWo5OVdTSVd3OENDME5RYmYxT2YzU2xSWUU0alB1akdPT2wvSVFO?=
+ =?utf-8?B?WkZJVXhVWGk2S3Q5TnJwa2ljWDhTQkI2WHhidFVoV1NvenRzb2t5L2Q5bVFm?=
+ =?utf-8?B?WlRrdHN1cEkwNzhQMXhvZUJMV3NNdGd3WkJRYnFCdC90ZkI0Tzh0TnFQVGJl?=
+ =?utf-8?B?S1g0ZGtMU3F2Y2ZkUldyS0dWWEhGWHp0TmN5ZW1aczVZUDVaRlZOMXpBS04x?=
+ =?utf-8?B?amlQU2dSNis2dlJCaUNraHN6WlpxK0tza0pRU3NrMHZVVXJXS1pqZ1JTUVNh?=
+ =?utf-8?B?WmVyWi8rY2czcys3OVpVdm5iYVhqSU1JN1kwcWR5QnNhUUVRZVBveTdMNk9Y?=
+ =?utf-8?B?ZytROWttNXAydFYzV0FISllBRS9wOUQ1ZEl4ajY5cDY0YXk0cXdGdk4rU3Fm?=
+ =?utf-8?B?bXRuUjhnZHR0a09tWHRCNmEzKyt2SjZqUStLMXA5dGRreEhzYVJiNTBhUjRL?=
+ =?utf-8?B?anV0TU85eS9EaXdWazNBS2RxamVZazVINUhNWjR1bHdIOWtYZ3JkZU1RRjJl?=
+ =?utf-8?B?TlEvRGNpaGc4M0ZVZlpmVXhXODlSSkY3OFVBM2VxSTBReUl1MlRmVC9GQThI?=
+ =?utf-8?B?OWhnZm9zN2RPdFBHdy9HVkZGQWFkMDlvRHZtU2hOazhZZFQ5NjZ5UFJDam9k?=
+ =?utf-8?B?UmJWdThBMlFYMnRRNXdHRU5qb2NIaEZBTXNEQWppK2R2YTE2V21DMlc2cXZE?=
+ =?utf-8?B?bC9mVzBRQlRqNEdtTUxkdUZ6YndteVpjbUE2azU4VU9ZaTNNL2wyK3FZdGZR?=
+ =?utf-8?B?ZStuaWh2b0ZKK0dqeGJ0M2pucThzWHd1aGpZWFB0dXdJaTlQS3NhNjFKUTlR?=
+ =?utf-8?B?WDZEZVp3VUQwcUNFaWJkYk9DbjVMa3N2MWsxQkRWSjV2NkFmRUc1clNqOExS?=
+ =?utf-8?B?Q3owaTlEa29JYlpaZHY3azVVZlovZXRCZ29XWXk3REgzUk10azNoOFVBa1lv?=
+ =?utf-8?B?eVcxcndOWUo3Y3dtS2RlYk1jaHlnYS9MRThsQXUxTlFvYUdnaHd3MkF4Q3VY?=
+ =?utf-8?B?ajI1UzY1NzZiZU51eHBMMjY1bkxwZklhaFgxLzJ4R2NDNGhSNnIzNk9VbnYz?=
+ =?utf-8?B?YlN6MEJCSVpKdS9FMXN0VXc0bDlBZWw2bTdrNWpGcjFsZmd3dW1zTjFGM0li?=
+ =?utf-8?B?aEpUcVFxWG8vRFdEVGJza3daTTZZTmk3VkNNeGpEZGFoSEZXR2picUlJTkdW?=
+ =?utf-8?B?Zlp3U3hVc2ZmcVlmaG9MOFBNWHludGdScEowRTFQbGhzWnJ4UFhvS3UrMFN5?=
+ =?utf-8?B?bWNIT28vem9xeXdjQ0RLM1A1SFVRaGRoL0dLaXVhTTVpZitNRkdCeHpET2l5?=
+ =?utf-8?B?Yk0xYjRhNlZWSHZTWlduaXhJZDRvVmFxUmZkdWNDSTY0SkN2SUw0YWFzb2pZ?=
+ =?utf-8?B?WjlyTFNDTGk4RnY5YlpKVW8xVG1tamdBY2pDUUtub1h6V0RpbFI4NWhWdUhX?=
+ =?utf-8?B?UXpubThlWUc3V3dJcFdCVWtId1ZwcEZDWUdDYkZic2k3THJOVGtsZnRFaS9y?=
+ =?utf-8?B?bXFLd1pWL3JFZ0JaMThFWEUvVXlvR05DdGdCN0REcUc5aDVhQkFVZXV5VnlQ?=
+ =?utf-8?B?NkNYM3NiNmtsWktPbThBRm02S3p0czRWN3JuRy8zbi9NNDdLNVZLalVGODVW?=
+ =?utf-8?B?R21hT1R5ajhCc2JJUnBPLzNwakFPUFp4YW5MWm5YZlVSdndndmhIdW9ZUTMy?=
+ =?utf-8?B?ZE5BVmZzdTJISzI5VE9NYno0dmtpQTBzcjR4SEIzeVkrdDdPYjJwKytOOU5y?=
+ =?utf-8?B?TXN1V3BJZTcwaEFzTjkyL3FKcmp4bWw5b0dzbjBFNjlsd3RXVnNtOUVDa3Nk?=
+ =?utf-8?B?Q09KaUYzbUZsU2ptYU5YZTlDVnNoVnc4V1dtRG0reEsxb01NQ01vN29qWDhp?=
+ =?utf-8?B?SEVNdVpxdnU2eHZLaUE0cCt6K2NCS0ZoMzgwVGo4V1h3UUFRTHhjZVJMZmVv?=
+ =?utf-8?Q?rcmxFmKGd84=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NzY2czJ6aGRtdkwyK1BRM1FOM2k2MlRTc3NmRDVFa2tNOXhET0dnTFpNRDZs?=
+ =?utf-8?B?NE5qaUVQZDNBV2dZd2E1WmFSUDhOTWIvcXRMR0NuTU4wN1V2dHMyTXBlTFVr?=
+ =?utf-8?B?cXVKVG55blRoU2pzVHRIUjJJMXNnRTZDM3AydHNxbnFJSzB2SHpJaFdVeDVR?=
+ =?utf-8?B?RHppamdVOGxTNmRsdnhnMVVMMU9oSHJrQVlHZlBZMlBkc044WU1nUWplbHRi?=
+ =?utf-8?B?VDNRdjF3MXRwOHRxblNHWThXdG0vbDNEVFJYUldQWWdobWdQM1lvNXZ5SGpK?=
+ =?utf-8?B?bFV6R2g1cVVSNkY2akxBbURyL0kzTnJiTFJmTHg4ZVdqN1puWUZMd0lCOWls?=
+ =?utf-8?B?NFpLV1cwRldpbThJajZzTm94NlNSc0xYQ0YrcWxHOVZMRG9oRS81L1ZlVXNj?=
+ =?utf-8?B?MHJBTjduejdNdFF1ZXZVYnN5QStrMW9jTWtGQ2x2Q0FLNW9IQTFST0ZWblRh?=
+ =?utf-8?B?K0EzNEV0bmg0c1MvMHpkZmxwSHNrNklVQzBVRTRjYjUrS0ZmOFAxM0tOSE9V?=
+ =?utf-8?B?RVV3TXhLOWkyVVlvb0JPYVZXSW9aUm9ibnN4YTV1bU5YRWtvZjJDV3ZIMlF1?=
+ =?utf-8?B?UVpKUEtySVFWZzlWRTB0UVB2RFVBMXJtdEl6Q2VvN050NER6T1BkU0xNSGJl?=
+ =?utf-8?B?b2loQnRzZldIMmMvQTFRSEs3eUp3aWVCYnlHVCtTU3BJWGJrS2NoNmJYdmVL?=
+ =?utf-8?B?S0s0Q2l1UHNmbG9ETktsMXJ5ZVhOVDY1dUVyeGxDWU9aSlVKcitIaCtZMjF2?=
+ =?utf-8?B?ZnIyTUlCc2kydlpZcnhyMStCWjNuUk1qcGFHS0VlRkNqOWVOd3VQTkFvcllD?=
+ =?utf-8?B?NWFiWHlhWUN4MXV0d3VNWCswaHdjTmlJUDV1d2tEQmpyRTNxNHJ1dEw3TDdS?=
+ =?utf-8?B?c29rNFk3bSs3dUJCc1ZBc25NUnhFQXBCU3RxWEJ6YXgwaDBuUDJMRExON1Bx?=
+ =?utf-8?B?dlNxQ0ZqS2pVWkI0aHV1Y1I4Wnh4d2tJU2JBN3lmb0FwQnpaSnFWMkl6M0lK?=
+ =?utf-8?B?c21iWlpNRXRFSmc1VXZPRkhDZ0VXSE10em90bmRCcEtybGcxUUVLNzFMUW9U?=
+ =?utf-8?B?ZnZCRHdwanpRa2hWQXRSdGtzQmNUSTV4UXBWNFhSR3hhdUdLblF1eEIwRFJV?=
+ =?utf-8?B?Y1ZOZ2hvMFNqUU9BdjFaN3VveGFyY3RkTkU0M1lmOHdBK3FDL2QzMDVEUHha?=
+ =?utf-8?B?UHFyNW91a1dUdjB4S01lUUMrU2VIK0hYYndWeHlzQTRnQkNVbUVkaWhFUm4v?=
+ =?utf-8?B?VkErNDRvT1pGRmx2OGxINlk5R0FEVXI4NVR1ckNaRWR4cFRpRXo3NWhWZHVy?=
+ =?utf-8?B?MEpXZURaVGJtaXNlM09ZMGg4dGo4a2RJQTQvZXhZYnlJREJ6THBsaU16Rk1X?=
+ =?utf-8?B?SUp6RTNJMmttQnZLNGk2Tm40WUFMaUluUXB1Y3RjU0g5aEREeU42RWNMdjdU?=
+ =?utf-8?B?V3JIQ0pGdURhVVpvRDNZdnM5RGh6bnMzVms2bjZnTFZLZFBaZVRmOGhJcisz?=
+ =?utf-8?B?MWxaSlBqdVRjY1VDbHVHbXFFbitma1RZWFZGRDV6WHVCS2Q2RWE4eTZnVzZq?=
+ =?utf-8?B?WW12SzlYLzVNMWRyMEZrbXNVUGtNSHdxNG5oc1BZcXJlZ2IyS1J2TFJOVzk4?=
+ =?utf-8?B?bGd1ZytmN2w2RDZtTGFRNUJyTHhwOHlUa1VleXZZVnlsOEdqQnNaQ2xob0U3?=
+ =?utf-8?B?YWdoSHMxeFRhcHZNQ3R5aFF1RXlSeE5Rd3Y3NUMzSklra2lxUjdwTHVmRHpy?=
+ =?utf-8?B?RmhvTnk3ZjNqem4wQmw3dmg1ZTByK3g3VHJBQWN1ZWYwRWlhOEdWM3ZPUktQ?=
+ =?utf-8?B?UWQ3QWV6ZkZxbnZDMmpLM3UrWk9DUVJ2Ui9GWVE2S3RCcS9Wck1vZnJyb2Ix?=
+ =?utf-8?B?cWNjWmlzOSt0NExUMlB0S3RUOURrcm5OY21hL0EvK1ZlbE9iVkZKR053NFg3?=
+ =?utf-8?B?QlVPY1dwNU00QUxrcE9ITWZPTDJaMm8wblVuYWJiVW1lRTJvNFJRUFlNbDlJ?=
+ =?utf-8?B?YnFaZXhpNzd6QXlNaUk5Y0U4YlQ5T2VRaUY4QXRlZk1ra0xXelRCVXR3UDFr?=
+ =?utf-8?B?QUFZcTR4K3dZaDJMdGJ0bUxHREZwS1BnRWNGTThubU1zUkcySlNmdG96Q0ZC?=
+ =?utf-8?Q?LAjDb+SBISjEJeKBuWs2l+Boi?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5998ef3b-9e80-4819-31d1-08ddd6b27815
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2025 19:33:36.5898 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qJ8zIt5sgtf+fp0yE8IS0ATX7QaiXxiHnEtD/vfDeKWHcnVOmZRwGhz/AwegE0tY/AKCVtb5Nm9yfOlynbwa4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7943
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,212 +160,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 8, 2025 at 4:22=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@gm=
-ail.com> wrote:
+On 2025-08-05 10:57, Kent Russell wrote:
+> HMM assumes that pages have READ permissions by default. Inside
+> svm_range_validate_and_map, we add READ permissions then add WRITE
+> permissions if the VMA isn't read-only. This will conflict with regions
+> that only have PROT_WRITE or have PROT_NONE. When that happens,
+> svm_range_restore_work will continue to retry, silently, giving the
+> impression of a hang if pr_debug isn't enabled to show the retries..
 >
-> On Mon, 2025-08-04 at 13:31 -0400, Alex Deucher wrote:
-> > On Mon, Aug 4, 2025 at 12:16=E2=80=AFPM Timur Krist=C3=B3f
-> > <timur.kristof@gmail.com> wrote:
-> > >
-> > > On Mon, 2025-08-04 at 11:32 -0400, Alex Deucher wrote:
-> > > > On Mon, Aug 4, 2025 at 9:42=E2=80=AFAM Timur Krist=C3=B3f
-> > > > <timur.kristof@gmail.com> wrote:
-> > > > >
-> > > > > The si_upload_smc_data function uses si_write_smc_soft_register
-> > > > > to set some register values in the SMC, and expects the result
-> > > > > to be PPSMC_Result_OK which is 1.
-> > > > >
-> > > > > The PPSMC_Result_OK / PPSMC_Result_Failed values are used for
-> > > > > checking the result of a command sent to the SMC.
-> > > > >
-> > > > > However, the si_write_smc_soft_register actually doesn't send
-> > > > > any commands to the SMC and returns zero on success,
-> > > > > so this check was incorrect.
-> > > > >
-> > > > > Fix that by correctly interpreting zero as success.
-> > > > > This seems to fix an SMC hang that happens in si_set_sw_state.
-> > > > >
-> > > > > Fixes: 841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
-> > > > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 31 +++++++++++++-
-> > > > > ----
-> > > > > ----
-> > > > >  1 file changed, 19 insertions(+), 12 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > > > b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > > > index 33b9d4beec84..e9f034ade214 100644
-> > > > > --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > > > +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > > > @@ -5820,6 +5820,7 @@ static int si_upload_smc_data(struct
-> > > > > amdgpu_device *adev)
-> > > > >  {
-> > > > >         struct amdgpu_crtc *amdgpu_crtc =3D NULL;
-> > > > >         int i;
-> > > > > +       int ret;
-> > > > >
-> > > > >         if (adev->pm.dpm.new_active_crtc_count =3D=3D 0)
-> > > > >                 return 0;
-> > > > > @@ -5837,20 +5838,26 @@ static int si_upload_smc_data(struct
-> > > > > amdgpu_device *adev)
-> > > > >         if (amdgpu_crtc->line_time <=3D 0)
-> > > > >                 return 0;
-> > > > >
-> > > > > -       if (si_write_smc_soft_register(adev,
-> > > > > -
-> > > > > SI_SMC_SOFT_REGISTER_crtc_index,
-> > > > > -                                      amdgpu_crtc->crtc_id) !=3D
-> > > > > PPSMC_Result_OK)
-> > > > > -               return 0;
-> > > > > +       ret =3D si_write_smc_soft_register(
-> > > > > +               adev,
-> > > > > +               SI_SMC_SOFT_REGISTER_crtc_index,
-> > > > > +               amdgpu_crtc->crtc_id);
-> > > > > +       if (ret)
-> > > > > +               return ret;
-> > > > >
-> > > > > -       if (si_write_smc_soft_register(adev,
-> > > > > -
-> > > > > SI_SMC_SOFT_REGISTER_mclk_change_block_cp_min,
-> > > > > -                                      amdgpu_crtc->wm_high /
-> > > > > amdgpu_crtc->line_time) !=3D PPSMC_Result_OK)
-> > > > > -               return 0;
-> > > > > +       ret =3D si_write_smc_soft_register(
-> > > > > +               adev,
-> > > > > +               SI_SMC_SOFT_REGISTER_mclk_change_block_cp_min,
-> > > > > +               amdgpu_crtc->wm_high / amdgpu_crtc->line_time);
-> > > > > +       if (ret)
-> > > > > +               return ret;
-> > > > >
-> > > > > -       if (si_write_smc_soft_register(adev,
-> > > > > -
-> > > > > SI_SMC_SOFT_REGISTER_mclk_change_block_cp_max,
-> > > > > -                                      amdgpu_crtc->wm_low /
-> > > > > amdgpu_crtc->line_time) !=3D PPSMC_Result_OK)
-> > > > > -               return 0;
-> > > > > +       ret =3D si_write_smc_soft_register(
-> > > > > +               adev,
-> > > > > +               SI_SMC_SOFT_REGISTER_mclk_change_block_cp_max,
-> > > > > +               amdgpu_crtc->wm_low / amdgpu_crtc->line_time);
-> > > > > +       if (ret)
-> > > > > +               return ret;
-> > > >
-> > > > This patch changes the behavior of this function (i.e., it always
-> > > > returns 0 before this patch).  Not sure if that matters or not.
-> > > > I
-> > > > think this could be simplified to something like the following to
-> > > > retain the current behavior.
-> > >
-> > > Actually now that I think of it more, I think it may be entirely
-> > > unnecessary to check the return value.
-> > >
-> > > si_upload_smc_data calls:
-> > > si_write_smc_soft_register
-> > > amdgpu_si_write_smc_sram_dword
-> > > si_set_smc_sram_address
-> > >
-> > > This last one, si_set_smc_sram_address returns -EINVAL when its
-> > > smc_address parameter is not dword-aligned or out of bounds.
-> > > Otherwise
-> > > all of the above functions return 0 (success). Considering that all
-> > > of
-> > > the addresses passed by si_upload_smc_data are compile time
-> > > constants,
-> > > we know they are correct so there is no reason why any of those
-> > > functions would return an error.
-> > >
-> > > Looking at other callers of si_write_smc_soft_register, I see that
-> > > they
-> > > don't check the return value at all.
-> > >
-> > > So, I'd actually simplify this even more and just not check the
-> > > return
-> > > values. What do you think about that?
-> >
-> > Sure.  Works for me.
-> >
-> > Alex
+> If pages don't have READ permissions, simply unmap them and continue. If
+> they weren't mapped in the first place, this would be a no-op. Since x86
+> doesn't support write-only, and PROT_NONE doesn't allow reads or writes
+> anyways, this will allow the svm range validation to continue without
+> getting stuck in a loop forever on mappings we can't use with HMM.
 >
-> Alex, before I send a new version of this series, can you please
-> clarify what these registers are and verify that the actual programming
-> of these SMC registers is correct?
+> Signed-off-by: Kent Russell <kent.russell@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 22 ++++++++++++++++++++++
+>   1 file changed, 22 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index e23b5a0f31f2..449595aab433 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1713,6 +1713,28 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+>   
+>   			next = min(vma->vm_end, end);
+>   			npages = (next - addr) >> PAGE_SHIFT;
+> +			/* HMM requires at least READ permissions. If provided with PROT_NONE,
+> +			 * unmap the memory. If it's not already mapped, this is a no-op
+> +			 * If PROT_WRITE is provided without READ, warn first then unmap
+> +			 */
+> +			if (!(vma->vm_flags & VM_READ)) {
+> +				unsigned long e, s;
+> +
+> +				svm_range_lock(prange);
+> +				if (vma->vm_flags & VM_WRITE)
+> +					pr_debug("VM_WRITE without VM_READ is not supported");
+> +				s = max(start, prange->start);
+> +				e = min(end, prange->last);
+> +				if (e >= s)
+> +					r = svm_range_unmap_from_gpus(prange, s, e,
+> +						       KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
+> +				addr = next;
 
-This code was based on what the windows code did.
+Maybe move this as the last statement before continue below.
 
->
-> The reason I ask is because due the the bug being fixed by these patch,
-> these registers were never actually written, which makes me wonder if
-> the value we program them to is actually correct.
->
-> I mean the values that we program these registers to:
->
-> SI_SMC_SOFT_REGISTER_crtc_index - we just program the index of the
-> first active CRTC, seems straightforward enough, but it's unclear what
-> the SMC uses this for. Why does the SMC care which crtc we use?
->
-> SI_SMC_SOFT_REGISTER_mclk_change_block_cp_min - programmed to the high
-> display watermark divided by the line time. But I can't find any
-> information about what this information represents or what the SMC uses
-> it for. Judging by the name it has to do with mclk switching?
->
-> SI_SMC_SOFT_REGISTER_mclk_change_block_cp_max - same concern as _min.
 
-For mclk switching, the mclk has to be changed during the display
-blanking period to avoid display artifacts.  This is presumably part
-of that, but I don't remember exactly what all of these do anymore.
+> +				svm_range_unlock(prange);
+> +				if (r)
+> +					return r;
 
-Alex
+This will skip some cleanup, including svm_range_unreserve_bos and 
+kfree(ctx). I think you can just continue in any case. If r != 0 the 
+loop will terminate.
 
->
-> Thanks,
-> Timur
->
->
-> >
-> > >
-> > >
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > > b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > > index 52e732be59e36..3dd0115aa15f8 100644
-> > > > --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > > +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > > @@ -5836,17 +5836,17 @@ static int si_upload_smc_data(struct
-> > > > amdgpu_device *adev)
-> > > >
-> > > >         if (si_write_smc_soft_register(adev,
-> > > >
-> > > > SI_SMC_SOFT_REGISTER_crtc_index,
-> > > > -                                      amdgpu_crtc->crtc_id) !=3D
-> > > > PPSMC_Result_OK)
-> > > > +                                      amdgpu_crtc->crtc_id))
-> > > >                 return 0;
-> > > >
-> > > >         if (si_write_smc_soft_register(adev,
-> > > >
-> > > > SI_SMC_SOFT_REGISTER_mclk_change_block_cp_min,
-> > > > -                                      amdgpu_crtc->wm_high /
-> > > > amdgpu_crtc->line_time) !=3D PPSMC_Result_OK)
-> > > > +                                      amdgpu_crtc->wm_high /
-> > > > amdgpu_crtc->line_time))
-> > > >                 return 0;
-> > > >
-> > > >         if (si_write_smc_soft_register(adev,
-> > > >
-> > > > SI_SMC_SOFT_REGISTER_mclk_change_block_cp_max,
-> > > > -                                      amdgpu_crtc->wm_low /
-> > > > amdgpu_crtc->line_time) !=3D PPSMC_Result_OK)
-> > > > +                                      amdgpu_crtc->wm_low /
-> > > > amdgpu_crtc->line_time))
-> > > >                 return 0;
-> > > >
-> > > >         return 0;
-> > > >
-> > > >
-> > > > >
-> > > > >         return 0;
-> > > > >  }
-> > > > > --
-> > > > > 2.50.1
-> > > > >
+Regards,
+   Felix
+
+
+> +				continue;
+> +			}
+> +
+>   			WRITE_ONCE(p->svms.faulting_task, current);
+>   			r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
+>   						       readonly, owner, NULL,
