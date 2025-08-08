@@ -4,79 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5680AC87FD2
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 08:22:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4624C87FD3
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 08:23:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFA7B10E1CB;
-	Fri,  8 Aug 2025 08:22:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4C510E507;
+	Fri,  8 Aug 2025 08:23:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bNFLCdjs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T1RFmgkR";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81CE610E1CB
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 08:22:49 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-459e210bd2dso9589825e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Aug 2025 01:22:49 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE9FA10E507
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 08:23:53 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-3b78d337dd9so1098152f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 08 Aug 2025 01:23:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754641368; x=1755246168; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754641432; x=1755246232; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
  :date:message-id:reply-to;
- bh=lr8MGBIzdUa/6BAoYFESXdDWBiRU+iCvY6TPFENZYnQ=;
- b=bNFLCdjssrP6SzzvysEE8KcgJ4LbLQACvvivXa13SJHXolfIwsjOXQqWSJ63i1XYTd
- TUpwce8/Nb71tZIrUvJgznwpkTJj2fqBZ+O2kWGg3L6XSRi/oCnqw+4vy6P0RujVYQwn
- 8MiFEizX7TVTMQEbH8yrYsvCmgXVqWFPvdESF32FdXcTCl8YlE2vK5it7X+/vQ2b5FYu
- SR8W+ujnvduLTC1KeN8g3TztzEUp5n76H5HcQOD5G19ysxbg/2SOe4bujzljrVyfiwxg
- wcLuBwtm1a+dvcrnYg/ravJkNVJk8IRj9Lc/D2gDjTWKNpZezEE2dzJzkGgeO0/OzqSM
- a7Mw==
+ bh=nDfrCytAull36hchS6EOh4B1N5kAN5M1R7b6hj+Lce8=;
+ b=T1RFmgkRzPNXPT0adQ9bHawTKckXCsTLvqhzkhE01jaP1ovKgp1CAZ8+60E/VOhuky
+ cSSUKa4QynPh6AJX/jPHWDAhOT5M83HeePXBgGdJ2nMBnVengmu1Mx+wBuv0P6l3qqHJ
+ crCsWiSLqNvK6irlYuVQ/wZCzJqnstEBoL5Q2U7Frlnwwv2NT51ykh0KI4N6J74KbnPS
+ r3VyuTrgkaGjmRM4dOjy3PPZOYZLtOGv8iIGhnjNfA+VJF13MZOGp0TTBfZxmPZdqkTL
+ kiNhma4qpQ2U1OeUp93gsmb9P9JJgOXshlONsmYmoUp5flxPH3THRqBz1aQj+4FL+HZG
+ JhYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754641368; x=1755246168;
+ d=1e100.net; s=20230601; t=1754641432; x=1755246232;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=lr8MGBIzdUa/6BAoYFESXdDWBiRU+iCvY6TPFENZYnQ=;
- b=Uy10BaVeXG6LawWEIW3HBKhKHwUQdXbMv1uE9axTY3Ght7GqJ07tFoOIal9Iur2pvS
- 3dsC7jJ2L7LSYodDzf6sC4Hzz9OpfNxzp4A2bBeBdrIedyYFBq8ye9fw8QJn5igMRjrp
- 7M2vT6a5BTIoYddmLWntn/Ds+P7OGFRjRolDWoKgkvzEoYLXmGDEjHRwE3lrbXxp2BYO
- T7vSOjDRispqpmVi0mcPJflelN3VwAe+r+3csmi0FJFpJ4uwHYpnLyKqb4NvTxeyf0OS
- s15CRqTEDvHkcGAR1X2VT3g/ZRbhvuk4zR1hh3Zq+XrTzR1/BEIyehiFPM7aJEpzKqSf
- DscQ==
-X-Gm-Message-State: AOJu0Yx601Gb/qXkfNBHt2iMSziyEYMlgo4Rhq6RhxJ4uMqvPleEphc9
- piHc/jeey4+/5XWEJaNmuPy6eqE+OEagcrHl1w5f7yC2oEtD1Xx1hQuBAh+Jlg==
-X-Gm-Gg: ASbGncv0i6GrSA/2vLVIhPXxF5DU6GBfrX3YvtR8yJ6QsyrRbPjc41aFPLQ+n1vofn2
- lNpx8p+wn6EdqYQa5CdcSBVtgVYKLEukbnb4+GpglIS+XZtriwS16RXxKN04GkpS9pFw2dpe5zr
- wfPdxJzXQo2leUnhSVtvJYp7+TD6Zlsr9+5uYgPbJbBD/XMl2CZWRP2RBhdrBM3bBM1+y7GwfQY
- eRoo56hpewMce2bY1RoeMT1KLHEsfjhojdYNyyi297D9OOnsJ1Uvq73YIYn89ElV+M8kT71UJ2M
- lyzWeLlmR0HsXidmAmagtIBOjnI9PAqXNUY4bBvIjru4rTKHByaSatjeSC/RkYScdh1fgVi+l67
- A9pJUbVyRVxjkb6uk/Hg91lsaKv9ca+mS5Wfv4VX/B2sdLF8OtalKmZJJbxZ5X0qFoczCIl6Rg3
- lF3ZtRqlQQtpwGUVILxFWDK93RyoyHYIpwuiHb4vy83FsQw0tX4y+6t1clmmfXJw==
-X-Google-Smtp-Source: AGHT+IGBmj6DukXp+6bo/sdLo7zYKw64m+yf1cp4ynK1VSEWYDnDKq9+sm2o1P1oWyeeG8scfvcReg==
-X-Received: by 2002:a05:600c:4f48:b0:458:6f13:aa4a with SMTP id
- 5b1f17b1804b1-459ede7d697mr62214355e9.6.1754641367532; 
- Fri, 08 Aug 2025 01:22:47 -0700 (PDT)
+ bh=nDfrCytAull36hchS6EOh4B1N5kAN5M1R7b6hj+Lce8=;
+ b=aEreQZefzWDcNnqYfTluTYmGWVEkYgrSvBAzKsMnVRtq0X4xpjM7ZxHJn99AbrCdEH
+ 9CmCp7Jd/RQ5y04659IUjfMY+BdONQEYfgwup/fivJ8lWXOf3Dd8QXB8C6iMYP+bD7z6
+ K8DvqwPOItQokLTZnw8uGuGQzlteL9DHc6TIVO5talDYGzoYMlRTYl0nxijeWikVSmfV
+ pQDJXRpMrCmiEBrdzj6woUVlNrBZueBPVKWJ20uH+TC7KqfbdPj6GEs5l4xzeBCDC0If
+ lC6dKAcOg2ucj4WVFZeGCAteRpGY8JFnIAXRxTfWdvUCZYkKcOPSw1+b0edEKMDNJpPA
+ IOtQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUv2l/YD32HF9QQOmUxdHO3IJqv9MKT+EklDaxNbMaHDkOmoBaoFPHSf8ngimPJg7Yy1mh4tCf2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywi7t2z47sPVPFNNcXG8gd988TXOxUNm0Pk70RWhFetcwYz7FYW
+ yIz49At/A2L3CCOQfR7obcNo8j1TPs7pKonmGo4uG/sho/CJRc4TjEAD
+X-Gm-Gg: ASbGncs0O8JWGDTiujjF4TRbxAqV0VVV5lQx4o9Lfy53PxkoaeoZpoK5oKHopltXdpH
+ pN6gMa7mQC0MUZ71SWug5ysK1NMyVfy0QknDXfCDUrWkoSmZVLGDSEStKpGinVh8O7+EiG7LKH6
+ Q7pz19w611DOGmtqzq/KXrD98GKMo+tEGrgdKtjDMh848stmGiQoEjVGtkEfGtaKe3FO/52e2v6
+ vaU1rhp1+OHIqiLFLnRRlQn4Rw9RWghVkGuxOZ4CiWIjRtx6sK8LhoWUS6RGASRdypi/rkw/aOe
+ BK42x8QkaiMHDI8xRg9m9bs0FNm8NIMOPHT9fnjYSETOG8RCA7O1JpLqGzg18FofKRJNZZu7aOK
+ pIGN+kXjza8GSzm5WUFOxnqh5e0h0hg7EYZkz9ptigQ3RWpgHXtbYzwBUy1x1RV4q6CAXTvnS2N
+ X0uwpfwISbnCmajuEAFJrMk0aL9iTDwKXKPVVQ/w2pDJ3WYoerz152+UZzNLxCOw==
+X-Google-Smtp-Source: AGHT+IG8Ge54/4Ev+cXovbaa5bQWnRn45lM6jbReXGmCHCXujoMxzKHg1hFkfP9xCLCah61DXxnTFA==
+X-Received: by 2002:a05:6000:4305:b0:3b8:d893:524c with SMTP id
+ ffacd0b85a97d-3b900b6a1e7mr1785599f8f.53.1754641431944; 
+ Fri, 08 Aug 2025 01:23:51 -0700 (PDT)
 Received: from ?IPv6:2001:4c4e:24d0:2800:6d31:8bf4:e59f:ec20?
  (20014C4E24D028006D318BF4E59FEC20.dsl.pool.telekom.hu.
  [2001:4c4e:24d0:2800:6d31:8bf4:e59f:ec20])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3b9eddsm29439097f8f.22.2025.08.08.01.22.46
+ ffacd0b85a97d-3b79c3ac093sm31013357f8f.9.2025.08.08.01.23.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Aug 2025 01:22:46 -0700 (PDT)
-Message-ID: <11315cd2289dd111db673b0d3832f373d268c833.camel@gmail.com>
-Subject: Re: [PATCH 4/6] drm/amd/pm: Fix si_upload_smc_data
+ Fri, 08 Aug 2025 01:23:51 -0700 (PDT)
+Message-ID: <8a1b61f47ef4632826118b3f2e19eee01fa5793b.camel@gmail.com>
+Subject: Re: [PATCH 1/6] drm/amdgpu: Power up UVD 3 for FW validation
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Date: Fri, 08 Aug 2025 10:22:46 +0200
-In-Reply-To: <CADnq5_MSd5CeDwFH2n7fqNtmt9iiXaRrruSJJ887dG_CK=4jGQ@mail.gmail.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex
+ Deucher <alexdeucher@gmail.com>
+Cc: Leo Liu <leo.liu@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Fri, 08 Aug 2025 10:23:50 +0200
+In-Reply-To: <79bb0b1f-687c-4f6f-8a3e-728e8d0c8800@amd.com>
 References: <20250804134154.95875-1-timur.kristof@gmail.com>
- <20250804134154.95875-5-timur.kristof@gmail.com>
- <CADnq5_P6EsOrX8e8B3bRh_KEaPVisUAEWxZ9uXX62TY=a-dO3g@mail.gmail.com>
- <4c002dfef88f033832d0be5221fed0019c0feaf0.camel@gmail.com>
- <CADnq5_MSd5CeDwFH2n7fqNtmt9iiXaRrruSJJ887dG_CK=4jGQ@mail.gmail.com>
+ <20250804134154.95875-2-timur.kristof@gmail.com>
+ <CADnq5_O5F5UAC17CE4mwOx_5pbTKzv73Yuj=-_cA06G3hQeQJQ@mail.gmail.com>
+ <aec0376f34db68c9e62d8ef5b8b5c51fe2eac5e2.camel@gmail.com>
+ <CADnq5_MGRH2D1YnhxGLLLJft5FvLaNKzhDgwWu_LPb0NvCK6Tg@mail.gmail.com>
+ <99761dc3-7814-42be-8d08-c8ff7b2a76cf@amd.com>
+ <8baae4b5b5af6078a27c8a20202fa1b660fc8aef.camel@gmail.com>
+ <79bb0b1f-687c-4f6f-8a3e-728e8d0c8800@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -93,147 +99,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMDI1LTA4LTA0IGF0IDEzOjMxIC0wNDAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4g
-T24gTW9uLCBBdWcgNCwgMjAyNSBhdCAxMjoxNuKAr1BNIFRpbXVyIEtyaXN0w7NmCj4gPHRpbXVy
-LmtyaXN0b2ZAZ21haWwuY29tPiB3cm90ZToKPiA+IAo+ID4gT24gTW9uLCAyMDI1LTA4LTA0IGF0
-IDExOjMyIC0wNDAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gPiA+IE9uIE1vbiwgQXVnIDQsIDIw
-MjUgYXQgOTo0MuKAr0FNIFRpbXVyIEtyaXN0w7NmCj4gPiA+IDx0aW11ci5rcmlzdG9mQGdtYWls
-LmNvbT4gd3JvdGU6Cj4gPiA+ID4gCj4gPiA+ID4gVGhlIHNpX3VwbG9hZF9zbWNfZGF0YSBmdW5j
-dGlvbiB1c2VzIHNpX3dyaXRlX3NtY19zb2Z0X3JlZ2lzdGVyCj4gPiA+ID4gdG8gc2V0IHNvbWUg
-cmVnaXN0ZXIgdmFsdWVzIGluIHRoZSBTTUMsIGFuZCBleHBlY3RzIHRoZSByZXN1bHQKPiA+ID4g
-PiB0byBiZSBQUFNNQ19SZXN1bHRfT0sgd2hpY2ggaXMgMS4KPiA+ID4gPiAKPiA+ID4gPiBUaGUg
-UFBTTUNfUmVzdWx0X09LIC8gUFBTTUNfUmVzdWx0X0ZhaWxlZCB2YWx1ZXMgYXJlIHVzZWQgZm9y
-Cj4gPiA+ID4gY2hlY2tpbmcgdGhlIHJlc3VsdCBvZiBhIGNvbW1hbmQgc2VudCB0byB0aGUgU01D
-Lgo+ID4gPiA+IAo+ID4gPiA+IEhvd2V2ZXIsIHRoZSBzaV93cml0ZV9zbWNfc29mdF9yZWdpc3Rl
-ciBhY3R1YWxseSBkb2Vzbid0IHNlbmQKPiA+ID4gPiBhbnkgY29tbWFuZHMgdG8gdGhlIFNNQyBh
-bmQgcmV0dXJucyB6ZXJvIG9uIHN1Y2Nlc3MsCj4gPiA+ID4gc28gdGhpcyBjaGVjayB3YXMgaW5j
-b3JyZWN0Lgo+ID4gPiA+IAo+ID4gPiA+IEZpeCB0aGF0IGJ5IGNvcnJlY3RseSBpbnRlcnByZXRp
-bmcgemVybyBhcyBzdWNjZXNzLgo+ID4gPiA+IFRoaXMgc2VlbXMgdG8gZml4IGFuIFNNQyBoYW5n
-IHRoYXQgaGFwcGVucyBpbiBzaV9zZXRfc3dfc3RhdGUuCj4gPiA+ID4gCj4gPiA+ID4gRml4ZXM6
-IDg0MTY4NmRmOWY3ZCAoImRybS9hbWRncHU6IGFkZCBTSSBEUE0gc3VwcG9ydCAodjQpIikKPiA+
-ID4gPiBTaWduZWQtb2ZmLWJ5OiBUaW11ciBLcmlzdMOzZiA8dGltdXIua3Jpc3RvZkBnbWFpbC5j
-b20+Cj4gPiA+ID4gLS0tCj4gPiA+ID4gwqBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2xlZ2FjeS1k
-cG0vc2lfZHBtLmMgfCAzMSArKysrKysrKysrKysrLQo+ID4gPiA+IC0tLS0KPiA+ID4gPiAtLS0t
-Cj4gPiA+ID4gwqAxIGZpbGUgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25z
-KC0pCj4gPiA+ID4gCj4gPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0v
-bGVnYWN5LWRwbS9zaV9kcG0uYwo+ID4gPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9sZWdh
-Y3ktZHBtL3NpX2RwbS5jCj4gPiA+ID4gaW5kZXggMzNiOWQ0YmVlYzg0Li5lOWYwMzRhZGUyMTQg
-MTAwNjQ0Cj4gPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9sZWdhY3ktZHBtL3Np
-X2RwbS5jCj4gPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9sZWdhY3ktZHBtL3Np
-X2RwbS5jCj4gPiA+ID4gQEAgLTU4MjAsNiArNTgyMCw3IEBAIHN0YXRpYyBpbnQgc2lfdXBsb2Fk
-X3NtY19kYXRhKHN0cnVjdAo+ID4gPiA+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gPiA+ID4gwqB7
-Cj4gPiA+ID4gwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9jcnRjICphbWRncHVfY3J0YyA9
-IE5VTEw7Cj4gPiA+ID4gwqDCoMKgwqDCoMKgwqAgaW50IGk7Cj4gPiA+ID4gK8KgwqDCoMKgwqDC
-oCBpbnQgcmV0Owo+ID4gPiA+IAo+ID4gPiA+IMKgwqDCoMKgwqDCoMKgIGlmIChhZGV2LT5wbS5k
-cG0ubmV3X2FjdGl2ZV9jcnRjX2NvdW50ID09IDApCj4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHJldHVybiAwOwo+ID4gPiA+IEBAIC01ODM3LDIwICs1ODM4LDI2IEBAIHN0
-YXRpYyBpbnQgc2lfdXBsb2FkX3NtY19kYXRhKHN0cnVjdAo+ID4gPiA+IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpCj4gPiA+ID4gwqDCoMKgwqDCoMKgwqAgaWYgKGFtZGdwdV9jcnRjLT5saW5lX3RpbWUg
-PD0gMCkKPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4g
-PiA+ID4gCj4gPiA+ID4gLcKgwqDCoMKgwqDCoCBpZiAoc2lfd3JpdGVfc21jX3NvZnRfcmVnaXN0
-ZXIoYWRldiwKPiA+ID4gPiAtCj4gPiA+ID4gU0lfU01DX1NPRlRfUkVHSVNURVJfY3J0Y19pbmRl
-eCwKPiA+ID4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2NydGMtPmNydGNfaWQpICE9Cj4g
-PiA+ID4gUFBTTUNfUmVzdWx0X09LKQo+ID4gPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHJldHVybiAwOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqAgcmV0ID0gc2lfd3JpdGVfc21jX3Nv
-ZnRfcmVnaXN0ZXIoCj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYWRldiwK
-PiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBTSV9TTUNfU09GVF9SRUdJU1RF
-Ul9jcnRjX2luZGV4LAo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdw
-dV9jcnRjLT5jcnRjX2lkKTsKPiA+ID4gPiArwqDCoMKgwqDCoMKgIGlmIChyZXQpCj4gPiA+ID4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPiA+ID4gPiAKPiA+ID4g
-PiAtwqDCoMKgwqDCoMKgIGlmIChzaV93cml0ZV9zbWNfc29mdF9yZWdpc3RlcihhZGV2LAo+ID4g
-PiA+IC0KPiA+ID4gPiBTSV9TTUNfU09GVF9SRUdJU1RFUl9tY2xrX2NoYW5nZV9ibG9ja19jcF9t
-aW4sCj4gPiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9jcnRjLT53bV9oaWdoIC8KPiA+
-ID4gPiBhbWRncHVfY3J0Yy0+bGluZV90aW1lKSAhPSBQUFNNQ19SZXN1bHRfT0spCj4gPiA+ID4g
-LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4gPiA+ID4gK8KgwqDCoMKg
-wqDCoCByZXQgPSBzaV93cml0ZV9zbWNfc29mdF9yZWdpc3RlcigKPiA+ID4gPiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LAo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIFNJX1NNQ19TT0ZUX1JFR0lTVEVSX21jbGtfY2hhbmdlX2Jsb2NrX2NwX21pbiwKPiA+
-ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfY3J0Yy0+d21faGlnaCAv
-IGFtZGdwdV9jcnRjLT5saW5lX3RpbWUpOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqAgaWYgKHJldCkK
-PiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+ID4gPiA+
-IAo+ID4gPiA+IC3CoMKgwqDCoMKgwqAgaWYgKHNpX3dyaXRlX3NtY19zb2Z0X3JlZ2lzdGVyKGFk
-ZXYsCj4gPiA+ID4gLQo+ID4gPiA+IFNJX1NNQ19TT0ZUX1JFR0lTVEVSX21jbGtfY2hhbmdlX2Js
-b2NrX2NwX21heCwKPiA+ID4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2NydGMtPndtX2xv
-dyAvCj4gPiA+ID4gYW1kZ3B1X2NydGMtPmxpbmVfdGltZSkgIT0gUFBTTUNfUmVzdWx0X09LKQo+
-ID4gPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+ID4gPiA+ICvC
-oMKgwqDCoMKgwqAgcmV0ID0gc2lfd3JpdGVfc21jX3NvZnRfcmVnaXN0ZXIoCj4gPiA+ID4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYWRldiwKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBTSV9TTUNfU09GVF9SRUdJU1RFUl9tY2xrX2NoYW5nZV9ibG9ja19jcF9t
-YXgsCj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2NydGMtPndt
-X2xvdyAvIGFtZGdwdV9jcnRjLT5saW5lX3RpbWUpOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqAgaWYg
-KHJldCkKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+
-ID4gPiAKPiA+ID4gVGhpcyBwYXRjaCBjaGFuZ2VzIHRoZSBiZWhhdmlvciBvZiB0aGlzIGZ1bmN0
-aW9uIChpLmUuLCBpdCBhbHdheXMKPiA+ID4gcmV0dXJucyAwIGJlZm9yZSB0aGlzIHBhdGNoKS7C
-oCBOb3Qgc3VyZSBpZiB0aGF0IG1hdHRlcnMgb3Igbm90LsKgCj4gPiA+IEkKPiA+ID4gdGhpbmsg
-dGhpcyBjb3VsZCBiZSBzaW1wbGlmaWVkIHRvIHNvbWV0aGluZyBsaWtlIHRoZSBmb2xsb3dpbmcg
-dG8KPiA+ID4gcmV0YWluIHRoZSBjdXJyZW50IGJlaGF2aW9yLgo+ID4gCj4gPiBBY3R1YWxseSBu
-b3cgdGhhdCBJIHRoaW5rIG9mIGl0IG1vcmUsIEkgdGhpbmsgaXQgbWF5IGJlIGVudGlyZWx5Cj4g
-PiB1bm5lY2Vzc2FyeSB0byBjaGVjayB0aGUgcmV0dXJuIHZhbHVlLgo+ID4gCj4gPiBzaV91cGxv
-YWRfc21jX2RhdGEgY2FsbHM6Cj4gPiBzaV93cml0ZV9zbWNfc29mdF9yZWdpc3Rlcgo+ID4gYW1k
-Z3B1X3NpX3dyaXRlX3NtY19zcmFtX2R3b3JkCj4gPiBzaV9zZXRfc21jX3NyYW1fYWRkcmVzcwo+
-ID4gCj4gPiBUaGlzIGxhc3Qgb25lLCBzaV9zZXRfc21jX3NyYW1fYWRkcmVzcyByZXR1cm5zIC1F
-SU5WQUwgd2hlbiBpdHMKPiA+IHNtY19hZGRyZXNzIHBhcmFtZXRlciBpcyBub3QgZHdvcmQtYWxp
-Z25lZCBvciBvdXQgb2YgYm91bmRzLgo+ID4gT3RoZXJ3aXNlCj4gPiBhbGwgb2YgdGhlIGFib3Zl
-IGZ1bmN0aW9ucyByZXR1cm4gMCAoc3VjY2VzcykuIENvbnNpZGVyaW5nIHRoYXQgYWxsCj4gPiBv
-Zgo+ID4gdGhlIGFkZHJlc3NlcyBwYXNzZWQgYnkgc2lfdXBsb2FkX3NtY19kYXRhIGFyZSBjb21w
-aWxlIHRpbWUKPiA+IGNvbnN0YW50cywKPiA+IHdlIGtub3cgdGhleSBhcmUgY29ycmVjdCBzbyB0
-aGVyZSBpcyBubyByZWFzb24gd2h5IGFueSBvZiB0aG9zZQo+ID4gZnVuY3Rpb25zIHdvdWxkIHJl
-dHVybiBhbiBlcnJvci4KPiA+IAo+ID4gTG9va2luZyBhdCBvdGhlciBjYWxsZXJzIG9mIHNpX3dy
-aXRlX3NtY19zb2Z0X3JlZ2lzdGVyLCBJIHNlZSB0aGF0Cj4gPiB0aGV5Cj4gPiBkb24ndCBjaGVj
-ayB0aGUgcmV0dXJuIHZhbHVlIGF0IGFsbC4KPiA+IAo+ID4gU28sIEknZCBhY3R1YWxseSBzaW1w
-bGlmeSB0aGlzIGV2ZW4gbW9yZSBhbmQganVzdCBub3QgY2hlY2sgdGhlCj4gPiByZXR1cm4KPiA+
-IHZhbHVlcy4gV2hhdCBkbyB5b3UgdGhpbmsgYWJvdXQgdGhhdD8KPiAKPiBTdXJlLsKgIFdvcmtz
-IGZvciBtZS4KPiAKPiBBbGV4CgpBbGV4LCBiZWZvcmUgSSBzZW5kIGEgbmV3IHZlcnNpb24gb2Yg
-dGhpcyBzZXJpZXMsIGNhbiB5b3UgcGxlYXNlCmNsYXJpZnkgd2hhdCB0aGVzZSByZWdpc3RlcnMg
-YXJlIGFuZCB2ZXJpZnkgdGhhdCB0aGUgYWN0dWFsIHByb2dyYW1taW5nCm9mIHRoZXNlIFNNQyBy
-ZWdpc3RlcnMgaXMgY29ycmVjdD8KClRoZSByZWFzb24gSSBhc2sgaXMgYmVjYXVzZSBkdWUgdGhl
-IHRoZSBidWcgYmVpbmcgZml4ZWQgYnkgdGhlc2UgcGF0Y2gsCnRoZXNlIHJlZ2lzdGVycyB3ZXJl
-IG5ldmVyIGFjdHVhbGx5IHdyaXR0ZW4sIHdoaWNoIG1ha2VzIG1lIHdvbmRlciBpZgp0aGUgdmFs
-dWUgd2UgcHJvZ3JhbSB0aGVtIHRvIGlzIGFjdHVhbGx5IGNvcnJlY3QuCgpJIG1lYW4gdGhlIHZh
-bHVlcyB0aGF0IHdlIHByb2dyYW0gdGhlc2UgcmVnaXN0ZXJzIHRvOgoKU0lfU01DX1NPRlRfUkVH
-SVNURVJfY3J0Y19pbmRleCAtIHdlIGp1c3QgcHJvZ3JhbSB0aGUgaW5kZXggb2YgdGhlCmZpcnN0
-IGFjdGl2ZSBDUlRDLCBzZWVtcyBzdHJhaWdodGZvcndhcmQgZW5vdWdoLCBidXQgaXQncyB1bmNs
-ZWFyIHdoYXQKdGhlIFNNQyB1c2VzIHRoaXMgZm9yLiBXaHkgZG9lcyB0aGUgU01DIGNhcmUgd2hp
-Y2ggY3J0YyB3ZSB1c2U/CgpTSV9TTUNfU09GVF9SRUdJU1RFUl9tY2xrX2NoYW5nZV9ibG9ja19j
-cF9taW4gLSBwcm9ncmFtbWVkIHRvIHRoZSBoaWdoCmRpc3BsYXkgd2F0ZXJtYXJrIGRpdmlkZWQg
-YnkgdGhlIGxpbmUgdGltZS4gQnV0IEkgY2FuJ3QgZmluZCBhbnkKaW5mb3JtYXRpb24gYWJvdXQg
-d2hhdCB0aGlzIGluZm9ybWF0aW9uIHJlcHJlc2VudHMgb3Igd2hhdCB0aGUgU01DIHVzZXMKaXQg
-Zm9yLiBKdWRnaW5nIGJ5IHRoZSBuYW1lIGl0IGhhcyB0byBkbyB3aXRoIG1jbGsgc3dpdGNoaW5n
-PwoKU0lfU01DX1NPRlRfUkVHSVNURVJfbWNsa19jaGFuZ2VfYmxvY2tfY3BfbWF4IC0gc2FtZSBj
-b25jZXJuIGFzIF9taW4uCgpUaGFua3MsClRpbXVyCgoKPiAKPiA+IAo+ID4gCj4gPiA+IAo+ID4g
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9sZWdhY3ktZHBtL3NpX2RwbS5j
-Cj4gPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9sZWdhY3ktZHBtL3NpX2RwbS5jCj4gPiA+
-IGluZGV4IDUyZTczMmJlNTllMzYuLjNkZDAxMTVhYTE1ZjggMTAwNjQ0Cj4gPiA+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG0vbGVnYWN5LWRwbS9zaV9kcG0uYwo+ID4gPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3BtL2xlZ2FjeS1kcG0vc2lfZHBtLmMKPiA+ID4gQEAgLTU4MzYsMTcg
-KzU4MzYsMTcgQEAgc3RhdGljIGludCBzaV91cGxvYWRfc21jX2RhdGEoc3RydWN0Cj4gPiA+IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpCj4gPiA+IAo+ID4gPiDCoMKgwqDCoMKgwqDCoCBpZiAoc2lfd3Jp
-dGVfc21jX3NvZnRfcmVnaXN0ZXIoYWRldiwKPiA+ID4gCj4gPiA+IFNJX1NNQ19TT0ZUX1JFR0lT
-VEVSX2NydGNfaW5kZXgsCj4gPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfY3J0Yy0+Y3J0
-Y19pZCkgIT0KPiA+ID4gUFBTTUNfUmVzdWx0X09LKQo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-YW1kZ3B1X2NydGMtPmNydGNfaWQpKQo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgcmV0dXJuIDA7Cj4gPiA+IAo+ID4gPiDCoMKgwqDCoMKgwqDCoCBpZiAoc2lfd3JpdGVfc21j
-X3NvZnRfcmVnaXN0ZXIoYWRldiwKPiA+ID4gCj4gPiA+IFNJX1NNQ19TT0ZUX1JFR0lTVEVSX21j
-bGtfY2hhbmdlX2Jsb2NrX2NwX21pbiwKPiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9j
-cnRjLT53bV9oaWdoIC8KPiA+ID4gYW1kZ3B1X2NydGMtPmxpbmVfdGltZSkgIT0gUFBTTUNfUmVz
-dWx0X09LKQo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2NydGMtPndtX2hpZ2ggLwo+
-ID4gPiBhbWRncHVfY3J0Yy0+bGluZV90aW1lKSkKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHJldHVybiAwOwo+ID4gPiAKPiA+ID4gwqDCoMKgwqDCoMKgwqAgaWYgKHNpX3dy
-aXRlX3NtY19zb2Z0X3JlZ2lzdGVyKGFkZXYsCj4gPiA+IAo+ID4gPiBTSV9TTUNfU09GVF9SRUdJ
-U1RFUl9tY2xrX2NoYW5nZV9ibG9ja19jcF9tYXgsCj4gPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBh
-bWRncHVfY3J0Yy0+d21fbG93IC8KPiA+ID4gYW1kZ3B1X2NydGMtPmxpbmVfdGltZSkgIT0gUFBT
-TUNfUmVzdWx0X09LKQo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2NydGMtPndtX2xv
-dyAvCj4gPiA+IGFtZGdwdV9jcnRjLT5saW5lX3RpbWUpKQo+ID4gPiDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4gPiA+IAo+ID4gPiDCoMKgwqDCoMKgwqDCoCByZXR1
-cm4gMDsKPiA+ID4gCj4gPiA+IAo+ID4gPiA+IAo+ID4gPiA+IMKgwqDCoMKgwqDCoMKgIHJldHVy
-biAwOwo+ID4gPiA+IMKgfQo+ID4gPiA+IC0tCj4gPiA+ID4gMi41MC4xCj4gPiA+ID4gCg==
+On Wed, 2025-08-06 at 14:27 +0200, Christian K=C3=B6nig wrote:
+> On 06.08.25 02:35, Timur Krist=C3=B3f wrote:
+> > >=20
+> > > > > >=20
+> > > > > > Alex
+> > > > >=20
+> > > > > Hi,
+> > > > >=20
+> > > > > These are my observations about how the UVD clock works on
+> > > > > SI:
+> > > > >=20
+> > > > > 1. It seems that the SMC needs to know whether UVD is enabled
+> > > > > or
+> > > > > not,
+> > > > > and the UVD clocks are included as part of the power states.
+> > > > > See:
+> > > > > si_convert_power_state_to_smc
+> > > > > si_convert_power_level_to_smc
+> > >=20
+> > > Correct, yes. The design was that either the KMD or the SMC could
+> > > program the PLLs.
+> > >=20
+> > > > >=20
+> > > > > On SI the default power state doesn't set the UVD clocks,
+> > > > > and SI has a specific power state to be used with UVD.
+> > > > > Actually
+> > > > > amdgpu_dpm_enable_uvd has a special case code path for SI,
+> > > > > where
+> > > > > it
+> > > > > sets this power state. If I print the power states from
+> > > > > si_parse_power_table, it indeed confirms that there is only
+> > > > > one
+> > > > > power
+> > > > > state that has non-zero UVD clocks, and the rest of them just
+> > > > > have the
+> > > > > UVD clocks at zero.
+> > > > >=20
+> > > > > It's unclear to me what happens if we try to enable UVD
+> > > > > clocks
+> > > > > when we
+> > > > > selected a power state that doesn't include them (ie. when we
+> > > > > don't
+> > > > > tell the SMC that UVD is active).
+> > >=20
+> > > IIRC there were two possibilities.
+> > >=20
+> > > Either you let the SMC handle the clocks in which case it would
+> > > lower
+> > > the GFX clock in favor of stable UVD clocks.
+> > >=20
+> > > Or the KMD would lock the SMC to the highest level and then
+> > > program
+> > > the UVD clocks manually.
+> >=20
+> > As far as I see the si_dpm code does a mixture of the above two.
+> > When UVD is enabled, it selects the VBIOS-provided UVD power state
+> > and
+> > then it manually enables the UVD clocks to the value provided by
+> > the
+> > VBIOS.
+> >=20
+> > When the UVD ring is not used anymore, it then shuts the UVD clock
+> > down
+> > manually.
+> >=20
+> > (I assume then it goes back to a normal power state but I haven't
+> > actually verified that.)
+> >=20
+> > >=20
+> > > The later was not really validated but requested by a lot of
+> > > people
+> > > because otherwise you got a GFX performance reduction whenever
+> > > you
+> > > used UVD.
+> >=20
+> > Yes, the UVD power state from the VBIOS indeed has lower shader
+> > clocks
+> > compared to the normal power state.
+> >=20
+> > >=20
+> > > > >=20
+> > > > > 2. When setting a power state that enables UVD, the UVD clock
+> > > > > is
+> > > > > enabled either before or after the engine clock by si_dpm.
+> > > > > This
+> > > > > is done
+> > > > > so in both radeon and amdgpu, see:
+> > > > > si_dpm_set_power_state
+> > > > > ni_set_uvd_clock_before_set_eng_clock
+> > > > > ni_set_uvd_clock_after_set_eng_clock
+> > > > >=20
+> > > > > The specific sequence in which the UVD clock is enabled by
+> > > > > si_dpm_set_power_state leads me to the conclusion that
+> > > > > amdgpu_asic_set_uvd_clocks should not be directly called on
+> > > > > SI
+> > > > > outside
+> > > > > of the DPM code.
+> > > > >=20
+> > > > > Please correct me if I misunderstood the code.
+> > >=20
+> > > That sounds correct to me.
+> >=20
+> > Thanks!
+> >=20
+> > Sounds like the patch is correct, then.
+>=20
+> Most likely yes.
+>=20
+> >=20
+> > >=20
+> > > >=20
+> > > > Yeah, I don't remember the clock dependencies.=C2=A0 I thought that
+> > > > you
+> > > > should be able to program the UVD PLLs any time you wanted and
+> > > > the
+> > > > ordering only mattered when you were also changing the sclk.
+> > > > Programming the PLLs directly works as is in radeon, but I
+> > > > guess
+> > > > maybe
+> > > > we init DPM in a different order in radeon vs amdgpu.
+> > > >=20
+> > > > It would also probably be a good idea to disable the UVD clocks
+> > > > again
+> > > > after IP init to save power. E.g., something like:
+> > > >=20
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (adev->pm.dpm_enabled)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 amdgpu_dpm_enable_uvd(adev, false);
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 amdgpu_asic_set_uvd_clocks(adev, 0, 0);
+> > >=20
+> > > IIRC we always disabled the PLL manually when UVD was unused
+> > > because
+> > > the SMC sometimes failed to do this.
+> >=20
+> >=20
+> > Yes, as I mentioned in my previous mail the PM code does that
+> > already
+> > when the UVD ring is not in use anymore. So it's not necessary to
+> > add
+> > any code to shut it down.
+> >=20
+> > Maybe I should edit the commit to explain that in a comment?
+>=20
+> Code comment please!
+>=20
+> That's basically the only chance we have to keep the knowledge why we
+> did something the way we do it for the old HW generations around.
+>=20
+> Regards,
+> Christian.
 
+Hi Christian,
+
+Sounds good. I will add a comment when I submit a next version of this
+series.
+
+>=20
+> >=20
+> > Thanks,
+> > Timur
