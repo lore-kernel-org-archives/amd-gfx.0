@@ -4,150 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 196FCC87FD2
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 07:45:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB872C87FD3
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 07:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EC5310E4E2;
-	Fri,  8 Aug 2025 07:45:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7901E10E4EA;
+	Fri,  8 Aug 2025 07:48:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cNqVbL+e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fy3p/O+I";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAD7E10E4E2
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 07:45:40 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2084.outbound.protection.outlook.com [40.107.100.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74A3710E4EA
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 07:48:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BKQgoefnw+o+PLoDpHslBUE+8h6pTREUZQ5Oi599zdnQiYNRPtgjrcvNgBUjq9Usew4qF18650TMc6TSykQ8U67+59W1XEQxshJbnHwC/gjY+E35pCUQo/LcoEVDWFXsFO/PU6nFnIpz6gZ7Eu2/tyA691WtZy1dHbldkSUmqrkIw/7rgUgjCcjm8UDIsZlvv3+dyYhQHAA4VhPvJ7FIdBgvhNO8YHOZ6DIKjRy4b2qyiK2G3Zfd0/i2vLseJvMXyWOGiT6SYCmUhTf3VbTZ/mUFpdjGf3+M8kV71VrUHmejpaYymWtjRv5bLEPS5HVZjaPinSGd8FF0MgwM0+DkQg==
+ b=jSRCeqB7FQlmnIQxtnaIhSpUL0sNF5HlYg3VwNuDX4qBFQAQDX2wnDVC5+I+CmRWB5lwqCx6v7xYNUyEE8gA9hbOvQ4eGnNHPHWebIARoS8Q2vqERwX7MosUdkUPycmQQEJ84QslVkAmIiKVOPbG6+MPvRSUdoBuGmvEhrbcg1Stx4jmWAT0Zxl7Gzg1WyEjHH9Ifg8fZBu+9GkGTGQUBBYCukvv9ELP43FTqyzwfafYgmeJ/PZsDNeibHzy9RfhENVv9whjWHy1pAoGKgud903ABq9XFaiW6WwHSZayg3JdzbZUC8gJHf8uuv8F6Gv4eKN/axCsxye960yOuJg3qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mjr5SGBjuZdPmjFiKZNfU/nNfem7zB8sbA28tR1EzK0=;
- b=xELJ6krjLHiEKiTeBFGeqEUZkpC/07nFA+FdIoFSthiRSMce+bY4QN3do4pNnE/QJBkveNTMBRo/Mgi0ti5d8zyDwR60LPjAuLSMGv0dxptJ3wukYNZWcDp1IzOm/MzjjhPu/p6mFQl0DA/0VfnPm4IJK+LICRNDSvDvV270sb1YsoLQAikEFJ8rQi3/jPvTclheMYQrencUalriES5PpdT7223UmWMR2OoID86Aib4FvStW4923yx+mPZmyJTfPkCp3hB/2enwVUZqJ5P0nuSAPBJlwzVle4TBxBZ8obYkbt67Nr67KXX+Ul+Smh9DDbdk+NeR8PTNnMdkj52yVBg==
+ bh=1D/bfJUJDbXlMXXckOGKPEtl5rzFcOm/+lgoR4pQ+kc=;
+ b=UTCKLTVoVRewWr7ceKeYfACllOl+jzaxnTB0ibfeHm2mAC4esogMIUHuVj2yL5f6cKFOuv7i5uTw2qDiAXwH7pHXLXHNbp6IwW8ZUPlxwU7DV+tnnBEZEwFPrE0oiW5RdbPPwR1vYBAqoqmu4X+Ztoo4LAh/4LPxUDvXJ89lAkAyLlU2TS8A3emt+SyDKFeU96lELJUi4WYlZX3aRhwnPn3yfgVlweNNx9Pv9pvwOymb8OViswCSVL4qhQqBC+/DRW1fagOOvaH0hbC7QcCJZ1KvSzN8r/gTyK3oFL/z0USoDX2cjiIbTBiikOUFUTKo1h36nZn8LjOPsEOMrDFUOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mjr5SGBjuZdPmjFiKZNfU/nNfem7zB8sbA28tR1EzK0=;
- b=cNqVbL+eq24kV+OzT7D5QRMa7FBxiwaeWSDRujzk4EybdZ2EEPP+GnTsAs8XkU3U1ikRqyBeEoRaElEpWPRa9/dKtdPqkwBSqLVsi830YZFYcgX1/6alMSPEHWzosN5ESm2m/Qjs7S20d2MOBg9g6mRk/2qz8GIcUGRVhLdkNj0=
+ bh=1D/bfJUJDbXlMXXckOGKPEtl5rzFcOm/+lgoR4pQ+kc=;
+ b=fy3p/O+IeiZ4e1Zl1obqaWYha7QJ2NoW4dRlPzjo02iqgW0C7H17N3jAtMTxs1T96/yY8aqMNYMHUSXJl5M/edAvrAAx9HwJvc0W8ffvd3Z+Y//kbOXLIhF6cUCQvRasGNeezJN4ugH/Mi/v7VTSx5l2VBr/pH4PycgkRwxVAzI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by LV8PR12MB9420.namprd12.prod.outlook.com (2603:10b6:408:200::12)
+ by MW4PR12MB7429.namprd12.prod.outlook.com (2603:10b6:303:21b::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.15; Fri, 8 Aug
- 2025 07:45:38 +0000
+ 2025 07:48:32 +0000
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8%7]) with mapi id 15.20.9009.013; Fri, 8 Aug 2025
- 07:45:38 +0000
+ 07:48:32 +0000
 Content-Type: multipart/alternative;
- boundary="------------J6P0Sued4RuzxKOXNTkoIKYI"
-Message-ID: <841bd643-da52-44fe-86b0-ad629af47399@amd.com>
-Date: Fri, 8 Aug 2025 15:45:33 +0800
+ boundary="------------SLtCd90Gb8j7RMqHjf8PlAoS"
+Message-ID: <aa295f02-8afb-4290-8a0b-20c428bcfc0f@amd.com>
+Date: Fri, 8 Aug 2025 15:48:27 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 11/13] amdkfd: remove DIQ support
+Subject: Re: [PATCH V3 10/13] amdkfd: process pointer of a HIQ should be set
+ to NULL
 To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com
 Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
 References: <20250804110550.261311-1-lingshan.zhu@amd.com>
- <20250804110550.261311-12-lingshan.zhu@amd.com>
- <408aa37e-82f7-4bc1-ac4e-391e4554febd@amd.com>
+ <20250804110550.261311-11-lingshan.zhu@amd.com>
+ <c8b04e72-9085-47ab-bdb1-6f0f3bbc4752@amd.com>
 Content-Language: en-US
 From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <408aa37e-82f7-4bc1-ac4e-391e4554febd@amd.com>
-X-ClientProxiedBy: TYCP301CA0063.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:7d::8) To SN7PR12MB7835.namprd12.prod.outlook.com
+In-Reply-To: <c8b04e72-9085-47ab-bdb1-6f0f3bbc4752@amd.com>
+X-ClientProxiedBy: SG2PR01CA0135.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:8f::15) To SN7PR12MB7835.namprd12.prod.outlook.com
  (2603:10b6:806:328::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|LV8PR12MB9420:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb00dafb-6ee2-47fd-7f4f-08ddd64f90dc
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|MW4PR12MB7429:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b022e5f-8067-478a-8f96-08ddd64ff8d0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YTY5cFAyT3FRTDNaVVJvZy9ZL0pGZkgwaSsxL2k0N2JLUmhKdE5RTk9KOUxJ?=
- =?utf-8?B?SGFLUG5uVTZSZXlIcE42ZDRrNGhqOFU5ODZ4NHp6TDZ0TWY3dDlaL09VQ3o4?=
- =?utf-8?B?K0JkbVNDbWI2blB1bDN4ZUZzb1N0S1NHL2Y4VWxsQkNkcEVFeW5hWUJQTmt0?=
- =?utf-8?B?ay9wekwrKzgweVZkR1J4aFpPYklIaTUxcTJXM202R3h0d3ZDOWozTnJJUUhM?=
- =?utf-8?B?bk1vYzhoUXhlbjF3L0h5enIrY2tZcUZGUHE3V3lMQU1seGp1UEcxTDFiOXR3?=
- =?utf-8?B?UXBZeTRYN25STVJzby80VEdpSnZpZWVVb2J4L1g1ZStWQjBYZUw0RkZid0ZQ?=
- =?utf-8?B?bmtEay8ySjE1clhhNkhQNWVaMUFCbmJFbGxPemJFMGgvOGRZMjhRMUJqdWRw?=
- =?utf-8?B?QWc4dVpkOW9Md2E1SGw2MWIwcW92blBZUmptRWl1UEorelE0UjljTmhhdkw0?=
- =?utf-8?B?SUtaajBJRnR1Q0VBVFZYWWRva1FTLzhzK2dBVExXVmtaeFRreVl5M0N6NGJ6?=
- =?utf-8?B?ZGtNYmRGK1MyUXBXaHQ0N1BtNzJQK3A2eVNxekpiUWQrMzlFQ0pUcUNOd1BU?=
- =?utf-8?B?d0Y0U0F2cWx0b2dWZ1k2dDFJL2hCb0NEWVFZT2RhNVpFYkw1QnQ3WEJKd2RT?=
- =?utf-8?B?ZjQyV24waXU3ajB2dFprSHJicFovd2tFQzFIWnI2Mlo3WDAwbVpkYmJ3NDBo?=
- =?utf-8?B?SEJVNWI1cHFYYnV1V25idk5BTzFmSUdpR290V0t4dUFsdXA4cW9PZE1XRjhD?=
- =?utf-8?B?QVNreGRKM0FoQklmcFBmQVFGV0hTSVF3Z1pJcVZRZktWT0w0U0RDSDhOc3gz?=
- =?utf-8?B?ZllwMGpKZUQ2TTdxdkNCRUg1REZNQmNYdXpERzl6YndkOGN1N0tuOWNEdE9H?=
- =?utf-8?B?L0lHazQ2U01VeXF1TUVKU2ZlL0VRcTZNdUdaK2NjVVNCaGxWUGNpdW0rOXl0?=
- =?utf-8?B?UmFHL3JMdjFWdVV1VVR2Uy8vNVd3dGlUK3FYTkh1Sm04WGRza0RKNXM3QXpQ?=
- =?utf-8?B?WGFhT0FNTmY4WkVqMHFDb2FTYUdjTDE3MjFJVDhDVk1QaVlUV2RWSFhJazQ2?=
- =?utf-8?B?aWJxZzFmdkVwVzBqTTl2U1dER0FXTU1Lc1BJdnY5WVFETkhiU2xlRjg1QTZK?=
- =?utf-8?B?elhzWlVjTFgrR2RMOTl4NUxjRTRDTU55S2p2K3NNaWdpNjVjeWFWTW85N214?=
- =?utf-8?B?RVVMQ2xkQm5ZMkdPL0pMY2ppS3BudXQ2M0V3NmQ0NTZSS3d4dXZUWkR1Qmw3?=
- =?utf-8?B?RzBnTEVpNG9Vd01kSWU3SXV6TUt0SFZNQVh6b3gxb1dEb0RsV0E5dEZEZ0NH?=
- =?utf-8?B?MzFPZExSZWc1cGl4TEtkZ1FiQ21MclVrNDNobFVNSkxMMm9CZktZRWo1YUQy?=
- =?utf-8?B?RTVIQzBNMXVwdDJ2VGdOVDROUThFLzN2ajV4NWdIREh3YlZrMTVvQTBWNStr?=
- =?utf-8?B?UlRKcXM4RWhGTllOVm0vMGQ2OElvcmFhTVRiV1ZoUVhEUHgxY0Rmb2NMMHY1?=
- =?utf-8?B?WW1GZ00yL2x4bmlOUjk1dHVqQXdBaC94bzRxcUo1T1dxMXZaMHNNNU10NTk1?=
- =?utf-8?B?bk5ycWJnYmdiQk5YbERPcEFtUVFPc2FQVUtlRG8rUm43bzZJdS9Ya1pEcmtw?=
- =?utf-8?B?TnQ5d2RIelhwL25ScGVzMGdQL1IzaW9lNkVnMEdSTnhjLzByL1JadjhGWWt2?=
- =?utf-8?B?QkQ1MU5BNjJHTlZFOHhVQjd4ZVoyWmlFRjR3MFBrbVZFSC9pSVNHQ3FrRy9n?=
- =?utf-8?B?WUxIbmk3dnRUdzhwM1RSSFpDMGw2RSs3a0RQa2xudkVoQkdDZ0ZEWENGVjVS?=
- =?utf-8?B?c3F6aXBMNTVyMHI4YVdVcnpQUnlhWDVmTDNERjM0YUlsVUw1Yzc5WE9ack9E?=
- =?utf-8?B?L2JuTnR4THdvVEoydHJrL2FlTFFra0tHMjkxN0pQRTBHcTJYbDZSRXU3S1Yw?=
- =?utf-8?Q?on4gwp1Uyxk=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TGwzY2hMVGtFeU9SdlN2Nm9MelVVTFZUNXpYQVFROG5Od2dIMGtNNDdKZDBR?=
+ =?utf-8?B?VnJKdi9aYzRMTEF6cHVtM2w2RGZyeEhLVGFkb2Z2Tk5Pb2dIbWMvcEJsQlh0?=
+ =?utf-8?B?M3pUbm9XVzVsOVM5ejNadDV5bUdHK0FvZ1ZEem9XbjYxSDQxMGNadURtUVZD?=
+ =?utf-8?B?N3gxM1hCZ04xU0tqeitFMkxCbzhIaE4vNElqaW5IQUtzWUJ6K3o3ay9nUGQ2?=
+ =?utf-8?B?UGlDdGwvMzlNYXdEM2xkVFZ1UTUrZmFEakYwRm1NcEtvOTBWR3MvaGpucHhH?=
+ =?utf-8?B?WmdWeFRxTHV1YTNuWW9KS1picnE0aE1qaC81djRkMElDcDBsc0hISVFPdkZD?=
+ =?utf-8?B?Ylh5S05pTkpmek1LMG1pZFJCMzhRbng0T1BXZWVEbE05UXMrWVJhYmJtVVhy?=
+ =?utf-8?B?cGdJbnkxNDZMdEorSjR0bWx2VlZCeExKKzNWcm1oM24ydlBRbHhQZnFHcUYy?=
+ =?utf-8?B?Rnlpdy9yR0NCMEtsMDRNWFFNTDY0MWM5amNDSE84YUxQMzkvS21zYlB6UFVS?=
+ =?utf-8?B?eElQSmcvWUNZUWpkLzJOQUZjQ08vMVhFV25KeGNMNHV1SFZlWFRYRjNNOWNk?=
+ =?utf-8?B?b01YZERrQlEyYStmNWtYNm95OFNWaWM1NEFTVmtGOGh4UWQwWW8xVGFPSnZv?=
+ =?utf-8?B?ZWh1TG9Fblo4NG9UbWtKT29IMkVhcXpJODdaQjZxY0tRbmhHYkY3Z0I5MVhp?=
+ =?utf-8?B?NjVtdTBZU3JvNG90MUN0emFoV25PYjJMS3RncWR4cDkvQmVWcW1FTGhYSGFj?=
+ =?utf-8?B?cW5xekkvUWN6bkxoOStlNjZIMjVRTzhvaFBWSHkrY21HKzNGT2R1L01QL3Bj?=
+ =?utf-8?B?Yy91YU02K3FLVi85aDdqN1cvRzJBQk4zOXBZY05ucFZxejlLc0NSVUVJa29E?=
+ =?utf-8?B?WktpNE14WWJlR2MxMVFCUS9lRHBDNkRqYVZmY2U0ZFVGTUFmWDBJdmUwZjNQ?=
+ =?utf-8?B?WUErOGNIRENNbCtjc0JtdEM0aEV4RmRZWUZKQkJ4NEtZOERnTEp2akNEbTdl?=
+ =?utf-8?B?WUdhc0NQZUZEazR6VlNDeTc0T21DNW9NNWFpRjRTeHF2bVJuUWR5eDF3MU85?=
+ =?utf-8?B?b3VCSlQxWmgvdG1uKzBqR0xlenFUc0EyQWU4YWQ4Vlp3Zk1jd3lpVG92M2g5?=
+ =?utf-8?B?dUtLTVpLc212Ykw5Y3E3TWFQM2Q2UUsybVN4TlVYcjZZanUzYVZFMVRhSXFB?=
+ =?utf-8?B?WDE5eEN0MzFBSWRLWlJ3Vnh1LzZpRnVaU3o3Q2pkZEZUNE41dndPdGc0SkZ6?=
+ =?utf-8?B?c0VGR1Q1V1JEbnpUUmR5UnJoeE9DckwrekZaYTNvcVVqY1hmRWVVYktkK3Qv?=
+ =?utf-8?B?WE01WU9HVnA2Q3FuRktRUUxMUDl5N0dYbVBXem8wVlRTNUhRaExIem0rWDRL?=
+ =?utf-8?B?RnJTbDRFd2hXYUE3S3prR1NpY2ZpcWh1ZDJHejhIVmhxT2JRMWpzaVVsZllH?=
+ =?utf-8?B?U2tZWnJSZWhQV3QrT1RDWmtaa0VJNjRObFgwNW84SDF5cEdjY2lvYVV1QVZy?=
+ =?utf-8?B?SHEwaFJEMVlFSHdWWTQ5ejJqeTcxVkxhQk5zWXVOS3lDcGtKOVpZWFFQdUxI?=
+ =?utf-8?B?WTB0V3B5N1BLNW9Pb3FYbWlOejg5b2liYUE2ekhkZmFWWmI4TDlDVyszZmtN?=
+ =?utf-8?B?VlFxTjNjZFVHNEtySFpVZGlvZFNjNzNKQnd6ZUFiYzhZaEZ0YnJNWThaSFdl?=
+ =?utf-8?B?S1FiZjgrUVMvaEJQcWpWTDNzYjBMUTlaZmlxZ3Z3UmVIS2YzUlJoY1U3VS9T?=
+ =?utf-8?B?aVo4M01IRGlBa0xIempsUytBdDltMThpNnl5RE1NN0kzV0l6c3VrN0trd1d3?=
+ =?utf-8?B?RTVDNlZKZE5SNXRreHJHMkNjOWlxRzNaVVZXZEQzckJUR3JBRjA1Qkh4MFdK?=
+ =?utf-8?B?UVMrUEcrMmJVRDltK1d4RHdibXhqRWUwd3cvcXAvTW45VGwxZzBwWlVXNUZi?=
+ =?utf-8?Q?779kmnWNFBE=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(8096899003); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YW5GSU5pc1ZPT0s3YU8rUUZ1a0ZDRlAyNlNtMW1wR0RldkFNMTNialNsTzRa?=
- =?utf-8?B?UWYwMEJ5bTNNTDJDRm05UGZrU2hNUFJYZnd5RGVyb0h5Sm0yeFlGaktyWHgw?=
- =?utf-8?B?b0NHaGRlQTlodnY3bGxLVHBURnA5NzY4NzVYaUUrV3IzWndNODBOM1Q5MDRP?=
- =?utf-8?B?QUFlQWd2WGhTTE1mNGRzY1dQV09seC9jdGxTOS9QNEh1MW96Q1dHTmRPM1ds?=
- =?utf-8?B?QytUL0xmUWJvTUx1YUJYUUlmeXlZcWFxVkIveDgwa1ovdjFHU2ZwZDFjekxy?=
- =?utf-8?B?Nzk4MmhVSlVJL1JXTlRERFd4NHdmTWFaZEpXT3FFVndVYzdIT3NVNnpaMFRk?=
- =?utf-8?B?R0JHcndVY0lCMS9ueVh0T3BBaHRlT0xXWkx5bUJCRFdiMUJGL2U1OG1uY3BC?=
- =?utf-8?B?TkFUa3RxUS9UT3FCVko1SkR2NC9aa1RDOThiV24yVi9xd3dVUXNsckVSZ2RE?=
- =?utf-8?B?d3RJS0s4RWMrY25BNXY2YjZReEVjOGRPTlhBdkI3T2hEWGZEMWFKQjFNTVla?=
- =?utf-8?B?bkJkYXp6eUdCMEVwcU4xek5UOXc5cWNxU1FkbjM1L2RjcC9zUlZGZXFiUEZp?=
- =?utf-8?B?eEMrSGIxNVNmcC9LMDNDdTl4blpKWG83dW0vRU03MFdyUlBTTVBtb3pObjhj?=
- =?utf-8?B?K1V0TjlHc0I3cDZKMFY4TjQwanBKM2wwdXZCZGlvTnNwUSt0dVMzd2Ficzdr?=
- =?utf-8?B?ZDIvdGZhcnFhcmY1Y2hWbGNsT3VLUW84di9sclpKUy9Fa3RzMDZaTE9wdE9o?=
- =?utf-8?B?TjdkODFBQmhGOXEvVG5EZWlXQWwyNUduUGVOZ00yMUF5QytSZlFqU29ORzd0?=
- =?utf-8?B?N1k5eHFRWUtTeWdMZm5vV01yT3JhVEg0RzNNQ2hoL2Mrc2JZdTBQZzlMNTVJ?=
- =?utf-8?B?N3BEakZmeEcrTXRBWjA1ODlTSEhEcnB0YmNPbWErMnlFanB4SzVZdThTaVNK?=
- =?utf-8?B?anIraTZHTFNOeW9XWjMraUY2Ti9GV3VSckg5QUVVYzRxSzNYcDl6aXN0SXFl?=
- =?utf-8?B?YXYvanJ4QzJrRTJSekYwSkI3b3NxWnRIQWJuQUNFMXV6OWdRcm5lU25ETVpQ?=
- =?utf-8?B?NXA3a0FWNURQKzZnUFhRSjJ5WEtudHZxUG9vNXR6UXlxNm1XVkNBMUQ2SkM1?=
- =?utf-8?B?TWFCcEZ2bTd2a1ZNOXVIeTlCY1B2TkFYSG9qeXd0NFhvUFJsWmpqSHNjTXBM?=
- =?utf-8?B?aWIxZklhTjZhY2JpMDFpbW9lTzlneWQ4Z3V2QTdaWHFsWFJpQ0t1OUIxdno1?=
- =?utf-8?B?R2NRUkhFcnJGNExqREt5NmorRjB6MTFVc1R3ZlVNTWlnTy91Ym1EOWpZTHEy?=
- =?utf-8?B?Nmw5YTlYQlRDQnBISjlLME84Qzlrb0thQTc0YVNmdHp1R2t4ejArYVlwNEEy?=
- =?utf-8?B?WnM2WlE0dEd5SHdYd3kycjRxL1NyNm5nZk9Xc2lPTi9hbkZtVUpvTm5JVHc2?=
- =?utf-8?B?TllaODRET1lURDNSUGcyYVhIQW5NTk1CSE01elBRQzg0ZnY1UGlBSDA3c1Ru?=
- =?utf-8?B?clZ3eHRsMUMrZ0xTVFpzWlY0NitSVzczazJXWnNsa2luQXAwZGM4U3dkbGh2?=
- =?utf-8?B?NUduUDVJNlZJTzM0Szc2ZG1FMXh0eGV2bWM5UmNrRFgrVjE5L1ZWVm9TTVMr?=
- =?utf-8?B?cDRsSGV3SUFjaVBnVXZEbXNRQ1UwL2tQWm9WdS9JaEFXcXpsa1E5VCtUU1I2?=
- =?utf-8?B?WUpuK1E1RDQ1NVZZckNhMzZjTGl2Y1FpQVdiRE1qNWRHc1FMTmxPNmo5RkJQ?=
- =?utf-8?B?WVVNckVLZHRjb3RYMWExUHczdjdVRnc1cStlYk5XNDRSTUpUdmEzblYrNGVa?=
- =?utf-8?B?MGk3RzFQMWF4VXkrK1dnRVErMHNJL0tUUWwydy93RzJOWTV2SHV6VEE5bVda?=
- =?utf-8?B?WmpjY2YzNnNoSnZPVDdmNmh1dElIeHZJWjgramhRNFluUkFoUUwrOUo0aldZ?=
- =?utf-8?B?TVk0T1RLT2FoRjRSSjd3RW5OVytDTFZoQTBITGZ4eEpIdnBFLzV3cHJ0WHgr?=
- =?utf-8?B?a3FkTE1MeU5ndU8rdVhKdG8ybUEwTUpoQmVvYmVHWC9ranlaSGhndjhOZFI2?=
- =?utf-8?B?ZDF4ekxwV1I4MEUvdjlFMGd3RUNGSkpaZGZKU00rMitTSmhQS2hqSXp4UHNw?=
- =?utf-8?Q?g+ZeRrAJzS/TDOKAfygi5zr/0?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RU43MXFJZkVDK3lWb0dCSVFOc1FoQUszK2ozbmphNW1zYU5MeHo0aFEyb3dZ?=
+ =?utf-8?B?UzcrcktyUk0vd21INDNtQU9rTEU4NkwvRGhBSW5saUF0RWZZdzFsSkVRN0Fl?=
+ =?utf-8?B?UnQzNUQxejljSDB2QWxqRWREZmIvb1o0OFUvSUI1c3NIOEhEQklyaW03Uml6?=
+ =?utf-8?B?MnZTenh0ZHVxM2grY3pvUkVkMDU4a2xrZjBCUXp6SEtvNGdWTzBRb3paM3Jk?=
+ =?utf-8?B?clJjRzFWU0JMNGRUUThEcXRKK0dpK29jbXFScGF3UXg2eGFUUFJibnFVRnNH?=
+ =?utf-8?B?dWw5VDdaY0lPSkp6V1RrQzRUUTdnREhjR0I5U1gvb3pMMFA1M0N2VERib01C?=
+ =?utf-8?B?N3pSUGxOd3RHRnczNW12b1JPUWhyM2JUVVlPWk9GTUxxK1JVTnl0RGZ4dFNo?=
+ =?utf-8?B?SXVjRU9DWW5YV3hMZ0hBNzUxbWNSLzRWWXpSa1U2cTNzYVE2SmNwNWdFODgx?=
+ =?utf-8?B?MllnNURjQ1ZrdXhLeDZydElWRzk1M2pFV3dEWWRzRXFlOEJnRmdlNTM4NlBt?=
+ =?utf-8?B?NVcxVEdHWjdoa3ZMMFZkTWZsRmZkeTd2UU5WWXo4cS9tTHlKTmpWRUNwRkZM?=
+ =?utf-8?B?QjlBeTYzbFpaaTJTVnQ1Q1lEbWdpRGk1eEdQOXBJa3ZlMnpOR3FxU2EwRklD?=
+ =?utf-8?B?MXpNdTQ5dFNXV1lyNXZUSG80YVd2ejVwNks2Mkc1VUl6anh6alp3T2RZTnBs?=
+ =?utf-8?B?NGZjSkM0a1BCeGRtRzlyQWNMUHNaWU12QjNWdjJvdXhLdHNnS2VkL1JXL3I4?=
+ =?utf-8?B?c0cvOGhNQ25OSldVTG91RDdSamlibzRBek0xZSsvckVhUExnMFdRQ3NwK0R3?=
+ =?utf-8?B?dGpIWXBDOHZsZlhjc21xeDJrOThBQ0drTEMwWDY1dnY3RW02NWswMFF1VU1v?=
+ =?utf-8?B?eUFLRlJ6TEZPcjFuaStWSmF4VUJFdGxpN0U4ZGQ4dEx0MDNNSkJZNDFaZitn?=
+ =?utf-8?B?NkpmSk8xQm9GeVZub3VKd05ZZkZKbFVMMi9IcDBzWitUenhHd0luRWNYQnBh?=
+ =?utf-8?B?cENRSUh0VjVtZmZFMHE5QzZQZmJvekZzTFowOGZZaUdQbldyZUcyOGJzV2pn?=
+ =?utf-8?B?ZHBjcXpkUEhUdk1rNzh5Ym9RMmdoamxlOEhDb3ljdlZzUzI2UytPSDlGbTRy?=
+ =?utf-8?B?UzhGOWFVemtkMlFEc2pkWnB5VitBRmQrR1RNN2JTa1krK3poWUhIR3FVenJm?=
+ =?utf-8?B?YW9tL3JlZTZXRDQ3VW91RktOUTkyZ1Rld1MxZGNaN1Y1UVhHckZsbFpIOTNw?=
+ =?utf-8?B?cDUzZXRHNk9KMVNHTWRqMzFmUTFpeXZKMmNVK0xRSThpUHc2QVZEVk5QMkhZ?=
+ =?utf-8?B?Rmk4OVNnUVB6VkRrUlM3cGlLbmxEbmxpaUw0L1VFYXlvQTc4aGdOZ2hqclhi?=
+ =?utf-8?B?R3E4Qy9XY1VnbmlhWVF6RmxyR0lENGlJaXBwY2plMmY1b0NPZkpzSGRrM05R?=
+ =?utf-8?B?ckhHb2I1cG1qVFlTV1ZLWHl2bWNEeDlGYy95Y0ZaOEZkQUpTcXFSTTl2YUFt?=
+ =?utf-8?B?U3hXZm00L1RlbnlHaE5jZ1VrcVdEZVdCeUhjclhjdnNQSHpPTmhGUExRenF0?=
+ =?utf-8?B?elNHS1Q5K0VCbW9YT2J3QnB1UnNrQWxKa0UyOUM4R21TbkM0b2pCQjZuSEQv?=
+ =?utf-8?B?ZWNSZmNJLzhXK2Fsc0JlV0lOanBXSDYraFNsdHBpRzY3WUkwZ0RVT3hhVlBy?=
+ =?utf-8?B?eGFRWWc0bEIwb2txRWFpS3FDU0dZN2RpQnMyZ05KMUJxWkxYaU1sb1AxTzI3?=
+ =?utf-8?B?WnUrTEh6b25zSE9pb3p6c3dpV3hRR2hYdDlOdVZjVmxQODd2MFc3bTNtdFZ6?=
+ =?utf-8?B?Z1Zac2FJNWhhdythOXdNMlE0dVd3d29tTUJRenlXUGwvUjYwMmNPbE1mRjUw?=
+ =?utf-8?B?dlA2Uk9ZYVhhSnFSQ2J2UkVFcjdMVHgwVUdEZHlRUTJERFI1dWdDcGk4M2Nz?=
+ =?utf-8?B?TnA2TDhPY3g2QSttSE4vMXBSNHFmNDNYeURDZllBUzJ0ZHJkZE9CV3B4cVBv?=
+ =?utf-8?B?a2hJbnRCRkh3RTAxWDdhMFpvWUgzMkZQb1RsanNnOVZWQ0o0eUlxRWl3bHpR?=
+ =?utf-8?B?NFk0a2JxR3c0dlpJcDArTktjblg3T1ZzRkdQa3RybHYyNDhpN1hSMkZjOVZ1?=
+ =?utf-8?Q?IpIy8AB59LPio0gJSGDqzPj/4?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb00dafb-6ee2-47fd-7f4f-08ddd64f90dc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b022e5f-8067-478a-8f96-08ddd64ff8d0
 X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2025 07:45:37.9916 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2025 07:48:32.4587 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +hgOVPNXbyVABTVZ4KEC7972Ie5uYdKx4QsOmH2aPRvf2QC5+AVOn7i2iCs/cGGH5LZ/8JoTwqOeUgZk7iyhUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9420
+X-MS-Exchange-CrossTenant-UserPrincipalName: aWwZc0EruPwTdMaoccKArjAdk9m99MN0CaYpsSBnh9rdC0gm7JsZwzZRTeh65GsWY3RWGGZ8orHGj/ukyF5/tg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7429
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,92 +163,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------J6P0Sued4RuzxKOXNTkoIKYI
+--------------SLtCd90Gb8j7RMqHjf8PlAoS
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 8/8/2025 5:03 AM, Felix Kuehling wrote:
+On 8/8/2025 4:55 AM, Felix Kuehling wrote:
 
 > On 2025-08-04 7:05, Zhu Lingshan wrote:
->> This commit remove DIQ support because it has been
->> marked as DEPRECATED since 2022 in commit 5bdd3eb2
-> I think you can also remove KFD_QUEUE_TYPE_DIQ from enum kfd_queue_type in kfd_priv.h.
-
-I was thinking about whether there can be any customer maintained out-of-tree
-modules rely on hard code offset in this enum. Maybe I am overthinking because
-it is named priv.h, I will remove DIQ in the enmu in the next version. 
-
->
-> See two more comments inline ...
->
+>> In kq_initialize, queue->process of a HIQ should
+>> be set to NULL because it does not belong to any kfd_process.
+>>
+>> This commit decommisions the function kfd_get_process() because
+>> it can not locate a specific kfd_process among multiple
+>> contexts and not any code path calls it after this commit.
+>>
 >> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 >> ---
->>  .../drm/amd/amdkfd/kfd_device_queue_manager.c |  6 +--
->>  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 26 ++-----------
->>  .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  4 --
->>  .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |  4 --
->>  .../amd/amdkfd/kfd_process_queue_manager.c    | 39 +------------------
->>  5 files changed, 7 insertions(+), 72 deletions(-)
+>>  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |  3 ++-
+>>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 -
+>>  drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 18 ------------------
+>>  3 files changed, 2 insertions(+), 20 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> index 2d91027e2a74..58e47e14cf07 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> @@ -399,8 +399,7 @@ static void increment_queue_count(struct device_queue_manager *dqm,
->>  				  struct queue *q)
->>  {
->>  	dqm->active_queue_count++;
->> -	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE ||
->> -	    q->properties.type == KFD_QUEUE_TYPE_DIQ)
->> +	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE)
->>  		dqm->active_cp_queue_count++;
->>  
->>  	if (q->properties.is_gws) {
->> @@ -414,8 +413,7 @@ static void decrement_queue_count(struct device_queue_manager *dqm,
->>  				  struct queue *q)
->>  {
->>  	dqm->active_queue_count--;
->> -	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE ||
->> -	    q->properties.type == KFD_QUEUE_TYPE_DIQ)
->> +	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE)
->>  		dqm->active_cp_queue_count--;
->>  
->>  	if (q->properties.is_gws) {
 >> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
->> index ebee37937783..f676b7419984 100644
+>> index 2b0a830f5b29..ebee37937783 100644
 >> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
 >> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
->> @@ -46,7 +46,7 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
->>  	int retval;
->>  	union PM4_MES_TYPE_3_HEADER nop;
+>> @@ -144,7 +144,8 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
+>>  		goto err_init_queue;
 >>  
->> -	if (WARN_ON(type != KFD_QUEUE_TYPE_DIQ && type != KFD_QUEUE_TYPE_HIQ))
->> +	if (WARN_ON(type != KFD_QUEUE_TYPE_HIQ))
->>  		return false;
-> You're returning early here for invalid queue types. That's fine, but see below ...
->
->
->>  
->>  	pr_debug("Initializing queue type %d size %d\n", KFD_QUEUE_TYPE_HIQ,
->> @@ -61,14 +61,9 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
->>  
->>  	kq->dev = dev;
->>  	kq->nop_packet = nop.u32all;
->> -	switch (type) {
->> -	case KFD_QUEUE_TYPE_DIQ:
->> -		kq->mqd_mgr = dev->dqm->mqd_mgrs[KFD_MQD_TYPE_DIQ];
->> -		break;
->> -	case KFD_QUEUE_TYPE_HIQ:
+>>  	kq->queue->device = dev;
+>> -	kq->queue->process = kfd_get_process(current);
 >> +	if (type == KFD_QUEUE_TYPE_HIQ)
->>  		kq->mqd_mgr = dev->dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
->> -		break;
->> -	default:
->> +	else {
->>  		dev_err(dev->adev->dev, "Invalid queue type %d\n", type);
->>  		return false;
-> I think this code is unreachable because you returned above for any invalid queue type. You can just remove both the if and the else branch. Just assign the kq->mqd_mgr unconditionally.
+>> +		kq->queue->process = NULL;
+> I think this should either unconditionally set the process to NULL for kernel queues, or not touch it at all, because it's probably 0-initialized at allocation time.
 
-Yes, will improve.
+I will leave it untouched.
+
+>
+> Either way, this commit should come after the one that removes the DIQ type, because DIQ did belong to a process.
+
+Yes
 
 Thanks
 Lingshan
@@ -257,142 +212,51 @@ Lingshan
 >   Felix
 >
 >
->>  	}
->> @@ -163,24 +158,11 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
->>  		kq->mqd_mgr->load_mqd(kq->mqd_mgr, kq->queue->mqd,
->>  				kq->queue->pipe, kq->queue->queue,
->>  				&kq->queue->properties, NULL);
->> -	} else {
->> -		/* allocate fence for DIQ */
+>>  
+>>  	kq->queue->mqd_mem_obj = kq->mqd_mgr->allocate_mqd(kq->mqd_mgr->dev,
+>>  					&kq->queue->properties);
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> index d140463e221b..25534473c28f 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> @@ -1050,7 +1050,6 @@ void kfd_process_destroy_wq(void);
+>>  void kfd_cleanup_processes(void);
+>>  struct kfd_process *kfd_create_process(struct task_struct *thread);
+>>  int kfd_create_process_sysfs(struct kfd_process *process);
+>> -struct kfd_process *kfd_get_process(const struct task_struct *task);
+>>  struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid,
+>>  						 struct kfd_process_device **pdd);
+>>  struct kfd_process *kfd_lookup_process_by_mm(const struct mm_struct *mm);
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> index 8e498fd35b8c..0c3f0cc16bf4 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> @@ -989,24 +989,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+>>  	return process;
+>>  }
+>>  
+>> -struct kfd_process *kfd_get_process(const struct task_struct *thread)
+>> -{
+>> -	struct kfd_process *process;
 >> -
->> -		retval = kfd_gtt_sa_allocate(dev, sizeof(uint32_t),
->> -						&kq->fence_mem_obj);
+>> -	if (!thread->mm)
+>> -		return ERR_PTR(-EINVAL);
 >> -
->> -		if (retval != 0)
->> -			goto err_alloc_fence;
+>> -	/* Only the pthreads threading model is supported. */
+>> -	if (thread->group_leader->mm != thread->mm)
+>> -		return ERR_PTR(-EINVAL);
 >> -
->> -		kq->fence_kernel_address = kq->fence_mem_obj->cpu_ptr;
->> -		kq->fence_gpu_addr = kq->fence_mem_obj->gpu_addr;
->>  	}
->>  
->>  	print_queue(kq->queue);
->>  
->>  	return true;
->> -err_alloc_fence:
->> -	kq->mqd_mgr->free_mqd(kq->mqd_mgr, kq->queue->mqd, kq->queue->mqd_mem_obj);
->>  err_allocate_mqd:
->>  	uninit_queue(kq->queue);
->>  err_init_queue:
->> @@ -210,8 +192,6 @@ static void kq_uninitialize(struct kernel_queue *kq)
->>  					kq->queue->queue);
->>  		up_read(&kq->dev->adev->reset_domain->sem);
->>  	}
->> -	else if (kq->queue->properties.type == KFD_QUEUE_TYPE_DIQ)
->> -		kfd_gtt_sa_free(kq->dev, kq->fence_mem_obj);
->>  
->>  	kq->mqd_mgr->free_mqd(kq->mqd_mgr, kq->queue->mqd,
->>  				kq->queue->mqd_mem_obj);
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> index 505036968a77..3d2375817c3e 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> @@ -252,10 +252,6 @@ static int pm_map_queues_v9(struct packet_manager *pm, uint32_t *buffer,
->>  			packet->bitfields2.queue_type =
->>  		queue_type__mes_map_queues__normal_latency_static_queue_vi;
->>  		break;
->> -	case KFD_QUEUE_TYPE_DIQ:
->> -		packet->bitfields2.queue_type =
->> -			queue_type__mes_map_queues__debug_interface_queue_vi;
->> -		break;
->>  	case KFD_QUEUE_TYPE_SDMA:
->>  	case KFD_QUEUE_TYPE_SDMA_XGMI:
->>  		if (q->properties.sdma_engine_id < 2 &&
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
->> index a1de5d7e173a..60086e7cc258 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
->> @@ -166,10 +166,6 @@ static int pm_map_queues_vi(struct packet_manager *pm, uint32_t *buffer,
->>  			packet->bitfields2.queue_type =
->>  		queue_type__mes_map_queues__normal_latency_static_queue_vi;
->>  		break;
->> -	case KFD_QUEUE_TYPE_DIQ:
->> -		packet->bitfields2.queue_type =
->> -			queue_type__mes_map_queues__debug_interface_queue_vi;
->> -		break;
->>  	case KFD_QUEUE_TYPE_SDMA:
->>  	case KFD_QUEUE_TYPE_SDMA_XGMI:
->>  		packet->bitfields2.engine_sel = q->properties.sdma_engine_id +
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
->> index c643e0ccec52..e36950e7e14f 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
->> @@ -345,7 +345,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
->>  	 * If we are just about to create DIQ, the is_debug flag is not set yet
->>  	 * Hence we also check the type as well
->>  	 */
->> -	if ((pdd->qpd.is_debug) || (type == KFD_QUEUE_TYPE_DIQ))
->> +	if ((pdd->qpd.is_debug))
->>  		max_queues = dev->kfd->device_info.max_no_of_hqd/2;
->>  
->>  	if (pdd->qpd.queue_count >= max_queues)
->> @@ -426,22 +426,6 @@ int pqm_create_queue(struct process_queue_manager *pqm,
->>  						    restore_mqd, restore_ctl_stack);
->>  		print_queue(q);
->>  		break;
->> -	case KFD_QUEUE_TYPE_DIQ:
->> -		kq = kernel_queue_init(dev, KFD_QUEUE_TYPE_DIQ);
->> -		if (!kq) {
->> -			retval = -ENOMEM;
->> -			goto err_create_queue;
->> -		}
->> -		kq->queue->properties.queue_id = *qid;
->> -		pqn->kq = kq;
->> -		pqn->q = NULL;
->> -		retval = kfd_process_drain_interrupts(pdd);
->> -		if (retval)
->> -			break;
+>> -	process = find_process(thread, false);
+>> -	if (!process)
+>> -		return ERR_PTR(-EINVAL);
 >> -
->> -		retval = dev->dqm->ops.create_kernel_queue(dev->dqm,
->> -							kq, &pdd->qpd);
->> -		break;
->>  	default:
->>  		WARN(1, "Invalid queue type %d", type);
->>  		retval = -EINVAL;
->> @@ -1121,32 +1105,13 @@ int pqm_debugfs_mqds(struct seq_file *m, void *data)
->>  				break;
->>  			default:
->>  				seq_printf(m,
->> -				"  Bad user queue type %d on device %x\n",
->> +				"  Qeueu node with bad user queue type %d on device %x\n",
->>  					   q->properties.type, q->device->id);
->>  				continue;
->>  			}
->>  			mqd_mgr = q->device->dqm->mqd_mgrs[mqd_type];
->>  			size = mqd_mgr->mqd_stride(mqd_mgr,
->>  							&q->properties);
->> -		} else if (pqn->kq) {
->> -			q = pqn->kq->queue;
->> -			mqd_mgr = pqn->kq->mqd_mgr;
->> -			switch (q->properties.type) {
->> -			case KFD_QUEUE_TYPE_DIQ:
->> -				seq_printf(m, "  DIQ on device %x\n",
->> -					   pqn->kq->dev->id);
->> -				break;
->> -			default:
->> -				seq_printf(m,
->> -				"  Bad kernel queue type %d on device %x\n",
->> -					   q->properties.type,
->> -					   pqn->kq->dev->id);
->> -				continue;
->> -			}
->> -		} else {
->> -			seq_printf(m,
->> -		"  Weird: Queue node with neither kernel nor user queue\n");
->> -			continue;
->>  		}
->>  
->>  		for (xcc = 0; xcc < num_xccs; xcc++) {
---------------J6P0Sued4RuzxKOXNTkoIKYI
+>> -	return process;
+>> -}
+>> -
+>>  static struct kfd_process *find_process_by_mm(const struct mm_struct *mm)
+>>  {
+>>  	struct kfd_process *process;
+--------------SLtCd90Gb8j7RMqHjf8PlAoS
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -400,110 +264,53 @@ Content-Transfer-Encoding: 8bit
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    <pre>On 8/8/2025 5:03 AM, Felix Kuehling wrote:
-</pre>
-    <blockquote type="cite" cite="mid:408aa37e-82f7-4bc1-ac4e-391e4554febd@amd.com">
+    <pre>On 8/8/2025 4:55 AM, Felix Kuehling wrote:</pre>
+    <blockquote type="cite" cite="mid:c8b04e72-9085-47ab-bdb1-6f0f3bbc4752@amd.com">
       <pre wrap="" class="moz-quote-pre">
 On 2025-08-04 7:05, Zhu Lingshan wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">This commit remove DIQ support because it has been
-marked as DEPRECATED since 2022 in commit 5bdd3eb2
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I think you can also remove KFD_QUEUE_TYPE_DIQ from enum kfd_queue_type in kfd_priv.h.</pre>
-    </blockquote>
-    <pre>I was thinking about whether there can be any customer maintained out-of-tree
-modules rely on hard code offset in this enum. Maybe I am overthinking because
-it is named priv.h, I will remove DIQ in the enmu in the next version. </pre>
-    <blockquote type="cite" cite="mid:408aa37e-82f7-4bc1-ac4e-391e4554febd@amd.com">
-      <pre wrap="" class="moz-quote-pre">
+        <pre wrap="" class="moz-quote-pre">In kq_initialize, queue-&gt;process of a HIQ should
+be set to NULL because it does not belong to any kfd_process.
 
-See two more comments inline ...
+This commit decommisions the function kfd_get_process() because
+it can not locate a specific kfd_process among multiple
+contexts and not any code path calls it after this commit.
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
 Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  6 +--
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 26 ++-----------
- .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  4 --
- .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |  4 --
- .../amd/amdkfd/kfd_process_queue_manager.c    | 39 +------------------
- 5 files changed, 7 insertions(+), 72 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |  3 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 18 ------------------
+ 3 files changed, 2 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 2d91027e2a74..58e47e14cf07 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -399,8 +399,7 @@ static void increment_queue_count(struct device_queue_manager *dqm,
- 				  struct queue *q)
- {
- 	dqm-&gt;active_queue_count++;
--	if (q-&gt;properties.type == KFD_QUEUE_TYPE_COMPUTE ||
--	    q-&gt;properties.type == KFD_QUEUE_TYPE_DIQ)
-+	if (q-&gt;properties.type == KFD_QUEUE_TYPE_COMPUTE)
- 		dqm-&gt;active_cp_queue_count++;
- 
- 	if (q-&gt;properties.is_gws) {
-@@ -414,8 +413,7 @@ static void decrement_queue_count(struct device_queue_manager *dqm,
- 				  struct queue *q)
- {
- 	dqm-&gt;active_queue_count--;
--	if (q-&gt;properties.type == KFD_QUEUE_TYPE_COMPUTE ||
--	    q-&gt;properties.type == KFD_QUEUE_TYPE_DIQ)
-+	if (q-&gt;properties.type == KFD_QUEUE_TYPE_COMPUTE)
- 		dqm-&gt;active_cp_queue_count--;
- 
- 	if (q-&gt;properties.is_gws) {
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-index ebee37937783..f676b7419984 100644
+index 2b0a830f5b29..ebee37937783 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-@@ -46,7 +46,7 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
- 	int retval;
- 	union PM4_MES_TYPE_3_HEADER nop;
+@@ -144,7 +144,8 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
+ 		goto err_init_queue;
  
--	if (WARN_ON(type != KFD_QUEUE_TYPE_DIQ &amp;&amp; type != KFD_QUEUE_TYPE_HIQ))
-+	if (WARN_ON(type != KFD_QUEUE_TYPE_HIQ))
- 		return false;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-You're returning early here for invalid queue types. That's fine, but see below ...
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre"> 
- 	pr_debug(&quot;Initializing queue type %d size %d\n&quot;, KFD_QUEUE_TYPE_HIQ,
-@@ -61,14 +61,9 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
- 
- 	kq-&gt;dev = dev;
- 	kq-&gt;nop_packet = nop.u32all;
--	switch (type) {
--	case KFD_QUEUE_TYPE_DIQ:
--		kq-&gt;mqd_mgr = dev-&gt;dqm-&gt;mqd_mgrs[KFD_MQD_TYPE_DIQ];
--		break;
--	case KFD_QUEUE_TYPE_HIQ:
+ 	kq-&gt;queue-&gt;device = dev;
+-	kq-&gt;queue-&gt;process = kfd_get_process(current);
 +	if (type == KFD_QUEUE_TYPE_HIQ)
- 		kq-&gt;mqd_mgr = dev-&gt;dqm-&gt;mqd_mgrs[KFD_MQD_TYPE_HIQ];
--		break;
--	default:
-+	else {
- 		dev_err(dev-&gt;adev-&gt;dev, &quot;Invalid queue type %d\n&quot;, type);
- 		return false;
++		kq-&gt;queue-&gt;process = NULL;
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-I think this code is unreachable because you returned above for any invalid queue type. You can just remove both the if and the else branch. Just assign the kq-&gt;mqd_mgr unconditionally.</pre>
+I think this should either unconditionally set the process to NULL for kernel queues, or not touch it at all, because it's probably 0-initialized at allocation time.</pre>
     </blockquote>
-    <pre>Yes, will improve.</pre>
-    <pre>Thanks
+    <pre>I will leave it untouched.</pre>
+    <blockquote type="cite" cite="mid:c8b04e72-9085-47ab-bdb1-6f0f3bbc4752@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Either way, this commit should come after the one that removes the DIQ type, because DIQ did belong to a process.</pre>
+    </blockquote>
+    <pre>Yes
+
+Thanks
 Lingshan</pre>
-    <blockquote type="cite" cite="mid:408aa37e-82f7-4bc1-ac4e-391e4554febd@amd.com">
+    <blockquote type="cite" cite="mid:c8b04e72-9085-47ab-bdb1-6f0f3bbc4752@amd.com">
       <pre wrap="" class="moz-quote-pre">
 
 Regards,
@@ -511,148 +318,55 @@ Regards,
 
 
 </pre>
-    </blockquote>
-    <blockquote type="cite" cite="mid:408aa37e-82f7-4bc1-ac4e-391e4554febd@amd.com">
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre"> 	}
-@@ -163,24 +158,11 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
- 		kq-&gt;mqd_mgr-&gt;load_mqd(kq-&gt;mqd_mgr, kq-&gt;queue-&gt;mqd,
- 				kq-&gt;queue-&gt;pipe, kq-&gt;queue-&gt;queue,
- 				&amp;kq-&gt;queue-&gt;properties, NULL);
--	} else {
--		/* allocate fence for DIQ */
+        <pre wrap="" class="moz-quote-pre"> 
+ 	kq-&gt;queue-&gt;mqd_mem_obj = kq-&gt;mqd_mgr-&gt;allocate_mqd(kq-&gt;mqd_mgr-&gt;dev,
+ 					&amp;kq-&gt;queue-&gt;properties);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index d140463e221b..25534473c28f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1050,7 +1050,6 @@ void kfd_process_destroy_wq(void);
+ void kfd_cleanup_processes(void);
+ struct kfd_process *kfd_create_process(struct task_struct *thread);
+ int kfd_create_process_sysfs(struct kfd_process *process);
+-struct kfd_process *kfd_get_process(const struct task_struct *task);
+ struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid,
+ 						 struct kfd_process_device **pdd);
+ struct kfd_process *kfd_lookup_process_by_mm(const struct mm_struct *mm);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 8e498fd35b8c..0c3f0cc16bf4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -989,24 +989,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+ 	return process;
+ }
+ 
+-struct kfd_process *kfd_get_process(const struct task_struct *thread)
+-{
+-	struct kfd_process *process;
 -
--		retval = kfd_gtt_sa_allocate(dev, sizeof(uint32_t),
--						&amp;kq-&gt;fence_mem_obj);
+-	if (!thread-&gt;mm)
+-		return ERR_PTR(-EINVAL);
 -
--		if (retval != 0)
--			goto err_alloc_fence;
+-	/* Only the pthreads threading model is supported. */
+-	if (thread-&gt;group_leader-&gt;mm != thread-&gt;mm)
+-		return ERR_PTR(-EINVAL);
 -
--		kq-&gt;fence_kernel_address = kq-&gt;fence_mem_obj-&gt;cpu_ptr;
--		kq-&gt;fence_gpu_addr = kq-&gt;fence_mem_obj-&gt;gpu_addr;
- 	}
- 
- 	print_queue(kq-&gt;queue);
- 
- 	return true;
--err_alloc_fence:
--	kq-&gt;mqd_mgr-&gt;free_mqd(kq-&gt;mqd_mgr, kq-&gt;queue-&gt;mqd, kq-&gt;queue-&gt;mqd_mem_obj);
- err_allocate_mqd:
- 	uninit_queue(kq-&gt;queue);
- err_init_queue:
-@@ -210,8 +192,6 @@ static void kq_uninitialize(struct kernel_queue *kq)
- 					kq-&gt;queue-&gt;queue);
- 		up_read(&amp;kq-&gt;dev-&gt;adev-&gt;reset_domain-&gt;sem);
- 	}
--	else if (kq-&gt;queue-&gt;properties.type == KFD_QUEUE_TYPE_DIQ)
--		kfd_gtt_sa_free(kq-&gt;dev, kq-&gt;fence_mem_obj);
- 
- 	kq-&gt;mqd_mgr-&gt;free_mqd(kq-&gt;mqd_mgr, kq-&gt;queue-&gt;mqd,
- 				kq-&gt;queue-&gt;mqd_mem_obj);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-index 505036968a77..3d2375817c3e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-@@ -252,10 +252,6 @@ static int pm_map_queues_v9(struct packet_manager *pm, uint32_t *buffer,
- 			packet-&gt;bitfields2.queue_type =
- 		queue_type__mes_map_queues__normal_latency_static_queue_vi;
- 		break;
--	case KFD_QUEUE_TYPE_DIQ:
--		packet-&gt;bitfields2.queue_type =
--			queue_type__mes_map_queues__debug_interface_queue_vi;
--		break;
- 	case KFD_QUEUE_TYPE_SDMA:
- 	case KFD_QUEUE_TYPE_SDMA_XGMI:
- 		if (q-&gt;properties.sdma_engine_id &lt; 2 &amp;&amp;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-index a1de5d7e173a..60086e7cc258 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-@@ -166,10 +166,6 @@ static int pm_map_queues_vi(struct packet_manager *pm, uint32_t *buffer,
- 			packet-&gt;bitfields2.queue_type =
- 		queue_type__mes_map_queues__normal_latency_static_queue_vi;
- 		break;
--	case KFD_QUEUE_TYPE_DIQ:
--		packet-&gt;bitfields2.queue_type =
--			queue_type__mes_map_queues__debug_interface_queue_vi;
--		break;
- 	case KFD_QUEUE_TYPE_SDMA:
- 	case KFD_QUEUE_TYPE_SDMA_XGMI:
- 		packet-&gt;bitfields2.engine_sel = q-&gt;properties.sdma_engine_id +
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index c643e0ccec52..e36950e7e14f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -345,7 +345,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 	 * If we are just about to create DIQ, the is_debug flag is not set yet
- 	 * Hence we also check the type as well
- 	 */
--	if ((pdd-&gt;qpd.is_debug) || (type == KFD_QUEUE_TYPE_DIQ))
-+	if ((pdd-&gt;qpd.is_debug))
- 		max_queues = dev-&gt;kfd-&gt;device_info.max_no_of_hqd/2;
- 
- 	if (pdd-&gt;qpd.queue_count &gt;= max_queues)
-@@ -426,22 +426,6 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 						    restore_mqd, restore_ctl_stack);
- 		print_queue(q);
- 		break;
--	case KFD_QUEUE_TYPE_DIQ:
--		kq = kernel_queue_init(dev, KFD_QUEUE_TYPE_DIQ);
--		if (!kq) {
--			retval = -ENOMEM;
--			goto err_create_queue;
--		}
--		kq-&gt;queue-&gt;properties.queue_id = *qid;
--		pqn-&gt;kq = kq;
--		pqn-&gt;q = NULL;
--		retval = kfd_process_drain_interrupts(pdd);
--		if (retval)
--			break;
+-	process = find_process(thread, false);
+-	if (!process)
+-		return ERR_PTR(-EINVAL);
 -
--		retval = dev-&gt;dqm-&gt;ops.create_kernel_queue(dev-&gt;dqm,
--							kq, &amp;pdd-&gt;qpd);
--		break;
- 	default:
- 		WARN(1, &quot;Invalid queue type %d&quot;, type);
- 		retval = -EINVAL;
-@@ -1121,32 +1105,13 @@ int pqm_debugfs_mqds(struct seq_file *m, void *data)
- 				break;
- 			default:
- 				seq_printf(m,
--				&quot;  Bad user queue type %d on device %x\n&quot;,
-+				&quot;  Qeueu node with bad user queue type %d on device %x\n&quot;,
- 					   q-&gt;properties.type, q-&gt;device-&gt;id);
- 				continue;
- 			}
- 			mqd_mgr = q-&gt;device-&gt;dqm-&gt;mqd_mgrs[mqd_type];
- 			size = mqd_mgr-&gt;mqd_stride(mqd_mgr,
- 							&amp;q-&gt;properties);
--		} else if (pqn-&gt;kq) {
--			q = pqn-&gt;kq-&gt;queue;
--			mqd_mgr = pqn-&gt;kq-&gt;mqd_mgr;
--			switch (q-&gt;properties.type) {
--			case KFD_QUEUE_TYPE_DIQ:
--				seq_printf(m, &quot;  DIQ on device %x\n&quot;,
--					   pqn-&gt;kq-&gt;dev-&gt;id);
--				break;
--			default:
--				seq_printf(m,
--				&quot;  Bad kernel queue type %d on device %x\n&quot;,
--					   q-&gt;properties.type,
--					   pqn-&gt;kq-&gt;dev-&gt;id);
--				continue;
--			}
--		} else {
--			seq_printf(m,
--		&quot;  Weird: Queue node with neither kernel nor user queue\n&quot;);
--			continue;
- 		}
- 
- 		for (xcc = 0; xcc &lt; num_xccs; xcc++) {
+-	return process;
+-}
+-
+ static struct kfd_process *find_process_by_mm(const struct mm_struct *mm)
+ {
+ 	struct kfd_process *process;
 </pre>
       </blockquote>
     </blockquote>
   </body>
 </html>
 
---------------J6P0Sued4RuzxKOXNTkoIKYI--
+--------------SLtCd90Gb8j7RMqHjf8PlAoS--
