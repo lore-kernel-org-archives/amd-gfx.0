@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D44C87FD2
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 11:23:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD32DC87FD3
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 12:03:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21A1F10E90C;
-	Fri,  8 Aug 2025 11:23:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61CC810E91D;
+	Fri,  8 Aug 2025 12:03:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LdLoZQa/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H0kWHa28";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 718BD10E4F5;
- Fri,  8 Aug 2025 11:23:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7F1910E913;
+ Fri,  8 Aug 2025 12:03:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 6B90EA543F4;
- Fri,  8 Aug 2025 11:23:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44D46C4CEED;
- Fri,  8 Aug 2025 11:23:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5FAAB440FF;
+ Fri,  8 Aug 2025 12:03:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7316AC4CEED;
+ Fri,  8 Aug 2025 12:03:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754652206;
- bh=GpV3W47n1bkfqRHZ3LaVYGNiCSl0JY+5MwvSCjMeAY8=;
+ s=k20201202; t=1754654597;
+ bh=VyLVjvFvcueI6+wKwx97PRnYKMkUL7Nt3qh+EPNEz6Q=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=LdLoZQa/2802qExL1hbwzNz1rYd8wJ57VsTmbSGEUnJSCBCAFkp1CyOZrArlp1u11
- dsB5iSjvP9U+bbHStAGf0d5g0g4kb5Mgjx1NPK38426apIMF6760299XoRTZ86Mm8q
- 1q7jTm4AH3UjGLIG8CetS1bZHrf7KTiUABhoW11lncNVy5aEgB6ESF+EzIgn7XLvH8
- L2ViVy0RB1fxdu0YdHDIlkggB+J6UPdqcg8MpjuIn1/ChMz2lajBJTo8jQXxXH8x6W
- 41rOf7qyH2prRyK4Iu7rA+8B9WEvOmRYYZAHqMJ0PpN7JqvAO2xJZ46FTx41zgpJ8o
- k5CH4WiPtZ85w==
-Message-ID: <66083d23-e60c-4fce-bad0-81dbb9dcebde@kernel.org>
-Date: Fri, 8 Aug 2025 06:23:23 -0500
+ b=H0kWHa28Srgbxe0k8U7Fqj8yGciW9s0dkbgVcYfh4SCREaV1qcUnnKAd4fML7bjl1
+ WQCg4M9XU5Gk15B1kpHd7ntWG2OAHfk//VTI/TS/uygJZo1rUYxv+9tvV6nG00WdqR
+ lOFv0Ej4+SU7l+GowjAEKJbyQB/84P/UTiAdMDFgNrhqCcVtZzgG/jyATTX06tMrL1
+ 9BgWlmuUNz9Ep+VbSCwaNc/XXSYUVXalm0iKKwXVBjHjtFKqX2ngCL8ZNF96Q4Qtsi
+ 1rbSxwbUwBNVgeNhd66PnLQWRtyjO5F8GnNCgM3OWlDKxFEyFCNVT1YvwLN7DaXUuj
+ b5jf6mXJJOjwg==
+Message-ID: <069d1243-5d4e-4594-89a3-63278d63681d@kernel.org>
+Date: Fri, 8 Aug 2025 07:03:14 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: radeon_fbdev_river_fbdev: failed to initialize framebuffer and
@@ -50,11 +50,11 @@ Cc: mad skateman <madskateman@gmail.com>, Alex Deucher
  bhelgaas@google.com, benato.denis96@gmail.com, Yijun_Shen@dell.com,
  David Perry <David.Perry@amd.com>, rafael@kernel.org,
  dri-devel@lists.freedesktop.org
-References: <69bac1ee-4fea-4225-b222-d7f274a8ea3c@amd.com>
- <EBCB1171-0CF8-4B7A-97C9-0E7816EBA6B5@xenosoft.de>
+References: <66083d23-e60c-4fce-bad0-81dbb9dcebde@kernel.org>
+ <0B029DD9-085A-4AD2-B3A0-4C427A1540EA@xenosoft.de>
 Content-Language: en-US
 From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <EBCB1171-0CF8-4B7A-97C9-0E7816EBA6B5@xenosoft.de>
+In-Reply-To: <0B029DD9-085A-4AD2-B3A0-4C427A1540EA@xenosoft.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,71 +73,78 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 8/8/25 2:36 AM, Christian Zigotzky wrote:
+On 8/8/25 6:47 AM, Christian Zigotzky wrote:
 > 
-> On 07 August 2025 at 04:21 pm, Limonciello, Mario <Mario.Limonciello@amd.com> wrote:
 > 
-> Does applying
-> https://github.com/torvalds/linux/commit/907a7a2e5bf40c6a359b2f6cc53d6fdca04009e0
-> help?
+>> On 08 August 2025 um 01:23 pm, Mario Limonciello <superm1@kernel.org> wrote:
+>>
+>> ﻿
+>>
+>>> On 8/8/25 2:36 AM, Christian Zigotzky wrote:
+>>> On 07 August 2025 at 04:21 pm, Limonciello, Mario <Mario.Limonciello@amd.com> wrote:
+>>> Does applying
+>>> https://github.com/torvalds/linux/commit/907a7a2e5bf40c6a359b2f6cc53d6fdca04009e0
+>>> help?
+>>> - - -
+>>> Hello Mario,
+>>> Thanks a lot for your patch.
+>>> I tested it today but unfortunately it doesn’t solve the issue with the Radeon framebuffer.
+>>> I have created two kernels with and without the drm-next-2025-07-30 updates [1] because of the issue with the Radeon graphics framebuffer device #15. [2]
+>>> Download and further information: https://github.com/chzigotzky/kernels/releases/tag/v6.17.0-alpha5
+>>> I have tested both kernels this week and I can definitely confirm, that the issue is somewhere in the commit drm-next-2025-07-30 updates [1].
+>>> The Radeon graphics framebuffer doesn't work with the kernel with the drm-next-2025-07-30 updates [1]. Without these updates, the framebuffer works.
+>>> I bisected yesterday. [2]
+>>> There are some other user reports:
+>>> - https://forum.hyperion-entertainment.com/viewtopic.php?p=60606#p60606
+>>> - https://forum.hyperion-entertainment.com/viewtopic.php?p=60595#p60595
+>>> They use other Radeon graphics chips.
+>>> @All
+>>> Please check the drm-next-2025-07-30 updates [1]
+>>> Thanks,
+>>> Christian
+>>> [1] https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=260f6f4fda93c8485c8037865c941b42b9cba5d2
+>>> [2] https://github.com/chzigotzky/kernels/issues/15
+>>
+>> I think there is a mistake in your bisect, which I notice from looking at your other user reports.
+>>
+>> The original commit you identified in your bisect and thus CC'ed me came in 6.16-rc1.
+>>
+>> ❯ git describe --contains 4d4c10f763d7808fbade28d83d237411603bca05
+>> v6.16-rc1~50^2~19^2
+>>
+>> There absolutely was a regression for that was raised, but this was fixed in 6.16-rc3.
+>>
+>> ❯ git describe --contains 907a7a2e5bf40c6a359b2f6cc53d6fdca04009e0
+>> v6.16-rc3~13^2~1
+>>
+>> Users in your forums posts talk about 6.16 final working fine.  So I think that when you bisected you ran into multiple confounding issues and replicated in a similar fashion.  You should check every single bisect step to see if 4d4c10f763d7808fbade28d83d237411603bca05 is applied.  If it's applied but 907a7a2e5bf40c6a359b2f6cc53d6fdca04009e0 is not applied in that step you should apply 907a7a2e5bf40c6a359b2f6cc53d6fdca04009e0.
+>>
+>> Hopefully that will get you down to the real cause.
 > 
-> - - -
+> Thanks for the hint. Unfortunately I don’t have more time for figuring out the issue.
 > 
-> Hello Mario,
+> Two facts:
 > 
-> Thanks a lot for your patch.
+> - The Radeon driver can no longer be used.
+> The Radeon driver is broken for us.
 > 
-> I tested it today but unfortunately it doesn’t solve the issue with the Radeon framebuffer.
+> - The issue is somewhere in the commit drm-next-2025-07-30 updates [1].
 > 
-> I have created two kernels with and without the drm-next-2025-07-30 updates [1] because of the issue with the Radeon graphics framebuffer device #15. [2]
+> I cannot provide any more due to time constraints.
 > 
-> Download and further information: https://github.com/chzigotzky/kernels/releases/tag/v6.17.0-alpha5
+> I've already spent time that I didn't actually have.
 > 
-> I have tested both kernels this week and I can definitely confirm, that the issue is somewhere in the commit drm-next-2025-07-30 updates [1].
+> Thanks for your help.
 > 
-> The Radeon graphics framebuffer doesn't work with the kernel with the drm-next-2025-07-30 updates [1]. Without these updates, the framebuffer works.
-> 
-> I bisected yesterday. [2]
-> 
-> There are some other user reports:
-> 
-> - https://forum.hyperion-entertainment.com/viewtopic.php?p=60606#p60606
-> - https://forum.hyperion-entertainment.com/viewtopic.php?p=60595#p60595
-> 
-> They use other Radeon graphics chips.
-> 
-> @All
-> Please check the drm-next-2025-07-30 updates [1]
-> 
-> Thanks,
 > Christian
 > 
-> [1] https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=260f6f4fda93c8485c8037865c941b42b9cba5d2
-> 
-> [2] https://github.com/chzigotzky/kernels/issues/15
 > 
 
-I think there is a mistake in your bisect, which I notice from looking 
-at your other user reports.
+If you're sure that the issue was raised in that merge commit, I suggest 
+you (or someone else affected by this issue) do the bisect using the drm 
+kernel tree [1] and bisect between the problematic tag [2] and previous 
+tag [3].
 
-The original commit you identified in your bisect and thus CC'ed me came 
-in 6.16-rc1.
-
-❯ git describe --contains 4d4c10f763d7808fbade28d83d237411603bca05
-v6.16-rc1~50^2~19^2
-
-There absolutely was a regression for that was raised, but this was 
-fixed in 6.16-rc3.
-
-❯ git describe --contains 907a7a2e5bf40c6a359b2f6cc53d6fdca04009e0
-v6.16-rc3~13^2~1
-
-Users in your forums posts talk about 6.16 final working fine.  So I 
-think that when you bisected you ran into multiple confounding issues 
-and replicated in a similar fashion.  You should check every single 
-bisect step to see if 4d4c10f763d7808fbade28d83d237411603bca05 is 
-applied.  If it's applied but 907a7a2e5bf40c6a359b2f6cc53d6fdca04009e0 
-is not applied in that step you should apply 
-907a7a2e5bf40c6a359b2f6cc53d6fdca04009e0.
-
-Hopefully that will get you down to the real cause.
+[1] https://gitlab.freedesktop.org/drm/kernel
+[2] https://gitlab.freedesktop.org/drm/kernel/-/tags/drm-next-2025-07-30
+[3] https://gitlab.freedesktop.org/drm/kernel/-/tags/drm-next-2025-06-06
