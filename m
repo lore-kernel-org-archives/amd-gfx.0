@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8571CC87FDA
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 19:47:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FFC3C87FDA
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 19:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D11310E0A7;
-	Fri,  8 Aug 2025 19:47:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1799410E0BC;
+	Fri,  8 Aug 2025 19:49:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LwJnBssC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C6PV49iW";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5925110E0A7
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 19:47:42 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-24286ed452fso3446405ad.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Aug 2025 12:47:42 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6ADD10E0BC
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 19:49:37 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-240358f4aa2so1404795ad.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 08 Aug 2025 12:49:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754682462; x=1755287262; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754682577; x=1755287377; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NihLoVKJ2S/NoHbV4oWrGEj0wDWtDFmn2JpdZeRJCyw=;
- b=LwJnBssCEDCdqTuaoEp2RRTU5/ONWxm2KDK3hkNlsdYOL8LxZQlsu/f5go5E70qvMa
- iEOrHV2PbEsTQsOczmcoHu3wXjdeIRsqLZ4ehexBhHTg6zVssusCHgGMVbnbLzaWUPxp
- +1M/HcEYevndyxurFqleP3zvZcVdwLPxpmR1m0+7TO0C87L6xM0uoG5HOJxhcu/1cm/2
- pjGEn/qK39HpepR9e2SQjbdBD22W4E1JBfE+AWLTlNuZydVvk+fJ049AEwxjxZ+2dzkc
- bqxpOfDcm2BSJAyG5hB4NQLq75qd+ssMhViKF94U7FBa52i6RFsNSIrfBlnKyESp8/6T
- dUVw==
+ bh=4+qqt9WTkLQFiHptUqc5NzYzKZyivPlPXlnocvoFmIE=;
+ b=C6PV49iWZbXqmCX3XSfQO/Glm8PChSBne0EKf2ajab75fKte4gsfKTk1Xv9pMv+gfB
+ eXbc3h7RFaH7PpwffJU9AZFiqGry2uBWFm/W9PAR+1hU2KCH58ggxnIvTDq1utfCrwtT
+ zMzhU0eKQE9sh24dDgmWtlcIcIXBCqI8g7wU3KuobEW+9Q5CE9dluBfMyKcuYKjjbx4t
+ KV1ZRhbVChosM+IFI1AZTvRcujrbGt0UreSqM5L2UNBJupl+dIrc/0kmmYeaMKNkviO9
+ +j74cKu72X06FmhSjCUJKPUt71RwWg/BF64NEcaF0NV/l1qAOfLj/e9SxBGcLza6BCve
+ YJjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754682462; x=1755287262;
+ d=1e100.net; s=20230601; t=1754682577; x=1755287377;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NihLoVKJ2S/NoHbV4oWrGEj0wDWtDFmn2JpdZeRJCyw=;
- b=i1cmZmIq1cQ0l/vslLwjPKWRBOhdXoM64yMvwWu+Xz11ZJ+QybcHOn/lmhCiZlwBS3
- DLwXybv040ry5V7aM8aQ/ZTLCDzqeR5bV5khvHYK3sOJBgJZ8h7/c0VUS0TyM1vumb7A
- jLhTshjoEboXzc03LSNAlW21g3tE7HX3pq5H4Zm+JYBLDjjtyX4bLy7HxNVGAX69OZbi
- GhbEQLEbfNpjidP49n+VrX8zsWPWz6EjQwrOavCHKzwatVE4Myuyvo4tWqe9smO/DJe9
- AGWwRsvrZfJ13tb+zaqoQ8c3lNRhyKpNtycAmLMU4mu/LgNR0XNKBMkDDsIFE+83vjGm
- xOww==
-X-Gm-Message-State: AOJu0YwGqNPta9foQjReKq72w4/Af3Sx2KWglgb6eWfylv5KYPQkanJr
- FVapcepEoJ8Xy5IKss8vWF83Cr58axrs3ptiN5r22N4pEuLGKHQbGs/Il1X1KISQPYSDPog7i11
- Ee6Aq/0cEEifYZ/OQ0fBDIiHos+R+4tw=
-X-Gm-Gg: ASbGncvZT1iv9CJHL2gP/8cyJ+6c4/5AqyaHtj0O3sxEfYxk5rYK6iGAh9xA6QCcFIk
- zJ+mTdMNCgE+tALzfjBNlOf7uAQa3FRIZX/5ON+k0QcJ/QhegAoxCbjt4fGm+mJoOPiBAnJk2zj
- wsYi0FiN65OrJt+oLzhkBj8zvkXQN1v/Vtr7yOyaUkM0uaVRhohH7ksqutFe784H8coGZuqiO9C
- /8Affxfmp0CBX/k9A==
-X-Google-Smtp-Source: AGHT+IGVqCIimLoh+jRjdTX6uRMa4MmSjIG2m9h5cE1R7uBxo3qYrpoEVka5R6Z1bQpEbBoJEH+pYx7VwoYJDr8y2Ec=
-X-Received: by 2002:a17:902:ecd2:b0:240:bd35:c4ec with SMTP id
- d9443c01a7336-242d38fc0c1mr1021535ad.6.1754682461692; Fri, 08 Aug 2025
- 12:47:41 -0700 (PDT)
+ bh=4+qqt9WTkLQFiHptUqc5NzYzKZyivPlPXlnocvoFmIE=;
+ b=eXmK+CxAA6nbpMOQf7GwJPpn+Hu2Z6pqUgYwjBI7xqVWRWl/b6yvjCX+lgkmFxnA3u
+ K8ZDNeGXFWS+3as1/YsaHx5ihnNbD3WOKukPUnaZ3HUzubpwwYnkj6OYG+XHJLSIXB+K
+ DjRGnaGhF1Ikp8K6EcGH8eNzIb6ZXJau12kjAEUplqwyu+lQPSrltZ+z2Vvl3lYpssJy
+ 0ISHkr4Eo94I2cjS9/cmXYLoywjReXqpFtBk1i943irooe/9sMnuZjzxPcukvmyJgFzh
+ adfR1bJh8FUIduMInxT5XByrIttj0GKBmYwzLf9oQZjRjtxg5p3KUlkQUyhHPlWNwRoj
+ aqkg==
+X-Gm-Message-State: AOJu0YzB0m5r9sYIx9whBuJVskGrWIfrlGC30LPsDA8rX4MIMs4ARG/L
+ QH+MOXtQzjgUVewJ043bNGBKkSelfdBoySFkH/VcNjfkS3RKRMVc+fTIXQ2HKgNmADUqE3UJE22
+ ox18hcLL8ArZdblYWsPilqTL9MN1yKkM=
+X-Gm-Gg: ASbGncsaJc5Aa4lNzsYgMk41N/G8lzQcNPBkE0SXc6wcPFgvU4T+JC/UAGckC/0/cE2
+ aCt2jXYbv7BgDvuLHqeq04U6aInFD5bgaYYj41OiCFx25TeBoCJpcSUyArLuer+wpaCuGyvrglB
+ IAjzTiZp5VNVTuHkjiaOr09Dejbs33mt4mH50iad7Lg5B+YaHM8fn2YDkVrnAgh5DYVh9kttmS8
+ 16XYuA=
+X-Google-Smtp-Source: AGHT+IHEnsFC/KM6RsaTy6qKDrto7uDIBp3lDvN06n/hvEOEYHkt/Tkf0Jv4Z3dvLKxkJsiikrWVtGhaYWZ3rHKhsaY=
+X-Received: by 2002:a17:903:1a67:b0:240:7c3c:dd7b with SMTP id
+ d9443c01a7336-242d390092fmr1007115ad.7.1754682577260; Fri, 08 Aug 2025
+ 12:49:37 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250806022816.1050823-1-Jesse.Zhang@amd.com>
- <20250806022816.1050823-3-Jesse.Zhang@amd.com>
-In-Reply-To: <20250806022816.1050823-3-Jesse.Zhang@amd.com>
+ <20250806022816.1050823-4-Jesse.Zhang@amd.com>
+In-Reply-To: <20250806022816.1050823-4-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 8 Aug 2025 15:47:30 -0400
-X-Gm-Features: Ac12FXwuE1NV3hVeLR-zlQrNjZibQ9ijR3mKMOnNoZsBMyf-ZuM0UO1kl776EKM
-Message-ID: <CADnq5_Pi-UD1VgRTKD9f5ZggO-bMLfzaRBbM++F9ZRvJF9vF_g@mail.gmail.com>
-Subject: Re: [v7 03/11] drm/amd/amdgpu: Implement MES suspend/resume gang
- functionality for v12
+Date: Fri, 8 Aug 2025 15:49:25 -0400
+X-Gm-Features: Ac12FXwLhmq0g64TmuJEgnFs1RxQf6r761nJE3hdj1DlNMysW_wKZuvzbjAI_Pk
+Message-ID: <CADnq5_PDRnH_qd4Mz554oANctUgbDTLDEFecx2K9tPF9fGzG9A@mail.gmail.com>
+Subject: Re: [v7 04/11] drm/amdgpu: Add helper functions for user queue
+ preemption and restoration
 To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian Koenig <christian.koenig@amd.com>
@@ -83,86 +83,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 5, 2025 at 10:54=E2=80=AFPM Jesse.Zhang <Jesse.Zhang@amd.com> w=
+On Tue, Aug 5, 2025 at 10:39=E2=80=AFPM Jesse.Zhang <Jesse.Zhang@amd.com> w=
 rote:
 >
-> This commit implements the actual MES (Micro Engine Scheduler) suspend
-> and resume gang operations for version 12 hardware. Previously these
-> functions were just stubs returning success.
+> This patch introduces two new helper functions to manage user queue
+> preemption and restoration:
 >
-> v2: Always use AMDGPU_MES_SCHED_PIPE
+> 1. amdgpu_userqueue_preempt_helper() - Handles preempting a user queue
+>    by calling the appropriate IP-specific preempt function and updating
+>    the queue state. If preemption fails, it marks the queue as hung and
+>    triggers queue detection/reset.
 >
-
-What about the MES implementation for v11?
-
-Alex
-
+> 2. amdgpu_userqueue_restore_helper() - Handles restoring a preempted
+>    user queue by calling the IP-specific restore function. On failure,
+>    it marks the queue as hung and triggers a GPU reset.
+>
+> The helpers properly manage queue state transitions between MAPPED,
+> PREEMPTED, and HUNG states, and handle error cases by initiating
+> appropriate recovery actions.
+>
+> These functions will be used by subsequent patches to implement
+> user queue preemption support in the driver.
+>
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 32 ++++++++++++++++++++++++--
->  1 file changed, 30 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 48 +++++++++++++++++++++++
+>  1 file changed, 48 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index 6b222630f3fa..24c61239b25d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -567,13 +567,41 @@ static int mes_v12_0_unmap_legacy_queue(struct amdg=
-pu_mes *mes,
->  static int mes_v12_0_suspend_gang(struct amdgpu_mes *mes,
->                                   struct mes_suspend_gang_input *input)
->  {
-> -       return 0;
-> +       union MESAPI__SUSPEND mes_suspend_gang_pkt;
-> +
-> +       memset(&mes_suspend_gang_pkt, 0, sizeof(mes_suspend_gang_pkt));
-> +
-> +       mes_suspend_gang_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
-> +       mes_suspend_gang_pkt.header.opcode =3D MES_SCH_API_SUSPEND;
-> +       mes_suspend_gang_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
-> +
-> +       mes_suspend_gang_pkt.suspend_all_gangs =3D input->suspend_all_gan=
-gs;
-> +       mes_suspend_gang_pkt.gang_context_addr =3D input->gang_context_ad=
-dr;
-> +       mes_suspend_gang_pkt.suspend_fence_addr =3D input->suspend_fence_=
-addr;
-> +       mes_suspend_gang_pkt.suspend_fence_value =3D input->suspend_fence=
-_value;
-> +
-> +       return mes_v12_0_submit_pkt_and_poll_completion(mes, AMDGPU_MES_S=
-CHED_PIPE,
-> +                       &mes_suspend_gang_pkt, sizeof(mes_suspend_gang_pk=
-t),
-> +                       offsetof(union MESAPI__SUSPEND, api_status));
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index aac0de86f3e8..1496544cd1c2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -44,6 +44,54 @@ u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_d=
+evice *adev)
+>         return userq_ip_mask;
 >  }
 >
->  static int mes_v12_0_resume_gang(struct amdgpu_mes *mes,
->                                  struct mes_resume_gang_input *input)
->  {
-> -       return 0;
-> +       union MESAPI__RESUME mes_resume_gang_pkt;
+> +static int
+> +amdgpu_userqueue_preempt_helper(struct amdgpu_userq_mgr *uq_mgr,
+> +                         struct amdgpu_usermode_queue *queue)
+> +{
+> +       struct amdgpu_device *adev =3D uq_mgr->adev;
+> +       const struct amdgpu_userq_funcs *userq_funcs =3D
+> +               adev->userq_funcs[queue->queue_type];
+> +       int r =3D 0;
 > +
-> +       memset(&mes_resume_gang_pkt, 0, sizeof(mes_resume_gang_pkt));
+> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_MAPPED) {
+> +               r =3D userq_funcs->preempt(uq_mgr, queue);
+> +               if (r) {
+> +                       amdgpu_userq_detect_and_reset_queues(uq_mgr);
+
+This function isn't available yet.  This should be part of a later patch.
+
+> +                       queue->state =3D AMDGPU_USERQ_STATE_HUNG;
+> +               } else {
+> +                       queue->state =3D AMDGPU_USERQ_STATE_PREEMPTED;
+> +               }
+> +       }
 > +
-> +       mes_resume_gang_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
-> +       mes_resume_gang_pkt.header.opcode =3D MES_SCH_API_RESUME;
-> +       mes_resume_gang_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +       return r;
+> +}
 > +
-> +       mes_resume_gang_pkt.resume_all_gangs =3D input->resume_all_gangs;
-> +       mes_resume_gang_pkt.gang_context_addr =3D input->gang_context_add=
-r;
+> +static int
+> +amdgpu_userqueue_restore_helper(struct amdgpu_userq_mgr *uq_mgr,
+> +                       struct amdgpu_usermode_queue *queue)
+> +{
+> +       struct amdgpu_device *adev =3D uq_mgr->adev;
+> +       const struct amdgpu_userq_funcs *userq_funcs =3D
+> +               adev->userq_funcs[queue->queue_type];
+> +       bool gpu_reset =3D false;
+> +       int r =3D 0;
 > +
-> +       return mes_v12_0_submit_pkt_and_poll_completion(mes, AMDGPU_MES_S=
-CHED_PIPE,
-> +                       &mes_resume_gang_pkt, sizeof(mes_resume_gang_pkt)=
-,
-> +                       offsetof(union MESAPI__RESUME, api_status));
->  }
->
->  static int mes_v12_0_query_sched_status(struct amdgpu_mes *mes, int pipe=
-)
+> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_PREEMPTED) {
+> +               r =3D userq_funcs->restore(uq_mgr, queue);
+> +               if (r) {
+> +                       queue->state =3D AMDGPU_USERQ_STATE_HUNG;
+> +                       gpu_reset =3D true;
+> +               } else {
+> +                       queue->state =3D AMDGPU_USERQ_STATE_MAPPED;
+> +               }
+> +       }
+> +
+> +       if (gpu_reset)
+> +               amdgpu_userq_gpu_reset(adev);
+
+Same here.
+
+Alex
+
+> +
+> +       return r;
+> +}
+> +
+>  static int
+>  amdgpu_userq_unmap_helper(struct amdgpu_userq_mgr *uq_mgr,
+>                           struct amdgpu_usermode_queue *queue)
 > --
 > 2.49.0
 >
