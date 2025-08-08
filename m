@@ -4,50 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D7B2C87FD3
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 07:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 359FCCA0EC0
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 07:32:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C52BD10E4D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B280210E4D2;
 	Fri,  8 Aug 2025 07:32:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=listout.xyz header.i=@listout.xyz header.b="Myt5fAsN";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="E6oOlaeu";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7C6A10E874
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Aug 2025 14:52:05 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4byVVn3hsZz9swK;
- Thu,  7 Aug 2025 16:52:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=listout.xyz; s=MBO0001;
- t=1754578321;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kBRMuK3kUudd7S76A732jVURDLMo6rQbIR206iOwpUQ=;
- b=Myt5fAsNQbk2DTfj6fGPF/ejkW5jL2g17RphAYiU/tFC/VEhqKZlsA683dz0DUvH1rwnnI
- NZWOtkfcKBFFOnJrnMcSkMMOrZUDYhIykvNO0LFM2BGHcDQk9F561mB5BxDdTje5112FJb
- 9KqiYByjK6awrl25TcWp0RcNMRgyCi9z3LhYFw/zJxYz5/ATxDiwHBKhjzpg2Q3BqL2x67
- bEwU8vA1wYEcGY9N5qtx4k6YbW5lqjgXaudqm2FX2DWjUI6d6EDVj5zP/ptDhF/X58gZlm
- DPWAvt9lIMNh/X5QgdgLzd1D8Z52ga6+99QWvxVy8DdaRw9GVPsYHJABji+bBw==
-Date: Thu, 7 Aug 2025 20:21:57 +0530
-From: Brahmajit Das <listout@listout.xyz>
-To: Mike Lothian <mike@fireburn.co.uk>
-Cc: Alex Deucher <alexdeucher@gmail.com>, alexander.deucher@amd.com, 
- christian.koenig@amd.com, sean@poorly.run, amd-gfx@lists.freedesktop.org
-Subject: Re: Is amdgpu open to converting logging to drm_* functions
-Message-ID: <sgwbcn6yx7crbfzikthdijehrijipwspgokj4mwnt47bwhscbt@fn7o3d66mzu5>
-References: <hzobspwqosrmrdmzicwabpsr4lcisuwck5nfsh5qwkoek562to@ybja5yzucsbh>
- <CADnq5_O1PyEqtK-GGPgPzkMDeNmTCFFNDLd-+73NDqFtPVL2oA@mail.gmail.com>
- <CAHbf0-EA6-jn8tOCuXv=9JyZr-4kKhoFBZC-pqQcG4ydncHTOw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Received: from SEYPR02CU001.outbound.protection.outlook.com
+ (mail-koreacentralazon11013053.outbound.protection.outlook.com
+ [40.107.44.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADFFB10E8B0;
+ Fri,  8 Aug 2025 02:52:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xM2lfcC3IXQBIug02f/TpJBL/DQDDS8PXWNupLvgD7bjCgn9PMKFyyk3ysO4hZM40L71DNZsrnKg6UANR/LDzUhTKWVibUL/S4QmpNmhQjxV6fKh4z0WUBRXFndikbxBC/AhoSIzE40KRQo0Horuq4bXDzfa2JR9OeYbpeLrSE/K1RusnXCGUt1hF+wMvLuDptQTf6GvB8tyUiSmKuSAxSSBZ/5L0Vze+nHmszZYRunE1rtDxQiBn48sb8kR5X15N6q8m4qfIenq/pXzNfaQBzAfWN3axOr+kLNzzVNBtEvZZh3G5SEGCpPtQ92HdK3rgW61o55JKN0P6UFCQKS87Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bLdMdNTprGyocuu+cnpLjyCOZLG8Dy8G5EUnwVVJ32g=;
+ b=asitxN1XjHuHn36mI9afO895qgQImb4zuiwbwhPwawz2ccj41vU0ZciGymvEJhMEFzqY6XRxGoVP4bjLhnwBCkWXQ8gIJUP3F5PMdUT+LGmh+NYXKaO6R3BmxfrmOwbLT3YJ2Pzx98HU7nVOtfo+JLdxx1zjmgFtUp0Sqg0LQn7+n/BgDXX64lVGF+VRg+f7mpw33ZylER+OT+AV2kYsuQFiH9PhNphWuMWyt9wCypobq8Xtk3AUnVDg5bGl3cVbmg9W4zvluNxrazSZQQiwEeksl9qYfCc/AS3jCQEuJMC15VOR2i6RB7m8F7XIvJdj7qE7gvMGA2DLR/sgdcaVKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bLdMdNTprGyocuu+cnpLjyCOZLG8Dy8G5EUnwVVJ32g=;
+ b=E6oOlaeu0vHPXqZap4oWeMw1ZEXRzTXasOjEjF1hwTmZR5amp8wmVnJsVuNzhGRi/Ac62clUbEGNgRJ3dN5sbEszCLvkRh+DnD91TIvxHcdDjPWoxIRMKWg9j/QELwXp1KSA0Y8askT5c5a8/LA3TGSKy/33Fb8nCHOS1IDNgFkxOeuyGJ5o3p4158xddvvwRhp44AnGUhk46SKiyxd8Em5SAepkQoaP6LhOGCHejwpeNPbzlTkPklfrM6XV/KsgCizZm/k2N+/bO13GaqZsyAjmSW1zyxhFVx8QGv6o+haZHhTk60hKfPXYhyTiEsEP6jS6zpXSgFF6/M1eJxha2g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from KL1PR06MB6020.apcprd06.prod.outlook.com (2603:1096:820:d8::5)
+ by TYZPR06MB5481.apcprd06.prod.outlook.com (2603:1096:400:286::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.18; Fri, 8 Aug
+ 2025 02:52:22 +0000
+Received: from KL1PR06MB6020.apcprd06.prod.outlook.com
+ ([fe80::4ec9:a94d:c986:2ceb]) by KL1PR06MB6020.apcprd06.prod.outlook.com
+ ([fe80::4ec9:a94d:c986:2ceb%5]) with mapi id 15.20.9009.017; Fri, 8 Aug 2025
+ 02:52:22 +0000
+From: Xichao Zhao <zhao.xichao@vivo.com>
+To: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: siqueira@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Xichao Zhao <zhao.xichao@vivo.com>
+Subject: [PATCH] drm/amd/display: replace min/max nesting with clamp()
+Date: Fri,  8 Aug 2025 10:52:09 +0800
+Message-Id: <20250808025209.120448-1-zhao.xichao@vivo.com>
+X-Mailer: git-send-email 2.34.1
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHbf0-EA6-jn8tOCuXv=9JyZr-4kKhoFBZC-pqQcG4ydncHTOw@mail.gmail.com>
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR04CA0014.apcprd04.prod.outlook.com
+ (2603:1096:4:197::18) To KL1PR06MB6020.apcprd06.prod.outlook.com
+ (2603:1096:820:d8::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR06MB6020:EE_|TYZPR06MB5481:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3d4b360-61d4-4696-e1f8-08ddd62698ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|52116014|376014|7416014|1800799024|366016|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wVk60xYz9S7fSOTNbKO+oWP+81ZwqDZT7Mi8GY48zh9qyZMx/pSxiSTIV45v?=
+ =?us-ascii?Q?YQR2ZLcuqA/MV9HkMl1q7cc+hpwQ6JL1CpUt3KOT36W4lcFbgD0r67C2RXro?=
+ =?us-ascii?Q?2inBRDMrE5Tj/gLGnn0ZDEVOPRGwjmGfDBJGsa6yxUuKFSLnVKxAepkZnF8j?=
+ =?us-ascii?Q?forKpBNOdu0XJsAEblxpB2N78NyfOu1MAW4G9M3ZiZdwUmShVzoUuAWV7gyc?=
+ =?us-ascii?Q?0yWtCC3I2AX8bIZunMzPvwBMsLzq3kzNisQfvq9krCowaR5I9IPtspdiQXSs?=
+ =?us-ascii?Q?4FPgmvg77C31+Tbh+Zc88t81OmSXTIwE53xsfIIyHZWdqbe8tHFIVbhFYKml?=
+ =?us-ascii?Q?DrOPymFQPlU1mWmfH9lii3urg6a6rJHoY8Bo74D249sEw7RIZYLIdvioV9Ao?=
+ =?us-ascii?Q?3VVFD/ib6ZyEX28H/bRU9iDrgDpCdrB3ymPAl06ww1eFbkLLfF4W9nEGaBdS?=
+ =?us-ascii?Q?Lx+5UXU+1YfdmHOEFTUPgCG4mkN+PgzcCqtucZpBkyPrWddj+Tx4uoDhINrj?=
+ =?us-ascii?Q?AHHMtLN5SVZ5ykaJmgY9Qqx83+7O2uRoovzlZ+bsHHt3t/A2SJagTWqlIU8H?=
+ =?us-ascii?Q?nNMJt3H7wMunY6Ux9axf7CA/g07dbUz7lj37rauogyNUlA9pzMjv1qI9HFVs?=
+ =?us-ascii?Q?ck1wgil39q+geb50Yv44MhUDEtekoEuDtED0JXMDJ5u5fGDgm3lt7Ia+4sNQ?=
+ =?us-ascii?Q?6VqbxZ3Qp1BjTMdy0xs8utVrYCRlcfad+QEqbZe3AXZN01H/TSTczYtDPAaD?=
+ =?us-ascii?Q?zrAJTBcftrX1wDbe7IvTT+0Lg31xuOxDA15lsoybqt8UNBJxTI/3zdNBQgfW?=
+ =?us-ascii?Q?YmQ9DdqYkfTDnCv+zbpX6GhA9f4Z9X1En97cHd5YMXHhrGFTnvtQDBx3licX?=
+ =?us-ascii?Q?poA925EUVEwpFQbwhRRXjbtaQG1j5AkETLAjIIo9UsaRDOzd709xPyWN8+ZT?=
+ =?us-ascii?Q?mCKzxmfOTxUkrDgvOQMEGaSt+Q5dQW9gGE8MoeYCaK2Y/bnvjvzpR718wiO3?=
+ =?us-ascii?Q?gglVo1bQ/u6NdSGBAEHE1pa42u9Etu3Dhf7oMWxfsAGqXuARdSdH78eijqyq?=
+ =?us-ascii?Q?vs3kFoEXYcr3CVpTznxbeXX78/py1IQKzv35g1FvullrU6Jaa4M49TL7MibE?=
+ =?us-ascii?Q?ZmMbhG4HFoMLYbG+7o2lEKJKppglcUEhRa2r3LyCIuGNuSL/1+/xETfuGI2Q?=
+ =?us-ascii?Q?sDf3dYnOX5oxRl4Wfx+yqm/ReB1lWwWZJJHo5dFEu3/E0QAtHbcazS5hpLl/?=
+ =?us-ascii?Q?arDV5tY1zm+e61NEy1rzqdznVs5V/48hRGFFzFkPgk+BTZf0HSZvvpyIH9S9?=
+ =?us-ascii?Q?iZdfaRhT6fJinnyDohcKXxD3xQFP0EpDvyH3thS/HI/W5a5UVmnohLdFblze?=
+ =?us-ascii?Q?FnLuBfL6T9sJenkYJwwl67Ov/SqWtvZSzxcReaj3NplZOxfOWOAde9EgDbvW?=
+ =?us-ascii?Q?Q1RCIXGui9IN2yqnQZgweqSsQqdB246YEcLFMkvlKJl3EO80nS+XPQ=3D=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:KL1PR06MB6020.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(52116014)(376014)(7416014)(1800799024)(366016)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?2enXPvcWXGtcv6r4LdrjwufCr41OIIdB8hgbWJGCPOACXR0is0dnwXpPhRXg?=
+ =?us-ascii?Q?OYqDXRyWL77HkdicO/suKKy7Y6C7llS/Xfw5NL9AA1CNUquGp4lylkj+SbnF?=
+ =?us-ascii?Q?In8jYjvlZPFF0Qj+SU4a84dqPpPFHq3qZV7dzU4Pcuh4TroEkH8B8D0QDNab?=
+ =?us-ascii?Q?UDhCqQ52SImqRIqZ3IWyLTJxpDCO8gALIRmv6tScBIiI+d2zhlQnjXdSJlJc?=
+ =?us-ascii?Q?8TtsAAiThALVtJvGwD+hHexD1TtSpsQhCSFv26m+zWRx10QIGjEt3e7mCUjf?=
+ =?us-ascii?Q?TL/RUdINA3VUjpexekHu61G5v2TmrQYHEsPoonnJqjmSYFIGqyXUtm7lpRoY?=
+ =?us-ascii?Q?O61vB7XbXYOgHT+C/+1q9661qh18rgheNjomzmvj27RwgeOKYVjvzWTYLXSq?=
+ =?us-ascii?Q?zN4zC+LGfixBBwkBHfVyNobGHYRwJFmofazPMySZNZvtg2rIUkrNMuZ8nx5Z?=
+ =?us-ascii?Q?a2SXc1yVRJFscKeT1tndJfBXBBCGTrirPG8DgvoSKzR3MG5cH5Fk30dixiXE?=
+ =?us-ascii?Q?XDWBQvJgoleFzQdooG/mczP/ySxr12jvScdeHIeVG8UGCwDk03HLRgvxW/1I?=
+ =?us-ascii?Q?eDDsJAvApFb5Mge5ON5E4+7lPoq7S0MmkSCHLB8Ho07fA4QgwYEg+0FdUu27?=
+ =?us-ascii?Q?UmsDIGJsjMoJY1ZdvUhma2Ep4DuB9cqoVbh8jD6HgNzyEhI6mfYWn/i81WLM?=
+ =?us-ascii?Q?Dwma+kiLLy4A8N5Sjclzdo6B+HJXpCG0PFRcnBKqK71buvzzWrkkx+YjLva/?=
+ =?us-ascii?Q?q2lNfUVpnK64YOkTLPBfNJcNUoAqRl+a8QyXX5FIduP9CUke8VQYNDP3u+x4?=
+ =?us-ascii?Q?S3/jVK8EJuzPEGUlYGBJJ4dECwu9B7F6DMSoJNCB7KZKSAVgZaA6sB8429PK?=
+ =?us-ascii?Q?ISYJS5anfi6OFOq/X9xRZK+F7vVBziLMn8l806uvrT5QA/utMZ3kLS0FPlKQ?=
+ =?us-ascii?Q?S0+/Ksq90Cy9xm4taXYkR/Oa9LH2NOlncQDtb1dF6nxOCorf10cTuGpk94mZ?=
+ =?us-ascii?Q?VjTq42cT9yEdx6ddxpYB26WpZCxckEwNtvY0wh5p56OK9CJFcUJkS6eM2FBR?=
+ =?us-ascii?Q?9JT8d0NoomLU7EQ6ViZKmoMkQo96sFT0cQkyietqxV9umtxyV+06PFSWl2eX?=
+ =?us-ascii?Q?XhzZBntbifQrZfQBXozWMg9IqZIBz3mNkpQPYgEQf1hI3ecS3/EBU6XsqMQh?=
+ =?us-ascii?Q?n/4LcAp3Y48c3aXGWWC9PTrk4IQfuMQUBvPAhfdijC7MBPLWYLDLsfc55ZKL?=
+ =?us-ascii?Q?nzKD1koyk9oVrDb2h7pxJe918tCEgg0TzT64uF9okr9FRGtqrPNNN9kNJDUd?=
+ =?us-ascii?Q?FAZwXz88zD+g3lAlWERmntihh3vODl67lhBKxHl7Eq2CDLCh82FeRsLhcX05?=
+ =?us-ascii?Q?Bdzo7N24CZ3ypmePkRjk7kC4ZdDo7A2ZpJAK8quSD0y2rkKcSLa6BvnrNDj7?=
+ =?us-ascii?Q?6x2cK9RLGL9mBDaDNYX0UY8Yt1bThvNHRAx29CbkENPFHKRNPsRZNFK5Xqqr?=
+ =?us-ascii?Q?NL1xWcGox3m2Ad0sFWXOaVqVeV1Pl3u0alONE51Pgm1dm/Mh74NFtw/2Cl7Z?=
+ =?us-ascii?Q?wSCYnOQ1gh6sjTrlkhv87bJTeahMs2QdRq075edq?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3d4b360-61d4-4696-e1f8-08ddd62698ec
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR06MB6020.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2025 02:52:22.2046 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U1sjsSMZV+JzAH1J2HkImGDAtHR0kuii0URzHwHezT8ymjpCrmwFeV8npwSvlWg+72EoWAG9DI2cNum7IBAIYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB5481
 X-Mailman-Approved-At: Fri, 08 Aug 2025 07:32:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,52 +148,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07.08.2025 15:20, Mike Lothian wrote:
-> On Thu, 7 Aug 2025 at 14:22, Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Thu, Aug 7, 2025 at 9:13 AM Brahmajit Das <listout@listout.xyz> wrote:
-> > >
-> > > Hello Alex, Christian,
-> > >
-> > > I'm a mentee at Linux kernel Bug Fixing Summer 2025. I came across the
-> > > TODO list on the kernel doc, and specifically this section[0]. Would
-> > > amdgpu be open to this conversion. I saw that before starting it is
-> > > recommended to talk with Sean and the relevant maintainer. Hence I'm
-> > > emailing you folks.
-> >
-> > It would be nice to get rid of the old DRM_INFO/ERROR/DEBUG macros and
-> > replace them with the dev_ or drm_ replacements.
-> >
-> > Alex
-> >
-> > >
-> > > I guess you can also refer to this,
-> > > https://patchwork.freedesktop.org/patch/msgid/20191219161722.2779994-1-daniel.vetter@ffwll.ch
-> > >
-> > > [0]:
-> > > https://docs.kernel.org/gpu/todo.html#convert-logging-to-drm-functions-with-drm-device-parameter
-> > >
-> > > --
-> > > Regards,
-> > > listout
-> 
-> Pet peve I get random HDR SB messages printed to my dmesg by the following line:
-> 
-> https://gitlab.freedesktop.org/drm/kernel/-/commit/88694af9e4d1feaf635c23844833960f8958af78#298241cee0e184ade58580011daae827741f9838_3874_3927
-> 
-> I'm not sure how this is useful, or how someones supposed to realise
-> it's from amdgpu either
+The clamp() macro explicitly expresses the intent of constraining
+a value within bounds.Therefore, replacing min(max(a, b), c) with
+clamp(val, lo, hi) can improve code readability.
 
-If we do something like 
+Signed-off-by: Xichao Zhao <zhao.xichao@vivo.com>
+---
+ drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
--	print_hex_dump(KERN_DEBUG, "HDR SB:", DUMP_PREFIX_NONE, 16, 1, out->sb,
--		       sizeof(out->sb), false);
-+	print_hex_dump(KERN_DEBUG, "AMDGPU HDR SB:", DUMP_PREFIX_NONE, 16, 1,
-+		       out->sb, sizeof(out->sb), false);
-
-Maybe it will help in understanding that it's coming from AMDGPU
-(assuming we are keeping the print_hex_dump).
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+index 0c0b2d67c9cd..00767b8ccdae 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+@@ -435,12 +435,12 @@ void dcn301_fpu_calculate_wm_and_dlg(struct dc *dc,
+ 						&context->bw_ctx.dml, pipes, pipe_cnt);
+ 	/* WM Set C */
+ 	table_entry = &bw_params->wm_table.entries[WM_C];
+-	vlevel = min(max(vlevel_req, 2), vlevel_max);
++	vlevel = clamp(vlevel_req, 2, vlevel_max);
+ 	calculate_wm_set_for_vlevel(vlevel, table_entry, &context->bw_ctx.bw.dcn.watermarks.c,
+ 						&context->bw_ctx.dml, pipes, pipe_cnt);
+ 	/* WM Set B */
+ 	table_entry = &bw_params->wm_table.entries[WM_B];
+-	vlevel = min(max(vlevel_req, 1), vlevel_max);
++	vlevel = clamp(vlevel_req, 1, vlevel_max);
+ 	calculate_wm_set_for_vlevel(vlevel, table_entry, &context->bw_ctx.bw.dcn.watermarks.b,
+ 						&context->bw_ctx.dml, pipes, pipe_cnt);
+ 
 -- 
-Regards,
-listout
+2.34.1
+
