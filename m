@@ -4,76 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B648C87FD2
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 15:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C06DC87FDA
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 18:36:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FD3310E0CF;
-	Fri,  8 Aug 2025 15:28:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F79710E0BB;
+	Fri,  8 Aug 2025 18:36:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bjOx2nIo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WbUwXiWF";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44B9310E0CF;
- Fri,  8 Aug 2025 15:28:24 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-24286ed452fso3124815ad.1; 
- Fri, 08 Aug 2025 08:28:24 -0700 (PDT)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63CFA10E12B;
+ Fri,  8 Aug 2025 13:14:46 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-b34a6d0c9a3so2424681a12.3; 
+ Fri, 08 Aug 2025 06:14:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754666904; x=1755271704; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xaFrKONgoeL4lo44H8m0yP1sT0L2wqE/7af3cuPE8mM=;
- b=bjOx2nIoL1/GdEfIXWpP3OCy4Yr1dsNhb9yBHvEvdpyFZwzODzdvWxSLGfDzjM0YwT
- 4ylC9nTK78WlUVmlAlF/6wJ+aYH62Ya3bqkUrU9z352pLBz02ArzdZwWBezvYSMhggri
- MtAMlJW05RaGMKETcqXW0/GglMZ5MNSRIaCDappFHCljuJiaxsJyFV1xxL+NJKajscNy
- ufWsi3ugjJCGcaFrqCf4p8xkWFH6d28VUIjoIlehvMyh3oOFJBB2oiSMEScmPSBAukPn
- SRtof48v0vamfUmg9qVU7NMMoMuyg82KYcZCr4TLyWDCsD2z4bH5HtQXeeiC89jpLqXM
- jnLQ==
+ d=gmail.com; s=20230601; t=1754658886; x=1755263686; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=iawHC1WUTHg8Q1cXEPmQw82NLULRa7+zvXxXpbCHsU4=;
+ b=WbUwXiWFSKQl2qi7cnadzZh7QhHu4KmvV2GgjCYDkQYtZJmBFMOtgJq4jfD81Y40if
+ 7Vn5lktmL3I0sb1gV7iRgUmLSX0kHyVx6YiHPT8PVmLfOW7AdsepvQI7LWZIh9l9q1fy
+ IJI7gUCIUprlU/r/0WQU8Ya2D8u3BqnS4XSMqKcYAFQicv2BvgbHmQh0Me7nDy3PkwS6
+ MhLjfTK7v7GCnPUTeUTwslFvXLshBYD+pAEedAVgbRBGh0zESaBbo7j/yn03oO+9ff+L
+ Ht7jDdCsoNDTJ6IDoFuVYDkHm4wjGivmazwKHz8Mde8NHWpglf+26C6XFreQsuRgkvZi
+ wpsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754666904; x=1755271704;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xaFrKONgoeL4lo44H8m0yP1sT0L2wqE/7af3cuPE8mM=;
- b=hi1wV8rNTD+aOOAE9S9nX3J4godLxoLhxuE0MxiG5Gx/WCoPlb3We9f764vnGR6rSI
- gATpcy41pMlwMN+HWD4XwfXGiNC+13T5nj3Wum3xGp9e9WZWMSsP3vwr1ABhdVunEWUy
- Q1tDS4caK0EcHNfqaiAy72kX1hFnhe/omhnxCoChVLL8Qe88wW4i1cPJGZoMObzO70dH
- HXlxhqb9esafGXh6VjaNCxBCx+zbnrXopiZO1UdOYtKod4LpD1smDGxi4e3bCMXMPy3m
- Lk5mbEKITIrHU5m5P+We3B1PVf+ebpLic9WTCwkBTNvTSgwmHNSRWrMG9TyjG6VGRy4M
- veVA==
+ d=1e100.net; s=20230601; t=1754658886; x=1755263686;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=iawHC1WUTHg8Q1cXEPmQw82NLULRa7+zvXxXpbCHsU4=;
+ b=PK0BqFy7Bk07ZkqS5ki6F8B04Fu3jPtBFyn+6Dyo3k/hGyVCdFQQ0UqjE4Cy+NYOcV
+ WAowVa+2z8eicB43RST2qHFuDWAOgMlxXbfZFhNiDf4t95jZCbkZqhM4pgCQU7b9Nere
+ 19+RGTxbxJMEoJdMqAMuv3OHj/k4KoqtFDviXFGKSuyEqQKSHOITdz4SDLucxnRcedVC
+ Prl4Jac3iLudlk3pwBWaf661LFkccL/dzqeyowzWfb7anNLACCPVc1suDA/i0OrX976S
+ 7uY2EqfR7cZrfMIf+YCXjgzmZbT/dEcssc4NLprRVtcHGY+TwwwGbnfw02FQOZtmGGq+
+ akRg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVMLidq6YEXXrh+FweEcwbnEuEgXsR5B+8Jmbcek3/9w5R0yAaJzZNl4iTKPb84DFLxIA9kmLTG@lists.freedesktop.org,
- AJvYcCX4i3p6Wu921u00W06d3749zP51FYD/WLBjSj0yYPgpeLMOGjy0CVD99Acxwe3KhvtbnJCZKzLdZdeI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1Tr07thgsr0nOPhDl0AryKBtt2UDJB83lWxiCNhGzBWbpZ6C9
- hMONB5tb2il8AT2ItsT8C5IY0OL0Q6Pxrn7Yv2Vx/eO/qUqRvV4b188y/9YwwpIcLhhl+QMbjNA
- SIn9SHfjZ8K5PDvjgczEJqDZd6IGtII8=
-X-Gm-Gg: ASbGnctFOJtgWLVIA6kPAYfwTsRpl3SSh7eNUKpuD3EAsvbi5QW66tRU1U1n/JrTR1t
- mnrp8DkfGLTwNw+AIeQz0Y8VAipnK+fR8sPuxvxC2kkHTnu3nQ1wDJNGEvMpy+V+vhPC+ZoK6Ja
- 668/hLT8oIPwsNLkVfn27xDGiGPV+jaiu8lf8sg2b7KfTWw0nxbvgrpPl78ql2F5uz/8CgN4ujA
- v1b3E8=
-X-Google-Smtp-Source: AGHT+IFzRj3NfvXhNRMeD3rfS4OdzgKDkzQX8MeXfQwdZ7fG5fJW/ZicXqdjPbYU0XmStRk+Dm+B6kak+q+dt9nZcq4=
-X-Received: by 2002:a17:903:18c:b0:240:3e41:57a3 with SMTP id
- d9443c01a7336-242c19a673fmr25580745ad.0.1754666903728; Fri, 08 Aug 2025
- 08:28:23 -0700 (PDT)
+ AJvYcCUp59Zj7efyQbOK+g/gw9Esl6TZCi5MkDAbHqS8iWqE/2rJjfyYAdTnEmYRDTZ/XdDoPga++u7/@lists.freedesktop.org,
+ AJvYcCWX/epEHmpRTWAqjXi7FvgLLVQvID9PHyphWccC4xc1gzOzlFpaB5YoqgEqDaXg+bOcysvLJZbcUBdJ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+KXH1Yg2SPL5jT/ThF6tbiNacCN8rcahcFvpZF0+nRXqRbHjC
+ Jgjj99QbCiR4FvHglr+FegwqbKZZnsQZ2LQFIi8lYgYlB9zYlZRXUKw3zYKFuMdDCXvusHolNIh
+ EKKQichLSmDTJ9jz3u3849QTGsLPomEY=
+X-Gm-Gg: ASbGncuFkGEM13/Cvx1q4ZNmoywgmhYzIz6sHyyXYnLu3O2YsRvqBgUUoBPa+zq8iA4
+ tQBMJO49VhaenEN5cT791WlyVlfTXvIgT8SYuRNXcFH4+dookPjjdpw/nKA+73EWihixrD0TDgK
+ pHmTz63MUTO7+oheCUsiY/1hcMP+a/uDtEHiSlIOJAaV2Oz5avN3wRqkbLkfNyl4yS39u3o/9aW
+ +Jn/co=
+X-Google-Smtp-Source: AGHT+IE5B69vo+qtzdqrQ3DUHSvn6ONntAXNi5ew0A1UUjK2jQU3cn7X/PwXfy8EPU8TJl9/ldX9BWKqUwOEssBbTe4=
+X-Received: by 2002:a17:903:228f:b0:234:ed31:fca7 with SMTP id
+ d9443c01a7336-242c22cb8abmr46205595ad.48.1754658885711; Fri, 08 Aug 2025
+ 06:14:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250806-amdgpu_typo-v1-1-b5a3cb84ce26@uniontech.com>
- <6e5b5c47-a97c-4757-ac0d-361c91fd5819@amd.com>
-In-Reply-To: <6e5b5c47-a97c-4757-ac0d-361c91fd5819@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 8 Aug 2025 11:28:12 -0400
-X-Gm-Features: Ac12FXzCfzGrH3JJl3Jc7p_DPcZK5W4BmsxzZKT8lvCDvMABrJkVyay7b_pzNV4
-Message-ID: <CADnq5_MXNfXfjKZo6VRXk8xBr=TRbQzHGq2-7HyHuBcCtF+KPA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix incorrect comment format
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: cryolitia@uniontech.com, Alex Deucher <alexander.deucher@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- wangyuli@uniontech.com, zhanjun@uniontech.com, guanwentao@uniontech.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Abinash Singh <abinashsinghlalotra@gmail.com>
+Date: Fri, 8 Aug 2025 18:45:16 +0530
+X-Gm-Features: Ac12FXzRfdTGh3UkiWjvhnApGvuKIGi5zSWG1b8VaHhC3jJmLNLblI0mTB7_0K0
+Message-ID: <CAMV7Lq7hCuUpkgU6bjs6oCENb_OgFchzf7DywM7g=YjWDNYz2g@mail.gmail.com>
+Subject: [RFC][DRM][RADEON/AMDGPU] Starter TODO task: Convert dev_*() logging
+ to drm_*() variants
+To: alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="00000000000095bd82063bda5b84"
+X-Mailman-Approved-At: Fri, 08 Aug 2025 18:36:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,54 +81,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+--00000000000095bd82063bda5b84
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Alex
+Hi,
 
-On Wed, Aug 6, 2025 at 8:38=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com> wrote:
->
-> On 06.08.25 05:34, Cryolitia PukNgae via B4 Relay wrote:
-> > From: Cryolitia PukNgae <cryolitia@uniontech.com>
-> >
-> > Comments should not have a leading plus sign.
->
-> Good catch, potentially a left over from a merge conflict or similar.
->
-> >
-> > Signed-off-by: Cryolitia PukNgae <cryolitia@uniontech.com>
->
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/a=
-md/amdgpu/nbio_v7_4.c
-> > index d5002ff931d841994ca2c70cdf5b989f5b3c59d6..860bc5cb03c81b5346743b5=
-fb46a7dcbe5a201a4 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> > @@ -151,9 +151,9 @@ static void nbio_v7_4_sdma_doorbell_range(struct am=
-dgpu_device *adev, int instan
-> >                *   BIF_SDMA0_DOORBELL_RANGE:  0x3bc0
-> >                *   BIF_SDMA1_DOORBELL_RANGE:  0x3bc4
-> >                *   BIF_SDMA2_DOORBELL_RANGE:  0x3bd8
-> > -+             *   BIF_SDMA4_DOORBELL_RANGE:
-> > -+             *     ARCTURUS:  0x3be0
-> > -+             *     ALDEBARAN: 0x3be4
-> > +              *   BIF_SDMA4_DOORBELL_RANGE:
-> > +              *     ARCTURUS:  0x3be0
-> > +              *     ALDEBARAN: 0x3be4
-> >                */
-> >               if (adev->asic_type =3D=3D CHIP_ALDEBARAN && instance =3D=
-=3D 4)
-> >                       reg =3D instance + 0x4 + 0x1 +
-> >
-> > ---
-> > base-commit: 6bcdbd62bd56e6d7383f9e06d9d148935b3c9b73
-> > change-id: 20250806-amdgpu_typo-80869b122c36
-> >
-> > Best regards,
->
+I came across a "Starter" task listed on the DRM TODO list [1], which
+suggests converting logging in DRM drivers from dev_*() macros (like
+dev_info(), dev_err(), etc.) to the newer drm_*() variants that take a
+struct drm_device * parameter.
+
+The rationale is to improve per-device logging clarity, especially for
+drivers supporting multiple instances.
+
+I=E2=80=99d like to work on this for the Radeon and AMDGPU DRM drivers. Bef=
+ore
+proceeding, I wanted to confirm whether this change is welcome for these
+drivers, and if there are any driver-specific considerations I should keep
+in mind.
+
+If it=E2=80=99s acceptable, I=E2=80=99ll begin preparing a patch series for=
+ review.
+
+Thanks for your time, and looking forward to your guidance.
+
+Best regards,
+Abinash
+
+[1] https://docs.kernel.org/gpu/todo.html#todo
+
+--00000000000095bd82063bda5b84
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<br><br>I came across a &quot;Starter&quot; task listed=
+ on the DRM TODO list [1], which suggests converting logging in DRM drivers=
+ from dev_*() macros (like dev_info(), dev_err(), etc.) to the newer drm_*(=
+) variants that take a struct drm_device * parameter.<br><br>The rationale =
+is to improve per-device logging clarity, especially for drivers supporting=
+ multiple instances.<br><br>I=E2=80=99d like to work on this for the Radeon=
+ and AMDGPU DRM drivers. Before proceeding, I wanted to confirm whether thi=
+s change is welcome for these drivers, and if there are any driver-specific=
+ considerations I should keep in mind.<br><br>If it=E2=80=99s acceptable, I=
+=E2=80=99ll begin preparing a patch series for review.<br><br>Thanks for yo=
+ur time, and looking forward to your guidance.<br><br>Best regards, =C2=A0<=
+br>Abinash<br><br>[1] <a href=3D"https://docs.kernel.org/gpu/todo.html#todo=
+">https://docs.kernel.org/gpu/todo.html#todo</a><br></div>
+
+--00000000000095bd82063bda5b84--
