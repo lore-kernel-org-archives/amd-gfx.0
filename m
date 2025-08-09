@@ -4,65 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D78C5C87FCF
-	for <amd-gfx@archiver.kernel.org>; Sun, 10 Aug 2025 14:43:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A78E9C87FDA
+	for <amd-gfx@archiver.kernel.org>; Sun, 10 Aug 2025 14:43:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 874E210E269;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D36B410E26E;
 	Sun, 10 Aug 2025 14:43:42 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D2F110E09B;
- Fri,  8 Aug 2025 23:22:47 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-459ebb6bbdfso17175485e9.0; 
- Fri, 08 Aug 2025 16:22:47 -0700 (PDT)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MTpRZ12p";
+	dkim-atps=neutral
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
+ [209.85.161.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39E9A10E21C;
+ Sat,  9 Aug 2025 19:56:50 +0000 (UTC)
+Received: by mail-oo1-f52.google.com with SMTP id
+ 006d021491bc7-61990d3392cso1744853eaf.1; 
+ Sat, 09 Aug 2025 12:56:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754769409; x=1755374209; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=8gll3lgXFy37DB8uR/XXnHpOl9ICmDLe8obySpyrfGU=;
+ b=MTpRZ12pH4rDKRF2z0cLkF9gHZqd9py/mS0nGnRT4c0qm89ftcPtjRZq+wYMGSt1Cp
+ 0c2fjvWLzmptAHCRdORSwFR1ygmM4VD7A6hsQd1oB6q8j3gbkbiGAztLgpXE0RxuOMM3
+ 368LYycPNV8GbEr91uhRTg5eE0WdWjILfA4kIxBNDor8aHC/Qdv9Fo4g/Gb/h/W0brvr
+ 6ybEVB4YJkeE5vjec7kMZiOF+2zPRWc7mq7xwtpoFEZYX/8b5ZNca8QyUl8D+kbQR3DN
+ jydjyhUOVC7wCh0S5DOck2RDzEWj3SZiGucqViZ6GuZaB/ymIOYPrLZocAY+0aWReYkL
+ +p3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754695366; x=1755300166;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=S7hoQOlH8hdbY5KjsDkardvJrN7xlW830kjw5KEZnS4=;
- b=Rzq38VD9NNjafZryimk3Kh/qOQBFM9v2sh4sucgJirlVRuumr2ljpzAPQ5kDsBGHIq
- APa+NbfiFWCedcCazu8SljT6om6X4ZcEkJxHVgt0qHTEChPGl8Y9srK7XnAQi+utgUZf
- EVXueAxhRIzY3nHQemr7zvfK6lJtfn60d+qDF6zJSuTlWK9GEgLjLyfhNXHFu5xUAaDk
- LsJBVrYP6qfsVOnt0IuDDKcAVazlb7vOPDSlEq3FY4n+FawT0O6hvQeqQBj4+sl6Toyu
- 3x+XKHjCSCZkhiY3NYxl8zzrYBC4hZtukRqIZBfDiBUKQmfLyy8ZLPIYaG7uRoJrUEuG
- 9erg==
+ d=1e100.net; s=20230601; t=1754769409; x=1755374209;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=8gll3lgXFy37DB8uR/XXnHpOl9ICmDLe8obySpyrfGU=;
+ b=YWaHVjPqLEZrYEouxvK1KOtImBBGFeeeBNbtUVbWw6A25RTgS1Op7roX9Q50uwwKQi
+ DXxGVm2n54smTdmM1ACon99IbTqhSX2aACNQUunTy4G6yaZrSUZ/6I70LVlweK9mKLrM
+ FKFFWH8moIyZltfY8txe13YF3L37HfJ/N7UMt77zb0KP+ix1A7dY+XktK+WZRfjz795t
+ CciN7kUHK8rVvysFg45M2evzfbCFlGIPVcTsDNNufXdmj7spsrftqfGcTzfyjrfCutP+
+ L0krU3tIu251AcjrjBEYpWK5OWaGeJNJfuIWGGwZM0Flqg/hvCg0V1rrEMOExi3B4Us/
+ fo+g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUhMWGBjY86t+2ZrQWqFldjg8HecKNgqFWZHqvy17h4YOPCgn+INiuC7mF3GUxnOkOOO81rNT/Uywi7@lists.freedesktop.org,
- AJvYcCVa//PWLKBc8HDQhYwtdANBUBRD0KaZyu4iogROy587eEBQ5mpyoUIZ8E5jKMwuh1hACsDuv/Nm@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyC/G2QsSS6fTDnwW17qJUP5CV8Jd9lcthMARzptL/+vf1U2I/q
- 89sDtrL3zGJm0Qx1OQrgyH+gAaeL2INBS42xJ7fBQyc+LSglkMGeY4isQiRHiIG6fCs=
-X-Gm-Gg: ASbGncvRQmOb2WjzzDIVsSc3T89M/9L0QDl4yV0JR643CsMOVXCsTTHr0t4AsRGp18h
- RTqzOESIYiAt7bj8y1TYUMqSmPz9QJp3EMe5jEA+QPVCvCLoKUB2PNqJriHv8bqQfRAZKLcZhGG
- ZtJK99BriSnCoIO4qHD1UgYVV53r8odrVwG/pJPKNixxYOP6u7GsO7Am24pPjZV4auj7yccujlz
- i+MxCHdXCNYhUU2pYni5W+heXtC1oNIcUwIThTezRgvrUjAvofjQM59kpmzhXPhQ/Z8cUoZirGl
- cEPve3Xs1aqtrmfL4DWBfTiD06brP+JtH+V1fYR9UXNAHVX0TxWBAGWmHphtsllNYfgk1qCgxPl
- pjCFOcwC2VhXCX50HwAcE1tZLcTo0VRQZ8novxipPFuk=
-X-Google-Smtp-Source: AGHT+IGQMTo9SwesgTmq9YDU6U+20iLE8/0wLNPQ4nhjBDpCA5mQSaBryPBHNrEIgJou1IL0pvh8dw==
-X-Received: by 2002:a5d:5d0c:0:b0:3b8:b33c:b8b0 with SMTP id
- ffacd0b85a97d-3b90092c9d2mr3675591f8f.7.1754695365632; 
- Fri, 08 Aug 2025 16:22:45 -0700 (PDT)
-Received: from xavers-framework.fritz.box
- ([2a04:7d84:aac5:f6d0:e6bd:56ed:1a58:b83])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3abf0csm31142512f8f.14.2025.08.08.16.22.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Aug 2025 16:22:45 -0700 (PDT)
-From: Xaver Hugl <xaver.hugl@kde.org>
-To: dri-devel@lists.freedesktop.org
-Cc: andrealmeid@igalia.com, chris@kode54.net, naveen1.kumar@intel.com,
- ville.syrjala@linux.intel.com, mdaenzer@redhat.com,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexdeucher@gmail.com, arun.r.murthy@intel.com,
- Xaver Hugl <xaver.hugl@kde.org>
-Subject: [PATCH v4] drm: re-allow no-op changes on non-primary planes in async
- flips
-Date: Sat,  9 Aug 2025 01:22:08 +0200
-Message-ID: <20250808232208.7764-1-xaver.hugl@kde.org>
-X-Mailer: git-send-email 2.50.1
+ AJvYcCUwGjPmbq/zVn5EAM06xPY9eK3HL7yo/pd5Du7JLuAxX4PaCCxPR39P44Ai3DurJApikpne/opdjTobfVGwLA==@lists.freedesktop.org,
+ AJvYcCUwzgiS2yPFYmSBmm7RAFRhkbqZi25G2MfXvpsN7XqcqmVvYzuJmnWq7Dgit48840oo2mkHt972@lists.freedesktop.org,
+ AJvYcCVAKCr84xw01PYZc3tWfj+7KARuTNqU2GN0vxbjgvDcE3scU85w2dM2kJUfCEq0MmidH/p8LH0ukyy7@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxQgVRLTIyi3IelYQQes5Lnvh5s6nLHEd4n8dXHvNXrgvPqLrsZ
+ 2b4R9zIj3pOgXdou77DLgHDEnlQ81oM0P4RBr6W+a3mDXRdeewCAiCx7GVrnnHX7eeTE3ZCfAzd
+ FCvsBZk+4aWufby1AVfgmVl9VFsXrtiI=
+X-Gm-Gg: ASbGncu+cBJSedO/f58XbmFEBUTN8ccl/xkSTnjam4rv4ETjJg99mtQnkuLMJKBPoT9
+ ZpkOqwKbQGgUYPs7OJs3NII67XQhtRq7OJrjdLF99KrhMsOcX85TNHlwB0X0zcsLkVucxgGB+Bk
+ ZU9QvUUQTrKK18QQKPmZ4fP7OtfeXZmNxI4kKpcQDOTXiP7UiUvJkm13VpJS8iL4oy+AXW
+X-Google-Smtp-Source: AGHT+IGVY/nUlst4dczdxWUyb60MlL8GfrDNQfC6tH99XlXNoHz8UN+ksLWmmhuc44mqv8IZY6PopwOqm0zGJk5/6mI=
+X-Received: by 2002:a05:6871:6205:b0:2ff:8e9d:6b0e with SMTP id
+ 586e51a60fabf-30c21150b4amr3796518fac.36.1754769409142; Sat, 09 Aug 2025
+ 12:56:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Lauren Conrad <conradlauren75@gmail.com>
+Date: Sat, 9 Aug 2025 14:56:36 -0500
+X-Gm-Features: Ac12FXzOfLqHlHkB3IFrClfrBjm1GZwVauQF79ZP0tie4xG8VsWlYONoV_jewQw
+Message-ID: <CAO7k-1b0yq_XPfGUv6Vw1BcBkvu3cOVhw55yKTHaiwHk=z=W_A@mail.gmail.com>
+Subject: Re: [PATCH V9 00/43] Color Pipeline API w/ VKMS
+To: alex.hung@amd.com
+Cc: Liviu.Dudau@arm.com, agoins@nvidia.com, aleixpol@kde.org, 
+ amd-gfx@lists.freedesktop.org, arthurgrillo@riseup.net, 
+ chaitanya.kumar.borah@intel.com, contact@emersion.fr, daniel@ffwll.ch, 
+ dri-devel@lists.freedesktop.org, harry.wentland@amd.com, jadahl@redhat.com, 
+ joshua@froggi.es, leo.liu@amd.com, louis.chauvet@bootlin.com, 
+ marcan@marcan.st, mdaenzer@redhat.com, mwen@igalia.com, 
+ pekka.paalanen@collabora.com, quic_abhinavk@quicinc.com, 
+ quic_cbraga@quicinc.com, quic_naseer@quicinc.com, sashamcintosh@google.com, 
+ sebastian.wick@redhat.com, shashank.sharma@amd.com, uma.shankar@intel.com, 
+ victoria@system76.com, ville.syrjala@linux.intel.com, 
+ wayland-devel@lists.freedesktop.org, xaver.hugl@gmail.com
+Content-Type: multipart/alternative; boundary="0000000000004b755d063bf41795"
 X-Mailman-Approved-At: Sun, 10 Aug 2025 14:43:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,56 +89,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit fd40a63c63a1 unintentionally disallowed no-op changes on non-primary
-planes that the driver doesn't allow async flips on. This broke async flips
-for compositors that disable the cursor plane in every async atomic commit.
-This changes drm_atomic_set_property to again only run atomic_async_check
-if the plane would actually be changed by the atomic commit.
+--0000000000004b755d063bf41795
+Content-Type: text/plain; charset="UTF-8"
 
-Fixes: fd40a63c63a1 ("drm/atomic: Let drivers decide which planes to async flip")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4263
 
-Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
----
- drivers/gpu/drm/drm_atomic_uapi.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index c2726af6698e..317303cf5b8c 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1077,19 +1077,20 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 		}
- 
- 		if (async_flip) {
--			/* check if the prop does a nop change */
--			if ((prop != config->prop_fb_id &&
--			     prop != config->prop_in_fence_fd &&
--			     prop != config->prop_fb_damage_clips)) {
--				ret = drm_atomic_plane_get_property(plane, plane_state,
--								    prop, &old_val);
--				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
--			}
-+			/* no-op changes are always allowed */
-+			ret = drm_atomic_plane_get_property(plane, plane_state,
-+							    prop, &old_val);
-+			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
- 
--			/* ask the driver if this non-primary plane is supported */
--			if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
--				ret = -EINVAL;
-+			/* fail everything that isn't no-op or a pure flip */
-+			if (ret && prop != config->prop_fb_id &&
-+			    prop != config->prop_in_fence_fd &&
-+			    prop != config->prop_fb_damage_clips) {
-+				break;
-+			}
- 
-+			if (ret && plane->type != DRM_PLANE_TYPE_PRIMARY) {
-+				/* ask the driver if this non-primary plane is supported */
- 				if (plane_funcs && plane_funcs->atomic_async_check)
- 					ret = plane_funcs->atomic_async_check(plane, state, true);
- 
--- 
-2.50.1
+--0000000000004b755d063bf41795
+Content-Type: text/html; charset="UTF-8"
 
+<div dir="auto"></div>
+
+--0000000000004b755d063bf41795--
