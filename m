@@ -4,76 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A78E9C87FDA
-	for <amd-gfx@archiver.kernel.org>; Sun, 10 Aug 2025 14:43:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4006CA0EC0
+	for <amd-gfx@archiver.kernel.org>; Sun, 10 Aug 2025 14:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D36B410E26E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CD4110E26A;
 	Sun, 10 Aug 2025 14:43:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MTpRZ12p";
+	dkim=pass (2048-bit key; unprotected) header.d=listout.xyz header.i=@listout.xyz header.b="1F16SOcH";
 	dkim-atps=neutral
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
- [209.85.161.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39E9A10E21C;
- Sat,  9 Aug 2025 19:56:50 +0000 (UTC)
-Received: by mail-oo1-f52.google.com with SMTP id
- 006d021491bc7-61990d3392cso1744853eaf.1; 
- Sat, 09 Aug 2025 12:56:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754769409; x=1755374209; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=8gll3lgXFy37DB8uR/XXnHpOl9ICmDLe8obySpyrfGU=;
- b=MTpRZ12pH4rDKRF2z0cLkF9gHZqd9py/mS0nGnRT4c0qm89ftcPtjRZq+wYMGSt1Cp
- 0c2fjvWLzmptAHCRdORSwFR1ygmM4VD7A6hsQd1oB6q8j3gbkbiGAztLgpXE0RxuOMM3
- 368LYycPNV8GbEr91uhRTg5eE0WdWjILfA4kIxBNDor8aHC/Qdv9Fo4g/Gb/h/W0brvr
- 6ybEVB4YJkeE5vjec7kMZiOF+2zPRWc7mq7xwtpoFEZYX/8b5ZNca8QyUl8D+kbQR3DN
- jydjyhUOVC7wCh0S5DOck2RDzEWj3SZiGucqViZ6GuZaB/ymIOYPrLZocAY+0aWReYkL
- +p3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754769409; x=1755374209;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8gll3lgXFy37DB8uR/XXnHpOl9ICmDLe8obySpyrfGU=;
- b=YWaHVjPqLEZrYEouxvK1KOtImBBGFeeeBNbtUVbWw6A25RTgS1Op7roX9Q50uwwKQi
- DXxGVm2n54smTdmM1ACon99IbTqhSX2aACNQUunTy4G6yaZrSUZ/6I70LVlweK9mKLrM
- FKFFWH8moIyZltfY8txe13YF3L37HfJ/N7UMt77zb0KP+ix1A7dY+XktK+WZRfjz795t
- CciN7kUHK8rVvysFg45M2evzfbCFlGIPVcTsDNNufXdmj7spsrftqfGcTzfyjrfCutP+
- L0krU3tIu251AcjrjBEYpWK5OWaGeJNJfuIWGGwZM0Flqg/hvCg0V1rrEMOExi3B4Us/
- fo+g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUwGjPmbq/zVn5EAM06xPY9eK3HL7yo/pd5Du7JLuAxX4PaCCxPR39P44Ai3DurJApikpne/opdjTobfVGwLA==@lists.freedesktop.org,
- AJvYcCUwzgiS2yPFYmSBmm7RAFRhkbqZi25G2MfXvpsN7XqcqmVvYzuJmnWq7Dgit48840oo2mkHt972@lists.freedesktop.org,
- AJvYcCVAKCr84xw01PYZc3tWfj+7KARuTNqU2GN0vxbjgvDcE3scU85w2dM2kJUfCEq0MmidH/p8LH0ukyy7@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxQgVRLTIyi3IelYQQes5Lnvh5s6nLHEd4n8dXHvNXrgvPqLrsZ
- 2b4R9zIj3pOgXdou77DLgHDEnlQ81oM0P4RBr6W+a3mDXRdeewCAiCx7GVrnnHX7eeTE3ZCfAzd
- FCvsBZk+4aWufby1AVfgmVl9VFsXrtiI=
-X-Gm-Gg: ASbGncu+cBJSedO/f58XbmFEBUTN8ccl/xkSTnjam4rv4ETjJg99mtQnkuLMJKBPoT9
- ZpkOqwKbQGgUYPs7OJs3NII67XQhtRq7OJrjdLF99KrhMsOcX85TNHlwB0X0zcsLkVucxgGB+Bk
- ZU9QvUUQTrKK18QQKPmZ4fP7OtfeXZmNxI4kKpcQDOTXiP7UiUvJkm13VpJS8iL4oy+AXW
-X-Google-Smtp-Source: AGHT+IGVY/nUlst4dczdxWUyb60MlL8GfrDNQfC6tH99XlXNoHz8UN+ksLWmmhuc44mqv8IZY6PopwOqm0zGJk5/6mI=
-X-Received: by 2002:a05:6871:6205:b0:2ff:8e9d:6b0e with SMTP id
- 586e51a60fabf-30c21150b4amr3796518fac.36.1754769409142; Sat, 09 Aug 2025
- 12:56:49 -0700 (PDT)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29F5810E2AE
+ for <amd-gfx@lists.freedesktop.org>; Sat,  9 Aug 2025 09:36:50 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4bzbQ65D7Kz9tDX;
+ Sat,  9 Aug 2025 11:36:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=listout.xyz; s=MBO0001;
+ t=1754732206;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qKLEcwImtnKbD3bvBMrqDUfNNLWPYRNY9MbQe4li21U=;
+ b=1F16SOcHpl4/LfH/j3zeeDIX7kYnoMu8w8oDEK/wUJ/9LDq2JH76XmMiLtYg2To4gtfing
+ 1MfvTXMNepDW3YAPnNDAa30VQnoH4aVx8BXSkZVdnnAikW/atqdx0r88rm8yRZMIc+zoWu
+ g19p4/nMSLbPTqcUAeP3DlZDxDv+ip0+PSXHhfJcRlo3a2vQ0paIf1+JiqAUYbZ5VByAxY
+ c+kOnhMcXuUks6vypf4AMAtUH5tVVRXMdz9BU1ngtSk0NcoK5UGHyuC55tRYlXZ3MJu5Kb
+ 1whGfoGp//C9fpIjhtqwGqFW7v+5eFS2WyF4UQ6svCUdM5oT1X+nHwv0uugxyQ==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of listout@listout.xyz designates
+ 2001:67c:2050:b231:465::2 as permitted sender)
+ smtp.mailfrom=listout@listout.xyz
+Date: Sat, 9 Aug 2025 15:06:35 +0530
+From: Brahmajit Das <listout@listout.xyz>
+To: linux-next@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
+	airlied@redhat.com
+Subject: Re: drm/radeon/r600_cs: Build failures with GCC 16
+Message-ID: <smpcrwsua5kwutn5ynzz4eiupocvw5c7b4tmk3xugynvmnr53d@zxyraythnybm>
+References: <pqpvdwxmqler2mg4ou665v56g6qe36vwi5jeavqeszj2mrk5m7@io6dy7jsvuhe>
 MIME-Version: 1.0
-From: Lauren Conrad <conradlauren75@gmail.com>
-Date: Sat, 9 Aug 2025 14:56:36 -0500
-X-Gm-Features: Ac12FXzOfLqHlHkB3IFrClfrBjm1GZwVauQF79ZP0tie4xG8VsWlYONoV_jewQw
-Message-ID: <CAO7k-1b0yq_XPfGUv6Vw1BcBkvu3cOVhw55yKTHaiwHk=z=W_A@mail.gmail.com>
-Subject: Re: [PATCH V9 00/43] Color Pipeline API w/ VKMS
-To: alex.hung@amd.com
-Cc: Liviu.Dudau@arm.com, agoins@nvidia.com, aleixpol@kde.org, 
- amd-gfx@lists.freedesktop.org, arthurgrillo@riseup.net, 
- chaitanya.kumar.borah@intel.com, contact@emersion.fr, daniel@ffwll.ch, 
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com, jadahl@redhat.com, 
- joshua@froggi.es, leo.liu@amd.com, louis.chauvet@bootlin.com, 
- marcan@marcan.st, mdaenzer@redhat.com, mwen@igalia.com, 
- pekka.paalanen@collabora.com, quic_abhinavk@quicinc.com, 
- quic_cbraga@quicinc.com, quic_naseer@quicinc.com, sashamcintosh@google.com, 
- sebastian.wick@redhat.com, shashank.sharma@amd.com, uma.shankar@intel.com, 
- victoria@system76.com, ville.syrjala@linux.intel.com, 
- wayland-devel@lists.freedesktop.org, xaver.hugl@gmail.com
-Content-Type: multipart/alternative; boundary="0000000000004b755d063bf41795"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <pqpvdwxmqler2mg4ou665v56g6qe36vwi5jeavqeszj2mrk5m7@io6dy7jsvuhe>
+X-Rspamd-Queue-Id: 4bzbQ65D7Kz9tDX
 X-Mailman-Approved-At: Sun, 10 Aug 2025 14:43:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,14 +67,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000004b755d063bf41795
-Content-Type: text/plain; charset="UTF-8"
+On 09.08.2025 04:45, Brahmajit Das wrote:
+> Hello Developers,
+> 
+> Building linux-next with GCC 16 results in this following build error
+> 
+> $ make
+>   CALL    scripts/checksyscalls.sh
+>   DESCEND objtool
+>   INSTALL libsubcmd_headers
+>   CC      drivers/gpu/drm/radeon/r600_cs.o
+> drivers/gpu/drm/radeon/r600_cs.c: In function ‘r600_texture_size’:
+> drivers/gpu/drm/radeon/r600_cs.c:1411:29: error: variable ‘level’ set but not used [-Werror=unused-but-set-variable=]
+>  1411 |         unsigned offset, i, level;
+>       |                             ^~~~~
+> cc1: all warnings being treated as errors
+> make[6]: *** [scripts/Makefile.build:287: drivers/gpu/drm/radeon/r600_cs.o] Error 1
+> make[5]: *** [scripts/Makefile.build:556: drivers/gpu/drm/radeon] Error 2
+> make[4]: *** [scripts/Makefile.build:556: drivers/gpu/drm] Error 2
+> make[3]: *** [scripts/Makefile.build:556: drivers/gpu] Error 2
+> make[2]: *** [scripts/Makefile.build:556: drivers] Error 2
+> make[1]: *** [/home/listout/linux/Makefile:2011: .] Error 2
+> make: *** [Makefile:248: __sub-make] Error 2
+> 
+> I'm not sure whether this is kernel bug or GCC bug at the moment. But
+> building with GCC 15 does not give this error, hence I'm more inclined
+> towards the latter.
+> Planning to also report this on GCC side, wanted to get some
+> opinion/feedback from kernel devs as well.
+> I'm on GCC 16.0.0_p2025080.
+> 
+> -- 
+> Regards,
+> listout
 
+After giving a more thorough look, the level usage seems like dead code?
+It's just set (level = blevel) and incremented in the loop (level++). I
+don't see any other usage of the level variable. So if we do something
+like
 
+diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
+index ac77d1246b94..953ce0c57dfb 100644
+--- a/drivers/gpu/drm/radeon/r600_cs.c
++++ b/drivers/gpu/drm/radeon/r600_cs.c
+@@ -1408,7 +1408,7 @@ static void r600_texture_size(unsigned nfaces, unsigned blevel, unsigned llevel,
+ 			      unsigned block_align, unsigned height_align, unsigned base_align,
+ 			      unsigned *l0_size, unsigned *mipmap_size)
+ {
+-	unsigned offset, i, level;
++	unsigned offset, i;
+ 	unsigned width, height, depth, size;
+ 	unsigned blocksize;
+ 	unsigned nbx, nby;
+@@ -1420,7 +1420,7 @@ static void r600_texture_size(unsigned nfaces, unsigned blevel, unsigned llevel,
+ 	w0 = r600_mip_minify(w0, 0);
+ 	h0 = r600_mip_minify(h0, 0);
+ 	d0 = r600_mip_minify(d0, 0);
+-	for(i = 0, offset = 0, level = blevel; i < nlevels; i++, level++) {
++	for(i = 0, offset = 0; i < nlevels; i++) {
+ 		width = r600_mip_minify(w0, i);
+ 		nbx = r600_fmt_get_nblocksx(format, width);
 
---0000000000004b755d063bf41795
-Content-Type: text/html; charset="UTF-8"
+I think it should be fine.
 
-<div dir="auto"></div>
+Would really appreciate some feedback.
+(CC-ed Dave)
 
---0000000000004b755d063bf41795--
+-- 
+Regards,
+listout
