@@ -4,148 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 832BCC87FCB
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Aug 2025 20:57:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4754C87FCF
+	for <amd-gfx@archiver.kernel.org>; Sat,  9 Aug 2025 07:52:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 068D510E98A;
-	Fri,  8 Aug 2025 20:57:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 931E710E25E;
+	Sat,  9 Aug 2025 07:52:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1eFTu3XM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="b8L7Eauf";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A62810E98A
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Aug 2025 20:57:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qNu1HAY6DX/8ySYRHmDywB7VnYN8S7Eiz/K9mPdmh1kO845QCzVUceMCoLl++zu1Oq7cneBywb8hsfp85f3XTMJTo5Verpqojz3maF4UxuIaolSnAl4d7BVqeVjj8vGFG06t4g7BgmvXuZ7s/gLbuw/I7lRZEPxPLJkEykzDvuxOvyzjiyDuv1OdaJLI2oBdcUXeNnWd1HwtmXWuHrR2cumkD4AIPuWLeqx0pvHNXm8tp1EDWmtPIiWntThxfne9aHmJZl0umAbqlrLapPdU3+ufHPmj43vCGn/vCl8jCnBopzyY2JxspxejedbiNuGE0NZtS2yiolc1cMxL4BAR1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zO1dllf6O+6o93oXYZpYIyK8iJq+0VvvfV8e5lTw7yc=;
- b=K6h+JRUB+dMRRtfQ6vBdFp9tFxgMOuQizjQQjmgFn3aSiCmbXIA0n0HPL7vLsHMK5pMlQ6h/cx+CyGkX9l6StRYtn+RfWjwkJFPYVXutXF40vEudPtCz/WHSEBqsM4RgVR4/wMD541QehgzjSuv7dQpkGslCDCiqRFT6ZQUlaFnbpdA8bySX/aPVbVqDNOFG81PemwEDZpCuB9ZpKPd0LvmJ6YcEuSDAzEOy92QGuOz3kh4z8N1fUMbsFDT8FSO6zkdfDoqYxE0z/TkrYP37b+lOmzUSQEMkWGvw6EjSQnyNkLDIh/MqxN5sk2qggwS8SAN8ZvpQn0ae41mq6NeJ2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zO1dllf6O+6o93oXYZpYIyK8iJq+0VvvfV8e5lTw7yc=;
- b=1eFTu3XMn5FR/y0ZHzO9Z/jqYGpErQXpJI4ScO4xuPuXgkCiHFxq3vP90AnyVGm0lImtlJiUZm9ot/ivCLMDujmzOZhe/EyBEg/nQDFVgRcvr19Qo00HMcFji2zKUHl+Fybuk2ocefr4cXLOR4Wlx1TDQPOKaLPtBd7iqmgewFw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY5PR12MB6647.namprd12.prod.outlook.com (2603:10b6:930:40::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.18; Fri, 8 Aug
- 2025 20:57:41 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%4]) with mapi id 15.20.8989.020; Fri, 8 Aug 2025
- 20:57:41 +0000
-Message-ID: <6ab3cd99-7317-4811-a1c4-a51e186c4289@amd.com>
-Date: Fri, 8 Aug 2025 16:57:38 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Handle lack of READ permissions in SVM mapping
-To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20250808202820.187372-1-kent.russell@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20250808202820.187372-1-kent.russell@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: QB1P288CA0027.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c00:2d::40) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCC8910E214
+ for <amd-gfx@lists.freedesktop.org>; Sat,  9 Aug 2025 07:52:25 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5796fNdI019188
+ for <amd-gfx@lists.freedesktop.org>; Sat, 9 Aug 2025 07:52:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ VpEHcu9gcEArGq0cNR0CHEpsGr9nMZuYOYDfPme+0QE=; b=b8L7Eauf+2GTa4uH
+ F9FNVrkFO7CgNzK4FCHg39V/+Ea32BiqVcOdCR/R9fpjyfciN+JGUAAzpTALVkbs
+ S6sF3kooi/1CXYHdyxI+aab0q1uWho6jLMSGHmBBtfrxbRejsEwkHIAWnTsSVZpO
+ Xqg9o62Hoo35E9qq5v8TFjiNuGAAyx59I//Bf4vWSZKcdiylxSG2r5Vz6CfBYIJE
+ 8go+hR3R1glDvDcTLXgI8UvYZgqaeUwqX49YzYDAPBCnX4o1lGI3H8XfXZCVwrld
+ hvB4zsoLceL0rUzQlo6YDB/4DPwokVDOalsQ6gvKd+NDxm0lCgN9hn/m78fYZK61
+ IQmVwA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dupmggd5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Sat, 09 Aug 2025 07:52:24 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-7e7fc5f1e45so586892885a.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 09 Aug 2025 00:52:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754725944; x=1755330744;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VpEHcu9gcEArGq0cNR0CHEpsGr9nMZuYOYDfPme+0QE=;
+ b=iRwp6+vKB7mikMyfYP5tgLdNcGKRqezVINlSCT/ep6kh1C3Vdgn4hxmqnrqaKZ/q07
+ q37IMiBIWQM5mf3HswBEI5c3ZR/+E1/5blDcFbeSvhMPORIx7Qhb9WJRqg8zbWpmeYjp
+ 83gKxQWOQtWOzSXLGEKzp1+2XJQbdESZQCDoEeuXSZqowTpp90iyAZqgV/S7h9eLckUD
+ 3YI2LaimhxDyuhiOtmImWOPyr5ffSBmNSYn3cbIbrycvyc0Ri/zPe2wl26fG0xhkEC3t
+ 8OgIkZDAyZMvTaMyXbjDZrnccmuX9M/bXpORIWUUEktjL8oBY5nRhIix9wTE/KZEgBWy
+ QPwA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUo08FIMQsFPr6PmoLiz4DRy+ZBS6teVTF4Nckxgxpy1G4baO0aIKbh3tFHBafdluSJZVqa4jUK@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwW3LNJ7lEPWzyBe6Kku7cngvOQhhCZlu8nW44rs3i1sr0VeViB
+ o5JU8+smgI5jQ6C4FrD13TxVJNUjD5jIJ9Qo+RJt8XP/G7QknNu4bE4ALbRF0KdMAVQqAHMlR8B
+ +HI8DVv3Hc+t7FBR9fzlt7m9BppGYhP0kt9VlN1Bo8IgsCTrEP++43vThqClHW75jWmJQ
+X-Gm-Gg: ASbGncsG8hc7yCpj9ZT8w/VidOI7Ob/An/Ugdpel6knG8M94Qxn+pXbdGPvNV9ks9a6
+ 5DShgKEs5dUIOv7FCxZgGEJnXOUhuh3Hb6B6v8zHajjd/LvUg0W5+wy2t3r2pIz0CJIi5pNFqn+
+ JGcsXucU3vsdxcoOWPVuw6U/kBrQL4L45oWAZ+GfojH53RR23VY2/RiODKgMGZhz4ATOO3PEF6m
+ QxxEg7+l3wpXJ5YdFbe9XzwtI5xt99cIAASFp+VY6Cc/Nuf+G5vdPZFk5c3GDRuuEYiWmZ4A53+
+ +UI9Pxc5CY3M/NZD1gtqBBgZwsKmkO11RkatH8z8TGRuQsuzCys9w/H6Vm0ZrpbEWi6v7nGot9j
+ NQXBHKyGnysiK4NgMJK1O0ipGariHDc3l7AHPkF7VPA9uCcIDDSON
+X-Received: by 2002:a05:620a:4143:b0:7e8:221c:c968 with SMTP id
+ af79cd13be357-7e82c7a1401mr845380585a.65.1754725943930; 
+ Sat, 09 Aug 2025 00:52:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE4XWRAAnL1JlYlSACEe9f4C6EFHC69s++GpGa7tj/KvlYxLz0g3xleWIOEQplk3ocUxXH+1Q==
+X-Received: by 2002:a05:620a:4143:b0:7e8:221c:c968 with SMTP id
+ af79cd13be357-7e82c7a1401mr845373285a.65.1754725942444; 
+ Sat, 09 Aug 2025 00:52:22 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-55b8898bd63sm3312345e87.20.2025.08.09.00.52.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 09 Aug 2025 00:52:20 -0700 (PDT)
+Date: Sat, 9 Aug 2025 10:52:18 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 5/8] drm/msm/dpu: use drmm_writeback_connector_init()
+Message-ID: <opjgpsvd3u2pje5ytyy422uxq7xzvuhfv2uhf3xz7ccampfohh@q5cu2lpcfjem>
+References: <20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com>
+ <20250801-wb-drop-encoder-v1-5-824646042f7d@oss.qualcomm.com>
+ <6cbe8955-cb34-43fc-9950-0fec4b7cac3e@bootlin.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY5PR12MB6647:EE_
-X-MS-Office365-Filtering-Correlation-Id: e44900b4-dcdd-4c86-bbdd-08ddd6be3726
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aC81OUdHR1NKS0g5NHk0Y3lySjlQWEdSa0hkTkJpaG15MUcxdXNSSEdJbzNJ?=
- =?utf-8?B?Uml2T0JXQkRDUmxJcWtrYTB1MitpRjZQaW9WOVJRQXEzeTFOY3JWanJ1N1Fj?=
- =?utf-8?B?Y25QYmtFWHArZ0JidjZkWVdpb1JUbFR5WGhXeE1XL0tyUWpHaEJVcHgxYk9N?=
- =?utf-8?B?SkIxZG96SlgyaDNXY3hBaUh6dzJKUmdkanNoUTlGNk9RcWlxNHlFSXdGZ0lU?=
- =?utf-8?B?L2NvNlRMYnJJdVczbTBsL0FWL2Rpa0ZPOFhFb05kRWZCd1hUY0tLSVM3L285?=
- =?utf-8?B?T1Uza3JGbjB3cHVrT0dVUmlCQ3ZKS21BVVNhbGZFNllZU2ROS29ad1o4UzJK?=
- =?utf-8?B?TStKN3pQekJ6R2gvV3AyNEsyY0hPWEgyOXhGMThKTVI0SG1kQkJWL1JHZWxM?=
- =?utf-8?B?QnY5RWt0NEFXVlV2UHNBbmVaV0ZSZEFWUUlKWGhXSEw1RnRKK09OcTNHbTdw?=
- =?utf-8?B?d2V2bkVIb3NQNnFXQThCSnlCZVRYdkJJOU5Wd2hlMEs4YXdrMm9PY2p1R2Iw?=
- =?utf-8?B?ZUVjU1BabjJtL25HQjVoUXQrUjVsalVkR1FtdTRvZnhqZGVDRHc3eWcrOHdM?=
- =?utf-8?B?dmN3MUVsNzBvZnNjZU5hSUlVVHNuUEtDb0xRc2RiWTJ6bHhXZ1AzZU1jT3dM?=
- =?utf-8?B?MnhIWitjOGpqVnFLaFB3TmFocUp3Q3FtSTRhOFFMdXF6RFFYQXBteEdXTFdj?=
- =?utf-8?B?ZnVhUEthcGlqdURZbHVHS1VDZ2d5cHdjZk9seW5PWTE1eS91bEtIa25EOUJU?=
- =?utf-8?B?YXFqU29wblRpbjFtWE9sUmVIbEJ6THdqM1BiT1Q4V01mV3BFeE5lY2RJc2F1?=
- =?utf-8?B?RHBNRC8zcEZUTXJkbGhUb1UxRk5tNFk4UjVNUUxXQXlMMzhwS3JKblc1cDFC?=
- =?utf-8?B?VXQ0VUxXQlE5Q0NEMVRoNXU3SERHdGkrMzZPbXZzV3NVQmJQUXIyQzhrRWFh?=
- =?utf-8?B?cXQ3dlBmY3pITGp2UmlaSjNNOHljNlZlRG1QVzByR09RQXRnSXhsMmprZ0RR?=
- =?utf-8?B?Qm9aek8zYkJheEk4Y3ltQWxzcTRVcFNHUExXVWprcUFRR1RsMFc1VTRhaEFI?=
- =?utf-8?B?ZWVsSU1MZW50Sm90dUUzNitpWkd2TTJnalBYQnRsOWE5SWRYb0EvWkNLZG13?=
- =?utf-8?B?M0hmSExCdjlJV0dFd2tTblBnbEtiNEEvY0RUTVRxOERIU1dWalBJcUh5UEVy?=
- =?utf-8?B?QTFNZVl3bG1tSFZ0QkVkREhub0RtVVA4RkFUbmZLcGxTYUVDd1dUc0hjMWVZ?=
- =?utf-8?B?MHF5UXZGUDkwZEZuV1dZOUdxUGJLQWpCRm5id1dyM0NFdlVpYVNwb0lwQkNl?=
- =?utf-8?B?aDc5dThWajI5dXFqd09PYVJtY0ttSys3cEFnNTh1eTlTcmIyNWRuQXRtNXZU?=
- =?utf-8?B?OHBEMEVCVm9IeEJScktmWTV6Z3d2MDNTcU9MNmJhbEZ2N2NIYTBRcGVJakdz?=
- =?utf-8?B?S0tJTENCSFJLeVJCVWE3d1BSV043K1JSa1F5b2tBTnl1dVFIblpVQzNZSWJT?=
- =?utf-8?B?RDJWcjFDK2ZtR3NiS1k3MUFtS0lrWURlamRaTE5FQUhVUFRsMnFDM1R6aW1t?=
- =?utf-8?B?ZGxqTENkOG5kN3VYSkdVNXM1V1BjNXB1cDVKM2lFdWdaczRlNEdGU0diUGZG?=
- =?utf-8?B?c2JrL1VReUY3UzJoT283WkVZWFVxdHVuanBTZWdsMktLeU9EOEZ1UW56dG55?=
- =?utf-8?B?RXZ1bHk2Um5LUm91bmJhNzJLSjdpZHlqdDNwZzh2bEx4OEtYRHl0N2h1TGxP?=
- =?utf-8?B?dE51UGN2b1luWGZabXlta0lLTW56UkxKTkhzc2gza01nN1VZVlBXR1pFRXdT?=
- =?utf-8?B?bWtpL3dwczRaMlNBSExPU0NJTVp3RGZIMVZrcHhjTzY1cjY1eldlQk55UU81?=
- =?utf-8?B?Ri9Ick0wemo2Uk94NEJIMDVpN0FsdUljc2U4YjAwNUJ2VXMxb2NlMnhlQlFp?=
- =?utf-8?Q?FS+CiQR49PA=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b29PM2hINjNDb2NHSzlHSThmS1Z6MDJBK3NsbTl2RVlGeVZueHBzdzBNbVBi?=
- =?utf-8?B?OW5kZHRJY1VSbFVLM1A3M2gybzh4eFZva1FiaHh1N2Y3V0RDS1Y2TlpsblRM?=
- =?utf-8?B?VVNaTW1GRnA5amZ1Nnl3VkpVaERsN3o5cElMSCtxaVNQZXg5bkx2QzMyMlgv?=
- =?utf-8?B?U2JPQnYxdlkzRkxPYXRneE96N2xoWXUwQkFxK0N1UzdvcCtLVThSVVdEOG9s?=
- =?utf-8?B?TkFlL0RUQlpWeXJ5K3J3VFU2bHVXVldaUzNldll6WjlPK3dpLzJybzNWNUxM?=
- =?utf-8?B?akV4K1E3bHB1R2VwbmdXRWJ0MWczdTdNTG9NWmp1a1BkK1hWeEJ1SEdGTDlj?=
- =?utf-8?B?MkYxTmZVSVhlZWNBRG1lc0Y2d0g4Nm1SbENCaDYxVm1qZ3VESEhScDJQQmJa?=
- =?utf-8?B?YmdKc0MyZUZFTFpCVGxQMDUzTUEra1RFaHlHVFZjK3kyeGkzZXVYQUx6RTRQ?=
- =?utf-8?B?Qmw0bWxtelQranhLZFNLL0o0anBTanF5MVIvT2haeHV4RkU0T295NFVBcDhr?=
- =?utf-8?B?T0ljK0syMzMzRmt0bGMrekRCK2NId08vL2gyTlc3Yk1IbVlOMTJ0L1N0eGlm?=
- =?utf-8?B?OFR1VlQxaDdsOTdOYzg2L1RpR0ZyK3F3aVlMY0tKNitZYm5ZaDVzUGZselBx?=
- =?utf-8?B?akVGMGJleXBvNEJqT1FBYXRqUGs1RUF2dE44ejA2bkowY3VXZzI3UnY4WmUr?=
- =?utf-8?B?SU1kUEs1eGhxeEUzZ2RLUFhJeGU2YjhLMXE0ZzlJbGl2a0hrMThCWml3anF2?=
- =?utf-8?B?b2FpWjdvaVZTaDhTU1pPSWlSSnZUQW02cU9IbnVEQ3lzZjBhYjJYTmxoK1RZ?=
- =?utf-8?B?eFFYOU1oVi9ENFUxVUN1WXJEMWNjQkFic0pqNW10ekhyMTY4bkMwUk1mZGdK?=
- =?utf-8?B?OU5XNEtsenFhSFFzR2JhTS9SaFFKZEhNRTFteFpGeW9nR2x3OFJIM1l3NDZP?=
- =?utf-8?B?ZUMrS01QcDN4MUcyUkp3RGpJZndsTEErTTlFRzRXMzVpTFRHOG9vSHdockxl?=
- =?utf-8?B?WEFhZHFqR2lscUdLYWI2SG50YjFGbHc5UFZQSDZLL3hjK01lQTA2YkhKUFpE?=
- =?utf-8?B?dDljVUJCK0lrdkFEcnpRUGdHMEd5Qi81N2ZJNDNnRjR3L1Z5dy9UZXQ1L0ps?=
- =?utf-8?B?WERhMDdJYytJRDF0WU55YldZRGVJSUk3OGUxRWx4cDBUS2xGbDFoS0dCc0hB?=
- =?utf-8?B?OVhTemNoQkNCNzVOZUd5cXFsWjFJQlZ1YjgwbDkvSkFPRDlQeE9yU245clZF?=
- =?utf-8?B?L2dNLytuRXcyVy9kOFp5U1BMN00xZzYydUhVbStJWFpiU21VT29lRzRCNEFy?=
- =?utf-8?B?em5QdzhmWkZqSnB5YlpPNUtBTnZMUTBTS1FjK2RzQWFUUGZ5TCtodXc2eWs0?=
- =?utf-8?B?VU42bjlQTDFFNDl5V0h3OVIzRmlnMXEwNDJWc3RpbktjT2NWNFg5MHNPM1ZW?=
- =?utf-8?B?K0ZMa1FCSklXaXQ5dGVadkVoK0RoR0R2NEtXUzZWYmxINHRsZjdpTEtsQURy?=
- =?utf-8?B?RENNSkhBci9ETWdXczI5SkJvNFZmRTEydVVjNlBIbnQ3WDhROGxzaW1Manlw?=
- =?utf-8?B?OUxMcHJHL0VlVFRTVmxKV2V3djY0eHBJanpHSmVRUmF4TldQTlVlS3NUOXp3?=
- =?utf-8?B?ckdjbmovZldWTjdiQkh3WTl0TWdDdVlXczFsOHVLT3M5OHBoUXRmMTlYL21h?=
- =?utf-8?B?UXVhNWp1Nmg2bUpSL3lVSjRuNXQ1VExPSTdRbzA4Z01ISEs2clJZMFZDYjNz?=
- =?utf-8?B?MnVMWnljZENxVzFLenN5WDJjTVhuRlBXbmxXWHBQd0FYaEc3UWlwd1k5dVow?=
- =?utf-8?B?c1E2WE9ibjYwWVdiUjlLQW5TN2ZQTzdwNGNGYkpFQ2pjcjRoL3pYdVNRVXZE?=
- =?utf-8?B?bzhPVkIzWk9pQ0ZMbWw3dm9JRjI1RnVYTDZzY2tZdEw4Q0thd3NOMmNMRllF?=
- =?utf-8?B?MlAwU3k3S3VEZGFDMzNFeWdaT1QyZUFZMHkrVXVSY1Bzdk03RnJwdnVnV0xT?=
- =?utf-8?B?TStvS1RLdktmZTZBWnlFNVB5R29mMTJ2dVVTVnh5SytaSVpKZVlmZ3R3QWRw?=
- =?utf-8?B?Nk4vaVlFdk1RSUFtRUNrcmJHcXp3N29lWkpNcDBNbE1mcUsvWlRVOGY5dzg4?=
- =?utf-8?Q?bn7ALREJcegH/AIxdF3JAJ4CM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e44900b4-dcdd-4c86-bbdd-08ddd6be3726
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2025 20:57:41.5226 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yfkq3bG67Xx2qSxuBfvVN1i5dxy0PIYTBT2snbmmcV4ylVI/DDQrSYYTvRBuVSb2Uq1ommavnbjfUKLlrRgaGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6647
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6cbe8955-cb34-43fc-9950-0fec4b7cac3e@bootlin.com>
+X-Authority-Analysis: v=2.4 cv=bY5rUPPB c=1 sm=1 tr=0 ts=6896fe38 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=2OwXVqhp2XgA:10 a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=ROXIs7_yG6JpRt47qDYA:9
+ a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+ a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-GUID: tfhkogB0aHN-gh9yPeZ8L3CsSjZtWWAL
+X-Proofpoint-ORIG-GUID: tfhkogB0aHN-gh9yPeZ8L3CsSjZtWWAL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAwMCBTYWx0ZWRfX6oVxH+urAaPm
+ pmizzSeMmEj4QirzeVuTf3wTlMn/ytLBZRXmjPVmorDVbOPfa9u/WuE/zOw/AyQgoM/+noEd4+5
+ JM7BkfWKVVDSIu4lJPi3BVyb+eH7tFfWFZ28gqE6qv+gj2wK/Cj8ff6ZkdOwUSCgksO1uwSWsFu
+ XNdZQEuZYW/SI1Ijz0SvE1Bgp+f/4O+yrqwtshQt/+p6j2d/KdsTjLYXaPZdj8qk1mB7/4MPleD
+ fev3BLqoE0N9Vn+rwJ30MUfjVRNfUqJ+G69T6jAHMw3daqhE78o7Qqmu7ue2Jv/gYXWX6B4XKH4
+ nH8rz0SPyQrz2YksSHmjiCQHM1bifnw1N7o/cP6BWSui0wYTQeFoz/oT4toA7KLKh5J/kVq5fkA
+ kIjh7Er7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-09_02,2025-08-06_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 bulkscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 clxscore=1015 phishscore=0 adultscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508090000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,60 +151,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-08-08 16:28, Kent Russell wrote:
-> HMM assumes that pages have READ permissions by default. Inside
-> svm_range_validate_and_map, we add READ permissions then add WRITE
-> permissions if the VMA isn't read-only. This will conflict with regions
-> that only have PROT_WRITE or have PROT_NONE. When that happens,
-> svm_range_restore_work will continue to retry, silently, giving the
-> impression of a hang if pr_debug isn't enabled to show the retries..
->
-> If pages don't have READ permissions, simply unmap them and continue. If
-> they weren't mapped in the first place, this would be a no-op. Since x86
-> doesn't support write-only, and PROT_NONE doesn't allow reads or writes
-> anyways, this will allow the svm range validation to continue without
-> getting stuck in a loop forever on mappings we can't use with HMM.
->
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
+On Fri, Aug 01, 2025 at 04:08:37PM +0200, Louis Chauvet wrote:
+> 
+> 
+> Le 01/08/2025 à 15:51, Dmitry Baryshkov a écrit :
+> > Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> > drmm_writeback_connector_init() in order to initialize writeback
+> > connector instance.
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >   .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++++++++++++-------
+> >   1 file changed, 16 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> > index 8cd37d7b8ae281cbc1fd8cbb243c621174517e23..9986a10e8114680e9da48986f4ca3ce6ec66b8cb 100644
+> > --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> > +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> > @@ -134,7 +134,6 @@ static void rcar_du_wb_conn_reset(struct drm_connector *connector)
+> >   static const struct drm_connector_funcs rcar_du_wb_conn_funcs = {
+> >   	.reset = rcar_du_wb_conn_reset,
+> >   	.fill_modes = drm_helper_probe_single_connector_modes,
+> > -	.destroy = drm_connector_cleanup,
+> >   	.atomic_duplicate_state = rcar_du_wb_conn_duplicate_state,
+> >   	.atomic_destroy_state = rcar_du_wb_conn_destroy_state,
+> >   };
+> > @@ -202,15 +201,25 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+> >   {
+> >   	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
+> > +	struct drm_encoder *encoder;
+> > +
+> > +	encoder = drmm_plain_encoder_alloc(&rcdu->ddev, NULL,
+> > +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
+> > +	if (IS_ERR(encoder))
+> > +		return PTR_ERR(encoder);
+> > +
+> > +	drm_encoder_helper_add(encoder, &rcar_du_wb_enc_helper_funcs);
+> > +
+> > +	encoder->possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+> 
+> drm_crtc_mask?
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+I was just moving the code, but I think this kind of change is fine
 
+> 
+> With this:
+> 
+> Reviewed-by: Louis Chauvet <louis.chauvet>
+> 
+> > +
+> >   	drm_connector_helper_add(&wb_conn->base,
+> >   				 &rcar_du_wb_conn_helper_funcs);
+> > -	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
+> > -					    &rcar_du_wb_conn_funcs,
+> > -					    &rcar_du_wb_enc_helper_funcs,
+> > -					    writeback_formats,
+> > -					    ARRAY_SIZE(writeback_formats),
+> > -					    1 << drm_crtc_index(&rcrtc->crtc));
+> > +	return drmm_writeback_connector_init(&rcdu->ddev, wb_conn,
+> > +					     &rcar_du_wb_conn_funcs,
+> > +					     encoder,
+> > +					     writeback_formats,
+> > +					     ARRAY_SIZE(writeback_formats));
+> >   }
+> >   void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
+> > 
+> 
+> -- 
+> Louis Chauvet, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+> 
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 23 +++++++++++++++++++++++
->   1 file changed, 23 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index e23b5a0f31f2..521c14c7a789 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1713,6 +1713,29 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->   
->   			next = min(vma->vm_end, end);
->   			npages = (next - addr) >> PAGE_SHIFT;
-> +			/* HMM requires at least READ permissions. If provided with PROT_NONE,
-> +			 * unmap the memory. If it's not already mapped, this is a no-op
-> +			 * If PROT_WRITE is provided without READ, warn first then unmap
-> +			 */
-> +			if (!(vma->vm_flags & VM_READ)) {
-> +				unsigned long e, s;
-> +
-> +				svm_range_lock(prange);
-> +				if (vma->vm_flags & VM_WRITE)
-> +					pr_debug("VM_WRITE without VM_READ is not supported");
-> +				s = max(start, prange->start);
-> +				e = min(end, prange->last);
-> +				if (e >= s)
-> +					r = svm_range_unmap_from_gpus(prange, s, e,
-> +						       KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
-> +				svm_range_unlock(prange);
-> +				/* If unmap returns non-zero, we'll bail on the next for loop
-> +				 * iteration, so just leave r and continue
-> +				 */
-> +				addr = next;
-> +				continue;
-> +			}
-> +
->   			WRITE_ONCE(p->svms.faulting_task, current);
->   			r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
->   						       readonly, owner, NULL,
+-- 
+With best wishes
+Dmitry
