@@ -4,127 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93DCDC87FD2
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 13:26:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0817C87FDB
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 13:35:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CAE510E462;
-	Mon, 11 Aug 2025 13:26:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 507D710E475;
+	Mon, 11 Aug 2025 13:35:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="p8f6b7Kw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J/R3F8TH";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88F7910E10E
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 13:26:23 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57B9dBGb029216
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 13:26:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=vRikIynOffv5hukm3CKQ6SgT
- vsP8Ryyr+lMrwvSQIzY=; b=p8f6b7KwJiYJ1X2hf94LyRPBUQyawbhk9VSvJzGE
- DcS0zOtYY2HjC5TEq5XRYFGd5ZmWt2OniURI87DtmkMygR94tLhXxzwXev1O7sGM
- wsnL8Uct1JMYVLGowrnGkSpgkpzztPyGRQ/l6RrB4EQ/ZU87Pfn4saIFdqqWNQvw
- 0jmZ9nrljs7UUKQDs3hC5RJ71aqmfRcMwozM5IlDwOWBowpH9tKj/JmmgZrhQyqg
- CutdLldAKoUXN5szorjHp7uTnYgn3AFufDl9qK7gZs3Cu+KcQp7ZWP+bD+kY3qHg
- Xom/m64tqGBryAwEH7hMeuLe2b9WBcvSctNuyWxldJyHdQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48dygmch1b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 13:26:22 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4af156a27b1so170765011cf.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 06:26:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754918781; x=1755523581;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFFBE10E48A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 13:35:12 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-24049e42f37so3193225ad.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 06:35:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754919312; x=1755524112; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vRikIynOffv5hukm3CKQ6SgTvsP8Ryyr+lMrwvSQIzY=;
- b=DoCvlLNaUJ9DyER6LBmA60dz9oBh4rNYXPlCFXGEEbnI6HSO9VKYqvQ77Mlwe9Vd/i
- DEk4NlLfZjlstcN/rcjf12k+s5PfHDlJSAlzlJu6d5Pa8vHJ2T8un3UxJjbRiWjcMb31
- 40UG32rqQSPVm+irH1csgwjaPRUSajh8Ly5l+shx/douSvw4M//1zWwQHVj2zY5axLXO
- VfQ8RoR0tz4Y404JHt4vvNmStmgD3wIcQSRxNGU1RAQlugONLzXmStFocze4fg37czK/
- wwMk/CPWSO4VcxcGrWQwzO9XqBPa5TE6mUsBvGpRnu3uoHmG/fusjh7j/lxDzJsL26/J
- umrw==
+ bh=84sNkZvrOW1k1PWbS/vBQaH01fKqFeP8Lnq34vdgDlE=;
+ b=J/R3F8THiM1LOtoepQNkCNirEF8sLKkAT3v4zxPc+RyEYTot50e8xucfa7OM2IRhJs
+ Em0KAMsUEJPUsI+uHQQ4GyMMeLlzHTxdNyvTd5Og4jspT+u1paDpav1zxjY4d/ozCig9
+ 9Gs1BICEhMxy8Iqewg3Pj/uM4UOxqcAO8iRhDjfuxOL1sFICfdhcrKLyY1BP3w3Qu97b
+ KI/tevooDFLXXZbn7QHp9boaE2xwf5CkC3rQphSGFGgm/ECzzRbaSt71/2xHlnePee4B
+ EQUo8p7AY2J63WFUpORT6SUufKdPNjL7DJ0Qfd8NPdJktugpepv6ajHO8v34Zd5ofF79
+ t1Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754919312; x=1755524112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=84sNkZvrOW1k1PWbS/vBQaH01fKqFeP8Lnq34vdgDlE=;
+ b=d+mbzCX//pGILkfkxDnHXSx/sKqbgIhA6Jbp+HZb14OFnsUgkoLKg4Nf+BlbywdN/e
+ pknQKHjOvGsVnNEShUHLb93E9KKiXGR/tV9b23r0sTeYx+DNVzvC9YjjFPUf9AVy+AjI
+ DCAJstsbm+R15VAbw3G2IBS/ByNHiPWA5FbBHnmNz4u210OgE1ldHeLhdd6fBhD9p4Ob
+ eXasv9P/owxEOs4VvSNz3UE01uv8/tdY65FzM41xfJ+wvKX1wK87aD3+jnVlnf+absg2
+ oEqfU39X2kOKnrTQSSGwI3uqawxK5mUrgb0vLMZvQ6riwkQmkMxB9+sjyNODMQZPP2xL
+ JzMg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWSLnesziVF8LEwox9uyFyvzCSxmOZoG/GYtYzWiqPygKwQZ4CHSyYqrg+mb7BidPh96+21J41F@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzxfQxujdKEqNLibLElOFXOFun0+kE785V8dlEvNj7MjXs1sBc8
- TjeVXawEPngsHh/ntmscrZZ9l/19QEnA/VEaF9rCDmJdoQyMTSUCxs3QUMnXfFsWuzXrHS6N3Vb
- CpPVTcvFQe1sqECefytkJzWjTR2IaK8ZgURVh5RCcvUpaxGfOl/pUsS6Pj7i+5TMiPIhQ
-X-Gm-Gg: ASbGncskEvibdtzne6PzNsxG1Pz2+5KkNGwyVjCS5rsUKmhiQ8JBPuqT8/Mr6MEPLWH
- T1CNifXiq9i38XFPem/oRdb/lTZgshfQZLZD2kG3vinp7Emiork5WWVX5QogrFZDXbqhfNeEmqj
- iSKMJ4ldpoJiuwjhWCfzlgTUKzQWQHO5Z8KVhYaS6bCL15txQL+hVdMzNnHHdHWIlJcXZIinuRM
- jwH7ipPBR/H/qua3GUREuA7dFusP5YcnqOEOTsRU2zjDl28fCcdzlV1+sEgK65YfEefvnwycmiY
- 9M09v9XUq9dQXVbBBIjuZtKr6mX/vXRzxAoFfpekyUzqbar/lhO236HuU1KNfmfAdtv0JJsNIwI
- jKs1ObMUEcZqK4PZy7wieB72k5xX3NsNrcZiBTSGdzn9CzP1351ww
-X-Received: by 2002:a05:622a:58c6:b0:4b0:75f1:4cd5 with SMTP id
- d75a77b69052e-4b0aed5ec14mr139029431cf.44.1754918780917; 
- Mon, 11 Aug 2025 06:26:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH0wKTLCLx4/yIBgQvD8Ue94ZiVJ7wpTEfZ89QbuRpyBiuJsOKla4drlyaZDIdLWLJCAt0VIQ==
-X-Received: by 2002:a05:622a:58c6:b0:4b0:75f1:4cd5 with SMTP id
- d75a77b69052e-4b0aed5ec14mr139028901cf.44.1754918780301; 
- Mon, 11 Aug 2025 06:26:20 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55cc7c67a5asm1192051e87.77.2025.08.11.06.26.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Aug 2025 06:26:19 -0700 (PDT)
-Date: Mon, 11 Aug 2025 16:26:17 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>, kernel-list@raspberrypi.com,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
- uma.shankar@intel.com, jani.nikula@intel.com, harry.wentland@amd.com,
- siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, robin.clark@oss.qualcomm.com,
- abhinav.kumar@linux.dev, tzimmermann@suse.de,
- jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, mcanal@igalia.com,
- dave.stevenson@raspberrypi.com, tomi.valkeinen+renesas@ideasonboard.com,
- kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com
-Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
- structure
-Message-ID: <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
-References: <20250811092707.3986802-1-suraj.kandpal@intel.com>
- <20250811092707.3986802-2-suraj.kandpal@intel.com>
- <20250811094429.GE21313@pendragon.ideasonboard.com>
- <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
- <20250811111546.GA30760@pendragon.ideasonboard.com>
+ AJvYcCXa4JVjqMW3xam9j69cyMsSlH6kHHkUmfi9vs6T5n0p+2dQ8fHChb96MkEa0Vfn2C9xBkzX60RU@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtA1W4ZCkzzjLKPBEe2EeU+VLWCYWF+Vu9HCDwZ9e/FmW8xQ1l
+ JXLoSnxDDEthvvsqqC8Go5ZhL1R0kjTm6mmXL9r4f/Fs36Whhhv3Hsuwh3G/kPVn5omrmUNDwpD
+ c76hQatB3MQDc5Fn/huEMo0ZY/UX+DnlkIg==
+X-Gm-Gg: ASbGncvL9B54/25e4tMFFDabAb3AFgl9f0Exf2njDYlA7FI7r6WVMD/fba/aOm0bqau
+ 2mIDIyUoxLdQI6VCcu/6GHauMEdJWSW2B/r7MG9ejOrsT25wluC+TmOFvrng1CBeskG1I5diyes
+ JPlwy/AcXCb7Mlnt9+BzHoj7/6R+zj1UTg00gzwvnt8dP1qzd4pI3ex7o45/Xk0zGHO0CL3po9s
+ a6s3PpoH9FU2+sjCA==
+X-Google-Smtp-Source: AGHT+IHykrwNnrf4q7gUeWlVpSMzF3Sgc+KqbTwg0mDXjVcieClbsteVE8gcQXaErn0BALVWv/pwqwJaMAhNoJlmf8Y=
+X-Received: by 2002:a17:903:2449:b0:242:d186:5bce with SMTP id
+ d9443c01a7336-242d383451fmr59257895ad.3.1754919312124; Mon, 11 Aug 2025
+ 06:35:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250811111546.GA30760@pendragon.ideasonboard.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDAzNSBTYWx0ZWRfX+O0picRjbJKS
- c72OOJfe+AYRXJjQguh5okyWK9NhHC1uLBHw2Xq6LhpIHuUinNCuq4V0zDeVDkkpgMwo6TNcVuQ
- +9v+OLoH4fNUItT/loyK6gtmqYHsxr0BCW5ZvgqSX//99cY4nH195tCFS8mlYYG+NBvmtboVwYl
- 71wukwXbD2NFExh1uG5TNr619XGnSzhXw5EEjT2IUQsyMFtiBEr2Hx/JajBbuKtjQassOq15OuJ
- RlgWkmCd1hteQLrzvc5a09H6VrO2LeMX1MGCGLnw1oevFlImjjPBoDmT7yf3sX+nO7pntwAfeCO
- fhuv0p9B9Jom4D7EsISMZqW2Ql9igEjNV5qOxz5VCSQHESrhqnlFvTtr0SQ+v23i9b2TEFKaAo9
- thp3EPg5
-X-Authority-Analysis: v=2.4 cv=FvMF/3rq c=1 sm=1 tr=0 ts=6899ef7e cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=QyXUC8HyAAAA:8 a=4yu1Or5Oec3-_3BIJ7kA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: sf8CRenNHhhkNX9LSCE7Fp_XF9pyDoiL
-X-Proofpoint-ORIG-GUID: sf8CRenNHhhkNX9LSCE7Fp_XF9pyDoiL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-11_02,2025-08-11_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 bulkscore=0 suspectscore=0 phishscore=0
- clxscore=1015 impostorscore=0 spamscore=0 adultscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508090035
+References: <9846b386-87c4-4f86-ae11-6361470cbce7@amd.com>
+ <20250811092125.22630-1-listout@listout.xyz>
+ <a6da8462-e0c4-4bba-b65d-25ba3f5cdacc@amd.com>
+In-Reply-To: <a6da8462-e0c4-4bba-b65d-25ba3f5cdacc@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 11 Aug 2025 09:35:00 -0400
+X-Gm-Features: Ac12FXw-e0ywhoHK7Z0ZKlIK4kTRwiALit1X0nC7Kn7H_E-i-z1susch16guNcs
+Message-ID: <CADnq5_MimooPVJXu9SnpL_1Yhkz0ZOfsXWDnnWAKmt+ymH=HRg@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon/r600_cs: clean up of dead code in r600_cs
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Brahmajit Das <listout@listout.xyz>, airlied@redhat.com,
+ alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, linux-next@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,96 +86,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 11, 2025 at 02:15:46PM +0300, Laurent Pinchart wrote:
-> On Mon, Aug 11, 2025 at 01:22:30PM +0300, Dmitry Baryshkov wrote:
-> > On Mon, Aug 11, 2025 at 12:44:29PM +0300, Laurent Pinchart wrote:
-> > > On Mon, Aug 11, 2025 at 02:57:00PM +0530, Suraj Kandpal wrote:
-> > > > Some drivers cannot work with the current design where the connector
-> > > > is embedded within the drm_writeback_connector such as intel and
-> > > > some drivers that can get it working end up adding a lot of checks
-> > > > all around the code to check if it's a writeback conenctor or not.
-> > > > To solve this we move the drm_writeback_connector within the
-> > > > drm_connector and remove the drm_connector base which was in
-> > > > drm_writeback_connector. We do all other required
-> > > > modifications that come with these changes along with addition
-> > > > of new function which returns the drm_connector when
-> > > > drm_writeback_connector is present.
-> > > > All drivers will be expected to allocate the drm_connector.
-> > > > 
-> > > > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> > > > ---
-> > > >  drivers/gpu/drm/drm_writeback.c | 33 ++++++++++------
-> > > >  include/drm/drm_connector.h     | 60 +++++++++++++++++++++++++++++
-> > > >  include/drm/drm_writeback.h     | 68 ++++-----------------------------
-> > > >  3 files changed, 89 insertions(+), 72 deletions(-)
-> > > > 
-> > > > @@ -2305,6 +2360,11 @@ struct drm_connector {
-> > > >  	 * @cec: CEC-related data.
-> > > >  	 */
-> > > >  	struct drm_connector_cec cec;
-> > > > +
-> > > > +	/**
-> > > > +	 * @writeback: Writeback related valriables.
-> > > > +	 */
-> > > > +	struct drm_writeback_connector writeback;
-> > > 
-> > > No, sorry, that's a bad idea. Most connectors have nothing to do with
-> > > writeback, you shouldn't introduce writeback-specific fields here.
-> > > drm_writeback_connector happens to be a drm_connector because of
-> > > historical reasons (it was decided to reuse the connector API exposed to
-> > > userspace instead of exposing a completely separate API in order to
-> > > simplify the implementation), but that does not mean that every
-> > > connector is related to writeback.
-> > > 
-> > > I don't know what issues the Intel driver(s) have with
-> > > drm_writeback_connector, but you shouldn't make things worse for
-> > > everybody due to a driver problem.
-> > 
-> > Suraj is trying to solve a problem that in Intel code every drm_connector
-> > must be an intel_connector too. His previous attempt resulted in a loose
-> > abstraction where drm_writeback_connector.base wasn't initialized in
-> > some cases (which is a bad idea IMO).
-> > 
-> > I know the historical reasons for drm_writeback_connector, but I think
-> > we can do better now.
-> > 
-> > So, I think, a proper approach would be:
-> > 
-> > struct drm_connector {
-> >     // other fields
-> > 
-> >     union {
-> >         struct drm_connector_hdmi hdmi; // we already have it
-> >         struct drm_connector_wb wb;  // this is new
-> >     };
-> > 
-> >     // rest of the fields.
-> > };
-> 
-> I still don't like that. This really doesn't belong here. If anything,
-> the drm_connector for writeback belongs to drm_crtc.
+Applied.  Thanks!
 
-Why? We already have generic HDMI field inside drm_connector. I am
-really hoping to be able to land DP parts next to it. In theory we can
-have a DVI-specific entry there (e.g. with the subconnector type).
-The idea is not to limit how the drivers subclass those structures.
+Alex
 
-I don't see a good case why WB should deviate from that design.
-
-> If the issue is that some drivers need a custom drm_connector subclass,
-> then I'd rather turn the connector field of drm_writeback_connector into
-> a pointer.
-
-Having a pointer requires additional ops in order to get drm_connector
-from WB code and vice versa. Having drm_connector_wb inside
-drm_connector saves us from those ops (which don't manifest for any
-other kind of structure). Nor will it take any more space since union
-will reuse space already taken up by HDMI part.
-
-> 
-> > I plan to add drm_connector_dp in a similar way, covering DP needs
-> > (currently WIP).
-
--- 
-With best wishes
-Dmitry
+On Mon, Aug 11, 2025 at 8:53=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 11.08.25 11:21, Brahmajit Das wrote:
+> > GCC 16 enables -Werror=3Dunused-but-set-variable=3D which results in bu=
+ild
+> > error with the following message.
+> >
+> > drivers/gpu/drm/radeon/r600_cs.c: In function =E2=80=98r600_texture_siz=
+e=E2=80=99:
+> > drivers/gpu/drm/radeon/r600_cs.c:1411:29: error: variable =E2=80=98leve=
+l=E2=80=99 set but not used [-Werror=3Dunused-but-set-variable=3D]
+> >  1411 |         unsigned offset, i, level;
+> >       |                             ^~~~~
+> > cc1: all warnings being treated as errors
+> > make[6]: *** [scripts/Makefile.build:287: drivers/gpu/drm/radeon/r600_c=
+s.o] Error 1
+> >
+> > level although is set, but in never used in the function
+> > r600_texture_size. Thus resulting in dead code and this error getting
+> > triggered.
+> >
+> > Fixes: 60b212f8ddcdb ("drm/radeon: overhaul texture checking. (v3)")
+> > Signed-off-by: Brahmajit Das <listout@listout.xyz>
+>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> >  drivers/gpu/drm/radeon/r600_cs.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/=
+r600_cs.c
+> > index ac77d1246b94..811265648a58 100644
+> > --- a/drivers/gpu/drm/radeon/r600_cs.c
+> > +++ b/drivers/gpu/drm/radeon/r600_cs.c
+> > @@ -1408,7 +1408,7 @@ static void r600_texture_size(unsigned nfaces, un=
+signed blevel, unsigned llevel,
+> >                             unsigned block_align, unsigned height_align=
+, unsigned base_align,
+> >                             unsigned *l0_size, unsigned *mipmap_size)
+> >  {
+> > -     unsigned offset, i, level;
+> > +     unsigned offset, i;
+> >       unsigned width, height, depth, size;
+> >       unsigned blocksize;
+> >       unsigned nbx, nby;
+> > @@ -1420,7 +1420,7 @@ static void r600_texture_size(unsigned nfaces, un=
+signed blevel, unsigned llevel,
+> >       w0 =3D r600_mip_minify(w0, 0);
+> >       h0 =3D r600_mip_minify(h0, 0);
+> >       d0 =3D r600_mip_minify(d0, 0);
+> > -     for(i =3D 0, offset =3D 0, level =3D blevel; i < nlevels; i++, le=
+vel++) {
+> > +     for (i =3D 0, offset =3D 0; i < nlevels; i++) {
+> >               width =3D r600_mip_minify(w0, i);
+> >               nbx =3D r600_fmt_get_nblocksx(format, width);
+> >
+>
