@@ -4,72 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0817C87FDB
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 13:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2C3C87FD2
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 13:45:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 507D710E475;
-	Mon, 11 Aug 2025 13:35:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9844F10E079;
+	Mon, 11 Aug 2025 13:45:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J/R3F8TH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OryML7gA";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFFBE10E48A
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 13:35:12 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-24049e42f37so3193225ad.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 06:35:12 -0700 (PDT)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3650010E079
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 13:45:50 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2400b3008e8so6492265ad.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 06:45:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754919312; x=1755524112; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754919949; x=1755524749; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=84sNkZvrOW1k1PWbS/vBQaH01fKqFeP8Lnq34vdgDlE=;
- b=J/R3F8THiM1LOtoepQNkCNirEF8sLKkAT3v4zxPc+RyEYTot50e8xucfa7OM2IRhJs
- Em0KAMsUEJPUsI+uHQQ4GyMMeLlzHTxdNyvTd5Og4jspT+u1paDpav1zxjY4d/ozCig9
- 9Gs1BICEhMxy8Iqewg3Pj/uM4UOxqcAO8iRhDjfuxOL1sFICfdhcrKLyY1BP3w3Qu97b
- KI/tevooDFLXXZbn7QHp9boaE2xwf5CkC3rQphSGFGgm/ECzzRbaSt71/2xHlnePee4B
- EQUo8p7AY2J63WFUpORT6SUufKdPNjL7DJ0Qfd8NPdJktugpepv6ajHO8v34Zd5ofF79
- t1Xg==
+ bh=wS0ARNU5yCAZpX0WE15KIsmucUPcI/5nx58MeZKnjQk=;
+ b=OryML7gA0VCYCflqeeszlTCcFBsJ6LXOSUmb75zD/n0dFcov5qsSvqWfOJ3MKVDdw7
+ FBa/uN6a0ZLIo8hijQvJWjuGED87CUCXau6sysWUzXlAHoPoRB1n0nS+7VIbe9p6mrz9
+ qEt/60zutR4Q8A+JYBqhNm+ymEDQ/i2nXMiE+u5mFZAzXbnffYRMgUqDoWrqgyPEbk3E
+ ibqARnpUSZI0Pu/7g0ZrZnab9ihimKHlAdMGbdMbegkSZHqO9a6xeBtGIWsPjjgcamld
+ NiNo49KQmt622RtA4oZWtBlemjL2kZ4bqCL+Tl1s6MRsiN/q1naSm2O4G06veCJT4jQJ
+ Oqsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754919312; x=1755524112;
+ d=1e100.net; s=20230601; t=1754919949; x=1755524749;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=84sNkZvrOW1k1PWbS/vBQaH01fKqFeP8Lnq34vdgDlE=;
- b=d+mbzCX//pGILkfkxDnHXSx/sKqbgIhA6Jbp+HZb14OFnsUgkoLKg4Nf+BlbywdN/e
- pknQKHjOvGsVnNEShUHLb93E9KKiXGR/tV9b23r0sTeYx+DNVzvC9YjjFPUf9AVy+AjI
- DCAJstsbm+R15VAbw3G2IBS/ByNHiPWA5FbBHnmNz4u210OgE1ldHeLhdd6fBhD9p4Ob
- eXasv9P/owxEOs4VvSNz3UE01uv8/tdY65FzM41xfJ+wvKX1wK87aD3+jnVlnf+absg2
- oEqfU39X2kOKnrTQSSGwI3uqawxK5mUrgb0vLMZvQ6riwkQmkMxB9+sjyNODMQZPP2xL
- JzMg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXa4JVjqMW3xam9j69cyMsSlH6kHHkUmfi9vs6T5n0p+2dQ8fHChb96MkEa0Vfn2C9xBkzX60RU@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxtA1W4ZCkzzjLKPBEe2EeU+VLWCYWF+Vu9HCDwZ9e/FmW8xQ1l
- JXLoSnxDDEthvvsqqC8Go5ZhL1R0kjTm6mmXL9r4f/Fs36Whhhv3Hsuwh3G/kPVn5omrmUNDwpD
- c76hQatB3MQDc5Fn/huEMo0ZY/UX+DnlkIg==
-X-Gm-Gg: ASbGncvL9B54/25e4tMFFDabAb3AFgl9f0Exf2njDYlA7FI7r6WVMD/fba/aOm0bqau
- 2mIDIyUoxLdQI6VCcu/6GHauMEdJWSW2B/r7MG9ejOrsT25wluC+TmOFvrng1CBeskG1I5diyes
- JPlwy/AcXCb7Mlnt9+BzHoj7/6R+zj1UTg00gzwvnt8dP1qzd4pI3ex7o45/Xk0zGHO0CL3po9s
- a6s3PpoH9FU2+sjCA==
-X-Google-Smtp-Source: AGHT+IHykrwNnrf4q7gUeWlVpSMzF3Sgc+KqbTwg0mDXjVcieClbsteVE8gcQXaErn0BALVWv/pwqwJaMAhNoJlmf8Y=
-X-Received: by 2002:a17:903:2449:b0:242:d186:5bce with SMTP id
- d9443c01a7336-242d383451fmr59257895ad.3.1754919312124; Mon, 11 Aug 2025
- 06:35:12 -0700 (PDT)
+ bh=wS0ARNU5yCAZpX0WE15KIsmucUPcI/5nx58MeZKnjQk=;
+ b=nggR/7dzF3zVuqIJ84xhaz+KkjgFerLErXbjT9NLt6hUxn86fDG/pRR4RgVVWdL9N/
+ n+BjwlRwIbTCi7x13LXj3Awl78Zsqa3Cj+zb+UxdnZAuC1XeK6oVjA+QebOv7PVyX8wm
+ vLCSJ+yz256isaddA58t1wHS+O0MPFCbkqlnlKRA0AtXFGUMJtHqjb3ufF2a6eD2aPMj
+ 4Z90gk3Mtn6IoAkb6n5gnwrj57RzYGp4BYnjuZKPxqqrjZmHXftDePoD4XlbHWeQ/QY0
+ C36crsufdg579dZoXyj/jONlx66qS8JfbDqQ1B9UHu0teeQTt/ti/7yM1ozGw7ff3IzP
+ YuJg==
+X-Gm-Message-State: AOJu0Yx8A26R5seU9DxfnGKZsg1V8T4IKxGk+1vzudGRFE6hxQH4FY8a
+ tYPDUDY/UNx+pP50ipRhAimION5/DnDG+LmYHEYvFuMwcdPhu4cJ9Yj/bdWnbNDDdpwYtvB7MGD
+ OcuwIhYXC7bRJkmd9TxVZyWfXBobgqBfP3LYP
+X-Gm-Gg: ASbGncu2RfiWXgzYXbOoEroeP2lN9qT6ZK6lVouKZCpIknJADfW2P2YC7EmLpvCjQnC
+ xvOT/GKVujm/0r5pS6Hqu3GpXHKVBalB3XymQQl4vHvjWImDQj6YakoSjk3oGzhktM0YRbSGy6m
+ Lmf8WE1WJ5cAzO+wgayPhN4e0SA72XNi9w2FVR3McXtjVQwLUtLQvQ2I0shsfPLyY2Yjl8zYQuA
+ G+9IK6POK8vt8Fyyw==
+X-Google-Smtp-Source: AGHT+IFpyZdfSpokWAGUFDXUMeHqhpR7qZJXpeq5HABBOiT/baOXvz5sQFYr5yMq/mXNEpT3DIYiNhmwAnxQC8TyBag=
+X-Received: by 2002:a17:902:ec8e:b0:240:711f:2068 with SMTP id
+ d9443c01a7336-242d6ca1102mr55583715ad.7.1754919949335; Mon, 11 Aug 2025
+ 06:45:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <9846b386-87c4-4f86-ae11-6361470cbce7@amd.com>
- <20250811092125.22630-1-listout@listout.xyz>
- <a6da8462-e0c4-4bba-b65d-25ba3f5cdacc@amd.com>
-In-Reply-To: <a6da8462-e0c4-4bba-b65d-25ba3f5cdacc@amd.com>
+References: <20250811010437.1895121-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20250811010437.1895121-1-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 11 Aug 2025 09:35:00 -0400
-X-Gm-Features: Ac12FXw-e0ywhoHK7Z0ZKlIK4kTRwiALit1X0nC7Kn7H_E-i-z1susch16guNcs
-Message-ID: <CADnq5_MimooPVJXu9SnpL_1Yhkz0ZOfsXWDnnWAKmt+ymH=HRg@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon/r600_cs: clean up of dead code in r600_cs
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Brahmajit Das <listout@listout.xyz>, airlied@redhat.com,
- alexander.deucher@amd.com, 
- amd-gfx@lists.freedesktop.org, linux-next@vger.kernel.org
+Date: Mon, 11 Aug 2025 09:45:37 -0400
+X-Gm-Features: Ac12FXwiMaPK93wwcBHkKhVE3RkNTtKSuG_OZW2G3kg8dFjeIE1Yf9PN3rSR0zA
+Message-ID: <CADnq5_NYFU0EhX9D9yWT1drjZBBBfnVXUg+KyCvpjSrFDnqWZQ@mail.gmail.com>
+Subject: Re: [v2 1/2] drm/amd/pm: Add VCN reset support detection for SMU
+ v13.0.6
+To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>, Ruili Ji <ruiliji2@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,66 +82,225 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Sun, Aug 10, 2025 at 9:13=E2=80=AFPM Jesse.Zhang <Jesse.Zhang@amd.com> w=
+rote:
+>
+> From: Ruili Ji <ruiliji2@amd.com>
+>
+> This commit introduces support for detecting VCN reset capability through
+> the SMU interface. Key changes include:
+>
+> 1. Added amdgpu_dpm_reset_vcn_is_supported() interface to check VCN reset=
+ support
+> 2. Implemented SMU backend functions for VCN reset capability detection
+> 3. Added SMU_CAP(VCN_RESET) capability flag for SMU v13.0.6
+> 4. Updated PPSMC message definitions to accommodate VCN reset functionali=
+ty
+> 5. Added version checks for VCN reset support (fw_ver >=3D 0x04557100)
+>
+> The changes maintain backward compatibility while enabling proper detecti=
+on
+> of VCN reset capabilities when supported by the firmware.
+>
+> Signed-off-by: Ruili Ji <ruiliji2@amd.com>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c            | 15 +++++++++++++++
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h        |  1 +
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c      | 11 +++++++++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h  |  5 +++++
+>  .../pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h   |  4 ++--
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 18 ++++++++++++++++++
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h   |  1 +
+>  7 files changed, 53 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm=
+/amdgpu_dpm.c
+> index 6e0d711820ea..518d07afc7df 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> @@ -820,6 +820,21 @@ int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev,=
+ uint32_t inst_mask)
+>         return ret;
+>  }
+>
+> +bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev)
+> +{
+> +       struct smu_context *smu =3D adev->powerplay.pp_handle;
+> +       bool ret;
+> +
+> +       if (!is_support_sw_smu(adev))
+> +               return false;
+> +
+> +       mutex_lock(&adev->pm.mutex);
+> +       ret =3D smu_reset_vcn_is_supported(smu);
+> +       mutex_unlock(&adev->pm.mutex);
+> +
+> +       return ret;
+> +}
+> +
+>  int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,
+>                                   enum pp_clock_type type,
+>                                   uint32_t *min,
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/am=
+d/pm/inc/amdgpu_dpm.h
+> index 09962db988d6..9748744133d9 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> @@ -615,6 +615,7 @@ ssize_t amdgpu_dpm_get_pm_policy_info(struct amdgpu_d=
+evice *adev,
+>  int amdgpu_dpm_reset_sdma(struct amdgpu_device *adev, uint32_t inst_mask=
+);
+>  bool amdgpu_dpm_reset_sdma_is_supported(struct amdgpu_device *adev);
+>  int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask)=
+;
+> +bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev);
+>  bool amdgpu_dpm_is_temp_metrics_supported(struct amdgpu_device *adev,
+>                                           enum smu_temp_metric_type type)=
+;
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
+amd/pm/swsmu/amdgpu_smu.c
+> index dc48a1dd8be4..a03d37bd9e48 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -4106,6 +4106,17 @@ int smu_reset_sdma(struct smu_context *smu, uint32=
+_t inst_mask)
+>         return ret;
+>  }
+>
+> +bool smu_reset_vcn_is_supported(struct smu_context *smu)
+> +{
+> +       bool ret =3D false;
+> +
+> +        dev_info(smu->adev->dev, "SMU driver smu %p\n", smu);
+
+This looks like leftover debugging output?
+
+
+> +       if (smu->ppt_funcs && smu->ppt_funcs->reset_vcn_is_supported)
+> +               ret =3D smu->ppt_funcs->reset_vcn_is_supported(smu);
+> +
+> +       return ret;
+> +}
+> +
+>  int smu_reset_vcn(struct smu_context *smu, uint32_t inst_mask)
+>  {
+>         if (smu->ppt_funcs && smu->ppt_funcs->dpm_reset_vcn)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
+drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index 611b381b9147..7990771151be 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -1426,6 +1426,10 @@ struct pptable_funcs {
+>          * @reset_vcn: message SMU to soft reset vcn instance.
+>          */
+>         int (*dpm_reset_vcn)(struct smu_context *smu, uint32_t inst_mask)=
+;
+> +       /**
+> +        * @reset_vcn_is_supported: Check if support resets vcn.
+> +        */
+> +       bool (*reset_vcn_is_supported)(struct smu_context *smu);
+>
+>         /**
+>          * @get_ecc_table:  message SMU to get ECC INFO table.
+> @@ -1702,6 +1706,7 @@ int smu_send_rma_reason(struct smu_context *smu);
+>  int smu_reset_sdma(struct smu_context *smu, uint32_t inst_mask);
+>  bool smu_reset_sdma_is_supported(struct smu_context *smu);
+>  int smu_reset_vcn(struct smu_context *smu, uint32_t inst_mask);
+> +bool smu_reset_vcn_is_supported(struct smu_context *smu);
+>  int smu_set_pm_policy(struct smu_context *smu, enum pp_pm_policy p_type,
+>                       int level);
+>  ssize_t smu_get_pm_policy_info(struct smu_context *smu,
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h=
+ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+> index 41f268313613..63a088ef7169 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+> @@ -94,9 +94,9 @@
+>  #define PPSMC_MSG_RmaDueToBadPageThreshold          0x43
+>  #define PPSMC_MSG_SetThrottlingPolicy               0x44
+>  #define PPSMC_MSG_ResetSDMA                         0x4D
+> -#define PPSMC_MSG_ResetVCN                          0x4E
+>  #define PPSMC_MSG_GetStaticMetricsTable             0x59
+> -#define PPSMC_Message_Count                         0x5A
+> +#define PPSMC_MSG_ResetVCN                          0x5B
+> +#define PPSMC_Message_Count                         0x5C
+>
+>  //PPSMC Reset Types for driver msg argument
+>  #define PPSMC_RESET_TYPE_DRIVER_MODE_1_RESET        0x1
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index 90e66c8f2f82..c25dd7427f1d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -434,6 +434,9 @@ static void smu_v13_0_6_init_caps(struct smu_context =
+*smu)
+>             ((pgm =3D=3D 0) && (fw_ver >=3D 0x00557900)) ||
+>             ((pgm =3D=3D 4) && (fw_ver >=3D 0x4557000)))
+>                 smu_v13_0_6_cap_set(smu, SMU_CAP(SDMA_RESET));
+> +
+> +       if ((pgm =3D=3D 4) && (fw_ver >=3D 0x04557100))
+> +               smu_v13_0_6_cap_set(smu, SMU_CAP(VCN_RESET));
+>  }
+>
+>  static void smu_v13_0_x_init_caps(struct smu_context *smu)
+> @@ -3171,6 +3174,20 @@ static int smu_v13_0_6_reset_sdma(struct smu_conte=
+xt *smu, uint32_t inst_mask)
+>         return ret;
+>  }
+>
+> +static bool smu_v13_0_6_reset_vcn_is_supported(struct smu_context *smu)
+> +{
+> +       bool ret =3D true;
+> +
+> +        dev_info(smu->adev->dev, "SMU driver smu_v13_0_6_reset_vcn_is_su=
+pported\n");
+
+Same here.
+
+
+> +       if (!smu_v13_0_6_cap_supported(smu, SMU_CAP(VCN_RESET))) {
+> +               dev_info(smu->adev->dev,
+> +                       "VCN reset capability is not supported\n");
+
+Maybe adjust this message to be more meaningful?  E.g., something like:
+"SMU VCN reset not supported.  Please update SMU firmware."
 
 Alex
 
-On Mon, Aug 11, 2025 at 8:53=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+> +               ret =3D false;
+> +       }
+> +
+> +       return ret;
+> +}
+> +
+>  static int smu_v13_0_6_reset_vcn(struct smu_context *smu, uint32_t inst_=
+mask)
+>  {
+>         int ret =3D 0;
+> @@ -3859,6 +3876,7 @@ static const struct pptable_funcs smu_v13_0_6_ppt_f=
+uncs =3D {
+>         .reset_sdma =3D smu_v13_0_6_reset_sdma,
+>         .reset_sdma_is_supported =3D smu_v13_0_6_reset_sdma_is_supported,
+>         .dpm_reset_vcn =3D smu_v13_0_6_reset_vcn,
+> +       .reset_vcn_is_supported =3D smu_v13_0_6_reset_vcn_is_supported,
+>  };
 >
-> On 11.08.25 11:21, Brahmajit Das wrote:
-> > GCC 16 enables -Werror=3Dunused-but-set-variable=3D which results in bu=
-ild
-> > error with the following message.
-> >
-> > drivers/gpu/drm/radeon/r600_cs.c: In function =E2=80=98r600_texture_siz=
-e=E2=80=99:
-> > drivers/gpu/drm/radeon/r600_cs.c:1411:29: error: variable =E2=80=98leve=
-l=E2=80=99 set but not used [-Werror=3Dunused-but-set-variable=3D]
-> >  1411 |         unsigned offset, i, level;
-> >       |                             ^~~~~
-> > cc1: all warnings being treated as errors
-> > make[6]: *** [scripts/Makefile.build:287: drivers/gpu/drm/radeon/r600_c=
-s.o] Error 1
-> >
-> > level although is set, but in never used in the function
-> > r600_texture_size. Thus resulting in dead code and this error getting
-> > triggered.
-> >
-> > Fixes: 60b212f8ddcdb ("drm/radeon: overhaul texture checking. (v3)")
-> > Signed-off-by: Brahmajit Das <listout@listout.xyz>
->
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> > ---
-> >  drivers/gpu/drm/radeon/r600_cs.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/=
-r600_cs.c
-> > index ac77d1246b94..811265648a58 100644
-> > --- a/drivers/gpu/drm/radeon/r600_cs.c
-> > +++ b/drivers/gpu/drm/radeon/r600_cs.c
-> > @@ -1408,7 +1408,7 @@ static void r600_texture_size(unsigned nfaces, un=
-signed blevel, unsigned llevel,
-> >                             unsigned block_align, unsigned height_align=
-, unsigned base_align,
-> >                             unsigned *l0_size, unsigned *mipmap_size)
-> >  {
-> > -     unsigned offset, i, level;
-> > +     unsigned offset, i;
-> >       unsigned width, height, depth, size;
-> >       unsigned blocksize;
-> >       unsigned nbx, nby;
-> > @@ -1420,7 +1420,7 @@ static void r600_texture_size(unsigned nfaces, un=
-signed blevel, unsigned llevel,
-> >       w0 =3D r600_mip_minify(w0, 0);
-> >       h0 =3D r600_mip_minify(h0, 0);
-> >       d0 =3D r600_mip_minify(d0, 0);
-> > -     for(i =3D 0, offset =3D 0, level =3D blevel; i < nlevels; i++, le=
-vel++) {
-> > +     for (i =3D 0, offset =3D 0; i < nlevels; i++) {
-> >               width =3D r600_mip_minify(w0, i);
-> >               nbx =3D r600_fmt_get_nblocksx(format, width);
-> >
+>  void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+> index ece04ad724fb..7c98f77c429d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+> @@ -64,6 +64,7 @@ enum smu_v13_0_6_caps {
+>         SMU_CAP(RMA_MSG),
+>         SMU_CAP(ACA_SYND),
+>         SMU_CAP(SDMA_RESET),
+> +       SMU_CAP(VCN_RESET),
+>         SMU_CAP(STATIC_METRICS),
+>         SMU_CAP(HST_LIMIT_METRICS),
+>         SMU_CAP(BOARD_VOLTAGE),
+> --
+> 2.49.0
 >
