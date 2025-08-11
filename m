@@ -4,124 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31084C87FD2
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 15:06:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C69CCA0ED1
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 19:40:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B562D10E480;
-	Mon, 11 Aug 2025 15:06:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EA3710E196;
+	Mon, 11 Aug 2025 19:40:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kJ1/kF6L";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QF3nvh42";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2088.outbound.protection.outlook.com [40.107.220.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCC7A10E4F1
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 15:06:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yHSHghhwwNTJfYMxAFjR/5G8zsnqhQo6cC8Z9tJt9M54iiMmG7VNkRNf/nkfB77eOIHepoBVEV/FAaKyD4apaEtIXrRA6t0kx/O/PqS/1EcpUu/z3eSt8zeu1XdzqfmuvXURFrgG1LZeFbf957oenVRhg9N4KfVQF6hz3HeKj+1OAcdsjIZDcCLUljINxrLUqfhmExRxMRUlq/HJyoZwPq2T2Xj/vx6DCFpAmRjxE/VL5rv9RdHSXtqga32FZr+4CN1cP7lnity/oF2I4vK2z2kHeZlJOZRfs1E9g9ORi95b31PKeQid1LynoOH+C7+LLLlxGZ2f80B8AYLygUsG0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=epu/aHVb+7Kic4Uas/7AebD+eeCp26AD66w+l53MapQ=;
- b=yqWtxjmNI80zyrQMgC3a+qMQ7gC3GqYwMO8pJT87eJcExMJohqe4pArTomuWR5Hx4Cy/3uOuMYpaMTUOSDBnOVkfVrzs0Pk8hV/kOPLzUs1VCjmYhjXVtfBj/tC0SZf4Y0yxJWvtzEQr+0SRtApUTrqDhYnPvnW2GllapywwFJqeeJVeRJfGwtp7OM9Tuwz5RJD5eJmrvSFaN5UbGCqVbwb68C0wAffXzO7eJV14G8dVOpFHnG2jWX+BjHSujRRU3x6OQvB/KO5YujW4wSiTym5VvaAa0MHPMmOhAUjLecUdGqGVElYXftOLBZSKOfVKWw3L6PJ2FoH1C9Tw1cKHSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=epu/aHVb+7Kic4Uas/7AebD+eeCp26AD66w+l53MapQ=;
- b=kJ1/kF6LGzfvrAoPIOYqMoZ0OUuHpQ3uiwT0XiplSvIqZMFyu/vjNM31dAnR0k2HKBMel7USjXtpcRDUji1VXN6alChsbInXWn3Y6EJa0/8WoPWRdiz61KLw9sHAPkHTzrXiOwlInzac4hGPpR/qGeTHhfavs+E+1kRNYKZ891s=
-Received: from SJ0PR03CA0134.namprd03.prod.outlook.com (2603:10b6:a03:33c::19)
- by MN2PR12MB4062.namprd12.prod.outlook.com (2603:10b6:208:1d0::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Mon, 11 Aug
- 2025 15:05:54 +0000
-Received: from SN1PEPF000397B3.namprd05.prod.outlook.com
- (2603:10b6:a03:33c:cafe::39) by SJ0PR03CA0134.outlook.office365.com
- (2603:10b6:a03:33c::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.22 via Frontend Transport; Mon,
- 11 Aug 2025 15:05:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000397B3.mail.protection.outlook.com (10.167.248.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Mon, 11 Aug 2025 15:05:53 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 11 Aug
- 2025 10:05:52 -0500
-From: David Francis <David.Francis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <tvrtko.ursulin@igalia.com>, <Felix.Kuehling@amd.com>,
- <David.YatSin@amd.com>, <Chris.Freehill@amd.com>, <Christian.Koenig@amd.com>, 
- <dcostantino@meta.com>, <sruffell@meta.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <Alexander.Deucher@amd.com>, David Francis
- <David.Francis@amd.com>
-Subject: [PATCH v12 2/3] drm/amdgpu: Add mapping info option for GEM_OP ioctl
-Date: Mon, 11 Aug 2025 11:05:35 -0400
-Message-ID: <20250811150536.3394262-3-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250811150536.3394262-1-David.Francis@amd.com>
-References: <20250811150536.3394262-1-David.Francis@amd.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37B1210E196;
+ Mon, 11 Aug 2025 19:40:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=z0WUzKI1vTMd5bVmXovptcknmNNpH+YjriTnR94BCJw=; b=QF3nvh42rM3bvG8y77CMRdlm2n
+ 7evWtDZIphSPdIrPTZoCro6auwKfXiEJAiSmrWaS+SL3E091UzxQGjbot1s/W2kNhJruZF3qV2iLl
+ vTJIpWmULkbhUigG/+aLYnZC446+3z6hhWcbXNGXlfBH01xAa/f5ePDjmhA/SIUem1bis72Sc4P2f
+ kXBTnp3BfNR47jlRdLBCTt4ygkpQLBnvaHEnhHlXJ5aHa3wlxsmiAFvXDb+2huJdTBlQEkkXsYPSs
+ bTI05Hdt6qyzmTLWutA+3WwPxQOCAgOiYT+9DHox8nvCBz/j1eye1DOFDkUCSz8Htl4H9HNdbHQVp
+ QnPgPThg==;
+Received: from [189.6.13.79] (helo=[192.168.31.42])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1ulYNO-00Cvn4-Qu; Mon, 11 Aug 2025 21:40:11 +0200
+Message-ID: <83d8ed56-2c2b-47dd-83a1-8e8f6a49fef3@igalia.com>
+Date: Mon, 11 Aug 2025 16:40:01 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 00/14] drm/amd/display: more drm_edid to AMD display
+ driver
+To: Alex Hung <alex.hung@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, andrzej.hajda@intel.com,
+ christian.koenig@amd.com, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ neil.armstrong@linaro.org, rfoss@kernel.org, simona@ffwll.ch,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Michel Daenzer <michel.daenzer@mailbox.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20250726003816.435227-1-mwen@igalia.com>
+ <019ca526-5bdf-4c88-a994-a6babb9963c7@amd.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <019ca526-5bdf-4c88-a994-a6babb9963c7@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B3:EE_|MN2PR12MB4062:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e910fe3-d248-4aa0-67f4-08ddd8e89123
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6yBxE7W8E0Oj7xVcelo5nKk7SGbY4yvKBItv405OcpNoCOL5VtBneZG7vtx/?=
- =?us-ascii?Q?Xvr4bIVXI5joaGsbHWc97DD4P5CNzrZ0HOBHksOUPrnLW5BMub4mP204xaA+?=
- =?us-ascii?Q?1ZpEKh1uItRK9A45uvIQwii6ehEQ6Eqs7Dm+lh8gXy1z+hThqachEvespKpi?=
- =?us-ascii?Q?RK7l38PLdwl6xu65wNVA+r8JHWopT6lNG4GppsOul4pasXUMtp2m0VP9u6D6?=
- =?us-ascii?Q?g1TkJUqNk6lqmOj4hk3HyNC4HWiXpAK/h9gvvtPopGfrOx+AhhYyr5TzZoSC?=
- =?us-ascii?Q?b6jolRmRijterSrMCsmc5K10NlnHDQhcNDsju5z6HHY3T1hEnOIsg4PYB7vo?=
- =?us-ascii?Q?RAMnh1gOyl6Z0WTCABuH0SHHnWMlG0cyOGQlaItt864kVvQxBedL/m6pQkwn?=
- =?us-ascii?Q?F8c27WUWuPb+P2+/gx8UfC8IKx7zHKRLy0B0Tem6Lbg47ZOMZU/cpv6u53VL?=
- =?us-ascii?Q?bOhq7KdiO2FIXkFCY3UXh3hq+msqShzkk6MC4MgVoMgf0cxjgY9jSZ/SyEFB?=
- =?us-ascii?Q?r+CDsP3nSt6KNt1wusBt/zF8US7hm4Q0YKtBTlPoIaT0h3IPPPpLv7o6Vb7T?=
- =?us-ascii?Q?Yj3Na4u5SNOPBfzZKuIx2huo4c5eILe0zpitTxLSB7GdO2hdoVSb0z0T5rDN?=
- =?us-ascii?Q?pNcZ0t8sB4/zMXP3OPQdWHtl1uUbJLZltW1DQhUdiPrVXDr4i0/ygdFz7vHg?=
- =?us-ascii?Q?p9Mi8T23N4i9sKDucwVjnErDFFyVJ3UDyi1auclLf+BNJ/3k6fQtwUfPMnse?=
- =?us-ascii?Q?1ASTz/zkTg/IVH0iTfZ884d1y5V3qiaBz2M8SpJvbAWUoXYPNo/ujrfUY/Tn?=
- =?us-ascii?Q?B6wMHmGvgu7mTMoWLNnt6Hzwi10UHBFkPKnoLron5JOyHuUvjfP0mGmJReCS?=
- =?us-ascii?Q?VZxHievYbPtwbaiOM5b2IWvoHKVbI07CfwqI/S9nzCinAw1PXyYLVOo2WbsM?=
- =?us-ascii?Q?QZhgSIirKV4XeacidaOg7YVqMWXJaoL3E8s0nIdu/br0y9VtaVY///rSLQUW?=
- =?us-ascii?Q?U8wm8HEOGLDpUFv2Mtx7bg1y7dUYkDZs6LJ9T1k2GlrieETbO4IQR2OSlo/i?=
- =?us-ascii?Q?52HgG/JpyViA/SEvuy2hwLFWM97owv2eVT3HckqAFFv/cG/3Jpu4kbhrkHWw?=
- =?us-ascii?Q?8/zPMEb8STH8FthMFJadk5HA8OgEdurEN+eyX42S73Tyx8LWYBViTb0EmhyA?=
- =?us-ascii?Q?2yhisILXfCEhTGOtE0nY1fuVUbE9SriUW1KK5WwqNW76skv4J3zo1MIfwhHt?=
- =?us-ascii?Q?zTVG1wGKwTgFCgXlevGOjAEEIGIUkZz+S5KbdSymGNb4TZptja6OS0eIBNu9?=
- =?us-ascii?Q?C4UxrM93EAWoNRajx/po9n0yQY1m7v/7N56bxH4TWJQJW3xHZdAl+LGaESXL?=
- =?us-ascii?Q?QFKz+Fw4OxIxwhIrdKw99/V7kSJpujL8YIbWB33y2TMNHfovmnpsLSiaD0jV?=
- =?us-ascii?Q?S2erwMDEI+QA+cqnfs/mH/AC8wpJfjSFTPEC17TSl6vnL9AWcK83CTlFVXBe?=
- =?us-ascii?Q?wqCPGsMyt/UVnteAMHS4MufNlCnlJKGlaUEN?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2025 15:05:53.4785 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e910fe3-d248-4aa0-67f4-08ddd8e89123
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4062
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,178 +70,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add new GEM_OP_IOCTL option GET_MAPPING_INFO, which
-returns a list of mappings associated with a given bo, along with
-their positions and offsets.
 
-Signed-off-by: David Francis <David.Francis@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 86 ++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  5 ++
- include/uapi/drm/amdgpu_drm.h           | 18 ++++++
- 3 files changed, 108 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 3873d2c19b4b..1632460623b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -885,7 +885,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 				goto error;
- 		}
- 
--		r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 2);
-+		r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 0);
- 		drm_exec_retry_on_contention(&exec);
- 		if (unlikely(r))
- 			goto error;
-@@ -956,6 +956,86 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 	return r;
- }
- 
-+/**
-+ * amdgpu_gem_list_mappings - get information about a buffer's mappings
-+ *
-+ * @gobj: gem object
-+ * @args: gem_op arguments
-+ * @fpriv: drm file pointer
-+ *
-+ * num_entries is set as an input to the size of the user-allocated array of
-+ * drm_amdgpu_gem_vm_bucket stored at args->value.
-+ * num_entries is sent back as output as the number of mappings the bo has.
-+ * If that number is larger than the size of the array, the ioctl must
-+ * be retried.
-+ *
-+ * Returns:
-+ * 0 for success, -errno for errors.
-+ */
-+static int amdgpu_gem_list_mappings(struct drm_gem_object *gobj, struct amdgpu_fpriv *fpriv,
-+					  struct drm_amdgpu_gem_op *args)
-+{
-+	struct amdgpu_vm *avm = &fpriv->vm;
-+	struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
-+	struct amdgpu_bo_va *bo_va = amdgpu_vm_bo_find(avm, bo);
-+	struct drm_amdgpu_gem_vm_bucket *vm_buckets;
-+	struct amdgpu_bo_va_mapping *mapping;
-+	struct drm_exec exec;
-+	int num_mappings = 0;
-+	int ret;
-+
-+	vm_buckets = kvcalloc(args->num_entries, sizeof(*vm_buckets), GFP_KERNEL);
-+	if (!vm_buckets)
-+		return -ENOMEM;
-+
-+	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
-+			  DRM_EXEC_IGNORE_DUPLICATES, 0);
-+	drm_exec_until_all_locked(&exec) {
-+		if (gobj) {
-+			ret = drm_exec_lock_obj(&exec, gobj);
-+			drm_exec_retry_on_contention(&exec);
-+			if (ret)
-+				goto unlock_exec;
-+		}
-+
-+		ret = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 2);
-+		drm_exec_retry_on_contention(&exec);
-+		if (ret)
-+			goto unlock_exec;
-+	}
-+
-+	amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) {
-+		if (num_mappings < args->num_entries) {
-+			vm_buckets[num_mappings].start = mapping->start;
-+			vm_buckets[num_mappings].last = mapping->last;
-+			vm_buckets[num_mappings].offset = mapping->offset;
-+			vm_buckets[num_mappings].flags = mapping->flags;
-+		}
-+		num_mappings += 1;
-+	}
-+
-+	amdgpu_vm_bo_va_for_each_invalid_mapping(bo_va, mapping) {
-+		if (num_mappings < args->num_entries) {
-+			vm_buckets[num_mappings].start = mapping->start;
-+			vm_buckets[num_mappings].last = mapping->last;
-+			vm_buckets[num_mappings].offset = mapping->offset;
-+			vm_buckets[num_mappings].flags = mapping->flags;
-+		}
-+		num_mappings += 1;
-+	}
-+
-+	if (num_mappings > 0 && num_mappings <= args->num_entries)
-+		ret = copy_to_user(u64_to_user_ptr(args->value), vm_buckets, num_mappings * sizeof(*vm_buckets));
-+
-+	args->num_entries = num_mappings;
-+
-+unlock_exec:
-+	drm_exec_fini(&exec);
-+	kvfree(vm_buckets);
-+
-+	return ret;
-+}
-+
- int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 			struct drm_file *filp)
- {
-@@ -1022,6 +1102,10 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 
- 		amdgpu_bo_unreserve(robj);
- 		break;
-+	case AMDGPU_GEM_OP_GET_MAPPING_INFO:
-+		amdgpu_bo_unreserve(robj);
-+		r = amdgpu_gem_list_mappings(gobj, filp->driver_priv, args);
-+		break;
- 	default:
- 		amdgpu_bo_unreserve(robj);
- 		r = -EINVAL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index f9549f6b3d1f..5a63ae490b0e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -668,4 +668,9 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
- 				 struct amdgpu_vm *vm,
- 				 struct dma_fence **fence);
- 
-+#define amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) \
-+		list_for_each_entry(mapping, &bo_va->valids, list)
-+#define amdgpu_vm_bo_va_for_each_invalid_mapping(bo_va, mapping) \
-+		list_for_each_entry(mapping, &bo_va->invalids, list)
-+
- #endif
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 59b423883e91..7072959103e6 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -802,6 +802,21 @@ union drm_amdgpu_wait_fences {
- 
- #define AMDGPU_GEM_OP_GET_GEM_CREATE_INFO	0
- #define AMDGPU_GEM_OP_SET_PLACEMENT		1
-+#define AMDGPU_GEM_OP_GET_MAPPING_INFO		2
-+
-+struct drm_amdgpu_gem_vm_bucket {
-+	/* Start of mapping (in number of pages) */
-+	__u64 start;
-+
-+	/* End of mapping (in number of pages) */
-+	__u64 last;
-+
-+	/* Mapping offset */
-+	__u64 offset;
-+
-+	/* flags needed to recreate mapping */
-+	__u64 flags;
-+};
- 
- /* Sets or returns a value associated with a buffer. */
- struct drm_amdgpu_gem_op {
-@@ -811,6 +826,9 @@ struct drm_amdgpu_gem_op {
- 	__u32	op;
- 	/** Input or return value */
- 	__u64	value;
-+	/** For MAPPING_INFO op: number of mappings (in/out) */
-+	__u32	num_entries;
-+	__u32	padding;
- };
- 
- #define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT	(1 << 0)
--- 
-2.34.1
+On 28/07/2025 20:29, Alex Hung wrote:
+> Thanks. I will send v6 to promotion test.
+Hi Alex,
+
+Any news about this round of tests?
+
+BR,
+
+Melissa
+
+>
+> On 7/25/25 18:33, Melissa Wen wrote:
+>> Hi,
+>>
+>> Siqueira and I have been working on a solution to reduce the usage of
+>> drm_edid_raw in the AMD display driver, since the current guideline in
+>> the DRM subsystem is to stop handling raw edid data in driver-specific
+>> implementation and use opaque `drm_edid` object with common-code
+>> helpers.
+>>
+>> To keep DC as an OS-agnostic component, we create a mid layer that
+>> isolates `drm_edid` helpers called in the DC code, while allowing other
+>> OSes to implement their specific implementation.
+>>
+>> This work is an extension of [1].
+>>
+>> - Patch 1 addresses a possible leak added by previous migration to
+>>    drm_edid.
+>> - Patch 2 allocates a temporary drm_edid from raw edid for parsing.
+>> - Patches 3-7 use common-code, drm_edid helpers to parse edid
+>>    capabilities instead of driver-specific solutions. For this, patch 4
+>>    introduces a new helper that gets monitor name from drm_edid.
+>> - Patches 8-9 are groundwork to reduce the noise of Linux/DRM specific
+>>    code in the DC shared code
+>> - Patch 10 creates a mid layer to make DC embraces different ways of
+>>    handling EDID by platforms.
+>> - Patch 11 move open-coded management of raw EDID data to the mid
+>>    layer created before.
+>> - Patch 12 introduces a helper that compares EDIDs from two drm_edids.
+>> - Patch 13 adds drm_edid to dc_sink struct and a mid-layer helper to
+>>    free `drm_edid`.
+>> - Patch 14 switch dc_edid to drm_edid across the driver in a way that
+>>    the DC shared code is little affected by Linux specific stuff.
+>>
+>> [v1] 
+>> https://lore.kernel.org/dri-devel/20250411201333.151335-1-mwen@igalia.com/
+>> Changes:
+>> - fix broken approach to get monitor name from eld (Jani)
+>>    - I introduced a new helper that gets monitor name from drm_edid
+>> - rename drm_edid_eq to drm_edid_eq_buf and doc fixes (Jani)
+>> - add NULL edid checks (Jani)
+>> - fix mishandling of product_id.manufacturer_name (Michel)
+>>    - I directly set it to manufacturer_id since sparse didn't complain.
+>> - add Mario's r-b in the first fix patch and fix commit msg typo.
+>>
+>> [v2] 
+>> https://lore.kernel.org/dri-devel/20250507001712.120215-1-mwen@igalia.com/
+>> Changes:
+>> - kernel-doc and commit msg fixes (Jani)
+>> - use drm_edid_legacy_init instead of open coded (Jani)
+>> - place drm_edid new func into the right section (Jani)
+>> - paramenter names fix (Jani)
+>> - add Jani's r-b to the patch 12
+>> - remove unnecessary include (Jani)
+>> - call dc_edid_sink_edid_free in link_detection, instead of 
+>> drm_edid_free
+>> - rebase on top of asdn
+>>
+>> [v3] 
+>> https://lore.kernel.org/dri-devel/20250514202130.291324-1-mwen@igalia.com/
+>> Changes:
+>> - rebase to asdn
+>> - some kernel-doc fixes
+>> - move some changes to the right commit
+>>
+>> [v4] 
+>> https://lore.kernel.org/amd-gfx/20250613150015.245917-1-mwen@igalia.com/
+>> Changes:
+>> - fix comments and commit messages (Mario)
+>> - remove unnecessary drm_edid dup and fix mem leak (Mario)
+>> - add Mario's rb to patches 5-7
+>>
+>> [v5] 
+>> https://lore.kernel.org/amd-gfx/20250618152216.948406-1-mwen@igalia.com/
+>> Changes:
+>> - fix NULL pointer dereference (Alex H.) with the same approach proposed
+>>    by 7c3be3ce3dfae
+>>
+> > --->
+>> There are three specific points where we still use drm_edid_raw() in the
+>> driver:
+>> 1. raw edid data for write EDID checksum in DP_TEST_EDID_CHECKSUM via
+>>     drm_dp_dpcd_write(), that AFAIK there is no common code solution 
+>> yet;
+>> 2. open-coded connectivity log for dc link detection, that maybe can be
+>>     moved to drm (?);
+>> 3. open-coded parser that I suspect is a lot of duplicated code, but
+>>     needs careful examining.
+>>
+>> I suggest to address those points in a next phase for regression 
+>> control.
+>>
+>> [1] 
+>> https://lore.kernel.org/amd-gfx/20250308142650.35920-1-mwen@igalia.com/
+>>
+>> Let me know yours thoughts!
+>>
+>> Melissa
+>>
+>> Melissa Wen (12):
+>>    drm/amd/display: make sure drm_edid stored in aconnector doesn't leak
+>>    drm/amd/display: start using drm_edid helpers to parse EDID caps
+>>    drm/amd/display: use drm_edid_product_id for parsing EDID product 
+>> info
+>>    drm/edid: introduce a helper that gets monitor name from drm_edid
+>>    drm/amd/display: get panel id with drm_edid helper
+>>    drm/amd/display: get SAD from drm_eld when parsing EDID caps
+>>    drm/amd/display: get SADB from drm_eld when parsing EDID caps
+>>    drm/amd/display: simplify dm_helpers_parse_edid_caps signature
+>>    drm/amd/display: change DC functions to accept private types for edid
+>>    drm/edid: introduce a helper that compares edid data from two 
+>> drm_edid
+>>    drm/amd/display: add drm_edid to dc_sink
+>>    drm/amd/display: move dc_sink from dc_edid to drm_edid
+>>
+>> Rodrigo Siqueira (2):
+>>    drm/amd/display: add a mid-layer file to handle EDID in DC
+>>    drm/amd/display: create a function to fill dc_sink with edid data
+>>
+>>   .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   1 +
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  33 +++---
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 109 +++++++-----------
+>>   .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  21 ++--
+>>   .../gpu/drm/amd/display/amdgpu_dm/dc_edid.c   |  39 +++++++
+>>   .../gpu/drm/amd/display/amdgpu_dm/dc_edid.h   |  15 +++
+>>   .../drm/amd/display/dc/core/dc_link_exports.c |   9 +-
+>>   drivers/gpu/drm/amd/display/dc/core/dc_sink.c |   3 +
+>>   drivers/gpu/drm/amd/display/dc/dc.h           |  10 +-
+>>   drivers/gpu/drm/amd/display/dc/dm_helpers.h   |   7 +-
+>>   drivers/gpu/drm/amd/display/dc/inc/link.h     |   9 +-
+>>   .../drm/amd/display/dc/link/link_detection.c  |  30 ++---
+>>   .../drm/amd/display/dc/link/link_detection.h  |   9 +-
+>>   drivers/gpu/drm/bridge/sil-sii8620.c          |   2 +-
+>>   drivers/gpu/drm/display/drm_dp_mst_topology.c |   2 +-
+>>   drivers/gpu/drm/drm_edid.c                    |  54 +++++++--
+>>   include/drm/drm_edid.h                        |  10 +-
+>>   17 files changed, 199 insertions(+), 164 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
+>>   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
+>>
+>
 
