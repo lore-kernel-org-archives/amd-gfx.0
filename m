@@ -4,150 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B3ECC87FD2
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 12:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21D8BCA0EC1
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 12:49:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6D1610E45B;
-	Mon, 11 Aug 2025 12:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49A5510E460;
+	Mon, 11 Aug 2025 12:49:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x5EFE2M3";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="A33YU2N3";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA4E910E45B
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 12:18:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AAQnVMOSjGoaGyAVQz0hmm50dQOh54X0l1TCjjx1RSLcAabQdTKC72LRKdY4wDxgnekIs9rs7rGq4cPnQgRxZofH3Wn3tHe8Dxab5xLoypigZ0gLm6UyxIQc2jToN7Hjr9u7xLNKVvMsiaHWBraOvE/087XhI5ZE2Beaj18LbBh0xUh/c6KGU4YfJ3dj/1HasdeJ8W0239VJiBVTssM8YsF12c8EKRBVWNSKK+uovfvkjpPTQLtGbkFZf7u/FGTqw2SZgRF8Kgw+c+6hGEqgSGuM/ACoCDB8qnZ9k0kNOxA0H6xJU5soRw5y9PJQQ4TB6/D9DDBAaSFd+/aNdl0jvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3bMpXGs1ypbYhu13YUyZMOg2wHIitO/cVsVLo9p+qf4=;
- b=sFUErYCkJC2cLntuFajJc4UZ6R7j6+Zg2Mzbp0pvHFXUbhXSjzb2vGQXZLEjTTyxlGTb5oqnvtb/elT9m/65O6a5R1r+K6vC1kBnvo5NSuSiuqWOZ4Y8WPTaw8LT3yVaV3I7L7EuA4U/ztFmwCmCM9IqfuQUNWWquJVLxpjsS6vx5uDr1G8nTk3Xid+2d/cNL2XkJNUUOv8bLqELP7c7kpKZdkPTmfr5+/XyRGlPAeYDAK1IzXr1eRG9tBYCPQu/VHB5JGiJHA/MDeRSCsieJJCYh6YGBnRRfmG/ei3Soicle9aj9S2A4VqC7GgFQUY1MwXJ0zWFWpc/QEAQhLJ7BA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3bMpXGs1ypbYhu13YUyZMOg2wHIitO/cVsVLo9p+qf4=;
- b=x5EFE2M3Gh4fHYV78QpYGekXks+1v5KlAQvvKbSAkm6MxK7fc63B3jn6hBCqr1/2ptu7SrF5mflA+LFd26TGVtwbzUf4Qt7X3JzrvwPyV4v7lPJrI6Jov4wkMtB68J/2S3s83pbyRSPlDKnqriJ28VdCUY5AHgMDtFaSmAOlT9E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY1PR12MB9649.namprd12.prod.outlook.com (2603:10b6:930:106::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Mon, 11 Aug
- 2025 12:17:58 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9009.018; Mon, 11 Aug 2025
- 12:17:58 +0000
-Message-ID: <a6da8462-e0c4-4bba-b65d-25ba3f5cdacc@amd.com>
-Date: Mon, 11 Aug 2025 14:17:52 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon/r600_cs: clean up of dead code in r600_cs
-To: Brahmajit Das <listout@listout.xyz>
-Cc: airlied@redhat.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, linux-next@vger.kernel.org
-References: <9846b386-87c4-4f86-ae11-6361470cbce7@amd.com>
- <20250811092125.22630-1-listout@listout.xyz>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250811092125.22630-1-listout@listout.xyz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0125.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b9::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B270A10E45F;
+ Mon, 11 Aug 2025 12:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=C/ouciPejbKLferniMXIWd7m5vVLOMUZSc6dDmeKvLA=; b=A33YU2N3016jHl2pg9+J58I34w
+ Juf2goOUa+yDYqfG/lbEa71pLiEVFfeZymppZtBvom9MgNKdNWHBks181gqGWGTwcWISk20XPrbnn
+ u3nuAljzB5jLlcMv25Of1Cp2ALnkVNfoEFHuARkvNwfXz8hXgBRq+44lkJfHFHGqIdwWRED+1Sn0J
+ Y9L/YkY1Ry7yD/uozyMH1C0oRcsH2Nbq+LkkF0h4Jgvih3Uz7zWKqX/5OsNYQqh8kERuLy5D6fPuv
+ 6PnSGhx3WLioTy4FZp9tf0ZMA0l4qcN9gH4rAeJj/tX90nnx9YUqPzl+ZJ2Rnx7TEFmYLhCmmIRNE
+ eMqKPyZQ==;
+Received: from [84.66.36.92] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1ulRxR-00CmFD-It; Mon, 11 Aug 2025 14:48:57 +0200
+Message-ID: <60cba603-7a18-4fc9-a1d7-376012ff30ec@igalia.com>
+Date: Mon, 11 Aug 2025 13:48:56 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY1PR12MB9649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50e06542-eb0f-497a-cfbc-08ddd8d11bac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y3pSZVBTVk10TDlja1o0RmNuNWtjMnZnbGdTOHBMTmdEY2JITjAyWjNtM2VF?=
- =?utf-8?B?ak5WMUpmZDh5U1Bmb1hOcTMzaHZRRnNoTU1nOHFvMS9aYVFMUzFmSFdFdndU?=
- =?utf-8?B?REJjMGxkMzRkRllnMGdocHUxbUZza1k4Y3ZLNjZUaHErNW5NcDN1SFkyaHpV?=
- =?utf-8?B?NjZiWDdrWWtRSmpPQWV2bVhNUk1jWTlMb1JDUE41RHZRVmpCSkFNcVU2TU1T?=
- =?utf-8?B?ci8wbHJ6MmpPcGNvdmhyZkhzY2o4bTh1NjY0QVR1VnhHb0hyN1RPWVg4OVdn?=
- =?utf-8?B?bWZ5b3I4OUgraS8yTDA5bWlYMjdncHQ5cVYxOGxpbWpmcUhTT0RUOE5OWks3?=
- =?utf-8?B?TEkzWlN0RndxSjErdmFNKzBOaE5BVnJWekZROWFvT25aU3VwakdDbTFUZXIr?=
- =?utf-8?B?UG8zNkJmVmJaV0JnRlgwU0NlM0hKdUoxN0dhUWgyV2M1QVl2R1VDMTM2NGl3?=
- =?utf-8?B?b2NJWGZOMEIycjdqN2pSV01VWGhWM09aQlh3QnFwWWZNUUlJMUcrcVYrQVNr?=
- =?utf-8?B?dURrK0FKT0pPalVpNVpDaDhJc3VHb3JFZWRYa01XU2dvYXB5U1FMcG1vZW5J?=
- =?utf-8?B?alRuSUc1cjhwV0hRZFhnczVFSkZLWWhVQkw4Nmd4RVFCYmk4RjZ5dEUvcG8w?=
- =?utf-8?B?ejZ6WUxYVHpiMVpjTENKUXVZTHE1SmJIcmNIUm9pay92YWpaRTZvM0s0eWxy?=
- =?utf-8?B?QWhZSEdsVEZhNG1LTjltV0pkeEorQVQrNnYzOTlUcjlEelRtUktkNzR0MjZK?=
- =?utf-8?B?bnlYMEc3cFV3dmV3ZHExTXVncHU2UVEzTnFQcmkvNm5aQ09qZUZBcEVWRjRk?=
- =?utf-8?B?SHBsUWZ5ODhFaG9UTFRVOHpvcjE0dTl1eDd5ZDFicEtRMGJjSy9YSWhTZjRq?=
- =?utf-8?B?NjZ4aWtGM2YxeGVpekRkcG92K0o1aHpnTGZUdmxxWW16WGNMTUtMS3o2dlNB?=
- =?utf-8?B?NzQ5cWZ6L0w0UEZSY2lWRUxhTlc4ZEZ3MHNHUUNOK09RTnpWaENibnIwanVK?=
- =?utf-8?B?M0ZsbzBDbGt5UUtmK056QmdyK2VTTGJnaHdTU1NvbFV1ZVc1Kytyc01NMURX?=
- =?utf-8?B?SE94bWozTFN5U1RvaWV2VmplU0VGRDdOMUp2cTc0cmNNY0tLL0pPeERLM2hy?=
- =?utf-8?B?dXdxSEw0dldQS2I3VXdvQU9HZm8vK0FrTngwZm9HSDZPUGhmS3UzQ3pBbjdq?=
- =?utf-8?B?OFBsMzVoU0hPZlVDQnhEQlBiZm9zS014SGNEdWdBNEpXK3hUYzEzTlVsNnpo?=
- =?utf-8?B?UlkxOTVqdFpRMzdnTnUwUk4vM0xNMFhrVTg3ODZjenRnNG0xS01idTdyN0RK?=
- =?utf-8?B?SjB0Y3p0SmsvOXFKcWwxS09OQ09oRlJCTGJDa2hsdWlkQTg4a01yNU5xc0FH?=
- =?utf-8?B?a0tPZWNGV1ZIc2xMc09zSkRURk5yZUREUGxIT2N6NGsvN0JJdkhERk5nT3dK?=
- =?utf-8?B?SXhLd2t2SC9LOG1xQTRBamEyWEFQcEpUMEZYTGFyT24yZUVGclp0dlBDT1Vn?=
- =?utf-8?B?RmlIc1JNUTUzSUlIdWZLY2pZMUUwQXVIRE15RkZ4RkwrWlFQRGhoTGZJQm1I?=
- =?utf-8?B?VnI0Tlg3c21yOVB2dTdQNk44anJGb0hXWXdIUENjeGsxVGNWaU45eWZnWFhU?=
- =?utf-8?B?WFFBQVY5TFNLbWVzd3k0VHZ0L2VZN3ZNTmwwL1RqdnVjMmk2YWZRM0kwYjFl?=
- =?utf-8?B?THZYU1pjMGpObkR3bk1UbDZCQnZaRUQrZG5EVEgxbU9LQnlsbEh2bk5XbmZl?=
- =?utf-8?B?THhTQm9waHBOVTV2RlUvdmszbnd3NHZMRGM2b3g3ckRVcVRhc3Jpc1lsbm9r?=
- =?utf-8?B?MzE5UWloRE5oVEVKazZUNFBlcVNCVHhqVWI2amZ0YXNROGxzSjVmbjFpbSt2?=
- =?utf-8?B?Ym53b3Q1bURuMUErekVCcHk2clZiRi8rWG0wc3phVXFScm1pd2xUNng3cGxk?=
- =?utf-8?Q?2vXOu6sa9Ek=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SE1HMW96NzE5TzJJTkcxcXhoUXRPaDkrNVRxUERVYTdpdXY3RFdTYmFTK2xo?=
- =?utf-8?B?RkxFTUFBcFJVR0I5ODdiZmo5OFkyVlBUK2lobXUxTzJHcG5kZTdlUGRKbFJS?=
- =?utf-8?B?a1JSbkxQaE5wMzhrRmowZHpZMlc3Ym9UdkdoMnQyVjgzclExNDQ0ZTdsZng0?=
- =?utf-8?B?OWxhT0pzbWs5cXFwblMvWUwrZy9iRG92eTUwY2RIL093cmJaY0JlbFZvNlFy?=
- =?utf-8?B?MDE4a3JqNG9adW80eU8ySGUxbUw3UlI3clBjOE9OL2dnTW1LWERKZnV6ZmE5?=
- =?utf-8?B?SjV6VHB1SUxkZVlmblIvckYxeDZ0WFV5YmNyMUhsRDl4NGdBV09wb2YwbnVw?=
- =?utf-8?B?bXpWV0hyeVpnOVMxcU9VVGpTdFA2d3d5c1lGSGtPOHZxaUY5S25xbHhaTHpF?=
- =?utf-8?B?SU9YZXR5QUxzN3M1QWtNZHhtdW9VN1J1WkRscXpsTFJ6dlFZbTRTOVdxcUhk?=
- =?utf-8?B?MTlZWit4OWd0R3hFd2Y2RFRDRzBtOERGUHh0b3JRdzNVTXhjNDZtOGRWaHJi?=
- =?utf-8?B?SkphRmM3UXdiWFNqMmx2azA4eUdsMFFSMjB4dkd2SkpoanpzTG9HVU4yWmNy?=
- =?utf-8?B?ZkN3MVBCZEdQb0xqYVdSOE1iY1ZIOU1oOGIzcG5keHRJK1hXRzJYTnlHRkZL?=
- =?utf-8?B?dDBqOTQrZ0ZEWDZhTVZRUHJPaGliWkxaSnpFTkp3NlNRNUkzR3BVMU5GNDNj?=
- =?utf-8?B?c1Y5dWNTKzZYVHhFVnBrM0tnV3I2YzVxZnBTd21XV0NTWGZYU3piVDJob0dB?=
- =?utf-8?B?NWFEMGF5Vlh3VFpzWnQxaytTaUp3UU9iSjBPS3VPVjlJb1R0UzZybEJ6bkl1?=
- =?utf-8?B?citqNEYxSVlVM1ZCNzJOZU1xRU0ydDhjbXRZbk1mU2VpWXNQOWVhTVJVQUkx?=
- =?utf-8?B?OG03VysrM1plNDZSM1FCa21tR3kzZlZ0RnFvcXJXa2RGSG1YK3hLMmNzZUdi?=
- =?utf-8?B?MXFtaVIzYkdVRm1tcGYvaGpYTnExcEFoNFRwbm8zT1pydGFINEE4UzVtR21q?=
- =?utf-8?B?SFhVL25Jc0ZZdDFWbGd0Yk5UQ2c4dEJGNllYRHpHejBaNGxkUHNoazA0V1kz?=
- =?utf-8?B?Q0NTalloeHJpd29HeDlwM20rWGFsM2FKanVMSW5MMVg3NDJHank2NXlacjJn?=
- =?utf-8?B?MkNsMEEvOStxWG5CekYvNnMwb0FqRCtMUGw0OVkzcU91WEpvNk8yYjFxK3pn?=
- =?utf-8?B?YTdkRGl1OU5neWdob1FvMmRZY1lUWERhR1FMWktmU0lQR0ZtSW05QjdodUR0?=
- =?utf-8?B?SnZUcGxrdVVqMm5mdFBJUjZLV1ZXWjJhcFNmN1hiV2F4UlM5Qm4wc3pubVhj?=
- =?utf-8?B?ZmtkYlVhSWdnWGtyK3lvc2ZjTVpRSFBQdS83b3cyREM5OGtDN1A1a2JrNkpk?=
- =?utf-8?B?RTJpNDl3a2FJdUdObmx1czZMUFh2OWhUTjBEYXIzSTVWQ3FQTGlpaVNrbG9k?=
- =?utf-8?B?SWU1NGRaMW9TQnN2RmtiL09MK3FaRERwS1FqM3ZhektNU2xvQnYwM3QzVlFh?=
- =?utf-8?B?WTk3MDVWUHNwWFhVd0FlUUlBUVZvRnE2US9Qc0VwaFRadkRra0xLUWZkSzcv?=
- =?utf-8?B?TVlWQXFMd2JOQ3lxdmxCeXU5cUhFQUJHT2Q4RzFNMm1OZFRBcmlNeUhta0Rp?=
- =?utf-8?B?aG83Y3k4aWVnb0E1VUxycUszSWE4cElkRDREWDBnTklyZDJhaXhJa0pkbVEz?=
- =?utf-8?B?SlFGblJDRTV0aUtUOEpreXgyRXNPeEpJbmNhdU9EbWFaeTZhdWRQZ0FwczFi?=
- =?utf-8?B?NlQ5TEFvY3o5NmNvK0dvY254VXAvT2hVR3hHdEZOenJTRnhySzUrUzIzd2FM?=
- =?utf-8?B?TEIzVldhaFlUUnQvOTFEa0JSQ0xaNm53SzBpRjZQK2RiT0Z5SkYxSG1aMTht?=
- =?utf-8?B?TUlIMVYvVmFtZDdmZDMzZ1djKzNLNWtmdGZ1NkNNZ0J6OXRtK3hLcmZiWHQ3?=
- =?utf-8?B?Rm5EUDNndkxlcGs5Sk50QWF0UktCNUZxN1BUczE1ZFp6YzdoR1pPd1FVZldL?=
- =?utf-8?B?cmFmVmljZkM0bXk1MG9UcVQxc1lUWWpha2UxNHY3c0lkWGJWcVNnZC9rSXk1?=
- =?utf-8?B?amFQZDk0SmI4UXNYZmZVTVZvbXJrdGtHU21JK1V5YmZqOU5SVUlIMjdPSUo1?=
- =?utf-8?Q?aoeGdNw8Skv5EvvJAEuz+l2Xt?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50e06542-eb0f-497a-cfbc-08ddd8d11bac
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2025 12:17:58.3229 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4fkkfDmF7VE8G2Y9vQ10UO7IKDlnzj8gnlT/rhnja0T60kASRD8+TtqqSxx1mq+7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9649
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v7 10/12] drm/sched: Break submission patterns with some
+ randomness
+To: phasta@kernel.org, Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+References: <20250724141921.75583-1-tvrtko.ursulin@igalia.com>
+ <20250724141921.75583-11-tvrtko.ursulin@igalia.com>
+ <fe05e8fd-d56f-4b32-a65b-46c9ef6df9c7@damsy.net>
+ <0312116d-b216-4afb-bf9f-210b553fed7f@igalia.com>
+ <dda766b27e9a7035dee2f6368b882cc628a73772.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <dda766b27e9a7035dee2f6368b882cc628a73772.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,50 +69,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11.08.25 11:21, Brahmajit Das wrote:
-> GCC 16 enables -Werror=unused-but-set-variable= which results in build
-> error with the following message.
-> 
-> drivers/gpu/drm/radeon/r600_cs.c: In function ‘r600_texture_size’:
-> drivers/gpu/drm/radeon/r600_cs.c:1411:29: error: variable ‘level’ set but not used [-Werror=unused-but-set-variable=]
->  1411 |         unsigned offset, i, level;
->       |                             ^~~~~
-> cc1: all warnings being treated as errors
-> make[6]: *** [scripts/Makefile.build:287: drivers/gpu/drm/radeon/r600_cs.o] Error 1
-> 
-> level although is set, but in never used in the function
-> r600_texture_size. Thus resulting in dead code and this error getting
-> triggered.
-> 
-> Fixes: 60b212f8ddcdb ("drm/radeon: overhaul texture checking. (v3)")
-> Signed-off-by: Brahmajit Das <listout@listout.xyz>
 
-Acked-by: Christian König <christian.koenig@amd.com>
-
-> ---
->  drivers/gpu/drm/radeon/r600_cs.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+On 30/07/2025 08:56, Philipp Stanner wrote:
+> On Mon, 2025-07-28 at 12:14 +0100, Tvrtko Ursulin wrote:
+>>
+>> On 28/07/2025 10:28, Pierre-Eric Pelloux-Prayer wrote:
+>>> Le 24/07/2025 à 16:19, Tvrtko Ursulin a écrit :
+>>>> GPUs generally don't implement preemption and DRM scheduler definitely
+>>>> does not support it at the front end scheduling level. This means
+>>>> execution quanta can be quite long and is controlled by userspace,
+>>>> consequence of which is picking the "wrong" entity to run can have a
+>>>> larger negative effect than it would have with a virtual runtime based
+>>>> CPU
+>>>> scheduler.
+>>>>
+>>>> Another important consideration is that rendering clients often have
+>>>> shallow submission queues, meaning they will be entering and exiting the
+>>>> scheduler's runnable queue often.
+>>>>
+>>>> Relevant scenario here is what happens when an entity re-joins the
+>>>> runnable queue with other entities already present. One cornerstone of
+>>>> the
+>>>> virtual runtime algorithm is to let it re-join at the head and depend on
+>>>> the virtual runtime accounting to sort out the order after an execution
+>>>> quanta or two.
+>>>>
+>>>> However, as explained above, this may not work fully reliably in the GPU
+>>>> world. Entity could always get to overtake the existing entities, or not,
+>>>> depending on the submission order and rbtree equal key insertion
+>>>> behaviour.
+>>>>
+>>>> We can break this latching by adding some randomness for this specific
+>>>> corner case.
+>>>>
+>>>> If an entity is re-joining the runnable queue, was head of the queue the
+>>>> last time it got picked, and there is an already queued different entity
+>>>> of an equal scheduling priority, we can break the tie by randomly
+>>>> choosing
+>>>> the execution order between the two.
+>>>>
+>>>> For randomness we implement a simple driver global boolean which selects
+>>>> whether new entity will be first or not. Because the boolean is global
+>>>> and
+>>>> shared between all the run queues and entities, its actual effect can be
+>>>> loosely called random. Under the assumption it will not always be the
+>>>> same
+>>>> entity which is re-joining the queue under these circumstances.
+>>>>
+>>>> Another way to look at this is that it is adding a little bit of limited
+>>>> random round-robin behaviour to the fair scheduling algorithm.
+>>>>
+>>>> Net effect is a significant improvemnt to the scheduling unit tests which
+>>>> check the scheduling quality for the interactive client running in
+>>>> parallel with GPU hogs.
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Cc: Danilo Krummrich <dakr@kernel.org>
+>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>> Cc: Philipp Stanner <phasta@kernel.org>
+>>>> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/scheduler/sched_rq.c | 10 ++++++++++
+>>>>    1 file changed, 10 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/
+>>>> scheduler/sched_rq.c
+>>>> index d16ee3ee3653..087a6bdbb824 100644
+>>>> --- a/drivers/gpu/drm/scheduler/sched_rq.c
+>>>> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
+>>>> @@ -147,6 +147,16 @@ drm_sched_entity_restore_vruntime(struct
+>>>> drm_sched_entity *entity,
+>>>>                 * Higher priority can go first.
+>>>>                 */
+>>>>                vruntime = -us_to_ktime(rq_prio - prio);
+>>>> +        } else {
+>>>> +            static const int shuffle[2] = { -100, 100 };
+>>>> +            static bool r = 0;
+>>>> +
+>>>> +            /*
+>>>> +             * For equal priority apply some randomness to break
+>>>> +             * latching caused by submission patterns.
+>>>> +             */
+>>>> +            vruntime = shuffle[r];
+>>>> +            r ^= 1;
+>>>
+>>> I don't understand why this is needed at all?
+>>>
+>>> I suppose this is related to how drm_sched_entity_save_vruntime saves a
+>>> relative vruntime (= entity rejoins with a 0 runtime would be impossible
+>>> otherwise) but I don't understand this either.
+>>
+>> Two things (and a bit more) to explain here for the record. And as
+>> agreed off-line I need to add some more code comments for this are in
+>> the next respin.
+>>
+>> First the saving of "vruntime - min_runtime" when entity exits the
+>> run-queue.
+>>
+>> That is a core CFS concept AFAIU which enables the relative position of
+>> the entity to be restored once it re-enters the rq.
+>>
+>> It only applies on the scenario when the picked entity was not the head
+>> of the queue, due the actual head being not runnable due a dependency.
+>>
+>> If the picked entity then leaves the queue and re-joins, this relative
+>> vruntime is used to put it back where it was relative to the unready
+>> entity (which may have became ready by now and so it needs to be picked
+>> next and not overtaken so easily.)
 > 
-> diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
-> index ac77d1246b94..811265648a58 100644
-> --- a/drivers/gpu/drm/radeon/r600_cs.c
-> +++ b/drivers/gpu/drm/radeon/r600_cs.c
-> @@ -1408,7 +1408,7 @@ static void r600_texture_size(unsigned nfaces, unsigned blevel, unsigned llevel,
->  			      unsigned block_align, unsigned height_align, unsigned base_align,
->  			      unsigned *l0_size, unsigned *mipmap_size)
->  {
-> -	unsigned offset, i, level;
-> +	unsigned offset, i;
->  	unsigned width, height, depth, size;
->  	unsigned blocksize;
->  	unsigned nbx, nby;
-> @@ -1420,7 +1420,7 @@ static void r600_texture_size(unsigned nfaces, unsigned blevel, unsigned llevel,
->  	w0 = r600_mip_minify(w0, 0);
->  	h0 = r600_mip_minify(h0, 0);
->  	d0 = r600_mip_minify(d0, 0);
-> -	for(i = 0, offset = 0, level = blevel; i < nlevels; i++, level++) {
-> +	for (i = 0, offset = 0; i < nlevels; i++) {
->  		width = r600_mip_minify(w0, i);
->  		nbx = r600_fmt_get_nblocksx(format, width);
->  
+> I'm afraid I also don't get it completely. So you're saying that with
+> this jitter-mechanism we can preserve the relative order of entities?
+> But the actual patch title says that it's about breaking such patterns,
+> or isn't it? "Break submission patterns"
+> 
+> Maybe you can help improve my understanding by us reversing the
+> question:
+> 
+> If that jitter-mechanism is dropped, what will be the negative
+> consequence?
+
+Some workloads would suffer. Or to better say, make smaller gains 
+compared to the current FIFO. With this they can bridge the gap to RR 
+much more.
+
+> Entities with similar vruntimes would always run in the same order,
+> correct? So the patch is not so much about GPU time fairness, but about
+> response / delay fairness.
+
+Not similar vruntimes, but it is about the _identical_. This identical 
+case happens by CFS design when idle entity (re-)joins the run queue. It 
+inherits the current min vruntime of the rq and from then on CFS relies 
+on timeslicing (preemption) to balance them out. And because with GPUs 
+time slices are long, even controlled by userspace because preemption is 
+not universally present (not at all with DRM scheduler at the frontend 
+level), making a wrong choice of what to run first can hurt us much more 
+than in the CPU world.
+
+So for example when two entities enter the rq 1ns apart, and the second 
+one was picked from head of the queue in its last activity period, the 
+new pick order is determined by the rbtree traversal order for nodes 
+with identical keys. Whether in practice or by contract that ends up 
+being FIFO. Ie. above entities which entered the rq 1ns apart will 
+always run in FIFO order.
+
+And FIFO is quite bad with light to medium usage interactive clients 
+running in parallel to GPU hogs. Regardless if the hog as a queue depth 
+or more than one job deep, or just happened to submit its long single 
+job 1ns earlier than the interactive client.
+
+This patch therefore mixes things up a bit for this specific case and 
+that seems to work quite well in practice:
+
+https://people.igalia.com/tursulin/drm-sched-fair/4-heavy-vs-interactive.png
+
+https://people.igalia.com/tursulin/drm-sched-fair/4-very-heavy-vs-interactive.png
+
+With two competing clients it ends up a bit like RR (again, for this 
+specific set of pre-requisites, not RR for everyone and everything), 
+where the two alternate as to who gets to run first.
+
+With more than two clients it all becomes much more random (compared to 
+alternating) because the "randomizer" is a one bit toggle shared across 
+the whole system. So different GPU engines, different GPUs, different 
+entities, they all toggle it and combined with the time domain I think 
+is safer from any latching behaviour induced by submission timings, 
+patterns or interactions with the CPU scheduler.
+
+Regards,
+
+Tvrtko
+
+>> It has to be the relative vruntime that is preserved, ie. entity which
+>> re-enters cannot simply keep its previous vruntime, since by then that
+>> could lag significantly behind the vruntime of other active entities,
+>> which in turn would mean the re-joining entity could be head of the
+>> queue for a long time.
+>>
+>> Second part is the special case from the quoted patch and that only
+>> applies to entities which are re-joining the queue after having been
+>> picked from the head _and_ there is another entity in the rq.
+>>
+>> By the nature of the CFS algorithm the re-joining entity continues with
+>> the vruntime assigned from the current rq min_vruntime. Which puts two
+>> entities with the same vruntime at the head of the queue and the actual
+>> picking order influenced by the submit order (FIFO) and rbtree sort
+>> order (did not check). But in any case it is not desirable for all the
+>> description of GPU scheduling weaknesses from the commit text (this patch).
+>>
+>> For this special case there are three sub-paths:
+>>
+>>    1. Re-joining entity is higher scheduling prio -> we pull its vruntime
+>> a tiny bit ahead of the min_vruntime so it runs first.
+>>
+>>    2. Lower re-joining prio -> the opposite of the above - we explicitly
+>> prevent it overtaking the higher priority head.
+>>
+>>    3. Equal prio -> apply some randomness as to which one runs first.
+>>
+>> Idea being avoidance of any "latching" of the execution order based on
+>> submission patterns. Which kind of applies a little bit of
+>> round/random-robin for this very specific case of equal priority entity
+>> re-joining at the top of the queue.
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+> 
 
