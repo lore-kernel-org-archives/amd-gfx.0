@@ -4,51 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42968C87FD2
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 09:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC136C87FD2
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 09:59:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAED610E400;
-	Mon, 11 Aug 2025 09:58:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 850AB10E403;
+	Mon, 11 Aug 2025 09:59:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="X18oWMjQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wC3urbek";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9166E10E400
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 09:58:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3uDkAlqi1YGy/EnVE3ilg3kzmpX6jwcYOexwxSIjSwM=; b=X18oWMjQb59Sg0CnlormsyuZby
- NEtCmizx37MaNkpOBNUCi/bLnejEvqn7J0H0nnKA2533Nv8DlzS4cmu/FMkm0/lcj3kcrVasPMD03
- scQNzwfoqMsp0gG5UvRmqBWjGvhxkVAgkIX61ilwqFlImIIT1Xgs9VJ26dNmfnaNwrdDvu2s+VcBs
- QhVRC0CLOSdpW6pC+0axTfc0ymjBxvcm+NgrlUWZdc5zmHPYNJR5F7TgEFXrECavKR935Lm9FeiYd
- sIyqQzCgxNBscCgTG9REpbikyhcpsgYe5v2Neppr5p/P6GoAROmWYrhexbPigSect0S1qTcmc7yqu
- QgDphB5g==;
-Received: from [84.66.36.92] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1ulPIR-00Ci5y-6Q; Mon, 11 Aug 2025 11:58:27 +0200
-Message-ID: <970a605c-32a6-4e3b-982f-69f57c5960b9@igalia.com>
-Date: Mon, 11 Aug 2025 10:58:26 +0100
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2085.outbound.protection.outlook.com [40.107.96.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8C4510E403
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Aug 2025 09:59:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=m2KnYCoJFGAc6FjeTcP7KLN6IWmQZmNKYZtZhFb6O7Uu7GXiSQA6jpjVA4W4nf6ksENvsvR/oN3SZv83Vms342HNeyb0gqr7VxR9iBeEgyamcINP9ZocWMG2ga4piLd+BAHuhSPmYmm8TyUoC/kxZDejElwjElJEPXJACydyIDq0ao6AofCGAuiDols6uFEKEixU//8UWlih8uXCtv3req9QfLTCQuGD5hicuwHwYtpoI/7bN97vqIHW4VN3MAxDzs0XDdkdcqMC7fhy0KxRFuc8yCYDm0pLXJRApK4evyScAqjGTwnFhjoq+PxIl24zvikV16btuScU/mKrhBs24A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qDODB/dVZvCaF2BJ0EiCcrH6SUvQbwa+9imZKu1wnOw=;
+ b=BKbHdaT+h72YYLgL0wCj8HTi21wtfqKyv9fx+teQK0eB+pFQ77nnOfQUDPYrr2FcnY0b+0ECk/aRWh2l0lk+6xh+mWmTYLZPdzpHaFavvwcyoYRVA94bqjkk9qKXxFr4ocuNS7RddYeuSj0uC6t3Gbaq7zWlVCpCXDyXhYXE+cgT+xwUIN6JslXWpBtQLzUTMHqelPLPDizpspNAFv7Se2ozwxHImHY+v6acReEhhpBcOfkqf0Gtc3WxK1zBCsUy+ISS91aG0/5bP+bi7W40MsHL7TWTffk5qoEiaI+INnS1/D8HMEtG6WEXKUDdNlJemKC4AjM8HQP7gFSlQ5YDOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qDODB/dVZvCaF2BJ0EiCcrH6SUvQbwa+9imZKu1wnOw=;
+ b=wC3urbekkNSu9+PD2I6b4eP3/OFG3VfHTuLa5HlYkr6XHyRlQWVrRL9Y0ae2baIn+dWKqc/sSoW4S+Mu0+GXRmj+GM33JMPEtjB9mdKqWFoV5kTR4sH1WWzQNVMixAQYTKCHIShwilqK0ifvsFdi7DerOGQbUCLF9FhZ5U4i/HU=
+Received: from CH2PR10CA0022.namprd10.prod.outlook.com (2603:10b6:610:4c::32)
+ by CYYPR12MB8938.namprd12.prod.outlook.com (2603:10b6:930:c7::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Mon, 11 Aug
+ 2025 09:59:48 +0000
+Received: from CH2PEPF00000142.namprd02.prod.outlook.com
+ (2603:10b6:610:4c:cafe::d9) by CH2PR10CA0022.outlook.office365.com
+ (2603:10b6:610:4c::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.21 via Frontend Transport; Mon,
+ 11 Aug 2025 09:59:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9031.11 via Frontend Transport; Mon, 11 Aug 2025 09:59:48 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 11 Aug
+ 2025 04:59:44 -0500
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Mon, 11 Aug 2025 04:59:38 -0500
+From: Jesse.Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [v8 01/11] drm/amdgpu: Add preempt and restore callbacks to userq
+ funcs
+Date: Mon, 11 Aug 2025 17:56:48 +0800
+Message-ID: <20250811095937.1978747-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 1/3] drm/amdgpu: Add ioctl to get all gem handles for
- a process
-To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, David.YatSin@amd.com, Chris.Freehill@amd.com,
- Christian.Koenig@amd.com, dcostantino@meta.com, sruffell@meta.com,
- mripard@kernel.org, tzimmermann@suse.de, Alexander.Deucher@amd.com
-References: <20250807202245.2970262-1-David.Francis@amd.com>
- <20250807202245.2970262-2-David.Francis@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20250807202245.2970262-2-David.Francis@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: Jesse.Zhang@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|CYYPR12MB8938:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2858a46-dbdd-42c2-b52d-08ddd8bdce7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?iXRLZ+RyRpn8ot8i84RuCcapbULzy3ORJZ6I2a1b6VaXdi2gptFRRl+HuQpF?=
+ =?us-ascii?Q?S9nYXuLjBCeuB05slDqFztLeZKtJGxT52495O5o98s6+Xq8vXhNloIlrT/vf?=
+ =?us-ascii?Q?MYITFCVtdcrhuDOUmZVIMBWs+WnWj3WWpuz7Ycnb0aoguTJi9MCgHpz0BJDH?=
+ =?us-ascii?Q?CvKQugUHevJEtHKcaOhOxJMxg9lthN9j2dA6JqU6O4A7wdgoaC2i1kHzbaUe?=
+ =?us-ascii?Q?DzsJntRNLF0HX9l/bawJ31A9iBd0KSqFqGoDy3pYL+JfVeP/wszoQAeT8r8h?=
+ =?us-ascii?Q?G6TUnixB3rlbPiWwXDn2JbXtHJaqZhR9/S6Md1H7Rl9+95xdSwXlRbPUVgkk?=
+ =?us-ascii?Q?70Xasegoo9u7maB9OmurcCbXU9rq1RvsnadNyEd3e1fuX9Ie/5LvwyHkC+MU?=
+ =?us-ascii?Q?XNtwXwRG+nRgyckUH/vsGfka22zlHgGQfTBZqnupXir1nN4IZoOT18wwMsq4?=
+ =?us-ascii?Q?xL2KfjRlbVTYliK9t1xeqiPJ3cDNdyJAAOIGEsFazlgj8tp6uhbRP7oQ+/SB?=
+ =?us-ascii?Q?zLr9xcpXn5wVUjXoC+HQBDKpmgjrhF2zOIMvFU9cfLsZuwexKmMfcAsP5rb0?=
+ =?us-ascii?Q?F61iwKFit2xM2qgbGOAVP5GEHlTdNejbPxoXovj7PjjKTzXMgAFqZOZQzMNf?=
+ =?us-ascii?Q?Sd4M51JSgRa+kSBboNGXzylW3QEX9bHcPVnEWAon4UZRxKDsOu1FF9tUPwPE?=
+ =?us-ascii?Q?K2iprkAPKWD45gdmVyScsMYLfGPTbDOEjPN5v1m2165r5kNP7cEL4Tz7ubqZ?=
+ =?us-ascii?Q?ZkBZTQm0RjR97E444/le832YzQ3tASCNLW1TC+eh5/zFXZ6C46pHRfxGpqGr?=
+ =?us-ascii?Q?czMS0WmFu+k4h5DDv3srgt0O8pe/OIz1q9bXZzya2aL7vtlYFeqrtEns0h00?=
+ =?us-ascii?Q?bGwsuc/NI8dO3TSuvCNqgCNgOsSAs1DZKvlvIc6xtTPZSNzYO7HGrSuhfB1g?=
+ =?us-ascii?Q?K6D5sFZF2MLOzK3IjmqEH5vvV5MTKHoeVeqjZIDMjkSsvr7R5zKR2dZjD7p0?=
+ =?us-ascii?Q?x3kU/RIftparWfcDhLrGPwFQdsb2Kly9hjke853J/DExOcejZhb9zbQuiVYH?=
+ =?us-ascii?Q?7xOll9F/9do2LCMTvlvPUd5YlfCTGIAoJ56sEfQjNsCnT3fVaFQZcUQrN9So?=
+ =?us-ascii?Q?iJ9jto7VhCDlWD5E3D7H/pxz3ePeC27cOHzi3G3NBuhr4SYfIgOXDhrePaE1?=
+ =?us-ascii?Q?/Gt37Bt00v1hlbCc3qJ13W58GfP86lhqu/Jw8CJIF8EaictcUO9cmWVeFl9u?=
+ =?us-ascii?Q?ApakeGBjLouoWeYlQu5a1Z8lqRhv9qqETy8+pOoq2lEsrvRHkasm0Qz1PZRa?=
+ =?us-ascii?Q?TyRw/O9R31bF3tQHZm9KZ6XcxB3P/dtYTyItgf/TDhdVz6IWgXR85H00iSGl?=
+ =?us-ascii?Q?HH3xpZbgzFNeNDbkHrSdkXVqLgoaF8HGZvO97wyb/2eT07FoX5N0FtWEu7d9?=
+ =?us-ascii?Q?aAqmJRo+41Qldw5ui6gmEwNNoWgO40CjXGZ2L1HgjEVUWXr+6c44MGd8J2Ew?=
+ =?us-ascii?Q?VIf7j08rKXmmZ8CRmcZ+qq2zlXjMAkcr6Mvp?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2025 09:59:48.0576 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2858a46-dbdd-42c2-b52d-08ddd8bdce7b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000142.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8938
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,238 +134,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Alex Deucher <alexander.deucher@amd.com>
 
-On 07/08/2025 21:22, David Francis wrote:
-> Add new ioctl DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES.
-> 
-> This ioctl returns a list of bos with their handles, sizes,
-> and flags and domains.
-> 
-> This ioctl is meant to be used during CRIU checkpoint and
-> provide information needed to reconstruct the bos
-> in CRIU restore.
-> 
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 82 +++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |  2 +
->   include/uapi/drm/amdgpu_drm.h           | 33 ++++++++++
->   4 files changed, 118 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 4ff3a2eaaf55..f19795dddf9d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -3031,6 +3031,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
->   	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-> +	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   };
->   
->   static const struct drm_driver amdgpu_kms_driver = {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index e3f65977eeee..7f55e3b7d8a2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1032,6 +1032,88 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->   	return r;
->   }
->   
-> +/**
-> + * drm_amdgpu_gem_list_handles_ioctl - get information about a process' buffer objects
-> + *
-> + * @dev: drm device pointer
-> + * @data: drm_amdgpu_gem_list_handles
-> + * @filp: drm file pointer
-> + *
-> + * num_bos is set as an input to the size of the bo_buckets array.
-> + * num_bos is sent back as output as the number of bos in the process.
-> + * If that number is larger than the size of the array, the ioctl must
-> + * be retried.
-> + *
-> + * Returns:
-> + * 0 for success, -errno for errors.
-> + */
-> +int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
-> +			      struct drm_file *filp)
-> +{
-> +	struct drm_amdgpu_gem_list_handles *args = data;
-> +	struct drm_amdgpu_gem_list_handles_entry *bo_entries;
-> +	struct drm_gem_object *gobj;
-> +	int id, ret = 0;
-> +	int bo_index = 0;
-> +	int num_bos = 0;
-> +
-> +	spin_lock(&filp->table_lock);
-> +	idr_for_each_entry(&filp->object_idr, gobj, id)
-> +		num_bos += 1;
-> +	spin_unlock(&filp->table_lock);
-> +
-> +	if (args->num_entries < num_bos) {
-> +		args->num_entries = num_bos;
-> +		return 0;
-> +	}
-> +	args->num_entries = num_bos;
+Add two new function pointers to struct amdgpu_userq_funcs:
+- preempt: To handle preemption of user mode queues
+- restore: To restore preempted user mode queues
 
-Looks like authoritative number is only obtained in the second iteration 
-so I think it should be assigned only there.
+These callbacks will allow the driver to properly manage queue
+preemption and restoration when needed, such as during context
+switching or priority changes.
 
-At least the uapi doc does not suggest ("OUT: Number of handles in 
-process (if larger than size of buffer, must retry)" that the count can 
-be larger than the actual number of handles, and that handles must also 
-be tested for being non-zero. If that is the intention it works as is 
-but needs to be documented in the uapi.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> +	if (num_bos == 0)
-> +		return 0;
-> +
-> +	bo_entries = kvcalloc(num_bos, sizeof(*bo_entries), GFP_KERNEL);
-> +	if (!bo_entries) {
-> +		ret = -ENOMEM;
-> +		goto exit_free;
-
-return -ENOMEM is enough here.
-
-> +	}
-> +
-> +	spin_lock(&filp->table_lock);
-> +	idr_for_each_entry(&filp->object_idr, gobj, id) {
-> +		struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
-> +		struct drm_amdgpu_gem_list_handles_entry *bo_entry;
-> +
-> +		if (bo_index >= num_bos) {
-> +			ret = -EINVAL;
-> +			break;
-> +		}
-> +
-> +		bo_entry = &bo_entries[bo_index];
-> +
-> +		bo_entry->size = amdgpu_bo_size(bo);
-> +		bo_entry->alloc_flags = bo->flags & (~AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE);
-
-Why is this flag special and why it is okay to not restore it?
-
-> +		bo_entry->preferred_domains = bo->preferred_domains;
-> +		bo_entry->gem_handle = id;
-> +
-> +		if (bo->tbo.base.import_attach)
-> +			bo_entry->flags |= AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
-
-Imported ones are only informative (since they will need a completely 
-different path to restore)? But it is required to list them? Do you have 
-the restore side implemented for reference?
-
-> +
-> +		bo_index += 1;
-> +	}
-> +	spin_unlock(&filp->table_lock);
-> +
-> +	if (!ret) {
-> +		ret = copy_to_user((void __user *)args->entries, bo_entries, num_bos * sizeof(*bo_entries));
-
-u64_to_user_ptr()
-
-> +		if (ret) {
-> +			pr_debug("Failed to copy BO information to user\n");
-
-I would be tempted to remove this pr_debug since -EFAULT is pretty clear 
-anyway. In which case this whole if (ret) block seems superflous.
-
-> +			ret = -EFAULT;
-> +		}
-> +	}
-> +exit_free:
-> +	kvfree(bo_entries);
-> +
-> +	return ret;
-> +}
-> +
-> +
->   static int amdgpu_gem_align_pitch(struct amdgpu_device *adev,
->   				  int width,
->   				  int cpp,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> index b51e8f95ee86..7cdb6237bb92 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> @@ -67,6 +67,8 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   			  struct drm_file *filp);
->   int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->   			struct drm_file *filp);
-> +int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
-> +			      struct drm_file *filp);
->   
->   int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
->   				struct drm_file *filp);
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index bdedbaccf776..218a179818d4 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -57,6 +57,7 @@ extern "C" {
->   #define DRM_AMDGPU_USERQ		0x16
->   #define DRM_AMDGPU_USERQ_SIGNAL		0x17
->   #define DRM_AMDGPU_USERQ_WAIT		0x18
-> +#define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
->   
->   #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
->   #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-> @@ -77,6 +78,7 @@ extern "C" {
->   #define DRM_IOCTL_AMDGPU_USERQ		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ, union drm_amdgpu_userq)
->   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
->   #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
-> +#define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
->   
->   /**
->    * DOC: memory domains
-> @@ -811,6 +813,37 @@ struct drm_amdgpu_gem_op {
->   	__u64	value;
->   };
->   
-> +#define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT	(1 << 0)
-> +
-> +struct drm_amdgpu_gem_list_handles {
-> +	/* User pointer to array of drm_amdgpu_gem_bo_info_entry */
-> +	__u64   entries;
-> +
-> +	/* IN: Size of entries buffer. OUT: Number of handles in process (if larger than size of buffer, must retry) */
-> +	__u32   num_entries;
-> +
-> +	__u32 padding;
-> +};
-> +
-> +struct drm_amdgpu_gem_list_handles_entry {
-> +	/* gem handle of buffer object */
-> +	__u32 gem_handle;
-> +
-> +	/* Pending how to handle this; provides information needed to remake the buffer on restore */
-> +	__u32 preferred_domains;
-
-Hm, just as an observation, the width for these is not very well defined 
-in the uapi. Yes flags are just a few, but for example 
-drm_amdgpu_gem_create_in has them as u64 and also value via 
-AMDGPU_GEM_OP_SET_PLACEMENT. So maybe future proofing to __u64 wouldn't 
-harm here. It would also remove the need to pad the structure.
-
-Regards,
-
-Tvrtko
-
-> +
-> +	/* Size of bo */
-> +	__u64 size;
-> +
-> +	/* GEM_CREATE flags for re-creation of buffer */
-> +	__u64 alloc_flags;
-> +
-> +	/* Currently just one flag: IS_IMPORT */
-> +	__u32 flags;
-> +
-> +	__u32 padding;
-> +};
-> +
->   #define AMDGPU_VA_OP_MAP			1
->   #define AMDGPU_VA_OP_UNMAP			2
->   #define AMDGPU_VA_OP_CLEAR			3
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index ec040c2fd6c9..5111d7dce86f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -77,6 +77,10 @@ struct amdgpu_userq_funcs {
+ 		     struct amdgpu_usermode_queue *queue);
+ 	int (*map)(struct amdgpu_userq_mgr *uq_mgr,
+ 		   struct amdgpu_usermode_queue *queue);
++	int (*preempt)(struct amdgpu_userq_mgr *uq_mgr,
++		   struct amdgpu_usermode_queue *queue);
++	int (*restore)(struct amdgpu_userq_mgr *uq_mgr,
++		   struct amdgpu_usermode_queue *queue);
+ };
+ 
+ /* Usermode queues for gfx */
+-- 
+2.49.0
 
