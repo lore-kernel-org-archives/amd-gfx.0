@@ -4,150 +4,174 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CEB3CA0EDB
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 20:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A39ACA0EDB
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 20:39:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D652910E640;
-	Tue, 12 Aug 2025 20:37:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1090B10E48F;
+	Tue, 12 Aug 2025 20:39:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="slL3ZOTM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eoWnRIav";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2053.outbound.protection.outlook.com [40.107.95.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7FF10E640
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 20:37:05 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D58C910E48D;
+ Tue, 12 Aug 2025 20:39:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VZqwtgoBXAJ7P1USeTSkQqS6+4t2dnvMJfONdSd/25HnQKTUURRArS4MCErNmqnDXD5jEikpelzYVswyxD71vAgU7fQwBR2PKF9wWuOLAdmIVkPNjYo3Qw7gf2/IsaoBdlN4F+t426uXadlZXpMWaPppD3y65XCwDak6KGuMsZktQU9ulndTDN0Dej8jwavxjhiDsd9ylf7qZirh8y4B686c9mPhSEx3G5k+0zyTkDQm3CVZjeK/7HBic+lxfEa+0hJpMaTIa3QyJAfzYVz9xZD/GDsZ2YbO5Nfn0yptljcwfGrLbQdJ3MZvFdRtqegIGV+jjiGn4WrqCYgp8j1ZFg==
+ b=DqwjZEVGDgTmbByB3EJlVsuoHy4jooymLwB3o3nxTzSLdOa7NudbP6wWteoOQ9bkohvGZpcF4oF+k2pdDHWSm7Rw/W0TjP4ctcapQc7H4u2r+WekZ6idwjxbMlL9xfM08fxCvF3+9UYggqeGK5txqZeePUYy6sxSFKcKkWsKWlsCxi0vNe0FHVAbwTwmuVf1o6imOzBUcwJWBHTTTDmGfxA7wa0Ge2TA6lBhvAx7Co2K9jwyXOnMJFeDNukgGMGD+AHYA01JjJpI53ah0c9Tgj1dBF8IQJp0MQJCwbf9FF5qu2I1qlx7meK1bnkUW9GX1PLwm7Lr8CwTHdqfXUyKnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GmSNFmsHHdsQVChnEyPeOPQgMjfvtYb6vaknXm3mOoo=;
- b=HyOUS9YBVDta+ZSmB7vNKEac+we+UPu5ZhDuKWBN4N7gswzlP7gjid1RuObYOnVzfnqPtNTYetb6D7LjIXhHqQ6wKXCg3vuoXkMD2yU56uV5keIggxHbijOMh3QKU9iZFJsXJT7hOVQwXJ/WzukDeFIEkaJ5SAHw63c2U9+Ikm4qaEBYktvSDO950vQzathw/5AaGEnhyGs0wbNZBRJVJThfLHPnJ4kek0OzUV/vPCeT3I5CA0oe1k3hwVe9kbMFBbUvTYUBhD7hzbyCHTQtNAMOEi/Lm/bNHdZi+CRlCLRYeLlZIog5P2vKqB3ZeqM0Nwcc2re0E7whHcBdN1l3Ag==
+ bh=fkqzHGo4JRfneYnD1R4S3k8H/AS83d771KQuhqhxXVU=;
+ b=OssSr/dX458TVSLe1fP8PfsFBzr+fCTGkTaR2QTPQw1Rg0oM6hlRktFSRScthBue3C/JiF8+02oFL97y5c//1nCM/2SiF8E97RRiBmAzCZIZUK0M1BTGe4w6e0euiVnij+glsdHXVAf/NRjWoFBeFpAT1libc2iU4dGq6KtzMmZAZt9NeP3d/yYErY16SAuM5pON/993S+ndN3tOKD+g6qt+APhCBCr2+NPDKF62OlzSxDZOJ7cXfWsUM/uv9AAM3tvaxRnPBHwUDnWQJctQPCKXGRSh2NnF8IE2kqdPXMvgMxumbZxFtKzkf5vKlO3mlZCvcVn/oGxsQdCMRRguSA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GmSNFmsHHdsQVChnEyPeOPQgMjfvtYb6vaknXm3mOoo=;
- b=slL3ZOTMAO648n+BaP/tMXPz3E62oEpkde3/veni6FzSxIVy/VLCv5nlahgetIWpJO7SqPXsOEj7RL7cQ52Kl+FnYpxK40ERyUbh+2f+dZzBBGWls3PfSbAjiYdPnhC38aeFpHwkVyXi3ggLKb/LBT8c3aBrHt50M9WAg9zPIQk=
+ bh=fkqzHGo4JRfneYnD1R4S3k8H/AS83d771KQuhqhxXVU=;
+ b=eoWnRIavD972fJFGbqARUmcLV2wTFHNK/jqPzOVWt1qWufap1hzDbmmElHlo/i0tcw9176HbyUqONJiAPooYPVQP08izHYiipxZ4dd7oG/bGll44yFR4hHZAfk3gJTLpYlZs0gCOB1rXkBmYIM2S6GHjC9YHsq5X7AaY6/bqsUA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22)
- by LV8PR12MB9229.namprd12.prod.outlook.com (2603:10b6:408:191::14)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by PH8PR12MB6818.namprd12.prod.outlook.com (2603:10b6:510:1c9::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.22; Tue, 12 Aug
- 2025 20:37:00 +0000
-Received: from MN0PR12MB6293.namprd12.prod.outlook.com
- ([fe80::49ac:e84e:ea32:d743]) by MN0PR12MB6293.namprd12.prod.outlook.com
- ([fe80::49ac:e84e:ea32:d743%4]) with mapi id 15.20.9009.018; Tue, 12 Aug 2025
- 20:37:00 +0000
-Content-Type: multipart/alternative;
- boundary="------------pmY0ykAkrlDZKpXmac5Jla2n"
-Message-ID: <82e1b48d-ec52-f72e-72ba-eb8010edb7ae@amd.com>
-Date: Wed, 13 Aug 2025 02:06:55 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH] drm/amdgpu/vcn: Fix video_profile switch race condition
+ 2025 20:39:28 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.9009.021; Tue, 12 Aug 2025
+ 20:39:28 +0000
+Message-ID: <bdffd316-af82-4a76-8005-d5d6e32ee6d3@amd.com>
+Date: Tue, 12 Aug 2025 16:39:23 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 00/14] drm/amd/display: more drm_edid to AMD display
+ driver
+To: Melissa Wen <mwen@igalia.com>,
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "Hung, Alex" <Alex.Hung@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "andrzej.hajda@intel.com" <andrzej.hajda@intel.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
+ "rfoss@kernel.org" <rfoss@kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>
+Cc: Michel Daenzer <michel.daenzer@mailbox.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>
+References: <20250726003816.435227-1-mwen@igalia.com>
+ <019ca526-5bdf-4c88-a994-a6babb9963c7@amd.com>
+ <83d8ed56-2c2b-47dd-83a1-8e8f6a49fef3@igalia.com>
+ <b0511344-f654-4f91-aa1a-06d7588a5db5@amd.com>
+ <4e94993a-92b3-4584-bfed-468d7606830d@amd.com>
+ <c399cdf9-ec3b-4162-8175-05b34d9e5042@amd.com>
+ <36632017-d74f-40f9-bd78-c72e2ab2c65d@igalia.com>
 Content-Language: en-US
-To: David Wu <davidwu2@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>, Leo Liu <Leo.Liu@amd.com>
-References: <20250812145610.1300497-1-sathishkumar.sundararaju@amd.com>
- <d9152f70-7701-470a-9e1b-5620f2d4cffb@amd.com>
-From: "Sundararaju, Sathishkumar" <sathishkumar.sundararaju@amd.com>
-In-Reply-To: <d9152f70-7701-470a-9e1b-5620f2d4cffb@amd.com>
-X-ClientProxiedBy: PN3PR01CA0005.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:95::6) To MN0PR12MB6293.namprd12.prod.outlook.com
- (2603:10b6:208:3c2::22)
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <36632017-d74f-40f9-bd78-c72e2ab2c65d@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0479.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d6::19) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6293:EE_|LV8PR12MB9229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f691cfa-39ec-4be9-19a3-08ddd9dffd37
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|PH8PR12MB6818:EE_
+X-MS-Office365-Filtering-Correlation-Id: bff04d99-f404-4e74-4cb9-08ddd9e05539
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QVF0N3UxVkdIbUhFTlpYanNRNkY2NEZpaG54UGx3ZzVnTWsrSkNRMVdZSHo4?=
- =?utf-8?B?S0F1SlNMaHdRS05GZnJIN1NDTkZVZ0R0d1lNSDFWM3RKQ2xYVm5HajJ1VFFU?=
- =?utf-8?B?VzJkQ2JoTDNDUUZTZ1JablE0S0xOcno3NDhvaCtZVDZybmx5SkNYYTZKa1l2?=
- =?utf-8?B?WVR6bklMYUdhdkx5VHdiQldENVhXTXZhWUxvK3ErRE8yMkl1Sk9WSjZFUXBC?=
- =?utf-8?B?Z1h6eWUrSy9SQ0pEelVPQ1JOSTFSK2I0cytkRTh4VTdObGZvdk1oWU5jWkdR?=
- =?utf-8?B?WktqMVNXc3pKcTVJalFOWDJJYWxtRk1oWGpaS1JNQWt4QUo2aE9STTdpek12?=
- =?utf-8?B?cEd5MHRac0NRSGNDZUtvWkIzblBsdDRMMm1aQ2F4Z25YYVphVjRMVFQxUUNr?=
- =?utf-8?B?RzdIS0xqM1lQVDkwQ0xKVG83S2FZVnVzbllvL3Nxb01ZdTRFMFZIbVNCbEJH?=
- =?utf-8?B?SDlWeXhCMTJOT0NmeEtOOVpnNVc4N3ZtTzBSSzk5ZW10UEFkN2d0aHZpYlJv?=
- =?utf-8?B?cmF1d3pRR1ZFOG5Sa1QrQXRYa3pwaXVwdzg3N2hSRnJ0V0p1REJEYmhNY29K?=
- =?utf-8?B?V0RpWGVnK2k3WHdCQzdWU2NyU2dRUzRjbXYwSmp0ZklaS2Vsb3oyaGp2bW5r?=
- =?utf-8?B?U1ROYjFvY3VoTFJDRVhUVmMrWDBkeEdkUFNUWUVSNkFmeW1VRFB3WnhFcW0w?=
- =?utf-8?B?eXlJOUlrMVhNTXFxOVdPemV5ckpPaWY5ZnpTV2lxRks5U09qQ3lCZk9WMFRs?=
- =?utf-8?B?cUwxS0l6RnYxL252aE9sNjRHQ1htcjlsVngwZ1UvazYvaXBvTGtjaEgxdDRz?=
- =?utf-8?B?Sk1pbXFxeUw5R3NodGFLeUVibDlHMGh3R3U4bkhvZHhoek8zZkVWek9NY3lM?=
- =?utf-8?B?aE9Zc2RMVGtEMWVRbFJvbXI2KytjYjB3bld5ZWJidUZZUzFzdVd2ZnhSdXcy?=
- =?utf-8?B?SzRWU0pYUW4yN3NjK3RNcDl2T21OSmlsams3UVJKOG9VTHdwckFuVkVYblRi?=
- =?utf-8?B?SDI5Ukp6MUpTUjEzR0I5NjdISGpBQUJIYjhEaWxCVTJRYm1rY0FJcDNlLzlu?=
- =?utf-8?B?cVZQZ3Q0SGpoSGZGRXVMUU5pVWxVMzI3NmRiWkhKZmYvWWthL01CMGg4OUZR?=
- =?utf-8?B?YjdESVZkdGErUkVySmgwQkJwZGdLVFhQZGxhdXRwWlBJdTZreFI5RTd2bGpm?=
- =?utf-8?B?TVZhZTV4L01qOE92ai9sQnVMWlF2SDFreCswL0tFT3F4M3V3S1dRRGJJSENw?=
- =?utf-8?B?aVV3cnVVNWRmRUduTFBjOXdGU25aVnFzSHozcUEzVzVudlNZNmZVOGxOV0R1?=
- =?utf-8?B?TENoTTVzZ0libUE1eUFRb29NbEFnNGpHRVgxS3hmNlVxSG11QjNkYmFXOXBi?=
- =?utf-8?B?TGVldnV1a1JoN0hMb0ZMaDB2Mm5LZHJjK0xYVnRZZHhKQ0RFczJSRTlrMUVP?=
- =?utf-8?B?VVcrajRjMFJZWjNjMzNMMnVVMk04VjdRd09jNG03a1FVZitiNzhLZVZldXVk?=
- =?utf-8?B?Sm1SeFN5YlFmS0dBRkNkOVNYN2VJbnI1Z3NSaFNJVUJsWWFGOEdrZ3M3Q2x2?=
- =?utf-8?B?NWdhMVNRNUw2cDJTblZaWXZhTUpxWVZZUEdMZ0g3QnhiSlhvelRvSUNGa0dO?=
- =?utf-8?B?NmNmdmMvdDEyTUhlZXYrSDBOdDV6Vkl2Q3NMSzE1OEhySW5vaE01VWU1WEVj?=
- =?utf-8?B?dk92dUx5VWFGcUJwZzR4bnN4TENmWnVvTEJPSmVXRkJDaG8yUVI2L3NmOEUr?=
- =?utf-8?B?ZmNDUEVlQ3ZBQ0NSRXZlYU50TW5aTnIxN3JkcGtrTXAyYW5XY0JXOTN5cXR6?=
- =?utf-8?B?MTNWQXNIbXhKY0pDTW1vNUJmMytzWlI2eTJ6K1ZKZUZTM1J3V29PdGt6ZUJz?=
- =?utf-8?B?dUh1OW00MmltcHZzdUpQRnB0Z29xcHdFbkVxNmtGd3kvdmlKTko5SXk1TW1k?=
- =?utf-8?Q?xuCqc3Ra2tA=3D?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|921020|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OFI0Ymk1RzFITmJWU0htcy90NXpUNGtFcTdkbUd1RTJNZktnNkc0VFh5Wkds?=
+ =?utf-8?B?RFBTOE9QcVdsRkZpT0l0TVk2UnNFb3Q3b1JyOEVBL3pEeWsrSCs5N1FQMGxp?=
+ =?utf-8?B?Y3ZOVWh1bW94NmdJcCtVMUN0UUw0eEQxVkhaWGxJS1MybTJLZ1gzaWRWYzhC?=
+ =?utf-8?B?bis4SDlITGJjSXlGcytWTTd0UWpFUllKRDZaVXNoNWpYK0xmMlNiVGk5Qzln?=
+ =?utf-8?B?cDBMK1dDa29PMzYzZUZUaGJKekdBSjJjS0dNeWwrRWJUbHZONSs2dy8veE9o?=
+ =?utf-8?B?K1g0ZGM1N1ZvbkFDOWpoYXdZejRXbFpxVmI0VnJrQUNQdnZoK2IyT3FTZVM3?=
+ =?utf-8?B?TnlxYTc5RjdTTHVqdXQvc2JKdHNzRTZpd3pPOGQrSGlIcmtQZ2gycXlncHNr?=
+ =?utf-8?B?dFUrdzYzYjJkYTJMczBGaXNuZStmOE5Zc3dEMXh5RzJOWFROT3ppYkc3b2ti?=
+ =?utf-8?B?aGNZNEdqZFNBNEd2clYzald2VE9uUm53Vi92WGRmbzRGc2VhclVpVkZXdngv?=
+ =?utf-8?B?NndvbHVHZGdDUHBwVzgwV3Riejg3OERaYkxCT2IyUmp0bFM5QS8rcEpYVnF6?=
+ =?utf-8?B?cnRWVWV1QVZqbjhlMXdSOXd2T2QrL2tkWWNlMkU4TzVSYldyZVNRK2ZXNzNj?=
+ =?utf-8?B?cm9HVnJMWVkwYWd4UkFRNys0bGNrclFHRWZxWG5kNFp1eFNNZmIrMmpGMEJ5?=
+ =?utf-8?B?QlhtMUpIM3R4QTBuSjRrU09mNTdUOGNOQ1ZES2VSMEFZMnA4SEJwaHlHQWRF?=
+ =?utf-8?B?UnJkRnA2U204Nkxjbk1tancrMFRPU1c1clEvNkNlbDFRdUdtaklBdlI2MCtL?=
+ =?utf-8?B?RWZTZExkZmxMZ3ZzQU9hTmRzTEdKTlhKZzBwcjJrR1hacEdXcGhCUG5aTjNF?=
+ =?utf-8?B?MzViWkJHTk55TXBicjJMeWFpSGhCc25CaWY4NWxPMVdlSTJaUkREbTg1Zitm?=
+ =?utf-8?B?azVSY3g3U3JwSFBzQ3Q4Kzd4czFDOEtUQTdjQXF5akkzdnJiNEluMVE3cW8z?=
+ =?utf-8?B?TFhqVkFyY1gwOHRYU09DUUpzMkpsUHdMOVl3VStQZVJucy9ueUdOaXl0by9p?=
+ =?utf-8?B?b3RNSHFDQ1Y1NGNBV1cvOHFpVWxZWjMvOVd0S0pHZlNQbGdoei8xTEkvU01t?=
+ =?utf-8?B?TEMxcGRpalY1dlF4aWcyT3hQV1F4WWFmRlA2MkFlM2dMV1J3Rm9PcEw5aDhM?=
+ =?utf-8?B?c01kSUVMNnkrVzcydHFXeGZRUlVyREZyMUVDT2lJL2NWU0tabzVFU09mcDVn?=
+ =?utf-8?B?dXUxY0djT3pyZWJUNHJOcHhFZndFVUZIcjVMOTlaMG03UTRkQUsyVzdNaDBL?=
+ =?utf-8?B?UWlFODkwcHFlR1pjRkdsT3A3L2EyUWFDWWMvM1ZIM2I3cFRiWGZNcFErTWpJ?=
+ =?utf-8?B?T0hRekg1Tzk0Q0xhcnArVVZUbys2K1pqRmVqejhQWUlua1BUYUF6WitmL0V5?=
+ =?utf-8?B?WXVaUHUyQnk2aTBrNFl4TzlDUzFzYURVYjlhRktvNzZmV1FhSzNMaHBFS1Bs?=
+ =?utf-8?B?ZFZ0bzFEbExpMjhJR3FzNUZWODdHMWtPeUdmZ2R3blljc2g2R2oyeTczRGlS?=
+ =?utf-8?B?T0E5RkdXV2xpNWRMWTBzSHRCUFNRbTBxMjBzYkliVldaaUZudHBDOUorSWR6?=
+ =?utf-8?B?Z1VTQ0NtVDRPK2tBR1J2Wk11Y0xGZW4rUytqR3hvMHFCOUhpclZVRXVFZk5x?=
+ =?utf-8?B?ZEpSTlNlUk9ZS24vSmJzcCtnQjJVV2s3U1BwUU92eUJkME81enpwTGtScWlJ?=
+ =?utf-8?B?R0I0bW5wbkN5NWVRNHV6TXphTE40TnhSTUR3UDJsNml5SXJ0SFdzMTZITWV2?=
+ =?utf-8?B?dVE5Y2Y4YndST3FZV3RRUndGbWxKcHBmVmY1blpHczNUTzBpSmtwRHdzaGNu?=
+ =?utf-8?B?aE5PeGJnS3FyNW5ZeHg4U21sMGsvYklvNzBmckJiYnFkYmt1dWxncC9sYlRW?=
+ =?utf-8?B?Mml0R0VwYTVUTThNNVJGQ3pWQThnUVZFajh5dC81cHdFd2ZIN2FCVGpZckY1?=
+ =?utf-8?B?eHlMUXR4eWZ3PT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6293.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(8096899003); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(921020)(7053199007);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmN1VDlVelFOMVFwd2hOb1VmYjVKVDllbFRNaVlxeG1GaGZhQi9MYk1Ock5r?=
- =?utf-8?B?UlcwcWtRNkdYVElCeTRhZ3pYY3dsVTlFaE5zMW0raC9KK3Y0VnVPWFFnZStx?=
- =?utf-8?B?cnkwQ2U2ZldoTy9lcE5jNm50a29NSUk2ZldqWFd1ejNuYVYzZFpOendKTVha?=
- =?utf-8?B?R2x1NlJQTDg2SkxqQkNRUjFRVHpyTVBZNnRhS05uaG1JMmVIYXpTbWtubFdQ?=
- =?utf-8?B?WDZzcWtKYXlpSXpNcDVheUtUNjJXQnZ5UnRGblBQMWF2bnY3YW51UThmQVZz?=
- =?utf-8?B?YVFLby9ML2xoZTJ5NGFUQ3EvQnlJaU42WVlvVVBNQnBxWVgxamhuRGppTkpi?=
- =?utf-8?B?QU93c2Z5cVUwcEp5YWlNa01NMzBxOE1BL0d1N0pCYWw2SFZucDcvNFk2MFk2?=
- =?utf-8?B?S3FnWmExQXJKL0hkb3dwa0VkZFc5QnRYQnp1N0laWVd3aUIyOHhqd0syV2xj?=
- =?utf-8?B?QndBK2pqekZETUErSTVRektKalBJU1RMMUNrTGJjZW0xeUovS2lZWGFMenhN?=
- =?utf-8?B?MGkwU1RPS3pNRkQwaGF4RURSaUxlOVNRV3llVUlRWXRDYXZNaGpZT1lPVkpu?=
- =?utf-8?B?cVArYTZiMWY2ZFc0N2dDM3ZPNHprUUgvUUU2WXpLRmtKTC9GRXdwbGV5SXVi?=
- =?utf-8?B?bmZrWDFMcUV4MmtiSldtTGJFci83cTRYaVBoYTRxS1plUjAwRDhWb3pzOTVE?=
- =?utf-8?B?Ym9kM0dqd0hEQ2puZy8xamV2Tk1SWUlldTBPa1o1QU41cHJXSlRYZitnbDBv?=
- =?utf-8?B?ZmRwb2VPU2w4Q0VIWGxQRHdoLzNyOFgxcjhpMTlXV1d2M25XQ3B3RDZvdVhk?=
- =?utf-8?B?N1gyNHJBM1J6aXI0ZDYwYkxvWGtaUG1ZdnJoU2NLRWNaREdJT0dSSk1Ea2hU?=
- =?utf-8?B?aERqdFpmWGFUdmVkakllQ1hqNzErVG9LOHVPY3A5VHdYbzFTNmRyY1BXcCtW?=
- =?utf-8?B?UG42MG5CSVpicytGREE1MVplaGFwaU5xQnBpc3N3cDZ2OWhzY3ZjWHU1SExC?=
- =?utf-8?B?UHNSMVpuQmZBcUtSOUcwSHpVWG45MFVnRXJHbCtUeHNjc0ZEanNLcUt5MUZE?=
- =?utf-8?B?TkNMVFlGSERHV2NmbU9FQ3dsZkE5WUEzSUhSRkpYeEF2V2loSmdadkY3ZHFU?=
- =?utf-8?B?enphbVhqdUZmMmZYamhiSUpiZXRMTC9BZUc5TExtSTN6Y2pXU1VGem91U3Er?=
- =?utf-8?B?Q0Y4TjNxazZTekk0SGF4U0R2SUJRcGM1a2ZHUms5RlpYZ2tucGZMemN5bDF2?=
- =?utf-8?B?M0J2akdHR3U5SzFFUk0wb2xHTEU1UWwxQVZ4L3E5R3J2cDAwUm1nM0QweWhs?=
- =?utf-8?B?bjA5ZStEblhBMjhpT2E4VDFjcjByNURBK2ZiTGVWSVVDNnRraFpYN2htWFB2?=
- =?utf-8?B?djZ6UjI3emhNSjloY1N6emJmblU4ZzRyalU3QWxIWno5YTFSU0ZrbHlleU5Z?=
- =?utf-8?B?NlB5cG5iWkdyTnIySFJtUjdPTER5bllyUTJVYndkaHhCTm1JcmV0OU93VkZG?=
- =?utf-8?B?cmRUVGxFVkdlQkxvbGgzdWFRR0NzZTR0d1BQWEZiQ3B5ajVqZGFlTjVjYWZN?=
- =?utf-8?B?MXBYdEp1MUdrdGVBbjM4U09DSmhWTktvYTdpS2xmWFJ6L0MrOUFIUlZKUDV3?=
- =?utf-8?B?VWUzby9qYkpJbE9XRWlVSDg5YjZPMkVwdnlzV1R4T2lQTG40TlBXQklhbzU2?=
- =?utf-8?B?MHhDN0h0SDFOTTMxTlFPZkNkZFE1ZHFkYzZCWkl4NFA4dU1wcWpMMGhoVm1V?=
- =?utf-8?B?UzhsRkJYdTdoaU5vbFAxbkY3WEU3TXFURU1qSmJzZkFnM0VIV256SXRLWmZ2?=
- =?utf-8?B?WjA0OWRQZnVZeGNvOXZtb1RYYStvRE96ZkJZZGxBU0RCNXFMZDBhVkZrR2dC?=
- =?utf-8?B?ajd4dWhJZGRwZjAwdGF5UlZ3SzB5N2RRMDc3SEhVZlYzLzNmK3ZCZFM4clNi?=
- =?utf-8?B?MVU2RlRjdzFvUHRvZjJzWVRSempHaUZYc0ZPOTRJWDBFN2Rac1h1WUdzc05t?=
- =?utf-8?B?Y3ozSHNURVNHZWhzWTV4NWdjMHhxSmtrekRwMjFvNElBOGdKUW5PMzZ2R2xV?=
- =?utf-8?B?SkhkTVdCSnRHU3M3NkZyQWVnbFFENkc3YTYydDBWWFU5dUlxUm1TNktnSUhU?=
- =?utf-8?Q?r1PE7M74RfAIzByCPXvTnfZJ1?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SThRRU1aakJLUmcySVFvSmtQWU03TnFLNHhlWWYwVWxXTzByQ1BZeUxaT2ZU?=
+ =?utf-8?B?V2E0UlZ6TThnNVJleXFOVWMwMzg0RmN3OTV0S1U1U1ZmaGR0YTJLelMzYjRN?=
+ =?utf-8?B?K1BXYnkvQ3FuUEIwbm1oNnhFNjd3eC9VWExVOXpGTzYra09LYjJCZnZLUCsy?=
+ =?utf-8?B?Y1NocWtXY1JjMHM5NUNqeElkQk9GT0Q4MjhnMStkNkx3TlRpNDBBZVYrdVg4?=
+ =?utf-8?B?SlFmcXRCaWpHVk9wSG45cGVZdmczZ2U4Zmp4WGZPdG1OWVNYejZnaUcraU9O?=
+ =?utf-8?B?YkFlZkxWYXBhdTR0UFl0WnUzc0s4NTEvYjAyTGg5b0FwR1R0UFhtZWRFQW01?=
+ =?utf-8?B?NDErdkRzVzIrSjFPN09KSXZqWWczSm5nNDVwc3QwV1hqck1WTzc1MXIvUDZM?=
+ =?utf-8?B?cmJoT09ob2NzeU5IUkE1OVRMQ1RMUHA1eGNwMnpGM1p4cVRRa3l4RWVKSWNM?=
+ =?utf-8?B?a1doc1F2dGV3dnlINXk4S0pON2JuYkJ1SjU3d25ORWgvcENkSDdNYXp1K2xG?=
+ =?utf-8?B?bjYzb3VzRnhXbjBWd05DUkEvU2VxZk13aE5QS2pRZ0o4N0MvOGJsK1EwZnJU?=
+ =?utf-8?B?ZG9WU0RzY0hja3RYbkd3YkhOa1F5Y3ptb05mTmNmQ05IWTNleEUwOFYwRzZp?=
+ =?utf-8?B?TVhibWQ0ZkpmQXFnYUhTdGd1TFk0ckZJTGFLV3RjSEY1VVhWeXRPazlQZ0tK?=
+ =?utf-8?B?eWIraFNWenVuU0hFeTEvd3d2UjlvNEVtYVZzRlNvcW5XMTd0N09aWGZOS3I1?=
+ =?utf-8?B?cHU5OU84ZXB3MmZWQkZqTTU0cTlNb3Z3RDFZb1NMQWpYOVBnSGgwUDByUDJp?=
+ =?utf-8?B?OWxzd0dFVlNSU3FuTTg3dDN6MHhnNnJEK1I2V2g5YklUYTdmODNpcjJ2L1NR?=
+ =?utf-8?B?bnhIU3Bpd0Nxd3VyYk0wT0NJbHI0ZjhBd1l2a3NMenpGMnpKdTlLVFVkY3M1?=
+ =?utf-8?B?SEpmLzR6TlZaNUhFQi9lV1IyNEx3bldxL1kzbklXbG85WC9zUGFqMWo1VGha?=
+ =?utf-8?B?ZFEwQXFrbThvRWQ2dm9UNUtPSFgvNkx3K3dWakxyR2tIc2NzNWptRFNEVlVW?=
+ =?utf-8?B?cTFUWVVKeHdrNTFCUHlmS05pVy81VElCeTBTWVcrNHJ5WnFndVI3MGNMMUVy?=
+ =?utf-8?B?THl4blB0MGlRbHBUMVBFN0ltbXFZWkJyakZvV3RFT0kyc0F5bGpYWEdlUkcr?=
+ =?utf-8?B?cVBWenlick1HOGlXVlNXYnY0djFqVTYzYjJVVmFPcDc2ZE9xNDZLcWhQK2Nm?=
+ =?utf-8?B?aGpVWGZSb0c2cER2VXZ6ZVcySHZJNkJIa0pIYjU4anExRjh5dEV5M3BweXlx?=
+ =?utf-8?B?aEQ2ODdnMktpOE9YaW82T0poZDAvVXVSU0tVc0J0TE9Cdy82ajk3T0VlTzVv?=
+ =?utf-8?B?Wjdpbm1CSlgrZERBMWd5Qlk0clNoR3JTZ3owQmdVWUdiRlN2amtoSGIrTU5I?=
+ =?utf-8?B?WUR0R1ZOQ2hGOXdGN0RuN0EzanNhbUlETjFpdlV5WjFVcUZta1M2ekRlWkxO?=
+ =?utf-8?B?Q0t1NlZ1NG9BcUUxRE9LQjk3QnFueTIybXdUUnp3b3RneTZic2M4SVF1RFVz?=
+ =?utf-8?B?cjJwV3NDWUFzS25kOU9IQzNyTG1yTmtyNGdqTlI0R2dWdXczd2tQc1JVNFdx?=
+ =?utf-8?B?a1lnUFZTQmE5SEdZLzhla3VzOFFJVkt1eXZQR3Y2ZDN2UDRodUV1SlE5VExx?=
+ =?utf-8?B?eTVWWU00NlN3dk1XcHR6UVNFTFc2clAxVEhHM21UV3Nid2xFK05DL0lFTFhE?=
+ =?utf-8?B?TlVLRWZWMCtoZXRpekdTWUhFYXZocTBqbDUzUVdTRVp1dmRpaFVNcFJRdklK?=
+ =?utf-8?B?Um8rMytibHV1Q0FpeENtUFIwUGxxTGFmcUJ1Z1h6OU5Vd2pkV3o5RktiVUt1?=
+ =?utf-8?B?VHRtditOakYrUkhPMlYxOHI3amxneHl0Z25ueFBpM0FqSWJLK29HbWNabTVN?=
+ =?utf-8?B?bmo3QS9CN2xLNTBkU2g0ZWE1Zy9tRnFjckFXRFliVzQ3TUxkYUZjaHFqMGxo?=
+ =?utf-8?B?cTdobFNZNkM0N3cyLzVhTi9EYWFIWDhpdnZXL21YbDJpQjlMMHZwblhBSk5v?=
+ =?utf-8?B?ZEFRUVdTaTVqUHkwVTAyaDlQMStuYytGaW9YVG1BSGRMb2wyU1JkaGpITGcr?=
+ =?utf-8?Q?oczf/6gW2kQGCaV83ot/8Da1T?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f691cfa-39ec-4be9-19a3-08ddd9dffd37
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6293.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bff04d99-f404-4e74-4cb9-08ddd9e05539
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 20:37:00.7377 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 20:39:28.3979 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WTE+DMuGrhRps6lfSLbWaHelXgxvWwqL+fb1uY2W+LdTZf76jC0T7L4EcoNPkQnZf/vfIIWiYkXFIoubnV0i5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9229
+X-MS-Exchange-CrossTenant-UserPrincipalName: vGo+u3Q9gW8g5IQhQyNfw7+3V6z4maTTABvMp6leDLyiGN8HaVRHGzqf7LbeAn9erocUffP5YhrGi+OXtrcE2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6818
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,273 +186,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------pmY0ykAkrlDZKpXmac5Jla2n
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi David,
 
-On 8/12/2025 10:21 PM, David Wu wrote:
->
->
-> On 2025-08-12 10:56, Sathishkumar S wrote:
->> There is a race condition which leads to dpm video power
->> profile switch (disable and enable) during active video
->> decode on multi-instance VCN hardware.
+On 2025-08-11 17:47, Melissa Wen wrote:
+> 
+> 
+> On 11/08/2025 18:26, Harry Wentland wrote:
 >>
->> This patch aims to fix/skip step 3 in the below sequence:
+>> On 2025-08-11 17:09, Limonciello, Mario wrote:
+>>> On 8/11/25 4:08 PM, Hung, Alex wrote:
+>>>> Melissa,
+>>>>
+>>>> The patchset passed promotion and CI.
+>>>>
+>>>> However, since our DC code is shared with the other OS, calling drm_*
+>>>> functions in DC won't work for us. For example, calling
+>>>> dc_edid_copy_edid_to_sink from dc/link/link_detection.c in patch 14.
+>>>>
+>>>> I don't have a good way to handle it. Does it make sense not to touch DC
+>>>> code for now?
+>>> What about if we have a set of compatibility macros in DC code?
+>>>
+>>> Something like this:
+>>>
+>>> #ifndef drm_dbg
+>>> #define drm_dbg ....
+>>> #endif
+>> DC should stay OS-agnostic. No DRM concepts in DC please.
+> 
+> Yes, and that is exactly the reason for "[PATCH v6 10/14] drm/amd/display: add a mid-layer file to handle EDID in DC" (https://lore.kernel.org/amd-gfx/20250726003816.435227-11-mwen@igalia.com/).
+> 
+> DC code still handles raw EDID data and drivers handling raw EDID is exactly what we are trying to remove from DRM. But with the current implementation of the AMD driver, we cannot remove it without touching DC code. The thing is, if we stop handle raw EDID in the DM layer, we cannot pass this data to DC and vice-versa.
+> So the proposal with patch 10 (and follow-up patches) is creating different dc_edid files, one for linux and another for different platforms.
 >>
->>   - inst_1       power_on
->>   - inst_0(idle) power_off
->>   - inst_0(idle) video_power_profile OFF (step 3)
->>   - inst_1       video_power_profile ON during next begin_use
+>> Why the need to change dc_edid_is_same_edid?
+> 
+> The linux file is done in this series by reimplementing the DC functions that handles raw EDID, like dc_edid_is_same_edid, with drm_edid helpers. The file for other platforms can be the original functions without these changes.
+> In fact, there is a step that should be done by AMD people because we don't handle other platforms. It should be somewhat similar to the DC FPU isolation code.
+> 
+> If it's not possible for any reasons, could you share with us some suggestions on how to address this issue?
+> 
+
+I don't have a ton of bandwidth to get too deeply into this
+but we'll have someone look at that and see how we can make
+it work.
+
+I'll be on vacation starting next Monday for two weeks but
+I can have a look, if needed, some time in September.
+
+Harry
+
+> Thanks in advance,
+> 
+> Melissa
+> 
 >>
->> Add flags to track ON/OFF vcn instances and check if all
->> instances are off before disabling video power profile.
+>> I'll comment directly on the patch.
 >>
->> Protect workload_profile_active also within pg_lock and ON it
->> during first use and OFF it when last VCN instance is powered
->> OFF. VCN workload_profile_mutex can be removed after similar
->> clean up is done for vcn2_5.
+>> Harry
 >>
->> Signed-off-by: Sathishkumar S<sathishkumar.sundararaju@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 24 +++++++++---------------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  4 ++++
->>   2 files changed, 13 insertions(+), 15 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
->> index 9a76e11d1c18..da372dd7b761 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
->> @@ -445,16 +445,16 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
->>   	if (!fences && !atomic_read(&vcn_inst->total_submission_cnt)) {
->>   		mutex_lock(&vcn_inst->vcn_pg_lock);
->>   		vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_GATE);
->> -		mutex_unlock(&vcn_inst->vcn_pg_lock);
->> -		mutex_lock(&adev->vcn.workload_profile_mutex);
->> -		if (adev->vcn.workload_profile_active) {
->> +		adev->vcn.flags &= AMDGPU_VCN_FLAG_VINST_OFF(vcn_inst->inst);
->> +		if (adev->vcn.workload_profile_active &&
->> +		    !(adev->vcn.flags & AMDGPU_VCN_FLAG_VINST_MASK(adev->vcn.num_vcn_inst))) {
->>   			r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
->>   							    false);
->>   			if (r)
->>   				dev_warn(adev->dev, "(%d) failed to disable video power profile mode\n", r);
-> what if there is a context switch here? since the vcn_pg_lock is per 
-> instance - if another instance starts to
-> call amdgpu_vcn_ring_begin_use() the amdgpu_dpm_switch_power_profile() 
-> will not be called due to workload_profile_active is per device.
-> I think you still have a race condition.
+>>>> On 8/11/25 13:40, Melissa Wen wrote:
+>>>>>
+>>>>> On 28/07/2025 20:29, Alex Hung wrote:
+>>>>>> Thanks. I will send v6 to promotion test.
+>>>>> Hi Alex,
+>>>>>
+>>>>> Any news about this round of tests?
+>>>>>
+>>>>> BR,
+>>>>>
+>>>>> Melissa
+>>>>>
+>>>>>> On 7/25/25 18:33, Melissa Wen wrote:
+>>>>>>> Hi,
+>>>>>>>
+>>>>>>> Siqueira and I have been working on a solution to reduce the usage of
+>>>>>>> drm_edid_raw in the AMD display driver, since the current guideline in
+>>>>>>> the DRM subsystem is to stop handling raw edid data in driver-specific
+>>>>>>> implementation and use opaque `drm_edid` object with common-code
+>>>>>>> helpers.
+>>>>>>>
+>>>>>>> To keep DC as an OS-agnostic component, we create a mid layer that
+>>>>>>> isolates `drm_edid` helpers called in the DC code, while allowing other
+>>>>>>> OSes to implement their specific implementation.
+>>>>>>>
+>>>>>>> This work is an extension of [1].
+>>>>>>>
+>>>>>>> - Patch 1 addresses a possible leak added by previous migration to
+>>>>>>>     drm_edid.
+>>>>>>> - Patch 2 allocates a temporary drm_edid from raw edid for parsing.
+>>>>>>> - Patches 3-7 use common-code, drm_edid helpers to parse edid
+>>>>>>>     capabilities instead of driver-specific solutions. For this, patch 4
+>>>>>>>     introduces a new helper that gets monitor name from drm_edid.
+>>>>>>> - Patches 8-9 are groundwork to reduce the noise of Linux/DRM specific
+>>>>>>>     code in the DC shared code
+>>>>>>> - Patch 10 creates a mid layer to make DC embraces different ways of
+>>>>>>>     handling EDID by platforms.
+>>>>>>> - Patch 11 move open-coded management of raw EDID data to the mid
+>>>>>>>     layer created before.
+>>>>>>> - Patch 12 introduces a helper that compares EDIDs from two drm_edids.
+>>>>>>> - Patch 13 adds drm_edid to dc_sink struct and a mid-layer helper to
+>>>>>>>     free `drm_edid`.
+>>>>>>> - Patch 14 switch dc_edid to drm_edid across the driver in a way that
+>>>>>>>     the DC shared code is little affected by Linux specific stuff.
+>>>>>>>
+>>>>>>> [v1] https://lore.kernel.org/dri-devel/20250411201333.151335-1-
+>>>>>>> mwen@igalia.com/
+>>>>>>> Changes:
+>>>>>>> - fix broken approach to get monitor name from eld (Jani)
+>>>>>>>     - I introduced a new helper that gets monitor name from drm_edid
+>>>>>>> - rename drm_edid_eq to drm_edid_eq_buf and doc fixes (Jani)
+>>>>>>> - add NULL edid checks (Jani)
+>>>>>>> - fix mishandling of product_id.manufacturer_name (Michel)
+>>>>>>>     - I directly set it to manufacturer_id since sparse didn't complain.
+>>>>>>> - add Mario's r-b in the first fix patch and fix commit msg typo.
+>>>>>>>
+>>>>>>> [v2] https://lore.kernel.org/dri-devel/20250507001712.120215-1-
+>>>>>>> mwen@igalia.com/
+>>>>>>> Changes:
+>>>>>>> - kernel-doc and commit msg fixes (Jani)
+>>>>>>> - use drm_edid_legacy_init instead of open coded (Jani)
+>>>>>>> - place drm_edid new func into the right section (Jani)
+>>>>>>> - paramenter names fix (Jani)
+>>>>>>> - add Jani's r-b to the patch 12
+>>>>>>> - remove unnecessary include (Jani)
+>>>>>>> - call dc_edid_sink_edid_free in link_detection, instead of
+>>>>>>> drm_edid_free
+>>>>>>> - rebase on top of asdn
+>>>>>>>
+>>>>>>> [v3] https://lore.kernel.org/dri-devel/20250514202130.291324-1-
+>>>>>>> mwen@igalia.com/
+>>>>>>> Changes:
+>>>>>>> - rebase to asdn
+>>>>>>> - some kernel-doc fixes
+>>>>>>> - move some changes to the right commit
+>>>>>>>
+>>>>>>> [v4] https://lore.kernel.org/amd-gfx/20250613150015.245917-1-
+>>>>>>> mwen@igalia.com/
+>>>>>>> Changes:
+>>>>>>> - fix comments and commit messages (Mario)
+>>>>>>> - remove unnecessary drm_edid dup and fix mem leak (Mario)
+>>>>>>> - add Mario's rb to patches 5-7
+>>>>>>>
+>>>>>>> [v5] https://lore.kernel.org/amd-gfx/20250618152216.948406-1-
+>>>>>>> mwen@igalia.com/
+>>>>>>> Changes:
+>>>>>>> - fix NULL pointer dereference (Alex H.) with the same approach
+>>>>>>> proposed
+>>>>>>>     by 7c3be3ce3dfae
+>>>>>>>
+>>>>>>> --->
+>>>>>>> There are three specific points where we still use drm_edid_raw() in
+>>>>>>> the
+>>>>>>> driver:
+>>>>>>> 1. raw edid data for write EDID checksum in DP_TEST_EDID_CHECKSUM via
+>>>>>>>      drm_dp_dpcd_write(), that AFAIK there is no common code solution
+>>>>>>> yet;
+>>>>>>> 2. open-coded connectivity log for dc link detection, that maybe can be
+>>>>>>>      moved to drm (?);
+>>>>>>> 3. open-coded parser that I suspect is a lot of duplicated code, but
+>>>>>>>      needs careful examining.
+>>>>>>>
+>>>>>>> I suggest to address those points in a next phase for regression
+>>>>>>> control.
+>>>>>>>
+>>>>>>> [1] https://lore.kernel.org/amd-gfx/20250308142650.35920-1-
+>>>>>>> mwen@igalia.com/
+>>>>>>>
+>>>>>>> Let me know yours thoughts!
+>>>>>>>
+>>>>>>> Melissa
+>>>>>>>
+>>>>>>> Melissa Wen (12):
+>>>>>>>     drm/amd/display: make sure drm_edid stored in aconnector doesn't
+>>>>>>> leak
+>>>>>>>     drm/amd/display: start using drm_edid helpers to parse EDID caps
+>>>>>>>     drm/amd/display: use drm_edid_product_id for parsing EDID product
+>>>>>>> info
+>>>>>>>     drm/edid: introduce a helper that gets monitor name from drm_edid
+>>>>>>>     drm/amd/display: get panel id with drm_edid helper
+>>>>>>>     drm/amd/display: get SAD from drm_eld when parsing EDID caps
+>>>>>>>     drm/amd/display: get SADB from drm_eld when parsing EDID caps
+>>>>>>>     drm/amd/display: simplify dm_helpers_parse_edid_caps signature
+>>>>>>>     drm/amd/display: change DC functions to accept private types for
+>>>>>>> edid
+>>>>>>>     drm/edid: introduce a helper that compares edid data from two
+>>>>>>> drm_edid
+>>>>>>>     drm/amd/display: add drm_edid to dc_sink
+>>>>>>>     drm/amd/display: move dc_sink from dc_edid to drm_edid
+>>>>>>>
+>>>>>>> Rodrigo Siqueira (2):
+>>>>>>>     drm/amd/display: add a mid-layer file to handle EDID in DC
+>>>>>>>     drm/amd/display: create a function to fill dc_sink with edid data
+>>>>>>>
+>>>>>>>    .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   1 +
+>>>>>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  33 +++---
+>>>>>>>    .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 109 ++++++
+>>>>>>> +-----------
+>>>>>>>    .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  21 ++--
+>>>>>>>    .../gpu/drm/amd/display/amdgpu_dm/dc_edid.c   |  39 +++++++
+>>>>>>>    .../gpu/drm/amd/display/amdgpu_dm/dc_edid.h   |  15 +++
+>>>>>>>    .../drm/amd/display/dc/core/dc_link_exports.c |   9 +-
+>>>>>>>    drivers/gpu/drm/amd/display/dc/core/dc_sink.c |   3 +
+>>>>>>>    drivers/gpu/drm/amd/display/dc/dc.h           |  10 +-
+>>>>>>>    drivers/gpu/drm/amd/display/dc/dm_helpers.h   |   7 +-
+>>>>>>>    drivers/gpu/drm/amd/display/dc/inc/link.h     |   9 +-
+>>>>>>>    .../drm/amd/display/dc/link/link_detection.c  |  30 ++---
+>>>>>>>    .../drm/amd/display/dc/link/link_detection.h  |   9 +-
+>>>>>>>    drivers/gpu/drm/bridge/sil-sii8620.c          |   2 +-
+>>>>>>>    drivers/gpu/drm/display/drm_dp_mst_topology.c |   2 +-
+>>>>>>>    drivers/gpu/drm/drm_edid.c                    |  54 +++++++--
+>>>>>>>    include/drm/drm_edid.h                        |  10 +-
+>>>>>>>    17 files changed, 199 insertions(+), 164 deletions(-)
+>>>>>>>    create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.c
+>>>>>>>    create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_edid.h
+>>>>>>>
+> 
 
-The situation you are explaining is bound to happen even in the current 
-form of locks without this patch as well, in both cases, processes will 
-run mutually exclusively at different times
-
-with the one holding lock finishing first and then the other continues 
-after, without defined ordering between them. workload_profile_active is 
-common for all vcn instances, it is ON before powering ON
-
-first inst and OFF after all the instances are powered off.
-
-Regards,
-Sathish
->
-> David
->
->>   			adev->vcn.workload_profile_active = false;
->>   		}
->> -		mutex_unlock(&adev->vcn.workload_profile_mutex);
->> +		mutex_unlock(&vcn_inst->vcn_pg_lock);
->>   	} else {
->>   		schedule_delayed_work(&vcn_inst->idle_work, VCN_IDLE_TIMEOUT);
->>   	}
->> @@ -470,14 +470,8 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
->>   
->>   	cancel_delayed_work_sync(&vcn_inst->idle_work);
->>   
->> -	/* We can safely return early here because we've cancelled the
->> -	 * the delayed work so there is no one else to set it to false
->> -	 * and we don't care if someone else sets it to true.
->> -	 */
->> -	if (adev->vcn.workload_profile_active)
->> -		goto pg_lock;
->> +	mutex_lock(&vcn_inst->vcn_pg_lock);
->>   
->> -	mutex_lock(&adev->vcn.workload_profile_mutex);
->>   	if (!adev->vcn.workload_profile_active) {
->>   		r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
->>   						    true);
->> @@ -485,11 +479,11 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
->>   			dev_warn(adev->dev, "(%d) failed to switch to video power profile mode\n", r);
->>   		adev->vcn.workload_profile_active = true;
->>   	}
->> -	mutex_unlock(&adev->vcn.workload_profile_mutex);
->>   
->> -pg_lock:
->> -	mutex_lock(&vcn_inst->vcn_pg_lock);
->> -	vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
->> +	if (!(adev->vcn.flags & AMDGPU_VCN_FLAG_VINST_ON(vcn_inst->inst))) {
->> +		vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
->> +		adev->vcn.flags |= AMDGPU_VCN_FLAG_VINST_ON(vcn_inst->inst);
->> +	}
->>   
->>   	/* Only set DPG pause for VCN3 or below, VCN4 and above will be handled by FW */
->>   	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG &&
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
->> index b3fb1d0e43fc..a876a182ff88 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
->> @@ -366,6 +366,10 @@ struct amdgpu_vcn {
->>   	struct mutex            workload_profile_mutex;
->>   	u32 reg_count;
->>   	const struct amdgpu_hwip_reg_entry *reg_list;
->> +#define AMDGPU_VCN_FLAG_VINST_MASK(n)  (BIT(n+1) - 1)
->> +#define AMDGPU_VCN_FLAG_VINST_ON(n)    (BIT(n))
->> +#define AMDGPU_VCN_FLAG_VINST_OFF(n)   (~BIT(n))
->> +	u32 flags;
->>   };
->>   
->>   struct amdgpu_fw_shared_rb_ptrs_struct {
---------------pmY0ykAkrlDZKpXmac5Jla2n
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>Hi David,<br>
-    </p>
-    <div class="moz-cite-prefix">On 8/12/2025 10:21 PM, David Wu wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:d9152f70-7701-470a-9e1b-5620f2d4cffb@amd.com">
-      
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 2025-08-12 10:56, Sathishkumar S
-        wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:20250812145610.1300497-1-sathishkumar.sundararaju@amd.com">
-        <pre class="moz-quote-pre" wrap="">There is a race condition which leads to dpm video power
-profile switch (disable and enable) during active video
-decode on multi-instance VCN hardware.
-
-This patch aims to fix/skip step 3 in the below sequence:
-
- - inst_1       power_on
- - inst_0(idle) power_off
- - inst_0(idle) video_power_profile OFF (step 3)
- - inst_1       video_power_profile ON during next begin_use
-
-Add flags to track ON/OFF vcn instances and check if all
-instances are off before disabling video power profile.
-
-Protect workload_profile_active also within pg_lock and ON it
-during first use and OFF it when last VCN instance is powered
-OFF. VCN workload_profile_mutex can be removed after similar
-clean up is done for vcn2_5.
-
-Signed-off-by: Sathishkumar S <a class="moz-txt-link-rfc2396E" href="mailto:sathishkumar.sundararaju@amd.com" moz-do-not-send="true">&lt;sathishkumar.sundararaju@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 24 +++++++++---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  4 ++++
- 2 files changed, 13 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 9a76e11d1c18..da372dd7b761 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -445,16 +445,16 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
- 	if (!fences &amp;&amp; !atomic_read(&amp;vcn_inst-&gt;total_submission_cnt)) {
- 		mutex_lock(&amp;vcn_inst-&gt;vcn_pg_lock);
- 		vcn_inst-&gt;set_pg_state(vcn_inst, AMD_PG_STATE_GATE);
--		mutex_unlock(&amp;vcn_inst-&gt;vcn_pg_lock);
--		mutex_lock(&amp;adev-&gt;vcn.workload_profile_mutex);
--		if (adev-&gt;vcn.workload_profile_active) {
-+		adev-&gt;vcn.flags &amp;= AMDGPU_VCN_FLAG_VINST_OFF(vcn_inst-&gt;inst);
-+		if (adev-&gt;vcn.workload_profile_active &amp;&amp;
-+		    !(adev-&gt;vcn.flags &amp; AMDGPU_VCN_FLAG_VINST_MASK(adev-&gt;vcn.num_vcn_inst))) {
- 			r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
- 							    false);
- 			if (r)
- 				dev_warn(adev-&gt;dev, &quot;(%d) failed to disable video power profile mode\n&quot;, r);</pre>
-      </blockquote>
-      what if there is a context switch here? since the <span style="white-space: pre-wrap">vcn_pg_lock</span>
-      is per instance - if another instance starts to&nbsp;<br>
-      call <span style="white-space: pre-wrap">amdgpu_vcn_ring_begin_use() the </span><span style="white-space: pre-wrap">amdgpu_dpm_switch_power_profile() will not be called due to </span><span style="white-space: pre-wrap">workload_profile_active is per device.</span><br>
-      <span style="white-space: pre-wrap">I think you still have a race condition.</span></blockquote>
-    <p>The situation you are explaining is bound to happen even in the
-      current form of locks without this patch as well, in both cases,
-      processes will run mutually exclusively at different times</p>
-    <p> with the one holding lock finishing first and then the other
-      continues after, without defined ordering between them. <span style="white-space: pre-wrap">workload_profile_active is common for all vcn instances, it is ON before powering ON</span></p>
-    <p><span style="white-space: pre-wrap">first inst and OFF after all the instances are powered off.</span></p>
-    <span style="white-space: pre-wrap">Regards,</span><br>
-    <span style="white-space: pre-wrap">Sathish
-</span>
-    <blockquote type="cite" cite="mid:d9152f70-7701-470a-9e1b-5620f2d4cffb@amd.com">
-      <p><span style="white-space: pre-wrap">David
-</span></p>
-      <blockquote type="cite" cite="mid:20250812145610.1300497-1-sathishkumar.sundararaju@amd.com">
-        <pre class="moz-quote-pre" wrap=""> 			adev-&gt;vcn.workload_profile_active = false;
- 		}
--		mutex_unlock(&amp;adev-&gt;vcn.workload_profile_mutex);
-+		mutex_unlock(&amp;vcn_inst-&gt;vcn_pg_lock);
- 	} else {
- 		schedule_delayed_work(&amp;vcn_inst-&gt;idle_work, VCN_IDLE_TIMEOUT);
- 	}
-@@ -470,14 +470,8 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
- 
- 	cancel_delayed_work_sync(&amp;vcn_inst-&gt;idle_work);
- 
--	/* We can safely return early here because we've cancelled the
--	 * the delayed work so there is no one else to set it to false
--	 * and we don't care if someone else sets it to true.
--	 */
--	if (adev-&gt;vcn.workload_profile_active)
--		goto pg_lock;
-+	mutex_lock(&amp;vcn_inst-&gt;vcn_pg_lock);
- 
--	mutex_lock(&amp;adev-&gt;vcn.workload_profile_mutex);
- 	if (!adev-&gt;vcn.workload_profile_active) {
- 		r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
- 						    true);
-@@ -485,11 +479,11 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
- 			dev_warn(adev-&gt;dev, &quot;(%d) failed to switch to video power profile mode\n&quot;, r);
- 		adev-&gt;vcn.workload_profile_active = true;
- 	}
--	mutex_unlock(&amp;adev-&gt;vcn.workload_profile_mutex);
- 
--pg_lock:
--	mutex_lock(&amp;vcn_inst-&gt;vcn_pg_lock);
--	vcn_inst-&gt;set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
-+	if (!(adev-&gt;vcn.flags &amp; AMDGPU_VCN_FLAG_VINST_ON(vcn_inst-&gt;inst))) {
-+		vcn_inst-&gt;set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
-+		adev-&gt;vcn.flags |= AMDGPU_VCN_FLAG_VINST_ON(vcn_inst-&gt;inst);
-+	}
- 
- 	/* Only set DPG pause for VCN3 or below, VCN4 and above will be handled by FW */
- 	if (adev-&gt;pg_flags &amp; AMD_PG_SUPPORT_VCN_DPG &amp;&amp;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index b3fb1d0e43fc..a876a182ff88 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -366,6 +366,10 @@ struct amdgpu_vcn {
- 	struct mutex            workload_profile_mutex;
- 	u32 reg_count;
- 	const struct amdgpu_hwip_reg_entry *reg_list;
-+#define AMDGPU_VCN_FLAG_VINST_MASK(n)  (BIT(n+1) - 1)
-+#define AMDGPU_VCN_FLAG_VINST_ON(n)    (BIT(n))
-+#define AMDGPU_VCN_FLAG_VINST_OFF(n)   (~BIT(n))
-+	u32 flags;
- };
- 
- struct amdgpu_fw_shared_rb_ptrs_struct {
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------pmY0ykAkrlDZKpXmac5Jla2n--
