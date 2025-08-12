@@ -4,154 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 922D4C87FCB
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 06:03:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 908FCC87FCB
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 06:49:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 345F110E598;
-	Tue, 12 Aug 2025 06:03:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A070510E5A0;
+	Tue, 12 Aug 2025 06:49:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hK4t/rko";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LktJeV12";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2089.outbound.protection.outlook.com [40.107.102.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6563410E597
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 06:03:31 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8437910E59F;
+ Tue, 12 Aug 2025 06:49:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IXbv/RNxeuoiSIXUd30eOyr51fePyPAodIzW1M4Rs548BbrI420STRLM9GAgMa6tY/wiRKM8h1nstwOgoL5Ewj8LEShfayzaFFqdC7I7v3JadKOyCPyJQA7uaZqzqy8kx+vA1LzJss6Bqg2v2bnsMxmNhtAndz2ZECrvTdJV67dq8ycuB6IE5rCQAVHY4HtL1cMej7eb91rVpdrAkt8jpBqHbrr+ETQ1PGW7DwNX5uaRb44l4rqgyWYfyWsKWCW59xdXynlxxOWu35A9Do8LmVRhekdmKc1i1RG9MIr1eMVNuey2RZ7TXc/W78y/u4+PIzF+i/KwiTIRRTixIyYBng==
+ b=L3bIyM/C41dmF9IJHKEuRpwxqDcZKp0ykr1CkV4MjX189Tm5e4Yx8GYYLAg4IOepaSvVMgNXhW3Okh2VC/zejuWHye2hM0PItMt0RyCvxoUnwkRfzF7VitSNXeGLYsodfiR+SFLJP/L/aCI7vYlZi3+42rUT0zJsYkOxRs7109EvTbnNqPu9o0KG6nhEjqiXHSAQ3na1l/evH7/V5SoazxH2kUYx+LpOAJ2GW+gCAxSnJXuom/iJMQBMsDGHsgoSkwFmlgAC3iTkT9Jjg8YJTPXjt6JZ8HXV2BApXyCV0UOGjo/bgCOZbO8pKvfcZdRppkOTcQ2kvDrqGn0Qqv91ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZnJVoyBZV6NJd/B+ogImSiNHYbZNsDe750GWd38KdJg=;
- b=lUkqAGi1lhuSgpndbtFKe1AapylaQIsHgR+SxtpO5yASS6q+/EK1UU3LS8vsvNLCytXUJ1NUsF8MhXZkmPI9ne0XnCYvRcmA5+82ZF0t8jUJgQTGTiA6Zw3yklTXGzeif+d284fcdVAjbjrJaPCWm0aiRdZGsMV9ZfqxpOttqQyithSJvi9/X/bYwhJmrMyHsYrvlLAiLgAMZKj6I9DA2GmK11eZCApRmzugu29s+M1XoR7hICI9pArpQuifOqDHlW65EjCbp8LfTuQXejZmpXbge7Pds7WU2DXcJgTbVL0Y98hvU+/UAt/EMYGOBt4D5cUsPyv0cWj6BOhHHcrTxA==
+ bh=YaZd+TokZMSpAAtmLwhEPK2quYgQuytZZPxq3E12tOs=;
+ b=W5GhJBlzKC4V0XB8/CAAUCJ1AXae/3cPDkpDwXcVoWM+THx8CmzYr+GvCMzf3nag8PxFX94Y9QFhPJDyNjgHUnKJZOUtonU+zWS1R+0a+y6bbz6bR2rZI3XTlEVvuOdA74OpizKyZVuLeM7ZIfAbByL0B+ea5Gs+Jj3cIoU+ReRIVQoJy9vRmt68muxRkKpinArfv6FaCrpgd/0XbVMUwhs3Z7J/Z638RZPty9yumA9XAFB1vLH/qkh6hZLUo3jeFiv9Uvjx7LJtov7nNHvyM5oV6AUzHgdWawQf0SmcmqJDywdowZP/DQVVurcPzr8/zaBfH5PKaOhnXlo92lbzqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZnJVoyBZV6NJd/B+ogImSiNHYbZNsDe750GWd38KdJg=;
- b=hK4t/rko1uSc2kY1WdzhcMfotxzG+RhgTTreD2e45U+RNoJfq8n/4iSivrk+dLKJXDNy2jmPYU47u4YSW5p1FiEBMFY4wETMGUFY9ZE1xzmY8PHMWDxRtXm/Y9WWBHbCo1/ZmVvQnpKgb67QRbCqXq6pogQ1cyWpzosU88ON5UE=
+ bh=YaZd+TokZMSpAAtmLwhEPK2quYgQuytZZPxq3E12tOs=;
+ b=LktJeV12jXpdOIvb2I4552MHxCYT2J30JBg7R9IbP8Id2ehwB4ENEfU+xDumL9khudTlhBTJ/ReIcFhRsh3EyPkZqHTG+W/UOLAjjX5vIzkuZA0/gnVPi23V4UGDn5KDT9lnSfyefkCzZCT2WAe/g3dGEAzJOscYWDrtkBK2nC8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- SA1PR12MB9001.namprd12.prod.outlook.com (2603:10b6:806:387::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9009.20; Tue, 12 Aug 2025 06:02:27 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.9009.017; Tue, 12 Aug 2025
- 06:02:27 +0000
-Message-ID: <7215bd69-0c9a-4919-8c6c-3d312440dd13@amd.com>
-Date: Tue, 12 Aug 2025 11:32:21 +0530
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB8162.namprd12.prod.outlook.com (2603:10b6:806:33a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Tue, 12 Aug
+ 2025 06:49:18 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9009.018; Tue, 12 Aug 2025
+ 06:49:12 +0000
+Message-ID: <0811e8e8-5990-4880-a2cc-f9bd6b3ec4bd@amd.com>
+Date: Tue, 12 Aug 2025 08:49:07 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [v3 1/2] drm/amd/pm: Add VCN reset support detection for SMU
- v13.0.6
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Ji, Ruili"
- <Ruili.Ji@amd.com>
-References: <20250812010345.2261810-1-Jesse.Zhang@amd.com>
- <80fc509b-be10-4080-8501-8e210587b774@amd.com>
- <DM4PR12MB51525DB359E7BEE5C3D71516E32BA@DM4PR12MB5152.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/radeon: replace min/max nesting with clamp()
+To: Xichao Zhao <zhao.xichao@vivo.com>, alexander.deucher@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20250812031603.463355-1-zhao.xichao@vivo.com>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <DM4PR12MB51525DB359E7BEE5C3D71516E32BA@DM4PR12MB5152.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250812031603.463355-1-zhao.xichao@vivo.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0048.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:279::8) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0023.namprd13.prod.outlook.com
+ (2603:10b6:208:256::28) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SA1PR12MB9001:EE_
-X-MS-Office365-Filtering-Correlation-Id: acc99c47-46f1-4777-c16f-08ddd965d0e5
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8162:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cc2a43e-fea0-4e47-4180-08ddd96c5879
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZFRlVVdkVkhNTU5meElvUTFzQ1cvUHhOV3d2VTdWTXRMSzNMMHR6cm5wbTJS?=
- =?utf-8?B?VVpPTzZxcDVPNFFHdUxrajloWTBROTU1NjVKMHhESXZXNE1EQ3huVlcrT2VW?=
- =?utf-8?B?TnFTcG5YTzU5eTFEYzhPZHk0TjR2SXpnUmRIM3JoRGMvWEJHU3FEOUgyRkM5?=
- =?utf-8?B?UlJTODRYSEtidnBuVGVvZGFwSWxWUis5VC96TmtwMzk0eEJPU0pKV2h6YXNn?=
- =?utf-8?B?SnIwNG1yMDBvdmlxcDR6MFc1SXBBVG5vS0pTZkF1SE5YK1ZRa1JTa1dVcWNS?=
- =?utf-8?B?dElVYXkvb1hndDRQaFhDT3dacUNtbGlFS1pnb25ON2EvMTE4QVc0S0h1RUZN?=
- =?utf-8?B?M09vQXkwYlgyeEZ1RUhrYzM5RjBSdDl4TzlpQlk2WG5aK3F2M1FibE1uR0JO?=
- =?utf-8?B?bHJRQklzblpCQUswTU8yK2F1dFNMNEdTY25oMEJBc0MxenFSNzRsVmpPOTZZ?=
- =?utf-8?B?bVBhTHVvTmRQYVZxeU52eU1FVklVbW9iZWZ3Q1lwT2RVSEJDVGliaWtMaGZ3?=
- =?utf-8?B?YkxpTlZXelpqZHlrSU91U0lsczNhK1V1TTJLN25wcDh1eTk2TnhhVCswWlFR?=
- =?utf-8?B?YnZQamJsRzVpam9LZXRSQjVZb25BTWhBeVJuenVuQ0xRUFNDZldEcE43L2l2?=
- =?utf-8?B?dm8xeGxwcDg3WTIwRFkzUXpwMDM3aTNMY3pPeWU5WEJjQld4SGR3Y3NTMWRq?=
- =?utf-8?B?ak5VSUx3U3IwR0RYVi9LNFBiV3A4TlQxZGZqT3dtUitRRlQvSVhKdGpFTUxl?=
- =?utf-8?B?a1p2Y3RVanIwUCs5bDJzR1o5VjFvM2ZwQkZNRlU0VFdhcXFJemhLNWd4dnAy?=
- =?utf-8?B?UUZIWXlieEt1RGVOUVZTQVJSdkMyVXBqMXhpaHJrbUN2VGxSRnR0WlZ6SURG?=
- =?utf-8?B?SDNQMTEzcDQwYVFSbmpaaW1wUjREREtqQldVQXlwUkhsYnkzdzhyUWRrYjBu?=
- =?utf-8?B?TmljYzFELys4RlZFOVVIN1htei9vWVdXV1FMOVNyZlRSMnNKdUV4Wm0zRStS?=
- =?utf-8?B?VTRDdDdHZHA0T28rSTNjSHhlR2RwTlMxQVRNQytyREVWZmsrU0dLQlpUeHdr?=
- =?utf-8?B?ZzNmeFJ4R3VPcWVXMVRDYmxKSU9sdGRTMWRKR0l4Nm5mbGZPSllVbzd2dDVF?=
- =?utf-8?B?dGRjdm9MVTl1aFYxVTFnV2luTWQ1SEtwZWNSQ3lsYldzU1RKL3F0bUZXOWlM?=
- =?utf-8?B?SHhxZTJMSEJCanE2bHlscTRIUjZNRG5SU0R0TVhUYlV6UVZNNVMxYVJ6SGRt?=
- =?utf-8?B?ZVpXcGN3RERLRUtaTGlYK0VKYjhOZEdOQ1BUTXhZY0xjRzRQdmltZHlVSjA4?=
- =?utf-8?B?b3pUSFBEZjk1a3gvMlJWbFFjemYvUkxHRHZXVVZINDNDNVNQUTZ5a3g1Z3pU?=
- =?utf-8?B?ZFhseURXbGtnWTFkbjZvRnpuQUxDT0VWdXpac0tacGZ0ZFZHNlljR0VJWFM5?=
- =?utf-8?B?dlhNbCs2QkMvTDBWNW5YWW13QzVjbThCREhDMlJOSUZTTWF4L0d3QVpoMndR?=
- =?utf-8?B?ZTFSbWVGUDE3eW5pZElkUlM3ZnQwYi9wakR4MEl3TGNxUUVHMzRibnBTdCt5?=
- =?utf-8?B?QUpGMndMQlhDSWZpVGRlVENpdUN4VkxxazQvSVpvZmhRZ0ZBT0dlVFAyUDhr?=
- =?utf-8?B?bUUvSlZ2WGt3bmEwWk1rMDVOdUVmeWRsdUJ6U3NrVU9EK3FzSjhNT2pSc1RN?=
- =?utf-8?B?d0pEaEpMOERYWUQvVUxvM3N3U0tPV3NncmVXeFJaaUNuLy9oUzNKUlZkWjU5?=
- =?utf-8?B?TlZSNDJWbmZNbjhPZWwxUGJkKzBzYzJjL1Y3enZGT1FCQWhjUDY3ZHY0Q1hJ?=
- =?utf-8?B?Qk1oZTQzOWVRZ1Z3MDVtUTJ4R1NwTGd6NHROeXR2aFBpZXdqekhybDhhc0lr?=
- =?utf-8?B?S1NjTUVTRXlqRHFwNmtZUEhvZjRpUVpNTHNtNTZabVhmV1hWSXhvSjVmcW0y?=
- =?utf-8?Q?E/bV/kFnD+0=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ejB5NTZzVHF3c3M4ZUpWa05hYW91YUltZndhczN5RXRPdXVmbGRYSUR0eFdV?=
+ =?utf-8?B?SlNzUzFlWlhYa0FLOFFRbWRIRGY3S2pSeTgxS3RkbWVBSHhQZGxYTVY4Sko1?=
+ =?utf-8?B?TS8rYXNacXVSMkc5ZTZwRkFKZk14UG55OFVVWUJDaXUxM1FJM3hUNW5DVGhY?=
+ =?utf-8?B?ajNjRG1RcjV3dWZySzJkUnhmMlZ4U0o5M0xtM0puRTQ1anRodmNaMVQzd3kz?=
+ =?utf-8?B?TkJMNnRWM1cySllOcjhRSGFHYXdlU3hCYzlISldSMWQyamJBOGwydHZWWDg1?=
+ =?utf-8?B?OFNybTNGUENqY0RiandPWHc2QkNRTEI5WHMveTRhVmJlRitsYm5wMWNJNTNw?=
+ =?utf-8?B?dmNNeWFpWUZwZ2pZa3FSbFJwUFFnT0dHNjBuQkFBWFFZSHZIR3AwUFZJYThj?=
+ =?utf-8?B?MUNIR2VqemNNOUxDNEVjQk1vNjJsUFdDRXV6OE5nWVNmRndKMmRDYTNQZGNF?=
+ =?utf-8?B?WGdHQ1NLeDBwSWVCVms1eVVCb3AvSDRDQ0NSWU5zUXM4Z1JCcHl1WWwwVmxh?=
+ =?utf-8?B?MWRqTzh3SzJueHFTWjEwL2JWTlY3L0s4WUd4MjNNdlc2amNqbjJxSmt5S2ZP?=
+ =?utf-8?B?UytCZVdGWmw4WVpyR3JtaUpaRnNnZ0hNY2ppNHdxZVp5M2g3VmdJUkQraTRw?=
+ =?utf-8?B?K0V0ZTQ3TjZzQmYycDVrc0NLNk85bmZEdk44TGQ0M3FGdjdRSHVObDdyUjFa?=
+ =?utf-8?B?NVZxeForY1h0MzZ2YkppbmNtdGRITC9iRHFGMW1ZWXNCS2RqVHBxUVUxZkRS?=
+ =?utf-8?B?eEV5M05iNVMzZkd1V0tPUDVvWHhINERZNU44WTNsY1I3ZmVEcmczd1lPZjdS?=
+ =?utf-8?B?MHR6c0tkUWR0WGxNeTY5OUFndy95aUQ1NWF2QUE2aW1BSlZHUnBZWXZvTXpj?=
+ =?utf-8?B?b2pYLzJQNVdkRDlDdnA5TXZROG9Nd3hGUGl2ckQrRHo5ZEpIOTJJS2JUNy9V?=
+ =?utf-8?B?NEd1TDN2bFl1eTlsaW95S2N3WUJvUVRKOGdIYmNOTlBzbzJ2bjdFNWZBSllU?=
+ =?utf-8?B?dHcyaDFLUFNUQU5MMDgxZnlBaTh0NXdqc1p6QVdnbUtXNGFGZTA0ckRMTmkz?=
+ =?utf-8?B?TUJ6VjZwWFIzVDlRRjVJRnE3SEYwTHByK3RSRU5KZ3ptV25odUJZWkhRYmhQ?=
+ =?utf-8?B?WW5uRFp1YnR2U2k5bzVJbHlkcm9hc2xkTUFXTmVVV3kwb2dVZXgyVGVUNXI0?=
+ =?utf-8?B?eVVkdFdncnpIcmpLRzFBakF2Z1lxcy85UFg2Ui9la1ZUc0FjUUFGVWo3VWNt?=
+ =?utf-8?B?MXhsbUw4SmR2T1lIbFBGb3FjN3F6Mm9JZFR0cmxram1yYWZrL0s3VG1QZ2R6?=
+ =?utf-8?B?OVJLNXlyc0YzY3pMYWxYSHVETnJrR1dSNkVpT0JuaFRnNFo3Ym1Wb2Q5aVBl?=
+ =?utf-8?B?a1pZb012ZElSTjZWaDJlYkJYL1UwL1ZHQi9DNklzVkRUMzFhUlhyZ1NWSEVp?=
+ =?utf-8?B?Um5XYnlTdXVzektKdVJzc3VtbGRFeWd3QUVwQ0NnS0JONzNwM01meXBIRW0w?=
+ =?utf-8?B?R1A3QXNqNHk5Q1g4dnB0K1YyRHpNaVlTWnVUSnFTS04wbk9pL0JMRHFTZkVM?=
+ =?utf-8?B?N2tpVzFVdnJYVjBjSWpJUHdTaCt2cnF2dnRrRE9nbVd3dTE4b0h3bDExSjEy?=
+ =?utf-8?B?L1dWNjA3NlJzU1VLR0h4MjV3cUh0allnTWYvMm5mcm9PUnhxYTM2cTF6ODFH?=
+ =?utf-8?B?WjdyTEd6ZzZIek80Q3liUDA0NWlQakZnK2VPQ3pSd3F3NlF3VmI0RXYzb1A5?=
+ =?utf-8?B?bjJDdjJtS0YyeHk4K0RIZ1l4K21qMjBqZTMxdDRtc1YxbU4rU2J5dWlxNlNY?=
+ =?utf-8?B?OEt0ZnZCWnZZeHlGbVpvaVRlUlExWkJnMDJsMERDcmZtY2RvZ0JndHp1cWN5?=
+ =?utf-8?B?Sjlxa0xyMWFrZDlsbHhTMnpJWEdSUUJjK0RxU1A1N1RoaEhDZmwrdnNYVGtM?=
+ =?utf-8?Q?76Mzs5HlUrU=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S25WSjFxb0Z1VnlEdkZzNUg0Sy94Q2UwcGFrY0dZWnFSZjRYaGN5cTVhNnkx?=
- =?utf-8?B?elJHY2Y4Wkt1N0o0RVY2YkFhWXg1VVUweVZwczJCRGxkTlhGZHRxYVh4MFpM?=
- =?utf-8?B?UHRnRmJFREJLVk96M2I1UTA0eEloVHlHa094ckpuTjR0MTVJanR0QXN0Sng0?=
- =?utf-8?B?eFJVYW1laUJFTTFlOGNWb3c3ZDhFaVgwUldENTB6UEpJYVA4Q1dvZWVRcFha?=
- =?utf-8?B?a2Raa1FlUjcxVExQU0dENzJVVDFmRlJTeTdpZHlmSFU3NjJFNVcvV0tVTUh4?=
- =?utf-8?B?Q3RIZGJDNmdPYk43ZGV2ZEs1QVZ0SUVBbGdwV2ZNR1JrSlluQmw2SHN6WjVS?=
- =?utf-8?B?REVXNVQ1bDlzRUZUc3U1R2tUNVZSOG5VeE03aURLNCtOOUp1alVkczNrUUtG?=
- =?utf-8?B?NFF3RFpnS2ROYlpWa2ptbHdSNjdHSjE4RTN2aXA2NGU5ak10QlFlS3BBclNR?=
- =?utf-8?B?Y0xIeWxtV3pVV294RnArQzRsZVY1S2trV1RkbFRLV3E2MnJER3ZDUWJtK0ZV?=
- =?utf-8?B?UkNNZ0lENG9YOXFUQTBkT1liQzk4VkNpVkoweVVCdGJvWGJtTEdIK2xjdUln?=
- =?utf-8?B?T2JuS2RZSG41WDFJdWRvbzBDTnhVN28xbmRwVzJVTXh3UmZHemJLVG9vbjhM?=
- =?utf-8?B?ZG1HQ0FyRWMzZU9CWXArZWUrVXRvQnVxTUlYbWNxSTZ2eG1td3FPQm1rcEVh?=
- =?utf-8?B?aGg5ZUFGZVp3L2xBam9oSEFNampuZGlVMDNIemo1eXRaNUNqd3E3TWJFd2VX?=
- =?utf-8?B?NndTbjQ3YTRXYkgrSzIwMitFT29VbjN0RjZKUmFVU3Fnc0tBMUtKQ0I2V1FI?=
- =?utf-8?B?NHVCOXhaZWg3elpnMytaUkpNYUVCckdQYWYvLy9NbnlVcS9qK2VtdEVLUXUx?=
- =?utf-8?B?a2xwODZPZ2FLdW1yWmFMaW1Dd25RcTBzVlhzMDAxZjF4Tk9tVitVTXROSDh2?=
- =?utf-8?B?M2Rzd092NzlEeFZ4bzNkMmJoQVZCT3NCSGlFb2lIenpnbDJUZFBFTWdkOFV5?=
- =?utf-8?B?YlFZY255VzNERHc2WEhEVTRtYmFsQkpldit3ZVdpbXR5aGx2NE15VHBjbjRO?=
- =?utf-8?B?eWZUVWsxcnZ2UDZ4dXJsdlE5Q01sdTNVaHR3cnVSSWkwaWJCZ1dmNVNqYU1a?=
- =?utf-8?B?R1kza3loYk9Eblc4N3dQMS9hdndOOG5tUEVvcXArdGprNlY0OFRTTy9QSllw?=
- =?utf-8?B?OXdJU044bHhUVDBFS3dONGYvUStETGk4S0hSN0U1QnduMElITlJ5YTE1Q05L?=
- =?utf-8?B?YWZIbU45QjBTMTUrU3pVY2h3WkVCcmdYTWdBTmVIOHp6YUhweW9IN0QwaHEw?=
- =?utf-8?B?WE1nRTZ4M1FUQk44ZXNEOTlMUW5LVTlWbGY4Zk0yUnhKTHJqQ2I1Nk9FQ1Ey?=
- =?utf-8?B?TWNRV2pzTGdERUh3eFRzL3NZWSswN1RPOUlneWgyWm9ucURwcUN0YlhZM1RE?=
- =?utf-8?B?NTBQVFlTL2JXSU1SMyswKzFMek9DdnBzVFZ3MVNjZnJTcHlMNVE4SC9OZXBz?=
- =?utf-8?B?aTc4cVY0TGF3VUljMHF1Z3JWNDBnTkFwazlrUm9CQThBRHo1SWcyZW9HOXF4?=
- =?utf-8?B?djRXaHZYQmtVYmVJd2piSzhuc29BV1JKUVV3WVUzMXppLy9nZmM2b293NUFj?=
- =?utf-8?B?VjYwNnJwSjN6TUJCdGUxc1ZPMDdxcG1laktTUmYyUndaK1pWVTROMzliLzdU?=
- =?utf-8?B?WkIzN3ZEdU1jd3FVMzB3YWIzd2ZnbklCNnBjbElVSE4rOGhHbGxZT2pQSkpH?=
- =?utf-8?B?dmw5M0pZSXB2Y0NwRU0raFNxdVQ4NWNVTW5hcWhZMW1Qa3VKVXJJblF1ajRB?=
- =?utf-8?B?TC9idWdwM1JOQ01WU2g0eUVMT3dsK1E1YTYyVjNLVlp0MVA4ZktJTEh1UStP?=
- =?utf-8?B?Q0MvSTJTQzRJRUNKR1hkWXE1QUFrSHhiSldvS3FucmxxMHUvU0VJWENrVDZL?=
- =?utf-8?B?QlhvVE9sZmJSRWFXYnM1UmhPbjEyOXdzMFFabk5xeHdCQzE0akZrcTl2K0JS?=
- =?utf-8?B?bmpoSXlXNGJuMEpGcmNxbDRzMFRDYWFVRHVKSFZUUFF5Y3Y4TkNhakk0MkJi?=
- =?utf-8?B?VlMwMHZoNlRSL210Z04vWllpVXNmZGlyL3JFbENBZVM0M0pTZ2MzRXVtSjRW?=
- =?utf-8?Q?QYSX0XtW+cldXTQztXaEluxwl?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzhSK21FbFRmYjhYRW1TNnlRM1k4SkFuOThjOHh4aDJQU2xBbVVKdlFEOXkr?=
+ =?utf-8?B?MjBlei9hY3FQYSt4Z2xmdGVkL1R3K3BDMXI2S1FoQ1plQ1NFL1hLSEMwQXpV?=
+ =?utf-8?B?UGNpUVhJMDZ4RnVyU21OM3YwaElNWktYRkZ1S3M5NEF4TFBHNzRyamFZZ01I?=
+ =?utf-8?B?ODViR21XSlBVNTlpbGhVbGNZMVMvblI5dWpNOC9HRnNNZDFxRU1LR2RWaXUw?=
+ =?utf-8?B?SHdLbUFnd25HZ0ptUDVWNVc3YS9tS0hid0d0ZXl3L1VvRVovTzNlYW1DbDV6?=
+ =?utf-8?B?MXZncVFyaFlhV2FRU0NIa2hxaEdJSzVtRkl1VzgyVUJaYmx2RXptZ2tMU2d1?=
+ =?utf-8?B?OVVxVWNMc3RnZ25hR0xLNTV3TTQ4eThESS9FbnVac1NnUUJkSThvUDJ0NGFE?=
+ =?utf-8?B?OWkvM1VKWC9WV21wVkdkZ0FpTVpCZk03QmNDalpCazJCRW1HenVlR05MZGEv?=
+ =?utf-8?B?RjdXMHRQK2xPM1NxWnVkZm0xaSt5VWdkSUIxb3dQd2xVRDhNSzRmM2VDM1Jo?=
+ =?utf-8?B?a1VRelAvU3orSHNJdmpxUndXcnlOR0tlTEtPaTdPRnB5OWtyVFpUQmlBWXRy?=
+ =?utf-8?B?dUJENnpRd3dhaTEwZjdUVFBvRWlVZHlMU05HOVV2Qyt5UkJYWTQ1U3UzSXA2?=
+ =?utf-8?B?bkFEeTRrU05HWTQyMkdDYkw0MSt1alVPWHBVeUx0MzNhcFZid0Z1YXgzMzJ5?=
+ =?utf-8?B?OTZLT2hBNnRKbzRWZ2xocTFqZUZXODRCK0g4TVc1VzNFTVNiQUxPL2hNQ0Rz?=
+ =?utf-8?B?OG5RNkpVOFdldExURE1lbDlyWjZpa1AzbExmUU5HSkpNeG1FQVVxL2krTXEv?=
+ =?utf-8?B?M3NmK1E1QXpkcENlTVp3b2hLTlpsT1R2R241eDdmelUzOFE1NnpObFRKMUJP?=
+ =?utf-8?B?d2Vyb0oxVWV6VXlEUXMyR3AzSnJ2OEl1SUZVdTV6aXVCc3R1K0o3ZE0wK05X?=
+ =?utf-8?B?NHdjaU5OR1ZRRjcydlJvZEVESGFadG40cjd1ZUp1RkR6U2VQa25DYjdwL1VY?=
+ =?utf-8?B?RXRVU0NldXZzems4VC9hQ0c0WEdHRGprZVloaGs2VUpuRTdWcmg0Q1NvTFRz?=
+ =?utf-8?B?R1B2bERwVG1lRmNCOG90bHNQakMxR2pVSHJvMW5hL0U4SjBDR0dQQ1lEdjZ0?=
+ =?utf-8?B?Q1FKQmFWdUI2cmM5QUVETkhidkFJRGpSYnVtMDRDWGh0MXFYcmhpWFpyUGNo?=
+ =?utf-8?B?RjNLM2VUQTlEVXN5U0hHUE93QmpadG5kd2ErRkc3OEx0ck1HM2QxWVdtTTZl?=
+ =?utf-8?B?YUhEbDZXWlJiemZxVHhQQVFzaHU0WDRRRG5LNTR6Q05IVHJqZUVLeFdQNmFm?=
+ =?utf-8?B?M24vMFhxdHJwdTJDZDhtS0NUZ29WaW1ReVZ4TVBTSVBBODhYUFRRejJUVmZK?=
+ =?utf-8?B?QkNRV2tpbmlLYkFxUGJVMVhsRG5Fc3NCMnZLcWhUaElNSU9qK1M1cVViODlv?=
+ =?utf-8?B?Y1djSVRaWWZ4bXFVYjNLV3QrQXJSZURxYmI0RkhDQSt5VmZrRzNNYTFld3ZR?=
+ =?utf-8?B?TzErYlFLbUVQTDVneFVEL21QeEFrN21Ob2NSQWFsN1AxUTMzWDV0Mm13Sjcz?=
+ =?utf-8?B?NDdoajFuNEpobE5zbDlDbmRCdFhZMzdpMGhjSEJPYk9zWTRjYTV4TFo4M3BI?=
+ =?utf-8?B?UGFFdmdGVE9xb01JSDNzY1FJT0lVN3lSZUNXSHo4bzFkQi9BV3JIeXpQMW1k?=
+ =?utf-8?B?MzdiNkIzRXZGRzczMElNa014YXFxb0EwTGlxTVB3V1prSWdCLzA0eWw3eUVw?=
+ =?utf-8?B?Z0RjV0xCdnYzZUd2L0Nac1BxRVdTdVBBWTRYN0tjMnpmeGVab1N4V25DSFc2?=
+ =?utf-8?B?a2U1aGpua1dzK0VCSGtpZjNkcG1QRmtSWWlsTUY1d1dubVdud1QydjZJR0Ru?=
+ =?utf-8?B?WWV2eGdWQ0ljZmN0Y3NwNW1LRFhuVWdYZzh0TUs2anlKeXY4eTdnUy9uTTBG?=
+ =?utf-8?B?aU1HTE1BMHZJS3lkajhKOG9yUU45b29kRG9IWnlEMWJhdGhiVnRyeFRTQ3Ns?=
+ =?utf-8?B?eC9hSzJtUmQ0VGlYbENzYytpb3c2eEVCR1pXU3FKVXN5TGNpU3puVy8yVUQx?=
+ =?utf-8?B?S2ZZVVlVVWR1bDhlVFJDV2p1c1dOQm03U2srK3BYQ2hEanZPRUJqVVhXOVhN?=
+ =?utf-8?Q?KrQUFkxWQfgZMciPcryoIbAiD?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: acc99c47-46f1-4777-c16f-08ddd965d0e5
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cc2a43e-fea0-4e47-4180-08ddd96c5879
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 06:02:27.8055 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 06:49:12.2151 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yi1tuH0Kdy4U7P+qcUMHdn2eP9etrsHacvJfrfBVUWn0eOax2Twvd5gV79EMLg1a
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9001
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5N0MlLqZeJowsg10ShNC5zEjCxVOB4JWYPGgthcLtq6w6Gt38Yj79ieb9fzHxnDq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8162
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,231 +162,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 12.08.25 05:16, Xichao Zhao wrote:
+> The clamp() macro explicitly expresses the intent of constraining
+> a value within bounds.Therefore, replacing min(max(a, b), c) and
+> max(min(a,b),c) with clamp(val, lo, hi) can improve code readability.
+> 
+> Signed-off-by: Xichao Zhao <zhao.xichao@vivo.com>
 
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-On 8/12/2025 11:26 AM, Zhang, Jesse(Jie) wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
+> ---
+>  drivers/gpu/drm/radeon/radeon_display.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> -----Original Message-----
-> From: Lazar, Lijo <Lijo.Lazar@amd.com>
-> Sent: Tuesday, August 12, 2025 1:38 PM
-> To: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Ji, Ruili <Ruili.Ji@amd.com>
-> Subject: Re: [v3 1/2] drm/amd/pm: Add VCN reset support detection for SMU v13.0.6
-> 
-> 
-> 
-> On 8/12/2025 6:33 AM, Jesse.Zhang wrote:
->> This commit introduces support for detecting VCN reset capability
->> through the SMU interface. Key changes include:
->>
->> 1. Added amdgpu_dpm_reset_vcn_is_supported() interface to check VCN
->> reset support 2. Implemented SMU backend functions for VCN reset
->> capability detection 3. Added SMU_CAP(VCN_RESET) capability flag for
->> SMU v13.0.6 4. Updated PPSMC message definitions to accommodate VCN
->> reset functionality 5. Added version checks for VCN reset support
->> (fw_ver >= 0x04557100)
->>
->> The changes maintain backward compatibility while enabling proper
->> detection of VCN reset capabilities when supported by the firmware.
->>
->> v2: clean up debug info and adjust this message to be more meaningful
->> (Alex)
->>
->> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Ruili Ji <ruiliji2@amd.com>
->> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
->> ---
->>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c             | 15 +++++++++++++++
->>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h         |  1 +
->>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c       | 10 ++++++++++
->>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h   |  5 +++++
->>  .../pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h    |  4 ++--
->>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c    | 17 +++++++++++++++++
->>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h    |  1 +
->>  7 files changed, 51 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->> b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->> index 6e0d711820ea..518d07afc7df 100644
->> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->> @@ -820,6 +820,21 @@ int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask)
->>       return ret;
->>  }
->>
->> +bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev) {
->> +     struct smu_context *smu = adev->powerplay.pp_handle;
->> +     bool ret;
->> +
->> +     if (!is_support_sw_smu(adev))
->> +             return false;
->> +
->> +     mutex_lock(&adev->pm.mutex);
->> +     ret = smu_reset_vcn_is_supported(smu);
->> +     mutex_unlock(&adev->pm.mutex);
->> +
->> +     return ret;
->> +}
->> +
->>  int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,
->>                                 enum pp_clock_type type,
->>                                 uint32_t *min,
->> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->> b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->> index 09962db988d6..9748744133d9 100644
->> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->> @@ -615,6 +615,7 @@ ssize_t amdgpu_dpm_get_pm_policy_info(struct
->> amdgpu_device *adev,  int amdgpu_dpm_reset_sdma(struct amdgpu_device
->> *adev, uint32_t inst_mask);  bool
->> amdgpu_dpm_reset_sdma_is_supported(struct amdgpu_device *adev);  int
->> amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask);
->> +bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev);
->>  bool amdgpu_dpm_is_temp_metrics_supported(struct amdgpu_device *adev,
->>                                         enum smu_temp_metric_type type);
->>
->> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> index dc48a1dd8be4..f9a350a82764 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> @@ -4106,6 +4106,16 @@ int smu_reset_sdma(struct smu_context *smu, uint32_t inst_mask)
->>       return ret;
->>  }
->>
->> +bool smu_reset_vcn_is_supported(struct smu_context *smu) {
->> +     bool ret = false;
->> +
->> +     if (smu->ppt_funcs && smu->ppt_funcs->reset_vcn_is_supported)
->> +             ret = smu->ppt_funcs->reset_vcn_is_supported(smu);
->> +
->> +     return ret;
->> +}
->> +
->>  int smu_reset_vcn(struct smu_context *smu, uint32_t inst_mask)  {
->>       if (smu->ppt_funcs && smu->ppt_funcs->dpm_reset_vcn) diff --git
->> a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
->> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
->> index 611b381b9147..7990771151be 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
->> @@ -1426,6 +1426,10 @@ struct pptable_funcs {
->>        * @reset_vcn: message SMU to soft reset vcn instance.
->>        */
->>       int (*dpm_reset_vcn)(struct smu_context *smu, uint32_t inst_mask);
->> +     /**
->> +      * @reset_vcn_is_supported: Check if support resets vcn.
->> +      */
->> +     bool (*reset_vcn_is_supported)(struct smu_context *smu);
->>
->>       /**
->>        * @get_ecc_table:  message SMU to get ECC INFO table.
->> @@ -1702,6 +1706,7 @@ int smu_send_rma_reason(struct smu_context
->> *smu);  int smu_reset_sdma(struct smu_context *smu, uint32_t
->> inst_mask);  bool smu_reset_sdma_is_supported(struct smu_context
->> *smu);  int smu_reset_vcn(struct smu_context *smu, uint32_t
->> inst_mask);
->> +bool smu_reset_vcn_is_supported(struct smu_context *smu);
->>  int smu_set_pm_policy(struct smu_context *smu, enum pp_pm_policy p_type,
->>                     int level);
->>  ssize_t smu_get_pm_policy_info(struct smu_context *smu,
-> 
-> It's better to split smu v13.0.6 changes to a separate patch.
-> 
->> diff --git
->> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
->> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
->> index 41f268313613..63a088ef7169 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
->> @@ -94,9 +94,9 @@
->>  #define PPSMC_MSG_RmaDueToBadPageThreshold          0x43
->>  #define PPSMC_MSG_SetThrottlingPolicy               0x44
->>  #define PPSMC_MSG_ResetSDMA                         0x4D
->> -#define PPSMC_MSG_ResetVCN                          0x4E
->>  #define PPSMC_MSG_GetStaticMetricsTable             0x59
->> -#define PPSMC_Message_Count                         0x5A
->> +#define PPSMC_MSG_ResetVCN                          0x5B
->> +#define PPSMC_Message_Count                         0x5C
->>
->>  //PPSMC Reset Types for driver msg argument
->>  #define PPSMC_RESET_TYPE_DRIVER_MODE_1_RESET        0x1
->> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->> index 90e66c8f2f82..60aaf0e2ce8f 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->> @@ -434,6 +434,9 @@ static void smu_v13_0_6_init_caps(struct smu_context *smu)
->>           ((pgm == 0) && (fw_ver >= 0x00557900)) ||
->>           ((pgm == 4) && (fw_ver >= 0x4557000)))
->>               smu_v13_0_6_cap_set(smu, SMU_CAP(SDMA_RESET));
->> +
->> +     if ((pgm == 4) && (fw_ver >= 0x04557100))
->> +             smu_v13_0_6_cap_set(smu, SMU_CAP(VCN_RESET));
->>  }
->>
->>  static void smu_v13_0_x_init_caps(struct smu_context *smu) @@ -3171,6
->> +3174,19 @@ static int smu_v13_0_6_reset_sdma(struct smu_context *smu, uint32_t inst_mask)
->>       return ret;
->>  }
->>
->> +static bool smu_v13_0_6_reset_vcn_is_supported(struct smu_context
->> +*smu) {
->> +     bool ret = true;
->> +
->> +     if (!smu_v13_0_6_cap_supported(smu, SMU_CAP(VCN_RESET))) {
->> +             dev_info(smu->adev->dev,
->> +                     "SMU VCN reset not supported.  Please update SMU firmware.\n");
-> 
-> This will come for every reset attempt for programs other than 4. Better restrict this to once, or not to keep it as it requires IFWI update.
-> 
-> Hi Lijo, Once we got their confirm from PMFW, we will add more programs for review.
-> Some programs are still under testing.
-> 
-
-That is fine, but any user on an older IFWI will be affected by these
-messages. Since IFWI upgrade is a major change, I don't know whether we
-should keep this or at minimum restrict the messaging to only once.
-
-Thanks,
-Lijo
-
-> Thanks
-> Jesse
-> 
-> Thanks,
-> Lijo
-> 
->> +             ret = false;
->> +     }
->> +
->> +     return ret;
->> +}
->> +
->>  static int smu_v13_0_6_reset_vcn(struct smu_context *smu, uint32_t
->> inst_mask)  {
->>       int ret = 0;
->> @@ -3859,6 +3875,7 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
->>       .reset_sdma = smu_v13_0_6_reset_sdma,
->>       .reset_sdma_is_supported = smu_v13_0_6_reset_sdma_is_supported,
->>       .dpm_reset_vcn = smu_v13_0_6_reset_vcn,
->> +     .reset_vcn_is_supported = smu_v13_0_6_reset_vcn_is_supported,
->>  };
->>
->>  void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu) diff --git
->> a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
->> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
->> index ece04ad724fb..7c98f77c429d 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
->> @@ -64,6 +64,7 @@ enum smu_v13_0_6_caps {
->>       SMU_CAP(RMA_MSG),
->>       SMU_CAP(ACA_SYND),
->>       SMU_CAP(SDMA_RESET),
->> +     SMU_CAP(VCN_RESET),
->>       SMU_CAP(STATIC_METRICS),
->>       SMU_CAP(HST_LIMIT_METRICS),
->>       SMU_CAP(BOARD_VOLTAGE),
-> 
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+> index b4bf5dfeea2d..d66c1a30df95 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -926,10 +926,10 @@ static void avivo_get_fb_ref_div(unsigned nom, unsigned den, unsigned post_div,
+>  				 unsigned *fb_div, unsigned *ref_div)
+>  {
+>  	/* limit reference * post divider to a maximum */
+> -	ref_div_max = max(min(100 / post_div, ref_div_max), 1u);
+> +	ref_div_max = clamp(100 / post_div, 1u, ref_div_max);
+>  
+>  	/* get matching reference and feedback divider */
+> -	*ref_div = min(max(den/post_div, 1u), ref_div_max);
+> +	*ref_div = clamp(den / post_div, 1u, ref_div_max);
+>  	*fb_div = DIV_ROUND_CLOSEST(nom * *ref_div * post_div, den);
+>  
+>  	/* limit fb divider to its maximum */
 
