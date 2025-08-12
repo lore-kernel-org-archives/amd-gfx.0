@@ -4,68 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D3A6CA0EDB
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 19:35:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADB53CA0EDB
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 19:36:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF93310E62E;
-	Tue, 12 Aug 2025 19:35:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5470E10E3E3;
+	Tue, 12 Aug 2025 19:36:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V1eypYJ8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qx30dBC1";
 	dkim-atps=neutral
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
- [209.85.160.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE6110E3E3
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 19:35:50 +0000 (UTC)
-Received: by mail-oa1-f54.google.com with SMTP id
- 586e51a60fabf-2ea34731c5dso4588578fac.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 12:35:50 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E8A010E3E3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 19:36:39 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2400b3008e8so8941355ad.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 12:36:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755027349; x=1755632149; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=+FoKBwNi6VSgi26IDvV2kEvn/F8y7YL3AiB2MzjqKLI=;
- b=V1eypYJ8RYQxQEFJL2S2+OUzLNW1kkOOvTuX3F8eGyJwjsQ5JvVfubEy3hRrG6pNe6
- FdS9HcI02D67imuFGTjkPcvWsXkTJfvWhD4mr0IsH4pLsbJBd3sHjce+6P6OJUVaf7b/
- ygkivWKQ2Awx0SYuxn7e7Mw6MDX3kLsb4KVdi7jy/u8eCGRCA9UiVV2LXvZrXx6cfQDx
- WNOhj0YLr+H5kcmCZZxMuUywP7KJEZyLXGKGjup4ko8vRJbBDLEf7h0qRjKsQzc6FqVW
- Lh+VldQYP/ZzoJEV2uq4OIgEHje5bmjdRXr61qklVvK18mB/LxeW4TbnrS/aU0kwoMHc
- 2CQA==
+ d=gmail.com; s=20230601; t=1755027399; x=1755632199; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CVbnCcHq4ZHLgCqT6z3dE12/S9qItC8KRk5cVH1D4is=;
+ b=Qx30dBC1ibpofADju18CP+rL3W5apbuFpYIAssybcLQAbevBD+5UgyAOSErt1RDDL6
+ tTJTng+0PAMqWC31l93GQ6Mpy9hZqQ0jVSDgOJUI8kq4qLFUJcmj7ov8+JJu4n5lFFws
+ u84K13+pVNNn76FqcnFLb5ZJtXSiUph6udMiBtEo8W/xVTVpOfOFIeQiB/5zmlqk7hIw
+ dWsso1dPwp6QcbqI/UtifEiI855aNabTXBuC8kKAbbqEdu/Zqhbr/VIe77VGspYOsYqv
+ Hkn7/mSl6Jvz6REPIdOmFGUoMN2z6n7pDuYFdILi9Ef+QUzSCabb8TfBm+LOqtELAVBD
+ lz1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755027349; x=1755632149;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+FoKBwNi6VSgi26IDvV2kEvn/F8y7YL3AiB2MzjqKLI=;
- b=shvYPbyCdw9S3zgh6FQE4h2a6tZucZml95/IThtekqtWmUHAXrdgowA64nDA4W8PhN
- DsKAsUeMkUiYyjVzGKkRGxCts1We5b2g1TFlML8UCaSf0AS936s9yGcUP8zW6xGLja8W
- ZWZZD++iNxv/2Mlm8wWdVb9/vUjUCRUUmmEgzFD+lBruTuqHMrBUGAVwoNIpOkUMSiAu
- Uu+E/oOYTW+xM35C2E9hYpMAjAokWTMy5+QdReSF6W5O9bCNN76SBX21GZWc4rwg2Li4
- xdurZcWub+FGV56lzxNAKnCcsMaMAVKklfPxrZBsNJipPlZiPpSXOLKmIInYM/bbh6Vi
- laPg==
-X-Gm-Message-State: AOJu0YxRVpAWwwtdfl2DxPvxXKMa+0sE1oZ7nM5qZHU6uuRg4mrnMz2o
- NZcK7v9n1LZiPEBAEQrZH35tdZWexApwJtOrlb2Bi1a7Wj0tOQVNIL6sBVB9IPCrMjx0GvFZgyg
- NiRem2pH1T63SHUX+eHNrSxrLhZCjAYk=
-X-Gm-Gg: ASbGnctGCXghw91oO5fehm9aps8+BqyKejFXITFlUmkG1PoLTNdWvuXXfBZ9weYBggm
- 369zpCNzQ2rewVddUd1f6rgtHAYdvyjCCkokDZFETbKvQ4upoaPBS8aTHQvWYW9Jd+UDwTHgnA0
- F8xUYZR1D6bykph1YVofmLc5ky5VX6BN0bvxb6mCMr/cz1PooDTmVEaYPaDHgRdGjNjQnJLVBzp
- Uuuctid
-X-Google-Smtp-Source: AGHT+IHslJjoZiPwAaMA0+edkziNSMyWKQjg8o5UB5lSWck1+ebn/y8RSp2qPLH/HC/U9MFFZbY7i2Fn9WzJDlqDlhk=
-X-Received: by 2002:a05:6871:4192:b0:300:d9f4:dfb5 with SMTP id
- 586e51a60fabf-30cb5bc3596mr322978fac.24.1755027349306; Tue, 12 Aug 2025
- 12:35:49 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1755027399; x=1755632199;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CVbnCcHq4ZHLgCqT6z3dE12/S9qItC8KRk5cVH1D4is=;
+ b=ux2imrRi5Qz+ppwtdKiNXFxv8615ln/K/22X0MrnGnrloc/+2NUTRuTV5UcCqOY/j1
+ 1FUareoKmL9Ah06KY3HyABweMPMSJpiJzmNBoD0pcOJ/kaGzqJWYwNsDDYiKLrQzUaee
+ FyvKgJte4UvXgZNCto5RUh4k6UEDRXO5z7RDv5LiAExfitLeHpKLjMaNdV1JWk1f6w3g
+ eX5EyvF/ZEoH9maSE3ynnx/bvA5KPA48eE95OmnRJu1P/eCp964BjdKJF7eV00vyquo1
+ IuZ/RH2sbzTAbdY6Ut/BKKIOd3ZkcW3m42888Qsr+g1xise5dpVkq/jiDOF4cPHDx/c8
+ vjgQ==
+X-Gm-Message-State: AOJu0Yz3I5stqTqx++SSNe94/zd2Zqhe3AG+x3lZbKRU9Thhycp0kWDl
+ 5W0qYNZCsZ1vhdIGXflWDtKG0QOhpNoAC2PEl11pjW/cz7z67GelsX5JHG+tr5P+EhEfEWqwvN7
+ ZYZOQx3c13NhHPMWe7El3rlrMCQc6zdl0vA==
+X-Gm-Gg: ASbGnct3UsC0aMSq6hl+j77AH9619LgyO1SaF1skIPBMbth8E7SJhzcK53zJIzviCN1
+ mkVr+ZhheztQ3l8b6qybrGCSiEvAL/FCV5mqRQVAdeBDiBU8gVLRcrlvp94syU+AZYqxPqtRClS
+ lIl0iy3KivQUoY5mUZQU7/u878WWLa73yHwPae5MULrszPjgnZfqIFj0ubB/SRisLmkcCTbO290
+ aEDU3R8QQ3PF0qARA==
+X-Google-Smtp-Source: AGHT+IF2ESBTFFAcQR3mla5mjYIQ6notl9jaLAw5n5iNkkWI+BehorH1b1MlSGtNYQaAPKPdH4C53IEbe9kHf0oCElE=
+X-Received: by 2002:a17:903:1112:b0:240:33c7:fbf9 with SMTP id
+ d9443c01a7336-2430d297958mr2358755ad.11.1755027398770; Tue, 12 Aug 2025
+ 12:36:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAPEhTTH90Rz-UFVJCdsi=vP5BSuQxVB3W-Qe1yVKH93txBLFsA@mail.gmail.com>
- <CADnq5_PuR5V2DzSow2EibdykmqwyOAd7q2K51uawumbo1naTGQ@mail.gmail.com>
-In-Reply-To: <CADnq5_PuR5V2DzSow2EibdykmqwyOAd7q2K51uawumbo1naTGQ@mail.gmail.com>
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-Date: Tue, 12 Aug 2025 15:35:39 -0400
-X-Gm-Features: Ac12FXzjh79U7MKJ8nsfdjGgdYL394IrXCKmQf-kLZh14P2k-7ZHU7ZwIHHCVQQ
-Message-ID: <CAPEhTTFH3abJMkQ5ojqXyxQjGBU7Br=MQipKmT0uMdsi2AQSsg@mail.gmail.com>
-Subject: Re: AMDGPU's rings VS Radeon's
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Freedesktop - AMD-gfx <amd-gfx@lists.freedesktop.org>, 
- Alexander Deucher <alexander.deucher@amd.com>
-Content-Type: multipart/alternative; boundary="000000000000ba0016063c302590"
+References: <20250811095937.1978747-1-Jesse.Zhang@amd.com>
+ <20250811095937.1978747-2-Jesse.Zhang@amd.com>
+In-Reply-To: <20250811095937.1978747-2-Jesse.Zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Aug 2025 15:36:27 -0400
+X-Gm-Features: Ac12FXx_ZH0qzswwxS4I0UGRG_2ch7vCJLs3-mFRNa_XeHjMSAAV_Z9vc5aG9h0
+Message-ID: <CADnq5_Mvb-5F13rB4=iFjc6n6qAxzQSn=W-OsgLTeCUcYk=tbw@mail.gmail.com>
+Subject: Re: [v8 02/11] drm/amdgpu: adjust MES API used for suspend and resume
+To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,179 +82,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000ba0016063c302590
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Mon, Aug 11, 2025 at 6:18=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> w=
+rote:
+>
+> From: Alex Deucher <alexander.deucher@amd.com>
+>
+> Use the suspend and resume API rather than remove queue
+> and add queue API.  The former just preempts the queue
+> while the latter remove it from the scheduler completely.
+> There is no need to do that, we only need preemption
+> in this case.
+>
+> V2: replace queue_active with queue state
+> v3: set the suspend_fence_addr
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 51 ++++++++++++++++++++++
+>  1 file changed, 51 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
+/amd/amdgpu/mes_userqueue.c
+> index d6f50b13e2ba..46b24035e14c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -347,9 +347,60 @@ mes_userq_mqd_destroy(struct amdgpu_userq_mgr *uq_mg=
+r,
+>         amdgpu_userq_destroy_object(uq_mgr, &queue->mqd);
+>  }
+>
+> +static int mes_userq_preempt(struct amdgpu_userq_mgr *uq_mgr,
+> +                            struct amdgpu_usermode_queue *queue)
+> +{
+> +       struct amdgpu_device *adev =3D uq_mgr->adev;
+> +       struct mes_suspend_gang_input queue_input;
+> +       struct amdgpu_userq_obj *ctx =3D &queue->fw_obj;
+> +       int r;
+> +
+> +       if (queue->state !=3D AMDGPU_USERQ_STATE_MAPPED)
+> +               return 0;
+> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_PREEMPTED)
+> +               return 0;
+> +
+> +       memset(&queue_input, 0x0, sizeof(struct mes_suspend_gang_input));
+> +       queue_input.gang_context_addr =3D ctx->gpu_addr + AMDGPU_USERQ_PR=
+OC_CTX_SZ;
+> +       queue_input.suspend_fence_addr =3D queue->fence_drv->gpu_addr;
 
-On Mon, Aug 11, 2025 at 6:22=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
+This will overwrite the user fence value with 0.  You need a separate
+allocation for this.  You might also need to wait for this value to
+verify if the suspend completed successfully.
 
-> On Mon, Aug 11, 2025 at 6:08=E2=80=AFPM Alexandre Demers
-> <alexandre.f.demers@gmail.com> wrote:
-> >
-> > Hi,
-> >
-> > For those who know, I'm still working on VCE1 enablement under AMDGPU.
-> Progress is happening, slowly but surely. While investigating the ring in=
-it
-> calls, a few elements catched my attention and I'd like some help in
-> figuring out the differences between AMDGPU's ring sizes and Radeon's one=
-s.
-> >
-> > 1- I understand that the size parameter changed from bytes under
-> radeon_ring_init to dword under amdgpu_ring_init. That being said, some
-> values don't seem to be equivalent between Radeon and AMDGPU. For example=
-,
-> GFX ring size went from 1024 * 1024 bytes to 1024 dwords (for most GFX
-> versions), which seems off even when taking into account how
-> amdgpu_ring_init calculates the final allocated size. This question is mo=
-re
-> about understanding than a problem strictly speaking.
->
-> You can make the ring any size you want.  It's specified in the queue
-> descriptor.  I don't remember why we picked the sizes we did in radeon
-> off hand.
->
-> OK, thanks
+Alex
 
-> >
-> > 2- Under AMDGPU, SI's GFX (GFX6) ring size is 2048, while this value is
-> 1024 for all the other GFX versions. Under Radeon, the GFX ring size valu=
-es
-> are all the same (1024 * 1024) under Evergreen/SI/CIK/NI and others. Is
-> there any reason why SI's GFX6 ring size would be twice the size of the
-> other values under AMDGPU?
-> >
->
-> From the git history:
-> commit 97041ed37718dc9ba30aa23ca74093dc93ac89fb
-> Author: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> Date:   Thu Apr 13 16:22:51 2023 +0200
->
->     drm/amdgpu: Increase GFX6 graphics ring size.
->
->     To ensure it supports 192 IBs per submission, so we can keep a
->     simplified IB limit in the follow up patch without having to
->     look at IP or GPU version.
->
->     Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->     Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
->     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->
->
->
-> > 3- Would it be acceptable to add names to rings under Radeon, the same
-> names as the ones used under AMDGPU? I think it is more talkative for the
-> average user and for debugging purposes to deal with ring names than
-> indexes. I already have patches in my code to address this suggestion.
-> >
->
-> If you think there is value there.  It seems like it would generate a
-> lot of churn in that driver for little gain.
->
-> Alex
->
-> The patches are pretty simple and straightforward. I'll send them.
 
-Cheers!
-
-Alexandre Demers
-
-> That's all for now.
-> >
-> > Cheers
-> > Alexandre Demers
+> +
+> +       amdgpu_mes_lock(&adev->mes);
+> +       r =3D adev->mes.funcs->suspend_gang(&adev->mes, &queue_input);
+> +       amdgpu_mes_unlock(&adev->mes);
+> +       if (r)
+> +               dev_err(adev->dev, "Failed to suspend queue, err (%d)\n",=
+ r);
+> +       return r;
+> +}
+> +
+> +static int mes_userq_restore(struct amdgpu_userq_mgr *uq_mgr,
+> +                           struct amdgpu_usermode_queue *queue)
+> +{
+> +       struct amdgpu_device *adev =3D uq_mgr->adev;
+> +       struct mes_resume_gang_input queue_input;
+> +       struct amdgpu_userq_obj *ctx =3D &queue->fw_obj;
+> +       int r;
+> +
+> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_HUNG)
+> +               return -EINVAL;
+> +       if (queue->state !=3D AMDGPU_USERQ_STATE_PREEMPTED)
+> +               return 0;
+> +
+> +       memset(&queue_input, 0x0, sizeof(struct mes_resume_gang_input));
+> +       queue_input.gang_context_addr =3D ctx->gpu_addr + AMDGPU_USERQ_PR=
+OC_CTX_SZ;
+> +
+> +       amdgpu_mes_lock(&adev->mes);
+> +       r =3D adev->mes.funcs->resume_gang(&adev->mes, &queue_input);
+> +       amdgpu_mes_unlock(&adev->mes);
+> +       if (r)
+> +               dev_err(adev->dev, "Failed to resume queue, err (%d)\n", =
+r);
+> +       return r;
+> + }
+> +
+>  const struct amdgpu_userq_funcs userq_mes_funcs =3D {
+>         .mqd_create =3D mes_userq_mqd_create,
+>         .mqd_destroy =3D mes_userq_mqd_destroy,
+>         .unmap =3D mes_userq_unmap,
+>         .map =3D mes_userq_map,
+> +       .preempt =3D mes_userq_preempt,
+> +       .restore =3D mes_userq_restore,
+>  };
+> --
+> 2.49.0
 >
-
---000000000000ba0016063c302590
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Aug 11,=
- 2025 at 6:22=E2=80=AFPM Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gma=
-il.com">alexdeucher@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex">On Mon, Aug 11, 2025 at 6:08=E2=80=AFPM Alexan=
-dre Demers<br>
-&lt;<a href=3D"mailto:alexandre.f.demers@gmail.com" target=3D"_blank">alexa=
-ndre.f.demers@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Hi,<br>
-&gt;<br>
-&gt; For those who know, I&#39;m still working on VCE1 enablement under AMD=
-GPU. Progress is happening, slowly but surely. While investigating the ring=
- init calls, a few elements catched my attention and I&#39;d like some help=
- in figuring out the differences between AMDGPU&#39;s ring sizes and Radeon=
-&#39;s ones.<br>
-&gt;<br>
-&gt; 1- I understand that the size parameter changed from bytes under radeo=
-n_ring_init to dword under amdgpu_ring_init. That being said, some values d=
-on&#39;t seem to be equivalent between Radeon and AMDGPU. For example, GFX =
-ring size went from 1024 * 1024 bytes to 1024 dwords (for most GFX versions=
-), which seems off even when taking into account how amdgpu_ring_init calcu=
-lates the final allocated size. This question is more about understanding t=
-han a problem strictly speaking.<br>
-<br>
-You can make the ring any size you want.=C2=A0 It&#39;s specified in the qu=
-eue<br>
-descriptor.=C2=A0 I don&#39;t remember why we picked the sizes we did in ra=
-deon<br>
-off hand.<br>
-<br></blockquote><div>OK, thanks=C2=A0</div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">
-&gt;<br>
-&gt; 2- Under AMDGPU, SI&#39;s GFX (GFX6) ring size is 2048, while this val=
-ue is 1024 for all the other GFX versions. Under Radeon, the GFX ring size =
-values are all the same (1024 * 1024) under Evergreen/SI/CIK/NI and others.=
- Is there any reason why SI&#39;s GFX6 ring size would be twice the size of=
- the other values under AMDGPU?<br>
-&gt;<br>
-<br>
-From the git history:<br>
-commit 97041ed37718dc9ba30aa23ca74093dc93ac89fb<br>
-Author: Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@basnieuwenhuizen.nl" ta=
-rget=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt;<br>
-Date:=C2=A0 =C2=A0Thu Apr 13 16:22:51 2023 +0200<br>
-<br>
-=C2=A0 =C2=A0 drm/amdgpu: Increase GFX6 graphics ring size.<br>
-<br>
-=C2=A0 =C2=A0 To ensure it supports 192 IBs per submission, so we can keep =
-a<br>
-=C2=A0 =C2=A0 simplified IB limit in the follow up patch without having to<=
-br>
-=C2=A0 =C2=A0 look at IP or GPU version.<br>
-<br>
-=C2=A0 =C2=A0 Reviewed-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:chris=
-tian.koenig@amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
-=C2=A0 =C2=A0 Signed-off-by: Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@ba=
-snieuwenhuizen.nl" target=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt;<br>
-=C2=A0 =C2=A0 Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.d=
-eucher@amd.com" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-<br>
-<br>
-<br>
-&gt; 3- Would it be acceptable to add names to rings under Radeon, the same=
- names as the ones used under AMDGPU? I think it is more talkative for the =
-average user and for debugging purposes to deal with ring names than indexe=
-s. I already have patches in my code to address this suggestion.<br>
-&gt;<br>
-<br>
-If you think there is value there.=C2=A0 It seems like it would generate a<=
-br>
-lot of churn in that driver for little gain.<br>
-<br>
-Alex<br>
-<br></blockquote><div>The patches are pretty simple and straightforward. I&=
-#39;ll send them.</div><div><br></div><div>Cheers!</div><div><br></div><div=
->Alexandre Demers</div><div><br></div><blockquote class=3D"gmail_quote" sty=
-le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
-ng-left:1ex">
-&gt; That&#39;s all for now.<br>
-&gt;<br>
-&gt; Cheers<br>
-&gt; Alexandre Demers<br>
-</blockquote></div></div>
-
---000000000000ba0016063c302590--
