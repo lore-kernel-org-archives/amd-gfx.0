@@ -4,150 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B7BCA0EC4
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 05:38:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91B11C87FCB
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 05:42:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77A1410E325;
-	Tue, 12 Aug 2025 05:38:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE8510E587;
+	Tue, 12 Aug 2025 05:42:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sWBCOL7n";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ccl/1tCR";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE66D10E325
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 05:38:39 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2045.outbound.protection.outlook.com [40.107.237.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD3F810E587
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 05:42:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sqXhvgcTK9n3R15N2Bz7KhXqynSL8qH+NAabXNd7G5Z15j1NGqw5DZKI2rgkX2sd0K8IMOLMPqfIcJonKI/yulEY7NpdRBhTx/fS1ejuh+AxXTEOz5lgoYDZhsMrpsah3i1RUwlmu1K7Y+XWl7mI2uOFYFaB0Vm8kGP+SoXewq1DDKryB7m61zcMSV30JnD6DX3mMYptJE9Gm2MWg05vV0ytE8azJDXBA5k900Q666vj2VZdIVsL+APo0I/xWnylqDkoshOaqeoMh0L3V5kfoLlcr6Cj19cnrJW82Oz9JMlk0CfQgW3COwKDj2pvs6vLsNDbyYAfmHgcOEBvdC75tA==
+ b=phViCXAk6Uu543rwjNSiBTBGr2Olm49X9CNjYZoeEbL0EfGXmf0SzTMVoMQuHsVA2TKBpn8Y9xgJfsVtRlJM19M6FYNePp+uX/UmISZocLcGxsPrxCqytCltFElwXvi08D8Fj8+8mi08oXcAprwmGBHjk/LkwhMF0lRa2vKLj1THdB99SjYRLv7tfF0lCMMpdNLNwIvDK7kpUGB662dbLD7AmF7C9lX+K8tidd3l2OExs1yRh5WwAZmr9aQ1jcb9lQ059cOnaxTYpbf8odZsgoTjVnUCwl12T0RoMrHC4L0ifeUQUBdN/VO8XSMZsuUdt9oPeQrggO7zzJOegEGqRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z7jY4pyboCEKFh+7YE1P729fJt2LWtHer8bY2p7A+GE=;
- b=LXjh+s7z72XEwPEvAqTeGhfLPycWuggGkwvysAdh9Cv0O3oXH6B7C1wGu5Ks0um2IKOQ7x3C8QaITSfUQZwWZpTmlyn6SSVm9yy58dus6zPXmtUEoEQ2lO6/27zfpWbYptEf+IAUTL83t0ytSHpRyWxSNvJ9KMU86JVNmb9LyGoY+LhbiLT9vJGfIVAyyKzMphbUMrGjJZanfc00vDd+lTQM2J3mbKYDxaQn60K1z2QgDLRtLWFLJRG0Q1RgSa0mQhs58alEIsa/IwMu17mTbUCWLpi3OU0Xuil+vBh0zpOnZYEI6P2dN2tAAXgAYym1VXLnYOYoc4YhtjrdIugLpw==
+ bh=U75tGOr5GmkeG5TQewKc6nBBdYuSi4+qCzfx1BqS/9Q=;
+ b=b76e9S3NnYgpPvuKkecdn2Xix8HNalLc0PJLON/l08Nv1y0+qwNF7CVdYVh8mTkbE8IWxWI00HZRksDZhVPSmRzflewqYRaqO4MlnkO3LH0fIx88cbLejcrv2ki/ib70T46bthALtLMYJJ/Fr351+eX7L/qsynJYcETOi0zTXzg3ZFe00O+gL3t2AroDUAErfdNGiyfOZ1szQz5XGx9QwZew2yYuNwN4LFaoeXy0jMOnvMsyDLFfBGjaEGd33Bbbb5XfmUX0yzS0Q0KOy2GISGnpjcyloPp/XvcOcSKQWD9AWUndqx7/mNdrlV2M21CKYUNBPBlPXzbKR8jQ3Yhz6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z7jY4pyboCEKFh+7YE1P729fJt2LWtHer8bY2p7A+GE=;
- b=sWBCOL7nBpFq/9YIVTkRqn+f4i4RsvUP1pfZjYX8hnvA45LoKP97tuyLHsA4XIsJktUiwXDpQmfeiAMNStSsTjnp8EI6a90o/fKEfmO5IDBQskqhN46VqSMNcAiaHekauDsHcDBQZ449GGglNh7rDlA6O0Zi0p/cQETqiNmiCzU=
+ bh=U75tGOr5GmkeG5TQewKc6nBBdYuSi4+qCzfx1BqS/9Q=;
+ b=ccl/1tCR+tPmUlt125dNftQyjpNlEtb3scjKOByt5znjEDlrd2Y8O7ZRze9n0cjey7dHzJk00YCWUXeJ4BoPIr8MSIBQviKteqjXWEo13b0zOoAHfeyGxen9xedPIUZoys6KOKxksS3v9SIXukiWMPfq65Ss2Ws/NB/7nI0x9Fc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- PH7PR12MB8121.namprd12.prod.outlook.com (2603:10b6:510:2b5::20) with
+ SA1PR12MB6893.namprd12.prod.outlook.com (2603:10b6:806:24c::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.13; Tue, 12 Aug
- 2025 05:38:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Tue, 12 Aug
+ 2025 05:42:04 +0000
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.9009.017; Tue, 12 Aug 2025
- 05:38:35 +0000
-Message-ID: <80fc509b-be10-4080-8501-8e210587b774@amd.com>
-Date: Tue, 12 Aug 2025 11:08:29 +0530
+ 05:42:04 +0000
+Message-ID: <291fa167-3d40-4dda-b8a7-b7c9d35faff7@amd.com>
+Date: Tue, 12 Aug 2025 11:11:58 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [v3 1/2] drm/amd/pm: Add VCN reset support detection for SMU
- v13.0.6
+Subject: Re: [v3 2/2] drm/amd/vcn: Add late_init callback for VCN v4.0.3 reset
+ handling
 To: "Jesse.Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>,
  Ruili Ji <ruiliji2@amd.com>
 References: <20250812010345.2261810-1-Jesse.Zhang@amd.com>
+ <20250812010345.2261810-2-Jesse.Zhang@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20250812010345.2261810-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20250812010345.2261810-2-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4P287CA0106.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:276::6) To DS0PR12MB7804.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN3PR01CA0142.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:bf::20) To DS0PR12MB7804.namprd12.prod.outlook.com
  (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH7PR12MB8121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64d01f29-8476-4238-a954-08ddd9627b08
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SA1PR12MB6893:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44d24ef8-a38f-47bc-ba04-08ddd962f7ba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MSsyakpWRG8rLzJoRWlvRU9od2NSSmFlWW9obVNLRzdkcmx5Zk1jL2lzbU41?=
- =?utf-8?B?R1lLTzEvcVRsRldFZlVIVTFkUFFTeFZKcGQ3MEkyLzJDN1hhSzduZmErMUo0?=
- =?utf-8?B?dVBOb0wzK3MyRmRjbFJya21ra291K2c1K3FrbVRpalE1QVRmZENQMGV6YUFD?=
- =?utf-8?B?NUpsTUVxaHo5NmNESi9YcEgwank0WDhtVVJxYVQ2a2MxYUxIR2o5MHpzcWJO?=
- =?utf-8?B?Y0pMcTVlODJySlBKQnZIdWVIbUx2c1VPVlJrYVIyeUNiVFdVU2UwMU1zbHda?=
- =?utf-8?B?RXEzQkMxVHk2aWwyWlBFZWJSS1owdk9sbkRhWWVxL0ZNYlZHTyt3S2lBTlYy?=
- =?utf-8?B?T09zaEdGQTVKdm5qakJmQUZzbndDWHoyT0kvSWxHZlZiKzJBV3dLbVVNRVVK?=
- =?utf-8?B?MElYcklUSUZYTmw2bkRDVTF5TWowRXRPQ1lLSGE4NjM1LytBamdPTlEwdElU?=
- =?utf-8?B?UW9NYmkybkhMckpLOGFkeG9ucnR4Tm9UbWZXTTM2dlNLZUhvWTkzUjlQWGJM?=
- =?utf-8?B?MDI4U0pkWTdsWjBVMm94Y25scnM3QW0wSGIwODN4cVJGTmhtTldUQ3l6RnVk?=
- =?utf-8?B?eGNZby9CZ09lckFyM093OXVHcnFBTUtHcXZITUV1ZUxyVWFMMkY3cStKNDNS?=
- =?utf-8?B?YXdEV0JUaWJoN3d5YkJzMENQNlVrd0VJOGovTGxDR29FbVI5OTdKZEVQR3dW?=
- =?utf-8?B?QWdndlpPWnhDK21SWHBVZC8yeFZseUN4VVdTYkZGY0Z4MjNHVjM4M1BuWTJn?=
- =?utf-8?B?dDNsV1ZkOW1BYVlEZ0RVMyt1bXdxcGxPZ21oNXJHTGZ5Ti9pRHBkZGFOY2w2?=
- =?utf-8?B?ZExvZHZpQ2poZHlZU1cxZEh6L2lhTnFUNzdkT3VlaU1UeEgxbjI3VGd3Y0NL?=
- =?utf-8?B?T1JFWlUrRldac3lRaitBenEyeUFWZ09PTkkvQ00wQzZSbWZYcXVTZWx5bVRU?=
- =?utf-8?B?K2xKTC9vTkdLL2RSOE5ERk4rdTRnVGp4bzBxSm9KL01TS3VscWRPdkV6eFJv?=
- =?utf-8?B?cmtBL3JGZU8wNmd5SUpXeXRIN2cxN05ERDJVclVhSlNNK2lSVFZ2eDlZWGZt?=
- =?utf-8?B?cW1GdVhvVEJnSC9SWkJkNjliR2lhWXRxWlhGMHdjOFhmQzU0UitSZlVKWGhP?=
- =?utf-8?B?eW1kL2FVbVNyOTV5ejdMNHZrQk9FczRKc0REcjZyRk04c0w3NHZpeHppc0xO?=
- =?utf-8?B?dStjNFEyR2VucTlwREJOQ2hFc3JtUU1PT1RlZWdVUjh5TnVxUkZFY1Q0UGYr?=
- =?utf-8?B?MmJNVi95NVY0d1hLNWlwWW40bmIrOXZaRjdyYmRyaVgyZW5rdGRwcU16ZjBQ?=
- =?utf-8?B?cWUxWTVBcGUyTkV0S1NBNlpzZEpIK0ZEUWpObmI1ajR4TlhrNmdxc1FGaVVP?=
- =?utf-8?B?VFpzdERxWWZndFZNODBoUS9tb2NtcmpwZEtwRGNvTkVYcmpCMnFHRXNIMjlu?=
- =?utf-8?B?TEhNdzYyQlhjaUZRRG1rQ0c5RzJ4c1hqaXFWMFNZTkh0S0lIa2ZPa0wxaTg4?=
- =?utf-8?B?YUZma2RVNDg5RlM1RVdRdGY2OG9ZV3BmcTErM29EQ2tiaEJ5bElENDM5QWZD?=
- =?utf-8?B?cXBJMkVoNEdOd3MrN2lmd2VWQ1ZXVU5VeWRPVG10OS9Zb29vT2k0SjFLdHRO?=
- =?utf-8?B?N1BSY0RLazBIRm5JSWpGR3IwMUFuL2xuSW1jV2ZUeEg5QzROVW5MZ0IyT2I4?=
- =?utf-8?B?TUNTTytYMjRGTWF5akZISGxxQ2xXTUo5d2NmcUtpY1BFOTZJcmxiVUFza1Aw?=
- =?utf-8?B?YmJOeGVSYmZYVUY3QkVyQjdhSWw1Ry9iOCtmTUNwZlZIZmNOenhMeFlkYWFC?=
- =?utf-8?B?UjZuaklkZHJsampDUkw3bXhKMVdGRTMxMXAzSDcwME1GUnRWQklRTE5pT2Nl?=
- =?utf-8?B?OHA0M21vcHRRNlUrVmF2VnY2S0hoQUREU1FlOGJ0djNnMFZLb0pneFdrSncx?=
- =?utf-8?Q?m+WE4417BW4=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SjNOdmtyQnNVcG10Y3VyT3NwOERJM2N6QmF2WGZ2TU5RL1BCTDZoODY2Rk5Q?=
+ =?utf-8?B?dGVSY3ErZXB3SmUvRHlzbHhydGVsbktIem9JUEpUZ3FhbEY0OVhYaVRxNmlH?=
+ =?utf-8?B?ZzRKZFhweXcwU3g2U1NpUCthbmZPMmoxOWRSVGoyNmNtZ2JGNEtJV21ENzNh?=
+ =?utf-8?B?RThwcmlXTnZscVhlaGZtTGIyZlVnU0doaStIVldTeE8vNXlQZm92cjFFVWM3?=
+ =?utf-8?B?MmIzTWZwSytwUk9abS9KVDI1bkdzWU4rT2Z6cHJldTlBY0Z2S25JTFJVUWZG?=
+ =?utf-8?B?RDZ2ZUdWWkVRZ1pCblpZQmliTktNU0d1WXVNOWtLNEZqVlZBaTdxVkNiOWNh?=
+ =?utf-8?B?dnFCT0RnVDQ2VFlhUU1CRWMwa1JqdUpsSVBEVWNMUjZ5eUdoSzg5d0k5OTZs?=
+ =?utf-8?B?d3lZSDF0SnBTU2N1aisycGhXQ1FEaEZFWjIwTi9GcE9pVDBwOTV0T1ZJY0pP?=
+ =?utf-8?B?R1Fzdmp2M3RGVGd2M1hiSnRzSE5mZXNaQTNWdFY1UjF2WHliZGZNeHFPcUxj?=
+ =?utf-8?B?N2NWTGtUZ3R0cG51NlNIdWsycG0vRjVoY1ZSOU10dWl1MDZ1QmlVV1cwRFBO?=
+ =?utf-8?B?NkhTYWhJUXM3bFNNeHhBeDhUTXJBTkZsZUlqbTluN2s1ZnYzZWd5TlR4dEg4?=
+ =?utf-8?B?T2FOOU5JUmJUOE5WNkdpbVprOE55OWFUa25KRmRZbmFYUjhWVTkxdmRKTVl3?=
+ =?utf-8?B?OFhNbkJObmVYTmVHWmdjblRvZ2JKVG5pOUxnMzZ1ZktabmRQSGVQRXhiTkJI?=
+ =?utf-8?B?YzZYdW01K0JwaFZ6bnhHMEgrb1FZSjlNUGlhVFRDcEFDejVGSTVqTi9IaGZN?=
+ =?utf-8?B?TXBDNG5WR3NFWVhQQS9lRU1INlhqNzF0Wmw2WmFMcGtSR3dsZXJhUDlTRngr?=
+ =?utf-8?B?TFl4WW9aaE9EUStBQlk2NzdweUdGNUpKWXFsTnU5dFdQaktMM1AySW1rZ3dG?=
+ =?utf-8?B?UVZYc1FPYXpvL2VYQlkwSWFIYjVaTWpaSFA5YTZzaUkyS054K1ZnaCs2cXk4?=
+ =?utf-8?B?NkcraGhwYVg4b0dMV1k5V3dPVm1hZTFWRk1YMmpsRTlrODQ3SjRhWUFnNXcv?=
+ =?utf-8?B?b3VsTDgzcjhLdVRjU21WTndWTnpwdHQ5SjF3cGpPVksrZUFuK21lcU5nK3JK?=
+ =?utf-8?B?eHhDaFJkUmlTbFhWaG1UWDVtRHJzT2RpVXhSall6cGQweC9wTk5sb1FYS3lM?=
+ =?utf-8?B?WkYxV1RuNFg1YjlWaGdLa25SdXNhc3p4WjFUdEp3VFFRQWZpWWg1L1NOTVhq?=
+ =?utf-8?B?RUI2U2s5QnM1Y0hUNmhuMTBURWxLa3crb3RIQWRCdlh3ajN1ZzZORmlGMkwy?=
+ =?utf-8?B?eUtoR0pDLzVzQUxvdjVNYUF0dzBkZW9NYm41dWU3NnVER2lZZlJJRytHMkVF?=
+ =?utf-8?B?VTR4N2FhNU5HdWV1RWdhY3lRMGZjNUtpSFA1ZXBrT2RqeGE3ZThxWlVnTEV3?=
+ =?utf-8?B?LzVJYlRjOGxrZEFyeDRURkp6RDJ1N1pjMzFZYVNwL2JjaGZrSFEzMmVod0U2?=
+ =?utf-8?B?TWprbDhBZ21ZblRLNnR3Z0JXcmJqYWxNYXRCcS9RSmR1L1hPLzdxcm53b3li?=
+ =?utf-8?B?cTVyRm9ibS9pR0tqVksyaUVXRXJ6NFg3Nm0vTzhNZG5JVkhjZnMvWnk3SUhq?=
+ =?utf-8?B?M2FabWxvN0RYa1dpdEc1WTVzVU0rWE4xMDB6Q2tnTlFKQ1VGb2tBdUhDSFFi?=
+ =?utf-8?B?blBoVnJmeVZnaHhta2F2amc5cWloK284aUozYXBYcVY1YTZFQmRady90dkl4?=
+ =?utf-8?B?ZDM5T1dZQlAzcjRnRzZKN0NlUDNOTWVMclZwdTdCdC9GdXkrWTRvMzV5bDZG?=
+ =?utf-8?B?d3FvS1pBU0ZHYmMwN1VUeksxUDdnQmlaRDNnVllHYmJKaUxLa3VuVEIreEJl?=
+ =?utf-8?B?Y2pWd3BOR0UwY2xQeExZVHdQY2ZYUmY0NHYzY0dhRHJDTDZGUkpCV3JoYzlT?=
+ =?utf-8?Q?j7A8GUMkeB0=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFFlTVJmWFA5SUVTUy9GRnNtNUljK1lra0V1cm1EU3RhUnluSDJpV042dzR0?=
- =?utf-8?B?Vk5VdVpLWXl3R2RUL3BNdmNnR3JXTmdvejZRY3Erd2wvV3NiVkVhM2tkNGJT?=
- =?utf-8?B?NFRVNXJVQ2N0YlpHeU15VDgxTWxscE9hTndmbnB2QWJZb2Nib2Vqc3hPYWZ0?=
- =?utf-8?B?RXZIbEVRYUZidVQvNkFHYkJ3ckt3cklQU0s1WUE1VVdsSUp2eTJWVXFpdzR5?=
- =?utf-8?B?OWdrcTJoR3VUT3V0VXlQQ1pVMnFPNXNLS1RsSU5xVHJTQnVoTkcraDBRSmVw?=
- =?utf-8?B?eERXdzErR0dPYVBaSE90YkY4TmY0cEQrdnVUZ1c1Y2RtN1ZJRXRHVmdYWVI3?=
- =?utf-8?B?NmhmNzA3RFI0eVpvWHBkbGEwOEgyVUovL0F1ck9pVS91eTByVGgvTCtYT0ty?=
- =?utf-8?B?dHo4anV4L3IxNExDSHdJZjFKdkhNYmoxajh2MzN6RUVqQWZ2TnlWOUE0cXVD?=
- =?utf-8?B?NjRSNC80ZWo2ZFIxNmFLeVdweDI0RnRXMGdvZktCOU5WbVBzdGtxQUpZdGt1?=
- =?utf-8?B?bUsxRElrRitrelVkT2NRTEErcVIwSEUrbzVwQThLbmE5Uk9iZHQyTk9HbVFq?=
- =?utf-8?B?R2ExWE5hYzR6RTVYbmhHMDhWMFJZOEZ4cnIzbGNPVHhDZXZ2MnFtZzFJZmM4?=
- =?utf-8?B?QUsyVWZReDZlVmxUcVhMSyt1aHA1Q0xEVi9icUxUWVkzOFJjZTBPUUlXc2lC?=
- =?utf-8?B?WENMOFVXNjQxZzAxU2pZd2V3RlRhRDV3dk5lbWNrWDNZcFczSjY4dzR4bzR0?=
- =?utf-8?B?enl5YlBCNUNXTUNwcUxnZXVkd3p6L01HaGk5MWVvZ3NOSy9nbzBuMlRVM1Zx?=
- =?utf-8?B?UWZXdjdaZXREcWI2SXdKTElMRjFiZG03MVgyakRjVWt6RG9jZXR6cVdVYUVs?=
- =?utf-8?B?Zm0zb3VyM0o0WldWQml1YzB5dFI1V01naytrQkNGb1FzYWxoODVpMHRLU2hu?=
- =?utf-8?B?R2h4M05iMFRzaTdrNHZ3bUhYOEpWV2JObEgzUFYwZDdXUzN1TXVKNlRIWFZW?=
- =?utf-8?B?TUdPK3hmNHpHUGpVeTNFYTZRMys4ajY1djJxWDljeVZQQnB1dUJrUVNDbysr?=
- =?utf-8?B?U3prbWxFelQ4dVNUOTVWc294VW5VcjZ1VVd0a25idlFWK3pnWDhFeHNZWFRT?=
- =?utf-8?B?VGt5TmJDUzdzT0pLVXAzTTM5KzBpekpRcU1kd2l2NCtNbGVVbzRkbUM1OWdM?=
- =?utf-8?B?bHJiWGNWbnJNa2FNMXBqRTluaU8yNVd0OURPSGZPdElaaDY0VWVrNS92dDJH?=
- =?utf-8?B?S0JaYm9Ja0FvTW5BaStOWXF2NDFZR0t1Y2F2dzZoYnJvaTd0Mi8rbWpzbzl2?=
- =?utf-8?B?QUVROHJqdXVtYkZ4eUxXdnRrRjdoRFZlRnlHbHMvTnZRUVJtNmJ4U3h4SEVq?=
- =?utf-8?B?b0dKVWNiVnRVYjdodHlCTUZxTlZ4Vlk2THhUaVM0MEoxdk5zeS92UFBETnRY?=
- =?utf-8?B?SHluQityK2dkR3pOait2RGgxM2RaNlM1R21YNmlVVzdwQ3B5ZDZqODNmRXVW?=
- =?utf-8?B?NGxBY25xLytDU09IdkFGZGFYQm10UDdBeVlqdW0vWXdVWXQ2VGRZbStJeFVu?=
- =?utf-8?B?WVpBVi90S3BaS0pMMzdvWTFjdFU5VVA2dnMxclFUdnoxZGQxeER5bnJjblFL?=
- =?utf-8?B?elJUa3JnZE16NU00dVh6NnJ0THFyYWZpVlhBUUxZSkVkRnVKT3oyMW0wbFJG?=
- =?utf-8?B?WGRqVVN6WnZ4NVREK2VuKytEWitqSS9mNHQ4enNFK3VxNHZEZ3dGbzdWalFS?=
- =?utf-8?B?NWZOeGZwWm5KelJGUkdKZWpwU043bHRhS3NhaWloWkxoZEsyc1RnN0x6dUN0?=
- =?utf-8?B?ZHpzOVJKbEJ2RE4wRVhXR1VERlBkaUk1R0tqOUp4ZlJnMFZEa2NtV0lNSjdz?=
- =?utf-8?B?YXlIK0hUaFB5NEtIakxCTWRWRExTN2ZXdmdCNlVGcitweHp1QkJ6ZXY2NnM2?=
- =?utf-8?B?SFhlOWtjV25McVJ1WTdHc3RsQ1dzaE0vd1h2UitqeGJ4Nis2UUFHaVk1dHdQ?=
- =?utf-8?B?MUxmeWxTTllCVGhWZG9QOTBia0t5ZE14b242N0d0YlIvekNnRkJRbDd2NUFZ?=
- =?utf-8?B?bTNuWlhsb0NSdjdQNlhqM2ZxT1RlenhrUlZJWU5zNWxOcDFwL2NndnF6UnZw?=
- =?utf-8?Q?g/rCMrqxCsGKKq9dC1jusib/b?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjJQWTlqazBtOVAydjVrODlFTWhscGJ6Nk9zOVhEMFhuUFV0MEdVaEdoK0gr?=
+ =?utf-8?B?UmEwRStYbWErMndPTlAxcXRMTWZ5YWhQTGQ5a1Mva0RDbElhdkg5aGJ0S1M2?=
+ =?utf-8?B?S0ZubTN0bGx3NG5UL0dQUExicERnSUZvdXFwd3k0eHhNMk92TEJiWnJESnVL?=
+ =?utf-8?B?V3JsMWpvY29vQVFWU1Rld1EyVWluVTZxcExlYVUvS2M3S3VVN1VmMExIdlJn?=
+ =?utf-8?B?WnFqelRlYUZMT2FvSVdvRzlYZU5UUld2RUJQdTloYTRaMUdXOEhONDdTWGhn?=
+ =?utf-8?B?WEQvKzVsVFhZeGNxVEtxMm54Vk5OamV4WFFFUVNtL3NTQUo2cWd3V1NBRnE2?=
+ =?utf-8?B?V24xUmVWeDZpbVFJb3JXQ1UxQlVmcW1yQzd5bDd1SzlGSW5HcGo1SkFxUzFF?=
+ =?utf-8?B?WXdHcVJyQTk3OHlndU5mbmJ6aDFBeFhhb2Zzc3RRY2tGY3VpdWJUVUJDOUM5?=
+ =?utf-8?B?YlErb3RHd3doaHMvcXRacWE3UEZ4dytUN3A4RkhBVVJ2Z3FqL1Yya0EyRytk?=
+ =?utf-8?B?Y0ovdVJTNDBRdmFKZzBDalI4NE9CM0NTVTh1cTNjc3dUcWM3ZUtRaE92M0ZX?=
+ =?utf-8?B?bHNNNHhxamlrZytkeWJjSG1zYVh0b0szMUVYS09FTCs5cXpxYThxVWlMbXNI?=
+ =?utf-8?B?N1lpYkhaL0ErZ3ptV25VNnZUZzViRi9LbzZFTFEyOHhvOWxhZkJtMXFLWkpl?=
+ =?utf-8?B?WDd3blY2bnNzakpEN3NsWnRKY1haOUNRckNSVUxqbFdnaVhBdjlKUE9MRmdS?=
+ =?utf-8?B?RUZyU3ljQ1gvVGh4VEtHSFpBRjl6NkN2c05RZyt4cXNVUXVod3dQUHVidlh5?=
+ =?utf-8?B?Zk1YNU5rUHZNUWVRQW8xMXM1ZERCQkJ4eDJpYlFodDRxaVhnWmZVdkZaZjhz?=
+ =?utf-8?B?SllTVm1QSTUzc29LRVV2NEdRWjVwN3V3MUh2QlJwUStxNmxxdTJTNDNYSGF3?=
+ =?utf-8?B?blFVTks5YmFHOGpqbURKNTFJZEtOSmp5S3U2MGl0T0E2RHF2bXpzeHZyNzdv?=
+ =?utf-8?B?K0ljYUV1MTdhN1d3V01GeDJITnA4bVdhZk1CaHJFKzhMdUZIczJiQWV0V3Rn?=
+ =?utf-8?B?Vmo3eTF6aDdHclJtc1dFWHV3b1FMcVI0NVVKQ0RCNjV0SEcyNHJyTnlrekJ0?=
+ =?utf-8?B?cnhZQVBpUlV0QmhoTVRnVXdzRi80TE5Pb0lOQ1RLMHI0L1VpYmZYOUN2WTYr?=
+ =?utf-8?B?ak9LS3ZnTTZCUmszdFJEMUhpMFQzQk5ZN0hudkppSE5pS0Y3WE5vQWxEWDRZ?=
+ =?utf-8?B?S0JFdUNLdlppRW1rZTZwbXBBQThLUk5ndjI0TFc1a3oxcmMrYm1rSzJTMFpq?=
+ =?utf-8?B?UTQvWGlYNittVHd1b3orQWREUVIxeUNvellSWjZPa01zMGkzcy91a1VZREJh?=
+ =?utf-8?B?cnloZElqc0l0RlZHK3BWdkxBQ2VpZjdYN1JBdDg5bkZYekR6NXVCT01teG1z?=
+ =?utf-8?B?MUo5dllWcXpyanZEM29EdXhEcHVxb2E1VVRjRWJ6WnVmR01COG9Ea3FHUk1y?=
+ =?utf-8?B?RVBZbGFVUDB5azc1MnJaMlI3U1lPV2RxbDhHZFZzMFBmM0duUy9nN1RKMVMw?=
+ =?utf-8?B?K3gxaHRaYXdFRGovZjg0NTN6OFV4UG9RZ1QxMUhQQ3lCaHFaWS9McGtOSFBQ?=
+ =?utf-8?B?b200UmtYakNuMkxQUjhVcytVTkJoNnJ0bm81b0p4R1Y0UnIxTXkrM1RnVXdK?=
+ =?utf-8?B?OElyZ05vQmpodnJaTGtoRm9WbE12YjBKSEE2bEx3R1ZPMTVOYkhkVGRxWUc3?=
+ =?utf-8?B?RWphNXZPYkhCMDR3ci9BUmJIRC9RbDI2dStTTTNYT0VLQlVvalZEYUcrcW5n?=
+ =?utf-8?B?bnY5M1h5dlRXbDlacURXSG9NOUZvdjJmTTZ5QWZxL0lLTjlIRkp4TVlHVjE4?=
+ =?utf-8?B?U2hyYSt0VWxsSkxlWnZReTQwWXAwanFKanRxUkdOL0dBdzFUOXNMbHhnRUdB?=
+ =?utf-8?B?SzF6cU1JaWp4bTgvR2RoZTQwVklrY0JpcHhKV1V4WkhTZ3U0bWp3UGJ6NWh2?=
+ =?utf-8?B?Yy9tT1N3dXdoanVsbFVMMHlSeWlkMENkZlV3ZmR1cWUrRTd4czgrc29iTU4r?=
+ =?utf-8?B?ZnMzK1NQblkwMUlnVlN2dzhBVklQUG5qaUIxemt6VkpsSGpvR042U0s4TUZx?=
+ =?utf-8?Q?mNrCI2+D/tjfrHw475jU58LEa?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64d01f29-8476-4238-a954-08ddd9627b08
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44d24ef8-a38f-47bc-ba04-08ddd962f7ba
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 05:38:35.6496 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 05:42:04.6564 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: piBw3S2eLhctUpCe5CLfUmKETKSch4ynVwEQ1nmBWf9Oe8rE0O1v/KzLcYXzgkrG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8121
+X-MS-Exchange-CrossTenant-UserPrincipalName: oUaPyugao5IHooWNkPGtG5JPz/kZd2iwb+89apRs6kdknVvqL7hu7H6tBQopcum2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6893
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,193 +166,70 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 8/12/2025 6:33 AM, Jesse.Zhang wrote:
-> This commit introduces support for detecting VCN reset capability through
-> the SMU interface. Key changes include:
+> This change reorganizes VCN reset capability detection by:
 > 
-> 1. Added amdgpu_dpm_reset_vcn_is_supported() interface to check VCN reset support
-> 2. Implemented SMU backend functions for VCN reset capability detection
-> 3. Added SMU_CAP(VCN_RESET) capability flag for SMU v13.0.6
-> 4. Updated PPSMC message definitions to accommodate VCN reset functionality
-> 5. Added version checks for VCN reset support (fw_ver >= 0x04557100)
+> 1. Moving reset mask configuration from sw_init to new late_init phase
+> 2. Adding vcn_v4_0_3_late_init() to properly check for per-queue reset support
+> 3. Only setting soft full reset mask as fallback when per-queue reset isn't supported
+> 4. Removing TODO comment now that queue reset support is implemented
 > 
-> The changes maintain backward compatibility while enabling proper detection
-> of VCN reset capabilities when supported by the firmware.
-> 
-> v2: clean up debug info and adjust this message to be more meaningful (Alex)
+> V2: Removed unrelated changes. Keep amdgpu_get_soft_full_reset_mask in place
+>     and remove TODO comment. (Alex)
 > 
 > Suggested-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Ruili Ji <ruiliji2@amd.com>
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/pm/amdgpu_dpm.c             | 15 +++++++++++++++
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h         |  1 +
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c       | 10 ++++++++++
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h   |  5 +++++
->  .../pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h    |  4 ++--
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c    | 17 +++++++++++++++++
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h    |  1 +
->  7 files changed, 51 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> index 6e0d711820ea..518d07afc7df 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> @@ -820,6 +820,21 @@ int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask)
->  	return ret;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> index 019bd362edb2..03fcd6833c26 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> @@ -134,6 +134,16 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
+>  	return 0;
 >  }
 >  
-> +bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev)
+> +static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
 > +{
-> +	struct smu_context *smu = adev->powerplay.pp_handle;
-> +	bool ret;
+> +	struct amdgpu_device *adev = ip_block->adev;
 > +
-> +	if (!is_support_sw_smu(adev))
-> +		return false;
-> +
-> +	mutex_lock(&adev->pm.mutex);
-> +	ret = smu_reset_vcn_is_supported(smu);
-> +	mutex_unlock(&adev->pm.mutex);
-> +
-> +	return ret;
-> +}
-> +
->  int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,
->  				  enum pp_clock_type type,
->  				  uint32_t *min,
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> index 09962db988d6..9748744133d9 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> @@ -615,6 +615,7 @@ ssize_t amdgpu_dpm_get_pm_policy_info(struct amdgpu_device *adev,
->  int amdgpu_dpm_reset_sdma(struct amdgpu_device *adev, uint32_t inst_mask);
->  bool amdgpu_dpm_reset_sdma_is_supported(struct amdgpu_device *adev);
->  int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask);
-> +bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev);
->  bool amdgpu_dpm_is_temp_metrics_supported(struct amdgpu_device *adev,
->  					  enum smu_temp_metric_type type);
->  
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index dc48a1dd8be4..f9a350a82764 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -4106,6 +4106,16 @@ int smu_reset_sdma(struct smu_context *smu, uint32_t inst_mask)
->  	return ret;
->  }
->  
-> +bool smu_reset_vcn_is_supported(struct smu_context *smu)
-> +{
-> +	bool ret = false;
-> +
-> +	if (smu->ppt_funcs && smu->ppt_funcs->reset_vcn_is_supported)
-> +		ret = smu->ppt_funcs->reset_vcn_is_supported(smu);
-> +
-> +	return ret;
-> +}
-> +
->  int smu_reset_vcn(struct smu_context *smu, uint32_t inst_mask)
->  {
->  	if (smu->ppt_funcs && smu->ppt_funcs->dpm_reset_vcn)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 611b381b9147..7990771151be 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -1426,6 +1426,10 @@ struct pptable_funcs {
->  	 * @reset_vcn: message SMU to soft reset vcn instance.
->  	 */
->  	int (*dpm_reset_vcn)(struct smu_context *smu, uint32_t inst_mask);
-> +	/**
-> +	 * @reset_vcn_is_supported: Check if support resets vcn.
-> +	 */
-> +	bool (*reset_vcn_is_supported)(struct smu_context *smu);
->  
->  	/**
->  	 * @get_ecc_table:  message SMU to get ECC INFO table.
-> @@ -1702,6 +1706,7 @@ int smu_send_rma_reason(struct smu_context *smu);
->  int smu_reset_sdma(struct smu_context *smu, uint32_t inst_mask);
->  bool smu_reset_sdma_is_supported(struct smu_context *smu);
->  int smu_reset_vcn(struct smu_context *smu, uint32_t inst_mask);
-> +bool smu_reset_vcn_is_supported(struct smu_context *smu);
->  int smu_set_pm_policy(struct smu_context *smu, enum pp_pm_policy p_type,
->  		      int level);
->  ssize_t smu_get_pm_policy_info(struct smu_context *smu,
 
-It's better to split smu v13.0.6 changes to a separate patch.
+For better structuring, suggest to move below code also to the same
+place so that the mask is set at one place.
 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
-> index 41f268313613..63a088ef7169 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
-> @@ -94,9 +94,9 @@
->  #define PPSMC_MSG_RmaDueToBadPageThreshold          0x43
->  #define PPSMC_MSG_SetThrottlingPolicy               0x44
->  #define PPSMC_MSG_ResetSDMA                         0x4D
-> -#define PPSMC_MSG_ResetVCN                          0x4E
->  #define PPSMC_MSG_GetStaticMetricsTable             0x59
-> -#define PPSMC_Message_Count                         0x5A
-> +#define PPSMC_MSG_ResetVCN                          0x5B
-> +#define PPSMC_Message_Count                         0x5C
->  
->  //PPSMC Reset Types for driver msg argument
->  #define PPSMC_RESET_TYPE_DRIVER_MODE_1_RESET        0x1
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index 90e66c8f2f82..60aaf0e2ce8f 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -434,6 +434,9 @@ static void smu_v13_0_6_init_caps(struct smu_context *smu)
->  	    ((pgm == 0) && (fw_ver >= 0x00557900)) ||
->  	    ((pgm == 4) && (fw_ver >= 0x4557000)))
->  		smu_v13_0_6_cap_set(smu, SMU_CAP(SDMA_RESET));
-> +
-> +	if ((pgm == 4) && (fw_ver >= 0x04557100))
-> +		smu_v13_0_6_cap_set(smu, SMU_CAP(VCN_RESET));
->  }
->  
->  static void smu_v13_0_x_init_caps(struct smu_context *smu)
-> @@ -3171,6 +3174,19 @@ static int smu_v13_0_6_reset_sdma(struct smu_context *smu, uint32_t inst_mask)
->  	return ret;
->  }
->  
-> +static bool smu_v13_0_6_reset_vcn_is_supported(struct smu_context *smu)
-> +{
-> +	bool ret = true;
-> +
-> +	if (!smu_v13_0_6_cap_supported(smu, SMU_CAP(VCN_RESET))) {
-> +		dev_info(smu->adev->dev,
-> +			"SMU VCN reset not supported.  Please update SMU firmware.\n");
+ 	adev->vcn.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_enc[0]);
 
-This will come for every reset attempt for programs other than 4. Better
-restrict this to once, or not to keep it as it requires IFWI update.
 
 Thanks,
 Lijo
 
-> +		ret = false;
-> +	}
+> +	if (amdgpu_dpm_reset_vcn_is_supported(adev))
+> +		adev->vcn.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
 > +
-> +	return ret;
+> +	return 0;
 > +}
 > +
->  static int smu_v13_0_6_reset_vcn(struct smu_context *smu, uint32_t inst_mask)
+>  static int vcn_v4_0_3_fw_shared_init(struct amdgpu_device *adev, int inst_idx)
 >  {
->  	int ret = 0;
-> @@ -3859,6 +3875,7 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
->  	.reset_sdma = smu_v13_0_6_reset_sdma,
->  	.reset_sdma_is_supported = smu_v13_0_6_reset_sdma_is_supported,
->  	.dpm_reset_vcn = smu_v13_0_6_reset_vcn,
-> +	.reset_vcn_is_supported = smu_v13_0_6_reset_vcn_is_supported,
->  };
+>  	struct amdgpu_vcn4_fw_shared *fw_shared;
+> @@ -211,7 +221,6 @@ static int vcn_v4_0_3_sw_init(struct amdgpu_ip_block *ip_block)
+>  			adev->vcn.inst[i].pause_dpg_mode = vcn_v4_0_3_pause_dpg_mode;
+>  	}
 >  
->  void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
-> index ece04ad724fb..7c98f77c429d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
-> @@ -64,6 +64,7 @@ enum smu_v13_0_6_caps {
->  	SMU_CAP(RMA_MSG),
->  	SMU_CAP(ACA_SYND),
->  	SMU_CAP(SDMA_RESET),
-> +	SMU_CAP(VCN_RESET),
->  	SMU_CAP(STATIC_METRICS),
->  	SMU_CAP(HST_LIMIT_METRICS),
->  	SMU_CAP(BOARD_VOLTAGE),
+> -	/* TODO: Add queue reset mask when FW fully supports it */
+>  	adev->vcn.supported_reset =
+>  		amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_enc[0]);
+>  
+> @@ -1871,6 +1880,7 @@ static void vcn_v4_0_3_set_irq_funcs(struct amdgpu_device *adev)
+>  static const struct amd_ip_funcs vcn_v4_0_3_ip_funcs = {
+>  	.name = "vcn_v4_0_3",
+>  	.early_init = vcn_v4_0_3_early_init,
+> +	.late_init = vcn_v4_0_3_late_init,
+>  	.sw_init = vcn_v4_0_3_sw_init,
+>  	.sw_fini = vcn_v4_0_3_sw_fini,
+>  	.hw_init = vcn_v4_0_3_hw_init,
 
