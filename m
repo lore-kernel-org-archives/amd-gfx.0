@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0423DCA0EC4
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 21:23:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECCCECA0EDC
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 21:25:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A519510E08C;
-	Tue, 12 Aug 2025 21:23:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81FC110E48E;
+	Tue, 12 Aug 2025 21:25:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iP77S8O/";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jEtC9aZ9";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C14A10E08C
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 21:23:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EABCF10E48E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 21:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
@@ -22,24 +22,22 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=K5S6VN9WPp3Eq73+IyBcZdAlbAB5KqJHdSQ9dKqyQfo=; b=iP77S8O/iR6J/HkIpm55fAEGSf
- peiNmdHRwPl3k53QOlZUapyp91E+zTfYx96GJuys89+YmHgpcC6g7vIUvdXYDhTVeZ8t8S9SmueqQ
- 7U4na3e0dHKFrzFeMW6m24U3x982ZxHfXWwpezplRkSFv7TErHAwBMu6L4NH2H4lG8ghj1F0dWQ6H
- fXExGdHr+pPvYKVmeLu8xGK8SfLHnYquRDo8MdXO5hR8g8wVe/W2VTIEk8IdR5ZgyMbrz9GOrR9CE
- 2ENiFECHsyggc0uj/9oENi4i+JBK2LnCd8Z8c1hUfLv7WfYp6xaWKVJ9tDwlBLTmYaOXeFXtwaIhf
- 3Fj8le8g==;
+ bh=A7bVdwk4ZkVG/lfgKyLjNIUGAwrHvqG8DkIP7L2mjHk=; b=jEtC9aZ9BtAhWxDhL5OmWUJ8mr
+ qoCJ7TobfqoY1yPCAzzyxldead+/Og2kIWO+ZdJbfsc6MYFKLAUJl7cISa4abaD6qgwxTYV9ZZRVL
+ 2tV4ddfyeSGBEm4cCCiVajhnwkM9izxP6S+Aim2BDgFLCtwmf2w2BOwuXWwdXYZbEFuVpFJjP/YFZ
+ mwVqlVg6VeFrSFtgp9PyjuiI5kP2SpI7ujAgiwU5jKeWEpADEkvazB/35rYaCgx3gW0EZDk4A0R++
+ sl9B0om0IlX896IgkALS8OEey/53h4/fmSj8J+iD/mVR48608SXKmaAeaK2ZbBrYSlxE/Tk5QQZVH
+ TFQm/96g==;
 Received: from [104.193.135.201] (helo=debian.lan)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ulwSd-00DPJ1-1x; Tue, 12 Aug 2025 23:23:11 +0200
-Date: Tue, 12 Aug 2025 15:23:07 -0600
+ id 1ulwUd-00DPLW-U1; Tue, 12 Aug 2025 23:25:16 +0200
+Date: Tue, 12 Aug 2025 15:25:13 -0600
 From: Rodrigo Siqueira <siqueira@igalia.com>
 To: Timur =?utf-8?Q?Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Alex Hung <alex.hung@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Subject: Re: [PATCH 2/3] drm/amd/display: Disable VRR on DCE 6
-Message-ID: <fogp2e24lg6ggop7ycjzqi3rmeyx7reib6fgxnkwrsu5drs6vb@gu3er5lb5yg5>
+Message-ID: <j6oxtku2jsvubgqzssdrng2yz3f2iqu7wwn6g2dmkwznpobhwb@ehhdh2xleujg>
 References: <20250802160602.12698-1-timur.kristof@gmail.com>
  <20250802160602.12698-3-timur.kristof@gmail.com>
 MIME-Version: 1.0
@@ -85,6 +83,14 @@ On 08/02, Timur Kristóf wrote:
 >  		}
 > +	} else {
 > +		config.state = VRR_STATE_UNSUPPORTED;
+
+Just one tiny comment:
+
+How about setting this value before the conditional "if" and removing
+this "else" part?
+
+Thanks
+
 >  	}
 >  out:
 >  	new_crtc_state->freesync_config = config;
@@ -123,15 +129,7 @@ On 08/02, Timur Kristóf wrote:
 >  #endif /* __DM_SERVICES_H__ */
 > -- 
 > 2.50.1
->
-
-This change also lgtm,
-
-CCed other display folks.
-
-Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
- 
-Thanks
+> 
 
 -- 
 Rodrigo Siqueira
