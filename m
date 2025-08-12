@@ -4,128 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B56BAC87FCB
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 14:56:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B32F2CA0EC4
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 16:09:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58D7D10E0C4;
-	Tue, 12 Aug 2025 14:56:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5413A10E03C;
+	Tue, 12 Aug 2025 16:09:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FKTsYI9u";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eJ8YwLgp";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2059.outbound.protection.outlook.com [40.107.237.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F24010E0C4
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 14:56:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yzglMyyzdte7gvYNFYmilv/BoFtRMIlBhfLl4vtZS5bkWzzkiHOPSrQpop7JzGV3BWquPn4fTM8qVvVZdc/DRH4ewlwjXY2MDjgIMi48Ag7Wg50THMdxTJTaL/wv3xEBblC/6JKasJhZ6z5T7d5sPCwPsbkte0taix5my4IQF0xaF3QbOsKwePaNfrrp2/2Lh7XyjSQOdvguGa2x/nS883yrpEAmNyyj2XRib+nqL7x5QvSKeUHywuO/pbyX2yCTeUWytJ7YfpmeRulVYuNfJEqV9ApHuMChmQHuPH+vnIE/83PZFpN0L5pxqC1FSKpWK+xP3/qgV8m/gTivocbe5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LHRRkJ6nQ+2Jpi25KkmE6rQ4o/1QKOWIRRlaEHUi0/I=;
- b=j4cIM1JMHjqCdvlVRaV7Tm900kOEowFp/897fS981WSTIvOi/uRAXMNL2ayWROVsvYnQoQttA935+9A7XNX7Yd2cWiJSkDv2Sy+N34IQzCAhk2E5MYN7KI2vaDEnB2lHVIHTBAaA2BPtBywFyKGDiYcgeQLmkVHyOjWxE5usCxBB+ER0g1NatFWN1WX+7xAS+xTap3gv80mofvy1CUbtRI6+Udi2eFLiiZUzmcLEPzFRioH0Bo3P9Hcmb9O1fdhckf0fgTyEMq1x85UoVx70pgh02Yn8B8Z39wbiZrrrGqy/nfSk5QltLJx4S9e+HWuRto5OgChPFrj1s4zmmnpCrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LHRRkJ6nQ+2Jpi25KkmE6rQ4o/1QKOWIRRlaEHUi0/I=;
- b=FKTsYI9uo1MXQcoRTZTEeSYV/RP7qyiU4LNLQOD48RZ72ydssZdrHLiGmzU3xGVf86VQEliXs3FB1cIdqEA5JA60vHI2Fy6fnWA72SwEBJYkvmBEtsnojEg/L6xMBIbf060YQhuq7q463j2QjfnEPxtjj5O+EBqJuo4igWBSoKE=
-Received: from BN0PR04CA0044.namprd04.prod.outlook.com (2603:10b6:408:e8::19)
- by SJ0PR12MB7033.namprd12.prod.outlook.com (2603:10b6:a03:448::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Tue, 12 Aug
- 2025 14:56:29 +0000
-Received: from BL6PEPF0001AB4D.namprd04.prod.outlook.com
- (2603:10b6:408:e8:cafe::f) by BN0PR04CA0044.outlook.office365.com
- (2603:10b6:408:e8::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.13 via Frontend Transport; Tue,
- 12 Aug 2025 14:56:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB4D.mail.protection.outlook.com (10.167.242.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Tue, 12 Aug 2025 14:56:29 +0000
-Received: from sathish-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 12 Aug 2025 09:56:26 -0500
-From: Sathishkumar S <sathishkumar.sundararaju@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alexander Deucher <Alexander.Deucher@amd.com>, Leo Liu <Leo.Liu@amd.com>, 
- Sathishkumar S <sathishkumar.sundararaju@amd.com>
-Subject: [PATCH] drm/amdgpu/vcn: Fix video_profile switch race condition
-Date: Tue, 12 Aug 2025 20:26:10 +0530
-Message-ID: <20250812145610.1300497-1-sathishkumar.sundararaju@amd.com>
-X-Mailer: git-send-email 2.48.1
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71EF810E03C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 16:09:03 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2400a0c3cf7so8341535ad.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 09:09:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755014943; x=1755619743; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=CuwZhayvbD7WWgkVgR2Ghkmi4v5seLTMHIINyCXKtV8=;
+ b=eJ8YwLgphxlYEn6P8vMSTIlKCFxtt3/nXaertcoYdwYTqQ3k+BQ9ULq/n+JK+AQ55c
+ 3IfLpcnmXVxmIQj1NB5QbOJeX1DNIfy+P+X3NPF9cnE48a7eDJ3ah9FakHZJG34yILPt
+ mM1Q4znMfsd9E2Cwf3Uw5+3yEwQBL9YQB4F/MAKelIRYVuxdld/DUuSBFX8hs13z47E4
+ huG64dhJYM+G4Gd9UhuGTSobBKmQ+WYXTLU3XOr49ifYzklMmXXyU45LngIoEUas0EPz
+ T4bnC+7eM8M2JsQT0/igVfhOuR81oQKAAQ0NY+NiSfIhEVcdehuHVntixTR3njKO1F22
+ CMkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755014943; x=1755619743;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CuwZhayvbD7WWgkVgR2Ghkmi4v5seLTMHIINyCXKtV8=;
+ b=I1AnDYgNBJkqzq6BNwRX2utvUUXsidaNiBe34Rudg/avkzvf0tMgMV+TQxMWlJTu0z
+ rlbKVAExh8sk76tNyzuZu4V/w7ser/2+JGN04WQMVGxQGIVVXhSyD75OqoBHg94P3lL3
+ 9C3dGsspjD64MAY+ZZPudi7JtJLaCa3s2sJp43wE9BzAQno8tFGWIcuObdoILwYE549B
+ wGEY5Y88iQrx5FnvterBUAO26aawRuIl1404PuuM/pKZNCkPKBjS0PvdA6I7s+mAQ4up
+ b4X2Hdr69VI7Mr63S015TcFL4cpiSYjYRp6plP4Yz7ab6/9Tpd+Z7zy+9k4HcY9Aumwz
+ THow==
+X-Gm-Message-State: AOJu0YzopVdmo6lS3vDhEROybWYJ8lxk/Gam2TRLK4rBt4j2emjUwGdt
+ 7g+XVm5OBX7N/fieWLAH7vFT2RclW/O83/rX7dDflH7y6Ogaj/AiugASNeme1RPhnKXL6dtpklN
+ Vhl3vYk0P1eTtLom0Yh4e0hUDGsTUfjovIA==
+X-Gm-Gg: ASbGncvZ4kUMSRriMvG0GRgMTBQA5PBDQg8kU6euMbdRH5Ky8WBRB6Vhwx6dYc9KQTT
+ mSDkXfq0yV3QMVBkBpPpizF5ejJq8MdjRKXck8d3+MCxB9cWz0QvAorKtPJqEXH0xnNw+g6rNPQ
+ SnFs5wJ99KL31QEC75AJgpfaPy2zI4IXOdCwC7XAwB79g3F6ABWkSriU5AzllqO3ueeZ1LUMPlF
+ 85SErs=
+X-Google-Smtp-Source: AGHT+IGDOgTe3JqxJWHaihh5XuEX21ZrWjEHDQjRfJKr2N5BxydZMEyUBE3DQ7J7OMDQIJetrRYFlrJqNHjB+CZUZjU=
+X-Received: by 2002:a17:903:184:b0:240:1879:c2fd with SMTP id
+ d9443c01a7336-24306906f98mr14508805ad.2.1755014942640; Tue, 12 Aug 2025
+ 09:09:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4D:EE_|SJ0PR12MB7033:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87c75ac9-b488-4e10-3147-08ddd9b06b23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RzRPVDU4c0orNnRFdXZLbjhmdERLVlhad0UwQ24rZnpPeVVVVFZ3eW5nRU0v?=
- =?utf-8?B?eDFNZzl2V0M2cXR2MC9PYWRqaEg2em5tK1k1ZGV5NkFEbVVEZVYwbnJZa2Nv?=
- =?utf-8?B?RDFIT3JIQmxSbzR3WGxGcVl4ZmNGMloyQUUxdUhnNktyVXUyY3A1cFFGVjl1?=
- =?utf-8?B?OGJMQWU0OFBjaUxjRk1XTW81VCt0dVF6QzNYVEJtTUM4UGlMcVBHMk5uNmlC?=
- =?utf-8?B?SFhITFJQUDJzck9aNFpCYjJRNm16REs5RTF6aExiRlZZMTF0Nk15SEJaSTMr?=
- =?utf-8?B?cnhGQ0czSDFsWWV1OU95bWtTcFFQMlE4RFpYK1hIVU9mNzhLdlNwZTkrbllj?=
- =?utf-8?B?SzkvTDB6eW14eFVQYkJ1UWlqcFBHVFlsbFJPb2tQR3Z0cmNFZ3FxdjFFS1dU?=
- =?utf-8?B?aWtkV2FZNUwvV0E0UGcxQVJ5dGVYaWpIYnhLSWxseVVtR09VRGdxQjF3T3NN?=
- =?utf-8?B?ellqMVpteHJxT1luMTJiMHJJMGVwa0FQY0tWeGlsL1FsemRxZGpXellYUGlT?=
- =?utf-8?B?N2JxMDVrOFhhcWRqQ2xoaGlLOVJXV1JZUUU2ZkZJRXFPM0VFNTdEWXYyTm4z?=
- =?utf-8?B?THpMNUFPdjQ4N0NKbWtQMkkybFk4dGU4dC8yL3ZHb0svRnNuRGJCTXQ1L1pQ?=
- =?utf-8?B?OEdIZVdjUWZYQjI4UGdoS0lzc3pxeDNUSDRFRTBHMmpOaEdtdkRIRm53Ykl0?=
- =?utf-8?B?cC9GVnVYOXFoeVh2TUdJMTVJbHFCV3RjbFdGN0Z4YnV6TEkyOUNQU0w3cG1B?=
- =?utf-8?B?d0JITklMdVBublByaE8reUJ2RWxSeTJYK3RCNEhGRnFRRFdTWXZpQ1AvOFk2?=
- =?utf-8?B?Q01neEMwRU5oTDdCSEZuaGRvMkdqa0RmYzdPRUUrOE52Tm9PR1VZcTR4MUV3?=
- =?utf-8?B?S3BzejBUMVdEZDZMbExxaGw1cG00SkIvUmtaVXFJZll4bWUxZHUyV2hSTVNF?=
- =?utf-8?B?VnpKVng1L1RmcGRlOGhUMnIzc3Ntam9rK3MxV2FqUG5EWHZVc1hLMnJIS01B?=
- =?utf-8?B?OUNTL0V0ZlR5azg1UTl1SzlldXFuZHlBbzJHWE5kYVNnWEw2K05BT0dHWnp3?=
- =?utf-8?B?elJhcEVNeloxVzhkeitnSXd3WjJISUdWTTBydTZmTHZCaWo2dTl5YWJxVTlv?=
- =?utf-8?B?ZEYxczd6VEI3RC9QWHNUZ2VWYjkwMzZ2MnNlRkl4bkIwL1JNZFpLYURPQ29H?=
- =?utf-8?B?QWNiemx0aXBFUFZFai85dlFQYmQrUXZjNEtvbEo2dHkwTjZVM2UzSDZ0bjZ4?=
- =?utf-8?B?V25Ec0VNRXVGY2Vqd3pKYkEyQWI2dk5aRlEzUFdtQWdRZDBqUnE3YXcxR2Rr?=
- =?utf-8?B?VDBwNU0xMDJzZ1J4R1FXQzBYVEVJcXBRZ1NpTENGMTYrWGF5a1Y5SXpneW1Q?=
- =?utf-8?B?RytCOVBVNWVzTTl1QjBIL09pdTBRNWZjcXMvWW1LdTlyam40RDhDY3lJc1NQ?=
- =?utf-8?B?WDJZa01HVjlpK3FUUmhNMlZkWG1UalVUblZoMExYU2xLaW1CWHlLeEdmeWpE?=
- =?utf-8?B?OW85NUV6WWthaFJCRGRNWFhBR0lvc3h3ZGw0eTdldlVGZVU4M2k1TlgzbW1L?=
- =?utf-8?B?dXBsUGJ2VU1nRDVRdmF6bkVrWVRPcUZKRzFoYVg0dUk5bCtWOGJ6RkVteGNi?=
- =?utf-8?B?ZC9OTEQ4MzhaN3ZBdFU3alU5cTdVWHdLOUtZMzBaOE5yUVhxTS9XbjBwZ2My?=
- =?utf-8?B?MThtNkJLcEtXZ21aU1NST2QvK2xsWmNiMnNDdjFZMDhHWVJtdHJXUS90VjFN?=
- =?utf-8?B?MDRDaWpkNXlWbFo0RkFPQWhTdWY4eGF4SEdMdnhMRHBEQUVOOEVOSzg1Rysy?=
- =?utf-8?B?RzhMUTVpWk1rZUV1TXpndnNxQjFyT3JnblNhVFdlTVkxd1NjSUxSSFlTNURP?=
- =?utf-8?B?WGVSUGtEVG0vTXYrV2pHUGZiUEIvZlFOU3U0Y1VEZ0NEQ2NFa3JOSnlJTTRV?=
- =?utf-8?B?VGQ2U3FpZUhSb2ZwMHhrOFJSUkdmVWdjSmVCeUMwU3NUWE9RSktlcHhWMm03?=
- =?utf-8?B?bTY4U2pweXRRVHRRVlVIZTRZRCtUVElXTUgvZS91RnBWYUgzbzVLc2cwQXZS?=
- =?utf-8?Q?vOx7sw?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 14:56:29.0984 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87c75ac9-b488-4e10-3147-08ddd9b06b23
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7033
+References: <20250812145610.1300497-1-sathishkumar.sundararaju@amd.com>
+In-Reply-To: <20250812145610.1300497-1-sathishkumar.sundararaju@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Aug 2025 12:08:50 -0400
+X-Gm-Features: Ac12FXx2q1r6ae6rRgrVNV1SPxKhdCXWxUe_JeVVIscYKIrQ2MW5Efoq2fCnQDA
+Message-ID: <CADnq5_P=kmQLOyjyGbOcW248TGO52nUNQo2xOK92rBRyPvAmmA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/vcn: Fix video_profile switch race condition
+To: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, 
+ Alexander Deucher <Alexander.Deucher@amd.com>, Leo Liu <Leo.Liu@amd.com>
+Content-Type: multipart/mixed; boundary="0000000000003b64e2063c2d4239"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,103 +79,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is a race condition which leads to dpm video power
-profile switch (disable and enable) during active video
-decode on multi-instance VCN hardware.
+--0000000000003b64e2063c2d4239
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This patch aims to fix/skip step 3 in the below sequence:
+On Tue, Aug 12, 2025 at 10:56=E2=80=AFAM Sathishkumar S
+<sathishkumar.sundararaju@amd.com> wrote:
+>
+> There is a race condition which leads to dpm video power
+> profile switch (disable and enable) during active video
+> decode on multi-instance VCN hardware.
+>
+> This patch aims to fix/skip step 3 in the below sequence:
+>
+>  - inst_1       power_on
+>  - inst_0(idle) power_off
+>  - inst_0(idle) video_power_profile OFF (step 3)
+>  - inst_1       video_power_profile ON during next begin_use
+>
+> Add flags to track ON/OFF vcn instances and check if all
+> instances are off before disabling video power profile.
 
- - inst_1       power_on
- - inst_0(idle) power_off
- - inst_0(idle) video_power_profile OFF (step 3)
- - inst_1       video_power_profile ON during next begin_use
+I think you could also just look at the outstanding fences on the
+other instances.  Something like the attached patch.  Either way works
+for me.
 
-Add flags to track ON/OFF vcn instances and check if all
-instances are off before disabling video power profile.
+Alex
 
-Protect workload_profile_active also within pg_lock and ON it
-during first use and OFF it when last VCN instance is powered
-OFF. VCN workload_profile_mutex can be removed after similar
-clean up is done for vcn2_5.
+>
+> Protect workload_profile_active also within pg_lock and ON it
+> during first use and OFF it when last VCN instance is powered
+> OFF. VCN workload_profile_mutex can be removed after similar
+> clean up is done for vcn2_5.
+>
+> Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 24 +++++++++---------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  4 ++++
+>  2 files changed, 13 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vcn.c
+> index 9a76e11d1c18..da372dd7b761 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -445,16 +445,16 @@ static void amdgpu_vcn_idle_work_handler(struct wor=
+k_struct *work)
+>         if (!fences && !atomic_read(&vcn_inst->total_submission_cnt)) {
+>                 mutex_lock(&vcn_inst->vcn_pg_lock);
+>                 vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_GATE);
+> -               mutex_unlock(&vcn_inst->vcn_pg_lock);
+> -               mutex_lock(&adev->vcn.workload_profile_mutex);
+> -               if (adev->vcn.workload_profile_active) {
+> +               adev->vcn.flags &=3D AMDGPU_VCN_FLAG_VINST_OFF(vcn_inst->=
+inst);
+> +               if (adev->vcn.workload_profile_active &&
+> +                   !(adev->vcn.flags & AMDGPU_VCN_FLAG_VINST_MASK(adev->=
+vcn.num_vcn_inst))) {
+>                         r =3D amdgpu_dpm_switch_power_profile(adev, PP_SM=
+C_POWER_PROFILE_VIDEO,
+>                                                             false);
+>                         if (r)
+>                                 dev_warn(adev->dev, "(%d) failed to disab=
+le video power profile mode\n", r);
+>                         adev->vcn.workload_profile_active =3D false;
+>                 }
+> -               mutex_unlock(&adev->vcn.workload_profile_mutex);
+> +               mutex_unlock(&vcn_inst->vcn_pg_lock);
+>         } else {
+>                 schedule_delayed_work(&vcn_inst->idle_work, VCN_IDLE_TIME=
+OUT);
+>         }
+> @@ -470,14 +470,8 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *r=
+ing)
+>
+>         cancel_delayed_work_sync(&vcn_inst->idle_work);
+>
+> -       /* We can safely return early here because we've cancelled the
+> -        * the delayed work so there is no one else to set it to false
+> -        * and we don't care if someone else sets it to true.
+> -        */
+> -       if (adev->vcn.workload_profile_active)
+> -               goto pg_lock;
+> +       mutex_lock(&vcn_inst->vcn_pg_lock);
+>
+> -       mutex_lock(&adev->vcn.workload_profile_mutex);
+>         if (!adev->vcn.workload_profile_active) {
+>                 r =3D amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_=
+PROFILE_VIDEO,
+>                                                     true);
+> @@ -485,11 +479,11 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *=
+ring)
+>                         dev_warn(adev->dev, "(%d) failed to switch to vid=
+eo power profile mode\n", r);
+>                 adev->vcn.workload_profile_active =3D true;
+>         }
+> -       mutex_unlock(&adev->vcn.workload_profile_mutex);
+>
+> -pg_lock:
+> -       mutex_lock(&vcn_inst->vcn_pg_lock);
+> -       vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
+> +       if (!(adev->vcn.flags & AMDGPU_VCN_FLAG_VINST_ON(vcn_inst->inst))=
+) {
+> +               vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
+> +               adev->vcn.flags |=3D AMDGPU_VCN_FLAG_VINST_ON(vcn_inst->i=
+nst);
+> +       }
+>
+>         /* Only set DPG pause for VCN3 or below, VCN4 and above will be h=
+andled by FW */
+>         if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG &&
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vcn.h
+> index b3fb1d0e43fc..a876a182ff88 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> @@ -366,6 +366,10 @@ struct amdgpu_vcn {
+>         struct mutex            workload_profile_mutex;
+>         u32 reg_count;
+>         const struct amdgpu_hwip_reg_entry *reg_list;
+> +#define AMDGPU_VCN_FLAG_VINST_MASK(n)  (BIT(n+1) - 1)
+> +#define AMDGPU_VCN_FLAG_VINST_ON(n)    (BIT(n))
+> +#define AMDGPU_VCN_FLAG_VINST_OFF(n)   (~BIT(n))
+> +       u32 flags;
+>  };
+>
+>  struct amdgpu_fw_shared_rb_ptrs_struct {
+> --
+> 2.48.1
+>
 
-Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 24 +++++++++---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  4 ++++
- 2 files changed, 13 insertions(+), 15 deletions(-)
+--0000000000003b64e2063c2d4239
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-drm-amdgpu-vcn-fix-video-profile-race-condition.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amdgpu-vcn-fix-video-profile-race-condition.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_me8qde3m0>
+X-Attachment-Id: f_me8qde3m0
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 9a76e11d1c18..da372dd7b761 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -445,16 +445,16 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
- 	if (!fences && !atomic_read(&vcn_inst->total_submission_cnt)) {
- 		mutex_lock(&vcn_inst->vcn_pg_lock);
- 		vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_GATE);
--		mutex_unlock(&vcn_inst->vcn_pg_lock);
--		mutex_lock(&adev->vcn.workload_profile_mutex);
--		if (adev->vcn.workload_profile_active) {
-+		adev->vcn.flags &= AMDGPU_VCN_FLAG_VINST_OFF(vcn_inst->inst);
-+		if (adev->vcn.workload_profile_active &&
-+		    !(adev->vcn.flags & AMDGPU_VCN_FLAG_VINST_MASK(adev->vcn.num_vcn_inst))) {
- 			r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
- 							    false);
- 			if (r)
- 				dev_warn(adev->dev, "(%d) failed to disable video power profile mode\n", r);
- 			adev->vcn.workload_profile_active = false;
- 		}
--		mutex_unlock(&adev->vcn.workload_profile_mutex);
-+		mutex_unlock(&vcn_inst->vcn_pg_lock);
- 	} else {
- 		schedule_delayed_work(&vcn_inst->idle_work, VCN_IDLE_TIMEOUT);
- 	}
-@@ -470,14 +470,8 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
- 
- 	cancel_delayed_work_sync(&vcn_inst->idle_work);
- 
--	/* We can safely return early here because we've cancelled the
--	 * the delayed work so there is no one else to set it to false
--	 * and we don't care if someone else sets it to true.
--	 */
--	if (adev->vcn.workload_profile_active)
--		goto pg_lock;
-+	mutex_lock(&vcn_inst->vcn_pg_lock);
- 
--	mutex_lock(&adev->vcn.workload_profile_mutex);
- 	if (!adev->vcn.workload_profile_active) {
- 		r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
- 						    true);
-@@ -485,11 +479,11 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
- 			dev_warn(adev->dev, "(%d) failed to switch to video power profile mode\n", r);
- 		adev->vcn.workload_profile_active = true;
- 	}
--	mutex_unlock(&adev->vcn.workload_profile_mutex);
- 
--pg_lock:
--	mutex_lock(&vcn_inst->vcn_pg_lock);
--	vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
-+	if (!(adev->vcn.flags & AMDGPU_VCN_FLAG_VINST_ON(vcn_inst->inst))) {
-+		vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
-+		adev->vcn.flags |= AMDGPU_VCN_FLAG_VINST_ON(vcn_inst->inst);
-+	}
- 
- 	/* Only set DPG pause for VCN3 or below, VCN4 and above will be handled by FW */
- 	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG &&
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index b3fb1d0e43fc..a876a182ff88 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -366,6 +366,10 @@ struct amdgpu_vcn {
- 	struct mutex            workload_profile_mutex;
- 	u32 reg_count;
- 	const struct amdgpu_hwip_reg_entry *reg_list;
-+#define AMDGPU_VCN_FLAG_VINST_MASK(n)  (BIT(n+1) - 1)
-+#define AMDGPU_VCN_FLAG_VINST_ON(n)    (BIT(n))
-+#define AMDGPU_VCN_FLAG_VINST_OFF(n)   (~BIT(n))
-+	u32 flags;
- };
- 
- struct amdgpu_fw_shared_rb_ptrs_struct {
--- 
-2.48.1
-
+RnJvbSA2ZGIxOGFjZmE4YWFlMjM5YzM2ZTY3MzYzMDhhZjg4NzA5OTc5NjcxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+CkRhdGU6IFR1ZSwgMTIgQXVnIDIwMjUgMTE6Mzg6MDkgLTA0MDAKU3ViamVjdDogW1BBVENI
+XSBkcm0vYW1kZ3B1L3ZjbjogZml4IHZpZGVvIHByb2ZpbGUgcmFjZSBjb25kaXRpb24KCklmIHRo
+ZXJlIGFyZSBtdWx0aXBsZSBpbnN0YW5jZXMgb2YgdGhlIFZDTiBydW5uaW5nLAp3ZSBtYXkgZW5k
+IHVwIHN3aXRjaGluZyB0aGUgdmlkZW8gcHJvZmlsZSB3aGlsZSBhbm90aGVyCmluc3RhbmNlIGlz
+IGFjdGl2ZSBiZWNhdXNlIHdlIG9ubHkgdGFrZSBpbnRvIGFjY291bnQKdGhlIGN1cnJlbnQgaW5z
+dGFuY2UncyBzdWJtaXNzaW9ucy4gIExvb2sgYXQgYWxsCm91dHN0YW5kaW5nIGZlbmNlcyBmb3Ig
+dGhlIHZpZGVvIHByb2ZpbGUuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
+ci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3Zjbi5jIHwgMjkgKysrKysrKysrKysrKysrLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDE3
+IGluc2VydGlvbnMoKyksIDEyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92Y24uYwppbmRleCA5YTc2ZTExZDFjMTg0Li5kY2VjODZkYTZmZDIzIDEwMDY0NAot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmMKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jCkBAIC00MTUsMTkgKzQxNSwyNSBAQCBz
+dGF0aWMgdm9pZCBhbWRncHVfdmNuX2lkbGVfd29ya19oYW5kbGVyKHN0cnVjdCB3b3JrX3N0cnVj
+dCAqd29yaykKIAlzdHJ1Y3QgYW1kZ3B1X3Zjbl9pbnN0ICp2Y25faW5zdCA9CiAJCWNvbnRhaW5l
+cl9vZih3b3JrLCBzdHJ1Y3QgYW1kZ3B1X3Zjbl9pbnN0LCBpZGxlX3dvcmsud29yayk7CiAJc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSB2Y25faW5zdC0+YWRldjsKLQl1bnNpZ25lZCBpbnQg
+ZmVuY2VzID0gMCwgZmVuY2VbQU1ER1BVX01BWF9WQ05fSU5TVEFOQ0VTXSA9IHswfTsKLQl1bnNp
+Z25lZCBpbnQgaSA9IHZjbl9pbnN0LT5pbnN0LCBqOworCXVuc2lnbmVkIGludCB0b3RhbF9mZW5j
+ZXMgPSAwLCBmZW5jZVtBTURHUFVfTUFYX1ZDTl9JTlNUQU5DRVNdID0gezB9OworCXVuc2lnbmVk
+IGludCBpLCBqOwogCWludCByID0gMDsKIAotCWlmIChhZGV2LT52Y24uaGFydmVzdF9jb25maWcg
+JiAoMSA8PCBpKSkKKwlpZiAoYWRldi0+dmNuLmhhcnZlc3RfY29uZmlnICYgKDEgPDwgdmNuX2lu
+c3QtPmluc3QpKQogCQlyZXR1cm47CiAKLQlmb3IgKGogPSAwOyBqIDwgYWRldi0+dmNuLmluc3Rb
+aV0ubnVtX2VuY19yaW5nczsgKytqKQotCQlmZW5jZVtpXSArPSBhbWRncHVfZmVuY2VfY291bnRf
+ZW1pdHRlZCgmdmNuX2luc3QtPnJpbmdfZW5jW2pdKTsKKwlmb3IgKGkgPSAwOyBpIDwgYWRldi0+
+dmNuLm51bV92Y25faW5zdDsgKytpKSB7CisJCXN0cnVjdCBhbWRncHVfdmNuX2luc3QgKnYgPSAm
+YWRldi0+dmNuLmluc3RbaV07CisKKwkJZm9yIChqID0gMDsgaiA8IHYtPm51bV9lbmNfcmluZ3M7
+ICsraikKKwkJCWZlbmNlW2ldICs9IGFtZGdwdV9mZW5jZV9jb3VudF9lbWl0dGVkKCZ2LT5yaW5n
+X2VuY1tqXSk7CisJCWZlbmNlW2ldICs9IGFtZGdwdV9mZW5jZV9jb3VudF9lbWl0dGVkKCZ2LT5y
+aW5nX2RlYyk7CisJCXRvdGFsX2ZlbmNlcyArPSBmZW5jZVtpXTsKKwl9CiAKIAkvKiBPbmx5IHNl
+dCBEUEcgcGF1c2UgZm9yIFZDTjMgb3IgYmVsb3csIFZDTjQgYW5kIGFib3ZlIHdpbGwgYmUgaGFu
+ZGxlZCBieSBGVyAqLwogCWlmIChhZGV2LT5wZ19mbGFncyAmIEFNRF9QR19TVVBQT1JUX1ZDTl9E
+UEcgJiYKLQkgICAgIWFkZXYtPnZjbi5pbnN0W2ldLnVzaW5nX3VuaWZpZWRfcXVldWUpIHsKKwkg
+ICAgIXZjbl9pbnN0LT51c2luZ191bmlmaWVkX3F1ZXVlKSB7CiAJCXN0cnVjdCBkcGdfcGF1c2Vf
+c3RhdGUgbmV3X3N0YXRlOwogCiAJCWlmIChmZW5jZVtpXSB8fApAQCAtNDM2LDE4ICs0NDIsMTcg
+QEAgc3RhdGljIHZvaWQgYW1kZ3B1X3Zjbl9pZGxlX3dvcmtfaGFuZGxlcihzdHJ1Y3Qgd29ya19z
+dHJ1Y3QgKndvcmspCiAJCWVsc2UKIAkJCW5ld19zdGF0ZS5md19iYXNlZCA9IFZDTl9EUEdfU1RB
+VEVfX1VOUEFVU0U7CiAKLQkJYWRldi0+dmNuLmluc3RbaV0ucGF1c2VfZHBnX21vZGUodmNuX2lu
+c3QsICZuZXdfc3RhdGUpOworCQl2Y25faW5zdC0+cGF1c2VfZHBnX21vZGUodmNuX2luc3QsICZu
+ZXdfc3RhdGUpOwogCX0KIAotCWZlbmNlW2ldICs9IGFtZGdwdV9mZW5jZV9jb3VudF9lbWl0dGVk
+KCZ2Y25faW5zdC0+cmluZ19kZWMpOwotCWZlbmNlcyArPSBmZW5jZVtpXTsKLQotCWlmICghZmVu
+Y2VzICYmICFhdG9taWNfcmVhZCgmdmNuX2luc3QtPnRvdGFsX3N1Ym1pc3Npb25fY250KSkgewor
+CWlmICghZmVuY2VbdmNuX2luc3QtPmluc3RdICYmICFhdG9taWNfcmVhZCgmdmNuX2luc3QtPnRv
+dGFsX3N1Ym1pc3Npb25fY250KSkgeworCQkvKiBUaGlzIGlzIHNwZWNpZmljIHRvIHRoaXMgaW5z
+dGFuY2UgKi8KIAkJbXV0ZXhfbG9jaygmdmNuX2luc3QtPnZjbl9wZ19sb2NrKTsKIAkJdmNuX2lu
+c3QtPnNldF9wZ19zdGF0ZSh2Y25faW5zdCwgQU1EX1BHX1NUQVRFX0dBVEUpOwogCQltdXRleF91
+bmxvY2soJnZjbl9pbnN0LT52Y25fcGdfbG9jayk7CiAJCW11dGV4X2xvY2soJmFkZXYtPnZjbi53
+b3JrbG9hZF9wcm9maWxlX211dGV4KTsKLQkJaWYgKGFkZXYtPnZjbi53b3JrbG9hZF9wcm9maWxl
+X2FjdGl2ZSkgeworCQkvKiB0aGlzIGlzIGdsb2JhbCBhbmQgZGVwZW5kcyBvbiBhbGwgVkNOIGlu
+c3RhbmNlcyAqLworCQlpZiAoYWRldi0+dmNuLndvcmtsb2FkX3Byb2ZpbGVfYWN0aXZlICYmICF0
+b3RhbF9mZW5jZXMpIHsKIAkJCXIgPSBhbWRncHVfZHBtX3N3aXRjaF9wb3dlcl9wcm9maWxlKGFk
+ZXYsIFBQX1NNQ19QT1dFUl9QUk9GSUxFX1ZJREVPLAogCQkJCQkJCSAgICBmYWxzZSk7CiAJCQlp
+ZiAocikKLS0gCjIuNTAuMQoK
+--0000000000003b64e2063c2d4239--
