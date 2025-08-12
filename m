@@ -4,156 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41080C87FCB
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 10:57:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C94C2C87FCB
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 11:10:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BCB610E0B4;
-	Tue, 12 Aug 2025 10:57:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73A5010E3D4;
+	Tue, 12 Aug 2025 11:10:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C6lk83gt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VPwTYsdA";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2053.outbound.protection.outlook.com [40.107.101.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B52AD10E0B4
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 10:57:40 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D6D410E3D4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 11:10:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dW6QjPTuCDkGp3Ek0nriFW1VRl9Krz6UxsN8cPJ5ogoOH5rJb6egKmHcjCc4iGScOnvOe4i1WqLuxr5bH4+ZIruaXjMbBOweK02e+djWP1Z9i3Xx/UP56WaLYk7xUK8FOiNhZ5lkwFQ7ZrwxmWcAoU1wR9NdWK2DXWwn23i0xrA9J+Wx3Ige3ndendMGPyaG+k1qIn4KZ41WnVDpYMg0u49/xpRjgQYTJHMnEG7v/ZLH8TrSE7DAWwlZzjrse5F/Eko8qrixSnAeUS/J+nrLKWtQaUwBxX9lZQ7HtGTJeREW8k/COrn2WhLUPifOAzRPdCWScE2MlKGv5DwM6c6dbg==
+ b=H5J9jukboIyfKqwNrBqvQeFZT7JESA0n6KxFdfiGQw8QxMxDkSxnUViOZQwXvseln3EjGCpPfJf8ucn9c0GbUpXOEV0etsTIilkuuSu8y8aLBo7fY3KoOpq3i1yVduneLLqfOfdDZMuZkAOM96o0yOd1AjPDAGNdgFGxe9nKsKKY3C6p8gU0Y02GId1A+TL4S1Yb9apWaUfZ82znTuVuN7/XPf7R+A/IT5w0jUmDgWLV7YGhmaQp6MsuY43HqLBfKKAlULnpOADSYvMwJoQKLouKl+oOOLqQcBM1Zdduj0fx9EMZd/IpeZpYPfwEARyORF6C99POz94SvD3RGrvAmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rcxg/a1UX7SYMnFsCWX/y99xkD7y83u8U8gnKGZWDtQ=;
- b=F0xAhHj3cy/WMlGT/sE12/jOZib5kEuHOZwquCqXMm26KKiGKGMzZq7khN1jJZp4CzGT3bk1OSjMIBPJjGWhs/+RUp4erq/nDFmo1XlGba4cEt+6LfQtvRo4uPgimmWT1mQo5t0HjR6MoJM2uez55iGzAzY4pgz/RobEasVzJaKnDGwDoJxQJrCtUoTrhz7CCMR+5Iph9NmGjYo6OljTTVcXC92Dxf9JBsumsPXBy0F00VrVThsBYLY6TY7VocidZfDQpD0KOty4SIR8FrixkmB+Ipp8q2aW84DC1+emYcbTCFYqD8eKJFEKynMDx+55re8SQy8wxtgezevgoH068Q==
+ bh=bwNlBl91de2EYPhILmXJpTvVRC/lm2ltxMGKlcHm8/0=;
+ b=jCWqOzjmI9GDbxZi70YsHb8sAikYL6n+2CdvIXofwwhsHlXRv4GU1MV89/qGHUr7BDV5BaSMObugBn7Rfza/QcnKbmE5ab3NSjzMLk7ucSacIIzRML6TS/vCrH7l1d6lP6iRsoHg50XHcSZBKIE8rq37HQH+ekdnyVan4sn3pj+w8RfZT2foXNn/weCiOufWG3+Jm9wp3nxmaQ2z6QTIvTsqXyNYY0SJF83GBsT3287PcA7oabaPHQRFCM8sbyXjt7HIoEET7gonN9rezOOlWjhnytTWG66x8IKYcuF6NKDUAQ406arvkSh2J6rbFLry/DvJ8Y7WE/+N1z4VfFZT9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rcxg/a1UX7SYMnFsCWX/y99xkD7y83u8U8gnKGZWDtQ=;
- b=C6lk83gt4eGqqCVd+Y1utQSZSnLXdMokcnbBiLedrSoeVXMLmGSlTNJMRgleISE06wb1kTeWoIedZSIYqoAk2LxQOLf5Xnwzb0wOV93HnapBSq913gU+M93H3IwtM4kLmUhyg/yRdhqhprktn6GJzM/KtcPaHzTE/uVsVTgDS/E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB5790.namprd12.prod.outlook.com (2603:10b6:8:75::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.16; Tue, 12 Aug
- 2025 10:57:37 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9009.018; Tue, 12 Aug 2025
- 10:57:36 +0000
-Message-ID: <00433931-5bc8-4ad5-976c-997296ce1fb1@amd.com>
-Date: Tue, 12 Aug 2025 12:57:30 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 1/3] drm/amdgpu: Add ioctl to get all gem handles for
- a process
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, David.YatSin@amd.com, Chris.Freehill@amd.com,
- dcostantino@meta.com, sruffell@meta.com, mripard@kernel.org,
- tzimmermann@suse.de, Alexander.Deucher@amd.com
-References: <20250811150536.3394262-1-David.Francis@amd.com>
- <20250811150536.3394262-2-David.Francis@amd.com>
- <5e3de4f0-b529-4b18-a99d-5c2d592cbb73@igalia.com>
- <cc7d180c-fab0-41f0-926c-ba757b3e01f2@amd.com>
- <27954e0e-1f98-47b6-8505-4ccd93041df8@igalia.com>
+ bh=bwNlBl91de2EYPhILmXJpTvVRC/lm2ltxMGKlcHm8/0=;
+ b=VPwTYsdA7MqhcZo5Bhhq+Yd/itkuASoGROr2AJK6sFZXTX1KYhlVxesNwfeDzHkULQ2DMdAuaUoOGlpMAaZcimXhWsGosjfWGyARgQR4koayMWr0bX5HtKzoP6kc8aXbnOPgWMb6sKY6euWYZHyMUJoj9u8xzI/HnxpVh5aJ1nE=
+Received: from SN7PR12MB6958.namprd12.prod.outlook.com (2603:10b6:806:262::15)
+ by CH3PR12MB7642.namprd12.prod.outlook.com (2603:10b6:610:14a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Tue, 12 Aug
+ 2025 11:10:15 +0000
+Received: from SN7PR12MB6958.namprd12.prod.outlook.com
+ ([fe80::3f01:2354:6863:4e4d]) by SN7PR12MB6958.namprd12.prod.outlook.com
+ ([fe80::3f01:2354:6863:4e4d%5]) with mapi id 15.20.8989.015; Tue, 12 Aug 2025
+ 11:10:15 +0000
+From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
+To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, 
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Wang, Yang(Kevin)"
+ <KevinYang.Wang@amd.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Correct the loss of aca bank reg info
+Thread-Topic: [PATCH 3/3] drm/amdgpu: Correct the loss of aca bank reg info
+Thread-Index: AQHcC1up52NvYtfNJEW1zyVYhOkuebResPiAgAAlPuU=
+Date: Tue, 12 Aug 2025 11:10:15 +0000
+Message-ID: <SJ0PR12MB69673CDFDAA28E6DEA6712D29D2BA@SJ0PR12MB6967.namprd12.prod.outlook.com>
+References: <20250812073453.257913-1-cesun102@amd.com>
+ <CH2PR12MB42157554010D0EF4E81D4FA7FC2BA@CH2PR12MB4215.namprd12.prod.outlook.com>
+In-Reply-To: <CH2PR12MB42157554010D0EF4E81D4FA7FC2BA@CH2PR12MB4215.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <27954e0e-1f98-47b6-8505-4ccd93041df8@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR05CA0015.namprd05.prod.outlook.com
- (2603:10b6:208:52c::28) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-08-12T11:10:14.5870000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN7PR12MB6958:EE_|CH3PR12MB7642:EE_
+x-ms-office365-filtering-correlation-id: 59e2393c-47ac-42aa-008e-08ddd990d073
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|8096899003|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?U3fN2KYac1MkAfJtm9dWz9mz6HHu1ken+1iXxFOjUux7/k3gaEX1NcBVfqXn?=
+ =?us-ascii?Q?mIyB+TlRel3y+K50mz3yjlmJv7LXU0hE1GgVsJl/uRKE802V2qwvPn6gOPKY?=
+ =?us-ascii?Q?3EZb43PSmZY1Hcnzyo+75+XX2osn0NrvB0En1Yv+tEBMSz/e7Wd2EGk3c5lY?=
+ =?us-ascii?Q?S7VXo3Tv3LF898/NHxbla+Xq99WeeXRiS/M+YccTDF/RkVhskm+yWGiATlaq?=
+ =?us-ascii?Q?Jn4rR1cJKjfvaQa3kQEe8nqNwT91bnRo8y9QZ/zillBK67f2Xzuo35kG2CBU?=
+ =?us-ascii?Q?h+eTkj0IHEGi4pIBN4UlneSjIbj3VbwMW5CG5Pb04PWvTtlsl0G4MVHplujZ?=
+ =?us-ascii?Q?eibO2x1hubfr8aSAGq/ng1A9eiaecIUNCy8GZurEjaGF6Be+TmtuGDEajcCK?=
+ =?us-ascii?Q?5DFHiK9mE455ZY1YKuMPRMeIAldSbdtQZRswwLGX3d0EbM9Mx20LNbJRAX3U?=
+ =?us-ascii?Q?MrvvX2r/7WYoT09c6O6J5oDvELLRHyV6lAV50aI34qg5p2P/t1AEzMYsxXuz?=
+ =?us-ascii?Q?VNOE7k09Tz3Dioyuek/XORXdbjS+rzJqCV3GCF2j3gEctMd3UK8M0vb3rEsv?=
+ =?us-ascii?Q?Ngh9cvqC5dGl0LWB6PEjma6uOfmMyXLcfUw1i6csETxg1tv/3IRUeUPmamSW?=
+ =?us-ascii?Q?gkI5nqwmE5eBFfysjaqa87MXYca501EXQZFxSA2i6xy+AQNWTHk0XQdiZ+3u?=
+ =?us-ascii?Q?5eruT23LGWwseSOoQwrfa2Ex0jvfhUFoLdRd9GW0sDz89tTM8o01RrFOC6lm?=
+ =?us-ascii?Q?G52NdA8B+K/FjBZsZhFPEhuEOo3r+9VkF64Z6qDkul9NQp4wkTAJN+yDy5Ft?=
+ =?us-ascii?Q?KfmHIrsks0Q5Toe/3x+AZL0CGBg6b4ZB6ZcUKNXYkbbVkE7Wv4ZdWtkamfBO?=
+ =?us-ascii?Q?B2t6VeYOtSRrFG5Hq4qsFVQa3TspJWawotymPBqpT3IPhYWoDAoLgl8mQT0h?=
+ =?us-ascii?Q?F5Eh61bNmUiDmCcBrH8fGNQjlfSIc3LDYTCH5+JjMskzSc1Ra/P2705Y+V6p?=
+ =?us-ascii?Q?DpN346p5fUIsvh7w/2RXNzYqDBCC67k2X+CJSL79m+Od1dHHhWfzJBCRBZKZ?=
+ =?us-ascii?Q?0m7pW8TZLES4hH4++nz++dioHmZ+jLEzIN6mPSUW/BE/+o6+qAyqT3vsshec?=
+ =?us-ascii?Q?jBoYIKFBBoEVdCUf6R8c9jleJRC5FNmkKqWYL83u88xy+l0OpPsdHnbHgqpw?=
+ =?us-ascii?Q?Pi29pCxFHMqEi6fuG2lN7EV8+pcQ/06wa8uSsIJ9CfK7RX+HeMG8tCTrGXpf?=
+ =?us-ascii?Q?R+H4jTPcXWLWbu0aoW4eV1VPQ+vdzIIPGZBoWFXNPHS6oI5gmY+/nQf/s41I?=
+ =?us-ascii?Q?5jUJfiGCQ4Lt7W01jICrD6kvieo/cDAOwqipHdiSZ4cSD0U6YHIwze8tojHN?=
+ =?us-ascii?Q?B6Im2veeLakAdQrvHEuPazfLe8xNybR+gllkl2i3uasA2JPAs/PeT/hdF+k7?=
+ =?us-ascii?Q?h+BRUBy8mo0rSXY8COhMVsiGv7r9YhL/NBiBus5DgLZm8039FeCNv3fyd0m+?=
+ =?us-ascii?Q?A3a61+dmsl6QOc8=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN7PR12MB6958.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(8096899003)(38070700018)(7053199007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BZfPqamb0Zt3yiIW/go14xheb1L16hRs2KkLfwQsbR0fSJXtYjOWNwYfG8Uc?=
+ =?us-ascii?Q?oPEE9h0RFqYOf42+lZkREe7t3xRHEhiFpAKLp67e5KI6CLRQ9zC32Bedb8sp?=
+ =?us-ascii?Q?RbrXPJTEzGFw6ECnwgFskt5QMAvdU3stsdrcXJ+nBNr7wfEN0XKBDtMD17Jk?=
+ =?us-ascii?Q?awtyVNJODQ3CeDZKDOmDGlLGbwJyD+JAKUMlNUuo4a28CM6I4D7PHTcnHJqk?=
+ =?us-ascii?Q?IDXzPUdBxe1+ILfuKFrPJnIvww0kux4FloWbB4BDtJEAUZSduoqXFMhfTasU?=
+ =?us-ascii?Q?gl9mpeJpfpg060qUa+YvDWksnH8ix3Fs8BeyvxYUm2V8Q5e2jTv7TjXrs5bn?=
+ =?us-ascii?Q?/wsXzselMcEDWibwgNRb3L9T9BqnUuS2Lm/3xkOnqWM6SptAXe3CavcHTQXC?=
+ =?us-ascii?Q?RJVyZbFjdvM5/vRU+UwESFdnT5GK6mOrsTFnek81yMVFvhA+XOLhFHXQa9/W?=
+ =?us-ascii?Q?OvBVCVvNihxH2zNoDbIGB+EHCOtvY7zlLcGrdeSawqBS4xK1BoYyA8gJ+cbZ?=
+ =?us-ascii?Q?oGXl7fEApzTG/AfiTOnjapNc5VBuOMcVfvg3/z5o3C7KQbPc+a3Z5E/kbo0M?=
+ =?us-ascii?Q?imZ/ODGqCALlpaJayjunq8jLwFnRO3dWP0R1gAi1F0dsr/RZEjgeJeTGrap6?=
+ =?us-ascii?Q?GCsloZNW57cKeba9swk0OhCL1DWF5pF0FzN5QAdevHAPw3MUZ5d2ioNKCklh?=
+ =?us-ascii?Q?qqdiRVquGSGqDOyAAhJbOF1dCoTgpkIXNorSrMUWkQ1cHqyvYv8P4BG93dW9?=
+ =?us-ascii?Q?KpxAEWJtTZDFotcHyK505HNHHkHNb2FY/+srb9jsHe2s3Ib2fOR4R4vLxOeh?=
+ =?us-ascii?Q?D3I4ndCeNHOx2E6QjpSpS+3ouDeisy+ejcKgoVFhAy1r2ty/sExzuyODYRqy?=
+ =?us-ascii?Q?T2AZLKK/uf7q8RC7CXJK5Ops3UQrqa/H5/wxOV/wDbWCW82MnqokcERh6PN3?=
+ =?us-ascii?Q?8Jmj7HcxVnDb7qkAHTq2C3Q8Vr9wT4YTI9qBDwAEC8LSfMtn0Vu/Uwsv8v0T?=
+ =?us-ascii?Q?DEIjPAR7IX003DwGPiHvGkfW++OKkeOuTHbE6mtYHH4eMJRiCppS0BlxYJ0q?=
+ =?us-ascii?Q?4mdmEbhmcGBvFPfYp/pMXDyzv+g86njaoMQyh0hvL0Yhnez1GJLOvHhxpLMa?=
+ =?us-ascii?Q?kLxpA027o5tthErtTWbRJF64GZP72Rag9CSCBFtvIQxghqCnCnanRrZdBDPq?=
+ =?us-ascii?Q?UZkfEZ9boiAIO+S0C440Pl01Sl7IF/BLD+mq2PQ2kbQHcd52czDGMX3OQ7Zd?=
+ =?us-ascii?Q?oEdsbADxjLsxoxQrctG76dauOO1Hx86MsTamGQv5z6XV2WClHOCqYiR0+ahV?=
+ =?us-ascii?Q?CnDoibWivcK03fNp6KGelJwW+IQIpOie5yBlMoWiBTLzccqD49HkSwkMULT3?=
+ =?us-ascii?Q?2MMMzM5Amg/pzEp6NBxu+071qDNYG3E9VCxnPXfRbNuQ/RMmim73iqMVLG0h?=
+ =?us-ascii?Q?sKjxtfPLP6vpyzPHspfXngSuyHmXDZScSIKPsjUg7WpLzYB9Fa/CtyWBDoEN?=
+ =?us-ascii?Q?0dXQGo1Cl/7CzeUtsjJIwJRCEKMEhzu0OGb63YNvwPxQAorgF4wBhZgwhITd?=
+ =?us-ascii?Q?sYYKzCLrC/BjXOfLeXc=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_SJ0PR12MB69673CDFDAA28E6DEA6712D29D2BASJ0PR12MB6967namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB5790:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3b19bbf-76bc-4fd0-c5b0-08ddd98f0c1e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?V3lsVHR1WEtrcStDSWRMeWRmWS9semhzdUMrZ1JabTJDS0RjaUFNaHdLVEw5?=
- =?utf-8?B?U21ZUncySkdUbkJTeHRZYXBLaEMvL3A4Y0xzL2JrNEFYTi9DOVNiZEk4ZE9Q?=
- =?utf-8?B?Q3YzSTlCSzBKVUVsNjFaN0hsVDBrNTdkdVlQcmVXNWtGazdYL2puUmRmK25D?=
- =?utf-8?B?TW1sVjNUaGplcXVtdEV2RDNQdGpBL0xaWTAvWk9ldkZwQXhzWGlDbmtwaXBi?=
- =?utf-8?B?aEw0VFBaeDZLK1JKTTh6Wjk2SG9hQm1hWVY3MTk1YUFYbDYxYnJiWDUzRThu?=
- =?utf-8?B?em9FbHcydlo4QmdLVWkxN3ZYYU1OMldsSmFDdzd0clM2eE9aQ2tQa3NDdUt1?=
- =?utf-8?B?RUdyamEwWGY5T3o4NitYTWJuRnZXcnovVGlaQXc0aWxGMkM5cHZOV2dvcHJJ?=
- =?utf-8?B?elk2clBnMk9HSjdxVmpZd0N2eEdvaW5XL0Y5RzRWeGZxSzljNHJXb1FtYm9h?=
- =?utf-8?B?Rml1ZytKNGNwOWQweHJNb2ZlRkVaQndLVlBnRUJFcm4zQktoQXNEUTRXL3o4?=
- =?utf-8?B?WXB3ZWZxRFlwem1CQmZ1dEVBclBoWWJlcVlOTm12ZTByVFlnWUtHQnBhUjA3?=
- =?utf-8?B?emhVQkhPNFpqdEJpMlpOSDFNK0hxSDFjdjZTV3piWG1vWVRyQ0I1UVlvYXg4?=
- =?utf-8?B?S080RHUvTnc5MUtoR1NNLzlnTFg1WFNHdm1QM0xzRTBaSlNMSHRYZkdud2RZ?=
- =?utf-8?B?MWVVOGdCSCt1WFZjVzVWSDU3Y1J5aThyOTFmRnZhZW9KZHdYZUdEMFBpeVFt?=
- =?utf-8?B?T1JwRE9DbjFBd0dwRUFwWURybVZSQ2JNdGR4R3R0Sy9KbW41WUFOZkMxV0ly?=
- =?utf-8?B?Nzg0Wmwvc0VXcmJoMHp4ajFRWFc2czFmdUVkRGdNUFl6R1REcktFOFFsR1A2?=
- =?utf-8?B?WkVSbXdRU3R4b1piblQyemdtcm9Wa1U1RkdJU0F2dzYrcXpsTURsV2FVZG5p?=
- =?utf-8?B?Qk45a0d5ek5XZHRZMTBVaVFuMnlLbTVpK096ckx2QjJTU0ZTUndiVEJWN0Q2?=
- =?utf-8?B?eVNjY1RUWUFEVWdxWW5kTnlXMi9Lb0wxU2p3ZjkweTNjcm8vSmxZNUdNd1pN?=
- =?utf-8?B?VEJ3S3pLbzZ5OW1pZmNBZzkzajhDMzExZ3JXSVdFQjh3QkNDYXZBK0hKRDJx?=
- =?utf-8?B?MEFEdGNuMEVTaUlHQXliSkx3S1RLVXpYTkxEQnBTSVJyWnhPTVJ4eFIrMVgx?=
- =?utf-8?B?SVF4R2xJMWdleDQ5c0MwaytzNHB0elhJRldpNmRFcXh0cXZCdzN1cmtXTVFH?=
- =?utf-8?B?bHFsTDJUMHBNQS9XMEJhbFZYN0luc3Vlck1DdmxYSGhFdjlBVjh1UnBEb0o5?=
- =?utf-8?B?NGUvc3ArWUlwY1Bob1FZSnZwb2REbVhiYmh5RWMvNzdLV0ZNU1RXaUNjT0Yy?=
- =?utf-8?B?NkNzZ1MyOU04bWsrRDNESkNISHhYOEtBZ3ljckUwY3l5VFFFWUIwN2RwdVhO?=
- =?utf-8?B?MjFRQ1RBL2J4alNwK1RueHovZWd0Y0E2OU5lYU95b3NuSmNaaEF6bmx6bk9s?=
- =?utf-8?B?T0l1eXBMZnpJR005QUkySW8yUTZ2UklPbTczZnIyYkNjNzVmNVhtM05PdXky?=
- =?utf-8?B?S0paTjY1OFBtRmdQYmJ1bW9rYzByenZuRHRyQ3BMOXQvSzBWclhOZDlzQ1RJ?=
- =?utf-8?B?Vk11czNDbURTaEJYRTRJOUdHK1NjN1VMTEYrU044UkJWemR3WHVVRWZhTlRs?=
- =?utf-8?B?cFhTN1FyWVQ1bGF3NFVZdjhTUUtnVnJnVzZ0dDZ2R2cycmZFaTdYWlhNQ21m?=
- =?utf-8?B?Rk92ZXNNVTB0YnRhbWFwZ2VHMUFZcWh3eGx0eUFrSGl3bnc5SnQwNEtQZGxF?=
- =?utf-8?B?anU4elVheVdDMWpwRnpiRjRNSkt6YzVpYnBpbEVOaEdzQmc5dGhrOXk2UjJX?=
- =?utf-8?B?aExOTlcyZVpQMjdNV0ZSWHVUamNJU0w1S0tTSkZuUEtqSVUrb0VvY1YwYWhY?=
- =?utf-8?Q?qHc6INKSD1U=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UkswcnluajdCUlZOYklmYkxPMlRvYUoxK1ErbTJDQ1pDN2pLWFNBTFRsdEV6?=
- =?utf-8?B?dkExVFB3WDVKbHpab0g0aXBwVmR6YWw5VStoMWlvMkc2QTNjMGh5cTFpWmpn?=
- =?utf-8?B?UUhiV3FCQy9NenlJb1VjSjhEQ3BKMGZaS0hYUklLTUV0L1RJK2grb3dKTEVt?=
- =?utf-8?B?S2Z5S2ZjTmpaelBnNTJYWGhPRVJwdkQ1TTNLRUE3V2lPYUI0Q1ZDSDUxdU1Y?=
- =?utf-8?B?YkdCZEVTbDJtNHRlT1RGdkt1a0xsNmhnTGRXMkdJRlZ6UkhIWUdQU21oTUEw?=
- =?utf-8?B?RjhtTDFIL01XNFhpZUMrV1JWRXEwK0NreEdQNFlQUUpRQjRUOWlTR1ltdUdP?=
- =?utf-8?B?RFV1SnJKZUdWK2JkZUM4NHhrREpXV1I1MHRDTnF3RFVHdHRTYXNSUUpab0hm?=
- =?utf-8?B?WGZob0IxcXB5bEFWWTRiZ1BCdCsxWlJKeDVza1RBVU5OZDBIRGlhRWU3TEhK?=
- =?utf-8?B?UGhCZ2NMc1cwajFtR21FYjFqbTFaUTcwZ2pSL3lUQ2pWR01XME12cWVmcU9T?=
- =?utf-8?B?eExPelJ4dFZIQXJIdWFtTkdwcmNCaHgrRVVOMkFHZXFwaEw2RDRsUjcraGU3?=
- =?utf-8?B?TWZqaGlrS2ZhRTZTTWYrZ0hhNnJjcS9HZkNjRVg4RXV0SllpNEN1MWtJN1pE?=
- =?utf-8?B?c1JDVWR3UFI3RStiWGJGbVhSVlpnSXlQTExzUXNNbTlQVitRRFIxWnAxMmJa?=
- =?utf-8?B?QVZoemZrcHJZRktrcElxalh0aWVKRXg5Q2pNUjQ3YUpNdGgrZTFBVzljTExt?=
- =?utf-8?B?NU5TcC9NMC8wclA4OWl0Qjd2RytqWG8vMENJV1Y1SWYwSmNhWHdKbXp6TVBM?=
- =?utf-8?B?WkwxQ2s4S3ZrUG5odE16bWtMQ0RUSWJ1MTU1K2xoMXp4MjBCZHZDcWFaWlZ6?=
- =?utf-8?B?ZHlJNEFaNWhjZmZYUUVSZW1WSlpKTjVHUW4zZUI2S0pLR3R2UVJ6akE4M3pJ?=
- =?utf-8?B?UjIrWVlHMkNCeHhEWVVhRWFnTXhBQmU5MkZ5ODZOTHdPejQ1NWtaRlBjZnhh?=
- =?utf-8?B?ZDBZSmVkcEtoUlp0c3NLazR1Q0ZRckJoa01IdWpmdml6bnNObzErSGRmUGRV?=
- =?utf-8?B?S1VNay9QdmhRT0EvMkpsVGVmclpDRHJEQ1hUYkJxcE9teUQ1VVBYUEU3STh2?=
- =?utf-8?B?d1M1QTRtR21xNUpSSGtSVWxkNko3d0x3MzNsOWhReCtydXkxcmlXNEpBaDNh?=
- =?utf-8?B?VFNUKys5TFF2TCt1WGVwYmMwcDB4Q1R1SnRWdzArNjN4alcwSHczM3liSDlF?=
- =?utf-8?B?c3BvOFdWRWp1TUp5TGxJNXI4Y0Y4LzZwdjhTeCtnWDZMNkJyOEZQSGQ5Z2lv?=
- =?utf-8?B?U2RTKzloRFdqNUJHRjRDQTlySkYzVEw2ZFphOElOM0QzM09zUHNGWFA2UFg0?=
- =?utf-8?B?V0VWeG44andMck04TDRYbkRVYWdYN0l5djNjOUVkSGN0UVhuaTlRRHh2S25Q?=
- =?utf-8?B?SE1Wayt4RkNWeHZWblBXdGNZTmxDTXE1cmMvalhoTE12QVRkMC9jS2grY2JP?=
- =?utf-8?B?S251ekRYVG9SK3lxK1ZSWFlMTGpMaFNBd0YyZFlUWm0vTUw2Vkk0ajFXNDl2?=
- =?utf-8?B?WTc4cGRGQXRsWXRsYmt5dVVjMFV5Y3hVRWFDZHlRS0hWVGdYYVdhRS9pZHN4?=
- =?utf-8?B?QWptbU51UEtpQUFJaC9JR093V1ZJeTRrWXZPMG1ZNnBPVThuN3Z4ajhLQ0t0?=
- =?utf-8?B?K1NkVHFyRkUwYlJlc00wcDl1eG5RSU9ldUtGOHYvL2V3eGZNdldaL1dKc2xS?=
- =?utf-8?B?cVg3YzFFcXNjalBoWmV4NEtDaVlnRXlvYVFlMGt6bVZLcFRodlVlV3pEZHdT?=
- =?utf-8?B?empYZ0ZuNWFKK0dFRU5YSG5GU3lVSGUvK3o0TkpnalhUNlpacmdRNDhEOGIy?=
- =?utf-8?B?QVNZblNza3JkL2pUcDhQelZUb3BkanBuK1A5S2dGNkNuSW9QbnhPNmNIR0JL?=
- =?utf-8?B?YUpPTEdVeFdOQnpCM3VrQWNxdmZVU3I1WGo5ODdjUEtMYzIzVTduSmpUc2Zx?=
- =?utf-8?B?cTAzR0M1NW93R1hTY1BYb2szY3Fid2MySXRLRkVVKzVaZjZhRldhbmd3cjd3?=
- =?utf-8?B?K3JYQk9pcHVxc25wL1BLdFNEcUp3eFhpTTA2bWFkaGxVaDM5MS9HTG92TGFX?=
- =?utf-8?Q?XjH6RyKrviy8VrrHwTj9OZ5ee?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3b19bbf-76bc-4fd0-c5b0-08ddd98f0c1e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 10:57:36.6719 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +FobKF8spxGoxXsfs7IMNZVRmCTa/uJ4t6ktH2OSqfHdd+EgEUg0q0PlegmTjWoB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5790
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB6958.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59e2393c-47ac-42aa-008e-08ddd990d073
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2025 11:10:15.1678 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lg/BkM3cTzoOmp15wxCMyY7xQAa5HlsuGB0s1rLhPaq5sOkQaEd/KDjpfjUGgr0hrtkv1lAAJzc/S7pD5pvWjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7642
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,249 +158,884 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12.08.25 11:56, Tvrtko Ursulin wrote:
-> 
-> On 12/08/2025 10:36, Christian König wrote:
->> On 12.08.25 11:28, Tvrtko Ursulin wrote:
->>>
->>> On 11/08/2025 16:05, David Francis wrote:
->>>> Add new ioctl DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES.
->>>>
->>>> This ioctl returns a list of bos with their handles, sizes,
->>>> and flags and domains.
->>>>
->>>> This ioctl is meant to be used during CRIU checkpoint and
->>>> provide information needed to reconstruct the bos
->>>> in CRIU restore.
->>>>
->>>> Signed-off-by: David Francis <David.Francis@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  1 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 83 +++++++++++++++++++++++++
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |  2 +
->>>>    include/uapi/drm/amdgpu_drm.h           | 31 +++++++++
->>>>    4 files changed, 117 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> index 4ff3a2eaaf55..f19795dddf9d 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> @@ -3031,6 +3031,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
->>>>        DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->>>>        DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->>>>        DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->>>> +    DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->>>>    };
->>>>      static const struct drm_driver amdgpu_kms_driver = {
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> index e3f65977eeee..3873d2c19b4b 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> @@ -1032,6 +1032,89 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->>>>        return r;
->>>>    }
->>>>    +/**
->>>> + * drm_amdgpu_gem_list_handles_ioctl - get information about a process' buffer objects
->>>> + *
->>>> + * @dev: drm device pointer
->>>> + * @data: drm_amdgpu_gem_list_handles
->>>> + * @filp: drm file pointer
->>>> + *
->>>> + * num_bos is set as an input to the size of the bo_buckets array.
->>>> + * num_bos is sent back as output as the number of bos in the process.
->>>> + * If that number is larger than the size of the array, the ioctl must
->>>> + * be retried.
->>>> + *
->>>> + * Returns:
->>>> + * 0 for success, -errno for errors.
->>>> + */
->>>> +int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
->>>> +                  struct drm_file *filp)
->>>> +{
->>>> +    struct drm_amdgpu_gem_list_handles *args = data;
->>>> +    struct drm_amdgpu_gem_list_handles_entry *bo_entries;
->>>> +    struct drm_gem_object *gobj;
->>>> +    int id, ret = 0;
->>>> +    int bo_index = 0;
->>>> +    int num_bos = 0;
->>>> +
->>>> +    spin_lock(&filp->table_lock);
->>>> +    idr_for_each_entry(&filp->object_idr, gobj, id)
->>>> +        num_bos += 1;
->>>> +    spin_unlock(&filp->table_lock);
->>>> +
->>>> +    if (args->num_entries < num_bos) {
->>>> +        args->num_entries = num_bos;
->>>> +        return 0;
->>>> +    }
->>>> +
->>>> +    if (num_bos == 0) {
->>>> +        args->num_entries = 0;
->>>> +        return 0;
->>>> +    }
->>>> +
->>>> +    bo_entries = kvcalloc(num_bos, sizeof(*bo_entries), GFP_KERNEL);
->>>> +    if (!bo_entries)
->>>> +        return -ENOMEM;
->>>> +
->>>> +    spin_lock(&filp->table_lock);
->>>> +    idr_for_each_entry(&filp->object_idr, gobj, id) {
->>>> +        struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
->>>> +        struct drm_amdgpu_gem_list_handles_entry *bo_entry;
->>>> +
->>>> +        if (bo_index >= num_bos) {
->>>> +            ret = -EAGAIN;
->>>> +            break;
->>>> +        }
->>>> +
->>>> +        bo_entry = &bo_entries[bo_index];
->>>> +
->>>> +        bo_entry->size = amdgpu_bo_size(bo);
->>>> +        bo_entry->alloc_flags = bo->flags & (~AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE);
->>>> +        /* WIPE_ON_RELEASE is set automatically in the driver; it is not permitted in
->>>> +         * BO creation. In the interest of giving the user exactly the flags they need
->>>> +         * to recreate the BO, clear it.
->>>> +         */
->>>
->>> Ha, curious. What is the reason flags userspace cannot use are specified in the uapi header?
->>
->> The comment isn't correct. AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE is perfectly allowed in the create IOCTL.
-> 
-> I looked after reading the comment and it seemed true:
+--_000_SJ0PR12MB69673CDFDAA28E6DEA6712D29D2BASJ0PR12MB6967namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Oh, good point. Now I understand the issue. The GEM interface doesn't allowed for the flag on create!
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-> 
-> amdgpu_gem_create_ioctl():
-> ...
->     uint64_t flags = args->in.domain_flags;
-> ...
->     /* reject invalid gem flags */
->     if (flags & ~(AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |
->               AMDGPU_GEM_CREATE_NO_CPU_ACCESS |
->               AMDGPU_GEM_CREATE_CPU_GTT_USWC |
->               AMDGPU_GEM_CREATE_VRAM_CLEARED |
->               AMDGPU_GEM_CREATE_VM_ALWAYS_VALID |
->               AMDGPU_GEM_CREATE_EXPLICIT_SYNC |
->               AMDGPU_GEM_CREATE_ENCRYPTED |
->               AMDGPU_GEM_CREATE_GFX12_DCC |
->               AMDGPU_GEM_CREATE_DISCARDABLE))
->         return -EINVAL;
-> 
-> Actually, thinking about it more, maybe more flags should be cleared in amdgpu_gem_list_handles_ioctl()? Perhaps the above mask should be defined at a common place, or even internal only flags removed from the uapi header. Or uapi vs internal flags split or something.
+-----Original Message-----
+From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
+Sent: Tuesday, August 12, 2025 3:35 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Z=
+hang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@am=
+d.com>; Chai, Thomas <YiPeng.Chai@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.c=
+om>
+Subject: [PATCH 3/3] drm/amdgpu: Correct the loss of aca bank reg info
 
-Yeah, probably good idea. But it should most likely not be in an UAPI header.
+By polling, poll ACA bank count to ensure that valid ACA bank reg info can =
+be obtained
 
-The general background is that we have a bunch of flags only the kernel can set and are read only for userspace.
+Signed-off-by: Ce Sun <cesun102@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 46 +++++++------------------  dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  2 --  drivers/gpu/drm/amd/amdgpu/u=
+mc_v12_0.c  |  7 ----
+ 3 files changed, 13 insertions(+), 42 deletions(-)
 
-Regards,
-Christian.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index f00a9e0c9c47..ad8ad08f0f33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -122,7 +122,7 @@ const char *get_ras_block_str(struct ras_common_if *ras=
+_block)
+ /* typical ECC bad page rate is 1 bad page per 100MB VRAM */
+ #define RAS_BAD_PAGE_COVER              (100 * 1024 * 1024ULL)
 
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->>>
->>>> +        bo_entry->preferred_domains = bo->preferred_domains;
->>>> +        bo_entry->gem_handle = id;
->>>> +
->>>> +        if (bo->tbo.base.import_attach)
->>>> +            bo_entry->flags |= AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
->>>
->>> I had a question regarding this part in v11. Any comment on that?
->>>
->>> Anyway, thanks for implementing the other changes I suggested, this one LGTM now.
->>>
->>> Regards,
->>>
->>> Tvrtko
->>>
->>>> +
->>>> +        bo_index += 1;
->>>> +    }
->>>> +    spin_unlock(&filp->table_lock);
->>>> +
->>>> +    args->num_entries = bo_index;
->>>> +
->>>> +    if (!ret)
->>>> +        ret = copy_to_user(u64_to_user_ptr(args->entries), bo_entries, num_bos * sizeof(*bo_entries));
->>>> +
->>>> +    kvfree(bo_entries);
->>>> +
->>>> +    return ret;
->>>> +}
->>>> +
->>>> +
->>>>    static int amdgpu_gem_align_pitch(struct amdgpu_device *adev,
->>>>                      int width,
->>>>                      int cpp,
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
->>>> index b51e8f95ee86..7cdb6237bb92 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
->>>> @@ -67,6 +67,8 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->>>>                  struct drm_file *filp);
->>>>    int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->>>>                struct drm_file *filp);
->>>> +int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
->>>> +                  struct drm_file *filp);
->>>>      int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
->>>>                    struct drm_file *filp);
->>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
->>>> index bdedbaccf776..59b423883e91 100644
->>>> --- a/include/uapi/drm/amdgpu_drm.h
->>>> +++ b/include/uapi/drm/amdgpu_drm.h
->>>> @@ -57,6 +57,7 @@ extern "C" {
->>>>    #define DRM_AMDGPU_USERQ        0x16
->>>>    #define DRM_AMDGPU_USERQ_SIGNAL        0x17
->>>>    #define DRM_AMDGPU_USERQ_WAIT        0x18
->>>> +#define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
->>>>      #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
->>>>    #define DRM_IOCTL_AMDGPU_GEM_MMAP    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
->>>> @@ -77,6 +78,7 @@ extern "C" {
->>>>    #define DRM_IOCTL_AMDGPU_USERQ        DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ, union drm_amdgpu_userq)
->>>>    #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
->>>>    #define DRM_IOCTL_AMDGPU_USERQ_WAIT    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
->>>> +#define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
->>>>      /**
->>>>     * DOC: memory domains
->>>> @@ -811,6 +813,35 @@ struct drm_amdgpu_gem_op {
->>>>        __u64    value;
->>>>    };
->>>>    +#define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT    (1 << 0)
->>>> +
->>>> +struct drm_amdgpu_gem_list_handles {
->>>> +    /* User pointer to array of drm_amdgpu_gem_bo_info_entry */
->>>> +    __u64   entries;
->>>> +
->>>> +    /* IN: Size of entries buffer. OUT: Number of handles in process (if larger than size of buffer, must retry) */
->>>> +    __u32   num_entries;
->>>> +
->>>> +    __u32 padding;
->>>> +};
->>>> +
->>>> +struct drm_amdgpu_gem_list_handles_entry {
->>>> +    /* gem handle of buffer object */
->>>> +    __u32 gem_handle;
->>>> +
->>>> +    /* Currently just one flag: IS_IMPORT */
->>>> +    __u32 flags;
->>>> +
->>>> +    /* Size of bo */
->>>> +    __u64 size;
->>>> +
->>>> +    /* Preferred domains for GEM_CREATE */
->>>> +    __u64 preferred_domains;
->>>> +
->>>> +    /* GEM_CREATE flags for re-creation of buffer */
->>>> +    __u64 alloc_flags;
->>>> +};
->>>> +
->>>>    #define AMDGPU_VA_OP_MAP            1
->>>>    #define AMDGPU_VA_OP_UNMAP            2
->>>>    #define AMDGPU_VA_OP_CLEAR            3
->>>
->>
-> 
+-#define MAX_UMC_POISON_POLLING_TIME_ASYNC  300  //ms
++#define MAX_UMC_POISON_POLLING_TIME_ASYNC  50  //ms
 
+ #define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100  //ms
+
+@@ -3317,8 +3317,6 @@ static void amdgpu_ras_ecc_log_init(struct ras_ecc_lo=
+g_info *ecc_log)
+        mutex_init(&ecc_log->lock);
+
+        INIT_RADIX_TREE(&ecc_log->de_page_tree, GFP_KERNEL);
+-       ecc_log->de_queried_count =3D 0;
+-       ecc_log->prev_de_queried_count =3D 0;
+ }
+
+ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log) @@ -=
+3337,8 +3335,6 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_in=
+fo *ecc_log)
+        mutex_unlock(&ecc_log->lock);
+
+        mutex_destroy(&ecc_log->lock);
+-       ecc_log->de_queried_count =3D 0;
+-       ecc_log->prev_de_queried_count =3D 0;
+ }
+
+ static bool amdgpu_ras_schedule_retirement_dwork(struct amdgpu_ras *con, @=
+@ -3386,49 +3382,33 @@ static int amdgpu_ras_poison_creation_handler(struct=
+ amdgpu_device *adev,
+                                uint32_t poison_creation_count)
+ {
+        int ret =3D 0;
+-       struct ras_ecc_log_info *ecc_log;
+        struct ras_query_if info;
+-       uint32_t timeout =3D 0;
++       uint32_t timeout =3D MAX_UMC_POISON_POLLING_TIME_ASYNC;
+        struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+-       uint64_t de_queried_count;
+-       uint32_t new_detect_count, total_detect_count;
+-       uint32_t need_query_count =3D poison_creation_count;
+        enum ras_event_type type =3D RAS_EVENT_TYPE_POISON_CREATION;
++       uint64_t prev_de_queried_count =3D 0;
++       uint64_t bank_count =3D 0;
+
+        memset(&info, 0, sizeof(info));
+        info.head.block =3D AMDGPU_RAS_BLOCK__UMC;
+
+-       ecc_log =3D &ras->umc_ecc_log;
+-       total_detect_count =3D 0;
+        do {
+                ret =3D amdgpu_ras_query_error_status_with_event(adev, &inf=
+o, type);
+                if (ret)
+                        return ret;
+
+-               de_queried_count =3D ecc_log->de_queried_count;
+-               if (de_queried_count > ecc_log->prev_de_queried_count) {
+-                       new_detect_count =3D de_queried_count - ecc_log->pr=
+ev_de_queried_count;
+-                       ecc_log->prev_de_queried_count =3D de_queried_count=
+;
+-                       timeout =3D 0;
++               bank_count =3D amdgpu_aca_get_bank_count(adev);
+
+[Thomas] Does bank_count  only use for umc deferred error or include umc ce=
+ de and other ras block bank error?
+[Ce,Sun]Hi Thomas,thank you for your review.
+Yes, here include umc ce de and other ras block bank error. If there are ma=
+ny bank errors stuck earlier, we will read out all the ones stuck earlier w=
+ith bank count=3D12.
+                  The amdgpu_ras_poison_creation_handler function is used t=
+o handle UMC deferred error. not include umc ce and other ras block bank er=
+ror.
+[Ce,Sun] As mentioned earlier, if a lot of umc ce is stuck and not handled =
+earlier, it will be reported through amdgpu_ras_poison_creation_handler. I =
+think how to handle or parse it is done by aca parser. we aim is still to r=
+ead out all the bank reg info.If the include umc ce and other ras block ban=
+k error gets stuck ahead.I think it should be a normal behavior to parse ou=
+t all the umc ce and other ras block bank errors that were not reported ear=
+lier through the creation/consumption interrupt
+
++               if (bank_count) {
++                       prev_de_queried_count =3D bank_count;
++                       amdgpu_aca_clear_bank_count(adev);
++                       timeout =3D MAX_UMC_POISON_POLLING_TIME_ASYNC;
+                } else {
+-                       new_detect_count =3D 0;
+-               }
+-
+-               if (new_detect_count) {
+-                       total_detect_count +=3D new_detect_count;
+-               } else {
+-                       if (!timeout && need_query_count)
+-                               timeout =3D MAX_UMC_POISON_POLLING_TIME_ASY=
+NC;
+-
+-                       if (timeout) {
+-                               if (!--timeout)
+-                                       break;
+-                               msleep(1);
+-                       }
++                       --timeout;
++                       msleep(1);
+                }
+-       } while (total_detect_count < need_query_count);
++       } while (timeout);
+
+-       if (total_detect_count)
++       if (prev_de_queried_count)
+                schedule_delayed_work(&ras->page_retirement_dwork, 0);
+
+        if (amdgpu_ras_is_rma(adev) && atomic_cmpxchg(&ras->rma_in_recovery=
+, 0, 1) =3D=3D 0) diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index ff63020f9c6c..132b45a362c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -492,8 +492,6 @@ struct ras_ecc_err {  struct ras_ecc_log_info {
+
+________________________________
+From: Chai, Thomas <YiPeng.Chai@amd.com>
+Sent: Tuesday, August 12, 2025 4:33 PM
+To: Sun, Ce(Overlord) <Ce.Sun@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
+gfx@lists.freedesktop.org>
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Z=
+hang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@am=
+d.com>
+Subject: RE: [PATCH 3/3] drm/amdgpu: Correct the loss of aca bank reg info
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+-----Original Message-----
+From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
+Sent: Tuesday, August 12, 2025 3:35 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Z=
+hang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@am=
+d.com>; Chai, Thomas <YiPeng.Chai@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.c=
+om>
+Subject: [PATCH 3/3] drm/amdgpu: Correct the loss of aca bank reg info
+
+By polling, poll ACA bank count to ensure that valid ACA bank reg info can =
+be obtained
+
+Signed-off-by: Ce Sun <cesun102@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 46 +++++++------------------  dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  2 --  drivers/gpu/drm/amd/amdgpu/u=
+mc_v12_0.c  |  7 ----
+ 3 files changed, 13 insertions(+), 42 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index f00a9e0c9c47..ad8ad08f0f33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -122,7 +122,7 @@ const char *get_ras_block_str(struct ras_common_if *ras=
+_block)
+ /* typical ECC bad page rate is 1 bad page per 100MB VRAM */
+ #define RAS_BAD_PAGE_COVER              (100 * 1024 * 1024ULL)
+
+-#define MAX_UMC_POISON_POLLING_TIME_ASYNC  300  //ms
++#define MAX_UMC_POISON_POLLING_TIME_ASYNC  50  //ms
+
+ #define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100  //ms
+
+@@ -3317,8 +3317,6 @@ static void amdgpu_ras_ecc_log_init(struct ras_ecc_lo=
+g_info *ecc_log)
+        mutex_init(&ecc_log->lock);
+
+        INIT_RADIX_TREE(&ecc_log->de_page_tree, GFP_KERNEL);
+-       ecc_log->de_queried_count =3D 0;
+-       ecc_log->prev_de_queried_count =3D 0;
+ }
+
+ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log) @@ -=
+3337,8 +3335,6 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_in=
+fo *ecc_log)
+        mutex_unlock(&ecc_log->lock);
+
+        mutex_destroy(&ecc_log->lock);
+-       ecc_log->de_queried_count =3D 0;
+-       ecc_log->prev_de_queried_count =3D 0;
+ }
+
+ static bool amdgpu_ras_schedule_retirement_dwork(struct amdgpu_ras *con, @=
+@ -3386,49 +3382,33 @@ static int amdgpu_ras_poison_creation_handler(struct=
+ amdgpu_device *adev,
+                                uint32_t poison_creation_count)
+ {
+        int ret =3D 0;
+-       struct ras_ecc_log_info *ecc_log;
+        struct ras_query_if info;
+-       uint32_t timeout =3D 0;
++       uint32_t timeout =3D MAX_UMC_POISON_POLLING_TIME_ASYNC;
+        struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+-       uint64_t de_queried_count;
+-       uint32_t new_detect_count, total_detect_count;
+-       uint32_t need_query_count =3D poison_creation_count;
+        enum ras_event_type type =3D RAS_EVENT_TYPE_POISON_CREATION;
++       uint64_t prev_de_queried_count =3D 0;
++       uint64_t bank_count =3D 0;
+
+        memset(&info, 0, sizeof(info));
+        info.head.block =3D AMDGPU_RAS_BLOCK__UMC;
+
+-       ecc_log =3D &ras->umc_ecc_log;
+-       total_detect_count =3D 0;
+        do {
+                ret =3D amdgpu_ras_query_error_status_with_event(adev, &inf=
+o, type);
+                if (ret)
+                        return ret;
+
+-               de_queried_count =3D ecc_log->de_queried_count;
+-               if (de_queried_count > ecc_log->prev_de_queried_count) {
+-                       new_detect_count =3D de_queried_count - ecc_log->pr=
+ev_de_queried_count;
+-                       ecc_log->prev_de_queried_count =3D de_queried_count=
+;
+-                       timeout =3D 0;
++               bank_count =3D amdgpu_aca_get_bank_count(adev);
+
+[Thomas] Does bank_count  only use for umc deferred error or include umc ce=
+ de and other ras block bank error?
+                  The amdgpu_ras_poison_creation_handler function is used t=
+o handle UMC deferred error. not include umc ce and other ras block bank er=
+ror.
+
++               if (bank_count) {
++                       prev_de_queried_count =3D bank_count;
++                       amdgpu_aca_clear_bank_count(adev);
++                       timeout =3D MAX_UMC_POISON_POLLING_TIME_ASYNC;
+                } else {
+-                       new_detect_count =3D 0;
+-               }
+-
+-               if (new_detect_count) {
+-                       total_detect_count +=3D new_detect_count;
+-               } else {
+-                       if (!timeout && need_query_count)
+-                               timeout =3D MAX_UMC_POISON_POLLING_TIME_ASY=
+NC;
+-
+-                       if (timeout) {
+-                               if (!--timeout)
+-                                       break;
+-                               msleep(1);
+-                       }
++                       --timeout;
++                       msleep(1);
+                }
+-       } while (total_detect_count < need_query_count);
++       } while (timeout);
+
+-       if (total_detect_count)
++       if (prev_de_queried_count)
+                schedule_delayed_work(&ras->page_retirement_dwork, 0);
+
+        if (amdgpu_ras_is_rma(adev) && atomic_cmpxchg(&ras->rma_in_recovery=
+, 0, 1) =3D=3D 0) diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index ff63020f9c6c..132b45a362c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -492,8 +492,6 @@ struct ras_ecc_err {  struct ras_ecc_log_info {
+        struct mutex lock;
+        struct radix_tree_root de_page_tree;
+-       uint64_t        de_queried_count;
+-       uint64_t        prev_de_queried_count;
+ };
+
+ struct ras_critical_region {
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/umc_v12_0.c
+index e590cbdd8de9..8dbffe4d22d1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -581,17 +581,10 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_=
+device *adev,
+
+        ret =3D amdgpu_umc_logs_ecc_err(adev, &con->umc_ecc_log.de_page_tre=
+e, ecc_err);
+        if (ret) {
+-               if (ret =3D=3D -EEXIST)
+-                       con->umc_ecc_log.de_queried_count++;
+-               else
+-                       dev_err(adev->dev, "Fail to log ecc error! ret:%d\n=
+", ret);
+-
+                kfree(ecc_err);
+                return ret;
+        }
+
+-       con->umc_ecc_log.de_queried_count++;
+-
+        memset(page_pfn, 0, sizeof(page_pfn));
+        count =3D amdgpu_umc_lookup_bad_pages_in_a_row(adev,
+                                pa_addr,
+--
+2.34.1
+
+
+--_000_SJ0PR12MB69673CDFDAA28E6DEA6712D29D2BASJ0PR12MB6967namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+-----Original Message-----<br>
+From: Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;<br>
+Sent: Tuesday, August 12, 2025 3:35 PM<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@am=
+d.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Wang, Yang(Kevin) =
+&lt;KevinYang.Wang@amd.com&gt;; Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; S=
+un, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;<br>
+Subject: [PATCH 3/3] drm/amdgpu: Correct the loss of aca bank reg info<br>
+<br>
+By polling, poll ACA bank count to ensure that valid ACA bank reg info can =
+be obtained<br>
+<br>
+Signed-off-by: Ce Sun &lt;cesun102@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 46 +++++++-----------------=
+-&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |&nbsp; 2 --&nbsp; drivers/=
+gpu/drm/amd/amdgpu/umc_v12_0.c&nbsp; |&nbsp; 7 ----<br>
+&nbsp;3 files changed, 13 insertions(+), 42 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c<br>
+index f00a9e0c9c47..ad8ad08f0f33 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+@@ -122,7 +122,7 @@ const char *get_ras_block_str(struct ras_common_if *ras=
+_block)<br>
+&nbsp;/* typical ECC bad page rate is 1 bad page per 100MB VRAM */<br>
+&nbsp;#define RAS_BAD_PAGE_COVER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (100 * 1024 * 1024ULL)<br>
+<br>
+-#define MAX_UMC_POISON_POLLING_TIME_ASYNC&nbsp; 300&nbsp; //ms<br>
++#define MAX_UMC_POISON_POLLING_TIME_ASYNC&nbsp; 50&nbsp; //ms<br>
+<br>
+&nbsp;#define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100&nbsp; //ms<br>
+<br>
+@@ -3317,8 +3317,6 @@ static void amdgpu_ras_ecc_log_init(struct ras_ecc_lo=
+g_info *ecc_log)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;ecc_log-&gt;lock=
+);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_RADIX_TREE(&amp;ecc_log-&gt=
+;de_page_tree, GFP_KERNEL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;de_queried_count =3D 0;<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;prev_de_queried_count =3D=
+ 0;<br>
+&nbsp;}<br>
+<br>
+&nbsp;static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log)=
+ @@ -3337,8 +3335,6 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_l=
+og_info *ecc_log)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;ecc_log-&gt;lo=
+ck);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_destroy(&amp;ecc_log-&gt;l=
+ock);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;de_queried_count =3D 0;<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;prev_de_queried_count =3D=
+ 0;<br>
+&nbsp;}<br>
+<br>
+&nbsp;static bool amdgpu_ras_schedule_retirement_dwork(struct amdgpu_ras *c=
+on, @@ -3386,49 +3382,33 @@ static int amdgpu_ras_poison_creation_handler(s=
+truct amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t poison_creation_count)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ras_ecc_log_info *ecc_log;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ras_query_if info;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t timeout =3D 0;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t timeout =3D MAX_UMC_POISON_P=
+OLLING_TIME_ASYNC;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ras *ras =3D amdgp=
+u_ras_get_context(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t de_queried_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t new_detect_count, total_dete=
+ct_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t need_query_count =3D poison_=
+creation_count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum ras_event_type type =3D RAS=
+_EVENT_TYPE_POISON_CREATION;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t prev_de_queried_count =3D 0;=
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t bank_count =3D 0;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(&amp;info, 0, sizeof(info=
+));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info.head.block =3D AMDGPU_RAS_B=
+LOCK__UMC;<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log =3D &amp;ras-&gt;umc_ecc_log;=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total_detect_count =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; ret =3D amdgpu_ras_query_error_status_with_event(adev, &amp=
+;info, type);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;=
+<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; de_queried_count =3D ecc_log-&gt;de_queried_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (de_queried_count &gt; ecc_log-&gt;prev_de_queried_count) {<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_detect_count=
+ =3D de_queried_count - ecc_log-&gt;prev_de_queried_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;prev=
+_de_queried_count =3D de_queried_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout =3D 0;<b=
+r>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; bank_count =3D amdgpu_aca_get_bank_count(adev);<br>
+<br>
+[Thomas] Does bank_count&nbsp; only use for umc deferred error or include u=
+mc ce de and other ras block bank error?</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<span style=3D"background-color: rgb(255, 255, 0);">[Ce,Sun]Hi Thomas,thank=
+ you for your review.</span></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<span style=3D"background-color: rgb(255, 255, 0);">Yes, here include umc c=
+e de and other ras block bank error. If there are many bank errors stuck ea=
+rlier, we will read out all the ones stuck earlier with bank count=3D12.</s=
+pan></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; The amdgpu_ras_poison_creation_handler function=
+ is used to handle UMC deferred error. not include umc ce and other ras blo=
+ck bank error.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<span style=3D"background-color: rgb(255, 255, 0);">[Ce,Sun] As mentioned e=
+arlier, if a lot of umc ce is stuck and not handled earlier, it will be rep=
+orted through amdgpu_ras_poison_creation_handler. I think how to handle or =
+parse it is done by aca parser. we
+ aim is still to read out all the bank reg info.If the include umc ce and o=
+ther ras block bank error gets stuck ahead.I think it should be a normal be=
+havior to parse out all the umc ce and other ras block bank errors that wer=
+e not reported earlier through the
+ creation/consumption interrupt</span></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (bank_count) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prev_de_queried_=
+count =3D bank_count;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_aca_clear=
+_bank_count(adev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout =3D MAX_=
+UMC_POISON_POLLING_TIME_ASYNC;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_detect_count=
+ =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (new_detect_count) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total_detect_cou=
+nt +=3D new_detect_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!timeout &am=
+p;&amp; need_query_count)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout =3D MAX_UMC_POISON_POLLING_TIME_ASY=
+NC;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (timeout) {<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!--timeout)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msleep(1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --timeout;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msleep(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (total_detect_count &lt; need=
+_query_count);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (timeout);<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (total_detect_count)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (prev_de_queried_count)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; schedule_delayed_work(&amp;ras-&gt;page_retirement_dwork, 0=
+);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ras_is_rma(adev) &amp=
+;&amp; atomic_cmpxchg(&amp;ras-&gt;rma_in_recovery, 0, 1) =3D=3D 0) diff --=
+git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/=
+amdgpu_ras.h<br>
+index ff63020f9c6c..132b45a362c2 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<br>
+@@ -492,8 +492,6 @@ struct ras_ecc_err {&nbsp; struct ras_ecc_log_info {</d=
+iv>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chai, Thomas &lt;YiPe=
+ng.Chai@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, August 12, 2025 4:33 PM<br>
+<b>To:</b> Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.=
+Yang@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Wang, Yang(=
+Kevin) &lt;KevinYang.Wang@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH 3/3] drm/amdgpu: Correct the loss of aca bank re=
+g info</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
+ style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
+<div><font size=3D"2"><span style=3D"font-size:11pt;">[AMD Official Use Onl=
+y - AMD Internal Distribution Only]<br>
+<br>
+-----Original Message-----<br>
+From: Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;<br>
+Sent: Tuesday, August 12, 2025 3:35 PM<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@am=
+d.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Wang, Yang(Kevin) =
+&lt;KevinYang.Wang@amd.com&gt;; Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; S=
+un, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;<br>
+Subject: [PATCH 3/3] drm/amdgpu: Correct the loss of aca bank reg info<br>
+<br>
+By polling, poll ACA bank count to ensure that valid ACA bank reg info can =
+be obtained<br>
+<br>
+Signed-off-by: Ce Sun &lt;cesun102@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 46 +++++++-----------------=
+-&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |&nbsp; 2 --&nbsp; drivers/=
+gpu/drm/amd/amdgpu/umc_v12_0.c&nbsp; |&nbsp; 7 ----<br>
+&nbsp;3 files changed, 13 insertions(+), 42 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c<br>
+index f00a9e0c9c47..ad8ad08f0f33 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+@@ -122,7 +122,7 @@ const char *get_ras_block_str(struct ras_common_if *ras=
+_block)<br>
+&nbsp;/* typical ECC bad page rate is 1 bad page per 100MB VRAM */<br>
+&nbsp;#define RAS_BAD_PAGE_COVER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (100 * 1024 * 1024ULL)<br>
+<br>
+-#define MAX_UMC_POISON_POLLING_TIME_ASYNC&nbsp; 300&nbsp; //ms<br>
++#define MAX_UMC_POISON_POLLING_TIME_ASYNC&nbsp; 50&nbsp; //ms<br>
+<br>
+&nbsp;#define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100&nbsp; //ms<br>
+<br>
+@@ -3317,8 +3317,6 @@ static void amdgpu_ras_ecc_log_init(struct ras_ecc_lo=
+g_info *ecc_log)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;ecc_log-&gt;lock=
+);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_RADIX_TREE(&amp;ecc_log-&gt=
+;de_page_tree, GFP_KERNEL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;de_queried_count =3D 0;<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;prev_de_queried_count =3D=
+ 0;<br>
+&nbsp;}<br>
+<br>
+&nbsp;static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log)=
+ @@ -3337,8 +3335,6 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_l=
+og_info *ecc_log)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;ecc_log-&gt;lo=
+ck);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_destroy(&amp;ecc_log-&gt;l=
+ock);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;de_queried_count =3D 0;<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;prev_de_queried_count =3D=
+ 0;<br>
+&nbsp;}<br>
+<br>
+&nbsp;static bool amdgpu_ras_schedule_retirement_dwork(struct amdgpu_ras *c=
+on, @@ -3386,49 +3382,33 @@ static int amdgpu_ras_poison_creation_handler(s=
+truct amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t poison_creation_count)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ras_ecc_log_info *ecc_log;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ras_query_if info;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t timeout =3D 0;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t timeout =3D MAX_UMC_POISON_P=
+OLLING_TIME_ASYNC;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ras *ras =3D amdgp=
+u_ras_get_context(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t de_queried_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t new_detect_count, total_dete=
+ct_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t need_query_count =3D poison_=
+creation_count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum ras_event_type type =3D RAS=
+_EVENT_TYPE_POISON_CREATION;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t prev_de_queried_count =3D 0;=
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t bank_count =3D 0;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(&amp;info, 0, sizeof(info=
+));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info.head.block =3D AMDGPU_RAS_B=
+LOCK__UMC;<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log =3D &amp;ras-&gt;umc_ecc_log;=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total_detect_count =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; ret =3D amdgpu_ras_query_error_status_with_event(adev, &amp=
+;info, type);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;=
+<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; de_queried_count =3D ecc_log-&gt;de_queried_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (de_queried_count &gt; ecc_log-&gt;prev_de_queried_count) {<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_detect_count=
+ =3D de_queried_count - ecc_log-&gt;prev_de_queried_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecc_log-&gt;prev=
+_de_queried_count =3D de_queried_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout =3D 0;<b=
+r>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; bank_count =3D amdgpu_aca_get_bank_count(adev);<br>
+<br>
+[Thomas] Does bank_count&nbsp; only use for umc deferred error or include u=
+mc ce de and other ras block bank error?<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; The amdgpu_ras_poison_creation_handler function=
+ is used to handle UMC deferred error. not include umc ce and other ras blo=
+ck bank error.<br>
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (bank_count) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prev_de_queried_=
+count =3D bank_count;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_aca_clear=
+_bank_count(adev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout =3D MAX_=
+UMC_POISON_POLLING_TIME_ASYNC;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_detect_count=
+ =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (new_detect_count) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total_detect_cou=
+nt +=3D new_detect_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!timeout &am=
+p;&amp; need_query_count)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout =3D MAX_UMC_POISON_POLLING_TIME_ASY=
+NC;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (timeout) {<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!--timeout)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msleep(1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --timeout;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msleep(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (total_detect_count &lt; need=
+_query_count);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (timeout);<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (total_detect_count)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (prev_de_queried_count)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; schedule_delayed_work(&amp;ras-&gt;page_retirement_dwork, 0=
+);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ras_is_rma(adev) &amp=
+;&amp; atomic_cmpxchg(&amp;ras-&gt;rma_in_recovery, 0, 1) =3D=3D 0) diff --=
+git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/=
+amdgpu_ras.h<br>
+index ff63020f9c6c..132b45a362c2 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<br>
+@@ -492,8 +492,6 @@ struct ras_ecc_err {&nbsp; struct ras_ecc_log_info {<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex lock;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct radix_tree_root de_page_t=
+ree;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; de_queried_count;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; prev_de_queried_count;<br>
+&nbsp;};<br>
+<br>
+&nbsp;struct ras_critical_region {<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/umc_v12_0.c<br>
+index e590cbdd8de9..8dbffe4d22d1 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
+@@ -581,17 +581,10 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_=
+device *adev,<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_umc_logs_ecc_err(=
+adev, &amp;con-&gt;umc_ecc_log.de_page_tree, ecc_err);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret =3D=3D -EEXIST)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; con-&gt;umc_ecc_=
+log.de_queried_count++;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt=
+;dev, &quot;Fail to log ecc error! ret:%d\n&quot;, ret);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; kfree(ecc_err);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return ret;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; con-&gt;umc_ecc_log.de_queried_count+=
++;<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(page_pfn, 0, sizeof(page_=
+pfn));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D amdgpu_umc_lookup_bad_=
+pages_in_a_row(adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pa_addr,<br>
+--<br>
+2.34.1<br>
+<br>
+</span></font></div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_SJ0PR12MB69673CDFDAA28E6DEA6712D29D2BASJ0PR12MB6967namp_--
