@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3356ACA0EDC
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 22:32:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8910ACA0EDC
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 22:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D308810E197;
-	Tue, 12 Aug 2025 22:32:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3264410E64D;
+	Tue, 12 Aug 2025 22:39:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="d88+8RsS";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Pbza4e8Y";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B24410E197
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 22:32:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABAD210E64D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 22:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
@@ -22,32 +22,30 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=YLnqQhaoLMZpfHtlP14ZPe9gWjZNFSLrXzqj4guovEA=; b=d88+8RsS4ccvyBb5ec+kQjRONz
- KwFt5RdQcXNvcSACyUDiwDfXs10dC//gaHDEpZ6GVZqsJkTuRcLV+dTCDEoWsXNsARZH+Mpv2Cfwl
- IjbKO9C8y9fQTAEzoTQM3UYwVURVJrt51mu/17IkBRftJLEumlqyvI/jjvcINU9lcyTI5MrBxogcp
- iuW0ho1N3b0Z9dG6QNPw3MvLU1NN7pyTpubDL8MRQY7vzGWlkp9k7pSRRWVr8mvcyAU5kOLAbwEW4
- O0MpL0oStMDN5vwmYsBaEP9FD4CSDESMnGohKB24s5WYDo2Qcf7DPB4r5/EjGbykkmWzfkqWGoVWR
- JqzFUtfw==;
+ bh=kg/n1eZVDrkZImQzzHM85QvcoETYEiAQPJgtSbMacS4=; b=Pbza4e8YrLG8VC8m2EooY21ciN
+ PpJVuR34rGcpjxAInmk743ddkFjQFXSe6w7sirG9RKUhFZWLIZfPSuv78GcgbA7FAqW8OxpBx5H5L
+ PIpUtzSleYH0Sr+YpQxA36ROKKVi3F5kA57fiYukEUur3V3hy0H7AgEuAlklBKGKdYL2f6oOFtrSm
+ uA6A4Bi3gX+Bh3B2t1lQkj2gLuaRqQOCF3RxgwrxX/Gm84G6pP6Fp62xzHS2WUkk+lWkB+owRXD20
+ kH7SUlIQxev26AWNYt9obwLAjQt02ds2RKZBP5XHtQ/cGWz6SgYKnFFq99MwKwDNHkuwGplOvBKeA
+ E9z1/Rcg==;
 Received: from [104.193.135.201] (helo=debian.lan)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ulxXN-00DQaE-Kv; Wed, 13 Aug 2025 00:32:10 +0200
-Date: Tue, 12 Aug 2025 16:32:06 -0600
+ id 1ulxeU-00DQgF-VV; Wed, 13 Aug 2025 00:39:31 +0200
+Date: Tue, 12 Aug 2025 16:39:28 -0600
 From: Rodrigo Siqueira <siqueira@igalia.com>
 To: Timur =?utf-8?Q?Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH 3/7] drm/amd/display: Find first CRTC and its line time
+Cc: amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 4/7] drm/amd/display: Fill display clock and vblank time
  in dce110_fill_display_configs
-Message-ID: <qykbkw3xyj7esqzhrfnh6nlubs7m27ditv4zd6jxiuoekhthnz@vrojyhtydw47>
+Message-ID: <s42h7f5liphxfwglikpb7sgcsqnew7s22xieztoy3exy266366@tfso4xdthi75>
 References: <20250731094352.29528-1-timur.kristof@gmail.com>
- <20250731094352.29528-4-timur.kristof@gmail.com>
+ <20250731094352.29528-5-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250731094352.29528-4-timur.kristof@gmail.com>
+In-Reply-To: <20250731094352.29528-5-timur.kristof@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,73 +61,71 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 07/31, Timur Kristóf wrote:
-> dce110_fill_display_configs is shared between DCE 6-11, and
-> finding the first CRTC and its line time is relevant to DCE 6 too.
-> Move the code to find it from DCE 11 specific code.
+> Also needed by DCE 6.
+> This way the code that gathers this info can be shared between
+> different DCE versions and doesn't have to be repeated.
 > 
 > Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 > ---
->  .../dc/clk_mgr/dce110/dce110_clk_mgr.c        | 30 ++++++++++++-------
->  1 file changed, 20 insertions(+), 10 deletions(-)
+>  .../drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |  2 --
+>  .../drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c | 10 +++-------
+>  .../drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c   |  2 --
+>  3 files changed, 3 insertions(+), 11 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> index 69e9540f553b..17a8b46b0818 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> @@ -386,8 +386,6 @@ static void dce_pplib_apply_display_requirements(
+>  {
+>  	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
+>  
+> -	pp_display_cfg->avail_mclk_switch_time_us = dce110_get_min_vblank_time_us(context);
+> -
+>  	dce110_fill_display_configs(context, pp_display_cfg);
+>  
+>  	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
 > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-> index f8409453434c..baeac8f1c04f 100644
+> index baeac8f1c04f..13cf415e38e5 100644
 > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
 > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-> @@ -120,9 +120,12 @@ void dce110_fill_display_configs(
->  	const struct dc_state *context,
->  	struct dm_pp_display_configuration *pp_display_cfg)
->  {
-> +	struct dc *dc = context->clk_mgr->ctx->dc;
+> @@ -124,6 +124,9 @@ void dce110_fill_display_configs(
 >  	int j;
 >  	int num_cfgs = 0;
 >  
-> +	pp_display_cfg->crtc_index = dc->res_pool->res_cap->num_timing_generator;
-> +
+> +	pp_display_cfg->avail_mclk_switch_time_us = dce110_get_min_vblank_time_us(context);
+> +	pp_display_cfg->disp_clk_khz = dc->clk_mgr->clks.dispclk_khz;
+> +	pp_display_cfg->avail_mclk_switch_time_in_disp_active_us = 0;
+>  	pp_display_cfg->crtc_index = dc->res_pool->res_cap->num_timing_generator;
+>  
 >  	for (j = 0; j < context->stream_count; j++) {
->  		int k;
+> @@ -243,13 +246,6 @@ void dce11_pplib_apply_display_requirements(
+>  	pp_display_cfg->min_engine_clock_deep_sleep_khz
+>  			= context->bw_ctx.bw.dce.sclk_deep_sleep_khz;
 >  
-> @@ -164,6 +167,23 @@ void dce110_fill_display_configs(
->  		cfg->v_refresh /= stream->timing.h_total;
->  		cfg->v_refresh = (cfg->v_refresh + stream->timing.v_total / 2)
->  							/ stream->timing.v_total;
-> +
-> +		/* Find first CRTC index and calculate its line time.
-> +		 * This is necessary for DPM on SI GPUs.
-> +		 */
-> +		if (cfg->pipe_idx < pp_display_cfg->crtc_index) {
-> +			const struct dc_crtc_timing *timing =
-> +				&context->streams[0]->timing;
-> +
-> +			pp_display_cfg->crtc_index = cfg->pipe_idx;
-> +			pp_display_cfg->line_time_in_us =
-> +				timing->h_total * 10000 / timing->pix_clk_100hz;
-> +		}
-> +	}
-> +
-> +	if (!num_cfgs) {
-> +		pp_display_cfg->crtc_index = 0;
-> +		pp_display_cfg->line_time_in_us = 0;
->  	}
->  
->  	pp_display_cfg->display_count = num_cfgs;
-> @@ -232,16 +252,6 @@ void dce11_pplib_apply_display_requirements(
->  
+> -	pp_display_cfg->avail_mclk_switch_time_us =
+> -						dce110_get_min_vblank_time_us(context);
+> -	/* TODO: dce11.2*/
+> -	pp_display_cfg->avail_mclk_switch_time_in_disp_active_us = 0;
+> -
+> -	pp_display_cfg->disp_clk_khz = dc->clk_mgr->clks.dispclk_khz;
+> -
 >  	dce110_fill_display_configs(context, pp_display_cfg);
 >  
-> -	/* TODO: is this still applicable?*/
-> -	if (pp_display_cfg->display_count == 1) {
-> -		const struct dc_crtc_timing *timing =
-> -			&context->streams[0]->timing;
-> -
-> -		pp_display_cfg->crtc_index =
-> -			pp_display_cfg->disp_configs[0].pipe_idx;
-> -		pp_display_cfg->line_time_in_us = timing->h_total * 10000 / timing->pix_clk_100hz;
-> -	}
-> -
 >  	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
->  		dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
->  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> index cfd7309f2c6a..7044b437fe9d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> @@ -109,8 +109,6 @@ static void dce60_pplib_apply_display_requirements(
+>  {
+>  	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
+>  
+> -	pp_display_cfg->avail_mclk_switch_time_us = dce110_get_min_vblank_time_us(context);
+> -
+>  	dce110_fill_display_configs(context, pp_display_cfg);
+>  
+>  	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
 > -- 
 > 2.50.1
 >
