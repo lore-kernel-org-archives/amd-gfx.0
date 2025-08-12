@@ -4,76 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 108BFCA0EC4
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 16:24:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E25F4CA0EC4
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 16:28:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69D8A10E16C;
-	Tue, 12 Aug 2025 16:24:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B8BD10E60B;
+	Tue, 12 Aug 2025 16:28:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BD1X9zBY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TXNuTYLG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D6A610E16C;
- Tue, 12 Aug 2025 16:24:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1755015866; x=1786551866;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=q3ATWwbJnmhEV0tER11ue3lL09n8bcsLC90p1qBToR0=;
- b=BD1X9zBY/U8VTu6XBGOF+2j5ZS+oYGAFfCZ2DRzPcFrXtKpD5jJ8tjr8
- io2l5JKHeNrE74PDPjEK+GAnQRnFwlkjknkFwBCNLki11WJIDxKdqmGdF
- fyhrUtR9lRKxCw1wu7wnjeQ65Rpce8rs+AyFqSVtSblhu/XDoqJ382iz8
- UD/kEVeVc7zbZdk1Bb6pdhCgMnxE+1Fs6JBbmvZVG5sv7jfgmpLt/GGpp
- Yu3VZF3Y9Xs2bES32TiIAbzgIbt98L7rFPcRQ4jYq/mSE0EYgaR2YFh/F
- wsqTZH5nZPBjkX50VecjG20kO75pue5U077Qk/obrQCxu4Xxpx5Ay7G7M Q==;
-X-CSE-ConnectionGUID: qHmw+viASd6WDR0uevUayA==
-X-CSE-MsgGUID: yOJUlOeATgGU4OzYwVjqAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11520"; a="57378401"
-X-IronPort-AV: E=Sophos;i="6.17,284,1747724400"; d="scan'208";a="57378401"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2025 09:24:25 -0700
-X-CSE-ConnectionGUID: yC4pQlA5TSWMd4+9pje4Aw==
-X-CSE-MsgGUID: aWFQrDsnQvqkjbg6wiAiLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,284,1747724400"; d="scan'208";a="170457391"
-Received: from lkp-server02.sh.intel.com (HELO 4ea60e6ab079) ([10.239.97.151])
- by fmviesa005.fm.intel.com with ESMTP; 12 Aug 2025 09:24:20 -0700
-Received: from kbuild by 4ea60e6ab079 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ulrnN-0006zD-1K;
- Tue, 12 Aug 2025 16:24:17 +0000
-Date: Wed, 13 Aug 2025 00:23:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Bjorn Helgaas <helgaas@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, Pavel Machek <pavel@kernel.org>,
- Len Brown <lenb@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- "(open list:HIBERNATION (aka Software Suspend,
- aka swsusp))" <linux-pm@vger.kernel.org>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- Merthan =?utf-8?Q?Karaka=C5=9F?= <m3rthn.k@gmail.com>,
- Eric Naim <dnaim@cachyos.org>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: Re: [PATCH v5 04/11] USB: Pass PMSG_POWEROFF event to
- suspend_common() for poweroff with S4 flow
-Message-ID: <202508130049.aA2DXgHW-lkp@intel.com>
-References: <20250811194102.864225-5-superm1@kernel.org>
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C31D10E60B;
+ Tue, 12 Aug 2025 16:28:51 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-23ffa774f00so5246655ad.1; 
+ Tue, 12 Aug 2025 09:28:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755016131; x=1755620931; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=m8XXWc2SnRetJzdkycaLv1Sy6oktVrYdWqBPT/1g+j4=;
+ b=TXNuTYLGeF6nS5zNBl43Ta8s60oyv3PXHueTryXKOIW3+E7nRWaZ1rP4v6nCTskA7O
+ +a3E1QrCBWsr2+6j7M+VvlIbR/aiH3i/e1xZPrj5DVYiitsVff1318jE2WpDjG1eOlCy
+ h/vPTln9cZlxEMJw9ZgE/kNrCRXrNLYD0Sh0vkOAIJRvWGLPUUIhCQwpdRlU+a/5eOU5
+ eQSq8yXO7d8flwnAC8tqJ1cIuJpywwutQpGf6KfS40QcSXVt9aij76FhNPxwujCY2TAG
+ /dubmf9Kshek13YpyNn8Mhyy7+bAUhdOws/kiorfqcUH8SycC7Gn+YQ1+srMn0FJ+b0r
+ 6hxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755016131; x=1755620931;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=m8XXWc2SnRetJzdkycaLv1Sy6oktVrYdWqBPT/1g+j4=;
+ b=gLqaIZiGMbbxKLs3NhVGdBwld5RbeF3ml3M6xz+U5sX7UiyuBf5YFrJCWTBYZ7WlRp
+ 0i+iXUJDPY0acn6hOt9wAfOm3KvUwSl9HfvmmowChT0e1Xbq0cR6mkjp733TFUs+4Kmc
+ 70BKuBnEzk1GHYxLTtW9OSZ05rHRj9q1RuX8v5SyvQW3he0IHnpzBudT4kPp7+G+Qofj
+ leuVR/dPaXOFI0WNEM1YXULhdOB19dBvPJV0lWzmAaicjf9a7Nq7TIVYgsHqvLPdAkTZ
+ B8aiQZKyETcwCpTIt0E7dfOcLmlod5NfrEDd+QB20zXR7/BCMKVFDMeAgCeuOts6kJgv
+ esyw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVU0DhDZG38etqxDFSD6oHSFPcBLAL0Ux5jz0QYtMcGxHp0T5mWlzzQhLVEXxtGvTbuV1Lg2cNCbKm3@lists.freedesktop.org,
+ AJvYcCWe2ypafnxDEZI95FwQn7HsBMeQD0vcgOyaVcnLfxzy+sBrbhtiIwn2iJrmi51T8BjjEfga7b1R@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwDkSbzB+GNowLTLQRKTftf5jS1Qq7doYfTf3IJRyWuOC8J8D7w
+ YG9Gf0bLfMl4YZegdr2/D7f8jA4EdAj+Z7OaJRdf4l2Z5SH28cjxwMh3kiUo26SSY1LJA6emQjN
+ vBF3E7jXhiMsk4AkdX73lv/9O4owKI6ksQA==
+X-Gm-Gg: ASbGncsoWd4J+T0NAIxyeI2I7q9kBQXg9JuCjxy88clesCA0NjCh405G56+q7gRlnQW
+ MkQcCLYwgIMXwjQkJqlWuuFKNj1kfFo157X3GaSfWS1q9AG67dlunL70mLFfWqIgO/lSLHa5cxh
+ yRugYQrLBVa0RtfUsyNpGW0x8FY9ImCDCYReFzd3Rc5a7SdILUrDh2mppw+OniflhoTsNk1cLPu
+ 7+lG1U=
+X-Google-Smtp-Source: AGHT+IF7UGNoWHAY2HBfAfn8v6UyctnQGA9lFULx5VpBJUqJiWlcxTy5uqrxR2lo6+lp5MVHHbDGSUwHdQbO0yPEfQk=
+X-Received: by 2002:a17:902:e841:b0:235:737:7a8 with SMTP id
+ d9443c01a7336-2430c1033bfmr2211895ad.3.1755016130853; Tue, 12 Aug 2025
+ 09:28:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250811194102.864225-5-superm1@kernel.org>
+References: <20250812075017.5370-1-liaoyuanhong@vivo.com>
+In-Reply-To: <20250812075017.5370-1-liaoyuanhong@vivo.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Aug 2025 12:28:39 -0400
+X-Gm-Features: Ac12FXxy3-M_wzEetsEfVe6DFeHMxdgLbCQg5APkZ-SqZKW-POTop_GS7uBXzuE
+Message-ID: <CADnq5_OAdOx5s-76uyVFRZbsStpvRh=rngJ=uKcpjb4HYaJz1w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Remove redundant semicolons
+To: Liao Yuanhong <liaoyuanhong@vivo.com>
+Cc: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, 
+ "open list:AMD DISPLAY CORE" <amd-gfx@lists.freedesktop.org>, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,56 +92,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario,
+Applied.  Thanks!
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on 8f5ae30d69d7543eee0d70083daf4de8fe15d585]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello-AMD/PM-Introduce-new-PMSG_POWEROFF-event/20250812-034228
-base:   8f5ae30d69d7543eee0d70083daf4de8fe15d585
-patch link:    https://lore.kernel.org/r/20250811194102.864225-5-superm1%40kernel.org
-patch subject: [PATCH v5 04/11] USB: Pass PMSG_POWEROFF event to suspend_common() for poweroff with S4 flow
-config: i386-randconfig-013-20250812 (https://download.01.org/0day-ci/archive/20250813/202508130049.aA2DXgHW-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250813/202508130049.aA2DXgHW-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202508130049.aA2DXgHW-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/usb/core/hcd-pci.c:650:27: error: 'hcd_pci_poweroff' undeclared here (not in a function); did you mean 'hcd_pci_poweroff_late'?
-     650 |         .poweroff       = hcd_pci_poweroff,
-         |                           ^~~~~~~~~~~~~~~~
-         |                           hcd_pci_poweroff_late
-
-
-vim +650 drivers/usb/core/hcd-pci.c
-
-   640	
-   641	const struct dev_pm_ops usb_hcd_pci_pm_ops = {
-   642		.suspend	= hcd_pci_suspend,
-   643		.suspend_noirq	= hcd_pci_suspend_noirq,
-   644		.resume_noirq	= hcd_pci_resume_noirq,
-   645		.resume		= hcd_pci_resume,
-   646		.freeze		= hcd_pci_freeze,
-   647		.freeze_noirq	= check_root_hub_suspended,
-   648		.thaw_noirq	= NULL,
-   649		.thaw		= hcd_pci_resume,
- > 650		.poweroff	= hcd_pci_poweroff,
-   651		.poweroff_late	= hcd_pci_poweroff_late,
-   652		.poweroff_noirq	= hcd_pci_suspend_noirq,
-   653		.restore_noirq	= hcd_pci_resume_noirq,
-   654		.restore	= hcd_pci_restore,
-   655		.runtime_suspend = hcd_pci_runtime_suspend,
-   656		.runtime_resume	= hcd_pci_runtime_resume,
-   657	};
-   658	EXPORT_SYMBOL_GPL(usb_hcd_pci_pm_ops);
-   659	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On Tue, Aug 12, 2025 at 3:58=E2=80=AFAM Liao Yuanhong <liaoyuanhong@vivo.co=
+m> wrote:
+>
+> Remove unnecessary semicolons.
+>
+> Fixes: dda4fb85e433f ("drm/amd/display: DML changes for DCN32/321")
+> Signed-off-by: Liao Yuanhong <liaoyuanhong@vivo.com>
+> ---
+>  .../gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc_32.c    | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc=
+_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc_32.c
+> index 9ba6cb67655f..6c75aa82327a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc_32.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc_32.c
+> @@ -139,7 +139,6 @@ void dml32_rq_dlg_get_rq_reg(display_rq_regs_st *rq_r=
+egs,
+>         if (dual_plane) {
+>                 unsigned int p1_pte_row_height_linear =3D get_dpte_row_he=
+ight_linear_c(mode_lib, e2e_pipe_param,
+>                                 num_pipes, pipe_idx);
+> -               ;
+>                 if (src->sw_mode =3D=3D dm_sw_linear)
+>                         ASSERT(p1_pte_row_height_linear >=3D 8);
+>
+> --
+> 2.34.1
+>
