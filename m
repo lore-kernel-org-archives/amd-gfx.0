@@ -4,93 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7663DC87FCF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 10:15:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 869F2CA0EE4
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 10:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDA7410E6E3;
-	Wed, 13 Aug 2025 10:15:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DA7710E6E5;
+	Wed, 13 Aug 2025 10:15:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=embeddedor.com header.i=@embeddedor.com header.b="I3ZFenF/";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="g2CBG74Q";
 	dkim-atps=neutral
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Wed, 13 Aug 2025 05:19:53 UTC
-Received: from omta036.useast.a.cloudfilter.net
- (omta036.useast.a.cloudfilter.net [44.202.169.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BED5010E1B9
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 05:19:53 +0000 (UTC)
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
- by cmsmtp with ESMTPS
- id m1ieuiX9o1jt6m3n3ugJCj; Wed, 13 Aug 2025 05:12:45 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id m3n2u1Sw4WvdBm3n2ur4kX; Wed, 13 Aug 2025 05:12:44 +0000
-X-Authority-Analysis: v=2.4 cv=cZfSrmDM c=1 sm=1 tr=0 ts=689c1ecc
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=R1XpmoYe2GHAZdAE2O7VqQ==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=7T7KSl7uo7wA:10
- a=1ml3npyrcYbOIoRaIsMA:9 a=QEXdDO2ut3YA:10 a=xYX6OU9JNrHFPr8prv8u:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=8CHxB1Wtr3Lygs//ada2Fd8yg7mcVvvMNOvlWGSBdN4=; b=I3ZFenF/oSKFdznfXcmVkwDLWH
- jpYuyLFZB/s3kjtkIinOMc6T0qePM+SdCTNDr4vrY9+ffKlxUYYZYaLdOCzNtMF4/brQeOpXIRPuN
- AdZPXWP84dS1Mrhx77NS1c4wmAq8E4QkbwtdzmE/C9692L6HjslLXtKGgJD4FVTjWFxnxgmPYIN+k
- k3LEoWTAbLtowaHrayu2E2gmh/kUS2tYFR+ATad0/BzNOjp5JWrtYUD0Cd1fY6vymUoq7rlrV8O6c
- 5Jvfu4fif+ZZYkfJc9N80vKfl7BOm3eAOeJxe7vkMSYrfPMdGmnEbn/ZQ18gzJdHV3SunW4eDbIsD
- 5WHOj5Hg==;
-Received: from oni-27.109.98-104.oninet.ne.jp ([27.109.98.104]:38110
- helo=[192.168.0.175])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.1)
- (envelope-from <gustavo@embeddedor.com>) id 1um3n1-00000002TtW-1RYw;
- Wed, 13 Aug 2025 00:12:43 -0500
-Message-ID: <d43dac3e-122d-4c16-9c1e-760eac91b8da@embeddedor.com>
-Date: Wed, 13 Aug 2025 14:12:30 +0900
+Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com
+ [91.218.175.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C725310E606
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 20:05:22 +0000 (UTC)
+Message-ID: <2cefb4a5-bedf-469b-b4ff-2f55b8d4a933@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1755029119;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BoAC6hV2cPxw8zZPiB/1tANMoMj6r/vN4w8vRpDiiCM=;
+ b=g2CBG74Qfr/Bm1ioW66rs3rHxHinrl2Oy9HxZkmTfhPx1/Z1q5zKbP1sdQ2hTEWehepF7j
+ Oo8TddyGQjcdFAN0c+P+uN3v6XlvgXgiVaUZl0dALPlA+V4VMi+IYx+VOYCachfoNDeO74
+ qKRr4MPZKsSss1pRQ3mClNQFhCd2d6E=
+Date: Tue, 12 Aug 2025 13:05:15 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH][next] drm/amd/pm: Avoid multiple
- -Wflex-array-member-not-at-end warnings
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <Z678TNhCbTk363Tw@kspp>
- <864c7dd5-0deb-4adb-a1cf-c8a809514d7e@embeddedor.com>
- <217b00f5-d03d-4624-9ba9-d838199ef7b9@embeddedor.com>
- <CADnq5_M5Jv4A5CXAKY2Qd-dhrfmecnauRtVY_ghSsut7i=KNww@mail.gmail.com>
- <d07b4edc-6048-4c10-b8ac-dcccd5a932d3@embeddedor.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+Subject: Re: [PATCH v2] drm/amdgpu: fix task hang from failed job submission
+ during process kill
+To: Liu01 Tong <Tong.Liu01@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, gang.ba@amd.com, "Lin . Cao" <lincao12@amd.com>
+References: <20250812083116.4091828-1-Tong.Liu01@amd.com>
 Content-Language: en-US
-In-Reply-To: <d07b4edc-6048-4c10-b8ac-dcccd5a932d3@embeddedor.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20250812083116.4091828-1-Tong.Liu01@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 27.109.98.104
-X-Source-L: No
-X-Exim-ID: 1um3n1-00000002TtW-1RYw
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: oni-27.109.98-104.oninet.ne.jp ([192.168.0.175])
- [27.109.98.104]:38110
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 4
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBU812z9HPea03ceNLGJ1bFcmGwdz5IdotVqDcXXlevn00C0e5RbAQuOiho8nvbhqqeK++rl1A8rcME6XNMnEsbPgFb+RixYeTl7B0gsTOrSmk7H4crT
- 9Z4SdTkopeQfHjV3QrK+E/6MxH7+mLU3Wi6elFFtrbCmPG697E8v6eR6iHRyDM4vtugm/g5YaFwZkq0JN7rBVOH/ogaYwvVAUHeZZrZf88b/Nev6GmOEG5Qd
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Wed, 13 Aug 2025 10:15:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,23 +57,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi!
-
-On 22/04/25 23:58, Gustavo A. R. Silva wrote:
+On 8/12/25 1:31 AM, Liu01 Tong wrote:
+> During process kill, drm_sched_entity_flush() will kill the vm
+> entities. The following job submissions of this process will fail, and
+> the resources of these jobs have not been released, nor have the fences
+> been signalled, causing tasks to hang and timeout.
 > 
+> Fix by check entity status in amdgpu_vm_ready() and avoid submit jobs to
+> stopped entity.
 > 
-> On 16/04/25 09:04, Alex Deucher wrote:
->> Can you resend, I can't seem to find the original emails.
->> Additionally, all of the NISLANDS structures are unused in amdgpu, so
->> those could be removed.
+> v2: add amdgpu_vm_ready() check before amdgpu_vm_clear_freed() in
+> function amdgpu_cs_vm_handling().
+> 
+> Signed-off-by: Liu01 Tong <Tong.Liu01@amd.com>
+> Signed-off-by: Lin.Cao <lincao12@amd.com>
 
-I'm taking a look at this, and it seems that those NISLANDS structs are actually
-needed in amdgpu code. For instance, `struct si_power_info` contains a member
-of the type of `struct ni_power_info`, and this latter struct contains a
-member of the type of `NISLANDS_SMC_STATETABLE`, thus `NISLANDS_SMC_SWSTATE`
-and `NISLANDS_SMC_HW_PERFORMANCE_LEVEL` are needed, and so on.
+Closes: https://lore.kernel.org/regressions/f2b70e6e-bff6-42f3-82a2-81eed892cc30@linux.dev/
+Tested-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 
-So, it seems that all those structs should stay. What do you think?
+Thanks,
+Matt
 
-Thanks!
--Gustavo
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  3 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15 +++++++++++----
+>  2 files changed, 14 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index e1e48e6f1f35..cdc02860011c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1138,6 +1138,9 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+>  		}
+>  	}
+>  
+> +	if (!amdgpu_vm_ready(vm))
+> +		return -EINVAL;
+> +
+>  	r = amdgpu_vm_clear_freed(adev, vm, NULL);
+>  	if (r)
+>  		return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 283dd44f04b0..bf42246a3db2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -654,11 +654,10 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   * Check if all VM PDs/PTs are ready for updates
+>   *
+>   * Returns:
+> - * True if VM is not evicting.
+> + * True if VM is not evicting and all VM entities are not stopped
+>   */
+>  bool amdgpu_vm_ready(struct amdgpu_vm *vm)
+>  {
+> -	bool empty;
+>  	bool ret;
+>  
+>  	amdgpu_vm_eviction_lock(vm);
+> @@ -666,10 +665,18 @@ bool amdgpu_vm_ready(struct amdgpu_vm *vm)
+>  	amdgpu_vm_eviction_unlock(vm);
+>  
+>  	spin_lock(&vm->status_lock);
+> -	empty = list_empty(&vm->evicted);
+> +	ret &= list_empty(&vm->evicted);
+>  	spin_unlock(&vm->status_lock);
+>  
+> -	return ret && empty;
+> +	spin_lock(&vm->immediate.lock);
+> +	ret &= !vm->immediate.stopped;
+> +	spin_unlock(&vm->immediate.lock);
+> +
+> +	spin_lock(&vm->delayed.lock);
+> +	ret &= !vm->delayed.stopped;
+> +	spin_unlock(&vm->delayed.lock);
+> +
+> +	return ret;
+>  }
+>  
+>  /**
+
