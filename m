@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9483FC87FCB
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 07:34:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72136CA0EC4
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Aug 2025 07:35:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AE5B10E5B1;
-	Tue, 12 Aug 2025 07:34:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1547810E5B0;
+	Tue, 12 Aug 2025 07:35:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z9hVIdkU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HOAg1MG9";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF6D510E5B0
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 07:34:52 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DBF010E5B0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 07:35:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YZOjCPVt46gJunHFvdkcSAM9QzWDU84hZODkLk5rebCFbwhf4sAek7xkJZyc+TVsTe4edwP67XD9I3mWFjrZaZFYlp5ZsbFMfqy4ieQcPnaRyQgyBcAtEcVCyo9QWvTIQ2TaJAOTFsuVMrB0QBvXfe9tPzCUg0ZaINMj4yxkA0n+5LEQqCdZm1B+45Mifj2+sTyuhpuMjU+Pu6Q/hSZvBa53jf43LC54Nk8MOqjF18wHKVAQqK74qnZaHJbJ3dmm1i4yGIQ0J3PNmjhq4S8yAMtmd7pTpkbaIpNEqe99OHdhUgJBqecBTX0qT14/s2PrjwNsMEQ9w3sjCGGZaOahSQ==
+ b=eCcKu19zQMZiduWDDO7KYoPdPZWR+gHm3LLpWOUkmqYywhJdH9dOw+aVZcmejEpqKz97dazq2njNYUbVp8H3vyLTe6yzXsIWdLHJjccmBNcq/eRqBLYmzldvOnSd06fju2C1ThAWQKMXbbRNW0sm9vGqKUpqxzHTaRglfq4lVk/rJu2DHMYZuoW/a89A+yE7uNv9vvFsYOUXg0J+6jB7gEGvJWoxFi7pTHuuBwhMJdh/3v3dNlysPO9I/kWZw9TfFwknnAGsoYNL9SiYJddM04xYg2eRd83F8w99P73UH6FGgWU1r8unT0q/K17qU8rKRMvdShTRRitjyZ+0LV/DOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NnUt17K96B4gCjQElqiTu9DWy7uXHwuB8C0V8+1dOvw=;
- b=G54J/n48QklZIvb+uEgdDsoCEetzwkediHPUilsm/WWD+XOkutnqcKUsyHXei8JyDkBA+lMPYHeufCKcO4lqpFWfr+0ydmvD3WkQ0n0/eLkBMRswX/C1ZyZkBr6F+9CgPUwtFpw8/vs0znI+TABvEXiQJ9bUTlJCjAgX0APlNe0ni7MjpdfwXXx+ZHyOqpeGQMAvYY9CCM4CWb+lndiy8GZdEIGWgn4aSC+0KhazmFRmsEHnKLNFCjJz7aRjLYjZ1gG+pDVk06o+NIsE0BOvQcbiJgluPBoip7I0T4R4IAdcWrIHpMsDvjGSTJp4Tkf+9Vq49ezss8Wr9jWrJWrWhQ==
+ bh=YEfk8LxPWUbAirnpIuLWzlSHTzmFtf478VM4l7r6NBI=;
+ b=H4GdZrAXs15FUeVmsEA+puk1UtF2CypE15z9jNiYFE9xjO3FHOV6SwUfMvl9mQRuU/1mmumsKy202bm87T0KdbvvIqB3w4Xj/KCAeYTQMNKNdfEBzcp4muzDqtKQTOQOZDNx6bK464ZGMxnFysVJVHidmFMxbxHzrl9dLN2yNHc6+11IQ1NGetJSefJ3GzpFlXDp37VRyg3ZIwmSM0KxliEg23La9nbHQqbD8w4d2nnUDBatdKZNH83UXD7oyil7eENrjkxDzzCm0gJVeyAQ6OQC2lfZbfIWvFH21WI7Xl3BahH+4YRLWwuMERqetKBWI+TXlKC67a87/ShXw6hAkw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NnUt17K96B4gCjQElqiTu9DWy7uXHwuB8C0V8+1dOvw=;
- b=Z9hVIdkUhAWEDd4UwksTlfR7/TJnZnZwVObXw0yXcjqgl8qM7ZKzydsUCXPGLtD6bDK++sD/1QBtjKu/zQ0B64CnMd4siBeFsfYGNt4CLn0Q6VUGx2OYM8c5zkeWOBtcr6JxH0kHV7/oxFRjUkPI5BzY5EjvFfiYrxrqWhd5iqw=
-Received: from SJ0PR03CA0101.namprd03.prod.outlook.com (2603:10b6:a03:333::16)
- by PH0PR12MB7790.namprd12.prod.outlook.com (2603:10b6:510:289::17)
+ bh=YEfk8LxPWUbAirnpIuLWzlSHTzmFtf478VM4l7r6NBI=;
+ b=HOAg1MG9Caa/ARYSRg6UrvGRXiQCw6MDPpcOsNSF5lfrgrQ+zP+m/dpBbESj8pBrkXQjByrddBwIVXXDyH0g/m8maE07d3Xev7alGSumS8yg/xjAS61KibKPNroMKAikM6+zh6iLklprXALBcgbHbhgqkuqu6zH+SNUtxkYPD7o=
+Received: from MW4PR03CA0067.namprd03.prod.outlook.com (2603:10b6:303:b6::12)
+ by LV5PR12MB9778.namprd12.prod.outlook.com (2603:10b6:408:300::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.22; Tue, 12 Aug
- 2025 07:34:46 +0000
-Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
- (2603:10b6:a03:333:cafe::59) by SJ0PR03CA0101.outlook.office365.com
- (2603:10b6:a03:333::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.22 via Frontend Transport; Tue,
- 12 Aug 2025 07:34:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Tue, 12 Aug
+ 2025 07:35:15 +0000
+Received: from CY4PEPF0000EDD4.namprd03.prod.outlook.com
+ (2603:10b6:303:b6:cafe::1f) by MW4PR03CA0067.outlook.office365.com
+ (2603:10b6:303:b6::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.13 via Frontend Transport; Tue,
+ 12 Aug 2025 07:35:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ CY4PEPF0000EDD4.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Tue, 12 Aug 2025 07:34:45 +0000
+ 15.20.9031.11 via Frontend Transport; Tue, 12 Aug 2025 07:35:13 +0000
 Received: from sunce-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 Aug
- 2025 02:34:41 -0500
+ 2025 02:35:07 -0500
 From: Ce Sun <cesun102@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <tao.zhou1@amd.com>, <Stanley.Yang@amd.com>, <Hawking.Zhang@amd.com>,
- <kevinyang.wang@amd.com>, <YiPeng.Chai@amd.com>, Ce Sun <cesun102@amd.com>,
- Xiang Liu <xiang.liu@amd.com>
-Subject: [PATCH 2/3] drm/amdgpu: Add functions to get/clear bank count
-Date: Tue, 12 Aug 2025 15:34:24 +0800
-Message-ID: <20250812073424.257893-1-cesun102@amd.com>
+ <kevinyang.wang@amd.com>, <YiPeng.Chai@amd.com>, Ce Sun <cesun102@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: Correct the loss of aca bank reg info
+Date: Tue, 12 Aug 2025 15:34:53 +0800
+Message-ID: <20250812073453.257913-1-cesun102@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -72,52 +71,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|PH0PR12MB7790:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3976a117-33cf-4acc-e66c-08ddd972b5f7
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD4:EE_|LV5PR12MB9778:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c7a58d7-bc38-4bb4-c033-08ddd972c6b8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cJ+dz+H1P0eK0heg1WMi1EriRW7q6poowPwOMvCSZqHDvDx3SF35IQ9bKnkV?=
- =?us-ascii?Q?ZzlB4pTh+SHXr34Ve71PO+twCjTaowdx6Y/2U6oN6Us9ku+bSccpi0dYdXiD?=
- =?us-ascii?Q?7yjJGXH6//vo+ruWyjOzDHW35RBGV/tdkLE6Lp0CU5IKpG+yPy/7eulewlDm?=
- =?us-ascii?Q?njhUlrvJ6XfR1Vr30/pSleGdk7veBsto9YYWAFSHIdLVjYlk4EX5SLeMcpu/?=
- =?us-ascii?Q?1Mi2HVlswzoq5XckHWoulB9GB6fQDHCHw3nEcivYSFr7ATxHJXpXek6q1+ic?=
- =?us-ascii?Q?ixcnKTBNY5g4AKOytNMuOm358z9RlEz5N9ncQYM9XFQ8WqLUTKymD9k7qakS?=
- =?us-ascii?Q?dHL2VJco3kKgllE31l7uBsjmWIVpgMKxVEczS/9zvZZBuhiuSzyP5Gb+X1Mx?=
- =?us-ascii?Q?58XiJ8SgsErF7ycYE9jePzYUEhgFBsygG8LnP8fKBJdBhv6xonHQH/Uh7n9Q?=
- =?us-ascii?Q?QByxGxcbPTJ64bx4HiyHK8QdI5LtlqHYFV56aQ5BMqqjLhqpBG8h4mNlA6jF?=
- =?us-ascii?Q?VLBFiTsZvK4MO+fa+itDC7XSglP/a5JYWezL7YxnArTAgKklFu8zCdonrNDC?=
- =?us-ascii?Q?HoBmCVMenMnF8S3+uUJrn5dL3iExRCXNDErx1cxyigdCggO5hqxWGwFJ9eHr?=
- =?us-ascii?Q?eSetq5aATOV1chNf+NZDl/gE931JoKxm7I9EecJbACrbRIFN05LAKL0PRTAl?=
- =?us-ascii?Q?c9bGEVDyXAFKt6mkKPTrZu8XDwNDuhhbvQgQHgbPSGDNJVGKFJfS6BJdg8bT?=
- =?us-ascii?Q?ks5SZiTJr2bY6hDZmROOUNzWUa9wXglAt9le3Wy1ghtML5XFGbxw9MMuWnH+?=
- =?us-ascii?Q?142ur1LXMTFALyTuOb/8wC8+LL0fOeznGN0/1QgNvJzVSB4Gti7dM/sPkUSy?=
- =?us-ascii?Q?IyCh7n1VX4FLOVYKJCMEwZ2JgPNs7RyZcwacUVpojpszozx4e1t/vNWXHKsK?=
- =?us-ascii?Q?vSQXh62A0ACT1LUU3Rn0fPFzmBeYP3kbBszbl3Mc3PRx+OD56kM8NXWix31A?=
- =?us-ascii?Q?FNDOX4oBYCOWOw0JekTcRck3wW6wRdw0YpqYcCU+HcgBa/m+ev4MgZszueqv?=
- =?us-ascii?Q?cwQdKaq1cjgCYPQG00pp9qy7mx1TzmENF9v2LnFGl9VDTHU1dcNzr3eit/vN?=
- =?us-ascii?Q?1XBk1V4hbQTqTPLPdU5vDm+BBRUPov2XYFVIcMP1Wy0rCuKiutSaZpnvU28m?=
- =?us-ascii?Q?YT14Iw37L8Q4epduLzio+gt/rjVQ/5t+3K0B1pdo8daTpQjyy4lXJA/kpcEh?=
- =?us-ascii?Q?Clhah2qaedsWYQfSMHfmWfI55GcfeW425ERRyFgfcGroGC2y4ro2RpS91/jw?=
- =?us-ascii?Q?k7Sjv7OXp1vQ839yGRKBzLhJ3Vtb0w0q87BfiMURNgTlk71q5gKwzzeP/FFA?=
- =?us-ascii?Q?51lKrHiqP7531XnrK9BmvTbOM/CzWOhpO1e0iVRxtQ/ty3AeYvAlaeen4E96?=
- =?us-ascii?Q?bx2s076jUFXZgb+2xM2NH8/ABcXsTXpmvWTF1HjLwqwJ0bIgXnMqfswahO05?=
- =?us-ascii?Q?v9QMDiwa0VDXYgBYqjQ7RALsyLtfyld1LxYY?=
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kBV+QCBURJqVWTz6DhMKJl+dDS8oU748x3SSpVQIspRCzGW11TCUP3NeDcUW?=
+ =?us-ascii?Q?lBEiZhNJn41KbB1DddhPNRdUnjF3kmX7oD8B4xAPSltBQMBr2Xa6G3/AXLU3?=
+ =?us-ascii?Q?IBO2KLxkyFxp3gfwwh3ZdV8I8Y9Xdk2wtY7jjmzgvpjCHSvNAmhnNQVZJkVk?=
+ =?us-ascii?Q?b+OI3Wtf4l8kMoX43bcSboPdkWEHd2+0oyZOqVP2f0TplKbXwuowSOBYduN4?=
+ =?us-ascii?Q?U/jnvI5mvBPXxd+Uw9DBB5ljj+B9aPLkPuj+3P7s6w0hByIKQfwpppfv4Eeb?=
+ =?us-ascii?Q?mdMthG8MOikICkxVzvvYMQ5kjjo+/vcWRbxTxu/sBAWzbj08lMV2wVdsXkLI?=
+ =?us-ascii?Q?9IRe9UiMtd4PXTWkIYtSNGW0FwLrU9ucSfBdWsFoJVyTylhXctRBoT84yFIJ?=
+ =?us-ascii?Q?ivunmOM80wQJwNjVkbzFykW1MMFlh4Rst2ne/UpO4Es7HjzfHLgjcmif2ASq?=
+ =?us-ascii?Q?5FLsWecE8chq/klfn0r4wYEXL75ljFwCwV2yYkIiKJmGEukNAq9H40OxyIsy?=
+ =?us-ascii?Q?jC0mF1H7zcd1d3/ClgWtodtsuh1fk2LM1qE/Kuv/w0Bs/29Hvw4PPe45Mtso?=
+ =?us-ascii?Q?jCnSCPma+8vwIzJYB3lGp8Ldb31DlkNJ4y6tWFYdCbh+0YC58ZvvpneULcxA?=
+ =?us-ascii?Q?hZxRXlZ6hJPCtq8XiQKBeTvlhJYafBiA2EgV2vvnqngqqymC0o1yvNg6Oj1D?=
+ =?us-ascii?Q?92g/eFSm23ViX5DiZ8ljWWjiGx7HZ3+Jo0WN0TDhme8ScSMe/o5wJqERtznH?=
+ =?us-ascii?Q?ZtZE8Fzpj+dwcZDz24L2kqx1JQSCznOWmt2FKtgsHIbbyiYWmlsekwYn1urN?=
+ =?us-ascii?Q?y47cW1w3F0mxtrBZmo6PDGlD/zVmjKnPFxXcvuC2an0/Yo9CYW5XaNaug1MW?=
+ =?us-ascii?Q?5dKmYHqNMxnicvESpC2iL3LwjYKkpNkGqY6Emfu1w4BmanyHgcsM9xrgOQX0?=
+ =?us-ascii?Q?01NE0NaDUTbRJB81fDmr4n/G3S+CNZ7WUUAbb7BAHHI91lzPy7WkEn10xIsh?=
+ =?us-ascii?Q?AUd9YvzLigsNr0UM7tZJSoveWyh+PWmvkGCH3gvpQwFNLUTVY0KPG1Pif7om?=
+ =?us-ascii?Q?GPJEJ4Rd0qTOnsDNxNrsb+ZgZD/LKO851AzsJCM8wQJR5Uul0KKbreOMSWlz?=
+ =?us-ascii?Q?xmjtL6+m1qRFVTgWvRIWEwfGbe5EngefGaoM0HSeOv407JSYRhyk/jVOeEug?=
+ =?us-ascii?Q?VXJQzD5jRGQ6TiBJs8hjVSXLI5TcyAgOykdQdf9Yxpmfrls5zboCziT2I8dN?=
+ =?us-ascii?Q?iZ6wMd5s3VIXl7tz6l7tpouj5MDy5X9rRfbtZeqBvTPwVLA459dUkAXEnEn7?=
+ =?us-ascii?Q?Lv3Kubn1101oN5FAAlUYz5B0pG9PCpapoBcjXopQmmwIFR4D2D0iS6BkTNCq?=
+ =?us-ascii?Q?eJO24e7m/YFPFmGe+nC4VkktOnlZ0o9Rmc/D13pNJbAlO+sDGfxMn3oXLbd4?=
+ =?us-ascii?Q?ExW6mE34zqOIkusfjXkGme5PFJNcdmOCZ0bRRDVXpDohCxMSmU29WLXqWiIg?=
+ =?us-ascii?Q?AZ14/ALZHsa4nEJECqrZrkPvR1dI64DirNkg?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 07:34:45.8023 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3976a117-33cf-4acc-e66c-08ddd972b5f7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 07:35:13.9572 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c7a58d7-bc38-4bb4-c033-08ddd972c6b8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD4.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7790
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9778
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,89 +131,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the amdgpu_aca_get_bank_count/amdgpu_aca_clear_bank_count interface
+By polling, poll ACA bank count to ensure that valid
+ACA bank reg info can be obtained
 
 Signed-off-by: Ce Sun <cesun102@amd.com>
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 14 ++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h |  3 +++
- 2 files changed, 17 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 46 +++++++------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  2 --
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c  |  7 ----
+ 3 files changed, 13 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index d14dee8d6632..d3c25028aecf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -490,6 +490,8 @@ static int aca_banks_update(struct amdgpu_device *adev, enum aca_smu_type type,
- 		goto err_release_banks;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index f00a9e0c9c47..ad8ad08f0f33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -122,7 +122,7 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
+ /* typical ECC bad page rate is 1 bad page per 100MB VRAM */
+ #define RAS_BAD_PAGE_COVER              (100 * 1024 * 1024ULL)
  
-+	atomic64_add(banks.nr_banks, &aca->bank_count);
-+
- 	ret = aca_dispatch_banks(&aca->mgr, &banks, type,
- 				 handler, data);
- 	if (ret)
-@@ -776,6 +778,7 @@ int amdgpu_aca_init(struct amdgpu_device *adev)
- 	int ret;
+-#define MAX_UMC_POISON_POLLING_TIME_ASYNC  300  //ms
++#define MAX_UMC_POISON_POLLING_TIME_ASYNC  50  //ms
  
- 	atomic_set(&aca->ue_update_flag, 0);
-+	atomic64_set(&aca->bank_count, 0);
+ #define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100  //ms
  
- 	ret = aca_manager_init(&aca->mgr);
- 	if (ret)
-@@ -791,6 +794,7 @@ void amdgpu_aca_fini(struct amdgpu_device *adev)
- 	aca_manager_fini(&aca->mgr);
+@@ -3317,8 +3317,6 @@ static void amdgpu_ras_ecc_log_init(struct ras_ecc_log_info *ecc_log)
+ 	mutex_init(&ecc_log->lock);
  
- 	atomic_set(&aca->ue_update_flag, 0);
-+	atomic64_set(&aca->bank_count, 0);
+ 	INIT_RADIX_TREE(&ecc_log->de_page_tree, GFP_KERNEL);
+-	ecc_log->de_queried_count = 0;
+-	ecc_log->prev_de_queried_count = 0;
  }
  
- int amdgpu_aca_reset(struct amdgpu_device *adev)
-@@ -798,6 +802,7 @@ int amdgpu_aca_reset(struct amdgpu_device *adev)
- 	struct amdgpu_aca *aca = &adev->aca;
+ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log)
+@@ -3337,8 +3335,6 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log)
+ 	mutex_unlock(&ecc_log->lock);
  
- 	atomic_set(&aca->ue_update_flag, 0);
-+	atomic64_set(&aca->bank_count, 0);
- 
- 	return 0;
- }
-@@ -875,6 +880,15 @@ int amdgpu_aca_smu_set_debug_mode(struct amdgpu_device *adev, bool en)
- 	return smu_funcs->set_debug_mode(adev, en);
+ 	mutex_destroy(&ecc_log->lock);
+-	ecc_log->de_queried_count = 0;
+-	ecc_log->prev_de_queried_count = 0;
  }
  
-+size_t amdgpu_aca_get_bank_count(struct amdgpu_device *adev)
-+{
-+	return atomic64_read(&adev->aca.bank_count);
-+}
-+
-+void amdgpu_aca_clear_bank_count(struct amdgpu_device *adev)
-+{
-+	atomic64_set(&adev->aca.bank_count, 0);
-+}
- #if defined(CONFIG_DEBUG_FS)
- static int amdgpu_aca_smu_debug_mode_set(void *data, u64 val)
+ static bool amdgpu_ras_schedule_retirement_dwork(struct amdgpu_ras *con,
+@@ -3386,49 +3382,33 @@ static int amdgpu_ras_poison_creation_handler(struct amdgpu_device *adev,
+ 				uint32_t poison_creation_count)
  {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-index 38c88897e1ec..e9acfbf57a44 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-@@ -202,6 +202,7 @@ struct amdgpu_aca {
- 	const struct aca_smu_funcs *smu_funcs;
- 	atomic_t ue_update_flag;
- 	bool is_enabled;
-+	atomic64_t bank_count;
+ 	int ret = 0;
+-	struct ras_ecc_log_info *ecc_log;
+ 	struct ras_query_if info;
+-	uint32_t timeout = 0;
++	uint32_t timeout = MAX_UMC_POISON_POLLING_TIME_ASYNC;
+ 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+-	uint64_t de_queried_count;
+-	uint32_t new_detect_count, total_detect_count;
+-	uint32_t need_query_count = poison_creation_count;
+ 	enum ras_event_type type = RAS_EVENT_TYPE_POISON_CREATION;
++	uint64_t prev_de_queried_count = 0;
++	uint64_t bank_count = 0;
+ 
+ 	memset(&info, 0, sizeof(info));
+ 	info.head.block = AMDGPU_RAS_BLOCK__UMC;
+ 
+-	ecc_log = &ras->umc_ecc_log;
+-	total_detect_count = 0;
+ 	do {
+ 		ret = amdgpu_ras_query_error_status_with_event(adev, &info, type);
+ 		if (ret)
+ 			return ret;
+ 
+-		de_queried_count = ecc_log->de_queried_count;
+-		if (de_queried_count > ecc_log->prev_de_queried_count) {
+-			new_detect_count = de_queried_count - ecc_log->prev_de_queried_count;
+-			ecc_log->prev_de_queried_count = de_queried_count;
+-			timeout = 0;
++		bank_count = amdgpu_aca_get_bank_count(adev);
++		if (bank_count) {
++			prev_de_queried_count = bank_count;
++			amdgpu_aca_clear_bank_count(adev);
++			timeout = MAX_UMC_POISON_POLLING_TIME_ASYNC;
+ 		} else {
+-			new_detect_count = 0;
+-		}
+-
+-		if (new_detect_count) {
+-			total_detect_count += new_detect_count;
+-		} else {
+-			if (!timeout && need_query_count)
+-				timeout = MAX_UMC_POISON_POLLING_TIME_ASYNC;
+-
+-			if (timeout) {
+-				if (!--timeout)
+-					break;
+-				msleep(1);
+-			}
++			--timeout;
++			msleep(1);
+ 		}
+-	} while (total_detect_count < need_query_count);
++	} while (timeout);
+ 
+-	if (total_detect_count)
++	if (prev_de_queried_count)
+ 		schedule_delayed_work(&ras->page_retirement_dwork, 0);
+ 
+ 	if (amdgpu_ras_is_rma(adev) && atomic_cmpxchg(&ras->rma_in_recovery, 0, 1) == 0)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index ff63020f9c6c..132b45a362c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -492,8 +492,6 @@ struct ras_ecc_err {
+ struct ras_ecc_log_info {
+ 	struct mutex lock;
+ 	struct radix_tree_root de_page_tree;
+-	uint64_t	de_queried_count;
+-	uint64_t	prev_de_queried_count;
  };
  
- struct aca_info {
-@@ -225,6 +226,8 @@ void amdgpu_aca_remove_handle(struct aca_handle *handle);
- int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *handle,
- 			      enum aca_error_type type, struct ras_err_data *err_data,
- 			      struct ras_query_context *qctx);
-+size_t amdgpu_aca_get_bank_count(struct amdgpu_device *adev);
-+void amdgpu_aca_clear_bank_count(struct amdgpu_device *adev);
- int amdgpu_aca_smu_set_debug_mode(struct amdgpu_device *adev, bool en);
- void amdgpu_aca_smu_debugfs_init(struct amdgpu_device *adev, struct dentry *root);
- int aca_error_cache_log_bank_error(struct aca_handle *handle, struct aca_bank_info *info,
+ struct ras_critical_region {
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index e590cbdd8de9..8dbffe4d22d1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -581,17 +581,10 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_device *adev,
+ 
+ 	ret = amdgpu_umc_logs_ecc_err(adev, &con->umc_ecc_log.de_page_tree, ecc_err);
+ 	if (ret) {
+-		if (ret == -EEXIST)
+-			con->umc_ecc_log.de_queried_count++;
+-		else
+-			dev_err(adev->dev, "Fail to log ecc error! ret:%d\n", ret);
+-
+ 		kfree(ecc_err);
+ 		return ret;
+ 	}
+ 
+-	con->umc_ecc_log.de_queried_count++;
+-
+ 	memset(page_pfn, 0, sizeof(page_pfn));
+ 	count = amdgpu_umc_lookup_bad_pages_in_a_row(adev,
+ 				pa_addr,
 -- 
 2.34.1
 
