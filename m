@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A1EDCA0EE0
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 14:15:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F6ECA0EE0
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 14:21:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 226B710E735;
-	Wed, 13 Aug 2025 14:15:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C4610E73F;
+	Wed, 13 Aug 2025 14:21:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PBVCdrE6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OUgxUWUM";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E840E10E1E6
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 14:15:39 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-24286ed4505so12279745ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 07:15:39 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0052F10E74A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 14:21:23 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-242abc28161so10548915ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 07:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755094539; x=1755699339; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1755094883; x=1755699683; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qFLPY45ROz0kfPTcGhabqXQUl5X5wqn3yijwjWJOUtw=;
- b=PBVCdrE6vpPvkKapLpq/IFFg3A7eUDxhKIMSCeKfnyTNcZosNaKKxL+r+tQcFniz97
- liJMojGJfh2HPKTEGt4OYohELnf2M9dgBMIJHcSaRkDaRPbsMvlG/KuhLV+RQMt2yIQJ
- n+Aq1p0bkGWxwAIZmiTgPcl7AbhlX33VZgN2dnZ756CI4Pl7E/Z5Ay03EwGLO44Vu20d
- JMIrFqrE5FMV9yFy77SpCb7hEuZ8ZbguLS/gVthfMzo7IW2TjDL5qHuslYhDkvXBzl+G
- 3/zyOSmOZevKjfRbbzZrB9idprsZR5MXoxOubAOAJkjNGAxfYrlVWFKSLOZoUTREm+VM
- qokQ==
+ bh=Qi3i4Anlypi2WoFOkK+KvzrTLI9399vWiLbaCSLsp8c=;
+ b=OUgxUWUMELJeTeF5mxsonDU2HxqjcsT01biV3fxsR1gN68eIAQ5wfb7LoV039IB1eX
+ UlBRyvaO2SAGH38s30MqCaDfzhwpKyKslpA0L+WbxTJnlAgHPkGIRxApXE+2ldLx0Xk5
+ pu0QtwXS7eBrs3rabRYHGnt6K1fk5eytwIONAzQoXoBbQdpGPQw4RKUUYd/hYCNb+SQB
+ X0SvcUy2xpRenZhuRTC41zoHtzLa86ltypUdRwQG9eImihTa1qsoqnlw6j2rXO0natbA
+ 1kevwENxUPcYeZaz1Rx5qCsoR3yHuVBw6WKSKcIF0QieDmwQpFmw+D2jDo1zIe0btLy3
+ nK4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755094539; x=1755699339;
+ d=1e100.net; s=20230601; t=1755094883; x=1755699683;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qFLPY45ROz0kfPTcGhabqXQUl5X5wqn3yijwjWJOUtw=;
- b=K+Q/7SAhR3jKY/cnMX98PyMVgykemOIKao7PF4oj74RjxE1DnXUPKjh5rM2MHem6LZ
- KJ60I4nfEVXTCHoTed80nHkplJ9eStCqWgMajtUyMAsCHXamq3CQYDeJ+TgSLQYIyhOZ
- +AWGN3cfIq6jJ3SIb4UGzi7f29NpNXKIiP0YASKmRRTqOlMwGjlu/raR1ZWPfOhd3gnM
- AAdk32uykQIBMnhcxN7QDzauRZkc7rDPaV7PIaWcgGXVJBUC6l9sVaaTUVAtH5wVLJZV
- yOXbCoLp/5326nVlFwj60LgjylxDZO0R5Tv7iY6PjUKPoj7g2QJvZJLMSv/YUCwr9Mht
- V4Bg==
-X-Gm-Message-State: AOJu0YzNEPpm5iYMj4x3fFhSF/teEree+6Mp0OhsQamTEViumnbmtofC
- VvY8xwnFqppB2Rc8vA3j2bxKh1gHaYNmF3JKeC0urzA/8DREFn96HS6OrvAhSQscTliyhFzojqH
- L3Gfga86rA9aWoVqL09toxOOTmsMzcbU=
-X-Gm-Gg: ASbGncs0fnbcWdR7K6CJqS1m3uRdvk9ybQvQBKMMjiFV4d0AeLbNK8zlr/dvCn2KIv1
- 9NsHOdrA26JBFY8w9fEh5ntNblytT7ciAlwcGJWPwqlETCA/Vr3EbJ86m1KkNwPHj3DZl10mGst
- b2BckZj11fl1wtCDE5+y+TGfNUiwevumnlPa05u50tzEY4P7vlSg9X+btNTFCkNlOClglP2B+S7
- /dYSJNCvkiHPTdSbQ==
-X-Google-Smtp-Source: AGHT+IE7LYG50b0kOtdul89aBlxk6Nwh+5QL882N44thXiB2jmJKdm1mSD/RA1qZsGjjqwLQAXeMLkeHBIGACu4mbw4=
-X-Received: by 2002:a17:903:41d2:b0:234:df51:d190 with SMTP id
- d9443c01a7336-2430d119e07mr21276885ad.4.1755094539242; Wed, 13 Aug 2025
- 07:15:39 -0700 (PDT)
+ bh=Qi3i4Anlypi2WoFOkK+KvzrTLI9399vWiLbaCSLsp8c=;
+ b=eu/rcCYag+8YtT/l50LjhHsFsM46S9PpGws+l/Sys9ESMLQ/9F3hFT01/Eh8PGHR3Y
+ g24i5eBlxmi0pbdgtrXgb6AEquD9rubaNSqymetAlg32fCmqV0GWuRb61VenBAombLaT
+ odQczP00/KGpVfAFM2qWZUxr9exvU2MK7CysBNcgPKmidtMYQQrbjIBoqQ2wCXB6Aesc
+ +YnNyTQot8waIvrVFSkO+/5LQqtPCogWhp8zb9xd9mwR1n/1Pbnh/Sk6SWRCVzwkYPL8
+ DFXroRjp68k5Yho7enlajFl34GeRkPPQWtkg6zC32zrvwMZ+SnyiyxAfnNbDJc6gApAi
+ xAzQ==
+X-Gm-Message-State: AOJu0Yy6nvuKesLsNs17i7GIzUWrPlJ3cR/hK14AEifG9jekA1DJC560
+ ah+9j6eL5n+y87wPhHf1leTTD5uJplUtrvMHBFM5gmFm49nv8LjSOI5EGKU8gWbrWApFDDptlcW
+ vIMkL/5vNLjfcyG5//IhPLqnzXr4mKcQ=
+X-Gm-Gg: ASbGnctoYRODiA6OgU/JvsG1qABC4iYTvDOmuuudaB9+pPtmRdkFA+h0DTuaWANN3/J
+ 7bUg/y8NRuwXiGC6dHqD5NTc95LyfKKT4V0COXSkFTuIATtF5lV9Fbk2rjNiITlpMSYffnPU2Ep
+ WHQUF4RPaStFYeftAyF4X+HPIwPVuwV15+Iz+Zr9kcctlQ3hzm10sT8lurq9NtVJZazdc5s4DH6
+ 6KdTHbiADzEUI1coQ==
+X-Google-Smtp-Source: AGHT+IHYTmbQSerA43ApLNP+/BjPjqveNbusEaUpc8zOoe9Z9r+LFMSHaPVNR+NX4drV5NrV8fCqYDcC4z29quU0zE8=
+X-Received: by 2002:a17:903:1112:b0:240:33c7:fbf9 with SMTP id
+ d9443c01a7336-2430d297958mr22805895ad.11.1755094883416; Wed, 13 Aug 2025
+ 07:21:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250813000141.105508-1-alexandre.f.demers@gmail.com>
-In-Reply-To: <20250813000141.105508-1-alexandre.f.demers@gmail.com>
+References: <20250813004625.111508-1-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250813004625.111508-1-alexandre.f.demers@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 13 Aug 2025 10:15:27 -0400
-X-Gm-Features: Ac12FXyqHgnsF2e4SFsySWtlBPe9B6KkZ92-4FfVudIYURNXJV5y_MSIeK7gtYo
-Message-ID: <CADnq5_M8gjwe8q1ZZABOSz42RDCzDPjQGQQdQ0OxLV2BB8y38A@mail.gmail.com>
-Subject: Re: [PATCH 0/4] Add and use "name" member to radeon_ring struct
+Date: Wed, 13 Aug 2025 10:21:11 -0400
+X-Gm-Features: Ac12FXxF0tUJpN4mVlKmMkA8J9AIxwrE-3UimesyLenuTqzL358M26kpCyHS15U
+Message-ID: <CADnq5_NOFARkYk1tqj66mTJFfF9pg18o6Vfy_xFFcG410zi34Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: fix typos
 To: Alexandre Demers <alexandre.f.demers@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
 Content-Type: text/plain; charset="UTF-8"
@@ -80,43 +80,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 12, 2025 at 8:08=E2=80=AFPM Alexandre Demers
+Applied.  Thanks!
+
+On Tue, Aug 12, 2025 at 8:46=E2=80=AFPM Alexandre Demers
 <alexandre.f.demers@gmail.com> wrote:
 >
-> This series adds a "name" member to the radeon_ring structure and
-> uses it instead of ring indexes in logs and std outputs. This change is
-> proposed for better logs readability and ring identification as much
-> for the average user as for debugging purposes.
+> Various small typos found around.
 >
-> It uses the same naming convention as the one used under amdgpu for
-> coherence between the two drivers.
-
-What about the other devices supported by radeon?  If you are going to
-change this, it would be good to fully convert the driver.
-
-Alex
-
+> Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_device.c | 4 ++--
+>  drivers/gpu/drm/radeon/radeon_test.c   | 4 ++--
+>  drivers/gpu/drm/radeon/radeon_vce.c    | 6 +++---
+>  3 files changed, 7 insertions(+), 7 deletions(-)
 >
-> Alexandre Demers (4):
->   drm/radeon: add name member to radeon_ring structure
->   drm/radeon: rename ring to ring_idx in
->     radeon_fence_driver_start_ring()
->   drm/radeon: name rings
->   drm/radeon: switch from ring->idx to ring->name for printouts
+> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/rad=
+eon/radeon_device.c
+> index 40b49bd4a10b..5328ff18ed61 100644
+> --- a/drivers/gpu/drm/radeon/radeon_device.c
+> +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> @@ -555,7 +555,7 @@ int radeon_wb_init(struct radeon_device *rdev)
+>   * cover the whole aperture even if VRAM size is inferior to aperture si=
+ze
+>   * Novell bug 204882 + along with lots of ubuntu ones
+>   *
+> - * Note 3: when limiting vram it's safe to overwritte real_vram_size bec=
+ause
+> + * Note 3: when limiting vram it's safe to overwrite real_vram_size beca=
+use
+>   * we are not in case where real_vram_size is inferior to mc_vram_size (=
+ie
+>   * note affected by bogus hw of Novell bug 204882 + along with lots of u=
+buntu
+>   * ones)
+> @@ -563,7 +563,7 @@ int radeon_wb_init(struct radeon_device *rdev)
+>   * Note 4: IGP TOM addr should be the same as the aperture addr, we don'=
+t
+>   * explicitly check for that thought.
+>   *
+> - * FIXME: when reducing VRAM size align new size on power of 2.
+> + * FIXME: when reducing VRAM size, align new size on power of 2.
+>   */
+>  void radeon_vram_location(struct radeon_device *rdev, struct radeon_mc *=
+mc, u64 base)
+>  {
+> diff --git a/drivers/gpu/drm/radeon/radeon_test.c b/drivers/gpu/drm/radeo=
+n/radeon_test.c
+> index c9fef9b61ced..818554e60537 100644
+> --- a/drivers/gpu/drm/radeon/radeon_test.c
+> +++ b/drivers/gpu/drm/radeon/radeon_test.c
+> @@ -455,7 +455,7 @@ static void radeon_test_ring_sync2(struct radeon_devi=
+ce *rdev,
 >
->  drivers/gpu/drm/radeon/cik.c          | 33 +++++++++++++++------
->  drivers/gpu/drm/radeon/cik_sdma.c     |  6 ++--
->  drivers/gpu/drm/radeon/ni.c           | 10 +++++--
->  drivers/gpu/drm/radeon/r600.c         |  8 ++---
->  drivers/gpu/drm/radeon/r600_dma.c     |  8 ++---
->  drivers/gpu/drm/radeon/radeon.h       |  1 +
->  drivers/gpu/drm/radeon/radeon_fence.c | 42 ++++++++++++++-------------
->  drivers/gpu/drm/radeon/radeon_ring.c  |  4 +--
->  drivers/gpu/drm/radeon/radeon_vce.c   | 13 +++++----
->  drivers/gpu/drm/radeon/si.c           | 36 +++++++++++++++++------
->  drivers/gpu/drm/radeon/uvd_v1_0.c     | 14 ++++-----
->  11 files changed, 109 insertions(+), 66 deletions(-)
+>         r =3D radeon_ring_lock(rdev, ringC, 64);
+>         if (r) {
+> -               DRM_ERROR("Failed to lock ring B %p\n", ringC);
+> +               DRM_ERROR("Failed to lock ring C %p\n", ringC);
+>                 goto out_cleanup;
+>         }
+>         radeon_semaphore_emit_signal(rdev, ringC->idx, semaphore);
+> @@ -481,7 +481,7 @@ static void radeon_test_ring_sync2(struct radeon_devi=
+ce *rdev,
 >
+>         r =3D radeon_ring_lock(rdev, ringC, 64);
+>         if (r) {
+> -               DRM_ERROR("Failed to lock ring B %p\n", ringC);
+> +               DRM_ERROR("Failed to lock ring C %p\n", ringC);
+>                 goto out_cleanup;
+>         }
+>         radeon_semaphore_emit_signal(rdev, ringC->idx, semaphore);
+> diff --git a/drivers/gpu/drm/radeon/radeon_vce.c b/drivers/gpu/drm/radeon=
+/radeon_vce.c
+> index 761e8b453e1e..0b9bca3860ba 100644
+> --- a/drivers/gpu/drm/radeon/radeon_vce.c
+> +++ b/drivers/gpu/drm/radeon/radeon_vce.c
+> @@ -86,7 +86,7 @@ int radeon_vce_init(struct radeon_device *rdev)
+>
+>         r =3D request_firmware(&rdev->vce_fw, fw_name, rdev->dev);
+>         if (r) {
+> -               dev_err(rdev->dev, "radeon_vce: Can't load firmware \"%s\=
+"\n",
+> +               dev_err(rdev->dev, "radeon_vce: can't load firmware \"%s\=
+"\n",
+>                         fw_name);
+>                 return r;
+>         }
+> @@ -126,7 +126,7 @@ int radeon_vce_init(struct radeon_device *rdev)
+>
+>         rdev->vce.fw_version =3D (start << 24) | (mid << 16) | (end << 8)=
+;
+>
+> -       /* we can only work with this fw version for now */
+> +       /* we can only work with these fw versions for now */
+>         if ((rdev->vce.fw_version !=3D ((40 << 24) | (2 << 16) | (2 << 8)=
+)) &&
+>             (rdev->vce.fw_version !=3D ((50 << 24) | (0 << 16) | (1 << 8)=
+)) &&
+>             (rdev->vce.fw_version !=3D ((50 << 24) | (1 << 16) | (2 << 8)=
+)))
+> @@ -281,7 +281,7 @@ static void radeon_vce_idle_work_handler(struct work_=
+struct *work)
+>   *
+>   * @rdev: radeon_device pointer
+>   *
+> - * Make sure VCE is powerd up when we want to use it
+> + * Make sure VCE is powered up when we want to use it
+>   */
+>  void radeon_vce_note_usage(struct radeon_device *rdev)
+>  {
 > --
 > 2.50.1
 >
