@@ -4,82 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4111CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 12:00:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82B96C87FCF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 12:58:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DAD010E700;
-	Wed, 13 Aug 2025 12:00:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26BB510E707;
+	Wed, 13 Aug 2025 12:58:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rOg9wUHI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VuL3S83B";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEA5C10E075;
- Wed, 13 Aug 2025 12:00:49 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
- [81.175.209.231])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 5AE853D5;
- Wed, 13 Aug 2025 13:59:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1755086394;
- bh=Z0Wd8Ul5IDIWW8lxpyrGHrFqOEXZiZV2mDebB4u5iE0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rOg9wUHIbPEf8oD+S/HQgLiT+Ai8eRs5plN7KfY2BBIY0wfkrzEz3ag5dCeEf2/i3
- RF6xNPKTXbUbsF/QoBV6L8GEne60I13yX3l803DuYWioasayslSxglfN+k9p0fzG/W
- FevitONufT6X9SIEpJrGUMhPwvU+lq60Z0MZc1tI=
-Date: Wed, 13 Aug 2025 15:00:29 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "Shankar, Uma" <uma.shankar@intel.com>,
- "Nikula, Jani" <jani.nikula@intel.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "siqueira@igalia.com" <siqueira@igalia.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>,
- "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
- "mcanal@igalia.com" <mcanal@igalia.com>,
- "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
- "tomi.valkeinen+renesas@ideasonboard.com"
- <tomi.valkeinen+renesas@ideasonboard.com>, 
- "kieran.bingham+renesas@ideasonboard.com"
- <kieran.bingham+renesas@ideasonboard.com>, 
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
-Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
- structure
-Message-ID: <20250813120029.GE20174@pendragon.ideasonboard.com>
-References: <20250811092707.3986802-1-suraj.kandpal@intel.com>
- <20250811092707.3986802-2-suraj.kandpal@intel.com>
- <20250811094429.GE21313@pendragon.ideasonboard.com>
- <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
- <20250811111546.GA30760@pendragon.ideasonboard.com>
- <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
- <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA1610E707;
+ Wed, 13 Aug 2025 12:58:10 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-24286ed4505so12155565ad.3; 
+ Wed, 13 Aug 2025 05:58:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755089890; x=1755694690; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yhZ15xnNJ8Bsb5/U+nfBs12IH7lId86EXWsj3N0wAEw=;
+ b=VuL3S83B5HrQW2zbCeMRVrEjwL9O1Px0H5M7NuI90DU/r6mY2fsZt6uFns8TQMp6me
+ eOPesgrgdxA1sGvMbWYHHvlnjZW6rcQbSk6i+ID/mBoLvAR6zas6NxMoWSBdRBFV0Rx/
+ caWGj0TExctWXowwDEap7QHClgf/IIk3uiET4LfrFGGinirbkl8mVX2dhkg+sjht0QTi
+ U9kQbDHUtGSL7WyFQyjjO3FXEqOi4DHtJNSLpwVFw04URlpapO9mBPGGFev1Y37+Yd6h
+ HQQcxx4rMQSqT9E3Nth1Tbtlq1WKkU2F4DwlnG8x6G7EzpzOrOrMVjNhYDcppzrWldtf
+ b4Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755089890; x=1755694690;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yhZ15xnNJ8Bsb5/U+nfBs12IH7lId86EXWsj3N0wAEw=;
+ b=LaRzsLWhPNMTxsTPqGtcznbsC8EjcuUEN/lUl71qhE5aC4upr5Rsqo6Zmco0M4TT7p
+ r7SDQw3D+TjI9/VY+Hxz/tW6zKm5iUP/AL+9sODgSbfKasdVFfyo/UxCj41D4ziva+41
+ tTBBhcXaBKH5BcNmqu73ztlHkS8KDxW/CsqPq0mZo5g8ubO6MYAb/ngYPuwisg6Ig6CJ
+ 6vxbc89RVe3vxYHdIVmlttf4FjQqFdORzH8kdoaZPaOG9HgAw/2GeYgI617l/KI6IRDW
+ Y8BFvSn2VZ7GPcdrMLej0ztdJbYY+4noxXx0QyhLnuuPoJOJniM57t9ib+ZAkBVyNcQV
+ 1BZw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVPXz/IdwZ4hiYJHb6fvtVeASFd6QSNl4XdXvlF684G+GUI4Xsdoa2jXMG+K4M3yHXW8fn2yRsM@lists.freedesktop.org,
+ AJvYcCWXDWPAB6qTMYLmUyvqhaqah1mXx3Em5N8NI0lZzgHYSEsDo1eozCYIXmWixMXBO7fCCrcmMmPTxyZC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyAmhoj1KDiSGagYxjLflMv3uX2ZRT1DQQDvEbZoS1rcjBZiz5C
+ I6vpAlPMwA4xhseOi6DoYtI8zA+2/wBCAdBZNcnogiokHJy7+IJSG4mtJkMENMo2woC6VJ9YI3A
+ 7UFTlJb8Pud4+uZcKiZfMYyTIpCjTjRs=
+X-Gm-Gg: ASbGncsvzdxDAE3qXoh2aO94s67PeC6vHWaETNB8J3CBW92rZsn+YNAa67p4/7Gkijp
+ 4x8GCuyVFirfAtaoxzCQIogi92OWdg+F6swQ/bq0yDnj57fayya95iU2Y2aRcUHsQyqOUwC7tPV
+ oCn1iy/8Y/1/AohtovvA6yrk2KhNSneGqGgxmIfI0py1FyHmweeg1lbfPfj3aH5qJYx5RY2dSmq
+ v4GUUhfsTiI66NCKQ==
+X-Google-Smtp-Source: AGHT+IHxKxef7KDAWgS57IBEethaxaid8oH0xBLj3YbbIW+PZKZlovPj9KRyOv5FJHyzY2EunVMbuo8q9l8uWKWf3Bg=
+X-Received: by 2002:a17:902:d487:b0:240:280a:5443 with SMTP id
+ d9443c01a7336-2430d0fb768mr20500475ad.3.1755089889907; Wed, 13 Aug 2025
+ 05:58:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
+References: <Z678TNhCbTk363Tw@kspp>
+ <864c7dd5-0deb-4adb-a1cf-c8a809514d7e@embeddedor.com>
+ <217b00f5-d03d-4624-9ba9-d838199ef7b9@embeddedor.com>
+ <CADnq5_M5Jv4A5CXAKY2Qd-dhrfmecnauRtVY_ghSsut7i=KNww@mail.gmail.com>
+ <d07b4edc-6048-4c10-b8ac-dcccd5a932d3@embeddedor.com>
+ <d43dac3e-122d-4c16-9c1e-760eac91b8da@embeddedor.com>
+In-Reply-To: <d43dac3e-122d-4c16-9c1e-760eac91b8da@embeddedor.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 13 Aug 2025 08:57:58 -0400
+X-Gm-Features: Ac12FXwFErwxayzzgdklN7bkoaoY4WArV4IyBD4hoWJZTycIfvcToKy2nH1H0nY
+Message-ID: <CADnq5_Mqa2HWWKrAYTAfjdvEQTMUeB1MBnhtRxJZjXLWcz1nmg@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/pm: Avoid multiple
+ -Wflex-array-member-not-at-end warnings
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Kenneth Feng <kenneth.feng@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,39 +96,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 13, 2025 at 10:04:22AM +0000, Kandpal, Suraj wrote:
-> > > > };
-> > >
-> > > I still don't like that. This really doesn't belong here. If anything,
-> > > the drm_connector for writeback belongs to drm_crtc.
-> > 
-> > Why? We already have generic HDMI field inside drm_connector. I am really
-> > hoping to be able to land DP parts next to it. In theory we can have a DVI-
-> > specific entry there (e.g. with the subconnector type).
-> > The idea is not to limit how the drivers subclass those structures.
-> > 
-> > I don't see a good case why WB should deviate from that design.
-> > 
-> > > If the issue is that some drivers need a custom drm_connector
-> > > subclass, then I'd rather turn the connector field of
-> > > drm_writeback_connector into a pointer.
-> > 
-> > Having a pointer requires additional ops in order to get drm_connector from
-> > WB code and vice versa. Having drm_connector_wb inside drm_connector
-> > saves us from those ops (which don't manifest for any other kind of structure).
-> > Nor will it take any more space since union will reuse space already taken up by
-> > HDMI part.
-> 
-> Seems like this thread has died. We need to get a conclusion on the design.
-> Laurent do you have any issue with the design given Dmitry's explanation as to why this
-> Design is good for drm_writeback_connector.
+On Wed, Aug 13, 2025 at 1:12=E2=80=AFAM Gustavo A. R. Silva
+<gustavo@embeddedor.com> wrote:
+>
+> Hi!
+>
+> On 22/04/25 23:58, Gustavo A. R. Silva wrote:
+> >
+> >
+> > On 16/04/25 09:04, Alex Deucher wrote:
+> >> Can you resend, I can't seem to find the original emails.
+> >> Additionally, all of the NISLANDS structures are unused in amdgpu, so
+> >> those could be removed.
+>
+> I'm taking a look at this, and it seems that those NISLANDS structs are a=
+ctually
+> needed in amdgpu code. For instance, `struct si_power_info` contains a me=
+mber
+> of the type of `struct ni_power_info`, and this latter struct contains a
+> member of the type of `NISLANDS_SMC_STATETABLE`, thus `NISLANDS_SMC_SWSTA=
+TE`
+> and `NISLANDS_SMC_HW_PERFORMANCE_LEVEL` are needed, and so on.
+>
+> So, it seems that all those structs should stay. What do you think?
 
-I'm busy, I'll try to reply in the next few days.
+They are not used for programming the hardware.  They were just
+inherited from radeon.  All of the NI SMC stuff can be dropped.
 
-> > > > I plan to add drm_connector_dp in a similar way, covering DP needs
-> > > > (currently WIP).
+Alex
 
--- 
-Regards,
-
-Laurent Pinchart
+>
+> Thanks!
+> -Gustavo
