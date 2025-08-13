@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 045FECA0EE0
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 23:28:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C060C87FCF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 23:28:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C40510E7E4;
-	Wed, 13 Aug 2025 23:28:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C84A10E7E6;
+	Wed, 13 Aug 2025 23:28:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qvG1L9Pz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UgkIilhd";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B55810E7E6
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 23:27:59 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3391010E7E6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 23:28:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q0D+zUxLiO8VaF6NcrsBMo/rg/MxacUe5LwoQpJQl2CqakZoePm8nNLFgIkF9Z5M8jl/5RD2eRtkPaDj47sW59mkPVSIvqvCG0vHt5zReeCelWLL+SOqsFUfSwtbllkYYoWGD/PJdVDJb1VxINSbflzxAu98oc4+M6CtlxnQ/bw0uHFqFUX0rIM55avgQJq4hN67VBKRq9eCM+OMaDejr6FHpLSVTbKDUCDF7bx82fQSANnT9vBX/j1TxxX5lj519Y3q3bs2uNhufhWHYIckX6NxUPCwl43nog1stgC8IN4weQdKmWCs9GqMKnqi7JMZ/FT7bVgXcH1P6nSX5Fex2A==
+ b=FQju/gUhOSeSBOGGLYT0ED9OfJps7E/oWB9ybTZyyxCVDmVThT9OvzhZ5BOkVktOeVx3ea1gaBaob5vrN1WsCBF3IZGbYnCJ8OQcJFtVloV+tIem6nu+YSG/rff79fxOUsCo+1wnefpFRR73IvlFdau63O5o7lVgJve9te7G0K3Rr2UCuZMIW33Og8VLnmkHZUN5ycglHH8zZn3kXBc7EH10s32PaUr+auUaK595HmaUnqco/5s0X6pnW3Q8qiyrJF4+h8h+kw16dG7MobLOobTEzMoAK71tliQ7mDhntYyHzK85DxPJJRkhBZLTSkoEUrSyZ9JYmVwUcj7AcZMNQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DBHq3o5+rfHqW3Dwz3G5Aefup6oME1cWxRPfRYjZ2WQ=;
- b=Ms+dn9mxjLntqU+p133TEZ2OhwBuO+fgKk1CGg4DHEp9ApzUbTwHE4XqX2bbKug23nlizAlrbzGHGzDcZrfK10c6hR9fTYUjVrIYSAKyoB336HrMbaS/+EUZEXbhYlfEWNsSNslRDiOvtgHAsEyP8lpT5H4eL9wDkhDPMHfpFWv5FytxxGxSKuKck9Tk1wIT8hUMBjm/7se9S+CE4aPrDT8vDHgLxa5gKkny1SN65LOyra2Sduq36xP3qijgl1GcpqHyCwe9nIhnVzcgOBQ1H5HziB1RxXlFsC2kc0vCVZOABM3wThtKN8Oi4VAoPmM2vnXq13lYPsaMqC37xWuGSw==
+ bh=DPi0Kd1kcDOw7x35VBniADE3KhjVD11HT5IgaAjsBMA=;
+ b=OGAMB0pfSwM1e6aNJ5ku7gidb2nVVPPlFJE4vTMcUv71O6kMwmlSBKWTprjkQfvIcvXKJjEOXfUteA0Y7LpwYIUkeSSPhQTxvPwNIWenAeqqqhFQrb7T8CSgqsQGA+ofySsFJBILiYe0x8yTT5gs9TNieKq4ffL0sh8+AKn63+YQVeH5+L4QlsBTYhddjgxr6cORMtkc6paQlbp01CpJxnUrG6elHZl30bzxQMoYZMWg6MEPHx6Hrnfi2hTCB9PnacWdrLPni2z6MEbLE/CcV9VNIP2B+C34HsI4WlHj4WE4Mgoi7uCaa9SO7ZJ2VC9myVPDeSeaOP9RrxrQ+ajcLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DBHq3o5+rfHqW3Dwz3G5Aefup6oME1cWxRPfRYjZ2WQ=;
- b=qvG1L9Pzcz5xdU20ZAZldWfrR7HoxyPuWURyqDPdbMLJLd+LMmLPkgGhslvVlu6YVCPHjnc0ASYHJlplKSNNs4xGDUm3EHbzYWXeKjc2DU1TbAIm5AEost/tELLsyjnx0Hjr4k5LcuFAzCASwxqrvaMpd82xjlHu7EOsRbtyZVY=
-Received: from DM6PR01CA0025.prod.exchangelabs.com (2603:10b6:5:296::30) by
- IA1PR12MB7661.namprd12.prod.outlook.com (2603:10b6:208:426::17) with
+ bh=DPi0Kd1kcDOw7x35VBniADE3KhjVD11HT5IgaAjsBMA=;
+ b=UgkIilhdpQQer29eiDFxUM7/JZd1qdtI0HKaAVORfX1sNm8GVPzZ8Kr2f4CUVIyVS4LtlnbProh49uiKJaJGZuTVuHaaNV8TnudyY7yxjrCqQvU9AKZwz34UxMKdaOdg1NRNEqZGeVe1xBbjAaSLVvwMYf2myvUcEryc2knjGKQ=
+Received: from DM6PR02CA0084.namprd02.prod.outlook.com (2603:10b6:5:1f4::25)
+ by SJ2PR12MB9115.namprd12.prod.outlook.com (2603:10b6:a03:55c::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.24; Wed, 13 Aug
- 2025 23:27:55 +0000
-Received: from DS1PEPF00017095.namprd03.prod.outlook.com
- (2603:10b6:5:296:cafe::80) by DM6PR01CA0025.outlook.office365.com
- (2603:10b6:5:296::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.16 via Frontend Transport; Wed,
- 13 Aug 2025 23:29:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.15; Wed, 13 Aug
+ 2025 23:28:09 +0000
+Received: from DS1PEPF00017090.namprd03.prod.outlook.com
+ (2603:10b6:5:1f4:cafe::ca) by DM6PR02CA0084.outlook.office365.com
+ (2603:10b6:5:1f4::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.15 via Frontend Transport; Wed,
+ 13 Aug 2025 23:28:09 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017095.mail.protection.outlook.com (10.167.17.138) with Microsoft
+ DS1PEPF00017090.mail.protection.outlook.com (10.167.17.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 23:27:54 +0000
+ 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 23:28:09 +0000
 Received: from SATLEXMB03.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 Aug
- 2025 18:27:52 -0500
+ 2025 18:28:05 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,12 +62,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Austin Zheng <Austin.Zheng@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>
-Subject: [PATCH 06/11] drm/amd/display: Setup Second Stutter Watermark
- Implementation
-Date: Wed, 13 Aug 2025 17:18:14 -0600
-Message-ID: <20250813232532.2661638-7-alex.hung@amd.com>
+ <alex.hung@amd.com>, Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH 07/11] drm/amd/display: Attach privacy screen to DRM connector
+Date: Wed, 13 Aug 2025 17:18:15 -0600
+Message-ID: <20250813232532.2661638-8-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250813232532.2661638-1-alex.hung@amd.com>
 References: <20250813232532.2661638-1-alex.hung@amd.com>
@@ -79,52 +77,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017095:EE_|IA1PR12MB7661:EE_
-X-MS-Office365-Filtering-Correlation-Id: a749916e-abf2-4beb-e73b-08dddac107b6
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017090:EE_|SJ2PR12MB9115:EE_
+X-MS-Office365-Filtering-Correlation-Id: da99a40a-63c7-4d6f-7f6e-08dddac11027
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ZpFcByOL6f0bvNLfL786r9N+9aaoY0hZo5DlEnxsGVEzAYIWSs9h9oxc3xBl?=
- =?us-ascii?Q?3jFRFsezmkJUKwV4q5uWKe03N67+eJblpvvxpsaDaXlL71Y34PEcxl3iwKqg?=
- =?us-ascii?Q?oc5KtFz6nH366g8mFFAGxQp7/ryV1zG+UB3avQd7My8jswxTbkhjWuuZvq5m?=
- =?us-ascii?Q?8BuWgJsONOn8Hgw8w1djf+a/e9AvGcS48UbIPhvLuc2ulNql8tCCuXQudmNI?=
- =?us-ascii?Q?nTUH03TYPhdjhRp7KlrAfagMsZ5uciPB7yJTuN4U37/WOVw6gMIrvkb4+j41?=
- =?us-ascii?Q?WWC5ziOXkCOqHokWn3EgyH7TuJbk1yV8KEPahKDgFb66kAbr5Sfl0KeALbDU?=
- =?us-ascii?Q?E0WTs2fv26TyE0z1cv9R+t/E2A39/SSQucl42JpcE/2N1r5XxIQ8fkAfNPbW?=
- =?us-ascii?Q?FmKMvDGjFGesyj1vVB3HuZZ7e5AASX+9koPhrIzMMdLLiwRxi9wj3TIeQjSy?=
- =?us-ascii?Q?gahQtNFjqpO5/C0fRmP+OK9PT03dUDf90iwa1vtWBdPFnFChxFflq8dwW2OF?=
- =?us-ascii?Q?9Pjfc26zjl7t3Bdp9DPRMaov7Yr+VXGqsUA/G/5FQUOLyKCAYNfO8WgqKIKm?=
- =?us-ascii?Q?UI8nmM/um/tc9q97ZPB/UO+ipS3qiPiRXyVkQugPQZQagFffFiWdJPSz1euo?=
- =?us-ascii?Q?/CiK0Lu2x8SdjZVy5vz4QRNXmuqBXAatxqXy/JjjQfWMzuOrhRFwbSd9w3wc?=
- =?us-ascii?Q?rMtkQAys5GVgfDLCCxLlivrtWRQY+pp+e5iukj4J2a9lbOXh5WKLKGba86Y2?=
- =?us-ascii?Q?fFqImVMluVHr1at/KafTIeQrMZEFvKWKfm2R7Gqu6JBAQ7+NP7Nlee+eJirL?=
- =?us-ascii?Q?in4uSr55TWD5LgLcpQO+zIyodblxuVwqAvJztWE6i2YrrzoJ9rLtBs3tpNar?=
- =?us-ascii?Q?5UmahxmSbu4/VCFbOr3ixiWuMc5PaO1/dFlDJDixT/n24Acyi5hOHLRNAtGj?=
- =?us-ascii?Q?/YK2j111LMQuRRDaO1k19ASZioVi30ckBc+DqYhFH5hCd6NbDp8bwM2tvwJO?=
- =?us-ascii?Q?zqBZM1X6qCE0PSquu0LhFpmxQ+J+xjknBsiYgcefvuvpdVGYeXNKrTL7sw9O?=
- =?us-ascii?Q?xDxrGprNsN23vjT2VqRQLkr7GniWCLf0KchHzWZMYnyfhAg9nhZGN482FCgP?=
- =?us-ascii?Q?RF2edlZ3XPHFoUvtwkGXFt9qSYdG44Q662q5yumiVRHbUhZCN48sceJ6PTse?=
- =?us-ascii?Q?HQnYBfpPsTucfVowGL8dCm08BERjHsivh0Jy0/fhEd2v/OF2RxeOJMI9ZZOm?=
- =?us-ascii?Q?UUQGJxiHmMzpgDG5ly8bSWscfvbhFl09ZACdrvPeABAtLBOypp3kTOggTI7T?=
- =?us-ascii?Q?sD9FmuFYcby9VkAcBm61/i7A5wpUs0Xlo9vYe11PsALnr569VbrwbUjrB1M2?=
- =?us-ascii?Q?eEDHKOhhKv6yRJRSk9i9itAzDvXh9rrtnSe6yCROBzJT+CjR9DEk6GoWDQPn?=
- =?us-ascii?Q?ikBwXlHY+BypmREFlW88r14JceB4ACed51yQ9G8A4xPe3Ab2swQkp5FIddLZ?=
- =?us-ascii?Q?lxbd9AB0S+/wLBDzShoiZ2arrT3TgT+nww/v?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yD/O/qTAsLuMhft+sQQVeWOGkmQp1OSiDbTgqQlIoDibAdyLdLHW5QTN6o2W?=
+ =?us-ascii?Q?q1FAukhxGCtv6McGui9BUHfzx7htNIYjRuPkAvP5XwI4rN6mudW2j7uPDJLz?=
+ =?us-ascii?Q?TkRtyz0/80upYBZQPIDKlNuaXrn3Wz/cf57jcSC0TjDN3c/IfxvrmjSRyUmP?=
+ =?us-ascii?Q?n8Hqqoq9dKRtyIW0AGZibgBpLN28ftAsUkCsSka8H+q1Uypdc0DtIvr7f8B4?=
+ =?us-ascii?Q?f7OqmaIU9NXRDGCjakKPPCpcg94UoZ90EHjbD49ERGT8VuUer5xk/jGsGHuR?=
+ =?us-ascii?Q?ZwxLe6KuQlp5RcNn9+1vJUI3PLpOJRdNFqm7vvEFBKxUPe+7iPx3H5F9MYW9?=
+ =?us-ascii?Q?HgsFb80Zt6VnTGzFY5mT+EVE7LaTwhnaWvjaCfzPBN6MOKcFZmlozTvINrEu?=
+ =?us-ascii?Q?uQ68iF1nQrbSvCmwVWZpXzYef7KdBhI1258PticCclA5QrY9i7ogNwplQoyK?=
+ =?us-ascii?Q?aONobgJQhO2YW68Jt6wnvWLQezx4fau7GHfqxZkAQIxXhkfgpAMjfBui7xUJ?=
+ =?us-ascii?Q?OJeEe2WcqV0A8S/7T20pb9kh5EgBDYSZih4dTOVsf4EeOAJulnXC+qFPumjV?=
+ =?us-ascii?Q?uzfy9hx47lV/YxHSD7264ExyR7CkqJ6boDjMfRFSrhggaGKSybKbKiAh8cxQ?=
+ =?us-ascii?Q?6bZaOHO2jqasOygt5YKhq5gIg4YcaVNp1USEdAWyqKVRImY3tZX5fUx5I+SP?=
+ =?us-ascii?Q?yMV3ONzaru8bz8+Qh14f82Dvgt/D+fwd/Q5HWLrIp6C9gI2HcEC1xJTczOvd?=
+ =?us-ascii?Q?9G7RpJys9jwost48Vleo93luUGREU7rQl4D5u8peUS8FZDN2wq2oysKF7UTz?=
+ =?us-ascii?Q?Wr2c11Rnic5YCNVIH722f/QVhI0zcCl658j5p0DxjcadRoZdqXmRUYO/8Jfx?=
+ =?us-ascii?Q?jLjqCv5bMtGIa2LZaiDWiLzPXgXP50HTUdmQg+MCg8/WmpYiHNt6zhN4J0lt?=
+ =?us-ascii?Q?eCC5vu2i00SNwZjrJHIc8BvvkpA6ryXyDTbYtzx4rd+8cQ/yjYppnqQ+fytN?=
+ =?us-ascii?Q?+nB1SEE7jjRfsh1ydpeWIUTIvGFWeW0kHvFczkp5qygRle1Nmr8fvyW/8GRb?=
+ =?us-ascii?Q?4MzxJOui10EOhQdekeBDMOdRK+NpBp+yJBC2ZReCZfx+e6U5SHjifB7Drz0d?=
+ =?us-ascii?Q?rv+qfzvkrK8Uw2q49Q/OD9btSJFqWHfwnGe580GxasxGRwFC69YN8B8amkXi?=
+ =?us-ascii?Q?EFtCjjgpn7/xnOMH1RQd+TzoUVLv+Z/2nsihbvE7lBTg7RZuibKxr+s9njLt?=
+ =?us-ascii?Q?SLzP1zBtBQzpGoRVu4NZWggca3U2To+szITtkQc1TeAfikSZUqRS/OqpijFA?=
+ =?us-ascii?Q?1O2PfHnHbdxL656N9o6IhlVMyqyaXzfbcXbb/u8aecSQEYg4ePRSdL2ERcf6?=
+ =?us-ascii?Q?uF38GjKOVg28B5CxUHbMFGaYpZkgKNv0yr9Y+fFu36us58m2w/c0qE+JXqFt?=
+ =?us-ascii?Q?GF54su0K997SVNz8w2wuiB2vYtkkY+kMyJNQZmMksJFuk7+0SdnreorMcCCe?=
+ =?us-ascii?Q?vrvsw6yiervxe76DVUMYxCGu9iFRLpoIMRyq?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 23:27:54.8623 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a749916e-abf2-4beb-e73b-08dddac107b6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 23:28:09.0237 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da99a40a-63c7-4d6f-7f6e-08dddac11027
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017095.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017090.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7661
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9115
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,156 +137,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Austin Zheng <Austin.Zheng@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-[WHY & HOW]
-Setup initial changes required to program another set of watermarks
-for a 2nd stutter mode. The 2nd stutter mode will be lower power but
-have higher enter/exit latencies.
+[WHY]
+If a system has a privacy screen advertised by a driver it should
+be included in the DRM connector for the eDP panel.
 
-PMFW to choose which stutter mode to use based on stutter efficiences
-to see if original stutter (LP1) or low power stutter (LP2) will result
-in better power savings.
+[HOW]
+Detect statically declared privacy screens when creating eDP connector
+and attach privacy screen DRM properties.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h                  |  9 +++++++++
- .../display/dc/dml2/dml21/dml21_translation_helper.c |  2 ++
- .../dc/dml2/dml21/inc/dml_top_dchub_registers.h      |  2 ++
- .../dc/dml2/dml21/inc/dml_top_soc_parameter_types.h  |  2 ++
- .../amd/display/dc/dml2/dml21/inc/dml_top_types.h    |  2 ++
- .../dml21/src/dml2_core/dml2_core_shared_types.h     | 12 ++++++++++++
- 6 files changed, 29 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 25 ++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 1ab05eabbddb..29aaa38cc784 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -694,6 +694,15 @@ struct dc_clocks {
- 	int idle_fclk_khz;
- 	int subvp_prefetch_dramclk_khz;
- 	int subvp_prefetch_fclk_khz;
-+
-+	/* Stutter efficiency is technically not clock values
-+	 * but stored here so the values are part of the update_clocks call similar to num_ways
-+	 * Efficiencies are stored as percentage (0-100)
-+	 */
-+	struct {
-+		uint8_t base_efficiency; //LP1
-+		uint8_t low_power_efficiency; //LP2
-+	} stutter_efficiency;
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e8cfae2bd2ae..176f420effd9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -80,6 +80,7 @@
+ #include <linux/component.h>
+ #include <linux/sort.h>
  
- struct dc_bw_validation_profile {
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
-index a06217a9eef6..23fdb17f851a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
-@@ -1165,6 +1165,8 @@ void dml21_copy_clocks_to_dc_state(struct dml2_context *in_ctx, struct dc_state
- 	context->bw_ctx.bw.dcn.clk.socclk_khz = in_ctx->v21.mode_programming.programming->min_clocks.dcn4x.socclk_khz;
- 	context->bw_ctx.bw.dcn.clk.subvp_prefetch_dramclk_khz = in_ctx->v21.mode_programming.programming->min_clocks.dcn4x.svp_prefetch_no_throttle.uclk_khz;
- 	context->bw_ctx.bw.dcn.clk.subvp_prefetch_fclk_khz = in_ctx->v21.mode_programming.programming->min_clocks.dcn4x.svp_prefetch_no_throttle.fclk_khz;
-+	context->bw_ctx.bw.dcn.clk.stutter_efficiency.base_efficiency = in_ctx->v21.mode_programming.programming->stutter.base_percent_efficiency;
-+	context->bw_ctx.bw.dcn.clk.stutter_efficiency.low_power_efficiency = in_ctx->v21.mode_programming.programming->stutter.low_power_percent_efficiency;
++#include <drm/drm_privacy_screen_consumer.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+ #include <drm/display/drm_hdmi_helper.h>
+ #include <drm/drm_atomic.h>
+@@ -7846,6 +7847,14 @@ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
+ 	if (!crtc)
+ 		return 0;
+ 
++	if (new_con_state->privacy_screen_sw_state != old_con_state->privacy_screen_sw_state) {
++		new_crtc_state = drm_atomic_get_crtc_state(state, crtc);
++		if (IS_ERR(new_crtc_state))
++			return PTR_ERR(new_crtc_state);
++
++		new_crtc_state->mode_changed = true;
++	}
++
+ 	if (new_con_state->colorspace != old_con_state->colorspace) {
+ 		new_crtc_state = drm_atomic_get_crtc_state(state, crtc);
+ 		if (IS_ERR(new_crtc_state))
+@@ -8541,6 +8550,18 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 		if (adev->dm.hdcp_workqueue)
+ 			drm_connector_attach_content_protection_property(&aconnector->base, true);
+ 	}
++
++	if (connector_type == DRM_MODE_CONNECTOR_eDP) {
++		struct drm_privacy_screen *privacy_screen;
++
++		privacy_screen = drm_privacy_screen_get(adev_to_drm(adev)->dev, NULL);
++		if (!IS_ERR(privacy_screen)) {
++			drm_connector_attach_privacy_screen_provider(&aconnector->base,
++								     privacy_screen);
++		} else if (PTR_ERR(privacy_screen) != -ENODEV) {
++			drm_warn(adev_to_drm(adev), "Error getting privacy-screen\n");
++		}
++	}
  }
  
- static struct dml2_dchub_watermark_regs *wm_set_index_to_dc_wm_set(union dcn_watermark_set *watermarks, const enum dml2_dchub_watermark_reg_set_index wm_index)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_dchub_registers.h b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_dchub_registers.h
-index b05030926ce8..91955bbe24b8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_dchub_registers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_dchub_registers.h
-@@ -159,6 +159,8 @@ struct dml2_dchub_watermark_regs {
- 	uint32_t sr_exit;
- 	uint32_t sr_enter_z8;
- 	uint32_t sr_exit_z8;
-+	uint32_t sr_enter_low_power;
-+	uint32_t sr_exit_low_power;
- 	uint32_t uclk_pstate;
- 	uint32_t fclk_pstate;
- 	uint32_t temp_read_or_ppt;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_soc_parameter_types.h b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_soc_parameter_types.h
-index 8c9f414aa6bf..176f55947664 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_soc_parameter_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_soc_parameter_types.h
-@@ -96,6 +96,8 @@ struct dml2_soc_power_management_parameters {
- 	double g7_temperature_read_blackout_us;
- 	double stutter_enter_plus_exit_latency_us;
- 	double stutter_exit_latency_us;
-+	double low_power_stutter_enter_plus_exit_latency_us;
-+	double low_power_stutter_exit_latency_us;
- 	double z8_stutter_enter_plus_exit_latency_us;
- 	double z8_stutter_exit_latency_us;
- 	double z8_min_idle_time;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_types.h b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_types.h
-index 98c0234e2f47..7de10a95cfdb 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/dml_top_types.h
-@@ -417,6 +417,8 @@ struct dml2_display_cfg_programming {
+ static int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
+@@ -10265,7 +10286,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	unsigned long flags;
+ 	bool wait_for_vblank = true;
+ 	struct drm_connector *connector;
+-	struct drm_connector_state *old_con_state, *new_con_state;
++	struct drm_connector_state *old_con_state = NULL, *new_con_state = NULL;
+ 	struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
+ 	int crtc_disable_count = 0;
  
- 	struct {
- 		bool supported_in_blank; // Changing to configurations where this is false requires stutter to be disabled during the transition
-+		uint8_t base_percent_efficiency; //LP1
-+		uint8_t low_power_percent_efficiency; //LP2
- 	} stutter;
+@@ -10383,6 +10404,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 					    &stream_update);
+ 		mutex_unlock(&dm->dc_lock);
+ 		kfree(dummy_updates);
++
++		drm_connector_update_privacy_screen(new_con_state);
+ 	}
  
- 	struct {
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared_types.h
-index 28687565ac22..ffb8c09f37a5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared_types.h
-@@ -201,6 +201,8 @@ struct dml2_core_internal_watermarks {
- 	double WritebackFCLKChangeWatermark;
- 	double StutterExitWatermark;
- 	double StutterEnterPlusExitWatermark;
-+	double LowPowerStutterExitWatermark;
-+	double LowPowerStutterEnterPlusExitWatermark;
- 	double Z8StutterExitWatermark;
- 	double Z8StutterEnterPlusExitWatermark;
- 	double USRRetrainingWatermark;
-@@ -877,6 +879,9 @@ struct dml2_core_internal_mode_program {
- 	double Z8StutterEfficiency;
- 	unsigned int Z8NumberOfStutterBurstsPerFrame;
- 	double Z8StutterEfficiencyNotIncludingVBlank;
-+	double LowPowerStutterEfficiency;
-+	double LowPowerStutterEfficiencyNotIncludingVBlank;
-+	unsigned int LowPowerNumberOfStutterBurstsPerFrame;
- 	double StutterPeriod;
- 	double Z8StutterEfficiencyBestCase;
- 	unsigned int Z8NumberOfStutterBurstsPerFrameBestCase;
-@@ -1016,6 +1021,8 @@ struct dml2_core_internal_SOCParametersList {
- 	double FCLKChangeLatency;
- 	double SRExitTime;
- 	double SREnterPlusExitTime;
-+	double SRExitTimeLowPower;
-+	double SREnterPlusExitTimeLowPower;
- 	double SRExitZ8Time;
- 	double SREnterPlusExitZ8Time;
- 	double USRRetrainingLatency;
-@@ -1851,9 +1858,11 @@ struct dml2_core_calcs_CalculateStutterEfficiency_params {
- 	unsigned int CompbufReservedSpaceZs;
- 	bool hw_debug5;
- 	double SRExitTime;
-+	double SRExitTimeLowPower;
- 	double SRExitZ8Time;
- 	bool SynchronizeTimings;
- 	double StutterEnterPlusExitWatermark;
-+	double LowPowerStutterEnterPlusExitWatermark;
- 	double Z8StutterEnterPlusExitWatermark;
- 	bool ProgressiveToInterlaceUnitInOPP;
- 	double *MinTTUVBlank;
-@@ -1879,7 +1888,10 @@ struct dml2_core_calcs_CalculateStutterEfficiency_params {
- 	// output
- 	double *StutterEfficiencyNotIncludingVBlank;
- 	double *StutterEfficiency;
-+	double *LowPowerStutterEfficiencyNotIncludingVBlank;
-+	double *LowPowerStutterEfficiency;
- 	unsigned int *NumberOfStutterBurstsPerFrame;
-+	unsigned int *LowPowerNumberOfStutterBurstsPerFrame;
- 	double *Z8StutterEfficiencyNotIncludingVBlank;
- 	double *Z8StutterEfficiency;
- 	unsigned int *Z8NumberOfStutterBurstsPerFrame;
+ 	/**
 -- 
 2.43.0
 
