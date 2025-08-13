@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7228C87FCF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 23:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1EA0CA0EE0
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 23:27:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B7610E7E1;
-	Wed, 13 Aug 2025 23:27:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9785310E7E3;
+	Wed, 13 Aug 2025 23:27:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nTIESmVW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2DJKQK1M";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2067.outbound.protection.outlook.com [40.107.237.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73C1C10E7E1
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 23:27:21 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2056.outbound.protection.outlook.com [40.107.92.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0564910E7E3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 23:27:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IbAbNYLXwNkN6PfYHg+rDj3oiRlGUXyqO3qihcs19119OSwzetGPQY3BBEjaswhLkjAtNXkHYKSfQBGaRSuVNe2mjvHfbu7MGsd1/jia78lyxj3znxa4+WYXlL0EiELdtplNZJyj4dF+d4ZpGa4Mw/KuE+olG8c/z2qBFNqCPC/kWzqhZAZXMNImyeGbhBEDhh1yfp8QMAPi6lrLxwEZMk0YNmNmAfU76ciLQs8YxyL4nDAR8C76wET+YL9X7NsjQA1Rfa/DPFdbYzoXTXaVXBE5OdxdZvnwnTMaQMeJM3UrcR53FuHwEJPOoTvLNLG1c2vbG3wW/7wglRrAJdac/Q==
+ b=RUU35p96okKctKAy05ThinrSXOK5I6i7uN+ujljQXYThzxo3jgMnwFvfVwSSu54fo0cupnolT5p/YFCxeCz524zVnD2Nc2FFmih2I+VEdsiXJH3QkEWh9nuXLjxDaFPROIZIhE/dBmFTGqH0XjOxTGYQrGqip2KAYJUrdKvhnfKfuCg91lIt2Zvb2WIjQl0DHJYffRcBOUBBLBS1WEJiqp25J1q339mtanUS3Qt/hIy4NpWzMdxC5KQ/3GQ2edvFY2TANY3QhGo0b+G3YvqqQ2v9fp2ISfgSanE9vrTNSXKTdHSeuISzBWQh7ikx+hu70LPQPB0FDKkPNd7z1q673A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RqLVGus9LRpAy28uwkQ8MW1TSOTzMwuLhihjRFaEnrI=;
- b=Wh7bvIApMrmGY4PkB47yzllooA3feN3lo1hk9/kvKG8uX8Lo7s65hb3fyAUe9EiuFNaowogLN/5DKAF1u1b41oiKSBybCvHmN2aiAQuh6rh0Xprz6nyi0mOHRVqfQAP/Rl4Gj36KmSEf91JPGr2csJo9Hnn//lgsqwMvQ7R/5/0nhu/+q9kGrVO4dkgSxXugxXW4z4BzgdGIHvWUjiFf+ieL0tb7Zwvu+aeyE+cvzrR2NGqsN03mY0rhW8SN2/vSQOMp5s1fIX0tCrrB2yr7WBnjKswXKYgpPNXRSXe5rNVkEhOdouAPStcY+xKNEhbrIyrpebf2kNKidjikKxwMCQ==
+ bh=A7fNvJpoKftCqVUdyjdl+e8UBJW9vIbubb7FQ5EmFwA=;
+ b=VWjlHygX8A2Fq9nAcDeXI+TZYTbEBU5mqA+W89AUJzA+KASyVSP5rKYCSVvPUvqF/KOL0BJno5Dw/yjNWDILl7YoUb2/Ge0UrKWtCYmudProvJN39Kv0JDEsyEOPJCcvCSNPMlI3QQvwszlaGzngxT/AGLbzJM5IW483a3GstWaaUcMP/Sxgd+OS9URQzfXRAjSGBxfNrYW7A23L/8vCYMAhSJUOkKlb+Ir5DD35/aGHGu5C/TuU2DkaoUjGFgMfRfN/W1V7DMaTssO65BRcpm/7mOxZsBMc4m1KxKJUwb9ZeK+TpRnDOy+EUaqZqr8HRmpfk15+it5kGpkYgIJiBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RqLVGus9LRpAy28uwkQ8MW1TSOTzMwuLhihjRFaEnrI=;
- b=nTIESmVWlLRH1050xYCuwA91OHfEIYHKhLVVhTHvw59rUJuCi9KXE5wuBqKkp5Z192QQhlQxQacgym39axSMVfcqXiDM3OtTOcCpc6Gen1gMUoWFwCoHtJZJjiSWtLoylx8bwqra1h5Me9Hbk4KDQUap9I36pjyuGvDv5FHv3ic=
-Received: from DM6PR05CA0042.namprd05.prod.outlook.com (2603:10b6:5:335::11)
- by DS0PR12MB8526.namprd12.prod.outlook.com (2603:10b6:8:163::9) with
+ bh=A7fNvJpoKftCqVUdyjdl+e8UBJW9vIbubb7FQ5EmFwA=;
+ b=2DJKQK1M7UW2O5WSSH1vKXHrr88vEBB6jmz5UzQcgt/sm9/tZqIBLaZzn6YNHj+ef+xRQCOaWNenbYe5UrlRij1M2szIJ/bdnTnPC1fEPHc/Qw/T6csiztyFS8yg3E2JPnA2WkIGF/qqtxUVHLRxAVAtSaspSbl5KLr7kJmm8bY=
+Received: from DM6PR02CA0112.namprd02.prod.outlook.com (2603:10b6:5:1b4::14)
+ by DM3PR12MB9414.namprd12.prod.outlook.com (2603:10b6:0:47::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.13; Wed, 13 Aug
- 2025 23:27:14 +0000
-Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
- (2603:10b6:5:335:cafe::2) by DM6PR05CA0042.outlook.office365.com
- (2603:10b6:5:335::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.15 via Frontend Transport; Wed,
- 13 Aug 2025 23:27:14 +0000
+ 2025 23:27:28 +0000
+Received: from DS1PEPF0001708E.namprd03.prod.outlook.com
+ (2603:10b6:5:1b4:cafe::7a) by DM6PR02CA0112.outlook.office365.com
+ (2603:10b6:5:1b4::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.16 via Frontend Transport; Wed,
+ 13 Aug 2025 23:27:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ DS1PEPF0001708E.mail.protection.outlook.com (10.167.17.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 23:27:14 +0000
+ 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 23:27:28 +0000
 Received: from SATLEXMB03.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 Aug
- 2025 18:27:13 -0500
+ 2025 18:27:25 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,10 +62,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 03/11] drm/amd/display: Optimize amdgpu_dm_atomic_commit_tail()
-Date: Wed, 13 Aug 2025 17:18:11 -0600
-Message-ID: <20250813232532.2661638-4-alex.hung@amd.com>
+ <alex.hung@amd.com>, Clay King <clayking@amd.com>, Joshua Aberback
+ <joshua.aberback@amd.com>
+Subject: [PATCH 04/11] drm/amd/display: Delete unused functions
+Date: Wed, 13 Aug 2025 17:18:12 -0600
+Message-ID: <20250813232532.2661638-5-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250813232532.2661638-1-alex.hung@amd.com>
 References: <20250813232532.2661638-1-alex.hung@amd.com>
@@ -77,52 +78,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|DS0PR12MB8526:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3399206e-ba0c-40ee-792c-08dddac0efe2
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708E:EE_|DM3PR12MB9414:EE_
+X-MS-Office365-Filtering-Correlation-Id: 050efff4-3946-4920-b654-08dddac0f7c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?3YvZ/zvbyggbWZqaDoKfNsLzemnXxYFajbsYjQKzdgEdbCY9bnbCOKOTs4Kb?=
- =?us-ascii?Q?PLRbiZZe61reSiTtjLdmRaH541+NmiiAsz8O+n01mJ35U/I2BixG5ZrW8j21?=
- =?us-ascii?Q?t17Wc6dh+bNoGELao1R4N97ZkPWPTZ8iaQ02mXOL1/BbGVUabpDt3ToeZfV0?=
- =?us-ascii?Q?u8EHT/SHVS8zUlW/8Ue3k8P0zjs0CdJNtItCg5neGIHeW3Nj5OH9to+1LCQk?=
- =?us-ascii?Q?2qonW9BMFtJgAskCTBCiPoTXUSx+bPAtp7tqvtAEOSl0lHpTEU817Sv3Aam/?=
- =?us-ascii?Q?5oSBwBWq3krX8Syp8kOAn6CEhmxl7SGSTGRHVW1KMdBupZWe8dkVA+Z5LZ8c?=
- =?us-ascii?Q?IBOwhM+lmnvSAqmgB81J48JaxUatewe8Ly9fz8YZVcm/olfS505hNvMMNloq?=
- =?us-ascii?Q?EPYAm67LVV7gnhCrA7euTNpXcf7nzr7O3vd4QdokNjlaSUNfTXs9XfI0bHI+?=
- =?us-ascii?Q?ymyKiGDNijo7HPQYqM+zKVWOLY7gREY6br9Y67T+WiHzEFoDEszB/rLRgSza?=
- =?us-ascii?Q?f7H6KUMDtX8Plwrp643jMQPymBPIt8B7wjEZWIbJ3rktiTC6IbnotS4d+F2M?=
- =?us-ascii?Q?Tk/AMSECsxsHxzYbgF0ufrmmA108IwDgIBnjR8e7qhOOOBa0WSOVd8Kjyz6W?=
- =?us-ascii?Q?76he7WnIWDxdwUpOLcfffptIKiMHjvThPHGWCw1AfWCBkeXuxCkRsFkCCi+l?=
- =?us-ascii?Q?BIbikhgIBkhFSUYEMxT2s66hFCbFp1PxLdzQxjEbaMlSBqoNiidHz1OqHAMC?=
- =?us-ascii?Q?HqAeds8Yp+YdaNG9MGv/53QOJUiczpkuQFgeESHcyJoTdNWblqH3R00oqEuB?=
- =?us-ascii?Q?Q5UILYW8wBVo4JrCuRroCgiRDvSKQWrrxjwnuCRIZyWI/hHZvztluoyvwCeD?=
- =?us-ascii?Q?kP1Fq1OK1ZGG3FWFc9tMIeGZwvuHGioM9nhrjvLQoVMZMqb0nHCfhYUeliWT?=
- =?us-ascii?Q?eRL3QwavKl43Uyjd/W3RKVf9IDvoWUvT+SxvkMrkJQA7zPabZp7dJVWqCiLi?=
- =?us-ascii?Q?wRzytbR/7DOnawE0Po3WYb36YXPgtlfXWCzweUK98TRqEfnNdx6i5vBTw8Hc?=
- =?us-ascii?Q?h01XSsk/3IGOM7z1Hk7QuSHB5LQQhRuqY0MFK23XJlbQ3TUT6yivqsPG+Xdu?=
- =?us-ascii?Q?gwqCS7yKzCr34J88yhjCbdfiig69M1CFkOM332N2eeFuN761N52K10bAkXEN?=
- =?us-ascii?Q?b1f6+zLhFA/fOS/kNxKqnYynwfnney+AiWET9ChNnMbDZKcs5hjEBqrK9os9?=
- =?us-ascii?Q?GeRMWHxhpWaNMdDNfLwXXhq0grFZH2uP59HX2VQkEk87V8bFlGRM7w50OFkB?=
- =?us-ascii?Q?y90MkrUPsB3If28TYTWLr5NV8qsFZD/YDk/pIfIyz/pXoxrIustcqhLYtlyS?=
- =?us-ascii?Q?1wmcBcrYtKUHxv9rPXveYy+bYAf1H1mEwOWTeS5tf+ESUcTTYlBCvsQbMdTR?=
- =?us-ascii?Q?rMsvWjWL36AjFwCBj89pAiNX1t8TEeEOvmrOoT5DHIEQLXOf7tPkqkNPntQZ?=
- =?us-ascii?Q?jzg8uDD++EVBVn6mcY9gy9h36Z9FiWJ9Sm3b?=
+ ARA:13230040|82310400026|36860700013|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?oSp67dcLipju/9SuJ3KgE8DcssjuJJtBB9kehK2200aAO5OReF83gCQuR1NT?=
+ =?us-ascii?Q?tlyVX4BwXjNG02kh1yl6V8/wP3G9ci3MZHJGT4t26ZTTn2u5+TmvFrwmjfyj?=
+ =?us-ascii?Q?HlhHyMm+mUh361S8r0vAZrBlTIMtFRpRYlrJqtIFUFKvMS7XDq0FrRV4SXgb?=
+ =?us-ascii?Q?XlaJ2Ixiki9dcurhvDJqXIz+k2XoqnPi04Dmsq/Xs8OPkPD0M7qMU/ln4HNp?=
+ =?us-ascii?Q?5Q7oRTUzx+W2udYr+pdBMWh4dqUwWj69XdoGGVk4lXPJzeyAGEMOJuk+0vya?=
+ =?us-ascii?Q?rwAtTU4OCeAjw7fYPBBchIanZ5Wl0l8XIIxscoDsyIWQLhBgv/roUDT5ojQz?=
+ =?us-ascii?Q?FQofnX1WzfoPfy8F+uhxj2LjY5+Et/Iah4Gs9qBPZghZDIJBVvQOy8z9QTHB?=
+ =?us-ascii?Q?an0YPcUbp1U5qTkDpLVVI7wBe4XOBsuXM/LsynoP6ArANzIeIcFrD/I/OPGf?=
+ =?us-ascii?Q?Vt5Dl8lhgR4FeM95R+brBVZgwDBNA+aGMG5h94qYC/RQWIedK/dhBqDlb3Xt?=
+ =?us-ascii?Q?mftwm7JK280YTLKYp5+LqEx9+wL/FprmATMlmv3BiuISpw+lqon1N/D/ocJD?=
+ =?us-ascii?Q?0uTRBKeS3/b/VSKxE3HqnckxTNvtW/mBp5DoDQALKiWqQyZjL+b9qZJ9ydLb?=
+ =?us-ascii?Q?ce9Z13WGC+XrtMzjC2yiLhx897Vtdq+oHiKJg5KG7C8DHBUvMdnuE87978gl?=
+ =?us-ascii?Q?1cGMXfuYYaoI3FBzHgkn4FkJJkBTrC12me3xMqwVjMozaPmu3ruETr8iHbVQ?=
+ =?us-ascii?Q?7yCJnMAsmhi6aWgWEP1ZOR4/HHecBLOgxQx+J41xFrOt8sLXSWkObrLd5bpy?=
+ =?us-ascii?Q?n/9fAI2xyyQZw/lcSg85O+mNPqBSOhEn/yAna5GzNLnw99+xGsWlDVlsSm3j?=
+ =?us-ascii?Q?0Hr3pJDrVRBje91LsLHrsY/z4pbHZ20J9C3uKptzU+ZqFY6TpVmEhroWywsS?=
+ =?us-ascii?Q?EzLoJzp8YFftws0ozy2T4GTYwwFeqcXVMwcgtbMPdURsW1lXEwx4VUVH65v2?=
+ =?us-ascii?Q?OZ/g2MCXDRfOUk5GWew6PHtj5j7sA/dkHsCwQbfoxOyiLDJbC/A7s8kLevFp?=
+ =?us-ascii?Q?UE3rHp4w/zkJu1+kJzQbUFKqcmnWLjbtfAVCt1ZVzXnGeWY7vpwjj4sgstXK?=
+ =?us-ascii?Q?hpoCyb9RzX0eyQ/ZeMOs4WvPSiGXwjtgAIcCubnEcF5U8YV3yRaOd5f9xJL8?=
+ =?us-ascii?Q?sYQ/LRJAzFbfknRPjXfkyRgbkYOOFZ3w8N4omZLrZJs5H3sp+kK66e2oHypE?=
+ =?us-ascii?Q?qq6zft5FtljKflS0bhAN5gi2kusZ/4GvOXlhpK1gpdUNUd1Mh0dmp6RM1ri8?=
+ =?us-ascii?Q?IE7hjoG2OD+QVm1HDK9Vld911LmfIySvKw3NVbeVz9fFVqqCKcT4fbKlhzYr?=
+ =?us-ascii?Q?i8dHTQYQMLLvo/NJzaNYR3GyNa3iXDpXt6HPEFJtliexBhS2epVANe/72/Sz?=
+ =?us-ascii?Q?rpv+Yg0TGZd3Pqq4bCKtqopB4tWvC8SvBcvUiMjmTm74JVE3tFKpFdTFXa3G?=
+ =?us-ascii?Q?7NHeZXOIKKvugit7/yUpapoSkLaiFY8M6nl5?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 23:27:14.8841 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3399206e-ba0c-40ee-792c-08dddac0efe2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 23:27:28.1220 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 050efff4-3946-4920-b654-08dddac0f7c6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708E.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8526
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9414
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,208 +138,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: Clay King <clayking@amd.com>
 
-[WHY]
-The first two loops of for_each_oldnew_connector_in_state() both operate
-on an HDCP queue.  If one isn't setup then each connector is iterated but
-skipped TWICE.  This is wasteful for the majority of cases.
+[WHAT]
+Removing unused code
 
-[HOW]
-Combine the two HDCP related loops of for_each_oldnew_connector_in_state()
-and check for the HDCP workqueue before even running either of them. This
-should avoid running the functions in most cases, and if HDCP is setup only
-run once.
-
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Joshua Aberback <joshua.aberback@amd.com>
+Signed-off-by: Clay King <clayking@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 116 +++++++++---------
- 1 file changed, 55 insertions(+), 61 deletions(-)
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h       | 15 ---------------
+ .../drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c    |  8 --------
+ .../drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h    |  5 -----
+ 3 files changed, 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c0d31c26850d..e8cfae2bd2ae 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10129,69 +10129,40 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
- 	drm_writeback_queue_job(wb_conn, new_con_state);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+index 14f0304e3eb9..22960ee03dee 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+@@ -1069,21 +1069,6 @@ struct mpc_funcs {
+ 	*/
+ 	void (*program_lut_mode)(struct mpc *mpc, const enum MCM_LUT_ID id, const enum MCM_LUT_XABLE xable,
+ 			bool lut_bank_a, int mpcc_id);
+-	/**
+-	* @program_3dlut_size:
+-	*
+-	* Program 3D LUT size.
+-	*
+-	* Parameters:
+-	* - [in/out] mpc - MPC context.
+-	* - [in] is_17x17x17 - is 3dlut 17x17x17
+-	* - [in] mpcc_id
+-	*
+-	* Return:
+-	*
+-	* void
+-	*/
+-	void (*program_3dlut_size)(struct mpc *mpc, bool is_17x17x17, int mpcc_id);
+ 
+ 	/**
+ 	 * @mcm:
+diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c
+index f3fb3fe13757..e1a0308dee57 100644
+--- a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c
+@@ -287,13 +287,6 @@ void mpc401_program_lut_read_write_control(struct mpc *mpc, const enum MCM_LUT_I
+ 	}
  }
  
--/**
-- * amdgpu_dm_atomic_commit_tail() - AMDgpu DM's commit tail implementation.
-- * @state: The atomic state to commit
-- *
-- * This will tell DC to commit the constructed DC state from atomic_check,
-- * programming the hardware. Any failures here implies a hardware failure, since
-- * atomic check should have filtered anything non-kosher.
-- */
--static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
-+static void amdgpu_dm_update_hdcp(struct drm_atomic_state *state)
- {
-+	struct drm_connector_state *old_con_state, *new_con_state;
- 	struct drm_device *dev = state->dev;
--	struct amdgpu_device *adev = drm_to_adev(dev);
--	struct amdgpu_display_manager *dm = &adev->dm;
--	struct dm_atomic_state *dm_state;
--	struct dc_state *dc_state = NULL;
--	u32 i, j;
--	struct drm_crtc *crtc;
--	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
--	unsigned long flags;
--	bool wait_for_vblank = true;
- 	struct drm_connector *connector;
--	struct drm_connector_state *old_con_state, *new_con_state;
--	struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
--	int crtc_disable_count = 0;
+-void mpc401_program_3dlut_size(struct mpc *mpc, bool is_17x17x17, int mpcc_id)
+-{
+-	struct dcn401_mpc *mpc401 = TO_DCN401_MPC(mpc);
 -
--	trace_amdgpu_dm_atomic_commit_tail_begin(state);
+-	REG_UPDATE(MPCC_MCM_3DLUT_MODE[mpcc_id], MPCC_MCM_3DLUT_SIZE, is_17x17x17 ? 0 : 1);
+-}
 -
--	drm_atomic_helper_update_legacy_modeset_state(dev, state);
--	drm_dp_mst_atomic_wait_for_dependencies(state);
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	int i;
+ void mpc_program_gamut_remap(
+ 	struct mpc *mpc,
+ 	unsigned int mpcc_id,
+@@ -611,7 +604,6 @@ static const struct mpc_funcs dcn401_mpc_funcs = {
+ 	.populate_lut = mpc401_populate_lut,
+ 	.program_lut_read_write_control = mpc401_program_lut_read_write_control,
+ 	.program_lut_mode = mpc401_program_lut_mode,
+-	.program_3dlut_size = mpc401_program_3dlut_size,
+ };
  
--	dm_state = dm_atomic_get_new_state(state);
--	if (dm_state && dm_state->context) {
--		dc_state = dm_state->context;
--		amdgpu_dm_commit_streams(state, dc_state);
--	}
-+	if (!adev->dm.hdcp_workqueue)
-+		return;
  
- 	for_each_oldnew_connector_in_state(state, connector, old_con_state, new_con_state, i) {
- 		struct dm_connector_state *dm_new_con_state = to_dm_connector_state(new_con_state);
- 		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(dm_new_con_state->base.crtc);
-+		struct drm_crtc_state *old_crtc_state, *new_crtc_state;
-+		struct dm_crtc_state *dm_new_crtc_state;
- 		struct amdgpu_dm_connector *aconnector;
+diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h
+index eb0c68d0b0c7..fdc42f8ab3ff 100644
+--- a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h
+@@ -221,11 +221,6 @@ void mpc401_program_lut_read_write_control(
+ 		bool lut_bank_a,
+ 		int mpcc_id);
  
--		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+		if (!connector || connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
- 			continue;
- 
- 		aconnector = to_amdgpu_dm_connector(connector);
- 
--		if (!adev->dm.hdcp_workqueue)
--			continue;
+-void mpc401_program_3dlut_size(
+-		struct mpc *mpc,
+-		bool is_17x17x17,
+-		int mpcc_id);
 -
--		pr_debug("[HDCP_DM] -------------- i : %x ----------\n", i);
--
--		if (!connector)
--			continue;
-+		drm_dbg(dev, "[HDCP_DM] -------------- i : %x ----------\n", i);
- 
--		pr_debug("[HDCP_DM] connector->index: %x connect_status: %x dpms: %x\n",
-+		drm_dbg(dev, "[HDCP_DM] connector->index: %x connect_status: %x dpms: %x\n",
- 			connector->index, connector->status, connector->dpms);
--		pr_debug("[HDCP_DM] state protection old: %x new: %x\n",
-+		drm_dbg(dev, "[HDCP_DM] state protection old: %x new: %x\n",
- 			old_con_state->content_protection, new_con_state->content_protection);
- 
- 		if (aconnector->dc_sink) {
- 			if (aconnector->dc_sink->sink_signal != SIGNAL_TYPE_VIRTUAL &&
- 				aconnector->dc_sink->sink_signal != SIGNAL_TYPE_NONE) {
--				pr_debug("[HDCP_DM] pipe_ctx dispname=%s\n",
-+				drm_dbg(dev, "[HDCP_DM] pipe_ctx dispname=%s\n",
- 				aconnector->dc_sink->edid_caps.display_name);
- 			}
- 		}
-@@ -10205,7 +10176,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		}
- 
- 		if (old_crtc_state)
--			pr_debug("old crtc en: %x a: %x m: %x a-chg: %x c-chg: %x\n",
-+			drm_dbg(dev, "old crtc en: %x a: %x m: %x a-chg: %x c-chg: %x\n",
- 			old_crtc_state->enable,
- 			old_crtc_state->active,
- 			old_crtc_state->mode_changed,
-@@ -10213,29 +10184,13 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 			old_crtc_state->connectors_changed);
- 
- 		if (new_crtc_state)
--			pr_debug("NEW crtc en: %x a: %x m: %x a-chg: %x c-chg: %x\n",
-+			drm_dbg(dev, "NEW crtc en: %x a: %x m: %x a-chg: %x c-chg: %x\n",
- 			new_crtc_state->enable,
- 			new_crtc_state->active,
- 			new_crtc_state->mode_changed,
- 			new_crtc_state->active_changed,
- 			new_crtc_state->connectors_changed);
--	}
- 
--	for_each_oldnew_connector_in_state(state, connector, old_con_state, new_con_state, i) {
--		struct dm_connector_state *dm_new_con_state = to_dm_connector_state(new_con_state);
--		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(dm_new_con_state->base.crtc);
--		struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
--
--		if (!adev->dm.hdcp_workqueue)
--			continue;
--
--		new_crtc_state = NULL;
--		old_crtc_state = NULL;
--
--		if (acrtc) {
--			new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
--			old_crtc_state = drm_atomic_get_old_crtc_state(state, &acrtc->base);
--		}
- 
- 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
- 
-@@ -10279,7 +10234,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 				new_con_state->content_protection >= DRM_MODE_CONTENT_PROTECTION_DESIRED)
- 				enable_encryption = true;
- 
--			drm_info(adev_to_drm(adev), "[HDCP_DM] hdcp_update_display enable_encryption = %x\n", enable_encryption);
-+			drm_info(dev, "[HDCP_DM] hdcp_update_display enable_encryption = %x\n", enable_encryption);
- 
- 			if (aconnector->dc_link)
- 				hdcp_update_display(
-@@ -10287,6 +10242,45 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 					new_con_state->hdcp_content_type, enable_encryption);
- 		}
- 	}
-+}
-+
-+/**
-+ * amdgpu_dm_atomic_commit_tail() - AMDgpu DM's commit tail implementation.
-+ * @state: The atomic state to commit
-+ *
-+ * This will tell DC to commit the constructed DC state from atomic_check,
-+ * programming the hardware. Any failures here implies a hardware failure, since
-+ * atomic check should have filtered anything non-kosher.
-+ */
-+static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
-+{
-+	struct drm_device *dev = state->dev;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_display_manager *dm = &adev->dm;
-+	struct dm_atomic_state *dm_state;
-+	struct dc_state *dc_state = NULL;
-+	u32 i, j;
-+	struct drm_crtc *crtc;
-+	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
-+	unsigned long flags;
-+	bool wait_for_vblank = true;
-+	struct drm_connector *connector;
-+	struct drm_connector_state *old_con_state, *new_con_state;
-+	struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
-+	int crtc_disable_count = 0;
-+
-+	trace_amdgpu_dm_atomic_commit_tail_begin(state);
-+
-+	drm_atomic_helper_update_legacy_modeset_state(dev, state);
-+	drm_dp_mst_atomic_wait_for_dependencies(state);
-+
-+	dm_state = dm_atomic_get_new_state(state);
-+	if (dm_state && dm_state->context) {
-+		dc_state = dm_state->context;
-+		amdgpu_dm_commit_streams(state, dc_state);
-+	}
-+
-+	amdgpu_dm_update_hdcp(state);
- 
- 	/* Handle connector state changes */
- 	for_each_oldnew_connector_in_state(state, connector, old_con_state, new_con_state, i) {
+ void mpc401_set_gamut_remap(
+ 	struct mpc *mpc,
+ 	int mpcc_id,
 -- 
 2.43.0
 
