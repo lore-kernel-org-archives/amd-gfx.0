@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DAD5CA0EE6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4154CA0EE7
 	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 07:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D45F810E818;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6AA910E819;
 	Thu, 14 Aug 2025 07:27:37 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6FE8310E79E;
- Wed, 13 Aug 2025 17:02:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9EB6E10E780;
+ Wed, 13 Aug 2025 17:01:34 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B6F701D6F;
- Wed, 13 Aug 2025 10:02:15 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 128701BCB;
+ Wed, 13 Aug 2025 10:01:26 -0700 (PDT)
 Received: from e121345-lin.cambridge.arm.com (e121345-lin.cambridge.arm.com
  [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A1A5F3F738;
- Wed, 13 Aug 2025 10:02:19 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id EEB253F738;
+ Wed, 13 Aug 2025 10:01:29 -0700 (PDT)
 From: Robin Murphy <robin.murphy@arm.com>
 To: peterz@infradead.org, mingo@redhat.com, will@kernel.org,
  mark.rutland@arm.com, acme@kernel.org, namhyung@kernel.org,
@@ -38,9 +38,9 @@ Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
  iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
  linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-riscv@lists.infradead.org
-Subject: [PATCH 13/19] perf: Add helper for checking grouped events
-Date: Wed, 13 Aug 2025 18:01:05 +0100
-Message-Id: <b05607c3ce0d3ce52de1784823ef9f6de324283c.1755096883.git.robin.murphy@arm.com>
+Subject: [PATCH 02/19] perf/hisilicon: Fix group validation
+Date: Wed, 13 Aug 2025 18:00:54 +0100
+Message-Id: <c7b877e66ba0d34d8558c5af8bbb620e8c0e47d9.1755096883.git.robin.murphy@arm.com>
 X-Mailer: git-send-email 2.39.2.101.g768bb238c484.dirty
 In-Reply-To: <cover.1755096883.git.robin.murphy@arm.com>
 References: <cover.1755096883.git.robin.murphy@arm.com>
@@ -61,256 +61,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Several drivers cannot support groups, but enforce this inconsistently
-(including not at all) in their event_init routines. Add a helper so
-that such drivers can simply and robustly check for the acceptable
-conditions that their event is either standalone, or the first one
-being added to a software-only group.
+The group validation logic shared by the HiSilicon HNS3/PCIe drivers is
+a bit off, in that given a software group leader, it will consider that
+event *in place of* the actual new event being opened. At worst this
+could theoretically allow an unschedulable group if the software event
+config happens to look like one of the hardware siblings.
 
-In particular it took a while to see that marvell_cn10k_tad_pmu was
-seemingly trying to rely on the empirical behaviour of perf tool
-creating group leader events with disabled=1 and subsequent siblings
-with disabled=0. Down with this sort of thing!
+The uncore framework avoids that particular issue, but all 3 also share
+the common issue of not preventing racy access to the sibling list, and
+some redundant checks which can be cleaned up.
 
 Signed-off-by: Robin Murphy <robin.murphy@arm.com>
 ---
- arch/x86/events/amd/ibs.c             | 30 ++++++---------------------
- drivers/devfreq/event/rockchip-dfi.c  |  3 +++
- drivers/perf/alibaba_uncore_drw_pmu.c | 11 +---------
- drivers/perf/arm_dmc620_pmu.c         | 12 +----------
- drivers/perf/dwc_pcie_pmu.c           | 10 ++-------
- drivers/perf/marvell_cn10k_tad_pmu.c  |  6 ++----
- drivers/perf/marvell_pem_pmu.c        | 11 ++--------
- include/linux/perf_event.h            |  7 +++++++
- 8 files changed, 24 insertions(+), 66 deletions(-)
+ drivers/perf/hisilicon/hisi_pcie_pmu.c   | 17 ++++++-----------
+ drivers/perf/hisilicon/hisi_uncore_pmu.c | 23 +++++++----------------
+ drivers/perf/hisilicon/hns3_pmu.c        | 17 ++++++-----------
+ 3 files changed, 19 insertions(+), 38 deletions(-)
 
-diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
-index 112f43b23ebf..95de309fc7d5 100644
---- a/arch/x86/events/amd/ibs.c
-+++ b/arch/x86/events/amd/ibs.c
-@@ -248,27 +248,6 @@ int forward_event_to_ibs(struct perf_event *event)
- 	return -ENOENT;
- }
+diff --git a/drivers/perf/hisilicon/hisi_pcie_pmu.c b/drivers/perf/hisilicon/hisi_pcie_pmu.c
+index c5394d007b61..3b0b2f7197d0 100644
+--- a/drivers/perf/hisilicon/hisi_pcie_pmu.c
++++ b/drivers/perf/hisilicon/hisi_pcie_pmu.c
+@@ -338,21 +338,16 @@ static bool hisi_pcie_pmu_validate_event_group(struct perf_event *event)
+ 	int counters = 1;
+ 	int num;
  
--/*
-- * Grouping of IBS events is not possible since IBS can have only
-- * one event active at any point in time.
-- */
--static int validate_group(struct perf_event *event)
--{
--	struct perf_event *sibling;
--
--	if (event->group_leader == event)
--		return 0;
--
--	if (event->group_leader->pmu == event->pmu)
--		return -EINVAL;
--
--	for_each_sibling_event(sibling, event->group_leader) {
--		if (sibling->pmu == event->pmu)
--			return -EINVAL;
+-	event_group[0] = leader;
+-	if (!is_software_event(leader)) {
+-		if (leader->pmu != event->pmu)
+-			return false;
++	if (leader == event)
++		return true;
+ 
+-		if (leader != event && !hisi_pcie_pmu_cmp_event(leader, event))
+-			event_group[counters++] = event;
 -	}
--	return 0;
--}
++	event_group[0] = event;
++	if (leader->pmu == event->pmu && !hisi_pcie_pmu_cmp_event(leader, event))
++		event_group[counters++] = leader;
+ 
+ 	for_each_sibling_event(sibling, event->group_leader) {
+-		if (is_software_event(sibling))
+-			continue;
 -
- static bool perf_ibs_ldlat_event(struct perf_ibs *perf_ibs,
- 				 struct perf_event *event)
- {
-@@ -309,9 +288,12 @@ static int perf_ibs_init(struct perf_event *event)
- 	     event->attr.exclude_hv))
- 		return -EINVAL;
+ 		if (sibling->pmu != event->pmu)
+-			return false;
++			continue;
  
--	ret = validate_group(event);
--	if (ret)
--		return ret;
-+	/*
-+	 * Grouping of IBS events is not possible since IBS can have only
-+	 * one event active at any point in time.
-+	 */
-+	if (in_hardware_group(event))
-+		return -EINVAL;
+ 		for (num = 0; num < counters; num++) {
+ 			/*
+diff --git a/drivers/perf/hisilicon/hisi_uncore_pmu.c b/drivers/perf/hisilicon/hisi_uncore_pmu.c
+index a449651f79c9..3c531b36cf25 100644
+--- a/drivers/perf/hisilicon/hisi_uncore_pmu.c
++++ b/drivers/perf/hisilicon/hisi_uncore_pmu.c
+@@ -101,26 +101,17 @@ static bool hisi_validate_event_group(struct perf_event *event)
+ 	/* Include count for the event */
+ 	int counters = 1;
  
- 	if (hwc->sample_period) {
- 		if (config & perf_ibs->cnt_mask)
-diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
-index 0470d7c175f4..88a9ecbe96ce 100644
---- a/drivers/devfreq/event/rockchip-dfi.c
-+++ b/drivers/devfreq/event/rockchip-dfi.c
-@@ -413,6 +413,9 @@ static int rockchip_ddr_perf_event_init(struct perf_event *event)
- 		dev_warn(dfi->dev, "Can't provide per-task data!\n");
- 		return -EINVAL;
- 	}
-+	/* Disallow groups since we can't start/stop/read multiple counters at once */
-+	if (in_hardware_group(event))
-+		return -EINVAL;
+-	if (!is_software_event(leader)) {
+-		/*
+-		 * We must NOT create groups containing mixed PMUs, although
+-		 * software events are acceptable
+-		 */
+-		if (leader->pmu != event->pmu)
+-			return false;
++	if (leader == event)
++		return true;
  
- 	return 0;
- }
-diff --git a/drivers/perf/alibaba_uncore_drw_pmu.c b/drivers/perf/alibaba_uncore_drw_pmu.c
-index 99a0ef9817e0..0081618741c3 100644
---- a/drivers/perf/alibaba_uncore_drw_pmu.c
-+++ b/drivers/perf/alibaba_uncore_drw_pmu.c
-@@ -526,7 +526,6 @@ static int ali_drw_pmu_event_init(struct perf_event *event)
- {
- 	struct ali_drw_pmu *drw_pmu = to_ali_drw_pmu(event->pmu);
- 	struct hw_perf_event *hwc = &event->hw;
--	struct perf_event *sibling;
- 	struct device *dev = drw_pmu->pmu.dev;
+-		/* Increment counter for the leader */
+-		if (leader != event)
+-			counters++;
+-	}
++	/* Increment counter for the leader */
++	if (leader->pmu == event->pmu)
++		counters++;
  
- 	if (event->attr.type != event->pmu->type)
-@@ -548,19 +547,11 @@ static int ali_drw_pmu_event_init(struct perf_event *event)
- 		return -EOPNOTSUPP;
+ 	for_each_sibling_event(sibling, event->group_leader) {
+-		if (is_software_event(sibling))
+-			continue;
+-		if (sibling->pmu != event->pmu)
+-			return false;
+ 		/* Increment counter for each sibling */
+-		counters++;
++		if (sibling->pmu == event->pmu)
++			counters++;
  	}
  
--	if (event->group_leader != event &&
--	    !is_software_event(event->group_leader)) {
-+	if (in_hardware_group(event)) {
- 		dev_err(dev, "driveway only allow one event!\n");
- 		return -EINVAL;
- 	}
+ 	/* The group can not count events more than the counters in the HW */
+diff --git a/drivers/perf/hisilicon/hns3_pmu.c b/drivers/perf/hisilicon/hns3_pmu.c
+index c157f3572cae..382e469257f9 100644
+--- a/drivers/perf/hisilicon/hns3_pmu.c
++++ b/drivers/perf/hisilicon/hns3_pmu.c
+@@ -1058,21 +1058,16 @@ static bool hns3_pmu_validate_event_group(struct perf_event *event)
+ 	int counters = 1;
+ 	int num;
  
--	for_each_sibling_event(sibling, event->group_leader) {
--		if (sibling != event && !is_software_event(sibling)) {
--			dev_err(dev, "driveway event not allowed!\n");
--			return -EINVAL;
--		}
+-	event_group[0] = leader;
+-	if (!is_software_event(leader)) {
+-		if (leader->pmu != event->pmu)
+-			return false;
++	if (leader == event)
++		return true;
+ 
+-		if (leader != event && !hns3_pmu_cmp_event(leader, event))
+-			event_group[counters++] = event;
 -	}
++	event_group[0] = event;
++	if (leader->pmu == event->pmu && !hns3_pmu_cmp_event(leader, event))
++		event_group[counters++] = leader;
+ 
+ 	for_each_sibling_event(sibling, event->group_leader) {
+-		if (is_software_event(sibling))
+-			continue;
 -
- 	/* reset all the pmu counters */
- 	writel(ALI_DRW_PMU_CNT_RST, drw_pmu->cfg_base + ALI_DRW_PMU_CNT_CTRL);
+ 		if (sibling->pmu != event->pmu)
+-			return false;
++			continue;
  
-diff --git a/drivers/perf/arm_dmc620_pmu.c b/drivers/perf/arm_dmc620_pmu.c
-index 619cf937602f..24308de80246 100644
---- a/drivers/perf/arm_dmc620_pmu.c
-+++ b/drivers/perf/arm_dmc620_pmu.c
-@@ -513,7 +513,6 @@ static int dmc620_pmu_event_init(struct perf_event *event)
- {
- 	struct dmc620_pmu *dmc620_pmu = to_dmc620_pmu(event->pmu);
- 	struct hw_perf_event *hwc = &event->hw;
--	struct perf_event *sibling;
- 
- 	if (event->attr.type != event->pmu->type)
- 		return -ENOENT;
-@@ -544,22 +543,13 @@ static int dmc620_pmu_event_init(struct perf_event *event)
- 
- 	hwc->idx = -1;
- 
--	if (event->group_leader == event)
--		return 0;
--
- 	/*
- 	 * We can't atomically disable all HW counters so only one event allowed,
- 	 * although software events are acceptable.
- 	 */
--	if (!is_software_event(event->group_leader))
-+	if (in_hardware_group(event))
- 		return -EINVAL;
- 
--	for_each_sibling_event(sibling, event->group_leader) {
--		if (sibling != event &&
--				!is_software_event(sibling))
--			return -EINVAL;
--	}
--
- 	return 0;
- }
- 
-diff --git a/drivers/perf/dwc_pcie_pmu.c b/drivers/perf/dwc_pcie_pmu.c
-index 146ff57813fb..78c522658d84 100644
---- a/drivers/perf/dwc_pcie_pmu.c
-+++ b/drivers/perf/dwc_pcie_pmu.c
-@@ -353,7 +353,6 @@ static int dwc_pcie_pmu_event_init(struct perf_event *event)
- {
- 	struct dwc_pcie_pmu *pcie_pmu = to_dwc_pcie_pmu(event->pmu);
- 	enum dwc_pcie_event_type type = DWC_PCIE_EVENT_TYPE(event);
--	struct perf_event *sibling;
- 	u32 lane;
- 
- 	if (event->attr.type != event->pmu->type)
-@@ -367,15 +366,10 @@ static int dwc_pcie_pmu_event_init(struct perf_event *event)
- 	if (event->cpu < 0 || event->attach_state & PERF_ATTACH_TASK)
- 		return -EINVAL;
- 
--	if (event->group_leader != event &&
--	    !is_software_event(event->group_leader))
-+	/* Disallow groups since we can't start/stop/read multiple counters at once */
-+	if (in_hardware_group(event))
- 		return -EINVAL;
- 
--	for_each_sibling_event(sibling, event->group_leader) {
--		if (sibling->pmu != event->pmu && !is_software_event(sibling))
--			return -EINVAL;
--	}
--
- 	if (type < 0 || type >= DWC_PCIE_EVENT_TYPE_MAX)
- 		return -EINVAL;
- 
-diff --git a/drivers/perf/marvell_cn10k_tad_pmu.c b/drivers/perf/marvell_cn10k_tad_pmu.c
-index 51ccb0befa05..ee6505cb01a7 100644
---- a/drivers/perf/marvell_cn10k_tad_pmu.c
-+++ b/drivers/perf/marvell_cn10k_tad_pmu.c
-@@ -152,10 +152,8 @@ static int tad_pmu_event_init(struct perf_event *event)
- 	if (event->attr.type != event->pmu->type)
- 		return -ENOENT;
- 
--	if (!event->attr.disabled)
--		return -EINVAL;
--
--	if (event->state != PERF_EVENT_STATE_OFF)
-+	/* Disallow groups since we can't start/stop/read multiple counters at once */
-+	if (in_hardware_group(event))
- 		return -EINVAL;
- 
- 	event->cpu = tad_pmu->cpu;
-diff --git a/drivers/perf/marvell_pem_pmu.c b/drivers/perf/marvell_pem_pmu.c
-index 29fbcd1848e4..53a35a5de7f8 100644
---- a/drivers/perf/marvell_pem_pmu.c
-+++ b/drivers/perf/marvell_pem_pmu.c
-@@ -190,7 +190,6 @@ static int pem_perf_event_init(struct perf_event *event)
- {
- 	struct pem_pmu *pmu = to_pem_pmu(event->pmu);
- 	struct hw_perf_event *hwc = &event->hw;
--	struct perf_event *sibling;
- 
- 	if (event->attr.type != event->pmu->type)
- 		return -ENOENT;
-@@ -206,16 +205,10 @@ static int pem_perf_event_init(struct perf_event *event)
- 	if (event->cpu < 0)
- 		return -EOPNOTSUPP;
- 
--	/*  We must NOT create groups containing mixed PMUs */
--	if (event->group_leader->pmu != event->pmu &&
--	    !is_software_event(event->group_leader))
-+	/* Disallow groups since we can't start/stop/read multiple counters at once */
-+	if (in_hardware_group(event))
- 		return -EINVAL;
- 
--	for_each_sibling_event(sibling, event->group_leader) {
--		if (sibling->pmu != event->pmu &&
--		    !is_software_event(sibling))
--			return -EINVAL;
--	}
- 	/*
- 	 * Set ownership of event to one CPU, same event can not be observed
- 	 * on multiple cpus at same time.
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index ec9d96025683..4d439c24c901 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -1556,6 +1556,13 @@ static inline int in_software_context(struct perf_event *event)
- 	return event->pmu_ctx->pmu->task_ctx_nr == perf_sw_context;
- }
- 
-+/* True if the event has (or would have) any non-software siblings */
-+static inline bool in_hardware_group(const struct perf_event *event)
-+{
-+	return event != event->group_leader &&
-+	       !in_software_context(event->group_leader);
-+}
-+
- static inline int is_exclusive_pmu(struct pmu *pmu)
- {
- 	return pmu->capabilities & PERF_PMU_CAP_EXCLUSIVE;
+ 		for (num = 0; num < counters; num++) {
+ 			/*
 -- 
 2.39.2.101.g768bb238c484.dirty
 
