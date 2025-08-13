@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0016CCA0EE3
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 07:27:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9733DCA0EE5
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 07:27:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4E7810E804;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E982810E80A;
 	Thu, 14 Aug 2025 07:27:30 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 39FC210E78A;
- Wed, 13 Aug 2025 17:02:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3F26010E78B;
+ Wed, 13 Aug 2025 17:01:57 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4F331D14;
- Wed, 13 Aug 2025 10:02:06 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A7DB41C14;
+ Wed, 13 Aug 2025 10:01:48 -0700 (PDT)
 Received: from e121345-lin.cambridge.arm.com (e121345-lin.cambridge.arm.com
  [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9DB4C3F738;
- Wed, 13 Aug 2025 10:02:10 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8F4993F738;
+ Wed, 13 Aug 2025 10:01:52 -0700 (PDT)
 From: Robin Murphy <robin.murphy@arm.com>
 To: peterz@infradead.org, mingo@redhat.com, will@kernel.org,
  mark.rutland@arm.com, acme@kernel.org, namhyung@kernel.org,
@@ -38,9 +38,9 @@ Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
  iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
  linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-riscv@lists.infradead.org
-Subject: [PATCH 11/19] perf/arm-cci: Tidy up event validation
-Date: Wed, 13 Aug 2025 18:01:03 +0100
-Message-Id: <b433bdccbf83a71878b67a9c159c3e9414bef2d0.1755096883.git.robin.murphy@arm.com>
+Subject: [PATCH 07/19] ARM: imx: Fix MMDC PMU group validation
+Date: Wed, 13 Aug 2025 18:00:59 +0100
+Message-Id: <12766b2e16939ed97df8c410a994c730bede8298.1755096883.git.robin.murphy@arm.com>
 X-Mailer: git-send-email 2.39.2.101.g768bb238c484.dirty
 In-Reply-To: <cover.1755096883.git.robin.murphy@arm.com>
 References: <cover.1755096883.git.robin.murphy@arm.com>
@@ -61,158 +61,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The CCI driver only accepts events of its own type, so it is pointless
-to re-check the event type again further into validation. Conversely, if
-an event *is* for CCI but has a nonsense config, we should not return
--ENOENT to potentially offer it to other PMUs. Finally it seems wrong
-not to count disabled events which may be enabled later.
-
-These are all artefacts left over from the original attempt to fit CCI
-into the arm_pmu framework; clean them up, along with the now-redundant
-checks for cross-PMU groups which core code will already handle (albeit
-not quite as the out-of-date comment says).
+The group validation here gets the event and its group leader mixed up,
+such that if the group leader belongs to a different PMU, the set_bit()
+may go wildly out of bounds. While we fix that, also adopt the standard
+pattern to avoid racy access the sibling list and drop checks that are
+redundant with core code.
 
 Signed-off-by: Robin Murphy <robin.murphy@arm.com>
 ---
- drivers/perf/arm-cci.c | 47 +++++++++++-------------------------------
- 1 file changed, 12 insertions(+), 35 deletions(-)
+ arch/arm/mach-imx/mmdc.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/perf/arm-cci.c b/drivers/perf/arm-cci.c
-index 1cc3214d6b6d..086d4363fcc8 100644
---- a/drivers/perf/arm-cci.c
-+++ b/drivers/perf/arm-cci.c
-@@ -333,7 +333,7 @@ static int cci400_validate_hw_event(struct cci_pmu *cci_pmu, unsigned long hw_ev
- 	int if_type;
- 
- 	if (hw_event & ~CCI400_PMU_EVENT_MASK)
--		return -ENOENT;
-+		return -EINVAL;
- 
- 	if (hw_event == CCI400_PMU_CYCLES)
- 		return hw_event;
-@@ -354,14 +354,14 @@ static int cci400_validate_hw_event(struct cci_pmu *cci_pmu, unsigned long hw_ev
- 		if_type = CCI_IF_MASTER;
- 		break;
- 	default:
--		return -ENOENT;
-+		return -EINVAL;
- 	}
- 
- 	if (ev_code >= cci_pmu->model->event_ranges[if_type].min &&
- 		ev_code <= cci_pmu->model->event_ranges[if_type].max)
- 		return hw_event;
- 
--	return -ENOENT;
-+	return -EINVAL;
- }
- 
- static int probe_cci400_revision(struct cci_pmu *cci_pmu)
-@@ -541,7 +541,7 @@ static int cci500_validate_hw_event(struct cci_pmu *cci_pmu,
- 	int if_type;
- 
- 	if (hw_event & ~CCI5xx_PMU_EVENT_MASK)
--		return -ENOENT;
-+		return -EINVAL;
- 
- 	switch (ev_source) {
- 	case CCI5xx_PORT_S0:
-@@ -565,14 +565,14 @@ static int cci500_validate_hw_event(struct cci_pmu *cci_pmu,
- 		if_type = CCI_IF_GLOBAL;
- 		break;
- 	default:
--		return -ENOENT;
-+		return -EINVAL;
- 	}
- 
- 	if (ev_code >= cci_pmu->model->event_ranges[if_type].min &&
- 		ev_code <= cci_pmu->model->event_ranges[if_type].max)
- 		return hw_event;
- 
--	return -ENOENT;
-+	return -EINVAL;
- }
- 
- /*
-@@ -592,7 +592,7 @@ static int cci550_validate_hw_event(struct cci_pmu *cci_pmu,
- 	int if_type;
- 
- 	if (hw_event & ~CCI5xx_PMU_EVENT_MASK)
--		return -ENOENT;
-+		return -EINVAL;
- 
- 	switch (ev_source) {
- 	case CCI5xx_PORT_S0:
-@@ -617,14 +617,14 @@ static int cci550_validate_hw_event(struct cci_pmu *cci_pmu,
- 		if_type = CCI_IF_GLOBAL;
- 		break;
- 	default:
--		return -ENOENT;
-+		return -EINVAL;
- 	}
- 
- 	if (ev_code >= cci_pmu->model->event_ranges[if_type].min &&
- 		ev_code <= cci_pmu->model->event_ranges[if_type].max)
- 		return hw_event;
- 
--	return -ENOENT;
-+	return -EINVAL;
- }
- 
- #endif	/* CONFIG_ARM_CCI5xx_PMU */
-@@ -801,17 +801,6 @@ static int pmu_get_event_idx(struct cci_pmu_hw_events *hw, struct perf_event *ev
- 	return -EAGAIN;
- }
- 
--static int pmu_map_event(struct perf_event *event)
--{
--	struct cci_pmu *cci_pmu = to_cci_pmu(event->pmu);
--
--	if (event->attr.type < PERF_TYPE_MAX ||
--			!cci_pmu->model->validate_hw_event)
--		return -ENOENT;
--
--	return	cci_pmu->model->validate_hw_event(cci_pmu, event->attr.config);
--}
--
- static int pmu_request_irq(struct cci_pmu *cci_pmu, irq_handler_t handler)
+diff --git a/arch/arm/mach-imx/mmdc.c b/arch/arm/mach-imx/mmdc.c
+index 94e4f4a2f73f..f9d432b385a2 100644
+--- a/arch/arm/mach-imx/mmdc.c
++++ b/arch/arm/mach-imx/mmdc.c
+@@ -238,11 +238,8 @@ static bool mmdc_pmu_group_event_is_valid(struct perf_event *event,
  {
- 	int i;
-@@ -1216,21 +1205,8 @@ static int validate_event(struct pmu *cci_pmu,
- 			  struct cci_pmu_hw_events *hw_events,
- 			  struct perf_event *event)
- {
+ 	int cfg = event->attr.config;
+ 
 -	if (is_software_event(event))
--		return 1;
+-		return true;
 -
--	/*
--	 * Reject groups spanning multiple HW PMUs (e.g. CPU + CCI). The
--	 * core perf code won't check that the pmu->ctx == leader->ctx
--	 * until after pmu->event_init(event).
--	 */
-+	/* Ignore grouped events that aren't ours */
- 	if (event->pmu != cci_pmu)
--		return 0;
--
--	if (event->state < PERF_EVENT_STATE_OFF)
--		return 1;
--
--	if (event->state == PERF_EVENT_STATE_OFF && !event->attr.enable_on_exec)
- 		return 1;
+ 	if (event->pmu != pmu)
+-		return false;
++		return true;
  
- 	return pmu_get_event_idx(hw_events, event) >= 0;
-@@ -1266,10 +1242,11 @@ static int validate_group(struct perf_event *event)
+ 	return !test_and_set_bit(cfg, used_counters);
+ }
+@@ -260,12 +257,12 @@ static bool mmdc_pmu_group_is_valid(struct perf_event *event)
+ 	struct perf_event *sibling;
+ 	unsigned long counter_mask = 0;
  
- static int __hw_perf_event_init(struct perf_event *event)
- {
-+	struct cci_pmu *cci_pmu = to_cci_pmu(event->pmu);
- 	struct hw_perf_event *hwc = &event->hw;
- 	int mapping;
+-	set_bit(leader->attr.config, &counter_mask);
++	if (event == leader)
++		return true;
  
--	mapping = pmu_map_event(event);
-+	mapping = cci_pmu->model->validate_hw_event(cci_pmu, event->attr.config);
+-	if (event != leader) {
+-		if (!mmdc_pmu_group_event_is_valid(event, pmu, &counter_mask))
+-			return false;
+-	}
++	set_bit(event->attr.config, &counter_mask);
++	if (!mmdc_pmu_group_event_is_valid(leader, pmu, &counter_mask))
++		return false;
  
- 	if (mapping < 0) {
- 		pr_debug("event %x:%llx not supported\n", event->attr.type,
+ 	for_each_sibling_event(sibling, leader) {
+ 		if (!mmdc_pmu_group_event_is_valid(sibling, pmu, &counter_mask))
 -- 
 2.39.2.101.g768bb238c484.dirty
 
