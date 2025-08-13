@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21584CA0EE3
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 07:27:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE04CA0EDC
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 07:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F9C910E7FF;
-	Thu, 14 Aug 2025 07:27:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A86C310E802;
+	Thu, 14 Aug 2025 07:27:37 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id E9DE910E7A8;
- Wed, 13 Aug 2025 17:02:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0C6DA10E780;
+ Wed, 13 Aug 2025 17:01:30 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 696B21E7D;
- Wed, 13 Aug 2025 10:02:38 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8977914BF;
+ Wed, 13 Aug 2025 10:01:21 -0700 (PDT)
 Received: from e121345-lin.cambridge.arm.com (e121345-lin.cambridge.arm.com
  [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 520FE3F77D;
- Wed, 13 Aug 2025 10:02:42 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 704653F738;
+ Wed, 13 Aug 2025 10:01:25 -0700 (PDT)
 From: Robin Murphy <robin.murphy@arm.com>
 To: peterz@infradead.org, mingo@redhat.com, will@kernel.org,
  mark.rutland@arm.com, acme@kernel.org, namhyung@kernel.org,
@@ -38,9 +38,9 @@ Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
  iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
  linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-riscv@lists.infradead.org
-Subject: [PATCH 18/19] perf: Introduce positive capability for raw events
-Date: Wed, 13 Aug 2025 18:01:10 +0100
-Message-Id: <542787fd188ea15ef41c53d557989c962ed44771.1755096883.git.robin.murphy@arm.com>
+Subject: [PATCH 01/19] perf/arm-cmn: Fix event validation
+Date: Wed, 13 Aug 2025 18:00:53 +0100
+Message-Id: <0716da3e77065f005ef6ea0d10ddf67fc53e76cb.1755096883.git.robin.murphy@arm.com>
 X-Mailer: git-send-email 2.39.2.101.g768bb238c484.dirty
 In-Reply-To: <cover.1755096883.git.robin.murphy@arm.com>
 References: <cover.1755096883.git.robin.murphy@arm.com>
@@ -61,135 +61,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Only a handful of CPU PMUs accept PERF_TYPE_{RAW,HARDWARE,HW_CACHE}
-events without registering themselves as PERF_TYPE_RAW in the first
-place. Add an explicit opt-in for these special cases, so that we can
-make life easier for every other driver (and probably also speed up the
-slow-path search) by having perf_try_init_event() do the basic type
-checking to cover the majority of cases.
+In the hypothetical case where a CMN event is opened with a software
+group leader that already has some other hardware sibling, currently
+arm_cmn_val_add_event() could try to interpret the other event's data
+as an arm_cmn_hw_event, which is not great since we dereference a
+pointer from there... Thankfully the way to be more robust is to be
+less clever - stop trying to special-case software events and simply
+skip any event that isn't for our PMU.
 
 Signed-off-by: Robin Murphy <robin.murphy@arm.com>
 ---
+ drivers/perf/arm-cmn.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-A further possibility is to automatically add the cap to PERF_TYPE_RAW
-PMUs in perf_pmu_register() to have a single point-of-use condition; I'm
-undecided...
----
- arch/s390/kernel/perf_cpum_cf.c    |  1 +
- arch/s390/kernel/perf_pai_crypto.c |  2 +-
- arch/s390/kernel/perf_pai_ext.c    |  2 +-
- arch/x86/events/core.c             |  2 +-
- drivers/perf/arm_pmu.c             |  1 +
- include/linux/perf_event.h         |  1 +
- kernel/events/core.c               | 15 +++++++++++++++
- 7 files changed, 21 insertions(+), 3 deletions(-)
-
-diff --git a/arch/s390/kernel/perf_cpum_cf.c b/arch/s390/kernel/perf_cpum_cf.c
-index 1a94e0944bc5..782ab755ddd4 100644
---- a/arch/s390/kernel/perf_cpum_cf.c
-+++ b/arch/s390/kernel/perf_cpum_cf.c
-@@ -1054,6 +1054,7 @@ static void cpumf_pmu_del(struct perf_event *event, int flags)
- /* Performance monitoring unit for s390x */
- static struct pmu cpumf_pmu = {
- 	.task_ctx_nr  = perf_sw_context,
-+	.capabilities = PERF_PMU_CAP_RAW_EVENTS,
- 	.pmu_enable   = cpumf_pmu_enable,
- 	.pmu_disable  = cpumf_pmu_disable,
- 	.event_init   = cpumf_pmu_event_init,
-diff --git a/arch/s390/kernel/perf_pai_crypto.c b/arch/s390/kernel/perf_pai_crypto.c
-index a64b6b056a21..b5b6d8b5d943 100644
---- a/arch/s390/kernel/perf_pai_crypto.c
-+++ b/arch/s390/kernel/perf_pai_crypto.c
-@@ -569,7 +569,7 @@ static const struct attribute_group *paicrypt_attr_groups[] = {
- /* Performance monitoring unit for mapped counters */
- static struct pmu paicrypt = {
- 	.task_ctx_nr  = perf_hw_context,
--	.capabilities = PERF_PMU_CAP_SAMPLING,
-+	.capabilities = PERF_PMU_CAP_SAMPLING | PERF_PMU_CAP_RAW_EVENTS,
- 	.event_init   = paicrypt_event_init,
- 	.add	      = paicrypt_add,
- 	.del	      = paicrypt_del,
-diff --git a/arch/s390/kernel/perf_pai_ext.c b/arch/s390/kernel/perf_pai_ext.c
-index 1261f80c6d52..bcd28c38da70 100644
---- a/arch/s390/kernel/perf_pai_ext.c
-+++ b/arch/s390/kernel/perf_pai_ext.c
-@@ -595,7 +595,7 @@ static const struct attribute_group *paiext_attr_groups[] = {
- /* Performance monitoring unit for mapped counters */
- static struct pmu paiext = {
- 	.task_ctx_nr  = perf_hw_context,
--	.capabilities = PERF_PMU_CAP_SAMPLING,
-+	.capabilities = PERF_PMU_CAP_SAMPLING | PERF_PMU_CAP_RAW_EVENTS,
- 	.event_init   = paiext_event_init,
- 	.add	      = paiext_add,
- 	.del	      = paiext_del,
-diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-index 789dfca2fa67..764728bb80ae 100644
---- a/arch/x86/events/core.c
-+++ b/arch/x86/events/core.c
-@@ -2697,7 +2697,7 @@ static bool x86_pmu_filter(struct pmu *pmu, int cpu)
- }
+diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
+index 11fb2234b10f..f8c9be9fa6c0 100644
+--- a/drivers/perf/arm-cmn.c
++++ b/drivers/perf/arm-cmn.c
+@@ -1652,7 +1652,7 @@ static void arm_cmn_val_add_event(struct arm_cmn *cmn, struct arm_cmn_val *val,
+ 	enum cmn_node_type type;
+ 	int i;
  
- static struct pmu pmu = {
--	.capabilities		= PERF_PMU_CAP_SAMPLING,
-+	.capabilities		= PERF_PMU_CAP_SAMPLING | PERF_PMU_CAP_RAW_EVENTS,
+-	if (is_software_event(event))
++	if (event->pmu != &cmn->pmu)
+ 		return;
  
- 	.pmu_enable		= x86_pmu_enable,
- 	.pmu_disable		= x86_pmu_disable,
-diff --git a/drivers/perf/arm_pmu.c b/drivers/perf/arm_pmu.c
-index 72d8f38d0aa5..bc772a3bf411 100644
---- a/drivers/perf/arm_pmu.c
-+++ b/drivers/perf/arm_pmu.c
-@@ -877,6 +877,7 @@ struct arm_pmu *armpmu_alloc(void)
- 		 * specific PMU.
- 		 */
- 		.capabilities	= PERF_PMU_CAP_SAMPLING |
-+				  PERF_PMU_CAP_RAW_EVENTS |
- 				  PERF_PMU_CAP_EXTENDED_REGS |
- 				  PERF_PMU_CAP_EXTENDED_HW_TYPE,
- 	};
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index 183b7c48b329..c6ad036c0037 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -305,6 +305,7 @@ struct perf_event_pmu_context;
- #define PERF_PMU_CAP_EXTENDED_HW_TYPE	0x0100
- #define PERF_PMU_CAP_AUX_PAUSE		0x0200
- #define PERF_PMU_CAP_AUX_PREFER_LARGE	0x0400
-+#define PERF_PMU_CAP_RAW_EVENTS		0x0800
+ 	type = CMN_EVENT_TYPE(event);
+@@ -1693,9 +1693,6 @@ static int arm_cmn_validate_group(struct arm_cmn *cmn, struct perf_event *event)
+ 	if (leader == event)
+ 		return 0;
  
- /**
-  * pmu::scope
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 71b2a6730705..2ecee76d2ae2 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -12556,11 +12556,26 @@ static inline bool has_extended_regs(struct perf_event *event)
- 	       (event->attr.sample_regs_intr & PERF_REG_EXTENDED_MASK);
- }
- 
-+static bool is_raw_pmu(const struct pmu *pmu)
-+{
-+	return pmu->type == PERF_TYPE_RAW ||
-+	       pmu->capabilities & PERF_PMU_CAP_RAW_EVENTS;
-+}
-+
- static int perf_try_init_event(struct pmu *pmu, struct perf_event *event)
- {
- 	struct perf_event_context *ctx = NULL;
- 	int ret;
- 
-+	/*
-+	 * Before touching anything, we can safely skip:
-+	 * - any event for a specific PMU which is not this one
-+	 * - any common event if this PMU doesn't support them
-+	 */
-+	if (event->attr.type != pmu->type &&
-+	    (event->attr.type >= PERF_TYPE_MAX || is_raw_pmu(pmu)))
-+		return -ENOENT;
-+
- 	if (!try_module_get(pmu->module))
- 		return -ENODEV;
- 
+-	if (event->pmu != leader->pmu && !is_software_event(leader))
+-		return -EINVAL;
+-
+ 	val = kzalloc(sizeof(*val), GFP_KERNEL);
+ 	if (!val)
+ 		return -ENOMEM;
 -- 
 2.39.2.101.g768bb238c484.dirty
 
