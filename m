@@ -4,70 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEBD1CA0EE0
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 10:15:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7663DC87FCF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 10:15:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C9DE10E6E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDA7410E6E3;
 	Wed, 13 Aug 2025 10:15:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VBmPJVAC";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=embeddedor.com header.i=@embeddedor.com header.b="I3ZFenF/";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6F6410E3DD
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 05:48:47 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-3b913a76ba9so1204719f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Aug 2025 22:48:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755064126; x=1755668926; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=G7GKmP7EYKimenKpnrcCAAQuhMM8aTrwuNcaLiW1X80=;
- b=VBmPJVACu7sY9tgTXLGiAqfBZ3re0Sw/TYy3HFm12C9ilOy76zHW6FGCISg2JMvxxb
- 95Qmp/F2oIwfw7gCTjHw0D6HocxhcGGO5x1mnxiSkFEn8910W8xAc81OkY8ktBt2nsEn
- SOHqW/LZDpa1zSzQ8BHBBiqAKrmg339hZPGdvN9f/xPduCI8l4Ym9+7BJIWijp+iIE9A
- GziIZ80OXGIFEpBHgg+PAq3DOGbbaIfjaUbFtE6oC+RPmjodUeV5OZV24RyskCqfaOaQ
- YAmsDsEjv4kOvXKYuy5LiDgRDXW+aIYFoZXq0/qSu6LoaB/3h1RmZFsEF/9Zhw44z/jI
- mwMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755064126; x=1755668926;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G7GKmP7EYKimenKpnrcCAAQuhMM8aTrwuNcaLiW1X80=;
- b=fKoh3FcYEYzDCeh6cMFwRG6kXt8L00zomRrw54/i51qAdyDhnKUHxguQbqz/p2rnMr
- A4v/QBJcPPkdcx+2ilSFozpKSZcXkOM+Di3uUvyxpNHwvmJnnAJ0s9QBn4+4hV6EJ6oi
- 1QD6sHSh7sa+4bsmDRAp+U2ekFx8wooFHhyUY8GqbZRnOJZsJU2loHHJtQ2lFptGNxA9
- 81rXFk0+9b671Fm5HY9bUUD5Nm96AnnDPRj/zoprtVXBryvNfy3S2m5zoySfokF2lkUd
- /Xdck9TSQ7K2aEpveydtJzlW76BONUEr3DW47swPFqAYTwtQPSZobh3kz2QwFSrrB3vk
- c5Zw==
-X-Gm-Message-State: AOJu0YwVhkGamRhN6HULzufbdtNsv+3PFQyUk0HszxijCjwjwcAlpHAY
- SxTkQ12SfYZX1KmaVGTYaHXAf0/lJKW6s3MN7o67qDvQMPI68qwl1kHpErJyi694fiY=
-X-Gm-Gg: ASbGncsa+qv4oYv2M9xYZc3PsLHgT15rbDctDJiTmZ3ZY/DwWlukL0ZvC8xIh6qjVNs
- TYWFKBi+PYM2pLblo4lsqQyTQkDWnt/3FeU1cDMMeYNFrh58KQzm3glulNf4YOXXuL3lbonD+mu
- iMd5L2DekVL63WfO7KKFChJxvhoAGk+HNHgY8//QZPvotzk8grjpuiGlCwVu62Nk2xChzdTmJm3
- +UCCNqXoIpU+kYjKgiKkZypo32ze/TaMqHD6R5V9yXSxSUe5eLgqIrxHphtl8qdcOd+cIc0oz5C
- XjNkUL234APBQXqEdInImFPi67Zjqb+E30GmkOOr3Tis3tBsWAber/aO8UF1H9qK0Wa6MrAx1k8
- dHYrgbKZG9xfYALkQ32auHfJ/pNMghXk/0EYcVXQUVFs=
-X-Google-Smtp-Source: AGHT+IFTCsP1mdmHIwa28LIx57Nx/T/u8kF0GfWBroSeYqSPtHxLbhX1Az2AT/hjARaCGOX/OjlTAA==
-X-Received: by 2002:a05:6000:2381:b0:3b6:8acb:a9d2 with SMTP id
- ffacd0b85a97d-3b917d2a0a7mr1074871f8f.7.1755064126178; 
- Tue, 12 Aug 2025 22:48:46 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3b79c3abec8sm48404308f8f.8.2025.08.12.22.48.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Aug 2025 22:48:45 -0700 (PDT)
-Date: Wed, 13 Aug 2025 08:38:49 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Dillon Varone <dillon.varone@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amd/display: Refactor SubVP cursor limiting logic
-Message-ID: <aJwk6e5nzvod7WFT@stanley.mountain>
+X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
+ Wed, 13 Aug 2025 05:19:53 UTC
+Received: from omta036.useast.a.cloudfilter.net
+ (omta036.useast.a.cloudfilter.net [44.202.169.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BED5010E1B9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 05:19:53 +0000 (UTC)
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+ by cmsmtp with ESMTPS
+ id m1ieuiX9o1jt6m3n3ugJCj; Wed, 13 Aug 2025 05:12:45 +0000
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
+ id m3n2u1Sw4WvdBm3n2ur4kX; Wed, 13 Aug 2025 05:12:44 +0000
+X-Authority-Analysis: v=2.4 cv=cZfSrmDM c=1 sm=1 tr=0 ts=689c1ecc
+ a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=R1XpmoYe2GHAZdAE2O7VqQ==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=7T7KSl7uo7wA:10
+ a=1ml3npyrcYbOIoRaIsMA:9 a=QEXdDO2ut3YA:10 a=xYX6OU9JNrHFPr8prv8u:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8CHxB1Wtr3Lygs//ada2Fd8yg7mcVvvMNOvlWGSBdN4=; b=I3ZFenF/oSKFdznfXcmVkwDLWH
+ jpYuyLFZB/s3kjtkIinOMc6T0qePM+SdCTNDr4vrY9+ffKlxUYYZYaLdOCzNtMF4/brQeOpXIRPuN
+ AdZPXWP84dS1Mrhx77NS1c4wmAq8E4QkbwtdzmE/C9692L6HjslLXtKGgJD4FVTjWFxnxgmPYIN+k
+ k3LEoWTAbLtowaHrayu2E2gmh/kUS2tYFR+ATad0/BzNOjp5JWrtYUD0Cd1fY6vymUoq7rlrV8O6c
+ 5Jvfu4fif+ZZYkfJc9N80vKfl7BOm3eAOeJxe7vkMSYrfPMdGmnEbn/ZQ18gzJdHV3SunW4eDbIsD
+ 5WHOj5Hg==;
+Received: from oni-27.109.98-104.oninet.ne.jp ([27.109.98.104]:38110
+ helo=[192.168.0.175])
+ by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.1)
+ (envelope-from <gustavo@embeddedor.com>) id 1um3n1-00000002TtW-1RYw;
+ Wed, 13 Aug 2025 00:12:43 -0500
+Message-ID: <d43dac3e-122d-4c16-9c1e-760eac91b8da@embeddedor.com>
+Date: Wed, 13 Aug 2025 14:12:30 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH][next] drm/amd/pm: Avoid multiple
+ -Wflex-array-member-not-at-end warnings
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <Z678TNhCbTk363Tw@kspp>
+ <864c7dd5-0deb-4adb-a1cf-c8a809514d7e@embeddedor.com>
+ <217b00f5-d03d-4624-9ba9-d838199ef7b9@embeddedor.com>
+ <CADnq5_M5Jv4A5CXAKY2Qd-dhrfmecnauRtVY_ghSsut7i=KNww@mail.gmail.com>
+ <d07b4edc-6048-4c10-b8ac-dcccd5a932d3@embeddedor.com>
+Content-Language: en-US
+In-Reply-To: <d07b4edc-6048-4c10-b8ac-dcccd5a932d3@embeddedor.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 27.109.98.104
+X-Source-L: No
+X-Exim-ID: 1um3n1-00000002TtW-1RYw
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: oni-27.109.98-104.oninet.ne.jp ([192.168.0.175])
+ [27.109.98.104]:38110
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 4
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfBU812z9HPea03ceNLGJ1bFcmGwdz5IdotVqDcXXlevn00C0e5RbAQuOiho8nvbhqqeK++rl1A8rcME6XNMnEsbPgFb+RixYeTl7B0gsTOrSmk7H4crT
+ 9Z4SdTkopeQfHjV3QrK+E/6MxH7+mLU3Wi6elFFtrbCmPG697E8v6eR6iHRyDM4vtugm/g5YaFwZkq0JN7rBVOH/ogaYwvVAUHeZZrZf88b/Nev6GmOEG5Qd
 X-Mailman-Approved-At: Wed, 13 Aug 2025 10:15:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,51 +106,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Dillon Varone,
+Hi!
 
-Commit 4465dd0e41e8 ("drm/amd/display: Refactor SubVP cursor limiting
-logic") from Apr 1, 2025 (linux-next), leads to the following Smatch
-static checker warning:
+On 22/04/25 23:58, Gustavo A. R. Silva wrote:
+> 
+> 
+> On 16/04/25 09:04, Alex Deucher wrote:
+>> Can you resend, I can't seem to find the original emails.
+>> Additionally, all of the NISLANDS structures are unused in amdgpu, so
+>> those could be removed.
 
-	drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:336 dc_stream_program_cursor_attributes()
-	error: we previously assumed 'stream' could be null (see line 334)
+I'm taking a look at this, and it seems that those NISLANDS structs are actually
+needed in amdgpu code. For instance, `struct si_power_info` contains a member
+of the type of `struct ni_power_info`, and this latter struct contains a
+member of the type of `NISLANDS_SMC_STATETABLE`, thus `NISLANDS_SMC_SWSTATE`
+and `NISLANDS_SMC_HW_PERFORMANCE_LEVEL` are needed, and so on.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c
-    327 bool dc_stream_program_cursor_attributes(
-    328         struct dc_stream_state *stream,
-    329         const struct dc_cursor_attributes *attributes)
-    330 {
-    331         struct dc  *dc;
-    332         bool reset_idle_optimizations = false;
-    333 
-    334         dc = stream ? stream->ctx->dc : NULL;
-                     ^^^^^^
-The old code assumed stream could be NULL.
+So, it seems that all those structs should stay. What do you think?
 
-    335 
---> 336         if (dc_stream_set_cursor_attributes(stream, attributes)) {
-                                                    ^^^^^^
-The refactor added an unchecked dereference.
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c
-   313  bool dc_stream_set_cursor_attributes(
-   314          struct dc_stream_state *stream,
-   315          const struct dc_cursor_attributes *attributes)
-   316  {
-   317          bool result = false;
-   318  
-   319          if (dc_stream_check_cursor_attributes(stream, stream->ctx->dc->current_state, attributes)) {
-                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Here.  This function used to check for if stream as NULL and return false
-at the start.  Probably we should add that back.
-
-   320                  stream->cursor_attributes = *attributes;
-   321                  result = true;
-   322          }
-   323  
-   324          return result;
-   325  }
-
-regards,
-dan carpenter
-
+Thanks!
+-Gustavo
