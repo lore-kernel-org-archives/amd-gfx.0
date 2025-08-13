@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE04CA0EDC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 659D7CA0EE4
 	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 07:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A86C310E802;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C23CB10E815;
 	Thu, 14 Aug 2025 07:27:37 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0C6DA10E780;
- Wed, 13 Aug 2025 17:01:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id D31A310E78A;
+ Wed, 13 Aug 2025 17:01:52 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8977914BF;
- Wed, 13 Aug 2025 10:01:21 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 29D641C01;
+ Wed, 13 Aug 2025 10:01:44 -0700 (PDT)
 Received: from e121345-lin.cambridge.arm.com (e121345-lin.cambridge.arm.com
  [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 704653F738;
- Wed, 13 Aug 2025 10:01:25 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 074E03F738;
+ Wed, 13 Aug 2025 10:01:47 -0700 (PDT)
 From: Robin Murphy <robin.murphy@arm.com>
 To: peterz@infradead.org, mingo@redhat.com, will@kernel.org,
  mark.rutland@arm.com, acme@kernel.org, namhyung@kernel.org,
@@ -38,9 +38,9 @@ Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
  iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
  linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-riscv@lists.infradead.org
-Subject: [PATCH 01/19] perf/arm-cmn: Fix event validation
-Date: Wed, 13 Aug 2025 18:00:53 +0100
-Message-Id: <0716da3e77065f005ef6ea0d10ddf67fc53e76cb.1755096883.git.robin.murphy@arm.com>
+Subject: [PATCH 06/19] ARM: l2x0: Fix group validation
+Date: Wed, 13 Aug 2025 18:00:58 +0100
+Message-Id: <925c34a4b7f0defc3582a9fcccb6af1c21279a86.1755096883.git.robin.murphy@arm.com>
 X-Mailer: git-send-email 2.39.2.101.g768bb238c484.dirty
 In-Reply-To: <cover.1755096883.git.robin.murphy@arm.com>
 References: <cover.1755096883.git.robin.murphy@arm.com>
@@ -61,42 +61,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In the hypothetical case where a CMN event is opened with a software
-group leader that already has some other hardware sibling, currently
-arm_cmn_val_add_event() could try to interpret the other event's data
-as an arm_cmn_hw_event, which is not great since we dereference a
-pointer from there... Thankfully the way to be more robust is to be
-less clever - stop trying to special-case software events and simply
-skip any event that isn't for our PMU.
+The group validation here is almost right, but fails to count the new
+event itself. While we fix that, also adopt the standard pattern to
+avoid racy access the sibling list and drop checks that are redundant
+with core code.
 
 Signed-off-by: Robin Murphy <robin.murphy@arm.com>
 ---
- drivers/perf/arm-cmn.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ arch/arm/mm/cache-l2x0-pmu.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
-index 11fb2234b10f..f8c9be9fa6c0 100644
---- a/drivers/perf/arm-cmn.c
-+++ b/drivers/perf/arm-cmn.c
-@@ -1652,7 +1652,7 @@ static void arm_cmn_val_add_event(struct arm_cmn *cmn, struct arm_cmn_val *val,
- 	enum cmn_node_type type;
- 	int i;
+diff --git a/arch/arm/mm/cache-l2x0-pmu.c b/arch/arm/mm/cache-l2x0-pmu.c
+index 93ef0502b7ff..6fc1171031a8 100644
+--- a/arch/arm/mm/cache-l2x0-pmu.c
++++ b/arch/arm/mm/cache-l2x0-pmu.c
+@@ -274,18 +274,17 @@ static bool l2x0_pmu_group_is_valid(struct perf_event *event)
+ 	struct pmu *pmu = event->pmu;
+ 	struct perf_event *leader = event->group_leader;
+ 	struct perf_event *sibling;
+-	int num_hw = 0;
++	int num_hw = 1;
++
++	if (leader == event)
++		return true;
  
--	if (is_software_event(event))
-+	if (event->pmu != &cmn->pmu)
- 		return;
+ 	if (leader->pmu == pmu)
+ 		num_hw++;
+-	else if (!is_software_event(leader))
+-		return false;
  
- 	type = CMN_EVENT_TYPE(event);
-@@ -1693,9 +1693,6 @@ static int arm_cmn_validate_group(struct arm_cmn *cmn, struct perf_event *event)
- 	if (leader == event)
- 		return 0;
+ 	for_each_sibling_event(sibling, leader) {
+ 		if (sibling->pmu == pmu)
+ 			num_hw++;
+-		else if (!is_software_event(sibling))
+-			return false;
+ 	}
  
--	if (event->pmu != leader->pmu && !is_software_event(leader))
--		return -EINVAL;
--
- 	val = kzalloc(sizeof(*val), GFP_KERNEL);
- 	if (!val)
- 		return -ENOMEM;
+ 	return num_hw <= PMU_NR_COUNTERS;
 -- 
 2.39.2.101.g768bb238c484.dirty
 
