@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CCC7C87FCF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 23:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72241C87FCF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 23:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CDB010E067;
-	Wed, 13 Aug 2025 23:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1584E10E7DF;
+	Wed, 13 Aug 2025 23:26:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PphzgLaE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AA5ZefWo";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97F0510E067
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 23:26:42 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2125710E7DF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 23:26:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zuzlnjkbj7kWYtnXYC/yYPlVLeOEmQ1xmuj3xJ5eSJxgVoyyYNp0qL2ncfLhpu+mbv1eOfdoohEf6H6h1pg0EstIb2tCGdmel9hwuLtQal+F34EKPdy6slnfjkt2UAVGRTC+yK0QLEgcr18O82DU4bn/qDdnvkQQk+UbKW+mGRTYZqWpt3VGJZVNq37B600neNnTe2LUOYNqWeGcvbt98bGJc2fcw/efyGq+jpVaH7j3fEEOLHpiGuMar5mgTJRpUdw0RvzLZHI+oWaehTbIJd1Dz5iv7A6WMnL+givKRu+pdRsaDOOroDB0N04p+rSorOdnxZVssC99BGjP36uokA==
+ b=NEYBD3q2/9J1IcoEJylbrOTLmlJToryB9GA4P5RzxvIySxXP3+iUOAEr9uU8u40eZgbDF3iqa9EU914zacrPvx4o0ZqHusQYlCSFg7JCCe7r59ff8RKcNHbUOHPgRUqhY9y/MBlTyQ9ewHcbh/v+IAWyrLnOSzpeD33MHVqM28YbsY3BNwjOLqitrZPW+BadSpwwyNeet+mBIYAQuEsOc1X/gXXOt3dUtHNVNxkVaG6YepCHuPvNU4BxjfWgnXY9f1TSd8wjXG3KLpHsFcfeJxrHd+OlcwHFuuE4m7LrRDkCsDAidwWZWEVjOnkiNoLqF8nupozO7mN5pnKP1t9cgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PfFO0cuT8Ui3K7SYWs9YSUfKRRg04miQHsDa7pn2Wvs=;
- b=S3jSng+DTCl7C89FEcONJaytZ4AwW+luwl8TFZk5zoXs/3GIkrF6QRmqH+kWiW7rSILvZ8a07vI9ZtnN2D3celVpfmernXDsi2R5gi0DKwYcgB73sQeoEt2gDE2t75tKhCF1j2ak0zXwKXv1kPFin+LJ7WSuD+2VTwsOp7qV8ofPB3PoYD6xt3qEKYZzaqIVJDb+giQuGLJ1KITNk6MgbC1+ufhZxMhtpdVsQLB1qAVjVEE+SUouAhS1hgnOFcCRrFj6qw9i7rKWzdLT3c87+Qs/XymgN5cYe+YQ1VhiFtsa8V2DqTsmrtzFc5HoxL46nI8xt9qkjUaUTm6R6+NlVg==
+ bh=WGkIJy2KP4ncGJt6xnyFYgYcAA7mUM+lj1eHWUsVhTU=;
+ b=kn+9zurS/lQmNo6yA4/sS8XO1FJttX4ZMjnn2Dzpq849mthOvpgyPA+eEzcYQ7jEgQ9nQuaLDG5RWQnI6ZsH1Vgf3z9faOqjspUCPBpFhgreevMf03BAa7EMIPEMxFzz/EYf2XBp8r+/bcnvkJzJLAcyHrD2KSFbYf5ZZjw92bFdo9L5kOFow3ja+j+meF2D39n/4/SGi/wqNb5Y5Woucg862g7KdEGr4QgeLmyVf4cqOXNCcxll3DRntCUWl7WI8bMkOUZbsWgRgd3nQFn0cUXJCdzLbbwGWnH3IcPnl1evXZT7K3nTMaw0O63wmBx3ryFF8GTW9i95YFlolUBvBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PfFO0cuT8Ui3K7SYWs9YSUfKRRg04miQHsDa7pn2Wvs=;
- b=PphzgLaE9arO7MwDr6Ds2ik3h0XSWr4DPFBt5DsOGhW1fNN9Jla4XJHi9kzvX9ZTzZ0vkS3fob7R0qd8JBKkh9YRzu6GIfiFRVKPpdJhUYLLVJnDUMXdtglDiwScaG3DivF7ULCXCGVpDOiFULmUxUT19jqJszx9vOw+KzyotQo=
-Received: from DM6PR04CA0016.namprd04.prod.outlook.com (2603:10b6:5:334::21)
- by DS7PR12MB6214.namprd12.prod.outlook.com (2603:10b6:8:96::13) with
+ bh=WGkIJy2KP4ncGJt6xnyFYgYcAA7mUM+lj1eHWUsVhTU=;
+ b=AA5ZefWoRS4/9Ou2Km2WHbrEwZq+4IytCq6VV5zcPp6KgVUTm3Oh+6CWOsOInEq24vTKHd72GlJA7NakWstqcoP/n/h5fP+VZi5xapv8233rPiTX13RvLVwcdGOnCh2IkhCbBK+Xytz/s2yKJwDMOHwTkfJLkARviEr6zWdRvDE=
+Received: from DM6PR02CA0111.namprd02.prod.outlook.com (2603:10b6:5:1b4::13)
+ by CH3PR12MB9172.namprd12.prod.outlook.com (2603:10b6:610:198::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.15; Wed, 13 Aug
- 2025 23:26:36 +0000
-Received: from DS1PEPF00017092.namprd03.prod.outlook.com
- (2603:10b6:5:334:cafe::37) by DM6PR04CA0016.outlook.office365.com
- (2603:10b6:5:334::21) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 23:26:49 +0000
+Received: from DS1PEPF0001708E.namprd03.prod.outlook.com
+ (2603:10b6:5:1b4:cafe::1) by DM6PR02CA0111.outlook.office365.com
+ (2603:10b6:5:1b4::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.16 via Frontend Transport; Wed,
- 13 Aug 2025 23:26:36 +0000
+ 13 Aug 2025 23:26:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017092.mail.protection.outlook.com (10.167.17.135) with Microsoft
+ DS1PEPF0001708E.mail.protection.outlook.com (10.167.17.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 23:26:36 +0000
+ 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 23:26:49 +0000
 Received: from SATLEXMB03.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 Aug
- 2025 18:26:34 -0500
+ 2025 18:26:46 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,11 +62,15 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>
-Subject: [PATCH 00/11] DC Patches Aug 13, 2025
-Date: Wed, 13 Aug 2025 17:18:08 -0600
-Message-ID: <20250813232532.2661638-1-alex.hung@amd.com>
+ <alex.hung@amd.com>, Rafal Ostrowski <rostrows@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>
+Subject: [PATCH 01/11] drm/amd/display: Add LSDMA Linear Sub Window Copy
+ support
+Date: Wed, 13 Aug 2025 17:18:09 -0600
+Message-ID: <20250813232532.2661638-2-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250813232532.2661638-1-alex.hung@amd.com>
+References: <20250813232532.2661638-1-alex.hung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -75,52 +79,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017092:EE_|DS7PR12MB6214:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed513911-48b1-4ce0-4817-08dddac0d8cf
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708E:EE_|CH3PR12MB9172:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf4afa97-e3c2-41ca-ca51-08dddac0e085
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?2ETzpql3fTkhUwmYGI2cAF0xjEmJZcWkpzUw/j2ICzY646A7zHdVCkjOxRGk?=
- =?us-ascii?Q?3hgTPFVx2mJI4QR7fj3vXDEw51R5DYCETIJit8OvdInxaVWDpfq+Lp6S/YmZ?=
- =?us-ascii?Q?D6tv9zAwnRanFNoSdTGwLMGrHO/5/Ks64+66+h+Exmo/knaznIiIeLzQsAq8?=
- =?us-ascii?Q?g5LM8jeIcMFoA8g4DXAmg2KrkgkmSEF8vDo9AqBe99RJ3FfbYJjprgde2XGf?=
- =?us-ascii?Q?H7Xh39c+gTlAuuiqmLJYGZn/BZFoWajQE5GiIx6PUcfjlYpF7y0XDZrEMby8?=
- =?us-ascii?Q?a2Ib+QRUSSrtgqrZFVwlf6vnpCnDqeRjapH454/A1pOQprAOQdDCN6CC3obH?=
- =?us-ascii?Q?8RKjti6stVECmUZeiJ4398gQFL6ZTvX+T8WPi7r3vTlO8GNlMXQP2z2GTLKn?=
- =?us-ascii?Q?t9YXhlgBRLemqlkCPrIh/eN1ligwLRLd03VaO1mAevOHUo84SovkypnLEoJI?=
- =?us-ascii?Q?6gqAXdre8ugQNb0jl4CxTqBiR9/t4Tmy7ouzgwSrmUqXRd0xLNZ1UFyqzNNG?=
- =?us-ascii?Q?hjqKlhnh1bg0hYLYnuKSAwV0HjIniPFnfm97m8wpvBXYzpnxUxR/AU7reQhO?=
- =?us-ascii?Q?0n4Fn36Gb7zLkH1jiMWEwXX1u3t6Qo2SIUc/bt/BnEbg3bSd8OZU4uoJwxoC?=
- =?us-ascii?Q?KUKObCvki0FEOg2eHozi0dRfJmzxqZw8CDkgKud/9aft61l+o64KBOMQ9oDq?=
- =?us-ascii?Q?0PWctHEKPs6Yf1Ug4ZEiuz4YTyGDgombbYESK51RZL+Js7tdEOJCrsVdmFEA?=
- =?us-ascii?Q?jik1qZSBJTk/cp0WptY+bF0A7dJ5GvgzIbGEW/v40cpIyhGQw/0dSo1jytqY?=
- =?us-ascii?Q?dbg1ybC+tWtXSxWzPIGjQoKivJ8SpqLIY8W6cE57sJMRt/yuPC1NmvuTkbqc?=
- =?us-ascii?Q?Y46/Uu4x5I8j9MzjFXsE5HUW7D3/9Ffmr2qqPvsZtwM33WI1RNnGxkmHXv3D?=
- =?us-ascii?Q?kgzKl9/+2hWIaLYB/wM3kU/vD45HjoB3HNtaDRgHWgzfpOuJnSUikWxSmTUI?=
- =?us-ascii?Q?0a+wQ5jY3fyVOTS3ZxAfFEAXLOrrPO4OgiPutBIXBHFabmvGpJKhNphzZsFk?=
- =?us-ascii?Q?v6MCFoWQjpRBITz5PFyfITJplYBhF46ntnb3KFfhX1RTk6wPO1JO3NoZZohc?=
- =?us-ascii?Q?eZQInZcBEKgdE5d4ONQBPllp0eVTm+FVwegrY2AajBwEz1gygPcIi1qxkR+i?=
- =?us-ascii?Q?Pdv3snEZUgsIFvgp8predAzGRzJ7NQpx58o/DGjGwzXOLdKXxEEq4MZECq//?=
- =?us-ascii?Q?Wmu1GzVKYoVWYvU7B/6nwE8LhnmGrTerJ6enbKX6rit+jRRjtCVX2kgFQEIy?=
- =?us-ascii?Q?UnX3gfKP+Mnp52KuGYtU7r4kBHZCzkRFWn4//6dRJOs0h5/aQqgTQKICjg4U?=
- =?us-ascii?Q?uUW04dP4M3kkw9WdsV1eShF9mkAeIPET+DMukKCcwETmCE6ZC5j2VuD+F+Nj?=
- =?us-ascii?Q?RySZA5zQRhcHUU9liwQHjDx5XsM/c8GYlBwNZWRtS694qIRlSP868Uw3ZDJz?=
- =?us-ascii?Q?xAEB15uzVI1pP4IFlJdtQ6RqzqDXo7UJWuIR?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?1IYEOz0fN7RnQGTsszWbixuDjMw1qqvCg4JUFJcwu2WpqBnDZkdtVR6YvXWc?=
+ =?us-ascii?Q?Ro5WumWrTWVbEk8o0FdsTjR0mQUaS+1bnqL/o/vGhGp11gZ7Oc03c02l6YWF?=
+ =?us-ascii?Q?h07FQvch1xQWwuX6u9k7LJnH8+iD2gqFn/AbU4k+pA8CfevTZAdCvCYiT0w0?=
+ =?us-ascii?Q?+ycuBh8nefo9TvMnZnAHLgoxZ0K2VSqWzmdCCnOgRX+nPL8UOPA4IdmTAPPq?=
+ =?us-ascii?Q?lJXVlrzJ38yxsut4lrhJ23YOZUX1oE/cBWfRhSQLnBRPwqSH2tK9P+SffIzS?=
+ =?us-ascii?Q?Ozk3yRlDMDOlffqtlje3ZihUl854f+5l2j+7AWB3/XRIIXZzq4wxEc+pMITa?=
+ =?us-ascii?Q?aFBxTILH7RNOF0m78fmI5crHmwln5iWnr4vDkKgkUoyiKk0l84TivQDUzlkO?=
+ =?us-ascii?Q?ColQ2AOCwFfLdSIzaZLtzD2Tno3ljDPz5PUmApqj5rgdqRn8dQu8lqQQP6Fp?=
+ =?us-ascii?Q?/NYG5td2VWlOno1SEnAbcLjBPPIyp+OIUcf2STwU9I5ehYxkyhEDEBTdSe1w?=
+ =?us-ascii?Q?OcDLqXvZPXKiK50udWonkTnwj7Iv2xUKTJDj/mRDeKlyQE27PR6UFHvH2SMg?=
+ =?us-ascii?Q?ieM/X/Xoi9qq9+IHzgj+M4sMUP/LNPKAOZ9nXLGiGUW4rdiF1mtIZ/emFP+e?=
+ =?us-ascii?Q?zv3Gx8WB/G9lhQPT2DH/nmkfVdnwlfxytQefT8f/ZSjSsk1fKgSresLCokCX?=
+ =?us-ascii?Q?J27FaaLTu4Z9w6YovgWEpZsZoZqOlW2ZevS/o2xA4t0Xt27WMkezpGHxOVpo?=
+ =?us-ascii?Q?Gv/nezWTgTCDazBen/xGnSO9KhGNjwSaLLV4T2ke76BK8WaShoWIVQPw7LIL?=
+ =?us-ascii?Q?DKBi0iVRRQCOZFqtabdWYSZJrfr80w9EcOQSEyeE+Mj0Z+tIliqq0K/DdqZP?=
+ =?us-ascii?Q?z3XnCJECcr50K4q+FmC4SFwopaklnQjo0eNHXLiZAkQq8YsDQWe9dcZzDbLK?=
+ =?us-ascii?Q?29mdG8JhhGkFMeq5OQj6VK98A56gq92lSPSpDDjHvw08/trnsp1mpqBRIxqj?=
+ =?us-ascii?Q?QjINntIuHQ7oq2KgvKKsyEi2IXzFRc1r4BGYgtNaoOiHjCuFbIKeBv486QzK?=
+ =?us-ascii?Q?OHiKrxD0zaNBhKnYZl0Xczm/xjhLBEs/gmvqm0LGbTmeqNHVRXYhJDIUOUhI?=
+ =?us-ascii?Q?MiqnqY1bVmTLtrxniaIram/xms2yTKB9WYPHQw+YS2bnBE611axHCbyR2YQn?=
+ =?us-ascii?Q?YZKqK6S1T5xd9yXWyOPqJyApUK4f46rZsZHz/OTg95066oEaBJ7YZWOyENn+?=
+ =?us-ascii?Q?GSdlLDdCjyw5kTaoAKMn+ukQ7Zop/be550NBcXQBDJxCWPlqNcQaC3OQ+Y+G?=
+ =?us-ascii?Q?MCTCVKIVZD9ZLh/D6RsTn4GGGLE7VCKBa9h+2A2o4UssyfJEOIS58gFA8Sac?=
+ =?us-ascii?Q?qDC25FdfYi5ydFqC6Y5wNklBaFeZZK8Vdv1WJMs+PhbQGZMayUQe0Lb7JhpN?=
+ =?us-ascii?Q?1//u9zHZUce0WHDRUp4GtzElTHyk72KZP+8POmkYkiF2jXWPpnDZgLH78yIq?=
+ =?us-ascii?Q?vpGKBIViR2MDxZuzFvmeLucD1TSigKZyAxPJ?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 23:26:36.1707 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed513911-48b1-4ce0-4817-08dddac0d8cf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 23:26:49.1110 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf4afa97-e3c2-41ca-ca51-08dddac0e085
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017092.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708E.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6214
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9172
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,59 +139,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we
-have:
+From: Rafal Ostrowski <rostrows@amd.com>
 
-* Fix Xorg desktop unresponsive on Replay panel
-* Refector by optimizing functions and deleting unused code
-* Attach privacy screen to DRM connector
-* Other misc improvement
+[WHAT]
+Add support for LSDMA Linear Sub Window Copy command.
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Rafal Ostrowski <rostrows@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 58 ++++++++++++++++++--
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h | 36 +++++++++++-
+ 2 files changed, 88 insertions(+), 6 deletions(-)
 
-Austin Zheng (1):
-  drm/amd/display: Setup Second Stutter Watermark Implementation
-
-Clay King (1):
-  drm/amd/display: Delete unused functions
-
-Lohita Mudimela (1):
-  drm/amd/display: Refactor DPP enum for backwards compatibility
-
-Mario Limonciello (3):
-  drm/amd/display: Optimize amdgpu_dm_atomic_commit_tail()
-  drm/amd/display: Attach privacy screen to DRM connector
-  drm/amd/display: Avoid a NULL pointer dereference
-
-Rafal Ostrowski (2):
-  drm/amd/display: Add LSDMA Linear Sub Window Copy support
-  drm/amd/display: Align LSDMA commands fields
-
-Taimur Hassan (2):
-  drm/amd/display: [FW Promotion] Release 0.1.23.0
-  drm/amd/display: Promote DC to 3.2.346
-
-Tom Chung (1):
-  drm/amd/display: Fix Xorg desktop unresponsive on Replay panel
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 142 ++++++++++--------
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  19 +++
- drivers/gpu/drm/amd/display/dc/dc.h           |  11 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  70 +++++++--
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |  36 ++++-
- .../dc/dml2/dml21/dml21_translation_helper.c  |   2 +
- .../dml2/dml21/inc/dml_top_dchub_registers.h  |   2 +
- .../dml21/inc/dml_top_soc_parameter_types.h   |   2 +
- .../display/dc/dml2/dml21/inc/dml_top_types.h |   2 +
- .../src/dml2_core/dml2_core_shared_types.h    |  12 ++
- .../amd/display/dc/dpp/dcn401/dcn401_dpp.h    |  10 ++
- .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   |  36 ++---
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   |  15 --
- .../amd/display/dc/mpc/dcn401/dcn401_mpc.c    |   8 -
- .../amd/display/dc/mpc/dcn401/dcn401_mpc.h    |   5 -
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  21 ++-
- 16 files changed, 265 insertions(+), 128 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 714c468c010d..55b362196612 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -2010,11 +2010,12 @@ bool dmub_lsdma_init(struct dc_dmub_srv *dc_dmub_srv)
+ 	return result;
+ }
+ 
+-bool dmub_lsdma_send_linear_copy_packet(
++bool dmub_lsdma_send_linear_copy_command(
+ 	struct dc_dmub_srv *dc_dmub_srv,
+ 	uint64_t src_addr,
+ 	uint64_t dst_addr,
+-	uint32_t count)
++	uint32_t count
++)
+ {
+ 	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
+ 	union dmub_rb_cmd cmd;
+@@ -2042,9 +2043,54 @@ bool dmub_lsdma_send_linear_copy_packet(
+ 	return result;
+ }
+ 
++bool dmub_lsdma_send_linear_sub_window_copy_command(
++	struct dc_dmub_srv *dc_dmub_srv,
++	struct lsdma_linear_sub_window_copy_params copy_data
++)
++{
++	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
++	union dmub_rb_cmd cmd;
++	enum dm_dmub_wait_type wait_type;
++	struct dmub_cmd_lsdma_data *lsdma_data = &cmd.lsdma.lsdma_data;
++	bool result;
++
++	memset(&cmd, 0, sizeof(cmd));
++
++	cmd.cmd_common.header.type     = DMUB_CMD__LSDMA;
++	cmd.cmd_common.header.sub_type = DMUB_CMD__LSDMA_LINEAR_SUB_WINDOW_COPY;
++	wait_type                      = DM_DMUB_WAIT_TYPE_NO_WAIT;
++
++	lsdma_data->u.linear_sub_window_copy_data.tmz              = copy_data.tmz;
++	lsdma_data->u.linear_sub_window_copy_data.element_size     = copy_data.element_size;
++	lsdma_data->u.linear_sub_window_copy_data.src_lo           = copy_data.src_lo;
++	lsdma_data->u.linear_sub_window_copy_data.src_hi           = copy_data.src_hi;
++	lsdma_data->u.linear_sub_window_copy_data.src_x            = copy_data.src_x;
++	lsdma_data->u.linear_sub_window_copy_data.src_y            = copy_data.src_y;
++	lsdma_data->u.linear_sub_window_copy_data.src_pitch        = copy_data.src_pitch - 1;
++	lsdma_data->u.linear_sub_window_copy_data.src_slice_pitch  = copy_data.src_slice_pitch - 1;
++	lsdma_data->u.linear_sub_window_copy_data.dst_lo           = copy_data.dst_lo;
++	lsdma_data->u.linear_sub_window_copy_data.dst_hi           = copy_data.dst_hi;
++	lsdma_data->u.linear_sub_window_copy_data.dst_x            = copy_data.dst_x;
++	lsdma_data->u.linear_sub_window_copy_data.dst_y            = copy_data.dst_y;
++	lsdma_data->u.linear_sub_window_copy_data.dst_pitch        = copy_data.dst_pitch - 1;
++	lsdma_data->u.linear_sub_window_copy_data.dst_slice_pitch  = copy_data.dst_slice_pitch - 1;
++	lsdma_data->u.linear_sub_window_copy_data.rect_x           = copy_data.rect_x - 1;
++	lsdma_data->u.linear_sub_window_copy_data.rect_y           = copy_data.rect_y - 1;
++	lsdma_data->u.linear_sub_window_copy_data.src_cache_policy = copy_data.src_cache_policy;
++	lsdma_data->u.linear_sub_window_copy_data.dst_cache_policy = copy_data.dst_cache_policy;
++
++	result = dc_wake_and_execute_dmub_cmd(dc_ctx, &cmd, wait_type);
++
++	if (!result)
++		DC_ERROR("LSDMA Linear Sub Window Copy failed in DMUB");
++
++	return result;
++}
++
+ bool dmub_lsdma_send_tiled_to_tiled_copy_command(
+ 	struct dc_dmub_srv *dc_dmub_srv,
+-	struct lsdma_send_tiled_to_tiled_copy_command_params params)
++	struct lsdma_send_tiled_to_tiled_copy_command_params params
++)
+ {
+ 	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
+ 	union dmub_rb_cmd cmd;
+@@ -2097,7 +2143,8 @@ bool dmub_lsdma_send_pio_copy_command(
+ 	uint64_t src_addr,
+ 	uint64_t dst_addr,
+ 	uint32_t byte_count,
+-	uint32_t overlap_disable)
++	uint32_t overlap_disable
++)
+ {
+ 	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
+ 	union dmub_rb_cmd cmd;
+@@ -2130,7 +2177,8 @@ bool dmub_lsdma_send_pio_constfill_command(
+ 	struct dc_dmub_srv *dc_dmub_srv,
+ 	uint64_t dst_addr,
+ 	uint32_t byte_count,
+-	uint32_t data)
++	uint32_t data
++)
+ {
+ 	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
+ 	union dmub_rb_cmd cmd;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+index 8ea320f21269..7ef93444ef3c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+@@ -211,11 +211,45 @@ void dc_dmub_srv_fams2_passthrough_flip(
+ 		int surface_count);
+ 
+ bool dmub_lsdma_init(struct dc_dmub_srv *dc_dmub_srv);
+-bool dmub_lsdma_send_linear_copy_packet(
++bool dmub_lsdma_send_linear_copy_command(
+ 	struct dc_dmub_srv *dc_dmub_srv,
+ 	uint64_t src_addr,
+ 	uint64_t dst_addr,
+ 	uint32_t count);
++
++struct lsdma_linear_sub_window_copy_params {
++	uint32_t src_lo;
++	uint32_t src_hi;
++
++	uint32_t dst_lo;
++	uint32_t dst_hi;
++
++	uint32_t src_x        : 16;
++	uint32_t src_y        : 16;
++
++	uint32_t dst_x        : 16;
++	uint32_t dst_y        : 16;
++
++	uint32_t rect_x       : 16;
++	uint32_t rect_y       : 16;
++
++	uint32_t src_pitch    : 16;
++	uint32_t dst_pitch    : 16;
++
++	uint32_t src_slice_pitch;
++	uint32_t dst_slice_pitch;
++
++	uint32_t tmz              : 1;
++	uint32_t element_size     : 3;
++	uint32_t src_cache_policy : 3;
++	uint32_t dst_cache_policy : 3;
++	uint32_t padding          : 22;
++};
++
++bool dmub_lsdma_send_linear_sub_window_copy_command(
++	struct dc_dmub_srv *dc_dmub_srv,
++	struct lsdma_linear_sub_window_copy_params copy_data
++);
+ bool dmub_lsdma_send_pio_copy_command(
+ 	struct dc_dmub_srv *dc_dmub_srv,
+ 	uint64_t src_addr,
 -- 
 2.43.0
 
