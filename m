@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0579AC87FCF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 22:09:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DB08CA0EE0
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 22:11:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BBB110E661;
-	Wed, 13 Aug 2025 22:09:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C73E910E7D2;
+	Wed, 13 Aug 2025 22:11:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eRZUVhzp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kKJaqaCh";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D154510E661
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 22:09:03 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-24458293cebso334825ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 15:09:03 -0700 (PDT)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E700D10E7D2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 22:11:51 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-24458051ac6so472245ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 15:11:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755122943; x=1755727743; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1755123111; x=1755727911; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Xz44ROKv4f57igEsvjmS1YXKkj2At1izcpFygIHe/AE=;
- b=eRZUVhzpEiCE91npSVGb7BEjfzmk/Ep7pPTRjt5zNIwcgn4POulDVRo8/z4gBoYM1C
- PPFeld0cSnBgPaWim674fZ0IFqZsMoxEcePC0MnuWFB1t73cRRiTkVFE2vzukS1t+WrA
- YP1wf+Do6xk40JKPGQXyOZTT/cxEIrFKnB6zXC02Tj530ldVLgwjktFXZmml6HK5FzKQ
- edbSP+yZ4Amg6xa2PvdOsYwk5c68WPzFIKP+6bThIIKJfI/e328BLBw+mFfc4w7KyGIG
- WKClrZwUDOFXDpPN7G1yaIsktm8MaFsXtE3Gn5SjnHH/pOxcAsDBK2Gb4tfDDNoA/tcm
- z4Bg==
+ bh=qEEpkk5m1jWppj3mPpdTCYttkjuriaYFmLf9KjDAJk4=;
+ b=kKJaqaChxJ+lmKoDT+WFqXR9OCdr3gN96NVmRJo97ilBZpnGKwdPcfa3MhQlXU8HsP
+ yuBHvvf4ng/tt38J4bqEuCpCkm/sbkfae8Mu4+8yda7EG2g1UTqxn/gCXAxJawKD4mWP
+ WZKalApLUBcucexJmFJXO01eTTyG31Kw1wKuIpHShNTbpQxpqYK3X/DJXOByscoSOOUG
+ 8GfuhxtAIj1pztnuM4mUsdrB6sZ3+QVA9kDakPd/PJPCN0TFy0YERyMIJrAazX2CAvCi
+ ceftNl4gb+TpN4eeUtMY8GyN4sR6azOEiEvBqKPlUreRzKrGzQyLBM+bejr2jUzxHRZy
+ E2Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755122943; x=1755727743;
+ d=1e100.net; s=20230601; t=1755123111; x=1755727911;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Xz44ROKv4f57igEsvjmS1YXKkj2At1izcpFygIHe/AE=;
- b=siFk+ZmXE6o9hE6N4+L8ImINgMKq37MXjfMSHFv428sSVIEbIXuD8fkRlKgWKmbGt5
- 2g7BEy59otciMiBeISDhO2X6mX2/Ji1vrT7poVmR9/hHKwhPbuY3P1peFVY+wI26RQNf
- +A0cYKUjrNwluPngRXIFY10dfkaNYL8lw5bsW1e7FjyFv5DtWtq4diA72P9Xac0YFLkR
- D1crEGbRBBRxj/hrlse6vSyh99k1sAEum1ojJSrT0k7ej0FWUy4R9oWCq1sl+cAH3VOS
- LDpLUNxucfOJvwHEOwEiAcJDIqBFe2YzH4smDz36xIYw5wzIVKgN4OgeteBj6iVJOENr
- Wjqw==
+ bh=qEEpkk5m1jWppj3mPpdTCYttkjuriaYFmLf9KjDAJk4=;
+ b=iH0/P6Ia0qWO60GeA1OdbGTnYvkKZSjHR48KKR7WM2pnOJF9v8MnZnxMugoWVALa3A
+ pp85VqfPGzt2YF556aidl2lMBbBVHwwV6qSDGIEH6pIGnalGP2RvLDpAaB0KXjZwkgI5
+ Ru7BUKZJuAqoD7I0H4efB7J60xRXdRfWxXWHClbpRiht1S6JXEql+W51v2ifhCGprbj5
+ s9vRY63dsPSBQ2N//wN09dJKr4KfnJtc+3UXukR7SnzoSOqMyaphG/5rtTzA6xFORj8B
+ afjG7FU0ar32yT3sEQrI59HI385ry+kvlnIoq/91MrkNA3XuUkkDshgUolwWtKmfxHII
+ YM6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWdRYLiQBBLa8Vp6duSq8sbuTNOkAauhTLDAsCbbLnCctpquH+tFcCTKP4DkUJKCfp2tSF5sAek@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2nxt4uHzQy1uOvS25J03RQ5cQ/yb2O1Pwi6K6yfm+G1Iwsp6B
- 7tf7Vij75kt/n5bG/eVt4cyM082S5FP9rRweHcUdh0M90dvFCxE0gFF4vjQ1QslO+NqBOoYxgfs
- M4ylSL3VMneswPIJisqvTEW4Ylf3kaAo=
-X-Gm-Gg: ASbGnctQY9IiUUTmJvMRopmQKdnx/n4ASpZjuVRFDFLhl10ZnWbowY/5xyglhcWh4Wg
- +Un9Z7CNH5s6KkdnGzMx4qdpWraNph8gvHeLKTfzo3+ze9+kozm3+Ch8idqnCO9Z5rHVFMIyQ5q
- UYfMeI1OG4JCiHzHLr+3xOJFEcHnfZSKin/kIuOU752NVVvkiWE55qGOlbJpQU1WN5HbXXhdyHy
- +Zc+Ps=
-X-Google-Smtp-Source: AGHT+IF+DyPQRz5amHi/WG1ueb2jY7BVMWxT3cmyzPItJAzU180tyQH7p2q+ouIbRUXk0K7741z/aQWvDzEvfxfXqGw=
-X-Received: by 2002:a17:902:c409:b0:242:d237:e20b with SMTP id
- d9443c01a7336-24458524002mr4497945ad.4.1755122942734; Wed, 13 Aug 2025
- 15:09:02 -0700 (PDT)
+ AJvYcCXBTqn0FrN7jr3WnEMIdsB+hE123voOsvjjbwzq6PL0a0yPVggoC3TkRKNSBX1izt0FjJpDIjDm@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywgmx7TtUpZiFIvXabDxGwpEHvM5ATuYckXPnMrzcsGGYNgNdoX
+ UVArwOTn+5aRmooil3Rffunsk35/A4sJ+oq9uIEZ192FSLHNCTJ/7M79jCWU0TTw+jJmcH6/Ige
+ 4mY9Nz6hwUGiM9fzfjvaCPi55h5Ws8jE=
+X-Gm-Gg: ASbGncuHd2j30DqHKH/tnRrovo+7pUYB7eMq3eCBDv7ELiQOlfuI0bvWgRv61uhOHU8
+ +XfRSQ+/DzFp7v6cuYNK698QfUOvvGjc23lFTwVflfgAD8ys+2BPqECeNRa1AXkqNa4hzvEArbI
+ dGU8F3Nbo9BOkKd3JhayMUtNRVhyy+xszJM2KRShQDDrWHMeWumfXAvowCy4Tt/Qa20aiZe/Ryf
+ 4UW1bhSqaFtxPUIxw==
+X-Google-Smtp-Source: AGHT+IFz4y0167iuEaC9tZCJ/MPYr0zB1mtmXoPPAWlHY8jUbdaZag2E6SNR8WnYcM8EHZAxMagnEvIDfYKW1XRTzeg=
+X-Received: by 2002:a17:902:ecce:b0:240:5bde:5353 with SMTP id
+ d9443c01a7336-244586eb993mr4539955ad.7.1755123111138; Wed, 13 Aug 2025
+ 15:11:51 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250813134504.2037516-1-alexander.deucher@amd.com>
  <ae769200-c37e-426b-b73a-ac9473cf66eb@amd.com>
@@ -65,16 +65,16 @@ References: <20250813134504.2037516-1-alexander.deucher@amd.com>
  <CADnq5_MJouzU1QFsuuMtiXeFAHi96zXfBzuAWFAvfauHssw_eg@mail.gmail.com>
  <1633c024-a1dc-cdc3-6a28-c48b49640297@amd.com>
  <CADnq5_P7OWj6GLi+qzZ_EVZAK5dPiOrjmvV9CRqRG+iFtcq78Q@mail.gmail.com>
- <376e6482-7319-426a-3d67-994b9581c678@amd.com>
-In-Reply-To: <376e6482-7319-426a-3d67-994b9581c678@amd.com>
+ <85af1027-5a09-40ce-987e-9f4ad8fe2b5c@amd.com>
+In-Reply-To: <85af1027-5a09-40ce-987e-9f4ad8fe2b5c@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 13 Aug 2025 18:08:51 -0400
-X-Gm-Features: Ac12FXw35gBYbBOOMG_fEyn7OXwBZQfrSt-b1DSloXtkIQK5qJszvK9QzvYRw5g
-Message-ID: <CADnq5_NajJn+6hHVmQsxBQ=-j_Xhc50csXGVPDmRoDvAb3AZgg@mail.gmail.com>
+Date: Wed, 13 Aug 2025 18:11:39 -0400
+X-Gm-Features: Ac12FXyFMejcqEhmQ14GA54Jd7JtKOaEHkctF3R1qA392fZPZCtS2csePc3dQp0
+Message-ID: <CADnq5_O2gnR8GtAaL-937R97Kwtb50QNh+Y3V_TzsLGLbT8CLQ@mail.gmail.com>
 Subject: Re: [PATCH] drm/amdgpu/vcn: fix video profile race condition (v3)
-To: "Sundararaju, Sathishkumar" <sathishkumar.sundararaju@amd.com>
-Cc: "Wu, David" <davidwu2@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org
+To: "Wu, David" <davidwu2@amd.com>
+Cc: "Sundararaju, Sathishkumar" <sathishkumar.sundararaju@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,11 +91,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 13, 2025 at 5:16=E2=80=AFPM Sundararaju, Sathishkumar
-<sathishkumar.sundararaju@amd.com> wrote:
+On Wed, Aug 13, 2025 at 5:47=E2=80=AFPM Wu, David <davidwu2@amd.com> wrote:
 >
->
-> On 8/14/2025 2:33 AM, Alex Deucher wrote:
+> On 8/13/2025 5:03 PM, Alex Deucher wrote:
 > > On Wed, Aug 13, 2025 at 4:58=E2=80=AFPM Sundararaju, Sathishkumar
 > > <sathishkumar.sundararaju@amd.com> wrote:
 > >>
@@ -134,46 +132,24 @@ en
 > >> inst1, it is actively decoding.
 > > How can there be active decoding without an outstanding fence?  In
 > > that case, total_fences (fences from both instances) would be non-0.
->
-> I mean on inst1 the job scheduled is already complete, so 0 outstanding
-> fences, newer job is yet to be scheduled
->
-> and commited to ring (inst1) , this doesn't mean decode has stopped on
-> inst1 right (I am saying if timing of inst0 idle work coincides with this=
-),
->
-> Or am I wrong in assuming this ? Can't this ever happen ? Please correct
-> my understanding here.
+> I think it should be non-0.
+> I do see a hiccup possible - i.e the power switching from ON to OFF then
+> ON in the
+> middle of decoding, i.e inst0 idle handler turns it off then inst1 turns
+> it on.
 
-The flow looks like:
-
-begin_use(inst)
-emit_fence(inst)
-end_use(inst)
-
-...later
-fence signals
-...later
-work handler
-
-In begin_use we increment the global and per instance submission.
-This protects the power gating and profile until end_use.  In end use
-we decrement the submissions because we don't need to protect anything
-any more as we have the fence that was submitted via the ring.  That
-fence won't signal until the job is complete.  For power gating, we
-only care about the submission count and fences for that instance, for
-the profile, we care about submission count and fences all instances.
-Once the fences have signalled, the outstanding fences will be 0 and
-there won't be any active work.
+How would that happen? As long as there submission cnt is non-0 and
+there are outstanding fences on any instance, the video profile will
+stay active.
 
 Alex
 
->
-> Regards,
->
-> Sathish
->
-> >
+> We should avoid this glitch. This requires the idle handler sets/clears
+> a flag for
+> done for this instance as Sathish's original patch. When all instances
+> set/clear the
+> flag then we can safely power off.
+> David
 > > Alex
 > >
 > >> Whereas if instances are powered off we are sure idle time is past and
@@ -403,3 +379,4 @@ t);
 > >>>>>>>>
 > >>>>>>>>          /* IP reg dump */
 > >>>>>>>>          uint32_t                *ip_dump;
+>
