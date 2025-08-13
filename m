@@ -4,51 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4936CC87FCF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 08:10:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33771C87FCF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 09:00:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECC4910E1BE;
-	Wed, 13 Aug 2025 08:10:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3F7B10E69F;
+	Wed, 13 Aug 2025 09:00:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rNa33d/i";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Oo5CkK/O";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1969210E4CD
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 08:10:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=uMVbMj8WIRVznqGYMEKO6soGebEzkrK/BqygdpL4/rA=; b=rNa33d/i1AgC8s/OUCN2oN2VfC
- pqcHI1gFqGb3U7POA+rgrGEMsCD6yrjlTDWpt5L0Xc3oEX9NwlLWhctDCJapDF13SktBqy6MJo88I
- HBlGT+/nFVinTmqDFIhaN46lrUHu9zd9UkR73uwPlZyKtE4MIfXADjmesZwPwf+O3d+0TW3n9wBIh
- w0W33mmbHxJJKcL0b6uI0ok7gHq97jsTjkjUU1juDKR061QTEEOFTt5haiFxQ8NDmx9FRgWop0/nG
- zG71rOsc3snWejb7gqqk0y/U2T7s90Lua+FkT5GWiS+FNSbY+J2is3plxVHJjPjed/3PaGnRn9SAA
- /NVF6BVQ==;
-Received: from [84.66.36.92] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1um6Yp-00DZrz-C3; Wed, 13 Aug 2025 10:10:15 +0200
-Message-ID: <f6a68439-ab8b-498b-89ef-95fc026c5053@igalia.com>
-Date: Wed, 13 Aug 2025 09:10:14 +0100
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8228410E69F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 09:00:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eiDNEn4EZcEFXQ8ynSKHOtWHtjZy/LgCxJYQTasUaIvwi3w5BVofBdQzZuyhYGCDtf9nlijY+QcIYD7jHXU9qHMDT4zDEqVUH8oUKPPeG6BswEsew3gEDcCTJitL1vPLj6NGMyzQnicpZdBlOdL8oTxUUtDbj1kqrCl9KcMvFvgVN8/tUB2MvwdsUcqmP6cAaY6cBXPKKBiEpPUataguUjGQN5/3ugPpxJLfH7VdDlMkJ2pzpDC0ezbsHa1WwcAeae2T9MAlIbZbnkMBHumtzSdLn6vvAlp1HhoIRU22hS5C7dxOTX3jTbQN84rcSYDQXbEVrMdthKV+TN2PjDU71A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9r821jOHZi9HMrIWLjikjj8C8ksokDx7VrXPGdXduW0=;
+ b=YDpDHDaTOPbzhA5cU23+xh3TlJJjUWUHKcQglfNEZBIwEbTYgAfKRAfM+BkzlzCNSZL3pFgAxGipedfUSXkl6n9iq4vU9CPsFO2Z7BJovGKW+AO9ooZ7tQAsJc/HTGTVuNoISVPY2QuPRnOxbRqHjHSzzc0cLKcrvMU+EOtRxsg0mpMoU5bhKUNgHBYb/4EV2l/IFAuYXGYJUfwnrBTD6f2BpKwpJpg1YXo33MNnuH9FtOJBHtbtKiqaU2poyMTlqS7WSLKOrJdqLwK1Jzt6P9tJSBkdONaE+jpvXUffKwOXgaJAhqD2B/9qK+Yxt8kZNRMdJSH02wtNhpSwmL/SJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9r821jOHZi9HMrIWLjikjj8C8ksokDx7VrXPGdXduW0=;
+ b=Oo5CkK/O1uMO6D434r8bWNFXi5ok+xLpx0WrD3lO9HLVx8/8Bym/63PCdKwkMrqc5Tlp4FfWRWZSX5gvJX4oEqptpgh/c+hCVKbZVL+vG5f3O4kDE54toNz+Puvr+Y0wn04kr2LMu82YeB486Yz2zPY+LFmg5YthyKG02OOtUhM=
+Received: from SJ0PR03CA0082.namprd03.prod.outlook.com (2603:10b6:a03:331::27)
+ by MN0PR12MB6125.namprd12.prod.outlook.com (2603:10b6:208:3c7::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Wed, 13 Aug
+ 2025 09:00:21 +0000
+Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
+ (2603:10b6:a03:331:cafe::e0) by SJ0PR03CA0082.outlook.office365.com
+ (2603:10b6:a03:331::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.15 via Frontend Transport; Wed,
+ 13 Aug 2025 09:00:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 09:00:20 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 13 Aug 2025 04:00:16 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>,
+ Alvin Lee <alvin.lee2@amd.com>, Ray Wu <ray.wu@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>, Roman Li <roman.li@amd.com>, ChiaHsuan Chung
+ <chiahsuan.chung@amd.com>, Harry Wentland <harry.wentland@amd.com>, "Daniel
+ Wheeler" <daniel.wheeler@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Jun Lei
+ <Jun.Lei@amd.com>
+Subject: [PATCH] drm/amd/display: Add NULL pointer checks in dc_stream cursor
+ attribute functions
+Date: Wed, 13 Aug 2025 14:29:55 +0530
+Message-ID: <20250813085955.3648783-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 3/4] drm/amdgpu: Add mapping info option for GEM_OP
- ioctl
-To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, David.YatSin@amd.com, Chris.Freehill@amd.com,
- Christian.Koenig@amd.com, dcostantino@meta.com, sruffell@meta.com,
- mripard@kernel.org, tzimmermann@suse.de, Alexander.Deucher@amd.com
-References: <20250812191231.3534982-1-David.Francis@amd.com>
- <20250812191231.3534982-4-David.Francis@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20250812191231.3534982-4-David.Francis@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|MN0PR12MB6125:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7149b86c-c452-4e30-05b8-08ddda47d504
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Z2SFDBKQfBi9B8FTrYYRDBqurHk8UMMvXKj0WeruxTR0poHS6xeXRCQrgkw0?=
+ =?us-ascii?Q?GeUH9zdtiIse/Sa/UqsjkT21qYXO2JIs8NQOUrsYSexpMM6B6jg0fnukH+Jx?=
+ =?us-ascii?Q?eyxq2d4wPU+t+uDsW8RS+GyAafd3D6EqgxbLMbqBXMcNic45QQeI9iwUcjRg?=
+ =?us-ascii?Q?tUh7uWPyGVb4FpNxuY41RHGMeJjjImu1GQLZlM3/KIgzBjEWZAtn8Wa+efO4?=
+ =?us-ascii?Q?m1PG5Ga2B8t/6TzZgFJxgNv5ZlTFM5FJEXwE/+uy6rv3mN5LZWJzu1JVQ3Nz?=
+ =?us-ascii?Q?mtTsp8frazlblFIyRDiSj4GvIfksD98vjiY1OBwOeYbGwR324Rd4preVy6EC?=
+ =?us-ascii?Q?lEVaVzT2oaC+uigPSNWPr0ddCz4vm6D+i4DAgVI+fypSxhR+w5kjsCbNRkyn?=
+ =?us-ascii?Q?etgm5AwRXqPXAKho3TL3pSOWv6pUYLWHmsqEEwlEXsYNF19JiQM+EenpjEaW?=
+ =?us-ascii?Q?yXkstkmwV3V5q10DWkmcHT/haA6godMt1TijnEQ5oKzeiysbUp8BeKbnk0NA?=
+ =?us-ascii?Q?6H6kBO1EgU80x6a8P/SI9UUE8gaUS5EfQvS4dvDet59/85LvvbqvTZrg6ghx?=
+ =?us-ascii?Q?7IqdhCuI5wOLnVHLNLrxfzke9qoX6EbohYzIgIX2ur46YqIzWQE+PThOxQes?=
+ =?us-ascii?Q?/dPZXC+Trtb0U5aK1SLnw2R+wanYxPAhhbG/cOy0Adt5tI7rXNv5ILqztiol?=
+ =?us-ascii?Q?DUl3xErpZLC9187w8LgVpzQYUDcBdy+61h8BhZYMJT7qqsq/Ib3MDSC84eXZ?=
+ =?us-ascii?Q?ob7fi2QChjCT0uZKh0ESQu8sepeA25OlF2UvbTLieQPeoK/GxW+YSzuPjeE0?=
+ =?us-ascii?Q?1gm3dgtoE9dpsWxGyZVUJ7x9cdKqgF5efa/sZGORGjp5aJAgRBGqWlKkLJsl?=
+ =?us-ascii?Q?oaJvjP9bxkGBq0M9TBB73IhBRUOVPLtmkRcQyCJ/loRKaAQsQuXts3fXL6j0?=
+ =?us-ascii?Q?3rr7Rk9GXbHOiaIktayevztK7q/eSsAFvSlzKpf39GT7t54og9nPJigh5oV4?=
+ =?us-ascii?Q?P2Lc2sq8sJmXpcWudmJAPA96QKBnzOs3ooBmq+Wfz6xKHB9sWtYSR5e+a7+p?=
+ =?us-ascii?Q?yAWgwT3/DQW2vzGEkV1jU3CXUOzXP+AR+Zk7PrlA3R9YDQIs7L0/SGkzZUCf?=
+ =?us-ascii?Q?wJqzPWH+rQktm3CAEtp8bCt00y5ZeCILUmFg0a6hcJaP6A7iBkttamvQ1awD?=
+ =?us-ascii?Q?9bNNFg/hjWsD+7GrI2EarNLNY6AKV4Ts6qwnxQqAoL2IQQ8w0vP/XPDWogDk?=
+ =?us-ascii?Q?4DvbV1TrI1i4BBVTMBbcqBKWB9p6LeMtauqhKGEEBZAde6XlhOKEcfvSa5Ty?=
+ =?us-ascii?Q?qrl7QcytOfYzE0sC3VzpkBfGkRI+x05qHjbUnOO2nKqMQ0o5Thu6Bbxr7A9W?=
+ =?us-ascii?Q?hKyXzEKUZQUblR9cqGL44aB2csNRlUsUGp4CtrdUnTbFTIYB6BpKUELSKKur?=
+ =?us-ascii?Q?t+HgvI/GNAZaLYqKgt3MOkbBW2bvteacvcaTKqH9275MRYM7GL9hMqprdFRB?=
+ =?us-ascii?Q?HcsWTcaZpw7fmb3/OWrcJmguVqZv4ZHqo8lf?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 09:00:20.6477 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7149b86c-c452-4e30-05b8-08ddda47d504
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6125
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,195 +137,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The function dc_stream_set_cursor_attributes() currently dereferences
+the `stream` pointer and nested members `stream->ctx->dc->current_state`
+without checking for NULL.
 
-On 12/08/2025 20:12, David Francis wrote:
-> Add new GEM_OP_IOCTL option GET_MAPPING_INFO, which
-> returns a list of mappings associated with a given bo, along with
-> their positions and offsets.
-> 
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 84 +++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  5 ++
->   include/uapi/drm/amdgpu_drm.h           | 18 ++++++
->   3 files changed, 107 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 8b44d10a8b57..23a0545a0400 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -948,6 +948,86 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   	return r;
->   }
->   
-> +/**
-> + * amdgpu_gem_list_mappings - get information about a buffer's mappings
-> + *
-> + * @gobj: gem object
-> + * @args: gem_op arguments
-> + * @fpriv: drm file pointer
-> + *
-> + * num_entries is set as an input to the size of the user-allocated array of
-> + * drm_amdgpu_gem_vm_bucket stored at args->value.
-> + * num_entries is sent back as output as the number of mappings the bo has.
-> + * If that number is larger than the size of the array, the ioctl must
-> + * be retried.
-> + *
-> + * Returns:
-> + * 0 for success, -errno for errors.
-> + */
-> +static int amdgpu_gem_list_mappings(struct drm_gem_object *gobj, struct amdgpu_fpriv *fpriv,
-> +					  struct drm_amdgpu_gem_op *args)
-> +{
-> +	struct amdgpu_vm *avm = &fpriv->vm;
-> +	struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
-> +	struct amdgpu_bo_va *bo_va = amdgpu_vm_bo_find(avm, bo);
-> +	struct drm_amdgpu_gem_vm_bucket *vm_buckets;
-> +	struct amdgpu_bo_va_mapping *mapping;
-> +	struct drm_exec exec;
-> +	int num_mappings = 0;
-> +	int ret;
-> +
+All callers of these functions, such as in
+`dcn30_apply_idle_power_optimizations()` and
+`amdgpu_dm_plane_handle_cursor_update()`, already perform NULL checks
+before calling these functions.
 
-I just realized args->padding probably needs to be checked to allow 
-potential re-use in the future. Eg.
+Fixes below:
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:336 dc_stream_program_cursor_attributes()
+error: we previously assumed 'stream' could be null (see line 334)
 
-   if (args->padding)
-	  return -EINVAL;
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c
+    327 bool dc_stream_program_cursor_attributes(
+    328         struct dc_stream_state *stream,
+    329         const struct dc_cursor_attributes *attributes)
+    330 {
+    331         struct dc  *dc;
+    332         bool reset_idle_optimizations = false;
+    333
+    334         dc = stream ? stream->ctx->dc : NULL;
+                     ^^^^^^
+The old code assumed stream could be NULL.
 
-Or make it __u64?
+    335
+--> 336         if (dc_stream_set_cursor_attributes(stream, attributes)) {
+                                                    ^^^^^^
+The refactor added an unchecked dereference.
 
-> +	vm_buckets = kvcalloc(args->num_entries, sizeof(*vm_buckets), GFP_KERNEL);
-> +	if (!vm_buckets)
-> +		return -ENOMEM;
-> +
-> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
-> +			  DRM_EXEC_IGNORE_DUPLICATES, 0);
-> +	drm_exec_until_all_locked(&exec) {
-> +		if (gobj) {
-> +			ret = drm_exec_lock_obj(&exec, gobj);
-> +			drm_exec_retry_on_contention(&exec);
-> +			if (ret)
-> +				goto unlock_exec;
-> +		}
-> +
-> +		ret = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 0);
-> +		drm_exec_retry_on_contention(&exec);
-> +		if (ret)
-> +			goto unlock_exec;
-> +	}
-> +
-> +	amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) {
-> +		if (num_mappings < args->num_entries) {
-> +			vm_buckets[num_mappings].start = mapping->start;
-> +			vm_buckets[num_mappings].last = mapping->last;
-> +			vm_buckets[num_mappings].offset = mapping->offset;
-> +			vm_buckets[num_mappings].flags = mapping->flags;
-> +		}
-> +		num_mappings += 1;
-> +	}
-> +
-> +	amdgpu_vm_bo_va_for_each_invalid_mapping(bo_va, mapping) {
-> +		if (num_mappings < args->num_entries) {
-> +			vm_buckets[num_mappings].start = mapping->start;
-> +			vm_buckets[num_mappings].last = mapping->last;
-> +			vm_buckets[num_mappings].offset = mapping->offset;
-> +			vm_buckets[num_mappings].flags = mapping->flags;
-> +		}
-> +		num_mappings += 1;
-> +	}
-> +
-> +	if (num_mappings > 0 && num_mappings <= args->num_entries)
-> +		ret = copy_to_user(u64_to_user_ptr(args->value), vm_buckets, num_mappings * sizeof(*vm_buckets));
-> +
-> +	args->num_entries = num_mappings;
-> +
-> +unlock_exec:
-> +	drm_exec_fini(&exec);
-> +	kvfree(vm_buckets);
-> +
-> +	return ret;
-> +}
-> +
->   int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->   			struct drm_file *filp)
->   {
-> @@ -1014,6 +1094,10 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->   
->   		amdgpu_bo_unreserve(robj);
->   		break;
-> +	case AMDGPU_GEM_OP_GET_MAPPING_INFO:
-> +		amdgpu_bo_unreserve(robj);
-> +		r = amdgpu_gem_list_mappings(gobj, filp->driver_priv, args);
-> +		break;
->   	default:
->   		amdgpu_bo_unreserve(robj);
->   		r = -EINVAL;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index f9549f6b3d1f..5a63ae490b0e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -668,4 +668,9 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
->   				 struct amdgpu_vm *vm,
->   				 struct dma_fence **fence);
->   
-> +#define amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) \
-> +		list_for_each_entry(mapping, &bo_va->valids, list)
-> +#define amdgpu_vm_bo_va_for_each_invalid_mapping(bo_va, mapping) \
-> +		list_for_each_entry(mapping, &bo_va->invalids, list)
-> +
->   #endif
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 59b423883e91..7072959103e6 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -802,6 +802,21 @@ union drm_amdgpu_wait_fences {
->   
->   #define AMDGPU_GEM_OP_GET_GEM_CREATE_INFO	0
->   #define AMDGPU_GEM_OP_SET_PLACEMENT		1
-> +#define AMDGPU_GEM_OP_GET_MAPPING_INFO		2
-> +
-> +struct drm_amdgpu_gem_vm_bucket {
-> +	/* Start of mapping (in number of pages) */
-> +	__u64 start;
-> +
-> +	/* End of mapping (in number of pages) */
-> +	__u64 last;
-> +
-> +	/* Mapping offset */
-> +	__u64 offset;
-> +
-> +	/* flags needed to recreate mapping */
-> +	__u64 flags;
-> +};
->   
->   /* Sets or returns a value associated with a buffer. */
->   struct drm_amdgpu_gem_op {
-> @@ -811,6 +826,9 @@ struct drm_amdgpu_gem_op {
->   	__u32	op;
->   	/** Input or return value */
->   	__u64	value;
-> +	/** For MAPPING_INFO op: number of mappings (in/out) */
-> +	__u32	num_entries;
-> +	__u32	padding;
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c
+   313  bool dc_stream_set_cursor_attributes(
+   314          struct dc_stream_state *stream,
+   315          const struct dc_cursor_attributes *attributes)
+   316  {
+   317          bool result = false;
+   318
+   319          if (dc_stream_check_cursor_attributes(stream, stream->ctx->dc->current_state, attributes)) {
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Here.
+This function used to check for if stream as NULL and return false at
+the start. Probably we should add that back.
 
-IMO uapi needs to be a little bit better documented - in this case the 
-information that value fields holds a pointer to the array of 
-drm_amdgpu_gem_vm_bucket needs to be explained. Kerneldoc for 
-amdgpu_gem_list_mappings() is not enough since uapi headers are separate 
-from kernel sources.
+'Fixes: 4465dd0e41e8 ("drm/amd/display: Refactor SubVP cursor limiting logic")'
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Alvin Lee <alvin.lee2@amd.com>
+Cc: Ray Wu <ray.wu@amd.com>
+Cc: Dillon Varone <dillon.varone@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: ChiaHsuan Chung <chiahsuan.chung@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Wenjing Liu <wenjing.liu@amd.com>
+Cc: Jun Lei <Jun.Lei@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Also, why is drm_amdgpu_gem_vm_bucket a bucket? It contains information 
-pertaining to a *single* mapping, right? So why a bucket and not for 
-example mapping info, or entry to align with num_entries naming? Is it 
-just me who associates a bucket with something storing potentially more 
-than one of something?
-
-Regards,
-
-Tvrtko
-
->   };
->   
->   #define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT	(1 << 0)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index 4d6bc9fd4faa..9ac2d41f8fca 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -316,6 +316,9 @@ bool dc_stream_set_cursor_attributes(
+ {
+ 	bool result = false;
+ 
++	if (!stream)
++		return false;
++
+ 	if (dc_stream_check_cursor_attributes(stream, stream->ctx->dc->current_state, attributes)) {
+ 		stream->cursor_attributes = *attributes;
+ 		result = true;
+@@ -331,7 +334,10 @@ bool dc_stream_program_cursor_attributes(
+ 	struct dc  *dc;
+ 	bool reset_idle_optimizations = false;
+ 
+-	dc = stream ? stream->ctx->dc : NULL;
++	if (!stream)
++		return false;
++
++	dc = stream->ctx->dc;
+ 
+ 	if (dc_stream_set_cursor_attributes(stream, attributes)) {
+ 		dc_z10_restore(dc);
+-- 
+2.34.1
 
