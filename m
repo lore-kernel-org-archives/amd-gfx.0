@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D29C87FCF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 05:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B2B3CA0EC4
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 05:21:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A96410E1B9;
-	Wed, 13 Aug 2025 05:21:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01E8710E1BB;
+	Wed, 13 Aug 2025 05:21:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TMKsifRc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xSUqZdOC";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3A6710E1B9
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 05:21:14 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2047.outbound.protection.outlook.com [40.107.101.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52C0310E1BB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 05:21:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=osCvH41CcBT2ZamKwaYkjE3G0e68fvceS9Zu0Xwwjy7HavAQfmkCdeTmRWrR9N05VafgV/byhP5lD9tluhSgI73JbJvqDrMgnpT4bu3vlF/RuXWI3nCWwdqyb8RM+Gk3BcwoGjO28VMyuPjgp4tHxrUlWImm57hWtx8Wlc+6JeUlIyhIfyFb4Wizx6NldFdbqiKrdIxlMeHUZqKaI0TyR2crMh+y0co7X5Gm8vijnbsRPQew2MiHvaq2oRIfqr7B59hHWyXEg5PDXDyszqtiLrOszXQyHk95QYDJkc/xrsB3iZjbErav03ZlCP2OJYOFifzv9KUgCXcl4CLEqPDJ8w==
+ b=rX+G/LxWz4ByNVrvBBc9DFZZOTvS/JnPI0CwAl+pfzLUug6RyB4Q6iEnRHs7Ku+2w2xtRbPJmDEDPUkRHAtIm4iARFCUIyh7VVbdZEpzNAuxfbgIBeCWA7Yz1gNB4HLw0sPB9eHU0NkkgZKk0mlsZGs4dDrxxxDM81Irpm4zC/GIKXbGVpR3jCYGm13kK1/vHKDR177g4iwjGyLS8N96WI0RdtTat1U/qvTw2ZslwDeoUv+RZnG8C4CB/cT4cAdM7Lks5xIWKiYMkCXxhycgDRdQdD8bgZ0JXQa/ghZyw5jvoQStbj5P/NMLXiNSvOE219+3n0yAl3U44lQDMzJzsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LOxulAweBoH2FONjd3cNfd1o6VaY4M+M3iQi5/sbZlo=;
- b=FT61YzOea13k+SprdFAeEqinJs/V2J/TthQznV6gP35e7V9YULPA1nazqWdb/TeUsPJT34p7nFHJ0R0rXRiXihIfDrD0SRbZgeqFiFd4ldrP7s853MEBAT5XFSEJgBBFD+EmTT90l/ErQeuoYYg860Zy0M9FW57o+t0T/UVFIRDig3NNpc1H+GjBvLOE9n7iJXOjdHaCuORBqREW39l50jvY8+wKWI4eXB2y1+zg8rhJ1FG27Nlf/Mufnx4mmWh455f6s2K4tyaM2sAY0QJiNU1nEsyj7UMI1/YWifCgvTC+9d0CyjirwGH4eUFgV8uB8yxLLMZdx5JJ5m6ctuxyeg==
+ bh=ulUiPssFl0Xd67yuZd/hEZ8MyTDeGIpgo4zye3hIUaM=;
+ b=VYmo6BJB64lDugnRRugmL1TNJW5ApxqylT7oSVmm4xkpH3S730kOeC2d5RmNOyRSyb3S5O974at44CFrwlNlCwAu/oYF0yGQF2OuJYppvnYqSSBacpIDoeyOjmc7iitQu/UIHJrnSJ9akcrj52DP09AJx9skzLk6NLBhG3VSsiWtaARMjpzSFMUtmP3FP5opwKd1NcIUaFgkswMSRpSxpsJ1VFf1NB6OHaoP+n/5WK1MYsT3uBHryjFu9SqyIkYPpsY89r+swBFeEUejW+vSrAHEL3DseBCHDinPZ6HDN9RICDFkr4SewURI9mZZD4C2rFNxw9O3bHIFs9oXV/C41A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LOxulAweBoH2FONjd3cNfd1o6VaY4M+M3iQi5/sbZlo=;
- b=TMKsifRcvusSVQE5wQ4MWaMv9WJ3cQoVJfowZU9lYYQw4dyC6ubpeHhU/ZoS72V4N8XRHx5PJc4S2lHN/bOjVzzjr+O48rvE2i67vXHzrrO1c1w1SVDJzkGlX9wYkjMaeryBywYZOdgbcITuBgQ9cz+LIzj9oJgqaH/gbnkSHEE=
-Received: from SN6PR04CA0107.namprd04.prod.outlook.com (2603:10b6:805:f2::48)
- by CYYPR12MB8889.namprd12.prod.outlook.com (2603:10b6:930:cb::16)
+ bh=ulUiPssFl0Xd67yuZd/hEZ8MyTDeGIpgo4zye3hIUaM=;
+ b=xSUqZdOC3elPoCMjp/nNaF/Xt95LHxwqOaQBD1Zmj/GBejX1b8cPpq6XcSc304A9Upa30YLZ2kG5K3A0J9RCOk6JsyxNLYSyZXd1Aji6ls3YBVH+o0mkTx9PothxT/TyXb9ZK/q1RsSLLaOIfZLFKvEyTuOFDq62RwFsaMP6TY4=
+Received: from SN6PR04CA0092.namprd04.prod.outlook.com (2603:10b6:805:f2::33)
+ by LV2PR12MB5991.namprd12.prod.outlook.com (2603:10b6:408:14f::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.13; Wed, 13 Aug
- 2025 05:21:11 +0000
+ 2025 05:21:18 +0000
 Received: from SN1PEPF0002529F.namprd05.prod.outlook.com
- (2603:10b6:805:f2:cafe::7e) by SN6PR04CA0107.outlook.office365.com
- (2603:10b6:805:f2::48) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:805:f2:cafe::7a) by SN6PR04CA0092.outlook.office365.com
+ (2603:10b6:805:f2::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.15 via Frontend Transport; Wed,
- 13 Aug 2025 05:21:11 +0000
+ 13 Aug 2025 05:21:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,78 +50,80 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
  SN1PEPF0002529F.mail.protection.outlook.com (10.167.242.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 05:21:10 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by SATLEXMB03.amd.com
+ 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 05:21:17 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 Aug
- 2025 00:21:10 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Tue, 12 Aug
- 2025 22:21:09 -0700
+ 2025 00:21:17 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 Aug
+ 2025 00:21:16 -0500
 Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Wed, 13 Aug 2025 00:21:02 -0500
+ via Frontend Transport; Wed, 13 Aug 2025 00:21:10 -0500
 From: Jesse.Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  Lijo Lazar <lijo.lazar@amd.com>, Jesse.Zhang <Jesse.Zhang@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>, Ruili Ji <ruiliji2@amd.com>
-Subject: [v5 1/3] drm/amd/pm: Add VCN reset support check capability
-Date: Wed, 13 Aug 2025 13:19:59 +0800
-Message-ID: <20250813052102.3438895-1-Jesse.Zhang@amd.com>
+Subject: [v5 2/3] drm/amd/pm: Add VCN reset support for SMU v13.0.6
+Date: Wed, 13 Aug 2025 13:20:00 +0800
+Message-ID: <20250813052102.3438895-2-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250813052102.3438895-1-Jesse.Zhang@amd.com>
+References: <20250813052102.3438895-1-Jesse.Zhang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002529F:EE_|CYYPR12MB8889:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a6d9676-2a27-4bf7-4b6c-08ddda2936d8
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529F:EE_|LV2PR12MB5991:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b1ab4a0-82c9-4cef-2b7b-08ddda293b25
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kfHM3YdKuccKG3o5JC88VeVaY/lxCP0ie0g9MflUllveoBI0RpCyhUXJ3sva?=
- =?us-ascii?Q?/om4d3q4+gLz1G7b8R9oq8ETmtZYOYmK3wnntAIK2C8W0bYwxNGiSPKcE345?=
- =?us-ascii?Q?c6dmrko6Hoz7Ln1u948dWBVGAk5PdMqhg4kInamvC5gOzmbHeWc7Jk/peSx1?=
- =?us-ascii?Q?HvrFv9qXX+E8Jvlp4Jk1w8e0An8Z/wx1G1ikgtR2v9iy+yPlUsBDMXJlsmMQ?=
- =?us-ascii?Q?AJlbg9WWddInifWWcYTU9VGSJJMTEEQwfKhVq14Odj+Ht0xWljX5voTdEwfF?=
- =?us-ascii?Q?R040Ts1Syd27jZxs0xztbcbMMklVUt7DNnhhpNli8jO2hXw7btuonsHv8xjD?=
- =?us-ascii?Q?U/odWNRXg/1NASiXvlOA7eAUHSbnJtIlRMdejdw6zjncGQkOsSw1/kGe84qQ?=
- =?us-ascii?Q?kmSrReKchzJlhXsgzxUA1GOt4fLoDS7Jj7FNUFx8KKTkuFBRTHMInsjhEK77?=
- =?us-ascii?Q?Z5ObM6I9YNhneDT8N7E5xOxFik+q9ruZjM/W0RGmGEuJywlH6QMXY+MWcyuD?=
- =?us-ascii?Q?zLzx+YnvKuogjZjTdI3JM7xgop1V4W200fC3N1rjhx6eWkDsqaG3+8s8ZY4G?=
- =?us-ascii?Q?relLZ1ea05WBuro4olEOeVYGj3eGNPNrPVc/gnsuI2hOwXhcv8H7B9Zwg2cz?=
- =?us-ascii?Q?LafOQ6OHat/IkURkYaNEYG5hmtb3xY5od9J4lsy0qi/rkTgx/Yrc1a5/6TvI?=
- =?us-ascii?Q?BvzAoh8noqy2JkZcERC12IR7EC5T8JcRzhufAZ0l25UmnsNjGhQ+HVAyN1Lw?=
- =?us-ascii?Q?SOOZP3pLXHrOxzGxH1MhXGn09sYf/3bEMTREP6FdGmcBXqa4XTK1tfD3HET6?=
- =?us-ascii?Q?j1COdof9Wt8QhCUXE3sj1wTzLIhr0D5tY7prjKhr4TYRAJmt4CarrjD8uKB+?=
- =?us-ascii?Q?3OFoY4EgQ4BGFzYDBkeMK1MZabizihdyQE+dhYQj7lpP/VqyrL9IQWKEWNaG?=
- =?us-ascii?Q?4OpJ3BFZUgzFIk6r1T8M4mudozlJZ9f2wKo92/keEWyW5G7uiP5pfYEGV09S?=
- =?us-ascii?Q?XkEBuJFyKbJoIR01V6f3SVetiaWsgBZqOyrB16+N5BmuM+8aSOjwsjtAJgSD?=
- =?us-ascii?Q?ciiEyaiDx3P+/UNwEdSfgWbeo+iA/wj1jmXLkRK2z3Zjy8Z3tq+w7Aa+WaEW?=
- =?us-ascii?Q?iLe8VjFH7Kui49RWldg2aq/sBQ9sNnuio+XWa0Os3t+DG+kqEMoYGje1+bpI?=
- =?us-ascii?Q?ZlA5r5yQ0MXTnvGVf1Q/MXBNKhiB5d/o0edWubG7Hg3IILQY9dWB8SC1te9X?=
- =?us-ascii?Q?SZaaU2lis+jfh7J/mVT9HUjFZgNJPoY4+ncwS8Ibwh7L0aB1ymNDLdch/a6I?=
- =?us-ascii?Q?mJfLHv30UkODgmxUvNneY+4R7+7xj2lsJ5Rn8SUIYsct7MkKDF7n+oi6vGEZ?=
- =?us-ascii?Q?hJq3xjuXq5N7ZX0GRcH+8NTTaBE+KCoGu9BPhnUX6AZTw2OFcgKj8KQoWUq7?=
- =?us-ascii?Q?JpljLKkZGwinwC0aAq9adPBp548hJONU07EH/qGaYnoKTT2Gchoch7ba+1Ym?=
- =?us-ascii?Q?5IFIdzulI+9pbeh++kc1foKhKREhsaMo3UjN?=
+ ARA:13230040|82310400026|36860700013|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tK4gqoc0djS321eaM5QC/JYcO8f9diTBFPrFuJ+U2K3jVQQLH/b+J4hT5hGx?=
+ =?us-ascii?Q?9zJeZHB7rFlDqX5+ELFldTEnRfg9t4vqXzH1eeMyvxkhyo7ZZ2+J1l6a2v4j?=
+ =?us-ascii?Q?2CbXDe2V/tqCGV9OUbGKuGEuSAe4ufBRO53FHm1XbnivVw6wTn6iaAa9rkt4?=
+ =?us-ascii?Q?BmXyHAj4Xk70cJpXLQWmqfMJT1Fdg0RTF8i+WpiJOKzgtQffr3gV5Lybqgdk?=
+ =?us-ascii?Q?pYut0qyjtDggtoDfmROaYLbnSElEZB4flbyI2iS0Z2kpWJ4BPfwC/Hn5f7fL?=
+ =?us-ascii?Q?VyvlKadqsa9W1p/Mo4NENiiltTQSyTeU8JhTkJKAe6VAp4Jm7eNvWwYjQgNn?=
+ =?us-ascii?Q?elby4EB4wehXgbZSmlZvTrXb7WCngxwIx1HC4NB22y2K4lvN0FaTS7AACj1v?=
+ =?us-ascii?Q?BMtXJZURMuXtaZSoQ+Ky4StP3Kaow6ZFh3LO5wKmeURwITaAx9Ne3D8fHMJ2?=
+ =?us-ascii?Q?YEHA9rVtS9+AUPI5whFBqaVlm8qeplyntpsf21k7PTxG9AYUxnqjDM8D9mgD?=
+ =?us-ascii?Q?LDPJ1B1y67vwq3jmd65mn8iliEVIf7339i9o9dMixGuG7gYpR8QZvH4ytGoK?=
+ =?us-ascii?Q?BFlD7b4bFNCBT/O91xtWpRA9l7wQouBXz0fM+wDOw+MhbpEfcT1s+wWUmP9i?=
+ =?us-ascii?Q?3IFDKHP66K9NKQOjGcVNCIg/8x1Vd5TG7in/j2FZLaOWl4AUUovA6D8nsG1w?=
+ =?us-ascii?Q?RHwQTrVPW4hSvY7rhSPBn61EjDJnfwc9fry0gcIE96SD5SQqqandMEoQ1yVY?=
+ =?us-ascii?Q?HqS+JIs44YdMdnlOq+LZKN28GK3t3xwnhAvywRSbWuIx4cmlzx8w2sVpjJdS?=
+ =?us-ascii?Q?A2L0IqX4EOe1Md1cxGlDe08VOUNwuxxVK50k8pvo7MhlxD1aTSq0GsvYFOBJ?=
+ =?us-ascii?Q?B7pe7cOpKYJEGRSaqmJEK/H3TEepBIDBidC127ZWLeSgLzj7TEjYxTqoRHhq?=
+ =?us-ascii?Q?gyKJniQjJNXtOLWhRoEONezhGTKniaKu1OemITOp4BWkpwivkOBJLJSvCRY1?=
+ =?us-ascii?Q?mUtiiQbOA/P4+KXZ3LfYk6NApyo7RgqvnGpkwlTRb8LjTwow4P3OD+vlHMlC?=
+ =?us-ascii?Q?dgNqqCDUgTnOHASFHt+rj8zbj0UZtUtJes06ga26r4GZ2fhRW7vKVhz8NES7?=
+ =?us-ascii?Q?8B9cAQkadilRmrF15QNacyintAIO001L/LOlDZ6wPEB1KXFD72JjKR+z9b2M?=
+ =?us-ascii?Q?4cp+KfM9ZZWIl4Wzt+1TrunLErToWCt3na3SHpKQvxxZrDEgc8FQz1IIYSsa?=
+ =?us-ascii?Q?Yf2zpubW/d9gO5sZINSNcGuhuyE96ElpJU2bWOeLnvfVuwtF0EJGt/68/9cL?=
+ =?us-ascii?Q?t7KMHRhG3e3am4xAJoVHQHZyGh3NeAitEdkMNmtcCohe2S8LHYjC8XRytDgb?=
+ =?us-ascii?Q?ONLfGrwzelohMCWV6q/AYYjr47x9lOWyc0P9IB7LsbrLEgauGLgASf6rnZTB?=
+ =?us-ascii?Q?knYOLxSzPg+3JgFc0ipdu+guNp23NZnB6B+30wKdmi/ibiQyToq4Thhn6c7o?=
+ =?us-ascii?Q?vtrmrBiisK5krXRHEyo+nOI9bn7VG8bgjWiw?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 05:21:10.4476 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a6d9676-2a27-4bf7-4b6c-08ddda2936d8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 05:21:17.6645 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b1ab4a0-82c9-4cef-2b7b-08ddda293b25
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529F.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8889
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5991
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,116 +138,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This change introduces infrastructure to check whether VCN reset
-is supported by the SMU firmware. Key changes include:
+This commit implements VCN reset capability for SMU v13.0.6 with the following changes:
 
-1. Added new functions to query VCN reset support:
-   - amdgpu_dpm_reset_vcn_is_supported()
-   - smu_reset_vcn_is_supported()
-   - pptable_funcs.reset_vcn_is_supported callback
+1. Added new PPSMC message ID (0x5B) for VCN reset in SMU firmware interface
+2. Extended SMU capabilities to include VCN_RESET support
+3. Implemented VCN reset support check:
+   - Added smu_v13_0_6_reset_vcn_is_supported() function
+4. Updated SMU v13.0.6 PPT functions to include VCN reset operations
 
-2. Implemented proper locking in the DPM layer with mutex protection
-
-3. Maintained consistency with existing SDMA reset support checks
-
-The new capability allows callers to check for VCN reset support
-before attempting the operation, preventing unnecessary attempts
-on unsupported platforms.
-
-v2: clean up debug info(Alex)
+v2: clean up debug info (Alex)
+v3: remove unsupported message and split smu v13.0.6 changes to a separate patch (Lijo)
+v4: simply the function (smu_v13_0_6_reset_vcn_is_supported) (Lijo)
 
 Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Ruili Ji <ruiliji2@amd.com>
 Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 15 +++++++++++++++
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  1 +
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 10 ++++++++++
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  5 +++++
- 4 files changed, 31 insertions(+)
+ .../gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c     | 9 +++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h     | 1 +
+ 3 files changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 6e0d711820ea..518d07afc7df 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -820,6 +820,21 @@ int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+index 41f268313613..63a088ef7169 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+@@ -94,9 +94,9 @@
+ #define PPSMC_MSG_RmaDueToBadPageThreshold          0x43
+ #define PPSMC_MSG_SetThrottlingPolicy               0x44
+ #define PPSMC_MSG_ResetSDMA                         0x4D
+-#define PPSMC_MSG_ResetVCN                          0x4E
+ #define PPSMC_MSG_GetStaticMetricsTable             0x59
+-#define PPSMC_Message_Count                         0x5A
++#define PPSMC_MSG_ResetVCN                          0x5B
++#define PPSMC_Message_Count                         0x5C
+ 
+ //PPSMC Reset Types for driver msg argument
+ #define PPSMC_RESET_TYPE_DRIVER_MODE_1_RESET        0x1
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 3b4bd7a34d04..cc59d884025f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -436,6 +436,9 @@ static void smu_v13_0_6_init_caps(struct smu_context *smu)
+ 	    ((pgm == 0) && (fw_ver >= 0x00557900)) ||
+ 	    ((pgm == 4) && (fw_ver >= 0x4557000)))
+ 		smu_v13_0_6_cap_set(smu, SMU_CAP(SDMA_RESET));
++
++	if ((pgm == 4) && (fw_ver >= 0x04557100))
++		smu_v13_0_6_cap_set(smu, SMU_CAP(VCN_RESET));
+ }
+ 
+ static void smu_v13_0_x_init_caps(struct smu_context *smu)
+@@ -3200,6 +3203,11 @@ static int smu_v13_0_6_reset_sdma(struct smu_context *smu, uint32_t inst_mask)
  	return ret;
  }
  
-+bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev)
++static bool smu_v13_0_6_reset_vcn_is_supported(struct smu_context *smu)
 +{
-+	struct smu_context *smu = adev->powerplay.pp_handle;
-+	bool ret;
-+
-+	if (!is_support_sw_smu(adev))
-+		return false;
-+
-+	mutex_lock(&adev->pm.mutex);
-+	ret = smu_reset_vcn_is_supported(smu);
-+	mutex_unlock(&adev->pm.mutex);
-+
-+	return ret;
++	return smu_v13_0_6_cap_supported(smu, SMU_CAP(VCN_RESET));
 +}
 +
- int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,
- 				  enum pp_clock_type type,
- 				  uint32_t *min,
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index 09962db988d6..9748744133d9 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -615,6 +615,7 @@ ssize_t amdgpu_dpm_get_pm_policy_info(struct amdgpu_device *adev,
- int amdgpu_dpm_reset_sdma(struct amdgpu_device *adev, uint32_t inst_mask);
- bool amdgpu_dpm_reset_sdma_is_supported(struct amdgpu_device *adev);
- int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask);
-+bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev);
- bool amdgpu_dpm_is_temp_metrics_supported(struct amdgpu_device *adev,
- 					  enum smu_temp_metric_type type);
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 0a40ab817634..c5965924e7c6 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -4124,6 +4124,16 @@ int smu_reset_sdma(struct smu_context *smu, uint32_t inst_mask)
- 	return ret;
- }
- 
-+bool smu_reset_vcn_is_supported(struct smu_context *smu)
-+{
-+	bool ret = false;
-+
-+	if (smu->ppt_funcs && smu->ppt_funcs->reset_vcn_is_supported)
-+		ret = smu->ppt_funcs->reset_vcn_is_supported(smu);
-+
-+	return ret;
-+}
-+
- int smu_reset_vcn(struct smu_context *smu, uint32_t inst_mask)
+ static int smu_v13_0_6_reset_vcn(struct smu_context *smu, uint32_t inst_mask)
  {
- 	if (smu->ppt_funcs && smu->ppt_funcs->dpm_reset_vcn)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 2edd867f203e..5dd49eca598d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -1435,6 +1435,10 @@ struct pptable_funcs {
- 	 * @reset_vcn: message SMU to soft reset vcn instance.
- 	 */
- 	int (*dpm_reset_vcn)(struct smu_context *smu, uint32_t inst_mask);
-+	/**
-+	 * @reset_vcn_is_supported: Check if support resets vcn.
-+	 */
-+	bool (*reset_vcn_is_supported)(struct smu_context *smu);
+ 	int ret = 0;
+@@ -3888,6 +3896,7 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
+ 	.reset_sdma = smu_v13_0_6_reset_sdma,
+ 	.reset_sdma_is_supported = smu_v13_0_6_reset_sdma_is_supported,
+ 	.dpm_reset_vcn = smu_v13_0_6_reset_vcn,
++	.reset_vcn_is_supported = smu_v13_0_6_reset_vcn_is_supported,
+ };
  
- 	/**
- 	 * @get_ecc_table:  message SMU to get ECC INFO table.
-@@ -1776,6 +1780,7 @@ int smu_send_rma_reason(struct smu_context *smu);
- int smu_reset_sdma(struct smu_context *smu, uint32_t inst_mask);
- bool smu_reset_sdma_is_supported(struct smu_context *smu);
- int smu_reset_vcn(struct smu_context *smu, uint32_t inst_mask);
-+bool smu_reset_vcn_is_supported(struct smu_context *smu);
- int smu_set_pm_policy(struct smu_context *smu, enum pp_pm_policy p_type,
- 		      int level);
- ssize_t smu_get_pm_policy_info(struct smu_context *smu,
+ void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+index f39dbfdd7a2f..bcb8246c0804 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+@@ -64,6 +64,7 @@ enum smu_v13_0_6_caps {
+ 	SMU_CAP(RMA_MSG),
+ 	SMU_CAP(ACA_SYND),
+ 	SMU_CAP(SDMA_RESET),
++	SMU_CAP(VCN_RESET),
+ 	SMU_CAP(STATIC_METRICS),
+ 	SMU_CAP(HST_LIMIT_METRICS),
+ 	SMU_CAP(BOARD_VOLTAGE),
 -- 
 2.49.0
 
