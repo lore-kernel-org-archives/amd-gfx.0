@@ -4,151 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 057DCC87FCF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 05:59:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4936CC87FCF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Aug 2025 08:10:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9241B10E1B1;
-	Wed, 13 Aug 2025 05:59:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC4910E1BE;
+	Wed, 13 Aug 2025 08:10:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M4XpkRDH";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rNa33d/i";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2053.outbound.protection.outlook.com [40.107.236.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C34C289EFF
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 05:59:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yj9NXP1zCaaCPaYRrvRVyNbrCLNrL9azXlz8WRSzkSaHGx1nkc/FSCjcn+ce+uPmC7HDLoo7xyrTanEff3txhyvIrwwqGrh4+Wq6AwF2Ua12vqtY6Uze41i73mnfHFGG6SAN8tkolPL8VT2yvt/Oc136fKKTAsPBsZWXwopZyd7mlowR2xjVH/keZB1b2qX76jamvxNp2SJmZ4Z1Hf9S7MGS8CQJXQLWgMQghwXVuLBIuMWTVUS3Jk0m5nBlfQPNCuqnHLs0LcEG/mInaKVkMm5RZfUI4HsW03xF1BIWAcpt5gWXneYJj9df4ABi7G6ZX5/k3cpvyJuAEgAapjSyXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VAZTacC/MFT+CjuQdCgRkaiztmRqQg0Lu1qw/yC9SpU=;
- b=r0tmvZzBemkw0xBaK2vmNRp1/21mCCPc32ecxjM83XT0TrvJF5owEfGjx4v/yrSa2Gx9TsorMR224ole1DZjvcZZvnCcLtc8Rq6+NFn+IUKwzkO8FgrJqdW1IB9wMYzZlYvz/1iN29JD9vMNTnQgtr70mImhi3rOFDxLIZANFuH1LSao9KpkS1oR9KamvliomY156HoXm8NTFs5S9ratknQjUPIUvZcMEI3acR6dLEZBxNC3qBGWE3WBVtHCUg5Nu171esYMx7GiQsDztTO9L4FRCnHUsL2pl6nk4QbCBzYJoiWzYGIHQKv8CzBnk7FxafMWetFUpArTlqGqDVb71g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VAZTacC/MFT+CjuQdCgRkaiztmRqQg0Lu1qw/yC9SpU=;
- b=M4XpkRDHvpZwzNVmQPr1JoowA0/jJ6BpmOhJCatgAYkpyeekPA1e8lSOIn6bent5eTq6O+IwBJ5hdY0o8ycw9fqG5sgLaMy9aoAjAuPLAKy49CvLDkvwTpPMlLDgLX+QLjgnja2gwdUn0VbPauebnU8J+R+TY13qPnLOr+EXKvg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- SA5PPF7F0CA3746.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8d1)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Wed, 13 Aug
- 2025 05:59:25 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.9031.012; Wed, 13 Aug 2025
- 05:59:24 +0000
-Message-ID: <e3dd6d5d-cd28-4922-af48-dd94584f5f06@amd.com>
-Date: Wed, 13 Aug 2025 11:29:17 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [v5 3/3] drm/amd/vcn: Add late_init callback for VCN v4.0.3 reset
- handling
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>,
- Ruili Ji <ruiliji2@amd.com>
-References: <20250813052102.3438895-1-Jesse.Zhang@amd.com>
- <20250813052102.3438895-3-Jesse.Zhang@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20250813052102.3438895-3-Jesse.Zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0079.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9a::19) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1969210E4CD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Aug 2025 08:10:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=uMVbMj8WIRVznqGYMEKO6soGebEzkrK/BqygdpL4/rA=; b=rNa33d/i1AgC8s/OUCN2oN2VfC
+ pqcHI1gFqGb3U7POA+rgrGEMsCD6yrjlTDWpt5L0Xc3oEX9NwlLWhctDCJapDF13SktBqy6MJo88I
+ HBlGT+/nFVinTmqDFIhaN46lrUHu9zd9UkR73uwPlZyKtE4MIfXADjmesZwPwf+O3d+0TW3n9wBIh
+ w0W33mmbHxJJKcL0b6uI0ok7gHq97jsTjkjUU1juDKR061QTEEOFTt5haiFxQ8NDmx9FRgWop0/nG
+ zG71rOsc3snWejb7gqqk0y/U2T7s90Lua+FkT5GWiS+FNSbY+J2is3plxVHJjPjed/3PaGnRn9SAA
+ /NVF6BVQ==;
+Received: from [84.66.36.92] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1um6Yp-00DZrz-C3; Wed, 13 Aug 2025 10:10:15 +0200
+Message-ID: <f6a68439-ab8b-498b-89ef-95fc026c5053@igalia.com>
+Date: Wed, 13 Aug 2025 09:10:14 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SA5PPF7F0CA3746:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4677a611-df61-4063-3f97-08ddda2e8df7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YlBNQnBIdzExdEVnbG8yUFoxQi8yZnR0U0Vnamo4dDVEUjZ0V25idVB4MmVV?=
- =?utf-8?B?ckNTbmFiR2hQd2NzeGlxNEJ3TnVtazJmNi9JVzlTZGs4L1dENkxjWGZEOUJk?=
- =?utf-8?B?aTYxdzI0dEZ1UnpXR2FuZkgxcDdPVUkrOEQwalZOK0tUSGNuU2svV0cwYnll?=
- =?utf-8?B?WjNITjFOeG5ZUXJPamN3T1Q5bWJSWElBUUk4SEl3aFhqaVpjM3BOVThlMmVQ?=
- =?utf-8?B?WVkzd0hueVpISzNVZHpWTkhqVEYxSnVWTE9rRXcwczNtNitiUldiQVVwR3FR?=
- =?utf-8?B?UExUNVhiZ3BOeFlINGxGY2dMd2lsQ0VLc3BuQXVuRW42ejdvZnB4Mm1TT2Fr?=
- =?utf-8?B?bGZ2MWxRSG5nUytkczFXZzUrZ2xialU5dmc5VmtNVkErNE02czFvL3JPZUhF?=
- =?utf-8?B?Z3Q4YXphOStzaGhkc2NlSHZ4NEgycXpTMlhzanRmOHQydUF0c0VEZWZoS0g1?=
- =?utf-8?B?cTdVNnp3WTdKb2xhVmpseU1BclVTS1VnTExmOVN6Q3pKR0tNclZnOEVqWDNE?=
- =?utf-8?B?OTNXL2RSeVJCK1l0b084bTdqWFdvU0pvWE4vcW9Bbi96SFFYeWgvbXp5QnMx?=
- =?utf-8?B?STVzTUNsY2tFRStTWFpkc3NzaWN4ZHFMc3ptQmtEREJZSHQzS2RLOTdldXNV?=
- =?utf-8?B?OXZCK0FKMnNFRGRMUWtxRDh2d0dpaUNSMzlnbnJKdkQrVkVtdWdoK1VLM0NT?=
- =?utf-8?B?NXlSeGJHNWxRSkNSKzcrclQyWGR6TmRDOFltRTgyeEhSb29laklXSEJ6cHpt?=
- =?utf-8?B?blZHaUtObXVWa2RyNU5pelloMW1xU1FNbTlRazFra01GMnN0ZU9jYW5FQ01H?=
- =?utf-8?B?dzlSVDYrVVF1SXgxampjcGM1aEJJcExXeDBBTzV5cWJqWXJodFFrK0EvMmVn?=
- =?utf-8?B?RE10S1ovYVBPSlhzVCtXM1NiRUU0K2k2TWkrR0U2L0t5VzBVYXFhY1ZySzlt?=
- =?utf-8?B?SHJpcjhIelgzZXBoZ0p4TnJQTmxyMUs2REpmRVZrRUliU0dxTUdSbElkYW05?=
- =?utf-8?B?Vm5NOFNmTU9aZW9PVGp3K0FFTDNnSjdkR3ZqcWdFRnNBRTdTMStGc3krL3Z6?=
- =?utf-8?B?WmFrdStMUDhjcXJTbTN5Mnp0TzVGQmxtWmVnTzgyODBtbURqQWFaVUc5dVkv?=
- =?utf-8?B?b3hrbk51anVCakFTWGt3eTdxVUtNS3ltMjVCY3p2YjRBaEtzaEFTb3ZPWUN6?=
- =?utf-8?B?dCtQYUJmbnVQQ0hZSnNvS3BISkhGQlA0Z05PamFiaG5HVTcyYmp1WWErSlNh?=
- =?utf-8?B?dHB6RFFKbkxnZFhGSW1nRGxkc3d0VGJLUVNYbUhkNHNaRnV4MmUyQStFVFhn?=
- =?utf-8?B?YVp2cEhUOGNoeDB1b05BcGYyQ0Fpb0tFVFdDQjFJTElsZFVqZ254MjNEd3pk?=
- =?utf-8?B?Z3N1R1BGVUsxbUJia2hVUFZUTG5iYXp0aXhJMW1lTXc3V0tOQnd4WVJ2REdB?=
- =?utf-8?B?cTFFaWIwaUJoS3dqWXJyT1hLalNkTHRuSVhkMEhZMHhhQWVGTXR0Rm4zMXRP?=
- =?utf-8?B?dkdmZmxleXMwT1F3R3U5Ym5WMm5qN3BsREthbHFYM295dFNuS01HTDNIR2NS?=
- =?utf-8?B?S2lRZEQ1cGZVTzZTK0FEUVBlYjMyejZaeE9WMnBrU2s5T0lBSnRSalFBQnJx?=
- =?utf-8?B?OUwwSWdLTmJ4ZmlBajhoOE1ET0Q0eWtUdTR0UnlyRjBDaHoxRjBtN3JUVDNI?=
- =?utf-8?B?RDJtdEVmOTdBeW1OM3lrOGhNb1ZEeVBnN2JOdG1HYnNsRVZmaXBVSTZVVDd5?=
- =?utf-8?B?enQydUZJZHhBSDN2NzEzdHQ4TFRFanpWRVlsZmRqOW1ZV0tzdVpTbHY0M1BH?=
- =?utf-8?B?WDU1SUFtOVFMV2wvVEpVUlZZbTNIa294RWxpdW9nc2kvYmFYNFFjaTVXTXNQ?=
- =?utf-8?B?c21OOTBsN2hRT1E3STBkUWxXOXBsekFodmFGR2lnMHNTdUdGUW1WN1BLVUZL?=
- =?utf-8?Q?sEHK//EDr+0=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2t0VDI0WWp0dXhHNWUzMFRzYTVzK2lvMkp0Zm01dWhjaFAyZk93QllMd1JQ?=
- =?utf-8?B?UDk5YjU5TkVtZW1hck9Qbm8yOHFNVHZ6c09MemFNVHZJWnB1cFVSMG1YTldi?=
- =?utf-8?B?aytBK3psdmRZdDZKOUxVMnJFWUg2bVA3Y1o1OFRxOTE5aVVpMURLYWY4V2lN?=
- =?utf-8?B?aW5QRXdaZ1d1R0NIVnJyU0NndzJJSmdrbHVoWTE3Mzk2aHRZQmFCYXZPeURW?=
- =?utf-8?B?eWVKaDZxc2E4U0FIdEErZXBqcUFOc2dKK2EwbUgzYXBBcTBkaVI2TU9zekVi?=
- =?utf-8?B?eStiMWM2V25sck5DV3hnRmkxUDcyRmJjNitJUUppTENTVGNFd2YyaG5OeEdi?=
- =?utf-8?B?dGJzelN5L3BsVFkxdmhtSkZhRlpCWWdtUEQ3bUN1VFVZd2pNWEo5T29UdHpl?=
- =?utf-8?B?MVArVVVodm00YXBKN3AySnUxYkxEdnorMWdIK01zbEw1cGFnVHFmU3lZRnFx?=
- =?utf-8?B?WTk5Q051WWMwYTZBOG83TmdaeGlVaE1rTVVESk8vQ3ViQk1DY3J5MG5maWJD?=
- =?utf-8?B?eFBrZTFqSFh6ODQ2MVlVb20wekR5YzF3YU9zb0NrcGtaOFY4Tm5aT08wVkl6?=
- =?utf-8?B?ZHZnZnJsQWdSblFkdFZOYWFLVEJDRFp5dkFnZFBlSVAvV2gzWVVQeFJQTnI3?=
- =?utf-8?B?TWJoRjl2Y3lXNXlWaUoxamV5cmVlbVdPdDhkd0YvMEtITFprSVowbnEwdUNE?=
- =?utf-8?B?TzNOckhqTGFNOVFXenFRSEE0T0M0NkFSZVJIUW9BOGRLcGFac2xLczBxa1BU?=
- =?utf-8?B?YkZZd1M5R1B3WE1HSzhNZ3ZkWTlORTNtbjBKRWtuSXhkckZNTEU2S2hDYWk3?=
- =?utf-8?B?c2x3dnpTVi82bXpPUTNYMzl2aG0rbmMxVG4rOHNZQVpacWNVTVVKb2ZaZE91?=
- =?utf-8?B?RkpnV0l5cEdzNEZzNEZnMWJQQlFyUkQzempuck9OWWlOTm9vSFE0VXZQNFlF?=
- =?utf-8?B?Q1dtUERFMkNYMkh1cUpKcnRSUGNwT1krNFprYkUwbkdZeWJnUHFjczVDRFRq?=
- =?utf-8?B?UFJkRXNnMWl5YUYwRkxBaTZCZU8xQVFiaklDUFN2RllPY24yQXNWeU83Q3la?=
- =?utf-8?B?MjZrYW1lRmk5c0lNN3o5TndCeEJlNXUrQy9PQncwYWJWdEFFelJYTFMvNE54?=
- =?utf-8?B?OGlRWnAvemVIUmdEVGdBak13TXM4V2ROY3VBK2RTKzZaNHZUbEdmbFc2cWpB?=
- =?utf-8?B?ZFNYM0FlMGpWRmp3RXhDZlZueHByQnFpSlNLbDB4c1FsV0J6cmI1eTh2emJM?=
- =?utf-8?B?NUloVUNmMnFvRGtGNFVQd2p5UStITlVNYUpUWnRFVDVRYXNIZTFXOEtCak5z?=
- =?utf-8?B?YW1OWlBpaFhxSHNwV1RPL1dPTUZGMHM2WGhMdW5vK0pObHlzOEFmbzRrV1FX?=
- =?utf-8?B?TjB1bHFYWjE4NnJpTndzWnVIVWxzYk1LaWhLc1F6dEpsTXg3UE5aV09NODc2?=
- =?utf-8?B?Q1IxT1Y5NE5LV3kwSXVTbjgzSDJkRStDVlNNdGgyWUREdkV0RTNFYTJaSldu?=
- =?utf-8?B?ajlPdTVQM1BMWE9wajMzR01HazAxaDlyV2orSVU4aGd6aE1Vb2NFZFAzK3NZ?=
- =?utf-8?B?NnlVTklHaWJvQ0JPYUw4Q2NZT2tDdTdCelBoZmY3dDFhY3ArUzVYZGRtUXRD?=
- =?utf-8?B?dmdHQTdSak4yU3Bsak44QWIvUXVFQVJWc1g1VzQ3czl0RnoyMkY0aXFsVnNt?=
- =?utf-8?B?eVh0UXR4cFV0R1BETUJmZlA3dnUyM3lzd3BaMW9QV2U5ampPWWFCY29HeVha?=
- =?utf-8?B?S2VsVllONDAvU3diUTlMWGRWaDhYV21wMDZ0U2lqNDJZMytSbHhGNWZ5U0Zt?=
- =?utf-8?B?VzFLdW45b0Jmd2VRR3QxdWJETEtQWnhqejN2aHlFdXdtZ1VLRGk5NzB2VUQy?=
- =?utf-8?B?UEcrWS9LNXlxYXB2WWtlb2NRdlVyR2ZLTXNkODUrRVBIT1BwYUdKd3ZQMzUv?=
- =?utf-8?B?RW1yei9ocGZiK25KaUJaalg0SFd5VG9BNW1OY0xlYWdBV1JHc08vYStaLzlY?=
- =?utf-8?B?am94Z0ZwdXYvRUpidFNLTVROd0JkV2V3WVFKT3Y0RGR1MXltRGh4c3U0Y1Nl?=
- =?utf-8?B?TXBGb0V2WCtuSStQN3B5OHlmeHZFWlNZZkhVdktDdHpKQnNaRElhNFRDeitE?=
- =?utf-8?Q?IQvUy+z0JruVItjNt9zYivA3r?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4677a611-df61-4063-3f97-08ddda2e8df7
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 05:59:24.6528 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QYBK+gkN5F4dqkpIjm6hfCtw3t9esJehcyMFWjP9UQ/NSZYmzKyaELAvOvvKjmPj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF7F0CA3746
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 3/4] drm/amdgpu: Add mapping info option for GEM_OP
+ ioctl
+To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, David.YatSin@amd.com, Chris.Freehill@amd.com,
+ Christian.Koenig@amd.com, dcostantino@meta.com, sruffell@meta.com,
+ mripard@kernel.org, tzimmermann@suse.de, Alexander.Deucher@amd.com
+References: <20250812191231.3534982-1-David.Francis@amd.com>
+ <20250812191231.3534982-4-David.Francis@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20250812191231.3534982-4-David.Francis@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,77 +64,194 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-
-On 8/13/2025 10:50 AM, Jesse.Zhang wrote:
-> This change reorganizes VCN reset capability detection by:
+On 12/08/2025 20:12, David Francis wrote:
+> Add new GEM_OP_IOCTL option GET_MAPPING_INFO, which
+> returns a list of mappings associated with a given bo, along with
+> their positions and offsets.
 > 
-> 1. Moving reset mask configuration from sw_init to new late_init phase
-> 2. Adding vcn_v4_0_3_late_init() to properly check for per-queue reset support
-> 3. Only setting soft full reset mask as fallback when per-queue reset isn't supported
-> 4. Removing TODO comment now that queue reset support is implemented
-> 
-> V2: Removed unrelated changes. Keep amdgpu_get_soft_full_reset_mask in place
->     and remove TODO comment. (Alex)
-> v3: set the flags at one place (all in late_init (Lijo)
-> 
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-> Signed-off-by: Ruili Ji <ruiliji2@amd.com>
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-Series is -
-
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-Thanks,
-Lijo
-
+> Signed-off-by: David Francis <David.Francis@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 84 +++++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  5 ++
+>   include/uapi/drm/amdgpu_drm.h           | 18 ++++++
+>   3 files changed, 107 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> index 019bd362edb2..a63a1e3435ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> @@ -134,6 +134,19 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
->  	return 0;
->  }
->  
-> +static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index 8b44d10a8b57..23a0545a0400 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -948,6 +948,86 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>   	return r;
+>   }
+>   
+> +/**
+> + * amdgpu_gem_list_mappings - get information about a buffer's mappings
+> + *
+> + * @gobj: gem object
+> + * @args: gem_op arguments
+> + * @fpriv: drm file pointer
+> + *
+> + * num_entries is set as an input to the size of the user-allocated array of
+> + * drm_amdgpu_gem_vm_bucket stored at args->value.
+> + * num_entries is sent back as output as the number of mappings the bo has.
+> + * If that number is larger than the size of the array, the ioctl must
+> + * be retried.
+> + *
+> + * Returns:
+> + * 0 for success, -errno for errors.
+> + */
+> +static int amdgpu_gem_list_mappings(struct drm_gem_object *gobj, struct amdgpu_fpriv *fpriv,
+> +					  struct drm_amdgpu_gem_op *args)
 > +{
-> +	struct amdgpu_device *adev = ip_block->adev;
+> +	struct amdgpu_vm *avm = &fpriv->vm;
+> +	struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
+> +	struct amdgpu_bo_va *bo_va = amdgpu_vm_bo_find(avm, bo);
+> +	struct drm_amdgpu_gem_vm_bucket *vm_buckets;
+> +	struct amdgpu_bo_va_mapping *mapping;
+> +	struct drm_exec exec;
+> +	int num_mappings = 0;
+> +	int ret;
 > +
-> +	adev->vcn.supported_reset =
-> +		amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_enc[0]);
+
+I just realized args->padding probably needs to be checked to allow 
+potential re-use in the future. Eg.
+
+   if (args->padding)
+	  return -EINVAL;
+
+Or make it __u64?
+
+> +	vm_buckets = kvcalloc(args->num_entries, sizeof(*vm_buckets), GFP_KERNEL);
+> +	if (!vm_buckets)
+> +		return -ENOMEM;
 > +
-> +	if (amdgpu_dpm_reset_vcn_is_supported(adev))
-> +		adev->vcn.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
+> +			  DRM_EXEC_IGNORE_DUPLICATES, 0);
+> +	drm_exec_until_all_locked(&exec) {
+> +		if (gobj) {
+> +			ret = drm_exec_lock_obj(&exec, gobj);
+> +			drm_exec_retry_on_contention(&exec);
+> +			if (ret)
+> +				goto unlock_exec;
+> +		}
 > +
-> +	return 0;
+> +		ret = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 0);
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (ret)
+> +			goto unlock_exec;
+> +	}
+> +
+> +	amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) {
+> +		if (num_mappings < args->num_entries) {
+> +			vm_buckets[num_mappings].start = mapping->start;
+> +			vm_buckets[num_mappings].last = mapping->last;
+> +			vm_buckets[num_mappings].offset = mapping->offset;
+> +			vm_buckets[num_mappings].flags = mapping->flags;
+> +		}
+> +		num_mappings += 1;
+> +	}
+> +
+> +	amdgpu_vm_bo_va_for_each_invalid_mapping(bo_va, mapping) {
+> +		if (num_mappings < args->num_entries) {
+> +			vm_buckets[num_mappings].start = mapping->start;
+> +			vm_buckets[num_mappings].last = mapping->last;
+> +			vm_buckets[num_mappings].offset = mapping->offset;
+> +			vm_buckets[num_mappings].flags = mapping->flags;
+> +		}
+> +		num_mappings += 1;
+> +	}
+> +
+> +	if (num_mappings > 0 && num_mappings <= args->num_entries)
+> +		ret = copy_to_user(u64_to_user_ptr(args->value), vm_buckets, num_mappings * sizeof(*vm_buckets));
+> +
+> +	args->num_entries = num_mappings;
+> +
+> +unlock_exec:
+> +	drm_exec_fini(&exec);
+> +	kvfree(vm_buckets);
+> +
+> +	return ret;
 > +}
 > +
->  static int vcn_v4_0_3_fw_shared_init(struct amdgpu_device *adev, int inst_idx)
->  {
->  	struct amdgpu_vcn4_fw_shared *fw_shared;
-> @@ -211,10 +224,6 @@ static int vcn_v4_0_3_sw_init(struct amdgpu_ip_block *ip_block)
->  			adev->vcn.inst[i].pause_dpg_mode = vcn_v4_0_3_pause_dpg_mode;
->  	}
->  
-> -	/* TODO: Add queue reset mask when FW fully supports it */
-> -	adev->vcn.supported_reset =
-> -		amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_enc[0]);
-> -
->  	if (amdgpu_sriov_vf(adev)) {
->  		r = amdgpu_virt_alloc_mm_table(adev);
->  		if (r)
-> @@ -1871,6 +1880,7 @@ static void vcn_v4_0_3_set_irq_funcs(struct amdgpu_device *adev)
->  static const struct amd_ip_funcs vcn_v4_0_3_ip_funcs = {
->  	.name = "vcn_v4_0_3",
->  	.early_init = vcn_v4_0_3_early_init,
-> +	.late_init = vcn_v4_0_3_late_init,
->  	.sw_init = vcn_v4_0_3_sw_init,
->  	.sw_fini = vcn_v4_0_3_sw_fini,
->  	.hw_init = vcn_v4_0_3_hw_init,
+>   int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+>   			struct drm_file *filp)
+>   {
+> @@ -1014,6 +1094,10 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+>   
+>   		amdgpu_bo_unreserve(robj);
+>   		break;
+> +	case AMDGPU_GEM_OP_GET_MAPPING_INFO:
+> +		amdgpu_bo_unreserve(robj);
+> +		r = amdgpu_gem_list_mappings(gobj, filp->driver_priv, args);
+> +		break;
+>   	default:
+>   		amdgpu_bo_unreserve(robj);
+>   		r = -EINVAL;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index f9549f6b3d1f..5a63ae490b0e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -668,4 +668,9 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
+>   				 struct amdgpu_vm *vm,
+>   				 struct dma_fence **fence);
+>   
+> +#define amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) \
+> +		list_for_each_entry(mapping, &bo_va->valids, list)
+> +#define amdgpu_vm_bo_va_for_each_invalid_mapping(bo_va, mapping) \
+> +		list_for_each_entry(mapping, &bo_va->invalids, list)
+> +
+>   #endif
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 59b423883e91..7072959103e6 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -802,6 +802,21 @@ union drm_amdgpu_wait_fences {
+>   
+>   #define AMDGPU_GEM_OP_GET_GEM_CREATE_INFO	0
+>   #define AMDGPU_GEM_OP_SET_PLACEMENT		1
+> +#define AMDGPU_GEM_OP_GET_MAPPING_INFO		2
+> +
+> +struct drm_amdgpu_gem_vm_bucket {
+> +	/* Start of mapping (in number of pages) */
+> +	__u64 start;
+> +
+> +	/* End of mapping (in number of pages) */
+> +	__u64 last;
+> +
+> +	/* Mapping offset */
+> +	__u64 offset;
+> +
+> +	/* flags needed to recreate mapping */
+> +	__u64 flags;
+> +};
+>   
+>   /* Sets or returns a value associated with a buffer. */
+>   struct drm_amdgpu_gem_op {
+> @@ -811,6 +826,9 @@ struct drm_amdgpu_gem_op {
+>   	__u32	op;
+>   	/** Input or return value */
+>   	__u64	value;
+> +	/** For MAPPING_INFO op: number of mappings (in/out) */
+> +	__u32	num_entries;
+> +	__u32	padding;
+
+IMO uapi needs to be a little bit better documented - in this case the 
+information that value fields holds a pointer to the array of 
+drm_amdgpu_gem_vm_bucket needs to be explained. Kerneldoc for 
+amdgpu_gem_list_mappings() is not enough since uapi headers are separate 
+from kernel sources.
+
+Also, why is drm_amdgpu_gem_vm_bucket a bucket? It contains information 
+pertaining to a *single* mapping, right? So why a bucket and not for 
+example mapping info, or entry to align with num_entries naming? Is it 
+just me who associates a bucket with something storing potentially more 
+than one of something?
+
+Regards,
+
+Tvrtko
+
+>   };
+>   
+>   #define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT	(1 << 0)
 
