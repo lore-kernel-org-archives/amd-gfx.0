@@ -4,158 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCDE9CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 15:35:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C7ECCA0EDC
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 15:35:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57BD710E8A7;
-	Thu, 14 Aug 2025 15:35:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44D7A10E8A4;
+	Thu, 14 Aug 2025 15:35:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hFd5Fkjn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e8FLlNzm";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2048.outbound.protection.outlook.com [40.107.220.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B72C10E8A4;
- Thu, 14 Aug 2025 15:35:35 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDF710E8A4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Aug 2025 15:35:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PLxOYYDXmr1YgfR+T31/UufjJsAwvD0UDHORhHixFSMsj/gDligm8wzF5xAXzqkeylPOTbzShuxaXykaSmT6N6metFl1Okg2Qxw+G7crr3w8aE/Z0Ff/gB1674oDtnncH+g+FPsTRs7PSc8pZf4Gr4OpHvzimt2M4ZjTjria9Yo8FfIfwzWBOY5Rg35NbbuI6QTwbVlmaqmxrRSIbSNwBoDBk9s15LIY06bExxthZy91QRfTKaQ1RdKWMUSDQF192UT0iQcubZiMe+bxMQyt4t8P6E+EW/ErSqiDARTbHKsur/wZB5v63WKo9or2NtT7iTSouZN+RxlpjulwdZD8pA==
+ b=NVYQhd5KvRlCNuJlQS1BQxdFSXZkCHemdM09CtC18JfkOHBesAU7wtvCWd5XaYP3xeQ9AoEVIVSsnj3pKNvAotBu9r2R+QV6VrGXjQNbdhV7H1n9pe7sTd/a6ufxgFudG2aHdZOj6kF5UWxG386QI+Ay84Qt8QmFk4gnWkH8I44aQeAH1+EIoNR/GMpPdcYrw2Uvb2qZO4BZIGKAMb3YA+jjr10biRn/HuWKSVPOxcqlg2Sd2zAFy+L+JKLYFBQkAOFSPsWTeNUWI3QKWPD1oRbDF+L+X79Zd0TKAnCaslyXB+xj89zTYyMAH6ua/xVMhEyJW57WLnPe7ui3OzSb7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=396QtFzlkwpolbl1cFtqnDX7ckncSSmY8OFaDqt0qp8=;
- b=WoYU61wGS3GIbxGEU+JRUHs4Xy+qLNxj8U+ZtAWEmb2DsmOPjG/GWEP0TkzDaYHJzQkxQpd86Vn9bWjTUSdX74DA7occ8D8NNygS4/clHDb9mgyalY+1G8BQTwduGPFxCMK+QzwhY/YCXqOpZMBs9znVE2IQGQOqYpXby2hc/+dn0H7PWDvE9ZiEvSOxpFPYV4CWQJZ0JfEO76o7hoR2T/XK7XZjJ8gJoXIIjL7T2sq88Lz1vdiTMBWlG+iNO3ft23FvaH7lO51i95Dvj8D7nYqgv+v4N/0PvNXdkN+b7o8s9PGAnCgm4BMgX44Do2lO0+WUIB0vkuOXVg1hTxLJ+w==
+ bh=alazMVFMcxp4EbSnigjvKK8ukK+1+xvwWkAl53m1vF8=;
+ b=V/XyJgS3OVTZYqgYu6Vc1C+/5CYYP/frpjkOZ7Iy97h9XPRKs0OUPW7fkipL8JYPwsYJWA5+rH7CxSRPNcBGC09Zm57B1haGUE+DayQnfGeOU2L8Ogq5ry1ybk0rydTGU7tfP++QXC/b0KRQAxtd+QCEE/5edz/GTEbokYj76POL2LtoJLfDIgxzIMYyQPKw9+8UiDQDlpTf2NxCyXOwEDD5VqfOqqB4/T89eGvRbhm16SvKmxExZXkA3fDYySHFvbv4kk2i1HlOQ5sL3VzPazyJcAId6L81MkVZ52qGw9z45CZ0nl/XITzbTAgnk73dzjNHJd27gpKyEjJ13XziSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=396QtFzlkwpolbl1cFtqnDX7ckncSSmY8OFaDqt0qp8=;
- b=hFd5Fkjn3QyXdcEUpWPIIm0cgKv0Y/gSS+uqaiCQg+1svlHxI4EVwgI4L1Ulap/fAE7WQBRx4nrpLgkjpvQxHmdcWSxd61JibcfND4wr2yOw8aPBq6u+bdUg5Wu0olR+WilvVphd3GwAR3hBsdJ4KemRR24Y8stSMLyMQc97OeA=
+ bh=alazMVFMcxp4EbSnigjvKK8ukK+1+xvwWkAl53m1vF8=;
+ b=e8FLlNzm9plTZdodUkTf9YZj31m95TlRGOQCHwVfkqdhDmWMk0v49aVgTcfJEbRE26E/TczUAQVZYBWA6JdgVQF0AF2fffE/OavBt3OdzhGwbV3MeRgURoY5YPQ5Cd0aUsXWMCQ4li/GGaxi8nbrXSc3Bl+poBg+IEoOBu6o+qU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by SA0PR12MB7464.namprd12.prod.outlook.com (2603:10b6:806:24b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.16; Thu, 14 Aug
- 2025 15:35:29 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%4]) with mapi id 15.20.9009.018; Thu, 14 Aug 2025
- 15:35:29 +0000
-Content-Type: multipart/alternative;
- boundary="------------ZXyKBMF3T8ug5PAaQy54QfP9"
-Message-ID: <6a3acd53-cb93-44d5-b950-768f92914e85@amd.com>
-Date: Thu, 14 Aug 2025 11:35:27 -0400
+Received: from PH7PR12MB7210.namprd12.prod.outlook.com (2603:10b6:510:205::17)
+ by CY8PR12MB8338.namprd12.prod.outlook.com (2603:10b6:930:7b::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.17; Thu, 14 Aug
+ 2025 15:35:39 +0000
+Received: from PH7PR12MB7210.namprd12.prod.outlook.com
+ ([fe80::54c:74b2:5935:6041]) by PH7PR12MB7210.namprd12.prod.outlook.com
+ ([fe80::54c:74b2:5935:6041%3]) with mapi id 15.20.9031.014; Thu, 14 Aug 2025
+ 15:35:39 +0000
+Message-ID: <7a8991f7-1eb7-4307-ac72-1281a50bf4d5@amd.com>
+Date: Thu, 14 Aug 2025 11:35:37 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] drm/amdkfd: disable HSA_AMD_SVM on LoongArch and
- AArch64
-To: Mingcong Bai <jeffbai@aosc.io>, linux-kernel@vger.kernel.org
-Cc: Wentao Guan <guanwentao@uniontech.com>, WangYuli
- <wangyuli@uniontech.com>, Huacai Chen <chenhuacai@kernel.org>,
- Kexy Biscuit <kexybiscuit@aosc.io>, Zhang Yuhao <xinmu@xinmu.moe>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20250814032153.227285-1-jeffbai@aosc.io>
+Subject: Re: [PATCH] drm/amdgpu/vcn: fix video profile race condition (v3)
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Sundararaju, Sathishkumar" <sathishkumar.sundararaju@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250813134504.2037516-1-alexander.deucher@amd.com>
+ <ae769200-c37e-426b-b73a-ac9473cf66eb@amd.com>
+ <CADnq5_MbT-4Q4HfQ15AWMNGu6hct2=Yu5K5+F6qMGWDC6H_ojg@mail.gmail.com>
+ <faee7074-f3bd-4791-b3f0-fe409049de06@amd.com>
+ <dc8beb3b-789c-03c1-1c37-50c998b7e44a@amd.com>
+ <CADnq5_MJouzU1QFsuuMtiXeFAHi96zXfBzuAWFAvfauHssw_eg@mail.gmail.com>
+ <1633c024-a1dc-cdc3-6a28-c48b49640297@amd.com>
+ <CADnq5_P7OWj6GLi+qzZ_EVZAK5dPiOrjmvV9CRqRG+iFtcq78Q@mail.gmail.com>
+ <85af1027-5a09-40ce-987e-9f4ad8fe2b5c@amd.com>
+ <CADnq5_O2gnR8GtAaL-937R97Kwtb50QNh+Y3V_TzsLGLbT8CLQ@mail.gmail.com>
+ <ad01beb5-e17c-4ace-8707-4cd5f52de2c8@amd.com>
+ <CADnq5_Of2gkZoyE9V-3ySEMvc20sVG9S8rz8x5uRLCX=OEnnvw@mail.gmail.com>
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20250814032153.227285-1-jeffbai@aosc.io>
-X-ClientProxiedBy: YT4P288CA0032.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::7) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+From: David Wu <davidwu2@amd.com>
+In-Reply-To: <CADnq5_Of2gkZoyE9V-3ySEMvc20sVG9S8rz8x5uRLCX=OEnnvw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT1PR01CA0038.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::7) To PH7PR12MB7210.namprd12.prod.outlook.com
+ (2603:10b6:510:205::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SA0PR12MB7464:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9771d867-41b9-46c8-70e9-08dddb4832e9
+X-MS-TrafficTypeDiagnostic: PH7PR12MB7210:EE_|CY8PR12MB8338:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1897ad83-54d6-4a31-cabe-08dddb4838c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|4053099003|4076899003|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZDZxMFJ5RjcyMXVyajBaSUhhS0pHU0l0L0YxbkFRWlZjN0pFRU5BODFlMmFx?=
- =?utf-8?B?cS9QOVBVUnFQRklKaElpSXBJYlVSeTRtSE1FMjg0L0NwbXp6ZEIvN1lRUUQ5?=
- =?utf-8?B?V0piQXlzcTFCbEhmOXd0SzRkT0hqa1F0TzhRYkU4am9uRTZPZGtsNUl1NGE3?=
- =?utf-8?B?SlZVYWFJZ0xNT0xhVmpNTjd5aXpqSnFmQ09XQnhBcFBDRW51L1ovOTFsRGIw?=
- =?utf-8?B?ODZyaDBQZzhFY1VFMVUzL0doQmlQL0NXdGVyT0RGNDkzVit1VTBTZkpaNWZ6?=
- =?utf-8?B?VXlxQktCQTViTFdKZ0wvVzZ3RE5hUExBZEc1RHlCcmN1b1V0clNaeWhweGE1?=
- =?utf-8?B?Z3NaeURlMEIyNXc5cVUzTmd5ZndNbE5qNEorOVhhNUxwbG52dmJrcWZUU09P?=
- =?utf-8?B?YjBBZWE1QVVCVmRtSG9sdmtOOEkvUG0yWXVYT3ZaNlhjREdJWnpRWk5oOC85?=
- =?utf-8?B?bGhqa0JhRERTUDdxT0ZUeG10b25BbmZmaXNVRDYxTlkwMVdZQVRJTW8vaWpY?=
- =?utf-8?B?WHpOUU5ObjR5ZlR0Q3lmRUZhM3ZBY0R4RUQrMWVPRmJtQUhONUoxbkRTSERk?=
- =?utf-8?B?WXJ0TDhRTHlSTGNOTGZjaFdlRTM4RG9jM0lLME9RckQ2U2w4aGc5MWlsKy8w?=
- =?utf-8?B?WjkxSVpvT3N3Z1ZpNlRhUUJhdGlmUFNadjhNM2JkL0p3cjljZFFhSVA1ZVRU?=
- =?utf-8?B?L3I0eVBQdWxrb3l4dEJZbGJXcW5nYStic09MMnVVUklMamhBdVFPSGdVZ01G?=
- =?utf-8?B?QXg0OTRGb2lsaStqa3ZhWG1ZMDJoaVp2SnlyZU1zQmJSaTNhY1FwdkVsL2J2?=
- =?utf-8?B?UkFndmNIOTZBS055dHhyZEUyRDQ0L3NMMTNPSWlGbTBHaWZXTXdyQmNsRFhS?=
- =?utf-8?B?eDFvcUpmeW5idjZKbmRhVnBKWXFyZ0RBbmdpRWIxdk43eXNjdGM1TTJzaWJ5?=
- =?utf-8?B?MlpyK1ZWTU1EV3BjcEkxRzNXWFAxU3lrakU5bkhqdnhxSWsydEcxU3V3azYy?=
- =?utf-8?B?M3o0UC9tUS9YdTRoV2E3a2xoSzlSRVhnVUhnYmZSbzlYUk9IRnpGaEVmRjRj?=
- =?utf-8?B?N2hXVUtodWhPcG5OYmdYLzY0RC8xRFpKZWowaExzdW1MeDNNMG5iS0kzQ1M1?=
- =?utf-8?B?YTFHZHBOT0g1VXFSQVZaTWkyR1JvcklIcWNNRG9ZZktvSFRUL0Vmay9DU3Jn?=
- =?utf-8?B?ZWlqTkpMY3JjcXBRalIwbWh1TGpwZmVZcUozSDhORWZLQjhoRHk3N09Va3Rw?=
- =?utf-8?B?N0cwcU5CUE9GYUlyRFgrTmpDUHYrRDg3bWsyTFdBVzFBZHM2N0NyaFA5OHhI?=
- =?utf-8?B?cDVEaW9MR0l3R0thY3N4cVFkaUhoVmZGOHF2NGIyN1NrZW84TDNpOXBaT2t3?=
- =?utf-8?B?ZnFlYXNHckNIK25kT3lHV0VUd21GTXJKZEJUSDRtVXl5K2hIZDVJS3ZCejdW?=
- =?utf-8?B?K1B0VlJncHE3ZHQyZ3M2ZXAyM0RicTVsQXBRWHQ0VzVMRXp6d28vVjhxZmxU?=
- =?utf-8?B?KzE0cTl1Q1RMdUVoODZEbStlMEJOdlVXWStJbFdTOURMYms2MjVaQWJkRVNv?=
- =?utf-8?B?M1hPb1FZc1poTjc5cHk2cVpmaVlUbkZEa1hNQjRpRDUyejk4Sk02VEVhWXkr?=
- =?utf-8?B?UTFwckJTZUg3YTc2UlJkc0t1NE5RaktITHR2QmJncFkvT1A5cE81S1lxOGZV?=
- =?utf-8?B?NC9UQm9YcmRXZXVBUCsrbHBTd0h5bm93SkZxZWpXQXNlT25xSW52VWpTTGdh?=
- =?utf-8?B?Rlcvd3MycERIL1ZMMG1ma0I2U3JGYUZuVE1XbGUwSGNTMmk4SHFqSUpTUFpw?=
- =?utf-8?B?TVlYVWNvWS9TU2JWT24rZ0tCbVpwb3htSUxIdFpZSi9HdnZWbzVadUVoTmZm?=
- =?utf-8?B?aUVUa1dGVDFXVVAyczBJWGFyY1RFU1RxakpOWCt5SkR4NzdKNXJOUGc2V0FY?=
- =?utf-8?Q?0Qm6K7cZP54=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RUYrWGE5ZExCWEhLbXRhRVlLZ2ZGcUtPVWUvWms3NTk4WUxBYS9NWDdOVzht?=
+ =?utf-8?B?SFBrZmhLcjRPVDk4TXMyMlNaUDJCREltb0R1YVJicjJ0amFhVzlLNkJuTGNz?=
+ =?utf-8?B?ejZ4anBDOFE1UFVWZVhiSTBtY2E5MnZRc0pXVXdBeFppUHFhVGRDb2NvMFlv?=
+ =?utf-8?B?bEYyaUpzQkRqazlQMVY1cFRKMDhXY1pzcUloaGZ1aXNUVWZRV2laWTd0RjNP?=
+ =?utf-8?B?Mm53QlVlQS9JZVVCdjBTM1ZZLzBmV3hqVjZvazhOYkl1N1N1MUptZWN0a0JW?=
+ =?utf-8?B?djFXNVIwRTU2UFB5NElhVVprOWNGdFkvRWN2Q2d4UjNhTHliV01jU0UwRkda?=
+ =?utf-8?B?azNzUFZpWThYd2FrN3Q3Vk9tZ3Q0N2RzWXRVUGpxVmRCYWdFRGlxaFBoaDlQ?=
+ =?utf-8?B?L0RSL0s0b2RmWDRHV0FQaDUva0hXaGZxNlhiQk5GR0tQMFMrRXc5UmpYN0M3?=
+ =?utf-8?B?UWxSaHllOFBTMFBvWVlHb1RxZk5JNTBMdVpsajBEa0NmYUFlcjhuVjJxSC84?=
+ =?utf-8?B?YVh2NmsxRE9qOTFHV2Q2U0hiUGpMMDMrSngwRTh2a2YzdGw3SGh2a3lyRnll?=
+ =?utf-8?B?dnNOUEIyaW5ieHJJTi9KL0ZRRTEycStKbTM2VS8yQmk4NFlKZ3Rwa0QzbWtI?=
+ =?utf-8?B?OWs4bzlXdFZsckVHOHBSaE1LZzFuekhSLzlRWW8ySVQ0VzdpSmVra2F6WVo3?=
+ =?utf-8?B?c0dpeUt1NEx6SnhHdVdKME56c005VEpkSTNYMWt0TmNUbmt6MU5VWUIxNm5v?=
+ =?utf-8?B?endiYUMxeHVvc1l2bTlqOTlxQkRCV0tuaFFZWUJFcWVyTWJVN1VlVWtzUTlo?=
+ =?utf-8?B?QUxRbjdCTmFyRWVIRCttOE5lMThZMkZZNTNsamdEaGFmYUsvTis3MTdGazA1?=
+ =?utf-8?B?RmN4VGNlOU9CNktBTVdJVjBLVm9zeDdLdXlxcW5rQmlsUVk2cFpFWHU2MnZQ?=
+ =?utf-8?B?ektWaU5hRDNQejNWWUUwaVZMWmpabFhZbWhvUThHTjIvano3ZENzK2NHNDVi?=
+ =?utf-8?B?OHk3SjZqWDFrTHA3RmFRdUFJNTdySjRrZ0k2eEF2bWNNRXhuc1hWQy9NZnBq?=
+ =?utf-8?B?eHlETzVzQld2RmJINHdaYldKQW9vVXRhUG9iSHNGVUlCbFpFZHBQekM1WHhF?=
+ =?utf-8?B?bGZqNkUwUm9UY01Za1c3MFlsenR6RWI0U2hRQVJOUXVGKzhqcEZrQkIyNTFr?=
+ =?utf-8?B?NGJreFIwMUpNcXpqWUFwVzlmOHJSVis5dDRETVoxNU1vbmxxa3JDbUltaThO?=
+ =?utf-8?B?Q3NValJQaFlyZG92QVR0UXBjSlNwUlhMUFF2THo5bnBHQjVCTmxsWG1ZWFNR?=
+ =?utf-8?B?ZCtQc0lCMlBOSFVpRkRZTUpqL09kZysyb3pyQjMrUVczS0lkeXlmV2pFY2NG?=
+ =?utf-8?B?QmhoTTluRmdsS2picGIzeVdkVzkvZ3BjYzl2YXhPa1dYQllGTnhlajJuUWFo?=
+ =?utf-8?B?WUJ3NG80RHA0ZjNVRmdlamNOOXBvMVErM3htd3pSdTU1eWlTVEZSZkY5WllC?=
+ =?utf-8?B?Z0tmWFBJQ3BDY05RbklERnRJWkpoTXV0MGZ2UGhWRXBmclBMeTlMQ05mZkx6?=
+ =?utf-8?B?cHpoWElleGF2TFM3c3VXTkdiU1J3Wng3SU5SdWZSeWtqdjBiclVCWEcxeUQy?=
+ =?utf-8?B?NHpPTGl1ZW9RZzBEZnR3QXZPcVVlQ1FYSWRXTm5NMENBejl3aVRwYy94cTYv?=
+ =?utf-8?B?dmt0OUdSTWNIR1Y1MlVOc082S3FISDd3Mk5pZzdUNU82bkF2Vm8vZ2cwMnV2?=
+ =?utf-8?B?Slo0Zm9tdDhubnFRL0RtbEE5bnhXUGlvZXdwMnF0S0s1dmN6SFZjVWFaRUdp?=
+ =?utf-8?B?cE1LL0gzYkpPYjBDOTlDcXdLeDdIODRqMWJTUDhPVmJrblBDKzFkV1NraGlz?=
+ =?utf-8?B?WVg3RVdlVVFaOXZJeGw2VG0vd2NOMUZtbzNRQTlaZ3ZxTW9wd0JrQTJzb2Rj?=
+ =?utf-8?Q?EnAjpLqh/zU=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(4053099003)(4076899003)(8096899003);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB7210.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDF3Z29KM0FDYkM2b25WdWJOL0NBaklITUpXTDhvT01GNGM4NlVYRTBod0VR?=
- =?utf-8?B?VWk0Y3RBZ0ZEcHBvZlk1NVYrQnFySHpJaEkvYzF6aUw0bVFRZkF4djhoNHVT?=
- =?utf-8?B?M2lQNWtFR1BWOVNwT0o0cGF2RmdRNGpmSkRSZGtWdGNPenQwOXF0Z2RTT2gw?=
- =?utf-8?B?dHo1U082QmQ3Mm9jVjBUeStCQkZCcTg2STJnOFNYTUxUOXVwTCtmMGxCbHN1?=
- =?utf-8?B?QUFBYmlKODEyUjNXeG4rUEJZZXBDNG1VY1h4S3ljek1YODZMYkFuUDhxaklX?=
- =?utf-8?B?N09zVnRRQkR4ZkZVcW1GZnMyVmM5UjZkNTFGTlRrR2U2Q2p5NHZMR0JRT1BB?=
- =?utf-8?B?UUlLVjRuMHBYQnFWT3BuVXVGTUZ2SmJRbmZNY0lPKzMxc2tSdjNXYlF2VDlW?=
- =?utf-8?B?WjlpNC9JRi9jZkZYaHJVelJYckdPalY2TVdZT0tzeW1OMlRzZEhUUkVZOFBZ?=
- =?utf-8?B?SzhQcWszUHNDSDJPMUFWR1pVd1RCRUJCdzdxWGJZa29mcjBvZGpBVVpHZ3Fa?=
- =?utf-8?B?UE1kQmlLWDNUN1dacEhBTmhOaXNBbDNPU2dSTG83aWpsd1kvMDlDblgwL0RY?=
- =?utf-8?B?TGNVVkE5c3U0L0VJSnRPTlpBVlVlYkJWSU5MTTRhcHphNmZ5KzdTeWdRMmlw?=
- =?utf-8?B?SUhoanFQOTBUZXJjMGExclFINEVtdHF2SVFVK2N2MVozWS8zdVpISDB6czJW?=
- =?utf-8?B?SVB0TUpHNjVVbzBsbjVoazFhS0hldnBNUGVoUEtva3dmWElCRlZjZkx6T2pD?=
- =?utf-8?B?MElkV2YxUGVuQmxHVTNKekI3VnZyMlV0djNFVVBETUFzM015VklsLy8rMWd1?=
- =?utf-8?B?WTRPK1RBbU0xYTlSSC93a0cwY0c5azYyczBrQ2NvWTRIalFkbmtMRWxDbWxZ?=
- =?utf-8?B?emNuRXNIMzZ4MUMwODVSeHBuYzRsNkhZNWc3OFd4TnFFNVBxa2s3dys5bzNZ?=
- =?utf-8?B?VFp5RWtsQ3BvazRlUUhTSUlvdnhyY1Z1WDIvWUFMMDNWbUtMbEozOWM1Q0Qy?=
- =?utf-8?B?SW1PS1MzWFN2QW9MSVNqTm02UHJYNk40SlBMdjdNc2dYM0VSMEp0c0wwc0dS?=
- =?utf-8?B?TDZUS1NaWkxTcWMvZ3dEOG93RTlKSkszR2s1UmJHcmJ4SGpKa1psQnlWVXlP?=
- =?utf-8?B?MThBV0FUeUEyNld5T3c2dFFoSFc1U1FEQm8vVm9PYytJZXk3QlBwNms4WnlB?=
- =?utf-8?B?OTFzOVUzclZmNVFzQjNEaFQ5a2hFcUdrZTAySkJpUTB2dGllOUFld2ZqZFZF?=
- =?utf-8?B?UVkzK2FXbFdLVk5YRklnTU5peXp4aU9sVHh4WVlISXhlVm1NTFFzMHdoQXdk?=
- =?utf-8?B?bG5pWU0vWFRBSTdkZEJobGdnNzVTcCtmRzBpdWx4bDdrWHo4Z1o3cVgweHFZ?=
- =?utf-8?B?VldMR2lmakpwMFIwbkRZTHZDOHF3R1NZdDIwc0w3MGp6ZkpBc0MvS3lxM2E2?=
- =?utf-8?B?clVvZFNPZUVSTDlhelQ2dHRKNXdUSlN0cmgxdUgvbFh3YXBaQ1pYc1lNYWI1?=
- =?utf-8?B?L1g5VWd1Qmg4TmU4Q29xZW9MM0RxSjBwZ3NNZWtyTzYrNzRacmpaaFF2b0Iy?=
- =?utf-8?B?cDdBY29KK2VhSzFhdGZ5VHJiejZ6NHNWV3E4b2x3QzhKYVdINFZSaDRNSXE0?=
- =?utf-8?B?U0JtaHkwV3VFWS9JYTFYTE03b1hET25aUlVNck5zWCtoVWJmV2Y5WDcrTTRh?=
- =?utf-8?B?Q0lhUXdLTUEreElGbS94TlVQbkl2M1VvZGVDK05YVTF1end0RGY2d0h3d1B2?=
- =?utf-8?B?bVNuMExKdTdDVjRjNExaWDc4Qmpxa1NTRWs0ZVU3cDcxQ0tEUi9lVWt0TUFJ?=
- =?utf-8?B?dS9jZzNxeVJFS0x3NVA2UzF2bUdLQTlqOWJLRFFFVSs2TS92QlBlQng0Zmpz?=
- =?utf-8?B?amlReHpKL1JtTVBBR3JUYlZYdTlqWUF6eTJVTHk4NFZRbHp4YWFFQjlMc21P?=
- =?utf-8?B?ZlZyYUw1ZnlndjZROFdOWEtvY3c3cEJIK3krMVI4bzFMbUpyQTUwekZrS2RQ?=
- =?utf-8?B?UXZEQlg2K3lXenkwb2dBcFJDVmNDTVFFTjFwa0gvL0g5SmRjVnEzT1p2WFFl?=
- =?utf-8?B?d2VlU09tOVk3cnAzVm41dCtMT241am0wKzdKN053SzRHWkVxZ3kzTUZtdXVx?=
- =?utf-8?Q?z7DuFEltJxlO1hw7bFSBKxq7+?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q01TMTBobGNJN0Y1c1RKQm5zOXZWWGlUdkNmTjk5TlNscW82bFRranpVNVpp?=
+ =?utf-8?B?b3pjMGtMaTdaemo1SkFWRmFQaExRaWhBR3NYdHhmL0t1QThIOVhIV0pma2dP?=
+ =?utf-8?B?Ym1WQ1U1WE9tV0JncmRobjJOZG9CQTIvVXhDdjhEYVBlaGUzSUkxaXhWTms0?=
+ =?utf-8?B?enRvbmlEdStkK1FmbGpPYzhaR1NLbUg1ZUo4eTZtZGtPL2xaRThpQ3dhUjB6?=
+ =?utf-8?B?bjRFUUd3N1RFYVZqbmRqU0tta2YvM3dxUVBaV2F2WW1WVzdUZTVOWWF3MDBh?=
+ =?utf-8?B?QVVsbmxNdGZXL3I2NkdXMXRUUGRWT2swQWlNU3A0dXNEUFgvTWhpZTJaakpB?=
+ =?utf-8?B?dHVBTythdytwT0ZuQVlHVUlaaE1lQ2RZUmZ4dmhQK2VoeUFDYVFiazdRVGFJ?=
+ =?utf-8?B?eXNMWmtGekR1UVRMZEdaYnFtR1hKNzBmRGZ4NFdSODZsaFNDZDR4VmZjRzkv?=
+ =?utf-8?B?WkU4bmFEb2pXWUVDTE9XRHhtS1d5a1Vuek9wck04S1pYdlYycmpsV0grY0xl?=
+ =?utf-8?B?LzFRQ1dsQkgyYWlDdUhJU2V5QWhIYXRBcWVmODgrc0tWUDdhRGg3cWpwRVpD?=
+ =?utf-8?B?bXg0dy85N3pqS3MxanJYY0lJUllqazdCYUZLTlcrY1J5ejNvYWZXODBjaGRr?=
+ =?utf-8?B?ejJ0WkpaZDJwcmFRM0l6WmFWaXk0V0E1dkVhU043T3UxNkVYcmpRNzBSSjFk?=
+ =?utf-8?B?VGR4UWd1cXZlSzRlZk9PN21Td0VPb0Y0Ry9PMXQ0WldWc1FZZ3RadmM3ZUxJ?=
+ =?utf-8?B?dGRSMzJNZTNJNVE2eDlyd0l6Q2crZUZXZXNWUXNWNUYweTFKcW5IcHpaR2hC?=
+ =?utf-8?B?Nmp2ZjlxZmZwMW04UFNJSkEvczVUZUIrcUFVeENFMzRrZStQSmZlaUdjTTNs?=
+ =?utf-8?B?dzZZM2hqWk5McUY3WUNZRXRKcVdoSjN5blMxSUJlU0U4eHkvdjlXcmNBNWFp?=
+ =?utf-8?B?US93WFh3TE5IT3FDdmJrYmRVSlJ3TEdLNUo1NS8wcldISm0xc3RtSGh3Vkxk?=
+ =?utf-8?B?b1c1dklMKzNGalhJT3dJK3pyZkx5RjNmR2lVUHNrWFgrOFo2VnNjRmd5MUlN?=
+ =?utf-8?B?VFQzMWIxUXV2MVJuTWlESjNPWFBMSmpsZnlwTDk1cEY5aHljS05QWFZlN3Bi?=
+ =?utf-8?B?aXhuWnNyTGN4a3AzcTlhd2xIbm0reHJtQy9LNWtvU2h3Y2J2bno0dWtleEp5?=
+ =?utf-8?B?RUt6UGVuZHI4WXNxNTRac0orNEErZnFTazNuVHU5K2dnakVpajhndzRXbnZz?=
+ =?utf-8?B?bFhld2tLeTR1aWNndzZ5MGhBRTRKZ2traDN6Zk5Gek5XRjMvZzhsZzNPb2to?=
+ =?utf-8?B?OUd1a2FMVTJUSUJRenJlMENRaHlQTzVUb2E5ZlBDaHJXZVAwUktDeElTek96?=
+ =?utf-8?B?TVBjWW1CeEJka080ZUprOUVPMURueVdsRXJUZWc5NzJVVGt6dHFuL3Q1SFBr?=
+ =?utf-8?B?aHp1OEdjWWxqNTZkd3BqdkVsM3JaK2tSMXVuZnFRRHQyM1N6aXlxdTFtckNH?=
+ =?utf-8?B?RStoQmlyaCthN29OelVaYkplMjdYa1RCNUxiaUxvN3ZRVDd6bm50NTdURjQ3?=
+ =?utf-8?B?czBTRFlKMW9hS2lxT0EyUDFKNGluY3RJL3JXbWczWitGemNBOWpJN2NKQlVF?=
+ =?utf-8?B?NXhHbU1nbWVLQ3JzblVEa0o4N3VLSFNOeWViRlo5S2VwMDhvSnIxbWkvZlFh?=
+ =?utf-8?B?emFodXlNN3BZV0JSMFBORHFpTE80MFJEcUJLR3paYXdtVzRNeCtobmRqWWQx?=
+ =?utf-8?B?eDhjWkNDZVU1Q2tpaDluVkxUQjhxYmlrZ0ZncXdzNUk1dkJjSjFKZXNHMU03?=
+ =?utf-8?B?ZlFBY1pSeXlTSkxqRGdDM3NUa05MSVZ0QldQc01RNUsvRGhwYjZ3R245bzgz?=
+ =?utf-8?B?M3hBQlRHb2FqR0tjQjdkZy93V3N0ZkcxenZqQ3pYQ3R6Znp3ampWYVJUazFJ?=
+ =?utf-8?B?MnlmMGQ5bm9aVkx1eTIzbmpHWDY2aUE5dUl6Znpac3grRFdueUhuRldqdEMw?=
+ =?utf-8?B?dTZObGxhSmdvL2R1bXRQUkNCNk12SGtwMGZYVml6VktBc25pNWtqL0RVSW9x?=
+ =?utf-8?B?VGZZQkNkYWwzaDFlcSt2VE15WFNTVGFsdlI2U0ZXWk42ekZUR0Qzckk4T21k?=
+ =?utf-8?Q?RhI+4M2nklopLEBXjMfaV+bQA?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9771d867-41b9-46c8-70e9-08dddb4832e9
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1897ad83-54d6-4a31-cabe-08dddb4838c7
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7210.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2025 15:35:29.5799 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2025 15:35:39.4568 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F7ppMMLgIL93JfutxLTUcjwWia5awOkymZCesvnG0T14ltwplKF98eE1I6cMDFc2ZibfrMu7lKo+7cZWt5frIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7464
+X-MS-Exchange-CrossTenant-UserPrincipalName: n4jqv3IqK8xnFaJk0aGIzzEmdgmclLmH4bQI7EMZezaQxELbE4ISkPZ7laclTD5tttxm3LI73tUMO2EF+PMEAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,345 +172,275 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------ZXyKBMF3T8ug5PAaQy54QfP9
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On AArch64 we also noticed problems with HSA_SVM due to virtual address 
-limitations on our GPUs. Basically we can only use 47-bit virtual 
-addresses for user mode pointers. AArch64 uses 48 bit pointers with 4KB 
-pages and even more with 64KB pages.
-
-It should be possible to work around that with "ulimit -v" to limit the 
-virtual address space used by the application. Therefore I'd prefer not 
-to disable HSA_SVM outright. But instead maybe add address bounds checks 
-in svm_range_set_attr.
-
-LoongArch seems to have a different issues. I'd be OK to disable HSA_SVM 
-on that arch until more information is available.
-
-Regards,
-   Felix
-
-
-On 2025-08-13 23:21, Mingcong Bai wrote:
-> While testing my ROCm port for LoongArch and AArch64 (patches pending) on
-> the following platforms:
+On 2025-08-14 08:56, Alex Deucher wrote:
+> On Wed, Aug 13, 2025 at 7:06 PM Wu, David <davidwu2@amd.com> wrote:
+>> On 8/13/2025 6:11 PM, Alex Deucher wrote:
+>>> On Wed, Aug 13, 2025 at 5:47 PM Wu, David <davidwu2@amd.com> wrote:
+>>>> On 8/13/2025 5:03 PM, Alex Deucher wrote:
+>>>>> On Wed, Aug 13, 2025 at 4:58 PM Sundararaju, Sathishkumar
+>>>>> <sathishkumar.sundararaju@amd.com> wrote:
+>>>>>> On 8/14/2025 1:35 AM, Alex Deucher wrote:
+>>>>>>> On Wed, Aug 13, 2025 at 2:23 PM Sundararaju, Sathishkumar
+>>>>>>> <sathishkumar.sundararaju@amd.com> wrote:
+>>>>>>>> Hi Alex, Hi David,
+>>>>>>>>
+>>>>>>>> I see David's concern but his suggestion yet wont solve the problem,
+>>>>>>>> neither the current form , reason :-
+>>>>>>>>
+>>>>>>>> The emitted fence count and total submission count are fast transients
+>>>>>>>> which frequently become 0 in between video decodes (between jobs) even
+>>>>>>>> with the atomics and locks there can be a switch of video power profile,
+>>>>>>>> in the current form of patch that window is minimized, but still can
+>>>>>>>> happen if stress tested. But power state of any instance becoming zero
+>>>>>>> Can you explain how this can happen?  I'm not seeing it.
+>>>>>> Consider this situation, inst0 and inst1 actively decoding, inst0 decode
+>>>>>> completes, delayed idle work starts.
+>>>>>> inst0 idle handler can read 0 total fences and 0 total submission count,
+>>>>>> even if inst1 is actively decoding,
+>>>>>> that's between the jobs,
+>>>>>>      - as begin_use increaments vcn.total_submission_cnt and end_use
+>>>>>> decreaments vcn.total_submission_cnt that can be 0.
+>>>>>>      - if outstanding fences are cleared and no new emitted fence, between
+>>>>>> jobs , can be 0.
+>>>>>>      - both of the above conditions do not mean video decode is complete on
+>>>>>> inst1, it is actively decoding.
+>>>>> How can there be active decoding without an outstanding fence?  In
+>>>>> that case, total_fences (fences from both instances) would be non-0.
+>>>> I think it should be non-0.
+>>>> I do see a hiccup possible - i.e the power switching from ON to OFF then
+>>>> ON in the
+>>>> middle of decoding, i.e inst0 idle handler turns it off then inst1 turns
+>>>> it on.
+>>> How would that happen? As long as there submission cnt is non-0 and
+>>> there are outstanding fences on any instance, the video profile will
+>>> stay active.
+>> there could be no jobs but it doesn't timeout yet and new jobs will come in
+>> any ms - note all fences are done at this time. The idle handler sees no
+>> fences
+>> and no jobs so it turns off the power - but just ms later a new job is
+>> submitted
+>> from the same decode session which could be mpv player as it does not
+>> need to
+>> submit jobs without delays. This will turn on the power.
+> I'm not following.  Every submission will start with begin_use().
+yes - it does - it can power on vcn but this happens in the middle of a
+decode session which has 10s timeout to call its own idle handler - in fact
+the other instance's idle handler will power off vcn because it does not 
+know it needs
+to wait until the decoding session times out.
+> Alex
 >
-> - LoongArch ...
->    - Loongson AC612A0_V1.1 (Loongson 3C6000/S) + AMD Radeon RX 6800
-> - AArch64 ...
->    - FD30M51 (Phytium FT-D3000) + AMD Radeon RX 7600
->    - Huawei D920S10 (Huawei Kunpeng 920) + AMD Radeon RX 7600
->
-> When HSA_AMD_SVM is enabled, amdgpu would fail to initialise at all on
-> LoongArch (no output):
->
->    amdgpu 0000:0d:00.0: amdgpu: kiq ring mec 2 pipe 1 q 0
->    CPU 0 Unable to handle kernel paging request at virtual address ffffffffff800034, era == 9000000001058044, ra == 9000000001058660
->    Oops[#1]:
->    CPU: 0 UID: 0 PID: 202 Comm: kworker/0:3 Not tainted 6.16.0+ #103 PREEMPT(full)
->    Hardware name: To be filled by O.E.M.To be fill To be filled by O.E.M.To be fill/To be filled by O.E.M.To be fill, BIOS Loongson-UDK2018-V4.0.
->    Workqueue: events work_for_cpu_fn
->    pc 9000000001058044 ra 9000000001058660 tp 9000000101500000 sp 9000000101503aa0
->    a0 ffffffffff800000 a1 0000000ffffe0000 a2 0000000000000000 a3 90000001207c58e0
->    a4 9000000001a4c310 a5 0000000000000001 a6 0000000000000000 a7 0000000000000001
->    t0 000003ffff800000 t1 0000000000000001 t2 0000040000000000 t3 03ffff0000002000
->    t4 0000000000000000 t5 0001010101010101 t6 ffff800000000000 t7 0001000000000000
->    t8 000000000000002f u0 0000000000800000 s9 9000000002026000 s0 90000001207c58e0
->    s1 0000000000000001 s2 9000000001935c40 s3 0000001000000000 s4 0000000000000001
->    s5 0000000ffffe0000 s6 0000000000000040 s7 0001000000000001 s8 0001000000000000
->       ra: 9000000001058660 memmap_init_zone_device+0x120/0x1b0
->      ERA: 9000000001058044 __init_zone_device_page.constprop.0+0x4/0x1a0
->     CRMD: 000000b0 (PLV0 -IE -DA +PG DACF=CC DACM=CC -WE)
->     PRMD: 00000004 (PPLV0 +PIE -PWE)
->     EUEN: 00000000 (-FPE -SXE -ASXE -BTE)
->     ECFG: 00071c1d (LIE=0,2-4,10-12 VS=7)
->    ESTAT: 00020000 [PIS] (IS= ECode=2 EsubCode=0)
->     BADV: ffffffffff800034
->     PRID: 0014d010 (Loongson-64bit, Loongson-3C6000/S)
->    Modules linked in: amdgpu(+) vfat fat cfg80211 rfkill 8021q garp stp mrp llc snd_hda_codec_atihdmi snd_hda_codec_hdmi snd_hda_codec_conexant snd_hda_codec_generic drm_client_lib drm_ttm_helper syscopyarea ttm sysfillrect sysimgblt fb_sys_fops drm_panel_backlight_quirks video drm_exec drm_suballoc_helper amdxcp mfd_core drm_buddy gpu_sched drm_display_helper drm_kms_helper cec snd_hda_intel ipmi_ssif snd_intel_dspcfg snd_hda_codec snd_hda_core acpi_ipmi snd_hwdep snd_pcm fb loongson3_cpufreq lcd igc snd_timer ipmi_si spi_loongson_pci spi_loongson_core snd ipmi_devintf soundcore ipmi_msghandler binfmt_misc fuse drm drm_panel_orientation_quirks backlight dm_mod dax nfnetlink
->    Process kworker/0:3 (pid: 202, threadinfo=00000000eb7cd5d6, task=000000004ca22b1b)
->    Stack : 0000000000001440 0000000000000000 ffffffffff800000 0000000000000001
->            90000000020b5978 9000000101503b38 0000000000000001 0000000000000001
->            0000000000000000 90000000020b5978 90000000020b3f48 0000000000001440
->            0000000000000000 90000001207c58e0 90000001207c5970 9000000000575e20
->            90000000010e2e00 90000000020b3f48 900000000205c238 0000000000000000
->            00000000000001d3 90000001207c58e0 9000000001958f28 9000000120790848
->            90000001207b3510 0000000000000000 9000000120780000 9000000120780010
->            90000001207d6000 90000001207c58e0 90000001015660c8 9000000120780000
->            0000000000000000 90000000005763a8 90000001207c58e0 00000003ff000000
->            9000000120780000 ffff80000296b820 900000012078f968 90000001207c6000
->            ...
->    Call Trace:
->    [<9000000001058044>] __init_zone_device_page.constprop.0+0x4/0x1a0
->    [<900000000105865c>] memmap_init_zone_device+0x11c/0x1b0
->    [<9000000000575e1c>] memremap_pages+0x24c/0x7b0
->    [<90000000005763a4>] devm_memremap_pages+0x24/0x80
->    [<ffff80000296b81c>] kgd2kfd_init_zone_device+0x11c/0x220 [amdgpu]
->    [<ffff80000265d09c>] amdgpu_device_init+0x27dc/0x2bf0 [amdgpu]
->    [<ffff80000265ece8>] amdgpu_driver_load_kms+0x18/0x90 [amdgpu]
->    [<ffff800002651fbc>] amdgpu_pci_probe+0x22c/0x890 [amdgpu]
->    [<9000000000916adc>] local_pci_probe+0x3c/0xb0
->    [<90000000002976c8>] work_for_cpu_fn+0x18/0x30
->    [<900000000029aeb4>] process_one_work+0x164/0x320
->    [<900000000029b96c>] worker_thread+0x37c/0x4a0
->    [<90000000002a695c>] kthread+0x12c/0x220
->    [<9000000001055b64>] ret_from_kernel_thread+0x24/0xc0
->    [<9000000000237524>] ret_from_kernel_thread_asm+0xc/0x88
->
->    Code: 00000000  00000000  0280040d <2980d08d> 02bffc0e  2980c08e  02c0208d  29c0208d  1400004f
->
->    ---[ end trace 0000000000000000 ]---
->
-> Or lock up and/or driver reset during computate tasks, such as when
-> running llama.cpp over ROCm, at which point the compute process must be
-> killed before the reset could complete:
->
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    amdgpu 0000:0a:00.0: amdgpu: failed to remove hardware queue from MES, doorbell=0x1202
->    amdgpu 0000:0a:00.0: amdgpu: MES might be in unrecoverable state, issue a GPU reset
->    amdgpu 0000:0a:00.0: amdgpu: Failed to evict queue 3
->    amdgpu 0000:0a:00.0: amdgpu: GPU reset begin!
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    amdgpu 0000:0a:00.0: amdgpu: failed to remove hardware queue from MES, doorbell=0x1004
->    amdgpu 0000:0a:00.0: amdgpu: MES might be in unrecoverable state, issue a GPU reset
->    amdgpu 0000:0a:00.0: amdgpu: Failed to evict queue 2
->    amdgpu 0000:0a:00.0: amdgpu: Failed to evict queue 1
->    amdgpu 0000:0a:00.0: amdgpu: Failed to evict queue 0
->    amdgpu: Failed to quiesce KFD
->    amdgpu 0000:0a:00.0: amdgpu: Dumping IP State
->    amdgpu 0000:0a:00.0: amdgpu: Dumping IP State Completed
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
->    amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
->    [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
->    amdgpu 0000:0a:00.0: amdgpu: MODE1 reset
->    amdgpu 0000:0a:00.0: amdgpu: GPU mode1 reset
->    amdgpu 0000:0a:00.0: amdgpu: GPU smu mode1 reset
->    amdgpu 0000:0a:00.0: amdgpu: GPU reset succeeded, trying to resume
->
-> Disabling the aforementioned option makes the issue go away, though it is
-> unclear whether this is a platform-specific issue or one that lies within
-> the amdkfd code.
->
-> This patch has been tested on all the aforementioned platform
-> combinations, and sent as an RFC to encourage discussion.
->
-> Signed-off-by: Zhang Yuhao<xinmu@xinmu.moe>
-> Signed-off-by: Mingcong Bai<jeffbai@aosc.io>
-> Tested-by: Mingcong Bai<jeffbai@aosc.io>
-> ---
->   drivers/gpu/drm/amd/amdkfd/Kconfig | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
-> index 16e12c9913f94..5d2fa86f60bf8 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/Kconfig
-> +++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
-> @@ -14,7 +14,7 @@ config HSA_AMD
->   
->   config HSA_AMD_SVM
->   	bool "Enable HMM-based shared virtual memory manager"
-> -	depends on HSA_AMD && DEVICE_PRIVATE
-> +	depends on HSA_AMD && DEVICE_PRIVATE && !LOONGARCH && !ARM64
->   	default y
->   	select HMM_MIRROR
->   	select MMU_NOTIFIER
---------------ZXyKBMF3T8ug5PAaQy54QfP9
-Content-Type: multipart/related;
- boundary="------------NVGvP3hSGFHBzuIaddnyBE92"
-
---------------NVGvP3hSGFHBzuIaddnyBE92
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>On AArch64 we also noticed problems with HSA_SVM due to virtual
-      address limitations on our GPUs. Basically we can only use 47-bit
-      virtual addresses for user mode pointers. AArch64 uses 48 bit
-      pointers with 4KB pages and even more with 64KB pages.</p>
-    <p>It should be possible to work around that with &quot;ulimit -v&quot; to
-      limit the virtual address space used by the application. Therefore
-      I'd prefer not to disable HSA_SVM outright. But instead maybe add
-      address bounds checks in <img src="cid:part1.T3asi2AT.NzBhSJHo@amd.com" alt="">svm_range_set_attr.<br>
-    </p>
-    <p>LoongArch seems to have a different issues. I'd be OK to disable
-      HSA_SVM on that arch until more information is available.</p>
-    <p>Regards,<br>
-      &nbsp; Felix</p>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2025-08-13 23:21, Mingcong Bai
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20250814032153.227285-1-jeffbai@aosc.io">
-      <pre wrap="" class="moz-quote-pre">While testing my ROCm port for LoongArch and AArch64 (patches pending) on
-the following platforms:
-
-- LoongArch ...
-  - Loongson AC612A0_V1.1 (Loongson 3C6000/S) + AMD Radeon RX 6800
-- AArch64 ...
-  - FD30M51 (Phytium FT-D3000) + AMD Radeon RX 7600
-  - Huawei D920S10 (Huawei Kunpeng 920) + AMD Radeon RX 7600
-
-When HSA_AMD_SVM is enabled, amdgpu would fail to initialise at all on
-LoongArch (no output):
-
-  amdgpu 0000:0d:00.0: amdgpu: kiq ring mec 2 pipe 1 q 0
-  CPU 0 Unable to handle kernel paging request at virtual address ffffffffff800034, era == 9000000001058044, ra == 9000000001058660
-  Oops[#1]:
-  CPU: 0 UID: 0 PID: 202 Comm: kworker/0:3 Not tainted 6.16.0+ #103 PREEMPT(full)
-  Hardware name: To be filled by O.E.M.To be fill To be filled by O.E.M.To be fill/To be filled by O.E.M.To be fill, BIOS Loongson-UDK2018-V4.0.
-  Workqueue: events work_for_cpu_fn
-  pc 9000000001058044 ra 9000000001058660 tp 9000000101500000 sp 9000000101503aa0
-  a0 ffffffffff800000 a1 0000000ffffe0000 a2 0000000000000000 a3 90000001207c58e0
-  a4 9000000001a4c310 a5 0000000000000001 a6 0000000000000000 a7 0000000000000001
-  t0 000003ffff800000 t1 0000000000000001 t2 0000040000000000 t3 03ffff0000002000
-  t4 0000000000000000 t5 0001010101010101 t6 ffff800000000000 t7 0001000000000000
-  t8 000000000000002f u0 0000000000800000 s9 9000000002026000 s0 90000001207c58e0
-  s1 0000000000000001 s2 9000000001935c40 s3 0000001000000000 s4 0000000000000001
-  s5 0000000ffffe0000 s6 0000000000000040 s7 0001000000000001 s8 0001000000000000
-     ra: 9000000001058660 memmap_init_zone_device+0x120/0x1b0
-    ERA: 9000000001058044 __init_zone_device_page.constprop.0+0x4/0x1a0
-   CRMD: 000000b0 (PLV0 -IE -DA +PG DACF=CC DACM=CC -WE)
-   PRMD: 00000004 (PPLV0 +PIE -PWE)
-   EUEN: 00000000 (-FPE -SXE -ASXE -BTE)
-   ECFG: 00071c1d (LIE=0,2-4,10-12 VS=7)
-  ESTAT: 00020000 [PIS] (IS= ECode=2 EsubCode=0)
-   BADV: ffffffffff800034
-   PRID: 0014d010 (Loongson-64bit, Loongson-3C6000/S)
-  Modules linked in: amdgpu(+) vfat fat cfg80211 rfkill 8021q garp stp mrp llc snd_hda_codec_atihdmi snd_hda_codec_hdmi snd_hda_codec_conexant snd_hda_codec_generic drm_client_lib drm_ttm_helper syscopyarea ttm sysfillrect sysimgblt fb_sys_fops drm_panel_backlight_quirks video drm_exec drm_suballoc_helper amdxcp mfd_core drm_buddy gpu_sched drm_display_helper drm_kms_helper cec snd_hda_intel ipmi_ssif snd_intel_dspcfg snd_hda_codec snd_hda_core acpi_ipmi snd_hwdep snd_pcm fb loongson3_cpufreq lcd igc snd_timer ipmi_si spi_loongson_pci spi_loongson_core snd ipmi_devintf soundcore ipmi_msghandler binfmt_misc fuse drm drm_panel_orientation_quirks backlight dm_mod dax nfnetlink
-  Process kworker/0:3 (pid: 202, threadinfo=00000000eb7cd5d6, task=000000004ca22b1b)
-  Stack : 0000000000001440 0000000000000000 ffffffffff800000 0000000000000001
-          90000000020b5978 9000000101503b38 0000000000000001 0000000000000001
-          0000000000000000 90000000020b5978 90000000020b3f48 0000000000001440
-          0000000000000000 90000001207c58e0 90000001207c5970 9000000000575e20
-          90000000010e2e00 90000000020b3f48 900000000205c238 0000000000000000
-          00000000000001d3 90000001207c58e0 9000000001958f28 9000000120790848
-          90000001207b3510 0000000000000000 9000000120780000 9000000120780010
-          90000001207d6000 90000001207c58e0 90000001015660c8 9000000120780000
-          0000000000000000 90000000005763a8 90000001207c58e0 00000003ff000000
-          9000000120780000 ffff80000296b820 900000012078f968 90000001207c6000
-          ...
-  Call Trace:
-  [&lt;9000000001058044&gt;] __init_zone_device_page.constprop.0+0x4/0x1a0
-  [&lt;900000000105865c&gt;] memmap_init_zone_device+0x11c/0x1b0
-  [&lt;9000000000575e1c&gt;] memremap_pages+0x24c/0x7b0
-  [&lt;90000000005763a4&gt;] devm_memremap_pages+0x24/0x80
-  [&lt;ffff80000296b81c&gt;] kgd2kfd_init_zone_device+0x11c/0x220 [amdgpu]
-  [&lt;ffff80000265d09c&gt;] amdgpu_device_init+0x27dc/0x2bf0 [amdgpu]
-  [&lt;ffff80000265ece8&gt;] amdgpu_driver_load_kms+0x18/0x90 [amdgpu]
-  [&lt;ffff800002651fbc&gt;] amdgpu_pci_probe+0x22c/0x890 [amdgpu]
-  [&lt;9000000000916adc&gt;] local_pci_probe+0x3c/0xb0
-  [&lt;90000000002976c8&gt;] work_for_cpu_fn+0x18/0x30
-  [&lt;900000000029aeb4&gt;] process_one_work+0x164/0x320
-  [&lt;900000000029b96c&gt;] worker_thread+0x37c/0x4a0
-  [&lt;90000000002a695c&gt;] kthread+0x12c/0x220
-  [&lt;9000000001055b64&gt;] ret_from_kernel_thread+0x24/0xc0
-  [&lt;9000000000237524&gt;] ret_from_kernel_thread_asm+0xc/0x88
-
-  Code: 00000000  00000000  0280040d &lt;2980d08d&gt; 02bffc0e  2980c08e  02c0208d  29c0208d  1400004f
-
-  ---[ end trace 0000000000000000 ]---
-
-Or lock up and/or driver reset during computate tasks, such as when
-running llama.cpp over ROCm, at which point the compute process must be
-killed before the reset could complete:
-
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  amdgpu 0000:0a:00.0: amdgpu: failed to remove hardware queue from MES, doorbell=0x1202
-  amdgpu 0000:0a:00.0: amdgpu: MES might be in unrecoverable state, issue a GPU reset
-  amdgpu 0000:0a:00.0: amdgpu: Failed to evict queue 3
-  amdgpu 0000:0a:00.0: amdgpu: GPU reset begin!
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  amdgpu 0000:0a:00.0: amdgpu: failed to remove hardware queue from MES, doorbell=0x1004
-  amdgpu 0000:0a:00.0: amdgpu: MES might be in unrecoverable state, issue a GPU reset
-  amdgpu 0000:0a:00.0: amdgpu: Failed to evict queue 2
-  amdgpu 0000:0a:00.0: amdgpu: Failed to evict queue 1
-  amdgpu 0000:0a:00.0: amdgpu: Failed to evict queue 0
-  amdgpu: Failed to quiesce KFD
-  amdgpu 0000:0a:00.0: amdgpu: Dumping IP State
-  amdgpu 0000:0a:00.0: amdgpu: Dumping IP State Completed
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-  amdgpu 0000:0a:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-  [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-  amdgpu 0000:0a:00.0: amdgpu: MODE1 reset
-  amdgpu 0000:0a:00.0: amdgpu: GPU mode1 reset
-  amdgpu 0000:0a:00.0: amdgpu: GPU smu mode1 reset
-  amdgpu 0000:0a:00.0: amdgpu: GPU reset succeeded, trying to resume
-
-Disabling the aforementioned option makes the issue go away, though it is
-unclear whether this is a platform-specific issue or one that lies within
-the amdkfd code.
-
-This patch has been tested on all the aforementioned platform
-combinations, and sent as an RFC to encourage discussion.
-
-Signed-off-by: Zhang Yuhao <a class="moz-txt-link-rfc2396E" href="mailto:xinmu@xinmu.moe">&lt;xinmu@xinmu.moe&gt;</a>
-Signed-off-by: Mingcong Bai <a class="moz-txt-link-rfc2396E" href="mailto:jeffbai@aosc.io">&lt;jeffbai@aosc.io&gt;</a>
-Tested-by: Mingcong Bai <a class="moz-txt-link-rfc2396E" href="mailto:jeffbai@aosc.io">&lt;jeffbai@aosc.io&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
-index 16e12c9913f94..5d2fa86f60bf8 100644
---- a/drivers/gpu/drm/amd/amdkfd/Kconfig
-+++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
-@@ -14,7 +14,7 @@ config HSA_AMD
- 
- config HSA_AMD_SVM
- 	bool &quot;Enable HMM-based shared virtual memory manager&quot;
--	depends on HSA_AMD &amp;&amp; DEVICE_PRIVATE
-+	depends on HSA_AMD &amp;&amp; DEVICE_PRIVATE &amp;&amp; !LOONGARCH &amp;&amp; !ARM64
- 	default y
- 	select HMM_MIRROR
- 	select MMU_NOTIFIER
-</pre>
-    </blockquote>
-  </body>
-</html>
---------------NVGvP3hSGFHBzuIaddnyBE92
-Content-Type: image/png; name="XXsRQJouIAi8Ar0m.png"
-Content-Disposition: inline; filename="XXsRQJouIAi8Ar0m.png"
-Content-Id: <part1.T3asi2AT.NzBhSJHo@amd.com>
-Content-Transfer-Encoding: base64
-
-U1dERVYtNTM1MjQ1Cg==
-
---------------NVGvP3hSGFHBzuIaddnyBE92--
-
---------------ZXyKBMF3T8ug5PAaQy54QfP9--
+>> David
+>>> Alex
+>>>
+>>>> We should avoid this glitch. This requires the idle handler sets/clears
+>>>> a flag for
+>>>> done for this instance as Sathish's original patch. When all instances
+>>>> set/clear the
+>>>> flag then we can safely power off.
+>>>> David
+>>>>> Alex
+>>>>>
+>>>>>> Whereas if instances are powered off we are sure idle time is past and
+>>>>>> it is powered off, no possible way of
+>>>>>> active video decode, when all instances are off we can safely assume no
+>>>>>> active decode and global lock protects
+>>>>>> it against new begin_use on any instance. But the only distant concern
+>>>>>> is global common locks w.r.t perf, but we
+>>>>>> are already having a global workprofile mutex , so there shouldn't be
+>>>>>> any drop in perf, with just one single
+>>>>>> global lock for all instances.
+>>>>>>
+>>>>>> Just sending out a patch with this fix, will leave it to you to decide
+>>>>>> the right method. If you think outstanding total fences
+>>>>>> can never be 0 during decode, then your previous version (v3) itself is
+>>>>>> good, there is no real benefit of splitting the handlers as such.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Sathish
+>>>>>>> If it is possible, maybe it would be easier to just split the profile
+>>>>>>> and powergating into separate handlers.  The profile one would be
+>>>>>>> global and the powergating one would be per instance.  See the
+>>>>>>> attached patches.
+>>>>>>>
+>>>>>>> Alex
+>>>>>>>
+>>>>>>>> can be a sure shot indication of break in a video decode, the mistake in
+>>>>>>>> my patch was using per instance mutex, I should have used a common
+>>>>>>>> global mutex, then that covers the situation David is trying to bring out.
+>>>>>>>>
+>>>>>>>> Using one global vcn.pg_lock for idle and begin_use and using flags to
+>>>>>>>> track power state could help us totally avoid this situation.
+>>>>>>>>
+>>>>>>>> Regards,
+>>>>>>>>
+>>>>>>>> Sathish
+>>>>>>>>
+>>>>>>>> On 8/13/2025 11:46 PM, Wu, David wrote:
+>>>>>>>>> On 8/13/2025 12:51 PM, Alex Deucher wrote:
+>>>>>>>>>> On Wed, Aug 13, 2025 at 12:39 PM Wu, David <davidwu2@amd.com> wrote:
+>>>>>>>>>>> Hi Alex,
+>>>>>>>>>>>
+>>>>>>>>>>> The addition of  total_submission_cnt should work - in that
+>>>>>>>>>>> it is unlikely to have a context switch right after the begin_use().
+>>>>>>>>>>> The suggestion of moving it inside the lock (which I prefer in case
+>>>>>>>>>>> someone
+>>>>>>>>>>> adds more before the lock and not reviewed thoroughly)
+>>>>>>>>>>>        - up to you to decide.
+>>>>>>>>>>>
+>>>>>>>>>>> Reviewed-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+>>>>>>>>>>>
+>>>>>>>>>>> Thanks,
+>>>>>>>>>>> David
+>>>>>>>>>>> On 8/13/2025 9:45 AM, Alex Deucher wrote:
+>>>>>>>>>>>> If there are multiple instances of the VCN running,
+>>>>>>>>>>>> we may end up switching the video profile while another
+>>>>>>>>>>>> instance is active because we only take into account
+>>>>>>>>>>>> the current instance's submissions.  Look at all
+>>>>>>>>>>>> outstanding fences for the video profile.
+>>>>>>>>>>>>
+>>>>>>>>>>>> v2: drop early exit in begin_use()
+>>>>>>>>>>>> v3: handle possible race between begin_use() work handler
+>>>>>>>>>>>>
+>>>>>>>>>>>> Fixes: 3b669df92c85 ("drm/amdgpu/vcn: adjust workload profile
+>>>>>>>>>>>> handling")
+>>>>>>>>>>>> Reviewed-by: Sathishkumar S <sathishkumar.sundararaju@amd.com> (v1)
+>>>>>>>>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>>>>>>>>> ---
+>>>>>>>>>>>>        drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 40
+>>>>>>>>>>>> ++++++++++++-------------
+>>>>>>>>>>>>        drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  1 +
+>>>>>>>>>>>>        2 files changed, 21 insertions(+), 20 deletions(-)
+>>>>>>>>>>>>
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>>>>>>>>>>>> index 9a76e11d1c184..593c1ddf8819b 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>>>>>>>>>>>> @@ -415,19 +415,25 @@ static void
+>>>>>>>>>>>> amdgpu_vcn_idle_work_handler(struct work_struct *work)
+>>>>>>>>>>>>            struct amdgpu_vcn_inst *vcn_inst =
+>>>>>>>>>>>>                    container_of(work, struct amdgpu_vcn_inst,
+>>>>>>>>>>>> idle_work.work);
+>>>>>>>>>>>>            struct amdgpu_device *adev = vcn_inst->adev;
+>>>>>>>>>>>> -     unsigned int fences = 0, fence[AMDGPU_MAX_VCN_INSTANCES] = {0};
+>>>>>>>>>>>> -     unsigned int i = vcn_inst->inst, j;
+>>>>>>>>>>>> +     unsigned int total_fences = 0,
+>>>>>>>>>>>> fence[AMDGPU_MAX_VCN_INSTANCES] = {0};
+>>>>>>>>>>>> +     unsigned int i, j;
+>>>>>>>>>>>>            int r = 0;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     if (adev->vcn.harvest_config & (1 << i))
+>>>>>>>>>>>> +     if (adev->vcn.harvest_config & (1 << vcn_inst->inst))
+>>>>>>>>>>>>                    return;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     for (j = 0; j < adev->vcn.inst[i].num_enc_rings; ++j)
+>>>>>>>>>>>> -             fence[i] +=
+>>>>>>>>>>>> amdgpu_fence_count_emitted(&vcn_inst->ring_enc[j]);
+>>>>>>>>>>>> +     for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+>>>>>>>>>>>> +             struct amdgpu_vcn_inst *v = &adev->vcn.inst[i];
+>>>>>>>>>>>> +
+>>>>>>>>>>>> +             for (j = 0; j < v->num_enc_rings; ++j)
+>>>>>>>>>>>> +                     fence[i] +=
+>>>>>>>>>>>> amdgpu_fence_count_emitted(&v->ring_enc[j]);
+>>>>>>>>>>>> +             fence[i] += amdgpu_fence_count_emitted(&v->ring_dec);
+>>>>>>>>>>>> +             total_fences += fence[i];
+>>>>>>>>>>>> +     }
+>>>>>>>>>>>>
+>>>>>>>>>>>>            /* Only set DPG pause for VCN3 or below, VCN4 and above will
+>>>>>>>>>>>> be handled by FW */
+>>>>>>>>>>>>            if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG &&
+>>>>>>>>>>>> -         !adev->vcn.inst[i].using_unified_queue) {
+>>>>>>>>>>>> +         !vcn_inst->using_unified_queue) {
+>>>>>>>>>>>>                    struct dpg_pause_state new_state;
+>>>>>>>>>>>>
+>>>>>>>>>>>>                    if (fence[i] ||
+>>>>>>>>>>>> @@ -436,18 +442,18 @@ static void
+>>>>>>>>>>>> amdgpu_vcn_idle_work_handler(struct work_struct *work)
+>>>>>>>>>>>>                    else
+>>>>>>>>>>>>                            new_state.fw_based = VCN_DPG_STATE__UNPAUSE;
+>>>>>>>>>>>>
+>>>>>>>>>>>> -             adev->vcn.inst[i].pause_dpg_mode(vcn_inst, &new_state);
+>>>>>>>>>>>> +             vcn_inst->pause_dpg_mode(vcn_inst, &new_state);
+>>>>>>>>>>>>            }
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     fence[i] += amdgpu_fence_count_emitted(&vcn_inst->ring_dec);
+>>>>>>>>>>>> -     fences += fence[i];
+>>>>>>>>>>>> -
+>>>>>>>>>>>> -     if (!fences && !atomic_read(&vcn_inst->total_submission_cnt)) {
+>>>>>>>>>>>> +     if (!fence[vcn_inst->inst] &&
+>>>>>>>>>>>> !atomic_read(&vcn_inst->total_submission_cnt)) {
+>>>>>>>>>>>> +             /* This is specific to this instance */
+>>>>>>>>>>>>                    mutex_lock(&vcn_inst->vcn_pg_lock);
+>>>>>>>>>>>>                    vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_GATE);
+>>>>>>>>>>>>                    mutex_unlock(&vcn_inst->vcn_pg_lock);
+>>>>>>>>>>>> mutex_lock(&adev->vcn.workload_profile_mutex);
+>>>>>>>>>>>> -             if (adev->vcn.workload_profile_active) {
+>>>>>>>>>>>> +             /* This is global and depends on all VCN instances */
+>>>>>>>>>>>> +             if (adev->vcn.workload_profile_active &&
+>>>>>>>>>>>> !total_fences &&
+>>>>>>>>>>>> + !atomic_read(&adev->vcn.total_submission_cnt)) {
+>>>>>>>>>>>>                            r = amdgpu_dpm_switch_power_profile(adev,
+>>>>>>>>>>>> PP_SMC_POWER_PROFILE_VIDEO,
+>>>>>>>>>>>> false);
+>>>>>>>>>>>>                            if (r)
+>>>>>>>>>>>> @@ -467,16 +473,10 @@ void amdgpu_vcn_ring_begin_use(struct
+>>>>>>>>>>>> amdgpu_ring *ring)
+>>>>>>>>>>>>            int r = 0;
+>>>>>>>>>>>>
+>>>>>>>>>>>>            atomic_inc(&vcn_inst->total_submission_cnt);
+>>>>>>>>>>>> +     atomic_inc(&adev->vcn.total_submission_cnt);
+>>>>>>>>>>> move this addition down inside the mutex lock
+>>>>>>>>>>>> cancel_delayed_work_sync(&vcn_inst->idle_work);
+>>>>>>>>>>>>
+>>>>>>>>>>>> -     /* We can safely return early here because we've cancelled the
+>>>>>>>>>>>> -      * the delayed work so there is no one else to set it to false
+>>>>>>>>>>>> -      * and we don't care if someone else sets it to true.
+>>>>>>>>>>>> -      */
+>>>>>>>>>>>> -     if (adev->vcn.workload_profile_active)
+>>>>>>>>>>>> -             goto pg_lock;
+>>>>>>>>>>>> -
+>>>>>>>>>>>>            mutex_lock(&adev->vcn.workload_profile_mutex);
+>>>>>>>>>>> move to here:
+>>>>>>>>>>> atomic_inc(&adev->vcn.total_submission_cnt);
+>>>>>>>>>>> I think this should work for multiple instances.
+>>>>>>>>>> Why does this need to be protected by the mutex?
+>>>>>>>>> hmm.. OK - no need and it is actually better before the mutex.
+>>>>>>>>> David
+>>>>>>>>>> Alex
+>>>>>>>>>>
+>>>>>>>>>>> David
+>>>>>>>>>>>>            if (!adev->vcn.workload_profile_active) {
+>>>>>>>>>>>>                    r = amdgpu_dpm_switch_power_profile(adev,
+>>>>>>>>>>>> PP_SMC_POWER_PROFILE_VIDEO,
+>>>>>>>>>>>> @@ -487,7 +487,6 @@ void amdgpu_vcn_ring_begin_use(struct
+>>>>>>>>>>>> amdgpu_ring *ring)
+>>>>>>>>>>>>            }
+>>>>>>>>>>>> mutex_unlock(&adev->vcn.workload_profile_mutex);
+>>>>>>>>>>>>
+>>>>>>>>>>>> -pg_lock:
+>>>>>>>>>>>>            mutex_lock(&vcn_inst->vcn_pg_lock);
+>>>>>>>>>>>>            vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
+>>>>>>>>>>>>
+>>>>>>>>>>>> @@ -528,6 +527,7 @@ void amdgpu_vcn_ring_end_use(struct amdgpu_ring
+>>>>>>>>>>>> *ring)
+>>>>>>>>>>>> atomic_dec(&ring->adev->vcn.inst[ring->me].dpg_enc_submission_cnt);
+>>>>>>>>>>>>
+>>>>>>>>>>>> atomic_dec(&ring->adev->vcn.inst[ring->me].total_submission_cnt);
+>>>>>>>>>>>> + atomic_dec(&ring->adev->vcn.total_submission_cnt);
+>>>>>>>>>>>>
+>>>>>>>>>>>> schedule_delayed_work(&ring->adev->vcn.inst[ring->me].idle_work,
+>>>>>>>>>>>>                                  VCN_IDLE_TIMEOUT);
+>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+>>>>>>>>>>>> index b3fb1d0e43fc9..febc3ce8641ff 100644
+>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+>>>>>>>>>>>> @@ -352,6 +352,7 @@ struct amdgpu_vcn {
+>>>>>>>>>>>>
+>>>>>>>>>>>>            uint16_t inst_mask;
+>>>>>>>>>>>>            uint8_t num_inst_per_aid;
+>>>>>>>>>>>> +     atomic_t                total_submission_cnt;
+>>>>>>>>>>>>
+>>>>>>>>>>>>            /* IP reg dump */
+>>>>>>>>>>>>            uint32_t                *ip_dump;
