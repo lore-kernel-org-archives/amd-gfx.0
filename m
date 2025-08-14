@@ -4,160 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BFB6CA0EDC
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 10:35:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85C1DCA0EDC
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 10:45:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E601610E855;
-	Thu, 14 Aug 2025 10:35:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2DD10E854;
+	Thu, 14 Aug 2025 10:45:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JqN8Jjxh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Gb69psiN";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2072.outbound.protection.outlook.com [40.107.243.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E771710E855
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Aug 2025 10:35:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XOvPyHC9BSP75H7cS1ERVl3nV9ywXS6OJ6A5EivtK0WIUQXRtTRjE4BV5hduUgUci38tMODYqUQAMD2NMSb0wxMoMcaexiZ/bI1GbrP4WKAGU/+C2u8LY15SzrbWP+eYHBfgTR4pi/EUuE+EletyMSVQHsRLlfGhkCuTM4NbPmS+GRb4e0RobJgTNv0E8idFGkI0fu4/51bBe3genqhKs4nFD4Ddr1rNwBq22Lv9HDS6ZRkHXwTS2erpwVVMRrzoB9YnHrvGFlzGeERxyE7T6pCM0KHQ019NmpX+lxsne0dPdgHFeAtj8sFtdLJuN15TtfuwvylnlmJtwH3PQFcr3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e90TY7QgvhmJYgwwCLPMekHZekrKiJim4py0IFN5rok=;
- b=jEl4nvXSfutuMLSnJZXKmP6nPfg0Rng7wjhd0yslIy+Ox+JlR5jxPpGmM8six7OnuMBsOlvQns16OCSWKRJawYpmIbGmASWvKr6gtUqh4O2geGDj/a2NlWRTueXGFSuDPieGdo8Ze8LpTNOo6QBoBydBD1rfHsZLEX31Oi5+rPBWtRqLPlk7p9anHnslnn9AURgg4Ooe2qWH3zuM0/O+NeKL4emGHR1F55JIffH5qbkmkl1Eb+S7LdYhtdG0tfbgxbhX4+bcFg/b04jZ2Isb4zWjR7JlJct8YR5bZtqdrcscp4JloAc7CEeq0B1PMpl34oEGgsidhWH6irsatCVmrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e90TY7QgvhmJYgwwCLPMekHZekrKiJim4py0IFN5rok=;
- b=JqN8JjxhNtZPcxc8fIroBh2wjhbMzWefvy0sv51avbEnt6B6P4JnjPUc7HAbkQqzTQIsxc1q7Zqpx+/cV5b9jb0nQuC3bMJFVe+oEsNtcQW+MkaTByt1cUjYMFblZ0Nhyx8QvXyAD3zwrUrEc4g4VKTSLAbkmTX6jvNrlpu3+08=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- CH3PR12MB9121.namprd12.prod.outlook.com (2603:10b6:610:1a1::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9031.17; Thu, 14 Aug 2025 10:35:54 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb%4]) with mapi id 15.20.9031.012; Thu, 14 Aug 2025
- 10:35:54 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: RE: [PATCH v8 14/14] drm/amdgpu: validate userq va for GEM unmap
-Thread-Topic: [PATCH v8 14/14] drm/amdgpu: validate userq va for GEM unmap
-Thread-Index: AQHcCC3aOpHEmD3gdkiMFIwbR7zmJrRhNV6AgAC6V+A=
-Date: Thu, 14 Aug 2025 10:35:53 +0000
-Message-ID: <DS7PR12MB60058D4062634C314622FC69FB35A@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20250808062910.1613453-1-Prike.Liang@amd.com>
- <20250808062910.1613453-14-Prike.Liang@amd.com>
- <CADnq5_Mavhnw4r-RZcdYYEtYtdRuh5LEbKHVNZ6gz9vt5_jQ6Q@mail.gmail.com>
-In-Reply-To: <CADnq5_Mavhnw4r-RZcdYYEtYtdRuh5LEbKHVNZ6gz9vt5_jQ6Q@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-08-14T09:44:44.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|CH3PR12MB9121:EE_
-x-ms-office365-filtering-correlation-id: 80facfac-c46e-4154-bbe7-08dddb1e58ab
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?TFhqNzBZN25NclpwZDJvaVRqcFM3b0QrTzVSRytLRGpOR25ZdFJmcXhOelFR?=
- =?utf-8?B?R3d2Q1pGSjgyTFRsbHJqTUoxaU1vTUc3SGVCcGdKRW9WZW9veDl4OUpIaytI?=
- =?utf-8?B?TjBKNWpFQWt3bTFoZU9JQXU4ZG0zQisycFN0SDB2Vy8zMjNLemNzZG5KVmF1?=
- =?utf-8?B?TXljRTQ3WlZieGRhNExUVGlDcDltcldCZEFtNDV4TU15ZWpweksyaEFwck82?=
- =?utf-8?B?S2pSMDZMM05rNU5NY3VoUlJ5RWo0TUJpdjhURER3aXJrUFhWNk5aWjJwVDRa?=
- =?utf-8?B?d2VlMEJTbER3VmFQOVBJS0VsNGpFdnFwUVR5WGh2U0ViU0NUcFJFM1ptMFMz?=
- =?utf-8?B?eTE3UjdVZ0x5TC9sL2FKUFhHemJtVWQxZTFtYk4vWjR3aVpucmk5ejdvVmZj?=
- =?utf-8?B?WlZxczltRGJabmNLOXQ0RmtFM2wzdVpGejBacjBBYndVdE10eW5KZUszdmN3?=
- =?utf-8?B?RjZUVjVyWGZUNXE2dndkTXN3OFExb1gralFRWG9GRjFEV20zSkhtRmZuL3Fz?=
- =?utf-8?B?WlF0SU1yemx5K0tvdURDYzdHRjJQbkFEcWVKNFNFejBNZnFPUEFjVVZFdGw1?=
- =?utf-8?B?ZTN4YWhDNklMT3h4RUNES2c4L0w2M1lWMGJla2VIVXQvWHEzQnRxeW4wa0Fk?=
- =?utf-8?B?Z284cEZGQ2VxQ1BYMkpKdnhid0x3U1VPK25ZZTlPSERUeGVKWkY2ZW1TeENs?=
- =?utf-8?B?ZnQ3Uy9uZ0Y4YkhhOGcrLzFRTkhTdUtCSEZSRVpCTUtINWRTU0tNTmV2V1dI?=
- =?utf-8?B?OGNFVWVQaGpKU1hWNURWa081QjQ4ZmkvWjM1MXRDZzFjSmRFOEoxZitET1o3?=
- =?utf-8?B?WVQ4YU9lNisxc2psUU5QUk4xNDlJSEt1KzhmUmdqZUltQ0doaWlKZEl1NHgv?=
- =?utf-8?B?b2wwZUZOOTRGM0pGdjRMSllFV0hvQzJjckRyUm9lYURiVitnZkw0YW1LMlNI?=
- =?utf-8?B?MEtmRXByRzZRaEFOZmMwS2FJZHQ2Y2pUVFFzaWtJUzFJU0t2NzZONnlkb0xh?=
- =?utf-8?B?QzNBS0hUMnZ4NUFVM1l5OEttdWtrMnhFUEF4eUtrOE1WcmZqdkY5d29nQXRO?=
- =?utf-8?B?a1FRUXczVTMzN2J1SnR2c0xhQm5DTGgxemYxbTJmcTVxZFNrb0VrSVlzeHdX?=
- =?utf-8?B?aDFkd3lmM1ZXWmQ2YmlkdWJ6WWkrYzhMdlVoWGRBUndxTTltVXB5RVJ4U2pT?=
- =?utf-8?B?VStreUNvODF6dWJOWlpNMEpmSUo4YTU2Qm5DWG1xY1RLcEJwYmpYeWZnc3hU?=
- =?utf-8?B?QmQ5YzNxMzR5U1ExZWNkMnNhQTl4cFpVUWJTeGdCU1Y0aW9DSW9sMjBiQlIv?=
- =?utf-8?B?WHk4N05Nd0ZjZCt0RmRuRGhRcldDNTZ6dVBZOFNQRkNWbUZHYU5ZZ2NmN1JZ?=
- =?utf-8?B?UURtL3JhTVkzRmpCMnNVeU11a0dSbHVhdmViZE04Qm1FdmNvaVlOenZNOFBH?=
- =?utf-8?B?VzVNK1VKaTdCTllIVjlCdEJwVDA3NlozTmVnbEtqYVFoM005MUswQjkrTjN0?=
- =?utf-8?B?eFFMWGhEd1FyZFdTendSM2s3WTV0WnN6ZE40RXpiREsxL0xnaXZhdm5WUVox?=
- =?utf-8?B?d3BtaGxBa0dKekRKazdmTmFIV3BOM1dybWNUMGpGRkc2SXMyMUg1bWtxc3NP?=
- =?utf-8?B?cDJ4ZFVwbEM0R3ltTlBXZ0FXRldFYXRKSFBkdTR0SFlXc3g4NUVGTnI0cFBo?=
- =?utf-8?B?YkNudGhmVkpORE5yVThXbXNwUUFMYSszSFRueFN1TGhIUHhOK0EydHFSRzZv?=
- =?utf-8?B?S2oyNkZJTk9YR0p6VUNMMHZxSXEyMGNIMStVUERyMW1yS3k1OUhsSkxiUUt3?=
- =?utf-8?B?TUhmOTRDNG1mcTlqdGFtWG4vUlBQUFVDRFZ4OE1BQU1XVGxxcnlvejljeUpI?=
- =?utf-8?B?K1Q5OXY1cnFUY2VyRkcxcXUvNUwweEJoS25lL2ZMTGNvNDIvYkozTkNxMHlt?=
- =?utf-8?B?ZllYNlkreDV2SWxubnhLbTVUSzU2MHpaUGxIRHEvM2FxSnpObXl3dkNJZVBD?=
- =?utf-8?B?UnhoMUMrSStnPT0=?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bkRqZXNUNUFPTUJaRVF1V0U0Q2pyZnMyN3owazVLbUpla2Y4bjRqVmplcCto?=
- =?utf-8?B?bkRSZmZHM3hlczJTVWpCdGk1WmtaR2pRYnlncmoraDBoelliZ21pU0VmcVZC?=
- =?utf-8?B?QXpiYzdTanIzbVdoU1h0c3owcnpHM3QvRWx2TFJWMGJwK0dDUGRSWWNFYnNO?=
- =?utf-8?B?RWtvYnhIWUlYQkdQUkNzOTdTaExycUQycWRQQ01UYTI2N0I0SVVBRTlTbkhk?=
- =?utf-8?B?RG5nTW9wUkhqUHhnclJpajZyZEFrdlBkbkt1MUlRRktVRkN0TGhRTmtUamF3?=
- =?utf-8?B?OGxwSUNuOW8rOExQWVBqdFRiWkNubUhDZ1hrMkZEM2RqTW1Eb1orQ09ZeDNU?=
- =?utf-8?B?MjNFbjZwT0RvWmdqWUphYXg5SFRYTzVMTFhIQjBSbWZPMnovelBxTTRnWmhq?=
- =?utf-8?B?eng1S3FFMWRrclF5eTZ4SngwQ0V3VDRXdFM5SHo0QjRtZE8yYkNEQUVlR1Rx?=
- =?utf-8?B?Skd2Q3VaVmFXNWZVeWp2bzErWHJsLzQ5YzlHak1tNWtoZTVwQWR3RFpnNGIy?=
- =?utf-8?B?d0R5ZzBIVnNOSXF4cnNCYmF2azlCQVJkMTVrSmF2WDhmS1dPK3VCNWVvR3cx?=
- =?utf-8?B?R3pieC94V05yazNwTzFOUjJxd2EyMDVWMUErS0s4dUhpcEF2Ui9DOGtQeW1i?=
- =?utf-8?B?YWJBckwvV0JkelRkVWV0SURhRVRkdjAwL3dOSHBHUDNlSEVrdE5weWxjU28z?=
- =?utf-8?B?L2RhSTVhZk4zUll3OTE3MG1CbFI4TVNzZW9iNVhpcDBHQ1RjaWhwYkszU3V6?=
- =?utf-8?B?TWtrdUxxM0RoRm9MT2FVVjdicllhNURFemlwL0NCM0lpeVdld01kZU9UZ0lT?=
- =?utf-8?B?UzN5WVdHNTJ5VkU5MG9qc3M5R3VPNTY2QkdHWllVSmd1OTVCMXFYQVgzUlMv?=
- =?utf-8?B?WHZvckRjdGd0R3ljaFZJU1Z5ZS9KSUhIUkc4WVYzcE9Vci9YNHBuSldHSnJ4?=
- =?utf-8?B?Z1ZXUTFrNXQ3eTVvYTJ4cFdYM29pZCtjY21sdGQvOVBiWGtDM2FKNTFHUHY0?=
- =?utf-8?B?bnFRRnNBQ3p0V05ZL0ZtSGk4Mmd4UVl0RjBIWFhEaERwV2w2ZmZqRzgwalhX?=
- =?utf-8?B?R3dpMXY2OFpScUN4L2hJYktQdFpJQ2V1a0hMK0g4TU1NQmQvL3RsaDVIR1B6?=
- =?utf-8?B?VTRqQ0NIdFFsZnRXakxwaXZ0UkNQK05OQTlpNlJ0VE5Zc2NJSS9vb0p5Q2U1?=
- =?utf-8?B?NXJGTGd1cnJ1bklEK3F5WFU4cXp6cDlPSnhMR3Vhb1lXNnVWMmxZKzhRQ20y?=
- =?utf-8?B?a1VZMm5Xb01XZFNLdHVMTHlhWGJUMW9jRWhMa05vYnRSOUh0alBxTlR3ZE0z?=
- =?utf-8?B?WllzamprU1BVS01PUllCOHpaN3doWFBkYXNLT0hpTDdNOGxDUHorVUpwaTA3?=
- =?utf-8?B?a1VNaUx4VkhOckdDZXdZQ2NvYjA4N1gzR0s2WmNZbmxjTi9ZNlJJTllTaFJk?=
- =?utf-8?B?WjNNelRLeWZjVllwOUpBbGx2eG5KVmg0cnUybzd3SEpNaXNGS2IrTmZDNWgz?=
- =?utf-8?B?dzlpTXdkdC9SUEl4NUpnMmZpODA1alFqb2VPVHR0QUxFbCs2MEgybStjcnVp?=
- =?utf-8?B?aXZQYjV5bko0QUttemhKN3YzYVdjRE51T2hnQVZmMEhNT2h1Z0MwMWZpVGY0?=
- =?utf-8?B?MkpzNEpUSU9BaHpUY2JBNUQvYVMvTTQ0eVQ1NmM4cjNuVVdRK2ovM21lajdp?=
- =?utf-8?B?Y25GVFV3ZlovYnpOa0RjbHg5MVUrRXEwM1N0T3h4RkdxUm9GY05LWmorWGRv?=
- =?utf-8?B?MjVpMEFoU1lxd0VoZkhCVzNpdDQ5WWt0MEtySjJ1cEc1WUh3NnNDUVQzbURy?=
- =?utf-8?B?UUNGVjREZnFZeGU4WnZyZ2M0UEg2RXZBSVRKSEQ3cmU2b1c3d2ttcnhjRWRT?=
- =?utf-8?B?Y0pmNTFFd2hYYktsWTBQZ200QlNuUkZYT2FQd3NOSnNvbVNzTldLclFPMWQ3?=
- =?utf-8?B?U3Q1QXh1dHpJQXRLVURHYkd4SXJtYzV1c2RLUWZBOVBhb2tRaHF0Yk9kN1Rr?=
- =?utf-8?B?ZzZmSWh3aERrNldSaDZGbmkvSXp6aG94R2k5VkpOUzR0MWI1ck9tWVpkU0tY?=
- =?utf-8?B?bTVzcS83Mkl5YklEVHBmckc0cDlvRmF0Mk4xMGNsaXdsc0p5dXRuL0JXVnN2?=
- =?utf-8?Q?qN/s=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54B1710E853;
+ Thu, 14 Aug 2025 10:45:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1755168321; x=1786704321;
+ h=message-id:date:mime-version:from:subject:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=F9s/Iv18TXjmfIqqMDY6HXYCfNO7sPPxKiStWH0wyPI=;
+ b=Gb69psiNyTvSZNkp23llJvmDGlfaM/GWMFK633FFji2dejX56O4rRjGP
+ eG+vWLCG9APrnTIGOje5Dh6f2QtoUldM0wTKOiuMkn5QY0XIRy7wn78kG
+ nmmOh9SjA7QvnUxzMtzcc7sQNwz0OoDapl89KX8DpPa+0FS5hTWyJ7iL/
+ MwFazbq6KJ0m9uDRMpoq8lWG0V2B+rFKkJ9nmZHWkpblzZ7VUTWConsbm
+ vkGNQFpmBw5LyVQw4XS3dM3bMD0Dn4jtIc6eeKFAX9k66m3+44tiJ+o4E
+ HzN241atrcElfhkRDxXL7QL0rh4sGaVkMLNseEXui+OtN2B9Z7rliC/XF A==;
+X-CSE-ConnectionGUID: M01rDnpqTYe+DjQpva3H9w==
+X-CSE-MsgGUID: Bs1ukozGTPy0nWpytPZXig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11520"; a="57596105"
+X-IronPort-AV: E=Sophos;i="6.17,287,1747724400"; d="scan'208";a="57596105"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2025 03:45:21 -0700
+X-CSE-ConnectionGUID: Cz9ZPc4kQAOUbNmtOHdW9A==
+X-CSE-MsgGUID: YLwMMtp+Qvun5MJMYDhyGQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.17,287,1747724400"; d="scan'208";a="166642076"
+Received: from zzombora-mobl1 (HELO [10.245.244.158]) ([10.245.244.158])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2025 03:45:19 -0700
+Message-ID: <868ec7ee-442c-4f78-84a8-0c1f966ecc60@intel.com>
+Date: Thu, 14 Aug 2025 11:45:17 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80facfac-c46e-4154-bbe7-08dddb1e58ab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2025 10:35:53.9534 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oOWVGFx1yc9GBaFb67d4+B62z5hWn9Wri9Cpy3CdQvULwSRXesl0bH0FXg/E/m9O
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9121
+User-Agent: Mozilla Thunderbird
+From: Matthew Auld <matthew.auld@intel.com>
+Subject: Re: [PATCH v2 1/2] drm/buddy: Optimize free block management with RB
+ tree
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20250724104640.2319-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+In-Reply-To: <20250724104640.2319-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,173 +71,469 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KPiBGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4N
-Cj4gU2VudDogVGh1cnNkYXksIEF1Z3VzdCAxNCwgMjAyNSA2OjM4IEFNDQo+IFRvOiBMaWFuZywg
-UHJpa2UgPFByaWtlLkxpYW5nQGFtZC5jb20+DQo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZzsgRGV1Y2hlciwgQWxleGFuZGVyDQo+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29t
-PjsgS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4NCj4gU3ViamVj
-dDogUmU6IFtQQVRDSCB2OCAxNC8xNF0gZHJtL2FtZGdwdTogdmFsaWRhdGUgdXNlcnEgdmEgZm9y
-IEdFTSB1bm1hcA0KPg0KPiBUaGUgc3RhcnQgYWRkcmVzcyBtYXkgbm90IGFsaWduIHdpdGggdGhl
-IHN0YXJ0IGFkZHJlc3Mgb2YgdGhlIHZpdGFsDQo+IHF1ZXVlIGJ1ZmZlcnMuICAgSnVzdCByZXRh
-aW4gYSBsaXN0IG9mIHZpdGFsIHZpcnR1YWwgYWRkcmVzcyByYW5nZXMNCj4gZm9yIGVhY2ggdXNl
-cnEgYW5kIHRoZW4gY2hlY2sgaWYgdGhlIGFkZHJlc3MgcmFuZ2UgdGhlIHVzZXIgd2FudHMgdG8N
-Cj4gdW5tYXAgZmFsbHMgaW50byBhbnkgb2YgdGhvc2UgcmFuZ2VzLiAgIElmIHNvLCB0aGVuIHBy
-ZWVtcHQgYW5kIHVubWFwDQo+IHRoZSBxdWV1ZSBhbmQgc2V0IHRoZSBzdGF0dXMgdG8gVVNFUl9V
-Tk1BUFBFRCBvciBzb21ldGhpbmcgbGlrZSB0aGF0Lg0KW1ByaWtlXSBFYWNoIHVzZXJxIGhhcyB2
-YXJpb3VzIHZpcnR1YWwgYWRkcmVzc2VzLCBidXQgdGhpcyB1bm1hcCBJT0NUTCByZXF1ZXN0IGNh
-biBvbmx5IHVubWFwDQpvbmUga2luZCBvZiBWQSBhdCBhIHRpbWUsIHNvIGRvIHdlIG5lZWQgdG8g
-dmFsaWRhdGUgdGhlIHVzZXJxIHdoZXRoZXIgYWxsIHRoZSBWQXMgaGF2ZSBiZWVuIHVubWFwcGVk
-DQpiZWZvcmUgdW5tYXBwaW5nIHRoZSB1c2VycSBIVyBtYXBwaW5nPw0KDQpBc2lkZSBmcm9tIHRo
-YXQsIGRvIHdlIHN0aWxsIG5lZWQgdG8gaWRlbnRpZnkgdGhlIGludmFsaWQgdXNlcnEgVkEgdW5t
-YXAgY2FzZSBieSBjaGVja2luZyB1c2VycSBmZW5jZSB0bw0Kc2VlIHdoZXRoZXIgaXQgaXMgc2ln
-bmFsZWQgd2hlbiB1c2VyIGlzIHRyeWluZyB0byB1bm1hcCBvbmUgb2YgaXRzIFZBcz8gV2l0aG91
-dCB0aGlzIGNoZWNrLCBob3cgZG8gd2UNCmlkZW50aWZ5IHRoZSB1c2VycSBHRU0gdW5tYXAgVkEg
-Y2FzZT8NCg0KPiBUaGVuIHlvdSBkb24ndCBoYXZlIHRvIHdvcnJ5IGFib3V0IHF1ZXVlIHNwZWNp
-ZmljIGRldGFpbHMgYXMgdG8gd2hhdCBhZGRyZXNzZXMgYXJlDQo+IHZpdGFsIGZvciB0aGF0IHF1
-ZXVlIHR5cGUuDQo+DQo+IEFsZXgNCj4NCj4gT24gRnJpLCBBdWcgOCwgMjAyNSBhdCAyOjI54oCv
-QU0gUHJpa2UgTGlhbmcgPFByaWtlLkxpYW5nQGFtZC5jb20+IHdyb3RlOg0KPiA+DQo+ID4gVGhp
-cyBjaGFuZ2UgdmFsaWRhdGVzIHRoZSB1c2VycSB0byBzZWUgd2hldGhlciBjYW4gYmUgdW5tYXBw
-ZWQgcHJpb3INCj4gPiB0byB0aGUgdXNlcnEgVkEgR0VNIHVubWFwLiBUaGUgc29sdXRpb24gaXMg
-YmFzZWQgb24gdGhlIGZvbGxvd2luZw0KPiA+IGlkZWE6DQo+ID4gMSkgRmluZCBvdXQgdGhlIEdF
-TSB1bm1hcCBWQSBiZWxvbmRzIHRvIHdoaWNoIHVzZXJxLA0KPiA+IDIpIENoZWNrIHRoZSB1c2Vy
-cSBmZW5jZSBmZW5jZSB3aGV0aGVyIGlzIHNpZ25hbGVkLA0KPiA+IDMpIElmIHRoZSB1c2VycSBh
-dHRhY2hlZCBmZW5jZXMgc2lnbmFsIGZhaWxlZCwgdGhlbg0KPiA+ICAgIG1hcmsgaXQgYXMgaWxs
-ZWdhbCBWQSBvcHQgYW5kIGdpdmUgYSB3YXJuaW5nIG1lc3NhZ2UNCj4gPiAgICBmb3IgdGhpcyBp
-bGxlZ2FsIHVzZXJzcGFjZSByZXF1ZXN0Lg0KPiA+DQo+ID4gU3VnZ2VzdGVkLWJ5OiBDaHJpc3Rp
-YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+ID4gU2lnbmVkLW9mZi1ieTog
-UHJpa2UgTGlhbmcgPFByaWtlLkxpYW5nQGFtZC5jb20+DQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91c2VycS5jIHwgMTA3ICsrKysrKysrKysrKysrKysr
-KysrKy0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3VzZXJxLmggfCAg
-IDIgKw0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICB8ICAx
-MCArKw0KPiA+ICAzIGZpbGVzIGNoYW5nZWQsIDExOCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
-KC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3VzZXJxLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91c2Vy
-cS5jDQo+ID4gaW5kZXggNzcxZjU3ZDA5MDYwLi4zMTRkNDgyODQ5YzggMTAwNjQ0DQo+ID4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3VzZXJxLmMNCj4gPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXNlcnEuYw0KPiA+IEBAIC02NzYsNyAr
-Njc2LDYgQEAgYW1kZ3B1X3VzZXJxX2NyZWF0ZShzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHAsIHVuaW9u
-DQo+IGRybV9hbWRncHVfdXNlcnEgKmFyZ3MpDQo+ID4gICAgICAgICAgICAgICAgIH0NCj4gPiAg
-ICAgICAgIH0NCj4gPg0KPiA+IC0NCj4gPiAgICAgICAgIGFyZ3MtPm91dC5xdWV1ZV9pZCA9IHFp
-ZDsNCj4gPg0KPiA+ICB1bmxvY2s6DQo+ID4gQEAgLTEyMTQsMyArMTIxMywxMDkgQEAgaW50DQo+
-IGFtZGdwdV91c2VycV9zdGFydF9zY2hlZF9mb3JfZW5mb3JjZV9pc29sYXRpb24oc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsDQo+ID4gICAgICAgICBtdXRleF91bmxvY2soJmFkZXYtPnVzZXJx
-X211dGV4KTsNCj4gPiAgICAgICAgIHJldHVybiByZXQ7DQo+ID4gIH0NCj4gPiArDQo+ID4gKy8q
-Kg0KPiA+ICsgKiBhbWRncHVfdXNlcnFfZ2VtX3ZhX3VubWFwX3F1ZXVlX3JldHJpZXZlIC0gZmlu
-ZCBvdXQgdXNlcnEgYnkgZ2VtDQo+ID4gK3VubWFwIHZhDQo+ID4gKyAqIEBxdWV1ZTogZGVzdGlu
-YXRlZCB1c2VycSBmb3IgZmluZGluZyBvdXQgZnJvbSB1bm1hcCB2YQ0KPiA+ICsgKiBAdmE6IHRo
-ZSBHRU0gdW5tYXAgdmlydHVhbCBhZGRyZXNzIGFscmVhZHkgYWxpZ25lZCBpbiBtYXBwaW5nDQo+
-ID4gK3JhbmdlDQo+ID4gKyAqIEZpbmQgb3V0IHRoZSBjb3JyZXNwb25kaW5nIHVzZXJxIGJ5IGNv
-bXBhcmluZw0KPiA+ICsgKiB0aGUgR0VNIHVubWFwIFZBIHdpdGggdXNlcnEgVkFzLg0KPiA+ICsg
-Ki8NCj4gPiArc3RhdGljIGJvb2wgYW1kZ3B1X3VzZXJxX2dlbV92YV91bm1hcF9xdWV1ZV9yZXRy
-aWV2ZShzdHJ1Y3QNCj4gYW1kZ3B1X3VzZXJtb2RlX3F1ZXVlICpxdWV1ZSwNCj4gPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90
-IHZhKSB7DQo+ID4gKyAgICAgICB2YSA9IHZhIDw8IEFNREdQVV9HUFVfUEFHRV9TSElGVCB8IEFN
-REdQVV9HTUNfSE9MRV9FTkQ7DQo+ID4gKw0KPiA+ICsgICAgICAgc3dpdGNoIChxdWV1ZS0+cXVl
-dWVfdHlwZSkgew0KPiA+ICsgICAgICAgY2FzZSBBTURHUFVfSFdfSVBfR0ZYOg0KPiA+ICsgICAg
-ICAgICAgICAgICBpZiAocXVldWUtPnF1ZXVlX3ZhID09IHZhIHx8DQo+ID4gKyAgICAgICAgICAg
-ICAgICAgICBxdWV1ZS0+d3B0cl92YSAgPT0gdmEgfHwNCj4gPiArICAgICAgICAgICAgICAgICAg
-IHF1ZXVlLT5ycHRyX3ZhICA9PSB2YSB8fA0KPiA+ICsgICAgICAgICAgICAgICAgICAgcXVldWUt
-PnNoYWRvd192YSA9PSB2YSB8fA0KPiA+ICsgICAgICAgICAgICAgICAgICAgcXVldWUtPmNzYV92
-YSAgPT0gdmEpDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHRydWU7DQo+ID4g
-KyAgICAgICAgICAgICAgIGJyZWFrOw0KPiA+ICsgICAgICAgY2FzZSBBTURHUFVfSFdfSVBfQ09N
-UFVURToNCj4gPiArICAgICAgICAgICAgICAgaWYgKHF1ZXVlLT5xdWV1ZV92YSA9PSB2YSB8fA0K
-PiA+ICsgICAgICAgICAgICAgICAgICAgcXVldWUtPndwdHJfdmEgPT0gdmEgfHwNCj4gPiArICAg
-ICAgICAgICAgICAgICAgIHF1ZXVlLT5ycHRyX3ZhICA9PSB2YSB8fA0KPiA+ICsgICAgICAgICAg
-ICAgICAgICAgcXVldWUtPmVvcF92YSAgPT0gdmEpDQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgcmV0dXJuIHRydWU7DQo+ID4gKyAgICAgICAgICAgICAgIGJyZWFrOw0KPiA+ICsgICAgICAg
-Y2FzZSBBTURHUFVfSFdfSVBfRE1BOg0KPiA+ICsgICAgICAgICAgICAgICBpZiAocXVldWUtPnF1
-ZXVlX3ZhID09IHZhIHx8DQo+ID4gKyAgICAgICAgICAgICAgICAgICBxdWV1ZS0+d3B0cl92YSA9
-PSB2YSB8fA0KPiA+ICsgICAgICAgICAgICAgICAgICAgcXVldWUtPnJwdHJfdmEgPT0gdmEgfHwN
-Cj4gPiArICAgICAgICAgICAgICAgICAgIHF1ZXVlLT5jc2FfdmEgPT0gdmEpDQo+ID4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgcmV0dXJuIHRydWU7DQo+ID4gKyAgICAgICAgICAgICAgIGJyZWFr
-Ow0KPiA+ICsgICAgICAgZGVmYXVsdDoNCj4gPiArICAgICAgICAgICAgICAgYnJlYWs7DQo+ID4g
-KyAgICAgICB9DQo+ID4gKw0KPiA+ICsgICAgICAgcmV0dXJuIGZhbHNlOw0KPiA+ICt9DQo+ID4g
-Kw0KPiA+ICsNCj4gPiAraW50IGFtZGdwdV91c2VycV9nZW1fdmFfdW5tYXBfdmFsaWRhdGUoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICB1aW50NjRfdCB2YSkgew0KPiA+ICsgICAgICAgdTMyIGlwX21hc2sgPSBhbWRncHVfdXNl
-cnFfZ2V0X3N1cHBvcnRlZF9pcF9tYXNrKGFkZXYpOw0KPiA+ICsgICAgICAgc3RydWN0IGFtZGdw
-dV91c2VybW9kZV9xdWV1ZSAqcXVldWU7DQo+ID4gKyAgICAgICBzdHJ1Y3QgYW1kZ3B1X3VzZXJx
-X21nciAqdXFtLCAqdG1wOw0KPiA+ICsgICAgICAgaW50IHF1ZXVlX2lkOw0KPiA+ICsgICAgICAg
-aW50IHJldDsNCj4gPiArDQo+ID4gKyAgICAgICBpZiAoIWlwX21hc2spDQo+ID4gKyAgICAgICAg
-ICAgICAgIHJldHVybiAwOw0KPiA+ICsNCj4gPiArICAgICAgIC8qKg0KPiA+ICsgICAgICAgICog
-dmFsaWRhdGUgdGhlIHVubWFwIHZhIHNlcXVlbmNlOg0KPiA+ICsgICAgICAgICogMSkgRmluZCBv
-dXQgdGhlIEdFTSB1bm1hcCBWQSBiZWxvbmRzIHRvIHdoaWNoIHVzZXJxLA0KPiA+ICsgICAgICAg
-ICogMikgQ2hlY2sgdGhlIHVzZXJxIGZlbmNlIHdoZXRoZXIgaXMgc2lnbmFsZWQsDQo+ID4gKyAg
-ICAgICAgKiAzKSBJZiB0aGUgdXNlcnEgYXR0YWNoZWQgZmVuY2VzIHNpZ25hbCBmYWlsZWQsIHRo
-ZW4NCj4gPiArICAgICAgICAqICAgIG1hcmsgYXMgaW52YWxpZCB2YSBvcHQgYW5kIGdpdmUgYSB3
-YXJuaW5nIG1lc3NhZ2UNCj4gPiArICAgICAgICAqICAgIGZvciB0aGlzIGlsbGVnYWwgdXNlcnNw
-YWNlIHJlcXVlc3QuDQo+ID4gKyAgICAgICAgKi8NCj4gPiArDQo+ID4gKyAgICAgICBpZiAobXV0
-ZXhfdHJ5bG9jaygmYWRldi0+dXNlcnFfbXV0ZXgpKSB7DQo+ID4gKyAgICAgICAgICAgICAgIGxp
-c3RfZm9yX2VhY2hfZW50cnlfc2FmZSh1cW0sIHRtcCwNCj4gPiArICZhZGV2LT51c2VycV9tZ3Jf
-bGlzdCwgbGlzdCkgew0KPiA+ICsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICBpZiAoIW11
-dGV4X3RyeWxvY2soJnVxbS0+dXNlcnFfbXV0ZXgpKQ0KPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgY29udGludWU7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-IGlkcl9mb3JfZWFjaF9lbnRyeSgmdXFtLT51c2VycV9pZHIsIHF1ZXVlLA0KPiA+ICsgcXVldWVf
-aWQpIHsNCj4gPiArDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoIWFt
-ZGdwdV91c2VycV9nZW1fdmFfdW5tYXBfcXVldWVfcmV0cmlldmUocXVldWUsDQo+IHZhKSkgew0K
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZfZGJnKHVxbS0+
-YWRldi0+ZGV2LCAidmE6IDB4JWxseCBub3QgYmVsb25kIHRvDQo+IHF1ZXVlIGlkOiAlZFxuIiwN
-Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YSwg
-cXVldWVfaWQpOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBj
-b250aW51ZTsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0NCj4gPiArDQo+
-ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAocXVldWUtPmxhc3RfZmVuY2Ug
-JiYgIWRtYV9mZW5jZV9pc19zaWduYWxlZChxdWV1ZS0NCj4gPmxhc3RfZmVuY2UpKSB7DQo+ID4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRybV9maWxlX2Vycih1cW0t
-PmZpbGUsICJhbiBpbGxlZ2FsIFZBIHVubWFwIGZvciB0aGUNCj4gdXNlcnFcbiIpOw0KPiA+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBxdWV1ZS0+c3RhdGUgPQ0KPiBB
-TURHUFVfVVNFUlFfU1RBVEVfSU5WQUxJRF9WQTsNCj4gPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcmV0ID0gLUVUSU1FRE9VVDsNCj4gPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgZ290byBlcnI7DQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB9DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvKg0K
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICogQXQgaGVyZSBzdGlsbCBjYW4n
-dCBzdXNwZW5kIHRoZSB1c2VycSBzaW5jZSBoZXJlIGp1c3Qgb25lDQo+IGtpbmQgb2YNCj4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqIFZBIHVubWFwcGVkLCBhbmQgc29tZSBv
-dGhlciBWQXMgb2YgdXNlcnEgbWF5IHN0aWxsIGJlDQo+IG1hcHBlZC4gQWZ0ZXINCj4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqIHRoaXMgcG9pbnQgdGhpcyBWQSBtYXBwaW5n
-IHdpbGwgYmUgZGV0ZWxlZCBhbmQgdGhlIFZBIHdpbGwgYmUNCj4gdW5tYXBwZWQNCj4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqIHNvIHdpbGwgbm90IHJlc3VtZSB0aGUgdXNl
-cnEgd2hlbiBpdHMgVkEgdW5tYXBwZWQuDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICB9DQo+ID4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgbXV0ZXhfdW5sb2NrKCZ1cW0tPnVzZXJxX211dGV4KTsNCj4gPiArICAgICAg
-ICAgICAgICAgfQ0KPiA+ICsgICAgICAgfSBlbHNlIHsNCj4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICAvKiBNYXliZSB3ZSBuZWVkIGEgdHJ5IGxvY2sgYWdhaW4gYmVmb3JlIHJldHVybiovDQo+
-ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FQlVTWTsNCj4gPiArICAgICAgIH0N
-Cj4gPiArDQo+ID4gKyAgICAgICBtdXRleF91bmxvY2soJmFkZXYtPnVzZXJxX211dGV4KTsNCj4g
-PiArICAgICAgIHJldHVybiAwOw0KPiA+ICtlcnI6DQo+ID4gKyAgICAgICBtdXRleF91bmxvY2so
-JnVxbS0+dXNlcnFfbXV0ZXgpOw0KPiA+ICsgICAgICAgbXV0ZXhfdW5sb2NrKCZhZGV2LT51c2Vy
-cV9tdXRleCk7DQo+ID4gKyAgICAgICByZXR1cm4gcmV0Ow0KPiA+ICt9DQo+ID4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91c2VycS5oDQo+ID4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXNlcnEuaA0KPiA+IGluZGV4IGNmMzViNjE0
-MGEzZC4uMjdhYjhhNmE3YmU2IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV91c2VycS5oDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3VzZXJxLmgNCj4gPiBAQCAtMTQ5LDQgKzE0OSw2IEBAIGJvb2wgYW1kZ3B1X3Vz
-ZXJxX2J1ZmZlcl92YXNfbWFwcGVkKHN0cnVjdA0KPiA+IGFtZGdwdV92bSAqdm0sICBpbnQgYW1k
-Z3B1X3VzZXJxX2J1ZmZlcl92YV9wdXQoc3RydWN0IGFtZGdwdV92bSAqdm0sDQo+ID4gdTY0IGFk
-ZHIpOyAgaW50IGFtZGdwdV91c2VycV9idWZmZXJfdmFzX3B1dChzdHJ1Y3QgYW1kZ3B1X3ZtICp2
-bSwNCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3VzZXJtb2RlX3F1
-ZXVlICpxdWV1ZSk7DQo+ID4gK2ludCBhbWRncHVfdXNlcnFfZ2VtX3ZhX3VubWFwX3ZhbGlkYXRl
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgdWludDY0X3QgdmEpOw0KPiA+ICAjZW5kaWYNCj4gPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+ID4gaW5kZXggZjA0MjM3MmQ5ZjJlLi41MzM5NTRj
-MGQyMzQgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZtLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0K
-PiA+IEBAIC0xOTI5LDYgKzE5MjksNyBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3VubWFwKHN0cnVjdCBh
-bWRncHVfZGV2aWNlDQo+ICphZGV2LA0KPiA+ICAgICAgICAgc3RydWN0IGFtZGdwdV9ib192YV9t
-YXBwaW5nICptYXBwaW5nOw0KPiA+ICAgICAgICAgc3RydWN0IGFtZGdwdV92bSAqdm0gPSBib192
-YS0+YmFzZS52bTsNCj4gPiAgICAgICAgIGJvb2wgdmFsaWQgPSB0cnVlOw0KPiA+ICsgICAgICAg
-aW50IHI7DQo+ID4NCj4gPiAgICAgICAgIHNhZGRyIC89IEFNREdQVV9HUFVfUEFHRV9TSVpFOw0K
-PiA+DQo+ID4gQEAgLTE5NDksNiArMTk1MCwxNSBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3VubWFwKHN0
-cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2LA0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAg
-IHJldHVybiAtRU5PRU5UOw0KPiA+ICAgICAgICAgfQ0KPiA+DQo+ID4gKyAgICAgICAvKiBJdCdz
-IHVubGlrZWx5IHRvIGhhcHBlbiB0aGF0IHRoZSBtYXBwaW5nIHVzZXJxIGhhc24ndCBiZWVuIGlk
-bGVkDQo+ID4gKyAgICAgICAgKiBkdXJpbmcgdXNlciByZXF1ZXN0cyBHRU0gdW5tYXAgSU9DVEwg
-ZXhjZXB0IGZvciBmb3JjaW5nIHRoZSB1bm1hcA0KPiA+ICsgICAgICAgICogZnJvbSB1c2VyIHNw
-YWNlLg0KPiA+ICsgICAgICAgICovDQo+ID4gKw0KPiA+ICsgICAgICAgciA9IGFtZGdwdV91c2Vy
-cV9nZW1fdmFfdW5tYXBfdmFsaWRhdGUoYWRldiwgc2FkZHIpOw0KPiA+ICsgICAgICAgaWYgKHVu
-bGlrZWx5KHIgJiYgciAhPSAtRUJVU1kpKQ0KPiA+ICsgICAgICAgICAgICAgICBkZXZfd2Fybihh
-ZGV2LT5kZXYsICJIZXJlIHNob3VsZCBiZSBhbiBpbXByb3BlciB1bm1hcA0KPiA+ICsgcmVxdWVz
-dCBmcm9tIHVzZXIgc3BhY2VcbiIpOw0KPiA+ICsNCj4gPiAgICAgICAgIGxpc3RfZGVsKCZtYXBw
-aW5nLT5saXN0KTsNCj4gPiAgICAgICAgIGFtZGdwdV92bV9pdF9yZW1vdmUobWFwcGluZywgJnZt
-LT52YSk7DQo+ID4gICAgICAgICBtYXBwaW5nLT5ib192YSA9IE5VTEw7DQo+ID4gLS0NCj4gPiAy
-LjM0LjENCj4gPg0K
+On 24/07/2025 11:46, Arunpravin Paneer Selvam wrote:
+> Replace the freelist (O(n)) used for free block management with a
+> red-black tree, providing more efficient O(log n) search, insert,
+> and delete operations. This improves scalability and performance
+> when managing large numbers of free blocks per order (e.g., hundreds
+> or thousands).
+> 
+> In the VK-CTS memory stress subtest, the buddy manager merges
+> fragmented memory and inserts freed blocks into the freelist. Since
+> freelist insertion is O(n), this becomes a bottleneck as fragmentation
+> increases. Benchmarking shows list_insert_sorted() consumes ~52.69% CPU
+> with the freelist, compared to just 0.03% with the RB tree
+> (rbtree_insert.isra.0), despite performing the same sorted insert.
+> 
+> This also improves performance in heavily fragmented workloads,
+> such as games or graphics tests that stress memory.
+
+Neat. Also please Cc intel-gfx@lists.freedesktop.org and 
+intel-xe@lists.freedesktop.org on the next revision so our CI can pick 
+this up.
+
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/drm/drm_buddy.c | 141 +++++++++++++++++++++++-------------
+>   include/drm/drm_buddy.h     |  39 +++++++++-
+>   2 files changed, 128 insertions(+), 52 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index a1e652b7631d..19e9773b41be 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -31,6 +31,8 @@ static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
+>   	block->header |= order;
+>   	block->parent = parent;
+>   
+> +	RB_CLEAR_NODE(&block->rb);
+> +
+>   	BUG_ON(block->header & DRM_BUDDY_HEADER_UNUSED);
+>   	return block;
+>   }
+> @@ -41,23 +43,53 @@ static void drm_block_free(struct drm_buddy *mm,
+>   	kmem_cache_free(slab_blocks, block);
+>   }
+>   
+> -static void list_insert_sorted(struct drm_buddy *mm,
+> -			       struct drm_buddy_block *block)
+> +static void rbtree_insert(struct drm_buddy *mm,
+> +			  struct drm_buddy_block *block)
+>   {
+> +	struct rb_root *root = &mm->free_tree[drm_buddy_block_order(block)];
+> +	struct rb_node **link = &root->rb_node;
+> +	struct rb_node *parent = NULL;
+>   	struct drm_buddy_block *node;
+> -	struct list_head *head;
+> +	u64 offset;
+> +
+> +	offset = drm_buddy_block_offset(block);
+>   
+> -	head = &mm->free_list[drm_buddy_block_order(block)];
+> -	if (list_empty(head)) {
+> -		list_add(&block->link, head);
+> -		return;
+> +	while (*link) {
+> +		parent = *link;
+> +		node = rb_entry(parent, struct drm_buddy_block, rb);
+> +
+> +		if (offset < drm_buddy_block_offset(node))
+> +			link = &parent->rb_left;
+> +		else
+> +			link = &parent->rb_right;
+>   	}
+>   
+> -	list_for_each_entry(node, head, link)
+> -		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
+> -			break;
+> +	rb_link_node(&block->rb, parent, link);
+> +	rb_insert_color(&block->rb, root);
+> +}
+> +
+> +static void rbtree_remove(struct drm_buddy *mm,
+> +			  struct drm_buddy_block *block)
+> +{
+> +	struct rb_root *root;
+>   
+> -	__list_add(&block->link, node->link.prev, &node->link);
+> +	root = &mm->free_tree[drm_buddy_block_order(block)];
+> +	rb_erase(&block->rb, root);
+> +
+> +	RB_CLEAR_NODE(&block->rb);
+> +}
+> +
+> +static inline struct drm_buddy_block *
+> +rbtree_last_entry(struct drm_buddy *mm, unsigned int order)
+> +{
+> +	struct rb_node *node = rb_last(&mm->free_tree[order]);
+> +
+> +	return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
+> +}
+> +
+> +static bool rbtree_is_empty(struct drm_buddy *mm, unsigned int order)
+> +{
+> +	return RB_EMPTY_ROOT(&mm->free_tree[order]);
+>   }
+>   
+>   static void clear_reset(struct drm_buddy_block *block)
+> @@ -70,12 +102,13 @@ static void mark_cleared(struct drm_buddy_block *block)
+>   	block->header |= DRM_BUDDY_HEADER_CLEAR;
+>   }
+>   
+> -static void mark_allocated(struct drm_buddy_block *block)
+> +static void mark_allocated(struct drm_buddy *mm,
+> +			   struct drm_buddy_block *block)
+>   {
+>   	block->header &= ~DRM_BUDDY_HEADER_STATE;
+>   	block->header |= DRM_BUDDY_ALLOCATED;
+>   
+> -	list_del(&block->link);
+> +	rbtree_remove(mm, block);
+>   }
+>   
+>   static void mark_free(struct drm_buddy *mm,
+> @@ -84,15 +117,16 @@ static void mark_free(struct drm_buddy *mm,
+>   	block->header &= ~DRM_BUDDY_HEADER_STATE;
+>   	block->header |= DRM_BUDDY_FREE;
+>   
+> -	list_insert_sorted(mm, block);
+> +	rbtree_insert(mm, block);
+>   }
+>   
+> -static void mark_split(struct drm_buddy_block *block)
+> +static void mark_split(struct drm_buddy *mm,
+> +		       struct drm_buddy_block *block)
+>   {
+>   	block->header &= ~DRM_BUDDY_HEADER_STATE;
+>   	block->header |= DRM_BUDDY_SPLIT;
+>   
+> -	list_del(&block->link);
+> +	rbtree_remove(mm, block);
+>   }
+>   
+>   static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
+> @@ -148,7 +182,7 @@ static unsigned int __drm_buddy_free(struct drm_buddy *mm,
+>   				mark_cleared(parent);
+>   		}
+>   
+> -		list_del(&buddy->link);
+> +		rbtree_remove(mm, buddy);
+>   		if (force_merge && drm_buddy_block_is_clear(buddy))
+>   			mm->clear_avail -= drm_buddy_block_size(mm, buddy);
+>   
+> @@ -179,12 +213,17 @@ static int __force_merge(struct drm_buddy *mm,
+>   		return -EINVAL;
+>   
+>   	for (i = min_order - 1; i >= 0; i--) {
+> -		struct drm_buddy_block *block, *prev;
+> +		struct drm_buddy_block *block, *prev_block, *first_block;
+> +
+> +		first_block = rb_entry(rb_first(&mm->free_tree[i]), struct drm_buddy_block, rb);
+>   
+> -		list_for_each_entry_safe_reverse(block, prev, &mm->free_list[i], link) {
+> +		for_each_rb_entry_reverse_safe(block, prev_block, &mm->free_tree[i], rb) {
+>   			struct drm_buddy_block *buddy;
+>   			u64 block_start, block_end;
+>   
+> +			if (RB_EMPTY_NODE(&block->rb))
+> +				break;
+
+If we got the block from the rb tree, can it be empty here?
+
+> +
+>   			if (!block->parent)
+>   				continue;
+>   
+> @@ -206,10 +245,14 @@ static int __force_merge(struct drm_buddy *mm,
+>   			 * block in the next iteration as we would free the
+>   			 * buddy block as part of the free function.
+>   			 */
+> -			if (prev == buddy)
+> -				prev = list_prev_entry(prev, link);
+> +			if (prev_block && prev_block == buddy) {
+> +				if (prev_block != first_block)
+> +					prev_block = rb_entry(rb_prev(&prev_block->rb),
+> +							      struct drm_buddy_block,
+> +							      rb);
+> +			}
+>   
+> -			list_del(&block->link);
+> +			rbtree_remove(mm, block);
+>   			if (drm_buddy_block_is_clear(block))
+>   				mm->clear_avail -= drm_buddy_block_size(mm, block);
+>   
+> @@ -258,14 +301,14 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+>   
+>   	BUG_ON(mm->max_order > DRM_BUDDY_MAX_ORDER);
+>   
+> -	mm->free_list = kmalloc_array(mm->max_order + 1,
+> -				      sizeof(struct list_head),
+> +	mm->free_tree = kmalloc_array(mm->max_order + 1,
+> +				      sizeof(struct rb_root),
+>   				      GFP_KERNEL);
+> -	if (!mm->free_list)
+> +	if (!mm->free_tree)
+>   		return -ENOMEM;
+>   
+>   	for (i = 0; i <= mm->max_order; ++i)
+> -		INIT_LIST_HEAD(&mm->free_list[i]);
+> +		mm->free_tree[i] = RB_ROOT;
+>   
+>   	mm->n_roots = hweight64(size);
+>   
+> @@ -273,7 +316,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+>   				  sizeof(struct drm_buddy_block *),
+>   				  GFP_KERNEL);
+>   	if (!mm->roots)
+> -		goto out_free_list;
+> +		goto out_free_tree;
+>   
+>   	offset = 0;
+>   	i = 0;
+> @@ -312,8 +355,8 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+>   	while (i--)
+>   		drm_block_free(mm, mm->roots[i]);
+>   	kfree(mm->roots);
+> -out_free_list:
+> -	kfree(mm->free_list);
+> +out_free_tree:
+> +	kfree(mm->free_tree);
+>   	return -ENOMEM;
+>   }
+>   EXPORT_SYMBOL(drm_buddy_init);
+> @@ -323,7 +366,7 @@ EXPORT_SYMBOL(drm_buddy_init);
+>    *
+>    * @mm: DRM buddy manager to free
+>    *
+> - * Cleanup memory manager resources and the freelist
+> + * Cleanup memory manager resources and the freetree
+>    */
+>   void drm_buddy_fini(struct drm_buddy *mm)
+>   {
+> @@ -350,7 +393,7 @@ void drm_buddy_fini(struct drm_buddy *mm)
+>   	WARN_ON(mm->avail != mm->size);
+>   
+>   	kfree(mm->roots);
+> -	kfree(mm->free_list);
+> +	kfree(mm->free_tree);
+>   }
+>   EXPORT_SYMBOL(drm_buddy_fini);
+>   
+> @@ -383,7 +426,7 @@ static int split_block(struct drm_buddy *mm,
+>   		clear_reset(block);
+>   	}
+>   
+> -	mark_split(block);
+> +	mark_split(mm, block);
+>   
+>   	return 0;
+>   }
+> @@ -598,7 +641,7 @@ get_maxblock(struct drm_buddy *mm, unsigned int order,
+>   	for (i = order; i <= mm->max_order; ++i) {
+>   		struct drm_buddy_block *tmp_block;
+>   
+> -		list_for_each_entry_reverse(tmp_block, &mm->free_list[i], link) {
+> +		for_each_rb_entry_reverse(tmp_block, &mm->free_tree[i], rb) {
+>   			if (block_incompatible(tmp_block, flags))
+>   				continue;
+>   
+> @@ -624,7 +667,7 @@ get_maxblock(struct drm_buddy *mm, unsigned int order,
+>   }
+>   
+>   static struct drm_buddy_block *
+> -alloc_from_freelist(struct drm_buddy *mm,
+> +alloc_from_freetree(struct drm_buddy *mm,
+>   		    unsigned int order,
+>   		    unsigned long flags)
+>   {
+> @@ -641,7 +684,7 @@ alloc_from_freelist(struct drm_buddy *mm,
+>   		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>   			struct drm_buddy_block *tmp_block;
+>   
+> -			list_for_each_entry_reverse(tmp_block, &mm->free_list[tmp], link) {
+> +			for_each_rb_entry_reverse(tmp_block, &mm->free_tree[tmp], rb) {
+>   				if (block_incompatible(tmp_block, flags))
+>   					continue;
+>   
+> @@ -657,10 +700,8 @@ alloc_from_freelist(struct drm_buddy *mm,
+>   	if (!block) {
+>   		/* Fallback method */
+>   		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+> -			if (!list_empty(&mm->free_list[tmp])) {
+> -				block = list_last_entry(&mm->free_list[tmp],
+> -							struct drm_buddy_block,
+> -							link);
+> +			if (!rbtree_is_empty(mm, tmp)) {
+> +				block = rbtree_last_entry(mm, tmp);
+>   				if (block)
+>   					break;
+>   			}
+> @@ -728,7 +769,7 @@ static int __alloc_range(struct drm_buddy *mm,
+>   
+>   		if (contains(start, end, block_start, block_end)) {
+>   			if (drm_buddy_block_is_free(block)) {
+> -				mark_allocated(block);
+> +				mark_allocated(mm, block);
+>   				total_allocated += drm_buddy_block_size(mm, block);
+>   				mm->avail -= drm_buddy_block_size(mm, block);
+>   				if (drm_buddy_block_is_clear(block))
+> @@ -806,7 +847,6 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
+>   {
+>   	u64 rhs_offset, lhs_offset, lhs_size, filled;
+>   	struct drm_buddy_block *block;
+> -	struct list_head *list;
+>   	LIST_HEAD(blocks_lhs);
+>   	unsigned long pages;
+>   	unsigned int order;
+> @@ -819,11 +859,10 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
+>   	if (order == 0)
+>   		return -ENOSPC;
+>   
+> -	list = &mm->free_list[order];
+> -	if (list_empty(list))
+> +	if (rbtree_is_empty(mm, order))
+>   		return -ENOSPC;
+>   
+> -	list_for_each_entry_reverse(block, list, link) {
+> +	for_each_rb_entry_reverse(block, &mm->free_tree[order], rb) {
+>   		/* Allocate blocks traversing RHS */
+>   		rhs_offset = drm_buddy_block_offset(block);
+>   		err =  __drm_buddy_alloc_range(mm, rhs_offset, size,
+> @@ -933,7 +972,7 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>   	list_add(&block->tmp_link, &dfs);
+>   	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
+>   	if (err) {
+> -		mark_allocated(block);
+> +		mark_allocated(mm, block);
+>   		mm->avail -= drm_buddy_block_size(mm, block);
+>   		if (drm_buddy_block_is_clear(block))
+>   			mm->clear_avail -= drm_buddy_block_size(mm, block);
+> @@ -956,8 +995,8 @@ __drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   		return  __drm_buddy_alloc_range_bias(mm, start, end,
+>   						     order, flags);
+>   	else
+> -		/* Allocate from freelist */
+> -		return alloc_from_freelist(mm, order, flags);
+> +		/* Allocate from freetree */
+> +		return alloc_from_freetree(mm, order, flags);
+>   }
+>   
+>   /**
+> @@ -974,8 +1013,8 @@ __drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>    * alloc_range_bias() called on range limitations, which traverses
+>    * the tree and returns the desired block.
+>    *
+> - * alloc_from_freelist() called when *no* range restrictions
+> - * are enforced, which picks the block from the freelist.
+> + * alloc_from_freetree() called when *no* range restrictions
+> + * are enforced, which picks the block from the freetree.
+>    *
+>    * Returns:
+>    * 0 on success, error code on failure.
+> @@ -1077,7 +1116,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   			}
+>   		} while (1);
+>   
+> -		mark_allocated(block);
+> +		mark_allocated(mm, block);
+>   		mm->avail -= drm_buddy_block_size(mm, block);
+>   		if (drm_buddy_block_is_clear(block))
+>   			mm->clear_avail -= drm_buddy_block_size(mm, block);
+> @@ -1161,7 +1200,7 @@ void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p)
+>   		struct drm_buddy_block *block;
+>   		u64 count = 0, free;
+>   
+> -		list_for_each_entry(block, &mm->free_list[order], link) {
+> +		for_each_rb_entry(block, &mm->free_tree[order], rb) {
+>   			BUG_ON(!drm_buddy_block_is_free(block));
+>   			count++;
+>   		}
+> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+> index 9689a7c5dd36..a64d108a33b7 100644
+> --- a/include/drm/drm_buddy.h
+> +++ b/include/drm/drm_buddy.h
+> @@ -10,6 +10,7 @@
+>   #include <linux/list.h>
+>   #include <linux/slab.h>
+>   #include <linux/sched.h>
+> +#include <linux/rbtree.h>
+>   
+>   #include <drm/drm_print.h>
+>   
+> @@ -22,6 +23,41 @@
+>   	start__ >= max__ || size__ > max__ - start__; \
+>   })
+>   
+> +/*
+> + * for_each_rb_entry() - iterate over an RB tree in order
+> + * @pos:	the struct type * to use as a loop cursor
+> + * @root:	pointer to struct rb_root to iterate
+> + * @member:	name of the rb_node field within the struct
+> + */
+> +#define for_each_rb_entry(pos, root, member) \
+> +	for (pos = rb_entry_safe(rb_first(root), typeof(*pos), member); \
+> +	     pos; \
+> +	     pos = rb_entry_safe(rb_next(&(pos)->member), typeof(*pos), member))
+> +
+> +/*
+> + * for_each_rb_entry_reverse() - iterate over an RB tree in reverse order
+> + * @pos:	the struct type * to use as a loop cursor
+> + * @root:	pointer to struct rb_root to iterate
+> + * @member:	name of the rb_node field within the struct
+> + */
+> +#define for_each_rb_entry_reverse(pos, root, member) \
+> +	for (pos = rb_entry_safe(rb_last(root), typeof(*pos), member); \
+> +	     pos; \
+> +	     pos = rb_entry_safe(rb_prev(&(pos)->member), typeof(*pos), member))
+> +
+> +/**
+> + * for_each_rb_entry_reverse_safe() - safely iterate over an RB tree in reverse order
+> + * @pos:	the struct type * to use as a loop cursor.
+> + * @n:		another struct type * to use as temporary storage.
+> + * @root:	pointer to struct rb_root to iterate.
+> + * @member:	name of the rb_node field within the struct.
+> + */
+> +#define for_each_rb_entry_reverse_safe(pos, n, root, member) \
+
+Would it make sense to give these a less generic name? Something like 
+for_each_rb_free_block_* ?
+
+Also should this be exported or rather kept within .c?
+
+> +	for (pos = rb_entry_safe(rb_last(root), typeof(*pos), member), \
+> +	     n = pos ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*pos), member) : NULL; \
+> +	     pos; \
+> +	     pos = n, n = pos ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*pos), member) : NULL)
+
+
+> +
+>   #define DRM_BUDDY_RANGE_ALLOCATION		BIT(0)
+>   #define DRM_BUDDY_TOPDOWN_ALLOCATION		BIT(1)
+>   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
+> @@ -53,6 +89,7 @@ struct drm_buddy_block {
+>   	 * a list, if so desired. As soon as the block is freed with
+>   	 * drm_buddy_free* ownership is given back to the mm.
+>   	 */
+> +	struct rb_node rb;
+>   	struct list_head link;
+
+I think we can be slippery here and make this a union? They should be 
+mutually exclusive AFAICT?
+
+>   	struct list_head tmp_link;
+
+Otherwise it should be possible to get rid of this instead, and just 
+re-use link? Could be done as separate patch, if this makes sense.
+
+>   };
+> @@ -68,7 +105,7 @@ struct drm_buddy_block {
+>    */
+>   struct drm_buddy {
+>   	/* Maintain a free list for each order. */
+> -	struct list_head *free_list;
+> +	struct rb_root *free_tree;
+>   
+>   	/*
+>   	 * Maintain explicit binary tree(s) to track the allocation of the
+
