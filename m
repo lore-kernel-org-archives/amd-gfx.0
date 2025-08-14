@@ -4,156 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FA55CA0EE4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BC53CA0EDC
 	for <amd-gfx@archiver.kernel.org>; Thu, 14 Aug 2025 12:41:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEDE410E881;
-	Thu, 14 Aug 2025 12:41:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E2A810E87E;
+	Thu, 14 Aug 2025 12:41:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="qc8YGxrx";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="eIXOf0Eg";
 	dkim-atps=neutral
-Received: from OS8PR02CU002.outbound.protection.outlook.com
- (mail-japanwestazon11012007.outbound.protection.outlook.com [40.107.75.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF6310E876;
- Thu, 14 Aug 2025 11:56:32 +0000 (UTC)
+Received: from SEYPR02CU001.outbound.protection.outlook.com
+ (mail-koreacentralazon11013053.outbound.protection.outlook.com
+ [40.107.44.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0813610E2A1;
+ Thu, 14 Aug 2025 09:40:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YzvYPNrS5y0SlueMxFt4jGPfszoQtMep+Pt3IxwbCPMVYKGCAi4e04bfIsp09HbrQqQA48ylHxPQH7gmAd8apI19GkFQImo7nkfT+M2qFbTU/VHr82Z/VaFRCj0+8b/K0DrMpxlWLcVuVaJVRYdTmDybrl8z/uQCmhP4jsxuxvbRHnoThNofrQpo4Rxc2JsbMTKfzV9f1dMpNYk/8uiRiRV9KZOchtoLPcJbuGmGqWxFs8IZsJty61SCGmUQOpU4rWGqCbGFaByBuiFCumJIlvM3nh+BP+gq9dFUbzwy2YlM/5AJonZeWlFHXB28a+zbWBUsXdWrHfeDlra5A/dE0w==
+ b=F028z8MSCyq6zppT17SDIumMVI0i8oSGlYbkVWoyh08ZAv1lkClDuojziDP9DKw6lilWmLvRBAoeULRY/FmFpFLI+rJUn8EAim+DbO92nCGp8pNYAV53cPvqleXco8jISskxhsbEh4T2qlEdPLYZaJbzzsMpKU+uBOp4xWUBsS+TzowaNu1QP+TV13ncBMnhI5/bB0aRrpwh1J/e1yPaHswQzumGFKMgCbU7W2mrWrkF3qRcfuQe/2PxaqnpD8xJz08Si0CPtAVrhSG3GbLJuF3gPW+KxLMPUTsk7Es8ED8ib5mBIRVKkmVApqabgsjww3dfdaMSWZ1pea1GlSNl0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qm7j9WjCP6Mkeq3rLr30tsIHCqZzhgB75btllES1k/8=;
- b=a9JWxwdyLYWwKV3WR4yMhQ1vf8eJFRAKYnPcdEIH/dZY8as2eiqjzjEWlQbNs39WWxcHf95SRP9pfOKtsecNN9Ejy0iHLo0S+D9pnnP7heUdq5+0ciI3gLxId9J+lLKukCvXamyqQrbVNzKWsWkYPLoVUupuoD8l3XQQW8OXlChaQZROpgP32Ekw2mEZlglQy+02I6peC9HBbCoUPrY4obRlMytIP4DslFEx+Ousk/Tn4/kRHa/copPh1vY8AuQjCDWl4f0s/j3Rc2n6kjOK2LjoUlMogc/dkiNdXyiWdvY2oHPuBKkWLwQKGZHz1zSuKu2O22iUHkkr5FLIm2pOfg==
+ bh=bZ0iokmu5lBZ0EaxPfjUOx/O5TtLYkbVrTf2FZuTfKg=;
+ b=JA5SDjEx1Zs9IUkZitMrPq7KlmVZkN2IsufOxs0gjsb9q0bYt2h1ir8bn/3vWBY5OUfXSui8Kyh/sF6rLbV5cy24DbqUSdR9lO2m3ohFjVFvkXATZwzl0Qo6KppfAnNUrBw2Rfj+J/B+H8nhhO+8luTkhhvMZvxRVJRxj4l4HEgTdp8F/BuNGcsPxM+E8MeDmPhHOyIMTefsP2p2xynwRjhliki+4KiuhdCcDkeb8YG0u54p1CaZ5b7YVsIguDXFnYhPxZiMLYyzfol9dmf1pA1ljjGL78iYpuxvOp0qiJTyraoaSRkIn4mJ4l85luNt8Lht+3Up6XDXYwB16gFmlQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
  dkim=pass header.d=vivo.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qm7j9WjCP6Mkeq3rLr30tsIHCqZzhgB75btllES1k/8=;
- b=qc8YGxrxs/lYiUA5L83YTvYoSoEOZ6EEv0NRqseXEEBprsPccfk3DRkZsXXH0UhhWpxH1vS+cNnYfSl1d50VOp/L5FQ6AjNbb7RpCk4xFPXTH/xpwvhtGgnDbudsa6s1+MJmdqu+SL3cxkbBgMuU2ZtxZh/MEBgFjZvCGfylmzJ27ciQtcPmcopfezEMaYOlNHz29nGPDXG3Q5Nps48EtAz471pZIr26YsYBlSQ2i9CAMWbUsd5n4kronSOVl/nuX23zyLy9PKXYakeTRs5mUWosrhEuFXP9p8eueyioXeOopzBYh9yLyD9rz2SBjv4Ue9ay6jETvhCLNGlu80qK+w==
+ bh=bZ0iokmu5lBZ0EaxPfjUOx/O5TtLYkbVrTf2FZuTfKg=;
+ b=eIXOf0EgIUUzbYbf5WR0p1i9D24hKtmCnkZ8thRoeTmC0pHJIYSo2bRPz6+P827OMKY75viSjx+3ZBdjX6E+s3cjqaYYcDKtdJ13n/0ihYXBqHMsmlm1J6S+pugtxRziWvVUiWE4Z3wsN64BlWfxijcL3V6KsaOuOFMLg6Gaxvdu5tqYSu8kr0Yq7TJOm88azm3r6ZDwe1uRZgTfHlD9JANK7hBhUPrOPGX7OntWi0kl9O/jVn6XUrnlBCawn0Kxo7xo/pxbU6NliMSBgV3mDy6lNnLjw83lbTdQ4y1fUupFbt7RlaUCcncfJmcvchb7vEt0/OzBOEEUo4Vedij0yA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vivo.com;
 Received: from SEZPR06MB5576.apcprd06.prod.outlook.com (2603:1096:101:c9::14)
- by TYZPR06MB5734.apcprd06.prod.outlook.com (2603:1096:400:281::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.16; Thu, 14 Aug
- 2025 11:56:29 +0000
+ by JH0PR06MB6368.apcprd06.prod.outlook.com (2603:1096:990:13::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.15; Thu, 14 Aug
+ 2025 09:40:10 +0000
 Received: from SEZPR06MB5576.apcprd06.prod.outlook.com
  ([fe80::5c0a:2748:6a72:99b6]) by SEZPR06MB5576.apcprd06.prod.outlook.com
  ([fe80::5c0a:2748:6a72:99b6%5]) with mapi id 15.20.9031.014; Thu, 14 Aug 2025
- 11:56:28 +0000
-Message-ID: <6ef5e1e8-3868-46c0-a31b-505f8a91d37a@vivo.com>
-Date: Thu, 14 Aug 2025 19:56:23 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon: Move the memset() function call after the
- return statement
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-References: <20250814093957.137397-1-liaoyuanhong@vivo.com>
- <d77e242e-af6c-4693-b207-576b823a0c0f@amd.com>
- <14ed323d-de4c-4f98-a16c-8bdb1b92c34d@ursulin.net>
-Content-Language: en-US
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
+ 09:40:09 +0000
 From: Liao Yuanhong <liaoyuanhong@vivo.com>
-In-Reply-To: <14ed323d-de4c-4f98-a16c-8bdb1b92c34d@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Liao Yuanhong <liaoyuanhong@vivo.com>
+Subject: [PATCH] drm/radeon: Move the memset() function call after the return
+ statement
+Date: Thu, 14 Aug 2025 17:39:57 +0800
+Message-Id: <20250814093957.137397-1-liaoyuanhong@vivo.com>
+X-Mailer: git-send-email 2.34.1
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SG2PR02CA0021.apcprd02.prod.outlook.com
- (2603:1096:3:17::33) To SEZPR06MB5576.apcprd06.prod.outlook.com
+Content-Type: text/plain
+X-ClientProxiedBy: TYAPR01CA0213.jpnprd01.prod.outlook.com
+ (2603:1096:404:29::33) To SEZPR06MB5576.apcprd06.prod.outlook.com
  (2603:1096:101:c9::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5576:EE_|TYZPR06MB5734:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d3a713b-95cc-49ca-a468-08dddb299a04
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5576:EE_|JH0PR06MB6368:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1db95df1-ac26-4e23-fd3a-08dddb168f24
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WG5uY0hBZVlhS1FtckJ3Ync5RCtzU2U0K1FjL3dtOFhXVS9MYTZBRGNjamhi?=
- =?utf-8?B?MjR3ZVptenA1WkpxL1hFTnBEMGZMREdOZkNHN3AwQ3FacjhvdEw3WjJyWUxB?=
- =?utf-8?B?bi9iVGd0eXFlTWVhaTFuZm1HeXlMdWNBVWVKNFBjaVdrNzJVMnhRQzh3cTNu?=
- =?utf-8?B?RFYwQ2pqRStOSG0yN294d2NUTjdFQ29WbldnUjh1OEd1aHh1L2lNdUlDajM2?=
- =?utf-8?B?c0J6cllRQ2M3Y29ySEppMTd4QzdEMmwrWFNoRUZCeE5tTHhXYzNNa2w3R0hP?=
- =?utf-8?B?VDBkWjcyRXBLb2laOFMzTGJzZjkzYkhWRDUydE5UMzN4ZGJJQjE3Q05WNElv?=
- =?utf-8?B?ZkxkcjRMcGhsbFBiSk9laGlKT0tCb20zQzg4NTByVTdPOGVzRS9YUXJiWVJl?=
- =?utf-8?B?TE9YMDJQUzJON1M2SktiVTg5WU01a3BQem9hc0xhK096SkpVdHhuSFJFRkQ5?=
- =?utf-8?B?dDNKMHJPZUJXL05VSXhMenZFOXdBS3NvYUg3a3lMRWxKNDBaMlVJaDcxQjAz?=
- =?utf-8?B?QTdvRXcrRWtqZnlMelVrWW9sK1hnOHhjMDd0dUhEOFpISjVSSXJrcFMrTDky?=
- =?utf-8?B?TzRGZlQrNXozWTNJQm1pTWtiQUtFUEh5dlVKaWRYeHVackoyMDFPdllmVEFI?=
- =?utf-8?B?MWlNcXhENTd3ZHA1L2hsUVdEVnNGRnc4K1ZVOXRSZ3l5c3NEcDhQWGxIdi9w?=
- =?utf-8?B?OTlpejVWYnV0WnQ4YVlySmpET3lGZ2ZrcitVZGF6Y1AyTDFNdGh0NGs2bnh5?=
- =?utf-8?B?dXBxa2FjQ1pwZWV4Y2FPOWNTWjgrZjdkS05xNnZuSzdQR1hZejdLNnJXdDhW?=
- =?utf-8?B?cEdYQ1lxNUNsNm5LaGVGSUY2ZW92SFZUYVJOajJPcXFBR3VzSGFOeEFkWU4y?=
- =?utf-8?B?SmxvWmY2VDhiVEJIaUcwR2RKQU5SSXlFYWVJMUtGNG5PQW5kNUF4WHZ0Zndy?=
- =?utf-8?B?eW5UN1M4RE91NDVzWjJUbTBvcGRxd2F5aHRYL0FmNnJHSksxRC8vYXNWTlFn?=
- =?utf-8?B?YXpJOTNaeVZzMDVPTzkyVTV1WVBjdXBxdjFCYmNpNFFMV21LSjN4aFZLMlJT?=
- =?utf-8?B?cDNvdTg5OS9zR2c5T1E4RG1DUVZjU0ZydDdNalh1WFNndjBlWmkvNE1FRmo1?=
- =?utf-8?B?MFFTTG45eS9FekM5ZXpTQlJjOXA4MW16U1F0ZEhvdXhGWHhKby9FdDUzQkJG?=
- =?utf-8?B?VDNGbjZYQXFwc0RHcTVqU1RSL01BZXRMVk0yMkpRdTVqZ1RMWHRqRUlXa3Vr?=
- =?utf-8?B?L2F1aGp0UEVBMXR1TVFXWTc1T1VlWXpBRGFSMHU4UlFvY3RwZUxEZ0pJamJK?=
- =?utf-8?B?WG1aMnlpWGE3OVpXS2wwcTdvMjlzVXEvVU9wRXVVdjFFb1d3czhEVmZSODdZ?=
- =?utf-8?B?bnpKeC9YTWIwSlJWNjNPTmdVdmE5Y1dLbVFUbXRIMzV4bEFrNUxZQm82Ykgw?=
- =?utf-8?B?YmxQYldyWWZnMlhzak5lZHRTdW1IbjdoSzRtUFYzVTNIUUF2eDhqS1hUdDJ4?=
- =?utf-8?B?emxsVC9aYmpFWnlyNjByOStPU3phYjRzcjY5QzhOa2lla2RTS2FUOW5hR0xl?=
- =?utf-8?B?ZXJBQ0VYRTRXNTVWd1FCdjFLNW9vNk8rMWtiT3JZand2MWJPQ0IxdVNQVzZB?=
- =?utf-8?B?ck42TEFLbVI0ZlJQMFBKZHF1bXdraEx4OTRYQ3NUUWE2Ulk1NUZZYTFhZWQv?=
- =?utf-8?B?bDcwWjdETkJyN2ttSnhUcGJhRm5kZzVpbVpHTFd2Yys2L0xYbk1JZDlVMDVF?=
- =?utf-8?B?YjZCdm5YRUZqYi80aTN0WmMwNjBEYStUS0pVdzk2M2E5bnZQSWdmNmNvYjBP?=
- =?utf-8?B?N3NRdy9uYWZ5Z0puZlgrakpnWXh0bVZsblNEWHVhTm9tSi9qdk1sckl3YlJU?=
- =?utf-8?B?eG5qRmVjUzhDYUtMWHViMFdaN1d6T1N5WDdEV1V1ZENLOXpPUkhIbW5FZTEy?=
- =?utf-8?Q?Z2yY2zoo5rA=3D?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|52116014|376014|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6arAEt8Eoyz+EY+QpXpwxUzPe5wEPWNNeZq44mJ7j+7aPvT8K8NrAYGcokFW?=
+ =?us-ascii?Q?kdw6YNZc9LYuU4NcSBPUYRx/HnmHuWZJs7iPnZ/TFMOsIpQ2FDrP/UuEevZ7?=
+ =?us-ascii?Q?t0X+np1gmfkHZRwHoDJK8iRbqgPbrb1a7581C5Z0isUmXgtQTsTyVbdB2+qI?=
+ =?us-ascii?Q?6X8uHIxJl6ZySGWYzqOPiHHf9paLVLz0fKYw7dyLEiZ4HS2g4GMYSTLVCQzG?=
+ =?us-ascii?Q?VoVjILaRRFfyLtwQOiuaIlHtcSQlYcaCoQWAmvJcTOEK7c71MKMenJkZUiJe?=
+ =?us-ascii?Q?quWSmNlH4nUIBKOojXFSV7RQzyvCBX2f071R7UkEII63tgGkOKEnGDbBFcRo?=
+ =?us-ascii?Q?DdWQG9yeh//b3Vka8VB/lARESC4eRTLaIBohugQTcglQFQXDv8Xg5+q9BHAV?=
+ =?us-ascii?Q?mAyLDSg3TMj0SyHM/FwTj7qBX1yJpE16Bu+pckHalNdyyNw+lsr6Tb8reK8Y?=
+ =?us-ascii?Q?/5j++B+jPj/usuhjXh1WL7cYH/Oym1Lh4BLlvJ8YpLJ0NiKF7vOimKqhHzt0?=
+ =?us-ascii?Q?f7cAzptMwO9kvtoCFhlBomj7Xw77NcfBPP0z69UwaG5NNJMr5hLTggXsc6lR?=
+ =?us-ascii?Q?oBn3oFm8szyuNxEWwBthwO6NRM34KHyY26UPfSSktoGU7LPia8LBv+v78l7p?=
+ =?us-ascii?Q?aTEpPZBzg/vSTWYytA+lfPZl0slGDNFpJ4zf8LouTo5OoaLcfBwHPO0/7CW6?=
+ =?us-ascii?Q?ALgv5DemIJyvCq+vSZPzfnuKBc3aTPieQ2ImgZ7lt8go9Cr2nwU0ac7kjBap?=
+ =?us-ascii?Q?rQdXdNtQ9nnAauXB/hClveTjjuxFzaavelFylRGLvjnQ2WG+bqTQUVTpoYkW?=
+ =?us-ascii?Q?TirN+RJKLDLus0YLGL48obWyu4UdjZVUPaHgUImhIDnQ3IA/t62l6KpfEHpd?=
+ =?us-ascii?Q?vJ/PphCe9UEVrgvCFWF6/PQX2lbOydjfM/oxCUHklDySPrq+90//vdlmWTFe?=
+ =?us-ascii?Q?GtCRq2z3+2gwHU2WN2TwXEu76h2spa+L5LbZm7SkDGayKN+toWclGS+LaNBp?=
+ =?us-ascii?Q?t5tkLKjcPGB6MiB7i5uGO23Pd1+Pq4RyTr3fcpB/dn2rFOoUn13Tj3FMv9P/?=
+ =?us-ascii?Q?qy1UWFQjSwoOgcDzLXUWtpRRz9v4dWxEw7Ddqfgst7LielfzfYHfCqP1BFfg?=
+ =?us-ascii?Q?su4WiXJRp38FFWplPnLEMhaU12Fpz1yft8AOaewdZhBy9B+pC8vo/hwwQzcN?=
+ =?us-ascii?Q?lo4w03ylhwwgUjbq2b0sqCqHUMOyor534RiT3amB7zqZ0YsPNSwTfBMuTTNa?=
+ =?us-ascii?Q?R2tuhJeNDNIpW6viwNMaoQ2x13/CJjJ3Pqwn/44AZnSHU6ax198df5UzcP2E?=
+ =?us-ascii?Q?jECDEnifGCkpO5u2ZCaftuDAEawlMHKqOx3xvdew1mpHFwcAjkFeZpOMznTz?=
+ =?us-ascii?Q?AdP8zG6Gp24/nVgKtu/yUJ4IEUzrph1kWU50vhWQnOypS0VDn49H9XmubiLZ?=
+ =?us-ascii?Q?B5A8nHC+TilHWqs2L8G0burYjFgd2dvYKr709jnXUOZLCaZRoqcybg=3D=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SEZPR06MB5576.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(366016)(52116014)(376014)(38350700014); DIR:OUT;
+ SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d25GR01UNCs1c1loUll6SXFJaG5oZ3dkc3o5NzBoM3RIZjlqRHBPYStvbTVR?=
- =?utf-8?B?RGxJYnNPVDVKOGo0L3ZQWm9wY0U2QTRlZ1hpWW10RVUvTmNObkM2UmpPV0Rl?=
- =?utf-8?B?Q3VXeGxtaStMbE4vQlpHRFN3QWlXeUxKa2NzdTR2MUlvclF0bWV0M09Bcm9r?=
- =?utf-8?B?RGdRMzAwcnoxOGlVY09sNDg4RnJ2akJHK3dob2tCeEVzZmFBcDNIbUVTVjRP?=
- =?utf-8?B?QkViWHpTeDRMcHdFY2RzMmtvRld0a21PNFRtK1BDTVZRK3R3RXN6ampxSmxs?=
- =?utf-8?B?aGI3WklPUkY4TE5sL1RLU2Y1VndLNy9wWGR3b1doeStvdU5oOGIrSStIYzBO?=
- =?utf-8?B?a21VaW5GUUE0bFB5REpXRzlZSytycjZUaTZMTHQwK0ZrdHNzVkFMWC9vbFFq?=
- =?utf-8?B?Q3IvN1VFNXV3bTVpcjNjMk4rYXNvNCtZODNrcXF1MTc2d3NnY1dYd1pBdGFH?=
- =?utf-8?B?VDVPbERuS3cvWmNZSUgxNFdtWFlPQ0N6a2NwY2gwUDN1RHZsaDdmVnRtOXUx?=
- =?utf-8?B?MzFlZ2k2czRZZ3Vla2pWRExhbFRXcmErYks1QUxNNitoelhtUWVWWEFGQjNi?=
- =?utf-8?B?YTM1OXlzUU5DSXl2ZVpOMDk3dG9MTHB4azE5QUtPdnZqZmUyUEVsQTFINnZB?=
- =?utf-8?B?L25NMmNLdlFOc2w4OFRLVzNxRWdkRU9rZ2p1RTBNbmNTWm12WlJETithRE9q?=
- =?utf-8?B?bTh0MW5NQzJWTWtud3ZFbzEwc3pEQUF0UW1TYllZc1UwMk53eFE3TGIyaEFR?=
- =?utf-8?B?QWdmbDFjNXlLZ3V3enBEaEZHaytJUnVxSE5GZm02UzNiQVlMR0pFMW1FNnBj?=
- =?utf-8?B?VUF4SVh1eWZJeGxMQlV3alp3bHBGMTBYRnJVaFdvOVQ5aXNpTmhBa3ErSi85?=
- =?utf-8?B?RmYreHJDWk9ldmdnZE1qSjBFTXlJTytlK2VoVUdqT0RuUjNqZ2RPRWw4dXl5?=
- =?utf-8?B?bDZvOHk3TFN5OUV5UlAxMEpZdExLeExFaXJabWdvR04vQTNLeFhQZnFTcXFI?=
- =?utf-8?B?LzNNNllYNm51NXZmMXFOK1AxVGVZanNFMkhianhCaldiZ2lESU0xbDNxK2c3?=
- =?utf-8?B?YmJwQ2VsT29aM043d0V3MGN0cmRzZFRvcHVqMEF1eTBDRGJaa2c2R3AxbVFz?=
- =?utf-8?B?aHZLS3B1Mnk5NnZYaDV1bm9oQjlIMit3UjNEOUFkNjNOUHEySFdEaitBalo3?=
- =?utf-8?B?aFRETzZObjFsQytBWnljS1BmSis5eDB0S2wzbXgwdk5KdWdoZ0ExY2tET09q?=
- =?utf-8?B?QnIrOGw3Zm9MUlErL0g4b1BOMjlEeWJkQlRvdWg1dUVzeE91SEVqQWtnZVNW?=
- =?utf-8?B?dU1KaFVrQk4yN1NCSkMrUEkwNE5PTW8wNEtPbXp1VXNpS1BRQUJIQ3RqT3Yy?=
- =?utf-8?B?NjVNWXlsR0Ywd240ck9aVTZsV1ZjOTNOZUQvc2FCWFRiZ2JFajduV2svczh3?=
- =?utf-8?B?VFRITFR5Q3lobTgxbUl3cWxKbmZFL1ptSDIwaUlDRDRCb1Rlbk1RaXhvM1BQ?=
- =?utf-8?B?amVDK2Rta3lzYldkZEdiRDY3N1dSeHh3SEdpUkd3MFJKSUJ4WXlheUx2NFRi?=
- =?utf-8?B?N2xVTjQyK1p2YzVWczlpRWRISisxVFY2YkRLVWw2ZDRjR2F1ZElNNEphMHkv?=
- =?utf-8?B?ZjZveURyUlBOYmlGTHZkMTQ2MHJiNWFhYlorMzVyalg0by9uTHZrSEtEak1M?=
- =?utf-8?B?TWl0eFdBVmRNaCtZQnNXOUlwQW5LbHFEVEVjMmpVZUtDQXFHUlViUUlLZUJz?=
- =?utf-8?B?ak1wL3hhZnRJa0lYWjJHZERWZDZFKzRRZDlnZHRWYWQ5WU9KbnUrdXd3aDVF?=
- =?utf-8?B?eU9CcUhhYTFyQUhSOWhjaDZraXc5NktGMnM1c1BrczdtNzVtUVJjOHh6MGRp?=
- =?utf-8?B?bCtPL3Y0WURqb1Q1bkpRRGlISkptaENPNmtDWFFLdUs5Vyt3d2huSzNMZjlR?=
- =?utf-8?B?T0ZWRDNmV043aUR6cFdQNjBYbE9ybWREVTNJNmVLM1Qvbis1YmVHemhRNDhH?=
- =?utf-8?B?dkxaR0poZWhwV2JvSHlmMzZmRkRkQlcraVphbXhXaGZMODNaNXpzS2UvQkJH?=
- =?utf-8?B?NzdSVFEveTArbVRsNkllZ0ZjcksxMHZGWDNqdVl5c28zSHNFc1YxMWlyQ215?=
- =?utf-8?Q?0YewM9kHw/aTorYdGGGGb5Mcb?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?FPsvGbRwYRfFe+8xX2JcHsytyRPR3a2tBlpBo5rDASe4gVfNeqBbKd5p5o0Y?=
+ =?us-ascii?Q?tiCdrU0E/RidVhL3eaDY8+866WYtubj8jRElR+nIam74eOjYt9gGaiym+STA?=
+ =?us-ascii?Q?vC+OQ52BJkGS5JXhQJk8xumCakPStaxDGMyuPfh1tA2jIp6gA4OvltBj9KP6?=
+ =?us-ascii?Q?gMteRGumKfbZ7fzgM4gSpkAyaRdPqIAwWY3ei3W37fnkYIiFrcVOlpgWYs2z?=
+ =?us-ascii?Q?Z4ZQLMy6Exy/80+B6vL+TQgiewUWmDOE76vH2TnX/7GWEWYW5fJwXsC3MGM2?=
+ =?us-ascii?Q?Ph4kEkuu3Q+Fy77bQ56WTV7ozoXh+SqCGQczz3UHf9/VBzU96rtJ1yRePerd?=
+ =?us-ascii?Q?mKkzAQecn+pjOyPaxLb9NdiMhqEvYDmaB+/kORoYieCgE2OSlXFz9/W/X4Hh?=
+ =?us-ascii?Q?1O+lL2/xOuSxBDIPJDepa86c4p4N0lP3vLRemxsRRvQmY379VusukF9mckPe?=
+ =?us-ascii?Q?4x8m9icc/dP3v8xFr2y/oDSfy4jyQHk256JJzBlHwwgsb1v4o0TjaQiwc3Ot?=
+ =?us-ascii?Q?+wuEkI/RDKziRWAfUz10lyRJA3Ez6Moa5DGcCEgZqgYtA6GexrSSgYQkjQ4A?=
+ =?us-ascii?Q?L2Zygg3z7bPZBKYWbQ7Wr0kAnNABbsp4/0UaInAzA/lbX7D4ErLt83b0PO9Y?=
+ =?us-ascii?Q?qiitIBQkMZsVVEraa6P0V3VxV42bpeJGmnHCz2sm0oMjm/UNSXb37wNWS/7E?=
+ =?us-ascii?Q?UG9VGhQiBkOQMDl2/46d8PyBvVyNnV2xn1QFZ3t5CeTU6/Jq75kfsWxwsktE?=
+ =?us-ascii?Q?ifjmpOX/LaQNhmIeeX69v5sj9NHrcCZTWlFgmFHEz+MmIYCTGkTGpTWKxgkH?=
+ =?us-ascii?Q?nhlcMoyJxwRya/ZI3tGOLrHNeHMOnhCHgF8AVWIMKLoDytVejfT+vALo4zwM?=
+ =?us-ascii?Q?S4NNPIFMIQX5cS5iZfKIcrfh0/hjbHh/gSGGVfhHqX87NaoH10lK6P4w0340?=
+ =?us-ascii?Q?XYvk3tPPGDeuDJy//TC0PMucjV91s/QWQNCMwwPNvb4AU6gJ+OLLWxIARKFR?=
+ =?us-ascii?Q?POAtlruj0OAF9iyIctyyS31eKCJagEtAvH6m+rzsIu98NU/XtTQJY0+LFiRL?=
+ =?us-ascii?Q?JsKncBoEYqZFkcJDBpUWCY+ugKDH/grD6Ro0nS0xY0KbKHFq1LX5GD6e5ayV?=
+ =?us-ascii?Q?2ZAMvGPFW0YTtvJLjObPEz/b14y0vJdIRLQJc4L3KJ8TM2kJTRL7+eMt2AAQ?=
+ =?us-ascii?Q?u5xVm2Nh28Y2MME//AHgtLI8lzccYyskfiN3XB79HCvDPbF/khpVfbyKHjE5?=
+ =?us-ascii?Q?LYI3ln8lGWQ11dVLrxZqOsrpszU5XfgSq3saH3s7Ay+/+qF01tT/Bq9G9zom?=
+ =?us-ascii?Q?EU07X45b99vUcXYlLhUGbAksAGeQzilIZZG+hSac/sQZ/AvwPHjlAKZa6Wq0?=
+ =?us-ascii?Q?WASLnuqolbaQff+VRIGFFGjVvI2zYPQReQaNFQlNv+4Ei2XCH0P49/vsRqjY?=
+ =?us-ascii?Q?LNAxtoz9mGkHkKE1MxfYpxs/b91p157sRHy/q9wX1ZE2aoQZyeeCjsSngJoG?=
+ =?us-ascii?Q?TT+gHAt9iPn3ECOEC2HLoPxwF5SCy1V5GDL3nxZVtewkLAZHqClA56DknXpl?=
+ =?us-ascii?Q?5bQhcEcpDAtFNkQewo/6GF4opOzXFyIOVcWK/4rj?=
 X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d3a713b-95cc-49ca-a468-08dddb299a04
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1db95df1-ac26-4e23-fd3a-08dddb168f24
 X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5576.apcprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2025 11:56:28.3029 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2025 09:40:09.6173 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RN2BPfG8ydrjkZbhC4g/gBhRDARg1wU1UH03NM8haIPfb2jYTmIDnZOT4dJPoSDtyB8HJikASvqb1Ct3CmUY8w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB5734
+X-MS-Exchange-CrossTenant-UserPrincipalName: FO2XmSG/rQjWB7vHdmWvOA+NwFXPM2iODUOo2hOWXcYgncPIqGWJY9L7zTWSrldqPK22ccgiFbYoOjW0l0um5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6368
 X-Mailman-Approved-At: Thu, 14 Aug 2025 12:41:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -169,167 +150,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/14/2025 7:07 PM, Tvrtko Ursulin wrote:
+Adjust the position of the memset() call to avoid unnecessary invocations.
 
->
-> On 14/08/2025 11:11, Christian König wrote:
->> On 14.08.25 11:39, Liao Yuanhong wrote:
->>> Adjust the position of the memset() call to avoid unnecessary 
->>> invocations.
->>
->> Hui? That doesn't seem to make much sense to me.
->>
->> We memset the local variable because we need to make sure that 
->> everything (including padding bytes) is zeroed out.
->>
->> Even if that isn't sometimes necessary because of error handling we 
->> clearly shouldn't try to optimize this.
->
-> To interject with a curiousity, it is even worse to move the memset 
-> away from the declaration block when the often enabled 
-> CONFIG_INIT_STACK_ALL_ZERO is on. At least when they are close 
-> compiler can figure out it only needs to memset it once. Move them 
-> further apart and sometimes memset happens twice, yay.
->
-> Main point when CONFIG_INIT_STACK_ALL_ZERO is on, and it often is, 
-> there is no way to avoid the sometimes pointless init. I have some 
-> local branches which try to address the worst offenders but it is so 
-> much in the noise that I don't think I ever sent them out.
->
-> Regards,
->
-> Tvrtko
->
-If we converts memset() to = { },can it alleviate the problem?
+Signed-off-by: Liao Yuanhong <liaoyuanhong@vivo.com>
+---
+ drivers/gpu/drm/radeon/atombios_crtc.c     |  8 ++++----
+ drivers/gpu/drm/radeon/atombios_encoders.c | 20 ++++++++++----------
+ 2 files changed, 14 insertions(+), 14 deletions(-)
 
+diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
+index 9b3a3a9d60e2..0aae84f5e27c 100644
+--- a/drivers/gpu/drm/radeon/atombios_crtc.c
++++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+@@ -770,13 +770,13 @@ static void atombios_crtc_set_disp_eng_pll(struct radeon_device *rdev,
+ 	int index;
+ 	union set_pixel_clock args;
+ 
+-	memset(&args, 0, sizeof(args));
+-
+ 	index = GetIndexIntoMasterTable(COMMAND, SetPixelClock);
+ 	if (!atom_parse_cmd_header(rdev->mode_info.atom_context, index, &frev,
+ 				   &crev))
+ 		return;
+ 
++	memset(&args, 0, sizeof(args));
++
+ 	switch (frev) {
+ 	case 1:
+ 		switch (crev) {
+@@ -832,12 +832,12 @@ static void atombios_crtc_program_pll(struct drm_crtc *crtc,
+ 	int index = GetIndexIntoMasterTable(COMMAND, SetPixelClock);
+ 	union set_pixel_clock args;
+ 
+-	memset(&args, 0, sizeof(args));
+-
+ 	if (!atom_parse_cmd_header(rdev->mode_info.atom_context, index, &frev,
+ 				   &crev))
+ 		return;
+ 
++	memset(&args, 0, sizeof(args));
++
+ 	switch (frev) {
+ 	case 1:
+ 		switch (crev) {
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index d1c5e471bdca..f706e21a3509 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -492,11 +492,11 @@ atombios_dvo_setup(struct drm_encoder *encoder, int action)
+ 	int index = GetIndexIntoMasterTable(COMMAND, DVOEncoderControl);
+ 	uint8_t frev, crev;
+ 
+-	memset(&args, 0, sizeof(args));
+-
+ 	if (!atom_parse_cmd_header(rdev->mode_info.atom_context, index, &frev, &crev))
+ 		return;
+ 
++	memset(&args, 0, sizeof(args));
++
+ 	/* some R4xx chips have the wrong frev */
+ 	if (rdev->family <= CHIP_RV410)
+ 		frev = 1;
+@@ -856,8 +856,6 @@ atombios_dig_encoder_setup2(struct drm_encoder *encoder, int action, int panel_m
+ 	if (dig->dig_encoder == -1)
+ 		return;
+ 
+-	memset(&args, 0, sizeof(args));
+-
+ 	if (ASIC_IS_DCE4(rdev))
+ 		index = GetIndexIntoMasterTable(COMMAND, DIGxEncoderControl);
+ 	else {
+@@ -870,6 +868,8 @@ atombios_dig_encoder_setup2(struct drm_encoder *encoder, int action, int panel_m
+ 	if (!atom_parse_cmd_header(rdev->mode_info.atom_context, index, &frev, &crev))
+ 		return;
+ 
++	memset(&args, 0, sizeof(args));
++
+ 	switch (frev) {
+ 	case 1:
+ 		switch (crev) {
+@@ -1453,11 +1453,11 @@ atombios_external_encoder_setup(struct drm_encoder *encoder,
+ 			(radeon_connector->connector_object_id & OBJECT_ID_MASK) >> OBJECT_ID_SHIFT;
+ 	}
+ 
+-	memset(&args, 0, sizeof(args));
+-
+ 	if (!atom_parse_cmd_header(rdev->mode_info.atom_context, index, &frev, &crev))
+ 		return;
+ 
++	memset(&args, 0, sizeof(args));
++
+ 	switch (frev) {
+ 	case 1:
+ 		/* no params on frev 1 */
+@@ -1853,11 +1853,11 @@ atombios_set_encoder_crtc_source(struct drm_encoder *encoder)
+ 	uint8_t frev, crev;
+ 	struct radeon_encoder_atom_dig *dig;
+ 
+-	memset(&args, 0, sizeof(args));
+-
+ 	if (!atom_parse_cmd_header(rdev->mode_info.atom_context, index, &frev, &crev))
+ 		return;
+ 
++	memset(&args, 0, sizeof(args));
++
+ 	switch (frev) {
+ 	case 1:
+ 		switch (crev) {
+@@ -2284,11 +2284,11 @@ atombios_dac_load_detect(struct drm_encoder *encoder, struct drm_connector *conn
+ 		int index = GetIndexIntoMasterTable(COMMAND, DAC_LoadDetection);
+ 		uint8_t frev, crev;
+ 
+-		memset(&args, 0, sizeof(args));
+-
+ 		if (!atom_parse_cmd_header(rdev->mode_info.atom_context, index, &frev, &crev))
+ 			return false;
+ 
++		memset(&args, 0, sizeof(args));
++
+ 		args.sDacload.ucMisc = 0;
+ 
+ 		if ((radeon_encoder->encoder_id == ENCODER_OBJECT_ID_INTERNAL_DAC1) ||
+-- 
+2.34.1
 
-Thanks,
-
-Liao
-
->>> Signed-off-by: Liao Yuanhong <liaoyuanhong@vivo.com>
->>> ---
->>>   drivers/gpu/drm/radeon/atombios_crtc.c     |  8 ++++----
->>>   drivers/gpu/drm/radeon/atombios_encoders.c | 20 ++++++++++----------
->>>   2 files changed, 14 insertions(+), 14 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c 
->>> b/drivers/gpu/drm/radeon/atombios_crtc.c
->>> index 9b3a3a9d60e2..0aae84f5e27c 100644
->>> --- a/drivers/gpu/drm/radeon/atombios_crtc.c
->>> +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
->>> @@ -770,13 +770,13 @@ static void 
->>> atombios_crtc_set_disp_eng_pll(struct radeon_device *rdev,
->>>       int index;
->>>       union set_pixel_clock args;
->>>   -    memset(&args, 0, sizeof(args));
->>> -
->>>       index = GetIndexIntoMasterTable(COMMAND, SetPixelClock);
->>>       if (!atom_parse_cmd_header(rdev->mode_info.atom_context, 
->>> index, &frev,
->>>                      &crev))
->>>           return;
->>>   +    memset(&args, 0, sizeof(args));
->>> +
->>>       switch (frev) {
->>>       case 1:
->>>           switch (crev) {
->>> @@ -832,12 +832,12 @@ static void atombios_crtc_program_pll(struct 
->>> drm_crtc *crtc,
->>>       int index = GetIndexIntoMasterTable(COMMAND, SetPixelClock);
->>>       union set_pixel_clock args;
->>>   -    memset(&args, 0, sizeof(args));
->>> -
->>>       if (!atom_parse_cmd_header(rdev->mode_info.atom_context, 
->>> index, &frev,
->>>                      &crev))
->>>           return;
->>>   +    memset(&args, 0, sizeof(args));
->>> +
->>>       switch (frev) {
->>>       case 1:
->>>           switch (crev) {
->>> diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c 
->>> b/drivers/gpu/drm/radeon/atombios_encoders.c
->>> index d1c5e471bdca..f706e21a3509 100644
->>> --- a/drivers/gpu/drm/radeon/atombios_encoders.c
->>> +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
->>> @@ -492,11 +492,11 @@ atombios_dvo_setup(struct drm_encoder 
->>> *encoder, int action)
->>>       int index = GetIndexIntoMasterTable(COMMAND, DVOEncoderControl);
->>>       uint8_t frev, crev;
->>>   -    memset(&args, 0, sizeof(args));
->>> -
->>>       if (!atom_parse_cmd_header(rdev->mode_info.atom_context, 
->>> index, &frev, &crev))
->>>           return;
->>>   +    memset(&args, 0, sizeof(args));
->>> +
->>>       /* some R4xx chips have the wrong frev */
->>>       if (rdev->family <= CHIP_RV410)
->>>           frev = 1;
->>> @@ -856,8 +856,6 @@ atombios_dig_encoder_setup2(struct drm_encoder 
->>> *encoder, int action, int panel_m
->>>       if (dig->dig_encoder == -1)
->>>           return;
->>>   -    memset(&args, 0, sizeof(args));
->>> -
->>>       if (ASIC_IS_DCE4(rdev))
->>>           index = GetIndexIntoMasterTable(COMMAND, DIGxEncoderControl);
->>>       else {
->>> @@ -870,6 +868,8 @@ atombios_dig_encoder_setup2(struct drm_encoder 
->>> *encoder, int action, int panel_m
->>>       if (!atom_parse_cmd_header(rdev->mode_info.atom_context, 
->>> index, &frev, &crev))
->>>           return;
->>>   +    memset(&args, 0, sizeof(args));
->>> +
->>>       switch (frev) {
->>>       case 1:
->>>           switch (crev) {
->>> @@ -1453,11 +1453,11 @@ atombios_external_encoder_setup(struct 
->>> drm_encoder *encoder,
->>>               (radeon_connector->connector_object_id & 
->>> OBJECT_ID_MASK) >> OBJECT_ID_SHIFT;
->>>       }
->>>   -    memset(&args, 0, sizeof(args));
->>> -
->>>       if (!atom_parse_cmd_header(rdev->mode_info.atom_context, 
->>> index, &frev, &crev))
->>>           return;
->>>   +    memset(&args, 0, sizeof(args));
->>> +
->>>       switch (frev) {
->>>       case 1:
->>>           /* no params on frev 1 */
->>> @@ -1853,11 +1853,11 @@ atombios_set_encoder_crtc_source(struct 
->>> drm_encoder *encoder)
->>>       uint8_t frev, crev;
->>>       struct radeon_encoder_atom_dig *dig;
->>>   -    memset(&args, 0, sizeof(args));
->>> -
->>>       if (!atom_parse_cmd_header(rdev->mode_info.atom_context, 
->>> index, &frev, &crev))
->>>           return;
->>>   +    memset(&args, 0, sizeof(args));
->>> +
->>>       switch (frev) {
->>>       case 1:
->>>           switch (crev) {
->>> @@ -2284,11 +2284,11 @@ atombios_dac_load_detect(struct drm_encoder 
->>> *encoder, struct drm_connector *conn
->>>           int index = GetIndexIntoMasterTable(COMMAND, 
->>> DAC_LoadDetection);
->>>           uint8_t frev, crev;
->>>   -        memset(&args, 0, sizeof(args));
->>> -
->>>           if (!atom_parse_cmd_header(rdev->mode_info.atom_context, 
->>> index, &frev, &crev))
->>>               return false;
->>>   +        memset(&args, 0, sizeof(args));
->>> +
->>>           args.sDacload.ucMisc = 0;
->>>             if ((radeon_encoder->encoder_id == 
->>> ENCODER_OBJECT_ID_INTERNAL_DAC1) ||
->>
->
