@@ -4,140 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5A15CA0EEB
-	for <amd-gfx@archiver.kernel.org>; Sun, 17 Aug 2025 12:39:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24990CA0EDC
+	for <amd-gfx@archiver.kernel.org>; Sun, 17 Aug 2025 12:39:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E79810E282;
-	Sun, 17 Aug 2025 12:39:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B06F110E31B;
+	Sun, 17 Aug 2025 12:39:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="UzlH4pEs";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="l/1Emkos";
 	dkim-atps=neutral
-Received: from SEYPR02CU001.outbound.protection.outlook.com
- (mail-koreacentralazon11013018.outbound.protection.outlook.com
- [40.107.44.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A335610E376;
- Sat, 16 Aug 2025 14:38:06 +0000 (UTC)
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazolkn19010003.outbound.protection.outlook.com [52.103.43.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9926910E27D;
+ Fri, 15 Aug 2025 17:54:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bMbH3WxOvGcAiJbsBE0kZejnI/XoW2mozXgXujvPhhMoSz6mB0lUflLooVhMrILtFq9LvVuEg1XwMISiQZ7e/OO4fQenVj0WsscAeUUF6QrJ2fXqYAhFC6U5tTCoqGgCu/tVyzshLA+aOuyG76O1SPH6nVt4W5/RjZSRoK0+VhD9JyANlZ/KiIXKDVUlMBcbkL46VG7MqLoeriR7zov1Thamdm6YAp9pnVYBy0jKSCYNAQp565Z+7pYw8Vw5v97NEI2XHAZbwKEFTm+vv+JBDVMKHqhi9IvC07ULQHIoBlhLQgA6NglhfXojoiTlAeiGAVvDnNPDaS32cn9cJJ+8ow==
+ b=CQjA1HFhQUZ9cvbZJOQ3xyzaJbKqg7Lrnah2KHbFBemiihgBC5E4HLxOoZIHkgIj96a1UL3ibRuILqO0wBnpGieq0D2mtGIajMH9tUvmymB4hkHcJtus4CTachChRvnLvq5rGtnIrume738tlJZedOT9EP1T0v3yVjOdJCD3nRf07Xc9zXDJjUlP1/W20eCFCrIbP8ox9EPVYWxqOEQwOmvI0NMNefBF9m57wMOJBY4MXKnJjIYo8E7Cx8hvdi86VLdRI81QhWgCP/9N1fw0hOLcZ3U94YmX1NzRNL9GZktnta4pYb9NeYQkyTKiYTYu9+2mEsguhCRv7mdpTFIZGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BPUA/MZRE2pOlAf7X3bQyssF+I1Lm10RMbE08h7mLBE=;
- b=VBDoQzMZv4IZUxDd+x7oj80dk5kS6FRxHjPewU39uYYyz94IquTh9yC8QlTQe0v0pghgbMEsvn9bRUT4Nhe1TxGC6toxhDaErRe5XyJDIME39YqWv7ZEgsTtluFHneH4H4gBKSOh5e7nabYip/vLRYNCqEblwjZbhU/CPP3K17JupUCFgSpJGzuI2Qlr9UAn16ix+JVwCy/eK4OMxJ+1klmkTrE4YabfMGX2Drg9lllCG4SCGe6IwieeMeDRxyF40BaQCl6c54BOg+WLArDL7hqbFSv4+XGWd28PvsH/qoQH0wybm8X0Hv0n5jnMTH3tG7C43xQ5UYOwS5kTROMVFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ bh=pnAmOCxKFnnGzvPHCUoIgLkYpgT1auGN2E28YMivlEw=;
+ b=ckDvvLbMMm4O/PP+8vVE9u8uDjXNXsvLxqx5csMJV4rHwaBmKOjU3d3zmJsaSZdIt87gl0MhCepyuZIWO5xE6a0v0xPxopsPf9iS97+m+ZCoLxPzKgHrPM5HuylmKkjCieQ/+kbS1iwrwmMTWaBKtmNsR79o9HFzcIusLOkgDwwCxTXFxJ+3GWdJUS3h9Gcv2KRL8Xtx2Z8CZgHwWTF3Gok55pwibS3cdK/8D7wi1BK4wmtA6oyFrOxWS3h8Rzrdv2+rbZYLyHmD5uWouwsaMWXMBw1DhUFKfd0KPtN9vrAtXfl9R5umqWfXrvoce2WWedtZndyFDxmzHB+AdR339A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BPUA/MZRE2pOlAf7X3bQyssF+I1Lm10RMbE08h7mLBE=;
- b=UzlH4pEsY/JErKrZhRQHm6aRJPXlJVDiwbSYBHRP5ZUbA8CK7dgaJrxOKmgoTUF6sUzuTNl4ejtnjfR5A8eXU6WOLXBSDVqKKQChSZDtx//lDy8bNOKcRWPGYcYmJUTD6mex4KYFFLi27nFMUvkoFa69CjM5HAIYsbdo5LUOVYdrEdDJnYYk82AW2Hi9S8M1whb+1/S1VZeOdFU4L6DitTNWVS/wAE9QO2o85d2U1S5JC6F/NgHTdqBmvMjU0swoPBL9HJ5Q1GC97S9Vs7CwLuPZp0aaSnjJQf+AHc2AdFx6sNWlLrLkOs/HYP5NoczpVBsvcSEhgKuwGUAnZTlRBg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SI2PR06MB5140.apcprd06.prod.outlook.com (2603:1096:4:1af::9) by
- TYZPR06MB6771.apcprd06.prod.outlook.com (2603:1096:400:459::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9031.18; Sat, 16 Aug 2025 14:38:02 +0000
-Received: from SI2PR06MB5140.apcprd06.prod.outlook.com
- ([fe80::468a:88be:bec:666]) by SI2PR06MB5140.apcprd06.prod.outlook.com
- ([fe80::468a:88be:bec:666%5]) with mapi id 15.20.9031.018; Sat, 16 Aug 2025
- 14:38:02 +0000
-From: Qianfeng Rong <rongqianfeng@vivo.com>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA
- GEFORCE/QUADRO GPUS), 
- nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
- GPUS), linux-kernel@vger.kernel.org (open list),
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS)
-Cc: Qianfeng Rong <rongqianfeng@vivo.com>
-Subject: [PATCH 0/2] drm: Use vmalloc_array and vcalloc to simplify code
-Date: Sat, 16 Aug 2025 22:37:49 +0800
-Message-Id: <20250816143752.397973-1-rongqianfeng@vivo.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0014.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::9) To SI2PR06MB5140.apcprd06.prod.outlook.com
- (2603:1096:4:1af::9)
+ bh=pnAmOCxKFnnGzvPHCUoIgLkYpgT1auGN2E28YMivlEw=;
+ b=l/1EmkosNsgikhJMvFY6FqjBuorhuOtXskfPY/56h/KrqP+u24eFqQIIVH1wcnDx2VNFKE0+JLH12t0XRkbg+ztEIZ1ZDHth2orzHWFxcLr1c7DKmgBXCETxvA7iGtir2tJecBXhm8UrW+18u+8HkMwKXgM0cod+1pxSjy5lf5zlY45VxF1xIoAHPK3qjdwCI69EMDVWY9Xo3jVKk05jkES/huZi65TFPm4kT7IEMv3+65SvPdaQG/O1RVynDqegT/mQ8vbaLP3vFgK2P+wru3kTG5QCLbL6lIzoBjHf1odmlr6FeyCzI9s8fxBQZYUzxNA60zUloMXladcxZzBoEg==
+Received: from TY4PR01MB14432.jpnprd01.prod.outlook.com
+ (2603:1096:405:235::10) by TYWPR01MB10630.jpnprd01.prod.outlook.com
+ (2603:1096:400:2a2::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.18; Fri, 15 Aug
+ 2025 17:54:43 +0000
+Received: from TY4PR01MB14432.jpnprd01.prod.outlook.com
+ ([fe80::7679:e9eb:aeb2:f12f]) by TY4PR01MB14432.jpnprd01.prod.outlook.com
+ ([fe80::7679:e9eb:aeb2:f12f%7]) with mapi id 15.20.9031.014; Fri, 15 Aug 2025
+ 17:54:43 +0000
+From: Qu Shengyu <wiagn233@outlook.com>
+To: Alex Hung <alex.hung@amd.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>, "harry.wentland@amd.com"
+ <harry.wentland@amd.com>, "alex.hung@amd.com" <alex.hung@amd.com>,
+ "leo.liu@amd.com" <leo.liu@amd.com>, "ville.syrjala@linux.intel.com"
+ <ville.syrjala@linux.intel.com>, "pekka.paalanen@collabora.com"
+ <pekka.paalanen@collabora.com>, "contact@emersion.fr" <contact@emersion.fr>,
+ "mwen@igalia.com" <mwen@igalia.com>, "jadahl@redhat.com" <jadahl@redhat.com>, 
+ "sebastian.wick@redhat.com" <sebastian.wick@redhat.com>,
+ "shashank.sharma@amd.com" <shashank.sharma@amd.com>, "agoins@nvidia.com"
+ <agoins@nvidia.com>, "joshua@froggi.es" <joshua@froggi.es>,
+ "mdaenzer@redhat.com" <mdaenzer@redhat.com>, "aleixpol@kde.org"
+ <aleixpol@kde.org>, "xaver.hugl@gmail.com" <xaver.hugl@gmail.com>,
+ "victoria@system76.com" <victoria@system76.com>, "daniel@ffwll.ch"
+ <daniel@ffwll.ch>, "uma.shankar@intel.com" <uma.shankar@intel.com>,
+ "quic_naseer@quicinc.com" <quic_naseer@quicinc.com>,
+ "quic_cbraga@quicinc.com" <quic_cbraga@quicinc.com>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>, "marcan@marcan.st"
+ <marcan@marcan.st>, "Liviu.Dudau@arm.com" <Liviu.Dudau@arm.com>,
+ "sashamcintosh@google.com" <sashamcintosh@google.com>,
+ "chaitanya.kumar.borah@intel.com" <chaitanya.kumar.borah@intel.com>,
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>, "mcanal@igalia.com"
+ <mcanal@igalia.com>, "nfraprado@collabora.com" <nfraprado@collabora.com>,
+ Daniel Stone <daniels@collabora.com>
+Subject: Re: [PATCH V11 31/47] drm/colorop: add BT2020/BT709 OETF and Inverse
+ OETF
+Thread-Topic: [PATCH V11 31/47] drm/colorop: add BT2020/BT709 OETF and Inverse
+ OETF
+Thread-Index: AQHcDcECURG+hvA2l0O++80PCL2lArRj/pjj
+Date: Fri, 15 Aug 2025 17:54:41 +0000
+Message-ID: <TY4PR01MB14432C77EDFD80D2075FFCC2A9834A@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+References: <20250815035047.3319284-1-alex.hung@amd.com>
+ <20250815035047.3319284-32-alex.hung@amd.com>
+In-Reply-To: <20250815035047.3319284-32-alex.hung@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-reactions: allow
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY4PR01MB14432:EE_|TYWPR01MB10630:EE_
+x-ms-office365-filtering-correlation-id: a40bf3ab-7aa2-4d65-7694-08dddc24cf76
+x-ms-exchange-slblob-mailprops: YfhX3sd/0TVWrg+fxRScxfg9v9HXnUFlDHpcWTKvP9hpsfY9wDplAGbA52ZQAA21x2VCR9hYSOXp0zEhN4y3NawjTTjJLp4pd3TQCEz3Pwk9D3oObo0ia6K1iruIH/oR98iIPuxYrN3RUvYlx7ihS4JY7O7LFNmMyGEGrG5qvvHwLElwGzXPrdionYa7/BOZnkS/wAtM4Kxhr7nQBjqPTpwJ6Q3upQuVayp39XPXnXTjVe0h5/4XqHhADAPjxgPXNZKcsN3M+EmXAghkYJL8zNAr+0fCSQz+w8XaRr4lW1o3390Yaq2b/UfMxlN5W9shfmAFywkGL08yQIu6F/I7lIRX2pcf9DeCKLSuGM/0sA1UwAAJyQLx5CurkOWO947DnDGyU+zGw0KjPlLROTYLJ8mtdXYpK+W4HW6/PjjyjiiLRh9JAlmKVmKTiEXStraydPWZ/tJH6t65dCSMiO7IBGNf2Kg3g2LBHDhbEbTBVEJCfZ9orD+Nigah8rZCqg0pbrlmkyInM0xe0XtpPUZkh0pUZ+jOfwlhh8qC/H1QautV/ttN7adY4LWkLcrjgElg9gW9ZL/AjpMVjMuNsd5iMfCtfqnvC0f/25qLhO7bRkbyh+yH+n15VUOpPY+47Injkd+DrhAxbi4v3P1IboKxGffUpyC1zAbTntPq8zW/gYfU65i8gF9yzAgmierEoVNp9F4njU+8LSzph2RyLGEQVWbnG7nKF+6byWlG/Y0pjIkrNown8SgSlx2kpUh7RGDhUqAwOrdKeclS0rB1irIGD0srBF+MPkR1aLZFwfX8tOc=
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|15080799012|461199028|31061999003|19110799012|14030799003|8062599012|8060799015|3412199025|440099028|40105399003|26104999006|102099032;
+x-microsoft-antispam-message-info: =?gb2312?B?b21WQWprNVRMY3dweEc4UDRkNzc0VHpQWWtSaVdQU2Q5ZU9WTlV5OUtrdnZr?=
+ =?gb2312?B?VnRzMUFwU1lZZDYwT2paOXhCbHdWQTVKOTRrN3JKNVpjUHBLcmZRcWhCSnNo?=
+ =?gb2312?B?MUNhZmdoL2ZDOE0zZzJabW5yOWZYT1N3d083dktoUWdPZlJpMnBIMjZBRHhw?=
+ =?gb2312?B?Ny82RnJwV0U4YjRiNURFdVJ4TUc2MmE5ZUpXa2xDdVVNK3Z0ZkNqcmJTMUtJ?=
+ =?gb2312?B?cG1kMDRsME1QY1FjWWFJT2EyRXFCQUR5RVhieTgwWkVmaVRpZFI4bG50WkpL?=
+ =?gb2312?B?Uk15ZnZLM3VWamZGdU5YUkJvUFBZRGJBT1VYTHBjVmszVzhjNi93ZUZzczF1?=
+ =?gb2312?B?L3R2MWp0OFlGd0pTUEhUbzR3N1Jwamx5RWZWdXpGckdZVE9mbzJRb1Jsak04?=
+ =?gb2312?B?NXVFeURBMjRKc3JWVGNURHRDaXNNR1ZZZjlJbEp4c3hFUlVxRGVWTmNkc2xu?=
+ =?gb2312?B?YWJHWDFsV29rUStjSTZGLzlVZzhhSFpiaDBZeWNNTHUxcThJQXpyVnZtcW5z?=
+ =?gb2312?B?V09RRklVVktnck1FZE4xeXNTVm9ycCt3aG1WTXBFS280VU5ad0ZON0Z4TmR0?=
+ =?gb2312?B?TmxBOEhFK001YnY4WWlreWFpVkxONzdZTzBFYWI2L20yZGZncFlnZlJMNFlF?=
+ =?gb2312?B?aWFlbi9ZYkNFc2lNRzFxQTdEWjhWcGpnV043aENJbyttc0YwV3dVVE1WY1ll?=
+ =?gb2312?B?WlN0WU15MHJ2OVRzMUttN1VqeUhIdUNxUVBwNnpTM2NxaitFMzlpenlEb3lJ?=
+ =?gb2312?B?M1RCWjV4R1YwcEJVTTRCeTV3S2JJYnV4NXhxZ3JJOU1zTWgwYXFPMGI2cHN6?=
+ =?gb2312?B?dUUwbWNaY29HYmpoZmZVU20rVEhWVDZSMGNNSnRid2U2NyttUnhheFozOEFk?=
+ =?gb2312?B?akhmWGt2amIzZjlZMjVRMkw1WlNudDhLVmFWQnR5bVVGM0Ftek1oclcvR084?=
+ =?gb2312?B?cm9jdCtnanZaVWM3MVdXeHdhUzhrYmFyQUpjYWNYR0tsT0Q4L0VYYnZPQ1NY?=
+ =?gb2312?B?cytYdkVDcnBBd0VvUHhLQ09GVGY3MFF3bGxJSzZVNkcyVUl3RWZGZVpzWW01?=
+ =?gb2312?B?QUFlTVk4YTZzZHdnN1pwalZnTHdxWUxpTG10THBlOFc1T2E3a2RTWVZhU2Ju?=
+ =?gb2312?B?d3kwR1ZVa3RuRnB4TnFFWVRlcFA2b1djT3VndnhPa3ZUVDZab2RiOFRXMnVr?=
+ =?gb2312?B?MjlId1Z5V2tCY05HTDd6T0pJS2ppSEJvMWRLNGZxZlU1LzJYc216YitHRHFj?=
+ =?gb2312?B?dE1HWE5IRFNCZU9ROWJ2cGxxcmt3cC8xNlJUdUhQSWUrUDJjblQ0RDhGRm9T?=
+ =?gb2312?B?VExDZ0pSSEpqeE1IdnFyNUt4NFY2UWVzYkg2N1ZPckFQVXplaDJ6d0p2bGtX?=
+ =?gb2312?B?QXZjMkorNGJEeHJ4ODdaZEc0SU95R2Qrd25VNFRMMHhnSVE2OUNiY08reGpY?=
+ =?gb2312?B?Q2lZYU1OalNVVjhJT0tJekE3amlUeWJXOG4vZFBhdDY3WU83OTl3cWFrck5R?=
+ =?gb2312?B?YVR6UjhKTHR6ekEwNEZ2TE1hRHpySkdVRkxhL1ViaGw3Z1dDOXVGL3d3ZHlh?=
+ =?gb2312?B?V0NVMUlEd09VNEVwNzVucndabk02R1ZvanBoRTVlb2NrdG5lS2tKWThDaHUw?=
+ =?gb2312?B?UHlSQ0JLY0V4WStqMENNWHBmaHVPMkE9PQ==?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?gb2312?B?VDFJcThpNHBRV3FGV080NkFhMW5KbFpXcFRBbllwL09vVzBqZTh1NldKeXlN?=
+ =?gb2312?B?bjk1ODhoemRXcUR5N2xzbFVWN2oxc2pTcEluTVRoYzFyOGdJMHB3T3BoYjV1?=
+ =?gb2312?B?cmt2dmdteE5GcjRDaHZ4eTJDYklSeFJhVDh2b1lLeXRvamYrbVJMTXZodk8y?=
+ =?gb2312?B?bFlkVnhRRDZlWHNyREoyOHY5WlVmL2ZsTEdpVGMyeHpjZmpPT1BoL3RYb2g0?=
+ =?gb2312?B?clVqaUVrMDFDampKejdXVFlOQjNjejhLOWpvbjE4b2d4eHR3a2hSMktsSVgv?=
+ =?gb2312?B?M1pFKzhCeFdNMVI1NVRrMzFialMzM1kyTU5ndFJzNUhZM1VjdVRhaXZaTzJG?=
+ =?gb2312?B?UHVxc3JMNlBsVW5vazNCWW5PZitGTGdtS2s0RFlpV2g2eDl2ZkIvSEZ4Vi9D?=
+ =?gb2312?B?ZGFBc0gvR1M2VHFPMDRDcGN6bDM4dlZCOVJ6cGNTMElwRUFTWHpCd2QwYTJJ?=
+ =?gb2312?B?SWRYY0krUW5ZaXdIK3BlSFdENFJFbS9HU1B1a2o3ZmNiOFdTWXZ6RXJJK3Fl?=
+ =?gb2312?B?TzY3eVpGQ09NRi9BVnpjQ2x1YittYzlyMkxzUXgycHRGV0lsR1E4V2Radk5U?=
+ =?gb2312?B?QU9WWTduWnVDTmhteE1hSnNDeFpyYlpWQUpNK1VLdWN4OFZ2aDVYQWxYczBH?=
+ =?gb2312?B?NExmM0Y1dkJWaHo0TWtEV0tNSVljV2N0SDZsaG9ZdWg0NkorT1YvY2pwWTdQ?=
+ =?gb2312?B?Z0gxWEt0eDdZVUl3Qm1BYWl6dlJFMDQrV0dIa3Rya1BIZzJwTGhNaXRVc09I?=
+ =?gb2312?B?eUxwVEF0Uy8wcm8zK2RlVG1xNlZGdVJtN2VkQTB3SVpuY0Z5MjZ6ZlZkdDFZ?=
+ =?gb2312?B?S2s5Qm9VS2RwVmlOdTN3eklDSytNTDhYYnkxUmEvTTR3ZVU3M0JPbElnYWoz?=
+ =?gb2312?B?S0g4bzZtZmFQajk2a2YyTkgwUjNpU3hKd0FNZzkzWEJPbURYSGM4MTNEbmtl?=
+ =?gb2312?B?b0k1b3kwTGg1Z0R0TzRaK0VUN1pIQXRya25QV2M2T1dDYXZMdXBMS3FjYVFK?=
+ =?gb2312?B?NHcza3NyME0rdG1JU3BQc1BHYS9hT2p3QUEwYTUyWkhDOWVIZ3IyT3FhN0Ew?=
+ =?gb2312?B?ZzdwM014M0RWQXFLZnFJRWtVOEFQUUxCT0lyQmZaUnY4b1NCUXNYZWlEM0w0?=
+ =?gb2312?B?RFhxQnE5cEw1NWZEYkVxODhpa2g4MitMbm91cW9OL1M5MmtRckNrbHAzQ3B4?=
+ =?gb2312?B?d1ludklvbzlhd3crbThOOXZGY0c2MnVueHptamYvRCtwb08xMlE3TVl1ella?=
+ =?gb2312?B?THRzbmR0b05aVTFVZ1h0SGlzZmcrNmZCZW5HL0kzUVQ5RndXV3BwaGRaTk1t?=
+ =?gb2312?B?L2ZIdzZzVkV3ZEd2NmRqV1VuWnQzN1gybG03QlJ1QWI1elFlQXo3MTJibkhl?=
+ =?gb2312?B?c25IV1ZlZDFDOS9FS0dzOWVZbUs1WUFoaEYzMnhMZWpsKzRwM2NFODkrTnJ4?=
+ =?gb2312?B?S25admh3Z0F1Ujh5KzhoTFY5WXpINkxYRlpla1IrSlFDVzlnUXFjM0wwdU1v?=
+ =?gb2312?B?WHhCdFIrdThlVWR0eFlEd2tQaDFyRmdNTVBzZllBWHdVVXZDQk5sRXNQOXpz?=
+ =?gb2312?B?NjlwWVhHZUdraFRGdVlvUlpBYTN2Rllvelh5QlVGQkhndVVoWWJudThnZExC?=
+ =?gb2312?B?VGxYaHZqaFl1UnNuQ2tXZ1c0ZVluenEyOEdzQjQyRjR0QU9rbzROR2IrdlM3?=
+ =?gb2312?B?ME1yZGNRc3dtN2pPOUxia2kxZ0dzS3BlVWhmRm8wb2pxQ1U2VE5hRHVDN2xo?=
+ =?gb2312?Q?51I579PQmbUI3wl6yG4i/I3z1fr46cX3fkTtz3x?=
+Content-Type: multipart/alternative;
+ boundary="_000_TY4PR01MB14432C77EDFD80D2075FFCC2A9834ATY4PR01MB14432jp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SI2PR06MB5140:EE_|TYZPR06MB6771:EE_
-X-MS-Office365-Filtering-Correlation-Id: de5446af-1c78-4961-e370-08dddcd2812a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|52116014|376014|7416014|921020|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?48viuTaaRO7dg1kVtiRoxh2nPuIgXtghuNb4MN7IPOCIzguOnYPx/3wdbePE?=
- =?us-ascii?Q?DG/iSemtzXX1mGYxVbGApnoCLD5HXWnm+eoyEcm3YFZVLBTj7q8LPrOZqAGP?=
- =?us-ascii?Q?xNKQcSU8oLR0XsFucdYx/j7pA3VHy2YFEm0vXotPgZQfaOuGq8NhzJK40ar/?=
- =?us-ascii?Q?2ofjQkM1kFBNrcpyZfkzBHNgCVnMhngi5I4w/V+AJubKIFR/zlpVuTa7Cgrx?=
- =?us-ascii?Q?mL0MPU8Td5qiSC65e+e6ZFgLOyWKN+3D5OlK5SEbYa9AJD1hdFcWL3QCiytZ?=
- =?us-ascii?Q?3WR9uuooucLsptVb2PhD1kXJLp8QJko2N8RwdU+y/AN0VsgqU2esUrGdho2I?=
- =?us-ascii?Q?6wfPvfnMqrzXrf7WxNLHU/BMEH88IxVg8+4ScYUejJgY2FJsNHB5nwIIU+zr?=
- =?us-ascii?Q?u0m3dPcLhgu33WPWj3f+SVr+yOuHCv1+J0VmuLw4R/BH087OABrOIQilsvsj?=
- =?us-ascii?Q?liPLZ+5RAJ/MgfgxI3B/ylRqwDs/wJkRWKP2T9ruyB7kZs7ySNczo+MikLIK?=
- =?us-ascii?Q?HWk4cmTPodPDn7jPHUQBzCdd5+hOJ6RIcrrliOQDmAYpHtkiSE1qjqiezm1w?=
- =?us-ascii?Q?QImH7hjEHIK4g/L+BUdhpkAYKfaCoeEQHkgYYJUA5QuM+rjF6W1b5oaYtyEB?=
- =?us-ascii?Q?uOIgl/SR+Vomexrt/m5fSZyXhn3rA3dfFkAhtvXDHMbVkFY84pe/OxFPFjJa?=
- =?us-ascii?Q?vasVkwr46G0FGAL2/vBUKzlC+RVTIjKvWr82PF1/izJqzFhrErpz3VW0sEVj?=
- =?us-ascii?Q?ryffyLjq2201mBb3x6T1McaYuGFhkECdEi1PZpjFXKJRYXsV2rqEDonfUJk+?=
- =?us-ascii?Q?Kzm1bHCHSyran2kLKglrH6JPGWimvON2JbraQcFyH5rvd6koomOkiBcaED52?=
- =?us-ascii?Q?Tn0WrRqmqeS9sUrU/QmRX2MISgiRy4f2iTx9d1A7faBXuP23bnFG4UJ+B27K?=
- =?us-ascii?Q?knsVd9iSrGfYI1z8F/pDqcmCYzJfoNo2n6Pa6bs/vAA36NXE8zepS0oA6YBi?=
- =?us-ascii?Q?cDsr8HgzRZw6ly68KFDXCsAkdtRmP1P1tKJzsx1CCbJfjSlwM5TCN2Kef2vA?=
- =?us-ascii?Q?gVbgCoif1p9NBpusjtk4qlg6VAJ1UOCyctwpP1cO2o1Ki47+Jr1DAmWPC9XW?=
- =?us-ascii?Q?n61HWq5suxJ46SJDIg0lbvM7usi/UJDWRYaOM0MKpyon7eKjfUU9sLlHceis?=
- =?us-ascii?Q?NDkBPMMhmR/uJ2Q6EPfZcnBOaQznk+XfYheXvSaLTWHMIIB2SaunCi20ngXw?=
- =?us-ascii?Q?rpQ8bjV/gNjnpBzUldo32hPpyZeMSKlLhVzldX4lHb1WLRwrPBhE160lEFav?=
- =?us-ascii?Q?qC+w7CJf6HX7rg3lxGKo09cTd1IEjKp3KDqtiq9l3A6zaWfS7kZzV7INjPWS?=
- =?us-ascii?Q?X8pVd/tT1plciU5nA6gTMvWqY3cCaj1Qe//Qp7K6/qtku1D+tQhVWtdqt5Pn?=
- =?us-ascii?Q?MxtEQSMZ4RB5bpbOKMyabZvUqzBSy6mORYWNJZE+4G412dNKM9HYRZo9gBDq?=
- =?us-ascii?Q?xzij/3xglxJZ0GQ=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SI2PR06MB5140.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(52116014)(376014)(7416014)(921020)(38350700014);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ezK7LQ55YnK/fUr1PfxU1PnuDQ6ugta6AUvoA7rbtJeIs7lZoLqwan1Q4mpQ?=
- =?us-ascii?Q?UFCQRAd7cGd7GfqnBI6a0w581UdzQcsMtNES84SH31MFbfjTIMlDKQFmpXHS?=
- =?us-ascii?Q?GdYWEPPoNR9nS7l7n8EVZj26wKqrLBSxFY6jm4Nwi7iuvKGZDt7JDY8EBDEZ?=
- =?us-ascii?Q?0m0/ifmKthwWRelOPozQrAcAuM3C4MNr22m+6fzSXuXGFul7N3qG0+k8QiVG?=
- =?us-ascii?Q?EOBIHjwH3Nu+c0Ysl9xJeg7XgQUtDJ5QcWSL5K16ff3r9RSOp00+yjECqY09?=
- =?us-ascii?Q?zWqGRMtyBkW7PF0lc5tGOh85kr7RwtggqtWl8Tq/DGiA0jy+wtiqis6Br3IU?=
- =?us-ascii?Q?JbfCrzUTro0B4Tc6jUyvsRxNALCVWGqPSLZdS+51cbx1mwNBc7USl8kWPFnc?=
- =?us-ascii?Q?EGGt+FipZjIXl+iXVI/av1Cd+js8a9pVMQef4C2yhiyFZvM/HqdNWYnFxNYS?=
- =?us-ascii?Q?HscQ2d7GcWl0k2GYdXn4J7/JKfEofrEa+xKLPFGHOFhQhtBvUd5WIb8w0OU+?=
- =?us-ascii?Q?BDptCiJvvM764I/Qy2iqiVM2y4LyeU3ig6XxfM0NRPampaQHC5KqK4W7sNm4?=
- =?us-ascii?Q?7yl47j1UaSD1KMl8DxTNsT4SE5AdvT2v+CVc9RgiDuUF4pkvgDTWpTzNUl3k?=
- =?us-ascii?Q?eQExGbKpvvw44oizKMaoQOfvQjld0ums1A6liUVssMQAqT3AkCtJFJLAy80P?=
- =?us-ascii?Q?NBCNjuncdYt/JrBcXBLYhxqt0RRy8jcnPoI2hmImhXj3/rPW8Q+gX1zuvPGP?=
- =?us-ascii?Q?4JcnKtxnejSN25qkPDnvx+P6ed6dkNAL5dT+u8y+Fum2E++YmoQ6NlOGG3Jf?=
- =?us-ascii?Q?md4sHG28iw+RcPwYVQAVmx4YOttY8QaxOWrALm0iIaZPkskcQI4cQiuu1U2o?=
- =?us-ascii?Q?0aoIAg+b6OwxxpKAU9odlvoOzq8rMTd2svfakkm7szeKDpwWTJVwJNqSrmHX?=
- =?us-ascii?Q?w2Tcadu8264s0qHk5CfylvjSr/1u8AaWZ2XAF6L6MyXHW3OtVH1zy4/Asjqx?=
- =?us-ascii?Q?L+YXX7d3jw4Ie6DUo/e6wuGiTAPYkbmnSimnm8N955eSvyhIVbKmne8vNhAO?=
- =?us-ascii?Q?+gNiunw2XevssNzpwu1nEjQ2vksiEvwSLjxRPIJ+yE36/e+Aaq74pIATJD99?=
- =?us-ascii?Q?7Dq9Yrp11TV4j+zmJRTSSfDdShUT8FKuh5ECRP3Yf+5e18Odc1VoLntkJMaT?=
- =?us-ascii?Q?0u3eTH1ge3gqjJd0sge0qBPS0mZ9YVfEWLv0rArK9bAqhN45QjCtGu1GX3VE?=
- =?us-ascii?Q?Z61dDNFN52OUZv8MelKuaEK/Y3ii7aEDhWoT06MpVn/maiysr7TFOp+7PKk5?=
- =?us-ascii?Q?qyr/ZanWZrFb7GzKFPJNm5sD/G/FDRP3Xpl6R24+TaX346vf99rvhPTvWWQV?=
- =?us-ascii?Q?0OYHYG8Lk4L/nLEOCFoZoEbI5fAPLmniGbtrocaTlUBsKo7ziYQt73RemcEw?=
- =?us-ascii?Q?iOtWyYLxuliTNV+XTcRUl8v5ZWnR3MCb1w527t5dpI/xBfnkeyyXyrkOi8is?=
- =?us-ascii?Q?WAHE+IjV0hcMCVrtWOhroOwq3IQpwXMv6eKAU0q2QAV91SoE7y/PMDoStI7m?=
- =?us-ascii?Q?GqDAABoSomxTUwIXSYnHvFCAiaM11n/d99d9jbR8?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de5446af-1c78-4961-e370-08dddcd2812a
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5140.apcprd06.prod.outlook.com
+X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2025 14:38:02.6984 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eHddOFtl9uSUBQAH5cc7ORXXyR+xw1137+RzgcUHPjg7IklKIav6yu6QnVUV4My6auYa0e31AZkz51fgGELmlQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6771
+X-MS-Exchange-CrossTenant-AuthSource: TY4PR01MB14432.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: a40bf3ab-7aa2-4d65-7694-08dddc24cf76
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Aug 2025 17:54:41.3554 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10630
 X-Mailman-Approved-At: Sun, 17 Aug 2025 12:39:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -153,22 +175,264 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove array_size() calls and replace vmalloc() and vzalloc() with
-vmalloc_array() and vcalloc() respectively to simplify the code.
+--_000_TY4PR01MB14432C77EDFD80D2075FFCC2A9834ATY4PR01MB14432jp_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 
-vmalloc_array() is also optimized better, resulting in less instructions
-being used [1].
+SGVsbG8sDQoNCldoYXQgYWN0dWFsbHkgaXMgdGhpcyBPRVRGPyBJcyBpdCBwb3dlciAxLzIuND8g
+T3IgcmV2ZXJzZWQgQlQuMTg4Nj8NCg0KQmVzdCByZWdhcmRzLA0KU2hlbmd5dQ0KDQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXw0Kt6K8/sjLOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5j
+ZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiC0+rHtIEFsZXggSHVuZyA8YWxleC5odW5nQGFtZC5j
+b20+DQq3osvNyrG85DogRnJpZGF5LCBBdWd1c3QgMTUsIDIwMjUgMTE6NTA6MjAgQU0NCsrVvP7I
+yzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8ZHJpLWRldmVsQGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZz47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIDxhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZz4NCrOty806IHdheWxhbmQtZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnIDx3YXlsYW5kLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz47IGhhcnJ5LndlbnRsYW5k
+QGFtZC5jb20gPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+OyBhbGV4Lmh1bmdAYW1kLmNvbSA8YWxl
+eC5odW5nQGFtZC5jb20+OyBsZW8ubGl1QGFtZC5jb20gPGxlby5saXVAYW1kLmNvbT47IHZpbGxl
+LnN5cmphbGFAbGludXguaW50ZWwuY29tIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT47
+IHBla2thLnBhYWxhbmVuQGNvbGxhYm9yYS5jb20gPHBla2thLnBhYWxhbmVuQGNvbGxhYm9yYS5j
+b20+OyBjb250YWN0QGVtZXJzaW9uLmZyIDxjb250YWN0QGVtZXJzaW9uLmZyPjsgbXdlbkBpZ2Fs
+aWEuY29tIDxtd2VuQGlnYWxpYS5jb20+OyBqYWRhaGxAcmVkaGF0LmNvbSA8amFkYWhsQHJlZGhh
+dC5jb20+OyBzZWJhc3RpYW4ud2lja0ByZWRoYXQuY29tIDxzZWJhc3RpYW4ud2lja0ByZWRoYXQu
+Y29tPjsgc2hhc2hhbmsuc2hhcm1hQGFtZC5jb20gPHNoYXNoYW5rLnNoYXJtYUBhbWQuY29tPjsg
+YWdvaW5zQG52aWRpYS5jb20gPGFnb2luc0BudmlkaWEuY29tPjsgam9zaHVhQGZyb2dnaS5lcyA8
+am9zaHVhQGZyb2dnaS5lcz47IG1kYWVuemVyQHJlZGhhdC5jb20gPG1kYWVuemVyQHJlZGhhdC5j
+b20+OyBhbGVpeHBvbEBrZGUub3JnIDxhbGVpeHBvbEBrZGUub3JnPjsgeGF2ZXIuaHVnbEBnbWFp
+bC5jb20gPHhhdmVyLmh1Z2xAZ21haWwuY29tPjsgdmljdG9yaWFAc3lzdGVtNzYuY29tIDx2aWN0
+b3JpYUBzeXN0ZW03Ni5jb20+OyBkYW5pZWxAZmZ3bGwuY2ggPGRhbmllbEBmZndsbC5jaD47IHVt
+YS5zaGFua2FyQGludGVsLmNvbSA8dW1hLnNoYW5rYXJAaW50ZWwuY29tPjsgcXVpY19uYXNlZXJA
+cXVpY2luYy5jb20gPHF1aWNfbmFzZWVyQHF1aWNpbmMuY29tPjsgcXVpY19jYnJhZ2FAcXVpY2lu
+Yy5jb20gPHF1aWNfY2JyYWdhQHF1aWNpbmMuY29tPjsgcXVpY19hYmhpbmF2a0BxdWljaW5jLmNv
+bSA8cXVpY19hYmhpbmF2a0BxdWljaW5jLmNvbT47IG1hcmNhbkBtYXJjYW4uc3QgPG1hcmNhbkBt
+YXJjYW4uc3Q+OyBMaXZpdS5EdWRhdUBhcm0uY29tIDxMaXZpdS5EdWRhdUBhcm0uY29tPjsgc2Fz
+aGFtY2ludG9zaEBnb29nbGUuY29tIDxzYXNoYW1jaW50b3NoQGdvb2dsZS5jb20+OyBjaGFpdGFu
+eWEua3VtYXIuYm9yYWhAaW50ZWwuY29tIDxjaGFpdGFueWEua3VtYXIuYm9yYWhAaW50ZWwuY29t
+PjsgbG91aXMuY2hhdXZldEBib290bGluLmNvbSA8bG91aXMuY2hhdXZldEBib290bGluLmNvbT47
+IG1jYW5hbEBpZ2FsaWEuY29tIDxtY2FuYWxAaWdhbGlhLmNvbT47IG5mcmFwcmFkb0Bjb2xsYWJv
+cmEuY29tIDxuZnJhcHJhZG9AY29sbGFib3JhLmNvbT47IERhbmllbCBTdG9uZSA8ZGFuaWVsc0Bj
+b2xsYWJvcmEuY29tPg0K1vfM4jogW1BBVENIIFYxMSAzMS80N10gZHJtL2NvbG9yb3A6IGFkZCBC
+VDIwMjAvQlQ3MDkgT0VURiBhbmQgSW52ZXJzZSBPRVRGDQoNCkZyb206IEhhcnJ5IFdlbnRsYW5k
+IDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPg0KDQpUaGUgQlQuNzA5IGFuZCBCVC4yMDIwIE9FVEZz
+IGFyZSB0aGUgc2FtZSwgdGhlIG9ubHkgZGlmZmVyZW5jZQ0KYmVpbmcgdGhhdCB0aGUgQlQuMjAy
+MCB2YXJpYW50IGlzIGRlZmluZWQgd2l0aCBtb3JlIHByZWNpc2lvbg0KZm9yIDEwIGFuZCAxMi1i
+aXQgcGVyIGNvbG9yIGVuY29kaW5ncy4NCg0KQm90aCBhcmUgdXNlZCBhcyBlbmNvZGluZyBmdW5j
+dGlvbnMgZm9yIHZpZGVvIGNvbnRlbnQsIGFuZCBhcmUNCnRoZXJlZm9yZSBkZWZpbmVkIGFzIE9F
+VEYgKG9wdG8tZWxlY3Ryb25pYyB0cmFuc2ZlciBmdW5jdGlvbikNCmluc3RlYWQgb2YgYXMgRU9U
+RiAoZWxlY3Ryby1vcHRpY2FsIHRyYW5zZmVyIGZ1bmN0aW9uKS4NCg0KU2lnbmVkLW9mZi1ieTog
+QWxleCBIdW5nIDxhbGV4Lmh1bmdAYW1kLmNvbT4NClNpZ25lZC1vZmYtYnk6IEhhcnJ5IFdlbnRs
+YW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPg0KUmV2aWV3ZWQtYnk6IERhbmllbCBTdG9uZSA8
+ZGFuaWVsc0Bjb2xsYWJvcmEuY29tPg0KUmV2aWV3ZWQtYnk6IFNpbW9uIFNlciA8Y29udGFjdEBl
+bWVyc2lvbi5mcj4NCi0tLQ0Kdjk6DQogLSBNb3ZlIERSTV9DT0xPUk9QXzFEX0NVUlZFX0JUMjAy
+MF8qIGZyb20gbWlkZGxlIHRvIGVuZCAoU2ltb24gU2VyKQ0KDQogZHJpdmVycy9ncHUvZHJtL2Ry
+bV9jb2xvcm9wLmMgfCAgMiArKw0KIGluY2x1ZGUvZHJtL2RybV9jb2xvcm9wLmggICAgIHwgMjMg
+KysrKysrKysrKysrKysrKysrKysrKysNCiAyIGZpbGVzIGNoYW5nZWQsIDI1IGluc2VydGlvbnMo
+KykNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fY29sb3JvcC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2RybV9jb2xvcm9wLmMNCmluZGV4IDViYjQ1OTYzZmExZi4uYzI0NWEzZmY0NWQz
+IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9jb2xvcm9wLmMNCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9kcm1fY29sb3JvcC5jDQpAQCAtNzIsNiArNzIsOCBAQCBzdGF0aWMgY29uc3Qg
+Y2hhciAqIGNvbnN0IGNvbG9yb3BfY3VydmVfMWRfdHlwZV9uYW1lc1tdID0gew0KICAgICAgICAg
+W0RSTV9DT0xPUk9QXzFEX0NVUlZFX1NSR0JfSU5WX0VPVEZdID0gInNSR0IgSW52ZXJzZSBFT1RG
+IiwNCiAgICAgICAgIFtEUk1fQ09MT1JPUF8xRF9DVVJWRV9QUV8xMjVfRU9URl0gPSAiUFEgMTI1
+IEVPVEYiLA0KICAgICAgICAgW0RSTV9DT0xPUk9QXzFEX0NVUlZFX1BRXzEyNV9JTlZfRU9URl0g
+PSAiUFEgMTI1IEludmVyc2UgRU9URiIsDQorICAgICAgIFtEUk1fQ09MT1JPUF8xRF9DVVJWRV9C
+VDIwMjBfSU5WX09FVEZdID0gIkJULjIwMjAgSW52ZXJzZSBPRVRGIiwNCisgICAgICAgW0RSTV9D
+T0xPUk9QXzFEX0NVUlZFX0JUMjAyMF9PRVRGXSA9ICJCVC4yMDIwIE9FVEYiLA0KIH07DQoNCg0K
+ZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2RybV9jb2xvcm9wLmggYi9pbmNsdWRlL2RybS9kcm1f
+Y29sb3JvcC5oDQppbmRleCBhMzhjOTBmNjFkYzYuLmM2ZDJiMjg5ZTNjZiAxMDA2NDQNCi0tLSBh
+L2luY2x1ZGUvZHJtL2RybV9jb2xvcm9wLmgNCisrKyBiL2luY2x1ZGUvZHJtL2RybV9jb2xvcm9w
+LmgNCkBAIC04Myw2ICs4MywyOSBAQCBlbnVtIGRybV9jb2xvcm9wX2N1cnZlXzFkX3R5cGUgew0K
+ICAgICAgICAgICovDQogICAgICAgICBEUk1fQ09MT1JPUF8xRF9DVVJWRV9QUV8xMjVfSU5WX0VP
+VEYsDQoNCisgICAgICAgLyoqDQorICAgICAgICAqIEBEUk1fQ09MT1JPUF8xRF9DVVJWRV9CVDIw
+MjBfSU5WX09FVEY6DQorICAgICAgICAqDQorICAgICAgICAqIGVudW0gc3RyaW5nICJCVC4yMDIw
+IEludmVyc2UgT0VURiINCisgICAgICAgICoNCisgICAgICAgICogVGhlIGludmVyc2Ugb2YgJkRS
+TV9DT0xPUk9QXzFEX0NVUlZFX0JUMjAyMF9PRVRGDQorICAgICAgICAqLw0KKyAgICAgICBEUk1f
+Q09MT1JPUF8xRF9DVVJWRV9CVDIwMjBfSU5WX09FVEYsDQorDQorICAgICAgIC8qKg0KKyAgICAg
+ICAgKiBARFJNX0NPTE9ST1BfMURfQ1VSVkVfQlQyMDIwX09FVEY6DQorICAgICAgICAqDQorICAg
+ICAgICAqIGVudW0gc3RyaW5nICJCVC4yMDIwIE9FVEYiDQorICAgICAgICAqDQorICAgICAgICAq
+IFRoZSBCVC4yMDIwL0JULjcwOSB0cmFuc2ZlciBmdW5jdGlvbi4gVGhlIEJULjcwOSBhbmQgQlQu
+MjAyMA0KKyAgICAgICAgKiB0cmFuc2ZlciBmdW5jdGlvbnMgYXJlIHRoZSBzYW1lLCB0aGUgb25s
+eSBkaWZmZXJlbmNlIGlzIHRoYXQNCisgICAgICAgICogQlQuMjAyMCBpcyBkZWZpbmVkIHdpdGgg
+bW9yZSBwcmVjaXNpb24gZm9yIDEwIGFuZCAxMi1iaXQNCisgICAgICAgICogZW5jb2RpbmdzLg0K
+KyAgICAgICAgKg0KKyAgICAgICAgKg0KKyAgICAgICAgKi8NCisgICAgICAgRFJNX0NPTE9ST1Bf
+MURfQ1VSVkVfQlQyMDIwX09FVEYsDQorDQogICAgICAgICAvKioNCiAgICAgICAgICAqIEBEUk1f
+Q09MT1JPUF8xRF9DVVJWRV9DT1VOVDoNCiAgICAgICAgICAqDQotLQ0KMi40My4wDQoNCg==
 
-[1]: https://lore.kernel.org/lkml/abc66ec5-85a4-47e1-9759-2f60ab111971@vivo.com/
+--_000_TY4PR01MB14432C77EDFD80D2075FFCC2A9834ATY4PR01MB14432jp_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
 
-Qianfeng Rong (2):
-  drm/nouveau: Use vmalloc_array to simplify code
-  drm/radeon: Use vmalloc_array and vcalloc to simplify code
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+</head>
+<body>
+<div style=3D"font-family: Aptos, -apple-system, HelveticaNeue, sans-serif;=
+font-size: 12pt">
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+Hello,</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+<br>
+</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+What actually is this OETF? Is it power 1/2.4? Or reversed BT.1886?</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+<br>
+</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+Best regards,</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+Shengyu&nbsp;</div>
+</div>
+<div id=3D"ms-outlook-mobile-body-separator-line" style=3D"font-family: Apt=
+os, -apple-system, HelveticaNeue, sans-serif;font-size: 12pt" dir=3D"auto">
+<br>
+</div>
+<div id=3D"ms-outlook-mobile-signature" style=3D"font-family: Aptos, -apple=
+-system, HelveticaNeue, sans-serif;font-size: 12pt">
+<div></div>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>=B7=A2=BC=FE=C8=CB:</b> amd-gfx=
+ &lt;amd-gfx-bounces@lists.freedesktop.org&gt; =B4=FA=B1=ED Alex Hung &lt;a=
+lex.hung@amd.com&gt;<br>
+<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> Friday, August 15, 2025 11:50:20 AM<br>
+<b>=CA=D5=BC=FE=C8=CB:</b> dri-devel@lists.freedesktop.org &lt;dri-devel@li=
+sts.freedesktop.org&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.fr=
+eedesktop.org&gt;<br>
+<b>=B3=AD=CB=CD:</b> wayland-devel@lists.freedesktop.org &lt;wayland-devel@=
+lists.freedesktop.org&gt;; harry.wentland@amd.com &lt;harry.wentland@amd.co=
+m&gt;; alex.hung@amd.com &lt;alex.hung@amd.com&gt;; leo.liu@amd.com &lt;leo=
+.liu@amd.com&gt;; ville.syrjala@linux.intel.com &lt;ville.syrjala@linux.int=
+el.com&gt;;
+ pekka.paalanen@collabora.com &lt;pekka.paalanen@collabora.com&gt;; contact=
+@emersion.fr &lt;contact@emersion.fr&gt;; mwen@igalia.com &lt;mwen@igalia.c=
+om&gt;; jadahl@redhat.com &lt;jadahl@redhat.com&gt;; sebastian.wick@redhat.=
+com &lt;sebastian.wick@redhat.com&gt;; shashank.sharma@amd.com
+ &lt;shashank.sharma@amd.com&gt;; agoins@nvidia.com &lt;agoins@nvidia.com&g=
+t;; joshua@froggi.es &lt;joshua@froggi.es&gt;; mdaenzer@redhat.com &lt;mdae=
+nzer@redhat.com&gt;; aleixpol@kde.org &lt;aleixpol@kde.org&gt;; xaver.hugl@=
+gmail.com &lt;xaver.hugl@gmail.com&gt;; victoria@system76.com &lt;victoria@=
+system76.com&gt;;
+ daniel@ffwll.ch &lt;daniel@ffwll.ch&gt;; uma.shankar@intel.com &lt;uma.sha=
+nkar@intel.com&gt;; quic_naseer@quicinc.com &lt;quic_naseer@quicinc.com&gt;=
+; quic_cbraga@quicinc.com &lt;quic_cbraga@quicinc.com&gt;; quic_abhinavk@qu=
+icinc.com &lt;quic_abhinavk@quicinc.com&gt;; marcan@marcan.st
+ &lt;marcan@marcan.st&gt;; Liviu.Dudau@arm.com &lt;Liviu.Dudau@arm.com&gt;;=
+ sashamcintosh@google.com &lt;sashamcintosh@google.com&gt;; chaitanya.kumar=
+.borah@intel.com &lt;chaitanya.kumar.borah@intel.com&gt;; louis.chauvet@boo=
+tlin.com &lt;louis.chauvet@bootlin.com&gt;; mcanal@igalia.com
+ &lt;mcanal@igalia.com&gt;; nfraprado@collabora.com &lt;nfraprado@collabora=
+.com&gt;; Daniel Stone &lt;daniels@collabora.com&gt;<br>
+<b>=D6=F7=CC=E2:</b> [PATCH V11 31/47] drm/colorop: add BT2020/BT709 OETF a=
+nd Inverse OETF</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Harry Wentland &lt;harry.wentland@amd.com&gt=
+;<br>
+<br>
+The BT.709 and BT.2020 OETFs are the same, the only difference<br>
+being that the BT.2020 variant is defined with more precision<br>
+for 10 and 12-bit per color encodings.<br>
+<br>
+Both are used as encoding functions for video content, and are<br>
+therefore defined as OETF (opto-electronic transfer function)<br>
+instead of as EOTF (electro-optical transfer function).<br>
+<br>
+Signed-off-by: Alex Hung &lt;alex.hung@amd.com&gt;<br>
+Signed-off-by: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
+Reviewed-by: Daniel Stone &lt;daniels@collabora.com&gt;<br>
+Reviewed-by: Simon Ser &lt;contact@emersion.fr&gt;<br>
+---<br>
+v9:<br>
+&nbsp;- Move DRM_COLOROP_1D_CURVE_BT2020_* from middle to end (Simon Ser)<b=
+r>
+<br>
+&nbsp;drivers/gpu/drm/drm_colorop.c |&nbsp; 2 ++<br>
+&nbsp;include/drm/drm_colorop.h&nbsp;&nbsp;&nbsp;&nbsp; | 23 ++++++++++++++=
++++++++++<br>
+&nbsp;2 files changed, 25 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c<=
+br>
+index 5bb45963fa1f..c245a3ff45d3 100644<br>
+--- a/drivers/gpu/drm/drm_colorop.c<br>
++++ b/drivers/gpu/drm/drm_colorop.c<br>
+@@ -72,6 +72,8 @@ static const char * const colorop_curve_1d_type_names[] =
+=3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [DRM_COLOROP_1D_CURVE_SRGB=
+_INV_EOTF] =3D &quot;sRGB Inverse EOTF&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [DRM_COLOROP_1D_CURVE_PQ_1=
+25_EOTF] =3D &quot;PQ 125 EOTF&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [DRM_COLOROP_1D_CURVE_PQ_1=
+25_INV_EOTF] =3D &quot;PQ 125 Inverse EOTF&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [DRM_COLOROP_1D_CURVE_BT2020_INV_OETF=
+] =3D &quot;BT.2020 Inverse OETF&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [DRM_COLOROP_1D_CURVE_BT2020_OETF] =
+=3D &quot;BT.2020 OETF&quot;,<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;<br>
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h<br>
+index a38c90f61dc6..c6d2b289e3cf 100644<br>
+--- a/include/drm/drm_colorop.h<br>
++++ b/include/drm/drm_colorop.h<br>
+@@ -83,6 +83,29 @@ enum drm_colorop_curve_1d_type {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_COLOROP_1D_CURVE_PQ_12=
+5_INV_EOTF,<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @DRM_COLOROP_1D_CURVE_BT2020_=
+INV_OETF:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * enum string &quot;BT.2020 Inv=
+erse OETF&quot;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The inverse of &amp;DRM_COLOR=
+OP_1D_CURVE_BT2020_OETF<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_COLOROP_1D_CURVE_BT2020_INV_OETF,=
+<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @DRM_COLOROP_1D_CURVE_BT2020_=
+OETF:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * enum string &quot;BT.2020 OET=
+F&quot;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The BT.2020/BT.709 transfer f=
+unction. The BT.709 and BT.2020<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * transfer functions are the sa=
+me, the only difference is that<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * BT.2020 is defined with more =
+precision for 10 and 12-bit<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * encodings.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_COLOROP_1D_CURVE_BT2020_OETF,<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @DRM_COLOROP_1D_CU=
+RVE_COUNT:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
+-- <br>
+2.43.0<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
 
- drivers/gpu/drm/nouveau/nv84_fence.c | 2 +-
- drivers/gpu/drm/radeon/radeon_gart.c | 8 ++++----
- 2 files changed, 5 insertions(+), 5 deletions(-)
-
--- 
-2.34.1
-
+--_000_TY4PR01MB14432C77EDFD80D2075FFCC2A9834ATY4PR01MB14432jp_--
