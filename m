@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31051CA0EE0
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Aug 2025 03:59:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A0ACA0ED1
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Aug 2025 03:59:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A847410EAA1;
-	Fri, 15 Aug 2025 03:59:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFD0010EADA;
+	Fri, 15 Aug 2025 03:59:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Vs3TZ1k8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VT11ixeJ";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2085.outbound.protection.outlook.com [40.107.220.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4799D10EAA1;
- Fri, 15 Aug 2025 03:59:26 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2045.outbound.protection.outlook.com [40.107.93.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C99EC10EABC;
+ Fri, 15 Aug 2025 03:59:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gwVgJ9U1yQ+9QZcLq46tiCKwchrngHtHFtsBE6FSmjjN7kP9a52fpgGBVbbENv5pmpZSVqDf29qEEJlWlRzsOU2QPAHhNdKDRvnNZvKr/RsDifWtpofryFRdrqYM132NTEfbu1uaApeM985dRLA4PjNgYUSI4tQNdnYZ3hmOWECJtXjZTAK6Qkdmmx+F4r2qV9xhLUuCVhhIDpQSPnFsA8++fQPWrCof2BlBCjssbs/gdHJnOzBnBsWDlcEB3arzJhvgssSp1cFKAAAYlv/k6rChLtV+S+yNz1n8aAuPI2ZUv1PPY88URCytT2LCWrTL/ebVKyEcaGQRgz1LMrtuRA==
+ b=IE0iGxl+S8/nfxn/L+qjS1gZ9p/HpJrCkapl1q6Pn/xfasSL00LcRI1niHVa4VjoObuz2WRZkdGKPAq1eK+L9vtlzp7iljLKpLKkDpJmO+00lK+MPD8l1v6p+UliGZ+gVRe+A5YcZpmbh1E9BhGE81CfFeVzXf4IWBYiCPEO0438+O1IVKl6zLC0V3HsTJWO7MTEE+UP5E+Ff3SEHYi3kuJI0zRerA/XXxS+mRS2sSwuj/Fgn3RGFFpcGF7oryHWt5GspgirQtI6Fu3iSeZfybTFwHOsAZQBrlo/csuAu8POWxhKY/rcJ0QXRBZZ3+WqSSRn4RHU2qNpl55cvkI1jg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FY7P83lUJ03eAV2MXp1ka5HjiEOx82/5qxcgvHljxFw=;
- b=THvJ4BMVDJqj1g4n1umat2erMmbqniYTSLFuZCm/56e4MexuBX2r0fhThzROdHQVbsmu6KS+0KpqeyulWkJ9ikL1C4Uez7+CnIYz0JRpsLpgI6O/768tvfG3YeYpoYba65zJV7YfQWhRq1EEPR476BngsITqojBq5kKfeTi+RgpFzx5g1txXpmnERV9FAcF+Oxv/0qLh2ZQo3ebdcaBrcZfUXjXhnfYvkNbdzHZ3p5ehHQUSbsjw5433KpvSfKfMTBltVhj4FLx7tpZZyOovuX0vX0lWrmvOfWNzfDemHI7/b8MnI15R+pc31HPTfnLX3WjUSTLH0CmIxbz7lsDeig==
+ bh=zsbux+7KTfBtmvk3NhHOyAonrwS49rKHeauXwp8rMRE=;
+ b=VnL5gnJNFyRaBcl0DAAWQLBx/DDcS7/dRA3aycGtmWiQ3NcybtjqMsCoML9e7v64TrkAkc4VujhOG8W1z7Wjhlu7g4YcTtV89vw8LAY1qtwHnlUP2+arAcICFQ1T5szibTj1vydbppOYkTHFAK+5Z4E6FZjQF4kxhvsX7zOqLaSV285kKSfmfs0IxFdkUVwlOnteE4/OgB+kF7WCWHSm10BqlzSapWlzfff9CZCDeATbVjvxIlPj8BxA1+JzEB2vCiDrmKsEjy2Urj6M0HXTOYsdKZJFQTexAzxpsKGGDANf8VXcr3kLRa3S8Ll1SigVeL080Bx/iMCOUoANRAl4+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FY7P83lUJ03eAV2MXp1ka5HjiEOx82/5qxcgvHljxFw=;
- b=Vs3TZ1k8btpIcgxUweb/mbI+67E1/KaY7n0CPeIx2nVTl30kCh6K9t4WkG8nhZ7YRrxC7LTQfQ+Wrhej5NuHj2mf9MsxlOkoxz9EAPLEjD2IsJJpjfQ0Yd4sdSX/FsV0k5ZtHCoGYYctbISvSciSckZEQD6rLzgyg/cIPnrxj3g=
-Received: from SJ0PR05CA0028.namprd05.prod.outlook.com (2603:10b6:a03:33b::33)
- by DM6PR12MB4385.namprd12.prod.outlook.com (2603:10b6:5:2a6::14) with
+ bh=zsbux+7KTfBtmvk3NhHOyAonrwS49rKHeauXwp8rMRE=;
+ b=VT11ixeJfxfAFbA7N/TB16R8GORr8OP2Wq2nEjZLkUONsbgGZIlMupqneMl9vUNu2M+khs3GJWwtQPqGzbaktsl4YHSXHXbNytWTYSzr/A00dW8s9b2m7FMnMseMdJsznwuEiP8WKyW7C2rnRETDFqpXuKClRpVMdoHQUuJ1zdA=
+Received: from BL1P221CA0042.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:5b5::7)
+ by IA1PR12MB8520.namprd12.prod.outlook.com (2603:10b6:208:44d::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.15; Fri, 15 Aug
- 2025 03:59:22 +0000
-Received: from SJ5PEPF000001F5.namprd05.prod.outlook.com
- (2603:10b6:a03:33b:cafe::f5) by SJ0PR05CA0028.outlook.office365.com
- (2603:10b6:a03:33b::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.7 via Frontend Transport; Fri,
- 15 Aug 2025 03:59:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.18; Fri, 15 Aug
+ 2025 03:59:35 +0000
+Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
+ (2603:10b6:208:5b5:cafe::c5) by BL1P221CA0042.outlook.office365.com
+ (2603:10b6:208:5b5::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.18 via Frontend Transport; Fri,
+ 15 Aug 2025 03:59:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001F5.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Fri, 15 Aug 2025 03:59:22 +0000
+ 15.20.9031.11 via Frontend Transport; Fri, 15 Aug 2025 03:59:35 +0000
 Received: from kylin.lan (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 14 Aug
- 2025 22:59:17 -0500
+ 2025 22:59:32 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: <wayland-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
@@ -67,12 +67,10 @@ CC: <wayland-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
  <quic_cbraga@quicinc.com>, <quic_abhinavk@quicinc.com>, <marcan@marcan.st>,
  <Liviu.Dudau@arm.com>, <sashamcintosh@google.com>,
  <chaitanya.kumar.borah@intel.com>, <louis.chauvet@bootlin.com>,
- <mcanal@igalia.com>, <nfraprado@collabora.com>, Daniel Stone
- <daniels@collabora.com>
-Subject: [PATCH V11 32/47] drm/amd/display: Add support for BT.709 and BT.2020
- TFs
-Date: Thu, 14 Aug 2025 21:50:21 -0600
-Message-ID: <20250815035047.3319284-33-alex.hung@amd.com>
+ <mcanal@igalia.com>, <nfraprado@collabora.com>
+Subject: [PATCH V11 33/47] drm: Add Enhanced LUT precision structure
+Date: Thu, 14 Aug 2025 21:50:22 -0600
+Message-ID: <20250815035047.3319284-34-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250815035047.3319284-1-alex.hung@amd.com>
 References: <20250815035047.3319284-1-alex.hung@amd.com>
@@ -84,52 +82,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F5:EE_|DM6PR12MB4385:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93a7f205-e28e-4242-1ba3-08dddbb01e28
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|IA1PR12MB8520:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5e00ef5-f697-4505-2baa-08dddbb025f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|7416014|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jY4Vz0bdMrLp+I8ZhzMw9m+qfhp5qFR3KzDhyOiOBjuExHk9YkoHvwmYkoDV?=
- =?us-ascii?Q?ET/7n2HSx1aJahVIrOoexsJcDbVdFCRyb9qCxTEwip4LqMs2jvbvelmTmP/p?=
- =?us-ascii?Q?xe5H20gLDN9omsWCHoZGXMK529mY0oLbdyg3cB+uLtbwHarEFCWOLb1kUFNm?=
- =?us-ascii?Q?nAneOMRMxYLDp+kSI+b5tnJsucdAKv44hIettWJ5F6M8Cqh4BQrwSf8m8U0C?=
- =?us-ascii?Q?hFbFZ6fkX7eLxMCV+N7mj5RflV5/Dk6ctY09MKenQc4DMAu+26lJ+2w6gp19?=
- =?us-ascii?Q?QvdSu1Wwlm9xm6x9Pw69UjVNGnU0wtqpwUXu1Ygbgx6q9YYWde5yqT12LS41?=
- =?us-ascii?Q?gJCt0e69sYF5qePK8UrGiQ6sN8p5PV0aLowA67p83ntQcYT8SZiq14GwfO4n?=
- =?us-ascii?Q?ZU9Cq/QLcUFWpE5I58+pQaLRXnDGKeBqAwSi63nqzAB3jQPbgaGKIkIDFv3Q?=
- =?us-ascii?Q?3XoG7fUtmfQ90HeKSX6UDmkVS9TAUmMVbvPKVa9LT4mMCuuIycwg5u0bmYGH?=
- =?us-ascii?Q?5yciJ/3YA3vSKl68ZKB1NlBA+GS+5PvfsPTXCnIADOkopFG1g074As9Pgu8p?=
- =?us-ascii?Q?CXOF0n3KA33lczB8LxnK6nsc00iUp3qIkP/EOY92EN2OrVprLY6cPOi6OE+L?=
- =?us-ascii?Q?lLr1rIa8Vswo7+a9d4WPW7+XAwqcOhsQPI2HWevMHJxNcSHnZp5f9a0jvfz1?=
- =?us-ascii?Q?PPAUrFriEv578VCdHfa5XISkaBb+4YVsnLxl4OQ8Yo56hGEx0hqB4wkQIr3q?=
- =?us-ascii?Q?r6hOfkfIUR7JTLTlT3ch+9XoL/xhGlYAD0Eh82aLIyATCWsijslZjxzZFgKb?=
- =?us-ascii?Q?+N/mnUntywNlPFwD2DWtY2C1Vih0MgMP69LlOqcBqyh58+AUM+GZSmW0f/m2?=
- =?us-ascii?Q?2cdPYbCMWSDlI3CoVgzfnALUNU2u01xOC4e3OjC+nVOqH+3ROYPYi8NUHfsT?=
- =?us-ascii?Q?li8axUkGWXjxbkMgnQNkDJCppRX6Ui5STzaJhdZnRWg8SsPuojyb5hUhBxGb?=
- =?us-ascii?Q?ruD4M13HACblSV6t+9s1g+7WrTj8OYYILNQyavaQITcOUT6oLsb0KlhoI+ov?=
- =?us-ascii?Q?iB178yJDAkCfjKcGeyndgeBnYjjD2nkkgUWoHuj994ifqVctuslU7TVrU7Ar?=
- =?us-ascii?Q?Q22M/5NKCBPYAVCKcjWOQbZWMepnkQr6sFXv5ttFDdyFKchykpbU4LcIc2ey?=
- =?us-ascii?Q?g0z9MQR8W7a41hCr3OYDCmdlGEyZKX4YCHjt+L04oqbhk3CRMXZso1loZWfG?=
- =?us-ascii?Q?7TATuOq6Ji8sIzkFWXNKE0w9hOajdZwLFnAx8I2h8WDpFcvtMZroBqt+gj1x?=
- =?us-ascii?Q?Yx4HU7QH95Nj1LOQUoDq0nqClRx3bsMPd6aiX3H96JoYU1h65F8l/M7ZHkfM?=
- =?us-ascii?Q?61JnbabLKzxYfCXsR/yBjn8FL5tcv/vN5YaDUieMRn5/WesP6DgbOvkOupKf?=
- =?us-ascii?Q?jTSwFkM4TdWJqDPABeBinpiucuXPstptZp/ZkKJOD4dXH0g0mvpcQbcW+zSB?=
- =?us-ascii?Q?SS+/H0JhJT4S5poOmSDCWVqtp+8+TzYuAlya?=
+ ARA:13230040|7416014|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PpIyyJnfvuJsubrNsH3sCuA8zKGAxAwmMEVXbMmjRZZpZ6NqdCeTr2jenMfi?=
+ =?us-ascii?Q?DNBlS+QCQVbMWOZuR9kS2wmEwxViFt6bbHqAqObJgUt+kTcvS/npEJ2ZfFSc?=
+ =?us-ascii?Q?N30GabUIJOCJdVokgNFfHSh+dr0h+5XHhQx70omk0VvZ4M48qWqR+D2eJIOd?=
+ =?us-ascii?Q?VtbmmrfJdYH5sTDOKnZxDUxQSnkqhbQI3Ly6gzp7IBOncMym8+3XB9YYWHWp?=
+ =?us-ascii?Q?vHUXzzepiu8BuWdWPQXHlhOG6b9sGMMgFol7zYakdiCL9+ob36B6QpB8jsSm?=
+ =?us-ascii?Q?bK6ZwI6RykBOWdOVm0/LOx9Fw9SBmD+lOgQQpeAXBfqmbgj535RccEmhwfSi?=
+ =?us-ascii?Q?rXF5RY/VMr/9H1d3N1GPSwRTjZjkXcIcZyMgKAQucy7B37UJed5vE0V4tbjG?=
+ =?us-ascii?Q?7MmQFWedXz18K49oBUsyE5jFrM0DYUM4G4uQkF+/cumEh9at47faQFpjyBgV?=
+ =?us-ascii?Q?cj/8PPH/VoqlkbCngIulPhqTiRl0nR4PaHqpXg2Cb4m9pbJ9lPAD0s/hLXgb?=
+ =?us-ascii?Q?bykHvEl/T0kCcQ6+LRY+q7V5pcFSs37nkwicCn3vHoItsP5JTQps/kADSc3P?=
+ =?us-ascii?Q?Xe4HxMBH2IGmeHw30l5zIVls3HcRKUOh0/un+ZidOGCEshMg2KxjRuPyPWjT?=
+ =?us-ascii?Q?oJldYHN0iDaL+sJecq7p5UYkNIYDSs2nR25UZW5fOEmQLHUb6tiCUsVKsmqs?=
+ =?us-ascii?Q?nMKHxwxgxHFAJpn3tKWPfUNlsgsYRqT/SBttVRqR8Kj47oFZZrH6ALAUIu7V?=
+ =?us-ascii?Q?ggiJ/M/408WS+5xA/G9ir5dUS6bWDr6MZx6NEacjokNJM4vrKg6bsK4MJLcr?=
+ =?us-ascii?Q?rrKqcojH7/e9Mp6rCSH+gQ03lrTiU7R7zOgvP+Wr2SiQD5oREEbSOb4KAjHz?=
+ =?us-ascii?Q?WMhiCJOW0rIqB8a45h6Rf/tB4rjPqUwdP4d/iuYrPzDdDsvbIAkwJ0fCuVXQ?=
+ =?us-ascii?Q?WLUdqj+yHg0R3HsJ+dr0QicVkCKbt8L/MilDnvHOP212A//T/6GjCZPROXVG?=
+ =?us-ascii?Q?VYw5hwZNM2R7piHQWtm2UQ6mfmSWgNJ5ek5WaecXGecClWLmN8LrDz3j8VOi?=
+ =?us-ascii?Q?w0bfXz6ls+FjMdBjyy5p2p9EcRpuHaTfNJ4OrGakecvg52Apro51hn7TScIO?=
+ =?us-ascii?Q?wNehlI41loK3zWhPEO+4jUB9W3A5YR/5OT9yDweOfVLIVjK1Lq97mj4ekG8t?=
+ =?us-ascii?Q?6lwPMPWotJIXnL9qZXAlUfpdzvI81qBb/sIK9q/VDDwso+w/ciA5OCIOzlgU?=
+ =?us-ascii?Q?m103soGwfJ9riKY8HHvrwCvg3PBYqFbFocYB0j8PSgNtxAx840kUPMSSBer5?=
+ =?us-ascii?Q?rZfrOawa4G0v5FB+oxJe0HtoBLmt6f7A4Ah9EP5Fs1vu8WKhFShgb35jk7YC?=
+ =?us-ascii?Q?Czgj9QJ8ncD6sPySkWkgY/l9Q0vfkJcAiQNTxAmRwf5qYy4piCZxT5Ekmp9K?=
+ =?us-ascii?Q?KOHxqu5te6cAsGStMOSJT8DhwX7oRm3wMbOfohtocZm/M6cCEDbSJ2G+buRp?=
+ =?us-ascii?Q?iqs/oNs3NrOxcW/3DF0phYScGnkNjFt5P19A?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(7416014)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2025 03:59:22.1797 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93a7f205-e28e-4242-1ba3-08dddbb01e28
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2025 03:59:35.3553 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5e00ef5-f697-4505-2baa-08dddbb025f4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4385
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8520
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,74 +142,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Harry Wentland <harry.wentland@amd.com>
+From: Uma Shankar <uma.shankar@intel.com>
 
-This adds support for the BT.709/BT.2020 transfer functions
-on all current 1D curve plane colorops, i.e., on DEGAM, SHAPER,
-and BLND blocks.
-
-With this change the following IGT subtests pass:
-kms_colorop --run plane-XR30-XR30-bt2020_inv_oetf
-kms_colorop --run plane-XR30-XR30-bt2020_oetf
+Existing LUT precision structure drm_color_lut has only 16 bit
+precision. This is not enough for upcoming enhanced hardwares
+and advance usecases like HDR processing. Hence added a new
+structure with 32 bit precision values.
 
 Signed-off-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
+Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 ---
+v11:
+ - Update names from *_lut_32_* to *_lut32_* (Simon Ser)
+
 v10:
- - Move amdgpu_dm_supported_*_tfs check to Patch 32 (Melissa Wen)
+ - Include drm_color_lut_32 from Intel to support 32BIT RGB in 1D & 3D
+   LUTs (Uma Shankar)
 
-v9:
- - Move DRM_COLOROP_1D_CURVE_BT2020_* from middle to end
+ drivers/gpu/drm/drm_color_mgmt.c | 43 ++++++++++++++++++++++++++++++++
+ include/drm/drm_color_mgmt.h     | 13 ++++++++++
+ include/uapi/drm/drm_mode.h      | 12 +++++++++
+ 3 files changed, 68 insertions(+)
 
-v8: 
- - Move BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) in amdgpu_dm_supported_blnd_tfs
-   to "drm/amd/display: Enable support for PQ 125 EOTF and Inverse" (Leo Li)
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  | 3 +++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c    | 9 ++++++---
- 2 files changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 315a1028cd45..f645f9ded95f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -679,6 +679,9 @@ amdgpu_colorop_tf_to_dc_tf(enum drm_colorop_curve_1d_type tf)
- 	case DRM_COLOROP_1D_CURVE_PQ_125_EOTF:
- 	case DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF:
- 		return TRANSFER_FUNCTION_PQ;
-+	case DRM_COLOROP_1D_CURVE_BT2020_INV_OETF:
-+	case DRM_COLOROP_1D_CURVE_BT2020_OETF:
-+		return TRANSFER_FUNCTION_BT709;
- 	default:
- 		return TRANSFER_FUNCTION_LINEAR;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-index f79b52ef7d5d..d7162fab0884 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-@@ -33,15 +33,18 @@
+diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+index 37a3270bc3c2..9c469f7fe0df 100644
+--- a/drivers/gpu/drm/drm_color_mgmt.c
++++ b/drivers/gpu/drm/drm_color_mgmt.c
+@@ -840,3 +840,46 @@ void drm_crtc_fill_palette_8(struct drm_crtc *crtc, drm_crtc_set_lut_func set_pa
+ 		fill_palette_8(crtc, i, set_palette);
+ }
+ EXPORT_SYMBOL(drm_crtc_fill_palette_8);
++
++/**
++ * drm_color_lut32_check - check validity of extended lookup table
++ * @lut: property blob containing extended LUT to check
++ * @tests: bitmask of tests to run
++ *
++ * Helper to check whether a userspace-provided extended lookup table is valid and
++ * satisfies hardware requirements.  Drivers pass a bitmask indicating which of
++ * the tests in &drm_color_lut_tests should be performed.
++ *
++ * Returns 0 on success, -EINVAL on failure.
++ */
++int drm_color_lut32_check(const struct drm_property_blob *lut, u32 tests)
++{
++	const struct drm_color_lut32 *entry;
++	int i;
++
++	if (!lut || !tests)
++		return 0;
++
++	entry = lut->data;
++	for (i = 0; i < drm_color_lut32_size(lut); i++) {
++		if (tests & DRM_COLOR_LUT_EQUAL_CHANNELS) {
++			if (entry[i].red != entry[i].blue ||
++			    entry[i].red != entry[i].green) {
++				DRM_DEBUG_KMS("All LUT entries must have equal r/g/b\n");
++				return -EINVAL;
++			}
++		}
++
++		if (i > 0 && tests & DRM_COLOR_LUT_NON_DECREASING) {
++			if (entry[i].red < entry[i - 1].red ||
++			    entry[i].green < entry[i - 1].green ||
++			    entry[i].blue < entry[i - 1].blue) {
++				DRM_DEBUG_KMS("LUT entries must never decrease.\n");
++				return -EINVAL;
++			}
++		}
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_color_lut32_check);
+diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+index 6cb577f6dba6..c422f352a150 100644
+--- a/include/drm/drm_color_mgmt.h
++++ b/include/drm/drm_color_mgmt.h
+@@ -72,6 +72,18 @@ static inline int drm_color_lut_size(const struct drm_property_blob *blob)
+ 	return blob->length / sizeof(struct drm_color_lut);
+ }
  
- const u64 amdgpu_dm_supported_degam_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
--	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF);
-+	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
-+	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF);
++/**
++ * drm_color_lut32_size - calculate the number of entries in the extended LUT
++ * @blob: blob containing the LUT
++ *
++ * Returns:
++ * The number of entries in the color LUT stored in @blob.
++ */
++static inline int drm_color_lut32_size(const struct drm_property_blob *blob)
++{
++	return blob->length / sizeof(struct drm_color_lut32);
++}
++
+ enum drm_color_encoding {
+ 	DRM_COLOR_YCBCR_BT601,
+ 	DRM_COLOR_YCBCR_BT709,
+@@ -145,4 +157,5 @@ void drm_crtc_load_palette_8(struct drm_crtc *crtc, const struct drm_color_lut *
  
- const u64 amdgpu_dm_supported_shaper_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF) |
--	BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF);
-+	BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF) |
-+	BIT(DRM_COLOROP_1D_CURVE_BT2020_OETF);
+ void drm_crtc_fill_palette_8(struct drm_crtc *crtc, drm_crtc_set_lut_func set_palette);
  
- const u64 amdgpu_dm_supported_blnd_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
--	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF);
-+	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
-+	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF);
++int drm_color_lut32_check(const struct drm_property_blob *lut, u32 tests);
+ #endif
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index f309d2863180..bcc4e9845881 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -872,6 +872,18 @@ struct drm_color_lut {
+ 	__u16 reserved;
+ };
  
- #define MAX_COLOR_PIPELINE_OPS 10
- 
++/*
++ * struct drm_color_lut32
++ *
++ * 32-bit per channel color LUT entry, similar to drm_color_lut.
++ */
++struct drm_color_lut32 {
++	__u32 red;
++	__u32 green;
++	__u32 blue;
++	__u32 reserved;
++};
++
+ /**
+  * enum drm_colorop_type - Type of color operation
+  *
 -- 
 2.43.0
 
