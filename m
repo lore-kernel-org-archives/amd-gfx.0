@@ -4,68 +4,181 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C49F4CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Aug 2025 18:49:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BE17CA0ED1
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Aug 2025 19:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 570D510E35D;
-	Fri, 15 Aug 2025 18:49:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 997BE10E029;
+	Fri, 15 Aug 2025 19:26:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SB2Eg6K7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="i+5m0D9d";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 996A010E031;
- Fri, 15 Aug 2025 18:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1755283775; x=1786819775;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=DlE/fj8sPL0XMQlCBdjMpSx6Fc4oW5PoWJ6kRKHY17Y=;
- b=SB2Eg6K7RHG6NSm7sG9kpcadFvGKLLmohVbIC80lHw8kkFXnnuQwxOIK
- wdQbjd0lO87a5nFZvt6A4jO++F5vMRwaUVNzz4gLE6T4moLMOlYgpO8Qs
- URtwD3qhnf0k4uwRNiA6iMblC3Xza7brojuKIFMVR3wmzuftdbjtICw/8
- IZ9EppBwEyKzJ2h6IxhJr/tufj4XvZPHnPSg7hPwgQl0RxcvPwT/QUXoG
- TLn0YslsVplm0wkDn+zWj8jKLflPGAlWNTSuosHwmsJS1t9reXJz9cN7v
- zHEH6fMumYfd6vKYu80tAqc8nK455Bwg6uafWqtrcNJLqVv+MSp3ZZIDc Q==;
-X-CSE-ConnectionGUID: nlj+vfNiRN6J+py/Dceebg==
-X-CSE-MsgGUID: 61OoSm1cTAKryfV7l0Rr0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11523"; a="68210778"
-X-IronPort-AV: E=Sophos;i="6.17,293,1747724400"; d="scan'208";a="68210778"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2025 11:49:34 -0700
-X-CSE-ConnectionGUID: 2OcuY8pMR6u9WtT9jKZxmA==
-X-CSE-MsgGUID: 2SB3rMFORvOw+ylIle5nHA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,293,1747724400"; d="scan'208";a="166290707"
-Received: from lkp-server02.sh.intel.com (HELO 4ea60e6ab079) ([10.239.97.151])
- by orviesa010.jf.intel.com with ESMTP; 15 Aug 2025 11:49:27 -0700
-Received: from kbuild by 4ea60e6ab079 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1umzU8-000CFY-11;
- Fri, 15 Aug 2025 18:49:12 +0000
-Date: Sat, 16 Aug 2025 02:48:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, wayland-devel@lists.freedesktop.org,
- harry.wentland@amd.com, alex.hung@amd.com, leo.liu@amd.com,
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com,
- contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com,
- sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com,
- aleixpol@kde.org, xaver.hugl@gmail.com, victoria@system76.com,
- daniel@ffwll.ch, uma.shankar@intel.com, quic_naseer@quicinc.com,
- quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com,
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
- mcanal@igalia.com
-Subject: Re: [PATCH V11 02/47] drm/vkms: Add kunit tests for VKMS LUT handling
-Message-ID: <202508160245.qVEHX6YB-lkp@intel.com>
-References: <20250815035047.3319284-3-alex.hung@amd.com>
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DAAA10E029;
+ Fri, 15 Aug 2025 19:26:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BLfLQ2cgQFowW2cmCLbc3L57cxptdtv77fNHJ60nbEcLevKXIJW02Clu7xvOv21xHqhjwlfHmMXaW9dz4LaxSaDmRJcndgPMpXlBTb6hNi8heG8tu+tpIpNChcMz4aUNkhJ2nrH0cS53OBgpw/qutjDXwPv9K7+wpHkPrELv0srjO3TlM0T6xeZBKOT79NTt4zTpfIXUT3qAXcbrYoeglqs2VGLdaiiK8uaU3IAoHZYp0T7GXEWbeSYq0PIqvr1hCbb7zlm7aSPSthPqb56D4aqfm41N5nk4cXIYxOC2/EXMl3eUjTaT+d4+4fGA9oLWeo5yI4EEi6+GSl1QY0g9kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GGZU3WDVLPP9/zrCv0LCmgCw6eyUYSZTyKHWUUlQXPc=;
+ b=QCyM5aZ5QoWyHWwanBmqtUM4ET9GqRE8MIZpvpkasKH04gDm92D69EilHBMCZ9VPBJRTVhvwvQgsL5m2AepfGoI0PD/entkd4LmZCs3zsZADkTIS/gWEmkPtCXsVbPHJ9sX8adgdZxmRXJfhuDOBMVVtvOPlTxvqW8kIlDjkWjzXzzX5F6i0F9aURl51V/IzAh5G5w5ZjtnJN5JyUBf8wQaZSikWaxMOZl2R43wH/P0HFsgJOZePMc9yB4wVrDU7sys5MfpKudKtli1bni2Bm/eWAnrRdIYydKL4vVY+RYT+70CD1fLM6ky4PB5Gxi/57TcqEEPFvgw6XHFePeTtmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GGZU3WDVLPP9/zrCv0LCmgCw6eyUYSZTyKHWUUlQXPc=;
+ b=i+5m0D9dyY7s4E4KF6BcqS0zZADCkdbwLvh+I0qNf5WcqVaB4fQRtEnxL1SBQqkY905X06exjMr7TQP4RA3cZKs/vCSoNQkG1uRZH+gcMFkI01ucU2gk9qWjy8Nbte85/d5F7g2C9L+NJ0X330/B4AoR+VTVtZHnPQ42kzTKz50=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by DS0PR12MB9397.namprd12.prod.outlook.com (2603:10b6:8:1bd::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.15; Fri, 15 Aug
+ 2025 19:26:13 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1%6]) with mapi id 15.20.9031.014; Fri, 15 Aug 2025
+ 19:26:12 +0000
+Message-ID: <774b1164-b1e9-4b99-9dae-b6688980e39d@amd.com>
+Date: Fri, 15 Aug 2025 13:26:09 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V11 31/47] drm/colorop: add BT2020/BT709 OETF and Inverse
+ OETF
+To: Qu Shengyu <wiagn233@outlook.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "leo.liu@amd.com" <leo.liu@amd.com>,
+ "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
+ "pekka.paalanen@collabora.com" <pekka.paalanen@collabora.com>,
+ "contact@emersion.fr" <contact@emersion.fr>,
+ "mwen@igalia.com" <mwen@igalia.com>, "jadahl@redhat.com"
+ <jadahl@redhat.com>, "sebastian.wick@redhat.com"
+ <sebastian.wick@redhat.com>,
+ "shashank.sharma@amd.com" <shashank.sharma@amd.com>,
+ "agoins@nvidia.com" <agoins@nvidia.com>, "joshua@froggi.es"
+ <joshua@froggi.es>, "mdaenzer@redhat.com" <mdaenzer@redhat.com>,
+ "aleixpol@kde.org" <aleixpol@kde.org>,
+ "xaver.hugl@gmail.com" <xaver.hugl@gmail.com>,
+ "victoria@system76.com" <victoria@system76.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "uma.shankar@intel.com" <uma.shankar@intel.com>,
+ "quic_naseer@quicinc.com" <quic_naseer@quicinc.com>,
+ "quic_cbraga@quicinc.com" <quic_cbraga@quicinc.com>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
+ "marcan@marcan.st" <marcan@marcan.st>,
+ "Liviu.Dudau@arm.com" <Liviu.Dudau@arm.com>,
+ "sashamcintosh@google.com" <sashamcintosh@google.com>,
+ "chaitanya.kumar.borah@intel.com" <chaitanya.kumar.borah@intel.com>,
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>,
+ "mcanal@igalia.com" <mcanal@igalia.com>,
+ "nfraprado@collabora.com" <nfraprado@collabora.com>,
+ Daniel Stone <daniels@collabora.com>
+References: <20250815035047.3319284-1-alex.hung@amd.com>
+ <20250815035047.3319284-32-alex.hung@amd.com>
+ <TY4PR01MB14432C77EDFD80D2075FFCC2A9834A@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <TY4PR01MB14432C77EDFD80D2075FFCC2A9834A@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW2PR16CA0060.namprd16.prod.outlook.com
+ (2603:10b6:907:1::37) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250815035047.3319284-3-alex.hung@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS0PR12MB9397:EE_
+X-MS-Office365-Filtering-Correlation-Id: 399bb75e-e9e2-4f49-412a-08dddc319854
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RFRaMXJ1UEFickVWZnhJTm5pc0E2dXpyZGZ4QXNYdWhjMFUvOE5YT1h2amRa?=
+ =?utf-8?B?UDdNWWlyL2M0WGp3d3QzSVhuRVNnSDhxbXdpV2tDQ0JWdW1VQjJQbmVxUkgw?=
+ =?utf-8?B?TVd1dkRqOCsvL2ZtdUswUEk4RzNjQ1Y2N3o4NnZHNGw0YVc1Z1lPcHpFS3Bt?=
+ =?utf-8?B?S21mcjZ4UStMcXBRaUJ3VCtoNDAwTm5RNjlFZmswK2pJa3RVMVI2c05keGxI?=
+ =?utf-8?B?bVplOFMrOW1pMm4wWDVGRzZxeE12TmlERUsxdmUxMitVZ3czQjdpRk5hQ0Rq?=
+ =?utf-8?B?YkJuOGgwTjQ0L0VRV2g1OTA5OHpCVUhKNlp4amg0UEtJMDU1Ukp6ZFBKL3Ar?=
+ =?utf-8?B?S1BkQXhqVTNheVZIOUs5QWZ2T2tPd2FibWsrWXpKMzdkNU1BdDVVVi9DNmpt?=
+ =?utf-8?B?WmpiTkF1bHZjRW1ublBWZm9QNHZLZzVNZUc1cXBwK2ZOMFFIalZQTHFzU1Rh?=
+ =?utf-8?B?V3RWNXQrS2ZlOUhqMG01M1FFU1hLYldoVXhYaUdNWTJLZEwxMFIwZ3pZc0Fi?=
+ =?utf-8?B?dkFaZFVqeDBoeHZEMkNpZUgzWGgvM0NaTVdxY0thNWVEMzY3L0R4Qm4yWGZN?=
+ =?utf-8?B?MmtldTlNZVgvVHBaNUxTTzRlSmVtaitwNXpibEs5cXhGRVovd0Z2UmJ2b1F1?=
+ =?utf-8?B?QnJ1b2tjTkwxUUx3ck1QOE5rYi9XUGZuWkN1RElpMnY5ZnZpOTV5RGE1VndE?=
+ =?utf-8?B?ZkxnQXkvZGpEbkR6bEgvbTFiT3BkSFUyZXdPTjdLeDVoSStSZk52TjJ4N1R5?=
+ =?utf-8?B?eXhKVlJ1T1VRUHp2WWlNUkdnaXFFd0t3S1hnWHZhV1pKR1ExUmxjajJXdGNE?=
+ =?utf-8?B?d0RuQm00ZXZ1M2VpaUhVdDVTZGFlcHQzb0FYZE11OUx1Z0lPamFPamFKZU5R?=
+ =?utf-8?B?bTNDTm8vQThlVHc1anFwRU9JaEs1akpLMG9nMjgvVjBUdFVma1A2KzFsb05Z?=
+ =?utf-8?B?L296VFFOWjlDZTk2QjM2WjlwR2NacWorS0lFNWFLaW45WWd6RnRzbTNyNTlk?=
+ =?utf-8?B?Y0VEcFZBdnl5RkVkZXZrUnFsTUNNSEk1c0JxR1Q4amZYSjBIYmRYVE5HQnA5?=
+ =?utf-8?B?cDlPajVhT2c4Y3FzSnFLUVllaWlmbUhtaGFRWnFCOGhreHErM3RFTTVnUlgz?=
+ =?utf-8?B?ME44V0FId3ZUNkpVREhFQTJjOEUwaFo2Mjc0QnNBU2pKYW1maVdsemd5VTBE?=
+ =?utf-8?B?TVl2YWR1M0hnVkVtVnFFY2dmK1dYOWY0NVo4RTBkbjdtdDNyMmlMTTRwdEVP?=
+ =?utf-8?B?UDBkZTZqTVlzbWdCZ2FQVUkyKzR3Wm5STGZnTXdKcHBoU3lsemxNb0NraHFL?=
+ =?utf-8?B?dlUvQWdiOGJ4UGtqSzlFSnZiSE53b2lXeWNmMlZ5ZFFLcXp0R2dHeGwzcE9B?=
+ =?utf-8?B?cjZKRU9BWjVNa2p4ejIxTXg1QUJESkVZVUE3ZUMxcjN1eCsxR3NJVUhGSkpQ?=
+ =?utf-8?B?THUzcFdQODlKOGdUL3IxWXpTUFhJSGxNeUozMTgxTVlDbzB1VHJFelExNmhx?=
+ =?utf-8?B?SDg2Z2xWUkpBbmJYUzBVZ0Fxa0Yza084U2V3NmZGZmxyL1o3aTl0NXE3cXFV?=
+ =?utf-8?B?ZUIvaFBLdUpOQU9MNnB3eTNINjVoNjdqTUtNMXBhODhVek5VNlBYdVkxd01G?=
+ =?utf-8?B?bzBmL3A5UnczM2wwQzBnZThLcURDdGliQWRhaUZLV1F1NmNLMUpTWWwwOW10?=
+ =?utf-8?B?RlJUS0hLTU92bnZ2cXc0cytHNm1FTVkxMVkvczh3d2tuYUdUNndkZFhQblRT?=
+ =?utf-8?B?aURkek4zT2FlUW5UZ3ZHYlRTMFptVTIrVGJuNG5WQStsWnRFVkprRUVBMjdk?=
+ =?utf-8?B?TVNTZFc2L3Yzajh2dkdVRnVuOU5rZVdxTkJDcHVadXlxRDVhSVRJdlVkMC9V?=
+ =?utf-8?B?b3JUUENtT2xBSUtrZ28yZWdqWGtwb0Z2akhrSm9ta3lLY2NZaTYwOVNtaEU2?=
+ =?utf-8?Q?u6D2e8QXoVE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UmVMQW0wNEJCUHc1Tnp0Y3JyMDJPSVdTTjJkUDJkVUFGK1NnSVY5M0xuYzBL?=
+ =?utf-8?B?RmdUQSs0N2lPNEpoUXYvbDhlY2wwSm9rOUovcmZnNGEyMGFicjdRTTZ5TU1u?=
+ =?utf-8?B?ZTQ5RFRNYWMySDFLMnNiamM0TTFKWTlFWXNDQU9qMXQ3K2dpbnJmZ0V6Q2tN?=
+ =?utf-8?B?dG9qWXVZSUZKUXY4ODJlWk0rKzY0RkVQREhzbGVxdWkxM1hUZjA4dlR6UkRj?=
+ =?utf-8?B?azBSMnpjL3psUFdNN2V2THhBRkl4bkFxM2ZUSjdsc1F4dFNZUFhlbXhOcGVN?=
+ =?utf-8?B?bEZWM1ZIVDRnYm5RUVBxNXVrT3RRMzlscmFCZVFLRFNYWXFmN2w1eEVGL0V1?=
+ =?utf-8?B?dWVBY1dNY0pXYjl6MjV6VDk3M04rQkFyUDU0eklCOTVqbkJBYWgrdUdJYkUw?=
+ =?utf-8?B?S21MZHlhVmJWNnQxN2hNT2ZhUkE5TkFkRXVtd0VJREI3WTMzRWFnNDFhQi9R?=
+ =?utf-8?B?ODZPN3U4cmZuZXYwa0tuZUp1YnFRT09QN1VMcjJ0enRad05QSVZDb3lmSWVy?=
+ =?utf-8?B?amZtZnM3ZjhrbTVVazZMNXZGWm9qQWN3Z1RGd2RYNGVCaDh2aVJxdXFYY3d2?=
+ =?utf-8?B?VFNFa0ZhTGNtaEdIR3ZNQlU3ZkNsSHl6RVBUSUprVVRiL2Q5VlZCc2c4WUUx?=
+ =?utf-8?B?UStOVnB4cEM2bWZza3ZMZlZMRHgrY0hiT0NHQkt4QlBVNk1COWIxa2prYjVz?=
+ =?utf-8?B?SW9icXdieUlia3ltSy9zSXp4eVI3QlgveFBnTUQ3QVFUcEZseHpmZHZzeFNT?=
+ =?utf-8?B?N3FNSDVwRnhEcDc1VXdmNkxzT1V3ell1Wk1IQ2ZNanVhS1ZNUXZyQkwwNHhn?=
+ =?utf-8?B?blJldnlVUEVmaXFqUlBBZFNTRU1TQVgvV1ZXSFJsOXNhRmZMZElnc0VUcms1?=
+ =?utf-8?B?c2VZMk5HdER3djhDTURHbS9ybHR0blVaa0ppLzRsblAzWGlsM0VCRTcxOCts?=
+ =?utf-8?B?ME1HRWFwaFcxVUhNaVpqL1JsRFNEdForYWFRRzUrSXVidjJuOXFzdDkxQkxT?=
+ =?utf-8?B?bWdjTUhQVWVBMmFKeG1UZ1MxRTRtaXVUZ2YvRXZGd1RvM093N2RJMy9CeEJl?=
+ =?utf-8?B?VEFiYnR1Wjc2M1lwTjBLUHhnbUVUcGRIcFdpM0k0bzltYTZ0aGJHSlFGSHZS?=
+ =?utf-8?B?bzlCdWgvMC9zeGhiNG13VWhtMXNXQlFlODQySkd2Zk5VbkVzcmVpYmIrS0V6?=
+ =?utf-8?B?VDNYQ1ZTNkNLaXA0ZlN0aHlBOVVuZmpjelRuaXNTOXdaTnhLWSs5bmNkMzFj?=
+ =?utf-8?B?SGFpL2k5VHRUeEpOc1ZWUHorYjRoSmlTMGxMcHBSdlJNOTkvaWdyZ0xoT3BW?=
+ =?utf-8?B?dkpZVlJiYXpDNmN2Ly9PdUphNTYrL0xDVHQ4L2RKKzlUWkVaSmkyRUtLdDJP?=
+ =?utf-8?B?L1ArQk80L0JvYTZZTXFHQVdvbC9PUzczRXYraENKNC9VQ2dqMFE1dXBkWlEz?=
+ =?utf-8?B?RStFTjVNNHN1S0ZlL1pJLzBJUWhaODc2NXVpZ3BLcDVYWVBRNHltTWF0VU92?=
+ =?utf-8?B?eHkyTExNN21zMDhrcTBzUmEvbHVsMG5VRFJmOXBOeHA2U2lIdkUxbGVuV0k5?=
+ =?utf-8?B?bi9BbzlZeDc2bFlSYzJuMnpjVnllMUxvNVpnSi9nZWJWVDFVczVTcURkNVAx?=
+ =?utf-8?B?cDFxWkRUdlk5K0ZXRWsvTnlnYU52L3FBUTBOV2FXellIWlVFTHdUcVJNRVZ5?=
+ =?utf-8?B?VU5penVtakN6Z3VsN1hzck9MaWF5b0l4TWI2enpPN0Z0R0xKRzI3d3hmVHhw?=
+ =?utf-8?B?ci9tcXBNUDBxTUlVSllPSEducUt3TzIxQWMzbHNQL3lmL2tJTUlQSUxvamNw?=
+ =?utf-8?B?akdLYjFncnluaUNDSkNwRzBUMm1ITUxubkVCSmhJaGdhbGwzYnRTRXR2clN4?=
+ =?utf-8?B?eFhTVzM4Y0h0c3RETG9zc3hjcS80Z29vL2Y0T2h6d3k2eVRXODZuU2FIS0lr?=
+ =?utf-8?B?OWtlekNIMk5EcnE3RkU3Wk5qTlpYWGN3cDJkRlExSDB5M1RpdDJORVliZDFK?=
+ =?utf-8?B?V3hJSXBya0d0VFNBTmFuZXRxdlV3RDMzTTVOVE03V3ptODdscXBnejdjUkt4?=
+ =?utf-8?B?SnB1OC84VWZRVms2ZXlvNmNiaVovUXZLbENVSC9CYkM2ekNDaXo3enQ1czFa?=
+ =?utf-8?Q?/WjSGPwo+RfI0YMUaYn7WsPis?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 399bb75e-e9e2-4f49-412a-08dddc319854
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2025 19:26:12.6761 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: K+GNNi5pA701j3lciUAkPX/PiEICvCr7z4JVMIhYvbei42R+fzF5Ov5JTXG8a2sTxUKDw/B74Je/w3CE80wI4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9397
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,139 +193,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on drm-exynos/exynos-drm-next]
-[also build test ERROR on linus/master v6.17-rc1 next-20250815]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Hung/drm-Add-helper-for-conversion-from-signed-magnitude/20250815-120435
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
-patch link:    https://lore.kernel.org/r/20250815035047.3319284-3-alex.hung%40amd.com
-patch subject: [PATCH V11 02/47] drm/vkms: Add kunit tests for VKMS LUT handling
-config: arc-randconfig-001-20250816 (https://download.01.org/0day-ci/archive/20250816/202508160245.qVEHX6YB-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250816/202508160245.qVEHX6YB-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202508160245.qVEHX6YB-lkp@intel.com/
-
-All error/warnings (new ones prefixed by >>):
-
-   In file included from drivers/gpu/drm/vkms/vkms_composer.c:15:
->> drivers/gpu/drm/vkms/vkms_composer.h:10:32: warning: 'struct vkms_color_lut' declared inside parameter list will not be visible outside of this definition or declaration
-    s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
-                                   ^~~~~~~~~~~~~~
->> drivers/gpu/drm/vkms/vkms_composer.c:76:22: error: conflicting types for 'get_lut_index'
-    VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
-                         ^~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/vkms/vkms_composer.c:15:
-   drivers/gpu/drm/vkms/vkms_composer.h:10:5: note: previous declaration of 'get_lut_index' was here
-    s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
-        ^~~~~~~~~~~~~
-   In file included from include/linux/linkage.h:7,
-                    from include/linux/preempt.h:10,
-                    from include/linux/spinlock.h:56,
-                    from include/drm/drm_crtc.h:28,
-                    from include/drm/drm_atomic.h:31,
-                    from drivers/gpu/drm/vkms/vkms_composer.c:5:
-   drivers/gpu/drm/vkms/vkms_composer.c:82:24: error: conflicting types for 'get_lut_index'
-    EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
-                           ^~~~~~~~~~~~~
-   include/linux/export.h:76:21: note: in definition of macro '__EXPORT_SYMBOL'
-     extern typeof(sym) sym;     \
-                        ^~~
-   include/kunit/visibility.h:27:44: note: in expansion of macro 'EXPORT_SYMBOL_NS'
-        #define EXPORT_SYMBOL_IF_KUNIT(symbol) EXPORT_SYMBOL_NS(symbol, "EXPORTED_FOR_KUNIT_TESTING")
-                                               ^~~~~~~~~~~~~~~~
-   drivers/gpu/drm/vkms/vkms_composer.c:82:1: note: in expansion of macro 'EXPORT_SYMBOL_IF_KUNIT'
-    EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
-    ^~~~~~~~~~~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/vkms/vkms_composer.c:15:
-   drivers/gpu/drm/vkms/vkms_composer.h:10:5: note: previous declaration of 'get_lut_index' was here
-    s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
-        ^~~~~~~~~~~~~
 
 
-vim +/get_lut_index +76 drivers/gpu/drm/vkms/vkms_composer.c
+On 8/15/25 11:54, Qu Shengyu wrote:
+> Hello,
+> 
+> What actually is this OETF? Is it power 1/2.4? Or reversed BT.1886?
 
-    14	
-  > 15	#include "vkms_composer.h"
-    16	#include "vkms_drv.h"
-    17	
-    18	static u16 pre_mul_blend_channel(u16 src, u16 dst, u16 alpha)
-    19	{
-    20		u32 new_color;
-    21	
-    22		new_color = (src * 0xffff + dst * (0xffff - alpha));
-    23	
-    24		return DIV_ROUND_CLOSEST(new_color, 0xffff);
-    25	}
-    26	
-    27	/**
-    28	 * pre_mul_alpha_blend - alpha blending equation
-    29	 * @stage_buffer: The line with the pixels from src_plane
-    30	 * @output_buffer: A line buffer that receives all the blends output
-    31	 * @x_start: The start offset
-    32	 * @pixel_count: The number of pixels to blend
-    33	 *
-    34	 * The pixels [@x_start;@x_start+@pixel_count) in stage_buffer are blended at
-    35	 * [@x_start;@x_start+@pixel_count) in output_buffer.
-    36	 *
-    37	 * The current DRM assumption is that pixel color values have been already
-    38	 * pre-multiplied with the alpha channel values. See more
-    39	 * drm_plane_create_blend_mode_property(). Also, this formula assumes a
-    40	 * completely opaque background.
-    41	 */
-    42	static void pre_mul_alpha_blend(const struct line_buffer *stage_buffer,
-    43					struct line_buffer *output_buffer, int x_start, int pixel_count)
-    44	{
-    45		struct pixel_argb_u16 *out = &output_buffer->pixels[x_start];
-    46		const struct pixel_argb_u16 *in = &stage_buffer->pixels[x_start];
-    47	
-    48		for (int i = 0; i < pixel_count; i++) {
-    49			out[i].a = (u16)0xffff;
-    50			out[i].r = pre_mul_blend_channel(in[i].r, out[i].r, in[i].a);
-    51			out[i].g = pre_mul_blend_channel(in[i].g, out[i].g, in[i].a);
-    52			out[i].b = pre_mul_blend_channel(in[i].b, out[i].b, in[i].a);
-    53		}
-    54	}
-    55	
-    56	
-    57	static void fill_background(const struct pixel_argb_u16 *background_color,
-    58				    struct line_buffer *output_buffer)
-    59	{
-    60		for (size_t i = 0; i < output_buffer->n_pixels; i++)
-    61			output_buffer->pixels[i] = *background_color;
-    62	}
-    63	
-    64	// lerp(a, b, t) = a + (b - a) * t
-    65	VISIBLE_IF_KUNIT u16 lerp_u16(u16 a, u16 b, s64 t)
-    66	{
-    67		s64 a_fp = drm_int2fixp(a);
-    68		s64 b_fp = drm_int2fixp(b);
-    69	
-    70		s64 delta = drm_fixp_mul(b_fp - a_fp, t);
-    71	
-    72		return drm_fixp2int_round(a_fp + delta);
-    73	}
-    74	EXPORT_SYMBOL_IF_KUNIT(lerp_u16);
-    75	
-  > 76	VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
-    77	{
-    78		s64 color_channel_fp = drm_int2fixp(channel_value);
-    79	
-    80		return drm_fixp_mul(color_channel_fp, lut->channel_value2index_ratio);
-    81	}
-    82	EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
-    83	
+https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf 
+(Table 4?)
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> 
+> Best regards,
+> Shengyu
+
