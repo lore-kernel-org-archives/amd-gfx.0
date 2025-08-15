@@ -4,139 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6F6BCA0ED1
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Aug 2025 16:11:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C49F4CA0EE4
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Aug 2025 18:49:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87B1010E068;
-	Fri, 15 Aug 2025 16:11:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 570D510E35D;
+	Fri, 15 Aug 2025 18:49:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sWLUPg1n";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SB2Eg6K7";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D620A10E068;
- Fri, 15 Aug 2025 16:11:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wa2Ju5D8+OyZdaBvDya51/pNULG2cmLi+YbVcRL5FtzwLGHiOZbn9cGBa7wwitjRK0c3WFVn2ZlFPHzh4nSfK6c2rb5ja1KPoU5/n70bCPUykoH4kTxTLqwa/SaVeAU0iBBb4VSjqgSgV1wYgfscFuaDdxVpYYyK8I2Pwu4nFl+lZn/WdcV19mOmzbhPnZT1nItn1Hy+Msuflfoa+2jY1zSvCeqDCE+6YqDZz0SWelZmq7X5INJVZ4j6pNkx8kCuPdsImhYvWtac4rlhh6lv7+nGeYfSPRjAUbPLs64+cWnoSwhaf86//cj8viccl4n3woNI1e1Xz6LTN9KMNvjIRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fk6Kf/9Ca3TAlFi6uqG8aJjMi6uVfBgR0Q6U+rjcKHA=;
- b=NUrsJKCt4A7koHxN4CqkuyniDiesvfE/yieuTEveZfWmd45gptCVcRTmzz9jC7O/Xp5Tctf5+lxG67Pkt9rLx0LOhzZi+Zme420/EzUlvr6pSWDctB6AtnAVxI+F0aa+F1hr6jzg1qQmMQ4wCaHprexiTd+OAi1mFapfktdRZGoEeKj9vf+1mMNdVGeu41vwVHBPA2NzdLBhJ13fOt6k/nizlSg0dZgLZ+sKKJHf+DWa660JqBnoTNx4rn/9HldwydQ60ZrBP7gbRM6RF6kmmzybz5bF469t/KjcJ4TRXIWccBb/ujop8sdcnvutLdtVqnGp/8GpGT+17mPAUCsYFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kode54.net smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fk6Kf/9Ca3TAlFi6uqG8aJjMi6uVfBgR0Q6U+rjcKHA=;
- b=sWLUPg1nhZ/zggEJDBqZKcpRKl+H3KNHqN+lZG8lzH4ltZWeIxQzM8ghe+w7Rkbgmz8KArfsIR0cuRPolLvxklqCAHnrQzBnO9r+KO+u3crCJOkAaJYee7qeBiudmPE+tMRNS0terYh5n/rby76PqdgLSr95ZVcSJVM+xID57u8=
-Received: from DS7P220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::17) by
- SJ5PPFABE38415D.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::99e)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.16; Fri, 15 Aug
- 2025 16:11:43 +0000
-Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
- (2603:10b6:8:1ca:cafe::38) by DS7P220CA0003.outlook.office365.com
- (2603:10b6:8:1ca::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.19 via Frontend Transport; Fri,
- 15 Aug 2025 16:11:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Fri, 15 Aug 2025 16:11:43 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Aug
- 2025 11:11:42 -0500
-Received: from [10.4.13.140] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 15 Aug 2025 11:11:42 -0500
-Message-ID: <1b7fb3d2-1df4-42eb-90ae-d032feadaae2@amd.com>
-Date: Fri, 15 Aug 2025 12:11:42 -0400
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 996A010E031;
+ Fri, 15 Aug 2025 18:49:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1755283775; x=1786819775;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=DlE/fj8sPL0XMQlCBdjMpSx6Fc4oW5PoWJ6kRKHY17Y=;
+ b=SB2Eg6K7RHG6NSm7sG9kpcadFvGKLLmohVbIC80lHw8kkFXnnuQwxOIK
+ wdQbjd0lO87a5nFZvt6A4jO++F5vMRwaUVNzz4gLE6T4moLMOlYgpO8Qs
+ URtwD3qhnf0k4uwRNiA6iMblC3Xza7brojuKIFMVR3wmzuftdbjtICw/8
+ IZ9EppBwEyKzJ2h6IxhJr/tufj4XvZPHnPSg7hPwgQl0RxcvPwT/QUXoG
+ TLn0YslsVplm0wkDn+zWj8jKLflPGAlWNTSuosHwmsJS1t9reXJz9cN7v
+ zHEH6fMumYfd6vKYu80tAqc8nK455Bwg6uafWqtrcNJLqVv+MSp3ZZIDc Q==;
+X-CSE-ConnectionGUID: nlj+vfNiRN6J+py/Dceebg==
+X-CSE-MsgGUID: 61OoSm1cTAKryfV7l0Rr0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11523"; a="68210778"
+X-IronPort-AV: E=Sophos;i="6.17,293,1747724400"; d="scan'208";a="68210778"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2025 11:49:34 -0700
+X-CSE-ConnectionGUID: 2OcuY8pMR6u9WtT9jKZxmA==
+X-CSE-MsgGUID: 2SB3rMFORvOw+ylIle5nHA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.17,293,1747724400"; d="scan'208";a="166290707"
+Received: from lkp-server02.sh.intel.com (HELO 4ea60e6ab079) ([10.239.97.151])
+ by orviesa010.jf.intel.com with ESMTP; 15 Aug 2025 11:49:27 -0700
+Received: from kbuild by 4ea60e6ab079 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1umzU8-000CFY-11;
+ Fri, 15 Aug 2025 18:49:12 +0000
+Date: Sat, 16 Aug 2025 02:48:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, wayland-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, alex.hung@amd.com, leo.liu@amd.com,
+ ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com,
+ contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com,
+ sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com,
+ aleixpol@kde.org, xaver.hugl@gmail.com, victoria@system76.com,
+ daniel@ffwll.ch, uma.shankar@intel.com, quic_naseer@quicinc.com,
+ quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com,
+ marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com,
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
+ mcanal@igalia.com
+Subject: Re: [PATCH V11 02/47] drm/vkms: Add kunit tests for VKMS LUT handling
+Message-ID: <202508160245.qVEHX6YB-lkp@intel.com>
+References: <20250815035047.3319284-3-alex.hung@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] drm/amdgpu: Enable async flip for cursor planes
-To: Christopher Snowhill <chris@kode54.net>, Christopher Snowhill
- <kode54@gmail.com>, <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20250619125507.54384-1-kode54@gmail.com>
- <DARA1U86AS72.QOIEVZWCFPYC@kode54.net>
- <DATUOZZD8316.2INSL3KL5RA80@kode54.net>
- <DATV4CAOHVGV.1UJ803EX21II6@gmail.com> <DATYCMWH1X28.NE3M8KJ3SPV9@kode54.net>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <DATYCMWH1X28.NE3M8KJ3SPV9@kode54.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: sunpeng.li@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|SJ5PPFABE38415D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 500aebf1-37d2-4540-b9ab-08dddc166d2b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|42112799006|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TXRVT2tLQ1RPNnFONlZBcnRYem9XZWczVVNFNWNBK1EyaEZZWnpLbEV5U1JN?=
- =?utf-8?B?dDRGREIzbGIzMEoxNUxXZDZQZjdhL0lDaWtzUmQ5TllUSXdCTndSUTFzNTQ3?=
- =?utf-8?B?bmpaV20yamlJcU5PQlgycWhpRUhXaHN4NjdhRk1YMlc3ZC9ydFRUMzBzZjlQ?=
- =?utf-8?B?ODgxbmwxSUdMbXk1QjVKZHovUUNocnAzVm1YNzFwRlc0dEI2ci90aFJGN3JC?=
- =?utf-8?B?ZGlLb1FmZW1iRmZlc0RhdVhuUWM0ZXNnbFBGRXltNnlteldUdjhIM2tjNG1H?=
- =?utf-8?B?clZjUnEyTWYwbm5oNlM5bk1pbmZUeTBMeG95UENJNUVOV01LTGpwdWcvVDRh?=
- =?utf-8?B?UkNWaCtMaHMyZUFNTHAxV0hNYVZ3dDJjVkpQR01zd2MyaUt5ZGtuSVE4WExw?=
- =?utf-8?B?RE0rVUFKSzVGOVhIYWgwdTVSeUcyRGt1OGFDVW5iTndwUUhGRk90dG84a2tV?=
- =?utf-8?B?NkgreVA0SmN5MXdlUTNSdmF6a2d5clZWYTNLQWZmK01NZjh4S0NHTXdPSmw2?=
- =?utf-8?B?T2RXVHN5V2RhUHM3YnFxSkVKSzNnMG5VWk1ITkgwVmNHbXZSWS9sTjhGdktn?=
- =?utf-8?B?bFZHUkd0WCtCMUtSR0RnNmF5SEtVRlpiUC9TRS82bWZRU3R5MFZyQTBCMFg4?=
- =?utf-8?B?MEx1dnI0aDcvOVNBRVovbllzOExMTEExQlQxQWdqTy9KUjFxZ0phSE1sSmNx?=
- =?utf-8?B?WFgxcWZRd25xVENrNTlXS0cxc3lQVU9nZnp4d0R2YzdURUNMS3Jhd1ZheTdp?=
- =?utf-8?B?eFRrb3RlS3NiZEcxUm8reStKNWZVYlJHM2hrdC9WU0Zkb3RwS00wNjJnM2tQ?=
- =?utf-8?B?SlRmdDJBUTJRaW83VEhvMk8xK0ZmK0xoTGFlem1GUkhncmszM25VdTZrejJ5?=
- =?utf-8?B?Y0orbUhMSHdEOFJFRzhCYnNZbXFyR05ib1hZU202OGM1L2sxMlMxTTlDUDZ4?=
- =?utf-8?B?bVZ5eVh6eUhtbDFMaUs5UlJ4UXdWMUh4TEYrN2xFc2ZTcENZZkZqQloxQUlm?=
- =?utf-8?B?eTRycVB1dzVubGc1ZURuRUJSQU9jWGE3S3NXUncyOEY5YnpjSEpuMXhCakxF?=
- =?utf-8?B?Zms0blJtY0JMOUM5dmFDZkErMEtPb3dzOC9hSTZxaHRNK3hkSTNpZFJ6RUFZ?=
- =?utf-8?B?VVRjdkRhQnBQNGx4Y1daQjIvUlBsMU5BOU42VWowaFNpTU1WczJjNnR0c3pL?=
- =?utf-8?B?MUltZWk0L2Y1RWFKeHNqazBpdTluUjRvVE9sN2hXWHRodXlxVU5iR0pkUE1C?=
- =?utf-8?B?UVZ0SE5tYnI2VitXS3hRVEVoZUhWVXJNQVo1QnJ4WXdLRHEySE9GRHJqOTVG?=
- =?utf-8?B?YUtEWVE1Uk03ZzdjT1R6bW5ZUzVXL2NhTlZmUlJkQnlHR1FEVEllZlgvMlVE?=
- =?utf-8?B?c2Z4TytMa0t1OVl0Nkk2VUUrNzJubVJSSk5JVVh0MkQrbS9tbEkrbWtmajV1?=
- =?utf-8?B?Uk5TTUt4SU9Rcjh5cG5pR2lpNHVNSjFXM1lxaThKYU1QbEhBSTltV0V4T3Jn?=
- =?utf-8?B?NmNhVlFyVmNUT0NNUTRRZHlnVjFJcUVwa2hoR2EyZEZ6dXZZak9yVTlWV0tv?=
- =?utf-8?B?NGRkQkJvOVJnRExqVDFtR1g1N09qN1JEaWptMm9iY2k1dDBROGJ0UmJncmxI?=
- =?utf-8?B?UWxkaHhnV1ljazhjMkxrY1JoSUE2WjJxYVlYN0pFbmRaUlpVS1JiTDZTVm0w?=
- =?utf-8?B?bGlzU0dPV3llK2d6WEFIclI2M0tyZnA2UzZqTkNycU1JMm9tWW1lemk5dzBx?=
- =?utf-8?B?czFpdmxjVGhXaDZ5RmJyRnlEVFZsSDIxS2ZuMUpTQWZNYXA2TjFoSGRnWWs2?=
- =?utf-8?B?dzBPRXdjNklIaVo4czBTMCtaUVdKWWR5ZGRrQjlRZGRaMkp6MkpDTUhQSGp5?=
- =?utf-8?B?Nk9ZSXB1QjhPSzc3eW5YbFVTNFg5R1J3YUE5elNKSjNyRFF4TS82QXlNTW96?=
- =?utf-8?B?Ty9YTGxPZkNVMi9sZHNJaTdzZmhnT2xuZ0ZhSDUvRWIvNlVxVlVDNHlqU0Fp?=
- =?utf-8?Q?6lpkUkLt8e5ksMxeGmGR8pINEmaOWM=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(42112799006)(82310400026);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2025 16:11:43.4636 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 500aebf1-37d2-4540-b9ab-08dddc166d2b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFABE38415D
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250815035047.3319284-3-alex.hung@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,147 +80,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Alex,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on drm-exynos/exynos-drm-next]
+[also build test ERROR on linus/master v6.17-rc1 next-20250815]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Hung/drm-Add-helper-for-conversion-from-signed-magnitude/20250815-120435
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
+patch link:    https://lore.kernel.org/r/20250815035047.3319284-3-alex.hung%40amd.com
+patch subject: [PATCH V11 02/47] drm/vkms: Add kunit tests for VKMS LUT handling
+config: arc-randconfig-001-20250816 (https://download.01.org/0day-ci/archive/20250816/202508160245.qVEHX6YB-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250816/202508160245.qVEHX6YB-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202508160245.qVEHX6YB-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/vkms/vkms_composer.c:15:
+>> drivers/gpu/drm/vkms/vkms_composer.h:10:32: warning: 'struct vkms_color_lut' declared inside parameter list will not be visible outside of this definition or declaration
+    s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
+                                   ^~~~~~~~~~~~~~
+>> drivers/gpu/drm/vkms/vkms_composer.c:76:22: error: conflicting types for 'get_lut_index'
+    VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
+                         ^~~~~~~~~~~~~
+   In file included from drivers/gpu/drm/vkms/vkms_composer.c:15:
+   drivers/gpu/drm/vkms/vkms_composer.h:10:5: note: previous declaration of 'get_lut_index' was here
+    s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
+        ^~~~~~~~~~~~~
+   In file included from include/linux/linkage.h:7,
+                    from include/linux/preempt.h:10,
+                    from include/linux/spinlock.h:56,
+                    from include/drm/drm_crtc.h:28,
+                    from include/drm/drm_atomic.h:31,
+                    from drivers/gpu/drm/vkms/vkms_composer.c:5:
+   drivers/gpu/drm/vkms/vkms_composer.c:82:24: error: conflicting types for 'get_lut_index'
+    EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
+                           ^~~~~~~~~~~~~
+   include/linux/export.h:76:21: note: in definition of macro '__EXPORT_SYMBOL'
+     extern typeof(sym) sym;     \
+                        ^~~
+   include/kunit/visibility.h:27:44: note: in expansion of macro 'EXPORT_SYMBOL_NS'
+        #define EXPORT_SYMBOL_IF_KUNIT(symbol) EXPORT_SYMBOL_NS(symbol, "EXPORTED_FOR_KUNIT_TESTING")
+                                               ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/vkms/vkms_composer.c:82:1: note: in expansion of macro 'EXPORT_SYMBOL_IF_KUNIT'
+    EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
+    ^~~~~~~~~~~~~~~~~~~~~~
+   In file included from drivers/gpu/drm/vkms/vkms_composer.c:15:
+   drivers/gpu/drm/vkms/vkms_composer.h:10:5: note: previous declaration of 'get_lut_index' was here
+    s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
+        ^~~~~~~~~~~~~
 
 
-On 2025-06-23 09:38, Christopher Snowhill wrote:
-> On Mon Jun 23, 2025 at 4:06 AM PDT, Christopher Snowhill wrote:
->> On Mon Jun 23, 2025 at 3:46 AM PDT, Christopher Snowhill wrote:
->>> On Fri Jun 20, 2025 at 3:10 AM PDT, Christopher Snowhill wrote:
->>>> Here's another alternative change, which may be more thorough. It does
->>>> seem to fix the issue, at least. The issue does indeed appear to be
->>>> no-op plane changes sent to the cursor plane.
->>>>
->>>> If anyone wants to propose style changes, and suggest a proper commit
->>>> message, if this is indeed a welcome fix for the problem, please let me
->>>> know.
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
->>>> index c2726af6698e..b741939698e8 100644
->>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->>>> @@ -1087,17 +1087,22 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+vim +/get_lut_index +76 drivers/gpu/drm/vkms/vkms_composer.c
 
-Hi Christopher,
+    14	
+  > 15	#include "vkms_composer.h"
+    16	#include "vkms_drv.h"
+    17	
+    18	static u16 pre_mul_blend_channel(u16 src, u16 dst, u16 alpha)
+    19	{
+    20		u32 new_color;
+    21	
+    22		new_color = (src * 0xffff + dst * (0xffff - alpha));
+    23	
+    24		return DIV_ROUND_CLOSEST(new_color, 0xffff);
+    25	}
+    26	
+    27	/**
+    28	 * pre_mul_alpha_blend - alpha blending equation
+    29	 * @stage_buffer: The line with the pixels from src_plane
+    30	 * @output_buffer: A line buffer that receives all the blends output
+    31	 * @x_start: The start offset
+    32	 * @pixel_count: The number of pixels to blend
+    33	 *
+    34	 * The pixels [@x_start;@x_start+@pixel_count) in stage_buffer are blended at
+    35	 * [@x_start;@x_start+@pixel_count) in output_buffer.
+    36	 *
+    37	 * The current DRM assumption is that pixel color values have been already
+    38	 * pre-multiplied with the alpha channel values. See more
+    39	 * drm_plane_create_blend_mode_property(). Also, this formula assumes a
+    40	 * completely opaque background.
+    41	 */
+    42	static void pre_mul_alpha_blend(const struct line_buffer *stage_buffer,
+    43					struct line_buffer *output_buffer, int x_start, int pixel_count)
+    44	{
+    45		struct pixel_argb_u16 *out = &output_buffer->pixels[x_start];
+    46		const struct pixel_argb_u16 *in = &stage_buffer->pixels[x_start];
+    47	
+    48		for (int i = 0; i < pixel_count; i++) {
+    49			out[i].a = (u16)0xffff;
+    50			out[i].r = pre_mul_blend_channel(in[i].r, out[i].r, in[i].a);
+    51			out[i].g = pre_mul_blend_channel(in[i].g, out[i].g, in[i].a);
+    52			out[i].b = pre_mul_blend_channel(in[i].b, out[i].b, in[i].a);
+    53		}
+    54	}
+    55	
+    56	
+    57	static void fill_background(const struct pixel_argb_u16 *background_color,
+    58				    struct line_buffer *output_buffer)
+    59	{
+    60		for (size_t i = 0; i < output_buffer->n_pixels; i++)
+    61			output_buffer->pixels[i] = *background_color;
+    62	}
+    63	
+    64	// lerp(a, b, t) = a + (b - a) * t
+    65	VISIBLE_IF_KUNIT u16 lerp_u16(u16 a, u16 b, s64 t)
+    66	{
+    67		s64 a_fp = drm_int2fixp(a);
+    68		s64 b_fp = drm_int2fixp(b);
+    69	
+    70		s64 delta = drm_fixp_mul(b_fp - a_fp, t);
+    71	
+    72		return drm_fixp2int_round(a_fp + delta);
+    73	}
+    74	EXPORT_SYMBOL_IF_KUNIT(lerp_u16);
+    75	
+  > 76	VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
+    77	{
+    78		s64 color_channel_fp = drm_int2fixp(channel_value);
+    79	
+    80		return drm_fixp_mul(color_channel_fp, lut->channel_value2index_ratio);
+    81	}
+    82	EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
+    83	
 
-Adding some additional context lines here:
-
->>>>		if (async_flip) {
->>>>			/* check if the prop does a nop change */
->>>>			if ((prop != config->prop_fb_id &&
->>>>			     prop != config->prop_in_fence_fd &&
->>>>			     prop != config->prop_fb_damage_clips)) {
->>>>				ret = drm_atomic_plane_get_property(plane, plane_state,
->>>>								    prop, &old_val);
->>>>				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);## end of additional context ##>>>>  			}
->>>>
->>>>  			/* ask the driver if this non-primary plane is supported */
->>>> -			if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
->>>> -				ret = -EINVAL;
-
-Firstly, apologies for the delay, and thanks for the patch.
-
-The original code definitely looks fishy. The value of `ret =
-drm_atomic_check_prop_changes` is not used afterwards and is ignored.
-
-Looking at the history (v6.14), it seems the original intention was:
-* For PRIMARY planes
-    * Allow modifying of properties fb_id, in_fence_fd, and fb_damage_clips
-    * Allow setting same value for all other properties
-* For OVERLAY and CURSOR planes :
-    * Allow setting same value for all properties
-
-(https://elixir.bootlin.com/linux/v6.14.11/source/drivers/gpu/drm/drm_atomic_uapi.c#L1078)
-
-
-Then, the behavior changed in v6.15:
-* For PRIMARY planes
-    * Allow modifying of (including setting same value for) **all** properties
-* For OVERLAY and CURSOR planes
-    * **Allow modifying of all properties** if `atomic_async_check` callback
-      exists and passes
-    * **Setting same value can fail**, as behavior is now driver-specific.
-
-(https://elixir.bootlin.com/linux/v6.15-rc1/source/drivers/gpu/drm/drm_atomic_uapi.c#L1081)
-
-
-But IIUC, the desired behavior is actually:
-* For PRIMARY planes
-    * Allow modifying of properties fb_id, in_fence_fd, and fb_damage_clips
-    * Allow setting same value for all other properties
-* For OVERLAY and CURSOR planes :
-    * **Allow setting same value on all properties**
-    * Allow modifying of all properties if `atomic_async_check` callback exists
-      and passes
-
-
-Is this the desired behavior? If so, I think it makes sense, but the existing
-conditions need some cleaning up.
-
-Thanks,
-Leo
-
->>>> +			else if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
->>>> +				ret = drm_atomic_plane_get_property(plane, plane_state,
->>>> +								    prop, &old_val);
->>>> +
->>>> +				if (ret || old_val != prop_value) {
->>>> +					ret = -EINVAL;
->>>>
->>>> -				if (plane_funcs && plane_funcs->atomic_async_check)
->>>> -					ret = plane_funcs->atomic_async_check(plane, state, true);
->>>> +					if (plane_funcs && plane_funcs->atomic_async_check)
->>>> +						ret = plane_funcs->atomic_async_check(plane, state, true);
->>>>
->>>> -				if (ret) {
->>>> -					drm_dbg_atomic(prop->dev,
->>>> -						       "[PLANE:%d:%s] does not support async flips\n",
->>>> -						       obj->id, plane->name);
->>>> -					break;
->>>> +					if (ret) {
->>>> +						drm_dbg_atomic(prop->dev,
->>>> +							       "[PLANE:%d:%s] does not support async flips\n",
->>>> +							       obj->id, plane->name);
->>>> +						break;
->>>> +					}
->>>>  				}
->>>>  			}
->>>>  		}
->>>
->>> Upon further testing and reflection, I have come to the conclusion that
->>> this is indeed best handled by a kernel fix, rather than breaking user
->>> space.
->>>
->>> I attempted to work around this in wlroots, adjusting 0.18, 0.19, and
->>> 0.20 git with similar patches. First I attempted to stash all the
->>> written properties for the atomic code, storing an initial value of all
->>> 0xFE so it was always likely to write the first time, and only setting a
->>> property if it changed from the last commit.
->>>
->>> This resulted in whole commits breaking for one or both framebuffers
->>> until I ctrl-alt-fx switched to a tty and back again, and this would
->>> work again temporarily.
->>>
->>> So I went back to the drawing board and only withheld seemingly
->>> duplicate plane properties. This "worked", until I attempted to play a
->>> game, and then it started glitching spectacularly, and not updating at
->>> all if the game was doing direct scanout and vrr.
->>>
->>> Clearly this is wrong.
->>>
->>> The wlroots library queues up properties for each commit. On every
->>> commit where the cursor is disabled, it queues up both fb_id=0 and
->>> crtc_id=0. Every commit. Is this wrong? Should it only be queueing up
->>> the disablement properties once? It also queues up the full plane and
->>> hotspot properties when enabled, even if the cursor doesn't change
->>> position or appearance.
->>
->> Probably should have CC'd the drm misc maintainers when I started poking
->> drm misc instead of amdgpu. Pity there isn't a list for that...
-> 
-> I am a dumbass, I didn't notice get_maintainer.pl. Added more people,
-> and the correct list. Not sure if I should remove amd-gfx, since this
-> affects them, somewhat...
-> 
-> However, the intention of this thread was to seek commentary on the
-> situation as it is.
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
