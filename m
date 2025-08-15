@@ -4,48 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD546CA0EEB
-	for <amd-gfx@archiver.kernel.org>; Sun, 17 Aug 2025 12:39:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55429CA0EE9
+	for <amd-gfx@archiver.kernel.org>; Sun, 17 Aug 2025 12:39:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C75D310E112;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B8F10E119;
 	Sun, 17 Aug 2025 12:39:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ispras.ru header.i=@ispras.ru header.b="C0mWIhP/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MI5rG9F4";
 	dkim-atps=neutral
-X-Greylist: delayed 479 seconds by postgrey-1.36 at gabe;
- Sun, 17 Aug 2025 09:52:01 UTC
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC07910E0D6;
- Sun, 17 Aug 2025 09:52:01 +0000 (UTC)
-Received: from debian (unknown [5.228.116.177])
- by mail.ispras.ru (Postfix) with ESMTPSA id 11A674015902;
- Sun, 17 Aug 2025 09:43:59 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 11A674015902
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
- s=default; t=1755423839;
- bh=q3j929XTS7MHtT8FjC0KMj3QSOP2XSJZz7av2UMajwQ=;
- h=From:To:Cc:Subject:Date:From;
- b=C0mWIhP/70USttf3raA1CkYxuoNg+tNvAUoamBcX7XTvMVAO7ku9I0sZCIGKO3hoP
- PoW6QMJxiSE/zDgkTc8UKZMNUyRf1ByJ0+zmeF9G8NlXoZmH+8Jum2tdV4qYfiwFaa
- Ae5z3xJIjlQsSBned2eEbCGhPeKzKBfVg28rqbfY=
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	Melissa Wen <mwen@igalia.com>
-Cc: Fedor Pchelkin <pchelkin@ispras.ru>,
- Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Hans de Goede <hansg@kernel.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: fix leak of probed modes
-Date: Sun, 17 Aug 2025 12:43:45 +0300
-Message-ID: <20250817094346.15740-1-pchelkin@ispras.ru>
-X-Mailer: git-send-email 2.50.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8F0110E036;
+ Fri, 15 Aug 2025 23:21:04 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-76e2eb6ce24so2417846b3a.3; 
+ Fri, 15 Aug 2025 16:21:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755300064; x=1755904864; darn=lists.freedesktop.org;
+ h=in-reply-to:references:cc:to:from:subject:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=njADXc20sh/OCU5iT2CRpP+DigdW8OrQiBCgtQJIZO8=;
+ b=MI5rG9F4r8CrbQCEmN5TIyF216o7yHkg/cPgP54F9nMR7beceCWcElyWK1cDn6XYXM
+ qFdGB/3hOgjXlPRScKJZ11LhaMZLNq2cNyeXxwx1FccVvaD4yf5YJJsfsh8ykTX5yeq6
+ kINIrwq3CDz4WQtqiivBEOu0nWh141AO1w/IQOaYcfdihwmluvXgEeaT+t52zGhv4e3b
+ qafi2A+/FnrVEmk8hsD6vpeYn8PAxKM9KIhB4QQvmoUVcOM5F5jrV17mtC4O+uvJptex
+ TigdZeb6W70sT5ycXnpbd9pe9cmM434ERu1E5e5uVRKUnY7uE/Md5SRHYayZrcnM6k9f
+ Y0BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755300064; x=1755904864;
+ h=in-reply-to:references:cc:to:from:subject:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=njADXc20sh/OCU5iT2CRpP+DigdW8OrQiBCgtQJIZO8=;
+ b=C20mypRoAhSkaNTZ6hb3+mMDb7ppk6Lhct2bkubRPf36EIJMm/Z+KO5brwUaTgEyD4
+ xtamn1byjihWvVbIY2AbBgR7OugnzU1NyG/b6bCubaYfcRCCdLpDiwnlGOdITPoDwPZy
+ VROinL2BdOjTgS99OGur3k3CZIWl613+6gNK7yMWm3xjKnesROsD2XMDC8UG7GUFy1Rc
+ k6xCVy6geiYKozrUU0wuL8ljcGhi/53D5jQf0jypPX/O/GvNj1T90OBYOLo4zmhWIHFI
+ +0lmkSpjtn5+2O0Rc2P5d/TO8VOi5MDbC+XimvsbVHgxYbsvKYSHok6Rea1kj1TyvjmX
+ AKoA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVPoQiKlKPefTo+Ysa2ck0pjuy8vcUOcSZOG4lpB1Gs6UH6UKS9P2kXMJlD4vjqiFADkgRDhIrRIfc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy5INXoAMtS0Bw9Aji9gV/3+tvLcVN10Wfb1aYL+oZndGY0yWRN
+ 5IQHpKNmFua7RT/Az/JuVOGVz9TnnT8WuaQf0usJRGEmFOeeZWFYTSX2
+X-Gm-Gg: ASbGncvOiVYwXoajv8HSL3WCHtUqHpiWJeB0fWCSuI1jiBjos21t01/dGDSyNsmRKCw
+ Oh05T24JCYbdCzolmHTrG62Z60mUndXtdJ5E6i14+oq4arlrcpjs/i9IbcqLVqaOyAPgLqIhiSc
+ Ug5MO3MTfS4BnIA4d65FGDRUJilyPQ1jdtRS7Mr3Tgxd+VMuby+i8gQwElklYU5Y7ZgYWF2ZpJy
+ AmKeBjs3jPI+gcAzfvzAWtM6UdNmoQwtesqWEmH8D2IVUavyG0EC80KNIcPksXX2IiB7heFJpUF
+ gFr19J02IVW0XkGZKUCyfmTPGmTWgKXHtoJsfd06mkf+x3lFVAVo4c1vfQdeVnlMorVAAHfFt93
+ rK4C1EIzsUMDD/Rew/iuWxGmtTFrqtV4ktpBvgM5m7l0tLoXanegJlA==
+X-Google-Smtp-Source: AGHT+IHQwblCtiW4OKod+oWI/UOjOgD4r99npyAbPInRuLkjKDCabLumlShODzC25BJStPQwRrNB5g==
+X-Received: by 2002:a05:6a21:9992:b0:23d:781f:1516 with SMTP id
+ adf61e73a8af0-240d2ecc63dmr7194836637.22.1755300063861; 
+ Fri, 15 Aug 2025 16:21:03 -0700 (PDT)
+Received: from localhost (syn-047-229-141-083.res.spectrum.com.
+ [47.229.141.83]) by smtp.gmail.com with UTF8SMTPSA id
+ 41be03b00d2f7-b472d74d477sm2195395a12.30.2025.08.15.16.21.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Aug 2025 16:21:03 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 15 Aug 2025 16:21:02 -0700
+Message-Id: <DC3DXWOJ6E18.HVR7WZZCRV6F@gmail.com>
+Subject: Re: [RFC PATCH] drm/amdgpu: Enable async flip for cursor planes
+From: "Christopher Snowhill" <kode54@gmail.com>
+To: "Alex Deucher" <alexdeucher@gmail.com>, "Christopher Snowhill"
+ <chris@kode54.net>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Leo
+ (Sunpeng) Li" <Sunpeng.Li@amd.com>
+Cc: <amd-gfx@lists.freedesktop.org>, "Alex Deucher"
+ <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.20.1-0-g2ecb8770224a-dirty
+References: <20250619125507.54384-1-kode54@gmail.com>
+ <DARA1U86AS72.QOIEVZWCFPYC@kode54.net>
+ <DATUOZZD8316.2INSL3KL5RA80@kode54.net>
+ <DATV4CAOHVGV.1UJ803EX21II6@gmail.com>
+ <DATYCMWH1X28.NE3M8KJ3SPV9@kode54.net>
+ <CADnq5_OjUp+YpXSdvWrYN+6ofFfyES9Jvwkswf3JmTTMGL=MVQ@mail.gmail.com>
+ <CADnq5_MdosN34TH=L3Zv1K2_Lroa8Y69JK1wy_zbBFRDT-Q=4Q@mail.gmail.com>
+In-Reply-To: <CADnq5_MdosN34TH=L3Zv1K2_Lroa8Y69JK1wy_zbBFRDT-Q=4Q@mail.gmail.com>
 X-Mailman-Approved-At: Sun, 17 Aug 2025 12:39:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,78 +103,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm_connector_ddc_get_modes() reinitializes a connector's probed
-modes list without cleaning it up. First time it is called during the
-driver's initialization phase, then via drm_mode_getconnector() ioctl.
-The leaks observed with Kmemleak are as following:
+This may be a more appropriate patch:
 
-unreferenced object 0xffff88812f91b200 (size 128):
-  comm "(udev-worker)", pid 388, jiffies 4294695475
-  hex dump (first 32 bytes):
-    ac dd 07 00 80 02 70 0b 90 0b e0 0b 00 00 e0 01  ......p.........
-    0b 07 10 07 5c 07 00 00 0a 00 00 00 00 00 00 00  ....\...........
-  backtrace (crc 89db554f):
-    __kmalloc_cache_noprof+0x3a3/0x490
-    drm_mode_duplicate+0x8e/0x2b0
-    amdgpu_dm_create_common_mode+0x40/0x150 [amdgpu]
-    amdgpu_dm_connector_add_common_modes+0x336/0x488 [amdgpu]
-    amdgpu_dm_connector_get_modes+0x428/0x8a0 [amdgpu]
-    amdgpu_dm_initialize_drm_device+0x1389/0x17b4 [amdgpu]
-    amdgpu_dm_init.cold+0x157b/0x1a1e [amdgpu]
-    dm_hw_init+0x3f/0x110 [amdgpu]
-    amdgpu_device_ip_init+0xcf4/0x1180 [amdgpu]
-    amdgpu_device_init.cold+0xb84/0x1863 [amdgpu]
-    amdgpu_driver_load_kms+0x15/0x90 [amdgpu]
-    amdgpu_pci_probe+0x391/0xce0 [amdgpu]
-    local_pci_probe+0xd9/0x190
-    pci_call_probe+0x183/0x540
-    pci_device_probe+0x171/0x2c0
-    really_probe+0x1e1/0x890
+https://lore.kernel.org/amd-gfx/20250723150413.18445-1-xaver.hugl@kde.org/
 
-Found by Linux Verification Center (linuxtesting.org).
-
-Fixes: acc96ae0d127 ("drm/amd/display: set panel orientation before drm_dev_register")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
----
-
-I can't reproduce the issue before the commit in Fixes which placed that
-extra amdgpu_dm_connector_get_modes() call. Though the reinitializing part
-
-	/* empty probed_modes */
-	INIT_LIST_HEAD(&connector->probed_modes);
-
-was added years before and it looks OK since drm_connector_list_update()
-should shake the list in between drm_mode_getconnector() ioctl calls.
-
-
-For what the patch does there exists a drm_mode_remove() helper but it's
-static at drivers/gpu/drm/drm_connector.c and requires to be exported
-first. This probably looks like a subject for an independent for-next
-patch, if needed.
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index cd0e2976e268..4b84f944f066 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8227,9 +8227,14 @@ static void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *connector,
- {
- 	struct amdgpu_dm_connector *amdgpu_dm_connector =
- 			to_amdgpu_dm_connector(connector);
-+	struct drm_display_mode *mode, *t;
- 
- 	if (drm_edid) {
- 		/* empty probed_modes */
-+		list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
-+			list_del(&mode->head);
-+			drm_mode_destroy(connector->dev, mode);
-+		}
- 		INIT_LIST_HEAD(&connector->probed_modes);
- 		amdgpu_dm_connector->num_modes =
- 				drm_edid_connector_add_modes(connector);
--- 
-2.50.1
+On Fri Aug 15, 2025 at 6:17 AM PDT, Alex Deucher wrote:
+> @Wentland, Harry
+> , @Leo (Sunpeng) Li Can you guys take a look?  This patch fixes a regress=
+ion.
+>
+> Thanks,
+>
+> Alex
+>
+> On Mon, Jun 23, 2025 at 11:33=E2=80=AFAM Alex Deucher <alexdeucher@gmail.=
+com> wrote:
+>>
+>> + Harry, Leo
+>>
+>> On Mon, Jun 23, 2025 at 9:38=E2=80=AFAM Christopher Snowhill <chris@kode=
+54.net> wrote:
+>> >
+>> > On Mon Jun 23, 2025 at 4:06 AM PDT, Christopher Snowhill wrote:
+>> > > On Mon Jun 23, 2025 at 3:46 AM PDT, Christopher Snowhill wrote:
+>> > >> On Fri Jun 20, 2025 at 3:10 AM PDT, Christopher Snowhill wrote:
+>> > >>> Here's another alternative change, which may be more thorough. It =
+does
+>> > >>> seem to fix the issue, at least. The issue does indeed appear to b=
+e
+>> > >>> no-op plane changes sent to the cursor plane.
+>> > >>>
+>> > >>> If anyone wants to propose style changes, and suggest a proper com=
+mit
+>> > >>> message, if this is indeed a welcome fix for the problem, please l=
+et me
+>> > >>> know.
+>> > >>>
+>> > >>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/d=
+rm_atomic_uapi.c
+>> > >>> index c2726af6698e..b741939698e8 100644
+>> > >>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> > >>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> > >>> @@ -1087,17 +1087,22 @@ int drm_atomic_set_property(struct drm_ato=
+mic_state *state,
+>> > >>>                     }
+>> > >>>
+>> > >>>                     /* ask the driver if this non-primary plane is=
+ supported */
+>> > >>> -                   if (plane->type !=3D DRM_PLANE_TYPE_PRIMARY) {
+>> > >>> -                           ret =3D -EINVAL;
+>> > >>> +                   else if (plane->type !=3D DRM_PLANE_TYPE_PRIMA=
+RY) {
+>> > >>> +                           ret =3D drm_atomic_plane_get_property(=
+plane, plane_state,
+>> > >>> +                                                               pr=
+op, &old_val);
+>> > >>> +
+>> > >>> +                           if (ret || old_val !=3D prop_value) {
+>> > >>> +                                   ret =3D -EINVAL;
+>> > >>>
+>> > >>> -                           if (plane_funcs && plane_funcs->atomic=
+_async_check)
+>> > >>> -                                   ret =3D plane_funcs->atomic_as=
+ync_check(plane, state, true);
+>> > >>> +                                   if (plane_funcs && plane_funcs=
+->atomic_async_check)
+>> > >>> +                                           ret =3D plane_funcs->a=
+tomic_async_check(plane, state, true);
+>> > >>>
+>> > >>> -                           if (ret) {
+>> > >>> -                                   drm_dbg_atomic(prop->dev,
+>> > >>> -                                                  "[PLANE:%d:%s] =
+does not support async flips\n",
+>> > >>> -                                                  obj->id, plane-=
+>name);
+>> > >>> -                                   break;
+>> > >>> +                                   if (ret) {
+>> > >>> +                                           drm_dbg_atomic(prop->d=
+ev,
+>> > >>> +                                                          "[PLANE=
+:%d:%s] does not support async flips\n",
+>> > >>> +                                                          obj->id=
+, plane->name);
+>> > >>> +                                           break;
+>> > >>> +                                   }
+>> > >>>                             }
+>> > >>>                     }
+>> > >>>             }
+>> > >>
+>> > >> Upon further testing and reflection, I have come to the conclusion =
+that
+>> > >> this is indeed best handled by a kernel fix, rather than breaking u=
+ser
+>> > >> space.
+>> > >>
+>> > >> I attempted to work around this in wlroots, adjusting 0.18, 0.19, a=
+nd
+>> > >> 0.20 git with similar patches. First I attempted to stash all the
+>> > >> written properties for the atomic code, storing an initial value of=
+ all
+>> > >> 0xFE so it was always likely to write the first time, and only sett=
+ing a
+>> > >> property if it changed from the last commit.
+>> > >>
+>> > >> This resulted in whole commits breaking for one or both framebuffer=
+s
+>> > >> until I ctrl-alt-fx switched to a tty and back again, and this woul=
+d
+>> > >> work again temporarily.
+>> > >>
+>> > >> So I went back to the drawing board and only withheld seemingly
+>> > >> duplicate plane properties. This "worked", until I attempted to pla=
+y a
+>> > >> game, and then it started glitching spectacularly, and not updating=
+ at
+>> > >> all if the game was doing direct scanout and vrr.
+>> > >>
+>> > >> Clearly this is wrong.
+>> > >>
+>> > >> The wlroots library queues up properties for each commit. On every
+>> > >> commit where the cursor is disabled, it queues up both fb_id=3D0 an=
+d
+>> > >> crtc_id=3D0. Every commit. Is this wrong? Should it only be queuein=
+g up
+>> > >> the disablement properties once? It also queues up the full plane a=
+nd
+>> > >> hotspot properties when enabled, even if the cursor doesn't change
+>> > >> position or appearance.
+>> > >
+>> > > Probably should have CC'd the drm misc maintainers when I started po=
+king
+>> > > drm misc instead of amdgpu. Pity there isn't a list for that...
+>> >
+>> > I am a dumbass, I didn't notice get_maintainer.pl. Added more people,
+>> > and the correct list. Not sure if I should remove amd-gfx, since this
+>> > affects them, somewhat...
+>> >
+>> > However, the intention of this thread was to seek commentary on the
+>> > situation as it is.
 
