@@ -4,150 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 377B5CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Aug 2025 22:21:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A5D6CA0EE4
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Aug 2025 00:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7650410E9BC;
-	Fri, 15 Aug 2025 22:21:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD99810E2C1;
+	Sat, 16 Aug 2025 00:57:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KaywDozi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Yx9mH3Mr";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66D3910E9CA
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Aug 2025 22:20:59 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57FEIqs7017540
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Aug 2025 22:20:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=xfIBhnpUDRVNIWjXRgxsYT8X
- VCA1w9Y6OWwHkBmVkwQ=; b=KaywDoziy0fxrA3uFl6uoMxKbTDM2EUGBAX26H/6
- XrWOSY4LPTflZg2g/TnAlXFBHwO6kx68lg6JJNk7KCiR1CaGE9cmaVkklrUmm11a
- 13DahpnZ+g2MPucq6ZyzW6iKpoME46KHivAIAQbCAWkq2hz9KHh7aBr3LBUEGG8a
- bEFwlFCKguKFzmoOJ7xMOhAh66SjDU0EDVgxCkLtTLDAX37TTFDEnrfSyvFykFnX
- 4NYol075SgWSBzrykyzqVX0kPELrmb6ZulQOLe2hvLlXbRzZCXumBkhxVkd/Vitx
- brnB3CNu4iWlsHLnn8xIwR+RtdGNgM5PK9KWRamu/xXEkQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48eqhxjgn2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Aug 2025 22:20:58 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4b109be525eso64291921cf.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Aug 2025 15:20:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755296458; x=1755901258;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xfIBhnpUDRVNIWjXRgxsYT8XVCA1w9Y6OWwHkBmVkwQ=;
- b=bYGkO9y3vuHYKzBUNAza2fzDFdUsAyGd73tevw6AkPugvKBlrAdUwN0aTnwGbijKKF
- kLejv8gkaZleMbVhVum3K3U7iIN+57j1W1jW7IPft0E8ajcm79PYwBEhwqMexLgDxfW4
- WbTVYlcWos9Sh6w4kg7ykq6s+xkZUSlMBj3rr2XHLU2kgVfGzHRi3QztyyRIhWeuv3mF
- KJaJc7SltehXv2koFBzK11Ps9l4OsxVYWkjtWBlwCsVXjcxDfoaRo+9vetsCcYTGmuQB
- 0d09McOEZok60n8xCWtT+B2+NZoHr03UHWA3y7EkqNnqxmStiDqz2x9GSgIwgMS72Cma
- OmQg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUUo1c5TKkz7Q0ZwEuG8mLlXcqzPqLOwSdsryfT/FC3NN/0VXUCAb27WVCgsC8jOJqhiyli4gob@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxEuhYvI4KOV6Efm2oU8t/kMmEOo6XbZD1yQkI3JwLTprhgkg/q
- 5tk0jf8Ar2HPuSP1Eoq1JhlL4w6pKkHAZz5YYiUcocOO+kjLZH9c+go50pqj4mUcv/Cm4v1EwWj
- srXiFTvCF94V+BRbPsG7bb1ZlQ6Mn3WYsrErpign8+a6uNojj/f6G8agoFGk6GSlbbtpW
-X-Gm-Gg: ASbGnctUEnm8N4o4cL3EYqDa9+8XzrqnEicosKxPHvTZLhALPe0zJCyQ+AHWDpQIjmr
- vKt38N3nphhEztvlf2mtpMZvT3iK22MzSY4CWnpxIjG29khOL0+6hDObfy/3O/XXet2mGPb6UxK
- b2xmDprIfPvC8BsQRZp1MSIByvvalnTnkhCt26so8xgHnOwqzJIlIrJmGq2kD7E8XFjFBWoZ7VW
- BI3w24NYu0mrA3ZRr21Ni8NkIB/imuMEqH/BvYx3Gjylj/H1/2vKYNdypAkHkrlRfRpJsO42QEQ
- iOMPmkZY7EqBie44Ww69UvyhCbYf0k0t3XPatQKNdaxRB3XDGPE952NoEZjnvl5VgD04WnskssK
- KCc8YnHq0jWEo4lIB13k+esAw71pLLdbgGk0vjJmwye7qbz5PYq91
-X-Received: by 2002:a05:6214:27c2:b0:709:82dc:b1b2 with SMTP id
- 6a1803df08f44-70bb064aab5mr7415136d6.48.1755296457510; 
- Fri, 15 Aug 2025 15:20:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF1+iZ0Ln0WZk9wKMEFeC3GuUiWeKAJqXs2A1a7u9zGnMDfpKmmxWgkIpmWbduQTZnYFsEO3A==
-X-Received: by 2002:a05:6214:27c2:b0:709:82dc:b1b2 with SMTP id
- 6a1803df08f44-70bb064aab5mr7414886d6.48.1755296457044; 
- Fri, 15 Aug 2025 15:20:57 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55cef3cc9a6sm518362e87.78.2025.08.15.15.20.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Aug 2025 15:20:56 -0700 (PDT)
-Date: Sat, 16 Aug 2025 01:20:53 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: "liviu.dudau@arm.com" <liviu.dudau@arm.com>
-Cc: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "Shankar, Uma" <uma.shankar@intel.com>,
- "Nikula, Jani" <jani.nikula@intel.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "siqueira@igalia.com" <siqueira@igalia.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>,
- "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
- "mcanal@igalia.com" <mcanal@igalia.com>,
- "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
- "tomi.valkeinen+renesas@ideasonboard.com"
- <tomi.valkeinen+renesas@ideasonboard.com>, 
- "kieran.bingham+renesas@ideasonboard.com"
- <kieran.bingham+renesas@ideasonboard.com>, 
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
-Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
- structure
-Message-ID: <hc6f6wgsnauh72cowocpm55tikejhiha5z4mgufeq7v6gb2qml@kmgfd26bigos>
-References: <20250811092707.3986802-1-suraj.kandpal@intel.com>
- <20250811092707.3986802-2-suraj.kandpal@intel.com>
- <20250811094429.GE21313@pendragon.ideasonboard.com>
- <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
- <20250811111546.GA30760@pendragon.ideasonboard.com>
- <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
- <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
- <aJ4LQvqli36TlETu@e110455-lin.cambridge.arm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7884110E2B6;
+ Sat, 16 Aug 2025 00:57:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1755305867; x=1786841867;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ukMsMQdY1esdd5Vpb3YVrIGo9PLgslhipI1hpV6tqTI=;
+ b=Yx9mH3MrfMaHZ6vv4stvIEBPqJ1vQ0dRkWrAOcIxV1Gh7DqhNJKIq3LO
+ IYRIbYd/foZGIROPWT9qafYJ52s2orWeQRc5Y6buZkAI5G+3+f0nuXK8C
+ UL/hvG4ysvj1+NRQ4WI1iQ0MY7pnATd3AtT8pXZJtYr/+A/UHj6mWCfVp
+ BfBiF4jlsAfHHW5YrkAMJH6j36+PnJVHuIerGx063jYPz1FhQ31U168VG
+ k94x5mt61fogdFPDmQigc+GGDie2YFFMnLhZ6BPaQUmSbaCMMDgKwv2la
+ KkPqKkRlk5YU1zBqu/sXA8Nlmuezeq4kh8j41MtJLZCP40l0Fdea/c8aN g==;
+X-CSE-ConnectionGUID: BXKRbS2aTHScGQFakM75pQ==
+X-CSE-MsgGUID: MeZTukRwTPKYoKhS43Q5AA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11523"; a="57536999"
+X-IronPort-AV: E=Sophos;i="6.17,293,1747724400"; d="scan'208";a="57536999"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2025 17:57:47 -0700
+X-CSE-ConnectionGUID: vZYKcPdgTbm2DrN25iXXQA==
+X-CSE-MsgGUID: lD6nAVcHT767qK3gjbyk/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.17,293,1747724400"; d="scan'208";a="166750340"
+Received: from lkp-server02.sh.intel.com (HELO 4ea60e6ab079) ([10.239.97.151])
+ by orviesa009.jf.intel.com with ESMTP; 15 Aug 2025 17:57:44 -0700
+Received: from kbuild by 4ea60e6ab079 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1un5Er-000CSm-1S;
+ Sat, 16 Aug 2025 00:57:41 +0000
+Date: Sat, 16 Aug 2025 08:57:28 +0800
+From: kernel test robot <lkp@intel.com>
+To: 2564278112@qq.com, alex.williamson@redhat.com
+Cc: oe-kbuild-all@lists.linux.dev, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
+ alexandre.f.demers@gmail.com, boyuan.zhang@amd.com,
+ jiangwang@kylinos.cn, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: Fixed an issue where audio did not turn off
+ properly after unplugging HDMI
+Message-ID: <202508160829.jfFPh4YJ-lkp@intel.com>
+References: <tencent_E5B1CAABB0320691EB730CDB19E55EA85E05@qq.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aJ4LQvqli36TlETu@e110455-lin.cambridge.arm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODEwMDA1NyBTYWx0ZWRfXxQUnZov9O/LJ
- TNQQIC8hZftzvfsASMZD5qJoBvFOUKGaM1feD2o5uZjUMoCUJon4Qtwku/3aeMJSHR5gomJrbqR
- EnmcqoqMBOGXXxsKBrAeJycEDegVqubTF/SCPl6Tqhryxl5Zxh9gIYT81WR1atx73O5Z9pJPPst
- Tj4H4nRMde6r6wQEda9lSFEiBSQNszurWsjmPy62ipRESgL050/YGeHIBuDYYZXukDfrAZw2wYN
- voLl2ytTif1Z4yeoqMEdSVSiIswnt8pqxI6wUOYuXHHGW62T9Dd4vpa2CWDOndAfGNnt/1HnbZ5
- NOCegSWHDyPjdaEVnadUjViWgmlaZK5jmgMQvLI4EEYcv2q3k+BQGy56iLuv6yPdL5SYYNCem+/
- 7Ws2wl4z
-X-Proofpoint-GUID: bcO0l09bkIqr2O7cvuCrYVnMIbnEUaXd
-X-Authority-Analysis: v=2.4 cv=aYNhnQot c=1 sm=1 tr=0 ts=689fb2ca cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=2OwXVqhp2XgA:10 a=7CQSdrXTAAAA:8 a=WdlRDaJtcICMsET58csA:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-ORIG-GUID: bcO0l09bkIqr2O7cvuCrYVnMIbnEUaXd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-15_08,2025-08-14_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 phishscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508100057
+In-Reply-To: <tencent_E5B1CAABB0320691EB730CDB19E55EA85E05@qq.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,68 +73,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 14, 2025 at 05:13:54PM +0100, liviu.dudau@arm.com wrote:
-> Hi,
-> 
-> On Wed, Aug 13, 2025 at 10:04:22AM +0000, Kandpal, Suraj wrote:
-> > > > > };
-> > > >
-> > > > I still don't like that. This really doesn't belong here. If anything,
-> > > > the drm_connector for writeback belongs to drm_crtc.
-> > > 
-> > > Why? We already have generic HDMI field inside drm_connector. I am really
-> > > hoping to be able to land DP parts next to it. In theory we can have a DVI-
-> > > specific entry there (e.g. with the subconnector type).
-> > > The idea is not to limit how the drivers subclass those structures.
-> > > 
-> > > I don't see a good case why WB should deviate from that design.
-> > > 
-> > > > If the issue is that some drivers need a custom drm_connector
-> > > > subclass, then I'd rather turn the connector field of
-> > > > drm_writeback_connector into a pointer.
-> > > 
-> > > Having a pointer requires additional ops in order to get drm_connector from
-> > > WB code and vice versa. Having drm_connector_wb inside drm_connector
-> > > saves us from those ops (which don't manifest for any other kind of structure).
-> > > Nor will it take any more space since union will reuse space already taken up by
-> > > HDMI part.
-> > > 
-> > > >
-> > 
-> > Seems like this thread has died. We need to get a conclusion on the design.
-> > Laurent do you have any issue with the design given Dmitry's explanation as to why this
-> > Design is good for drm_writeback_connector.
-> 
-> I'm with Laurent here. The idea for drm_connector (and a lot of drm structures) are to
-> be used as base "classes" for extended structures. I don't know why HDMI connector ended
-> up inside drm_connector as not all connectors have HDMI functionality, but that's a cleanup
-> for another day.
+Hi,
 
-Maybe Maxime can better comment on it, but I think it was made exactly
-for the purpose of not limiting the driver's design. For example, a lot
-of drivers subclass drm_connector via drm_bridge_connector. If
-struct drm_connector_hdmi was a wrapper around struct drm_connector,
-then it would have been impossible to use HDMI helpers for bridge
-drivers, while current design freely allows any driver to utilize
-corresponding library code.
+kernel test robot noticed the following build errors:
 
-> 
-> drm_writeback_connector uses the 'base' drm_connector only for a few things, mostly in
-> __drm_writeback_connector_init() and prepare_job()/cleanup_job(). In _init() we just setup
-> the properties and the encoder after we disable interlacing. prepare_job()/cleanup_job()
-> is another workaround to be to some custom ops some drivers might want for signalling. So
-> we should be able to convert the 'base' drm_connector to a pointer relatively easy. We shouldn't
-> need to get to the drm_connector from a drm_writeback_connector() outside drm_writeback.c.
-> 
-> Then it looks like what we need is a __drm_writeback_connector_init_with_connector() where we
-> can pass a base pointer and remember it. Maybe an extra parameter to existing init functions,
-> or a new one that skips the encoder initialisation entirely.
+[auto build test ERROR on drm-exynos/exynos-drm-next]
+[also build test ERROR on linus/master v6.17-rc1 next-20250815]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I've refactored out drm_encoder, that's not a big problem. The bigger
-problem is the embedded 'drm_connector base' field. It's really use to
-overlook that it's not initialized / not used.
+url:    https://github.com/intel-lab-lkp/linux/commits/2564278112-qq-com/drm-amdgpu-Fixed-an-issue-where-audio-did-not-turn-off-properly-after-unplugging-HDMI/20250815-164929
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
+patch link:    https://lore.kernel.org/r/tencent_E5B1CAABB0320691EB730CDB19E55EA85E05%40qq.com
+patch subject: [PATCH] drm/amdgpu: Fixed an issue where audio did not turn off properly after unplugging HDMI
+config: x86_64-buildonly-randconfig-002-20250816 (https://download.01.org/0day-ci/archive/20250816/202508160829.jfFPh4YJ-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250816/202508160829.jfFPh4YJ-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202508160829.jfFPh4YJ-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c: In function 'dce_v6_0_encoder_mode_set':
+>> drivers/gpu/drm/amd/amdgpu/dce_v6_0.c:3271:38: error: implicit declaration of function 'amdgpu_connector_edid'; did you mean 'amdgpu_connector_add'? [-Werror=implicit-function-declaration]
+    3271 |         if (drm_detect_monitor_audio(amdgpu_connector_edid(connector))) {
+         |                                      ^~~~~~~~~~~~~~~~~~~~~
+         |                                      amdgpu_connector_add
+>> drivers/gpu/drm/amd/amdgpu/dce_v6_0.c:3271:38: warning: passing argument 1 of 'drm_detect_monitor_audio' makes pointer from integer without a cast [-Wint-conversion]
+    3271 |         if (drm_detect_monitor_audio(amdgpu_connector_edid(connector))) {
+         |                                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                      |
+         |                                      int
+   In file included from drivers/gpu/drm/amd/amdgpu/dce_v6_0.c:26:
+   include/drm/drm_edid.h:443:50: note: expected 'const struct edid *' but argument is of type 'int'
+     443 | bool drm_detect_monitor_audio(const struct edid *edid);
+         |                               ~~~~~~~~~~~~~~~~~~~^~~~
+   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c: In function 'dce_v6_0_encoder_disable':
+   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c:3341:46: warning: passing argument 1 of 'drm_detect_monitor_audio' makes pointer from integer without a cast [-Wint-conversion]
+    3341 |                 if (drm_detect_monitor_audio(amdgpu_connector_edid(connector)))
+         |                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                              |
+         |                                              int
+   include/drm/drm_edid.h:443:50: note: expected 'const struct edid *' but argument is of type 'int'
+     443 | bool drm_detect_monitor_audio(const struct edid *edid);
+         |                               ~~~~~~~~~~~~~~~~~~~^~~~
+   cc1: some warnings being treated as errors
+
+
+vim +3271 drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+
+  3250	
+  3251	static void dce_v6_0_encoder_mode_set(struct drm_encoder *encoder,
+  3252				  struct drm_display_mode *mode,
+  3253				  struct drm_display_mode *adjusted_mode)
+  3254	{
+  3255		struct amdgpu_encoder *amdgpu_encoder = to_amdgpu_encoder(encoder);
+  3256		struct drm_connector *connector;
+  3257		struct amdgpu_connector *amdgpu_connector = NULL;
+  3258		amdgpu_encoder->pixel_clock = adjusted_mode->clock;
+  3259	
+  3260		/* need to call this here rather than in prepare() since we need some crtc info */
+  3261		amdgpu_atombios_encoder_dpms(encoder, DRM_MODE_DPMS_OFF);
+  3262		connector = amdgpu_get_connector_for_encoder_init(encoder);
+  3263		amdgpu_connector = to_amdgpu_connector(connector);
+  3264		if (!amdgpu_connector) {
+  3265			DRM_ERROR("Couldn't find encoder's connector\n");
+  3266		}
+  3267	
+  3268		/* set scaler clears this on some chips */
+  3269		dce_v6_0_set_interleave(encoder->crtc, mode);
+  3270	
+> 3271		if (drm_detect_monitor_audio(amdgpu_connector_edid(connector))) {
+  3272			dce_v6_0_afmt_enable(encoder, true);
+  3273			dce_v6_0_afmt_setmode(encoder, adjusted_mode);
+  3274		}
+  3275	}
+  3276	
 
 -- 
-With best wishes
-Dmitry
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
