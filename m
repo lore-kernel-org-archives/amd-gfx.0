@@ -4,132 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A4C1CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Sun, 17 Aug 2025 12:39:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE3CCA0EE9
+	for <amd-gfx@archiver.kernel.org>; Sun, 17 Aug 2025 12:39:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C37A810E058;
-	Sun, 17 Aug 2025 12:39:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A5EC10E0EF;
+	Sun, 17 Aug 2025 12:39:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="eO4u9Brv";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="RfWEPhNf";
 	dkim-atps=neutral
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11013067.outbound.protection.outlook.com [52.101.127.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E70410E906;
- Fri, 15 Aug 2025 09:53:59 +0000 (UTC)
+Received: from TYPPR03CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11012003.outbound.protection.outlook.com [52.101.126.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0F7610E079;
+ Sat, 16 Aug 2025 14:23:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=injkXeX4eCbEbQEeafvK0naID4UWTlsZQWk3oBj78ykQQVei5KjQ6UKoUpd7EWReLwLrhqKNCEzgwKuMc2vf+sYr0x/QQVtfQ5Pb0r45/CWDStOzJNPY2DUEkXgTy3Nh/nrkkN54NmC+rdAQzxnKrgl1ssWnGqQRswS4N9O7qLDGSOsOkU9R9XUyhQn557vwbaFXcPDLdx8sONc1WxddYJe20jPtBttJp77Ffblwhhf6VbR+6Dndf3tCXDuFrb36hlBSGymdvUB0Hn3TNoqzmmRokCV4QweP84vorMcCH6AaRIoKmY5NHI2RNh6ViI85Fk6Y49MZp8r4xTh/KcM+Lw==
+ b=juoTNfWYonfmWYQesYTppRc3vFhMnaCZq3uZ8vs8RPnO7E4vl3deIVXNi8n+39fB5WfNq9rWzMYP1Bj4OiKJko3Vca1FRQt6IM2TVdOtOeoFB9AGz2Q2funyV95gPgZe5eeWJ/0ayoBZIS+EUnsR52MKUjNEBYE/P5ceunWUpgr0JtsgOWpGc4//4UahaGfWokj6oTqB7KgiAzBtALbudPp3eg6t7xkMddTk6DOz+pQRmsq4b7u30KRCqnCPkCQovaO2KOZBfZEGDOzFGcPgFsHGozggbyBS3vZB7gfQIbpiF2IadwfjFwYsrF66Qvlh7TkmIaqD2+pScWfYt2U9cA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e15o2zdRLYJMVuWuytAnMtAopxzq7oKAfU84iZLvY0Y=;
- b=cvbP014cbv5sPmYuQUfBGd89sEOgStQu3HbtryEPJjQbYEk0zhKf3nA20fiJLiQHpPjvXPdKVk2VrbQW6NlNQtHquzLyoZ2ZljJazEIUWFmAgglrmMK9RGs4xi+gf5JzmpOYNqUGsALyqIBWURoRZSsQ/by8UltdCJoUJpxzEIdAA85RD4+kJ19MiUgKNCPJrgr6YEKB67LBKfcFf4CnGjYGk6+xregaebhV+yQa4m9E/YilCgUWtYksz+azm6oyBEnrPMtCX1fpr+pdjmeKMig6dZIp5v9ducbrcZBygnxf1Tdgli1e5zi3ZD+InI9N3PI6UINyu+vcTcVNXFnj8g==
+ bh=LyDx/ETY04IRC6PZPHz3QGYJuNGjtvRCv5yuXrAbzWU=;
+ b=EBzklDZWSrWTjOKUVM3p771AEQSBtb6j7m1dWo6pf14KQrYjcxAIby3V6/B7PAW8q6MgXrMtAnU3cdeOwK0ANBwxVvGeWeG+Ut2vL+Il8nu89Gu63MDXvk4WoNXd1rkK6nDnjZaVCEfUgkjOrpMkcayks2AsC/cLQQuyRHzCFo5WwMgzBO3PVOiRJgcEztz4mwP0LApAJjqXO7kr05VGZ9c9UkI2iQE8wSo2IQiCUxBRLU8h2cztsMfdT9pOFfzxqasLOrDR0zgT4iW7NEHiqB3RKH7L/LGgAEpS/k+eeZjhIRmCUJQYUxXGPldQqpppXfNp4Ouyg9F+7QcQQab1zA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
  dkim=pass header.d=vivo.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e15o2zdRLYJMVuWuytAnMtAopxzq7oKAfU84iZLvY0Y=;
- b=eO4u9BrvM/yolmkVOj4uuaWfVCH53QnAh/R9AKDavLboOr1SHGmOKfmQOVFru5YR5taCni3t9sOQgzmX1PNq0IiqGLaOwlC6OquiEmMs9qFSaHw2Gs2H1ZMcOyONYt8LJsZ2j2Tm+2j0x3y+2p+2kgbTrWo+ms9oVp1UiEDMEIH+cyef+FCKQB0hbOOpyG9LuinmJtsjk5jHyNCOvUhN4gs6d/mf6KycrMvlVDWq9jm0TV/NQCHfokGk7b42QQvr5RW3pSUN7R4bkxy1xNuRECLH894md/wnEd+N8G76p4c0TQs6O9Rdqs1Dy2veYySn8HG/kLKBXXyMIMvr1txCSQ==
+ bh=LyDx/ETY04IRC6PZPHz3QGYJuNGjtvRCv5yuXrAbzWU=;
+ b=RfWEPhNf0b1QBF6W5w5feqZGkvX5HsM2eKwIsWOoniT9F1B9xOXKB61X3XrQrec7IG6Y+e5Dfj1EaXNFVcvlf9RJvhs4sbK3SprhjFXiDsLL4lBv0Wl0EJu4YhtDupmHsoAplxx0QOepLM6ySiBhPw9zyp0iRcSHcYPm7T/PcbiTenLF7Gf4tyTGUwlFCwpIgm3vkaN6rVLj/CXOj4d7uzm+5x8l0fhlANRas6Lt/33WaOFXgzYryi21r3Q8xuV7BzI5VyDHMtWKijaxPgM89AASM6ZuylYvRXYo/p1oRA3z1RNEDAAXR6l2CfCkzbHyrT9OO2Lu6evGPtFvAzStrw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from KL1PR06MB6020.apcprd06.prod.outlook.com (2603:1096:820:d8::5)
- by TYZPR06MB6825.apcprd06.prod.outlook.com (2603:1096:405:1e::10) with
+Received: from SI2PR06MB5140.apcprd06.prod.outlook.com (2603:1096:4:1af::9) by
+ TY0PR06MB5803.apcprd06.prod.outlook.com (2603:1096:400:27f::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.18; Fri, 15 Aug
- 2025 09:53:56 +0000
-Received: from KL1PR06MB6020.apcprd06.prod.outlook.com
- ([fe80::4ec9:a94d:c986:2ceb]) by KL1PR06MB6020.apcprd06.prod.outlook.com
- ([fe80::4ec9:a94d:c986:2ceb%5]) with mapi id 15.20.9031.014; Fri, 15 Aug 2025
- 09:53:55 +0000
-From: Xichao Zhao <zhao.xichao@vivo.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Xichao Zhao <zhao.xichao@vivo.com>
-Subject: [PATCH] drm/amdgpu: Simplify asic_type checks using switch
-Date: Fri, 15 Aug 2025 17:53:44 +0800
-Message-Id: <20250815095344.618848-1-zhao.xichao@vivo.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.19; Sat, 16 Aug
+ 2025 14:23:24 +0000
+Received: from SI2PR06MB5140.apcprd06.prod.outlook.com
+ ([fe80::468a:88be:bec:666]) by SI2PR06MB5140.apcprd06.prod.outlook.com
+ ([fe80::468a:88be:bec:666%5]) with mapi id 15.20.9031.018; Sat, 16 Aug 2025
+ 14:23:24 +0000
+From: Qianfeng Rong <rongqianfeng@vivo.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Clayton King <clayton.king@amd.com>, Sung Lee <Sung.Lee@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Samson Tam <Samson.Tam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Karthi Kandasamy <karthi.kandasamy@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, Rafal Ostrowski <rostrows@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Qianfeng Rong <rongqianfeng@vivo.com>
+Subject: [PATCH] drm/amd/display: use max() to improve code
+Date: Sat, 16 Aug 2025 22:23:05 +0800
+Message-Id: <20250816142312.393795-1-rongqianfeng@vivo.com>
 X-Mailer: git-send-email 2.34.1
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TYCPR01CA0184.jpnprd01.prod.outlook.com
- (2603:1096:400:2b0::13) To KL1PR06MB6020.apcprd06.prod.outlook.com
- (2603:1096:820:d8::5)
+X-ClientProxiedBy: SG2PR01CA0195.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:189::17) To SI2PR06MB5140.apcprd06.prod.outlook.com
+ (2603:1096:4:1af::9)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR06MB6020:EE_|TYZPR06MB6825:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0521693f-f750-4360-8bb5-08dddbe1a615
+X-MS-TrafficTypeDiagnostic: SI2PR06MB5140:EE_|TY0PR06MB5803:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9083ace4-3732-46e8-fc7e-08dddcd07577
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|52116014|366016|1800799024|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kNlxunFR19QeplYrENVw4PsTBsoDIThXia6RVY81lv9OscBbtq2iN823O13Q?=
- =?us-ascii?Q?C6WD+BX0NnmJAdMWfm30vYzFsYiMOjK8Ak5/89Xl3WT12CCdRLcBsoLEZqJT?=
- =?us-ascii?Q?ORIttuEbGXioX5buKVSZ4ctOcyE30XHOIsXNBuZhTtLjd9AcEeE1x1i7vz7x?=
- =?us-ascii?Q?Sm/a2TU6ITFx4/x72Ip8T/U90VpVg9nsUuvdt+LSxT7SWry/YECLbUEgYR7c?=
- =?us-ascii?Q?BMDRUATvMneo1Gw+lHzd4ay7iCfzzEffOJDwwzLryrmpA2tbQ4WC9qgN0tT4?=
- =?us-ascii?Q?114cBiRbvCEz+/red7WndAJxU6i99HJ2nfCfAWGOEtrfm7A5my2zHiEJSd26?=
- =?us-ascii?Q?31xhuEAANAP+pPt3eYuCvmCqGQaxy1DHfbkb1GIKrf4LUY2o8fqtbMW+JYid?=
- =?us-ascii?Q?2NqXEBDyTjAMm4pQls+/Lo2YQQk63XT6wX+ZL9XAs2JhawNkxhqLwsozWJLs?=
- =?us-ascii?Q?eqMF/apZ6gwVAFMsSJEB1yy9fVKTmoZp8y5zkokBC9w1iZjCpb4V/+nqoFaX?=
- =?us-ascii?Q?s6KlVNFqWYlT2TVgYxjNS2s4gIYMV4d8DDxPIa15Lri1W+s2wfWWIM4nyaCj?=
- =?us-ascii?Q?/1g08qeDsT1l6AbNR/WxpUSW90ugjzGvA6k8HDhKhzfF2DO1b78NT+3ZIH1Y?=
- =?us-ascii?Q?++Yp/wfuPdy3x/06xVzXuMc1OskQ57LHrTQYRCTsqE4RgcBnpnpWHPvPcgJP?=
- =?us-ascii?Q?IXd07Sw/rT28QAALZhSJ9QdX//uVFSNkQy23qrSQmJEFui7YLGRzys5ci2gq?=
- =?us-ascii?Q?F8pf7tg3uMuhw8hjp0zXJZRxi9vNmwctJ+svLEZ1P/jopFGqhI+P93FUxX72?=
- =?us-ascii?Q?VeyAUCynzBC9XOkvX+/EfakcPLW0dPM67XVG/pSjGEj5bi9rcigCuUqUVE9m?=
- =?us-ascii?Q?kYN3jSWEYoypIz5JTyolJ3qqkhtKJUECYTeEAIQyAGL37J+4KcjoXxZH6Sja?=
- =?us-ascii?Q?sGxwy3O7t5nTzYq6e0lt0ZxIBIIs38sXDk0OXQq5RmNpI2XXOmrphmAUR/qG?=
- =?us-ascii?Q?91YCzAi117yBXFervwRBo+pJ3eOp3nsdX1TPUbGJ+DJGUrnnCboSt9flFQBi?=
- =?us-ascii?Q?zMq/36nu5MB4w/4hulLTl05dFYQ20d0WQZ9im9mA4FmDqhc8WTLv2mQ2gXay?=
- =?us-ascii?Q?Xlp2FiXWPpzkVBOqS5WeO8OnE048sayLxHI/oM8bdxPb6tSESrzlo+5ZtgFb?=
- =?us-ascii?Q?Jar05jdL+purrRhmWqoBHeXebH/pvXeymaierZUuajOnOSEaB+EwxE4bBZnF?=
- =?us-ascii?Q?S7W5yEybLsT+ZLb/jcVRloJWB6EADJFguHEjr7FxWs6YbEfKD8Rc35Iwk8hi?=
- =?us-ascii?Q?ULmLpMM+bdQeZYKaYnT2AP3rNZ5aqB+w4TN7giVgzTqNXFGUH80ay2ePacd6?=
- =?us-ascii?Q?N5kaNLVhRzdfDtWIL5uDEePVcQJd/PmEh/I3pIIbNtLoZ1iZ55hm9/RHyT2p?=
- =?us-ascii?Q?fiiCkXk2s0LIvpaluyvtEpYZvsBPGBdSWU/D9ZDysS9c9KU4UR6hnQ=3D=3D?=
+ ARA:13230040|52116014|7416014|376014|1800799024|366016|38350700014|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?3vMWg4UUahHEX69GdYL/AX2E9myW8ELnET+vp43OgPvBUDynW4v1dKL1JSp1?=
+ =?us-ascii?Q?auelVZu3b3uYm4ypjVa75BuKO4c2sMZxbBsVAr4GdVy2D+hhkfK+3ubeMp+e?=
+ =?us-ascii?Q?vZjbiXJWYMUCXBm76W/JLCax/2gu8YVipKlfkQpg1BPrGh2ZFOIGlLgRpwpF?=
+ =?us-ascii?Q?N7SFJ3W5U1JdfmynrL/oOogVDerYs4UDzlEQMjVTNPECYwXTFk1L3bFdMDAz?=
+ =?us-ascii?Q?SsmoOmKuLwDealX48/UqNhXxB1Jw6CPhUhs+cbBlyvkzv8jrky/EHpiXolJk?=
+ =?us-ascii?Q?sW6SzOH5LjXtHhhQCnazJxLVrVXLZGqegtDCHDYs2tYWJLiLohUpJNae9ZTf?=
+ =?us-ascii?Q?HTe4TGEW+08M/YQSu5NwIdPKncL7rwRKosCY46WG6yiRJgWPUNUm70fiw6Wv?=
+ =?us-ascii?Q?yTeVa4GvVfbvsQy5gYZbmg8ZjON8IfroH5abZePnuAbvwZ5bRkG440Ryv8/+?=
+ =?us-ascii?Q?iAJYb2J87MGXHibLfbcWeGG80Thf1vhk3v2LfEFdqRt1w5yk2BcWM4Hr3K57?=
+ =?us-ascii?Q?FfWebwE6rvuGJRpYw09xGotbIFyx/brCPk8u+N6iNu8qW1qAzl5qs+87OzEz?=
+ =?us-ascii?Q?7zn26N4PjmFyANBHBjaI88smxfvqW8wol1ZOipTrPzL/bEkfKgoOwE9hXSQh?=
+ =?us-ascii?Q?Ksd8RlECTSGD9NUL4ejBBhYcXjtJgjqQdfPeGxsZIC+5f0nkFcokpQ3t0O6u?=
+ =?us-ascii?Q?GgyRvuc2RlJELnRXXL8kXFW74cKcv7Z0eNcQ9w8smfqaGK4HSglSlcZHgbDf?=
+ =?us-ascii?Q?cfTVW6zuvSJTQobRkzxdsnx26IWKMWAI1MqrT4m6zNWkylVgFO5naWBNjdFd?=
+ =?us-ascii?Q?EduTIjL1LBX23aSawR9iMASlPrVTNhy0OPAse1OrZ7lT+FFqvpS3SMJslc3c?=
+ =?us-ascii?Q?zQLZ26L15g5zvOeYIT6MUStWIfXQ1ld/HVrQIVjes3G1NGnSbQYkgQZcQ6X2?=
+ =?us-ascii?Q?xILmlV7PbUNIyxW8ELvyX1eKSdMOj2HPA5IMsVzOIp01Al/KfP0PBofd5tuM?=
+ =?us-ascii?Q?arpAO3ZNKV7f0SU3IJ2gEbOJ92i/Uf3s986ub4Frrn+ASuTe/iKo4W8NFkgO?=
+ =?us-ascii?Q?SOvb6/pJP6207p8laP6rSYgs6csywcQnvyAuaUTsOk3VUJjn/lc13cPVGIVK?=
+ =?us-ascii?Q?/54i2YnxQm7Qd0fX5MFWFllPKORlcnN5fQ0AIEY5eNBG9vhMUUeDdJ/Cbau4?=
+ =?us-ascii?Q?aScbRw39CLX88c3c4HwvvjipfNV2NLXorb86l1hMEVhCQtzAD7ZF8stfiZw7?=
+ =?us-ascii?Q?wQlxwdJrlOfb66TqtFVTCmUQ5foeCHP3k12OLdSdlUX3pwuQCGSUujMxc3IO?=
+ =?us-ascii?Q?Z069YO/QJId1koSsPDXlnvIWFZatmj9ULBk87/jboB5IWyzJO6oGUWd3AIxa?=
+ =?us-ascii?Q?o/cKVqxEMinT4qu3eGYlZdMdrlRQg5rzscr5fEBFgKt5TbR7nb3H2jmeaun8?=
+ =?us-ascii?Q?+3CwvpofKjQk5Jdxd2MfPgYDQ3DZfbehqQt5jzq6G7eeUCuZH16WkZwfM4t9?=
+ =?us-ascii?Q?fEPmc5o6gdGpNj0=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:KL1PR06MB6020.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(52116014)(366016)(1800799024)(38350700014); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SI2PR06MB5140.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(52116014)(7416014)(376014)(1800799024)(366016)(38350700014)(921020);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+gNx8EIcOwSZyWnmSQOXI4JOcyAXI7JcRFbIcjhvoVypXR1apPNUFPYPoPhZ?=
- =?us-ascii?Q?sn+0payPR6Cc2P5BLxwJaew83YnAuGfKt8w2O2YdmlAUuSbjZpx+Zu+HSMy8?=
- =?us-ascii?Q?pt2in+OWdgiLc33NrbBIJ2o7PyIgWOhk6OcLYToTkMH90d6qmxahVJ7qJbht?=
- =?us-ascii?Q?lwACsPvhwgPEzJoYa48KG9c7YDt1TxpCA3DcNEMlpO8Gq01e9NoCGD/SKR3B?=
- =?us-ascii?Q?clW8fCipWxo7rZSSwp8jtfUmTcILNVrIvDCIyxsF2JNgukTrLVk3pVy5jG1x?=
- =?us-ascii?Q?gIjc6Qlcw/S9hKFsiPZ9lfOI2b8ncaIFbjvzSAnp0+hZ5/cxovJCypRunahd?=
- =?us-ascii?Q?XSuQFsL8h9jfRDhCWU0Rqf1+C+OAzXXKOb4UW6GV8Ort6RMne5kNFiS5WcDQ?=
- =?us-ascii?Q?kp6HoPAXrTn1qZRv5raH2FhX19pGmmJiF77uE+1KprxIQ9sUy+nH/ohrl8eH?=
- =?us-ascii?Q?rzaPhEZGHsUKP8H3iF0RBHBNrql1dlpIDQIjYuDt+dscERbovAmhDtloI6c/?=
- =?us-ascii?Q?83zuWJfW/K+rCeZGxyYt+xMHeAyXZZhL1VEoBMEpwfmZo98ODD2ZNib6eKxq?=
- =?us-ascii?Q?fUoVhsVRLZCjqTWN/S7+kZ3DIIzPsjv9/9HJ03zjWIF5Rz5r9KB3AfgNQwTX?=
- =?us-ascii?Q?+7QZlEFdAbvtmrLTzQ78b/O1jemUkXmGB5l21xqfzf5HeMWpnGec2FXPHrIi?=
- =?us-ascii?Q?YGNM1ofgWpuWIli1AxRtL2kdfmurrKn1v3e4TIdQHa+ewm3ZZRYVT9SqgYP0?=
- =?us-ascii?Q?RJ0j6Bt34dn4/3gG07HDNHTRoClx8S2rY2AGNvBOLk+yYyXTq9SD5forE8B1?=
- =?us-ascii?Q?EnJ2RsY1GtN4sNtBiqmET07l0v0RTAqWAiyg3bEPGI92O72x43iOTMuTy+tv?=
- =?us-ascii?Q?XcoqKnNx9pfSa6HRaYAl4CnAN0onqNlTYhZTtpGbGoF2RtfZ+/vs6v604DeU?=
- =?us-ascii?Q?myGsW7xi5PWQ23I9OjLzC3LLbxzir6VVUncQlb1tY6/vf1pTzw26m2a2xLYw?=
- =?us-ascii?Q?ovOL8yJVuN9cyeV5M7KnWCnL4h5LP6hLJc3oIcHr8k4WdkHcXUQKfWx4bmPe?=
- =?us-ascii?Q?uvaVcckSZ5BIH+eOf3dz+uYJyyhRufpZu2M7PLc0ukYYLlw+Nzy4D7JEKi5T?=
- =?us-ascii?Q?OYjVYUPjZmNHCRmMCRQjRr/80FvekIp2KvlvyO+zHE54szzWLOkAWkdSZYLF?=
- =?us-ascii?Q?0+DgLl6RSD4PhackJC0dHyDwKf/aL2hDf5ExuUdQTsQEFF6yirJJk1fRwkx9?=
- =?us-ascii?Q?HJbjlkQMFFVa9IMVVRxGtPwHHn1M74semC9yGX0BUizgUNuj5ddmuB5Z9UL8?=
- =?us-ascii?Q?PGtm3ECCpG12QdEYf1wKo3sz34TDgMHaLJMHE+cZ1hvC0jXp5lBnYEwl4iOv?=
- =?us-ascii?Q?fmuxQMwmAexD6GknP6nIlnNqKviZ/lwVxxrgmmqWhukdRuSy8j2jQMu8NGPw?=
- =?us-ascii?Q?iNCd8n99l1W//aZ6jWvWXd57G+kwev9GMg81cajfUIjfaLVxxJoc1voK5Ibr?=
- =?us-ascii?Q?jEJ6LyEw88qDHrUMx9lM7u7/w8v+qp68hZWxlxoFi9lh9J8Krxd/oa2fSZVq?=
- =?us-ascii?Q?avCzZjfnr//aKqg3mIsmuexYdFExI9ShPuUZ8O1z?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?seTxRzDBADYGqKIjzOIcODDs8XTTlkyzD29Ng1q+o6HysDDv8IRZUbyAs1cm?=
+ =?us-ascii?Q?MzkiTJDny9wcx3thrBBVX2lLfgInNp4JKjofgNuQH8Qoe7aZxti4xf8ldyhs?=
+ =?us-ascii?Q?v5zIlXqCWF382UeM18iRhgZaxIeqzer47uGNArhwRqsxKYFbdWbKYgJXCreP?=
+ =?us-ascii?Q?PlPpgnb3wEBUbkSt+kEAiQMiwj3eUJeqhtp9ZM407Wz5iN1snIFNzXyBxHYG?=
+ =?us-ascii?Q?QuxMP7hgSDQ/ku4hmSr8l/myhvLypPGIpquqno/alSxBcMzHh0dChEGPDNkA?=
+ =?us-ascii?Q?R3LI2TxSWdOrCBPK1XVJoeXRlK+/b0Jv09oyJK+5CVghDvDphbCw4LErvclr?=
+ =?us-ascii?Q?CTbVmcC/PsESNP6ldzjTFbJKlwUlUMadSIli9VEKurQ4O06MzF0iT8WYLKiM?=
+ =?us-ascii?Q?SNgfL98HK/lYp5oj9XFNMocPbCFAPpbGt4FXx8LqjomIQ2FAy1KubUpPqxtJ?=
+ =?us-ascii?Q?vaMp9kjMJteVti/jKFBUogieLDo2aVK/OPQop/z0aG0LoPjQn3Fm6aq+ek0/?=
+ =?us-ascii?Q?krmW6aEQ2iizXWLDlDBSP/i8Uq2E/qPEeBmNQYOqU6FpiUtOd57z3YE9AySg?=
+ =?us-ascii?Q?whIX0n0MwgPPibnn8xepV7lhyyc63mkqeSOFOtHzRLAEMrXv+bgx8EkOTI0q?=
+ =?us-ascii?Q?Vi3yl15Ra19G/jml8XxioRn+S5a4DpAS1Tvm1jeSVddbrXk0skjdy/l277MP?=
+ =?us-ascii?Q?YXt91Edq8wuj3KmHTnNd0TBV6mLBXp2SUGVvzVNt/z/b20SOHYWD5+ZQIDKy?=
+ =?us-ascii?Q?B6SPukEZOxr9mNGMMst2p4fEhJA0MwuYEQLD7M1bX6Uz/ZOtoimFVmVw5cOR?=
+ =?us-ascii?Q?1/xMU/gk7CcP8dpNgWfHQRGScgqAVUhSbqS4207p/KrITz+Ku3ldiHUtaWfc?=
+ =?us-ascii?Q?9U8An2PrNEUbkNeTtE3S3CpBYSJ0jxQd6gH/ZuAtSfB9DzzZvgfJ0Kz2PlYX?=
+ =?us-ascii?Q?NQY1QxzhKGI5WFGxzrIShpXWQ09EiFp0kYTN//cpEJgq9IMjgDGHkeCraPk5?=
+ =?us-ascii?Q?Xo7uBrRUOGq7B0Cc29ZT2t+ZYJ4P/cdVXdy/aXd39g18oLsbJVAGoEcMvKUR?=
+ =?us-ascii?Q?AuJQONRR6mKbZqK5+Lkin8Y6nhPkohv7Q62XNMStUcjQNsITjc7tyCk39/2M?=
+ =?us-ascii?Q?RRDQZdMZzWpjOOb/dZRJcbK0wOhINKCcDv5Eae7+rH8HykHunOJZ9SrBbixU?=
+ =?us-ascii?Q?OuTnbCKmAGxxfArryO8Zv8S3lVn4CmPnjEOECkvrNWW834jvh8titeKNEwHk?=
+ =?us-ascii?Q?yV4DMTjGTvBNv+UJ4gllxk3lJWBxMcuTLdsYugFQL5TJH/ZlNkVsIeMUfoO+?=
+ =?us-ascii?Q?4Pl7eh9kKvKVBHFHrR49GrbSbEOeguxjQc8lXojM+3w80m/g80hNQ4YThJNM?=
+ =?us-ascii?Q?ol8n+WUJk8rfdlxDbaKubKUowU4zUwTEY5z0Eboy0s1nmHGgLLH+1KY+xJco?=
+ =?us-ascii?Q?z7XElGVuWvEAIoudG/K4jyUvNXkDqS3+fo89WwTb77zeEUuaC9i2M/HkR34W?=
+ =?us-ascii?Q?LEfqXd3GImFCSwOlJFJQUQcRwEbyeYOpLNEaGszbV+cohi3lJ2XH5ZdChn5w?=
+ =?us-ascii?Q?hbXxC8bcP/eQKtfJ2TaCxE/VSmIFGUuY6blyZiB3?=
 X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0521693f-f750-4360-8bb5-08dddbe1a615
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR06MB6020.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9083ace4-3732-46e8-fc7e-08dddcd07577
+X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5140.apcprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2025 09:53:55.9057 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2025 14:23:24.1435 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ni3NnV4l5oUpjNeFaMdlBR8zDvpWGfoKLP+V4L6BqEoF9XU5nCUaM1aQqZ91R10H8nTiJehXjENtvkxDVVzAQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6825
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ug+hxfjrU1aPhN+/9DuEOphuss/gI4irnsn17MBR2piIxUD7BQsd38xNlkojnsAm6Ba+l5SU9P7XQ3k2/Vy7YA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5803
 X-Mailman-Approved-At: Sun, 17 Aug 2025 12:39:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,42 +158,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace the original code with a switch statement to enhance
-readability and unify code style.
+Use max() to reduce the code and improve readability.
 
-No functional change.
+No functional changes.
 
-Signed-off-by: Xichao Zhao <zhao.xichao@vivo.com>
+Signed-off-by: Qianfeng Rong <rongqianfeng@vivo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   | 7 ++-----
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c | 6 +-----
+ .../amd/display/dc/dml2/dml21/dml21_translation_helper.c   | 6 +-----
+ 3 files changed, 4 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index eb3c28669789..0edd92c513c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3771,11 +3771,16 @@ static bool amdgpu_ras_asic_supported(struct amdgpu_device *adev)
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index 084994c650c4..8376e2b0e73d 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -1047,11 +1047,8 @@ static void dcn32_get_memclk_states_from_smu(struct clk_mgr *clk_mgr_base)
+ 			&num_entries_per_clk->num_fclk_levels);
+ 	clk_mgr_base->bw_params->dc_mode_limit.fclk_mhz = dcn30_smu_get_dc_mode_max_dpm_freq(clk_mgr, PPCLK_FCLK);
+ 
+-	if (num_entries_per_clk->num_memclk_levels >= num_entries_per_clk->num_fclk_levels) {
+-		num_levels = num_entries_per_clk->num_memclk_levels;
+-	} else {
+-		num_levels = num_entries_per_clk->num_fclk_levels;
+-	}
++	num_levels = max(num_entries_per_clk->num_memclk_levels, num_entries_per_clk->num_fclk_levels);
++
+ 	clk_mgr_base->bw_params->max_memclk_mhz =
+ 			clk_mgr_base->bw_params->clk_table.entries[num_entries_per_clk->num_memclk_levels - 1].memclk_mhz;
+ 	clk_mgr_base->bw_params->clk_table.num_entries = num_levels ? num_levels : 1;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+index b59703467128..47ff4c965d76 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+@@ -1404,11 +1404,7 @@ static void dcn401_get_memclk_states_from_smu(struct clk_mgr *clk_mgr_base)
+ 			clk_mgr_base->bw_params->clk_table.entries[num_entries_per_clk->num_fclk_levels - 1].fclk_mhz)
+ 		clk_mgr_base->bw_params->dc_mode_limit.fclk_mhz = 0;
+ 
+-	if (num_entries_per_clk->num_memclk_levels >= num_entries_per_clk->num_fclk_levels) {
+-		num_levels = num_entries_per_clk->num_memclk_levels;
+-	} else {
+-		num_levels = num_entries_per_clk->num_fclk_levels;
+-	}
++	num_levels = max(num_entries_per_clk->num_memclk_levels, num_entries_per_clk->num_fclk_levels);
+ 
+ 	clk_mgr_base->bw_params->clk_table.num_entries = num_levels ? num_levels : 1;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
+index a06217a9eef6..21cc30f9b8a8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
+@@ -463,11 +463,7 @@ static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cf
+ 				(stream->timing.h_total * (long long)calc_max_hardware_v_total(stream)));
  	}
  
--	return adev->asic_type == CHIP_VEGA10 ||
--		adev->asic_type == CHIP_VEGA20 ||
--		adev->asic_type == CHIP_ARCTURUS ||
--		adev->asic_type == CHIP_ALDEBARAN ||
--		adev->asic_type == CHIP_SIENNA_CICHLID;
-+	switch (adev->asic_type) {
-+	case CHIP_VEGA10:
-+	case CHIP_VEGA20:
-+	case CHIP_ARCTURUS:
-+	case CHIP_ALDEBARAN:
-+	case CHIP_SIENNA_CICHLID:
-+		return true;
-+	default:
-+		return false;
-+	}
- }
+-	if (stream->timing.min_refresh_in_uhz > min_hardware_refresh_in_uhz) {
+-		timing->drr_config.min_refresh_uhz = stream->timing.min_refresh_in_uhz;
+-	} else {
+-		timing->drr_config.min_refresh_uhz = min_hardware_refresh_in_uhz;
+-	}
++	timing->drr_config.min_refresh_uhz = max(stream->timing.min_refresh_in_uhz, min_hardware_refresh_in_uhz);
  
- /*
+ 	if (dml_ctx->config.callbacks.get_max_flickerless_instant_vtotal_increase &&
+ 			stream->ctx->dc->config.enable_fpo_flicker_detection == 1)
 -- 
 2.34.1
 
