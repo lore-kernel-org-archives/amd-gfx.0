@@ -4,48 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C973CA0EE9
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Aug 2025 16:28:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D911CA0EDC
+	for <amd-gfx@archiver.kernel.org>; Sun, 17 Aug 2025 09:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3398210E3AF;
-	Sat, 16 Aug 2025 16:28:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA42E10E00C;
+	Sun, 17 Aug 2025 09:12:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MAacpWeH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l9/2ZYNI";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ADF510E3A8
- for <amd-gfx@lists.freedesktop.org>; Sat, 16 Aug 2025 16:28:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Q017RKjyMe2cIuPNOv7biM87qpDk8m8hoIvmXuSdyOc=; b=MAacpWeHZ97/DIz7jhYnUlX5QF
- wKdn6TTisW1FIiMMVTqknSjVDZAupWDpc3VDI/15aKl3yTY7EV6G4LNgMHddy0N/NUJMycWeLD+HY
- mVponZDL5yDrxYGDeIOO4ZsmM+oaMYJ3tAc7TatcuesO+cE3MXn/5BLgf3ScGcYRrf+vqxin1vh5y
- Ym9NExdg4abu3zr1Jeiu6vjU1gVyo58tuRDEiA7EbquTmCsjc/jlDatnCBAqOvIhdBVuAQpi9JYT3
- bWgVv0E0Lwy3c43uou/xMwOvDrzMZw+xO9TeF/SayncSOhYeVo/Ap2xvMAY41JjJh9xZj1QGPAsGC
- 5CstQKkg==;
-Received: from [104.193.135.201] (helo=debian.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1unJlb-00FASr-VN; Sat, 16 Aug 2025 18:28:28 +0200
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- James Zhu <James.Zhu@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 3/3] drm/amdgpu/vcn: Ensure that sysfs reset run in the fini
-Date: Sat, 16 Aug 2025 10:27:28 -0600
-Message-ID: <20250816162806.1301791-4-siqueira@igalia.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250816162806.1301791-1-siqueira@igalia.com>
-References: <20250816162806.1301791-1-siqueira@igalia.com>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2058.outbound.protection.outlook.com [40.107.236.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7791710E00C
+ for <amd-gfx@lists.freedesktop.org>; Sun, 17 Aug 2025 09:12:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PB5GedhLoKTviyUgqU8aCiflvMDRxur0MBqHhkdDxIUNVmPVGDIO7eKTpuyWfNBGydFVDzaNsBLdKNn1dcP7/cc6+aC4Zj8LmymxE55rDIak8IRhIPqrSU76pJZcw9M2/dCO64IAR7Y/rmrrpiRoNjaPEbjb6CCiAw6W/e/rE7ukKwB3G0l7AplOiuA/FybpixXoauNf/ssiS5NgxhE3twDOC9HAqSoR1CRHpl/CfXNYECJZRLQ3yLBhRqgNGWnTex7IE2NywvPBrh0fTWdrjcrHX3ICnP0cZavDMegm4FLq8Z94Z92xx/QZhSGgW0ptV1Ia47eLU6xpaT8n5B1GcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UB2OrUGagddj7XD0uVyaJCo4AiBSsZtTV+uH6YSIa4o=;
+ b=eoDLv5T6h4hocqcREobOo4HL/okUodopd3oBaQ7QmSRk+oNy7KWwlF/wYgOIkvULHEcQ8jylrU1HQetvFACo+0fCIiugecoUPTBNP84L9skkgItCY8VLVzHlXobfJVdDbeY1mskML9X+s1wxnv7hP9xJ1PysOgi3m6VNLApLnKYVxjdXDxOOL4fs/2Fv4rNoOmhhr/vMh2mSd0zHoAjAjbyLHIBkzALuqaF7lUgLw5m3bC3kjr93REZd5jsK17cn3Hbsrbg3JFEXIjEvqTwKHX7TDNjP3BQ5ffD/8SfzRppWQIoPqpfSJLPKKKENUGWdb5Cbgty4Mm1HhFTTpiOQtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UB2OrUGagddj7XD0uVyaJCo4AiBSsZtTV+uH6YSIa4o=;
+ b=l9/2ZYNIq3sK3B61JiZXuMZVYFAmrKHy6juK9qtYCoOU3UFyU8bV7CITwveyWMLMG5EsJ4cFPL+iOZYeI+bYIh/byjU0Ona0iDsuo1RKCGsBAbhFIdWUQIdl+d0KO6HiaqLQ+hUXxHEa+DkaxegLzo3kZnAEw90aUsXAblqdZJY=
+Received: from MW4PR03CA0059.namprd03.prod.outlook.com (2603:10b6:303:8e::34)
+ by DM4PR12MB7696.namprd12.prod.outlook.com (2603:10b6:8:100::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.23; Sun, 17 Aug
+ 2025 09:12:03 +0000
+Received: from BY1PEPF0001AE1B.namprd04.prod.outlook.com
+ (2603:10b6:303:8e:cafe::29) by MW4PR03CA0059.outlook.office365.com
+ (2603:10b6:303:8e::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.20 via Frontend Transport; Sun,
+ 17 Aug 2025 09:12:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BY1PEPF0001AE1B.mail.protection.outlook.com (10.167.242.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9052.8 via Frontend Transport; Sun, 17 Aug 2025 09:12:02 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 17 Aug
+ 2025 04:11:59 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <tao.zhou1@amd.com>, <Stanley.Yang@amd.com>, <Hawking.Zhang@amd.com>,
+ <kevinyang.wang@amd.com>, <YiPeng.Chai@amd.com>, Ce Sun <cesun102@amd.com>
+Subject: [PATCH 1/4] drm/amdgpu: Correct the counts of nr_banks and nr_errors
+Date: Sun, 17 Aug 2025 17:11:49 +0800
+Message-ID: <20250817091149.308724-1-cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1B:EE_|DM4PR12MB7696:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fcc6dae-c166-4946-f367-08dddd6e212c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Cp2Nu4VSfkQwZhYcfa7guH3aNG+GgNkhrO7nxiZcTuTB+KfY4ubm6bZgGK8u?=
+ =?us-ascii?Q?ry+KCpp6JnVlSAXFWNwXK6jWNTu5zahfRQo1gU2PlAZUjzJK+II+leR7E9yv?=
+ =?us-ascii?Q?0q3dFB8dt/0JGlyqN2iiMcLdWCaE9AdKru9FDePjgjpUM+KEQhDVxoPMGbDh?=
+ =?us-ascii?Q?IeVE8rpMNw4jQOlPwUoIODqq0+z8puJNuCwvfpw/Slz9tjso6jLnIEyH5mX8?=
+ =?us-ascii?Q?g+wSIDesPomwEIBlxqQiafbPLSjpd9SNBCkq1ktQa6pJSTnohHXECI7ABvEN?=
+ =?us-ascii?Q?804/7QMi+CV3O4fYVQJ/JkwnglY2GIxG5tetGcq4EOeZiYe2e8QsGuKZIXBk?=
+ =?us-ascii?Q?Z16/A/8rdOvCsnXXo38zbkbti2eO9ZHGk+3jxjTCWEsMyPVKjRazF36nmtSk?=
+ =?us-ascii?Q?31j9/m4MOioLveUwlkPhZwYZcLlu4/HQphojJDBpTO26upToUvk1FkTZgcA0?=
+ =?us-ascii?Q?pmAcJubPgFTg65mdkdTtEUsCYizYSjrdBId09B4D3mfghY7qmjrR3VyUUG8y?=
+ =?us-ascii?Q?pddH9sMopiEvKSB81aHKyR02wiTf+5sN7q8skAwdYCKM8YezKDSiNb4VCt4i?=
+ =?us-ascii?Q?Y1M+e81ofmX9IHYTKvp1jyBy9jAjVlooqgDzbpRM2ZgjOdKE/YS/4Eu/+nif?=
+ =?us-ascii?Q?D8UACbM4vakkMMOviPFZCp6ch17CZLR/5esmGJwDd6fha3gNW1MeDLE4sf6y?=
+ =?us-ascii?Q?HjKCAtpwaVOeQRIIVHf99o1VjX4alNHirEJ9xdclv6WlhVJdg5b3yxGqHNBk?=
+ =?us-ascii?Q?rgt/YOW9+2/32VbInfKdATfv/2eVps1EkV8F0dFIHyONAZceTKnjf0xAXBBh?=
+ =?us-ascii?Q?OG6NGNjUcBjtsJVtRwXii8rNt0PpE6qfNIN89LY1EUnAyE+KJtWzyGzxT93X?=
+ =?us-ascii?Q?CYC/RiA9CWweHa80IRfJ2L9UVzVp/zh4sp8W1Zn5x9WaWZXzZy/uE88MjHMf?=
+ =?us-ascii?Q?IN0CJW6EU8MTJal3Hqy9mne9ZrkrkATIphP2JrkKlj16Wj0d37Ibrat46vXY?=
+ =?us-ascii?Q?7RZImvWupmHe1HUtlfzHu0L6pp55jMeAIS2c3947bWXKxJw28GMJ8iAmbKT2?=
+ =?us-ascii?Q?uIuJNquQIEybP6jkL/R0al7jWq9cZPeYlQLquNmID0H/4HC2hLLKrp0BVQFm?=
+ =?us-ascii?Q?3Md8xItfmrSBkIJnHxM2ig+8t6Xm1TPK5C93Tao98RLkDzOPvYQsz11ivq8O?=
+ =?us-ascii?Q?7EcYWNzHGEdbkBECcVRywejlEX9GFBZWRpFbMfNwJtj6hbHDfgnBAo3oDhA0?=
+ =?us-ascii?Q?9Oht/b/Bo8dpEXYmV2ASHXODPgC5c3MG3RDzfuNbAqa9xDsNu1mfJ4bxZhIs?=
+ =?us-ascii?Q?YgE0m3m7z3X59KNG+ZDlp6Rs9BO6tlLaGCc6dbAaj1uM0dalt7a4gQqGMBIr?=
+ =?us-ascii?Q?pOeDJLgqQOIs46hW+70KZZRCCuwC67TXt0t21BamUT+O6fPBdF6aDf3lkxQM?=
+ =?us-ascii?Q?0NJ3e8uHf86UXDrKR4t3m9ydn42Ae5glOED5i6QcDS4m1oxKQZ8ZSlA/7bu4?=
+ =?us-ascii?Q?wzUsi1mRkbpVbgdCDJBTy1fX9C9zh4sxwj6H?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2025 09:12:02.7883 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fcc6dae-c166-4946-f367-08dddd6e212c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE1B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7696
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,40 +131,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function amdgpu_vcn_sysfs_reset_mask_fini() in the
-vcn_v5_0_1_sw_fini() is invoked at the end of the function, after
-amdgpu_vcn_sw_fini(). This can be a problem if amdgpu_vcn_sw_fini()
-returns early, since the VCN reset sysfs interface will not be removed.
-This commit addresses the issue by moving
-amdgpu_vcn_sysfs_reset_mask_fini() above amdgpu_vcn_sw_fini(), aligning
-the fini code with vcn_v4_0_3_sw_fini().
+Correct the counts of nr_banks and nr_errors
 
-Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-index 7cb21e2b4eb0..3b7372861032 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-@@ -245,14 +245,14 @@ static int vcn_v5_0_1_sw_fini(struct amdgpu_ip_block *ip_block)
- 			return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index cbc40cad581b..090bf6cf1b91 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -76,6 +76,7 @@ static void aca_banks_release(struct aca_banks *banks)
+ 	list_for_each_entry_safe(node, tmp, &banks->list, node) {
+ 		list_del(&node->node);
+ 		kvfree(node);
++		banks->nr_banks--;
  	}
- 
-+	amdgpu_vcn_sysfs_reset_mask_fini(adev);
-+
- 	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
- 		r = amdgpu_vcn_sw_fini(adev, i);
- 		if (r)
- 			return r;
- 	}
- 
--	amdgpu_vcn_sysfs_reset_mask_fini(adev);
--
- 	return 0;
  }
  
+@@ -229,6 +230,7 @@ static struct aca_bank_error *new_bank_error(struct aca_error *aerr, struct aca_
+ 
+ 	mutex_lock(&aerr->lock);
+ 	list_add_tail(&bank_error->node, &aerr->list);
++	aerr->nr_errors++;
+ 	mutex_unlock(&aerr->lock);
+ 
+ 	return bank_error;
 -- 
-2.47.2
+2.34.1
 
