@@ -4,76 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43346CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 14:41:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49A3CCA0EE4
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 14:45:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E361810E1E5;
-	Mon, 18 Aug 2025 14:41:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6DC710E1DC;
+	Mon, 18 Aug 2025 14:45:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fwxu9Egd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l1AI0tY/";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5B0110E1E5;
- Mon, 18 Aug 2025 14:41:01 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-b4717553e58so208317a12.2; 
- Mon, 18 Aug 2025 07:41:01 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7FCE10E1DC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 14:45:04 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-24457f57ed4so7589135ad.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 07:45:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755528061; x=1756132861; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1755528304; x=1756133104; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ga7x4F6HXFvk/iDnErF+LYjvyTvsTBsxWHavwkOdolE=;
- b=Fwxu9EgdWPECFvaR9xano04S0N82o9wzWUeEK/EzIBarTsA+NpCpkzqZnV3UU1Q3qS
- DvUm6wZ6tK3cnofUswpcKTPJvaJQ8vWTW1qqdgs3Rh4bpfqJq5EVYlrw8GDQPwoP9SHg
- pQaryXBz1+jT4n18y625QtuAnx89SoMFmorDUlmwuB5M4P6wH4KinyfGKsaTI+xrckAN
- h8qFODbm7nR4Uz+Q7vKDZULXRtdW9RFvZhtEwvliVTD2YIBRFjvNu8ohDc7oNcWWoJQP
- RZEasxCgP5STNQUD8IFWMS0xj+lboVxPlJEWxESBUxw0ofgaK9yUQqoG3+L88uKO9fXJ
- ABjQ==
+ bh=4ODCObxXMDHZMPb8viIL32XZ4JBE+/PP49rJ0tHf9xc=;
+ b=l1AI0tY/5SC2nJuFK2/X4NM32qAqHKepX8O3SaskkKZf2MNAlcj9bnwCnVjCpo5fJK
+ ZzaS7nN7oimTD6GmRH45ypEfnZdAX4EATcwZw014PFz6XbXVmHc8mG9mow0xwJKDYaPl
+ oTgIE1aMQaM5xjsm/HUSiuaMsvTKUpPH26KC/3FgX8m5tYL2YDSKeVAQrO3PtlCR8RpJ
+ fiPiiCdxZDC3OxQVQm2enV2693qMz5wpV9Cn8rpQq3BrV4KnAeuhKfNVhtjzoIqHtkc5
+ darIMbQDGv1PH/MjKQv6E0iuMnFhSzI9GJM3WttNQbtjnZSNV72g47gebYAYvmslG4ZE
+ eh9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755528061; x=1756132861;
+ d=1e100.net; s=20230601; t=1755528304; x=1756133104;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ga7x4F6HXFvk/iDnErF+LYjvyTvsTBsxWHavwkOdolE=;
- b=Zi/bc21GUdyN5+VOx/4rlugytAWkGatijtFrCxEdxQGK7FlLlnS8uFSTB/CIDJaPMg
- XT2qF0IdYEjGx3iitfAFJjLJCH7/zGyeshbuyA9XLXGCh4wyiU1MUoO3BaNxyXSDA8qU
- 9y3S3zjYwGB582MpQtBrLQboXv+gITU0hvWm0d6YQB5g22NeQxvHxN5K+hT9602ElO5K
- p3WZJkXwjIF0qEefF2owNvhNBHMEoyL0/CJFPGN9ztYQfmD3+GkEMeU/obbnK5cswVkF
- ARerDsINrm8g4PchM1Innz20tJ2jLfdX2CwyUCBDAewraxEzIEUI7dRDhRPVcWInGftW
- l5tg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWQssxe4NfAaesKBNhfNZRfeYfYKmNeU2Rwj1GpcEEcWVQgMVXdtWvU6wUcLvVs2u91qx7J0Pyq@lists.freedesktop.org,
- AJvYcCXSiRRanxTfrdsaznnFBmVLQH/xDGohSD1J0OnaL/HU8bqaqdyMFM4llcT/wYz5VBc+yx+2M1Oo4hto@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxkVpWcbEheziyBFd6zPrzMK+XHYPCa7ycRhA9A9eRuFey5M8h5
- Ubtd5ViblknhF5OXjbwsDJ3hMAB8zxbUjTxhp8obHGLdaAzO/YWqmJoMETNEnlLqDP8piSZ1F61
- mPvBmiuUrOjpPug5jVo/gKCjJVR3HQHs=
-X-Gm-Gg: ASbGncsTFT7Hunsa5aGs7b69nk1l+T6GRUM+vt4bqQm0B1bU57vTvgADxDxINpfJik9
- EQxNGctMnnTBnIEz6FN4ZvYVO3V0nFDpcBRG5s2G6nZ/lTWk5h//Q6uyP4zKGkWkCdQt8YzPmWA
- /qklSbADkhjh2kEUJGDV2EulMOZU7nVF2h39gEIGop1R7TWtsaIuxMj7fkzthtsPvUbBAhjURqA
- Cif178=
-X-Google-Smtp-Source: AGHT+IFrZuHxnN6IEK2r0tU2rCISF4H6sQekXuMVPVLd12u6wT/T0WzrgzvbiXwK8pkxTScnu7v9TIQRfM72tM0NwgE=
-X-Received: by 2002:a17:902:ce81:b0:240:b9c0:bc6f with SMTP id
- d9443c01a7336-2446d9b61a8mr85410995ad.10.1755528060990; Mon, 18 Aug 2025
- 07:41:00 -0700 (PDT)
+ bh=4ODCObxXMDHZMPb8viIL32XZ4JBE+/PP49rJ0tHf9xc=;
+ b=Slb5c/Ba2HM8n0O2bkGkV0S4h3iNlm5T8W7VqWdE7bS+nyGWDcLdHVrDGnW4U8XFR6
+ TrgLNBAH/xIU/d32QWOQzjTV13zPhLRX3WmTbhWbazvuWmmxk1X+JTdH+TSAskBIG/YJ
+ ssr6atWfm9MX0cI+r5q4GPHP2q1EY/Xlpu+/tJEHDfkyKH8ez/VHR5YhAIVkzCS3QCBe
+ eEjMblF+vkhF1OjQ+2ECofv6iKmccu1R28N8nCusFVzQPt5FaIe8VTlfmZU/kIYs6Gah
+ xtovjpm8V/tz3+lGszKHEIuF0ypFQz7t8CucQAUmjZLwwU5BDmmUDf8KvJWor57C2JQ0
+ nqjg==
+X-Gm-Message-State: AOJu0YzxBtViSmmU91/rBITi0elStNRsJ61Q4tcnGf5hWepzw2mRSpZJ
+ jh7pbL4JKYSvwuckQ+ibTdZdqZzrMS4vWDVI5U5zyKXuey9obLzKf/hj1StAiV+AlhLfkhrdu+U
+ e2YVa0jWW2jL52boBo6dPFgMVZwlOhvI=
+X-Gm-Gg: ASbGncv98O9HYLaQZfYwCgXxdF7WNYzuSF4Fm27/aYUY/Y+VbEE3eqk8XZ7GAcVVySn
+ NKz8WIlVzX1WsUmIGxVHDejknB5w0cDmC8ZvWkdS60bmY8rtfaiGs31Z050JzupsDYk+agjiVzN
+ 18JQC5bZfx4SEezbtbXWKI4X8EczWDxCCQLOFYupYpTjVAGrKEhjCDGYHQWq4mRsjKjvygeYaD3
+ 1KNGSw=
+X-Google-Smtp-Source: AGHT+IFf8miA2AqUhi2CCFK9qH2gp0VKF6grn/ClIE+2k/LYuPm47czeYDy8aGrlmSjZTg7kGQkWPxaosO08mFivOX4=
+X-Received: by 2002:a17:903:11c8:b0:240:33c7:fbf9 with SMTP id
+ d9443c01a7336-2446da155e8mr82000035ad.11.1755528304022; Mon, 18 Aug 2025
+ 07:45:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <CABXGCsO+EmR0QgFGjCbq74gzwbQbb76wjt1vOOOJnsCqj9hAhg@mail.gmail.com>
-In-Reply-To: <CABXGCsO+EmR0QgFGjCbq74gzwbQbb76wjt1vOOOJnsCqj9hAhg@mail.gmail.com>
+References: <20250731094352.29528-1-timur.kristof@gmail.com>
+ <b4b90c56-f46c-4a0b-bfe3-196823e389cf@amd.com>
+In-Reply-To: <b4b90c56-f46c-4a0b-bfe3-196823e389cf@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Aug 2025 10:40:49 -0400
-X-Gm-Features: Ac12FXwnCiAjxoLjrPm2Gg52sSUwUKE37VYAtOU7LySFLtZAWT--6c5O3IBbCZY
-Message-ID: <CADnq5_PdzYSzFL7KDsPV7zqX2avwn-NhSJqyVVPYF9LOMEyhWg@mail.gmail.com>
-Subject: Re: REGRESSION drm/amdgpu: Radeon 7900 XTX hang & gpu_sched "Trying
- to push to a killed entity" since 1f02f2044bda (6.17-rc)
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: Gang.Ba@amd.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, 
- Linux regressions mailing list <regressions@lists.linux.dev>
+Date: Mon, 18 Aug 2025 10:44:52 -0400
+X-Gm-Features: Ac12FXynhHlqsLlSqVb-SM9NjezV-5uVdsfXWK_2i7nUNU3rLNGyYhCxCD_LQRY
+Message-ID: <CADnq5_NDwdd8z4nBf6LngpUeM4txPHtFz44c5epVz8cMCV8XwQ@mail.gmail.com>
+Subject: Re: [PATCH 0/7] DC: don't overclock DCE 6-10 and other fixes
+To: Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,158 +81,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 18, 2025 at 10:32=E2=80=AFAM Mikhail Gavrilov
-<mikhail.v.gavrilov@gmail.com> wrote:
+On Sun, Aug 17, 2025 at 11:08=E2=80=AFPM Alex Hung <alex.hung@amd.com> wrot=
+e:
 >
-> Hi Gang,
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
 >
-> Between commits 4b290aae788e and 89748acdf226 my Radeon 7900 XTX
-> starts hanging when Steam performs shader compilation, with the
-> following messages/stack trace:
->
-> [ 9254.082549] kworker/u129:2 (15855) used greatest stack depth: 19656
-> bytes left
-> [ 9435.589185] [drm:drm_sched_entity_push_job [gpu_sched]] *ERROR*
-> Trying to push to a killed entity
-> [ 9435.590340] [drm:drm_sched_entity_push_job [gpu_sched]] *ERROR*
-> Trying to push to a killed entity
-> [ 9435.590465] [drm:drm_sched_entity_push_job [gpu_sched]] *ERROR*
-> Trying to push to a killed entity
-> [ 9435.590881] [drm:drm_sched_entity_push_job [gpu_sched]] *ERROR*
-> Trying to push to a killed entity
-> [ 9435.592513] [drm:drm_sched_entity_push_job [gpu_sched]] *ERROR*
-> Trying to push to a killed entity
-> [ 9435.594059] [drm:drm_sched_entity_push_job [gpu_sched]] *ERROR*
-> Trying to push to a killed entity
-> [ 9435.596428] [drm:drm_sched_entity_push_job [gpu_sched]] *ERROR*
-> Trying to push to a killed entity
-> [ 9435.597828] [drm:drm_sched_entity_push_job [gpu_sched]] *ERROR*
-> Trying to push to a killed entity
-> [ 9585.848993] INFO: task kworker/u132:12:18278 blocked for more than
-> 122 seconds.
-> [ 9585.849006]       Tainted: G             L     ------  ---
-> 6.17.0-0.rc0.250801g89748acdf226.7.fc43.x86_64+debug #1
-> [ 9585.849010] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
-> disables this message.
-> [ 9585.849013] task:kworker/u132:12 state:D stack:28600 pid:18278
-> tgid:18278 ppid:2      task_flags:0x4208060 flags:0x00004000
-> [ 9585.849022] Workqueue: ttm ttm_bo_delayed_delete [ttm]
-> [ 9585.849032] Call Trace:
-> [ 9585.849034]  <TASK>
-> [ 9585.849037]  __schedule+0x8d2/0x1be0
-> [ 9585.849044]  ? __pfx___schedule+0x10/0x10
-> [ 9585.849051]  ? __lock_release.isra.0+0x1cb/0x340
-> [ 9585.849059]  schedule+0xd4/0x260
-> [ 9585.849062]  schedule_timeout+0x17f/0x260
-> [ 9585.849065]  ? __pfx_schedule_timeout+0x10/0x10
-> [ 9585.849067]  ? find_held_lock+0x2b/0x80
-> [ 9585.849074]  ? lockdep_hardirqs_on_prepare.part.0+0x92/0x170
-> [ 9585.849076]  ? trace_hardirqs_on+0x18/0x150
-> [ 9585.849081]  dma_fence_default_wait+0x472/0x700
-> [ 9585.849087]  ? find_held_lock+0x2b/0x80
-> [ 9585.849089]  ? __pfx_dma_fence_default_wait+0x10/0x10
-> [ 9585.849092]  ? __pfx_dma_fence_default_wait_cb+0x10/0x10
-> [ 9585.849095]  ? mark_held_locks+0x40/0x70
-> [ 9585.849098]  ? lockdep_hardirqs_on_prepare.part.0+0x92/0x170
-> [ 9585.849103]  dma_fence_wait_timeout+0x344/0x540
-> [ 9585.849107]  dma_resv_wait_timeout+0xeb/0x190
-> [ 9585.849111]  ? __pfx_dma_resv_wait_timeout+0x10/0x10
-> [ 9585.849117]  ? rcu_is_watching+0x15/0xe0
-> [ 9585.849122]  ttm_bo_delayed_delete+0x34/0x100 [ttm]
-> [ 9585.849128]  process_one_work+0x87a/0x14d0
-> [ 9585.849140]  ? __pfx_process_one_work+0x10/0x10
-> [ 9585.849145]  ? find_held_lock+0x2b/0x80
-> [ 9585.849153]  ? assign_work+0x156/0x390
-> [ 9585.849161]  worker_thread+0x5f2/0xfd0
-> [ 9585.849172]  ? __pfx_worker_thread+0x10/0x10
-> [ 9585.849175]  kthread+0x3b0/0x770
-> [ 9585.849178]  ? local_clock_noinstr+0xf/0x130
-> [ 9585.849182]  ? __pfx_kthread+0x10/0x10
-> [ 9585.849186]  ? rcu_is_watching+0x15/0xe0
-> [ 9585.849188]  ? __pfx_kthread+0x10/0x10
-> [ 9585.849192]  ret_from_fork+0x3ef/0x510
-> [ 9585.849196]  ? __pfx_kthread+0x10/0x10
-> [ 9585.849198]  ? __pfx_kthread+0x10/0x10
-> [ 9585.849201]  ret_from_fork_asm+0x1a/0x30
-> [ 9585.849210]  </TASK>
->
-> I can also reproduce the same error when starting a campaign in Halo
-> Infinite (without relying on Steam=E2=80=99s shader pre-cache UI), which =
-made
-> bisecting feasible.
->
-> 1f02f2044bda1db1fd995bc35961ab075fa7b5a2 is the first bad commit
-> commit 1f02f2044bda1db1fd995bc35961ab075fa7b5a2 (HEAD)
-> Author: Gang Ba <Gang.Ba@amd.com>
-> Date:   Tue Jul 8 14:36:13 2025 -0400
->
->     drm/amdgpu: Avoid extra evict-restore process.
->
->     If vm belongs to another process, this is fclose after fork,
->     wait may enable signaling KFD eviction fence and cause parent
-> process queue evicted.
->
->     [677852.634569]  amdkfd_fence_enable_signaling+0x56/0x70 [amdgpu]
->     [677852.634814]  __dma_fence_enable_signaling+0x3e/0xe0
->     [677852.634820]  dma_fence_wait_timeout+0x3a/0x140
->     [677852.634825]  amddma_resv_wait_timeout+0x7f/0xf0 [amdkcl]
->     [677852.634831]  amdgpu_vm_wait_idle+0x2d/0x60 [amdgpu]
->     [677852.635026]  amdgpu_flush+0x34/0x50 [amdgpu]
->     [677852.635208]  filp_flush+0x38/0x90
->     [677852.635213]  filp_close+0x14/0x30
->     [677852.635216]  do_close_on_exec+0xdd/0x130
->     [677852.635221]  begin_new_exec+0x1da/0x490
->     [677852.635225]  load_elf_binary+0x307/0xea0
->     [677852.635231]  ? srso_alias_return_thunk+0x5/0xfbef5
->     [677852.635235]  ? ima_bprm_check+0xa2/0xd0
->     [677852.635240]  search_binary_handler+0xda/0x260
->     [677852.635245]  exec_binprm+0x58/0x1a0
->     [677852.635249]  bprm_execve.part.0+0x16f/0x210
->     [677852.635254]  bprm_execve+0x45/0x80
->     [677852.635257]  do_execveat_common.isra.0+0x190/0x200
->
->     Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->     Signed-off-by: Gang Ba <Gang.Ba@amd.com>
->     Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->     Cc: stable@vger.kernel.org
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->
-> Reverting 1f02f2044bda on top of 6.17-rc2 fully eliminates the hang on
-> my system.
+> This patch series was also tested in the promotion test and in CI
+> without any regression.
 
-Should be fixed in:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3Daa5fc4362fac9351557eb27c745579159a2e4520
+Did you pick these series up or would you like me to?
 
 Alex
 
 >
-> Environment:
->     GPU: AMD Radeon 7900 XTX
->     Kernel: 6.17-rc2
->     Distro: Fedora Rawhide
->     Hardware probe: https://linux-hardware.org/?probe=3D99f5cf44a4
->     Kernel config and full dmesg are attached.
+> On 7/31/25 03:43, Timur Krist=C3=B3f wrote:
+> > This series fixes various issues that I found while trying to
+> > get old GPUs with DCE 6 to work well with DC.
+> >
+> > The most important part of this series is tweaking how
+> > the engine clock is set on DCE 6-10.
+> >
+> > For DCE 6 the maximum according to max_clks_by_state is 600 Mhz,
+> > but dce60_validate_bandwidth sets it to 681 MHz, and then
+> > dce60_update_clocks further increases it by 15%, resulting in
+> > a whopping 783 MHz, which is overall 30% more than what the
+> > hardware was supposed to handle. My Tahiti GPU didn't even boot
+> > with DC enabled with that clock setting.
+> > There is a similar issue with DCE 8-10 too, additionally the
+> > dce80_max_clks_by_state data seems to be incorrect, so I changed
+> > the maximum to 625 MHz for DCE 8-10, which is what the legacy
+> > code uses.
+> >
+> > I tested these changes and made sure 4K 60Hz (10 bit) output
+> > still works with them on the following GPUs:
+> >
+> > * Tahiti (DCE 6)
+> > * Oland (DCE 6.4)
+> > * Hawaii (DCE 8)
+> > * Tonga, Fiji (DCE 10)
+> >
+> > I would appreciate if someone from AMD could confirm what the
+> > maximum display engine clocks for these parts really are.
+> >
+> > Other than that, the rest of the series deals with some
+> > ligher problems:
+> >
+> > There are patches to fill the display information on DCE 6-10
+> > (previously only filled on DCE 11), such as the first CRTC and
+> > its line time, as well as vblank time, display clock etc.
+> > These are going to be needed for DPM.
+> >
+> > It also removes some errors and warnings from the logs which
+> > are caused by the VBIOS on old GPUs reporting some information
+> > differently, namely some VBIOS seem to lack encoder capability
+> > entries for some connectors, as well as the actual amount of
+> > connectors on the GPU not matching the number of entries
+> > reported by the VBIOS.
+> > The DC code base already handles these cases well. They are
+> > not actually errors, so we shouldn't spam the logs with them.
+> >
+> > Finally, there is also a fix for set_pixel_clock_v3 which
+> > works slightly differently than the other versions.
+> >
+> > Timur Krist=C3=B3f (7):
+> >    drm/amd/display: Don't overclock DCE 6 by 15%
+> >    drm/amd/display: Adjust DCE 8-10 clock, don't overclock by 15%
+> >    drm/amd/display: Find first CRTC and its line time in
+> >      dce110_fill_display_configs
+> >    drm/amd/display: Fill display clock and vblank time in
+> >      dce110_fill_display_configs
+> >    drm/amd/display: Don't warn when missing DCE encoder caps
+> >    drm/amd/display: Don't print errors for nonexistent connectors
+> >    drm/amd/display: Fix fractional fb divider in set_pixel_clock_v3
+> >
+> >   .../gpu/drm/amd/display/dc/bios/bios_parser.c |  5 +--
+> >   .../drm/amd/display/dc/bios/command_table.c   |  2 +-
+> >   .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   | 14 +++----
+> >   .../dc/clk_mgr/dce110/dce110_clk_mgr.c        | 40 +++++++++++-------=
+-
+> >   .../display/dc/clk_mgr/dce60/dce60_clk_mgr.c  | 10 ++---
+> >   drivers/gpu/drm/amd/display/dc/core/dc.c      | 15 ++++++-
+> >   .../drm/amd/display/dc/dce/dce_link_encoder.c |  8 ++--
+> >   7 files changed, 51 insertions(+), 43 deletions(-)
+> >
 >
-> Reproducer (two ways)
->     Launch Steam and trigger shader compilation (automatic background
-> pre-cache or any action that compiles shaders).
->     Alternatively, launch Halo Infinite and start a campaign. Within a
-> short time the GPU hang occurs and gpu_sched prints repeated
-> *ERROR* Trying to push to a killed entity, followed by a blocked
-> ttm_bo_delayed_delete worker as in the trace above.
->
-> Impact / notes
->     This is a runtime GPU hang on a current RDNA3 card; the offending
-> commit is CC=E2=80=99d to stable, so it would be good to fix or revert be=
-fore
-> it propagates.
->
-> Thanks for looking into this.
->
-> --
-> Best Regards,
-> Mike Gavrilov.
