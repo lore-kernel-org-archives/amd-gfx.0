@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AF72CA0EE4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C067CA0EDC
 	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 02:01:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2F8310E32F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C22B710E32B;
 	Mon, 18 Aug 2025 02:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YKg7k9Hw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PJlq2ayQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA50510E32F;
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 071D710E32B;
  Mon, 18 Aug 2025 02:01:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9F4524490B;
- Mon, 18 Aug 2025 02:01:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97300C116C6;
- Mon, 18 Aug 2025 02:01:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9B58D5C57BF;
+ Mon, 18 Aug 2025 02:01:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8EDC4CEEB;
+ Mon, 18 Aug 2025 02:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755482489;
- bh=et7bJe3p9Q1yVCIYr8gWEO9Yxv/JOZsp+bMu8xhiGjw=;
+ s=k20201202; t=1755482476;
+ bh=nP9n5VGF2FskJeZ1oNEb2BbawXh/NPFp8tsiOD47chk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YKg7k9HwnF2tc7oS9vdPoDn1VoIX9uTAqmaT78ZBcmTGber96XLzbpbO/p9yO4gJN
- Q7K5xno3LpbkzbJdGTzR7wx3CqTVqAT/uWyEEqwSDV8XDyq0mRSHeB6BaxySInH9NG
- 57R6FVG48CFGYvgFuo4zneO7oC7ehJwYVNuLrhTrjcTHTjEFgIu4UOvt7kyc/8h/B2
- MT5RQS+be3PmLKZ3G6FQ9A3Q7IDeC09CCmD+tV9zzhcjYsfVG//J9eJPU3EgJt7ODc
- D0c2F+8xPdGZnOl6qoRWFOX1R94q5i1RdveYCz6pxnUmtNsxy1flOqOg2AFjtB/on5
- QuaofLIxHbjKA==
+ b=PJlq2ayQKJAgj5A4Paj5fnHMw9r7Il4FJ0cVzz/w+gIthXJqpCHX5lUMkJd94O5s4
+ ckzEaD99szLB8JVS8928eYI3FYznyaAcnSzIz8fM0zZmmnuX6aslIyV8SWb5lhF7D/
+ p9uZGDIzCLUK/BcLqSuUXTS6ZbLYlKn9AWIk5ps/oJwhOSfMezUEkpUuDpRaGboE0J
+ 4WhKkaIOfLWyGBNltxCTyMFG/CDgsjIfgyUoc04dMKa5TwnAfnMCa9VNXPdsVMF/cc
+ 6rSKWantk8A3e0l4OX8Z+sHNKvX489QgL/HSbr8/8sWFcE7pfSipyK3gMra3mt5MQi
+ GdRAIMQGIay/A==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>
@@ -53,10 +53,9 @@ Cc: Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
  =?UTF-8?q?Merthan=20Karaka=C5=9F?= <m3rthn.k@gmail.com>,
  Eric Naim <dnaim@cachyos.org>,
  "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v6 08/11] PCI: PM: Use pci_power_manageable() in
- pci_pm_poweroff_noirq()
-Date: Sun, 17 Aug 2025 21:00:58 -0500
-Message-ID: <20250818020101.3619237-9-superm1@kernel.org>
+Subject: [PATCH v6 02/11] scsi: Add PM_EVENT_POWEROFF into suspend callbacks
+Date: Sun, 17 Aug 2025 21:00:52 -0500
+Message-ID: <20250818020101.3619237-3-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250818020101.3619237-1-superm1@kernel.org>
 References: <20250818020101.3619237-1-superm1@kernel.org>
@@ -76,33 +75,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Devices with no subordinate should be put into D3 during hibernate, but
-devices that have bridge_d3 set should also be put to sleep during
-hibernate. Adjust the check in pci_pm_poweroff_noirq() to use
-pci_power_manageable() to cover those as well.
+When the ACPI core uses hibernation callbacks for shutdown drivers
+will receive PM_EVENT_POWEROFF and should handle it the same as
+PM_EVENT_HIBERNATE would have been used.
 
 Tested-by: Eric Naim <dnaim@cachyos.org>
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
 v5:
- * Split out patch
+ * Re-order
+v4:
+ * https://lore.kernel.org/linux-pci/20250616175019.3471583-1-superm1@kernel.org/
 ---
- drivers/pci/pci-driver.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/scsi/mesh.c | 1 +
+ drivers/scsi/stex.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-index fb6f1f60b2f1f..c563fd6af979d 100644
---- a/drivers/pci/pci-driver.c
-+++ b/drivers/pci/pci-driver.c
-@@ -1227,7 +1227,7 @@ static int pci_pm_poweroff_noirq(struct device *dev)
- 			return error;
- 	}
- 
--	if (!pci_dev->state_saved && !pci_has_subordinate(pci_dev))
-+	if (!pci_dev->state_saved && pci_power_manageable(pci_dev))
- 		pci_prepare_to_sleep(pci_dev);
- 
- 	/*
+diff --git a/drivers/scsi/mesh.c b/drivers/scsi/mesh.c
+index 1c15cac41d805..768b85eecc8fd 100644
+--- a/drivers/scsi/mesh.c
++++ b/drivers/scsi/mesh.c
+@@ -1762,6 +1762,7 @@ static int mesh_suspend(struct macio_dev *mdev, pm_message_t mesg)
+ 	case PM_EVENT_SUSPEND:
+ 	case PM_EVENT_HIBERNATE:
+ 	case PM_EVENT_FREEZE:
++	case PM_EVENT_POWEROFF:
+ 		break;
+ 	default:
+ 		return 0;
+diff --git a/drivers/scsi/stex.c b/drivers/scsi/stex.c
+index 63ed7f9aaa937..ee9372e1f7f07 100644
+--- a/drivers/scsi/stex.c
++++ b/drivers/scsi/stex.c
+@@ -1965,6 +1965,7 @@ static int stex_choice_sleep_mic(struct st_hba *hba, pm_message_t state)
+ 	case PM_EVENT_SUSPEND:
+ 		return ST_S3;
+ 	case PM_EVENT_HIBERNATE:
++	case PM_EVENT_POWEROFF:
+ 		hba->msi_lock = 0;
+ 		return ST_S4;
+ 	default:
 -- 
 2.43.0
 
