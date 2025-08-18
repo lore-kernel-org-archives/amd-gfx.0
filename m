@@ -4,72 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3109CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 20:30:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71610CA0ED1
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 21:16:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3729D10E040;
-	Mon, 18 Aug 2025 20:30:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 123FD10E00A;
+	Mon, 18 Aug 2025 21:16:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SlPnKteL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y2HhGkC6";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E531E10E4D4
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 20:30:41 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2447d607b70so2059635ad.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 13:30:41 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6658B10E00A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 21:16:43 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-24457f4ff1aso4479245ad.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 14:16:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755549041; x=1756153841; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1755551803; x=1756156603; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3FckRCdVl7RmnLtWNbL6m7HxXEcP96GnHXwtS86ccuU=;
- b=SlPnKteLMGxcoVxxp5vrhSSwSOwmkwqIMXrljftO/81ErYt+ddURyt2jwk30tP/fGn
- Fh0dZOEnBM7EEg/24x1YJ5XYQVtIfExPQ5nYudgRZzAlXt9Yjdt5bBmurxD5xxWrfYfa
- OVPPofK4zzab2JJx3VJiWvohEcH7iGt0eLFmu9hFVImP2G+CdaHqwbyAT7L3NuCgxkjj
- 70q+Y5RpOBVBH8eoLTf6/5sT+pbTCf31vX8mxay8FwRzRBvOUMvaMudw/oQ6iAIy4e4r
- UZy5cFRbmQsCUGKsnANYaxW8xZ/5wfrAdc7SeudYheS+Zl8S8b+t3T5XWB8wrk4wzKJe
- ix9w==
+ bh=ICTWtpDWBIOdfX18NWMjoyrYm0UY7iPTB/okMRiPOyM=;
+ b=Y2HhGkC6cSmp0OEqTpWvZN1jYzvwFXl1dCK18H/2guHgTuv/QPp41VgXo8sI5qDSpx
+ 29sn89nWOU2xPgTuIGeIjWsKexWJMX6tXJm2FfLJRsBAylEcQrHE1RQL08VHa0jvlBEm
+ X8uEwt10xjhsgSQWVcAGCtmpl50dJXTyttPTNDkKSzEmbg2VxV0qHJc2gMNlvgLLT8Gg
+ +WIBqVfRs4B8n5LtYwTR2gSB9KDFdshG9cOqc68854xrvlYLQO2BE+/9jZOiZ3osi2Ye
+ /lZitTQWX3HpARDHYnXzC7ZcZDyOwE6/cxUjgxUS5XWD5B8yFgOKpSCftaOO0PvCnivW
+ 4FVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755549041; x=1756153841;
+ d=1e100.net; s=20230601; t=1755551803; x=1756156603;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3FckRCdVl7RmnLtWNbL6m7HxXEcP96GnHXwtS86ccuU=;
- b=t4aEdiG7kPvUuyLUdlwHrsfCjdXDnVC2NuD3dvhWJd4rUnbsOIaFNWRhOQbjYbJ0ex
- 9QpeUtLaZHaVXNG0P9EW64oe+QhjfYCC2HShqqai0A7kjdbFHzMHzWkScjyguAtXxJS5
- nNG13InkS+joUU4pQSHxO5kEKTmu8pahUknXsNmHdH+rMro7Xqg/kFGEzcyL86nIcnUj
- 8rBWZzdq4yVXmmgHLlOzNBk63SN/ybIh2ORHJ6LoB8FZTkgvRCLchZ8pF755JMdNXdhV
- QqgPPZOUqIvrbuukh+MqVK8EBMXJ35/99CU9l55sdAzAekSmK1/ITWjSuxcGxiKggb48
- B6Bw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUtMojuXswinNuBAUTLCC86lfV+otEReXWkmuQEe94Np9GjbBuysr2XZK71P1xiUTprkkxot+3v@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwmUZPHUUsxkgSEBXtFSqfVMvdUghAOmYuNc6j74esJjKJjClsI
- HO18XZnN9CgLad88Q8Tqv1Y16afJ67BhpWX987aIMmtnBBVl+uUrJIq6AED8/E5Qtnk2k1SegGg
- uy4IWkLo3wtxnG1ZeJ+G+Jmz240ItGeE=
-X-Gm-Gg: ASbGncv01o5krDiXqQAtMwzeefHHkJomb7haIBaHD/yDfFHbstWKt+Z9UfYNveZkGVl
- 7OreZF6fcpPCB7kRI9Ujwa8FtsLQU5xeQF0VZevbBUiV1xrUoFafQavKAWltJEIeXE8O/HIqfjC
- 7eQD0faOzXvDUAqGx2sUUiF8y2UQTj+Nk+XxpCUqtxk/zTZvtDVhsOdyR9q7exkhq4mqkS0l6Eu
- p2cCz8bkPXVbxejLA==
-X-Google-Smtp-Source: AGHT+IE/BxGrJKHai8C3CitYiqIHDDUZ9YVRKC2JyXBzDEOowSZ9GqJVeCTvTRNQTNZ88mZ26HEZHxzBm/7os05YujU=
-X-Received: by 2002:a17:903:1ca:b0:240:8fd6:f798 with SMTP id
- d9443c01a7336-2446d77773bmr85970975ad.4.1755549041089; Mon, 18 Aug 2025
- 13:30:41 -0700 (PDT)
+ bh=ICTWtpDWBIOdfX18NWMjoyrYm0UY7iPTB/okMRiPOyM=;
+ b=iOylAAmHLih4OamnvE+pTk7ctwTNvTRdRz1MN+l6y0cy21LA+qUfL912PkX7A7dPWq
+ 5kSOfV9RkuxsBKGXEL6foZWxvaQGHhg1NyNZVRZnFAPwbLKP8v5VCa36JzybDMjkCfHe
+ zGNBY6SQ8fxTYCdfIOM5i7hVvMqhty2IXXXdsfhA7cb8DoTmYjqoqYFI1TgtKFBhPCWu
+ racKlKn8RlK9uWeSPARKsdyg9i3qd4jKDsOzqLThTsvm1FEXk11DFbpn3RKSrEToINBA
+ 3DdlI+Htimk3gIm6dTZ3gKac3L4UEV1Us+rBtypUBdg+TgDljcEHlo8bLDdi33zqtpbA
+ uu7A==
+X-Gm-Message-State: AOJu0Yw/U+nZbXKah6yvSi3TwxC0CgnyOYJPPUbVaC8QNu1oaTyIRsfi
+ TQO1AOXZvYX3zRhCSzZiHXQYaOeYLquf4//FQQI3u/Mk4rZMQ7jooH6/e4E0c+YRaDuSj5XnBxF
+ 1FfVV+YKaoLuZl/FXSgx9vEvosmKM7ynMSU2x
+X-Gm-Gg: ASbGnct4roJLkIuZi+9tvnHt5qmyZvXSjGuzwwbGodsAsBbJFXfTTqg0hDOnIF4kja+
+ rJua1MXO8PfA+rCrS+CX792XuQNuoFTb5OSKleLZnNA/uxpyLmQ7OX5A8eQ15JkwpMI/U6KV2yh
+ mIyS04wGrMCbPRDMK5huQLxvOcCzAuwx8b5rXgejYMCdyrN7LSdT9x+xgX4ei25MkQCR7h/lhi6
+ odHgs695R6mFQPSMg==
+X-Google-Smtp-Source: AGHT+IFQlVSdHE+Zp2mtWPQCJE5ae+kRcNF7HrknuOgQx6D/42Z95ObPmNxM1QensE16QYZ9hhziTxx9GunnouXCrYA=
+X-Received: by 2002:a17:902:c409:b0:240:52d7:e8a4 with SMTP id
+ d9443c01a7336-245e0485efamr714295ad.7.1755551802810; Mon, 18 Aug 2025
+ 14:16:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250802160602.12698-1-timur.kristof@gmail.com>
- <20250802160602.12698-4-timur.kristof@gmail.com>
- <bb9c7df3-5175-4e13-b519-19d6db465a67@amd.com>
-In-Reply-To: <bb9c7df3-5175-4e13-b519-19d6db465a67@amd.com>
+References: <20250813232532.2661638-1-alex.hung@amd.com>
+ <20250813232532.2661638-8-alex.hung@amd.com>
+In-Reply-To: <20250813232532.2661638-8-alex.hung@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Aug 2025 16:30:29 -0400
-X-Gm-Features: Ac12FXzVyUZ5iWyLduoo-jFdG5ll50UJDvlP1Kgx-DzeV6HTylikZ6uISpd1XiQ
-Message-ID: <CADnq5_MnTaM4U+UgnpEmFf6i1eyavgh9XAT20BajxJ0S2t_7Gw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amd/display: Don't use non-registered VUPDATE on
- DCE 6
+Date: Mon, 18 Aug 2025 17:16:31 -0400
+X-Gm-Features: Ac12FXzaZmIQBfOEnZFv--MByaafijKy7lNSBuU5wYmK-C5nWS5hGdfT9BxCk1g
+Message-ID: <CADnq5_NhgCORJE6YqiWfS8qX2FK6b9y8dHjHf1quXrUP_MrFMw@mail.gmail.com>
+Subject: Re: [PATCH 07/11] drm/amd/display: Attach privacy screen to DRM
+ connector
 To: Alex Hung <alex.hung@amd.com>
-Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>, 
+ Roman Li <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, 
+ Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, 
+ Daniel Wheeler <daniel.wheeler@amd.com>, Ray Wu <Ray.Wu@amd.com>, 
+ Ivan Lipski <ivan.lipski@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,119 +88,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 18, 2025 at 4:11=E2=80=AFPM Alex Hung <alex.hung@amd.com> wrote=
+On Wed, Aug 13, 2025 at 7:33=E2=80=AFPM Alex Hung <alex.hung@amd.com> wrote=
 :
 >
+> From: Mario Limonciello <mario.limonciello@amd.com>
 >
+> [WHY]
+> If a system has a privacy screen advertised by a driver it should
+> be included in the DRM connector for the eDP panel.
 >
-> On 8/2/25 10:06, Timur Krist=C3=B3f wrote:
-> > The VUPDATE interrupt isn't registered on DCE 6, so don't try
-> > to use that.
-> >
-> > This fixes a page flip timeout after sleep/resume on DCE 6.
-> >
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 ++++++++++++------=
--
-> >   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 16 ++++++++------
-> >   2 files changed, 23 insertions(+), 15 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 470f831a17f7..e8d2ba58cbfa 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -2981,14 +2981,20 @@ static void dm_gpureset_toggle_interrupts(struc=
-t amdgpu_device *adev,
-> >                               drm_warn(adev_to_drm(adev), "Failed to %s=
- pflip interrupts\n",
-> >                                        enable ? "enable" : "disable");
-> >
-> > -                     if (enable) {
-> > -                             if (amdgpu_dm_crtc_vrr_active(to_dm_crtc_=
-state(acrtc->base.state)))
-> > -                                     rc =3D amdgpu_dm_crtc_set_vupdate=
-_irq(&acrtc->base, true);
-> > -                     } else
-> > -                             rc =3D amdgpu_dm_crtc_set_vupdate_irq(&ac=
-rtc->base, false);
-> > -
-> > -                     if (rc)
-> > -                             drm_warn(adev_to_drm(adev), "Failed to %s=
-able vupdate interrupt\n", enable ? "en" : "dis");
-> > +                     if (dc_supports_vrr(adev->dm.dc->ctx->dce_version=
-)) {
-> > +                             if (enable) {
-> > +                                     if (amdgpu_dm_crtc_vrr_active(
-> > +                                                     to_dm_crtc_state(=
-acrtc->base.state)))
-> > +                                             rc =3D amdgpu_dm_crtc_set=
-_vupdate_irq(
-> > +                                                     &acrtc->base, tru=
-e);
-> > +                             } else
-> > +                                     rc =3D amdgpu_dm_crtc_set_vupdate=
-_irq(
-> > +                                                     &acrtc->base, fal=
-se);
-> > +
-> > +                             if (rc)
-> > +                                     drm_warn(adev_to_drm(adev), "Fail=
-ed to %sable vupdate interrupt\n",
-> > +                                             enable ? "en" : "dis");
-> > +                     }
+> [HOW]
+> Detect statically declared privacy screens when creating eDP connector
+> and attach privacy screen DRM properties.
 >
-> Hi Timur,
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 25 ++++++++++++++++++-
+>  1 file changed, 24 insertions(+), 1 deletion(-)
 >
-> There seem to be conflicts to amd-staging-drm-next. Could you please
-> rebase and resend? This helps make sure new change fix the problem you
-> observed.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index e8cfae2bd2ae..176f420effd9 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -80,6 +80,7 @@
+>  #include <linux/component.h>
+>  #include <linux/sort.h>
 >
-> Really appreciate it. Thanks.
+> +#include <drm/drm_privacy_screen_consumer.h>
+>  #include <drm/display/drm_dp_mst_helper.h>
+>  #include <drm/display/drm_hdmi_helper.h>
+>  #include <drm/drm_atomic.h>
+> @@ -7846,6 +7847,14 @@ amdgpu_dm_connector_atomic_check(struct drm_connec=
+tor *conn,
+>         if (!crtc)
+>                 return 0;
+>
+> +       if (new_con_state->privacy_screen_sw_state !=3D old_con_state->pr=
+ivacy_screen_sw_state) {
+> +               new_crtc_state =3D drm_atomic_get_crtc_state(state, crtc)=
+;
+> +               if (IS_ERR(new_crtc_state))
+> +                       return PTR_ERR(new_crtc_state);
+> +
+> +               new_crtc_state->mode_changed =3D true;
+> +       }
+> +
+>         if (new_con_state->colorspace !=3D old_con_state->colorspace) {
+>                 new_crtc_state =3D drm_atomic_get_crtc_state(state, crtc)=
+;
+>                 if (IS_ERR(new_crtc_state))
+> @@ -8541,6 +8550,18 @@ void amdgpu_dm_connector_init_helper(struct amdgpu=
+_display_manager *dm,
+>                 if (adev->dm.hdcp_workqueue)
+>                         drm_connector_attach_content_protection_property(=
+&aconnector->base, true);
+>         }
+> +
+> +       if (connector_type =3D=3D DRM_MODE_CONNECTOR_eDP) {
 
-If it's just the first patch, you can skip that one as the conflict
-solves the issue with DSC.
+Do the privacy screens exist on any old laptops with LVDS?  If so, we
+should add DRM_MODE_CONNECTOR_LVDS here as well.
 
 Alex
 
+> +               struct drm_privacy_screen *privacy_screen;
+> +
+> +               privacy_screen =3D drm_privacy_screen_get(adev_to_drm(ade=
+v)->dev, NULL);
+> +               if (!IS_ERR(privacy_screen)) {
+> +                       drm_connector_attach_privacy_screen_provider(&aco=
+nnector->base,
+> +                                                                    priv=
+acy_screen);
+> +               } else if (PTR_ERR(privacy_screen) !=3D -ENODEV) {
+> +                       drm_warn(adev_to_drm(adev), "Error getting privac=
+y-screen\n");
+> +               }
+> +       }
+>  }
 >
-> >
-> >                       irq_source =3D IRQ_TYPE_VBLANK + acrtc->otg_inst;
-> >                       /* During gpu-reset we disable and then enable vb=
-lank irq, so
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > index 2551823382f8..f2208e4224f9 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > @@ -298,13 +298,15 @@ static inline int amdgpu_dm_crtc_set_vblank(struc=
-t drm_crtc *crtc, bool enable)
-> >
-> >       irq_type =3D amdgpu_display_crtc_idx_to_irq_type(adev, acrtc->crt=
-c_id);
-> >
-> > -     if (enable) {
-> > -             /* vblank irq on -> Only need vupdate irq in vrr mode */
-> > -             if (amdgpu_dm_crtc_vrr_active(acrtc_state))
-> > -                     rc =3D amdgpu_dm_crtc_set_vupdate_irq(crtc, true)=
-;
-> > -     } else {
-> > -             /* vblank irq off -> vupdate irq off */
-> > -             rc =3D amdgpu_dm_crtc_set_vupdate_irq(crtc, false);
-> > +     if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
-> > +             if (enable) {
-> > +                     /* vblank irq on -> Only need vupdate irq in vrr =
-mode */
-> > +                     if (amdgpu_dm_crtc_vrr_active(acrtc_state))
-> > +                             rc =3D amdgpu_dm_crtc_set_vupdate_irq(crt=
-c, true);
-> > +             } else {
-> > +                     /* vblank irq off -> vupdate irq off */
-> > +                     rc =3D amdgpu_dm_crtc_set_vupdate_irq(crtc, false=
-);
-> > +             }
-> >       }
-> >
-> >       if (rc)
+>  static int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
+> @@ -10265,7 +10286,7 @@ static void amdgpu_dm_atomic_commit_tail(struct d=
+rm_atomic_state *state)
+>         unsigned long flags;
+>         bool wait_for_vblank =3D true;
+>         struct drm_connector *connector;
+> -       struct drm_connector_state *old_con_state, *new_con_state;
+> +       struct drm_connector_state *old_con_state =3D NULL, *new_con_stat=
+e =3D NULL;
+>         struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
+>         int crtc_disable_count =3D 0;
+>
+> @@ -10383,6 +10404,8 @@ static void amdgpu_dm_atomic_commit_tail(struct d=
+rm_atomic_state *state)
+>                                             &stream_update);
+>                 mutex_unlock(&dm->dc_lock);
+>                 kfree(dummy_updates);
+> +
+> +               drm_connector_update_privacy_screen(new_con_state);
+>         }
+>
+>         /**
+> --
+> 2.43.0
 >
