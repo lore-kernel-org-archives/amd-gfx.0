@@ -4,69 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49A3CCA0EE4
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 14:45:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49343CA0EE4
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 14:57:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6DC710E1DC;
-	Mon, 18 Aug 2025 14:45:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C527D10E460;
+	Mon, 18 Aug 2025 14:57:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l1AI0tY/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v4N+xoN1";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7FCE10E1DC
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 14:45:04 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-24457f57ed4so7589135ad.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 07:45:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755528304; x=1756133104; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4ODCObxXMDHZMPb8viIL32XZ4JBE+/PP49rJ0tHf9xc=;
- b=l1AI0tY/5SC2nJuFK2/X4NM32qAqHKepX8O3SaskkKZf2MNAlcj9bnwCnVjCpo5fJK
- ZzaS7nN7oimTD6GmRH45ypEfnZdAX4EATcwZw014PFz6XbXVmHc8mG9mow0xwJKDYaPl
- oTgIE1aMQaM5xjsm/HUSiuaMsvTKUpPH26KC/3FgX8m5tYL2YDSKeVAQrO3PtlCR8RpJ
- fiPiiCdxZDC3OxQVQm2enV2693qMz5wpV9Cn8rpQq3BrV4KnAeuhKfNVhtjzoIqHtkc5
- darIMbQDGv1PH/MjKQv6E0iuMnFhSzI9GJM3WttNQbtjnZSNV72g47gebYAYvmslG4ZE
- eh9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755528304; x=1756133104;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4ODCObxXMDHZMPb8viIL32XZ4JBE+/PP49rJ0tHf9xc=;
- b=Slb5c/Ba2HM8n0O2bkGkV0S4h3iNlm5T8W7VqWdE7bS+nyGWDcLdHVrDGnW4U8XFR6
- TrgLNBAH/xIU/d32QWOQzjTV13zPhLRX3WmTbhWbazvuWmmxk1X+JTdH+TSAskBIG/YJ
- ssr6atWfm9MX0cI+r5q4GPHP2q1EY/Xlpu+/tJEHDfkyKH8ez/VHR5YhAIVkzCS3QCBe
- eEjMblF+vkhF1OjQ+2ECofv6iKmccu1R28N8nCusFVzQPt5FaIe8VTlfmZU/kIYs6Gah
- xtovjpm8V/tz3+lGszKHEIuF0ypFQz7t8CucQAUmjZLwwU5BDmmUDf8KvJWor57C2JQ0
- nqjg==
-X-Gm-Message-State: AOJu0YzxBtViSmmU91/rBITi0elStNRsJ61Q4tcnGf5hWepzw2mRSpZJ
- jh7pbL4JKYSvwuckQ+ibTdZdqZzrMS4vWDVI5U5zyKXuey9obLzKf/hj1StAiV+AlhLfkhrdu+U
- e2YVa0jWW2jL52boBo6dPFgMVZwlOhvI=
-X-Gm-Gg: ASbGncv98O9HYLaQZfYwCgXxdF7WNYzuSF4Fm27/aYUY/Y+VbEE3eqk8XZ7GAcVVySn
- NKz8WIlVzX1WsUmIGxVHDejknB5w0cDmC8ZvWkdS60bmY8rtfaiGs31Z050JzupsDYk+agjiVzN
- 18JQC5bZfx4SEezbtbXWKI4X8EczWDxCCQLOFYupYpTjVAGrKEhjCDGYHQWq4mRsjKjvygeYaD3
- 1KNGSw=
-X-Google-Smtp-Source: AGHT+IFf8miA2AqUhi2CCFK9qH2gp0VKF6grn/ClIE+2k/LYuPm47czeYDy8aGrlmSjZTg7kGQkWPxaosO08mFivOX4=
-X-Received: by 2002:a17:903:11c8:b0:240:33c7:fbf9 with SMTP id
- d9443c01a7336-2446da155e8mr82000035ad.11.1755528304022; Mon, 18 Aug 2025
- 07:45:04 -0700 (PDT)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2059.outbound.protection.outlook.com [40.107.102.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C580410E460
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 14:57:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H34WVy7rVxyn2Nrea7syu8UGuxgxlRzegAR3Ll2aPABmwzyjLRSoERZ8a2UBp9Ppe0ZffOmaQDWn9OkhQFTOKl9J7ym5Ln4CCxkwoIGNtKT5F4cTNHS2VlZEjPp2dM7CGVvTUDk1izBaBV+EFXWO4j0hjQ25xfJRW2zO9k0Y/1rXRLRhsqBnb40a9mZ2/msAcqfdbDhidUOtNCPakMHIAHW4uDGWQ95DiJYI1fajC+TVITaZpbmLTOX3s5lfaiCvDS3QDRoMsid7NwXzljjGGfKY9cZRSoAA680dPDK7dIof3d+wb2TEEPJlcdbBIuGJwzc/b0Bk9/RiRPCG1+oM8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tthJZLGYhpVXcbBdS2sWXci48UM0kFNfGX3keprdQJQ=;
+ b=d+a99YGUqzN05H33SY8IZQMgS7ThkSDuwOtB8/fgbFvMN/7ELfKiruIef4LFmSoxOKleLJJ7eHykIbRePw5aLu/wODJkKNzdFIu4luw6N7CRcwb5G7oz163AGC+sfQRzfDMtYu7F6A9wIzu0onqcpGw78+59RLvZwStE+EK/JgBEQ7sLfgPGfNluHDwJ43bsuWpcZGVvDrteD7oxXKuEVhMCU1CuUXH72ZGv0i3tUXB/bI/stEuT7awLGIOhkhv/jWWyYpj/rhFtHKNMG/4HCx7WOC1g0afABvbzMCBeX8xlQh1UPnYn1UV2TRhHK+OXsPfzidZCsFW2j5Cx0kxsLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tthJZLGYhpVXcbBdS2sWXci48UM0kFNfGX3keprdQJQ=;
+ b=v4N+xoN1bZW0U4+cghzIo7hZtWsF+rp+NYcmA5anp54Slgdvvv5aNEKdar4fAjUDPt/Q5Mn8NUtqVThF/300sPoqkfZKOcCSi3DVc/PERUJ75f2i1nDa1vm1bOqSyy1tDd44a4cF020KLskRoLwuiYgTI6Br5J6HmMbJDx7TOtE=
+Received: from BL0PR05CA0023.namprd05.prod.outlook.com (2603:10b6:208:91::33)
+ by IA1PR12MB6065.namprd12.prod.outlook.com (2603:10b6:208:3ef::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Mon, 18 Aug
+ 2025 14:57:13 +0000
+Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
+ (2603:10b6:208:91:cafe::97) by BL0PR05CA0023.outlook.office365.com
+ (2603:10b6:208:91::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.12 via Frontend Transport; Mon,
+ 18 Aug 2025 14:57:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9052.8 via Frontend Transport; Mon, 18 Aug 2025 14:57:12 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 18 Aug
+ 2025 09:57:10 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <tao.zhou1@amd.com>, <Stanley.Yang@amd.com>, <Hawking.Zhang@amd.com>,
+ <kevinyang.wang@amd.com>, <YiPeng.Chai@amd.com>, Ce Sun <cesun102@amd.com>
+Subject: [PATCH 1/4 v5] drm/amdgpu: Correct the counts of nr_banks and
+ nr_errors
+Date: Mon, 18 Aug 2025 22:56:44 +0800
+Message-ID: <20250818145644.318590-1-cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20250731094352.29528-1-timur.kristof@gmail.com>
- <b4b90c56-f46c-4a0b-bfe3-196823e389cf@amd.com>
-In-Reply-To: <b4b90c56-f46c-4a0b-bfe3-196823e389cf@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Aug 2025 10:44:52 -0400
-X-Gm-Features: Ac12FXynhHlqsLlSqVb-SM9NjezV-5uVdsfXWK_2i7nUNU3rLNGyYhCxCD_LQRY
-Message-ID: <CADnq5_NDwdd8z4nBf6LngpUeM4txPHtFz44c5epVz8cMCV8XwQ@mail.gmail.com>
-Subject: Re: [PATCH 0/7] DC: don't overclock DCE 6-10 and other fixes
-To: Alex Hung <alex.hung@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|IA1PR12MB6065:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56b02281-a55a-41d2-8b90-08ddde67839b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?GZBSxHLqviXBLn6cRmsbaiY6p0yI+y/zta3gFDl+kA3sXgKaEtY5OeqhhGQ1?=
+ =?us-ascii?Q?QJMC6GlH+AebzCoC7fxKLFz8cCoOTMysmtqxgpkTA4e+9zhuX9OhY5kUGhkR?=
+ =?us-ascii?Q?m1TuoktCv+JDfVCVbGxumtm4MUabpKgInhLJbIC+5VglT/yPzXZ92UFmVajm?=
+ =?us-ascii?Q?n/1xnTWwdeCleaza7SMe6Rbvcax0yNvk33uu+W0l6nVHlvJOxgz9V+3LcFK1?=
+ =?us-ascii?Q?MxTB7b2Tpg1WtorWBEuEtITAQNiXJOFzdilF0iwKyfEtK3zidLlnWzHZmViq?=
+ =?us-ascii?Q?PFkU0P+7tAvNjLXqSv3f0TZ0/9OPMp+BTbSjEKxWPMG/dASK3DY+WFTFecWk?=
+ =?us-ascii?Q?kuZKAZpDs5W3SO48npTzG3PTIRx9EsMvCNExpLVA+FZIDdo7ms0W2Ak5gg5J?=
+ =?us-ascii?Q?k6VBNLjPFocnKGyq/EJxIVxiyQiTtZQxHIC12g63hHTDkX9V1LyUJGGfU1yL?=
+ =?us-ascii?Q?yjJu07qz+rjNFIQ2UQIyQeRof5132R4jmD2/9lW2gKPJDQcKoHwf3G+iPwxo?=
+ =?us-ascii?Q?IPitCMlFlRMFJbUAzTSM+tLrJN3ZRCNkT6Kjxj9ocXUPKgjkobsNlfutF8KU?=
+ =?us-ascii?Q?dV4vErRXrevvq8hbw+YrSXSbES7wMxjbrFVbYqWU4Pyoz3OfYXjtkfn3paih?=
+ =?us-ascii?Q?yg8IEb6goJOp7BTK8V8S0f7Loem4J3A1RyAplfdfoH3QxRHl2YAIQQVOATVR?=
+ =?us-ascii?Q?fCesW66tAYHincFQpz30oI+Gi/QMY0VK5JkvNb+Fnkxxok8panRc+ilM3BpB?=
+ =?us-ascii?Q?JEBsEu1UTE/LbGDlmrgKx55UPbcUTgqzogs1h2CUGPpMMKw9dAzcf7Fd4CbA?=
+ =?us-ascii?Q?ci8EnBPKbqp7iYfPWEyUmzhajrgH9D2W0B/Hscrk2lmToW3sUnVrk+LIDoag?=
+ =?us-ascii?Q?4Jtg3qYC1lxntExEv9nMqK7oWL1xJWff9ED4jdwPMPVlBEswHFabd1K0S2Fc?=
+ =?us-ascii?Q?Q9wdM95zGcmkgP2VxtItvSQGneoB/vN44VgATJhVlS/GXKrL3Wvv6qgetce7?=
+ =?us-ascii?Q?2HMxERTN4h1jZAR9vybEzEAuX6t+CCBwq6iI6zb8EjjKYzzn4WoFScMiE0Hb?=
+ =?us-ascii?Q?LT6Y3YVvZWsI/5azcwQzYC1v3NTpV20NsUx38XiXLDuKmECMPSlF+vhJUh+D?=
+ =?us-ascii?Q?Y8GHYBHVF5eJzSNkksGEAT0zqcCpkaJkC8fvR8Su+v3FMWMW008k/hIRYyGn?=
+ =?us-ascii?Q?DcdN4QaHOARnwowT0XMO43/2ce9B4X5C7PJ63j6Ot7qwWJ3y3k3PEIY2WM4o?=
+ =?us-ascii?Q?9LS0nK2GtuaukLHdcYo3EA6IjWMttmSwEkEgEQFxVh8L66BNcaEFRPk5+CRl?=
+ =?us-ascii?Q?rgE/s0VPUjyjVYI8SyzsbvPYv16Av9MAn9EJZmBvgKwWILVbimfvIvXDWqUS?=
+ =?us-ascii?Q?5yrWDf2iNjjDwZzq/Qot1YZ+yjwdwOobL6EhREh9w5OZgNsFdMsdUNDVMthg?=
+ =?us-ascii?Q?06dz9EMP2LSycSXQGJvQz890GnLzOqul+rVwlmBImDM0yYmZ6slQ4Cc8kxpf?=
+ =?us-ascii?Q?kXE4rbmd76Odd9oAHwGFk6LjLZdiRNDQuQbG?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2025 14:57:12.7036 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56b02281-a55a-41d2-8b90-08ddde67839b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6065
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,87 +132,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Aug 17, 2025 at 11:08=E2=80=AFPM Alex Hung <alex.hung@amd.com> wrot=
-e:
->
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
->
-> This patch series was also tested in the promotion test and in CI
-> without any regression.
+Correct the counts of nr_banks and nr_errors
 
-Did you pick these series up or would you like me to?
+Signed-off-by: Ce Sun <cesun102@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index cbc40cad581b..090bf6cf1b91 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -76,6 +76,7 @@ static void aca_banks_release(struct aca_banks *banks)
+ 	list_for_each_entry_safe(node, tmp, &banks->list, node) {
+ 		list_del(&node->node);
+ 		kvfree(node);
++		banks->nr_banks--;
+ 	}
+ }
+ 
+@@ -229,6 +230,7 @@ static struct aca_bank_error *new_bank_error(struct aca_error *aerr, struct aca_
+ 
+ 	mutex_lock(&aerr->lock);
+ 	list_add_tail(&bank_error->node, &aerr->list);
++	aerr->nr_errors++;
+ 	mutex_unlock(&aerr->lock);
+ 
+ 	return bank_error;
+-- 
+2.34.1
 
->
-> On 7/31/25 03:43, Timur Krist=C3=B3f wrote:
-> > This series fixes various issues that I found while trying to
-> > get old GPUs with DCE 6 to work well with DC.
-> >
-> > The most important part of this series is tweaking how
-> > the engine clock is set on DCE 6-10.
-> >
-> > For DCE 6 the maximum according to max_clks_by_state is 600 Mhz,
-> > but dce60_validate_bandwidth sets it to 681 MHz, and then
-> > dce60_update_clocks further increases it by 15%, resulting in
-> > a whopping 783 MHz, which is overall 30% more than what the
-> > hardware was supposed to handle. My Tahiti GPU didn't even boot
-> > with DC enabled with that clock setting.
-> > There is a similar issue with DCE 8-10 too, additionally the
-> > dce80_max_clks_by_state data seems to be incorrect, so I changed
-> > the maximum to 625 MHz for DCE 8-10, which is what the legacy
-> > code uses.
-> >
-> > I tested these changes and made sure 4K 60Hz (10 bit) output
-> > still works with them on the following GPUs:
-> >
-> > * Tahiti (DCE 6)
-> > * Oland (DCE 6.4)
-> > * Hawaii (DCE 8)
-> > * Tonga, Fiji (DCE 10)
-> >
-> > I would appreciate if someone from AMD could confirm what the
-> > maximum display engine clocks for these parts really are.
-> >
-> > Other than that, the rest of the series deals with some
-> > ligher problems:
-> >
-> > There are patches to fill the display information on DCE 6-10
-> > (previously only filled on DCE 11), such as the first CRTC and
-> > its line time, as well as vblank time, display clock etc.
-> > These are going to be needed for DPM.
-> >
-> > It also removes some errors and warnings from the logs which
-> > are caused by the VBIOS on old GPUs reporting some information
-> > differently, namely some VBIOS seem to lack encoder capability
-> > entries for some connectors, as well as the actual amount of
-> > connectors on the GPU not matching the number of entries
-> > reported by the VBIOS.
-> > The DC code base already handles these cases well. They are
-> > not actually errors, so we shouldn't spam the logs with them.
-> >
-> > Finally, there is also a fix for set_pixel_clock_v3 which
-> > works slightly differently than the other versions.
-> >
-> > Timur Krist=C3=B3f (7):
-> >    drm/amd/display: Don't overclock DCE 6 by 15%
-> >    drm/amd/display: Adjust DCE 8-10 clock, don't overclock by 15%
-> >    drm/amd/display: Find first CRTC and its line time in
-> >      dce110_fill_display_configs
-> >    drm/amd/display: Fill display clock and vblank time in
-> >      dce110_fill_display_configs
-> >    drm/amd/display: Don't warn when missing DCE encoder caps
-> >    drm/amd/display: Don't print errors for nonexistent connectors
-> >    drm/amd/display: Fix fractional fb divider in set_pixel_clock_v3
-> >
-> >   .../gpu/drm/amd/display/dc/bios/bios_parser.c |  5 +--
-> >   .../drm/amd/display/dc/bios/command_table.c   |  2 +-
-> >   .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   | 14 +++----
-> >   .../dc/clk_mgr/dce110/dce110_clk_mgr.c        | 40 +++++++++++-------=
--
-> >   .../display/dc/clk_mgr/dce60/dce60_clk_mgr.c  | 10 ++---
-> >   drivers/gpu/drm/amd/display/dc/core/dc.c      | 15 ++++++-
-> >   .../drm/amd/display/dc/dce/dce_link_encoder.c |  8 ++--
-> >   7 files changed, 51 insertions(+), 43 deletions(-)
-> >
->
