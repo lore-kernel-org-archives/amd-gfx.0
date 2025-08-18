@@ -4,73 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10A0FCA0EE4
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 15:39:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D37B2CA0ED1
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 15:42:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8289410E484;
-	Mon, 18 Aug 2025 15:39:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EB3C10E486;
+	Mon, 18 Aug 2025 15:42:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B79gdOAM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ud6h270c";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 695E910E0F3;
- Mon, 18 Aug 2025 15:39:37 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-244581eab34so6710675ad.2; 
- Mon, 18 Aug 2025 08:39:37 -0700 (PDT)
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38FAD10E486
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 15:42:40 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-b47170382a5so242944a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 08:42:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755531577; x=1756136377; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1755531760; x=1756136560; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JfnjYmDvi00kKX9ijywUbzGRAHiyS/deinjfiKUZLgs=;
- b=B79gdOAMM/5vSg5BZa0TAE+ck//RgezxgExeIFCA109hgc8NLO6T03iz6Bm/LMGezW
- lFrhfyOUqkLuSXc7d5laBVobG2cvDInXtJnkm7v+/ddkQu7vgZ4Vk95AJvKhv0XS+NnN
- +jJbPURcEO8UyjZ+m07bUNsFkoZY20w0qYeBVolgYCo2W0JCwpnOnHO7AwXqIaQpEEvf
- CxF1ymUzS/FJewA5dOUO9OzubbmvDQLvFsSzOpsdq9OGpholoUUGmi0Z9aX+ykInmWZS
- 7J/8JPQ7z/NAsMjTt+hYemWVJF/WjRawmd/bBeifHH87DAHl3KvbphwY7FPj/9FQ8W1J
- s4Ww==
+ bh=SWjR9wVlQD2RfvrWT/us7U/22C2c5eA2O2hDzhadvrQ=;
+ b=Ud6h270cHTyHAFbcY7+FZCR0O8hchJaXJqrShoFvBAE7e2hFvV8OXzGPLjCfAZlLeQ
+ DOmxIO8Yy0YFoRa9+NQyBhN+b7At8oOJk5Nayr6TQk3wwVdTKLU2hsKmdZMszGrMeHIm
+ 46RyRQGbVkv6G5CFvp+/3bgD2rQmdOg8FERBpSlqxKBLkoTStTsPiQoJ3cj5c59a3j+l
+ JzMSDXrXqRZV3D17SdX4UzKzKFgJMJERaa8IjLaKsNQCj4Nu0zMBEn6cHMUMVffVFiul
+ MOZdCbyejOOvIWTMeugbiHHxvi8jHebqtWMTRDSSsg/JHkk8LI35EUWhXher2nSxv1J7
+ 9FQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755531577; x=1756136377;
+ d=1e100.net; s=20230601; t=1755531760; x=1756136560;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JfnjYmDvi00kKX9ijywUbzGRAHiyS/deinjfiKUZLgs=;
- b=hAHSXAzBaXAZ36ugpLg9adeUkB7V4wCXEGnjZ461NwuFdYirN4VayeWxLXmuatlcsx
- irEK1V3+2swAFqfDJH3HskfOUoMOnn3A4g2IJzDqWFwVgqArf432tE0hG3zsI/UsWGWL
- epmvjsG8iAph+jiLlbQSOjvcIVf7JIFOdxJpGmWKllm8fGgERrQHjrTfmf5vXq8+3wd7
- GHrwQsS/2Cvi1ToNSjz/rwMBWTPVA/eiSgWQsdryQYAVjGkdsbr8q2cnjP9E+LHXA9C9
- Wys+nkrmI1t9CsU39j/gYnp6Hbxi7aG3XBoFBlzVA2aBVXB+O47AyihioqZx0dKKZH9a
- bqKQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUmbhEAVOhVmU+PBj5UerqDE6ODpgD4txM4vheuw9C9c54+6uscf8sgBaZtL3+ZJ8Z4kvoP99L5GD0/@lists.freedesktop.org,
- AJvYcCXVKp9HzKLvozDis3+GyFNdbHjb5vR+nFuFIhU1IQVxF49K6zW6U/sOp5jrUCaRqj7cYOalvDv3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6wRBICkRY6Q+BUTWM2E+8nFlXsNAhac5C9gOY5UBd0tC+0ODZ
- d7BMeKRZ5iECjvPhzL6sJ9RnCmJEDgHZI9ahWAO9pdzLXWmT1JzFaLEhXH3ukirhiJqmXedlog9
- 4MPZtxTKFZyzJcvDTrifdgskekww1pGg=
-X-Gm-Gg: ASbGncuH7tc2MjBoyGckc+sb0zA29Chtb0A68Z2UrYYxVuJD0eauegWznIKycqodrtD
- wUI/fzEN79m26BEP4nyV/LgfU/UjQI9ZBPllDtKZ/OIm8qj15tMvU7xDwa6THSIRDwkVciwE9MF
- EwChSehui8g40oRPahw8m3mTQH265VSEb3zKYxlRQ6ARnrFk/E/NdXUm+8I7e72yibBcusM9oCQ
- ONwrUGfRnxbIR4qyg==
-X-Google-Smtp-Source: AGHT+IGlBBr60eEbVg+cyrKDQeXKdn03ukayzCoYut2ij9XXvWFExe6ybSIht++TyMeCrw7fNNqpAsNO0VXJEYzuY60=
-X-Received: by 2002:a17:902:f541:b0:240:9ab5:4cae with SMTP id
- d9443c01a7336-2446d5d6193mr75967755ad.1.1755531576879; Mon, 18 Aug 2025
- 08:39:36 -0700 (PDT)
+ bh=SWjR9wVlQD2RfvrWT/us7U/22C2c5eA2O2hDzhadvrQ=;
+ b=cOy2VEEcEdUzuKOxNvHxIfBizMCXSzVr2iNuriNmRnxxzkMC1WJRecl6SVtBDcaSgc
+ tJt0WY862x5b6r2EwSqfZ+TEi7jnVrVoNgRMX0D3sdsmqlxUq5bFMUQYI3sEcO+9a1eE
+ IZ5zOgRDjpR3j3Y1swGdvbZTevaFj8ddKjzwN3+6sGdeFE1lUiGB5BWvdzcVC6Yr1dLT
+ UvqTFeIlU6h8zMRws5UawEfQ1UObf0gJDU6+MYLKitIW1IP8unTLdlQy648MFBTwiR5u
+ dGhpgiCQDZ1slPRq2ynxkLjwSMB8MEud67ytMBgbkImToBv50tHjyio534tJbG6dt0FC
+ osXg==
+X-Gm-Message-State: AOJu0YwZ6PJ8GsDgivVDCUF1L6dDa1MWVxdivSQALzlb/Q8JRMpQd9UY
+ rfnE+7iVsBOMivkNa3jnTvDHjTCCa8d/IaChv1fQSBp8ov4milNh+lynMWq5W1RlTcyU76l/vIm
+ 5xNmNrDhwwuVxfyHc9diUJx4YyOooNSI=
+X-Gm-Gg: ASbGncuQEgWWuEOydQapj+M0wYBE7nk3SVAcyjAgDD7HqjzIjhwKYU1maCD/9Y/47mg
+ bAb4lnC2PmuXba/OJO9hwClkd/JP0EzQgOECZKys6UG7dorn51UOmVpzKsWQoGHEdfXEm2UqfZ5
+ F/sOuUsQTeodTQODg4gwwpwR47Cr5GtSucE7d+q6WajmMJQEgCkcfKztzrwbgjt08udz/3A84zJ
+ P+I+CVf7vkIo4i9LA==
+X-Google-Smtp-Source: AGHT+IFlzppuD9dNSIJnnHhIzNxU5p8tpYd3DxpTg9wZMmRJq7jnDuFScfIHVkPHYC+uCbocydQz1sTTgeL7QGR7YWw=
+X-Received: by 2002:a17:902:ecc2:b0:240:bd35:c4ec with SMTP id
+ d9443c01a7336-2446d893254mr59572885ad.6.1755531759554; Mon, 18 Aug 2025
+ 08:42:39 -0700 (PDT)
 MIME-Version: 1.0
-References: <tencent_E5B1CAABB0320691EB730CDB19E55EA85E05@qq.com>
-In-Reply-To: <tencent_E5B1CAABB0320691EB730CDB19E55EA85E05@qq.com>
+References: <20250808151517.1596616-1-alexander.deucher@amd.com>
+ <CADnq5_OozSsP_qXBPjgYR9-1cChsYTJtg-y8RPb2wA9Xn9dfoA@mail.gmail.com>
+In-Reply-To: <CADnq5_OozSsP_qXBPjgYR9-1cChsYTJtg-y8RPb2wA9Xn9dfoA@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Aug 2025 11:39:23 -0400
-X-Gm-Features: Ac12FXwUP180FjaCeVT5J4NoIEAVhWgK5DTtLaA6rivx92DVvZ_oACTVYjptjCA
-Message-ID: <CADnq5_NbWeLRvXGtb5sSKOwN+do=hbPo5iWiwB9Y9Q-vPV9YEQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fixed an issue where audio did not turn off
- properly after unplugging HDMI
-To: 2564278112@qq.com
-Cc: alex.williamson@redhat.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, sunil.khatri@amd.com, alexandre.f.demers@gmail.com, 
- boyuan.zhang@amd.com, jiangwang@kylinos.cn, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Mon, 18 Aug 2025 11:42:26 -0400
+X-Gm-Features: Ac12FXw9pe0IzLWcAt9ziG1lWfA0qbYNMRZKjTIdFRf8u6BBDl4yqo6FHvRpRUw
+Message-ID: <CADnq5_Mt2Lxjso_1d+7jJbw7WGqFuY85iKL-Y1ZNCXg3VB0iqQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: drop hw access in non-DC audio fini
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org, 
+ oushixiong <oushixiong1025@163.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,104 +82,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 15, 2025 at 11:23=E2=80=AFAM <2564278112@qq.com> wrote:
->
-> From: Wang Jiang <jiangwang@kylinos.cn>
->
-> In commit 3c021931023a ("drm/amdgpu: replace drm_detect_hdmi_monitor() wi=
-th drm_display_info.is_hdmi")',
-> the method for determining connector types has been modified.
-> After the modification, when disconnecting the monitor, the information f=
-rom the previous connection cannot be retrieved,
-> because display_info.is_hdmi has been reset, resulting in the connector t=
-ype returned as dvi.
-> On AMD Oland and other cards, the audio driver determines whether to turn=
- off audio based on connector type
-> However, when the monitor is disconnected, the information from the previ=
-ous connection cannot be obtained, resulting in the inability to turn off t=
-he audio.
-> I don't understand why this is being done, I think the right thing to do =
-is to decide whether or not to enable audio based on whether the connector =
-has audio.
-> This commit modifies the code to retrieve audio information from the conn=
-ected EDID.
-> Now, the decision to turn audio on/off is based on the audio information =
-in the EDID.
->
-> Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
-> ---
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 21 ++++++++++++++++-----
-
-This only fixes up DCE6.  I would suggest one of the following to fix this:
-1. Revert the changes from 3c021931023a in atombios_encoders.c
-or
-2. Add amdgpu_connector->is_hdmi and set it when
-connector->display_info.is_hdmi is valid and use that rather than
-connector->display_info.is_hdmi.
+Ping again?
 
 Alex
 
->  1 file changed, 16 insertions(+), 5 deletions(-)
+On Wed, Aug 13, 2025 at 9:09=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index 276c025c4c03..c56b2027d53e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -3253,17 +3253,22 @@ static void dce_v6_0_encoder_mode_set(struct drm_=
-encoder *encoder,
->                           struct drm_display_mode *adjusted_mode)
->  {
->         struct amdgpu_encoder *amdgpu_encoder =3D to_amdgpu_encoder(encod=
-er);
-> -       int em =3D amdgpu_atombios_encoder_get_encoder_mode(encoder);
-> -
-> +       struct drm_connector *connector;
-> +       struct amdgpu_connector *amdgpu_connector =3D NULL;
->         amdgpu_encoder->pixel_clock =3D adjusted_mode->clock;
+> Ping?
 >
->         /* need to call this here rather than in prepare() since we need =
-some crtc info */
->         amdgpu_atombios_encoder_dpms(encoder, DRM_MODE_DPMS_OFF);
-> +       connector =3D amdgpu_get_connector_for_encoder_init(encoder);
-> +       amdgpu_connector =3D to_amdgpu_connector(connector);
-> +       if (!amdgpu_connector) {
-> +               DRM_ERROR("Couldn't find encoder's connector\n");
-> +       }
->
->         /* set scaler clears this on some chips */
->         dce_v6_0_set_interleave(encoder->crtc, mode);
->
-> -       if (em =3D=3D ATOM_ENCODER_MODE_HDMI || ENCODER_MODE_IS_DP(em)) {
-> +       if (drm_detect_monitor_audio(amdgpu_connector_edid(connector))) {
->                 dce_v6_0_afmt_enable(encoder, true);
->                 dce_v6_0_afmt_setmode(encoder, adjusted_mode);
->         }
-> @@ -3322,12 +3327,18 @@ static void dce_v6_0_encoder_disable(struct drm_e=
-ncoder *encoder)
->  {
->         struct amdgpu_encoder *amdgpu_encoder =3D to_amdgpu_encoder(encod=
-er);
->         struct amdgpu_encoder_atom_dig *dig;
-> -       int em =3D amdgpu_atombios_encoder_get_encoder_mode(encoder);
-> +       struct drm_connector *connector;
-> +       struct amdgpu_connector *amdgpu_connector =3D NULL;
->
->         amdgpu_atombios_encoder_dpms(encoder, DRM_MODE_DPMS_OFF);
-> +       connector =3D amdgpu_get_connector_for_encoder_init(encoder);
-> +       amdgpu_connector =3D to_amdgpu_connector(connector);
-> +       if (!amdgpu_connector) {
-> +               DRM_ERROR("Couldn't find encoder's connector\n");
-> +       }
->
->         if (amdgpu_atombios_encoder_is_digital(encoder)) {
-> -               if (em =3D=3D ATOM_ENCODER_MODE_HDMI || ENCODER_MODE_IS_D=
-P(em))
-> +               if (drm_detect_monitor_audio(amdgpu_connector_edid(connec=
-tor)))
->                         dce_v6_0_afmt_enable(encoder, false);
->                 dig =3D amdgpu_encoder->enc_priv;
->                 dig->dig_encoder =3D -1;
-> --
-> 2.25.1
->
+> On Fri, Aug 8, 2025 at 11:23=E2=80=AFAM Alex Deucher <alexander.deucher@a=
+md.com> wrote:
+> >
+> > We already disable the audio pins in hw_fini so
+> > there is no need to do it again in sw_fini.
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4481
+> > Cc: stable@vger.kernel.org
+> > Cc: oushixiong <oushixiong1025@163.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 5 -----
+> >  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c | 5 -----
+> >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 5 -----
+> >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 5 -----
+> >  4 files changed, 20 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/a=
+md/amdgpu/dce_v10_0.c
+> > index bf7c22f81cda3..ba73518f5cdf3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> > @@ -1462,17 +1462,12 @@ static int dce_v10_0_audio_init(struct amdgpu_d=
+evice *adev)
+> >
+> >  static void dce_v10_0_audio_fini(struct amdgpu_device *adev)
+> >  {
+> > -       int i;
+> > -
+> >         if (!amdgpu_audio)
+> >                 return;
+> >
+> >         if (!adev->mode_info.audio.enabled)
+> >                 return;
+> >
+> > -       for (i =3D 0; i < adev->mode_info.audio.num_pins; i++)
+> > -               dce_v10_0_audio_enable(adev, &adev->mode_info.audio.pin=
+[i], false);
+> > -
+> >         adev->mode_info.audio.enabled =3D false;
+> >  }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/a=
+md/amdgpu/dce_v11_0.c
+> > index 47e05783c4a0e..b01d88d078fa2 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> > @@ -1511,17 +1511,12 @@ static int dce_v11_0_audio_init(struct amdgpu_d=
+evice *adev)
+> >
+> >  static void dce_v11_0_audio_fini(struct amdgpu_device *adev)
+> >  {
+> > -       int i;
+> > -
+> >         if (!amdgpu_audio)
+> >                 return;
+> >
+> >         if (!adev->mode_info.audio.enabled)
+> >                 return;
+> >
+> > -       for (i =3D 0; i < adev->mode_info.audio.num_pins; i++)
+> > -               dce_v11_0_audio_enable(adev, &adev->mode_info.audio.pin=
+[i], false);
+> > -
+> >         adev->mode_info.audio.enabled =3D false;
+> >  }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/am=
+d/amdgpu/dce_v6_0.c
+> > index 276c025c4c03d..81760a26f2ffc 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> > @@ -1451,17 +1451,12 @@ static int dce_v6_0_audio_init(struct amdgpu_de=
+vice *adev)
+> >
+> >  static void dce_v6_0_audio_fini(struct amdgpu_device *adev)
+> >  {
+> > -       int i;
+> > -
+> >         if (!amdgpu_audio)
+> >                 return;
+> >
+> >         if (!adev->mode_info.audio.enabled)
+> >                 return;
+> >
+> > -       for (i =3D 0; i < adev->mode_info.audio.num_pins; i++)
+> > -               dce_v6_0_audio_enable(adev, &adev->mode_info.audio.pin[=
+i], false);
+> > -
+> >         adev->mode_info.audio.enabled =3D false;
+> >  }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/am=
+d/amdgpu/dce_v8_0.c
+> > index e62ccf9eb73de..19a265bd4d196 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> > @@ -1443,17 +1443,12 @@ static int dce_v8_0_audio_init(struct amdgpu_de=
+vice *adev)
+> >
+> >  static void dce_v8_0_audio_fini(struct amdgpu_device *adev)
+> >  {
+> > -       int i;
+> > -
+> >         if (!amdgpu_audio)
+> >                 return;
+> >
+> >         if (!adev->mode_info.audio.enabled)
+> >                 return;
+> >
+> > -       for (i =3D 0; i < adev->mode_info.audio.num_pins; i++)
+> > -               dce_v8_0_audio_enable(adev, &adev->mode_info.audio.pin[=
+i], false);
+> > -
+> >         adev->mode_info.audio.enabled =3D false;
+> >  }
+> >
+> > --
+> > 2.50.1
+> >
