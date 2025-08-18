@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B5CCA0ED1
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 15:12:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37133CA0EE4
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Aug 2025 15:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B06B710E46A;
-	Mon, 18 Aug 2025 15:12:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A696D10E1E6;
+	Mon, 18 Aug 2025 15:14:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gw9ky8mM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Mz5rYjqG";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE51610E46A
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 15:12:26 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-244581eab34so6675345ad.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 08:12:26 -0700 (PDT)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9550C10E1E6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 15:14:32 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-24498e93b8fso688445ad.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Aug 2025 08:14:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755529946; x=1756134746; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1755530072; x=1756134872; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0TaIdqLWY4uvnIsfVfVUA/b9+36jN6iclxytoYTyE68=;
- b=gw9ky8mM6hUOucpJ+Ut4qVxjIRJ86nWUf/dAhcCUJU+I40OnNPk159Q6WdjI1DDSnJ
- FpQKGPpO9XUoGOTW69UqCmTfauHFuITMPNSkIfThYbm4ZemApaFoIJIDKtyBWC1IOV3N
- op2k3U628va8g90lZ3br5S4l3TAuqBQqHvH/6lApFjT7ZKHJIM88CTA16G4Bo0jLozjV
- Kw6eQYLeWbnqUmMNnzaxYJsV6MslYUxKAQaM9/U4GUFHfkrhkLqwoLSq68EcsMaTJ0GK
- xB5m4A4WLQuENfObNfkVCmT37ct86LOPZ61WCIwaD3uprQalaQDMPC8iPyeHVwbbqpGP
- 17UA==
+ bh=rBNMYuZoJFbgAewKamk69Z4Nk7xeSBiFAMZMBDWd7WM=;
+ b=Mz5rYjqGXLlnU6hlde+n05x8/bbQaKkC1qwI735LrLysxEt9dugE/hrwxvDgMszy3M
+ KXmnRyb9OAI9oZnmoCT9xseoNkHqoKf2vsJbJAELuqXsWQXa+A7K4znhYlDvWDlqYyWm
+ 4J2vymtdXhkLmRPKte8xjgxrSky1gy3o9ib0WkH6QnR3rK+NanjqULt6BEPKJNxIQOwz
+ m5joE/HT/k/0/rbqms1PU1iBl49J41WY5u+RdT4j+nFVCFJbaL4ZhIBQ4op7hGkhND6k
+ 70vLwBieS0SXb4Ietb1Jj8kymX+bSxBmtj/49i6VlC+xbLZWFRQwN5zmBia5BSkgpq9s
+ iHFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755529946; x=1756134746;
+ d=1e100.net; s=20230601; t=1755530072; x=1756134872;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0TaIdqLWY4uvnIsfVfVUA/b9+36jN6iclxytoYTyE68=;
- b=LosLAJE+cz6i0GCVQHLnBYOhGKyyHfd12yLhyGOQcep9nl6xaHjdg1huZ94XNDNKt0
- AEDn0Bg95YB6BWr6p2QDZ5KpPfIz6e58w48c9fSLb/40/M4VVGKjaPrs0pfSj0Ztcf7M
- 5EnlerZmpi5E+69Oonjcbwp16BDljq8+o1YQAR3Jw/lqi6QP6GF9FYVp/3v0kOtCqov/
- fJWgupmL+G7/pqXwX0Pr5vNvUn16jxkUkftJf2pGVq3OPtVVlynrC8RaHUwZ/vjsuIvw
- KGzjc/YvuPs4Ep5zk46p74bxiu54M59aPPG47q6xGIEQsaJtpT1XAF0jbyogCbpBsEhm
- dAqw==
+ bh=rBNMYuZoJFbgAewKamk69Z4Nk7xeSBiFAMZMBDWd7WM=;
+ b=PsUFIXdrWo19HEvNQjhLlUJwAn6TLurH9N6GJqH/uqWGWQMbyv4YQmyPW8BI4dAgeg
+ bMjE0StF9uK+zOXyKl5EHk9ZEsDNS5JGCsef4HA7brjYGeHzggbhXF2vyQxAq3Z3WXdp
+ aYXIe6gKy44fVJH08rBq/l1p7bcWQYegRGcm2uqwhTJzzLRJYheF7bXXJ1Frx6CYcCPf
+ PfWd/sDbI4XzdOVlXPypxfQ5jaOsX/nsQGcp4lgAFPMuLacvbqGNb67bcha8Vl0s/DPD
+ 3bG2FgrP4fkrG3c1XnLCEldUMwTtwNVEhijnp0HDtD3P7Vdn2PtWlqSdi5rx2S6R340k
+ rQeQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV87aoW2FTPBUD2XO9uOermFLHo1yijM5wGqx1LRc66gRf++Hg6scV3ZuAIig+sTTCj7/WZtewh@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywgy9U5lbix4doL2UuO7qdY0giT129dZeBZAyDLCzprkQbHhK6l
- cLN4FVK93kG//XGHi9Eg19Zui6QxpEPIDa1FDKZ4E8QNcinpWIQVYftsi3AOHlelLIg8useRaVB
- vmSZvIBQeFknoNmtDyqTFfU0Fl+QIi0A=
-X-Gm-Gg: ASbGncuM8e5JQtIXq/zm160WVbAUvRIDbacMpaJgCvaWHl8znQFMg51TyXFaNoNnL3a
- Eqr5Qungv/BUBS2usQsVKds/lytPZm168fuzb4PQAtWMWi6k9CClwUz5+8f4J/KfdWa21tlbXAO
- PyXlrxmNJEqCDC0j4YhPb+gslJHdTDCcpLejGDo6he9mBwKSjGPLo6VKMCaNhGtNs+GtjSYBRFI
- 7k+trr0IefGzBmAExycV3g4mFap
-X-Google-Smtp-Source: AGHT+IFcmPBVUjHPMULQ0KJNSygTOADBuixP3rA7RoN4xjp+abtVTQ6VrT1tWnhvb722L2i+USm7sR379RfSjJVjEv4=
-X-Received: by 2002:a17:902:f541:b0:240:9ab5:4cae with SMTP id
- d9443c01a7336-2446d5d6193mr75431925ad.1.1755529946358; Mon, 18 Aug 2025
- 08:12:26 -0700 (PDT)
+ AJvYcCVcyCt1BzpRPOZi8sHb07OMOuKlhkBoNOxkkIAOKwI1eHw1NNK3N2HOp5mMsnXu6ib0M3G3tdeF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySq4pMySkSGv1YpQNG+CM0t2FtkMUedIaN8izs41W1yeGd8E49
+ JqQ1mi9ZtI9MHfrep+ubABytz/o9g60DLigYca1AXKDDOyUk82wUJ3IhVgwBnmrR6KsFfGqCiek
+ 6Dlow/vz/ncVgKBwkcJB6JKhwZaEjW1I=
+X-Gm-Gg: ASbGncvYKiWcyeGMfFHMryOo/MCqnXWtqkbgePIneKU/RgQ5Sb3SRoUEuQx6KsM8jZx
+ kTePwFE3jonidXQaAgdDyQXM97NGHeJ379MYyjnH9I2ef+QJ+WzRm3YUZ9QxxuxZ82OWoUbS/Jh
+ tBSEkXKc4pBJuXq89RzSZDlH5UYty7AcvY3iMpeJeDbnKxMk8foMADfJnNJJsjYPD0ZD9tVyZYM
+ R9juv/TV2i5pjaEDA==
+X-Google-Smtp-Source: AGHT+IG70EVIpFGW77+UJEZUs65tGnTJk7A7GBgxoOiVU9CUbfeThU2VvvoSWUf+sszfEa2bVuWr3ZsvsY7nNL0668s=
+X-Received: by 2002:a17:903:2311:b0:240:63bd:2701 with SMTP id
+ d9443c01a7336-2446d888aa6mr96882055ad.6.1755530072040; Mon, 18 Aug 2025
+ 08:14:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250816162806.1301791-1-siqueira@igalia.com>
- <20250816162806.1301791-4-siqueira@igalia.com>
-In-Reply-To: <20250816162806.1301791-4-siqueira@igalia.com>
+ <20250816162806.1301791-3-siqueira@igalia.com>
+In-Reply-To: <20250816162806.1301791-3-siqueira@igalia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Aug 2025 11:12:14 -0400
-X-Gm-Features: Ac12FXyS9_oqvRjg-Wc5XGntDtD-b27Y0cKgOg9nWo1pWsiRQNEDOoJNHhDQ0zM
-Message-ID: <CADnq5_NjHx0te+umOUo=t5c-79yjDVrRQjkFiLsAX6RppepSEA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu/vcn: Ensure that sysfs reset run in the
- fini
+Date: Mon, 18 Aug 2025 11:14:20 -0400
+X-Gm-Features: Ac12FXwsvZ5KWFrhLlmujtqd-PAFNnSXLWlRuxsFjkiPdq8jVWsF2LCPJV3pHSQ
+Message-ID: <CADnq5_OfLpc4=Pune97GL9Jk1qGHhkKJQJsLFewDAqjHBjUk1g@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/amdgpu/vcn: Remove unnecessary check
 To: Rodrigo Siqueira <siqueira@igalia.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -87,51 +86,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Aug 16, 2025 at 12:28=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.=
-com> wrote:
->
-> The function amdgpu_vcn_sysfs_reset_mask_fini() in the
-> vcn_v5_0_1_sw_fini() is invoked at the end of the function, after
-> amdgpu_vcn_sw_fini(). This can be a problem if amdgpu_vcn_sw_fini()
-> returns early, since the VCN reset sysfs interface will not be removed.
-> This commit addresses the issue by moving
-> amdgpu_vcn_sysfs_reset_mask_fini() above amdgpu_vcn_sw_fini(), aligning
-> the fini code with vcn_v4_0_3_sw_fini().
->
-> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/am=
-d/amdgpu/vcn_v5_0_1.c
-> index 7cb21e2b4eb0..3b7372861032 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-> @@ -245,14 +245,14 @@ static int vcn_v5_0_1_sw_fini(struct amdgpu_ip_bloc=
-k *ip_block)
->                         return r;
->         }
->
-> +       amdgpu_vcn_sysfs_reset_mask_fini(adev);
-> +
->         for (i =3D 0; i < adev->vcn.num_vcn_inst; i++) {
->                 r =3D amdgpu_vcn_sw_fini(adev, i);
-
-This function always returns success.  I'd suggested changing it to a
-void and dropping the early return.
+Applied.  Thanks!
 
 Alex
 
->                 if (r)
->                         return r;
->         }
+On Sat, Aug 16, 2025 at 12:28=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.=
+com> wrote:
 >
-> -       amdgpu_vcn_sysfs_reset_mask_fini(adev);
+> The function amdgpu_vcn_sysfs_reset_mask_init already returns 0, which
+> makes the check of the result unnecessary in the vcn_v4_0_3_sw_init().
+> Just return the amdgpu_vcn_sysfs_reset_mask_init directly.
+>
+> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/am=
+d/amdgpu/vcn_v4_0_3.c
+> index 018a526a8801..168c394deeba 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> @@ -242,11 +242,7 @@ static int vcn_v4_0_3_sw_init(struct amdgpu_ip_block=
+ *ip_block)
+>         if (r)
+>                 return r;
+>
+> -       r =3D amdgpu_vcn_sysfs_reset_mask_init(adev);
+> -       if (r)
+> -               return r;
 > -
->         return 0;
+> -       return 0;
+> +       return amdgpu_vcn_sysfs_reset_mask_init(adev);
 >  }
 >
+>  /**
 > --
 > 2.47.2
 >
