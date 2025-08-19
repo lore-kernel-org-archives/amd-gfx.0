@@ -4,78 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1BCCA0EE6
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Aug 2025 13:10:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0162CA0EEB
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Aug 2025 13:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F274B10E17E;
-	Tue, 19 Aug 2025 13:10:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7001210E5F0;
+	Tue, 19 Aug 2025 13:17:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K+FOiamv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A+Eq/JcV";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01F8A10E17E;
- Tue, 19 Aug 2025 13:10:27 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-24457f57ed4so9633935ad.0; 
- Tue, 19 Aug 2025 06:10:27 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1125C10E5F0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Aug 2025 13:17:06 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-24498e93b8fso2681245ad.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Aug 2025 06:17:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755609027; x=1756213827; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1755609425; x=1756214225; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BBO0mQ7zrboFrLruEp+8+uIF4ovtiK0aQdxBxT/KyMA=;
- b=K+FOiamv42V+IVpjuA+eKFmPD/MtpZSW/qwNXTUK5yOQa1NFxQLDQcjo4ITF2CFKC1
- U74d1CL7GqeNLDdYs/4flvlwTWvF03g3xCyA2yHC3l8wrRC2+Ulc0ru9dlP2jzZOZv9U
- 8vCX0eD9gY6yoJ/c/zlWP3mSX3vB5ft3lxnqtXBZPSWClVjaVFZmg12b94+Pd3IMWRwi
- 9HEfezU1eJ7iTnrsiZegeLKBnqDwXH8LqRRXr3ECZsSpkFfaiZnT/TWkwpbCp5k7HYtL
- wpwNwFH/AKpE16lcFn6+JQmeheYNxo/0Mryl0XiipXweAzttpuVC83tH6NzDAIdu8qxU
- yxyQ==
+ bh=SpWvlWapLEQh9xT7EisLgC/BexiUkkitroZ2vGUFE3g=;
+ b=A+Eq/JcVmOif6tc5bDcFgzdX2lR1DxokqCkgwHZQqmDITaJtMDVz+aCXhvyvtpzt6o
+ b9R6JnDuMFxJaehocG5w+5Ntnkc3xvbtE0EZP+j3Tuvusc6Y5nCxbwkM4htKrhgjO5jP
+ bMB9aEOJ+PEnsp1Nq5ITiR8RadkaAO/6RU3IG6KjFnqZBpG3zSNJ1KchtXMJ68bb8NVC
+ qo4VYKU/4HSXp2LIsmwPP2gtDmLag0WqcwfOXMKgLf4Ie54OIucmx750ijOioxoDZRGK
+ 1aqCcDM4cxLWfngeY0NmawUKGBVvazEhiVo5WvHqV/eAsLbzt5SPNuU3IppBw09pbtuj
+ ZvSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755609027; x=1756213827;
+ d=1e100.net; s=20230601; t=1755609425; x=1756214225;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BBO0mQ7zrboFrLruEp+8+uIF4ovtiK0aQdxBxT/KyMA=;
- b=ViJzcaw1EMZj9tEqkpryjhRTG8ejNK9AexRI57UL8rQi2oN8EjSlIY1PZmymtiONzp
- ZX1Z5PYBY0YSfcTcdDoYd2cjc6jOr/8Jw29DoeaWpObw8cRyootvM9XuBMeU6LlNaMji
- JsBXwzgWkp8SkJyrqn9XLnlcoQceMt3RlZxancpZ3B0XDzYqdgRTwzclASNsLJrgQu/v
- ePC8YzwdfKAAVvc+2nZD0fAtjtgb521SvKJf8B8THo2nfPQJovRV3OjZxh0bosREOVA8
- u67zYhlF+ydYuW4Wu2enok8B8wcghr3W/TbEiVZX/LsYzvivraeKqqwIsKYa+b5hfUBz
- EAIw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVQlbY8PH8cslUKqDVBvxK1FMJ5EUdIJXVpLGko3o2FU9ZYAtB/XRkXm/bzFSlFNLHncSv08IN3VteX@lists.freedesktop.org,
- AJvYcCW1+zp6jGPXUFURTLxckA3OtjwHfZOJx9yQfZdH/S+t9eu40CVnwuGwkdXbXTVuXMJzlZxPJr5q@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxKM/ju/RUSdxrz8b7wUNt6cMwu96h8n5Q0o2RXYCBxAaBIPUqF
- OJf+LAAFCKo2PCaKJvQeSAIX4yCOhydHGw5IRxh4ZbljPjHp8KZtZ7H92uYv8DC8QHQttY4dXtf
- FUMoQQL7HrBjIL4jnHpHn1lq3mjL8gLYuqA==
-X-Gm-Gg: ASbGncsEHunim0v9whnO4UFFAdi0rEu2CQNtTphjvOsKlLpm8+o/aNhj7seoDgppZtc
- jY/Wq9dDR1Q6tzW2F+dj3YtEywRJVeAzpemBrEDtPS0qarbKZ8XE8hvrFb2BJHQWQj4TTXcgP5W
- a70izsTV9j4k3uNF33Uanzcu7M6A4BNjimvHjBZLR7YE80jq2cnowCsnxuzrlpeHxIJAVjKYa7R
- z7VTRU=
-X-Google-Smtp-Source: AGHT+IHgDHQQVvQ81lJeFxwOYKVLPEWtIJSQrpi70KdAtd/aUfRobzNM5gDqlN/++cIRn61vbrInrD505a7SNJ3odjc=
-X-Received: by 2002:a17:902:ea07:b0:240:33c7:fbf9 with SMTP id
- d9443c01a7336-245e0503f5emr17013235ad.11.1755609027188; Tue, 19 Aug 2025
- 06:10:27 -0700 (PDT)
+ bh=SpWvlWapLEQh9xT7EisLgC/BexiUkkitroZ2vGUFE3g=;
+ b=vGEwaB2261GExisfDdDq5/ko+R03ppLg+46hJoUn9xHaE6S54qVC8xBJSCe9N4Er8p
+ 7Xdruwes+RmDPGL8lPx8L98NZAlFI4wPYqA2an3oZ+dK68aZy8SSTQjGsmxQGwvGEK/4
+ 5lVVAUQT4B4hpmdUVO12008UVOqLXO49Jyi3UAIoWEHWtBITNpDQ7L70NGbwkYgUZGbU
+ L3tmM89lk0A7H1T3sHDYsUT88Nqa6c37lM8Y5CpcQEVDdG6d2fYXAk4hWjDjknxPiFiA
+ HqjNKzyMGk8vX9I+X+/Ma2keXZ/O7QHu7mYXwt9sRiXAowJZw+Ydw0HjAhOlsB0ylyNX
+ knNw==
+X-Gm-Message-State: AOJu0YydpTmp0m+XbE1FAtvOSN3Q8uKEAFjeNI7441lPYzjHUhrqTcG4
+ alztLzYWGyoDcQHE0MiWTAiW6ZigI7rT8fkCJYyJ7EcqxwJxMQ76bkd6naMFw+9EiydMPkjfzGm
+ M/gdDcCBNpu+euv4IdBs9xgsim3NFgW91IQ==
+X-Gm-Gg: ASbGnctzh50ur6mwHcQfjGdoNzj7m/NyzxZI6sd7+rm5aZPj+F5q+X1tyz4SDkT4s3V
+ WZu2kglS0OOkCCIckwSwpdU8W2OK/wAKarttpaXn2jBGHSO6wfQWwM4yppou+7QDV8Vejywk06Q
+ 07Ke+blIP/7SOSnivNYmv2fvbEXdsTJLNx4fE3/Tvr+HhfgHWwUQpjCsaNikcfA+t1sEE4qUkJJ
+ 8LRQmHrbMo3nzITTA==
+X-Google-Smtp-Source: AGHT+IF7lh2ZJiruN36k2IQYhGJ2yx8MjRIrg2vIaNZWcNOZdvs5mm4M+UYhiIB6XTge3Z3mBNQFxuGXgRPw8kreICU=
+X-Received: by 2002:a17:902:f547:b0:240:1879:c2fd with SMTP id
+ d9443c01a7336-245e02ba0ecmr18641245ad.2.1755609425457; Tue, 19 Aug 2025
+ 06:17:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250819082524.526572-1-liaoyuanhong@vivo.com>
- <00e7ce33-cc0a-4249-ac18-081ab9ead243@amd.com>
-In-Reply-To: <00e7ce33-cc0a-4249-ac18-081ab9ead243@amd.com>
+References: <20250819090056.444457-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20250819090056.444457-1-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Aug 2025 09:10:15 -0400
-X-Gm-Features: Ac12FXwmelZstNIBVdCAl2Tac6u3JKQmNwideXgAhYQM85MNWz4RZc0s2eVEDwE
-Message-ID: <CADnq5_PA8P8V9Da8ZUrDAsYXM_tbnPPyBR4MgF4QA++59vKerA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/fence: Remove redundant 0 value initialization
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Liao Yuanhong <liaoyuanhong@vivo.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@kernel.org>, 
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
+Date: Tue, 19 Aug 2025 09:16:54 -0400
+X-Gm-Features: Ac12FXy0z9l_w7mv9sb2lUdYF5UyYcCPE_ElguMozsu8llEen-h0PURLgoHM7lA
+Message-ID: <CADnq5_PdRi9yhi7zqmqMdWn2cRjFcErKy8O17SM4T9Pua068EQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Add VCN reset message support for SMU v13.0.12
+To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>, lijo.lazar@amd.com,
+ leo.liu@amd.com, sonny.jiang@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -92,48 +82,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Tue, Aug 19, 2025 at 5:08=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> w=
+rote:
+>
+> This commit adds support for VCN reset functionality in SMU v13.0.12 by:
+>
+> 1. Adding two new PPSMC messages in smu_v13_0_12_ppsmc.h:
+>    - PPSMC_MSG_ResetVCN (0x5E)
+>    - PPSMC_MSG_CPPipeReset (0x5F)
+>    - Updates PPSMC_Message_Count to 0x60 to account for new messages
+>
+> 2. Adding message mapping for ResetVCN in smu_v13_0_12_ppt.c:
+>    - Maps SMU_MSG_ResetVCN to PPSMC_MSG_ResetVCN
+>
+> These changes enable proper VCN reset handling through the SMU firmware
+> interface for compatible AMD GPUs.
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-Alex
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Tue, Aug 19, 2025 at 4:41=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h | 4 +++-
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c         | 1 +
+>  2 files changed, 4 insertions(+), 1 deletion(-)
 >
-> On 19.08.25 10:25, Liao Yuanhong wrote:
-> > The amdgpu_fence struct is already zeroed by kzalloc(). It's redundant =
-to
-> > initialize am_fence->context to 0.
-> >
-> > Signed-off-by: Liao Yuanhong <liaoyuanhong@vivo.com>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.=
+h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
+> index aff2776a8b6f..037529eb70bb 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
+> @@ -120,7 +120,9 @@
+>  #define PPSMC_MSG_GetBadPageSeverity                0x5B
+>  #define PPSMC_MSG_GetSystemMetricsTable             0x5C
+>  #define PPSMC_MSG_GetSystemMetricsVersion           0x5D
+> -#define PPSMC_Message_Count                         0x5E
+> +#define PPSMC_MSG_ResetVCN                          0x5E
+> +#define PPSMC_MSG_CPPipeReset                       0x5F
+> +#define PPSMC_Message_Count                         0x60
 >
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> If you want a challenge what we would really use is a scan of all the str=
-uctures defined in drivers/gpu/drm/amd/amdgpu/*.[ch] for unused fields.
->
-> The UAPI and BIOS/HW header files are full of padding fields, but there s=
-houldn't be any in the driver core defines and we sometimes forget to remov=
-e fields from structures when they are not used any more.
->
-> Regards,
-> Christian.
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 1 -
-> >  1 file changed, 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_fence.c
-> > index bcb74286a78a..fd8cca241da6 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > @@ -120,7 +120,6 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, str=
-uct dma_fence **f,
-> >               am_fence =3D kzalloc(sizeof(*am_fence), GFP_KERNEL);
-> >               if (!am_fence)
-> >                       return -ENOMEM;
-> > -             am_fence->context =3D 0;
-> >       } else {
-> >               am_fence =3D af;
-> >       }
+>  //PPSMC Reset Types for driver msg argument
+>  #define PPSMC_RESET_TYPE_DRIVER_MODE_1_RESET        0x1
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driv=
+ers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+> index 32fd0be05cff..a3eb19f702d0 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+> @@ -136,6 +136,7 @@ const struct cmn2asic_msg_mapping smu_v13_0_12_messag=
+e_map[SMU_MSG_MAX_COUNT] =3D
+>         MSG_MAP(RmaDueToBadPageThreshold,            PPSMC_MSG_RmaDueToBa=
+dPageThreshold,        0),
+>         MSG_MAP(SetThrottlingPolicy,                 PPSMC_MSG_SetThrottl=
+ingPolicy,             0),
+>         MSG_MAP(ResetSDMA,                           PPSMC_MSG_ResetSDMA,=
+                       0),
+> +       MSG_MAP(ResetVCN,                            PPSMC_MSG_ResetVCN, =
+                       0),
+>         MSG_MAP(GetStaticMetricsTable,               PPSMC_MSG_GetStaticM=
+etricsTable,           1),
+>         MSG_MAP(GetSystemMetricsTable,               PPSMC_MSG_GetSystemM=
+etricsTable,           0),
+>  };
+> --
+> 2.49.0
 >
