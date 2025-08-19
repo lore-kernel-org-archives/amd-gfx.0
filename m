@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1837BCA0EEB
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Aug 2025 15:15:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF4CBCA0EEB
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Aug 2025 15:31:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93C8810E206;
-	Tue, 19 Aug 2025 15:15:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50C2D10E1E9;
+	Tue, 19 Aug 2025 15:31:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dNS3n9qB";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="MUfmQw4r";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D19B10E206
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Aug 2025 15:15:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95B8F10E1E9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Aug 2025 15:31:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1755616532;
+ s=mimecast20190719; t=1755617470;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=urdHsObaOG1jXX610/w2zRrgWA6yWvXip6MOdg1GGfA=;
- b=dNS3n9qBIMspx1/1nBlXytv0S6Tt8WtmHdSiuR3aYDbzIca+lgJoA4uoPWxHn4QE8r4NON
- JMbCqjIXpIbK1IbSmbEyyLsSXNmjlLKEmP3URizj8bM69QqN8yilgT5EeusqyTo+Z2soTS
- SABDj40J/oj0vFKhVqnbE0ujk7Kf+oY=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=7OeWRMq4NolNVy7XTnNb2tgNZtoQs/hKakUhJixL3Es=;
+ b=MUfmQw4rToGNLuzcT3n0UJA0SeLuX6ppFakNlUfdm/MCksvKuOHsXJnfZiPm88m8v4craz
+ 1/J2LHTNHh66Li9oQy//LicPWcWcl21iTnikwIFkEHVwPY+IEhzHavIsdyyiRfRmcnujmF
+ 2jeHjKra+0c8UFQFx4iGF7KuyMhV7pA=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-547-_jI_wXpxOvq6L2PPYzYAZA-1; Tue, 19 Aug 2025 11:15:31 -0400
-X-MC-Unique: _jI_wXpxOvq6L2PPYzYAZA-1
-X-Mimecast-MFC-AGG-ID: _jI_wXpxOvq6L2PPYzYAZA_1755616529
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-3b9e41475edso3846512f8f.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Aug 2025 08:15:29 -0700 (PDT)
+ us-mta-155-lWLfIk9MNPSh349pvGCx2w-1; Tue, 19 Aug 2025 11:31:08 -0400
+X-MC-Unique: lWLfIk9MNPSh349pvGCx2w-1
+X-Mimecast-MFC-AGG-ID: lWLfIk9MNPSh349pvGCx2w_1755617467
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-3b9e41037e6so2200355f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Aug 2025 08:31:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755616528; x=1756221328;
+ d=1e100.net; s=20230601; t=1755617467; x=1756222267;
  h=in-reply-to:references:to:from:subject:cc:message-id:date
  :content-transfer-encoding:mime-version:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=Qd6/RQ1WG+Wmnc4LLsuUrv6AI8lT/mvMMHnCxjiHteY=;
- b=UOGvKIT+xXs5z0diCU28R7ePm/J0i17UrmnoyoKtWYSwfs8yudq9h4Z1B85aqDdNMr
- pK1FVtFOEPIn497nMuyskkIEQGucM84VjcUVaZedeMeZc+Iz5dMF10a4fyjG6Za2u+RH
- IZb6yfnh1hzoR3yivXT0CpUAqhV3EY+tGC9l2b0Q9XbpR8+dEiLXmU5AyIZP1f8sgffD
- VZAZpJOFAq6m96CIAcWYNaiTGHsjfaAPz+hJk34p2Ff7rRPQJk+mFzo7xOBq5YpDqjKi
- uJ0rTGkqYkCs/CXcG1/EtcgLMIAxzHAIcxZWvhwFzx2GrZC9N3G7YGqe0sRf1nTTxuaJ
- TxCg==
+ bh=fJEEWjS4nx0j4iBms/XL+mfUSySmqxuEsDLBnWVb1kw=;
+ b=gVnDITTEE6/x9iO8UnsQcqR4XtDQDVo8iqr5vM5n0Z5cebygiM6OTw+TxlHZXJZvky
+ cLJ9UN7y6PfZUORDVwYWrZQ9cDzvxfgQ5kUZW8PgPJzyP7CWT++bDk0SymulaAbD27q9
+ xLaM7iP539Cpuuxa4OsxTH1Q1lHurh5RDI8hRY9h1e/PKBmGHd/x97wJlSR+BOj66O/a
+ CViCXhss93P18UGh9zD/cPuWqQzhejPLzThkdUa0mBoGT45tUi/fqdcCa3gXvzkdrR/J
+ K1tYiLrCdnzJykUm0VX8wAQ+4S+IDXnS3yiUm+Sto61QwjFbFtE7chY6OvbB2LEWnRW5
+ oRZQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVhycqX8CoU9F+2ah2Ym5S3lgWxajyLSFoR1XYalukVYC8FqNtIen8sEdMKWwpSDaitTtasXBsu@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzIpbRjCZUKb3HBJPkfsq9HrfIrGK4NA/s5dajaMsxcPMQB7frb
- k3fHI8EgNBHaPPUkXX6pFt4DElzZAEE1Anu/d1KAY5rOPG5hJBMVJcVluCLrImndfeYNhgWUdyQ
- A7Buzfw+xGY7ud4iz+UKINGiUEqI+w+3hEXJjxSw8X1BshAelUr/1fga78aR6z+Zb3Ki6WuJMxu
- /SU2cG
-X-Gm-Gg: ASbGncveizRlIt0BSJ+3Pl+f6BidfZs14XMg0PcFZS/aG5DsM7vACrBjhoS2J9LgbB1
- naJ28ikniWyRFxWv9jQDqeLGkmlQsF23hQ3kAb1OhPQ2crxFEHmZiekZVNIXpeHaAgRVNE5doLT
- sNNMnI+bModCEYsNjAAjfdgWGu5rK1kU95u/5vybml9nYugCy1ovQlifEJ4VlgvOZb48QipESYC
- 62tIq6xDNEY15MXtUlC92GLUbItIiYf1gHcj9+mULg/A0fWRigImW3P8W8RM4bS/WG2CpYzZMav
- ItF+AAq+Fp4KwKVJjb2wEnQ/o7tMTyhtmiMQIAfyrw8zrQ==
-X-Received: by 2002:a05:6000:2481:b0:3b7:8c98:2f4c with SMTP id
- ffacd0b85a97d-3c0ecc3220fmr2136745f8f.33.1755616528361; 
- Tue, 19 Aug 2025 08:15:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGXgoHOcG7SErbazMSNgqLyfCjntf4p02QTg/yNpblkgOV2M1ujm0obFgPSzikT/gDFxwYADg==
-X-Received: by 2002:a05:6000:2481:b0:3b7:8c98:2f4c with SMTP id
- ffacd0b85a97d-3c0ecc3220fmr2136708f8f.33.1755616527801; 
- Tue, 19 Aug 2025 08:15:27 -0700 (PDT)
+ AJvYcCUtrN1eJNi7OC3t2mTm5OqMx7h3mh5JGwRx8CAo+XnHm4tKt/LL5x45xBGHodrWlNL5B3n1gS18@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzijAvZhDlWFj1anZXa5RcTmc1A6bz6noOGdtuqEV1MC/W9veho
+ Z/AGa0A1GVKSX1CfAZRmUWqTY2OsuN2Cox+r8X+NiRKPNtq+GXa/ItL3ouMO+bvHslpZwN2UaPw
+ 6kagyE0QNaVIrXw0muwgWE8DhfzGd/jy6+eNt2nMyobUMydrKmvO+Z1IxvIJ/KAFI690=
+X-Gm-Gg: ASbGnctS4aqFF8DG1zgiTkJ1g51r+JkMfkpBKj5P4pc8G15E8SYUwkxytsjNphcCogH
+ 1WD0L60U1iFx238ZPEq/4dNiC+Xud35e/BGFiIgi54YBZBR7El3QBSF4xTlWo9BirDwO7tiQ/5C
+ Y8wZI5jsbaTA8pEpscuDshX+exKGhhSuEZfDWVaq3HrkSe2rgIQA5BnS88BeCcjOlQhXcY81M8O
+ iPtWb9G44L3d3hWHzOcDK2NHfsJ2XMVnCN33e7vE5mBhfmgeXrVy1PPpfQk0ZJNXZ1BqD2+/WuY
+ W5u4NIUk6RE6RFluacFp7SmtgawIwRAQ9FxD3cZKR2BHsA==
+X-Received: by 2002:a05:6000:26c2:b0:3b9:1684:e10 with SMTP id
+ ffacd0b85a97d-3c0e6f4ec63mr2194335f8f.23.1755617466623; 
+ Tue, 19 Aug 2025 08:31:06 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGSu74ukqzE13XtkzdMZwcfl94j95lW/tVfVWJLdV/nTd4Cp3t10+cKvLmNo/ZQ4uzuKA6sxA==
+X-Received: by 2002:a05:6000:26c2:b0:3b9:1684:e10 with SMTP id
+ ffacd0b85a97d-3c0e6f4ec63mr2194291f8f.23.1755617466028; 
+ Tue, 19 Aug 2025 08:31:06 -0700 (PDT)
 Received: from localhost ([2001:9e8:8986:8500:d724:cc1e:d6eb:bc50])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c077789d2esm4063774f8f.55.2025.08.19.08.15.26
+ 5b1f17b1804b1-45a1c748a9esm217496815e9.19.2025.08.19.08.31.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 08:15:27 -0700 (PDT)
+ Tue, 19 Aug 2025 08:31:05 -0700 (PDT)
 Mime-Version: 1.0
-Date: Tue, 19 Aug 2025 17:15:26 +0200
-Message-Id: <DC6I49YHZDU2.3SRB6PN6VY1VQ@redhat.com>
+Date: Tue, 19 Aug 2025 17:31:03 +0200
+Message-Id: <DC6IG8LQAIF4.6KM7AM5JD3J3@redhat.com>
 Cc: <wayland-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
  <leo.liu@amd.com>, <ville.syrjala@linux.intel.com>,
  <pekka.paalanen@collabora.com>, <contact@emersion.fr>, <mwen@igalia.com>,
@@ -85,16 +84,16 @@ Cc: <wayland-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
  <chaitanya.kumar.borah@intel.com>, <louis.chauvet@bootlin.com>,
  <mcanal@igalia.com>, <nfraprado@collabora.com>, "Daniel Stone"
  <daniels@collabora.com>
-Subject: Re: [PATCH V11 07/47] drm/colorop: Add BYPASS property
+Subject: Re: [PATCH V11 35/47] drm/colorop: Add 1D Curve Custom LUT type
 From: "Sebastian Wick" <sebastian.wick@redhat.com>
 To: "Alex Hung" <alex.hung@amd.com>, <dri-devel@lists.freedesktop.org>,
  <amd-gfx@lists.freedesktop.org>
 X-Mailer: aerc 0.20.1
 References: <20250815035047.3319284-1-alex.hung@amd.com>
- <20250815035047.3319284-8-alex.hung@amd.com>
-In-Reply-To: <20250815035047.3319284-8-alex.hung@amd.com>
+ <20250815035047.3319284-36-alex.hung@amd.com>
+In-Reply-To: <20250815035047.3319284-36-alex.hung@amd.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: JG7dVq5IvkiYHItheJWOXVOmXRjopx2KfiWboqJ3ZH4_1755616529
+X-Mimecast-MFC-PROC-ID: niQ05NQuy2JtodLsRG4xvHEVwjbxj6YoVGTeLMxCHac_1755617467
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
@@ -112,160 +111,263 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri Aug 15, 2025 at 5:49 AM CEST, Alex Hung wrote:
-> From: Harry Wentland <harry.wentland@amd.com>
+On Fri Aug 15, 2025 at 5:50 AM CEST, Alex Hung wrote:
+> We've previously introduced DRM_COLOROP_1D_CURVE for
+> pre-defined 1D curves. But we also have HW that supports
+> custom curves and userspace needs the ability to pass
+> custom curves, aka LUTs.
 >
-> We want to be able to bypass each colorop at all times.
-> Introduce a new BYPASS boolean property for this.
+> This patch introduces a new colorop type, called
+> DRM_COLOROP_1D_LUT that provides a SIZE property which
+> is used by a driver to advertise the supported SIZE
+> of the LUT, as well as a DATA property which userspace
+> uses to set the LUT.
+>
+> DATA and size function in the same way as current drm_crtc
+> GAMMA and DEGAMMA LUTs.
 >
 > Reviewed-by: Simon Ser <contact@emersion.fr>
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 > Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
 > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 > Reviewed-by: Daniel Stone <daniels@collabora.com>
-> Reviewed-by: Melissa Wen <mwen@igalia.com>
 > ---
-> v6:
->  - clarify that bypass is only valid if BYPASS prop exists (Louis Chauvet=
-)
+> v11:
+>  - Update names from *_lut_32_* to *_lut32_* (Simon Ser)
 >
->  drivers/gpu/drm/drm_atomic_uapi.c |  6 +++++-
->  drivers/gpu/drm/drm_colorop.c     | 15 +++++++++++++++
->  include/drm/drm_colorop.h         | 22 ++++++++++++++++++++++
->  3 files changed, 42 insertions(+), 1 deletion(-)
+> v10:
+>  - 1D LUT API is now using 32BIT RGB with drm_color_lut_32 (Uma Shankar)
 >
+> v9:
+>  - Update function names by _plane_ (Chaitanya Kumar Borah)
+>
+> v8:
+>  - Add DRM_MODE_PROP_ATOMIC to drm_property_create_range (Simon Ser)
+>  - Change "1D Curve Custom LUT" to "1D LUT" (Simon Ser)
+>
+> v7:
+>  - Change "size" to "lut_size" (this affects multiple following commits)
+>  - Move "lut_size" from drm_colorop_state to drm_colorop
+>  - Modify other files accordingly (i.e. from drm_colorop_state->size
+>    to drm_colorop->lut_size)
+>
+> v5:
+>  - Add kernel doc
+>  - Define SIZE in similar manner to GAMMA_SIZE on drm_crtc (Melissa)
+>
+>  drivers/gpu/drm/drm_atomic.c      |  4 +++
+>  drivers/gpu/drm/drm_atomic_uapi.c |  5 ++++
+>  drivers/gpu/drm/drm_colorop.c     | 43 +++++++++++++++++++++++++++++++
+>  include/drm/drm_colorop.h         | 16 ++++++++++++
+>  include/uapi/drm/drm_mode.h       | 14 ++++++++++
+>  5 files changed, 82 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 1f47949aa10b..27eba485fe2b 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -793,6 +793,10 @@ static void drm_atomic_colorop_print_state(struct dr=
+m_printer *p,
+>  =09=09drm_printf(p, "\tcurve_1d_type=3D%s\n",
+>  =09=09=09   drm_get_colorop_curve_1d_type_name(state->curve_1d_type));
+>  =09=09break;
+> +=09case DRM_COLOROP_1D_LUT:
+> +=09=09drm_printf(p, "\tsize=3D%d\n", colorop->lut_size);
+> +=09=09drm_printf(p, "\tdata blob id=3D%d\n", state->data ? state->data->=
+base.id : 0);
+> +=09=09break;
+>  =09case DRM_COLOROP_CTM_3X4:
+>  =09=09drm_printf(p, "\tdata blob id=3D%d\n", state->data ? state->data->=
+base.id : 0);
+>  =09=09break;
 > diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
 ic_uapi.c
-> index 52b5a9b5523e..44665efbef55 100644
+> index fe59dd1f2c07..093635d43ea3 100644
 > --- a/drivers/gpu/drm/drm_atomic_uapi.c
 > +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -650,7 +650,9 @@ static int drm_atomic_colorop_set_property(struct drm=
-_colorop *colorop,
->  =09=09struct drm_colorop_state *state, struct drm_file *file_priv,
->  =09=09struct drm_property *property, uint64_t val)
->  {
-> -=09if (property =3D=3D colorop->curve_1d_type_property) {
-> +=09if (property =3D=3D colorop->bypass_property) {
-> +=09=09state->bypass =3D val;
-> +=09} else if (property =3D=3D colorop->curve_1d_type_property) {
->  =09=09state->curve_1d_type =3D val;
->  =09} else {
->  =09=09drm_dbg_atomic(colorop->dev,
-> @@ -670,6 +672,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *c=
+> @@ -697,6 +697,9 @@ static int drm_atomic_color_set_data_property(struct =
+drm_colorop *colorop,
+>  =09bool replaced =3D false;
+> =20
+>  =09switch (colorop->type) {
+> +=09case DRM_COLOROP_1D_LUT:
+> +=09=09size =3D colorop->lut_size * sizeof(struct drm_color_lut32);
+> +=09=09break;
+>  =09case DRM_COLOROP_CTM_3X4:
+>  =09=09size =3D sizeof(struct drm_color_ctm_3x4);
+>  =09=09break;
+> @@ -746,6 +749,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *c=
 olorop,
->  {
->  =09if (property =3D=3D colorop->type_property) {
->  =09=09*val =3D colorop->type;
-> +=09} else if (property =3D=3D colorop->bypass_property) {
-> +=09=09*val =3D state->bypass;
+>  =09=09*val =3D state->bypass;
 >  =09} else if (property =3D=3D colorop->curve_1d_type_property) {
 >  =09=09*val =3D state->curve_1d_type;
+> +=09} else if (property =3D=3D colorop->lut_size_property) {
+> +=09=09*val =3D colorop->lut_size;
+>  =09} else if (property =3D=3D colorop->data_property) {
+>  =09=09*val =3D (state->data) ? state->data->base.id : 0;
 >  =09} else {
 > diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.=
 c
-> index 6fbc3c284d33..11c37916c758 100644
+> index c245a3ff45d3..e799a87f25fe 100644
 > --- a/drivers/gpu/drm/drm_colorop.c
 > +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -79,6 +79,17 @@ static int drm_plane_colorop_init(struct drm_device *d=
-ev, struct drm_colorop *co
->  =09=09=09=09   colorop->type_property,
->  =09=09=09=09   colorop->type);
+> @@ -64,6 +64,7 @@
 > =20
-> +=09/* bypass */
-> +=09prop =3D drm_property_create_bool(dev, DRM_MODE_PROP_ATOMIC,
-> +=09=09=09=09=09"BYPASS");
+>  static const struct drm_prop_enum_list drm_colorop_type_enum_list[] =3D =
+{
+>  =09{ DRM_COLOROP_1D_CURVE, "1D Curve" },
+> +=09{ DRM_COLOROP_1D_LUT, "1D LUT" },
+>  =09{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
+>  };
+> =20
+> @@ -265,6 +266,47 @@ static int drm_colorop_create_data_prop(struct drm_d=
+evice *dev, struct drm_color
+>  =09return 0;
+>  }
+> =20
+> +/**
+> + * drm_plane_colorop_curve_1d_lut_init - Initialize a DRM_COLOROP_1D_LUT
+> + *
+> + * @dev: DRM device
+> + * @colorop: The drm_colorop object to initialize
+> + * @plane: The associated drm_plane
+> + * @lut_size: LUT size supported by driver
+> + * @return zero on success, -E value on failure
+> + */
+> +int drm_plane_colorop_curve_1d_lut_init(struct drm_device *dev, struct d=
+rm_colorop *colorop,
+> +=09=09=09=09=09struct drm_plane *plane, uint32_t lut_size)
+> +{
+> +=09struct drm_property *prop;
+> +=09int ret;
+> +
+> +=09ret =3D drm_plane_colorop_init(dev, colorop, plane, DRM_COLOROP_1D_LU=
+T);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09/* initialize 1D LUT only attribute */
+> +=09/* LUT size */
+> +=09prop =3D drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE | DRM=
+_MODE_PROP_ATOMIC,
+> +=09=09=09=09=09 "SIZE", 0, UINT_MAX);
 > +=09if (!prop)
 > +=09=09return -ENOMEM;
 > +
-> +=09colorop->bypass_property =3D prop;
-> +=09drm_object_attach_property(&colorop->base,
-> +=09=09=09=09   colorop->bypass_property,
-> +=09=09=09=09   1);
+> +=09colorop->lut_size_property =3D prop;
+
+I'm a bit confused here. The property itself is just called "SIZE" which
+looks very similar to the generic "DATA" property. However, it is
+assigned to `lut_size_property`.
+
+Is this meant to be to be a generic property where the exact usage
+depends on the type of the color op (like "DATA"), or is this meant to
+be specific to LUTs (in which case the generic name is misleading)?
+
+I also tried to find the user space documentation for all the properties
+but could not find them. The only thing I could find was the kernel
+documentation of
+
+    struct drm_property *lut_size_property;
+
+Which says "Size property for custom LUT from userspace."
+
+
+> +=09drm_object_attach_property(&colorop->base, colorop->lut_size_property=
+, lut_size);
+> +=09colorop->lut_size =3D lut_size;
 > +
->  =09return ret;
->  }
-> =20
-> @@ -136,6 +147,7 @@ int drm_plane_colorop_curve_1d_init(struct drm_device=
- *dev, struct drm_colorop *
->  =09/* initialize 1D curve only attribute */
->  =09prop =3D drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, "CURVE_1=
-D_TYPE",
->  =09=09=09=09=09enum_list, len);
+> +=09/* data */
+> +=09ret =3D drm_colorop_create_data_prop(dev, colorop);
+> +=09if (ret)
+> +=09=09return ret;
 > +
->  =09if (!prop)
->  =09=09return -ENOMEM;
-> =20
-> @@ -152,6 +164,8 @@ static void __drm_atomic_helper_colorop_duplicate_sta=
-te(struct drm_colorop *colo
->  =09=09=09=09=09=09=09struct drm_colorop_state *state)
+> +=09drm_colorop_reset(colorop);
+> +
+> +=09return 0;
+> +}
+> +EXPORT_SYMBOL(drm_plane_colorop_curve_1d_lut_init);
+> +
+>  int drm_plane_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_co=
+lorop *colorop,
+>  =09=09=09=09   struct drm_plane *plane)
 >  {
->  =09memcpy(state, colorop->state, sizeof(*state));
-> +
-> +=09state->bypass =3D true;
->  }
+> @@ -373,6 +415,7 @@ void drm_colorop_reset(struct drm_colorop *colorop)
 > =20
->  struct drm_colorop_state *
-> @@ -190,6 +204,7 @@ static void __drm_colorop_state_reset(struct drm_colo=
-rop_state *colorop_state,
->  =09u64 val;
+>  static const char * const colorop_type_name[] =3D {
+>  =09[DRM_COLOROP_1D_CURVE] =3D "1D Curve",
+> +=09[DRM_COLOROP_1D_LUT] =3D "1D LUT",
+>  =09[DRM_COLOROP_CTM_3X4] =3D "3x4 Matrix",
+>  };
 > =20
->  =09colorop_state->colorop =3D colorop;
-> +=09colorop_state->bypass =3D true;
-> =20
->  =09if (colorop->curve_1d_type_property) {
->  =09=09drm_object_property_get_default_value(&colorop->base,
 > diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index fa167e642e0d..49e6564c17ba 100644
+> index c6d2b289e3cf..fe662e0f89aa 100644
 > --- a/include/drm/drm_colorop.h
 > +++ b/include/drm/drm_colorop.h
-> @@ -82,6 +82,16 @@ struct drm_colorop_state {
->  =09 * information.
+> @@ -259,6 +259,13 @@ struct drm_colorop {
 >  =09 */
-> =20
-> +
-> +=09/**
-> +=09 * @bypass:
-> +=09 *
-> +=09 * When the property BYPASS exists on this colorop, this stores
-> +=09 * the requested bypass state: true if colorop shall be bypassed,
-> +=09 * false if colorop is enabled.
-> +=09 */
-> +=09bool bypass;
-> +
->  =09/**
->  =09 * @curve_1d_type:
->  =09 *
-> @@ -171,6 +181,18 @@ struct drm_colorop {
->  =09 */
->  =09struct drm_property *type_property;
+>  =09struct drm_property *bypass_property;
 > =20
 > +=09/**
-> +=09 * @bypass_property:
+> +=09 * @lut_size:
 > +=09 *
-> +=09 * Boolean property to control enablement of the color
-> +=09 * operation. Setting bypass to "true" shall always be supported
-
-This doesn't actually seem to be the case when the patches later in the
-series are to be believed.
-
-Somewhere else it says
-
-  The BYPASS property is not mandatory for a colorop, as long as the
-  entire pipeline can get bypassed by setting the COLOR_PIPELINE on a
-  plane to '0'.
-
-and later there is a "drm/colorop: allow non-bypass colorops" patch.
-
-So I'm pretty sure this instance here should be adjusted.
-
-> +=09 * in order to allow compositors to quickly fall back to
-> +=09 * alternate methods of color processing. This is important
-> +=09 * since setting color operations can fail due to unique
-> +=09 * HW constraints.
+> +=09 * Number of entries of the custom LUT. This should be read-only.
 > +=09 */
-> +=09struct drm_property *bypass_property;
+> +=09uint32_t lut_size;
 > +
 >  =09/**
 >  =09 * @curve_1d_type_property:
+>  =09 *
+> @@ -266,6 +273,13 @@ struct drm_colorop {
+>  =09 */
+>  =09struct drm_property *curve_1d_type_property;
+> =20
+> +=09/**
+> +=09 * @lut_size_property:
+> +=09 *
+> +=09 * Size property for custom LUT from userspace.
+> +=09 */
+> +=09struct drm_property *lut_size_property;
+> +
+>  =09/**
+>  =09 * @data_property:
+>  =09 *
+> @@ -312,6 +326,8 @@ void drm_colorop_pipeline_destroy(struct drm_device *=
+dev);
+> =20
+>  int drm_plane_colorop_curve_1d_init(struct drm_device *dev, struct drm_c=
+olorop *colorop,
+>  =09=09=09=09    struct drm_plane *plane, u64 supported_tfs);
+> +int drm_plane_colorop_curve_1d_lut_init(struct drm_device *dev, struct d=
+rm_colorop *colorop,
+> +=09=09=09=09=09struct drm_plane *plane, uint32_t lut_size);
+>  int drm_plane_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_co=
+lorop *colorop,
+>  =09=09=09=09   struct drm_plane *plane);
+> =20
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index bcc4e9845881..24fd52e16953 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -902,6 +902,20 @@ enum drm_colorop_type {
+>  =09 */
+>  =09DRM_COLOROP_1D_CURVE,
+> =20
+> +=09/**
+> +=09 * @DRM_COLOROP_1D_LUT:
+> +=09 *
+> +=09 * enum string "1D LUT"
+> +=09 *
+> +=09 * A simple 1D LUT of uniformly spaced &drm_color_lut32 entries,
+> +=09 * packed into a blob via the DATA property. The driver's
+> +=09 * expected LUT size is advertised via the SIZE property.
+> +=09 *
+> +=09 * The DATA blob is an array of struct drm_color_lut32 with size
+> +=09 * of "lut_size".
+> +=09 */
+> +=09DRM_COLOROP_1D_LUT,
+> +
+>  =09/**
+>  =09 * @DRM_COLOROP_CTM_3X4:
 >  =09 *
 
