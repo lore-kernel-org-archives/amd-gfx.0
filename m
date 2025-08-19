@@ -4,68 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06465CA0EE6
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Aug 2025 12:52:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1BCCA0EE6
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Aug 2025 13:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF1E10E1A4;
-	Tue, 19 Aug 2025 12:52:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F274B10E17E;
+	Tue, 19 Aug 2025 13:10:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MGNDarWW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K+FOiamv";
 	dkim-atps=neutral
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54ABC10E1A4
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Aug 2025 12:52:05 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-b47173edabaso1004334a12.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Aug 2025 05:52:05 -0700 (PDT)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01F8A10E17E;
+ Tue, 19 Aug 2025 13:10:27 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-24457f57ed4so9633935ad.0; 
+ Tue, 19 Aug 2025 06:10:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755607925; x=1756212725; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1755609027; x=1756213827; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dT3jGInlb26OSSp7uZbV8vc3eadim/FwC59TP2EEbDg=;
- b=MGNDarWWlc520t8IEwLX0ZvR7r4wAI9UnGK1TRk3UP5WXDgstW7b/CHCioNZjAqAYm
- BzDJLZcKZMLAzB5yShbjXw222eHi2PXks5gndOPX/ZWq1NsHJbIlKgt5zkTMOzsXKtNz
- X+iL4UwiPXFs3Lxhyvyz80wS6pLaSkqc1CyDKdSpP9vh+LKlEC1M64MtAGGfprkGkWjP
- Rpwi/FSLY4PVRscQNpg/MVI2mfwOzPG6799Ly4ayREX28+ubmk0UX1tnY6jbRQCjxMXj
- ggCfAftnfrLxOaiDOaBF20+D17K8PVBU+Px7yhsMz+0WAG5Ihiyh7xG58j0xBok/6sVK
- syEA==
+ bh=BBO0mQ7zrboFrLruEp+8+uIF4ovtiK0aQdxBxT/KyMA=;
+ b=K+FOiamv42V+IVpjuA+eKFmPD/MtpZSW/qwNXTUK5yOQa1NFxQLDQcjo4ITF2CFKC1
+ U74d1CL7GqeNLDdYs/4flvlwTWvF03g3xCyA2yHC3l8wrRC2+Ulc0ru9dlP2jzZOZv9U
+ 8vCX0eD9gY6yoJ/c/zlWP3mSX3vB5ft3lxnqtXBZPSWClVjaVFZmg12b94+Pd3IMWRwi
+ 9HEfezU1eJ7iTnrsiZegeLKBnqDwXH8LqRRXr3ECZsSpkFfaiZnT/TWkwpbCp5k7HYtL
+ wpwNwFH/AKpE16lcFn6+JQmeheYNxo/0Mryl0XiipXweAzttpuVC83tH6NzDAIdu8qxU
+ yxyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755607925; x=1756212725;
+ d=1e100.net; s=20230601; t=1755609027; x=1756213827;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dT3jGInlb26OSSp7uZbV8vc3eadim/FwC59TP2EEbDg=;
- b=C5jfu3iFD4f5inGFL007asCLoUcOXUy9/uUZo+PQ4gX2qqdvMN79RRO9Y/AB0HNfxo
- ct+6O6PhBA7MKYBToUfDR6ru/s22EEKqQFrTa7r1FCL/0cC9TWnqBUi7wIaq107wqiHJ
- zlIPYzFef2mJEl9xd8u/67Lm2B0HTu6aGjlI0VbOQJ4b8BEc5oemfjDIHjqesh7HrGX+
- GTeFopz/1ZrejSY4irAuU0DIq8clGVXAASlXKTtgl/4B44IabeJ/CyVQVzbfWr44Dwpy
- C6RLq938R19DzLOUMj9kM9AiDR/Pywf6Icb8DtmLBcjYurakYwClQWUp+EbL3dsGIX2W
- 68LA==
-X-Gm-Message-State: AOJu0YzZdmUmVW5BIvtdR3yLbHAvtI7DnAUQe5fJY+doSt24pn0JMoti
- XiEnVDnh5q5FZ1+qSJci3HcZ1gkwg1dxQdbECf0BlW4LyQoo/5mpTXYFvScQsmakrSWcKUDTJSW
- BVXZtvYrfZFRXE2zVL7HaNFBjJnDaLi+Yjw==
-X-Gm-Gg: ASbGncuV2Pu8fJqs73jXcbTzythjSnwVn1y8/wAjYrRhZ3+RaVfVRwJL7Q15VYjptvI
- dgJ5Tigxx6zh0UODWIjKp+8AuZiz84zFI7FqPSfRPoyy3dw/xIwgOsp+RaOZoHklLVmJxmhJ61q
- bKL68gfepJjOLBuCynU9mqRheppRHgy0gbU5XAtgwqM1Dk+WGx5FFzSBGryLnQJwQu4V9lFihXE
- LUfZVUfy58wR9RKtQ==
-X-Google-Smtp-Source: AGHT+IGPadk0jaC665mpQiwI/bB80/ZS5Y2BSE0nfT2ErS+oGIipTbb1EoBoGT6hwoJDPoD8etWDmk6La7RXAGOGdRM=
-X-Received: by 2002:a17:903:1111:b0:242:fcfd:3f94 with SMTP id
- d9443c01a7336-245e0525027mr17263755ad.11.1755607924461; Tue, 19 Aug 2025
- 05:52:04 -0700 (PDT)
+ bh=BBO0mQ7zrboFrLruEp+8+uIF4ovtiK0aQdxBxT/KyMA=;
+ b=ViJzcaw1EMZj9tEqkpryjhRTG8ejNK9AexRI57UL8rQi2oN8EjSlIY1PZmymtiONzp
+ ZX1Z5PYBY0YSfcTcdDoYd2cjc6jOr/8Jw29DoeaWpObw8cRyootvM9XuBMeU6LlNaMji
+ JsBXwzgWkp8SkJyrqn9XLnlcoQceMt3RlZxancpZ3B0XDzYqdgRTwzclASNsLJrgQu/v
+ ePC8YzwdfKAAVvc+2nZD0fAtjtgb521SvKJf8B8THo2nfPQJovRV3OjZxh0bosREOVA8
+ u67zYhlF+ydYuW4Wu2enok8B8wcghr3W/TbEiVZX/LsYzvivraeKqqwIsKYa+b5hfUBz
+ EAIw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVQlbY8PH8cslUKqDVBvxK1FMJ5EUdIJXVpLGko3o2FU9ZYAtB/XRkXm/bzFSlFNLHncSv08IN3VteX@lists.freedesktop.org,
+ AJvYcCW1+zp6jGPXUFURTLxckA3OtjwHfZOJx9yQfZdH/S+t9eu40CVnwuGwkdXbXTVuXMJzlZxPJr5q@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxKM/ju/RUSdxrz8b7wUNt6cMwu96h8n5Q0o2RXYCBxAaBIPUqF
+ OJf+LAAFCKo2PCaKJvQeSAIX4yCOhydHGw5IRxh4ZbljPjHp8KZtZ7H92uYv8DC8QHQttY4dXtf
+ FUMoQQL7HrBjIL4jnHpHn1lq3mjL8gLYuqA==
+X-Gm-Gg: ASbGncsEHunim0v9whnO4UFFAdi0rEu2CQNtTphjvOsKlLpm8+o/aNhj7seoDgppZtc
+ jY/Wq9dDR1Q6tzW2F+dj3YtEywRJVeAzpemBrEDtPS0qarbKZ8XE8hvrFb2BJHQWQj4TTXcgP5W
+ a70izsTV9j4k3uNF33Uanzcu7M6A4BNjimvHjBZLR7YE80jq2cnowCsnxuzrlpeHxIJAVjKYa7R
+ z7VTRU=
+X-Google-Smtp-Source: AGHT+IHgDHQQVvQ81lJeFxwOYKVLPEWtIJSQrpi70KdAtd/aUfRobzNM5gDqlN/++cIRn61vbrInrD505a7SNJ3odjc=
+X-Received: by 2002:a17:902:ea07:b0:240:33c7:fbf9 with SMTP id
+ d9443c01a7336-245e0503f5emr17013235ad.11.1755609027188; Tue, 19 Aug 2025
+ 06:10:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250819091217.2115134-1-lijo.lazar@amd.com>
-In-Reply-To: <20250819091217.2115134-1-lijo.lazar@amd.com>
+References: <20250819082524.526572-1-liaoyuanhong@vivo.com>
+ <00e7ce33-cc0a-4249-ac18-081ab9ead243@amd.com>
+In-Reply-To: <00e7ce33-cc0a-4249-ac18-081ab9ead243@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Aug 2025 08:51:52 -0400
-X-Gm-Features: Ac12FXwZsfxauzPQiN-_ihsruXaWuHJPiIXJx2r-1RG6dDRM8cmWniOLmaMK3qg
-Message-ID: <CADnq5_MdiPhH8qZuuSKeqvcZSD4qGBKMnNr8ZnH_-kbQaeLadQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Check vcn state before profile switch
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com, sathishkumar.sundararaju@amd.com, 
- David.Wu3@amd.com
+Date: Tue, 19 Aug 2025 09:10:15 -0400
+X-Gm-Features: Ac12FXwmelZstNIBVdCAl2Tac6u3JKQmNwideXgAhYQM85MNWz4RZc0s2eVEDwE
+Message-ID: <CADnq5_PA8P8V9Da8ZUrDAsYXM_tbnPPyBR4MgF4QA++59vKerA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/fence: Remove redundant 0 value initialization
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Liao Yuanhong <liaoyuanhong@vivo.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@kernel.org>, 
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,273 +92,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 19, 2025 at 5:28=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
-te:
->
-> The patch uses power state of VCN instances for requesting video
-> profile.
->
-> In idle worker of a vcn instance, when there is no outstanding
-> submisssion or fence, the instance is put to power gated state. When all
-> instances are powered off that means video profile is no longer
-> required. A request is made to turn off video profile.
->
-> A job submission starts with begin_use of ring, and at that time
-> vcn instance state is changed to power on. Subsequently a check is
-> made for active video profile, and if not active, a request is made.
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Applied.  Thanks!
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 85 ++++++++++++++++---------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  3 +
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 27 +-------
->  3 files changed, 61 insertions(+), 54 deletions(-)
+On Tue, Aug 19, 2025 at 4:41=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vcn.c
-> index 9a76e11d1c18..f3eb64edf6d2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -410,6 +410,59 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev, in=
-t i)
->         return 0;
->  }
+> On 19.08.25 10:25, Liao Yuanhong wrote:
+> > The amdgpu_fence struct is already zeroed by kzalloc(). It's redundant =
+to
+> > initialize am_fence->context to 0.
+> >
+> > Signed-off-by: Liao Yuanhong <liaoyuanhong@vivo.com>
 >
-> +void amdgpu_vcn_get_profile(struct amdgpu_device *adev)
-> +{
-> +       int r;
-> +
-> +
-> +       mutex_lock(&adev->vcn.workload_profile_mutex);
-> +
-> +       if (adev->vcn.workload_profile_active) {
-> +               mutex_unlock(&adev->vcn.workload_profile_mutex);
-> +               return;
-> +       }
-> +       r =3D amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_=
-VIDEO,
-> +                                           true);
-> +       if (r)
-> +               dev_warn(adev->dev,
-> +                        "(%d) failed to enable video power profile mode\=
-n", r);
-> +       else
-> +               adev->vcn.workload_profile_active =3D true;
-> +       mutex_unlock(&adev->vcn.workload_profile_mutex);
-> +
-> +       return;
-> +}
-> +
-> +void amdgpu_vcn_put_profile(struct amdgpu_device *adev)
-> +{
-> +       bool pg =3D true;
-> +       int r, i;
-> +
-> +       mutex_lock(&adev->vcn.workload_profile_mutex);
-> +       for (i =3D 0; i < adev->vcn.num_vcn_inst; i++) {
-> +               if (adev->vcn.inst[i].cur_state !=3D AMD_PG_STATE_GATE) {
-> +                       pg =3D false;
-> +                       break;
-> +               }
-> +       }
-> +
-> +       if (pg) {
-> +               r =3D amdgpu_dpm_switch_power_profile(
-> +                       adev, PP_SMC_POWER_PROFILE_VIDEO, false);
-> +               if (r)
-> +                       dev_warn(
-> +                               adev->dev,
-> +                               "(%d) failed to disable video power profi=
-le mode\n",
-> +                               r);
-> +               else
-> +                       adev->vcn.workload_profile_active =3D false;
-> +       }
-> +
-> +       mutex_unlock(&adev->vcn.workload_profile_mutex);
-> +
-> +       return;
-> +}
-> +
->  static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
->  {
->         struct amdgpu_vcn_inst *vcn_inst =3D
-> @@ -417,7 +470,6 @@ static void amdgpu_vcn_idle_work_handler(struct work_=
-struct *work)
->         struct amdgpu_device *adev =3D vcn_inst->adev;
->         unsigned int fences =3D 0, fence[AMDGPU_MAX_VCN_INSTANCES] =3D {0=
-};
->         unsigned int i =3D vcn_inst->inst, j;
-> -       int r =3D 0;
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
->         if (adev->vcn.harvest_config & (1 << i))
->                 return;
-> @@ -446,15 +498,8 @@ static void amdgpu_vcn_idle_work_handler(struct work=
-_struct *work)
->                 mutex_lock(&vcn_inst->vcn_pg_lock);
->                 vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_GATE);
->                 mutex_unlock(&vcn_inst->vcn_pg_lock);
-> -               mutex_lock(&adev->vcn.workload_profile_mutex);
-> -               if (adev->vcn.workload_profile_active) {
-> -                       r =3D amdgpu_dpm_switch_power_profile(adev, PP_SM=
-C_POWER_PROFILE_VIDEO,
-> -                                                           false);
-> -                       if (r)
-> -                               dev_warn(adev->dev, "(%d) failed to disab=
-le video power profile mode\n", r);
-> -                       adev->vcn.workload_profile_active =3D false;
-> -               }
-> -               mutex_unlock(&adev->vcn.workload_profile_mutex);
-> +               amdgpu_vcn_put_profile(adev);
-> +
->         } else {
->                 schedule_delayed_work(&vcn_inst->idle_work, VCN_IDLE_TIME=
-OUT);
->         }
-> @@ -464,30 +509,11 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *=
-ring)
->  {
->         struct amdgpu_device *adev =3D ring->adev;
->         struct amdgpu_vcn_inst *vcn_inst =3D &adev->vcn.inst[ring->me];
-> -       int r =3D 0;
+> If you want a challenge what we would really use is a scan of all the str=
+uctures defined in drivers/gpu/drm/amd/amdgpu/*.[ch] for unused fields.
 >
->         atomic_inc(&vcn_inst->total_submission_cnt);
+> The UAPI and BIOS/HW header files are full of padding fields, but there s=
+houldn't be any in the driver core defines and we sometimes forget to remov=
+e fields from structures when they are not used any more.
 >
->         cancel_delayed_work_sync(&vcn_inst->idle_work);
+> Regards,
+> Christian.
 >
-> -       /* We can safely return early here because we've cancelled the
-> -        * the delayed work so there is no one else to set it to false
-> -        * and we don't care if someone else sets it to true.
-> -        */
-> -       if (adev->vcn.workload_profile_active)
-> -               goto pg_lock;
-> -
-> -       mutex_lock(&adev->vcn.workload_profile_mutex);
-> -       if (!adev->vcn.workload_profile_active) {
-> -               r =3D amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_=
-PROFILE_VIDEO,
-> -                                                   true);
-> -               if (r)
-> -                       dev_warn(adev->dev, "(%d) failed to switch to vid=
-eo power profile mode\n", r);
-> -               adev->vcn.workload_profile_active =3D true;
-> -       }
-> -       mutex_unlock(&adev->vcn.workload_profile_mutex);
-> -
-> -pg_lock:
->         mutex_lock(&vcn_inst->vcn_pg_lock);
->         vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
->
-> @@ -515,6 +541,7 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ri=
-ng)
->                 vcn_inst->pause_dpg_mode(vcn_inst, &new_state);
->         }
->         mutex_unlock(&vcn_inst->vcn_pg_lock);
-> +       amdgpu_vcn_get_profile(adev);
->  }
->
->  void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vcn.h
-> index b3fb1d0e43fc..6d9acd36041d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> @@ -565,4 +565,7 @@ int amdgpu_vcn_reg_dump_init(struct amdgpu_device *ad=
-ev,
->                              const struct amdgpu_hwip_reg_entry *reg, u32=
- count);
->  void amdgpu_vcn_dump_ip_state(struct amdgpu_ip_block *ip_block);
->  void amdgpu_vcn_print_ip_state(struct amdgpu_ip_block *ip_block, struct =
-drm_printer *p);
-> +void amdgpu_vcn_get_profile(struct amdgpu_device *adev);
-> +void amdgpu_vcn_put_profile(struct amdgpu_device *adev);
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v2_5.c
-> index 3a7c137a83ef..904b94bc8693 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -116,7 +116,6 @@ static void vcn_v2_5_idle_work_handler(struct work_st=
-ruct *work)
->         struct amdgpu_device *adev =3D vcn_inst->adev;
->         unsigned int fences =3D 0, fence[AMDGPU_MAX_VCN_INSTANCES] =3D {0=
-};
->         unsigned int i, j;
-> -       int r =3D 0;
->
->         for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
->                 struct amdgpu_vcn_inst *v =3D &adev->vcn.inst[i];
-> @@ -149,15 +148,7 @@ static void vcn_v2_5_idle_work_handler(struct work_s=
-truct *work)
->         if (!fences && !atomic_read(&adev->vcn.inst[0].total_submission_c=
-nt)) {
->                 amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK=
-_TYPE_VCN,
->                                                        AMD_PG_STATE_GATE)=
-;
-> -               mutex_lock(&adev->vcn.workload_profile_mutex);
-> -               if (adev->vcn.workload_profile_active) {
-> -                       r =3D amdgpu_dpm_switch_power_profile(adev, PP_SM=
-C_POWER_PROFILE_VIDEO,
-> -                                                           false);
-> -                       if (r)
-> -                               dev_warn(adev->dev, "(%d) failed to disab=
-le video power profile mode\n", r);
-> -                       adev->vcn.workload_profile_active =3D false;
-> -               }
-> -               mutex_unlock(&adev->vcn.workload_profile_mutex);
-> +               amdgpu_vcn_put_profile(adev);
->         } else {
->                 schedule_delayed_work(&adev->vcn.inst[0].idle_work, VCN_I=
-DLE_TIMEOUT);
->         }
-> @@ -167,7 +158,6 @@ static void vcn_v2_5_ring_begin_use(struct amdgpu_rin=
-g *ring)
->  {
->         struct amdgpu_device *adev =3D ring->adev;
->         struct amdgpu_vcn_inst *v =3D &adev->vcn.inst[ring->me];
-> -       int r =3D 0;
->
->         atomic_inc(&adev->vcn.inst[0].total_submission_cnt);
->
-> @@ -177,20 +167,6 @@ static void vcn_v2_5_ring_begin_use(struct amdgpu_ri=
-ng *ring)
->          * the delayed work so there is no one else to set it to false
->          * and we don't care if someone else sets it to true.
->          */
-> -       if (adev->vcn.workload_profile_active)
-> -               goto pg_lock;
-> -
-> -       mutex_lock(&adev->vcn.workload_profile_mutex);
-> -       if (!adev->vcn.workload_profile_active) {
-> -               r =3D amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_=
-PROFILE_VIDEO,
-> -                                                   true);
-> -               if (r)
-> -                       dev_warn(adev->dev, "(%d) failed to switch to vid=
-eo power profile mode\n", r);
-> -               adev->vcn.workload_profile_active =3D true;
-> -       }
-> -       mutex_unlock(&adev->vcn.workload_profile_mutex);
-> -
-> -pg_lock:
->         mutex_lock(&adev->vcn.inst[0].vcn_pg_lock);
->         amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VC=
-N,
->                                                AMD_PG_STATE_UNGATE);
-> @@ -218,6 +194,7 @@ static void vcn_v2_5_ring_begin_use(struct amdgpu_rin=
-g *ring)
->                 v->pause_dpg_mode(v, &new_state);
->         }
->         mutex_unlock(&adev->vcn.inst[0].vcn_pg_lock);
-> +       amdgpu_vcn_get_profile(adev);
->  }
->
->  static void vcn_v2_5_ring_end_use(struct amdgpu_ring *ring)
-> --
-> 2.49.0
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 1 -
+> >  1 file changed, 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_fence.c
+> > index bcb74286a78a..fd8cca241da6 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > @@ -120,7 +120,6 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, str=
+uct dma_fence **f,
+> >               am_fence =3D kzalloc(sizeof(*am_fence), GFP_KERNEL);
+> >               if (!am_fence)
+> >                       return -ENOMEM;
+> > -             am_fence->context =3D 0;
+> >       } else {
+> >               am_fence =3D af;
+> >       }
 >
