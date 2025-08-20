@@ -4,83 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 524E3CA0EF8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70057CA0EEB
 	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 12:48:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DACCA10E982;
-	Thu, 21 Aug 2025 12:48:53 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57B6310E8DB;
- Thu, 21 Aug 2025 09:30:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5C11B5C5CF2;
- Thu, 21 Aug 2025 09:30:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F55DC4CEEB;
- Thu, 21 Aug 2025 09:30:46 +0000 (UTC)
-Message-ID: <82e5e566-87e9-43a8-a0e9-00656572d65c@redhat.com>
-Date: Thu, 21 Aug 2025 11:30:43 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0783D10E983;
+	Thu, 21 Aug 2025 12:48:54 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G+ZW4dsx";
+	dkim-atps=neutral
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61F4710E7BF;
+ Wed, 20 Aug 2025 18:23:26 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-b474e8d6d04so99590a12.0; 
+ Wed, 20 Aug 2025 11:23:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755714206; x=1756319006; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=qJD17dHXBpBddqd9ZQM59zYB7xSPsARGmN3EqdaDYYk=;
+ b=G+ZW4dsxJZQPg81EEiK3kpnWvfZg7pjGS915eVbge//OuyTO/Qb5jtCOb+zGu0Pzvb
+ mkaig3R80cDJIR3S9K/gehO6HZ9aKcSyP98NJiwlAmsN1Chu9erai6VDNbeCDPqHgp9A
+ z8UfGM1gT4evW7y3GxiCoYgJEk2j+uBY0aApYGWoeNocVmotvs62IWaR/C7mucYyWmDc
+ PpsQoJw/HRemFsJ25BlxMstTpDdvHOLPNf5FBy7QBgyc4yggJTKPIdjLy6wD3WgToDHn
+ ZRiNclbTm9GO9PgVyBObFuZVyayqWZxOV6c16UlTSDYY8IzIXRmV5yadszcVeDbszGfb
+ bRQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755714206; x=1756319006;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=qJD17dHXBpBddqd9ZQM59zYB7xSPsARGmN3EqdaDYYk=;
+ b=L1MufdrXX1S1rWdsuC41UVkldAk9lbqI9mCrQtk7YhoKhEZ2BAqf+KKZTp6klMa4RG
+ G9RFyrUL/tIGVtXdvY0Ibiv71lfgRRWlYbhYZ9F4zmiy6urJlKRyHxUfCIypDicuzEVj
+ rHbb0c9UwA9Hj8L8rZbfGGrFE1O2r5GFXu6LN95mO+o8AmUlnWGDe+dMt5LZKFoRz85x
+ 6DdD5cv9CK5sdejahLXT2R/4yafe0yKtau9FQD7hWglUpwzqIUz70FC4LyuNVdTCC5JS
+ Cxo/yAdK2h9NSbbM53AhOBeenQpxdmo6AeO+kzk0Gcod7oeeK+Y6qjyskldNitXBoxGv
+ Yfdw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV1I2Hj1/4096g2M22xnkGAMsiD3E6QQFlrUopLsBI+fM0N1cJ3Q+ov5/npTRdc9Rx12YXXrR6Lvl3I@lists.freedesktop.org,
+ AJvYcCXFPDzLmxvoVCEdZ2e4wQFTsFkeX+DER3tCLzhxxwpRIvWdM1YVyP2GCky0LBRvU3D7nDYPjLvF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy021MGE8EWR67sCJ9xs4JcbwCJHA6lJNaBFUXOI7h5S8RmZpGh
+ lx5xQVgscQpImPiuYIR0BxQLFQsCGwsttNwviBNSsY/Ld0T3g/SxUUXo
+X-Gm-Gg: ASbGncuym7iXpOlbvTgw3YVANc92l9NICw+gIqGYFqAn376GyVVa3OzdyVIYOK19WEb
+ dPg3WKawyrNr+hzeRi25YOrrGFaIP4/1JljaZb1F+mSH1WOwgW8Q/MPdqT2McQfcWzGI5KyJudh
+ WsMdMIboSS/y3s+lIbn3v3QE5J82Gl8syQbH+c6cgrBKiIIRykC8Gw8gPVsfSaYAJpGsOfypTQ9
+ gkmmqD3pHDGJV4maAKTGx9mVFxJTVm4oWQWw9SG14/lJjAhC8YDMaFsBgqw9BwTSsjQc8fnYr26
+ uqsfb35igCkey3kSZhQh3TfYGmkzE9a6a0sXoWKf2TPTKYgMEd47pat0pZUgr0J8D0YbpNGcFHy
+ oo3+UTsn7vdHNk0tx/wBgnZKKBGU=
+X-Google-Smtp-Source: AGHT+IGxVHwxWzd0VLZskRkya2/ny1iDGS9Hg+m0NaghOzwqRevtboYxJh4mBs1hCDsOMv5cLgK6Fg==
+X-Received: by 2002:a17:903:13cf:b0:240:150e:57ba with SMTP id
+ d9443c01a7336-245ef0d5a4dmr50329185ad.3.1755714205396; 
+ Wed, 20 Aug 2025 11:23:25 -0700 (PDT)
+Received: from lkmp.. ([49.37.163.128]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-324e2643bafsm2956636a91.23.2025.08.20.11.23.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Aug 2025 11:23:25 -0700 (PDT)
+From: Rakuram Eswaran <rakuram.e96@gmail.com>
+To: linux-doc@vger.kernel.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, corbet@lwn.net
+Cc: tzimmermann@suse.de, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ simona@ffwll.ch, siqueira@igalia.com, harry.wentland@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linuxfoundation.org, skhan@linuxfoundation.org,
+ rakuram.e96@gmail.com
+Subject: [PATCH] docs: gpu: Fix spelling mistakes
+Date: Wed, 20 Aug 2025 23:52:58 +0530
+Message-ID: <20250820182259.11227-1-rakuram.e96@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: your mail
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- x86@kernel.org, airlied@gmail.com, thomas.hellstrom@linux.intel.com,
- matthew.brost@intel.com, dave.hansen@linux.intel.com, luto@kernel.org,
- peterz@infradead.org, Liam Howlett <liam.howlett@oracle.com>
-References: <20250820143739.3422-1-christian.koenig@amd.com>
- <edf4aee5-54eb-4fad-aa89-4913d44371fe@redhat.com>
- <7db27720-8cfd-457c-8133-5a7a1094004c@lucifer.local>
-From: David Hildenbrand <david@redhat.com>
-Content-Language: en-US
-Autocrypt: addr=david@redhat.com; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzSREYXZpZCBIaWxk
- ZW5icmFuZCA8ZGF2aWRAcmVkaGF0LmNvbT7CwZoEEwEIAEQCGwMCF4ACGQEFCwkIBwICIgIG
- FQoJCAsCBBYCAwECHgcWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaJzangUJJlgIpAAKCRBN
- 3hD3AP+DWhAxD/9wcL0A+2rtaAmutaKTfxhTP0b4AAp1r/eLxjrbfbCCmh4pqzBhmSX/4z11
- opn2KqcOsueRF1t2ENLOWzQu3Roiny2HOU7DajqB4dm1BVMaXQya5ae2ghzlJN9SIoopTWlR
- 0Af3hPj5E2PYvQhlcqeoehKlBo9rROJv/rjmr2x0yOM8qeTroH/ZzNlCtJ56AsE6Tvl+r7cW
- 3x7/Jq5WvWeudKrhFh7/yQ7eRvHCjd9bBrZTlgAfiHmX9AnCCPRPpNGNedV9Yty2Jnxhfmbv
- Pw37LA/jef8zlCDyUh2KCU1xVEOWqg15o1RtTyGV1nXV2O/mfuQJud5vIgzBvHhypc3p6VZJ
- lEf8YmT+Ol5P7SfCs5/uGdWUYQEMqOlg6w9R4Pe8d+mk8KGvfE9/zTwGg0nRgKqlQXrWRERv
- cuEwQbridlPAoQHrFWtwpgYMXx2TaZ3sihcIPo9uU5eBs0rf4mOERY75SK+Ekayv2ucTfjxr
- Kf014py2aoRJHuvy85ee/zIyLmve5hngZTTe3Wg3TInT9UTFzTPhItam6dZ1xqdTGHZYGU0O
- otRHcwLGt470grdiob6PfVTXoHlBvkWRadMhSuG4RORCDpq89vu5QralFNIf3EysNohoFy2A
- LYg2/D53xbU/aa4DDzBb5b1Rkg/udO1gZocVQWrDh6I2K3+cCs7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <7db27720-8cfd-457c-8133-5a7a1094004c@lucifer.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 21 Aug 2025 12:48:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,22 +91,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> I will add this xen/apply_to_page_range() thing to my TODOs, which atm
-> would invovle changing these drivers to use vmf_insert_pfn_prot() instead.
-> 
+Fixed following typos reported by Codespell
 
-Busy today (want to reply to Christian) but
+1. filp ==> flip
+In Documentation/gpu/drm-mm.rst
 
-a) Re: performance, we would want something like
-    vmf_insert_pfns_prot(), similar to vm_insert_pages(), to bulk-insert
-    multiple PFNs.
+2. complection ==> completion
+   implementions ==> implementations
+In Documentation/gpu/todo.rst
 
-b) Re: PAT, we'll have to figure out why PAT information is wrong here
-    (was there no previous PAT reservation from the driver?), but IF we
-    really have to override, we'd want a way to tell
-    vmf_insert_pfn_prot() to force the selected caching mode.
+3. unpriviledged ==> unprivileged
+In Documentation/gpu/drm-uapi.rst
 
+4. propogated ==> propagated
+   aperatures ==> apertures
+In Documentation/gpu/amdgpu/debugfs.rst
+
+5. parition ==> partition
+In Documentation/gpu/amdgpu/process-isolation.rst
+
+6. conections ==> connections
+In Documentation/gpu/amdgpu/display/programming-model-dcn.rst
+
+Signed-off-by: Rakuram Eswaran <rakuram.e96@gmail.com>
+---
+ Documentation/gpu/amdgpu/debugfs.rst                       | 4 ++--
+ Documentation/gpu/amdgpu/display/programming-model-dcn.rst | 2 +-
+ Documentation/gpu/amdgpu/process-isolation.rst             | 2 +-
+ Documentation/gpu/drm-mm.rst                               | 2 +-
+ Documentation/gpu/drm-uapi.rst                             | 2 +-
+ Documentation/gpu/todo.rst                                 | 4 ++--
+ 6 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/Documentation/gpu/amdgpu/debugfs.rst b/Documentation/gpu/amdgpu/debugfs.rst
+index 5150d0a95658..151d8bfc79e2 100644
+--- a/Documentation/gpu/amdgpu/debugfs.rst
++++ b/Documentation/gpu/amdgpu/debugfs.rst
+@@ -94,7 +94,7 @@ amdgpu_error_<name>
+ -------------------
+ 
+ Provides an interface to set an error code on the dma fences associated with
+-ring <name>.  The error code specified is propogated to all fences associated
++ring <name>.  The error code specified is propagated to all fences associated
+ with the ring.  Use this to inject a fence error into a ring.
+ 
+ amdgpu_pm_info
+@@ -165,7 +165,7 @@ GTT memory.
+ amdgpu_regs_*
+ -------------
+ 
+-Provides direct access to various register aperatures on the GPU.  Used
++Provides direct access to various register apertures on the GPU.  Used
+ by tools like UMR to access GPU registers.
+ 
+ amdgpu_regs2
+diff --git a/Documentation/gpu/amdgpu/display/programming-model-dcn.rst b/Documentation/gpu/amdgpu/display/programming-model-dcn.rst
+index c1b48d49fb0b..bc7de97a746f 100644
+--- a/Documentation/gpu/amdgpu/display/programming-model-dcn.rst
++++ b/Documentation/gpu/amdgpu/display/programming-model-dcn.rst
+@@ -100,7 +100,7 @@ represents the connected display.
+    For historical reasons, we used the name `dc_link`, which gives the
+    wrong impression that this abstraction only deals with physical connections
+    that the developer can easily manipulate. However, this also covers
+-   conections like eDP or cases where the output is connected to other devices.
++   connections like eDP or cases where the output is connected to other devices.
+ 
+ There are two structs that are not represented in the diagram since they were
+ elaborated in the DCN overview page  (check the DCN block diagram :ref:`Display
+diff --git a/Documentation/gpu/amdgpu/process-isolation.rst b/Documentation/gpu/amdgpu/process-isolation.rst
+index 6b6d70e357a7..c1297a9e4d09 100644
+--- a/Documentation/gpu/amdgpu/process-isolation.rst
++++ b/Documentation/gpu/amdgpu/process-isolation.rst
+@@ -26,7 +26,7 @@ Example of enabling enforce isolation on a GPU with multiple partitions:
+     $ cat /sys/class/drm/card0/device/enforce_isolation
+     1 0 1 0
+ 
+-The output indicates that enforce isolation is enabled on zeroth and second parition and disabled on first and fourth parition.
++The output indicates that enforce isolation is enabled on zeroth and second partition and disabled on first and fourth partition.
+ 
+ For devices with a single partition or those that do not support partitions, there will be only one element:
+ 
+diff --git a/Documentation/gpu/drm-mm.rst b/Documentation/gpu/drm-mm.rst
+index d55751cad67c..3496ef28b15c 100644
+--- a/Documentation/gpu/drm-mm.rst
++++ b/Documentation/gpu/drm-mm.rst
+@@ -153,7 +153,7 @@ size in bytes.
+ GEM uses shmem to allocate anonymous pageable memory.
+ drm_gem_object_init() will create an shmfs file of the
+ requested size and store it into the struct :c:type:`struct
+-drm_gem_object <drm_gem_object>` filp field. The memory is
++drm_gem_object <drm_gem_object>` flip field. The memory is
+ used as either main storage for the object when the graphics hardware
+ uses system memory directly or as a backing store otherwise.
+ 
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 843facf01b2d..7435664a1ffe 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -535,7 +535,7 @@ ENOSPC:
+ EPERM/EACCES:
+         Returned for an operation that is valid, but needs more privileges.
+         E.g. root-only or much more common, DRM master-only operations return
+-        this when called by unpriviledged clients. There's no clear
++        this when called by unprivileged clients. There's no clear
+         difference between EACCES and EPERM.
+ 
+ ENODEV:
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index be8637da3fe9..1d064e617699 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -319,7 +319,7 @@ everything after it has done the write-protect/mkwrite trickery:
+ 
+       vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
+ 
+-- Set the mkwrite and fsync callbacks with similar implementions to the core
++- Set the mkwrite and fsync callbacks with similar implementations to the core
+   fbdev defio stuff. These should all work on plain ptes, they don't actually
+   require a struct page.  uff. These should all work on plain ptes, they don't
+   actually require a struct page.
+@@ -854,7 +854,7 @@ Querying errors from drm_syncobj
+ ================================
+ 
+ The drm_syncobj container can be used by driver independent code to signal
+-complection of submission.
++completion of submission.
+ 
+ One minor feature still missing is a generic DRM IOCTL to query the error
+ status of binary and timeline drm_syncobj.
 -- 
-Cheers
+2.43.0
 
-David / dhildenb
