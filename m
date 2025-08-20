@@ -4,82 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8266CA0EFC
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 12:48:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 958F2CA0FE1
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 12:48:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53FFD10E986;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 483B710E984;
 	Thu, 21 Aug 2025 12:48:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ldQA/PLv";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="q/FjGWgG";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B88510E08D;
- Wed, 20 Aug 2025 19:00:03 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-32326e71c31so235216a91.3; 
- Wed, 20 Aug 2025 12:00:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755716403; x=1756321203; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CrznjweAHSf23akRjxTFtNg5TyltX7+f+/5p5bUoEow=;
- b=ldQA/PLvUGi6JTyqMeLanUw9kidngCA878V7sXNkCQo7TP4aGYpfGZGxVVE1DUcUBr
- SVaHj+QltWQxdrX0Cs9EYRRNGgpruLazBY+QTPo7X7IvUvH5KJvRqaLjm7WDPnOhropO
- MpXA7y2yqSS+OKuDZVf8IjNJjd7yHmr3dbtBjVa2Zldz40CjmmoLubWN/UXph9XqzCKx
- B9kKBzjj9ecHVWAsWeMTfNAZjHaU6N9kA5SZaA3rlwaeOf+Vu/X766UFDdy5ScTnG1Gx
- RFGvL5Y4rBcn53ANuQPqI0TAlRboIbLg3QYbeuWZY2/awu/xarn21r8CXfZa+6tYEbTh
- X/Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755716403; x=1756321203;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CrznjweAHSf23akRjxTFtNg5TyltX7+f+/5p5bUoEow=;
- b=DrhCXSE322GW6UVZBizfKA/G+QnIbiNvB2hRJHfWY8o+dunM3HbXIMVxJZDzJtgpNq
- AgI23ffVIR8Wz0WcF6T4pdrlrxSuGK5Y5ydF17E1gxkAIoFjvXEvBZIR9k5q03Bae6/j
- czHSEsBc1sLL3LlDF8Oat/0JCT8EBLZX0nR9WwWvkVDQ8XiDrQM7DPexa1T6UsQKAz7q
- PyKYKbUzvFOVTwBjd4jw2ZG4QWQQrg8G+S2tGYAVecVLUQgmgglUsqt3pqkBkVQ4wuQf
- VhrTRPM1zJHAoJ6xpBDa4tDWkThZSeJZcxgejw3xzEo74gggjg+/FkR5mWcZ7iWBiYd6
- I3Gw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXcasryWpHzpZ6RnsLdNKlo3K9hGUlsZaXrJq4qi3ovjWnk3xOLtIE3nF958PGHYCqN9XRf6cE/g/3J@lists.freedesktop.org,
- AJvYcCXvKR4Pk5OOsOsFt5l338UHcFExwnayoUxTHIHlWGIrXOkqDZnCpz9RNO0nl92iln9H+WuW5HDA@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxOqD/rO2f6NH1HM+cUv8iOQl9zhzFgdBNeE3AbekB54Fo8ZDvC
- YW9E/LtsqM3EzINPnQq2/URCK2h/P+QbALLvWSs8vpszUdS+vKYy6cx4
-X-Gm-Gg: ASbGnctHOdC2myh2LkbfRptJklxpvne1SORoWUfKG1vC8rqkeGxPp4Uj3dE/ZaLxq38
- eioLZw0n/vRLT5vBCvLco50Zv843NQWlt4mzVC3wCBcuBLh3g7VpGhY8SdeOmyphryqlZiPD7gr
- DemLjCkeWOif+YvH6UU3SPLeXNZHz8vphieqdLnNlcjslk6tvYvLpEqMywTmpej+jm8IAxWDaKb
- /rE4gtcej2M+MfX7BPMryI2co48OEttaYM6W6wlCT4YMHx6ASw7rs+H0U7VW8k0D6NRE/FkYfTf
- 2S2IsoyQvDFfBFjUL06KQYqBReHbrsHx0/hnNE4vVU1zJ1w/0qVAvGh7gcDQKRiM3fsO9PqOmaJ
- NioZ2hSR04hsKYid/33fPud/QRR8=
-X-Google-Smtp-Source: AGHT+IHIKPBZDKT7w7IpWopx5uH4BHntATqlKUcI2/L3Cr9WY9dhlh8vnxgsPvJdCqu2ZnTQWYHb9Q==
-X-Received: by 2002:a17:90b:3b48:b0:323:264f:bc42 with SMTP id
- 98e67ed59e1d1-324e128ea93mr4998711a91.3.1755716402534; 
- Wed, 20 Aug 2025 12:00:02 -0700 (PDT)
-Received: from lkmp.. ([49.37.163.128]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76e7d4f780bsm6089677b3a.71.2025.08.20.11.59.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Aug 2025 12:00:02 -0700 (PDT)
-From: Rakuram Eswaran <rakuram.e96@gmail.com>
-To: rdunlap@infradead.org
-Cc: airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, corbet@lwn.net,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- linux-doc@vger.kernel.org, linux-kernel-mentees@lists.linuxfoundation.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, rakuram.e96@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, skhan@linuxfoundation.org, tzimmermann@suse.de
-Subject: Re: [PATCH] docs: gpu: Fix spelling mistakes
-Date: Thu, 21 Aug 2025 00:29:01 +0530
-Message-ID: <20250820185948.18805-1-rakuram.e96@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <1fc93d62-eb77-46a6-964f-c0bc7348d482@infradead.org>
-References: <1fc93d62-eb77-46a6-964f-c0bc7348d482@infradead.org>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6124810E7C8;
+ Wed, 20 Aug 2025 18:32:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=/IcasXGt5PbdoVVXgghzry42yNZ+BKaeuG0k8SwqEiE=; b=q/FjGWgGcZoyCpEvqzRf8l3Zr/
+ JIlfqELevVDHITw5RFmNo9AMXsyBB/1XndCSGlTd09RzWkrSjxKUJIjufaLYz8yxfwKpy8ND60NJs
+ 76hOsgpGJ+w0JikLmP6MoRsLeA1o9dfAEBPJvORLXkuEWebNamwm+TiBY4A3uaZ+rhmjKxj4UFaBg
+ hZKIUQcipMHbmvUS2rvgor0hab0mUAzjR3Y34FzVMejhHia/4mMiFgK2cGU7j54FxNt8M8wez2KoO
+ vyvtac4XHa1fdJm5170GVZz3r2HJ+QfgDdX+AwW+PcRxDvPmBvIDOlXXXC4jpx5TO5d5arqEghy9q
+ ZHy/YFwA==;
+Received: from [50.53.25.54] (helo=[192.168.254.17])
+ by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1uonbe-0000000EgzN-1F8t; Wed, 20 Aug 2025 18:32:18 +0000
+Message-ID: <1fc93d62-eb77-46a6-964f-c0bc7348d482@infradead.org>
+Date: Wed, 20 Aug 2025 11:32:17 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: gpu: Fix spelling mistakes
+To: Rakuram Eswaran <rakuram.e96@gmail.com>, linux-doc@vger.kernel.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ corbet@lwn.net
+Cc: tzimmermann@suse.de, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, simona@ffwll.ch, siqueira@igalia.com,
+ harry.wentland@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linuxfoundation.org, skhan@linuxfoundation.org
+References: <20250820182259.11227-1-rakuram.e96@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20250820182259.11227-1-rakuram.e96@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 21 Aug 2025 12:48:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,8 +63,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks for catching that. I’ll send a v2 with this fix,
-including "fourth" -> "third" as suggested.
+Hi,
 
-Thanks,
-Rakuram
+On 8/20/25 11:22 AM, Rakuram Eswaran wrote:
+> Fixed following typos reported by Codespell
+> 
+> 1. filp ==> flip
+> In Documentation/gpu/drm-mm.rst
+> 
+
+No, that's a "struct file pointer". filp is correct.
+See include/drm/drm_gem.h
+
+The others look good.
+
+One more comment below.
+
+> 
+> Signed-off-by: Rakuram Eswaran <rakuram.e96@gmail.com>
+> ---
+>  Documentation/gpu/amdgpu/debugfs.rst                       | 4 ++--
+>  Documentation/gpu/amdgpu/display/programming-model-dcn.rst | 2 +-
+>  Documentation/gpu/amdgpu/process-isolation.rst             | 2 +-
+>  Documentation/gpu/drm-mm.rst                               | 2 +-
+>  Documentation/gpu/drm-uapi.rst                             | 2 +-
+>  Documentation/gpu/todo.rst                                 | 4 ++--
+>  6 files changed, 8 insertions(+), 8 deletions(-)
+> 
+
+> diff --git a/Documentation/gpu/amdgpu/process-isolation.rst b/Documentation/gpu/amdgpu/process-isolation.rst
+> index 6b6d70e357a7..c1297a9e4d09 100644
+> --- a/Documentation/gpu/amdgpu/process-isolation.rst
+> +++ b/Documentation/gpu/amdgpu/process-isolation.rst
+> @@ -26,7 +26,7 @@ Example of enabling enforce isolation on a GPU with multiple partitions:
+>      $ cat /sys/class/drm/card0/device/enforce_isolation
+>      1 0 1 0
+>  
+> -The output indicates that enforce isolation is enabled on zeroth and second parition and disabled on first and fourth parition.
+> +The output indicates that enforce isolation is enabled on zeroth and second partition and disabled on first and fourth partition.
+It looks like "fourth" should be "third" here.
+
+-- 
+~Randy
+
