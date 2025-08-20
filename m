@@ -4,119 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E86F8CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 14:50:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFEA2CA0EE4
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 14:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 785F610E060;
-	Wed, 20 Aug 2025 14:50:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7925310E77A;
+	Wed, 20 Aug 2025 14:59:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nk30vMSd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BYBDZ3f4";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A09F10E060
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 14:50:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rx8wjPbCUVm3b1sY74ZwvtPRZMDfaGpT5NrZxhGOjrwOZ30PqK8sy9xZVryUU6H1bgAJtDRtcriH7Wy7ehv+nXh+QE4jYyA1dCPZSMPjPZAZ9kwGAR5l3dqWskvxYxkSLwDOjlgcAMLTRRX4V+Z2fo8DIOWDEmPXT4AZ9MmzCIzaxij6WX5rdNuPMg5KcQFgI432apriIY375ewJCpwXviIzYomDgr3Yo3QqU0KFO9/A/tVqVxfGPqGrchzCKyP6WxyS1ZpuUvpoyfZYDtI0YoXsA32HcB/Mf2U0Z/JFcFOuFQqcpMNETB/wOz/8Krn0SRd9o50CE5gNAh1mH/DVAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J/k0RnBgqZjOQVtj3JnrqzMI25WLGHKdfq/etYzC8KQ=;
- b=IRN6GK/oJf2/i/Bzvpi/qL9KDsmXrzkilyjpE1a4qGNK9lQHq45JgPdA27YcWpzpzlpQMkkeocxRqdG7tNVPmNF0PGj7lZJOpANw2U7Tn3SLHJrtzLKK6lklvV1/S3xrQ3LiAsPFlsdtbAfD7Qi5/xt32xddkFgkm/KTbdgQy0wGx71V3Osul6cA/sXebV/YC/2aZznN8sPa2i3AjY1S5dzJTahx3PZQx9AwEmsj7SvtP7zJLAWwCpWm2OHhdnE1dfZlKG/5l8jzKVO6ZzTTubg1eO+B3uBLHiMjqAcqrpUlXTJ0k/AautvGPl6bcodf7VVroQp7mZQleWaCnsOXPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J/k0RnBgqZjOQVtj3JnrqzMI25WLGHKdfq/etYzC8KQ=;
- b=nk30vMSddHL1QVS0tRiUJ1rPWqRzeGVVTxmgS0va18MmhI6BqcQZmugHb3opED9u1TjosIs/J3z/J4ZLaEue1Zmi2z3JxKjpI9jT95Y0yGcj4Ia6yj5P52Pidtp5XWQT4TqXyAUmhnS8Kw83nGttgNqhwoPRuqrdSjCMACa623E=
-Received: from BYAPR08CA0046.namprd08.prod.outlook.com (2603:10b6:a03:117::23)
- by SJ2PR12MB9192.namprd12.prod.outlook.com (2603:10b6:a03:55d::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Wed, 20 Aug
- 2025 14:50:51 +0000
-Received: from MWH0EPF000A6733.namprd04.prod.outlook.com
- (2603:10b6:a03:117:cafe::8c) by BYAPR08CA0046.outlook.office365.com
- (2603:10b6:a03:117::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.14 via Frontend Transport; Wed,
- 20 Aug 2025 14:50:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000A6733.mail.protection.outlook.com (10.167.249.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9052.8 via Frontend Transport; Wed, 20 Aug 2025 14:50:50 +0000
-Received: from sclement-U2202a.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 Aug
- 2025 09:50:49 -0500
-From: Sunday Clement <Sunday.Clement@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Sunday.Clement@amd.com>, <felix.kuehling@amd.com>,
- <Harish.Kasiviswanathan@amd.com>
-Subject: [PATCH] drm/amdkfd: Allow device error to be logged
-Date: Wed, 20 Aug 2025 10:50:32 -0400
-Message-ID: <20250820145032.2150006-1-Sunday.Clement@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D97110E77A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 14:59:17 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-45a1abf5466so27965e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 07:59:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755701956; x=1756306756; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=o7KH7OX9QUxmxAY8HZsfKaxCpqJBed+Zh5eDqIMrH0s=;
+ b=BYBDZ3f47+mRfxSvfqqi0d4sLxlpIHWXYMDwqfag7TtWB+I0pzXIH24gf3dHWwVscb
+ HKpYhyxgxE4OQP46R3Rrvh32woUMWU0cPPEmFL4sQ0jVaPyS62fWqoFs1ilLYvXbvmUh
+ Otq/cEt9U03GFMa71YRETU5A7sA1A4aL4TfSrEllDbBQQ7fKIoVbR2v9RDgIG72T7EAr
+ bEKy8I6gdZGVhun6vYR12x9hCqXrt6qTdg2zBJvCweLAiL6Ef5LHwF1odPeI0nNL2hKw
+ YlwTryC8u06qTBSaOSAtp/XX/qdd09dC8ljX7qWWm8/p99US6ZIStzqKsMhZ+MUv16qD
+ QWhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755701956; x=1756306756;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=o7KH7OX9QUxmxAY8HZsfKaxCpqJBed+Zh5eDqIMrH0s=;
+ b=BR/Ekhcdjh0SWDUc3dwHUHftsVNWsFcBvSSyeMBc0S6Vsa7OFRkybn2NbfMzYh2p9O
+ 8gOIYH3Hv3oCdRrNrejfdoY/rm03P2HxZ79xNNblzceiyjyMRDkq+RK2ASEGPG23Ev1c
+ PA0yidbErDHJ0B3yWv0j5z7vp04LYOIBPNoeo4TnoNFLtCVjG6uNqHf7x3waw8AHQ6wJ
+ qw+Q6xFRYx13g4FND9iEOCCWUVf2WZBDx92G8bBaouqssZGsjlQ9Cyxrj2/8g6EJEYR7
+ g+69dg3dKnmaqlI+VL1VGX1ek8LCyFii+2kU6XAq7ntptdsGHhjFyrG1XqV5JSlqQ16B
+ LlBw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWIXAZKxqYXpV+k6aDtlIuDO4e6s1HeFrxumiv2vaOCwG3RrjiCa6JhvXTypU5y8w1hJYvRN2da@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwhpNlTqMvzqiJSHIc59JOR0gv522GF64Cv94qO/BBPz7hT8bMD
+ OHx6om1fZP6xKolBYEmSWpjIOEcLB2LbQgSe18YUENAlaYaRCrGIpCcb
+X-Gm-Gg: ASbGnctwG5SgNRF+qe8nfjdxX/R+g8akps8K8J4R24nTrS3R9bNsluX47YrMVp/5WPq
+ KNe3lKkDzqztCw0a5akRoiH9cId2cX/+8YdRLfhDXB9yo03XRP+9ExsOoa7MglngqnqmiA49A7N
+ k3LkSQjYPg/oVN2Pt9XEUTowuH+6WBfZBNzFL4mJJLmeFh+6r90vMOlLnYa01aawAYnKAvRXzOl
+ husWYbxatU+NV596DxijVAlDlznbZ6dYaTeZyZnUst4gym50SKnFVelyggLnt8DS8XPhaLQCr6A
+ hCv/8VofS7yCfF+paQXui29xlJgWQxV8cqiPBEV9kL3F1tbdGyHpxc0MwDedhVwGNJPjLbcVLMw
+ kg6eiXdtEm1hMVdiWOFDHPhQ53Xg7Z/M5fXsKuLdSaik6d/8Z3m6E+k/hFUJslTCtStYQgPmS5Z
+ 4x+d+W1Z+sec4SQFeRPmQj1KhTcgCeAtTjNzgjV9NUOVZHQbdJllzba0JRTD1c6cbHV2w=
+X-Google-Smtp-Source: AGHT+IEhsKgLapOYp8Fo7Dj1J3QiOp1+mjAuW+WDNUXFkcGjgDA5+TlgIlfL7Vt/1oqEdFrCod5WCQ==
+X-Received: by 2002:a05:600c:3b85:b0:459:db88:c4ca with SMTP id
+ 5b1f17b1804b1-45b43e5da51mr60211465e9.3.1755701955727; 
+ Wed, 20 Aug 2025 07:59:15 -0700 (PDT)
+Received: from ?IPv6:2001:4c4e:24d9:d00:e837:7025:20a0:bf2?
+ (20014C4E24D90D00E837702520A00BF2.dsl.pool.telekom.hu.
+ [2001:4c4e:24d9:d00:e837:7025:20a0:bf2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b47c42cf1sm38993105e9.12.2025.08.20.07.59.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Aug 2025 07:59:15 -0700 (PDT)
+Message-ID: <498ab5568b1050cc629fb28101370430ec1c14f3.camel@gmail.com>
+Subject: Re: [PATCH 2/5] Documentation/gpu: Add new glossary entries from UMR
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, 
+ kernel-dev@igalia.com
+Date: Wed, 20 Aug 2025 16:59:14 +0200
+In-Reply-To: <CADnq5_M8nEKSVu_2w6P34GBxYHfNzjL_7Ff1GW_Sy6KT-7FmmQ@mail.gmail.com>
+References: <20250816153315.1285182-1-siqueira@igalia.com>
+ <20250816153315.1285182-3-siqueira@igalia.com>
+ <ddd650e7d6887103c6c91ff89d81411bdf4d0a8e.camel@gmail.com>
+ <CADnq5_M8nEKSVu_2w6P34GBxYHfNzjL_7Ff1GW_Sy6KT-7FmmQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6733:EE_|SJ2PR12MB9192:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22bd9022-fde1-45ec-9c63-08dddff8f4c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yWJzepefMD+X2IG+5ugznX28+Fq2rv11hlgDMZhFd1PPyz28tr17mdWYf6A2?=
- =?us-ascii?Q?AZTfQz2sZmOi0JJlwHLAoeNip4fBkUPaAIG5s8r7+FzJ1u0Ys9T+exdHpD41?=
- =?us-ascii?Q?2HJTnsNzcxA1BuCZY7nJGtrM0U4ttIDFuyLnw89REjKWSBfI2waXW7ggzprz?=
- =?us-ascii?Q?LWKZ0zORIcOtEg26H0onO3X7oaAC1HR/HVlRBTrETnsBVEXTHB7hfnlzKaAS?=
- =?us-ascii?Q?QwNXvQHB1IzDBbbKqFcYNhQhUXalDRcOHvp2bsBEYGXtYo4lvOm++Vv9EQGy?=
- =?us-ascii?Q?/b7FK0ER1+Sfw06PJYTUEb4rFslzITjqVURPHvw2C2/qQs6D+J22Rj0Et+gR?=
- =?us-ascii?Q?5W1SeQGX2ootjXC1grhXRwPrNWApLWVN+1cBx/7RICckYGi6ndwGOcTeFQKJ?=
- =?us-ascii?Q?Xy/4oaxzB8O7GzK0+obVHTqcUUY74H/G46pDUGwORTVgC140COQHK8gHyECV?=
- =?us-ascii?Q?K1TYcFGMOWfx2SEM7wzAcBPmVcOkuAkwoWbrEe7eZp2UVBYliBwS8flvUk4N?=
- =?us-ascii?Q?1Bozwas5qGPw1S/M+prj4MIud0urPX4O6b/CBmVuyryHSYOeIxmG+5Sn+yCa?=
- =?us-ascii?Q?BnobbTDEv3855C6YFRRM7LeC1xNTipF8p8KgDf7jkhK5ZdvumcsP5uuLVTKe?=
- =?us-ascii?Q?JmdU75yJHUhuJRYN1AupBtWWyrer/jgN473KDR6ZVSy8sjhbHsfzRj6P5UPK?=
- =?us-ascii?Q?C86CpDzkW//JGMfyDu800I2AfVfDyEkXJtNH0F2eh+ldNZ9TAg/MVT4vkv75?=
- =?us-ascii?Q?FGFa1muM6QwMDfeZsNwwgzDW2huS4YiHRLMFgIy9kNyBddNDaXtvv5Vn89Ki?=
- =?us-ascii?Q?rYa5OrItg+khjLjBOGs/9UOQLxN2OPQ1AL954JwtlsSisl8+jXHFqLd86Q3j?=
- =?us-ascii?Q?6Lznet/MV5ErG98wu+mjV3gGaSiWkDtL8GzKaqmmXR6s7JZHMTFnGqgtUfdw?=
- =?us-ascii?Q?GglKJPbEepPfRUBNrucnVTKFjkk6uNmzxXaNoUXLdPog4hNr1wgR2y7dtiAj?=
- =?us-ascii?Q?24QrUnkU9FoqmV5ZkHhJIM+zCjbWsxlNhFxY6M1bRDQ0xa1HpPZhGqf0pY0j?=
- =?us-ascii?Q?tnlfEtJIEliIPdKubnJyatx4kXFvqW96D2n7zVKmsmI8FR0CdN88iqYEb+8A?=
- =?us-ascii?Q?kwn66si+bhO2NamjuiUvzh5Uzew+6ABt6liy5nlZ290OXlA/FWpzqADOD17z?=
- =?us-ascii?Q?GIbb5vFCIP38cokNWGXUFOvY0dM/jNkJnTMSQOjpnmY1+v1WFIZ1LwlqDdwl?=
- =?us-ascii?Q?V++abUKrQxMMUaZE9Ai2D4D530oFRBzzpPGeKQsV4+exiofk9jJ5KIdQq2u6?=
- =?us-ascii?Q?cmTcBJEbIjB/2hfdpXJ0HTqnLbEmYsTni+SwgnEay4uDJsuxjykVgqIGYRRN?=
- =?us-ascii?Q?n0hIHZQQW6CsrJuX579s6QRNpY9WasjXX6sRT5kAca7lg27i76G0YdPCmvAw?=
- =?us-ascii?Q?F/fQkjQF+tyGeYUWtfGv8efZzCVnVuPZCdsFTP6vDewNlfdvcfOT6LFTWptT?=
- =?us-ascii?Q?Fhj11IvlaG5m8j/9aLa0TGbGZ6y5JJ99N+Pb?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2025 14:50:50.6448 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22bd9022-fde1-45ec-9c63-08dddff8f4c6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6733.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9192
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,42 +97,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The addition of a WARN_ON() check in order to return early in the
-kq_initialize function retroactively causes the default case in the
-following switch statement to never be executed, preventing dev_err
-from logging device errors in the kernel. Both logs are now checked
-in the default case.
+On Tue, 2025-08-19 at 16:14 -0400, Alex Deucher wrote:
+> On Tue, Aug 19, 2025 at 3:28=E2=80=AFPM Timur Krist=C3=B3f
+> <timur.kristof@gmail.com> wrote:
+> >=20
+> > Hi,
+> >=20
+> > On Sat, 2025-08-16 at 09:31 -0600, Rodrigo Siqueira wrote:
+> > > When using UMR, a dashboard is available that displays the CPC,
+> > > CPF,
+> > > CPG, TCP, and UTCL utilization. This commit introduces the
+> > > meanings
+> > > of
+> > > those acronyms (and others) to the glossary to improve the
+> > > comprehension
+> > > of the UMR dashboard.
+> > >=20
+> > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> > > ---
+> > > =C2=A0Documentation/gpu/amdgpu/amdgpu-glossary.rst | 21
+> > > ++++++++++++++++++++
+> > > =C2=A01 file changed, 21 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > > b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > > index 30812d9d53c6..eb72e6f6d4f1 100644
+> > > --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > > +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > > @@ -30,6 +30,15 @@ we have a dedicated glossary for Display Core
+> > > at
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 CP
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Command Processor
+> > >=20
+> > > +=C2=A0=C2=A0=C2=A0 CPC
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Command Processor Compute
+> > > +
+> > > +=C2=A0=C2=A0=C2=A0 CPF
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Command Processor Fetch
+> > > +
+> > > +=C2=A0=C2=A0=C2=A0 CPG
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Command Processor Graphics
+> > > +
+> >=20
+> > I would apprectiate a few more details here to connect these to
+> > other
+> > glossary items. Here are a few questions:
+> >=20
+> > - Is CPC the same as MEC?
+> > - Is CPF the same as PFP?
+> > - Is CPG the same as ME?
+>=20
+> CPC, CPF, and CPG are hardware blocks, MEC/PFP/ME are
+> microcontrollers.=C2=A0 CPG contains the PFP and ME (and CE on chips whic=
+h
+> support it).=C2=A0 CPC contains MEC.=C2=A0 CPF is another hardware block =
+which
+> provides services to CPG and CPC.
 
-Signed-off-by: Sunday Clement <Sunday.Clement@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+Thanks for the clarification.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-index 2b0a830f5b29..fb3129883a4c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-@@ -46,11 +46,7 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
- 	int retval;
- 	union PM4_MES_TYPE_3_HEADER nop;
- 
--	if (WARN_ON(type != KFD_QUEUE_TYPE_DIQ && type != KFD_QUEUE_TYPE_HIQ))
--		return false;
--
--	pr_debug("Initializing queue type %d size %d\n", KFD_QUEUE_TYPE_HIQ,
--			queue_size);
-+	pr_debug("Initializing queue type %d size %d\n", type, queue_size);
- 
- 	memset(&prop, 0, sizeof(prop));
- 	memset(&nop, 0, sizeof(nop));
-@@ -69,6 +65,7 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
- 		kq->mqd_mgr = dev->dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
- 		break;
- 	default:
-+		WARN(1, "Invalid queue type %d\n", type);
- 		dev_err(dev->adev->dev, "Invalid queue type %d\n", type);
- 		return false;
- 	}
--- 
-2.43.0
+Siquiera - could we add that also to the glossary?
 
+Thanks,
+Timur
+
+>=20
+>=20
+> >=20
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 CPLIB
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Content Protection Library
+> > >=20
+> > > @@ -78,6 +87,9 @@ we have a dedicated glossary for Display Core
+> > > at
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 GMC
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Graphic Memory Controller
+> > >=20
+> > > +=C2=A0=C2=A0=C2=A0 GPR
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 General Purpose Register
+> > > +
+> >=20
+> > Does this refer to registers in shaders or registers in the various
+> > IP
+> > blocks? If this is about shaders, it would be useful to mention
+> > that in
+> > the context of shaders, a GPR is either SGPR or VGPR. (Those two
+> > are
+> > already in the glossary.)
+> >=20
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 GPUVM
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GPU Virtual Memory.=C2=A0 This i=
+s the GPU's MMU.=C2=A0 The GPU
+> > > supports
+> > > multiple
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 virtual address spaces that can =
+be in flight at any given
+> > > time.=C2=A0 These
+> > > @@ -92,6 +104,9 @@ we have a dedicated glossary for Display Core
+> > > at
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 table for use by the kernel driv=
+er or into per process
+> > > GPUVM
+> > > page tables
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for application usage.
+> > >=20
+> > > +=C2=A0=C2=A0=C2=A0 GWS
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Global Wave Syncs
+> > > +
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 IH
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Interrupt Handler
+> > >=20
+> > > @@ -206,12 +221,18 @@ we have a dedicated glossary for Display
+> > > Core
+> > > at
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 TC
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Texture Cache
+> > >=20
+> > > +=C2=A0=C2=A0=C2=A0 TCP (AMDGPU)
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Texture Cache Processing
+> > > +
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 TOC
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Table of Contents
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 UMSCH
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 User Mode Scheduler
+> > >=20
+> > > +=C2=A0=C2=A0=C2=A0 UTCL
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Universal Texture Cache Line
+> > > +
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 UVD
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Unified Video Decoder
+> > >=20
