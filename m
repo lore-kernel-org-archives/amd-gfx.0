@@ -4,85 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19F6ACA0EDC
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 14:37:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E86F8CA0EE4
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 14:50:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3DB710E771;
-	Wed, 20 Aug 2025 14:37:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 785F610E060;
+	Wed, 20 Aug 2025 14:50:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M9q6kgHL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nk30vMSd";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A6A210E76B;
- Wed, 20 Aug 2025 14:37:46 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-45a1b0b42d5so48749985e9.2; 
- Wed, 20 Aug 2025 07:37:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755700664; x=1756305464; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=g7dYE0WEtU/TzXqdPQoksdj+LhmcMBvd6dH5veaACpE=;
- b=M9q6kgHLVbtPCQf56uuls9IoRWXhDcdE652zYI/MvVS3pdwVlGnmHvx1wwCyLq1lho
- +vizrRlhh9X+xSrX4MkJCWW0bR9xBP8KD6w8AKAmgvefLJhvtjlEvfDlpSbz86Tih9wB
- XBbXaS4Odz//+oBnfTEm2ANMaBtXBGm3G2XUR7xG//PXd/RA3GCoG2RyEleBZSpYHJoa
- yNb+oUTK1laIKQVEAHyamHNAdcj7dS00fS8fYiYDyky8wFakmUT5ONa2C7fP3HTxuxtH
- fnQNOOW6AyiVoo+r/jX09hOSiC4DAGKezJS9/ElQIfaf+1S9y0ms7ulnUWYE+L4tVlhM
- frfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755700664; x=1756305464;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=g7dYE0WEtU/TzXqdPQoksdj+LhmcMBvd6dH5veaACpE=;
- b=ERdXmOVeItU+Ep1sh96MoO02b1eb7K5hLir5F/jTIXW+PDvrM/QY/DmVJrsUhvaavC
- sr36aXEPG52vDInPCoRvC38oEmF9mpKtPlq66Eb/xiyqSWlOhc+PF880Q7PEVcr97Xmu
- /ZI+YB/CZBtHQM4KmiXqNRhP86+iHj8IXRZlGV/B5ZfZtlFtqw5cMzhqlYuzFwLHokFp
- pEpqRrmikBKKBKI9kS33sP5RaRY1S3/u6SHkkT8TRAHycQtpX5ZWzHhQWaznCrBqVmnA
- pnXV47Wrmki8mS/qoz7PEZoE5G15P0cUv07rY8kpOfJt/wTNH5cRBjc99troG/kv4L0l
- 4pAw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV00pYrx7+yghD7vXbVSfW8TedL7GffRu1N5xTo/7jPArBFtOxX3rfloGTL5nDzlRXDiQ8LmLGl@lists.freedesktop.org,
- AJvYcCWmZqGDl1xBdQsOzZIJUgMPaZUsv/aSRDL97wIEPiPbsw97QRlMt1oVRb0Ekrh8KX3Kn7GO/YNgA/WE@lists.freedesktop.org,
- AJvYcCXQAq0CexGaLTLOqrzT0vkoxUxnBDHilBcNx9IHcmfO/M7O7QZmVwanjPupiDXKGpO/8wh4sQIvMAKd@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxbyEBFGKxQBrGi1CSEC0h9YKBUBC5Rn/G18bLjYTtVS/JviVTA
- QlTQqcYV3vJN7gXSVdZvvX6anI835GgHES1esYjCZyqJAWdhNmdWyjwNgvGU5g==
-X-Gm-Gg: ASbGncsFl+LPSBro8+Ahfi2mGRr2Ot0XyQ721R+TTMymAqpG2nV0GmESkPHFulbNLLA
- tr7K3bicvqxuld+w+1HzBrBVs2Vci6ub/Dxd6NqNf/os7hXX2iouZB9IHM2U1T4JEgWoPNvygve
- KPgZzWhVf0D2DAMCCHz3Vq/sZcN/ETXeG2Zb9qnxSITzaBTc/nY4fo/KQD/KY3YDlYnjZUwYHVu
- MsVTYxvHUifHpNRiq2xhpvX/HCO/h46bfCD2WANTKmfUoOk9msgtv80trLYgSTrteWxhIkuZyi4
- J1V20mkLQboftCN720+8lQ3M1UkraOu8zNYqXoNWS7MPrL/f9s0VbM08tXKrR+H66Jg7R7HSgnI
- UQbDmuZu0KOIwLEJjDS0TV2yNFzKwzrglLtI=
-X-Google-Smtp-Source: AGHT+IEGOv+Y5gAYFwBXgCCX+5vm2RvbBQ6od7uh+Ae6wLwgoP9lYxDs7EYrdJRa8RpE+EfqRLsk6g==
-X-Received: by 2002:a05:600c:4e88:b0:458:bf0a:6061 with SMTP id
- 5b1f17b1804b1-45b479fd474mr27196505e9.24.1755700664451; 
- Wed, 20 Aug 2025 07:37:44 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:1579:3800:9446:56c7:e203:3b9c])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c074d43ba5sm8090404f8f.22.2025.08.20.07.37.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Aug 2025 07:37:44 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- x86@kernel.org
-Cc: airlied@gmail.com, thomas.hellstrom@linux.intel.com,
- matthew.brost@intel.com, david@redhat.com, dave.hansen@linux.intel.com,
- luto@kernel.org, peterz@infradead.org
-Subject: [PATCH 3/3] drm/ttm: disable changing the global caching flags on
- newer AMD CPUs v2
-Date: Wed, 20 Aug 2025 16:33:13 +0200
-Message-ID: <20250820143739.3422-4-christian.koenig@amd.com>
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A09F10E060
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 14:50:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rx8wjPbCUVm3b1sY74ZwvtPRZMDfaGpT5NrZxhGOjrwOZ30PqK8sy9xZVryUU6H1bgAJtDRtcriH7Wy7ehv+nXh+QE4jYyA1dCPZSMPjPZAZ9kwGAR5l3dqWskvxYxkSLwDOjlgcAMLTRRX4V+Z2fo8DIOWDEmPXT4AZ9MmzCIzaxij6WX5rdNuPMg5KcQFgI432apriIY375ewJCpwXviIzYomDgr3Yo3QqU0KFO9/A/tVqVxfGPqGrchzCKyP6WxyS1ZpuUvpoyfZYDtI0YoXsA32HcB/Mf2U0Z/JFcFOuFQqcpMNETB/wOz/8Krn0SRd9o50CE5gNAh1mH/DVAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J/k0RnBgqZjOQVtj3JnrqzMI25WLGHKdfq/etYzC8KQ=;
+ b=IRN6GK/oJf2/i/Bzvpi/qL9KDsmXrzkilyjpE1a4qGNK9lQHq45JgPdA27YcWpzpzlpQMkkeocxRqdG7tNVPmNF0PGj7lZJOpANw2U7Tn3SLHJrtzLKK6lklvV1/S3xrQ3LiAsPFlsdtbAfD7Qi5/xt32xddkFgkm/KTbdgQy0wGx71V3Osul6cA/sXebV/YC/2aZznN8sPa2i3AjY1S5dzJTahx3PZQx9AwEmsj7SvtP7zJLAWwCpWm2OHhdnE1dfZlKG/5l8jzKVO6ZzTTubg1eO+B3uBLHiMjqAcqrpUlXTJ0k/AautvGPl6bcodf7VVroQp7mZQleWaCnsOXPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J/k0RnBgqZjOQVtj3JnrqzMI25WLGHKdfq/etYzC8KQ=;
+ b=nk30vMSddHL1QVS0tRiUJ1rPWqRzeGVVTxmgS0va18MmhI6BqcQZmugHb3opED9u1TjosIs/J3z/J4ZLaEue1Zmi2z3JxKjpI9jT95Y0yGcj4Ia6yj5P52Pidtp5XWQT4TqXyAUmhnS8Kw83nGttgNqhwoPRuqrdSjCMACa623E=
+Received: from BYAPR08CA0046.namprd08.prod.outlook.com (2603:10b6:a03:117::23)
+ by SJ2PR12MB9192.namprd12.prod.outlook.com (2603:10b6:a03:55d::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Wed, 20 Aug
+ 2025 14:50:51 +0000
+Received: from MWH0EPF000A6733.namprd04.prod.outlook.com
+ (2603:10b6:a03:117:cafe::8c) by BYAPR08CA0046.outlook.office365.com
+ (2603:10b6:a03:117::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.14 via Frontend Transport; Wed,
+ 20 Aug 2025 14:50:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000A6733.mail.protection.outlook.com (10.167.249.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9052.8 via Frontend Transport; Wed, 20 Aug 2025 14:50:50 +0000
+Received: from sclement-U2202a.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 Aug
+ 2025 09:50:49 -0500
+From: Sunday Clement <Sunday.Clement@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Sunday.Clement@amd.com>, <felix.kuehling@amd.com>,
+ <Harish.Kasiviswanathan@amd.com>
+Subject: [PATCH] drm/amdkfd: Allow device error to be logged
+Date: Wed, 20 Aug 2025 10:50:32 -0400
+Message-ID: <20250820145032.2150006-1-Sunday.Clement@amd.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250820143739.3422-1-christian.koenig@amd.com>
-References: <20250820143739.3422-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6733:EE_|SJ2PR12MB9192:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22bd9022-fde1-45ec-9c63-08dddff8f4c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yWJzepefMD+X2IG+5ugznX28+Fq2rv11hlgDMZhFd1PPyz28tr17mdWYf6A2?=
+ =?us-ascii?Q?AZTfQz2sZmOi0JJlwHLAoeNip4fBkUPaAIG5s8r7+FzJ1u0Ys9T+exdHpD41?=
+ =?us-ascii?Q?2HJTnsNzcxA1BuCZY7nJGtrM0U4ttIDFuyLnw89REjKWSBfI2waXW7ggzprz?=
+ =?us-ascii?Q?LWKZ0zORIcOtEg26H0onO3X7oaAC1HR/HVlRBTrETnsBVEXTHB7hfnlzKaAS?=
+ =?us-ascii?Q?QwNXvQHB1IzDBbbKqFcYNhQhUXalDRcOHvp2bsBEYGXtYo4lvOm++Vv9EQGy?=
+ =?us-ascii?Q?/b7FK0ER1+Sfw06PJYTUEb4rFslzITjqVURPHvw2C2/qQs6D+J22Rj0Et+gR?=
+ =?us-ascii?Q?5W1SeQGX2ootjXC1grhXRwPrNWApLWVN+1cBx/7RICckYGi6ndwGOcTeFQKJ?=
+ =?us-ascii?Q?Xy/4oaxzB8O7GzK0+obVHTqcUUY74H/G46pDUGwORTVgC140COQHK8gHyECV?=
+ =?us-ascii?Q?K1TYcFGMOWfx2SEM7wzAcBPmVcOkuAkwoWbrEe7eZp2UVBYliBwS8flvUk4N?=
+ =?us-ascii?Q?1Bozwas5qGPw1S/M+prj4MIud0urPX4O6b/CBmVuyryHSYOeIxmG+5Sn+yCa?=
+ =?us-ascii?Q?BnobbTDEv3855C6YFRRM7LeC1xNTipF8p8KgDf7jkhK5ZdvumcsP5uuLVTKe?=
+ =?us-ascii?Q?JmdU75yJHUhuJRYN1AupBtWWyrer/jgN473KDR6ZVSy8sjhbHsfzRj6P5UPK?=
+ =?us-ascii?Q?C86CpDzkW//JGMfyDu800I2AfVfDyEkXJtNH0F2eh+ldNZ9TAg/MVT4vkv75?=
+ =?us-ascii?Q?FGFa1muM6QwMDfeZsNwwgzDW2huS4YiHRLMFgIy9kNyBddNDaXtvv5Vn89Ki?=
+ =?us-ascii?Q?rYa5OrItg+khjLjBOGs/9UOQLxN2OPQ1AL954JwtlsSisl8+jXHFqLd86Q3j?=
+ =?us-ascii?Q?6Lznet/MV5ErG98wu+mjV3gGaSiWkDtL8GzKaqmmXR6s7JZHMTFnGqgtUfdw?=
+ =?us-ascii?Q?GglKJPbEepPfRUBNrucnVTKFjkk6uNmzxXaNoUXLdPog4hNr1wgR2y7dtiAj?=
+ =?us-ascii?Q?24QrUnkU9FoqmV5ZkHhJIM+zCjbWsxlNhFxY6M1bRDQ0xa1HpPZhGqf0pY0j?=
+ =?us-ascii?Q?tnlfEtJIEliIPdKubnJyatx4kXFvqW96D2n7zVKmsmI8FR0CdN88iqYEb+8A?=
+ =?us-ascii?Q?kwn66si+bhO2NamjuiUvzh5Uzew+6ABt6liy5nlZ290OXlA/FWpzqADOD17z?=
+ =?us-ascii?Q?GIbb5vFCIP38cokNWGXUFOvY0dM/jNkJnTMSQOjpnmY1+v1WFIZ1LwlqDdwl?=
+ =?us-ascii?Q?V++abUKrQxMMUaZE9Ai2D4D530oFRBzzpPGeKQsV4+exiofk9jJ5KIdQq2u6?=
+ =?us-ascii?Q?cmTcBJEbIjB/2hfdpXJ0HTqnLbEmYsTni+SwgnEay4uDJsuxjykVgqIGYRRN?=
+ =?us-ascii?Q?n0hIHZQQW6CsrJuX579s6QRNpY9WasjXX6sRT5kAca7lg27i76G0YdPCmvAw?=
+ =?us-ascii?Q?F/fQkjQF+tyGeYUWtfGv8efZzCVnVuPZCdsFTP6vDewNlfdvcfOT6LFTWptT?=
+ =?us-ascii?Q?Fhj11IvlaG5m8j/9aLa0TGbGZ6y5JJ99N+Pb?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2025 14:50:50.6448 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22bd9022-fde1-45ec-9c63-08dddff8f4c6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6733.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9192
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,124 +131,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On some x86 systems (old AMD Athlons, Intel Luna Lake) we have the problem
-that changing the caching flags of system memory requires changing the
-global MTRR/PAT tables since those CPUs can't handle aliasing caching
-attributes.
+The addition of a WARN_ON() check in order to return early in the
+kq_initialize function retroactively causes the default case in the
+following switch statement to never be executed, preventing dev_err
+from logging device errors in the kernel. Both logs are now checked
+in the default case.
 
-But on most modern x86 system (e.g. AMD CPUs after 2004) we actually
-don't need that any more and can update the caching flags directly in the
-PTEs of the userspace and kernel mappings.
-
-We already do this with encryption on x86 64bit for quite a while and all
-other supported platforms (Sparc, PowerPC, ARM, MIPS, LONGARCH) as well as
-the i915 driver have never done anything different either.
-
-So stop changing the global chaching flags for CPU systems which don't
-need it and just insert a clflush to be on the safe side so that we never
-return memory with dirty cache lines.
-
-Testing on a Ryzen 5 and 7 shows that the clflush has absolutely no
-performance impact, but I'm still waiting for CI systems to confirm
-functional correctness.
-
-v2: drop the pool only on AMD CPUs for now
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Sunday Clement <Sunday.Clement@amd.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 37 +++++++++++++++++++++++++---------
- 1 file changed, 28 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 83b10706ba89..3f830fb2aea5 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -45,6 +45,7 @@
- #include <drm/ttm/ttm_pool.h>
- #include <drm/ttm/ttm_tt.h>
- #include <drm/ttm/ttm_bo.h>
-+#include <drm/drm_cache.h>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+index 2b0a830f5b29..fb3129883a4c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+@@ -46,11 +46,7 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
+ 	int retval;
+ 	union PM4_MES_TYPE_3_HEADER nop;
  
- #include "ttm_module.h"
+-	if (WARN_ON(type != KFD_QUEUE_TYPE_DIQ && type != KFD_QUEUE_TYPE_HIQ))
+-		return false;
+-
+-	pr_debug("Initializing queue type %d size %d\n", KFD_QUEUE_TYPE_HIQ,
+-			queue_size);
++	pr_debug("Initializing queue type %d size %d\n", type, queue_size);
  
-@@ -119,6 +120,8 @@ module_param(page_pool_size, ulong, 0644);
- 
- static atomic_long_t allocated_pages;
- 
-+static bool skip_caching_adjustment;
-+
- static struct ttm_pool_type global_write_combined[NR_PAGE_ORDERS];
- static struct ttm_pool_type global_uncached[NR_PAGE_ORDERS];
- 
-@@ -195,7 +198,8 @@ static void ttm_pool_free_page(struct ttm_pool *pool, enum ttm_caching caching,
- 	/* We don't care that set_pages_wb is inefficient here. This is only
- 	 * used when we have to shrink and CPU overhead is irrelevant then.
- 	 */
--	if (caching != ttm_cached && !PageHighMem(p))
-+	if (!skip_caching_adjustment &&
-+	    caching != ttm_cached && !PageHighMem(p))
- 		set_pages_wb(p, 1 << order);
- #endif
- 
-@@ -223,13 +227,19 @@ static int ttm_pool_apply_caching(struct ttm_pool_alloc_state *alloc)
- 	if (!num_pages)
- 		return 0;
- 
--	switch (alloc->tt_caching) {
--	case ttm_cached:
--		break;
--	case ttm_write_combined:
--		return set_pages_array_wc(alloc->caching_divide, num_pages);
--	case ttm_uncached:
--		return set_pages_array_uc(alloc->caching_divide, num_pages);
-+	if (skip_caching_adjustment) {
-+		drm_clflush_pages(alloc->caching_divide, num_pages);
-+	} else {
-+		switch (alloc->tt_caching) {
-+		case ttm_cached:
-+			break;
-+		case ttm_write_combined:
-+			return set_pages_array_wc(alloc->caching_divide,
-+						  num_pages);
-+		case ttm_uncached:
-+			return set_pages_array_uc(alloc->caching_divide,
-+						  num_pages);
-+		}
+ 	memset(&prop, 0, sizeof(prop));
+ 	memset(&nop, 0, sizeof(nop));
+@@ -69,6 +65,7 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
+ 		kq->mqd_mgr = dev->dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
+ 		break;
+ 	default:
++		WARN(1, "Invalid queue type %d\n", type);
+ 		dev_err(dev->adev->dev, "Invalid queue type %d\n", type);
+ 		return false;
  	}
- #endif
- 	alloc->caching_divide = alloc->pages;
-@@ -342,6 +352,9 @@ static struct ttm_pool_type *ttm_pool_select_type(struct ttm_pool *pool,
- 		return &pool->caching[caching].orders[order];
- 
- #ifdef CONFIG_X86
-+	if (skip_caching_adjustment)
-+		return NULL;
-+
- 	switch (caching) {
- 	case ttm_write_combined:
- 		if (pool->nid != NUMA_NO_NODE)
-@@ -981,7 +994,7 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
- 
- #ifdef CONFIG_X86
- 	/* Anything returned to the system needs to be cached. */
--	if (tt->caching != ttm_cached)
-+	if (!skip_caching_adjustment && tt->caching != ttm_cached)
- 		set_pages_array_wb(tt->pages, tt->num_pages);
- #endif
- 
-@@ -1296,6 +1309,12 @@ int ttm_pool_mgr_init(unsigned long num_pages)
- 	spin_lock_init(&shrinker_lock);
- 	INIT_LIST_HEAD(&shrinker_list);
- 
-+#ifdef CONFIG_X86
-+	skip_caching_adjustment =
-+		(boot_cpu_data.x86_vendor == X86_VENDOR_AMD) &&
-+		static_cpu_has(X86_FEATURE_CLFLUSH);
-+#endif
-+
- 	for (i = 0; i < NR_PAGE_ORDERS; ++i) {
- 		ttm_pool_type_init(&global_write_combined[i], NULL,
- 				   ttm_write_combined, i);
 -- 
 2.43.0
 
