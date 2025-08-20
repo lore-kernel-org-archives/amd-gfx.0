@@ -4,119 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D090CA0EED
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 07:32:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B277CA0EED
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 07:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F75D10E23E;
-	Wed, 20 Aug 2025 07:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A2B710E244;
+	Wed, 20 Aug 2025 07:43:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wPQQDV3r";
+	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="rAX0BG3v";
+	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="zm8Xthxv";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2047.outbound.protection.outlook.com [40.107.220.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F101610E23E
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 07:32:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KolTEGXnUuvdaib7iZoLRaJ2Rs8gDbR2YpYE0khjnCG8JBvynUSoRemIavQF68mRHUK0qksMTyQlp/pXWIMt6tKVPu9Fcd5lLhpaJzKNDZfuRQB0lwbMbm9jNUz0/rI87vh6fgcM+ME1CQLEniiHUBnEAh4M79q95Mc+cm8kmI/qHdf7oey4XemKtlR1/8UOCrhuOmQ4wcfC2S/M35Zhio8H40RzIOVgPNwoza9jnNFtn1MkLBL134cDeSkfNGoHQFZDhPh3O+5kUMif8ZSjOMSm8Y/gzFDIPRMb+uRx8KfA9/PMCJfvrKnd60MsDEY/dKps4+FiTDzXUIviKEydIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WoHYlKzWCUElb8O531ZstSY/YJ/bbdINqSBKWpeJUBU=;
- b=qIK2Ck9mw0e/+JCT64cOeMfVmM71+tT2OkvIpWtYIfNGZpZYXamrmA57mTABSNeQURoFiHHOG7U5oFrqjhdqM8R9lBUnyvGTrbDRUDWo9QCE2NSpuDBzsfmD5vKhZJim4mtoFZfKtHUu3qF46HTPAelxHgieNExF7vz4y8Zv3NXIg2eGlSxb3cmJSG0kIJxJL6gZsNi1jz0V33yE+M7UkVkQFaCzkkUAC2H+AxkoiceC2vQrZScEFH6n/Sa0dTWXLC9NlXqRbEh7jC1iBO5SooffFrE6JJujEAjizWgnwhOa2ujLqx19naVJViL06UfuBP9Bezo9qi6erb93gFuehQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WoHYlKzWCUElb8O531ZstSY/YJ/bbdINqSBKWpeJUBU=;
- b=wPQQDV3rp5ucgDkSWwAb+K0Mg7aoIfopPDckAp1VZwDdcDSMbRK95osS6cmeK1XBfEIe+0kxPM4T88gvWgbL8axrYk9E4m7w5hPbnPFbFwkSbKn+4qeIRurMl9Jr++ZPUiRJj82OmcVoGX5wcbjoS6489hblAOmVGeHlfqOfNtE=
-Received: from BL1PR13CA0322.namprd13.prod.outlook.com (2603:10b6:208:2c1::27)
- by IA0PR12MB8349.namprd12.prod.outlook.com (2603:10b6:208:407::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Wed, 20 Aug
- 2025 07:32:08 +0000
-Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
- (2603:10b6:208:2c1:cafe::89) by BL1PR13CA0322.outlook.office365.com
- (2603:10b6:208:2c1::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.13 via Frontend Transport; Wed,
- 20 Aug 2025 07:32:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9052.8 via Frontend Transport; Wed, 20 Aug 2025 07:32:07 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 Aug
- 2025 02:32:03 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>, Yifan Zhang
- <yifan1.zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: replace AMDGPU_HAS_VRAM with is_app_apu
-Date: Wed, 20 Aug 2025 15:31:00 +0800
-Message-ID: <20250820073100.3500205-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 332B210E243;
+ Wed, 20 Aug 2025 07:43:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1755675773;
+ bh=w9SlD7ICoHxzqoTlV8Z7Rg/
+ 8uwfey5HI6LYxS9+8BWE=; b=rAX0BG3v0QpJZ3qELpbEuE1Gnf64gsxn3p30lNCslrTapWnxa0
+ 96q75Ty6EAUb+vhLw4Mp5Zycd4zEolapYeyBfWPx+FHf0ZddnV27HcZ8oGslepQMi+5ZpU8Psud
+ RQRl8letQVMEeo8/nuV2Lmh9gWWzPFDdQ42OqUC+iOcVwEZPttvpiG5rtW2gQFVFO+Id2Tn4mTS
+ gAkfv0mNwsRDHr+2XCxjfJKMljocgMF3yowrbrdQpfS79UL20TlwK94ceXuxEZOnWYUn+ZFou2E
+ +J1U+NA9X289Bq2EYkM1P17dj2PwwgUJGEuReHgXS9NBZMk3bJqeJgbpraMly5Ebrlw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1755675773; bh=w9SlD7ICoHxzqoTlV8Z7Rg/
+ 8uwfey5HI6LYxS9+8BWE=; b=zm8XthxvusftN8sHmI0QViGO57N+qOWk3A0FtE0PtJhy6ni+vY
+ WW35Mb0I3jwxH/MeRss7mfEzj5j9AH+Q/ACQ==;
+Message-ID: <fb30efd4-1950-4b76-89fc-51c089319950@damsy.net>
+Date: Wed, 20 Aug 2025 09:42:52 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/6] amdgpu: Avoid powering on the dGPU on
+ vkEnumeratePhysicalDevices()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Philipp Zabel <philipp.zabel@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20250731-b4-dont-wake-next-v1-0-e51bdc347fa3@gmail.com>
+ <601a40fd-e508-4e9d-8dd3-14329f3a637b@amd.com>
+ <41b37595c42e4f492704a31970936d52b96dae97.camel@pengutronix.de>
+ <ce732501-131d-420d-ad75-61ae987f51d0@amd.com>
+Content-Language: en-US
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <ce732501-131d-420d-ad75-61ae987f51d0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|IA0PR12MB8349:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbb97ebf-baf1-48a1-4861-08dddfbbab14
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qunJZbUSoJauItZoIwhYqbXyuVvAPqUGRVf05PzqCshEnWtPtt4ndYULgRHy?=
- =?us-ascii?Q?Q2AmKdBO5kJY94LIVK9WR5C818vGK0jQ82KDx2Knuo+lDUReZ9U0dulnBobH?=
- =?us-ascii?Q?94UM0GeNa9aQ91B0mMBvflDzgb0sFUDFRSj3QoJxm/z1q5HV6WNfVswhgWB8?=
- =?us-ascii?Q?BhYH+3KZYhPf15wAKX8mMY01DetCDVnHPHkAkNuEGmLt5wD/IunlmotKwpFL?=
- =?us-ascii?Q?zpBde8/wwjONHH6VNRIgIo2I24RpV75d9D0pRPdUC93hIS+INLJEgEzAJ0Ir?=
- =?us-ascii?Q?HgfIoruhC8v5coG/rHCsxBY4QmwVInE3iJH6HDQ3YEaofQEFsYOivqOylNmU?=
- =?us-ascii?Q?c9YiozHyNMn/O5ntZB4zbw58Qc2vpJscO5t9fJOWo0CCx+Oae92Jndeqwqyv?=
- =?us-ascii?Q?F56KqrSOhlRFME8h9D8tdktMyHzTp3WWOlRwrxfNBBJZR831QKeE5O7hDBE0?=
- =?us-ascii?Q?qFeEJzaPT4YJzQFMrLj89TRDQyN9Ry7unw6NQyegViR0NRrR9NY4VFMRgLE0?=
- =?us-ascii?Q?dHKsJfPBa2yH/O4aXH6IKY4TPghiyUHXN9MRyjvdeFIjcFrUcM+4oQQphiK1?=
- =?us-ascii?Q?XBhBSaJa08KH2YeZTGxgRvtk6E2lBvhwDCqYD6bgo3YyBDMxmrEZL38XFNMN?=
- =?us-ascii?Q?k9onZuKeJKnt8PdtLnnJJ+76cVeRn81/6R6rK2GY0DW8vYfYTt2NBi6Wv7Mm?=
- =?us-ascii?Q?X56GTHo7mpGwzbg4AXdhIyGHwy7vL+evDb4PMcKzxSI4/+1p7iJrMZhlgd+I?=
- =?us-ascii?Q?nhVvqzAVFv4JKXSPBvNmsfPfSYVhKC9L7lp8e2W85Fh1OusHCCT0k+mMjCuK?=
- =?us-ascii?Q?Ba4VDtQ6gjQgeCf0ZTQo/mXSrhwfoUAylh/YrfyAkKLnQTc6YpthUZE6zW38?=
- =?us-ascii?Q?WWo+HCQKdoed/m2Z/9OKHqvA/Hp1iLOjWesjPXHlEM/Fng8K8rBTl0k7e/vl?=
- =?us-ascii?Q?BZfRCIj2ocPbA2JCeu+yqG9XQZ4jKz3+DT2hzZRLHbvhwM3AmeR3VhuOdMjk?=
- =?us-ascii?Q?xUARcuNJzeXmmVuCEM7WSsGPRU7NH1hnCKyb4f6U3y+SX0PEKvkHYSRy3Wqa?=
- =?us-ascii?Q?JIVtUAV8Sgryql8O2/v9LLr70oLf4smjDWi+IfHgTsND3JFmK3gDnoKKJoWX?=
- =?us-ascii?Q?7K0ExCXb7omU3zV+CYEjuikeYNA7XEWHUj9edj3OAUifOB0PFA7kv3+lm0vc?=
- =?us-ascii?Q?vqgo0NVfGqyQshtS6gKnZKZcm9QksL9zHUtd0FzrtOLAtzRrOAjC5o/3lgvJ?=
- =?us-ascii?Q?U0V5CjBqgKMldEKZAPLgs5xCY0RF2R24WRe7i2llTte0qrPezi/HelUPbUP4?=
- =?us-ascii?Q?HbVHDlgDF4EWV59FG1PhERNfrDZBuSpp806/ACqGQ3JlJvzTuCLz14yaPLL+?=
- =?us-ascii?Q?wIlKQ7Hu5ClAQ1URLKaf5C7NtcKs0Tkxlk6uuW5+a/40B/xj5jrvHGbFLTCB?=
- =?us-ascii?Q?4XDOlM3L1ZHJfrajf0o4tV3ro75YfxBB3c1XYJsBP+9kox1nSc2Y9LAyv+nk?=
- =?us-ascii?Q?Ecl1tdhsNm0fce6nMsdcIFKdzlr6tVSDRmX6?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2025 07:32:07.8143 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbb97ebf-baf1-48a1-4861-08dddfbbab14
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8349
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,50 +66,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMDGPU_HAS_VRAM is redundant with is_app_apu, as both refer to
-APUs with no carve-out. Since AMDGPU_HAS_VRAM only occurs once,
-replace AMDGPU_HAS_VRAM with is_app_apu.
+[resend because the previous email didn't make it to most recipients]
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 6 ------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +++---
- 2 files changed, 3 insertions(+), 9 deletions(-)
+Hi,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index ddd472e56f69..01f53700694b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -946,12 +946,6 @@ enum amdgpu_enforce_isolation_mode {
- 	AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3,
- };
- 
--
--/*
-- * Non-zero (true) if the GPU has VRAM. Zero (false) otherwise.
-- */
--#define AMDGPU_HAS_VRAM(_adev) ((_adev)->gmc.real_vram_size)
--
- struct amdgpu_device {
- 	struct device			*dev;
- 	struct pci_dev			*pdev;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index fa3e55700ad6..4125e73a0647 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -880,9 +880,9 @@ static int psp_tmr_init(struct psp_context *psp)
- 		pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
- 		ret = amdgpu_bo_create_kernel(psp->adev, tmr_size,
- 					      PSP_TMR_ALIGNMENT,
--					      AMDGPU_HAS_VRAM(psp->adev) ?
--					      AMDGPU_GEM_DOMAIN_VRAM :
--					      AMDGPU_GEM_DOMAIN_GTT,
-+					      psp->adev->gmc.is_app_apu ?
-+					      AMDGPU_GEM_DOMAIN_GTT :
-+					      AMDGPU_GEM_DOMAIN_VRAM,
- 					      &psp->tmr_bo, &psp->tmr_mc_addr,
- 					      pptr);
- 	}
--- 
-2.43.0
+Le 06/08/2025 à 15:17, Christian König a écrit :
+> On 06.08.25 12:15, Philipp Zabel wrote:
+>> On Mi, 2025-08-06 at 10:58 +0200, Christian König wrote:
+>>> On 31.07.25 07:36, Philipp Zabel wrote:
+>>>> This is an attempt at fixing amd#2295 [1]:
+>>>>
+>>>>    On an AMD Rembrandt laptop with 680M iGPU and 6700S dGPU, calling
+>>>>    vkEnumeratePhysicalDevices() wakes up the sleeping dGPU, even if all
+>>>>    the application wants is to find and use the iGPU. This causes a delay
+>>>>    of about 2 seconds on this system, followed by a few seconds of
+>>>>    increased power draw until runtime PM turns the dGPU back off again.
+>>>>
+>>>> [1] https://gitlab.freedesktop.org/drm/amd/-/issues/2295
+>>>>
+>>>> Patch 1 avoids power up on some ioctls that don't need it.
+>>>> Patch 2 avoids power up on open() by postponing fpriv initialization to
+>>>> the first ioctl() that wakes up the dGPU.
+>>>> Patches 3 and 4 add AMDGPU_INFO to the list of non-waking ioctls,
+>>>> returning cached values for some queries.
+>>>> Patch 5 works around an explicit register access from libdrm.
+>>>> Patch 6 shorts out the syncobj ioctls while fpriv is still
+>>>> uninitialized. This avoids waking up the dGPU during Vulkan syncobj
+>>>> feature detection.
+>>>
+>>> This idea came up multiple times now but was never completed.
+>>>
+>>> IIRC Pierre-Eric last worked on it, it would probably be a good idea to dig up his patches from the mailing list.
+>>
+>> Thank you, I wasn't aware of those patches [1]. Pierre-Eric did mention
+>> them in https://gitlab.freedesktop.org/mesa/mesa/-/issues/13001, but I
+>> didn't pick up on that back then.
+>>
+>> [1] https://lore.kernel.org/all/20240618153003.146168-1-pierre-eric.pelloux-prayer@amd.com/
+>>
+>> Is that the latest version?
+> 
+> I honestly don't know. @Pierre-Eric?
 
+
+https://lore.kernel.org/all/ZnvJHwnNAvDrRMVG@phenom.ffwll.local/ killed the approach taken by this 
+patchset.
+
+After that I've reworked the series, and sent 
+https://lists.freedesktop.org/archives/amd-gfx/2024-September/114417.html to do fine grain runtime 
+pm in drm/amd/pm as a first step.
+
+I also have a local branch that I never sent that implements Sima's suggestion: pushing rpm handling 
+down into the ioctl implementation.
+
+I'll try to rebase it and push it out on gitlab soon.
+
+Pierre-Eric
+
+
+> 
+>> It looks to me like the review stalled out
+>> on a disagreement whether the GB_ADDR_CONFIG query should be a separate
+>> ioctl or whether it should be added to drm_amdgpu_info_device. The
+>> discussion was later continued at
+>> https://gitlab.freedesktop.org/mesa/libdrm/-/merge_requests/368,
+>> seemingly coming to the conclusion that keeping the register read (but
+>> cached) is the way to go? I didn't find a newer series with that
+>> implemented.
+> 
+> Could be that Pierre-Eric dropped the work after that.
+> 
+> But IIRC we already use a cached value for GB_ADDR_CONFIG because of GFXOFF.
+> 
+> Regards,
+> Christian.
+> 
+>>
+>>>>
+>>>> regards
+>>>> Philipp
+>>>>
+>>>> Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+>>>> ---
+>>>> Alex Deucher (1):
+>>>>        drm/amdgpu: don't wake up the GPU for some IOCTLs
+>>>>
+>>>> Philipp Zabel (5):
+>>>>        drm/amdgpu: don't wake up the GPU when opening the device
+>>>>        drm/amdgpu: don't query xclk in AMDGPU_INFO_DEV_INFO
+>>>>        drm/amdgpu: don't wake up the GPU for some AMDGPU_INFO queries
+>>>>        drm/amdgpu: don't wake up the GPU for mmGB_ADDR_CONFIG register read
+>>>
+>>> That is both unnecessary an insufficient. Unnecessary because we already have a mechanism to cache register values and insufficient because IIRC you need to add a bunch of more registers to the cached list.
+>>
+>> This series was (just barely) sufficient for my purpose, which was only
+>> to make vkEnumeratePhysicalDevices() not wake the dGPU on my Laptop.
+>> I didn't realize there already was a caching mechanism in the lower
+>> layers.
+>>
+>>> See Pierre-Erics latest patch set, I think we already solved that but I'm not 100% sure.
+>>
+>> If I found the correct version, it seems Sima's suggestion of pushing
+>> runtime pm handling down from amdgpu_drm_ioctl into the amdgpu ioctl
+>> callbacks [2] would be the best first next step?
+>>
+>> [2] https://lore.kernel.org/amd-gfx/ZnvJHwnNAvDrRMVG@phenom.ffwll.local/
+>>
+>> regards
+>> Philipp
