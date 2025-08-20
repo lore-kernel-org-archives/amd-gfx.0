@@ -4,151 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 237A2CA0EF8
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 08:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58B5FCA0EDC
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 09:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BECC510E24B;
-	Wed, 20 Aug 2025 08:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F018E10E6B7;
+	Wed, 20 Aug 2025 09:04:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hGp0OTwP";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="rW8LlTp5";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TNJr8Cbe";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="f2pomFcH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GAlbcD52";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D86510E24B
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 08:54:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T+a2Yhm7fEPGmFsruZvHqfFGa1rUN64vlqN/pasmnxPJ46FKqv9wmQoqG5YefY2zaU7yRGUkR7PLbxM7QdECYytdKN9oo8UCVlUk4w2RoCGkh1CkTpv/KeCyWdTDzN4Hx8S386ZQlD8NcRCh2eL9VYI8VrQgyJoDgrti8sHKIPOgp/c5cRRxpqk2NNqODMBidJ/5L/x/AQwQNzrskoajCsofHODsygw8H65bD3YYcXS6PXEOHjJXBOya+PkXW2c95O+nF6k0aBhDjn7g6CLNsgYUXS4YbeD/t28MtmvWDznn3w+xkouj5DUXPVVmVuRsIrPWERgiOywhJQxgz8wYgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oj8qdsK/sGwIX5uo9l8Pe9kcVV3xoUof4JAEvNZGc1A=;
- b=YKYJAfmRG5uYOYcJfw4p0PRSti7iBj7RTYB90dQMjg8IP1LGO5zwfnMNfwu97U+dWas15GYis8OC6uFCBFGVC0jmXe+pfnlly52dQHda+JN7Bh+HplOX5HQ6Lypa+NI3G9apqeSB0t1EwSybzqm8n2S5hz8x0u0TPAFCsXajkstfJXdNx62LGiLrCDTbi6FGfEn/JVNG5cT6+iersN5yyYU1N764zQoBb321U2Z+LWWimuuGRIgUuMgMGKZj6k6ppuUBzwLt1DoTXm+MsZ4C/uNyVCONa4r/zIssNjMd6ZVNV6eLAQokVWgH6DvflVtc/EEBX/1F4oNHAA6wIvNoKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oj8qdsK/sGwIX5uo9l8Pe9kcVV3xoUof4JAEvNZGc1A=;
- b=hGp0OTwPcrVaHoLITZYreaK1Sg5ffnTsU+EuntVl5S0+eoed/6dwyNudBcJP1cXn2VtsDYr6fBPyX1ta+udNv0S7rNXxVkJFqm7Lszu1Vkqj2Bw11xe6KLJO8fKClmRzQmKQWKGC4HTmMCKXPfqkv3Md6O40zzRpdyJLudASRK0=
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com (2603:10b6:930:22::21)
- by LV8PR12MB9417.namprd12.prod.outlook.com (2603:10b6:408:204::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Wed, 20 Aug
- 2025 08:54:52 +0000
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::542:90bb:6ae5:a2b]) by CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::542:90bb:6ae5:a2b%6]) with mapi id 15.20.9031.023; Wed, 20 Aug 2025
- 08:54:51 +0000
-From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
-To: "Yang, Stanley" <Stanley.Yang@amd.com>, "Chai, Thomas"
- <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Check VF critical region before RAS
- poison injection
-Thread-Topic: [PATCH 2/2] drm/amdgpu: Check VF critical region before RAS
- poison injection
-Thread-Index: AQHcEMnH3hRnZo6IxEm6T5kGcGXV3bRqxPUAgABBCLiAAAVCSIAAGySAgAAYJ84=
-Date: Wed, 20 Aug 2025 08:54:51 +0000
-Message-ID: <CY5PR12MB63450891B649135F876A3719FA33A@CY5PR12MB6345.namprd12.prod.outlook.com>
-References: <20250819052548.124897-1-xiang.liu@amd.com>
- <20250819052548.124897-2-xiang.liu@amd.com>
- <BY5PR12MB42125F685673D0BDF0ADECBDFC33A@BY5PR12MB4212.namprd12.prod.outlook.com>
- <CY5PR12MB6345B07E614DBE882CE7FF2EFA33A@CY5PR12MB6345.namprd12.prod.outlook.com>
- <CY5PR12MB63454C06BC4FD4F4109D2A0FFA33A@CY5PR12MB6345.namprd12.prod.outlook.com>
- <PH7PR12MB79886037BAE9476B8399A0C49A33A@PH7PR12MB7988.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB79886037BAE9476B8399A0C49A33A@PH7PR12MB7988.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-08-20T08:54:51.1790000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6345:EE_|LV8PR12MB9417:EE_
-x-ms-office365-filtering-correlation-id: 50af1bdf-dcd0-406c-3234-08dddfc739d7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700018|7053199007|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?4D3eelTlYjMaFFZqC2Fg+8z1Yh8PsRBfEWUuouKEHU8R5BVjzDuxf5lfI80O?=
- =?us-ascii?Q?0T4kz1b5mvnmzRPsmEYlE4ZRNJ5C6GbEP9Edbf+teoRj7HbJpPm9x/7QIZIO?=
- =?us-ascii?Q?xCnfBsP+RGGB3psmbVtgQVDpQ+OckmjL718MgKbGOG66tE9/KFJ2T7ZnhPtR?=
- =?us-ascii?Q?HTZbsj/2CFmPCtu1MiYS2koF/cxqxxj6zesPQZegKDH1SNqD3aSGpaIoRpgg?=
- =?us-ascii?Q?75uACUFeFEHxfmF0jJ9C3PT98Q8u2o13oanu/VTc2QGmsgAkWQi/Y3KXve4e?=
- =?us-ascii?Q?FZGHTIHhcjV1UDrRxoU5xlu8oLFVvitOcnwFIJ3/Ekuvb4dzuYlrt/uOLIvC?=
- =?us-ascii?Q?7YRIODHTOtqbfkZXQgUBolC1sVlmYjg4+pvS6YR5wUhaxKDdJEItJjagK0v7?=
- =?us-ascii?Q?B3m5fPAhemcQnCm9nVOtbIkvs1O+RSNmi8u5Q9PtoHrUQCN9tHMNnCNqGvKz?=
- =?us-ascii?Q?cFJYs4ZLvZ2U2uJAnjhtLsBlkHJIDuU6Q77HoL4nc1M6X5SrWVwZwni4q5Dw?=
- =?us-ascii?Q?ioFxQTpFz6jvcy1+0JpvMXhSyfG2hXDXCEWLIyKBq7btgda9dPdhyckBM5hj?=
- =?us-ascii?Q?RhnDN38KDRY6JL17zr10b1dJjpayIOsbjjx46mD07tdKpG+MTJFIhqjeVRz0?=
- =?us-ascii?Q?9MO1dfduKxZuzSUIzU2JfXRO8kEW9Es9gDx6VHMhNxv+FeaTiL5zsffJRl3u?=
- =?us-ascii?Q?Oazb+W14Z4+GOQNzPsbM4EqVNyBrdJm1/7+zH+2/2KRSVFAWnwwpxRsmrqWB?=
- =?us-ascii?Q?d1awcFlgrZubTK+wPgCSLvUM6N5hHaIokwPrWwk/sqJDy46pWdk+9Knio1RG?=
- =?us-ascii?Q?L43OMBGUZ35fDGj4lo5PVpM65EXgWT/CqKulXNV7OvnwUgiqPfxFHWU1JAi6?=
- =?us-ascii?Q?29p+Wg6VT7Uw+oRDcc4gaPSkno9jraB6E3s5mFfZXR+Cla9vvmdai1AudgJI?=
- =?us-ascii?Q?pAYMiEYNLp3mYGoTdHjBN2lKP64Rw2nUSHLFC+rKp/Yyof36p54HS/FVkJsl?=
- =?us-ascii?Q?/40wojcfAyhnewFjrNWqMMo0wfR8nzEH5gugAzWUg80+9tnh3KN+SQk2ucI5?=
- =?us-ascii?Q?3zvL4z7vexlcM4RKJdcujfVFd3f4jpjOvEQN4boOzkcZ8Brdn4t5VQMM+Vy7?=
- =?us-ascii?Q?tozk6snoM8ZZ0+o/30mPjlA6A9TdeHI3XydF4prG/DPI+TAlGUs6WDy7J+/z?=
- =?us-ascii?Q?qK/7J2UBHZzJ2jkxJF4nw9WYvOMoE44TtqHH5fsK8gVzEmOTS0CVUOBNaVH0?=
- =?us-ascii?Q?FsF8Wg4AjbX0AYYO53IOCMWh4JSRw6arpbLGnKAI9qAcnjnvDQDy+tNq7FW1?=
- =?us-ascii?Q?V1buUJhyG7inoI22XJ4moj8LrjdchVR3DhjhSsP3rmI7ftrsKv/03CvFvkHZ?=
- =?us-ascii?Q?KHSOQdcouxGBEXzIj5O2a3eV8iNAZG4SVaEE3u8cesDWt2p4xMVmQKKQcD38?=
- =?us-ascii?Q?jmyZcEo0juaTp3bL83jpQuYbEYm2lTSqfyg00sF4TgFxmtNL1RX5QJfTDkxE?=
- =?us-ascii?Q?29MkH8BDVCXpJQ4=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6345.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700018)(7053199007)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?V+PjR9BpWGU/F8GHy7sK+PUJrr89ILnmIHcVhmCiP2taQ4F4rNLXFvoh/jOs?=
- =?us-ascii?Q?f4ir+8RglZ9N3fH8PicbeJcSJy3HK4fhmkPSIwlTIjrKTWm0YfkJfBGnN1+3?=
- =?us-ascii?Q?tKdIOHHmvQz8C4h62xaIfrAual3L230b1JUNeHioJ5Lnos3nFQYsOqN6Afgm?=
- =?us-ascii?Q?njOvN590qo9gBWLmE1oZkUNySlTOckeuZqgxeVJmQqMEmHROANrhd0dlgLzH?=
- =?us-ascii?Q?D2E//29Q0K06K2pwHRKEf1ikl+J6gEhcfe4sVXPmem+pHyOw85EKPTPvt6IO?=
- =?us-ascii?Q?nlg1SkTgiAvfKNjOzongIlRxsYG8DKpANfKpZsM4MxaCCQZ69Ou7MT4rAMLH?=
- =?us-ascii?Q?frip2/TJqS/zSf3Zp1NR1hFOuH5YV2/5t4wjpzy0WWieJOfhnP3MtoZkarqG?=
- =?us-ascii?Q?DG1uIpcfHQ1Ij+uEESrWSlvmevTBt6+VotCfBEvNOrWYyL/Zk01/6gcYryyb?=
- =?us-ascii?Q?HC62HDsZgbWsQzI01yVGJjemiaJPji2dH+XLKK32wj3MI8a+dwLQWkhqQBDm?=
- =?us-ascii?Q?5QK512P+kHkBjDqJhTOMih3CAAMEdbqnMpWwvLc7E5V5fHGu2Hpx1f2wmOaF?=
- =?us-ascii?Q?HwsJhbngyiLwhmYdRn1Zjhz01q2sYnET1xAshyt0aRnHgIZbljU0NovM8Be3?=
- =?us-ascii?Q?Vh8pnzCUddmsjQME6MX3dc6pVGPl0C4oLmXJv0Gi/oUHhfXWI3fmjwMJ51ub?=
- =?us-ascii?Q?iEXH1XnJuZmFlW/OVRy4GEn8DNfMebYkfzW8gzngUwAR3ECjwaRPwXhqr3e7?=
- =?us-ascii?Q?X/rCS7w2TzRa6wQz3I5cbur72UlUHo0WQ2AsDJyXZ5OwZogLYIHbE3Gdh/X7?=
- =?us-ascii?Q?1AP1/Z1rZBxpgjZ7vhfi4X5A/6rOAot3EES1cMyFTCFl1cTcSPaS12DYe2/c?=
- =?us-ascii?Q?U9MTsL3kGBhS3xxMM8gTwklsH5EunEGW+Iy8bQAkcGjhkxtgmPYEli4RGSnF?=
- =?us-ascii?Q?DA9VhtP2hbOlYYb6r+imylAz5IMDp3idhfmdp9S4z8J23KJ+u0AhLuHvUBnY?=
- =?us-ascii?Q?HhXFEJ1vbnWD/m+XpT50WZufiRULaxZ61fkD/OtR+PnpPaD4eeH7oUQ6el/J?=
- =?us-ascii?Q?IxTKocGj7ijtbmOoWlonbWzQfMCK16gbmX9xhXDzANw704uDgm7082UvQZvE?=
- =?us-ascii?Q?6rnzUKRuNTMia+a/urxGzgUJvDb6pZl/irYP+MDZMbLQZXufuDQRrHUKocKh?=
- =?us-ascii?Q?lPKQXSqhzWt2LxnYWvRiRJYzgYU9MTEMh7WsMKkN/TeL+1xC0hH/n7LcsXKS?=
- =?us-ascii?Q?0p2JqqKPKlLhAUzi1w8RV0sovmNlyQCxqpfACzSQxXtXEsEE3nk3sZbP8aWD?=
- =?us-ascii?Q?pCnM9Zzxq1r385w/nXHoynkGxedeIB+XcP0AauWkBsLA7zGm8bctWfqEYZLp?=
- =?us-ascii?Q?Wu0xucgl2LGv9pesyidBjYNa60AqH6taq2ubCKxSSZoOHMq4aOJ+qPWeKkAF?=
- =?us-ascii?Q?Uo4DJ5Io4JugJ3ImHkkmLOXM4UyB2mO1wpB/z8c4mOSvQPbbe/pfFD4dxh6b?=
- =?us-ascii?Q?WfaeLn4qPllUFDiM5nl4Fm3/SjNC1iKwdiuLwDZyxii6XkylYSMA0TXcZq+7?=
- =?us-ascii?Q?MmImLydvg1LEhaLEfWM=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CY5PR12MB63450891B649135F876A3719FA33ACY5PR12MB6345namp_"
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED7D410E6B7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 09:04:55 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 335F81F7B0;
+ Wed, 20 Aug 2025 09:04:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1755680694; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=nZ//gYY6UXXsx8QcVxJZiYWNUdOZeg7R6DnSFft/9ko=;
+ b=rW8LlTp5Ius2uMmiWYqVwjeWp+YC2tYAXBljI9+eeJ0JmFnW5tylR0DNB8x8Z+4yJ9IIVO
+ YrWSReN62jrRzUiHDjSrWYOWRQB2+JDl5VBs4i+g6Zw4qGHL+O14vRKbV4F08zhuhcxJpp
+ t5aTBOq0KeGaPJUGUvCVXCQ9BI4gHIA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1755680694;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=nZ//gYY6UXXsx8QcVxJZiYWNUdOZeg7R6DnSFft/9ko=;
+ b=TNJr8Cbe8WiZNrEobLpZEppNUMiLfbnxJrDdSJcIB0jRWHFi9vANAh0ptiW40NQFAWno3W
+ yFzkVbCGxfWkxuAg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=f2pomFcH;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GAlbcD52
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1755680693; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=nZ//gYY6UXXsx8QcVxJZiYWNUdOZeg7R6DnSFft/9ko=;
+ b=f2pomFcHTALt76PEmDQKAAWWh/vx1Hy6018RNVGOx9Ejrw/sfEde/Y7l1G9iaBEzw4eJlT
+ oxtNRHZsAuW9aUzJVGYruT+WHhT3ZivO5IWRIq/ytPo8Bs4tW8GyI83WpD9QOWOdqLXTmn
+ AwcmXp6jD5msYuCurUQJnTOF+EYB+ME=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1755680693;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=nZ//gYY6UXXsx8QcVxJZiYWNUdOZeg7R6DnSFft/9ko=;
+ b=GAlbcD52iVotZJkLmCBtrtGaL2bcOF3GBEearKbQ1jwn4JNiLKWkUYkT7SBy+B3KC4kNyA
+ e2kClt2La73YPfDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CF4271368B;
+ Wed, 20 Aug 2025 09:04:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id N/xoMbSPpWigdgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 20 Aug 2025 09:04:52 +0000
+Message-ID: <1dcb967f-4e7f-4a6b-957c-924d2dec55fc@suse.de>
+Date: Wed, 20 Aug 2025 11:04:52 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6345.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50af1bdf-dcd0-406c-3234-08dddfc739d7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2025 08:54:51.7748 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: azMHKpMB0Y/7yqm/FrpzpYszp+LMxmjI5nb4YMJMgG1qZl34jbgk0mS9nMQDsBrhxJtEcDwN9QATYubZH4hRSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9417
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: Pin buffers while vmap'ing exported
+ dma-buf objects
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ sumit.semwal@linaro.org, oushixiong@kylinos.cn, alexander.deucher@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
+References: <20250818151710.284982-1-tzimmermann@suse.de>
+ <f31550b1-b89c-47d6-b012-99479ba12aeb@amd.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <f31550b1-b89c-47d6-b012-99479ba12aeb@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 335F81F7B0
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ FREEMAIL_TO(0.00)[amd.com,linaro.org,kylinos.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,amd.com:email,suse.de:dkim,suse.de:mid,suse.de:email];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,484 +150,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CY5PR12MB63450891B649135F876A3719FA33ACY5PR12MB6345namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Am 18.08.25 um 17:43 schrieb Christian König:
+> On 18.08.25 17:17, Thomas Zimmermann wrote:
+>> Current dma-buf vmap semantics require that the mapped buffer remains
+>> in place until the corresponding vunmap has completed.
+>>
+>> For GEM-SHMEM, this used to be guaranteed by a pin operation while creating
+>> an S/G table in import. GEM-SHMEN can now import dma-buf objects without
+>> creating the S/G table, so the pin is missing. Leads to page-fault errors,
+>> such as the one shown below.
+>>
+>> [  102.101726] BUG: unable to handle page fault for address: ffffc90127000000
+>> [...]
+>> [  102.157102] RIP: 0010:udl_compress_hline16+0x219/0x940 [udl]
+>> [...]
+>> [  102.243250] Call Trace:
+>> [  102.245695]  <TASK>
+>> [  102.2477V95]  ? validate_chain+0x24e/0x5e0
+>> [  102.251805]  ? __lock_acquire+0x568/0xae0
+>> [  102.255807]  udl_render_hline+0x165/0x341 [udl]
+>> [  102.260338]  ? __pfx_udl_render_hline+0x10/0x10 [udl]
+>> [  102.265379]  ? local_clock_noinstr+0xb/0x100
+>> [  102.269642]  ? __lock_release.isra.0+0x16c/0x2e0
+>> [  102.274246]  ? mark_held_locks+0x40/0x70
+>> [  102.278177]  udl_primary_plane_helper_atomic_update+0x43e/0x680 [udl]
+>> [  102.284606]  ? __pfx_udl_primary_plane_helper_atomic_update+0x10/0x10 [udl]
+>> [  102.291551]  ? lockdep_hardirqs_on_prepare.part.0+0x92/0x170
+>> [  102.297208]  ? lockdep_hardirqs_on+0x88/0x130
+>> [  102.301554]  ? _raw_spin_unlock_irq+0x24/0x50
+>> [  102.305901]  ? wait_for_completion_timeout+0x2bb/0x3a0
+>> [  102.311028]  ? drm_atomic_helper_calc_timestamping_constants+0x141/0x200
+>> [  102.317714]  ? drm_atomic_helper_commit_planes+0x3b6/0x1030
+>> [  102.323279]  drm_atomic_helper_commit_planes+0x3b6/0x1030
+>> [  102.328664]  drm_atomic_helper_commit_tail+0x41/0xb0
+>> [  102.333622]  commit_tail+0x204/0x330
+>> [...]
+>> [  102.529946] ---[ end trace 0000000000000000 ]---
+>> [  102.651980] RIP: 0010:udl_compress_hline16+0x219/0x940 [udl]
+>>
+>> In this stack strace, udl (based on GEM-SHMEM) imported and vmap'ed a
+>> dma-buf from amdgpu. Amdgpu relocated the buffer, thereby invalidating the
+>> mapping.
+>>
+>> Provide a custom dma-buf vmap method in amdgpu that pins the object before
+>> mapping it's buffer's pages into kernel address space. Do the opposite in
+>> vunmap.
+>>
+>> Note that dma-buf vmap differs from GEM vmap in how it handles relocation.
+>> While dma-buf vmap keeps the buffer in place, GEM vmap requires the caller
+>> to keep the buffer in place. Hence, this fix is in amdgpu's dma-buf code
+>> instead of its GEM code.
+>>
+>> A discussion of various approaches to solving the problem is available
+>> at [1].
+>>
+>> v2:
+>> - only use mapable domains (Christian)
+>> - try pinning to domains in prefered order
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Fixes: 660cd44659a0 ("drm/shmem-helper: Import dmabuf without mapping its sg_table")
+>> Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Closes: https://lore.kernel.org/dri-devel/ba1bdfb8-dbf7-4372-bdcb-df7e0511c702@suse.de/
+>> Cc: Shixiong Ou <oushixiong@kylinos.cn>
+>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Cc: Maxime Ripard <mripard@kernel.org>
+>> Cc: David Airlie <airlied@gmail.com>
+>> Cc: Simona Vetter <simona@ffwll.ch>
+>> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+>> Cc: "Christian König" <christian.koenig@amd.com>
+>> Cc: dri-devel@lists.freedesktop.org
+>> Cc: linux-media@vger.kernel.org
+>> Cc: linaro-mm-sig@lists.linaro.org
+>> Link: https://lore.kernel.org/dri-devel/9792c6c3-a2b8-4b2b-b5ba-fba19b153e21@suse.de/ # [1]
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 41 ++++++++++++++++++++-
+>>   1 file changed, 39 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>> index 5743ebb2f1b7..471b41bd3e29 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>> @@ -285,6 +285,43 @@ static int amdgpu_dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
+>>   	return ret;
+>>   }
+>>   
+>> +static int amdgpu_dma_buf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)
+>> +{
+>> +	struct drm_gem_object *obj = dma_buf->priv;
+>> +	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+>> +	int ret;
+>> +
+>> +	/*
+>> +	 * Pin to keep buffer in place while it's vmap'ed. The actual
+>> +	 * domain is not that important as long as it's mapable. Using
+>> +	 * GTT should be compatible with most use cases. VRAM and CPU
+>> +	 * are the fallbacks if the buffer has already been pinned there.
+>> +	 */
+>> +	ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
+>> +	if (ret) {
+>> +		ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_VRAM);
+> That makes even less sense :)
 
-Hi Stanley,
-Sure, will do, thanks.
+This is intentional so that amdgpu first tries the most compatible 
+domain GTT and VRAM only as a second option.
 
-Regards,
-
-Liu, Xiang
-
-________________________________
-From: Yang, Stanley <Stanley.Yang@amd.com>
-Sent: Wednesday, August 20, 2025 3:28 PM
-To: Liu, Xiang(Dean) <Xiang.Liu@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com=
->; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu: Check VF critical region before RAS po=
-ison injection
-
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-
-All checking work should be done in host side, not only check current vf cr=
-itical region but also other vf critical region.
-
-For example, in extreme cases, current row memory addresses may be in other=
- vfs critical region, please handle this case in host side.
-
-
-
-Regards,
-
-Stanley
-
-From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Sent: Wednesday, August 20, 2025 2:02 PM
-To: Chai, Thomas <YiPeng.Chai@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Yang, Stanley <Stanley.Yang@amd.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Check VF critical region before RAS po=
-ison injection
-
-
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-
-
-Hi,
-
-As discuss offline with Thomas, will check the VF critical address regions =
-of guest in another patch as a new feature.
-
-Regards,
-
-Liu, Xiang
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Liu, Xiang(Dean) <Xiang.Liu@amd.com<m=
-ailto:Xiang.Liu@amd.com>>
-Sent: Wednesday, August 20, 2025 1:33 PM
-To: Chai, Thomas <YiPeng.Chai@amd.com<mailto:YiPeng.Chai@amd.com>>; amd-gfx=
-@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists=
-.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Z=
-hou1, Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>; Yang, Stanley <Sta=
-nley.Yang@amd.com<mailto:Stanley.Yang@amd.com>>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Check VF critical region before RAS po=
-ison injection
-
-
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-
-
-Hi Thomas,
-
-Sure, will do, thanks.
-
-Regards,
-
-Liu, Xiang
-
-________________________________
-
-From: Chai, Thomas <YiPeng.Chai@amd.com<mailto:YiPeng.Chai@amd.com>>
-Sent: Wednesday, August 20, 2025 9:39 AM
-To: Liu, Xiang(Dean) <Xiang.Liu@amd.com<mailto:Xiang.Liu@amd.com>>; amd-gfx=
-@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists=
-.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Z=
-hou1, Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>; Yang, Stanley <Sta=
-nley.Yang@amd.com<mailto:Stanley.Yang@amd.com>>
-Subject: RE: [PATCH 2/2] drm/amdgpu: Check VF critical region before RAS po=
-ison injection
-
-
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
------Original Message-----
-From: Liu, Xiang(Dean) <Xiang.Liu@amd.com<mailto:Xiang.Liu@amd.com>>
-Sent: Tuesday, August 19, 2025 1:26 PM
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Z=
-hou1, Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>; Yang, Stanley <Sta=
-nley.Yang@amd.com<mailto:Stanley.Yang@amd.com>>; Chai, Thomas <YiPeng.Chai@=
-amd.com<mailto:YiPeng.Chai@amd.com>>; Liu, Xiang(Dean) <Xiang.Liu@amd.com<m=
-ailto:Xiang.Liu@amd.com>>
-Subject: [PATCH 2/2] drm/amdgpu: Check VF critical region before RAS poison=
- injection
-
-Check VF critical region before RAS poison injection to ensure that the poi=
-son injection will not hit the VF critical region.
-
-Signed-off-by: Xiang Liu <xiang.liu@amd.com<mailto:xiang.liu@amd.com>>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index b00cbb927ca8..6730de574fdc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -219,10 +219,17 @@ static int amdgpu_check_address_validity(struct amdgp=
-u_device *adev,
-        struct amdgpu_vram_block_info blk_info;
-        uint64_t page_pfns[32] =3D {0};
-        int i, ret, count;
-+       bool hit =3D false;
-
-        if (amdgpu_ip_version(adev, UMC_HWIP, 0) < IP_VERSION(12, 0, 0))
-                return 0;
-
-+       if (amdgpu_sriov_vf(adev)) {
-+               if (amdgpu_virt_check_vf_critical_region(adev, address, &hi=
-t))
-+                       return -EPERM;
-+               return hit ? -EACCES : 0;
-
-[Thomas]Only checking if the address is within the PF critical address regi=
-ons may be not sufficient,
-          The VF critical address regions of guest may be also need to be c=
-hecked.
-
-+       }
-+
-        if ((address >=3D adev->gmc.mc_vram_size) ||
-            (address >=3D RAS_UMC_INJECT_ADDR_LIMIT))
-                return -EFAULT;
---
-2.34.1
-
---_000_CY5PR12MB63450891B649135F876A3719FA33ACY5PR12MB6345namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Calibri, Helvetica, sans-serif; font=
--size: 11pt; color: black;" class=3D"elementToProof">
-Hi Stanley,&nbsp;</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Calibri, Helvetica, sans-serif; font=
--size: 11pt; color: black;" class=3D"elementToProof">
-Sure, will do, thanks.</div>
-<p style=3D"text-align: left; text-indent: 0px; background-color: white; ma=
-rgin: 0px;" class=3D"elementToProof">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: black;">Regards,</span></p>
-<p style=3D"text-align: left; text-indent: 0px; background-color: white; ma=
-rgin-top: 0px; margin-bottom: 0px;" class=3D"elementToProof">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: rgb(36, 36, 36);">Liu, Xiang</span></p>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Yang, Stanley &lt;Sta=
-nley.Yang@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, August 20, 2025 3:28 PM<br>
-<b>To:</b> Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;; Chai, Thomas &lt;YiP=
-eng.Chai@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freed=
-esktop.org&gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao=
-.Zhou1@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: Check VF critical region before=
- RAS poison injection</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
-@font-face
-	{font-family:SimSun}
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{font-family:Aptos}
-@font-face
-	{}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#467886;
-	text-decoration:underline}
-p.x_elementtoproof, li.x_elementtoproof, div.x_elementtoproof
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif}
-p.x_xelementtoproof, li.x_xelementtoproof, div.x_xelementtoproof
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif}
-span.x_EmailStyle22
-	{font-family:"Aptos",sans-serif;
-	color:windowtext}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:b=
-reak-word">
-<p align=3D"Left" style=3D"font-family:Calibri; font-size:10pt; color:#0000=
-FF; margin:5pt; font-style:normal; font-weight:normal; text-decoration:none=
-">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:black">All checking work should be done in=
- host side, not only check current vf critical region but also other vf cri=
-tical region.</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:black">For example, in extreme cases, curr=
-ent row memory addresses may be in other vfs critical region, please handle=
- this case in host side.</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:black">&nbsp;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:black">Regards,</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:black">Stanley</span></p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
-n 4.0pt">
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&q=
-uot;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0=
-pt; font-family:&quot;Calibri&quot;,sans-serif"> Liu, Xiang(Dean) &lt;Xiang=
-.Liu@amd.com&gt;
-<br>
-<b>Sent:</b> Wednesday, August 20, 2025 2:02 PM<br>
-<b>To:</b> Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao=
-.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Check VF critical region before=
- RAS poison injection</span></p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt; font-family:&quo=
-t;Calibri&quot;,sans-serif; color:blue">[AMD Official Use Only - AMD Intern=
-al Distribution Only]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:black">Hi,</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:black">As discuss offline with Thomas, wil=
-l check the VF critical address regions of guest in another patch as a new =
-feature.</span></p>
-</div>
-<p class=3D"x_elementtoproof" style=3D"background:white"><span style=3D"fon=
-t-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:black">Reg=
-ards,</span></p>
-<p class=3D"x_elementtoproof" style=3D"background:white"><span style=3D"fon=
-t-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:#242424">L=
-iu, Xiang</span></p>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&q=
-uot;Calibri&quot;,sans-serif; color:black">From:</span></b><span style=3D"f=
-ont-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:black"> =
-amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.org">amd-gf=
-x-bounces@lists.freedesktop.org</a>&gt;
- on behalf of Liu, Xiang(Dean) &lt;<a href=3D"mailto:Xiang.Liu@amd.com">Xia=
-ng.Liu@amd.com</a>&gt;<br>
-<b>Sent:</b> Wednesday, August 20, 2025 1:33 PM<br>
-<b>To:</b> Chai, Thomas &lt;<a href=3D"mailto:YiPeng.Chai@amd.com">YiPeng.C=
-hai@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawk=
-ing.Zhang@amd.com</a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.c=
-om">Tao.Zhou1@amd.com</a>&gt;; Yang, Stanley &lt;<a href=3D"mailto:Stanley.=
-Yang@amd.com">Stanley.Yang@amd.com</a>&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Check VF critical region before=
- RAS poison injection</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt; font-family:&quo=
-t;Calibri&quot;,sans-serif; color:blue">[AMD Official Use Only - AMD Intern=
-al Distribution Only]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:black">Hi Thomas,&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:black">Sure, will do, thanks.</span></p>
-</div>
-<p class=3D"x_xelementtoproof" style=3D"background:white"><span style=3D"fo=
-nt-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:black">Re=
-gards,</span></p>
-<p class=3D"x_xelementtoproof" style=3D"background:white"><span style=3D"fo=
-nt-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:#242424">=
-Liu, Xiang</span></p>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&q=
-uot;Calibri&quot;,sans-serif; color:black">From:</span></b><span style=3D"f=
-ont-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:black"> =
-Chai, Thomas &lt;<a href=3D"mailto:YiPeng.Chai@amd.com">YiPeng.Chai@amd.com=
-</a>&gt;<br>
-<b>Sent:</b> Wednesday, August 20, 2025 9:39 AM<br>
-<b>To:</b> Liu, Xiang(Dean) &lt;<a href=3D"mailto:Xiang.Liu@amd.com">Xiang.=
-Liu@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawk=
-ing.Zhang@amd.com</a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.c=
-om">Tao.Zhou1@amd.com</a>&gt;; Yang, Stanley &lt;<a href=3D"mailto:Stanley.=
-Yang@amd.com">Stanley.Yang@amd.com</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: Check VF critical region before=
- RAS poison injection</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt"><a name=3D"x_x_BM_B=
-EGIN"></a><span style=3D"font-size:11.0pt; font-family:&quot;Times New Roma=
-n&quot;,serif">[AMD Official Use Only - AMD Internal Distribution Only]<br>
-<br>
------Original Message-----<br>
-From: Liu, Xiang(Dean) &lt;<a href=3D"mailto:Xiang.Liu@amd.com">Xiang.Liu@a=
-md.com</a>&gt;<br>
-Sent: Tuesday, August 19, 2025 1:26 PM<br>
-To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesk=
-top.org</a><br>
-Cc: Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawking.Zha=
-ng@amd.com</a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com">Tao=
-.Zhou1@amd.com</a>&gt;; Yang, Stanley &lt;<a href=3D"mailto:Stanley.Yang@am=
-d.com">Stanley.Yang@amd.com</a>&gt;; Chai, Thomas &lt;<a href=3D"mailto:YiP=
-eng.Chai@amd.com">YiPeng.Chai@amd.com</a>&gt;;
- Liu, Xiang(Dean) &lt;<a href=3D"mailto:Xiang.Liu@amd.com">Xiang.Liu@amd.co=
-m</a>&gt;<br>
-Subject: [PATCH 2/2] drm/amdgpu: Check VF critical region before RAS poison=
- injection<br>
-<br>
-Check VF critical region before RAS poison injection to ensure that the poi=
-son injection will not hit the VF critical region.<br>
-<br>
-Signed-off-by: Xiang Liu &lt;<a href=3D"mailto:xiang.liu@amd.com">xiang.liu=
-@amd.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++++++<br>
-&nbsp;1 file changed, 7 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c<br>
-index b00cbb927ca8..6730de574fdc 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
-@@ -219,10 +219,17 @@ static int amdgpu_check_address_validity(struct amdgp=
-u_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vram_block_info bl=
-k_info;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t page_pfns[32] =3D {0};<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, ret, count;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool hit =3D false;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ip_version(adev, UMC_=
-HWIP, 0) &lt; IP_VERSION(12, 0, 0))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return 0;<br>
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (amdgpu_virt_check_vf_critical_region(adev, address, &amp;hit=
-))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EPERM;<b=
-r>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return hit ? -EACCES : 0;<br>
-<br>
-[Thomas]Only checking if the address is within the PF critical address regi=
-ons may be not sufficient,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The VF critical addr=
-ess regions of guest may be also need to be checked.<br>
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((address &gt;=3D adev-&gt;gm=
-c.mc_vram_size) ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (address=
- &gt;=3D RAS_UMC_INJECT_ADDR_LIMIT))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return -EFAULT;<br>
---<br>
-2.34.1</span><span style=3D"font-family:&quot;Times New Roman&quot;,serif">=
-</span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
+> The values are a mask, try this:
+>
+> ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT | AMDGPU_GEM_DOMAIN_VRAM);
 
---_000_CY5PR12MB63450891B649135F876A3719FA33ACY5PR12MB6345namp_--
+I'm aware that it's a bitmask. But IIUC 
+amdgpu_bo_placement_from_domain() [1] prefers VRAM over GTT if both are 
+given. If another importer now comes that requires the BO in GTT, it 
+would fail the pin.
+
+[1] 
+https://elixir.bootlin.com/linux/v6.16.1/source/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c#L109
+
+>
+> Otherwise the pin code will try to move the buffer around to satisfy the contrain you given.
+
+>
+> And don't use the CPU domain here, this will otherwise potentially block submission later on.
+
+Ok.
+
+Best regards
+Thomas
+
+>
+> Regards,
+> Christian.
+>
+>> +		if (ret) {
+>> +			ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_CPU);
+>> +			if (ret)
+>> +				return ret;
+>> +		}
+>> +	}
+>> +	ret = drm_gem_dmabuf_vmap(dma_buf, map);
+>> +	if (ret)
+>> +		amdgpu_bo_unpin(bo);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map)
+>> +{
+>> +	struct drm_gem_object *obj = dma_buf->priv;
+>> +	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+>> +
+>> +	drm_gem_dmabuf_vunmap(dma_buf, map);
+>> +	amdgpu_bo_unpin(bo);
+>> +}
+>> +
+>>   const struct dma_buf_ops amdgpu_dmabuf_ops = {
+>>   	.attach = amdgpu_dma_buf_attach,
+>>   	.pin = amdgpu_dma_buf_pin,
+>> @@ -294,8 +331,8 @@ const struct dma_buf_ops amdgpu_dmabuf_ops = {
+>>   	.release = drm_gem_dmabuf_release,
+>>   	.begin_cpu_access = amdgpu_dma_buf_begin_cpu_access,
+>>   	.mmap = drm_gem_dmabuf_mmap,
+>> -	.vmap = drm_gem_dmabuf_vmap,
+>> -	.vunmap = drm_gem_dmabuf_vunmap,
+>> +	.vmap = amdgpu_dma_buf_vmap,
+>> +	.vunmap = amdgpu_dma_buf_vunmap,
+>>   };
+>>   
+>>   /**
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
+
