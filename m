@@ -4,127 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E417FCA0EDC
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 19:46:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AD9DCA0EE4
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 19:57:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8827D10E7E1;
-	Wed, 20 Aug 2025 19:46:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E6F10E029;
+	Wed, 20 Aug 2025 19:57:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DrIZfNMA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZEaBoMBM";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65E6410E7DB;
- Wed, 20 Aug 2025 19:46:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hq/oS3nNagSLJtxmGXSWoegKpPP6rhS0yZjGZMuEx51FyOFECyjPU687mh8u+bJyvfkBrItDceGp6Nc4al477ZElBEqFSnk1We4JwKfPiGv3oHdotDS3PoWATLfC/QpIWiS8K0HbQSENsW3Fge7wSRr3EWykPkv3kPltx9CBjWj6it5o5/NxYwEp56qYFWuoDcgFvmD5LuQ3U6cayRHqrc5O5kMZs64IpX0kkCVnsoNicasJONej2g0ExQLFhrRZYzJ/C0faydGDwC27mXhl1dU2hTjzTTmMYn9ulGQ4fE+VcYpBnz88yYoZXUvVaqWzQ79ryyCgJ/kHhV25o1yK9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=96IRkq5noLiCeztQg+UcjT5UJ20ivGw6HtrYlTCPHhM=;
- b=OhAx50rrRQvSyI+A5gQ6s6Yfbqh5mxn+dnAlOODZkUewHd7Q8ZsNCEGVZrkjVnjO2mwMihp3DXyZwdxOk+kdpkdHC5XIAMrM4fl4Z0G43RHIJo45GmA200RhS2Wa/9HQFgCk1kDqVmrlhw+tWkhExej+2pUxURuxcRo9mX5kBUm0BHAkdznSVlCU2i2EBbh9JCb7d3ItzvJKqsqLyXDfL5HwM8ynBA07sd6MZPSpctc7OhHDvmwWxnvFzrOWK8g8gNX5sCcAy6l7FBIFMCCykdCEpjeDbP2ZsxpsRm8nj4R8JbHWipbVax44jzfdSh9r5QMsnT1zGs/q8801+DIRVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=96IRkq5noLiCeztQg+UcjT5UJ20ivGw6HtrYlTCPHhM=;
- b=DrIZfNMADYHPSVnuqILCVooQbKYX4XS5qWY8tIoSOZ20EwEiqYWJNPuJVr3u6otPh7x6E66MarawB0s07pK4PfBXenuF86XotxQhhEeKv7mrKhG8VdUznhfuDSTNr8fo1g2yp5BBwAI3fQFy06eCJgCsOjYU88bIhm3dA3tfE08=
-Received: from DM5PR08CA0025.namprd08.prod.outlook.com (2603:10b6:4:60::14) by
- PH7PR12MB7987.namprd12.prod.outlook.com (2603:10b6:510:27c::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.13; Wed, 20 Aug
- 2025 19:46:52 +0000
-Received: from DS3PEPF000099DC.namprd04.prod.outlook.com
- (2603:10b6:4:60:cafe::c1) by DM5PR08CA0025.outlook.office365.com
- (2603:10b6:4:60::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.14 via Frontend Transport; Wed,
- 20 Aug 2025 19:46:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099DC.mail.protection.outlook.com (10.167.17.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9052.8 via Frontend Transport; Wed, 20 Aug 2025 19:46:50 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 Aug
- 2025 14:46:49 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu drm-fixes-6.17
-Date: Wed, 20 Aug 2025 15:46:36 -0400
-Message-ID: <20250820194636.101975-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.50.1
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B45EA10E029
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 19:57:17 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2447d607b70so317025ad.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 12:57:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755719837; x=1756324637; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Pe3gnWtS/PrDLupSzMxk/pC1mKHfl2eew8gqjMnIEco=;
+ b=ZEaBoMBMLUknolskNFS723dIZZ5U20SA2CVTjGsTYdials2Ng+dxULD58Xu2RRuL0f
+ N6Mc+czebxuAOcBVwe6zXxNr7nu2X/kgOkKxHUzYqkYSqx5f1NCv0l46iqs+mzcSyusQ
+ nmTDwWbwPs3nbHzMUUEyHeQiDD8lkNtNdXu6mJMa0/TzzMQOjilWwi/iH7FDX4lAQ2j2
+ dM43//EVEww0XBbnixNLLskjSOgwkByqyb+BpXoBvxgGH9d1zg07jhdKxCf2PxOadAM2
+ Q+cmU7sLClThmZrAizVIpRbJqciBfantnf2jYWN1kUO7ubK3pAfPBl79GvIClHHIZDwH
+ hXAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755719837; x=1756324637;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Pe3gnWtS/PrDLupSzMxk/pC1mKHfl2eew8gqjMnIEco=;
+ b=sfDyxMTj+uBowyDNWOYNDHC0unTlJbBeObTsOg3pNTZ8q4kTEAfBGQwCQ70pA7EXMn
+ VNjvIzVEvudXdDT1Rr7pcFklG5ogzyczqyI4K6dg5NrUWxNI1nkZ7TBxfK8JcdKPEgyq
+ jtfHxsrSlhGiRdCv+kyXMZrH4WTFuPMcE3Xdd4TkmK3NTvOlJyZrnPkygPVqSb1kw4Rf
+ Vd3JxzGR9ZT+zsYvHnlC9ZcZ46uKwJu5jj9SoO6PqPd13aeqCFsNHIFQx5drU4oedqyr
+ yFHNp/rUHy81QkLOSZC/6h6x/3dhbR1hrUxyUvHJUGFYNma3NVtJg9QUTu/ta9mxFiWd
+ blQg==
+X-Gm-Message-State: AOJu0YzI+mb30JeJpblCS5mWKUX8Ckl800+e7e2siJ9gc6wLq6plaBpK
+ 0r4DDTADnwwYQX8rWIjWyx6SI8j6WALGwde6PbIq0+nR0EJdMgQ11T+wpcunLafh9jByPNmwzEV
+ 9/kgoPJ7Yh5N6MbByus+vB6/Dr8O1L6awZtc2
+X-Gm-Gg: ASbGnctl7hhrCo2T6+9TWexpyPJemBaOFOB1/aclD9UiuhCwTIzaItpGHviDg3p9Xwk
+ dJWCmu+k9xPfvPjAlfQqjDGoT6zXnvzeUJXnJ1yIZ13kMZGJfoLEYG5DgK3FwgmpzrFnxuonqty
+ vQP+L4R0Hd21VZKBucWfNOQRSQ8acFHzQ8jRMnb5Wqb6doqFemfKxIQSQYIR40LuQHbVS70HdPC
+ xt0RugBc17jgjJhxA==
+X-Google-Smtp-Source: AGHT+IH4ri/m3Pvw5q6kETZRGghWU6AYmhNwKnOjIUp+CB2XCjuqKFgEqasWriOIiirvdv9IG1c8hlVmLFHHDHhc6n0=
+X-Received: by 2002:a17:903:2450:b0:240:8fd6:f798 with SMTP id
+ d9443c01a7336-245febf32c3mr196335ad.4.1755719837149; Wed, 20 Aug 2025
+ 12:57:17 -0700 (PDT)
 MIME-Version: 1.0
+References: <20250820184725.432071-1-shaoyun.liu@amd.com>
+In-Reply-To: <20250820184725.432071-1-shaoyun.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 20 Aug 2025 15:57:05 -0400
+X-Gm-Features: Ac12FXwpTqccQ2HGDqJJvdnohWvCxZ-JyN-J6BgCGh0h4NOmRIFmSg5by6QvZqw
+Message-ID: <CADnq5_Mysyg77K9rGx2Himz+oixP1oUniR22CHa7-NmrEksM2g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/amdgpu : Use the MES INV_TLBS API for tlb
+ invalidation on gfx12
+To: Shaoyun Liu <shaoyun.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DC:EE_|PH7PR12MB7987:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4ec88b5-ed70-4654-f3cc-08dde0224e3d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NnJ3cGtaTUZRei9aTmpMYkNsRVFXVDNzQnVPek9XbVBpUHBKQkZpUXFwaHk2?=
- =?utf-8?B?ZGsxZnc2U3JMWWFuZm1EYldzVTYwcUZ0Z3dYL2dDUUdyeVgyTWVjYU5uOURj?=
- =?utf-8?B?eEFTSjBaY3BEdzZUTkdncHZjOUZPaWlBZEZ4WGd2Q0NtUWZUSkxhUzNCUjl2?=
- =?utf-8?B?WnpCRVc3UzVzd2ZSZyt4WWhXL1MzRE81UWhYTHNqb1RJWWQwUzY2aWxJcUsz?=
- =?utf-8?B?WDJMdWhGUkR5Qjh6YWwyMW0weFZnNDUyQXptQXhTNENmemxxUWlPcjNtb0ZF?=
- =?utf-8?B?b204ZDBJTnV6Ynppem5NNGQzY0g2NFFTczJ2Vk94WW5qUzM1b2VjYmFjOVpB?=
- =?utf-8?B?TmJvditodVVYOEFHN1BjYkc2WmgyRFlPREV1bUpvOWxVMm5jaEIyZE91NzVV?=
- =?utf-8?B?bjR0WWhLWkFPSXNsYmlhWTJYTmNRNTc1eHlvcG5WYmg0UFBmdHM0N0VLZ0JH?=
- =?utf-8?B?azlndzAzQm01OWY5ZnBRTVdGUjN4Vldnd0c5dlFWSWNRYzZiaUY5Z25LMVdJ?=
- =?utf-8?B?bEN5V0dXRlVlMk1qWnFrcFBZTnpGNTRmK25rS3JXZ3JtbVNWK1N3UzNjck9p?=
- =?utf-8?B?WHpJRVVmVU9FUUJHTng0Z1FwaEZod3pGc0IwaDVIZGtpMm1ERWRMUEFuNDY0?=
- =?utf-8?B?WGFsV0xnNjdYUzAxa3pmUElFQmpqU21wVkltSG5VcFVxbDY0R2ZJL0cvSUlU?=
- =?utf-8?B?K2wvRTNCYVVkaXo2ZTEwRUROdThwSS8xZjNNQkVlVzBhWnc5ZG9wMmxRSG5L?=
- =?utf-8?B?ZDRDMjFmdDdLYytRZThCU3U4UWVMNnRRdzdMam9FOTl1R2dmbGJ1K3IxNjZo?=
- =?utf-8?B?Y0VlaVVIdFNyMWIyNk1FbVJDWFNQaVJTUkxrT0JYd0JrUHRlRVNzZmlQd0I1?=
- =?utf-8?B?K1VoWWkrMlkwcytoaUgvWmxnbHV3REZ2RjFZd1liY2pteDVPR0pUaEtvcTJ4?=
- =?utf-8?B?QWdybThxM1k5eGlkakw4bm5aaVkzWW1XLytFVmlPM2RJaG9hUmpIaG11djhB?=
- =?utf-8?B?NTdGL0QxQjAxb2lKK0NyZDNRWDNBSFVxZm5OUWc0WmppR1BtUWkzU1lBUWtX?=
- =?utf-8?B?WEJjQmg3Z0VaTTdCbDZ4bnFKdVlRZTlpd1JXalI5WmJrU0xReVdnU0hIUmtv?=
- =?utf-8?B?NmRLdndJUkxIUTlzb25Vd1N6cGh4MzVRTzBLN2NrOWpyV3FDbSs2dW1XN3Qx?=
- =?utf-8?B?VlNEdUoxSHpzSW51SGpDYmZ2SytWWGpCdXl6d3pYMDZZb3V0YWZycklvNGN1?=
- =?utf-8?B?K05jOWhFN20xNmZ6eUpmNkUxa3F1R2x2eEhQeEFnK3RsME5CYk01amZ6OEtF?=
- =?utf-8?B?eTB0SWhpYktIVTBFbFFCMmFPWkdmWXVkUzFQY0FwM1VhZFFuMGxPL3V6Sm83?=
- =?utf-8?B?c0ZLQ1NFeHhXbk8wbG4xdkxjZ09EU3ZidkwydDlYWTFlNXdhVEZ4dFFITG9W?=
- =?utf-8?B?Zi9QUGFBYkdvOXpLbkgyYlpkc1Vuc3l5NHFjSjBWTE0vN05FTUNNNFcxZnZq?=
- =?utf-8?B?WXBPb2RjTC9KRHgwUDdGN1NjK095djN3dndONGpPa1pkZ3JtOCtRZnZsaHhD?=
- =?utf-8?B?am5ZQXBmdlM1alZPWkNpSWFZR2VwdmxDWEl5TjJmZUZlbFduZFBVMmpkV3VI?=
- =?utf-8?B?cUdWL2ZSUG9hbGsrVVo3d1ZtTDBISXcwYTR3d3pML2xmRE5SYzlHZ0R2Z2s0?=
- =?utf-8?B?aVVHZjFsVnlBSHY0M3NkUkI3c2hlcVdVckJNWXZXYzk5Q1ZWbDFocHBtM0Fo?=
- =?utf-8?B?Zld6ZkZuV2JQRTA5eVJSd1B0Z1E3T2wvN1lYZlUwTTlKaHdPZHFSV2JIWlRh?=
- =?utf-8?B?NXVtOWsyblFsRVIvbWpGZFJrZ2hxbXN0cG9QcFoyV05KUFpudEczc0VETm5J?=
- =?utf-8?B?UjlJelhiVDVQY0RneEtzSlNkMmZuaGoyNTFicmN2V3hHeWRhdktYVDZZN3U2?=
- =?utf-8?B?ZHp0NElzSklYVXFEalhPNE82VFZwVGFadTNSMnNEV0hYSWRpa0krSkt4ZWY0?=
- =?utf-8?B?TVJxTWJCTFpnPT0=?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024)(13003099007);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2025 19:46:50.1861 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4ec88b5-ed70-4654-f3cc-08dde0224e3d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DC.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7987
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,71 +81,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+On Wed, Aug 20, 2025 at 2:47=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> w=
+rote:
+>
+> From MES version 0x81, it provide the new API INV_TLBS that support
+> invalidate tlbs with PASID.
+>
+> Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 16 ++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 22 ++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  | 25 +++++++++++++++++++++++++
+>  3 files changed, 63 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_mes.h
+> index c0d2c195fe2e..1b6e7b4fde36 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> @@ -280,6 +280,19 @@ struct mes_reset_queue_input {
+>         bool                               is_kq;
+>  };
+>
+> +enum amdgpu_mes_hub_id {
+> +       AMDGPU_MES_GC_HUB =3D 0,
+> +       AMDGPU_MES_MM_HUB0 =3D 1,
+> +       AMDGPU_MES_MM_HUB1 =3D 2,
+> +};
+> +
+> +struct mes_inv_tlbs_pasid_input {
+> +       uint32_t        xcc_id;
+> +       uint16_t        pasid;
+> +       uint8_t         hub_id;
+> +       uint8_t         flush_type;
+> +};
+> +
+>  enum mes_misc_opcode {
+>         MES_MISC_OP_WRITE_REG,
+>         MES_MISC_OP_READ_REG,
+> @@ -367,6 +380,9 @@ struct amdgpu_mes_funcs {
+>
+>         int (*reset_hw_queue)(struct amdgpu_mes *mes,
+>                               struct mes_reset_queue_input *input);
+> +
+> +       int (*invalidate_tlbs_pasid)(struct amdgpu_mes *mes,
+> +                             struct mes_inv_tlbs_pasid_input *input);
+>  };
+>
+>  #define amdgpu_mes_kiq_hw_init(adev) (adev)->mes.kiq_hw_init((adev))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v12_0.c
+> index feb92e107af8..ef58a849d67d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -339,6 +339,28 @@ static void gmc_v12_0_flush_gpu_tlb_pasid(struct amd=
+gpu_device *adev,
+>         uint16_t queried;
+>         int vmid, i;
+>
+> +       if (adev->enable_uni_mes && adev->mes.ring[AMDGPU_MES_SCHED_PIPE]=
+.sched.ready &&
+> +           (adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D 0x81=
+) {
+> +
+> +               struct mes_inv_tlbs_pasid_input input =3D {0};
+> +               input.pasid =3D pasid;
+> +               input.flush_type =3D flush_type;
+> +               if (all_hub) {
+> +                       for_each_set_bit(i, adev->vmhubs_mask,
+> +                                        AMDGPU_MAX_VMHUBS) {
+> +                               /*
+> +                                * For gfx12, the index i from vmhubs_mas=
+k matchs AMDGPU_MES_HUB_ID,
+> +                                * Need to convert them if they are not m=
+atch in future asic
+> +                                */
 
-Fixes for 6.17.
+Are you sure about this?  From above:
 
-The following changes since commit c17b750b3ad9f45f2b6f7e6f7f4679844244f0b9:
+> +       AMDGPU_MES_GC_HUB =3D 0,
+> +       AMDGPU_MES_MM_HUB0 =3D 1,
+> +       AMDGPU_MES_MM_HUB1 =3D 2,
 
-  Linux 6.17-rc2 (2025-08-17 15:22:10 -0700)
+And then in amdgpu_vm.h:
 
-are available in the Git repository at:
+/*
+ * max number of VMHUB
+ * layout: max 8 GFXHUB + 4 MMHUB0 + 1 MMHUB1
+ */
+#define AMDGPU_MAX_VMHUBS                       13
+#define AMDGPU_GFXHUB_START                     0
+#define AMDGPU_MMHUB0_START                     8
+#define AMDGPU_MMHUB1_START                     12
+#define AMDGPU_GFXHUB(x)                        (AMDGPU_GFXHUB_START + (x))
+#define AMDGPU_MMHUB0(x)                        (AMDGPU_MMHUB0_START + (x))
+#define AMDGPU_MMHUB1(x)                        (AMDGPU_MMHUB1_START + (x))
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.17-2025-08-20
+Alex
 
-for you to fetch changes up to 297a4833a68aac3316eb808b4123eb016ef242d7:
-
-  drm/amd/display: Fix DP audio DTO1 clock source on DCE 6. (2025-08-18 18:00:56 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.17-2025-08-20:
-
-amdgpu:
-- Replay fixes
-- SMU14 fix
-- Null check DC fixes
-- DCE6 DC fixes
-- Misc DC fixes
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu/swm14: Update power limit logic
-
-Chenyuan Yang (1):
-      drm/amd/display: Add null pointer check in mod_hdcp_hdcp1_create_session()
-
-Gabe Teeger (1):
-      drm/amd/display: Revert Add HPO encoder support to Replay
-
-Mario Limonciello (1):
-      drm/amd/display: Avoid a NULL pointer dereference
-
-Timur Kristóf (8):
-      drm/amd/display: Don't overclock DCE 6 by 15%
-      drm/amd/display: Adjust DCE 8-10 clock, don't overclock by 15%
-      drm/amd/display: Find first CRTC and its line time in dce110_fill_display_configs
-      drm/amd/display: Fill display clock and vblank time in dce110_fill_display_configs
-      drm/amd/display: Don't warn when missing DCE encoder caps
-      drm/amd/display: Don't print errors for nonexistent connectors
-      drm/amd/display: Fix fractional fb divider in set_pixel_clock_v3
-      drm/amd/display: Fix DP audio DTO1 clock source on DCE 6.
-
-Tom Chung (1):
-      drm/amd/display: Fix Xorg desktop unresponsive on Replay panel
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  3 ++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 19 ++++++++++
- drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  |  5 +--
- .../gpu/drm/amd/display/dc/bios/command_table.c    |  2 +-
- .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    | 14 +++----
- .../amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c | 40 +++++++++++---------
- .../amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c   | 31 +++++-----------
- drivers/gpu/drm/amd/display/dc/core/dc.c           | 15 +++++++-
- .../gpu/drm/amd/display/dc/dce/dce_link_encoder.c  |  8 ++--
- drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c   | 43 ++--------------------
- drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h   |  2 +-
- .../dc/link/protocols/link_edp_panel_control.c     |  2 +-
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    | 20 ----------
- .../gpu/drm/amd/display/modules/hdcp/hdcp_psp.c    |  3 ++
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 30 ++++++++++++---
- 15 files changed, 112 insertions(+), 125 deletions(-)
+> +                               input.hub_id =3D i;
+> +                               adev->mes.funcs->invalidate_tlbs_pasid(&a=
+dev->mes, &input);
+> +                       }
+> +               } else {
+> +                       adev->mes.funcs->invalidate_tlbs_pasid(&adev->mes=
+, &input);
+> +               }
+> +               return;
+> +       }
+> +
+>         for (vmid =3D 1; vmid < 16; vmid++) {
+>                 bool valid;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v12_0.c
+> index 6b222630f3fa..bcaaccf28765 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -108,6 +108,7 @@ static const char *mes_v12_0_opcodes[] =3D {
+>         "SET_SE_MODE",
+>         "SET_GANG_SUBMIT",
+>         "SET_HW_RSRC_1",
+> +       "INVALIDATE_TLBS",
+>  };
+>
+>  static const char *mes_v12_0_misc_opcodes[] =3D {
+> @@ -879,6 +880,29 @@ static int mes_v12_0_reset_hw_queue(struct amdgpu_me=
+s *mes,
+>                         offsetof(union MESAPI__RESET, api_status));
+>  }
+>
+> +static int mes_v12_0_inv_tlbs_pasid(struct amdgpu_mes *mes,
+> +                                   struct mes_inv_tlbs_pasid_input *inpu=
+t)
+> +{
+> +       union MESAPI__INV_TLBS mes_inv_tlbs;
+> +
+> +       memset(&mes_inv_tlbs, 0, sizeof(mes_inv_tlbs));
+> +
+> +       mes_inv_tlbs.header.type =3D MES_API_TYPE_SCHEDULER;
+> +       mes_inv_tlbs.header.opcode =3D MES_SCH_API_INV_TLBS;
+> +       mes_inv_tlbs.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +
+> +       mes_inv_tlbs.invalidate_tlbs.inv_sel =3D 0;
+> +       mes_inv_tlbs.invalidate_tlbs.flush_type =3D input->flush_type;
+> +       mes_inv_tlbs.invalidate_tlbs.inv_sel_id =3D input->pasid;
+> +       /*The AMDGPU_MES_HUB_ID from input matchs mes expection on gfx12*=
+/
+> +       mes_inv_tlbs.invalidate_tlbs.hub_id =3D (uint32_t)input->hub_id;
+> +
+> +       return mes_v12_0_submit_pkt_and_poll_completion(mes, AMDGPU_MES_K=
+IQ_PIPE,
+> +                       &mes_inv_tlbs, sizeof(mes_inv_tlbs),
+> +                       offsetof(union MESAPI__INV_TLBS, api_status));
+> +
+> +}
+> +
+>  static const struct amdgpu_mes_funcs mes_v12_0_funcs =3D {
+>         .add_hw_queue =3D mes_v12_0_add_hw_queue,
+>         .remove_hw_queue =3D mes_v12_0_remove_hw_queue,
+> @@ -888,6 +912,7 @@ static const struct amdgpu_mes_funcs mes_v12_0_funcs =
+=3D {
+>         .resume_gang =3D mes_v12_0_resume_gang,
+>         .misc_op =3D mes_v12_0_misc_op,
+>         .reset_hw_queue =3D mes_v12_0_reset_hw_queue,
+> +       .invalidate_tlbs_pasid =3D mes_v12_0_inv_tlbs_pasid,
+>  };
+>
+>  static int mes_v12_0_allocate_ucode_buffer(struct amdgpu_device *adev,
+> --
+> 2.34.1
+>
