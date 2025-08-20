@@ -4,85 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFEA2CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 14:59:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC1FCA0EDC
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Aug 2025 16:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7925310E77A;
-	Wed, 20 Aug 2025 14:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6EC10E7AB;
+	Wed, 20 Aug 2025 16:01:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BYBDZ3f4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gbuHnsjF";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D97110E77A
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 14:59:17 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-45a1abf5466so27965e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Aug 2025 07:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755701956; x=1756306756; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=o7KH7OX9QUxmxAY8HZsfKaxCpqJBed+Zh5eDqIMrH0s=;
- b=BYBDZ3f47+mRfxSvfqqi0d4sLxlpIHWXYMDwqfag7TtWB+I0pzXIH24gf3dHWwVscb
- HKpYhyxgxE4OQP46R3Rrvh32woUMWU0cPPEmFL4sQ0jVaPyS62fWqoFs1ilLYvXbvmUh
- Otq/cEt9U03GFMa71YRETU5A7sA1A4aL4TfSrEllDbBQQ7fKIoVbR2v9RDgIG72T7EAr
- bEKy8I6gdZGVhun6vYR12x9hCqXrt6qTdg2zBJvCweLAiL6Ef5LHwF1odPeI0nNL2hKw
- YlwTryC8u06qTBSaOSAtp/XX/qdd09dC8ljX7qWWm8/p99US6ZIStzqKsMhZ+MUv16qD
- QWhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755701956; x=1756306756;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=o7KH7OX9QUxmxAY8HZsfKaxCpqJBed+Zh5eDqIMrH0s=;
- b=BR/Ekhcdjh0SWDUc3dwHUHftsVNWsFcBvSSyeMBc0S6Vsa7OFRkybn2NbfMzYh2p9O
- 8gOIYH3Hv3oCdRrNrejfdoY/rm03P2HxZ79xNNblzceiyjyMRDkq+RK2ASEGPG23Ev1c
- PA0yidbErDHJ0B3yWv0j5z7vp04LYOIBPNoeo4TnoNFLtCVjG6uNqHf7x3waw8AHQ6wJ
- qw+Q6xFRYx13g4FND9iEOCCWUVf2WZBDx92G8bBaouqssZGsjlQ9Cyxrj2/8g6EJEYR7
- g+69dg3dKnmaqlI+VL1VGX1ek8LCyFii+2kU6XAq7ntptdsGHhjFyrG1XqV5JSlqQ16B
- LlBw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWIXAZKxqYXpV+k6aDtlIuDO4e6s1HeFrxumiv2vaOCwG3RrjiCa6JhvXTypU5y8w1hJYvRN2da@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwhpNlTqMvzqiJSHIc59JOR0gv522GF64Cv94qO/BBPz7hT8bMD
- OHx6om1fZP6xKolBYEmSWpjIOEcLB2LbQgSe18YUENAlaYaRCrGIpCcb
-X-Gm-Gg: ASbGnctwG5SgNRF+qe8nfjdxX/R+g8akps8K8J4R24nTrS3R9bNsluX47YrMVp/5WPq
- KNe3lKkDzqztCw0a5akRoiH9cId2cX/+8YdRLfhDXB9yo03XRP+9ExsOoa7MglngqnqmiA49A7N
- k3LkSQjYPg/oVN2Pt9XEUTowuH+6WBfZBNzFL4mJJLmeFh+6r90vMOlLnYa01aawAYnKAvRXzOl
- husWYbxatU+NV596DxijVAlDlznbZ6dYaTeZyZnUst4gym50SKnFVelyggLnt8DS8XPhaLQCr6A
- hCv/8VofS7yCfF+paQXui29xlJgWQxV8cqiPBEV9kL3F1tbdGyHpxc0MwDedhVwGNJPjLbcVLMw
- kg6eiXdtEm1hMVdiWOFDHPhQ53Xg7Z/M5fXsKuLdSaik6d/8Z3m6E+k/hFUJslTCtStYQgPmS5Z
- 4x+d+W1Z+sec4SQFeRPmQj1KhTcgCeAtTjNzgjV9NUOVZHQbdJllzba0JRTD1c6cbHV2w=
-X-Google-Smtp-Source: AGHT+IEhsKgLapOYp8Fo7Dj1J3QiOp1+mjAuW+WDNUXFkcGjgDA5+TlgIlfL7Vt/1oqEdFrCod5WCQ==
-X-Received: by 2002:a05:600c:3b85:b0:459:db88:c4ca with SMTP id
- 5b1f17b1804b1-45b43e5da51mr60211465e9.3.1755701955727; 
- Wed, 20 Aug 2025 07:59:15 -0700 (PDT)
-Received: from ?IPv6:2001:4c4e:24d9:d00:e837:7025:20a0:bf2?
- (20014C4E24D90D00E837702520A00BF2.dsl.pool.telekom.hu.
- [2001:4c4e:24d9:d00:e837:7025:20a0:bf2])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b47c42cf1sm38993105e9.12.2025.08.20.07.59.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Aug 2025 07:59:15 -0700 (PDT)
-Message-ID: <498ab5568b1050cc629fb28101370430ec1c14f3.camel@gmail.com>
-Subject: Re: [PATCH 2/5] Documentation/gpu: Add new glossary entries from UMR
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, 
- kernel-dev@igalia.com
-Date: Wed, 20 Aug 2025 16:59:14 +0200
-In-Reply-To: <CADnq5_M8nEKSVu_2w6P34GBxYHfNzjL_7Ff1GW_Sy6KT-7FmmQ@mail.gmail.com>
-References: <20250816153315.1285182-1-siqueira@igalia.com>
- <20250816153315.1285182-3-siqueira@igalia.com>
- <ddd650e7d6887103c6c91ff89d81411bdf4d0a8e.camel@gmail.com>
- <CADnq5_M8nEKSVu_2w6P34GBxYHfNzjL_7Ff1GW_Sy6KT-7FmmQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B4C610E78A;
+ Wed, 20 Aug 2025 16:01:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=PXFf5NUrRE2hsZJwNZ1X7sNIcwtonfdPr1NAIWbXTFw=; b=gbuHnsjFOu30aTkmxGx2nKoGdS
+ gt2KI7yBZ0e0PUpa1kw50TUf+4bNNdH4/xP1tZC8Y+vYGC8gsjzFPz0eFi/D123Z0/2NgA9DZWqRg
+ EYAK7uHqrnz79VE07rjkoCYBNUvC6H+SLLK/8riL3UQsKX7y/mlVEx1ki6vdMrXexFUIX7hL9wyGt
+ qoMjktUmrdI3t6FcaEnTx5H5Acgqr8bD1B+ieMkJ9oBrq2mlWX8xaROX+/Hlvsvb66NLVn2bIWin8
+ Ubv/MtgGaGOdMobhe2jQSyO6ePpPEQhFHwaDRtjjZw4GNhBPH1o50sLNLqrtUa3xF0Sf3LDhh6m6H
+ DouWcxYg==;
+Received: from [189.6.13.79] (helo=[192.168.31.42])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uolFA-00Gqnm-Gp; Wed, 20 Aug 2025 18:00:56 +0200
+Message-ID: <e3b1f1bb-eeee-4887-a0f9-d6aa1f725ff4@igalia.com>
+Date: Wed, 20 Aug 2025 13:00:49 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/amd/display: fix leak of probed modes
+To: Fedor Pchelkin <pchelkin@ispras.ru>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hans de Goede <hansg@kernel.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org, stable@vger.kernel.org
+References: <20250819184636.232641-1-pchelkin@ispras.ru>
+ <20250819184636.232641-3-pchelkin@ispras.ru>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20250819184636.232641-3-pchelkin@ispras.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,136 +68,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-08-19 at 16:14 -0400, Alex Deucher wrote:
-> On Tue, Aug 19, 2025 at 3:28=E2=80=AFPM Timur Krist=C3=B3f
-> <timur.kristof@gmail.com> wrote:
-> >=20
-> > Hi,
-> >=20
-> > On Sat, 2025-08-16 at 09:31 -0600, Rodrigo Siqueira wrote:
-> > > When using UMR, a dashboard is available that displays the CPC,
-> > > CPF,
-> > > CPG, TCP, and UTCL utilization. This commit introduces the
-> > > meanings
-> > > of
-> > > those acronyms (and others) to the glossary to improve the
-> > > comprehension
-> > > of the UMR dashboard.
-> > >=20
-> > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > > Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
-> > > ---
-> > > =C2=A0Documentation/gpu/amdgpu/amdgpu-glossary.rst | 21
-> > > ++++++++++++++++++++
-> > > =C2=A01 file changed, 21 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > > b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > > index 30812d9d53c6..eb72e6f6d4f1 100644
-> > > --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > > +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > > @@ -30,6 +30,15 @@ we have a dedicated glossary for Display Core
-> > > at
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 CP
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Command Processor
-> > >=20
-> > > +=C2=A0=C2=A0=C2=A0 CPC
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Command Processor Compute
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0 CPF
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Command Processor Fetch
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0 CPG
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Command Processor Graphics
-> > > +
-> >=20
-> > I would apprectiate a few more details here to connect these to
-> > other
-> > glossary items. Here are a few questions:
-> >=20
-> > - Is CPC the same as MEC?
-> > - Is CPF the same as PFP?
-> > - Is CPG the same as ME?
->=20
-> CPC, CPF, and CPG are hardware blocks, MEC/PFP/ME are
-> microcontrollers.=C2=A0 CPG contains the PFP and ME (and CE on chips whic=
-h
-> support it).=C2=A0 CPC contains MEC.=C2=A0 CPF is another hardware block =
-which
-> provides services to CPG and CPC.
 
-Thanks for the clarification.
 
-Siquiera - could we add that also to the glossary?
+On 19/08/2025 15:46, Fedor Pchelkin wrote:
+> amdgpu_dm_connector_ddc_get_modes() reinitializes a connector's probed
+> modes list without cleaning it up. First time it is called during the
+> driver's initialization phase, then via drm_mode_getconnector() ioctl.
+> The leaks observed with Kmemleak are as following:
+>
+> unreferenced object 0xffff88812f91b200 (size 128):
+>    comm "(udev-worker)", pid 388, jiffies 4294695475
+>    hex dump (first 32 bytes):
+>      ac dd 07 00 80 02 70 0b 90 0b e0 0b 00 00 e0 01  ......p.........
+>      0b 07 10 07 5c 07 00 00 0a 00 00 00 00 00 00 00  ....\...........
+>    backtrace (crc 89db554f):
+>      __kmalloc_cache_noprof+0x3a3/0x490
+>      drm_mode_duplicate+0x8e/0x2b0
+>      amdgpu_dm_create_common_mode+0x40/0x150 [amdgpu]
+>      amdgpu_dm_connector_add_common_modes+0x336/0x488 [amdgpu]
+>      amdgpu_dm_connector_get_modes+0x428/0x8a0 [amdgpu]
+>      amdgpu_dm_initialize_drm_device+0x1389/0x17b4 [amdgpu]
+>      amdgpu_dm_init.cold+0x157b/0x1a1e [amdgpu]
+>      dm_hw_init+0x3f/0x110 [amdgpu]
+>      amdgpu_device_ip_init+0xcf4/0x1180 [amdgpu]
+>      amdgpu_device_init.cold+0xb84/0x1863 [amdgpu]
+>      amdgpu_driver_load_kms+0x15/0x90 [amdgpu]
+>      amdgpu_pci_probe+0x391/0xce0 [amdgpu]
+>      local_pci_probe+0xd9/0x190
+>      pci_call_probe+0x183/0x540
+>      pci_device_probe+0x171/0x2c0
+>      really_probe+0x1e1/0x890
+>
+> Found by Linux Verification Center (linuxtesting.org).
+>
+> Fixes: acc96ae0d127 ("drm/amd/display: set panel orientation before drm_dev_register")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index cd0e2976e268..7ec1f9afc081 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -8227,9 +8227,12 @@ static void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *connector,
+>   {
+>   	struct amdgpu_dm_connector *amdgpu_dm_connector =
+>   			to_amdgpu_dm_connector(connector);
+> +	struct drm_display_mode *mode, *t;
+>   
+>   	if (drm_edid) {
+>   		/* empty probed_modes */
+> +		list_for_each_entry_safe(mode, t, &connector->probed_modes, head)
+> +			drm_mode_remove(connector, mode);
+>   		INIT_LIST_HEAD(&connector->probed_modes);
+>   		amdgpu_dm_connector->num_modes =
+>   				drm_edid_connector_add_modes(connector);
 
-Thanks,
-Timur
+What if you update the connector with the drm_edid data and skip the 
+INIT_LIST_HEAD instead?
 
->=20
->=20
-> >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 CPLIB
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Content Protection Library
-> > >=20
-> > > @@ -78,6 +87,9 @@ we have a dedicated glossary for Display Core
-> > > at
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 GMC
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Graphic Memory Controller
-> > >=20
-> > > +=C2=A0=C2=A0=C2=A0 GPR
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 General Purpose Register
-> > > +
-> >=20
-> > Does this refer to registers in shaders or registers in the various
-> > IP
-> > blocks? If this is about shaders, it would be useful to mention
-> > that in
-> > the context of shaders, a GPR is either SGPR or VGPR. (Those two
-> > are
-> > already in the glossary.)
-> >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 GPUVM
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GPU Virtual Memory.=C2=A0 This i=
-s the GPU's MMU.=C2=A0 The GPU
-> > > supports
-> > > multiple
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 virtual address spaces that can =
-be in flight at any given
-> > > time.=C2=A0 These
-> > > @@ -92,6 +104,9 @@ we have a dedicated glossary for Display Core
-> > > at
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 table for use by the kernel driv=
-er or into per process
-> > > GPUVM
-> > > page tables
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for application usage.
-> > >=20
-> > > +=C2=A0=C2=A0=C2=A0 GWS
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Global Wave Syncs
-> > > +
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 IH
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Interrupt Handler
-> > >=20
-> > > @@ -206,12 +221,18 @@ we have a dedicated glossary for Display
-> > > Core
-> > > at
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 TC
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Texture Cache
-> > >=20
-> > > +=C2=A0=C2=A0=C2=A0 TCP (AMDGPU)
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Texture Cache Processing
-> > > +
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 TOC
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Table of Contents
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 UMSCH
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 User Mode Scheduler
-> > >=20
-> > > +=C2=A0=C2=A0=C2=A0 UTCL
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Universal Texture Cache Line
-> > > +
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 UVD
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Unified Video Decoder
-> > >=20
+Something like:
+
+if (drm_edid) {
+    drm_edid_connector_update(connector, drm_edid);
+    amdgpu_drm_connector->num_modes = 
+drm_edid_connector_add_modes(connector);
+[...]
+}
+
+Isn't it enough?
+
+Melissa
+
+
