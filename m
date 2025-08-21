@@ -4,79 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEA2ACA0EEB
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 12:49:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87C06CA0EF8
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 12:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A6D310E993;
-	Thu, 21 Aug 2025 12:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2808110E985;
+	Thu, 21 Aug 2025 12:57:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XCMGxydk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MJ5kI7RI";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDDD210E369;
- Thu, 21 Aug 2025 03:01:01 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-b4746fd4793so417132a12.1; 
- Wed, 20 Aug 2025 20:01:01 -0700 (PDT)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0158110E985
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Aug 2025 12:57:47 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-b47175fc02fso51253a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Aug 2025 05:57:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755745261; x=1756350061; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=uLIq0IXj0ljbI/uh1YhQvF3IAqw8jhRLNek2lIEpThg=;
- b=XCMGxydkWEZJvvE346tkUFyL9MiIoClkQPiZJfqJSJAA6miThTvVpphAcmZBmldufo
- 8Wo9/HzpemsOir+Y+hu8NF0Rz650NkQuO/w+DiQEQdT1LdsVS06yhwiIFsCbdDORBiHF
- 3iaaWcXEIGUHUqeBua2Z+k2wZMtyX6On2LiVBduqzefx7/2XKQm0XojExJFibFWnKEdl
- tiy5GzK/bnTskDDJUSqZ4oObbHIQf95YzLKns6bbmqacyh+XbtXdE0Avrw32Lzt2DDms
- ctNInhgMskMsqRKtSrZnyRXUw0NeC7g1jariPMng/o1Ete0flY0B1Ksh6n5nJ++G4Ire
- PcGA==
+ d=gmail.com; s=20230601; t=1755781067; x=1756385867; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tEbDa6/FfxUBgVY0EvVca1iE9nSXv81fI+Yts38Nu3w=;
+ b=MJ5kI7RIHTIxmxdyzWESyoiqXhQZ8Zm3xm6g1fNf2yf1aDfzxia0QNjDvr0bNugOZ+
+ ldIB1WoO6SiVzpTYgfZNX9g6LIky0zkPgTVKCnqu6J4Ir4grptMofACLi/HZZsg69COJ
+ L5Vc1XSUJ/VBCofHEyuNbLVvHurVEq9hPaSIP+QlqF1rJ5Du/Gl3sFBXWOUa1ShS9s+a
+ AKWL2Z4NyxNBrQK4LpntyIHGEdtbZKZzD26XU891DUTOfLvJE/iQXmR+PgcCZg1GRu8K
+ gOKAewu9FxrEh1n8gbrMtQ5gdFaS3iOp8xXdaVppiCn/aGj73xmp+QGyksoj2xpj5T/w
+ uZsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755745261; x=1756350061;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uLIq0IXj0ljbI/uh1YhQvF3IAqw8jhRLNek2lIEpThg=;
- b=ZnaIxMU/DLMCG1GillQAE2IJwJrbgZnLlG76R/ffS0ppa9eM9eUtv25JqlS50Ks/Fd
- 6IB8lZ2ArX9GH+IdjURqjGyrrBmCdyjuAICDdgisIl/59wxAXz3WFZ/HvwfCGQFDYDwk
- OMriCx46LNG80dixg5BgH8/y/mQ6eamMDo9dOMRwk/Gfi1OGZJaD40LbF1sqitpKoTl5
- G6eI9c1psc+iOsK0jZoOU8CtRBjSDkzdvdwMHOy+AokWXug7SaotHb3rldcRRKxDNQ0w
- rR/PUTKn9pHeSkylZlKN55HQbKI6saMCGLQZlkOsLwOTUAkSJXAdb55NuegvtcQM7Tcx
- nRqw==
+ d=1e100.net; s=20230601; t=1755781067; x=1756385867;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tEbDa6/FfxUBgVY0EvVca1iE9nSXv81fI+Yts38Nu3w=;
+ b=Pdf5pmAKhc7kb1mGmhsxUkp+wi+e3FAZSy6FlvMlse3WCRT51O9LnR0sE7QvHDunP2
+ Aim/4pE+2PmMipGn9ZJOtBFix42WW68TANomwhfLlJTVRWgqoxx8huzmQEWjRwCG8DpB
+ tUIbXKM3o0yTFuqKpqiufueVpJiIUxVUOaKeoIqwfW5al54Ak/QvzLWBPfXWg/DTs4sV
+ PaGooRhNdEZ+aXCwKekE1eMJ5AB2jthwCjf3wy74EYF97WM8Bza5yXzFlznz+KWIzjWw
+ KWlMOG3uzbkdFKg35Babv+GJ4QLUw4PPAnG0vNzXKbVfSBOedUvLqUUoaQ6mlxbuukro
+ 58UQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVNXeTOX44Y092A/CHBRiHoT781voaAiWkiFfIEkn/+3w1IW7KNYwFTRlR4dnhwZRzdJ9pjfhBs@lists.freedesktop.org,
- AJvYcCWRv655EAAvp48uXFuGJD/qMS7PRkkZ3+6EZmY8pj8MffMgP6TdSCMsqgCCIZZVyNNYPo/U5G7G+rbi@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwG/92PQXJuDLoJuzxX9c6rs92kGdoTnvdDC/CaHshZdrQBXrzb
- mwbYl8X/pHcMEf4kgYi4jsyJYtpL+LHamW3XqqaXQJ1jSGauoBazNHKd
-X-Gm-Gg: ASbGncuMeBk7cUpCcaFH8Ev6iQjFUqiYlal/XOIFg6XPtlqC47asT6oo+JsZaBruG9R
- dostsG/UMiq2K4Uf2DhnmKhiK/2nbyQdivas35pUtjheqAcbUo47a4Ofnu/9hv2lDNEb53FVnVN
- cPbjZ0S2Dme2SrYklpxwcci0RK9FvpIwrs3DDHMz3IaWiTQthuxe73oEmn46D40DEstYhO/uNfu
- EXAg+5NFhxltnFsZtOrbTtJ7/lpdkXWdPGjY/4veqWpsOLUT9TA1NhMN5+xziE59DoSvRpwVFeE
- YWkz5twVbH8RRNdnWixs0dlqz5UnpgHFYutE8w6Gk35ILLQvDo+uPzXJ9mGWbv3T8Gl3NlkOZyO
- 6S8HWYY8e/RI97kBAHYnfcZ+MIpP2fwTWHiasKw==
-X-Google-Smtp-Source: AGHT+IFvneYPfHw10OoTjF7DG4R4kNeVCtXde9LOb10gF9Bf3fn+/lBg5GgGDr671XjIvWiL9/bblQ==
-X-Received: by 2002:a17:902:f706:b0:240:1953:f9a with SMTP id
- d9443c01a7336-245febe9311mr14910865ad.2.1755745260921; 
- Wed, 20 Aug 2025 20:01:00 -0700 (PDT)
-Received: from lkmp.. ([49.37.161.210]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-245ed4c73f2sm40160695ad.94.2025.08.20.20.00.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Aug 2025 20:01:00 -0700 (PDT)
-From: Rakuram Eswaran <rakuram.e96@gmail.com>
-To: linux-doc@vger.kernel.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, corbet@lwn.net
-Cc: tzimmermann@suse.de, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- simona@ffwll.ch, siqueira@igalia.com, harry.wentland@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- linux-kernel-mentees@lists.linuxfoundation.org, skhan@linuxfoundation.org,
- rakuram.e96@gmail.com
-Subject: [PATCH v2 0/2] docs: gpu: fix typo
-Date: Thu, 21 Aug 2025 08:29:54 +0530
-Message-ID: <20250821025957.22546-1-rakuram.e96@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ AJvYcCUeR3JCGGokTc+B8nNQb91yYRUmoSd+jRSx+YSljPHqZRnRrUBDq+6feSXH+6zAI0N09Hp8EyoV@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxWk3jQlWK5yftjovoPl3GdUrPusZOj7oXpQf9ijikFuaDKQJ9+
+ zm8XoJAozXsw9mx3BIM7ve7vwcn52q8kW+QujqiNYPffvmVtvBBw6BBzLdSYPEaTmpu6QNAXuuT
+ TFgA3ZXjzNkbqcX58p7oCkR8ABxumZe40vg==
+X-Gm-Gg: ASbGnctZKqeIMcWO+YF2rGJpUjoAN6IOG+qwmSktKUkPw8s67MMJepguucwvG2XToQe
+ OjxWQz2MyCaGcI2zgrb/rRy/fzUyA60Foxr5PMMvu9PwN+ofIF6zYVgX9POhr9iDT90n1nHDkYJ
+ N04nUKrXrvjHgVAwZUnqyms48lW09klVqifGVm8AzAcjTNbwSrglGmxnIM7qeSDJMyz2HqnSwa9
+ r8mzOU=
+X-Google-Smtp-Source: AGHT+IEaDgjojQXT0f+86goS1sUFLqfnLEpIzwuRMGhN7O5/A1segGuxawt1Vbj75jE7Iaa0odLHSvAc6DTI7UBbX7c=
+X-Received: by 2002:a17:90b:1b05:b0:310:8d54:3209 with SMTP id
+ 98e67ed59e1d1-324ed0be106mr1625458a91.2.1755781067369; Thu, 21 Aug 2025
+ 05:57:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 21 Aug 2025 12:48:46 +0000
+References: <20250816162806.1301791-1-siqueira@igalia.com>
+ <20250816162806.1301791-2-siqueira@igalia.com>
+ <CADnq5_OqL2PnQQBY+1UQy26AhH0yG5PGsKDVv7zY1+fZqha89w@mail.gmail.com>
+ <wxag4tn4ruescninedpkjgezfh73yoas4jribjiom35wpby2ez@tkwr6qmbq6qx>
+In-Reply-To: <wxag4tn4ruescninedpkjgezfh73yoas4jribjiom35wpby2ez@tkwr6qmbq6qx>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 21 Aug 2025 08:57:35 -0400
+X-Gm-Features: Ac12FXxjhULtRnC1pTEIqWSVd172Lq4tm12PXCxsyl9knMjVzf-KdUDjKFR47bs
+Message-ID: <CADnq5_PM6xT5hrMnadGyYH+_9-0SZKmcpAe=VBOJRAS0mVqZGw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu/vcn: Use the correct irq for the ring
+ initialization
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ James Zhu <James.Zhu@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,27 +89,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixed multiple typos in GPU documentation reported by Codespell.
+On Wed, Aug 20, 2025 at 6:09=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
+om> wrote:
+>
+> On 08/18, Alex Deucher wrote:
+> > On Sat, Aug 16, 2025 at 12:28=E2=80=AFPM Rodrigo Siqueira <siqueira@iga=
+lia.com> wrote:
+> > >
+> > > In the loop that iterates over the different VCN instances from VCN
+> > > 4.0.3, the same irq source has been passed for different instances.
+> > > This commit addresses the issue by adding the missing index to the ar=
+ray
+> > > access for the IRQ.
+> >
+> > This is on purpose.  There are no per instance source ids on 4.0.3.
+> > The IH packets on this chip have a separate field to differentiate the
+> > instances.
+>
+> Thanks for the explanation. Is this rationale also valid for VCN 1.0 and
+> VCN 2.0?
 
-This series touches both amdgpu- and drm-related files.
+VCN 1.0 and 2.0 only exist as single instances.  There are no chips
+with multiple instances of them.
 
-Changelog:
+>
+> Also, do you think it is worth making this hardware difference more
+> evident in the code with something like this:
+>
+> -               r =3D amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[i=
+].irq, 0,
+> +
+> +               // There are no per-instance source IDs on 4.0.3, the IH
+> +               // packets use a separate field to differentiate instance=
+s.
 
-Changes since v1:
-- Dropped fix for drm-mm.rst (was included in v1)
-- Split into a patch series targeting both amdgpu and drm
+If you think it's helpful.  You may want to clarify that this comment
+refers to the irqs ("per-instance irq source IDs").  Also, please use
+C style comments.
 
-Rakuram Eswaran (2):
-  docs: gpu: amdgpu: Fix spelling in amdgpu documentation
-  docs: gpu: Fix spelling in gpu documentation
+Alex
 
- Documentation/gpu/amdgpu/debugfs.rst                       | 4 ++--
- Documentation/gpu/amdgpu/display/programming-model-dcn.rst | 2 +-
- Documentation/gpu/amdgpu/process-isolation.rst             | 2 +-
- Documentation/gpu/drm-uapi.rst                             | 2 +-
- Documentation/gpu/todo.rst                                 | 4 ++--
- 5 files changed, 7 insertions(+), 7 deletions(-)
-
--- 
-2.43.0
-
+> +               r =3D amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[0=
+].irq, 0,
+>
+> Thanks
+>
+> >
+> > Alex
+> >
+> > >
+> > > Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/dr=
+m/amd/amdgpu/vcn_v4_0_3.c
+> > > index a63a1e3435ab..018a526a8801 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> > > @@ -212,7 +212,7 @@ static int vcn_v4_0_3_sw_init(struct amdgpu_ip_bl=
+ock *ip_block)
+> > >
+> > >                 ring->vm_hub =3D AMDGPU_MMHUB0(adev->vcn.inst[i].aid_=
+id);
+> > >                 sprintf(ring->name, "vcn_unified_%d", adev->vcn.inst[=
+i].aid_id);
+> > > -               r =3D amdgpu_ring_init(adev, ring, 512, &adev->vcn.in=
+st->irq, 0,
+> > > +               r =3D amdgpu_ring_init(adev, ring, 512, &adev->vcn.in=
+st[i].irq, 0,
+> > >                                      AMDGPU_RING_PRIO_DEFAULT,
+> > >                                      &adev->vcn.inst[i].sched_score);
+> > >                 if (r)
+> > > --
+> > > 2.47.2
+> > >
+>
+> --
+> Rodrigo Siqueira
