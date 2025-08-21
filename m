@@ -4,81 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FD8FCA0EFC
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 12:48:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1520CCA0FE1
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 12:48:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B50F10E989;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A22E810E98C;
 	Thu, 21 Aug 2025 12:48:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C94tVnGK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fkb7eDh4";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D2D010E363;
- Wed, 20 Aug 2025 19:37:55 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-32326e5f0bfso274759a91.3; 
- Wed, 20 Aug 2025 12:37:55 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 172CC10E2FE;
+ Thu, 21 Aug 2025 12:18:36 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-afcb78da8a7so141357366b.1; 
+ Thu, 21 Aug 2025 05:18:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755718675; x=1756323475; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DIGqYplhoRs1f/hcHSbYZNmTx5Ex+a8ORKp3qbixI2g=;
- b=C94tVnGK2KMurhafixPEKButTDGa7inZk3T2wnXUjY9NI09JSt+LhE73qQzPsn0WXd
- KV6/jgvD5wdFSAaq7vo+TEEYXjZRdrYEtdpLhETD6RqnJFHyIAsu3geMJxwZc6z5c6e9
- aqazuIoUrxQgFKEk7r5C+MYL/oaK88zW/EDguHpWBQMoRbN5TFDD+606DzCdHjGLR9/k
- CnSqoGSpT2EfacHyTYMT90QYT9VAkZK1n9+XRn4RZ8gwlfeqjeUVeEE2jJSltO4Eo5MX
- lsGyFryV3APuUZI39jU1hnheM7cy1uNfjoM2oQ0lNKhT/Y5XRs66VXhVnTWYgeKfwTjO
- 6EZA==
+ d=gmail.com; s=20230601; t=1755778714; x=1756383514; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=8gvnVtPuDeVRwkHWJ+lsQaKYEu509p2WMuBoS0uoPnw=;
+ b=Fkb7eDh4i7Tr2jWGn+hUq8eW+nhJwwNAwOyfA4n24pNRZ2WcxWP/+BMN2fm/+7n1Vv
+ AbjbTD9qEusvfTGwJ9pceLB/yfOmWPk2Tah+Zj8e7DsNyY8/lK1egzLgd56cBMlK7lT2
+ fVbdR0rVb3CKc/4cYTy/FHf3O7I+tF6AHCTV6AxC0iE1rkQDQLfhp95OfXpsGCFVahVS
+ JtHTAQN43kGSjWcZuoE6xRm7jmuhGPEj193OVg+BAVTTVVPqa7nWyEuMxh88BUNCq02j
+ QUXDfW6x/6hquAH+cRscfkqok/OCxavxknhXswP+KOe2nefNHEADWFg4jGbp8OSQrMNC
+ lNwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755718675; x=1756323475;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DIGqYplhoRs1f/hcHSbYZNmTx5Ex+a8ORKp3qbixI2g=;
- b=GLVzOtW3Ah0jSx8JJbrDxpTpoztlDHUAOgGsVGDVNrI1IJmgFbmbk27LAC4kItsT25
- xAJc/8nm3Zs534no3sX7YXrZMAgibg/x1bZa31ctuxTvvcb+ZhHZEDBB1ODR9dcBMqJ4
- jOQp0lCz94invC0uafMwsXvc7qfkmfiLJRVZbrOZJj1jPwMwc5C9y+wby7rOmoh1fUGH
- oVmCmzDWqgIrbSrvFu+OLQAHtzcDJOy7hXcIOaoO07bDJxySxWCWGJNIz+BZY1Mror1S
- Gc6PlvCNxybTdqu29WAljTeiW/WwIYIGzJRyfs66xGEdT/4nJrUXWsY4wI1cRA0ITmxP
- bNQg==
+ d=1e100.net; s=20230601; t=1755778714; x=1756383514;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=8gvnVtPuDeVRwkHWJ+lsQaKYEu509p2WMuBoS0uoPnw=;
+ b=l3pyuouYQQl+F2F6z5LARjqqkhusJmPMHGX0L6Nj9Wd8/zOnYRMDt1zKww4F7KnEYY
+ ZJup5UngT/czLE28JtCkco5vD5cmXf+kaNID1DgqetjXz1q179TxZgCAZdB4yZwJ0cm5
+ 9JdNRtotMjrSQgTPBQPX8g1+xIN3aekQNj4M6KJfUrMENjhkcdin36AqWkHdDAN77yZ8
+ 2sJWGBROJnppkGY2Cn4/E+ObJtOQCZ0xgZa+TwnclqCy17fBqPjh77Pmh9E8rLYws83c
+ NiUBqRibXR26G+C/nSpvIck+AXr1ZGARaeLmm/SrVxkXd15vg2z/REDCHDs72gbs1kp8
+ yuHQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVGm0e2rKfJNur9IEBNk9lE2ZNlLuxYYSEPXPSZHEwjytVWG3jiMKSU6TI96m9tLpiXsU3acm6Mbsae@lists.freedesktop.org,
- AJvYcCX2OK3NAz99tDw/5KKAKrsTjoaAqHaDtEscxlVkO5TZwMvU+ndONnzdux3Wft7ih+fxQsJVzuWL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YznSrn5xMX6CwzRGgtfIG6fQepsg6ZVBwuLZSZ2wzQrg8+tvLDo
- NK9IfjLZQ9TIE++pZXsDZJSuPbuMXLDzp/rf0PbHO5axMVwmRPZCDvo5
-X-Gm-Gg: ASbGnct3PXzdfL3yFVVnkjZJokxwH6KK42Jgt8UyReClmDh+pPyXVjyco+JkgIPjuW9
- xbt3b8UIliYeIjVBkbbAuzExaqMYZMcw/4ftROFBUgAAV6uDp4wsLi+QplVsMb6mUKXPLuQPhcZ
- jlAKGyxLQJ1bvuscuBJUrFUEBU4JNIqKkWgkkGNAjbKW2WCqUcvlRBNQmc3vSZcaQbRvQwHkI/U
- zNq7OksrelMoAEIMB5YhWnQhsY7KzYDi9PbtpzjyaQi48H7vawEN1Qn3OEKZ2YfK3Ls0yzYgIuE
- INgidlYF3ZdKTeboqn54rRDFNtQSQ+L+rkaeqMPmanmjynB22Bp/jghWf7qUORW+uXV0Y+yIoCQ
- kKipecPOJt3m/q92ann5M0zEHS9o=
-X-Google-Smtp-Source: AGHT+IH4oAP6ojhRdx0McHVBEZbO37qGzzHPVXncvGS5wiZMCWye6YVPnfJGPtuh7vzBHz8DDQSRGA==
-X-Received: by 2002:a17:90b:2587:b0:31c:c661:e4e with SMTP id
- 98e67ed59e1d1-324ed1ed238mr27715a91.33.1755718674513; 
- Wed, 20 Aug 2025 12:37:54 -0700 (PDT)
-Received: from lkmp.. ([49.37.163.128]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b47640b191csm2911858a12.45.2025.08.20.12.37.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Aug 2025 12:37:54 -0700 (PDT)
-From: Rakuram Eswaran <rakuram.e96@gmail.com>
-To: alexander.deucher@amd.com
-Cc: Christian.Koenig@amd.com, Harry.Wentland@amd.com, airlied@gmail.com,
- amd-gfx@lists.freedesktop.org, corbet@lwn.net,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel-mentees@lists.linuxfoundation.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, rakuram.e96@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, skhan@linuxfoundation.org, tzimmermann@suse.de
-Subject: Re: [PATCH] docs: gpu: Fix spelling mistakes
-Date: Thu, 21 Aug 2025 01:07:38 +0530
-Message-ID: <20250820193739.20263-1-rakuram.e96@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <BL1PR12MB514474E3D1951AA174431414F733A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <BL1PR12MB514474E3D1951AA174431414F733A@BL1PR12MB5144.namprd12.prod.outlook.com>
+ AJvYcCUycAe+FV+1t4E76j50Y7b/y0UpM9C6xTu5+QlfFehw0icZAT9Vgx39U0ZUS33JNzzpINTmX0FU@lists.freedesktop.org,
+ AJvYcCW5xEnhYlazbHvoIHCeqcXackCiXBU1Fp6d/+/dLmWr4KKSKkJLnBgWO30BhDCb214cyCc+iuBNARSh@lists.freedesktop.org,
+ AJvYcCWEYsvibKFfVy7ZGud2oYotFWLnVfirKicd0DXGfk71RVSK7q+c5y43ywRn+5S4kQ4NZaAtHOnn7lUsbSd34g==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwC6bwkcy0vzQVDcrCovXPGmzCJ8KXJzhpO4xHWIvnN06idfxK0
+ wAZA9wHQns8tAEGV51fwanTV0ak64qIsKwbSOSZsw3XVnXmPkLaI5dQWfTc5F9dbZ8c2ZjrSE6q
+ ElG0VYB91KiGJWNLEYo/zHTo06AAYC/8=
+X-Gm-Gg: ASbGncvJ3I7/MAVOjsLpmIyjJsJOhZb6NfFvLxlEK0uRXiHl8slqPqeXYIPkQhF8QLw
+ T4HY5JtVXoBOf4Kt1+Va1UmBM3io6PfCZrVJjB1IcpyV51GCubc7uzZONU1ChCnenY39qTk0v+M
+ fIXWjW+bH4z2tflU/aqCHkSBvVWzQoyrY161+07nG9ACyLBYAaV5xjVMeJuHl+7zjVL95HCEEvm
+ VrDSjuThJKEIis1KwDhvPv6Gfb7zCYJrbFtY9oQPAluzKdLEFxi
+X-Google-Smtp-Source: AGHT+IFvy+yYv52L7K1uoUHRrZkGMeN0/je1OaNi3qH+IRYdlFgxHqgh/BwnDh9DP2pLFnXQmvGhLOp0ihdwBA49/5Y=
+X-Received: by 2002:a17:907:6ea5:b0:af9:479b:8caf with SMTP id
+ a640c23a62f3a-afe07c2cb96mr207477366b.51.1755778714321; Thu, 21 Aug 2025
+ 05:18:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250815035047.3319284-1-alex.hung@amd.com>
+ <20250815035047.3319284-36-alex.hung@amd.com>
+ <DC6IG8LQAIF4.6KM7AM5JD3J3@redhat.com>
+ <f3061c6f-5a73-4890-92b0-90f153e8dcc0@amd.com>
+ <DC7IDWLAGEOW.HQVRVJNBTLXI@redhat.com>
+In-Reply-To: <DC7IDWLAGEOW.HQVRVJNBTLXI@redhat.com>
+From: Xaver Hugl <xaver.hugl@gmail.com>
+Date: Thu, 21 Aug 2025 14:18:22 +0200
+X-Gm-Features: Ac12FXwW9OQ335wgyGuumLyW6QXyY_7nwDU0vHlhJ7ra3fV3Sp6_aN9HkujANJ4
+Message-ID: <CAFZQkGxxf2w+x4xZ-aY5YDnuS14Ys-gi=zro0Z4BE2RJESLoYQ@mail.gmail.com>
+Subject: Re: [PATCH V11 35/47] drm/colorop: Add 1D Curve Custom LUT type
+To: Sebastian Wick <sebastian.wick@redhat.com>
+Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org, 
+ harry.wentland@amd.com, leo.liu@amd.com, ville.syrjala@linux.intel.com, 
+ pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com, 
+ jadahl@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com, 
+ joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
+ victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
+ quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
+ marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com, mcanal@igalia.com, 
+ nfraprado@collabora.com, Daniel Stone <daniels@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 21 Aug 2025 12:48:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,9 +97,6 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Got it, thank you for the guidance.
-
-I will split this into a 2-patch series, one targeting amdgpu and one targeting drm, and send v2 accordingly.
-
-Thanks,
-Rakuram
+> Yes! I would prefer "SIZE" as I can see other color op types which use
+> the "DATA" prop to require this as well.
++1, no need to make it specific to luts.
