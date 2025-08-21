@@ -4,143 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9D95CA0EF8
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 13:48:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB56ACA0EF8
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 14:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4450510E311;
-	Thu, 21 Aug 2025 13:48:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB8A10E9A7;
+	Thu, 21 Aug 2025 14:10:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TywMx3t2";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="M/b3gb9K";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LGC4zeGC";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yAqnGrED";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yDgcAsut";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B880F10E311
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Aug 2025 13:48:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dpX51sH3tYIYHNT+iZN/xLgyVUUvI9rGt8Nk8kUXO82fVqwLHnSUO/5ySHbZMYtzIqUmD00nblI+WrnN4gvNsvy8qTj0hKN+MMsU4AlIOa5Hqai6MY0Xde8yivrsQkZRnYQE7mGdyBQ1ph60xi4sQD6aNIsrEA/5MFUT8ePZAO7OK34Kr7vQypHqDwGKPdr52NKT0jE63Xem5NoqfY8ZPggkDLviICNsX2b3QdNJxikZ52zOj1wBHiSiotbmne+xNhlr7YsdacFOcXMzDAzk5aXZMjMLxC8fcNVqhtbUS/4WjwCptZcIPDKXhbDO8PfW5goyPuiHjFwSgOykPzC6VA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S8Bu3raL8CBs8/Z+Udlw4hSLahMKx9RX9CcDNxdQCbY=;
- b=Lio9kEC8YZQ8oa6q0wPycmXTTezGV9T+jlcxSmU0MzMaxVWsNV6f8Y+3ePbsdVuV0RzMUc36VBdlb255w/YdFTZ/BYV1c1+POf+2RbQK0+V41lLDN8VLjI1tUuG+t9dGC5lSHD1D0ZP35QDxcvjei1J12iumAuquubDDbPBHiIasvJYUnGYngVjj8UwMSfnjE+k29S4G1DArEIMfaU9+WGoCdS3togoJcH3vq+gWG9uLyDfuknCOwsv8uXKMUuLoycyBrjT6rW8dOhXzGfIUY8+xm0aj2iXuNcXgsNfPBsFfAeIQxeczP6egT/7VLerh+iWDYREcXO3hb+5IZNR+0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S8Bu3raL8CBs8/Z+Udlw4hSLahMKx9RX9CcDNxdQCbY=;
- b=TywMx3t2jyaAmitWd1fHuw5zoM+5aFWIdc0ZDWYvGhbEFHjruX1HCNGDR8aK/WSCvXwXkUaJNV6CW2IU+PH3HNk/dHsnfcPwyW5cjNs+1M7YpuoDRveQkCp5WHJJDM1zgry81Swf0GVXupH7qgyuXEllRT3ssln+zZImXP68kTo=
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
- by SN7PR12MB7274.namprd12.prod.outlook.com (2603:10b6:806:2ad::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.20; Thu, 21 Aug
- 2025 13:48:13 +0000
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6]) by CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6%6]) with mapi id 15.20.9031.021; Thu, 21 Aug 2025
- 13:48:13 +0000
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-To: "Clement, Sunday" <Sunday.Clement@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Subject: RE: [PATCH] drm/amdkfd: Allow device error to be logged
-Thread-Topic: [PATCH] drm/amdkfd: Allow device error to be logged
-Thread-Index: AQHcEeHTRNKPEGaaKkmUQm22ZA6G37RtIKAg
-Date: Thu, 21 Aug 2025 13:48:12 +0000
-Message-ID: <CY8PR12MB70991EA1219CF19DA68850578C32A@CY8PR12MB7099.namprd12.prod.outlook.com>
-References: <20250820145032.2150006-1-Sunday.Clement@amd.com>
-In-Reply-To: <20250820145032.2150006-1-Sunday.Clement@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-08-21T13:47:55.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|SN7PR12MB7274:EE_
-x-ms-office365-filtering-correlation-id: 203da022-80d3-42cb-4d33-08dde0b95f5d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?YEr1HJ4FY7sZwQChGqq0EAJXK/CDobFPs3gafBn8YP52r3ulD9ykIw2lGPD4?=
- =?us-ascii?Q?K13u8UxieqA1oMZglpHu+ZhW2u643LUxU7cI2asZtvJYZwpxgcQ7hfAX+fbi?=
- =?us-ascii?Q?mxSAPvWXJveUjlqd2gT3wbwPsdMB5PYVobX2qdgML1ga4xhokzkCP/0IFqp3?=
- =?us-ascii?Q?pF0p69dVq9LHmSaf/IvJBFmiuCIUHS5LMfqlMsmooX82yyUYZ9UyyMQJn5pv?=
- =?us-ascii?Q?/sCAhiLfex01foZW5+d24DF3BndWeEp8QN+Kgu3WWZTHxLGQ0R1vtm/Or0Rv?=
- =?us-ascii?Q?0xAsnmWIHYLXjisYHbSww3ZGVDkBLDmxE9qaVPnJcTuVYVacRTu/QO9AKsSA?=
- =?us-ascii?Q?htp3lyrgBBVHJnvOvk6wRvyOMF7P3iQW2sTgIcl7Xwd7+Z0bthknjiIPd+qI?=
- =?us-ascii?Q?qvgU3SsqcxlKFBJ8gGQB2ygsjg+awdXckVeTfMZNNQnl/wrYlgNPPkohvBfC?=
- =?us-ascii?Q?y3+lrYz7YEesfotpJoa3RHFcmpLZ+EP6rbViJZh2+48UraPs4zyOvW8JK1sB?=
- =?us-ascii?Q?BzQ3XfCuoDPbaPdocj7wLcE2pVskOGRoMpdbjcVzrls1BzPcNoNcD8BVJl9S?=
- =?us-ascii?Q?uUC8W/e70CR/foE0YcGDdoHQ7j2ULMa4ZIssjFKCYEb2nDW7eH/5KhN8k+0X?=
- =?us-ascii?Q?K2zEIONae0+EadRQ/OPzjimeSbMXgprZ4No9Ig5W3UMz72NEqcS+X/PvPyS0?=
- =?us-ascii?Q?H+iImj0fzQ/O8yCMhChnYTa/7dDUPUtt8uHHd6w5g8o01GO1YuDyAxR+EeF/?=
- =?us-ascii?Q?E/26ukjUdVShV28//145C+yFXBYKxuH2HbpGzjsQktfCtzcHtVyxRqKGm7uY?=
- =?us-ascii?Q?wjQu/Ia7n7IUKSB2pF0QAa63u/a5QO1IT3vKS2oX9biUJIXpaZS0r8xAQuBd?=
- =?us-ascii?Q?UTq1m6BK7c8mjrTJ70HSqm210qQyRoh1nX5nqTdjVPjKfZxBVTs6EI5XNzsy?=
- =?us-ascii?Q?VcQvNGiMifUd2rnzJC6hNgHQEvqKnO/Tzs+r62FKh/Ofl8CxfFulNOCkLtWz?=
- =?us-ascii?Q?zZqX0aTq8KUxtdnIb+t7bFLdsaINYdvQcv3oOqcS49y9Q83VLIrO3iHKPheL?=
- =?us-ascii?Q?mVQ5GbTlUlxf1SrWd/TOagqy85SbpwML9h3X9nKFiv8VWT3pldg5vX/8eD+D?=
- =?us-ascii?Q?yB2qKB1ii1d+QcrLTp3Pox0FTC5DG16IUJU4hY+mKrxANlrqJ3R+MdaqFDdk?=
- =?us-ascii?Q?T3BCJT1lZmkjhWFF3oMjlEkVTdka8jApmT5IKNioIkM3qHOjHr9/n74/ox/C?=
- =?us-ascii?Q?7ERNCF8sNTWUeqiEGjxdf3j4MtrXsccegIrW6V2kUJYR9Ukgn9DVrgfXryLv?=
- =?us-ascii?Q?5qmg2+dEFyXkAYAUM4JoMLZKk8Ym6+9+cVQ59FWLOVRm/5amrgCmm1lA1kAH?=
- =?us-ascii?Q?PLLhDnYT4+QcEekD+MPAZ/RxDoMHDcdL14dd5TT9P7L2dUr3XFe8WivDwrIq?=
- =?us-ascii?Q?QtDcWarriWHVDNRirVjZ26LxYj9MxbkNboWtLrlqmZcbYRvKUAP9Se4F096m?=
- =?us-ascii?Q?2jZc8lHVVcCkfbw=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dGH+0ZEObqhJOwOR0S1NKheZKrGevDvKH1zYySnrhA1b0qbn/K7R+rff+x9i?=
- =?us-ascii?Q?v2wnw8okISrDk0mRAJZXfrcVdBYaX9NV9T6jiQRUmGdRu801SGVuHQEOqt1R?=
- =?us-ascii?Q?PZcl8UZ8q9MrdV8gOr0EGTM9B2aaWN/P7j8kYhePOvooOn73jImq5naPU2ZQ?=
- =?us-ascii?Q?Z1V2jZKhQKESAumDt+cBjyNPGjeoWytvg+AqBzDaTPycUuuWOILWcJZ7tOUY?=
- =?us-ascii?Q?xyLWRlfW1K5tNDsMZzleN36ZHDk/iVzFc3twDa6EzWZbhxVop/tWJ0d5LzIk?=
- =?us-ascii?Q?jmnMfcf1WjsW7LzGY7ihtzKVBvpIEIfq3ZHsWyI+KphOiUuX5pgWx2IdLBss?=
- =?us-ascii?Q?0G/O2hzCC/1k+a8ZL+4Q+mhwU5DzNx8M9WWhsG77FnPjxV0K1AR5FBjkzOYH?=
- =?us-ascii?Q?/GDcchGmcLmpDJBUpbfFCVviR7k9K6OKtQZCv4D+1/9cnR33JTB1isfrC5qM?=
- =?us-ascii?Q?+K/q2WNHidPtNK1CHa5iLXIaRrkTq2OEKnJxbTX+xoGBihSVQ7sqq+v9Gns9?=
- =?us-ascii?Q?ukg4Oids5hO30zMAgtULdVCGtI1cl/HaFecRIT07QPkPo6QcjVSA3KLZ1w63?=
- =?us-ascii?Q?AQGg6zIwtAd7Aqeagh7gTn/3ojQRMXdXMimkJussNhIQgFLh5j4Sl3GVHY3N?=
- =?us-ascii?Q?CSjcXFyEIrfjxjiIibwAUgs6SYrzCy5KFFPUuxeuqEtK5mnY/ngSRvc+yDER?=
- =?us-ascii?Q?OoqlkvsNBQMpMcAJIkg3gRFHbZoXSBJhvAw30UPRfVSgbqX7lKmWNpjCOct5?=
- =?us-ascii?Q?uH/xGDrgDjBkUTAOzOFKZoSTEbCgFJsXrKB+XiK/XJ7XNJRx/m9yO/+iBAZF?=
- =?us-ascii?Q?FHo/bbXjcWozVyk4+3xN9dgXlpw5xWREmBA4Nd3GvI/FbF7P5B8mGhQu4eln?=
- =?us-ascii?Q?MqR3WyN9qs8AUHrb7BoOHwvk1vk8MkCZgaJgxFP8pmuqHNOLBAE990GfFgi1?=
- =?us-ascii?Q?kuEJ3vLqhqkkcCDbFsU+fEITv29Q3wSrTPtv1FjE2l6FcWNyyDH5ytQ6oaTG?=
- =?us-ascii?Q?FHoxn25JndNvgRWQnn+uXeXdHFxmVsC4Wmzw0+wEiQl90nBf2S3mf0+fHg+q?=
- =?us-ascii?Q?cYNn58KmfduSI4QBmW1wo8yQ2xqdw4EDjLODL4PeHxZng8xFJ8ZK0WrP10mX?=
- =?us-ascii?Q?oAgbJvHHQzYbaWLvzqEDSLbSMybqtOWgXLbExtd7mgblx9KfKBmn/1fdLYCw?=
- =?us-ascii?Q?w92tKtVYhimw5BO1yf3WrebWrcI2ja4zx1llm0gikPfTdxmSgFGr1NtGH54P?=
- =?us-ascii?Q?rpVwRKVT2mz6Ejf9fcNNt8ECHqpgQ1HjO2CELpuO5YCpMClzRzLLTAtIkEux?=
- =?us-ascii?Q?fv0HppDgGIOyXH4bCkhupbxHBRrSI+jQE2ytSuMzd6eqJnFKAI+LKujsLy5o?=
- =?us-ascii?Q?hv3LnwP0IRZ9IxstiQlmgaYalywLxZjK0859/xAJ0imbIx02jThwXOXXkUD/?=
- =?us-ascii?Q?xsA6QrarSI/27jqLUk1SXLm6LDD40aN9qpt7Be5SgP/ho5O+gn2maujrD5cM?=
- =?us-ascii?Q?T726ljpO7bUyOMeCblvIQUR1mxS5mJWGhoWUhqKsS6wd3yGG9jStmbDHvTdh?=
- =?us-ascii?Q?W0sgRx0NoUWFsZdGZfM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1121810E9A6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Aug 2025 14:10:50 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5A3C321F10;
+ Thu, 21 Aug 2025 14:10:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1755785447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Jmm3Rcgx45Ek6+6JOc9UdX6C5lNjJzPeNBj+B3KBHSY=;
+ b=M/b3gb9KaYn+zgSZBCrWoZy9gYsN1SytbN4WLLljsbYIBCO0FLUaVth30knSJeAm/BRn9s
+ jBFQagENcGz8AuBHBFn8NTmejzpCer5jA2O4nmhydlFulsuJUZAuXRYz5s6EWOVF4O11gu
+ Tah/3cnM8GeArDURRe+Rfy0yiE/WGSM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1755785447;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Jmm3Rcgx45Ek6+6JOc9UdX6C5lNjJzPeNBj+B3KBHSY=;
+ b=LGC4zeGC+rWkFcXT4TIxucWDlKtBRqg4kPI5eBDA9QydlKDoh7pMgzjBipJi3fuD6fDEET
+ +8oxl6FDNEEZBeAg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=yAqnGrED;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yDgcAsut
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1755785446; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Jmm3Rcgx45Ek6+6JOc9UdX6C5lNjJzPeNBj+B3KBHSY=;
+ b=yAqnGrEDV1/qNKKLM/r92HaigufAqe/1hjYNLOo5g2pOtDG0g5gkosQ5kVxni6fbJtRbm4
+ OB1MX3Y6A2qDP7kdq4noz8S1mqaNAGdSxsrThxUPgrr8iYoCpIL8qM/gGfhBO9Evyervxj
+ F32w/0TRvLO8cembLa+UYclsO33mNKo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1755785446;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Jmm3Rcgx45Ek6+6JOc9UdX6C5lNjJzPeNBj+B3KBHSY=;
+ b=yDgcAsutsJJ4VK9wRHIw303rhsFxxyJDnyy/uVzVcZwKfLD/IJbJjTmNd86GkT2zNRcUBK
+ 83vACgJrqiE21zBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E52CF13867;
+ Thu, 21 Aug 2025 14:10:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id XhlQNuUop2g8eQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 21 Aug 2025 14:10:45 +0000
+Message-ID: <37cacb29-e382-400c-b4fb-bed733ce480b@suse.de>
+Date: Thu, 21 Aug 2025 16:10:45 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 203da022-80d3-42cb-4d33-08dde0b95f5d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2025 13:48:12.9444 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: odnWKmTPciKnovd6kGTYLcrk1nNTLNfGlQoTIMg7E8YnyeDT6fS8bwTjD28rKCHFf6ampdcfwA/vvwfvOiGJ1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7274
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Linaro-mm-sig] Re: [PATCH v3] drm/amdgpu: Pin buffers while
+ vmap'ing exported dma-buf objects
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: sumit.semwal@linaro.org, oushixiong@kylinos.cn,
+ alexander.deucher@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
+References: <20250821064031.39090-1-tzimmermann@suse.de>
+ <b92c072b-a302-47c8-b2c2-f4b2e3954165@amd.com>
+ <CADnq5_PxpsXkzzpa8KJoZL-pBaM2ViVBOaXuYkYyd_xHBNLt9A@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CADnq5_PxpsXkzzpa8KJoZL-pBaM2ViVBOaXuYkYyd_xHBNLt9A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[14];
+ FREEMAIL_TO(0.00)[gmail.com,amd.com]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[linaro.org,kylinos.cn,amd.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,lists.linaro.org];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,amd.com:email,linaro.org:email,suse.de:mid,suse.de:dkim,suse.de:email];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Queue-Id: 5A3C321F10
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,60 +154,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hi
 
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Am 21.08.25 um 15:13 schrieb Alex Deucher:
+> On Thu, Aug 21, 2025 at 4:52 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>>
+>>
+>> On 21.08.25 08:40, Thomas Zimmermann wrote:
+>>> Current dma-buf vmap semantics require that the mapped buffer remains
+>>> in place until the corresponding vunmap has completed.
+>>>
+>>> For GEM-SHMEM, this used to be guaranteed by a pin operation while creating
+>>> an S/G table in import. GEM-SHMEN can now import dma-buf objects without
+>>> creating the S/G table, so the pin is missing. Leads to page-fault errors,
+>>> such as the one shown below.
+>>>
+>>> [  102.101726] BUG: unable to handle page fault for address: ffffc90127000000
+>>> [...]
+>>> [  102.157102] RIP: 0010:udl_compress_hline16+0x219/0x940 [udl]
+>>> [...]
+>>> [  102.243250] Call Trace:
+>>> [  102.245695]  <TASK>
+>>> [  102.2477V95]  ? validate_chain+0x24e/0x5e0
+>>> [  102.251805]  ? __lock_acquire+0x568/0xae0
+>>> [  102.255807]  udl_render_hline+0x165/0x341 [udl]
+>>> [  102.260338]  ? __pfx_udl_render_hline+0x10/0x10 [udl]
+>>> [  102.265379]  ? local_clock_noinstr+0xb/0x100
+>>> [  102.269642]  ? __lock_release.isra.0+0x16c/0x2e0
+>>> [  102.274246]  ? mark_held_locks+0x40/0x70
+>>> [  102.278177]  udl_primary_plane_helper_atomic_update+0x43e/0x680 [udl]
+>>> [  102.284606]  ? __pfx_udl_primary_plane_helper_atomic_update+0x10/0x10 [udl]
+>>> [  102.291551]  ? lockdep_hardirqs_on_prepare.part.0+0x92/0x170
+>>> [  102.297208]  ? lockdep_hardirqs_on+0x88/0x130
+>>> [  102.301554]  ? _raw_spin_unlock_irq+0x24/0x50
+>>> [  102.305901]  ? wait_for_completion_timeout+0x2bb/0x3a0
+>>> [  102.311028]  ? drm_atomic_helper_calc_timestamping_constants+0x141/0x200
+>>> [  102.317714]  ? drm_atomic_helper_commit_planes+0x3b6/0x1030
+>>> [  102.323279]  drm_atomic_helper_commit_planes+0x3b6/0x1030
+>>> [  102.328664]  drm_atomic_helper_commit_tail+0x41/0xb0
+>>> [  102.333622]  commit_tail+0x204/0x330
+>>> [...]
+>>> [  102.529946] ---[ end trace 0000000000000000 ]---
+>>> [  102.651980] RIP: 0010:udl_compress_hline16+0x219/0x940 [udl]
+>>>
+>>> In this stack strace, udl (based on GEM-SHMEM) imported and vmap'ed a
+>>> dma-buf from amdgpu. Amdgpu relocated the buffer, thereby invalidating the
+>>> mapping.
+>>>
+>>> Provide a custom dma-buf vmap method in amdgpu that pins the object before
+>>> mapping it's buffer's pages into kernel address space. Do the opposite in
+>>> vunmap.
+>>>
+>>> Note that dma-buf vmap differs from GEM vmap in how it handles relocation.
+>>> While dma-buf vmap keeps the buffer in place, GEM vmap requires the caller
+>>> to keep the buffer in place. Hence, this fix is in amdgpu's dma-buf code
+>>> instead of its GEM code.
+>>>
+>>> A discussion of various approaches to solving the problem is available
+>>> at [1].
+>>>
+>>> v3:
+>>> - try (GTT | VRAM); drop CPU domain (Christian)
+>>> v2:
+>>> - only use mapable domains (Christian)
+>>> - try pinning to domains in preferred order
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Fixes: 660cd44659a0 ("drm/shmem-helper: Import dmabuf without mapping its sg_table")
+>>> Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Closes: https://lore.kernel.org/dri-devel/ba1bdfb8-dbf7-4372-bdcb-df7e0511c702@suse.de/
+>>> Cc: Shixiong Ou <oushixiong@kylinos.cn>
+>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>> Cc: David Airlie <airlied@gmail.com>
+>>> Cc: Simona Vetter <simona@ffwll.ch>
+>>> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+>>> Cc: "Christian König" <christian.koenig@amd.com>
+>>> Cc: dri-devel@lists.freedesktop.org
+>>> Cc: linux-media@vger.kernel.org
+>>> Cc: linaro-mm-sig@lists.linaro.org
+>>> Link: https://lore.kernel.org/dri-devel/9792c6c3-a2b8-4b2b-b5ba-fba19b153e21@suse.de/ # [1]
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+> Thomas did you want to take this through drm-misc or do you want me to
+> pick this up?
 
+If you haven't send out this week's fixes for amdgpu, you're welcome to 
+pick it up. Otherwise I can merge it via drm-misc-fixes next week.
 
------Original Message-----
-From: Clement, Sunday <Sunday.Clement@amd.com>
-Sent: Wednesday, August 20, 2025 10:51 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Clement, Sunday <Sunday.Clement@amd.com>; Kuehling, Felix <Felix.Kuehli=
-ng@amd.com>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-Subject: [PATCH] drm/amdkfd: Allow device error to be logged
+Best regards
+Thomas
 
-The addition of a WARN_ON() check in order to return early in the
-kq_initialize function retroactively causes the default case in the
-following switch statement to never be executed, preventing dev_err
-from logging device errors in the kernel. Both logs are now checked
-in the default case.
+>
+> Thanks,
+>
+> Alex
+>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 34 +++++++++++++++++++--
+>>>   1 file changed, 32 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>>> index 5743ebb2f1b7..ce27cb5bb05e 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>>> @@ -285,6 +285,36 @@ static int amdgpu_dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
+>>>        return ret;
+>>>   }
+>>>
+>>> +static int amdgpu_dma_buf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)
+>>> +{
+>>> +     struct drm_gem_object *obj = dma_buf->priv;
+>>> +     struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+>>> +     int ret;
+>>> +
+>>> +     /*
+>>> +      * Pin to keep buffer in place while it's vmap'ed. The actual
+>>> +      * domain is not that important as long as it's mapable. Using
+>>> +      * GTT and VRAM should be compatible with most use cases.
+>>> +      */
+>>> +     ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT | AMDGPU_GEM_DOMAIN_VRAM);
+>>> +     if (ret)
+>>> +             return ret;
+>>> +     ret = drm_gem_dmabuf_vmap(dma_buf, map);
+>>> +     if (ret)
+>>> +             amdgpu_bo_unpin(bo);
+>>> +
+>>> +     return ret;
+>>> +}
+>>> +
+>>> +static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map)
+>>> +{
+>>> +     struct drm_gem_object *obj = dma_buf->priv;
+>>> +     struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+>>> +
+>>> +     drm_gem_dmabuf_vunmap(dma_buf, map);
+>>> +     amdgpu_bo_unpin(bo);
+>>> +}
+>>> +
+>>>   const struct dma_buf_ops amdgpu_dmabuf_ops = {
+>>>        .attach = amdgpu_dma_buf_attach,
+>>>        .pin = amdgpu_dma_buf_pin,
+>>> @@ -294,8 +324,8 @@ const struct dma_buf_ops amdgpu_dmabuf_ops = {
+>>>        .release = drm_gem_dmabuf_release,
+>>>        .begin_cpu_access = amdgpu_dma_buf_begin_cpu_access,
+>>>        .mmap = drm_gem_dmabuf_mmap,
+>>> -     .vmap = drm_gem_dmabuf_vmap,
+>>> -     .vunmap = drm_gem_dmabuf_vunmap,
+>>> +     .vmap = amdgpu_dma_buf_vmap,
+>>> +     .vunmap = amdgpu_dma_buf_vunmap,
+>>>   };
+>>>
+>>>   /**
+>> _______________________________________________
+>> Linaro-mm-sig mailing list -- linaro-mm-sig@lists.linaro.org
+>> To unsubscribe send an email to linaro-mm-sig-leave@lists.linaro.org
 
-Signed-off-by: Sunday Clement <Sunday.Clement@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_kernel_queue.c
-index 2b0a830f5b29..fb3129883a4c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-@@ -46,11 +46,7 @@ static bool kq_initialize(struct kernel_queue *kq, struc=
-t kfd_node *dev,
-        int retval;
-        union PM4_MES_TYPE_3_HEADER nop;
-
--       if (WARN_ON(type !=3D KFD_QUEUE_TYPE_DIQ && type !=3D KFD_QUEUE_TYP=
-E_HIQ))
--               return false;
--
--       pr_debug("Initializing queue type %d size %d\n", KFD_QUEUE_TYPE_HIQ=
-,
--                       queue_size);
-+       pr_debug("Initializing queue type %d size %d\n", type, queue_size);
-
-        memset(&prop, 0, sizeof(prop));
-        memset(&nop, 0, sizeof(nop));
-@@ -69,6 +65,7 @@ static bool kq_initialize(struct kernel_queue *kq, struct=
- kfd_node *dev,
-                kq->mqd_mgr =3D dev->dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
-                break;
-        default:
-+               WARN(1, "Invalid queue type %d\n", type);
-                dev_err(dev->adev->dev, "Invalid queue type %d\n", type);
-                return false;
-        }
+-- 
 --
-2.43.0
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
 
