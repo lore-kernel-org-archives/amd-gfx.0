@@ -4,80 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C98BCA0EF8
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 14:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 766AFCA0EF8
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 14:29:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1744710E9A9;
-	Thu, 21 Aug 2025 14:13:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1316310E9B5;
+	Thu, 21 Aug 2025 14:29:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lf1sohTK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Luvjr81v";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D00F10E9A4;
- Thu, 21 Aug 2025 14:13:22 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-24602f6d8b6so1259225ad.1; 
- Thu, 21 Aug 2025 07:13:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755785601; x=1756390401; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ewQnvlqhN4ny32MfAw6z/qV7rnt0Pvo8EUPrCTIPPWU=;
- b=Lf1sohTKiTiWPrzNAR4945xvTonyKhzxJXeWICc1e7KqNWcY8X3UUBq+/eoRqzUTMr
- UIOJzfJu8DKbuIXx3AdNWFu6HN3Nje4UFaQsrZmfUAUyInfH++AsxGSD0riD/mK1lA9q
- uT6U2lSt6mVkDyjs2LbKNYPHaL52aQcgwY6p47RC6wGDsdK75fLYcyD8/aYjckhi2ojY
- pbu5GI7+Q7ZqjZRU8FyL3MYQycw6pRHIwq5wabW5SXxoTNCqtmBAcXnBZWDx3mxcnGUA
- 0Qi+xQGVbdC7Gue9YS3aRMKJ+a2gzDZNcTkI5DaA4zH1tVIJGQnoJI1/VEDaxQbzl8Sr
- swkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755785601; x=1756390401;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ewQnvlqhN4ny32MfAw6z/qV7rnt0Pvo8EUPrCTIPPWU=;
- b=euzmWUEL84V4jclS4c59G32//awVIyizGHCWsrclx3grvxmkVawSzjzjNsIHFJvVYs
- 0ZfyYku30N3788YAR8O3k1gCCEOFDxlM4YzqTR+VYtfNJdOSL5cStAzymdz4d63eQbe5
- cM2v46OTl1bqYO6vljcs/r8EpoSWWGVe0xMuGbHw2QrPPHts9xxos4NXVO61H50gIVZ0
- hudEINmQUBnMdR20pk7J5YaEoYra5gbrs1076DnAKJo/J3Pk87Oe+bopmsPvKPZ1LdEM
- f2uf0GJSvgV7kMRv7Vfo+/WO8+Fjw8ayEco1KgkH3N46lb4fs/z4tHlxvn4M05TOg7CB
- 2Hpg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUKOLTK1tuLx/RUuevqYkZL8sfyVX2DsAQFbgfbQZlvFmy2NSfDQwIokO7ZZJAtF3PcXsAKusaL@lists.freedesktop.org,
- AJvYcCWYiGglNYPONgjuLDvqEjJhwraeFPn/OnyyziZdwuUMaRZNWGKmJWNKSL8MCW7mhYp76CuiAATjzvcg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLx+piwv7vkAOH/hmg6K7cyQ5yPaEt72xMFMi4yuvQhvg6mGfa
- cVJMH9P+HqehyMS6tVJYwJHQRvxVxpwSKlO3ul5Nzu2WHqwV+s1rFkSIZuoc8koTRi2pqBMpnAN
- soDcbBGC7ThSzKoV6ySB06FfFq4Esv9g=
-X-Gm-Gg: ASbGncuFal4CSZn4c7GYLvQg099Z79JFUDxOYz8J0jf2voJ8VQu+v70HO92uavdOxEo
- E8aZMjUbYzhkViaq/CZKt0R+YX1ScBiAdkofV/Vr+i7knd4JLbFUsX02ygGXHz3Q5mVctTuok0k
- rj+R/u3ZLdx2Lj0KAKmYTuDHHuKmnrXZGdFthCMxXhohjN+2xnflo7KmYqHJdND4XVI9uv3kRTq
- 5/j9oc=
-X-Google-Smtp-Source: AGHT+IHRc2aUrbiGENoV07AwMCzaGJhLBFchXgZtLS6TVE0HemOCZi8CwvOia3zy48LcLGITV96Y1WlMOkrR+BKq3g4=
-X-Received: by 2002:a17:902:f542:b0:240:4d65:508f with SMTP id
- d9443c01a7336-245fed79629mr24717095ad.6.1755785601462; Thu, 21 Aug 2025
- 07:13:21 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250821064031.39090-1-tzimmermann@suse.de>
- <b92c072b-a302-47c8-b2c2-f4b2e3954165@amd.com>
- <CADnq5_PxpsXkzzpa8KJoZL-pBaM2ViVBOaXuYkYyd_xHBNLt9A@mail.gmail.com>
- <37cacb29-e382-400c-b4fb-bed733ce480b@suse.de>
-In-Reply-To: <37cacb29-e382-400c-b4fb-bed733ce480b@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 21 Aug 2025 10:13:09 -0400
-X-Gm-Features: Ac12FXxO3lpLz4bRGPBuj6tXGU7_OsrxRgedUV-m31__xMMSMjZ2TdDfFe7M8D8
-Message-ID: <CADnq5_PEXW9J=yVaXEA0VoKPZW48SQj7inLM=wq-nQX+xLP_og@mail.gmail.com>
-Subject: Re: [Linaro-mm-sig] Re: [PATCH v3] drm/amdgpu: Pin buffers while
- vmap'ing exported dma-buf objects
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- sumit.semwal@linaro.org, oushixiong@kylinos.cn, alexander.deucher@amd.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
- simona@ffwll.ch, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2078.outbound.protection.outlook.com [40.107.92.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF29A10E9B5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Aug 2025 14:29:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VgmHwDQivMaam/ehtEj9MWzQmUwPN6rxipZ3b7G2z3IzuAcnomOUITXDNd664yUk9CuxuaxczmrtuLk1qt/cNayyXUVFZphlIOx0Pwj+BRNPc8br2NW5yOCoWKD7HL3/lc21xJQHi9JmuiMO7ZkSvrirVaxj4QOsNpi1FN/nuC2VQWguyg5UpjTX2FYH33kJIKu+aOoHVsxCBKJ/5RlhqJCc3ppJRB41fBwKV/d9++nYDmMuHMtCut9W+ttrh1hust5QRKGj/OGBMhxa2dlWRMZSbwCzYf9eFrttjG9FRUTYjDhMtqZ9/uvrEw1sJQh3fUQct9xofe8VZppgnOdWHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ee60u4ZQm4wqeRtmKMBvTbfhPz4EJVER4HN5MMZZzfE=;
+ b=wFv4OrYSFp08paYPbyLNGfRi85/cXSbihEUB54pFeBqB/8Era/SvBoHN4UnnKMBLPhdaBrYBw3LjqFq2Z3JXxSzAOycWPv91qTfKUFalIAiSlrD35bssfYWb10cPCxuE0247Z4C7yjF7dw2vd334KExLsF/bylqYYWKKCqSjBUxpm1AFZlRFr5u0YuN9tFDXdHVVW2vg9nOx+qnDJhZEAuO+jg47o20f06wDPYZ1zazvYs38c6OV6RqEad8eJ7CDb16MO6budDRNA8lM1hiR5yDTSbSnPNDs1++DVqX9uqhlrlFptpUmcg1sbLV91IfS+VdowuGg6IXp1RXIc+OtoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ee60u4ZQm4wqeRtmKMBvTbfhPz4EJVER4HN5MMZZzfE=;
+ b=Luvjr81v+0ipT77HDczmOK7b/F8pPExI3btlcRDPMouhlbsoTvBT8q+Xon2Z6z/55Vnc8478ndGFdR1i9PHaV98kmUs9pjE1Icof0OQ7dsxt9GoylzQz/iHVKZbvLT6oVOwe//N0kuJYqv9qPBwd7upiFGVH1IRc4ew/hLcnO98=
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
+ by BL3PR12MB6572.namprd12.prod.outlook.com (2603:10b6:208:38f::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.13; Thu, 21 Aug
+ 2025 14:29:10 +0000
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::314f:877c:8b6f:52d6]) by CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::314f:877c:8b6f:52d6%6]) with mapi id 15.20.9031.021; Thu, 21 Aug 2025
+ 14:29:10 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Huang, JinHuiEric" <JinHuiEric.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Huang, JinHuiEric" <JinHuiEric.Huang@amd.com>
+Subject: RE: [PATCH] drm/amdkfd: fix vram allocation failure for a special case
+Thread-Topic: [PATCH] drm/amdkfd: fix vram allocation failure for a special
+ case
+Thread-Index: AQHcEG9bNNXw2/icbkG5BC+hM/ndgrRtLvZA
+Date: Thu, 21 Aug 2025 14:29:10 +0000
+Message-ID: <CY8PR12MB7099363E76DB3618627DC6058C32A@CY8PR12MB7099.namprd12.prod.outlook.com>
+References: <20250818183829.176628-1-jinhuieric.huang@amd.com>
+In-Reply-To: <20250818183829.176628-1-jinhuieric.huang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-08-21T14:28:52.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|BL3PR12MB6572:EE_
+x-ms-office365-filtering-correlation-id: ba9c3f68-1572-4ba9-4d8b-08dde0bf1811
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?LGli4SeBpVA9Gote2VJ0ETVRxPS3zZhLht3EZEMEZZc0P63t1g21CGKQp4UP?=
+ =?us-ascii?Q?xO5acoFY3PXVnFK0ERfTN9LO4TmHDMewNcMggsJWyrznJcfF6KlvUEloaypm?=
+ =?us-ascii?Q?/rPDa0rCUQ6d8/JY9wdqkQRGNDCzWHE/YV2p4DxEQD5Qa6bQs38XJFI6bCOR?=
+ =?us-ascii?Q?cd2AC3ollj09Pn32ly9bUq6RYaT0AwS/WhKv8i+NdN4/VAh8dTKy1pTKpLUe?=
+ =?us-ascii?Q?bz/txBtTxRpm0P9TxOa/m1SlsjOHxoObwGDHsOrFXJLyaic7OBbjetdLP65P?=
+ =?us-ascii?Q?RzE0fBxs6VgwKG+nLsEmuyuiddtsH6EO8uMueqVEccboXeJGgpdCvrRm4hgz?=
+ =?us-ascii?Q?ybvKq6XDbf4GCUy1Jnwa3m8fMN4k7PhEWJUANjAc/r4tLCxwNNoz6MaM0Shn?=
+ =?us-ascii?Q?Syll0yDeSsgqAlFlsiPgBtRnmWM/9wDNGJuzWYOanyyq2xgwbGrZhfbCbzOa?=
+ =?us-ascii?Q?mJ2cBjjOr/mO77/D6Nbb1yA15oI6Cm9EMvI4IW6LS5xqWzK9cXYQm7EDAQM8?=
+ =?us-ascii?Q?YauFYbxQ8cajeSVYyS1X/uItgA+GGSbouM4mvtr7T+Rd7l5YJ7N6ajSqo3JL?=
+ =?us-ascii?Q?xeBpTIvx272O8hX3AN7WXU220NeDMBtwh/jrHFT5IL379q1/5trsxaDeO0PD?=
+ =?us-ascii?Q?dO6OQDs72qcnBXJsArklbfVKfuXEvuKnrA+iVNpXb8ADmqyQXbL4B6MHnP7M?=
+ =?us-ascii?Q?i08KF8WhytvsLXFRFQMMq/1FsNr4Upvh/E8eaKrAPd8ustZpDR4CoXvQAaBB?=
+ =?us-ascii?Q?86xTTiqRgwH2Lev3SY7oIAKhfwupYiDaLx2B0DehRjepHCxM1IM9ZZtg7y3X?=
+ =?us-ascii?Q?ae26dfRrIeJdju62fdhXiLB67GyopndGiNERFQde8xAbdZFGVUYf/iFfPngS?=
+ =?us-ascii?Q?HZChRtmLGPr77ZG0AeB0dOpxZj8v4xpdaw6p1IjSa97oid12adtljcdJ7t0M?=
+ =?us-ascii?Q?eeTtqME8FfEm/2gLG9Zb4kbk2SnXBOCIYiiqHOrP9TJ2eD3PY+hQ+7YEnq6N?=
+ =?us-ascii?Q?JMiFZxLWlB7MMeHl0BW+l9b8s6QLuRA7+f6uuuE4VG84NpRzUMXlmykQXn47?=
+ =?us-ascii?Q?qB5mtmbWPyoYt9wx/HXO/0hBNpiu/qScU4MxWIzkqtHyUdO5KZuCACM0FfQS?=
+ =?us-ascii?Q?WuFFr9qEeTJ3I/BhIbkxtSAwyDiM092PRYn4jlfmk9twc3mfkXAX/JOqiJYx?=
+ =?us-ascii?Q?I/dV57VrSfxjyfA6c15i/+k+1XWsfqogkoMh78GTLR0jm7UwqrtGygY+Q44k?=
+ =?us-ascii?Q?2n0q/gswvDZkTO227y34Mh3ap4ITXJMSlWeDQLA6Ej8Kkya2zCr1BX/Kdugb?=
+ =?us-ascii?Q?735zvzNVhWvpeeUI9jPmEWyRJvSz0RemPOhm1pziw6JYubO8kX1Y8v5mJDC0?=
+ =?us-ascii?Q?4WR85XPuY09+usRM0hFyYFFnEoUpXS3eFesIDH/cU/NeipVbe7l57zUW1GQ/?=
+ =?us-ascii?Q?pTTXRcfzSmuo5Rg/22uCqYmT0a/0qGePvXQ6oiu5ksiSjYelXE+B7jDzcL7/?=
+ =?us-ascii?Q?iXxAF2Uwfd3HhZc=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700018)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mwRhx7jmkKa6DU9gZrTi+OaWPWYevGZzPLc9FOZ2p+3M0bX8aDZb2T8k/VB7?=
+ =?us-ascii?Q?q6LHEi9eM5jmsm2mUWIhq+RLODupc3jD3j00gtsBmNc3cypep28iOWl1DmLo?=
+ =?us-ascii?Q?8NNZiDK0xuBzlGyAjTw7YQRMnMCUQ+TOJF3TZpPlABqXfeBvoWHxiEuZICAv?=
+ =?us-ascii?Q?QmCn7TRtd7tQnl4FtWvrO7FBGboZEo9iDTisloGl4/O3kyowcuuKUV+ucCWJ?=
+ =?us-ascii?Q?k1qRHnM94MxR7Jwz7e2V3WhdZ0SolNyBR1qzMkYsftsTu00jF3muWBLjSfsS?=
+ =?us-ascii?Q?AyeI/uix6iJ8v1sVLtDj2AJc3jTlak48Ca8Yeeyexn9fbZU+rFFIp8Yiw37D?=
+ =?us-ascii?Q?0BiJn25x9uU41YhTy9zV84Z2Q5ATGhzktO8m+d2m2uhMPeUCt2/gGaj66qkC?=
+ =?us-ascii?Q?hG+H1OMRtrRQfzVT1hmCij+oeWnxWINTpEVkvLuTEPYqxcu6XWSB8SXayyLa?=
+ =?us-ascii?Q?3KcRbvyFlCsj4dLTBMK3MF68YCy19Cvz8A4k4DqoFj0hHF0tVdUCPDeDpwwJ?=
+ =?us-ascii?Q?cCPAdASyY82Z6VSntZRXQqDH4aueaqOXAeBSsB8y3bpy+a16JS0jck0seG91?=
+ =?us-ascii?Q?/DWQ581/QGj2ugX2t22Am3fHMSjrotT4WP6y86iaeuyYz/1IwGAJhs0+31Vy?=
+ =?us-ascii?Q?kK+eTjg9ElhPeLEds0bdMb4w3r+kblVTSILvp6wUu0TFWLMHiaiCXImhIWQ/?=
+ =?us-ascii?Q?ziIO2LH/lmZ/XhW1lHHSADt0so1/X8pP0HdZK7VJKAJlMnaSAdPWd4/q/YOR?=
+ =?us-ascii?Q?WI6tcsQ7/qUNVrZD8nybO3MJMnnuEfJR4os/CG8LBlX/VKGBjhi/pToV3k6q?=
+ =?us-ascii?Q?pGDGu6/UQ/3bf0BslsdBYtyo40C8QeCcCZO1YGjdAIqnhYXp956RfaHhVE5z?=
+ =?us-ascii?Q?WAesRYB2JyqvUzx9PB7ZTbEbg1rvhj9mEa222/RlXcR1f0rp8tfamrOqi8Bw?=
+ =?us-ascii?Q?r77bYRebOHucprdbNcW06dC4Tkpr6QEg8wSLDI7oRyaQZr0bY1fWkHgvvtlr?=
+ =?us-ascii?Q?Tf9o0IwouDtFubSrKq8W9rrPhkY5/CVaqEsDnEGUEN68jginEpZDDj3ITO8o?=
+ =?us-ascii?Q?Df4NobkkWdV6E9DW0lRxZgC7WG7UZPAi0mpWtao2hlEETBw9p1eqGoMHEpC1?=
+ =?us-ascii?Q?ZkSJXvzlMGVN0kxgqwsDb9pYgvGax5tOudOEBe8//U0Pwo69q2pmPsgZZfVC?=
+ =?us-ascii?Q?4gfvWo72UYA4/BD5lR8esUNZkhLuaqnO80iQXzUhiWRDE261XXIVM6RHP/6L?=
+ =?us-ascii?Q?SmCcw8yGUQj8qkl7eQcwNw/hs7RDT/CcHkhfnwauuSKP/4m41AqKgNGH3PFJ?=
+ =?us-ascii?Q?OKOwBMY1k/kIyszqp79UkCZjzH7QXxSycVF1yLme/wj7jAWet7+ghGngkrDc?=
+ =?us-ascii?Q?hICKDoocZeiM8Hr4bO9HmHFvUVzjbFJy/hfw8544ucMws5busT6CTfugpYru?=
+ =?us-ascii?Q?8kKNFERrmkAw1596rMCNT03rqiy/IFlQ04fHGvtZ3focAWdmwIaFNtiUGITn?=
+ =?us-ascii?Q?7UaL9S39LKX6ZcUhG7sjs7bv30oKdTXHjY0tqkGodlQgJmGLBKztJqs7K+++?=
+ =?us-ascii?Q?xZMv6NPvyox90i8Q3Dw=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba9c3f68-1572-4ba9-4d8b-08dde0bf1811
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2025 14:29:10.3458 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mZN3304+do2UaBAITB0pC+Xj0TcjLhxoSLtieiSjsIytLCLwsy83IPv7LlsSCk4HO/XERyVd8zsKh9DJ6ESVKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6572
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,201 +156,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 21, 2025 at 10:10=E2=80=AFAM Thomas Zimmermann <tzimmermann@sus=
-e.de> wrote:
->
-> Hi
->
-> Am 21.08.25 um 15:13 schrieb Alex Deucher:
-> > On Thu, Aug 21, 2025 at 4:52=E2=80=AFAM Christian K=C3=B6nig
-> > <christian.koenig@amd.com> wrote:
-> >>
-> >>
-> >> On 21.08.25 08:40, Thomas Zimmermann wrote:
-> >>> Current dma-buf vmap semantics require that the mapped buffer remains
-> >>> in place until the corresponding vunmap has completed.
-> >>>
-> >>> For GEM-SHMEM, this used to be guaranteed by a pin operation while cr=
-eating
-> >>> an S/G table in import. GEM-SHMEN can now import dma-buf objects with=
-out
-> >>> creating the S/G table, so the pin is missing. Leads to page-fault er=
-rors,
-> >>> such as the one shown below.
-> >>>
-> >>> [  102.101726] BUG: unable to handle page fault for address: ffffc901=
-27000000
-> >>> [...]
-> >>> [  102.157102] RIP: 0010:udl_compress_hline16+0x219/0x940 [udl]
-> >>> [...]
-> >>> [  102.243250] Call Trace:
-> >>> [  102.245695]  <TASK>
-> >>> [  102.2477V95]  ? validate_chain+0x24e/0x5e0
-> >>> [  102.251805]  ? __lock_acquire+0x568/0xae0
-> >>> [  102.255807]  udl_render_hline+0x165/0x341 [udl]
-> >>> [  102.260338]  ? __pfx_udl_render_hline+0x10/0x10 [udl]
-> >>> [  102.265379]  ? local_clock_noinstr+0xb/0x100
-> >>> [  102.269642]  ? __lock_release.isra.0+0x16c/0x2e0
-> >>> [  102.274246]  ? mark_held_locks+0x40/0x70
-> >>> [  102.278177]  udl_primary_plane_helper_atomic_update+0x43e/0x680 [u=
-dl]
-> >>> [  102.284606]  ? __pfx_udl_primary_plane_helper_atomic_update+0x10/0=
-x10 [udl]
-> >>> [  102.291551]  ? lockdep_hardirqs_on_prepare.part.0+0x92/0x170
-> >>> [  102.297208]  ? lockdep_hardirqs_on+0x88/0x130
-> >>> [  102.301554]  ? _raw_spin_unlock_irq+0x24/0x50
-> >>> [  102.305901]  ? wait_for_completion_timeout+0x2bb/0x3a0
-> >>> [  102.311028]  ? drm_atomic_helper_calc_timestamping_constants+0x141=
-/0x200
-> >>> [  102.317714]  ? drm_atomic_helper_commit_planes+0x3b6/0x1030
-> >>> [  102.323279]  drm_atomic_helper_commit_planes+0x3b6/0x1030
-> >>> [  102.328664]  drm_atomic_helper_commit_tail+0x41/0xb0
-> >>> [  102.333622]  commit_tail+0x204/0x330
-> >>> [...]
-> >>> [  102.529946] ---[ end trace 0000000000000000 ]---
-> >>> [  102.651980] RIP: 0010:udl_compress_hline16+0x219/0x940 [udl]
-> >>>
-> >>> In this stack strace, udl (based on GEM-SHMEM) imported and vmap'ed a
-> >>> dma-buf from amdgpu. Amdgpu relocated the buffer, thereby invalidatin=
-g the
-> >>> mapping.
-> >>>
-> >>> Provide a custom dma-buf vmap method in amdgpu that pins the object b=
-efore
-> >>> mapping it's buffer's pages into kernel address space. Do the opposit=
-e in
-> >>> vunmap.
-> >>>
-> >>> Note that dma-buf vmap differs from GEM vmap in how it handles reloca=
-tion.
-> >>> While dma-buf vmap keeps the buffer in place, GEM vmap requires the c=
-aller
-> >>> to keep the buffer in place. Hence, this fix is in amdgpu's dma-buf c=
-ode
-> >>> instead of its GEM code.
-> >>>
-> >>> A discussion of various approaches to solving the problem is availabl=
-e
-> >>> at [1].
-> >>>
-> >>> v3:
-> >>> - try (GTT | VRAM); drop CPU domain (Christian)
-> >>> v2:
-> >>> - only use mapable domains (Christian)
-> >>> - try pinning to domains in preferred order
-> >>>
-> >>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> >>> Fixes: 660cd44659a0 ("drm/shmem-helper: Import dmabuf without mapping=
- its sg_table")
-> >>> Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
-> >>> Closes: https://lore.kernel.org/dri-devel/ba1bdfb8-dbf7-4372-bdcb-df7=
-e0511c702@suse.de/
-> >>> Cc: Shixiong Ou <oushixiong@kylinos.cn>
-> >>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> >>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> >>> Cc: Maxime Ripard <mripard@kernel.org>
-> >>> Cc: David Airlie <airlied@gmail.com>
-> >>> Cc: Simona Vetter <simona@ffwll.ch>
-> >>> Cc: Sumit Semwal <sumit.semwal@linaro.org>
-> >>> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-> >>> Cc: dri-devel@lists.freedesktop.org
-> >>> Cc: linux-media@vger.kernel.org
-> >>> Cc: linaro-mm-sig@lists.linaro.org
-> >>> Link: https://lore.kernel.org/dri-devel/9792c6c3-a2b8-4b2b-b5ba-fba19=
-b153e21@suse.de/ # [1]
-> >> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Thomas did you want to take this through drm-misc or do you want me to
-> > pick this up?
->
-> If you haven't send out this week's fixes for amdgpu, you're welcome to
-> pick it up. Otherwise I can merge it via drm-misc-fixes next week.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Please go ahead.  I've already sent out my -fixes PR this week.
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
-Alex
 
->
-> Best regards
-> Thomas
->
-> >
-> > Thanks,
-> >
-> > Alex
-> >
-> >>> ---
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 34 ++++++++++++++++++=
-+--
-> >>>   1 file changed, 32 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_dma_buf.c
-> >>> index 5743ebb2f1b7..ce27cb5bb05e 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> >>> @@ -285,6 +285,36 @@ static int amdgpu_dma_buf_begin_cpu_access(struc=
-t dma_buf *dma_buf,
-> >>>        return ret;
-> >>>   }
-> >>>
-> >>> +static int amdgpu_dma_buf_vmap(struct dma_buf *dma_buf, struct iosys=
-_map *map)
-> >>> +{
-> >>> +     struct drm_gem_object *obj =3D dma_buf->priv;
-> >>> +     struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
-> >>> +     int ret;
-> >>> +
-> >>> +     /*
-> >>> +      * Pin to keep buffer in place while it's vmap'ed. The actual
-> >>> +      * domain is not that important as long as it's mapable. Using
-> >>> +      * GTT and VRAM should be compatible with most use cases.
-> >>> +      */
-> >>> +     ret =3D amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT | AMDGPU_GEM_DO=
-MAIN_VRAM);
-> >>> +     if (ret)
-> >>> +             return ret;
-> >>> +     ret =3D drm_gem_dmabuf_vmap(dma_buf, map);
-> >>> +     if (ret)
-> >>> +             amdgpu_bo_unpin(bo);
-> >>> +
-> >>> +     return ret;
-> >>> +}
-> >>> +
-> >>> +static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct io=
-sys_map *map)
-> >>> +{
-> >>> +     struct drm_gem_object *obj =3D dma_buf->priv;
-> >>> +     struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
-> >>> +
-> >>> +     drm_gem_dmabuf_vunmap(dma_buf, map);
-> >>> +     amdgpu_bo_unpin(bo);
-> >>> +}
-> >>> +
-> >>>   const struct dma_buf_ops amdgpu_dmabuf_ops =3D {
-> >>>        .attach =3D amdgpu_dma_buf_attach,
-> >>>        .pin =3D amdgpu_dma_buf_pin,
-> >>> @@ -294,8 +324,8 @@ const struct dma_buf_ops amdgpu_dmabuf_ops =3D {
-> >>>        .release =3D drm_gem_dmabuf_release,
-> >>>        .begin_cpu_access =3D amdgpu_dma_buf_begin_cpu_access,
-> >>>        .mmap =3D drm_gem_dmabuf_mmap,
-> >>> -     .vmap =3D drm_gem_dmabuf_vmap,
-> >>> -     .vunmap =3D drm_gem_dmabuf_vunmap,
-> >>> +     .vmap =3D amdgpu_dma_buf_vmap,
-> >>> +     .vunmap =3D amdgpu_dma_buf_vunmap,
-> >>>   };
-> >>>
-> >>>   /**
-> >> _______________________________________________
-> >> Linaro-mm-sig mailing list -- linaro-mm-sig@lists.linaro.org
-> >> To unsubscribe send an email to linaro-mm-sig-leave@lists.linaro.org
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstrasse 146, 90461 Nuernberg, Germany
-> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-> HRB 36809 (AG Nuernberg)
->
->
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Eric Hua=
+ng
+Sent: Monday, August 18, 2025 2:38 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Huang, JinHuiEric <JinHuiEric.Huang@amd.com>
+Subject: [PATCH] drm/amdkfd: fix vram allocation failure for a special case
+
+When it only allocates vram without va, which is 0, and a
+SVM range allocated stays in this range, the vram allocation
+returns failure. It should be skipped for this case from
+SVM usage check.
+
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_chardev.c
+index 79ed3be63d0d..43115a374469 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1070,7 +1070,12 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file=
+ *filep,
+        svm_range_list_lock_and_flush_work(&p->svms, current->mm);
+        mutex_lock(&p->svms.lock);
+        mmap_write_unlock(current->mm);
+-       if (interval_tree_iter_first(&p->svms.objects,
++
++       /* Skip a special case that allocates VRAM without VA,
++        * VA will be invalid of 0.
++        */
++       if (!(!args->va_addr && (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)) &&
++           interval_tree_iter_first(&p->svms.objects,
+                                     args->va_addr >> PAGE_SHIFT,
+                                     (args->va_addr + args->size - 1) >> PA=
+GE_SHIFT)) {
+                pr_err("Address: 0x%llx already allocated by SVM\n",
+--
+2.34.1
+
