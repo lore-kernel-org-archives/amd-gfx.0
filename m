@@ -4,123 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED15CA0EED
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Aug 2025 13:44:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7031CA0EED
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Aug 2025 14:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2340D10EB16;
-	Fri, 22 Aug 2025 13:44:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D06E10EB1F;
+	Fri, 22 Aug 2025 14:30:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FgcMbqBp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hLbGl+FI";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2065.outbound.protection.outlook.com [40.107.93.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F83B10EB11;
- Fri, 22 Aug 2025 13:44:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BPlDr0AilzODyFTqj8TLEuwf4TGRwnDIWucF3K5h3E6AfLlhzh00nSMz4WZJvSKfanWVwOQR/I0xy4lG/lbtt8+qrXklkKycyu0JuyjcAVxx7k/TpL4JE1gcSEi2lrDYeoULpqXRuddpxCbrG8KSBPVTtWqV24L6NEsdjxQMFLGQ87f4XTQEySe/bC8V5KMJzhTUGYelgSmnHM3EYEkFo8Ou2Kd5r3GnGkpIEtqnukCkzTFelkEGywXcvY1B/v3sbudEMXtPnjt1hI0pVjPSRWo++RZ2HxgxQwMfFaAAPuqXIb/7xmXC6h1WvG77RIL6LnmQwMkbvssGxM7OjfcFWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4zNYugPL38DwaQDKqT/RhhvT0QYBLYYQ44izal/sWgk=;
- b=D/c+jHZ9y6LrveLcOuz4Wx+CCShn+ifRL2JlWigmpISPq2PA3aqpMaVI70XSRai+qVo2e1fUJ+xtwN+/wggisixtJEzNFkITHwLPVKrukwTLZfQVRfoHLK3TU0wRN7Je5/gMoN4e3TxUOJqxhyPoKWPLSj38Iy0QAmzcbDLcpPAFvfBmbwQgyaQpwq5BtQTq3BQBscW0n/z1fY+Y+fcgMyZtWxnILb87AhTgDFHb70BNuQo5EFVWS8jXq1iy9wv25dgR9dWWHAlTw9HB292vRkcGg57KRK8LbsDEoocDO5Mq1KE1BMMg7FMWMsDkPPOxlIqhhmnmlzVCSQ+zmfdq7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4zNYugPL38DwaQDKqT/RhhvT0QYBLYYQ44izal/sWgk=;
- b=FgcMbqBphBVCkYfW+qcgy4vPd1fkC15VjpWfGdLt3kFCZ3Aca0pvz348HGlrqOr5O07AtYi215z/+TdmUvMg/sdQxT+jxbcM+sbqBSG/aV3+b6uEcMlnDK3mvo11omJYDpgyjnyHlCZPECqeFTi4kKTgGF1+g/+z3cSiwmdMgtc=
-Received: from MW4PR04CA0035.namprd04.prod.outlook.com (2603:10b6:303:6a::10)
- by DM4PR12MB5961.namprd12.prod.outlook.com (2603:10b6:8:68::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.15; Fri, 22 Aug
- 2025 13:44:27 +0000
-Received: from CO1PEPF000042A8.namprd03.prod.outlook.com
- (2603:10b6:303:6a:cafe::f0) by MW4PR04CA0035.outlook.office365.com
- (2603:10b6:303:6a::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.18 via Frontend Transport; Fri,
- 22 Aug 2025 13:44:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042A8.mail.protection.outlook.com (10.167.243.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9052.8 via Frontend Transport; Fri, 22 Aug 2025 13:44:27 +0000
-Received: from FRAPPELLOUX01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 22 Aug
- 2025 08:44:25 -0500
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH v1 1/2] drm/amdgpu: increment share sched score on entity
- selection
-Date: Fri, 22 Aug 2025 15:43:46 +0200
-Message-ID: <20250822134348.6819-1-pierre-eric.pelloux-prayer@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F13DA10EB1F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Aug 2025 14:30:25 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-24457f44927so3165995ad.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Aug 2025 07:30:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755873025; x=1756477825; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rg2GcDSQ8WUW92+166MeMoRe2xJgMQjd2UP22uNxX08=;
+ b=hLbGl+FIb6qaJucLh3mtJWvpCx8hXgnpqqauh90mLuCWCSZocfgqotLD12TwUXKi3S
+ vsDG8ziPIn7y8YCBwAO03u893NKR2IhA3vnQFZ++dQRyxWZ59YxOI9GRuzOkgkqJz+Dz
+ VXb/IalWA54QCCdkINNt6BhfIiiIepb732pJOcg1f49+PhqDGIQAhg2XBu2VUOUdeu0w
+ 3rMx9hWgWZAlbzkw+U2wUzeFrhGjFzm30gmGdtV/Zxz38NXjJI4Na8nqOO/JIWwhY6On
+ IBOK3LB0Cvrs5/WXnXD+QFeb4/sNI6hItM6CUoIAi9Y+4Apmxq4Ov351IzUzuavJcYpL
+ OXDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755873025; x=1756477825;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rg2GcDSQ8WUW92+166MeMoRe2xJgMQjd2UP22uNxX08=;
+ b=wIecSkw8rWsgOBIV7naiy67+oHv9zrDD+SlbjBeqjiwQicRSjTiHOu6ZWtY5eGHT5R
+ VGfJVZQZmesUfsf00n7aRpjaLGN6qnIgY3oRRnck4vEOwiV54I3+AvzCrUhioWRG6WmJ
+ A0NnvLEVDMltUidgLsu3WxY7OHzcZ0BqxNv2O+N8MmZe3MXgSbbaazlxVvTDDIFzGCsc
+ 1SHgiNF4+ELgsmX2Q1MkGDpgLUpUsUU6enZbELPelzrfLNDID6X9isy5QpbpbetYElfO
+ bTmUoRokQ9bP/KNwUwavEquJXoXkW3iXYTK9FnP8K2vsKHVwziHlJiZQpHPXXZ0XlzOa
+ E4+g==
+X-Gm-Message-State: AOJu0YyVRwzP3HNqvpa5RQacBLfuDqPAhNf/IxuRWfBCrZIsF2FcnTdU
+ xEVjNqCQPVCAHNq2Vml52TSvUHp5OOitYIyn/kPkhw3tC25wlw4DlYzFMLNM25BLWExyPlTK+Hp
+ mEJ4kGziaAgDRCKo34dm8eNDdu97CkTI=
+X-Gm-Gg: ASbGnctxmNMHMuo9usnVpOGK/RvDaa1ir29CupjHiWuUE9ZVawsspcKUAlNdCByJNXa
+ Ktv6OzPYj2cbSaDXtU87OjSJK+N/mkrlWbbADwS34SlQeHA3DRaEBOOTGIeXxBelUVeZxm9OKrA
+ i2x2ZP3dkCdfXAg6gprEhpBlqtwUHKxfVMezlSxXE0I7GRmF7UTVJstg5olgwrniycbskgoh5WA
+ NSwJ/0=
+X-Google-Smtp-Source: AGHT+IHn5GrJY6I76ac80mYzt2Wu3FoeG79nSlszuDi8GFBuzoW/Thtock1V6NploLvKHQSWGbC1mhLS8J19AFQr5+A=
+X-Received: by 2002:a17:902:d48b:b0:246:5253:6dfc with SMTP id
+ d9443c01a7336-24652537015mr8930295ad.7.1755873025269; Fri, 22 Aug 2025
+ 07:30:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A8:EE_|DM4PR12MB5961:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4937dd11-5596-4bad-0b60-08dde1820353
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qo4qMZnsLZCgMZo1b0w1HSOrD8ToH2E5kuw+3PpAeueA5FHpG+EViTLgjNq8?=
- =?us-ascii?Q?wfKrXQODKNGrnDPGEqnC5weA/Jj9FOZksCtT/j4vMshuECc25DqT7pN2aE5b?=
- =?us-ascii?Q?0oJL7baNZVuWFSTPShfG8vcdLEoLj26hbT5Y6y6DeyC/Xrbl3T8ouQqz2d7Y?=
- =?us-ascii?Q?3YS3TFRt37TCQSf+ye4DKRZre92Em7lYuj4c9TCvouCPZ6eaHKFOGAnnoF+m?=
- =?us-ascii?Q?xrQeNO39pPBtHrPRdg6s3Bo2Jh4b+N0mXonTKDKzyTW1ctsOu9QZbZxnUnID?=
- =?us-ascii?Q?OrNZR6LGWjvbGaiHpHUAPk2avZOhprgEGvY6mdAV8Vyid4jqcF0iKE0XSQhA?=
- =?us-ascii?Q?UEI7MmEGA3KEuvQ/nSs0rx1tdroyCfqrLk/kEp1tTDSJb+Kx5pW/cxOAgQH0?=
- =?us-ascii?Q?C8r4BNVhlLqE4AyqSgkAOROpuiIza8EW/5kLWBxFD+ymVDnIzbmW0r9eAHg+?=
- =?us-ascii?Q?AxIeN7F7vozCXCFXTsgSm+21BN+5uk4UjuDhmGdIb4Lsr0NWhBUa+R85tfXX?=
- =?us-ascii?Q?W29tJpUOP+grGj5EItxmmwGTv9DbN2bzPKGwPZiuf4FijwVdLJnnfdeNWprn?=
- =?us-ascii?Q?5JQWDDp5j7QipA4Od9OM1qWMzZTxZmPqdZBlG4F2MYdybKKKSaNPz399o9c1?=
- =?us-ascii?Q?is7K2sLfmdl6qFMpbDnRt8K8zIvpG9anhapARlw56enqJZ/hR0lkqC8cTmLz?=
- =?us-ascii?Q?aF1n8ZCe1y05oliPQVeSiHZHqlwKGDpc5T0ZD0/bYGoiBzBmFjF6eRjb/klY?=
- =?us-ascii?Q?iEeycvZuWDEc0gg1XTS1+FHdriWKpjgO+bLegtCW919HVqHJjQqWd6gsHgPK?=
- =?us-ascii?Q?atMROXF/ulVLACI6ivP8l3OwdoqhjOkYMuvQDSDuaYqRnHnBt2hBU0CmXLF7?=
- =?us-ascii?Q?S1mOH3o6OzPXm2/buVGdKiUDfJusVgWIYiVdlEPR9No1rPEoe1oTux+8KpoW?=
- =?us-ascii?Q?28tHN+FoD8S7KYPtyQNMFNGAwWQuq0Jl69qQtcSgoFeN3jogcC4YU6R2y1k4?=
- =?us-ascii?Q?jiVkdOOFE3nCS6zGbuVQUrQsw2iqDI0jwtu/GVHSpFfoQZ5fNtyqmys5lPNV?=
- =?us-ascii?Q?OlaNKQG65jS1jkZHq75hVTM3H2E25RY2XSMLWjhNNep067YBsytuwDfLr3aa?=
- =?us-ascii?Q?8piWpUvXf5dopZv6KXOhsIVigYwanhGylvlxNvuMDSQcrOHBXct1eyQ0+cfw?=
- =?us-ascii?Q?LVpqjyZ2TAAXSDufVInTwdtAYGaj4oEx+vTIyTf5bzgQbCKcw0S16FjXuE8b?=
- =?us-ascii?Q?KnQaDKeK7M6XvJiWX1Z3EDapv+XIqZHGUT3bcVGiD3Gsv9259wF9yk3g1XH2?=
- =?us-ascii?Q?zjNwuGPlQnPhqs7Zf4tcpaoFGhdYVhDaCDUhoAiH46jX9px+omFBigjLtpTW?=
- =?us-ascii?Q?ldrtyp4QIwJMwlv49+ql8g4ZtwO4iffvVw/Jh/5eK7d/Q3TgNoPEGrOdnqem?=
- =?us-ascii?Q?O2OLHimnmjuHgNPq2Zxf7NjBiI5/Bt7EoYPPeh1F0IpY7N6v8lRRPW+ksxNH?=
- =?us-ascii?Q?y6WsTTgoAbSGzkKC4rJnTfucxZniLKNPmyWn?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2025 13:44:27.2903 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4937dd11-5596-4bad-0b60-08dde1820353
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A8.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5961
+References: <20250821152033.790477-1-shaoyun.liu@amd.com>
+In-Reply-To: <20250821152033.790477-1-shaoyun.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 22 Aug 2025 10:30:13 -0400
+X-Gm-Features: Ac12FXyi7mdRlkTjAVPgtnGfy-UqEeEWI_mI1fZc_ZLWJSr1r1KSMScGb2MFXI4
+Message-ID: <CADnq5_NNtJkXSzt7zAveYfs=E4pQo=T4mgOJ5-VHSek0R6HCqA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/amdgpu : Use the MES INV_TLBS API for tlb
+ invalidation on gfx12
+To: Shaoyun Liu <shaoyun.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,103 +81,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For hw engines that can't load balance jobs, entities are
-"statically" load balanced: on their first submit, they select
-the best scheduler based on its score.
-The score is made up of 2 parts:
-* the job queue depth (how much jobs are executing/waiting)
-* the number of entities assigned
+On Thu, Aug 21, 2025 at 11:28=E2=80=AFAM Shaoyun Liu <shaoyun.liu@amd.com> =
+wrote:
+>
+> From MES version 0x81, it provide the new API INV_TLBS that support
+> invalidate tlbs with PASID.
+>
+> Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 27 ++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 20 ++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  | 43 +++++++++++++++++++++++++
+>  3 files changed, 90 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_mes.h
+> index c0d2c195fe2e..46235b8726f3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> @@ -280,6 +280,30 @@ struct mes_reset_queue_input {
+>         bool                               is_kq;
+>  };
+>
+> +enum amdgpu_mes_hub_id {
+> +       AMDGPU_MES_GC_HUB0 =3D 0,
+> +       AMDGPU_MES_GC_HUB1 =3D 1,
+> +       AMDGPU_MES_GC_HUB2 =3D 2,
+> +       AMDGPU_MES_GC_HUB3 =3D 3,
+> +       AMDGPU_MES_GC_HUB4 =3D 4,
+> +       AMDGPU_MES_GC_HUB5 =3D 5,
+> +       AMDGPU_MES_GC_HUB6 =3D 6,
+> +       AMDGPU_MES_GC_HUB7 =3D 7,
+> +       AMDGPU_MES_MM_HUB00 =3D 8,
+> +       AMDGPU_MES_MM_HUB01 =3D 9,
+> +       AMDGPU_MES_MM_HUB02=3D 10,
+> +       AMDGPU_MES_MM_HUB03 =3D 11,
+> +       AMDGPU_MES_MM_HUB10 =3D 12,
+> +       AMDGPU_MES_MM_HUB11 =3D 13,
+> +};
 
-The second part is only relevant for the static load balance:
-it's a way to consider how many entities are attached to this
-scheduler, knowing that if they ever submit jobs they will go
-to this one.
+If these are the same as the hub definitions in amdgpu_vm.h you can
+just use those directly and skip these.
 
-For rings that can load balance jobs freely, idle entities
-aren't a concern and shouldn't impact the scheduler's decisions.
+> +
+> +struct mes_inv_tlbs_pasid_input {
+> +       uint32_t        xcc_id;
+> +       uint16_t        pasid;
+> +       uint8_t         hub_id;
+> +       uint8_t         flush_type;
+> +};
+> +
+>  enum mes_misc_opcode {
+>         MES_MISC_OP_WRITE_REG,
+>         MES_MISC_OP_READ_REG,
+> @@ -367,6 +391,9 @@ struct amdgpu_mes_funcs {
+>
+>         int (*reset_hw_queue)(struct amdgpu_mes *mes,
+>                               struct mes_reset_queue_input *input);
+> +
+> +       int (*invalidate_tlbs_pasid)(struct amdgpu_mes *mes,
+> +                             struct mes_inv_tlbs_pasid_input *input);
+>  };
+>
+>  #define amdgpu_mes_kiq_hw_init(adev) (adev)->mes.kiq_hw_init((adev))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v12_0.c
+> index feb92e107af8..b5be6c7838aa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -339,6 +339,26 @@ static void gmc_v12_0_flush_gpu_tlb_pasid(struct amd=
+gpu_device *adev,
+>         uint16_t queried;
+>         int vmid, i;
+>
+> +       if (adev->enable_uni_mes && adev->mes.ring[AMDGPU_MES_SCHED_PIPE]=
+.sched.ready &&
+> +           (adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D 0x81=
+) {
+> +               struct mes_inv_tlbs_pasid_input input =3D {0};
+> +               input.pasid =3D pasid;
+> +               input.flush_type =3D flush_type;
+> +               input.hub_id =3D AMDGPU_GFXHUB(0);
+> +               /* MES will invalidate all gc_hub for the device from mas=
+ter */
+> +               adev->mes.funcs->invalidate_tlbs_pasid(&adev->mes, &input=
+);
+> +               if (all_hub) {
+> +                       /* Only need to invalidate mm_hub now */
+> +                       for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX=
+_VMHUBS) {
+> +                               if (i < AMDGPU_MMHUB0_START)
+> +                                       continue;
 
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 23 ++++++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 +
- 2 files changed, 19 insertions(+), 5 deletions(-)
+I think you can drop the loop here and just have:
+input.hub_id =3D AMDGPU_MMHUB(0);
+adev->mes.funcs->invalidate_tlbs_pasid(&adev->mes, &input);
+in the all_hub case since gfx12 only supports one mmhub as well.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index f5d5c45ddc0d..4a078d2d98c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -206,9 +206,11 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
- {
- 	struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
- 	struct amdgpu_device *adev = ctx->mgr->adev;
-+	bool static_load_balancing = false;
- 	struct amdgpu_ctx_entity *entity;
- 	enum drm_sched_priority drm_prio;
- 	unsigned int hw_prio, num_scheds;
-+	struct amdgpu_ring *aring;
- 	int32_t ctx_prio;
- 	int r;
- 
-@@ -236,17 +238,22 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
- 		r = amdgpu_xcp_select_scheds(adev, hw_ip, hw_prio, fpriv,
- 						&num_scheds, &scheds);
- 		if (r)
--			goto cleanup_entity;
-+			goto error_free_entity;
- 	}
- 
- 	/* disable load balance if the hw engine retains context among dependent jobs */
--	if (hw_ip == AMDGPU_HW_IP_VCN_ENC ||
--	    hw_ip == AMDGPU_HW_IP_VCN_DEC ||
--	    hw_ip == AMDGPU_HW_IP_UVD_ENC ||
--	    hw_ip == AMDGPU_HW_IP_UVD) {
-+	static_load_balancing = hw_ip == AMDGPU_HW_IP_VCN_ENC ||
-+				hw_ip == AMDGPU_HW_IP_VCN_DEC ||
-+				hw_ip == AMDGPU_HW_IP_UVD_ENC ||
-+				hw_ip == AMDGPU_HW_IP_UVD;
-+
-+	if (static_load_balancing) {
- 		sched = drm_sched_pick_best(scheds, num_scheds);
- 		scheds = &sched;
- 		num_scheds = 1;
-+		aring = container_of(sched, struct amdgpu_ring, sched);
-+		entity->sched_ring_score = aring->sched_score;
-+		atomic_inc(entity->sched_ring_score);
- 	}
- 
- 	r = drm_sched_entity_init(&entity->entity, drm_prio, scheds, num_scheds,
-@@ -264,6 +271,9 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
- 	drm_sched_entity_fini(&entity->entity);
- 
- error_free_entity:
-+	if (static_load_balancing)
-+		atomic_dec(entity->sched_ring_score);
-+
- 	kfree(entity);
- 
- 	return r;
-@@ -514,6 +524,9 @@ static void amdgpu_ctx_do_release(struct kref *ref)
- 			if (!ctx->entities[i][j])
- 				continue;
- 
-+			if (ctx->entities[i][j]->sched_ring_score)
-+				atomic_dec(ctx->entities[i][j]->sched_ring_score);
-+
- 			drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-index 090dfe86f75b..076a0e165ce0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-@@ -39,6 +39,7 @@ struct amdgpu_ctx_entity {
- 	uint32_t		hw_ip;
- 	uint64_t		sequence;
- 	struct drm_sched_entity	entity;
-+	atomic_t		*sched_ring_score;
- 	struct dma_fence	*fences[];
- };
- 
--- 
-2.43.0
+> +                               input.hub_id =3D i;
+> +                               adev->mes.funcs->invalidate_tlbs_pasid(&a=
+dev->mes, &input);
+> +                       }
+> +               }
+> +               return;
+> +       }
+> +
+>         for (vmid =3D 1; vmid < 16; vmid++) {
+>                 bool valid;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v12_0.c
+> index 6b222630f3fa..6740383f7721 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -108,6 +108,7 @@ static const char *mes_v12_0_opcodes[] =3D {
+>         "SET_SE_MODE",
+>         "SET_GANG_SUBMIT",
+>         "SET_HW_RSRC_1",
+> +       "INVALIDATE_TLBS",
+>  };
+>
+>  static const char *mes_v12_0_misc_opcodes[] =3D {
+> @@ -879,6 +880,47 @@ static int mes_v12_0_reset_hw_queue(struct amdgpu_me=
+s *mes,
+>                         offsetof(union MESAPI__RESET, api_status));
+>  }
+>
+> +static int mes_v12_inv_tlb_convert_hub_id(enum amdgpu_mes_hub_id id)
+> +{
+> +       int mes_hub_id =3D id;
+> +       /*
+> +        * MES doesn't support invalidate gc_hub on slave xcc individuall=
+y
+> +        * master xcc will invalidate all gc_hub for the partition
+> +        */
+> +       if (id =3D=3D 0)
+> +               return 0;
+> +       if (id < AMDGPU_MMHUB0_START)
+> +               return -EINVAL;
+> +
+> +       mes_hub_id -=3D AMDGPU_MMHUB0_START - 1;
+> +       /* gfx12 only support maximum one mmhub */
+> +       return (mes_hub_id > 1) ? -EINVAL: mes_hub_id;
 
+It would be cleaner to do something like this:
+
+if (AMDGPU_IS_GFXHUB(id))
+    return 0;
+else if (AMDGPU_IS_MMHUB0(id))
+    return 1;
+else
+    return -EINVAL;
+
+> +}
+
+add a new line here.
+
+Alex
+
+> +static int mes_v12_0_inv_tlbs_pasid(struct amdgpu_mes *mes,
+> +                                   struct mes_inv_tlbs_pasid_input *inpu=
+t)
+> +{
+> +       union MESAPI__INV_TLBS mes_inv_tlbs;
+> +
+> +       memset(&mes_inv_tlbs, 0, sizeof(mes_inv_tlbs));
+> +
+> +       mes_inv_tlbs.header.type =3D MES_API_TYPE_SCHEDULER;
+> +       mes_inv_tlbs.header.opcode =3D MES_SCH_API_INV_TLBS;
+> +       mes_inv_tlbs.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +
+> +       mes_inv_tlbs.invalidate_tlbs.inv_sel =3D 0;
+> +       mes_inv_tlbs.invalidate_tlbs.flush_type =3D input->flush_type;
+> +       mes_inv_tlbs.invalidate_tlbs.inv_sel_id =3D input->pasid;
+> +
+> +       /*convert amdgpu_mes_hub_id to mes expected hub_id */
+> +       mes_inv_tlbs.invalidate_tlbs.hub_id =3D mes_v12_inv_tlb_convert_h=
+ub_id(input->hub_id);
+> +       if (mes_inv_tlbs.invalidate_tlbs.hub_id < 0)
+> +               return -EINVAL;
+> +       return mes_v12_0_submit_pkt_and_poll_completion(mes, AMDGPU_MES_K=
+IQ_PIPE,
+> +                       &mes_inv_tlbs, sizeof(mes_inv_tlbs),
+> +                       offsetof(union MESAPI__INV_TLBS, api_status));
+> +
+> +}
+> +
+>  static const struct amdgpu_mes_funcs mes_v12_0_funcs =3D {
+>         .add_hw_queue =3D mes_v12_0_add_hw_queue,
+>         .remove_hw_queue =3D mes_v12_0_remove_hw_queue,
+> @@ -888,6 +930,7 @@ static const struct amdgpu_mes_funcs mes_v12_0_funcs =
+=3D {
+>         .resume_gang =3D mes_v12_0_resume_gang,
+>         .misc_op =3D mes_v12_0_misc_op,
+>         .reset_hw_queue =3D mes_v12_0_reset_hw_queue,
+> +       .invalidate_tlbs_pasid =3D mes_v12_0_inv_tlbs_pasid,
+>  };
+>
+>  static int mes_v12_0_allocate_ucode_buffer(struct amdgpu_device *adev,
+> --
+> 2.34.1
+>
