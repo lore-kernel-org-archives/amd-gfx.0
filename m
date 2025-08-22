@@ -4,70 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C747CA0EEB
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Aug 2025 20:50:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44AFFCA0EED
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Aug 2025 21:16:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F191C10E13E;
-	Fri, 22 Aug 2025 20:50:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CECA910E176;
+	Fri, 22 Aug 2025 21:16:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NfZ0fuMK";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GpmXWaRk";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C361710E13E
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Aug 2025 20:50:01 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-b4741e1cde5so350441a12.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Aug 2025 13:50:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755895801; x=1756500601; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LPUvpN6c2O95TJZIqAZj870OiRfT7nV17BzOY3qLepo=;
- b=NfZ0fuMKJwTkPHMDLIvHDuJFDIlnXpnLeapUUqcbjhIovZaEJOH4UWQKnTJDukhZkU
- r8dOr8N637HqIDNwjoCd0nKLFHs4/iPyesZ9AYX5uQb6N8fCNi+8OYpBeuS/sf4m9HNE
- fV7SW8lGMBsvYxvZ1og6hSQ1tSH7KsTocL/OrfSfzv7iYwVGiMI9groZud9XqrWjQjan
- l6mzuwdDTtJlltTPX/oPKxiw4AzB9E55YwBVTJGVqSRHKF0OsfpOXi3DO8t1Yao6D3BB
- TwzpCBgW7d8ICqilgJs/5szosW2KYxq213k7WoB1qlL0CgJ3wwU7U8WdVlbgbRnNDA3f
- frgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755895801; x=1756500601;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LPUvpN6c2O95TJZIqAZj870OiRfT7nV17BzOY3qLepo=;
- b=OFMCwZ/oAjFiut+4jAJQd0zrz/FRCp1qRGIqzi6gOp05ycYmJZ36dsVM5cn/OwkUyM
- cy7sdxO08Je78f81+DwWFEJ+GfGRtMZfWyHVeyL/oVt05BwRQ9lbpppRY8Zi0byiL6P4
- sfmX8y82PMOFVKYg/GNhZYQb07CNZw8hvszpjW3u/H0Y9/lqmiveJxQv0pqQYyQT16Dp
- kOsmkktbjwVeupdafgdLXq35GnzCZXHlBH03WwV0c1mtoTTR6wC/dwKMVg/OG9XOnls8
- gtaF0mMfoNqszfKtE96PDTFsPw2LgWPpIPnY+khvjkYXDCcOT0QIIM9ed4wtN9O6ChiQ
- JNYg==
-X-Gm-Message-State: AOJu0YyfAXvpazjR7jrasiJI2qkjI5OIudX0CaS9WNA0/NkVfWk6wqCl
- Zx5OhkaNRqydw9/Xrxh/nzgZ6Utcc92W+AWb56cejYjTurOWI2n5EFkQK3jKuC8NBwlxvbN7AZl
- XvhG2pYOIkvBt6dcGio2rWkgQE8RIWwp3Z5a6
-X-Gm-Gg: ASbGnctdErVEM2pLHZ/0uv2FDk7VImi5cCxOhv2Sp88JZ6fi75rKImO9fpnkyOr2YKS
- PU/+IytwUm0Rdkj/Mzl66LBz/bWnV0lhN4Y0F84JRjQbGaBO4B1uCCe4DKxl8/KCAoyOFKAVV88
- t4dcc+lYw5lb0PyZazSkzNlKMWI3t+baz5w/IPA1F+2RgCt7u6yEjPZC9Y4y498wE7/TwjM2FTK
- Epddfc=
-X-Google-Smtp-Source: AGHT+IEXwiMdRR3bu24yj39UsU3m7QDXsgJuRsvQKhaA3XWSGjM7vkx0I87CVS4w2615xQL5M4MhF+1Wfm4rDa5uBJ4=
-X-Received: by 2002:a17:902:d48b:b0:246:5253:6dfc with SMTP id
- d9443c01a7336-24652537015mr16987905ad.7.1755895801084; Fri, 22 Aug 2025
- 13:50:01 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 438B910E176;
+ Fri, 22 Aug 2025 21:16:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=1zTRYu0shRUoazcBnxVUPHtcyqFoRoGTns37iV4c0hs=; b=GpmXWaRk1xda+njbZ3TdStktTL
+ XFRKeTHHsmqHC742HpHFxm98Vs0TrGgHd5akNNrWIwSJVHuFr935wliOkr4F9S54deQv2fYYkUF3/
+ o3FMm2Mk8w2+JJ984tQPRqZyXyncfMtvanX6AM7EhEo1xYm9KUerJiInxnJyj0OKW3D1oBLRKMBVD
+ 42Uo0de2aBBkPTEhW7QE6R6fYyEq/iE67mdPKSZXuHP4TlONokn7zFBc3hJ4O7V67nXRIHtjWpj0R
+ 5s2f8By36lZ26SlTlDENkbgYnHkHIN/mQjvEoY/XMiE5ADa/91BrteU40Zh8BWYCVkXm3fa8ZROy+
+ ImiVpFXw==;
+Received: from [189.6.13.79] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1upZ7A-000Hyz-4X; Fri, 22 Aug 2025 23:16:00 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, simona@ffwll.ch, sunpeng.li@amd.com
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, Christopher Snowhill <kode54@gmail.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: [PATCH 0/2] drm/amd/display: don't overwrite regamma LUT with empty
+ data
+Date: Fri, 22 Aug 2025 18:14:06 -0300
+Message-ID: <20250822211552.1472375-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-References: <20250822085434.970798-1-Jesse.Zhang@amd.com>
- <20250822085434.970798-2-Jesse.Zhang@amd.com>
-In-Reply-To: <20250822085434.970798-2-Jesse.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 22 Aug 2025 16:49:49 -0400
-X-Gm-Features: Ac12FXxeyje-zBSIu7yVn3jNzIAj-EBcZF-bzUH1vgKxwfynV-tafVhP4WuMYbI
-Message-ID: <CADnq5_P-oGF3gh1XpCvKWhOFL7bHU3zaOpJgTh7K4yt44bRGqg@mail.gmail.com>
-Subject: Re: [v10 02/11] drm/amdgpu: adjust MES API used for suspend and resume
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,212 +60,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 22, 2025 at 6:13=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> w=
-rote:
->
-> From: Alex Deucher <alexander.deucher@amd.com>
->
-> Use the suspend and resume API rather than remove queue
-> and add queue API.  The former just preempts the queue
-> while the latter remove it from the scheduler completely.
-> There is no need to do that, we only need preemption
-> in this case.
->
-> V2: replace queue_active with queue state
-> v3: set the suspend_fence_addr
-> v4: allocate another per queue buffer for the suspend fence, and  set the=
- sequence number.
->     also wait for the suspend fence. (Alex)
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  2 +
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 96 ++++++++++++++++++++++
->  2 files changed, 98 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.h
-> index 5111d7dce86f..d58cf48b456b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -65,6 +65,8 @@ struct amdgpu_usermode_queue {
->         struct dma_fence        *last_fence;
->         u32                     xcp_id;
->         int                     priority;
-> +       struct amdgpu_userq_obj suspend_fence;
-> +       uint64_t suspend_fence_seq;
->  };
->
->  struct amdgpu_userq_funcs {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index d6f50b13e2ba..ce5ac8c2f7e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -28,6 +28,8 @@
->
->  #define AMDGPU_USERQ_PROC_CTX_SZ PAGE_SIZE
->  #define AMDGPU_USERQ_GANG_CTX_SZ PAGE_SIZE
-> +#define AMDGPU_USERQ_SUSPEND_FENCE_SZ PAGE_SIZE
-> +#define AMDGPU_USERQ_FENCE_TIMEOUT (1000000000)
->
->  static int
->  mes_userq_map_gtt_bo_to_gart(struct amdgpu_bo *bo)
-> @@ -347,9 +349,103 @@ mes_userq_mqd_destroy(struct amdgpu_userq_mgr *uq_m=
-gr,
->         amdgpu_userq_destroy_object(uq_mgr, &queue->mqd);
->  }
->
-> +static int mes_userq_wait_fence(struct amdgpu_userq_mgr *uq_mgr,
-> +                               struct amdgpu_userq_obj *fence_obj,
-> +                               uint64_t fence_value,
-> +                               uint64_t timeout)
-> +{
-> +       /* This would typically involve polling the fence value in memory
-> +        * until it matches the expected value or timeout occurs
-> +        */
-> +       uint64_t start_time =3D ktime_get_ns();
-> +       uint64_t *fence_addr =3D fence_obj->cpu_ptr;
-> +
-> +       while (*fence_addr !=3D fence_value) {
-> +               if (ktime_get_ns() - start_time > timeout) {
-> +                       return -ETIMEDOUT;
-> +               }
-> +               udelay(10);
-> +       }
-> +       return 0;
-> +}
-
-This can be simplified:
-
-signed long amdgpu_userq_fence_wait_polling(uint64_t *fence_addr,
-                                      uint64_t wait_seq,
-                                  signed long timeout)
-{
-
-        while ((int64_t)(wait_seq - *fence_addr) > 0 && timeout > 0) {
-                udelay(2);
-                timeout -=3D 2;
-        }
-        return timeout > 0 ? timeout : 0;
-}
+Hey,
 
 
-> +
-> +static int mes_userq_preempt(struct amdgpu_userq_mgr *uq_mgr,
-> +                            struct amdgpu_usermode_queue *queue)
-> +{
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       struct mes_suspend_gang_input queue_input;
-> +       struct amdgpu_userq_obj *ctx =3D &queue->fw_obj;
-> +       int r;
-> +
-> +       if (queue->state !=3D AMDGPU_USERQ_STATE_MAPPED)
-> +               return 0;
-> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_PREEMPTED)
-> +               return 0;
-> +
-> +       /* Allocate suspend fence buffer if not already allocated */
-> +       if (!queue->suspend_fence.obj) {
-> +               r =3D amdgpu_userq_create_object(uq_mgr, &queue->suspend_=
-fence, AMDGPU_USERQ_SUSPEND_FENCE_SZ);
-> +               if (r) {
-> +                       DRM_ERROR("Failed to allocate suspend fence buffe=
-r\n");
-> +                       return r;
-> +               }
-> +               queue->suspend_fence_seq =3D 0;
-> +       }
+KDE/Plasma users reported some flickering when applying the regamma CRTC
+LUT to an AMD display hardware set using an external or integrated
+screen. There is some instability in how the driver stores and updates
+color blocks based on color management changes or full update request.
+It uses update_flag bits for surface and stream and forces some color
+blocks to update without considering the previous settings.
 
-We only need a little bit of memory.  It's probably more efficient to
-just grab a wb slot.  Also this current code leaks memory because we
-never free this.
+This two-patch series avoids this issue by
+(1) not calling set_output_transfer_func when the output TF has not
+changed;
+(2) preserve the previous out_tf value in the case of a full
+update, which was unconditionally setting all update_flag bits to true
+regardless of previous values.
 
-Something like:
+This modifies DC and may affect behavior on other platforms. On the
+other hand, it avoids unnecessary reprogramming of MPC output gamma.
 
-u32 fence_offset;
-u64 *fence_ptr;
+Melissa
 
-r =3D amdgpu_device_wb_get(adev, &fence_offset);
-if (r)
-        return r;
+Melissa Wen (2):
+  Revert "drm/amd/display: program output tf when required"
+  drm/amd/display: don't update out gamma if out_tf didn't change
 
-fence_gpu_addr =3D adev->wb.gpu_addr + (fence_offset * 4);
-fence_ptr =3D (u64 *)&adev->wb.wb[fence_offset];
-*fence_ptr =3D 0;
+ drivers/gpu/drm/amd/display/dc/core/dc.c                | 5 +++++
+ drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c | 5 +----
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-then later when you are done with it at the end of the function:
+-- 
+2.47.2
 
-amdgpu_device_wb_free(adev, fence_offset);
-
-> +
-> +       memset(&queue_input, 0x0, sizeof(struct mes_suspend_gang_input));
-> +       queue_input.gang_context_addr =3D ctx->gpu_addr + AMDGPU_USERQ_PR=
-OC_CTX_SZ;
-> +       queue_input.suspend_fence_addr =3D queue->suspend_fence.gpu_addr;
-> +       queue_input.suspend_fence_value =3D ++queue->suspend_fence_seq;
-
-queue_input.suspend_fence_addr =3D fence_gpu_addr;
-queue_input.suspend_fence_value =3D 1;
-
-Alex
-
-> +       amdgpu_mes_lock(&adev->mes);
-> +       r =3D adev->mes.funcs->suspend_gang(&adev->mes, &queue_input);
-> +       amdgpu_mes_unlock(&adev->mes);
-> +
-> +       if (r) {
-> +               DRM_ERROR("Failed to suspend gang: %d\n", r);
-> +               return r;
-> +       }
-> +
-> +       /* Wait for suspend fence to be signaled */
-> +       r =3D mes_userq_wait_fence(uq_mgr, &queue->suspend_fence,
-> +                               queue_input.suspend_fence_value,
-> +                               AMDGPU_USERQ_FENCE_TIMEOUT);
-> +       if (r) {
-> +               DRM_ERROR("Suspend fence timeout\n");
-> +               return r;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static int mes_userq_restore(struct amdgpu_userq_mgr *uq_mgr,
-> +                           struct amdgpu_usermode_queue *queue)
-> +{
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       struct mes_resume_gang_input queue_input;
-> +       struct amdgpu_userq_obj *ctx =3D &queue->fw_obj;
-> +       int r;
-> +
-> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_HUNG)
-> +               return -EINVAL;
-> +       if (queue->state !=3D AMDGPU_USERQ_STATE_PREEMPTED)
-> +               return 0;
-> +
-> +       memset(&queue_input, 0x0, sizeof(struct mes_resume_gang_input));
-> +       queue_input.gang_context_addr =3D ctx->gpu_addr + AMDGPU_USERQ_PR=
-OC_CTX_SZ;
-> +
-> +       amdgpu_mes_lock(&adev->mes);
-> +       r =3D adev->mes.funcs->resume_gang(&adev->mes, &queue_input);
-> +       amdgpu_mes_unlock(&adev->mes);
-> +       if (r)
-> +               dev_err(adev->dev, "Failed to resume queue, err (%d)\n", =
-r);
-> +       return r;
-> + }
-> +
->  const struct amdgpu_userq_funcs userq_mes_funcs =3D {
->         .mqd_create =3D mes_userq_mqd_create,
->         .mqd_destroy =3D mes_userq_mqd_destroy,
->         .unmap =3D mes_userq_unmap,
->         .map =3D mes_userq_map,
-> +       .preempt =3D mes_userq_preempt,
-> +       .restore =3D mes_userq_restore,
->  };
-> --
-> 2.49.0
->
