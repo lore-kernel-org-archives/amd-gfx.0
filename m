@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFE43CA0EEB
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Aug 2025 21:20:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFAD6CA0EED
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Aug 2025 21:23:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63DB510EBC0;
-	Fri, 22 Aug 2025 21:20:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C15F10EBC8;
+	Fri, 22 Aug 2025 21:23:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="arYkT+sL";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Pyx3mNhU";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B94E10EBC0;
- Fri, 22 Aug 2025 21:20:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4925510EBC8;
+ Fri, 22 Aug 2025 21:23:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9uZLhzPEmMwp8D7S73NTMgQyO+O6LpYFyWrFqzJc7vM=; b=arYkT+sLUfSekCdSUtkDWfZFab
- /M5zuPdpjW/R27iXLK8WNRIWl1Ma6ocvoAs55hPqAi8Q8XUU051sgda0oFwjEWS1mCv3tQNCd28XS
- VTyiOUyneFP84wycyt9kGYGh75Q71oKNffNiTBXFZ6VbhisqKq0HXRNxpdT2UklJYUHcK2PUuHcC6
- n+bXpbb0yfgS8mL6w7xPzlotyQQNQmAIygHo5FTErKtzY3y/U8MuAWxgm0hjmHbcvuZaVqvsZdWBv
- wqPsrbWcJJk7hNGabw+/kpTBcD7Xnc1/Pdbfl3zz+6wGZLTm/KTXmfTI+i/4F3xrWf+4JiQo5l3Pm
- H1+E86Cg==;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+ Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=Bx1132FMwpnlj0DqDe08iTyAVGndOV4v8JUYKT8tkgs=; b=Pyx3mNhU9Hs4whQiyx4PbQAnba
+ DX4PNRjD0UlFlyIhSfVv3NCvi8V2UUXJoxWLgTh0nNFyI/1f164Wat4UgGQg6+eLuPLUWxGP6eZdV
+ 5LR2825AlAYFbYyHy8hcWi8t6buVmLNnjES9BNhJL3ivymlEc5yI9CDSHiQdE2kx0Szwg+p4UXoKy
+ fZ+sakUQXx4RQlG7lG3Dt/ebAhMvUcwfs8PMNcL6+gLL2RQxmdLIKSvW0lqeYn1v6/4DAu14GbunE
+ B6Zli3ikkZ5hwCmxdV0ehjUhAH9NzHgUsQdTiLAjjOTJdDjaSjhC/9i5qRzVwHBQsPrh5cOwr/ASk
+ bD0IyDKQ==;
 Received: from [189.6.13.79] (helo=[192.168.31.42])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1upZB5-000I7b-Rv; Fri, 22 Aug 2025 23:20:04 +0200
-Message-ID: <9c544984-7b73-46df-a63a-fc8820d2ccba@igalia.com>
-Date: Fri, 22 Aug 2025 18:19:58 -0300
+ id 1upZDq-000IAx-Kr; Fri, 22 Aug 2025 23:22:54 +0200
+Message-ID: <b3e84085-8af8-443d-b177-ceb9f3a657a0@igalia.com>
+Date: Fri, 22 Aug 2025 18:22:47 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix kernel-doc comments for some LUT
- properties
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20250823-amdgpu-fix-kdoc-lut-v1-1-306bcad41267@collabora.com>
-Content-Language: en-US
+Subject: Re: [PATCH 0/2] drm/amd/display: don't overwrite regamma LUT with
+ empty data
 From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20250823-amdgpu-fix-kdoc-lut-v1-1-306bcad41267@collabora.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, simona@ffwll.ch, sunpeng.li@amd.com
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, Christopher Snowhill
+ <kode54@gmail.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20250822211552.1472375-1-mwen@igalia.com>
+Content-Language: en-US
+In-Reply-To: <20250822211552.1472375-1-mwen@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,69 +66,37 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 22/08/2025 18:11, Cristian Ciocaltea wrote:
-> The following members of struct amdgpu_mode_info do not have valid
-> references in the related kernel-doc sections:
+On 22/08/2025 18:14, Melissa Wen wrote:
+> Hey,
 >
->   - plane_shaper_lut_property
->   - plane_shaper_lut_size_property,
->   - plane_lut3d_size_property
 >
-> Correct all affected comment blocks.
+> KDE/Plasma users reported some flickering when applying the regamma CRTC
+> LUT to an AMD display hardware set using an external or integrated
+> screen. There is some instability in how the driver stores and updates
+> color blocks based on color management changes or full update request.
+> It uses update_flag bits for surface and stream and forces some color
+> blocks to update without considering the previous settings.
 >
-> Fixes: f545d82479b4 ("drm/amd/display: add plane shaper LUT and TF driver-specific properties")
-> Fixes: 671994e3bf33 ("drm/amd/display: add plane 3D LUT driver-specific properties")
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Nice catch. Thanks for reviewing docs and fixing them.
-
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h | 16 ++++++++--------
->   1 file changed, 8 insertions(+), 8 deletions(-)
+> This two-patch series avoids this issue by
+> (1) not calling set_output_transfer_func when the output TF has not
+> changed;
+> (2) preserve the previous out_tf value in the case of a full
+> update, which was unconditionally setting all update_flag bits to true
+> regardless of previous values.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> index 6da4f946cac008ac865cd6d8a06fb0bd84d646d5..c3ad371658065388c10b7cfc45377b0465bd24ca 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -366,15 +366,15 @@ struct amdgpu_mode_info {
->   
->   	struct drm_property *plane_ctm_property;
->   	/**
-> -	 * @shaper_lut_property: Plane property to set pre-blending shaper LUT
-> -	 * that converts color content before 3D LUT. If
-> -	 * plane_shaper_tf_property != Identity TF, AMD color module will
-> +	 * @plane_shaper_lut_property: Plane property to set pre-blending
-> +	 * shaper LUT that converts color content before 3D LUT.
-> +	 * If plane_shaper_tf_property != Identity TF, AMD color module will
->   	 * combine the user LUT values with pre-defined TF into the LUT
->   	 * parameters to be programmed.
->   	 */
->   	struct drm_property *plane_shaper_lut_property;
->   	/**
-> -	 * @shaper_lut_size_property: Plane property for the size of
-> +	 * @plane_shaper_lut_size_property: Plane property for the size of
->   	 * pre-blending shaper LUT as supported by the driver (read-only).
->   	 */
->   	struct drm_property *plane_shaper_lut_size_property;
-> @@ -398,10 +398,10 @@ struct amdgpu_mode_info {
->   	 */
->   	struct drm_property *plane_lut3d_property;
->   	/**
-> -	 * @plane_degamma_lut_size_property: Plane property to define the max
-> -	 * size of 3D LUT as supported by the driver (read-only). The max size
-> -	 * is the max size of one dimension and, therefore, the max number of
-> -	 * entries for 3D LUT array is the 3D LUT size cubed;
-> +	 * @plane_lut3d_size_property: Plane property to define the max size
-> +	 * of 3D LUT as supported by the driver (read-only). The max size is
-> +	 * the max size of one dimension and, therefore, the max number of
-> +	 * entries for 3D LUT array is the 3D LUT size cubed.
->   	 */
->   	struct drm_property *plane_lut3d_size_property;
->   	/**
+> This modifies DC and may affect behavior on other platforms. On the
+> other hand, it avoids unnecessary reprogramming of MPC output gamma.
+I linked in each patch but better refer the AMD issue here too:
+- https://gitlab.freedesktop.org/drm/amd/-/issues/4444
 >
-> ---
-> base-commit: 0f4c93f7eb861acab537dbe94441817a270537bf
-> change-id: 20250823-amdgpu-fix-kdoc-lut-357db8b57fee
+> Melissa
+>
+> Melissa Wen (2):
+>    Revert "drm/amd/display: program output tf when required"
+>    drm/amd/display: don't update out gamma if out_tf didn't change
+>
+>   drivers/gpu/drm/amd/display/dc/core/dc.c                | 5 +++++
+>   drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c | 5 +----
+>   2 files changed, 6 insertions(+), 4 deletions(-)
 >
 
