@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CC45CA0EED
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Aug 2025 21:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFE43CA0EEB
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Aug 2025 21:20:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E467410EBC5;
-	Fri, 22 Aug 2025 21:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63DB510EBC0;
+	Fri, 22 Aug 2025 21:20:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OhnS/bvz";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="arYkT+sL";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3DA110EBC0;
- Fri, 22 Aug 2025 21:16:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B94E10EBC0;
+ Fri, 22 Aug 2025 21:20:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=dD3ZkCGszJIY9IBVqNSfQOclCaY7aA9fgdNVRwfMbVc=; b=OhnS/bvzMR8lYxydMCG1oHyjpp
- tqFPmr1+5F1z1NLdtkCKW9sDtTcGHj1HFxo5ViASHM8fkP/qrikLyEMfnyJTX6dCTV7fTdXPCOi/c
- I3JTfxfCF7anhaUjoObESmamo8vRxCYiL9L7JvnaSf/OteaU9wQByqm/T+8uCwlwT0UJHz94GlRyq
- wTbIi2JtQMM+5pJeG5xL9p4FdtOFoKGj4cWGX8JRI52Vgj0StD9dwzznFgv9I943Yxu+RdGmOUb1L
- JxpVR8+HpvJyYvLPWbmB7oIOFPDv9bO5AYAFv2COEFHpYipsHKBNPOuGM6+xybkGnulyVbtM+o6j5
- Gcpt7GEw==;
-Received: from [189.6.13.79] (helo=killbill.home)
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9uZLhzPEmMwp8D7S73NTMgQyO+O6LpYFyWrFqzJc7vM=; b=arYkT+sLUfSekCdSUtkDWfZFab
+ /M5zuPdpjW/R27iXLK8WNRIWl1Ma6ocvoAs55hPqAi8Q8XUU051sgda0oFwjEWS1mCv3tQNCd28XS
+ VTyiOUyneFP84wycyt9kGYGh75Q71oKNffNiTBXFZ6VbhisqKq0HXRNxpdT2UklJYUHcK2PUuHcC6
+ n+bXpbb0yfgS8mL6w7xPzlotyQQNQmAIygHo5FTErKtzY3y/U8MuAWxgm0hjmHbcvuZaVqvsZdWBv
+ wqPsrbWcJJk7hNGabw+/kpTBcD7Xnc1/Pdbfl3zz+6wGZLTm/KTXmfTI+i/4F3xrWf+4JiQo5l3Pm
+ H1+E86Cg==;
+Received: from [189.6.13.79] (helo=[192.168.31.42])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1upZ7J-000Hyz-26; Fri, 22 Aug 2025 23:16:09 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, Christopher Snowhill <kode54@gmail.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: [PATCH 2/2] drm/amd/display: don't update out gamma if out_tf didn't
- change
-Date: Fri, 22 Aug 2025 18:14:08 -0300
-Message-ID: <20250822211552.1472375-3-mwen@igalia.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250822211552.1472375-1-mwen@igalia.com>
-References: <20250822211552.1472375-1-mwen@igalia.com>
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1upZB5-000I7b-Rv; Fri, 22 Aug 2025 23:20:04 +0200
+Message-ID: <9c544984-7b73-46df-a63a-fc8820d2ccba@igalia.com>
+Date: Fri, 22 Aug 2025 18:19:58 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Fix kernel-doc comments for some LUT
+ properties
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20250823-amdgpu-fix-kdoc-lut-v1-1-306bcad41267@collabora.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20250823-amdgpu-fix-kdoc-lut-v1-1-306bcad41267@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,49 +65,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Whenever a full update is requested, the DC sets out_tf to true, forcing
-the output transfer function to be reprogrammed, but without transfer
-function settings (neither new nor previous). This unsolicited update of
-the output transfer function causes the previous setting, made when user
-space modified color management properties, to be lost. To avoid this,
-make the out_tf bit state persist through a full update and prevent
-reprogramming the output gamma LUT from empty/default data.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4444
-Reported-by: Xaver Hugl <xaver.hugl@gmail.com>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index c30d9ee51c83..92775deea650 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2195,9 +2195,11 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 	/* Full update should unconditionally be triggered when dc_commit_state_no_check is called */
- 	for (i = 0; i < context->stream_count; i++) {
- 		uint32_t prev_dsc_changed = context->streams[i]->update_flags.bits.dsc_changed;
-+		uint32_t prev_out_tf = context->streams[i]->update_flags.bits.out_tf;
- 
- 		context->streams[i]->update_flags.raw = 0xFFFFFFFF;
- 		context->streams[i]->update_flags.bits.dsc_changed = prev_dsc_changed;
-+		context->streams[i]->update_flags.bits.out_tf = prev_out_tf;
- 	}
- 
- 	determine_pipe_unlock_order(dc, context);
-@@ -3034,8 +3036,11 @@ enum surface_update_type dc_check_update_surfaces_for_stream(
- 	if (type == UPDATE_TYPE_FULL) {
- 		if (stream_update) {
- 			uint32_t dsc_changed = stream_update->stream->update_flags.bits.dsc_changed;
-+			uint32_t out_tf = stream_update->stream->update_flags.bits.out_tf;
-+
- 			stream_update->stream->update_flags.raw = 0xFFFFFFFF;
- 			stream_update->stream->update_flags.bits.dsc_changed = dsc_changed;
-+			stream_update->stream->update_flags.bits.out_tf = out_tf;
- 		}
- 		for (i = 0; i < surface_count; i++)
- 			updates[i].surface->update_flags.raw = 0xFFFFFFFF;
--- 
-2.47.2
+On 22/08/2025 18:11, Cristian Ciocaltea wrote:
+> The following members of struct amdgpu_mode_info do not have valid
+> references in the related kernel-doc sections:
+>
+>   - plane_shaper_lut_property
+>   - plane_shaper_lut_size_property,
+>   - plane_lut3d_size_property
+>
+> Correct all affected comment blocks.
+>
+> Fixes: f545d82479b4 ("drm/amd/display: add plane shaper LUT and TF driver-specific properties")
+> Fixes: 671994e3bf33 ("drm/amd/display: add plane 3D LUT driver-specific properties")
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Nice catch. Thanks for reviewing docs and fixing them.
+
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h | 16 ++++++++--------
+>   1 file changed, 8 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> index 6da4f946cac008ac865cd6d8a06fb0bd84d646d5..c3ad371658065388c10b7cfc45377b0465bd24ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> @@ -366,15 +366,15 @@ struct amdgpu_mode_info {
+>   
+>   	struct drm_property *plane_ctm_property;
+>   	/**
+> -	 * @shaper_lut_property: Plane property to set pre-blending shaper LUT
+> -	 * that converts color content before 3D LUT. If
+> -	 * plane_shaper_tf_property != Identity TF, AMD color module will
+> +	 * @plane_shaper_lut_property: Plane property to set pre-blending
+> +	 * shaper LUT that converts color content before 3D LUT.
+> +	 * If plane_shaper_tf_property != Identity TF, AMD color module will
+>   	 * combine the user LUT values with pre-defined TF into the LUT
+>   	 * parameters to be programmed.
+>   	 */
+>   	struct drm_property *plane_shaper_lut_property;
+>   	/**
+> -	 * @shaper_lut_size_property: Plane property for the size of
+> +	 * @plane_shaper_lut_size_property: Plane property for the size of
+>   	 * pre-blending shaper LUT as supported by the driver (read-only).
+>   	 */
+>   	struct drm_property *plane_shaper_lut_size_property;
+> @@ -398,10 +398,10 @@ struct amdgpu_mode_info {
+>   	 */
+>   	struct drm_property *plane_lut3d_property;
+>   	/**
+> -	 * @plane_degamma_lut_size_property: Plane property to define the max
+> -	 * size of 3D LUT as supported by the driver (read-only). The max size
+> -	 * is the max size of one dimension and, therefore, the max number of
+> -	 * entries for 3D LUT array is the 3D LUT size cubed;
+> +	 * @plane_lut3d_size_property: Plane property to define the max size
+> +	 * of 3D LUT as supported by the driver (read-only). The max size is
+> +	 * the max size of one dimension and, therefore, the max number of
+> +	 * entries for 3D LUT array is the 3D LUT size cubed.
+>   	 */
+>   	struct drm_property *plane_lut3d_size_property;
+>   	/**
+>
+> ---
+> base-commit: 0f4c93f7eb861acab537dbe94441817a270537bf
+> change-id: 20250823-amdgpu-fix-kdoc-lut-357db8b57fee
+>
 
