@@ -4,76 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FB91CA0EFA
-	for <amd-gfx@archiver.kernel.org>; Sat, 23 Aug 2025 10:11:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13FB7CA0EFF
+	for <amd-gfx@archiver.kernel.org>; Sat, 23 Aug 2025 10:11:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D62D510E320;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD47A10E31F;
 	Sat, 23 Aug 2025 10:11:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ag2B1jKi";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="prVLOj6t";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E5C910E1BE;
- Sat, 23 Aug 2025 09:28:58 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-3254abaf13dso496713a91.2; 
- Sat, 23 Aug 2025 02:28:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755941338; x=1756546138; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=clYk2rcWxM2aiZ2rBZGHZQJ9PUsfPdIZw87dXlv1eP4=;
- b=ag2B1jKiRUiqUwOp64BexasdUXJulKpvxxrLY4gznU3PqtidMnoo3DJyP+Vmfr3Ie9
- ouHsfc0Zq0p7hJZZ1Ux0mG7iplCYI6D34u1yQXJbwB1oe8Q5lmtALxQNcZuAGWUY+Ymb
- YOGFZZ4LDLeVlmN3N8PJ1rslo5YjOkBcio6c2oFoYGNXRODBh3rXRaz31DJA434NuG7g
- daz786V/4T61ntAkmjQsRJMkeegfilkgiGakwmbHJ1+tYBEsxxcHCCH9EDTVbLAc1jHk
- IEY3PUUYJmpOE7nVMy4j0DF46deQywu79aHDFXnx4JAHxdNfI8nGV5uEr5uAcnBbeFWw
- KpaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755941338; x=1756546138;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=clYk2rcWxM2aiZ2rBZGHZQJ9PUsfPdIZw87dXlv1eP4=;
- b=Z+fuLLxaFp3TNiQyXLl0ZNt1+1V9EBHJCrh7N4fOsxyhbRySfTSO7FDPPQiv8AVQcW
- C6ysCgrKKFZC2xMOKE4Mu2/luGscCOwVNR3J1A2g7u7pf+SuKudt4XAYu1lvdLczz8Rj
- dsHsViVOAybQqVEsqtMn9muVdT6SHHrygY96brIDgg6EdQq97J+Wu1gBR6ky9tAZsjDS
- j2x3ujIyFZw4FbB+kEy8gSHRIUbd8BWLlYXuM35fYpabJLc0cabuFbOMt7aQN3xQ/O+u
- NUKiqXCREGztckloaFQWUchuaPhh2WeCVxdXYj/S6khBh7cqtUgI06lQJOxnSWouiscM
- Ebpw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWHlhHw8w99jxPUqepdfGxsuvTe4jG7b7TjY2PxCQitnOyXarqDhxHoNHHLk0ghJMiHKSp1Qqk9@lists.freedesktop.org,
- AJvYcCXT1kun84nnrZlwssie7vSeHPYNkuASAX0C/Vhp2bhcIR87J6XY1BmINc/XzfSVxoQJXcj5fbtd2Uy3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YypFqTTuk6iic91Fixpva6nJXWVi/EIP+aRQ0TDOgoYyLhupq/M
- R88NurGqZWZUNyU4fTpV9/ylJxtJWz2Hv7QmDoDiJtDRpcfGcqqIDdz4
-X-Gm-Gg: ASbGnctE4w565z1koNz3aKMc9tvQ8lj4zmGe1TycuxhN2kdjnnrbP5PfS9g0oANuqtP
- BPba0yjYtDj3/rNQ/9mpqayzUXNyasZMU+iVLKv9NLJmzoPl602xVlnfaOiPSsCEYS3ppn9qF28
- PGY5ptnwud+QPKG3osYRwNZXsLo3yoagbCgTZXzcGpbhsN4nVp0LdEqu1Ff/EInnYSLD88HdEc4
- 1oGsaJWP2aaJwrg3IIx4FIhq4tpEKNzjEgv75ysDuTAUAGK9Kx47p90gYk1QgzP5KgmrkNz1wcw
- j9i31txsCrOokd9Dzjt1MdFXXf2YSX3JtXBe66dcPfnEFPiFKFXbpyJyKRoJufoS4nWTZDkPaMA
- UGJAeNFJeYqfllBF2J1BHEGbsMUbmxCl6PhMA/NXKhyzlbSGjg66h1MIUCSE=
-X-Google-Smtp-Source: AGHT+IFbdmB4ufECA28jr0BbdHbDeThrDWfYx88tyZDXeND12WomMShWFSN6ekn8OmcS9z4QIPyL/Q==
-X-Received: by 2002:a17:90b:17c4:b0:31e:6f0a:6a1a with SMTP id
- 98e67ed59e1d1-32515e12e55mr7616828a91.3.1755941337792; 
- Sat, 23 Aug 2025 02:28:57 -0700 (PDT)
-Received: from vicky-pop-os.. ([2401:4900:8fcf:2a2b:b058:4b01:1a76:84f])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3254b9f3a06sm1766630a91.28.2025.08.23.02.28.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 Aug 2025 02:28:57 -0700 (PDT)
-From: ally heev <allyheev@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, aric.cyr@amd.com,
- aurabindo.pillai@amd.com, Syed.Hassan@amd.com
-Cc: ally heev <allyheev@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: amd/display: add num_rmcm_3dluts param description in
- dc.h
-Date: Sat, 23 Aug 2025 14:58:47 +0530
-Message-Id: <20250823092847.53330-1-allyheev@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 303AF10EB36;
+ Fri, 22 Aug 2025 14:46:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=vSFv5P6r6uHHcex7ev876TgGrB/iNFOS7oWEm1S6nnQ=; b=prVLOj6tIf2BBGWGGiayhD06yA
+ GYxNwgN5pme3d6hgrfjMu0qUnG2Q9n2WU2+tIWno7zP6C7orjXKwdHv5fvkw4xnXxm2SWjiNSvReb
+ 7oXPkGOfigh/hxx4MH9PSAmTm7tZCvoUyCoFEK/C9Pp/tBk9Fa6w10yMw8VVvCbsfNIlG5djSpHDy
+ iqBpIvyLavfkQLp5vtdjEWT+rBA/+7byB/sUayTN0L1iA67c8JK716HU9Clnprf/R7kPbJj/gq3Z1
+ CWFkhZiWM9RQJPegHO6eFrMDmNDovPJB2J7Kc+mu+Rh+BYVi+HvTrtvzxbQh21nZuQgLHOCQzmqu4
+ An3DpnYg==;
+Received: from [152.250.7.37] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1upT1j-00091Z-7q; Fri, 22 Aug 2025 16:45:59 +0200
+Message-ID: <0e6b2725-427a-438a-a0e5-c182abaf2909@igalia.com>
+Date: Fri, 22 Aug 2025 11:45:55 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm: re-allow no-op changes on non-primary planes in
+ async flips
+To: Xaver Hugl <xaver.hugl@kde.org>
+Cc: chris@kode54.net, naveen1.kumar@intel.com, ville.syrjala@linux.intel.com, 
+ mdaenzer@redhat.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ alexdeucher@gmail.com, arun.r.murthy@intel.com
+References: <20250808232208.7764-1-xaver.hugl@kde.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20250808232208.7764-1-xaver.hugl@kde.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 23 Aug 2025 10:11:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,23 +64,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: ally heev <allyheev@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 1 +
- 1 file changed, 1 insertion(+)
+Hi Xaver,
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 59c07756130d..87d323cd79db 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -234,6 +234,7 @@ struct lut3d_caps {
-  * @ogam_ram: programmable out gamma LUT
-  * @ocsc: output color space conversion matrix
-  * @num_3dluts: MPC 3D LUT; always assumes a preceding shaper LUT
-+ * @num_rmcm_3dluts: number of RMCM 3D LUTs
-  * @shared_3d_lut: shared 3D LUT flag. Can be either DPP or MPC, but single
-  * instance
-  * @ogam_rom_caps: pre-definied curve caps for regamma 1D LUT
--- 
-2.34.1
+Thanks for the patch and sorry for the delay.
 
+Em 08/08/2025 20:22, Xaver Hugl escreveu:
+> Commit fd40a63c63a1 unintentionally disallowed no-op changes on non-primary
+> planes that the driver doesn't allow async flips on. This broke async flips
+> for compositors that disable the cursor plane in every async atomic commit.
+> This changes drm_atomic_set_property to again only run atomic_async_check
+> if the plane would actually be changed by the atomic commit.
+
+Small nit: kernel commit messages goes in the imperative form:
+
+"Change drm_atomic_set_property to again only run atomic_async_check..."
+
+> 
+> Fixes: fd40a63c63a1 ("drm/atomic: Let drivers decide which planes to async flip")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4263
+> 
+> Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
+> ---
+
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
