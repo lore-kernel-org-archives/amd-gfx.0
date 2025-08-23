@@ -4,67 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E8B4CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Sat, 23 Aug 2025 10:11:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0337CA0EE4
+	for <amd-gfx@archiver.kernel.org>; Sat, 23 Aug 2025 20:25:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E388710E323;
-	Sat, 23 Aug 2025 10:11:40 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD3310EB56;
- Fri, 22 Aug 2025 15:29:24 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-3b9d41d2a5cso1863112f8f.0; 
- Fri, 22 Aug 2025 08:29:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B70610E047;
+	Sat, 23 Aug 2025 20:25:01 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ltRxjwpQ";
+	dkim-atps=neutral
+Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
+ [209.85.214.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B41A10E047;
+ Sat, 23 Aug 2025 20:25:00 +0000 (UTC)
+Received: by mail-pl1-f193.google.com with SMTP id
+ d9443c01a7336-24615b3445dso18423175ad.0; 
+ Sat, 23 Aug 2025 13:25:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755980699; x=1756585499; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=jluHiqgaZQZWMzm5WgOiIg71d7mItf5bX9RJ5F/RYN0=;
+ b=ltRxjwpQdYcj9etIfDLuOh5aKZeQPPOSxDtDrxUh1FoTn9fIwjgZHIGGXSsUc1jLEH
+ ZH7wvgY4g4bsQ1WzbXw6wfft29bSM6TzaSTnBrNa494YMhzJUkBfMWte1HhSrqgD1QNk
+ 24k//SpCBLs2CzuffhL979GJayPRqP9e25YcCXVzTd/X4VhcH/feAmOl/VS3ReaSogeG
+ 9a8UPePCz6wkGi1D9dYCBgEQlGunL60k+Yw8R+/QDZt1GvQapdrzcqUAuBvsF9ji2F+F
+ x+LX/a1K8vnkLVS+1V1F/cyMEGlfyr5Rs1TY9n5VoZ15meBRTCJfmPxOQmNsMK1ieVkF
+ wQsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755876563; x=1756481363;
+ d=1e100.net; s=20230601; t=1755980699; x=1756585499;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=gJgKLDUPdXVCUlCaSiGVYunhzBERjuDsUpRK5nlbwuM=;
- b=ml3VSLVQS9z0LNyySRoLaNbwaevpJ1fLqfH86UpFbU4950WyV9DJLGMZKN6k9BHXS5
- RyOgHw/tNauVXG8j8Z5v0TivH33HJp3TnBrrmS0EtDfnti/om5LVw63TFQEEJS7K0Snt
- BrHj+Wme5q83yIDE97biGiKwjSRC95Ydt5GxU0oXRHb5+8j/v+nk+BuNaDPpAdcD7zI5
- VTRGhRRB48q3OkuQbO7skJFP5x6jsy5zG035gG6romtJgT34YaV6Yk/GXbGICkjRO7L8
- EsQGwteP8OQc7CXduspC24+RsRmtCWFPHN5ZIhJQyHlxZqiHXzKMCEuzKTSjm/7FwDTe
- 3Pzg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU24iAdK+x0YuhX8ghoL/Ss7HdQ4stdE/Piit9RvCqZBmPkcadLP1/nJx3YfZbVgZKlHa2TLQ48BdsP@lists.freedesktop.org,
- AJvYcCWC7qFnxkpN/fAYaeNgfiQ6gb5+ci7yw/tdv2EvvC+csWnWU7wKz33oxoeVRBgtkGQ0Sy5RzqVA@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxG98cJHdzCJBgRTPoCyle0OIiML+mYqiZH7zuha6aajqNuV4B/
- W7yWVFN4nK3j5mAus26Fsg583lIa+DmNMUuX7ZKHEsgXChmK92O5qYkIovDV/IOT
-X-Gm-Gg: ASbGncsiS46vppiFXFk7WUE4g5bRy4nZe6HrndHjaX4e9FyQ0JU2Z7qbSmqWrdFnAQM
- i+PswgMUOnfyuCZrbYvUSof+DZJb7bjcRe6pizk7fjmSz6Lxky2D6zH5MW42upuCJHSYe1ncXcn
- JyIsHrVH8eHbwZGczu7Ae9IqQ8LKMHrDPAbEQF3aAw/ldc5odN/jB9c7aN86fR8kpIVSrJ1EHp0
- ldAO+BJ1NiG6+G7VA5voHF94cU8Y1CGSwjLAi+eVApg49IDugDDLhzi+DTmF2FKlypHgFg2CPuS
- TuP3j82y3785u4zkHnFaHvJoZ56k5XSV7pA1Gqj74PAOS5cWXmIbif/yxo0mP+WPkhqWynewmlB
- beYhgAUik5ChtYtzqQ89xzwv+kAs/X3ijdFOyNvVPeA==
-X-Google-Smtp-Source: AGHT+IEZeUqnk+C2nBdmGBlUSORXPpPFtZzw9ZapY7b13xyWG8wBDtZLMVt/coy2IqS3RfPDnB6WNg==
-X-Received: by 2002:a05:6000:430b:b0:3c6:9e21:f61b with SMTP id
- ffacd0b85a97d-3c69e21f717mr1243368f8f.3.1755876562803; 
- Fri, 22 Aug 2025 08:29:22 -0700 (PDT)
-Received: from xavers-framework.fritz.box
- ([2a04:7d84:aac8:dfc0:164b:fd3:2e86:21ca])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c684524163sm1661402f8f.61.2025.08.22.08.29.21
+ bh=jluHiqgaZQZWMzm5WgOiIg71d7mItf5bX9RJ5F/RYN0=;
+ b=UE94Jzx6gJ9zqGy7M3o3kFXhBEfUUdfgbxbo1yIlpGIHu/Ltaj07fiw3ufgpkkNdzG
+ Q8ezQYlCGWOQBuQlaStktVn5ZqtEI1d5LU24RDc6oBte3/Tp2I+Bh1+luUJW24H+fVIq
+ WX/4bn0NpWBKGTyTlwU8Pv7UFa1YB/0qclcGRxoIML1bqSgRdz4PMAoUer70T9hCF55e
+ 4kbtPExT+ggPQ5PV6TucJQgtOghG1T0Wtz0B0SiyU4cS4nMsfYRL9Ky5iNy183O2ftaV
+ dGV8x9CH+5AZUxhI0qkFkAWRKertPKh5jWTF/sbzcW3DQTQZJDxPghvDfvcTE5HPzq+v
+ dtXQ==
+X-Gm-Message-State: AOJu0Yxg7cdOOGnFApiTgvkcSLZkoKJNT2UxsjYG/S7ewIsIG+q+cQQF
+ FgJRM559R02pY4hI0hGrUg8IEEH0wiJSQI7+LySni5XKvc4ZoWH7ZFmZAqoR+QlWF4c=
+X-Gm-Gg: ASbGncshRqwjdumVWqtcWlB8qL/ZaF7lLUn+9cIn78XzIyiD48KzopYvEkOcDMRoYg2
+ ofZ15YUAFa397QfXKElMlTGe8VN3ZDwpeoZNocICeHLzVvt03Js+wdHHL1cgChI5vYPg2P2IKY8
+ b/11+B7wTS2tXV56+IWKTba5BjCN+8DeYxHQVxKULowKuYZH/6jQ0Si6QkzFDAJsDUt1OnD4lQl
+ /8ilzZQzhWFNPzUc5slMW0ToZ/ADHBeIKRAFcM481NL8SvD1fhmhg28Vj+RSTWua1ZKxKH/jlDX
+ NJAd2pRsmPpRn94tyD2WsRraKBUiypVNGYtD+nVKorw9Z7F8J4oHGVy5Z0i94VHCRw96x/2epO5
+ wyPoY+88Dxg==
+X-Google-Smtp-Source: AGHT+IGdNe2acobe7hoYy/3SG0sU0woB1Ddr0YVeZCAUQFiiD1P+atEHJGDMr/DnmavEr02jQpM7Fw==
+X-Received: by 2002:a17:902:cec2:b0:240:9f9:46a0 with SMTP id
+ d9443c01a7336-2462ef05828mr94011855ad.38.1755980699439; 
+ Sat, 23 Aug 2025 13:24:59 -0700 (PDT)
+Received: from localhost ([2a09:bac1:3680:98::10c:23])
+ by smtp.gmail.com with UTF8SMTPSA id
+ d9443c01a7336-24668889dbbsm28386195ad.132.2025.08.23.13.24.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Aug 2025 08:29:22 -0700 (PDT)
-From: Xaver Hugl <xaver.hugl@kde.org>
-To: dri-devel@lists.freedesktop.org
-Cc: andrealmeid@igalia.com, chris@kode54.net, naveen1.kumar@intel.com,
- ville.syrjala@linux.intel.com, mdaenzer@redhat.com,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexdeucher@gmail.com, arun.r.murthy@intel.com,
- Xaver Hugl <xaver.hugl@kde.org>
-Subject: [PATCH v5] drm: re-allow no-op changes on non-primary planes in async
- flips
-Date: Fri, 22 Aug 2025 17:28:49 +0200
-Message-ID: <20250822152849.87843-1-xaver.hugl@kde.org>
+ Sat, 23 Aug 2025 13:24:58 -0700 (PDT)
+From: "Kavithesh A.S" <kavitheshnitt@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ skhan@linuxfoundation.org, harry.wentland@amd.com, sunpeng.li@amd.com,
+ siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch,
+ "Kavithesh A.S" <kavitheshnitt@gmail.com>
+Subject: [PATCH] drm/amd/display: Document num_rmcm_3dluts in mpc_color_caps
+Date: Sun, 24 Aug 2025 01:55:40 +0530
+Message-ID: <20250823202540.487616-1-kavitheshnitt@gmail.com>
 X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 23 Aug 2025 10:11:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,57 +86,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit fd40a63c63a1 unintentionally disallowed no-op changes on non-primary
-planes that the driver doesn't allow async flips on. This broke async flips
-for compositors that disable the cursor plane in every async atomic commit.
-To fix that, change drm_atomic_set_property to again only run atomic_async_check
-if the plane would actually be changed by the atomic commit.
+Fix a kernel-doc warning by documenting the num_rmcm_3dluts member of struct mpc_color_caps.
 
-Fixes: fd40a63c63a1 ("drm/atomic: Let drivers decide which planes to async flip")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4263
+This is my first patch submission to the kernel, feedback is welcome
 
-Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
-Reviewed-by: André Almeida <andrealmeid@igalia.com>
+Signed-off-by: Kavithesh A.S <kavitheshnitt@gmail.com>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index c2726af6698e..317303cf5b8c 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1077,19 +1077,20 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 		}
- 
- 		if (async_flip) {
--			/* check if the prop does a nop change */
--			if ((prop != config->prop_fb_id &&
--			     prop != config->prop_in_fence_fd &&
--			     prop != config->prop_fb_damage_clips)) {
--				ret = drm_atomic_plane_get_property(plane, plane_state,
--								    prop, &old_val);
--				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
--			}
-+			/* no-op changes are always allowed */
-+			ret = drm_atomic_plane_get_property(plane, plane_state,
-+							    prop, &old_val);
-+			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
- 
--			/* ask the driver if this non-primary plane is supported */
--			if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
--				ret = -EINVAL;
-+			/* fail everything that isn't no-op or a pure flip */
-+			if (ret && prop != config->prop_fb_id &&
-+			    prop != config->prop_in_fence_fd &&
-+			    prop != config->prop_fb_damage_clips) {
-+				break;
-+			}
- 
-+			if (ret && plane->type != DRM_PLANE_TYPE_PRIMARY) {
-+				/* ask the driver if this non-primary plane is supported */
- 				if (plane_funcs && plane_funcs->atomic_async_check)
- 					ret = plane_funcs->atomic_async_check(plane, state, true);
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 59c077561..06f05979b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -234,6 +234,7 @@ struct lut3d_caps {
+  * @ogam_ram: programmable out gamma LUT
+  * @ocsc: output color space conversion matrix
+  * @num_3dluts: MPC 3D LUT; always assumes a preceding shaper LUT
++ * @num_rmcm_3dluts: number of RMCM 3D LUTS supported
+  * @shared_3d_lut: shared 3D LUT flag. Can be either DPP or MPC, but single
+  * instance
+  * @ogam_rom_caps: pre-definied curve caps for regamma 1D LUT
 -- 
-2.50.1
-
+2.43.0
