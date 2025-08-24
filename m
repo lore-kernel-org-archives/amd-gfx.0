@@ -4,82 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29114CA0FEE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9B6CCA0FEF
 	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 07:13:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27A2310E3D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE7110E3D8;
 	Mon, 25 Aug 2025 07:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nRLw/y7a";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="DS/GzDCB";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5383710E207;
- Sun, 24 Aug 2025 18:24:15 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-3253f0c8788so2152858a91.0; 
- Sun, 24 Aug 2025 11:24:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756059855; x=1756664655; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sdgoKxIG8/LQsHbKVpjz+drIjpSbT2c+ZQGF2CUmKYI=;
- b=nRLw/y7as3bx1hMEIJFIb0IFauHtjJ+ZTjnz74Uxk36ZXBBhsWkeNe3kFfPAfihDnS
- srQ+nMzViZZri072rAU4McHvFK21+g6F9/TN80puMl0FP1AkD5JxVmiVFZdzl7oyI/Hj
- DOFMDxuFze7mGWgnrBcbVqvx9ucZddcZsD3Xl7JVEGX/OnuZqeMw61NqNeaidbTrnuMy
- mVMDMokdXNsqspnB8HmF488bMIanDshQm2h4BaWaAQCsQOR6C0cKjLo3Nhto9gCHSIAO
- aQtdD1hd1oCnXdlWOOD8us2X2UIQI/OF/tBKaPFqG2yLNEfrzKFF7iLqETJ/BbLrU384
- uKZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756059855; x=1756664655;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=sdgoKxIG8/LQsHbKVpjz+drIjpSbT2c+ZQGF2CUmKYI=;
- b=Tbxs7Q8iLzyoYxWxj4Uh4j3gVpirnPZsZZD/UJcv5x3Zy8ylRl+hzauz/mUzqCktE5
- 8q15OLp/+MMPC5mDs/KU2NC6Pq3QzzMp1NtlKinsMgLJUvMFsOv0lfN8Vm3vJZcJRl3N
- 9vxNENwC+BeBmf9lil+pd0YJRqbrTbtZDKnzFazQs/7aK3ic2rGTKefhRKAj6RkxE03u
- uOlBaUjYa5j7Ozl67s3qKUpbfB29O9aZfgR0flZDiPtIwLl1OmS1gNrW9cM0FgVsUCGG
- PJgfrmrYTzh1YQ3FOkZWY7m/nKxP3Y5iNl0EjLS7WBzKP2VLektzdho3UQXsLYwDIx1O
- mzNQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU1m/O3e9D+XF56ONDcb/RT+5ntshPqkXrJE5IoSrNFipCSxwDZ5zwv2QwCbDTJexluZN9Dh4xp@lists.freedesktop.org,
- AJvYcCW1Yu5MsXFYcV0+IoF96EFKC0jAE0KecBXtZ9AT7gckH2hEdDjMtrutATtpXNhE4YkwRXq5HmdC2E+i@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YybMIWXF6FYinOqy/KMUdfHVxMCwrjECp3hoAsvI80pohqxtDXI
- Xn1tJCoSDXgzEW1tPSpdzNK+rEaMfwDA+dQZsbEP7nycTFvafK0d2eTm34n8pmeT
-X-Gm-Gg: ASbGnctAYOLFRVRbt+MJ0ami9ISDf7XNqsHospxRYMuQqVb9V/DoA22hhX8w3UI9cgu
- QLPzSU80yewnUVQnEkFO3l8OQysrqZuKoJT06I4GhYHCiChLvuNB4VwPjbpfYrd8njS4aJpnknm
- DUQCv74q+cldHn44gw1zjESWcx1Rj5rIOUkBbcTRWBIU7K17xnO3OklXBVgatURIfVLZhJYXRvb
- y/SJNT0BVdlZAwRHhJAF4HQh56EiIZOX09K2OX4zQjsJ2hu7vC0NV7pVD41MlHbpmoDfBR560FX
- kUkKye2Is7lE5LLPEOqO1UwJj+pmS5qsIIwrBYrHj0VqMYYRLiGiREdIZ93onT26dH/Xo9vEMBa
- ayFVFq1U8SAQlOQX4qflr7b9A2Clbsd5oCIBKs3tSP9uok09RbSW6N2yG9Apw1s8=
-X-Google-Smtp-Source: AGHT+IFTU5oW4ymRV8/xPeqRq4/qqEYx3zIjjLkoyBxb1dFnjnFQtkKwEnEovKNUweZV2b84+zY2/Q==
-X-Received: by 2002:a17:902:dad1:b0:240:8262:1a46 with SMTP id
- d9443c01a7336-2462ee54512mr127900995ad.25.1756059854831; 
- Sun, 24 Aug 2025 11:24:14 -0700 (PDT)
-Received: from visitorckw-System-Product-Name.. ([140.113.216.168])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2466889f11esm47903635ad.150.2025.08.24.11.24.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 Aug 2025 11:24:14 -0700 (PDT)
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
-To: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: zaeem.mohamed@amd.com, wenjing.liu@amd.com, chiahsuan.chung@amd.com,
- Natanel.Roizenman@amd.com, Daniel.Sa@amd.com, jserv@ccns.ncku.edu.tw,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Kuan-Wei Chiu <visitorckw@gmail.com>
-Subject: [PATCH 2/2] drm/amd/display: Optimize remove_duplicates() from O(N^2)
- to O(N)
-Date: Mon, 25 Aug 2025 02:23:59 +0800
-Message-Id: <20250824182359.142050-3-visitorckw@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250824182359.142050-1-visitorckw@gmail.com>
-References: <20250824182359.142050-1-visitorckw@gmail.com>
+Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CD2510E20A;
+ Sun, 24 Aug 2025 20:02:07 +0000 (UTC)
+Received: from relay11 (localhost.localdomain [127.0.0.1])
+ by relay11.grserver.gr (Proxmox) with ESMTP id 4F975C5598;
+ Sun, 24 Aug 2025 23:02:06 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by relay11.grserver.gr (Proxmox) with ESMTPS id E2284C559A;
+ Sun, 24 Aug 2025 23:02:05 +0300 (EEST)
+Received: from antheas-z13 (unknown
+ [IPv6:2a05:f6c2:511b:0:7200:c86a:8976:4786])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id 29E73206823;
+ Sun, 24 Aug 2025 23:02:05 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+ s=default; t=1756065725;
+ bh=BX16U7qvlMv2h4EJEHJNpyCG3RBhwjH7TgrJ12Feu/g=; h=From:To:Subject;
+ b=DS/GzDCB4JOoYcbiSo1T1xA0yKrihcp7CKV9M5R7aCCFoJX2c3877NVMAXg9sF1ew
+ rvcUuZfClPPPeT4rjZHpPGJUukp7k41h+XR9OpFqcPGFczuWK0EHfmdK8CqseaTYIy
+ r0bLZNzXKhDLNGH1nnf2XY7SJ0y5sySs64s1feTENxocOhWT7p0Mn7WKOn2Hze0zgw
+ 2xNqjBIecn51YtWUs4/SUlTODUZGdkogx6QrVsBpM/uIX1KKmNOHbGMvDduirmAGhH
+ 6ByB+o+lw35DCfzKqwX64BDMk4A6vpdQW8BEKfLKZcXgK6I6np55u09HO3LddqEJFK
+ k/DJAh9oCcXLg==
+Authentication-Results: linux3247.grserver.gr;
+ spf=pass (sender IP is 2a05:f6c2:511b:0:7200:c86a:8976:4786)
+ smtp.mailfrom=lkml@antheas.dev smtp.helo=antheas-z13
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+From: Antheas Kapenekakis <lkml@antheas.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ philm@manjaro.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Antheas Kapenekakis <lkml@antheas.dev>
+Subject: [PATCH v1 1/5] drm: panel-backlight-quirks: Make ident optional
+Date: Sun, 24 Aug 2025 22:01:58 +0200
+Message-ID: <20250824200202.1744335-2-lkml@antheas.dev>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250824200202.1744335-1-lkml@antheas.dev>
+References: <20250824200202.1744335-1-lkml@antheas.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <175606572562.883131.12699924690113578642@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
+X-Virus-Status: Clean
 X-Mailman-Approved-At: Mon, 25 Aug 2025 07:12:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,65 +75,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace the previous O(N^2) implementation of remove_duplicates() in
-with a O(N) version using a fast/slow pointer approach. The new version
-keeps only the first occurrence of each element and compacts the array
-in place, improving efficiency without changing functionality.
+Currently, having a valid panel_id match is required to use the quirk
+system. For certain devices, we know that all SKUs need a certain quirk.
+Therefore, allow not specifying ident by only checking for a match
+if panel_id is non-zero.
 
-Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
 ---
-Verified correctness using the following simple unit test:
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-double arr1[] = {1,1,2,2,3}; int size1=5;
-remove_duplicates(arr1,&size1);
-assert(size1==3 && arr1[0]==1 && arr1[1]==2 && arr1[2]==3);
-
-double arr2[] = {1,2,3}; int size2=3;
-remove_duplicates(arr2,&size2);
-assert(size2==3 && arr2[0]==1 && arr2[1]==2 && arr2[2]==3);
-
-double arr3[] = {5,5,5,5}; int size3=4;
-remove_duplicates(arr3,&size3);
-assert(size3==1 && arr3[0]==5);
-
-double arr4[] = {}; int size4=0;
-remove_duplicates(arr4,&size4);
-assert(size4==0);
-
- .../dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
-index 2b13a5e88917..5100e0e7af42 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
-@@ -50,18 +50,16 @@ static void set_reserved_time_on_all_planes_with_stream_index(struct display_con
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index 598f812b7cb3..b38b33e26ea5 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -50,7 +50,7 @@ static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_bac
+ 	if (!dmi_match(quirk->dmi_match.field, quirk->dmi_match.value))
+ 		return false;
  
- static void remove_duplicates(double *list_a, int *list_a_size)
- {
--	int cur_element = 0;
--	// For all elements b[i] in list_b[]
--	while (cur_element < *list_a_size - 1) {
--		if (list_a[cur_element] == list_a[cur_element + 1]) {
--			for (int j = cur_element + 1; j < *list_a_size - 1; j++) {
--				list_a[j] = list_a[j + 1];
--			}
--			*list_a_size = *list_a_size - 1;
--		} else {
--			cur_element++;
-+	int j = 0;
-+
-+	for (int i = 1; i < *list_a_size; i++) {
-+		if (list_a[j] != list_a[i]) {
-+			j++;
-+			list_a[j] = list_a[i];
- 		}
- 	}
-+
-+	*list_a_size = j + 1;
- }
+-	if (!drm_edid_match(edid, &quirk->ident))
++	if (quirk->ident.panel_id && !drm_edid_match(edid, &quirk->ident))
+ 		return false;
  
- static bool increase_mpc_combine_factor(unsigned int *mpc_combine_factor, unsigned int limit)
+ 	return true;
 -- 
-2.34.1
+2.50.1
+
 
