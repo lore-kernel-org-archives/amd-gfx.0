@@ -4,69 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B137ECA0FE1
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 07:13:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29114CA0FEE
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 07:13:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40AA710E1AB;
-	Mon, 25 Aug 2025 07:12:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27A2310E3D5;
+	Mon, 25 Aug 2025 07:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="W2GlU1RH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nRLw/y7a";
 	dkim-atps=neutral
-X-Greylist: delayed 349 seconds by postgrey-1.36 at gabe;
- Sun, 24 Aug 2025 08:59:56 UTC
-Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A67C10E128;
- Sun, 24 Aug 2025 08:59:56 +0000 (UTC)
-Received: from relay11 (localhost.localdomain [127.0.0.1])
- by relay11.grserver.gr (Proxmox) with ESMTP id C1ECCC32D6;
- Sun, 24 Aug 2025 11:54:04 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by relay11.grserver.gr (Proxmox) with ESMTPS id DB5E7C32DD;
- Sun, 24 Aug 2025 11:54:03 +0300 (EEST)
-Received: from antheas-z13 (unknown
- [IPv6:2a05:f6c2:511b:0:7200:c86a:8976:4786])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id EEA801FF5A2;
- Sun, 24 Aug 2025 11:54:02 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1756025643;
- bh=8cpURkRk8yYSfSPzQ4KDs1/FJn+BEsm4qZ0fH58uy+0=; h=From:To:Subject;
- b=W2GlU1RHA73/SFA15wFoHxXxbZ/e4LyRMQtzAyv6rSwe49pjRdCz2EqwLlCODpyMW
- NmvURsFF0Bz8+sQCvInY3YJdpL6CwZVSF+vukqFlGw4/YYfp04k9UE4YZ3XnY0tQgU
- ZJekGpzI4ebyK1b8xYkENDVvUrJJiUofB/mWdMCe3yoEdcxtiaohYfZmiY//Sj9KPZ
- Ze4syuJTqfdVBeFhW6kZsRwAr37EBVjlEN3xqzeujIta/j3XEzQL6QUdUTddJiwcrO
- CvknZ9XiHgCPgG+5kXwZQ3gMO+o2rJm4A5/VxNJQ4XbBwHNXAFgH9CewRvdSRtHj1n
- tZHIjmhAcRObA==
-Authentication-Results: linux3247.grserver.gr;
- spf=pass (sender IP is 2a05:f6c2:511b:0:7200:c86a:8976:4786)
- smtp.mailfrom=lkml@antheas.dev smtp.helo=antheas-z13
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-From: Antheas Kapenekakis <lkml@antheas.dev>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Peyton Lee <peytolee@amd.com>, Lang Yu <lang.yu@amd.com>,
- Antheas Kapenekakis <lkml@antheas.dev>
-Subject: [PATCH v1 2/2] drm/amd/display: Adjust AUX brightness to be a
- granularity of 100
-Date: Sun, 24 Aug 2025 10:53:51 +0200
-Message-ID: <20250824085351.454619-2-lkml@antheas.dev>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250824085351.454619-1-lkml@antheas.dev>
-References: <20250824085351.454619-1-lkml@antheas.dev>
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5383710E207;
+ Sun, 24 Aug 2025 18:24:15 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-3253f0c8788so2152858a91.0; 
+ Sun, 24 Aug 2025 11:24:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1756059855; x=1756664655; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sdgoKxIG8/LQsHbKVpjz+drIjpSbT2c+ZQGF2CUmKYI=;
+ b=nRLw/y7as3bx1hMEIJFIb0IFauHtjJ+ZTjnz74Uxk36ZXBBhsWkeNe3kFfPAfihDnS
+ srQ+nMzViZZri072rAU4McHvFK21+g6F9/TN80puMl0FP1AkD5JxVmiVFZdzl7oyI/Hj
+ DOFMDxuFze7mGWgnrBcbVqvx9ucZddcZsD3Xl7JVEGX/OnuZqeMw61NqNeaidbTrnuMy
+ mVMDMokdXNsqspnB8HmF488bMIanDshQm2h4BaWaAQCsQOR6C0cKjLo3Nhto9gCHSIAO
+ aQtdD1hd1oCnXdlWOOD8us2X2UIQI/OF/tBKaPFqG2yLNEfrzKFF7iLqETJ/BbLrU384
+ uKZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756059855; x=1756664655;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=sdgoKxIG8/LQsHbKVpjz+drIjpSbT2c+ZQGF2CUmKYI=;
+ b=Tbxs7Q8iLzyoYxWxj4Uh4j3gVpirnPZsZZD/UJcv5x3Zy8ylRl+hzauz/mUzqCktE5
+ 8q15OLp/+MMPC5mDs/KU2NC6Pq3QzzMp1NtlKinsMgLJUvMFsOv0lfN8Vm3vJZcJRl3N
+ 9vxNENwC+BeBmf9lil+pd0YJRqbrTbtZDKnzFazQs/7aK3ic2rGTKefhRKAj6RkxE03u
+ uOlBaUjYa5j7Ozl67s3qKUpbfB29O9aZfgR0flZDiPtIwLl1OmS1gNrW9cM0FgVsUCGG
+ PJgfrmrYTzh1YQ3FOkZWY7m/nKxP3Y5iNl0EjLS7WBzKP2VLektzdho3UQXsLYwDIx1O
+ mzNQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU1m/O3e9D+XF56ONDcb/RT+5ntshPqkXrJE5IoSrNFipCSxwDZ5zwv2QwCbDTJexluZN9Dh4xp@lists.freedesktop.org,
+ AJvYcCW1Yu5MsXFYcV0+IoF96EFKC0jAE0KecBXtZ9AT7gckH2hEdDjMtrutATtpXNhE4YkwRXq5HmdC2E+i@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YybMIWXF6FYinOqy/KMUdfHVxMCwrjECp3hoAsvI80pohqxtDXI
+ Xn1tJCoSDXgzEW1tPSpdzNK+rEaMfwDA+dQZsbEP7nycTFvafK0d2eTm34n8pmeT
+X-Gm-Gg: ASbGnctAYOLFRVRbt+MJ0ami9ISDf7XNqsHospxRYMuQqVb9V/DoA22hhX8w3UI9cgu
+ QLPzSU80yewnUVQnEkFO3l8OQysrqZuKoJT06I4GhYHCiChLvuNB4VwPjbpfYrd8njS4aJpnknm
+ DUQCv74q+cldHn44gw1zjESWcx1Rj5rIOUkBbcTRWBIU7K17xnO3OklXBVgatURIfVLZhJYXRvb
+ y/SJNT0BVdlZAwRHhJAF4HQh56EiIZOX09K2OX4zQjsJ2hu7vC0NV7pVD41MlHbpmoDfBR560FX
+ kUkKye2Is7lE5LLPEOqO1UwJj+pmS5qsIIwrBYrHj0VqMYYRLiGiREdIZ93onT26dH/Xo9vEMBa
+ ayFVFq1U8SAQlOQX4qflr7b9A2Clbsd5oCIBKs3tSP9uok09RbSW6N2yG9Apw1s8=
+X-Google-Smtp-Source: AGHT+IFTU5oW4ymRV8/xPeqRq4/qqEYx3zIjjLkoyBxb1dFnjnFQtkKwEnEovKNUweZV2b84+zY2/Q==
+X-Received: by 2002:a17:902:dad1:b0:240:8262:1a46 with SMTP id
+ d9443c01a7336-2462ee54512mr127900995ad.25.1756059854831; 
+ Sun, 24 Aug 2025 11:24:14 -0700 (PDT)
+Received: from visitorckw-System-Product-Name.. ([140.113.216.168])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2466889f11esm47903635ad.150.2025.08.24.11.24.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 24 Aug 2025 11:24:14 -0700 (PDT)
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: zaeem.mohamed@amd.com, wenjing.liu@amd.com, chiahsuan.chung@amd.com,
+ Natanel.Roizenman@amd.com, Daniel.Sa@amd.com, jserv@ccns.ncku.edu.tw,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Kuan-Wei Chiu <visitorckw@gmail.com>
+Subject: [PATCH 2/2] drm/amd/display: Optimize remove_duplicates() from O(N^2)
+ to O(N)
+Date: Mon, 25 Aug 2025 02:23:59 +0800
+Message-Id: <20250824182359.142050-3-visitorckw@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250824182359.142050-1-visitorckw@gmail.com>
+References: <20250824182359.142050-1-visitorckw@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <175602564355.2904469.15343362986595313099@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
-X-Virus-Status: Clean
 X-Mailman-Approved-At: Mon, 25 Aug 2025 07:12:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,133 +95,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Certain OLED devices malfunction on specific brightness levels.
-Specifically, when DP_SOURCE_BACKLIGHT_LEVEL is written to with
-the minor byte being 0x00 and sometimes 0x01, the panel forcibly
-turns off until the device sleeps again. This is an issue on
-multiple handhelds, including OneXPlayer F1 Pro and Ayaneo 3
-(the panel is suspected to be the same-1080p 7in OLED).
+Replace the previous O(N^2) implementation of remove_duplicates() in
+with a O(N) version using a fast/slow pointer approach. The new version
+keeps only the first occurrence of each element and compacts the array
+in place, improving efficiency without changing functionality.
 
-Below are some examples. This was found by iterating over brighness
-ranges while printing DP_SOURCE_BACKLIGHT_LEVEL. It was found that
-the screen would malfunction on specific values, and some of them
-were collected.
-
-Broken:
- 86016:  10101000000000000
- 86272:  10101000100000000
- 87808:  10101011100000000
-251648: 111101011100000000
-251649: 111101011100000001
-
-Working:
- 86144:  10101000010000000
- 87809:  10101011100000001
-251650: 111101011100000010
-
-The reason for this is that the range manipulation is too granular.
-AUX is currently written to with a granularity of 1. Forcing 100,
-which on the Ayaneo 3 OLED yields 400*10=4000 values, is plenty of
-granularity and fixes this issue. Iterating over the values through
-Python shows that the final byte is never 0x00, and testing over the
-entire range with a cadence of 0.2s/it and 73 increments (to saturate
-the range) shows no issues. Windows likewise shows no issues.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3803
-Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +++++++++++--------
- 1 file changed, 17 insertions(+), 11 deletions(-)
+Verified correctness using the following simple unit test:
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index cd0e2976e268..bb16adcafb88 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4739,7 +4739,8 @@ static void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
- }
+double arr1[] = {1,1,2,2,3}; int size1=5;
+remove_duplicates(arr1,&size1);
+assert(size1==3 && arr1[0]==1 && arr1[1]==2 && arr1[2]==3);
+
+double arr2[] = {1,2,3}; int size2=3;
+remove_duplicates(arr2,&size2);
+assert(size2==3 && arr2[0]==1 && arr2[1]==2 && arr2[2]==3);
+
+double arr3[] = {5,5,5,5}; int size3=4;
+remove_duplicates(arr3,&size3);
+assert(size3==1 && arr3[0]==5);
+
+double arr4[] = {}; int size4=0;
+remove_duplicates(arr4,&size4);
+assert(size4==0);
+
+ .../dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
+index 2b13a5e88917..5100e0e7af42 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
+@@ -50,18 +50,16 @@ static void set_reserved_time_on_all_planes_with_stream_index(struct display_con
  
- static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
--				unsigned int *min, unsigned int *max)
-+				unsigned int *min, unsigned int *max,
-+				unsigned int *multiple)
+ static void remove_duplicates(double *list_a, int *list_a_size)
  {
- 	if (!caps)
- 		return 0;
-@@ -4748,10 +4749,12 @@ static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- 		// Firmware limits are in nits, DC API wants millinits.
- 		*max = 1000 * caps->aux_max_input_signal;
- 		*min = 1000 * caps->aux_min_input_signal;
-+		*multiple = 100;
- 	} else {
- 		// Firmware limits are 8-bit, PWM control is 16-bit.
- 		*max = 0x101 * caps->max_input_signal;
- 		*min = 0x101 * caps->min_input_signal;
-+		*multiple = 1;
+-	int cur_element = 0;
+-	// For all elements b[i] in list_b[]
+-	while (cur_element < *list_a_size - 1) {
+-		if (list_a[cur_element] == list_a[cur_element + 1]) {
+-			for (int j = cur_element + 1; j < *list_a_size - 1; j++) {
+-				list_a[j] = list_a[j + 1];
+-			}
+-			*list_a_size = *list_a_size - 1;
+-		} else {
+-			cur_element++;
++	int j = 0;
++
++	for (int i = 1; i < *list_a_size; i++) {
++		if (list_a[j] != list_a[i]) {
++			j++;
++			list_a[j] = list_a[i];
+ 		}
  	}
- 	return 1;
- }
-@@ -4813,23 +4816,25 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
- static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
- 					uint32_t brightness)
- {
--	unsigned int min, max;
-+	unsigned int min, max, multiple;
- 
--	if (!get_brightness_range(caps, &min, &max))
-+	if (!get_brightness_range(caps, &min, &max, &multiple))
- 		return brightness;
- 
- 	convert_custom_brightness(caps, min, max, &brightness);
- 
--	// Rescale 0..max to min..max
--	return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
-+	// Rescale 0..max to min..max rounding to nearest multiple
-+	return rounddown(
-+		min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max),
-+		multiple);
++
++	*list_a_size = j + 1;
  }
  
- static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
- 				      uint32_t brightness)
- {
--	unsigned int min, max;
-+	unsigned int min, max, multiple;
- 
--	if (!get_brightness_range(caps, &min, &max))
-+	if (!get_brightness_range(caps, &min, &max, &multiple))
- 		return brightness;
- 
- 	if (brightness < min)
-@@ -4970,7 +4975,7 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- 	struct backlight_properties props = { 0 };
- 	struct amdgpu_dm_backlight_caps *caps;
- 	char bl_name[16];
--	int min, max;
-+	int min, max, multiple;
- 
- 	if (aconnector->bl_idx == -1)
- 		return;
-@@ -4983,15 +4988,16 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- 	}
- 
- 	caps = &dm->backlight_caps[aconnector->bl_idx];
--	if (get_brightness_range(caps, &min, &max)) {
-+	if (get_brightness_range(caps, &min, &max, &multiple)) {
- 		if (power_supply_is_system_supplied() > 0)
- 			props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->ac_level, 100);
- 		else
- 			props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->dc_level, 100);
- 		/* min is zero, so max needs to be adjusted */
- 		props.max_brightness = max - min;
--		drm_dbg(drm, "Backlight caps: min: %d, max: %d, ac %d, dc %d\n", min, max,
--			caps->ac_level, caps->dc_level);
-+		drm_dbg(drm,
-+			"Backlight caps: min: %d, max: %d, ac %d, dc %d, multiple: %d\n",
-+			min, max, caps->ac_level, caps->dc_level, multiple);
- 	} else
- 		props.brightness = props.max_brightness = MAX_BACKLIGHT_LEVEL;
- 
+ static bool increase_mpc_combine_factor(unsigned int *mpc_combine_factor, unsigned int limit)
 -- 
-2.50.1
-
+2.34.1
 
