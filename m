@@ -4,74 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0337CA0EE4
-	for <amd-gfx@archiver.kernel.org>; Sat, 23 Aug 2025 20:25:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12F73CA0EEB
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Aug 2025 11:30:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B70610E047;
-	Sat, 23 Aug 2025 20:25:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97E7C10E078;
+	Sun, 24 Aug 2025 11:30:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ltRxjwpQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FL2E4MEF";
 	dkim-atps=neutral
-Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
- [209.85.214.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B41A10E047;
- Sat, 23 Aug 2025 20:25:00 +0000 (UTC)
-Received: by mail-pl1-f193.google.com with SMTP id
- d9443c01a7336-24615b3445dso18423175ad.0; 
- Sat, 23 Aug 2025 13:25:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755980699; x=1756585499; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=jluHiqgaZQZWMzm5WgOiIg71d7mItf5bX9RJ5F/RYN0=;
- b=ltRxjwpQdYcj9etIfDLuOh5aKZeQPPOSxDtDrxUh1FoTn9fIwjgZHIGGXSsUc1jLEH
- ZH7wvgY4g4bsQ1WzbXw6wfft29bSM6TzaSTnBrNa494YMhzJUkBfMWte1HhSrqgD1QNk
- 24k//SpCBLs2CzuffhL979GJayPRqP9e25YcCXVzTd/X4VhcH/feAmOl/VS3ReaSogeG
- 9a8UPePCz6wkGi1D9dYCBgEQlGunL60k+Yw8R+/QDZt1GvQapdrzcqUAuBvsF9ji2F+F
- x+LX/a1K8vnkLVS+1V1F/cyMEGlfyr5Rs1TY9n5VoZ15meBRTCJfmPxOQmNsMK1ieVkF
- wQsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755980699; x=1756585499;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=jluHiqgaZQZWMzm5WgOiIg71d7mItf5bX9RJ5F/RYN0=;
- b=UE94Jzx6gJ9zqGy7M3o3kFXhBEfUUdfgbxbo1yIlpGIHu/Ltaj07fiw3ufgpkkNdzG
- Q8ezQYlCGWOQBuQlaStktVn5ZqtEI1d5LU24RDc6oBte3/Tp2I+Bh1+luUJW24H+fVIq
- WX/4bn0NpWBKGTyTlwU8Pv7UFa1YB/0qclcGRxoIML1bqSgRdz4PMAoUer70T9hCF55e
- 4kbtPExT+ggPQ5PV6TucJQgtOghG1T0Wtz0B0SiyU4cS4nMsfYRL9Ky5iNy183O2ftaV
- dGV8x9CH+5AZUxhI0qkFkAWRKertPKh5jWTF/sbzcW3DQTQZJDxPghvDfvcTE5HPzq+v
- dtXQ==
-X-Gm-Message-State: AOJu0Yxg7cdOOGnFApiTgvkcSLZkoKJNT2UxsjYG/S7ewIsIG+q+cQQF
- FgJRM559R02pY4hI0hGrUg8IEEH0wiJSQI7+LySni5XKvc4ZoWH7ZFmZAqoR+QlWF4c=
-X-Gm-Gg: ASbGncshRqwjdumVWqtcWlB8qL/ZaF7lLUn+9cIn78XzIyiD48KzopYvEkOcDMRoYg2
- ofZ15YUAFa397QfXKElMlTGe8VN3ZDwpeoZNocICeHLzVvt03Js+wdHHL1cgChI5vYPg2P2IKY8
- b/11+B7wTS2tXV56+IWKTba5BjCN+8DeYxHQVxKULowKuYZH/6jQ0Si6QkzFDAJsDUt1OnD4lQl
- /8ilzZQzhWFNPzUc5slMW0ToZ/ADHBeIKRAFcM481NL8SvD1fhmhg28Vj+RSTWua1ZKxKH/jlDX
- NJAd2pRsmPpRn94tyD2WsRraKBUiypVNGYtD+nVKorw9Z7F8J4oHGVy5Z0i94VHCRw96x/2epO5
- wyPoY+88Dxg==
-X-Google-Smtp-Source: AGHT+IGdNe2acobe7hoYy/3SG0sU0woB1Ddr0YVeZCAUQFiiD1P+atEHJGDMr/DnmavEr02jQpM7Fw==
-X-Received: by 2002:a17:902:cec2:b0:240:9f9:46a0 with SMTP id
- d9443c01a7336-2462ef05828mr94011855ad.38.1755980699439; 
- Sat, 23 Aug 2025 13:24:59 -0700 (PDT)
-Received: from localhost ([2a09:bac1:3680:98::10c:23])
- by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-24668889dbbsm28386195ad.132.2025.08.23.13.24.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 Aug 2025 13:24:58 -0700 (PDT)
-From: "Kavithesh A.S" <kavitheshnitt@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org, harry.wentland@amd.com, sunpeng.li@amd.com,
- siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch,
- "Kavithesh A.S" <kavitheshnitt@gmail.com>
-Subject: [PATCH] drm/amd/display: Document num_rmcm_3dluts in mpc_color_caps
-Date: Sun, 24 Aug 2025 01:55:40 +0530
-Message-ID: <20250823202540.487616-1-kavitheshnitt@gmail.com>
-X-Mailer: git-send-email 2.50.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E3410E078;
+ Sun, 24 Aug 2025 11:30:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1756035013; x=1787571013;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=6G5mPAtsFaXXL0ExPX41cT4TX9upffLJYDpuVfS9Gmc=;
+ b=FL2E4MEFAPDcu/PrqyGwODpx99BBUlS7+uxB48lVWgP3CBm8xVA6C27h
+ Wbcbauh91jLOJYC2ZS+xNeBUoA8aACRCQa9oV5pFaN77c71uc28cZNKyz
+ QaMpcPR6eGHxm+Cz3R1eKkVfcA9nqOxYpXs8QovKrhrX0QXpPZp4eMS1A
+ 05uZV0CYKcj45GeNYnSk/8H+R3K0MOoqMyYP09JWGXKZwxu71q/skIg8/
+ Do7eEIlTualhnVlHxjNR6isVXv5WVwM3HeyV53mFRtKu369fjw+8JPyV3
+ 9VNKqJgEErzNHSTjqJQFr9yaBUs+sV7QFkHv8K8DvdG8GdbN0EapsU96A w==;
+X-CSE-ConnectionGUID: J8rYmtEzSEuYKsJjyvsACA==
+X-CSE-MsgGUID: pVbTLw3yQYOCJDzvVX0rIA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="75724094"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="75724094"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2025 04:30:13 -0700
+X-CSE-ConnectionGUID: qwh2lp8ZQci4E0oyDQb0JA==
+X-CSE-MsgGUID: SduyHKJuRhmvP2iETSthtQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="192736209"
+Received: from lkp-server02.sh.intel.com (HELO 4ea60e6ab079) ([10.239.97.151])
+ by fmviesa002.fm.intel.com with ESMTP; 24 Aug 2025 04:30:10 -0700
+Received: from kbuild by 4ea60e6ab079 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1uq8ur-000Mxr-05;
+ Sun, 24 Aug 2025 11:29:53 +0000
+Date: Sun, 24 Aug 2025 19:29:11 +0800
+From: kernel test robot <lkp@intel.com>
+To: Antheas Kapenekakis <lkml@antheas.dev>, amd-gfx@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Peyton Lee <peytolee@amd.com>, Lang Yu <lang.yu@amd.com>,
+ Antheas Kapenekakis <lkml@antheas.dev>
+Subject: Re: [PATCH v1 2/2] drm/amd/display: Adjust AUX brightness to be a
+ granularity of 100
+Message-ID: <202508241901.DJ851kiv-lkp@intel.com>
+References: <20250824085351.454619-2-lkml@antheas.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250824085351.454619-2-lkml@antheas.dev>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,26 +77,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix a kernel-doc warning by documenting the num_rmcm_3dluts member of struct mpc_color_caps.
+Hi Antheas,
 
-This is my first patch submission to the kernel, feedback is welcome
+kernel test robot noticed the following build errors:
 
-Signed-off-by: Kavithesh A.S <kavitheshnitt@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 1 +
- 1 file changed, 1 insertion(+)
+[auto build test ERROR on c17b750b3ad9f45f2b6f7e6f7f4679844244f0b9]
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 59c077561..06f05979b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -234,6 +234,7 @@ struct lut3d_caps {
-  * @ogam_ram: programmable out gamma LUT
-  * @ocsc: output color space conversion matrix
-  * @num_3dluts: MPC 3D LUT; always assumes a preceding shaper LUT
-+ * @num_rmcm_3dluts: number of RMCM 3D LUTS supported
-  * @shared_3d_lut: shared 3D LUT flag. Can be either DPP or MPC, but single
-  * instance
-  * @ogam_rom_caps: pre-definied curve caps for regamma 1D LUT
+url:    https://github.com/intel-lab-lkp/linux/commits/Antheas-Kapenekakis/drm-amd-display-Adjust-AUX-brightness-to-be-a-granularity-of-100/20250824-165633
+base:   c17b750b3ad9f45f2b6f7e6f7f4679844244f0b9
+patch link:    https://lore.kernel.org/r/20250824085351.454619-2-lkml%40antheas.dev
+patch subject: [PATCH v1 2/2] drm/amd/display: Adjust AUX brightness to be a granularity of 100
+config: i386-buildonly-randconfig-002-20250824 (https://download.01.org/0day-ci/archive/20250824/202508241901.DJ851kiv-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250824/202508241901.DJ851kiv-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202508241901.DJ851kiv-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   ld: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.o: in function `amdgpu_dm_backlight_set_level':
+>> amdgpu_dm.c:(.text+0x8b89): undefined reference to `__umoddi3'
+
 -- 
-2.43.0
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
