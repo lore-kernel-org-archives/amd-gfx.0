@@ -4,82 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30821CA0FE1
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 07:13:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D5BCCA0EED
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 07:13:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04FEB10E3CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1357410E3D0;
 	Mon, 25 Aug 2025 07:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FnoFiLfB";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="YEdH4iSv";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7019C10E1F4;
- Sun, 24 Aug 2025 18:24:11 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-24680b19109so7574945ad.1; 
- Sun, 24 Aug 2025 11:24:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756059851; x=1756664651; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=p2v1IYFTL9EjW4OmXMSiVEBKcc5tiC6DS+GF23hLI0E=;
- b=FnoFiLfBRcjq6t+w+/Lp4RxlI9AairJVFVXfDt7bXv6L7mqgwRQUdn118oRxWBDQD9
- Ui/y8Qbc20Tocuzw6mM8YbrKoEY7Jz0JybeJD9J0GI2hSXG3qWPP6U+rAX3cSn3yUaa1
- rrhu44NTKSl6uHGoFrZW67lggm/kmKTJysnh5D/hu3gFg4sfX15xJm1FZyLjbYF+uwF3
- ckrQCB+srTdXlu8Foj4NaNaHeEPnE4oFBr/aqeBqfBBpITbuwxV5zfcNFZKg7Xfl7hqC
- ghsaWhA5/q+qVj/5RXQm+4DCs8Hr27+hc9YY8m+vVhC2rSzFrEsu95AUI9M7/TxOI6rO
- 0S0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756059851; x=1756664651;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=p2v1IYFTL9EjW4OmXMSiVEBKcc5tiC6DS+GF23hLI0E=;
- b=TDp8D5zLx6gkkac8csXu2VG05uZTqWupSJoRcK+LgQvYUFwAoafFRZjd3idx2vMgxH
- izhEwP9MNoUhGziSFewOp9xYr8kP3zzfpNsbHpvQzcTqBN/ONCGmjgjEPds0pmnfhwQY
- x525AJUNIqJeV0Te7ZuPA/Fx4gRxXRwub39GkyqUCU+HfuZzRlNP9TVRRZ9h4s1EX3T5
- o72Cjiuk5td266jmGNTtDhfU2PjQ6vBvIW7aFncKhOqIvckeqD/sa3UiULT9m7Tsd/Ls
- 2hxu0mToYMjOIaGSIZWY+vh1F/4FyLBo8ZvlsfuDhM+tPTdbWBJUvd9SlVOjjZQZaWHA
- BYrg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUbyAOas/hXlrXsF+edna8vDRXIp4VOf+34RiFineUN/NtrpBsEicFAG8Y/xxX6ROXAv5CijsbI0jCa@lists.freedesktop.org,
- AJvYcCVIPOFm2dDrra46V9VKugwaZcNvfJUi7TCZ9v9ZR9oJftmHdV7355+q9Hcc9bVauBwVW+XJVqHy@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxIwBebUwafLl2DwCdsKdeid3qNUidmeS7OBVsjtVoRzwdyVZsH
- 0Mh0S7RAAnT+fap8nX7pnoe/A8iJPEpwYftt2dz1T9er+ENwPElT8bUt
-X-Gm-Gg: ASbGncvdh1Eb3wKcWAkD2R+cmU9Of6b5PD1MFIEzT//gu23sO34xhx8kPgUgkgrJ0Ss
- VyUZ59cKYlPng3Lx7DXyV7aWvZ5H2FT4+cdoYh8DZOhBxItJnfE6QQ2+DAXCFaxRG2wAudexMUP
- aEroqN/xu+G08YFp/43aL/jz2kEsz1ApkCqkAHrxVsUSEIvWx4n0TjAhRPdFRTkWhLYv4TikmIp
- Uco+3Bbv/S4L6ZqIPgmlMYljQNTx5kbF2T+GYUzCEN6p23FiSg294Nk+uSkenPw6VGOCQ/kgLmh
- onUSdKsJ6eUafHhOl8Z//2ulnMhjD6ZVfrxXQkSM+2bcdNF4G/5cpam3mVkWZWG0usa69CVc5hS
- ximi/M57VaVhhgkb1pVg4tzjNXu8zYuthqe9YBRZ83e9vIUZFdOiIqkqP5HGfPls=
-X-Google-Smtp-Source: AGHT+IEcmIAoNLGgWs51AJwLfXP1RCoyG3ATRWOL86MbvJbfx+dgqpWtFQD61mP3GyAan2qMIob2vQ==
-X-Received: by 2002:a17:903:46c5:b0:246:7b42:a223 with SMTP id
- d9443c01a7336-2467b42a323mr57162615ad.25.1756059850757; 
- Sun, 24 Aug 2025 11:24:10 -0700 (PDT)
-Received: from visitorckw-System-Product-Name.. ([140.113.216.168])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2466889f11esm47903635ad.150.2025.08.24.11.24.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 Aug 2025 11:24:10 -0700 (PDT)
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
-To: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: zaeem.mohamed@amd.com, wenjing.liu@amd.com, chiahsuan.chung@amd.com,
- Natanel.Roizenman@amd.com, Daniel.Sa@amd.com, jserv@ccns.ncku.edu.tw,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Kuan-Wei Chiu <visitorckw@gmail.com>
-Subject: [PATCH 1/2] drm/amd/display: Optimize reserved time candidates
- sorting using standard sort()
-Date: Mon, 25 Aug 2025 02:23:58 +0800
-Message-Id: <20250824182359.142050-2-visitorckw@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250824182359.142050-1-visitorckw@gmail.com>
-References: <20250824182359.142050-1-visitorckw@gmail.com>
+Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89FEC10E285;
+ Sun, 24 Aug 2025 20:02:08 +0000 (UTC)
+Received: from relay11 (localhost.localdomain [127.0.0.1])
+ by relay11.grserver.gr (Proxmox) with ESMTP id 5E582C55A2;
+ Sun, 24 Aug 2025 23:02:07 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by relay11.grserver.gr (Proxmox) with ESMTPS id B5A0EC54FE;
+ Sun, 24 Aug 2025 23:02:06 +0300 (EEST)
+Received: from antheas-z13 (unknown
+ [IPv6:2a05:f6c2:511b:0:7200:c86a:8976:4786])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id F11F1206827;
+ Sun, 24 Aug 2025 23:02:05 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+ s=default; t=1756065726;
+ bh=dqae/2e+OMsIT8IE3vrtZRe5m+RCu/Ifgcl+aQR9ZWY=; h=From:To:Subject;
+ b=YEdH4iSvEKOoMRpMPc6DB42/4fjAEzTS/i2w1PqhVeaG0rGRVTtsqRRJfpy5R/Lra
+ uCLDVCF+KhmCPD6D71wTARvb4VSLZ01z8lHfkoeBTkeWNGuBAe0/wcgRERjbSjhQ8E
+ h7A0FAWSS69hQkrif1jOmG30IGsuzUWUYGhE+97jrD3GQxHYy67TbdOyfshVCziO8G
+ +x3gNMw2bYKO2caB4+upLcQyZv5TGZIQc5PdiXZu9k/YgMMWHnBRzYdbPqEqwrr3P+
+ YPFBxGIfSZkz64bOTAA73rlYV4ZISQPVKM2A9t3bPdl2WCNAPpxxiWyujdDvYndU/8
+ Dtp/WsNq3terw==
+Authentication-Results: linux3247.grserver.gr;
+ spf=pass (sender IP is 2a05:f6c2:511b:0:7200:c86a:8976:4786)
+ smtp.mailfrom=lkml@antheas.dev smtp.helo=antheas-z13
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+From: Antheas Kapenekakis <lkml@antheas.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ philm@manjaro.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Antheas Kapenekakis <lkml@antheas.dev>
+Subject: [PATCH v1 2/5] drm: panel-backlight-quirks: Convert brightness quirk
+ to generic structure
+Date: Sun, 24 Aug 2025 22:01:59 +0200
+Message-ID: <20250824200202.1744335-3-lkml@antheas.dev>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250824200202.1744335-1-lkml@antheas.dev>
+References: <20250824200202.1744335-1-lkml@antheas.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <175606572642.883186.2052347155776376294@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
+X-Virus-Status: Clean
 X-Mailman-Approved-At: Mon, 25 Aug 2025 07:12:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,64 +76,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace the custom bubble sort used for sorting reserved time
-candidates in with the kernel's standard sort() helper. The previous
-code had O(N^2) time complexity, while the generic kernel sort runs in
-O(N log N). This improves efficiency and removes the need for a local
-sorting implementation, while keeping functionality unchanged.
+Currently, the brightness quirk is limited to minimum brightness only.
+Refactor it to a structure, so that more quirks can be added in the
+future. Reserve 0 value for "no quirk", and use u16 to allow minimum
+brightness up to 255.
 
-Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
 ---
-Compile test only. 
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++--
+ .../link/protocols/link_edp_panel_control.c   |  2 +-
+ drivers/gpu/drm/drm_panel_backlight_quirks.c  | 41 ++++++++++---------
+ include/drm/drm_utils.h                       |  7 +++-
+ 4 files changed, 36 insertions(+), 26 deletions(-)
 
- .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c   | 23 +++++++++++--------
- 1 file changed, 13 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
-index e763c8e45da8..2b13a5e88917 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
-@@ -2,19 +2,21 @@
- //
- // Copyright 2024 Advanced Micro Devices, Inc.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index cd0e2976e268..4ad80ae615a2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3612,11 +3612,11 @@ static struct drm_mode_config_helper_funcs amdgpu_dm_mode_config_helperfuncs = {
  
-+#include <linux/sort.h>
-+
- #include "dml2_pmo_factory.h"
- #include "dml2_pmo_dcn3.h"
- 
--static void sort(double *list_a, int list_a_size)
-+static int cmp_double(const void *a, const void *b)
+ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
  {
--	// For all elements b[i] in list_b[]
--	for (int i = 0; i < list_a_size - 1; i++) {
--		// Find the first element of list_a that's larger than b[i]
--		for (int j = i; j < list_a_size - 1; j++) {
--			if (list_a[j] > list_a[j + 1])
--				swap(list_a[j], list_a[j + 1]);
--		}
--	}
-+	double da = *(const double *)a;
-+	double db = *(const double *)b;
-+
-+	if (da < db)
-+		return -1;
-+	if (da > db)
-+		return 1;
-+	return 0;
++	const struct drm_panel_backlight_quirk *panel_backlight_quirk;
+ 	struct amdgpu_dm_backlight_caps *caps;
+ 	struct drm_connector *conn_base;
+ 	struct amdgpu_device *adev;
+ 	struct drm_luminance_range_info *luminance_range;
+-	int min_input_signal_override;
+ 
+ 	if (aconnector->bl_idx == -1 ||
+ 	    aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
+@@ -3656,9 +3656,13 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+ 	else
+ 		caps->aux_min_input_signal = 1;
+ 
+-	min_input_signal_override = drm_get_panel_min_brightness_quirk(aconnector->drm_edid);
+-	if (min_input_signal_override >= 0)
+-		caps->min_input_signal = min_input_signal_override;
++	panel_backlight_quirk =
++		drm_get_panel_backlight_quirk(aconnector->drm_edid);
++	if (!IS_ERR_OR_NULL(panel_backlight_quirk)) {
++		if (panel_backlight_quirk->min_brightness)
++			caps->min_input_signal =
++				panel_backlight_quirk->min_brightness - 1;
++	}
  }
  
- static double get_max_reserved_time_on_all_planes_with_stream_index(struct display_configuation_with_meta *config, unsigned int stream_index)
-@@ -634,7 +636,8 @@ bool pmo_dcn3_init_for_pstate_support(struct dml2_pmo_init_for_pstate_support_in
+ DEFINE_FREE(sink_release, struct dc_sink *, if (_T) dc_sink_release(_T))
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+index e7927b8f5ba3..a1f37267b85e 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+@@ -201,7 +201,7 @@ bool edp_set_backlight_level_nits(struct dc_link *link,
+ 			return false;
+ 	} else if (link->backlight_control_type == BACKLIGHT_CONTROL_AMD_AUX) {
+ 		struct dpcd_source_backlight_set dpcd_backlight_set;
+-		*(uint32_t *)&dpcd_backlight_set.backlight_level_millinits = backlight_millinits;
++		*(uint32_t *)&dpcd_backlight_set.backlight_level_millinits = backlight_millinits | 3;
+ 		*(uint16_t *)&dpcd_backlight_set.backlight_transition_time_ms = (uint16_t)transition_time_in_ms;
  
- 		// Finally sort the array of candidates
- 		sort(pmo->scratch.pmo_dcn3.reserved_time_candidates[stream_index],
--			pmo->scratch.pmo_dcn3.reserved_time_candidates_count[stream_index]);
-+		     pmo->scratch.pmo_dcn3.reserved_time_candidates_count[stream_index],
-+		     sizeof(double), cmp_double, NULL);
+ 		uint8_t backlight_control = isHDR ? 1 : 0;
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index b38b33e26ea5..702726c20ccc 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -8,23 +8,23 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_utils.h>
  
- 		remove_duplicates(pmo->scratch.pmo_dcn3.reserved_time_candidates[stream_index],
- 			&pmo->scratch.pmo_dcn3.reserved_time_candidates_count[stream_index]);
+-struct drm_panel_min_backlight_quirk {
++struct drm_get_panel_backlight_quirk {
+ 	struct {
+ 		enum dmi_field field;
+ 		const char * const value;
+ 	} dmi_match;
+ 	struct drm_edid_ident ident;
+-	u8 min_brightness;
++	struct drm_panel_backlight_quirk quirk;
+ };
+ 
+-static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks[] = {
++static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks[] = {
+ 	/* 13 inch matte panel */
+ 	{
+ 		.dmi_match.field = DMI_BOARD_VENDOR,
+ 		.dmi_match.value = "Framework",
+ 		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0bca),
+ 		.ident.name = "NE135FBM-N41",
+-		.min_brightness = 0,
++		.quirk = { .min_brightness = 1, },
+ 	},
+ 	/* 13 inch glossy panel */
+ 	{
+@@ -32,7 +32,7 @@ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks
+ 		.dmi_match.value = "Framework",
+ 		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x095f),
+ 		.ident.name = "NE135FBM-N41",
+-		.min_brightness = 0,
++		.quirk = { .min_brightness = 1, },
+ 	},
+ 	/* 13 inch 2.8k panel */
+ 	{
+@@ -40,12 +40,13 @@ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks
+ 		.dmi_match.value = "Framework",
+ 		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0cb4),
+ 		.ident.name = "NE135A1M-NY1",
+-		.min_brightness = 0,
++		.quirk = { .min_brightness = 1, },
+ 	},
+ };
+ 
+-static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_backlight_quirk *quirk,
+-						  const struct drm_edid *edid)
++static bool drm_panel_min_backlight_quirk_matches(
++	const struct drm_get_panel_backlight_quirk *quirk,
++	const struct drm_edid *edid)
+ {
+ 	if (!dmi_match(quirk->dmi_match.field, quirk->dmi_match.value))
+ 		return false;
+@@ -57,39 +58,39 @@ static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_bac
+ }
+ 
+ /**
+- * drm_get_panel_min_brightness_quirk - Get minimum supported brightness level for a panel.
++ * drm_get_panel_backlight_quirk - Get backlight quirks for a panel
+  * @edid: EDID of the panel to check
+  *
+  * This function checks for platform specific (e.g. DMI based) quirks
+  * providing info on the minimum backlight brightness for systems where this
+- * cannot be probed correctly from the hard-/firm-ware.
++ * cannot be probed correctly from the hard-/firm-ware and other sources.
+  *
+  * Returns:
+- * A negative error value or
+- * an override value in the range [0, 255] representing 0-100% to be scaled to
+- * the drivers target range.
++ * a drm_panel_backlight_quirk struct if a quirk was found, otherwise an
++ * error pointer.
+  */
+-int drm_get_panel_min_brightness_quirk(const struct drm_edid *edid)
++const struct drm_panel_backlight_quirk *
++drm_get_panel_backlight_quirk(const struct drm_edid *edid)
+ {
+-	const struct drm_panel_min_backlight_quirk *quirk;
++	const struct drm_get_panel_backlight_quirk *quirk;
+ 	size_t i;
+ 
+ 	if (!IS_ENABLED(CONFIG_DMI))
+-		return -ENODATA;
++		return ERR_PTR(-ENODATA);
+ 
+ 	if (!edid)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(drm_panel_min_backlight_quirks); i++) {
+ 		quirk = &drm_panel_min_backlight_quirks[i];
+ 
+ 		if (drm_panel_min_backlight_quirk_matches(quirk, edid))
+-			return quirk->min_brightness;
++			return &quirk->quirk;
+ 	}
+ 
+-	return -ENODATA;
++	return ERR_PTR(-ENODATA);
+ }
+-EXPORT_SYMBOL(drm_get_panel_min_brightness_quirk);
++EXPORT_SYMBOL(drm_get_panel_backlight_quirk);
+ 
+ MODULE_DESCRIPTION("Quirks for panel backlight overrides");
+ MODULE_LICENSE("GPL");
+diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+index 15fa9b6865f4..82eeee4a58ab 100644
+--- a/include/drm/drm_utils.h
++++ b/include/drm/drm_utils.h
+@@ -16,7 +16,12 @@ struct drm_edid;
+ 
+ int drm_get_panel_orientation_quirk(int width, int height);
+ 
+-int drm_get_panel_min_brightness_quirk(const struct drm_edid *edid);
++struct drm_panel_backlight_quirk {
++	u16 min_brightness;
++};
++
++const struct drm_panel_backlight_quirk *
++drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+ 
+ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+ 
 -- 
-2.34.1
+2.50.1
+
 
