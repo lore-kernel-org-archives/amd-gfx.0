@@ -4,59 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37641CA0EED
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E1F1CA0FF0
 	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 07:13:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FFCD10E3DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71C5A10E3DE;
 	Mon, 25 Aug 2025 07:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="VoxvKQwy";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="Lkrw/QNN";
 	dkim-atps=neutral
-Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 592BA10E299;
- Sun, 24 Aug 2025 20:11:33 +0000 (UTC)
-Received: from relay12 (localhost [127.0.0.1])
- by relay12.grserver.gr (Proxmox) with ESMTP id B75ABBDBFE;
- Sun, 24 Aug 2025 23:02:09 +0300 (EEST)
+Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1992210E203;
+ Sun, 24 Aug 2025 19:34:03 +0000 (UTC)
+Received: from relay10 (localhost.localdomain [127.0.0.1])
+ by relay10.grserver.gr (Proxmox) with ESMTP id E9C3B4637A;
+ Sun, 24 Aug 2025 22:34:01 +0300 (EEST)
 Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by relay12.grserver.gr (Proxmox) with ESMTPS id 0D80DBDCE2;
- Sun, 24 Aug 2025 23:02:09 +0300 (EEST)
-Received: from antheas-z13 (unknown
- [IPv6:2a05:f6c2:511b:0:7200:c86a:8976:4786])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id 3AF25206834;
- Sun, 24 Aug 2025 23:02:08 +0300 (EEST)
+ by relay10.grserver.gr (Proxmox) with ESMTPS id A17084634F;
+ Sun, 24 Aug 2025 22:34:00 +0300 (EEST)
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
+ [209.85.208.177])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id E3FCD1FF729;
+ Sun, 24 Aug 2025 22:33:59 +0300 (EEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1756065728;
- bh=L8cmdSbbrwbTki+2aHu2sEvZypC6g58bcJ5QkivgUxo=; h=From:To:Subject;
- b=VoxvKQwy5QH0zLE6ws85T/ctBbdNNMffUKP83wlxRBG49+BFZJJDjU6Ktf9kQfds0
- 3kmIHCosoImWb0yWOT/FS2fCl01c2oTCPKdju/h6FLkQ3c6isWASyIzfKuBrG3GAzd
- +Gd4xLy+uGoJKlfmxhjcg3DpP1N54w0g+1yFv5E9EFskk2vITwJ1xb69sfr50EwljP
- vYs6QipbcI+mELg5PxXmRO4+0WO082C1DKp3O8hWtavKkhYudbbcu4PNFbfUD8ud6r
- uxnCIVel/mDvfMF0n/2/n/llS0x27u+aI5CG5bjd8PU1EVcQq5awa+RBVrys09oTDt
- SUP8aHNhisjlQ==
+ s=default; t=1756064040;
+ bh=FO7P5D7yox0EP4cdvKTLPi2yl1V7XKqyY3X/+jd53jY=;
+ h=Received:From:Subject:To;
+ b=Lkrw/QNNqv+73HOAr4bdCy34NRSy9rI6mben8jL/YaOFpEEn4HEmFrAebN1DhsL89
+ 7EhsIGoOxL+O0EyHxlVeKAUegzFNyqJVaKrgoglRyYNGGYYOsmvPKY0teV7Vc3I0G0
+ NXuBda6fmLkCywXltUQhKef7DDIpKKRFTUjBUbes47Jji5iDoigGarQ9wOTcdt5CvX
+ JoovGLP0aaCtkgYj52hio04+Faq3+zV67lD4U839fFdAWadm92cp6qSKauJ+f7kvf5
+ QY1UoWqqGWspwBwQXvMPy6+m0/q5W5TwMdg/dy/VGEozUSqCm+BKR51nB+v3SZVp8i
+ FC7MiZPOJrDYg==
 Authentication-Results: linux3247.grserver.gr;
- spf=pass (sender IP is 2a05:f6c2:511b:0:7200:c86a:8976:4786)
- smtp.mailfrom=lkml@antheas.dev smtp.helo=antheas-z13
+ spf=pass (sender IP is 209.85.208.177) smtp.mailfrom=lkml@antheas.dev
+ smtp.helo=mail-lj1-f177.google.com
 Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-3364e945ce7so22317431fa.1;
+ Sun, 24 Aug 2025 12:33:59 -0700 (PDT)
+X-Gm-Message-State: AOJu0YxlNShUzUN9IHfn8JIwqbxBBH1A2pk5LWeS6cNPKsMtnKtPwSdW
+ 0bPDwlUtKSLXiEnUqBUdWikcjrorzpn5ZxT2NIlNEjVdsp8fBssnKKjuOvDUKAK5eB8GBZKVxUR
+ DlEcDozvG3JBnRqdFJPF2wyM9+6MAwQw=
+X-Google-Smtp-Source: AGHT+IGY0rDs0kClJQVQH2fIcccJT8iGCa1xORUIDDflp5Zi0bohdpW5Q4OqIN4bwO60cUCeMSFXqbEbJ4VujP9Gz2s=
+X-Received: by 2002:a05:651c:110d:b0:32f:1df5:aca1 with SMTP id
+ 38308e7fff4ca-33650f99907mr22871231fa.22.1756064039329; Sun, 24 Aug 2025
+ 12:33:59 -0700 (PDT)
+MIME-Version: 1.0
+References: <20250824085351.454619-1-lkml@antheas.dev>
+ <20250824085351.454619-2-lkml@antheas.dev>
+In-Reply-To: <20250824085351.454619-2-lkml@antheas.dev>
 From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Sun, 24 Aug 2025 21:33:47 +0200
+X-Gmail-Original-Message-ID: <CAGwozwH7m5CgGiK5Xu_q0JbJvRQbcHkgQd9nFXJNq3DQhWO7QQ@mail.gmail.com>
+X-Gm-Features: Ac12FXyKjPTDZSp_1B8GyHbueZzBn-qOItLYTnPwoc8HrcP795BSb-kYcepP-yE
+Message-ID: <CAGwozwH7m5CgGiK5Xu_q0JbJvRQbcHkgQd9nFXJNq3DQhWO7QQ@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] drm/amd/display: Adjust AUX brightness to be a
+ granularity of 100
 To: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- philm@manjaro.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Antheas Kapenekakis <lkml@antheas.dev>
-Subject: [PATCH v1 5/5] drm: panel-backlight-quirks: Add Steam Decks
-Date: Sun, 24 Aug 2025 22:02:02 +0200
-Message-ID: <20250824200202.1744335-6-lkml@antheas.dev>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250824200202.1744335-1-lkml@antheas.dev>
-References: <20250824200202.1744335-1-lkml@antheas.dev>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <175606572872.883350.1205519288154954246@linux3247.grserver.gr>
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Peyton Lee <peytolee@amd.com>, 
+ Lang Yu <lang.yu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: <175606404020.795271.4027913057195354646@linux3247.grserver.gr>
 X-PPP-Vhost: antheas.dev
 X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
 X-Virus-Status: Clean
@@ -75,51 +92,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On the SteamOS kernel, Valve universally makes minimum brightness 0
-for all devices. SteamOS is (was?) meant for the Steam Deck, so
-enabling it universally is reasonable. However, it causes issues in
-certain devices. Therefore, introduce it just for the Steam Deck here.
+On Sun, 24 Aug 2025 at 10:54, Antheas Kapenekakis <lkml@antheas.dev> wrote:
+>
+> Certain OLED devices malfunction on specific brightness levels.
+> Specifically, when DP_SOURCE_BACKLIGHT_LEVEL is written to with
+> the minor byte being 0x00 and sometimes 0x01, the panel forcibly
+> turns off until the device sleeps again. This is an issue on
+> multiple handhelds, including OneXPlayer F1 Pro and Ayaneo 3
+> (the panel is suspected to be the same-1080p 7in OLED).
+>
+> Below are some examples. This was found by iterating over brighness
+> ranges while printing DP_SOURCE_BACKLIGHT_LEVEL. It was found that
+> the screen would malfunction on specific values, and some of them
+> were collected.
+>
+> Broken:
+>  86016:  10101000000000000
+>  86272:  10101000100000000
+>  87808:  10101011100000000
+> 251648: 111101011100000000
+> 251649: 111101011100000001
+>
+> Working:
+>  86144:  10101000010000000
+>  87809:  10101011100000001
+> 251650: 111101011100000010
+>
+> The reason for this is that the range manipulation is too granular.
+> AUX is currently written to with a granularity of 1. Forcing 100,
+> which on the Ayaneo 3 OLED yields 400*10=4000 values, is plenty of
+> granularity and fixes this issue. Iterating over the values through
+> Python shows that the final byte is never 0x00, and testing over the
+> entire range with a cadence of 0.2s/it and 73 increments (to saturate
+> the range) shows no issues. Windows likewise shows no issues.
 
-SteamOS kernel does not have a public mirror, but this replaces commit
-806dd74bb225 ("amd/drm: override backlight min value from 12 -> 0")
-in the latest, as of this writing, SteamOS kernel (6.11.11-valve24).
-See unofficial mirror reconstructed from sources below.
+Well Phil managed to fall into the value 332800, which has a 0 minor
+bit. Unfortunate. In hindsight, every 256 hundreds there would be a
+zero anyway.
 
-Link: https://gitlab.com/evlaV/linux-integration/-/commit/806dd74bb225
-Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
----
- drivers/gpu/drm/drm_panel_backlight_quirks.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+Before I made this patch I made a partial refactor of panel-quirks
+where a quirk like this could go to. But I would really prefer not to
+do quirks. Ill send that too.
 
-diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-index 78c430b07d6a..5c24f4a86519 100644
---- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
-+++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-@@ -73,7 +73,22 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
- 		.dmi_match_other.field = DMI_PRODUCT_NAME,
- 		.dmi_match_other.value = "ONEXPLAYER F1 EVA-02",
- 		.quirk = { .brightness_mask = 3, },
--	}
-+	},
-+	/* Steam Deck models */
-+	{
-+		.dmi_match.field = DMI_SYS_VENDOR,
-+		.dmi_match.value = "Valve",
-+		.dmi_match_other.field = DMI_PRODUCT_NAME,
-+		.dmi_match_other.value = "Jupiter",
-+		.quirk = { .min_brightness = 1, },
-+	},
-+	{
-+		.dmi_match.field = DMI_SYS_VENDOR,
-+		.dmi_match.value = "Valve",
-+		.dmi_match_other.field = DMI_PRODUCT_NAME,
-+		.dmi_match_other.value = "Galileo",
-+		.quirk = { .min_brightness = 1, },
-+	},
- };
- 
- static bool drm_panel_min_backlight_quirk_matches(
--- 
-2.50.1
+Antheas
 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3803
+> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +++++++++++--------
+>  1 file changed, 17 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index cd0e2976e268..bb16adcafb88 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4739,7 +4739,8 @@ static void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
+>  }
+>
+>  static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+> -                               unsigned int *min, unsigned int *max)
+> +                               unsigned int *min, unsigned int *max,
+> +                               unsigned int *multiple)
+>  {
+>         if (!caps)
+>                 return 0;
+> @@ -4748,10 +4749,12 @@ static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+>                 // Firmware limits are in nits, DC API wants millinits.
+>                 *max = 1000 * caps->aux_max_input_signal;
+>                 *min = 1000 * caps->aux_min_input_signal;
+> +               *multiple = 100;
+>         } else {
+>                 // Firmware limits are 8-bit, PWM control is 16-bit.
+>                 *max = 0x101 * caps->max_input_signal;
+>                 *min = 0x101 * caps->min_input_signal;
+> +               *multiple = 1;
+>         }
+>         return 1;
+>  }
+> @@ -4813,23 +4816,25 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
+>  static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
+>                                         uint32_t brightness)
+>  {
+> -       unsigned int min, max;
+> +       unsigned int min, max, multiple;
+>
+> -       if (!get_brightness_range(caps, &min, &max))
+> +       if (!get_brightness_range(caps, &min, &max, &multiple))
+>                 return brightness;
+>
+>         convert_custom_brightness(caps, min, max, &brightness);
+>
+> -       // Rescale 0..max to min..max
+> -       return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
+> +       // Rescale 0..max to min..max rounding to nearest multiple
+> +       return rounddown(
+> +               min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max),
+> +               multiple);
+>  }
+>
+>  static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
+>                                       uint32_t brightness)
+>  {
+> -       unsigned int min, max;
+> +       unsigned int min, max, multiple;
+>
+> -       if (!get_brightness_range(caps, &min, &max))
+> +       if (!get_brightness_range(caps, &min, &max, &multiple))
+>                 return brightness;
+>
+>         if (brightness < min)
+> @@ -4970,7 +4975,7 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+>         struct backlight_properties props = { 0 };
+>         struct amdgpu_dm_backlight_caps *caps;
+>         char bl_name[16];
+> -       int min, max;
+> +       int min, max, multiple;
+>
+>         if (aconnector->bl_idx == -1)
+>                 return;
+> @@ -4983,15 +4988,16 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+>         }
+>
+>         caps = &dm->backlight_caps[aconnector->bl_idx];
+> -       if (get_brightness_range(caps, &min, &max)) {
+> +       if (get_brightness_range(caps, &min, &max, &multiple)) {
+>                 if (power_supply_is_system_supplied() > 0)
+>                         props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->ac_level, 100);
+>                 else
+>                         props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->dc_level, 100);
+>                 /* min is zero, so max needs to be adjusted */
+>                 props.max_brightness = max - min;
+> -               drm_dbg(drm, "Backlight caps: min: %d, max: %d, ac %d, dc %d\n", min, max,
+> -                       caps->ac_level, caps->dc_level);
+> +               drm_dbg(drm,
+> +                       "Backlight caps: min: %d, max: %d, ac %d, dc %d, multiple: %d\n",
+> +                       min, max, caps->ac_level, caps->dc_level, multiple);
+>         } else
+>                 props.brightness = props.max_brightness = MAX_BACKLIGHT_LEVEL;
+>
+> --
+> 2.50.1
+>
+>
 
