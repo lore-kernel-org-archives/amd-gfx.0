@@ -4,73 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 555D8CA0FE7
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 22:07:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32543C8303F
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 22:07:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD78E10E03E;
-	Mon, 25 Aug 2025 22:07:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C69EB10E288;
+	Mon, 25 Aug 2025 22:07:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a0R2CNYT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RwRh5mmM";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB9410E03E
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 22:07:36 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-3c46686d1e6so3059207f8f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 15:07:36 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5BA010E288
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 22:07:38 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0c82eeso42086565e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 15:07:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756159655; x=1756764455; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=wBo0v485+Fz5ftE0Njb3DTQ8+bJCyfpUUKGS6XQb9LU=;
- b=a0R2CNYTZDgZ+iD7DnQ3MmPwpPg8yVChy7r2IAIGmX549b6kgNCEMnd7NvKYqMJdMv
- ju4/us3GXBFon5xkG4D3uyxXhFAAMCbr9yNZ4MFsRY52vGzoj92lLuJuWHExm1lo/qE1
- QFrADBwQUQWXOl0PsPMfFVptveYIlvWiY7N702oqRzu2tLZ9+TVU7/JJ8YNZImHjsg6g
- r+WMUFxQk4zgj7GzZTemdLH55q+4I2RkSBGd/ZG3kZ0Ny3BA/wCWFwuIvDVeMLyiITD5
- 68c9C4KzjZAWSWQchCf65+LBieOMcZbAxG6pWutFt4OwEZ3XqAdyzxYpnGQAhZ5Vzo8r
- P6Tg==
+ d=gmail.com; s=20230601; t=1756159657; x=1756764457; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OpNO0YxTN4yVqNUXcE2VWRanoBomodwxodxAtr3nxPA=;
+ b=RwRh5mmMgj+LvO0YwXB0cbZw5fcwxmp8Oq3TquWW5mnFf36O/JZ3G/+NU6lwKOWiUV
+ 3NyCQFTa2Oe3dLGqq5REIH9nlwGAQc3yN0JfLw1HwKONkhl/obdlqL/flmuIkWN2TtmM
+ uSzcnJGo1BB8dRqR8uqSiKRzRRqsiIfqp9G1sKA29LkVV1dA58K1fDsjnGkMLhxWNW03
+ lDG8C5X8V8XW6yZWZk3avZ2PR1h5cThCq+o917kHCoAnVXm1MMuNBEVXAvbF234O9RFX
+ gOU5Dcb703FGlOusPZHglxEbx2X/HdfzNiz5bcIAFwXH7umW7AZIyo/slNbgJNxdC/S1
+ tcDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756159655; x=1756764455;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wBo0v485+Fz5ftE0Njb3DTQ8+bJCyfpUUKGS6XQb9LU=;
- b=rttS2uhwhLW9ftInn9Z3LVqB8J8r/5+WhOVMxU7brXuBD3M7d+V33mThkCzMDBI/RX
- 4k5HntFhZXPVKb7dg5oi7VEoyAGqu428mXIqKeQqfT9/mI00hcGvON+14yrH3E/Adtvg
- fSdUT2ATbUqTU9Fy1p8H3JEg524USPINlrOlGcA0AylieB6AqmILksKOnPRD9K/wo7fG
- cANclGwbs7mO88kOpy6Db+AesK9XKnpiD0oUTYKc3SJHLEBvhpb9AvumKaWpzEIFjEkO
- XNfAmfjyTnBWS8yhlIOXbnG8SqsjJF5w9NYAW76Tkctg9l0x2xePeT4mui70Nr+AxVeh
- au8Q==
-X-Gm-Message-State: AOJu0YyOaUd7dGgvvAnduDCXrJcX950tugLXw/2yY/Tto26iY7d20rzm
- I1ZXwt0LLq+qMWvAAXRzW68bSNUfKct+mqf0WtjHqxzoScowgRpefbYHCEARjg==
-X-Gm-Gg: ASbGnctV5H8+a2VkkiGGuHK4EvAehAS/ObMEs2ckT1xc2580lvIKjfx/CRn2gMR30FI
- svHIpG9x3P32EDADTbl4zEuyiejbXDz4VZbIe1P+R29aBUU5ED0SidWlXYxwaGkug/isVp8ig/v
- YOnckgiBITFlmGnxbu3naPwo3RmnpuPEmyqGttThYY1G99dFvgMqwG8cK1G5kaOZeMbJN3X4OJc
- yRRjggEdF8ezMGE4p3j2I7Hs/CNIx1dlqzNjjKVc65BnuaCxTZ0O+O+1eEVfJ6l/ICob0EslCLj
- lsi4Rq/Ax2ZyTVfrGXEwkBDJHs3xVm/wPVt1DvL7Jds+2LXeuAt23GXiPMDfQfUX/EwlurRVu7Z
- lqsBz565c6uO8p+HHgj31CQXfRJVPbwnRECH8LhMlClUMNz5r2K+Wd3IV1ZPQ2OMUDu31tCj3UQ
- OEpJuRYVZglclsSAQeG3balM4ecw==
-X-Google-Smtp-Source: AGHT+IFcVokaYWzmLZqy8alPXKDn5ftDYowkoyX0lWUmLQBLD2ggCknSgWfFLUjPB5N3CcgpF6uS9Q==
-X-Received: by 2002:a05:6000:2509:b0:3cb:424:c3f4 with SMTP id
- ffacd0b85a97d-3cb0424d4d2mr759510f8f.22.1756159654937; 
- Mon, 25 Aug 2025 15:07:34 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1756159657; x=1756764457;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OpNO0YxTN4yVqNUXcE2VWRanoBomodwxodxAtr3nxPA=;
+ b=cbKhFouTreovnFPgAPdapq7/PtIjE2LYdaKK9Tvr04/syNaY4nCYtuFlfE/sPN0iU3
+ DPSmkqJqjm6a7xSGJ7CRT9iMg9/djL0iGrpZREhHa8AnB+yz7GTC7xis9M/xxQiG49YA
+ KUu4QuVBzmacczqt/0CsQ8B/G2bghUjPLNO+8QLp6yTS6E4facm1TE/tDzhHxJiZMT06
+ /Qrpz8uG4I/jLlPj99iclZJ1p57Bdsv/y6HHYwG6m/3GMVz/TA93H+WhDdrSCf6qFcn6
+ ngHmvLCgOKsjotftENBMdeE01VjF+7iwT2q9j+CYGvxWRWYDf6Zg1t6fhmlLKGHJidVa
+ cCsA==
+X-Gm-Message-State: AOJu0Yz6f39AulZs2GNZOpRMz4J49CwGs5Xd82DBG/Jdg/4jUG7EIGKf
+ j2+ccTS92LQul3sJ4K1iwu3e2IWdYCz7sIoI3RZFkpbppDVDhhVOqMue4v7Evg==
+X-Gm-Gg: ASbGncsdipMHZ//F0+/D5DIB1ct18Nf0N4JQEHWrVfIEiPVQnmYize7la7dFdjvWAxr
+ u3/GACWB+5GaVe77/NDo7thXTna5NpOfaZPXZtqTjrIsL/uYB9+jSTs4U5obzS8SgN1T5GXh+y4
+ z+YnoWO6WtkAh98TSy1wc/HHP0EShcrzTut5Vsj5SlLICeTG2Md0pwc1546xzkCH4Z4TLDpxST2
+ B/WX1fwiK/tFKFcfRRcYYFsQEhZVbm2tpRoP5rR2HNno4RVMKRmKdxMa2VxqvQTt7TuJ+Nk1Jhv
+ nMFaJXJEOTsrz4aTvGgV5pZMpj0+XFpmZd0EEs192mDjPqXRmvuYAvUENKF/Bobg/DMxzVJ6DbY
+ PhRRlxObpiv5qENpIAuDU6lfwh5I1e+Aby33fldTamIAseg84VyOVRuqN7zb3qQKd2QWwAs7d6G
+ nZlUEHvBgNfEfTVkdT/dVyeAmcL4+bSdb0sA8U
+X-Google-Smtp-Source: AGHT+IHrpmpcxR45uLus2CU4L4rGcI4jmULKSpNOpiSxdX2o9MSaDzXL6/DZG9I7ktivia8Bfzk0GA==
+X-Received: by 2002:a05:600c:45d4:b0:459:e3a1:a0c4 with SMTP id
+ 5b1f17b1804b1-45b517d27b2mr134356025e9.30.1756159657149; 
+ Mon, 25 Aug 2025 15:07:37 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24E36900D571F3015BAFEA47.dsl.pool.telekom.hu.
  [2001:4c4e:24e3:6900:d571:f301:5baf:ea47])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b66a64023sm1296395e9.1.2025.08.25.15.07.33
+ 5b1f17b1804b1-45b66a64023sm1296395e9.1.2025.08.25.15.07.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Aug 2025 15:07:34 -0700 (PDT)
+ Mon, 25 Aug 2025 15:07:36 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexdeucher@gmail.com, alexander.deucher@amd.com, harry.wentland@amd.com,
  alex.hung@amd.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 0/3] Hook up DC to legacy_dpm
-Date: Tue, 26 Aug 2025 00:07:29 +0200
-Message-ID: <20250825220732.636810-1-timur.kristof@gmail.com>
+Subject: [PATCH 1/3] drm/amd/display: Add pixel_clock to
+ amd_pp_display_configuration
+Date: Tue, 26 Aug 2025 00:07:30 +0200
+Message-ID: <20250825220732.636810-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250825220732.636810-1-timur.kristof@gmail.com>
+References: <20250825220732.636810-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -88,41 +92,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hook up DC to legacy DPM. Now SI and KV DPM are aware of power
-management related requirements that come from DC, which is
-necessary for DC to function correctly on these chips when DPM
-is enabled.
+This commit adds the pixel_clock field to the display config
+struct so that power management (DPM) can use it.
 
-Based on the "SI power management fixes (v2)" series.
+We currently don't have a proper bandwidth calculation on old
+GPUs with DCE 6-10 because dce_calcs only supports DCE 11+.
+So the power management (DPM) on these GPUs may need to make
+ad-hoc decisions for display based on the pixel clock.
 
-Background:
-The power management code (DPM) needs to be aware of requirements
-from the display engine in order to select power states that are
-compatible with the display engine being able to interact with the
-currently connected displays.
-On chips that rely on legacy_dpm (SI and KV), the DPM was not aware
-of any requirements from DC because it used a different struct and
-was not able to handle the information coming from DC.
+Also rename sym_clock to pixel_clock in dm_pp_single_disp_config
+to avoid confusion with other code where the sym_clock refers to
+the DisplayPort symbol clock.
 
-Timur Kristóf (3):
-  drm/amd/display: Add pixel_clock to amd_pp_display_configuration
-  drm/amd/pm: Use pm_display_cfg in legacy DPM
-  drm/amd/pm: Remove unneeded legacy DPM related code.
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c       | 1 +
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dm_services_types.h             | 2 +-
+ drivers/gpu/drm/amd/include/dm_pp_interface.h                  | 1 +
+ 4 files changed, 4 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  1 -
- .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  |  1 +
- .../dc/clk_mgr/dce110/dce110_clk_mgr.c        |  2 +-
- .../drm/amd/display/dc/dm_services_types.h    |  2 +-
- drivers/gpu/drm/amd/include/dm_pp_interface.h |  1 +
- drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  | 87 +++++++++----------
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  4 -
- .../gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h  |  6 +-
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  4 +-
- .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    |  9 +-
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 64 ++++----------
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 11 +--
- 13 files changed, 70 insertions(+), 123 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+index e5771f490f2e..11b2ea6edf95 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+@@ -98,6 +98,7 @@ bool dm_pp_apply_display_requirements(
+ 			const struct dm_pp_single_disp_config *dc_cfg =
+ 						&pp_display_cfg->disp_configs[i];
+ 			adev->pm.pm_display_cfg.displays[i].controller_id = dc_cfg->pipe_idx + 1;
++			adev->pm.pm_display_cfg.displays[i].pixel_clock = dc_cfg->pixel_clock;
+ 		}
+ 
+ 		amdgpu_dpm_display_configuration_change(adev, &adev->pm.pm_display_cfg);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+index 13cf415e38e5..d50b9440210e 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+@@ -164,7 +164,7 @@ void dce110_fill_display_configs(
+ 			stream->link->cur_link_settings.link_rate;
+ 		cfg->link_settings.link_spread =
+ 			stream->link->cur_link_settings.link_spread;
+-		cfg->sym_clock = stream->phy_pix_clk;
++		cfg->pixel_clock = stream->phy_pix_clk;
+ 		/* Round v_refresh*/
+ 		cfg->v_refresh = stream->timing.pix_clk_100hz * 100;
+ 		cfg->v_refresh /= stream->timing.h_total;
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_services_types.h b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
+index bf63da266a18..3b093b8699ab 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_services_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
+@@ -127,7 +127,7 @@ struct dm_pp_single_disp_config {
+ 	uint32_t src_height;
+ 	uint32_t src_width;
+ 	uint32_t v_refresh;
+-	uint32_t sym_clock; /* HDMI only */
++	uint32_t pixel_clock; /* Pixel clock in KHz (for HDMI only: normalized) */
+ 	struct dc_link_settings link_settings; /* DP only */
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/include/dm_pp_interface.h b/drivers/gpu/drm/amd/include/dm_pp_interface.h
+index acd1cef61b7c..349544504c93 100644
+--- a/drivers/gpu/drm/amd/include/dm_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/dm_pp_interface.h
+@@ -65,6 +65,7 @@ struct single_display_configuration {
+ 	uint32_t view_resolution_cy;
+ 	enum amd_pp_display_config_type displayconfigtype;
+ 	uint32_t vertical_refresh; /* for active display */
++	uint32_t pixel_clock; /* Pixel clock in KHz (for HDMI only: normalized) */
+ };
+ 
+ #define MAX_NUM_DISPLAY 32
 -- 
 2.50.1
+
