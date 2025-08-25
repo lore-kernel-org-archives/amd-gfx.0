@@ -4,48 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD50BCA0FE7
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 12:53:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31615CA0EFA
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 12:53:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23AD910E474;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26AB910E475;
 	Mon, 25 Aug 2025 12:53:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="Ova68O9t";
+	dkim=pass (2048-bit key; unprotected) header.d=manjaro.org header.i=@manjaro.org header.b="BfF2ZCNl";
 	dkim-atps=neutral
-X-Greylist: delayed 497 seconds by postgrey-1.36 at gabe;
- Mon, 25 Aug 2025 09:02:14 UTC
-Received: from xry111.site (xry111.site [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 985E810E35C;
- Mon, 25 Aug 2025 09:02:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
- s=default; t=1756112035;
- bh=sOPq0KUHy/zQLje3GwBSgWl+bHBkFOh2egvfb2ycGo8=;
- h=From:To:Cc:Subject:Date:From;
- b=Ova68O9tx5wsT1T5lnawE/wIbds2ux/wGsvhdCqJx0V+doE3+h7RoJ7ZLMIPyDWcQ
- F79keAPA2U1sQGlUz8pvfjVP0Tf1qQ5cfagVJfBbNcKiIBHJk66655E2aT4dqplmdV
- 5BH93m72ceDJZRKXzw0TwczJxa7rC9+QiCjvpbuo=
-Received: from stargazer (unknown [IPv6:2409:874d:200:3037::3])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
- (Client did not present a certificate)
- (Authenticated sender: xry111@xry111.site)
- by xry111.site (Postfix) with ESMTPSA id 5925D66B28;
- Mon, 25 Aug 2025 04:53:50 -0400 (EDT)
-From: Xi Ruoyao <xry111@xry111.site>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Huacai Chen <chenhuacai@kernel.org>,
- WANG Xuerui <kernel@xen0n.name>, Mingcong Bai <jeffbai@aosc.io>,
- dri-devel@lists.freedesktop.org, loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, Xi Ruoyao <xry111@xry111.site>,
- Asiacn <710187964@qq.com>
-Subject: [PATCH] drm/amd/display/dml2: Guard
- dml21_map_dc_state_into_dml_display_cfg with DC_FP_START
-Date: Mon, 25 Aug 2025 16:52:11 +0800
-Message-ID: <20250825085211.34396-1-xry111@xry111.site>
-X-Mailer: git-send-email 2.51.0
+X-Greylist: delayed 522 seconds by postgrey-1.36 at gabe;
+ Mon, 25 Aug 2025 07:11:20 UTC
+Received: from mail.manjaro.org (mail.manjaro.org [116.203.91.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DBF710E1AB;
+ Mon, 25 Aug 2025 07:11:20 +0000 (UTC)
+Message-ID: <88fec8864f2544df67113bf7282a1b2965a1eabd.camel@manjaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manjaro.org; s=2021;
+ t=1756105357;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ww1l4kU6XoG6+pq0FKhmMqbZI3C0dck0vI2yup0Q6Ys=;
+ b=BfF2ZCNlgiauBfEnpXCc3Mvuj0qOEvCEDy8EsJMvt6fCQMDuHPqMlB6uXl7vyLOC0IVykR
+ vpBECokdqz0xm8dkS8r44Uq/24bw2dOqVAXLJvuYxAccZ+RDV8vVX12McBFOqotntKft+J
+ xMyVG3JyVUQxpkjLiYfZ3mLa8yLdH4u7BcF8rxj+XZq1HuxKN44YRDXHMaWdT6qS56XNPj
+ MJyhUlyAa2djoTKSfgrsbPhA+ZTYWzjJXjMscFOoMfO2alOJ24qjs3Ljls/uJJwaukE5Xb
+ ZYj/HsTb9KlAQilavvZmdK3MLXbNAWlhXjYxGFUg8JnTusfXMvHFasjk7C8ynw==
+Subject: Re: [PATCH v1 2/2] drm/amd/display: Adjust AUX brightness to be a
+ granularity of 100
+From: Philip Mueller <philm@manjaro.org>
+To: Antheas Kapenekakis <lkml@antheas.dev>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Alex
+ Deucher	 <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Rodrigo
+ Siqueira	 <siqueira@igalia.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Peyton Lee <peytolee@amd.com>, Lang Yu
+ <lang.yu@amd.com>
+Date: Mon, 25 Aug 2025 09:02:34 +0200
+In-Reply-To: <CAGwozwH7m5CgGiK5Xu_q0JbJvRQbcHkgQd9nFXJNq3DQhWO7QQ@mail.gmail.com>
+References: <20250824085351.454619-1-lkml@antheas.dev>
+ <20250824085351.454619-2-lkml@antheas.dev>
+ <CAGwozwH7m5CgGiK5Xu_q0JbJvRQbcHkgQd9nFXJNq3DQhWO7QQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Authentication-Results: ORIGINATING;
+ auth=pass smtp.auth=philm@manjaro.org smtp.mailfrom=philm@manjaro.org
 X-Mailman-Approved-At: Mon, 25 Aug 2025 12:53:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,60 +66,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dml21_map_dc_state_into_dml_display_cfg calls (the call is usually
-inlined by the compiler) populate_dml21_surface_config_from_plane_state
-and populate_dml21_plane_config_from_plane_state which may use FPU.  In
-a x86-64 build:
+On Sun, 2025-08-24 at 21:33 +0200, Antheas Kapenekakis wrote:
+> Well Phil managed to fall into the value 332800, which has a 0 minor
+> bit. Unfortunate. In hindsight, every 256 hundreds there would be a
+> zero anyway.
+>=20
+> Before I made this patch I made a partial refactor of panel-quirks
+> where a quirk like this could go to. But I would really prefer not to
+> do quirks. Ill send that too.
+>=20
+> Antheas
 
-    $ objdump --disassemble=dml21_map_dc_state_into_dml_display_cfg \
-    > drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.o |
-    > grep %xmm -c
-    63
+I was already looking into that OLED issue for several weeks. Changing
+granularity might hid the root cause and you might hit the issue less
+frequently.
 
-Thus it needs to be guarded with DC_FP_START.  But we must note that the
-current code quality of the in-kernel FPU use in AMD dml2 is very much
-problematic: we are actually calling DC_FP_START in dml21_wrapper.c
-here, and this translation unit is built with CC_FLAGS_FPU.  Strictly
-speaking this does not make any sense: with CC_FLAGS_FPU the compiler is
-allowed to generate FPU uses anywhere in the translated code, perhaps
-out of the DC_FP_START guard.  This problematic pattern also occurs in
-at least dml2_wrapper.c, dcn35_fpu.c, and dcn351_fpu.c.  Thus we really
-need a careful audit and refactor for the in-kernel FPU uses, and this
-patch is simply whacking a mole.  However per the reporter, whacking
-this mole is enough to make a 9060XT "just work."
+Currently checking [1] which changes the first byte to 3 since when
+DP_SOURCE_BACKLIGHT_LEVEL is written to with
+the first byte being 0x00 and sometimes 0x01, the panel forcibly
+turns off until the device sleeps again.
 
-Reported-by: Asiacn <710187964@qq.com>
-Link: https://github.com/loongson-community/discussions/issues/102
-Tested-by: Asiacn <710187964@qq.com>
-Signed-off-by: Xi Ruoyao <xry111@xry111.site>
----
- drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c | 4 ++++
- 1 file changed, 4 insertions(+)
+In the end the panel vendor has to fix it in firmware. If not a quirk
+might be better specific for each panel vendor.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-index 03de3cf06ae5..059ede6ff256 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-@@ -224,7 +224,9 @@ static bool dml21_mode_check_and_programming(const struct dc *in_dc, struct dc_s
- 	dml_ctx->config.svp_pstate.callbacks.release_phantom_streams_and_planes(in_dc, context);
- 
- 	/* Populate stream, plane mappings and other fields in display config. */
-+	DC_FP_START();
- 	result = dml21_map_dc_state_into_dml_display_cfg(in_dc, context, dml_ctx);
-+	DC_FP_END();
- 	if (!result)
- 		return false;
- 
-@@ -279,7 +281,9 @@ static bool dml21_check_mode_support(const struct dc *in_dc, struct dc_state *co
- 	dml_ctx->config.svp_pstate.callbacks.release_phantom_streams_and_planes(in_dc, context);
- 
- 	mode_support->dml2_instance = dml_init->dml2_instance;
-+	DC_FP_START();
- 	dml21_map_dc_state_into_dml_display_cfg(in_dc, context, dml_ctx);
-+	DC_FP_END();
- 	dml_ctx->v21.mode_programming.dml2_instance->scratch.build_mode_programming_locals.mode_programming_params.programming = dml_ctx->v21.mode_programming.programming;
- 	DC_FP_START();
- 	is_supported = dml2_check_mode_supported(mode_support);
--- 
-2.51.0
+I'm still not sure if that refactoring is needed, or a separate quirk
+function is more logical to be accepted upstream.
 
+[1]
+https://lore.kernel.org/lkml/20250824200202.1744335-5-lkml@antheas.dev/T/#u
