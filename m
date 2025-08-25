@@ -4,151 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3907CA0EFA
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 16:47:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5447CCA0EFA
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 17:06:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 502CC10E50F;
-	Mon, 25 Aug 2025 16:47:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0C5D10E26E;
+	Mon, 25 Aug 2025 17:06:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Hif9ZAvF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HWjSm0Mu";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6E8010E50F;
- Mon, 25 Aug 2025 16:47:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ahgw4tfEN78JT9ClY84MhVu/yUmp0ZTQqIFfKS9/WO6FdEL/w66D6vNMr7uQA1RVCV/iotk1vgSef9h9ErhEeDt4TcsWhUG8lOHJxhanlsNCJUxxivUK52RKVSrWMMeBzuSBb1Dn+PvRxSilo/c/PEcRJWwK//eD2zMCseueMFape9nx37ge3DWQIiBS+/lpB0jiJuzzvQNMQ3vsR6MywqK8++bn8BvQwP1GwFA/HkNp39mksixYPFHrPiDFdWLUJQ8vOZm+W+X+32mwe8Jey7s2j5EDzJiL7G1FHJ8jUR0m0r9Byvob/SHmkq1HBxIt9N14y3ZuWu1QV5dNn4Oq2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X4DBF7GfdUGPwI9vJrQJ3r5vLndXgeprrwOlvDNCmu0=;
- b=Xbf++SO9KnbpICz1kUYhFtdKl4dwpuzmMcQ4czI7jwCFF2bvsKqha8PJw+toAdPlp1p2p1r4CArp48qF3/qj0SB+Wo2Pxs0h/30wAOAPqgV/D5Il5qoDRLhWgR5F7d6bN1KxElDmP5sQZmqfOW+cpRn+flJ09OARaqNfih2HKgkov+jTBW9S9qNIiXQ0qEj1FYFwyG7MSSaGJuWyoNfQMn3Z6rncFl8nPLAOua7sdnbx3iv49g1lWoeaZjNhtnFw0tEXIGy3zqn5VQB0wFic6RpksuRKmwhzsNkcr0XYAoGGFaiGsZiOjQCCG35jKN9UPDcRy/7fB32nZAZQv+nW5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X4DBF7GfdUGPwI9vJrQJ3r5vLndXgeprrwOlvDNCmu0=;
- b=Hif9ZAvF31w9MGeqzJBpuAK6z2nzxz7DpPsCOJZniqKyvkfYLZP3YvHcQoskaqYcqmpmao2HX7Vl03NjMj4we87/Fvs56bV2kh0DfYEip4KDX1cKm6iMxzuLyo1ARBSwAhUXzfNLXCdOjVMUttqcnNE2nPj6BPmWSsBd+Swz0DI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by DM6PR12MB4044.namprd12.prod.outlook.com (2603:10b6:5:21d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.20; Mon, 25 Aug
- 2025 16:47:11 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.9052.017; Mon, 25 Aug 2025
- 16:47:10 +0000
-Message-ID: <f1ba9808-64a5-4d64-a4ef-b2a95cebae94@amd.com>
-Date: Mon, 25 Aug 2025 11:47:08 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/5] drm: panel-backlight-quirks: Add Steam Decks
-To: Antheas Kapenekakis <lkml@antheas.dev>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- philm@manjaro.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20250824200202.1744335-1-lkml@antheas.dev>
- <20250824200202.1744335-6-lkml@antheas.dev>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20250824200202.1744335-6-lkml@antheas.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN6PR01CA0011.prod.exchangelabs.com (2603:10b6:805:b6::24)
- To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC1810E26E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 17:06:38 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-24498e93b8fso5722685ad.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 10:06:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1756141598; x=1756746398; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PoOyaqYMMD+Pln4gfGwsz0XO1lThs9tV0FQug41vwFo=;
+ b=HWjSm0MuSZdtcg6ICQRWCeKN5g/8MgkDbuav6p1rDeBhegOGogqJlvn0+uhAJPbXg+
+ NH8ucHzO6m+MfGkmUmnb2iDuT4LwRkY5XkBx9PVAF761RA1bZjTFwGqXpjcPzotgZeg5
+ axyRvMTOakMHrZsAPDpYU2W2c2wxibKM6TcPCF74100/DtkV+gYD7sCBBeOQ43Cdacx0
+ n14Ygq3m8dK+Ybmmu+0u+zh2ob3a+z8SdtrL5yQLr3CRYt14T9m2OB6nP9YGV/FPmvPG
+ +NEGdCSoxq1oahiX5lGGvCfCj9RxSVDx7ZVlj8mmlCkuPYOLG0VNOZ9phbVCxxAIed++
+ 8SXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756141598; x=1756746398;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PoOyaqYMMD+Pln4gfGwsz0XO1lThs9tV0FQug41vwFo=;
+ b=hZcmrUbXIhCp5OMlGzApN7LOq1SS02zNkvwRKpXCtlr/dNCXzwhiLwcCjm09d6f5qo
+ 2JeMu5yU8MiYzm6jnsFZjruIgVIqZNkt1lfcnJI16vsd12i+w9laZo2NADfYCFgmavAr
+ IWZbeaOJ4GzPMIJ7CfbgEWekg5/letV3aDX73sQlbYuqklWYR1RQxdbaopJCQHNeGiWQ
+ uvEyzhDUECGw/+aKX9LkNI6JQZW4DbOsQ3ikZ58AUvohMMadqfe/sLtKTmaDBu0HV8Md
+ vOY1Kr6vxvyMyIdJ9Zx7un1Vq2S9+vH1HYj4VgGYuHUuH8kuk3H5s13AstiqFYcVxSmZ
+ eBXg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU88mWUfUjZlqMA74f2jLlqrSNZuvufbEiTjx2j9OBeLcCzSYnmj6Y1kEf6yXiRA+LRqyw23yM4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YytJ6TH1d392dXe2xQHXSxusED9Uma19yPTRwB1BKHLX1JONw2Y
+ sQIicbEsmWXP/aTpf2SzDdW7tkkXVBjM6ngrM0n6F1xpQEOuRu8sTm7nzPqY0qIPr4mousVG4iZ
+ IZVpalL7lswhSW7QfPq6tesnpSarXh67Is+OK
+X-Gm-Gg: ASbGncupjeqiPyOVvxFoeFAuTGxChjUWHpJo+RFic8TIz9XsJe8AQHfT+pWQ7X6IHGf
+ JJVgcVK8ntCfv6ks3Cz+2AlFIGOF2feYQudtrnds/dW4WLxzQmp7XIYIsF8BZvfKxoZaRJNan0k
+ MvufiWa0bMMZd4r5PLa4iy7HhVwD3qFRWPGQ+x2WfFfdqvIlN5xG6xeUlcgGvhlZX7/fo675vEs
+ OyK5eo=
+X-Google-Smtp-Source: AGHT+IHGaKRbqWufjqCLNbj48PZi7lh5uWI7ghQDcqeZuRuvroW7CSjtdWl7Bw7GJz7cNSz7+Pn3h4AjOYO7aX1PlEg=
+X-Received: by 2002:a17:902:e5d1:b0:246:9df4:d10 with SMTP id
+ d9443c01a7336-2469df4127fmr50634815ad.8.1756141597773; Mon, 25 Aug 2025
+ 10:06:37 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DM6PR12MB4044:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6707dd9-4f8c-4b5c-f3c3-08dde3f70931
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?N2l1NmloUmpKbUNkK3RQQUZadzhrTXhlRitHaFZBR1pwQUFpZjhhanZtdGoz?=
- =?utf-8?B?bDVJL0dURXpWakc1N3RIZEhNWUUzeGtIMDAxcTJaNFJsczJ3TW05dENwVGcr?=
- =?utf-8?B?NWtYNmNiNnp6d0xIOGRWdlljZi9xMXQzcm10aFVUY2oyMUptdWFETWJQaXBI?=
- =?utf-8?B?UlFmbDRrNmIxN2dLeFlUd0M3SmpSUTc5bmpxbFp5c0RMUmlkQ2RkU3RzcHU3?=
- =?utf-8?B?M0dIR3R4SkN5ayswUlQxTnNsSlFzc3UyUW1IR3JncXFEV1k3WkRoQU9BNVY2?=
- =?utf-8?B?NGZUVnd1SittMU5uYWdUVERxMUIwbGVyUnlKZmR0Y1doT0ZpYktFc3JWUUdh?=
- =?utf-8?B?aUpxb3FiNlhQQWRNQkUxZGUyOUJwVElDbWVVUFEzdHBIRm9HTGlLVEVHZ1JK?=
- =?utf-8?B?ampkL21xTmZjdHoyczVIbGtobVpKa2ZrMlZIbkp2YnJzaHYybGg2UHF6cFhS?=
- =?utf-8?B?akJSVkhHQnFpcEowaTFXWGpmL3NpVCt2bytndE1NNlcrSkUraE5pcThYT0Jh?=
- =?utf-8?B?QnNoVFBRcFUvVStDRWVkTlB4NlhDK1FRbTMwTE4rbmpBQjNCelU3cDNHcTRw?=
- =?utf-8?B?TEd5TDdyNnJ2ME9jRjlEcUE2b1psZEZQYWh1NGsxbW4xeGZlNEdYUkNvdGxl?=
- =?utf-8?B?NUlaQnAxb3JNQmJiMXBCcGV5QmFRR0I2WUhuWjdzZGVscFFIRi9jQVJXaTBC?=
- =?utf-8?B?SUFvNXZGL1dJbE43UVczQmxVektncHM5dFRPVkRqTCtwMmNGNFMwK1hLcURQ?=
- =?utf-8?B?ZVJ3bUw2d2RzOGdwZG5LL3RwM1gzaHY2ZUcyV29EOHh3M0srTTVML3VrR0hF?=
- =?utf-8?B?ZzVxZmdoSkQzV1R2bWc4M2FzdXdDb0ZYY1hrd0NkMmpFNndpM0MrRlp5MXhx?=
- =?utf-8?B?dm1Zanl4dTNCU1U3TmNEQjBLdUNsMGVPNTl4c3hpYXd2NHd3Y0xBOHVZSEFD?=
- =?utf-8?B?NCsveFhySHBEZUcvQWs2NkxPVXlHdUxTQ3ZBeHNJcDgvUGpsZGc2bk5pd1Bh?=
- =?utf-8?B?U1Uya29OSU9YSmdqVy9hKzlKbndhazB6a09nU3NFZzlBRTRvekh5aXNocmZw?=
- =?utf-8?B?U3ZBM0dpcVUxQ1dxS3Fsd0RobHg2RUtLZE1ibW1VcjBlNHhNejFVSGdGVDkx?=
- =?utf-8?B?R1RFVzRQTFZ3aGZSZlVtVHBCaWhKd2JFamxJeUgrSG5qbTI1cWxTemM2clBn?=
- =?utf-8?B?OW9RUkdPZnJiMDZoL0hnZkhZOWwybGFCTUcyVTVoZ2FvSVZsTEppSGlta3Ur?=
- =?utf-8?B?dWZDalg5WHpJaGdEYnZ1WnRDYnY3dXpqQUFYb1Y0dGhLNEFVVlY4U0xHczVY?=
- =?utf-8?B?SktJSG13ZWQxYlZxZDJzdm5KUUFYOHF6Sm9DY3c4ZWtaQWhOT3Q1Z2c2WDNQ?=
- =?utf-8?B?VWI1cFRTSDUzOVJjSEJteTBuU2lJN2Qyb1dDZURySkxReVRSUFMwY2dMOTY5?=
- =?utf-8?B?a2NBMTlsRXk1cWpwU3FvU2FNQndYTFAxOHp3TVgrUTRWK0huZWRabVBPaU1n?=
- =?utf-8?B?bmp3QzI4ZFd3WEc0TTdGenMwTlhtK3FGa0FXY1djMGs0ejlweHBuaGtCU2Nu?=
- =?utf-8?B?Z0kzSXBNZUgyZVlvckFTZm1CeS9iWE5hbnpPYmtIR0lPd051OXV2SGJObFpZ?=
- =?utf-8?B?dDJWVTJ5ak5pdDlrd1V4OEhUTGpxUENYaFoxMTY0TmZOWVQ0a21ZRG8reDUz?=
- =?utf-8?B?N2JHS1REbTZFRmE2WkI1a3JYK0lzbnREMWtiOU5OL01vck9FQWRsdEZyREFD?=
- =?utf-8?B?QkRKRFpkMC9DdTAvZko5a3NhL29OM3RGREg5RkdwWXhyQllnN1E2b0gvajN5?=
- =?utf-8?B?a1FYMFlLRW1uV3lnTXVCK0taejNEM2JwQjFiYWdEa2dtNTJHYVN6Z0hlTHFj?=
- =?utf-8?B?RzdWa3FrUU94Qk81L2hCaGRQL1R2RWR4Q3dUeGdQMUJzc2tqN2dzV09WclhF?=
- =?utf-8?Q?O2kDQkoHGrs=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NEVlWW9HWU1JcXRTT1VIYnowS0ZQNlo3UnNLQ29XR3BjTktvbjgxZkN1bmc5?=
- =?utf-8?B?aUZGZTdJTVVmdFk1bGJlTnJpL3VCc3JjTDhVamlaTmxMWVdBVVlyczNIK2Fh?=
- =?utf-8?B?ZW8zUFlNUzh4U0F0S0JWVkFFVXpvbGdXRFIwdXhpaVhYMU04K1daSVE0R0lK?=
- =?utf-8?B?WmhIRVFVU2x1a0V4b0xCNkwyMXdIbEE0ZS8zRU9YTG9BRjEyOTFxV0IreERH?=
- =?utf-8?B?ZCsrSzRJeVVVSW1vOSs4TW5iMEYydlZ1ZWpUU1lyZ0JUWUZraDhmUS9jT2NY?=
- =?utf-8?B?U3RVMlBBWGM2dkJyeFdpVFkycDRPZkJTQ3lhVng3ZTlORUtiOVdNYVpJaHlX?=
- =?utf-8?B?eFI4UDhaVWdrRWczOG1XR0hYRlo4bFY2S2VEdmR4NUlnRHpEek1udXhoL3NE?=
- =?utf-8?B?RS8zRTc4bUlLOURBY253RjZSWGZOVVNIenJiVEJUL1BweHFBWUJtVGt2R2pQ?=
- =?utf-8?B?bHZ1OVJSVmhnTnBRcFF3SlRwNWYwNFdUSDVNZHB6TEtEVjNSNnliN1ZaeTNW?=
- =?utf-8?B?dTIvQ3M2QTc5dFNyRVlUZGZ4N09TK0Jva3ZQdUlWbmVVbCtONWxqVUFZbklt?=
- =?utf-8?B?eTR1aE9GaWVBM3hXWEVTMXNzclRUZzRWd3VPL2U3dU5kZy9EN3pKcmNkaE15?=
- =?utf-8?B?R2VGaXNyUUVPQ3p5UzR0UTFCWDFoeVdKOUREalM1MlNUalVocFJPQnVSTFpH?=
- =?utf-8?B?aXNkTHhYaWlqYWFSVks1cG4xWlNSV1lNMHl2QWhST0JzYWMyVTJLKzhYeVFj?=
- =?utf-8?B?MHBlZ2lEQTgraEN0UkM0Yyt1QzJhYTR2ZzhjNzZQSjhvcklFS2RubzJIMWlV?=
- =?utf-8?B?OWFBdVdVZnVuRGFvaWlzaG1lNzdqS1FRbkEra1R3RVUzeW1QZVdNTlVCQkZu?=
- =?utf-8?B?dkdqM0VQTUFMZlFCUWRZMmdBOWhMejRUZzdiL01tM3BhV05SQlZXUHJkcGdo?=
- =?utf-8?B?aHdXMnhiZkczOWp6KzZJMjN6bGxGbUVXaDRtVWlSUVFFMUlaUE9UbG9NY0N1?=
- =?utf-8?B?ckxVRXluL1F4UnNkNTdHbFNuR3RHS2RFVENIbzRySDV4M2ZudGppRUJyNzFI?=
- =?utf-8?B?NzlFNlpTNkFSVGRvd0g5UjBTeDhjUllzMmpHMGlEVUtKQzJqZnpxTk85N3VZ?=
- =?utf-8?B?aXV4STZGaTlYZDluY0dPcmJiRDVLUUxLSGcvREk0M1l1WExNN081UlVLS3dh?=
- =?utf-8?B?TnA2cVRnQVhiVzRFWHFCR2NXR1I2b0JtYWZ0UTIwUHFxTU5hNWJKUGNHRVV5?=
- =?utf-8?B?NDFuTFJuOFdwcTFqaVdzOWorMnJiUFArTGgyVk5oMzZuY1pGWURPTko0eklB?=
- =?utf-8?B?VlRIYTNycWV4ZGd1dlExenVYZFpyK1cxeFVyMUpTdUk3MUNvU2RMVWsvVk9I?=
- =?utf-8?B?VExkMHJ2OVoxaHhaTFR6bEZiUFpTN0NLZjQ3RGU0NmJVTEpBb2JRNDBJeFhy?=
- =?utf-8?B?V0lIVm1HUmZ4OG5kZWFJMkJqRC9FMW1hVnl1VmxyUWt3RzVxbjRzMlVtaCsr?=
- =?utf-8?B?bzNObjV1ZERWdUg5S3JLREFuNjhuenI5dGpLR3luS1BIRG80T0lnQkIyUGpU?=
- =?utf-8?B?QmE2YTBpNzBacm56cWR1YTRzVWFoeURQWERiV0FweW5SdW8wNTl1VmZZMDdr?=
- =?utf-8?B?UGRTdFZuUXJhZ0hWRGhaYnVvb1luS1c2dDZiWEI5ZXhuV0RBOGNXQlpLQWMw?=
- =?utf-8?B?M2o4emxCMXM1dnlqZktrWmY0bHV3aWZpZXhqczBTbWYveTVpQXg1VEwraGtS?=
- =?utf-8?B?RDM2TE5oUkpyL3dMZDhrdnJmdzJFNGdrTENaN2k3TFV5WDlTa0RqS21PbVBV?=
- =?utf-8?B?bGZNOUthWWZja3VuMnErZkpDeW4rQjVyVGVXMERJZGRCa0pjcnlNSnJKNjlV?=
- =?utf-8?B?ZHpWU0pJSi8yN2lWMjZaNlE4TTd2ZFdoYTJEcnRuRDlMeDFDR0lYcFV3ZDYw?=
- =?utf-8?B?dnVxTVEzRUozUVFaY1J6OXlHNmRDTUloVkVEYTUyb25VM1R6YmdWUnQzc093?=
- =?utf-8?B?NyswRkpDZTNWRzZDYzJIcmkzbXk4d2hlQy8rZ0ExS1diWFBZamZwMitoQity?=
- =?utf-8?B?Um9tTUkzMjRNSWxUbjY4WmJ3bnVJSjRCb01yN0dPZ21tdU9yUkdEVjJLT2h3?=
- =?utf-8?Q?NeomL6Rtn4k9uuIChh1yC2gBa?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6707dd9-4f8c-4b5c-f3c3-08dde3f70931
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2025 16:47:10.9020 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AyRbYDxvytgu6mbe1klisaqti1uEJzbdKxjeFBcQxRL+UitI3k0SkXqxL7NpBVmuKoidjCJTZfq0D0C3mKXzEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4044
+References: <20250824233149.3780127-1-siqueira@igalia.com>
+ <20250824233149.3780127-5-siqueira@igalia.com>
+ <CADnq5_PvQS-45bM7d2ZXKo4h_C+aS8FP5Qk-1qvBDdo9s-10kg@mail.gmail.com>
+ <440097d6c1ba4fb304227f54e01455b1733864b2.camel@gmail.com>
+ <CADnq5_NJHzS5_GsqL6HLe0XZ0hwVi7yJvWi7ZmRMPfMYM8i0Fw@mail.gmail.com>
+ <e774ec6c0de87b8dee088303b252119ace3a1c52.camel@gmail.com>
+In-Reply-To: <e774ec6c0de87b8dee088303b252119ace3a1c52.camel@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 25 Aug 2025 13:06:26 -0400
+X-Gm-Features: Ac12FXz6JvutYfDEVwDJLC-hq243NeiyQkWnRcF8_YNgwpeXiwWGKX0O_kDKfpA
+Message-ID: <CADnq5_NUv-sJ0forP7R2V3Gv5PMN-NGNF9UoOyh0QTfdwKp0Nw@mail.gmail.com>
+Subject: Re: [PATCH v2 4/5] Documentation/gpu: Add more information about GC
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,57 +90,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/24/2025 3:02 PM, Antheas Kapenekakis wrote:
-> On the SteamOS kernel, Valve universally makes minimum brightness 0
-> for all devices. SteamOS is (was?) meant for the Steam Deck, so
-> enabling it universally is reasonable. However, it causes issues in
-> certain devices. Therefore, introduce it just for the Steam Deck here.
-> 
-> SteamOS kernel does not have a public mirror, but this replaces commit
-> 806dd74bb225 ("amd/drm: override backlight min value from 12 -> 0")
-> in the latest, as of this writing, SteamOS kernel (6.11.11-valve24).
-> See unofficial mirror reconstructed from sources below.
-> 
-> Link: https://gitlab.com/evlaV/linux-integration/-/commit/806dd74bb225
-> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
-> ---
+On Mon, Aug 25, 2025 at 12:39=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@=
+gmail.com> wrote:
+>
+> On Mon, 2025-08-25 at 12:31 -0400, Alex Deucher wrote:
+> > On Mon, Aug 25, 2025 at 12:19=E2=80=AFPM Timur Krist=C3=B3f
+> > <timur.kristof@gmail.com> wrote:
+> > >
+> > > On Mon, 2025-08-25 at 11:38 -0400, Alex Deucher wrote:
+> > > > On Sun, Aug 24, 2025 at 7:43=E2=80=AFPM Rodrigo Siqueira
+> > > > <siqueira@igalia.com> wrote:
+> > > >
+> > > >
+> > > > > +
+> > > > > +First of all, note that the GC can have multiple SEs,
+> > > > > depending on
+> > > > > the specific
+> > > > > +GPU/APU, and each SE has multiple Compute Units (CU). From the
+> > > > > diagram, you can
+> > > > > +see that CUs have a block named Schedulers. The reason the
+> > > > > name is
+> > > > > in plural is
+> > > > > +because this hardware block is a combination of different
+> > > > > micro-
+> > > > > schedules: CP,
+> > > > > +CPF, CPC, and CPG.
+> > > >
+> > > > CP is not really in the same category as CPF, CPC, CPG.  CP is
+> > > > the
+> > > > front end to the GC block and contains a number of micro
+> > > > controllers
+> > > > which run firmware which software interacts with.  CPF, CPG, and
+> > > > CPC
+> > > > are just hardware implementation details.
+> > >
+> > > Can you please suggest an edit that explains these better?
+> > >
+> > > I'm sorry to say, I thought I understood it but after reading your
+> > > reply now I feel I don't.
+> >
+> > I would say something like:
+> >
+> > The CP (Command Processor) is the front end to the GC hardware.  It
+> > provides microcontrollers which manage command queues which are used
+> > to feed jobs to the GFX and compute hardware.
+>
+> Sounds good. What do you think, Siquiera?
+>
+> >
+> > >
+> > > >
+> > > > > +
+> > > > >  The component that acts as the front end between the CPU and
+> > > > > the
+> > > > > GPU is called
+> > > > > -the Command Processor (CP). This component is responsible for
+> > > > > providing greater
+> > > > > +CP (Command Processor). This component is responsible for
+> > > > > providing greater
+> > > > >  flexibility to the GC since CP makes it possible to program
+> > > > > various aspects of
+> > > > >  the GPU pipeline. CP also coordinates the communication
+> > > > > between
+> > > > > the CPU and GPU
+> > > > >  via a mechanism named **Ring Buffers**, where the CPU appends
+> > > > > information to
+> > > > > -the buffer while the GPU removes operations. It is relevant to
+> > > > > highlight that a
+> > > > > -CPU can add a pointer to the Ring Buffer that points to
+> > > > > another
+> > > > > region of
+> > > > > -memory outside the Ring Buffer, and CP can handle it; this
+> > > > > mechanism is called
+> > > > > -**Indirect Buffer (IB)**. CP receives and parses the Command
+> > > > > Streams (CS), and
+> > > > > -writes the operations to the correct hardware blocks.
+> > > > > +the buffer while the GPU removes operations. Finally, CP is
+> > > > > also
+> > > > > responsible
+> > > > > +for handling Indirect Buffers (IB).
+> > > > > +
+> > > > > +After CP completes the first set of processing, which includes
+> > > > > separate command
+> > > > > +packets specific to GFX and Compute, other blocks step in. To
+> > > > > handle commands
+> > > > > +for the compute block, CPC (Command Processor Command) takes
+> > > > > over,
+> > > > > and for
+> > > > > +handling Graphics operations, the CPG (Command Processor
+> > > > > Graphics)
+> > > > > takes
+> > > > > +action. Another essential block to ensure the optimal
+> > > > > utilization
+> > > > > of CPC and
+> > > > > +CPG is the CPF (Command Processor Fetcher), which helps these
+> > > > > blocks to be
+> > > > > +constantly fed. Note that CPG contains the PFP (Pre-Fetch
+> > > > > Parser),
+> > > > > ME
+> > > > > +(MicroEngine), and CE (Constant Engine) in the case of chips
+> > > > > that
+> > > > > support it.
+> > > > > +CPC contains MEC (MicroEngine Compute), and CPF is another
+> > > > > hardware block that
+> > > > > +provides services to CPG and CPC.
+> > > >
+> > > > I'm not sure how much value this provides to the average
+> > > > developer.
+> > > > These are sort of implementation details of the hardware.  In
+> > > > general
+> > > > the driver doesn't really interact with the individual hardware
+> > > > blocks
+> > > > and they may not stay consistent over time.
+> > > >
+> > > > Alex
+> > >
+> > > Not sure what you mean by "the average developer", but I think this
+> > > is
+> > > very useful knowledge to anyone who wants to contribute to amdgpu,
+> > > specifically to the parts that have anything to do with GFX or
+> > > compute.
+> > >
+> > > If you're worried that it may not stay consistent over time, I
+> > > think
+> > > the glossary entries could be edited to mention which GPU
+> > > generation(s)
+> > > they apply to.
+> > >
+> > > As-is the code is full of 3-letter abbreviations that are never
+> > > expanded or explained anywhere, which represent various hardware
+> > > units
+> > > (or microcontrollers, or blocks, or whatever they may be). Without
+> > > knowing what these are and how they interact, it's difficult to
+> > > understand what the code is doing any why, or even why some parts
+> > > are
+> > > necessary.
+> > >
+> > > To make matters worse, the latest public documentation that tries
+> > > to
+> > > explain any of this is from 2012. So I think it's a good idea to
+> > > collect all of this information so that newcomers to the kernel
+> > > driver
+> > > such as myself have a chance.
+> >
+> > The driver/developers don't interact with CPF, CPC, CPG directly.
+> > They just happen to be arbitrary sub-blocks of the CP.  I'm concerned
+> > that adding a lot of stuff about them will just lead to confusion.
+>
+> I think they are worth a sentence or two each in the glossary.
+>
+> When trying to diagnose problems (eg. GPU hangs), we often need to look
+> at various HW registers (eg. GRBM_STATUS), which refer to the above
+> sub-blocks. It is then hard to see what is going on without knowing
+> what these are. In turn, that makes it hard to come up with an
+> understanding that can explain what is happening on the HW.
+>
 
-Directionally I agree with this commit in favor of what the downstream 
-kernel tree has that you linked above.
+I think that's fine.  I just don't want to put too much emphasis on
+them since they are more of an implementation detail within the CP.
+They aren't quite the same as the other blocks that make up the GC
+pipeline from a driver or debugging standpoint.
 
-But I would rather see it sent alone and not tied to a series to 
-overhaul how quirks work.  If it's sent alone we should be able to get 
-it reviewed pretty easily and in drm-misc-fixes.
 
->   drivers/gpu/drm/drm_panel_backlight_quirks.c | 17 ++++++++++++++++-
->   1 file changed, 16 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-> index 78c430b07d6a..5c24f4a86519 100644
-> --- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
-> +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-> @@ -73,7 +73,22 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
->   		.dmi_match_other.field = DMI_PRODUCT_NAME,
->   		.dmi_match_other.value = "ONEXPLAYER F1 EVA-02",
->   		.quirk = { .brightness_mask = 3, },
-> -	}
-> +	},
-> +	/* Steam Deck models */
-> +	{
-> +		.dmi_match.field = DMI_SYS_VENDOR,
-> +		.dmi_match.value = "Valve",
-> +		.dmi_match_other.field = DMI_PRODUCT_NAME,
-> +		.dmi_match_other.value = "Jupiter",
-> +		.quirk = { .min_brightness = 1, },
-> +	},
-> +	{
-> +		.dmi_match.field = DMI_SYS_VENDOR,
-> +		.dmi_match.value = "Valve",
-> +		.dmi_match_other.field = DMI_PRODUCT_NAME,
-> +		.dmi_match_other.value = "Galileo",
-> +		.quirk = { .min_brightness = 1, },
-> +	},
->   };
->   
->   static bool drm_panel_min_backlight_quirk_matches(
-
+> >
+> > Documenting the micro controllers which run the firmwares makes sense
+> > as those are how the driver interacts with the CP block.
+> >
+> > CE/PFP/ME - Microcontrollers which run the firmware that provides the
+> > graphics command queues that the driver interacts with.
+> > MEC - Microcontrollers which run the firmware that provides the
+> > compute command queues that the driver interacts with.
+> > MES - Microcontrollers which run the firmware that provides the
+> > command queues that the driver uses to manage graphics and compute
+> > command queues.
+>
+> I agree and I think most (all?) of these are already in the glossary.
+> If not, they should be definitely added.
+>
+> Thanks & best regards,
+> Timur
