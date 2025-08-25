@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CFA5CA0FE7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D892EC8303F
 	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 21:56:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2202910E5AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78EBF10E5AE;
 	Mon, 25 Aug 2025 21:56:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GLpXDIzq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HtmI3c8K";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37CFA10E598
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2637C10E5A7
  for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 21:56:38 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-3c46686d1e6so3053916f8f.3
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-45a1b065d59so27128305e9.1
  for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 14:56:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756158997; x=1756763797; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756158996; x=1756763796; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AKvDrHKAjd29FkcdJ4KOdy80p0NjS82Q5MtH5X5q71w=;
- b=GLpXDIzqhNSM/RoMaG8mAFBFwt7FhrKfIvl6VQ/pvAbic5WVZCOCgWhzOqm+2GsSLo
- HESdLJkkh3MuV0ixXUdYe7IvyTyEXbTGpwllvFnU/cYh08fSZ0eSMMeKr3SulvYpV1oY
- kPn5zzikxCdbeKimFFfluBuwMNVjBU6ZD6dKTKk69q2dqCkCCaCg7oOrGlnWz84+aPtd
- 2X6iOLoXZsNxsF1kef3sD2rZVlYUbfjCPtwBMKR0z55+ulwgkvv3B4ssTpFknIvJbGy/
- 3pFDI1+njnUxbHEg7svyoiBeHtgkJvdlBDXybFrs/9XVShQl3q8L98aRXhoUAjX2xWXU
- 5KQw==
+ bh=OXPv6kfo3MJBciV2mYcl1lSJPsJNkREjYzcWUM07boY=;
+ b=HtmI3c8KM+KUKdZVu4ZS28G5BcFcDWnqR3sL/gA6bivvBex2a8bQFReV9ChgelMUh2
+ bTgYKGH88/LJUUcgC5SgbSNRIe+xCVa6fdXF5wzXURqzNebGk8S4lyhVo7Dxw71cygFU
+ zLeegOLsQ4gwr/f7GmhA0LifowRwjOma5eSgrPT/6eVO/0WSDhLTrTgbHr1s1k2troQB
+ CBwEiZuT3A2N9Se5p2cpjx8z28Qj1C9lpRWC6kFCXy4z0MEtdN+dafE2SJb4C9k+Nhxk
+ gywJpKZJEquJYyRyARmlCgxakGKqLsd6dNxfyFxIvtp9yNJvyRUw8S8o5jedenjnmQWZ
+ i74w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756158997; x=1756763797;
+ d=1e100.net; s=20230601; t=1756158996; x=1756763796;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=AKvDrHKAjd29FkcdJ4KOdy80p0NjS82Q5MtH5X5q71w=;
- b=E4g3Jp2OGtazH4mytpYLu1WEAg3lK0/uToJI1nCGK8GqNhjbgf+b0bl9OvFDIRjUWZ
- k6f1L86EZtGh/BoiD1D5VSoyLsVuJ9uTaSP5JXSkio2QLfGIwfZ9FfTRulYQGl1OiMfO
- yx7HNPdgnKE8uUP8VudywzfTSKikTA6Tt9qxLB+oIOTvo5QmxIhP/+RmnW/NfrNXt/03
- 8r1oKpV2rFaI3qyy3z9JVCi65vzCIfMHaHYWa4viGslbyyoTs32AC8EjM73mLoBcn/SR
- KGX4y52WXqpcMxRvfHHYtA7R/OR5ACbuEUK2hZeS8C7kc5nHFbrpHuai1pAadl1X5FWt
- wLaQ==
-X-Gm-Message-State: AOJu0YxCaW9W5Bp+Gsg78uhVvz9kQP3bJecCUkyOL685MIOHlj6RDl0A
- T8AvQHZ/Kfv2epOQwUfvLP4+rX0Gk+i3Irt9SVjHiHK/6rPyoN9dXz5uJ29Blw==
-X-Gm-Gg: ASbGncurFxWFReGni95amUShgpjGHC97HS+ALbQmKv8FJUIr7htMdJmpp0rAk0avnEr
- bkvDsMXcK4dfgrImv9KdOUqQwBeL4Hr1Ua92CyRA73Ra2cLMHQQ3jlSKckvAIUJ0NZIe/dT7DVw
- rVEumKJFFIjKA453ZceaASK7oLttBV1+JEL99AyxqOBQ5wYmQivVPW/YWRxDZQ5R3leVVgNcYLJ
- k798dj0uih4B3MFVqcZ55lS+IuCF0/KoffxFeH9WcBE7r8Pm3PkPRcLWK1IL/Y/8j6N6jcL45RT
- x7LxAWnlkLVaR5gXDj2Aj877mfCWEo/06YvwQ/TaVH+Vo7zhjD5QtjLld/xAUckefH7Wci5uplq
- XmVTuo0+UQLbNJ5RWi0WZZglseBDe3lPtQ5qKtadauYlieJ8Tpe9k9ueMRv28MgsFoth2Ls08hY
- F8DrxGDOyhaiTVzN8yP7OvKEuOUw==
-X-Google-Smtp-Source: AGHT+IEDQGTEelJ+aga6cn7FkfCVGWbtBLAjxETplvXN8UHxYt5VuNHkifo7fRFgYFY0fujSiwoF5w==
-X-Received: by 2002:a05:6000:1788:b0:3c3:5406:12ad with SMTP id
- ffacd0b85a97d-3c5dcff73c7mr9384091f8f.61.1756158996638; 
- Mon, 25 Aug 2025 14:56:36 -0700 (PDT)
+ bh=OXPv6kfo3MJBciV2mYcl1lSJPsJNkREjYzcWUM07boY=;
+ b=q70d3vC66qLSC90yQk1eGdFS7LKt63iY6Wiv1JW0ziSgMIJELkyknPQg6zQ1IQnC52
+ 9+keGUImqnIgpm0tfHiuQzGmEwtHIv+6z0X9hlPLyhW3KMnnDfmLzO0Qsu9gFW+MeGeL
+ oPInwlD+fMHaqRtpia6mHa7WDsQzooNZ6LlR2I33g2PWKH7z0Ml4dac6STmG+wE9GONx
+ 4DxLF37ymPGfAAJlspLVM8yhg82bKaTix66boSGWHnES3gD3e4v+4Ey6kAvf8oKCqOTo
+ xFBCKfGPwmGhkBN5R2i95U8G2l1DQ9wz9rlBNk7TOSqGulT+hZ5f1uzbi6CRqK9MynES
+ gN2g==
+X-Gm-Message-State: AOJu0YxKIXZbG9gwKg8CKX2PkHRXp6D+S/NUpyQRk92lZ4c1h/bMxKcX
+ Lr5eY3lmlusNy8E0rxI1j5COsjIL7bEHOR5a1Q/WGYlTZy5ieEAL///LipHgSw==
+X-Gm-Gg: ASbGnctkmZSQS+7VZH4aw3Rvpvnr4HH7IG1ZWhCm7WpusmfAOKllt4mwyJBM4+Cj8hy
+ yxoRnZQ+qrvtUW8I3JiUqfhWmez5wveaqhJDX2yGGxnjsN508K3w+nLulzlIGvKZiZQAE+73wWN
+ AyWySnPamp6JSWgfXMxnM6aQlUHy8ytd30Wyq4zIe0VxyibWRjTxLOxThkfJHB//2+ZJKUI82H8
+ 1o0iFvqRG8LzLdoR5w5Q4pVpybHqQj9TVsci2G37qR1GFT7NB8UfcvtFUbKA9gB1FrFcC80+EQh
+ wBzuw57Djpeg32kiFZNOFJdoo346ktY24jpRMwVkiIqV2bAJBM6HVgZqzOECbBTDGuowszHc93n
+ 8C2qcgjFf2V7dRGvlvMBIm5u3x01yjQBW08bNK9VznV7oD16dR2PRPUUBH6LvzagaLMju99apAl
+ 7FJhABSaAsJXeHjd2OG6HeDmgG9w==
+X-Google-Smtp-Source: AGHT+IEawFdGhKL6pnJGsxXe4kij1vC+phq0HI/o25xCgLh0NpgLhYy0L5FECYjMA+E2XGFJuQauqQ==
+X-Received: by 2002:a05:600c:1d0c:b0:456:fc1:c286 with SMTP id
+ 5b1f17b1804b1-45b66eaddc9mr320745e9.1.1756158995590; 
+ Mon, 25 Aug 2025 14:56:35 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24E36900D571F3015BAFEA47.dsl.pool.telekom.hu.
  [2001:4c4e:24e3:6900:d571:f301:5baf:ea47])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b57499143sm121827575e9.26.2025.08.25.14.56.35
+ 5b1f17b1804b1-45b57499143sm121827575e9.26.2025.08.25.14.56.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Aug 2025 14:56:36 -0700 (PDT)
+ Mon, 25 Aug 2025 14:56:34 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexdeucher@gmail.com, alexander.deucher@amd.com, harry.wentland@amd.com,
  alex.hung@amd.com,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 2/4] drm/amd/display: Disable fastboot on DCE 6 too
-Date: Mon, 25 Aug 2025 23:56:29 +0200
-Message-ID: <20250825215631.628949-3-timur.kristof@gmail.com>
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 1/4] drm/amd/display: Keep PLL0 running on DCE 6.0 and 6.4 (v2)
+Date: Mon, 25 Aug 2025 23:56:28 +0200
+Message-ID: <20250825215631.628949-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250825215631.628949-1-timur.kristof@gmail.com>
 References: <20250825215631.628949-1-timur.kristof@gmail.com>
@@ -92,33 +91,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It already didn't work on DCE 8,
-so there is no reason to assume it would on DCE 6.
+DC can turn off the display clock when no displays are connected
+or when all displays are off, for reference see:
+- dce*_validate_bandwidth
+
+DC also assumes that the DP clock is always on and never powers
+it down, for reference see:
+- dce110_clock_source_power_down
+
+In case of DCE 6.0 and 6.4, PLL0 is the clock source for both
+the engine clock and DP clock, for reference see:
+- radeon_atom_pick_pll
+- atombios_crtc_set_disp_eng_pll
+
+Therefore, PLL0 should be always kept running on DCE 6.0 and 6.4.
+This commit achieves that by ensuring that by setting the display
+clock to the corresponding value in low power state instead of
+zero.
+
+This fixes a page flip timeout on SI with DC which happens when
+all connected displays are blanked.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ .../amd/display/dc/resource/dce60/dce60_resource.c    | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 153d68375fa3..1d57df7fc948 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1923,10 +1923,8 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+index 53b60044653f..c164d2500c2a 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+@@ -881,7 +881,16 @@ static enum dc_status dce60_validate_bandwidth(
+ 		context->bw_ctx.bw.dce.dispclk_khz = 681000;
+ 		context->bw_ctx.bw.dce.yclk_khz = 250000 * MEMORY_TYPE_MULTIPLIER_CZ;
+ 	} else {
+-		context->bw_ctx.bw.dce.dispclk_khz = 0;
++		/* On DCE 6.0 and 6.4 the PLL0 is both the display engine clock and
++		 * the DP clock, and shouldn't be turned off. Just select the display
++		 * clock value from its low power mode.
++		 */
++		if (dc->ctx->dce_version == DCE_VERSION_6_0 ||
++			dc->ctx->dce_version == DCE_VERSION_6_4)
++			context->bw_ctx.bw.dce.dispclk_khz = 352000;
++		else
++			context->bw_ctx.bw.dce.dispclk_khz = 0;
++
+ 		context->bw_ctx.bw.dce.yclk_khz = 0;
+ 	}
  
- 	get_edp_streams(context, edp_streams, &edp_stream_num);
- 
--	// Check fastboot support, disable on DCE8 because of blank screens
--	if (edp_num && edp_stream_num && dc->ctx->dce_version != DCE_VERSION_8_0 &&
--		    dc->ctx->dce_version != DCE_VERSION_8_1 &&
--		    dc->ctx->dce_version != DCE_VERSION_8_3) {
-+	/* Check fastboot support, disable on DCE 6-8 because of blank screens */
-+	if (edp_num && edp_stream_num && dc->ctx->dce_version < DCE_VERSION_10_0) {
- 		for (i = 0; i < edp_num; i++) {
- 			edp_link = edp_links[i];
- 			if (edp_link != edp_streams[0]->link)
 -- 
 2.50.1
 
