@@ -4,93 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCD58CA0FE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 07:49:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C5A4CA0FED
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 07:49:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B03110E5FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B09610E600;
 	Tue, 26 Aug 2025 07:49:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="RK7h5QkT";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YWqOFjfU";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C003F10E53C
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 19:20:26 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFA9B10E535
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 19:10:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1756149625;
+ s=mimecast20190719; t=1756149013;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=z5OgTRxAaRTLrRHg2C4YU4ZWEhwhgTv8g6QHnboZ39Y=;
- b=RK7h5QkTQvFS9sL2tbhzUTXn2GLY3KD9zTpiol4377uO8p3LuH+SCISMOh8FX60+FdZ0ko
- p8jL2gkN4NqWpesPmDdr4q6GRDwyzfKF9xgwYjYf5PFM0ubl8WNwNdxnwvlpvrE5hHU+KX
- GP+bEnKmNME/fMnWm8idKBNZFQRAxfw=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ovFlkg9w0MiMJlc85UHe8tFsLpOCb2Fnjm1U8NPyw30=;
+ b=YWqOFjfUKlhxTqxo9J49+Axk/NkUJpDBgDf21bKGHZpaWGI00szRQshtknthuSpeaSspRn
+ we9zSp9aWcwIDoSQjzVo0/9WLvpFgIGIA0RtyYv8RVZjPujXc2DvjL9NlmMdUhetDaecST
+ zD2EkldoCmiAsa5z+gNZn1+VltaACVE=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-472-pYtvO0rEOE-OENVEbjgorw-1; Mon, 25 Aug 2025 15:20:24 -0400
-X-MC-Unique: pYtvO0rEOE-OENVEbjgorw-1
-X-Mimecast-MFC-AGG-ID: pYtvO0rEOE-OENVEbjgorw_1756149623
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-3c6abcfd218so1932350f8f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 12:20:24 -0700 (PDT)
+ us-mta-509-Mptq1clWN52qwYuDsiTQiA-1; Mon, 25 Aug 2025 15:10:11 -0400
+X-MC-Unique: Mptq1clWN52qwYuDsiTQiA-1
+X-Mimecast-MFC-AGG-ID: Mptq1clWN52qwYuDsiTQiA_1756149010
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-45a15f10f31so37400225e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 12:10:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756149623; x=1756754423;
+ d=1e100.net; s=20230601; t=1756149010; x=1756753810;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=z5OgTRxAaRTLrRHg2C4YU4ZWEhwhgTv8g6QHnboZ39Y=;
- b=AEF4K4VrVIks+FcdmDrmh1jA/QQcMpAqq9J9BW2LgbHtOdEKRr5Qdvj4x1p97dyxt4
- DleYPoqRmv7hzHCjLJSYg49Ch1IerthR19fKrbvX6bhXn5OA6v7AtuRCpfFfhtBb3mtK
- z8b6Bj+NUQDAB8bdNCxpWlhctfEL/MH5ASGXZDKCQSzn+jn5BZlefQx07eKygH1TMG23
- alYf2cs04fUO8zmjHDajno4hTNh6IX5lXafFA7gS6YQKjYiD3MUJHbQWIwe2v/GgL9zU
- zLclndnWL3pdUOW5bbdQ82qPHvIe5QZMtvRAFmS1rm86J8LDRYtCYxvKKIVPs5bauFr/
- adyw==
+ bh=ovFlkg9w0MiMJlc85UHe8tFsLpOCb2Fnjm1U8NPyw30=;
+ b=quRqFzX2HdpKYm7KPJojwiRgUG3loHCEoMDTOuW3QIoE3qC2kS0DzO2uCwDcPXWHsn
+ IeS+0/fMe01MtgQfDrE63iKqSvrKgL9+cVITNJq6UU4ucno8rrcQRag9ayh7OsX5s4hq
+ bgO+ygrLlJO2HLIBjmdWit6TRhcc83HtzTKe136//mnCwpKhJE0BWkE/0E0drjGurmgb
+ x5Ifs/1b6M3OJYKnaUboRqkF2KONrlHXFjqQAcCCaDUmT2M77Kvyd0Z6EKROEWkdPAHO
+ kcK0uSM9h/SXDkE0qnuoKfxfZyks+8TWih8N4hppPMf3Tf1+lt3hwOp8Ww2oRLlg2aKZ
+ XV8g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVkUUmjMu3p3Ga2ga3fvGUkJ1i2oTFXm4UYoa/0162fq9MukTXAvFlzcP677OhZgT65K7KAZf2H@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyenU2kV5Kfu+E03hT9LKQS52b8a5V7jBVPafqtIbAkohn5XgHc
- 9vFCfmcs0Q/B2aNs0w1tP+IYrm/zZ52cdzlN4XwzKsc9WkBKp8tXGYwexeVfZqpdEd8X4fT9xKJ
- iURC7+/e47V1DA6y4C+0zr2/5aDYTrm9qoeMxblxlkWzXdVZHKe9YF9R7qB8bEqjB7t0=
-X-Gm-Gg: ASbGncuhJ4bFHDlrv67Rhk6rZ6oHmG8/xYaxAiroRP6bQ+cZudaXmSfcNuWhLJZdhcP
- 51NYImzEPU+aTUPH0ZFYHGIXNbbYE4E+GNvjuuh/agMud67iBPdc80aEGB+TgQ1+r8PdqMYHqRu
- U72YwqdGHU31jFGivUB35U75M96V36BAVYnR0bCn5heGBJLxkvsuEZ1iDdee3Q6zCZ9LXyuZPlC
- r3TBHSoh5vVuQy9cxXSc+EC09Q+E6DQtWNN1QqD3i095UroASEGngCdnR+Uu4dXNPD475ogs57t
- shremyYo19SrCGEo3JDA6U83oOpf3eeezhrC9JVtuFFoUBJTuD6rDT5B9EeDkYrxDlJ2JF3/FRP
- aKjHQ7KHyyTTE70okvl3frqdyDoq/xWu22CMDKPw/SW+HBwGOQk/ILcMGfOLTXtJGn68=
-X-Received: by 2002:a05:6000:40cb:b0:3c7:4062:5ba9 with SMTP id
- ffacd0b85a97d-3c740625e73mr6433948f8f.32.1756149623097; 
- Mon, 25 Aug 2025 12:20:23 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE5fLvW6GBrzoj0rwn7v+5ING7miK2XnhPDMAtGWy5ft9okjD6BcqLa6oMnevLNewMSeBM26A==
-X-Received: by 2002:a05:6000:40cb:b0:3c7:4062:5ba9 with SMTP id
- ffacd0b85a97d-3c740625e73mr6433929f8f.32.1756149622598; 
- Mon, 25 Aug 2025 12:20:22 -0700 (PDT)
+ AJvYcCUkV30xVzwzZohyN4mTfAoXSxr85+Pfa5DANyj/ZmjK1AT0WiCTJ/55Gmf9mU3psZ+jVSVjpNNf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxIMJmDmTPn7rIyj89KSQtZ6fgiVSVLxCVcg3NBw2QhJ9OWPupU
+ CU6xZFU37Leg8Pjrc5Ra0nxG+YFdcDTYmfBHyMHi8jJB5tuPLRoHKW1ttNraaf75JtwrhHu6jtd
+ WjLBhKA6RFWuziB4RZHR1awxfxzuJ8tfGOQZI2xmjeDhNj5nd+sjOK+JL+yKTNquAgos=
+X-Gm-Gg: ASbGnctwrAkl6veiQDQYNAVIK4jB2J2mpWf5M4zM398DppWmRDROqEWe+JnimqUvenc
+ Qmf6/J/MNdLEd1CtBvwEoKrMmYLLkOM1llBRccK2FNo5OBl1Aj3sbQQX70LIWSO1/Q1iwtwFoUp
+ Zm3tmdZAYXDRI8Xp3lVxfX24wrzB+Hm/KSObH5HVJ32+Y+s/r/NIDqSJboXEqzya7fDtviL9Sfa
+ RCI4xqyF6iDtNiqizE75Mo3phTPRVmCES9I8+IcZqkBWg1HLGbyA1GdhlJ8By/SyUYlLSDgfmLP
+ 939VM3ECB5uZIFewC1/icUGhIHh9ay3JSI2dy2A3q3RziEEG5hQisEUCf2XHyV46GqzYIqM4QYB
+ Dh6I1WkUn+GWpAxY1ThW6FfqsXmQLJgcdYk3uN3uJZM7tO1GTKIJaIEMj70npnvfFcik=
+X-Received: by 2002:a05:600c:4fd1:b0:458:d289:3e26 with SMTP id
+ 5b1f17b1804b1-45b65dc7001mr3027695e9.2.1756149010376; 
+ Mon, 25 Aug 2025 12:10:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH0ThQ6ylSmyMP5nnHc1suGJsKnc6voe66RR5IeTlSwtzSWcPTDor/ThY5I3vNohIOHMFHSFQ==
+X-Received: by 2002:a05:600c:4fd1:b0:458:d289:3e26 with SMTP id
+ 5b1f17b1804b1-45b65dc7001mr3027405e9.2.1756149009936; 
+ Mon, 25 Aug 2025 12:10:09 -0700 (PDT)
 Received: from ?IPV6:2003:d8:2f4f:1300:42f1:98e5:ddf8:3a76?
  (p200300d82f4f130042f198e5ddf83a76.dip0.t-ipconnect.de.
  [2003:d8:2f4f:1300:42f1:98e5:ddf8:3a76])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c7116e1397sm12704676f8f.49.2025.08.25.12.20.21
+ 5b1f17b1804b1-45b57444963sm130775305e9.3.2025.08.25.12.10.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 12:20:22 -0700 (PDT)
-Message-ID: <a0888295-5f3a-48cc-9ca4-d7ba4d73f307@redhat.com>
-Date: Mon, 25 Aug 2025 21:20:20 +0200
+ Mon, 25 Aug 2025 12:10:09 -0700 (PDT)
+Message-ID: <f983521c-b43d-4245-93fc-fcb847908573@redhat.com>
+Date: Mon, 25 Aug 2025 21:10:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: your mail
+Subject: Re:
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- x86@kernel.org, airlied@gmail.com, thomas.hellstrom@linux.intel.com,
+ x86@kernel.org
+Cc: airlied@gmail.com, thomas.hellstrom@linux.intel.com,
  matthew.brost@intel.com, dave.hansen@linux.intel.com, luto@kernel.org,
- peterz@infradead.org, Liam Howlett <liam.howlett@oracle.com>
+ peterz@infradead.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 References: <20250820143739.3422-1-christian.koenig@amd.com>
  <edf4aee5-54eb-4fad-aa89-4913d44371fe@redhat.com>
- <7db27720-8cfd-457c-8133-5a7a1094004c@lucifer.local>
- <82e5e566-87e9-43a8-a0e9-00656572d65c@redhat.com>
- <f6f85c73-2a1e-438a-82c9-f3392d91020c@lucifer.local>
- <d51c2e8f-70cb-4211-9196-be9021a33070@amd.com>
+ <4e5f4ef0-53f1-417e-8f3b-76fd7c64cd23@amd.com>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -136,9 +133,9 @@ Autocrypt: addr=david@redhat.com; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <d51c2e8f-70cb-4211-9196-be9021a33070@amd.com>
+In-Reply-To: <4e5f4ef0-53f1-417e-8f3b-76fd7c64cd23@amd.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: _RdtvPnb74T3Q6uFNvJs_9830iSr7t91VMyIRUwyw1c_1756149623
+X-Mimecast-MFC-PROC-ID: Qmx-6tQZ7KqsBt9_ucjWRFaTDtD2xnTwk01lPW2V9-o_1756149010
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -158,57 +155,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 25.08.25 20:35, Christian König wrote:
-> On 21.08.25 12:05, Lorenzo Stoakes wrote:
->> On Thu, Aug 21, 2025 at 11:30:43AM +0200, David Hildenbrand wrote:
->>>> I will add this xen/apply_to_page_range() thing to my TODOs, which atm
->>>> would invovle changing these drivers to use vmf_insert_pfn_prot() instead.
->>>>
+On 21.08.25 10:10, Christian König wrote:
+> On 20.08.25 17:23, David Hildenbrand wrote:
+>> CCing Lorenzo
+>>
+>> On 20.08.25 16:33, Christian König wrote:
+>>> Hi everyone,
 >>>
->>> Busy today (want to reply to Christian) but
+>>> sorry for CCing so many people, but that rabbit hole turned out to be
+>>> deeper than originally thought.
 >>>
->>> a) Re: performance, we would want something like
->>>     vmf_insert_pfns_prot(), similar to vm_insert_pages(), to bulk-insert
->>>     multiple PFNs.
-> 
-> Yes, exactly that. Ideally something like an iterator/callback like interface.
-> 
-> I've seen at least four or five different representations of the PFNs in drivers.
-> 
->>> b) Re: PAT, we'll have to figure out why PAT information is wrong here
->>>     (was there no previous PAT reservation from the driver?), but IF we
->>>     really have to override, we'd want a way to tell
->>>     vmf_insert_pfn_prot() to force the selected caching mode.
+>>> TTM always had problems with UC/WC mappings on 32bit systems and drivers
+>>> often had to revert to hacks like using GFP_DMA32 to get things working
+>>> while having no rational explanation why that helped (see the TTM AGP,
+>>> radeon and nouveau driver code for that).
 >>>
+>>> It turned out that the PAT implementation we use on x86 not only enforces
+>>> the same caching attributes for pages in the linear kernel mapping, but
+>>> also for highmem pages through a separate R/B tree.
+>>>
+>>> That was unexpected and TTM never updated that R/B tree for highmem pages,
+>>> so the function pgprot_set_cachemode() just overwrote the caching
+>>> attributes drivers passed in to vmf_insert_pfn_prot() and that essentially
+>>> caused all kind of random trouble.
+>>>
+>>> An R/B tree is potentially not a good data structure to hold thousands if
+>>> not millions of different attributes for each page, so updating that is
+>>> probably not the way to solve this issue.
+>>>
+>>> Thomas pointed out that the i915 driver is using apply_page_range()
+>>> instead of vmf_insert_pfn_prot() to circumvent the PAT implementation and
+>>> just fill in the page tables with what the driver things is the right
+>>> caching attribute.
+>>
+>> I assume you mean apply_to_page_range() -- same issue in patch subjects.
 > 
-> Well the difference between vmf_insert_pfn() and vmf_insert_pfn_prot() is that the driver actually want to specify the caching modes.
+> Oh yes, of course. Sorry.
+> 
+>> Oh this sounds horrible. Why oh why do we have these hacks in core-mm and have drivers abuse them :(
+> 
+> Yeah I was also a bit hesitated to use that, but the performance advantage is so high that we probably can't avoid the general approach.
+> 
+>> Honestly, apply_to_pte_range() is just the entry in doing all kinds of weird crap to page tables because "you know better".
+> 
+> Exactly that's the problem I'm pointing out, drivers *do* know it better. The core memory management has applied incorrect values which caused all kind of the trouble.
+> 
+> The problem is not a bug in PAT nor TTM/drivers but rather how they interact with each other.
+> 
+> What I don't understand is why do we have the PAT in the first place? No other architecture does it this way.
 
-Yes, it's all a mess. x86/PAT doesn't want inconsistencies, so it 
-expects that a previous reservation would make sure that that caching 
-mode is actually valid.
+Probably because no other architecture has these weird glitches I assume 
+... skimming over memtype_reserve() and friends there are quite some 
+corner cases the code is handling (BIOS, ACPI, low ISA, system RAM, ...)
+
+
+I did a lot of work on the higher PAT level functions, but I am no 
+expert on the lower level management functions, and in particular all 
+the special cases with different memory types.
+
+IIRC, the goal of the PAT subsystem is to make sure that no two page 
+tables map the same PFN with different caching attributes.
+
+It treats ordinary system RAM (IORESOURCE_SYSTEM_RAM) usually in a 
+special way: no special caching mode.
+
+For everything else, it expects that someone first reserves a memory 
+range for a specific caching mode.
+
+For example, remap_pfn_range()...->pfnmap_track()->memtype_reserve() 
+will make sure that there are no conflicts, to the call 
+memtype_kernel_map_sync() to make sure the identity mapping is updated 
+to the new type.
+
+In case someone ends up calling pfnmap_setup_cachemode(), the 
+expectation is that there was a previous call to memtype_reserve_io() or 
+similar, such that pfnmap_setup_cachemode() will find that caching mode.
+
+
+So my assumption would be that that is missing for the drivers here?
+
+Last time I asked where this reservation is done, Peter Xu explained [1] 
+it at least for VFIO:
+
+vfio_pci_core_mmap
+   pci_iomap
+     pci_iomap_range
+       ...
+         __ioremap_caller
+           memtype_reserve
+
+
+Now, could it be that something like that is missing in these drivers 
+(ioremap etc)?
+
+
+
+[1] https://lkml.kernel.org/r/aBDXr-Qp4z0tS50P@x1.local
+
 
 > 
-> That this is overridden by the PAT even for pages which are not part of the linear mapping is really surprising.
+> Is that because of the of x86 CPUs which have problems when different page tables contain different caching attributes for the same physical memory?
 
-Yes, IIUC, it expects an earlier reservation on PAT systems.
-
-> 
-> As far as I can see there is no technical necessity for that. Even for pages in the linear mapping only a handful of x86 CPUs actually need that. See Intels i915 GPU driver for reference.
-> 
-> Intel has used that approach for ages and for AMD CPUs the only reference I could find where the kernel needs it are Athlons produced between 1996 and 2004.
-> 
-> Maybe we should disable the PAT on CPUs which actually don't need it?
-
-Not sure if that will solve our problems on systems that need it because 
-of some devices.
-
-I guess the problem of pfnmap_setup_cachemode_pfn() is that there is no 
-interface to undo it: pfnmap_track() is pared with pfnmap_untrack() such 
-that it can simply do/undo the reservation itself.
-
-That's why pfnmap_setup_cachemode_pfn() leaves it up to the caller that 
-a reservation was trigger earlier differently -- which can properly be 
-undone.
+Yes, but I don't think x86 is special here.
 
 -- 
 Cheers
