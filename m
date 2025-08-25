@@ -4,152 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDA5CCA0FE7
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 17:53:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A10BCA0FE7
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 18:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77ACE10E523;
-	Mon, 25 Aug 2025 17:53:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1332710E52D;
+	Mon, 25 Aug 2025 18:02:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EIOIXtc8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xUmlCFkL";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB28510E520;
- Mon, 25 Aug 2025 17:53:14 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2085.outbound.protection.outlook.com [40.107.237.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9384510E52C;
+ Mon, 25 Aug 2025 18:02:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n62sDbmIM6w8dOGZXl/XRuEIZG7h7SoU8f+5/v9lsHPAjmGcjFxfh+71o4E9hwTKaHgX9LIP7Nfpysbusv4lYwNDbjIEJU/9bqVgJHWJ8AWtiFFtdt638kBMRRAWcBc5sdjnpS1vW2ZTP4fEO5LNx8po1mFYCNWU2aFpOyy4EXxJMAezh2/LHm5xvZ+2w6O1RvwnBkWLK3++rzJXgEjKjQ1snf99yfSwzbfJITFdQtDkPjnmh6CmyzLqHs1KSFQLc2BRrzmmWKFhobnmH4B3/1vytQyAlZVWD5Y0qoBes2Xub6Z1gzVvjrUrJ1DsPj6dmASjoCzztIljQT3tdKzsBg==
+ b=yHI1+XgbYw/6HNJxv8XeBn2tiVpxvV3miw7gOTHEg+ENN6Cf5e6UObVVNbglPbT7+utHI27Qa1z/Np7DYxRUu9/tXtdBkz3XdDm+PvPZtUnG+grN2rmQdJeouTlqKMYquPcvp/stMQARVpwBTWw3R5mLs0Nb1IJtXMuLZEmaUZBmYxEWhw/0Jdc7fwlZiGpp1hxEFbTcaaT3fgm6K3HB/dD0ivfvLHkncJzbgclhGv12wtRTkqGzm3H1huGcL7bM0l0k6ImAM/i2UNsdc7gbgGMz8e+Ll2gCNbDfumxjD6f8p63pQ0bu6MVSvsWWoKyxk2JzMi8l6XYjsbUjk8ZdQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fQQVRIv1sauuH7ud0NmUwx8tH0mSAdowIGLJwlyPF3Y=;
- b=l56Wq+fBzvHeaRNlAi0tI7zsikh7lK/7BrUTZwih9vTMIoUcq2JUjCgh8fKU9bsK/z5Zd4TQX+mxyTsqYtXuzvbK/vYHKct/qkwCEOv+iFkL1QixMNEmSwIk4z7QHo5/NnBommfeeYbmMKvFWLAKluYio1gJPpVoklo/4WIoqBXFy+usm0ylAWSUOBh/53fDjSp20ESNtLpVFbU3rSx6UuaeNWacWDMs/jfUchmr615STbdLa4xJdmseVFZH1YoCLq9vcE/P9d3ofm5mMyBdOhsaaEaWa/RNClJLfCV8EptgoHIuLSvbLHwjZ6tRMPEpga7ML6fO6kFwj5bbcxdnXg==
+ bh=QtYBhhIxiuTBcaeikueuMYQDQwt4Uj57J7+uY8KvIac=;
+ b=eyfYV9lDIAQGMfRJ6T5tbrcNbu43BC23Ou0Nm+wlRRj0R4/or8nY+Jts2s4Domg2qk3I/4hI4AZxMva7HNhe9SQyiUReBKbB+P4rweHyvzagZgvvZucEO+rfjQGR+iios4bYLkBs8u6CpT4f/S5mxKxx+BPtVywN1LvjQ+KhmOyc6ROVer9qC3yAwVY/um7SWL3DRHAqyirzHURmqG5g52lFkq4jVRINslYViC5O9+QMEKBQpqNOSCx+MWnDecF5DHiRhcPhnS4Y3CxZ4YlZuFRu/kYgqVH9Q/rvsE0kf21lff9+ph/D0ISPhgidE3zzEaKNtXrs/xryU2dNAiiIdw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fQQVRIv1sauuH7ud0NmUwx8tH0mSAdowIGLJwlyPF3Y=;
- b=EIOIXtc8Ll9zpE4cCgLd1TpDg94UU03rG7SyVUNYpR4RvMjSleBGnuaDGY8nD+sPFMbBsMBxeuMV1kx7qqtxelMsnq0s1p7oLjbPVaTwNQQkHshCsTE2YcTSD7igYCNbP9VyieWe6giTAfDhX/Y9Bj1AU53Ap0hxBFfRPB1l2FA=
+ bh=QtYBhhIxiuTBcaeikueuMYQDQwt4Uj57J7+uY8KvIac=;
+ b=xUmlCFkLSDviMiQiL8bSO6d9AogVD2y4Xz+2QVDgvT8/7dCn9K/mZQgHGrUAbK169ui4BPVRHS6A3ydYOmwZmwpyKv3pvOcprXmatf8Ndhef2YClTvr2FiY3KARxOrxVTZwcjWMm42Sea4sVzvu3Q6RvLcgp6pzD89NLQA7VOpo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by MN0PR12MB5881.namprd12.prod.outlook.com (2603:10b6:208:379::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.20; Mon, 25 Aug
- 2025 17:53:11 +0000
+ by DS7PR12MB5910.namprd12.prod.outlook.com (2603:10b6:8:7b::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9052.21; Mon, 25 Aug 2025 18:02:18 +0000
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.9052.017; Mon, 25 Aug 2025
- 17:53:11 +0000
-Message-ID: <a411d5f9-8764-428f-9ffe-33d0fb2639e3@amd.com>
-Date: Mon, 25 Aug 2025 12:53:09 -0500
+ 18:02:18 +0000
+Message-ID: <3b420fb9-9f85-4586-a887-f38804007cb8@amd.com>
+Date: Mon, 25 Aug 2025 13:02:15 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/5] drm: panel-backlight-quirks: Convert brightness
- quirk to generic structure
+Subject: Re: [PATCH v1 4/5] drm: panel-backlight-quirks: Add brightness mask
+ quirk
 To: Antheas Kapenekakis <lkml@antheas.dev>, amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  philm@manjaro.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 References: <20250824200202.1744335-1-lkml@antheas.dev>
- <20250824200202.1744335-3-lkml@antheas.dev>
+ <20250824200202.1744335-5-lkml@antheas.dev>
 Content-Language: en-US
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20250824200202.1744335-3-lkml@antheas.dev>
+In-Reply-To: <20250824200202.1744335-5-lkml@antheas.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR04CA0089.namprd04.prod.outlook.com
- (2603:10b6:806:121::34) To MN0PR12MB6101.namprd12.prod.outlook.com
+X-ClientProxiedBy: SA1PR04CA0003.namprd04.prod.outlook.com
+ (2603:10b6:806:2ce::7) To MN0PR12MB6101.namprd12.prod.outlook.com
  (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MN0PR12MB5881:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1023182b-8bf9-40c3-ffb5-08dde400420f
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DS7PR12MB5910:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d3e749f-da8d-4f69-aa84-08dde401879b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NjVickpaYVFlZnJTT2RhVWUzRjRFYXE1TjdPL243YVlNMDdNL0FXYW5ta25p?=
- =?utf-8?B?eTlWemxad2ZBZWhhZVc3a2Z1Z3V4bW1yb2N0bmEyTDhsR0JFWG1OZWhIc3pC?=
- =?utf-8?B?NkxJSHd6L0c4WkhPUHpld29tK2VMZ1lMLzgxVlp0aFlidSsrZHVrTU5RZnFP?=
- =?utf-8?B?U0ZDUU80MGRqbGE1eUdqakhzb0xGUks5cEhxczJtSWNLbW5ESmNNbEtOc3dR?=
- =?utf-8?B?SjBrRFJkNGtMMmRkb3l0TnM4OVFZN0VUekI0anQ5RHkxWW91S2JJOGhhb29Z?=
- =?utf-8?B?R1V6TytsRENMbXhUOTlsMXlKMS82N082dXg4SDdBWExIakVSNFJpR3RBT0gz?=
- =?utf-8?B?YkJMeWYwSzhrS0MxQ2NKZURydEtOV2x4UmcvOUlEQWhDd1V4VkJUekNaVnVj?=
- =?utf-8?B?b2VlSExCaHlQV2w2ZTdEOHQ4Qm9Jbm45ZG5NcjEwKzZFOFJBNERwdXBxcTFG?=
- =?utf-8?B?MjhtNnhEK1RDWnJkYUo4Zkd4OGVvT2YzOFo5cmprUk5hZmZ6d3B3b2pDYzk2?=
- =?utf-8?B?bm9uaXVwUnUyU09oQlBiYTYwckViaUFaSnZyL3E2U054M3Y3bzR6QXd6Y2ZX?=
- =?utf-8?B?clczZkQyZkxlaXJuNi9qd2M1Si95Yk9jcjNvajFiQmZRelJTa0lSR05HdERS?=
- =?utf-8?B?MkFOeUdna2YwYVdHZ2ZIN0w0VUpjZk5Hak8yR3A1Wnl3Q1MwdCtxMXZIMC9j?=
- =?utf-8?B?MTBabk9EN05TcDhsbDJkK1dOMytKZlNTa0dYTUxXcVdqL3c0aDVFbDRJZkp4?=
- =?utf-8?B?cmVTMTJod05pWFltbmhHRVRZbHhuOXhSRXBzbUtEMnBOcmc1MUJFN1FCSHVJ?=
- =?utf-8?B?TjRIaXNzSnRIcncxUVZjNnlxOFRPczI2ZXhoWXNrYkJTdEYvekY4L1piWTFL?=
- =?utf-8?B?N0dzRWw0Wm1oY2gvVnloT1lCcDBiT1JvRkxYRTA4OGU5YlJoM1lNeVZLMFBB?=
- =?utf-8?B?V1YvVGg0VHdUVHJFL01rNm01d2lIYUMrd2E3UFpYeVpkc2RraEVIMlh1NVZu?=
- =?utf-8?B?WjFnTlJtcUdGT3VlekNGNFlMcm5OdWFyTU1lR2pRazZWNVE4dlcyZUZxVUZK?=
- =?utf-8?B?MEpPMlNUT3ZkRE5ZNGhxekQ5WVp4VDFlbU9FUEtVejJ0cmFYQmI4SWxCbVVj?=
- =?utf-8?B?K2VWVEszTExJQURnZUd6THdXT0ZRcVVvYnhGc215eHUwaG9mZFZqb1VheFli?=
- =?utf-8?B?bnJ1UE5QQktoakdBTGovMk9nbXJsZ3EvdGRiRUYrV2U4ZUpZZTNTTEVxTDZV?=
- =?utf-8?B?QXNSV3BFVVdIS0ZlMlhIVkJoM2pIYTdETzBuWlJHRE1JYVdVMWhoQUxISEhX?=
- =?utf-8?B?ODFNeWZObklYc1crcnI0b0R3bVBxNFZxcVVoL3RMQXRzb0lrMEkvcmtsN0VK?=
- =?utf-8?B?TDA3V01kL0U5V3MrYTBvR0JaSlVPMDFIdytkLzQrRThUemR4UjNnbW95K1VR?=
- =?utf-8?B?QlAvQWhLS1BlWjg1UEYwYm45VS9Ka0QyUEx4QVZPOW5Ha2tRYjJ6aXdlNkd0?=
- =?utf-8?B?YjVDcW1KZDIveU5sbk51QkhjV1pNSHFwSFE2djU5bjl3OGkzbGcweEdRbW5S?=
- =?utf-8?B?bTBCVWxwL3VmYnJqYk5ucnlmQ1VFTjFubVpuMHdPVHRmYysxZEI0TDlQMXp3?=
- =?utf-8?B?bmRIY3BzSWZyTmNmYW1ENzVxUnRYMkdrb0hiWHMrNmMvVzhJS0hEcTZ1ZHU2?=
- =?utf-8?B?b1lHNVpzRnkvbXN3WXhJUFZNUkVjRlZFVit6MVE1WGx0Q0R3UXlXRzVXaUNl?=
- =?utf-8?B?aWY2OFFpbklTRkEzYXlnZzk1WTRtc0doK05XUFlwTGMra1Z4RE9hWnZKYXNi?=
- =?utf-8?B?M3VIdS9mZHU3U1hWSG9SRUU4Y2NlcWtiRktvelNGcnhvRDFMb2ttTGptRkNx?=
- =?utf-8?B?Z3o1ZVJiRXpMWmxZWU1jY2FESVVhdTBkSmpDUWlYdWpNclphZkxLUU1nOFgw?=
- =?utf-8?Q?FQv+K1JOtVA=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OXNWL2ZtWU1ROEZURWtxZVpoaVBZNzZZd3d1bkpBVTZCMzg0c0RZRzE2TDdk?=
+ =?utf-8?B?TUpHS1pzK1dkSHdrM241bHBUdzRCeDNPakdWM2JiTlk3UzJWZTcvWSs3QkY5?=
+ =?utf-8?B?cis1ZlR2T1ozWnRKREI2ZkgzOXNmT05USFM4Z0pHbHlhTTdGOThZMTJhMzJs?=
+ =?utf-8?B?UE5lZUlSVVZrcXhHcGcrVmExY3l6WGpDN2hqb2lJNVFRUmNidlpoL3NiMStS?=
+ =?utf-8?B?QVVHRWgxNzgwUVdYM0pia3RxNWFYYWhTdExYdGJVRmFOdzdHWXY4QnpIbVF5?=
+ =?utf-8?B?LzByVkdnMHFRTDZhcFpTRzByQUhSeWoxeGZkV2V2UFhKZkQyYlZiSTl5ZW54?=
+ =?utf-8?B?dnZYVk9OWEh1UlhlTmNycWFZYjYxSjJCQzI0akJkYXErZ3RwNkV4Z0Y1a1h6?=
+ =?utf-8?B?SXJXL2V5dHNLN295bTJDZWxONUhGamU2MjRsc3V4MytUWElzVjNxN1JrRmN0?=
+ =?utf-8?B?OWx1Z25DRWtCRE54N0hkc3p3d1NDaVpaN0V3MEhEczJnM1BXQ0JQV3ZyU0FP?=
+ =?utf-8?B?clk2dHZBWkRhcDRUMjNOdDZkUVJCUGJ2QUlFRG9vVWQ1bFFjWHcyOURrbzVz?=
+ =?utf-8?B?UklwcjJsYXdMamtCdTJlM2NXU1NrMWIyZFBpOVdScDdTR2ljdzA2aUtjWmpz?=
+ =?utf-8?B?T0dnb1hnNTdJb0RIeGxBb214akJYN3lwenh1S3gyNWR5S25kZTBoZE93VHlj?=
+ =?utf-8?B?cG51cTdsem1kZWJIbWZEeW9zNXBDWDZwYVhkUEo3VXljSWtCcnk4dmNSUUhl?=
+ =?utf-8?B?MUlvQ3dpWVpkS1pZNVRIaG1sdUkvdSsxZzE2OVJOcUNqMWtpMXllckFBS3Va?=
+ =?utf-8?B?T0tUYmt0c1Bjb0J5Zk81Q1REQzhNMk5aR2FaZXByQmI3czcxbmtwa2k1d0RI?=
+ =?utf-8?B?Qjd3WWN5THIwUCtBeVBqTDIwREFwUVR3T3p2NjNyTWpZeXRpckJEeXpDbFhm?=
+ =?utf-8?B?OGdXMkg4V1J6NFdDbnMyWERTT2JheHA5MURCV1JVWkJUbXJ3WG5vRU96dzNR?=
+ =?utf-8?B?OGxmVGNDWSthV1BxVDlzMDNsVlBZeXhyM3ZiN2RaSHVwYnMvYllUeURwT3Rr?=
+ =?utf-8?B?WXlBM1g5QnlGQ0l2bmdBQjFoWjBvRk1xc2NPYXFqaEo2dnIreGdHZW9xalJk?=
+ =?utf-8?B?ZXdwRWk4ZE1YYjhEdU12VnVxOFJjdVJGc09FU3VHS21WZmExenJTc2xyMFYz?=
+ =?utf-8?B?aEh5UU1Xb29xVjdIcm04ZEt1S1ZTRGhyT3JuMC9KZHN5cjgweTRQaWZ4RFhB?=
+ =?utf-8?B?b3Z5dXVLOW1IM0N5Y1RtZVhJR2RDTkNQWlpPNWpHb3EwNk5HOVVjaTY0V2tn?=
+ =?utf-8?B?b3U5a1pDdzhqRm1QQTJjOHVJR0pGcVQyOUNMUC9yNHZNdUQweDlueVkvckxE?=
+ =?utf-8?B?L2ZSem5LR1VCWWZzOURZc1dYWG0zQ0U2MFFQeThZT1NIVzVKQlhicVViYU9H?=
+ =?utf-8?B?OHBlYUY5anhCcmZuaWNENjVGeURHYi8yVDlaYXIxdHBCbC81UHc4UU9odklo?=
+ =?utf-8?B?RVhWUWxJWExoQjgwU0xQcWVPb2pLbGsya05QT2dHUDNRZW1CSGRQakFsd3Jw?=
+ =?utf-8?B?NDJBMm5DRDI5MEpXRGpXWHY4VlFYL09ScVNweXI0WUZVbUFBSGtrVG1Ud0dh?=
+ =?utf-8?B?NjZKTXF2TUttOUdQVE9veE9ETFFZa0p2czBVd1NreDlmQVpyZStRN2ZoVWF0?=
+ =?utf-8?B?M3FoejE4aFVaZ3BjbGQ3WjM5akJtQ3EwRzhtK0VRWFVqWHpPUWFjeW1wVHJL?=
+ =?utf-8?B?aGtrcTQvY21mRVZ1WWwremkxWHh2OExJTHM1SUdhK0d0aGtMclpTb1I4Ykhv?=
+ =?utf-8?Q?p0uNnLXTgPdONBy28qQoRLT1PSx8kjAAI8tHA=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(366016)(1800799024)(376014)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlhHNnh6bEhtWXZFVzVrOVZFd1plQ20vQ2V4TkExRnVvMGxZS2VONjNYamtt?=
- =?utf-8?B?eVdTMXZaWkdZeUs5TjZNN1lEY3V0WTFlMHV6ZUJvQTZaSEhDMW96OVFxTWJW?=
- =?utf-8?B?MmNJK0dFbHZ5eGNaU2V2bnhIWTBCRHVQUjM2WG56RzZJbnhsamV6ZnFKa2ZL?=
- =?utf-8?B?aEFwSURPM1BBQU9qUzA5VXdBYzNUQTFsSXdxeGhWZ2wydmx6ODJadnNXT2Q2?=
- =?utf-8?B?VW10bVF5bTlxbWpDVUh2elJraHNkYUd3TlhJNVFhR1RVRko1RlFJS3FEcExl?=
- =?utf-8?B?WU1YTWZzSjN0RTc2OHRabE9EVnpTSXRGb3dXUDlJQnRYZTJHTHJkTFpPVDhU?=
- =?utf-8?B?THlSSW1XRWJvWU52VC9uOEE0dnl5RllJbjRSTURYWXBCODhQUGNKcnlRb0JY?=
- =?utf-8?B?aWVFQmw0TE9KSHgySUtDbnlISU1xd2dRZjNYTlFmRGlidENFZVErd3JTTzRw?=
- =?utf-8?B?MkJGWlNwZmFmNTdDYTMyS3NIa29XbjlLWEZiMjk4RGZJd2tWbkEzU2JKQmU0?=
- =?utf-8?B?NTQ1eDA3NFVHTGt4ZzVuTEVyZXRsYzNyRXVGL0tGK1I3Y0Q1V1laMnZRVGU4?=
- =?utf-8?B?WTIrTkV1K1l0UDFCMks5WnJia1BBV3lSSGMvdFR5ZUxxYWJ4ZDNJZkdrcGtY?=
- =?utf-8?B?VjFleEQyT0lSaE00VXlyQm1JMXFLT09zN0xHOTZORmZmckdPbnlRU3lsNUJK?=
- =?utf-8?B?QVZ4aFNaWTh0V1ZCZVNsTFYwTHA1SFBNN05QV2Qra09KeWJ6dWVFZkVxakRM?=
- =?utf-8?B?aUFjcGdoVkVCUnZEZDJWeDVJMEZhZkk4cmpDVVNHanVNaWFVKzVoZWFPUDJV?=
- =?utf-8?B?dUpNaThoVXZ4YldpcFU0N0wwN054dzkwNkFMN1BrL1pHM2haSEVJOVNLbGVU?=
- =?utf-8?B?VWMwYS9pMXM2RGpVVlJORlF4VGRLeXVjZC85cnM0R3JmWmY3RXo1ckJJMjVh?=
- =?utf-8?B?dHI3MlZtQ3NCWkM5RVl0Q3NLVzJXMWJrakxkSTQwbEdGUDhNaVhHMkQ0Tm1V?=
- =?utf-8?B?V2RFVDVDZVlUSDdzRHBVKzFnR0JTcW0zN3lqRHk2eC91KzdvUGZ4UTRMVHBN?=
- =?utf-8?B?VHB3aE1WRzNUZTNMNmVjdVpBTVJwVU9pMlZJY1d1UWRXRkgxSXFpb2ltZUxi?=
- =?utf-8?B?RXVlclNLYnZub0VXZmxadkdyQ3RaS2NuaWNmWXNwZm53NmtPWENPZXVPaHlI?=
- =?utf-8?B?eDhwVGtmVVRQeW0wd3lNTzROUys4SktkemhEbjVFanE1aTR0U2JhOWliQ3Iz?=
- =?utf-8?B?cjJYVVhRTERWck1lTlhXOW1DT1ZlOWtOckRMamxPR1N1ekIrVzQyMkZNZnE4?=
- =?utf-8?B?Y1BUc2FqSVhUM0MyV3R1L21BRFJXOHpFUXlxcU05TmZQdlo5d1F5Q3NTMjJw?=
- =?utf-8?B?MERseG1FODlXM25BYmplNDhWVHV1QmlhVjh0QXFZdTBtUnR0Y08ydFVrR3Ez?=
- =?utf-8?B?WjJQc2hFb3N1VDJ1TnB0UkdnR2RaV085UEh0MWVaL2RHMnFkNUVwK242a2pX?=
- =?utf-8?B?K0JUK295d25lS1AyRHdXZUhoOWd4NjcrWGRvWGFaaTJCdFpYZGZ4WW1xNW9v?=
- =?utf-8?B?eEw2VG83YmFhbk53czNNMk5CZ2dFS1JHMWpCMTkvNzBNTnNhU3BGZGE3ZlJB?=
- =?utf-8?B?TVNjWnRVbkZrOHU0Q3ZGQWFTZTZRUjBDVEUwSGtIUUdzK1RYQ0FpV0ZjcnNa?=
- =?utf-8?B?OGVQbmNlU1NEb1dUQWNjSXpOOU1wblA4bENIaGtGZFZYVEpBZk1pY3NCcmY2?=
- =?utf-8?B?WVNKVVZtRUVlVXhpaUJsaFBKNjJ5d1duOTFtekF2di9PQnJuSzB5MXEzQWV1?=
- =?utf-8?B?QUhObTkvQjlmVWozejltdmIyUjU3R0d5UmxCRlhBVnpnSHF4SFVZc2ZvSEZI?=
- =?utf-8?B?bU5tZUo0L3dYY2pXcHVVUDlzSTV0b0hpSDZDT2l5ZWhIMS9WV2dHMHVlRWJE?=
- =?utf-8?B?NTQ5R1FldHpKOE1MRlhEUWFpUU5kSzhjRUs3LzhqaFQ1cTh0SVpObGhSQUhk?=
- =?utf-8?B?bGtnTTZwS05tdyt3QU1GSG5EU1JrNi9CWVJoLyt1WjBWcUIwRUtoa01ia3hu?=
- =?utf-8?B?Tm5LUTVBZ0lsSVVBT1cySHI3d1NkVElvMW9hd2lTYkZhWkpEQTRuZ2VFWUk0?=
- =?utf-8?Q?dW1Zmpf6tT62fp5zwSlvSxckC?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWVVemV1UHFwbHBSdTFKWjNOYi9UNDU2RDVVZW5Kb20zU1VqaitQdnlGdXJD?=
+ =?utf-8?B?dVVpUlFYY3FTSE9pOUhwbkg0Q3BSdnlnampiUnJoa2tIQk9OSjBqQkhFVmg4?=
+ =?utf-8?B?VGk3SnQ0emppaUNSZ2N3UVoyVjJqODVkZW5FeE5zcjNMSmRDRDV6UExUU2Jm?=
+ =?utf-8?B?WmE4V1B1eWI2S1JmMUlBd045a2ROVUx2cFVaWk9uQ0xtK2dIYlZObFNaYnRT?=
+ =?utf-8?B?azlZWW1TQmVMcm5JK0J4UVZSL1lFcEU1cXlWS2pUVXMzZEdZenhZSkJRUlVn?=
+ =?utf-8?B?Nkxtc1hTZDFPcmRueVNxc1lTbFlaMzk5K0ZLb3ZwSi9mRC9RN2FoSHJrQUsz?=
+ =?utf-8?B?Sk1EZjBmTkRUTGJsYTh0VDArZ3BKZlROZDYrVmVJaDVCRmNDN29hSnVEY3ph?=
+ =?utf-8?B?WUIyOHNvNVd1WG44cjVuUEx4R0FBLzg4Tm9DbVcxYU04QmtReFNUM0twTkhQ?=
+ =?utf-8?B?V2Q0M0NjN3I4M2JEVURQaC9TN1F4azUra2c5blRsZUsyVHF2T0M0WVV6eFg4?=
+ =?utf-8?B?Sy92YUl2SlpSV09RWkg1WDQwdzRmUzVQOWNwRFJrZjRlMVJrMTllTW01UUtq?=
+ =?utf-8?B?dVdOT3d4RnhRTk13clRHK1ZMNFNpRzVsQ3l6U2JnMEhkVU5NK1dFYVNsNWJY?=
+ =?utf-8?B?dXZYUTkyMkNCd2RibFhWSE1NNDRYYllvT3lWbTdLc1hGbE1SQUkvN1hZUjVu?=
+ =?utf-8?B?RnlZOG93WFdpU2loZEZqRk04aGJrcGZkNFRPcVlPUmw1eWNZNEdCQ3FpZS9v?=
+ =?utf-8?B?YnMvd1d0NERKRnJ4MGxlOUg3R3ZBK1Vab0ZDWUx5bEEwd1RiSUNqSzYwWTJG?=
+ =?utf-8?B?aTNLUElJR1BjRlBpTmNCc3dla3B3dE0wZGxNVm56TktqM3ZhMzFHN0Jqd3lx?=
+ =?utf-8?B?bzhqM1lSQkh2UUxrRnFCWG12dEdXSHZIaWsrQVFiTTc3QlVmRFFjOXo0V0l5?=
+ =?utf-8?B?VFBlRzlWREpLSWVrUnBxNTZReFZlS09sNk9KRWhZTEprd2gzTm0yOTVzbzZ6?=
+ =?utf-8?B?Qm40b0JlRXNYZXQvaUpRVTFJeTF0OXFVTGhJcXZXY1JBMTk2dWZKd1dRcjVx?=
+ =?utf-8?B?RGlnUlBhQVN0ZzcxMHk0RkFPSFQvZ1RLL0xuS05Pem9LOERmUGVlVHZvQ3lE?=
+ =?utf-8?B?SkxhUjA4a0F1RlAwaU1NNzhJTTV0WVJTYVpmOXk3SnFSMnUydUd1VEUyblRQ?=
+ =?utf-8?B?L2JXZWdMMytESHRrNDlSb0VvQzRHOW1QVW05QzJiTWNJb1U2TlZEeS8wdkw0?=
+ =?utf-8?B?eEJ3ZWIrY0VJaEhROW10c2FBWEo2Q2RXaW00VFdZL2RtT2N2M0FjaDNDeXRi?=
+ =?utf-8?B?WVBYdWJDcnFZRlZOWCtkZUR5QWw2U0p4NS9BaDRrVjZLNTgrYW5weit2cjVV?=
+ =?utf-8?B?anpSYkFDT2prL1JIaEtPV0t2NXZSdDRYa2k5WllpeWlLQThUOW41ZkpnZDNj?=
+ =?utf-8?B?KzVqOTJYL1YybkNzdHdrMXV4K1NsRXUwTlE5ZVlvSzlRbHNHdHZRWkIwWkx2?=
+ =?utf-8?B?Wm9PdzlRY2x4bXVjeDBmRG5FbGwxYlZqZHFmUWRCOW5ISjhtMkVybnl4ZnU4?=
+ =?utf-8?B?cWJNbk1BSWR2aXQvNU5LM1VoSGdHUSszZXhhbUx1TTI4cTVLOTdkU3BlN1pC?=
+ =?utf-8?B?REFTNUNqcHl2RnBKRUh6cG5HSzdtRElwc2trY1M0Zm1aRnYvUzhDcHMzTHZW?=
+ =?utf-8?B?QVdvWmpWSWdzODlGRjBqM3U0bEt0Y3A0TUxlQnRsRThuQ0JKQlZaRFRHeVA5?=
+ =?utf-8?B?WlZLK041RmhIQjhEYlcvRVJGZGltSGd0TWJmVkh5U2tkaitBT0Z6MWVJTm5s?=
+ =?utf-8?B?L3NvUCtTaDh2RElYamppV2VGWGlPYUg0Tkg2MEhrNGtUaDZXRzM0R24reUJT?=
+ =?utf-8?B?QytZN1h6WWYvbEdjcm04ZHVaNFd1Y2xFaXFTK1NqdGcrdGFmSmJJZThWM3Bw?=
+ =?utf-8?B?N3pwd3FYM3VqM0tnaFJxdFh3S3ZBNXpzK1JGRWJWR3RZYUhPWHIwOTRCK1No?=
+ =?utf-8?B?dWpqNVpJcHZPa0tXa3dGaFF3a0E0S2dqdHZIMEt3akxBVHc0WDVOUEpkeWVM?=
+ =?utf-8?B?RFkydEMyaUl2bTZzZWRwTUkzYkNHMURHZ3o3cnhCclBhZkQrYThadU1GV1Q1?=
+ =?utf-8?Q?OI2zoFqVTR4h46OjXWsbQUbuQ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1023182b-8bf9-40c3-ffb5-08dde400420f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d3e749f-da8d-4f69-aa84-08dde401879b
 X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2025 17:53:11.7500 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2025 18:02:17.9340 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: shtyN6U3xWfYay71/6DpacQGP5G2m7CmC0aa43XPKCMOPp5hKYkdknKiyEDOPrLk3TDqK3eX/merEQpwpdzR5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5881
+X-MS-Exchange-CrossTenant-UserPrincipalName: Et1wyZBRjFmsWxoNfWxHGclojqY8Dl2VcL6l+rCLqIVFr5JNCzYN2Qp4/vdNsrzKluuwHwm9jBgKz744QhXIZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5910
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,201 +162,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/24/2025 3:01 PM, Antheas Kapenekakis wrote:
-> Currently, the brightness quirk is limited to minimum brightness only.
-> Refactor it to a structure, so that more quirks can be added in the
-> future. Reserve 0 value for "no quirk", and use u16 to allow minimum
-> brightness up to 255.
+On 8/24/2025 3:02 PM, Antheas Kapenekakis wrote:
+> Certain OLED devices malfunction on specific brightness levels.
+> Specifically, when DP_SOURCE_BACKLIGHT_LEVEL is written to with
+> the first byte being 0x00 and sometimes 0x01, the panel forcibly
+> turns off until the device sleeps again.
 > 
+> Below are some examples. This was found by iterating over brighness
+
+brightness
+
+> ranges while printing DP_SOURCE_BACKLIGHT_LEVEL. It was found that
+> the screen would malfunction on specific values, and some of them
+> were collected. Summary examples are found below.
+> 
+> This quirk was tested by removing the workarounds and iterating
+> from 0 to 50_000 value ranges with a cadence of 0.2s/it. The
+> range of the panel is 1000...400_000, so the values were slightly
+> interpolated during testing. The custom brightness curve added on
+> 6.15 was disabled.
+> 
+>   86016:  10101000000000000
+>   86272:  10101000100000000
+>   87808:  10101011100000000
+> 251648: 111101011100000000
+> 251649: 111101011100000001
+> 
+>   86144:  10101000010000000
+>   87809:  10101011100000001
+> 251650: 111101011100000010
+> 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3803
 > Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
 
-'Conceptually' this idea makes sense to me if we do end up having a need 
-for new types of quirks besides minimum brightness.
+To me this sounds like a panel firmware bug that is best driven with the 
+panel vendor.  But I'm guessing you're reporting it on proudution 
+hardware already in the field right?  In the field it's basically 
+unheard of to update the panel firmware.  The process is generally 
+speaking too dangerous/fragile.
+
+So in that case a workaround would make sense.  The actual issue as I'm 
+hearing it is that some fractional brightness values aren't working? 
+The API takes millinits, and I guess this was exposed by increasing the 
+granularity of values that userspace can program recently.
+
+It's possible it was there before too, but there are probably "more" 
+values that can hit it.
+
 
 > ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++--
->   .../link/protocols/link_edp_panel_control.c   |  2 +-
->   drivers/gpu/drm/drm_panel_backlight_quirks.c  | 41 ++++++++++---------
->   include/drm/drm_utils.h                       |  7 +++-
->   4 files changed, 36 insertions(+), 26 deletions(-)
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 +++++
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 ++++
+>   drivers/gpu/drm/drm_panel_backlight_quirks.c  | 29 +++++++++++++++++++
+>   include/drm/drm_utils.h                       |  1 +
+>   4 files changed, 43 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index cd0e2976e268..4ad80ae615a2 100644
+> index 4ad80ae615a2..156f2aae6828 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3612,11 +3612,11 @@ static struct drm_mode_config_helper_funcs amdgpu_dm_mode_config_helperfuncs = {
->   
->   static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
->   {
-> +	const struct drm_panel_backlight_quirk *panel_backlight_quirk;
->   	struct amdgpu_dm_backlight_caps *caps;
->   	struct drm_connector *conn_base;
->   	struct amdgpu_device *adev;
->   	struct drm_luminance_range_info *luminance_range;
-> -	int min_input_signal_override;
->   
->   	if (aconnector->bl_idx == -1 ||
->   	    aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
-> @@ -3656,9 +3656,13 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
->   	else
->   		caps->aux_min_input_signal = 1;
->   
-> -	min_input_signal_override = drm_get_panel_min_brightness_quirk(aconnector->drm_edid);
-> -	if (min_input_signal_override >= 0)
-> -		caps->min_input_signal = min_input_signal_override;
-> +	panel_backlight_quirk =
-> +		drm_get_panel_backlight_quirk(aconnector->drm_edid);
-> +	if (!IS_ERR_OR_NULL(panel_backlight_quirk)) {
-> +		if (panel_backlight_quirk->min_brightness)
-> +			caps->min_input_signal =
-> +				panel_backlight_quirk->min_brightness - 1;
-> +	}
+> @@ -3662,6 +3662,9 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+>   		if (panel_backlight_quirk->min_brightness)
+>   			caps->min_input_signal =
+>   				panel_backlight_quirk->min_brightness - 1;
+> +		if (panel_backlight_quirk->brightness_mask)
+> +			caps->brightness_mask =
+> +				panel_backlight_quirk->brightness_mask;
+>   	}
 >   }
 >   
->   DEFINE_FREE(sink_release, struct dc_sink *, if (_T) dc_sink_release(_T))
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> index e7927b8f5ba3..a1f37267b85e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> @@ -201,7 +201,7 @@ bool edp_set_backlight_level_nits(struct dc_link *link,
->   			return false;
->   	} else if (link->backlight_control_type == BACKLIGHT_CONTROL_AMD_AUX) {
->   		struct dpcd_source_backlight_set dpcd_backlight_set;
-> -		*(uint32_t *)&dpcd_backlight_set.backlight_level_millinits = backlight_millinits;
-> +		*(uint32_t *)&dpcd_backlight_set.backlight_level_millinits = backlight_millinits | 3;
-
-This seems like a spurious change that was perhaps meant to be tied to a 
-new conceptual quirk.
-
->   		*(uint16_t *)&dpcd_backlight_set.backlight_transition_time_ms = (uint16_t)transition_time_in_ms;
+> @@ -4862,6 +4865,10 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+>   	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
+>   	link = (struct dc_link *)dm->backlight_link[bl_idx];
 >   
->   		uint8_t backlight_control = isHDR ? 1 : 0;
+> +	/* Apply brightness quirk */
+> +	if (caps->brightness_mask)
+> +		brightness |= caps->brightness_mask;
+> +
+
+I guess a problem I could see with using a mask is that there are 
+basically a bunch of values that are basically becoming no-op.
+
+An alternative would be to decrease the max value (IE some number 
+smaller than 65535 and scale so userspace doesn't request these "broken" 
+values).
+
+I'm not sure it's worth the effort though because you will probably 
+still find some subset of values with this problem.
+
+The other comment I would say is this is probably very specific to AMD 
+and the millinit based brightness API; it might be better to keep the 
+quirk localized to amdgpu.  I also talked to Phil offline about this and 
+he's got a draft patch that helps a similar system he's seeing this on 
+(presumably) with another panel.
+
+I think it's worth getting that patch onto the list and we can weigh out 
+the alternatives.
+
+>   	/* Change brightness based on AUX property */
+>   	mutex_lock(&dm->dc_lock);
+>   	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index b937da0a4e4a..340f9b5f68eb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -200,6 +200,12 @@ struct amdgpu_dm_backlight_caps {
+>   	 * @aux_support: Describes if the display supports AUX backlight.
+>   	 */
+>   	bool aux_support;
+> +	/**
+> +	 * @brightness_mask: After deriving brightness, or it with this mask.
+> +	 * This is used to workaround panels that have issues with certain
+> +	 * brightness values.
+> +	 */
+> +	u32 brightness_mask;
+>   	/**
+>   	 * @ac_level: the default brightness if booted on AC
+>   	 */
 > diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-> index b38b33e26ea5..702726c20ccc 100644
+> index 3d386a96e50e..78c430b07d6a 100644
 > --- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
 > +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-> @@ -8,23 +8,23 @@
->   #include <drm/drm_edid.h>
->   #include <drm/drm_utils.h>
->   
-> -struct drm_panel_min_backlight_quirk {
-> +struct drm_get_panel_backlight_quirk {
->   	struct {
->   		enum dmi_field field;
->   		const char * const value;
->   	} dmi_match;
->   	struct drm_edid_ident ident;
-> -	u8 min_brightness;
-> +	struct drm_panel_backlight_quirk quirk;
->   };
->   
-> -static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks[] = {
-> +static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks[] = {
->   	/* 13 inch matte panel */
->   	{
->   		.dmi_match.field = DMI_BOARD_VENDOR,
->   		.dmi_match.value = "Framework",
->   		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0bca),
->   		.ident.name = "NE135FBM-N41",
-> -		.min_brightness = 0,
-> +		.quirk = { .min_brightness = 1, },
->   	},
->   	/* 13 inch glossy panel */
->   	{
-> @@ -32,7 +32,7 @@ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks
->   		.dmi_match.value = "Framework",
->   		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x095f),
->   		.ident.name = "NE135FBM-N41",
-> -		.min_brightness = 0,
-> +		.quirk = { .min_brightness = 1, },
->   	},
->   	/* 13 inch 2.8k panel */
->   	{
-> @@ -40,12 +40,13 @@ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks
->   		.dmi_match.value = "Framework",
->   		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0cb4),
+> @@ -45,6 +45,35 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
 >   		.ident.name = "NE135A1M-NY1",
-> -		.min_brightness = 0,
-> +		.quirk = { .min_brightness = 1, },
+>   		.quirk = { .min_brightness = 1, },
 >   	},
+> +	/* Have OLED Panels with brightness issue when last byte is 0/1 */
+> +	{
+> +		.dmi_match.field = DMI_SYS_VENDOR,
+> +		.dmi_match.value = "AYANEO",
+> +		.dmi_match_other.field = DMI_PRODUCT_NAME,
+> +		.dmi_match_other.value = "AYANEO 3",
+> +		.quirk = { .brightness_mask = 3, },
+> +	},
+> +	{
+> +		.dmi_match.field = DMI_SYS_VENDOR,
+> +		.dmi_match.value = "ZOTAC",
+> +		.dmi_match_other.field = DMI_BOARD_NAME,
+> +		.dmi_match_other.value = "G0A1W",
+> +		.quirk = { .brightness_mask = 3, },
+> +	},
+> +	{
+> +		.dmi_match.field = DMI_SYS_VENDOR,
+> +		.dmi_match.value = "ONE-NETBOOK",
+> +		.dmi_match_other.field = DMI_PRODUCT_NAME,
+> +		.dmi_match_other.value = "ONEXPLAYER F1Pro",
+> +		.quirk = { .brightness_mask = 3, },
+> +	},
+> +	{
+> +		.dmi_match.field = DMI_SYS_VENDOR,
+> +		.dmi_match.value = "ONE-NETBOOK",
+> +		.dmi_match_other.field = DMI_PRODUCT_NAME,
+> +		.dmi_match_other.value = "ONEXPLAYER F1 EVA-02",
+> +		.quirk = { .brightness_mask = 3, },
+> +	}
 >   };
 >   
-> -static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_backlight_quirk *quirk,
-> -						  const struct drm_edid *edid)
-> +static bool drm_panel_min_backlight_quirk_matches(
-> +	const struct drm_get_panel_backlight_quirk *quirk,
-> +	const struct drm_edid *edid)
->   {
->   	if (!dmi_match(quirk->dmi_match.field, quirk->dmi_match.value))
->   		return false;
-> @@ -57,39 +58,39 @@ static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_bac
->   }
->   
->   /**
-> - * drm_get_panel_min_brightness_quirk - Get minimum supported brightness level for a panel.
-> + * drm_get_panel_backlight_quirk - Get backlight quirks for a panel
->    * @edid: EDID of the panel to check
->    *
->    * This function checks for platform specific (e.g. DMI based) quirks
->    * providing info on the minimum backlight brightness for systems where this
-> - * cannot be probed correctly from the hard-/firm-ware.
-> + * cannot be probed correctly from the hard-/firm-ware and other sources.
->    *
->    * Returns:
-> - * A negative error value or
-> - * an override value in the range [0, 255] representing 0-100% to be scaled to
-> - * the drivers target range.
-> + * a drm_panel_backlight_quirk struct if a quirk was found, otherwise an
-> + * error pointer.
->    */
-> -int drm_get_panel_min_brightness_quirk(const struct drm_edid *edid)
-> +const struct drm_panel_backlight_quirk *
-> +drm_get_panel_backlight_quirk(const struct drm_edid *edid)
->   {
-> -	const struct drm_panel_min_backlight_quirk *quirk;
-> +	const struct drm_get_panel_backlight_quirk *quirk;
->   	size_t i;
->   
->   	if (!IS_ENABLED(CONFIG_DMI))
-> -		return -ENODATA;
-> +		return ERR_PTR(-ENODATA);
->   
->   	if (!edid)
-> -		return -EINVAL;
-> +		return ERR_PTR(-EINVAL);
->   
->   	for (i = 0; i < ARRAY_SIZE(drm_panel_min_backlight_quirks); i++) {
->   		quirk = &drm_panel_min_backlight_quirks[i];
->   
->   		if (drm_panel_min_backlight_quirk_matches(quirk, edid))
-> -			return quirk->min_brightness;
-> +			return &quirk->quirk;
->   	}
->   
-> -	return -ENODATA;
-> +	return ERR_PTR(-ENODATA);
->   }
-> -EXPORT_SYMBOL(drm_get_panel_min_brightness_quirk);
-> +EXPORT_SYMBOL(drm_get_panel_backlight_quirk);
->   
->   MODULE_DESCRIPTION("Quirks for panel backlight overrides");
->   MODULE_LICENSE("GPL");
+>   static bool drm_panel_min_backlight_quirk_matches(
 > diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-> index 15fa9b6865f4..82eeee4a58ab 100644
+> index 82eeee4a58ab..6a46f755daba 100644
 > --- a/include/drm/drm_utils.h
 > +++ b/include/drm/drm_utils.h
-> @@ -16,7 +16,12 @@ struct drm_edid;
+> @@ -18,6 +18,7 @@ int drm_get_panel_orientation_quirk(int width, int height);
 >   
->   int drm_get_panel_orientation_quirk(int width, int height);
+>   struct drm_panel_backlight_quirk {
+>   	u16 min_brightness;
+> +	u32 brightness_mask;
+>   };
 >   
-> -int drm_get_panel_min_brightness_quirk(const struct drm_edid *edid);
-> +struct drm_panel_backlight_quirk {
-> +	u16 min_brightness;
-> +};
-> +
-> +const struct drm_panel_backlight_quirk *
-> +drm_get_panel_backlight_quirk(const struct drm_edid *edid);
->   
->   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
->   
+>   const struct drm_panel_backlight_quirk *
 
