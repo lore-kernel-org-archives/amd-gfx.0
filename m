@@ -4,73 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D892EC8303F
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 21:56:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7438CA0FE9
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 21:56:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78EBF10E5AE;
-	Mon, 25 Aug 2025 21:56:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 549D810E588;
+	Mon, 25 Aug 2025 21:56:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HtmI3c8K";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WBt8/hiX";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2637C10E5A7
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 21:56:38 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-45a1b065d59so27128305e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 14:56:38 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7119410E590
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 21:56:39 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-45a1b00f23eso28186315e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 14:56:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756158996; x=1756763796; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756158998; x=1756763798; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OXPv6kfo3MJBciV2mYcl1lSJPsJNkREjYzcWUM07boY=;
- b=HtmI3c8KM+KUKdZVu4ZS28G5BcFcDWnqR3sL/gA6bivvBex2a8bQFReV9ChgelMUh2
- bTgYKGH88/LJUUcgC5SgbSNRIe+xCVa6fdXF5wzXURqzNebGk8S4lyhVo7Dxw71cygFU
- zLeegOLsQ4gwr/f7GmhA0LifowRwjOma5eSgrPT/6eVO/0WSDhLTrTgbHr1s1k2troQB
- CBwEiZuT3A2N9Se5p2cpjx8z28Qj1C9lpRWC6kFCXy4z0MEtdN+dafE2SJb4C9k+Nhxk
- gywJpKZJEquJYyRyARmlCgxakGKqLsd6dNxfyFxIvtp9yNJvyRUw8S8o5jedenjnmQWZ
- i74w==
+ bh=31qEYxPgy9n98QIoff944uwxuxfCsmB0FwR4TgYXmZ0=;
+ b=WBt8/hiXHY8YJ6+3KyAVDmiPqYKdB4MI5wHNYRNtCROs+Epez9pp1i6gilIbimKnF7
+ VsP0MdPPODpEVOe5JXzCACAMwhOVeZeUfOTDc/u8rgeoWGW6YLZrhl02lbU3qqRNcsKF
+ QSvT5hbGmjeFSaK/I3vkOpl8fCZn/a7mpKa2T+SyF7zXIentCGTjtFBMr/A3djJDIvy+
+ B0zFuw6NBW0QHfFcWaesMEGUWH8ighNE3JDAxknCNcyQhGj5kYbFhKSYEQJ8fdvBWMp7
+ L2hZ4jv3wZJR3ZAfgECSt2JfGlWFsowjNkQx34iOKeUScdpCE+VsAA2orErb7+kpW7Vv
+ GImA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756158996; x=1756763796;
+ d=1e100.net; s=20230601; t=1756158998; x=1756763798;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OXPv6kfo3MJBciV2mYcl1lSJPsJNkREjYzcWUM07boY=;
- b=q70d3vC66qLSC90yQk1eGdFS7LKt63iY6Wiv1JW0ziSgMIJELkyknPQg6zQ1IQnC52
- 9+keGUImqnIgpm0tfHiuQzGmEwtHIv+6z0X9hlPLyhW3KMnnDfmLzO0Qsu9gFW+MeGeL
- oPInwlD+fMHaqRtpia6mHa7WDsQzooNZ6LlR2I33g2PWKH7z0Ml4dac6STmG+wE9GONx
- 4DxLF37ymPGfAAJlspLVM8yhg82bKaTix66boSGWHnES3gD3e4v+4Ey6kAvf8oKCqOTo
- xFBCKfGPwmGhkBN5R2i95U8G2l1DQ9wz9rlBNk7TOSqGulT+hZ5f1uzbi6CRqK9MynES
- gN2g==
-X-Gm-Message-State: AOJu0YxKIXZbG9gwKg8CKX2PkHRXp6D+S/NUpyQRk92lZ4c1h/bMxKcX
- Lr5eY3lmlusNy8E0rxI1j5COsjIL7bEHOR5a1Q/WGYlTZy5ieEAL///LipHgSw==
-X-Gm-Gg: ASbGnctkmZSQS+7VZH4aw3Rvpvnr4HH7IG1ZWhCm7WpusmfAOKllt4mwyJBM4+Cj8hy
- yxoRnZQ+qrvtUW8I3JiUqfhWmez5wveaqhJDX2yGGxnjsN508K3w+nLulzlIGvKZiZQAE+73wWN
- AyWySnPamp6JSWgfXMxnM6aQlUHy8ytd30Wyq4zIe0VxyibWRjTxLOxThkfJHB//2+ZJKUI82H8
- 1o0iFvqRG8LzLdoR5w5Q4pVpybHqQj9TVsci2G37qR1GFT7NB8UfcvtFUbKA9gB1FrFcC80+EQh
- wBzuw57Djpeg32kiFZNOFJdoo346ktY24jpRMwVkiIqV2bAJBM6HVgZqzOECbBTDGuowszHc93n
- 8C2qcgjFf2V7dRGvlvMBIm5u3x01yjQBW08bNK9VznV7oD16dR2PRPUUBH6LvzagaLMju99apAl
- 7FJhABSaAsJXeHjd2OG6HeDmgG9w==
-X-Google-Smtp-Source: AGHT+IEawFdGhKL6pnJGsxXe4kij1vC+phq0HI/o25xCgLh0NpgLhYy0L5FECYjMA+E2XGFJuQauqQ==
-X-Received: by 2002:a05:600c:1d0c:b0:456:fc1:c286 with SMTP id
- 5b1f17b1804b1-45b66eaddc9mr320745e9.1.1756158995590; 
- Mon, 25 Aug 2025 14:56:35 -0700 (PDT)
+ bh=31qEYxPgy9n98QIoff944uwxuxfCsmB0FwR4TgYXmZ0=;
+ b=n7JB72RCqloxjtcPhZcEmsHU4tzRDglrrjH/RqpO+mBnM1wYYlAfwepQpo31gejs7t
+ Q4+ZC2/YPtl61zm0Cao+4WaLdRjy+z0F6Uj00jDLqG8uKEqY21Ta2mv6+hlSa5D6neBx
+ dNnJNeoop9PR8RbBVF0Dx3zBpUpJ1Zhp3aDw7KxOrQFylKlSF2twj2NBLz7kOnJ9HyvA
+ y9YEfFBkJgTOhC3lvTyHOAschZJ6wGuP3p8iOchhgHr7/hA5fXnkgUQsqNnpbah/j8le
+ PPIbJmrWu1mj+ZPy3GsBxc6JjkV7aVnGZOtpJQQQM9W5j/HAmSGLFkd07jqUqHkbmtFy
+ Ztmg==
+X-Gm-Message-State: AOJu0YxmwLx9ON5hychxLyKp08EHbzT5oN2eTt8plQn5PYsmVOnEYjYm
+ TBPdMcjfpxVDoXddmLMm4Y5RaQld6hfjATuy6QDicvUzm5Pa94ogwt7VenK8ZQ==
+X-Gm-Gg: ASbGncskgWmhRgkPeJI+TLPM+AfzyOvK/j0/F0HB840Be26LhNCpIGosZ44GWUQ3+Bt
+ SUvRA+LvsxfC0mRv9c0vLZsJRkrIRd2yrDrwJjxhhWVyf0clYYeGouc2SSBy7i4uEYnOX+OZ8MF
+ WzIkCJGDvig82xatvu7tWlac4goV1YJstABaT7ub7fEDU7GqB+5rfArzZPJ3zy4sR6L/SsqoE2S
+ IiZ8PyCi+nCVDTNBm8zwh7C+/m4sdRCU8m1R0963qRzoZT1Rzh+OieZ094EhEbHB/NfH1tNUXdQ
+ BeDNUe5/js668Bcf6oB4vGcAizBrCAtvGlQE0oxhJdKRh22bGqLT+MHXLzxqNmMWUtUEAIZU1/k
+ TBgXC8fggYveiB4NLBzsr71vJG0FdrJZPlqtYmXUC3+4AFzOWnbD8e0RQJbp6E2TK5Ukn95l0+O
+ Zij7kYOpJZXVncsjdUgbQDaYABhg==
+X-Google-Smtp-Source: AGHT+IHPm/6ntYzmrzNZoZKorXcRpb+l8y86lwh9Iyy7gBvcaBaelwrTeyECyG63x1jwkxg5tr1dWA==
+X-Received: by 2002:a05:600c:4f03:b0:45b:5efb:2224 with SMTP id
+ 5b1f17b1804b1-45b60fb301emr38765625e9.23.1756158997855; 
+ Mon, 25 Aug 2025 14:56:37 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24E36900D571F3015BAFEA47.dsl.pool.telekom.hu.
  [2001:4c4e:24e3:6900:d571:f301:5baf:ea47])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b57499143sm121827575e9.26.2025.08.25.14.56.34
+ 5b1f17b1804b1-45b57499143sm121827575e9.26.2025.08.25.14.56.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Aug 2025 14:56:34 -0700 (PDT)
+ Mon, 25 Aug 2025 14:56:37 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexdeucher@gmail.com, alexander.deucher@amd.com, harry.wentland@amd.com,
  alex.hung@amd.com,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 1/4] drm/amd/display: Keep PLL0 running on DCE 6.0 and 6.4 (v2)
-Date: Mon, 25 Aug 2025 23:56:28 +0200
-Message-ID: <20250825215631.628949-2-timur.kristof@gmail.com>
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Subject: [PATCH 3/4] drm/amd/display: Disable VRR on DCE 6
+Date: Mon, 25 Aug 2025 23:56:30 +0200
+Message-ID: <20250825215631.628949-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250825215631.628949-1-timur.kristof@gmail.com>
 References: <20250825215631.628949-1-timur.kristof@gmail.com>
@@ -91,54 +92,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DC can turn off the display clock when no displays are connected
-or when all displays are off, for reference see:
-- dce*_validate_bandwidth
+DCE 6 was not advertised as being able to support VRR,
+so let's mark it as unsupported for now.
 
-DC also assumes that the DP clock is always on and never powers
-it down, for reference see:
-- dce110_clock_source_power_down
-
-In case of DCE 6.0 and 6.4, PLL0 is the clock source for both
-the engine clock and DP clock, for reference see:
-- radeon_atom_pick_pll
-- atombios_crtc_set_disp_eng_pll
-
-Therefore, PLL0 should be always kept running on DCE 6.0 and 6.4.
-This commit achieves that by ensuring that by setting the display
-clock to the corresponding value in low power state instead of
-zero.
-
-This fixes a page flip timeout on SI with DC which happens when
-all connected displays are blanked.
+The VRR implementation in amdgpu_dm depends on the VUPDATE
+interrupt which is not registered for DCE 6.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 ---
- .../amd/display/dc/resource/dce60/dce60_resource.c    | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 +++-
+ drivers/gpu/drm/amd/display/dc/dc_helper.c        | 5 +++++
+ drivers/gpu/drm/amd/display/dc/dm_services.h      | 2 ++
+ 3 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-index 53b60044653f..c164d2500c2a 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-@@ -881,7 +881,16 @@ static enum dc_status dce60_validate_bandwidth(
- 		context->bw_ctx.bw.dce.dispclk_khz = 681000;
- 		context->bw_ctx.bw.dce.yclk_khz = 250000 * MEMORY_TYPE_MULTIPLIER_CZ;
- 	} else {
--		context->bw_ctx.bw.dce.dispclk_khz = 0;
-+		/* On DCE 6.0 and 6.4 the PLL0 is both the display engine clock and
-+		 * the DP clock, and shouldn't be turned off. Just select the display
-+		 * clock value from its low power mode.
-+		 */
-+		if (dc->ctx->dce_version == DCE_VERSION_6_0 ||
-+			dc->ctx->dce_version == DCE_VERSION_6_4)
-+			context->bw_ctx.bw.dce.dispclk_khz = 352000;
-+		else
-+			context->bw_ctx.bw.dce.dispclk_khz = 0;
-+
- 		context->bw_ctx.bw.dce.yclk_khz = 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b944abea306d..80a221b7b701 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -10763,6 +10763,8 @@ static void get_freesync_config_for_crtc(
+ 		} else {
+ 			config.state = VRR_STATE_INACTIVE;
+ 		}
++	} else {
++		config.state = VRR_STATE_UNSUPPORTED;
  	}
+ out:
+ 	new_crtc_state->freesync_config = config;
+@@ -12664,7 +12666,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
  
+ 	dm_con_state = to_dm_connector_state(connector->state);
+ 
+-	if (!adev->dm.freesync_module)
++	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
+ 		goto update;
+ 
+ 	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_helper.c b/drivers/gpu/drm/amd/display/dc/dc_helper.c
+index 51e41aed7316..5a365bd19933 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_helper.c
+@@ -755,3 +755,8 @@ char *dce_version_to_string(const int version)
+ 		return "Unknown";
+ 	}
+ }
++
++bool dc_supports_vrr(const enum dce_version v)
++{
++	return v >= DCE_VERSION_8_0;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_services.h b/drivers/gpu/drm/amd/display/dc/dm_services.h
+index 7b9c22c45453..7b398d4f4439 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_services.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_services.h
+@@ -311,4 +311,6 @@ void dm_dtn_log_end(struct dc_context *ctx,
+ 
+ char *dce_version_to_string(const int version);
+ 
++bool dc_supports_vrr(const enum dce_version v);
++
+ #endif /* __DM_SERVICES_H__ */
 -- 
 2.50.1
 
