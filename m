@@ -4,144 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D95CDCA0FE1
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 07:45:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B030CA0FE1
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 09:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75F7E10E3F8;
-	Mon, 25 Aug 2025 07:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26C1010E42E;
+	Mon, 25 Aug 2025 09:26:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zRMBbuXK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XlG1Zg00";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56AC710E3FC
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 07:45:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PB1gE6rKEpozo/x/Jr9mXCDikW/3WsPSgZouF/gbaCiRV+axsZjsJC383WmInt+1rHIsylcOT+Ux/ImTbfDJyZb2KiigQa0i47ecw3BhutgpUY3LkkMm5ur3g3sZB8+1AKj0G1+fSbT/QIEtI+4tEjGgAEVevJGdf+FFjmZmChsR7HIJDcfXNyiM/P1yIRADx8VaJKSf0NOwQyz+/YePbIS/zAO5QpbWBAnDRK78MpWq7YwTU+2EJWhG1Z6Q7TOgpQjCNXNuEvTTo+YVBWExpf6w5gv1z9YB13nPe2YApI2nLi1takJLn5/bLpeTzOcuQRtT9zSE7jUJ24snL49PMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yyHiIPESK/LdlC4feHxn+LsLseGihw9zoBSCWoNM9tA=;
- b=IspYlywk/v6kpSQ4WIMO8sE9bzs3lD4SucczRBmCVnlyfFOLqC/6T3/8K8/GEsjbu/izVW590u6BtIVHeWRRyFtibdGAdaejAn5TXOoZAzdU5U600HahdTHrhnbLTA5JveTHdQ/tqSAPqFHt3bdFYcax6u1MRgev46Edsy4Yr/AlMsU9SSLzHM7o3GDnFEev4Va9/Iknv25j+av/LPiEZ2kVx1Tz1Pr9d1NHv+Rl2TAAZ8A7CLxH9tBEm4YHiDgfxb2i6weVX7j8osU8BW9IijTQs7Sx2azvC+Tib9nAKW6nw7XpPDHk7AL/Mn55OWLG1db2rGZSJHC+uMS3qMYycw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yyHiIPESK/LdlC4feHxn+LsLseGihw9zoBSCWoNM9tA=;
- b=zRMBbuXKSJkM63rGrd/wA8vkpuz0CJbKAg5qUeb0lQxQqUr4rRQeqplFUktak6R7APN78+9x0AlWOOauIMpF4JpBq7fTUvmZRPA0uFdX5g3Y8r9+BNXLUKe53LuTNyYFiHia9rjJGMCClIXSfQXn11kDEkhkEA9PwkwzV27W6VQ=
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- MN2PR12MB4238.namprd12.prod.outlook.com (2603:10b6:208:199::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.20; Mon, 25 Aug
- 2025 07:44:57 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.9052.017; Mon, 25 Aug 2025
- 07:44:57 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: fix shift-out-of-bounds in
- amdgpu_debugfs_jpeg_sched_mask_set
-Thread-Topic: [PATCH] drm/amdgpu: fix shift-out-of-bounds in
- amdgpu_debugfs_jpeg_sched_mask_set
-Thread-Index: AQHcFV6ao/HGqJpy+0OznCO+Z8CJubRy/UgA
-Date: Mon, 25 Aug 2025 07:44:57 +0000
-Message-ID: <DS0PR12MB7804B605E98E0D7DE452695F973EA@DS0PR12MB7804.namprd12.prod.outlook.com>
-References: <20250825012123.1383301-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20250825012123.1383301-1-Jesse.Zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-08-25T07:44:05.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB7804:EE_|MN2PR12MB4238:EE_
-x-ms-office365-filtering-correlation-id: 6cc0ba67-5c29-4c84-d8c3-08dde3ab49a5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?10fNriibrHcfCkUfYjI0rcwLQOszwYsWvfMaFpP713vf+OFf6WAd/zN9Wz+C?=
- =?us-ascii?Q?lskWvKlGQ0q9YIfF8afY1/vdkyrJcOB/n9Gnzgn7T1UUqiK3DqRcBmBqSu7S?=
- =?us-ascii?Q?o2BKepUN1pVhQwJMNWhprXh1ihyxrDgIi7HvMxOV9IjhdfIsRhRU3b4ift6i?=
- =?us-ascii?Q?5oH+mbSlTbx9uT9dj6S/Fe0usdXoBpqFts4s3U5FFkDI2/3JFKvDCFhyAomA?=
- =?us-ascii?Q?ZAAM6E6n2IsOxMQSMW8E3/hi2zbyIGv9eQDB5a2Hie/mjOziyeWnbHixD7XS?=
- =?us-ascii?Q?MC4ie3WfBEd/cO/m69tIAD2hS1n7RujVU1JR/UzzJIidI4Fu4hCbWt4mdh7e?=
- =?us-ascii?Q?60ea4qcaWAeVcEV5S6UJ9elZjkKZEVXL3Ayu7z7HsV7H3VFYTabG22vJ2o00?=
- =?us-ascii?Q?ymcwI8ZWyeSEXLsjN6/p7KWXYPl+Iim1wCdZgos9eSq7XXdFbaw83ljm6nGE?=
- =?us-ascii?Q?f9fBc3btsZfQK/Ug/usMckiWfw2Du0V5P2tqUeTibyhRF8QetkGEyqfpWhpA?=
- =?us-ascii?Q?4x6CFmRQNQ8z14Rd+aJS4KYcVHOjOh9KcZQp0NRrOZcIzA7SIY8AxOLHmOsV?=
- =?us-ascii?Q?SAX7rfXQHhj8NCIqJ03pEAb9dU7Z/5lizUifrcH3mKcpkkIxfXPAxAjgNAeF?=
- =?us-ascii?Q?xD1SKDp70iNtoOYmYAUWzl0hq/TbrbDIMDNyGJElicUPP8XESmtExNBNPAtV?=
- =?us-ascii?Q?+w9c20rVxGHV29vY1undgLO0a9tZFlgSzj+8+rSUdH4HpNycYgrwHf5cZlrH?=
- =?us-ascii?Q?Eb9RTehH9R0yYlCQEVUTqzefYZ04ZdknzEAL4Xd7cb9zFgovaILguZHZ5We8?=
- =?us-ascii?Q?Vffulb0wciaHA8nzhSwVhzZaZ7uRm97v0P+X9uFzXtY4ZOPuz0YW9x7p2Uji?=
- =?us-ascii?Q?5jABXU9ruAADV1WtY3TXJ9U18q+yOZdfx0ZFpEkEpq1lGSpZ5/qFcjz619ob?=
- =?us-ascii?Q?f7eRck09iH7fCpEOAJgubnA7+mizlileZ7HtxsjkCZohL/Yjdm56bTq693f8?=
- =?us-ascii?Q?w7U9FAYgdbWGGZFiG2DGMNbvrvcxCOW/Fp/5N7ZCscFyHOvD6m0Xdf3Tq0B9?=
- =?us-ascii?Q?WXq3S1JgVMHFFvH7z4jrPiEUBi+cC/wxBe4hcd9knesLqQImLFtSlqZL78R2?=
- =?us-ascii?Q?py2Y8jHaumagDsr37m5VXQ3JH+WYcfz+qXQE4obUCi/EUpRs6pjFPyjSGhHE?=
- =?us-ascii?Q?9EjxGFktIl3x+LXyFc4AZYbPkGxqIK3yOA8nnW9nMLGN7L3WA0DUCOI8CeDY?=
- =?us-ascii?Q?Pga/fxCG+Aey5Vz8FwVl6Q/F13a9vom/5tF2n2FhPqfW53bTGVoFI2LbUl4L?=
- =?us-ascii?Q?Z5qGDvY4XC09vANm+xYkNbUaQLJBAFDZvXksVU8OHODOHzBET1WWRZ0dAr8w?=
- =?us-ascii?Q?MmF466SIeAqJxFg2MrHzF8oee0zNh+3kPjvjhvThch8tDwwMCHK318B92bMq?=
- =?us-ascii?Q?iWoXXh9oZOJ0JUS/36yjo5KU1XgeZIv1OOKRiOwfpJY7O1zoLEMz2w=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Sf8yZBoXOUb9zEz3HkrtH3xNxPosxJbVxenQjecXYO5Qhn90qpyLSC1t40Eo?=
- =?us-ascii?Q?dAHaufYA9vdNYujuaPJlBQ7wHnmtpZWFLL6SKH6VShotsAzKoHwIVzTGV8YC?=
- =?us-ascii?Q?Ib/ZEUWgojlpQNMlBTO6YTxf54I93TjCeqV0VYhxwNwssIdSDjYt8K+DFmJB?=
- =?us-ascii?Q?q0D9uNES8uULTyEmKI0maHpzqgrJDvpVJfrRt3ng5eQN6YG+aJOOZfJZyvoE?=
- =?us-ascii?Q?O20dKvERKUrXYVzN9bXkR5dFxTRuSz4qmAIGh466rmB8rTwSQ7mF0wu1aTEP?=
- =?us-ascii?Q?orapeQyWXgivixIaSjpG7+A+PNJ8ya0dhhF69vNwBLevo/dFcp8CpTaZ23jm?=
- =?us-ascii?Q?6yn63M8gKN4tAZBgnrpZ1TrjgzQkK6H4Ckh29uosEgRGx6YafBQb59ElYu4B?=
- =?us-ascii?Q?evq1nqg7mqqO9ElDeJ8t6pYG/61OUAw3E5yE4o7U3bQa+KAnKSw+22lwXJp1?=
- =?us-ascii?Q?eeSFoHiHVZhWvoP4/MM2Wh0KD/xBgQEq43hgd65wCEmMDP8d6eOSk02A+4Q1?=
- =?us-ascii?Q?4hQwcNrmjTFXWCgTMB8IEDBvF95Xflj0pGpYbBnLdeYkOIg0oZgEsYGRj5pI?=
- =?us-ascii?Q?KmNZaN+eH9uDuaU3elmKhKzcspxEJb9JOb/ntHgbMolIDPbREPUoPgdffwNA?=
- =?us-ascii?Q?shpMLdx5hiiua8D5lC/SEx+FYH0Jr6bqyxGW9bK0AKbR5DV/Oe7O3+/CZ6fp?=
- =?us-ascii?Q?ka9WhkgaAFYqUQ/N1QK+RX8+NsZQp2Mo2PbJ75uoXOSLnkwzRn1y7F9DVts/?=
- =?us-ascii?Q?o/EU0xuLSeegpEG5VVvHj+P0HlHYvZ5Ii+VfBIC2DSuEexwX++ulb6vkmy2C?=
- =?us-ascii?Q?KknERflJa2mQWAfSt6QuX1ZmlHuuZATUgY/LoARJUq6YO1XauBDcxuiLvAOI?=
- =?us-ascii?Q?pylMTVEMTXUSt9FNBtt75KJNcX9+jsIvrU8Lmv4zCmajquYPQsrpSfGkmUVU?=
- =?us-ascii?Q?Qgpxj0D30gmWJprXneoZQw5C8Pt+k8i8BRugZnpNMRJ9xqbTLrXSzPXcDWRV?=
- =?us-ascii?Q?6WNjbpjdC3bingFCy/g8I5eFaSYi75LcvVaBFrptU2sdlHq53kE8fL6qZ80r?=
- =?us-ascii?Q?u8YTbg6JJTlx52EqmnHr1SLkomVMse8SZmn887coR6bp5Sw84YExfI+NtJ/5?=
- =?us-ascii?Q?kuqPH/8bZcwvw3+M3UT26SbRvIi39kqsBIRdS/AcySIBXl4lwWrj25Cg6v+e?=
- =?us-ascii?Q?zoMbEUf4czq2ZJHUJrKOk0AJG2T9rxm7HDGIMrhE+/QATCB+2nNlOTEdRInS?=
- =?us-ascii?Q?bFP69kv43Tg5RbJNZbPMH+q/Mob5TvaWhB2gRkJ5NRTegQYHxns+51kaMihH?=
- =?us-ascii?Q?ZR4xog4ha8QPtIWc7j9w7LI8tFLFHJUG/cxBKl0wcGAb0jlBCWtK/1NRkOow?=
- =?us-ascii?Q?aE1ecx8ZfQ5g7ch4vEKdGjLm0eeiHm+bhrv0zT4yacRecJtM6f05N7nbbBmm?=
- =?us-ascii?Q?ruKgtas21/u9EUCQo9qNekTkiDo6CMsSQpQ727l6ekmcOdiouXD4ButyNwEo?=
- =?us-ascii?Q?Gt3XxyFFaRqf423mHanhASLfU9+uQgpHizizMdTwN4JHrroMmvpr8PZ2CrZN?=
- =?us-ascii?Q?XGac2gsd0iUHLxR5uwU=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA33D10E42C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 09:26:43 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57P8PGdo019764
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 09:26:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=4EjmfETgNQm/Vlvha9wFXQHI
+ t0wG5jz8jtoxkPVtlaI=; b=XlG1Zg007yo8B7QsjnIaAxiPH9JAUnbzR9Sab0I3
+ YHz+BiXJi/mP3RdpI6WVigzYtLwx6oOTG51Yrn9GneL9axk7y47GahXNS9xHdBjR
+ macTnmoASdfVIYIxqLuL6IG9rUS79yUrksDyXcUVlWzqceHPjXh9qS9iLGIUXpD/
+ DSRuKz3jSsmXW4rBN0qDlOv+LSLwxTV4d2ZA1U1bUOUV0/MJ/FRiNDO0/Lq1GpUR
+ M2uUZlHtnqYt/POZif6PT/757sXTQfYKiUhKtzVg1qCLtyAudYXo+28fu7weMMll
+ DeMHZH3f2KfZzHtUTT0b25G8n5UTpdC64UeVQaf4Pz6+0w==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48q615chk4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 09:26:42 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-70db892e7b2so21344476d6.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 02:26:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756114002; x=1756718802;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4EjmfETgNQm/Vlvha9wFXQHIt0wG5jz8jtoxkPVtlaI=;
+ b=Wu52JgWXM06lVxTBurYdmkrg0r07JQePzNc+TD0qsdoq3eyXr25vHUCh0WMxgmsELF
+ AvdS1CsG+4ywgxGbzSGnJme9r6ZBelyIUIx+3/rnM0Sjh4ymBkDJliPmAjRdEFVY+7vb
+ +jst43x0+wx0IR2ZCrnwCYvqOhZeUXoaSGFvMHFyF+twdfImrUCo5kOhs92RgxdK2lWK
+ qGpwcAhPpKsVYt2Tfxr6n9k6wSXZoV0eyuifj5fI6WISGxgkWTNquyRihT2gRzowFzwG
+ tP1zMzwGwEQP8QDWHIv6PXnnWXw3v3M3HCgwvNbP2w+vMmQYW54LG6sinksaycVI5+ZZ
+ ZtAQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWcCrTVn5o8tM6bNVs/yPq6o1Sw6ergNbYGHhhQaYMZCG4uLo46owGfZyXNTyn3d+N/+gHiCTPI@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/rmjraYH8OIoMn0+ykIdH/ZDAbjnWbPtWext8lHGzM8qVP6Vz
+ 4qWNorlOuPwuxYXhFowXAZgXjNwmMPj6Q0yZRl+9ounwd6rH+7gHvLTTLd6c94bsa3C4iTQUTOB
+ HPn+vimN5p+r4kqbul73Akp7gf82PaPB6e5MF4xZdrnjN+7J3lxvAvVoL2e9cIzpHd2bW
+X-Gm-Gg: ASbGncsMCu82LilLMoul2OQfZy5y6pa+9+GrDqKezAw5RuAQPYVF5yiyQeOVf7drzGl
+ Ejix7fkplCRyLy31Qv5XpG9bYjwCtXfgBjiywkMTvaESeRRSWE+AU8cFWe4bvQG8at7aQHIgtHG
+ OzHTssZNbMfAFT4RN2VZTEh8DAf2zmsOY7CyyhPHiFCuwVN6DsVmf1XKwuAGofqcoIixbOyCciG
+ q5pk+SgtO/nRWygObjvr90lxbloXPLeXJaCVVq5xMcTesukPlEeTV68m8ly9YZIn4fqF/kJB9Dc
+ NdikXgCveE1BDqn9rMhLPTl3VfNb07IPETt+PPfEQtRVazllp903votsw3pnope6nvegrtRR+Ez
+ NXYxy1/s/KwuLjcQjpK8t+oBJyxFKv8Ltu8ySbnrcIl1jNclxJC37
+X-Received: by 2002:a05:6214:4a02:b0:70d:a44c:7888 with SMTP id
+ 6a1803df08f44-70da44c7dc8mr92019706d6.24.1756114001809; 
+ Mon, 25 Aug 2025 02:26:41 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEm4osqf3FKfdRsdXmqHxRRVdAGOSVE7liNGQR4vahCuDo4dZvvt3gTYb3tINRaNS66Ihgu0w==
+X-Received: by 2002:a05:6214:4a02:b0:70d:a44c:7888 with SMTP id
+ 6a1803df08f44-70da44c7dc8mr92019466d6.24.1756114001224; 
+ Mon, 25 Aug 2025 02:26:41 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3365e20ed53sm15882191fa.4.2025.08.25.02.26.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Aug 2025 02:26:40 -0700 (PDT)
+Date: Mon, 25 Aug 2025 12:26:38 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+Cc: "mripard@kernel.org" <mripard@kernel.org>,
+ "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ "Murthy, Arun R" <arun.r.murthy@intel.com>,
+ "Shankar, Uma" <uma.shankar@intel.com>,
+ "Nikula, Jani" <jani.nikula@intel.com>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "siqueira@igalia.com" <siqueira@igalia.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>,
+ "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
+ "sean@poorly.run" <sean@poorly.run>,
+ "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
+ "mcanal@igalia.com" <mcanal@igalia.com>,
+ "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
+ "tomi.valkeinen+renesas@ideasonboard.com"
+ <tomi.valkeinen+renesas@ideasonboard.com>, 
+ "kieran.bingham+renesas@ideasonboard.com"
+ <kieran.bingham+renesas@ideasonboard.com>, 
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
+Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
+ structure
+Message-ID: <tk2x6a3laaiwa2tiaewa4esl5o2gi363h3tfb5uha6apno34gr@fxqbhixyicw6>
+References: <20250811092707.3986802-2-suraj.kandpal@intel.com>
+ <20250811094429.GE21313@pendragon.ideasonboard.com>
+ <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
+ <20250811111546.GA30760@pendragon.ideasonboard.com>
+ <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
+ <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
+ <aJ4LQvqli36TlETu@e110455-lin.cambridge.arm.com>
+ <hc6f6wgsnauh72cowocpm55tikejhiha5z4mgufeq7v6gb2qml@kmgfd26bigos>
+ <wr76vyag2osox2xf7ducnkiaanzk2k5ehd2ahnoyqdm5qiywlk@penf4v5bvg5z>
+ <DM3PPF208195D8D87AECE8397914A67D9A1E33EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6cc0ba67-5c29-4c84-d8c3-08dde3ab49a5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2025 07:44:57.0835 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tJOjMBa8o+s8mzL3325x3nKJc7773pCUCezxocVBf/H8XPWJFiAMw4hdL2lY6lXA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4238
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM3PPF208195D8D87AECE8397914A67D9A1E33EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzNCBTYWx0ZWRfXzVeqZ6mFsDHF
+ cB+guYIFOc7XLjJSXfbWLhdk+zzDhW/6TXAPUAc5nORBeAkMKaKavUGB2KoS7Z5k8mjegQrNVrZ
+ ioWK5nbwKyKC5rQct7yNaSzeWClhA75rDZspwUwShs+r6pKoRJxa8Llj2YtfX1cMhHhwqUkXuB1
+ EtgfJZstCZpyAh6BnUJXRuzcTQUxRsC1TNWbylYm+gqoXWZJUJdxtI/O/DrW16hjO7pq8t6IgBj
+ hF8wzToNbMmRRefe6YwD80k5tGj7YvIdILOkMgS/xPJeQfe6FafxqS3z/99aWi0cgzXfYmfCzaz
+ 9hPBE6YP3P/+LFRscamOIpmt1ndH7K8Q25ggmrAEvBgaUwFsm5cvUjxMqGiaRuNJOYptwn2Ia1W
+ 2fAEsAtR
+X-Proofpoint-GUID: aLX6N6g_CXTNI41HpfvRKenGBYsK642H
+X-Authority-Analysis: v=2.4 cv=K+AiHzWI c=1 sm=1 tr=0 ts=68ac2c52 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=2bDsevyxfkvo1t3REK0A:9
+ a=CjuIK1q_8ugA:10 a=OIgjcC2v60KrkQgK7BGD:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: aLX6N6g_CXTNI41HpfvRKenGBYsK642H
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-25_04,2025-08-20_03,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508230034
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,65 +164,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On Mon, Aug 25, 2025 at 06:26:48AM +0000, Kandpal, Suraj wrote:
+> > Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor
+> > drm_writeback_connector structure
+> > 
+> > Hi,
+> > 
+> > On Sat, Aug 16, 2025 at 01:20:53AM +0300, Dmitry Baryshkov wrote:
+> > > On Thu, Aug 14, 2025 at 05:13:54PM +0100, liviu.dudau@arm.com wrote:
+> > > > Hi,
+> > > >
+> > > > On Wed, Aug 13, 2025 at 10:04:22AM +0000, Kandpal, Suraj wrote:
+> > > > > > > > };
+> > > > > > >
+> > > > > > > I still don't like that. This really doesn't belong here. If
+> > > > > > > anything, the drm_connector for writeback belongs to drm_crtc.
+> > > > > >
+> > > > > > Why? We already have generic HDMI field inside drm_connector. I
+> > > > > > am really hoping to be able to land DP parts next to it. In
+> > > > > > theory we can have a DVI- specific entry there (e.g. with the
+> > subconnector type).
+> > > > > > The idea is not to limit how the drivers subclass those structures.
+> > > > > >
+> > > > > > I don't see a good case why WB should deviate from that design.
+> > > > > >
+> > > > > > > If the issue is that some drivers need a custom drm_connector
+> > > > > > > subclass, then I'd rather turn the connector field of
+> > > > > > > drm_writeback_connector into a pointer.
+> > > > > >
+> > > > > > Having a pointer requires additional ops in order to get
+> > > > > > drm_connector from WB code and vice versa. Having
+> > > > > > drm_connector_wb inside drm_connector saves us from those ops
+> > (which don't manifest for any other kind of structure).
+> > > > > > Nor will it take any more space since union will reuse space
+> > > > > > already taken up by HDMI part.
+> > > > > >
+> > > > > > >
+> > > > >
+> > > > > Seems like this thread has died. We need to get a conclusion on the
+> > design.
+> > > > > Laurent do you have any issue with the design given Dmitry's
+> > > > > explanation as to why this Design is good for drm_writeback_connector.
+> > > >
+> > > > I'm with Laurent here. The idea for drm_connector (and a lot of drm
+> > > > structures) are to be used as base "classes" for extended
+> > > > structures. I don't know why HDMI connector ended up inside
+> > > > drm_connector as not all connectors have HDMI functionality, but that's a
+> > cleanup for another day.
+> > >
+> > > Maybe Maxime can better comment on it, but I think it was made exactly
+> > > for the purpose of not limiting the driver's design. For example, a
+> > > lot of drivers subclass drm_connector via drm_bridge_connector. If
+> > > struct drm_connector_hdmi was a wrapper around struct drm_connector,
+> > > then it would have been impossible to use HDMI helpers for bridge
+> > > drivers, while current design freely allows any driver to utilize
+> > > corresponding library code.
+> > 
+> > That's exactly why we ended up like this. With that design, we wouldn't have
+> > been able to "inherit" two connector "classes": bridge_connector is one,
+> > intel_connector another one.
+> > 
+> > See here for the rationale:
+> > https://lore.kernel.org/dri-devel/ZOTDKHxn2bOg+Xmg@phenom.ffwll.local/
+> > 
+> > I don't think the "but we'll bloat drm_connector" makes sense either.
+> > There's already a *lot* of things that aren't useful to every connector (fwnode,
+> > display_info, edid in general, scaling, vrr, etc.)
+> > 
+> > And it's not like we allocate more than a handful of them during a system's life.
+> 
+> So Are we okay with the approach mentioned here with the changes that have been proposed here like
+> Having drm_writeback_connector in union with drm_hdmi_connector
+> Also one more thing I would like to clarify here is how everyone would like the patches
+> patches where each patch changes both the drm core and all related drivers (ensures buildability but then review is tough for each driver).
+> Or patches where we have initial drm core changes and then each patch does the all changes in a driver in its own respective patch.
 
-(For the updated patch)
+The kernel must be bisectable. Which means that after each patch in the
+series the kernel must build completely and work without additionally
+introduced issues.
 
-You may use BIT_ULL. That aside,
-
-        Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-Thanks,
-Lijo
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jesse.Zh=
-ang
-Sent: Monday, August 25, 2025 6:51 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: fix shift-out-of-bounds in amdgpu_debugfs_jpeg=
-_sched_mask_set
-
-Fix a UBSAN shift-out-of-bounds warning in amdgpu_debugfs_jpeg_sched_mask_s=
-et
-when the shift exponent reaches or exceeds 32 bits. The issue occurred beca=
-use a 32-bit integer '1' was being shifted by up to 32 bits, which is undef=
-ined behavior.
-
-Replace '1' with '1ULL' to ensure 64-bit arithmetic, matching the u64 type =
-of 'val' and preventing the shift overflow. This is consistent with the exi=
-sting mask calculation that already uses 1ULL.
-
-The error manifested as:
-UBSAN: shift-out-of-bounds in drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c:373:=
-17
-shift exponent 32 is too large for 32-bit type 'int'
-v2: remove debug log
-
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_jpeg.c
-index 5d5e9ee83a5d..88090adcb24b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-@@ -370,7 +370,7 @@ static int amdgpu_debugfs_jpeg_sched_mask_set(void *dat=
-a, u64 val)
-        for (i =3D 0; i < adev->jpeg.num_jpeg_inst; ++i) {
-                for (j =3D 0; j < adev->jpeg.num_jpeg_rings; ++j) {
-                        ring =3D &adev->jpeg.inst[i].ring_dec[j];
--                       if (val & (1 << ((i * adev->jpeg.num_jpeg_rings) + =
-j)))
-+                       if (val & (1ULL << ((i * adev->jpeg.num_jpeg_rings)=
- + j)))
-                                ring->sched.ready =3D true;
-                        else
-                                ring->sched.ready =3D false;
---
-2.49.0
-
+-- 
+With best wishes
+Dmitry
