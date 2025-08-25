@@ -4,77 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA73CA0FE9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1BDFCA0FF8
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 07:49:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E94D10E602;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A46510E606;
 	Tue, 26 Aug 2025 07:49:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="HhNyQsIi";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="Gz6bTryg";
 	dkim-atps=neutral
-Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6190B10E583;
- Mon, 25 Aug 2025 21:26:21 +0000 (UTC)
-Received: from relay10 (localhost.localdomain [127.0.0.1])
- by relay10.grserver.gr (Proxmox) with ESMTP id BC4DC3EBD4;
- Tue, 26 Aug 2025 00:26:19 +0300 (EEST)
+Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE54C10E262;
+ Mon, 25 Aug 2025 14:01:17 +0000 (UTC)
+Received: from relay11 (localhost.localdomain [127.0.0.1])
+ by relay11.grserver.gr (Proxmox) with ESMTP id 9200AC66D0;
+ Mon, 25 Aug 2025 17:01:16 +0300 (EEST)
 Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by relay10.grserver.gr (Proxmox) with ESMTPS id A3BB33EBDB;
- Tue, 26 Aug 2025 00:26:18 +0300 (EEST)
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
- [209.85.208.181])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id 015251FDEAB;
- Tue, 26 Aug 2025 00:26:17 +0300 (EEST)
+ by relay11.grserver.gr (Proxmox) with ESMTPS id C8901C66D3;
+ Mon, 25 Aug 2025 17:01:14 +0300 (EEST)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id 4D1FE2065C4;
+ Mon, 25 Aug 2025 17:01:14 +0300 (EEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1756157178;
- bh=V0HNj3ZuBEySE9S+KwS5+gnEq0DcfBKYnxeQi/M7DTI=;
+ s=default; t=1756130474;
+ bh=jUm2cs0MxLstzqDw/bvRmVyb9uCYh++AUfp1YcHAGdU=;
  h=Received:From:Subject:To;
- b=HhNyQsIi01TcuYe/9cQEjMnhNUBR379zlIgNjyu8apMGi4Xv+GAs5GD5Dfq+2if8Y
- KxmbGOFQLPzNiUgNlCpc8VvRHOpUSrYZioDDtIiQTXaF7V9EP/xsQS4/cE/a+SR6nj
- 7zok8THhgfJNmnBc3NC6exnDY+2bxnlURwjZQG6m5FelwyXhWBc5zKvbdvwPnDS1dF
- NQssXob5WGguTENmkzfNc03rKqyeaisDsVdeD3DvJ2WN70hEH/d4jf+l2zxQgHRFjk
- wZeONw/kDMcVQlKxn7DeMRwv5LxEh2ovOEiA2D7PTey0U8/xfkoSPGpnP2GMzYt+LE
- LAacYpdwfFB8Q==
+ b=Gz6bTrygMp695Wmad6nnOfB3u5p1zJ+Sxou0/9kdnBWvxIRVVjN3CbGrrhxHaLsAn
+ 3hAcC6gD0e/Q2Mym/MjdqD/ciZ3SJsslju2jyw7VTFhNCgzZOAr7Qp82P/GI12G8qI
+ TiuU2EYAKo66isnRsSWlNPV6eY/oGqhE1YThDw3za3jV0s0PNLlCYEoNHR6+QLAHEz
+ h4yzUPc2mXtjwJfwjm3JmCUL8oCy2TcHpvUt21N0d7ouR3U7AoPqk9Xr1aRvQz2StQ
+ 0imNIJ9aUhRtx0tW9SGYK///44PMN5xoEyQZsTsjLsltwYPBjlpaammHI/nQhyoQyJ
+ vGn+h+NTmtjcA==
 Authentication-Results: linux3247.grserver.gr;
- spf=pass (sender IP is 209.85.208.181) smtp.mailfrom=lkml@antheas.dev
- smtp.helo=mail-lj1-f181.google.com
+ spf=pass (sender IP is 209.85.208.175) smtp.mailfrom=lkml@antheas.dev
+ smtp.helo=mail-lj1-f175.google.com
 Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-333f901b2d2so39402591fa.2;
- Mon, 25 Aug 2025 14:26:17 -0700 (PDT)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-33682342180so2131811fa.0;
+ Mon, 25 Aug 2025 07:01:14 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCVH7AlBNtjalx0JMjq/MUSFXCIcjz/LNTGCVUqm1/RuVWPkcrXWnhuqNSijaUZ96MM4BEEtC0Dv7gU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyVi/BfjP6y1DKiC6KiI/byaLb5i7y2XtUBJyw336eMtM2mXHFy
- 4NbZ3UZTvGiDFt1imdJaeSfIBUiuVzYZ6A+P4nIZETE78wHpm5I+ZfONLIKK2Y1ABXi3bfszr6L
- q75p2XbFRBKf8Dz//rGTZOea10aXhJFo=
-X-Google-Smtp-Source: AGHT+IH4N72k6FP3I024F8/mlh/LXuGTX+r1yhRIqRg6RvRIzkLuPe0EIybMrx1rfolEKdlh6EqxciQ25PA4Q1kJKK0=
-X-Received: by 2002:a05:651c:20cc:20b0:32b:78ce:be8e with SMTP id
- 38308e7fff4ca-33650faa9c1mr26623951fa.32.1756157177446; Mon, 25 Aug 2025
- 14:26:17 -0700 (PDT)
+ AJvYcCU5Gepe/JdioCpIL7XXUO/4nDRXNUpplZNvhN7P1RbubmyllZ1A/cODTbgSK/s7H6h55kctswMSQSw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEJN857KIaQwyQT2gKUAXtj0+uQi+8/4qSQ6N0OLbIxWGEoekC
+ GuYNZkxn8DoYxGY/72Dftf9Oi4YLbn95zgkPlRxhg5AywCXJXVpFH1Kq80D3ZLdGBxO5bFXleZx
+ TiQB1tKTs6Ouhx8aN7823QnER9OZRoRQ=
+X-Google-Smtp-Source: AGHT+IEgIFu2a7sSoFRT1MWLt6wWj0nqliXMoBwBzszCtWscNMu9jYuezQU31rkuIloH/F6+esORXsebg9pTT8CGEEQ=
+X-Received: by 2002:a2e:bc02:0:b0:336:527a:5b4d with SMTP id
+ 38308e7fff4ca-336527a5f6bmr35365301fa.19.1756130473726; Mon, 25 Aug 2025
+ 07:01:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250824200202.1744335-1-lkml@antheas.dev>
- <20250824200202.1744335-5-lkml@antheas.dev>
- <3b420fb9-9f85-4586-a887-f38804007cb8@amd.com>
- <CAGwozwGQgnZO0V1eNwbO3w7DyaEnfC+OXD0h6r_ZKLcTS42u9A@mail.gmail.com>
- <b189d2c2-3b50-43c9-bcd8-7b0f353786f7@amd.com>
-In-Reply-To: <b189d2c2-3b50-43c9-bcd8-7b0f353786f7@amd.com>
+References: <20250824085351.454619-1-lkml@antheas.dev>
+ <CADnq5_MEhMha47V25SK4cZkd8TLcizR_y0si2n9jSDjJTXeoRQ@mail.gmail.com>
+ <CAGwozwF=UKhG0HU_cxaY8957rscY=W4_VK+z==3vkKJJWZehzQ@mail.gmail.com>
+In-Reply-To: <CAGwozwF=UKhG0HU_cxaY8957rscY=W4_VK+z==3vkKJJWZehzQ@mail.gmail.com>
 From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Mon, 25 Aug 2025 23:26:06 +0200
-X-Gmail-Original-Message-ID: <CAGwozwHz=gxF5HrA7NoJxXBUKO-sVdsFEA4vguSFSZk-LxSbMg@mail.gmail.com>
-X-Gm-Features: Ac12FXy2PePmsXBjsCCgS0POTqqCH1-XpH7fSEhoXUfK7aRlJOoLU2bwv1xFCbc
-Message-ID: <CAGwozwHz=gxF5HrA7NoJxXBUKO-sVdsFEA4vguSFSZk-LxSbMg@mail.gmail.com>
-Subject: Re: [PATCH v1 4/5] drm: panel-backlight-quirks: Add brightness mask
- quirk
-To: Mario Limonciello <mario.limonciello@amd.com>
+Date: Mon, 25 Aug 2025 16:01:00 +0200
+X-Gmail-Original-Message-ID: <CAGwozwFmfBrnZBO6JRZPnPyHLrKycdnoMRtOkK+KpwkdQ4Fw=w@mail.gmail.com>
+X-Gm-Features: Ac12FXyQXp39OEOxY06bF-IxIMDwCeQYQShgDJkivBsTcvO9jU_0oGLfwxsrQbI
+Message-ID: <CAGwozwFmfBrnZBO6JRZPnPyHLrKycdnoMRtOkK+KpwkdQ4Fw=w@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] drm/amdgpu/vpe: increase VPE_IDLE_TIMEOUT to fix
+ hang on Strix Halo
+To: Alex Deucher <alexdeucher@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, philm@manjaro.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Peyton Lee <peytolee@amd.com>, 
+ Lang Yu <lang.yu@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: <175615717819.2953402.10065476733140451513@linux3247.grserver.gr>
+Content-Transfer-Encoding: quoted-printable
+X-PPP-Message-ID: <175613047452.1417582.490837104863436972@linux3247.grserver.gr>
 X-PPP-Vhost: antheas.dev
 X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
 X-Virus-Status: Clean
@@ -93,228 +96,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 25 Aug 2025 at 23:22, Mario Limonciello
-<mario.limonciello@amd.com> wrote:
+On Mon, 25 Aug 2025 at 15:33, Antheas Kapenekakis <lkml@antheas.dev> wrote:
 >
-> On 8/25/2025 4:17 PM, Antheas Kapenekakis wrote:
-> > On Mon, 25 Aug 2025 at 20:02, Mario Limonciello
-> > <mario.limonciello@amd.com> wrote:
-> >>
-> >> On 8/24/2025 3:02 PM, Antheas Kapenekakis wrote:
-> >>> Certain OLED devices malfunction on specific brightness levels.
-> >>> Specifically, when DP_SOURCE_BACKLIGHT_LEVEL is written to with
-> >>> the first byte being 0x00 and sometimes 0x01, the panel forcibly
-> >>> turns off until the device sleeps again.
-> >>>
-> >>> Below are some examples. This was found by iterating over brighness
-> >>
-> >> brightness
-> >>
-> >>> ranges while printing DP_SOURCE_BACKLIGHT_LEVEL. It was found that
-> >>> the screen would malfunction on specific values, and some of them
-> >>> were collected. Summary examples are found below.
-> >>>
-> >>> This quirk was tested by removing the workarounds and iterating
-> >>> from 0 to 50_000 value ranges with a cadence of 0.2s/it. The
-> >>> range of the panel is 1000...400_000, so the values were slightly
-> >>> interpolated during testing. The custom brightness curve added on
-> >>> 6.15 was disabled.
-> >>>
-> >>>    86016:  10101000000000000
-> >>>    86272:  10101000100000000
-> >>>    87808:  10101011100000000
-> >>> 251648: 111101011100000000
-> >>> 251649: 111101011100000001
-> >>>
-> >>>    86144:  10101000010000000
-> >>>    87809:  10101011100000001
-> >>> 251650: 111101011100000010
-> >>>
-> >>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3803
-> >>> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
-> >>
-> >> To me this sounds like a panel firmware bug that is best driven with the
-> >> panel vendor.  But I'm guessing you're reporting it on proudution
-> >> hardware already in the field right?  In the field it's basically
-> >> unheard of to update the panel firmware.  The process is generally
-> >> speaking too dangerous/fragile.
-> >>
-> >> So in that case a workaround would make sense.  The actual issue as I'm
-> >> hearing it is that some fractional brightness values aren't working?
-> >> The API takes millinits, and I guess this was exposed by increasing the
-> >> granularity of values that userspace can program recently.
-> >>
-> >> It's possible it was there before too, but there are probably "more"
-> >> values that can hit it.
+> On Mon, 25 Aug 2025 at 15:20, Alex Deucher <alexdeucher@gmail.com> wrote:
 > >
-> > Yes, it seems like if the first byte is 0 (always) or 1 (sometimes)
-> > then the panel turns off. The patch that forces using 100mnits works
-> > fully in my testing but Phil can still hit values on his device.
-> > Perhaps at a 1nit or 2 nit accuracy all the values are ok which is why
-> > Windows works fine
+> > On Mon, Aug 25, 2025 at 3:13=E2=80=AFAM Antheas Kapenekakis <lkml@anthe=
+as.dev> wrote:
+> > >
+> > > On the Asus Z13 2025, which uses a Strix Halo platform, around 8% of =
+the
+> > > suspend resumes result in a soft lock around 1 second after the scree=
+n
+> > > turns on (it freezes). This happens due to power gating VPE when it i=
+s
+> > > not used, which happens 1 second after inactivity.
+> > >
+> > > Specifically, the VPE gating after resume is as follows: an initial
+> > > ungate, followed by a gate in the resume process. Then,
+> > > amdgpu_device_delayed_init_work_handler with a delay of 2s is schedul=
+ed
+> > > to run tests, one of which is testing VPE in vpe_ring_test_ib. This
+> > > causes an ungate, After that test, vpe_idle_work_handler is scheduled
+> > > with VPE_IDLE_TIMEOUT (1s).
+> > >
+> > > When vpe_idle_work_handler runs and tries to gate VPE, it causes the
+> > > SMU to hang and partially freezes half of the GPU IPs, with the threa=
+d
+> > > that called the command being stuck processing it.
+> > >
+> > > Specifically, after that SMU command tries to run, we get the followi=
+ng:
+> > >
+> > > snd_hda_intel 0000:c4:00.1: Refused to change power state from D0 to =
+D3hot
+> > > ...
+> > > xhci_hcd 0000:c4:00.4: Refused to change power state from D0 to D3hot
+> > > ...
+> > > amdgpu 0000:c4:00.0: amdgpu: SMU: I'm not done with your previous com=
+mand: SMN_C2PMSG_66:0x00000032 SMN_C2PMSG_82:0x00000000
+> > > amdgpu 0000:c4:00.0: amdgpu: Failed to power gate VPE!
+> > > [drm:vpe_set_powergating_state [amdgpu]] *ERROR* Dpm disable vpe fail=
+ed, ret =3D -62.
+> > > amdgpu 0000:c4:00.0: [drm] *ERROR* [CRTC:93:crtc-0] flip_done timed o=
+ut
+> > > amdgpu 0000:c4:00.0: amdgpu: SMU: I'm not done with your previous com=
+mand: SMN_C2PMSG_66:0x00000032 SMN_C2PMSG_82:0x00000000
+> > > amdgpu 0000:c4:00.0: amdgpu: Failed to power gate JPEG!
+> > > [drm:jpeg_v4_0_5_set_powergating_state [amdgpu]] *ERROR* Dpm disable =
+jpeg failed, ret =3D -62.
+> > > amdgpu 0000:c4:00.0: amdgpu: SMU: I'm not done with your previous com=
+mand: SMN_C2PMSG_66:0x00000032 SMN_C2PMSG_82:0x00000000
+> > > amdgpu 0000:c4:00.0: amdgpu: Failed to power gate VCN instance 0!
+> > > [drm:vcn_v4_0_5_stop [amdgpu]] *ERROR* Dpm disable uvd failed, ret =
+=3D -62.
+> > > thunderbolt 0000:c6:00.5: 0: timeout reading config space 1 from 0xd3
+> > > thunderbolt 0000:c6:00.5: 0: timeout reading config space 2 from 0x5
+> > > thunderbolt 0000:c6:00.5: Refused to change power state from D0 to D3=
+hot
+> > > amdgpu 0000:c4:00.0: [drm] *ERROR* [CRTC:97:crtc-1] flip_done timed o=
+ut
+> > > amdgpu 0000:c4:00.0: amdgpu: SMU: I'm not done with your previous com=
+mand: SMN_C2PMSG_66:0x00000032 SMN_C2PMSG_82:0x00000000
+> > > amdgpu 0000:c4:00.0: amdgpu: Failed to power gate VCN instance 1!
+> > >
+> > > In addition to e.g., kwin errors in journalctl. 0000:c4.00.0 is the G=
+PU.
+> > > Interestingly, 0000:c4.00.6, which is another HDA block, 0000:c4.00.5=
+,
+> > > a PCI controller, and 0000:c4.00.2, resume normally. 0x00000032 is th=
+e
+> > > PowerDownVpe(50) command which is the common failure point in all
+> > > failed resumes.
+> > >
+> > > On a normal resume, we should get the following power gates:
+> > > amdgpu 0000:c4:00.0: amdgpu: smu send message: PowerDownVpe(50) param=
+: 0x00000000, resp: 0x00000001
+> > > amdgpu 0000:c4:00.0: amdgpu: smu send message: PowerDownJpeg0(33) par=
+am: 0x00000000, resp: 0x00000001
+> > > amdgpu 0000:c4:00.0: amdgpu: smu send message: PowerDownJpeg1(38) par=
+am: 0x00010000, resp: 0x00000001
+> > > amdgpu 0000:c4:00.0: amdgpu: smu send message: PowerDownVcn1(4) param=
+: 0x00010000, resp: 0x00000001
+> > > amdgpu 0000:c4:00.0: amdgpu: smu send message: PowerDownVcn0(6) param=
+: 0x00000000, resp: 0x00000001
+> > > amdgpu 0000:c4:00.0: amdgpu: smu send message: PowerUpVcn0(7) param: =
+0x00000000, resp: 0x00000001
+> > > amdgpu 0000:c4:00.0: amdgpu: smu send message: PowerUpVcn1(5) param: =
+0x00010000, resp: 0x00000001
+> > > amdgpu 0000:c4:00.0: amdgpu: smu send message: PowerUpJpeg0(34) param=
+: 0x00000000, resp: 0x00000001
+> > > amdgpu 0000:c4:00.0: amdgpu: smu send message: PowerUpJpeg1(39) param=
+: 0x00010000, resp: 0x00000001
+> > >
+> > > To fix this, increase VPE_IDLE_TIMEOUT to 2 seconds. This increases
+> > > reliability from 4-25 suspends to 200+ (tested) suspends with a cycle
+> > > time of 12s sleep, 8s resume. The suspected reason here is that 1s th=
+at
+> > > when VPE is used, it needs a bit of time before it can be gated and
+> > > there was a borderline delay before, which is not enough for Strix Ha=
+lo.
+> > > When the VPE is not used, such as on resume, gating it instantly does
+> > > not seem to cause issues.
 > >
-> > It has already shipped in 4 SKUs from 3 manufacturers as shown below.
-> >
-> >>
-> >>> ---
-> >>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 +++++
-> >>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 ++++
-> >>>    drivers/gpu/drm/drm_panel_backlight_quirks.c  | 29 +++++++++++++++++++
-> >>>    include/drm/drm_utils.h                       |  1 +
-> >>>    4 files changed, 43 insertions(+)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>> index 4ad80ae615a2..156f2aae6828 100644
-> >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>> @@ -3662,6 +3662,9 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
-> >>>                if (panel_backlight_quirk->min_brightness)
-> >>>                        caps->min_input_signal =
-> >>>                                panel_backlight_quirk->min_brightness - 1;
-> >>> +             if (panel_backlight_quirk->brightness_mask)
-> >>> +                     caps->brightness_mask =
-> >>> +                             panel_backlight_quirk->brightness_mask;
-> >>>        }
-> >>>    }
-> >>>
-> >>> @@ -4862,6 +4865,10 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
-> >>>        brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
-> >>>        link = (struct dc_link *)dm->backlight_link[bl_idx];
-> >>>
-> >>> +     /* Apply brightness quirk */
-> >>> +     if (caps->brightness_mask)
-> >>> +             brightness |= caps->brightness_mask;
-> >>> +
-> >>
-> >> I guess a problem I could see with using a mask is that there are
-> >> basically a bunch of values that are basically becoming no-op.
-> >
-> > Yeah, 1/3, but those were noops anyway, because 3mnit is not much.
-> >
-> >> An alternative would be to decrease the max value (IE some number
-> >> smaller than 65535 and scale so userspace doesn't request these "broken"
-> >> values).
-> >>
-> >> I'm not sure it's worth the effort though because you will probably
-> >> still find some subset of values with this problem.
-> >
-> > The patch that was with the VPE quirk essentially does that and works
-> > really well. But it is not perfect. That's at 100mnits.
-> >
-> >> The other comment I would say is this is probably very specific to AMD
-> >> and the millinit based brightness API; it might be better to keep the
-> >> quirk localized to amdgpu.  I also talked to Phil offline about this and
-> >> he's got a draft patch that helps a similar system he's seeing this on
-> >> (presumably) with another panel.
-> >>
-> >> I think it's worth getting that patch onto the list and we can weigh out
-> >> the alternatives.
-> >
-> > I think it is the same panel spec. Perhaps it is a different factory,
-> > but all affected devices are 7in OLED 1080p portrait panels with HDR.
-> > I sent this patch before I cleaned it up fully because Phil wanted to
-> > test it. It seems to work well. I think he's looking into implementing
-> > the same quirk essentially.
-> >
-> > I would not say it is specific to AMD per say. The bug happens in the
-> > panel after being sent a command to set the brightness through a
-> > shared drm helper. The same panel on intel with the same value would
-> > have the same problem.
+> > This doesn't make much sense.  The VPE idle timeout is arbitrary.  The
+> > VPE idle work handler checks to see if the block is idle before it
+> > powers gates the block. If it's not idle, then the delayed work is
+> > rescheduled so changing the timing should not make a difference.  We
+> > are no powering down VPE while it still has active jobs.  It sounds
+> > like there is some race condition somewhere else.
 >
-> Does Intel also have millinits brightness control?  I wasn't sure.
+> On resume, the vpe is ungated and gated instantly, which does not
+> cause any crashes, then the delayed work is scheduled to run two
+> seconds later. Then, the tests run and finish, which start the gate
+> timer. After the timer lapses and the kernel tries to gate VPE, it
+> crashes. I logged all SMU commands and there is no difference between
+> the ones in a crash and not, other than the fact the VPE gate command
+> failed. Which becomes apparent when the next command runs. I will also
+> note that until the idle timer lapses, the system is responsive
+>
+> Since the VPE is ungated to run the tests, I assume that in my setup
+> it is not used close to resume.
 
-Hm maybe I am wrong on this one. BACKLIGHT_CONTROL_AMD/VESA_AUX seem
-AMD specific.
+I should also add that I forced a kernel panic and dumped all CPU
+backtraces in multiple logs. After the softlock, CPUs were either
+parked in the scheduler, powered off, or stuck executing an SMU
+command by e.g., a userspace usage sensor graph. So it is not a
+deadlock.
 
-> > Perhaps not depending on the backlight code
-> > that preprocesses the values. The drm_panel_backlight_quirks is used
-> > only by amd currently in any case. And this quirk system allows
-> > specifying EDID information, where the DRM code one that you did did
-> > not. I only saw that after I had made this series.
-> >
-> > Antheas
+Antheas
+
+> Antheas
 >
-> OK thanks.  As you and Phil both have affected devices that are very
-> similar result get offline with Phil and come together with a new patch
-> series that works for both of you via quirks.
->
+> > Alex
 > >
+> > >
+> > > Fixes: 5f82a0c90cca ("drm/amdgpu/vpe: enable vpe dpm")
+> > > Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 4 ++--
+> > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_vpe.c
+> > > index 121ee17b522b..24f09e457352 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> > > @@ -34,8 +34,8 @@
+> > >  /* VPE CSA resides in the 4th page of CSA */
+> > >  #define AMDGPU_CSA_VPE_OFFSET  (4096 * 3)
+> > >
+> > > -/* 1 second timeout */
+> > > -#define VPE_IDLE_TIMEOUT       msecs_to_jiffies(1000)
+> > > +/* 2 second timeout */
+> > > +#define VPE_IDLE_TIMEOUT       msecs_to_jiffies(2000)
+> > >
+> > >  #define VPE_MAX_DPM_LEVEL                      4
+> > >  #define FIXED1_8_BITS_PER_FRACTIONAL_PART      8
+> > >
+> > > base-commit: c17b750b3ad9f45f2b6f7e6f7f4679844244f0b9
+> > > --
+> > > 2.50.1
+> > >
+> > >
 > >
-> >>>        /* Change brightness based on AUX property */
-> >>>        mutex_lock(&dm->dc_lock);
-> >>>        if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
-> >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> >>> index b937da0a4e4a..340f9b5f68eb 100644
-> >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> >>> @@ -200,6 +200,12 @@ struct amdgpu_dm_backlight_caps {
-> >>>         * @aux_support: Describes if the display supports AUX backlight.
-> >>>         */
-> >>>        bool aux_support;
-> >>> +     /**
-> >>> +      * @brightness_mask: After deriving brightness, or it with this mask.
-> >>> +      * This is used to workaround panels that have issues with certain
-> >>> +      * brightness values.
-> >>> +      */
-> >>> +     u32 brightness_mask;
-> >>>        /**
-> >>>         * @ac_level: the default brightness if booted on AC
-> >>>         */
-> >>> diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-> >>> index 3d386a96e50e..78c430b07d6a 100644
-> >>> --- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
-> >>> +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-> >>> @@ -45,6 +45,35 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
-> >>>                .ident.name = "NE135A1M-NY1",
-> >>>                .quirk = { .min_brightness = 1, },
-> >>>        },
-> >>> +     /* Have OLED Panels with brightness issue when last byte is 0/1 */
-> >>> +     {
-> >>> +             .dmi_match.field = DMI_SYS_VENDOR,
-> >>> +             .dmi_match.value = "AYANEO",
-> >>> +             .dmi_match_other.field = DMI_PRODUCT_NAME,
-> >>> +             .dmi_match_other.value = "AYANEO 3",
-> >>> +             .quirk = { .brightness_mask = 3, },
-> >>> +     },
-> >>> +     {
-> >>> +             .dmi_match.field = DMI_SYS_VENDOR,
-> >>> +             .dmi_match.value = "ZOTAC",
-> >>> +             .dmi_match_other.field = DMI_BOARD_NAME,
-> >>> +             .dmi_match_other.value = "G0A1W",
-> >>> +             .quirk = { .brightness_mask = 3, },
-> >>> +     },
-> >>> +     {
-> >>> +             .dmi_match.field = DMI_SYS_VENDOR,
-> >>> +             .dmi_match.value = "ONE-NETBOOK",
-> >>> +             .dmi_match_other.field = DMI_PRODUCT_NAME,
-> >>> +             .dmi_match_other.value = "ONEXPLAYER F1Pro",
-> >>> +             .quirk = { .brightness_mask = 3, },
-> >>> +     },
-> >>> +     {
-> >>> +             .dmi_match.field = DMI_SYS_VENDOR,
-> >>> +             .dmi_match.value = "ONE-NETBOOK",
-> >>> +             .dmi_match_other.field = DMI_PRODUCT_NAME,
-> >>> +             .dmi_match_other.value = "ONEXPLAYER F1 EVA-02",
-> >>> +             .quirk = { .brightness_mask = 3, },
-> >>> +     }
-> >>>    };
-> >>>
-> >>>    static bool drm_panel_min_backlight_quirk_matches(
-> >>> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-> >>> index 82eeee4a58ab..6a46f755daba 100644
-> >>> --- a/include/drm/drm_utils.h
-> >>> +++ b/include/drm/drm_utils.h
-> >>> @@ -18,6 +18,7 @@ int drm_get_panel_orientation_quirk(int width, int height);
-> >>>
-> >>>    struct drm_panel_backlight_quirk {
-> >>>        u16 min_brightness;
-> >>> +     u32 brightness_mask;
-> >>>    };
-> >>>
-> >>>    const struct drm_panel_backlight_quirk *
-> >>
-> >>
-> >
->
->
 
