@@ -4,76 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 971E3CA0FE7
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 16:04:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DA82CA0EFA
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 16:19:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A9EC10E4F0;
-	Mon, 25 Aug 2025 16:04:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37F6A10E2D4;
+	Mon, 25 Aug 2025 16:19:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HcALk08h";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KhNEf8SF";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BDEB10E4F0
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 16:04:17 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-45a1ac7c066so29052665e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 09:04:17 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5D1F10E2D4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 16:19:53 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-3c79f0a606eso1119867f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 09:19:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756137856; x=1756742656; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756138792; x=1756743592; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
  :date:message-id:reply-to;
- bh=EM5hibqLSIXY5pN78y/K+eP9P+eDyZZaP0gqgcT3jZU=;
- b=HcALk08hhs/Cqe1znVYieXzW2kKaG3pT45XoD9r4coZ/wd1LaH24kp7aF4u4tUEf6X
- pg+xMt/m3SJicEwxt8eu6GhPH+o8uBs7scA/62KfJKoSWEHxJgwJmT9bpWYPfpaA1zWL
- QRYyF+7waGMF2mIwuXw6+6gxik2mTyouMG5/84QS0914Kh5Ur8yi/noiD0pw84rnD3dr
- r8oExB/O21EB0+tnOjaZA3UCFxw5D671Eo1w7PDzU1e/C3h4ixg/e7XzWO+y5Tesp1Dn
- oUW1DoENOtSFjtwgW+tobfEeTQ6cs4nJ7zvGUPF6cjH6Fbz3jVH270/54vVbOClGPUWg
- LRqQ==
+ bh=wNmQTOi0u0Ui8GK0zYhS5iuUmD12/Cq4THCzPS+p7Rg=;
+ b=KhNEf8SFso+he5vo0hdCXqFWeFKx9+4o9NQFYUFiQSbuCoptQ6AUdl3ZG61nQ+Gd5l
+ +Y916/ZdFj5Nvw2IYsBpfARnVmaOlTOZU8a9+VAOY1BAWtyOkAQIODSCTNhpdcRMHcaO
+ B06roMF/Osh8wt/TBv2gIWJdW4ZSOFlwBVV8/RzX1oKfZgZHhgeYBJhEj1NefDh4UxCh
+ sV0lmSw/IRwpUHpDtl6WrQ/DFw+sjoRQGUnaTArRQnNqoIZEyda+OwO3XD+eiyxqF7z0
+ MCjfTPDLBWlUO59I5kKgiDwaDU2eIv6M/9ODFa22qMQpEoiQTY2V92d5vkj99sq6nZRn
+ M8xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756137856; x=1756742656;
+ d=1e100.net; s=20230601; t=1756138792; x=1756743592;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=EM5hibqLSIXY5pN78y/K+eP9P+eDyZZaP0gqgcT3jZU=;
- b=tAhV91TFeoWYfaBkWVXRfypp1v/V0G2SLRdK/BcvNWFYk89jaGaK4pbtUSeCQvgft1
- sdHGDAGUJ5D7fPKKHNirx6UFffrAzALqWcGKJvRUjEfHIcIh/imJJObWxh/xLuJjvlYO
- Irq0mRSdy21kWYbhIooBwLC9+i1A+iAsOzkcvP2iN9VxxnGO9yTXg8JRDNl0G+4APId8
- lxfg8hMwPWFF/hZRP4D/PS3iJQzyZcQxgxicVWoS8k+XtkUvr3udld1pPx4MkNwzWvSL
- Y0W70HaBtEvHYyQzZ3TatnrpilE9Zk2B/xTPl7ve4go9Q1JkaH9IQeAAXxkSDEjvMZTK
- m8fA==
-X-Gm-Message-State: AOJu0YzZPg35Bw0933uvVqlPmblDhLh7SxRTUtUlIHZYpAjEhvP/iQU8
- t84FQtt3FUKrjtRFJs+sLCEmwGBuBen9M+EhW1jvUZc55yc3BC310a4j6t8n8A==
-X-Gm-Gg: ASbGnctD3rSObmg5FAC/ff1fAEIx6Rkse/0XavT6uhpgsq0/GNMHO/j2Av3d4c8S4OF
- xRFtpqrCG5/7uXw0AvpT28cqiegAFPqMY/AEjwi1M4YA/e+d5i57GXpW64kZYRUZgiICHUaaYuv
- SSbM5xAfU+ZTC0bfLE/n0HkiaDiu3f2hVyDpKqeMk18ffQsIlWbb7ZghaVb/k7PqT8kIdNcAp7f
- gkwdTTn+ambYNP0X3AwPsSNfELwZ090bpwOa2zOp59vrTcVD0bbMBPNfIE3GKdQOtGCB5nodW0w
- qXCLy/WH5wgucE0FWhZ5TRagcu5ZcIA7bKFLMxsLCJaz4zDnn3FdfZvEWD4eeobHE9cpZ/f9ndN
- +CCjkgptwHrsEdELCRx0Av2twppbUt3yAM1RrZDoo9Jt2dGyWc1CjpDLyae3VNp+YeSkLcIqhoB
- UKXG3YxnU5KXHBEO65AuwsKzjPTZRlvegMoOqj/wSDv9JQHy1q/ZK+lWSgRf8uBw==
-X-Google-Smtp-Source: AGHT+IEUAKl2re9XZdKFwh8lfTzhyDy1Kv5FmkcnKyVXVozeXaCF2hfC+VI/aHFGC4rqqas1galpjA==
-X-Received: by 2002:a05:600c:674e:b0:456:1d06:f37d with SMTP id
- 5b1f17b1804b1-45b65812c9fmr752075e9.16.1756137855529; 
- Mon, 25 Aug 2025 09:04:15 -0700 (PDT)
+ bh=wNmQTOi0u0Ui8GK0zYhS5iuUmD12/Cq4THCzPS+p7Rg=;
+ b=ke2xTPQPTgsFhIhBuFtnjr8rvX//e6xETSvBf9Rx+6gjQFLftAzJ55ayFUM88IExm0
+ Vk5b7dLIkuGJzfiMo9p7KVcgjB3CJLxRg9S8gQvZ5nf9xu6YoAkPHce9JU+0IFMpWWcX
+ 8K14XcVz/IabQrmUfxtflPQytC3vtr9o95SRQ3DKzqvQ03kKKC7kGPQpbVStrF9i1uK6
+ VpHzW72nEMp9Yf2q0wDcyT9iZIPtYn0JAcJuqp6xXT/C4sjoD3YNY1szkC5Bc6YCrzlT
+ A7peIm04Wtq6Icr6aln5mijhfP4R/7n4UjrDK9NXLLBHZWEgI5EhGwynZ3EVeBR2uHqG
+ hfyw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVb+jlglGeBTAvb+kPEX4sfuj2s/154vJNSUzXW2yhnJVvdQJhW7iVRT4yalp1zEZoPcjHGahn0@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyaixlw0GPpnlZ1OyOG9Eua0w/JmHY8PEpAXuEDve5Bqvb6C6S0
+ tsEfbfZ2aa84vBvFlCL2Le+Pdev/KVQLRRvE9ZdllqOJGfsNzfJT2OOB
+X-Gm-Gg: ASbGncv7MQ856KUnytrFtZSEQLniYazmGhcq0k0oLxN1v4/jHRGUK2WHnBq6nqpPtzU
+ mxYqXcrzlOyQtIbyJm872S2ms9OmRLVxBLNK1QjktRbVC3jU1gLc6W65LMZ2bmSD9tXQU9PUc2Z
+ xidcY5JH3VURijQd6KM/mXUuznnKTNVGv8T58yfql93PUrSIcjFEzWZtT1lj1qQxgJ2RIZS/8yp
+ 846XpRxhQWg5u6t3j3a01GNPlSfU/V1EyjmCWpCCNL4AGhLgxiMFTRxr8WatQs7ntoNUA6T4A/a
+ bpcex2ZWvgp02uDUOZDJgU6urBt+ebQwPwqwQxdnDOkVuMge3ukk2ylUHZ20eoJjzyZeBFKtV4x
+ L4QLoHQV118Nc4halGRWrv+urluMIeoyJgcHh3l7/bufuv97ix6RTLYrx794h8LRg1GTjjmaGko
+ CIHyC9oqPOerd8nmM7nS6XH67IQ2fd6DfscsLCsgHKoi2/xVmHIM6xFQUbwSw+xQ==
+X-Google-Smtp-Source: AGHT+IH5Z7zbBJX5aLRRaOBMpaqOwtptrsvfOmliWLWS/Q3JAuC1TjZ6q42+xNB50lfqfMv5fDcDEA==
+X-Received: by 2002:a5d:64e7:0:b0:3c9:4e1f:ef45 with SMTP id
+ ffacd0b85a97d-3c94e1ff62fmr3143788f8f.17.1756138792024; 
+ Mon, 25 Aug 2025 09:19:52 -0700 (PDT)
 Received: from ?IPv6:2001:4c4e:24e3:6900:d571:f301:5baf:ea47?
  (20014C4E24E36900D571F3015BAFEA47.dsl.pool.telekom.hu.
  [2001:4c4e:24e3:6900:d571:f301:5baf:ea47])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c70ef55bddsm11886738f8f.22.2025.08.25.09.04.14
+ ffacd0b85a97d-3c70e4ba390sm12744946f8f.12.2025.08.25.09.19.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Aug 2025 09:04:15 -0700 (PDT)
-Message-ID: <48c5f3a3730541e360e976db84f421b73b5b7783.camel@gmail.com>
-Subject: Re: [PATCH v2 1/5] drm/amdgpu: Expand kernel-doc in amdgpu_ring
+ Mon, 25 Aug 2025 09:19:51 -0700 (PDT)
+Message-ID: <440097d6c1ba4fb304227f54e01455b1733864b2.camel@gmail.com>
+Subject: Re: [PATCH v2 4/5] Documentation/gpu: Add more information about GC
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Rodrigo
- Siqueira <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-Date: Mon, 25 Aug 2025 18:04:14 +0200
-In-Reply-To: <285a79e9-4296-4028-89a6-02378cf9c381@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, Rodrigo Siqueira
+ <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, 
+ kernel-dev@igalia.com
+Date: Mon, 25 Aug 2025 18:19:50 +0200
+In-Reply-To: <CADnq5_PvQS-45bM7d2ZXKo4h_C+aS8FP5Qk-1qvBDdo9s-10kg@mail.gmail.com>
 References: <20250824233149.3780127-1-siqueira@igalia.com>
- <20250824233149.3780127-2-siqueira@igalia.com>
- <285a79e9-4296-4028-89a6-02378cf9c381@amd.com>
+ <20250824233149.3780127-5-siqueira@igalia.com>
+ <CADnq5_PvQS-45bM7d2ZXKo4h_C+aS8FP5Qk-1qvBDdo9s-10kg@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
@@ -92,99 +97,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Mon, 2025-08-25 at 17:19 +0200, Christian K=C3=B6nig wrote:
-> On 25.08.25 01:29, Rodrigo Siqueira wrote:
-> > Expand the kernel-doc about amdgpu_ring and add some tiny
-> > improvements.
-> >=20
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 14 +++++++++++---
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |=C2=A0 2 ++
-> > =C2=A02 files changed, 13 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> > index 6379bb25bf5c..80dd6f58a53b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> > @@ -75,8 +75,15 @@ unsigned int amdgpu_ring_max_ibs(enum
-> > amdgpu_ring_type type)
-> > =C2=A0 * @ring: amdgpu_ring structure holding ring information
-> > =C2=A0 * @ndw: number of dwords to allocate in the ring buffer
-> > =C2=A0 *
+On Mon, 2025-08-25 at 11:38 -0400, Alex Deucher wrote:
+> On Sun, Aug 24, 2025 at 7:43=E2=80=AFPM Rodrigo Siqueira
+> <siqueira@igalia.com> wrote:
 >=20
-> > - * Allocate @ndw dwords in the ring buffer (all asics).
-> > - * Returns 0 on success, error on failure.
-> > + * Allocate @ndw dwords in the ring buffer (it works in all
-> > ASICs). When
-> > + * inspecting the code, you may encounter places where this
-> > function is called
-> > + * amdgpu_ring_alloc(ring, X + Y + Z), where X, Y, and Z are
-> > integer numbers.
-> > + * This indicates the number of dword operations to be inserted
-> > into the ring
-> > + * per operation.
 >=20
-> I think explaining that is overkill, but the remaining comments are
-> valid.
->=20
-> With the change above removed that patch is Reviewed-by: Christian
-> K=C3=B6nig <christian.koenig@amd.com>.
->=20
-> Regards,
-> Christian.
-
-I respectfully disagree with that.
-
-This stuff may be obvious to you, having worked on it for many years.
-But it was super confusing to me when I first looked at it, so I'm glad
-to see Siquiera added it here. It may help the next newcomer.
-
-As a side note, in many places it's not fully clear when something is
-in bytes vs. dwords so it's also good to emphasize that these represent
-dwords of packets.
-
->=20
-> > + *
-> > + * Returns:
-> > + * 0 on success, otherwise -ENOMEM if it tries to allocate more
-> > than the
-> > + * maximum dword allowed for one submission.
-> > =C2=A0 */
-> > =C2=A0int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
-> > =C2=A0{
-> > @@ -122,7 +129,8 @@ static void amdgpu_ring_alloc_reemit(struct
-> > amdgpu_ring *ring, unsigned int ndw)
-> > =C2=A0		ring->funcs->begin_use(ring);
-> > =C2=A0}
-> > =C2=A0
-> > -/** amdgpu_ring_insert_nop - insert NOP packets
-> > +/**
-> > + * amdgpu_ring_insert_nop - insert NOP packets
-> > =C2=A0 *
-> > =C2=A0 * @ring: amdgpu_ring structure holding ring information
-> > =C2=A0 * @count: the number of NOP packets to insert
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > index 7670f5d82b9e..d27dbb3c109f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > @@ -62,6 +62,8 @@ enum amdgpu_ring_priority_level {
-> > =C2=A0#define AMDGPU_FENCE_FLAG_64BIT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 (1 << 0)
-> > =C2=A0#define AMDGPU_FENCE_FLAG_INT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 (1 << 1)
-> > =C2=A0#define AMDGPU_FENCE_FLAG_TC_WB_ONLY=C2=A0=C2=A0=C2=A0 (1 << 2)
 > > +
-> > +/* Ensure the execution in case of preemption or reset */
-> > =C2=A0#define AMDGPU_FENCE_FLAG_EXEC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 (1 << 3)
-> > =C2=A0
-> > =C2=A0#define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring,
-> > sched)
+> > +First of all, note that the GC can have multiple SEs, depending on
+> > the specific
+> > +GPU/APU, and each SE has multiple Compute Units (CU). From the
+> > diagram, you can
+> > +see that CUs have a block named Schedulers. The reason the name is
+> > in plural is
+> > +because this hardware block is a combination of different micro-
+> > schedules: CP,
+> > +CPF, CPC, and CPG.
+>=20
+> CP is not really in the same category as CPF, CPC, CPG.=C2=A0 CP is the
+> front end to the GC block and contains a number of micro controllers
+> which run firmware which software interacts with.=C2=A0 CPF, CPG, and CPC
+> are just hardware implementation details.
+
+Can you please suggest an edit that explains these better?
+
+I'm sorry to say, I thought I understood it but after reading your
+reply now I feel I don't.
+
+>=20
+> > +
+> > =C2=A0The component that acts as the front end between the CPU and the
+> > GPU is called
+> > -the Command Processor (CP). This component is responsible for
+> > providing greater
+> > +CP (Command Processor). This component is responsible for
+> > providing greater
+> > =C2=A0flexibility to the GC since CP makes it possible to program
+> > various aspects of
+> > =C2=A0the GPU pipeline. CP also coordinates the communication between
+> > the CPU and GPU
+> > =C2=A0via a mechanism named **Ring Buffers**, where the CPU appends
+> > information to
+> > -the buffer while the GPU removes operations. It is relevant to
+> > highlight that a
+> > -CPU can add a pointer to the Ring Buffer that points to another
+> > region of
+> > -memory outside the Ring Buffer, and CP can handle it; this
+> > mechanism is called
+> > -**Indirect Buffer (IB)**. CP receives and parses the Command
+> > Streams (CS), and
+> > -writes the operations to the correct hardware blocks.
+> > +the buffer while the GPU removes operations. Finally, CP is also
+> > responsible
+> > +for handling Indirect Buffers (IB).
+> > +
+> > +After CP completes the first set of processing, which includes
+> > separate command
+> > +packets specific to GFX and Compute, other blocks step in. To
+> > handle commands
+> > +for the compute block, CPC (Command Processor Command) takes over,
+> > and for
+> > +handling Graphics operations, the CPG (Command Processor Graphics)
+> > takes
+> > +action. Another essential block to ensure the optimal utilization
+> > of CPC and
+> > +CPG is the CPF (Command Processor Fetcher), which helps these
+> > blocks to be
+> > +constantly fed. Note that CPG contains the PFP (Pre-Fetch Parser),
+> > ME
+> > +(MicroEngine), and CE (Constant Engine) in the case of chips that
+> > support it.
+> > +CPC contains MEC (MicroEngine Compute), and CPF is another
+> > hardware block that
+> > +provides services to CPG and CPC.
+>=20
+> I'm not sure how much value this provides to the average developer.
+> These are sort of implementation details of the hardware.=C2=A0 In genera=
+l
+> the driver doesn't really interact with the individual hardware
+> blocks
+> and they may not stay consistent over time.
+>=20
+> Alex
+
+Not sure what you mean by "the average developer", but I think this is
+very useful knowledge to anyone who wants to contribute to amdgpu,
+specifically to the parts that have anything to do with GFX or compute.
+
+If you're worried that it may not stay consistent over time, I think
+the glossary entries could be edited to mention which GPU generation(s)
+they apply to.
+
+As-is the code is full of 3-letter abbreviations that are never
+expanded or explained anywhere, which represent various hardware units
+(or microcontrollers, or blocks, or whatever they may be). Without
+knowing what these are and how they interact, it's difficult to
+understand what the code is doing any why, or even why some parts are
+necessary.
+
+To make matters worse, the latest public documentation that tries to
+explain any of this is from 2012. So I think it's a good idea to
+collect all of this information so that newcomers to the kernel driver
+such as myself have a chance.
+
+Thanks & best regards,
+Timur
