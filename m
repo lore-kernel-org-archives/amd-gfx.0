@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CCD5CA0FE7
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 13:55:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A357CA0FE7
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 14:03:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4248910E2E1;
-	Tue, 26 Aug 2025 13:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8711910E642;
+	Tue, 26 Aug 2025 14:03:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eaBBqN36";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R8v5+GZi";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 796D410E2E1
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 13:55:26 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-b4717384710so750319a12.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 06:55:26 -0700 (PDT)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9905310E649
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 14:03:39 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-b49c729577dso818515a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 07:03:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756216526; x=1756821326; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756217019; x=1756821819; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IlnOkMcbcdeOaoGrWjiJBdWxLdnan0LKLqZITuDwAv0=;
- b=eaBBqN36EbG9t9aRvd+9wDBC6MDIc1b4eBlTM4b3xPM/nfPg34SGPumwo7f5ajpJc0
- fiawxw5qC3Wit38qSQ5XyIyOpjL96HXJ2OrSG03eBlfRmAScIb0N10Z7v2JCK1KodC1Z
- IpX5CzGsc9WrHl8DX+KJLGszeNkeAFzhmuS1eFwDViJnMHYI7uMsccx+aVu2vfFF2tBv
- FPy6LkQJart8K1frNiH1XGDL21Tr9r4iK29peUwYyXMC0jAH70OI2+w90qOOin1lUY0a
- 0zECg2g6BXaVaOsY+pccZ/LO5Eaq5x1UNXbtVI3Q1pixAoa2+ZRkjeLrCbr46PomvFgc
- sa7Q==
+ bh=Kfpwpo2jQXMSLFkQvQIhXRDzVvQ2J+/g2fldBn73ETg=;
+ b=R8v5+GZiT5JVibIKO3JEr96LSQasvnLB6H/Z/63dxt98oMonmvOcIcQsvkAYYWd0dy
+ eFTm3zBoHTCsSYUmN4sPbw2v8zUfjAlafTWt2XsrJp62PJ6hW4jSDkSmgojEm/QaaSug
+ cnw9q9tyZb1s/2GZnLjRvfMKUpSPJ1naTSSaqHrsofWZDUXzs6c455w1FIu0k7HN3Wzd
+ jYzwJUX+YLeTabgpCff3DZMnhorC3KRbxczJmtH9XfJ36OIg1d1wxV0NYXYv4zacRZy9
+ UtnJyEttgXM28cJqtmmzhbP5yj+K83ILRf5RVSFxDdC7RsRPvFD6Dl8ws5oyc/zVPJ3P
+ rMMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756216526; x=1756821326;
+ d=1e100.net; s=20230601; t=1756217019; x=1756821819;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IlnOkMcbcdeOaoGrWjiJBdWxLdnan0LKLqZITuDwAv0=;
- b=lUjACKKPx9TG5KKkDqqlYc2CYPH1tDeqa/Rru0W6qQbg/PWrCpq8BNEPgewLCgywjL
- QsucTyAJi3YpuBbq6wP8Ey9mGHjJxhKMDBm7C0P1C/mp4Xfld+h4MxVbf650IQaIRI2s
- ikQ9R9VRXNFOb/qEKrmlfbsWAw0Kow0RiU7oOjckb2p3Tx/nSErS6Ig+SgEANy5ILnV2
- aiTcdsZWI1gFOL/ZbEwHdwEnrfCe9Y2q1yO7MyN2Bt+d63SbpjKYBwdgqhxHm8nQ6L1G
- 8uWdTKwYVL11mvt7sv0TxKSLNuAiVpYxTa1TEcJc8YU5QrtrAyPN3neRUnRC5yCC2llw
- FlZA==
-X-Gm-Message-State: AOJu0Yzm3RUj8FJYAzAFLX0whirgQwj7R1c2ZYQevtvF+M8Av+Is9EPY
- tagO6fZb0m++zEA5l0Ck7E8qJqUlJkeBpvC4sb1BMld927gDeOVNBbJK08Hauk9DP7C/GK9dtna
- J5hC4NVwDrhGaSzYuR2am16I55TQe8Vk=
-X-Gm-Gg: ASbGnct8DjbQkoHrwvOhCIlmJv8XlybqI+LSKgrBGIvHVGVo4WNkeZT5EerL02Inkg3
- Qiiy3dI/NkKabsMstdcJVXLoyUUb2CABIeSqUOz0FEezZHnJmJZzYKm9R7hZ0K+k4KRRetyMJ79
- kxcBbD/oqY+1NsUGagDzYQaw1w5ffsPZVXIBeARne4cZ541Ou42/2YTmJ+H4kDNNbgkPnyw37DV
- wX87KOdcrvTsgQ/Bw==
-X-Google-Smtp-Source: AGHT+IFfvfGSIdBNJkDYeUdxV48fBo+LEJb+cR8NqDhWsDBWdS4ZeJK2cVGlsxlhA7snhXpEkoKyxq5YnTMxtiIe+o4=
-X-Received: by 2002:a17:902:f711:b0:246:5d07:842f with SMTP id
- d9443c01a7336-2465d078881mr97920825ad.1.1756216525912; Tue, 26 Aug 2025
- 06:55:25 -0700 (PDT)
+ bh=Kfpwpo2jQXMSLFkQvQIhXRDzVvQ2J+/g2fldBn73ETg=;
+ b=dn3TRrTByOrI+wO9WE8yUdNV8Z8Dq5I7fp9r29tuTWt9HvALOVFQQWcc5EmuThNxkB
+ tS6OUDA5MLb1ixrBRygi8Cunm3Za3sbsFH+qVi5EgPNLeswpBkta/VrHeLg6eewGJ1xA
+ B3VXKHlR9BsRa2sxkaneiixtZd/YhSUpce1FLgD1mVxNg5klLeSrfNu40teqijS9d+Ja
+ tRbWWbGexYILX8BVAZNIcqdFEqiRwo4TWz6np8EreKNkQyNVdx5zLgQYEFm35jXYGFi/
+ vEE7628Qu+kRkaeFAlUH/cKMQ0UUs+s5yKgEcgYsficf63yJsrui9y5w7iAXB+7onvKM
+ SNcA==
+X-Gm-Message-State: AOJu0YyYaLKlksX9bGR2lH5E7ovDm8IR3JozmsSKw5JX1biJBxuuvm20
+ 9la3ExOQiqmOFJFkSfdti38Gh4PwG+4coih+NRCTwj2yogJ1rJqcImnZ6lm/8KAxAZHXStzSy9U
+ vawLkpMeOBMXdgnz3xtkjQoZfQiZYQxiETQ==
+X-Gm-Gg: ASbGncvfrYBz0E7JLe0/0U91xzf2ECTUgO19cWUisbiUO+ndN75iw+8fxWkQR5ktsWX
+ h3g+21REt7sOKHLVr04J17X+2iwcTPqzPmo02XrwBeENeJccddm51hvLdzm666DFuWpRHrK82bi
+ JNm+naZ473lNUertPDY5/TblZMn10B5skc3V0b2eRfQtd7YJhq/d5etxi+Lhp3u2pMa+8g8vOG4
+ bQ2grI38PhTzyq2cw==
+X-Google-Smtp-Source: AGHT+IGOmqrBoqlA5pCMkfN3h21LNjikqeDYqXRD6AaAn8eTlWwyjehsXI0EMqyMbrEj3/ELfVbsGXYu3VH73OTG71s=
+X-Received: by 2002:a17:902:cecd:b0:246:a19d:c13 with SMTP id
+ d9443c01a7336-246a19d1686mr72394195ad.1.1756217018885; Tue, 26 Aug 2025
+ 07:03:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250825210113.182727-1-David.Wu3@amd.com>
- <20250825210113.182727-4-David.Wu3@amd.com>
-In-Reply-To: <20250825210113.182727-4-David.Wu3@amd.com>
+References: <20250825221046.639289-1-timur.kristof@gmail.com>
+In-Reply-To: <20250825221046.639289-1-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Aug 2025 09:55:13 -0400
-X-Gm-Features: Ac12FXwNAls-6_r9SCySiW7Gdzukui3TcLaDE8EB-o5jWy0HOTPDav0P2VwOOZk
-Message-ID: <CADnq5_Mg_C7Lx190ezufMqtqsK-9pe_7s78reb3SgLh05SzuKA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu/vcn: add instance number to VCN version
- message
-To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Tue, 26 Aug 2025 10:03:27 -0400
+X-Gm-Features: Ac12FXwksXjnBPXA-NyfFkKlO23z6uuEC84mv2Z5Mgs0vO37GeM8vdvI0AxRWTo
+Message-ID: <CADnq5_Pyx1ZSen6kv+2ncXkpddrj-i2vr3bhoBLOo6=sYD=u1g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Respect max pixel clock for HDMI and DVI-D
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ harry.wentland@amd.com, alex.hung@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,63 +81,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 25, 2025 at 5:28=E2=80=AFPM David (Ming Qiang) Wu <David.Wu3@am=
-d.com> wrote:
+On Mon, Aug 25, 2025 at 6:10=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
+mail.com> wrote:
 >
-> For multiple VCN instances case we get multiple lines of the same
-> message like below:
+> Change the legacy (non-DC) display code to respect the maximum
+> pixel clock for HDMI and DVI-D. Reject modes that would require
+> a higher pixel clock than can be supported.
 >
->   amdgpu 0000:43:00.0: amdgpu: Found VCN firmware Version ENC: 1.24 DEC: =
-9 VEP: 0 Revision: 11
->   amdgpu 0000:43:00.0: amdgpu: Found VCN firmware Version ENC: 1.24 DEC: =
-9 VEP: 0 Revision: 11
+> Also update the maximum supported HDMI clock value depending on
+> the ASIC type.
 >
-> By adding instance number to the log message for multiple VCN instances,
-> each line will clearly indicate which VCN instance it refers to.
+> For reference, see the DC code:
+> check max_hdmi_pixel_clock in dce*_resource.c
 >
-> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
-
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 21 +++++++++++++++++--
+>  1 file changed, 19 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vcn.c
-> index fd8ebf4b5a824..5a90abcea0ac1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -185,16 +185,16 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev, =
-int i)
->                 dec_ver =3D (le32_to_cpu(hdr->ucode_version) >> 24) & 0xf=
-;
->                 vep =3D (le32_to_cpu(hdr->ucode_version) >> 28) & 0xf;
->                 dev_info(adev->dev,
-> -                        "Found VCN firmware Version ENC: %u.%u DEC: %u V=
-EP: %u Revision: %u\n",
-> -                        enc_major, enc_minor, dec_ver, vep, fw_rev);
-> +                        "[VCN instance %d] Found VCN firmware Version EN=
-C: %u.%u DEC: %u VEP: %u Revision: %u\n",
-> +                        i, enc_major, enc_minor, dec_ver, vep, fw_rev);
->         } else {
->                 unsigned int version_major, version_minor, family_id;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_connectors.c
+> index 5e375e9c4f5d..abcc4469cf57 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> @@ -1195,12 +1195,26 @@ static void amdgpu_connector_dvi_force(struct drm=
+_connector *connector)
+>                 amdgpu_connector->use_digital =3D true;
+>  }
 >
->                 family_id =3D le32_to_cpu(hdr->ucode_version) & 0xff;
->                 version_major =3D (le32_to_cpu(hdr->ucode_version) >> 24)=
- & 0xff;
->                 version_minor =3D (le32_to_cpu(hdr->ucode_version) >> 8) =
-& 0xff;
-> -               dev_info(adev->dev, "Found VCN firmware Version: %u.%u Fa=
-mily ID: %u\n",
-> -                        version_major, version_minor, family_id);
-> +               dev_info(adev->dev, "[VCN instance %d] Found VCN firmware=
- Version: %u.%u Family ID: %u\n",
-> +                        i, version_major, version_minor, family_id);
->         }
+> +/**
+> + * Returns the maximum supported HDMI (TMDS) pixel clock in KHz.
+> + */
+> +static int amdgpu_max_hdmi_pixel_clock(const struct amdgpu_device *adev)
+> +{
+> +       if (adev->asic_type >=3D CHIP_POLARIS10)
+> +               return 600000;
+> +       else if (adev->asic_type >=3D CHIP_TONGA)
+> +               return 300000;
+> +       else
+> +               return 297000;
+> +}
+> +
+>  static enum drm_mode_status amdgpu_connector_dvi_mode_valid(struct drm_c=
+onnector *connector,
+>                                             const struct drm_display_mode=
+ *mode)
+>  {
+>         struct drm_device *dev =3D connector->dev;
+>         struct amdgpu_device *adev =3D drm_to_adev(dev);
+>         struct amdgpu_connector *amdgpu_connector =3D to_amdgpu_connector=
+(connector);
+> +       const int max_hdmi_pixel_clock =3D amdgpu_max_hdmi_pixel_clock(ad=
+ev);
 >
->         bo_size =3D AMDGPU_VCN_STACK_SIZE + AMDGPU_VCN_CONTEXT_SIZE;
+>         /* XXX check mode bandwidth */
+>
+> @@ -1208,10 +1222,13 @@ static enum drm_mode_status amdgpu_connector_dvi_=
+mode_valid(struct drm_connector
+>                 if ((amdgpu_connector->connector_object_id =3D=3D CONNECT=
+OR_OBJECT_ID_DUAL_LINK_DVI_I) ||
+>                     (amdgpu_connector->connector_object_id =3D=3D CONNECT=
+OR_OBJECT_ID_DUAL_LINK_DVI_D) ||
+>                     (amdgpu_connector->connector_object_id =3D=3D CONNECT=
+OR_OBJECT_ID_HDMI_TYPE_B)) {
+> -                       return MODE_OK;
+> +                       if (mode->clock > max_hdmi_pixel_clock)
+> +                               return MODE_CLOCK_HIGH;
+> +                       else
+> +                               return MODE_OK;
+
+I don't think it makes sense to limit dual link DVI to the max HDMI
+clock.  HDMI is single link TMDS.  Other than that, the patch looks
+good to me.
+
+Alex
+
+>                 } else if (connector->display_info.is_hdmi) {
+>                         /* HDMI 1.3+ supports max clock of 340 Mhz */
+> -                       if (mode->clock > 340000)
+> +                       if (mode->clock > max_hdmi_pixel_clock)
+>                                 return MODE_CLOCK_HIGH;
+>                         else
+>                                 return MODE_OK;
 > --
-> 2.43.0
+> 2.50.1
 >
