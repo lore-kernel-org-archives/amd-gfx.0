@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F242FCA0FE7
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 13:28:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B56DCA0FE7
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 13:35:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6C710E2F2;
-	Tue, 26 Aug 2025 13:28:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7C4F10E2FE;
+	Tue, 26 Aug 2025 13:35:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DQx2WX/Y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A2qLRjMk";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEE8410E2F2
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 13:28:43 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-b471741b839so1175523a12.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 06:28:43 -0700 (PDT)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAB3810E2FE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 13:35:05 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-b4741e1cde5so798458a12.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 06:35:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756214923; x=1756819723; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756215305; x=1756820105; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KMxqO0Vs3CDduYcj1ujJRrgDGwFMgNTzih/PPpW3Iqo=;
- b=DQx2WX/Y4LxxmAUNnrdBl7DQBrKYVw9HBHxt2NDXKBcRNCKMnTz6qzlATHjGSNiAmc
- ARvNaB5CE+COr4U/SKrTrYhEsm8a0+dhDVqLWteQ5Bn6QTB6teFXW+hdL5r6+DV5K9UA
- vMKaIgLKP6ZOZckw7mqY94epGIuyevtIPux/VypOfOeROGmfd0aE/H9gno92bIb9CgYz
- Bmx+v555Gtl9hw6oZedXKWBQptHXSTDrdRLkkJP7lRhQiKjNYbNHm5puBvo06G8F/kiY
- /YhUsUUGeNImDPpSNP04nW2SreIik6MLC+bacbs0W16qmBnS5kxLhLvmSl/JG83a+PyN
- /bUQ==
+ bh=bEjtluUQL/abJ/IM4Dcj3r5TCZSsSci3j3zYLVcWOco=;
+ b=A2qLRjMk6Sz/YAS5NKe1cbCJXgMsfCMvmbixo7XmlXLdmb9xWkC/Ywpufq5/TVtb8+
+ rWpDA0w5yK4tzEUqyto81O+vMVAw7n38d6bPWZ2+wBsvgwJrtH6EO8kZBfMI/SHDmaQ6
+ iZwkp24AiYAMC67VLUj5xqqynLhDPQeoxaoQdIh6zMq9si1YtTVy5n6T4AH55Rx10EVH
+ QzjJL9TvJrkWRN91G0/tpRRJiV2rJwzZI5CK4SOQ0qdvhU6bhN3E125fy5Y7xLV8T6yb
+ ckOzw03TXuMRkgbba9nKScpjtvic5OZPTmeSCKA8vxbY7F1t4QV3oL4/7upz/UB4xONI
+ IwaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756214923; x=1756819723;
+ d=1e100.net; s=20230601; t=1756215305; x=1756820105;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KMxqO0Vs3CDduYcj1ujJRrgDGwFMgNTzih/PPpW3Iqo=;
- b=XFwd/8JVQcUqNarGXjXitX7vw4hElLcKoyse95A0H/ZBjsTKiavcuF4P96K6Zi8dgz
- 91H9c3UF7DXZKO48xUNRWGwxDqH7y8B5uBlMHT9WaJIxbHG9tzCDa/10XGMla1obY0q/
- fF8hJkrHDNkK6kMtaRjhLHPgb0JJw4FtpNKhMx426pJkqnWxXmcSRP9QFsAbpoZ1LcQ7
- 1C3JXDvN+NYDy/yS2aAmvRBr0b8bfK7YPJFS1OUwAInCcm88k/93hntqX0OLpwQ8XZQV
- vWIsLJVAkCm7Cw2gzUvtEP7DcxSDqwMWnQ8TkBOwtQXdwqSz3aFUYFDJrLmZCXKy6KSy
- 4tog==
-X-Gm-Message-State: AOJu0Yyhtxtt8S/aNpwou17+O6yWwxWZcM4msS+U+oADDhRX6IJ805A3
- Hkx+4f9kIjsZqCGK8Dq8LguCSExj+10jnMRTFAVZ4dpAI3dBQME2QItQd8ekL/NO2fcmOLDYOeA
- ysb9EYWtuQ9kaswZRHaD+iPy6doSMA6c=
-X-Gm-Gg: ASbGncvB1rjQb/1GUd5QWAgpcFN8s2Q0PQJzmF4z6C9Sa85uRw2ntWtVVoSydXW1h5N
- Hxc7d4MzQy0/08jX0FTFs/tZ+w+nkVxZtUwObSIVP7j6SbB1p81lJuZG536g/6npCLAQWXLGp+h
- dfl0A5S4rTS/Qb25u8+bs2y/+2zw3+N7ZTfD9a3ulimR86mZmnPVFlMmRYmiudASiYp/P03KNc4
- IJH3pk6N46mzWopaAsHHbdqvQGv
-X-Google-Smtp-Source: AGHT+IFGt6qD8FaOKomADZuI+17XcGIUnTDPQ664drQKA6SaA5pNoKRjmHj16RlJLtLa37KFBRoJqd41MhcCaqPBq/8=
-X-Received: by 2002:a17:903:2f88:b0:246:b35a:c655 with SMTP id
- d9443c01a7336-246b35aca38mr62355095ad.8.1756214923136; Tue, 26 Aug 2025
- 06:28:43 -0700 (PDT)
+ bh=bEjtluUQL/abJ/IM4Dcj3r5TCZSsSci3j3zYLVcWOco=;
+ b=Nvilo8ZHrVnwwtunAOyCF1VyeOLpcUfhcQqOH5weRYkNS670rnItd1oF1pZb2LzlNv
+ cQ8rni+I+l7iV4Ew/8suQIZM+2SbtG/AaiDqnblOZiD9+TFx7A9ho+PuyBO/sb4wr7bP
+ 1gdBFhBRBv6HGwGmaz5foScaeMg46UQeGz84LEcJzwS3R7Sq4Kcu2ykaQsKgl5cIhVy2
+ fg90mZIbzG+Lc6XDgysJVGpmsbcZYEPehgDnprEkdkD8H/Oizt/6vbwqKaqnABAR8knd
+ XVfOwarGPpxtjsFkuINmVTtf/OQBxZxP7jb7cZH7dqLDiZCAc+/1wFrBQEId9aVfydia
+ XGdg==
+X-Gm-Message-State: AOJu0YzhZMx0YyHP3qw5QoyxtyJgBCEXeEZ6NCMZnw4e7n07msY+KhZM
+ 6wCgra8wpZtrSO8pDBjEdb6bJx281oE2UOXF3LzOWlRqBmFzrvqXOk+3hw7CDFhAripEMiHtpnQ
+ 3i5KTTqIsvWaGfq/r/kXI3Jh879HW9Z09Kw==
+X-Gm-Gg: ASbGncsUvKteVSi7i0Ir26yzQeXKIMJuRXWJbAqouvQUlMR8i9ixrOtPh9cQPsNg7PV
+ eZtAa9He/zrbfn7TL59Rgev5WEz6E1cjBXfjs88FEP0+k4ez2rhpgRPsTCGStoopE80rwY8VeUj
+ f6OKin/5UektdPzTJOej2eqc8Jooh6y33l1qwOC9J7BSKcXl635jMznuYeKJ6hx4gQlk/VoXq0z
+ Cco/oo=
+X-Google-Smtp-Source: AGHT+IF07KYFd12tIYDVSlqJdTIyYCTYOjcA3OMxVf3Z15b23muf7uHU4YOBbXGuBJnWoKq4nx5BLRVayvzHMHefV18=
+X-Received: by 2002:a17:902:e78f:b0:240:4d65:508f with SMTP id
+ d9443c01a7336-2462ef99564mr95743415ad.6.1756215304960; Tue, 26 Aug 2025
+ 06:35:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250826094142.1750970-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20250826094142.1750970-1-Jesse.Zhang@amd.com>
+References: <20250826060245.334880-1-kevinyang.wang@amd.com>
+In-Reply-To: <20250826060245.334880-1-kevinyang.wang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Aug 2025 09:28:31 -0400
-X-Gm-Features: Ac12FXyWgJplV_n7PnxDTEzyRc56Rm9Sl12jEU6h1sAfED1CPZRfnsjw3TyfV1k
-Message-ID: <CADnq5_PkzsHu0P9sbh1hT+RkL3JS7K9UhhkCQuu6012qjXy+Ng@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: update firmware version checks for user queue
- support
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
+Date: Tue, 26 Aug 2025 09:34:53 -0400
+X-Gm-Features: Ac12FXxOP3esorZ8rUqZU3-HjH9skjOuUIBmdUHgyXcsIIs1EolcWkaG6JqRx1w
+Message-ID: <CADnq5_ORhU02JJuM_WFi4FF4kXioWRzOJ+F7KtAWoE-a-m5RMA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: disable hwmon power1_cap* for gfx 11.0.3
+ on vf mode
+To: Yang Wang <kevinyang.wang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Asad Kamal <asad.kamal@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,58 +81,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 26, 2025 at 5:41=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> w=
-rote:
+On Tue, Aug 26, 2025 at 6:18=E2=80=AFAM Yang Wang <kevinyang.wang@amd.com> =
+wrote:
 >
-> The minimum firmware versions required for user queue functionality
-> have been increased to address an issue where the queue privilege
-> state was lost during queue connect operations.
+> the PPSMC_MSG_GetPptLimit msg is not valid for gfx 11.0.3 on vf mode,
+> so skiped to create power1_cap* hwmon sysfs node.
 >
-> The problem occurred because the privilege state was being restored
-> to its initial value at the beginning of the function, overwriting
-> the state that was properly set during the queue connect case.
->
-> This commit updates the minimum version requirements:
-> - ME firmware from 2390 to 2420
-> - PFP firmware from 2530 to 2580
-> - MEC firmware from 2600 to 2650
-> - MES firmware remains at 120
->
-> These updated firmware versions contain the necessary fixes to
-> properly maintain queue privilege state throughout connect operations.
->
-> Fixes: d84f90e2bcec ("drm/amdgpu: Add fw minimum version check for usermo=
-de queue")
->
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 18 ++++++++++--------
+>  1 file changed, 10 insertions(+), 8 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 456ba758fa94..c85de8c8f6f5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1612,9 +1612,9 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block=
- *ip_block)
->         case IP_VERSION(11, 0, 2):
->         case IP_VERSION(11, 0, 3):
->                 if (!adev->gfx.disable_uq &&
-> -                   adev->gfx.me_fw_version  >=3D 2390 &&
-> -                   adev->gfx.pfp_fw_version >=3D 2530 &&
-> -                   adev->gfx.mec_fw_version >=3D 2600 &&
-> +                   adev->gfx.me_fw_version  >=3D 2420 &&
-> +                   adev->gfx.pfp_fw_version >=3D 2580 &&
-> +                   adev->gfx.mec_fw_version >=3D 2650 &&
->                     adev->mes.fw_version[0] >=3D 120) {
->                         adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_me=
-s_funcs;
->                         adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =3D &user=
-q_mes_funcs;
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
+amdgpu_pm.c
+> index d5cc4d7f84e2..c9a986cf3aef 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -3593,14 +3593,16 @@ static umode_t hwmon_attributes_visible(struct ko=
+bject *kobj,
+>                 effective_mode &=3D ~S_IWUSR;
+>
+>         /* not implemented yet for APUs other than GC 10.3.1 (vangogh) an=
+d 9.4.3 */
+> -       if (((adev->family =3D=3D AMDGPU_FAMILY_SI) ||
+> -            ((adev->flags & AMD_IS_APU) && (gc_ver !=3D IP_VERSION(10, 3=
+, 1)) &&
+> -             (gc_ver !=3D IP_VERSION(9, 4, 3) && gc_ver !=3D IP_VERSION(=
+9, 4, 4)))) &&
+> -           (attr =3D=3D &sensor_dev_attr_power1_cap_max.dev_attr.attr ||
+> -            attr =3D=3D &sensor_dev_attr_power1_cap_min.dev_attr.attr ||
+> -            attr =3D=3D &sensor_dev_attr_power1_cap.dev_attr.attr ||
+> -            attr =3D=3D &sensor_dev_attr_power1_cap_default.dev_attr.att=
+r))
+> -               return 0;
+> +       if (attr =3D=3D &sensor_dev_attr_power1_cap_max.dev_attr.attr ||
+> +           attr =3D=3D &sensor_dev_attr_power1_cap_min.dev_attr.attr ||
+> +           attr =3D=3D &sensor_dev_attr_power1_cap.dev_attr.attr ||
+> +           attr =3D=3D &sensor_dev_attr_power1_cap_default.dev_attr.attr=
+) {
+> +               if ((adev->family =3D=3D AMDGPU_FAMILY_SI) ||
+> +                   ((adev->flags & AMD_IS_APU) && (gc_ver !=3D IP_VERSIO=
+N(10, 3, 1)) &&
+> +                    (gc_ver !=3D IP_VERSION(9, 4, 3) && gc_ver !=3D IP_V=
+ERSION(9, 4, 4))) ||
+> +                   (amdgpu_sriov_vf(adev) && gc_ver =3D=3D IP_VERSION(11=
+, 0, 3)))
+> +                       return 0;
+> +       }
+>
+>         /* not implemented yet for APUs having < GC 9.3.0 (Renoir) */
+>         if (((adev->family =3D=3D AMDGPU_FAMILY_SI) ||
 > --
-> 2.49.0
+> 2.34.1
 >
