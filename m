@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BD94CA0FE7
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 20:05:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD5CCA0FF0
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 20:59:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F17E810E3A8;
-	Tue, 26 Aug 2025 20:05:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7959310E3B0;
+	Tue, 26 Aug 2025 20:59:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gZPcBRpG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mwiA/7J1";
 	dkim-atps=neutral
 Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
  [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1A110E3A8
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 20:05:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BD8010E3B0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 20:59:05 +0000 (UTC)
 Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-24617d3f077so8654085ad.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 13:05:45 -0700 (PDT)
+ d9443c01a7336-2489359cc48so490255ad.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 13:59:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756238745; x=1756843545; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756241945; x=1756846745; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Y8C/dz6tDJtBIyLnZyz+QG4BYkG8W70HFD/oOt+0LAQ=;
- b=gZPcBRpGJIiH2K2LLIA5bYKSTENt4BvQCNVoazV/Zm97xB49PU/QjNmg8I7e8IAfo+
- H49nqD3WDTow5YkpRT3gVO1NUturjWmJ78DTP9v0khJPM67hWYlHfIHZ0lZEs6mDwvV7
- hgqX/JVUC7RQjQ4W5yHXauWmrVne/Jy52iNT3V9YYg2wxwMko1NOJ0i+4jh/Mx1gk2Cm
- LEyu80BSyw1+SVcchKXkIFisvuBRubQry4/VnEXX6GeTjTk0mc6nXxag+VWo0FncdFgG
- Tk3Do67eI1s3g7fXVj+H33fPm37osAd+bfig6CKkl8JTBgHSu/ArlqS7U04WrQgHP9KI
- /yyg==
+ bh=/X3A1GNdwEF0g/5O+1nV4lb57RaXGmu0x6FRey+tbv4=;
+ b=mwiA/7J11dCt09F6Om3KR5/pmoLN/tNRcy0z4ygshlfFjq0OY3II6tYVSdRemFs3Ci
+ N9r1fbqP3SvIa5fat7wmUwtSRvOWPMRyf/BEQzsWsm6lAyLcQjVuLF/UqGHunuOHHQRJ
+ BYgG3BCN1UeLarreGFg6BD94M4Bx5+cEWHAnyRdmMLClj52moD+FdturVqN/iYRBXQfm
+ oWaC6g8abZ6H+GcjywSmSSH3wTLrfgT7hZZ47gIEs1thpSmSJXdijIsh6jjGl3GV7Kmx
+ hMDKZIv4yPmCC2VmFFkTnplXHPuDJo7RIB8x0zrQeLIo/e9ZHzuxXOMWErdFUbQ7cq6X
+ XECA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756238745; x=1756843545;
+ d=1e100.net; s=20230601; t=1756241945; x=1756846745;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Y8C/dz6tDJtBIyLnZyz+QG4BYkG8W70HFD/oOt+0LAQ=;
- b=I8D8sHJzyFmyQrmo96cd0Z2YCdi1vAX6tBzGZCMnBS/coHCjexpkZl98qieK5ylOt5
- xhtMn6ssNKC8+z0nSSXemuLKY/TxcIxOq+dvz58wXY7FZWu6Kurf7tvVOKlkZRkVVD9G
- OvPouzn+vl2OfcG9itazZUPFqjd/XqUL/MwNUX9RK6p0Qi/D2CXa+42RLtOU3B4Rz8n6
- q4iKFk6VcgrZhUUL9lrW9O2cvq39sqZAPkLPJMLhR6TTc5meP7rBoHqv3g5lOhwP6dXk
- WSVpeAysnv+lzE6SkKFwIGyvISKWhEn/IT3GTbO2VnJt63Z5vPzewm9GXWxwp0TZf8jr
- SMvg==
-X-Gm-Message-State: AOJu0YyhnEPyi+aCqF+gxW01Pqbtp0q009ptZuva5Sd+J/YRUmc4uxVP
- TEabVMDSgrhN/M0gSPVxGu67smE1Br+PqwZdmixHIAN82n5sTkwk8+cInW5fV435Q2J8BIdg6cz
- 7qyecQJ9izAuzxsQ6XfmllbQksoDZ/xap7Q==
-X-Gm-Gg: ASbGnculK4hqXrNWKp4XPfewg6sVJ5L2T0csEhVQIKGbNHRq7AtyM1t3qPiKdyKt3TQ
- ie6QeQUhNkkMwVu+vPdU6nhrGm8LolQJJdVD5PM14pbxYjJKke8rna2QtRzM+eNRErVi4mFZ1iy
- ZaRYWhgS5WLGlKWDuYhXdxxupJqMWi5OriU9lgevXW/aYp1IlalRnmVC0fWnDixBYXrg8EwYE7v
- eIX/ckDCjLztCUcjA==
-X-Google-Smtp-Source: AGHT+IEvOE89wV3FdK+6PpG2V1Jm4oCRBAYsM8Xm+vZ5qxz9m3tTTO4d2UV05kWAJ5X/d4GkqJ2pwW7bocZun2DJGzw=
-X-Received: by 2002:a17:902:d4c8:b0:246:fbeb:b661 with SMTP id
- d9443c01a7336-246fbebce86mr42732555ad.10.1756238744619; Tue, 26 Aug 2025
- 13:05:44 -0700 (PDT)
+ bh=/X3A1GNdwEF0g/5O+1nV4lb57RaXGmu0x6FRey+tbv4=;
+ b=UREvkMGmEg5Mkhy8/O8gNu2cSXH53nbxVxjwa0dzQrmKY/yXbjN7otxiE21S0u/sTA
+ OYoxDUVKDyJ9gGHn4Bx5iU05k94wM0X06w6zgo5GF8MvrgJ3aPXf7Gga7Juxo8uUfzTF
+ EC36W6YYNddvlzSmCZAuox/UMhluMBQljM0/I4RaDN8jmRGI0jxFRKX2IIL0vYnUy7gj
+ Odp8wfOsFFn5gqzVFnaRIWrYRExmrmLh/4LkeNrJFl9cHoyTsop8T6+6C2bpPqdNxt7Z
+ ONDGQF8unBn8EUXMScu6ZDGqJ9MSNHdkAFMDh5IgVsvbwHk6NbUrLZ68hQCJG+z579U2
+ Rkcg==
+X-Gm-Message-State: AOJu0YwvQlXRXHNiBpdhXkMfXPGfuIrcxs6OjIVi9wFRQrkZ1kEHOwIS
+ 8ub/WS6ppJZaEJGlwbapRv8l6WDh535/RCRcC2O1jdl9i51WAQ6s8FpnVxTXXrs8O23CNX/sNcr
+ rl9JnyD9P30j4/rlZuvfSwG0gzoyEQw+ZpeVw
+X-Gm-Gg: ASbGncuGtZ7DNNMfEWz+65kUrj81/97Ufqkn5zE8HO2JI3UZXEMZQCjXiVxRiMGKbjx
+ JxlMvPhkOswjHwH/z3a2+QiBVf4dpAudcCeYktCj7pT6kkaZECyVQAgXNBLR1P8GR58ap0/NO0i
+ PNOUTJp6uU6/Sat77eyBIxyeOfFVI7waWU4d0phDXz2ESX5DbG+ugiJqia4uebux2BWY/+s60Ve
+ EViSfFVNs3cGMfmiw==
+X-Google-Smtp-Source: AGHT+IEqQVduOC9wx9lXoqBZE9c2UUjtPz8nRhix0V4UDR+AKbVvb0bgPbgHmLZG3BdrNjVBCBt9t1nWXq5Ja1II3jU=
+X-Received: by 2002:a17:902:d508:b0:246:cc19:17de with SMTP id
+ d9443c01a7336-246cc19233cmr64110645ad.4.1756241944619; Tue, 26 Aug 2025
+ 13:59:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250825214635.621539-1-timur.kristof@gmail.com>
- <20250825214635.621539-6-timur.kristof@gmail.com>
-In-Reply-To: <20250825214635.621539-6-timur.kristof@gmail.com>
+References: <20250826193821.869445-1-David.Wu3@amd.com>
+ <20250826193821.869445-3-David.Wu3@amd.com>
+In-Reply-To: <20250826193821.869445-3-David.Wu3@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Aug 2025 16:05:32 -0400
-X-Gm-Features: Ac12FXyI1r713RPknm7PYOIifIvNif0vj0yC9LCLY5gAnoo05T0-Dz7zVuGLap0
-Message-ID: <CADnq5_NtWdn_v4JLHuzDGDE2NQn3jJZ+GNP1_dg2QMW2dUuBYA@mail.gmail.com>
-Subject: Re: [PATCH 5/8] drm/amd/pm: Treat zero vblank time as too short in
- si_dpm (v2)
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, alex.hung@amd.com
+Date: Tue, 26 Aug 2025 16:58:52 -0400
+X-Gm-Features: Ac12FXzzEQzOloc8zZo1jxvdDpxjKWMuyWNlPVtUyk9Y6ctP9qHbwo7--C4UdUw
+Message-ID: <CADnq5_MCiwaLJEXG1y9-D0v8naz0ZnNVurs-cQXBDvAyL+oXDg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: protect potential NULL pointer
+ dereferencing
+To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,47 +82,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 25, 2025 at 5:46=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
+On Tue, Aug 26, 2025 at 3:48=E2=80=AFPM David (Ming Qiang) Wu <David.Wu3@am=
+d.com> wrote:
 >
-> Some parts of the code base expect that MCLK switching is turned
-> off when the vblank time is set to zero.
->
-> According to pp_pm_compute_clocks the non-DC code has issues
-> with MCLK switching with refresh rates over 120 Hz.
->
-> Fixes: 841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> ---
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm=
-/amd/pm/legacy-dpm/si_dpm.c
-> index db46fc0817a7..1e2aeea0b552 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> @@ -3082,8 +3082,8 @@ static bool si_dpm_vblank_too_short(void *handle)
->  {
->         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->         u32 vblank_time =3D amdgpu_dpm_get_vblank_time(adev);
-> -       /* we never hit the non-gddr5 limit so disable it */
-> -       u32 switch_limit =3D adev->gmc.vram_type =3D=3D AMDGPU_VRAM_TYPE_=
-GDDR5 ? 450 : 0;
-> +       /* we never hit the non-gddr5 limit so disable it (but treat 0 as=
- too short) */
-> +       u32 switch_limit =3D adev->gmc.vram_type =3D=3D AMDGPU_VRAM_TYPE_=
-GDDR5 ? 450 : 1;
+> to_amdgpu_fence() could return NULL pointer which needs
+> to be protected for dereferencing.
 
-Took me a while to wrap my head around this.  It might be clearer to
-just return early if the vblank_time is 0.  That said, if there are no
-displays attached there is no reason to not enable mclk switching.
+I don't think any of these cases could ever be NULL.  The amdgpu_fence
+is a container for the dma_fence so it will alway be present.  See
+struct amdgpu_fence.
 
 Alex
 
 >
->         if (vblank_time < switch_limit)
->                 return true;
+> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 22 +++++++++++++++-------
+>  1 file changed, 15 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_fence.c
+> index 2d58aefbd68a7..1432b64d379ef 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -160,7 +160,9 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struc=
+t dma_fence **f,
+>                 }
+>         }
+>
+> -       to_amdgpu_fence(fence)->start_timestamp =3D ktime_get();
+> +       am_fence =3D to_amdgpu_fence(fence);
+> +       if (am_fence)
+> +               am_fence->start_timestamp =3D ktime_get();
+>
+>         /* This function can't be called concurrently anyway, otherwise
+>          * emitting the fence would mess up the hardware ring buffer.
+> @@ -387,6 +389,7 @@ u64 amdgpu_fence_last_unsignaled_time_us(struct amdgp=
+u_ring *ring)
+>         struct amdgpu_fence_driver *drv =3D &ring->fence_drv;
+>         struct dma_fence *fence;
+>         uint32_t last_seq, sync_seq;
+> +       struct amdgpu_fence *f;
+>
+>         last_seq =3D atomic_read(&ring->fence_drv.last_seq);
+>         sync_seq =3D READ_ONCE(ring->fence_drv.sync_seq);
+> @@ -399,8 +402,8 @@ u64 amdgpu_fence_last_unsignaled_time_us(struct amdgp=
+u_ring *ring)
+>         if (!fence)
+>                 return 0;
+>
+> -       return ktime_us_delta(ktime_get(),
+> -               to_amdgpu_fence(fence)->start_timestamp);
+> +       f =3D to_amdgpu_fence(fence);
+> +       return f ? ktime_us_delta(ktime_get(), f->start_timestamp) : 0;
+>  }
+>
+>  /**
+> @@ -417,13 +420,16 @@ void amdgpu_fence_update_start_timestamp(struct amd=
+gpu_ring *ring, uint32_t seq,
+>  {
+>         struct amdgpu_fence_driver *drv =3D &ring->fence_drv;
+>         struct dma_fence *fence;
+> +       struct amdgpu_fence *f;
+>
+>         seq &=3D drv->num_fences_mask;
+>         fence =3D drv->fences[seq];
+>         if (!fence)
+>                 return;
+>
+> -       to_amdgpu_fence(fence)->start_timestamp =3D timestamp;
+> +       f =3D to_amdgpu_fence(fence);
+> +       if (f)
+> +               f->start_timestamp =3D timestamp;
+>  }
+>
+>  /**
+> @@ -827,7 +833,8 @@ static const char *amdgpu_fence_get_driver_name(struc=
+t dma_fence *fence)
+>
+>  static const char *amdgpu_fence_get_timeline_name(struct dma_fence *f)
+>  {
+> -       return (const char *)to_amdgpu_fence(f)->ring->name;
+> +       struct amdgpu_fence *am_f =3D to_amdgpu_fence(f);
+> +       return (const char *) (am_f ? am_f->ring->name : "");
+>  }
+>
+>  static const char *amdgpu_job_fence_get_timeline_name(struct dma_fence *=
+f)
+> @@ -847,8 +854,9 @@ static const char *amdgpu_job_fence_get_timeline_name=
+(struct dma_fence *f)
+>   */
+>  static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
+>  {
+> -       if (!timer_pending(&to_amdgpu_fence(f)->ring->fence_drv.fallback_=
+timer))
+> -               amdgpu_fence_schedule_fallback(to_amdgpu_fence(f)->ring);
+> +       struct amdgpu_fence *am_f =3D to_amdgpu_fence(f);
+> +       if (am_f && !timer_pending(&am_f->ring->fence_drv.fallback_timer)=
+)
+> +               amdgpu_fence_schedule_fallback(am_f->ring);
+>
+>         return true;
+>  }
 > --
-> 2.50.1
+> 2.43.0
 >
