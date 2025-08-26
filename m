@@ -4,51 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84065C8303F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE90CCA0FFB
 	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:57:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6DD110E758;
-	Wed, 27 Aug 2025 07:57:38 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1DFA610E306;
- Tue, 26 Aug 2025 13:28:52 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 742EB1A25;
- Tue, 26 Aug 2025 06:28:43 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A56233F63F;
- Tue, 26 Aug 2025 06:28:45 -0700 (PDT)
-Date: Tue, 26 Aug 2025 14:28:43 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Robin Murphy <robin.murphy@arm.com>, mingo@redhat.com, will@kernel.org,
- acme@kernel.org, namhyung@kernel.org,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org,
- irogers@google.com, adrian.hunter@intel.com,
- kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
- linux-snps-arc@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org,
- linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, coresight@lists.linaro.org,
- iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 16/19] perf: Introduce positive capability for sampling
-Message-ID: <aK22izKE4r6wI_D9@J2N7QTR9R3>
-References: <cover.1755096883.git.robin.murphy@arm.com>
- <ae81cb65b38555c628e395cce67ac6c7eaafdd23.1755096883.git.robin.murphy@arm.com>
- <20250826130806.GY4067720@noisy.programming.kicks-ass.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0710110E75D;
+	Wed, 27 Aug 2025 07:57:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="O9EmkYMu";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A3DD10E63E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 12:37:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1756211830;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=K0wkSLGkuAxnKgiPP+KTldXDI2XEMQhRs+CYDUDKwQs=;
+ b=O9EmkYMuPHe2zXtkO2eMd+TR/avg8el903rnlpv2WszWAhaPs4DkTbz5Dij0HnFiHzS/sI
+ ngVGgoendPVZt7e0/2zuMNNq7PU/N7AymhKJr2m97ll1bRrkurrG5gueWTB6bSiOHsDaOd
+ dauOAqE5Z9mKkn/jvRiQWzUIWGamv/w=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-295-8guIW8z9Oi2CD7PkEHsNHQ-1; Tue, 26 Aug 2025 08:37:09 -0400
+X-MC-Unique: 8guIW8z9Oi2CD7PkEHsNHQ-1
+X-Mimecast-MFC-AGG-ID: 8guIW8z9Oi2CD7PkEHsNHQ_1756211828
+Received: by mail-ed1-f72.google.com with SMTP id
+ 4fb4d7f45d1cf-61c2762067cso3001749a12.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 05:37:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756211828; x=1756816628;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=K0wkSLGkuAxnKgiPP+KTldXDI2XEMQhRs+CYDUDKwQs=;
+ b=ATS9aIEaPt7xSQt8Vmyxu1JNoJks7DOf3+DH9/jfm2ZCn0Ce4iRXXgIEH4ylv7Zz2p
+ JTrCsf45Paaus/LoJPHWeFMWYajKgG3mcqraXHp8MH2yUKqmzz+uMDcx8seTXqrs8Mr/
+ 5WXfjRzLEBjit1Bh7XTaVCwSMO5S/G95MRHVZJBS4dmvLLXsevXkBbk+wNJ9jSuKuR/g
+ 4QGDCQYj3DbrRQwcCOOJ97G+siakKSKR7ltSK9Mqjbo+ceyhSD3teMqUuttk3FPpf2hw
+ nxy2OoReFvaLrYQi8g7gaeak3fxtOXBaLEo8F2yx3M+2x3+yMu6wsf49Epcxfo4ckQEb
+ 1W7w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWoIO80N/yUczMpfBJvi4IRGqBiT1B13PHNwf6F+RlPGMzclFTvQPsEHHEzqajX+xup9tJVhUKg@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrIeZ/xbv09Ol8wPphd4qcOHskAwgETb1i53QY6e1Y8zt6Pn1b
+ MPaOx8Y/xgwT9bSYEsSyDuqVWPJ8ICQEo59XPMSdNo7mQ7uPpsQZpGLKrdo57JsfGRghurRws8D
+ 7oRvuWkdU8gs9F3zWuc6Q9G71cLKefo5KayajvBCepVDFjb9wv0aWQXdKXuZke+nsM9A=
+X-Gm-Gg: ASbGncuZB8aliPg6Pa9jQbi/cs40FxuryS76CJEef57UA9EhwodC9EbRLiuF4FNpmuQ
+ 4Pru47iGgBYjcRGYyHH2uiOO2wgtArXGeahJcb0gxuP1v+EEcj0A03ONPPrhBYjnqYdpopaNKN4
+ CPFy3BUDcEBvOdgijvsTWj3Vj/dPmq04VKUpU2+kvUEo5m1zMdyvGEMfLKxbeSpEstyiFqOTM9B
+ SEqPWCxq2S+b0yHH0PVpCBWeRFdNBCQv5On+fD/b703jIQM64EDEpUNld7SeRzM4NqNqW0erenp
+ 6gPl0CIt+G7nG1//xIkv5FKAIA3D8TigFUwV1i3Gl+hXRBf3esCs0RjbZp4fBf49YZzS4eUCHg=
+ =
+X-Received: by 2002:a05:6402:51d0:b0:61c:8114:880f with SMTP id
+ 4fb4d7f45d1cf-61c81148fb1mr3413112a12.29.1756211827533; 
+ Tue, 26 Aug 2025 05:37:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEGQG1xDGH8ePF8TMcu0jnhgtxS3hJCE+VQ8zFK+DzfVyZbOJxo91wt+ArXLA0ynZyFZoaPgQ==
+X-Received: by 2002:a05:6402:51d0:b0:61c:8114:880f with SMTP id
+ 4fb4d7f45d1cf-61c81148fb1mr3413081a12.29.1756211826933; 
+ Tue, 26 Aug 2025 05:37:06 -0700 (PDT)
+Received: from ?IPV6:2a09:80c0:192:0:5dac:bf3d:c41:c3e7?
+ ([2a09:80c0:192:0:5dac:bf3d:c41:c3e7])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61c312c4f88sm6928285a12.24.2025.08.26.05.37.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Aug 2025 05:37:06 -0700 (PDT)
+Message-ID: <b86f948d-b945-4292-af6e-b9d027425836@redhat.com>
+Date: Tue, 26 Aug 2025 14:37:05 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250826130806.GY4067720@noisy.programming.kicks-ass.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re:
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ x86@kernel.org
+Cc: airlied@gmail.com, thomas.hellstrom@linux.intel.com,
+ matthew.brost@intel.com, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+References: <20250820143739.3422-1-christian.koenig@amd.com>
+ <edf4aee5-54eb-4fad-aa89-4913d44371fe@redhat.com>
+ <4e5f4ef0-53f1-417e-8f3b-76fd7c64cd23@amd.com>
+ <f983521c-b43d-4245-93fc-fcb847908573@redhat.com>
+ <a1b95d23-1908-42c1-8ff6-da051fc140aa@amd.com>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <a1b95d23-1908-42c1-8ff6-da051fc140aa@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: D1-STuodV6Xnf4foNESvQJj2mUv_6YWdo-r2Z0FuA0M_1756211828
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 27 Aug 2025 07:56:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,46 +156,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 26, 2025 at 03:08:06PM +0200, Peter Zijlstra wrote:
-> On Wed, Aug 13, 2025 at 06:01:08PM +0100, Robin Murphy wrote:
-> > Sampling is inherently a feature for CPU PMUs, given that the thing
-> > to be sampled is a CPU context. These days, we have many more
-> > uncore/system PMUs than CPU PMUs, so it no longer makes much sense to
-> > assume sampling support by default and force the ever-growing majority
-> > of drivers to opt out of it (or erroneously fail to). Instead, let's
-> > introduce a positive opt-in capability that's more obvious and easier to
-> > maintain.
+On 26.08.25 10:38, Christian König wrote:
+> On 25.08.25 21:10, David Hildenbrand wrote:
+>> On 21.08.25 10:10, Christian König wrote:
+>>> On 20.08.25 17:23, David Hildenbrand wrote:
+>>>> CCing Lorenzo
+>>>>
+>>>> On 20.08.25 16:33, Christian König wrote:
+>>>>> Hi everyone,
+>>>>>
+>>>>> sorry for CCing so many people, but that rabbit hole turned out to be
+>>>>> deeper than originally thought.
+>>>>>
+>>>>> TTM always had problems with UC/WC mappings on 32bit systems and drivers
+>>>>> often had to revert to hacks like using GFP_DMA32 to get things working
+>>>>> while having no rational explanation why that helped (see the TTM AGP,
+>>>>> radeon and nouveau driver code for that).
+>>>>>
+>>>>> It turned out that the PAT implementation we use on x86 not only enforces
+>>>>> the same caching attributes for pages in the linear kernel mapping, but
+>>>>> also for highmem pages through a separate R/B tree.
+>>>>>
+>>>>> That was unexpected and TTM never updated that R/B tree for highmem pages,
+>>>>> so the function pgprot_set_cachemode() just overwrote the caching
+>>>>> attributes drivers passed in to vmf_insert_pfn_prot() and that essentially
+>>>>> caused all kind of random trouble.
+>>>>>
+>>>>> An R/B tree is potentially not a good data structure to hold thousands if
+>>>>> not millions of different attributes for each page, so updating that is
+>>>>> probably not the way to solve this issue.
+>>>>>
+>>>>> Thomas pointed out that the i915 driver is using apply_page_range()
+>>>>> instead of vmf_insert_pfn_prot() to circumvent the PAT implementation and
+>>>>> just fill in the page tables with what the driver things is the right
+>>>>> caching attribute.
+>>>>
+>>>> I assume you mean apply_to_page_range() -- same issue in patch subjects.
+>>>
+>>> Oh yes, of course. Sorry.
+>>>
+>>>> Oh this sounds horrible. Why oh why do we have these hacks in core-mm and have drivers abuse them :(
+>>>
+>>> Yeah I was also a bit hesitated to use that, but the performance advantage is so high that we probably can't avoid the general approach.
+>>>
+>>>> Honestly, apply_to_pte_range() is just the entry in doing all kinds of weird crap to page tables because "you know better".
+>>>
+>>> Exactly that's the problem I'm pointing out, drivers *do* know it better. The core memory management has applied incorrect values which caused all kind of the trouble.
+>>>
+>>> The problem is not a bug in PAT nor TTM/drivers but rather how they interact with each other.
+>>>
+>>> What I don't understand is why do we have the PAT in the first place? No other architecture does it this way.
+>>
+>> Probably because no other architecture has these weird glitches I assume ... skimming over memtype_reserve() and friends there are quite some corner cases the code is handling (BIOS, ACPI, low ISA, system RAM, ...)
+>>
+>>
+>> I did a lot of work on the higher PAT level functions, but I am no expert on the lower level management functions, and in particular all the special cases with different memory types.
+>>
+>> IIRC, the goal of the PAT subsystem is to make sure that no two page tables map the same PFN with different caching attributes.
 > 
-> > diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-> > index 4d439c24c901..bf2cfbeabba2 100644
-> > --- a/include/linux/perf_event.h
-> > +++ b/include/linux/perf_event.h
-> > @@ -294,7 +294,7 @@ struct perf_event_pmu_context;
-> >  /**
-> >   * pmu::capabilities flags
-> >   */
-> > -#define PERF_PMU_CAP_NO_INTERRUPT	0x0001
-> > +#define PERF_PMU_CAP_SAMPLING		0x0001
-> >  #define PERF_PMU_CAP_NO_NMI		0x0002
-> >  #define PERF_PMU_CAP_AUX_NO_SG		0x0004
-> >  #define PERF_PMU_CAP_EXTENDED_REGS	0x0008
-> > @@ -305,6 +305,7 @@ struct perf_event_pmu_context;
-> >  #define PERF_PMU_CAP_EXTENDED_HW_TYPE	0x0100
-> >  #define PERF_PMU_CAP_AUX_PAUSE		0x0200
-> >  #define PERF_PMU_CAP_AUX_PREFER_LARGE	0x0400
-> > +#define PERF_PMU_CAP_NO_INTERRUPT	0x0800
+> Yeah, that actually makes sense. Thomas from Intel recently explained the technical background to me:
 > 
-> So NO_INTERRUPT was supposed to be the negative of your new SAMPLING
-> (and I agree with your reasoning).
+> Some x86 CPUs write back cache lines even if they aren't dirty and what can happen is that because of the linear mapping the CPU speculatively loads a cache line which is elsewhere mapped uncached.
 > 
-> What I'm confused/curious about is why we retain NO_INTERRUPT?
+> So the end result is that the writeback of not dirty cache lines potentially corrupts the data in the otherwise uncached system memory.
+> 
+> But that a) only applies to memory in the linear mapping and b) only to a handful of x86 CPU types (e.g. recently Intels Luna Lake, AMD Athlons produced before 2004, maybe others).
+> 
+>> It treats ordinary system RAM (IORESOURCE_SYSTEM_RAM) usually in a special way: no special caching mode.
+>>
+>> For everything else, it expects that someone first reserves a memory range for a specific caching mode.
+>>
+>> For example, remap_pfn_range()...->pfnmap_track()->memtype_reserve() will make sure that there are no conflicts, to the call memtype_kernel_map_sync() to make sure the identity mapping is updated to the new type.
+>>
+>> In case someone ends up calling pfnmap_setup_cachemode(), the expectation is that there was a previous call to memtype_reserve_io() or similar, such that pfnmap_setup_cachemode() will find that caching mode.
+>>
+>>
+>> So my assumption would be that that is missing for the drivers here?
+> 
+> Well yes and no.
+> 
+> See the PAT is optimized for applying specific caching attributes to ranges [A..B] (e.g. it uses an R/B tree). But what drivers do here is that they have single pages (usually for get_free_page or similar) and want to apply a certain caching attribute to it.
 
-I see from your other reply that you spotted the next patch does that.
+One clarification after staring at PAT code once again: for pages (RAM), 
+the caching attribute is stored in the page flags, not in the R/B tree.
 
-For the sake of other reviewers or anyone digging through the git
-history it's probably worth adding a line to this commit message to say:
+If nothing was set, it defaults to _PAGE_CACHE_MODE_WB AFAIKs.
 
-| A subsequent patch will remove PERF_PMU_CAP_NO_INTERRUPT as this
-| requires some additional cleanup.
+-- 
+Cheers
 
-Mark.
+David / dhildenb
+
