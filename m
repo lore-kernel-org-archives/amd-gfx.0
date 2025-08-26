@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57C7CCA0EFA
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 14:06:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EC0CCA0FE7
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 14:24:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D722210E649;
-	Tue, 26 Aug 2025 14:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9B3F10E28D;
+	Tue, 26 Aug 2025 14:24:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U25XOgMx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hUgIDuEX";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC4510E649
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 14:06:57 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-b49d7a11c0aso521441a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 07:06:57 -0700 (PDT)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6832F10E28D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 14:24:10 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-24687bbe3aaso5701045ad.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 07:24:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756217216; x=1756822016; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756218250; x=1756823050; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GkBvvzlLFwspZwmg9aNgW8jVoQMIoU95fR3DR84PHwA=;
- b=U25XOgMx7S17cEle4umkM3Mn6v58XzsRW/ViYH2kCG0JiUnNjzwBn99fjcf9ESU3Oq
- gARv0yBGeyejHOhfnM97D7aYi+/XWQhFzHIuKSUEY0nXGwNYsgnsu+Bx/bLqvR3OWV5w
- dwnt8eQ9bK2SFDwdKjPl3GpOVeAsJ5wv3vts25H/FyM1DWpkIeoj2tPPzMB4YgQbYPK5
- esCZ/mTa/MlvXOBCulWrfRf77dEInqgMjwKZ8oTNQ806ICL6EtMn/2ante15VjRYDzZk
- Lz6x9DCIDIHhyWnhQWlMPC4GsHSae/Npm/w9bbraqNVwHSxT6RCLs+Ys02wWfe5Fyu9t
- CAyQ==
+ bh=nVKBd+oYcrIP+/NhzioaAST50X2oa7gkCSIayAUHJUE=;
+ b=hUgIDuEXBqvDCpBK+bjj9DXVJ+8qTHwtsP0RlqdIuur6pZJ/PXK6EAsSXTH8lMOWPD
+ 2VPhGqYG5oTa8NKmCK74+ENb4Hf/CNIk9vaI0Z1jMHNMAbWJzaeuUQ8vFkVPeymWeugs
+ uwd3n/erKpTAzFSQ04xoJ3eBUt8Q+Znl1A15bG76fXSCYP9d1giYKF1IjCM2aMQ6JsWh
+ aOCe6YlByfA74cPFj4cx+0vFMCR1tUpHorFy5JTVp1K1fGt1Zc8647I9NXeTOeTO0PGu
+ m+c0wjKA73Ao5Xb4PJL5MW8ZBz+R9ZdDnMtRkKo4KzD2UbepltbbcZsXKm35tuLaPWRd
+ G9ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756217216; x=1756822016;
+ d=1e100.net; s=20230601; t=1756218250; x=1756823050;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GkBvvzlLFwspZwmg9aNgW8jVoQMIoU95fR3DR84PHwA=;
- b=fKo9nggEKaH2DK/RA801Kw26ojZtkM/YiHy6NzEN6pmhcZCjTF+CQqCwzQe9bXZeh0
- bkvG8eWVf5EijoeX7JDdIIf9kdCpF4jMMglu1srNJrDdOfYMQTuFYvL5fDAz+t2QT8YF
- AMmowZQsm9ev2LtyHd+b+K4dYDiVgwGajbU+weH06ELI4nkkdwllNvOq2kWCAY6vtVPH
- 1Yjfi1b2dpO0Dtm4i2zes0ih2YyYbZ0vtCj0U/u9q2slBbW2UbTGeEihIP4vJmeCanZi
- w/J1cMiXVJbrShABOxxCyCejXeRG9bJZzjgYJFdnPHALICqpkz+n0JwJ5SIDcD9Wt8bF
- dFzg==
-X-Gm-Message-State: AOJu0Yx4g6VJN5uVXVnf3bX9SPjSXDoqNzzHP14CTYf0nzhVjDmnIpx4
- nUDEPLkT1a0POoI3Sj7KiSmmYSUQa0cDLUU8Xh5fPcqcqbXNUVa/oO3TgbTQK3lA8fX8CKySJf8
- ssBClJUcHX0Tefgqn8dWfe3KMH22Lz/o=
-X-Gm-Gg: ASbGnctO6R9nMf7MXqJiCVmYPNe7tf6Ih3e00EWweS8yiS/eMFz4Xcg2aEpeMSYSV9I
- ciH6ZXbzp1C8OGfgpXJJ28s5U3p4VX0NP+yXnSkg1on4bFtJDktnpCn3R7BqdtngxmrVpLC0mcM
- m7Z2JCuvlKURVhDSw41zeahUBGcpqrqpEt+QyLSnC4I6QfDMa8Q6GLx07DA+q4iN3QAuZ/BpB3k
- sp0xRE=
-X-Google-Smtp-Source: AGHT+IEPKZJqFgelFYRRV2m+MsvvTjNv49o9Np79HlJeoH5XrLyORCwGixqV1P+ZoWPNaJU8dv4pn3WjKZjpzTjOI/0=
-X-Received: by 2002:a17:902:d506:b0:246:b1cf:fec2 with SMTP id
- d9443c01a7336-246b1d002d1mr66417395ad.4.1756217216240; Tue, 26 Aug 2025
- 07:06:56 -0700 (PDT)
+ bh=nVKBd+oYcrIP+/NhzioaAST50X2oa7gkCSIayAUHJUE=;
+ b=Omt5nyseG4rTGI1GpIm0/CZot+bxx4PkbndS3uMB/kWd4914vhMGTvt1IZ10P9Ux7u
+ z0E+bWksTDAJgOqggkjAN1lOhZ4pbEABAAqHiLuGdnjcdyhk8+3rgBeHqzyZraXByH8e
+ VNb43AUPcYdEagf0q09FzGqHQKI/LXlexu6V461HVsv5/rq5xBq+F589+2L835YcTwMw
+ CcVBeVpa1+NsSNWH6g/i/7lPgLEyvuGonjaFhXogUkS/76RRg79yYX2cnbl1ABChj8Ie
+ TbOymJem0N95EzqKDAGSC7b3CmPaVkYkP1gJ3KgFDQuEn+bQqjYGByYhih0pH9Legy/7
+ Zc5A==
+X-Gm-Message-State: AOJu0YwerLrRu7pc1MUNnggPxk4qac4hM46QcetS3KNhypl2vSlCuYjM
+ odEtiX42O/moR3cRqRO+yEHDVuRIDO87YrTNNuWU9xSjJSeuQe7zcc4HIriivTXkZvwxMfRRWSM
+ G0wpou/DM5xTNT+vSP7S0U1dmsHczgy1qsw==
+X-Gm-Gg: ASbGnctAGauWGVZuTFudW5Um0tfDkCPmUvjDs0Q3cSLUyA3l47U5fgAmtcRrCGzgxGc
+ w+VO/89OmOAlqdiDZJjoaaAHgrbLh4YQqXKybdFKc0E2AHuCa/XPX2315JtGYltDw32bdGxv6ep
+ EpGzA12H4QMvFm1iCOMlUHRc+1lv3dHCtLBBpWjhUze8X/sXHSjLyj/saFZo12sNG/IZwev+vWU
+ R9t9z0=
+X-Google-Smtp-Source: AGHT+IEGe14K9Ddq3p5XV0FW/ETOc/hrPrKRE6yt8/WVjLcCIc8Cs93miFKBHaUUmBWT5+hZoGYKmw+snJ/QmxikWDY=
+X-Received: by 2002:a17:902:e851:b0:246:7d12:fd40 with SMTP id
+ d9443c01a7336-2467d12fe71mr81793115ad.3.1756218249889; Tue, 26 Aug 2025
+ 07:24:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250825213333.612600-1-timur.kristof@gmail.com>
-In-Reply-To: <20250825213333.612600-1-timur.kristof@gmail.com>
+References: <20250825215631.628949-1-timur.kristof@gmail.com>
+In-Reply-To: <20250825215631.628949-1-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Aug 2025 10:06:43 -0400
-X-Gm-Features: Ac12FXzbk_EKD9J8jlfQ-KT15_QvtGdIOYDW4wmjNTo3vTXzXZFhTKGU7EAcvG0
-Message-ID: <CADnq5_NwQCGgsgVZ1T3ofxrLJhDkq0FO3GKOViWtn8JhFC+vfw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix DVI-D/HDMI adapters
+Date: Tue, 26 Aug 2025 10:23:58 -0400
+X-Gm-Features: Ac12FXx-5RDOzhEHLoXAzyjx13M-mmmMthoa3qM_GRmfwkNCJsIUb6_1WGfOvIA
+Message-ID: <CADnq5_MjEuHz89Mv-_n5BoE4GMWD_PweLEwb=nydO1KdioPG2w@mail.gmail.com>
+Subject: Re: [PATCH 0/4] DC: Fix page flip timeouts on DCE 6 (v2)
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
  harry.wentland@amd.com, alex.hung@amd.com
@@ -81,56 +81,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 25, 2025 at 5:33=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
+On Mon, Aug 25, 2025 at 5:56=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
 mail.com> wrote:
 >
-> When the EDID has the HDMI bit, we should simply select
-> the HDMI signal type even on DVI ports.
+> Compared to the previous version of this series, v2 fixes
+> the rebase conflicts on amd-staging-drm-next and includes
+> an additional patch to address page flip timeouts when the
+> displays are blanked.
 >
-> For reference see, the legacy amdgpu display code:
-> amdgpu_atombios_encoder_get_encoder_mode
-> which selects ATOM_ENCODER_MODE_HDMI for the same case.
+> Currently when using DC on DCE 6, it produces pageflip timeouts:
 >
-> This commit fixes DVI connectors to work with DVI-D/HDMI
-> adapters so that they can now produce output over these
-> connectors for HDMI monitors with higher bandwidth modes.
-> With this change, even HDMI audio works through DVI.
+> 1. When displays are blanked
+> This is caused by (mistakenly) turning off the display engine
+> clock on DCE 6.0 and 6.4 which is also the DP clock.
 >
-> For testing, I used a CAA-DMDHFD3 DVI-D/HDMI adapter
-> with the following GPUs:
+> 2. After suspend/resume
+> The root cause is that DC assumes that the VUPDATE interrupt
+> is always present, when in fact it isn't supported by DCE 6,
+> which also doesn't support VRR.
 >
-> Tahiti (DCE 6) - DC can now output 4K 30 Hz over DVI
-> Polaris 10 (DCE 11.2) - DC can now output 4K 60 Hz over DVI
+> Finally, there is also a patch to disable fast boot mode
+> on DCE 6. The rationale is that this already didn't work
+> on DCE 8, and even if it did I have no means to test it.
 >
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> Timur Krist=C3=B3f (4):
+>   drm/amd/display: Keep PLL0 running on DCE 6.0 and 6.4 (v2)
+>   drm/amd/display: Disable fastboot on DCE 6 too
+>   drm/amd/display: Disable VRR on DCE 6
+>   drm/amd/display: Don't use non-registered VUPDATE on DCE 6 (v2)
 
-Makes sense to me, but would be good to get input from display team in
-case there is anything I'm missing.
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> ---
->  drivers/gpu/drm/amd/display/dc/link/link_detection.c | 4 ++++
->  1 file changed, 4 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drive=
-rs/gpu/drm/amd/display/dc/link/link_detection.c
-> index 827b630daf49..42180e6aca91 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -1140,6 +1140,10 @@ static bool detect_link_and_local_sink(struct dc_l=
-ink *link,
->                 if (sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A &&
->                     !sink->edid_caps.edid_hdmi)
->                         sink->sink_signal =3D SIGNAL_TYPE_DVI_SINGLE_LINK=
-;
-> +               else if (dc_is_dvi_signal(sink->sink_signal) &&
-> +                       aud_support->hdmi_audio_native &&
-> +                       sink->edid_caps.edid_hdmi)
-> +                       sink->sink_signal =3D SIGNAL_TYPE_HDMI_TYPE_A;
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 ++++++++++++-------
+>  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 16 +++++++-----
+>  drivers/gpu/drm/amd/display/dc/dc_helper.c    |  5 ++++
+>  drivers/gpu/drm/amd/display/dc/dm_services.h  |  2 ++
+>  .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  6 ++---
+>  .../dc/resource/dce60/dce60_resource.c        | 11 +++++++-
+>  6 files changed, 46 insertions(+), 20 deletions(-)
 >
->                 if (link->local_sink && dc_is_dp_signal(sink_caps.signal)=
-)
->                         dp_trace_init(link);
 > --
 > 2.50.1
 >
