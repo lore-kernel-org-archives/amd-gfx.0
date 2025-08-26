@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A357CA0FE7
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 14:03:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57C7CCA0EFA
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 14:06:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8711910E642;
-	Tue, 26 Aug 2025 14:03:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D722210E649;
+	Tue, 26 Aug 2025 14:06:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R8v5+GZi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U25XOgMx";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9905310E649
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 14:03:39 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-b49c729577dso818515a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 07:03:39 -0700 (PDT)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC4510E649
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 14:06:57 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-b49d7a11c0aso521441a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 07:06:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756217019; x=1756821819; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756217216; x=1756822016; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Kfpwpo2jQXMSLFkQvQIhXRDzVvQ2J+/g2fldBn73ETg=;
- b=R8v5+GZiT5JVibIKO3JEr96LSQasvnLB6H/Z/63dxt98oMonmvOcIcQsvkAYYWd0dy
- eFTm3zBoHTCsSYUmN4sPbw2v8zUfjAlafTWt2XsrJp62PJ6hW4jSDkSmgojEm/QaaSug
- cnw9q9tyZb1s/2GZnLjRvfMKUpSPJ1naTSSaqHrsofWZDUXzs6c455w1FIu0k7HN3Wzd
- jYzwJUX+YLeTabgpCff3DZMnhorC3KRbxczJmtH9XfJ36OIg1d1wxV0NYXYv4zacRZy9
- UtnJyEttgXM28cJqtmmzhbP5yj+K83ILRf5RVSFxDdC7RsRPvFD6Dl8ws5oyc/zVPJ3P
- rMMA==
+ bh=GkBvvzlLFwspZwmg9aNgW8jVoQMIoU95fR3DR84PHwA=;
+ b=U25XOgMx7S17cEle4umkM3Mn6v58XzsRW/ViYH2kCG0JiUnNjzwBn99fjcf9ESU3Oq
+ gARv0yBGeyejHOhfnM97D7aYi+/XWQhFzHIuKSUEY0nXGwNYsgnsu+Bx/bLqvR3OWV5w
+ dwnt8eQ9bK2SFDwdKjPl3GpOVeAsJ5wv3vts25H/FyM1DWpkIeoj2tPPzMB4YgQbYPK5
+ esCZ/mTa/MlvXOBCulWrfRf77dEInqgMjwKZ8oTNQ806ICL6EtMn/2ante15VjRYDzZk
+ Lz6x9DCIDIHhyWnhQWlMPC4GsHSae/Npm/w9bbraqNVwHSxT6RCLs+Ys02wWfe5Fyu9t
+ CAyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756217019; x=1756821819;
+ d=1e100.net; s=20230601; t=1756217216; x=1756822016;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Kfpwpo2jQXMSLFkQvQIhXRDzVvQ2J+/g2fldBn73ETg=;
- b=dn3TRrTByOrI+wO9WE8yUdNV8Z8Dq5I7fp9r29tuTWt9HvALOVFQQWcc5EmuThNxkB
- tS6OUDA5MLb1ixrBRygi8Cunm3Za3sbsFH+qVi5EgPNLeswpBkta/VrHeLg6eewGJ1xA
- B3VXKHlR9BsRa2sxkaneiixtZd/YhSUpce1FLgD1mVxNg5klLeSrfNu40teqijS9d+Ja
- tRbWWbGexYILX8BVAZNIcqdFEqiRwo4TWz6np8EreKNkQyNVdx5zLgQYEFm35jXYGFi/
- vEE7628Qu+kRkaeFAlUH/cKMQ0UUs+s5yKgEcgYsficf63yJsrui9y5w7iAXB+7onvKM
- SNcA==
-X-Gm-Message-State: AOJu0YyYaLKlksX9bGR2lH5E7ovDm8IR3JozmsSKw5JX1biJBxuuvm20
- 9la3ExOQiqmOFJFkSfdti38Gh4PwG+4coih+NRCTwj2yogJ1rJqcImnZ6lm/8KAxAZHXStzSy9U
- vawLkpMeOBMXdgnz3xtkjQoZfQiZYQxiETQ==
-X-Gm-Gg: ASbGncvfrYBz0E7JLe0/0U91xzf2ECTUgO19cWUisbiUO+ndN75iw+8fxWkQR5ktsWX
- h3g+21REt7sOKHLVr04J17X+2iwcTPqzPmo02XrwBeENeJccddm51hvLdzm666DFuWpRHrK82bi
- JNm+naZ473lNUertPDY5/TblZMn10B5skc3V0b2eRfQtd7YJhq/d5etxi+Lhp3u2pMa+8g8vOG4
- bQ2grI38PhTzyq2cw==
-X-Google-Smtp-Source: AGHT+IGOmqrBoqlA5pCMkfN3h21LNjikqeDYqXRD6AaAn8eTlWwyjehsXI0EMqyMbrEj3/ELfVbsGXYu3VH73OTG71s=
-X-Received: by 2002:a17:902:cecd:b0:246:a19d:c13 with SMTP id
- d9443c01a7336-246a19d1686mr72394195ad.1.1756217018885; Tue, 26 Aug 2025
- 07:03:38 -0700 (PDT)
+ bh=GkBvvzlLFwspZwmg9aNgW8jVoQMIoU95fR3DR84PHwA=;
+ b=fKo9nggEKaH2DK/RA801Kw26ojZtkM/YiHy6NzEN6pmhcZCjTF+CQqCwzQe9bXZeh0
+ bkvG8eWVf5EijoeX7JDdIIf9kdCpF4jMMglu1srNJrDdOfYMQTuFYvL5fDAz+t2QT8YF
+ AMmowZQsm9ev2LtyHd+b+K4dYDiVgwGajbU+weH06ELI4nkkdwllNvOq2kWCAY6vtVPH
+ 1Yjfi1b2dpO0Dtm4i2zes0ih2YyYbZ0vtCj0U/u9q2slBbW2UbTGeEihIP4vJmeCanZi
+ w/J1cMiXVJbrShABOxxCyCejXeRG9bJZzjgYJFdnPHALICqpkz+n0JwJ5SIDcD9Wt8bF
+ dFzg==
+X-Gm-Message-State: AOJu0Yx4g6VJN5uVXVnf3bX9SPjSXDoqNzzHP14CTYf0nzhVjDmnIpx4
+ nUDEPLkT1a0POoI3Sj7KiSmmYSUQa0cDLUU8Xh5fPcqcqbXNUVa/oO3TgbTQK3lA8fX8CKySJf8
+ ssBClJUcHX0Tefgqn8dWfe3KMH22Lz/o=
+X-Gm-Gg: ASbGnctO6R9nMf7MXqJiCVmYPNe7tf6Ih3e00EWweS8yiS/eMFz4Xcg2aEpeMSYSV9I
+ ciH6ZXbzp1C8OGfgpXJJ28s5U3p4VX0NP+yXnSkg1on4bFtJDktnpCn3R7BqdtngxmrVpLC0mcM
+ m7Z2JCuvlKURVhDSw41zeahUBGcpqrqpEt+QyLSnC4I6QfDMa8Q6GLx07DA+q4iN3QAuZ/BpB3k
+ sp0xRE=
+X-Google-Smtp-Source: AGHT+IEPKZJqFgelFYRRV2m+MsvvTjNv49o9Np79HlJeoH5XrLyORCwGixqV1P+ZoWPNaJU8dv4pn3WjKZjpzTjOI/0=
+X-Received: by 2002:a17:902:d506:b0:246:b1cf:fec2 with SMTP id
+ d9443c01a7336-246b1d002d1mr66417395ad.4.1756217216240; Tue, 26 Aug 2025
+ 07:06:56 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250825221046.639289-1-timur.kristof@gmail.com>
-In-Reply-To: <20250825221046.639289-1-timur.kristof@gmail.com>
+References: <20250825213333.612600-1-timur.kristof@gmail.com>
+In-Reply-To: <20250825213333.612600-1-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Aug 2025 10:03:27 -0400
-X-Gm-Features: Ac12FXwksXjnBPXA-NyfFkKlO23z6uuEC84mv2Z5Mgs0vO37GeM8vdvI0AxRWTo
-Message-ID: <CADnq5_Pyx1ZSen6kv+2ncXkpddrj-i2vr3bhoBLOo6=sYD=u1g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Respect max pixel clock for HDMI and DVI-D
+Date: Tue, 26 Aug 2025 10:06:43 -0400
+X-Gm-Features: Ac12FXzbk_EKD9J8jlfQ-KT15_QvtGdIOYDW4wmjNTo3vTXzXZFhTKGU7EAcvG0
+Message-ID: <CADnq5_NwQCGgsgVZ1T3ofxrLJhDkq0FO3GKOViWtn8JhFC+vfw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix DVI-D/HDMI adapters
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
  harry.wentland@amd.com, alex.hung@amd.com
@@ -81,88 +81,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 25, 2025 at 6:10=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
+On Mon, Aug 25, 2025 at 5:33=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
 mail.com> wrote:
 >
-> Change the legacy (non-DC) display code to respect the maximum
-> pixel clock for HDMI and DVI-D. Reject modes that would require
-> a higher pixel clock than can be supported.
+> When the EDID has the HDMI bit, we should simply select
+> the HDMI signal type even on DVI ports.
 >
-> Also update the maximum supported HDMI clock value depending on
-> the ASIC type.
+> For reference see, the legacy amdgpu display code:
+> amdgpu_atombios_encoder_get_encoder_mode
+> which selects ATOM_ENCODER_MODE_HDMI for the same case.
 >
-> For reference, see the DC code:
-> check max_hdmi_pixel_clock in dce*_resource.c
+> This commit fixes DVI connectors to work with DVI-D/HDMI
+> adapters so that they can now produce output over these
+> connectors for HDMI monitors with higher bandwidth modes.
+> With this change, even HDMI audio works through DVI.
+>
+> For testing, I used a CAA-DMDHFD3 DVI-D/HDMI adapter
+> with the following GPUs:
+>
+> Tahiti (DCE 6) - DC can now output 4K 30 Hz over DVI
+> Polaris 10 (DCE 11.2) - DC can now output 4K 60 Hz over DVI
 >
 > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+
+Makes sense to me, but would be good to get input from display team in
+case there is anything I'm missing.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 21 +++++++++++++++++--
->  1 file changed, 19 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/link/link_detection.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_connectors.c
-> index 5e375e9c4f5d..abcc4469cf57 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -1195,12 +1195,26 @@ static void amdgpu_connector_dvi_force(struct drm=
-_connector *connector)
->                 amdgpu_connector->use_digital =3D true;
->  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drive=
+rs/gpu/drm/amd/display/dc/link/link_detection.c
+> index 827b630daf49..42180e6aca91 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> @@ -1140,6 +1140,10 @@ static bool detect_link_and_local_sink(struct dc_l=
+ink *link,
+>                 if (sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A &&
+>                     !sink->edid_caps.edid_hdmi)
+>                         sink->sink_signal =3D SIGNAL_TYPE_DVI_SINGLE_LINK=
+;
+> +               else if (dc_is_dvi_signal(sink->sink_signal) &&
+> +                       aud_support->hdmi_audio_native &&
+> +                       sink->edid_caps.edid_hdmi)
+> +                       sink->sink_signal =3D SIGNAL_TYPE_HDMI_TYPE_A;
 >
-> +/**
-> + * Returns the maximum supported HDMI (TMDS) pixel clock in KHz.
-> + */
-> +static int amdgpu_max_hdmi_pixel_clock(const struct amdgpu_device *adev)
-> +{
-> +       if (adev->asic_type >=3D CHIP_POLARIS10)
-> +               return 600000;
-> +       else if (adev->asic_type >=3D CHIP_TONGA)
-> +               return 300000;
-> +       else
-> +               return 297000;
-> +}
-> +
->  static enum drm_mode_status amdgpu_connector_dvi_mode_valid(struct drm_c=
-onnector *connector,
->                                             const struct drm_display_mode=
- *mode)
->  {
->         struct drm_device *dev =3D connector->dev;
->         struct amdgpu_device *adev =3D drm_to_adev(dev);
->         struct amdgpu_connector *amdgpu_connector =3D to_amdgpu_connector=
-(connector);
-> +       const int max_hdmi_pixel_clock =3D amdgpu_max_hdmi_pixel_clock(ad=
-ev);
->
->         /* XXX check mode bandwidth */
->
-> @@ -1208,10 +1222,13 @@ static enum drm_mode_status amdgpu_connector_dvi_=
-mode_valid(struct drm_connector
->                 if ((amdgpu_connector->connector_object_id =3D=3D CONNECT=
-OR_OBJECT_ID_DUAL_LINK_DVI_I) ||
->                     (amdgpu_connector->connector_object_id =3D=3D CONNECT=
-OR_OBJECT_ID_DUAL_LINK_DVI_D) ||
->                     (amdgpu_connector->connector_object_id =3D=3D CONNECT=
-OR_OBJECT_ID_HDMI_TYPE_B)) {
-> -                       return MODE_OK;
-> +                       if (mode->clock > max_hdmi_pixel_clock)
-> +                               return MODE_CLOCK_HIGH;
-> +                       else
-> +                               return MODE_OK;
-
-I don't think it makes sense to limit dual link DVI to the max HDMI
-clock.  HDMI is single link TMDS.  Other than that, the patch looks
-good to me.
-
-Alex
-
->                 } else if (connector->display_info.is_hdmi) {
->                         /* HDMI 1.3+ supports max clock of 340 Mhz */
-> -                       if (mode->clock > 340000)
-> +                       if (mode->clock > max_hdmi_pixel_clock)
->                                 return MODE_CLOCK_HIGH;
->                         else
->                                 return MODE_OK;
+>                 if (link->local_sink && dc_is_dp_signal(sink_caps.signal)=
+)
+>                         dp_trace_init(link);
 > --
 > 2.50.1
 >
