@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE31AC8303F
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:56:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ADC7CA0FF6
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:57:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A5B810E738;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 814BE10E739;
 	Wed, 27 Aug 2025 07:56:58 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5325310E2E5;
- Tue, 26 Aug 2025 10:46:24 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A06821A25;
- Tue, 26 Aug 2025 03:46:15 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8000D3F694;
- Tue, 26 Aug 2025 03:46:14 -0700 (PDT)
-Date: Tue, 26 Aug 2025 11:46:10 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: peterz@infradead.org, mingo@redhat.com, will@kernel.org,
- acme@kernel.org, namhyung@kernel.org,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org,
- irogers@google.com, adrian.hunter@intel.com,
- kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
- linux-snps-arc@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org,
- linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, coresight@lists.linaro.org,
- iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 01/19] perf/arm-cmn: Fix event validation
-Message-ID: <aK2QclH4jlHJ28EJ@J2N7QTR9R3>
-References: <cover.1755096883.git.robin.murphy@arm.com>
- <0716da3e77065f005ef6ea0d10ddf67fc53e76cb.1755096883.git.robin.murphy@arm.com>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=manjaro.org header.i=@manjaro.org header.b="YfPqyL7O";
+	dkim-atps=neutral
+Received: from mail.manjaro.org (mail.manjaro.org [116.203.91.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9847110E648;
+ Tue, 26 Aug 2025 12:28:13 +0000 (UTC)
+Message-ID: <a23c8b0b-ec62-437b-b876-3143f132a901@manjaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manjaro.org; s=2021;
+ t=1756211291;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Jfzo9ajTl5pL+DzKVsWq0bNdp3fhVYkJzPkksOiabvA=;
+ b=YfPqyL7Oilke1+Ney2mpRJsYsjvaN741LVUQjgnlVsbJBlJk7SPiSixCkqJYQhRTraBpc+
+ QBCGVgxQb78/gHIl2aP1aPGesM2BwcKRg0MuxMLMeOdU0j49xn+nmj5TDQB3vjtCwYG6L7
+ KY/6wumMLuxwcmwvJlEYb80quSRrMMgkiApm8Ym7FbxPm6m9vi8xRBP1HR/FyFi0fvpCHO
+ PNO9Jrc3uHaA3OxSuSUNyaR6s/3G2sG1g9fLjSI5fYmqpplwttXL2A0hdJ8FlI+oFqHkOf
+ v4vRG7ZKfixmP1mlAva3wsoR0HE3yGs/to5nY/ZEbB8Tb5BMlbfX+N9CE2p8RQ==
+Date: Tue, 26 Aug 2025 14:28:10 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0716da3e77065f005ef6ea0d10ddf67fc53e76cb.1755096883.git.robin.murphy@arm.com>
+Subject: Re: [PATCH v1 4/5] drm: panel-backlight-quirks: Add brightness mask
+ quirk
+To: Antheas Kapenekakis <lkml@antheas.dev>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+References: <20250824200202.1744335-1-lkml@antheas.dev>
+ <20250824200202.1744335-5-lkml@antheas.dev>
+Content-Language: en-US
+From: =?UTF-8?Q?Philip_M=C3=BCller?= <philm@manjaro.org>
+Organization: Manjaro Community
+In-Reply-To: <20250824200202.1744335-5-lkml@antheas.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Authentication-Results: ORIGINATING;
+ auth=pass smtp.auth=philm@manjaro.org smtp.mailfrom=philm@manjaro.org
 X-Mailman-Approved-At: Wed, 27 Aug 2025 07:56:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,80 +62,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Robin,
-
-On Wed, Aug 13, 2025 at 06:00:53PM +0100, Robin Murphy wrote:
-> In the hypothetical case where a CMN event is opened with a software
-> group leader that already has some other hardware sibling, currently
-> arm_cmn_val_add_event() could try to interpret the other event's data
-> as an arm_cmn_hw_event, which is not great since we dereference a
-> pointer from there... Thankfully the way to be more robust is to be
-> less clever - stop trying to special-case software events and simply
-> skip any event that isn't for our PMU.
-
-I think this is missing some important context w.r.t. how the core perf
-code behaves (and hence why this change doesn't cause other problems).
-I'd suggest that we give the first few patches a common preamble:
-
-| When opening a new perf event, the core perf code calls
-| pmu::event_init() before checking whether the new event would cause an
-| event group to span multiple hardware PMUs. Considering this:
-| 
-| (1) Any pmu::event_init() callback needs to be robust to cases where
-|     a non-software group_leader or sibling event targets a distinct
-|     PMU.
-| 
-| (2) Any pmu::event_init() callback doesn't need to explicitly reject
-|     groups that span multiple hardware PMUs, as the core code will
-|     reject this later.
-
-... and then spell out the specific issues in the driver, e.g.
-
-| The logic in arm_cmn_validate_group() doesn't account for cases where
-| a non-software sibling event targets a distinct PMU. In such cases,
-| arm_cmn_val_add_event() will erroneously interpret the sibling's
-| event::hw as as struct arm_cmn_hw_event, including dereferencing
-| pointers from potentially user-controlled fields.
-|
-| Fix this by skipping any events for distinct PMUs, and leaving it to
-| the core code to reject event groups that span multiple hardware PMUs.
-
-With that context, the patch itself looks good to me.
-
-This will need a Cc stable. I'm not sure what Fixes tag is necessary;
-has this been broken since its introduction?
-
-Mark.
-
+On 8/24/25 22:02, Antheas Kapenekakis wrote:
+> Certain OLED devices malfunction on specific brightness levels.
+> Specifically, when DP_SOURCE_BACKLIGHT_LEVEL is written to with
+> the first byte being 0x00 and sometimes 0x01, the panel forcibly
+> turns off until the device sleeps again.
 > 
-> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+> Below are some examples. This was found by iterating over brighness
+> ranges while printing DP_SOURCE_BACKLIGHT_LEVEL. It was found that
+> the screen would malfunction on specific values, and some of them
+> were collected. Summary examples are found below.
+> 
+> This quirk was tested by removing the workarounds and iterating
+> from 0 to 50_000 value ranges with a cadence of 0.2s/it. The
+> range of the panel is 1000...400_000, so the values were slightly
+> interpolated during testing. The custom brightness curve added on
+> 6.15 was disabled.
+> 
+>   86016:  10101000000000000
+>   86272:  10101000100000000
+>   87808:  10101011100000000
+> 251648: 111101011100000000
+> 251649: 111101011100000001
+> 
+>   86144:  10101000010000000
+>   87809:  10101011100000001
+> 251650: 111101011100000010
+> 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3803
+> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
 > ---
->  drivers/perf/arm-cmn.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 +++++
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 ++++
+>   drivers/gpu/drm/drm_panel_backlight_quirks.c  | 29 +++++++++++++++++++
+>   include/drm/drm_utils.h                       |  1 +
+>   4 files changed, 43 insertions(+)
 > 
-> diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
-> index 11fb2234b10f..f8c9be9fa6c0 100644
-> --- a/drivers/perf/arm-cmn.c
-> +++ b/drivers/perf/arm-cmn.c
-> @@ -1652,7 +1652,7 @@ static void arm_cmn_val_add_event(struct arm_cmn *cmn, struct arm_cmn_val *val,
->  	enum cmn_node_type type;
->  	int i;
->  
-> -	if (is_software_event(event))
-> +	if (event->pmu != &cmn->pmu)
->  		return;
->  
->  	type = CMN_EVENT_TYPE(event);
-> @@ -1693,9 +1693,6 @@ static int arm_cmn_validate_group(struct arm_cmn *cmn, struct perf_event *event)
->  	if (leader == event)
->  		return 0;
->  
-> -	if (event->pmu != leader->pmu && !is_software_event(leader))
-> -		return -EINVAL;
-> -
->  	val = kzalloc(sizeof(*val), GFP_KERNEL);
->  	if (!val)
->  		return -ENOMEM;
-> -- 
-> 2.39.2.101.g768bb238c484.dirty
-> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 4ad80ae615a2..156f2aae6828 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3662,6 +3662,9 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+>   		if (panel_backlight_quirk->min_brightness)
+>   			caps->min_input_signal =
+>   				panel_backlight_quirk->min_brightness - 1;
+> +		if (panel_backlight_quirk->brightness_mask)
+> +			caps->brightness_mask =
+> +				panel_backlight_quirk->brightness_mask;
+>   	}
+>   }
+>   
+> @@ -4862,6 +4865,10 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+>   	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
+>   	link = (struct dc_link *)dm->backlight_link[bl_idx];
+>   
+> +	/* Apply brightness quirk */
+> +	if (caps->brightness_mask)
+> +		brightness |= caps->brightness_mask;
+> +
+>   	/* Change brightness based on AUX property */
+>   	mutex_lock(&dm->dc_lock);
+>   	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index b937da0a4e4a..340f9b5f68eb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -200,6 +200,12 @@ struct amdgpu_dm_backlight_caps {
+>   	 * @aux_support: Describes if the display supports AUX backlight.
+>   	 */
+>   	bool aux_support;
+> +	/**
+> +	 * @brightness_mask: After deriving brightness, or it with this mask.
+> +	 * This is used to workaround panels that have issues with certain
+> +	 * brightness values.
+> +	 */
+> +	u32 brightness_mask;
+>   	/**
+>   	 * @ac_level: the default brightness if booted on AC
+>   	 */
+> diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+> index 3d386a96e50e..78c430b07d6a 100644
+> --- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
+> +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+> @@ -45,6 +45,35 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
+>   		.ident.name = "NE135A1M-NY1",
+>   		.quirk = { .min_brightness = 1, },
+>   	},
+> +	/* Have OLED Panels with brightness issue when last byte is 0/1 */
+> +	{
+> +		.dmi_match.field = DMI_SYS_VENDOR,
+> +		.dmi_match.value = "AYANEO",
+> +		.dmi_match_other.field = DMI_PRODUCT_NAME,
+> +		.dmi_match_other.value = "AYANEO 3",
+> +		.quirk = { .brightness_mask = 3, },
+> +	},
+> +	{
+> +		.dmi_match.field = DMI_SYS_VENDOR,
+> +		.dmi_match.value = "ZOTAC",
+> +		.dmi_match_other.field = DMI_BOARD_NAME,
+> +		.dmi_match_other.value = "G0A1W",
+> +		.quirk = { .brightness_mask = 3, },
+> +	},
+> +	{
+> +		.dmi_match.field = DMI_SYS_VENDOR,
+> +		.dmi_match.value = "ONE-NETBOOK",
+> +		.dmi_match_other.field = DMI_PRODUCT_NAME,
+> +		.dmi_match_other.value = "ONEXPLAYER F1Pro",
+> +		.quirk = { .brightness_mask = 3, },
+> +	},
+> +	{
+> +		.dmi_match.field = DMI_SYS_VENDOR,
+> +		.dmi_match.value = "ONE-NETBOOK",
+> +		.dmi_match_other.field = DMI_PRODUCT_NAME,
+> +		.dmi_match_other.value = "ONEXPLAYER F1 EVA-02",
+> +		.quirk = { .brightness_mask = 3, },
+> +	}
+>   };
+>   
+>   static bool drm_panel_min_backlight_quirk_matches(
+> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+> index 82eeee4a58ab..6a46f755daba 100644
+> --- a/include/drm/drm_utils.h
+> +++ b/include/drm/drm_utils.h
+> @@ -18,6 +18,7 @@ int drm_get_panel_orientation_quirk(int width, int height);
+>   
+>   struct drm_panel_backlight_quirk {
+>   	u16 min_brightness;
+> +	u32 brightness_mask;
+>   };
+>   
+>   const struct drm_panel_backlight_quirk *
+
+Tested-by: Philip Müller <philm@manjaro.org>
