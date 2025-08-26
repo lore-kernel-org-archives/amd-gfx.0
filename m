@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79966CA0FE7
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 16:29:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74CFCCA0FE7
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 16:29:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FB5B10E114;
-	Tue, 26 Aug 2025 16:29:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2107D10E0DA;
+	Tue, 26 Aug 2025 16:29:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kr2PQ+xq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MAt5xKKx";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1FC910E114
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 16:29:39 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2488be81066so417625ad.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 09:29:39 -0700 (PDT)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5261410E384
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 16:29:51 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-32749113e0fso80145a91.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 09:29:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756225779; x=1756830579; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756225791; x=1756830591; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FBA9I+WtydPLfnTz1pTxEc/bS3G0j/+D5hlHVusJfZo=;
- b=kr2PQ+xq5qw4u8Y56+lnBS8gdyJ854lCEiVGLWjyTgGDHweByeA68hXma8tbGHem1M
- ECUi9QjzMlNMu1vqW+3WQEjgCnTbD56AjypGpoG5uAZNqqaP96HELzK0mGm0kUWSIPL1
- oMtjpNTYTJxpCRkDECGtY4a47foXN2oEO9CrWejfQHgs4LiWvKZcDcwmxKxtg+FZPt5F
- CquacIj8RmzDrGDmdXD/MFmNrYOVQ8xOVW/yUz7o3HmoUpk/ilntaC29ZITTbCiIkzjh
- Krr4HlVgud6Km5bpah9mvqiqutprADmv4LWblRD5sDa98VLx9fEKluM1jzUo7CFJMADn
- w4MA==
+ bh=NC9oCSqrEOCOuzmEfslvCD8kTekySKni/q9783N7MDI=;
+ b=MAt5xKKxz4Yrn0iW2Y3MkdRsmIFoayImlOJNnz100CFjWQZgs0wkOZNzH8ygC1aH8n
+ JNl95wckLT5Rv0kDci4fVAEe/7G92NVtl6q+zD/tsT5MkiKe1oiOf88+myd8Vs20fNXJ
+ RETC1bqOIgxJzySS/CfKGaRL68eY0vSPYt1E/MUSFEbWMsKepHkYOaiqfL30JzwhmKTn
+ h+h3cdO2hTskmZydCjD260EUspUfIrrGSDfSjMGQFAvSTg1+aK1OA4WgZLMawObTkJjC
+ Hv/CS7GcoTVvp+0LZm2tRb3EVZDeAhjtpK2tHOXsMQy1z3nz9H7N2JNEMGM7SAqXCFX3
+ +5vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756225779; x=1756830579;
+ d=1e100.net; s=20230601; t=1756225791; x=1756830591;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FBA9I+WtydPLfnTz1pTxEc/bS3G0j/+D5hlHVusJfZo=;
- b=m8vBHNdUUo0hGUYuQrs2wQMudcjFCsHfKcTsFjoUCQAYgsNGwV5Hp4GffDSo7izOVl
- sLuc2FxcG56SgwW8aHAKzlgFZGmvseQbLe7FEL1UOw8AmXxL99xe+6vZRUhAZF/jxRHv
- LGRfjgOYq5Os1SHd4VcO61dUQMhf7MdEqaCNBuKdW6kKUrk+28hkmaP1ACu0OPwLTpU/
- C60SP6KnRNKckNJOe0CT/3SmLMnOca+Zhnfk0MhbwSTSINChRRrryN4FmTSy826+xY4g
- amTYDQ03OiyWKpHEIvXB0L9P1tzF2oN1Sr6KU5ZTmezsHJg67nrKZZXYWeRnfelqd+Co
- TkOA==
-X-Gm-Message-State: AOJu0YyxIdCJi962TBxnp5YfxLGyi2BvwIVls/lyFyMPtDd4X3Gp/L4d
- sgQjTqazcxq63Z76KThAJpUwL+EI6RsnOazF2j0bWWCEuXlQJ9fjdBXxco+URyH22tD+DfvMu/t
- iB+QRGG9F1wcK5Guy03yNwXZd1sL6MoeIgA==
-X-Gm-Gg: ASbGnctIN3juFUHBL96s9qtAfEx8k4wSwtDiPREehUEVh1AUkT239zAJTD7NX5sbj0t
- 3mqWotOiQmQW+oiGuygGU4EWCX3ELvzGzpGIiM7dl9fUxvroIBfssVpxR5xSl2YZ7NK9QzidDM+
- PaWDtR/MUiJmt0zvciKLIB3ldhzDkuLmPny6YWvytNyrRWw5+BIk7KCmqvKoFoZ+WsGra9VRttd
- H9i4D4VyroWrq2wxg==
-X-Google-Smtp-Source: AGHT+IEGotkuCZ/b1sZoPlKP07k6z1kzzors6iWG5Yt/kwI4XsDAX+hYVsGOvvpN1K1KFqEeLS7SS2Vv9fTFKxEtBOg=
-X-Received: by 2002:a17:902:f60d:b0:248:847b:8906 with SMTP id
- d9443c01a7336-248847b8b62mr9773885ad.11.1756225779035; Tue, 26 Aug 2025
- 09:29:39 -0700 (PDT)
+ bh=NC9oCSqrEOCOuzmEfslvCD8kTekySKni/q9783N7MDI=;
+ b=b9xLmkMG+0Awn21MT18JvxnavIlW3JMUF2ef/wy9pMI/ScKF9Yl7aNjssSkk6vdqKb
+ 7qEXEa34CLJGs/D09RYaCcG9XWc8vYFz1BO2H4lXxvhn2FpBmv1tsV0hY4VI/wIW8yUS
+ rTffNZxAF3+4GIrnVXhg/7iubiu6gL9LtIUx1emATeh75SZ4rz/V+cyWWnEYeCKOGSC1
+ 7AxWXEGkf49XsgVKxvM5VtALCsY0Gc3w0mGTbFyb0F75xzNZJmFzciWw5KufPgjqFPKn
+ lM0oE+Om56XPc4NsGcS6eM75LQSS0vOPy6dSLmV01bxCXrPBPU/kNV9jvQM6NmQgc6VF
+ 3vyA==
+X-Gm-Message-State: AOJu0YxnBMy0tBVYht+mU+LPgh/ZczN5JeM/6wn62k3X4Y7lXn6iSbJQ
+ GkdASbST3pBHkPxIuOXdEyQ5ySYvHf6e8G3BNY5RXKZ1xEf/mLBL/g12af0SH54Ca3mVqtNmVHq
+ 9UtmrdS5sMnqOYrznDn5rWWFNlByGeMY=
+X-Gm-Gg: ASbGncsS3yBkRcITKyWOOJdSd3M++gV41IIEopIAgZqk/MsDti+3JIrC/N8Oe0/HLon
+ I+LzRTr3fgBUx9g/7DU1ZlOjvXtiJ+hA15uTpMdMd9AcCM0h5EvebBsiDTCYDNerBGQJ41MgfON
+ Q20CYYrphWq2NZvvq7ab2qyMgZsC7AE9OF5J+gjsVYPdoEdxFK8pb/YpBRHsbmgVHMjVOvB0wuC
+ 7IezI+TQHt6niUXxQ==
+X-Google-Smtp-Source: AGHT+IHiL7fy8g1eXr280SI7EbPPm/yYJXiDx0NcbtBMqcKb0c8oUlUHtdPkYci/Aa4c9CCdAjR7bi/szqLTo4rdwHA=
+X-Received: by 2002:a17:90b:4d01:b0:31f:3d6:6d98 with SMTP id
+ 98e67ed59e1d1-32515ee8b50mr11714887a91.5.1756225790708; Tue, 26 Aug 2025
+ 09:29:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250822161515.1089247-1-alexander.deucher@amd.com>
-In-Reply-To: <20250822161515.1089247-1-alexander.deucher@amd.com>
+References: <20250825133742.1494754-1-alexander.deucher@amd.com>
+In-Reply-To: <20250825133742.1494754-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Aug 2025 12:29:27 -0400
-X-Gm-Features: Ac12FXzdaMhhOH5Mldwxq5XatfhrP7YPE4wn5l4HTrAAQuZUul4j2SsuepSUkRk
-Message-ID: <CADnq5_OXrEs8uJVobzufB8E4tZjTDnx-vT6Crr_+4_=PX3Sq0Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/userq: fix error handling of invalid doorbell
+Date: Tue, 26 Aug 2025 12:29:38 -0400
+X-Gm-Features: Ac12FXws0QO4Z5gsKXe8MU3RPgcurFOnYPc-1cHSeaDyNrHu1B4aLCIWvdhLdWo
+Message-ID: <CADnq5_MkPtrrVeAZr-8HfP1EAYsc8kTB0+pohgmAe3ABFC8qyQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/vpe: cancel delayed work in hw_fini
 To: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -80,34 +80,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+ping?
 
-On Fri, Aug 22, 2025 at 12:33=E2=80=AFPM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
+On Mon, Aug 25, 2025 at 9:48=E2=80=AFAM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
 >
-> If the doorbell is invalid, be sure to set the r to an error
-> state so the function returns an error.
+> We need to cancel any outstanding work at both suspend
+> and driver teardown. Move the cancel to hw_fini which
+> gets called in both cases.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 424831997cb1a..28242ec2215da 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -426,6 +426,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_=
-amdgpu_userq *args)
->         if (index =3D=3D (uint64_t)-EINVAL) {
->                 drm_file_err(uq_mgr->file, "Failed to get doorbell for qu=
-eue\n");
->                 kfree(queue);
-> +               r =3D -EINVAL;
->                 goto unlock;
->         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vpe.c
+> index 86573c8d9b91e..474bfe36c0c2f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> @@ -436,6 +436,8 @@ static int vpe_hw_fini(struct amdgpu_ip_block *ip_blo=
+ck)
+>         struct amdgpu_device *adev =3D ip_block->adev;
+>         struct amdgpu_vpe *vpe =3D &adev->vpe;
+>
+> +       cancel_delayed_work_sync(&adev->vpe.idle_work);
+> +
+>         vpe_ring_stop(vpe);
+>
+>         /* Power off VPE */
+> @@ -446,10 +448,6 @@ static int vpe_hw_fini(struct amdgpu_ip_block *ip_bl=
+ock)
+>
+>  static int vpe_suspend(struct amdgpu_ip_block *ip_block)
+>  {
+> -       struct amdgpu_device *adev =3D ip_block->adev;
+> -
+> -       cancel_delayed_work_sync(&adev->vpe.idle_work);
+> -
+>         return vpe_hw_fini(ip_block);
+>  }
 >
 > --
-> 2.50.1
+> 2.51.0
 >
