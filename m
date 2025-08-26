@@ -4,37 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAD2BCA0FF6
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:57:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB1FFCA0FFB
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:57:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA19710E745;
-	Wed, 27 Aug 2025 07:56:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="s5T3h8Qu";
-	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82C8610E661;
- Tue, 26 Aug 2025 13:03:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=pe5SE8cLTPPyLKyF6S5l44TjxJSycuwoPwH53Hc4MBc=; b=s5T3h8QunORHMVi1lJq+TueBjc
- cEFljtvjN5QJ03jRIuUbqZT2dzYWLCkq7EIgZ1HjiZepKSvKZUS4jhIftbJpUomzAxLkXpo4MhYIl
- ZCvpLQBdWeqllwk2L5LEakNCj50aVxzY1I5n8BnO+qCbmyfysUZaBrevf4ZwX/NHQuj2PrtwGK3Is
- jhSt6FlQLnGrrRwVWOG3VEhB1mGDJu+1EhbkwSGhAG25rhQM5DyWklhsvsXQh2tW5FYLoYbc8dttl
- tsa9sX+EEmcEbn/jBCdJY0wOlh7GZntWiVjKPlxT8hw9CmspDWHiAZfhSZSTIR8f/mKGoVnI/OKYV
- DfymEZ2w==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uqtKk-00000002CWx-1CxP; Tue, 26 Aug 2025 13:03:31 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id E7FAC3002C5; Tue, 26 Aug 2025 15:03:29 +0200 (CEST)
-Date: Tue, 26 Aug 2025 15:03:29 +0200
-From: Peter Zijlstra <peterz@infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E94C10E749;
+	Wed, 27 Aug 2025 07:57:00 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 739D389317;
+ Tue, 26 Aug 2025 13:18:29 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B0DEB1A25;
+ Tue, 26 Aug 2025 06:18:20 -0700 (PDT)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E10B23F63F;
+ Tue, 26 Aug 2025 06:18:22 -0700 (PDT)
+Date: Tue, 26 Aug 2025 14:18:16 +0100
+From: Mark Rutland <mark.rutland@arm.com>
 To: Robin Murphy <robin.murphy@arm.com>
-Cc: mingo@redhat.com, will@kernel.org, mark.rutland@arm.com,
+Cc: peterz@infradead.org, mingo@redhat.com, will@kernel.org,
  acme@kernel.org, namhyung@kernel.org,
  alexander.shishkin@linux.intel.com, jolsa@kernel.org,
  irogers@google.com, adrian.hunter@intel.com,
@@ -53,14 +40,15 @@ Cc: mingo@redhat.com, will@kernel.org, mark.rutland@arm.com,
  iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
  linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 12/19] perf: Ignore event state for group validation
-Message-ID: <20250826130329.GX4067720@noisy.programming.kicks-ass.net>
+Subject: Re: [PATCH 02/19] perf/hisilicon: Fix group validation
+Message-ID: <aK20GP5g1iu9DGrQ@J2N7QTR9R3>
 References: <cover.1755096883.git.robin.murphy@arm.com>
- <d6cda4e2999aba5794c8178f043c91068fa8080c.1755096883.git.robin.murphy@arm.com>
+ <c7b877e66ba0d34d8558c5af8bbb620e8c0e47d9.1755096883.git.robin.murphy@arm.com>
+ <aK2XS_GhLw1EQ2ml@J2N7QTR9R3>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d6cda4e2999aba5794c8178f043c91068fa8080c.1755096883.git.robin.murphy@arm.com>
+In-Reply-To: <aK2XS_GhLw1EQ2ml@J2N7QTR9R3>
 X-Mailman-Approved-At: Wed, 27 Aug 2025 07:56:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,26 +64,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 13, 2025 at 06:01:04PM +0100, Robin Murphy wrote:
-> It may have been different long ago, but today it seems wrong for these
-> drivers to skip counting disabled sibling events in group validation,
-> given that perf_event_enable() could make them schedulable again, and
-> thus increase the effective size of the group later. Conversely, if a
-> sibling event is truly dead then it stands to reason that the whole
-> group is dead, so it's not worth going to any special effort to try to
-> squeeze in a new event that's never going to run anyway. Thus, we can
-> simply remove all these checks.
+On Tue, Aug 26, 2025 at 12:15:23PM +0100, Mark Rutland wrote:
+> On Wed, Aug 13, 2025 at 06:00:54PM +0100, Robin Murphy wrote:
+> > The group validation logic shared by the HiSilicon HNS3/PCIe drivers is
+> > a bit off, in that given a software group leader, it will consider that
+> > event *in place of* the actual new event being opened. At worst this
+> > could theoretically allow an unschedulable group if the software event
+> > config happens to look like one of the hardware siblings.
+> > 
+> > The uncore framework avoids that particular issue,
+> 
+> What is "the uncore framework"? I'm not sure exactly what you're
+> referring to, nor how that composes with the problem described above.
+> 
+> > but all 3 also share the common issue of not preventing racy access to
+> > the sibling list,
+> 
+> Can you please elaborate on this racy access to the silbing list? I'm
+> not sure exactly what you're referring to.
 
-So currently you can do sort of a manual event rotation inside an
-over-sized group and have it work.
+Ah, I think you're referring to the issue in:
 
-I'm not sure if anybody actually does this, but its possible.
+  https://lore.kernel.org/linux-arm-kernel/Zg0l642PgQ7T3a8Z@FVFF77S0Q05N/
 
-Eg. on a PMU that supports only 4 counters, create a group of 5 and
-periodically cycle which of the 5 events is off.
+... where when creatign a new event which is its own group leader,
+lockdep_assert_event_ctx(event) fires in for_each_sibling_event(),
+because the new event's context isn't locked...
 
-So I'm not against changing this, but changing stuff like this always
-makes me a little fearful -- it wouldn't be the first time that when it
-finally trickles down to some 'enterprise' user in 5 years someone comes
-and finally says, oh hey, you broke my shit :-(
+> > diff --git a/drivers/perf/hisilicon/hisi_uncore_pmu.c b/drivers/perf/hisilicon/hisi_uncore_pmu.c
+> > index a449651f79c9..3c531b36cf25 100644
+> > --- a/drivers/perf/hisilicon/hisi_uncore_pmu.c
+> > +++ b/drivers/perf/hisilicon/hisi_uncore_pmu.c
+> > @@ -101,26 +101,17 @@ static bool hisi_validate_event_group(struct perf_event *event)
+> >  	/* Include count for the event */
+> >  	int counters = 1;
+> >  
+> > -	if (!is_software_event(leader)) {
+> > -		/*
+> > -		 * We must NOT create groups containing mixed PMUs, although
+> > -		 * software events are acceptable
+> > -		 */
+> > -		if (leader->pmu != event->pmu)
+> > -			return false;
+> > +	if (leader == event)
+> > +		return true;
 
+... and hence bailing out here avoids that?
+
+It's not strictly "racy access to the sibling list", becuase there's
+nothing else accessing the list; it's just that this is the simplest way
+to appease lockdep while avoiding false negatives.
+
+It'd probably be better to say something like "the common issue of
+calling for_each_sibling_event() when initialising a new group leader",
+and maybe to spell that out a bit.
+
+Mark.
