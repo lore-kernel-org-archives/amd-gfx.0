@@ -4,51 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE15CA0FFF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:57:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 920AFCA0FF7
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:57:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BEE710E741;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5071C10E742;
 	Wed, 27 Aug 2025 07:56:59 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 163D610E683;
- Tue, 26 Aug 2025 15:32:17 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5E872169E;
- Tue, 26 Aug 2025 08:32:08 -0700 (PDT)
-Received: from [10.57.4.86] (unknown [10.57.4.86])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 893E73F63F;
- Tue, 26 Aug 2025 08:32:09 -0700 (PDT)
-Message-ID: <6080e45d-032e-48c2-8efc-3d7e5734d705@arm.com>
-Date: Tue, 26 Aug 2025 16:32:07 +0100
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="pF7H9Uf7";
+	dkim-atps=neutral
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9708C10E2DC;
+ Tue, 26 Aug 2025 09:03:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1756199024;
+ bh=AEA0tboIIwumHQDgu58GiD5GyIcRWbalr3fv6UgFixo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=pF7H9Uf7g+Np9cwo3+MdkCq9Z9WSFF3tukQSL1HFuR2XzeUvattpNMM5mK8QmgKG1
+ rgN0UgFbUuabSNizJUXthZhBsnBw/Fltv6vWhQjANB6MlpZ1xMqp6vd2W4VTQuG4aL
+ cRYzkeaRLFccPRVpW8Dr34dczjQXCoyvUiDR3nN9+bT+aCDquL4aTKnfQr9W7Wr87u
+ J/lV7iLi/HeOTRtTOlfM6/q9SPao32Ds5a0vuOn/CkvPUi5sucqsyCzyoqM7SaX3uH
+ JjH088gBYdpZ1Gfd4cPCwLtyf9ESzQAxlbCZDFQSdzSeGtQ/LXoj1RmIeBXeqPNL4A
+ BWtzmOTvDPJVQ==
+Received: from eldfell (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2165B17E0A28;
+ Tue, 26 Aug 2025 11:03:43 +0200 (CEST)
+Date: Tue, 26 Aug 2025 12:03:06 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, Sebastian Wick
+ <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, leo.liu@amd.com, ville.syrjala@linux.intel.com,
+ contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com,
+ shashank.sharma@amd.com, agoins@nvidia.com, joshua@froggi.es,
+ mdaenzer@redhat.com, aleixpol@kde.org, victoria@system76.com,
+ daniel@ffwll.ch, uma.shankar@intel.com, quic_naseer@quicinc.com,
+ quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, marcan@marcan.st,
+ Liviu.Dudau@arm.com, sashamcintosh@google.com,
+ chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
+ mcanal@igalia.com, nfraprado@collabora.com, Daniel Stone
+ <daniels@collabora.com>
+Subject: Re: [PATCH V11 06/47] drm/colorop: Add 1D Curve subtype
+Message-ID: <20250826120306.618c275f@eldfell>
+In-Reply-To: <4eef4157-cad5-4399-9bc9-c5c2f005d472@amd.com>
+References: <20250815035047.3319284-1-alex.hung@amd.com>
+ <20250815035047.3319284-7-alex.hung@amd.com>
+ <DC6I12RMKGXL.1L8KAEE0UBNNW@redhat.com>
+ <CAFZQkGyXbD_x0V6KBdR4vaunF+bG+HKOYAA7y6aVWfeTQ3cLzA@mail.gmail.com>
+ <4eef4157-cad5-4399-9bc9-c5c2f005d472@amd.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/19] perf: Ignore event state for group validation
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, will@kernel.org, mark.rutland@arm.com, acme@kernel.org, 
- namhyung@kernel.org, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
- irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-alpha@vger.kernel.org, linux-snps-arc@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org,
- linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, coresight@lists.linaro.org,
- iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-riscv@lists.infradead.org
-References: <cover.1755096883.git.robin.murphy@arm.com>
- <d6cda4e2999aba5794c8178f043c91068fa8080c.1755096883.git.robin.murphy@arm.com>
- <20250826130329.GX4067720@noisy.programming.kicks-ass.net>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20250826130329.GX4067720@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="Sig_/3qjeMGeqauBUipZAl8_EYKi";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Wed, 27 Aug 2025 07:56:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,45 +76,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-08-26 2:03 pm, Peter Zijlstra wrote:
-> On Wed, Aug 13, 2025 at 06:01:04PM +0100, Robin Murphy wrote:
->> It may have been different long ago, but today it seems wrong for these
->> drivers to skip counting disabled sibling events in group validation,
->> given that perf_event_enable() could make them schedulable again, and
->> thus increase the effective size of the group later. Conversely, if a
->> sibling event is truly dead then it stands to reason that the whole
->> group is dead, so it's not worth going to any special effort to try to
->> squeeze in a new event that's never going to run anyway. Thus, we can
->> simply remove all these checks.
-> 
-> So currently you can do sort of a manual event rotation inside an
-> over-sized group and have it work.
-> 
-> I'm not sure if anybody actually does this, but its possible.
-> 
-> Eg. on a PMU that supports only 4 counters, create a group of 5 and
-> periodically cycle which of the 5 events is off.
-> 
-> So I'm not against changing this, but changing stuff like this always
-> makes me a little fearful -- it wouldn't be the first time that when it
-> finally trickles down to some 'enterprise' user in 5 years someone comes
-> and finally says, oh hey, you broke my shit :-(
+--Sig_/3qjeMGeqauBUipZAl8_EYKi
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Eww, I see what you mean... and I guess that's probably lower-overhead 
-than actually deleting and recreating the sibling event(s) each time, 
-and potentially less bother then wrangling multiple groups for different 
-combinations of subsets when one simply must still approximate a complex 
-metric that requires more counters than the hardware offers.
+On Thu, 21 Aug 2025 11:54:32 -0600
+Alex Hung <alex.hung@amd.com> wrote:
 
-I'm also not keen to break anything that wasn't already somewhat broken, 
-especially since this patch is only intended as cleanup, so either we 
-could just drop it altogether, or perhaps I can wrap the existing 
-behaviour in a helper that can at least document this assumption and 
-discourage new drivers from copying it. Am I right that only 
-PERF_EVENT_STATE_{OFF,ERROR} would matter for this, though, and my 
-reasoning for state <= PERF_EVENT_STATE_EXIT should still stand? As for 
-the fiddly discrepancy with enable_on_exec between arm_pmu and others 
-I'm not really sure what to think...
+> On 8/21/25 06:23, Xaver Hugl wrote:
+> >> We user space folks have been convinced at this point that the sRGB EO=
+TF
+> >> is actually gamma 2.2, and not the piece-wise function. Now, if the
+> >> hardware is actually the piece-wise, then that's what should be expose=
+d,
+> >> but I'm a bit unsure if we should do that under the name sRGB EOTF. =20
+> > Maybe simply rename the enum string to "sRGB piece-wise EOTF"? In
+> > hindsight, the naming of "srgb" in the Wayland protocol caused a lot
+> > of confusion, it's better to be explicit about it where possible. =20
+>=20
+> I will leave this to Harry to comment. He is taking a few days off so I=20
+> will check with him later.
+>=20
+
+"sRGB inverse OETF"?
+
+Strictly speaking "sRGB piece-wise EOTF" is not a thing AFAIU.
+
 
 Thanks,
-Robin.
+pq
+
+--Sig_/3qjeMGeqauBUipZAl8_EYKi
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmiteEoACgkQI1/ltBGq
+qqeJIw//WRnYs255xPlaG6UKS5mo/qUPlDe2CIrOBfSxmP/d8rYRYEQSg390r2R1
+9nSOD3joV4nn+vp88U7YqciYeMz4NJHSuWAuJeKdNlY5l+pTMRObVHYZrg+bHmWR
+3tXOmmY6g5SNpI/x9fn3Wlzr5AB/GBUDaPtgBaC/V1Oot/XF2XARvD9SeA9IqC2g
+lLzLeqyCAIyrrh3f1jOaR0AtL7AoJMDsxW4ZKl3LQ3/0rMXaBUA9Ujb5cGE5aYql
+REKlIhEBnJUidQv3zBllxr5UKK0+WnlUcl5nGWf/D2b6Qwe2whChJ3J9GdO5oJSo
+1nly6Ob7FwkzXCDSx2fhQeXa/S2mfstrUMF93JrBdH3J7CYcEhg6q8d8hdkJl2FM
+Ix5tejgRBnj2MGf9oRSS8nVsTk6Myz+guhSy1hpdRIneYj1dJ41I4S2lWQGdwj9y
+LvHOynCM4juvQNd3ZdV08ZTk13KjQiK3QJnl5xuqTVGGWg9DmAj+2kDn4EDmXsoe
+7vYpmP0HC+RV2vXiov3TVYfmqJ1HrIUnp/YdTxzFOi21LucpW6CBuPO9mqkamCIo
+4MuHbIs7A9IwmUf+IhQxqCyeGJGSYTdAqUIPIpauIshNREydeHHbWQ/hMXAwdMLn
+UvsC2SKCUECnvWtxsOGpg7pif7VH9STZoJGfDPxLPVa60K/9zjg=
+=mY+T
+-----END PGP SIGNATURE-----
+
+--Sig_/3qjeMGeqauBUipZAl8_EYKi--
