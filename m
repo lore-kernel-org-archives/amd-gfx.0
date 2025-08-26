@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA5A8CA0FFD
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:57:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BFA9CA0EFF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62ADA10E75F;
-	Wed, 27 Aug 2025 07:57:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8894D10E762;
+	Wed, 27 Aug 2025 07:57:48 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7D3E010E395;
- Tue, 26 Aug 2025 16:35:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id A8AEE10E2FE;
+ Tue, 26 Aug 2025 13:11:27 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8E4571A25;
- Tue, 26 Aug 2025 09:35:15 -0700 (PDT)
-Received: from [10.57.4.86] (unknown [10.57.4.86])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A5A1B3F694;
- Tue, 26 Aug 2025 09:35:17 -0700 (PDT)
-Message-ID: <8d6ac059-fc8f-4a5d-b49e-d02777c01cfb@arm.com>
-Date: Tue, 26 Aug 2025 17:35:15 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/19] perf: Introduce positive capability for sampling
-To: Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, will@kernel.org, acme@kernel.org, namhyung@kernel.org,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
- adrian.hunter@intel.com, kan.liang@linux.intel.com,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-alpha@vger.kernel.org, linux-snps-arc@lists.infradead.org,
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D75BE1A25;
+ Tue, 26 Aug 2025 06:11:18 -0700 (PDT)
+Received: from localhost (e132581.arm.com [10.1.196.87])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7A733F63F;
+ Tue, 26 Aug 2025 06:11:26 -0700 (PDT)
+Date: Tue, 26 Aug 2025 14:11:24 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: peterz@infradead.org, mingo@redhat.com, will@kernel.org,
+ mark.rutland@arm.com, acme@kernel.org, namhyung@kernel.org,
+ alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+ irogers@google.com, adrian.hunter@intel.com,
+ kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
+ linux-snps-arc@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
  linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
  linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
@@ -41,15 +40,14 @@ Cc: mingo@redhat.com, will@kernel.org, acme@kernel.org, namhyung@kernel.org,
  iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
  linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-riscv@lists.infradead.org
+Subject: Re: [PATCH 16/19] perf: Introduce positive capability for sampling
+Message-ID: <20250826131124.GB745921@e132581.arm.com>
 References: <cover.1755096883.git.robin.murphy@arm.com>
  <ae81cb65b38555c628e395cce67ac6c7eaafdd23.1755096883.git.robin.murphy@arm.com>
- <20250826130806.GY4067720@noisy.programming.kicks-ass.net>
- <aK22izKE4r6wI_D9@J2N7QTR9R3>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <aK22izKE4r6wI_D9@J2N7QTR9R3>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ae81cb65b38555c628e395cce67ac6c7eaafdd23.1755096883.git.robin.murphy@arm.com>
 X-Mailman-Approved-At: Wed, 27 Aug 2025 07:56:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,53 +63,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-08-26 2:28 pm, Mark Rutland wrote:
-> On Tue, Aug 26, 2025 at 03:08:06PM +0200, Peter Zijlstra wrote:
->> On Wed, Aug 13, 2025 at 06:01:08PM +0100, Robin Murphy wrote:
->>> Sampling is inherently a feature for CPU PMUs, given that the thing
->>> to be sampled is a CPU context. These days, we have many more
->>> uncore/system PMUs than CPU PMUs, so it no longer makes much sense to
->>> assume sampling support by default and force the ever-growing majority
->>> of drivers to opt out of it (or erroneously fail to). Instead, let's
->>> introduce a positive opt-in capability that's more obvious and easier to
->>> maintain.
->>
->>> diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
->>> index 4d439c24c901..bf2cfbeabba2 100644
->>> --- a/include/linux/perf_event.h
->>> +++ b/include/linux/perf_event.h
->>> @@ -294,7 +294,7 @@ struct perf_event_pmu_context;
->>>   /**
->>>    * pmu::capabilities flags
->>>    */
->>> -#define PERF_PMU_CAP_NO_INTERRUPT	0x0001
->>> +#define PERF_PMU_CAP_SAMPLING		0x0001
->>>   #define PERF_PMU_CAP_NO_NMI		0x0002
->>>   #define PERF_PMU_CAP_AUX_NO_SG		0x0004
->>>   #define PERF_PMU_CAP_EXTENDED_REGS	0x0008
->>> @@ -305,6 +305,7 @@ struct perf_event_pmu_context;
->>>   #define PERF_PMU_CAP_EXTENDED_HW_TYPE	0x0100
->>>   #define PERF_PMU_CAP_AUX_PAUSE		0x0200
->>>   #define PERF_PMU_CAP_AUX_PREFER_LARGE	0x0400
->>> +#define PERF_PMU_CAP_NO_INTERRUPT	0x0800
->>
->> So NO_INTERRUPT was supposed to be the negative of your new SAMPLING
->> (and I agree with your reasoning).
->>
->> What I'm confused/curious about is why we retain NO_INTERRUPT?
-> 
-> I see from your other reply that you spotted the next patch does that.
-> 
-> For the sake of other reviewers or anyone digging through the git
-> history it's probably worth adding a line to this commit message to say:
-> 
-> | A subsequent patch will remove PERF_PMU_CAP_NO_INTERRUPT as this
-> | requires some additional cleanup.
+On Wed, Aug 13, 2025 at 06:01:08PM +0100, Robin Murphy wrote:
+> Sampling is inherently a feature for CPU PMUs, given that the thing
+> to be sampled is a CPU context. These days, we have many more
+> uncore/system PMUs than CPU PMUs, so it no longer makes much sense to
+> assume sampling support by default and force the ever-growing majority
+> of drivers to opt out of it (or erroneously fail to). Instead, let's
+> introduce a positive opt-in capability that's more obvious and easier to
+> maintain.
 
-Yup, the main reason is the set of drivers getting the new cap is 
-smaller than the set of drivers currently not rejecting sampling events, 
-so I wanted it to be clearly visible in the patch. Indeed I shall 
-clarify the relationship to NO_INTERRUPT in the commit message.
+[...]
+
+> diff --git a/drivers/perf/arm_spe_pmu.c b/drivers/perf/arm_spe_pmu.c
+> index 369e77ad5f13..dbd52851f5c6 100644
+> --- a/drivers/perf/arm_spe_pmu.c
+> +++ b/drivers/perf/arm_spe_pmu.c
+> @@ -955,7 +955,8 @@ static int arm_spe_pmu_perf_init(struct arm_spe_pmu *spe_pmu)
+>  	spe_pmu->pmu = (struct pmu) {
+>  		.module = THIS_MODULE,
+>  		.parent		= &spe_pmu->pdev->dev,
+> -		.capabilities	= PERF_PMU_CAP_EXCLUSIVE | PERF_PMU_CAP_ITRACE,
+> +		.capabilities	= PERF_PMU_CAP_SAMPLING |
+> +				  PERF_PMU_CAP_EXCLUSIVE | PERF_PMU_CAP_ITRACE,
+>  		.attr_groups	= arm_spe_pmu_attr_groups,
+>  		/*
+>  		 * We hitch a ride on the software context here, so that
+
+The change in Arm SPE driver looks good to me.
+
+I noticed you did not set the flag for other AUX events, like Arm
+CoreSight, Intel PT and bts. The drivers locate in:
+
+  drivers/hwtracing/coresight/coresight-etm-perf.c
+  arch/x86/events/intel/bts.c
+  arch/x86/events/intel/pt.c
+
+Genearlly, AUX events generate interrupts based on AUX ring buffer
+watermark but not the period. Seems to me, it is correct to set the
+PERF_PMU_CAP_SAMPLING flag for them.
+
+A special case is Arm CoreSight legacy sinks (like ETR/ETB, etc)
+don't has interrupt. We might need set or clear the flag on the fly
+based on sink type:
+
+diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+index f1551c08ecb2..404edc94c198 100644
+--- a/drivers/hwtracing/coresight/coresight-etm-perf.c
++++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+@@ -433,6 +433,11 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+        if (!sink)
+                goto err;
+ 
++       if (coresight_is_percpu_sink(sink))
++               event->pmu.capabilities = PERF_PMU_CAP_SAMPLING;
++       else
++               event->pmu.capabilities &= ~PERF_PMU_CAP_SAMPLING;
++
 
 Thanks,
-Robin.
+Leo
