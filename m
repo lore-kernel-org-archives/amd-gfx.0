@@ -4,69 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4015CA0FED
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 14:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA18CA0EFF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 14:36:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4320D10E004;
-	Wed, 27 Aug 2025 14:35:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A8A210E31B;
+	Wed, 27 Aug 2025 14:36:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MWJCcnSO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gzVfTqJY";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86DEE10E004
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 14:35:22 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-b475b63ab66so1445587a12.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 07:35:22 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCD010E31B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 14:36:23 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-3c8fe6bd038so1771443f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 07:36:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756305322; x=1756910122; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bWltCP20/ecCLkSErVu/KDpjjKaMUiPaKQI3denZ4kc=;
- b=MWJCcnSOTMlLh7E7Xrw9vshmXglg6M1lMUa8ovR89rvGDej1vOzS2Sc9PUzYUSICzA
- R+qa3RvZBvCbRC4A/vuGL8Yuk0AhRMRUsGfs0DsZ5LMw1k8nrIYz0avPu9dpRduY0uyQ
- 7wT8cI3JLJ+E6y6XiwsJwsHwPukU/SlYBApWkOC88ayx5zYVofeW9CPa1DRQu3HpGHaZ
- 8gtBQp499buS1E/ZIAX+sfH76UizameMuE9Cyezovhu+USTCLFu1Or4k4f2HafuMR4S0
- D/9FO3GH7k0iFk3TMFQG2SuTXMvr/udHvD8SYqcSEJ86QScKwpqKaW/XY9FbvlrV6PNK
- e3/Q==
+ d=gmail.com; s=20230601; t=1756305382; x=1756910182; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=WAi0PWzCbKkwUI3bxsFxBTGNGlt8jklaNmjjyDjjlsI=;
+ b=gzVfTqJY1bj/CME+3IO0A8vRhZSUo+LQS9hIOlVF5qAWeMBBD8e3ESRsTTkkMPV8Qp
+ kfV97AF09C5qqKACRFDmh3pIie7UbqePxt3Anrxlbo10yrbZwos9rUL53JbESTxJzZ1z
+ axL6XvjagWp6+hVOPrqgBDuGpkeuoqTtJ5b/52U85G3+GGqHyeJEaHXvW+AoecHOmbQN
+ Esfi6F03JRbvVZWTQY8tHUT3CgMiBJmVjACw1hS6e1bYwOthaiU0mRUOea/Gmj3sMbUN
+ Y7tyUQrD/uSXzN6s6He6dROQOCrC2YpYBZzG0wHGICMkFdweuJly3/i7K13fiLOnndFn
+ cJVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756305322; x=1756910122;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bWltCP20/ecCLkSErVu/KDpjjKaMUiPaKQI3denZ4kc=;
- b=fc/rEvLqV/uN3r0FlrMJR0MRpvwCuiPwlCrRZ056JDQ+Ww7zJOUBST9YjMEX9PcITa
- bCyCKsuTUr+NSiU8XfoVfhwI3IpkHQVTBrPLMvBIUTsBWUXpRAiq/Wr7dXX6A57aybMe
- F7w5gY5b5YCC4gLyIBJUKJ+hsajLvvzcHEW45SCUiBw9U9Hp7kre0SDCFnMO8AdE/NRy
- FQys8r3fbCu8Sy5WqKL/Efbvrfdua3hgGvxXQfHMImFavE1eEEKzMvtWbnn9wP02OQoi
- +woXsqF8fjdxVU6+v3Lnsmy0FZ+85IkwxzRzSbw8v9axlZSu2p6ocyqxRIKzs2qaB48G
- da+Q==
-X-Gm-Message-State: AOJu0YxnENumI6B5sRbsTf0uGLq06eD8Yi5cgS1zxpIXWhXowSv7Q5hQ
- Qh0cYMn+v1Gxl4qvJDvIY4dVUh6z90dA7B8FOYBapBUjHieJpkktp7Id08nEocqU3c0L25nbb5k
- DVcbHFgQdn3s8JbcPI17MDmxTlOqORrke3w==
-X-Gm-Gg: ASbGncuyuAq0XDLo/8MCiy/JwutocHSl0uogv+5Yuqaa1C29jKh3YtfGdpSeFtnghng
- 27F8zir6rbq5GH9Pn/0UBXcggjUu1e/2T464BXoS7he7Fy0daLEct9M1yaE4iY/Xhn04cJv1JPb
- XMlKjgZM16pnDWR7SH1ubPAXtURnmU0SI1rydq/bGyRYQT6OS/G91isP1RBr1rGi161kqHC0V7p
- NCNtYCNoESGk3IVgA==
-X-Google-Smtp-Source: AGHT+IGSBWjo7FAuhaBGLcv0sNmVNDKdMICdZIW2DofSNco78MKWlu0J52kqo/45l+zytP1cIYCjxsyFcIcnZFqUKOM=
-X-Received: by 2002:a17:902:e54c:b0:246:50c0:aea6 with SMTP id
- d9443c01a7336-24650c0b0f5mr140596675ad.7.1756305321632; Wed, 27 Aug 2025
- 07:35:21 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250827141933.626717-1-kevinyang.wang@amd.com>
-In-Reply-To: <20250827141933.626717-1-kevinyang.wang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 27 Aug 2025 10:35:09 -0400
-X-Gm-Features: Ac12FXz9YSikl2XQFvxlzHFmBldeIOzj1cfNi3Y4QZI28SMQmQftihXoPuM4kXo
-Message-ID: <CADnq5_NhvCga5DWh=uwa5PSqCP-3ax5Wf-ssweJhAA484OMq5g@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/amdgpu: unified amdgpu ip block name
-To: Yang Wang <kevinyang.wang@amd.com>
+ d=1e100.net; s=20230601; t=1756305382; x=1756910182;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=WAi0PWzCbKkwUI3bxsFxBTGNGlt8jklaNmjjyDjjlsI=;
+ b=Euv808y/JiNS9+Z4qP8cU0wadYshfvLg01Ro/1KsfZKKRO7o7XgHtXZoxb/Is25uZp
+ Y4QeM4mVD4nIahfKarmX8jqmPxHGF6ZQK9MwiIc49ztmF88m8y9yQiW82qAmBe2PblQR
+ QTGKuDJebX901MZ9QWOxW1TY1rED4T8QgIcYsXtQQYVeKoHhamC+dlA2OrMXrOJ23M2Y
+ 64/NSQsifbMcLPT5Nsq//buOhROVg5Db8f5zUmjoN2NUwrH32m4dx54Wr/O5uYfn3qw4
+ Zpi7V1E5giOvRictnsN/N4GJxt8crVVDULXpTeO4MyPCI2te4ZpwBNC6MUmSWCXo9Uo4
+ P1ag==
+X-Gm-Message-State: AOJu0YyiWMtXa9J+OLLH0FKFqeMV59Q3Kk0RdkLGdpWNZkioyG1CdImB
+ 7G+V5TTVXyYH+HppwHDjS8EpJLX1UYPYRFAgnyYPtyqAPiWaVeaOPk6/
+X-Gm-Gg: ASbGncvqO6O5HIhdDRKlH0xtr7pLCpXIqNox96HRx/Ylszn0B/AkiHu8HFRjpRCQ+yg
+ 99e364ZI6+VONXAzMkGmQLrDR1nM/D7i/8YIdjebAx5xaXfsDoRK9gmRSJi0+vd+oaPT6ZY7yJM
+ eib8zYkyQl2sN/JPDWbh+6GhWkxE2YwKPNeEuyYPCnSvXoOB4D8g0Nk3vcvnGga/gQ6e4CB23f0
+ oG0ZooqDoZez6T3PpDb4gbp4wIU5Ch8qdRk43bESFHS8HNtGr1UBSNKdF3o/s4/w4TXRymQTa3z
+ lq0eVfcuVaQ0hMkTK24YL3cqgIt7Ee2jiPl9CqQaoIlN0zdv4YMFY5B1z7Spefd8EOwMpcj52ic
+ Bb3BSHnyZ8WiWaRzE5kmBhdpvxM90gGGjGD8xryZUlRVExATuk68P1wrX8hQIsWv4jAg5zHj6d5
+ o7QcArnNC2EkOOsDfvRmcY7yRbNPnOkLrqTQELigmjGzPmQq/07vUOofvtw0uSmyp2XVPDUCkY
+X-Google-Smtp-Source: AGHT+IFMdEEUv30t/O78faSEd1befdPzcVlY/ivOJpqGD8vAvQoqs7+8Jduzx6CmTRSM2vIaf6CMBQ==
+X-Received: by 2002:a05:6000:24c9:b0:3a4:eef5:dece with SMTP id
+ ffacd0b85a97d-3c5dc733e04mr16603811f8f.35.1756305381905; 
+ Wed, 27 Aug 2025 07:36:21 -0700 (PDT)
+Received: from ?IPv6:2001:4c4e:24e3:6900:f46e:206e:80c6:1890?
+ (20014C4E24E36900F46E206E80C61890.dsl.pool.telekom.hu.
+ [2001:4c4e:24e3:6900:f46e:206e:80c6:1890])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b6f2f31d2sm31817595e9.25.2025.08.27.07.36.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Aug 2025 07:36:21 -0700 (PDT)
+Message-ID: <89d36c21cca1a0f1a20d0033269668b085e81181.camel@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Respect max pixel clock for HDMI and DVI-D
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- Asad Kamal <asad.kamal@amd.com>
+ harry.wentland@amd.com, alex.hung@amd.com
+Date: Wed, 27 Aug 2025 16:36:20 +0200
+In-Reply-To: <CADnq5_Pyx1ZSen6kv+2ncXkpddrj-i2vr3bhoBLOo6=sYD=u1g@mail.gmail.com>
+References: <20250825221046.639289-1-timur.kristof@gmail.com>
+ <CADnq5_Pyx1ZSen6kv+2ncXkpddrj-i2vr3bhoBLOo6=sYD=u1g@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,88 +91,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 27, 2025 at 10:19=E2=80=AFAM Yang Wang <kevinyang.wang@amd.com>=
- wrote:
->
-> v1:
-> 1. Unified amdgpu ip block name print with format
->    "{ip_type}_v{major}_{minor}_{rev}"
->
-> 2. Avoid IP block name conflicts for SMU/PSP ip block
->
-> v2:
-> Update IP block print format to keep legacy IP block name (Alex)
-> "{ip_type}_v{major}_{minor}_{rev} ({funcs->name})"
->
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+T24gVHVlLCAyMDI1LTA4LTI2IGF0IDEwOjAzIC0wNDAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4g
+T24gTW9uLCBBdWcgMjUsIDIwMjUgYXQgNjoxMOKAr1BNIFRpbXVyIEtyaXN0w7NmCj4gPHRpbXVy
+LmtyaXN0b2ZAZ21haWwuY29tPiB3cm90ZToKPiA+IAo+ID4gQ2hhbmdlIHRoZSBsZWdhY3kgKG5v
+bi1EQykgZGlzcGxheSBjb2RlIHRvIHJlc3BlY3QgdGhlIG1heGltdW0KPiA+IHBpeGVsIGNsb2Nr
+IGZvciBIRE1JIGFuZCBEVkktRC4gUmVqZWN0IG1vZGVzIHRoYXQgd291bGQgcmVxdWlyZQo+ID4g
+YSBoaWdoZXIgcGl4ZWwgY2xvY2sgdGhhbiBjYW4gYmUgc3VwcG9ydGVkLgo+ID4gCj4gPiBBbHNv
+IHVwZGF0ZSB0aGUgbWF4aW11bSBzdXBwb3J0ZWQgSERNSSBjbG9jayB2YWx1ZSBkZXBlbmRpbmcg
+b24KPiA+IHRoZSBBU0lDIHR5cGUuCj4gPiAKPiA+IEZvciByZWZlcmVuY2UsIHNlZSB0aGUgREMg
+Y29kZToKPiA+IGNoZWNrIG1heF9oZG1pX3BpeGVsX2Nsb2NrIGluIGRjZSpfcmVzb3VyY2UuYwo+
+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBUaW11ciBLcmlzdMOzZiA8dGltdXIua3Jpc3RvZkBnbWFp
+bC5jb20+Cj4gPiAtLS0KPiA+IMKgLi4uL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVj
+dG9ycy5jwqDCoMKgIHwgMjEKPiA+ICsrKysrKysrKysrKysrKysrLS0KPiA+IMKgMSBmaWxlIGNo
+YW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jCj4gPiBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0b3JzLmMKPiA+IGluZGV4
+IDVlMzc1ZTljNGY1ZC4uYWJjYzQ0NjljZjU3IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwo+ID4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwo+ID4gQEAgLTExOTUsMTIgKzExOTUs
+MjYgQEAgc3RhdGljIHZvaWQKPiA+IGFtZGdwdV9jb25uZWN0b3JfZHZpX2ZvcmNlKHN0cnVjdCBk
+cm1fY29ubmVjdG9yICpjb25uZWN0b3IpCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgYW1kZ3B1X2Nvbm5lY3Rvci0+dXNlX2RpZ2l0YWwgPSB0cnVlOwo+ID4gwqB9Cj4gPiAKPiA+
+ICsvKioKPiA+ICsgKiBSZXR1cm5zIHRoZSBtYXhpbXVtIHN1cHBvcnRlZCBIRE1JIChUTURTKSBw
+aXhlbCBjbG9jayBpbiBLSHouCj4gPiArICovCj4gPiArc3RhdGljIGludCBhbWRncHVfbWF4X2hk
+bWlfcGl4ZWxfY2xvY2soY29uc3Qgc3RydWN0IGFtZGdwdV9kZXZpY2UKPiA+ICphZGV2KQo+ID4g
+K3sKPiA+ICvCoMKgwqDCoMKgwqAgaWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1BPTEFSSVMx
+MCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiA2MDAwMDA7Cj4gPiAr
+wqDCoMKgwqDCoMKgIGVsc2UgaWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1RPTkdBKQo+ID4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDMwMDAwMDsKPiA+ICvCoMKgwqDC
+oMKgwqAgZWxzZQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDI5NzAw
+MDsKPiA+ICt9Cj4gPiArCj4gPiDCoHN0YXRpYyBlbnVtIGRybV9tb2RlX3N0YXR1cyBhbWRncHVf
+Y29ubmVjdG9yX2R2aV9tb2RlX3ZhbGlkKHN0cnVjdAo+ID4gZHJtX2Nvbm5lY3RvciAqY29ubmVj
+dG9yLAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29uc3Qgc3RydWN0Cj4gPiBk
+cm1fZGlzcGxheV9tb2RlICptb2RlKQo+ID4gwqB7Cj4gPiDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qg
+ZHJtX2RldmljZSAqZGV2ID0gY29ubmVjdG9yLT5kZXY7Cj4gPiDCoMKgwqDCoMKgwqDCoCBzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRybV90b19hZGV2KGRldik7Cj4gPiDCoMKgwqDCoMKg
+wqDCoCBzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3RvciAqYW1kZ3B1X2Nvbm5lY3RvciA9Cj4gPiB0b19h
+bWRncHVfY29ubmVjdG9yKGNvbm5lY3Rvcik7Cj4gPiArwqDCoMKgwqDCoMKgIGNvbnN0IGludCBt
+YXhfaGRtaV9waXhlbF9jbG9jayA9Cj4gPiBhbWRncHVfbWF4X2hkbWlfcGl4ZWxfY2xvY2soYWRl
+dik7Cj4gPiAKPiA+IMKgwqDCoMKgwqDCoMKgIC8qIFhYWCBjaGVjayBtb2RlIGJhbmR3aWR0aCAq
+Lwo+ID4gCj4gPiBAQCAtMTIwOCwxMCArMTIyMiwxMyBAQCBzdGF0aWMgZW51bSBkcm1fbW9kZV9z
+dGF0dXMKPiA+IGFtZGdwdV9jb25uZWN0b3JfZHZpX21vZGVfdmFsaWQoc3RydWN0IGRybV9jb25u
+ZWN0b3IKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoKGFtZGdwdV9jb25u
+ZWN0b3ItPmNvbm5lY3Rvcl9vYmplY3RfaWQgPT0KPiA+IENPTk5FQ1RPUl9PQkpFQ1RfSURfRFVB
+TF9MSU5LX0RWSV9JKSB8fAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgKGFtZGdwdV9jb25uZWN0b3ItPmNvbm5lY3Rvcl9vYmplY3RfaWQgPT0KPiA+IENPTk5FQ1RP
+Ul9PQkpFQ1RfSURfRFVBTF9MSU5LX0RWSV9EKSB8fAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgKGFtZGdwdV9jb25uZWN0b3ItPmNvbm5lY3Rvcl9vYmplY3RfaWQg
+PT0KPiA+IENPTk5FQ1RPUl9PQkpFQ1RfSURfSERNSV9UWVBFX0IpKSB7Cj4gPiAtwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIE1PREVfT0s7Cj4gPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKG1vZGUtPmNs
+b2NrID4gbWF4X2hkbWlfcGl4ZWxfY2xvY2spCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBNT0RFX0NMT0NLX0hJ
+R0g7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZWxz
+ZQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCByZXR1cm4gTU9ERV9PSzsKPiAKPiBJIGRvbid0IHRoaW5rIGl0IG1ha2VzIHNl
+bnNlIHRvIGxpbWl0IGR1YWwgbGluayBEVkkgdG8gdGhlIG1heCBIRE1JCj4gY2xvY2suwqAgSERN
+SSBpcyBzaW5nbGUgbGluayBUTURTLsKgIE90aGVyIHRoYW4gdGhhdCwgdGhlIHBhdGNoIGxvb2tz
+Cj4gZ29vZCB0byBtZS4KPiAKPiBBbGV4CgpIaSBBbGV4LAoKVGhlIHByb2JsZW0gSSdtIHRyeWlu
+ZyB0byBzb2x2ZSBoZXJlIGlzIHRoYXQgb24gdGhlIG5vbi1EQyBjb2RlLCBieQpkZWZhdWx0IEkg
+Z2V0IGEgYmxhY2sgc2NyZWVuIG9uIERWSS1EIGJlY2F1c2UgdGhlIGNvZGUgZG9lc24ndCBzZXQg
+YW4KdXBwZXIgbGltaXQgb24gd2hhdCBpcyBhY3R1YWxseSBzdXBwb3J0ZWQuIChBbmQgdGhlIG1v
+bml0b3Igc3VwcG9ydHMKc29tZSBtb2RlcyB3aGljaCB3b24ndCB3b3JrLikKCkFzIGZhciBhcyBJ
+IHNlZSwgREMgb25seSBhbGxvd3MgNEsgMzAgSHogb24gRFZJIGZvciB0aGUgc2FtZSBjb25uZWN0
+b3IKYW5kIERWSS9IRE1JIGFkYXB0ZXIuIFRoYXQgbWF5IGJlIHdyb25nLCB0aG91Z2guCgpXaGF0
+IHZhbHVlIGRvIHlvdSBzdWdnZXN0IHRvIHVzZT8KCklmIEhETUkgPSBzaW5nbGUgbGluayBUTURT
+LCBkb2VzIHRoYXQgbWVhbiB0aGF0IGEgcGFzc2l2ZSBEVkkvSERNSQphZGFwdGVyIGNhbm5vdCB0
+YWtlIGFkdmFudGFnZSBvZiBkdWFsLWxpbmsgRFZJPwoKVGhhbmtzLApUaW11cgoKPiAKPiA+IMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9IGVsc2UgaWYgKGNvbm5lY3Rvci0+ZGlzcGxh
+eV9pbmZvLmlzX2hkbWkpIHsKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgLyogSERNSSAxLjMrIHN1cHBvcnRzIG1heCBjbG9jayBvZiAzNDAgTWh6Cj4g
+PiAqLwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlm
+IChtb2RlLT5jbG9jayA+IDM0MDAwMCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBpZiAobW9kZS0+Y2xvY2sgPiBtYXhfaGRtaV9waXhlbF9jbG9jaykK
+PiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIHJldHVybiBNT0RFX0NMT0NLX0hJR0g7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVsc2UKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBNT0RFX09L
+Owo+ID4gLS0KPiA+IDIuNTAuMQo+ID4gCg==
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 36 ++++++++++++++++++++--
->  1 file changed, 34 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index e117494e8054..d869226b2fa9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2447,6 +2447,33 @@ int amdgpu_device_ip_block_version_cmp(struct amdg=
-pu_device *adev,
->         return 1;
->  }
->
-> +static const char *ip_block_names[] =3D {
-> +       [AMD_IP_BLOCK_TYPE_COMMON] =3D  "common",
-> +       [AMD_IP_BLOCK_TYPE_GMC] =3D "gmc",
-> +       [AMD_IP_BLOCK_TYPE_IH] =3D "ih",
-> +       [AMD_IP_BLOCK_TYPE_SMC] =3D "smu",
-> +       [AMD_IP_BLOCK_TYPE_PSP] =3D "psp",
-> +       [AMD_IP_BLOCK_TYPE_DCE] =3D "dce",
-> +       [AMD_IP_BLOCK_TYPE_GFX] =3D "gfx",
-> +       [AMD_IP_BLOCK_TYPE_SDMA] =3D "sdma",
-> +       [AMD_IP_BLOCK_TYPE_UVD] =3D "uvd",
-> +       [AMD_IP_BLOCK_TYPE_VCE] =3D "vce",
-> +       [AMD_IP_BLOCK_TYPE_ACP] =3D "acp",
-> +       [AMD_IP_BLOCK_TYPE_VCN] =3D "vcn",
-> +       [AMD_IP_BLOCK_TYPE_MES] =3D "mes",
-> +       [AMD_IP_BLOCK_TYPE_JPEG] =3D "jpeg",
-> +       [AMD_IP_BLOCK_TYPE_VPE] =3D "vpe",
-> +       [AMD_IP_BLOCK_TYPE_UMSCH_MM] =3D "umsch_mm",
-> +       [AMD_IP_BLOCK_TYPE_ISP] =3D "isp",
-> +};
-> +
-> +static const char *ip_block_name(struct amdgpu_device *adev, enum amd_ip=
-_block_type type)
-> +{
-> +       int idx =3D (int)type;
-> +
-> +       return idx < ARRAY_SIZE(ip_block_names) ? ip_block_names[idx] : "=
-unknown";
-> +}
-> +
->  /**
->   * amdgpu_device_ip_block_add
->   *
-> @@ -2475,8 +2502,13 @@ int amdgpu_device_ip_block_add(struct amdgpu_devic=
-e *adev,
->                 break;
->         }
->
-> -       dev_info(adev->dev, "detected ip block number %d <%s>\n",
-> -                adev->num_ip_blocks, ip_block_version->funcs->name);
-> +       dev_info(adev->dev, "detected ip block number %d <%s_v%d_%d_%d> (=
-%s)\n",
-> +                adev->num_ip_blocks,
-> +                ip_block_name(adev, ip_block_version->type),
-> +                ip_block_version->major,
-> +                ip_block_version->minor,
-> +                ip_block_version->rev,
-> +                ip_block_version->funcs->name);
->
->         adev->ip_blocks[adev->num_ip_blocks].adev =3D adev;
->
-> --
-> 2.34.1
->
