@@ -4,92 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64777CA0FF6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD4A0CA0FFC
 	for <amd-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 06:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B060E10E624;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9FE910E5CE;
 	Thu, 28 Aug 2025 06:55:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ZBMoJHCm";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="k4EbnvCo";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9210610E856
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 15:15:44 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-24611734e50so164705ad.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 08:15:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1756307744; x=1756912544;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aGPhYDWt388RttmicU0o24RVsxY/twdNMb4O/vzImCs=;
- b=ZBMoJHCmvH533bFWAtNe5mKHHxZhqTxSJ2VjCOENxZ6RLmD0kq9peCqeZsg1MnDCL7
- dy6Ir0MApbFSdf3gXwtXFKwI9NmpwAYbD5UkA7kdDAdRJK0qjN3cTT1HCVOQLbV/+Uqk
- vx+FT90wVC+uoDf5feRQYkg9wiM2liXu6U+P/nTIKXyOGAZ/2QKIWyQ0Imx9xcrLAbrc
- RZ42Pbm8O4ykoDhpvxKDJZUu/7ddsC/Br+1lqFPcMurnBGkBQSwMjv/fjvOUl1pEN8pm
- diUCI7Ups8OWqHrtV6VxeFQq00nwYV0akSiNAcWHwVUk33MQ9WsY491bCE/C1aYwPEQI
- AYnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756307744; x=1756912544;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aGPhYDWt388RttmicU0o24RVsxY/twdNMb4O/vzImCs=;
- b=sVtFwxqj9v0YzBKehZgfatTUjWGS/v6JAsRb9aampW1vh8hAUACQYc2VzXFdiFQq+F
- 90G+97kUrx3MZC4HvnMO70fJmUizftqSVzxcFZNVe4MVzDPxZJA4FHTOWeIYrlvG+/FK
- MEpqqFrLMdJVFyjanjWRSG4FtMGFxiHvUNyLIVBUc97PIHcKHyLBKU2utlpQDUpumhpo
- AoX00YcVfDken5hBF7ERLT2wp/zHoN+vImS6ui/UddIcCaEE6t9LTOj4vtfHrhnPsBuz
- vItxG+M9KmV0LpsC14ckGQwdzzJHa3E78DI9sf+tqftHvRA3sQHuRqZuGhgQhn99cSYs
- euMA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWm9g4RVNn/1O7HZFof3k4Ovq0CkLQeg5l0D5jPzBcoSB40Fx2L1h86vBW26QNH7vmdqncwOiuC@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzmrurxc8mXdqxOl8B1jEeA8zZvYCwjpIUJTmjv3DTDZXsJIT13
- l2zIPwGD6vbK2Cw9Y6iUz5FUYjegPKRBpp2uRsIUdZTHgffWeg5ZXZd2CawsDZ1uYU5kk7NN65J
- plF+prGEiz48YMAcf0ve7uKu9UWYmRW1runCHYK4P
-X-Gm-Gg: ASbGncsMriHiEadOTFP1o2G94xawtzNnAHUslWu9HJu1nZWrbgtLQ1szF8wkdBXkoYH
- FHqjJb5oVjXZvrBPcthabQyV+7kQLd1mzsAgZnQ5WFVeaYsuU294s7dlJgzBJsFzXp8T382BK71
- WyFwr9dbHrvmtXWfHikLkyB0KPH3Mq/BQv6SWhFBfrLGknW9rgO+J+jjpjTcCtZPi75wSljbt+K
- vUl+dy+Eh/OWKcoGIirgt0qd66nOKYYZt8JsB+l6tM=
-X-Google-Smtp-Source: AGHT+IExi0QgPJP/5AblrVahQdACSVklatzIIhzDoM8PROF9H/mRXxhxpv9GhjknP28Wz6ljzGsei6gbP7f3oTXJLVM=
-X-Received: by 2002:a17:902:ec87:b0:246:a8ac:1a36 with SMTP id
- d9443c01a7336-2485ba5311amr9397575ad.2.1756307741849; Wed, 27 Aug 2025
- 08:15:41 -0700 (PDT)
+Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2D2F10E178;
+ Wed, 27 Aug 2025 17:46:17 +0000 (UTC)
+Received: from relay12 (localhost [127.0.0.1])
+ by relay12.grserver.gr (Proxmox) with ESMTP id BF7CDBDF2B;
+ Wed, 27 Aug 2025 20:46:15 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by relay12.grserver.gr (Proxmox) with ESMTPS id C2506BDF20;
+ Wed, 27 Aug 2025 20:46:14 +0300 (EEST)
+Received: from antheas-z13 (x5996a855.customers.hiper-net.dk [89.150.168.85])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id E378B1FDB98;
+ Wed, 27 Aug 2025 20:46:13 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+ s=default; t=1756316774;
+ bh=ovIlQIJ/aDzEgGzWDIhAbOQYJNwSDIEyyKKca+iKvF0=; h=From:To:Subject;
+ b=k4EbnvCogg/nr50vOSRViGYMFDVyrncsj/j+0ZZUTch1JQcgMxPOQ9my4E0HN4QY/
+ NWVTY/oXrc35dtBXezX9sm6o+Hn7hfKoLorcjwVAtNKF2iz0jNPE80bHFHtq5Xjg1W
+ QpuRcVRNJ/sZzJFazDcPFC1R1GJfB8UqalxHdDKfcayGC7yDe+O6pmixcSvW8epR0s
+ 1Z/ki72jyN307478djS/suHbvazhMGPqrvf8MbddKLUFTJ9OOXISfHmlAIU2VD9QWv
+ +4CYp17MyBPWxeBeGRktuDEP/OVtAOjUqCc7F3jomXGtjbuUlc+QF0G1pssSRkF9Q7
+ jnKev/YQuE+eg==
+Authentication-Results: linux3247.grserver.gr;
+ spf=pass (sender IP is 89.150.168.85) smtp.mailfrom=lkml@antheas.dev
+ smtp.helo=antheas-z13
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+From: Antheas Kapenekakis <lkml@antheas.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ philm@manjaro.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Antheas Kapenekakis <lkml@antheas.dev>
+Subject: [PATCH v2 0/5] drm: panel-backlight-quirks: Do partial refactor and
+ apply OLED fix
+Date: Wed, 27 Aug 2025 19:43:55 +0200
+Message-ID: <20250827174400.3692549-1-lkml@antheas.dev>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-References: <cover.1755096883.git.robin.murphy@arm.com>
- <d6cda4e2999aba5794c8178f043c91068fa8080c.1755096883.git.robin.murphy@arm.com>
- <20250826130329.GX4067720@noisy.programming.kicks-ass.net>
- <6080e45d-032e-48c2-8efc-3d7e5734d705@arm.com>
- <CAP-5=fXF2x3hW4Sk+A362T-50cBbw6HVd7KY+QEUjFwT+JL37Q@mail.gmail.com>
- <aK6_XrA_OaLnoFkr@J2N7QTR9R3>
-In-Reply-To: <aK6_XrA_OaLnoFkr@J2N7QTR9R3>
-From: Ian Rogers <irogers@google.com>
-Date: Wed, 27 Aug 2025 08:15:29 -0700
-X-Gm-Features: Ac12FXwUZ4TrRSXyzgr8XTQRkesJ87wwMtoKHvx086ZRlV4GbvgOq2WSyedNfZ4
-Message-ID: <CAP-5=fU0-QDMP-VG3O1qBvJ8uzHHYCQ8j1Vrzy9a0YUk=UMvHw@mail.gmail.com>
-Subject: Re: [PATCH 12/19] perf: Ignore event state for group validation
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, Peter Zijlstra <peterz@infradead.org>,
- mingo@redhat.com, will@kernel.org, acme@kernel.org, namhyung@kernel.org, 
- alexander.shishkin@linux.intel.com, jolsa@kernel.org, adrian.hunter@intel.com, 
- kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- imx@lists.linux.dev, linux-csky@vger.kernel.org, loongarch@lists.linux.dev, 
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
- sparclinux@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org, 
- linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, coresight@lists.linaro.org, 
- iommu@lists.linux.dev, linux-amlogic@lists.infradead.org, 
- linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-riscv@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <175631677444.1365124.8667478652151918942@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
+X-Virus-Status: Clean
 X-Mailman-Approved-At: Thu, 28 Aug 2025 06:55:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,119 +75,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 27, 2025 at 1:18=E2=80=AFAM Mark Rutland <mark.rutland@arm.com>=
- wrote:
->
-> On Tue, Aug 26, 2025 at 11:48:48AM -0700, Ian Rogers wrote:
-> > On Tue, Aug 26, 2025 at 8:32=E2=80=AFAM Robin Murphy <robin.murphy@arm.=
-com> wrote:
-> > >
-> > > On 2025-08-26 2:03 pm, Peter Zijlstra wrote:
-> > > > On Wed, Aug 13, 2025 at 06:01:04PM +0100, Robin Murphy wrote:
-> > > >> It may have been different long ago, but today it seems wrong for =
-these
-> > > >> drivers to skip counting disabled sibling events in group validati=
-on,
-> > > >> given that perf_event_enable() could make them schedulable again, =
-and
-> > > >> thus increase the effective size of the group later. Conversely, i=
-f a
-> > > >> sibling event is truly dead then it stands to reason that the whol=
-e
-> > > >> group is dead, so it's not worth going to any special effort to tr=
-y to
-> > > >> squeeze in a new event that's never going to run anyway. Thus, we =
-can
-> > > >> simply remove all these checks.
-> > > >
-> > > > So currently you can do sort of a manual event rotation inside an
-> > > > over-sized group and have it work.
-> > > >
-> > > > I'm not sure if anybody actually does this, but its possible.
-> > > >
-> > > > Eg. on a PMU that supports only 4 counters, create a group of 5 and
-> > > > periodically cycle which of the 5 events is off.
-> >
-> > I'm not sure this is true, I thought this would fail in the
-> > perf_event_open when adding the 5th event and there being insufficient
-> > counters for the group.
->
-> We're talking specifically about cases where the logic in a pmu's
-> pmu::event_init() callback doesn't count events in specific states, and
-> hence the 5th even doesn't get rejected when it is initialised.
->
-> For example, in arch/x86/events/core.c, validate_group() uses
-> collect_events(), which has:
->
->         for_each_sibling_event(event, leader) {
->                 if (!is_x86_event(event) || event->state <=3D PERF_EVENT_=
-STATE_OFF)
->                         continue;
->
->                 if (collect_event(cpuc, event, max_count, n))
->                         return -EINVAL;
->
->                 n++;
->         }
->
-> ... and so where an event's state is <=3D PERF_EVENT_STATE_OFF at init
-> time, that event is not counted to see if it fits into HW counters.
+This is an alternative to [1], since Phil found out there are still invalid
+values. We need to reconsider the other patch in that series anyway because
+the latest AMD firmware update might have fixed the Z13.
 
-Hmm.. Thinking out loud. So it looked like perf with weak groups could
-be broken then:
-```
-$ sudo perf stat -vv -e '{instructions,cycles}:W' true
-...
-perf_event_attr:
- type                             0 (PERF_TYPE_HARDWARE)
- size                             136
- config                           0x400000001
-(cpu_core/PERF_COUNT_HW_INSTRUCTIONS/)
- sample_type                      IDENTIFIER
- read_format                      TOTAL_TIME_ENABLED|TOTAL_TIME_RUNNING|ID|=
-GROUP
- disabled                         1
- inherit                          1
- enable_on_exec                   1
-------------------------------------------------------------
-sys_perf_event_open: pid 3337764  cpu -1  group_fd -1  flags 0x8 =3D 5
-------------------------------------------------------------
-perf_event_attr:
- type                             0 (PERF_TYPE_HARDWARE)
- size                             136
- config                           0x400000000
-(cpu_core/PERF_COUNT_HW_CPU_CYCLES/)
- sample_type                      IDENTIFIER
- read_format                      TOTAL_TIME_ENABLED|TOTAL_TIME_RUNNING|ID|=
-GROUP
- inherit                          1
-------------------------------------------------------------
-sys_perf_event_open: pid 3337764  cpu -1  group_fd 5  flags 0x8 =3D 7
-...
-```
-Note, the group leader (instructions) is disabled because of:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
-t/tree/tools/perf/util/stat.c?h=3Dperf-tools-next#n761
-```
-/*
-* Disabling all counters initially, they will be enabled
-* either manually by us or by kernel via enable_on_exec
-* set later.
-*/
-if (evsel__is_group_leader(evsel)) {
-        attr->disabled =3D 1;
-```
-but the checking of being disabled (PERF_EVENT_STATE_OFF) is only done
-on siblings in the code you show above. So yes, you can disable the
-group events to allow the perf_event_open to succeed but not on the
-leader which is always checked (no PERF_EVENT_STATE_OFF check):
-https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
-t/tree/arch/x86/events/core.c?h=3Dperf-tools-next#n1204
-```
-if (is_x86_event(leader)) {
-        if (collect_event(cpuc, leader, max_count, n))
-                return -EINVAL;
-```
+This series refactors the panel-backlight-quirks code to make it easier to
+add new quirks. Specifically, it adds the ability to bind to a secondary
+DMI match so that the make of a device can be specified. Then, it makes
+EDID optional, for devices we know the value should be applied universally.
 
-Thanks,
-Ian
+This is then used to add a quirk for OLED panels that have an issue
+when their backlight is set with a value that contains a 0/1 value in their
+minor byte. This issue affects four handhelds from three different vendors,
+three of which are in the field. This quirk applies a |3 mask to the
+backlight value, which avoids this issue. In addition, the value change
+is minor enough so that it is essentially a NOOP. There is no need for
+ensuring it runs only on panels with faulty firmwares.
+
+Finally, since allowed by this refactor, a quirk for Steam Decks is added
+that lowers their minimum brightness to 0, matching SteamOS. This is
+a nicety commit, which allows for mildly lower minimum brightness, so
+there is no time sensitivity for having it merged. Mario noted that if
+that quirk was refactored to use an EDID match via the current interface,
+it could go through the fixes tree and land sooner, but perhaps it is not
+worth the effort.
+
+[1] https://lore.kernel.org/all/20250824085351.454619-2-lkml@antheas.dev/
+
+---
+V1: https://lore.kernel.org/all/20250824200202.1744335-1-lkml@antheas.dev/
+
+Changes since v1:
+- Remove leftover quirk from patch 3 (refactor)
+- Add dangling comma in patch 4 (oled quirk)
+- Add the next generation Zotac Zone in patch 4 (currently unreleased)
+- Reword patch 1 and 5 subjects
+
+Antheas Kapenekakis (5):
+  drm: panel-backlight-quirks: Make EDID match optional
+  drm: panel-backlight-quirks: Convert brightness quirk to generic
+    structure
+  drm: panel-backlight-quirks: Add secondary DMI match
+  drm: panel-backlight-quirks: Add brightness mask quirk
+  drm: panel-backlight-quirks: Add Steam Deck brightness quirk
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  19 ++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   6 +
+ drivers/gpu/drm/drm_panel_backlight_quirks.c  | 113 ++++++++++++++----
+ include/drm/drm_utils.h                       |   8 +-
+ 4 files changed, 115 insertions(+), 31 deletions(-)
+
+
+base-commit: 1b237f190eb3d36f52dffe07a40b5eb210280e00
+-- 
+2.51.0
+
+
