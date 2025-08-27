@@ -4,77 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA18CA0EFF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 14:36:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D86CCCA0FED
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 14:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A8A210E31B;
-	Wed, 27 Aug 2025 14:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E24810E82E;
+	Wed, 27 Aug 2025 14:39:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gzVfTqJY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L42I57fO";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCD010E31B
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 14:36:23 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-3c8fe6bd038so1771443f8f.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 07:36:23 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C4E10E82E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 14:39:52 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-3cbe70a7923so1212401f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 07:39:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756305382; x=1756910182; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756305591; x=1756910391; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
  :date:message-id:reply-to;
- bh=WAi0PWzCbKkwUI3bxsFxBTGNGlt8jklaNmjjyDjjlsI=;
- b=gzVfTqJY1bj/CME+3IO0A8vRhZSUo+LQS9hIOlVF5qAWeMBBD8e3ESRsTTkkMPV8Qp
- kfV97AF09C5qqKACRFDmh3pIie7UbqePxt3Anrxlbo10yrbZwos9rUL53JbESTxJzZ1z
- axL6XvjagWp6+hVOPrqgBDuGpkeuoqTtJ5b/52U85G3+GGqHyeJEaHXvW+AoecHOmbQN
- Esfi6F03JRbvVZWTQY8tHUT3CgMiBJmVjACw1hS6e1bYwOthaiU0mRUOea/Gmj3sMbUN
- Y7tyUQrD/uSXzN6s6He6dROQOCrC2YpYBZzG0wHGICMkFdweuJly3/i7K13fiLOnndFn
- cJVQ==
+ bh=voiiV6hakwk7d6qVZDjf2PRdAjU2uNUIGApEH3OcVa8=;
+ b=L42I57fO+rYavxPSxAtfFbFTg5Vplf3VbI3VD9B62oz0MzBe2aYHmuVmIaw1o1DAUk
+ 6euoHiv4uYDjDhhZp2Y4ag3BEq0Rj5nXXs9GIlPGiWWCqulpyRCDoGmcQaELZbYg0Qrn
+ 2ZqryTa3mqWESYF+I2YTLZ+BYiW+Wv+NfV/vv9+yA+9nq0yu8rXOFqrxU2fdDEKAa+uM
+ fv/IlEdmCIVr4KjYQ4U5g/WKKQnHoyArg0lMvMHtLCF1yABwASmtDrScfTFSjhzZomQJ
+ 6oB+zfFkH1iO+4dJPi/Z+0o2GX4m3UmJbq5dXAgd5CQ4+oWH1VmPZIyKtkjBaNPW+6zi
+ O+qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756305382; x=1756910182;
+ d=1e100.net; s=20230601; t=1756305591; x=1756910391;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=WAi0PWzCbKkwUI3bxsFxBTGNGlt8jklaNmjjyDjjlsI=;
- b=Euv808y/JiNS9+Z4qP8cU0wadYshfvLg01Ro/1KsfZKKRO7o7XgHtXZoxb/Is25uZp
- Y4QeM4mVD4nIahfKarmX8jqmPxHGF6ZQK9MwiIc49ztmF88m8y9yQiW82qAmBe2PblQR
- QTGKuDJebX901MZ9QWOxW1TY1rED4T8QgIcYsXtQQYVeKoHhamC+dlA2OrMXrOJ23M2Y
- 64/NSQsifbMcLPT5Nsq//buOhROVg5Db8f5zUmjoN2NUwrH32m4dx54Wr/O5uYfn3qw4
- Zpi7V1E5giOvRictnsN/N4GJxt8crVVDULXpTeO4MyPCI2te4ZpwBNC6MUmSWCXo9Uo4
- P1ag==
-X-Gm-Message-State: AOJu0YyiWMtXa9J+OLLH0FKFqeMV59Q3Kk0RdkLGdpWNZkioyG1CdImB
- 7G+V5TTVXyYH+HppwHDjS8EpJLX1UYPYRFAgnyYPtyqAPiWaVeaOPk6/
-X-Gm-Gg: ASbGncvqO6O5HIhdDRKlH0xtr7pLCpXIqNox96HRx/Ylszn0B/AkiHu8HFRjpRCQ+yg
- 99e364ZI6+VONXAzMkGmQLrDR1nM/D7i/8YIdjebAx5xaXfsDoRK9gmRSJi0+vd+oaPT6ZY7yJM
- eib8zYkyQl2sN/JPDWbh+6GhWkxE2YwKPNeEuyYPCnSvXoOB4D8g0Nk3vcvnGga/gQ6e4CB23f0
- oG0ZooqDoZez6T3PpDb4gbp4wIU5Ch8qdRk43bESFHS8HNtGr1UBSNKdF3o/s4/w4TXRymQTa3z
- lq0eVfcuVaQ0hMkTK24YL3cqgIt7Ee2jiPl9CqQaoIlN0zdv4YMFY5B1z7Spefd8EOwMpcj52ic
- Bb3BSHnyZ8WiWaRzE5kmBhdpvxM90gGGjGD8xryZUlRVExATuk68P1wrX8hQIsWv4jAg5zHj6d5
- o7QcArnNC2EkOOsDfvRmcY7yRbNPnOkLrqTQELigmjGzPmQq/07vUOofvtw0uSmyp2XVPDUCkY
-X-Google-Smtp-Source: AGHT+IFMdEEUv30t/O78faSEd1befdPzcVlY/ivOJpqGD8vAvQoqs7+8Jduzx6CmTRSM2vIaf6CMBQ==
-X-Received: by 2002:a05:6000:24c9:b0:3a4:eef5:dece with SMTP id
- ffacd0b85a97d-3c5dc733e04mr16603811f8f.35.1756305381905; 
- Wed, 27 Aug 2025 07:36:21 -0700 (PDT)
+ bh=voiiV6hakwk7d6qVZDjf2PRdAjU2uNUIGApEH3OcVa8=;
+ b=UuHqGkusWJlZmnfBR/BpC4mpJqekR6KPRvlqKBcNO4BBdXcoN4TPkPe4UA14cDIDRD
+ EnCX77XxKjGGoWo3AGfbkZIsIP2LrW3d4uh+KPuHlktvFpv+dU4NBMfQ7MhVzJDyWOiJ
+ rOmp4Mpw8cOMshaTNRIAqyeUFEFr7TsTX8C0MGFbVfeYTxoKCUGTgs8dXIY1J7oGlQgM
+ V3s9lTkWg5Wp2LKqKzxx/Fthkv/qwMEV9P0LdqJiLiX5Tkk7ff+FUAlzBpIyjBLs9ycP
+ RcHCN9J0W0JIlIDtxkpvKkXy8U/abhUibN2G/V4NyhM+G7sYzia594lJ/Gx4Th9QVUjS
+ bmdA==
+X-Gm-Message-State: AOJu0YwzW1CVS7K+tzyxabcDAoEJUiLljCAq7rwH1BdJUZz7lMlnj/sB
+ 7z1GSZ19BmWO/1voxjqr2akNwvdvi8HqVtSByrusMnl5aAh2soahPA69
+X-Gm-Gg: ASbGncsClCXiuhzYwDzXVhBhCqR18u13EnTeUlcKfN4NcAq1PSuijyMEfJOayKHARxI
+ Fx/MLT4uJryevlLjUn87CN6e7X5IKeOhndyQ8I2C2G7Xi0xz8MEFP2tTc8veLd/HSksjejU5DWI
+ DvzgvNuW6bEpX0TF0MuwNZQprdsguqFKU/wDsxvE3eDsopdxJ4LAB2VnR1LvxzAdDTh1s3tVJH3
+ t1DKiXCpR0RA4Obbe0iswk3gOAd2hu0ZbFEvqhYkI0nLwAtXpFfPsC34aCGwaXay/7bK4n4e17n
+ lZECeRSJQDTVyu0/L9VSba3J2upK+KP1VmEyijzlgknSqt+1mBKn2F/ubyyaRp6lrOGCCl01IlF
+ jn6LPsmObZFrRHla5g3d+GcvDgci6seex+CUQd+ch+MpPC+DuMioJANpDtmcf41SE87rUnCwAiD
+ PwUayD0H9kWT3F6RLbvFvGSSj/e8NDf/BFX5ycoevnaaqi4GV3nS+ZXAwafgxUYQ==
+X-Google-Smtp-Source: AGHT+IFXpzts2RxwheG9b3wCJ5zzWq0AqurQD4My2jnG2Yax400899ahsqsHMMlWy4cszH4vK/oyWw==
+X-Received: by 2002:a05:6000:430c:b0:3c7:a2d5:b299 with SMTP id
+ ffacd0b85a97d-3c7a2e4fee4mr11370795f8f.17.1756305591013; 
+ Wed, 27 Aug 2025 07:39:51 -0700 (PDT)
 Received: from ?IPv6:2001:4c4e:24e3:6900:f46e:206e:80c6:1890?
  (20014C4E24E36900F46E206E80C61890.dsl.pool.telekom.hu.
  [2001:4c4e:24e3:6900:f46e:206e:80c6:1890])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b6f2f31d2sm31817595e9.25.2025.08.27.07.36.21
+ ffacd0b85a97d-3cca0dd7014sm3279420f8f.13.2025.08.27.07.39.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Aug 2025 07:36:21 -0700 (PDT)
-Message-ID: <89d36c21cca1a0f1a20d0033269668b085e81181.camel@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Respect max pixel clock for HDMI and DVI-D
+ Wed, 27 Aug 2025 07:39:50 -0700 (PDT)
+Message-ID: <24bbe97b3a2f97ed1f4dfde727ba6939831bf35f.camel@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix DVI-D/HDMI adapters
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 To: Alex Deucher <alexdeucher@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
  harry.wentland@amd.com, alex.hung@amd.com
-Date: Wed, 27 Aug 2025 16:36:20 +0200
-In-Reply-To: <CADnq5_Pyx1ZSen6kv+2ncXkpddrj-i2vr3bhoBLOo6=sYD=u1g@mail.gmail.com>
-References: <20250825221046.639289-1-timur.kristof@gmail.com>
- <CADnq5_Pyx1ZSen6kv+2ncXkpddrj-i2vr3bhoBLOo6=sYD=u1g@mail.gmail.com>
+Date: Wed, 27 Aug 2025 16:39:49 +0200
+In-Reply-To: <CADnq5_NwQCGgsgVZ1T3ofxrLJhDkq0FO3GKOViWtn8JhFC+vfw@mail.gmail.com>
+References: <20250825213333.612600-1-timur.kristof@gmail.com>
+ <CADnq5_NwQCGgsgVZ1T3ofxrLJhDkq0FO3GKOViWtn8JhFC+vfw@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,83 +91,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAyMDI1LTA4LTI2IGF0IDEwOjAzIC0wNDAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4g
-T24gTW9uLCBBdWcgMjUsIDIwMjUgYXQgNjoxMOKAr1BNIFRpbXVyIEtyaXN0w7NmCj4gPHRpbXVy
-LmtyaXN0b2ZAZ21haWwuY29tPiB3cm90ZToKPiA+IAo+ID4gQ2hhbmdlIHRoZSBsZWdhY3kgKG5v
-bi1EQykgZGlzcGxheSBjb2RlIHRvIHJlc3BlY3QgdGhlIG1heGltdW0KPiA+IHBpeGVsIGNsb2Nr
-IGZvciBIRE1JIGFuZCBEVkktRC4gUmVqZWN0IG1vZGVzIHRoYXQgd291bGQgcmVxdWlyZQo+ID4g
-YSBoaWdoZXIgcGl4ZWwgY2xvY2sgdGhhbiBjYW4gYmUgc3VwcG9ydGVkLgo+ID4gCj4gPiBBbHNv
-IHVwZGF0ZSB0aGUgbWF4aW11bSBzdXBwb3J0ZWQgSERNSSBjbG9jayB2YWx1ZSBkZXBlbmRpbmcg
-b24KPiA+IHRoZSBBU0lDIHR5cGUuCj4gPiAKPiA+IEZvciByZWZlcmVuY2UsIHNlZSB0aGUgREMg
-Y29kZToKPiA+IGNoZWNrIG1heF9oZG1pX3BpeGVsX2Nsb2NrIGluIGRjZSpfcmVzb3VyY2UuYwo+
-ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBUaW11ciBLcmlzdMOzZiA8dGltdXIua3Jpc3RvZkBnbWFp
-bC5jb20+Cj4gPiAtLS0KPiA+IMKgLi4uL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVj
-dG9ycy5jwqDCoMKgIHwgMjEKPiA+ICsrKysrKysrKysrKysrKysrLS0KPiA+IMKgMSBmaWxlIGNo
-YW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jCj4gPiBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0b3JzLmMKPiA+IGluZGV4
-IDVlMzc1ZTljNGY1ZC4uYWJjYzQ0NjljZjU3IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwo+ID4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwo+ID4gQEAgLTExOTUsMTIgKzExOTUs
-MjYgQEAgc3RhdGljIHZvaWQKPiA+IGFtZGdwdV9jb25uZWN0b3JfZHZpX2ZvcmNlKHN0cnVjdCBk
-cm1fY29ubmVjdG9yICpjb25uZWN0b3IpCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgYW1kZ3B1X2Nvbm5lY3Rvci0+dXNlX2RpZ2l0YWwgPSB0cnVlOwo+ID4gwqB9Cj4gPiAKPiA+
-ICsvKioKPiA+ICsgKiBSZXR1cm5zIHRoZSBtYXhpbXVtIHN1cHBvcnRlZCBIRE1JIChUTURTKSBw
-aXhlbCBjbG9jayBpbiBLSHouCj4gPiArICovCj4gPiArc3RhdGljIGludCBhbWRncHVfbWF4X2hk
-bWlfcGl4ZWxfY2xvY2soY29uc3Qgc3RydWN0IGFtZGdwdV9kZXZpY2UKPiA+ICphZGV2KQo+ID4g
-K3sKPiA+ICvCoMKgwqDCoMKgwqAgaWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1BPTEFSSVMx
-MCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiA2MDAwMDA7Cj4gPiAr
-wqDCoMKgwqDCoMKgIGVsc2UgaWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1RPTkdBKQo+ID4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDMwMDAwMDsKPiA+ICvCoMKgwqDC
-oMKgwqAgZWxzZQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDI5NzAw
-MDsKPiA+ICt9Cj4gPiArCj4gPiDCoHN0YXRpYyBlbnVtIGRybV9tb2RlX3N0YXR1cyBhbWRncHVf
-Y29ubmVjdG9yX2R2aV9tb2RlX3ZhbGlkKHN0cnVjdAo+ID4gZHJtX2Nvbm5lY3RvciAqY29ubmVj
-dG9yLAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29uc3Qgc3RydWN0Cj4gPiBk
-cm1fZGlzcGxheV9tb2RlICptb2RlKQo+ID4gwqB7Cj4gPiDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qg
-ZHJtX2RldmljZSAqZGV2ID0gY29ubmVjdG9yLT5kZXY7Cj4gPiDCoMKgwqDCoMKgwqDCoCBzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRybV90b19hZGV2KGRldik7Cj4gPiDCoMKgwqDCoMKg
-wqDCoCBzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3RvciAqYW1kZ3B1X2Nvbm5lY3RvciA9Cj4gPiB0b19h
-bWRncHVfY29ubmVjdG9yKGNvbm5lY3Rvcik7Cj4gPiArwqDCoMKgwqDCoMKgIGNvbnN0IGludCBt
-YXhfaGRtaV9waXhlbF9jbG9jayA9Cj4gPiBhbWRncHVfbWF4X2hkbWlfcGl4ZWxfY2xvY2soYWRl
-dik7Cj4gPiAKPiA+IMKgwqDCoMKgwqDCoMKgIC8qIFhYWCBjaGVjayBtb2RlIGJhbmR3aWR0aCAq
-Lwo+ID4gCj4gPiBAQCAtMTIwOCwxMCArMTIyMiwxMyBAQCBzdGF0aWMgZW51bSBkcm1fbW9kZV9z
-dGF0dXMKPiA+IGFtZGdwdV9jb25uZWN0b3JfZHZpX21vZGVfdmFsaWQoc3RydWN0IGRybV9jb25u
-ZWN0b3IKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoKGFtZGdwdV9jb25u
-ZWN0b3ItPmNvbm5lY3Rvcl9vYmplY3RfaWQgPT0KPiA+IENPTk5FQ1RPUl9PQkpFQ1RfSURfRFVB
-TF9MSU5LX0RWSV9JKSB8fAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgKGFtZGdwdV9jb25uZWN0b3ItPmNvbm5lY3Rvcl9vYmplY3RfaWQgPT0KPiA+IENPTk5FQ1RP
-Ul9PQkpFQ1RfSURfRFVBTF9MSU5LX0RWSV9EKSB8fAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgKGFtZGdwdV9jb25uZWN0b3ItPmNvbm5lY3Rvcl9vYmplY3RfaWQg
-PT0KPiA+IENPTk5FQ1RPUl9PQkpFQ1RfSURfSERNSV9UWVBFX0IpKSB7Cj4gPiAtwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIE1PREVfT0s7Cj4gPiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKG1vZGUtPmNs
-b2NrID4gbWF4X2hkbWlfcGl4ZWxfY2xvY2spCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBNT0RFX0NMT0NLX0hJ
-R0g7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZWxz
-ZQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCByZXR1cm4gTU9ERV9PSzsKPiAKPiBJIGRvbid0IHRoaW5rIGl0IG1ha2VzIHNl
-bnNlIHRvIGxpbWl0IGR1YWwgbGluayBEVkkgdG8gdGhlIG1heCBIRE1JCj4gY2xvY2suwqAgSERN
-SSBpcyBzaW5nbGUgbGluayBUTURTLsKgIE90aGVyIHRoYW4gdGhhdCwgdGhlIHBhdGNoIGxvb2tz
-Cj4gZ29vZCB0byBtZS4KPiAKPiBBbGV4CgpIaSBBbGV4LAoKVGhlIHByb2JsZW0gSSdtIHRyeWlu
-ZyB0byBzb2x2ZSBoZXJlIGlzIHRoYXQgb24gdGhlIG5vbi1EQyBjb2RlLCBieQpkZWZhdWx0IEkg
-Z2V0IGEgYmxhY2sgc2NyZWVuIG9uIERWSS1EIGJlY2F1c2UgdGhlIGNvZGUgZG9lc24ndCBzZXQg
-YW4KdXBwZXIgbGltaXQgb24gd2hhdCBpcyBhY3R1YWxseSBzdXBwb3J0ZWQuIChBbmQgdGhlIG1v
-bml0b3Igc3VwcG9ydHMKc29tZSBtb2RlcyB3aGljaCB3b24ndCB3b3JrLikKCkFzIGZhciBhcyBJ
-IHNlZSwgREMgb25seSBhbGxvd3MgNEsgMzAgSHogb24gRFZJIGZvciB0aGUgc2FtZSBjb25uZWN0
-b3IKYW5kIERWSS9IRE1JIGFkYXB0ZXIuIFRoYXQgbWF5IGJlIHdyb25nLCB0aG91Z2guCgpXaGF0
-IHZhbHVlIGRvIHlvdSBzdWdnZXN0IHRvIHVzZT8KCklmIEhETUkgPSBzaW5nbGUgbGluayBUTURT
-LCBkb2VzIHRoYXQgbWVhbiB0aGF0IGEgcGFzc2l2ZSBEVkkvSERNSQphZGFwdGVyIGNhbm5vdCB0
-YWtlIGFkdmFudGFnZSBvZiBkdWFsLWxpbmsgRFZJPwoKVGhhbmtzLApUaW11cgoKPiAKPiA+IMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9IGVsc2UgaWYgKGNvbm5lY3Rvci0+ZGlzcGxh
-eV9pbmZvLmlzX2hkbWkpIHsKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgLyogSERNSSAxLjMrIHN1cHBvcnRzIG1heCBjbG9jayBvZiAzNDAgTWh6Cj4g
-PiAqLwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlm
-IChtb2RlLT5jbG9jayA+IDM0MDAwMCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBpZiAobW9kZS0+Y2xvY2sgPiBtYXhfaGRtaV9waXhlbF9jbG9jaykK
-PiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHJldHVybiBNT0RFX0NMT0NLX0hJR0g7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVsc2UKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBNT0RFX09L
-Owo+ID4gLS0KPiA+IDIuNTAuMQo+ID4gCg==
+On Tue, 2025-08-26 at 10:06 -0400, Alex Deucher wrote:
+> On Mon, Aug 25, 2025 at 5:33=E2=80=AFPM Timur Krist=C3=B3f
+> <timur.kristof@gmail.com> wrote:
+> >=20
+> > When the EDID has the HDMI bit, we should simply select
+> > the HDMI signal type even on DVI ports.
+> >=20
+> > For reference see, the legacy amdgpu display code:
+> > amdgpu_atombios_encoder_get_encoder_mode
+> > which selects ATOM_ENCODER_MODE_HDMI for the same case.
+> >=20
+> > This commit fixes DVI connectors to work with DVI-D/HDMI
+> > adapters so that they can now produce output over these
+> > connectors for HDMI monitors with higher bandwidth modes.
+> > With this change, even HDMI audio works through DVI.
+> >=20
+> > For testing, I used a CAA-DMDHFD3 DVI-D/HDMI adapter
+> > with the following GPUs:
+> >=20
+> > Tahiti (DCE 6) - DC can now output 4K 30 Hz over DVI
+> > Polaris 10 (DCE 11.2) - DC can now output 4K 60 Hz over DVI
+> >=20
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+>=20
+> Makes sense to me, but would be good to get input from display team
+> in
+> case there is anything I'm missing.
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
+Thank you!
+
+I just want to add that the code path without audio for both DVI-D and
+HDMI seems to be broken and probably needs further investigation.
+
+I might come back to this problem later when/if I have an opportunity
+to test with a display that actually uses DVI-D. Right now I only have
+the DVI/HDMI adapter which seems to work differently (as noted in the
+above patch).
+
+Timur
+
+
+>=20
+> > ---
+> > =C2=A0drivers/gpu/drm/amd/display/dc/link/link_detection.c | 4 ++++
+> > =C2=A01 file changed, 4 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> > b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> > index 827b630daf49..42180e6aca91 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> > @@ -1140,6 +1140,10 @@ static bool
+> > detect_link_and_local_sink(struct dc_link *link,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 if (sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A =
+&&
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !sink->edid_caps.edid_hdmi)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sink-=
+>sink_signal =3D
+> > SIGNAL_TYPE_DVI_SINGLE_LINK;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 else if (dc_is_dvi_signal(sink->sink_signal) &&
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 aud_support=
+->hdmi_audio_native &&
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sink->edid_=
+caps.edid_hdmi)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sink->sink_=
+signal =3D
+> > SIGNAL_TYPE_HDMI_TYPE_A;
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 if (link->local_sink &&
+> > dc_is_dp_signal(sink_caps.signal))
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dp_tr=
+ace_init(link);
+> > --
+> > 2.50.1
+> >=20
