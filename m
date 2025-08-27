@@ -4,52 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E62ECA0FF6
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 07:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2C76C8303F
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 08:21:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F63E10E766;
-	Wed, 27 Aug 2025 07:57:49 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B5E6C10E0F0;
- Tue, 26 Aug 2025 22:46:12 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D91401A25;
- Tue, 26 Aug 2025 15:46:03 -0700 (PDT)
-Received: from [10.57.4.86] (unknown [10.57.4.86])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DCF5D3F738;
- Tue, 26 Aug 2025 15:46:05 -0700 (PDT)
-Message-ID: <015974a4-f129-4ae5-adf9-c94b29f0576a@arm.com>
-Date: Tue, 26 Aug 2025 23:46:02 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62B7610E779;
+	Wed, 27 Aug 2025 08:21:46 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Z3qV2foP";
+	dkim-atps=neutral
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7F4F10E778;
+ Wed, 27 Aug 2025 08:21:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1756282903;
+ bh=WZHpGVr2TD21PlMAaaLGZ90NJ6CiC6Z/m3WJo2syfpc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Z3qV2foPU9ABhtzNYCvPpa8QHbEf4tNhjHBE5jt+u+U0D98BxRelAvCh8FebtSeBA
+ EWUWDrph1AAkD8x6etOAjwIBAsMjU2WhC3StNe1FdjcA5kCj3a645q7kLRDxA+mbES
+ fD3h0UqzdJ95itZI/FJZ00PxDeEGK7J4nw3R+ktf86A5AYboLzotHp1z6AbYMKtS3U
+ S781f4IxOWOWapKV1O24ndUSJQBRdvssUzXD/K4BmW/pyiY4zKwf5MhFnIWxlaQC5A
+ JaQKUYsE2Ps6JMM6JksCPG5kXdMp7UIKZSXidqWtDsN0u5jKZGuFEzh2NKX4olh1l0
+ a+MPRbfaf+NZw==
+Received: from xpredator (unknown
+ [IPv6:2a02:2f08:eb0b:c00:e88e:21ff:fe65:be18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: mvlad)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C87C17E03B0;
+ Wed, 27 Aug 2025 10:21:42 +0200 (CEST)
+Date: Wed, 27 Aug 2025 11:21:41 +0300
+From: Marius Vlad <marius.vlad@collabora.com>
+To: Shengyu Qu <wiagn233@outlook.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, harry.wentland@amd.com, sunpeng.li@amd.com,
+ siqueira@igalia.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, contact@rafaelrc.com,
+ lijo.lazar@amd.com, jesse.zhang@amd.com, tim.huang@amd.com,
+ dark_sylinc@yahoo.com.ar, mario.limonciello@amd.com,
+ alex.hung@amd.com, aurabindo.pillai@amd.com, sunil.khatri@amd.com,
+ chiahsuan.chung@amd.com, mwen@igalia.com, Roman.Li@amd.com,
+ Wayne.Lin@amd.com, dominik.kaszewski@amd.com, alvin.lee2@amd.com,
+ Aric.Cyr@amd.com, Austin.Zheng@amd.com, Sung.Lee@amd.com,
+ PeiChen.Huang@amd.com, dillon.varone@amd.com,
+ Richard.Chiang@amd.com, ryanseto@amd.com, linux@treblig.org,
+ haoping.liu@amd.com, Relja.Vojvodic@amd.com, Yihan.Zhu@amd.com,
+ Samson.Tam@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 0/2] Add "pixel_encoding" to switch between RGB & YUV
+ color modes
+Message-ID: <aK7AFbD7LWw_SiJh@xpredator>
+References: <TY4PR01MB14432B688209B2AA416A95228983EA@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+ <aK1hPoCmLziaPPOd@xpredator>
+ <TY4PR01MB1443219A9870877AF120FE63B9839A@TY4PR01MB14432.jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/19] perf: Introduce positive capability for raw events
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: peterz@infradead.org, mingo@redhat.com, will@kernel.org, acme@kernel.org, 
- namhyung@kernel.org, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
- irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-alpha@vger.kernel.org, linux-snps-arc@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org,
- linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, coresight@lists.linaro.org,
- iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-riscv@lists.infradead.org
-References: <cover.1755096883.git.robin.murphy@arm.com>
- <542787fd188ea15ef41c53d557989c962ed44771.1755096883.git.robin.murphy@arm.com>
- <aK259PrpyxguQzdN@J2N7QTR9R3>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <aK259PrpyxguQzdN@J2N7QTR9R3>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 27 Aug 2025 07:56:57 +0000
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="GIq2x+ztVGH05eKR"
+Content-Disposition: inline
+In-Reply-To: <TY4PR01MB1443219A9870877AF120FE63B9839A@TY4PR01MB14432.jpnprd01.prod.outlook.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,225 +78,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-08-26 2:43 pm, Mark Rutland wrote:
-> On Wed, Aug 13, 2025 at 06:01:10PM +0100, Robin Murphy wrote:
->> Only a handful of CPU PMUs accept PERF_TYPE_{RAW,HARDWARE,HW_CACHE}
->> events without registering themselves as PERF_TYPE_RAW in the first
->> place. Add an explicit opt-in for these special cases, so that we can
->> make life easier for every other driver (and probably also speed up the
->> slow-path search) by having perf_try_init_event() do the basic type
->> checking to cover the majority of cases.
->>
->> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-> 
-> 
-> To bikeshed a little here, I'm not keen on the PERF_PMU_CAP_RAW_EVENTS
-> name, because it's not clear what "RAW" really means, and people will
-> definitely read that to mean something else.
-> 
-> Could we go with something like PERF_PMU_CAP_COMMON_CPU_EVENTS, to make
-> it clear that this is about opting into CPU-PMU specific event types (of
-> which PERF_TYPE_RAW is one of)?
 
-Indeed I started with that very intention after our previous discussion, 
-but soon realised that in fact nowhere in the code is there any 
-definition or even established notion of what "common" means in this 
-context, so it's hardly immune to misinterpretation either. Furthermore 
-the semantics of the cap as it ended up are specifically that the PMU 
-wants the same behaviour as if it had registered as PERF_TYPE_RAW, so 
-having "raw" in the name started to look like the more intuitive option 
-after all (plus being nice and short helps.)
+--GIq2x+ztVGH05eKR
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-If anything, it's "events" that carries the implication that's proving 
-hard to capture precisely and concisely here, so maybe the answer to 
-avoid ambiguity is to lean further away from a "what it represents" to a 
-"what it actually does" naming - PERF_PMU_CAP_TYPE_RAW, anyone?
+Hello,
+On Wed, Aug 27, 2025 at 12:26:56AM +0800, Shengyu Qu wrote:
+> Hi Marius,
+>=20
+> Thanks for reply.I have some questions:
+>=20
+> 1.Can you send patch with only i915/amdgpu first? It's a long-needed feat=
+ure
+> to deal with some monitors/TVs with broken EDID.
+I plan on doing that soon, but I don't have a date. I'm in between
+holidays atm. Note that I just picked these changes from Andri a few
+weeks ago.
+>=20
+> 2.Is there any method to get the list of supported pixel format by current
+> driver? Also maybe we need to take display port's maximum speed rate/targ=
+et
+> refresh rate/resolution into account.
+Drivers should figure out that what pixel color formats it supports and
+use the drm helpers (being added with the patchset) to advertise the
+available pixel color formats.  For i915/amdgpu, for the time being, I
+plan on just OR'ing the known ones working into a list.
 
-> Likewise, s/is_raw_pmu()/pmu_supports_common_cpu_events()/.
+User-space will use this information together with the one it is getting
+=66rom EDID to perform a intersection between them.=20
 
-Case in point: is it any more logical and expected that supporting 
-common CPU events implies a PMU should be offered software or breakpoint 
-events as well? Because that's what such a mere rename would currently 
-mean :/
+"auto" will be the preferred driver choice from those advertised pixel
+formats, but most likely (fallback) to RGB as all panels support that.
 
->> ---
->>
->> A further possibility is to automatically add the cap to PERF_TYPE_RAW
->> PMUs in perf_pmu_register() to have a single point-of-use condition; I'm
->> undecided...
-> 
-> I reckon we don't need to automagically do that, but I reckon that
-> is_raw_pmu()/pmu_supports_common_cpu_events() should only check the cap,
-> and we don't read anything special into any of
-> PERF_TYPE_{RAW,HARDWARE,HW_CACHE}.
+If EDID is broken it depends on user-space if it presents all the
+advertised color formats from the driver. There isn't a way to discern
+between panels that do not support YUV formats and panels that do support=
+=20
+YUV formats but they don't expose that in the EDID.
+>=20
+> Best regards,
+> Shengyu
+>=20
+> =E5=9C=A8 2025/8/26 15:24, Marius Vlad =E5=86=99=E9=81=93:
+> > Hi,
+> >=20
+> > Prior work towards this is/was: https://lore.kernel.org/dri-devel/20240=
+115160554.720247-1-andri@yngvason.is/
+> >=20
+> > I have slightly modified version of that, but still working on
+> > getting another driver (besides amd/i915) working with it.
+> >=20
+> > On Tue, Aug 26, 2025 at 02:39:59AM +0800, Shengyu Qu wrote:
+> > > Usage:
+> > >   - X11: xrandr --output <output name> --set "pixel encoding" <encodi=
+ng>
+> > >   - Wayland: proptest -M amdgpu -D <card path> <connector ID> connect=
+or
+> > >     <pixel encoding ID> <encoding (ID)>
+> > >   - Kernel Param: amdgpu.pixel_encoding=3D<encoding>
+> > >     or amdgpu.pixel_encoding=3D<monitor>:<encoding>,<monitor>:<encodi=
+ng>
+> > >=20
+> > > Supported encodings are: "auto" (0) (Default and original behavior), =
+"rgb"
+> > > (1), "ycbcr444" (2), "ycbcr422" (4), and "ycbcr420" (8).
+> > >=20
+> > > This patch series allow users to switch between pixel encodings, whic=
+h is
+> > > specially important when auto gets it wrong (probably because of moni=
+tor's
+> > > manufacturer mistake) and needs user intervention.
+> > >=20
+> > > Changes since v1:
+> > >   - Some cleanup and rebase
+> > >   - Added YUV422 support
+> > >=20
+> > > Full discussion:
+> > > https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_2628536
+> > >=20
+> > > Original patch by Yassine Imounachen, current version is modified bas=
+ed on
+> > > this patch(was rebased by Rafael Carvalho):
+> > > https://lists.freedesktop.org/archives/amd-gfx/2024-October/116195.ht=
+ml
+> > >=20
+> > > Shengyu Qu (2):
+> > >    drm/connector: Add "pixel_encoding" to switch between RGB & YUV co=
+lor
+> > >      output modes
+> > >    drm/amdgpu: Add "pixel_encoding" DRM connector property support for
+> > >      amdgpu
+> > >=20
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  36 +++
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_display.h   |   3 +
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |   2 +
+> > >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 273 +++++++++++++++=
+++-
+> > >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 +
+> > >   drivers/gpu/drm/amd/display/dc/core/dc.c      |   8 +
+> > >   drivers/gpu/drm/amd/display/dc/dc_stream.h    |   2 +
+> > >   drivers/gpu/drm/drm_modes.c                   |  32 ++
+> > >   include/drm/drm_connector.h                   |   7 +
+> > >   9 files changed, 353 insertions(+), 11 deletions(-)
+> > >=20
+> > > --=20
+> > > 2.43.0
+> > >=20
+>=20
 
-OK, but that would then necessitate having to explicitly add the cap to 
-all 15-odd other drivers which register as PERF_TYPE_RAW as well, at 
-which point it starts to look like a more general "I am a CPU PMU in 
-terms of most typical assumptions you might want to make about that" flag...
 
-To clarify (and perhaps something for a v2 commit message), we currently 
-have 3 categories of PMU driver:
 
-1: (Older/simpler CPUs) Registers as PERF_TYPE_RAW, wants 
-PERF_TYPE_RAW/HARDWARE/HW_CACHE events
-2: (Heterogeneous CPUs) Registers as dynamic type, wants 
-PERF_TYPE_RAW/HARDWARE/HW_CACHE events plus events of its own type
-3: (Mostly uncore) Registers as dynamic type, only wants events of its 
-own type
 
-My vested interest is in making category 3 the default behaviour, given 
-that the growing majority of new drivers are uncore (and I keep having 
-to write them...) However unclear the type overlaps in category 1 might 
-be, it's been like that for 15 years, so I didn't feel compelled to 
-churn fossils like Alpha more than reasonably necessary. Category 2 is 
-only these 5 drivers, so a relatively small tweak to distinguish them 
-from category 3 and let them retain the effective category 1 behaviour 
-(which remains the current one of potentially still being offered 
-software etc. events too) seemed like the neatest way to make progress.
 
-I'm not saying I'm necessarily against a general overhaul of CPU PMUs 
-being attempted too, just that it seems more like a whole other 
-side-quest, and I'd really like to slay the uncore-boilerplate dragon first.
 
->> ---
->>   arch/s390/kernel/perf_cpum_cf.c    |  1 +
->>   arch/s390/kernel/perf_pai_crypto.c |  2 +-
->>   arch/s390/kernel/perf_pai_ext.c    |  2 +-
->>   arch/x86/events/core.c             |  2 +-
->>   drivers/perf/arm_pmu.c             |  1 +
->>   include/linux/perf_event.h         |  1 +
->>   kernel/events/core.c               | 15 +++++++++++++++
->>   7 files changed, 21 insertions(+), 3 deletions(-)
->>
->> diff --git a/arch/s390/kernel/perf_cpum_cf.c b/arch/s390/kernel/perf_cpum_cf.c
->> index 1a94e0944bc5..782ab755ddd4 100644
->> --- a/arch/s390/kernel/perf_cpum_cf.c
->> +++ b/arch/s390/kernel/perf_cpum_cf.c
->> @@ -1054,6 +1054,7 @@ static void cpumf_pmu_del(struct perf_event *event, int flags)
->>   /* Performance monitoring unit for s390x */
->>   static struct pmu cpumf_pmu = {
->>   	.task_ctx_nr  = perf_sw_context,
->> +	.capabilities = PERF_PMU_CAP_RAW_EVENTS,
->>   	.pmu_enable   = cpumf_pmu_enable,
->>   	.pmu_disable  = cpumf_pmu_disable,
->>   	.event_init   = cpumf_pmu_event_init,
-> 
-> Tangential, but use of perf_sw_context here looks bogus.
+--GIq2x+ztVGH05eKR
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Indeed, according to the history it was intentional, but perhaps that no 
-longer applies since the big context redesign? FWIW there seem to be a 
-fair few instances of this, including Arm SPE.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Robin.
+iQIzBAABCAAdFiEEcDKHej6x6uPk3J379jQS5glH1u8FAmiuwBIACgkQ9jQS5glH
+1u9xxRAAzfO2XL7lFIC/vN5TVn9487uwqWuawDkUlGbt+KWHIDg4rM5Zz7GB9kKh
+Bx2uNGZ5srwdbsu+o7tmt9iFZrFXxMRcNrnUn0mhLSpuTuKpqUm3Ey888jcFdOrC
+dDexbq3wfxCO/ZpsOtEywzz/JPC75cXyswdK4oB/l5jOG8USrk8uYjNYosJoQYTI
+rE3bq1EHpnB04QKSUXTeb92xM4hqedz4PCNh8rk0CVtH7HKtmeiBJ3rbvJQNwBe/
+3s46s4BKGvAFS36JJ4MiJAAG/6mWMIqoLPvu4mdNjqKil054DCSY4TYNw0o1Ng/w
+OzugGhXoRlK9vRy9fJfwAnpPXzkVejkoGmtjksE+E+vrJ4zKC9ldxQ6KnTjrRMQU
+noHNtMrJJOYVYa95R+zAsnlqEodT9+SfENdnKRw82cktw892uugiXvRJ7v3UVaPA
+0I45+cLownLNU+pGQ7UcBW5eIwUz7Ox2ttasNSuU0h0kpjQguDo1IvajZNNejJV5
+Y0AQ0ysMSDWzP9jMOzpv07jMRPzkYZ4b0hJBU1NZlKIDOabbS6mPYAPmkp1gBqHv
+XxL6DBASMFFIwt0kl1XNz/QM+j9fIEi6qP3V5XMu+Em13/J1EvQui18dGLXnPIGF
+bT2IfWFuIt2g8Hcdqpvty5VX60tSSnbkYDqbbS0ju6+vATflzTc=
+=lV0s
+-----END PGP SIGNATURE-----
 
->> diff --git a/arch/s390/kernel/perf_pai_crypto.c b/arch/s390/kernel/perf_pai_crypto.c
->> index a64b6b056a21..b5b6d8b5d943 100644
->> --- a/arch/s390/kernel/perf_pai_crypto.c
->> +++ b/arch/s390/kernel/perf_pai_crypto.c
->> @@ -569,7 +569,7 @@ static const struct attribute_group *paicrypt_attr_groups[] = {
->>   /* Performance monitoring unit for mapped counters */
->>   static struct pmu paicrypt = {
->>   	.task_ctx_nr  = perf_hw_context,
->> -	.capabilities = PERF_PMU_CAP_SAMPLING,
->> +	.capabilities = PERF_PMU_CAP_SAMPLING | PERF_PMU_CAP_RAW_EVENTS,
->>   	.event_init   = paicrypt_event_init,
->>   	.add	      = paicrypt_add,
->>   	.del	      = paicrypt_del,
->> diff --git a/arch/s390/kernel/perf_pai_ext.c b/arch/s390/kernel/perf_pai_ext.c
->> index 1261f80c6d52..bcd28c38da70 100644
->> --- a/arch/s390/kernel/perf_pai_ext.c
->> +++ b/arch/s390/kernel/perf_pai_ext.c
->> @@ -595,7 +595,7 @@ static const struct attribute_group *paiext_attr_groups[] = {
->>   /* Performance monitoring unit for mapped counters */
->>   static struct pmu paiext = {
->>   	.task_ctx_nr  = perf_hw_context,
->> -	.capabilities = PERF_PMU_CAP_SAMPLING,
->> +	.capabilities = PERF_PMU_CAP_SAMPLING | PERF_PMU_CAP_RAW_EVENTS,
->>   	.event_init   = paiext_event_init,
->>   	.add	      = paiext_add,
->>   	.del	      = paiext_del,
->> diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
->> index 789dfca2fa67..764728bb80ae 100644
->> --- a/arch/x86/events/core.c
->> +++ b/arch/x86/events/core.c
->> @@ -2697,7 +2697,7 @@ static bool x86_pmu_filter(struct pmu *pmu, int cpu)
->>   }
->>   
->>   static struct pmu pmu = {
->> -	.capabilities		= PERF_PMU_CAP_SAMPLING,
->> +	.capabilities		= PERF_PMU_CAP_SAMPLING | PERF_PMU_CAP_RAW_EVENTS,
->>   
->>   	.pmu_enable		= x86_pmu_enable,
->>   	.pmu_disable		= x86_pmu_disable,
->> diff --git a/drivers/perf/arm_pmu.c b/drivers/perf/arm_pmu.c
->> index 72d8f38d0aa5..bc772a3bf411 100644
->> --- a/drivers/perf/arm_pmu.c
->> +++ b/drivers/perf/arm_pmu.c
->> @@ -877,6 +877,7 @@ struct arm_pmu *armpmu_alloc(void)
->>   		 * specific PMU.
->>   		 */
->>   		.capabilities	= PERF_PMU_CAP_SAMPLING |
->> +				  PERF_PMU_CAP_RAW_EVENTS |
->>   				  PERF_PMU_CAP_EXTENDED_REGS |
->>   				  PERF_PMU_CAP_EXTENDED_HW_TYPE,
->>   	};
->> diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
->> index 183b7c48b329..c6ad036c0037 100644
->> --- a/include/linux/perf_event.h
->> +++ b/include/linux/perf_event.h
->> @@ -305,6 +305,7 @@ struct perf_event_pmu_context;
->>   #define PERF_PMU_CAP_EXTENDED_HW_TYPE	0x0100
->>   #define PERF_PMU_CAP_AUX_PAUSE		0x0200
->>   #define PERF_PMU_CAP_AUX_PREFER_LARGE	0x0400
->> +#define PERF_PMU_CAP_RAW_EVENTS		0x0800
->>   
->>   /**
->>    * pmu::scope
->> diff --git a/kernel/events/core.c b/kernel/events/core.c
->> index 71b2a6730705..2ecee76d2ae2 100644
->> --- a/kernel/events/core.c
->> +++ b/kernel/events/core.c
->> @@ -12556,11 +12556,26 @@ static inline bool has_extended_regs(struct perf_event *event)
->>   	       (event->attr.sample_regs_intr & PERF_REG_EXTENDED_MASK);
->>   }
->>   
->> +static bool is_raw_pmu(const struct pmu *pmu)
->> +{
->> +	return pmu->type == PERF_TYPE_RAW ||
->> +	       pmu->capabilities & PERF_PMU_CAP_RAW_EVENTS;
->> +}
-> 
-> As above, I reckon we should make this:
-> 
-> static bool pmu_supports_common_cpu_events(const struct pmu *pmu)
-> {
-> 	return pmu->capabilities & PERF_PMU_CAP_RAW_EVENTS;
-> }
-> 
-> Other than the above, this looks good to me.
-> 
-> Mark.
-> 
->> +
->>   static int perf_try_init_event(struct pmu *pmu, struct perf_event *event)
->>   {
->>   	struct perf_event_context *ctx = NULL;
->>   	int ret;
->>   
->> +	/*
->> +	 * Before touching anything, we can safely skip:
->> +	 * - any event for a specific PMU which is not this one
->> +	 * - any common event if this PMU doesn't support them
->> +	 */
->> +	if (event->attr.type != pmu->type &&
->> +	    (event->attr.type >= PERF_TYPE_MAX || is_raw_pmu(pmu)))
->> +		return -ENOENT;
->> +
->>   	if (!try_module_get(pmu->module))
->>   		return -ENODEV;
->>   
->> -- 
->> 2.39.2.101.g768bb238c484.dirty
->>
+--GIq2x+ztVGH05eKR--
