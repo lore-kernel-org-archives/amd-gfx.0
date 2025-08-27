@@ -4,66 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2C76C8303F
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 08:21:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F047CA0EFF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 09:14:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62B7610E779;
-	Wed, 27 Aug 2025 08:21:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A337010E78B;
+	Wed, 27 Aug 2025 09:14:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Z3qV2foP";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ybSh3C85";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7F4F10E778;
- Wed, 27 Aug 2025 08:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1756282903;
- bh=WZHpGVr2TD21PlMAaaLGZ90NJ6CiC6Z/m3WJo2syfpc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Z3qV2foPU9ABhtzNYCvPpa8QHbEf4tNhjHBE5jt+u+U0D98BxRelAvCh8FebtSeBA
- EWUWDrph1AAkD8x6etOAjwIBAsMjU2WhC3StNe1FdjcA5kCj3a645q7kLRDxA+mbES
- fD3h0UqzdJ95itZI/FJZ00PxDeEGK7J4nw3R+ktf86A5AYboLzotHp1z6AbYMKtS3U
- S781f4IxOWOWapKV1O24ndUSJQBRdvssUzXD/K4BmW/pyiY4zKwf5MhFnIWxlaQC5A
- JaQKUYsE2Ps6JMM6JksCPG5kXdMp7UIKZSXidqWtDsN0u5jKZGuFEzh2NKX4olh1l0
- a+MPRbfaf+NZw==
-Received: from xpredator (unknown
- [IPv6:2a02:2f08:eb0b:c00:e88e:21ff:fe65:be18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6E0E10E3D6;
+ Wed, 27 Aug 2025 09:14:05 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: mvlad)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C87C17E03B0;
- Wed, 27 Aug 2025 10:21:42 +0200 (CEST)
-Date: Wed, 27 Aug 2025 11:21:41 +0300
-From: Marius Vlad <marius.vlad@collabora.com>
-To: Shengyu Qu <wiagn233@outlook.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, harry.wentland@amd.com, sunpeng.li@amd.com,
- siqueira@igalia.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, contact@rafaelrc.com,
- lijo.lazar@amd.com, jesse.zhang@amd.com, tim.huang@amd.com,
- dark_sylinc@yahoo.com.ar, mario.limonciello@amd.com,
- alex.hung@amd.com, aurabindo.pillai@amd.com, sunil.khatri@amd.com,
- chiahsuan.chung@amd.com, mwen@igalia.com, Roman.Li@amd.com,
- Wayne.Lin@amd.com, dominik.kaszewski@amd.com, alvin.lee2@amd.com,
- Aric.Cyr@amd.com, Austin.Zheng@amd.com, Sung.Lee@amd.com,
- PeiChen.Huang@amd.com, dillon.varone@amd.com,
- Richard.Chiang@amd.com, ryanseto@amd.com, linux@treblig.org,
- haoping.liu@amd.com, Relja.Vojvodic@amd.com, Yihan.Zhu@amd.com,
- Samson.Tam@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 0/2] Add "pixel_encoding" to switch between RGB & YUV
- color modes
-Message-ID: <aK7AFbD7LWw_SiJh@xpredator>
-References: <TY4PR01MB14432B688209B2AA416A95228983EA@TY4PR01MB14432.jpnprd01.prod.outlook.com>
- <aK1hPoCmLziaPPOd@xpredator>
- <TY4PR01MB1443219A9870877AF120FE63B9839A@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4cBf3Z2hMFz9tYW;
+ Wed, 27 Aug 2025 11:14:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1756286042;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4ABfWD+wfQkBovVLN+RK7L89ALZTtXm1mXIS6lK+ex4=;
+ b=ybSh3C85V69ck1E4bv1d5QJITxmxxPsuKpam9r3ba3Es3XiJK8E92RnNG7dRnLAj5tngoU
+ PF9V53yjMH9wtgWIQVKGC3LdMyXag8Tfwj7bq76Qea6hiz3dQhMidHwaM/wT3D3oX4XcUY
+ gWsidi7QXwWrGc2rmEpuT+MhWZ5iUFijQCT/TVbNcsfgsv/La8FZzSCtOAuJi0tVXCWrEx
+ XGWLqkcyRTtXpTuGBW4dQBMRSheWlXGfBkq4y7R2YLfiY+f9yi/bZ2vrrT7hdJ3dqi/iFy
+ mY3auiVZ1SwbM/XV1q68PXd0hPkjl9C3gZbbVqYim/XpZlfYT1XTOVfs23mdPQ==
+Message-ID: <dabd1269-6223-4ceb-911f-22ae0aac4d5f@mailbox.org>
+Date: Wed, 27 Aug 2025 11:13:57 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="GIq2x+ztVGH05eKR"
-Content-Disposition: inline
-In-Reply-To: <TY4PR01MB1443219A9870877AF120FE63B9839A@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+Subject: Re: [PATCH 0/3] drm/ttm: ...
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Hildenbrand <david@redhat.com>, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, x86@kernel.org
+Cc: airlied@gmail.com, thomas.hellstrom@linux.intel.com,
+ matthew.brost@intel.com, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+References: <20250820143739.3422-1-christian.koenig@amd.com>
+ <edf4aee5-54eb-4fad-aa89-4913d44371fe@redhat.com>
+ <4e5f4ef0-53f1-417e-8f3b-76fd7c64cd23@amd.com>
+ <f983521c-b43d-4245-93fc-fcb847908573@redhat.com>
+ <a1b95d23-1908-42c1-8ff6-da051fc140aa@amd.com>
+ <6591105b-969d-44d6-80e1-233c1b84b121@redhat.com>
+ <fc3e013c-e7f7-441d-a638-2ee3dd372775@amd.com>
+ <75aca34d-3557-49e9-a523-bd3244c28190@redhat.com>
+ <a01f7ca8-7930-4b04-b597-0ebf8500a748@amd.com>
+ <d32fa753-66a1-451a-8cef-95c1f78fc366@redhat.com>
+ <87050572-811e-4b0c-9ebd-8ebb05f3c617@amd.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <87050572-811e-4b0c-9ebd-8ebb05f3c617@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: rh178afm3jdodp3jdzxh5zce7ubd4f37
+X-MBO-RS-ID: 8987716fed8f81225e7
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,138 +77,11 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---GIq2x+ztVGH05eKR
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Public Service Announcement from your friendly neighbourhood mailing list moderation queue processor:
 
-Hello,
-On Wed, Aug 27, 2025 at 12:26:56AM +0800, Shengyu Qu wrote:
-> Hi Marius,
->=20
-> Thanks for reply.I have some questions:
->=20
-> 1.Can you send patch with only i915/amdgpu first? It's a long-needed feat=
-ure
-> to deal with some monitors/TVs with broken EDID.
-I plan on doing that soon, but I don't have a date. I'm in between
-holidays atm. Note that I just picked these changes from Andri a few
-weeks ago.
->=20
-> 2.Is there any method to get the list of supported pixel format by current
-> driver? Also maybe we need to take display port's maximum speed rate/targ=
-et
-> refresh rate/resolution into account.
-Drivers should figure out that what pixel color formats it supports and
-use the drm helpers (being added with the patchset) to advertise the
-available pixel color formats.  For i915/amdgpu, for the time being, I
-plan on just OR'ing the known ones working into a list.
-
-User-space will use this information together with the one it is getting
-=66rom EDID to perform a intersection between them.=20
-
-"auto" will be the preferred driver choice from those advertised pixel
-formats, but most likely (fallback) to RGB as all panels support that.
-
-If EDID is broken it depends on user-space if it presents all the
-advertised color formats from the driver. There isn't a way to discern
-between panels that do not support YUV formats and panels that do support=
-=20
-YUV formats but they don't expose that in the EDID.
->=20
-> Best regards,
-> Shengyu
->=20
-> =E5=9C=A8 2025/8/26 15:24, Marius Vlad =E5=86=99=E9=81=93:
-> > Hi,
-> >=20
-> > Prior work towards this is/was: https://lore.kernel.org/dri-devel/20240=
-115160554.720247-1-andri@yngvason.is/
-> >=20
-> > I have slightly modified version of that, but still working on
-> > getting another driver (besides amd/i915) working with it.
-> >=20
-> > On Tue, Aug 26, 2025 at 02:39:59AM +0800, Shengyu Qu wrote:
-> > > Usage:
-> > >   - X11: xrandr --output <output name> --set "pixel encoding" <encodi=
-ng>
-> > >   - Wayland: proptest -M amdgpu -D <card path> <connector ID> connect=
-or
-> > >     <pixel encoding ID> <encoding (ID)>
-> > >   - Kernel Param: amdgpu.pixel_encoding=3D<encoding>
-> > >     or amdgpu.pixel_encoding=3D<monitor>:<encoding>,<monitor>:<encodi=
-ng>
-> > >=20
-> > > Supported encodings are: "auto" (0) (Default and original behavior), =
-"rgb"
-> > > (1), "ycbcr444" (2), "ycbcr422" (4), and "ycbcr420" (8).
-> > >=20
-> > > This patch series allow users to switch between pixel encodings, whic=
-h is
-> > > specially important when auto gets it wrong (probably because of moni=
-tor's
-> > > manufacturer mistake) and needs user intervention.
-> > >=20
-> > > Changes since v1:
-> > >   - Some cleanup and rebase
-> > >   - Added YUV422 support
-> > >=20
-> > > Full discussion:
-> > > https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_2628536
-> > >=20
-> > > Original patch by Yassine Imounachen, current version is modified bas=
-ed on
-> > > this patch(was rebased by Rafael Carvalho):
-> > > https://lists.freedesktop.org/archives/amd-gfx/2024-October/116195.ht=
-ml
-> > >=20
-> > > Shengyu Qu (2):
-> > >    drm/connector: Add "pixel_encoding" to switch between RGB & YUV co=
-lor
-> > >      output modes
-> > >    drm/amdgpu: Add "pixel_encoding" DRM connector property support for
-> > >      amdgpu
-> > >=20
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  36 +++
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_display.h   |   3 +
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |   2 +
-> > >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 273 +++++++++++++++=
-++-
-> > >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 +
-> > >   drivers/gpu/drm/amd/display/dc/core/dc.c      |   8 +
-> > >   drivers/gpu/drm/amd/display/dc/dc_stream.h    |   2 +
-> > >   drivers/gpu/drm/drm_modes.c                   |  32 ++
-> > >   include/drm/drm_connector.h                   |   7 +
-> > >   9 files changed, 353 insertions(+), 11 deletions(-)
-> > >=20
-> > > --=20
-> > > 2.43.0
-> > >=20
->=20
+I recommend setting a non-empty subject in follow-ups to this thread, or I might accidentally discard them from the moderation queue (I just almost did).
 
 
-
-
-
-
---GIq2x+ztVGH05eKR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEcDKHej6x6uPk3J379jQS5glH1u8FAmiuwBIACgkQ9jQS5glH
-1u9xxRAAzfO2XL7lFIC/vN5TVn9487uwqWuawDkUlGbt+KWHIDg4rM5Zz7GB9kKh
-Bx2uNGZ5srwdbsu+o7tmt9iFZrFXxMRcNrnUn0mhLSpuTuKpqUm3Ey888jcFdOrC
-dDexbq3wfxCO/ZpsOtEywzz/JPC75cXyswdK4oB/l5jOG8USrk8uYjNYosJoQYTI
-rE3bq1EHpnB04QKSUXTeb92xM4hqedz4PCNh8rk0CVtH7HKtmeiBJ3rbvJQNwBe/
-3s46s4BKGvAFS36JJ4MiJAAG/6mWMIqoLPvu4mdNjqKil054DCSY4TYNw0o1Ng/w
-OzugGhXoRlK9vRy9fJfwAnpPXzkVejkoGmtjksE+E+vrJ4zKC9ldxQ6KnTjrRMQU
-noHNtMrJJOYVYa95R+zAsnlqEodT9+SfENdnKRw82cktw892uugiXvRJ7v3UVaPA
-0I45+cLownLNU+pGQ7UcBW5eIwUz7Ox2ttasNSuU0h0kpjQguDo1IvajZNNejJV5
-Y0AQ0ysMSDWzP9jMOzpv07jMRPzkYZ4b0hJBU1NZlKIDOabbS6mPYAPmkp1gBqHv
-XxL6DBASMFFIwt0kl1XNz/QM+j9fIEi6qP3V5XMu+Em13/J1EvQui18dGLXnPIGF
-bT2IfWFuIt2g8Hcdqpvty5VX60tSSnbkYDqbbS0ju6+vATflzTc=
-=lV0s
------END PGP SIGNATURE-----
-
---GIq2x+ztVGH05eKR--
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
