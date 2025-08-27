@@ -4,67 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AC0FCA0EFF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 11:21:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B79F2CA0FED
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 11:37:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5721D10E7AC;
-	Wed, 27 Aug 2025 11:21:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65C5910E7C2;
+	Wed, 27 Aug 2025 11:37:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cJC70Usa";
+	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="flwbDkTh";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B147F10E0E0;
- Wed, 27 Aug 2025 11:21:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D4F5160267;
- Wed, 27 Aug 2025 11:21:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0964DC4CEEB;
- Wed, 27 Aug 2025 11:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756293681;
- bh=dI7cWzfS/291OsvZ5V1she40+eGFmZ3jW+/Cg11WRzo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cJC70Usa0leF1QY3kRLZEQxKcF196KNMy75izW4aF056588POf7hw8ooRR/BYccUU
- hU9/eXR/CV6+o9Z+vo5GnQZGlzUNvdatk4wTBdV6pDkwstzlB58X8zixd3rnd3uTJb
- 7/DEwiq1/ZAueEQmIxSn/h6XGxOwhtanTNeto5o5/ZZ4nMR08APakzzUMgj0eQGEQ4
- OeJZkILfGtaz9mjvduDRlbaBL1NbRQ+NQLM/reY4aULl+yZO8Z99mbyNHZXjruf8wu
- 21/tEqa7FP32zo66HWj9TO+BHinfCNKDEWOX2BuyUirMHlYwfGHZIXg1vEWDmy6F95
- WMOemtxOFxohQ==
-Date: Wed, 27 Aug 2025 13:21:19 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: Shengyu Qu <wiagn233@outlook.com>, 
- Marius Vlad <marius.vlad@collabora.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, 
- airlied@gmail.com, simona@ffwll.ch, harry.wentland@amd.com, sunpeng.li@amd.com,
- siqueira@igalia.com, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, 
- contact@rafaelrc.com, lijo.lazar@amd.com, jesse.zhang@amd.com,
- tim.huang@amd.com, 
- dark_sylinc@yahoo.com.ar, mario.limonciello@amd.com, alex.hung@amd.com, 
- aurabindo.pillai@amd.com, sunil.khatri@amd.com, chiahsuan.chung@amd.com,
- mwen@igalia.com, 
- Roman.Li@amd.com, Wayne.Lin@amd.com, dominik.kaszewski@amd.com,
- alvin.lee2@amd.com, 
- Aric.Cyr@amd.com, Austin.Zheng@amd.com, Sung.Lee@amd.com, PeiChen.Huang@amd.com,
- dillon.varone@amd.com, Richard.Chiang@amd.com, ryanseto@amd.com,
- linux@treblig.org, 
- haoping.liu@amd.com, Relja.Vojvodic@amd.com, Yihan.Zhu@amd.com,
- Samson.Tam@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 0/2] Add "pixel_encoding" to switch between RGB & YUV
- color modes
-Message-ID: <20250827-enchanted-merciful-badger-d51816@houat>
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B3A110E7C2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 11:37:06 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id
+ af79cd13be357-7f8ea864d63so9038285a.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 04:37:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1756294625; x=1756899425;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GfndeEOwCnpCOK3QWCzVz+jGoFaf5I3pq8HSBnsv0uc=;
+ b=flwbDkThB1u8SBy3BCPRJJNRYIZruo+2KB5pR18leEg0qctsa5bBEy9JATYuNTZvb5
+ dzOyy24sdUWoP9qPRmyO47cMzxSdmMqHxbVfhcZopmKaetrOluj0g/LtsoVWF0Lj8pj4
+ Xwz3a9ndP31hQZUx1EzFV+elEZNAzIb77JqqA0U80f0FxJbskGu24rgnrqqIbfR2/ziT
+ jIW7pEqjmx8kHo4dIzqBrdN/77MuNZGCapJCZBU5sfmjtMOIU0KnKaMF4QSrhCQoFVPH
+ bJI0dtwC6qp3INKDFDyqdsOaRuWkSi58ymRUcZTslqf9qSC8ptSPUvxgz0qrHS9JlDQB
+ Q1+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756294625; x=1756899425;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GfndeEOwCnpCOK3QWCzVz+jGoFaf5I3pq8HSBnsv0uc=;
+ b=c2t8NCUVzV0Q6Sv9EHSqcieCSFoV7hlHs+t8XXJmidgUidgZXh9Ut9RM4PyfK67IpW
+ w8ka63zVPgic04MeVQkF+vm9j5aU5MlxHinq+WON8a00KACIBJugCWqEfq660glrXRRY
+ HKbvVmEehaaE52yMovk/QQ2xI3z/3vpcDn6tBk/5oq6WxOHCpbE2FYQ0OGV2Ss8BIgAx
+ nOfoXGzY4XBgpOzHpqPFVkpjHJ+KlcNnpNqI4m9bWeWKj6BZRHTQQY3zCwP9zUohN5QE
+ fPTSUknrGcf3PGm5aL2yzIEkgBcSEyCvmswHAZQ4ovbJDcP9JDGyyVK9yMOCWOekCypV
+ cK8Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX2FzYI3+kGUC3EXmswAtfjxKFuO5cNZ8WSe0sUclIvWhka4uzLvgRdC0LXWOIGFHx1VdNtWuos@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy9uZCk3+YfNlhKTatepJ2h0bb2UUmX4O8P+Qbmt/Bro3InE+5w
+ Z2Bg2ipVNVZQKl4BQYq3EgtmljDvTmoDdxrGQWeF6PqkjCG6oQRIwML+nEt+ZcdlOvkp3vU/n3S
+ JDQYKRQObCyeMMDHNg9BeFGaK419KHjS4LBjmQTnAzA==
+X-Gm-Gg: ASbGncuWPdOcpbHG5FwZAVK4yrQGFeQIRwyddF71wXrtaErIL9spKbUPJN9TFjT8Fbw
+ mLl7+sxxs8EqzpF3x7vNPGw26reXKfN3X1aF3qq/qakXEiQ1I7e5doSb2Q3r0FkJwHKIeNgy79/
+ ISxXjYhee6LjDgbj1FWUjsL8a25OwfQ9Tks6MBDbqXjGejejsWa5Z1LkaIpBDP7+TlDfCuZvVKA
+ jmgGQ/s99WfC+IX
+X-Google-Smtp-Source: AGHT+IGm7iJLIIebL1+88laKEXRfjU4Dz7HmoTdOZAJey6UBB7j4fE3V3lw96EobEWDFpPJOKKiRUxKIM3arwj0EGNg=
+X-Received: by 2002:a05:620a:3711:b0:7ee:4a7e:e9a3 with SMTP id
+ af79cd13be357-7ee4a7eece9mr1477937485a.48.1756294625009; Wed, 27 Aug 2025
+ 04:37:05 -0700 (PDT)
+MIME-Version: 1.0
 References: <TY4PR01MB14432B688209B2AA416A95228983EA@TY4PR01MB14432.jpnprd01.prod.outlook.com>
  <aK1hPoCmLziaPPOd@xpredator>
  <TY4PR01MB1443219A9870877AF120FE63B9839A@TY4PR01MB14432.jpnprd01.prod.outlook.com>
  <20250827-imperial-mongrel-of-dignity-712fab@houat>
  <CAPj87rPhK+E2FP62fnNxFySDOkqqKxo_oa94i7DR3_6a1j1o1A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="refg77jsxnoyylwx"
-Content-Disposition: inline
-In-Reply-To: <CAPj87rPhK+E2FP62fnNxFySDOkqqKxo_oa94i7DR3_6a1j1o1A@mail.gmail.com>
+ <20250827-enchanted-merciful-badger-d51816@houat>
+In-Reply-To: <20250827-enchanted-merciful-badger-d51816@houat>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 27 Aug 2025 12:36:53 +0100
+X-Gm-Features: Ac12FXzn6v9MHx6a6sqFNAPJ1q2fkI0xvp2gSmrt9F65w1ac40HF9ChdBRScx2U
+Message-ID: <CAPj87rMDj-3ohEtXQYy25Rp0zNtZxQxS4Rmd-akgx9kkvB4Ysw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] Add "pixel_encoding" to switch between RGB & YUV
+ color modes
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Shengyu Qu <wiagn233@outlook.com>, Marius Vlad <marius.vlad@collabora.com>,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, harry.wentland@amd.com, sunpeng.li@amd.com, 
+ siqueira@igalia.com, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, 
+ contact@rafaelrc.com, lijo.lazar@amd.com, jesse.zhang@amd.com, 
+ tim.huang@amd.com, dark_sylinc@yahoo.com.ar, mario.limonciello@amd.com, 
+ alex.hung@amd.com, aurabindo.pillai@amd.com, sunil.khatri@amd.com, 
+ chiahsuan.chung@amd.com, mwen@igalia.com, Roman.Li@amd.com, Wayne.Lin@amd.com, 
+ dominik.kaszewski@amd.com, alvin.lee2@amd.com, Aric.Cyr@amd.com, 
+ Austin.Zheng@amd.com, Sung.Lee@amd.com, PeiChen.Huang@amd.com, 
+ dillon.varone@amd.com, Richard.Chiang@amd.com, ryanseto@amd.com, 
+ linux@treblig.org, haoping.liu@amd.com, Relja.Vojvodic@amd.com, 
+ Yihan.Zhu@amd.com, Samson.Tam@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ wayland-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,74 +103,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hey,
 
---refg77jsxnoyylwx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 0/2] Add "pixel_encoding" to switch between RGB & YUV
- color modes
-MIME-Version: 1.0
-
-On Wed, Aug 27, 2025 at 11:39:25AM +0100, Daniel Stone wrote:
-> Hey,
->=20
-> On Wed, 27 Aug 2025 at 10:41, Maxime Ripard <mripard@kernel.org> wrote:
-> > On Wed, Aug 27, 2025 at 12:26:56AM +0800, Shengyu Qu wrote:
-> > > 1.Can you send patch with only i915/amdgpu first? It's a long-needed =
-feature
-> > > to deal with some monitors/TVs with broken EDID.
+On Wed, 27 Aug 2025 at 12:21, Maxime Ripard <mripard@kernel.org> wrote:
+> On Wed, Aug 27, 2025 at 11:39:25AM +0100, Daniel Stone wrote:
+> > There are other reasons to have uAPI though ...
 > >
-> > If it's to workaround broken monitors, then it's really not something we
-> > should be doing using a property.
+> > One is because you really care about the colour properties, and you'd
+> > rather have better fidelity than anything else, even if it means some
+> > modes are unusable.
 > >
-> > Most likely, those monitors don't support YUV* output and will just need
-> > to be forced to RGB, so it's not something that the user (or the
-> > compositor, really) has to care about.
+> > Another is for situations which static quirks can't handle. If you
+> > want to keep headroom on the link (either to free up bandwidth for
+> > other uses), or you accidentally bought a super-long cable so have a
+> > flaky link, you might well want to force it to use lower fidelity so
+> > you can negotiate a lower link rate.
 > >
-> > And it would be broken with every driver, not just i915 and amdgpu.
-> >
-> > We already have some quirks infrastructure in place, the only thing we
-> > need to do is create an EDID_QUIRK_NO_$FORMAT, clear
-> > drm_display_info->color_formats based on it, and you're done. No uapi to
-> > agree upon, support, test, and it works with every driver.
->=20
-> There are other reasons to have uAPI though ...
->=20
-> One is because you really care about the colour properties, and you'd
-> rather have better fidelity than anything else, even if it means some
-> modes are unusable.
->=20
-> Another is for situations which static quirks can't handle. If you
-> want to keep headroom on the link (either to free up bandwidth for
-> other uses), or you accidentally bought a super-long cable so have a
-> flaky link, you might well want to force it to use lower fidelity so
-> you can negotiate a lower link rate.
->=20
-> I'm all for just dtrt automatically, but there are definitely reasons
-> to expose it to userspace regardless.
+> > I'm all for just dtrt automatically, but there are definitely reasons
+> > to expose it to userspace regardless.
+>
+> Oh, yeah, definitely.
+>
+> But bringing the big guns and the requirements we have for those to
+> address the point initially discussed by the gitlab issues seems like
+> biting off more than they can chew.
+>
+> Even more so since whatever uapi we come up with would still depend on
+> the EDIDs, and they would still be broken for these monitors.
 
-Oh, yeah, definitely.
+Sounds like we're agreeing with each other then.
 
-But bringing the big guns and the requirements we have for those to
-address the point initially discussed by the gitlab issues seems like
-biting off more than they can chew.
+Shengyu's 'I want these broken panels to work' usecase is probably
+best served with an EDID quirk, yeah.
 
-Even more so since whatever uapi we come up with would still depend on
-the EDIDs, and they would still be broken for these monitors.
+The reason Marius is working on it is the reasons I said above though
+- some for uses where we'd rather clearly fail out and push an error
+to userspace than continue with visually-degraded output, and some for
+uses where people have bought a too-long cable (or bought a too-short
+one which is now at tension through a 180=C2=B0 bend) so we want to force
+the lowest link rate possible, without dropping to a ridiculously low
+resolution.
 
-Maxime
+So I don't think these are in tension, and Marius should proceed with
+his work (complete with the proper userspace to back it up), and
+Shengyu should proceed with new in-kernel quirks, which will be
+effective when the properties are set to auto, but hard overridden by
+userspace if it decides otherwise.
 
---refg77jsxnoyylwx
-Content-Type: application/pgp-signature; name="signature.asc"
+How does that sound?
 
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaK7qKwAKCRAnX84Zoj2+
-dh1AAX4wnbnflKisabavSbNpeVGKoV3UrpsXVW9imDQtcjm7YudXmfvfYqpuzSkp
-94Pjwm0BfjRoTmFEeZpDWZ9/v0k4QqGl4uv3hYL5xuMnYs8wyX2fRrswvdyR3/nS
-ZfHMj/I12w==
-=HUUG
------END PGP SIGNATURE-----
-
---refg77jsxnoyylwx--
+Cheers,
+Daniel
