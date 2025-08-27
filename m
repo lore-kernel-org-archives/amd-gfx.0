@@ -4,73 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 082D1CA0FED
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 16:37:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F37CA0FED
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 16:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D07910E166;
-	Wed, 27 Aug 2025 16:37:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E59110E097;
+	Wed, 27 Aug 2025 16:54:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WIJ8o6xM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A/OIPkNe";
 	dkim-atps=neutral
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F06410E166
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 16:37:43 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-771f4374fc0so6898b3a.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 09:37:43 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEFF410E097
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 16:54:29 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-45b629c8035so20517385e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 09:54:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756312663; x=1756917463; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=l0swVn0LHq3lHSNX5BlNgU0WACOboAWE824P2dLB+s8=;
- b=WIJ8o6xMSf5M8pEHIbfHR5ah8BqO9awvbnSDwyOABKxINxdxU2MGQKK1+Hhd2yXl7I
- sKYFPLxgUj/u81zGjl/SjuQyZjPxsbaqEI9jSDpzxPIiPhGvvVzQ2syMmFK4O4kz29EO
- HFP8kyvTiLvCNpXaHI/pkOqstSPp7arGNz1ZluI33D3XSqewmWPPpAKUvuzPtV+Yeeg5
- g6cx/lbOSB9+tZflxNs8gcemXa1xKRM7ngBS08Vubc9hJQ2uJDio31W6uInxWlsMVqM7
- q58VnsxIg3WPkt5eiBVChhX8Z8zTrPCYcmoKKULUHxjpZGQSTOL6ChNcHdaWxYaDjYAN
- XImA==
+ d=gmail.com; s=20230601; t=1756313668; x=1756918468; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=91Zy7xMlxQUJmzrOhH5TV7TiacpfXVBwSPUD4HzlNOw=;
+ b=A/OIPkNelP62zaEpCfQpecp9yguiYgEtyrDnYYdde7D39Y00D+7/MRxf47LZqzVING
+ uNUPeQXk8yAyXs7mHiPPNFAiZEJA20qPn+g7J8IuOR8Y3JlSeUvhpSiMzBXkgnaTz48J
+ Q6LcfTYFAwShOZlG1IZZm5oDUu9HmfsOA+KPLEez81cNrrlwtLf4xfq4kJxZkmgrHb1+
+ vrfs4AWxTrgUKtXUhYaBcy1tqew7Et0MkBF9L8U0Tao2k6Ph2e+BZ0hCpTaOxyKlvzqL
+ VyA+DOn3QpDkvuBz086ZZXqBi94QaS6NVDYMWEm1utlh5CHxfaTtYpb+Xcor2DEU8nsW
+ p37A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756312663; x=1756917463;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=l0swVn0LHq3lHSNX5BlNgU0WACOboAWE824P2dLB+s8=;
- b=Gjc6c+FslbmaNCzpzqkOO8UKNsGdGpZKd4yfQHRUHmkMWpGHvZKDYurJcsECfw5xZs
- rDE+jcysidUoPdh/hOjnVJY9qo1Jm2s3Jvn7uOAF4sqoS0+76XRplcUFSg2BqcdpX5kx
- WduMcuDyd8D40F7sYl628jfApgY0rpKZXY7dZUWD4ZwtgilZAObjfSRIkoj7JhPqGK9v
- 5Sq2Yw7YbnHB+dZNPTN4SGflXh0t73R9YDBJ6mq41B8rcCourbXokUQquoGACFnImNiV
- 9IEvYfJUZizBe2riCcEUL/crMvrFOc0DAKoGaobBjJfB6CFH4pYsI/JmF0GLaGsFhYsN
- kxkQ==
-X-Gm-Message-State: AOJu0Yyx7YPdXiZhZffurM2JFmdoLnDlRujzyfAjB7moqJchLg7Qsunz
- ntCkXCk5SGLL/E4eKCWhMdrgWcTgHwaqyAzVM1DfeIe9FS/sFrymgavR/61G9b1A6o8DFHRap5R
- 6ucxRfOrM7bprAL+QtNjQRN/60j6O1QQ=
-X-Gm-Gg: ASbGncvg3KQQB0PcUuhzasjfYgW69pIGJZ7x9zgTjbZxeGc4kappljqb6wbWm9eAeK5
- Q+qHope6Skm86gFjCfsIw/uxl2VljK2mG4unDCrp6ILgLW5cEVG4d9w/SqCxGR8c4VYbLN/TBth
- vqXM8lA+o10IdoaGTBU1jvwS6NlGFSNEdZKKcBEXUno+IjeOIOymQSMiyGMI1LQ6JX6wgUjBNlw
- DjMUds=
-X-Google-Smtp-Source: AGHT+IE77WFV2071LTavBYfg3ObFdNNv893LQZ35jqbjjxNjVlwlsaNq9w0QBoDqfB7BmsQGrH3JJls5N04SJtKnRWI=
-X-Received: by 2002:a17:902:d506:b0:246:b1cf:fec2 with SMTP id
- d9443c01a7336-246b1d002d1mr96969645ad.4.1756312663039; Wed, 27 Aug 2025
- 09:37:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250825214635.621539-1-timur.kristof@gmail.com>
- <20250825214635.621539-6-timur.kristof@gmail.com>
- <CADnq5_NtWdn_v4JLHuzDGDE2NQn3jJZ+GNP1_dg2QMW2dUuBYA@mail.gmail.com>
- <135f672a9dd0d9257f1c3476d5f0254acf493296.camel@gmail.com>
-In-Reply-To: <135f672a9dd0d9257f1c3476d5f0254acf493296.camel@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 27 Aug 2025 12:37:29 -0400
-X-Gm-Features: Ac12FXwuXGvQBVX9O1HdJaXT9F_-wUC96Eqw12BSjrqFY8MEL_aaxd0-QjCnxYw
-Message-ID: <CADnq5_MFfkOuLU6LuY_Hm296_Ctypf9ZmdcdebYreckJSvKpiA@mail.gmail.com>
-Subject: Re: [PATCH 5/8] drm/amd/pm: Treat zero vblank time as too short in
- si_dpm (v2)
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+ d=1e100.net; s=20230601; t=1756313668; x=1756918468;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=91Zy7xMlxQUJmzrOhH5TV7TiacpfXVBwSPUD4HzlNOw=;
+ b=DIm+s+37mw0+/Ngsj4IOtigPJ295YxARCuc16xJMhd1AMF8Kc5Nf+KINvt/j9ngau9
+ YCwhvQ6NZlYeltSh63J0ME8od+koBIc8/qGbiz+i2JvRq3iShnpt/kZTz140Aa5FakVq
+ 666za8VjuOluzje+75A+GziYWJBTxutcUQzpcjplUROmnw4GEx+VrP7e64QoVrsZ7gsr
+ xGop6HzCFGyqmOPxYfOas/JmztVeHxZvwg86O7Hmg+ejVGB5baGS/J2c7sjC2NcKM1hw
+ auvhe+FrxxLFN0gSCpENw8YpiDkJRD6vJhi45vRtUStMkabo2Y9ieu3c+YDkymu9rh8F
+ +cyA==
+X-Gm-Message-State: AOJu0YxUrkfmgELpjC4b3JvCVsie89BccmeRIeS4FjsOnBNF17dbBjnn
+ 6v/DmCtlMHYS6lgqw4f81pMlq/1brsmLpB1mk4gfO0jiEOiAO27VG10d
+X-Gm-Gg: ASbGncsWvB2vz17ruIjhbsZXTMcQyRZ0OSnrEEvbLe80KRTxyNOWWzVHK00GWAgK39S
+ 6e7aulIW1n4zSIJwWEihI2Y+ezTyZcMG+M0X2mteQP33Zjg4NhfoxXjKdFVuVRnu+ZGcARZuaYm
+ WalxNqSsVszHDe603MmPVfWxtzNwp1HWa2B88tuu7RzRg8tA2/3MyhswSXDP7H3o3cWskFJ0YyQ
+ 7nNlAFCkXopaqzHf/WVjopjsxB74+4oq1miiLNaAecvxd0SfpyE3rnmpJr4bnSXvU356Td/zXeZ
+ 4p/dEfJ4mKZPVREuZJ68OazH8kmX75M2i6zZHMECPfERANzI8bWtlY1cUMOxjTSSG+m7kPSvcE2
+ FTXtZfOXuAkT+MJjd7NuDLjsij0Qvu57glxGHG1LhSiCdYbYd/K0aYM+c1gr4Hnyr8swLdIXTNo
+ 8jA6rt1EwRmtzX1lIsGf1JNat3c7inUMKCugWlrfqoRnkWBwjDyl2lJJp1NiUm6N49aXtiCVqll
+ hOxXsc4WIw=
+X-Google-Smtp-Source: AGHT+IE1InvniIMs3/4G04JqHY2YtsbZF1MNouDJ5K0cBTdMVQejsFzV8e977Osf8kTgf8FOusugiw==
+X-Received: by 2002:a05:6000:26c9:b0:3c9:5445:c7f1 with SMTP id
+ ffacd0b85a97d-3c95445ccfdmr10583217f8f.43.1756313667907; 
+ Wed, 27 Aug 2025 09:54:27 -0700 (PDT)
+Received: from ?IPv6:2001:4c4e:24e3:6900:d571:f301:5baf:ea47?
+ (20014C4E24E36900D571F3015BAFEA47.dsl.pool.telekom.hu.
+ [2001:4c4e:24e3:6900:d571:f301:5baf:ea47])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3cd10659d44sm2589929f8f.64.2025.08.27.09.54.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Aug 2025 09:54:27 -0700 (PDT)
+Message-ID: <851c05776a0c4850373ab24aeba425e8459548f6.camel@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Respect max pixel clock for HDMI and DVI-D
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, alex.hung@amd.com
+ harry.wentland@amd.com, alex.hung@amd.com
+Date: Wed, 27 Aug 2025 18:54:26 +0200
+In-Reply-To: <CADnq5_P6NYuRmbwV1tYkDxeBEttwhTFUvYGpGKnPUnsMj_v7Cg@mail.gmail.com>
+References: <20250825221046.639289-1-timur.kristof@gmail.com>
+ <CADnq5_Pyx1ZSen6kv+2ncXkpddrj-i2vr3bhoBLOo6=sYD=u1g@mail.gmail.com>
+ <89d36c21cca1a0f1a20d0033269668b085e81181.camel@gmail.com>
+ <CADnq5_P6NYuRmbwV1tYkDxeBEttwhTFUvYGpGKnPUnsMj_v7Cg@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,65 +94,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 27, 2025 at 10:27=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@=
-gmail.com> wrote:
->
-> On Tue, 2025-08-26 at 16:05 -0400, Alex Deucher wrote:
-> > On Mon, Aug 25, 2025 at 5:46=E2=80=AFPM Timur Krist=C3=B3f
-> > <timur.kristof@gmail.com> wrote:
-> > >
-> > > Some parts of the code base expect that MCLK switching is turned
-> > > off when the vblank time is set to zero.
-> > >
-> > > According to pp_pm_compute_clocks the non-DC code has issues
-> > > with MCLK switching with refresh rates over 120 Hz.
-> > >
-> > > Fixes: 841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
-> > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > index db46fc0817a7..1e2aeea0b552 100644
-> > > --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> > > @@ -3082,8 +3082,8 @@ static bool si_dpm_vblank_too_short(void
-> > > *handle)
-> > >  {
-> > >         struct amdgpu_device *adev =3D (struct amdgpu_device
-> > > *)handle;
-> > >         u32 vblank_time =3D amdgpu_dpm_get_vblank_time(adev);
-> > > -       /* we never hit the non-gddr5 limit so disable it */
-> > > -       u32 switch_limit =3D adev->gmc.vram_type =3D=3D
-> > > AMDGPU_VRAM_TYPE_GDDR5 ? 450 : 0;
-> > > +       /* we never hit the non-gddr5 limit so disable it (but
-> > > treat 0 as too short) */
-> > > +       u32 switch_limit =3D adev->gmc.vram_type =3D=3D
-> > > AMDGPU_VRAM_TYPE_GDDR5 ? 450 : 1;
-> >
-> > Took me a while to wrap my head around this.  It might be clearer to
-> > just return early if the vblank_time is 0.
->
-> Sure, I can do that if you think that makes it easier to read.
->
-> > That said, if there are no
-> > displays attached there is no reason to not enable mclk switching.
-> >
->
-> The function is only called when there are displays attached.
-> Should I mention that in a comment?
->
+T24gV2VkLCAyMDI1LTA4LTI3IGF0IDEyOjM2IC0wNDAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4g
+T24gV2VkLCBBdWcgMjcsIDIwMjUgYXQgMTA6MzbigK9BTSBUaW11ciBLcmlzdMOzZgo+IDx0aW11
+ci5rcmlzdG9mQGdtYWlsLmNvbT4gd3JvdGU6Cj4gPiAKPiA+IE9uIFR1ZSwgMjAyNS0wOC0yNiBh
+dCAxMDowMyAtMDQwMCwgQWxleCBEZXVjaGVyIHdyb3RlOgo+ID4gPiBPbiBNb24sIEF1ZyAyNSwg
+MjAyNSBhdCA2OjEw4oCvUE0gVGltdXIgS3Jpc3TDs2YKPiA+ID4gPHRpbXVyLmtyaXN0b2ZAZ21h
+aWwuY29tPiB3cm90ZToKPiA+ID4gPiAKPiA+ID4gPiBDaGFuZ2UgdGhlIGxlZ2FjeSAobm9uLURD
+KSBkaXNwbGF5IGNvZGUgdG8gcmVzcGVjdCB0aGUgbWF4aW11bQo+ID4gPiA+IHBpeGVsIGNsb2Nr
+IGZvciBIRE1JIGFuZCBEVkktRC4gUmVqZWN0IG1vZGVzIHRoYXQgd291bGQgcmVxdWlyZQo+ID4g
+PiA+IGEgaGlnaGVyIHBpeGVsIGNsb2NrIHRoYW4gY2FuIGJlIHN1cHBvcnRlZC4KPiA+ID4gPiAK
+PiA+ID4gPiBBbHNvIHVwZGF0ZSB0aGUgbWF4aW11bSBzdXBwb3J0ZWQgSERNSSBjbG9jayB2YWx1
+ZSBkZXBlbmRpbmcgb24KPiA+ID4gPiB0aGUgQVNJQyB0eXBlLgo+ID4gPiA+IAo+ID4gPiA+IEZv
+ciByZWZlcmVuY2UsIHNlZSB0aGUgREMgY29kZToKPiA+ID4gPiBjaGVjayBtYXhfaGRtaV9waXhl
+bF9jbG9jayBpbiBkY2UqX3Jlc291cmNlLmMKPiA+ID4gPiAKPiA+ID4gPiBTaWduZWQtb2ZmLWJ5
+OiBUaW11ciBLcmlzdMOzZiA8dGltdXIua3Jpc3RvZkBnbWFpbC5jb20+Cj4gPiA+ID4gLS0tCj4g
+PiA+ID4gwqAuLi4vZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0b3JzLmPCoMKgwqAg
+fCAyMQo+ID4gPiA+ICsrKysrKysrKysrKysrKysrLS0KPiA+ID4gPiDCoDEgZmlsZSBjaGFuZ2Vk
+LCAxOSBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+ID4gPiA+IAo+ID4gPiA+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jCj4g
+PiA+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jCj4g
+PiA+ID4gaW5kZXggNWUzNzVlOWM0ZjVkLi5hYmNjNDQ2OWNmNTcgMTAwNjQ0Cj4gPiA+ID4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwo+ID4gPiA+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0b3JzLmMKPiA+
+ID4gPiBAQCAtMTE5NSwxMiArMTE5NSwyNiBAQCBzdGF0aWMgdm9pZAo+ID4gPiA+IGFtZGdwdV9j
+b25uZWN0b3JfZHZpX2ZvcmNlKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCj4gPiA+
+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9jb25uZWN0b3ItPnVzZV9k
+aWdpdGFsID0gdHJ1ZTsKPiA+ID4gPiDCoH0KPiA+ID4gPiAKPiA+ID4gPiArLyoqCj4gPiA+ID4g
+KyAqIFJldHVybnMgdGhlIG1heGltdW0gc3VwcG9ydGVkIEhETUkgKFRNRFMpIHBpeGVsIGNsb2Nr
+IGluCj4gPiA+ID4gS0h6Lgo+ID4gPiA+ICsgKi8KPiA+ID4gPiArc3RhdGljIGludCBhbWRncHVf
+bWF4X2hkbWlfcGl4ZWxfY2xvY2soY29uc3Qgc3RydWN0Cj4gPiA+ID4gYW1kZ3B1X2RldmljZQo+
+ID4gPiA+ICphZGV2KQo+ID4gPiA+ICt7Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoCBpZiAoYWRldi0+
+YXNpY190eXBlID49IENISVBfUE9MQVJJUzEwKQo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIHJldHVybiA2MDAwMDA7Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoCBlbHNlIGlmIChh
+ZGV2LT5hc2ljX3R5cGUgPj0gQ0hJUF9UT05HQSkKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCByZXR1cm4gMzAwMDAwOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqAgZWxzZQo+ID4g
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAyOTcwMDA7Cj4gPiA+ID4g
+K30KPiA+ID4gPiArCj4gPiA+ID4gwqBzdGF0aWMgZW51bSBkcm1fbW9kZV9zdGF0dXMKPiA+ID4g
+PiBhbWRncHVfY29ubmVjdG9yX2R2aV9tb2RlX3ZhbGlkKHN0cnVjdAo+ID4gPiA+IGRybV9jb25u
+ZWN0b3IgKmNvbm5lY3RvciwKPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBj
+b25zdCBzdHJ1Y3QKPiA+ID4gPiBkcm1fZGlzcGxheV9tb2RlICptb2RlKQo+ID4gPiA+IMKgewo+
+ID4gPiA+IMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBjb25uZWN0b3It
+PmRldjsKPiA+ID4gPiDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9
+IGRybV90b19hZGV2KGRldik7Cj4gPiA+ID4gwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9j
+b25uZWN0b3IgKmFtZGdwdV9jb25uZWN0b3IgPQo+ID4gPiA+IHRvX2FtZGdwdV9jb25uZWN0b3Io
+Y29ubmVjdG9yKTsKPiA+ID4gPiArwqDCoMKgwqDCoMKgIGNvbnN0IGludCBtYXhfaGRtaV9waXhl
+bF9jbG9jayA9Cj4gPiA+ID4gYW1kZ3B1X21heF9oZG1pX3BpeGVsX2Nsb2NrKGFkZXYpOwo+ID4g
+PiA+IAo+ID4gPiA+IMKgwqDCoMKgwqDCoMKgIC8qIFhYWCBjaGVjayBtb2RlIGJhbmR3aWR0aCAq
+Lwo+ID4gPiA+IAo+ID4gPiA+IEBAIC0xMjA4LDEwICsxMjIyLDEzIEBAIHN0YXRpYyBlbnVtIGRy
+bV9tb2RlX3N0YXR1cwo+ID4gPiA+IGFtZGdwdV9jb25uZWN0b3JfZHZpX21vZGVfdmFsaWQoc3Ry
+dWN0IGRybV9jb25uZWN0b3IKPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+aWYgKChhbWRncHVfY29ubmVjdG9yLT5jb25uZWN0b3Jfb2JqZWN0X2lkID09Cj4gPiA+ID4gQ09O
+TkVDVE9SX09CSkVDVF9JRF9EVUFMX0xJTktfRFZJX0kpIHx8Cj4gPiA+ID4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKGFtZGdwdV9jb25uZWN0b3ItPmNvbm5lY3Rvcl9v
+YmplY3RfaWQgPT0KPiA+ID4gPiBDT05ORUNUT1JfT0JKRUNUX0lEX0RVQUxfTElOS19EVklfRCkg
+fHwKPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAoYW1kZ3B1
+X2Nvbm5lY3Rvci0+Y29ubmVjdG9yX29iamVjdF9pZCA9PQo+ID4gPiA+IENPTk5FQ1RPUl9PQkpF
+Q1RfSURfSERNSV9UWVBFX0IpKSB7Cj4gPiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBNT0RFX09LOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAobW9kZS0+Y2xvY2sgPiBtYXhfaGRt
+aV9waXhlbF9jbG9jaykKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBNT0RFX0NMT0NLX0hJR0g7Cj4gPiA+
+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVsc2UKPiA+
+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIHJldHVybiBNT0RFX09LOwo+ID4gPiAKPiA+ID4gSSBkb24ndCB0aGluayBpdCBt
+YWtlcyBzZW5zZSB0byBsaW1pdCBkdWFsIGxpbmsgRFZJIHRvIHRoZSBtYXgKPiA+ID4gSERNSQo+
+ID4gPiBjbG9jay7CoCBIRE1JIGlzIHNpbmdsZSBsaW5rIFRNRFMuwqAgT3RoZXIgdGhhbiB0aGF0
+LCB0aGUgcGF0Y2gKPiA+ID4gbG9va3MKPiA+ID4gZ29vZCB0byBtZS4KPiA+ID4gCj4gPiA+IEFs
+ZXgKPiA+IAo+ID4gSGkgQWxleCwKPiA+IAo+ID4gVGhlIHByb2JsZW0gSSdtIHRyeWluZyB0byBz
+b2x2ZSBoZXJlIGlzIHRoYXQgb24gdGhlIG5vbi1EQyBjb2RlLCBieQo+ID4gZGVmYXVsdCBJIGdl
+dCBhIGJsYWNrIHNjcmVlbiBvbiBEVkktRCBiZWNhdXNlIHRoZSBjb2RlIGRvZXNuJ3Qgc2V0Cj4g
+PiBhbgo+ID4gdXBwZXIgbGltaXQgb24gd2hhdCBpcyBhY3R1YWxseSBzdXBwb3J0ZWQuIChBbmQg
+dGhlIG1vbml0b3IKPiA+IHN1cHBvcnRzCj4gPiBzb21lIG1vZGVzIHdoaWNoIHdvbid0IHdvcmsu
+KQo+ID4gCj4gPiBBcyBmYXIgYXMgSSBzZWUsIERDIG9ubHkgYWxsb3dzIDRLIDMwIEh6IG9uIERW
+SSBmb3IgdGhlIHNhbWUKPiA+IGNvbm5lY3Rvcgo+ID4gYW5kIERWSS9IRE1JIGFkYXB0ZXIuIFRo
+YXQgbWF5IGJlIHdyb25nLCB0aG91Z2guCj4gPiAKPiA+IFdoYXQgdmFsdWUgZG8geW91IHN1Z2dl
+c3QgdG8gdXNlPwo+ID4gCj4gPiBJZiBIRE1JID0gc2luZ2xlIGxpbmsgVE1EUywgZG9lcyB0aGF0
+IG1lYW4gdGhhdCBhIHBhc3NpdmUgRFZJL0hETUkKPiA+IGFkYXB0ZXIgY2Fubm90IHRha2UgYWR2
+YW50YWdlIG9mIGR1YWwtbGluayBEVkk/Cj4gCj4gRFZJIGhhcyBhIDE2NSBNaHogbGltaXQgcGVy
+IGxpbmsgc28gZHVhbCBsaW5rIHdvdWxkIGJlIDMzMCBNaHouCj4gCj4gQWxleAoKSSBzZWUuIFRo
+YXQncyBteSBtaXN0YWtlLCBJIHRob3VnaHQgdGhhdCB0aGUgbWF4X2hkbWlfcGl4ZWxfY2xvY2sg
+YXMKZGVmaW5lZCBpbiBEQyBpcyBhcHBsaWNhYmxlIHRvIGFsbCBUTURTIHNpZ25hbHMsIG5vdCBq
+dXN0IEhETUkuCgpUaGF0IGJlaW5nIHNhaWQsIGNhbiB5b3UgY29uZmlybSB0aGF0IGEgRFZJL0hE
+TUkgYWRhcHRlciBjYW4gaW5kZWVkIHVzZQpib3RoIGxpbmtzIG9mIHRoZSBkdWFsLWxpbmsgRFZJ
+PwoKPiAKPiA+IAo+ID4gVGhhbmtzLAo+ID4gVGltdXIKPiA+IAo+ID4gPiAKPiA+ID4gPiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfSBlbHNlIGlmIChjb25uZWN0b3ItPmRpc3BsYXlf
+aW5mby5pc19oZG1pKSB7Cj4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCAvKiBIRE1JIDEuMysgc3VwcG9ydHMgbWF4IGNsb2NrIG9mIDM0MAo+ID4g
+PiA+IE1oego+ID4gPiA+ICovCj4gPiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGlmIChtb2RlLT5jbG9jayA+IDM0MDAwMCkKPiA+ID4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKG1vZGUtPmNsb2NrID4g
+bWF4X2hkbWlfcGl4ZWxfY2xvY2spCj4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIE1PREVfQ0xPQ0tfSElH
+SDsKPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGVsc2UKPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gTU9ERV9PSzsKPiA+ID4gPiAtLQo+ID4gPiA+IDIu
+NTAuMQo+ID4gPiA+IAo=
 
-Sure that sounds good.  Thanks!
-
-Alex
-
-> >
-> > >
-> > >         if (vblank_time < switch_limit)
-> > >                 return true;
-> > > --
-> > > 2.50.1
-> > >
