@@ -4,93 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11748CA0EFF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 16:56:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8389FCA0FED
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 17:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFAA310E864;
-	Wed, 27 Aug 2025 16:56:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E61610E03C;
+	Wed, 27 Aug 2025 17:05:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EAMal2/0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="feYmy7Z9";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D426C10E864
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 16:56:18 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-45a1b0bde14so35435e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 09:56:18 -0700 (PDT)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F228110E03C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 17:05:57 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-248cd112855so66745ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 10:05:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756313777; x=1756918577; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=9PPM3F1lO3JJ0JoQK7wkdfSc59Xzsqn9+qobVbwNX7o=;
- b=EAMal2/0VAlCSjYOD2yeyC7J/mIO6CrAbCYKhWj6yLH9TDRW4q31zOAY+ZYbGqulBL
- Gdwhacu16wikr0w2PqK/Nuei2dwvMfNO9lfMMIDgIzSth3Ig6i7I4aQ2bywCk5+wcBph
- QoOXPDrhWGggMdIK7QU6VJYBWstD6C+91dVKByaTJYIVHWeRuAgQO8tbP9M5Pmg4EkNj
- httMH+a4eNWL1qgaPyfuAmnOngtq9TJsSzxGrfX2b3x2+om0jfB3sOXEsTmzHqpelcld
- WrIW3gSTliaJcb5y3raM9elYaUXe1jwxomjKbN6fvDt2i+esG9DCkl6SDYCZ4qI+mlJl
- S6vQ==
+ d=gmail.com; s=20230601; t=1756314357; x=1756919157; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XLt7PaEuiVtzHuFcz6qpIyZKwilWdxL5eb2qU8+Fync=;
+ b=feYmy7Z94IuO5fVJY2CuMBZY6bIiH/V16vlvc3dxaEKaIN7RTb6Pwowt0WeRnViPfr
+ K68et9WRqAfyt+Hb3ml4I8R+Nyi5m6TgzWZkc4rAysx2AkdspB3gqZ122a2thAqUXS7i
+ ABXwUHSoGnU56FDLOydCc87kGrQx0LUuBXTc1E4Ws5AtSk6jzBWUgTwnBfzrhulJdVVF
+ K6NgB/SrrBYutsXjxMn204LCtl88eyXtAtWUI6D9WQyOwqPMWfD55eFRoqfjAcBw9pFl
+ MlWeAHBc8pcCqCJf6lYyqvfK3PRoicKb5kknzeeAlfPa5zxut/0GLmliHEtZsvFlw60s
+ O5WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756313777; x=1756918577;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9PPM3F1lO3JJ0JoQK7wkdfSc59Xzsqn9+qobVbwNX7o=;
- b=qMdp54Gmd2omeAe6n+pl6PJ2HBTlGAP0Tp5Aaiv/Z6usF4+PsFQe20l5G7rIlSEyGL
- jG33gV5TzcYUSjfa1G+p0wQp0WVd7DKdRZJZbGYDcLhwg78mU24PahTbC9VGwEsw568n
- ELPrSbqsV04+NmZ+PmYBtaoXduy7pI11Bx6R3mnBPvIFJHi+E5EAbYa4WQcJ2UUa43OI
- mbh+grERi8BCSpQa4WOnmydg9EkN58WIqXayQeeeXZRKH+DZzNdudRpSRglGIzS/vkE0
- SJN90kGyAWv9LKdB2yi8qSHtRG0OMrMCe+MZZ9qL5uBMB9UfTCyhm/uVtGLvDFx2q2Yy
- Fpwg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVGBCC9D6sZ46lgK//M4uyIrVNWFyXYRs/pWU9LLjCLwTNGgqR9b3d1mmB8sfPJ0PP2lzhdPmLy@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxcUYcMvR620GmhEpw8YUkt840DF2u/pHpR6bcfb+Yw3+bs3OYD
- QoGbeRjDrZ3Pu8oKyaZrinQOv+3IWEXXsIHpZZ+BVY4UoUpoayUXuC9a
-X-Gm-Gg: ASbGncu+2kfzyTM0AMdhZXulxAqmxvOaaUKEC83m5HTwae44fHop0oM1LWwtx7IpSan
- PZLM4CDKrbfrNQ7pPN1dyk+U5vM/erFybX1eOoQrnyNMvc4Q8v6IvOtK6NSW7cSe8r1NkRX+gPB
- q3Eoe0YNAXZgsk5Jy7mwlshuQjq/RLYAAr67Lg9kw97zAAZ/bZGtjL3ndkffpVsQmUxWM1iIiuL
- sDQAeg2Q4W9O45KZAxCsACnATA0dKbQpWfxQjykaxZ+zMv3HdWjnGbgriGy6spYBAGSmyZz4B7K
- ROGBB1mdflrK+8AYIJ//ejyGbU3w9tUNOOeM+NYQ2OKXDAP/vrI/W/kOcFTgpN5FTC530khY7it
- QnS5esenuwBRLEOdVCpwTNIcxpRE/1o39L/OoRXXO/ZSBiNr8bX4aiRwm+mKd4C0nj+6j84tNAX
- 6DoD/U3iRJRwMoaTJUXFQWMQATREzN78PkfTXJ6fwBXAPJ2eyL6UrwUVVtyDFjTyc7oOMoOitjU
- OnJr+NqTss=
-X-Google-Smtp-Source: AGHT+IGGJOQUbYSvWijvYbRGganVP0FbY+nRR/PTguSWTQraHTz3fRQM6ABUNr/TYoQTSILBGIivaw==
-X-Received: by 2002:a05:600c:1c92:b0:459:db69:56bd with SMTP id
- 5b1f17b1804b1-45b65ea4bacmr67161445e9.20.1756313777046; 
- Wed, 27 Aug 2025 09:56:17 -0700 (PDT)
-Received: from ?IPv6:2001:4c4e:24e3:6900:d571:f301:5baf:ea47?
- (20014C4E24E36900D571F3015BAFEA47.dsl.pool.telekom.hu.
- [2001:4c4e:24e3:6900:d571:f301:5baf:ea47])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b6f0c8f88sm42053695e9.3.2025.08.27.09.56.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Aug 2025 09:56:16 -0700 (PDT)
-Message-ID: <b2db1683a92779d75e3ceb4ba7d4a013442d0d4d.camel@gmail.com>
-Subject: Re: [PATCH v2 4/5] Documentation/gpu: Add more information about GC
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
- <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, 
- kernel-dev@igalia.com
-Date: Wed, 27 Aug 2025 18:56:15 +0200
-In-Reply-To: <xrvrobdarmbaa3mfavad7oactvzzkko4uusgcph7gxcjamt343@e6tufd75cvx4>
-References: <20250824233149.3780127-1-siqueira@igalia.com>
- <20250824233149.3780127-5-siqueira@igalia.com>
- <CADnq5_PvQS-45bM7d2ZXKo4h_C+aS8FP5Qk-1qvBDdo9s-10kg@mail.gmail.com>
- <440097d6c1ba4fb304227f54e01455b1733864b2.camel@gmail.com>
- <CADnq5_NJHzS5_GsqL6HLe0XZ0hwVi7yJvWi7ZmRMPfMYM8i0Fw@mail.gmail.com>
- <e774ec6c0de87b8dee088303b252119ace3a1c52.camel@gmail.com>
- <CADnq5_NUv-sJ0forP7R2V3Gv5PMN-NGNF9UoOyh0QTfdwKp0Nw@mail.gmail.com>
- <aa05cac8b0d6cf1c328182f00c29238981e3c001.camel@gmail.com>
- <CADnq5_Pz-UJRaAdGXF0yc4mzLEvE-PKuKx7n_doQ0JLgvPO4jw@mail.gmail.com>
- <xrvrobdarmbaa3mfavad7oactvzzkko4uusgcph7gxcjamt343@e6tufd75cvx4>
+ d=1e100.net; s=20230601; t=1756314357; x=1756919157;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XLt7PaEuiVtzHuFcz6qpIyZKwilWdxL5eb2qU8+Fync=;
+ b=KzKjCOEpL4NKkNr+opsU5G3bqb8q1tPRjfhi6JvL9FLfVNN3cpGRk4tE18JDjY2jII
+ nzLtH8HIs0IdvPZcxRa6pPx3RfY7lhr0eRFkVTFe7HO3XS3TcC0Go8zMZiq4Dqp9DkIO
+ IG62JDiPsPHfWjC5+If3NDK2FOa097atIShCV53WSk6DcqbO/R+UjKa/6geSLuazHbjS
+ a3mJAJ80Ak+uBZ5PTullHeNzEky/5YdH0VsPUy6XKv+snA4NHAzF+MohBabv7ap1frcp
+ NticJ4E90TsDd30k+XOwsAdv4rvCfVokjqTJ0eWoTNalU79+x7s3FP54tgo5zhWumnrM
+ q1LA==
+X-Gm-Message-State: AOJu0YzjNuFiYSfoiSidgBrppF38c+NAC45gTQIQ7RBJXixfr01neOJv
+ RVUabE+kYUmb91hXJ+zn79JWjkPtyUMqMS+ajHGlliWDpA2Pg7LwwqIaq37Vu1MoOAu04S5WA/X
+ 8fpeQ02fUCIWtAGJmm4tu8D8ao74FAjg=
+X-Gm-Gg: ASbGncssMG0np8jSlYD0Ahn/xaQReuJvyREYtxIXVvLa9d7b/3BBFMp8fK/AEBu8KSu
+ sIW5r05s3FeEP2EewINVfFknLx035FTkPKkbPxSCP5OQjlNixJMbwcbufeFqsLxVZzrwSJePgGo
+ nwI9z9nxHjk6xbnLHYOa8GQfujXn3SOgn+16z+iYCM3iIpLx5rqwoP1bw3pQch3nD2skX3i1VFm
+ CcAESs=
+X-Google-Smtp-Source: AGHT+IFN1P0YEDQvxtBLvxxX/qusZjCPQnRquPLnytM2ABQDCgo9Tat1UN2OgcHkO1SfeD2gXp84TzRILE6o7YesoVI=
+X-Received: by 2002:a17:902:e744:b0:248:7a43:e1c5 with SMTP id
+ d9443c01a7336-2487a43e264mr45436525ad.7.1756314357384; Wed, 27 Aug 2025
+ 10:05:57 -0700 (PDT)
+MIME-Version: 1.0
+References: <20250825221046.639289-1-timur.kristof@gmail.com>
+ <CADnq5_Pyx1ZSen6kv+2ncXkpddrj-i2vr3bhoBLOo6=sYD=u1g@mail.gmail.com>
+ <89d36c21cca1a0f1a20d0033269668b085e81181.camel@gmail.com>
+ <CADnq5_P6NYuRmbwV1tYkDxeBEttwhTFUvYGpGKnPUnsMj_v7Cg@mail.gmail.com>
+ <851c05776a0c4850373ab24aeba425e8459548f6.camel@gmail.com>
+In-Reply-To: <851c05776a0c4850373ab24aeba425e8459548f6.camel@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 27 Aug 2025 13:05:45 -0400
+X-Gm-Features: Ac12FXx8YC9pXRxwQ3o1Hibz0dG_bEnEhVzuJUAkItoBgmiaCZIStaFr8ux5m_I
+Message-ID: <CADnq5_Nng6Hjz8st-UOUrgjq=rYVdr=13aK+0KM+Jf+FQ9mmaQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Respect max pixel clock for HDMI and DVI-D
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ harry.wentland@amd.com, alex.hung@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
-MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,390 +85,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-08-26 at 17:03 -0600, Rodrigo Siqueira wrote:
-> On 08/26, Alex Deucher wrote:
-> > On Mon, Aug 25, 2025 at 5:18=E2=80=AFPM Timur Krist=C3=B3f
+On Wed, Aug 27, 2025 at 12:54=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@=
+gmail.com> wrote:
+>
+> On Wed, 2025-08-27 at 12:36 -0400, Alex Deucher wrote:
+> > On Wed, Aug 27, 2025 at 10:36=E2=80=AFAM Timur Krist=C3=B3f
 > > <timur.kristof@gmail.com> wrote:
-> > >=20
-> > > On Mon, 2025-08-25 at 13:06 -0400, Alex Deucher wrote:
-> > > > On Mon, Aug 25, 2025 at 12:39=E2=80=AFPM Timur Krist=C3=B3f
+> > >
+> > > On Tue, 2025-08-26 at 10:03 -0400, Alex Deucher wrote:
+> > > > On Mon, Aug 25, 2025 at 6:10=E2=80=AFPM Timur Krist=C3=B3f
 > > > > <timur.kristof@gmail.com> wrote:
-> > > > >=20
-> > > > > On Mon, 2025-08-25 at 12:31 -0400, Alex Deucher wrote:
-> > > > > > On Mon, Aug 25, 2025 at 12:19=E2=80=AFPM Timur Krist=C3=B3f
-> > > > > > <timur.kristof@gmail.com> wrote:
-> > > > > > >=20
-> > > > > > > On Mon, 2025-08-25 at 11:38 -0400, Alex Deucher wrote:
-> > > > > > > > On Sun, Aug 24, 2025 at 7:43=E2=80=AFPM Rodrigo Siqueira
-> > > > > > > > <siqueira@igalia.com> wrote:
-> > > > > > > >=20
-> > > > > > > >=20
-> > > > > > > > > +
-> > > > > > > > > +First of all, note that the GC can have multiple
-> > > > > > > > > SEs,
-> > > > > > > > > depending on
-> > > > > > > > > the specific
-> > > > > > > > > +GPU/APU, and each SE has multiple Compute Units
-> > > > > > > > > (CU). From
-> > > > > > > > > the
-> > > > > > > > > diagram, you can
-> > > > > > > > > +see that CUs have a block named Schedulers. The
-> > > > > > > > > reason the
-> > > > > > > > > name is
-> > > > > > > > > in plural is
-> > > > > > > > > +because this hardware block is a combination of
-> > > > > > > > > different
-> > > > > > > > > micro-
-> > > > > > > > > schedules: CP,
-> > > > > > > > > +CPF, CPC, and CPG.
-> > > > > > > >=20
-> > > > > > > > CP is not really in the same category as CPF, CPC,
-> > > > > > > > CPG.=C2=A0 CP
-> > > > > > > > is
-> > > > > > > > the
-> > > > > > > > front end to the GC block and contains a number of
-> > > > > > > > micro
-> > > > > > > > controllers
-> > > > > > > > which run firmware which software interacts with.=C2=A0 CPF=
-,
-> > > > > > > > CPG,
-> > > > > > > > and
-> > > > > > > > CPC
-> > > > > > > > are just hardware implementation details.
-> > > > > > >=20
-> > > > > > > Can you please suggest an edit that explains these
-> > > > > > > better?
-> > > > > > >=20
-> > > > > > > I'm sorry to say, I thought I understood it but after
-> > > > > > > reading
-> > > > > > > your
-> > > > > > > reply now I feel I don't.
-> > > > > >=20
-> > > > > > I would say something like:
-> > > > > >=20
-> > > > > > The CP (Command Processor) is the front end to the GC
-> > > > > > hardware.
-> > > > > > It
-> > > > > > provides microcontrollers which manage command queues which
-> > > > > > are
-> > > > > > used
-> > > > > > to feed jobs to the GFX and compute hardware.
-> > > > >=20
-> > > > > Sounds good. What do you think, Siquiera?
-> > > > >=20
-> > > > > >=20
-> > > > > > >=20
-> > > > > > > >=20
-> > > > > > > > > +
-> > > > > > > > > =C2=A0The component that acts as the front end between th=
-e
-> > > > > > > > > CPU
-> > > > > > > > > and
-> > > > > > > > > the
-> > > > > > > > > GPU is called
-> > > > > > > > > -the Command Processor (CP). This component is
-> > > > > > > > > responsible
-> > > > > > > > > for
-> > > > > > > > > providing greater
-> > > > > > > > > +CP (Command Processor). This component is
-> > > > > > > > > responsible for
-> > > > > > > > > providing greater
-> > > > > > > > > =C2=A0flexibility to the GC since CP makes it possible to
-> > > > > > > > > program
-> > > > > > > > > various aspects of
-> > > > > > > > > =C2=A0the GPU pipeline. CP also coordinates the
-> > > > > > > > > communication
-> > > > > > > > > between
-> > > > > > > > > the CPU and GPU
-> > > > > > > > > =C2=A0via a mechanism named **Ring Buffers**, where the
-> > > > > > > > > CPU
-> > > > > > > > > appends
-> > > > > > > > > information to
-> > > > > > > > > -the buffer while the GPU removes operations. It is
-> > > > > > > > > relevant to
-> > > > > > > > > highlight that a
-> > > > > > > > > -CPU can add a pointer to the Ring Buffer that points
-> > > > > > > > > to
-> > > > > > > > > another
-> > > > > > > > > region of
-> > > > > > > > > -memory outside the Ring Buffer, and CP can handle
-> > > > > > > > > it; this
-> > > > > > > > > mechanism is called
-> > > > > > > > > -**Indirect Buffer (IB)**. CP receives and parses the
-> > > > > > > > > Command
-> > > > > > > > > Streams (CS), and
-> > > > > > > > > -writes the operations to the correct hardware
-> > > > > > > > > blocks.
-> > > > > > > > > +the buffer while the GPU removes operations.
-> > > > > > > > > Finally, CP
-> > > > > > > > > is
-> > > > > > > > > also
-> > > > > > > > > responsible
-> > > > > > > > > +for handling Indirect Buffers (IB).
-> > > > > > > > > +
-> > > > > > > > > +After CP completes the first set of processing,
-> > > > > > > > > which
-> > > > > > > > > includes
-> > > > > > > > > separate command
-> > > > > > > > > +packets specific to GFX and Compute, other blocks
-> > > > > > > > > step in.
-> > > > > > > > > To
-> > > > > > > > > handle commands
-> > > > > > > > > +for the compute block, CPC (Command Processor
-> > > > > > > > > Command)
-> > > > > > > > > takes
-> > > > > > > > > over,
-> > > > > > > > > and for
-> > > > > > > > > +handling Graphics operations, the CPG (Command
-> > > > > > > > > Processor
-> > > > > > > > > Graphics)
-> > > > > > > > > takes
-> > > > > > > > > +action. Another essential block to ensure the
-> > > > > > > > > optimal
-> > > > > > > > > utilization
-> > > > > > > > > of CPC and
-> > > > > > > > > +CPG is the CPF (Command Processor Fetcher), which
-> > > > > > > > > helps
-> > > > > > > > > these
-> > > > > > > > > blocks to be
-> > > > > > > > > +constantly fed. Note that CPG contains the PFP (Pre-
-> > > > > > > > > Fetch
-> > > > > > > > > Parser),
-> > > > > > > > > ME
-> > > > > > > > > +(MicroEngine), and CE (Constant Engine) in the case
-> > > > > > > > > of
-> > > > > > > > > chips
-> > > > > > > > > that
-> > > > > > > > > support it.
-> > > > > > > > > +CPC contains MEC (MicroEngine Compute), and CPF is
-> > > > > > > > > another
-> > > > > > > > > hardware block that
-> > > > > > > > > +provides services to CPG and CPC.
-> > > > > > > >=20
-> > > > > > > > I'm not sure how much value this provides to the
-> > > > > > > > average
-> > > > > > > > developer.
-> > > > > > > > These are sort of implementation details of the
-> > > > > > > > hardware.=C2=A0 In
-> > > > > > > > general
-> > > > > > > > the driver doesn't really interact with the individual
-> > > > > > > > hardware
-> > > > > > > > blocks
-> > > > > > > > and they may not stay consistent over time.
-> > > > > > > >=20
-> > > > > > > > Alex
-> > > > > > >=20
-> > > > > > > Not sure what you mean by "the average developer", but I
-> > > > > > > think
-> > > > > > > this
-> > > > > > > is
-> > > > > > > very useful knowledge to anyone who wants to contribute
-> > > > > > > to
-> > > > > > > amdgpu,
-> > > > > > > specifically to the parts that have anything to do with
-> > > > > > > GFX or
-> > > > > > > compute.
-> > > > > > >=20
-> > > > > > > If you're worried that it may not stay consistent over
-> > > > > > > time, I
-> > > > > > > think
-> > > > > > > the glossary entries could be edited to mention which GPU
-> > > > > > > generation(s)
-> > > > > > > they apply to.
-> > > > > > >=20
-> > > > > > > As-is the code is full of 3-letter abbreviations that are
-> > > > > > > never
-> > > > > > > expanded or explained anywhere, which represent various
-> > > > > > > hardware
-> > > > > > > units
-> > > > > > > (or microcontrollers, or blocks, or whatever they may
-> > > > > > > be).
-> > > > > > > Without
-> > > > > > > knowing what these are and how they interact, it's
-> > > > > > > difficult to
-> > > > > > > understand what the code is doing any why, or even why
-> > > > > > > some
-> > > > > > > parts
-> > > > > > > are
-> > > > > > > necessary.
-> > > > > > >=20
-> > > > > > > To make matters worse, the latest public documentation
-> > > > > > > that
-> > > > > > > tries
-> > > > > > > to
-> > > > > > > explain any of this is from 2012. So I think it's a good
-> > > > > > > idea
-> > > > > > > to
-> > > > > > > collect all of this information so that newcomers to the
-> > > > > > > kernel
-> > > > > > > driver
-> > > > > > > such as myself have a chance.
-> > > > > >=20
-> > > > > > The driver/developers don't interact with CPF, CPC, CPG
-> > > > > > directly.
-> > > > > > They just happen to be arbitrary sub-blocks of the CP.=C2=A0 I'=
-m
-> > > > > > concerned
-> > > > > > that adding a lot of stuff about them will just lead to
-> > > > > > confusion.
-> > > > >=20
-> > > > > I think they are worth a sentence or two each in the
-> > > > > glossary.
-> > > > >=20
-> > > > > When trying to diagnose problems (eg. GPU hangs), we often
-> > > > > need to
-> > > > > look
-> > > > > at various HW registers (eg. GRBM_STATUS), which refer to the
-> > > > > above
-> > > > > sub-blocks. It is then hard to see what is going on without
-> > > > > knowing
-> > > > > what these are. In turn, that makes it hard to come up with
-> > > > > an
-> > > > > understanding that can explain what is happening on the HW.
-> > > > >=20
-> > > >=20
-> > > > I think that's fine.=C2=A0 I just don't want to put too much
-> > > > emphasis on
-> > > > them since they are more of an implementation detail within the
-> > > > CP.
-> > > > They aren't quite the same as the other blocks that make up the
-> > > > GC
-> > > > pipeline from a driver or debugging standpoint.
-> > >=20
-> > > I see your point.
-> > >=20
-> > > If you want to deemphasize these, how would you feel about
-> > > mentioning
-> > > them under the CP instead of giving them their own glossary
-> > > entry?
-> > >=20
-> >=20
-> > Sure.=C2=A0 I think that is fine.=C2=A0 How about something like:
-> >=20
-> > For reference, internally the CP consists of several sub-blocks
-> > (CPC -
-> > CP compute, CPG - CP graphics, and CPF - CP fetcher).=C2=A0 Some of
-> > these
-> > acronyms appear in register names, but this is more of an
-> > implementation detail and not something that directly impacts
-> > driver
-> > programming or debugging directly.
->=20
->=20
-> Hi Alex, Timur,
->=20
-> I attempted to incorporate all the points from the discussion into
-> the
-> version of the text below. The main points are:
->=20
-> 1. Added a link to the CU image.
-> 1. Removed the reference to CP from the micro-schedules part.
-> 3. Rewrite the last paragraph just to mention components like CPG,
-> CPC,
-> etc.
->=20
-> Let me know what you think.
->=20
-> New version:
->=20
-> .. kernel-figure:: cu.svg
-> =3D=3D=3D> https://people.igalia.com/siqueira/kernel-doc-imgs/cu.svg
->=20
-
-I think this is mixed up and doesn't look right to me.
-
-First, WGP (workgroup processor) is only relevant on GFX10+ (that is,
-Navi 10 or newer). CU (compute unit) is something that all GCN and RDNA
-GPUs have. These are already well documented publicly, and I don't
-think we need another diagram for them.
-
-For reference, you can find a diagram of a GCN CU on page 5 here:
-https://www.amd.com/content/dam/amd/en/documents/radeon-tech-docs/instructi=
-on-set-architectures/vega-7nm-shader-instruction-set-architecture.pdf
-And a diagram of an RDNA WGP on page 6 here:
-https://www.amd.com/content/dam/amd/en/documents/radeon-tech-docs/instructi=
-on-set-architectures/rdna4-instruction-set-architecture.pdf
-
-The above diagrams do mention commands processors although not in
-detail. As you can see, the command processors are not part of a CU.
-Rather, they can generate work for the various CUs/WGPs.
-
-As far as I understand, there is only one of each CP per queue (or per
-pipe, I am somewhat mixed up myself about the differences between a
-queue and a pipe). For example, each compute queue has its own MEC, and
-any MEC can launch work on any CU.
-
-Please correct me if I'm wrong about it.
-
-Timur
-
-
-> First of all, note that the GC can have multiple SEs, depending on
-> the specific
-> GPU/APU, and each SE has multiple Compute Units (CU). From the
-> diagram, you can
-> see that CUs have a block named Schedulers. The reason the name is in
-> plural is
-> because this hardware block is a combination of different micro-
-> schedules: CPF,
-> CPC, and CPG.
->=20
-> The component that acts as the front end between the CPU and the GPU
-> is called
-> CP (Command Processor). This component is responsible for providing
-> greater
-> flexibility to the GC since CP makes it possible to program various
-> aspects of
-> the GPU pipeline. CP also coordinates the communication between the
-> CPU and GPU
-> via a mechanism named **Ring Buffers**, where the CPU appends
-> information to
-> the buffer while the GPU removes operations. Finally, CP is also
-> responsible
-> for handling Indirect Buffers (IB).
->=20
-> After CP completes the first set of processing, which includes
-> separate command
-> packets specific to GFX and Compute, other blocks step in. For
-> reference,
-> internally the CP consists of several sub-blocks (CPC - CP compute,
-> CPG - CP
-> graphics, and CPF - CP fetcher).=C2=A0 Some of these acronyms appear in
-> register
-> names, but this is more of an implementation detail and not something
-> that
-> directly impacts driver programming or debugging directly.
->=20
-> Thanks
->=20
-> >=20
+> > > > >
+> > > > > Change the legacy (non-DC) display code to respect the maximum
+> > > > > pixel clock for HDMI and DVI-D. Reject modes that would require
+> > > > > a higher pixel clock than can be supported.
+> > > > >
+> > > > > Also update the maximum supported HDMI clock value depending on
+> > > > > the ASIC type.
+> > > > >
+> > > > > For reference, see the DC code:
+> > > > > check max_hdmi_pixel_clock in dce*_resource.c
+> > > > >
+> > > > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > > > ---
+> > > > >  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 21
+> > > > > +++++++++++++++++--
+> > > > >  1 file changed, 19 insertions(+), 2 deletions(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > > index 5e375e9c4f5d..abcc4469cf57 100644
+> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > > @@ -1195,12 +1195,26 @@ static void
+> > > > > amdgpu_connector_dvi_force(struct drm_connector *connector)
+> > > > >                 amdgpu_connector->use_digital =3D true;
+> > > > >  }
+> > > > >
+> > > > > +/**
+> > > > > + * Returns the maximum supported HDMI (TMDS) pixel clock in
+> > > > > KHz.
+> > > > > + */
+> > > > > +static int amdgpu_max_hdmi_pixel_clock(const struct
+> > > > > amdgpu_device
+> > > > > *adev)
+> > > > > +{
+> > > > > +       if (adev->asic_type >=3D CHIP_POLARIS10)
+> > > > > +               return 600000;
+> > > > > +       else if (adev->asic_type >=3D CHIP_TONGA)
+> > > > > +               return 300000;
+> > > > > +       else
+> > > > > +               return 297000;
+> > > > > +}
+> > > > > +
+> > > > >  static enum drm_mode_status
+> > > > > amdgpu_connector_dvi_mode_valid(struct
+> > > > > drm_connector *connector,
+> > > > >                                             const struct
+> > > > > drm_display_mode *mode)
+> > > > >  {
+> > > > >         struct drm_device *dev =3D connector->dev;
+> > > > >         struct amdgpu_device *adev =3D drm_to_adev(dev);
+> > > > >         struct amdgpu_connector *amdgpu_connector =3D
+> > > > > to_amdgpu_connector(connector);
+> > > > > +       const int max_hdmi_pixel_clock =3D
+> > > > > amdgpu_max_hdmi_pixel_clock(adev);
+> > > > >
+> > > > >         /* XXX check mode bandwidth */
+> > > > >
+> > > > > @@ -1208,10 +1222,13 @@ static enum drm_mode_status
+> > > > > amdgpu_connector_dvi_mode_valid(struct drm_connector
+> > > > >                 if ((amdgpu_connector->connector_object_id =3D=3D
+> > > > > CONNECTOR_OBJECT_ID_DUAL_LINK_DVI_I) ||
+> > > > >                     (amdgpu_connector->connector_object_id =3D=3D
+> > > > > CONNECTOR_OBJECT_ID_DUAL_LINK_DVI_D) ||
+> > > > >                     (amdgpu_connector->connector_object_id =3D=3D
+> > > > > CONNECTOR_OBJECT_ID_HDMI_TYPE_B)) {
+> > > > > -                       return MODE_OK;
+> > > > > +                       if (mode->clock > max_hdmi_pixel_clock)
+> > > > > +                               return MODE_CLOCK_HIGH;
+> > > > > +                       else
+> > > > > +                               return MODE_OK;
+> > > >
+> > > > I don't think it makes sense to limit dual link DVI to the max
+> > > > HDMI
+> > > > clock.  HDMI is single link TMDS.  Other than that, the patch
+> > > > looks
+> > > > good to me.
+> > > >
+> > > > Alex
+> > >
+> > > Hi Alex,
+> > >
+> > > The problem I'm trying to solve here is that on the non-DC code, by
+> > > default I get a black screen on DVI-D because the code doesn't set
+> > > an
+> > > upper limit on what is actually supported. (And the monitor
+> > > supports
+> > > some modes which won't work.)
+> > >
+> > > As far as I see, DC only allows 4K 30 Hz on DVI for the same
+> > > connector
+> > > and DVI/HDMI adapter. That may be wrong, though.
+> > >
+> > > What value do you suggest to use?
+> > >
+> > > If HDMI =3D single link TMDS, does that mean that a passive DVI/HDMI
+> > > adapter cannot take advantage of dual-link DVI?
+> >
+> > DVI has a 165 Mhz limit per link so dual link would be 330 Mhz.
+> >
 > > Alex
-> >=20
-> >=20
-> > > >=20
-> > > >=20
-> > > > > >=20
-> > > > > > Documenting the micro controllers which run the firmwares
-> > > > > > makes
-> > > > > > sense
-> > > > > > as those are how the driver interacts with the CP block.
-> > > > > >=20
-> > > > > > CE/PFP/ME - Microcontrollers which run the firmware that
-> > > > > > provides
-> > > > > > the
-> > > > > > graphics command queues that the driver interacts with.
-> > > > > > MEC - Microcontrollers which run the firmware that provides
-> > > > > > the
-> > > > > > compute command queues that the driver interacts with.
-> > > > > > MES - Microcontrollers which run the firmware that provides
-> > > > > > the
-> > > > > > command queues that the driver uses to manage graphics and
-> > > > > > compute
-> > > > > > command queues.
-> > > > >=20
-> > > > > I agree and I think most (all?) of these are already in the
-> > > > > glossary.
-> > > > > If not, they should be definitely added.
-> > > > >=20
-> > > > > Thanks & best regards,
-> > > > > Timur
+>
+> I see. That's my mistake, I thought that the max_hdmi_pixel_clock as
+> defined in DC is applicable to all TMDS signals, not just HDMI.
+>
+> That being said, can you confirm that a DVI/HDMI adapter can indeed use
+> both links of the dual-link DVI?
+>
+
+DVI to HDMI adapters probably only wire up the a single TMDS link
+because that is all HDMI supports.  HDMI is single link TMDS and it
+was extended beyond 165 Mhz, so most monitors that support HDMI
+support faster single link clocks on DVI as well if they have both
+inputs since it's the same panel.  Older DVI only monitors are
+probably the only ones where the single vs dual link clocks are
+important.
+
+Alex
+
+> >
+> > >
+> > > Thanks,
+> > > Timur
+> > >
+> > > >
+> > > > >                 } else if (connector->display_info.is_hdmi) {
+> > > > >                         /* HDMI 1.3+ supports max clock of 340
+> > > > > Mhz
+> > > > > */
+> > > > > -                       if (mode->clock > 340000)
+> > > > > +                       if (mode->clock > max_hdmi_pixel_clock)
+> > > > >                                 return MODE_CLOCK_HIGH;
+> > > > >                         else
+> > > > >                                 return MODE_OK;
+> > > > > --
+> > > > > 2.50.1
+> > > > >
