@@ -4,76 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6480BCA0FED
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 13:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A065CCA0EFF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 14:19:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0428510E815;
-	Wed, 27 Aug 2025 13:09:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4247510E139;
+	Wed, 27 Aug 2025 14:19:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gXCaK5Bw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="COS2rfgd";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A1C810E815
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 13:09:52 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2488be81066so2579945ad.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 06:09:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756300192; x=1756904992; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CGy7OVDeZ3bTIH6Lfwo1x+yXANNuM4DepiiCUb/zzSI=;
- b=gXCaK5BwtzjhzEi3YaMwxXsApKLU5k/ouLu530+YFQ5qJP4aF6zPtt0RxUFieQnv10
- ybpoiTFYxsizW9ipwis9SIhFXAJJhsQluLuoC78W7hJ2qD5ylxa4fUBYRbQFKTRQ3Sys
- e+QCzjZSUqpSXDyaC5T2gvh8jmN5SP3zDXRbCn1lMsEktw6SXbcZpBERcj4ifWGZz7Ac
- yc4lEmVyrMo7XaZTpz/VTA3vUhlQCrq+69UHxtx6KU2R/OTi0G+zhQp6bmQ10VgaMZsz
- V+Twtgng5BfuHMNqXztRXBSRrM3fZPLDXQ6bWp4MnHsFcRp7sF4LW2NhIZNJGAdWz+Z+
- w4jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756300192; x=1756904992;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CGy7OVDeZ3bTIH6Lfwo1x+yXANNuM4DepiiCUb/zzSI=;
- b=IxiBt930Ha6BHr75q7znXBUVWBYM5Ztvr8Xf4dsBC5w+/4qIMgUSLmd3S7w4XI3idC
- K+HnmSycWUrhShtGPu0KkdCIKWRdIEcD6GJidwY0OeYu7g40/WmmE2lVWX4ONoF2nyUi
- MsqMVzt0WB546SalK9NlYIuq3ykaoupvg0U4NwfPjxuEYuO7aHDYPl02AXqcYIJYZYhG
- o0zKEg0T4jQeT8MGeXs9lJiF/L04fFZ59PX8fjFBOElSXMiHz40xkATlG4v7NWLMhDEm
- axKJDBQiy2uS68Qip9EhFiCESik+vSYRU5kJlJib0xL/cM7INwHt579/xD7vaSLhS+hT
- NTsg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVFQ7n0BME5ZJmYq90Vqqsc7yFjDMj2JrdPGvTycfHbeB8NWSU9EeaQE9kt2nDKeC7z9YOIeoe+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyivzXUEJCHiuC4AAG9C6M/omN+OH5gBjGzJMnd/3XbBIl1ALXY
- aZc3tYuVCg/RdFG328mo4iipD/B1/xcf6qS82wQsHLv93t1vWWpNPoEVm6w5kgW8pw4FtMZyJCz
- x+zeF5hiG+zMgnKgc3jy+2f7w39wBIzc=
-X-Gm-Gg: ASbGncsPraQ97/8sVrLZgr+80c4fdW+1/2ckwpW9xHbVY7xgRsETDD4lIUuiZ+OXfKI
- UxKQLwi79ImCCJ+yiCO1yRbE/9+iqtGx51ByY7DOTKCX68rUDB/lU3wf2Yp/bXdVTFYyOya/w8w
- gf/rQsvYGLEkfjtrvr+AZsWN8RDNX6260nCRCInicjxS7kfb/sB1Y/sDDCLCHrjPQtRW6qaio+k
- mqkRVmzHoT9EkBjSw==
-X-Google-Smtp-Source: AGHT+IFlG+ZjZFqUNTfuhAVLzc6JsI1R1nEEtcH7V5xeC92w1PoiZ1kqWQPuuY7XaLnusDjBxlPkEthCtegHhgIy0D8=
-X-Received: by 2002:a17:903:3ba5:b0:248:bac6:4fc6 with SMTP id
- d9443c01a7336-248bac65515mr5371465ad.1.1756300191450; Wed, 27 Aug 2025
- 06:09:51 -0700 (PDT)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2045.outbound.protection.outlook.com [40.107.237.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0466610E0AE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 14:19:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UmQh8ebF5m/lEUoCDfFIFqEydNteW3yizKLvkxmpgXnGDTMsyn3F6U9rXmoPaG5Tle+OSUN/AfCHXtOe213WRaqzaeschlx1NVH5YNOD5O9FKusKnPOxxL3PuvYY+K40ALEwvU8E3n14nWpCZYINvvEhKkrn6bj2qnm6KPyfh+ZuN30qqX6Ohlms4VXvZSlhewfktArFfBhGRkwgUr2ZtMMLhEGFOcoptOmxywbTq/u0K6nd4xeE8bknScqwyP+4fK4DU4K2eTm75l2Z2toyLkVrzMeeF4C0gQdsVOJBqq3i/miaSPLu8QFrLhgvVNV6sXl0U38dBfTO1m9fZGjqdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o1NOIr/Z7b4oHql3BTAmfPIDU9HmoGMc/xQYsDlROrQ=;
+ b=oWCj8cfMQm2HEEmpsNn4skLARYok7MKjJNJxqGYBZtJJWN/bjvyr3EKXNVOjSOCxCXN+Y6sI0QV5MWOF6GPVv+eCoSC5mGUfDLC0DXiWZ8EKSV0PS/rKSsaapahnDN67EqiYu6b2/FhXxleVuiLbADHXlsJINxu3tXbWsu3Zpsm48NNRMlg3TqdRUQJ5y2Rx/3ND8FpW5BzpSu9mUTj2ZsTCetFyurgP2hhcyeBr7SrDiJxIGDtNyhxnaCpH8324BAN9ZRbojCgH8cBEuU5F5jRk/nn76HuSk+dZyCF5B+ny0ajJe8FOTsxSfTAtFZmkuTnz4AbaMU7C2X+idJN9PQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o1NOIr/Z7b4oHql3BTAmfPIDU9HmoGMc/xQYsDlROrQ=;
+ b=COS2rfgdMsFfzT2HKPRkRdKk+9wKwpXjdMjpxzj4ryG7NAjFxToRLF/0PLnuZke5px/oyXMQk/tQSvjSmUfE+ngXNtD8JDqAte0a0vCXNX9X2Bw+CY7taABpnDluLzAqt+Jhbngqns7BaFQYzpxXQe/5K30YCFjS2XcdmsrJEpE=
+Received: from SA1P222CA0079.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:35e::16)
+ by CH3PR12MB9146.namprd12.prod.outlook.com (2603:10b6:610:19c::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.20; Wed, 27 Aug
+ 2025 14:19:47 +0000
+Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
+ (2603:10b6:806:35e:cafe::cd) by SA1P222CA0079.outlook.office365.com
+ (2603:10b6:806:35e::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.17 via Frontend Transport; Wed,
+ 27 Aug 2025 14:19:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9073.11 via Frontend Transport; Wed, 27 Aug 2025 14:19:46 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 Aug
+ 2025 09:19:44 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Asad Kamal <asad.kamal@amd.com>
+Subject: [PATCH v2] drm/amd/amdgpu: unified amdgpu ip block name
+Date: Wed, 27 Aug 2025 22:19:33 +0800
+Message-ID: <20250827141933.626717-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20250826193821.869445-1-David.Wu3@amd.com>
- <20250826193821.869445-3-David.Wu3@amd.com>
- <CADnq5_MCiwaLJEXG1y9-D0v8naz0ZnNVurs-cQXBDvAyL+oXDg@mail.gmail.com>
- <1b21a8e5-7aba-48b0-8201-2db619c1e3fd@amd.com>
- <CADnq5_MjdGMc_a4N1YJMbgSMAReqe6nQD68=8cOAXWMYRA_DXA@mail.gmail.com>
- <e5d8b64b-9a26-48c7-9a28-1a6805b3ca43@amd.com>
-In-Reply-To: <e5d8b64b-9a26-48c7-9a28-1a6805b3ca43@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 27 Aug 2025 09:09:39 -0400
-X-Gm-Features: Ac12FXy5kGJ_W9Az0lJPFSmh974pl-2tgxZaPl9HH0XQ44jCEBM_nUV5TASSkvo
-Message-ID: <CADnq5_PcR66KQxBMrKLu2NSLHwoKXNi42h7zvT8BwEvZG27FCw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: protect potential NULL pointer
- dereferencing
-To: David Wu <davidwu2@amd.com>
-Cc: "David (Ming Qiang) Wu" <David.Wu3@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|CH3PR12MB9146:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0e4855b-1da2-4f99-d41a-08dde574c646
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8c0X/UMM98ktY2VktP0HmYv63tFaCV854yvicN7jdqxRqXo0+KvG4B27iXq1?=
+ =?us-ascii?Q?NWddJ+KEa6si8C3WZQpa/jBtY5s/UlS0wdrbuK8mhx2Xh3o/NvYLAyI1yE9H?=
+ =?us-ascii?Q?sr1MBi2j/UAZKKh37H794hWjwUdl4wJydWxrP8L5DI7CVdWecYhlPzn+rYPr?=
+ =?us-ascii?Q?YewQZsB9wm0dbi+dguTGOeuSG6E+k0xb7KJAmnaakhNI+agOAcRA8X7eytpg?=
+ =?us-ascii?Q?Va11eRdt6p4BPXHsKav6RtimO94PGk06/8RoZYK76oo7ui+A5Ws5IRcqU8q5?=
+ =?us-ascii?Q?Jv0jEyy/WrluNiSyeyNkQmZ2XAefxQB06HPZNkFWCP0hXIsZklCx9z6I0EPK?=
+ =?us-ascii?Q?rE+GnBb0Q9daUQaIto/zMkTnKv65IPP+siikSIJ3tWBpWws3le+Ad8PIUgkK?=
+ =?us-ascii?Q?KZOdIDXvVTPpqW/9CTvBs8zETwO1lttBQ5RPD4spIUhIIomMIZIbaNZkcJmh?=
+ =?us-ascii?Q?VU4CKih3g7e0271niooglXHaMbf6crnQlPE791wETZEywv8D5HX0824Oav5z?=
+ =?us-ascii?Q?dkU9XmNpeSO/sn1ormTkU+c7lE8To+CBA9THfDkPzI25loMQP4Xd0yLkvk0f?=
+ =?us-ascii?Q?urcinEsCEysdcKx9VRkhW8w3sNB8JcSEzEIGccGcvUARWw8vb89grL0fKawg?=
+ =?us-ascii?Q?/38mGxubsL8QO/9eoyLjDxTTCQToKw126FUxTmngHvReLNwBMM7pIYzxg4ml?=
+ =?us-ascii?Q?7oFHnHajCeMKJVq3nn/1Ujxa3acUWD1r7QvfwEK7T5F4IqYC1F48Udz81oFU?=
+ =?us-ascii?Q?8XR+xoAvhlCuDVBHeAmdDbOmj1SdB94sPoRI40gnd+oMl0RQ2pS61/EmJMAw?=
+ =?us-ascii?Q?FDZkl47zS/lhzKBLL9PfOO7ZxJ+vCa1Ph3YTNmCwF1hdZ0qm0qfjBwAIWwt0?=
+ =?us-ascii?Q?G8mosPT5p0Uv9fqiVa+cYX5UiXmiCV7Y2sgkLP6gvcDbz5LwrxUFviZQEd8/?=
+ =?us-ascii?Q?wtVpTaJtahy7Io7+B1+Vm2W+Mp/MgjAkek+km8TZGJ2v8XdPHnbD0Jpx7Jud?=
+ =?us-ascii?Q?Mq8UXJKAHw/xbp8wCJjgAh1CXW3MJcJl9Dnm+vYHGiEP5EDbi8DXt+Zu/skb?=
+ =?us-ascii?Q?iGlIWY4GvUGkyYZMo7McObxy+2Fq+7MsrDTGdrjUWAQVcdHsBtIfyXkH49mM?=
+ =?us-ascii?Q?RLkZwu95Ua3LmECHestILl8IugqltVbYkpSVmx+apkbeNj0bjXuxSm2XMMpX?=
+ =?us-ascii?Q?G4GG6x11OKaZyBtet5eark6VmN4Pu6oXiKHYkCU3j2mBue/6yXqQQoqe4ZTs?=
+ =?us-ascii?Q?y30Dll5zKvGIEgnC+GseQUHpSdHgdyQolCP0uC/2DzMhlNKhf1TUAySPEgRt?=
+ =?us-ascii?Q?LluAUBVlllhVRjXPwGs62UKx3QAacmyHf4RyOOY9A2C4m/iJmCIqnPwAsysh?=
+ =?us-ascii?Q?GkCdomHlAOVoUjomIvBep6NNILTcGEPVZhEsAf+2ElRkStgE8cWi/hrCjea+?=
+ =?us-ascii?Q?7k1EVidQVPsyNEs+ZF6d7U7W5jS5lp0yylF0nof3BImTIcUuvJMuAXDz+oBJ?=
+ =?us-ascii?Q?2srsbh9/q6uT9e9A3WFjGjSCefKYAvaaHUQ4?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2025 14:19:46.1323 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0e4855b-1da2-4f99-d41a-08dde574c646
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9146
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,166 +130,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 26, 2025 at 5:57=E2=80=AFPM David Wu <davidwu2@amd.com> wrote:
->
-> On 2025-08-26 17:20, Alex Deucher wrote:
->
-> > On Tue, Aug 26, 2025 at 5:11=E2=80=AFPM David Wu <davidwu2@amd.com> wro=
-te:
-> >> On 2025-08-26 16:58, Alex Deucher wrote:
-> >>
-> >> On Tue, Aug 26, 2025 at 3:48=E2=80=AFPM David (Ming Qiang) Wu <David.W=
-u3@amd.com> wrote:
-> >>
-> >> to_amdgpu_fence() could return NULL pointer which needs
-> >> to be protected for dereferencing.
-> >>
-> >> I don't think any of these cases could ever be NULL.  The amdgpu_fence
-> >> is a container for the dma_fence so it will alway be present.  See
-> >> struct amdgpu_fence.
-> >>
-> >> hmmm... but - the function could return NULL based on base.ops - see b=
-elow
-> >> if it should never happen then we should remove the checking. I doubt =
-we
-> >> will ever return NULL, however someone knowledgeable PLEASE fix it pro=
-perly.
-> >> The patch is only to protect it just in case.
-> > if you look at amdgpu_fence_emit() the fences will only be created
-> > with either amdgpu_job_fence_ops or amdgpu_fence_ops so there is no
-> > way it will be NULL.  It's a false positive.
-> My proposition is  there is no guarantee for future even though it is a
-> false positive now as the original code is not
-> confident either about the condition should never met. I think there is
-> no harm to protect it. Or better I can come up with
-> another patch to remove the checking - I feel keeping NULL without being
-> handled is not acceptable (at least to silence
-> Coverity).
-> Alex - please suggest - either removing the checking or do nothing. I am
-> fine either way.
+v1:
+1. Unified amdgpu ip block name print with format
+   "{ip_type}_v{major}_{minor}_{rev}"
 
-Ideally we'd clean up the fence handling so that we don't need
-separate fence ops for the job and non-job case.  Then we could remove
-the checks in to_amdgpu_fence().  At this point we could remove the
-checks in there anyway.  I think it was mostly just added on the off
-chance someone tries to lift that helper out of amdgpu_fence.c and
-tries to use it for other cases.
+2. Avoid IP block name conflicts for SMU/PSP ip block
 
-Alex
+v2:
+Update IP block print format to keep legacy IP block name (Alex)
+"{ip_type}_v{major}_{minor}_{rev} ({funcs->name})"
 
-> David
-> > Alex
-> >
-> >> static inline struct amdgpu_fence *to_amdgpu_fence(struct dma_fence *f=
-)
-> >>
-> >> {
-> >>      struct amdgpu_fence *__f =3D container_of(f, struct amdgpu_fence,=
- base);
-> >>
-> >>      if (__f->base.ops =3D=3D &amdgpu_fence_ops ||
-> >>          __f->base.ops =3D=3D &amdgpu_job_fence_ops)
-> >>          return __f;
-> >>
-> >>      return NULL;
-> >> }
-> >>
-> >> Alex
-> >>
-> >> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 22 +++++++++++++++------=
--
-> >>   1 file changed, 15 insertions(+), 7 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_fence.c
-> >> index 2d58aefbd68a7..1432b64d379ef 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> >> @@ -160,7 +160,9 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, st=
-ruct dma_fence **f,
-> >>                  }
-> >>          }
-> >>
-> >> -       to_amdgpu_fence(fence)->start_timestamp =3D ktime_get();
-> >> +       am_fence =3D to_amdgpu_fence(fence);
-> >> +       if (am_fence)
-> >> +               am_fence->start_timestamp =3D ktime_get();
-> >>
-> >>          /* This function can't be called concurrently anyway, otherwi=
-se
-> >>           * emitting the fence would mess up the hardware ring buffer.
-> >> @@ -387,6 +389,7 @@ u64 amdgpu_fence_last_unsignaled_time_us(struct am=
-dgpu_ring *ring)
-> >>          struct amdgpu_fence_driver *drv =3D &ring->fence_drv;
-> >>          struct dma_fence *fence;
-> >>          uint32_t last_seq, sync_seq;
-> >> +       struct amdgpu_fence *f;
-> >>
-> >>          last_seq =3D atomic_read(&ring->fence_drv.last_seq);
-> >>          sync_seq =3D READ_ONCE(ring->fence_drv.sync_seq);
-> >> @@ -399,8 +402,8 @@ u64 amdgpu_fence_last_unsignaled_time_us(struct am=
-dgpu_ring *ring)
-> >>          if (!fence)
-> >>                  return 0;
-> >>
-> >> -       return ktime_us_delta(ktime_get(),
-> >> -               to_amdgpu_fence(fence)->start_timestamp);
-> >> +       f =3D to_amdgpu_fence(fence);
-> >> +       return f ? ktime_us_delta(ktime_get(), f->start_timestamp) : 0=
-;
-> >>   }
-> >>
-> >>   /**
-> >> @@ -417,13 +420,16 @@ void amdgpu_fence_update_start_timestamp(struct =
-amdgpu_ring *ring, uint32_t seq,
-> >>   {
-> >>          struct amdgpu_fence_driver *drv =3D &ring->fence_drv;
-> >>          struct dma_fence *fence;
-> >> +       struct amdgpu_fence *f;
-> >>
-> >>          seq &=3D drv->num_fences_mask;
-> >>          fence =3D drv->fences[seq];
-> >>          if (!fence)
-> >>                  return;
-> >>
-> >> -       to_amdgpu_fence(fence)->start_timestamp =3D timestamp;
-> >> +       f =3D to_amdgpu_fence(fence);
-> >> +       if (f)
-> >> +               f->start_timestamp =3D timestamp;
-> >>   }
-> >>
-> >>   /**
-> >> @@ -827,7 +833,8 @@ static const char *amdgpu_fence_get_driver_name(st=
-ruct dma_fence *fence)
-> >>
-> >>   static const char *amdgpu_fence_get_timeline_name(struct dma_fence *=
-f)
-> >>   {
-> >> -       return (const char *)to_amdgpu_fence(f)->ring->name;
-> >> +       struct amdgpu_fence *am_f =3D to_amdgpu_fence(f);
-> >> +       return (const char *) (am_f ? am_f->ring->name : "");
-> >>   }
-> >>
-> >>   static const char *amdgpu_job_fence_get_timeline_name(struct dma_fen=
-ce *f)
-> >> @@ -847,8 +854,9 @@ static const char *amdgpu_job_fence_get_timeline_n=
-ame(struct dma_fence *f)
-> >>    */
-> >>   static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
-> >>   {
-> >> -       if (!timer_pending(&to_amdgpu_fence(f)->ring->fence_drv.fallba=
-ck_timer))
-> >> -               amdgpu_fence_schedule_fallback(to_amdgpu_fence(f)->rin=
-g);
-> >> +       struct amdgpu_fence *am_f =3D to_amdgpu_fence(f);
-> >> +       if (am_f && !timer_pending(&am_f->ring->fence_drv.fallback_tim=
-er))
-> >> +               amdgpu_fence_schedule_fallback(am_f->ring);
-> >>
-> >>          return true;
-> >>   }
-> >> --
-> >> 2.43.0
-> >>
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 36 ++++++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index e117494e8054..d869226b2fa9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2447,6 +2447,33 @@ int amdgpu_device_ip_block_version_cmp(struct amdgpu_device *adev,
+ 	return 1;
+ }
+ 
++static const char *ip_block_names[] = {
++	[AMD_IP_BLOCK_TYPE_COMMON] =  "common",
++	[AMD_IP_BLOCK_TYPE_GMC] = "gmc",
++	[AMD_IP_BLOCK_TYPE_IH] = "ih",
++	[AMD_IP_BLOCK_TYPE_SMC] = "smu",
++	[AMD_IP_BLOCK_TYPE_PSP] = "psp",
++	[AMD_IP_BLOCK_TYPE_DCE] = "dce",
++	[AMD_IP_BLOCK_TYPE_GFX] = "gfx",
++	[AMD_IP_BLOCK_TYPE_SDMA] = "sdma",
++	[AMD_IP_BLOCK_TYPE_UVD] = "uvd",
++	[AMD_IP_BLOCK_TYPE_VCE] = "vce",
++	[AMD_IP_BLOCK_TYPE_ACP] = "acp",
++	[AMD_IP_BLOCK_TYPE_VCN] = "vcn",
++	[AMD_IP_BLOCK_TYPE_MES] = "mes",
++	[AMD_IP_BLOCK_TYPE_JPEG] = "jpeg",
++	[AMD_IP_BLOCK_TYPE_VPE] = "vpe",
++	[AMD_IP_BLOCK_TYPE_UMSCH_MM] = "umsch_mm",
++	[AMD_IP_BLOCK_TYPE_ISP] = "isp",
++};
++
++static const char *ip_block_name(struct amdgpu_device *adev, enum amd_ip_block_type type)
++{
++	int idx = (int)type;
++
++	return idx < ARRAY_SIZE(ip_block_names) ? ip_block_names[idx] : "unknown";
++}
++
+ /**
+  * amdgpu_device_ip_block_add
+  *
+@@ -2475,8 +2502,13 @@ int amdgpu_device_ip_block_add(struct amdgpu_device *adev,
+ 		break;
+ 	}
+ 
+-	dev_info(adev->dev, "detected ip block number %d <%s>\n",
+-		 adev->num_ip_blocks, ip_block_version->funcs->name);
++	dev_info(adev->dev, "detected ip block number %d <%s_v%d_%d_%d> (%s)\n",
++		 adev->num_ip_blocks,
++		 ip_block_name(adev, ip_block_version->type),
++		 ip_block_version->major,
++		 ip_block_version->minor,
++		 ip_block_version->rev,
++		 ip_block_version->funcs->name);
+ 
+ 	adev->ip_blocks[adev->num_ip_blocks].adev = adev;
+ 
+-- 
+2.34.1
+
