@@ -4,47 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FC4ACA0FF9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64777CA0FF6
 	for <amd-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 06:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC1D710E3B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B060E10E624;
 	Thu, 28 Aug 2025 06:55:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ispras.ru header.i=@ispras.ru header.b="EcscZGRo";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ZBMoJHCm";
 	dkim-atps=neutral
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2C210E857;
- Wed, 27 Aug 2025 15:21:20 +0000 (UTC)
-Received: from debian.intra.ispras.ru (unknown [10.10.165.10])
- by mail.ispras.ru (Postfix) with ESMTPSA id 9A701406C3E1;
- Wed, 27 Aug 2025 15:21:18 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 9A701406C3E1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
- s=default; t=1756308078;
- bh=02QJmS1dDrR4T+qTKViGS18HgwiGbUD6zmXE+BBvH9s=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EcscZGRoCXK2oeKOxF7rUusSMur019GncOpUWsY+SCDR3yuOVgPcWve761DlQ7m9k
- +duxIVCwNsr1RNBmwoGYGG2PJgvoJQY8JtvZ7GFSWIeuqu68gtEXAckd+NbQJ9WH0M
- acVwhFuqk8GU9y4DLIKXXmRcO6/gI5AL4UvhinvI=
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: Alex Deucher <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: Fedor Pchelkin <pchelkin@ispras.ru>,
- Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hans de Goede <hansg@kernel.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-Subject: [PATCH v3 2/2] drm/amd/display: fix leak of probed modes
-Date: Wed, 27 Aug 2025 18:21:05 +0300
-Message-ID: <20250827152107.785477-3-pchelkin@ispras.ru>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250827152107.785477-1-pchelkin@ispras.ru>
-References: <20250827152107.785477-1-pchelkin@ispras.ru>
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9210610E856
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 15:15:44 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-24611734e50so164705ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 08:15:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1756307744; x=1756912544;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=aGPhYDWt388RttmicU0o24RVsxY/twdNMb4O/vzImCs=;
+ b=ZBMoJHCmvH533bFWAtNe5mKHHxZhqTxSJ2VjCOENxZ6RLmD0kq9peCqeZsg1MnDCL7
+ dy6Ir0MApbFSdf3gXwtXFKwI9NmpwAYbD5UkA7kdDAdRJK0qjN3cTT1HCVOQLbV/+Uqk
+ vx+FT90wVC+uoDf5feRQYkg9wiM2liXu6U+P/nTIKXyOGAZ/2QKIWyQ0Imx9xcrLAbrc
+ RZ42Pbm8O4ykoDhpvxKDJZUu/7ddsC/Br+1lqFPcMurnBGkBQSwMjv/fjvOUl1pEN8pm
+ diUCI7Ups8OWqHrtV6VxeFQq00nwYV0akSiNAcWHwVUk33MQ9WsY491bCE/C1aYwPEQI
+ AYnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756307744; x=1756912544;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=aGPhYDWt388RttmicU0o24RVsxY/twdNMb4O/vzImCs=;
+ b=sVtFwxqj9v0YzBKehZgfatTUjWGS/v6JAsRb9aampW1vh8hAUACQYc2VzXFdiFQq+F
+ 90G+97kUrx3MZC4HvnMO70fJmUizftqSVzxcFZNVe4MVzDPxZJA4FHTOWeIYrlvG+/FK
+ MEpqqFrLMdJVFyjanjWRSG4FtMGFxiHvUNyLIVBUc97PIHcKHyLBKU2utlpQDUpumhpo
+ AoX00YcVfDken5hBF7ERLT2wp/zHoN+vImS6ui/UddIcCaEE6t9LTOj4vtfHrhnPsBuz
+ vItxG+M9KmV0LpsC14ckGQwdzzJHa3E78DI9sf+tqftHvRA3sQHuRqZuGhgQhn99cSYs
+ euMA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWm9g4RVNn/1O7HZFof3k4Ovq0CkLQeg5l0D5jPzBcoSB40Fx2L1h86vBW26QNH7vmdqncwOiuC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzmrurxc8mXdqxOl8B1jEeA8zZvYCwjpIUJTmjv3DTDZXsJIT13
+ l2zIPwGD6vbK2Cw9Y6iUz5FUYjegPKRBpp2uRsIUdZTHgffWeg5ZXZd2CawsDZ1uYU5kk7NN65J
+ plF+prGEiz48YMAcf0ve7uKu9UWYmRW1runCHYK4P
+X-Gm-Gg: ASbGncsMriHiEadOTFP1o2G94xawtzNnAHUslWu9HJu1nZWrbgtLQ1szF8wkdBXkoYH
+ FHqjJb5oVjXZvrBPcthabQyV+7kQLd1mzsAgZnQ5WFVeaYsuU294s7dlJgzBJsFzXp8T382BK71
+ WyFwr9dbHrvmtXWfHikLkyB0KPH3Mq/BQv6SWhFBfrLGknW9rgO+J+jjpjTcCtZPi75wSljbt+K
+ vUl+dy+Eh/OWKcoGIirgt0qd66nOKYYZt8JsB+l6tM=
+X-Google-Smtp-Source: AGHT+IExi0QgPJP/5AblrVahQdACSVklatzIIhzDoM8PROF9H/mRXxhxpv9GhjknP28Wz6ljzGsei6gbP7f3oTXJLVM=
+X-Received: by 2002:a17:902:ec87:b0:246:a8ac:1a36 with SMTP id
+ d9443c01a7336-2485ba5311amr9397575ad.2.1756307741849; Wed, 27 Aug 2025
+ 08:15:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1755096883.git.robin.murphy@arm.com>
+ <d6cda4e2999aba5794c8178f043c91068fa8080c.1755096883.git.robin.murphy@arm.com>
+ <20250826130329.GX4067720@noisy.programming.kicks-ass.net>
+ <6080e45d-032e-48c2-8efc-3d7e5734d705@arm.com>
+ <CAP-5=fXF2x3hW4Sk+A362T-50cBbw6HVd7KY+QEUjFwT+JL37Q@mail.gmail.com>
+ <aK6_XrA_OaLnoFkr@J2N7QTR9R3>
+In-Reply-To: <aK6_XrA_OaLnoFkr@J2N7QTR9R3>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 27 Aug 2025 08:15:29 -0700
+X-Gm-Features: Ac12FXwUZ4TrRSXyzgr8XTQRkesJ87wwMtoKHvx086ZRlV4GbvgOq2WSyedNfZ4
+Message-ID: <CAP-5=fU0-QDMP-VG3O1qBvJ8uzHHYCQ8j1Vrzy9a0YUk=UMvHw@mail.gmail.com>
+Subject: Re: [PATCH 12/19] perf: Ignore event state for group validation
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: Robin Murphy <robin.murphy@arm.com>, Peter Zijlstra <peterz@infradead.org>,
+ mingo@redhat.com, will@kernel.org, acme@kernel.org, namhyung@kernel.org, 
+ alexander.shishkin@linux.intel.com, jolsa@kernel.org, adrian.hunter@intel.com, 
+ kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
+ linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ imx@lists.linux.dev, linux-csky@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
+ sparclinux@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org, 
+ linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, coresight@lists.linaro.org, 
+ iommu@lists.linux.dev, linux-amlogic@lists.infradead.org, 
+ linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-riscv@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 28 Aug 2025 06:55:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,67 +105,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm_connector_ddc_get_modes() reinitializes a connector's probed
-modes list without cleaning it up. First time it is called during the
-driver's initialization phase, then via drm_mode_getconnector() ioctl.
-The leaks observed with Kmemleak are as following:
+On Wed, Aug 27, 2025 at 1:18=E2=80=AFAM Mark Rutland <mark.rutland@arm.com>=
+ wrote:
+>
+> On Tue, Aug 26, 2025 at 11:48:48AM -0700, Ian Rogers wrote:
+> > On Tue, Aug 26, 2025 at 8:32=E2=80=AFAM Robin Murphy <robin.murphy@arm.=
+com> wrote:
+> > >
+> > > On 2025-08-26 2:03 pm, Peter Zijlstra wrote:
+> > > > On Wed, Aug 13, 2025 at 06:01:04PM +0100, Robin Murphy wrote:
+> > > >> It may have been different long ago, but today it seems wrong for =
+these
+> > > >> drivers to skip counting disabled sibling events in group validati=
+on,
+> > > >> given that perf_event_enable() could make them schedulable again, =
+and
+> > > >> thus increase the effective size of the group later. Conversely, i=
+f a
+> > > >> sibling event is truly dead then it stands to reason that the whol=
+e
+> > > >> group is dead, so it's not worth going to any special effort to tr=
+y to
+> > > >> squeeze in a new event that's never going to run anyway. Thus, we =
+can
+> > > >> simply remove all these checks.
+> > > >
+> > > > So currently you can do sort of a manual event rotation inside an
+> > > > over-sized group and have it work.
+> > > >
+> > > > I'm not sure if anybody actually does this, but its possible.
+> > > >
+> > > > Eg. on a PMU that supports only 4 counters, create a group of 5 and
+> > > > periodically cycle which of the 5 events is off.
+> >
+> > I'm not sure this is true, I thought this would fail in the
+> > perf_event_open when adding the 5th event and there being insufficient
+> > counters for the group.
+>
+> We're talking specifically about cases where the logic in a pmu's
+> pmu::event_init() callback doesn't count events in specific states, and
+> hence the 5th even doesn't get rejected when it is initialised.
+>
+> For example, in arch/x86/events/core.c, validate_group() uses
+> collect_events(), which has:
+>
+>         for_each_sibling_event(event, leader) {
+>                 if (!is_x86_event(event) || event->state <=3D PERF_EVENT_=
+STATE_OFF)
+>                         continue;
+>
+>                 if (collect_event(cpuc, event, max_count, n))
+>                         return -EINVAL;
+>
+>                 n++;
+>         }
+>
+> ... and so where an event's state is <=3D PERF_EVENT_STATE_OFF at init
+> time, that event is not counted to see if it fits into HW counters.
 
-unreferenced object 0xffff88812f91b200 (size 128):
-  comm "(udev-worker)", pid 388, jiffies 4294695475
-  hex dump (first 32 bytes):
-    ac dd 07 00 80 02 70 0b 90 0b e0 0b 00 00 e0 01  ......p.........
-    0b 07 10 07 5c 07 00 00 0a 00 00 00 00 00 00 00  ....\...........
-  backtrace (crc 89db554f):
-    __kmalloc_cache_noprof+0x3a3/0x490
-    drm_mode_duplicate+0x8e/0x2b0
-    amdgpu_dm_create_common_mode+0x40/0x150 [amdgpu]
-    amdgpu_dm_connector_add_common_modes+0x336/0x488 [amdgpu]
-    amdgpu_dm_connector_get_modes+0x428/0x8a0 [amdgpu]
-    amdgpu_dm_initialize_drm_device+0x1389/0x17b4 [amdgpu]
-    amdgpu_dm_init.cold+0x157b/0x1a1e [amdgpu]
-    dm_hw_init+0x3f/0x110 [amdgpu]
-    amdgpu_device_ip_init+0xcf4/0x1180 [amdgpu]
-    amdgpu_device_init.cold+0xb84/0x1863 [amdgpu]
-    amdgpu_driver_load_kms+0x15/0x90 [amdgpu]
-    amdgpu_pci_probe+0x391/0xce0 [amdgpu]
-    local_pci_probe+0xd9/0x190
-    pci_call_probe+0x183/0x540
-    pci_device_probe+0x171/0x2c0
-    really_probe+0x1e1/0x890
+Hmm.. Thinking out loud. So it looked like perf with weak groups could
+be broken then:
+```
+$ sudo perf stat -vv -e '{instructions,cycles}:W' true
+...
+perf_event_attr:
+ type                             0 (PERF_TYPE_HARDWARE)
+ size                             136
+ config                           0x400000001
+(cpu_core/PERF_COUNT_HW_INSTRUCTIONS/)
+ sample_type                      IDENTIFIER
+ read_format                      TOTAL_TIME_ENABLED|TOTAL_TIME_RUNNING|ID|=
+GROUP
+ disabled                         1
+ inherit                          1
+ enable_on_exec                   1
+------------------------------------------------------------
+sys_perf_event_open: pid 3337764  cpu -1  group_fd -1  flags 0x8 =3D 5
+------------------------------------------------------------
+perf_event_attr:
+ type                             0 (PERF_TYPE_HARDWARE)
+ size                             136
+ config                           0x400000000
+(cpu_core/PERF_COUNT_HW_CPU_CYCLES/)
+ sample_type                      IDENTIFIER
+ read_format                      TOTAL_TIME_ENABLED|TOTAL_TIME_RUNNING|ID|=
+GROUP
+ inherit                          1
+------------------------------------------------------------
+sys_perf_event_open: pid 3337764  cpu -1  group_fd 5  flags 0x8 =3D 7
+...
+```
+Note, the group leader (instructions) is disabled because of:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/util/stat.c?h=3Dperf-tools-next#n761
+```
+/*
+* Disabling all counters initially, they will be enabled
+* either manually by us or by kernel via enable_on_exec
+* set later.
+*/
+if (evsel__is_group_leader(evsel)) {
+        attr->disabled =3D 1;
+```
+but the checking of being disabled (PERF_EVENT_STATE_OFF) is only done
+on siblings in the code you show above. So yes, you can disable the
+group events to allow the perf_event_open to succeed but not on the
+leader which is always checked (no PERF_EVENT_STATE_OFF check):
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/arch/x86/events/core.c?h=3Dperf-tools-next#n1204
+```
+if (is_x86_event(leader)) {
+        if (collect_event(cpuc, leader, max_count, n))
+                return -EINVAL;
+```
 
-Found by Linux Verification Center (linuxtesting.org).
-
-Fixes: acc96ae0d127 ("drm/amd/display: set panel orientation before drm_dev_register")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
----
-
-v3: drop INIT_LIST_HEAD and use drm_edid_connector_update() (Melissa Wen)
-v2: use exported drm_mode_remove() (Mario Limonciello)
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a0ca3b2c6bd8..12685966186b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8230,10 +8230,14 @@ static void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *connector,
- {
- 	struct amdgpu_dm_connector *amdgpu_dm_connector =
- 			to_amdgpu_dm_connector(connector);
-+	struct drm_display_mode *mode, *t;
- 
- 	if (drm_edid) {
- 		/* empty probed_modes */
--		INIT_LIST_HEAD(&connector->probed_modes);
-+		list_for_each_entry_safe(mode, t, &connector->probed_modes, head)
-+			drm_mode_remove(connector, mode);
-+
-+		drm_edid_connector_update(connector, drm_edid);
- 		amdgpu_dm_connector->num_modes =
- 				drm_edid_connector_add_modes(connector);
- 
--- 
-2.50.1
-
+Thanks,
+Ian
