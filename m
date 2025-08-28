@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B72FCC8303F
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 09:15:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98F65CA0FF2
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 09:15:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 641A510E89E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9560A10E8A3;
 	Thu, 28 Aug 2025 09:15:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VP5tretp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mz6QLpLO";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E78410E89E
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD1B10E89E
  for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 09:15:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M/m951BEXLJYKidbmK2kkP4zW6/u1jpSoNNq1sS1FTFYPsT3oYfbBr5aAmpAYoyvqGux1qB21mpPw9Ns4sr/JZa8bGxUy+vNKR5+OEByW/xNNrVd4laIVXE3rLfZbqKJFnZzXUXuNjyU7LbqBn1ABJWL1rMRK9HziZkN51+g/sPyJ5vEYo8mYz+9QxsfWodW4W+P4K3xftyBpbW4cREplPy5IFSyNWfhiGeBodkVzHlXXmNl9Zo7NH9JJV0cG4Hp8A+F/ib3KMADVYxxyU89SUDeV+QO2pBkqo5gnBlFyzFwz5F4r6EbZSA+cSDQR7TVJdgdM2ZnQ347C0f2RGaMfA==
+ b=eGUHjQrdLhDIRpaatlh3nrAHKHFhFpC8Et0lKzxzrNs2dj7U+1KoDMLk4iytIHyNDsH7lJ1hpIoS56UR3RfUh79zkHg87rs4xjfgWDH9ud2stxMpWjc7gHc7BHl+M6mfV4XyxMix/UDKkjjWqKdxvMyCoy7cfj2O42MQ12UXtkht9zbhCdsG9xOxU20/u+olIvzwOISkzOYayh3v76735fFUzvhO8FTMYWej0veJQih/MxTDdh4jgj8B2q3R0LPTtK7CELTC4IbgLsp1+Di9wa/rQRU7D5IXevaemRiX///x7DMnKkAydPxouy2Gc3XKTNHQAYD4SAD38QOlMD5e2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=11Lciha5OG0L7wHSCUCXauVNveu/vYKad2JxmTZREYg=;
- b=T0hHaRXV+HX254rqYOW7o2D1Mompo0ChZjkJiUf8yHPJR3ZBHdGTzkSgYI3+3K3A0Aob/sO3qlw1Crfb+C7iryaaR6n2YJkyvGz7b678fReur5af9jMCkiL+afShv4P6jwNv9lRr/i6bfzMFWcmLUx0NHO2/TRN4EWLfIYv/xNiymHt37hQjjg016YpMO5UsoF24sAXsphI1PrgM76f9hm2X3wczGmCconMIp9Z+A444rcFWLEKGERjppElvMZKYScHl1eZl8zL262WFK3FoQJojfqd5ahB4/pjkz8MqubEzB9XdDK4n/1WZsawM+moA5WIkKtm2jxKrQTwyMEpVeg==
+ bh=ZoxpxOYhwnwwC2bQBC93KxN4HBMTp1WQQOOM54O2c6E=;
+ b=vp+WgjKq/H6zkxWNsj+/M3euBsIj2d4CpwsQSomMgtVZjyK/nAdORjp3eDT/bzJCI9sS7hVXNsvH5vV7dKOIPEYjBGvnOhod1icBNQomMBRHn6M9/ouqiVgdeCnReqPNtF2GgHBOuP2J7fVVV1WQGHhDSuhPsdjGYAuuOofLbzps3sOoAUMaCtrxnqIbZs0sarShquhMcjmNfgTo14HA7y5Ymj82z1V+KZysO4H5oYaNbUvyv05LVQr/O0yYozRxcZJnkHW20BUZqo2wBjRjbKRJ++8in38E9HCHvVoEwEm64IUh7PW8WD33I583+ineCSsTQYsyIHtqeBLWOOIy7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=11Lciha5OG0L7wHSCUCXauVNveu/vYKad2JxmTZREYg=;
- b=VP5tretpeFOiCLYOuK/QR9H69Zyabu1fYG3bExyUiGSltqsy2Cp3vNuLXZV20VGYKGMkwVOP610W/NhczEccoEeWekpK8mVsxNLQwilk4LZ6yxEeyV9PAR5Q6Kfm38VuPMxsRwP3HgTZBhysCaxZSmPO7p+wZWYG0QgQ5whox1M=
-Received: from CH5PR03CA0011.namprd03.prod.outlook.com (2603:10b6:610:1f1::23)
- by SN7PR12MB8131.namprd12.prod.outlook.com (2603:10b6:806:32d::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.19; Thu, 28 Aug
- 2025 09:15:36 +0000
-Received: from CH2PEPF0000009D.namprd02.prod.outlook.com
- (2603:10b6:610:1f1:cafe::88) by CH5PR03CA0011.outlook.office365.com
- (2603:10b6:610:1f1::23) with Microsoft SMTP Server (version=TLS1_3,
+ bh=ZoxpxOYhwnwwC2bQBC93KxN4HBMTp1WQQOOM54O2c6E=;
+ b=mz6QLpLOe5HNGSTMn+Fe6Tq7fByIxCzFceqng5bSXCtu1qkvAPUbfhS0EC3ZTw2VnGQBgrm/2bqrGhsHlDFjHeWb2LSs9uS1Mqfg54D4NqMXB7s3TSAjFlrlOdZumUIkNrHhSYa+EBYZC/E8mfXGy6EhiM4UHNacRonusSTilMc=
+Received: from CH2PR10CA0029.namprd10.prod.outlook.com (2603:10b6:610:4c::39)
+ by DM4PR12MB8500.namprd12.prod.outlook.com (2603:10b6:8:190::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.16; Thu, 28 Aug
+ 2025 09:15:37 +0000
+Received: from CH2PEPF0000009A.namprd02.prod.outlook.com
+ (2603:10b6:610:4c:cafe::26) by CH2PR10CA0029.outlook.office365.com
+ (2603:10b6:610:4c::39) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.17 via Frontend Transport; Thu,
- 28 Aug 2025 09:15:36 +0000
+ 28 Aug 2025 09:15:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,22 +48,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000009D.mail.protection.outlook.com (10.167.244.25) with Microsoft
+ CH2PEPF0000009A.mail.protection.outlook.com (10.167.244.22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.9052.8 via Frontend Transport; Thu, 28 Aug 2025 09:15:36 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 28 Aug 2025 01:46:07 -0500
+ 15.1.2507.39; Thu, 28 Aug 2025 01:46:05 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
  <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v3 9/9] drm/amdgpu/gem: Return Handle to MMIO_REMAP Singleton
- in GEM_CREATE
-Date: Thu, 28 Aug 2025 12:15:30 +0530
-Message-ID: <20250828064530.3948378-10-srinivasan.shanmugam@amd.com>
+Subject: [PATCH v3 8/9] drm/amdgpu/ttm: Allocate/Free 4K MMIO_REMAP Singleton
+ BO
+Date: Thu, 28 Aug 2025 12:15:29 +0530
+Message-ID: <20250828064530.3948378-9-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250828064530.3948378-1-srinivasan.shanmugam@amd.com>
 References: <20250828064530.3948378-1-srinivasan.shanmugam@amd.com>
@@ -75,61 +75,61 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009D:EE_|SN7PR12MB8131:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7865cc5e-4d01-4da4-b6b9-08dde6137336
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009A:EE_|DM4PR12MB8500:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1990e28-05b2-4d79-93ba-08dde6137328
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dzZnaGhKTzRiMXJVR2J0ak1XMGNLZUdCQ21ady9ZZTA5bnh1MzRWNlRNUzdX?=
- =?utf-8?B?QWNncmdSR0wxOHd0QXNHOC9MTW45V0NZenlrbUhyMzYvcXZ3d2dpWllESnJS?=
- =?utf-8?B?andMekhZaE1xZ1FhUnpwbmk3K2U4WjBrYlZlM1BjdmNOL3JLRWJZRzI4OWp3?=
- =?utf-8?B?enNJZXVFelZISTFuVkx5T0tQSHczK0R2Uk41dUsrWHVOUEc5SEFQaXdZUnNw?=
- =?utf-8?B?MlBZckEyVG9HMUZxRWNJditsV1V5YXZibm1obGFuQzgrR1c5MGNqOTdoY2Jq?=
- =?utf-8?B?My8vQWVtNlZpRUJzeVE0ajB3bjR6R1NaSGNRdHJsYWZ6eVRDWk9aYy9aYnlE?=
- =?utf-8?B?UHU0cXlEUWJ5VnJtVjB6T3lodmszaXo2TWMzN2E3cVQ3OHNPeEFrTkZyZHFR?=
- =?utf-8?B?cC9Wb1RyUGFYWHJUTUpZMnBaMkZ5aE9nSXplRm1KNjh6czRRZWdPdjlQVUxQ?=
- =?utf-8?B?a2F4bDdEY0VTUVVvZHdJSHVMVmZhQ3ZoazAyZEd1dkJ1ZWJXMnNWeUt3OE9U?=
- =?utf-8?B?SEloR250Y2hJR2NTZWpaeXJrNExFRXovQ2YxS25HbFBpdE9GWlFrR0I4TEtC?=
- =?utf-8?B?TlJmQ2IwdTgyWHlOaEpIMFFkeXF1Y2diai9tdzQxZnpSOXc2OC9JOGNoSlZn?=
- =?utf-8?B?a08veWExZlFYcWhnWWdQelZjZHJGYS9pSURRSUliWXF4aFhnWkNiZkpuQjh2?=
- =?utf-8?B?YTFiQXJJT05QbGVKRThlQUhIQTc5cWZrTmZaZVZaU3ZCODZsSlRTVUhwbmtL?=
- =?utf-8?B?cURPWllDSjNraXE2QUs3TUM4WExWeEhkZFZMSkRYd1lGTzl5a1N2OW03Z3Bn?=
- =?utf-8?B?KzIyazdSTy93a2wrMHh0VnJWcU4vOGpCSThSeDlFQ25oNnJkT2x0MkNnS05O?=
- =?utf-8?B?TFg1d1Z6NXFZbVVvR1VieWV0Q2U0T0U2OTdmMFNLUXcwZGxwZXNEeTFtSlB5?=
- =?utf-8?B?ZWRDMFdyZGxhckhjQkVWektmKzVDT0s4U25qYkNKdytDb2g4eFRBNkwxQ1pS?=
- =?utf-8?B?d1ZIeUphc01uSi8ydlZuaVlUUmdGRVQ4M1hvUXcyS3RMelNCbjlmbE5UZzJo?=
- =?utf-8?B?M2V0bENYcThCSWsvOUFVZ1R1TExkbUxnWkpCazRoZGVzMkVxOHdDZ0tRY205?=
- =?utf-8?B?dEtGVHhGbmZhenhDTjJIbU9GTHpsTERSNTU2V0VnSGcyem4rcXFrdjVtUTR2?=
- =?utf-8?B?ZUJOcjY1U0tYVVVIT0UzRngxcmMzTTAwenlsM2lyQ2NZcytHNnYrRE5LQW5V?=
- =?utf-8?B?bHBFZ0FVR29oUDNyT3RiUlJjSERFUUxMejQ3WjVTaGNHZWJWTzdZN0JWa2JI?=
- =?utf-8?B?QW5QY2QrcTIvbXA4LzFBTWRYNDF6dkprUzB4SVRTU0ZERzBqQlNzdFAyeUtO?=
- =?utf-8?B?VStrNzEwMEhoOEFIcDY1NnVTSHpFS0VreU41bE1VT1VPRjh3aHBVZXBJbHl5?=
- =?utf-8?B?czhzNVpqWmRmUFJQbTRIY1RNQzdyeVl2RzRzK2VlU001N01ZQVVCbTBtMnlk?=
- =?utf-8?B?SVRhTncvd1RveFhiYTlhQkdMWnU0cHNFUnFFUG4yRy9xSVdqTFhBYkZsNS9p?=
- =?utf-8?B?N0x2WVQreHFycS8xN0tTRHRJLzhVK2puQlpwVVZwTDVDRkw3Q2hGbnVzcVM0?=
- =?utf-8?B?OTgvVUwrWFNqdWNnTUFXNk45ekpXMmlVOU5NbXE5V2ltQ01NU3N0YkdNU1Vj?=
- =?utf-8?B?WWY4TmZUeUVkV28xMnNoOFhMVk1LcXRVRDYyZkpoNHAyVElmRHJDaXhCVnpR?=
- =?utf-8?B?RjhSSEkraEJNdUh6clRtemp2VlVvaENhaDV1Qk1HdnpsT3lFWDNWRWRIY1F6?=
- =?utf-8?B?TmlXQjNUUTNMK1dzNFJKM1NMWFkxcmJtVjhHRDlXbDFmMHFSdVMxb2dYZ2pz?=
- =?utf-8?B?M2VyUENBcGlpVjl0OUgrYUJGdjBLc3puS1NJR1Y4MU5xRXhWbXNqaHo2VVRo?=
- =?utf-8?B?eXZCdFdvRlV4UVlYdWI2c20yb0J6TjhZdUpRRjZySGpsbXNiODg2RTlpYndC?=
- =?utf-8?B?U1ZJdTZBZTVjRHFqalJMempITnY3MzBTaWZocEZyY1N4czBsTFVRZXZKMUh3?=
- =?utf-8?Q?BrM43s?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dGxnME1tdXF4dWlCQnFXOTdJTldSZ1pSWWhUZHJJVm1kM0NjblBmeHM2cmow?=
+ =?utf-8?B?RUVmNnRiWERZMldMMUlKTVZrUnFYVFpkbDk0aWhzN2ZVQ3Q1R0FGSmFNd3k0?=
+ =?utf-8?B?d25FMEh6djJXZEY5VnRhQ0JpMHhKNU5YOGRGSVV2QWxQWDdVQ29uQzk1bEwy?=
+ =?utf-8?B?U2ZxRW9GNkNLRkxObUI3WVdWT0tCK1lhcXRzay9icGs0aWU2eVJaMU1FTzBQ?=
+ =?utf-8?B?dFFBdUhnY1JENDd6WWNSUEZ5VStPcTRTdW5ZV21WMHNTcFUrYlE4SSs1dkJT?=
+ =?utf-8?B?UWJORnFUeTl3Tzc0ZUJEWW9JUmhRVHJuVkw4b2xZNG1tTDJEKzdadWZnaFQ3?=
+ =?utf-8?B?VWRPd3cwVnE3ZzNHQXdFaXdXZkVNUEtmdXlOeG8rSmxjaG9leldJTHROTjBC?=
+ =?utf-8?B?R0pqWjBOaU1KcWdFUVdNUmtjNGRDdjhSMW84b3A3RXJnMjNNRzJ4YWJiZ1ZL?=
+ =?utf-8?B?TS8vYnM2OEZsUjRwWjlBR2d1d3hLazF0emMwV2JxVVQ3YW5Wemttc21KUlJj?=
+ =?utf-8?B?UDdzS2dmQVVNa1BQcTE5N2R2UVhPQ2pXU0dzdUNTMzhXSzVJUmdETUZNaDk3?=
+ =?utf-8?B?NXlIRXd2eURmcXRrU2prMmEwUU1iTWZhMHhKQ3JaMDBwY0VKUE41eFU2RTdC?=
+ =?utf-8?B?S0V4enpuOElQYml6N2pUMTJ2WjJMUDRxdkZBMEhxMVk1RTlDbCt6aGVCRm9I?=
+ =?utf-8?B?ME9pTk16N0pZQUtMc21rUzVhT0NmR2N2SHBqNmJFVjJxdGM1WUladnZGVnNw?=
+ =?utf-8?B?WXFNS0M3djZtbytCUGQwTXVlQzIyMnZKWlF2ZFc5dXB1TFoyUWg4T0YrdG9p?=
+ =?utf-8?B?eFpxM1NiUUhjRVJuWGFkbjRXRzhQK25SSSt1VW1CbWM2M2Z5ZmFwajQ0c1Vr?=
+ =?utf-8?B?M054RmVvUXVVYUhvYnZkSGhBMkcxcy9kTzgwQk91U25PQlJxQXBhRGJDa0pG?=
+ =?utf-8?B?UnN4aGhRSHBmNUNaS20xQm1XcHBtcmV4V1lvMTU1eVpMZkxkOVd1YWZPV0Vj?=
+ =?utf-8?B?OTdCYnN2NnhDYlo1YnRTVUlvS3MwcWRrS2R3TWh3azRnRnZBbklPOXBzdlJQ?=
+ =?utf-8?B?SkFXRm5YZHRJM2JHazE5WWlQdE9SdEpUL3dFUEttMWJQUXZ6VkR5blVtaFZR?=
+ =?utf-8?B?QnFlWWYxTmUzTXduNldJZkpoQytESjVlS2puTnRPSHRlQnlPRkI4VWZBTzlS?=
+ =?utf-8?B?WnIrRHFDbE1odWMyUzdFQ3Z3VXZQSHJMaHlGY0ltLzV0cGxPb1p5SGxIZW5j?=
+ =?utf-8?B?SEFCN29QYXdHdFE4ZkJidjkxU2YzYjI5R1dTSU9SNnQvNUpyTmg2M2Y4VWRC?=
+ =?utf-8?B?cTRIaGFpY1NXUVBrdHlUU05tZmR6YTQzSG9OYkRtcUZVU0Rubld0SGFoNC9Y?=
+ =?utf-8?B?NVloZ2ZxNkgrcVFMY2Q2R3VQRjBPVU9Fc05CV0NhdTVnbDVMNnQ2S2R2U1FT?=
+ =?utf-8?B?d0pXMGN1UTVPOGRTVjBnb0hwUEp0SFlLQlNMdVVDbkRBNXdTQ2F4ekI4cDZV?=
+ =?utf-8?B?Snk4WXluM1hPK0p3czZrR2tXUjhvWHNyWUtMWjhUbzhZTXVJWThPSEJzQ01r?=
+ =?utf-8?B?L2ZCWnNrOU1qUWFYR3B3ZFozN3NVcXJSZ05WVXVvU0EvS1EvbG9xUkcwSEVp?=
+ =?utf-8?B?eTM4YWJ4T3lDdzY3WkJlellpc2R0RzljWnRDMlVqTHdScVphaHNGWDhHemJT?=
+ =?utf-8?B?ckVJaHBMYThlOGI3b0FwNFRMZjRmbHFyR0lCOHU1Y2NlMHQvQ05mNFU3NVNZ?=
+ =?utf-8?B?a2JlSmVQTnV6dDZxR3QrRGlBajJkQjJ1RWJKY2p5eTVZdVlzWERkRkRXb0FQ?=
+ =?utf-8?B?emRBWTlmZnZ2Wk92NEdGZDY4d05UTGtqaEx6NVZ1bHJNNUxWUGYvcXJmZWJN?=
+ =?utf-8?B?RmlqYkRnQitDRlNZbVEyRmFNYUdkQkkxcE52dzMyWmp2eVg2Y1Rna2V4YS9I?=
+ =?utf-8?B?K2V2TE5hczJERFpsK1hYVGpqNzZ2ZzRPdzlabnJsemkwME40QjhCb3A0Ujh2?=
+ =?utf-8?B?QS9JZHFSVkx4Vmd5Q2ZLamlYSHk4NTJHS0hhZFVsZ0puSEIyOGRVN2gxeXhK?=
+ =?utf-8?Q?hCrSmJ?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 09:15:36.7671 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7865cc5e-4d01-4da4-b6b9-08dde6137336
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 09:15:36.6736 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1990e28-05b2-4d79-93ba-08dde6137328
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8131
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8500
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,167 +144,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable userspace to obtain a handle to the kernel-owned MMIO_REMAP
-singleton when AMDGPU_GEM_DOMAIN_MMIO_REMAP is requested via
-amdgpu_gem_create_ioctl().
+Add amdgpu_ttm_mmio_remap_bo_init()/fini() to manage the kernel-owned
+one-page(4K) MMIO_REMAP BO. The allocator runs during TTM init when the
+hardware exposes a remap base (adev->rmmio_base) and the host PAGE_SIZE
+is <= AMDGPU_GPU_PAGE_SIZE (4K).
 
-Validate the fixed 4K constraint: if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE
-return -EINVAL; when provided, size and alignment must equal
-AMDGPU_GPU_PAGE_SIZE.
+The helper is idempotent (returns 0 if already allocated) and only
+returns an error when the actual allocation fails.
 
-If the singleton BO is not available, return -ENODEV.
+This keeps MMIO_REMAP lifetime handling localized and prepares for the
+subsequent patch that exposes a userspace handle.
 
 v2:
-- Drop READ_ONCE() on adev->mmio_remap.bo (use a plain pointer load).
-  The pointer is set `bo = adev->mmio_remap.bo;` ie., The pointer is
-  written once during init and not changed while IOCTLs run. There’s no
-  concurrent writer in this execution path, so a normal read is safe.
-  (Alex)
+ - Check mmio_remap bus address (adev->rmmio_remap.bus_addr) instead of
+   rmmio_base. (Alex)
+ - Skip quietly if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE or no bus address
+   (no warn). (Alex)
+ - Use `amdgpu_bo_create()` (not *_kernel) - Only with this The object
+   is stored in adev->mmio_remap.bo and will later be exposed to
+   userspace via a GEM handle. (Christian)
 
-Cc: Christian König <christian.koenig@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
 Suggested-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 59 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 18 +++-----
- 2 files changed, 66 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 64 +++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index d3c369742124..465f9d4a79d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -424,6 +424,38 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
- 	.vm_ops = &amdgpu_gem_vm_ops,
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7822d8969c9f..0e301cab74e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1853,6 +1853,63 @@ static void amdgpu_ttm_pools_fini(struct amdgpu_device *adev)
+ 	adev->mman.ttm_pools = NULL;
+ }
  
 +/**
-+ * amdgpu_gem_get_mmio_remap_handle - Create a GEM handle for the MMIO_REMAP BO
-+ * @file_priv: DRM file corresponding to the calling process
++ * amdgpu_ttm_mmio_remap_bo_init - allocate the singleton 4K MMIO_REMAP BO
 + * @adev: amdgpu device
-+ * @handle: returned userspace GEM handle (out)
 + *
-+ * Creates a GEM handle to the kernel-owned singleton MMIO_REMAP buffer object
-+ * (adev->rmmio_remap.bo). The BO is expected to be allocated during TTM init
-+ * when the hardware exposes a remap base and PAGE_SIZE <= 4K.
++ * Allocates a one-page (4K) GEM BO in AMDGPU_GEM_DOMAIN_MMIO_REMAP when the
++ * hardware exposes a remap base (adev->rmmio_remap.bus_addr) and the host
++ * PAGE_SIZE is <= AMDGPU_GPU_PAGE_SIZE (4K). The BO is created as a regular
++ * GEM object (amdgpu_bo_create), then reserved and kmap’ed once to exercise
++ * the io-mem setup path. If prerequisites are not met, this is a no-op.
 + *
-+ * drm_gem_handle_create() acquires the handle reference, which will be dropped
-+ * by GEM_CLOSE in userspace.
-+ *
-+ * * Return:
-+ * * 0 on success
-+ * * -ENODEV if the MMIO_REMAP BO is not available
-+ * * A negative errno from drm_gem_handle_create() on failure
-+ *
++ * Return:
++ *  * 0 on success or intentional skip (feature not present/unsupported)
++ *  * negative errno on allocation failure
 + */
-+static int amdgpu_gem_get_mmio_remap_handle(struct drm_file *file_priv,
-+					    struct amdgpu_device *adev,
-+					    u32 *handle)
++static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
 +{
-+	struct amdgpu_bo *bo = adev->rmmio_remap.bo;
++	int r;
++	struct amdgpu_bo_param bp = { 0 };
++	void *kptr;
 +
-+	if (!bo)
-+		return -ENODEV;
++	/* Skip if HW doesn’t expose remap or system PAGE > GPU 4K */
++	if (!adev->rmmio_remap.bus_addr || PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE)
++		return 0;
 +
-+	/* drm_gem_handle_create() gets the ref; GEM_CLOSE drops it */
-+	return drm_gem_handle_create(file_priv, &bo->tbo.base, handle);
++	/* Hardware remap page is fixed 4K; skip on larger PAGE_SIZE. */
++	if (PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE)
++		return 0;
++
++	/* Create exactly one GEM BO in the MMIO_REMAP domain. */
++	bp.type        = ttm_bo_type_device;          /* userspace-mappable GEM */
++	bp.size        = AMDGPU_GPU_PAGE_SIZE;        /* 4K */
++	bp.byte_align  = AMDGPU_GPU_PAGE_SIZE;
++	bp.domain      = AMDGPU_GEM_DOMAIN_MMIO_REMAP;
++	bp.flags       = 0;
++	bp.resv        = NULL;
++	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
++
++	r = amdgpu_bo_create(adev, &bp, &adev->rmmio_remap.bo);
++	if (r)
++		return r;
++
++	return 0;
++}
++
++/**
++ * amdgpu_ttm_mmio_remap_bo_fini - free the singleton MMIO_REMAP BO
++ * @adev: amdgpu device
++ *
++ * Frees the kernel-owned MMIO_REMAP BO if it was allocated by
++ * amdgpu_ttm_mmio_remap_bo_init().
++ */
++static void amdgpu_ttm_mmio_remap_bo_fini(struct amdgpu_device *adev)
++{
++	amdgpu_bo_unref(&adev->rmmio_remap.bo);
++	adev->mmio_remap.bo = NULL;
 +}
 +
  /*
-  * GEM ioctls.
-  */
-@@ -468,6 +500,33 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	if (args->in.domains & AMDGPU_GEM_DOMAIN_MMIO_REMAP)
- 		return -EINVAL;
+  * amdgpu_ttm_init - Init the memory management (ttm) as well as various
+  * gtt/vram related fields.
+@@ -2027,6 +2084,11 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 		return r;
+ 	}
  
-+	/*
-+	 * === MMIO remap (HDP flush) fast-path ===
-+	 * If userspace asks for the MMIO_REMAP domain, don't allocate a new BO.
-+	 * Return a handle to the singleton BO created at ttm init.
-+	 */
-+	if (args->in.domains & AMDGPU_GEM_DOMAIN_MMIO_REMAP) {
-+		/*
-+		 * The MMIO remap page is fixed 4K on the GPU side. Do not
-+		 * allow use if the system PAGE_SIZE is larger than the GPU
-+		 * page size.
-+		 */
-+		if (PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE)
-+			return -EINVAL;
++	/* Allocate the singleton MMIO_REMAP BO (4K) if supported */
++	r = amdgpu_ttm_mmio_remap_bo_init(adev);
++	if (r)
++		return r;
 +
-+		/* Enforce fixed size/alignment when provided by userspace. */
-+		if (size && size != AMDGPU_GPU_PAGE_SIZE)
-+			return -EINVAL;
-+		if (args->in.alignment && args->in.alignment != AMDGPU_GPU_PAGE_SIZE)
-+			return -EINVAL;
-+
-+		r = amdgpu_gem_get_mmio_remap_handle(filp, adev, &handle);
-+		if (r)
-+			return r;
-+		args->out.handle = handle;
-+		return 0;
-+	}
-+
- 	/* create a gem object to contain this object in */
- 	if (args->in.domains & (AMDGPU_GEM_DOMAIN_GDS |
- 	    AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0e301cab74e0..14af9b0b8673 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1854,14 +1854,13 @@ static void amdgpu_ttm_pools_fini(struct amdgpu_device *adev)
- }
+ 	/* Initialize preemptible memory pool */
+ 	r = amdgpu_preempt_mgr_init(adev);
+ 	if (r) {
+@@ -2090,6 +2152,8 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+ 	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
+ 					&adev->mman.sdma_access_ptr);
  
- /**
-- * amdgpu_ttm_mmio_remap_bo_init - allocate the singleton 4K MMIO_REMAP BO
-+ * amdgpu_ttm_mmio_remap_bo_init - Allocate the singleton 4K MMIO_REMAP BO
-  * @adev: amdgpu device
-  *
-  * Allocates a one-page (4K) GEM BO in AMDGPU_GEM_DOMAIN_MMIO_REMAP when the
-  * hardware exposes a remap base (adev->rmmio_remap.bus_addr) and the host
-  * PAGE_SIZE is <= AMDGPU_GPU_PAGE_SIZE (4K). The BO is created as a regular
-- * GEM object (amdgpu_bo_create), then reserved and kmap’ed once to exercise
-- * the io-mem setup path. If prerequisites are not met, this is a no-op.
-+ * GEM object (amdgpu_bo_create).
-  *
-  * Return:
-  *  * 0 on success or intentional skip (feature not present/unsupported)
-@@ -1871,16 +1870,13 @@ static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
- {
- 	int r;
- 	struct amdgpu_bo_param bp = { 0 };
--	void *kptr;
++	/* Drop the singleton MMIO_REMAP BO (if allocated) */
++	amdgpu_ttm_mmio_remap_bo_fini(adev);
+ 	amdgpu_ttm_fw_reserve_vram_fini(adev);
+ 	amdgpu_ttm_drv_reserve_vram_fini(adev);
  
--	/* Skip if HW doesn’t expose remap or system PAGE > GPU 4K */
-+	/* Skip if HW doesn’t expose remap or
-+	 * Hardware remap page is fixed 4K; skip on larger PAGE_SIZE.
-+	 */
- 	if (!adev->rmmio_remap.bus_addr || PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE)
- 		return 0;
- 
--	/* Hardware remap page is fixed 4K; skip on larger PAGE_SIZE. */
--	if (PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE)
--		return 0;
--
- 	/* Create exactly one GEM BO in the MMIO_REMAP domain. */
- 	bp.type        = ttm_bo_type_device;          /* userspace-mappable GEM */
- 	bp.size        = AMDGPU_GPU_PAGE_SIZE;        /* 4K */
-@@ -1898,7 +1894,7 @@ static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
- }
- 
- /**
-- * amdgpu_ttm_mmio_remap_bo_fini - free the singleton MMIO_REMAP BO
-+ * amdgpu_ttm_mmio_remap_bo_fini - Free the singleton MMIO_REMAP BO
-  * @adev: amdgpu device
-  *
-  * Frees the kernel-owned MMIO_REMAP BO if it was allocated by
-@@ -1907,7 +1903,7 @@ static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
- static void amdgpu_ttm_mmio_remap_bo_fini(struct amdgpu_device *adev)
- {
- 	amdgpu_bo_unref(&adev->rmmio_remap.bo);
--	adev->mmio_remap.bo = NULL;
-+	adev->rmmio_remap.bo = NULL;
- }
- 
- /*
 -- 
 2.34.1
 
