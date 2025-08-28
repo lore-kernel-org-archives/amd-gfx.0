@@ -4,134 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24D62CA0EED
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 05:55:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C0D3C8303F
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 07:20:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C152A10EB3B;
-	Fri, 29 Aug 2025 05:55:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91D2A10EB5D;
+	Fri, 29 Aug 2025 07:20:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YBqXCWah";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="KqpkxVsD";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1235210EB3B
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Aug 2025 05:55:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uBBndV9d4XycnnHXNSCUwxaCuDM5tu6WY5EcYJAPVZYn+avKyBnNW40VukiJOXXuXYtFP5BlRSlt2YgyVTGcknf/O71NyxNzGw+YW8g5ZAhRGx51VH9MCLBHWHfjgsqD9YahjU1BUAIQCIgFFYeGAg8gmLQUbwM1XJUFZQYPenA8smOCrb40l3T5bwNPcwlTEmZKA/s88/Hp8Tt6vR0PyVqzU3XBqdTO6NUFdF5hDZHfloq+lp/xa3f7JHpC+kkq/HQmEjsfkjjfL7o41pOapdK4JNKN46cktavtsdxQm9M9QB6FGdz9FqrJ6o+I5nT6bgCryrCUsUq8zf63ytXZpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nI+qLtYMqwJwWUpCrEl3rRPFUDZwx7ynx3b5GxWmDGM=;
- b=I8rYmCeKJfwBFQZqKCWnGMyKgSeKcIDbdASwuaqmY6A0nhcVY+bA+Q7nFxIa3vvLrFf6DN3cM6xV5AIe/Ii1DTCtPZtnePR1ojnIlCwKNJ40kz3geZqPhmkzdKIcpDK98sxsY/8iCcgtl0SKrr/IC67z4gLTUVrsLo2IZD+c2FErvhgEhuf9MXdvjT0ICzo0lP7D+z9uQnyG/4irpY3LPuSWiR4NagqHYCz5bhGkWcxx9jNDH/5epsSf7w6b0BrwLS2K9Slcgg5GqOruYqh+DPgpmsBjJmxx/h58cByTna7vGBlVHMonL0FJKXWKrRKMa2VwgyvFxnRmqlHH8PtrzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nI+qLtYMqwJwWUpCrEl3rRPFUDZwx7ynx3b5GxWmDGM=;
- b=YBqXCWahAJZMitvm1WM8gvUGC7ZlwUAU3UkVKeKIrJP3faeUQIiJKdzdVHraaJQb0xbTBnVEuCnXVf417Sv/2iVh8Q08BcRsRyDKUf5EpkJPeKHH9etle0X41s//9ACYMMWIsIf1NamySiWptJPG+Si49vHHfGWUSVd/HJ4fays=
-Received: from PH2PEPF0000385D.namprd17.prod.outlook.com (2603:10b6:518:1::6b)
- by DS0PR12MB8217.namprd12.prod.outlook.com (2603:10b6:8:f1::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.16; Fri, 29 Aug
- 2025 05:55:50 +0000
-Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
- (2a01:111:f403:f910::1) by PH2PEPF0000385D.outlook.office365.com
- (2603:1036:903:48::3) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.22 via Frontend Transport; Fri,
- 29 Aug 2025 05:55:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9073.11 via Frontend Transport; Fri, 29 Aug 2025 05:55:49 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 29 Aug
- 2025 00:55:48 -0500
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.1748.10; Thu, 28 Aug 2025 22:55:46 -0700
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v4 9/9] drm/amdgpu/gem: Return Handle to MMIO_REMAP Singleton
- in GEM_CREATE
-Date: Fri, 29 Aug 2025 11:25:38 +0530
-Message-ID: <20250829055538.3983632-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACE1C10EADD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 21:19:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1756415982;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gskdp2N1fjQ2XPNnusUxDzPfRKenxAJAiphfAnxet1A=;
+ b=KqpkxVsDDZjKcgPn/SvePGNjrouqSSiZjuDJKT6G499JSJOp5WKTBhKTY38/zuqxtg+jYG
+ CSrGeE/fbEEGXeuT64cpQnCp/usFlvGtfwewMkJRafDWYFflLbe1Lmg5rJVOprbhKcA2hZ
+ i53iHQsHpeOzlqz4Er9N9ufA+S93KYk=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-652-bQn9HPvEOUyW5qudiLZu6A-1; Thu, 28 Aug 2025 17:18:25 -0400
+X-MC-Unique: bQn9HPvEOUyW5qudiLZu6A-1
+X-Mimecast-MFC-AGG-ID: bQn9HPvEOUyW5qudiLZu6A_1756415905
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-45b7d497abbso4827805e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 14:18:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756415904; x=1757020704;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gskdp2N1fjQ2XPNnusUxDzPfRKenxAJAiphfAnxet1A=;
+ b=XsGo+bAed/PJTQdJkViRNXg3jLpNvGF7GbhGL1jb/mUqq11y+wOs8RFqAhdsmBWpEh
+ 1enFd37Yx4h2ZPkPtgVaYEf6jIXHF0TK7PVEYJV1I2KO9tFilBC1GYfE+QIcKZwh/XLK
+ YpGd3K9p5mlkFI4bIl3ngfaFpJSmWaR1kTnKkN6fsFvTPKjLjQeGW+kMdlItTIEUzCbF
+ 9f+Xw6DEjsxGvfxIFfMcOZgMml66eiduzMfScAhaKWw7qWxrJ+83BLSu/TZdu+c80Kzb
+ ARIVDzmRBD9daV1FOtIJlDDE1cMT64Fh1ZvqzUwlLeEzi83pr6NVdxrs10zIh9OeFIYW
+ 7EVg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVDhHwajSvZS6bFOF26W+/FFPNuO4001DDymdnsGrvzrGrR5/lGfEJt8CAh36N2M3X7txJ5Vfgo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxCUeW22ZdYWTY2D0z9QuwShZzo3jsbWH4nrwJNflRCiui2i4WA
+ h2JusqwuHI0j7WVfluTe3ykRUg9D6ICqxy18U4jCssFkQAD9XjeJbHIJtYSSyHGyLGZCCZLYQ+s
+ K5XVXZ01w+8aN2rrEG0P5WF0ktFYDVBXepcw/ogyvhLpbof+sHVfCM7xQk2yko5d3cXg=
+X-Gm-Gg: ASbGnct3HAMrfmtAfMNEGa7Bf1Zw4RlyGJyizmQ9b1b93ro8/fk/v1Plb1Kl9OE1mpH
+ D+UVLisH6uh0wTYzE+ywfhsoEeOmpZWYaGMA4z4W+wAASVzGGQpcFZonrSy7PH1sNM/MIEGJ3mu
+ pEICEqz1hL0UfyewlIqftYcTp0mOwkemX/esWAAjJ2cjcRcfacaNVEEYknJE7ndjrVEK+7/h2lM
+ 3ca06GQvKgNUQpV3ridFbyO3cxelmVFadhzU4boU/tYC9ibJaudtRZH7app11MBmYR6Dx26KNy9
+ xXCM64QraLto7zARhFNM+eGfwNnwVn6oJ8pjuJG9h7mTJh97BAcY+LVFRHqZKPX8gluhJRfPhtZ
+ 2wfvYsLv/8nTmP2ybiB3BfIy2BXhoAm6V3HGucueWoqx1CHsrv3fQaPxhIpoxkmSTfkI=
+X-Received: by 2002:a05:600c:1c20:b0:458:c059:7d9c with SMTP id
+ 5b1f17b1804b1-45b5d48ea24mr170590315e9.6.1756415904537; 
+ Thu, 28 Aug 2025 14:18:24 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEPgDrrxDZ6vdtoS52zcAGrXMn5CAGoWaDFan/vG8uMfMxrjyia55dqZy7eBAVPbdsrurfc0Q==
+X-Received: by 2002:a05:600c:1c20:b0:458:c059:7d9c with SMTP id
+ 5b1f17b1804b1-45b5d48ea24mr170590035e9.6.1756415904010; 
+ Thu, 28 Aug 2025 14:18:24 -0700 (PDT)
+Received: from ?IPV6:2003:d8:2f28:c100:2225:10aa:f247:7b85?
+ (p200300d82f28c100222510aaf2477b85.dip0.t-ipconnect.de.
+ [2003:d8:2f28:c100:2225:10aa:f247:7b85])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3cf33fba9c4sm657825f8f.48.2025.08.28.14.18.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Aug 2025 14:18:23 -0700 (PDT)
+Message-ID: <e717c8b8-51f1-4332-b5fd-ade55aaba1b0@redhat.com>
+Date: Thu, 28 Aug 2025 23:18:22 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: stupid and complicated PAT :)
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ x86@kernel.org
+Cc: airlied@gmail.com, thomas.hellstrom@linux.intel.com,
+ matthew.brost@intel.com, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+References: <20250820143739.3422-1-christian.koenig@amd.com>
+ <edf4aee5-54eb-4fad-aa89-4913d44371fe@redhat.com>
+ <4e5f4ef0-53f1-417e-8f3b-76fd7c64cd23@amd.com>
+ <f983521c-b43d-4245-93fc-fcb847908573@redhat.com>
+ <a1b95d23-1908-42c1-8ff6-da051fc140aa@amd.com>
+ <6591105b-969d-44d6-80e1-233c1b84b121@redhat.com>
+ <fc3e013c-e7f7-441d-a638-2ee3dd372775@amd.com>
+ <75aca34d-3557-49e9-a523-bd3244c28190@redhat.com>
+ <a01f7ca8-7930-4b04-b597-0ebf8500a748@amd.com>
+ <d32fa753-66a1-451a-8cef-95c1f78fc366@redhat.com>
+ <87050572-811e-4b0c-9ebd-8ebb05f3c617@amd.com>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <87050572-811e-4b0c-9ebd-8ebb05f3c617@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: RCrjLbU_bwsGA0yAFioJnq7p7UVTIg07xVCQJYx02AA_1756415905
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|DS0PR12MB8217:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1332a1a3-172b-40db-62ec-08dde6c0b4e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TDdMV1BIekdsZWg2clZwYkRSQjhjQUdHQXpOWUthZDJaUGU3R0hvL1NvbDd2?=
- =?utf-8?B?M1NpV2o0YjRucDIxYjRtLzJCWEsxYXRRQ0hhOU1wcWZYMzZZUjVSNjRzeHUx?=
- =?utf-8?B?U01EMjBJVDQ5bzQ1Uno0ZXBaQUw5NHowa2Y3QXdGeGRuNnJvNGo5bUhBZDVT?=
- =?utf-8?B?eU42TkdxcTVQZVNaeWdCQWMyWTZKQkdqT0xVYWFyNyttT3hHMmR3TnFXRnpi?=
- =?utf-8?B?KzBSaUZMWGFPeGJySkhmMTF6WjgzU21rTEFrN2h6UyttQmFWQWY3R1BuWXlW?=
- =?utf-8?B?U3kra2VIa0d6R1o3ejdoMktxNXJFdGpmbURSMXpiaG9ETnVDc01TbDdqZlY5?=
- =?utf-8?B?SEkwa3pQT0kwZVZTM25HaERRQ294cmN3dWljK1pTZ285eG02dG1JMUhEMWls?=
- =?utf-8?B?ZXIrRkhkWjliYkxoRVZtMjJCaWhzTjV2WGV3QjZKTm9taGxqUTl1NGlXWHZz?=
- =?utf-8?B?OWhjY0lwWE5mZmFTRmt1eVJZUjB4MEZsM0JtSmZ0Y3JuN3FwZWx3cDRhZUJU?=
- =?utf-8?B?bE5DODlWZVFzQXE4aGN4UkFiN0NHYUxsQU5XVTJZQW9kVE81RGdPQVdSL3JD?=
- =?utf-8?B?dThtRFJzSmNGZ2tNc0t4YzN3UlJaZnpwV2gyT3NZNVNYUk5OTjJqUEFkSFdp?=
- =?utf-8?B?L1lkREtqODkzZk1GbzdrZHFjbGRRK1lZT3BxL0VsaW5PNlg4MUlGQzEzdS9t?=
- =?utf-8?B?VUNmUmZDWmoxcjBDMnZYWVBldWJjeVBqaSsybTIweFd4aiszYkZYbGVQcGJ2?=
- =?utf-8?B?MHJHdkxBcGYyUzlpKzNLdGIwUUprZE5aZU1MWHA0UU56d0N5cFJVM0RNY1Yw?=
- =?utf-8?B?K0dDaC84dkhNVUJlVGZRRkUzbEVuLzRrc1VEbmRHZllyb29jaVh4Vm9GS3hP?=
- =?utf-8?B?WXJNZmkyNE1kWUFDek5CVEJUbGlwVHpUclB3K281ZWN3UTZLSmZqNTJXRWpD?=
- =?utf-8?B?ejQwL3Z1V2ZEV3hLV051WGR3dnRDWTlqUDFaRzIrYlNUQkRROWFOa05XQ0Fq?=
- =?utf-8?B?eDdDR05Xdmd4S2xpZW9tZ01lTzI3d2tEcEkyYTd0Q1pzWm44cmJldnAzR2l2?=
- =?utf-8?B?WGkvNHZnbG1QRXVHYVpqUXdFOFY5NUs3bUx4THNJd1AyZUJqcDdyWGNNQW4x?=
- =?utf-8?B?M2hzWmcwb3lqTC95WGtaSjk5dXRaSi9Fc09GcHB2aGVnSnJUUG9VS1A0Z0dH?=
- =?utf-8?B?SVRucVlXMWZZTVdDekNyVjk1VDJQdzMyYmt3d2VmTG5nN1cyVUR4V01VNWlq?=
- =?utf-8?B?VUR2MW02a3BLZGZTQXgrMGhEVHAwdVFoUXlsSXNLdFkvZWorM2JsZCtsb0Vw?=
- =?utf-8?B?TGorTUpMd3ZTdTRrLzRhM3FpM1Y0SC9abWdpeFprbVNKbGV3d1J2QWNwTGZm?=
- =?utf-8?B?Y3V0UHczc0dQTjZnU0tlUWZVSGt5d2c0QnViajR2NXp6MmVMMm1SOHFpUzJ5?=
- =?utf-8?B?VjFHa3FSYjVxS25XMFB6MmU0emI1ekV2WlZYLzlSRG1EZ0p4TWpZdktnWVVy?=
- =?utf-8?B?SWFrcGxUYkdvdXFYRFlBK0JXTVRaeW1yKzVZUW5sWW5HREJRVGFwbU9zd0xk?=
- =?utf-8?B?cytVbWlPSEp3Y3p2QUN0WmwrM1k1SXA2YVh2N2NhNmZZREE0YitMRkpLYzRo?=
- =?utf-8?B?aEFjalZBK0VnWHY5TlFNR1R4ZS9KdERCR0ZmcEdwZWlXM0xmWmwzV2xPZFpB?=
- =?utf-8?B?bUxKbmhVNSs5aFA3WUJCZWFSdlNNOG1zNUJGRjVHZ3lJRWpDVkZ2NDhZRXJq?=
- =?utf-8?B?SThwWjJSVFNMTUtOV3Rzc1E2YUZWVzhNaW8xaTQrTkhqSWQ0ck1JZngwcE1x?=
- =?utf-8?B?a0kzRkMwSVBHVmhoYWlURWJ1Rk5MdXVzejI5cTlzUGYvZkFsMHgyR1BBclFu?=
- =?utf-8?B?ajEyQUx0V1VvdVY2bEc1M0VacWZXS3JETzJodkl3b09PQVpBUmRXYzJtTjF5?=
- =?utf-8?B?d1FIRk1SZm0rRDV0WkhSOXAyM3dKMktoUDZsR241c0VIcGN4dWgxaVVncnRx?=
- =?utf-8?B?YXBGaHg0N0VHeDREcXZhUkhEZGdaSlRrVjE1RE1EMjN3Lzl3SjNOZHBPSUwv?=
- =?utf-8?Q?c5av25?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2025 05:55:49.8892 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1332a1a3-172b-40db-62ec-08dde6c0b4e9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCBF.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8217
+X-Mailman-Approved-At: Fri, 29 Aug 2025 07:20:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,107 +163,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable userspace to obtain a handle to the kernel-owned MMIO_REMAP
-singleton when AMDGPU_GEM_DOMAIN_MMIO_REMAP is requested via
-amdgpu_gem_create_ioctl().
+On 26.08.25 18:09, Christian König wrote:
+> On 26.08.25 14:07, David Hildenbrand wrote:
+>>>
+>>>> 2) We add another interface that consumes PFNs, but explicitly states
+>>>>      that it is only for ordinary system RAM, and that the user is
+>>>>      required for updating the direct map.
+>>>>
+>>>>      We could sanity-check the direct map in debug kernels.
+>>>
+>>> I would rather like to see vmf_insert_pfn_prot() fixed instead.
+>>>
+>>> That function was explicitly added to insert the PFN with the given attributes and as far as I can see all users of that function expect exactly that.
+>>
+>> It's all a bit tricky :(
+> 
+> I would rather say horrible complicated :(
+> 
+>>>>
+>>>> 3) We teach PAT code in pfnmap_setup_cachemode_pfn() about treating this
+>>>>      system RAM differently.
+>>>>
+>>>>
+>>>> There is also the option for a mixture between 1 and 2, where we get pages, but we map them non-refcounted in a VM_PFNMAP.
+>>>>
+>>>> In general, having pages makes it easier to assert that they are likely ordinary system ram pages, and that the interface is not getting abused for something else.
+>>>
+>>> Well, exactly that's the use case here and that is not abusive at all as far as I can see.
+>>>
+>>> What drivers want is to insert a PFN with a certain set of caching attributes regardless if it's system memory or iomem. That's why vmf_insert_pfn_prot() was created in the first place.
+>>
+>> I mean, the use case of "allocate pages from the buddy and fixup the linear map" sounds perfectly reasonable to me. Absolutely no reason to get PAT involved. Nobody else should be messing with that memory after all.
+>>
+>> As soon as we are talking about other memory ranges (iomem) that are not from the buddy, it gets weird to bypass PAT, and the question I am asking myself is, when is it okay, and when not.
+> 
+> Ok let me try to explain parts of the history and the big picture for at least the graphics use case on x86.
+> 
+> In 1996/97 Intel came up with the idea of AGP: https://en.wikipedia.org/wiki/Accelerated_Graphics_Port
+> 
+> At that time the CPUs, PCI bus and system memory were all connected together through the north bridge: https://en.wikipedia.org/wiki/Northbridge_(computing)
+> 
+> The problem was that AGP also introduced the concept of putting large amounts of data for the video controller (PCI device) into system memory when you don't have enough local device memory (VRAM).
+> 
+> But that meant when that memory is cached that the north bridge always had to snoop the CPU cache over the front side bus for every access the video controller made. This meant a huge performance bottleneck, so the idea was born to access that data uncached.
 
-Validate the fixed 4K constraint: if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE
-return -EINVAL; when provided, size and alignment must equal
-AMDGPU_GPU_PAGE_SIZE.
+Ack.
 
-If the singleton BO is not available, return -ENODEV.
+> 
+> 
+> Well that was nearly 30years ago, PCI, AGP and front side bus are long gone, but the concept of putting video controller (GPU) stuff into uncached system memory has prevailed.
+> 
+> So for example even modern AMD CPU based laptops need uncached system memory if their local memory is not large enough to contain the picture to display on the monitor. And with modern 8k monitors that can actually happen quite fast...
+> 
+> What drivers do today is to call vmf_insert_pfn_prot() either with the PFN of their local memory (iomem) or uncached/wc system memory.
 
-v2:
-- Drop READ_ONCE() on adev->mmio_remap.bo (use a plain pointer load).
-  The pointer is set `bo = adev->mmio_remap.bo;` ie., The pointer is
-  written once during init and not changed while IOCTLs run. There’s no
-  concurrent writer in this execution path, so a normal read is safe.
-  (Alex)
+That makes perfect sense. I assume we might or might not have "struct 
+page" (pfn_valid) for the iomem, depending on where these areas reside, 
+correct?
 
-Cc: Christian König <christian.koenig@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 59 +++++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
+> 
+> 
+> To summarize that we have an interface to fill in the page tables with either iomem or system memory is actually part of the design. That's how the HW driver is expected to work.
+> 
+>>> That drivers need to call set_pages_wc/uc() for the linear mapping on x86 manually is correct and checking that is clearly a good idea for debug kernels.
+>>
+>> I'll have to think about this a bit: assuming only vmf_insert_pfn() calls pfnmap_setup_cachemode_pfn() but vmf_insert_pfn_prot() doesn't, how could we sanity check that somebody is doing something against the will of PAT.
+> 
+> I think the most defensive approach for a quick fix is this change here:
+> 
+>   static inline void pgprot_set_cachemode(pgprot_t *prot, enum page_cache_mode pcm)
+>   {
+> -       *prot = __pgprot((pgprot_val(*prot) & ~_PAGE_CACHE_MASK) |
+> -                        cachemode2protval(pcm));
+> +       if (pcm != _PAGE_CACHE_MODE_WB)
+> +               *prot = __pgprot((pgprot_val(*prot) & ~_PAGE_CACHE_MASK) |
+> +                                cachemode2protval(pcm));
+>   }
+> 
+> This applies the PAT value if it's anything else than _PAGE_CACHE_MODE_WB but still allows callers to use something different on normal WB system memory.
+> 
+> What do you think?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index d3c369742124..465f9d4a79d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -424,6 +424,38 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
- 	.vm_ops = &amdgpu_gem_vm_ops,
- };
- 
-+/**
-+ * amdgpu_gem_get_mmio_remap_handle - Create a GEM handle for the MMIO_REMAP BO
-+ * @file_priv: DRM file corresponding to the calling process
-+ * @adev: amdgpu device
-+ * @handle: returned userspace GEM handle (out)
-+ *
-+ * Creates a GEM handle to the kernel-owned singleton MMIO_REMAP buffer object
-+ * (adev->rmmio_remap.bo). The BO is expected to be allocated during TTM init
-+ * when the hardware exposes a remap base and PAGE_SIZE <= 4K.
-+ *
-+ * drm_gem_handle_create() acquires the handle reference, which will be dropped
-+ * by GEM_CLOSE in userspace.
-+ *
-+ * * Return:
-+ * * 0 on success
-+ * * -ENODEV if the MMIO_REMAP BO is not available
-+ * * A negative errno from drm_gem_handle_create() on failure
-+ *
-+ */
-+static int amdgpu_gem_get_mmio_remap_handle(struct drm_file *file_priv,
-+					    struct amdgpu_device *adev,
-+					    u32 *handle)
-+{
-+	struct amdgpu_bo *bo = adev->rmmio_remap.bo;
-+
-+	if (!bo)
-+		return -ENODEV;
-+
-+	/* drm_gem_handle_create() gets the ref; GEM_CLOSE drops it */
-+	return drm_gem_handle_create(file_priv, &bo->tbo.base, handle);
-+}
-+
- /*
-  * GEM ioctls.
-  */
-@@ -468,6 +500,33 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	if (args->in.domains & AMDGPU_GEM_DOMAIN_MMIO_REMAP)
- 		return -EINVAL;
- 
-+	/*
-+	 * === MMIO remap (HDP flush) fast-path ===
-+	 * If userspace asks for the MMIO_REMAP domain, don't allocate a new BO.
-+	 * Return a handle to the singleton BO created at ttm init.
-+	 */
-+	if (args->in.domains & AMDGPU_GEM_DOMAIN_MMIO_REMAP) {
-+		/*
-+		 * The MMIO remap page is fixed 4K on the GPU side. Do not
-+		 * allow use if the system PAGE_SIZE is larger than the GPU
-+		 * page size.
-+		 */
-+		if (PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE)
-+			return -EINVAL;
-+
-+		/* Enforce fixed size/alignment when provided by userspace. */
-+		if (size && size != AMDGPU_GPU_PAGE_SIZE)
-+			return -EINVAL;
-+		if (args->in.alignment && args->in.alignment != AMDGPU_GPU_PAGE_SIZE)
-+			return -EINVAL;
-+
-+		r = amdgpu_gem_get_mmio_remap_handle(filp, adev, &handle);
-+		if (r)
-+			return r;
-+		args->out.handle = handle;
-+		return 0;
-+	}
-+
- 	/* create a gem object to contain this object in */
- 	if (args->in.domains & (AMDGPU_GEM_DOMAIN_GDS |
- 	    AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
+This feels like too big of a hammer. In particular, it changes things 
+like phys_mem_access_prot_allowed(), which requires more care.
+
+First, I thought we should limit what we do to vmf_insert_pfn_prot() 
+only. But then I realized that we have stuff like
+
+	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+
+I'm still trying to find out the easy way out that is not a complete hack.
+
+Will the iomem ever be mapped by the driver again with a different cache 
+mode? (e.g., WB -> UC -> WB)
+
 -- 
-2.34.1
+Cheers
+
+David / dhildenb
 
