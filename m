@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAB1DCA0FFC
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 15:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E11DAC8303F
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 15:11:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E0E210EA18;
-	Thu, 28 Aug 2025 15:11:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8321010EA17;
+	Thu, 28 Aug 2025 15:11:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fKcgcxBU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kBS9q3M1";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89EF010EA16
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 15:11:19 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-45b6b5ccad6so6226715e9.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 08:11:19 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D6B310EA17
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 15:11:21 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-45a1b05fe23so6617455e9.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 08:11:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756393878; x=1756998678; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756393880; x=1756998680; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2qdCwOLdmjFkALqmEo08RBW9hPBlt+zyKJ8pKQewnj0=;
- b=fKcgcxBUikvX1wTPEUH6cisL1G0KV6YB7T9ApXw99XTvUteWy0jQOdsOtP9lbKtmOI
- vOCNhqCghTt1vxoDXhqNqb9Jq9pNjv0ZgA4FFCe+zxIp75zV4rjSP7yUDmp+Gktj3xq7
- /n7hVnS4/SPY6vBUOi/n6+JT3JIYCrQy68cbNi8xUhwtBxU8BIPhh4ZK6noH1GSY8rkU
- 6vCeKVSIW5V/baIyRvOm3D204dj2L7+4XCX/zcBkr6y7dnx+AnDh5Ol6Ow3VcZnoyp4L
- 6/JjuCL8S55Z4lo5w5crvrU/kkxJoKxABzhHJdNAM4S2VbwLjro6CXZQYmrEnknmaHjf
- 01Aw==
+ bh=MkAy+O06uP+l1LGw0YUe810GdMpRjvBJxSQG0McCjVY=;
+ b=kBS9q3M1nTzpBQ331TAugQ/17/3fwHgPpfgCoRbLI/jJc06WxSy0yR0kH4+VMA9m8o
+ 2GE7m/ht+JL55ouLpZnohS8yQ2hDOMqbrKpDZ+v+CUJ6CfMGCNznRaQ2JW/5eGKnFyGs
+ QLY3kpXJzNccZHGlPWQplDxmJssqCFDxi13wNSLL2e+mlhOSMzyjxkGwA6ay1DYtp5oe
+ 9KuoTmjfXEJNcSWTl8rgTXGFR9457dDJv45ix0k4l01QTWoh3afcUTANk70E9yNBJWRn
+ KrS5A7OqJP9NYrxlzJfE5s7oYMt8jnuZc58ObKHxF1bvy6CFTGnOwfBCiQBLU0TKeg9l
+ Ri+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756393878; x=1756998678;
+ d=1e100.net; s=20230601; t=1756393880; x=1756998680;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2qdCwOLdmjFkALqmEo08RBW9hPBlt+zyKJ8pKQewnj0=;
- b=KNi+TKWi0s/H4Cki3wjHeVecEFiAHSWFwMNLpPPW7b4cbqQ9Mz0Xj6/8e5JZ5ZKT4h
- 3F4Dh+g8zB9vjKMrydqzwxDUcOJMJs/SnB2YFXEjoj8+dlLJd2+ymLGAiFrw/5TR4v5C
- WvfY8mGAlNGxsGdqCN/kRZHTDmIXwxcQRPr9FRIxA3JvsJHYwwYau1aq/mv66tDxjHqN
- /UrjpfjtyOwdTYNU34ZHaeFgJvzw92RMSkT3sZVmr4qH4Ch9bYMjvhYAjQHcgPi+R5wC
- 2XuSQkUBVIN4YuudDiGMCBEF3s+P7/2gd1KjYIvIYALnCOCoQH6bQSMe3D0ySUFSo1kT
- wJAg==
-X-Gm-Message-State: AOJu0YxKlpE7/lPPI82namTPQKCTao1+NcyTsaemW7H1laXKe1phfdfL
- /RO+wM9we9jfSlfYuHX/2B6+/uRX8Jc7kWm2FmzYDidztHQlb77pPj/oCvuTUw==
-X-Gm-Gg: ASbGncsO5T8HVafAEvbsxNUQ2JgqJWPaxQ1OFAuZ4+PWQuXzO1Jzg0beS8TgYguJSYz
- ek2/MsDc7VVO2LPvgQkQ8dpfKrXbaCiWn71JyIroFkXeDGwWQBxo0d4s+qPiw1T8iwDyV0MYE/F
- 2KjKy54R3cOGyd2WguwUhRUQgTW5Jlc4jPezSUbGzp5hv/YEsmrS1dgC1d292Jr8tbZ8ewbMGGW
- Rn3LcmQwWkKWQeBZvbLSYw1zUjD993Y2m20eu6uUCItZlmovi/0sYuLfoybFcMiNLC08bp0Xhhn
- 6WxLpIj1OmkoFTDUKfUyiBWSaDmtOiROySsCHtj+oh13EBiKPUkzJgCfhy95XFGQ1cwJkHy8HZg
- greAzvTa0Gs+GlhdvOtNu4BpTN1KzpHgabnU0M/6zTpNdU3lKS5abCNWvAjbDrcYltxpWDiC/R8
- WEDQvFKTpC5SXX/pS5H7nHalEU+1+0ZhxrL8lH
-X-Google-Smtp-Source: AGHT+IGSTSIIFFu50+X0tYfh8CDnTr7qhlYkCuMQGvnLHuMcOjFNkEBW0W+3ZSXt93Bj0KHwIj6XAg==
-X-Received: by 2002:a05:600c:354f:b0:456:18ca:68db with SMTP id
- 5b1f17b1804b1-45b6a31a192mr73926565e9.8.1756393877614; 
- Thu, 28 Aug 2025 08:11:17 -0700 (PDT)
+ bh=MkAy+O06uP+l1LGw0YUe810GdMpRjvBJxSQG0McCjVY=;
+ b=sCJMjTMFA0PTl7iR/oROLcXEHIWGny3cTwrkthzIwnrDQzuRP8h1ie5MIAoGe2xq3z
+ N2wfZqq7kWbpDFFuhyNpX6CpuvRda8eYj38pZdIEztlWaBWcPhZvOvzIdV5Q1N9ZVBLn
+ c9f56Y2yEfmzxnySAocDnw7mSnFcr2bUP6YMXHo0kWAcOt7/tA/6CH+J3ZQ25P1kwZYe
+ pwucrzOTc1waQvrUDtop68P6pjl6B1SjcjlQkQZZWnucAlf87YVQbsJCBJCRm8HqcfSp
+ M2AqXuEujqHrGolG3cNkTi4QQZFTfpj1sf5u16lb6I6mROtHVxNupS58Z0ZtOiZEgf1N
+ pPIw==
+X-Gm-Message-State: AOJu0YzmGNhFAoQ/ZaUv/BCSUATlvEKT1+13CcTe00Kig3g17LmMKj1K
+ lasuGho1AXtYujs1tgBQrgNDXKdnxFF8XNJVsMKjrvpc9Jk48GnQEPs8Ib1bdw==
+X-Gm-Gg: ASbGncu+tK2h9huBTnzw7SfhcGJr1FrP7SLTBDENmi6rgSbUj1AXawsP7l5u28+iyKP
+ jihKsYqLb2UHgYoSeqrZMgX4IAja3tUNeOHP+JEeoPZpbEydvNRY7rvOyk8rc5DTJgXuDQoLcvC
+ NTJLyAiTGQFNAoA/PnwWFiayZkeMwtsHV6TkRkPnSofX4y3iLCyENwLe/xT0Qn4+fBQpIHuOi0M
+ qkoYPaezKaR4napwPEfn0Jl5Z26atQEIXdClsrNe2nH7eIjJVozcfKTnyqWfLf3UfPWNEXKMFD0
+ AkB5Pte9PJAdhifcKTz+K7ww4TMA1zrt01DbmJQvsnn5rKfZVoiZw1GjcydPhij3ZT+at5INQz2
+ tGwbZCU4mdYQNqXVdDWCJY6pFanF08JP/Z6iiS3pReOHc1Fs1mYm7ZIz1LWLnzbL9+8MQiE9mR6
+ eCBasTO7vy7Sq4Sbx13XXJ9K80JA==
+X-Google-Smtp-Source: AGHT+IHbf71w2EXVhA/Go4YC0Nmm3AQB6AmNoW1QuopsFtFAZV5WdpEr8bVUr4Qh5QaQarKk/UGVyw==
+X-Received: by 2002:a05:600c:1e8b:b0:45b:47e1:ef6f with SMTP id
+ 5b1f17b1804b1-45b517fabfbmr191265705e9.34.1756393879556; 
+ Thu, 28 Aug 2025 08:11:19 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24E36900D571F3015BAFEA47.dsl.pool.telekom.hu.
  [2001:4c4e:24e3:6900:d571:f301:5baf:ea47])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b6f306bffsm77448875e9.16.2025.08.28.08.11.16
+ 5b1f17b1804b1-45b6f306bffsm77448875e9.16.2025.08.28.08.11.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Aug 2025 08:11:17 -0700 (PDT)
+ Thu, 28 Aug 2025 08:11:18 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 03/10] drm/amd/pm: Increase SMC timeout on SI and warn (v3)
-Date: Thu, 28 Aug 2025 17:11:05 +0200
-Message-ID: <20250828151112.15965-4-timur.kristof@gmail.com>
+Subject: [PATCH 05/10] drm/amd/pm: Adjust si_upload_smc_data register
+ programming (v3)
+Date: Thu, 28 Aug 2025 17:11:07 +0200
+Message-ID: <20250828151112.15965-6-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250828151112.15965-1-timur.kristof@gmail.com>
 References: <20250828151112.15965-1-timur.kristof@gmail.com>
@@ -90,92 +91,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The SMC can take an excessive amount of time to process some
-messages under some conditions.
+Based on some comments in dm_pp_display_configuration
+above the crtc_index and line_time fields, these values
+are programmed to the SMC to work around an SMC hang
+when it switches MCLK.
 
-Background:
-Sending a message to the SMC works by writing the message into
-the mmSMC_MESSAGE_0 register and its optional parameter into
-the mmSMC_SCRATCH0, and then polling mmSMC_RESP_0. Previously
-the timeout was AMDGPU_MAX_USEC_TIMEOUT, ie. 100 ms.
+According to Alex, the Windows driver programs them to:
+mclk_change_block_cp_min = 200 / line_time
+mclk_change_block_cp_max = 100 / line_time
+Let's use the same for the sake of consistency.
 
-Increase the timeout to 200 ms for all messages and to 1 sec for
-a few messages which I've observed to be especially slow:
-PPSMC_MSG_NoForcedLevel
-PPSMC_MSG_SetEnabledLevels
-PPSMC_MSG_SetForcedLevels
-PPSMC_MSG_DisableULV
-PPSMC_MSG_SwitchToSwState
+Previously we used the watermark values, but it seemed buggy
+as the code was mixing up low/high and A/B watermarks, and
+was not saving a low watermark value on DCE 6, so
+mclk_change_block_cp_max would be always zero previously.
 
-This fixes the following problems on Tahiti when switching
-from a lower clock power state to a higher clock state, such
-as when DC turns on a display which was previously turned off.
+Split this change off from the previous si_upload_smc_data
+to make it easier to bisect, in case it causes any issues.
 
-* si_restrict_performance_levels_before_switch would fail
-  (if the user previously forced high clocks using sysfs)
-* si_set_sw_state would fail (always)
-
-It turns out that both of those failures were SMC timeouts and
-that the SMC actually didn't fail or hang, just needs more time
-to process those.
-
-Add a warning when there is an SMC timeout to make it easier to
-identify this type of problem in the future.
-
+Fixes: 841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c | 26 ++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
-index 4e65ab9e931c..281a5e377aee 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
-@@ -172,20 +172,42 @@ PPSMC_Result amdgpu_si_send_msg_to_smc(struct amdgpu_device *adev,
- {
- 	u32 tmp;
- 	int i;
-+	int usec_timeout;
-+
-+	/* SMC seems to process some messages exceptionally slowly. */
-+	switch (msg) {
-+	case PPSMC_MSG_NoForcedLevel:
-+	case PPSMC_MSG_SetEnabledLevels:
-+	case PPSMC_MSG_SetForcedLevels:
-+	case PPSMC_MSG_DisableULV:
-+	case PPSMC_MSG_SwitchToSwState:
-+		usec_timeout = 1000000; /* 1 sec */
-+		break;
-+	default:
-+		usec_timeout = 200000; /* 200 ms */
-+		break;
-+	}
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index 6736c592dfdc..fb008c5980d6 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -5833,8 +5833,8 @@ static int si_upload_smc_data(struct amdgpu_device *adev)
+ 		crtc_index = amdgpu_crtc->crtc_id;
  
- 	if (!amdgpu_si_is_smc_running(adev))
- 		return PPSMC_Result_Failed;
- 
- 	WREG32(mmSMC_MESSAGE_0, msg);
- 
--	for (i = 0; i < adev->usec_timeout; i++) {
-+	for (i = 0; i < usec_timeout; i++) {
- 		tmp = RREG32(mmSMC_RESP_0);
- 		if (tmp != 0)
- 			break;
- 		udelay(1);
+ 		if (amdgpu_crtc->line_time) {
+-			mclk_change_block_cp_min = amdgpu_crtc->wm_high / amdgpu_crtc->line_time;
+-			mclk_change_block_cp_max = amdgpu_crtc->wm_low / amdgpu_crtc->line_time;
++			mclk_change_block_cp_min = 200 / amdgpu_crtc->line_time;
++			mclk_change_block_cp_max = 100 / amdgpu_crtc->line_time;
+ 		}
  	}
  
--	return (PPSMC_Result)RREG32(mmSMC_RESP_0);
-+	tmp = RREG32(mmSMC_RESP_0);
-+	if (tmp == 0) {
-+		drm_warn(adev_to_drm(adev),
-+			"%s timeout on message: %x (SMC_SCRATCH0: %x)\n",
-+			__func__, msg, RREG32(mmSMC_SCRATCH0));
-+	}
-+
-+	return (PPSMC_Result)tmp;
- }
- 
- PPSMC_Result amdgpu_si_wait_for_smc_inactive(struct amdgpu_device *adev)
 -- 
 2.51.0
 
