@@ -4,73 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3A18C8303F
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 15:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701AACA0EED
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 15:11:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DD1110E334;
-	Thu, 28 Aug 2025 15:09:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1089810EA14;
+	Thu, 28 Aug 2025 15:11:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CGS/aK1S";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="db2Wa34Q";
 	dkim-atps=neutral
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAD3910E334
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 15:09:27 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-b475b63ab66so216312a12.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 08:09:27 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94D8610EA12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 15:11:16 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0c52f3so6338355e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 08:11:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756393767; x=1756998567; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pnxEZrl8rVQuyJNdn8I7lqijTNT2dHjG7h5n7iE0raQ=;
- b=CGS/aK1SpuvJcCrvfYd4Ddk3Vny1uk9wXMRuF6h9/N9n+kPgGRLXMzpAV+G1jxmG0a
- YLhlucBkBPLAXslQYAqAW23oldKvPyfqhIA0plrXse3Zx52kEB5XbN8e/jTDNgK4yLrq
- c3mf1/7faYsilfwpsv3XSVG3+80PL7iEPrmBr7gAmaMoBlTzJSLBci+DnMjBhAGoyr8a
- YBTqEDaEzRjvFJybA3kZRQIxLSg3JWxtBN9/dJLQQNLTvs3QqAIhWIJjQmHGkAJHCyy3
- B1wYN1W7L64LFyOwnF+CjdNWtIqeH2kpTpiv7tEzblAcv2sEPyUYCrWNvWxwE4VkPgsZ
- 8+pQ==
+ d=gmail.com; s=20230601; t=1756393875; x=1756998675; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MjgMS/XiyrWQ7rbkE+cfxbMoxwnJ3edzM/3kJDqjGP0=;
+ b=db2Wa34QplJDEDIxrZZYrlPjZVmeXYw9RU12qMLZGMzOXkVn9WXOuimbbcYvmEr4hQ
+ JLu5G+UCw3kQczamxv3OlA9zxShZnl6PFHHteUKaglbtlVynWMWIPflVgEAkreggNHaf
+ vBaTh022hbQGcJHVXy06R2G7Id/Ixd6XB18p/q/je9AOk/fUopJJkm+Ts2jtsaiwonEU
+ CSS4FAvGNS711+wD9Bj2Pjq9/WpcK9LBweQ8SzsQYEXUr4g9DpxN9tS7QK/sUB7MLiQ+
+ d/qLZ9qRr7sgJkiqEA7Ok42UQROm5/P85FJ2i0dYUx0UOoidAQTdAC2p/VaOcP8VzX7Z
+ HRCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756393767; x=1756998567;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pnxEZrl8rVQuyJNdn8I7lqijTNT2dHjG7h5n7iE0raQ=;
- b=dh4H/w4NO33AL987zUPhnUxIZexH7wauXIliEObAf0XzkYG59TqGNKGoZ2NINEP+LL
- 2ikZ3jYMbijCW1p0Iy4Z2pa1iHcIaSIwRczI6riHYbNka6wlsOh+xz/82U3waG/Cawvu
- K5MdaWPcv6H+/CCC87zLx+MCj09HKNiriwN2XGKO60A/bAZGueFFYdHRFKFSzJ8A4OoU
- e+77611nxbmXyTnHktc3Wl5RgNhQmwx0FYQB9XOO4edWh0r8c4eh6tnCeU0PUGf8d0gk
- J6laPiSnGzjk94IhWjH9kfWIiZXBz3osCoZfqR980M2svaRVMqZg6qF/SEsJu0CgJRpj
- MC6g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVYvKeB+5+Htuhmlk7vpLiKvlHSqbdK2o1eteWlkfZ+CmLxfH4SfRrRCHiRty5ox2oAv6j3uA4g@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzxBvU4omRckoWaG+NHQDh12KaJ5ye2MgSSlJb8tF48AN+lKIal
- 6IslTNmRpEXtAPWW6nEIY7YR4ylrZfUibSaZSKEwl/o/UUYILbpEC9F8XlhFiReVFiZVDRMbFlG
- G5ohj2QQcKwLb7or/fCwnRcKHQm9vCFc=
-X-Gm-Gg: ASbGncuawu4DHKbCGUyy7wausQDOd5aYD1PGQvonY2vKRxpCAU1HAHOoVjQFlpbxRUM
- 9CcldSTK6BVF8lhFEcbUwHZizo9yiKzufZ5tLRWKC8Vbp88Q2KEuxBznUE8gWVCX6QTKs43Za/E
- NqJDVaoS5ME5jkWDBFu8MWTIKlJ0HOMifInurAnQdHGkWKPrL+SGD6loq3NijBImgLyscN590Av
- FsMhuaEQMhiQ4ClvA==
-X-Google-Smtp-Source: AGHT+IH7+GyVwu+JIYb+9numU+h1OHuERyn/gw09rsvxiRRRbDSe7pO9F6ZYUBVX0HM+aVmGLPRicoEWFSJGszB50WA=
-X-Received: by 2002:a17:90b:4b0f:b0:325:8f8c:4e13 with SMTP id
- 98e67ed59e1d1-3258f8c503cmr11425972a91.2.1756393766927; Thu, 28 Aug 2025
- 08:09:26 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1756393875; x=1756998675;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MjgMS/XiyrWQ7rbkE+cfxbMoxwnJ3edzM/3kJDqjGP0=;
+ b=e/yP0wyxuZp319I2McN+TyyWAcg7dEJzsSWBCp4wOFDD1ldEYptQvcKMi19OmgsIHm
+ QsP6KweAJwVl/iJWWrysaIZhwlbFW7jbnZ2P9DYD1D/MqI9qn/QmkACYbIfofqh71wmC
+ xahYlVpjoPqXV8EyM1+p7q80Tco6jQ3gSTxBAFDbM2BSVjCL3y/STivAO86wJfIsT8n7
+ 6I0nB1nVeCkEW8lyrH9XjGn0Xyn24I+VbfrMu9YDiBPoOS3yiODSUZb0Pp+YwtoFwFv4
+ xyWPsAsLHFxc50Qa5Yp4+7rXdpr+xjR/LwMujmaU15kkmkc9sI4iIXtRYxAcSEH9wgs5
+ esgg==
+X-Gm-Message-State: AOJu0YxoF7LieioeYjXZHgg6jak2Fd13TSbw9RzBzYZZ3cnj8UJtlh4L
+ DUKskDzItQQSLhEdWUzZRN9YskY6odpqYZTPe/Yn9lIYBEh5BaS+Pcak1j+ZIQ==
+X-Gm-Gg: ASbGnctHnf3CmiVhxg+Yl/5xJTCRvaZfgr8/L4cGfoCFu0u0KmWetDJKbo5LikoRtZb
+ WYDBLlHRU5hXz/bQgDIJ7OFv7jZ42oEBhjyNMna7BPlogHX4gsEgFs9kn0sQjFaezU6qu51LvRb
+ lFzRIpPS6JV2dQV1UpwzY9chu+vlaKp+/Usu4aQAtXpll6HWll0bdjA0oohA4HmByeag3x78mcr
+ DlE4108cXXKzgFDLVrAotyK82yA5dzt+lefSST8/f6alDrmHtIMZGt2PtIxt2VPcLzLGUOXK711
+ biYKRGAaXRHtw2nHROA5jeHXXuhuFN4rcdzaKGhLKFxT0Zgs4LpacNR1ctFw2EmBnMU7/+44TeL
+ 0BLWk9XwNZAe/0XwnPMfLw9h0nsnf09Vsseq0/jAH32HDrdhsxaLcLY6aNsxVHevzqLRVoHnli7
+ YhVbEICRTde9hv2jp3LKP4O3bs9A==
+X-Google-Smtp-Source: AGHT+IENS6A+CsjhpNzv1xl63FiNfcAk3+cIAklpoj+AdVR7NmtcDNAXmVv9u1+ByvZab/ah6KpjTw==
+X-Received: by 2002:a05:600c:4fd4:b0:459:dde3:1a27 with SMTP id
+ 5b1f17b1804b1-45b517d4160mr207246365e9.26.1756393874886; 
+ Thu, 28 Aug 2025 08:11:14 -0700 (PDT)
+Received: from Timur-Hyperion.home
+ (20014C4E24E36900D571F3015BAFEA47.dsl.pool.telekom.hu.
+ [2001:4c4e:24e3:6900:d571:f301:5baf:ea47])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b6f306bffsm77448875e9.16.2025.08.28.08.11.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Aug 2025 08:11:14 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 00/10] SI power management fixes (v3)
+Date: Thu, 28 Aug 2025 17:11:02 +0200
+Message-ID: <20250828151112.15965-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-References: <20250828071335.3948819-1-srinivasan.shanmugam@amd.com>
- <20250828071335.3948819-7-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20250828071335.3948819-7-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 28 Aug 2025 11:09:15 -0400
-X-Gm-Features: Ac12FXwqo5Vll1_mmTzvRvHio4Nh3baH6yLE2FrOEr8rn8sqouzFdyUCAN4EA1A
-Message-ID: <CADnq5_MrwnZU2RTB3wguim7iWNMDZXOOn=fGk8TtmjyNEZvgjw@mail.gmail.com>
-Subject: Re: [PATCH v3 6/9] drm/amdgpu: Implement TTM handling for MMIO_REMAP
- placement
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,121 +87,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 28, 2025 at 5:33=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> Implement TTM-level behavior for AMDGPU_PL_MMIO_REMAP so it behaves as a
-> CPU-visible IO page:
->
-> * amdgpu_evict_flags(): mark as unmovable
-> * amdgpu_res_cpu_visible(): consider CPU-visible
-> * amdgpu_bo_move(): use null move when src/dst is MMIO_REMAP
-> * amdgpu_ttm_io_mem_reserve(): program base/is_iomem/caching using
->   the device's mmio_remap_* metadata
-> * amdgpu_ttm_io_mem_pfn(): return PFN for the remapped HDP page
-> * amdgpu_ttm_tt_pde_flags(): set AMDGPU_PTE_SYSTEM for this mem type
->
-> v2:
-> - Drop HDP-specific comment; keep generic remap (Alex).
->
-> v3:
-> - Fix indentation in amdgpu_res_cpu_visible (Christian).
-> - Use adev->rmmio_remap.bus_addr for MMIO_REMAP bus/PFN calculations
->   (Alex).
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 18 +++++++++++++++---
->  1 file changed, 15 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 27ab4e754b2a..9211d250fcfb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -123,6 +123,7 @@ static void amdgpu_evict_flags(struct ttm_buffer_obje=
-ct *bo,
->         case AMDGPU_PL_GWS:
->         case AMDGPU_PL_OA:
->         case AMDGPU_PL_DOORBELL:
-> +       case AMDGPU_PL_MMIO_REMAP:
->                 placement->num_placement =3D 0;
->                 return;
->
-> @@ -447,7 +448,8 @@ bool amdgpu_res_cpu_visible(struct amdgpu_device *ade=
-v,
->                 return false;
->
->         if (res->mem_type =3D=3D TTM_PL_SYSTEM || res->mem_type =3D=3D TT=
-M_PL_TT ||
-> -           res->mem_type =3D=3D AMDGPU_PL_PREEMPT || res->mem_type =3D=
-=3D AMDGPU_PL_DOORBELL)
-> +           res->mem_type =3D=3D AMDGPU_PL_PREEMPT || res->mem_type =3D=
-=3D AMDGPU_PL_DOORBELL ||
-> +           res->mem_type =3D=3D AMDGPU_PL_MMIO_REMAP)
->                 return true;
->
->         if (res->mem_type !=3D TTM_PL_VRAM)
-> @@ -538,10 +540,12 @@ static int amdgpu_bo_move(struct ttm_buffer_object =
-*bo, bool evict,
->             old_mem->mem_type =3D=3D AMDGPU_PL_GWS ||
->             old_mem->mem_type =3D=3D AMDGPU_PL_OA ||
->             old_mem->mem_type =3D=3D AMDGPU_PL_DOORBELL ||
-> +           old_mem->mem_type =3D=3D AMDGPU_PL_MMIO_REMAP ||
->             new_mem->mem_type =3D=3D AMDGPU_PL_GDS ||
->             new_mem->mem_type =3D=3D AMDGPU_PL_GWS ||
->             new_mem->mem_type =3D=3D AMDGPU_PL_OA ||
-> -           new_mem->mem_type =3D=3D AMDGPU_PL_DOORBELL) {
-> +           new_mem->mem_type =3D=3D AMDGPU_PL_DOORBELL ||
-> +           new_mem->mem_type =3D=3D AMDGPU_PL_MMIO_REMAP) {
->                 /* Nothing to save here */
->                 amdgpu_bo_move_notify(bo, evict, new_mem);
->                 ttm_bo_move_null(bo, new_mem);
-> @@ -629,6 +633,12 @@ static int amdgpu_ttm_io_mem_reserve(struct ttm_devi=
-ce *bdev,
->                 mem->bus.is_iomem =3D true;
->                 mem->bus.caching =3D ttm_uncached;
->                 break;
-> +       case AMDGPU_PL_MMIO_REMAP:
-> +               mem->bus.offset =3D ((resource_size_t)mem->start << PAGE_=
-SHIFT);
-> +               mem->bus.offset +=3D (resource_size_t)adev->rmmio_remap.b=
-us_addr;
+This series fixes some power management issues on SI,
+addressing the feedback I got for the previous versions.
 
-You can drop the casts here.  With that fixed this patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Additionally, the following improvements were made:
 
-> +               mem->bus.is_iomem =3D true;
-> +               mem->bus.caching =3D ttm_uncached;
-> +               break;
->         default:
->                 return -EINVAL;
->         }
-> @@ -646,6 +656,8 @@ static unsigned long amdgpu_ttm_io_mem_pfn(struct ttm=
-_buffer_object *bo,
->
->         if (bo->resource->mem_type =3D=3D AMDGPU_PL_DOORBELL)
->                 return ((uint64_t)(adev->doorbell.base + cursor.start)) >=
-> PAGE_SHIFT;
-> +       else if (bo->resource->mem_type =3D=3D AMDGPU_PL_MMIO_REMAP)
-> +               return ((uint64_t)(adev->rmmio_remap.bus_addr + cursor.st=
-art)) >> PAGE_SHIFT;
->
->         return (adev->gmc.aper_base + cursor.start) >> PAGE_SHIFT;
->  }
-> @@ -1355,7 +1367,7 @@ uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm=
-, struct ttm_resource *mem)
->
->         if (mem && (mem->mem_type =3D=3D TTM_PL_TT ||
->                     mem->mem_type =3D=3D AMDGPU_PL_DOORBELL ||
-> -                   mem->mem_type =3D=3D AMDGPU_PL_PREEMPT)) {
-> +                   mem->mem_type =3D=3D AMDGPU_PL_PREEMPT || mem->mem_ty=
-pe =3D=3D AMDGPU_PL_MMIO_REMAP)) {
->                 flags |=3D AMDGPU_PTE_SYSTEM;
->
->                 if (ttm->caching =3D=3D ttm_cached)
-> --
-> 2.34.1
->
+There is now a patch that increases the SMC timeout.
+This gets rid of some errors that happened when
+switching between power states. Apparently the SMC can
+sometimes take a long time.
+
+Also removed one of the ad-hoc fixes from si_dpm because
+it didn't actually address anything, and edited that
+patch to focus on just solving the flickering on Oland.
+
+And edited the si_upload_smc_data patch yet again to
+program the soft registers to zero when there are no
+displays connected.
+
+Timur Kristóf (10):
+  drm/amdgpu: Power up UVD 3 for FW validation (v2)
+  drm/amd/pm: Disable ULV even if unsupported (v3)
+  drm/amd/pm: Increase SMC timeout on SI and warn (v3)
+  drm/amd/pm: Fix si_upload_smc_data (v3)
+  drm/amd/pm: Adjust si_upload_smc_data register programming (v3)
+  drm/amd/pm: Treat zero vblank time as too short in si_dpm (v3)
+  drm/amd/pm: Disable MCLK switching with non-DC at 120 Hz+ (v2)
+  drm/amd/pm: Disable SCLK switching on Oland with high pixel clocks
+    (v3)
+  drm/amd/pm: Remove wm_low and wm_high fields from amdgpu_crtc (v2)
+  drm/amd/pm: Print VCE clocks too in si_dpm (v3)
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h     |  2 -
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c       |  3 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c       |  3 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c        |  1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c        |  3 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c        | 29 +++++-
+ drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c |  7 ++
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c   | 93 ++++++++++++++------
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c   | 26 +++++-
+ 9 files changed, 125 insertions(+), 42 deletions(-)
+
+-- 
+2.51.0
+
