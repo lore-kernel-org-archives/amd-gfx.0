@@ -4,73 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAF82CA0FF0
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 18:27:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613FECA0FF9
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 18:30:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2556310EC27;
-	Fri, 29 Aug 2025 18:27:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 085E610EC2A;
+	Fri, 29 Aug 2025 18:30:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gIr+Ifi0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KgykjH15";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 614C710EC27;
- Fri, 29 Aug 2025 18:27:02 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-b47174b335bso369405a12.2; 
- Fri, 29 Aug 2025 11:27:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756492022; x=1757096822; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DkDLHFzMwhGrjPg06GqQv0+K8YzczfW4YoD6Re0s0a0=;
- b=gIr+Ifi05O3HWHrIFvnCj2FQZ7ffMZq8jkQRCFpXiwxY0MvnB/ux9NNgxSJ81DEZUk
- E3F5fYMKEj8q4+ibKu+2w+KZwHNt0vjWkAOQ9yEd/PnBq040/z8HQlPMdrOMkn3jzRfn
- KaG6mnqINzIJyKznv6EX9xwsoP//Ro/Y4uBSlO6dUzegr7Pp5lN7Yk1kr/CtJk7/Kwov
- joxGF7fCK614gjFsFZ8PTdNTlkhf9rzWyna8Ea2AVfvv1zBIY5Ty2PxMSJnoYuBgJFQF
- nYpVUm9UOlqe9rN+XyIuC3T4BJoRI5hMdbtMb/LtmMvX37+4yis75udw70+yZ4a6Qep4
- xthQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756492022; x=1757096822;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DkDLHFzMwhGrjPg06GqQv0+K8YzczfW4YoD6Re0s0a0=;
- b=eNrbTjdlg9+cAE+nHaqwEekrx7Ad6M5gMnVcn4+qM3zmf7sOVwd4nOBDwWyqXkeuCm
- hDIoAdZHNW2YPUyrKYkAoaAyzZ7zmiXTmGlpGZvIkXelIjWv7bWMCaBbE/8RPQUbTSQ1
- rwr0xLADGWf9X1U1YQrGSPb+KCc4e9161vZKsvsj3ItiJBbwVccT8hWNpE9wYSeO/+Nb
- 6KLLHwyofpEn+qwqsvcRBJVJ8x86+Vuc06wZFv87ikfdYJEmJIe7fmMnkmTlk1RhQ/oI
- uCwnfQJLzZb6q8ZwNrVpzFO3QkK81hTWboBs0YacetR/oZFi5mw2jzZTVeNjpij5pZ79
- rjGA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV8OWnaPFXUfxux6lRKUSUSSudViGITcQjvcZDO+LNbIl7OdNXWU5p09cOIDPF8eIz/salig3ugoOI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxxgjHzcNwXTfxRXE53dmAbclexlVbVLeZc1fTma92Ahs9TNnXU
- 0zWPlVhBFRGZqYxOuyQO8L1AlGVINSoSPL8/0vMMcEtuk32g/B9QfuHEUPMB1hepb6xNJIkCDHz
- 0VNhCo2vmN3X2Ei5sZxcYBH7daIe5lc2/jA==
-X-Gm-Gg: ASbGnctvdMAgSB/useb33B9zmemCi+/InXVhbWDsM8rw4A2qj39cWFVHwwrov0C2R1m
- HnE7j3us56yzODlpgDGjIKQjoZFWbkftQtwwqaat4Nf183BtbASFi6RR0o9ynNTdyaO5q0Mc5L9
- dpz0WHstcRr+WDleyDMx7HkqUm35ZRmE1zDZdcrO2w86Cpf89+oGQCa+tRoElDIdF4nDsF+/7jj
- RIPjlM=
-X-Google-Smtp-Source: AGHT+IFaWgOD9by+SQ/8OLiq6kJGXw7bUcexKwbwE1tkiknVjzj0JvoqLxDv5KO9XTlV8qM2PQy9fxP6box6128CsLk=
-X-Received: by 2002:a17:90b:1d92:b0:327:e34e:eb01 with SMTP id
- 98e67ed59e1d1-327f5b87d56mr1856537a91.1.1756492021824; Fri, 29 Aug 2025
- 11:27:01 -0700 (PDT)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C439810EC29
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Aug 2025 18:30:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KIyQdRThuOZ4D9rAYuzQMTJkd/jSyWYkHPe3KSZ9vWBfiCLZabmWSyIGKG4qajBn5QFDBl7JjK2LAtM54Wg9iuywP423MxvBpVlpGoR2CB2cCCCfT4cnxpC8eO9w51X2BloUZUSB90L4yKXHDUXbl4RQ7dvNhi/gCpTu5VN07rldbmIcHEe30In/JHFy/CVuFMYsMXavcVVfPJ5wt+nS2ha1QZWRjBlqnzkmCx8WP5ZJ1uwvQl4gjQZcRupPmwZ+0eUzWp3zirTU/zqIQH3SIprlKrhDBppnBNl1SJ71KBfALAVTOoKZfjVmcv+XvUerMlmEIrtyHhzzeiVO4B/WEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OC8X1MN62HetqCIBVYUX1qP9Z2bfzw/kShBBohr6pgc=;
+ b=nd9o26BGnsDo15FoyIvTv65EOmj2u/tzHntiQYKtuVS2rTuDF+nn9ElBCoHNmDTfkrBr7iscphfIthylTiqgmaTQ02KyqX3GbNP+PK/csMou0rtdBTU16rMp4jg7HoWkVxs77SVQ44NTXnY5i/zobwQN1x0YRHSGfx+GrtovgVhsmoaK/pU0hGkK+B2ao7Zk97iFVzN9lJiLo2j5P6onO6shJjX2UL2tsMCFEhjeqRZqlNk0hzm6dT8HFSQJrH5uRR9EU9aQ0zHkeDvXcoiGugOn7FObNHlI9Vl+RoT0UOJ6BhHlO9Wb4PcRC/Crt44Y97q2yHY8c9vdxatZ8l9oxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OC8X1MN62HetqCIBVYUX1qP9Z2bfzw/kShBBohr6pgc=;
+ b=KgykjH153BVO2wrfl9iB0kvTxsd3FrQPsqTyEbwlQ3bURuEsWkI+Go030xBEGLx542whmbZGklMhKt8o6igLyHxJDP/kGeUsBVGn4llv2nj3dgu0Z7DBn/5nZoGO0ju88eolIhgUKZ1XUymNGe6eOPafBSjfCczu3GsKPg+TtXI=
+Received: from CH2PR15CA0008.namprd15.prod.outlook.com (2603:10b6:610:51::18)
+ by MN0PR12MB5953.namprd12.prod.outlook.com (2603:10b6:208:37c::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.13; Fri, 29 Aug
+ 2025 18:30:34 +0000
+Received: from CH3PEPF00000011.namprd21.prod.outlook.com
+ (2603:10b6:610:51:cafe::c) by CH2PR15CA0008.outlook.office365.com
+ (2603:10b6:610:51::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.18 via Frontend Transport; Fri,
+ 29 Aug 2025 18:30:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH3PEPF00000011.mail.protection.outlook.com (10.167.244.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9115.0 via Frontend Transport; Fri, 29 Aug 2025 18:30:34 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 29 Aug
+ 2025 13:30:29 -0500
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Fri, 29 Aug
+ 2025 11:30:29 -0700
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Francis <David.Francis@amd.com>
+Subject: [PATCH] drm/amdgpu: Increment drm driver minor version for list
+ handles ioctl
+Date: Fri, 29 Aug 2025 14:30:16 -0400
+Message-ID: <20250829183016.1342823-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local>
-In-Reply-To: <20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 29 Aug 2025 14:26:50 -0400
-X-Gm-Features: Ac12FXwPhh5l0LhWYYCLOfE636IYJClXvYP9fxX_dVOB1qxyhYB1RRM4ov0IJYA
-Message-ID: <CADnq5_Oqonrth+5T-83dnFBZ67GvykkPt-9aUepJd+fUMwnupw@mail.gmail.com>
-Subject: Re: evergreen_packet3_check:... radeon 0000:1d:00.0: vbo resource
- seems too big for the bo
-To: Borislav Petkov <bp@alien8.de>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000011:EE_|MN0PR12MB5953:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28a17f81-b7c6-45d5-9fc7-08dde72a2463
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gBEzzrVFksix98iUvSIh7fQWq1TxPISRt4Pb8/YC9DwDZiaxac4wZsCxgbzN?=
+ =?us-ascii?Q?PkZFkuvmzIb4Lu2gxMie616/o9RGkKyJRrmiYE72i8sf9layoKogACUb8Sao?=
+ =?us-ascii?Q?arE5U8vdn1//v6PdxDxVv0LSVO/bQ7F3R7NARLI2utirqWWltzeLTddV2Pe/?=
+ =?us-ascii?Q?Ht5/+tHRayoglUr0HNwf7WSOhCBNIMda93w31vjHYYL6Yafqyta/kyi7UTh5?=
+ =?us-ascii?Q?z+EAIVOqy+GvggxeABxvRyWRu1u9zG3aWCpGgzDfIPUfgM6nu8Np5cXTxkc7?=
+ =?us-ascii?Q?c/ixtffaW48NDQq9GR/tOpYpolrInhUfRyrdf8ZWUyIm5rhXQcAncAqgmx07?=
+ =?us-ascii?Q?qGiKjkcy9IVcDpNzndC8FWYXIis9CeiqcX86xv19RzcsblmANJlcQpvxdZ/C?=
+ =?us-ascii?Q?fbsmxTG49hduiPc9cntNXA2UBgQ0fwMGJyNdmqFwKR81O+HPKJePPvZCWDFk?=
+ =?us-ascii?Q?KHeIJAn2usAe1fT1mguECnzSFvl9tqpA1uPaXaUedW31hUU+Il+qSj2SWQhs?=
+ =?us-ascii?Q?7LsQiQR1pAojf6tl/NVrVmGLobho6fySEWH2CxSaaU/DlZypqW5DBDBdYpqG?=
+ =?us-ascii?Q?kbMVbj6zRumVN+CHX/dbHU9dRW5DLNDERZwqxbzGhgKhA1r3GRxikLC+2A4I?=
+ =?us-ascii?Q?KLjo5iNkLU+T2a7mayna81+1wL1GNipvjdbFLy5B1tqsjb5jDcaJCn4hCyoz?=
+ =?us-ascii?Q?5hIQnnwSc5lqS6Zh16p69Yl3bt7t6EzY7dlx+CmnSodP9Ya6/w/2YSX0Ep5q?=
+ =?us-ascii?Q?CUAwoZ28QDpFU9m9C2a0ByFZA54443d4DXJafin4EJPUvMWxSvKCylhDjcf3?=
+ =?us-ascii?Q?Xmdr+SgfJre3ztEHePwzfAhyH7gjlJ60/kOzTLrzRtjRa77i8c/PrpHNQk9W?=
+ =?us-ascii?Q?49LfuIkYafd/69l72WbpDPjD6BN1LEWpTURV4DMNiyzhCn1gMUpnMuBIIdU5?=
+ =?us-ascii?Q?gs5bPLEpweMo/2PzUjLLAXWP/xvg0ZtTxlGeyd2sy/PGTX/GzbbqKvbhZvdC?=
+ =?us-ascii?Q?+OwcVe366qDDLV+GAywgLvy1LekGeOWDnFMPACMhGfSLW19vM6/qLVA2bNqO?=
+ =?us-ascii?Q?YMgEG/yqo4VZKGccRidGLWuZqTX3Q+1LHvOTG+olHMBUYIZWbVzd/vJbpzpn?=
+ =?us-ascii?Q?fb0fgEKe1lkEPjgnaP34WVzqSJZ8i83W1juFepnRjlw2/cp+fx5GbdYFVGdA?=
+ =?us-ascii?Q?/IulKcag2LrSy8sC8zDk2SBRuqjhr/jfwxFjmd6ZkvI4dpLRdBQbIdwB1w0H?=
+ =?us-ascii?Q?Yo23liL90jpWUPb0+JfExQc4PInRrpBofbzq1J2ZbOF/YCmUfRn/zcFTFVV9?=
+ =?us-ascii?Q?0eRt825CpUevPxvMS2skbkMNUYajwwgb93nprpl9nPH+xoUQDV2ciSXzpR8M?=
+ =?us-ascii?Q?MKdGH6EKWQaFQYRY2i5dgA7LJ4FG1lYrX7LiqIzwVaqxxSeXWcuoHwf8HoHw?=
+ =?us-ascii?Q?rzotTxcA/6HtuyVudLK5p1bPg+MgJSHqitoOWcv31qS/89qanGCRbQKKZfQv?=
+ =?us-ascii?Q?lc1vNauT3U3z+8pn6OBkASnlmf5VP1yndeBH?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2025 18:30:34.1073 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28a17f81-b7c6-45d5-9fc7-08dde72a2463
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000011.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5953
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,45 +135,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 29, 2025 at 1:53=E2=80=AFPM Borislav Petkov <bp@alien8.de> wrot=
-e:
->
-> Heya folks,
->
-> this flood happens with plain 6.16 on my workstation - haven't done any h=
-w
-> changes:
+With the addition of the drm ioctl
+DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES,
+the drm driver version should be incremented (to 65)
 
-Have you updated mesa?  Looks like a userspace change.
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index b42a2a32b0b7..e098a553d12b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -128,7 +128,7 @@
+  * - 3.64.0 - Userq IP support query
+  */
+ #define KMS_DRIVER_MAJOR	3
+-#define KMS_DRIVER_MINOR	64
++#define KMS_DRIVER_MINOR	65
+ #define KMS_DRIVER_PATCHLEVEL	0
+ 
+ /*
+-- 
+2.34.1
 
->
-> [   29.094609] evergreen_packet3_check: 115 callbacks suppressed
-> [   29.094615] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   29.106737] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   29.106740] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   29.106742] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   29.106745] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   29.106747] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   29.106750] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   29.106752] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   29.106754] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   29.106757] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.579786] evergreen_packet3_check: 29 callbacks suppressed
-> [   52.579792] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.591825] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.591829] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.591832] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.591835] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.591838] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.591840] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.591843] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.591846] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-> [   52.591849] radeon 0000:1d:00.0: vbo resource seems too big for the bo
->
-> --
-> Regards/Gruss,
->     Boris.
->
-> https://people.kernel.org/tglx/notes-about-netiquette
