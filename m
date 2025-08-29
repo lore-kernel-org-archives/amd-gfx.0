@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59D61CA1005
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Aug 2025 16:16:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2F6FCA0FFF
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Aug 2025 16:16:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60C5C10E339;
-	Sat, 30 Aug 2025 16:16:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 631CD10E33B;
+	Sat, 30 Aug 2025 16:16:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="Cks1foIN";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="DQXq2/uj";
 	dkim-atps=neutral
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3D0F10E28E;
- Fri, 29 Aug 2025 20:49:00 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9917D40E0176; 
- Fri, 29 Aug 2025 20:48:58 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 1HIo8XtwEOWj; Fri, 29 Aug 2025 20:48:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1756500535; bh=kkuOsSBk0lMyzox1zOeLQPDxcRHJN+ocAuOHBc3PZP4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Cks1foINE6OFW+Tiv7M8/BbnxobBbsjbjNcWwVO+MlyUQxZ1tFIoWXMyesIn93wvH
- 5TfexEGy+7nMu/JY23HtB54MW1wTXBNMUSAoY19toCfivVOudSyZjtC8ri0faCnMiy
- N5uIvbyifLq+IxOOOrZ64hxFaJhLsf/Tm5b4BGvheerF5VsjTl6WVuanrfJFAyuSks
- 05QGSpei7pU5Ecz5RxCbkR2UDsG3IgZVPZ9XqkRB2/prSoO47P41j92ojKavCiAHGV
- TVV0PG3dVYMlnxI5QquqVgEPBqHkG+U9IFRf/jAUjrwQFyAFrY1yzaWuSvRxPAFthn
- f9OzvjKrRWxxPrhOwhq4bzOUhuIZbmfGO1LR0of0+5ZIl/j0V2/Wr0woTsuM0U9j0U
- vAUZknYZ8Eycp7NCTijxciAQdE/gjQTk+wxX1ypak0OStd/ZWadkMFDgc6+riwD76N
- TxDHQmMxs+6xnS35tw0Y6vJUtmC7wF12CXX6pzgefok6MeNtPGeDBmt1BTt1RIi4Ep
- zQuuIgwLnPfy4E3JO5QyTpe53bAu6/jyHdqxt12S1ltQHO/HlclBp+QX67lxAjM733
- OsqIOKSjVGMJdnkv/dkdqPPO5F/N/GtmXwB787FuDcc4RcI00FizNRKYwmk/eah/pG
- Mpk/90nsCbpfrts5uqD9Eb5U=
-Received: from zn.tnic (pd953092e.dip0.t-ipconnect.de [217.83.9.46])
+Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2181D10EBF0;
+ Fri, 29 Aug 2025 14:57:53 +0000 (UTC)
+Received: from relay12 (localhost [127.0.0.1])
+ by relay12.grserver.gr (Proxmox) with ESMTP id B5F29BDE9C;
+ Fri, 29 Aug 2025 17:57:51 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
- 2884440E016E; Fri, 29 Aug 2025 20:48:49 +0000 (UTC)
-Date: Fri, 29 Aug 2025 22:48:40 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: evergreen_packet3_check:... radeon 0000:1d:00.0: vbo resource
- seems too big for the bo
-Message-ID: <20250829204840.GEaLISKGTwuScnDF8Y@fat_crate.local>
-References: <20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local>
- <CADnq5_Oqonrth+5T-83dnFBZ67GvykkPt-9aUepJd+fUMwnupw@mail.gmail.com>
- <20250829194044.GCaLICPKJcGJRYdSfO@fat_crate.local>
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by relay12.grserver.gr (Proxmox) with ESMTPS id 1B8C4BCF58;
+ Fri, 29 Aug 2025 17:57:51 +0300 (EEST)
+Received: from antheas-z13 (x5996a855.customers.hiper-net.dk [89.150.168.85])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id 3F50F2067F3;
+ Fri, 29 Aug 2025 17:57:50 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+ s=default; t=1756479470;
+ bh=6RKE2eX0bGesXYi+c9kmIa8eVlQw2K/rKlycX1Jf8cs=; h=From:To:Subject;
+ b=DQXq2/ujGqWBGmQ+W0N46qaT72q3pW1kP53ZseX35g040qmLvhs2bws0nSDsRjk8x
+ yRkiC4wnBY2javTB/TY2h2hbVXN45GtP6CNir7D6p+ZxcO/6OVKTh5eqLcxXF4IoZy
+ WnR9Xz2eJ/HvhtE/54xRRrxcDngu6eFEXPWu1BBnbAT2uuaQ8a58ezuA/uu3Lk1jPd
+ DhxVq20BMimvnjh6uAEHnNlE/OIt0NsxnIrEIdVxYLUAdizr5FeJ/Gf9nuGO1Ob8+O
+ rhXq9v/+rGcezWxAhxurEsuC9UQqfPIgGh0rQDcgDm2m9CKyXu+gSYpMzCca6XWu1e
+ ga8XlqzJIJzNg==
+Authentication-Results: linux3247.grserver.gr;
+ spf=pass (sender IP is 89.150.168.85) smtp.mailfrom=lkml@antheas.dev
+ smtp.helo=antheas-z13
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+From: Antheas Kapenekakis <lkml@antheas.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ philm@manjaro.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Antheas Kapenekakis <lkml@antheas.dev>
+Subject: [PATCH v3 6/6] drm: panel-backlight-quirks: Log applied panel
+ brightness quirks
+Date: Fri, 29 Aug 2025 16:55:41 +0200
+Message-ID: <20250829145541.512671-7-lkml@antheas.dev>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20250829145541.512671-1-lkml@antheas.dev>
+References: <20250829145541.512671-1-lkml@antheas.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250829194044.GCaLICPKJcGJRYdSfO@fat_crate.local>
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <175647947078.278157.16049391296817176052@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
+X-Virus-Status: Clean
 X-Mailman-Approved-At: Sat, 30 Aug 2025 16:16:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,93 +76,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 29, 2025 at 09:40:44PM +0200, Borislav Petkov wrote:
-> On Fri, Aug 29, 2025 at 02:26:50PM -0400, Alex Deucher wrote:
-> > Have you updated mesa?  Looks like a userspace change.
-> 
-> Yeah, I did a long overdue OS upgrade today:
-> 
-> $ grep -i mesa /var/log/dpkg.log
+Currently, when a panel brightness quirk is applied, there is no log
+indicating that a quirk was applied. Unwrap the drm device on its own
+and use drm_info() to log when a quirk is applied.
 
-Btw, this thing:
+Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-                                if (p->rdev && (size + offset) > radeon_bo_size(reloc->robj)) {
-                                        /* force size to size of the buffer */
-                                        dev_warn_ratelimited(p->dev, "vbo resource seems too big for the bo\n");
-                                        ib[idx+1+(i*8)+1] = radeon_bo_size(reloc->robj) - offset;
-                                }
-
-is yet another example of useless flooding of dmesg.
-
-It's not like I can do anything about it except report it. And that thing
-fires every 5s or so.
-
-You could consider turning that into a _once thing and be done with it.
-
-And someone already ratelimited them:
-
-59d76d6bc206 ("drm/radeon: ratelimit bo warnings")
-
-but it ain't enough.
-
-$ dmesg | grep "vbo resource" | wc -l
-22393
-
-So even if I go and find which commit added it:
-
-  cb5fcbd540b4 ("drm/radeon/kms/evergreen: add initial CS parser")
-
-I'm still none the wiser. And I'm not even a normal user - I have seen kernel
-code in the past :-)
-
-Hell, I don't even know what CS is...
-
-/me goes and searches the web a bit...
-
-Aha, it could be a command submission parser or so. Still have no clue what
-this warning is telling me.
-
-Going back to searching the web...
-
-ok, so it looks like this is validating some packet3 set resource thing and
-when the resource type? is a SQ_TEX_VTX_VALID_BUFFER - perhaps a valid vertex
-buffer? Vertex buffer I understand. But texture vertex buffer?
-
-Anyway, it checks whether the vbo (vertex buffer object?) resource is
-too big for the buffer object which has gotten as some sort of a relocation
-packet 3 thing...
-
-And I still have no clue what is going on. Perhaps the new MESA is sending
-wrong command types, who knows.
-
-I absolutely cannot fix it - that's for sure.
-
-And so this rambling of mine confirms my old theory that the warning and error
-messages we put in the kernel are not really useful. Especially to users.
-
-Because there isn't a whole lot they can do about them except reporting them
-to those who can actually do something about.
-
-I.e., those messages might as well be hashes which we can stick into a lookup
-table to fish out a longer string which tells us what is going on.
-
-So I *think* you should make this a once message or *at* *least* ratelimit the
-hell of it so that it appears very seldomly. The rule of thumb should be what
-you want this message to do?
-
-To make a user report it to you?
-
-Or something else?
-
-In any case, I am already very picky with the error messages visible to users
-in the code I'm maintaining, this'll make me be even stricter.
-
-Oh well.
-
-Thanks for listening. :-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 263f15f6fdea..2a3e17d83d6e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3617,13 +3617,15 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+ 	struct drm_connector *conn_base;
+ 	struct amdgpu_device *adev;
+ 	struct drm_luminance_range_info *luminance_range;
++	struct drm_device *drm;
+ 
+ 	if (aconnector->bl_idx == -1 ||
+ 	    aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
+ 		return;
+ 
+ 	conn_base = &aconnector->base;
+-	adev = drm_to_adev(conn_base->dev);
++	drm = conn_base->dev;
++	adev = drm_to_adev(drm);
+ 
+ 	caps = &adev->dm.backlight_caps[aconnector->bl_idx];
+ 	caps->ext_caps = &aconnector->dc_link->dpcd_sink_ext_caps;
+@@ -3659,12 +3661,20 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+ 	panel_backlight_quirk =
+ 		drm_get_panel_backlight_quirk(aconnector->drm_edid);
+ 	if (!IS_ERR_OR_NULL(panel_backlight_quirk)) {
+-		if (panel_backlight_quirk->min_brightness)
++		if (panel_backlight_quirk->min_brightness) {
++			drm_info(drm,
++				 "Applying panel backlight quirk, min_brightness: %d\n",
++				 panel_backlight_quirk->min_brightness);
+ 			caps->min_input_signal =
+ 				panel_backlight_quirk->min_brightness - 1;
+-		if (panel_backlight_quirk->brightness_mask)
++		}
++		if (panel_backlight_quirk->brightness_mask) {
++			drm_info(drm,
++				 "Applying panel backlight quirk, brightness_mask: 0x%X\n",
++				 panel_backlight_quirk->brightness_mask);
+ 			caps->brightness_mask =
+ 				panel_backlight_quirk->brightness_mask;
++		}
+ 	}
+ }
+ 
 -- 
-Regards/Gruss,
-    Boris.
+2.51.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
+
