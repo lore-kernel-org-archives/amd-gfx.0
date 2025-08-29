@@ -4,73 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71A9DCA0FFF
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Aug 2025 16:16:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C93C8CA1000
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Aug 2025 16:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F09210E32D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB93F10E336;
 	Sat, 30 Aug 2025 16:16:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="TqUuHgBs";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="ONQMKR8G";
 	dkim-atps=neutral
 Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 360FB10EBF6;
- Fri, 29 Aug 2025 15:01:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1415910EBF0;
+ Fri, 29 Aug 2025 14:57:52 +0000 (UTC)
 Received: from relay12 (localhost [127.0.0.1])
- by relay12.grserver.gr (Proxmox) with ESMTP id D1E8ABDD1C;
- Fri, 29 Aug 2025 18:01:34 +0300 (EEST)
+ by relay12.grserver.gr (Proxmox) with ESMTP id 99C97BDDEA;
+ Fri, 29 Aug 2025 17:57:50 +0300 (EEST)
 Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by relay12.grserver.gr (Proxmox) with ESMTPS id 0961FBDCDE;
- Fri, 29 Aug 2025 18:01:34 +0300 (EEST)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id 72FD2206A57;
- Fri, 29 Aug 2025 18:01:33 +0300 (EEST)
+ by relay12.grserver.gr (Proxmox) with ESMTPS id 67E89BDE02;
+ Fri, 29 Aug 2025 17:57:49 +0300 (EEST)
+Received: from antheas-z13 (x5996a855.customers.hiper-net.dk [89.150.168.85])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id 8DB132018C3;
+ Fri, 29 Aug 2025 17:57:48 +0300 (EEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1756479693;
- bh=1U1DVmXJsHIcYVFTEM7DLCbaTODSc/fo7E8poybOfSY=;
- h=Received:From:Subject:To;
- b=TqUuHgBsKB68zeDa7u9hG2gNOYhoYFqchDtCi+s9f2baST7FdnvOKutzqdg34SBX1
- HZvoK8i4/q0QvKfT6kqL7YID3+UW8iiC3+aydjXYCqJwk4Ppe5a/vG9tzYz0fXMu5E
- 68HTppw15c9GTADLjS738IElPHei9qmnKTStK8bfWJgzrECs9DVk8cfzOH6p2urTpw
- eWv9dUfRJkC683P1ZK+pHkQRsokipzSjN0MywUi0/1oCdIIBpqVpnCVQFWd83t8vm9
- VmAPyEypbxRKqJE3E3mBIxAWps3Df8qAv9E50giXN2Ry7D6VpRTCHeWIsCOnFemVHf
- c/OA4sm2zCSNg==
+ s=default; t=1756479469;
+ bh=AWOXbXinCzQ2Goffljex4rLLR3iTRPeFRtaMnsJKfCA=; h=From:To:Subject;
+ b=ONQMKR8GLNse3Dxcvz2nsjPNyOWEHwqySq3KayZDiqzH0YGXvPjmTq1LRs0PaSqOW
+ MIxUDFZSdqPN9cPpvLyV5uN+bKTbyNTjqdZeoRwRtq5uepjpw+Zz+esn6K8gzNVmvb
+ IQaO7U/pNGEWgXi5m5nZA6MW18llw944UOBO2J6GOJypjSSf+fnnA/vdOvHUa/KDQs
+ nngV/nVjLW8vHoZpqqcKExwop5atm1gFvifk4J6KSJQSugaYYVfLTTm/ZwGtkLpziS
+ 47qhxq5T3ovv+Ku8cYHYqJ2R4BaAClgJXsW/rWWasRN3DZLZohCHM+aFucHZn3y10v
+ KTK0PPykJJ4RQ==
 Authentication-Results: linux3247.grserver.gr;
- spf=pass (sender IP is 209.85.208.171) smtp.mailfrom=lkml@antheas.dev
- smtp.helo=mail-lj1-f171.google.com
+ spf=pass (sender IP is 89.150.168.85) smtp.mailfrom=lkml@antheas.dev
+ smtp.helo=antheas-z13
 Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-336b63d2e56so7910931fa.2;
- Fri, 29 Aug 2025 08:01:33 -0700 (PDT)
-X-Gm-Message-State: AOJu0Yy2/pqNBGJciDzyTOkHdsWQ3xSzJnYjL8xWscGE/ItpQc6w933n
- BviqgvdT1rmXKIEWMxQd3CcGH82ArKrmPBIjAx9cYlHILnuI0XrTrJFRlNWLO70JuCc1yjgPKLg
- ewQNrbqQhEBNxWflWI7u0JFMMd7xq02I=
-X-Google-Smtp-Source: AGHT+IHRhoVyBnlmRNxs8S4Qk6bIkWtYHJDTpiDTM7YphEyV8RPt1frLfQbtcxA0P5mt9fmdAI2jSHQkivKLQ3CsG7M=
-X-Received: by 2002:a2e:be03:0:b0:336:7eed:2f8f with SMTP id
- 38308e7fff4ca-3367eed3c67mr53490721fa.32.1756479693034; Fri, 29 Aug 2025
- 08:01:33 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250829145541.512671-1-lkml@antheas.dev>
- <20250829145541.512671-7-lkml@antheas.dev>
-In-Reply-To: <20250829145541.512671-7-lkml@antheas.dev>
 From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Fri, 29 Aug 2025 17:01:21 +0200
-X-Gmail-Original-Message-ID: <CAGwozwHaWPwy6_LTvTy4ybdrN27fEXc-GbhYEt4_cM88_VGYPA@mail.gmail.com>
-X-Gm-Features: Ac12FXwc-70TdRRuQwuWkUdiF-RAPppFFl03l0G0vTZarpoHRqwXFyxp5Symuao
-Message-ID: <CAGwozwHaWPwy6_LTvTy4ybdrN27fEXc-GbhYEt4_cM88_VGYPA@mail.gmail.com>
-Subject: Re: [PATCH v3 6/6] drm: panel-backlight-quirks: Log applied panel
- brightness quirks
 To: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  philm@manjaro.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
- Robert Beckett <bob.beckett@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: <175647969370.293109.2353577295138115310@linux3247.grserver.gr>
+ Robert Beckett <bob.beckett@collabora.com>,
+ Antheas Kapenekakis <lkml@antheas.dev>
+Subject: [PATCH v3 4/6] drm: panel-backlight-quirks: Add brightness mask quirk
+Date: Fri, 29 Aug 2025 16:55:39 +0200
+Message-ID: <20250829145541.512671-5-lkml@antheas.dev>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20250829145541.512671-1-lkml@antheas.dev>
+References: <20250829145541.512671-1-lkml@antheas.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <175647946909.278092.16277961246646507136@linux3247.grserver.gr>
 X-PPP-Vhost: antheas.dev
 X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
 X-Virus-Status: Clean
@@ -89,67 +76,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 29 Aug 2025 at 16:57, Antheas Kapenekakis <lkml@antheas.dev> wrote:
->
-> Currently, when a panel brightness quirk is applied, there is no log
-> indicating that a quirk was applied. Unwrap the drm device on its own
-> and use drm_info() to log when a quirk is applied.
->
-> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 263f15f6fdea..2a3e17d83d6e 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3617,13 +3617,15 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
->         struct drm_connector *conn_base;
->         struct amdgpu_device *adev;
->         struct drm_luminance_range_info *luminance_range;
-> +       struct drm_device *drm;
->
->         if (aconnector->bl_idx == -1 ||
->             aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
->                 return;
->
->         conn_base = &aconnector->base;
-> -       adev = drm_to_adev(conn_base->dev);
-> +       drm = conn_base->dev;
-> +       adev = drm_to_adev(drm);
->
->         caps = &adev->dm.backlight_caps[aconnector->bl_idx];
->         caps->ext_caps = &aconnector->dc_link->dpcd_sink_ext_caps;
-> @@ -3659,12 +3661,20 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
->         panel_backlight_quirk =
->                 drm_get_panel_backlight_quirk(aconnector->drm_edid);
->         if (!IS_ERR_OR_NULL(panel_backlight_quirk)) {
-> -               if (panel_backlight_quirk->min_brightness)
-> +               if (panel_backlight_quirk->min_brightness) {
-> +                       drm_info(drm,
-> +                                "Applying panel backlight quirk, min_brightness: %d\n",
-> +                                panel_backlight_quirk->min_brightness);
+Certain OLED devices malfunction on specific brightness levels.
+Specifically, when DP_SOURCE_BACKLIGHT_LEVEL is written to with
+the first byte being 0x00 and sometimes 0x01, the panel forcibly
+turns off until the device sleeps again.
 
-mmm, needs a -1 here
+Below are some examples. This was found by iterating over brighness
+ranges while printing DP_SOURCE_BACKLIGHT_LEVEL. It was found that
+the screen would malfunction on specific values, and some of them
+were collected.
 
->                         caps->min_input_signal =
->                                 panel_backlight_quirk->min_brightness - 1;
-> -               if (panel_backlight_quirk->brightness_mask)
-> +               }
-> +               if (panel_backlight_quirk->brightness_mask) {
-> +                       drm_info(drm,
-> +                                "Applying panel backlight quirk, brightness_mask: 0x%X\n",
-> +                                panel_backlight_quirk->brightness_mask);
->                         caps->brightness_mask =
->                                 panel_backlight_quirk->brightness_mask;
-> +               }
->         }
->  }
->
-> --
-> 2.51.0
->
->
+Therefore, introduce a quirk where the minor byte of brightness is
+OR'd with 0x03 to avoid the range of invalid values.
+
+This quirk was tested by removing the workarounds and iterating
+from 0 to 50_000 value ranges with a cadence of 0.2s/it. The
+range of the panel is 1000...400_000, so the values were slightly
+interpolated during testing. The custom brightness curve added on
+6.15 was disabled.
+
+ 86016:  10101000000000000
+ 86272:  10101000100000000
+ 87808:  10101011100000000
+251648: 111101011100000000
+251649: 111101011100000001
+
+ 86144:  10101000010000000
+ 87809:  10101011100000001
+251650: 111101011100000010
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3803
+Tested-by: Philip Müller <philm@manjaro.org>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 ++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  5 +++
+ drivers/gpu/drm/drm_panel_backlight_quirks.c  | 36 +++++++++++++++++++
+ include/drm/drm_utils.h                       |  1 +
+ 4 files changed, 49 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b967c6952e11..263f15f6fdea 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3662,6 +3662,9 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+ 		if (panel_backlight_quirk->min_brightness)
+ 			caps->min_input_signal =
+ 				panel_backlight_quirk->min_brightness - 1;
++		if (panel_backlight_quirk->brightness_mask)
++			caps->brightness_mask =
++				panel_backlight_quirk->brightness_mask;
+ 	}
+ }
+ 
+@@ -4862,6 +4865,10 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
+ 	link = (struct dc_link *)dm->backlight_link[bl_idx];
+ 
++	/* Apply brightness quirk */
++	if (caps->brightness_mask)
++		brightness |= caps->brightness_mask;
++
+ 	/* Change brightness based on AUX property */
+ 	mutex_lock(&dm->dc_lock);
+ 	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index b937da0a4e4a..60ce2ceb653a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -200,6 +200,11 @@ struct amdgpu_dm_backlight_caps {
+ 	 * @aux_support: Describes if the display supports AUX backlight.
+ 	 */
+ 	bool aux_support;
++	/**
++	 * @brightness_mask: After deriving brightness, OR it with this mask.
++	 * Workaround for panels with issues with certain brightness values.
++	 */
++	u32 brightness_mask;
+ 	/**
+ 	 * @ac_level: the default brightness if booted on AC
+ 	 */
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index 3d386a96e50e..2bdbd5583d32 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -45,6 +45,42 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
+ 		.ident.name = "NE135A1M-NY1",
+ 		.quirk = { .min_brightness = 1, },
+ 	},
++	/* Have OLED Panels with brightness issue when last byte is 0/1 */
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "AYANEO",
++		.dmi_match_other.field = DMI_PRODUCT_NAME,
++		.dmi_match_other.value = "AYANEO 3",
++		.quirk = { .brightness_mask = 3, },
++	},
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "ZOTAC",
++		.dmi_match_other.field = DMI_BOARD_NAME,
++		.dmi_match_other.value = "G0A1W",
++		.quirk = { .brightness_mask = 3, },
++	},
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "ZOTAC",
++		.dmi_match_other.field = DMI_BOARD_NAME,
++		.dmi_match_other.value = "G1A1W",
++		.quirk = { .brightness_mask = 3, },
++	},
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "ONE-NETBOOK",
++		.dmi_match_other.field = DMI_PRODUCT_NAME,
++		.dmi_match_other.value = "ONEXPLAYER F1Pro",
++		.quirk = { .brightness_mask = 3, },
++	},
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "ONE-NETBOOK",
++		.dmi_match_other.field = DMI_PRODUCT_NAME,
++		.dmi_match_other.value = "ONEXPLAYER F1 EVA-02",
++		.quirk = { .brightness_mask = 3, },
++	},
+ };
+ 
+ static bool drm_panel_min_backlight_quirk_matches(
+diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+index 82eeee4a58ab..6a46f755daba 100644
+--- a/include/drm/drm_utils.h
++++ b/include/drm/drm_utils.h
+@@ -18,6 +18,7 @@ int drm_get_panel_orientation_quirk(int width, int height);
+ 
+ struct drm_panel_backlight_quirk {
+ 	u16 min_brightness;
++	u32 brightness_mask;
+ };
+ 
+ const struct drm_panel_backlight_quirk *
+-- 
+2.51.0
+
 
