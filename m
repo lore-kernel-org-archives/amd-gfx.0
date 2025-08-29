@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C93C8CA1000
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EBD2CA1001
 	for <amd-gfx@archiver.kernel.org>; Sat, 30 Aug 2025 16:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB93F10E336;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70FF410E2D6;
 	Sat, 30 Aug 2025 16:16:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="ONQMKR8G";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="HLmNaUj+";
 	dkim-atps=neutral
 Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1415910EBF0;
- Fri, 29 Aug 2025 14:57:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDC5610EBEE;
+ Fri, 29 Aug 2025 14:57:49 +0000 (UTC)
 Received: from relay12 (localhost [127.0.0.1])
- by relay12.grserver.gr (Proxmox) with ESMTP id 99C97BDDEA;
- Fri, 29 Aug 2025 17:57:50 +0300 (EEST)
+ by relay12.grserver.gr (Proxmox) with ESMTP id 65888BDDF0;
+ Fri, 29 Aug 2025 17:57:48 +0300 (EEST)
 Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by relay12.grserver.gr (Proxmox) with ESMTPS id 67E89BDE02;
- Fri, 29 Aug 2025 17:57:49 +0300 (EEST)
+ by relay12.grserver.gr (Proxmox) with ESMTPS id A6F64BDCD5;
+ Fri, 29 Aug 2025 17:57:47 +0300 (EEST)
 Received: from antheas-z13 (x5996a855.customers.hiper-net.dk [89.150.168.85])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id 8DB132018C3;
- Fri, 29 Aug 2025 17:57:48 +0300 (EEST)
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id BF3A32018CC;
+ Fri, 29 Aug 2025 17:57:46 +0300 (EEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1756479469;
- bh=AWOXbXinCzQ2Goffljex4rLLR3iTRPeFRtaMnsJKfCA=; h=From:To:Subject;
- b=ONQMKR8GLNse3Dxcvz2nsjPNyOWEHwqySq3KayZDiqzH0YGXvPjmTq1LRs0PaSqOW
- MIxUDFZSdqPN9cPpvLyV5uN+bKTbyNTjqdZeoRwRtq5uepjpw+Zz+esn6K8gzNVmvb
- IQaO7U/pNGEWgXi5m5nZA6MW18llw944UOBO2J6GOJypjSSf+fnnA/vdOvHUa/KDQs
- nngV/nVjLW8vHoZpqqcKExwop5atm1gFvifk4J6KSJQSugaYYVfLTTm/ZwGtkLpziS
- 47qhxq5T3ovv+Ku8cYHYqJ2R4BaAClgJXsW/rWWasRN3DZLZohCHM+aFucHZn3y10v
- KTK0PPykJJ4RQ==
+ s=default; t=1756479467;
+ bh=HHK+g2DZ8i8mkVPMcYzml+I2hLTWhk/vBCh7AySeRAI=; h=From:To:Subject;
+ b=HLmNaUj+0fFO/3OQBrKPMtwkSLBsuB1b/J1C+5rZ5L1TfauDt1IQEcIoD7722jY1m
+ vcqcbL3s+4xvn71wL7gRidpHFcH1YI67FbNeLoq9ZN4ik1OBFgOV7HmaCkj7Zy+WJ5
+ R7qJjos0zTGty7fgMTBQ+KXRjT2kTSkKoBIay74esK3MZZiy3hioIAZ+bobTYg0OF8
+ RTraamdMkl9uCB8yTfXnOWyXULXjtMO0woMZFN7WXzb6OdKitCzlHlC1e2wlJOahFi
+ 6+3TQYjWkl849wotKG1sNi6ppWnKCcI4J96VqduYS1vQoDCl8nftq4nep0uzsQHP0v
+ 4m7gZ6tG3Szmg==
 Authentication-Results: linux3247.grserver.gr;
  spf=pass (sender IP is 89.150.168.85) smtp.mailfrom=lkml@antheas.dev
  smtp.helo=antheas-z13
@@ -48,16 +48,17 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Mario Limonciello <mario.limonciello@amd.com>,
  Robert Beckett <bob.beckett@collabora.com>,
  Antheas Kapenekakis <lkml@antheas.dev>
-Subject: [PATCH v3 4/6] drm: panel-backlight-quirks: Add brightness mask quirk
-Date: Fri, 29 Aug 2025 16:55:39 +0200
-Message-ID: <20250829145541.512671-5-lkml@antheas.dev>
+Subject: [PATCH v3 2/6] drm: panel-backlight-quirks: Convert brightness quirk
+ to generic structure
+Date: Fri, 29 Aug 2025 16:55:37 +0200
+Message-ID: <20250829145541.512671-3-lkml@antheas.dev>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250829145541.512671-1-lkml@antheas.dev>
 References: <20250829145541.512671-1-lkml@antheas.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <175647946909.278092.16277961246646507136@linux3247.grserver.gr>
+X-PPP-Message-ID: <175647946730.278009.5728958328614822021@linux3247.grserver.gr>
 X-PPP-Vhost: antheas.dev
 X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
 X-Virus-Status: Clean
@@ -76,146 +77,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Certain OLED devices malfunction on specific brightness levels.
-Specifically, when DP_SOURCE_BACKLIGHT_LEVEL is written to with
-the first byte being 0x00 and sometimes 0x01, the panel forcibly
-turns off until the device sleeps again.
+Currently, the brightness quirk is limited to minimum brightness only.
+Refactor it to a structure, so that more quirks can be added in the
+future. Reserve 0 value for "no quirk", and use u16 to allow minimum
+brightness up to 255.
 
-Below are some examples. This was found by iterating over brighness
-ranges while printing DP_SOURCE_BACKLIGHT_LEVEL. It was found that
-the screen would malfunction on specific values, and some of them
-were collected.
-
-Therefore, introduce a quirk where the minor byte of brightness is
-OR'd with 0x03 to avoid the range of invalid values.
-
-This quirk was tested by removing the workarounds and iterating
-from 0 to 50_000 value ranges with a cadence of 0.2s/it. The
-range of the panel is 1000...400_000, so the values were slightly
-interpolated during testing. The custom brightness curve added on
-6.15 was disabled.
-
- 86016:  10101000000000000
- 86272:  10101000100000000
- 87808:  10101011100000000
-251648: 111101011100000000
-251649: 111101011100000001
-
- 86144:  10101000010000000
- 87809:  10101011100000001
-251650: 111101011100000010
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3803
 Tested-by: Philip Müller <philm@manjaro.org>
 Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 ++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  5 +++
- drivers/gpu/drm/drm_panel_backlight_quirks.c  | 36 +++++++++++++++++++
- include/drm/drm_utils.h                       |  1 +
- 4 files changed, 49 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++--
+ drivers/gpu/drm/drm_panel_backlight_quirks.c  | 41 ++++++++++---------
+ include/drm/drm_utils.h                       |  7 +++-
+ 3 files changed, 35 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index b967c6952e11..263f15f6fdea 100644
+index a0ca3b2c6bd8..b967c6952e11 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3662,6 +3662,9 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 		if (panel_backlight_quirk->min_brightness)
- 			caps->min_input_signal =
- 				panel_backlight_quirk->min_brightness - 1;
-+		if (panel_backlight_quirk->brightness_mask)
-+			caps->brightness_mask =
-+				panel_backlight_quirk->brightness_mask;
- 	}
+@@ -3612,11 +3612,11 @@ static struct drm_mode_config_helper_funcs amdgpu_dm_mode_config_helperfuncs = {
+ 
+ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+ {
++	const struct drm_panel_backlight_quirk *panel_backlight_quirk;
+ 	struct amdgpu_dm_backlight_caps *caps;
+ 	struct drm_connector *conn_base;
+ 	struct amdgpu_device *adev;
+ 	struct drm_luminance_range_info *luminance_range;
+-	int min_input_signal_override;
+ 
+ 	if (aconnector->bl_idx == -1 ||
+ 	    aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
+@@ -3656,9 +3656,13 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+ 	else
+ 		caps->aux_min_input_signal = 1;
+ 
+-	min_input_signal_override = drm_get_panel_min_brightness_quirk(aconnector->drm_edid);
+-	if (min_input_signal_override >= 0)
+-		caps->min_input_signal = min_input_signal_override;
++	panel_backlight_quirk =
++		drm_get_panel_backlight_quirk(aconnector->drm_edid);
++	if (!IS_ERR_OR_NULL(panel_backlight_quirk)) {
++		if (panel_backlight_quirk->min_brightness)
++			caps->min_input_signal =
++				panel_backlight_quirk->min_brightness - 1;
++	}
  }
  
-@@ -4862,6 +4865,10 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
- 	link = (struct dc_link *)dm->backlight_link[bl_idx];
- 
-+	/* Apply brightness quirk */
-+	if (caps->brightness_mask)
-+		brightness |= caps->brightness_mask;
-+
- 	/* Change brightness based on AUX property */
- 	mutex_lock(&dm->dc_lock);
- 	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index b937da0a4e4a..60ce2ceb653a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -200,6 +200,11 @@ struct amdgpu_dm_backlight_caps {
- 	 * @aux_support: Describes if the display supports AUX backlight.
- 	 */
- 	bool aux_support;
-+	/**
-+	 * @brightness_mask: After deriving brightness, OR it with this mask.
-+	 * Workaround for panels with issues with certain brightness values.
-+	 */
-+	u32 brightness_mask;
- 	/**
- 	 * @ac_level: the default brightness if booted on AC
- 	 */
+ DEFINE_FREE(sink_release, struct dc_sink *, if (_T) dc_sink_release(_T))
 diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-index 3d386a96e50e..2bdbd5583d32 100644
+index b38b33e26ea5..702726c20ccc 100644
 --- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
 +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-@@ -45,6 +45,42 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
- 		.ident.name = "NE135A1M-NY1",
- 		.quirk = { .min_brightness = 1, },
- 	},
-+	/* Have OLED Panels with brightness issue when last byte is 0/1 */
-+	{
-+		.dmi_match.field = DMI_SYS_VENDOR,
-+		.dmi_match.value = "AYANEO",
-+		.dmi_match_other.field = DMI_PRODUCT_NAME,
-+		.dmi_match_other.value = "AYANEO 3",
-+		.quirk = { .brightness_mask = 3, },
-+	},
-+	{
-+		.dmi_match.field = DMI_SYS_VENDOR,
-+		.dmi_match.value = "ZOTAC",
-+		.dmi_match_other.field = DMI_BOARD_NAME,
-+		.dmi_match_other.value = "G0A1W",
-+		.quirk = { .brightness_mask = 3, },
-+	},
-+	{
-+		.dmi_match.field = DMI_SYS_VENDOR,
-+		.dmi_match.value = "ZOTAC",
-+		.dmi_match_other.field = DMI_BOARD_NAME,
-+		.dmi_match_other.value = "G1A1W",
-+		.quirk = { .brightness_mask = 3, },
-+	},
-+	{
-+		.dmi_match.field = DMI_SYS_VENDOR,
-+		.dmi_match.value = "ONE-NETBOOK",
-+		.dmi_match_other.field = DMI_PRODUCT_NAME,
-+		.dmi_match_other.value = "ONEXPLAYER F1Pro",
-+		.quirk = { .brightness_mask = 3, },
-+	},
-+	{
-+		.dmi_match.field = DMI_SYS_VENDOR,
-+		.dmi_match.value = "ONE-NETBOOK",
-+		.dmi_match_other.field = DMI_PRODUCT_NAME,
-+		.dmi_match_other.value = "ONEXPLAYER F1 EVA-02",
-+		.quirk = { .brightness_mask = 3, },
-+	},
+@@ -8,23 +8,23 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_utils.h>
+ 
+-struct drm_panel_min_backlight_quirk {
++struct drm_get_panel_backlight_quirk {
+ 	struct {
+ 		enum dmi_field field;
+ 		const char * const value;
+ 	} dmi_match;
+ 	struct drm_edid_ident ident;
+-	u8 min_brightness;
++	struct drm_panel_backlight_quirk quirk;
  };
  
- static bool drm_panel_min_backlight_quirk_matches(
+-static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks[] = {
++static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks[] = {
+ 	/* 13 inch matte panel */
+ 	{
+ 		.dmi_match.field = DMI_BOARD_VENDOR,
+ 		.dmi_match.value = "Framework",
+ 		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0bca),
+ 		.ident.name = "NE135FBM-N41",
+-		.min_brightness = 0,
++		.quirk = { .min_brightness = 1, },
+ 	},
+ 	/* 13 inch glossy panel */
+ 	{
+@@ -32,7 +32,7 @@ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks
+ 		.dmi_match.value = "Framework",
+ 		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x095f),
+ 		.ident.name = "NE135FBM-N41",
+-		.min_brightness = 0,
++		.quirk = { .min_brightness = 1, },
+ 	},
+ 	/* 13 inch 2.8k panel */
+ 	{
+@@ -40,12 +40,13 @@ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks
+ 		.dmi_match.value = "Framework",
+ 		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0cb4),
+ 		.ident.name = "NE135A1M-NY1",
+-		.min_brightness = 0,
++		.quirk = { .min_brightness = 1, },
+ 	},
+ };
+ 
+-static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_backlight_quirk *quirk,
+-						  const struct drm_edid *edid)
++static bool drm_panel_min_backlight_quirk_matches(
++	const struct drm_get_panel_backlight_quirk *quirk,
++	const struct drm_edid *edid)
+ {
+ 	if (!dmi_match(quirk->dmi_match.field, quirk->dmi_match.value))
+ 		return false;
+@@ -57,39 +58,39 @@ static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_bac
+ }
+ 
+ /**
+- * drm_get_panel_min_brightness_quirk - Get minimum supported brightness level for a panel.
++ * drm_get_panel_backlight_quirk - Get backlight quirks for a panel
+  * @edid: EDID of the panel to check
+  *
+  * This function checks for platform specific (e.g. DMI based) quirks
+  * providing info on the minimum backlight brightness for systems where this
+- * cannot be probed correctly from the hard-/firm-ware.
++ * cannot be probed correctly from the hard-/firm-ware and other sources.
+  *
+  * Returns:
+- * A negative error value or
+- * an override value in the range [0, 255] representing 0-100% to be scaled to
+- * the drivers target range.
++ * a drm_panel_backlight_quirk struct if a quirk was found, otherwise an
++ * error pointer.
+  */
+-int drm_get_panel_min_brightness_quirk(const struct drm_edid *edid)
++const struct drm_panel_backlight_quirk *
++drm_get_panel_backlight_quirk(const struct drm_edid *edid)
+ {
+-	const struct drm_panel_min_backlight_quirk *quirk;
++	const struct drm_get_panel_backlight_quirk *quirk;
+ 	size_t i;
+ 
+ 	if (!IS_ENABLED(CONFIG_DMI))
+-		return -ENODATA;
++		return ERR_PTR(-ENODATA);
+ 
+ 	if (!edid)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(drm_panel_min_backlight_quirks); i++) {
+ 		quirk = &drm_panel_min_backlight_quirks[i];
+ 
+ 		if (drm_panel_min_backlight_quirk_matches(quirk, edid))
+-			return quirk->min_brightness;
++			return &quirk->quirk;
+ 	}
+ 
+-	return -ENODATA;
++	return ERR_PTR(-ENODATA);
+ }
+-EXPORT_SYMBOL(drm_get_panel_min_brightness_quirk);
++EXPORT_SYMBOL(drm_get_panel_backlight_quirk);
+ 
+ MODULE_DESCRIPTION("Quirks for panel backlight overrides");
+ MODULE_LICENSE("GPL");
 diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-index 82eeee4a58ab..6a46f755daba 100644
+index 15fa9b6865f4..82eeee4a58ab 100644
 --- a/include/drm/drm_utils.h
 +++ b/include/drm/drm_utils.h
-@@ -18,6 +18,7 @@ int drm_get_panel_orientation_quirk(int width, int height);
+@@ -16,7 +16,12 @@ struct drm_edid;
  
- struct drm_panel_backlight_quirk {
- 	u16 min_brightness;
-+	u32 brightness_mask;
- };
+ int drm_get_panel_orientation_quirk(int width, int height);
  
- const struct drm_panel_backlight_quirk *
+-int drm_get_panel_min_brightness_quirk(const struct drm_edid *edid);
++struct drm_panel_backlight_quirk {
++	u16 min_brightness;
++};
++
++const struct drm_panel_backlight_quirk *
++drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+ 
+ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+ 
 -- 
 2.51.0
 
