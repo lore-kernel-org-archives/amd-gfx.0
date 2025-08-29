@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6290CA1001
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C7FCA1003
 	for <amd-gfx@archiver.kernel.org>; Sat, 30 Aug 2025 16:16:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBB7D10E341;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F40710E33F;
 	Sat, 30 Aug 2025 16:16:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="R9JrjxDr";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="XEnolZwB";
 	dkim-atps=neutral
-Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78E5C10EBEA;
- Fri, 29 Aug 2025 14:57:50 +0000 (UTC)
-Received: from relay12 (localhost [127.0.0.1])
- by relay12.grserver.gr (Proxmox) with ESMTP id 1C955BDE43;
- Fri, 29 Aug 2025 17:57:49 +0300 (EEST)
+Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBB2010EBF0;
+ Fri, 29 Aug 2025 14:57:53 +0000 (UTC)
+Received: from relay10 (localhost.localdomain [127.0.0.1])
+ by relay10.grserver.gr (Proxmox) with ESMTP id 9F74546EEB;
+ Fri, 29 Aug 2025 17:57:51 +0300 (EEST)
 Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by relay12.grserver.gr (Proxmox) with ESMTPS id 8D31ABDD96;
- Fri, 29 Aug 2025 17:57:48 +0300 (EEST)
+ by relay10.grserver.gr (Proxmox) with ESMTPS id 68B8346E58;
+ Fri, 29 Aug 2025 17:57:50 +0300 (EEST)
 Received: from antheas-z13 (x5996a855.customers.hiper-net.dk [89.150.168.85])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id AA6D72018C9;
- Fri, 29 Aug 2025 17:57:47 +0300 (EEST)
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id 6B8832018C2;
+ Fri, 29 Aug 2025 17:57:49 +0300 (EEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1756479468;
- bh=iy5mjsAtc23/5vk879aOYltCxJDQw7DgKHkVwiiTYp4=; h=From:To:Subject;
- b=R9JrjxDrLI8z8uwiSf0c2gNBBWRvmn1BpNrkPR1YJMofpENrTmRnkau7z/T2WvEWj
- +4Ch3Sv+FHv7b6sb+rh+XD023YhP3kRqSSo5FOdkh0GkwObxebjqbHwtyYmKW1Hfq+
- L+vu8gco0h+mwmjdELM8jlqBjfG65B0THEYOCozFVtXUDrquRXcoD00pSnY+ZViXjZ
- WJL0YIgBtrp+7WbLcUXlwg/kXdjOVqnys0w5Z7VVXsAAinQRYfoSiAXU+CWBiTqc9U
- NTP3vBVZS381Ns4Ln8HIS8NcgaL1inoBzQDMyibVIi2SbVHe/Q0JLLidPfvV2JMAen
- vzyMGyuoCrA7w==
+ s=default; t=1756479470;
+ bh=wnaFa95KLwLAHuy8hRJGl95XVR2g5HRB8pLDB83uhp4=; h=From:To:Subject;
+ b=XEnolZwBIv1Hd+UuES803Wwkw4PVCyozWLBGUn4dkHyg5PQaV7mioMuYXO/f90lxh
+ voYVK1BWrhleR5DVnj7ioyaFi1+EjnlZqkPG73g7HnBsyzvhJntlmQ4XxDrTRMrfXm
+ /lKcBJ5mWm5Z9Gg9JVxEMQAXnBbLO2mhz8s6mXJ3MdaHTo2bngDPu3N2qYay2lUu3Z
+ g1x+4PECNAHL5UMlGHlesm9e2Mf+Yt9PBlQKxAz9DyOx2Rn4aBCTHEc7kNKC2XCSqJ
+ QtPPxVPwQ096gMBNl81jqllxSeAsPNTkmkzqebSTUytXlplaFMY6OMctoDRBUtn8eT
+ 2NYUjxqFI3/yg==
 Authentication-Results: linux3247.grserver.gr;
  spf=pass (sender IP is 89.150.168.85) smtp.mailfrom=lkml@antheas.dev
  smtp.helo=antheas-z13
@@ -48,16 +48,16 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Mario Limonciello <mario.limonciello@amd.com>,
  Robert Beckett <bob.beckett@collabora.com>,
  Antheas Kapenekakis <lkml@antheas.dev>
-Subject: [PATCH v3 3/6] drm: panel-backlight-quirks: Add secondary DMI match
-Date: Fri, 29 Aug 2025 16:55:38 +0200
-Message-ID: <20250829145541.512671-4-lkml@antheas.dev>
+Subject: [PATCH v3 5/6] drm: panel-backlight-quirks: Add Steam Deck brightness
+ quirk
+Date: Fri, 29 Aug 2025 16:55:40 +0200
+Message-ID: <20250829145541.512671-6-lkml@antheas.dev>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250829145541.512671-1-lkml@antheas.dev>
 References: <20250829145541.512671-1-lkml@antheas.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <175647946822.278051.14854790477276188364@linux3247.grserver.gr>
+X-PPP-Message-ID: <175647946994.278128.15105326836596737803@linux3247.grserver.gr>
 X-PPP-Vhost: antheas.dev
 X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
 X-Virus-Status: Clean
@@ -76,55 +76,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using a single DMI match only allows matching per manufacturer.
-Introduce a second optional match to allow matching make/model.
-In addition, make DMI optional to allow matching only by EDID.
+On the SteamOS kernel, Valve universally makes minimum brightness 0
+for all devices. SteamOS is (was?) meant for the Steam Deck, so
+enabling it universally is reasonable. However, it causes issues in
+certain devices. Therefore, introduce it just for the Steam Deck here.
 
-Tested-by: Philip Müller <philm@manjaro.org>
+SteamOS kernel does not have a public mirror, but this replaces commit
+806dd74bb225 ("amd/drm: override backlight min value from 12 -> 0")
+in the latest, as of this writing, SteamOS kernel (6.11.11-valve24).
+See unofficial mirror reconstructed from sources below.
+
+Link: https://gitlab.com/evlaV/linux-integration/-/commit/806dd74bb225
+Reviewed-by: Robert Beckett <bob.beckett@collabora.com>
 Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
 ---
- drivers/gpu/drm/drm_panel_backlight_quirks.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-index 702726c20ccc..3d386a96e50e 100644
+index 2bdbd5583d32..537dc6dd0534 100644
 --- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
 +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-@@ -8,11 +8,14 @@
- #include <drm/drm_edid.h>
- #include <drm/drm_utils.h>
- 
-+struct drm_panel_match {
-+	enum dmi_field field;
-+	const char * const value;
-+};
-+
- struct drm_get_panel_backlight_quirk {
--	struct {
--		enum dmi_field field;
--		const char * const value;
--	} dmi_match;
-+	struct drm_panel_match dmi_match;
-+	struct drm_panel_match dmi_match_other;
- 	struct drm_edid_ident ident;
- 	struct drm_panel_backlight_quirk quirk;
- };
-@@ -48,7 +51,13 @@ static bool drm_panel_min_backlight_quirk_matches(
- 	const struct drm_get_panel_backlight_quirk *quirk,
- 	const struct drm_edid *edid)
- {
--	if (!dmi_match(quirk->dmi_match.field, quirk->dmi_match.value))
-+	if (quirk->dmi_match.field &&
-+	    !dmi_match(quirk->dmi_match.field, quirk->dmi_match.value))
-+		return false;
-+
-+	if (quirk->dmi_match_other.field &&
-+	    !dmi_match(quirk->dmi_match_other.field,
-+		       quirk->dmi_match_other.value))
- 		return false;
- 
- 	if (quirk->ident.panel_id && !drm_edid_match(edid, &quirk->ident))
+@@ -45,6 +45,21 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
+ 		.ident.name = "NE135A1M-NY1",
+ 		.quirk = { .min_brightness = 1, },
+ 	},
++	/* Steam Deck models */
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "Valve",
++		.dmi_match_other.field = DMI_PRODUCT_NAME,
++		.dmi_match_other.value = "Jupiter",
++		.quirk = { .min_brightness = 1, },
++	},
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "Valve",
++		.dmi_match_other.field = DMI_PRODUCT_NAME,
++		.dmi_match_other.value = "Galileo",
++		.quirk = { .min_brightness = 1, },
++	},
+ 	/* Have OLED Panels with brightness issue when last byte is 0/1 */
+ 	{
+ 		.dmi_match.field = DMI_SYS_VENDOR,
 -- 
 2.51.0
 
