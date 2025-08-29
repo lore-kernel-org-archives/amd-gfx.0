@@ -4,82 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1841CCA1000
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6290CA1001
 	for <amd-gfx@archiver.kernel.org>; Sat, 30 Aug 2025 16:16:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B02810E33A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBB7D10E341;
 	Sat, 30 Aug 2025 16:16:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Emvt37c2";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="R9JrjxDr";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 817E810EC1A;
- Fri, 29 Aug 2025 17:43:01 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-246aef91e57so32282165ad.1; 
- Fri, 29 Aug 2025 10:43:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756489381; x=1757094181; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CVgM7Tyu00zzsMBseHOctXjMN0Os3f8IXfyGMpQmnqE=;
- b=Emvt37c2Bdh4EUHdz8Mka2DkuQ42p14ciiK6JzvAnDB6zyiLHNdKZuRT0HV4T+ukFy
- x+c/c1EhVfkpQuwFTc4Bxcq5ns8CML+rxK5HGhN8GkLVr6d6d9dIaQryux/+HuMpdOgq
- fc9j9PRLgBwB2aB3gWHMnVRVBW5xjhir+VUAAZSJXh/ryuEUYdqzgRfIgUDx4v7RoiQL
- NrMLzqK/na48j2OCICH33kv+zySVPIJOwDprgG1WRMwW4bNCZyTDQG56dAuhQAhhL7kT
- HQ4tM+7opxu3YIjwpv++nEA4qJplMSG3rMy/vKedsh8bVxiyuL189SGD337nPKITh+6e
- pjRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756489381; x=1757094181;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CVgM7Tyu00zzsMBseHOctXjMN0Os3f8IXfyGMpQmnqE=;
- b=Vi0yDms+lSlPXFXLpmpU1+De0gVqw0u5ZBl+kR7gkMAT4wfl8+n4uklo0B3HHcFzn5
- yXzHvBz3g//zniXOWmJfizHXzBqjZ6DT6Qw6nlItLG/cH4pHusrc/G3qbAmIVJ8PckUV
- xHXzcbQRISVnRups1i0BDwCHl6ke1fcdr+XKNFPlMR9QEmJFP/tm1/Wnz2MsDSZ47uGO
- HWVwagbmp19LyT6qrI/2e4sNy8q8TDeY/Rp7/v0nG8oosotOZyUs1Bhk+/+cFVOXr3a+
- Wnslbai7Ks82QtrphbHRjHhMrwgsyBrjHrkR55EbNvRMx8dixuZxiD+atTCGCLlxCOOf
- mF6Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUYZIcKh5Nlh1I/gWQe9aHg9uIWBMuYbpgfUehYUTTF0jwpfTm43jXMmYhg5gfZW9Oa2UYiypbvV4s8@lists.freedesktop.org,
- AJvYcCUvZhy6rYj7swNQTyc0P9ZByQrhv64+3Lo9HRss3pr3de9OnS6cYb2pelCi/MGYU1LLuLM+jmTa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx4A7wqEYUawedmV1Mq9xje5oRBrTdES9OMG7loD+qTYMsAsK2M
- 1kQBYpUZCdlRecQ1wlvEDnRArolveE6LX5vFaDKbckGiMG9h0NQZjkfq
-X-Gm-Gg: ASbGncuWsRcuag6hVIjoQacUPsQXkAv3/oGVHFf10tDCmn4ela39j3dEnPCYXMtD+5R
- wuti4I7/I/ycfV+xT21govMlS5OZRA9xym3/zhTna8WXnS3DbbgpcwCt1IyauI5ttUyXSbn2VfV
- u9SaMI8hP7c9ad5xJ8keK3zIgfxO3uwVlgYs40WznEgZlg7A6UNa23tWCwwQXGfUQ6/zw13kFbu
- v2OGWB0IJlgCTv2RL7hQsdkEXEqiVw3IGca0DWLDa8Y8EcywNP1VQlltQbyX85jda+OI7j1Gjyi
- cxzBcAkHGuOqK2ZrP/rmjwTnkTiBkXGsqbVFYNLDVQHnCTElzFoV3JJtudhiEJ7ZMZi/wD/swut
- puu7bDU569177C7iELUPoJMHpXXkW0hO3tLL7NQtalU54wV5CM7eB0v56qUW/rTe8XajK+gxqvQ
- ==
-X-Google-Smtp-Source: AGHT+IE23KRcGDR/kd3c4g0abkgFnf3oFZxhdeRn83CjGT1YO9Cgs7wU0MlSqxAutRWSDpZp8ltIBw==
-X-Received: by 2002:a17:903:1205:b0:248:79d4:93b5 with SMTP id
- d9443c01a7336-24879d497a4mr160522795ad.33.1756489380684; 
- Fri, 29 Aug 2025 10:43:00 -0700 (PDT)
-Received: from lkmp.. ([157.51.63.166]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b4cd347db1fsm2727833a12.47.2025.08.29.10.42.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Aug 2025 10:43:00 -0700 (PDT)
-From: Rakuram Eswaran <rakuram.e96@gmail.com>
-To: rakuram.e96@gmail.com, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, corbet@lwn.net, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, linux-doc@vger.kernel.org,
- linux-kernel-mentees@lists.linuxfoundation.org,
- linux-kernel@vger.kernel.org, rdunlap@infradead.org, siqueira@igalia.com,
- skhan@linuxfoundation.org
-Subject: Re: [PATCH v2 2/2] docs: gpu: Fix spelling in gpu documentation 
-Date: Fri, 29 Aug 2025 23:12:43 +0530
-Message-ID: <20250829174244.13864-1-rakuram.e96@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250821025957.22546-3-rakuram.e96@gmail.com>
-References: <20250821025957.22546-3-rakuram.e96@gmail.com>
+Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78E5C10EBEA;
+ Fri, 29 Aug 2025 14:57:50 +0000 (UTC)
+Received: from relay12 (localhost [127.0.0.1])
+ by relay12.grserver.gr (Proxmox) with ESMTP id 1C955BDE43;
+ Fri, 29 Aug 2025 17:57:49 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by relay12.grserver.gr (Proxmox) with ESMTPS id 8D31ABDD96;
+ Fri, 29 Aug 2025 17:57:48 +0300 (EEST)
+Received: from antheas-z13 (x5996a855.customers.hiper-net.dk [89.150.168.85])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id AA6D72018C9;
+ Fri, 29 Aug 2025 17:57:47 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+ s=default; t=1756479468;
+ bh=iy5mjsAtc23/5vk879aOYltCxJDQw7DgKHkVwiiTYp4=; h=From:To:Subject;
+ b=R9JrjxDrLI8z8uwiSf0c2gNBBWRvmn1BpNrkPR1YJMofpENrTmRnkau7z/T2WvEWj
+ +4Ch3Sv+FHv7b6sb+rh+XD023YhP3kRqSSo5FOdkh0GkwObxebjqbHwtyYmKW1Hfq+
+ L+vu8gco0h+mwmjdELM8jlqBjfG65B0THEYOCozFVtXUDrquRXcoD00pSnY+ZViXjZ
+ WJL0YIgBtrp+7WbLcUXlwg/kXdjOVqnys0w5Z7VVXsAAinQRYfoSiAXU+CWBiTqc9U
+ NTP3vBVZS381Ns4Ln8HIS8NcgaL1inoBzQDMyibVIi2SbVHe/Q0JLLidPfvV2JMAen
+ vzyMGyuoCrA7w==
+Authentication-Results: linux3247.grserver.gr;
+ spf=pass (sender IP is 89.150.168.85) smtp.mailfrom=lkml@antheas.dev
+ smtp.helo=antheas-z13
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+From: Antheas Kapenekakis <lkml@antheas.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ philm@manjaro.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Antheas Kapenekakis <lkml@antheas.dev>
+Subject: [PATCH v3 3/6] drm: panel-backlight-quirks: Add secondary DMI match
+Date: Fri, 29 Aug 2025 16:55:38 +0200
+Message-ID: <20250829145541.512671-4-lkml@antheas.dev>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20250829145541.512671-1-lkml@antheas.dev>
+References: <20250829145541.512671-1-lkml@antheas.dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <175647946822.278051.14854790477276188364@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
+X-Virus-Status: Clean
 X-Mailman-Approved-At: Sat, 30 Aug 2025 16:16:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,9 +76,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+Using a single DMI match only allows matching per manufacturer.
+Introduce a second optional match to allow matching make/model.
+In addition, make DMI optional to allow matching only by EDID.
 
-This is a gentle follow-up on this patch. Please let me know if any further
-changes are required.
+Tested-by: Philip Müller <philm@manjaro.org>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+---
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-Regards
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index 702726c20ccc..3d386a96e50e 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -8,11 +8,14 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_utils.h>
+ 
++struct drm_panel_match {
++	enum dmi_field field;
++	const char * const value;
++};
++
+ struct drm_get_panel_backlight_quirk {
+-	struct {
+-		enum dmi_field field;
+-		const char * const value;
+-	} dmi_match;
++	struct drm_panel_match dmi_match;
++	struct drm_panel_match dmi_match_other;
+ 	struct drm_edid_ident ident;
+ 	struct drm_panel_backlight_quirk quirk;
+ };
+@@ -48,7 +51,13 @@ static bool drm_panel_min_backlight_quirk_matches(
+ 	const struct drm_get_panel_backlight_quirk *quirk,
+ 	const struct drm_edid *edid)
+ {
+-	if (!dmi_match(quirk->dmi_match.field, quirk->dmi_match.value))
++	if (quirk->dmi_match.field &&
++	    !dmi_match(quirk->dmi_match.field, quirk->dmi_match.value))
++		return false;
++
++	if (quirk->dmi_match_other.field &&
++	    !dmi_match(quirk->dmi_match_other.field,
++		       quirk->dmi_match_other.value))
+ 		return false;
+ 
+ 	if (quirk->ident.panel_id && !drm_edid_match(edid, &quirk->ident))
+-- 
+2.51.0
+
+
