@@ -4,133 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEDADCA0EFF
-	for <amd-gfx@archiver.kernel.org>; Sun, 31 Aug 2025 10:03:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2463CA0FF2
+	for <amd-gfx@archiver.kernel.org>; Sun, 31 Aug 2025 16:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C0B410E2D0;
-	Sun, 31 Aug 2025 10:03:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16E3710E09D;
+	Sun, 31 Aug 2025 16:00:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cXjhZ1vy";
+	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="T84joA7W";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 537FA10E2D0
- for <amd-gfx@lists.freedesktop.org>; Sun, 31 Aug 2025 10:03:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XBB0HfZdgGMfSOc8dpQOxXiG3bWiAhNw9/inpafbdVU3kTSwEiDWVbIahv3a8sdF8OGufJ+vG5jDH/35qzIBkuvO7K2ghN5krgxk/IuUVHEE9OphN3dLHB6+ZlXAWL8FApJQV+p3F0e0e6u7E2bIJTi4KfpgqwsXAVMC59V5kZ7quL7595gGhJs2fFC2HWixnM/odPbUTdv65+ybmRUVkpPMOuivQ1PM48M662FbulDPIT6zHfW1fWgQX+JFVysL+F0wMMle/PJsfOtA/w/cKBJVS6y2nd+EEOyaaAGF4emcZ+L14ru+TRQCbysuYnqLqK0ckYASOPTxpr7onXHTrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WL7Khtp+42JvqZn9zieWdwiy8y8TbgPbbnKXcSPiwrY=;
- b=kdk873WaYU2hOZNF1lv4lT6tfqX+uHi/IO+fi48T7JxznUc9Sg4g07/zOPpGZXNtQKQ5VDDBLCVWiOshWSzXSfZP2lS/pz7BtUoqTSNwaw9CMQ2gXpUvFLdj+/I26tDbfwBFi/UKocNHo6xOzMMNWP1LtkUuemanXHAzVSHOrel3FOQqoFCcFMA0aIvIYSgiztbsNbrtwFKgMleS9sUlBG6rBgH4fBA1q9sd7SgwUMkgXO7LIJ9LyS4/tG6K6LnEbLwRYTrAzh9CoX3mPwxkKBawJAQcKSEItR5wSYH/bIgo8rMGnF4IcA9M9ZUrxv+zEQmeY4ASIT60ndABbfX21g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WL7Khtp+42JvqZn9zieWdwiy8y8TbgPbbnKXcSPiwrY=;
- b=cXjhZ1vyxWF4xNtZtFnhsz3KtOYeU5A+7uaA5kAbPt3YPNnYbMOk2MeUyyRIK5YS7IqH26FB8JTh0c3A4Q6Sn2HZONWW0RsrDES5vjyzs/HjA9+/kmkc+ygTgsjLL6M0fKV45T3G/O52L1d5BEkdutFSx3bAfRi6Hejc86cHut8=
-Received: from BN9P223CA0022.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::27)
- by CH2PR12MB4181.namprd12.prod.outlook.com (2603:10b6:610:a8::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.21; Sun, 31 Aug
- 2025 10:03:37 +0000
-Received: from BL02EPF0002992C.namprd02.prod.outlook.com
- (2603:10b6:408:10b:cafe::6f) by BN9P223CA0022.outlook.office365.com
- (2603:10b6:408:10b::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.25 via Frontend Transport; Sun,
- 31 Aug 2025 10:03:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0002992C.mail.protection.outlook.com (10.167.249.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9094.14 via Frontend Transport; Sun, 31 Aug 2025 10:03:36 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 31 Aug
- 2025 05:03:36 -0500
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.1748.10; Sun, 31 Aug 2025 03:03:34 -0700
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH] drm/amdgpu: Correct misnamed function in amdgpu_gem.c
-Date: Sun, 31 Aug 2025 15:33:21 +0530
-Message-ID: <20250831100321.400238-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7208310E118;
+ Sat, 30 Aug 2025 17:48:32 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A5B1440E00DA; 
+ Sat, 30 Aug 2025 17:48:29 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+ header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id XkJzyz9Yx29P; Sat, 30 Aug 2025 17:48:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+ t=1756576103; bh=PoXjEkaAcc/flHSmlJ9GQv3iSJMxXG6LBAdj5AN0JbI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=T84joA7WNMFR5PYNZSuHtbylHyIoQm8jfrqh9x4pXJ2Tl/CVi942cBlkmZYKJNTiY
+ 3Ciq9dm2ZvtTp5DGp06iWAv3OB9TY/HfHEP7kjsFi8qfGDbp0B1Q0Rp8XTHS2g+Vgf
+ T4rb8HWzp3lTMBhRDVnx/QREQOAGIh0YOAzoAO4S3++6ylUVsjFZPGip7uA0oUhAXr
+ 2ETDLHnOiTmXEz/uz3BW4BtLS4Dyulo9ZzNxfCD02U1iCUQs3jrzxeXA2MW2NEGU5j
+ u1KLZXTIeVWTe6TvQxgytVkdfoBQcJqs/kO+iwLuc+14jOt7xbo1/Y8aDUhkVrj/B2
+ 8MwambP5pWXa8RkZ9kiw71iHs24Zo3tQwbstJxeVRN3lbscCMAuH6fE0UdCR83KJXh
+ VpzdsmToicnq4tWIQjxQI7+Fk6322mVK7PVM6BSdXwvhznkNMywzo9VjYO6F69G8PO
+ W9Bw2QV6rqhZFox1VxfAdhKcNDow6oEgin+q7z46rg2o0e3yu8BwiPaUJTnTEG7oRQ
+ CZACzojAFjfArrqp2jl/DRtyHOIB4ROwx6SN6cOnEnil5qzAnoibWBLHPHUe+Gx2L3
+ 74EQ9Bb2xKxLTUGlgTPu4BaHH4f5Y0z2mF+wEC6hZKsYn28YeWq8uh0Ms1jFQXQMch
+ gqpeEAG9cy+qn3yPfT1ACkyk=
+Received: from zn.tnic (p5de8ed27.dip0.t-ipconnect.de [93.232.237.39])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
+ 6529240E0140; Sat, 30 Aug 2025 17:48:17 +0000 (UTC)
+Date: Sat, 30 Aug 2025 19:48:10 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: evergreen_packet3_check:... radeon 0000:1d:00.0: vbo resource
+ seems too big for the bo
+Message-ID: <20250830174810.GAaLM5WkiFc2BtQ6kW@fat_crate.local>
+References: <20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local>
+ <CADnq5_Oqonrth+5T-83dnFBZ67GvykkPt-9aUepJd+fUMwnupw@mail.gmail.com>
+ <20250829194044.GCaLICPKJcGJRYdSfO@fat_crate.local>
+ <20250829204840.GEaLISKGTwuScnDF8Y@fat_crate.local>
+ <CADnq5_MbpYmC2PSyOr0gQk7F8mVz0-LG3dZtUZS2HhV8LTgDww@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992C:EE_|CH2PR12MB4181:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3fb8394-a73b-4002-502b-08dde875a723
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bjZiaDB1VzEySHpHTkdkVUpMUmVnM1VReGYzaEUwaEUwYkMyRytQVFc5YWI3?=
- =?utf-8?B?Ty8xYlYyYmwrUEZzaW1zT3lLa2UrTUp3eTdDSVlnRUUvMm5FZEtHbko3UEs3?=
- =?utf-8?B?bU05ZFN4TXpRVVMxVytDSUFFU0FOdHdXQmN0ZjZ1aC9mblJGWjRZejVZc09S?=
- =?utf-8?B?VUtDeWdIbHEvdGlPVXlvMmxZMkdWKzFEQ1NKSlhkdlY4Y05hWUNuM0MrSUY1?=
- =?utf-8?B?a0hNMWVOUDRqL29aTGZoNG9heWRBdFVXNkRRRlc3amJIaHZ4T2Y2a1dlM25t?=
- =?utf-8?B?YjNLbGtCRzVPZzVuZURPR2pOSTlSR3dGS2hsOFF4ejJ3VDdnK2IxMlg1SkdM?=
- =?utf-8?B?NnhIazA0ZHljeFo5NkN0STgwRlE3N0g1bmpTd2N4R3FWOHZqb2pDVXNwQ1Rp?=
- =?utf-8?B?OENZY0xFY2F1cFVDT003Szh6OC9nNEo0YURDNEZKVVdrMFV4ZlczdTVlWEpY?=
- =?utf-8?B?UWFWVEgva1NMUGhOczArd2NQcEUwVjlDU0k0RXFkc3BmeUdIb1J2MEt1b25V?=
- =?utf-8?B?a3E0ZEVnMlJLSC9CLy9TQk9KZ1JFWS9WUFowK1FaRTQvSmJzWDBCcVVjbHhH?=
- =?utf-8?B?bS9NbWRyemR2T3VpK3ZyZHVSMFBnNWwxRmpqekwvcXQ3UC9zZ0NyanVmajk4?=
- =?utf-8?B?ZkI1ZlhsekhjYVl5ckkrSVVVazBDSHZUa3B5SFN0Q0VuZmZuVUZUVjcrREI1?=
- =?utf-8?B?aDcyTHJYK1hXdkZxWUg5NmN3dGJFNDRWVG11ckp3U1A5V3FtK3EySmhYK3NB?=
- =?utf-8?B?WXhzKzNiN2hLVFpnMDFaYlRrMHEySzYvbUFTUHZieGJHakF2TVhHNWR5WEcx?=
- =?utf-8?B?dWVDRHJ1ZlBnYThHcklpbmVYQVo4Y0JEYmkwaHpHWkZ5cUhpbXFhOWxrV0dY?=
- =?utf-8?B?S3FNSUhFYnlZejFwVEVNNXdnNStTU09wUmJIRFdPU1NsdUhKa0p0dVpodGNC?=
- =?utf-8?B?Q3g3OU42ekZSQU8zNUZJblV3UTJLWWRHNU1SRjJndVNsZVU5TCs5N1h1NFJ3?=
- =?utf-8?B?TlAvWVZ6MGE2aEQzZGhGSHNRb3B5aHVXejQ4d3p3WGxkZEgwSkNZTEpvRUFF?=
- =?utf-8?B?NFZkMWtiSStDandHRk1mWmJqSk0ybzJtUGwyUGJ5eVJ6R01qdUE0emd4Y0NG?=
- =?utf-8?B?UmkyTi91RXd1bURXM3JGdHJVU1J2NjBldjZDdFFxRUFUb25SSE9Jd1FDMXZr?=
- =?utf-8?B?L1ZrR3g4bnZwYmRwUXFuYVAxSVBqYndReWphak9PbFN6UldDUHB4UEl0S3B3?=
- =?utf-8?B?WXFNL2ZscVFkTC9tL3hGRG1raWp0NmNINHkwdUlzdXB5eklpNVhTZVMrc3Zi?=
- =?utf-8?B?QkNWdlFJRmVrVG9NVXFnV2JLQXdWUWZtclZQV3FyaHBLVHFIT0NocElhcTdu?=
- =?utf-8?B?RXgzNWFWbEVRM0Jyblgrc3VuNXNsSFBrNm5QTHZiTWtxeWM3dlJZRnM1dU1V?=
- =?utf-8?B?UzFZclRhTkVtWXR6OTBxMTlhVDR0MDJ2R3UrMmdMcTlGbkZ1QVBDSjlObms2?=
- =?utf-8?B?Uno1enU1UGg4dlMxdGVsbWlHQ1E4Wno0K2k1Zk9INGlMTXZPV1VneWtKUjFT?=
- =?utf-8?B?WDI5Wis2L3FyYVp1eldiTDByL3FpTzJNNUk5ZDR1bUV4TUhleUl3aEcwdFNT?=
- =?utf-8?B?VVR1K3U1QzZuNGNiQ0FoTnZ0eUR2cG9SaVk3akVjcStDTFpYQmZJSkpSUzFM?=
- =?utf-8?B?dnpSWTVkbEU3L0pxZHZQMGMxVkJZejUwQ1ZWZmQwYUR6ZVh4TXk1VDBtVHhp?=
- =?utf-8?B?WlVaY25QMWtOYUFKalVkYjFUM3V0amtyUm0vVDRRSzc1U01ER0dlM1RjTXZu?=
- =?utf-8?B?ZFhmaWUvOHhUQWpPNGJkcUI0ZFlpR25Yck1LSmIwWWRVZkpSejk0NCs5Z2g2?=
- =?utf-8?B?TVJLbVZiSUw2aFBMTEZFcGhkdmc0ZjRsdDV4bUVmRmNDM1Uvbk13QkxxQTlJ?=
- =?utf-8?B?dCtZNFkvcWtHVms5VVYvVFhaMTVtQzRkNXpRZ01OM0ZNNGdhd3dzRmU0aGd0?=
- =?utf-8?B?YzNablVGQW1ZWW9WR3dmREZmT05ZRHplU1Rtam9kZnNvZEhrNDAvK05PWFdP?=
- =?utf-8?Q?yzPm0D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2025 10:03:36.8962 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3fb8394-a73b-4002-502b-08dde875a723
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4181
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CADnq5_MbpYmC2PSyOr0gQk7F8mVz0-LG3dZtUZS2HhV8LTgDww@mail.gmail.com>
+X-Mailman-Approved-At: Sun, 31 Aug 2025 16:00:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,33 +77,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The header comment above amdgpu_gem_list_handles_ioctl referenced
-drm_amdgpu_gem_list_handles_ioctl. Update the comment to reflect the
-actual function identifier to avoid misleading prototype warnings.
+On Sat, Aug 30, 2025 at 12:30:09PM -0400, Alex Deucher wrote:
+> Yes, I agree these should be warn_once().  If you send a patch I'll
+> apply it, otherwise, I'll take a look next week. 
 
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:1106: warning: expecting prototype for drm_amdgpu_gem_list_handles_ioctl(). Prototype was for amdgpu_gem_list_handles_ioctl() instead
+See below. I tried to explain the whole situation as good as I could.
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> For some background, older GPUs did not support memory protection, so the
+> kernel driver validates all of the command submissions (CS) from userspace
+> to make sure the commands would not access any memory they shouldn't.  In
+> your case it's a vertex buffer object (VBO) which contains vertex data for
+> the 3D engine on the GPU.  So newer mesa code is sending a command
+> submission with an invalid vbo size.  As such the kernel driver rejects the
+> command submission.  This may result in subtle rendering issues as the
+> invalid command submission does not get sent to the hardware. 
+
+Very nice, thanks! I've added it to the commit message.
+
+> I would suggest filing a mesa bug report:
+> https://gitlab.freedesktop.org/mesa/mesa/-/issues/
+
+Right, I'd love to except that's my main workstation and I don't love
+testing/debugging kernels on it. The thing must JustWork(tm).
+
+I'll try to repro on some of my other boxes and report it then.
+
+Thanks Alex!
+
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 +-
+From: "Borislav Petkov (AMD)" <bp@alien8.de>
+Date: Sat, 30 Aug 2025 19:24:28 +0200
+Subject: [PATCH] drm/radeon/evergreen_cs: Make the VBO size mismatch message a once-type
+
+With newer MESA (version 9.0.2 in Debian), the message
+
+  [54588.405160] evergreen_packet3_check: 32 callbacks suppressed
+  [54588.405166] radeon 0000:1d:00.0: vbo resource seems too big for the bo
+  [54588.418034] radeon 0000:1d:00.0: vbo resource seems too big for the bo
+  [54588.418037] radeon 0000:1d:00.0: vbo resource seems too big for the bo
+  ...
+
+floods dmesg and the ratelimiting doesn't help a whole lot. The user
+can't really do anything about it so make it a once message.
+
+Some background info from Alex:
+
+"[O]lder GPUs did not support memory protection, so the kernel driver
+validates all of the command submissions (CS) from userspace to make
+sure the commands would not access any memory they shouldn't.
+
+In your case it's a vertex buffer object (VBO) which contains vertex
+data for the 3D engine on the GPU.  So newer mesa code is sending
+a command submission with an invalid vbo size.  As such the kernel
+driver rejects the command submission.
+
+This may result in subtle rendering issues as the invalid command
+submission does not get sent to the hardware.  I would suggest filing
+a mesa bug report:
+
+https://gitlab.freedesktop.org/mesa/mesa/-/issues"
+
+So users are encouraged to report this bug if they catch it in their
+dmesg.
+
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Link: https://lore.kernel.org/r/20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local
+---
+ drivers/gpu/drm/radeon/evergreen_cs.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 4f4f8b0bde05..a07fe5c9ccec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -1087,7 +1087,7 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- }
+diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+index a46613283393..6285ff1b1bff 100644
+--- a/drivers/gpu/drm/radeon/evergreen_cs.c
++++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+@@ -2418,7 +2418,7 @@ static int evergreen_packet3_check(struct radeon_cs_parser *p,
+ 				size = radeon_get_ib_value(p, idx+1+(i*8)+1);
+ 				if (p->rdev && (size + offset) > radeon_bo_size(reloc->robj)) {
+ 					/* force size to size of the buffer */
+-					dev_warn_ratelimited(p->dev, "vbo resource seems too big for the bo\n");
++					dev_warn_once(p->dev, "vbo resource seems too big for the bo\n");
+ 					ib[idx+1+(i*8)+1] = radeon_bo_size(reloc->robj) - offset;
+ 				}
  
- /**
-- * drm_amdgpu_gem_list_handles_ioctl - get information about a process' buffer objects
-+ * amdgpu_gem_list_handles_ioctl - get information about a process' buffer objects
-  *
-  * @dev: drm device pointer
-  * @data: drm_amdgpu_gem_list_handles
 -- 
-2.34.1
+2.51.0
 
+
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
