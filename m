@@ -4,64 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2463CA0FF2
-	for <amd-gfx@archiver.kernel.org>; Sun, 31 Aug 2025 16:00:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A213ECA0FE8
+	for <amd-gfx@archiver.kernel.org>; Sun, 31 Aug 2025 16:00:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16E3710E09D;
-	Sun, 31 Aug 2025 16:00:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1356110E2FE;
+	Sun, 31 Aug 2025 16:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="T84joA7W";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HsYo9YEz";
 	dkim-atps=neutral
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7208310E118;
- Sat, 30 Aug 2025 17:48:32 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A5B1440E00DA; 
- Sat, 30 Aug 2025 17:48:29 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id XkJzyz9Yx29P; Sat, 30 Aug 2025 17:48:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1756576103; bh=PoXjEkaAcc/flHSmlJ9GQv3iSJMxXG6LBAdj5AN0JbI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T84joA7WNMFR5PYNZSuHtbylHyIoQm8jfrqh9x4pXJ2Tl/CVi942cBlkmZYKJNTiY
- 3Ciq9dm2ZvtTp5DGp06iWAv3OB9TY/HfHEP7kjsFi8qfGDbp0B1Q0Rp8XTHS2g+Vgf
- T4rb8HWzp3lTMBhRDVnx/QREQOAGIh0YOAzoAO4S3++6ylUVsjFZPGip7uA0oUhAXr
- 2ETDLHnOiTmXEz/uz3BW4BtLS4Dyulo9ZzNxfCD02U1iCUQs3jrzxeXA2MW2NEGU5j
- u1KLZXTIeVWTe6TvQxgytVkdfoBQcJqs/kO+iwLuc+14jOt7xbo1/Y8aDUhkVrj/B2
- 8MwambP5pWXa8RkZ9kiw71iHs24Zo3tQwbstJxeVRN3lbscCMAuH6fE0UdCR83KJXh
- VpzdsmToicnq4tWIQjxQI7+Fk6322mVK7PVM6BSdXwvhznkNMywzo9VjYO6F69G8PO
- W9Bw2QV6rqhZFox1VxfAdhKcNDow6oEgin+q7z46rg2o0e3yu8BwiPaUJTnTEG7oRQ
- CZACzojAFjfArrqp2jl/DRtyHOIB4ROwx6SN6cOnEnil5qzAnoibWBLHPHUe+Gx2L3
- 74EQ9Bb2xKxLTUGlgTPu4BaHH4f5Y0z2mF+wEC6hZKsYn28YeWq8uh0Ms1jFQXQMch
- gqpeEAG9cy+qn3yPfT1ACkyk=
-Received: from zn.tnic (p5de8ed27.dip0.t-ipconnect.de [93.232.237.39])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
- 6529240E0140; Sat, 30 Aug 2025 17:48:17 +0000 (UTC)
-Date: Sat, 30 Aug 2025 19:48:10 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: evergreen_packet3_check:... radeon 0000:1d:00.0: vbo resource
- seems too big for the bo
-Message-ID: <20250830174810.GAaLM5WkiFc2BtQ6kW@fat_crate.local>
-References: <20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local>
- <CADnq5_Oqonrth+5T-83dnFBZ67GvykkPt-9aUepJd+fUMwnupw@mail.gmail.com>
- <20250829194044.GCaLICPKJcGJRYdSfO@fat_crate.local>
- <20250829204840.GEaLISKGTwuScnDF8Y@fat_crate.local>
- <CADnq5_MbpYmC2PSyOr0gQk7F8mVz0-LG3dZtUZS2HhV8LTgDww@mail.gmail.com>
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9F4910E2D1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 31 Aug 2025 10:12:09 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-b0225483ca0so155716666b.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 31 Aug 2025 03:12:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1756635128; x=1757239928; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:autocrypt:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yS2sg5kZaA0Vp7mqSBwUoVj3i81Ijlko/a0R7dL57yc=;
+ b=HsYo9YEzmXdTNJZ6VaAIEyvkI2FFdrHXb1dA3yjtBIpmQ2wFYJADH0FlVbbyysXdQM
+ aoPZw8U/Yiq/IcQlAyzOIxmY2OFu3pZg8ATyXHafeQk4uabBNG79DYqp6fk5kSkcZw/0
+ cKrMnh2JARigScyLCGq0vrpcPuPwHBAxiuhW2apDhcvER46PJAw6GwB+s5/WUCqbG19l
+ tPtqqYFlQAk/3n4MIV/5gteCP4e1xLWXWLbi1w70C0Yjg9rajWr8tFboU+IV3kBGQCo3
+ 7HkjGDLJRUE6Xv/DDij4MBiUWivf8BtTlceHuUBnJXuOyTGGG4tYSgP+GgcbOCIkJ37E
+ H6eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756635128; x=1757239928;
+ h=content-transfer-encoding:autocrypt:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=yS2sg5kZaA0Vp7mqSBwUoVj3i81Ijlko/a0R7dL57yc=;
+ b=Wr6BnriPYv1Z6nr45+XdowmUpgFX+iQaTqcrZb4fgcWRGWPCQbIa0lGeS1OQUDIkJb
+ Lvn9VxrfLKXwVOTV9KCcxSeniU3I+vV3CqDwjvjfLUMvoji3cKKtbn3u0uyRujWXbv9k
+ uUTeJeHaAJ73GBrvZzKK1Lm56eZWDzoUHwu7ZKwzx/H3qGC45Gpkf7am3kLjgU0scGG9
+ O9Bjicys88TUn/1sZPmHCr1+3K1YQmDyMeYX6lA2OHzFb0mDEQQ7XmR4jEsl4btcFq45
+ GJxi1ASrrcMsiAeF4TaL0PjtaESjgdESmoGtNNEnJswnY/gBDBiqScPtfYO6sHrWX9my
+ qvRQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXzOtZDsh+JBX2HR8sQyuYe74v7p9wu34IgG9FTsfH0Bxb6EuX3jv1H0ukBLYFgNtEqy7yaEsC1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDhV90wV59VTU81DKflzT+KrE7mbNp2w01wauvydMT42WEkyXs
+ 7UwSy1CMtErrj/YTQSB1nUxGJEB8txqWIgSdCZkA+gHemmCJMKOVVxsc
+X-Gm-Gg: ASbGncsKD/YXQQPyKm6ssFvm3CKJjpo8xr92NqeinptUTJ72cAlSLWWE6itpdaGNOTx
+ NEjK78u+IQ+1jSuKegQOVu77lMxUXFEmxaiaVfEnP+HxZ4K33mS0bSFU1JGwAqjiIqhxYIdXTnU
+ XSDbChKa0HPntVQeMKApZMlmvy5UENBGtoBs7+qwsYARuDyHoQqVkBLy7iIlD0ImWVOINrT3LGc
+ vDeIq8Qx/wjZariSRCWe06HRHHKMhth4ufF0knrmrHZE5fY9c3yWvKvnL7cjgw4vDp4JoKCWIMN
+ dPbU4fVLYIyotDk04hZYRb8E+ddrxeaPBJoqVx2kUWngIEX4HZ9gUyAbxJIeRvz2A7PLgANDB+5
+ 25dR7CvY5qgPyI4ImjA0gQz9Y78+ijnon0VxjAKklTm8MT6ohnso=
+X-Google-Smtp-Source: AGHT+IE/2q4Oga+wV9W50QNCCCAzx8LvMjhenNdt2Y6RTRoqABhfZAuS7QDqPCw7WgzMJMiG8Olz3Q==
+X-Received: by 2002:a17:906:6a02:b0:b01:8fa4:6bb0 with SMTP id
+ a640c23a62f3a-b01d976af68mr395429366b.44.1756635127627; 
+ Sun, 31 Aug 2025 03:12:07 -0700 (PDT)
+Received: from [192.168.0.20] (89-66-79-203.dynamic.play.pl. [89.66.79.203])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61cfc575b94sm4802916a12.53.2025.08.31.03.12.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 31 Aug 2025 03:12:07 -0700 (PDT)
+Message-ID: <967d5380-1db1-4252-a3b5-cfa283cf960d@gmail.com>
+Date: Sun, 31 Aug 2025 12:12:06 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CADnq5_MbpYmC2PSyOr0gQk7F8mVz0-LG3dZtUZS2HhV8LTgDww@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: pl-PL, en-GB-large
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+From: =?UTF-8?Q?Przemys=C5=82aw_Kopa?= <prz.kopa@gmail.com>
+Subject: [REGRESSION] AMD HDMI/DP audio broken after suspend since commit
+ 50e0bae34fa6
+Autocrypt: addr=prz.kopa@gmail.com; keydata=
+ xjMEZbtqRhYJKwYBBAHaRw8BAQdAGojMeKfRebJC5+U3Pk20jCWmOv/wtj0kK+7SRlSeasPN
+ JVByemVteXPFgmF3IEtvcGEgPHByei5rb3BhQGdtYWlsLmNvbT7CkwQTFgoAOxYhBDwLVsMk
+ 0R41tYJQaRDBtFqhE5HJBQJlu2pGAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJ
+ EBDBtFqhE5HJnxgBAJ2HbntRTvOAMMDWU0h0Gu8Vxn4MMuyKivIcYXX/mXTlAQCE8c1I1bVI
+ 5ottwyoAcQIYZz8JhiZu/PMW3YID7iMtD844BGW7akYSCisGAQQBl1UBBQEBB0BfitF05Bez
+ rVGUMKVNceXhQOEAzBYPQG2t09xWbwuAWQMBCAfCeAQYFgoAIBYhBDwLVsMk0R41tYJQaRDB
+ tFqhE5HJBQJlu2pGAhsMAAoJEBDBtFqhE5HJ9YcA/i/SOJkwwYoWJp+sKFOcrPZSVMPvQ9ry
+ wk5oemiTzoJVAP0dYnuEMP3N7zP1I5XkS1TToezcTX5Pc/ytafL+1js+Bw==
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 31 Aug 2025 16:00:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,95 +99,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Aug 30, 2025 at 12:30:09PM -0400, Alex Deucher wrote:
-> Yes, I agree these should be warn_once().  If you send a patch I'll
-> apply it, otherwise, I'll take a look next week. 
+Hello,
 
-See below. I tried to explain the whole situation as good as I could.
+I'm running Radeon RX 9060 XT and since upgrading to the kernel 6.15 I'm
+facing an issue with audio via DisplayPort. After waking from S3 suspend
+(sometimes, but not always) audio doesn't work - pavucontrol shows that
+the output is disconnected and I don't get sound from my display. If I
+manually reselect the Digital/HDMI output in pavucontrol after resume,
+sound starts working again. Besides my main screen, GPU is also
+connected (via HDMI) to a TV set - I've found out that this issue occurs
+more often if the TV is on (not displaying output from GPU) when I put
+my PC to sleep and I turn the TV off before resuming PC.
 
-> For some background, older GPUs did not support memory protection, so the
-> kernel driver validates all of the command submissions (CS) from userspace
-> to make sure the commands would not access any memory they shouldn't.  In
-> your case it's a vertex buffer object (VBO) which contains vertex data for
-> the 3D engine on the GPU.  So newer mesa code is sending a command
-> submission with an invalid vbo size.  As such the kernel driver rejects the
-> command submission.  This may result in subtle rendering issues as the
-> invalid command submission does not get sent to the hardware. 
+The issue persists on the current mainline kernel (6.17-rc3).
 
-Very nice, thanks! I've added it to the commit message.
+I've bisected it and this is the commit that introduced the issue:
+https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=50e0bae34fa6b8b18e13473ddf0bcdab6ab68310
 
-> I would suggest filing a mesa bug report:
-> https://gitlab.freedesktop.org/mesa/mesa/-/issues/
+I've also found a similar report on the alsa mailing list:
+https://lore.kernel.org/alsa-devel/1855350181c58300-webhooks-bot@alsa-project.org/
 
-Right, I'd love to except that's my main workstation and I don't love
-testing/debugging kernels on it. The thing must JustWork(tm).
+I'm running Arch Linux with pipewire and wireplumber. The following is
+an excerpt from the WirePlumber log after bad resume:
 
-I'll try to repro on some of my other boxes and report it then.
+D spa.alsa [alsa-util.c:1996:pa_alsa_get_hdmi_eld]: ELD info empty (for device=7)
+I spa.alsa [alsa-acp-device.c:893:card_props_changed]: card properties changed
+D spa.alsa [acp.c:760:report_jack_state]: Jack 'HDMI/DP,pcm=7 Jack' is now unplugged
+I spa.alsa [alsa-acp-device.c:975:card_port_available]: card port hdmi-output-1 available yes -> no
+I spa.alsa [acp.c:702:profile_set_available]: Profile output:hdmi-stereo-extra1 available yes -> no
+I spa.alsa [alsa-acp-device.c:941:card_profile_available]: card profile output:hdmi-stereo-extra1 available yes -> no
 
-Thanks Alex!
+Please let me know what additional information I might provide to
+pinpoint this issue.
 
----
-From: "Borislav Petkov (AMD)" <bp@alien8.de>
-Date: Sat, 30 Aug 2025 19:24:28 +0200
-Subject: [PATCH] drm/radeon/evergreen_cs: Make the VBO size mismatch message a once-type
+Thanks,
+Przemysław Kopa
 
-With newer MESA (version 9.0.2 in Debian), the message
-
-  [54588.405160] evergreen_packet3_check: 32 callbacks suppressed
-  [54588.405166] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-  [54588.418034] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-  [54588.418037] radeon 0000:1d:00.0: vbo resource seems too big for the bo
-  ...
-
-floods dmesg and the ratelimiting doesn't help a whole lot. The user
-can't really do anything about it so make it a once message.
-
-Some background info from Alex:
-
-"[O]lder GPUs did not support memory protection, so the kernel driver
-validates all of the command submissions (CS) from userspace to make
-sure the commands would not access any memory they shouldn't.
-
-In your case it's a vertex buffer object (VBO) which contains vertex
-data for the 3D engine on the GPU.  So newer mesa code is sending
-a command submission with an invalid vbo size.  As such the kernel
-driver rejects the command submission.
-
-This may result in subtle rendering issues as the invalid command
-submission does not get sent to the hardware.  I would suggest filing
-a mesa bug report:
-
-https://gitlab.freedesktop.org/mesa/mesa/-/issues"
-
-So users are encouraged to report this bug if they catch it in their
-dmesg.
-
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Link: https://lore.kernel.org/r/20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local
----
- drivers/gpu/drm/radeon/evergreen_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
-index a46613283393..6285ff1b1bff 100644
---- a/drivers/gpu/drm/radeon/evergreen_cs.c
-+++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-@@ -2418,7 +2418,7 @@ static int evergreen_packet3_check(struct radeon_cs_parser *p,
- 				size = radeon_get_ib_value(p, idx+1+(i*8)+1);
- 				if (p->rdev && (size + offset) > radeon_bo_size(reloc->robj)) {
- 					/* force size to size of the buffer */
--					dev_warn_ratelimited(p->dev, "vbo resource seems too big for the bo\n");
-+					dev_warn_once(p->dev, "vbo resource seems too big for the bo\n");
- 					ib[idx+1+(i*8)+1] = radeon_bo_size(reloc->robj) - offset;
- 				}
- 
--- 
-2.51.0
-
-
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
