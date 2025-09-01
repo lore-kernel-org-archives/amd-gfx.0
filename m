@@ -4,80 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D8D7CA0FFE
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A016CA1005
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 461DD10E6C0;
-	Tue,  2 Sep 2025 12:49:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A952210E6B9;
+	Tue,  2 Sep 2025 12:49:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g+H6nq0S";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="mIp5z6bC";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0094710E6B3;
- Tue,  2 Sep 2025 12:41:39 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-3d1bf79d75aso1055994f8f.0; 
- Tue, 02 Sep 2025 05:41:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756816898; x=1757421698; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=bLl+JLjIhJwlWgN4ocOU2hzq7YznyPeqJKD3znSlmKM=;
- b=g+H6nq0S82hbmHz9FPZgQ6I9x+p+7ezaBi1ch/Ixr6yb8S7ZWsADxayumRwQ/0lik3
- hKru0ukF/w6varHxQga9Dt+t7Pb2KEI+KIRkDelbopPMN4M49GJT0J2W9yYJLTf2qfSF
- cYQa2+2ZuX2otcMnRL9VrqKEhDyBSAKPKHvP3Ty+UhpZoTDQv1d90jql0I9QVv00RajD
- 7gBf0w6uFQ3PXpON0mm2kL3d90XecYKeqNkLc5KKvs7NKRU1kjGsjsMAHuX4TKZmvuzE
- IPlflQ13MWzYA4IYyNS9AwDWBjyiZD0U+dxv08ZZmhgSgUrsq7kaNIZF3XwRoLmeqdT/
- iF2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756816898; x=1757421698;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=bLl+JLjIhJwlWgN4ocOU2hzq7YznyPeqJKD3znSlmKM=;
- b=k63PGvePvaazCpQs4nJONpBakj09Q0w8NzOUloD45LosJEcP4taPHIgXfJXEq5OD4y
- kdD6WLsbceEv72aCdGmZeupe03A01Q9+tRoKGTnye0JA7YX4d0Apsbav3ErsrACubY/I
- 0Ubx9p3IybIKGGwl5ECWGK+R3wpwBEnNTJQ5DUF0OJ6khGsKs9jZ7tN2TbZeCVF3vWjW
- oXIhJ150CrzNoUq4L38PPt9zj0xLeZBlamtZsrtEI4KmO3SVhHNB+efYXIbodhDVwD04
- 4k10gpAHpwKPkaQLDHeICFhfGo6fXvN1Arej6rfMV5uWJTJBj0STuKYzO5tvkX/Mhcpd
- 17AQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUSkQbUiWS4Ay17V5mdO30uYZ++2P5Ve/94LGeXoLF69tM5qePXauOk8+20GiJna3I76btkkNqk@lists.freedesktop.org,
- AJvYcCWtAJQhlMbnnvCcp/d9Hkt5FldM9B7gESj25TERJ+/RH6i2U/AsdKtY3DSeJwcJkuC6MOkzCOoBDsjo@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwJV06kywn55UojHiSYceqjTrRylfwL6L8g3N739RvU73y3wlEk
- ckK1bkEZvoFbLri1EZIbb5RdqDjE//wZbTzpeupuDkPxvMqXPFESywXh
-X-Gm-Gg: ASbGnctEbUtbeXH5ThsHa4wQaghCHGWQUM58EB0FbVbn9MzWvNt0Bcd+EC/11HagCzJ
- PzCHzxwUbwVTr6euWMtDjTmlDIup7y9HVZZiWW+8bkFLW7dRCZr9LvS5zekmp57NG6i/ZzrNaRb
- Kjk7u28lCeqNAiApWFqhfeWme5OuwhkiCRb4ps/zp4kXqt/+Lmizh07KwSxbkUeDmEkonh7UnVK
- RMgw55scpi1H/v052VIAA7+ejnFZRR5P5jRX9/Vm+XXXE/6di0e4iAvPQg1hZvGEJORzBwMfcc/
- cP3YqhGcgQ2aTEWDxziftXcD8xvfDn/mdT4wSQXx5q4G9vRCs/313IgcPIbZSlkNWWyop/b92j6
- akv281i4ed53qtRZANVzrVlLfprufIs8=
-X-Google-Smtp-Source: AGHT+IEz5I9J4HFpTbmwM96KDxKRFH9y58DSSHqyixEB5HxWInPxE6QIjGk6UgfMHbUWnP2ymlC0Og==
-X-Received: by 2002:a05:6000:4020:b0:3c6:c737:d39f with SMTP id
- ffacd0b85a97d-3d1dc5a5641mr10228606f8f.3.1756816898145; 
- Tue, 02 Sep 2025 05:41:38 -0700 (PDT)
-Received: from localhost ([87.254.0.133]) by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3cf276d5e5fsm19738997f8f.27.2025.09.02.05.41.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Sep 2025 05:41:36 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, John Clements <john.clements@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] drm/amd/amdgpu: Fix missing error return on kzalloc
- failure
-Date: Tue,  2 Sep 2025 13:40:50 +0100
-Message-ID: <20250902124050.2628822-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.51.0
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE40810E0A0;
+ Mon,  1 Sep 2025 19:41:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=OXmQwmuMTAG2HSIdNxmQ9RuY2Q8gE5vO81foFabz8EM=; b=mIp5z6bCmDN8CVf6e95RVanZY3
+ 3fs7ps5/6g3Kljt72q2L9SLWFPd6uRmqzLSHOVyBQ1XFJeFs7GhbDYSVgbEThdun76IK0wEGA6i1y
+ PShFtPw+wCRuzBJKLhbeBjvgHpNEZX3wpKSyd5yrL6QPcJBD2grhKasAogHUNhEGnEvUtEZeIRGT5
+ KPigGs+AQXMZS8CRletpvvIge7yfv16jUqGGGJnl8uUX0Knv50WdgYiVM8KBBpE+MvtwPYbwFMIko
+ Az15hxI8cb2fpnL8NqUTh78c9T8HuQHBGSgKgAm5BgNk5+VEKgRCh2Q1LjteqHDVotxnchij1EUhK
+ AYRGYM8Q==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1utAPZ-00000003qbD-0LLf; Mon, 01 Sep 2025 19:41:53 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+ id EBAB0300342; Mon, 01 Sep 2025 21:41:51 +0200 (CEST)
+Date: Mon, 1 Sep 2025 21:41:51 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: christian.koenig@amd.com, matthew.auld@intel.com,
+ jani.nikula@linux.intel.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, alexander.deucher@amd.com
+Subject: Re: [PATCH v5 1/2] drm/buddy: Optimize free block management with RB
+ tree
+Message-ID: <20250901194151.GJ4067720@noisy.programming.kicks-ass.net>
+References: <20250901185604.2222-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250901185604.2222-1-Arunpravin.PaneerSelvam@amd.com>
 X-Mailman-Approved-At: Tue, 02 Sep 2025 12:49:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,30 +62,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently the kzalloc failure check just sets reports the failure
-and sets the variable ret to -ENOMEM, which is not checked later
-for this specific error. Fix this by just returning -ENOMEM rather
-than setting ret.
+On Tue, Sep 02, 2025 at 12:26:04AM +0530, Arunpravin Paneer Selvam wrote:
+> Replace the freelist (O(n)) used for free block management with a
+> red-black tree, providing more efficient O(log n) search, insert,
+> and delete operations. This improves scalability and performance
+> when managing large numbers of free blocks per order (e.g., hundreds
+> or thousands).
 
-Fixes: 4fb930715468 ("drm/amd/amdgpu: remove redundant host to psp cmd buf allocations")
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Did you consider the interval tree?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 1d6e1d5de8fa..3696f48c233b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -448,7 +448,7 @@ static int psp_sw_init(struct amdgpu_ip_block *ip_block)
- 	psp->cmd = kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL);
- 	if (!psp->cmd) {
- 		dev_err(adev->dev, "Failed to allocate memory to command buffer!\n");
--		ret = -ENOMEM;
-+		return -ENOMEM;
- 	}
- 
- 	adev->psp.xgmi_context.supports_extended_data =
--- 
-2.51.0
 
+> @@ -41,23 +43,53 @@ static void drm_block_free(struct drm_buddy *mm,
+>  	kmem_cache_free(slab_blocks, block);
+>  }
+>  
+> -static void list_insert_sorted(struct drm_buddy *mm,
+> -			       struct drm_buddy_block *block)
+> +static void rbtree_insert(struct drm_buddy *mm,
+> +			  struct drm_buddy_block *block)
+>  {
+> +	struct rb_root *root = &mm->free_tree[drm_buddy_block_order(block)];
+> +	struct rb_node **link = &root->rb_node;
+> +	struct rb_node *parent = NULL;
+>  	struct drm_buddy_block *node;
+> -	struct list_head *head;
+> +	u64 offset;
+> +
+> +	offset = drm_buddy_block_offset(block);
+>  
+> -	head = &mm->free_list[drm_buddy_block_order(block)];
+> -	if (list_empty(head)) {
+> -		list_add(&block->link, head);
+> -		return;
+> +	while (*link) {
+> +		parent = *link;
+> +		node = rb_entry(parent, struct drm_buddy_block, rb);
+> +
+> +		if (offset < drm_buddy_block_offset(node))
+> +			link = &parent->rb_left;
+> +		else
+> +			link = &parent->rb_right;
+>  	}
+>  
+> -	list_for_each_entry(node, head, link)
+> -		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
+> -			break;
+> +	rb_link_node(&block->rb, parent, link);
+> +	rb_insert_color(&block->rb, root);
+> +}
+
+static inline bool __drm_bb_less(const struct drm_buddy_block *a,
+				 const struct drm_buddy_block *b)
+{
+	return drm_buddy_block_offset(a) < drm_buddy_block_offset(b);
+}
+
+#define __node_2_drm_bb(node) rb_entry((node), struct drm_buddy_block, rb)
+
+static inline bool rb_drm_bb_less(struct rb_node *a, const struct rb_node *b)
+{
+	return __drm_bb_less(__node_2_drm_bb(a), __node_2_drm_bb(b));
+}
+
+static void rbtree_insert(struct drm_buddy *mm, struct drm_buddy_block *block)
+{
+	rb_add(block->rb, &mm->free_tree[drm_buddy_block_order(block)], rb_drm_bb_less);
+}
+
+> +
+> +static void rbtree_remove(struct drm_buddy *mm,
+> +			  struct drm_buddy_block *block)
+> +{
+> +	struct rb_root *root;
+> +
+> +	root = &mm->free_tree[drm_buddy_block_order(block)];
+> +	rb_erase(&block->rb, root);
+>  
+> -	__list_add(&block->link, node->link.prev, &node->link);
+> +	RB_CLEAR_NODE(&block->rb);
+> +}
+> +
+> +static inline struct drm_buddy_block *
+> +rbtree_last_entry(struct drm_buddy *mm, unsigned int order)
+> +{
+> +	struct rb_node *node = rb_last(&mm->free_tree[order]);
+> +
+> +	return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
+> +}
+
+rb_add_cached() caches the leftmost entry, if you invert the key, the
+last is first.
+
+> diff --git a/include/linux/rbtree.h b/include/linux/rbtree.h
+> index 8d2ba3749866..17190bb4837c 100644
+> --- a/include/linux/rbtree.h
+> +++ b/include/linux/rbtree.h
+> @@ -79,6 +79,62 @@ static inline void rb_link_node_rcu(struct rb_node *node, struct rb_node *parent
+>  	   ____ptr ? rb_entry(____ptr, type, member) : NULL; \
+>  	})
+>  
+> +/**
+> + * rbtree_for_each_entry - iterate in-order over rb_root of given type
+> + *
+> + * @pos:	the 'type *' to use as a loop cursor.
+> + * @root:	'rb_root *' of the rbtree.
+> + * @member:	the name of the rb_node field within 'type'.
+> + */
+> +#define rbtree_for_each_entry(pos, root, member) \
+> +	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member); \
+> +	     (pos); \
+> +	     (pos) = rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member))
+> +
+> +/**
+> + * rbtree_reverse_for_each_entry - iterate in reverse in-order over rb_root
+> + * of given type
+> + *
+> + * @pos:	the 'type *' to use as a loop cursor.
+> + * @root:	'rb_root *' of the rbtree.
+> + * @member:	the name of the rb_node field within 'type'.
+> + */
+> +#define rbtree_reverse_for_each_entry(pos, root, member) \
+> +	for ((pos) = rb_entry_safe(rb_last(root), typeof(*(pos)), member); \
+> +	     (pos); \
+> +	     (pos) = rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member))
+> +
+> +/**
+> + * rbtree_for_each_entry_safe - iterate in-order over rb_root safe against removal
+> + *
+> + * @pos:	the 'type *' to use as a loop cursor
+> + * @n:		another 'type *' to use as temporary storage
+> + * @root:	'rb_root *' of the rbtree
+> + * @member:	the name of the rb_node field within 'type'
+> + */
+> +#define rbtree_for_each_entry_safe(pos, n, root, member) \
+> +	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member), \
+> +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL; \
+> +	     (pos); \
+> +	     (pos) = (n), \
+> +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL)
+> +
+> +/**
+> + * rbtree_reverse_for_each_entry_safe - iterate in reverse in-order over rb_root
+> + * safe against removal
+> + *
+> + * @pos:	the struct type * to use as a loop cursor.
+> + * @n:		another struct type * to use as temporary storage.
+> + * @root:	pointer to struct rb_root to iterate.
+> + * @member:	name of the rb_node field within the struct.
+> + */
+> +#define rbtree_reverse_for_each_entry_safe(pos, n, root, member) \
+> +	for ((pos) = rb_entry_safe(rb_last(root), typeof(*(pos)), member), \
+> +	     (n) = (pos) ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member) : NULL; \
+> +	     (pos); \
+> +	     (pos) = (n), \
+> +	     (n) = (pos) ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member) : NULL)
+> +
+
+Not really a fan of these. That's typically a sign you're doing it
+wrong. Full tree iteration is actually slower than linked list.
