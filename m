@@ -4,147 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09B5BCA0FFF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Sep 2025 14:36:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49685CA1000
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Sep 2025 18:56:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A738F10E478;
-	Mon,  1 Sep 2025 14:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC22110E504;
+	Mon,  1 Sep 2025 18:56:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qbXKK9Iz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0g1+xRbf";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2084.outbound.protection.outlook.com [40.107.237.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B45AC10E477
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Sep 2025 14:36:25 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2063.outbound.protection.outlook.com [40.107.94.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9606310E500;
+ Mon,  1 Sep 2025 18:56:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xi/QR0PmCUMG9fMGEUVB5M3ihXjQfQknnl130NsYqxF1Fes/mRCmKIaqaxbvupN5ly9htznA0RPryVtNZ54btaSv1ALuBgswN00uGGGQYcDNF24CB3va137VShp80OM8GgxFLFsOgLEcp2sMNxVGeeTki0Up7FG48vM76re98QUNc/JMw4SrPzFbTUXmK1Po46Zncnbg+6+aphf8OVKAdcgbk7cS/EfN26uNrcHYKYEAQf57TgmxhEza+aCIph5oEg91S/4P91pDmI4B7tEgYiu7JQXFRbZf+II0QKyQBdsxmhgGI1DeHYCkiEvgBjbWlqoLtQSbdNQB89Xum2HpKw==
+ b=dDVz6+FOxJdcd+0RZkXVuG/T3mDvOm5u6r8a0HCPi8ysBS4zcDK7HtQY0zQvEFWtQwggLdbSwYeW0TcFNGIQNak12TNFoy4CS3ZBeXIZmaIRGJpor8LDOWD4bpzpZhDoSMGkp3UWP9PJXXq+OsT52eZrE69daRpwmASrwRCY0I0ZTnq1G61gMew4RiCWV0AuzsROIfu8VBsbZ186hwzwUCZcVN/VDl2mXGWGIkH0PUoR2sHjxdJgEo4l3aOW4TkmDrFT7sqANK0YX30WCQFlfNHqGIzzo4EE3LXO4bHWpz8vsq1ZYQh56yWEUJAxIh+/JL0wrOsb4nICW6EMb4CVZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xZrEQSmJPUIAiAKDD+uO/RjE+3VmhucRImxETldhdbw=;
- b=GQnEt0GoRwRu1i0y29BZGqVhFK/f3nG7CYj3DpM7UkZlohDD1b5K4vgLValbkTxeX9u1dfpr4ydoql/Cx7ge6Xdkv1nISmsPRDDvLfILaTesY5wxYM/X6T6AyCRf8pvcuKHUWbpT40opEy/OD8ZNjdoXdv5ra998xkZNkB5w2JngoI1YzkYDlag6LkHKTQy9dBh/1t8rg6sWAo/IHyNYlqeaZotn/TFzcm5clEs3JnsdTvypP/NPYuBIb/Zirt8WsvaAxHsWtwLD61HCbuuU33PiNyb85K6+E7IkQlFGWD9o7WNA+VbAvxJaizuaTw9633c9iG4np0ebwnFVQuKd3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=mH3AnI31RX6vRbr6cJ0ZOQakqTBkLdVQVPyl3y0W4ZI=;
+ b=k9XKuLGP/QPW7d+U97g/gnbzwfzicUlhV33C0xCYtcKWIrx1/2Y/r38I7bz9dDiejpftNYNoj/paXEJRcpB9Vn9jLnOGlrDnfV9wY3Y2n4Wu2C8H1YMwo2qBhEGq8H4W6fqvZGmqqntcPJoyOg7tl+UQbwY2jkm+/VIdJjfmnqsgzatSWi0kEiuDl5NccBSvOPXZxfNrMky6QX8l0o0n+9XN0c2RUrYtd0AOVtHpkbvwH2f+QLp5lbVbHV+tTP3XfypdGo0fxoFRPvMXgNu2ZOfhYCcp/fx5IlwLa20bxTagCd/wWNRco6dD18Reab3fpRsF4qx4aKTGNxJHRDimPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xZrEQSmJPUIAiAKDD+uO/RjE+3VmhucRImxETldhdbw=;
- b=qbXKK9Iz+aK0bn2aVt15+uj1DJYWhRhn67XzE8MqtCoRGHVpeyDQPWOMMhIpiTXpo0zPJabXqDzKlJFdP4u9+cHeud4jaSgNO1wUhqd1QG+IfPKXkaAYepM5hsCbbEISTg9cu+PsQCktXViQvHcjklVlae59E/KTUK61aC+imLE=
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com (2603:10b6:930:22::21)
- by MN0PR12MB6341.namprd12.prod.outlook.com (2603:10b6:208:3c2::13)
+ bh=mH3AnI31RX6vRbr6cJ0ZOQakqTBkLdVQVPyl3y0W4ZI=;
+ b=0g1+xRbfW/fJWNHgfqPnEWFkZnTdvI9jq6aGjB5SamwFuaI0FUdafgJCdRiSWKddpyEWTZUTl54gD0L7thEqYIMPIN2A3jTj5HoTD8FhcWgzB5WDP2VKwTyj1QfyGmWemtyc4YKlkz2iYiixUBHI2egFlwUWTysjlZBdTtcB4Zg=
+Received: from MN0PR04CA0008.namprd04.prod.outlook.com (2603:10b6:208:52d::22)
+ by CH3PR12MB7596.namprd12.prod.outlook.com (2603:10b6:610:14b::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Mon, 1 Sep
- 2025 14:36:22 +0000
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::542:90bb:6ae5:a2b]) by CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::542:90bb:6ae5:a2b%6]) with mapi id 15.20.9052.024; Mon, 1 Sep 2025
- 14:36:21 +0000
-From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Gande,
- Shravan kumar" <Shravankumar.Gande@amd.com>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, "Chai, Thomas"
- <YiPeng.Chai@amd.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Introduce VF critical region check for
- RAS poison injection
-Thread-Topic: [PATCH 1/2] drm/amdgpu: Introduce VF critical region check for
- RAS poison injection
-Thread-Index: AQHcEMnH+GwezBmZUkiRyQD1KAChEbR+eLx+
-Date: Mon, 1 Sep 2025 14:36:21 +0000
-Message-ID: <CY5PR12MB63452616CEE6C924FF8DD702FA07A@CY5PR12MB6345.namprd12.prod.outlook.com>
-References: <20250819052548.124897-1-xiang.liu@amd.com>
-In-Reply-To: <20250819052548.124897-1-xiang.liu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-09-01T14:36:16.769Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6345:EE_|MN0PR12MB6341:EE_
-x-ms-office365-filtering-correlation-id: a02d9eff-1e9d-420d-7ee3-08dde964eb6f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|7053199007|38070700018|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?yP0sNsoLLLoAyeSnSRFl7Iiv8augNmPnse9k2YhTl6IJ0CM8N9BENMVuYxXv?=
- =?us-ascii?Q?ZqLksQNNwluX6P58H0BrdHmw8L3VrEZpVEEBCWYY/CcR5svQ2zaqNsyuB+Nw?=
- =?us-ascii?Q?KQ5Zsjq/Rm6JF/g+WMC8ClNz8NaI02Q9Hcbx37FUgYWZTT8PfOI1sBH8r1Of?=
- =?us-ascii?Q?cWcIoq8yz0oeuHnyHWmd5t2V2kCjAafkTyzGcqF2EK7p97UXI6TgFqdpW/zd?=
- =?us-ascii?Q?r/ajBrcIhiyihk3esTCeGQesYYe/pOZ2do3Mgya/pUA4Rv9wtfHQrbZXTaGF?=
- =?us-ascii?Q?wArZJStLOBR4LucDVcl3+4RG00kIleo2+H17sdE4slfzdr0dcSd7ufOI9bRo?=
- =?us-ascii?Q?1IDKBbztiK85U2H4HB5/q/PmbXYXD6JQmSx1bl9IU1odAn64y9/bBwRf+3xC?=
- =?us-ascii?Q?XBCorSpnDk2gv2/H30zmX0cWBghpRmCeCWw2v2jYKpZl7Dm1RbW2XJhXJvV5?=
- =?us-ascii?Q?dBRLSQNWQALDTRUPy1bnwps3uTfckUWO4RSus73SgE50bslQmRiZTk0Hhbx9?=
- =?us-ascii?Q?rrxNBlfOuVNMkOV/iXRwbpsQcMi9noezfsN3P4e187VhElhPBT+AAP2pV4tJ?=
- =?us-ascii?Q?sL/tRr2oSLqben4hOKmhqCXRjKoEvZsFcwwA+6NfJsmSifnjtk8v9zmt+D8N?=
- =?us-ascii?Q?VzWZkuMhmzY6eFuxLD06VxLyC0jwtHzOKp++5hnEMedccM21iY57CPWa1QfU?=
- =?us-ascii?Q?dX32SP9xt2Jvh4diZxi92gqZsp3rQQf6+JFhEd7n6rJ4c8xWHB4+9Xw0l0FY?=
- =?us-ascii?Q?YiChHchjPvjInQ+/g7uWUm5TL07vXHx5Db0dB3pIeHjaY3mJtYhX2iY55y3T?=
- =?us-ascii?Q?S/tVR86EH9CVdZGuTqfuICkbKDNUy8AGsnF6duwZudQ49OU/MlWfdFDvazR2?=
- =?us-ascii?Q?xiePo70h/rhBvS6CpG6LMKsvr6740eRYVTbwmGW5HtWY1Clg0k8RtnnwSi4E?=
- =?us-ascii?Q?HlAtB9WhdF7380AT5PliGV2b2UhfgeGWvnrpmB69ziUg2mOWaWrUvTW79MW/?=
- =?us-ascii?Q?rAkHthHKkTxqXvfqiIusyV054UUJeEOYB5AIa4bTPjgSbFay71Ybj+UN3N6v?=
- =?us-ascii?Q?LSl2jpPbGJbzmnje9EfEIbjwDT5utoGjnzhjnq38clV1s7nbI3ad3nfqjBGa?=
- =?us-ascii?Q?3zWTQ159qnwf69R0cz9NCcQXgu7Uez6nZsCb3vL2n6gv7G802IdfL3V9w1a7?=
- =?us-ascii?Q?Km1ATvtYBWyQItx2vV/9HNgFfuoPfnluIx4GCAQdedFc+v6jo/2f/xbokdh1?=
- =?us-ascii?Q?BPoK5f8XAd4ChMx05snOxqEgMyrQzne2y3JNmu4/qTMn43Eg+wdUZXF3xwdF?=
- =?us-ascii?Q?EMXyx4Dao9JdpDwDdwdIePTGOi3qNYvU9Vq8GNG0XcfKf9qOP4vatzo6bYto?=
- =?us-ascii?Q?ETZ+zGowVIq5p9PW64QC44DzikkOZB2ExMcOpJrUNOpTJEdz8kWvU6X+UkaF?=
- =?us-ascii?Q?WAeau821z9xcZ7kcwbff4zPNesxnkCf1NywWfK/5Zrwm390pq4M6Z31KvdrK?=
- =?us-ascii?Q?FTbHLcZNp2qziAY=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6345.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(38070700018)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?aEfNXQyODCzsLPlfZUOlNj8PyapbyfT/SptzME2ExO+ol8khnz29QiYeIhuG?=
- =?us-ascii?Q?lwBkpdgWpTJjO2fYKnYqHi3JzpZ39pI2N9DDSv7KKj/F2mhiChlrNfCiPJfj?=
- =?us-ascii?Q?Hcg0J9M6eCA7OmW5Q0G2W/XPQR6Kcdgu2bJsnqdcwCe4wKF3RUek+i9qaj+u?=
- =?us-ascii?Q?DtCon9dYdnfGPFlvzdDwgapfQybsaY7LcqPsgJS0qjaWtLd8/wabQeEFVtHI?=
- =?us-ascii?Q?p9hO1XJJe1fDfzb6fWeGxPxVncJVkjyr9HWcQWu+BWP2uIk+bOweKBHp8MF9?=
- =?us-ascii?Q?CgjA+uaSWw+NrexZgIr6pH6hf74f1IzMqOwzURXSPOwRcwlsnMxJWM6Nzz/s?=
- =?us-ascii?Q?RSH4CtqCYx804C0BebC5a8mwyMT4RMo1NfIPjo1qeLTfo2fWCXgFIoO03f1r?=
- =?us-ascii?Q?cfZuSQZggHxtDPKKu7krfDRon76gT3lggMsG5bbQByTNoOnNtwtGSvrRxnIB?=
- =?us-ascii?Q?gZcFC4eBEt1CdAtomGXTNwYmpRFENHsCHujqBstk4yhLygV3Nh+P37Joj5+F?=
- =?us-ascii?Q?kBBKSBXaRhrdRRy3N71DF7xNKgLtKucSy2WSo1w7geskM1nnHqdlzeyqHJEH?=
- =?us-ascii?Q?ZnMjGoi5hrUx08uSJC9CrHacUdu49vvBeV2aVxcp2Ri841D1nDdlGM90C9Dh?=
- =?us-ascii?Q?sElsiOjmCXIOEVJ6c2HQbTtlj+B241BB24QO4OUKQLhzsiK83WH4jiDW2Wlc?=
- =?us-ascii?Q?JObGdi8xhPNp7XO+lud6rEUs1eds0xMuU7vFNi9Gw2nmrH8SH6gmqbGjpaKt?=
- =?us-ascii?Q?R5OvbJbn2TRa8ADfF3vWJXCxWKTZDmwhdtgBtxKdjL3nizyUkNKhLIwl+zMt?=
- =?us-ascii?Q?6MCVow1yBxlTLS5T3CEFxxbkHQQNUKD8PKwQllFAAWnH3NkOhr9ylM+EvKV8?=
- =?us-ascii?Q?EYBL5kVJaoYbCkFerVlFhtgnSBTTVfPj7+bzk1fWdTjtWx0u+FZLHRuDTuTx?=
- =?us-ascii?Q?JykMWNrGsgfvFKPC0VAAp+aK0QCSHasbTVFr3Ji22h8tnWlks1yS3T/4Tld3?=
- =?us-ascii?Q?vlI9P2/57b1mr9nDC4iX9cw1Fg/MXne2IvEQ6F5sxbNggfgtsRRNJFSQ1jHX?=
- =?us-ascii?Q?HKBahn27akbvAkZvWiqaJxOw5YKVkX4iyS1L668q7cLwrMoDbPprI1KV/YSC?=
- =?us-ascii?Q?oKQGsFLKqpYeRAxsN46P+PQRQ+T0uoVIJnFOuxxNUWkNbIibRzjfGqtsmNFT?=
- =?us-ascii?Q?Zq486Z0ZJRg8LDg0PvNlIXlMrRr6U5OrqEHWL+jw2FHUt2rDady2I1II5p6N?=
- =?us-ascii?Q?dM/Uu6sjx0RO4eRs2OtX6eCY83jZLqw+83/sGk606p8dSh4AZ47g/Yk2w9r4?=
- =?us-ascii?Q?Hf1fYcGRd+IX8aEFFIc8R7bI9KnaYNJ0LZS3I1qq1+9TjugOqZknHt76FzwS?=
- =?us-ascii?Q?rEmtfaLjsAsPSK4K/5Lz5yn0nqNZYaFAOReFj22N/UuzfaQznWlMNSkHIHnd?=
- =?us-ascii?Q?ImJCAfLsJ6VS0ckuAydlqXUCy39/ecPC31CgDPuCUvaEmCnS0b6e2UVjZLxB?=
- =?us-ascii?Q?8kSpbRhCmaVOX5v4mkitUbjN9HhCWNu4jzJRZdinmPPh0R1u38JHoDuU9F+A?=
- =?us-ascii?Q?ucny5VQw9n39U60tdvg=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CY5PR12MB63452616CEE6C924FF8DD702FA07ACY5PR12MB6345namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.26; Mon, 1 Sep
+ 2025 18:56:32 +0000
+Received: from BL6PEPF0001AB59.namprd02.prod.outlook.com
+ (2603:10b6:208:52d:cafe::1e) by MN0PR04CA0008.outlook.office365.com
+ (2603:10b6:208:52d::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.27 via Frontend Transport; Mon,
+ 1 Sep 2025 18:56:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB59.mail.protection.outlook.com (10.167.241.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9094.14 via Frontend Transport; Mon, 1 Sep 2025 18:56:32 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 1 Sep
+ 2025 13:56:31 -0500
+Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Mon, 1 Sep
+ 2025 11:56:27 -0700
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <christian.koenig@amd.com>, <matthew.auld@intel.com>,
+ <jani.nikula@linux.intel.com>, <peterz@infradead.org>,
+ <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v5 1/2] drm/buddy: Optimize free block management with RB tree
+Date: Tue, 2 Sep 2025 00:26:04 +0530
+Message-ID: <20250901185604.2222-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB59:EE_|CH3PR12MB7596:EE_
+X-MS-Office365-Filtering-Correlation-Id: ccb2505e-cc90-423f-3bf6-08dde989446c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yHCAki4dBcj+/bkT+cpneOzfgEG+oBV+FGi50q8PuTi4Fp4U9z/JaRhhLzwo?=
+ =?us-ascii?Q?q9JnGfnrjtt0YRWfbFJSNShlhi/VgRro1oMO3UL83U8AqIW7Sj36/vt+vbE7?=
+ =?us-ascii?Q?zK+PdkhabXJubf68PqOWZ1O59nSlB9Hh+kQCX2hsGtUsBYNnvo3ocRCXFKA9?=
+ =?us-ascii?Q?0CxXakle45Yfk4J2l7fpmXfKeQx9vPsmmUQa5hv81jWKp47p9xOJWAwdc64G?=
+ =?us-ascii?Q?lwGLKk5P1NM/gEMH77H7r/Y458r3BVhBDdqx/WYHGlHh6DvyXiu8HYE7hHG4?=
+ =?us-ascii?Q?Bt7Q88EuXNI3aNzl3qxgTqwmF6bPz4W0/VVW+/9r/a5oOwE+yTjY2LUIiAb5?=
+ =?us-ascii?Q?D5s+Y33qFZn2BvesDLcDho663JGfYaSjBBQJdl7u7memSGfEgsKANUNG2drc?=
+ =?us-ascii?Q?Uca8BHyTbQ6WQ8yQNCl1HcBNYJU/IH72Nl/pkfSqtUwztUjE7jY42+p1bilw?=
+ =?us-ascii?Q?WoLotsq5VUZ0P1ETvX7I1Gpq72DPdNoAGqSkvHONs+zJlzaFvfKl7irRKO9h?=
+ =?us-ascii?Q?xUqrM1N99jSMAKDdNAtlp8KC1LKSugR/GWusfZR5OupQzYZipET+bEoBv4/D?=
+ =?us-ascii?Q?AzRT7bhzS+7A9vNxFI8pC+NbKCWcf/NT7Xwi+cAqJtFPV6mrYXBH5ob/G823?=
+ =?us-ascii?Q?U9jtd28Ic8Ud5rmSK1AhoDuLURwM1zJBdBFqmt5qS3o9XBMacWml9yvvo8XN?=
+ =?us-ascii?Q?qtYFo+04KCZ2ERpcvRyY0Nf1So4hWGTcqinj+iXaH7pwopAp82Uf8FoUrlFZ?=
+ =?us-ascii?Q?Cc24KH4Pmg6EQ/6pcbymFd9hjE/9TxvDUQMr9/5vNajrsKvoSmteSWV2cvt4?=
+ =?us-ascii?Q?SsiN+TdebXXo7vBT+94ECVppVoJjTW6HtmfhKTBS9KZq0Feig4BJxRn7BfEK?=
+ =?us-ascii?Q?iTCPcRcJPUyQyvi/MnN2z2CUkzRpnVXA1egEs+kuh8DIAPef5elaerl3WsiH?=
+ =?us-ascii?Q?oE6qIDixjFRuUiACnyohqh5RLqubmfYYfY29D6Ao+OEyhb3OA77mYdNoKKp3?=
+ =?us-ascii?Q?EcXBqGBfVicWqMzTeO9sQ3XaooU10LDMqk7C5xPPBkPhh7wdwXlineuJa23m?=
+ =?us-ascii?Q?oJ9d7vOJB8Q6cGwBv640HT2pMnnbob/6DmBSE2nFyiyB76VmQR+n8y6DFT0K?=
+ =?us-ascii?Q?nyoUQ7lxbQtLqMHahR/BhqA1ALSZvPAFttgn+w7a8fIGrj56K6UCjsSI7lrt?=
+ =?us-ascii?Q?x/a/SvZBroebEQZWq24pbeqXoiX0U8qFlIP4b3lKztIGv4d1JMGdQHVfG34r?=
+ =?us-ascii?Q?v7KBPDEuMNXjFqJDcJSdF0nW7foqPG/7rOP+dxi0ZqDLVeoPE+LXR55RKNmN?=
+ =?us-ascii?Q?5if97eurhPwJbsLpBCLMkxD4s0jOpjJnLmsbztLorVCsGG1jvc5ip+9vG4Gt?=
+ =?us-ascii?Q?1ZzRMHaZ45tgx+FKHB2nvZa/Ot4sCjf3OXJcLZdH1ef1Wx3RSIypekp1aRPj?=
+ =?us-ascii?Q?8qJSrra3rO4v+B7D2Jcj8JPOKO2p7q7yElHa0y1agITY+smHsu9hEAsXnKJK?=
+ =?us-ascii?Q?QU2qYjncMJDaED8D0M/cL6EaZYggMWuYJ/SJCGqLXkP1KFoMV+/lCs88CQ?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(921020); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6345.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a02d9eff-1e9d-420d-7ee3-08dde964eb6f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2025 14:36:21.2084 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: s8KqHMC8j0f/+qu7fzSigaD/ka+uwCtKVKZyJt81wE0O/ECTZ0BLlxiMIgjK1gf6+C+kGrL3IK2/dhJL9aV9Yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6341
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2025 18:56:32.3776 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccb2505e-cc90-423f-3bf6-08dde989446c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB59.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7596
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,630 +140,502 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CY5PR12MB63452616CEE6C924FF8DD702FA07ACY5PR12MB6345namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Replace the freelist (O(n)) used for free block management with a
+red-black tree, providing more efficient O(log n) search, insert,
+and delete operations. This improves scalability and performance
+when managing large numbers of free blocks per order (e.g., hundreds
+or thousands).
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+In the VK-CTS memory stress subtest, the buddy manager merges
+fragmented memory and inserts freed blocks into the freelist. Since
+freelist insertion is O(n), this becomes a bottleneck as fragmentation
+increases. Benchmarking shows list_insert_sorted() consumes ~52.69% CPU
+with the freelist, compared to just 0.03% with the RB tree
+(rbtree_insert.isra.0), despite performing the same sorted insert.
 
-+ @Gande, Shravan kumar<mailto:Shravankumar.Gande@amd.com>
+This also improves performance in heavily fragmented workloads,
+such as games or graphics tests that stress memory.
 
-Hi Shravan,
+v3(Matthew):
+  - Remove RB_EMPTY_NODE check in force_merge function.
+  - Rename rb for loop macros to have less generic names and move to
+    .c file.
+  - Make the rb node rb and link field as union.
 
-Could you please help review the code at your convenience?
+v4(Jani Nikula):
+  - The kernel-doc comment should be "/**"
+  - Move all the rbtree macros to rbtree.h and add parens to ensure
+    correct precedence.
 
-
-Regards,
-
-Liu, Xiang
-
-________________________________
-From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Sent: Tuesday, August 19, 2025 1:25 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; =
-Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: Introduce VF critical region check for RAS=
- poison injection
-
-The SRIOV guest send requet to host to check whether the poison
-injection address is in VF critical region or not via mabox.
-
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    | 55 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  5 ++
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c       | 14 ++++++
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h       |  2 +
- 5 files changed, 79 insertions(+)
+ drivers/gpu/drm/drm_buddy.c | 142 ++++++++++++++++++++++--------------
+ include/drm/drm_buddy.h     |   9 ++-
+ include/linux/rbtree.h      |  56 ++++++++++++++
+ 3 files changed, 152 insertions(+), 55 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c
-index 13f0cdeb59c4..3328ab63376b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -828,11 +828,14 @@ static void amdgpu_virt_init_ras(struct amdgpu_device=
- *adev)
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index a94061f373de..978cabfbcf0f 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -31,6 +31,8 @@ static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
+ 	block->header |= order;
+ 	block->parent = parent;
+ 
++	RB_CLEAR_NODE(&block->rb);
++
+ 	BUG_ON(block->header & DRM_BUDDY_HEADER_UNUSED);
+ 	return block;
+ }
+@@ -41,23 +43,53 @@ static void drm_block_free(struct drm_buddy *mm,
+ 	kmem_cache_free(slab_blocks, block);
+ }
+ 
+-static void list_insert_sorted(struct drm_buddy *mm,
+-			       struct drm_buddy_block *block)
++static void rbtree_insert(struct drm_buddy *mm,
++			  struct drm_buddy_block *block)
  {
-         ratelimit_state_init(&adev->virt.ras.ras_error_cnt_rs, 5 * HZ, 1);
-         ratelimit_state_init(&adev->virt.ras.ras_cper_dump_rs, 5 * HZ, 1);
-+       ratelimit_state_init(&adev->virt.ras.ras_chk_criti_rs, 5 * HZ, 1);
-
-         ratelimit_set_flags(&adev->virt.ras.ras_error_cnt_rs,
-                             RATELIMIT_MSG_ON_RELEASE);
-         ratelimit_set_flags(&adev->virt.ras.ras_cper_dump_rs,
-                             RATELIMIT_MSG_ON_RELEASE);
-+       ratelimit_set_flags(&adev->virt.ras.ras_chk_criti_rs,
-+                           RATELIMIT_MSG_ON_RELEASE);
-
-         mutex_init(&adev->virt.ras.ras_telemetry_mutex);
-
-@@ -1501,3 +1504,55 @@ void amdgpu_virt_request_bad_pages(struct amdgpu_dev=
-ice *adev)
-         if (virt->ops && virt->ops->req_bad_pages)
-                 virt->ops->req_bad_pages(adev);
++	struct rb_root *root = &mm->free_tree[drm_buddy_block_order(block)];
++	struct rb_node **link = &root->rb_node;
++	struct rb_node *parent = NULL;
+ 	struct drm_buddy_block *node;
+-	struct list_head *head;
++	u64 offset;
++
++	offset = drm_buddy_block_offset(block);
+ 
+-	head = &mm->free_list[drm_buddy_block_order(block)];
+-	if (list_empty(head)) {
+-		list_add(&block->link, head);
+-		return;
++	while (*link) {
++		parent = *link;
++		node = rb_entry(parent, struct drm_buddy_block, rb);
++
++		if (offset < drm_buddy_block_offset(node))
++			link = &parent->rb_left;
++		else
++			link = &parent->rb_right;
+ 	}
+ 
+-	list_for_each_entry(node, head, link)
+-		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
+-			break;
++	rb_link_node(&block->rb, parent, link);
++	rb_insert_color(&block->rb, root);
++}
++
++static void rbtree_remove(struct drm_buddy *mm,
++			  struct drm_buddy_block *block)
++{
++	struct rb_root *root;
++
++	root = &mm->free_tree[drm_buddy_block_order(block)];
++	rb_erase(&block->rb, root);
+ 
+-	__list_add(&block->link, node->link.prev, &node->link);
++	RB_CLEAR_NODE(&block->rb);
++}
++
++static inline struct drm_buddy_block *
++rbtree_last_entry(struct drm_buddy *mm, unsigned int order)
++{
++	struct rb_node *node = rb_last(&mm->free_tree[order]);
++
++	return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
++}
++
++static bool rbtree_is_empty(struct drm_buddy *mm, unsigned int order)
++{
++	return RB_EMPTY_ROOT(&mm->free_tree[order]);
  }
-+
-+static int amdgpu_virt_cache_chk_criti_hit(struct amdgpu_device *adev,
-+                                          struct amdsriov_ras_telemetry *h=
-ost_telemetry,
-+                                          bool *hit)
-+{
-+       struct amd_sriov_ras_chk_criti *tmp =3D NULL;
-+       uint32_t checksum, used_size;
-+
-+       checksum =3D host_telemetry->header.checksum;
-+       used_size =3D host_telemetry->header.used_size;
-+
-+       if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
-+               return 0;
-+
-+       tmp =3D kmemdup(&host_telemetry->body.chk_criti, used_size, GFP_KER=
-NEL);
-+       if (!tmp)
-+               return -ENOMEM;
-+
-+       if (checksum !=3D amd_sriov_msg_checksum(tmp, used_size, 0, 0))
-+               goto out;
-+
-+       if (hit)
-+               *hit =3D tmp->hit ? true : false;
-+
-+out:
-+       kfree(tmp);
-+
-+       return 0;
-+}
-+
-+int amdgpu_virt_check_vf_critical_region(struct amdgpu_device *adev, u64 a=
-ddr, bool *hit)
-+{
-+       struct amdgpu_virt *virt =3D &adev->virt;
-+       int r =3D -EPERM;
-+
-+       if (!virt->ops || !virt->ops->req_ras_chk_criti)
-+               return -EOPNOTSUPP;
-+
-+       /* Host allows 15 ras telemetry requests per 60 seconds. Afterwhich=
-, the Host
-+        * will ignore incoming guest messages. Ratelimit the guest message=
-s to
-+        * prevent guest self DOS.
-+        */
-+       if (__ratelimit(&virt->ras.ras_chk_criti_rs)) {
-+               mutex_lock(&virt->ras.ras_telemetry_mutex);
-+               if (!virt->ops->req_ras_chk_criti(adev, addr))
-+                       r =3D amdgpu_virt_cache_chk_criti_hit(
-+                               adev, virt->fw_reserve.ras_telemetry, hit);
-+               mutex_unlock(&virt->ras.ras_telemetry_mutex);
-+       }
-+
-+       return r;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.h
-index 3da3ebb1d9a1..6ca83abd7a4f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -98,6 +98,7 @@ struct amdgpu_virt_ops {
-         int (*req_ras_err_count)(struct amdgpu_device *adev);
-         int (*req_ras_cper_dump)(struct amdgpu_device *adev, u64 vf_rptr);
-         int (*req_bad_pages)(struct amdgpu_device *adev);
-+       int (*req_ras_chk_criti)(struct amdgpu_device *adev, u64 addr);
- };
-
- /*
-@@ -252,6 +253,7 @@ struct amdgpu_virt_ras_err_handler_data {
- struct amdgpu_virt_ras {
-         struct ratelimit_state ras_error_cnt_rs;
-         struct ratelimit_state ras_cper_dump_rs;
-+       struct ratelimit_state ras_chk_criti_rs;
-         struct mutex ras_telemetry_mutex;
-         uint64_t cper_rptr;
- };
-@@ -447,4 +449,5 @@ int amdgpu_virt_ras_telemetry_post_reset(struct amdgpu_=
-device *adev);
- bool amdgpu_virt_ras_telemetry_block_en(struct amdgpu_device *adev,
-                                         enum amdgpu_ras_block block);
- void amdgpu_virt_request_bad_pages(struct amdgpu_device *adev);
-+int amdgpu_virt_check_vf_critical_region(struct amdgpu_device *adev, u64 a=
-ddr, bool *hit);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgv_sriovmsg.h
-index 33edad1f9dcd..3a79ed7d8031 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-@@ -405,12 +405,17 @@ struct amd_sriov_ras_cper_dump {
-         uint32_t buf[];
- };
-
-+struct amd_sriov_ras_chk_criti {
-+       uint32_t hit;
-+};
-+
- struct amdsriov_ras_telemetry {
-         struct amd_sriov_ras_telemetry_header header;
-
-         union {
-                 struct amd_sriov_ras_telemetry_error_count error_count;
-                 struct amd_sriov_ras_cper_dump cper_dump;
-+               struct amd_sriov_ras_chk_criti chk_criti;
-         } body;
- };
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/am=
-dgpu/mxgpu_nv.c
-index f6d8597452ed..00c5db336c0e 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-@@ -205,6 +205,9 @@ static int xgpu_nv_send_access_requests_with_param(stru=
-ct amdgpu_device *adev,
-         case IDH_REQ_RAS_BAD_PAGES:
-                 event =3D IDH_RAS_BAD_PAGES_READY;
-                 break;
-+       case IDH_REQ_RAS_CHK_CRITI:
-+               event =3D IDH_REQ_RAS_CHK_CRITI_READY;
-+               break;
-         default:
-                 break;
-         }
-@@ -535,6 +538,16 @@ static int xgpu_nv_req_ras_bad_pages(struct amdgpu_dev=
-ice *adev)
-         return xgpu_nv_send_access_requests(adev, IDH_REQ_RAS_BAD_PAGES);
+ 
+ static void clear_reset(struct drm_buddy_block *block)
+@@ -70,12 +102,13 @@ static void mark_cleared(struct drm_buddy_block *block)
+ 	block->header |= DRM_BUDDY_HEADER_CLEAR;
  }
-
-+static int xgpu_nv_check_vf_critical_region(struct amdgpu_device *adev, u6=
-4 addr)
-+{
-+       uint32_t addr_hi, addr_lo;
+ 
+-static void mark_allocated(struct drm_buddy_block *block)
++static void mark_allocated(struct drm_buddy *mm,
++			   struct drm_buddy_block *block)
+ {
+ 	block->header &= ~DRM_BUDDY_HEADER_STATE;
+ 	block->header |= DRM_BUDDY_ALLOCATED;
+ 
+-	list_del(&block->link);
++	rbtree_remove(mm, block);
+ }
+ 
+ static void mark_free(struct drm_buddy *mm,
+@@ -84,15 +117,16 @@ static void mark_free(struct drm_buddy *mm,
+ 	block->header &= ~DRM_BUDDY_HEADER_STATE;
+ 	block->header |= DRM_BUDDY_FREE;
+ 
+-	list_insert_sorted(mm, block);
++	rbtree_insert(mm, block);
+ }
+ 
+-static void mark_split(struct drm_buddy_block *block)
++static void mark_split(struct drm_buddy *mm,
++		       struct drm_buddy_block *block)
+ {
+ 	block->header &= ~DRM_BUDDY_HEADER_STATE;
+ 	block->header |= DRM_BUDDY_SPLIT;
+ 
+-	list_del(&block->link);
++	rbtree_remove(mm, block);
+ }
+ 
+ static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
+@@ -148,7 +182,7 @@ static unsigned int __drm_buddy_free(struct drm_buddy *mm,
+ 				mark_cleared(parent);
+ 		}
+ 
+-		list_del(&buddy->link);
++		rbtree_remove(mm, buddy);
+ 		if (force_merge && drm_buddy_block_is_clear(buddy))
+ 			mm->clear_avail -= drm_buddy_block_size(mm, buddy);
+ 
+@@ -179,9 +213,11 @@ static int __force_merge(struct drm_buddy *mm,
+ 		return -EINVAL;
+ 
+ 	for (i = min_order - 1; i >= 0; i--) {
+-		struct drm_buddy_block *block, *prev;
++		struct drm_buddy_block *block, *prev_block, *first_block;
 +
-+       addr_hi =3D (uint32_t)(addr >> 32);
-+       addr_lo =3D (uint32_t)(addr & 0xFFFFFFFF);
-+       return xgpu_nv_send_access_requests_with_param(
-+               adev, IDH_REQ_RAS_CHK_CRITI, addr_hi, addr_lo, 0);
-+}
++		first_block = rb_entry(rb_first(&mm->free_tree[i]), struct drm_buddy_block, rb);
+ 
+-		list_for_each_entry_safe_reverse(block, prev, &mm->free_list[i], link) {
++		rbtree_reverse_for_each_entry_safe(block, prev_block, &mm->free_tree[i], rb) {
+ 			struct drm_buddy_block *buddy;
+ 			u64 block_start, block_end;
+ 
+@@ -206,10 +242,14 @@ static int __force_merge(struct drm_buddy *mm,
+ 			 * block in the next iteration as we would free the
+ 			 * buddy block as part of the free function.
+ 			 */
+-			if (prev == buddy)
+-				prev = list_prev_entry(prev, link);
++			if (prev_block && prev_block == buddy) {
++				if (prev_block != first_block)
++					prev_block = rb_entry(rb_prev(&prev_block->rb),
++							      struct drm_buddy_block,
++							      rb);
++			}
+ 
+-			list_del(&block->link);
++			rbtree_remove(mm, block);
+ 			if (drm_buddy_block_is_clear(block))
+ 				mm->clear_avail -= drm_buddy_block_size(mm, block);
+ 
+@@ -258,14 +298,14 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+ 
+ 	BUG_ON(mm->max_order > DRM_BUDDY_MAX_ORDER);
+ 
+-	mm->free_list = kmalloc_array(mm->max_order + 1,
+-				      sizeof(struct list_head),
++	mm->free_tree = kmalloc_array(mm->max_order + 1,
++				      sizeof(struct rb_root),
+ 				      GFP_KERNEL);
+-	if (!mm->free_list)
++	if (!mm->free_tree)
+ 		return -ENOMEM;
+ 
+ 	for (i = 0; i <= mm->max_order; ++i)
+-		INIT_LIST_HEAD(&mm->free_list[i]);
++		mm->free_tree[i] = RB_ROOT;
+ 
+ 	mm->n_roots = hweight64(size);
+ 
+@@ -273,7 +313,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+ 				  sizeof(struct drm_buddy_block *),
+ 				  GFP_KERNEL);
+ 	if (!mm->roots)
+-		goto out_free_list;
++		goto out_free_tree;
+ 
+ 	offset = 0;
+ 	i = 0;
+@@ -312,8 +352,8 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+ 	while (i--)
+ 		drm_block_free(mm, mm->roots[i]);
+ 	kfree(mm->roots);
+-out_free_list:
+-	kfree(mm->free_list);
++out_free_tree:
++	kfree(mm->free_tree);
+ 	return -ENOMEM;
+ }
+ EXPORT_SYMBOL(drm_buddy_init);
+@@ -323,7 +363,7 @@ EXPORT_SYMBOL(drm_buddy_init);
+  *
+  * @mm: DRM buddy manager to free
+  *
+- * Cleanup memory manager resources and the freelist
++ * Cleanup memory manager resources and the freetree
+  */
+ void drm_buddy_fini(struct drm_buddy *mm)
+ {
+@@ -350,7 +390,7 @@ void drm_buddy_fini(struct drm_buddy *mm)
+ 	WARN_ON(mm->avail != mm->size);
+ 
+ 	kfree(mm->roots);
+-	kfree(mm->free_list);
++	kfree(mm->free_tree);
+ }
+ EXPORT_SYMBOL(drm_buddy_fini);
+ 
+@@ -383,7 +423,7 @@ static int split_block(struct drm_buddy *mm,
+ 		clear_reset(block);
+ 	}
+ 
+-	mark_split(block);
++	mark_split(mm, block);
+ 
+ 	return 0;
+ }
+@@ -412,7 +452,7 @@ EXPORT_SYMBOL(drm_get_buddy);
+  * @is_clear: blocks clear state
+  *
+  * Reset the clear state based on @is_clear value for each block
+- * in the freelist.
++ * in the freetree.
+  */
+ void drm_buddy_reset_clear(struct drm_buddy *mm, bool is_clear)
+ {
+@@ -433,7 +473,7 @@ void drm_buddy_reset_clear(struct drm_buddy *mm, bool is_clear)
+ 	for (i = 0; i <= mm->max_order; ++i) {
+ 		struct drm_buddy_block *block;
+ 
+-		list_for_each_entry_reverse(block, &mm->free_list[i], link) {
++		rbtree_reverse_for_each_entry(block, &mm->free_tree[i], rb) {
+ 			if (is_clear != drm_buddy_block_is_clear(block)) {
+ 				if (is_clear) {
+ 					mark_cleared(block);
+@@ -641,7 +681,7 @@ get_maxblock(struct drm_buddy *mm, unsigned int order,
+ 	for (i = order; i <= mm->max_order; ++i) {
+ 		struct drm_buddy_block *tmp_block;
+ 
+-		list_for_each_entry_reverse(tmp_block, &mm->free_list[i], link) {
++		rbtree_reverse_for_each_entry(tmp_block, &mm->free_tree[i], rb) {
+ 			if (block_incompatible(tmp_block, flags))
+ 				continue;
+ 
+@@ -667,7 +707,7 @@ get_maxblock(struct drm_buddy *mm, unsigned int order,
+ }
+ 
+ static struct drm_buddy_block *
+-alloc_from_freelist(struct drm_buddy *mm,
++alloc_from_freetree(struct drm_buddy *mm,
+ 		    unsigned int order,
+ 		    unsigned long flags)
+ {
+@@ -684,7 +724,7 @@ alloc_from_freelist(struct drm_buddy *mm,
+ 		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+ 			struct drm_buddy_block *tmp_block;
+ 
+-			list_for_each_entry_reverse(tmp_block, &mm->free_list[tmp], link) {
++			rbtree_reverse_for_each_entry(tmp_block, &mm->free_tree[tmp], rb) {
+ 				if (block_incompatible(tmp_block, flags))
+ 					continue;
+ 
+@@ -700,10 +740,8 @@ alloc_from_freelist(struct drm_buddy *mm,
+ 	if (!block) {
+ 		/* Fallback method */
+ 		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+-			if (!list_empty(&mm->free_list[tmp])) {
+-				block = list_last_entry(&mm->free_list[tmp],
+-							struct drm_buddy_block,
+-							link);
++			if (!rbtree_is_empty(mm, tmp)) {
++				block = rbtree_last_entry(mm, tmp);
+ 				if (block)
+ 					break;
+ 			}
+@@ -771,7 +809,7 @@ static int __alloc_range(struct drm_buddy *mm,
+ 
+ 		if (contains(start, end, block_start, block_end)) {
+ 			if (drm_buddy_block_is_free(block)) {
+-				mark_allocated(block);
++				mark_allocated(mm, block);
+ 				total_allocated += drm_buddy_block_size(mm, block);
+ 				mm->avail -= drm_buddy_block_size(mm, block);
+ 				if (drm_buddy_block_is_clear(block))
+@@ -849,7 +887,6 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
+ {
+ 	u64 rhs_offset, lhs_offset, lhs_size, filled;
+ 	struct drm_buddy_block *block;
+-	struct list_head *list;
+ 	LIST_HEAD(blocks_lhs);
+ 	unsigned long pages;
+ 	unsigned int order;
+@@ -862,11 +899,10 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
+ 	if (order == 0)
+ 		return -ENOSPC;
+ 
+-	list = &mm->free_list[order];
+-	if (list_empty(list))
++	if (rbtree_is_empty(mm, order))
+ 		return -ENOSPC;
+ 
+-	list_for_each_entry_reverse(block, list, link) {
++	rbtree_reverse_for_each_entry(block, &mm->free_tree[order], rb) {
+ 		/* Allocate blocks traversing RHS */
+ 		rhs_offset = drm_buddy_block_offset(block);
+ 		err =  __drm_buddy_alloc_range(mm, rhs_offset, size,
+@@ -976,7 +1012,7 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+ 	list_add(&block->tmp_link, &dfs);
+ 	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
+ 	if (err) {
+-		mark_allocated(block);
++		mark_allocated(mm, block);
+ 		mm->avail -= drm_buddy_block_size(mm, block);
+ 		if (drm_buddy_block_is_clear(block))
+ 			mm->clear_avail -= drm_buddy_block_size(mm, block);
+@@ -999,8 +1035,8 @@ __drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 		return  __drm_buddy_alloc_range_bias(mm, start, end,
+ 						     order, flags);
+ 	else
+-		/* Allocate from freelist */
+-		return alloc_from_freelist(mm, order, flags);
++		/* Allocate from freetree */
++		return alloc_from_freetree(mm, order, flags);
+ }
+ 
+ /**
+@@ -1017,8 +1053,8 @@ __drm_buddy_alloc_blocks(struct drm_buddy *mm,
+  * alloc_range_bias() called on range limitations, which traverses
+  * the tree and returns the desired block.
+  *
+- * alloc_from_freelist() called when *no* range restrictions
+- * are enforced, which picks the block from the freelist.
++ * alloc_from_freetree() called when *no* range restrictions
++ * are enforced, which picks the block from the freetree.
+  *
+  * Returns:
+  * 0 on success, error code on failure.
+@@ -1120,7 +1156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 			}
+ 		} while (1);
+ 
+-		mark_allocated(block);
++		mark_allocated(mm, block);
+ 		mm->avail -= drm_buddy_block_size(mm, block);
+ 		if (drm_buddy_block_is_clear(block))
+ 			mm->clear_avail -= drm_buddy_block_size(mm, block);
+@@ -1204,7 +1240,7 @@ void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p)
+ 		struct drm_buddy_block *block;
+ 		u64 count = 0, free;
+ 
+-		list_for_each_entry(block, &mm->free_list[order], link) {
++		rbtree_for_each_entry(block, &mm->free_tree[order], rb) {
+ 			BUG_ON(!drm_buddy_block_is_free(block));
+ 			count++;
+ 		}
+diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+index 513837632b7d..091823592034 100644
+--- a/include/drm/drm_buddy.h
++++ b/include/drm/drm_buddy.h
+@@ -10,6 +10,7 @@
+ #include <linux/list.h>
+ #include <linux/slab.h>
+ #include <linux/sched.h>
++#include <linux/rbtree.h>
+ 
+ #include <drm/drm_print.h>
+ 
+@@ -53,7 +54,11 @@ struct drm_buddy_block {
+ 	 * a list, if so desired. As soon as the block is freed with
+ 	 * drm_buddy_free* ownership is given back to the mm.
+ 	 */
+-	struct list_head link;
++	union {
++		struct rb_node rb;
++		struct list_head link;
++	};
 +
- const struct amdgpu_virt_ops xgpu_nv_virt_ops =3D {
-         .req_full_gpu   =3D xgpu_nv_request_full_gpu_access,
-         .rel_full_gpu   =3D xgpu_nv_release_full_gpu_access,
-@@ -548,4 +561,5 @@ const struct amdgpu_virt_ops xgpu_nv_virt_ops =3D {
-         .req_ras_err_count =3D xgpu_nv_req_ras_err_count,
-         .req_ras_cper_dump =3D xgpu_nv_req_ras_cper_dump,
-         .req_bad_pages =3D xgpu_nv_req_ras_bad_pages,
-+       .req_ras_chk_criti =3D xgpu_nv_check_vf_critical_region
+ 	struct list_head tmp_link;
  };
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h b/drivers/gpu/drm/amd/am=
-dgpu/mxgpu_nv.h
-index 5808689562cc..c1083e5e41e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
-@@ -43,6 +43,7 @@ enum idh_request {
-         IDH_REQ_RAS_ERROR_COUNT =3D 203,
-         IDH_REQ_RAS_CPER_DUMP =3D 204,
-         IDH_REQ_RAS_BAD_PAGES =3D 205,
-+       IDH_REQ_RAS_CHK_CRITI =3D 206
- };
+ 
+@@ -68,7 +73,7 @@ struct drm_buddy_block {
+  */
+ struct drm_buddy {
+ 	/* Maintain a free list for each order. */
+-	struct list_head *free_list;
++	struct rb_root *free_tree;
+ 
+ 	/*
+ 	 * Maintain explicit binary tree(s) to track the allocation of the
+diff --git a/include/linux/rbtree.h b/include/linux/rbtree.h
+index 8d2ba3749866..17190bb4837c 100644
+--- a/include/linux/rbtree.h
++++ b/include/linux/rbtree.h
+@@ -79,6 +79,62 @@ static inline void rb_link_node_rcu(struct rb_node *node, struct rb_node *parent
+ 	   ____ptr ? rb_entry(____ptr, type, member) : NULL; \
+ 	})
+ 
++/**
++ * rbtree_for_each_entry - iterate in-order over rb_root of given type
++ *
++ * @pos:	the 'type *' to use as a loop cursor.
++ * @root:	'rb_root *' of the rbtree.
++ * @member:	the name of the rb_node field within 'type'.
++ */
++#define rbtree_for_each_entry(pos, root, member) \
++	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member); \
++	     (pos); \
++	     (pos) = rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member))
++
++/**
++ * rbtree_reverse_for_each_entry - iterate in reverse in-order over rb_root
++ * of given type
++ *
++ * @pos:	the 'type *' to use as a loop cursor.
++ * @root:	'rb_root *' of the rbtree.
++ * @member:	the name of the rb_node field within 'type'.
++ */
++#define rbtree_reverse_for_each_entry(pos, root, member) \
++	for ((pos) = rb_entry_safe(rb_last(root), typeof(*(pos)), member); \
++	     (pos); \
++	     (pos) = rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member))
++
++/**
++ * rbtree_for_each_entry_safe - iterate in-order over rb_root safe against removal
++ *
++ * @pos:	the 'type *' to use as a loop cursor
++ * @n:		another 'type *' to use as temporary storage
++ * @root:	'rb_root *' of the rbtree
++ * @member:	the name of the rb_node field within 'type'
++ */
++#define rbtree_for_each_entry_safe(pos, n, root, member) \
++	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member), \
++	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL; \
++	     (pos); \
++	     (pos) = (n), \
++	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL)
++
++/**
++ * rbtree_reverse_for_each_entry_safe - iterate in reverse in-order over rb_root
++ * safe against removal
++ *
++ * @pos:	the struct type * to use as a loop cursor.
++ * @n:		another struct type * to use as temporary storage.
++ * @root:	pointer to struct rb_root to iterate.
++ * @member:	name of the rb_node field within the struct.
++ */
++#define rbtree_reverse_for_each_entry_safe(pos, n, root, member) \
++	for ((pos) = rb_entry_safe(rb_last(root), typeof(*(pos)), member), \
++	     (n) = (pos) ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member) : NULL; \
++	     (pos); \
++	     (pos) = (n), \
++	     (n) = (pos) ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member) : NULL)
++
+ /**
+  * rbtree_postorder_for_each_entry_safe - iterate in post-order over rb_root of
+  * given type allowing the backing memory of @pos to be invalidated
 
- enum idh_event {
-@@ -62,6 +63,7 @@ enum idh_event {
-         IDH_RAS_BAD_PAGES_READY =3D 15,
-         IDH_RAS_BAD_PAGES_NOTIFICATION =3D 16,
-         IDH_UNRECOV_ERR_NOTIFICATION =3D 17,
-+       IDH_REQ_RAS_CHK_CRITI_READY =3D 18,
-
-         IDH_TEXT_MESSAGE =3D 255,
- };
---
+base-commit: f4c75f975cf50fa2e1fd96c5aafe5aa62e55fbe4
+-- 
 2.34.1
 
-
---_000_CY5PR12MB63452616CEE6C924FF8DD702FA07ACY5PR12MB6345namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"background-color: rgb(255, 255, 255); margin: 0px;" class=3D"=
-elementToProof">
-<div style=3D"text-align: left; text-indent: 0px; margin-left: 5pt; font-fa=
-mily: Calibri; font-size: 10pt; color: rgb(0, 0, 255);" class=3D"elementToP=
-roof">
-[AMD Official Use Only - AMD Internal Distribution Only]</div>
-<div style=3D"text-align: left; font-family: Calibri; font-size: 11pt;" cla=
-ss=3D"elementToProof">
-<br>
-</div>
-<div style=3D"text-align: left; text-indent: 0px; font-family: Calibri; fon=
-t-size: 11pt;" class=3D"elementToProof">
-<span style=3D"color: rgb(36, 36, 36);">+ </span><span style=3D"color: rgb(=
-43, 87, 154); background-color: rgb(225, 223, 221);"><a style=3D"margin: 0p=
-x;" data-linkindex=3D"1" title=3D"mailto:Shravankumar.Gande@amd.com" class=
-=3D"OWAAutoLink" id=3D"OWA76fbee0a-554c-4c21-1a09-23e49b70ceb3" href=3D"mai=
-lto:Shravankumar.Gande@amd.com">@Gande,
- Shravan kumar</a></span></div>
-</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Calibri; font-size: 11pt; color: rgb=
-(36, 36, 36);" class=3D"elementToProof">
-&nbsp;</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Calibri; font-size: 11pt; color: rgb=
-(36, 36, 36);" class=3D"elementToProof">
-Hi Shravan,</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Calibri; font-size: 11pt; color: rgb=
-(36, 36, 36);" class=3D"elementToProof">
-&nbsp;</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Calibri; font-size: 11pt; color: rgb=
-(36, 36, 36);" class=3D"elementToProof">
-Could you please help review the code at your convenience?</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;=
- color: rgb(0, 0, 0);" class=3D"elementToProof">
-<br>
-</div>
-<p style=3D"text-align: left; text-indent: 0px; background-color: white; ma=
-rgin: 0px;" class=3D"elementToProof">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: black;">Regards,</span></p>
-<p style=3D"text-align: left; text-indent: 0px; background-color: white; ma=
-rgin-top: 0px; margin-bottom: 0px;" class=3D"elementToProof">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: rgb(36, 36, 36);">Liu, Xiang</span></p>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;=
- color: rgb(0, 0, 0);" class=3D"elementToProof">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Xiang(Dean) &lt;=
-Xiang.Liu@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, August 19, 2025 1:25 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao=
-.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;; Chai, Thoma=
-s &lt;YiPeng.Chai@amd.com&gt;; Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<b=
-r>
-<b>Subject:</b> [PATCH 1/2] drm/amdgpu: Introduce VF critical region check =
-for RAS poison injection</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The SRIOV guest send requet to host to check wheth=
-er the poison<br>
-injection address is in VF critical region or not via mabox.<br>
-<br>
-Signed-off-by: Xiang Liu &lt;xiang.liu@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c&nbsp;&nbsp;&nbsp; | 55 +++++=
-++++++++++++++++<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h&nbsp;&nbsp;&nbsp; |&nbsp; 3 =
-++<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |&nbsp; 5 ++<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; | 14 ++++++<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; |&nbsp; 2 +<br>
-&nbsp;5 files changed, 79 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c<br>
-index 13f0cdeb59c4..3328ab63376b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-@@ -828,11 +828,14 @@ static void amdgpu_virt_init_ras(struct amdgpu_device=
- *adev)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ratelimit_state_init(&amp;=
-adev-&gt;virt.ras.ras_error_cnt_rs, 5 * HZ, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ratelimit_state_init(&amp;=
-adev-&gt;virt.ras.ras_cper_dump_rs, 5 * HZ, 1);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ratelimit_state_init(&amp;adev-&gt;vi=
-rt.ras.ras_chk_criti_rs, 5 * HZ, 1);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ratelimit_set_flags(&amp;a=
-dev-&gt;virt.ras.ras_error_cnt_rs,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; RATELIMIT_MSG_ON_RELEASE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ratelimit_set_flags(&amp;a=
-dev-&gt;virt.ras.ras_cper_dump_rs,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; RATELIMIT_MSG_ON_RELEASE);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ratelimit_set_flags(&amp;adev-&gt;vir=
-t.ras.ras_chk_criti_rs,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; RATELIMIT_MSG_ON_RELEASE);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;v=
-irt.ras.ras_telemetry_mutex);<br>
-&nbsp;<br>
-@@ -1501,3 +1504,55 @@ void amdgpu_virt_request_bad_pages(struct amdgpu_dev=
-ice *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (virt-&gt;ops &amp;&amp=
-; virt-&gt;ops-&gt;req_bad_pages)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; virt-&gt;ops-&gt;req_bad_pages(adev);<br>
-&nbsp;}<br>
-+<br>
-+static int amdgpu_virt_cache_chk_criti_hit(struct amdgpu_device *adev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; struct amdsriov_ras_telemetry *host_telemetry,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; bool *hit)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amd_sriov_ras_chk_criti *tmp =
-=3D NULL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t checksum, used_size;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; checksum =3D host_telemetry-&gt;heade=
-r.checksum;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; used_size =3D host_telemetry-&gt;head=
-er.used_size;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (used_size &gt; (AMD_SRIOV_RAS_TEL=
-EMETRY_SIZE_KB &lt;&lt; 10))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D kmemdup(&amp;host_telemetry-&=
-gt;body.chk_criti, used_size, GFP_KERNEL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!tmp)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -ENOMEM;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (checksum !=3D amd_sriov_msg_check=
-sum(tmp, used_size, 0, 0))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; goto out;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hit)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; *hit =3D tmp-&gt;hit ? true : false;<br>
-+<br>
-+out:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(tmp);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-+}<br>
-+<br>
-+int amdgpu_virt_check_vf_critical_region(struct amdgpu_device *adev, u64 a=
-ddr, bool *hit)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_virt *virt =3D &amp;ade=
-v-&gt;virt;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D -EPERM;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!virt-&gt;ops || !virt-&gt;ops-&g=
-t;req_ras_chk_criti)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EOPNOTSUPP;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Host allows 15 ras telemetry reque=
-sts per 60 seconds. Afterwhich, the Host<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * will ignore incoming guest me=
-ssages. Ratelimit the guest messages to<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * prevent guest self DOS.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (__ratelimit(&amp;virt-&gt;ras.ras=
-_chk_criti_rs)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mutex_lock(&amp;virt-&gt;ras.ras_telemetry_mutex);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!virt-&gt;ops-&gt;req_ras_chk_criti(adev, addr))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vir=
-t_cache_chk_criti_hit(<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev, virt-&gt;fw_reserve.ras_telemetry, hi=
-t);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mutex_unlock(&amp;virt-&gt;ras.ras_telemetry_mutex);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-+}<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.h<br>
-index 3da3ebb1d9a1..6ca83abd7a4f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-@@ -98,6 +98,7 @@ struct amdgpu_virt_ops {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*req_ras_err_count)(s=
-truct amdgpu_device *adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*req_ras_cper_dump)(s=
-truct amdgpu_device *adev, u64 vf_rptr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*req_bad_pages)(struc=
-t amdgpu_device *adev);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*req_ras_chk_criti)(struct amdgp=
-u_device *adev, u64 addr);<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;/*<br>
-@@ -252,6 +253,7 @@ struct amdgpu_virt_ras_err_handler_data {<br>
-&nbsp;struct amdgpu_virt_ras {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ratelimit_state ras=
-_error_cnt_rs;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ratelimit_state ras=
-_cper_dump_rs;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ratelimit_state ras_chk_criti_=
-rs;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex ras_telemetry=
-_mutex;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t cper_rptr;<br>
-&nbsp;};<br>
-@@ -447,4 +449,5 @@ int amdgpu_virt_ras_telemetry_post_reset(struct amdgpu_=
-device *adev);<br>
-&nbsp;bool amdgpu_virt_ras_telemetry_block_en(struct amdgpu_device *adev,<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; enum amdgpu_ras_block block);<br>
-&nbsp;void amdgpu_virt_request_bad_pages(struct amdgpu_device *adev);<br>
-+int amdgpu_virt_check_vf_critical_region(struct amdgpu_device *adev, u64 a=
-ddr, bool *hit);<br>
-&nbsp;#endif<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgv_sriovmsg.h<br>
-index 33edad1f9dcd..3a79ed7d8031 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h<br>
-@@ -405,12 +405,17 @@ struct amd_sriov_ras_cper_dump {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t buf[];<br>
-&nbsp;};<br>
-&nbsp;<br>
-+struct amd_sriov_ras_chk_criti {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t hit;<br>
-+};<br>
-+<br>
-&nbsp;struct amdsriov_ras_telemetry {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amd_sriov_ras_telem=
-etry_header header;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; union {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct amd_sriov_ras_telemetry_error_count error_coun=
-t;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct amd_sriov_ras_cper_dump cper_dump;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct amd_sriov_ras_chk_criti chk_criti;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } body;<br>
-&nbsp;};<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/am=
-dgpu/mxgpu_nv.c<br>
-index f6d8597452ed..00c5db336c0e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c<br>
-@@ -205,6 +205,9 @@ static int xgpu_nv_send_access_requests_with_param(stru=
-ct amdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IDH_REQ_RAS_BAD_PAGES=
-:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; event =3D IDH_RAS_BAD_PAGES_READY;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IDH_REQ_RAS_CHK_CRITI:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; event =3D IDH_REQ_RAS_CHK_CRITI_READY;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -535,6 +538,16 @@ static int xgpu_nv_req_ras_bad_pages(struct amdgpu_dev=
-ice *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return xgpu_nv_send_access=
-_requests(adev, IDH_REQ_RAS_BAD_PAGES);<br>
-&nbsp;}<br>
-&nbsp;<br>
-+static int xgpu_nv_check_vf_critical_region(struct amdgpu_device *adev, u6=
-4 addr)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t addr_hi, addr_lo;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr_hi =3D (uint32_t)(addr &gt;&gt; =
-32);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr_lo =3D (uint32_t)(addr &amp; 0xF=
-FFFFFFF);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return xgpu_nv_send_access_requests_w=
-ith_param(<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; adev, IDH_REQ_RAS_CHK_CRITI, addr_hi, addr_lo, 0);<br>
-+}<br>
-+<br>
-&nbsp;const struct amdgpu_virt_ops xgpu_nv_virt_ops =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .req_full_gpu&nbsp;&nbsp; =
-=3D xgpu_nv_request_full_gpu_access,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .rel_full_gpu&nbsp;&nbsp; =
-=3D xgpu_nv_release_full_gpu_access,<br>
-@@ -548,4 +561,5 @@ const struct amdgpu_virt_ops xgpu_nv_virt_ops =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .req_ras_err_count =3D xgp=
-u_nv_req_ras_err_count,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .req_ras_cper_dump =3D xgp=
-u_nv_req_ras_cper_dump,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .req_bad_pages =3D xgpu_nv=
-_req_ras_bad_pages,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .req_ras_chk_criti =3D xgpu_nv_check_=
-vf_critical_region<br>
-&nbsp;};<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h b/drivers/gpu/drm/amd/am=
-dgpu/mxgpu_nv.h<br>
-index 5808689562cc..c1083e5e41e0 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h<br>
-@@ -43,6 +43,7 @@ enum idh_request {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_REQ_RAS_ERROR_COUNT =
-=3D 203,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_REQ_RAS_CPER_DUMP =3D =
-204,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_REQ_RAS_BAD_PAGES =3D =
-205,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_REQ_RAS_CHK_CRITI =3D 206<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;enum idh_event {<br>
-@@ -62,6 +63,7 @@ enum idh_event {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_RAS_BAD_PAGES_READY =
-=3D 15,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_RAS_BAD_PAGES_NOTIFICA=
-TION =3D 16,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_UNRECOV_ERR_NOTIFICATI=
-ON =3D 17,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_REQ_RAS_CHK_CRITI_READY =3D 18,<b=
-r>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_TEXT_MESSAGE =3D 255,<=
-br>
-&nbsp;};<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY5PR12MB63452616CEE6C924FF8DD702FA07ACY5PR12MB6345namp_--
