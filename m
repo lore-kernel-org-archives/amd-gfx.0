@@ -4,50 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3932CA0FFE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29AA0CA100C
 	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D4AE10E1D0;
-	Tue,  2 Sep 2025 12:49:15 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7B0010E1A7;
- Tue,  2 Sep 2025 07:28:09 +0000 (UTC)
-X-UUID: 5beafbe887ce11f0b29709d653e92f7d-20250902
-X-CID-CACHE: Type:Local,Time:202509021521+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:97ee494f-acb0-40a0-9c80-222f12790ab1, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:25
-X-CID-META: VersionHash:6493067, CLOUDID:c673dd818662abbfa105d80fed711fdb,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0|50,EDM:5,IP:nil,URL
- :0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SP
- R:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 5beafbe887ce11f0b29709d653e92f7d-20250902
-Received: from node4.com.cn [(10.44.16.170)] by mailgw.kylinos.cn
- (envelope-from <xialonglong@kylinos.cn>) (Generic MTA)
- with ESMTP id 2066057203; Tue, 02 Sep 2025 15:28:02 +0800
-Received: from node4.com.cn (localhost [127.0.0.1])
- by node4.com.cn (NSMail) with SMTP id 9844B160038C0;
- Tue,  2 Sep 2025 15:28:01 +0800 (CST)
-X-ns-mid: postfix-68B69C81-361036971
-Received: from kylin-pc.. (unknown [172.25.130.133])
- by node4.com.cn (NSMail) with ESMTPA id E2AAB16001A03;
- Tue,  2 Sep 2025 07:28:00 +0000 (UTC)
-From: Longlong Xia <xialonglong@kylinos.cn>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Longlong Xia <xialonglong@kylinos.cn>
-Subject: [PATCH 1/1] drm/amdgpu: use KMEM_CACHE instead of kmem_cache_create
-Date: Tue,  2 Sep 2025 15:27:59 +0800
-Message-ID: <20250902072759.2386131-1-xialonglong@kylinos.cn>
-X-Mailer: git-send-email 2.47.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E44E10E6C1;
+	Tue,  2 Sep 2025 12:49:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="L0GpEZAd";
+	dkim-atps=neutral
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C72A510E40B;
+ Mon,  1 Sep 2025 10:10:32 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 6E82340E019E; 
+ Mon,  1 Sep 2025 10:10:30 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+ reason="fail (body has been altered)"
+ header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id BfKmIhEDODP7; Mon,  1 Sep 2025 10:10:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+ t=1756721426; bh=CuDkbBHaOkz3S6dxH5sofEzQV09UxorXmN0sQT3iX1k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=L0GpEZAdUljQTEMv7mxmRwOoYWcAUqok6js/WWsircC3BXT47ypAXYme4KN5uNCgF
+ SCSDPWvgHMYmsGN0xKnHqLNKfCNKESGObmD2B+CwuOqTnrtxGU7Qb2D+Amvscr75pM
+ sFcd4z7lpbM6p6a5D+WNqgnkAHxeOv+kVj2QZsuVvW1ZCJd0mi1kjoGOW6q0lw7I4U
+ C8A3RLFd12tBytBL+LcUJs66qjN1ph2YTA5tnB6VfqnqSEPEP9eYIzVXBFR3VjrvIn
+ hF+09kr/5x9kQQ4TpvFkuMkvS9A28jnSvDPEDfX6gkF4t+EFGH+h61AMMLe5QszwPI
+ 0zOx7beM379x1l57qw/6aQEjRFLrx80Brn/+TS6/ezwfyyBj7i5pGB34lKAJGS/tp7
+ +5QCK4CES8WCZF+ZP3ua+NELQQ2fvFRMbwT8YmtPn2GPzKCi70wa0fqCBmwv8pFNzu
+ XkzWlJgUZa0TEGkPBtKIRPUWE9LULcxs7m20x6XZLqK0JPdfm7inaDwY+TbQeMDDFV
+ +7tjqndQ+uVW6v9bd63A+XNHv5VgMzU+kgKbRbR8anj+90dpBqjFVQ9rozFyv2mMwu
+ HN82cmBWgBBuypmAGU/2tZjo9j1YRYdYd2NIeD3Gp/1FvLPbcd1NqYX2STEn5Bjiyv
+ LmQSHCllJg7I2k/z3VOx6xNs=
+Received: from zn.tnic (p5de8ed27.dip0.t-ipconnect.de [93.232.237.39])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
+ DA82840E01A2; Mon,  1 Sep 2025 10:10:18 +0000 (UTC)
+Date: Mon, 1 Sep 2025 12:10:11 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: evergreen_packet3_check:... radeon 0000:1d:00.0: vbo resource
+ seems too big for the bo
+Message-ID: <20250901101011.GAaLVxA_Ax0R-Wy2IX@fat_crate.local>
+References: <20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local>
+ <CADnq5_Oqonrth+5T-83dnFBZ67GvykkPt-9aUepJd+fUMwnupw@mail.gmail.com>
+ <20250829194044.GCaLICPKJcGJRYdSfO@fat_crate.local>
+ <20250829204840.GEaLISKGTwuScnDF8Y@fat_crate.local>
+ <CADnq5_MbpYmC2PSyOr0gQk7F8mVz0-LG3dZtUZS2HhV8LTgDww@mail.gmail.com>
+ <20250830174810.GAaLM5WkiFc2BtQ6kW@fat_crate.local>
+ <51ae551b-6708-4fcd-84f9-fc1400f02427@mailbox.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <51ae551b-6708-4fcd-84f9-fc1400f02427@mailbox.org>
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 02 Sep 2025 12:49:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,32 +82,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use KMEM_CACHE() instead of kmem_cache_create() to simplify the code.
+On Mon, Sep 01, 2025 at 11:27:01AM +0200, Michel D=C3=A4nzer wrote:
+> use some kind of debug output API which doesn't hit dmesg by default
 
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+You still want to be enabled by default so that normal users can see it a=
+nd
+actually report it.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_userq_fence.c
-index c2a983ff23c9..51f51064685f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -37,11 +37,7 @@ static struct kmem_cache *amdgpu_userq_fence_slab;
-=20
- int amdgpu_userq_fence_slab_init(void)
- {
--	amdgpu_userq_fence_slab =3D kmem_cache_create("amdgpu_userq_fence",
--						    sizeof(struct amdgpu_userq_fence),
--						    0,
--						    SLAB_HWCACHE_ALIGN,
--						    NULL);
-+	amdgpu_userq_fence_slab =3D KMEM_CACHE(amdgpu_userq_fence, SLAB_HWCACHE=
-_ALIGN);
- 	if (!amdgpu_userq_fence_slab)
- 		return -ENOMEM;
-=20
+> (can be a non-once variant instead, that's more useful for user-space
+> developers).
+
+I don't see how a non-once variant can tell you anything new - it is repe=
+ating
+one cryptic message to most users so what's the point of parroting it mor=
+e
+than once?
+
+IMO, that message should be beefed up to have more information, dump it o=
+nce
+and encourage users to report it.
+
+Then, whoever gets to debug it, will ask for a reproducer and then do the=
+ir
+own kernel patching to add more info and make the message more useful to =
+them
+when debugging the thing.
+
+At least this is how I would do it...
+
 --=20
-2.43.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
