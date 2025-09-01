@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32EB7CA0FF0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 482C5CA1002
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Sep 2025 10:00:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0FEF10E3F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBD2F10E3F9;
 	Mon,  1 Sep 2025 10:00:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pagj6u6w";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pcgdshkm";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9960510E321
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 140B810E321
  for <amd-gfx@lists.freedesktop.org>; Mon,  1 Sep 2025 10:00:18 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-3cbb0df3981so2014739f8f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Sep 2025 03:00:18 -0700 (PDT)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-45b7d485173so25106015e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Sep 2025 03:00:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756720817; x=1757325617; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756720816; x=1757325616; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dbXsbzz9twqY/pNn21/MxDCZvDY3JreP+UiVwQ/9lAA=;
- b=Pagj6u6wEhiZSLFF5zXgqoWPITpkDWVl2pxwLu/i5+x5wdRDPNxkzRYv7x3PaHp+5W
- tJlGbYWCbACxdsfbbeo4WMEvXLBjhNg9hdDzVJgxC8RzklfiX+COyPicW8FST+hBAmw8
- uFns05jLuXXepkH6fcdpthRlyOv6HSsaBOf5gxCmeAPlpUEZPJ6JTuO3egCAheVfHaKV
- b+U9DcwWRyXQLisUDUDgDxW2xFErOynDkz6TSNdeHkvXEZehLqYD7ggAP8gt55gQI/l/
- Cd1BwJuxKY9HMwgQ3nTm/MLgl64fh8dwXJafkdYvjJn+L29STPe2xCfoGmMl8vVjnFQp
- dsww==
+ bh=D5SR5ZwYZOxoDwuZPs+pNZtEqoTB1LOlj3R7AWro2UE=;
+ b=PcgdshkmgfPenbiRsedOzWGKbhE/haecsAb67OEcwJtALFcjenIwYmX3u7p3J8b42K
+ FVdIqJN+9IKaeYCumciclvkb8UXzCMIQAxxvXICG+yeBq5nzT6//454hjZiCwdMcp7Xl
+ giZgCV0vA4oDx2z8XLPVCbTRIW4B8ZVT8sdn/RulmDGHAT1GTxckEDVTwWG5Y9LjP81i
+ 16GNZLHDQqh/aaa3BEPM/WhMJZFARoZNgjdxU+6bV3SvhkWo4wHG6+kV1Oe6pOSVfK2J
+ k7mHXA8YtaxGNvmIMUfZ6H2Z6eU1MGKTGq4rQdVJspKjnP051Os+fn3CuGQJxf14ng4g
+ jlMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756720817; x=1757325617;
+ d=1e100.net; s=20230601; t=1756720816; x=1757325616;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dbXsbzz9twqY/pNn21/MxDCZvDY3JreP+UiVwQ/9lAA=;
- b=EE9FX/CfJKS4ZDZd4xe2M+K9rCLV/CBM/uHF0UfN9KHqSH+7UbNT5pa5ck2+9shyJV
- Nei+xZM+sKldkatW8kcAwT3m1Dl7Ey2X/gEdCj077p5V3+RgxjbW75fPMNI/4Lph2U7B
- 6E8DiiWPag5l6JRzT6xNEs2pPfE8kPvlC0+6DUirPLlzcgU9Thf6Vc8PPRhnNFHSB0g1
- wxfggpfH7f+ElnkMJqJCSXh2mLGdVeFGkFnZyvp43T5LHXGMK6aUT300VXyYsv+E5WPE
- EguUNne7n73yM1FvzapwN4qLkfGIM2sCe8f2Ut4aSWOWkcGxoyrK1118xlJoD8mPV5g6
- AdTA==
-X-Gm-Message-State: AOJu0YxOqkwVb/fsVxjl4wU806pOAj8L55AaUnF4Jch1c9J65U61Q+dz
- 8z4T/fktS4a/gDQgxTWXw71EMGV7VC1FtFt3Z/UxWhx8jNc5yLwUj3s9/SKMbQ==
-X-Gm-Gg: ASbGncvkwCnsuXoe1PsTYFT5ilq9iYupzUy3aFMfLisA5TIcVrTDyBxHgC542TLJM7E
- 53wVLfILTrPSTVqQgXkZz7vE7d616jHHx1NJF+bwk3wtioBFbYcP0GCYHqkySklNSFdbyp+OiEU
- tVqooPY4uHOfmDThrROZnoyAm56YrvlYvLjYr8ZCedFCAYTRfebVe/FvtcExXXJ5ruq2aMk9wJr
- t8w/A4IkXhtyJ3T9Cxfww7BjA79P0DIG+7vhaqzBTlRIOMYLZSEmuyMnd+RAa9aKSbSOZkeTfNV
- LusqXARgt2qUCaNMCxYl+YgEubvxheEBw+mSfuYKZtUlRU8pWbPsAypl2CnyIywZ9dZPdEEtjWJ
- 8OJ1Zb2o4C96Od1PnLdEXJ8nfEora2aMZrbr9xiD9ed2iKizmBWS724yk8ByZicPfERd4//ftI+
- GzRvo/WbIcsPb8fGk44MA1MILiz9gLWDvznmAK
-X-Google-Smtp-Source: AGHT+IEuUInlGhtiMtIkpiEzOu+9VYkIjW2LFwdZIHrJFD1ggNYiy7by08anpgC+EOcbxOt+lH+1Cw==
-X-Received: by 2002:a5d:5f4c:0:b0:3c4:2a56:14db with SMTP id
- ffacd0b85a97d-3d1dfb11144mr5191625f8f.41.1756720816833; 
+ bh=D5SR5ZwYZOxoDwuZPs+pNZtEqoTB1LOlj3R7AWro2UE=;
+ b=cOoHBzDavVuGWq3A+OjPnQPAb3cVEbws649RhVgok/Z+2fEj6/5qTDqzaz9l1QYMSX
+ 4xuY1JcnG8b3NYiaUBonsGRQCqlrgTDBjwzn9miQU4i8SaaS+g04OP66pNaUeoXfWeu3
+ GC5wLjvazDqRjCNcerE1Fd/MHFDAUHkd7A9G6D/wqrCSnOhthA013ICF/8IcM45ALOEu
+ Xiv9vz8JZ5gMb6UxYun0BgQZECXn+rd6UnLkiGffdQVS5gQnn8Yu94JMBLVYkiOmckl0
+ muxBREehLVfEpYVhfbyuof67GZ9/nr0lmDr0gwOYL/6B/NJK0xfOGhcf1mToONJNKG15
+ 0XnA==
+X-Gm-Message-State: AOJu0Yw8jyzED4JyFVU5VDSwRI/xZGQaYMeceRgezv/44AFctvkiYjH7
+ ZkFiMXB0GbjNTUurn4SfA1Xektk8FUhDEqyGvd8GxPm1XReAtqr4vY5xN1J11g==
+X-Gm-Gg: ASbGncu9/1D+y4ER/ACsg/kEulScaJmaFOCwqYD6nMAMa+kMJl1P77cEd+uNj0DZscJ
+ kKNfTRLidE2ApYBJ4hTBRMjdo0rQIroANwbre8Edxlx/bQZJjm9Y/a5iB+diDNesBkKTaVtjyrq
+ o+DE06Zt3HGz1zuFSdoL+A76ksJGGWBsyxPWeb8YBL72Mr7+pcGk1nQ5S0xo6BhNLPdz4xbg1vf
+ bneHfy8GSZTzOTvT5N1bAdZzidqFIHvpoQj5AVfebA/pg2LP29hXJB8K77032+YkDeLLVt68HP/
+ /1SD5yGiWmtseZqs902PMiyj/wpE4VL01HLRhOHJv2pqFvWk+VDTqPQ1eaXyOvE9RmfeQKb8L2M
+ JsLh2GvnyD8JXKoIKoCyBgol6gX2j5lZMda3EDHS0qdRXw89Je4JwQFKC3UIs5q6jCwPHu/2aHL
+ ZTIkmm85LmKIHuCfbDkJWXmcm+rw==
+X-Google-Smtp-Source: AGHT+IG9aR4JspO8ANY5nBtXRvEW4dOdc41e3Q/WkFBajQlNWEcvnZzyAv0aDKctT2qVFggQJdjckQ==
+X-Received: by 2002:a05:6000:402c:b0:3d1:54de:f4b3 with SMTP id
+ ffacd0b85a97d-3d1dc5a395fmr5494442f8f.6.1756720816021; 
  Mon, 01 Sep 2025 03:00:16 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24C19400D6AB39BC9D60A351.dsl.pool.telekom.hu.
  [2001:4c4e:24c1:9400:d6ab:39bc:9d60:a351])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3cf3458a67esm14679142f8f.62.2025.09.01.03.00.16
+ ffacd0b85a97d-3cf3458a67esm14679142f8f.62.2025.09.01.03.00.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Sep 2025 03:00:16 -0700 (PDT)
+ Mon, 01 Sep 2025 03:00:15 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 3/4] drm/amdgpu: Fill extra dwords with NOPs
-Date: Mon,  1 Sep 2025 12:00:11 +0200
-Message-ID: <20250901100012.439155-3-timur.kristof@gmail.com>
+Subject: [PATCH 2/4] drm/amdgpu: Clarify that BO size is in bytes in comments
+Date: Mon,  1 Sep 2025 12:00:10 +0200
+Message-ID: <20250901100012.439155-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250901100012.439155-1-timur.kristof@gmail.com>
 References: <20250901100012.439155-1-timur.kristof@gmail.com>
@@ -90,31 +90,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Technically not necessary, but clear the extra dwords too,
-so that the command processors don't read uninitialized memory.
+To avoid confusion with dwords.
 
-Fixes: c8c1a1d2ef04 ("drm/amdgpu: define and add extra dword for jpeg ring")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 7670f5d82b9e..6a55a85744a9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -474,6 +474,11 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
- 	while (i <= ring->buf_mask)
- 		ring->ring[i++] = ring->funcs->nop;
- 
-+	/* Technically not necessary, but clear the extra dwords too,
-+	 * so that the command processors don't read uninitialized memory.
-+	 */
-+	for (i = 0; i < ring->funcs->extra_dw; i++)
-+		ring->ring[ring->ring_size / 4 + i] = ring->funcs->nop;
- }
- 
- static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 122a88294883..9ffadc029ef8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -220,7 +220,7 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
+  * amdgpu_bo_create_reserved - create reserved BO for kernel use
+  *
+  * @adev: amdgpu device object
+- * @size: size for the new BO
++ * @size: size for the new BO in bytes
+  * @align: alignment for the new BO
+  * @domain: where to place it
+  * @bo_ptr: used to initialize BOs in structures
+@@ -317,7 +317,7 @@ int amdgpu_bo_create_reserved(struct amdgpu_device *adev,
+  * amdgpu_bo_create_kernel - create BO for kernel use
+  *
+  * @adev: amdgpu device object
+- * @size: size for the new BO
++ * @size: size for the new BO in bytes
+  * @align: alignment for the new BO
+  * @domain: where to place it
+  * @bo_ptr:  used to initialize BOs in structures
 -- 
 2.51.0
 
