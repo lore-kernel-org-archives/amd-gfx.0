@@ -4,70 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29AA0CA100C
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52D08CA0FFE
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 13:25:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E44E10E6C1;
-	Tue,  2 Sep 2025 12:49:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1A4410E332;
+	Tue,  2 Sep 2025 13:25:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="L0GpEZAd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nlIh6IC5";
 	dkim-atps=neutral
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C72A510E40B;
- Mon,  1 Sep 2025 10:10:32 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 6E82340E019E; 
- Mon,  1 Sep 2025 10:10:30 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
- reason="fail (body has been altered)"
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id BfKmIhEDODP7; Mon,  1 Sep 2025 10:10:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1756721426; bh=CuDkbBHaOkz3S6dxH5sofEzQV09UxorXmN0sQT3iX1k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=L0GpEZAdUljQTEMv7mxmRwOoYWcAUqok6js/WWsircC3BXT47ypAXYme4KN5uNCgF
- SCSDPWvgHMYmsGN0xKnHqLNKfCNKESGObmD2B+CwuOqTnrtxGU7Qb2D+Amvscr75pM
- sFcd4z7lpbM6p6a5D+WNqgnkAHxeOv+kVj2QZsuVvW1ZCJd0mi1kjoGOW6q0lw7I4U
- C8A3RLFd12tBytBL+LcUJs66qjN1ph2YTA5tnB6VfqnqSEPEP9eYIzVXBFR3VjrvIn
- hF+09kr/5x9kQQ4TpvFkuMkvS9A28jnSvDPEDfX6gkF4t+EFGH+h61AMMLe5QszwPI
- 0zOx7beM379x1l57qw/6aQEjRFLrx80Brn/+TS6/ezwfyyBj7i5pGB34lKAJGS/tp7
- +5QCK4CES8WCZF+ZP3ua+NELQQ2fvFRMbwT8YmtPn2GPzKCi70wa0fqCBmwv8pFNzu
- XkzWlJgUZa0TEGkPBtKIRPUWE9LULcxs7m20x6XZLqK0JPdfm7inaDwY+TbQeMDDFV
- +7tjqndQ+uVW6v9bd63A+XNHv5VgMzU+kgKbRbR8anj+90dpBqjFVQ9rozFyv2mMwu
- HN82cmBWgBBuypmAGU/2tZjo9j1YRYdYd2NIeD3Gp/1FvLPbcd1NqYX2STEn5Bjiyv
- LmQSHCllJg7I2k/z3VOx6xNs=
-Received: from zn.tnic (p5de8ed27.dip0.t-ipconnect.de [93.232.237.39])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
- DA82840E01A2; Mon,  1 Sep 2025 10:10:18 +0000 (UTC)
-Date: Mon, 1 Sep 2025 12:10:11 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: evergreen_packet3_check:... radeon 0000:1d:00.0: vbo resource
- seems too big for the bo
-Message-ID: <20250901101011.GAaLVxA_Ax0R-Wy2IX@fat_crate.local>
-References: <20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local>
- <CADnq5_Oqonrth+5T-83dnFBZ67GvykkPt-9aUepJd+fUMwnupw@mail.gmail.com>
- <20250829194044.GCaLICPKJcGJRYdSfO@fat_crate.local>
- <20250829204840.GEaLISKGTwuScnDF8Y@fat_crate.local>
- <CADnq5_MbpYmC2PSyOr0gQk7F8mVz0-LG3dZtUZS2HhV8LTgDww@mail.gmail.com>
- <20250830174810.GAaLM5WkiFc2BtQ6kW@fat_crate.local>
- <51ae551b-6708-4fcd-84f9-fc1400f02427@mailbox.org>
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4218F10E332
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 13:25:36 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-248f2da72edso11244575ad.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Sep 2025 06:25:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1756819536; x=1757424336; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9Ykt3wY9ZBt2+rvR9P1VzwalH1U39cQI+ysEhtSpE2Q=;
+ b=nlIh6IC54Th1KblV8wwxN1u4nAh/F0YBoT3ZbeCLlx+uBuxM4/3u9eA/uyhBcVWl2U
+ fu/qj8tSnBi3ivSQyWvXJ9Dk8qnQVHA10g5G7U/OgMzWCH5IDQmGzvXcMiqUzMuAGr8W
+ TkXqE9jfhZ58D7xu3UN6GJ0Gj2yQN5SMyJw0bTKobBv0xjuq3IgXgdhPVp1BU7Hn4bad
+ 7Kw87RmhKAy77zbvZJTZ/5rPLRpiQ8mVEdV7Iz7QXWPZyjIpdmppxVmHdbOqsBttL0SP
+ +ZHKWtT6cZdBlggPBSMhIsQ1Wp8Po31VeTqSSczfeSdAw3qcoLOqAE+qoaqA9jdxFEfS
+ XVJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756819536; x=1757424336;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9Ykt3wY9ZBt2+rvR9P1VzwalH1U39cQI+ysEhtSpE2Q=;
+ b=Ng6isKSj44VgzcF1Uj6I5vWLJqS4F+QLGgiZu2mLNtiVX/h/XEskpEZ2No06TEsgzZ
+ 95rLkI7JLbBPCRThQ5cTwgoVaOJVHTDSRm3yiBszyZghztgksYQoHqsPPZcpxebEnLfP
+ tNuVxHraGvVu4LdmXz39BgcTtGoDq5DKJURcltamPpiRmuWJmeP0IZqGRMGf+icaiS7o
+ v0SJZ7pRGqIMRG5c9oNjh3nlsS7WpKycGCqJpD6a49kWpmGpFfrhLo2m+0n8vbC0PnXZ
+ OEBgoXEnWT/PRLspj8VgLfDCSRWeSUJsJMVujODTY4o7qH0kCgaFxcTRVQsrXgqVVSE7
+ ut5w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXsbqPDsfqqRWTXWDx1D4oV3BgembCLwTeBMjHbGXq3gXcq+g9oiANlnLYE2WqcBo7BMSUMB0NI@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxi0VxKyg5y7qCNWmXhZSgInNZxrQe2KHnA28VI7Q5SiuFHUv4x
+ uh/73X+M3cBiY2J+ITQW0T2Q3dWn09oBgAKb1Uff/kTRvuAEN/y7GpdWz2HHEkGmiiYXglgM927
+ bkCFyL1QKE4WW5vyrQZjoY/BhKoD5n5MlOQ==
+X-Gm-Gg: ASbGnctHCOyWTEUEMVb7/08bEtYbTy8CurmlA5K6XHjOVZQwmE3Nig+XDtngUw6h9er
+ m6eUhvsKFdbBi9KWtTr3ovcxlnoTpKQ0I8Au9pIlOaMhqcD+F2yw5/lDDlF+fswbSGXt3U+bIu9
+ 0K9L8GSFfmBPN8IX5MmuReGwRuuJR9BKh/gYnEhyKKbEKj+M+UqGPnCu84LBLDuRlWP8D0D+F9C
+ 4aJcBDVbLfLnSCDyA==
+X-Google-Smtp-Source: AGHT+IHlRUiEFNODQfSrwCx+vZ3stoD0P3Urxf6zRRRzznd8ttYTBEwk6uoylKjT3UlSIpePVpV1NM7oiSdble6cxGo=
+X-Received: by 2002:a17:903:22d1:b0:248:8a31:bf6f with SMTP id
+ d9443c01a7336-2491eadb922mr110810175ad.4.1756819535494; Tue, 02 Sep 2025
+ 06:25:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <51ae551b-6708-4fcd-84f9-fc1400f02427@mailbox.org>
+References: <20250902032938.468332-1-srinivasan.shanmugam@amd.com>
+ <20250902032938.468332-8-srinivasan.shanmugam@amd.com>
+ <c1e61d59-b8e7-485d-8e75-34bc306a430b@amd.com>
+In-Reply-To: <c1e61d59-b8e7-485d-8e75-34bc306a430b@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 2 Sep 2025 09:25:23 -0400
+X-Gm-Features: Ac12FXzsqjI8mLD8rNKDfGIOJL6e9FTqtf66MeYwQBp7hu-ca_6TuxPAkQEugtk
+Message-ID: <CADnq5_O59on_=wt6ayS-JWY7ZVCzO0EdvikeQAAv6hG_++bZxQ@mail.gmail.com>
+Subject: Re: [PATCH v6 7/8] drm/amdgpu/ttm: Allocate/Free 4K MMIO_REMAP
+ Singleton
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 02 Sep 2025 12:49:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,36 +86,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 01, 2025 at 11:27:01AM +0200, Michel D=C3=A4nzer wrote:
-> use some kind of debug output API which doesn't hit dmesg by default
+On Tue, Sep 2, 2025 at 3:38=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> On 02.09.25 05:29, Srinivasan Shanmugam wrote:
+> > Add mmio_remap bookkeeping to amdgpu_device and introduce
+> > amdgpu_ttm_mmio_remap_bo_init()/fini() to manage a kernel-owned,
+> > one-page (4K) BO in AMDGPU_GEM_DOMAIN_MMIO_REMAP.
+> >
+> > Bookkeeping:
+> >   - adev->rmmio_remap.bo : kernel-owned singleton BO
+> >
+> > The BO is allocated during TTM init when a remap bus address is availab=
+le
+> > (adev->rmmio_remap.bus_addr) and PAGE_SIZE <=3D AMDGPU_GPU_PAGE_SIZE (4=
+K),
+> > and freed during TTM fini.
+> >
+> > v2:
+> >  - Check mmio_remap bus address (adev->rmmio_remap.bus_addr) instead of
+> >    rmmio_base. (Alex)
+> >  - Skip quietly if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE or no bus address
+> >    (no warn). (Alex)
+> >  - Use `amdgpu_bo_create()` (not *_kernel) - Only with this The object
+> >    is stored in adev->mmio_remap.bo and will later be exposed to
+> >    userspace via a GEM handle. (Christian)
+> >
+> > v3:
+> >  - Remove obvious comment before amdgpu_ttm_mmio_remap_bo_fini() call.
+> >    (Alex)
+> >
+> > v4:
+> >  - Squash bookkeeping into this patch
+> >  - Place longer declaration first; clear bp via memset
+> >  - Reserve + pin + kmap(+kunmap) the BO at init; unpin in fini
+> >    (Christian)
+> >
+> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 87 +++++++++++++++++++++++++
+> >  2 files changed, 88 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu.h
+> > index ddd472e56f69..24501d3fbefe 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -752,6 +752,7 @@ typedef void (*amdgpu_block_wreg_t)(struct amdgpu_d=
+evice*, uint32_t, uint32_t, u
+> >  struct amdgpu_mmio_remap {
+> >       u32 reg_offset;
+> >       resource_size_t bus_addr;
+> > +     struct amdgpu_bo *bo;
+> >  };
+> >
+> >  /* Define the HW IP blocks will be used in driver , add more if necess=
+ary */
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ttm.c
+> > index 1a68ba17a62d..0d03e3a6f92d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > @@ -1854,6 +1854,87 @@ static void amdgpu_ttm_pools_fini(struct amdgpu_=
+device *adev)
+> >       adev->mman.ttm_pools =3D NULL;
+> >  }
+> >
+> > +/**
+> > + * amdgpu_ttm_mmio_remap_bo_init - Allocate the singleton 4K MMIO_REMA=
+P BO
+> > + * @adev: amdgpu device
+> > + *
+> > + * Allocates a one-page (4K) GEM BO in AMDGPU_GEM_DOMAIN_MMIO_REMAP wh=
+en the
+> > + * hardware exposes a remap base (adev->rmmio_remap.bus_addr) and the =
+host
+> > + * PAGE_SIZE is <=3D AMDGPU_GPU_PAGE_SIZE (4K). The BO is created as a=
+ regular
+> > + * GEM object (amdgpu_bo_create).
+> > + *
+> > + * Return:
+> > + *  * 0 on success or intentional skip (feature not present/unsupporte=
+d)
+> > + *  * negative errno on allocation failure
+> > + */
+> > +static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
+> > +{
+> > +     struct amdgpu_bo_param bp;
+> > +     int r;
+>
+> > +     void *kptr;
+>
+> kptr should potentially be saved in amdgpu_mmio_remap.
+>
+> > +
+> > +     /* Skip if HW doesn't expose remap, or if PAGE_SIZE > AMDGPU_GPU_=
+PAGE_SIZE (4K). */
+> > +     if (!adev->rmmio_remap.bus_addr || PAGE_SIZE > AMDGPU_GPU_PAGE_SI=
+ZE)
+> > +             return 0;
+> > +
+> > +     memset(&bp, 0, sizeof(bp));
+> > +
+> > +     /* Create exactly one GEM BO in the MMIO_REMAP domain. */
+> > +     bp.type        =3D ttm_bo_type_device;          /* userspace-mapp=
+able GEM */
+> > +     bp.size        =3D AMDGPU_GPU_PAGE_SIZE;        /* 4K */
+> > +     bp.byte_align  =3D AMDGPU_GPU_PAGE_SIZE;
+> > +     bp.domain      =3D AMDGPU_GEM_DOMAIN_MMIO_REMAP;
+> > +     bp.flags       =3D 0;
+> > +     bp.resv        =3D NULL;
+> > +     bp.bo_ptr_size =3D sizeof(struct amdgpu_bo);
+> > +
+> > +     r =3D amdgpu_bo_create(adev, &bp, &adev->rmmio_remap.bo);
+> > +     if (r)
+> > +             return r;
+> > +
+> > +     r =3D amdgpu_bo_reserve(adev->rmmio_remap.bo, false);
+>
+> The last parameter should probably be true here.
+>
+> > +     if (r)
+> > +             goto err_unref;
+> > +
+> > +     r =3D amdgpu_bo_pin(adev->rmmio_remap.bo, AMDGPU_GEM_DOMAIN_MMIO_=
+REMAP);
+> > +     if (r)
+> > +             goto err_unres;
+> > +
+> > +     r =3D amdgpu_bo_kmap(adev->rmmio_remap.bo, &kptr);
 
-You still want to be enabled by default so that normal users can see it a=
-nd
-actually report it.
+Can't we just skip this?  We don't need the CPU address in the kernel.
 
-> (can be a non-once variant instead, that's more useful for user-space
-> developers).
+Alex
 
-I don't see how a non-once variant can tell you anything new - it is repe=
-ating
-one cryptic message to most users so what's the point of parroting it mor=
-e
-than once?
-
-IMO, that message should be beefed up to have more information, dump it o=
-nce
-and encourage users to report it.
-
-Then, whoever gets to debug it, will ask for a reproducer and then do the=
-ir
-own kernel patching to add more info and make the message more useful to =
-them
-when debugging the thing.
-
-At least this is how I would do it...
-
---=20
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+> > +     if (r)
+> > +             goto err_unpin;
+> > +
+> > +     amdgpu_bo_kunmap(adev->rmmio_remap.bo);
+> > +     amdgpu_bo_unreserve(adev->rmmio_remap.bo);
+> > +     return 0;
+> > +
+> > +err_unpin:
+> > +     amdgpu_bo_unpin(adev->rmmio_remap.bo);
+> > +err_unres:
+> > +     amdgpu_bo_unreserve(adev->rmmio_remap.bo);
+> > +err_unref:
+> > +     amdgpu_bo_unref(&adev->rmmio_remap.bo);
+> > +     adev->rmmio_remap.bo =3D NULL;
+> > +     return r;
+> > +}
+> > +
+> > +/**
+> > + * amdgpu_ttm_mmio_remap_bo_fini - Free the singleton MMIO_REMAP BO
+> > + * @adev: amdgpu device
+> > + *
+> > + * Frees the kernel-owned MMIO_REMAP BO if it was allocated by
+> > + * amdgpu_ttm_mmio_remap_bo_init().
+> > + */
+> > +static void amdgpu_ttm_mmio_remap_bo_fini(struct amdgpu_device *adev)
+> > +{
+> > +     if (!amdgpu_bo_reserve(adev->rmmio_remap.bo, false)) {
+>
+> Same here.
+>
+> Apart from that looks good to me, feel free to add my rb.
+>
+> Regards,
+> Christian.
+>
+> > +             amdgpu_bo_unpin(adev->rmmio_remap.bo);
+> > +             amdgpu_bo_unreserve(adev->rmmio_remap.bo);
+> > +     }
+> > +     amdgpu_bo_unref(&adev->rmmio_remap.bo);
+> > +     adev->rmmio_remap.bo =3D NULL;
+> > +}
+> > +
+> >  /*
+> >   * amdgpu_ttm_init - Init the memory management (ttm) as well as vario=
+us
+> >   * gtt/vram related fields.
+> > @@ -2028,6 +2109,11 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+> >               return r;
+> >       }
+> >
+> > +     /* Allocate the singleton MMIO_REMAP BO (4K) if supported */
+> > +     r =3D amdgpu_ttm_mmio_remap_bo_init(adev);
+> > +     if (r)
+> > +             return r;
+> > +
+> >       /* Initialize preemptible memory pool */
+> >       r =3D amdgpu_preempt_mgr_init(adev);
+> >       if (r) {
+> > @@ -2091,6 +2177,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+> >       amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
+> >                                       &adev->mman.sdma_access_ptr);
+> >
+> > +     amdgpu_ttm_mmio_remap_bo_fini(adev);
+> >       amdgpu_ttm_fw_reserve_vram_fini(adev);
+> >       amdgpu_ttm_drv_reserve_vram_fini(adev);
+> >
+>
