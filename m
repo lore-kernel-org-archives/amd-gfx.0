@@ -4,69 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BEF3CA1005
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 14:29:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5431FCA0FFE
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 14:36:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A131610E754;
-	Tue,  2 Sep 2025 14:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B66610E04D;
+	Tue,  2 Sep 2025 14:36:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DVWDct4R";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xo7NjO2h";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AC2F10E754
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 14:29:16 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2493798cd83so7213805ad.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Sep 2025 07:29:16 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A62389830;
+ Tue,  2 Sep 2025 14:36:37 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-24adcc94338so5046905ad.2; 
+ Tue, 02 Sep 2025 07:36:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756823356; x=1757428156; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756823797; x=1757428597; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=R9JustDtG/7SuBPZM1Pd8GiQ4C7DFC9Au1IREAch/dk=;
- b=DVWDct4RBAV17x3OUdBZuqhCHFYfccqpDTIzw56TnRSkQArT94ssL3rFse15Uvd+6Y
- 1fFrdc2EzW4cysEFifVrJlz0wuj6tNobwHPsP1ii5lRHZgBrRyLCiv4RWJ6zQoH3/S5S
- qms9CJAKl2+Hnzk1/Mt3pazRvnC1xkBaAeuENM7s792HsqLjVZn0YQf207QRArC5UTah
- biulGAzV0uNc5WW+RFx3qd5KEY44eKuJjBcSYGQTsr9ScmY8k+hwFrv8i3K6nIrXQRF8
- KJlJGL4MLsGWun8eYW+qtGw8xWV23lZ6V1xJXja6fc2WUKT/itgpcWd2b4iuRbSa4fMi
- eo+g==
+ bh=4+5DHZ7f7XX3p5WOn0gScG+XhwvVRktJH4l0d+5E2fo=;
+ b=Xo7NjO2hcrOsilwBYtWoplDR3E3HKMgTp7ZaIrmPUr1S5qBRqY2QEnDCdbybN/HE0f
+ dR3Lfn/lZLldkyhutqoh+VfLD2H9EWCJWSanFh5gr59u1IheW5A+BDZ+UUZ5dVEEUVB+
+ /Q7VeXvvNvodf4aD2l6EEDHkEL3cu86ewV+sayIlRu8LhP5gI1Q4pE1xwB6Z0kkSGmBl
+ u6Ugysm0M5dcipHYZquhAhpH0CkOOS2RRURvhoPMvNiLjzsqzBmSuxwtBA3U4duBmFRv
+ IOoAcYVvs6Gr9MKDvfGcasazzlMR/XXXl5Tt3VZne/q3knK/z1qcCNMJXpt5rDgyJBPa
+ gEOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756823356; x=1757428156;
+ d=1e100.net; s=20230601; t=1756823797; x=1757428597;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=R9JustDtG/7SuBPZM1Pd8GiQ4C7DFC9Au1IREAch/dk=;
- b=c/dBnTpxZWMgOsQ8MAOZBVYhgRaNtuKgu4nG2cssXCC2PMyNRTO7mwH3zgwkpMrEZW
- y9NSzb+aad67spPUu4taWhEq6QLvGVBDu7l0UU8+N266bBJdAD15Sum43QMiTe7JefFQ
- J7vnmLMGTmXtGmPqWNLxerRfhD243q3TPeKWoslcmc2hSAbXgCaukGLCHzh/N+7GhTc9
- BoPMVyc+GuiQWlp9mL9lQ6bQpkMdMcZ2FZrrvby82RO63L0mOZo1fQ/KhBe9v3VhIdpC
- kZ1ZCgtCwvx+5x8/IWsGI9On5hs2/lb6SvE9xvxIUolmubh0tySfMx86xpye+JIZ2uDv
- kagg==
+ bh=4+5DHZ7f7XX3p5WOn0gScG+XhwvVRktJH4l0d+5E2fo=;
+ b=pYqwL05INPl1wzqDIBqcDtH/Auoh18Guco5e7co8TUJT7eUU8Vnraym0yGYhjOZ6gN
+ oIi+jV4JUJgibtrBsS1NVeXv8V57T9LVV37ZP+Q1Dg7QmtyL8TSX7EGq24tAageamid2
+ rlK9vNNUab9j2k8w35RWJQwq2g2lPkiWFMJZ5UiRSMAN5StvO4Eqb+RoUF5pA0GxupQ7
+ mBF5koS4MxfNrkNE0my5PGOaJ7Ekvkbb8xaJwckhy7rNC4AKs4NVIlWU7EYm69baUoPM
+ Cu6IflUojTc8KbAiUpcQ9uOWNSk8YzJrlPLbwQO9FKFrD8EUlou2b6V8CsaNMRhab/Ti
+ 8gBA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWvpMtedQmi/4UDfd4X2vE4E+mqZ3l4qlABLBhM9fEbmSDgXl0gIvNz82GNOoRt40O5m+HqnQKc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7H78nhuYfsrK6i25WWrifQoM5hks+5kKw/M17Condn09Fibqu
- c1fhGchp0v4Ewo9Hf8yNOvJTw1K1hsvZjhn/4sc7qOscM1q/96rbmYBPiLFACtG6vTrMUKirfbG
- uNEzOZfDNbLPwArUbb80UYHbF9luywJk=
-X-Gm-Gg: ASbGncsFD3NL7ohSEnvQKFswbrzWnwj4YIYZiflZel16D5qR0Swuq1bQiB2aD7RmLh+
- wGOLAXuZeO675xhpg9mkkMN496PDII7WcZGDR++k19vQiDx0KbzgRKNsLojarNf2vzjIdELgM/a
- dmDMImvEpN9098JZgDmEQbAS5nCRPs95oZEpPZo9FGFcl6a8th4b73E9QwzevUzF9j87gwri1D4
- YaVtFGUrVVY+p2mFQ==
-X-Google-Smtp-Source: AGHT+IHGSOAdiwrxjdK+vunWNFm5ihUB1UHXWKFt4/ANjncXeKLkuzMcqIARqf+vg409wkDOXCPZcqUR/T3/wj8RrDY=
-X-Received: by 2002:a17:903:22d1:b0:248:8a31:bf6f with SMTP id
- d9443c01a7336-2491eadb922mr112468645ad.4.1756823355670; Tue, 02 Sep 2025
- 07:29:15 -0700 (PDT)
+ AJvYcCUTfhhI5pAH/WrUeehXNIy9Sd9Zj9jEfS4fxNr9M6pSw3nXpxNuFAzuvj6szpOKWYvXYNH6f8de@lists.freedesktop.org,
+ AJvYcCVOOYr28H3C57aOoI3JH4pHoxag5BZHuN/pOblXcCbQotiBZUqb8Mh24udk/c1aNy0mPjBhfT0/AAod@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy41OQ4fqHiJF9D979jMx0QWheGGGjhzYqeifPF2fV3xd/Ix6Sj
+ j7FxRxCwcJPF5B4tSk/Zcfb0w6AuhfB9D9jojF8nOAloAw+ZcX+q7m4Mf3SXUBVf23iymXRvILi
+ NbfG8UXrmIgvtMpeEPwrRYdiJ/LI25oh97Q==
+X-Gm-Gg: ASbGnctR0CKSY4l/C9j2UUXKYQiU4CUWucPnBBDKIspHx1AmXfLtZMgpXbi9lvjsywo
+ jM7fH+bpV3Y7Yg/FgFXgKWndh8KX/6LkE5LFUXkuM4mBVkKJnXDWETugaa1vzh88uxbvghaG05N
+ RozgU2TQc6bIrLtqqE/LisuCFmA4oyk/1/TOoVp+t8k4xt2DPJKPxtQIKMuiy7bKEARuE8ze9VG
+ Vjbfaf1Tw44O28ZVw==
+X-Google-Smtp-Source: AGHT+IFPgkzTBd9tes9+PQfhWEfLEzvwITrvoWHVUGH24ktFOBmrAuVaI+bG/AXvzWzRgDvtiJy30HX8bF8lYdTXaJ0=
+X-Received: by 2002:a17:902:d2cb:b0:240:280a:5443 with SMTP id
+ d9443c01a7336-2491e5df37cmr109441175ad.3.1756823797052; Tue, 02 Sep 2025
+ 07:36:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250831100321.400238-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20250831100321.400238-1-srinivasan.shanmugam@amd.com>
+References: <20250902124050.2628822-1-colin.i.king@gmail.com>
+In-Reply-To: <20250902124050.2628822-1-colin.i.king@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Sep 2025 10:29:04 -0400
-X-Gm-Features: Ac12FXyJBWUfEp3KqFO4gFqjLkJUKTFr12rCw6JeJaQUdFgrf-c30u-de7lycWw
-Message-ID: <CADnq5_M9yaghNRMV470CDB6c9i_kLYY_00QaugH-_O5VpkLjJA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Correct misnamed function in amdgpu_gem.c
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Tue, 2 Sep 2025 10:36:24 -0400
+X-Gm-Features: Ac12FXwZ7nacaEnLaE5ZJsACt3QtxMTwkwjMKrrERijGQCZdxbCuaPPlAFt-TOk
+Message-ID: <CADnq5_Pbv+QHmFEeqV7HT1NY2zFnHAiZ4feb+=HSxoV5Rd=bSA@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/amdgpu: Fix missing error return on kzalloc
+ failure
+To: Colin Ian King <colin.i.king@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Hawking Zhang <Hawking.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, 
+ Sunil Khatri <sunil.khatri@amd.com>, John Clements <john.clements@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,45 +90,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Aug 31, 2025 at 6:53=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> The header comment above amdgpu_gem_list_handles_ioctl referenced
-> drm_amdgpu_gem_list_handles_ioctl. Update the comment to reflect the
-> actual function identifier to avoid misleading prototype warnings.
->
-> Fixes the below:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:1106: warning: expecting prototyp=
-e for drm_amdgpu_gem_list_handles_ioctl(). Prototype was for amdgpu_gem_lis=
-t_handles_ioctl() instead
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Applied.  Thanks!
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
+On Tue, Sep 2, 2025 at 8:49=E2=80=AFAM Colin Ian King <colin.i.king@gmail.c=
+om> wrote:
+>
+> Currently the kzalloc failure check just sets reports the failure
+> and sets the variable ret to -ENOMEM, which is not checked later
+> for this specific error. Fix this by just returning -ENOMEM rather
+> than setting ret.
+>
+> Fixes: 4fb930715468 ("drm/amd/amdgpu: remove redundant host to psp cmd bu=
+f allocations")
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index 4f4f8b0bde05..a07fe5c9ccec 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1087,7 +1087,7 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, voi=
-d *data,
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.c
+> index 1d6e1d5de8fa..3696f48c233b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -448,7 +448,7 @@ static int psp_sw_init(struct amdgpu_ip_block *ip_blo=
+ck)
+>         psp->cmd =3D kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL)=
+;
+>         if (!psp->cmd) {
+>                 dev_err(adev->dev, "Failed to allocate memory to command =
+buffer!\n");
+> -               ret =3D -ENOMEM;
+> +               return -ENOMEM;
+>         }
 >
->  /**
-> - * drm_amdgpu_gem_list_handles_ioctl - get information about a process' =
-buffer objects
-> + * amdgpu_gem_list_handles_ioctl - get information about a process' buff=
-er objects
->   *
->   * @dev: drm device pointer
->   * @data: drm_amdgpu_gem_list_handles
+>         adev->psp.xgmi_context.supports_extended_data =3D
 > --
-> 2.34.1
+> 2.51.0
 >
