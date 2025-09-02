@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D035CA1009
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:49:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3932CA0FFE
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4614D10E6BE;
-	Tue,  2 Sep 2025 12:49:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=listout.xyz header.i=@listout.xyz header.b="YTP4FO+0";
-	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF8D910E03C
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Sep 2025 17:57:59 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4cFxRl2WqXz9ssn;
- Mon,  1 Sep 2025 19:57:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=listout.xyz; s=MBO0001;
- t=1756749475;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=ONAN0sAG8KjiLpOE4hKBXPpBEr1emSXgDFDunnuzi8M=;
- b=YTP4FO+0HnKNXdhqkJYfwp+uXIozVbsQ5MKohAdW9ArAR2BU4ZIQo4sGKQfArMqLBOxD7S
- DqBwFFtsUucD6Js6peCb/ndZh9eTeict/Lw6h5BEjvioVxfc+2bzp4FTv6eGjD5B/ZNg5f
- XHqKeOjctvq+STipHH7MMJkPoh9tsZV69KNJl+DBrZA9Zp7g+KThFgglS3uRpwmc+NGrCN
- sxhyB1mo+J/smg+7S4lO6Ek2xo2ZPXonXc6iY2ilS8aObck4tiU8zGVJjKxKlM2BRnZcLR
- OHFceyDSb4ZrVOWzXfbYxMaKiRjk08+E9G/v6RFQLMON5REkfcQ2OqE0CI7Yrw==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of listout@listout.xyz designates
- 2001:67c:2050:b231:465::1 as permitted sender)
- smtp.mailfrom=listout@listout.xyz
-Date: Mon, 1 Sep 2025 23:27:47 +0530
-From: Brahmajit Das <listout@listout.xyz>
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Boyuan Zhang <boyuan.zhang@amd.com>, 
- Sunil Khatri <sunil.khatri@amd.com>, Sonny Jiang <sonny.jiang@amd.com>
-Subject: Build failures in drm/amdgpu's vcn_v5_0_0.c
-Message-ID: <x4ga2sfkszmylljox3p46ryog2owghv6hffo3rjj4o6xfjy7pd@jllj3us4heso>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D4AE10E1D0;
+	Tue,  2 Sep 2025 12:49:15 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7B0010E1A7;
+ Tue,  2 Sep 2025 07:28:09 +0000 (UTC)
+X-UUID: 5beafbe887ce11f0b29709d653e92f7d-20250902
+X-CID-CACHE: Type:Local,Time:202509021521+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.45, REQID:97ee494f-acb0-40a0-9c80-222f12790ab1, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:25
+X-CID-META: VersionHash:6493067, CLOUDID:c673dd818662abbfa105d80fed711fdb,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0|50,EDM:5,IP:nil,URL
+ :0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SP
+ R:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-UUID: 5beafbe887ce11f0b29709d653e92f7d-20250902
+Received: from node4.com.cn [(10.44.16.170)] by mailgw.kylinos.cn
+ (envelope-from <xialonglong@kylinos.cn>) (Generic MTA)
+ with ESMTP id 2066057203; Tue, 02 Sep 2025 15:28:02 +0800
+Received: from node4.com.cn (localhost [127.0.0.1])
+ by node4.com.cn (NSMail) with SMTP id 9844B160038C0;
+ Tue,  2 Sep 2025 15:28:01 +0800 (CST)
+X-ns-mid: postfix-68B69C81-361036971
+Received: from kylin-pc.. (unknown [172.25.130.133])
+ by node4.com.cn (NSMail) with ESMTPA id E2AAB16001A03;
+ Tue,  2 Sep 2025 07:28:00 +0000 (UTC)
+From: Longlong Xia <xialonglong@kylinos.cn>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Longlong Xia <xialonglong@kylinos.cn>
+Subject: [PATCH 1/1] drm/amdgpu: use KMEM_CACHE instead of kmem_cache_create
+Date: Tue,  2 Sep 2025 15:27:59 +0800
+Message-ID: <20250902072759.2386131-1-xialonglong@kylinos.cn>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4cFxRl2WqXz9ssn
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 02 Sep 2025 12:49:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,27 +64,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello devs,
+Use KMEM_CACHE() instead of kmem_cache_create() to simplify the code.
 
-While building the -next tree with allyesconfig and GCC 16, I got this
-build error:
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h:164:26: error: variable ‘internal_reg_offset’ set but not used [-Werror=unused-but-set-variable=]
-  164 |                 uint32_t internal_reg_offset, addr;                                             \
-      |                          ^~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h:208:33: note: in definition of macro ‘WREG32_SOC24_DPG_MODE’
-  208 |                                 offset;                                                 \
-      |                                 ^~~~~~
-drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:751:41: note: in expansion of macro ‘SOC24_DPG_MODE_OFFSET’
-  751 |         WREG32_SOC24_DPG_MODE(inst_idx, SOC24_DPG_MODE_OFFSET(
-      |                                         ^~~~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_userq_fence.c
+index c2a983ff23c9..51f51064685f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -37,11 +37,7 @@ static struct kmem_cache *amdgpu_userq_fence_slab;
+=20
+ int amdgpu_userq_fence_slab_init(void)
+ {
+-	amdgpu_userq_fence_slab =3D kmem_cache_create("amdgpu_userq_fence",
+-						    sizeof(struct amdgpu_userq_fence),
+-						    0,
+-						    SLAB_HWCACHE_ALIGN,
+-						    NULL);
++	amdgpu_userq_fence_slab =3D KMEM_CACHE(amdgpu_userq_fence, SLAB_HWCACHE=
+_ALIGN);
+ 	if (!amdgpu_userq_fence_slab)
+ 		return -ENOMEM;
+=20
+--=20
+2.43.0
 
-The WREG32_SOC24_DPG_MODE macro is calling the SOC24_DPG_MODE_OFFSET.
-The variable internal_reg_offset, while not being used in
-SOC24_DPG_MODE_OFFSET, is used in WREG32_SOC24_DPG_MODE. I might be
-wrong though. So I'm wondering is there any *easy* way to fix this?
-
--- 
-Regards,
-listout
