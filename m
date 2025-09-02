@@ -4,81 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B0B1CA1005
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 11:28:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E119ACA1005
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 11:30:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F40710E66C;
-	Tue,  2 Sep 2025 11:28:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8997B10E66D;
+	Tue,  2 Sep 2025 11:30:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OZiYcDkn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hAxoSTrq";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 592C910E66C
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 11:28:37 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-3d3ff4a4d6fso1743893f8f.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Sep 2025 04:28:37 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5799310E66D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 11:30:24 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-45b7d497ab9so47189375e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Sep 2025 04:30:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756812516; x=1757417316; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756812623; x=1757417423; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
  :date:message-id:reply-to;
- bh=bEUNJ4HkbdIdtJyNKtzFLMMsN3dmK7hRZ462+FqnOW4=;
- b=OZiYcDknYm7xcTmZgaBOyHS6tiUUW3R852z3ovTy0ty7THYFCQJyt7bYSvpPSuo5z9
- Ct/lJ8F4duclMrZrHlZF7NRH5QzxTO4g1Syn+G+Yz02x1k96PiB86c0i20HpKVjg6oTz
- iQf0ctrEpaDHUBmAuyCGenrp87Wa7Js11TREiJwl0tvlbCk9/RM1SJ4WAMOCXQd/JG6i
- fff6gOdCdUqrLTkys+XTj8SBPE9SVyRHmqKLkmXgaXL4bJLQO7N71qg9eF8Iu4egzBGp
- KfpnU5VrYi7IIN02F9F8EiK3IV9OrEC7lJolevyNQcQWcWRQETvGQR8KKE7XsON6xtod
- vzYA==
+ bh=85ykL5I1LsZxy5paPkkJv3BIB4IGcCDSAnDtI1OEfi8=;
+ b=hAxoSTrq0ZTcxQJ5Ti2A9bvx+1KOGo1eaGsWGrqY+EC3W50RzZt7O6eky7jcT4LP1f
+ 0af9OR6YNjaoONbmvv4Qy5m4n05EncnZmQrdxdNkw2feuf1Pnke3osnFz/b9JnTpRwSC
+ O+CvPaaWIpJJ0VTxE43YrHaIWIzwyPc+UwbaYcgE2rIYvZFCjS/iCE8/BlnsvYIDkmtT
+ AhR2bx1WhVz1F54EaabWEXGbNsSah7MieZsWW1t5dCmCDJv4ySBpKo/a0skm43lKp/Zd
+ K22AdTuR2Ao2ZE8g8Yl4BD1eoe2lSrI2xvj8Lrl6095gCp+b9pppd2A8MtI6NnAsOvkU
+ BEQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756812516; x=1757417316;
+ d=1e100.net; s=20230601; t=1756812623; x=1757417423;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=bEUNJ4HkbdIdtJyNKtzFLMMsN3dmK7hRZ462+FqnOW4=;
- b=U+C1l5/wggIaTYA+l1zBRm+7F56OPAxHH1dynSYGsIQ70hUg7bF3l7m+Su0X0X6zq0
- sWLAJR4CN7wh+DEVTDkrepF1jqsQTzqTkzCE5h2yntXKlZTvmVZkKIkS+osPWaQy2MAw
- Rn6a1kCOBESv+0hja29fy7LPjzhR68M8N+M5QugfovmFtwKeChkBhMw8463Ph7oDGtOL
- 2IA3CCDgk2XyOcehwqmNzNu4WjYIH3CTcSMtopU15nLzA9/xpC6Zh9HVgcQqEx9dbzkl
- 0R0XL+LjXC0fmO79ehf3lbGnXNU09WserQ7OvkQJecbTFnP/KC1v2qHevdkYwnEpGzW8
- hYmg==
+ bh=85ykL5I1LsZxy5paPkkJv3BIB4IGcCDSAnDtI1OEfi8=;
+ b=jMBnzjyOx+aHu4vCmRJtFRerM/0ZvVioWZPLXMW5P4Ean9P/HrR2of6/6GFfrXor8n
+ atlA5FIeeWUt7CmZFbeTJQIVVTzGqkxzIhDnEkyuTuZDdjlCGbsR23kTpJrhLL/aOIhx
+ EAYfIaik4ZPd+QJCVby5nvTGrsiQdx02PWjgAkJUb2HlKTaPmvIclqH2WfopREZSCqfe
+ Aeb88PF2tChQNLcmI5caswTHN9l5l9WLfspGzS2e7/iwPXjye80tvLHkNnoFL1CXKFvm
+ SzfjxvawtFuo2iM0uWvHh3deSZCWA127tE3WCArjkgDygfJ/5yIhjQgLxIVeuQgSy2Fj
+ REsQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWmC40cG3C1LaFvPSqvBjZlK6gSsfYJxJHAnlA0wnuqBbGTFMnezAkyxyFOKbOELadeA0d0TVUJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6pYvZbrj/rEJ7G457tQjUmNHBrGAQSxPb2U45a+lhRkJo8gwu
- 5cVdqchUJPZzcGabguYsqgFIf5UOMbXnqxMcEjI8lnrGqFBrtbTnzRTm
-X-Gm-Gg: ASbGncs4inUsaM02JOX5Lba7qWfo27pagcZqaNampGCRgqRQvXTAgHVLwWvkOHEpohH
- SM9yJ8lfdRIBF4kT5igdrAZqIVle39mR6EItlS1nDJ1lIASJVMu6OVAnfcDkxLldHAlbU4Qt3eq
- zqq1UmvG4nd+fnYmfBaTEb7+o8bvTm36wX5i5Jymwxz7qe1oAzvXmfUItHNltpH5Ct2v4lIYjds
- G7NLahKPBhzb5mFbt0lAkIrAVMJaX3FM9prdg4yPYSf5Fm1LhfKEUZkdBhqm46gLNoBd3J9eyAt
- ksgEpyuHota3YEb/JgR2tTMo3MTijtqAVxZmFfz2XrvHia+b9qaxfqjaq3OrLk2XQZpFj4JwUvx
- jPYRvYVjtZmN51u8NJ8tzL6+bvuAIRiKrvggQaQSL7VZaxkaZGDEbLJufqH50toCkpRmRBYozb+
- pUtgdbFuvZfC+RnQB3nXVAPOSx97p5g9u+rLwb3OARk5RSTz+UC9xp1zaCkd35vg==
-X-Google-Smtp-Source: AGHT+IFtlyQcdtiXWA203C3gb1DBiG4ulFlvrR8Pqn+BrEPbJBWvYTJhZuXLVOI9g9INs5qZ521IFg==
-X-Received: by 2002:a05:6000:420a:b0:3d8:9bf9:7c0b with SMTP id
- ffacd0b85a97d-3d89bf9810fmr4095648f8f.47.1756812515393; 
- Tue, 02 Sep 2025 04:28:35 -0700 (PDT)
+ AJvYcCVSFvHwyYhGu72hDw99L3T3kOjR5NwYjUHSGCshksaIm45EpIv7o4XHFfjTx31H/2fsNfq2RCAS@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNxV3d73xLSKFDqtbIZG8rUM2JioliViqkZa3FqTlN3TAN4ayA
+ 8VrxdcqgQ4Kt8u+mkNf69iRjmSz9ulyd/gDQhUJjB2XSjLf1+wbmn3q05rK4KQ==
+X-Gm-Gg: ASbGnctEj9rd6DsAlooNF/vPjqhBNyc4xFht6lCeK0ZXA4ZSkIcGaRwSwFFYfrP9DvJ
+ huCMo/s/V/A0om6OQPCDZNfwMauBp9RUoNI+tDC/yD29L9fVdntBcRb9hhRSCWcOmjmePw6+mEc
+ PbobX4GlSVjZ2aOQARJS9g71RR8RuoZ7u/SxfI4OgsFr7xolayIApowWRBnXMkqTwUnFlQWFtE+
+ xYhn5rDuv9zycIDzDuxeHXVg6+bK7WXSOsal8guVNb9TQm6ih7UpB255D44n8pVevp2y9btbJW+
+ +11/K1PywVKwAt7JIm/xEXvBGqr80g6gHco/KJkGRobjkgDYm3B/ETGRD6IaEQDYFE9ool76S5o
+ SGYJCRnFKduGzM0uHSsOczV1rWHlQa3Pf7o0HtL6RE9X0gmPQLIrNi4mlo5/d9NWJqJ2n0SWvQZ
+ B608LMrdGVu1YLpBoRUBPxw7bsNfSxS3VH7cPTv8f7yyuCKj69OCqPtSSxJC2+fA==
+X-Google-Smtp-Source: AGHT+IHgpfZubVIPibgJjMxNygiviPv1dmUzB4sRhY+se8Q52e0UHKVQhTw6uCpx/P/ndf0tHxfFtw==
+X-Received: by 2002:a05:600c:8b23:b0:456:1dd2:4e3a with SMTP id
+ 5b1f17b1804b1-45b855506e2mr84376425e9.3.1756812622501; 
+ Tue, 02 Sep 2025 04:30:22 -0700 (PDT)
 Received: from ?IPv6:2001:4c4e:24c1:9400:5635:26cc:b04a:ca6d?
  (20014C4E24C19400563526CCB04ACA6D.dsl.pool.telekom.hu.
  [2001:4c4e:24c1:9400:5635:26cc:b04a:ca6d])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3cf33add504sm19096541f8f.30.2025.09.02.04.28.34
+ 5b1f17b1804b1-45b6f0c6b99sm275794565e9.4.2025.09.02.04.30.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Sep 2025 04:28:34 -0700 (PDT)
-Message-ID: <13e253fc039210ab4fba4e25c473660e499f8c46.camel@gmail.com>
-Subject: Re: [PATCH 2/4] drm/amdgpu: Clarify that BO size is in bytes in
- comments
+ Tue, 02 Sep 2025 04:30:22 -0700 (PDT)
+Message-ID: <1aef6170994c05c98f215690665f837529da5950.camel@gmail.com>
+Subject: Re: [PATCH 3/4] drm/amdgpu: Fill extra dwords with NOPs
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-Date: Tue, 02 Sep 2025 13:28:34 +0200
-In-Reply-To: <1e04ba11-424a-444d-9bf6-42b78c79c8df@amd.com>
+To: Tvrtko Ursulin <tursulin@ursulin.net>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com
+Date: Tue, 02 Sep 2025 13:30:21 +0200
+In-Reply-To: <9d3566f4-9ede-4d4c-8849-2ccac3fa65a6@ursulin.net>
 References: <20250901100012.439155-1-timur.kristof@gmail.com>
- <20250901100012.439155-2-timur.kristof@gmail.com>
- <b9c170d0-cbab-434c-a781-e0f5d379be83@amd.com>
- <a88429569645421c3659182a256ac38f3181f08b.camel@gmail.com>
- <1e04ba11-424a-444d-9bf6-42b78c79c8df@amd.com>
+ <20250901100012.439155-3-timur.kristof@gmail.com>
+ <9d3566f4-9ede-4d4c-8849-2ccac3fa65a6@ursulin.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
@@ -97,116 +93,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-09-02 at 13:10 +0200, Christian K=C3=B6nig wrote:
-> On 02.09.25 10:08, Timur Krist=C3=B3f wrote:
-> > On Tue, 2025-09-02 at 08:43 +0200, Christian K=C3=B6nig wrote:
-> > > On 01.09.25 12:00, Timur Krist=C3=B3f wrote:
-> > > > To avoid confusion with dwords.
-> > > >=20
-> > > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > > > ---
-> > > > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
-> > > > =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
-> > > >=20
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > > index 122a88294883..9ffadc029ef8 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > > @@ -220,7 +220,7 @@ void amdgpu_bo_placement_from_domain(struct
-> > > > amdgpu_bo *abo, u32 domain)
-> > > > =C2=A0 * amdgpu_bo_create_reserved - create reserved BO for kernel
-> > > > use
-> > > > =C2=A0 *
-> > > > =C2=A0 * @adev: amdgpu device object
-> > > > - * @size: size for the new BO
-> > > > + * @size: size for the new BO in bytes
-> > >=20
-> > > That is actually incorrect. The size is in arbitrary units.
-> > >=20
-> > > For OA and GWS it is the number of HW engines they represent, for
-> > > GDS
-> > > it is in bytes and for VRAM and GTT it is in bytes but rounded up
-> > > to
-> > > a page size.
-> > >=20
+On Mon, 2025-09-01 at 11:13 +0100, Tvrtko Ursulin wrote:
+>=20
+> Hi,
+>=20
+> On 01/09/2025 11:00, Timur Krist=C3=B3f wrote:
+> > Technically not necessary, but clear the extra dwords too,
+> > so that the command processors don't read uninitialized memory.
 > >=20
-> > Can you point me to the part of the code where this is actually
-> > determined?
+> > Fixes: c8c1a1d2ef04 ("drm/amdgpu: define and add extra dword for
+> > jpeg ring")
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > ---
+> > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 5 +++++
+> > =C2=A0 1 file changed, 5 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > index 7670f5d82b9e..6a55a85744a9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -474,6 +474,11 @@ static inline void
+> > amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+> > =C2=A0=C2=A0	while (i <=3D ring->buf_mask)
+> > =C2=A0=C2=A0		ring->ring[i++] =3D ring->funcs->nop;
+> > =C2=A0=20
+> > +	/* Technically not necessary, but clear the extra dwords
+> > too,
+> > +	 * so that the command processors don't read uninitialized
+> > memory.
+> > +	 */
+> > +	for (i =3D 0; i < ring->funcs->extra_dw; i++)
+> > +		ring->ring[ring->ring_size / 4 + i] =3D ring->funcs-
+> > >nop;
 >=20
-> See amdgpu_bo_create():
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Note that GDS/GWS/OA alloca=
-tes 1 page per byte/resource.
-> */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (bp->domain & (AMDGPU_GEM_D=
-OMAIN_GWS |
-> AMDGPU_GEM_DOMAIN_OA)) {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 /* GWS and OA don't need any alignment. */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 page_align =3D bp->byte_align;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 size <<=3D PAGE_SHIFT;
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else if (bp->domain & AMDGPU=
-_GEM_DOMAIN_GDS) {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 /* Both size and alignment must be a multiple of 4.
-> */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 page_align =3D ALIGN(bp->byte_align, 4);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 size =3D ALIGN(size, 4) << PAGE_SHIFT;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 /* Memory should be aligned at least to a page size.
-> */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 page_align =3D ALIGN(bp->byte_align, PAGE_SIZE) >>
-> PAGE_SHIFT;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 size =3D ALIGN(size, PAGE_SIZE);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->=20
-> The GDS/GWS/OA handling here is actually a hack I'm trying to remove
-> for years. It's just that GEM/TTM assumes that all BOs are PAGE_SIZE
-> based objects and so we have to do this tricky workaround.
->=20
-> > If it's that complicated, then I think the function could
-> > definitely
-> > benefit from more documentation. All I could find was that both
-> > ttm_resource::size and drm_gem_object::size are documented to be in
-> > bytes.
->=20
-> IIRC we have actually documented that quite extensively. I'm just not
-> sure of hand where, @Alex?
->=20
-> Maybe the UAPI? Probably best to add a reference to that to the
-> functions creating a kernel BO.
+> Should I resend this maybe?
 
-Thanks Christian.
 
-If this is already documented, then I agree it's best to refer to the
-pre-existing docs. I'll do that (once we figure out where it is).
+Hi Tvrtko,
 
+The patch you commented on is going to be dropped.
+
+However, your patch makes good sense, so I can include it in the next
+version of this series if that's OK.
+
+@Christian - does that sound alright to you?
+
+
+>=20
+> commit 11b0b5d942fe46bfb01f021cdb0616c8385d5ea8
+> Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Date:=C2=A0=C2=A0 Thu Dec 26 16:12:37 2024 +0000
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0 drm/amdgpu: Use memset32 for ring clearing
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0 Use memset32 instead of open coding it, just bec=
+ause it is
+> =C2=A0=C2=A0=C2=A0=C2=A0 a tiny bit nicer.
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@ig=
+alia.com>
+> =C2=A0=C2=A0=C2=A0=C2=A0 Cc: Christian K=C3=B6nig <christian.koenig@amd.c=
+om>
+> =C2=A0=C2=A0=C2=A0=C2=A0 Cc: Sunil Khatri <sunil.khatri@amd.com>
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h=20
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index dee5a1b4e572..96bfc0c23413 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -369,10 +369,7 @@ static inline void=20
+> amdgpu_ring_set_preempt_cond_exec(struct amdgpu_ring *ring,
+>=20
+> =C2=A0 static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring=
+)
+> =C2=A0 {
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int i =3D 0;
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 while (i <=3D ring->buf_mask)
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 ring->ring[i++] =3D ring->funcs->nop;
+> -
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset32(ring->ring, ring->funcs->n=
+op, ring->buf_mask + 1);
+> =C2=A0 }
+>=20
+> =C2=A0 static inline void amdgpu_ring_write(struct amdgpu_ring *ring,
+> uint32_t v)
+>=20
+> Looks like with two loops it would made even more sense to
+> consolidate.
 >=20
 > Regards,
-> Christian.
 >=20
-> >=20
-> >=20
-> > >=20
-> > > > =C2=A0 * @align: alignment for the new BO
-> > > > =C2=A0 * @domain: where to place it
-> > > > =C2=A0 * @bo_ptr: used to initialize BOs in structures
-> > > > @@ -317,7 +317,7 @@ int amdgpu_bo_create_reserved(struct
-> > > > amdgpu_device *adev,
-> > > > =C2=A0 * amdgpu_bo_create_kernel - create BO for kernel use
-> > > > =C2=A0 *
-> > > > =C2=A0 * @adev: amdgpu device object
-> > > > - * @size: size for the new BO
-> > > > + * @size: size for the new BO in bytes
-> > > > =C2=A0 * @align: alignment for the new BO
-> > > > =C2=A0 * @domain: where to place it
-> > > > =C2=A0 * @bo_ptr:=C2=A0 used to initialize BOs in structures
+> Tvrtko
+>=20
+> > =C2=A0 }
+> > =C2=A0=20
+> > =C2=A0 static inline void amdgpu_ring_write(struct amdgpu_ring *ring,
+> > uint32_t v)
+>=20
