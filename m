@@ -4,83 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02CDDCA0FFE
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 11:39:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D8D7CA0FFE
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:49:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E54D10E673;
-	Tue,  2 Sep 2025 11:39:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 461DD10E6C0;
+	Tue,  2 Sep 2025 12:49:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="m9ihMO7R";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g+H6nq0S";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 702AC10E673
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 11:39:53 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-45b9853e630so5815635e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Sep 2025 04:39:53 -0700 (PDT)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0094710E6B3;
+ Tue,  2 Sep 2025 12:41:39 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-3d1bf79d75aso1055994f8f.0; 
+ Tue, 02 Sep 2025 05:41:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1756813192; x=1757417992;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=mlfet44fkJh4lSrtSB0vWZATPsFclwg3JEG3lempfCo=;
- b=m9ihMO7R0zv9Q0CEaQFWJQpRGRHnNcasbH6NVqCS2fXG9fxdfqTniFpgYLJ2o95XKF
- TqqanGE7K8XA9tPLwO4eHhOgrF1dyzXdxqOK6sTsv2D8bP2qJEc3cjXWhRGxhfnSuTVS
- 0mXCO/foAE4eWmP09pNKencvsYe2/ERF3+G/dumdQb+9L90wGiHasNKm+U6NWIj4b4QN
- z2BubPOAv1gewSGeMJ+nEMq4EEVf5dW7LSiKHV79lYJDWDlXjvGFoYHWwtbtXqPp224V
- UtK93Ttqs/HwMv6/Y9AJrre2TNSWZcmhXv9mzQcxY6+MfLxykv1NhOmAKmwj7FtEvosx
- AegA==
+ d=gmail.com; s=20230601; t=1756816898; x=1757421698; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bLl+JLjIhJwlWgN4ocOU2hzq7YznyPeqJKD3znSlmKM=;
+ b=g+H6nq0S82hbmHz9FPZgQ6I9x+p+7ezaBi1ch/Ixr6yb8S7ZWsADxayumRwQ/0lik3
+ hKru0ukF/w6varHxQga9Dt+t7Pb2KEI+KIRkDelbopPMN4M49GJT0J2W9yYJLTf2qfSF
+ cYQa2+2ZuX2otcMnRL9VrqKEhDyBSAKPKHvP3Ty+UhpZoTDQv1d90jql0I9QVv00RajD
+ 7gBf0w6uFQ3PXpON0mm2kL3d90XecYKeqNkLc5KKvs7NKRU1kjGsjsMAHuX4TKZmvuzE
+ IPlflQ13MWzYA4IYyNS9AwDWBjyiZD0U+dxv08ZZmhgSgUrsq7kaNIZF3XwRoLmeqdT/
+ iF2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756813192; x=1757417992;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=mlfet44fkJh4lSrtSB0vWZATPsFclwg3JEG3lempfCo=;
- b=W0pvKD1/yvZJTznYy56VFYIVuc7yAywIQxvOBYcRM0OMoYRGn8iYMkSfhKJe+s7Hoc
- urSyZRmioL1ZxNHYsQACQWrUMipjtxLjZA8ebn7/QrqvhTxiI5WZE2ikuvSV520bE/fv
- 9Q0ZAqlxxt8fGHFkNZETWtltuxoJHqe/QWoFZ3s6EzbRKdOZ5wtPiznTNE6TeKF9dPZT
- 4KmQCYrPjlDAyg6JHi4Gloia/5R/UCynmYzHYqwVIyB7zdQj68M/bIutyZvEFkx6h2kG
- OBFnRZIpWSJhaqkXl+OLiCGiq5aboMmL9GkaqIDMIjT2bkU+/oYt33zhlIhZboD/7RXF
- t2oA==
+ d=1e100.net; s=20230601; t=1756816898; x=1757421698;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bLl+JLjIhJwlWgN4ocOU2hzq7YznyPeqJKD3znSlmKM=;
+ b=k63PGvePvaazCpQs4nJONpBakj09Q0w8NzOUloD45LosJEcP4taPHIgXfJXEq5OD4y
+ kdD6WLsbceEv72aCdGmZeupe03A01Q9+tRoKGTnye0JA7YX4d0Apsbav3ErsrACubY/I
+ 0Ubx9p3IybIKGGwl5ECWGK+R3wpwBEnNTJQ5DUF0OJ6khGsKs9jZ7tN2TbZeCVF3vWjW
+ oXIhJ150CrzNoUq4L38PPt9zj0xLeZBlamtZsrtEI4KmO3SVhHNB+efYXIbodhDVwD04
+ 4k10gpAHpwKPkaQLDHeICFhfGo6fXvN1Arej6rfMV5uWJTJBj0STuKYzO5tvkX/Mhcpd
+ 17AQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWF4C5B60oDgFAWBfpdidTNl9WQo+hgcXzaUsJbBJB0BhoV50mgRI0UWLxD29qC+nqG1nZKAprw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNk2s2Deppw1MfRy5YhfGqGCbtugQ1q0PbcxDexrn1KA+Qtj1k
- +UUl7qShaI5Py5OPh4byJKa+tsmmnoBZnq6tvu6jc4mBWcb7iDGsvU9/WP/Ipg22Ir2Kget7Xuj
- 0cM2/5jU=
-X-Gm-Gg: ASbGnctvFoXwv/jytho2T1DLwJMdcovPVduGTcGSV39USnbogoxqjHtxngoBvmtZ97A
- eqlxWgFpJzoOQIQRkBHUh826xAcpMl5Zy4tqIn6ms4pnNmlHaPg/ygCdREZ1ebB6tUfH9po7h4W
- qbLFcaTl1Wp5TH43wRbMYeyMe0HdpK3z7o7OEGxeO3HW+LID/wGqUh2mYX6EHwRyAsQ6lfs3WfV
- XeQVGnLa8KBfA7Zz9gHx+SgS3UFVU4zj3Bqm/K3zJ3cMENG52ZoxmYPHJKY0kzMg1p3ISiopOMS
- 5HJT2BLSy0bBqqw7KYXOB13ZSn2Rcs5BBmn1LFgY2UZh1wOUvxqhfimhVOpRI5lUFbnnxc7q9tT
- erBBVj50UXa63E5LZyZp0fUOkzNOG9kAD3Z3yzWC3M2hkHA==
-X-Google-Smtp-Source: AGHT+IEKaE1jPtrxm3J3EVtjGqM8MXIx154dS+hIiynhUs+epSPEFFMZhfJFiwpDqnrH8SIV2JWMKw==
-X-Received: by 2002:a05:600c:46c8:b0:43d:fa59:af97 with SMTP id
- 5b1f17b1804b1-45b855bf801mr83190325e9.32.1756813191683; 
- Tue, 02 Sep 2025 04:39:51 -0700 (PDT)
-Received: from [192.168.0.101] ([84.66.36.92])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3cf34491a65sm19057288f8f.56.2025.09.02.04.39.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Sep 2025 04:39:51 -0700 (PDT)
-Message-ID: <75193f5e-2f95-41e5-aba7-dafcd86f900b@ursulin.net>
-Date: Tue, 2 Sep 2025 12:39:50 +0100
+ AJvYcCUSkQbUiWS4Ay17V5mdO30uYZ++2P5Ve/94LGeXoLF69tM5qePXauOk8+20GiJna3I76btkkNqk@lists.freedesktop.org,
+ AJvYcCWtAJQhlMbnnvCcp/d9Hkt5FldM9B7gESj25TERJ+/RH6i2U/AsdKtY3DSeJwcJkuC6MOkzCOoBDsjo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwJV06kywn55UojHiSYceqjTrRylfwL6L8g3N739RvU73y3wlEk
+ ckK1bkEZvoFbLri1EZIbb5RdqDjE//wZbTzpeupuDkPxvMqXPFESywXh
+X-Gm-Gg: ASbGnctEbUtbeXH5ThsHa4wQaghCHGWQUM58EB0FbVbn9MzWvNt0Bcd+EC/11HagCzJ
+ PzCHzxwUbwVTr6euWMtDjTmlDIup7y9HVZZiWW+8bkFLW7dRCZr9LvS5zekmp57NG6i/ZzrNaRb
+ Kjk7u28lCeqNAiApWFqhfeWme5OuwhkiCRb4ps/zp4kXqt/+Lmizh07KwSxbkUeDmEkonh7UnVK
+ RMgw55scpi1H/v052VIAA7+ejnFZRR5P5jRX9/Vm+XXXE/6di0e4iAvPQg1hZvGEJORzBwMfcc/
+ cP3YqhGcgQ2aTEWDxziftXcD8xvfDn/mdT4wSQXx5q4G9vRCs/313IgcPIbZSlkNWWyop/b92j6
+ akv281i4ed53qtRZANVzrVlLfprufIs8=
+X-Google-Smtp-Source: AGHT+IEz5I9J4HFpTbmwM96KDxKRFH9y58DSSHqyixEB5HxWInPxE6QIjGk6UgfMHbUWnP2ymlC0Og==
+X-Received: by 2002:a05:6000:4020:b0:3c6:c737:d39f with SMTP id
+ ffacd0b85a97d-3d1dc5a5641mr10228606f8f.3.1756816898145; 
+ Tue, 02 Sep 2025 05:41:38 -0700 (PDT)
+Received: from localhost ([87.254.0.133]) by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3cf276d5e5fsm19738997f8f.27.2025.09.02.05.41.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Sep 2025 05:41:36 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, John Clements <john.clements@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amd/amdgpu: Fix missing error return on kzalloc
+ failure
+Date: Tue,  2 Sep 2025 13:40:50 +0100
+Message-ID: <20250902124050.2628822-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/amdgpu: Fill extra dwords with NOPs
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com
-References: <20250901100012.439155-1-timur.kristof@gmail.com>
- <20250901100012.439155-3-timur.kristof@gmail.com>
- <9d3566f4-9ede-4d4c-8849-2ccac3fa65a6@ursulin.net>
- <1aef6170994c05c98f215690665f837529da5950.camel@gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <1aef6170994c05c98f215690665f837529da5950.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 02 Sep 2025 12:49:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,104 +93,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Currently the kzalloc failure check just sets reports the failure
+and sets the variable ret to -ENOMEM, which is not checked later
+for this specific error. Fix this by just returning -ENOMEM rather
+than setting ret.
 
-On 02/09/2025 12:30, Timur Kristóf wrote:
-> On Mon, 2025-09-01 at 11:13 +0100, Tvrtko Ursulin wrote:
->>
->> Hi,
->>
->> On 01/09/2025 11:00, Timur Kristóf wrote:
->>> Technically not necessary, but clear the extra dwords too,
->>> so that the command processors don't read uninitialized memory.
->>>
->>> Fixes: c8c1a1d2ef04 ("drm/amdgpu: define and add extra dword for
->>> jpeg ring")
->>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 5 +++++
->>>    1 file changed, 5 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> index 7670f5d82b9e..6a55a85744a9 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> @@ -474,6 +474,11 @@ static inline void
->>> amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
->>>    	while (i <= ring->buf_mask)
->>>    		ring->ring[i++] = ring->funcs->nop;
->>>    
->>> +	/* Technically not necessary, but clear the extra dwords
->>> too,
->>> +	 * so that the command processors don't read uninitialized
->>> memory.
->>> +	 */
->>> +	for (i = 0; i < ring->funcs->extra_dw; i++)
->>> +		ring->ring[ring->ring_size / 4 + i] = ring->funcs-
->>>> nop;
->>
->> Should I resend this maybe?
-> 
-> 
-> Hi Tvrtko,
-> 
-> The patch you commented on is going to be dropped.
-> 
-> However, your patch makes good sense, so I can include it in the next
-> version of this series if that's OK.
+Fixes: 4fb930715468 ("drm/amd/amdgpu: remove redundant host to psp cmd buf allocations")
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yes, (more than) fine by me. Thanks!
-
-Tvrtko
-
-> 
-> @Christian - does that sound alright to you?
-> 
-> 
->>
->> commit 11b0b5d942fe46bfb01f021cdb0616c8385d5ea8
->> Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Date:   Thu Dec 26 16:12:37 2024 +0000
->>
->>       drm/amdgpu: Use memset32 for ring clearing
->>
->>       Use memset32 instead of open coding it, just because it is
->>       a tiny bit nicer.
->>
->>       Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>       Cc: Christian König <christian.koenig@amd.com>
->>       Cc: Sunil Khatri <sunil.khatri@amd.com>
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> index dee5a1b4e572..96bfc0c23413 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> @@ -369,10 +369,7 @@ static inline void
->> amdgpu_ring_set_preempt_cond_exec(struct amdgpu_ring *ring,
->>
->>    static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
->>    {
->> -       int i = 0;
->> -       while (i <= ring->buf_mask)
->> -               ring->ring[i++] = ring->funcs->nop;
->> -
->> +       memset32(ring->ring, ring->funcs->nop, ring->buf_mask + 1);
->>    }
->>
->>    static inline void amdgpu_ring_write(struct amdgpu_ring *ring,
->> uint32_t v)
->>
->> Looks like with two loops it would made even more sense to
->> consolidate.
->>
->> Regards,
->>
->> Tvrtko
->>
->>>    }
->>>    
->>>    static inline void amdgpu_ring_write(struct amdgpu_ring *ring,
->>> uint32_t v)
->>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 1d6e1d5de8fa..3696f48c233b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -448,7 +448,7 @@ static int psp_sw_init(struct amdgpu_ip_block *ip_block)
+ 	psp->cmd = kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL);
+ 	if (!psp->cmd) {
+ 		dev_err(adev->dev, "Failed to allocate memory to command buffer!\n");
+-		ret = -ENOMEM;
++		return -ENOMEM;
+ 	}
+ 
+ 	adev->psp.xgmi_context.supports_extended_data =
+-- 
+2.51.0
 
