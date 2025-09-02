@@ -4,151 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2067FCA1005
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 07:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B6FCCA1005
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 07:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1A6C10E1A7;
-	Tue,  2 Sep 2025 07:28:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5D6B10E1AC;
+	Tue,  2 Sep 2025 07:42:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qcCedjet";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dde5L3V+";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88B8010E1A7
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 07:28:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ysxj5fFT9iRSaxtbF7wrVQ0sJ5xQTZjGrIzlXabP+j9Lcw/8vBg5E17+z7Y1mFt206he0ESGclVWoHYToUXqBEpUwkutDZoDpAVcXq07I13HKemQdQavLFE0YAhMmop7Q6jynp41EsyP5g7edEnm3t51xnI7y4M/51YCtAJzueBN31aQ1FtNqvc7LZUqefVCXokZv2AvFHBzfxorcbvf9cHyAi3lTruE+rtDYLiSERSQt1VeN6I/z43Yx5SRkYywX/5z8K5t+o4JfSAHkbDr1J8uYP133LQXyAhuXq7PUJX4g8LQCKAlP1g4YS3NwzwTFzr4xE+rDS1/XGCQGnS8vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Agm8MxiS/eEdgx2uO64+ByINxOWMT3NirKF9ZT7eW2c=;
- b=BPC4n2CW++Iwnw1mcncwm+hXGMe/bBB2pTpRzlTplLJEUG3zFZPRflQTisU4G/3rn/6tWwsseGzIYamKDOoh44skHU6nL90Y0FQAE8Amcsqd1ViAQtJtr+yXleqsSr2mP0aioDMKfa+f6opcULOZR5Maimwd+RHW662EBwIBiqEZRfib9TDnOQK6/d1f2u6hduC4pHHNAafNFlLABYYDdRHD9Z2R4sf/LevKpqSatBbN7rotN+sqYUYh1aK4x6X0ySZx5Z5toghUJsMBdnu6lYPzWdLzZ/nrzWt/867nAgHg/qvrQykbX/pzGjRfcwOESWbPeAqaeOAdNK/YoNKGLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Agm8MxiS/eEdgx2uO64+ByINxOWMT3NirKF9ZT7eW2c=;
- b=qcCedjetSK2GGT5KIYsHL8cXOtL6M3La2vWPEn9+CjEF9TCxpS18vh6FCtAWoGJyLmiOxgGBpUZyesR6J/0eOGDq4Qp+mV7FcT44EaShm/NAVtTCiXtyreTCoT4RN+ftqsrwngdidz+UtCrjYV6HvJZnbCSHPylCgwg27JRYYtc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CYYPR12MB8890.namprd12.prod.outlook.com (2603:10b6:930:c7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
- 2025 07:28:40 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9073.021; Tue, 2 Sep 2025
- 07:28:40 +0000
-Message-ID: <8e98cd9b-92f5-4fa0-b33f-d641331d56f9@amd.com>
-Date: Tue, 2 Sep 2025 09:27:59 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 8/8] drm/amdgpu/gem: Return Handle to MMIO_REMAP
- Singleton in GEM_CREATE
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20250902032938.468332-1-srinivasan.shanmugam@amd.com>
- <20250902032938.468332-9-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250902032938.468332-9-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0019.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD7B710E1AC
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 07:42:11 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-45b82a21e6bso22585595e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Sep 2025 00:42:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1756798930; x=1757403730; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=RyLDFfGD4A6O9Vlm1/452xu+KHg4kfg1ScKpxAy3HjI=;
+ b=Dde5L3V+MneLXEQaquRx9DZjC4fDg1sDiXb9RwdxSTc+bpsgSRlMaKeMU6Pwgfzvk+
+ 2uBrzdQSAJEcR7y5b2Z+pdsawfK7asN8Py1XVQOG5MhB2TOVmQNlpapn4/vlcTdlolD6
+ paksWenEEIORT0Q4rxI26kZ3qe2N6Gmua+vaHIuVy/DNfSR5aGxt/YOI3LNhwZiLanT5
+ R//qqQxCsrvWVnfjWnGrUlz3nXvVBor+5oIuOdTvu0heYNGLlxnwRiXF3s+qV7iX6B2S
+ X8RByurHac1R80MV+BmotWeOxnjcpc/ocvwYk38wsybfPK3+TqAk9BytgGTUWAePHNio
+ IUJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756798930; x=1757403730;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RyLDFfGD4A6O9Vlm1/452xu+KHg4kfg1ScKpxAy3HjI=;
+ b=fxURpNLin0t09Z3Zg5xFl1cuBtrKRTShKJKudvufUr7Ef2cGn7p0pIVCwe7m4uItoW
+ VCiDGhr9y3pBOE7WXo2nFy92oji9CgJBxSwTgRMrjxPjVNyvG6AR0RoYh3PzIq2SI5kZ
+ 6URpBIXwhEXzK5H/aoR7drkaAFeU2qUu08cLzhoc6jcl3L/I+Wkf45OsbrnllZYFC5V8
+ fhRJ4yWToBjtabKNuQyam3iTIP8ycuorquQJ1LN4XSdX0L1kOh6dhGAlt8YxHSw017Gl
+ uddBVRRJWKUR3Ug/PcnETg1xb5Q4q8/vSKdsYcWCB+GzSEZA6ZcVmjG3IvhmT9NKibOl
+ 7FNg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXKlYlt+wOmJ1uMvwcFS9wWIhuOQmn+VpbSVHrq2dyWrtzoQvzkxfsTcLGZiPsHsdslno811WV8@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwKq6DXtr3CuXzc32OwMDefyQMVo4XcEQAcTu4CS/AgUBDAHkTG
+ jSYwF/+v+Jl78ZgTEFm3mNf2EcJRlXKq7l6ds8PpE1FOJ7D1nJrxIPYm
+X-Gm-Gg: ASbGncvgrWWk+t7ElhZjgbq+Ht2fmLPv+ijnjMQjnSTvd5ymIlPkX9PED3zOjF5e3si
+ ibOiiaiy7Of1hABg32lTJO9GvUvYOFkZI7Apob9+rUwwMItYxWz91URtQN6QUTAtKQRUCycsB6Q
+ NY6yxkHZDAGPloKgvWxiuGMKvLUt1UrGHAn1Iho+jvkBAqKqIFh0Iup90OlxpwfIqNlNTURm9u9
+ l/nyv7M53jc75L26vEiCD0Z98jLmmUoguP4rljKGd3VkrJ3ut1IjiI1KYijl6p6mEKM71qIx5yV
+ WI3nqFg3t0FyjpFYNyGYeONhdeklFIK5+AYx+Yo1KdDs1LezmNs0YS1lAAASg6FKuoeKk0hAuKS
+ tbrpeOl3B6uRFKIEkogDetr+WBZWT7Ht9sXYGeuBcvjk9TmzHy2xIpMLIacVU4hvS2RIRK0OOTk
+ A4KumOy1g7wzMDDEk6zu3e7cvdnm2WriQ2xAS45VpkVWUz702R41WO54UKxwvGWg==
+X-Google-Smtp-Source: AGHT+IFo8ks5UcUfqcwO54ykNs7V1RJrD+8j3ZKILXegnaX9JfBIhDINHGSIeLzNQOrP5SMjZfJ6Vw==
+X-Received: by 2002:a05:600c:3111:b0:45b:8c5e:5f8 with SMTP id
+ 5b1f17b1804b1-45b8f43c876mr34740925e9.28.1756798930039; 
+ Tue, 02 Sep 2025 00:42:10 -0700 (PDT)
+Received: from ?IPv6:2001:4c4e:24c1:9400:5635:26cc:b04a:ca6d?
+ (20014C4E24C19400563526CCB04ACA6D.dsl.pool.telekom.hu.
+ [2001:4c4e:24c1:9400:5635:26cc:b04a:ca6d])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b7e68c83asm198356905e9.20.2025.09.02.00.42.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Sep 2025 00:42:09 -0700 (PDT)
+Message-ID: <6b780734f2e33ee4351b6c605f33e95a84a9b752.camel@gmail.com>
+Subject: Re: [PATCH 3/4] drm/amdgpu: Fill extra dwords with NOPs
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+Date: Tue, 02 Sep 2025 09:42:08 +0200
+In-Reply-To: <64c1bcdb-8954-43a6-b0cd-90c75b29d3f4@amd.com>
+References: <20250901100012.439155-1-timur.kristof@gmail.com>
+ <20250901100012.439155-3-timur.kristof@gmail.com>
+ <64c1bcdb-8954-43a6-b0cd-90c75b29d3f4@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8890:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4c3ccc6-0b1b-4d43-9e68-08dde9f24fa1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YUlqQ3JLdjU0MlZubEhHL01FcWpFZTdYWWp5ZXhmK0Y2MFNJZFF5cFJrZ3Jz?=
- =?utf-8?B?UVVYcHFBUEZUVHFxNXFvL0NFaUI5dVBrVWtxdnRzNE5CcGpDTks5Z2NpT3o0?=
- =?utf-8?B?NWNtaTFTajdYQU9ualJLYnRxc0w5UGp1Zk9vSUlQTU5Hai9YL1JSRzQzcFUw?=
- =?utf-8?B?dlduVDlvL2FUYzZmanA1MkxYSnh6YXVDZHlRNVZ5dkcyQjdZSStuYkhqdTQ5?=
- =?utf-8?B?em9UaU9VWk8zZmVHNEhBVTdYS0R1bmtXbnM5RC90TmxKbEx2VE9mcFNxK2o2?=
- =?utf-8?B?bWVseFV5VndZS0xxQjI5Qnc5L2hJdnVwSmlEZkl6Uzl4aXNVSzFORzA2UkZB?=
- =?utf-8?B?MElHQytYL2N5LzI3RU9adDVqcWNibUVwZS9oNjNCUlZhK1UybVEzUmdiekth?=
- =?utf-8?B?NGZrV1RzVFZPbmFPZzJ3cWoxNEZvbHFZSEpMc29LdmpBZGNQbHJOZUd4U3Zh?=
- =?utf-8?B?R0pXc0dGbHRRQzBid3dLTy9jUFpRT0hBWk13eFd4bW1DS2Vza2VHS0xpL2R1?=
- =?utf-8?B?UHlyb2tuZjNzTE1qWkhyVElhQ2NuN0xqOGFIU1FENG9TQ1JqQTFoaHFROVZL?=
- =?utf-8?B?bmt1L0U4dk45d2JYdUZIMnNNM3NqbjZDQURiZThLTG85aUlLTXlBcmJwZDRU?=
- =?utf-8?B?aVp4UzY4K3dnV3JaWEYvMm5vTE0wbUQrQmtFalhTUHRDRzRVY0Noc2dGdllZ?=
- =?utf-8?B?YVFIMklBQ1AwbTZ2WVcrd01XWER3cTBBWVlSTUlnV1liR1JmcUFDSTlmeXpF?=
- =?utf-8?B?SUltUjBWYTRJNFgrSk1ydFB1YUxJeDlkcUsycTg1Q0MzSW5HV0V0dDg3Y3ZR?=
- =?utf-8?B?QlBiZkNqNGJPZDlLY3VURHY4VlZsVXpyZ3V2S200QUp4S2V6Y2FlYjdnc0Vv?=
- =?utf-8?B?VHBlckErNHg5ZWFKNGhGbllMSkJvVDIxTVBBNlJBMDNIMHkzd3R1ZEF6NElQ?=
- =?utf-8?B?SVVJWExKNTJlc0FuU1duak9VVm04UCtYaWJnQ3ZORkk1U2d3QTJjOTNOWDZ4?=
- =?utf-8?B?MlZqUjVIMGxsRG9rWkViM1RsdG41Rmx2SDZVQi9pRDZHZHBXSTY0Ryt3Z0lO?=
- =?utf-8?B?ZXVmSnBnTjlPWm1lemo5cDJVWjZ0VW1LMzhhUmFYNXJxTTRWR0hNMXRmcjJW?=
- =?utf-8?B?RWpuZm1MUm92eUVNYU1aT2tHb1M1YjVHZU9rK3BMeHk2QUFKS25oWi9jRGkw?=
- =?utf-8?B?QXJZRjNWV2lEek8vOTB3Ym8yc2ZQWGIyK0ppajF0TDhxcERONmRmVVRNeHY0?=
- =?utf-8?B?aU4yODd3TmIyVGl3andncjdROTRCd0puOTB5K2NseEcwc2NVaDFPbmJ2eTVw?=
- =?utf-8?B?S0E5SkdjdFlWTlE1ekhRNGVjTkJHOFhBbHZ4ZGFiNzNEOXl0LzYvVkYyQ3hw?=
- =?utf-8?B?WEd3dzdacCtsTGxLek12Y1ZkZ2dpMmRRSXNvVFFLcmUrbDRIS2F6TDBSNDJ4?=
- =?utf-8?B?cHZ6QWpsaXdQa0dXLzNWcmtUTXZkTWlaWTlCQ1JzRjB4a0dpbkFOR3BvTUNP?=
- =?utf-8?B?TGIrQUZDU01uQ0VGWjZCV0pJd3hZalJIL05oaTM1Z2RkL21lZDV2ZDRiNzVI?=
- =?utf-8?B?TWE3Q0NoOU1SZW81Rmp3cTVsVEQrZEwzZVFlMSs5NnFCVU5pMUQyQlZrV053?=
- =?utf-8?B?NnAxeDdEaTJ5ZUNhQi94UTlPZjRRT2ZCdU9NRWtrQnhyMkwrQ1owb3A1V1Nr?=
- =?utf-8?B?NEVHOVlqK2tnV1czdjkyVzFjQkp1bjNzMUpxRVNnZ25aRm04RXcxOU10S0xN?=
- =?utf-8?B?WlFMQWVMbXlZb3VNNUoyVFdjWWFwRmhKRm4zUllRaVM4STZmalAycXBBeWE5?=
- =?utf-8?B?WVhQam5IajNlelpjcmdGSzV2NzArNGdpOWZRSWRtTHdSNFlUem1HdTNZTFpk?=
- =?utf-8?B?ZUM2WmpiaWR6SVI0WXhoamNFNDBVUURLNzhnZG5MeU1YV2t4YUdFR1BTVDd3?=
- =?utf-8?Q?y8+Dt5p5370=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cEdpVjhCYXdIck5LT0NZMUtUaTZ0Vk91NU9FMnNVL0JHQTU0SmpiakhxQlRm?=
- =?utf-8?B?SVdQVHcrWGtxMzdsYmdRU094Vm5PdEtXNkhVVmtCZHp5RUpwL2tVTm9MYThy?=
- =?utf-8?B?OFhBbTJYeUhGa0VlcmtHdkZONW9MWjAvZGkvc3BmTDB1UmNYY0pLczJOVm9n?=
- =?utf-8?B?bzJxT3NUaWE5ZmQ2UW1zaFFXVHBjNkNQeDRBcElwV09Bc1FvOFZxRzNrajMy?=
- =?utf-8?B?b3BNWnRXQ2JkbjdKRE5TYXRLRDc2bVpWRWNFZk5zRndsUlBnYVJYRkdYb0o0?=
- =?utf-8?B?MU5RdUNrd1duQ0M1Qnl3TUVydGNEWFU3Z2dhV1RQTUM5dktEWlc4bTM2Q1lt?=
- =?utf-8?B?Q3ZjTThBVmtPWDM3MFBKRzFUcmtpVkFQamxUaGx4OVQ5WFdFQXNZTGgxUWVj?=
- =?utf-8?B?R3YvZ3dSMjhaVjBZQWdjODA1T3pCL0JHL1hLV1NnYVpVZEtWdzlWSGxPMVlS?=
- =?utf-8?B?OVVaU09EQmExd3FsYk9NT0RCTFl4M2lkL25ZelJBNDhPbWpHbkw5alFTeDlP?=
- =?utf-8?B?OFdZeVNUUTZ6QVhRQ0VrRW1MUkxYQllYd1BZOUxwaXZRQy9Oc1VuSjcxWnBs?=
- =?utf-8?B?ekgwZmgzbEc4bHgxQjlJOWFsQlp4WTNiaUlsTGpyRk1XdFZEd1ZUTmdNNXJK?=
- =?utf-8?B?OXhOUnM3UnBuTTY2RTJXeWdPUFB5S0RtUU1kY0ZGSEtaMWhicnBqMnhzYklq?=
- =?utf-8?B?bmI0OHArSm1lZElMdjZScjY2ZTZYZXY2SHpWK0I5WW4xei95blJQU0hCZSto?=
- =?utf-8?B?aTc4NGN6YTZaWXg3bE5pd0FvUDJXQzRYQ1lUK3htUjZLSnFUWWR0dlFWVnhh?=
- =?utf-8?B?TFZWbHIzc1NKRFFQdTdDZmcwRmZ3amNUb0R0NThQQVB3bHUrQTQzeGZiSVdr?=
- =?utf-8?B?OXo2SnJkRHNidFJaVjVpVGl1VXIwT05RamdpRmxDQlRuQ0x1QUROSXNuOG50?=
- =?utf-8?B?Q3kyWlhZWDV0Wmt2ajkwWTBZM3BUbnN6WEwrbkdtazlIWkU3M0ZJSmpxTnlo?=
- =?utf-8?B?TGpSN3FjakFXOFc2TFI4bXlxNFJFSUxoY0xBRlZubHVPUUZHOVZ4QkZ1czIr?=
- =?utf-8?B?cFhnd1BjUWZxMWZaNEtsbUlyY20xa29PeUc1SDI3YmwyMm15dzJyZGk5YTR2?=
- =?utf-8?B?ekMvT0NWOVJvV1BNUWlMd1NZSUpxOG52dFBsdkNuYzFoVFRsLy9ROWR1V3Nj?=
- =?utf-8?B?bUJITHVzRzRCWEh5Qnl4SXJZR1ExVjBPMDVWNjBFNzgvb3VWbXZvRzlzNXR5?=
- =?utf-8?B?UXVmNDQ3SlBkbVZTY3ZrSmY2Q2dicEE4b0FZRit4S2Z0Z08xQmZwNlBuRUxo?=
- =?utf-8?B?eCszallzYno1U1BHZlVZdmJ5bFdRei9PTEI3aEdoS2NMQ3JyQytkM2tycWY0?=
- =?utf-8?B?TCtKOXJoQXd1dlUxMk8rRE4yeGtrL1MwMSt1d084N0JMaWkyMGFFTHhYcFY2?=
- =?utf-8?B?NFBGL0J1RzNGL2pXSk04S3o1SGZjWUkyeTVieFgxQzhJSHpuclpnSnczUHBT?=
- =?utf-8?B?N0syYjBHWTNzQ2N4UWZXdnB2V201ZWhuM2RLRGJUYzNPdXZSbUxuYXUzMFlt?=
- =?utf-8?B?dmtJalFNUlNUTHFyWmpvOFZVOVE2YzlzRnFDTWlQdy9pdm1tbWk3R0tYQnJX?=
- =?utf-8?B?ZUpsbnZrajZyRzlab0trWUdGN2cyK2xPdlJqd1JHZzlUL1VRVDlLaHhNZkpr?=
- =?utf-8?B?RmN5TUpiNklGZjNLU1ZaYjFvcFRVU2FsNG4ySFRiWXJZcjNXWTllb3lkSzdq?=
- =?utf-8?B?dWdGVG0vdWZNZEtxVG5nL3Z0bFAzSWxidzRHU1hpbnBqbUtRSDJQUGFqdlZ3?=
- =?utf-8?B?T1hYSkwxaXhkbFdJOWdtY293S0RWTkRpK2NsUGErNnM1REFxU28yNFdidWUy?=
- =?utf-8?B?U2M4cGQwb2p4MWlVNnNQQUtwV0JVVFUwbi81YXpyclEyNTA3MGdxdHQzcWE3?=
- =?utf-8?B?TzNCMU4rWURodEdhaGRFZlFLYlJENVdvQWZoSkR0cEtJQW5Zdit3SmtQUFJh?=
- =?utf-8?B?TE0xSWdPanNyZHFrbnhFaWROZVJHNWRSV0FhMVFOSncrSmcyb0J6ZkRMbGJS?=
- =?utf-8?B?NDFTb3lsZDVsUnprMndjQVZBVXBTR291NE1RaThxVEpOKzlWTmxVRnRMZ2VS?=
- =?utf-8?Q?N5WuuyaY0JzVybmAnD0NCiUfO?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4c3ccc6-0b1b-4d43-9e68-08dde9f24fa1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 07:28:40.4321 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NJzXrD0+7cFZnU+FEVQKJQLoyjLRoutHy61HjQChI3CVfwlU4th4aUg6m6uDCkLW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8890
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,130 +94,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 02.09.25 05:29, Srinivasan Shanmugam wrote:
-> Enable userspace to obtain a handle to the kernel-owned MMIO_REMAP
-> singleton when AMDGPU_GEM_DOMAIN_MMIO_REMAP is requested via
-> amdgpu_gem_create_ioctl().
-> 
-> Validate the fixed 4K constraint: if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE
-> return -EINVAL; when provided, size and alignment must equal
-> AMDGPU_GPU_PAGE_SIZE.
-> 
-> If the singleton BO is not available, return -ENODEV.
-> 
-> v2:
-> - Drop READ_ONCE() on adev->mmio_remap.bo (use a plain pointer load).
->   The pointer is set `bo = adev->mmio_remap.bo;` ie., The pointer is
->   written once during init and not changed while IOCTLs run. There’s no
->   concurrent writer in this execution path, so a normal read is safe.
->   (Alex)
-> 
-> v3:
-> - Drop early -EINVAL for AMDGPU_GEM_DOMAIN_MMIO_REMAP; let the
->   MMIO_REMAP fast-path (For MMIO_REMAP, if asked, we don’t allocate a
->   new BO — we just check size/alignment, grab the one pre-made BO,
->   return a handle) handle it and return the singleton handle.
-> 
-> v4:
->  - Return -EOPNOTSUPP if the singleton isn’t available; drop PAGE_SIZE
->    check from IOCTL; inline the MMIO_REMAP fast-path and keep
->    size/alignment validation there. (Christian)
-> 
-> Cc: Christian König <christian.koenig@amd.com>
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 56 ++++++++++++++++++++++++-
->  1 file changed, 54 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index d3c369742124..8781b2e16f54 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -424,6 +424,45 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
->  	.vm_ops = &amdgpu_gem_vm_ops,
->  };
->  
-> +/**
-> + * amdgpu_gem_get_mmio_remap_handle - Create a GEM handle for the MMIO_REMAP BO
-> + * @file_priv: DRM file of the caller
-> + * @adev: amdgpu device
-> + * @req_size: size requested by userspace (0 means “unspecified”)
-> + * @req_align: alignment requested by userspace (0 means “unspecified”)
-> + * @handle: returned userspace GEM handle (out)
-> + *
-> + * Creates a GEM handle to the kernel-owned singleton MMIO_REMAP buffer object
-> + * (adev->rmmio_remap.bo). The BO is expected to be allocated during TTM init
-> + * when the hardware exposes a remap base and PAGE_SIZE <= 4K.
-> + *
-> + * drm_gem_handle_create() acquires the handle reference, which will be dropped
-> + * by GEM_CLOSE in userspace.
-> + *
-> + * Returns 0 on success,
-> + *         -EOPNOTSUPP if the singleton BO is not available on this system,
-> + *         or a negative errno from drm_gem_handle_create() / validation.
-> + */
-> +static int amdgpu_gem_get_mmio_remap_handle(struct drm_file *file_priv,
-> +					    struct amdgpu_device *adev,
-> +					    u64 req_size, u64 req_align,
-> +					    u32 *handle)
-> +{
-> +	struct amdgpu_bo *bo = adev->rmmio_remap.bo;
-> +
-> +	if (!bo)
-> +		return -EOPNOTSUPP;
-> +
-> +	/* Enforce fixed 4K constraints when explicitly provided by userspace */
-> +	if (req_size && req_size != AMDGPU_GPU_PAGE_SIZE)
-> +		return -EINVAL;
-> +	if (req_align && req_align != AMDGPU_GPU_PAGE_SIZE)
-> +		return -EINVAL;
-> +
-> +	/* drm_gem_handle_create() gets the ref; GEM_CLOSE will drop it */
-> +	return drm_gem_handle_create(file_priv, &bo->tbo.base, handle);
-> +}
-> +
->  /*
->   * GEM ioctls.
->   */
-> @@ -465,8 +504,21 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
->  	/* always clear VRAM */
->  	flags |= AMDGPU_GEM_CREATE_VRAM_CLEARED;
->  
-> -	if (args->in.domains & AMDGPU_GEM_DOMAIN_MMIO_REMAP)
-> -		return -EINVAL;
-> +	/*
-> +	 * === MMIO remap (HDP flush) fast-path ===
+On Tue, 2025-09-02 at 08:39 +0200, Christian K=C3=B6nig wrote:
+> On 01.09.25 12:00, Timur Krist=C3=B3f wrote:
+> > Technically not necessary, but clear the extra dwords too,
+> > so that the command processors don't read uninitialized memory.
+>=20
+> That is most likely a really bad idea.
+>=20
+> The extra DWs are filled with a specific pattern for a HW workaround.
 
-Please don't use === in comments.
+I was unaware so it looked to me like the extra dwords just remain
+uninitialized.
 
-> +	 * If userspace asks for the MMIO_REMAP domain, don't allocate a new BO.
-> +	 * Return a handle to the singleton BO created at ttm init.
+Where in the code does that happen?
+And what is the issue that is being worked around?
 
-That explains what is done but not why. Maybe use something like:
+Also, while we are at it, how was it possible to initialize that
+without causing VM faults? Considering that the allocated BO was not
+sufficiently large to hold the extra dwords. (That is fixed by the
+first patch of this series.)
 
-For AMDGPU_GEM_DOMAIN_MMIO_REMAP we only have a single global page and always use the same BO to represent it.
-
-> +	 */
-> +	if (args->in.domains & AMDGPU_GEM_DOMAIN_MMIO_REMAP) {
-> +		r = amdgpu_gem_get_mmio_remap_handle(filp, adev,
-> +						     size, args->in.alignment,
-
-Maybe just pass in args instead of size and alignment separately.
-
-We only have size as local variable because we used to have a workaround here. That should probably be removed at some point.
-
-Regards,
-Christian.
-
-> +						     &handle);
-> +		if (r)
-> +			return r;
-> +
-> +		args->out.handle = handle;
-> +		return 0;
-> +	}
->  
->  	/* create a gem object to contain this object in */
->  	if (args->in.domains & (AMDGPU_GEM_DOMAIN_GDS |
-
+>=20
+> Clearing them to NOPs makes no sense at all and potentially even
+> breaks the HW workaround.
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Fixes: c8c1a1d2ef04 ("drm/amdgpu: define and add extra dword for
+> > jpeg ring")
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > ---
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 5 +++++
+> > =C2=A01 file changed, 5 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > index 7670f5d82b9e..6a55a85744a9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -474,6 +474,11 @@ static inline void
+> > amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+> > =C2=A0	while (i <=3D ring->buf_mask)
+> > =C2=A0		ring->ring[i++] =3D ring->funcs->nop;
+> > =C2=A0
+> > +	/* Technically not necessary, but clear the extra dwords
+> > too,
+> > +	 * so that the command processors don't read uninitialized
+> > memory.
+> > +	 */
+> > +	for (i =3D 0; i < ring->funcs->extra_dw; i++)
+> > +		ring->ring[ring->ring_size / 4 + i] =3D ring->funcs-
+> > >nop;
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0static inline void amdgpu_ring_write(struct amdgpu_ring *ring,
+> > uint32_t v)
