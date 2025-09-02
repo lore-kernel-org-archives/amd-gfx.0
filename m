@@ -4,143 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A9CCA1005
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 06:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A6CCA1005
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 07:21:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8ADB10E197;
-	Tue,  2 Sep 2025 06:52:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C28310E1A2;
+	Tue,  2 Sep 2025 07:21:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r/owaIQe";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E1yBbasq";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A01E10E197
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 06:52:35 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2072.outbound.protection.outlook.com [40.107.236.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3263710E1A2
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 07:21:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yX3iH72K4p9+SGGfglr7CgptBAFlSRZWJR7U29GjBvurv7GAeQScvUL+KpkJBHXco71+b/E+B4Ryvo/Kwu8ugbEIEVUVwP2sOT3g2KW0n17okV2PCQFuKq39eEEwKqZb7QJ2gKFMxdBw3bNRbldHF9a79mD6VxVZhaH0nfxCMm9d3vt6wV9Mbr31EJVMcpuHvMGMcP+a/mD0A2B1awyyiZut+L0Tky3kP4GyIaz+1+/ivzuXOCCyX56Z3dpnHqSW5qRcraq0TGWy3rLOHkAKPfhWekh9SGrYckWpN3urE9kZULtOesDIxlDDu6UwUIvyWfKyOc3AB7DKzhJAGFZdbQ==
+ b=OGJwptNVSRVwr/SWQuZHwblatxPJuaCflhEfbIoII3+mZpNeyIxKzJPz2iQs6fc5+vsF6W7lg0YSymm/21BlWKnMktvsF9dsg3epQEINPhKUH3nAlavMviU9ne53Xon26G+ajzZT+qmJ0VL1z0e5vkgC9lRl2aogLZJ3QF/Pxf9SbT+TJf220PkhnauqUyXnxVjyQhNIunuBBQHs+RSoUgrmU+5q+9KXsTnS9Zi409ppQVjAFuRJMTSO6ZzFxm2TOlbWYKbKZLzH8EtIqd8NWTXZXsuzWxrkHGbjAkRxxZYd6zSdnNP5NYJMNWG+StlkjOTnPE6iaGVdCRHOD+rFHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DDdDw8Zs1zUHH7blK7zUhaz7f20Z9717B2Tixu6VDvQ=;
- b=g0FdNy1FOvOn+xyO4LSlg5YLUW0IFVOjL30j7AyxtwKEQJuUROj1qNSEd5wZ7N48tv1TyrRC6oNA2mvbbGa1sELRtpzgSr1LY1iA4laxKYmwwHwWQvyMZ7YFVAl3+32DA5xV++DNRwvSpWU0KNYIMfkBKZbm2F6WGpoZsnxIRms4hqoRUCM7FSBYxCdq+dFNNtSwyWQ7ekJffbBTH7jhftlQNknVjQcwA6cxD6BZvltpyGVRzc4PxnVMOGPKVMUDFMOoCIY8nv1ObpRKh1JWSoT2cpoRYegv5/6FVhYRHdRs71ZuZLpvwPJOaAKwPMEceLzzZ6Exdqat+HawgpVaxg==
+ bh=t2DHR6z0x8i7RiRpGlu0UzfPJn+9Sk6q1Qq1L4nqHas=;
+ b=xnvsCdaWDZFbLnUlWmkgf58HrHtaG8E+uJOpnI83bNgjJumYMQ4zU+USOLzUvT9NansqBtgslJEZ0/Xath9XXxHntFwrhun35Ev/rTv66hIkzh3xCRv0xqponeTkS4Ugu12dy+rrchBJ0xx24gXo9U1kc96442j14XkhUO/5PyWt1c3AU4eDpeDILGZkbAyxSgGLKBAUyB22MulUJZbgpVcW3Jmwt8QAWmOH9pjGMu4NoeRIhJY+znKYobq9ynYu+mVRFYQSA3a4vi35KGDfxW7urlJPnCyKsD7Mpp3EyY/aTguUKHj++22krNfGYjj3c75RMXiByns8SSYo2qIWVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DDdDw8Zs1zUHH7blK7zUhaz7f20Z9717B2Tixu6VDvQ=;
- b=r/owaIQe/CHzYy6fKyFvwlHJTqCDNoX9YV9z5UEErLTvBxK93NIcORJNKmV2eLonxs59MSjwOQ+XTUyRT4ke8xP3CqEEiftZqyKGyjWut57mjrId+fWJ31AQCG7VhXqmQvSD0xycmJuwHFPhrBaWF9yRyB6f2/qgCdrBbxJ4M+U=
-Received: from SN7PR12MB6958.namprd12.prod.outlook.com (2603:10b6:806:262::15)
- by BY5PR12MB4162.namprd12.prod.outlook.com (2603:10b6:a03:201::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
- 2025 06:52:32 +0000
-Received: from SN7PR12MB6958.namprd12.prod.outlook.com
- ([fe80::3f01:2354:6863:4e4d]) by SN7PR12MB6958.namprd12.prod.outlook.com
- ([fe80::3f01:2354:6863:4e4d%5]) with mapi id 15.20.9073.021; Tue, 2 Sep 2025
- 06:52:32 +0000
-From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Release hive reference properly
-Thread-Topic: [PATCH] drm/amdgpu: Release hive reference properly
-Thread-Index: AQHcG9IHSHWJ7sCgdke9CFcYCKXL2LR/cOvl
-Date: Tue, 2 Sep 2025 06:52:31 +0000
-Message-ID: <SN7PR12MB6958E1287F33FCEE5A6F99819D06A@SN7PR12MB6958.namprd12.prod.outlook.com>
-References: <20250902062239.2310628-1-lijo.lazar@amd.com>
-In-Reply-To: <20250902062239.2310628-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-09-02T06:52:31.379Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=t2DHR6z0x8i7RiRpGlu0UzfPJn+9Sk6q1Qq1L4nqHas=;
+ b=E1yBbasqxR4SO6M/ywwstGjMSyKmr/XnhEH1BO3m6329+t8AvI3FPWH4nG6FkqZZDqa3Ue7YwTxoWgFMeiUsl0r6lWQaChiMLPLzkN8zFnLl7+bo1W2Gk70LUrnTFP89sD15dDx0IR0KvOQyZoHML6ORxhJINzj1U+5YAWBXxcs=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN7PR12MB6958:EE_|BY5PR12MB4162:EE_
-x-ms-office365-filtering-correlation-id: 37aa35ec-2c12-490f-e935-08dde9ed4a54
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|8096899003|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?VpyG2yWsD7ew9NrGDo+aOXzYcVarnfH6jKKOYxdsgW6EPnjcme/2ArVHpwRP?=
- =?us-ascii?Q?edmwx2HIbVtlHnuDisfVuImmadzoVGPq2vLNDeXLfuwoibLreyk6l/QFKatl?=
- =?us-ascii?Q?wc0DhVjFIz6Rf0kfjcbYbXIDImsDDUTTJgfzv1T9yfK45dIddg0ZWzqmXdrX?=
- =?us-ascii?Q?Ulz7i2N3Q+TMisMaAnktbQ9OqMVt6JxNz7pF+naonhDJE2cBQhXoB1d93TUS?=
- =?us-ascii?Q?AbP0VCcLTSzmLaJQikoXElInjR5P3Y6iAsDBNjDsG+DuKmW9dyhoOY/3eh2E?=
- =?us-ascii?Q?MB1Bk5Kh7hKuZMOg/kAnTTB6oIP/iUowBZJDrlYf8/g0D+KTr4MXe6Are1xU?=
- =?us-ascii?Q?nItIXlvmyp17CJgb7MbxpsJOHl3XuRXJ5y/eL4XyKVofnlcn6s77gN9w2yMm?=
- =?us-ascii?Q?Zu+zDIe2bGHNhLhoIiba8wiihaRFLVxHfBH1Kcl7PMy/VdXuIjUBqwAPRc0z?=
- =?us-ascii?Q?hFh0DY+CF/yEHO5Scm07zHz4a2Xh0sJ/F//vZrVy12Fo4SEViy1gZTxTbxNy?=
- =?us-ascii?Q?C0xF7srkA2hZGLt/letGfk5ot7+RaNS1Fyl9aM2VfB3HsutzTVvpwohy5fWz?=
- =?us-ascii?Q?qYOdFbyqu1WLpT3tJjSAyF9jF/gbHqSX3yK/5sW4ek9Rp34JbGgev8cnGbt8?=
- =?us-ascii?Q?AQGRgD86tUmErCoriJXIpT8taoK5pnAuBqx/AVqrNVE7tV60szjm5O5CNoUS?=
- =?us-ascii?Q?Ac4a4Rs4Rp1vp+WxkH2ALGaPAMlJ8zPhfzTV6wdcdcj7zvnK8mJGVfmgVjGR?=
- =?us-ascii?Q?1fpvoSV61dcrLx+WwrkX1dhyYyaGCFKGCpQtteIh3XosaUUUHOnbUPh/V2gr?=
- =?us-ascii?Q?J8gx8HGRHez7tcDSFwkCjVDH5euFnwSw68A1EAbLi+zBZUa619S7W6qIo7cA?=
- =?us-ascii?Q?IAPuGTGSfY7McvS35tNvSCEBcpE8DTVGo0woWKIl2DA6sLgnJw+rBROIK1xB?=
- =?us-ascii?Q?3Vnj+XLT/wbHT39qOyijD5auzNVFnk4fz+BvD48TvmcAh25BtDb+CqGzA1Zf?=
- =?us-ascii?Q?rQIW/fs9PtLH3gZ3Tz/gw4U09cfsyf7LinSEXhygEkBYx+kOfByIRFpe+QAo?=
- =?us-ascii?Q?Nz6lPDFcq7aotGxpWL3/zRdyZq8OVlKzYwdikO4BrMxLap6DIEUEgEApxX9a?=
- =?us-ascii?Q?SLsspA7yYKwkEuPxuh7lqWqb2OjQ8krZxxYH/f2GFqLlHBZa1yPp1BmQllUb?=
- =?us-ascii?Q?lsm3yWVhg9h/hsHP6aBjoBeUUEkwE2P5KkNY/GBDjwUMUSZIFTwX4zwpKBCQ?=
- =?us-ascii?Q?1K9BvgOSHtWc1eaq/9UCu0m6RA6vEPJCW3Qdku5NgWgSWC85LmCG2n89NI2q?=
- =?us-ascii?Q?chO12UtxWTKIqfNQzHm22bQMEvVBAqd+8B9I/F2aM2MwmybmJbo/5/lEQB4n?=
- =?us-ascii?Q?tCEqjBdjp52XXKkGocCzq0OggD8D5VGtS2D41ZWerE1BfUqdxc1LiQlreRzH?=
- =?us-ascii?Q?cQR37jr5T/1NIiVQXlYwH5Rv5AGsU3Z/8nN7UACjYtrzyiDncXdmUA=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR12MB6958.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(38070700018)(7053199007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?l3Z9vMFuzdIXp2XIB9ys7DUkuK9/iSkrVHO6U1xkm0UJQZCF9vUXe2RaVsn/?=
- =?us-ascii?Q?/b+ktwoqLDsGcE1+8BnvsK2YAc7PfUaQ6k6t3Q6hcu/2HsPQ/I+uRKjE/9Nj?=
- =?us-ascii?Q?rHhuUQWRoE46XpTrGqCdMz3yTRwYq/yXFn/9UcZ62BKfQxT/VJVYr+C1onnG?=
- =?us-ascii?Q?bhFCkFxFHifkwkFATLyJqdp2ufnMcB6gBkjk2mnmSTzXT1voLKqw82VFdcdk?=
- =?us-ascii?Q?woiNflrgSSIZ7jxLVQFE7Nw0pFUy8FPY47/j5jnrLGBnIeQvDxx+1PRXCs1b?=
- =?us-ascii?Q?ZQzlWK9J4NRcXTUTf+l+m7HpV9oY11JR+SSsFa+TICBZVAEDL21a5e4V0yk4?=
- =?us-ascii?Q?jjZ/XbNz6+WSCx5DoZxkLtmcZS2O7judUjNs6hERvQ0uWB7I4f/foDRULhs8?=
- =?us-ascii?Q?P7Yh2V3t2X4dRE0aTvD4K9JzgkHndXryJb+a/+i40dOnjr8nkusjY/CTkgKg?=
- =?us-ascii?Q?wdBDTHCTtTWntFTgZxFFH7cUcmptVE0FBiRX7Y4pfJ0a7A3k/yuNGqGbgRjJ?=
- =?us-ascii?Q?2CjKtqd2TQCGplcVM50F06eTLpZqnm0+7uCFL35qTkg1fFDfNA0axLG3LfGL?=
- =?us-ascii?Q?xokHGVgB8hKNyKDDoBr05+jeLZkCISyaJ9CrKHIn4KxrTR7CX0vvnrGMQgw6?=
- =?us-ascii?Q?zKwKbMVySLcaFZHNouxufgdNAoKQ5NbO9nre9T2/+qttV/kHDA9r63L1mVI1?=
- =?us-ascii?Q?vrJbzIP9temfEAE2ay00c6sMG/t/5pg9MRarOUxpllKKHnv07IYVXYcPk1tT?=
- =?us-ascii?Q?Y7wAl5CMsWyFlb1AZoCaKK6DpBOmcgmS4e1bj3vS4MnDNZRVv17BFttrKWYf?=
- =?us-ascii?Q?xaYSalr5p9zQFPrEgblUIKKhSzGsl7VQ373C7w75GxeLUnI7fhe1ONeynYFw?=
- =?us-ascii?Q?B6wBqXzJzNDfTEn3SVS2JSqTxHh4rXAza6JsluGRj4nLh5o8MI+Z2DjMzxSY?=
- =?us-ascii?Q?DrtIZPVGlwczWllExcaDFL4uK7tpEUHF6/pa5XTSeggwyxy0T87dradzUJLA?=
- =?us-ascii?Q?c2tDfzGMQhUIQbDTg5bhk/DcELiPnZGlbwIP+P0/XiCzV45evkX4RiIfwvLt?=
- =?us-ascii?Q?nZd1VmqBWzJfdUbd0w7V8g1BwY0XmskdZFpVALynbPRUa8mODb1KnM6T4Ye2?=
- =?us-ascii?Q?2ESlGYdkqFcwxjcrzRmsL30AKP4A05hgHomltagv+gROMClcO0p5vGfC+ZFt?=
- =?us-ascii?Q?Ixv/9DpIJRu+PcdocPsmOt8lhr6puD/mnruYu+j2Or1Ei7RIRioIdJh1fKUE?=
- =?us-ascii?Q?PB3gmiCatFAhHiS1NdNbwY0wo00UTGf6dSp50L6hPNknCJbOmSd8/u4KAzmR?=
- =?us-ascii?Q?XbuBjj5cdlElhU0ACpMWvQ6WCDYesi1I+per8AkkcFdGQbJ7IpuOVashhRFs?=
- =?us-ascii?Q?tOfun3dWLQZRlEwHrflqtqwNRkjMLkhOB8a3ZGB3684n5uhv6a2XmVU7cFMi?=
- =?us-ascii?Q?5KPipF6GWifyJeO15JrW2iOLTPxBLMo3gsRs8YAFBI7VYJxRg2UN54URTjg6?=
- =?us-ascii?Q?/TTKFbre1OO/oLyQ/1DY+LhM1IGiR5F3H0pdPc7rVvoITVrCeT/iBNhEWOD9?=
- =?us-ascii?Q?LmcDgWjXmoN8WQnDkuA=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_SN7PR12MB6958E1287F33FCEE5A6F99819D06ASN7PR12MB6958namp_"
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB6010.namprd12.prod.outlook.com (2603:10b6:8:6a::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9073.27; Tue, 2 Sep 2025 07:21:50 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9073.021; Tue, 2 Sep 2025
+ 07:21:50 +0000
+Message-ID: <c1e61d59-b8e7-485d-8e75-34bc306a430b@amd.com>
+Date: Tue, 2 Sep 2025 09:21:45 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 7/8] drm/amdgpu/ttm: Allocate/Free 4K MMIO_REMAP
+ Singleton
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20250902032938.468332-1-srinivasan.shanmugam@amd.com>
+ <20250902032938.468332-8-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250902032938.468332-8-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FRYP281CA0005.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::15)
+ To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6010:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0bcd085c-27e9-4508-d5ae-08dde9f161f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SkV4SGZLZ2kwdzRERHE1UTFWNTAzSWZjRHJMZVFpNDEvcEt1UjVNUHF4QXFB?=
+ =?utf-8?B?YU1NbWNxNGhlRGMwb2tSbVNlcW01aDlDOTF4L2l1V1M0U0IzTG1BL2hudlhC?=
+ =?utf-8?B?bXJzQnJFTkNTMWhROE1qdldVam50UWlmeUorRjlTU2RYUU5waExUMW5oa1RJ?=
+ =?utf-8?B?Y29QMW1GYnVjald6SUxQSlNyZmptZjI5YjlKZy93K0pkSkI2ZnBVUUU0Q2NH?=
+ =?utf-8?B?NVlnTndjcXhaaUtMUkRJcmJBNmJCMU03VWJNa2FZOUdiODhQTElETG1yQm0x?=
+ =?utf-8?B?VWlFSFlwK1I1MEs5TTkxUng0TzVsRlZMRzJ2TXYrWUlVRUhsOUNhOHFsUlpv?=
+ =?utf-8?B?enBYT3VTRTZMRGc3SGk3QkJEaE1TWHRwSXBTTEFLZXZkSzRkcFZKeXBnbU41?=
+ =?utf-8?B?cFJTM0xwaUgxemNWVk8yMkJVMUNpYmtlSEhBQkVBS3R3L1M1eUVjdWo4ZG9z?=
+ =?utf-8?B?eE1DYmRkcXBNMnJhMDR0ZktBa2I4MnpkbE1XL29QeWZEVGIvNlBkR3d1MmJz?=
+ =?utf-8?B?clpJMWxGNmlSc2VTdVI5bEh5ZzRxQUtEcnIrNVFjUHIxZFA5cWIyNHpHUE1k?=
+ =?utf-8?B?NUE0alZrNnFmRW9SZ1k0UWw2bmRMMGxGY2VockdFeGpNMU5qTloyako2TTN0?=
+ =?utf-8?B?aHZEZURjbjI2VElTbkU3WFFiYmlLMllnOGJPSk10MmpOemplTVRyRDAwNS9T?=
+ =?utf-8?B?bVJta1M3TjZWSnR5MzVzS1ZubWRtUElhaVMxNEhQaGsvM3BYWDBuVFNSUzRK?=
+ =?utf-8?B?cVBvUFh2NGJ4Q2Z2Vnp0YXJVdEU0dlZGTWx4SjBvOThaaHByWkJ3N3lDUTFh?=
+ =?utf-8?B?cE1WUGtJZ0RLNldlYis0NkZLMW5QVlRwTWVzNE44ZkdleHFSYUpiajJCWSsr?=
+ =?utf-8?B?ZUN1RE13KzhMOVpQa0ROSHlBblVLUXlGakdEYzZMeU82dFdPOHpNejZRSStu?=
+ =?utf-8?B?dXh3aFRqT2ZUWElxTmo4OExlYUlwUWp4ZXdsTE1CdFZVQnIxR3IyaFphVExu?=
+ =?utf-8?B?NFMyUVdwTTJ5Z3liTnhPL1lYUS96UzV5QWkwdmw2UURZNWg2cDNrMkJMTWhN?=
+ =?utf-8?B?NDdHZ1pjK1VUWmxZbFgyUmdiMCtha016cFZkcUJ3TDNxQlRWRzlRTGdiaTkv?=
+ =?utf-8?B?bGFwdHpBNUh4MlVDSE1sMmQyUDRhUCtGMzR4cHBPTHg3Y3l2YS94bHlmc0hL?=
+ =?utf-8?B?V1NpY0JjdldmOEtOaHVFSGtLL2xzdmRLY0FZTVNJVnU4OGU0Ukx6K3A4M2lw?=
+ =?utf-8?B?QnYvRFhmRU1RbHd6M2tIY1d2UE9Rb2ltblA0ejhXclVYZ2huaTRWOWJFbndP?=
+ =?utf-8?B?VFQ1T2pDYUVsNEZpSnYweWZ5Q0M4OFNML202amliMWViejJtMU9jcU1KSFhr?=
+ =?utf-8?B?Q3hLSm9NNG53ZUlCVzZvbjlqM1BDVmxNU3gwMDJJalNQZDlKSVNWSVBCRTVz?=
+ =?utf-8?B?azdMT283bjFwd3B5WnlEcUVDTEUzUGZGYkxsRjZOdGlveFE4NHc4MTY0QjJQ?=
+ =?utf-8?B?MCtIWm5STW1weW0zZlFCSE1XNG9nTXowdEpNY3lZS2R5c0w4aDNZRzhnWFN3?=
+ =?utf-8?B?MmtYTk9jNXdVNWlobUFYRjB2Z1VudTRkSnVnU3pBbmcydHFrSzFIL2J5ZFBT?=
+ =?utf-8?B?Y3UxTGNQQUJwRENTTVFxaVZSL3ZyV2ZaNDB4MEJlWmprWm95WS90VjhFRW02?=
+ =?utf-8?B?OU9xY3d3czlwSnd4RVU4aDZubUh2a0Ixenp3U3p5Y2pjUStOZENEbDEvWjZK?=
+ =?utf-8?B?NXBEUEtxYkQ4bnJZN2YvMXQ1UEFVTG9SNWx3SWNFOXJ2VHl2ZVdqckVQVVRQ?=
+ =?utf-8?B?RjI5K3FhT1AwK1NWcUxVUjlUTXVIUkdrYTNqeEs2eG45ZkV6NTdESUgxMnNn?=
+ =?utf-8?B?VEk2ckRUeEl3U3hqMmYvc2VoWW9ucmg3U0RuNXFHQk5ZUlB4WXVhMEw2YnRR?=
+ =?utf-8?Q?v+R3eoQYEcU=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MS8zMGtEdlo1RUVBZUxGVXJOMDVaVEFOYU5jSStIT2VqdnpadUozMVE1K3h2?=
+ =?utf-8?B?RisyYTMzaGJudnNYS3JCalZtMVNJdzcxVDRJTHFqVWJLWnozZkdGMjl0OUtB?=
+ =?utf-8?B?RHpFbjNlQmlBWkVHcHZWZGNTYkZPck9GVEFRbldJLzZPanQ5M0tndFhaWWRv?=
+ =?utf-8?B?bXdiYitIVTU1eXJFVjF4K2pjUndETU1iU3N6OU1yaTd6NWh2WnIxaG8wRXBl?=
+ =?utf-8?B?dm9DbU16UzFPQkV4cjNjR2tyMU9zUlczNVdKeXk4djk3MTBjUk5XTzFWcWVo?=
+ =?utf-8?B?SzdMOTZxWHc3RkxhcUNsOTJkOXdaeElMSmFzNWxaZlF0ZEQ1S080VTlEVHlj?=
+ =?utf-8?B?ZWNmZG9VSUJTNEtuLzFGOFcyQ0tsSzZsMWcyU3RNa2dISXRxeXArNm1XbjUz?=
+ =?utf-8?B?QUVjSFE5SU5aWDNZNTVBWGozUzkwZjlNWHNhT003R1dmdjNZV2tRSXVweUJt?=
+ =?utf-8?B?OWVFc3BrWW5UNEhKZnpwVGU5clBrYVVNeHhTQ1FlVE9KbndNbWwxNUdyZ1Uz?=
+ =?utf-8?B?VVhha3lIYkJ3Yll0TzNFUlFzenltcXBMR3lFd3I5M1NOeHlZU2hJWFZxRkZv?=
+ =?utf-8?B?dmVQU21YdzRPUTRJZHRrOFFhZzVVcXJ5NHA2aklkSVBRVyt0ekwzRkJYcmJZ?=
+ =?utf-8?B?TU5ReVVpRHBiUnMxMXFYYzhvTjRUaHFiZWhZSnBMOCtNdTNCUzZyRW16b3Q4?=
+ =?utf-8?B?MlpRRWx0ZFc5RG9FNlZtZFJlbkpBYUFwVkJ6dThmYVhJVSsvWDRxUkY3czQx?=
+ =?utf-8?B?dTR3NUVUa2pNRnNKQTVvcmFXN2lENlhEYi9Zbk9leG5QdkhDUmxKUXBSbk5U?=
+ =?utf-8?B?azMyR1RTN0g0ZFU0U1JhQlFJek9oVkpMWWRLNG9aWVRxTnhZNnlObGUzVXUx?=
+ =?utf-8?B?b3hIN1EzY2RPeHJvdXFNL3ovbGMwMGNJb0JwcGl4OTdhMVdJRGhnclpENGtU?=
+ =?utf-8?B?QjlJYlQ3YXFPL3hiTmJybUt2Ynl5SkhVTWlYSnBhVWtTNGJnOGVGRkpSUkhw?=
+ =?utf-8?B?cm1TTEEzTm1kUzVEYU1LY0pzbURzMytBejZ3MVNaaEpVRnZMZHU5T09Sc0Q4?=
+ =?utf-8?B?ZDlvQ0ZKa2tXZGU4cUFlVGZuRW9kYVVWQ25BUWRiN0hUcDRMTDU0MTdSZlhG?=
+ =?utf-8?B?TjV6TGpOMHhDRTNxaFZueHp0ZmNqanhjNmNnTk5ZdWpOQ1dVaFNTRkh4NHFs?=
+ =?utf-8?B?d2pKc0VuRlBOWDN2eHhsSGEvTXcrMk1jbDJyckh1blR6cGxoZjNQa2dYeUcy?=
+ =?utf-8?B?aVJTcmtKaDREeWRBQXJ6Q3pZbDRmcldndEF3enRRWmRLVTJ2QzlEYkkvOUM1?=
+ =?utf-8?B?Nm9rNzZkbXlXK0Z5QWVQVzNMb3Z6em52WHJWWkpMNUV3ckpxb0U4Z0RCWEk5?=
+ =?utf-8?B?L21QRXNueTRoNXBoRHdsTk8vMkdaNDZxMlBJUGE4SDlDQWRMZ013SUJ3Q3Fy?=
+ =?utf-8?B?djMrMU9Nank2cFZsTDlCMTl2Rk1iSlo0UkU2cDJSeTVYWllveFBnK2szWUVK?=
+ =?utf-8?B?MlJCL3EzOVZEc0p4RjRwWHBIK2xyeXZxTkc3Q0xhcHRIS2lqbXU0T2pRV1Fr?=
+ =?utf-8?B?VmJhbHZBMWp4Z3RIcW1TdERFL1BHZEFVV2dKREdzVUppUnFKWTNYODZKaldC?=
+ =?utf-8?B?bk5nUzZzNmlMQ1FTOXNPVk5uOTlxczhucVdJOXh1eHNpV3UyRXUyNWRyRXpp?=
+ =?utf-8?B?cFNQcDJ1WkpHUmpFWEtvVnZ0TWh6QlZPOFAzc3FqNGNNUTIxbzlWRkxCcmRM?=
+ =?utf-8?B?cVlTZG1zSU9HV2l3NDZ1KzRrQXRqTGNJd05GWXZqOTNua0huTmZTRUJJRjRM?=
+ =?utf-8?B?LzhMUWR6QzBvaytQc09FaVJKVFJ4UUs2aytBNnVNMWNsUUg4Z1ZUVnpVdkgv?=
+ =?utf-8?B?UmJyUEJycHRXYTNRSS9VMG0rWTRrODQ0b3NlMUs3eW5hY1VQRnJoRld1R3RO?=
+ =?utf-8?B?UkFIZC90L1FvZzkzR3o2bUdpeUpVaVEybHgzbHFFVDM0eUJSUVE3Q1I4MElI?=
+ =?utf-8?B?UkY0dGpUTUFUUFVBRVBndFNHdEVDV1pCMkFxNDFmWlJBMm9OZklDcGRWS0tn?=
+ =?utf-8?B?alZWQnVweHhTTWZQOUlGSGFVL2R6bHFBV25oa082TkNSaEVLQmtUQ0d5cHpn?=
+ =?utf-8?Q?4XZb/hqlIjWPmJ+Fs/P4wA804?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bcd085c-27e9-4508-d5ae-08dde9f161f9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB6958.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37aa35ec-2c12-490f-e935-08dde9ed4a54
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2025 06:52:31.9496 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qZTVchZP5gZa+2TJfZVGCtZ2rclXT2mgOTMkO2SdcuORN9vDOVovC6S8r/MpzFDypifjyedDUSr6T3WU+snBSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4162
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 07:21:49.9053 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4RaKaIdLG7+uDFrxcvv+YPBc7VWXH+JBqt3wQbwpBhEKbFg5yziUXh7KofWvyqrX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6010
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,256 +163,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SN7PR12MB6958E1287F33FCEE5A6F99819D06ASN7PR12MB6958namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 02.09.25 05:29, Srinivasan Shanmugam wrote:
+> Add mmio_remap bookkeeping to amdgpu_device and introduce
+> amdgpu_ttm_mmio_remap_bo_init()/fini() to manage a kernel-owned,
+> one-page (4K) BO in AMDGPU_GEM_DOMAIN_MMIO_REMAP.
+> 
+> Bookkeeping:
+>   - adev->rmmio_remap.bo : kernel-owned singleton BO
+> 
+> The BO is allocated during TTM init when a remap bus address is available
+> (adev->rmmio_remap.bus_addr) and PAGE_SIZE <= AMDGPU_GPU_PAGE_SIZE (4K),
+> and freed during TTM fini.
+> 
+> v2:
+>  - Check mmio_remap bus address (adev->rmmio_remap.bus_addr) instead of
+>    rmmio_base. (Alex)
+>  - Skip quietly if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE or no bus address
+>    (no warn). (Alex)
+>  - Use `amdgpu_bo_create()` (not *_kernel) - Only with this The object
+>    is stored in adev->mmio_remap.bo and will later be exposed to
+>    userspace via a GEM handle. (Christian)
+> 
+> v3:
+>  - Remove obvious comment before amdgpu_ttm_mmio_remap_bo_fini() call.
+>    (Alex)
+> 
+> v4:
+>  - Squash bookkeeping into this patch
+>  - Place longer declaration first; clear bp via memset
+>  - Reserve + pin + kmap(+kunmap) the BO at init; unpin in fini
+>    (Christian)
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 87 +++++++++++++++++++++++++
+>  2 files changed, 88 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index ddd472e56f69..24501d3fbefe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -752,6 +752,7 @@ typedef void (*amdgpu_block_wreg_t)(struct amdgpu_device*, uint32_t, uint32_t, u
+>  struct amdgpu_mmio_remap {
+>  	u32 reg_offset;
+>  	resource_size_t bus_addr;
+> +	struct amdgpu_bo *bo;
+>  };
+>  
+>  /* Define the HW IP blocks will be used in driver , add more if necessary */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 1a68ba17a62d..0d03e3a6f92d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1854,6 +1854,87 @@ static void amdgpu_ttm_pools_fini(struct amdgpu_device *adev)
+>  	adev->mman.ttm_pools = NULL;
+>  }
+>  
+> +/**
+> + * amdgpu_ttm_mmio_remap_bo_init - Allocate the singleton 4K MMIO_REMAP BO
+> + * @adev: amdgpu device
+> + *
+> + * Allocates a one-page (4K) GEM BO in AMDGPU_GEM_DOMAIN_MMIO_REMAP when the
+> + * hardware exposes a remap base (adev->rmmio_remap.bus_addr) and the host
+> + * PAGE_SIZE is <= AMDGPU_GPU_PAGE_SIZE (4K). The BO is created as a regular
+> + * GEM object (amdgpu_bo_create).
+> + *
+> + * Return:
+> + *  * 0 on success or intentional skip (feature not present/unsupported)
+> + *  * negative errno on allocation failure
+> + */
+> +static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
+> +{
+> +	struct amdgpu_bo_param bp;
+> +	int r;
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+> +	void *kptr;
 
+kptr should potentially be saved in amdgpu_mmio_remap.
 
-Reviewed-by: Ce Sun <cesun102@amd.com>
+> +
+> +	/* Skip if HW doesn't expose remap, or if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE (4K). */
+> +	if (!adev->rmmio_remap.bus_addr || PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE)
+> +		return 0;
+> +
+> +	memset(&bp, 0, sizeof(bp));
+> +
+> +	/* Create exactly one GEM BO in the MMIO_REMAP domain. */
+> +	bp.type        = ttm_bo_type_device;          /* userspace-mappable GEM */
+> +	bp.size        = AMDGPU_GPU_PAGE_SIZE;        /* 4K */
+> +	bp.byte_align  = AMDGPU_GPU_PAGE_SIZE;
+> +	bp.domain      = AMDGPU_GEM_DOMAIN_MMIO_REMAP;
+> +	bp.flags       = 0;
+> +	bp.resv        = NULL;
+> +	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+> +
+> +	r = amdgpu_bo_create(adev, &bp, &adev->rmmio_remap.bo);
+> +	if (r)
+> +		return r;
+> +
+> +	r = amdgpu_bo_reserve(adev->rmmio_remap.bo, false);
 
+The last parameter should probably be true here.
 
+> +	if (r)
+> +		goto err_unref;
+> +
+> +	r = amdgpu_bo_pin(adev->rmmio_remap.bo, AMDGPU_GEM_DOMAIN_MMIO_REMAP);
+> +	if (r)
+> +		goto err_unres;
+> +
+> +	r = amdgpu_bo_kmap(adev->rmmio_remap.bo, &kptr);
+> +	if (r)
+> +		goto err_unpin;
+> +
+> +	amdgpu_bo_kunmap(adev->rmmio_remap.bo);
+> +	amdgpu_bo_unreserve(adev->rmmio_remap.bo);
+> +	return 0;
+> +
+> +err_unpin:
+> +	amdgpu_bo_unpin(adev->rmmio_remap.bo);
+> +err_unres:
+> +	amdgpu_bo_unreserve(adev->rmmio_remap.bo);
+> +err_unref:
+> +	amdgpu_bo_unref(&adev->rmmio_remap.bo);
+> +	adev->rmmio_remap.bo = NULL;
+> +	return r;
+> +}
+> +
+> +/**
+> + * amdgpu_ttm_mmio_remap_bo_fini - Free the singleton MMIO_REMAP BO
+> + * @adev: amdgpu device
+> + *
+> + * Frees the kernel-owned MMIO_REMAP BO if it was allocated by
+> + * amdgpu_ttm_mmio_remap_bo_init().
+> + */
+> +static void amdgpu_ttm_mmio_remap_bo_fini(struct amdgpu_device *adev)
+> +{
+> +	if (!amdgpu_bo_reserve(adev->rmmio_remap.bo, false)) {
 
+Same here.
 
+Apart from that looks good to me, feel free to add my rb.
 
-Best Regards,
-Sun,Ce
-________________________________
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Tuesday, September 2, 2025 2:22 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Subject: [PATCH] drm/amdgpu: Release hive reference properly
+Regards,
+Christian.
 
-xgmi hive reference is taken on function entry, but not released
-correctly for all paths. Use __free() to release reference properly.
+> +		amdgpu_bo_unpin(adev->rmmio_remap.bo);
+> +		amdgpu_bo_unreserve(adev->rmmio_remap.bo);
+> +	}
+> +	amdgpu_bo_unref(&adev->rmmio_remap.bo);
+> +	adev->rmmio_remap.bo = NULL;
+> +}
+> +
+>  /*
+>   * amdgpu_ttm_init - Init the memory management (ttm) as well as various
+>   * gtt/vram related fields.
+> @@ -2028,6 +2109,11 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>  		return r;
+>  	}
+>  
+> +	/* Allocate the singleton MMIO_REMAP BO (4K) if supported */
+> +	r = amdgpu_ttm_mmio_remap_bo_init(adev);
+> +	if (r)
+> +		return r;
+> +
+>  	/* Initialize preemptible memory pool */
+>  	r = amdgpu_preempt_mgr_init(adev);
+>  	if (r) {
+> @@ -2091,6 +2177,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+>  	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
+>  					&adev->mman.sdma_access_ptr);
+>  
+> +	amdgpu_ttm_mmio_remap_bo_fini(adev);
+>  	amdgpu_ttm_fw_reserve_vram_fini(adev);
+>  	amdgpu_ttm_drv_reserve_vram_fini(adev);
+>  
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   | 5 +++++
- 2 files changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 7783272a7930..5d128414c283 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6924,7 +6924,8 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci=
-_dev *pdev, pci_channel_sta
- {
-         struct drm_device *dev =3D pci_get_drvdata(pdev);
-         struct amdgpu_device *adev =3D drm_to_adev(dev);
--       struct amdgpu_hive_info *hive =3D amdgpu_get_xgmi_hive(adev);
-+       struct amdgpu_hive_info *hive __free(xgmi_put_hive) =3D
-+               amdgpu_get_xgmi_hive(adev);
-         struct amdgpu_reset_context reset_context;
-         struct list_head device_list;
-
-@@ -6963,10 +6964,8 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pc=
-i_dev *pdev, pci_channel_sta
-                 amdgpu_device_recovery_get_reset_lock(adev, &device_list);
-                 amdgpu_device_halt_activities(adev, NULL, &reset_context, =
-&device_list,
-                                               hive, false);
--               if (hive) {
-+               if (hive)
-                         mutex_unlock(&hive->hive_lock);
--                       amdgpu_put_xgmi_hive(hive);
--               }
-                 return PCI_ERS_RESULT_NEED_RESET;
-         case pci_channel_io_perm_failure:
-                 /* Permanent error, prepare for device removal */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.h
-index bba0b26fee8f..5bec657acf96 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-@@ -126,4 +126,9 @@ uint32_t amdgpu_xgmi_get_max_bandwidth(struct amdgpu_de=
-vice *adev);
-
- void amgpu_xgmi_set_max_speed_width(struct amdgpu_device *adev,
-                                     uint16_t max_speed, uint8_t max_width)=
-;
-+
-+/* Cleanup macro for use with __free(xgmi_put_hive) */
-+DEFINE_FREE(xgmi_put_hive, struct amdgpu_hive_info *,
-+           if (_T) amdgpu_put_xgmi_hive(_T));
-+
- #endif
---
-2.49.0
-
-
---_000_SN7PR12MB6958E1287F33FCEE5A6F99819D06ASN7PR12MB6958namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"text-align: left; margin-left: 5pt; font-family: Calibri; fon=
-t-size: 10pt; color: rgb(0, 0, 255);" class=3D"elementToProof">
-[AMD Official Use Only - AMD Internal Distribution Only]</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Reviewed-by: Ce Sun &lt;cesun102@amd.com&gt;</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Best Regards,</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Sun,Ce</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
-Lazar@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, September 2, 2025 2:22 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
- &lt;Alexander.Deucher@amd.com&gt;; Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt=
-;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Release hive reference properly</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">xgmi hive reference is taken on function entry, bu=
-t not released<br>
-correctly for all paths. Use __free() to release reference properly.<br>
-<br>
-Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h&nbsp;&nbsp; | 5 +++++<br>
-&nbsp;2 files changed, 8 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 7783272a7930..5d128414c283 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -6924,7 +6924,8 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci=
-_dev *pdev, pci_channel_sta<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *dev =3D=
- pci_get_drvdata(pdev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D drm_to_adev(dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_hive_info *hive =3D amd=
-gpu_get_xgmi_hive(adev);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_hive_info *hive __free(=
-xgmi_put_hive) =3D<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_get_xgmi_hive(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_reset_contex=
-t reset_context;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_head device_li=
-st;<br>
-&nbsp;<br>
-@@ -6963,10 +6964,8 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pc=
-i_dev *pdev, pci_channel_sta<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_recovery_get_reset_lock(adev, &amp;devi=
-ce_list);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_halt_activities(adev, NULL, &amp;reset_=
-context, &amp;device_list,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hive, false);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (hive) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (hive)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex=
-_unlock(&amp;hive-&gt;hive_lock);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_put_xgmi_=
-hive(hive);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return PCI_ERS_RESULT_NEED_RESET;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case pci_channel_io_perm_f=
-ailure:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* Permanent error, prepare for device removal */<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.h<br>
-index bba0b26fee8f..5bec657acf96 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h<br>
-@@ -126,4 +126,9 @@ uint32_t amdgpu_xgmi_get_max_bandwidth(struct amdgpu_de=
-vice *adev);<br>
-&nbsp;<br>
-&nbsp;void amgpu_xgmi_set_max_speed_width(struct amdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t=
- max_speed, uint8_t max_width);<br>
-+<br>
-+/* Cleanup macro for use with __free(xgmi_put_hive) */<br>
-+DEFINE_FREE(xgmi_put_hive, struct amdgpu_hive_info *,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (_T) amdgp=
-u_put_xgmi_hive(_T));<br>
-+<br>
-&nbsp;#endif<br>
--- <br>
-2.49.0<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_SN7PR12MB6958E1287F33FCEE5A6F99819D06ASN7PR12MB6958namp_--
