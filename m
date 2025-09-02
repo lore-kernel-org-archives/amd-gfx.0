@@ -4,150 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B99E0CA1005
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 06:45:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A9CCA1005
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 06:52:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B9DC10E5B7;
-	Tue,  2 Sep 2025 06:45:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8ADB10E197;
+	Tue,  2 Sep 2025 06:52:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BiGT2iXa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r/owaIQe";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5F5D10E5B7
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 06:45:30 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A01E10E197
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 06:52:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IawXMsUFTpaI2JQNK2FqmrKwita7cB6pznrZ+Ia/Jwu08rQpzsSeT2v8GMGJXbU0gJXhLNpJ+LkAcONVIZeSY6orVTw41b2BBVhSZrBkK4nyT9ny7X43K5FQGfbvlieD1hIEf/zGqiz9ZUO/72YjbH1rAMRyydd4nhBCOahkcOlpibkhx85fmyMxplGvoeWJIq0ngxVFJ5A2R4L+0ogynm8KLYPDF2QX+usMg26sdwAL+4MBruOT/fyTq3LOTJ+U+UDLU+Kt95XGbpDW9Vad9YiDh5wHxKBQ/fBKbqNmXd0YYwyQStvATg1dt1I9fD3v9GdbHdcYYjOAnkKVk5tXEA==
+ b=yX3iH72K4p9+SGGfglr7CgptBAFlSRZWJR7U29GjBvurv7GAeQScvUL+KpkJBHXco71+b/E+B4Ryvo/Kwu8ugbEIEVUVwP2sOT3g2KW0n17okV2PCQFuKq39eEEwKqZb7QJ2gKFMxdBw3bNRbldHF9a79mD6VxVZhaH0nfxCMm9d3vt6wV9Mbr31EJVMcpuHvMGMcP+a/mD0A2B1awyyiZut+L0Tky3kP4GyIaz+1+/ivzuXOCCyX56Z3dpnHqSW5qRcraq0TGWy3rLOHkAKPfhWekh9SGrYckWpN3urE9kZULtOesDIxlDDu6UwUIvyWfKyOc3AB7DKzhJAGFZdbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6u0Hcxv4ZWyCor17Umy+tRxZYo1DnQoXaD7gSe7BQw8=;
- b=i5MXVjAyOxO5Lmt6WHNHP5gmrMIvjE0QtIq9dcXz/3vRpLdCAe2cfBk/qV95AWNhu4mY8BadTWHCkg8jilbDX6rqYiFUekkYBdG5WWReG+bwUGJhRs6OnPRZ1IrHE5k/2v5SYxCK8zx7X0gi7OBwI4QD7xB/mVoMml1OWmlSfQ0JP/lHftkiMpkANV4Au/mz0U6pGo6Rb5qkYJreqn2vKvd3VFhJjwDWGhRYGgLEEGomqjgF28e8leDxPYbCTctrWC7nKr7A0kMxEOUYBPX3k+GOPXOug5ICSAxIsV1CaL7+KQW6+p1DuIWwv+ggM66yRSA+dSuCSZcMCPqFHuuV/w==
+ bh=DDdDw8Zs1zUHH7blK7zUhaz7f20Z9717B2Tixu6VDvQ=;
+ b=g0FdNy1FOvOn+xyO4LSlg5YLUW0IFVOjL30j7AyxtwKEQJuUROj1qNSEd5wZ7N48tv1TyrRC6oNA2mvbbGa1sELRtpzgSr1LY1iA4laxKYmwwHwWQvyMZ7YFVAl3+32DA5xV++DNRwvSpWU0KNYIMfkBKZbm2F6WGpoZsnxIRms4hqoRUCM7FSBYxCdq+dFNNtSwyWQ7ekJffbBTH7jhftlQNknVjQcwA6cxD6BZvltpyGVRzc4PxnVMOGPKVMUDFMOoCIY8nv1ObpRKh1JWSoT2cpoRYegv5/6FVhYRHdRs71ZuZLpvwPJOaAKwPMEceLzzZ6Exdqat+HawgpVaxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6u0Hcxv4ZWyCor17Umy+tRxZYo1DnQoXaD7gSe7BQw8=;
- b=BiGT2iXarQuxW4w/38fjnH2szfHSpR0h6sq+cqoXcS2rxwwpc5tjddDEKscvjvSX7RVe/HVB9K5uQaoiTAOepBE5/8y6FFMQJsW/Aw42bt8BmAdJT+NndkDqk+W3u2koBmh1xOCD/L62EBcxhD9MshfH5isLvshQdQruMf4+Pow=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9073.27; Tue, 2 Sep 2025 06:45:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9073.021; Tue, 2 Sep 2025
- 06:45:27 +0000
-Message-ID: <7c10ac6d-93a8-41c9-900c-50261893d482@amd.com>
-Date: Tue, 2 Sep 2025 08:45:22 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] drm/amdgpu: Set SDMA v3 copy_max_bytes to 0x3fff00
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20250901100012.439155-1-timur.kristof@gmail.com>
- <20250901100012.439155-4-timur.kristof@gmail.com>
+ bh=DDdDw8Zs1zUHH7blK7zUhaz7f20Z9717B2Tixu6VDvQ=;
+ b=r/owaIQe/CHzYy6fKyFvwlHJTqCDNoX9YV9z5UEErLTvBxK93NIcORJNKmV2eLonxs59MSjwOQ+XTUyRT4ke8xP3CqEEiftZqyKGyjWut57mjrId+fWJ31AQCG7VhXqmQvSD0xycmJuwHFPhrBaWF9yRyB6f2/qgCdrBbxJ4M+U=
+Received: from SN7PR12MB6958.namprd12.prod.outlook.com (2603:10b6:806:262::15)
+ by BY5PR12MB4162.namprd12.prod.outlook.com (2603:10b6:a03:201::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
+ 2025 06:52:32 +0000
+Received: from SN7PR12MB6958.namprd12.prod.outlook.com
+ ([fe80::3f01:2354:6863:4e4d]) by SN7PR12MB6958.namprd12.prod.outlook.com
+ ([fe80::3f01:2354:6863:4e4d%5]) with mapi id 15.20.9073.021; Tue, 2 Sep 2025
+ 06:52:32 +0000
+From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Release hive reference properly
+Thread-Topic: [PATCH] drm/amdgpu: Release hive reference properly
+Thread-Index: AQHcG9IHSHWJ7sCgdke9CFcYCKXL2LR/cOvl
+Date: Tue, 2 Sep 2025 06:52:31 +0000
+Message-ID: <SN7PR12MB6958E1287F33FCEE5A6F99819D06A@SN7PR12MB6958.namprd12.prod.outlook.com>
+References: <20250902062239.2310628-1-lijo.lazar@amd.com>
+In-Reply-To: <20250902062239.2310628-1-lijo.lazar@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250901100012.439155-4-timur.kristof@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0078.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-09-02T06:52:31.379Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN7PR12MB6958:EE_|BY5PR12MB4162:EE_
+x-ms-office365-filtering-correlation-id: 37aa35ec-2c12-490f-e935-08dde9ed4a54
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|8096899003|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?VpyG2yWsD7ew9NrGDo+aOXzYcVarnfH6jKKOYxdsgW6EPnjcme/2ArVHpwRP?=
+ =?us-ascii?Q?edmwx2HIbVtlHnuDisfVuImmadzoVGPq2vLNDeXLfuwoibLreyk6l/QFKatl?=
+ =?us-ascii?Q?wc0DhVjFIz6Rf0kfjcbYbXIDImsDDUTTJgfzv1T9yfK45dIddg0ZWzqmXdrX?=
+ =?us-ascii?Q?Ulz7i2N3Q+TMisMaAnktbQ9OqMVt6JxNz7pF+naonhDJE2cBQhXoB1d93TUS?=
+ =?us-ascii?Q?AbP0VCcLTSzmLaJQikoXElInjR5P3Y6iAsDBNjDsG+DuKmW9dyhoOY/3eh2E?=
+ =?us-ascii?Q?MB1Bk5Kh7hKuZMOg/kAnTTB6oIP/iUowBZJDrlYf8/g0D+KTr4MXe6Are1xU?=
+ =?us-ascii?Q?nItIXlvmyp17CJgb7MbxpsJOHl3XuRXJ5y/eL4XyKVofnlcn6s77gN9w2yMm?=
+ =?us-ascii?Q?Zu+zDIe2bGHNhLhoIiba8wiihaRFLVxHfBH1Kcl7PMy/VdXuIjUBqwAPRc0z?=
+ =?us-ascii?Q?hFh0DY+CF/yEHO5Scm07zHz4a2Xh0sJ/F//vZrVy12Fo4SEViy1gZTxTbxNy?=
+ =?us-ascii?Q?C0xF7srkA2hZGLt/letGfk5ot7+RaNS1Fyl9aM2VfB3HsutzTVvpwohy5fWz?=
+ =?us-ascii?Q?qYOdFbyqu1WLpT3tJjSAyF9jF/gbHqSX3yK/5sW4ek9Rp34JbGgev8cnGbt8?=
+ =?us-ascii?Q?AQGRgD86tUmErCoriJXIpT8taoK5pnAuBqx/AVqrNVE7tV60szjm5O5CNoUS?=
+ =?us-ascii?Q?Ac4a4Rs4Rp1vp+WxkH2ALGaPAMlJ8zPhfzTV6wdcdcj7zvnK8mJGVfmgVjGR?=
+ =?us-ascii?Q?1fpvoSV61dcrLx+WwrkX1dhyYyaGCFKGCpQtteIh3XosaUUUHOnbUPh/V2gr?=
+ =?us-ascii?Q?J8gx8HGRHez7tcDSFwkCjVDH5euFnwSw68A1EAbLi+zBZUa619S7W6qIo7cA?=
+ =?us-ascii?Q?IAPuGTGSfY7McvS35tNvSCEBcpE8DTVGo0woWKIl2DA6sLgnJw+rBROIK1xB?=
+ =?us-ascii?Q?3Vnj+XLT/wbHT39qOyijD5auzNVFnk4fz+BvD48TvmcAh25BtDb+CqGzA1Zf?=
+ =?us-ascii?Q?rQIW/fs9PtLH3gZ3Tz/gw4U09cfsyf7LinSEXhygEkBYx+kOfByIRFpe+QAo?=
+ =?us-ascii?Q?Nz6lPDFcq7aotGxpWL3/zRdyZq8OVlKzYwdikO4BrMxLap6DIEUEgEApxX9a?=
+ =?us-ascii?Q?SLsspA7yYKwkEuPxuh7lqWqb2OjQ8krZxxYH/f2GFqLlHBZa1yPp1BmQllUb?=
+ =?us-ascii?Q?lsm3yWVhg9h/hsHP6aBjoBeUUEkwE2P5KkNY/GBDjwUMUSZIFTwX4zwpKBCQ?=
+ =?us-ascii?Q?1K9BvgOSHtWc1eaq/9UCu0m6RA6vEPJCW3Qdku5NgWgSWC85LmCG2n89NI2q?=
+ =?us-ascii?Q?chO12UtxWTKIqfNQzHm22bQMEvVBAqd+8B9I/F2aM2MwmybmJbo/5/lEQB4n?=
+ =?us-ascii?Q?tCEqjBdjp52XXKkGocCzq0OggD8D5VGtS2D41ZWerE1BfUqdxc1LiQlreRzH?=
+ =?us-ascii?Q?cQR37jr5T/1NIiVQXlYwH5Rv5AGsU3Z/8nN7UACjYtrzyiDncXdmUA=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN7PR12MB6958.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(38070700018)(7053199007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?l3Z9vMFuzdIXp2XIB9ys7DUkuK9/iSkrVHO6U1xkm0UJQZCF9vUXe2RaVsn/?=
+ =?us-ascii?Q?/b+ktwoqLDsGcE1+8BnvsK2YAc7PfUaQ6k6t3Q6hcu/2HsPQ/I+uRKjE/9Nj?=
+ =?us-ascii?Q?rHhuUQWRoE46XpTrGqCdMz3yTRwYq/yXFn/9UcZ62BKfQxT/VJVYr+C1onnG?=
+ =?us-ascii?Q?bhFCkFxFHifkwkFATLyJqdp2ufnMcB6gBkjk2mnmSTzXT1voLKqw82VFdcdk?=
+ =?us-ascii?Q?woiNflrgSSIZ7jxLVQFE7Nw0pFUy8FPY47/j5jnrLGBnIeQvDxx+1PRXCs1b?=
+ =?us-ascii?Q?ZQzlWK9J4NRcXTUTf+l+m7HpV9oY11JR+SSsFa+TICBZVAEDL21a5e4V0yk4?=
+ =?us-ascii?Q?jjZ/XbNz6+WSCx5DoZxkLtmcZS2O7judUjNs6hERvQ0uWB7I4f/foDRULhs8?=
+ =?us-ascii?Q?P7Yh2V3t2X4dRE0aTvD4K9JzgkHndXryJb+a/+i40dOnjr8nkusjY/CTkgKg?=
+ =?us-ascii?Q?wdBDTHCTtTWntFTgZxFFH7cUcmptVE0FBiRX7Y4pfJ0a7A3k/yuNGqGbgRjJ?=
+ =?us-ascii?Q?2CjKtqd2TQCGplcVM50F06eTLpZqnm0+7uCFL35qTkg1fFDfNA0axLG3LfGL?=
+ =?us-ascii?Q?xokHGVgB8hKNyKDDoBr05+jeLZkCISyaJ9CrKHIn4KxrTR7CX0vvnrGMQgw6?=
+ =?us-ascii?Q?zKwKbMVySLcaFZHNouxufgdNAoKQ5NbO9nre9T2/+qttV/kHDA9r63L1mVI1?=
+ =?us-ascii?Q?vrJbzIP9temfEAE2ay00c6sMG/t/5pg9MRarOUxpllKKHnv07IYVXYcPk1tT?=
+ =?us-ascii?Q?Y7wAl5CMsWyFlb1AZoCaKK6DpBOmcgmS4e1bj3vS4MnDNZRVv17BFttrKWYf?=
+ =?us-ascii?Q?xaYSalr5p9zQFPrEgblUIKKhSzGsl7VQ373C7w75GxeLUnI7fhe1ONeynYFw?=
+ =?us-ascii?Q?B6wBqXzJzNDfTEn3SVS2JSqTxHh4rXAza6JsluGRj4nLh5o8MI+Z2DjMzxSY?=
+ =?us-ascii?Q?DrtIZPVGlwczWllExcaDFL4uK7tpEUHF6/pa5XTSeggwyxy0T87dradzUJLA?=
+ =?us-ascii?Q?c2tDfzGMQhUIQbDTg5bhk/DcELiPnZGlbwIP+P0/XiCzV45evkX4RiIfwvLt?=
+ =?us-ascii?Q?nZd1VmqBWzJfdUbd0w7V8g1BwY0XmskdZFpVALynbPRUa8mODb1KnM6T4Ye2?=
+ =?us-ascii?Q?2ESlGYdkqFcwxjcrzRmsL30AKP4A05hgHomltagv+gROMClcO0p5vGfC+ZFt?=
+ =?us-ascii?Q?Ixv/9DpIJRu+PcdocPsmOt8lhr6puD/mnruYu+j2Or1Ei7RIRioIdJh1fKUE?=
+ =?us-ascii?Q?PB3gmiCatFAhHiS1NdNbwY0wo00UTGf6dSp50L6hPNknCJbOmSd8/u4KAzmR?=
+ =?us-ascii?Q?XbuBjj5cdlElhU0ACpMWvQ6WCDYesi1I+per8AkkcFdGQbJ7IpuOVashhRFs?=
+ =?us-ascii?Q?tOfun3dWLQZRlEwHrflqtqwNRkjMLkhOB8a3ZGB3684n5uhv6a2XmVU7cFMi?=
+ =?us-ascii?Q?5KPipF6GWifyJeO15JrW2iOLTPxBLMo3gsRs8YAFBI7VYJxRg2UN54URTjg6?=
+ =?us-ascii?Q?/TTKFbre1OO/oLyQ/1DY+LhM1IGiR5F3H0pdPc7rVvoITVrCeT/iBNhEWOD9?=
+ =?us-ascii?Q?LmcDgWjXmoN8WQnDkuA=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_SN7PR12MB6958E1287F33FCEE5A6F99819D06ASN7PR12MB6958namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM3PR12MB9416:EE_
-X-MS-Office365-Filtering-Correlation-Id: f07e387f-e564-40f4-1dba-08dde9ec4d00
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dGVuZzFhcm56OFdPZ0V0TExOTm9uKzhSRnNHVHMvNWVoYjlPMWhXSW5HL3lC?=
- =?utf-8?B?ekExZ3BlaFhLNmtvd1VuaEFvVnNRWGRBOFFPVTB4RXJZTEk1ZjhGVUlnemVT?=
- =?utf-8?B?TWFnem02RUVWTG1UVkcyYXNpWUt1MHFxcEpqbnF4VmxyTmxJNjMvOS9wcjFE?=
- =?utf-8?B?bTNpNUsxY1NIaFNGQXRZRHFydVFGRS9GUDkwWU11WjNVQmg3amp6d1kxSCtm?=
- =?utf-8?B?TlZsOGRQUGhZUGF0MjgxMERSR25uQ2V0OFJMWUZyMis5MGI0Z3JTYytjUjBD?=
- =?utf-8?B?TjREMkRiV1poVXluVXlxNGE3dmNDV2gvUkdvdUdCS09Sem1PeksyMnF3WFd2?=
- =?utf-8?B?SDhSZ1NqcWlFUlBSaWlCanZVVFRlQlpSdldUNExhVFFNdmFDanF0TWx0c1M0?=
- =?utf-8?B?VHdPQWdFTEtBZTZXdHphZ2diY1RCcm5zQjc5ZmdTLzZ5MXRoWEdHOURIWDhm?=
- =?utf-8?B?bkkxZFRXS3lNTS9uY3h4N012YytybXBIUm9oZGl5K3M2RlNYenUyZUhqdjlt?=
- =?utf-8?B?RDNoWU0wZ3FpNmVHZ0VzbFJ5bEpvRDF0OE5XVVYwS1ZBT0VvRXREcERXZDNF?=
- =?utf-8?B?Q3QrazRhanJKd3l2c2QwYmdZODZFcUpkb3BJYXd6cFozQXR1ZlVZc05kOWlu?=
- =?utf-8?B?dkpGYnpKdTNjSDVLa1oxNzRiMk55SUNzcFRTUEVBRXhWeVQ2NVduSGRrc1pD?=
- =?utf-8?B?bERQWEdQRUlWbTFHWll4MkF3NFFSQ2NVMjNwMitxMG56ZGZKSHlYbGFRY3Vq?=
- =?utf-8?B?SHNnTm5YbGVKZ2dPR2pkQ0ZLMzR3bVdBZWt5MmdjdUN5U3F1ZlZ5TTVXYkpq?=
- =?utf-8?B?VHdPT2h4OC9uUWZjTCtPcXB6MHBRc0V6NDhFMU5nODh0bG8yK2YvSVJPQk5F?=
- =?utf-8?B?UGMvSnJMUkJmbmx2eTZ1THdJOHNFVUJYMzFUcTZYZGpqRUQ0RW9hams0VFBl?=
- =?utf-8?B?SkN5STlUOHZnelZtMnlHZzR6aGZKaXhNTkJUTFF3TjBuOHpOWXU4U2thUmln?=
- =?utf-8?B?WEh1SEU2ODM0UWlGazVIeXIwUE5oSHF1QnpTNTFFTzNsU2JxUVlnSEhVZmpL?=
- =?utf-8?B?bmMzVGhCTDYweEVaZTVjUndJM3I4eFBXZm1rR2ZrYzBXZ21YWGhuVTFZSVph?=
- =?utf-8?B?YmRGSGhFRW9FZEdSMlZiSkxsa3BITTNlT1AvM08vMkhDZ0lHSnBwZXBsZmZR?=
- =?utf-8?B?bnN0U1dGRkEvQTJrTEpPQWxGaERvaTNremVzdDZmdzh5dlZTQS9XQkdVR1Q5?=
- =?utf-8?B?QWxMOXozNEs3T2ZIZjBUQ3p2VlVtT1JsVTdnMFRkM0dtek9oZzFOeExKYkgw?=
- =?utf-8?B?UzJEc3Q2cGtTVmFaREV6THFaaWVUYnZFNXpxb0EzMktldXBLS1pUVEM4dVNB?=
- =?utf-8?B?dzdmbXNRamMySkdNZXozZzBncUxTSXFTd1R3UmhhOWg2M0g5R3paZFE1enUr?=
- =?utf-8?B?SXVFY3dMVkx5MHRsVjNSZG00WnhDL2lNc0g1SGxoV2NJNXBEaUpwcTlRQ1hi?=
- =?utf-8?B?M3lpUFNBaE9YM0lLaU9ySU05TW1GRnRpSjVVQXVLMlFrNFg5VHJ0dTB4MWNO?=
- =?utf-8?B?dzdSSHpXUXRteFVYRXZrNGp2alAycGJ2bG5XZUNTQUJsblEwRXUxdWxsVSsz?=
- =?utf-8?B?b2RvQ3VoaG9HTUlBcXBJS29nY1JORlFKT2M0eldHMjRiRzdFWnFTRWRaeXdS?=
- =?utf-8?B?UUZmcWhFVVpRV0d6aWpWSjk2dW9lbU5Uc1RUWmV3alArRnZFb1VvNUN3cldn?=
- =?utf-8?B?YWNObE9RWjN2MnRlZkQ0ZXpuWG12TU9tRGxBVFBWeGRhV1lOYm1lVithSnFt?=
- =?utf-8?B?QlZGMTJrbktCNk5HZGU4a09IR0pXT3BkWkVpNWpnRHNjNW51dlQzUExONmJ1?=
- =?utf-8?B?a25YbjhsRG1hQyt3OXk4VFpaTG0xK2JDaXRNajJmYUVrMkpZaHlCVkNhcWdI?=
- =?utf-8?Q?t/SfkG0RfHQ=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGo1TzdyelRVNVd0YklMZHk3L0dFZ0EzMFhRL0s0UzAvSXhQVDhXZnNIRWlp?=
- =?utf-8?B?ZzNhN25wdWhoVWZwSU02YXdMR2YrRktHZVVRdnN4OGJtV1NCQ2RuNGI5a0VS?=
- =?utf-8?B?bVdXNCttYlV3N28zbkNUcU1CeVhFRHdOMWVhK2hiWjZZUTZRNkJvRHBkdmJx?=
- =?utf-8?B?ZkpWd2pvMjVIMjQ3amZpcERycXNYNlY0OFk1Ykhtc3JKM3VkZEp4dWw0K2hH?=
- =?utf-8?B?QVFpdTFLa0xlMWdhUHlLWDlvbVFFczdIdk02REtrRjRSQVVlajF0aFc0dFg3?=
- =?utf-8?B?K2tMTmlKVHBRdDArdEp2QkVrVW5MSXdFSVlxOEpkbTUvT1JOMTEydmxaNmNu?=
- =?utf-8?B?Tk9ldkhHa1hqT00rOTVDZEpIKzdqV0o0Zjh3SHM3R05VNVg0dk1mdGpTeDd1?=
- =?utf-8?B?V1BwWWwxVUxJK3VTbHNRMUpVeDh6TlJJQWJHTnc2bGk4TGVDT0kwRFNZV0NG?=
- =?utf-8?B?NjBjRnloc0lGRlFEVU5zVDhZZHVpRjZ0eDhzaE1RbEpIQ3k1bzRKT0lzZ01D?=
- =?utf-8?B?K1dMTW4vWmROV0hFZFhKMVVDdy9pVHd0RFM5c1kzamNsNHNlS0owa2lsNHRu?=
- =?utf-8?B?amFTS1ZLV2VaSWczdDJraVAyYWVDUE92Z1hjUEtRc2QveTIwd1ZGTEJtbGRX?=
- =?utf-8?B?M0RlNUFZYjB2YzZDRFFnWGlUbUVGelY5c3grZlM5YVovQ1BCaEE2dFZ3Y1B0?=
- =?utf-8?B?QTFMSE01enNRNEVDeWVHUXI2UU9QdjBjd3AzRVhXbFVZWjZFNE9ORUF5ZjRW?=
- =?utf-8?B?eHN1aDZCZ0E4YkNzTEFyVGFyWUpiNDNxRzdhakZYSGNwMkFNRk9RdDZyamlW?=
- =?utf-8?B?d0c2cldtYVBUd040QkxIdWNjWU15Vk4vc0JKZllsUkpJY05QRGZHQzN6L2J6?=
- =?utf-8?B?VG0vQ1RJeXZkY3hrQWZFV3pQU2hCd2ZYNUVHbklzMVMwMjZHSGRQUmdRUHdt?=
- =?utf-8?B?OW96VjFCcjBZVnhsK1dlSTBZMXBWTEdYaWc1bTUyOTRNUlo2aXVCay94aWtR?=
- =?utf-8?B?ZUpSV09LWmJHaDRjRXlGZVlUNEpUU25MS3NPKzNCdlNvR0dGalNlNkRGK0VB?=
- =?utf-8?B?RHp3SEE0TzcyZ2U3V0pPcHJLMGJIRndYNHI4bDJwL0dwc01mSGU0aGh5ZkpF?=
- =?utf-8?B?M2VOM1RSbTRNdEozNUUwc3FWOHh2WnF2RVhKZ25jbW9rQ0JOSEtPZi9wempm?=
- =?utf-8?B?RzJWZ3JERGtGUTVZVzFDT1BEQWFML0kvV0dYNXVwZmFxZ2ZXcW0yK1IwVjdH?=
- =?utf-8?B?UjJSYUg3OHpPOG9jOGdrbEVOUFUyVkJJL3lKcXBQa1dsK21mUDc3U1FLWm82?=
- =?utf-8?B?emdQK1ZqOGsvK08rQk1sUGlCSlpLcU9WNTdwVEpVenFDeUFBQlFPN2J5UXk1?=
- =?utf-8?B?dnpuYXl5d3BKZmhXUlhBUU4wOGZ0MXZhbkxNZjkzamhQV3pobktWWWQ1ZllZ?=
- =?utf-8?B?UzQ2T3Yrem5oeDZQSHZYRVRCVUYzRnp5NjA4Z1M3RGY2enRucElFWjFlRWZX?=
- =?utf-8?B?YXcvVWVJY1laZXArd01VclplVWZNMEQzV2puTXMvVWlUSFZEUk94ZURFQTFG?=
- =?utf-8?B?WkJsRHdlMFVlakV6L3NtN1YveW9UUE1HQ251T3A3YW1MZEJDWVNET3V3T1VY?=
- =?utf-8?B?WU15N1JpMXM4Tzl3U2hWbkFDM010REc5TmYzS2ZFZlRWdGE1V2hJTytWUEVF?=
- =?utf-8?B?WDhNaXB3a1ZDcC9SMkRPdTFVVVhMUXRRRXFkM2dQU29qVWJ2ZmZOc1Jjb1lo?=
- =?utf-8?B?cmp2TFNpVVVpUVpGTWhmQWo4eVcvejBrdGJlSFVBWGhiU2xBa2l4RVd1eTNZ?=
- =?utf-8?B?b3M2d3ZFSmlUQ0hRODdQajJTdkdOY281TkFYSXkwNmVJOGNoVHJqa2FZV0kx?=
- =?utf-8?B?Rm1ndUo1aW84YnZUeXBvVStOTytEcXcyNDdnVWtBcDdnTVdTVDBnc2dTcGZI?=
- =?utf-8?B?bjdYbDVCUVovM1ZQSnpsK1ZqN2l0U1VyZDF6Rkh4bU5KZ3pnMlZsREl6VlZS?=
- =?utf-8?B?QWV3SXpzZlEyR0pwWlkrR0hqVWdsSld3WGx0VFFSY2NzQzFTNUh4NUwvcTRI?=
- =?utf-8?B?V3Rwek5iOTdtVTNCOUNVYVJDaExjVHJKWDhSclorNFNOMnFRSDZVWWtKcmVY?=
- =?utf-8?Q?yJLy+8LPiVCJ37NIbrFupyEp2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f07e387f-e564-40f4-1dba-08dde9ec4d00
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 06:45:27.2864 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rFueezwGNmgV1R3lp+k1NVDNtddgXpMWb8l4WxVe50Gp1KaU73Itcu8rxjgvpX9q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9416
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB6958.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37aa35ec-2c12-490f-e935-08dde9ed4a54
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2025 06:52:31.9496 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qZTVchZP5gZa+2TJfZVGCtZ2rclXT2mgOTMkO2SdcuORN9vDOVovC6S8r/MpzFDypifjyedDUSr6T3WU+snBSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4162
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,48 +155,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01.09.25 12:00, Timur Kristóf wrote:
-> SDMA v3-v5 can copy almost 4 MiB in a single copy operation.
-> Use the	same value as PAL and Mesa for copy_max_bytes.
-> 
-> For reference, see oss2DmaCmdBuffer.cpp	in PAL:
-> "Due to HW limitation, the maximum count may not be 2^n-1,
-> can only be 2^n - 1 - start_addr[4:2]"
+--_000_SN7PR12MB6958E1287F33FCEE5A6F99819D06ASN7PR12MB6958namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Is that public available? If yes better reference AMDVLK here.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Apart from that looks good to me.
 
-Regards,
-Christian.
+Reviewed-by: Ce Sun <cesun102@amd.com>
 
-> 
-> See also sid.h in Mesa:
-> "There is apparently an undocumented HW limitation that
-> prevents the HW from copying the last 255 bytes of (1 << 22) - 1"
-> 
-> Fixes: dfe5c2b76b2a ("drm/amdgpu: Correct bytes limit for SDMA 3.0 copy and fill")
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> index 1c076bd1cf73..9302cf0b5e4b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> @@ -1659,11 +1659,11 @@ static void sdma_v3_0_emit_fill_buffer(struct amdgpu_ib *ib,
->  }
->  
->  static const struct amdgpu_buffer_funcs sdma_v3_0_buffer_funcs = {
-> -	.copy_max_bytes = 0x3fffe0, /* not 0x3fffff due to HW limitation */
-> +	.copy_max_bytes = 0x3fff00, /* not 0x3fffff due to HW limitation */
->  	.copy_num_dw = 7,
->  	.emit_copy_buffer = sdma_v3_0_emit_copy_buffer,
->  
-> -	.fill_max_bytes = 0x3fffe0, /* not 0x3fffff due to HW limitation */
-> +	.fill_max_bytes = 0x3fff00, /* not 0x3fffff due to HW limitation */
->  	.fill_num_dw = 5,
->  	.emit_fill_buffer = sdma_v3_0_emit_fill_buffer,
->  };
 
+
+
+
+Best Regards,
+Sun,Ce
+________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Tuesday, September 2, 2025 2:22 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
+Subject: [PATCH] drm/amdgpu: Release hive reference properly
+
+xgmi hive reference is taken on function entry, but not released
+correctly for all paths. Use __free() to release reference properly.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   | 5 +++++
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 7783272a7930..5d128414c283 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6924,7 +6924,8 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci=
+_dev *pdev, pci_channel_sta
+ {
+         struct drm_device *dev =3D pci_get_drvdata(pdev);
+         struct amdgpu_device *adev =3D drm_to_adev(dev);
+-       struct amdgpu_hive_info *hive =3D amdgpu_get_xgmi_hive(adev);
++       struct amdgpu_hive_info *hive __free(xgmi_put_hive) =3D
++               amdgpu_get_xgmi_hive(adev);
+         struct amdgpu_reset_context reset_context;
+         struct list_head device_list;
+
+@@ -6963,10 +6964,8 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pc=
+i_dev *pdev, pci_channel_sta
+                 amdgpu_device_recovery_get_reset_lock(adev, &device_list);
+                 amdgpu_device_halt_activities(adev, NULL, &reset_context, =
+&device_list,
+                                               hive, false);
+-               if (hive) {
++               if (hive)
+                         mutex_unlock(&hive->hive_lock);
+-                       amdgpu_put_xgmi_hive(hive);
+-               }
+                 return PCI_ERS_RESULT_NEED_RESET;
+         case pci_channel_io_perm_failure:
+                 /* Permanent error, prepare for device removal */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_xgmi.h
+index bba0b26fee8f..5bec657acf96 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+@@ -126,4 +126,9 @@ uint32_t amdgpu_xgmi_get_max_bandwidth(struct amdgpu_de=
+vice *adev);
+
+ void amgpu_xgmi_set_max_speed_width(struct amdgpu_device *adev,
+                                     uint16_t max_speed, uint8_t max_width)=
+;
++
++/* Cleanup macro for use with __free(xgmi_put_hive) */
++DEFINE_FREE(xgmi_put_hive, struct amdgpu_hive_info *,
++           if (_T) amdgpu_put_xgmi_hive(_T));
++
+ #endif
+--
+2.49.0
+
+
+--_000_SN7PR12MB6958E1287F33FCEE5A6F99819D06ASN7PR12MB6958namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"text-align: left; margin-left: 5pt; font-family: Calibri; fon=
+t-size: 10pt; color: rgb(0, 0, 255);" class=3D"elementToProof">
+[AMD Official Use Only - AMD Internal Distribution Only]</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Reviewed-by: Ce Sun &lt;cesun102@amd.com&gt;</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Best Regards,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Sun,Ce</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
+Lazar@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, September 2, 2025 2:22 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
+ &lt;Alexander.Deucher@amd.com&gt;; Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt=
+;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Release hive reference properly</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">xgmi hive reference is taken on function entry, bu=
+t not released<br>
+correctly for all paths. Use __free() to release reference properly.<br>
+<br>
+Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h&nbsp;&nbsp; | 5 +++++<br>
+&nbsp;2 files changed, 8 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 7783272a7930..5d128414c283 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -6924,7 +6924,8 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci=
+_dev *pdev, pci_channel_sta<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *dev =3D=
+ pci_get_drvdata(pdev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D drm_to_adev(dev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_hive_info *hive =3D amd=
+gpu_get_xgmi_hive(adev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_hive_info *hive __free(=
+xgmi_put_hive) =3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_get_xgmi_hive(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_reset_contex=
+t reset_context;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_head device_li=
+st;<br>
+&nbsp;<br>
+@@ -6963,10 +6964,8 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pc=
+i_dev *pdev, pci_channel_sta<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_recovery_get_reset_lock(adev, &amp;devi=
+ce_list);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_halt_activities(adev, NULL, &amp;reset_=
+context, &amp;device_list,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hive, false);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (hive) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (hive)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex=
+_unlock(&amp;hive-&gt;hive_lock);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_put_xgmi_=
+hive(hive);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return PCI_ERS_RESULT_NEED_RESET;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case pci_channel_io_perm_f=
+ailure:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* Permanent error, prepare for device removal */<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_xgmi.h<br>
+index bba0b26fee8f..5bec657acf96 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h<br>
+@@ -126,4 +126,9 @@ uint32_t amdgpu_xgmi_get_max_bandwidth(struct amdgpu_de=
+vice *adev);<br>
+&nbsp;<br>
+&nbsp;void amgpu_xgmi_set_max_speed_width(struct amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t=
+ max_speed, uint8_t max_width);<br>
++<br>
++/* Cleanup macro for use with __free(xgmi_put_hive) */<br>
++DEFINE_FREE(xgmi_put_hive, struct amdgpu_hive_info *,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (_T) amdgp=
+u_put_xgmi_hive(_T));<br>
++<br>
+&nbsp;#endif<br>
+-- <br>
+2.49.0<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_SN7PR12MB6958E1287F33FCEE5A6F99819D06ASN7PR12MB6958namp_--
