@@ -4,136 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45BCCCA1007
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 03:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30816CA1005
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 06:10:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E738A10E563;
-	Tue,  2 Sep 2025 03:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2FE510E597;
+	Tue,  2 Sep 2025 06:10:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n5ytxH7c";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X7oJrzl0";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E5AE10E563
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 03:39:13 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2078.outbound.protection.outlook.com [40.107.212.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F3EC10E597;
+ Tue,  2 Sep 2025 06:10:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d2zvitgtcXoNCMxokGfJ60L+NDEqGKtue1duK2T7OqidA4qbuPfs2hTErL1mdEWyL6Q8t3v2syIQgj8A+aLzfOyrQvgz2kNz1AVQQv+5M97J9v3QsUOt8YV1NHEfdwLEB0+oaVOHGY9AY1r+vXRd7XNSgh7qjcvupwfO0W3N0ymn1GwOXJDr5fdehd5lRzuwyauCnZ/CgbuysGTg6JH6NYYM9o8aCEIG+G3LJ6ofRFRlM6Xl2A0wAPWudrMo7JoDkEE1U5EzqYBNujIsHa15Rfgb+8RlIeQUVeBUJQKpm5CKrMDPO3uh0SAAg9xhaiIC6hwTamzzlqeFUopwLjUdwQ==
+ b=KPxrXMwmP78DYegelXSDTp0OVJlUEVRLVWQJUxmJEDvXw+PL4XW32PuQo/5sCJaazNRaWPbBffOQvY0Jvw6Fb+nxCz9mrjSnVIa92mEsPCCQ050bEwLIHwJsXl1oZPcuKuKNaxulwXFUbhwwAajjhR0QW1vjQR7YZgOGzwNJiruEQSqb7a1edTZqWwAm8NTT5fv9N5o3XzRf834ondO98ylqqYwtfWy0CbhBmQemkdRygQARnyy1BzSdIgJo5ffmxB+9x2mrLbn7IDL7RbQHt/2CyxW+Ce4xtotjIrEw/mUEzBq3R2Qb3hN9mLxBT6eMgm2Q/KQaKjpmo/PBLUa7wQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hm2h85JyFDA5SD97SMK6p1ZQlcTrJX9XPIc1zKamh0c=;
- b=wkqomaDpKqsxCuRpRsLNHy8cuVohASXORUBdSIUwlGWVkAi4KbAXmIqy7BgfyJqQ2KU2FUaxv1eVhaadsMCkpvD15MY7Gl/tAZylUa83bs+T2VNJwXNaUujucTwaAOeTYLzTqfi41mzGYsuQc1un5BktoARratsrAuw/HHMf6IVrSxk815mSGPb7M/I/YH4MKEfdpApqgpVDxuJ/aHIwZ0DW8b7jtxoMxlDtiyiySAxivcuvga1O5hPNtkQxAv857TnZS13wletAhqIR3fpfMnr4W300ZOjVMGmv1FVzwMp7dh/4Mpyij4HMbpgdrM4/rvO0ttgvgN1BBK1RcF2eXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=EOAwL6a26zujFKe9IOvfwj9cMuNIVY6DhyBjHZ9gFDI=;
+ b=ClaWiN8lTUFJVP5jQ3neoh/IUEmsj+z3pqFrlRoIg5f2iwiGl00RXeRj/B9nZ22BEmVRRCgXHJ40JsCVtMs7alMwMnma6WYGRla1/Q2gqdmLWBjvC0PwK2qItAujmSMGgHINEwyXmru3nRVwTYQJPM6piFMqw8ircAlPlPa8LOVY4mv10XoMK6vB//hz3XS8l0bDcbM8gKSQnzmNkBcKByyZhTv+SAPOl9mc3XrLIJs4DNQMj263aCOVvc1uTSwXLUkLeUTvg2wV8Q8ZQlwXOvkbWoP1Mt0wtlNqUq4cwuJM+CNjMlC3NEsTnGaVK7wvWGPQhHyonGxqkog+uVQQ/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hm2h85JyFDA5SD97SMK6p1ZQlcTrJX9XPIc1zKamh0c=;
- b=n5ytxH7cv3ezmLPt8Qmm6lMnpzgYdYy7MtAozETVSMd8FlAxgKAA5x1LEJjW+PUwtHBXH0cj7l1QxJU1YoaklLrlrjy+BDe3wcKnChNSFuWshfJRfhSxxeizlHpRPdpxISsZEv2AhU99Mzox9HcShiKJurBx+UlrYnM0Sf+z7og=
-Received: from SJ0PR03CA0053.namprd03.prod.outlook.com (2603:10b6:a03:33e::28)
- by MW4PR12MB7167.namprd12.prod.outlook.com (2603:10b6:303:225::19)
+ bh=EOAwL6a26zujFKe9IOvfwj9cMuNIVY6DhyBjHZ9gFDI=;
+ b=X7oJrzl0dVZUWWF1enNVaSFIkNQqF7msXOc9rxa3yYKPh158VPV1S687ekvBh5Qqloib00eaQWRcu15YngnzMpdky+ZAU9uSpMXZJ2cr/SCUTu8LVMtXliOj6tPr1vmAZGstjRsRkzZWUCNsdrJoVeaRmEZ4cokWkbai81DOvrs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by CY8PR12MB7540.namprd12.prod.outlook.com (2603:10b6:930:97::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.19; Tue, 2 Sep
- 2025 03:39:10 +0000
-Received: from SA2PEPF000015CB.namprd03.prod.outlook.com
- (2603:10b6:a03:33e:cafe::e9) by SJ0PR03CA0053.outlook.office365.com
- (2603:10b6:a03:33e::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.27 via Frontend Transport; Tue,
- 2 Sep 2025 03:39:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SA2PEPF000015CB.mail.protection.outlook.com (10.167.241.201) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9094.14 via Frontend Transport; Tue, 2 Sep 2025 03:39:10 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 1 Sep
- 2025 22:39:09 -0500
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.1748.10; Mon, 1 Sep 2025 20:39:07 -0700
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v6 8/8] drm/amdgpu/gem: Return Handle to MMIO_REMAP Singleton
- in GEM_CREATE
-Date: Tue, 2 Sep 2025 08:59:38 +0530
-Message-ID: <20250902032938.468332-9-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250902032938.468332-1-srinivasan.shanmugam@amd.com>
-References: <20250902032938.468332-1-srinivasan.shanmugam@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
+ 2025 06:10:05 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350%6]) with mapi id 15.20.9073.026; Tue, 2 Sep 2025
+ 06:10:05 +0000
+Message-ID: <5f999a32-db26-4964-8152-ac06da8beea4@amd.com>
+Date: Tue, 2 Sep 2025 11:39:57 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] drm/buddy: Optimize free block management with RB
+ tree
+Content-Language: en-US
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: christian.koenig@amd.com, matthew.auld@intel.com,
+ jani.nikula@linux.intel.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, alexander.deucher@amd.com
+References: <20250901185604.2222-1-Arunpravin.PaneerSelvam@amd.com>
+ <20250901194151.GJ4067720@noisy.programming.kicks-ass.net>
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20250901194151.GJ4067720@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN4PR01CA0103.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:2ac::11) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CB:EE_|MW4PR12MB7167:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21a97d3f-7df7-43f3-f348-08dde9d2473a
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|CY8PR12MB7540:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c88d03f-36e6-46ea-ae05-08dde9e75bf6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RDZuYzdvL0YzU1RNR09zbXpWR1E2amEwbllLbU55L1VtR3pFaHBIYWM1TWtH?=
- =?utf-8?B?YVljWHFYNEZDekJjTE1LeGd0NGkxcE5WdTR5YStiTUErL3dZbUtiNFFkYXFL?=
- =?utf-8?B?WGJRK1Q3MHF4NFVZdk1EOHpDU2M0cmNJSW1pZWJnbkpVSHlRbFg5UDMvU0NZ?=
- =?utf-8?B?Z3FHdzh4V0R5d0hPMXdWR25pRXk1b1NpZm5rNEkremZmY2t2OExpZEpSR0FX?=
- =?utf-8?B?OXJSc0dzdVZuMWY1ZEdmZTRZR1lmbWlmVktnalhTQ0c5VDV6dnNNMXp0V1Bn?=
- =?utf-8?B?TmJjU2RwUlVEelplc3JyR0lsaEd0WE9vR0R3NjR6a3kraTBkR1BPUmV6T210?=
- =?utf-8?B?MnJTU0lpNVhta2hyUkYvSWlZY1Q0YlM3OGpRa0tpanNWcjBmSUpGMTh2c2w3?=
- =?utf-8?B?VFRUdVJTT2g2VjFoZUhtU0RHdlFFYmJ5UndIblpnQUt6RGJjTVNVSTk2VG5v?=
- =?utf-8?B?Zmd6Z0ptaklhdVpuU2JKVnErT0dEQmE3dkFBN2JHN3ZFUUdJYjM1SDhRaEVz?=
- =?utf-8?B?b25SYk00VFhicFdTd3VOR3kxaGZISmY2MHY5Wng1YlN5c0ZJc0FWeURPSjN1?=
- =?utf-8?B?TnBKVk1OM3J2ZFVZTGxvTWZxaXJDL0FISVFSTENpK2kvRS9jN2JQdFdSS2lR?=
- =?utf-8?B?bUppemhySDJ3dDJmM2VCVEp5TFhJYU9iKzZrMnNtMzUxQ1ZmY3Y1bEpCVnhE?=
- =?utf-8?B?TWc0ekplaG1PRDJmeW1OMXRrRlA0Q3RXekQwRnhCTGlVa3hOMUlxYzRDUFNV?=
- =?utf-8?B?WVlEZlFTR3A0bWQyTTlKYXZNbUhoK1czcEN2MEo1ZWdqc05NUnRSc1VwcmM0?=
- =?utf-8?B?QWRvWUMxTnJJeXpuV25ZMDRHaEE4UjZ5S2p5cnJwOGl3eUd4ZU5HVDUvYk5D?=
- =?utf-8?B?Y0Q1RjlIa3hNTUk5RGNJMTU5ZGlGMkowcHBOV3BTZHRTWmVVQWlvV24yeFZh?=
- =?utf-8?B?SEdQVmRzbVJyOUpUMG5UNHFDQ0JrMktNaFkxV1hRRWJpSWEzNk1ZTFZpZVJG?=
- =?utf-8?B?aWJ3U2VSYWt4bDJSNmpjWlFaZkVadk5Md21XWmxEUEhpK1pmS0xuVmZuUVpp?=
- =?utf-8?B?UUFEK2xkQTcrSFJDWGU4TzJZbGlSZG51SkkzVnMxc1lXaVBzbHNuZCs3Vzg4?=
- =?utf-8?B?Zyt2clpUdXQzOEpmQ0M3YmRsQjhWa2FSa2ErWXgxak1lNUJRYkpRWDVqbUN0?=
- =?utf-8?B?MTFXdnlVY3BsQkxrY1FxVjRnNGM0ejJ6bXFkdlZEdEhFaEo1MDJ5VThzYXBE?=
- =?utf-8?B?V0t5c01JUnRCamc1dHNnRDN5STFENFdCWHp1NkRUdW1YdEptTmpDOGpzY0F5?=
- =?utf-8?B?YjIvSjJ0UXNYc2ZtQ2VsaS8rUmVUaGxzK0ZSWVh2Q1JhbW4rTlpOakVzczJw?=
- =?utf-8?B?SnhCNnpFaWNzUWRQSHZZb1c1OGc5WFNQUnFjV2JYMkZOT2J2YzNrTmZLNGZW?=
- =?utf-8?B?NWtLZlRMTytBNTk0QVlLVEtIeUlzU3daU3hVYWI5RjgxcnoybGdIRGR2aEw0?=
- =?utf-8?B?WSt1bVNZNUpJQXNzUlVsdGxwTVhhM200VS9PeXV3OFJFK2ZaZnh5SXFqcmtY?=
- =?utf-8?B?cW84NlV6YmZxc050RVNXWkVJK2tJOVRoelFlWWxTQmpkM3dvc2ZJUVNSekVF?=
- =?utf-8?B?MHVKQmV3alpUUzR0a2xLQ0E1eU9IczR0eDEzdTlNK2JOd2hGMWdOL3ZYcjFq?=
- =?utf-8?B?Z245SFBVRUx1ejNDZm5hNnk1MlNkemw2Ui9VazlGbkVaemxCT1loaWNLZis2?=
- =?utf-8?B?RXNjWThvTEtUYU8xRTNSYmUzQlgvdWttcEhaSTFOVWIydnRIdFJjNjNNWWdR?=
- =?utf-8?B?VEQ0OXdlTmpiVUxBMkV0ZlFXMEE4WS83VnBGeVlxUS9ZWTJVQzErTmlDUjFW?=
- =?utf-8?B?RjVCdXhjSms2a1kzVHVPR0h0Y0dBQ0xpMU9vbExsR0VjUmlXQmM3WllSc29D?=
- =?utf-8?B?YXQ5T0dKMFd1ajIzbmo2eGR3bzcrYTBFMEE3emFVc29zQVBubUNHVHltL1dO?=
- =?utf-8?B?U01XSUxvQUVzZGc0VTdJSVAyemFCTDdZZ05ldGxKZ1pLTTJWK0ZxK3hJcmxa?=
- =?utf-8?Q?a5vftW?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?azFWdDdwdTlCMldiOE5KcjFkalprc2t5UVZwK0IrSGpWeHBkaUZVa1QzZmhl?=
+ =?utf-8?B?bStPenNSNFlSU3pMSFgzMnRrZ0tYWkx2ekNVV0g5N0pVU1I4RkpFaGVvWGc2?=
+ =?utf-8?B?SHhweXpLRG1sOVhQYitOcDlqb250dUwxbHRJMDF6RzJUTVRhMmdDNzNEL3B5?=
+ =?utf-8?B?UUxnT2lBdCt3ZnZGRDhsNEhVQWRJZXdXMG5FeUQxeHh0cjRiSmg5TDJZZk4v?=
+ =?utf-8?B?TWY0WWZUWUludDBDMW5mK0xsZGNiQkpvbHQzQXRsWXVJYUl6NEVjdmVaM2Z2?=
+ =?utf-8?B?V2g0T1ZTNTNyNmdsSnZUb3B3N0N0VXRNUm1DdHlnZk5kcDlCMEdLb1pKdUFy?=
+ =?utf-8?B?NWM4a1diRWhVSjN5SGVDOWk1VXFDc21ERW9DKzhkRDhwNFJSU0cwZlFUcXhk?=
+ =?utf-8?B?Qi80bXM2d3I4SHZuZjY2MjdpMm1odjFuS2lxdWpIeWNJSVhlb3JYcjZhNUhk?=
+ =?utf-8?B?MXFQbUNQYmtuTDB2aDJmUjFBRE9kMk5SbHo5OXdWODgrcHE1SHQ1bDhxUml6?=
+ =?utf-8?B?TDJSMVhML3VHQjIyUFAxcE5mZHA1RWNEaWJETEZ3NXNuaERFSFdnM0FnYXNW?=
+ =?utf-8?B?dGtHZU55WEtlMThTZmd1NlVTSXJyWXU0WDg0RU5CQnlHSm5wVHNSNkNKUEtn?=
+ =?utf-8?B?ajRkaU95ZVljQnRPT0pFaWRGaGlxeHBSd0FUYkZvazlTQ0V1Zk4rQXdPM2Za?=
+ =?utf-8?B?elNEbjZ4cStHNEtFSzU1TmVWbWpmdTgxK2dUTTlaSS93N3ppRFd2YXJkSkZx?=
+ =?utf-8?B?Y2k2TERxdlVkUEEyQWhmdEpBbDR0NllIdEkvdlZUMmJuV3puR2UvSWRVVTNE?=
+ =?utf-8?B?ZWMycjJ1TGx2MVduaUZHZGNzb2JzT2kwMzVSaC9mdUtFMzNaT0JBVmxQN1Fp?=
+ =?utf-8?B?TnZWU1BpbGZUckphcVFuVHlROHdkWFJ1KzdJeGw0SnVtdDJnSXVHS3crbkRC?=
+ =?utf-8?B?cmMzTFgyNllGdkZNTk5yWS9ZRzh2MTF0a0ZvaWFIcEFpY3Yxd1BXY1RSbllH?=
+ =?utf-8?B?WnFHa2RWVmVYMjdYMmNsbTBnSFl6V0FtcWd4Z1hEZmVSRzRQc09CMXFEUEpC?=
+ =?utf-8?B?b1VwZkx1ZzNWanFqOW42dkFaL3MrQTcvNWE4alNhNnBOZ2M4UnlxUWprQnYr?=
+ =?utf-8?B?TlVJUlo5VVRvTXI2V0NCVlVrRWVpNFZuUnNKUHY5MElKU3hIWVdLTSt0TkNu?=
+ =?utf-8?B?MlRkbEZYRDd5YlhCZFBBRmwxM3dPbGtWQTZWM0RkUmVMQmVJZ1E1U1JyUThi?=
+ =?utf-8?B?VjJqZS9xLzlBM3lrVHVBSy9WQjdpTk5sbysrekFXVXlIS28ra09HZlRLZ2U2?=
+ =?utf-8?B?dnBNRWxNcFhGV2J3eWpMOFllZ0l6YTZwQ2dKRDZCTks4ZWFYTEdUbE5kVjJC?=
+ =?utf-8?B?YnVveE9FMUZZMnBXY05LL0xJODV1VjBqRTJORWR1eDh2WXJEd0M4dkhxa3J1?=
+ =?utf-8?B?SEVkMUtQSVQyajVKZWFmdTQrWkhzSHI0Zkhsd1NkdStwSUxyV3JIeC83Rm43?=
+ =?utf-8?B?QzlEbVlyU1pLQnlzdlVpNTZDRG1vMGorTW1sZnh5aHp0VGl5QytPelFEYjlK?=
+ =?utf-8?B?QWxYM1JIUkcyQUFjV1lkYitPSU90c1h4L1lBM3Z3b2p0VldCUytWUWFqMGNj?=
+ =?utf-8?B?SlFxZFlRZFo3TFordUhMV2F5d2xjNjZHVmFDa2xFUWtWZllrU011WnN0VUpW?=
+ =?utf-8?B?K3B3WTMrQzJ5UldnaFNHOFVOeFhGQXdTUlZNUjB6clBuYnpHMWhLWFdWOW02?=
+ =?utf-8?B?WldEaU1JQjI0NmhlMjV0aEhxakZXNEtKc3BNUWpLZ24wblFDbXYrNkthcWdE?=
+ =?utf-8?B?RWs5RFpFWW1Zb1Q3a0RhVWpHMkdiYzRCVkhwUWY5SENGM3FMKzF1MnhwajVY?=
+ =?utf-8?B?dXBUc1g2SC9VekJTeGRKWkxwRC8rbUtQUUpTZEZRQVhwcmJ0NFhmL001SnJh?=
+ =?utf-8?Q?AIxfufvGvvQ=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGpOWWZMYUUrTkxQL3Z5RFVrMEluODVsUk1ocCtSYnNOa05reVpkWEtvZ1hs?=
+ =?utf-8?B?alJQQlBVcW11aXBPZURpY3BjQlZzbmRsN0VFWHAwRVQyWFBTWDNPZWR2M0JZ?=
+ =?utf-8?B?dXpXTE8rUzJ5cVFZdWk0OGsvd0MvYXY3cHFKemYvOW1GUlVFMHhUQkdiTEZI?=
+ =?utf-8?B?WjF0cDBvaUtvb3FIeERkV2dpKzV1bEVNdjFPbEdRbkJtQmhYbmN0cGZpQmQy?=
+ =?utf-8?B?VVpLNURBVGxlejVpRXRPdGJORXFmSENvQWFuTENZaWdqd0ZpQVhXOGZXVFNG?=
+ =?utf-8?B?VnJoekpoZUlhMVpuaFF4c25pNmdtaXl2b2x0a0VVWGlieCtjaHdjRkVoZjJq?=
+ =?utf-8?B?TVlxd2h6WjY5TUU4aWx6aExmTFJyendmeGZZdXU2bTc3Y0svaUxTTnNWQmpE?=
+ =?utf-8?B?RDMrb0RIYVFiNVhSN0tEZE4vVkxjbXRTMEdaaEQva1ZWa1p6UERTdVowYlF6?=
+ =?utf-8?B?Wjd3c0lUOWlyNTlkVHRDKzhBSDJQWTR1a1hwZnhyemdMQ2hNNW1XSWYvZnFx?=
+ =?utf-8?B?WHdHSm9oNlBjcUZ2VDJDKzExVzBoRHZpSlpvbTZCU1U0b1lKMDYxOWx1YWdI?=
+ =?utf-8?B?aWVaV2JDdEthWGdhc2dRd3ZqMDVxRnBNdE13SDRwTW1hblhVMlYxUzZSYThz?=
+ =?utf-8?B?U09STFY2MVZaQWp3N0xraUU0ZlVSTUx1NVUwUGlNdENIUU9PQ3gxODhtRzJh?=
+ =?utf-8?B?S1JMeWhzUWw1N1dyZWdIM2EvaHZ0Q2swSlpmNGhhUzNLdG0xY2lMMmhTejI0?=
+ =?utf-8?B?MFBVRUpjTXpOSjFjM2J6d3dDaDc2aHFIOVZZZlNUWTJOck44Wktzc1BXOEZD?=
+ =?utf-8?B?Z01kQXhLSW00UHhDaHpIeURSbkFLV1N4VGVKQVhPRVIwNFZuaksra3RBSzMw?=
+ =?utf-8?B?TFJ0bXVvSFlGWEorVlJmM0lMNGMvdUt1K2tLRExXN1ZFOHpXK2d2NExZV3Y4?=
+ =?utf-8?B?ZjVmQnpaWWNyU0I2VVc4UGxyV21BVVhLWk5UZ3o4bkRrYnp6NWVHSWNJbTkw?=
+ =?utf-8?B?S25KMGRWdmVnMjBZM21YQVF5RElNNGgzbENWYXZqUU45OVJxb0VteDlMc0pV?=
+ =?utf-8?B?TklTZ1RibUZaQm1vS2FhRlQ1VFBZWWU0K3kxQldXOHhzdEdtMEFYY1E4ZWZo?=
+ =?utf-8?B?YU5CZHBZUldpTkZYVm16OThZUWU5NzFJZStXbjdPOWRZUkIwYjZIVHYrNzRz?=
+ =?utf-8?B?UTJ5aDNKNnZlOG16eWh0SUJnU0s3aUwxVmk1alBab0hXRXNBcUhaZ1pYQXZP?=
+ =?utf-8?B?bWJOQldkS2NaeEg1OTFZVU1LZ0VET2ZLWFptdSt0UzA1U2tRdUd4WDhPN1pB?=
+ =?utf-8?B?Q0tLdlhmUWVFbEVQcmxTTVNEZitBdU9xOVcza2c4SytlYVdtZGt1d3NOcUkw?=
+ =?utf-8?B?RnRYSlZ2TWcvUlRvSFQ3NUgvS0N0a3FBQjgrTkE4cDJHZ2JNVHNLazg4N3Q0?=
+ =?utf-8?B?UURlenVRMzdXWFdQWGpBT3N5K0txVVp0SjVlZnptR0dJRHJ3OHhZUXBvYlhm?=
+ =?utf-8?B?K2JlR1Ard1VmL3UzZmE4NmgxdTlET2FBaUVNVko4N2Y2V2dVOUwvV1g1L0U5?=
+ =?utf-8?B?K1N5Nk1FcmxrSEhrYWdRTnNsdjdSblVnTkd4akttREtqQlZ0cnIwak1aVGls?=
+ =?utf-8?B?dHBkQUNaTk42cDR3Q2JJS2Q3dDQyUld1ZlZabmhQQW12cDk1MzhiTFA4Njh2?=
+ =?utf-8?B?UUVuS1ZvWEQ4N3RNY0lQcW9ObGlnWE5STXRYSjJJTHppOERvZy9TQ1ZFTlJ4?=
+ =?utf-8?B?d0dSYTRJaU1tKzhaTHZjZ0hKWVMvSGtrSUFOT05meHVLMzdRNThqNkplSDBj?=
+ =?utf-8?B?bUNUYUZnMERnRHBEWmRkU1hpdWVCM01ZOGw1OTlzYkw4QTV2Wk1iS3d4by9T?=
+ =?utf-8?B?dCtROG80akZ2TmcwWEtOaHJENFFiT3VJTjVoL3IrV1lJdVlLQXArYk9HRmZG?=
+ =?utf-8?B?c2xJTmpIZ0FQQjhRYVFlRkJ0T3Axc21qU3d0dFV6eTdLL1M0dWxVbXlDUEgw?=
+ =?utf-8?B?SlFhNTkvYlhvcGtGOGIwelpTY2hrWHBQRThaS2xhMFczbTJ0Z3NsQ3pVRXlu?=
+ =?utf-8?B?N2xIQUJjM0Q0RnFmdHRpRXg5ZU1QWjQ4Z1JTOG0zSmdwYnlhak4rTUdkVkJV?=
+ =?utf-8?Q?PFWUzxB+NRnUmA/fhLAFCjONM?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 03:39:10.3245 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21a97d3f-7df7-43f3-f348-08dde9d2473a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c88d03f-36e6-46ea-ae05-08dde9e75bf6
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 06:10:04.9955 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CB.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7167
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VxPvxNNUxGRkZBSC/Jit53w7MGRWd8d+cns09KZ4q4QJoU0dCutmxgo4PGbVe7FooMl7ML5rX/BK4k/cds0WJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7540
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,115 +166,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable userspace to obtain a handle to the kernel-owned MMIO_REMAP
-singleton when AMDGPU_GEM_DOMAIN_MMIO_REMAP is requested via
-amdgpu_gem_create_ioctl().
 
-Validate the fixed 4K constraint: if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE
-return -EINVAL; when provided, size and alignment must equal
-AMDGPU_GPU_PAGE_SIZE.
+On 9/2/2025 1:11 AM, Peter Zijlstra wrote:
+> On Tue, Sep 02, 2025 at 12:26:04AM +0530, Arunpravin Paneer Selvam wrote:
+>> Replace the freelist (O(n)) used for free block management with a
+>> red-black tree, providing more efficient O(log n) search, insert,
+>> and delete operations. This improves scalability and performance
+>> when managing large numbers of free blocks per order (e.g., hundreds
+>> or thousands).
+> Did you consider the interval tree?
 
-If the singleton BO is not available, return -ENODEV.
+In this allocator, free blocks are tracked individually by order and not 
+as arbitrary ranges. The
 
-v2:
-- Drop READ_ONCE() on adev->mmio_remap.bo (use a plain pointer load).
-  The pointer is set `bo = adev->mmio_remap.bo;` ie., The pointer is
-  written once during init and not changed while IOCTLs run. There’s no
-  concurrent writer in this execution path, so a normal read is safe.
-  (Alex)
+operations are keyed insert/delete/lookup, for which an rbtree is 
+sufficient and simper, AFAIK.
 
-v3:
-- Drop early -EINVAL for AMDGPU_GEM_DOMAIN_MMIO_REMAP; let the
-  MMIO_REMAP fast-path (For MMIO_REMAP, if asked, we don’t allocate a
-  new BO — we just check size/alignment, grab the one pre-made BO,
-  return a handle) handle it and return the singleton handle.
+>
+>
+>> @@ -41,23 +43,53 @@ static void drm_block_free(struct drm_buddy *mm,
+>>   	kmem_cache_free(slab_blocks, block);
+>>   }
+>>   
+>> -static void list_insert_sorted(struct drm_buddy *mm,
+>> -			       struct drm_buddy_block *block)
+>> +static void rbtree_insert(struct drm_buddy *mm,
+>> +			  struct drm_buddy_block *block)
+>>   {
+>> +	struct rb_root *root = &mm->free_tree[drm_buddy_block_order(block)];
+>> +	struct rb_node **link = &root->rb_node;
+>> +	struct rb_node *parent = NULL;
+>>   	struct drm_buddy_block *node;
+>> -	struct list_head *head;
+>> +	u64 offset;
+>> +
+>> +	offset = drm_buddy_block_offset(block);
+>>   
+>> -	head = &mm->free_list[drm_buddy_block_order(block)];
+>> -	if (list_empty(head)) {
+>> -		list_add(&block->link, head);
+>> -		return;
+>> +	while (*link) {
+>> +		parent = *link;
+>> +		node = rb_entry(parent, struct drm_buddy_block, rb);
+>> +
+>> +		if (offset < drm_buddy_block_offset(node))
+>> +			link = &parent->rb_left;
+>> +		else
+>> +			link = &parent->rb_right;
+>>   	}
+>>   
+>> -	list_for_each_entry(node, head, link)
+>> -		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
+>> -			break;
+>> +	rb_link_node(&block->rb, parent, link);
+>> +	rb_insert_color(&block->rb, root);
+>> +}
+> static inline bool __drm_bb_less(const struct drm_buddy_block *a,
+> 				 const struct drm_buddy_block *b)
+> {
+> 	return drm_buddy_block_offset(a) < drm_buddy_block_offset(b);
+> }
+>
+> #define __node_2_drm_bb(node) rb_entry((node), struct drm_buddy_block, rb)
+>
+> static inline bool rb_drm_bb_less(struct rb_node *a, const struct rb_node *b)
+> {
+> 	return __drm_bb_less(__node_2_drm_bb(a), __node_2_drm_bb(b));
+> }
+>
+> static void rbtree_insert(struct drm_buddy *mm, struct drm_buddy_block *block)
+> {
+> 	rb_add(block->rb, &mm->free_tree[drm_buddy_block_order(block)], rb_drm_bb_less);
+> }
+>
+>> +
+>> +static void rbtree_remove(struct drm_buddy *mm,
+>> +			  struct drm_buddy_block *block)
+>> +{
+>> +	struct rb_root *root;
+>> +
+>> +	root = &mm->free_tree[drm_buddy_block_order(block)];
+>> +	rb_erase(&block->rb, root);
+>>   
+>> -	__list_add(&block->link, node->link.prev, &node->link);
+>> +	RB_CLEAR_NODE(&block->rb);
+>> +}
+>> +
+>> +static inline struct drm_buddy_block *
+>> +rbtree_last_entry(struct drm_buddy *mm, unsigned int order)
+>> +{
+>> +	struct rb_node *node = rb_last(&mm->free_tree[order]);
+>> +
+>> +	return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
+>> +}
+> rb_add_cached() caches the leftmost entry, if you invert the key, the
+> last is first.
 
-v4:
- - Return -EOPNOTSUPP if the singleton isn’t available; drop PAGE_SIZE
-   check from IOCTL; inline the MMIO_REMAP fast-path and keep
-   size/alignment validation there. (Christian)
+With inversion, the in-tree ordering changes from natural ascending 
+offsets to descending,
 
-Cc: Christian König <christian.koenig@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 56 ++++++++++++++++++++++++-
- 1 file changed, 54 insertions(+), 2 deletions(-)
+which can break assumptions in existing buddy allocator code that 
+expects ascending order.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index d3c369742124..8781b2e16f54 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -424,6 +424,45 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
- 	.vm_ops = &amdgpu_gem_vm_ops,
- };
- 
-+/**
-+ * amdgpu_gem_get_mmio_remap_handle - Create a GEM handle for the MMIO_REMAP BO
-+ * @file_priv: DRM file of the caller
-+ * @adev: amdgpu device
-+ * @req_size: size requested by userspace (0 means “unspecified”)
-+ * @req_align: alignment requested by userspace (0 means “unspecified”)
-+ * @handle: returned userspace GEM handle (out)
-+ *
-+ * Creates a GEM handle to the kernel-owned singleton MMIO_REMAP buffer object
-+ * (adev->rmmio_remap.bo). The BO is expected to be allocated during TTM init
-+ * when the hardware exposes a remap base and PAGE_SIZE <= 4K.
-+ *
-+ * drm_gem_handle_create() acquires the handle reference, which will be dropped
-+ * by GEM_CLOSE in userspace.
-+ *
-+ * Returns 0 on success,
-+ *         -EOPNOTSUPP if the singleton BO is not available on this system,
-+ *         or a negative errno from drm_gem_handle_create() / validation.
-+ */
-+static int amdgpu_gem_get_mmio_remap_handle(struct drm_file *file_priv,
-+					    struct amdgpu_device *adev,
-+					    u64 req_size, u64 req_align,
-+					    u32 *handle)
-+{
-+	struct amdgpu_bo *bo = adev->rmmio_remap.bo;
-+
-+	if (!bo)
-+		return -EOPNOTSUPP;
-+
-+	/* Enforce fixed 4K constraints when explicitly provided by userspace */
-+	if (req_size && req_size != AMDGPU_GPU_PAGE_SIZE)
-+		return -EINVAL;
-+	if (req_align && req_align != AMDGPU_GPU_PAGE_SIZE)
-+		return -EINVAL;
-+
-+	/* drm_gem_handle_create() gets the ref; GEM_CLOSE will drop it */
-+	return drm_gem_handle_create(file_priv, &bo->tbo.base, handle);
-+}
-+
- /*
-  * GEM ioctls.
-  */
-@@ -465,8 +504,21 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	/* always clear VRAM */
- 	flags |= AMDGPU_GEM_CREATE_VRAM_CLEARED;
- 
--	if (args->in.domains & AMDGPU_GEM_DOMAIN_MMIO_REMAP)
--		return -EINVAL;
-+	/*
-+	 * === MMIO remap (HDP flush) fast-path ===
-+	 * If userspace asks for the MMIO_REMAP domain, don't allocate a new BO.
-+	 * Return a handle to the singleton BO created at ttm init.
-+	 */
-+	if (args->in.domains & AMDGPU_GEM_DOMAIN_MMIO_REMAP) {
-+		r = amdgpu_gem_get_mmio_remap_handle(filp, adev,
-+						     size, args->in.alignment,
-+						     &handle);
-+		if (r)
-+			return r;
-+
-+		args->out.handle = handle;
-+		return 0;
-+	}
- 
- 	/* create a gem object to contain this object in */
- 	if (args->in.domains & (AMDGPU_GEM_DOMAIN_GDS |
--- 
-2.34.1
+>
+>> diff --git a/include/linux/rbtree.h b/include/linux/rbtree.h
+>> index 8d2ba3749866..17190bb4837c 100644
+>> --- a/include/linux/rbtree.h
+>> +++ b/include/linux/rbtree.h
+>> @@ -79,6 +79,62 @@ static inline void rb_link_node_rcu(struct rb_node *node, struct rb_node *parent
+>>   	   ____ptr ? rb_entry(____ptr, type, member) : NULL; \
+>>   	})
+>>   
+>> +/**
+>> + * rbtree_for_each_entry - iterate in-order over rb_root of given type
+>> + *
+>> + * @pos:	the 'type *' to use as a loop cursor.
+>> + * @root:	'rb_root *' of the rbtree.
+>> + * @member:	the name of the rb_node field within 'type'.
+>> + */
+>> +#define rbtree_for_each_entry(pos, root, member) \
+>> +	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member); \
+>> +	     (pos); \
+>> +	     (pos) = rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member))
+>> +
+>> +/**
+>> + * rbtree_reverse_for_each_entry - iterate in reverse in-order over rb_root
+>> + * of given type
+>> + *
+>> + * @pos:	the 'type *' to use as a loop cursor.
+>> + * @root:	'rb_root *' of the rbtree.
+>> + * @member:	the name of the rb_node field within 'type'.
+>> + */
+>> +#define rbtree_reverse_for_each_entry(pos, root, member) \
+>> +	for ((pos) = rb_entry_safe(rb_last(root), typeof(*(pos)), member); \
+>> +	     (pos); \
+>> +	     (pos) = rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member))
+>> +
+>> +/**
+>> + * rbtree_for_each_entry_safe - iterate in-order over rb_root safe against removal
+>> + *
+>> + * @pos:	the 'type *' to use as a loop cursor
+>> + * @n:		another 'type *' to use as temporary storage
+>> + * @root:	'rb_root *' of the rbtree
+>> + * @member:	the name of the rb_node field within 'type'
+>> + */
+>> +#define rbtree_for_each_entry_safe(pos, n, root, member) \
+>> +	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member), \
+>> +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL; \
+>> +	     (pos); \
+>> +	     (pos) = (n), \
+>> +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL)
+>> +
+>> +/**
+>> + * rbtree_reverse_for_each_entry_safe - iterate in reverse in-order over rb_root
+>> + * safe against removal
+>> + *
+>> + * @pos:	the struct type * to use as a loop cursor.
+>> + * @n:		another struct type * to use as temporary storage.
+>> + * @root:	pointer to struct rb_root to iterate.
+>> + * @member:	name of the rb_node field within the struct.
+>> + */
+>> +#define rbtree_reverse_for_each_entry_safe(pos, n, root, member) \
+>> +	for ((pos) = rb_entry_safe(rb_last(root), typeof(*(pos)), member), \
+>> +	     (n) = (pos) ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member) : NULL; \
+>> +	     (pos); \
+>> +	     (pos) = (n), \
+>> +	     (n) = (pos) ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member) : NULL)
+>> +
+> Not really a fan of these. That's typically a sign you're doing it
+> wrong. Full tree iteration is actually slower than linked list.
+
+I understand your concern about full-tree iteration being slower than a 
+list walk. In our current use cases, though,
+
+the cost is not on the hot path and performance is comparable or even 
+better to list traversal. We occasionally need
+
+to walk the full set of blocks to perform specific operations, and these 
+macros make that code simpler and
+
+less error-prone. They aren't meant to replace targeted lookups or 
+bounded walks, just to cover where a full
+
+traversal is necessary.
+
+Thanks,
+
+Arun.
 
