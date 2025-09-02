@@ -4,78 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B6FCCA1005
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 07:42:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7103CA1005
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 07:53:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5D6B10E1AC;
-	Tue,  2 Sep 2025 07:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5935B10E38D;
+	Tue,  2 Sep 2025 07:53:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dde5L3V+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ct0wm8ur";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD7B710E1AC
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 07:42:11 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-45b82a21e6bso22585595e9.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Sep 2025 00:42:11 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6098F10E38D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Sep 2025 07:53:00 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-3ceb9c3d98cso2190784f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Sep 2025 00:53:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756798930; x=1757403730; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756799579; x=1757404379; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
  :date:message-id:reply-to;
- bh=RyLDFfGD4A6O9Vlm1/452xu+KHg4kfg1ScKpxAy3HjI=;
- b=Dde5L3V+MneLXEQaquRx9DZjC4fDg1sDiXb9RwdxSTc+bpsgSRlMaKeMU6Pwgfzvk+
- 2uBrzdQSAJEcR7y5b2Z+pdsawfK7asN8Py1XVQOG5MhB2TOVmQNlpapn4/vlcTdlolD6
- paksWenEEIORT0Q4rxI26kZ3qe2N6Gmua+vaHIuVy/DNfSR5aGxt/YOI3LNhwZiLanT5
- R//qqQxCsrvWVnfjWnGrUlz3nXvVBor+5oIuOdTvu0heYNGLlxnwRiXF3s+qV7iX6B2S
- X8RByurHac1R80MV+BmotWeOxnjcpc/ocvwYk38wsybfPK3+TqAk9BytgGTUWAePHNio
- IUJA==
+ bh=cyt1DdyHr3oTtevDVluqppot2qFn6kbtlZnK9krNR8o=;
+ b=ct0wm8urucV+Rp9KdIqUX3AvxUEP5NQg0ruleQaf7/TJgjZY7Lt6AcVqRltSUGpOdj
+ 1d4wYHxTDI4HPGxEJpVBd2i8UTWfKb287lyrfoGi1WsnvDyOKAx7qOKthTaDfgc8yHWy
+ lgrATPEzO2xdCwRfb+hjXt9DQfumgtnjI3AYpoR0N8eCxsgjSdnKVb8DGN6+zOEM1HHp
+ 8W3jFAUPvPxGiQLWx48Fow1FFIEeIHiEwSAoFmLzYwebTmIZ+oyZ77gTWLVJ6idhsorM
+ 7X4yT3EPZXJlvxnwFlBrmmWji/M1AMjbWObwTSneWKBzejo5ohRMHu4zjllRDk5imvAb
+ jTlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756798930; x=1757403730;
+ d=1e100.net; s=20230601; t=1756799579; x=1757404379;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=RyLDFfGD4A6O9Vlm1/452xu+KHg4kfg1ScKpxAy3HjI=;
- b=fxURpNLin0t09Z3Zg5xFl1cuBtrKRTShKJKudvufUr7Ef2cGn7p0pIVCwe7m4uItoW
- VCiDGhr9y3pBOE7WXo2nFy92oji9CgJBxSwTgRMrjxPjVNyvG6AR0RoYh3PzIq2SI5kZ
- 6URpBIXwhEXzK5H/aoR7drkaAFeU2qUu08cLzhoc6jcl3L/I+Wkf45OsbrnllZYFC5V8
- fhRJ4yWToBjtabKNuQyam3iTIP8ycuorquQJ1LN4XSdX0L1kOh6dhGAlt8YxHSw017Gl
- uddBVRRJWKUR3Ug/PcnETg1xb5Q4q8/vSKdsYcWCB+GzSEZA6ZcVmjG3IvhmT9NKibOl
- 7FNg==
+ bh=cyt1DdyHr3oTtevDVluqppot2qFn6kbtlZnK9krNR8o=;
+ b=s/Gb4eDu4D8mDAG9npmAlsUHTdjMMkComi7MLONwJgi43OUL5hPAQSuIEEb3A4qcpW
+ xgEOk7RN4u1kZqeQYyXYJMdMYt88Jqv6fYvOwTcNwbiprLl8o8NBGFBnvqFwOgBP4NtP
+ 7pHphAV+eyCT/6WVD0C7JM6acegGQL1/unA60yOMFfDRVctjZwvqDimKEBiv5JbCLX7O
+ nzolUlbRvwgF08BUDDL9dHW7uodkM450aL8BdZss5l4eLgFDu9TsVl65nYi+QbJdqFg1
+ 4t9FoD7yO1igTEHpR88ubWQQMrJBVEJg+uglbf0OckthNCXpxDdjAFddKPs+6AMwcoPe
+ pA9g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXKlYlt+wOmJ1uMvwcFS9wWIhuOQmn+VpbSVHrq2dyWrtzoQvzkxfsTcLGZiPsHsdslno811WV8@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwKq6DXtr3CuXzc32OwMDefyQMVo4XcEQAcTu4CS/AgUBDAHkTG
- jSYwF/+v+Jl78ZgTEFm3mNf2EcJRlXKq7l6ds8PpE1FOJ7D1nJrxIPYm
-X-Gm-Gg: ASbGncvgrWWk+t7ElhZjgbq+Ht2fmLPv+ijnjMQjnSTvd5ymIlPkX9PED3zOjF5e3si
- ibOiiaiy7Of1hABg32lTJO9GvUvYOFkZI7Apob9+rUwwMItYxWz91URtQN6QUTAtKQRUCycsB6Q
- NY6yxkHZDAGPloKgvWxiuGMKvLUt1UrGHAn1Iho+jvkBAqKqIFh0Iup90OlxpwfIqNlNTURm9u9
- l/nyv7M53jc75L26vEiCD0Z98jLmmUoguP4rljKGd3VkrJ3ut1IjiI1KYijl6p6mEKM71qIx5yV
- WI3nqFg3t0FyjpFYNyGYeONhdeklFIK5+AYx+Yo1KdDs1LezmNs0YS1lAAASg6FKuoeKk0hAuKS
- tbrpeOl3B6uRFKIEkogDetr+WBZWT7Ht9sXYGeuBcvjk9TmzHy2xIpMLIacVU4hvS2RIRK0OOTk
- A4KumOy1g7wzMDDEk6zu3e7cvdnm2WriQ2xAS45VpkVWUz702R41WO54UKxwvGWg==
-X-Google-Smtp-Source: AGHT+IFo8ks5UcUfqcwO54ykNs7V1RJrD+8j3ZKILXegnaX9JfBIhDINHGSIeLzNQOrP5SMjZfJ6Vw==
-X-Received: by 2002:a05:600c:3111:b0:45b:8c5e:5f8 with SMTP id
- 5b1f17b1804b1-45b8f43c876mr34740925e9.28.1756798930039; 
- Tue, 02 Sep 2025 00:42:10 -0700 (PDT)
+ AJvYcCWLquc3kXlah5kyvaP/t9G7VSDnGezqiH3EO65SrMqZeGNyDLJJU5Q+MwHw8U9OBsjzm0bzLl9O@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YznPz6ISpHmqeoSApJEo0mkWMMRCzP2QqPSfLSg/yzfGIN9nILe
+ 0PUkOJCsWr+dXbrEDNdbp5ZCEA6T5bKOVxi38Jw+J6U84ANYJYZnljASoWC5Hg==
+X-Gm-Gg: ASbGncvgASpfri24GJ0zhdo6epgC/MAzLfblz3vA9YRpBlCStMilNix3blj8IBfZ9TD
+ 86PrcvNGREYW79fKLK8bv5y03G8UyQ88MGSP5Jc01uNmw/zr9faOMlsT26gLKotCDBDe51w2XIC
+ wmD4BtRUPjXFMApI6dr0CfU85V0aD1EWyfsT+1oVj+bwvzo3D0WD1loNA4ITh9QohA3TuqNzI6k
+ FoAbx6OzYeQvw+WdSR8E2pCYTjnwyYomKT3zc+6OOgSC3C5/aZJDj1aCHSrMRJCY371hhqDYAUk
+ ExaODZAm6xA52kgCFj7v1hG1EX6+7XstC3ZcYMBMxmn8L9vg1cXGHiR5FCjPl1Jr9/GY+7vhl9Q
+ BEpWNKiADp8zqZ7uvRpzzldaGuzdVThLO0fib3lOgUl3N/FyTWbwub7ggG33SigSLqqDO3OdzRY
+ 7IRTpml90sdBKfA63uYKe2R141BWy/a+/jkpvE7c/CX+I47saKvC9Gs+0vC5JqFQ==
+X-Google-Smtp-Source: AGHT+IE+GlWWTEq6PWBfAAxnSKi84hcwYJq60hHjm0v9yVxN3HFPqxtvOSdYaTJJ0Fyw6/cKUikrMw==
+X-Received: by 2002:a05:6000:2311:b0:3d0:de1c:36da with SMTP id
+ ffacd0b85a97d-3d1def64d7amr8269822f8f.46.1756799578641; 
+ Tue, 02 Sep 2025 00:52:58 -0700 (PDT)
 Received: from ?IPv6:2001:4c4e:24c1:9400:5635:26cc:b04a:ca6d?
  (20014C4E24C19400563526CCB04ACA6D.dsl.pool.telekom.hu.
  [2001:4c4e:24c1:9400:5635:26cc:b04a:ca6d])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b7e68c83asm198356905e9.20.2025.09.02.00.42.09
+ ffacd0b85a97d-3cf276d5e5fsm18692190f8f.27.2025.09.02.00.52.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Sep 2025 00:42:09 -0700 (PDT)
-Message-ID: <6b780734f2e33ee4351b6c605f33e95a84a9b752.camel@gmail.com>
-Subject: Re: [PATCH 3/4] drm/amdgpu: Fill extra dwords with NOPs
+ Tue, 02 Sep 2025 00:52:58 -0700 (PDT)
+Message-ID: <2281608ed8fedfc58aee3449fff1f8df28e3e36a.camel@gmail.com>
+Subject: Re: [PATCH 4/4] drm/amdgpu: Set SDMA v3 copy_max_bytes to 0x3fff00
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
  amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com
-Date: Tue, 02 Sep 2025 09:42:08 +0200
-In-Reply-To: <64c1bcdb-8954-43a6-b0cd-90c75b29d3f4@amd.com>
+Date: Tue, 02 Sep 2025 09:52:57 +0200
+In-Reply-To: <7c10ac6d-93a8-41c9-900c-50261893d482@amd.com>
 References: <20250901100012.439155-1-timur.kristof@gmail.com>
- <20250901100012.439155-3-timur.kristof@gmail.com>
- <64c1bcdb-8954-43a6-b0cd-90c75b29d3f4@amd.com>
+ <20250901100012.439155-4-timur.kristof@gmail.com>
+ <7c10ac6d-93a8-41c9-900c-50261893d482@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
@@ -94,60 +94,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-09-02 at 08:39 +0200, Christian K=C3=B6nig wrote:
+On Tue, 2025-09-02 at 08:45 +0200, Christian K=C3=B6nig wrote:
 > On 01.09.25 12:00, Timur Krist=C3=B3f wrote:
-> > Technically not necessary, but clear the extra dwords too,
-> > so that the command processors don't read uninitialized memory.
+> > SDMA v3-v5 can copy almost 4 MiB in a single copy operation.
+> > Use the	same value as PAL and Mesa for copy_max_bytes.
+> >=20
+> > For reference, see oss2DmaCmdBuffer.cpp	in PAL:
+> > "Due to HW limitation, the maximum count may not be 2^n-1,
+> > can only be 2^n - 1 - start_addr[4:2]"
 >=20
-> That is most likely a really bad idea.
->=20
-> The extra DWs are filled with a specific pattern for a HW workaround.
+> Is that public available? If yes better reference AMDVLK here.
 
-I was unaware so it looked to me like the extra dwords just remain
-uninitialized.
+I only have access to public code, so that's all I can reference.
 
-Where in the code does that happen?
-And what is the issue that is being worked around?
+AMDVLK uses PAL so I assume the same would apply to it as well.
+The above comment is in oss2DmaCmdBuffer.cpp here:
+https://github.com/GPUOpen-Drivers/pal/blob/bcec463efe5260776d486a5e3da0c54=
+9bc0a75d2/src/core/hw/ossip/oss2/oss2DmaCmdBuffer.cpp#L308
 
-Also, while we are at it, how was it possible to initialize that
-without causing VM faults? Considering that the allocated BO was not
-sufficiently large to hold the extra dwords. (That is fixed by the
-first patch of this series.)
+
 
 >=20
-> Clearing them to NOPs makes no sense at all and potentially even
-> breaks the HW workaround.
+> Apart from that looks good to me.
 >=20
 > Regards,
 > Christian.
 >=20
 > >=20
-> > Fixes: c8c1a1d2ef04 ("drm/amdgpu: define and add extra dword for
-> > jpeg ring")
+> > See also sid.h in Mesa:
+> > "There is apparently an undocumented HW limitation that
+> > prevents the HW from copying the last 255 bytes of (1 << 22) - 1"
+> >=20
+> > Fixes: dfe5c2b76b2a ("drm/amdgpu: Correct bytes limit for SDMA 3.0
+> > copy and fill")
 > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > > ---
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 5 +++++
-> > =C2=A01 file changed, 5 insertions(+)
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 4 ++--
+> > =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
 > >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > index 7670f5d82b9e..6a55a85744a9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > @@ -474,6 +474,11 @@ static inline void
-> > amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
-> > =C2=A0	while (i <=3D ring->buf_mask)
-> > =C2=A0		ring->ring[i++] =3D ring->funcs->nop;
-> > =C2=A0
-> > +	/* Technically not necessary, but clear the extra dwords
-> > too,
-> > +	 * so that the command processors don't read uninitialized
-> > memory.
-> > +	 */
-> > +	for (i =3D 0; i < ring->funcs->extra_dw; i++)
-> > +		ring->ring[ring->ring_size / 4 + i] =3D ring->funcs-
-> > >nop;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> > index 1c076bd1cf73..9302cf0b5e4b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> > @@ -1659,11 +1659,11 @@ static void
+> > sdma_v3_0_emit_fill_buffer(struct amdgpu_ib *ib,
 > > =C2=A0}
 > > =C2=A0
-> > =C2=A0static inline void amdgpu_ring_write(struct amdgpu_ring *ring,
-> > uint32_t v)
+> > =C2=A0static const struct amdgpu_buffer_funcs sdma_v3_0_buffer_funcs =
+=3D {
+> > -	.copy_max_bytes =3D 0x3fffe0, /* not 0x3fffff due to HW
+> > limitation */
+> > +	.copy_max_bytes =3D 0x3fff00, /* not 0x3fffff due to HW
+> > limitation */
+> > =C2=A0	.copy_num_dw =3D 7,
+> > =C2=A0	.emit_copy_buffer =3D sdma_v3_0_emit_copy_buffer,
+> > =C2=A0
+> > -	.fill_max_bytes =3D 0x3fffe0, /* not 0x3fffff due to HW
+> > limitation */
+> > +	.fill_max_bytes =3D 0x3fff00, /* not 0x3fffff due to HW
+> > limitation */
+> > =C2=A0	.fill_num_dw =3D 5,
+> > =C2=A0	.emit_fill_buffer =3D sdma_v3_0_emit_fill_buffer,
+> > =C2=A0};
