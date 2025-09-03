@@ -4,45 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F84CA1007
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 03:35:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ACB2CA1007
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 04:41:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B49810E85F;
-	Wed,  3 Sep 2025 03:35:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B53A10E1EF;
+	Wed,  3 Sep 2025 04:41:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TlooqVyC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s/wbSSBA";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9963D10E85F
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Sep 2025 03:35:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E4DB10E0E3;
+ Wed,  3 Sep 2025 04:41:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 40EF444114;
- Wed,  3 Sep 2025 03:35:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB532C4CEF0;
- Wed,  3 Sep 2025 03:35:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2C7D0416DF;
+ Wed,  3 Sep 2025 04:41:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2AAC4CEF0;
+ Wed,  3 Sep 2025 04:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756870518;
- bh=cmlGEjUGTEq6ALjoMdFUamvKYhvI8KGzbkusPQoFNTk=;
+ s=k20201202; t=1756874516;
+ bh=Ce5ETH+F6WnWDEeaq7pLglfV4JdFcr3PKEJyxp/keno=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=TlooqVyCNK37g2YNqOOJlB1KmQy5DO/YxoSPIFIsF2dsRLvgMCvu/9D8OQr8qrOQn
- u15XcSiVzELowhUxyUqbfH9eQMc8PuWDENsXaifrLt01CU+9JRWznXaE6dNVgixMm7
- yVA4brjirQjqt+XgDenU7PrADvxQJfby8y8s2C5rARkmIdf5j4WlmiqoTfQi5qhidT
- 0ibV9Nc9LdY00//vabtvwtvjN6SFTGG8XEJdHnhKl023/KmMMo3HeYmwdzwpJsN0zi
- A0tGyZHoEBg8Kp9pHdSjnB6pDBLU97OrpA4ecqx3m9Gh91n/S8D7rHp9LM0Felgi9g
- f0/5UM4opC7GQ==
-Message-ID: <637bdb82-ca3b-4e11-8c59-d8fc75e6837e@kernel.org>
-Date: Tue, 2 Sep 2025 22:35:16 -0500
+ b=s/wbSSBARIKT8Fd9JqzskawfzifT7+BPOBAzwXDl6WBxhU410noLNvQWfHvv+Nb4Q
+ SbPcIb3hxSHQY5dHlRH7uTb7j/F/Gu7pEGr7MuO33HXsvNskDBMUab0jPLJFQsfQGn
+ DBDR9JuXyqBeBGip1IjfApmvbUcrJdSUfPe1zWbEw+SMhMPPGSNw74IL9FARn5fKmF
+ zjHgI792YdyiwMwWOpQd3S9Oo3Edup8Zqq77sQ1wl2zqgUT6OeYww9IfARtdlcDtB3
+ vOHV/VFLi6+2jqm//3XxZoeker+XP6Xe8Qrr8AEKkb368Q3fZA1sXUVv4Sn/GGGapn
+ XGwAwOPKYtzMA==
+Message-ID: <29e61472-5f41-4e76-9b5b-f3e106d6a629@kernel.org>
+Date: Tue, 2 Sep 2025 23:41:52 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] AMD HDMI/DP audio broken after suspend since commit
- 50e0bae34fa6
-To: =?UTF-8?Q?Przemys=C5=82aw_Kopa?= <prz.kopa@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <967d5380-1db1-4252-a3b5-cfa283cf960d@gmail.com>
+Subject: Re: [PATCH v6 00/11] Improvements to S5 power consumption
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ "open list:HIBERNATION (aka Software Suspend, aka swsusp)"
+ <linux-pm@vger.kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+ "open list:TRACING" <linux-trace-kernel@vger.kernel.org>,
+ AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ =?UTF-8?Q?Merthan_Karaka=C5=9F?= <m3rthn.k@gmail.com>,
+ Eric Naim <dnaim@cachyos.org>
+References: <20250818020101.3619237-1-superm1@kernel.org>
 Content-Language: en-US
 From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <967d5380-1db1-4252-a3b5-cfa283cf960d@gmail.com>
+In-Reply-To: <20250818020101.3619237-1-superm1@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -59,54 +76,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/31/2025 5:12 AM, Przemysław Kopa wrote:
-> Hello,
+On 8/17/2025 9:00 PM, Mario Limonciello (AMD) wrote:
+> A variety of issues both in function and in power consumption have been
+> raised as a result of devices not being put into a low power state when
+> the system is powered off.
 > 
-> I'm running Radeon RX 9060 XT and since upgrading to the kernel 6.15 I'm
-> facing an issue with audio via DisplayPort. After waking from S3 suspend
-> (sometimes, but not always) audio doesn't work - pavucontrol shows that
-> the output is disconnected and I don't get sound from my display. If I
-> manually reselect the Digital/HDMI output in pavucontrol after resume,
-> sound starts working again. Besides my main screen, GPU is also
-> connected (via HDMI) to a TV set - I've found out that this issue occurs
-> more often if the TV is on (not displaying output from GPU) when I put
-> my PC to sleep and I turn the TV off before resuming PC.
+> There have been some localized changes[1] to PCI core to help these issues,
+> but they have had various downsides.
 > 
-> The issue persists on the current mainline kernel (6.17-rc3).
+> This series instead tries to use the S4 flow when the system is being
+> powered off.  This lines up the behavior with what other operating systems
+> do as well.  If for some reason that fails or is not supported, run their
+> shutdown() callbacks.
 > 
-> I've bisected it and this is the commit that introduced the issue:
-> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=50e0bae34fa6b8b18e13473ddf0bcdab6ab68310
+> Cc: AceLan Kao <acelan.kao@canonical.com>
+> Cc: Kai-Heng Feng <kaihengf@nvidia.com>
+> Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
+> Cc: Merthan Karakaş <m3rthn.k@gmail.com>
+> Cc: Eric Naim <dnaim@cachyos.org>
+> ---
+> v5->v6:
+>   * Fix for LKP robot issue
+>   * Some commit message changes
+>   * Rebase on 6.17-rc2
 > 
-> I've also found a similar report on the alsa mailing list:
-> https://lore.kernel.org/alsa-devel/1855350181c58300-webhooks-bot@alsa-project.org/
+> Mario Limonciello (AMD) (11):
+>    PM: Introduce new PMSG_POWEROFF event
+>    scsi: Add PM_EVENT_POWEROFF into suspend callbacks
+>    usb: sl811-hcd: Add PM_EVENT_POWEROFF into suspend callbacks
+>    USB: Pass PMSG_POWEROFF event to suspend_common() for poweroff with S4
+>      flow
+>    PCI: PM: Disable device wakeups when halting system through S4 flow
+>    PCI: PM: Split out code from pci_pm_suspend_noirq() into helper
+>    PCI: PM: Run bridge power up actions as part of restore phase
+>    PCI: PM: Use pci_power_manageable() in pci_pm_poweroff_noirq()
+>    PCI: Put PCIe bridges with downstream devices into D3 at hibernate
+>    drm/amd: Avoid evicting resources at S5
+>    PM: Use hibernate flows for system power off
 > 
-> I'm running Arch Linux with pipewire and wireplumber. The following is
-> an excerpt from the WirePlumber log after bad resume:
-> 
-> D spa.alsa [alsa-util.c:1996:pa_alsa_get_hdmi_eld]: ELD info empty (for device=7)
-> I spa.alsa [alsa-acp-device.c:893:card_props_changed]: card properties changed
-> D spa.alsa [acp.c:760:report_jack_state]: Jack 'HDMI/DP,pcm=7 Jack' is now unplugged
-> I spa.alsa [alsa-acp-device.c:975:card_port_available]: card port hdmi-output-1 available yes -> no
-> I spa.alsa [acp.c:702:profile_set_available]: Profile output:hdmi-stereo-extra1 available yes -> no
-> I spa.alsa [alsa-acp-device.c:941:card_profile_available]: card profile output:hdmi-stereo-extra1 available yes -> no
-> 
-> Please let me know what additional information I might provide to
-> pinpoint this issue.
-> 
-> Thanks,
-> Przemysław Kopa
+>   drivers/base/power/main.c                  |  7 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +
+>   drivers/pci/pci-driver.c                   | 99 +++++++++++++++-------
+>   drivers/scsi/mesh.c                        |  1 +
+>   drivers/scsi/stex.c                        |  1 +
+>   drivers/usb/core/hcd-pci.c                 | 11 ++-
+>   drivers/usb/host/sl811-hcd.c               |  1 +
+>   include/linux/pm.h                         |  5 +-
+>   include/trace/events/power.h               |  3 +-
+>   kernel/reboot.c                            |  6 ++
+>   10 files changed, 103 insertions(+), 35 deletions(-)
 > 
 
-Given it's not a 100% reproduce for you, how did you confirm this commit 
-is causing the issue?  Some sort of sampling of X cycles at each bisect 
-point?
+Rafael, Bjorn,
 
-Could you capture a dmesg log where /sys/power/pm_debug_messages is set 
-both from a good case and from a bad case so we can compare?
-
-The peculiar thing is this commit only changes the timing of some of the 
-suspend sequence, and as part of the suspend sequence the GPU is reset 
-anyway.  So during the resume sequence it shouldn't have mattered what 
-happened the last time on suspend entry.
+Any feedback for this series?
 
 Thanks,
