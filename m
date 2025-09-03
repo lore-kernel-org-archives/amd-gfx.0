@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B4B0CA100C
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 08:49:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2735CA0FF2
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 10:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B0CD10E5B8;
-	Wed,  3 Sep 2025 08:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF0510E693;
+	Wed,  3 Sep 2025 10:18:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="sq2ND0bR";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="Ijyt+a2L";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="haHqyQSs";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAF4B10E5B0;
- Wed,  3 Sep 2025 08:49:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1756889339;
- bh=HjOHEWMSMrU5p/zkpwE6dIR
- BHC+CIfleuHQUkcLp8Uk=; b=sq2ND0bRElkSLV+K2Zb2GyBpijps3zsYqbhBqGbb64VNoI97Mj
- tiO480pDQxzLZvFWQ3mbIUhwxB1aNSqs0oksnhnEGeUa844V+NvE28ix9NRQ+GCXq5wlcCcw5n3
- GZV7CSXEvdeuKDIHke5AIIynI9bdQs21h4qKgFAN+GxX1b3MJjWfk2jn3oIWDiOACIN1zQi65CY
- Nk/5j7NTTY6X/irYLssR1NeqBw5yrpfuTNo3vkqnP0aggl5kZB88TGUfoFB+cwaxgLmQZGbLmIw
- imP5lHROygenfvKG/V9FK2GzxvWp0LgT1kJ/vxIcq77jo58+yxPAMp1Dzu1KDKQNAwg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1756889339; bh=HjOHEWMSMrU5p/zkpwE6dIR
- BHC+CIfleuHQUkcLp8Uk=; b=Ijyt+a2L89KHy6PEhWIlTcrWd/aXddM9LchOwHtni1IQgrTdDj
- I+UM27gH7Lcf1UVf0hJUMKGSlyU/6G1TL1BQ==;
-Message-ID: <0f4c18b7-4591-4450-8d55-b7bfe789d9fa@damsy.net>
-Date: Wed, 3 Sep 2025 10:48:58 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDC7C10E693;
+ Wed,  3 Sep 2025 10:18:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=5beYveQaCrkx4Tzvse1YHWKU3ffk1zb+s/KxIXDFsbg=; b=haHqyQSshOGTWVwXPONrJNF7xh
+ j5/UlAtW00rm0S/bSObtQby2yvd4pgBnbaysw2opOP3hVTJUrdjT9bnisrAHPSMNogEzd1jRcpeT2
+ EDykwaG+MlaB0USf+8mRVehnSmigL7XWgaV9FJiiprfA9Nchwwmo+mUDAF4QoNeCmUf6KDlIZbP5Q
+ oW9nmT0kZ2gqPooM+g0yc4ZQ3BY6vweLg2HEAmNPxQ4pWOQJiXtrCySIgbBuWMuqfIPSrJNz3POnS
+ /fqPnGJMesGQ9Nlcqjwj6K9VgeP/B+FXYH13oGb2LiGqolTm+3J3RUjEC0poikwTKnUYeyBTxVi9V
+ vojxDS3A==;
+Received: from [84.66.36.92] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1utkZS-0068ZE-2z; Wed, 03 Sep 2025 12:18:30 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Subject: [RFC v8 02/12] drm/sched: Add some more scheduling quality unit tests
+Date: Wed,  3 Sep 2025 11:18:10 +0100
+Message-ID: <20250903101820.63032-3-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
+References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] drm/amdgpu: increment share sched score on entity
- selection
-To: Tvrtko Ursulin <tursulin@ursulin.net>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20250822134348.6819-1-pierre-eric.pelloux-prayer@amd.com>
- <a05bb414-4dd1-4cbe-aa1a-beaea2d056aa@ursulin.net>
-Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <a05bb414-4dd1-4cbe-aa1a-beaea2d056aa@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,142 +64,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+This time round we explore the rate of submitted job queue processing
+with multiple identical parallel clients.
 
-Le 01/09/2025 à 11:02, Tvrtko Ursulin a écrit :
-> 
-> On 22/08/2025 14:43, Pierre-Eric Pelloux-Prayer wrote:
->> For hw engines that can't load balance jobs, entities are
->> "statically" load balanced: on their first submit, they select
->> the best scheduler based on its score.
->> The score is made up of 2 parts:
->> * the job queue depth (how much jobs are executing/waiting)
->> * the number of entities assigned
->>
->> The second part is only relevant for the static load balance:
->> it's a way to consider how many entities are attached to this
->> scheduler, knowing that if they ever submit jobs they will go
->> to this one.
->>
->> For rings that can load balance jobs freely, idle entities
->> aren't a concern and shouldn't impact the scheduler's decisions.
->>
->> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 23 ++++++++++++++++++-----
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 +
->>   2 files changed, 19 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/ 
->> amdgpu/amdgpu_ctx.c
->> index f5d5c45ddc0d..4a078d2d98c5 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->> @@ -206,9 +206,11 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, 
->> u32 hw_ip,
->>   {
->>       struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
->>       struct amdgpu_device *adev = ctx->mgr->adev;
->> +    bool static_load_balancing = false;
->>       struct amdgpu_ctx_entity *entity;
->>       enum drm_sched_priority drm_prio;
->>       unsigned int hw_prio, num_scheds;
->> +    struct amdgpu_ring *aring;
->>       int32_t ctx_prio;
->>       int r;
->> @@ -236,17 +238,22 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx 
->> *ctx, u32 hw_ip,
->>           r = amdgpu_xcp_select_scheds(adev, hw_ip, hw_prio, fpriv,
->>                           &num_scheds, &scheds);
->>           if (r)
->> -            goto cleanup_entity;
->> +            goto error_free_entity;
-> 
-> Indeed, previously this was calling drm_sched_entity_fini() before 
-> drm_sched_entity_init() and it only worked because of kzalloc.
-> 
->>       }
->>       /* disable load balance if the hw engine retains context among dependent 
->> jobs */
->> -    if (hw_ip == AMDGPU_HW_IP_VCN_ENC ||
->> -        hw_ip == AMDGPU_HW_IP_VCN_DEC ||
->> -        hw_ip == AMDGPU_HW_IP_UVD_ENC ||
->> -        hw_ip == AMDGPU_HW_IP_UVD) {
->> +    static_load_balancing = hw_ip == AMDGPU_HW_IP_VCN_ENC ||
->> +                hw_ip == AMDGPU_HW_IP_VCN_DEC ||
->> +                hw_ip == AMDGPU_HW_IP_UVD_ENC ||
->> +                hw_ip == AMDGPU_HW_IP_UVD;
->> +
->> +    if (static_load_balancing) {
->>           sched = drm_sched_pick_best(scheds, num_scheds);
->>           scheds = &sched;
->>           num_scheds = 1;
->> +        aring = container_of(sched, struct amdgpu_ring, sched);
->> +        entity->sched_ring_score = aring->sched_score;
->> +        atomic_inc(entity->sched_ring_score);
-> 
-> If we were to bike-shed we could find a way to avoid the new local variables. 
-> Keeping the if as is and assign to entity->sched_ring_score directly, and then 
-> checking for that on the cleanup path. Still works due kzalloc. Or if relying on 
-> kzalloc is not desired, at least bool static_load_balance could be replaced by 
-> re-naming the aring local as static_aring and using it like the name suggests.
-> 
-> Could also move the atomic_inc to the success path to avoid having to add code 
-> to error unwind.
-> 
+Example test output:
 
-Christian, Alex: any preferences on the code style to use here?
+3 clients:
+        t               cycle:     min  avg max : ...
+        +     0ms                   0    0    0 :   0   0   0
+        +   102ms                   2    2    2 :   2   2   2
+        +   208ms                   5    6    6 :   6   5   5
+        +   310ms                   8    9    9 :   9   9   8
+...
+        +  2616ms                  82   83   83 :  83  83  82
+        +  2717ms                  83   83   83 :  83  83  83
+    avg_max_min_delta(x100)=60
 
-> Both cases are I think equally racy in the sense that parallel 
-> amdgpu_ctx_init_entity invocations can all pick the same sched. But that is true 
-> today AFAICT because score is not incremented until later in the job submit 
-> process.
-> 
-> I suppose one way to make the assignment more robust would be to "rotate" (or 
-> randomize) the sched list atomically before calling drm_sched_pick_best. Thoughts?
-> 
+Every 100ms for the duration of the test test logs how many jobs each
+client had completed, prefixed by minimum, average and maximum numbers.
+When finished overall average delta between max and min is output as a
+rough indicator to scheduling fairness.
 
-IMO without the ability to do job level load balancing, there will always be 
-cases where the scheduler choice is not optimal. For this reason I prefered to 
-keep the code as simple as possible.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+---
+ .../gpu/drm/scheduler/tests/tests_scheduler.c | 186 +++++++++++++++++-
+ 1 file changed, 185 insertions(+), 1 deletion(-)
 
-Thanks,
-Pierre-Eric
+diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+index 15c898966ef0..b90fdf6e605c 100644
+--- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+@@ -182,6 +182,7 @@ struct drm_sched_client_params {
+ 
+ struct drm_sched_test_params {
+ 	const char *description;
++	unsigned int num_clients;
+ 	struct drm_sched_client_params client[2];
+ };
+ 
+@@ -635,6 +636,189 @@ static struct kunit_suite drm_sched_scheduler_two_clients2 = {
+ 	.test_cases = drm_sched_scheduler_two_clients_tests,
+ };
+ 
++
++static const struct drm_sched_test_params drm_sched_many_cases[] = {
++	{
++		.description = "2 clients",
++		.num_clients = 2,
++		.client[0] = {
++			.priority = DRM_SCHED_PRIORITY_NORMAL,
++			.job_cnt = 4,
++			.job_us = 1000,
++			.wait_us = 0,
++			.sync = true,
++		},
++	},
++	{
++		.description = "3 clients",
++		.num_clients = 3,
++		.client[0] = {
++			.priority = DRM_SCHED_PRIORITY_NORMAL,
++			.job_cnt = 4,
++			.job_us = 1000,
++			.wait_us = 0,
++			.sync = true,
++		},
++	},
++	{
++		.description = "7 clients",
++		.num_clients = 7,
++		.client[0] = {
++			.priority = DRM_SCHED_PRIORITY_NORMAL,
++			.job_cnt = 4,
++			.job_us = 1000,
++			.wait_us = 0,
++			.sync = true,
++		},
++	},
++	{
++		.description = "13 clients",
++		.num_clients = 13,
++		.client[0] = {
++			.priority = DRM_SCHED_PRIORITY_NORMAL,
++			.job_cnt = 4,
++			.job_us = 1000,
++			.wait_us = 0,
++			.sync = true,
++		},
++	},
++	{
++		.description = "31 clients",
++		.num_clients = 31,
++		.client[0] = {
++			.priority = DRM_SCHED_PRIORITY_NORMAL,
++			.job_cnt = 2,
++			.job_us = 1000,
++			.wait_us = 0,
++			.sync = true,
++		},
++	},
++};
++
++KUNIT_ARRAY_PARAM(drm_sched_scheduler_many_clients,
++		  drm_sched_many_cases,
++		  drm_sched_desc);
++
++static void drm_sched_scheduler_many_clients_test(struct kunit *test)
++{
++	const struct drm_sched_test_params *params = test->param_value;
++	struct drm_mock_scheduler *sched = test->priv;
++	const unsigned int clients = params->num_clients;
++	unsigned int i, j, delta_total = 0, loops = 0;
++	struct test_client *client;
++	unsigned int *prev_cycle;
++	ktime_t start;
++	char *buf;
++
++	/*
++	 * Many clients with deep-ish async queues.
++	 */
++
++	buf = kunit_kmalloc(test, PAGE_SIZE, GFP_KERNEL);
++	client = kunit_kcalloc(test, clients, sizeof(*client), GFP_KERNEL);
++	prev_cycle = kunit_kcalloc(test, clients, sizeof(*prev_cycle),
++				   GFP_KERNEL);
++
++	for (i = 0; i < clients; i++)
++		client[i].entity =
++			drm_mock_sched_entity_new(test,
++						  DRM_SCHED_PRIORITY_NORMAL,
++						  sched);
++
++	for (i = 0; i < clients; i++) {
++		client[i].test = test;
++		client[i].id = i;
++		client[i].params = params->client[0];
++		client[i].duration = ms_to_ktime(1000 / clients);
++		client[i].cycle_time.min_us = ~0U;
++		client[i].latency_time.min_us = ~0U;
++		client[i].worker =
++			kthread_create_worker(0, "%s-%u", __func__, i);
++		if (IS_ERR(client[i].worker)) {
++			for (j = 0; j < i; j++)
++				kthread_destroy_worker(client[j].worker);
++			KUNIT_FAIL(test, "Failed to create worker!\n");
++		}
++
++		kthread_init_work(&client[i].work, drm_sched_client_work);
++	}
++
++	for (i = 0; i < clients; i++)
++		kthread_queue_work(client[i].worker, &client[i].work);
++
++	start = ktime_get();
++	pr_info("%u clients:\n\tt\t\tcycle:\t  min    avg    max : ...\n", clients);
++	for (;;) {
++		unsigned int min = ~0;
++		unsigned int max = 0;
++		unsigned int total = 0;
++		bool done = true;
++		char pbuf[16];
++
++		memset(buf, 0, PAGE_SIZE);
++		for (i = 0; i < clients; i++) {
++			unsigned int cycle, cycles;
++
++			cycle = READ_ONCE(client[i].cycle);
++			cycles = READ_ONCE(client[i].cycles);
++
++			snprintf(pbuf, sizeof(pbuf), " %3d", cycle);
++			strncat(buf, pbuf, PAGE_SIZE);
++
++			total += cycle;
++			if (cycle < min)
++				min = cycle;
++			if (cycle > max)
++				max = cycle;
++
++			if (!min || (cycle + 1) < cycles)
++				done = false;
++		}
++
++		loops++;
++		delta_total += max - min;
++
++		pr_info("\t+%6lldms\t\t  %3u  %3u  %3u :%s\n",
++			ktime_to_ms(ktime_sub(ktime_get(), start)),
++			min, DIV_ROUND_UP(total, clients), max, buf);
++
++		if (done)
++			break;
++
++		msleep(100);
++	}
++
++	pr_info("    avg_max_min_delta(x100)=%u\n",
++		loops ? DIV_ROUND_UP(delta_total * 100, loops) : 0);
++
++	for (i = 0; i < clients; i++) {
++		kthread_flush_work(&client[i].work);
++		kthread_destroy_worker(client[i].worker);
++	}
++
++	for (i = 0; i < clients; i++)
++		drm_mock_sched_entity_free(client[i].entity);
++}
++
++static const struct kunit_attributes drm_sched_scheduler_many_clients_attr = {
++	.speed = KUNIT_SPEED_SLOW,
++};
++
++static struct kunit_case drm_sched_scheduler_many_clients_tests[] = {
++	KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_many_clients_test,
++			      drm_sched_scheduler_many_clients_gen_params,
++			      drm_sched_scheduler_many_clients_attr),
++	{}
++};
++
++static struct kunit_suite drm_sched_scheduler_many_clients = {
++	.name = "drm_sched_scheduler_many_clients_tests",
++	.init = drm_sched_scheduler_init2,
++	.exit = drm_sched_scheduler_exit,
++	.test_cases = drm_sched_scheduler_many_clients_tests,
++};
++
+ kunit_test_suites(&drm_sched_scheduler_overhead,
+ 		  &drm_sched_scheduler_two_clients1,
+-		  &drm_sched_scheduler_two_clients2);
++		  &drm_sched_scheduler_two_clients2,
++		  &drm_sched_scheduler_many_clients);
+-- 
+2.48.0
 
-
-> Regards,
-> 
-> Tvrtko
-> 
->>       }
->>       r = drm_sched_entity_init(&entity->entity, drm_prio, scheds, num_scheds,
->> @@ -264,6 +271,9 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, 
->> u32 hw_ip,
->>       drm_sched_entity_fini(&entity->entity);
->>   error_free_entity:
->> +    if (static_load_balancing)
->> +        atomic_dec(entity->sched_ring_score);
->> +
->>       kfree(entity);
->>       return r;
->> @@ -514,6 +524,9 @@ static void amdgpu_ctx_do_release(struct kref *ref)
->>               if (!ctx->entities[i][j])
->>                   continue;
->> +            if (ctx->entities[i][j]->sched_ring_score)
->> +                atomic_dec(ctx->entities[i][j]->sched_ring_score);
->> +
->>               drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
->>           }
->>       }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/ 
->> amdgpu/amdgpu_ctx.h
->> index 090dfe86f75b..076a0e165ce0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->> @@ -39,6 +39,7 @@ struct amdgpu_ctx_entity {
->>       uint32_t        hw_ip;
->>       uint64_t        sequence;
->>       struct drm_sched_entity    entity;
->> +    atomic_t        *sched_ring_score;
->>       struct dma_fence    *fences[];
->>   };
