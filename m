@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3C3FCA1009
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 15:24:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5914DCAC581
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 15:24:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 161E710E909;
-	Wed,  3 Sep 2025 15:23:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE3DD10E902;
+	Wed,  3 Sep 2025 15:23:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fVXvrGwR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AJ09Flzy";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D46E10E8FA;
- Wed,  3 Sep 2025 15:23:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B21C10E8E6;
+ Wed,  3 Sep 2025 15:23:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,25 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=R8wHnZN0XSQQ0muZ+YaQFqtsUeukHKUmzGjXNNub0bs=; b=fVXvrGwRAcb1e7LlhXEgGeYM+m
- HGHl8E8YjlAyzDKPBkOy8MXUYOKzmdkcod0ftiaxuZ1WMA59o4R3mwAW/A5ncGJku0X4Noa8TLMUr
- MNuVMruin4Szw41PWynE2XAxHWMpt648wl2HWUiCmXqOrdJeU7hp8eiU8AAgRtZtS312pzmNeYODx
- NbDolqXXUbVgy2B6wZwGHoyf8NajFm/9DosDeVkdXWhQvNPW5zVUal8OYEpUrSZitYqM1+1BKd1Ag
- D6nFC1CXWDcdg9x9tIdvN++iqwxV085Jrn2xUu/AfOMtEOleOVuG0qLJxVFzCKdnj54xvs3BjDiN0
- DAIBvM6A==;
+ bh=IsWnQWYQd8ok9z9F0TOX6bOGhUkIh9EKIXSKlJoEGYg=; b=AJ09FlzyVT9eal4yJ2y7P5g9IO
+ w1f+9cHgbGl3iRDscUhAp0lbLfjExAOnXkIlUf2NlB3GGCaJQSx3efglfKiR+b+S56Sivu7WH44uP
+ SUWaEv4spcoWUj0WJWDK5NbfGkcZhl6RonhveEVKddZMpGtjN+78NnM+DCRm5ot5gwOMbzDlOhXId
+ DrPhG5xiNFlzXXwD67XjoBxDszQV5SzZubF3TxFxPvCSX/NR0OBWP2iMYlqV3n0ES62vlRmdKi9GY
+ KDzC3mUPFeQC04i0WAFAOZaRiltFDelLdQVPc1ljAKjymgjKLii/k+f0+Z/831tzVTa32ffconV75
+ yoPX4ZGQ==;
 Received: from [84.66.36.92] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1utpKq-006GbL-BY; Wed, 03 Sep 2025 17:23:44 +0200
+ id 1utpKo-006Gak-6i; Wed, 03 Sep 2025 17:23:42 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  intel-xe@lists.freedesktop.org, cgroups@vger.kernel.org,
  linux-kernel@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 18/21] drm/sched: Add helper for DRM cgroup controller weight
- notifications
-Date: Wed,  3 Sep 2025 16:23:24 +0100
-Message-ID: <20250903152327.66002-19-tvrtko.ursulin@igalia.com>
+Subject: [RFC 15/21] cgroup/drm: Add scheduling weight callback
+Date: Wed,  3 Sep 2025 16:23:21 +0100
+Message-ID: <20250903152327.66002-16-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250903152327.66002-1-tvrtko.ursulin@igalia.com>
 References: <20250903152327.66002-1-tvrtko.ursulin@igalia.com>
@@ -60,112 +59,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To enable drivers which use the scheduler to easily connect with the DRM
-cgroup controller we a add a helper to be used for registering for
-scheduling weight notifications.
+Add a new callback via which the drm cgroup controller will be notifying
+clients about their scheduling weight.
 
-The scheduler itself straightforwardly "connects" with the concept of
-scheduling weights, courtesy of the vruntime based design, where we can
-trivially scale the runtime to vruntime factor by the scheduling weight on
-top of the existing priority scaling.
+At the same time, in order to reduce the amount of tracking with drivers
+which will not support any sort of control from the drm cgroup controller
+side, lets express the funcionality as opt-in and use the presence of
+drm_cgroup_ops as an activation criteria.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c   | 16 ++++++++++++++++
- drivers/gpu/drm/scheduler/sched_internal.h |  1 +
- drivers/gpu/drm/scheduler/sched_rq.c       | 11 ++++++++---
- include/drm/gpu_scheduler.h                |  7 +++++++
- 4 files changed, 32 insertions(+), 3 deletions(-)
+ include/drm/drm_drv.h | 26 ++++++++++++++++++++++++++
+ kernel/cgroup/drm.c   | 27 +++++++++++++++++++++++++++
+ 2 files changed, 53 insertions(+)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index e0c748c4c10f..d2c02c871e48 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -630,4 +630,20 @@ void drm_sched_cgroup_untrack_sched_entity(struct drm_file *file_priv,
- 	spin_unlock(&file_priv->sched_entities.lock);
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index 42fc085f986d..5aa905187723 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -169,6 +169,22 @@ enum drm_driver_feature {
+ 	DRIVER_HAVE_IRQ			= BIT(30),
+ };
+ 
++/**
++ * struct drm_cgroup_ops
++ *
++ * This structure contains callbacks that drivers can provide if they are able
++ * support the functionalities implemented by the DRM cgroup controller.
++ */
++struct drm_cgroup_ops {
++	/**
++	 * @notify_weight:
++	 *
++	 * Optional callback used by the DRM core to notify clients of their
++	 * scheduling weight.
++	 */
++	void (*notify_weight) (struct drm_file *, unsigned int weight);
++};
++
+ /**
+  * struct drm_driver - DRM driver structure
+  *
+@@ -431,6 +447,16 @@ struct drm_driver {
+ 	 * some examples.
+ 	 */
+ 	const struct file_operations *fops;
++
++#ifdef CONFIG_CGROUP_DRM
++	/**
++	 * @cg_ops:
++	 *
++	 * Optional pointer to driver callbacks facilitating integration with
++	 * the DRM cgroup controller.
++	 */
++	const struct drm_cgroup_ops *cg_ops;
++#endif
+ };
+ 
+ void *__devm_drm_dev_alloc(struct device *parent,
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+index e9dc1e7cc4a4..ea7655edf86a 100644
+--- a/kernel/cgroup/drm.c
++++ b/kernel/cgroup/drm.c
+@@ -7,6 +7,8 @@
+ #include <linux/mutex.h>
+ #include <linux/slab.h>
+ 
++#include <drm/drm_drv.h>
++
+ struct drm_cgroup_state {
+ 	struct cgroup_subsys_state css;
+ 
+@@ -29,6 +31,22 @@ css_to_drmcs(struct cgroup_subsys_state *css)
+ 	return container_of(css, struct drm_cgroup_state, css);
  }
- EXPORT_SYMBOL(drm_sched_cgroup_untrack_sched_entity);
-+
-+void drm_sched_cgroup_notify_weight(struct drm_file *file_priv,
-+				    unsigned int weight)
+ 
++static void __maybe_unused
++drmcs_notify_weight(struct drm_cgroup_state *drmcs)
 +{
-+	struct drm_sched_entity *entity;
++	struct drm_file *fpriv;
 +
-+	spin_lock(&file_priv->sched_entities.lock);
-+	list_for_each_entry(entity, &file_priv->sched_entities.list,
-+			    drm_file_link) {
-+		spin_lock(&entity->lock);
-+		entity->cgroup_weight = weight;
-+		spin_unlock(&entity->lock);
++	lockdep_assert_held(&drmcg_mutex);
++
++	list_for_each_entry(fpriv, &drmcs->clients, clink) {
++		const struct drm_cgroup_ops *cg_ops =
++			fpriv->minor->dev->driver->cg_ops;
++
++		if (cg_ops && cg_ops->notify_weight)
++			cg_ops->notify_weight(fpriv, 0);
 +	}
-+	spin_unlock(&file_priv->sched_entities.lock);
 +}
-+EXPORT_SYMBOL(drm_sched_cgroup_notify_weight);
- #endif
-diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
-index 409c9ab7ce8f..d19e692e6f5b 100644
---- a/drivers/gpu/drm/scheduler/sched_internal.h
-+++ b/drivers/gpu/drm/scheduler/sched_internal.h
-@@ -3,6 +3,7 @@
- #ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
- #define _DRM_GPU_SCHEDULER_INTERNAL_H_
- 
-+#include <linux/cgroup_drm.h>
- #include <linux/ktime.h>
- #include <linux/kref.h>
- #include <linux/spinlock.h>
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index 6088434a4ea4..39ac20440058 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -183,14 +183,19 @@ static ktime_t drm_sched_entity_update_vruntime(struct drm_sched_entity *entity)
- 	};
- 	struct drm_sched_entity_stats *stats = entity->stats;
- 	ktime_t runtime, prev;
-+	u64 runtime_ns;
- 
- 	spin_lock(&stats->lock);
- 	prev = stats->prev_runtime;
- 	runtime = stats->runtime;
- 	stats->prev_runtime = runtime;
--	runtime = ktime_add_ns(stats->vruntime,
--			       ktime_to_ns(ktime_sub(runtime, prev)) <<
--			       shift[entity->priority]);
-+	runtime_ns = ktime_to_ns(ktime_sub(runtime, prev)) <<
-+		     shift[entity->priority];
-+#if IS_ENABLED(CONFIG_CGROUP_DRM)
-+	runtime_ns *= ((1 << DRM_CGROUP_WEIGHT_SHIFT) - entity->cgroup_weight);
-+	runtime_ns >>= DRM_CGROUP_WEIGHT_SHIFT;
-+#endif
-+	runtime = ktime_add_ns(stats->vruntime, runtime_ns);
- 	stats->vruntime = runtime;
- 	spin_unlock(&stats->lock);
- 
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 003b5904927f..453d3a7c835e 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -149,6 +149,10 @@ struct drm_sched_entity {
- 	 */
- 	enum drm_sched_priority         priority;
- 
-+#if IS_ENABLED(CONFIG_CGROUP_DRM)
-+	unsigned int			cgroup_weight;
-+#endif
 +
- 	/**
- 	 * @job_queue: the list of jobs of this entity.
- 	 */
-@@ -720,6 +724,9 @@ void drm_sched_cgroup_track_sched_entity(struct drm_file *file_priv,
- 				  struct drm_sched_entity *entity);
- void drm_sched_cgroup_untrack_sched_entity(struct drm_file *file_priv,
- 				    struct drm_sched_entity *entity);
-+
-+void drm_sched_cgroup_notify_weight(struct drm_file *file_priv,
-+				    unsigned int weight);
- #else
- static inline void drm_sched_cgroup_init_drm_file(struct drm_file *file_priv)
+ static void drmcs_free(struct cgroup_subsys_state *css)
  {
+ 	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
+@@ -59,6 +77,9 @@ void drmcgroup_client_open(struct drm_file *file_priv)
+ {
+ 	struct drm_cgroup_state *drmcs;
+ 
++	if (!file_priv->minor->dev->driver->cg_ops)
++		return;
++
+ 	drmcs = css_to_drmcs(task_get_css(current, drm_cgrp_id));
+ 
+ 	mutex_lock(&drmcg_mutex);
+@@ -74,6 +95,9 @@ void drmcgroup_client_close(struct drm_file *file_priv)
+ 
+ 	drmcs = css_to_drmcs(file_priv->__css);
+ 
++	if (!file_priv->minor->dev->driver->cg_ops)
++		return;
++
+ 	mutex_lock(&drmcg_mutex);
+ 	list_del(&file_priv->clink);
+ 	file_priv->__css = NULL;
+@@ -88,6 +112,9 @@ void drmcgroup_client_migrate(struct drm_file *file_priv)
+ 	struct drm_cgroup_state *src, *dst;
+ 	struct cgroup_subsys_state *old;
+ 
++	if (!file_priv->minor->dev->driver->cg_ops)
++		return;
++
+ 	mutex_lock(&drmcg_mutex);
+ 
+ 	old = file_priv->__css;
 -- 
 2.48.0
 
