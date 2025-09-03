@@ -4,52 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE85CA101C
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 15:23:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 672CBCA1012
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 15:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58CEB10E8DE;
-	Wed,  3 Sep 2025 15:23:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F51F10E8E3;
+	Wed,  3 Sep 2025 15:23:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VywDhwYv";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jgprmKA2";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7728F10E8D4;
- Wed,  3 Sep 2025 15:23:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A156910E8BB;
+ Wed,  3 Sep 2025 15:23:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=xxY7Xa4tcL3TGCaORSRMfy4WldOqWubmo3rUqucqPuQ=; b=VywDhwYvzpVJn8uIf8JOOBzkzA
- VjrDVKWYlQO649rQNadbYEpDxH72cyR0kuRHBgpP+J71y/4vNeDUlBMsdoI+sWATRWgDL+DhaIi45
- dO1AvQEDjXzZOMQN+Zi7rsY4uz0eJbGPZaTu7k4kWg1njz0F/IhGn8ZEY4pDt728WKqjZB55/Hd1w
- 6QitXu5PEEmVNHWAX6tzt7WvRlvwkmUhV1EFufBDcK0S58xV620B+rn9jk+y/DUnaSYMPSYvhZToc
- ZO/pvTQEIEU7FgyidoElDndNyMtFEfzVEJV5zLiJiOS2/tPUDLxA6A9RFFCgXGk2QESrYftsVue3v
- SzXJOBnw==;
+ bh=55BB2llQEXofSNUg7BS61EGnBIFUC2JGyZpY0uhw5bg=; b=jgprmKA2XRMym7yKEnKrh+k6gS
+ gEnsEVB1oyvHgcwtCGsnk2zx7UE8O/BCIKYWdvxh9CB5Dwpws5fVaOwUKsNrAIukOvMW7Cg6P+MO0
+ Aah1YRp6qtPYSgtF38CNVfXUp6S32boYnbrMcEwCkQpmZ1kcco1EPrC5Hej7bi6h1guuQ8LSXf710
+ 87sZTpwYvLTUXMs0SGEknFrzwpBsysnJ79HAoST6ps8KvhkUFOvFCzXYGQQkK1Mt8wn2fYh11vzOf
+ EW/pom1b3wxNUwJ2S6Kud8MZ4vbcvAAvHPfQn5L3TwaajutXdK2ibPdxWKyvpq2x8WVaXOrmrF28Q
+ EDa4AR1Q==;
 Received: from [84.66.36.92] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1utpKk-006GZY-Ef; Wed, 03 Sep 2025 17:23:38 +0200
+ id 1utpKm-006GaB-P4; Wed, 03 Sep 2025 17:23:40 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  intel-xe@lists.freedesktop.org, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Subject: [RFC 10/21] drm/sched: Break submission patterns with some randomness
-Date: Wed,  3 Sep 2025 16:23:16 +0100
-Message-ID: <20250903152327.66002-11-tvrtko.ursulin@igalia.com>
+ linux-kernel@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [RFC 13/21] cgroup: Add the DRM cgroup controller
+Date: Wed,  3 Sep 2025 16:23:19 +0100
+Message-ID: <20250903152327.66002-14-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250903152327.66002-1-tvrtko.ursulin@igalia.com>
 References: <20250903152327.66002-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,80 +59,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GPUs generally don't implement preemption and DRM scheduler definitely
-does not support it at the front end scheduling level. This means
-execution quanta can be quite long and is controlled by userspace,
-consequence of which is picking the "wrong" entity to run can have a
-larger negative effect than it would have with a virtual runtime based CPU
-scheduler.
-
-Another important consideration is that rendering clients often have
-shallow submission queues, meaning they will be entering and exiting the
-scheduler's runnable queue often.
-
-Relevant scenario here is what happens when an entity re-joins the
-runnable queue with other entities already present. One cornerstone of the
-virtual runtime algorithm is to let it re-join at the head and depend on
-the virtual runtime accounting to sort out the order after an execution
-quanta or two.
-
-However, as explained above, this may not work fully reliably in the GPU
-world. Entity could always get to overtake the existing entities, or not,
-depending on the submission order and rbtree equal key insertion
-behaviour.
-
-We can break this latching by adding some randomness for this specific
-corner case.
-
-If an entity is re-joining the runnable queue, was head of the queue the
-last time it got picked, and there is an already queued different entity
-of an equal scheduling priority, we can break the tie by randomly choosing
-the execution order between the two.
-
-For randomness we implement a simple driver global boolean which selects
-whether new entity will be first or not. Because the boolean is global and
-shared between all the run queues and entities, its actual effect can be
-loosely called random. Under the assumption it will not always be the same
-entity which is re-joining the queue under these circumstances.
-
-Another way to look at this is that it is adding a little bit of limited
-random round-robin behaviour to the fair scheduling algorithm.
-
-Net effect is a significant improvemnt to the scheduling unit tests which
-check the scheduling quality for the interactive client running in
-parallel with GPU hogs.
+Skeleton controller without any functionality.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_rq.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ include/linux/cgroup_drm.h    |  7 +++++
+ include/linux/cgroup_subsys.h |  4 +++
+ init/Kconfig                  |  5 +++
+ kernel/cgroup/Makefile        |  1 +
+ kernel/cgroup/drm.c           | 58 +++++++++++++++++++++++++++++++++++
+ 5 files changed, 75 insertions(+)
+ create mode 100644 include/linux/cgroup_drm.h
+ create mode 100644 kernel/cgroup/drm.c
 
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index b0cf7d2143c8..c5be8a2c893d 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -150,6 +150,16 @@ drm_sched_entity_restore_vruntime(struct drm_sched_entity *entity,
- 			 * Higher priority can go first.
- 			 */
- 			vruntime = -us_to_ktime(rq_prio - prio);
-+		} else {
-+			static const int shuffle[2] = { -1, 1 };
-+			static bool r = 0;
+diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
+new file mode 100644
+index 000000000000..3e51fe517791
+--- /dev/null
++++ b/include/linux/cgroup_drm.h
+@@ -0,0 +1,7 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (c) 2025 Valve Corporation */
 +
-+			/*
-+			 * For equal priority apply some randomness to break
-+			 * latching caused by submission patterns.
-+			 */
-+			vruntime = shuffle[r];
-+			r ^= 1;
- 		}
- 	}
++#ifndef _CGROUP_DRM_H
++#define _CGROUP_DRM_H
++
++#endif	/* _CGROUP_DRM_H */
+diff --git a/include/linux/cgroup_subsys.h b/include/linux/cgroup_subsys.h
+index 3fd0bcbf3080..2ad172c9fba2 100644
+--- a/include/linux/cgroup_subsys.h
++++ b/include/linux/cgroup_subsys.h
+@@ -69,6 +69,10 @@ SUBSYS(misc)
+ SUBSYS(dmem)
+ #endif
  
++#if IS_ENABLED(CONFIG_CGROUP_DRM)
++SUBSYS(drm)
++#endif
++
+ /*
+  * The following subsystems are not supported on the default hierarchy.
+  */
+diff --git a/init/Kconfig b/init/Kconfig
+index d811cad02a75..5ef9494f0866 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -1200,6 +1200,11 @@ config CGROUP_DMEM
+ 	  As an example, it allows you to restrict VRAM usage for applications
+ 	  in the DRM subsystem.
+ 
++config CGROUP_DRM
++	bool "DRM controller"
++	help
++	  Provides the DRM subsystem controller.
++
+ config CGROUP_FREEZER
+ 	bool "Freezer controller"
+ 	help
+diff --git a/kernel/cgroup/Makefile b/kernel/cgroup/Makefile
+index ede31601a363..c39799312cfd 100644
+--- a/kernel/cgroup/Makefile
++++ b/kernel/cgroup/Makefile
+@@ -8,4 +8,5 @@ obj-$(CONFIG_CPUSETS) += cpuset.o
+ obj-$(CONFIG_CPUSETS_V1) += cpuset-v1.o
+ obj-$(CONFIG_CGROUP_MISC) += misc.o
+ obj-$(CONFIG_CGROUP_DMEM) += dmem.o
++obj-$(CONFIG_CGROUP_DRM) += drm.o
+ obj-$(CONFIG_CGROUP_DEBUG) += debug.o
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+new file mode 100644
+index 000000000000..55947a009e04
+--- /dev/null
++++ b/kernel/cgroup/drm.c
+@@ -0,0 +1,58 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2025 Valve Corporation */
++
++#include <linux/cgroup.h>
++#include <linux/cgroup_drm.h>
++#include <linux/slab.h>
++
++struct drm_cgroup_state {
++	struct cgroup_subsys_state css;
++};
++
++struct drm_root_cgroup_state {
++	struct drm_cgroup_state drmcs;
++};
++
++static struct drm_root_cgroup_state root_drmcs;
++
++static inline struct drm_cgroup_state *
++css_to_drmcs(struct cgroup_subsys_state *css)
++{
++	return container_of(css, struct drm_cgroup_state, css);
++}
++
++static void drmcs_free(struct cgroup_subsys_state *css)
++{
++	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
++
++	if (drmcs != &root_drmcs.drmcs)
++		kfree(drmcs);
++}
++
++static struct cgroup_subsys_state *
++drmcs_alloc(struct cgroup_subsys_state *parent_css)
++{
++	struct drm_cgroup_state *drmcs;
++
++	if (!parent_css) {
++		drmcs = &root_drmcs.drmcs;
++	} else {
++		drmcs = kzalloc(sizeof(*drmcs), GFP_KERNEL);
++		if (!drmcs)
++			return ERR_PTR(-ENOMEM);
++	}
++
++	return &drmcs->css;
++}
++
++struct cftype files[] = {
++	{ } /* Zero entry terminates. */
++};
++
++struct cgroup_subsys drm_cgrp_subsys = {
++	.css_alloc	= drmcs_alloc,
++	.css_free	= drmcs_free,
++	.early_init	= false,
++	.legacy_cftypes	= files,
++	.dfl_cftypes	= files,
++};
 -- 
 2.48.0
 
