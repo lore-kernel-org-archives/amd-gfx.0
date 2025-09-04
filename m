@@ -4,57 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DA60CA0FED
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC09CA101C
 	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 13:04:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 006FD10EB9E;
-	Fri,  5 Sep 2025 13:03:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3251410EB9F;
+	Fri,  5 Sep 2025 13:04:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="O5F5DqGC";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="AuF7aTD3";
 	dkim-atps=neutral
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8A8E10EB68;
- Fri,  5 Sep 2025 10:14:40 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 84CDF40E016E; 
- Fri,  5 Sep 2025 10:14:38 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 3sLuUFXyEEJq; Fri,  5 Sep 2025 10:14:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1757067272; bh=sRVEq78yhQX8mJR2jOK3VXC8p7w5NsQwrzj6XNVd9Kk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=O5F5DqGCSXLzXfMyz2ZOlaefPXa/T4kku2ojaVLjSJW8qcOoEvt7dhNgHdfH3C8pD
- 4tjyzrmGsfGYCcJ57pUVqRGfx02+I/nSMkXrW+GX3KVq42y+Dze5CiXRCkVpDHVjDz
- 2N2B9MuufaBqwYDu7eYA2F8nv1EM2R0KRdhDfel1lh4AUi7AAHr0tS7QzmyRLuZWLp
- +dOVJYOmhtComKpbUAORMez25F4TJ0yjHxMSR2X750FXHMr3wyiC9OFbnXWTpKtcJQ
- z1sP/PPzwxSwFRVo9IKMlIeHPnYgToDJAol9AatRKLyM5Bj2YPVla2qqoRkeeK/NGy
- 02CrRh/YbHKHO95kVWi7ivyizdtBaLs9azQmkDnmT5vVp7lpsd1bb+ssEISwl1eEwu
- is5o5djyizpelfLeMf4lYjYsWH3wnfsFwzVFDq19XF7f3pOgS6F8Qc0Qy7ySmXhAh2
- 1LtXwFP3FOGT5w7yyUi5iYtbUaRzY04uvehZLfhMTGaPolDlTiQFKvF8Asnyyw5mlz
- kt1qCd3ERXNp8B2BYnCheX4E+mo4EU0hYRpG02Z0J48col/cwrXiJo9GiK2BKv5GhX
- VBHK6lNXnrD/SfLneraum6RaQneqiBpODAVRmzUEIVe8trnSWV5Q+3kAikE5LhGIBZ
- 7oVl4MCHihvho2vagYkKrh/E=
-Received: from zn.tnic (p5de8ed27.dip0.t-ipconnect.de [93.232.237.39])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
- C5F4040E00DE; Fri,  5 Sep 2025 10:14:29 +0000 (UTC)
-Date: Fri, 5 Sep 2025 12:14:22 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/radeon: use dev_warn_once() in CS parsers
-Message-ID: <20250905101422.GAaLq3_kDePySD36Ma@fat_crate.local>
-References: <20250902165332.2388864-1-alexander.deucher@amd.com>
+Received: from TYDPR03CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11013003.outbound.protection.outlook.com [52.101.127.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6486810EA7B;
+ Thu,  4 Sep 2025 14:58:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ln8EfMHezu0QaVwtAlD3xzjKa2Fk2yAdFw+pxW208swAFfYSGNp0EyvbBEGxdOlx1FDIcXM8RMOLuQ1Qs6Evm4yPib+PzfKdQhbv1Ok/WAuVoBzNQGQFAp7wNZLyOJqVLqNj8Br9wtVhXhYsDParIdnzySCqHserBp1n7v6+XHnVJShkIogDZXs7+Ecb4ljHH5e4oLR1jhmFYcMxUUqTr5pA2EMVELAw2lD2ATVLBTQPhiGtK02jM3IoQWmJaqCqX3jTccX+t/8VrDj0JIrgsD1TCgxu3pU00Y9IhuK+MwgmReKiq3OLTbUGqZxYHIWg3dMVsMoEqYIZLdPeA1Lcuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GxSKD0a2QT5KLRQ4zS/7mwRJnaOc8baX/tXLXgBtukQ=;
+ b=fCwTGVt16Y0AMhRFiSi0q7m1x/HcBD3wV7VCQbfMcpHwX7Xp0vCSXc3+2NP8l9xK2Ke8H1qYcNg0/kwCnMQcCwMNxyj+fRNslpIT09x02o698KoRdI8rpMNdohB19h5lPfdaGa8spJM2kJuvy+8Ndo/P620dH3SNUyh8dWO/lh3tOhpKkeGpHtriYACfqC2jnTccfekqm1QknS5oEqNxYIcEoPD5YZ9BNDSPkGPpv2u+gIfVctaCH9Ea8a0/44ylTomHLQ2Ulfa8s9hFnKsAdwU5CZNcHN+lFYgGeSWA3GPi7MSLpDUWfKpw37stDeM8bGe8/6caaru7WXW2SQqUAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GxSKD0a2QT5KLRQ4zS/7mwRJnaOc8baX/tXLXgBtukQ=;
+ b=AuF7aTD3EVTO+C4ALQh5NcMN0uEiaG9Fr/fdZ6WB1xDavhrmJz7ooOV9ftMPJvd8DkUE2liliXvHKMOv7CvxISGvxpRaJwnz/5q2Dyg4vqTWmd4V8himrCbMc6oNgw/ph/uJyuiJZZCgHhO4Y0Atb2Ho8Qgoz2eZCwQtf7q1H+C5dJNCIbPuXlY4e/rwG7QhOj7SultP7AHABiGcM/wORd7T9MWHUFc/V1yvBFkOGGEhy+6q5lGAJF96GllgBz/3uZdko9o2WudvW9GJAm5BOdNQNxz79AyWq5zCRPn3WjfYA6LR2po6J9neb3uLi/F4o48D0q08wIxWqpB09f6XOQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SI2PR06MB5140.apcprd06.prod.outlook.com (2603:1096:4:1af::9) by
+ SEZPR06MB6013.apcprd06.prod.outlook.com (2603:1096:101:eb::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9073.30; Thu, 4 Sep 2025 14:58:21 +0000
+Received: from SI2PR06MB5140.apcprd06.prod.outlook.com
+ ([fe80::468a:88be:bec:666]) by SI2PR06MB5140.apcprd06.prod.outlook.com
+ ([fe80::468a:88be:bec:666%5]) with mapi id 15.20.9094.017; Thu, 4 Sep 2025
+ 14:58:21 +0000
+From: Qianfeng Rong <rongqianfeng@vivo.com>
+To: Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Qianfeng Rong <rongqianfeng@vivo.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Boyuan Zhang <boyuan.zhang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/pm: use int type to store negative error codes
+Date: Thu,  4 Sep 2025 22:58:00 +0800
+Message-Id: <20250904145807.556882-1-rongqianfeng@vivo.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0074.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:31a::19) To SI2PR06MB5140.apcprd06.prod.outlook.com
+ (2603:1096:4:1af::9)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250902165332.2388864-1-alexander.deucher@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SI2PR06MB5140:EE_|SEZPR06MB6013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3ce416f4-abd8-4cdd-1fe0-08ddebc37d30
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|52116014|7416014|376014|1800799024|366016|38350700014|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kBYrP6Fuufls/X8pDkAyHzOBwZFj69X7UeoZSc6xwbS+TUaUOTrik1Fior3I?=
+ =?us-ascii?Q?uK4Igym1RNG/uXTw+jHMvmD2BV4i9h6rrY6J2jvRXHPKInaOefpBstALLU8K?=
+ =?us-ascii?Q?66tF0ypZOpimOftWHgIUqR0QoAqc7EMtP4TXe5dkRewFETs5P8cW+I1voHkP?=
+ =?us-ascii?Q?zPSBLFRUYcJ6own6tPtPMDujGC08mFBWEFxJq2lwSUpUeQDRJQWV+6oD4UQk?=
+ =?us-ascii?Q?rrrnLInkSN7nStToSBvO9/I1Op7ehPDWVtDO1shnfSGBWlw1L4JdhUopD5f7?=
+ =?us-ascii?Q?jeWsAlbp3DqDpGtuP5vR6551x6qi3r/QxwkqDYZcBG3xK5aMbryg+YJypsuH?=
+ =?us-ascii?Q?KErsUjocpW41P+cggqwbfpFM+kCZ7F8iHKdGtEsIJitbErNiVgXN6ojgY4ow?=
+ =?us-ascii?Q?tT5eFyyz304NC3OZ+OIw4q65vDbPE/XFMimh+9/VAOq2O0AnsXRDlgMW09mF?=
+ =?us-ascii?Q?QW6qdaogS7zwCmbdoLOBWU2LHJ1VI06eeVSOCmM8IgvKj9Fv1Kxv3P+tC8G1?=
+ =?us-ascii?Q?6cmveN6awOQqnghrZFCl5543X2lRQjha4qEVTCC5W/E6wtyYHsui3GK6pKMo?=
+ =?us-ascii?Q?qEplU9GAkjL2DYqvovVGpkpTXYtgOjGilip3xNO7aMiQUYpEzTRTScxQ24Ae?=
+ =?us-ascii?Q?Ia1L9v1D5k4ARG1qL3ZGy2vHaccCvSVY8vnredDd58s5beFAlPVdFgq8iALW?=
+ =?us-ascii?Q?RrI0aPb060KJxvEsKqyf77vLoWyNV5gNV4k53VRJEvLtcCebPqg3CbXPlOd8?=
+ =?us-ascii?Q?YjuE4Y+OWXkuBeMh3OPdJZROud9+wApaMxneLiSxsLYVleACl/0dv0u5NeUI?=
+ =?us-ascii?Q?CmoVb3Oyv+CJcsDoVMK8Qcc/EBoByhhE2Tx5Ai211f4AjbxIgcPTPH2ltuLD?=
+ =?us-ascii?Q?1tAPBtxEh4ohxSOZ7KsmBBYLBl9Ewjnvd71tpzfUk1GeBl5onts2EgpowcZ+?=
+ =?us-ascii?Q?TybX9pVdvAVdpxaFwk38Pj0J0Ck3a2uVNz5zLlm0PjbNI20McH7uS43Czsvx?=
+ =?us-ascii?Q?ZzW5pcA60E71+G4dWBZMLv9FgYiIzkcNOfkg32xLHurWvXunGPLCwUsa04pw?=
+ =?us-ascii?Q?iRIxxv6ZDBfuTAkJ5SVny48keXU9xeoB/kglgozUYE0OuMjvpCCgp4tDR0tx?=
+ =?us-ascii?Q?+ifivAP16v9l/2VGO0lNunA5PgWVuwWgro5dMKDPpvYjayhukjbb89e/Wyn8?=
+ =?us-ascii?Q?Y6k3rkT3KlT/fb6CNIfTov2G7LMAvvaQEnnjTiZivK96TKnoWruSgjC7zXkL?=
+ =?us-ascii?Q?Z2OHgvBaz7CsfIfPf5GL1tmvz3v5cRbPkNJdkThcOHIHeSlFc4A4fBrmSD7c?=
+ =?us-ascii?Q?NNVDXuX/NG+Z+XAnYfQeOHj7ZvuINXJXxNLxcUkOcGKvQq0KJv//up6wrxfH?=
+ =?us-ascii?Q?GoTu8VKOPEYuGbnTTx2RGYbN3khy/nMCSFCVBp6vUjxNOzJwjVYGS8BXD/m0?=
+ =?us-ascii?Q?2VLd4pmJ98wV+N03O7oOEwKQ9LW7zlPCBuCM9HqEg04/GHPchItdLl7oTipU?=
+ =?us-ascii?Q?PLVtlVrOKLksiZE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SI2PR06MB5140.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(52116014)(7416014)(376014)(1800799024)(366016)(38350700014)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?HYxQo6U8XhXqhrrOHFWUrR1j2J2tRDBV+o+IfRpKiLVt9mg82KBYbfkY/hkS?=
+ =?us-ascii?Q?Ugbmb70ZjSnObZneCJKRmjhcX8+B6VO6laGG4dxMqFOjQh9cf4K8RxLA/ZyW?=
+ =?us-ascii?Q?MgKNJutlD7S6oL6CRCyphOUh1fNqE76I15xXDbKho/3bDH7Gj4DKHoyGVepC?=
+ =?us-ascii?Q?htvroEpRLQjC1CU+2H9XsL3sVxgSWVw0/CdZK7ceWku1cX5lsPQTmBQ+sj8e?=
+ =?us-ascii?Q?9+jUFWpnPl137ZeHCCnKHUg43vjg4GkX1P+j+PhVECRC170TyXfetYJSppeK?=
+ =?us-ascii?Q?8m0TxY0h81Zfxnv7fWOnEExXvX0npcNL0iW8JRmOaAi4GAFgFWhSVklVvnvA?=
+ =?us-ascii?Q?cNQxBhCyQVud1UxW1kQFFDZQqCgCw32nf8okQW08a/O4AAEKi+KfMIujwnzK?=
+ =?us-ascii?Q?XyymthlgQnWRj7BtXYGmhptN3NtVERWraR6AIKvSPzfYZqm0zpWaPIfm+Ksl?=
+ =?us-ascii?Q?f81eOeAYSbWcNpAaOslefBmCOnAMCpPIODK9XoCnHqtdNr77716p9zgI7V20?=
+ =?us-ascii?Q?eciZLA+MTldonfARB30aYaKu4BOYr3zwakBxy/h8NXYsAvVOCp6hCJQmTuiw?=
+ =?us-ascii?Q?4HSiEa/b2ShTYHrND0f5064gQ1p9fcdfyamFKshVcBAciYkSnEnzGE0SKaSV?=
+ =?us-ascii?Q?wxvff/lv0bj0hk35fIH8nNstlaqirpZZFwjGr2Qc5SkFtlmNMAmgLtPus6od?=
+ =?us-ascii?Q?VWp6fKd/CiSev0Auxxy3m5uPJBZcOu9iZcjtk9LVBnalL/kAEWXcApZXrM8t?=
+ =?us-ascii?Q?GB+O4+P61m16AFaaNiecouyhrd2UXMdExibM3GYIiBB9G1hJTbiUXHgu6XnG?=
+ =?us-ascii?Q?4KKLhnucVQ5MeeWndbSMm6beBzMm3a/CzdY96B7TytcYvAxgQTPSPAUJ+J6Y?=
+ =?us-ascii?Q?VjCFf4K7OVNyGjyEiwNRzSFGtn6zCLNzHJRNgYw5gLOOtk63lhPSiQzSghZ6?=
+ =?us-ascii?Q?gaZHKK736ngA9gqRtVwmxL9KzcJIkj5+JEzu6gbDyhN2A/PEUG8jP870dDce?=
+ =?us-ascii?Q?oqJTZbiwKPzIuZV3ubli8Vley954aUokJsoUzFkDx8yQuCs+EH1Qakkqb9f6?=
+ =?us-ascii?Q?GxgYFGwXUwt2fHDw4wzFUFKqbxIM+hDkeTRWXCu5w1P0t6mDb5muu3oc8GHm?=
+ =?us-ascii?Q?VLKmmYkx9Y5xE8yRRV4blhcT9P+2WeZqW2waez12vH01ypOFzR3mJyKuTIHB?=
+ =?us-ascii?Q?Xz8qTDRF4BASjRlTXSy5vhoua/4J0e5xxzqA2q4mAUIPK2VG50+mlbFSnrva?=
+ =?us-ascii?Q?1oZCfexRrxWpViAmPvOtrbE+ow5Q6S6k/REP5vmFXLREtRjFgJHXWWjaKDOu?=
+ =?us-ascii?Q?vkgZN31QmSveOpT30DR9QsKKXSrXq8qIEJylesr5C7n8pUZ9UYAtHvZzaFjk?=
+ =?us-ascii?Q?6WuKnmkjVpoUwBUF2vNjdiaIDy8QK4kIQM/RVAjCYoII3Fa2O+v4fQnAmaI6?=
+ =?us-ascii?Q?/GEwfhpIVuaqcVWk/9H24VGQHiaIUJN0mBCm7DRQ9OcAvQW/GYzIGXhxnvw9?=
+ =?us-ascii?Q?b74GPCKW5E3E6CGcBHwyHDMufw9aU7T6t9EkjE4mS/gfQijjZixqmKuTsefW?=
+ =?us-ascii?Q?3PpPDX5Ver1yl8RGA2RG3cIMf++MlI3VPt5oi2nO?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ce416f4-abd8-4cdd-1fe0-08ddebc37d30
+X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5140.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2025 14:58:20.9448 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: plXoip7WvJEyz4uGyee28D7TDKiCzcenyNK3/Prj5g2TDimaTiSo9qYVcOpKojGmr+NC9eWDOWCSt8lhS7xMmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6013
 X-Mailman-Approved-At: Fri, 05 Sep 2025 13:03:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,62 +152,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 02, 2025 at 12:53:32PM -0400, Alex Deucher wrote:
-> Older GPUs did not support memory protection, so the kernel
-> driver would validate the command submissions (CS) from userspace
-> to avoid the GPU accessing any memory it shouldn't.
-> 
-> Change any error messages in that validatio to dev_warn_once() to
-> avoid spamming the kernel log in the event of a bad CS.  If users
-> see any of these messages they should report them to the user space
-> component, which in most cases is mesa
-> (https://gitlab.freedesktop.org/mesa/mesa/-/issues).
-> 
-> Cc: Borislav Petkov (AMD) <bp@alien8.de>
-> Link: https://lore.kernel.org/r/20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/radeon/evergreen_cs.c | 520 +++++++++++++-------------
->  drivers/gpu/drm/radeon/r100.c         | 215 +++++------
->  drivers/gpu/drm/radeon/r200.c         |  34 +-
->  drivers/gpu/drm/radeon/r300.c         |  66 ++--
->  drivers/gpu/drm/radeon/r600_cs.c      | 445 +++++++++++-----------
->  drivers/gpu/drm/radeon/radeon_cs.c    |   2 +-
->  6 files changed, 648 insertions(+), 634 deletions(-)
+Use int instead of uint32_t for 'ret' variable to store negative error
+codes or zero returned by other functions.
 
-Btw, now that I had to reboot the workstation, I thought I'll apply yours to
-test it. You've missed one spot, see below. :-)
+Storing the negative error codes in unsigned type, doesn't cause an issue
+at runtime but can be confusing. Additionally, assigning negative error
+codes to unsigned type may trigger a GCC warning when the -Wsign-conversion
+flag is enabled.
 
-With that additional debug added, I see now:
+No effect on runtime.
 
-[   25.877593] radeon 0000:1d:00.0: vbo resource seems too big (524289) for the bo (524288)
-
-which looks like some buffer limits mis-counting. The bo is obviously of 1^19
-buffer size while one of those "size" and "offset" things are off by one.
-
-If anyone wants to debug, the program which causes this is conky version:
-1.11.6-2 in debian. It starts spewing the warnings when I start it and since
-it.
-
-Thx.
-
+Signed-off-by: Qianfeng Rong <rongqianfeng@vivo.com>
 ---
-diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
-index d49e59626e39..1162cb5d75ed 100644
---- a/drivers/gpu/drm/radeon/evergreen_cs.c
-+++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-@@ -2418,7 +2418,8 @@ static int evergreen_packet3_check(struct radeon_cs_parser *p,
- 				size = radeon_get_ib_value(p, idx+1+(i*8)+1);
- 				if (p->rdev && (size + offset) > radeon_bo_size(reloc->robj)) {
- 					/* force size to size of the buffer */
--					dev_warn_ratelimited(p->dev, "vbo resource seems too big for the bo\n");
-+					dev_warn_once(p->dev, "vbo resource seems too big (%d) for the bo (%ld)\n",
-+						      size + offset, radeon_bo_size(reloc->robj));
- 					ib[idx+1+(i*8)+1] = radeon_bo_size(reloc->robj) - offset;
- 				}
- 
--- 
-Regards/Gruss,
-    Boris.
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c       | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-https://people.kernel.org/tglx/notes-about-netiquette
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+index 9a821563bc8e..14ccd743ca1d 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+@@ -1032,7 +1032,7 @@ static int smu10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 			data->clock_vol_info.vdd_dep_on_fclk;
+ 	uint32_t i, now, size = 0;
+ 	uint32_t min_freq, max_freq = 0;
+-	uint32_t ret = 0;
++	int ret = 0;
+ 
+ 	switch (type) {
+ 	case PP_SCLK:
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+index baf51cd82a35..0d4cbe4113a0 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+@@ -401,7 +401,7 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
+ int smu7_check_fw_load_finish(struct pp_hwmgr *hwmgr, uint32_t fw_type)
+ {
+ 	struct smu7_smumgr *smu_data = (struct smu7_smumgr *)(hwmgr->smu_backend);
+-	uint32_t ret;
++	int ret;
+ 
+ 	ret = phm_wait_on_indirect_register(hwmgr, mmSMC_IND_INDEX_11,
+ 					smu_data->soft_regs_start + smum_get_offsetof(hwmgr,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index e97b0cf19197..3baf20f4c373 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -470,7 +470,7 @@ static int renoir_od_edit_dpm_table(struct smu_context *smu,
+ static int renoir_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
+ {
+ 	uint32_t min = 0, max = 0;
+-	uint32_t ret = 0;
++	int ret = 0;
+ 
+ 	ret = smu_cmn_send_smc_msg_with_param(smu,
+ 								SMU_MSG_GetMinGfxclkFrequency,
+-- 
+2.34.1
+
