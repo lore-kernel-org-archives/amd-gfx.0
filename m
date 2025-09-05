@@ -4,52 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C68AACA1012
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 03:37:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D9C0CA1010
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 04:43:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 441B910EB08;
-	Fri,  5 Sep 2025 03:37:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA6DB10EB18;
+	Fri,  5 Sep 2025 04:43:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bs+I3w7K";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SZc+V9E0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FFF810EB08
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Sep 2025 03:37:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 886656028D;
- Fri,  5 Sep 2025 03:37:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF831C4CEF0;
- Fri,  5 Sep 2025 03:37:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757043440;
- bh=qDMa9X6Wx1ECm965Ub5bQzx0/N8bNtKkU2Lb4vmsAqw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=bs+I3w7KCnRrNudEHppfA6CsHhWkFi6B/13Yx2szUibuo99BAWoz+vFfRV1EdorcL
- rqtT5TGDGvnlNdQ3ThiIOPRxmxgfpoB2FlaHtwdPqu+ooj3xDWKrM1Ddm0dCTU+NFj
- 4C5zmgyi2Dj8RnNJX2kIayrfnDhOzNWtZ7TzHLgK6gVL50JKes2Sm0ObQVtuIdpZnF
- i+ZRfv/yztrPHllEuxmcRHgfONGwAjSDyv0xree/UJubWtG03keoTmX4brm5D5jjYN
- oI/IAJfp2USgdOipgeQ3uWBMlJayVJmORs3Ar3cnLTZN7J3A7pzUDcAAmn+aPH51NY
- 9DPKhgZksLhbg==
-Message-ID: <1cea0d56-7739-4ad9-bf8e-c9330faea2bb@kernel.org>
-Date: Thu, 4 Sep 2025 22:37:18 -0500
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A293410E2BB
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Sep 2025 04:43:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yaCVwiu1J/s9a/ZdCR2d9vbscOGXgCDTjLBOL0oRu4itlSGRxgqK9T15i8Wgy7K8bK5eGHcEK6L8hmZjN36z+lGg7kW7pd/xQ6EFnjXVQeYvl+Fezc1pPXmlcWTSebWCa78bKb2uWeYIzWLl45OPefKo2U3+zndcf7ryWr/tgjTOOz3minsE63/Q+p5MLLqZuuvGcxU1JKzxHwrEHd1c29yT7aE9UKZ4yefwt/tm4JNINOci/M4TER7BOKwLGyHedvLwAo/EU2a/C75KtLHyJnv0arIjPrCGxrHtdi147aBLdUL2bKDckltLqf3azF6y6hUrG6U8Ftk/gtEqW2rNeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+4QMzIgaYschVOrwFZoXeMvJvuu9/Vs/ZP5QILyOeiY=;
+ b=MbMnQvsAv2LmYUbNL2foliWcPVFU0+/RrJWt2hMfSvgdbnARSg3zXIrUQ59x8KDCgDjO+nIOgCl0H4pbE5/ajkgr1fQiwnjBaB4pnIXuQqlfLQUNBRgyL4GCj5CJHd0y49D5AujiB/SVKsrn+rAxiWjXxrdBlf0v/SjOZVLz5eFjDGJ4ix5DSBoRwnvjLtW0l4HrIQSc7oP5X2/FhvPlMRsuTjGq/jeQPko4w3hUO0FaAHeqSATD+KDc8W60/dgfxKzZljOTYf5kvJJ6snnTjyummrF525kJSVJX1UDLUG08htrSfFmBl6EhJeXZIZ18Jl14C9/hMw9acNa4c3WpNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+4QMzIgaYschVOrwFZoXeMvJvuu9/Vs/ZP5QILyOeiY=;
+ b=SZc+V9E0uwDid+Yu6UNzXnw+1bsin0MXP8m3udtyAqWzy7SbPw2kKUfWv/sf9YTrk0QagjSlglQGI8mdxYGk+ofl2BX8DPYN4pY4JR3WMghBRetB+QI+YfPMl7wtu2DhfmhheUmxc3Rf1s/VPoBc/UzKhFK5F8fZq4GZYmDqL0E=
+Received: from BYAPR08CA0030.namprd08.prod.outlook.com (2603:10b6:a03:100::43)
+ by SA0PR12MB4382.namprd12.prod.outlook.com (2603:10b6:806:9a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.17; Fri, 5 Sep
+ 2025 04:43:24 +0000
+Received: from SJ1PEPF00002319.namprd03.prod.outlook.com
+ (2603:10b6:a03:100:cafe::eb) by BYAPR08CA0030.outlook.office365.com
+ (2603:10b6:a03:100::43) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.20 via Frontend Transport; Fri,
+ 5 Sep 2025 04:43:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00002319.mail.protection.outlook.com (10.167.242.229) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9094.14 via Frontend Transport; Fri, 5 Sep 2025 04:43:23 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 4 Sep
+ 2025 23:43:23 -0500
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Thu, 4 Sep
+ 2025 21:43:20 -0700
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <lijo.lazar@amd.com>
+CC: <hawking.zhang@amd.com>, <le.ma@amd.com>, <shiwu.zhang@amd.com>,
+ <asad.kamal@amd.com>, <alexander.deucher@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: Add virtual device capabilities
+Date: Fri, 5 Sep 2025 12:42:40 +0800
+Message-ID: <20250905044301.1947978-2-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20250905044301.1947978-1-asad.kamal@amd.com>
+References: <20250905044301.1947978-1-asad.kamal@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] AMD HDMI/DP audio broken after suspend since commit
- 50e0bae34fa6
-To: =?UTF-8?Q?Przemys=C5=82aw_Kopa?= <prz.kopa@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <967d5380-1db1-4252-a3b5-cfa283cf960d@gmail.com>
- <637bdb82-ca3b-4e11-8c59-d8fc75e6837e@kernel.org>
- <6fd5d5e1-2f4a-4640-a88b-8fc66bf54f75@gmail.com>
- <b033c364-476f-4cdd-8823-2a3bbddd9de4@kernel.org>
- <48206da8-c4a6-4b66-bcc9-7599fc891342@gmail.com>
- <13cba029-8c3d-48df-9f76-8b2ed0fff85d@gmail.com>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <13cba029-8c3d-48df-9f76-8b2ed0fff85d@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002319:EE_|SA0PR12MB4382:EE_
+X-MS-Office365-Filtering-Correlation-Id: e83cec07-022a-4757-d837-08ddec36bf52
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?A7rfo0dAG0M/nKinXqEetZxWKHTjw9t5aXLDoU47KtMqNaHstLIosgmq9CYJ?=
+ =?us-ascii?Q?mWEEhs43pywoj+RlFTPMWT+zkD4UfUfkDiwPYA3X/+bqKvm7f4+gDfAVX0Gj?=
+ =?us-ascii?Q?+jbf+V4RIOC3wZCU31o1rjokKVmQr2LPw/NYb7+XuHNVEO2AKGIHeH0Urzcu?=
+ =?us-ascii?Q?1NzN1MiSW+pmmKNy/lDwuM9ilstYgFalNqjwcpWSMaSBlgwB49FW6/S5USMH?=
+ =?us-ascii?Q?urQw5xNt9os58G1vaTlXlfVQnF02YKeIWSX0SMjmwgawg0g3zSDidO4jEIgn?=
+ =?us-ascii?Q?tBw7HYMqRD01eD6v4wkdRcErhgIwnaLxljle/yoIGK6ttnJTmjzjzSLaUzHC?=
+ =?us-ascii?Q?LUsQEDBPMkz5YzDcTobxgzPF+Vprnq9vQjp0Bj6h/M34UxqYqCPHpngumx2x?=
+ =?us-ascii?Q?iTP74Cu+uyEqPCX2yH0BR7p1bmaKWfP30hP2S9JNGz+7LxwH2ed0tCAnZHSl?=
+ =?us-ascii?Q?OgeuG2WKN1G8fIp2VZjxIJn0WXTVYP4nlYI2M8rl1hl3JoRzhHNfDC+uPjo4?=
+ =?us-ascii?Q?vCCrvk2TS73c5jfTCuxzMaUsyOr2yNYY94rus+iiI2JdZQhF0glsMqay3ry0?=
+ =?us-ascii?Q?6GB1OfB+SNGenDhH9+QgZQnCoWjhgIUOaHfGtaFLrexklLMaz2zZZXwleybw?=
+ =?us-ascii?Q?ALHZBke2F6TLH/w1v1XT7bfILRcn/P2KH9UBX5AjqmPGaGRh7Kh2ZCVfSoR2?=
+ =?us-ascii?Q?PgrQloNW11OYvO9QB/hDMgEWt67Cb31vWq9Yg6TQGClr/MUGMg4q9mEaNNX/?=
+ =?us-ascii?Q?Ap5IHUrOdH4a5y5nG51U/jJEO9btglGb8nQvqDhNM2/UszWTIX6cW5Ts/AoE?=
+ =?us-ascii?Q?xZN1g7125x9ziBLAb1eVU0LEewmq3HLXpTTIt2HUga6rBtbA0hufXMJ4Eb6j?=
+ =?us-ascii?Q?Us+wbIZ0wJFlJMphhjU2xudgDrOwQkyhAVpo6HGr8GvQEVZNXlsX4DlEo0TL?=
+ =?us-ascii?Q?PiK5kWbDrKgFtADfvp1dv5JpK/Cq1gj+qaSxn+81hws/gvZ3fPELghmSIgXl?=
+ =?us-ascii?Q?5+TBMa9onsImgPP/znTXmuEB2HWSQpwIxlZfmjC9IMAbG3uNOFydfNLXMmAw?=
+ =?us-ascii?Q?NfrA15ORz3qgdtkv0SCCVxu1EISAwNNPpFMRYfuazJCdhqRv86/9LoonwFmf?=
+ =?us-ascii?Q?YQZfgCyG7oi8+i8fCWGyh6PR6zZyfSs5bL1XvZ9YHcvdikWEM7M+zGhhWORW?=
+ =?us-ascii?Q?uX6mXU3YIcaNgblDpmWx/EUssUgbCdg6PA0vVqI8yT4HH1rLlx4QpPoGSs0J?=
+ =?us-ascii?Q?zn8TXG03oynsQz11MJw6eWu9buWsme4aMMRGir9k5oIOf3XxBt886yRSOU6I?=
+ =?us-ascii?Q?VrL5N7prw87nDqTfWki0SDYcSPnPiDSXTuKQxm5igMYcaLvUjpF5+Ts9V98M?=
+ =?us-ascii?Q?1+NBeJYMtRrSQpBHQNxS8+1Jg4w8gWJ18BUxStP7RXyhfoelP8YuubzQI/8n?=
+ =?us-ascii?Q?6vrmT8WNaiFRsaXDYuZqsHpuzjjZ1ntyLcNfQ01nNkd9vumdYd5Dn1iv/9pO?=
+ =?us-ascii?Q?tD+gyhuQHtGTtrSDncHWYzrDbBuhEHRIJI0Y?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2025 04:43:23.7395 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e83cec07-022a-4757-d837-08ddec36bf52
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002319.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +137,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/4/2025 8:03 AM, Przemysław Kopa wrote:
->> I'm attaching two new dmesg logs.
-> 
-> Sorry, I attached wrong files to my previous message. The proper ones 
-> are attached to this one.
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-I'm guessing what's going on is a race between the HDMI device going to 
-D3 through snd-hda-intel (which provides HDMI) and the prepare() callback.
+Add a member to define the capabilities of virtual device.
 
-The easiest solution will be to drop the prepare() and complete() 
-callbacks, but I will need to think about this because we had a variety 
-of reasons for adding them.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Have a try with this diff on 6.17-rc4.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 58accf2259b3..3afbdf7b487a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -256,6 +256,10 @@ struct amdgpu_virt_ras {
+ 	uint64_t cper_rptr;
+ };
+ 
++#define AMDGPU_VIRT_CAPS_LIST(X) X(AMDGPU_VIRT_CAP_POWER_LIMIT)
++
++DECLARE_ATTR_CAP_CLASS(amdgpu_virt, AMDGPU_VIRT_CAPS_LIST);
++
+ /* GPU virtualization */
+ struct amdgpu_virt {
+ 	uint32_t			caps;
+@@ -274,6 +278,7 @@ struct amdgpu_virt {
+ 	const struct amdgpu_virt_ops	*ops;
+ 	struct amdgpu_vf_error_buffer	vf_errors;
+ 	struct amdgpu_virt_fw_reserve	fw_reserve;
++	struct amdgpu_virt_caps virt_caps;
+ 	uint32_t gim_feature;
+ 	uint32_t reg_access_mode;
+ 	int req_init_data_ver;
+-- 
+2.46.0
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a0ca3b2c6bd8..d83aeeaf5653 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3127,25 +3127,6 @@ static void dm_destroy_cached_state(struct 
-amdgpu_device *adev)
-         dm->cached_state = NULL;
-  }
-
--static void dm_complete(struct amdgpu_ip_block *ip_block)
--{
--       struct amdgpu_device *adev = ip_block->adev;
--
--       dm_destroy_cached_state(adev);
--}
--
--static int dm_prepare_suspend(struct amdgpu_ip_block *ip_block)
--{
--       struct amdgpu_device *adev = ip_block->adev;
--
--       if (amdgpu_in_reset(adev))
--               return 0;
--
--       WARN_ON(adev->dm.cached_state);
--
--       return dm_cache_state(adev);
--}
--
-  static int dm_suspend(struct amdgpu_ip_block *ip_block)
-  {
-         struct amdgpu_device *adev = ip_block->adev;
-@@ -3571,10 +3552,8 @@ static const struct amd_ip_funcs amdgpu_dm_funcs = {
-         .early_fini = amdgpu_dm_early_fini,
-         .hw_init = dm_hw_init,
-         .hw_fini = dm_hw_fini,
--       .prepare_suspend = dm_prepare_suspend,
-         .suspend = dm_suspend,
-         .resume = dm_resume,
--       .complete = dm_complete,
-         .is_idle = dm_is_idle,
-         .wait_for_idle = dm_wait_for_idle,
-         .check_soft_reset = dm_check_soft_reset,
