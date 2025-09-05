@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9EEFCA1013
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 13:32:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19B0FCA0FED
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 13:56:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5934210E2E0;
-	Fri,  5 Sep 2025 13:32:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 989EB10EBAE;
+	Fri,  5 Sep 2025 13:56:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UExCGbHE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bn8Pcc1n";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BC4610E2E0
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Sep 2025 13:32:02 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-32ba1f9c87cso120389a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Sep 2025 06:32:02 -0700 (PDT)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 561B310EBAD;
+ Fri,  5 Sep 2025 13:56:37 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-24c95f20117so4672065ad.3; 
+ Fri, 05 Sep 2025 06:56:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757079122; x=1757683922; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1757080597; x=1757685397; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9YMepFXjYwhEQ7IA6bwJGUi9Ejy/qNIJucKvgMEsIGs=;
- b=UExCGbHEx2i2Zef+crshYDyENcMYBuEN2Qa5dP+43lgNAoGs3812e/f0Lm0LvfBUNf
- JifWMM/PltyvP31+bPqbmMIgd+7xKRMk+9U3PMWdsycaSmFjDEkAblpPqdxeH83DiqL3
- mTlDwcrlhPRDBUAuG7iU02tbcAFfUfyxE3t6FBw8RuCmCe7JDMv6zHpudRQJSics6hR4
- 6Dz8N6oyGP1nmetibLbXQIg5gAqlmnFGAoUarmU3urSvSHJtAuGudAyKwsHbbUi3fROt
- 4fcHehcIDie+a0a4RHziP3OabBbnXFGEfwpC9LE8sapNzAAD8Sr6vIk98uDw/h+ZgmjB
- J6cQ==
+ bh=HGnaeu/cP/UXodcMji+4vLk+3A0VAW3i5eSwd8SsyXQ=;
+ b=bn8Pcc1nMvlpraJbf0DtURU7wvjdV7FXHc2qn3ssIrpEfmnVlnSljpnIYyiC0rguQu
+ pk6HeZfjSsrDwXazn9BrYrJmCDRWlCJCmR2OIunKhNaoE1VeHjcwWYkQygwLRQpZz5Pr
+ j+giBZUyVk4NgK94wuHQ4l4OdoHNFV3SB++uxBNM6qwppdkAVuyLNIw7OvqYMDs8OxfH
+ sUc/9Lztc/v5j/aIsQeHvmLOuy5SiZ7YBudUSfeJolqy2qBMFKNVvNb1khi3o2A0t7th
+ QbrOkglcOi4CUAot2cAAwVxf0eMfeUSSjiD6kvtyTCskr/iESoHMXZEyZdzE1abhKPNu
+ AzWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757079122; x=1757683922;
+ d=1e100.net; s=20230601; t=1757080597; x=1757685397;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9YMepFXjYwhEQ7IA6bwJGUi9Ejy/qNIJucKvgMEsIGs=;
- b=kDSfSHVSo7x4mUcsIHxFVt2/llabVvxtbLZ7Yt0zp5FvVUwh/Qr187G+3KS7XJt+rP
- SRefU5Yx6Pv5cwtk4CZ6xpUE7auk77T9H0U9FTRgL+lQC7GUk+EkCNm5UtDRfjzQVStg
- Bwps+82t3LDSglw1W3nbLD6EAds3eqn4OY049dmJMGy5jOxJwMq9uQ9EU9djzhe++zZx
- PgvKcqAPmGWxASdI9SqgI3AH/E8roUlm57nq5vcr76ljMsy3INI4QtvEJnXY7m2jt8AY
- 1kjHKGf0wdkW8y4yNjy8emwbBgAdRpEPbGQxYoOMjOYMaB59H7xX1yI+3TYQ+phsq4fx
- XtLg==
+ bh=HGnaeu/cP/UXodcMji+4vLk+3A0VAW3i5eSwd8SsyXQ=;
+ b=QEXBN9UJe454lFfsHQUESXwrk1ZBdYekagXzqo7QqqaFhz1C/n+IwPei2M5d7iLKYp
+ JvhsG6N7vQ7AhblEcYHK5HREcNCaPD6uPNu46TDNGsY22grRl+HVd1XtK8P+aFiVzF1a
+ kTezgAeo9687jITKl5xg1UloKh3BPVTO7uCE3GMivJ29SR5ZZwo1+0/Q2EZTmbNhLgjI
+ CaRWlWXsVABjoxlFPrP0bK+G8rYfB4FCm78crsTRddgb5s6hd+LzocXIesE1biejJx+H
+ S3cLY7aOQGCHricMt3fVdof32O7cRjomSLywcQthbon81fwuy+mVQtyGt2Ikxd3P/Chf
+ wMQA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWx9Af6WGtgCUQ8AFrnNnVojxtV5BhKkNv+MZ5wbq+0P2kRogQfVWaHrr1RMbJ1g4qarpgQNDNJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrlIbxOuS3ycG7oFsnpM+YGwV7y2X+eYsO1GWg3V7nm8OsqZvB
- jp9+PzilAE5tGejAlEfdg5njzXw+37/OCvbQQN26ep4N4YAFEsIc8wb1roAeTyMJv7cr8oVEdz0
- EjsKE/augQf8ZXub9Ha1v4NGYWU4OEVg=
-X-Gm-Gg: ASbGncvxZvZ2+zLR5vLpITY/bQss+fGckOsot3cquBkd0qsIyYWe2xId4rAZr6CW7JS
- mlox1exb3yXSvA5JBfLKziVLakMnRNRg28ebQbqrRWGLLBfJXqgfUkcQuLMrX7Tou+yZ/hkAIIi
- X4oxsq0LOcpbWFWiqN/Pf7UyQ9pbKPSxget5GmwqyFFkkbw2TI5bk/LFsPyM72+GQyp+sS4LiRj
- KcdivDskXMH2XmnTA==
-X-Google-Smtp-Source: AGHT+IEe/wvRuuKle4+6VbzmKgT1ji4WT150x/ihFkC6UCxZULavQR0kaeTT8ntYFML2h6au4qiXi8Spz36fdnMcEyE=
-X-Received: by 2002:a17:90b:1d08:b0:32a:8b55:5b82 with SMTP id
- 98e67ed59e1d1-32a8b557332mr8674375a91.0.1757079121612; Fri, 05 Sep 2025
- 06:32:01 -0700 (PDT)
+ AJvYcCV1yEglMceZ3x+/MkCc70o73pFe8AKXJZRg3L4NBUa1fmUHWUxcdacr0Z5hehT7BfQZpX8Y2GW82H45@lists.freedesktop.org,
+ AJvYcCW5YlAMIx0TPlGFVR9H5b4M6LCmjsHM1oPSr4DH+OsANnxRrQjygzB3Zg2t/yg14/gKLXerwsQo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzgzUHhd/XTKt+XO26QBGkcRQWN3jaTs+3Ak2Pl3KFnQcBd5jDa
+ 4mFrok88q/FAbd3KyJs5sWtqIVWevJRCIBY4pL/xCKuN1hsLHbXlyb9o8zCXuPMRRDU0emi2Y/s
+ TYakJlfakgiXW0MTFLDbZUZaSypeHfh8=
+X-Gm-Gg: ASbGncunoUDE0Ps3vEkCgnqJ172XryW9psQw4DTCGVhfU/dmcmkv31S5NMaCoVdSCnY
+ rgGT5OpP8sWOyeue+rlHuG/FubYqotlAwLMP+S2qDYkD13nodn1LzpvLsgf+RR4BeRHy5PQPnkt
+ bmE7e9fQoW8A0nxv7Ymsd/pzjQnJgJy9XQhDVZwwJG2vXXrfP80Nr8aPrpWYCDGvxK/K3098foZ
+ y3fRIY=
+X-Google-Smtp-Source: AGHT+IFcUgtHn38A9MmTtlHXLaDHz29J5EnIOqSxCPcUl8S3cozWt1ExCnTMJDYkH56Uy3MwKleQ4qFrkKRqe5R1LCs=
+X-Received: by 2002:a17:903:22c1:b0:24d:f198:7d7a with SMTP id
+ d9443c01a7336-24df19880a2mr14157585ad.11.1757080596677; Fri, 05 Sep 2025
+ 06:56:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250905124742.11305-1-christian.koenig@amd.com>
- <20250905124742.11305-2-christian.koenig@amd.com>
-In-Reply-To: <20250905124742.11305-2-christian.koenig@amd.com>
+References: <20250902165332.2388864-1-alexander.deucher@amd.com>
+ <20250905101422.GAaLq3_kDePySD36Ma@fat_crate.local>
+In-Reply-To: <20250905101422.GAaLq3_kDePySD36Ma@fat_crate.local>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 5 Sep 2025 09:31:50 -0400
-X-Gm-Features: Ac12FXwpATvdcDvAHHCLAY1AtUt2RrF4JX5n_PZ0f8SGSsluuxQ6AXSK2cwIxME
-Message-ID: <CADnq5_OmQkYaYSu-QYCXV7YcPLtbVsKqwsjwWt=coPoRcrvadg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: reject gang submissions under SRIOV
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- timur.kristof@gmail.com
+Date: Fri, 5 Sep 2025 09:56:25 -0400
+X-Gm-Features: Ac12FXzQL9W887aCNpyvGtm5a9px92QvBxCT98Spkr9bCd8Wg7WsUXk1LHhlldk
+Message-ID: <CADnq5_OZ585tA6nf95jU2RD0odLi8jt+qzLbnDCh9289Cy_hAQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: use dev_warn_once() in CS parsers
+To: Borislav Petkov <bp@alien8.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,59 +85,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 5, 2025 at 8:47=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+On Fri, Sep 5, 2025 at 6:54=E2=80=AFAM Borislav Petkov <bp@alien8.de> wrote=
+:
 >
-> Gang submission means that the kernel driver guarantees that multiple
-> submissions are executed on the HW at the same time on different engines.
+> On Tue, Sep 02, 2025 at 12:53:32PM -0400, Alex Deucher wrote:
+> > Older GPUs did not support memory protection, so the kernel
+> > driver would validate the command submissions (CS) from userspace
+> > to avoid the GPU accessing any memory it shouldn't.
+> >
+> > Change any error messages in that validatio to dev_warn_once() to
+> > avoid spamming the kernel log in the event of a bad CS.  If users
+> > see any of these messages they should report them to the user space
+> > component, which in most cases is mesa
+> > (https://gitlab.freedesktop.org/mesa/mesa/-/issues).
+> >
+> > Cc: Borislav Petkov (AMD) <bp@alien8.de>
+> > Link: https://lore.kernel.org/r/20250829171655.GBaLHgh3VOvuM1UfJg@fat_c=
+rate.local
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/radeon/evergreen_cs.c | 520 +++++++++++++-------------
+> >  drivers/gpu/drm/radeon/r100.c         | 215 +++++------
+> >  drivers/gpu/drm/radeon/r200.c         |  34 +-
+> >  drivers/gpu/drm/radeon/r300.c         |  66 ++--
+> >  drivers/gpu/drm/radeon/r600_cs.c      | 445 +++++++++++-----------
+> >  drivers/gpu/drm/radeon/radeon_cs.c    |   2 +-
+> >  6 files changed, 648 insertions(+), 634 deletions(-)
 >
-> Background is that those submissions then depend on each other and each
-> can't finish stand alone.
+> Btw, now that I had to reboot the workstation, I thought I'll apply yours=
+ to
+> test it. You've missed one spot, see below. :-)
 >
-> SRIOV now uses world switch to preempt submissions on the engines to allo=
-w
-> sharing the HW resources between multiple VFs.
->
-> The problem is now that the SRIOV world switch can't know about such inte=
-r
-> dependencies and will cause a timeout if it waits for a partially running
-> gang submission.
->
-> To conclude SRIOV and gang submissions are fundamentally incompatible at
-> the moment. For now just disable them.
 
-Are you sure about this?  Thinking about this more, most gang
-submissions are between gfx and compute.  The entire GC block (gfx,
-compute, and sdma on gfx10+) gets preempted on world switch so all of
-the active queues would be preempted.  Everything gets resumed when
-the VF gets switched back.  VCN/JPEG gets switched independently so
-that could be a problem if you have a gang with VCN and GC, but I
-think all gangs within GC should in theory be ok.
+Whoops.  thanks.  I've squashed this into the original patch.
+
+> With that additional debug added, I see now:
+>
+> [   25.877593] radeon 0000:1d:00.0: vbo resource seems too big (524289) f=
+or the bo (524288)
+>
+> which looks like some buffer limits mis-counting. The bo is obviously of =
+1^19
+> buffer size while one of those "size" and "offset" things are off by one.
+>
+> If anyone wants to debug, the program which causes this is conky version:
+> 1.11.6-2 in debian. It starts spewing the warnings when I start it and si=
+nce
+> it.
+
+The size and offset come from userspace, so it's likely a mesa issue.
+I've reported it here:
+https://gitlab.freedesktop.org/mesa/mesa/-/issues/13838
 
 Alex
 
 >
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Thx.
+>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/rade=
+on/evergreen_cs.c
+> index d49e59626e39..1162cb5d75ed 100644
+> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
+> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+> @@ -2418,7 +2418,8 @@ static int evergreen_packet3_check(struct radeon_cs=
+_parser *p,
+>                                 size =3D radeon_get_ib_value(p, idx+1+(i*=
+8)+1);
+>                                 if (p->rdev && (size + offset) > radeon_b=
+o_size(reloc->robj)) {
+>                                         /* force size to size of the buff=
+er */
+> -                                       dev_warn_ratelimited(p->dev, "vbo=
+ resource seems too big for the bo\n");
+> +                                       dev_warn_once(p->dev, "vbo resour=
+ce seems too big (%d) for the bo (%ld)\n",
+> +                                                     size + offset, rade=
+on_bo_size(reloc->robj));
+>                                         ib[idx+1+(i*8)+1] =3D radeon_bo_s=
+ize(reloc->robj) - offset;
+>                                 }
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index 2ac9729e4c86..434a551365c7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -286,7 +286,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p=
-,
->                 }
->         }
->
-> -       if (!p->gang_size) {
-> +       if (!p->gang_size || (amdgpu_sriov_vf(p->adev) && p->gang_size > =
-1)) {
->                 ret =3D -EINVAL;
->                 goto free_all_kdata;
->         }
 > --
-> 2.43.0
+> Regards/Gruss,
+>     Boris.
 >
+> https://people.kernel.org/tglx/notes-about-netiquette
