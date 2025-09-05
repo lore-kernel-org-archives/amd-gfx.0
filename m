@@ -4,74 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DF23CA0FED
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 14:02:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20F0DCA1010
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 14:02:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8338C10EBAC;
-	Fri,  5 Sep 2025 14:02:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B99E810EBB0;
+	Fri,  5 Sep 2025 14:02:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X0ijtlt9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HRvXBehO";
 	dkim-atps=neutral
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6997E10EBAC
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Sep 2025 14:02:06 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-7728ec910caso181021b3a.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Sep 2025 07:02:06 -0700 (PDT)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE4D10EBB0;
+ Fri,  5 Sep 2025 14:02:11 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-24ca270d700so4965685ad.0; 
+ Fri, 05 Sep 2025 07:02:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757080926; x=1757685726; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1757080931; x=1757685731; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XqpTl+vk4dhOPDbW6nj+dDKIOdtfXZ022f+aaWs3pr8=;
- b=X0ijtlt9iGT/6ryoNVzjPXykgFR5KSu3zrrMdOxwJG6aq/VYiyhs//5L8eaVb15iXi
- DqwKmZ4qCgWYyfOqbqaAyNGHjDtJmzeQN1Yi6K/Clg8lFImSztSP47vfhb3DFHU6wkDO
- tWU4bkvo3/ds9uLfO6ar0b70XD+/6IFU5XpTQcUtGfx6C9EfDHUbRWQavCvV9nqJOiBh
- K/8EMFdXTq+4+Ljt6ZEa4Rw5DQKXt6T0KwefEId5mXiVYCUEAHEGyRFMRRFeb2ezbH5/
- MV+m6Tw2sRGYzNsh2DZz3OGuUDb99VNRodfEDjRaDTwHyItSSMhg3r6xseGIlROP45q1
- +W3g==
+ bh=gmzENMw6YNHe2IJ7FAYcIAfnTl3HXJqQlHsorHVRbJc=;
+ b=HRvXBehOLDQTTcL0FhoM4+n6Dy3aWHWVjJjwrnyB2msCcF6wdPEiNZTE88lfEhQRfB
+ QP7fOA782jzbVO9HB+v4WCjoh49TkyPVrUpgwxcLR3ydapJpQ2Ysber6Ct0pth4Bvmm1
+ D0qBg8yKLIJQ+QBNXEqVCiIlEF+IptBNxbLmzGHzBID/LgLgFxgGCy+dyqwgtweRLM0P
+ xw0h9s3uHL/QNLX9GOXWHY+jf9ETUnMl7cTnejcYy0RNG1KiYw4yA1UWQB6W3eAqd4tM
+ CpXs2znclPZY2bm7sD1QitReGp+1iTmufQWT8BEEvX84/9frCHw5xnqul74cGApPZ4L2
+ g7Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757080926; x=1757685726;
+ d=1e100.net; s=20230601; t=1757080931; x=1757685731;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=XqpTl+vk4dhOPDbW6nj+dDKIOdtfXZ022f+aaWs3pr8=;
- b=DXS69DJq1Ri4zreQABr0p9Im5SVN+/3PdhZ2a3aARubV/+n9+FYUFbwwWh6DeVdzN1
- hrwC+Dueja6N/yTQ7uCWrxuVc01WK9z5WJFO1HN0wG8VVpC9j6/NybsgQn2QHu17qJnX
- go2i6doDehw6v3lSG6wn0XXonhju6z/b4GdLjLfFIn7JpHXOMy8dzAbPsU5wd3T4RLE0
- grYkfXJ9nqU2pIduszZyX0lxWw6RRGDPaEphTlmSYJ/OuvX4P44m8iUliNMxsNBiinyh
- YYyU+c/7GuQA0K/J/4m/9vSPDtevDe3q7+Kq/zjBKS8kSNIqZIx6yrrXKeEe/hbE9Gbu
- MLIg==
+ bh=gmzENMw6YNHe2IJ7FAYcIAfnTl3HXJqQlHsorHVRbJc=;
+ b=o+7Ma4h/l7g25dSgS1tIXDlk3DKzi5pukLJ2in2bgZ1tZ2hbVLYniWD5z834++TeSz
+ qyqWVRITc5X7HMXvw0HBSQwqR3xlau7edYVTYH8miuiiaaDSgVU8EDRmVNHNKD+Sema+
+ rzaVI94QANdjeZ0huXdIlkhep7IcVBJ84ULfdwe+4uc4jiZ+ALXwJZkpS17yxhIAZ85e
+ nPJ76406tYMLhrEJlICnj1anq+mpQu8vNowa1sYJxhMK/SXIG+RxQM2QhjQPLTtte7Pe
+ LJsvn0OzOl7I3LKvuubk8wizi0DsgJW7jgydTpL7kUdJ0i2R95fXm+c4dZtLTTGJApiS
+ EVgQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXLnCoqzJOrqQy7iLJDfPD5fJyj3W9lzhu3LjqNUeDfI/m7oqJRv0dbL1FKaydR+IXLCaC5/Y1z@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmWqyu9hSwxA7GXbUu9n4ii1TwgkQgrX++vOJgb7i2sCHwjy8N
- +R1HJuHKnEYGerPAK2j6z4vDdDA58JiTqi/svKUvpS6IeMQWIXAa7zi9G2pUssFLQo/GkJ3cIy4
- UNkzecjZxsoISU8GHslQdB94tBbeFvsw=
-X-Gm-Gg: ASbGncuyrtZz/N0ksEcS/iG7aeVREBk9U2ZwLElD+QTdv2JL70rFmhQmJ4sqsZDLhLn
- NVTp0G5sP+lioMXgTMgOrDMHOK1MCri/zq3ulU36myaLZXvwYTn453uDCkyw4wbD4p/2h2LMbls
- kG5XljsUe46jyZK6LrXLBoSgMOeMNFMVTO4pOa5aaToLL0vwejcz3KyCqsrNCXJpHVKuGQ8WCj5
- PAAgk/o2qxav7LqUA==
-X-Google-Smtp-Source: AGHT+IHXFGa7NWczA018rgS0LlHuNh5R+hXjzhrDU28sHXa2cOr0r5eDZu5GDOxcVZw+1SIy/nvMbdMx/Ajva5IJhTI=
-X-Received: by 2002:a17:902:e845:b0:24c:c445:87c2 with SMTP id
- d9443c01a7336-24cc4458d54mr46166385ad.4.1757080919426; Fri, 05 Sep 2025
- 07:01:59 -0700 (PDT)
+ AJvYcCWTZiRpacT49RNnu6PqQx2RxwjNJszx1pUD/0Jf62To82BDvZKiFem6YMFEbtKL+QF6oec8vtVY@lists.freedesktop.org,
+ AJvYcCWs4v7bppLrHDMWq1rBHmdsP+/ruXGIxBvmdF4jHySyObj+7gO2PKlAkfol+jfkuo8YyoeitNvnWvCH@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtC2OWZfc09d+1FTD9c4xEbiTuheptGyqGpOiIinUYziR9dlpy
+ /i0MR44OwT7cDSYY9brqCkoTfAoZWhSIRw0Y8fW1GaQ1uvSgZAnjEFsckhgF5N77ICCsnf++Q6k
+ VnPD8thda9MgXd+fyO9RJ5mMt+Gy2YxE=
+X-Gm-Gg: ASbGncu7NNtPXPgQB66JF+XkTqc4Gnem+NU5Jyf3ivpbqd2HHt9VWGVprqfq/Y2Ocqb
+ O66ZEAQjEfa70nVEHOhEzgc8NEY7IH87xAhBNhJ9nH3Zua6F8wYcvdKVQEo18Y3mUodiTy/E3E6
+ Z/FMx/fDUI+hNJxODpb1giAYS/H65AAJnpXX/M9uE9FOJmymQfcmqtuiomqg8BiWH5MCwdeMEei
+ jmxO16pWXQs7B5FoQ==
+X-Google-Smtp-Source: AGHT+IF9rkgtoSMCl0jYFSHVZuyZeCWt9XZMNT1MGcboLMsN9CKxcNZU79FEyRdNtyL0WU9L2+FyKsOgYQInTvQ6ias=
+X-Received: by 2002:a17:902:dac8:b0:24f:8286:9e5a with SMTP id
+ d9443c01a7336-24f8286a133mr5036715ad.6.1757080930194; Fri, 05 Sep 2025
+ 07:02:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250905101128.3058191-1-john.olender@gmail.com>
- <PH7PR12MB59970F48ECB9A527A377D1088203A@PH7PR12MB5997.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB59970F48ECB9A527A377D1088203A@PH7PR12MB5997.namprd12.prod.outlook.com>
+References: <aLnhaU9cLeAdim7J@stanley.mountain>
+ <SA1PR12MB814473BD381D10C842F30422EF03A@SA1PR12MB8144.namprd12.prod.outlook.com>
+In-Reply-To: <SA1PR12MB814473BD381D10C842F30422EF03A@SA1PR12MB8144.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 5 Sep 2025 10:01:47 -0400
-X-Gm-Features: Ac12FXwBc-GFSGpA_We1XpBGFI1khzwhAo0fmbP9Se1lwJ9l3Ly9TmETb-TWB4A
-Message-ID: <CADnq5_OvnR82_igzpfUTpC5rOpYxa1QkX_tFEn-5nH9rrTSwOg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix NULL ptr deref in
- amdgpu_device_cache_switch_state()
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-Cc: John Olender <john.olender@gmail.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Sun,
- Ce(Overlord)" <Ce.Sun@amd.com>
+Date: Fri, 5 Sep 2025 10:01:58 -0400
+X-Gm-Features: Ac12FXx-WGJ-F0--XB5dXIw5UpADiQRdi1GA0k5IIwFmngy8mfiqzoc0IpdRJ0c
+Message-ID: <CADnq5_PZgPKjARKaKrxtKOUhuk8KBOOba75SxnFJD_76W8yDKw@mail.gmail.com>
+Subject: Re: [PATCH next] drm/amdgpu: Fix error codes if copy_to_user() fails
+To: "Francis, David" <David.Francis@amd.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Arvind Yadav <Arvind.Yadav@amd.com>, 
+ "Sharma, Shashank" <Shashank.Sharma@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,68 +96,73 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Fri, Sep 5, 2025 at 8:49=E2=80=AFAM Wang, Yang(Kevin) <KevinYang.Wang@am=
-d.com> wrote:
+On Fri, Sep 5, 2025 at 8:59=E2=80=AFAM Francis, David <David.Francis@amd.co=
+m> wrote:
 >
 > [AMD Official Use Only - AMD Internal Distribution Only]
 >
-> Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+> Whoops. Yep, story checks out.
 >
-> Best Regards,
-> Kevin
+> This is
+> Reviewed-By: David Francis <David.Francis@amd.com>
+> ________________________________
+> From: Dan Carpenter <dan.carpenter@linaro.org>
+> Sent: Thursday, September 4, 2025 2:58 PM
+> To: Francis, David <David.Francis@amd.com>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Ch=
+ristian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vetter <s=
+imona@ffwll.ch>; Arvind Yadav <Arvind.Yadav@amd.com>; Sharma, Shashank <Sha=
+shank.Sharma@amd.com>; Thomas Zimmermann <tzimmermann@suse.de>; amd-gfx@lis=
+ts.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedes=
+ktop.org <dri-devel@lists.freedesktop.org>; linux-kernel@vger.kernel.org <l=
+inux-kernel@vger.kernel.org>; kernel-janitors@vger.kernel.org <kernel-janit=
+ors@vger.kernel.org>
+> Subject: [PATCH next] drm/amdgpu: Fix error codes if copy_to_user() fails
 >
-> -----Original Message-----
-> From: John Olender <john.olender@gmail.com>
-> Sent: Friday, September 5, 2025 6:11 PM
-> To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Lazar, Lijo <Lijo.Lazar@a=
-md.com>; amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander=
-.Deucher@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>; John Olender <john.o=
-lender@gmail.com>
-> Subject: [PATCH] drm/amdgpu: Fix NULL ptr deref in amdgpu_device_cache_sw=
-itch_state()
+> The copy_to_user() function returns the number of bytes that it wasn't
+> able to copy, but we should return -EFAULT to the user.
 >
-> Kaveri has no upstream bridge, therefore parent is NULL.
->
-> $ lspci -PP
-> ...
-> 00:01.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]=
- Kaveri [Radeon R7 Graphics] (rev d4)
->
-> For comparison, Raphael:
->
-> $ lspci -PP
-> ...
-> 00:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Raphael/Granite Ri=
-dge Internal GPP Bridge to Bus [C:A] ...
-> 00:08.1/0e:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [=
-AMD/ATI] Raphael (rev c5)
->
-> Fixes: e5e203e0cd53 ("drm/amdgpu: Save and restore switch state")
-> Link: https://lore.kernel.org/amd-gfx/38fe6513-f8a9-4669-8e86-89c54c46561=
-1@gmail.com/
-> Signed-off-by: John Olender <john.olender@gmail.com>
+> Fixes: 4d82724f7f2b ("drm/amdgpu: Add mapping info option for GEM_OP ioct=
+l")
+> Fixes: f9db1fc52ceb ("drm/amdgpu: Add ioctl to get all gem handles for a =
+process")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 7783272a7930..ca58cde66446 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -7148,7 +7148,7 @@ static void amdgpu_device_cache_switch_state(struct=
- amdgpu_device *adev)
->         struct pci_dev *parent =3D pci_upstream_bridge(adev->pdev);
->         int r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.c
+> index 63eb75a579ce..2b58bc805374 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -1067,7 +1067,8 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, voi=
+d *data,
+>                  drm_exec_fini(&exec);
 >
-> -       if (parent->vendor !=3D PCI_VENDOR_ID_ATI)
-> +       if (!parent || parent->vendor !=3D PCI_VENDOR_ID_ATI)
->                 return;
+>                  if (num_mappings > 0 && num_mappings <=3D args->num_entr=
+ies)
+> -                       r =3D copy_to_user(u64_to_user_ptr(args->value), =
+vm_entries, num_mappings * sizeof(*vm_entries));
+> +                       if (copy_to_user(u64_to_user_ptr(args->value), vm=
+_entries, num_mappings * sizeof(*vm_entries)))
+> +                               r =3D -EFAULT;
 >
->         /* If already saved, return */
+>                  args->num_entries =3D num_mappings;
 >
-> base-commit: 035edba1e204b302ae74269d4f09e355153a79ac
+> @@ -1159,7 +1160,8 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device=
+ *dev, void *data,
+>          args->num_entries =3D bo_index;
+>
+>          if (!ret)
+> -               ret =3D copy_to_user(u64_to_user_ptr(args->entries), bo_e=
+ntries, num_bos * sizeof(*bo_entries));
+> +               if (copy_to_user(u64_to_user_ptr(args->entries), bo_entri=
+es, num_bos * sizeof(*bo_entries)))
+> +                       ret =3D -EFAULT;
+>
+>          kvfree(bo_entries);
+>
 > --
 > 2.47.2
 >
