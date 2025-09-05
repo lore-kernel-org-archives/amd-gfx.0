@@ -4,82 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBCA0CA0FED
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 15:00:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D243CA1010
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 15:26:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65CBD10EBE0;
-	Fri,  5 Sep 2025 15:00:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC89110EBCF;
+	Fri,  5 Sep 2025 15:26:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VJunp9ep";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wxqMdr7m";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2C4010EBE0
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Sep 2025 15:00:04 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-24cb6c57a16so3469865ad.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Sep 2025 08:00:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757084404; x=1757689204; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=644bWyi7Gz/5AQ0CWTbzwIYMSqCAftuTj3UexOogKD0=;
- b=VJunp9epR7mS0CuNP4xuB4QhSpInFGkCuweQWPrL85lwYaBKQAuf0Tru2niChyoSUg
- +hHVDWjfhV3YBAwza6WQ9a43ZHp1De24zazLuzPVFPaMAhxh2xJcZyAwuCh3i4e+PsL7
- 3PLmca/YILBqX56kLbn3nRIi78DbJEf3PINsFaZnr5obMbdR4PYu7Zye1W/NMFVPW121
- g+QVuGNyGEu8ifcD2vsg/quAMV0OV/bZiWY/KbzH7E0HDNgEn/cdRytZtWblTVrDtMzy
- QdiY+IrXMBRjCaExUO57Ap5Ix8G1nk6Q80kJ0MJogrrUTlBCe3XhN3QmLpKeIqhu5u6d
- hqWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757084404; x=1757689204;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=644bWyi7Gz/5AQ0CWTbzwIYMSqCAftuTj3UexOogKD0=;
- b=Y8zyJLbnflZ7gzfExo3urYA7W6A0oMpf2cimN10RCzxCIjSu2V3SIIrSE6WbC9DCdQ
- HgcgW7OsJ4hjmTbZuO0Ei/kesPjW3lnjSkbEMOc/nRcTsph8c407f7OjZ2jkPwtENu+6
- sx1rQOVMKS7Mk00ly/lLf5NUurGtw+YumJr22FPiOOWJcQ0FV9bPemN2ZzQ2kRsJdo3L
- ZQwbzHOtfCpohW7vc6RGisTXe+cgO3y8knMAQfDrdjqn91YB1ojNVVsy52aNpZ1E+DP9
- Hd3B1Q6demKEWVKgdgLuQCv909/BGL28qpO87FNTl1WghWSkO1ukKSRfqPZuWJXCf//H
- +vqA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWobXNDXAFy8S0YH++xup69SWmKk0jhq6HFUFaIswcAwdwM/uY+grdCqZSGdY1gLmebeCmzGuPc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLCDeAHWBWZoadSLQUJNMYzxVGK/C9wLAHpk9DGk3uJIh2c/4E
- Ng5xBfdfuuRQcPyzHmcFq9kvBjgcSmL4eqWVhPPf+H7kriOEgQ3HQN5OI54bxTWnH/C5XANi4kM
- AlcP0MgllKZXcE6j40kh2ncOjE6jQ9b4=
-X-Gm-Gg: ASbGncuTZ4PH0ruNQQdC2igTZ6VGf4+aXl0e3SKtnstmAz/qrDl6iI4DiBRWPTv3KMH
- u5N+ui9QbgDQKWxqQYIvxUXvlomO6mfbSeXkUkK+uPOaPzvw4426+5p6TF5ulBtma+Dt1maI4nX
- +LUunuwOuNCNdPx3Hj5HAampsI2lfcXIlUC4UUEiTs+HsWpws1SzhKIsEiYZF7kr2pckrxKgwpb
- oEuMJsge8lqyrDcNQ==
-X-Google-Smtp-Source: AGHT+IGLdV8ggfrllLO6IRJ2/v7m79H+qtBxLHgOpEW0Tvwb/x5vLlpzcqd0eOu0P+UZHUGpW0h1xJj/LXNug6OrOFA=
-X-Received: by 2002:a17:902:f545:b0:24c:e9f0:1e59 with SMTP id
- d9443c01a7336-24ce9f02274mr31586995ad.0.1757084403788; Fri, 05 Sep 2025
- 08:00:03 -0700 (PDT)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2064.outbound.protection.outlook.com [40.107.102.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C230C10EBCF
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Sep 2025 15:26:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WVfaVSC9HoHPAitGD+mXWA0ASpQdBZ6vX2I94S89dx9es1GstoyF7M3Spqg4xvPlXcezmDThMLjXhi3fHHTarwuym0FJX1mhGMiavszYQu6wAsI9+0Vcg7cgVMbkSmcb64SR+NykKwJEKcrH8W8XmXbgex/TzyOtLkduJlsS5HbT4j+5Zl0kSq/AwiGmCIuDszVIhIXZA04zacyvEDwVfkpVPlBUeoniXkndAw25Nm4TeRbv5XGx0KJHMxhk79Mm8ECml+ueSKyLVM6jQ/UW6n9JX4FRe4y6hg8ezx5qnGP8EHBIw6TEmlXkIdT3vwN+7FC2BlZzAhcObw6+JC4j5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SKD70MJu7dvdaaaLCMfEWeu9eDxPrjgevn3q6nQnGdw=;
+ b=yJYEaHVguGiD5kBt+l6Nox3rjnLQd3qFVdK9LU5t2XhRVqcRde6chQHaZkfIWHhkhBeN+BuOaLiC/VHaG7rm7iiC2JOfAYK8g/5/G/5D/D0KTbMOJJEaHFIsb3HbKJaJ0bRft9ntZftCljsdOw5AjB4wON3M+gBXdQKfuAoxZ/6mHBqqmljPe/izl2XzwUirr2iCuKQqtptf2AseUnyzsYwkLK0WVmaOuX+4AB2qLxeokUYGnorhMfiPzGvYj9h8GXRzHI/ynYzE1qsHUebLUW7jITv1QTK9T4q2hHJx8LbrPldr8YQG9/piUySjYNm2zOhtnWa48zpxfmOMFfHwAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SKD70MJu7dvdaaaLCMfEWeu9eDxPrjgevn3q6nQnGdw=;
+ b=wxqMdr7m682Cyagh12b1d+KYAIkY4qDVxJuzH+12HzYyKrN02tsUYXJlres06vlWTrhmmGlOnAYjhH04k+Dv/uOVxnKGG/QGSPe3USwRiXxQ7FSgH3OmdKA14/qcFXDBatUiASYVBcEGjxW2SM2ggbzzQwB1ohViv0Nm8Gnb+gw=
+Received: from SN1PR12CA0083.namprd12.prod.outlook.com (2603:10b6:802:21::18)
+ by LV8PR12MB9643.namprd12.prod.outlook.com (2603:10b6:408:297::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.18; Fri, 5 Sep
+ 2025 15:26:08 +0000
+Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
+ (2603:10b6:802:21:cafe::29) by SN1PR12CA0083.outlook.office365.com
+ (2603:10b6:802:21::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.20 via Frontend Transport; Fri,
+ 5 Sep 2025 15:26:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9094.14 via Frontend Transport; Fri, 5 Sep 2025 15:26:08 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 5 Sep
+ 2025 10:26:06 -0500
+Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Fri, 5 Sep
+ 2025 08:26:06 -0700
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, <David.Wu3@amd.com>,
+ <christian.koenig@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: clean up and unify hw fence handling
+Date: Fri, 5 Sep 2025 11:25:52 -0400
+Message-ID: <20250905152552.5558-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20250905152552.5558-1-alexander.deucher@amd.com>
+References: <20250905152552.5558-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-References: <20250826074646.1775241-1-Prike.Liang@amd.com>
- <20250826074646.1775241-8-Prike.Liang@amd.com>
- <CADnq5_PDwsgY-sjkeCQ=eiiCF4Z4XXcGN3Q5d5D05obr6BXeZQ@mail.gmail.com>
- <PH7PR12MB600043FCEDC15FB294FB7966FB38A@PH7PR12MB6000.namprd12.prod.outlook.com>
- <CADnq5_P0so23DcH3+JO70RYxDDGWYdofeQJkrzCWy+PHOUyMPw@mail.gmail.com>
- <DS7PR12MB6005421EF6E18DA1BDD4B29AFB07A@DS7PR12MB6005.namprd12.prod.outlook.com>
- <CADnq5_M5MGLnzYQzTikfKiqWKZpnA03dgawd2Y54tHW57N0u+A@mail.gmail.com>
- <DS7PR12MB600594D4B760FE58BC07B744FB01A@DS7PR12MB6005.namprd12.prod.outlook.com>
- <CADnq5_M9MPuat=Rivq27A-4TEm9i5zDi76Wj4avUJUo2PW+8OA@mail.gmail.com>
- <CADnq5_PcjZEdZ325R8uMofOY9+8uo_gyJ=G5j8JDsG9DFYSapA@mail.gmail.com>
- <DS7PR12MB6005929AAC64E6D2CE399DD3FB03A@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB6005929AAC64E6D2CE399DD3FB03A@DS7PR12MB6005.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 5 Sep 2025 10:59:51 -0400
-X-Gm-Features: Ac12FXyvbFIPrOSEhbvkWIItqrXv-ni6BIdT4tNH8q0g7867MQoJ2OY6ksu8CWg
-Message-ID: <CADnq5_N8ei3Uu50TPwZJnxYk9t=_C5ORRaqe_QWRrMQ0DqGyVA@mail.gmail.com>
-Subject: Re: [PATCH v9 08/14] drm/amdgpu: add userq object va track helpers
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|LV8PR12MB9643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83e34c76-0c6e-4a79-6a56-08ddec90899d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?M51e9fc9YV45nnSroK7ubtwUp1F/eDlb7oJhcwrI7rEaGb2Gnn+amqWpmm2D?=
+ =?us-ascii?Q?z84aTt7b4fh/2K+9OReDSA+h7aHHIrn07slAwa/wz2tRtwXH00S02XImv/JW?=
+ =?us-ascii?Q?CQi45DpuAIOqzvZLWdXX5yEorwLifVuNZvbq5BJCuEkualurQmepLXYauP7+?=
+ =?us-ascii?Q?BK6Hjzf+Y4mlABBu7mDDrNhl+JgpP5HUnEdwDdkrIMFTNRjnssB2dYmigFik?=
+ =?us-ascii?Q?YGEAiMOecn4cH+9PntswcffmDSgN8+fVWlTEolqmepudF50jJPCl5EhkFWVc?=
+ =?us-ascii?Q?0DO/tnERYhEXrd4iOVfISpqtacpmaYAoGiuMW/nIM7LZzMaVBBx6QvcVD4NK?=
+ =?us-ascii?Q?Uk1FGB0ymhnzRVDfuPp/VRQQmedCn0KAi3djnJZX0GbeGBDNazKwQOSO6Q+C?=
+ =?us-ascii?Q?hEKCCEOluqs2XxP7EmxfWvSk3oCXMgN2S2+Z1Wb+zQRiHhgKTa6C8x99//OP?=
+ =?us-ascii?Q?i+2dZqSYBHunXC0ruffv/6DFFrybG60hWiM45b6WeR8AfYImGKUuMclKFbrW?=
+ =?us-ascii?Q?4uMgTgo/GNZKC9qj5tOnoYQF1POEOVIlxcRiRT+XUMjfE/eosRpicZMODAsX?=
+ =?us-ascii?Q?nVEd8EOa6fSBfHA1BsKJV7g2VkjAaFLiqoVKnLlMiEwirs6e/4YFN9KTwJ5f?=
+ =?us-ascii?Q?sNv+BfakvZwfz6MWg5EDxJ7I2OMp1anPyTA0bWOlvgWSYsAQNKVk2x75PpF1?=
+ =?us-ascii?Q?uWYdvJmwKFADysE1dkjBCYpWcR5Dt9m2LeZKbQ6YgwnYIkAY8Mu8JbcZbnqo?=
+ =?us-ascii?Q?g+pi+giTeMWT81XPn087WXrJ0gipN4IhJ6TGVDBb1mxaLXLxrrEbhqxY4K3L?=
+ =?us-ascii?Q?7SR6JXOo/Apm15fdCdcFjpSfEhi9TxpFGqVCQpZ3k/gynQ1UwHz7OwWu1GUj?=
+ =?us-ascii?Q?IAp4pqpk0eVwVYsL21PONS/BYcVmj7Wm3eqrG0fdjn+mYX1+oksoBXXyw7cm?=
+ =?us-ascii?Q?YGiawyOiPecgFEjTvZD95ehEPZbh5cQ6NRPhyzPnFN9G07jDvQOHtg1fvAHN?=
+ =?us-ascii?Q?2ftaAaDG9cmBVbcfN3yXMgDF8x0ewFPf3R3j3IbsZvd/zc6DXXO+f+s8XesB?=
+ =?us-ascii?Q?+EJ4oenP5Re6wRvH8p4Wh9s9LV12q6X+VYL1cL2/IirdhekU6Wv520DQGl5+?=
+ =?us-ascii?Q?ibGuyS0HGMnpZCKrKdGNBq+UBcY83fwibeQFBzQIptlQ98PstecV1O76HO3F?=
+ =?us-ascii?Q?yTnar/jACZLjvbLaCUeeQ7HaS3iC603GUcvhbWsIahAjpsKDVfLtZkCl/3hU?=
+ =?us-ascii?Q?nb+O8YkzN16OCoGSRYD5NPL85MDAGaxytIIqLBGXLG5ZRBt0CKqM0wlcN9MC?=
+ =?us-ascii?Q?qSyctQ38T2pn1TeOkTaXN86Up3/EDSG7SpjowvCqozfqNDTAR4aZaGvl6jf1?=
+ =?us-ascii?Q?0j0UJLvz34x0+yORQI7lyL8c3KA0ugLyGDk0li8t9qeN+dH48WMDv+BBCD46?=
+ =?us-ascii?Q?P4u4guK7AAQHLH1s3Zml7Jm9QoP57ILMv6IYaWWvg+VuVM1At3Y22ilugkPw?=
+ =?us-ascii?Q?NquB4aakxXnO3u5shMzegxLTX5Msh4JIN/PB?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2025 15:26:08.4063 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83e34c76-0c6e-4a79-6a56-08ddec90899d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9643
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,584 +137,555 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 5, 2025 at 4:24=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> w=
-rote:
->
-> [Public]
->
-> Regards,
->       Prike
->
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Thursday, September 4, 2025 11:26 PM
-> > To: Liang, Prike <Prike.Liang@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>
-> > Subject: Re: [PATCH v9 08/14] drm/amdgpu: add userq object va track hel=
-pers
-> >
-> > On Wed, Sep 3, 2025 at 6:19=E2=80=AFPM Alex Deucher <alexdeucher@gmail.=
-com> wrote:
-> > >
-> > > On Wed, Sep 3, 2025 at 8:56=E2=80=AFAM Liang, Prike <Prike.Liang@amd.=
-com> wrote:
-> > > >
-> > > > [Public]
-> > > >
-> > > > Regards,
-> > > >       Prike
-> > > >
-> > > > > -----Original Message-----
-> > > > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf O=
-f
-> > > > > Alex Deucher
-> > > > > Sent: Tuesday, September 2, 2025 11:46 PM
-> > > > > To: Liang, Prike <Prike.Liang@amd.com>
-> > > > > Cc: Koenig, Christian <Christian.Koenig@amd.com>; amd-
-> > > > > gfx@lists.freedesktop.org; Deucher, Alexander
-> > > > > <Alexander.Deucher@amd.com>
-> > > > > Subject: Re: [PATCH v9 08/14] drm/amdgpu: add userq object va
-> > > > > track helpers
-> > > > >
-> > > > > On Mon, Sep 1, 2025 at 5:13=E2=80=AFAM Liang, Prike <Prike.Liang@=
-amd.com> wrote:
-> > > > > >
-> > > > > > [Public]
-> > > > > >
-> > > > > >
-> > > > > >
-> > > > > > Regards,
-> > > > > >       Prike
-> > > > > >
-> > > > > > > -----Original Message-----
-> > > > > > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > > > > > Sent: Thursday, August 28, 2025 6:13 AM
-> > > > > > > To: Liang, Prike <Prike.Liang@amd.com>; Koenig, Christian
-> > > > > > > <Christian.Koenig@amd.com>
-> > > > > > > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > > > > > > <Alexander.Deucher@amd.com>
-> > > > > > > Subject: Re: [PATCH v9 08/14] drm/amdgpu: add userq object va
-> > > > > > > track helpers
-> > > > > > >
-> > > > > > > On Wed, Aug 27, 2025 at 8:07=E2=80=AFAM Liang, Prike <Prike.L=
-iang@amd.com>
-> > wrote:
-> > > > > > > >
-> > > > > > > > [Public]
-> > > > > > > >
-> > > > > > > > Regards,
-> > > > > > > >       Prike
-> > > > > > > >
-> > > > > > > > > -----Original Message-----
-> > > > > > > > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > > > > > > > Sent: Tuesday, August 26, 2025 11:22 PM
-> > > > > > > > > To: Liang, Prike <Prike.Liang@amd.com>
-> > > > > > > > > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > > > > > > > > <Alexander.Deucher@amd.com>; Koenig, Christian
-> > > > > > > > > <Christian.Koenig@amd.com>
-> > > > > > > > > Subject: Re: [PATCH v9 08/14] drm/amdgpu: add userq objec=
-t
-> > > > > > > > > va track helpers
-> > > > > > > > >
-> > > > > > > > > On Tue, Aug 26, 2025 at 3:47=E2=80=AFAM Prike Liang
-> > > > > > > > > <Prike.Liang@amd.com>
-> > > > > wrote:
-> > > > > > > > > >
-> > > > > > > > > > Add the userq object virtual address get(),mapped() and
-> > > > > > > > > > put() helpers for tracking the userq obj va address usa=
-ge.
-> > > > > > > > > >
-> > > > > > > > > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > > > > > > > > > ---
-> > > > > > > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 172
-> > > > > > > > > > ++++++++++++++++++++-
-> > > > > > > > > > ++++++++++++++++++++drivers/gpu/drm/amd/amdgpu/amdgpu_u=
-s
-> > > > > > > > > > ++++++++++++++++++++erq.h
-> > > > > > > > > > ++++++++++++++++++++|  14
-> > > > > > > > > ++
-> > > > > > > > > >  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |   4 +
-> > > > > > > > > >  3 files changed, 189 insertions(+), 1 deletion(-)
-> > > > > > > > > >
-> > > > > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > > > > > > > > > index 0aeb7a96ccbf..562d12f9d0d2 100644
-> > > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > > > > > > > > > @@ -76,6 +76,174 @@ int
-> > > > > > > > > > amdgpu_userq_input_va_validate(struct
-> > > > > > > > > > amdgpu_vm
-> > > > > > > > > *vm, u64 addr,
-> > > > > > > > > >         return r;
-> > > > > > > > > >  }
-> > > > > > > > > >
-> > > > > > > > > > +int amdgpu_userq_buffer_va_get(struct amdgpu_vm *vm, u=
-64
-> > addr) {
-> > > > > > > > > > +       struct amdgpu_bo_va_mapping *mapping;
-> > > > > > > > > > +       u64 user_addr;
-> > > > > > > > > > +       int r;
-> > > > > > > > > > +
-> > > > > > > > > > +       user_addr =3D (addr & AMDGPU_GMC_HOLE_MASK) >>
-> > > > > > > > > AMDGPU_GPU_PAGE_SHIFT;
-> > > > > > > > > > +       r =3D amdgpu_bo_reserve(vm->root.bo, false);
-> > > > > > > > > > +       if (r)
-> > > > > > > > > > +               return r;
-> > > > > > > > > > +
-> > > > > > > > > > +       mapping =3D amdgpu_vm_bo_lookup_mapping(vm, use=
-r_addr);
-> > > > > > > > > > +       if (!mapping)
-> > > > > > > > > > +               goto out_err;
-> > > > > > > > > > +
-> > > > > > > > > > +       /*
-> > > > > > > > > > +        * Need to unify the following userq va referen=
-ce.
-> > > > > > > > > > +        *  mqd  bo
-> > > > > > > > > > +        *  rptr bo
-> > > > > > > > > > +        *  wptr bo
-> > > > > > > > > > +        *  eop  bo
-> > > > > > > > > > +        *  shadow bo
-> > > > > > > > > > +        *  csa bo
-> > > > > > > > > > +        */
-> > > > > > > > > > +       /*amdgpu_bo_ref(mapping->bo_va->base.bo);*/
-> > > > > > > > > > +       mapping->bo_va->queue_refcount++;
-> > > > > > > > > > +
-> > > > > > > > > > +       amdgpu_bo_unreserve(vm->root.bo);
-> > > > > > > > > > +       return 0;
-> > > > > > > > > > +
-> > > > > > > > > > +out_err:
-> > > > > > > > > > +       amdgpu_bo_unreserve(vm->root.bo);
-> > > > > > > > > > +       return -EINVAL;
-> > > > > > > > > > +}
-> > > > > > > > > > +
-> > > > > > > > > > +bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm
-> > > > > > > > > > +*vm, u64
-> > > > > addr) {
-> > > > > > > > > > +       struct amdgpu_bo_va_mapping *mapping;
-> > > > > > > > > > +       u64 user_addr;
-> > > > > > > > > > +       bool r;
-> > > > > > > > > > +
-> > > > > > > > > > +       user_addr =3D (addr & AMDGPU_GMC_HOLE_MASK) >>
-> > > > > > > > > > + AMDGPU_GPU_PAGE_SHIFT;
-> > > > > > > > > > +
-> > > > > > > > > > +       if (amdgpu_bo_reserve(vm->root.bo, false))
-> > > > > > > > > > +               return false;
-> > > > > > > > > > +
-> > > > > > > > > > +       mapping =3D amdgpu_vm_bo_lookup_mapping(vm, use=
-r_addr);
-> > > > > > > > > > +       if (!IS_ERR_OR_NULL(mapping) && mapping->bo_va-
-> > > > > > > >queue_refcount > 0)
-> > > > > > > > > > +               r =3D true;
-> > > > > > > > > > +       else
-> > > > > > > > > > +               r =3D false;
-> > > > > > > > > > +       amdgpu_bo_unreserve(vm->root.bo);
-> > > > > > > > > > +
-> > > > > > > > > > +       return r;
-> > > > > > > > > > +}
-> > > > > > > > > > +
-> > > > > > > > > > +bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_vm *=
-vm,
-> > > > > > > > > > +                       struct amdgpu_usermode_queue
-> > > > > > > > > > +*queue) {
-> > > > > > > > > > +
-> > > > > > > > > > +       switch (queue->queue_type) {
-> > > > > > > > > > +       case AMDGPU_HW_IP_GFX:
-> > > > > > > > > > +               if (amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >queue_va) ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >rptr_va) ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >wptr_va) ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm,
-> > > > > > > > > > + queue->shadow_va)
-> > > > > ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >csa_va))
-> > > > > > > > > > +                       return true;
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       case AMDGPU_HW_IP_COMPUTE:
-> > > > > > > > > > +               if (amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >queue_va) ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >rptr_va) ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >wptr_va) ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >eop_va))
-> > > > > > > > > > +                       return true;
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       case AMDGPU_HW_IP_DMA:
-> > > > > > > > > > +               if (amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >queue_va) ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >rptr_va) ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >wptr_va) ||
-> > > > > > > > > > +                   amdgpu_userq_buffer_va_mapped(vm, q=
-ueue-
-> > >csa_va))
-> > > > > > > > > > +                       return true;
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       default:
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       }
-> > > > > > > > > > +
-> > > > > > > > > > +       return false;
-> > > > > > > > > > +}
-> > > > > > > > > > +
-> > > > > > > > > > +int amdgpu_userq_buffer_va_put(struct amdgpu_vm *vm, u=
-64
-> > addr) {
-> > > > > > > > > > +       struct amdgpu_bo_va_mapping *mapping;
-> > > > > > > > > > +       u64 user_addr;
-> > > > > > > > > > +       int r;
-> > > > > > > > > > +
-> > > > > > > > > > +       user_addr =3D (addr & AMDGPU_GMC_HOLE_MASK) >>
-> > > > > > > > > AMDGPU_GPU_PAGE_SHIFT;
-> > > > > > > > > > +       r =3D amdgpu_bo_reserve(vm->root.bo, false);
-> > > > > > > > > > +       if (r)
-> > > > > > > > > > +               return r;
-> > > > > > > > > > +
-> > > > > > > > > > +       mapping =3D amdgpu_vm_bo_lookup_mapping(vm, use=
-r_addr);
-> > > > > > > > > > +       if (!mapping)
-> > > > > > > > > > +               goto out_err;
-> > > > > > > > > > +       /*
-> > > > > > > > > > +        * TODO: It requires figuring out the root caus=
-e of userq va
-> > mapping
-> > > > > > > > > > +        * reference imbalance issue.
-> > > > > > > > > > +        */
-> > > > > > > > > > +       /*amdgpu_bo_unref(&mapping->bo_va->base.bo);*/
-> > > > > > > > > > +       mapping->bo_va->queue_refcount--;
-> > > > > > > > > > +
-> > > > > > > > > > +       amdgpu_bo_unreserve(vm->root.bo);
-> > > > > > > > > > +       return 0;
-> > > > > > > > > > +
-> > > > > > > > > > +out_err:
-> > > > > > > > > > +       amdgpu_bo_unreserve(vm->root.bo);
-> > > > > > > > > > +       return -EINVAL;
-> > > > > > > > > > +}
-> > > > > > > > > > +
-> > > > > > > > > > +static void amdgpu_userq_buffer_vas_get(struct amdgpu_=
-vm *vm,
-> > > > > > > > > > +                       struct amdgpu_usermode_queue
-> > > > > > > > > > +*queue) {
-> > > > > > > > > > +
-> > > > > > > > > > +
-> > > > > > > > > > +       amdgpu_userq_buffer_va_get(vm, queue->queue_va)=
-;
-> > > > > > > > > > +       amdgpu_userq_buffer_va_get(vm, queue->rptr_va);
-> > > > > > > > > > +       amdgpu_userq_buffer_va_get(vm, queue->wptr_va);
-> > > > > > > > > > +
-> > > > > > > > > > +       switch (queue->queue_type) {
-> > > > > > > > > > +       case AMDGPU_HW_IP_GFX:
-> > > > > > > > > > +               amdgpu_userq_buffer_va_get(vm, queue->s=
-hadow_va);
-> > > > > > > > > > +               amdgpu_userq_buffer_va_get(vm, queue->c=
-sa_va);
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       case AMDGPU_HW_IP_COMPUTE:
-> > > > > > > > > > +               amdgpu_userq_buffer_va_get(vm, queue->e=
-op_va);
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       case AMDGPU_HW_IP_DMA:
-> > > > > > > > > > +               amdgpu_userq_buffer_va_get(vm, queue->c=
-sa_va);
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       default:
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       }
-> > > > > > > > > > +}
-> > > > > > > > > > +
-> > > > > > > > > > +int amdgpu_userq_buffer_vas_put(struct amdgpu_vm *vm,
-> > > > > > > > > > +                       struct amdgpu_usermode_queue *q=
-ueue) {
-> > > > > > > > > > +       amdgpu_userq_buffer_va_put(vm, queue->queue_va)=
-;
-> > > > > > > > > > +       amdgpu_userq_buffer_va_put(vm, queue->rptr_va);
-> > > > > > > > > > +       amdgpu_userq_buffer_va_put(vm, queue->wptr_va);
-> > > > > > > > > > +
-> > > > > > > > > > +       switch (queue->queue_type) {
-> > > > > > > > > > +       case AMDGPU_HW_IP_GFX:
-> > > > > > > > > > +               amdgpu_userq_buffer_va_put(vm, queue->s=
-hadow_va);
-> > > > > > > > > > +               amdgpu_userq_buffer_va_put(vm, queue->c=
-sa_va);
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       case AMDGPU_HW_IP_COMPUTE:
-> > > > > > > > > > +               amdgpu_userq_buffer_va_put(vm, queue->e=
-op_va);
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       case AMDGPU_HW_IP_DMA:
-> > > > > > > > > > +               amdgpu_userq_buffer_va_put(vm, queue->c=
-sa_va);
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       default:
-> > > > > > > > > > +               break;
-> > > > > > > > > > +       }
-> > > > > > > > > > +       return 0;
-> > > > > > > > > > +}
-> > > > > > > > > > +
-> > > > > > > > > >  static int
-> > > > > > > > > >  amdgpu_userq_unmap_helper(struct amdgpu_userq_mgr *uq_=
-mgr,
-> > > > > > > > > >                           struct amdgpu_usermode_queue
-> > > > > > > > > > *queue) @@
-> > > > > > > > > > -445,6 +613,9 @@ amdgpu_userq_create(struct drm_file
-> > > > > > > > > > *filp, union
-> > > > > > > > > drm_amdgpu_userq *args)
-> > > > > > > > > >         queue->vm =3D &fpriv->vm;
-> > > > > > > > > >         queue->priority =3D priority;
-> > > > > > > > > >         queue->generation =3D amdgpu_vm_generation(adev=
-,
-> > > > > > > > > > &fpriv->vm);
-> > > > > > > > > > +       queue->queue_va =3D args->in.queue_va;
-> > > > > > > > > > +       queue->rptr_va =3D args->in.rptr_va;
-> > > > > > > > > > +       queue->wptr_va =3D args->in.wptr_va;
-> > > > > > > > > >
-> > > > > > > > > >         db_info.queue_type =3D queue->queue_type;
-> > > > > > > > > >         db_info.doorbell_handle =3D
-> > > > > > > > > > queue->doorbell_handle; @@
-> > > > > > > > > > -475,7
-> > > > > > > > > > +646,6 @@ amdgpu_userq_create(struct drm_file *filp,
-> > > > > > > > > > +union drm_amdgpu_userq
-> > > > > > > > > *args)
-> > > > > > > > > >                 goto unlock;
-> > > > > > > > > >         }
-> > > > > > > > > >
-> > > > > > > > > > -
-> > > > > > > > > >         qid =3D idr_alloc(&uq_mgr->userq_idr, queue, 1,
-> > > > > > > > > AMDGPU_MAX_USERQ_COUNT, GFP_KERNEL);
-> > > > > > > > > >         if (qid < 0) {
-> > > > > > > > > >                 drm_file_err(uq_mgr->file, "Failed to
-> > > > > > > > > > allocate a queue id\n"); diff --git
-> > > > > > > > > > a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> > > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> > > > > > > > > > index 0eb2a9c2e340..30067f80eadf 100644
-> > > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> > > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> > > > > > > > > > @@ -54,6 +54,13 @@ struct amdgpu_usermode_queue {
-> > > > > > > > > >         enum amdgpu_userq_state state;
-> > > > > > > > > >         uint64_t                doorbell_handle;
-> > > > > > > > > >         uint64_t                doorbell_index;
-> > > > > > > > > > +       uint64_t                queue_va;
-> > > > > > > > > > +       uint64_t                rptr_va;
-> > > > > > > > > > +       uint64_t                wptr_va;
-> > > > > > > > > > +       uint64_t                eop_va;
-> > > > > > > > > > +       uint64_t                shadow_va;
-> > > > > > > > > > +       uint64_t                csa_va;
-> > > > > > > > >
-> > > > > > > > > Just store a list of critical virtual addresses.
-> > > > > > > > > Otherwise we are going to have a ton of IP specific thing=
-s
-> > > > > > > > > in here.  For each critical address, just
-> > > > > > > push the address on the list.
-> > > > > > > > > Then in the VM unmap code, just walk the list for each
-> > > > > > > > > queue and if the user tries to umap a critical buffer,
-> > > > > > > > > preempt the queue and set an error
-> > > > > on it.
-> > > > > > > > Is enough to track the queue_va for validating the userq VA=
- unmap
-> > operation?
-> > > > > > > > I proposed a similar solution for retrieving the userq by
-> > > > > > > > walking over VA list, but
-> > > > > > > Christian rejected this for the overhead cause.
-> > > > > > > >
-> > > > > > >
-> > > > > > > I think queue creation and unmap are the only cases that we
-> > > > > > > care about.  We don't want to create a queue with an invalid
-> > > > > > > addresses and we don't want to unmap a virtual address that i=
-s
-> > > > > > > critical for the queue before
-> > > > > the queue is destroyed.
-> > > > > > >
-> > > > > > > I think all we need to do in the unmap case is to walk the
-> > > > > > > critical VA lists for each user queue associated with the VM =
-and check it.
-> > > > > > > @Christian Koenig did you have something else in mind?
-> > > > > >
-> > > > > >
-> > > > > > Limiting tracking to a subset of user-queue VAs would lower
-> > > > > > overhead. Would
-> > > > > tracking only queue_va, rptr_va, and wptr_va be sufficient to
-> > > > > validate user-queue VA unmaps?
-> > > > >
-> > > > > We should track all of the critical buffer VAs.
-> > > > >
-> > > > > > However, partial tracking risks missing invalid unmap events on=
- untracked
-> > VAs.
-> > > > > > Although patch #14 can detect invalid user-queue VA unmaps by
-> > > > > >checking bo_va- queue_refcount, but if we only look up a partial
-> > > > > >VA list, we may still fail to identify
-> > > > > the specific queue whose VA was improperly unmapped, and therefor=
-e
-> > > > > we cannot preempt and mark that queue as invalid. Thought?
-> > > > >
-> > > > > We can store the critical buffers list in the struct
-> > > > > amdgpu_usermode_queue.  Then walk the lists when we unmap the VA:
-> > > > >
-> > > > > idr_for_each_entry(&uqm->userq_idr, queue, queue_id) {
-> > > > >     if (amdgpu_userq_critical_va(queue, va_address, va_size)) {
-> > > > >           preempt(queue);
-> > > > >           queue->status =3D AMDGPU_USERQ_STATE_INVALID_VA;
-> > > > >     }
-> > > > > }
-> > > > >
-> > > > > Alex
-> > > >
-> > > > Thank you for the proposal. If there are no objections, I will upda=
-te the userq
-> > retrieval method to walk the VA list instead of checking the mapping ra=
-nge.
-> > >
-> > > Sure.  @Christian Koenig any concerns on your end?
-> >
-> > I talked to Christian, and he suggested we add a flag on the bo_va stru=
-cture and set
-> > it for the critical buffers.  If the flag is set, we'd wait for the boo=
-kkeeping fences when
-> > we unmap.  Then on resume, when we validate the buffers, if those buffe=
-rs are not
-> > present we skip the queue resume and set an error on the queue.
->
-> [Prike]  Thank you, Alex, for confirming. For this solution, I plan to us=
-e bo_va->queue_refcount to track the userq VA mapping status, and the valid=
-ation for restored BOs is already implemented in patch 13. I still have a f=
-ew questions to confirm:
+Decouple the amdgpu fence from the amdgpu_job structure.
+This lets us clean up the separate fence ops for the embedded
+fence and other fences.  This also allows us to allocate the
+vm fence up front when we allocate the job.
 
-Maybe userq_refcount so we know it's tied to user queues.
+v2: Additional cleanup suggested by Christian
+v3: Additional cleanups suggested by Christian
+v4: Additional cleanups suggested by David and
+    vm fence fix
+v5: cast seqno (David)
 
->
-> 1) If a userq VA is being unmapped while bo_va->queue_refcount !=3D 0, is=
- it sufficient to wait on the bookkeeping fence attached to mapping->bo_va-=
->base.bo->tbo.base.resv?
+Cc: David.Wu3@amd.com
+Cc: christian.koenig@amd.com
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   7 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 143 ++------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c      |  17 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  43 ++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |   7 +-
+ 8 files changed, 63 insertions(+), 167 deletions(-)
 
-I think we'd want to tie it to the eviction fence.  I.e., the buffer
-will stay mapped until the queue is evicted (preempted).
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index a70651050acff..0a62727e74f0f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1902,7 +1902,7 @@ static void amdgpu_ib_preempt_mark_partial_job(struct amdgpu_ring *ring)
+ 			continue;
+ 		}
+ 		job = to_amdgpu_job(s_job);
+-		if (preempted && (&job->hw_fence.base) == fence)
++		if (preempted && (&job->hw_fence->base) == fence)
+ 			/* mark the job as preempted */
+ 			job->preemption_status |= AMDGPU_IB_PREEMPTED;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index bdfb80377e6a8..dded88bc374c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5802,11 +5802,6 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 		if (!amdgpu_ring_sched_ready(ring))
+ 			continue;
+ 
+-		/* Clear job fence from fence drv to avoid force_completion
+-		 * leave NULL and vm flush fence in fence drv
+-		 */
+-		amdgpu_fence_driver_clear_job_fences(ring);
+-
+ 		/* after all hw jobs are reset, hw fence is meaningless, so force_completion */
+ 		amdgpu_fence_driver_force_completion(ring);
+ 	}
+@@ -6530,7 +6525,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	 *
+ 	 * job->base holds a reference to parent fence
+ 	 */
+-	if (job && dma_fence_is_signaled(&job->hw_fence.base)) {
++	if (job && dma_fence_is_signaled(&job->hw_fence->base)) {
+ 		job_signaled = true;
+ 		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
+ 		goto skip_hw_reset;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 72f0f16924476..e9586aab2c474 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -45,16 +45,11 @@
+  * Cast helper
+  */
+ static const struct dma_fence_ops amdgpu_fence_ops;
+-static const struct dma_fence_ops amdgpu_job_fence_ops;
+ static inline struct amdgpu_fence *to_amdgpu_fence(struct dma_fence *f)
+ {
+ 	struct amdgpu_fence *__f = container_of(f, struct amdgpu_fence, base);
+ 
+-	if (__f->base.ops == &amdgpu_fence_ops ||
+-	    __f->base.ops == &amdgpu_job_fence_ops)
+-		return __f;
+-
+-	return NULL;
++	return __f;
+ }
+ 
+ /**
+@@ -98,51 +93,32 @@ static u32 amdgpu_fence_read(struct amdgpu_ring *ring)
+  * amdgpu_fence_emit - emit a fence on the requested ring
+  *
+  * @ring: ring the fence is associated with
+- * @f: resulting fence object
+  * @af: amdgpu fence input
+  * @flags: flags to pass into the subordinate .emit_fence() call
+  *
+  * Emits a fence command on the requested ring (all asics).
+  * Returns 0 on success, -ENOMEM on failure.
+  */
+-int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
+-		      struct amdgpu_fence *af, unsigned int flags)
++int amdgpu_fence_emit(struct amdgpu_ring *ring, struct amdgpu_fence *af,
++		      unsigned int flags)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct dma_fence *fence;
+-	struct amdgpu_fence *am_fence;
+ 	struct dma_fence __rcu **ptr;
+ 	uint32_t seq;
+ 	int r;
+ 
+-	if (!af) {
+-		/* create a separate hw fence */
+-		am_fence = kzalloc(sizeof(*am_fence), GFP_KERNEL);
+-		if (!am_fence)
+-			return -ENOMEM;
+-	} else {
+-		am_fence = af;
+-	}
+-	fence = &am_fence->base;
+-	am_fence->ring = ring;
++	fence = &af->base;
++	af->ring = ring;
+ 
+ 	seq = ++ring->fence_drv.sync_seq;
+-	am_fence->seq = seq;
+-	if (af) {
+-		dma_fence_init(fence, &amdgpu_job_fence_ops,
+-			       &ring->fence_drv.lock,
+-			       adev->fence_context + ring->idx, seq);
+-		/* Against remove in amdgpu_job_{free, free_cb} */
+-		dma_fence_get(fence);
+-	} else {
+-		dma_fence_init(fence, &amdgpu_fence_ops,
+-			       &ring->fence_drv.lock,
+-			       adev->fence_context + ring->idx, seq);
+-	}
++	dma_fence_init(fence, &amdgpu_fence_ops,
++		       &ring->fence_drv.lock,
++		       adev->fence_context + ring->idx, seq);
+ 
+ 	amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
+ 			       seq, flags | AMDGPU_FENCE_FLAG_INT);
+-	amdgpu_fence_save_wptr(fence);
++	amdgpu_fence_save_wptr(af);
+ 	pm_runtime_get_noresume(adev_to_drm(adev)->dev);
+ 	ptr = &ring->fence_drv.fences[seq & ring->fence_drv.num_fences_mask];
+ 	if (unlikely(rcu_dereference_protected(*ptr, 1))) {
+@@ -167,8 +143,6 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
+ 	 */
+ 	rcu_assign_pointer(*ptr, dma_fence_get(fence));
+ 
+-	*f = fence;
+-
+ 	return 0;
+ }
+ 
+@@ -669,36 +643,6 @@ void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev)
+ 	}
+ }
+ 
+-/**
+- * amdgpu_fence_driver_clear_job_fences - clear job embedded fences of ring
+- *
+- * @ring: fence of the ring to be cleared
+- *
+- */
+-void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring)
+-{
+-	int i;
+-	struct dma_fence *old, **ptr;
+-
+-	for (i = 0; i <= ring->fence_drv.num_fences_mask; i++) {
+-		ptr = &ring->fence_drv.fences[i];
+-		old = rcu_dereference_protected(*ptr, 1);
+-		if (old && old->ops == &amdgpu_job_fence_ops) {
+-			struct amdgpu_job *job;
+-
+-			/* For non-scheduler bad job, i.e. failed ib test, we need to signal
+-			 * it right here or we won't be able to track them in fence_drv
+-			 * and they will remain unsignaled during sa_bo free.
+-			 */
+-			job = container_of(old, struct amdgpu_job, hw_fence.base);
+-			if (!job->base.s_fence && !dma_fence_is_signaled(old))
+-				dma_fence_signal(old);
+-			RCU_INIT_POINTER(*ptr, NULL);
+-			dma_fence_put(old);
+-		}
+-	}
+-}
+-
+ /**
+  * amdgpu_fence_driver_set_error - set error code on fences
+  * @ring: the ring which contains the fences
+@@ -755,7 +699,7 @@ void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring)
+ /**
+  * amdgpu_fence_driver_guilty_force_completion - force signal of specified sequence
+  *
+- * @fence: fence of the ring to signal
++ * @af: fence of the ring to signal
+  *
+  */
+ void amdgpu_fence_driver_guilty_force_completion(struct amdgpu_fence *af)
+@@ -786,15 +730,13 @@ void amdgpu_fence_driver_guilty_force_completion(struct amdgpu_fence *af)
+ 		rcu_read_unlock();
+ 	}
+ 	spin_unlock_irqrestore(&ring->fence_drv.lock, flags);
+-	amdgpu_fence_write(ring, af->seq);
++	amdgpu_fence_write(ring, (u32)af->base.seqno);
+ 	amdgpu_fence_process(ring);
+ }
+ 
+-void amdgpu_fence_save_wptr(struct dma_fence *fence)
++void amdgpu_fence_save_wptr(struct amdgpu_fence *af)
+ {
+-	struct amdgpu_fence *am_fence = container_of(fence, struct amdgpu_fence, base);
+-
+-	am_fence->wptr = am_fence->ring->wptr;
++	af->wptr = af->ring->wptr;
+ }
+ 
+ static void amdgpu_ring_backup_unprocessed_command(struct amdgpu_ring *ring,
+@@ -855,13 +797,6 @@ static const char *amdgpu_fence_get_timeline_name(struct dma_fence *f)
+ 	return (const char *)to_amdgpu_fence(f)->ring->name;
+ }
+ 
+-static const char *amdgpu_job_fence_get_timeline_name(struct dma_fence *f)
+-{
+-	struct amdgpu_job *job = container_of(f, struct amdgpu_job, hw_fence.base);
+-
+-	return (const char *)to_amdgpu_ring(job->base.sched)->name;
+-}
+-
+ /**
+  * amdgpu_fence_enable_signaling - enable signalling on fence
+  * @f: fence
+@@ -878,23 +813,6 @@ static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
+ 	return true;
+ }
+ 
+-/**
+- * amdgpu_job_fence_enable_signaling - enable signalling on job fence
+- * @f: fence
+- *
+- * This is the simliar function with amdgpu_fence_enable_signaling above, it
+- * only handles the job embedded fence.
+- */
+-static bool amdgpu_job_fence_enable_signaling(struct dma_fence *f)
+-{
+-	struct amdgpu_job *job = container_of(f, struct amdgpu_job, hw_fence.base);
+-
+-	if (!timer_pending(&to_amdgpu_ring(job->base.sched)->fence_drv.fallback_timer))
+-		amdgpu_fence_schedule_fallback(to_amdgpu_ring(job->base.sched));
+-
+-	return true;
+-}
+-
+ /**
+  * amdgpu_fence_free - free up the fence memory
+  *
+@@ -910,21 +828,6 @@ static void amdgpu_fence_free(struct rcu_head *rcu)
+ 	kfree(to_amdgpu_fence(f));
+ }
+ 
+-/**
+- * amdgpu_job_fence_free - free up the job with embedded fence
+- *
+- * @rcu: RCU callback head
+- *
+- * Free up the job with embedded fence after the RCU grace period.
+- */
+-static void amdgpu_job_fence_free(struct rcu_head *rcu)
+-{
+-	struct dma_fence *f = container_of(rcu, struct dma_fence, rcu);
+-
+-	/* free job if fence has a parent job */
+-	kfree(container_of(f, struct amdgpu_job, hw_fence.base));
+-}
+-
+ /**
+  * amdgpu_fence_release - callback that fence can be freed
+  *
+@@ -938,19 +841,6 @@ static void amdgpu_fence_release(struct dma_fence *f)
+ 	call_rcu(&f->rcu, amdgpu_fence_free);
+ }
+ 
+-/**
+- * amdgpu_job_fence_release - callback that job embedded fence can be freed
+- *
+- * @f: fence
+- *
+- * This is the simliar function with amdgpu_fence_release above, it
+- * only handles the job embedded fence.
+- */
+-static void amdgpu_job_fence_release(struct dma_fence *f)
+-{
+-	call_rcu(&f->rcu, amdgpu_job_fence_free);
+-}
+-
+ static const struct dma_fence_ops amdgpu_fence_ops = {
+ 	.get_driver_name = amdgpu_fence_get_driver_name,
+ 	.get_timeline_name = amdgpu_fence_get_timeline_name,
+@@ -958,13 +848,6 @@ static const struct dma_fence_ops amdgpu_fence_ops = {
+ 	.release = amdgpu_fence_release,
+ };
+ 
+-static const struct dma_fence_ops amdgpu_job_fence_ops = {
+-	.get_driver_name = amdgpu_fence_get_driver_name,
+-	.get_timeline_name = amdgpu_job_fence_get_timeline_name,
+-	.enable_signaling = amdgpu_job_fence_enable_signaling,
+-	.release = amdgpu_job_fence_release,
+-};
+-
+ /*
+  * Fence debugfs
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 7d9bcb72e8dd3..39229ece83f83 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -149,17 +149,19 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 	if (job) {
+ 		vm = job->vm;
+ 		fence_ctx = job->base.s_fence ?
+-			job->base.s_fence->scheduled.context : 0;
++			job->base.s_fence->finished.context : 0;
+ 		shadow_va = job->shadow_va;
+ 		csa_va = job->csa_va;
+ 		gds_va = job->gds_va;
+ 		init_shadow = job->init_shadow;
+-		af = &job->hw_fence;
++		af = job->hw_fence;
+ 		/* Save the context of the job for reset handling.
+ 		 * The driver needs this so it can skip the ring
+ 		 * contents for guilty contexts.
+ 		 */
+-		af->context = job->base.s_fence ? job->base.s_fence->finished.context : 0;
++		af->context = fence_ctx;
++		/* the vm fence is also part of the job's context */
++		job->hw_vm_fence->context = fence_ctx;
+ 	} else {
+ 		vm = NULL;
+ 		fence_ctx = 0;
+@@ -167,7 +169,9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 		csa_va = 0;
+ 		gds_va = 0;
+ 		init_shadow = false;
+-		af = NULL;
++		af = kzalloc(sizeof(*af), GFP_ATOMIC);
++		if (!af)
++			return -ENOMEM;
+ 	}
+ 
+ 	if (!ring->sched.ready) {
+@@ -289,7 +293,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 		amdgpu_ring_init_cond_exec(ring, ring->cond_exe_gpu_addr);
+ 	}
+ 
+-	r = amdgpu_fence_emit(ring, f, af, fence_flags);
++	r = amdgpu_fence_emit(ring, af, fence_flags);
+ 	if (r) {
+ 		dev_err(adev->dev, "failed to emit fence (%d)\n", r);
+ 		if (job && job->vmid)
+@@ -297,6 +301,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 		amdgpu_ring_undo(ring);
+ 		return r;
+ 	}
++	*f = &af->base;
+ 
+ 	if (ring->funcs->insert_end)
+ 		ring->funcs->insert_end(ring);
+@@ -317,7 +322,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 	 * fence so we know what rings contents to backup
+ 	 * after we reset the queue.
+ 	 */
+-	amdgpu_fence_save_wptr(*f);
++	amdgpu_fence_save_wptr(af);
+ 
+ 	amdgpu_ring_ib_end(ring);
+ 	amdgpu_ring_commit(ring);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 172620880cada..55c7e104d5ca0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -137,7 +137,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 		   ring->funcs->reset) {
+ 		dev_err(adev->dev, "Starting %s ring reset\n",
+ 			s_job->sched->name);
+-		r = amdgpu_ring_reset(ring, job->vmid, &job->hw_fence);
++		r = amdgpu_ring_reset(ring, job->vmid, job->hw_fence);
+ 		if (!r) {
+ 			atomic_inc(&ring->adev->gpu_reset_counter);
+ 			dev_err(adev->dev, "Ring %s reset succeeded\n",
+@@ -187,6 +187,9 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		     unsigned int num_ibs, struct amdgpu_job **job,
+ 		     u64 drm_client_id)
+ {
++	struct amdgpu_fence *af;
++	int r;
++
+ 	if (num_ibs == 0)
+ 		return -EINVAL;
+ 
+@@ -194,6 +197,20 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (!*job)
+ 		return -ENOMEM;
+ 
++	af = kzalloc(sizeof(struct amdgpu_fence), GFP_KERNEL);
++	if (!af) {
++		r = -ENOMEM;
++		goto err_job;
++	}
++	(*job)->hw_fence = af;
++
++	af = kzalloc(sizeof(struct amdgpu_fence), GFP_KERNEL);
++	if (!af) {
++		r = -ENOMEM;
++		goto err_fence;
++	}
++	(*job)->hw_vm_fence = af;
++
+ 	(*job)->vm = vm;
+ 
+ 	amdgpu_sync_create(&(*job)->explicit_sync);
+@@ -205,6 +222,13 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	return drm_sched_job_init(&(*job)->base, entity, 1, owner,
+ 				  drm_client_id);
++
++err_fence:
++	kfree((*job)->hw_fence);
++err_job:
++	kfree(*job);
++
++	return r;
+ }
+ 
+ int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
+@@ -251,11 +275,11 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
+ 	struct dma_fence *f;
+ 	unsigned i;
+ 
+-	/* Check if any fences where initialized */
++	/* Check if any fences were initialized */
+ 	if (job->base.s_fence && job->base.s_fence->finished.ops)
+ 		f = &job->base.s_fence->finished;
+-	else if (job->hw_fence.base.ops)
+-		f = &job->hw_fence.base;
++	else if (job->hw_fence && job->hw_fence->base.ops)
++		f = &job->hw_fence->base;
+ 	else
+ 		f = NULL;
+ 
+@@ -271,11 +295,7 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
+ 
+ 	amdgpu_sync_free(&job->explicit_sync);
+ 
+-	/* only put the hw fence if has embedded fence */
+-	if (!job->hw_fence.base.ops)
+-		kfree(job);
+-	else
+-		dma_fence_put(&job->hw_fence.base);
++	kfree(job);
+ }
+ 
+ void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
+@@ -304,10 +324,7 @@ void amdgpu_job_free(struct amdgpu_job *job)
+ 	if (job->gang_submit != &job->base.s_fence->scheduled)
+ 		dma_fence_put(job->gang_submit);
+ 
+-	if (!job->hw_fence.base.ops)
+-		kfree(job);
+-	else
+-		dma_fence_put(&job->hw_fence.base);
++	kfree(job);
+ }
+ 
+ struct dma_fence *amdgpu_job_submit(struct amdgpu_job *job)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+index 2f302266662bc..d25f1fcf0242e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+@@ -48,7 +48,8 @@ struct amdgpu_job {
+ 	struct drm_sched_job    base;
+ 	struct amdgpu_vm	*vm;
+ 	struct amdgpu_sync	explicit_sync;
+-	struct amdgpu_fence	hw_fence;
++	struct amdgpu_fence	*hw_fence;
++	struct amdgpu_fence	*hw_vm_fence;
+ 	struct dma_fence	*gang_submit;
+ 	uint32_t		preamble_status;
+ 	uint32_t                preemption_status;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 0704fd9b85fdb..5d44f1354c8d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -147,16 +147,14 @@ struct amdgpu_fence {
+ 	u64				wptr;
+ 	/* fence context for resets */
+ 	u64				context;
+-	uint32_t			seq;
+ };
+ 
+ extern const struct drm_sched_backend_ops amdgpu_sched_ops;
+ 
+-void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring);
+ void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error);
+ void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
+ void amdgpu_fence_driver_guilty_force_completion(struct amdgpu_fence *af);
+-void amdgpu_fence_save_wptr(struct dma_fence *fence);
++void amdgpu_fence_save_wptr(struct amdgpu_fence *af);
+ 
+ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring);
+ int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
+@@ -166,8 +164,8 @@ void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
+ void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
+ int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev);
+ void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev);
+-int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
+-		      struct amdgpu_fence *af, unsigned int flags);
++int amdgpu_fence_emit(struct amdgpu_ring *ring, struct amdgpu_fence *af,
++		      unsigned int flags);
+ int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,
+ 			      uint32_t timeout);
+ bool amdgpu_fence_process(struct amdgpu_ring *ring);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index bd12d8ff15a42..76bae546df11c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -772,7 +772,6 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 	bool cleaner_shader_needed = false;
+ 	bool pasid_mapping_needed = false;
+ 	struct dma_fence *fence = NULL;
+-	struct amdgpu_fence *af;
+ 	unsigned int patch;
+ 	int r;
+ 
+@@ -835,12 +834,10 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 	}
+ 
+ 	if (vm_flush_needed || pasid_mapping_needed || cleaner_shader_needed) {
+-		r = amdgpu_fence_emit(ring, &fence, NULL, 0);
++		r = amdgpu_fence_emit(ring, job->hw_vm_fence, 0);
+ 		if (r)
+ 			return r;
+-		/* this is part of the job's context */
+-		af = container_of(fence, struct amdgpu_fence, base);
+-		af->context = job->base.s_fence ? job->base.s_fence->finished.context : 0;
++		fence = &job->hw_vm_fence->base;
+ 	}
+ 
+ 	if (vm_flush_needed) {
+-- 
+2.51.0
 
-> 2) If that bookkeeping fence completes with an error (i.e., signal fails)=
-, should we still remove the mapping and add the VAs to the free list?
-
-I think so.  Double check what we do for other buffers in that case.
-
-> 3) With this approach we no longer need to derive the userq from the VA. =
-How should we classify this illegal unmap error and propagate it back to IG=
-T/user space?
-
-I think the error handling would be the same as before.  The user
-wouldn't see the error until we'd try and restore the preempted queue.
-When we validate the buffers before restoring the queue, we'd see that
-the critical buffers are not present.  At that point we'd skip the
-restore of the queue and set an error on it.
-
-Alex
-
-
->
-> > Alex
-> >
-> > >
-> > > Thanks,
-> > >
-> > > Alex
-> > >
-> > > >
-> > > > > >
-> > > > > >
-> > > > > > Thanks,
-> > > > > > Prike
-> > > > > >
-> > > > > > > Thanks,
-> > > > > > >
-> > > > > > > Alex
-> > > > > > >
-> > > > > > > > > Alex
-> > > > > > > > >
-> > > > > > > > > > +
-> > > > > > > > > >         uint64_t                flags;
-> > > > > > > > > >         struct amdgpu_mqd_prop  *userq_prop;
-> > > > > > > > > >         struct amdgpu_userq_mgr *userq_mgr; @@ -137,4
-> > > > > > > > > > +144,11 @@ int
-> > > > > > > > > > amdgpu_userq_start_sched_for_enforce_isolation(struct
-> > > > > > > > > > amdgpu_device *adev,
-> > > > > > > > > >
-> > > > > > > > > >  int amdgpu_userq_input_va_validate(struct amdgpu_vm *v=
-m, u64
-> > addr,
-> > > > > > > > > >                         u64 expected_size);
-> > > > > > > > > > +int amdgpu_userq_buffer_va_get(struct amdgpu_vm *vm,
-> > > > > > > > > > +u64 addr); bool amdgpu_userq_buffer_va_mapped(struct
-> > > > > > > > > > +amdgpu_vm *vm, u64 addr); bool
-> > > > > > > > > > +amdgpu_userq_buffer_vas_mapped(struct
-> > > > > amdgpu_vm *vm,
-> > > > > > > > > > +                       struct amdgpu_usermode_queue
-> > > > > > > > > > +*queue); int amdgpu_userq_buffer_va_put(struct
-> > > > > > > > > > +amdgpu_vm *vm, u64 addr); int
-> > amdgpu_userq_buffer_vas_put(struct amdgpu_vm *vm,
-> > > > > > > > > > +                       struct amdgpu_usermode_queue
-> > > > > > > > > > +*queue);
-> > > > > > > > > >  #endif
-> > > > > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > > > > > > index 6e29e85bbf9f..42d6cd90be59 100644
-> > > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > > > > > > @@ -262,6 +262,7 @@ static int
-> > > > > > > > > > mes_userq_mqd_create(struct
-> > > > > > > > > amdgpu_userq_mgr *uq_mgr,
-> > > > > > > > > >                 userq_props->hqd_active =3D false;
-> > > > > > > > > >                 userq_props->tmz_queue =3D
-> > > > > > > > > >                         mqd_user->flags &
-> > > > > > > > > > AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
-> > > > > > > > > > +               queue->eop_va =3D compute_mqd->eop_va;
-> > > > > > > > > >                 kfree(compute_mqd);
-> > > > > > > > > >         } else if (queue->queue_type =3D=3D AMDGPU_HW_I=
-P_GFX) {
-> > > > > > > > > >                 struct drm_amdgpu_userq_mqd_gfx11
-> > > > > > > > > > *mqd_gfx_v11; @@
-> > > > > > > > > > -283,6 +284,8 @@ static int mes_userq_mqd_create(struct
-> > > > > > > > > > amdgpu_userq_mgr
-> > > > > > > > > *uq_mgr,
-> > > > > > > > > >                 userq_props->csa_addr =3D mqd_gfx_v11->=
-csa_va;
-> > > > > > > > > >                 userq_props->tmz_queue =3D
-> > > > > > > > > >                         mqd_user->flags &
-> > > > > > > > > > AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
-> > > > > > > > > > +               queue->shadow_va =3D mqd_gfx_v11->shado=
-w_va;
-> > > > > > > > > > +               queue->csa_va =3D mqd_gfx_v11->csa_va;
-> > > > > > > > > >
-> > > > > > > > > >                 if
-> > > > > > > > > >(amdgpu_userq_input_va_validate(queue->vm,
-> > > > > > > > > >mqd_gfx_v11- shadow_va,
-> > > > > > > > > >
-> > > > > > > > > >shadow_info.shadow_size)) { @@
-> > > > > > > > > > -314,6 +317,7 @@ static int mes_userq_mqd_create(struct
-> > > > > > > > > >amdgpu_userq_mgr
-> > > > > > > > > *uq_mgr,
-> > > > > > > > > >                 }
-> > > > > > > > > >
-> > > > > > > > > >                 userq_props->csa_addr =3D
-> > > > > > > > > > mqd_sdma_v11->csa_va;
-> > > > > > > > > > +               queue->csa_va =3D mqd_sdma_v11->csa_va;
-> > > > > > > > > >                 kfree(mqd_sdma_v11);
-> > > > > > > > > >         }
-> > > > > > > > > >
-> > > > > > > > > > --
-> > > > > > > > > > 2.34.1
-> > > > > > > > > >
