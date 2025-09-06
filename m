@@ -4,114 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9019DCA0FED
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 21:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 167BDCA1002
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Sep 2025 06:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 151D010EC5F;
-	Fri,  5 Sep 2025 21:19:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46F8810E062;
+	Sat,  6 Sep 2025 06:22:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MMxqQw39";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GrZ4oOTs";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7CE710EC5C;
- Fri,  5 Sep 2025 21:19:09 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id A7B0D1A0DC8;
- Fri,  5 Sep 2025 21:19:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7F3416060B;
- Fri,  5 Sep 2025 21:19:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 60B80102F28A6; 
- Fri,  5 Sep 2025 23:18:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1757107147; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references:autocrypt;
- bh=qA1p1HiFom/b+0AkpRGF5adHJ6OWSNZnIjm3LD9NiNI=;
- b=MMxqQw39zzNxMUiU+Ngye0iqho7zJY6XaGDgaaXAX/KvI0gAw4nLq30LnlHOIknyRTSWkm
- YKggeAdaWJLgsFluZQKzLLpU+iRe+J09IuPyvT/J263NM9ZuDQM+4VR2Z5hlxWigItBrPa
- jiR7aoiKj3eQCY6hQVJJYp9Ckl9S6q16agMF/m6nX7GirM8rKL1UssAe2HSMHgf6uV3otW
- v5u5d74f0QnJsA7uyKIC0c8RoXVh/j1JF1bZFWtjg83VVsTvktq1WpSzZrIxrUm0pI0fgB
- LksPb9YSRv91Sckvye8rlgWeIVjUWUCbVkYf94DHzK/vU2SKpUm+QPc8SEU+Jw==
-Message-ID: <e0d8c575-0cbe-430d-9f02-1b9ff040e217@bootlin.com>
-Date: Fri, 5 Sep 2025 23:18:55 +0200
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAAFE10E062
+ for <amd-gfx@lists.freedesktop.org>; Sat,  6 Sep 2025 06:22:44 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-61cb4374d2fso4327091a12.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Sep 2025 23:22:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757139763; x=1757744563; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=2PqpxFOlfLI6Npx6KQhV2OPYijNS8gn8cYGYLSM4JdI=;
+ b=GrZ4oOTsrkXn297yvNTMAeufc2uUuDYSgtqP0bP9xfzZpDkxVG7DkDVWoct9/LlhUA
+ jgct4H9/CoLh8TqeIkozlTSMpcP/n2kYaTfS/68Uw6MMvctu7sKPmO7KhK/sF0Ow15tI
+ jrT/R+MUi+Hwbpj1RenwQC6lNtX7iV3r0o5f7e59NhiQK7PQyJVhs9iM3uA+GpbbgAeJ
+ 5IMwcduQkOXpS5QE9jwcFugg+/yqqmOr43MyVuH2eBirHDQED2+GlnJHoPpfcdwz5YXo
+ f0Dr7GwwKmsRSwV4z1p3C928BhHy77lCvH2QGKC2smX6y/5oezf5vfJPwHebWYE1rFSU
+ h7pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757139763; x=1757744563;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=2PqpxFOlfLI6Npx6KQhV2OPYijNS8gn8cYGYLSM4JdI=;
+ b=G2W8v+7gwAXwkmftf8TOhLI9BkgF4m+zhzWpQzCsne3wEZaOtfX8HzGTw1OgqHL3eZ
+ 1IRF9V6cLPr6k8Sbzi//qFR+S6KjrOAuv6slBdQ2Cwc4p70FW0DPctPdT7tioyvp1FcQ
+ 7xnJLiLM3IgczCdckxN6qb/WCHAcm6gpP/3Hi0klH5Hih5nrwqPSXdh2RwAwFGqj1Z8p
+ FtwSv41y4JQKX+MqFWEBWkNY0R1Gay/BkU1m4/NtSz7Sy8eeiUi2ouU3qoycrGt1YMxg
+ R89d9rBFPADXi7hMcAicDsvaNN+DxzNh4t0u+2cijA7y377tDOfV8xUNcOXa6BQrnEDG
+ JdTA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUQOFRrf3VbkS4hRVxl0eRjORKOvUg51I6gm3rjM1y3vKWSID6hrDAhke204OoSVnO3Ry+y4JW1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/ga45emWojV93pCx3VvSNLntuoZZe+pgqmH/zUFYDWICr0xna
+ W0EdRcXybaiTREb6ZCToPpxz6w3oAVD7+7jUiC6Do0k6jqgdAALNFkfn
+X-Gm-Gg: ASbGnct6Ry1o4etry1czZBZvUG7nWYSQ5hZMTG/DeslGoscTeokpSD9piqVXm0WeEPM
+ R9AzsNlp313qd5Vys05Kqe76yqhZ9K/T00CT1oBOAfV9W7m/oB64pL8fLGvdC/uUKpG60W/5GCa
+ dzZ/eh9Ce42svT2a1/Nt1yxVgfL/WlHzPPt/dgdVd1a+hlx5sONLCO4QYNgphNMh7HcDD8gL6Jw
+ yJq4JaskUo1UsisTwqWUUmWw7FRCacBrFcWLAjH1W6rLxPZoWLozkuGVt/zrqfNIXEpXbdLZT6C
+ oi61YbGjxIETZ84awHJ7ezUB99gZrqjDC6VvGYPi1BCihpukAhBI2jtTcxC0uUlKuvs7/lfgfyj
+ Oj+AaMdWmTQrYdJ9W2bo7qfI+VQEq
+X-Google-Smtp-Source: AGHT+IEJfk++3pPE8o0cOO4TQzTq4xvUiIqbZd9Wio9SoNyt7RCKt5gXgrgUG/C8xsg+IrS4j+3IaQ==
+X-Received: by 2002:a05:6402:5254:b0:61c:d330:77e7 with SMTP id
+ 4fb4d7f45d1cf-6237abddc02mr1261317a12.6.1757139762713; 
+ Fri, 05 Sep 2025 23:22:42 -0700 (PDT)
+Received: from [192.168.1.159] ([193.0.226.6])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61cfc4e4d77sm18170478a12.37.2025.09.05.23.22.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Sep 2025 23:22:42 -0700 (PDT)
+Message-ID: <ed094b44b9fbdadb6ec57161c0402b5e833d3a06.camel@gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: reject gang submissions under SRIOV
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, Alex Deucher
+ <alexdeucher@gmail.com>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <ckoenig.leichtzumerken@gmail.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Date: Sat, 06 Sep 2025 08:22:41 +0200
+In-Reply-To: <CH0PR12MB537231D3E692E6028C057F0EF403A@CH0PR12MB5372.namprd12.prod.outlook.com>
+References: <20250905124742.11305-1-christian.koenig@amd.com>
+ <20250905124742.11305-2-christian.koenig@amd.com>
+ <CADnq5_OmQkYaYSu-QYCXV7YcPLtbVsKqwsjwWt=coPoRcrvadg@mail.gmail.com>
+ <CH0PR12MB537231D3E692E6028C057F0EF403A@CH0PR12MB5372.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 18/58] dyndbg: change __dynamic_func_call_cls* macros
- into expressions
-To: Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org,
- jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com, seanpaul@chromium.org,
- robdclark@gmail.com, groeck@google.com, yanivt@google.com,
- bleung@google.com, quic_saipraka@quicinc.com, will@kernel.org,
- catalin.marinas@arm.com, quic_psodagud@quicinc.com, maz@kernel.org,
- arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, mingo@redhat.com
-References: <20250803035816.603405-1-jim.cromie@gmail.com>
- <20250803035816.603405-19-jim.cromie@gmail.com>
-Content-Language: en-US
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
- 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
-In-Reply-To: <20250803035816.603405-19-jim.cromie@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,65 +94,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Fri, 2025-09-05 at 18:39 +0000, Liu, Shaoyun wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>=20
+> I can confirm that during world switch the entire gfx block
+> (including gfx, compute and sdma for gfx10+) been switched together .
+>=20
+> Regards
+> Shaoyun.liu
+
+Hi Everyone,
+
+At the moment there are only two uses of gang submit:
+
+1. Mesh + task shaders where GFX and ACE are used together
+2. Transfer queues where SDMA and ACE are used together (not yet fully
+implemented in RADV)
+
+Based on the conversation above, it sounds like both of these would
+work just fine under SRIOV.
+
+Thanks,
+Timur
 
 
-Le 03/08/2025 à 05:57, Jim Cromie a écrit :
-> The Xe driver's XE_IOCTL_DBG macro calls drm_dbg() from inside an if
-> (expression).  This breaks when CONFIG_DRM_USE_DYNAMIC_DEBUG=y because
-> the invoked macro has a do-while-0 wrapper, and is not an expression.
-> 
->     if (cond && (drm_dbg("expr-form"),1)) {
->        ... do some more stuff
->     }
-> 
-> Fix for this usage by changing __dynamic_func_call_cls{,_no_desc}
-> macros into expressions, by replacing the do-while-0s with a ({ })
-> wrapper.  In the common usage, the trailing ';' converts the
-> expression into a statement.
-> 
->     drm_dbg("statement form");
-> 
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-
-> ---
-> ---
->   include/linux/dynamic_debug.h | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-> index 769f02456c8e0..1785ef5b93b15 100644
-> --- a/include/linux/dynamic_debug.h
-> +++ b/include/linux/dynamic_debug.h
-> @@ -217,20 +217,20 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
->    * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
->    * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
->    */
-> -#define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
-> +#define __dynamic_func_call_cls(id, cls, fmt, func, ...) ({	\
->   	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
->   	if (DYNAMIC_DEBUG_BRANCH(id))				\
->   		func(&id, ##__VA_ARGS__);			\
-> -} while (0)
-> +})
->   #define __dynamic_func_call(id, fmt, func, ...)				\
->   	__dynamic_func_call_cls(id, _DPRINTK_CLASS_DFLT, fmt,		\
->   				func, ##__VA_ARGS__)
->   
-> -#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) do {	\
-> +#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) ({	\
->   	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);		\
->   	if (DYNAMIC_DEBUG_BRANCH(id))					\
->   		func(__VA_ARGS__);					\
-> -} while (0)
-> +})
->   #define __dynamic_func_call_no_desc(id, fmt, func, ...)			\
->   	__dynamic_func_call_cls_no_desc(id, _DPRINTK_CLASS_DFLT,	\
->   					fmt, func, ##__VA_ARGS__)
-
--- 
-Louis Chauvet, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+>=20
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Alex Deucher
+> Sent: Friday, September 5, 2025 9:32 AM
+> To: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>;
+> amd-gfx@lists.freedesktop.org; timur.kristof@gmail.com
+> Subject: Re: [PATCH 2/2] drm/amdgpu: reject gang submissions under
+> SRIOV
+>=20
+> On Fri, Sep 5, 2025 at 8:47=E2=80=AFAM Christian K=C3=B6nig
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+> >=20
+> > Gang submission means that the kernel driver guarantees that
+> > multiple
+> > submissions are executed on the HW at the same time on different
+> > engines.
+> >=20
+> > Background is that those submissions then depend on each other and
+> > each can't finish stand alone.
+> >=20
+> > SRIOV now uses world switch to preempt submissions on the engines
+> > to
+> > allow sharing the HW resources between multiple VFs.
+> >=20
+> > The problem is now that the SRIOV world switch can't know about
+> > such
+> > inter dependencies and will cause a timeout if it waits for a
+> > partially running gang submission.
+> >=20
+> > To conclude SRIOV and gang submissions are fundamentally
+> > incompatible
+> > at the moment. For now just disable them.
+>=20
+> Are you sure about this?=C2=A0 Thinking about this more, most gang
+> submissions are between gfx and compute.=C2=A0 The entire GC block (gfx,
+> compute, and sdma on gfx10+) gets preempted on world switch so all of
+> the active queues would be preempted.=C2=A0 Everything gets resumed when
+> the VF gets switched back.=C2=A0 VCN/JPEG gets switched independently so
+> that could be a problem if you have a gang with VCN and GC, but I
+> think all gangs within GC should in theory be ok.
+>=20
+> Alex
+>=20
+> >=20
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > ---
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+> > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > index 2ac9729e4c86..434a551365c7 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > @@ -286,7 +286,7 @@ static int amdgpu_cs_pass1(struct
+> > amdgpu_cs_parser *p,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 }
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> >=20
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!p->gang_size) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!p->gang_size || (amdgpu_srio=
+v_vf(p->adev) && p-
+> > >gang_size
+> > + > 1)) {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 ret =3D -EINVAL;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 goto free_all_kdata;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > --
+> > 2.43.0
+> >=20
