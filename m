@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 067C7CAC582
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 07:27:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC0C4CA1013
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 07:27:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC39510E46E;
-	Mon,  8 Sep 2025 07:27:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D529510E471;
+	Mon,  8 Sep 2025 07:27:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="jJoKNftB";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xMzXnXPX";
 	dkim-atps=neutral
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDDB210E2EA;
- Fri,  5 Sep 2025 14:22:52 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2597840E01A2; 
- Fri,  5 Sep 2025 14:22:51 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id nc-3Lh5YaFEi; Fri,  5 Sep 2025 14:22:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1757082164; bh=otGHC79VZ8v1vivAuhLG8SQvF7wyCsRqd+lBryvA9R8=;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 306EB10E08B;
+ Sat,  6 Sep 2025 12:20:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 67836408D0;
+ Sat,  6 Sep 2025 12:20:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B37BBC4CEE7;
+ Sat,  6 Sep 2025 12:20:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1757161203;
+ bh=BKol4HL6/ZqnDnGKyyGY4AZwj2Kf559stTCHV+WJ3C0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jJoKNftB+n8YtQjBDsVxeEzjJzaayx7zcdVEYdc/GpwMbV8yabu7R1emW3HapdteJ
- DezdL+b8fQXgFqA80RyShrZg90lY8yYnqZFKJaEB8d4jUQW54n6QXBPRTtnX24ZcS4
- PAy8p7ZezvTG/lSbcipV9hHxr3UpjDdQkzwkCfHWm6n4Jr2SyhZ1kdQnsiUdEmpdsl
- ksV/PxS4qCUID4aOqPJnTCWYbIDPjBtgDHuBpnPul+wNSluCcINbyOte6ErYKo5221
- awRhD0CTaGzsRV9JCy/3wH/vdd969vdTCRIsQ544zKZiMOv0lIGyfSI1Tgi8LXd3z/
- tFvdx7PSYOewvd+aEeNVqBx7grBVKnAxX8OQJN6NR3ufQ1+3uPW1Mnip+QXawDyeYQ
- efLH/+PPdxK3YeumSZlAGrZNeCRyd4BnL2UKiWlrfjVAMuIQYaXiUeHDAG2j+InjtR
- F3/8YCAfolHgVI/ZL6XSBHv31/EoMwXjeXhoPuqPhsNyHSDVkcvF/3sKMQYuCkyqZm
- IEX5RQ+v9Rp068Zv5hZ8ZCUWsUqa8k3nJ8BEmdnSiojod27n9Cmv4uOjAx7SHejhUy
- 1UnxL6Dq27xtBVxDiinMqKo0BUjACJSP9WVdSrriRd5sVsj7gWO6mfDnzppdF+eiu8
- enSr6Gv1rhgvFKmglEPRJ2Io=
-Received: from zn.tnic (p5de8ed27.dip0.t-ipconnect.de [93.232.237.39])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
- C7ADD40E01A5; Fri,  5 Sep 2025 14:22:40 +0000 (UTC)
-Date: Fri, 5 Sep 2025 16:22:34 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/radeon: use dev_warn_once() in CS parsers
-Message-ID: <20250905142234.GEaLryKuIrRmSHaaTR@fat_crate.local>
-References: <20250902165332.2388864-1-alexander.deucher@amd.com>
- <20250905101422.GAaLq3_kDePySD36Ma@fat_crate.local>
- <CADnq5_OZ585tA6nf95jU2RD0odLi8jt+qzLbnDCh9289Cy_hAQ@mail.gmail.com>
+ b=xMzXnXPXsnW6iNHHptu6P/KVB3USWJaQnvXka/ambFUDvR3lg6FqZYyOI3r1RNndi
+ u2fv3uRS9bVa1wDwex9kaVS1nRPpJGrYCRulB/ZjnaRPoj/iXM3XTqXoLEI7FdGNf1
+ 0RiQvbmzpAWS+iFI19unGE4ng0138yMmmwnzKQrg=
+Date: Sat, 6 Sep 2025 14:20:00 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Mario Limonciello <superm1@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ "open list:HIBERNATION (aka Software Suspend,
+ aka swsusp)" <linux-pm@vger.kernel.org>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+ "open list:TRACING" <linux-trace-kernel@vger.kernel.org>,
+ AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Merthan =?utf-8?Q?Karaka=C5=9F?= <m3rthn.k@gmail.com>,
+ Eric Naim <dnaim@cachyos.org>
+Subject: Re: [PATCH v6 00/11] Improvements to S5 power consumption
+Message-ID: <2025090644-connected-coping-fbd2@gregkh>
+References: <20250818020101.3619237-1-superm1@kernel.org>
+ <29e61472-5f41-4e76-9b5b-f3e106d6a629@kernel.org>
+ <CAJZ5v0hLO5xhmjniO4=rLK1JK9OM8naxXVEGuHUT3cuhRp=Atw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CADnq5_OZ585tA6nf95jU2RD0odLi8jt+qzLbnDCh9289Cy_hAQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0hLO5xhmjniO4=rLK1JK9OM8naxXVEGuHUT3cuhRp=Atw@mail.gmail.com>
 X-Mailman-Approved-At: Mon, 08 Sep 2025 07:27:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,15 +74,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 05, 2025 at 09:56:25AM -0400, Alex Deucher wrote:
-> The size and offset come from userspace, so it's likely a mesa issue.
-> I've reported it here:
-> https://gitlab.freedesktop.org/mesa/mesa/-/issues/13838
+On Wed, Sep 03, 2025 at 01:14:18PM +0200, Rafael J. Wysocki wrote:
+> On Wed, Sep 3, 2025 at 6:41 AM Mario Limonciello <superm1@kernel.org> wrote:
+> >
+> > On 8/17/2025 9:00 PM, Mario Limonciello (AMD) wrote:
+> > > A variety of issues both in function and in power consumption have been
+> > > raised as a result of devices not being put into a low power state when
+> > > the system is powered off.
+> > >
+> > > There have been some localized changes[1] to PCI core to help these issues,
+> > > but they have had various downsides.
+> > >
+> > > This series instead tries to use the S4 flow when the system is being
+> > > powered off.  This lines up the behavior with what other operating systems
+> > > do as well.  If for some reason that fails or is not supported, run their
+> > > shutdown() callbacks.
+> > >
+> > > Cc: AceLan Kao <acelan.kao@canonical.com>
+> > > Cc: Kai-Heng Feng <kaihengf@nvidia.com>
+> > > Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
+> > > Cc: Merthan Karakaş <m3rthn.k@gmail.com>
+> > > Cc: Eric Naim <dnaim@cachyos.org>
+> > > ---
+> > > v5->v6:
+> > >   * Fix for LKP robot issue
+> > >   * Some commit message changes
+> > >   * Rebase on 6.17-rc2
+> > >
+> > > Mario Limonciello (AMD) (11):
+> > >    PM: Introduce new PMSG_POWEROFF event
+> > >    scsi: Add PM_EVENT_POWEROFF into suspend callbacks
+> > >    usb: sl811-hcd: Add PM_EVENT_POWEROFF into suspend callbacks
+> > >    USB: Pass PMSG_POWEROFF event to suspend_common() for poweroff with S4
+> > >      flow
+> > >    PCI: PM: Disable device wakeups when halting system through S4 flow
+> > >    PCI: PM: Split out code from pci_pm_suspend_noirq() into helper
+> > >    PCI: PM: Run bridge power up actions as part of restore phase
+> > >    PCI: PM: Use pci_power_manageable() in pci_pm_poweroff_noirq()
+> > >    PCI: Put PCIe bridges with downstream devices into D3 at hibernate
+> > >    drm/amd: Avoid evicting resources at S5
+> > >    PM: Use hibernate flows for system power off
+> > >
+> > >   drivers/base/power/main.c                  |  7 ++
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +
+> > >   drivers/pci/pci-driver.c                   | 99 +++++++++++++++-------
+> > >   drivers/scsi/mesh.c                        |  1 +
+> > >   drivers/scsi/stex.c                        |  1 +
+> > >   drivers/usb/core/hcd-pci.c                 | 11 ++-
+> > >   drivers/usb/host/sl811-hcd.c               |  1 +
+> > >   include/linux/pm.h                         |  5 +-
+> > >   include/trace/events/power.h               |  3 +-
+> > >   kernel/reboot.c                            |  6 ++
+> > >   10 files changed, 103 insertions(+), 35 deletions(-)
+> > >
+> >
+> > Rafael, Bjorn,
+> >
+> > Any feedback for this series?
+> 
+> I still have the same basic concern as before: It is an intrusive
+> change likely to cause regressions to occur.
+> 
+> It also changes the driver ABI quite dramatically because different
+> callbacks will now be used for system shutdown and kexec, for example,
+> at least on some platforms.
+> 
+> Frankly, I'd like to know Greg's and Danilo's opinions on the direction here.
+> 
 
-Cool, thanks!
+I've been ignoring this, sorry.  Can someone resend the series and ask
+for my review then?
 
--- 
-Regards/Gruss,
-    Boris.
+thanks,
 
-https://people.kernel.org/tglx/notes-about-netiquette
+greg k-h
