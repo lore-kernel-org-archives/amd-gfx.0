@@ -4,63 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DCC6CA1002
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Sep 2025 14:37:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BF0ECA1017
+	for <amd-gfx@archiver.kernel.org>; Sun,  7 Sep 2025 23:06:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C26110E3A5;
-	Sat,  6 Sep 2025 14:37:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8295110E0BB;
+	Sun,  7 Sep 2025 23:06:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oD09KgU5";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OruF6ahe";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E195610E3B0;
- Sat,  6 Sep 2025 14:37:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CA0854347A;
- Sat,  6 Sep 2025 14:37:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2CB8C4CEF9;
- Sat,  6 Sep 2025 14:37:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757169443;
- bh=e45GnWdTbpGR5XbbMlWgx0cpqS/IXSsc+dt4fnRje1I=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oD09KgU5b1aNTAyh3zXohPA9+D+bEAdiiDFpdtUF75+tApgwdwUlwlGFmlvTZ8ZH1
- IO+4mjFdpysiPLG/mG5+TcHV4DohKihMDmIy7v6LihFW02+rvX+fYZJXdEF1UGA+IG
- mL8X//U20AcW4PM/rHHgGSyMzPNYOahJnRvm/lxu4S/J0BpPIpqgtBtTdC99ufdhAD
- p8DPKdDD0sxjXF5LOfDqoFfkPP0OQsJD/7FYwcuy59Yk1UT9sBMUZlbUi731Fvy+4M
- 2KTQtTSyNhU4FtC4J13VzyZy5gtzywkVqETICLlWe1hQSx1+k+oxeg1whAKOyuIyyt
- v5ABlhpW+GB4Q==
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF8810E0BB
+ for <amd-gfx@lists.freedesktop.org>; Sun,  7 Sep 2025 23:06:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=NldmOeAzJSVXWsxfzCC9GFGbu9uiIcCri0VNq1LO+B8=; b=OruF6ahe/dCCum9KYKovA35cx7
+ rM1yAiWIw2jMcFf6hB8D5EV6x5w8jD5Xa8WwTfZTzeiO8AY3Af6jr8AF+Xjs05kdopYfYhMtk9ACx
+ VDhwR0Pq57T1pRfjaMHgDUdfTccS1ZiQkpF4X/y6ARN/QspRRGWCjI1QYVedB1i2eO/ZsJatkhFzJ
+ USYJeg4SOhiq/Lhkq8hUGyyhV0h51UoH4xoh0pGqOYhZ/FYoW6JdFbJ9XlXp0l0eItA5EPN4aP+jn
+ +9+TCoxSG4pE2UOu7BXAUPhr9vEHcW6Bo+c8tixh29B4ASh7E9eXLNMb4Hfv6yZmWTKoQtMFMtQrn
+ a9eepMrg==;
+Received: from [104.193.135.201] (helo=debian.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uvOSZ-0085Qy-RT; Mon, 08 Sep 2025 01:06:12 +0200
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: uajain@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- linux-pm@vger.kernel.org (open list:HIBERNATION (aka Software Suspend,
- aka swsusp)), 
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
- linux-scsi@vger.kernel.org (open list:SCSI SUBSYSTEM),
- linux-usb@vger.kernel.org (open list:USB SUBSYSTEM),
- linux-trace-kernel@vger.kernel.org (open list:TRACING),
- AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- =?UTF-8?q?Merthan=20Karaka=C5=9F?= <m3rthn.k@gmail.com>,
- Eric Naim <dnaim@cachyos.org>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Denis Benato <benato.denis96@gmail.com>
-Subject: [PATCH v6 RESEND 11/11] PM: Use hibernate flows for system power off
-Date: Sat,  6 Sep 2025 09:36:42 -0500
-Message-ID: <20250906143642.2590808-12-superm1@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250906143642.2590808-1-superm1@kernel.org>
-References: <20250906143642.2590808-1-superm1@kernel.org>
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Subject: [PATCH] drm/amd/display: Fix unload issues in amdgpu
+Date: Sun,  7 Sep 2025 17:05:46 -0600
+Message-ID: <20250907230551.1804823-1-siqueira@igalia.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,65 +59,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the system is powered off the kernel will call device_shutdown()
-which will issue callbacks into PCI core to wake up a device and call
-it's shutdown() callback.  This will leave devices in ACPI D0 which can
-cause some devices to misbehave with spurious wakeups and also leave some
-devices on which will consume power needlessly.
+Loading and unloading the amdgpu module in TTY mode is successful at
+first glance, but attempting to turn off the system after this action
+results in a kernel panic. Sometimes, after trying to run load/unload
+multiple times, the user may also encounter other issues. The easiest
+way to reproduce this issue is by running the IGT test amd_module_load.
 
-The issue won't happen if the device is in D3 before system shutdown, so
-putting device to low power state before shutdown solves the issue.
+The load/unload issue was introduced by commit 3d5470c97314
+("drm/amd/display/dm: add support for OEM i2c bus"), which added support
+for OEM i2c. In the original commit, the new I2C adapter is registered
+in the initialization function, but it is not deleted in the removal
+operation. As a result, when the removal function tries to free the data
+struct for the OEM I2C, it has issues. This commit addresses the issue
+by checking if the OEM I2C has been initialized; If so, it also
+unregisters the I2C adapter before attempting to free it.
 
-ACPI Spec 6.5, "7.4.2.5 System \_S4 State" says "Devices states are
-compatible with the current Power Resource states. In other words, all
-devices are in the D3 state when the system state is S4."
-
-The following "7.4.2.6 System \_S5 State (Soft Off)" states "The S5
-state is similar to the S4 state except that OSPM does not save any
-context." so it's safe to assume devices should be at D3 for S5.
-
-To accomplish this, use the PMSG_POWEROFF event to call all the device
-hibernate callbacks when the kernel is compiled with hibernate support.
-If compiled without hibernate support or hibernate fails fall back into
-the previous shutdown flow.
-
-Cc: AceLan Kao <acelan.kao@canonical.com>
-Cc: Kai-Heng Feng <kaihengf@nvidia.com>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: Merthan Karakaş <m3rthn.k@gmail.com>
-Tested-by: Eric Naim <dnaim@cachyos.org>
-Tested-by: Denis Benato <benato.denis96@gmail.com>
-Link: https://lore.kernel.org/linux-pci/20231213182656.6165-1-mario.limonciello@amd.com/
-Link: https://lore.kernel.org/linux-pci/20250506041934.1409302-1-superm1@kernel.org/
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Fixes: 3d5470c97314 ("drm/amd/display/dm: add support for OEM i2c bus")
+Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
 ---
- kernel/reboot.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/reboot.c b/kernel/reboot.c
-index ec087827c85cd..c8835f8e5f271 100644
---- a/kernel/reboot.c
-+++ b/kernel/reboot.c
-@@ -13,6 +13,7 @@
- #include <linux/kexec.h>
- #include <linux/kmod.h>
- #include <linux/kmsg_dump.h>
-+#include <linux/pm.h>
- #include <linux/reboot.h>
- #include <linux/suspend.h>
- #include <linux/syscalls.h>
-@@ -305,6 +306,11 @@ static void kernel_shutdown_prepare(enum system_states state)
- 		(state == SYSTEM_HALT) ? SYS_HALT : SYS_POWER_OFF, NULL);
- 	system_state = state;
- 	usermodehelper_disable();
-+#ifdef CONFIG_HIBERNATE_CALLBACKS
-+	if (!dpm_suspend_start(PMSG_POWEROFF) && !dpm_suspend_end(PMSG_POWEROFF))
-+		return;
-+	pr_emerg("Failed to power off devices, using shutdown instead.\n");
-+#endif
- 	device_shutdown();
- }
- /**
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 242f98564261..6ce51f81ba44 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3007,7 +3007,10 @@ static int dm_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 
+-	kfree(adev->dm.oem_i2c);
++	if (adev->dm.oem_i2c && adev->dm.oem_i2c->oem) {
++		i2c_del_adapter(&adev->dm.oem_i2c->base);
++		kfree(adev->dm.oem_i2c);
++	}
+ 
+ 	amdgpu_dm_hpd_fini(adev);
+ 
 -- 
-2.43.0
+2.50.1
 
