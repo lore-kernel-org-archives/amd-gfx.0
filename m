@@ -4,71 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F742CAC582
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 21:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33235CAC586
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 21:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAD3D10E5E6;
-	Mon,  8 Sep 2025 21:35:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B5B810E5EA;
+	Mon,  8 Sep 2025 21:37:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Azl0oP/y";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EKgB4i5Q";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFB0710E5E6
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 21:35:17 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-24b150fb800so12763935ad.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Sep 2025 14:35:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757367317; x=1757972117; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7SxqITHQ1DgZhrU1JRlTS/mRF1uxDhbu/UrUP5EQD8o=;
- b=Azl0oP/yrfg/4k7BykTeZ041PRxdKErEXcJ6dhooT2QtLOWk0OAfJczTtbT1b8awh3
- bOaN/k1+cdrjIHbxonThgpe6by+cfmGLEZkB9Kovp1hJa2WbsqqoH2CXLPTb2dKfa88Q
- TwAzgemtpksAAhtHlSFET03mGtI7bv6Jn5UyiXTR0ztYsL9uwWsGmY/GWNZnJkMu2RlN
- AArSERN2zqu1fXChOgfQEUpxwR4fyO8UEHLBKU2BzX7o7rqvUhet13UuEOfUTAfxPPnC
- GTENXBZ33kjXMOaXIwjKp9xFHmJa3rjbnf/oxkLnU8+97sWaFmp6t9oNjXvGa90rUoE9
- X5Iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757367317; x=1757972117;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7SxqITHQ1DgZhrU1JRlTS/mRF1uxDhbu/UrUP5EQD8o=;
- b=FIesHaddMlfq9klFYY1M/MdvphszcNR9rlz5QuGmWJLhDQprmNhKe0czn5gB9Ooepx
- 8ZK63l+uIVRqjWHtra0hy4GAwNWpYAPXp8cSKT0kyVLNpO95+z1bafvdEDhFABgQRGgr
- oy46Yf5l2MMYVarxYmpHGhyScMRXNcd0jOhTAuxAEBUgW40CiAD+gcYp0HPM2L1tK03L
- QwZAhkUSXQWdjppy8qoTCfZ5wzKJ4rl3Rpt+WL1QZ3YuymmTNWMhawVqjudNdhMyqEzY
- lwqW+mynta/piCIzTi5M+aXzvNivTQB8YC4CekFIkaXG8GWtZCm6Q6BjWWd7aYtyDBEY
- ku0Q==
-X-Gm-Message-State: AOJu0YzMsUnf/uEF0BKtwjmGbOHZV7+khCx+Zd3ZcfCvVdxJKMt/pIVU
- o60lO5TThhR2pBzR52oaJceo/M/QElj3aXnuI2e6PWEYJdjg3RXiQ5pVIQrYLX8RFF8Aw3ulZn/
- 76FmoDCD/SF4ZVOrGDUWEnP7qIRJ7gUM=
-X-Gm-Gg: ASbGncu9UVuT56rON9q+p54CA22jdT6LyUkidfVuBC1gfP0/cWKT935ETW0uD+lsCDy
- 6LKoS1/1ySUnW9GHLHPBOBpcedSEttKD3T8Gz5UqhczbrritPckMkKY/lJLoefyxJVZtdlC82Zg
- PsLUFBXPjtOfbIUt/BFXIz09KaROKeOjkvH2Huy2MgHmPIo6s326r1hpKeYKT7NValyNHfPidUN
- U40dek=
-X-Google-Smtp-Source: AGHT+IGZ7VGuDyc07RZHG2R4PtYJcvvhyXZ3YD5wuROHI0fbJFCzi1AZvWRpGcGyYm3vOvK7bEC2QwbwE7N7/d8umbM=
-X-Received: by 2002:a17:903:18c:b0:24c:cc2c:9da5 with SMTP id
- d9443c01a7336-25173ea24a3mr70360725ad.6.1757367317214; Mon, 08 Sep 2025
- 14:35:17 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1E2010E5E7;
+ Mon,  8 Sep 2025 21:37:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=1AtuB/LujT3vSX0rRZe+ZwqGxLhE/7kKDf8v5+5hGxk=; b=EKgB4i5QznFldmy5eJUYovwV0m
+ 0E3WKl/59Uf1t1HpSIT8HSfCbfcldMF/qwNQ+wNA9kIsrtYstJ7Ecm5LJDB/p6ZvVQ77eTbLfha8x
+ jwIL7uUnBMVyd7tMTqLsEEzkAaWwiP/paAQUy1URHAq825MMkhIJGmg3jhYXD8XM/8rv6SrkJ7Hch
+ VU7bV0iSsq5G7G8/2wn+un+n+n7HZ1IeXOP0QM1u4+b347cqfTu/em2BaNVhCObluTsv4vndgEFHm
+ w6VzP+djH4/YKI0NGvmK632gtFJEzuCj/tr89YRSA3mRan5gWsVAxbdKLdrP/DH7YbZj5FMPAz8Qb
+ 4YtrXyuA==;
+Received: from [189.6.12.239] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uvjXn-008gza-1F; Mon, 08 Sep 2025 23:36:59 +0200
+Date: Mon, 8 Sep 2025 18:36:12 -0300
+From: Melissa Wen <mwen@igalia.com>
+To: Matthew Schwartz <matthew.schwartz@linux.dev>
+Cc: Matthew Schwartz <mattschwartz@gwmail.gwu.edu>, 
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, 
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, airlied@gmail.com,
+ simona@ffwll.ch, 
+ "Hung, Alex" <Alex.Hung@amd.com>, "Liu, Charlene" <Charlene.Liu@amd.com>, 
+ Ivan Lipski <ivan.lipski@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+Subject: Re: [PATCH] Revert "drm/amd/display: limit clear_update_flags to
+ dcn32 and above"
+Message-ID: <5ntmr5pekfsq2eavqeb5yhs2m7dvb7nm2plwlodzlf3c5lcfza@v6qgoe5l6ysu>
+References: <bb4099a70c2a8c78ef07d5fb6a8f0d3b@igalia.com>
+ <55467ebe-42c8-4387-9a61-aa60b3a84053@amd.com>
+ <BA28247C-9779-4C4C-A8E3-ACF57BEF1521@gwmail.gwu.edu>
+ <67169725b87e02cc8fdc19be5fc7df59@igalia.com>
+ <CAD9O9Dq=dAsMs5a3VzgSvLwfuYYhkARDFBXyWUy+yktEZv5WbQ@mail.gmail.com>
+ <bdfc8786-d4b8-4391-a4d4-c5fe06020802@igalia.com>
+ <CAD9O9DqxJQyAJM=po4yDbAC=hHK2pi12qTVYeb+ar_GenGpMnw@mail.gmail.com>
+ <478eb8175779f03a399f7d933614e14c@igalia.com>
+ <8d859c5f-2551-4624-a9b8-a816f1809feb@linux.dev>
+ <801d0d97e7cdd1eb3b845347ccb5ddbf@igalia.com>
 MIME-Version: 1.0
-References: <20250908084846.1873894-1-Prike.Liang@amd.com>
- <20250908084846.1873894-10-Prike.Liang@amd.com>
-In-Reply-To: <20250908084846.1873894-10-Prike.Liang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Sep 2025 17:35:04 -0400
-X-Gm-Features: Ac12FXym4YyqwNNi4xklCaDnRGUTZyKr_v5bxdPErmmLZk4GC7JtiVZjRR4Hr-s
-Message-ID: <CADnq5_N_PjOzgF3+V7MkX6nbfcFdDyNdWPJcpt3FXmzh+BCs0w@mail.gmail.com>
-Subject: Re: [PATCH v10 10/14] drm/amdgpu: validate the userq va before
- destroying
-To: Prike Liang <Prike.Liang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- christian.koenig@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <801d0d97e7cdd1eb3b845347ccb5ddbf@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,46 +76,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 8, 2025 at 4:59=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> wr=
-ote:
->
-> The user queue object destroy requires ensuring its
-> VA keeps mapping prior to the queue being destroyed.
-> Otherwise, it seems a bug in the user space or VA
-> freed wrongly, and the kernel driver should report an
-> invalidated state to the user IOCTL request.
+On 07/18, Melissa Wen wrote:
+> On 18-07-2025 00:51, Matthew Schwartz wrote:
+> [...]
+> 
+> In short, there is a chance that you are not seeing those glitches
+> because there are no changes in the pipe split when transitioning
+> between 1-2 overlay planes in your hw, but the split happens on steam
+> deck for some reasons. I don't know how the driver decides whether or
+> not to split pipes.
+> 
+> That said, if AMD prefers to go with an exception for steam deck, better
+> if this situation is documented.
 
-You can drop this patch.  If the queue is destroyed, you won't be querying =
-it.
+Resuming this discussion as we shared many findings here...
 
-Alex
+Looks like not only Steam Deck in DCN3+ family is affected by those
+glitches on overlay planes, DCN3.02 seems to have similar issue, as just
+reported by:
 
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 85df04e9ec3d..98b6b3761a0a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -520,6 +520,13 @@ amdgpu_userq_destroy(struct drm_file *filp, int queu=
-e_id)
->                 amdgpu_bo_unreserve(queue->db_obj.obj);
->         }
->         amdgpu_bo_unref(&queue->db_obj.obj);
-> +       /*
-> +        * At this point the userq obj va should be mapped,
-> +        * otherwise will return error to user.
-> +        */
-> +       if (!amdgpu_userq_buffer_vas_mapped(&fpriv->vm, queue))
-> +               queue->state =3D AMDGPU_USERQ_STATE_INVALID_VA;
-> +
->         r =3D amdgpu_userq_unmap_helper(uq_mgr, queue);
->         /*TODO: It requires a reset for userq hw unmap error*/
->         if (unlikely(r !=3D AMDGPU_USERQ_STATE_UNMAPPED)) {
-> --
-> 2.34.1
->
+https://gitlab.freedesktop.org/drm/amd/-/issues/4559
+
+So I think we must rethink the steam-deck-expection approach proposed
+by:
+
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/11262624508d14583ebc7744145a38da67dab192
+
+Melissa
+
+> 
+> Steam Deck still needs the clear_update_flags() because it uses plane
+> color caps and therefore sets multiple update flags, and some glitches
+> appear when transitioning from 2 planes (with pipe split) to 3 planes
+> (no pipe split). It might be related to minimal transition machinery.
+> 
+> Thank you for all inputs.
+> 
+> Melissa
