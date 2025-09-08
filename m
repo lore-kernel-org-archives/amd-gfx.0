@@ -4,145 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 648C3CAC581
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 17:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE4C0CA1016
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 18:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3A2C10E59E;
-	Mon,  8 Sep 2025 17:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A05B210E59F;
+	Mon,  8 Sep 2025 18:02:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C/tPt9zg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VnC9MN4V";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2046.outbound.protection.outlook.com [40.107.212.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 739EE10E59D;
- Mon,  8 Sep 2025 17:58:28 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6DD910E59F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 18:02:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mc3djZWLDb0ikiVaHQk+8FPBnafkt5Xf7BevvaF/KlFrfQa3ZLR54ASzd7AYcTfUAdbCyrAQq4qxJWxk6up1hlhBY8B8DVu1mEW3WQxU/T7PJvkEqM7XrcIzA0jJWJnbKMduSZqBbqo0wY1sNdhZULDkJmw+ZiIRCcxGP6WdnTk74pT4ykfAXtz9Oj63Uk/OpoPQRO827z4zA80+WuvCuePd+IxDd/Ec7rtqhEPsRfpov/mcM78wAiR2rSIF/dntOVTsSGQvFfK3uwHj+AW+rb6sE4Xq/JWL7m2HybSLSsyLDzHxtND1HCiJgQdW0O4MPQxdFFoVlbXPBWbM6CldQg==
+ b=X+0llq4yPo3EggrEI1EV4ORq/t1PDUzE9q+5cAlmwlp6m81nLgm2nZJXLcW/p6h+4oBIYmPeYuuMb5p1MuE1r2A+t7nobJcUNNhPXSHlc7TXshAYeFAmrtE6WoX8JFNBMGyQ6MRj/y5ixz8S1X5JuuzFzeNN8uHro0J76IknqfkxKZBRUQtKhVtr7lYJcWkWrovEgmyVvXPOKOnpGiF3YOuiynoE4l4iaM6beo0m7V+u3Me7roJCQzz9u9EDUeY2hrUyMZFLLuipg3xK1qLn8DHE+C2nhotqUwiq57mnwCHJBFmwaSl7nJtl8BMjmQn6/y7cxNI+EDqJi8MHYmaIWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=egsXGoE4lphwB71vQYdz/fOS3e2CSraZDMShSFBJDnA=;
- b=BWoor+xplEA5izJkTqfgeo6TxqvqeZWr6UsWHVwjcr0fnJf7BsTl4pUauXOqAEvkBEbfWBW5Zp8GokIUNmkait9Xo/W6S9ExscoRrGEbZW5Ecj3EH0pUFgP9gFT2JBZNxIn9EOKiRrDcWXM0e1AxJBZoQaiwEUZKYBGBf/yvSWS+VhhWS5//Y4YShBvYxiwIHRsULJ4V/Vpn+dUGy7XOEMdSC42qAIo7Nl86qrQmqt/uVYkuxmPWwf0HaNJa3P5qU9g7Ab0KG2Acwc4qwXZEnpfkEQi7E2ETCOcvp4gahriuSSsIM9lJH/5ucl+Bv0MdD9ixAVXPXeaSA3FaErgUTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=3BYvECpFwkZ96tUj6PEaQEzIxAKwggBsN8+B9Pyj5sA=;
+ b=niHEUypzv+Urzms0NMKqX9zaseWisNNuiuEXpLNV8DRaBRAQ3iriw9PtwuUnq127UlofKtNR5ok7GDoA9NpXhmywZwUaRJ001ntLq272e+8oSXdqtaZooGRurdkb/2pAXBwHByWBIybQQOgYOMpIzfIIIdtLLkOxgcaazjNzcMJ3hbhNF7fs9h0pv6dTuu22xaUAUKMQwf5trTWk+MTrLwcTo2D5c642JJ+441Mp4cPjb+l7rQMF4Z1ye03F+j3vbE9FeY972pQp7V4WUOCwQs0Q8EeL5vU5wPgTj/96qG/5Kx8rzFxe/t1spCebsyrztkzjDkaSums3SUr1j78sVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=egsXGoE4lphwB71vQYdz/fOS3e2CSraZDMShSFBJDnA=;
- b=C/tPt9zgoYrvueLxLToSwP6CYHsj8ci+6YKCQNsa4ael1CXcHu7fziezt0OjX8aHaKLe3OeU0fhL/F+59vEfrQRFzi6sJulibURGg9+b/sQqapRa+ekqBDN08CUAggFKcHERVkXrBtULFHxd4h7pAma9MUUwM16vWzTy2A0DDoA=
-Received: from CH0PR03CA0049.namprd03.prod.outlook.com (2603:10b6:610:b3::24)
- by DS7PR12MB6262.namprd12.prod.outlook.com (2603:10b6:8:96::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9094.19; Mon, 8 Sep 2025 17:58:23 +0000
-Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
- (2603:10b6:610:b3:cafe::ff) by CH0PR03CA0049.outlook.office365.com
- (2603:10b6:610:b3::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.22 via Frontend Transport; Mon,
- 8 Sep 2025 17:58:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Mon, 8 Sep 2025 17:58:23 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 8 Sep
- 2025 10:58:23 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 8 Sep
- 2025 12:58:22 -0500
-Received: from [10.4.12.116] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 8 Sep 2025 10:58:22 -0700
-Message-ID: <0480a12c-7b4f-4d53-adf4-25f39d59e14b@amd.com>
-Date: Mon, 8 Sep 2025 13:58:22 -0400
-MIME-Version: 1.0
+ bh=3BYvECpFwkZ96tUj6PEaQEzIxAKwggBsN8+B9Pyj5sA=;
+ b=VnC9MN4V4w45487gYRbsP0pW4j1GYBw1n/hm5j/gHrmj4hIyBzq/kkXEfhpRyrRyW1RqDuEhiDnhdfeVA33i9Dt7njE6U5rXtxO8xKlZNWSekO0dbk+oxaNWxfFNRUYKL6l0NhbGoNN9NZWnI+BGs0kU/YIsUQvTjxVjljSbkoo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by DM4PR12MB7623.namprd12.prod.outlook.com (2603:10b6:8:108::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Mon, 8 Sep
+ 2025 18:02:07 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1%6]) with mapi id 15.20.9094.021; Mon, 8 Sep 2025
+ 18:02:07 +0000
+Message-ID: <7af4f869-ade9-4b33-a3bc-6ab565ae311b@amd.com>
+Date: Mon, 8 Sep 2025 12:02:05 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amd/display: Optimize remove_duplicates() from
- O(N^2) to O(N)
-To: Alex Hung <alex.hung@amd.com>, Kuan-Wei Chiu <visitorckw@gmail.com>,
- <austin.zheng@amd.com>, <jun.lei@amd.com>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <siqueira@igalia.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>
-CC: <zaeem.mohamed@amd.com>, <wenjing.liu@amd.com>, <chiahsuan.chung@amd.com>, 
- <Natanel.Roizenman@amd.com>, <Daniel.Sa@amd.com>, <jserv@ccns.ncku.edu.tw>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-References: <20250824182359.142050-1-visitorckw@gmail.com>
- <20250824182359.142050-3-visitorckw@gmail.com>
- <0ed3fa16-9e0d-4f8d-ac22-c9f6b541ae8b@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Fix DVI-D/HDMI adapters
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ harry.wentland@amd.com
+References: <20250825213333.612600-1-timur.kristof@gmail.com>
+ <CADnq5_NwQCGgsgVZ1T3ofxrLJhDkq0FO3GKOViWtn8JhFC+vfw@mail.gmail.com>
+ <32f1bfca9b0deb97084390be7e44a47bd8265f04.camel@gmail.com>
+ <CADnq5_MnBztaCye3fEgT17u5A50ZVCKsm5T4qLy7KCF_s3gRwg@mail.gmail.com>
+ <44b39851-9775-4bb8-9558-3cd4f298120c@amd.com>
+ <29046ec704624b7a65cfa1bb4c0511472ba78912.camel@gmail.com>
 Content-Language: en-US
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-In-Reply-To: <0ed3fa16-9e0d-4f8d-ac22-c9f6b541ae8b@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <29046ec704624b7a65cfa1bb4c0511472ba78912.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: aurabindo.pillai@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: MW2PR16CA0067.namprd16.prod.outlook.com
+ (2603:10b6:907:1::44) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|DS7PR12MB6262:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15e872e7-3a2c-4ced-7385-08ddef014dc7
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DM4PR12MB7623:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b644526-8d0e-4396-431a-08ddef01d302
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024|921020|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZnRsdGZ4djByNWNrSFl3L25TQkRreDlRVWxjUTA5cHVWWERxbElGRHk1OWx1?=
- =?utf-8?B?YW5sdmZBTzJ2M3RSeFRQWVl1anl2V2t1QWExYkFCZ0lZcWdKOUp2MnVneDNy?=
- =?utf-8?B?T0pabEJyZEkyUzJ5SURhVW4yOVkvdURJM3RmZkxlV0xVSTNIR29Wb3BuMTNM?=
- =?utf-8?B?UnlEdjM3eldwUlprN0ZpQWxSNm1CZ2Z6VjZzbDMzOVpPcCtaVStJSm9UTTFu?=
- =?utf-8?B?L25aUUJFWjdyOUtKdC94RmdiTGdNd1l1QTd6UE1DZ2lsbWFOSmF0WHhSL0li?=
- =?utf-8?B?Wi9oSjZGZGhnMWh4MVR6Zjc5NGVEOXlnMms2akt1Szh5RDg1QzdpVkNUN29Q?=
- =?utf-8?B?Yml0VzA5UWFvL3FybTh6UVpDUEdaN1ZFc1k3cU5oU2dWc2w0NC90ZTQ2Q1k1?=
- =?utf-8?B?K2llNDVjTEtHRG1Zc1J2RDd5K1d5TTlMT3VuT1ZEZE0xVWU0WGxJZU1lSmQz?=
- =?utf-8?B?OHdmSGw1YUtpallkMXBNako4TXVFa2oyRUJFL3pDRmowbkhsTURMUVJPRWYz?=
- =?utf-8?B?UFJsaHZ5NkpHT3hFaFRLTklxNCs1b3RVd1l2ejU1M1F1NWZneGl6b1kvM1dJ?=
- =?utf-8?B?UmRZUFd4TlZlbkVsMjlndDRQYy9LN3Q2Smc4NFN1UUU1MnB0b1ZlSEFGckpN?=
- =?utf-8?B?My9wVlRTajFTQXJrN1NGU2VMOVQ3MDBYS0o5MUxCaXV3TEtOdFJFSjZmUEE0?=
- =?utf-8?B?bmp5bWN1SCtweUFFZC9FbnB0SFlHdVNtQ2pzWjcrZE00a3NEOHk1WjNmNER1?=
- =?utf-8?B?czJRbTRWTkVXNlZMeDc4TGFEY1hnZmR6enkwc3ZmbUQwdjduUU9oQk4wc0Fx?=
- =?utf-8?B?QVZNVzBVQ1ZLYVd2c3Y2em9HbGU0VlFYcFR1S1lpSjJmNGcyR0dQKzhvaitv?=
- =?utf-8?B?RGthWmxnWVlZZWtvUjdYRnRjTEQwRU00K1NWVlFCbzQwcE5TR3RFK0VmWXkw?=
- =?utf-8?B?WXE0dXlTYzVFNlhLMzM4bzJhbmd5WVBUUndlUGRxZ2pJS3JKNW9DeVJsL3B6?=
- =?utf-8?B?cWN4UjlJUGowV1V3UjhGYkxoME12cW9VdFJBQUhkSmN1U0RQZzlrazV6Smpv?=
- =?utf-8?B?Uk9mWElUTGlIM256c0FPZERaV3ArK1hsMHBqL0FuMmNLUXQvNnVVMzlodDVw?=
- =?utf-8?B?K2FOcXBLN2NyeWJFc0xwZ1o2YytyN0RoNkJ4NmpDdlBXcGtJZ2tWbWR6bnIr?=
- =?utf-8?B?djlLSHUvbG9CU2RyOVUzb2xTR1hjeTZueDExbXpucTgxZC92ZHY2WXVac045?=
- =?utf-8?B?Nkh4bXp2ZjF5alIwMXJJUFlMR1BGTnpVU002b1VnVWRPYkNyWmN1V0ovdml0?=
- =?utf-8?B?RmNQRzFKS0lQb3grVFdNNC9UQmRqU1NYT01OUGxpYzY4aGFJM21HcVlQcjda?=
- =?utf-8?B?YURmZWc3NUhuZjJWTkZtcnh3NDJleFhZQjNnNXBCZUhTVUR6M1JpVzE0eVZV?=
- =?utf-8?B?bUNmTk5qdzBBRWcyS09YWWVPaExLZnJlOWFiYmFUay9RNXlqTmxKcnFpMlFQ?=
- =?utf-8?B?b3hRRGZPRWhmOU9UUDl6RVRsVERkMjlYSUJCR2xQS1RQWmpWVSt1NkZYVnRK?=
- =?utf-8?B?cnFqS2xLMUU2cXpJMTJOUVlyRFJJeWhCNXVHRmZCZW04cXc2YjhsRXVGcnVV?=
- =?utf-8?B?TEc3cjgwVkN3RFI1MnNzTWlDblFNRU54UUtKNXdETERyekZaanZNa3dCQnVo?=
- =?utf-8?B?aHExNmQrT1pwM1IzdEZoZ2pDbDZFd3FSazJGTlgvU28weStiTzRQdHVZaUh6?=
- =?utf-8?B?WmZRRk0yNUpHM0E5cC85d21KT1gyYUNnaWJNMWpEVUw5ckpxcUFickZ5VXVu?=
- =?utf-8?B?S0x2VkRzWU1SeUZ1UDUyaTJhUW1GNWRvRTB3TXEvREpSZFExTGFkUjVycWh3?=
- =?utf-8?B?enVISEhnOURuL09oeVhPTzUzQnd2ZEdmbTcxeUhCMzVRWk03QlB3RVFDbUx5?=
- =?utf-8?B?UVNWZEk2SDQyYTNMU0xiTHhCVkN4U3NVbXRQOTNhcmJkYlRnRlBqNUxzc1l5?=
- =?utf-8?B?VFV4OUNxSU9DbFhoTURQWUJWZm9OdFV6dDRDR0pwcEFjQ0lPcGo3VlRZMVV4?=
- =?utf-8?B?MHltallnd1UwNGhJaE55Y0NhQXpUcHcwWE5SUT09?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024)(921020)(7053199007);
- DIR:OUT; SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UXVtWXo2U0M3Nit5cWFSejduWUhOTXlpNTVrRllJWWJaclRPQVVoelNyMHFX?=
+ =?utf-8?B?R1ZKam96WmFMdWhTQURZeTc4VXo5YlJGN0NVSDlOWGo5T2hCUWorWkl5MGRB?=
+ =?utf-8?B?MldPcVNoWG91Z0tDclpEczljQ3k2b0NPdHl0T0tPOG80dFNyd2Zya0J3dFdw?=
+ =?utf-8?B?VWRrcnMxdmppQTF0R1FyTkxvVmV5Y0hrSjBLbHlQMDQxdHEvUG5FdFBtNFV0?=
+ =?utf-8?B?a2JaNTkxQ3VuakkzajRuVy9BRVh2NDRZVWlkVS9sZTlKVlFKVE1NK1o4Vkw2?=
+ =?utf-8?B?TlNNVzVtajk2aUVrTzZQSFhSc1RwSTBIT0kyUnlyQk15eXNWRVA1OS9HTTJP?=
+ =?utf-8?B?YkpvR1lDTW5RL2xQeEtraW1aSkZycVBXU3FoclBmQnRHUHVYa1ZQYUc2WkFi?=
+ =?utf-8?B?Rys3aDVwRFdQbVFsaXo1LzYxVGFmU0plWU16WDh6YytlVGZTejI3dTdiQVBm?=
+ =?utf-8?B?QzV6ZC9FbThJM3BSLzVYVS9oRmhKZG4xVGVHenZHSERIL2N2QlFoYzlhdnVH?=
+ =?utf-8?B?djRnd0RML0hvRGlaZDQ2MU1RdUMvZEt0UmdLMXFqVitGeGtvSnZSYTUrK1R5?=
+ =?utf-8?B?ODl2ZTEvTGJ2OERidGFhWkR1VU5xaVYzSTBGU0p1MlYyeGFsdkN6Wkd5Nlpy?=
+ =?utf-8?B?QmtUZU1CN0FWMGR4ZG9WU05pNWRoaUJ5K3ZTei9VdFRvQkZ4RWIvYmxaSDFj?=
+ =?utf-8?B?Ky82SmNISHVSRzQ2aGRXTzJXemxybGtsWUVjbmhyeGV1Y2xVcDZvNis5WHBB?=
+ =?utf-8?B?c3BEZ05rYlhCa0Z3ZWFUYkJPWTU3dzJOWkhaMmQrUzZJR2NwVHQrcWZCQzkz?=
+ =?utf-8?B?NzlSL0RIb21KSVVnYVZzWk91LzF4bVBrS0h2ZlUyVHJldlgwcDhzbmxSWFhz?=
+ =?utf-8?B?R3F1dTFDNzFzaG90R0V4clhtcm5tMkx5Y0xSTnk0TEhUVUNFdG9TRUFzQTd0?=
+ =?utf-8?B?QlFQemk4d01SaDFoc1lRQVVmSEIyaUo1cmVScE5KaDcrZ09VaFhmalBpZk1C?=
+ =?utf-8?B?WndubWZyU2lFTGJsTlBrT2lmNklTVWhOczFaenN5ejgzMUYwZ0FsZ2NUS0Nq?=
+ =?utf-8?B?MU5CNXRaZVRmTVFPUFFRTXE1Z2tJUmpEWUloQVpkTjhlYjZycDhVWFFwT1Rn?=
+ =?utf-8?B?MUFFNTh0eFc1bzUzMGZadjZ2WFhwUkhMOTV1L3ZtSzBUcXF2dlcvVGlJeWZO?=
+ =?utf-8?B?RDkzeTV5eFdKZXkraVlrVGZrUG1OTUdnZHo3UDlDODlVaG05MlJTQTRyWU9O?=
+ =?utf-8?B?cktCRC93RWJuU0dKMFlVVExtVGs3QmtpcmdnR3I1VTBkRklIV0NaZzQyZElM?=
+ =?utf-8?B?KzhFeGU5YTg3NVorbUFsMVo4bDJQSDJHQVVYb3p5eVBMNHMvcGQ1UjkzWENp?=
+ =?utf-8?B?MUZkU1B1Q0VLSUQ1S09UT3M3OFBFbkFnY1hTMXhBU3BLTlg3THI3dExrRGdI?=
+ =?utf-8?B?TERNRVZhZ2dkKzlnVU9vRDd4Q3RGdi9hTnFLNVJmaDk3bElidHFnZDFoZ2FX?=
+ =?utf-8?B?UTgyZ0FVOG56dFJid1dRcWdaM0QvUVdsUUdTbjNXV01sRGpzSXN1a0xOYk1J?=
+ =?utf-8?B?ZUl1L21RZGpIRXQyTWFNY3RqeXg5dnptRm1mMkhIZW1ZWWt1VmRwb05MZWxP?=
+ =?utf-8?B?S0VodnNKcjJrazBrODE1R0tTK1d5NmJqSXh2V3B0WEZESThtZWwzSDFzSno4?=
+ =?utf-8?B?dmg0NlcyY0ZQWm1qZmpSTFE5LytPTExyV1pWdVZKRVZyai9oQ1NaK3hyYkNv?=
+ =?utf-8?B?SW5DMVcrMnE0Q3REQlkvTTd0OXh1MmQyQUg3em5pcUdQNEU0dXhtdzRNYWY3?=
+ =?utf-8?B?aUpMcDRVcjlSWnhXUCt5MXJydnFza09wejRCREdlb2N3UUE2b3Z2SkZ1ak56?=
+ =?utf-8?B?YVEyTUw3MDlyVlpFOC96am9EaVpxb3NsanNBNkJMSGtjM3c9PQ==?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTJJZUtnelRZUDRrRC93aGIvS3VmT3hlZVh0dXowZE85K1dRYXUrV0ZWbnRP?=
+ =?utf-8?B?Zlo0VytQS1UyNjFYc0MrdUpFL1o0R3YvWUhVQkFQZ1hyRFRiSFZjbng3Q0dE?=
+ =?utf-8?B?U240WE1MZmpuUDBjUWdzR0o3UEtDMm9IM0FUeTdZUHdQYW9mY2h4RnAvVFVG?=
+ =?utf-8?B?TzNuUW1jb1JYMkJlMWlBWi9jUmh1MzhZK1F3bEFkeGM1NGpNQ29EWG4wekVs?=
+ =?utf-8?B?S0dCdkM2eDBDd3JxdmlWcGxIN2Q5OHNySTJVT0ZQR0ZKZWZtWC81aFdxRFNT?=
+ =?utf-8?B?czQ1YXVVb3QySGN3OTN3bU1OSUxvQStoRGJKcW1hVGF4a1ZnNGk4U2g1UHJn?=
+ =?utf-8?B?V2RaMno5Q1pxaWMxckNsb0FVcVRDTFdFcG9JZjhXLzFLZzFoNC8yaDE4aFli?=
+ =?utf-8?B?UjZwc1pYTlJMQXg5dk8vRXhsQkcyR2FIVHZ5ald2RWQyeVNHRjB6S2tXOENY?=
+ =?utf-8?B?TlFDV3dTclVHck5KbHdLY1hwRTVZeitxeXFPaHNlMFIxMWFOYytWRHM0NWxS?=
+ =?utf-8?B?YXpZbGJPekhOVCtmamJjQUtRUEROcndQeHhDVEIyQUExeUtUaEo1SWJ6UHpW?=
+ =?utf-8?B?R1kycC9BeTAvcDJJbnJ4WFZTRE56S0UyQWZ1R3JHSTIzaEt6NnVHSmdWTG0w?=
+ =?utf-8?B?TWhFcGRKUm9zMXlnWWFaNVdXaHhVNTZuNGJ2ZndIYm1Mek5JbFp4SGxaYjd1?=
+ =?utf-8?B?Q2VzSVQzL24zRGdER2lmbVcvRldjeFZ2blg1OW8zZGpyQ3gzaU5uL1paVWs5?=
+ =?utf-8?B?ZVNGQ0dOOUE2ZHJ6OFJUUEdUR3FEMlpDUWhHaENySnl5bHU0TDZ5VGJZNmlW?=
+ =?utf-8?B?UHZmOTMxdDFxR1piR3l3MmdXak1LQ0krRU9wNE9RdHBkaGFFckNHTDhmSEFz?=
+ =?utf-8?B?UUpFVGVsS0JSalB6N0VBZm45bUMyRERVeHFTSUE5T0M3UjNnMnhyb296RFZ0?=
+ =?utf-8?B?bVJzZGhJdm1GVjNlN2R6cFNRNWNsWllwYjhFTHlCelFxYUhCVUo3ZHIyaU5p?=
+ =?utf-8?B?Qks3Mm5ORFI2SDljVGxYbyswZEJHdzhnaUxkMnNNamdKVDZGTG5paUhMQmc2?=
+ =?utf-8?B?dXdGa1BWUkJlMDV4dmtQdDlwSjNXbWwycm1vTmg2U2haVzVyd2U5UGpBUXo3?=
+ =?utf-8?B?WEt6L04vYTF2VHBhUFZwdGdmeW9oYUtydWZ0ZnNuK05kdk9TaWhveGVuOUVq?=
+ =?utf-8?B?RmpKYXh1ekdUZkZXR3d1WDdvYmNrcXdLWHl6OTRJZnZmSllxNzFzRVFMQzNR?=
+ =?utf-8?B?WXBoUXR2Wit1YWgyMlFUYTF1Q1dRVWV4S3VyUFVhdlZDbHhjQkJQNWxqSno3?=
+ =?utf-8?B?bXBpeSt6ZEpRWjdSQVd2bGxqeTNMZUxPU2dDM3RmLzYwR2hEYms2UXVZbFNh?=
+ =?utf-8?B?T1ZJcHVLTW5xVUFDRU1RSUxVTnJtQ0hWbGRObXo1TXJpWEhNOW5yUnVLVTlU?=
+ =?utf-8?B?T1MweC9JQ2wxbHpyT0dDRzRzcExxU2hmT2xDdzQzSSt0clBZbDNqWEp0NDV6?=
+ =?utf-8?B?VXZId0tNUEtnNnM3NVVmcTY3blUzKzcxZHVSYnFta2JnNnRuU1pvV3dkOUt3?=
+ =?utf-8?B?bHUvaVhBYnEyeU9QYkFrNy9waHc1YjRSOWFpVk1PMnJhRUd0WERFV0FWUVNx?=
+ =?utf-8?B?ZVV3VG5Jc1RrbE9EU3U4cFh3Qjczd1FhUHB2QUNudnpKcmdMUlB2eWFKOCt5?=
+ =?utf-8?B?SVJOQ2ZZV1Q0TU95UFRCaGpxS0wrN2VnR2kyVXRCSzBwcFRxRTNjS0xNSnNP?=
+ =?utf-8?B?T2JrSTRreWFTc3ZIZkQ2NEp4SkUra2ZTMkpLYks5Qm5qcTlZZzRPQzZicm1k?=
+ =?utf-8?B?UW5RdWxja2Erelc0WE9ZcytZbWFzbEluWlNuUGxPeFlRUWhQWGxIeTNMMjdP?=
+ =?utf-8?B?aW9HMHpyZTBnVDg4UWdZSjAyVy8zQzNhc1AvUWV5dngyRFBhaUpMSHljNEg1?=
+ =?utf-8?B?Z0dUZ3ZkTmZPby9kTWVSendwYlRCbDV6bUYweXYrZ3oyZ0F1NnozZzFOK0Nr?=
+ =?utf-8?B?cDIwUU43aVh3RHA1dHlwR2hldDUzUU45YmF1cG5PcHFsN0ZOU2l6RnpOQXNx?=
+ =?utf-8?B?aU5Qd2tNd3c4MUlWVkU4ZXZHaTRMSm1yU1ZFWW9UUDk3MDZyWElPUmdJQk9J?=
+ =?utf-8?Q?2u2MbLqVk5E2ov+cosjspw5vE?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2025 17:58:23.4831 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15e872e7-3a2c-4ced-7385-08ddef014dc7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b644526-8d0e-4396-431a-08ddef01d302
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2025 18:02:07.2369 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD79.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6262
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sg+ctkrbC6l6ol78itww5I9FWIz9qcR5tv/KAyZzHSzDFq7/bRF47gV/lkybGZ2BdI5X9QjcUZ36UmIMzR37bg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7623
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,85 +168,134 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 9/8/25 1:10 PM, Alex Hung wrote:
+On 9/8/25 11:45, Timur Kristóf wrote:
+> On Mon, 2025-09-08 at 11:40 -0600, Alex Hung wrote:
+>>
+>>
+>> On 9/8/25 11:36, Alex Deucher wrote:
+>>> @alexhung@amd.com@Wentland, Harry
+>>>    Were you planning to pick this up for this week's promotion or
+>>> should
+>>> I grab it?
+>>
+>> I will send them to weekly DC promotion.
+>>
+>> Thanks.
+>>
+>>>
+>>> Thanks,
+>>>
+>>> Alex
+>>>
+>>> On Wed, Sep 3, 2025 at 11:27 AM Timur Kristóf
+>>> <timur.kristof@gmail.com> wrote:
+>>>>
+>>>> On Tue, 2025-08-26 at 10:06 -0400, Alex Deucher wrote:
+>>>>> On Mon, Aug 25, 2025 at 5:33 PM Timur Kristóf
+>>>>> <timur.kristof@gmail.com> wrote:
+>>>>>>
+>>>>>> When the EDID has the HDMI bit, we should simply select
+>>>>>> the HDMI signal type even on DVI ports.
+>>>>>>
+>>>>>> For reference see, the legacy amdgpu display code:
+>>>>>> amdgpu_atombios_encoder_get_encoder_mode
+>>>>>> which selects ATOM_ENCODER_MODE_HDMI for the same case.
+>>>>>>
+>>>>>> This commit fixes DVI connectors to work with DVI-D/HDMI
+>>>>>> adapters so that they can now produce output over these
+>>>>>> connectors for HDMI monitors with higher bandwidth modes.
+>>>>>> With this change, even HDMI audio works through DVI.
+>>>>>>
+>>>>>> For testing, I used a CAA-DMDHFD3 DVI-D/HDMI adapter
+>>>>>> with the following GPUs:
+>>>>>>
+>>>>>> Tahiti (DCE 6) - DC can now output 4K 30 Hz over DVI
+>>>>>> Polaris 10 (DCE 11.2) - DC can now output 4K 60 Hz over DVI
+>>>>>>
+>>>>>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+>>>>>
+>>>>> Makes sense to me, but would be good to get input from display
+>>>>> team
+>>>>> in
+>>>>> case there is anything I'm missing.
+>>>>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>
+>>>> @harry.wentland@amd.com or @alex.hung@amd.com Can you guys please
+>>>> review this patch? Thank you!
+>>>>
+>>>>>
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/amd/display/dc/link/link_detection.c | 4
+>>>>>> ++++
+>>>>>>    1 file changed, 4 insertions(+)
+>>>>>>
+>>>>>> diff --git
+>>>>>> a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>>>>>> b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>>>>>> index 827b630daf49..42180e6aca91 100644
+>>>>>> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>>>>>> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+>>>>>> @@ -1140,6 +1140,10 @@ static bool
+>>>>>> detect_link_and_local_sink(struct dc_link *link,
+>>>>>>                   if (sink->sink_signal ==
+>>>>>> SIGNAL_TYPE_HDMI_TYPE_A &&
+>>>>>>                       !sink->edid_caps.edid_hdmi)
+>>>>>>                           sink->sink_signal =
+>>>>>> SIGNAL_TYPE_DVI_SINGLE_LINK;
+>>>>>> +               else if (dc_is_dvi_signal(sink->sink_signal)
+>>>>>> &&
+>>>>>> +                       aud_support->hdmi_audio_native &&
+>>>>>> +                       sink->edid_caps.edid_hdmi)
+>>
+>> nitpick: probably need extra spaces to align with dc_is_dvi_signal,
 > 
+> Thank you for the comment!
 > 
-> On 8/24/25 12:23, Kuan-Wei Chiu wrote:
->> Replace the previous O(N^2) implementation of remove_duplicates() in
->> with a O(N) version using a fast/slow pointer approach. The new version
->> keeps only the first occurrence of each element and compacts the array
->> in place, improving efficiency without changing functionality.
->>
->> Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
->> ---
->> Verified correctness using the following simple unit test:
->>
->> double arr1[] = {1,1,2,2,3}; int size1=5;
->> remove_duplicates(arr1,&size1);
->> assert(size1==3 && arr1[0]==1 && arr1[1]==2 && arr1[2]==3);
->>
->> double arr2[] = {1,2,3}; int size2=3;
->> remove_duplicates(arr2,&size2);
->> assert(size2==3 && arr2[0]==1 && arr2[1]==2 && arr2[2]==3);
->>
->> double arr3[] = {5,5,5,5}; int size3=4;
->> remove_duplicates(arr3,&size3);
->> assert(size3==1 && arr3[0]==5);
->>
->> double arr4[] = {}; int size4=0;
->> remove_duplicates(arr4,&size4);
->> assert(size4==0);
->>
->>   .../dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c | 18 ++++++++----------
->>   1 file changed, 8 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/ 
->> dml2_pmo_dcn3.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/ 
->> dml2_pmo/dml2_pmo_dcn3.c
->> index 2b13a5e88917..5100e0e7af42 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/ 
->> dml2_pmo_dcn3.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/ 
->> dml2_pmo_dcn3.c
->> @@ -50,18 +50,16 @@ static void 
->> set_reserved_time_on_all_planes_with_stream_index(struct display_con
->>   static void remove_duplicates(double *list_a, int *list_a_size)
->>   {
->> -    int cur_element = 0;
->> -    // For all elements b[i] in list_b[]
->> -    while (cur_element < *list_a_size - 1) {
->> -        if (list_a[cur_element] == list_a[cur_element + 1]) {
->> -            for (int j = cur_element + 1; j < *list_a_size - 1; j++) {
->> -                list_a[j] = list_a[j + 1];
->> -            }
->> -            *list_a_size = *list_a_size - 1;
->> -        } else {
->> -            cur_element++;
->> +    int j = 0;
->> +
->> +    for (int i = 1; i < *list_a_size; i++) {
->> +        if (list_a[j] != list_a[i]) {
->> +            j++;
->> +            list_a[j] = list_a[i];
->>           }
->>       }
->> +
->> +    *list_a_size = j + 1;
+> The check patch script actually warns against using spaces and tabs on
+> the same line, so I wanted to avoid doing that.
 > 
-> A corner case needs fixing:
-> 
-> When input *list_a_size is zero, it will be updated to 1, unlike the 
-> original code. Maybe a early return when *list_a_size is zero?
-> 
-> Hi Aurabindo,
-> 
-> Do you have other comments or other concerns?
+> I couldn't find a clear guideline on how to format multiline
+> conditions, so I just aligned them to the other conditions that were
+> already here.
 
-Patch looks good with the early return added. Only nit is the 
-description wording - an extraneous 'in' is present.
+I did not see any warning as below, but this is a nitpick.
+
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -1140,6 +1140,10 @@ static bool detect_link_and_local_sink(struct 
+dc_link *link,
+  		if (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A &&
+  		    !sink->edid_caps.edid_hdmi)
+  			sink->sink_signal = SIGNAL_TYPE_DVI_SINGLE_LINK;
++		else if (dc_is_dvi_signal(sink->sink_signal) &&
++			 aud_support->hdmi_audio_native &&
++			 sink->edid_caps.edid_hdmi)
++			sink->sink_signal = SIGNAL_TYPE_HDMI_TYPE_A;
+
+  		if (link->local_sink && dc_is_dp_signal(sink_caps.signal))
+  			dp_trace_init(link);
+-- 
+2.43.0
+
+alexhung@ws:~/src/kernel/amdgpu(review)$ ./scripts/checkpatch.pl 
+0001-drm-amd-display-Fix-DVI-D-HDMI-adapters.patch
+total: 0 errors, 0 warnings, 10 lines checked
+
+0001-drm-amd-display-Fix-DVI-D-HDMI-adapters.patch has no obvious style 
+problems and is ready for submission.
 
 
---
+> 
+>> but
+>> I can fix it manually after this patch passes promotion test.
+>>
+>>>>>> +                       sink->sink_signal =>>>>
+>>>>>> SIGNAL_TYPE_HDMI_TYPE_A;
+>>>>>>
+>>>>>>                   if (link->local_sink &&
+>>>>>> dc_is_dp_signal(sink_caps.signal))
+>>>>>>                           dp_trace_init(link);
+>>>>>> --
+>>>>>> 2.50.1
+>>>>>>
 
-Thanks & Regards,
-Aurabindo Pillai
