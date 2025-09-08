@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFB32CAC58C
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E711CAC591
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A39510E890;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3AE10E88D;
 	Wed, 10 Sep 2025 08:01:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="SZVNXgjb";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SBS/Rsse";
 	dkim-atps=neutral
-X-Greylist: delayed 470 seconds by postgrey-1.36 at gabe;
- Mon, 08 Sep 2025 21:24:48 UTC
-Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com
- [91.218.175.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02E7610E5DD
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 21:24:47 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1757366205;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=QZs1MddN1kGIVjCYk+noKB3uCgeYjjNDvqCYGlqZzmg=;
- b=SZVNXgjb9TnYg2XcQ9CFKP0Qu82TKnE8YlVs6g7p/R22Jgq8Qo+SV+ZfhhqZpjaZqo0qNZ
- /R0b/0VH1oYOuCXUORdj8Dfm56YLe4zAzueii2cJh9+BVjt6/zY/l1tOeZVQS2U33/oBMt
- SzkZIe7g6277KvWd5pyPN44fgBO8zyk=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Replace kzalloc + copy_from_user with memdup_user
-Date: Mon,  8 Sep 2025 23:15:54 +0200
-Message-ID: <20250908211559.519892-1-thorsten.blum@linux.dev>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3199210E14C;
+ Mon,  8 Sep 2025 14:41:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6F21144099;
+ Mon,  8 Sep 2025 14:41:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7F82C4CEF1;
+ Mon,  8 Sep 2025 14:41:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1757342515;
+ bh=QA8+1tr7brTem22zB+pPbb3Pb/1XaSIDYubStR1J+c0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SBS/RssesVLX/VJuLdbwuauXCp03O+vb5iBteVppwG8XWw5JLrnwqRGjbcD6uI3If
+ MbUR4xwEEj0zSfxeWEY3sYsI+AkUMpVhLJGvsaMfS4Azp9JIR8CF5qsqTs5VAsS2nn
+ 5d5wpyksQDJFegCKprTXVt6aH0twfYOCyCDr0oXc=
+Date: Mon, 8 Sep 2025 16:41:51 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Mario Limonciello <superm1@kernel.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ "open list:HIBERNATION (aka Software Suspend,
+ aka swsusp)" <linux-pm@vger.kernel.org>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+ "open list:TRACING" <linux-trace-kernel@vger.kernel.org>,
+ AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Merthan =?utf-8?Q?Karaka=C5=9F?= <m3rthn.k@gmail.com>,
+ Eric Naim <dnaim@cachyos.org>
+Subject: Re: [PATCH v6 RESEND 00/11] Improvements to S5 power consumption
+Message-ID: <2025090839-desktop-ladder-c2f7@gregkh>
+References: <20250906143642.2590808-1-superm1@kernel.org>
+ <2025090852-coma-tycoon-9f37@gregkh>
+ <af78dfb4-de61-4b8c-a131-cf39a4c3c4b0@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+In-Reply-To: <af78dfb4-de61-4b8c-a131-cf39a4c3c4b0@kernel.org>
 X-Mailman-Approved-At: Wed, 10 Sep 2025 08:01:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,55 +74,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace kzalloc() followed by copy_from_user() with memdup_user() to
-improve and simplify ta_if_load_debugfs_write() and
-ta_if_invoke_debugfs_write().
+On Mon, Sep 08, 2025 at 07:39:07AM -0500, Mario Limonciello wrote:
+> 
+> 
+> On 9/8/25 4:19 AM, Greg Kroah-Hartman wrote:
+> > On Sat, Sep 06, 2025 at 09:36:31AM -0500, Mario Limonciello (AMD) wrote:
+> > > A variety of issues both in function and in power consumption have been
+> > > raised as a result of devices not being put into a low power state when
+> > > the system is powered off.
+> > > 
+> > > There have been some localized changes[1] to PCI core to help these issues,
+> > > but they have had various downsides.
+> > > 
+> > > This series instead tries to use the S4 flow when the system is being
+> > > powered off.  This lines up the behavior with what other operating systems
+> > > do as well.  If for some reason that fails or is not supported, run their
+> > > shutdown() callbacks.
+> > > 
+> > > Cc: AceLan Kao <acelan.kao@canonical.com>
+> > > Cc: Kai-Heng Feng <kaihengf@nvidia.com>
+> > > Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
+> > > Cc: Merthan Karakaş <m3rthn.k@gmail.com>
+> > > Cc: Eric Naim <dnaim@cachyos.org>
+> > > ---
+> > > v6 RESEND:
+> > >   * Resent because Greg said he was ignoring it and would like the whole
+> > >     series to be able to review.
+> > 
+> > Messy, but wow, I'll trust you all that this actually works properly.
+> 
+> Yes; I double checked from a UART log all devices (now) went to correct
+> state and from power measurement hardware the respective drop in power.
+> 
+> I will note I have a sampling bias of hardware being x86 AMD hardware.
+> Some of the testers of the series also tested Intel hardware which had
+> similar power consumption problem, and I know there were improvements there
+> too.
+> 
+> We probably will have to wait for linux-next for non-x86 hardware coverage.
+> > No objections from me, but I don't want my ack on this as I don't know
+> > how to maintain it :)
+> > 
+> 
+> I mean - if all goes well even a failed S4 flow should fall back to old path
+> shutdown.  I *did contrive some failures* in an earlier version of the
+> series and confirmed in the UART log it emitted the printk that it was
+> falling back to shutdown.
+> 
+> I had two ideas that maybe could help for regression risk though:
+> 1) I could add a shutdown= kernel parameter.  I'm not sure what words to use
+> for the two paths but the idea would be if someone had a shutdown failure
+> they could isolate if it's due to this by adding the parameter.
+> 
+> 2) I could make a Documentation/ file explaining some examples how to get
+> the shutdown log saved to pstore in case they don't have a UART available.
 
-No functional changes intended.
+This second one is probably the best.  A new command line is not going
+to probably be used and just be a pain to maintain over time.
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 20 ++++++--------------
- 1 file changed, 6 insertions(+), 14 deletions(-)
+thanks,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-index 38face981c3e..6e8aad91bcd3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-@@ -171,13 +171,9 @@ static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf, size_t
- 
- 	copy_pos += sizeof(uint32_t);
- 
--	ta_bin = kzalloc(ta_bin_len, GFP_KERNEL);
--	if (!ta_bin)
--		return -ENOMEM;
--	if (copy_from_user((void *)ta_bin, &buf[copy_pos], ta_bin_len)) {
--		ret = -EFAULT;
--		goto err_free_bin;
--	}
-+	ta_bin = memdup_user(&buf[copy_pos], ta_bin_len);
-+	if (IS_ERR(ta_bin))
-+		return PTR_ERR(ta_bin);
- 
- 	/* Set TA context and functions */
- 	set_ta_context_funcs(psp, ta_type, &context);
-@@ -327,13 +323,9 @@ static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *buf, size
- 		return -EFAULT;
- 	copy_pos += sizeof(uint32_t);
- 
--	shared_buf = kzalloc(shared_buf_len, GFP_KERNEL);
--	if (!shared_buf)
--		return -ENOMEM;
--	if (copy_from_user((void *)shared_buf, &buf[copy_pos], shared_buf_len)) {
--		ret = -EFAULT;
--		goto err_free_shared_buf;
--	}
-+	shared_buf = memdup_user(&buf[copy_pos], shared_buf_len);
-+	if (IS_ERR(shared_buf))
-+		return PTR_ERR(shared_buf);
- 
- 	set_ta_context_funcs(psp, ta_type, &context);
- 
--- 
-2.51.0
-
+greg k-h
