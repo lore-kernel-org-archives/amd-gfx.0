@@ -4,49 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B64CAC58F
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA0CCAC591
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24B1110E881;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E35610E88C;
 	Wed, 10 Sep 2025 08:01:13 +0000 (UTC)
-X-Greylist: delayed 383 seconds by postgrey-1.36 at gabe;
- Mon, 08 Sep 2025 14:32:34 UTC
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8251310E543
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 14:32:34 +0000 (UTC)
-Received: from localhost.localdomain (unknown [159.226.95.28])
- by APP-01 (Coremail) with SMTP id qwCowABHoqR9575o6WStAQ--.1721S2;
- Mon, 08 Sep 2025 22:26:06 +0800 (CST)
-From: Chen Yufeng <chenyufeng@iie.ac.cn>
-To: harry.wentland@amd.com
-Cc: sunpeng.li@amd.com, siqueira@igalia.com, amd-gfx@lists.freedesktop.org,
- Chen Yufeng <chenyufeng@iie.ac.cn>
-Subject: [PATCH] drm/amd/display: Add NULL test in
- dcn21_set_abm_immediate_disable
-Date: Mon,  8 Sep 2025 22:25:53 +0800
-Message-ID: <20250908142553.429-1-chenyufeng@iie.ac.cn>
-X-Mailer: git-send-email 2.43.0.windows.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="iA/EaYkd";
+	dkim-atps=neutral
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B233E10E59D;
+ Mon,  8 Sep 2025 18:00:41 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id C20BB40E01AC; 
+ Mon,  8 Sep 2025 18:00:39 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+ reason="fail (body has been altered)"
+ header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id aIim8rGBWOt3; Mon,  8 Sep 2025 18:00:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+ t=1757354435; bh=OCrISNUnSS2VoLZwShkAhPqzsofsopmEGS3rLcrAN4o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iA/EaYkd24u/h4NMmpO3jw1MDb3TuADzZMzFUlrEA9VKz0JuAsM7d9nvRMN0yDaqd
+ BnbPIWsEwmv/HFSRm6JO+o2sAhcFZ58kOdwSTqCyFSx+ghK+bYsOKJ+Lh+s1X6WO2m
+ Wt0gq8jNMJgKTBJyYDmU6Qah7M5D+3mL5SCJ0WLvRG/ea1PDy1ooVYVddzQEKhVK6W
+ KUsj/QNK/pumVeFs6y6mrWtKAGbQPp9p2L7WOEuo0UcmmPgAGe9ypTK6ilE4rWLgAD
+ BlCTqh/3LSbNnDv+5UnFyLfyY5uIlAmrsANUq7xV2aXxjaOKVQ2QiP1AMwvdPclp3j
+ ABWDDAPRAggfLNdxBdaBGGILoY/yDFs+DK1m8TvR9ZUWeqjlkU4ctHycgn5S4qXu+r
+ Gxb1uyImlczThycfk6EDXqBowVCPhCC1Mva3lyA4ZEPVe3114HUSLwSNJaHRl35yKX
+ dZo39Ugykxs3r+9BmJt7Swp14gl2FJGDmuRd+faKEo0m7I9Naezr1nXryPmM9MevzG
+ YMpk7MlTOyzL6osIIipmm1HKcuDg/ao0V9RaDj8OQav+A1qyI06TTxfrcfAKiwFprz
+ vRwfu7rW3UigUSVjwR/NClHWbbMuJawmtEHocN8zy5sV8uwHqbSkIdRDigvCP63SLI
+ MdrBB6rDhc7CBXR3ZxwAuV8E=
+Received: from zn.tnic (p5de8ed27.dip0.t-ipconnect.de [93.232.237.39])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
+ A215040E015D; Mon,  8 Sep 2025 18:00:28 +0000 (UTC)
+Date: Mon, 8 Sep 2025 20:00:22 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: evergreen_packet3_check:... radeon 0000:1d:00.0: vbo resource
+ seems too big for the bo
+Message-ID: <20250908180022.GHaL8Zto-PsVsPa0e0@fat_crate.local>
+References: <20250829171655.GBaLHgh3VOvuM1UfJg@fat_crate.local>
+ <CADnq5_Oqonrth+5T-83dnFBZ67GvykkPt-9aUepJd+fUMwnupw@mail.gmail.com>
+ <20250829194044.GCaLICPKJcGJRYdSfO@fat_crate.local>
+ <20250829204840.GEaLISKGTwuScnDF8Y@fat_crate.local>
+ <CADnq5_MbpYmC2PSyOr0gQk7F8mVz0-LG3dZtUZS2HhV8LTgDww@mail.gmail.com>
+ <20250830174810.GAaLM5WkiFc2BtQ6kW@fat_crate.local>
+ <51ae551b-6708-4fcd-84f9-fc1400f02427@mailbox.org>
+ <20250901101011.GAaLVxA_Ax0R-Wy2IX@fat_crate.local>
+ <2764782f-d411-4142-aa56-f1af0968ecd5@mailbox.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowABHoqR9575o6WStAQ--.1721S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFy8KFWfur48Kr1kXF1UWrg_yoW8Ar1Dpw
- 4UWa4FgrWDXan29ry7X3ZxuF47u393Gay2kr9rGwnIv3WYyr45tF4xG34YkrW3uFWrAF13
- AF4qgF4UuF1qy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvv14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
- 6r4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
- AVWUtwCY02Avz4vE14v_Xryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjfUnBMKDUUUU
-X-Originating-IP: [159.226.95.28]
-X-CM-SenderInfo: xfkh05xxih0wo6llvhldfou0/1tbiBwoTEmi+suqcmwAAsF
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2764782f-d411-4142-aa56-f1af0968ecd5@mailbox.org>
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 10 Sep 2025 08:01:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,42 +84,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is similar to commit 66951d98d9bf("drm/amd/display: 
- Add NULL test for 'timing generator' in 'dcn21_set_pipe()'").
+On Mon, Sep 08, 2025 at 07:05:17PM +0200, Michel D=C3=A4nzer wrote:
+> These messages are primarily intended for developers, not users
 
-In "u32 otg_inst = pipe_ctx->stream_res.tg->inst;"
-pipe_ctx->stream_res.tg could be NULL, it is relying on the caller to
-ensure the tg is not NULL.
+But everybody sees them! And they're flooding the console.
 
-So the dcn21_set_abm_immediate_disable function should also add NULL test
-for 'timing generator'.
+And most people seeing them are users, not developers.
 
-Signed-off-by: Chen Yufeng <chenyufeng@iie.ac.cn>
----
- drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+And if those messages are only for developers, they better be not visible=
+ by
+default but behind a CONFIG_DEBUG or a similar switch.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-index 61efb15572ff..50896aed8245 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-@@ -179,9 +179,15 @@ static void dmub_abm_set_backlight(struct dc_context *dc, uint32_t backlight_pwm
- void dcn21_set_abm_immediate_disable(struct pipe_ctx *pipe_ctx)
- {
- 	struct abm *abm = pipe_ctx->stream_res.abm;
--	uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
-+	struct timing_generator *tg = pipe_ctx->stream_res.tg;
- 	struct panel_cntl *panel_cntl = pipe_ctx->stream->link->panel_cntl;
- 	struct dmcu *dmcu = pipe_ctx->stream->ctx->dc->res_pool->dmcu;
-+	uint32_t otg_inst;
-+
-+	if (!abm || !tg || !panel_cntl)
-+		return;
-+
-+	otg_inst = tg->inst;
- 
- 	// make a short term w/a for an issue that backlight ramping unexpectedly paused in the middle,
- 	// will decouple backlight from ABM and redefine DMUB interface, then this w/a could be removed
--- 
-2.34.1
+And developers don't have every hw to test on. So you need to rely on use=
+rs to
+report issues to you. Because those messages probably don't fire on your =
+hw
+but someone else would hit them. And the chances are high that someone el=
+se is
+a user.
 
+So you want to make *all* your messages for users and have them report th=
+em
+back to you.
+
+> (which will notice and report the corresponding user-space issues inste=
+ad).
+
+The case due to which we're having this conversation didn't manifest itse=
+lf
+into anything - it was only flooding my dmesg. So users will notice nothi=
+ng.
+
+> The once variant means user-space developers need to reboot after hitti=
+ng it
+> once.
+
+/sys/kernel/debug/clear_warn_once
+
+Although when I tried it, it didn't help with dev_warn_once(). Perhaps ne=
+eds
+adding.
+
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
