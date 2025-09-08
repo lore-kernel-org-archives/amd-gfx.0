@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B0F6CAC588
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 23:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96828CAC587
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 23:22:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C030810E5F9;
-	Mon,  8 Sep 2025 23:22:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3E3510E5F8;
+	Mon,  8 Sep 2025 23:22:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gjt8vWig";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Te1YYpSq";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08F3210E5F9
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 23:22:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48C3210E5F8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 23:22:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,25 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=BuDeNydw0Lg6xXr+fDVvqRRq3iI7+7v6+tyFCBeBQ2s=; b=gjt8vWigfQfCpCAayAdEi3TGJD
- N3sWewoIm1McgfKX7r5Zu+Q5trTD0xPdpwDHWg4c1q2Y4XjLKYI4LtqyE2d86B6q9MYTOjM7JvEOs
- 37FzVwTIBBmtYs33HSFh8ReTpyW/pzgH0jKkkc7gK1h1pcHE8xKlorqx5PSk3yKO0Hpbh25hkI6OI
- t0CrMbxMHJtD9C6dIzqbiFaf2zGfyrzRELSuf2oLEuLP/xloVM4/U/VKLTiSY2LY7owweCFH8WryT
- X1hIXU5NWpuxbQ7JGaoVyN2ijIOMSdna9UQR8RzfogAikt2vk/OW0cxxq5QnElrYFbL+fJ9aFq/og
- +/tSJYaA==;
+ bh=U5njux5lZnDZ3SzU2fXB0FLE7fN2EPRxt9eSzAtaOBo=; b=Te1YYpSqGikBjrc71Hr7mHcTvG
+ eCIL9yvMYEhtBktHulCONcSSVGvzLK9InyrB7krJITJmhJDy+ZM95cU3g4ec3zqxYh9LgD4InV9J2
+ iNfDRkkOirlDE0EqC+7EoyE9bo+oY+/pAnUm5e1qRzsEydKU77WABINt/fOifvB1NKUPtt2q9vct4
+ 0efXH2zwKuokJp9+BejLwrH93s20h8Uf7Knv9J4VJ06jJVb+727JGwOBlPTj2fE1MuUGhU/Dt41HU
+ v3gLS93xWNOZVGdqJcHZGjATJqVFOvkCXlLqhoND5Ao7azSEUkS5yQAIZHZvMjX9cmGiw8+DagTqn
+ qShOqH7A==;
 Received: from [104.193.135.201] (helo=debian.lan)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uvlBg-008iqD-VX; Tue, 09 Sep 2025 01:22:17 +0200
+ id 1uvlBf-008iqD-8o; Tue, 09 Sep 2025 01:22:15 +0200
 From: Rodrigo Siqueira <siqueira@igalia.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 4/5] drm/amdgpu: Remove volatile from amdgpu and amdgpu_ih
- headers
-Date: Mon,  8 Sep 2025 17:15:39 -0600
-Message-ID: <20250908232134.2223198-5-siqueira@igalia.com>
+Subject: [PATCH 3/5] drm/amdgpu: Remove volatile from ring manipulation
+Date: Mon,  8 Sep 2025 17:15:38 -0600
+Message-ID: <20250908232134.2223198-4-siqueira@igalia.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250908232134.2223198-1-siqueira@igalia.com>
 References: <20250908232134.2223198-1-siqueira@igalia.com>
@@ -60,50 +59,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the unnecessary use of volatile in some of the amdgpu.h and
-amdgpu_ih.h headers.
+None of the pointer operations handled by the ring file requires
+volatile, for this reason, this commit removes all occurrences of
+volatile associated with rings.
 
 Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h    | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 12 ++++++------
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   |  2 +-
+ 5 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 6d123172bb0a..0e6a09651bbc 100644
+index 17848ce65d1f..6d123172bb0a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -721,7 +721,7 @@ int amdgpu_cs_wait_fences_ioctl(struct drm_device *dev, void *data,
- /* VRAM scratch page for HDP bug, default vram page */
- struct amdgpu_mem_scratch {
- 	struct amdgpu_bo		*robj;
--	volatile uint32_t		*ptr;
-+	uint32_t			*ptr;
- 	u64				gpu_addr;
- };
+@@ -545,7 +545,7 @@ struct amdgpu_wb {
+ 	 * this value can be accessed directly by using the offset as an index.
+ 	 * For the GPU address, it is necessary to use gpu_addr and the offset.
+ 	 */
+-	volatile uint32_t	*wb;
++	uint32_t		*wb;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-index 7f7ea046e209..f58b6be7fccc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-@@ -56,14 +56,14 @@ struct amdgpu_ih_ring {
- 	bool			use_bus_addr;
+ 	/**
+ 	 * @gpu_addr:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 7670f5d82b9e..80b85547c810 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -114,7 +114,7 @@ struct amdgpu_sched {
+  */
+ struct amdgpu_fence_driver {
+ 	uint64_t			gpu_addr;
+-	volatile uint32_t		*cpu_addr;
++	uint32_t			*cpu_addr;
+ 	/* sync_seq is protected by ring emission lock */
+ 	uint32_t			sync_seq;
+ 	atomic_t			last_seq;
+@@ -298,7 +298,7 @@ struct amdgpu_ring {
+ 	unsigned int		ring_backup_entries_to_copy;
+ 	unsigned		rptr_offs;
+ 	u64			rptr_gpu_addr;
+-	volatile u32		*rptr_cpu_addr;
++	u32			*rptr_cpu_addr;
  
- 	struct amdgpu_bo	*ring_obj;
--	volatile uint32_t	*ring;
-+	uint32_t		*ring;
- 	uint64_t		gpu_addr;
+ 	/**
+ 	 * @wptr:
+@@ -378,19 +378,19 @@ struct amdgpu_ring {
+ 	 * This is the CPU address pointer in the writeback slot. This is used
+ 	 * to commit changes to the GPU.
+ 	 */
+-	volatile u32		*wptr_cpu_addr;
++	u32			*wptr_cpu_addr;
+ 	unsigned		fence_offs;
+ 	u64			fence_gpu_addr;
+-	volatile u32		*fence_cpu_addr;
++	u32			*fence_cpu_addr;
+ 	uint64_t		current_ctx;
+ 	char			name[16];
+ 	u32                     trail_seq;
+ 	unsigned		trail_fence_offs;
+ 	u64			trail_fence_gpu_addr;
+-	volatile u32		*trail_fence_cpu_addr;
++	u32			*trail_fence_cpu_addr;
+ 	unsigned		cond_exe_offs;
+ 	u64			cond_exe_gpu_addr;
+-	volatile u32		*cond_exe_cpu_addr;
++	u32			*cond_exe_cpu_addr;
+ 	unsigned int		set_q_mode_offs;
+ 	u32			*set_q_mode_ptr;
+ 	u64			set_q_mode_token;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index f6ac6a36bc44..8841d7213de4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4075,7 +4075,7 @@ static int gfx_v10_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	struct dma_fence *f = NULL;
+ 	unsigned int index;
+ 	uint64_t gpu_addr;
+-	volatile uint32_t *cpu_ptr;
++	uint32_t *cpu_ptr;
+ 	long r;
  
- 	uint64_t		wptr_addr;
--	volatile uint32_t	*wptr_cpu;
-+	uint32_t		*wptr_cpu;
+ 	memset(&ib, 0, sizeof(ib));
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index ff600a6c80ae..86b3fcab5772 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -603,7 +603,7 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	uint64_t gpu_addr;
+-	volatile uint32_t *cpu_ptr;
++	uint32_t *cpu_ptr;
+ 	long r;
  
- 	uint64_t		rptr_addr;
--	volatile uint32_t	*rptr_cpu;
-+	uint32_t		*rptr_cpu;
+ 	/* MES KIQ fw hasn't indirect buffer support for now */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index a14fd94af90d..710ec9c34e43 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -497,7 +497,7 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	uint64_t gpu_addr;
+-	volatile uint32_t *cpu_ptr;
++	uint32_t *cpu_ptr;
+ 	long r;
  
- 	bool                    enabled;
- 	unsigned		rptr;
+ 	/* MES KIQ fw hasn't indirect buffer support for now */
 -- 
 2.50.1
 
