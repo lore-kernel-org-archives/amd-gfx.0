@@ -4,63 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EBD3CAC582
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 21:34:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F742CAC582
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 21:35:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36F5710E2A0;
-	Mon,  8 Sep 2025 21:34:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAD3D10E5E6;
+	Mon,  8 Sep 2025 21:35:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KG0xsGVK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Azl0oP/y";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F24010E2A0;
- Mon,  8 Sep 2025 21:34:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1BDA360140;
- Mon,  8 Sep 2025 21:34:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95884C4CEF1;
- Mon,  8 Sep 2025 21:34:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757367277;
- bh=NzbMSMpQ4f3Do6KUVa9pmwGpe4Sd68+LnHSAddc02hc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=KG0xsGVKP50g/2MEAKc7sN+1zhMxdzclu/RHx9bMUgGoudP8nnKRnjTGCvWakiHcD
- 7BhxiVTC6Xp/z989LDquWV9Mqeppxh8onBPSxzNPfFi29SBSOmyvb17FABTwAshXqa
- pfRK2KiQ1GzMrYFZLhZFEcd+vQ5OQx1EOaHKahYYZWahdltSQDUS70YkkRyA5uqDhg
- NQ+tiTpyReOIBucvYBR86yByR8r2tWIzuHishUj92EgsVC8pcxC53NrnFtSOLaViZo
- 9s7opjqTUVpPIxAgNzXNUP6kVgIcE2AQGGdPA8X9cgOLETH5L5lx6WVFIEHiioBIzq
- ZEYlJbuyV5RfA==
-Date: Mon, 8 Sep 2025 16:34:36 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- "open list:HIBERNATION (aka Software Suspend,
- aka swsusp)" <linux-pm@vger.kernel.org>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>,
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
- "open list:TRACING" <linux-trace-kernel@vger.kernel.org>,
- AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- Merthan =?utf-8?Q?Karaka=C5=9F?= <m3rthn.k@gmail.com>,
- Eric Naim <dnaim@cachyos.org>
-Subject: Re: [PATCH v6 05/11] PCI: PM: Disable device wakeups when halting
- system through S4 flow
-Message-ID: <20250908213436.GA1465429@bhelgaas>
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFB0710E5E6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 21:35:17 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-24b150fb800so12763935ad.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Sep 2025 14:35:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757367317; x=1757972117; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7SxqITHQ1DgZhrU1JRlTS/mRF1uxDhbu/UrUP5EQD8o=;
+ b=Azl0oP/yrfg/4k7BykTeZ041PRxdKErEXcJ6dhooT2QtLOWk0OAfJczTtbT1b8awh3
+ bOaN/k1+cdrjIHbxonThgpe6by+cfmGLEZkB9Kovp1hJa2WbsqqoH2CXLPTb2dKfa88Q
+ TwAzgemtpksAAhtHlSFET03mGtI7bv6Jn5UyiXTR0ztYsL9uwWsGmY/GWNZnJkMu2RlN
+ AArSERN2zqu1fXChOgfQEUpxwR4fyO8UEHLBKU2BzX7o7rqvUhet13UuEOfUTAfxPPnC
+ GTENXBZ33kjXMOaXIwjKp9xFHmJa3rjbnf/oxkLnU8+97sWaFmp6t9oNjXvGa90rUoE9
+ X5Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757367317; x=1757972117;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7SxqITHQ1DgZhrU1JRlTS/mRF1uxDhbu/UrUP5EQD8o=;
+ b=FIesHaddMlfq9klFYY1M/MdvphszcNR9rlz5QuGmWJLhDQprmNhKe0czn5gB9Ooepx
+ 8ZK63l+uIVRqjWHtra0hy4GAwNWpYAPXp8cSKT0kyVLNpO95+z1bafvdEDhFABgQRGgr
+ oy46Yf5l2MMYVarxYmpHGhyScMRXNcd0jOhTAuxAEBUgW40CiAD+gcYp0HPM2L1tK03L
+ QwZAhkUSXQWdjppy8qoTCfZ5wzKJ4rl3Rpt+WL1QZ3YuymmTNWMhawVqjudNdhMyqEzY
+ lwqW+mynta/piCIzTi5M+aXzvNivTQB8YC4CekFIkaXG8GWtZCm6Q6BjWWd7aYtyDBEY
+ ku0Q==
+X-Gm-Message-State: AOJu0YzMsUnf/uEF0BKtwjmGbOHZV7+khCx+Zd3ZcfCvVdxJKMt/pIVU
+ o60lO5TThhR2pBzR52oaJceo/M/QElj3aXnuI2e6PWEYJdjg3RXiQ5pVIQrYLX8RFF8Aw3ulZn/
+ 76FmoDCD/SF4ZVOrGDUWEnP7qIRJ7gUM=
+X-Gm-Gg: ASbGncu9UVuT56rON9q+p54CA22jdT6LyUkidfVuBC1gfP0/cWKT935ETW0uD+lsCDy
+ 6LKoS1/1ySUnW9GHLHPBOBpcedSEttKD3T8Gz5UqhczbrritPckMkKY/lJLoefyxJVZtdlC82Zg
+ PsLUFBXPjtOfbIUt/BFXIz09KaROKeOjkvH2Huy2MgHmPIo6s326r1hpKeYKT7NValyNHfPidUN
+ U40dek=
+X-Google-Smtp-Source: AGHT+IGZ7VGuDyc07RZHG2R4PtYJcvvhyXZ3YD5wuROHI0fbJFCzi1AZvWRpGcGyYm3vOvK7bEC2QwbwE7N7/d8umbM=
+X-Received: by 2002:a17:903:18c:b0:24c:cc2c:9da5 with SMTP id
+ d9443c01a7336-25173ea24a3mr70360725ad.6.1757367317214; Mon, 08 Sep 2025
+ 14:35:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250818020101.3619237-6-superm1@kernel.org>
+References: <20250908084846.1873894-1-Prike.Liang@amd.com>
+ <20250908084846.1873894-10-Prike.Liang@amd.com>
+In-Reply-To: <20250908084846.1873894-10-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 8 Sep 2025 17:35:04 -0400
+X-Gm-Features: Ac12FXym4YyqwNNi4xklCaDnRGUTZyKr_v5bxdPErmmLZk4GC7JtiVZjRR4Hr-s
+Message-ID: <CADnq5_N_PjOzgF3+V7MkX6nbfcFdDyNdWPJcpt3FXmzh+BCs0w@mail.gmail.com>
+Subject: Re: [PATCH v10 10/14] drm/amdgpu: validate the userq va before
+ destroying
+To: Prike Liang <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ christian.koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,62 +83,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In subject, s|PCI: PM:|PCI/PM:| to follow previous practice.
+On Mon, Sep 8, 2025 at 4:59=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> wr=
+ote:
+>
+> The user queue object destroy requires ensuring its
+> VA keeps mapping prior to the queue being destroyed.
+> Otherwise, it seems a bug in the user space or VA
+> freed wrongly, and the kernel driver should report an
+> invalidated state to the user IOCTL request.
 
-On Sun, Aug 17, 2025 at 09:00:55PM -0500, Mario Limonciello (AMD) wrote:
-> PCI devices can be programmed as a wakeup source from low power states
-> by sysfs.  However when using the S4 flow to go into S5 these wakeup
-> sources should be disabled to avoid what users would perceive as
-> spurious wakeup events.
+You can drop this patch.  If the queue is destroyed, you won't be querying =
+it.
 
-Is the "can be programmed vis sysfs" part relevant here?
+Alex
 
-I think S4 and S5 are ACPI sleep states not applicable to all
-platforms.  Is it relevant that we got here via ACPI?
-
-I assume non-ACPI systems can also exercise this path.  Is there a way
-to describe this scenario in a way that would apply to all systems?
-
-I'm not sure what "using the S4 flow to go in to S5" means.
-
-It would be nice to have a spec reference or some sort of rationale
-for the requirement to disable all wakeup sources in SYSTEM_HALT and
-SYSTEM_POWER_OFF.
-
-> Tested-by: Eric Naim <dnaim@cachyos.org>
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 > ---
-> v5:
->  * Re-order
->  * Add tags
-> v4:
->  * https://lore.kernel.org/linux-pci/20250616175019.3471583-1-superm1@kernel.org/
-> ---
->  drivers/pci/pci-driver.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-> index 63665240ae87f..f201d298d7173 100644
-> --- a/drivers/pci/pci-driver.c
-> +++ b/drivers/pci/pci-driver.c
-> @@ -1139,6 +1139,10 @@ static int pci_pm_poweroff(struct device *dev)
->  	struct pci_dev *pci_dev = to_pci_dev(dev);
->  	const struct dev_pm_ops *pm = dev->driver ? dev->driver->pm : NULL;
->  
-> +	if (device_may_wakeup(dev) &&
-> +	    (system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF))
-> +		device_set_wakeup_enable(dev, false);
-
-I guess the suggestion is that we can't wake up at all from
-SYSTEM_HALT or SYSTEM_POWER_OFF?  Would both be considered S5?
-
-Does this mean we need a physical power button push to start up again?
-I guess ACPI r6.5, sec 16.1.5 kind of suggests that: "hardware does
-allow a transition to S0 due to power button press or a Remote Start."
-
->  	if (pci_has_legacy_pm_support(pci_dev))
->  		return pci_legacy_suspend(dev, PMSG_HIBERNATE);
->  
-> -- 
-> 2.43.0
-> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 85df04e9ec3d..98b6b3761a0a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -520,6 +520,13 @@ amdgpu_userq_destroy(struct drm_file *filp, int queu=
+e_id)
+>                 amdgpu_bo_unreserve(queue->db_obj.obj);
+>         }
+>         amdgpu_bo_unref(&queue->db_obj.obj);
+> +       /*
+> +        * At this point the userq obj va should be mapped,
+> +        * otherwise will return error to user.
+> +        */
+> +       if (!amdgpu_userq_buffer_vas_mapped(&fpriv->vm, queue))
+> +               queue->state =3D AMDGPU_USERQ_STATE_INVALID_VA;
+> +
+>         r =3D amdgpu_userq_unmap_helper(uq_mgr, queue);
+>         /*TODO: It requires a reset for userq hw unmap error*/
+>         if (unlikely(r !=3D AMDGPU_USERQ_STATE_UNMAPPED)) {
+> --
+> 2.34.1
+>
