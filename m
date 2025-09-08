@@ -4,53 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B291BCAC58D
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B64CAC58F
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE32610E880;
-	Wed, 10 Sep 2025 08:01:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="bO1dSo/p";
-	dkim-atps=neutral
-Received: from xry111.site (xry111.site [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A497810E0DB;
- Tue,  9 Sep 2025 01:48:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
- s=default; t=1757382479;
- bh=3YtYzU61FgZ1QSj/CC2Pntanv4RRd5UxpEboA8gsIGs=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=bO1dSo/ptiJiWRipcc9gMKzhTmQmU8txu770g5q19h5tcsXU1i+WrO2txwRl2onun
- vOCptGY+27Ep8jlo57ionRK1kZoOyqJkKomXTh9T6mXwEtUfQL10rbJYvh02C614rG
- Qh4fYnbxmm+E5R/OQQbsEQP8q5LJW7F6FsxR2BKw=
-Received: from [127.0.0.1]
- (2607-8700-5500-e873-0000-0000-0000-1001.16clouds.com
- [IPv6:2607:8700:5500:e873::1001])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1)
- server-digest SHA384) (Client did not present a certificate)
- (Authenticated sender: xry111@xry111.site)
- by xry111.site (Postfix) with ESMTPSA id 870CB6696C;
- Mon,  8 Sep 2025 21:47:54 -0400 (EDT)
-Message-ID: <25fcd3b5c1a415deb8358714279a7d532e26ed47.camel@xry111.site>
-Subject: Re: [PATCH] drm/amd/display/dml2: Guard
- dml21_map_dc_state_into_dml_display_cfg with DC_FP_START
-From: Xi Ruoyao <xry111@xry111.site>
-To: Alex Hung <alex.hung@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Huacai Chen <chenhuacai@kernel.org>, WANG
- Xuerui <kernel@xen0n.name>, Mingcong Bai <jeffbai@aosc.io>,
- dri-devel@lists.freedesktop.org, 	loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, Asiacn <710187964@qq.com>,  Austin Zheng
- <Austin.Zheng@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, Wenjing
- Liu	 <wenjing.liu@amd.com>
-Date: Tue, 09 Sep 2025 09:47:52 +0800
-In-Reply-To: <0f6b54fa-720f-43b7-ad74-91c2c5700dad@amd.com>
-References: <20250825085211.34396-1-xry111@xry111.site>
- <0f6b54fa-720f-43b7-ad74-91c2c5700dad@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24B1110E881;
+	Wed, 10 Sep 2025 08:01:13 +0000 (UTC)
+X-Greylist: delayed 383 seconds by postgrey-1.36 at gabe;
+ Mon, 08 Sep 2025 14:32:34 UTC
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8251310E543
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 14:32:34 +0000 (UTC)
+Received: from localhost.localdomain (unknown [159.226.95.28])
+ by APP-01 (Coremail) with SMTP id qwCowABHoqR9575o6WStAQ--.1721S2;
+ Mon, 08 Sep 2025 22:26:06 +0800 (CST)
+From: Chen Yufeng <chenyufeng@iie.ac.cn>
+To: harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, siqueira@igalia.com, amd-gfx@lists.freedesktop.org,
+ Chen Yufeng <chenyufeng@iie.ac.cn>
+Subject: [PATCH] drm/amd/display: Add NULL test in
+ dcn21_set_abm_immediate_disable
+Date: Mon,  8 Sep 2025 22:25:53 +0800
+Message-ID: <20250908142553.429-1-chenyufeng@iie.ac.cn>
+X-Mailer: git-send-email 2.43.0.windows.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowABHoqR9575o6WStAQ--.1721S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFy8KFWfur48Kr1kXF1UWrg_yoW8Ar1Dpw
+ 4UWa4FgrWDXan29ry7X3ZxuF47u393Gay2kr9rGwnIv3WYyr45tF4xG34YkrW3uFWrAF13
+ AF4qgF4UuF1qy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvv14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+ 6r4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+ AVWUtwCY02Avz4vE14v_Xryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjfUnBMKDUUUU
+X-Originating-IP: [159.226.95.28]
+X-CM-SenderInfo: xfkh05xxih0wo6llvhldfou0/1tbiBwoTEmi+suqcmwAAsF
 X-Mailman-Approved-At: Wed, 10 Sep 2025 08:01:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,70 +62,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-09-08 at 14:18 -0600, Alex Hung wrote:
->=20
->=20
-> On 8/25/25 02:52, Xi Ruoyao wrote:
-> > dml21_map_dc_state_into_dml_display_cfg calls (the call is usually
-> > inlined by the compiler) populate_dml21_surface_config_from_plane_state
-> > and populate_dml21_plane_config_from_plane_state which may use FPU.=C2=
-=A0 In
-> > a x86-64 build:
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0 $ objdump --disassemble=3Ddml21_map_dc_state_i=
-nto_dml_display_cfg \
-> > =C2=A0=C2=A0=C2=A0=C2=A0 > drivers/gpu/drm/amd/display/dc/dml2/dml21/dm=
-l21_translation_helper.o |
-> > =C2=A0=C2=A0=C2=A0=C2=A0 > grep %xmm -c
-> > =C2=A0=C2=A0=C2=A0=C2=A0 63
-> >=20
-> > Thus it needs to be guarded with DC_FP_START.=C2=A0 But we must note th=
-at the
-> > current code quality of the in-kernel FPU use in AMD dml2 is very much
-> > problematic: we are actually calling DC_FP_START in dml21_wrapper.c
-> > here, and this translation unit is built with CC_FLAGS_FPU.=C2=A0 Stric=
-tly
-> > speaking this does not make any sense: with CC_FLAGS_FPU the compiler i=
-s
-> > allowed to generate FPU uses anywhere in the translated code, perhaps
-> > out of the DC_FP_START guard.=C2=A0 This problematic pattern also occur=
-s in
-> > at least dml2_wrapper.c, dcn35_fpu.c, and dcn351_fpu.c.=C2=A0 Thus we r=
-eally
->=20
-> Let me share Austin's comments below:
->=20
-> "
-> Both CC_FLAGS_FPU and DC_FP_START are required for FPU usage.
->=20
-> CC_FLAGS_FPU allows the compiler to generate FPU code whereas=20
-> DC_FP_START ensures that the FPU registers don't get tainted during runti=
-me.
+This patch is similar to commit 66951d98d9bf("drm/amd/display: 
+ Add NULL test for 'timing generator' in 'dcn21_set_pipe()'").
 
-But the correct pattern would be: isolating the code using FPU into its
-own translation unit, say xxx_fp.c, then call DC_FP_START in another
-translation unit (for which CC_FLAGS_FPU is NOT used) before calling the
-routines in xxx_fp.c.
+In "u32 otg_inst = pipe_ctx->stream_res.tg->inst;"
+pipe_ctx->stream_res.tg could be NULL, it is relying on the caller to
+ensure the tg is not NULL.
 
-It's because there's generally no way to guarantee the compiler only
-generate FP code in the range of DC_FP_START ... DC_FP_END if
-CC_FLAGS_FPU is used.  The compiler can generate FPU code in situations
-we don't intend to use (and don't anticipate) FPU, for example if a
-"counting number of ones in a word" pattern is detected when the code is
-built for LoongArch, the compiler can invoke FPU to use a popcount
-instruction with CC_FLAGS_FPU.  (That doesn't really happen now but it
-may happen in the future.)
+So the dcn21_set_abm_immediate_disable function should also add NULL test
+for 'timing generator'.
 
-And the correct pattern is already used by, for example
-dcn10_resource.c:
+Signed-off-by: Chen Yufeng <chenyufeng@iie.ac.cn>
+---
+ drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-    DC_FP_START();
-    voltage_supported =3D dcn_validate_bandwidth(dc, context, validate_mode=
-);
-    DC_FP_END();
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
+index 61efb15572ff..50896aed8245 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
+@@ -179,9 +179,15 @@ static void dmub_abm_set_backlight(struct dc_context *dc, uint32_t backlight_pwm
+ void dcn21_set_abm_immediate_disable(struct pipe_ctx *pipe_ctx)
+ {
+ 	struct abm *abm = pipe_ctx->stream_res.abm;
+-	uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
++	struct timing_generator *tg = pipe_ctx->stream_res.tg;
+ 	struct panel_cntl *panel_cntl = pipe_ctx->stream->link->panel_cntl;
+ 	struct dmcu *dmcu = pipe_ctx->stream->ctx->dc->res_pool->dmcu;
++	uint32_t otg_inst;
++
++	if (!abm || !tg || !panel_cntl)
++		return;
++
++	otg_inst = tg->inst;
+ 
+ 	// make a short term w/a for an issue that backlight ramping unexpectedly paused in the middle,
+ 	// will decouple backlight from ABM and redefine DMUB interface, then this w/a could be removed
+-- 
+2.34.1
 
-Here dcn_validate_bandwidth is in dcn_calcs.c where CC_FLAGS_FPU is in-
-effect, but dcn10_resource.c itself is not built with CC_FLAGS_FPU.
-
---=20
-Xi Ruoyao <xry111@xry111.site>
