@@ -4,144 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A54F0CAC581
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 13:59:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85241CA1016
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 14:38:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BEC410E221;
-	Mon,  8 Sep 2025 13:59:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE23910E547;
+	Mon,  8 Sep 2025 14:38:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xkTJrbKf";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="rZWo/xG7";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A88AF10E221
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 13:59:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HyBCpDKogRA3gVe0G9Vz6hzJfaroC5O3LUZilzwOi1DPHo/1aPEMUocvRtSrJheQL5HNK4sQYOaRlo4sjHqxuzGZENfx+okUXpLUezXglz9l9bgy7+zpfxKxTFZAyshMzlEESf2AcfdRTyArtAWH40pj3zRmwqimr3v1+IUHoCreEqN563tl1pbtkLKUc6ShDk//Q7ZpRmrXFU1p96kq/dfAeDMctyPRPVY6efC5OXqUFy+4ZlgTxxKcNhezoNxZV8t7KAJlhQSy10kOlebzA460ALUamXHM0uPGnVD051CivarY+amUTGs57OmfGywVp9BgXwa2qIinbc/pWuKLeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xukrQKQY2T+e19KQSiJ6cXhxfpSJoL7CTyetOr5LQts=;
- b=spNRDp7CTXH7jEp68evxlrLl8qik/oX0NU+ophHUfbI+L9kyvvz4gwu9STa7tmVWjFD4iBpmd83dvp5YOBGCFAbAmLpRsQ5T5NrUb9wVFvlYXCXZEupHUC86d3ZlJRayPjDWwvWtkZxT6LE2SRgGzy2j1LLcGPiJeTSwIk3rR7SM4xFrnM98VwAraiWyO5sNQSKQL2SrHmbYWKS2+ndS2Dj4Vpvz6Z3i0mmgPQhecWjJyxd3J7mrqHEhlbhzfJcMB7nO3Ly4qS8vizxJGbSlmO/LVRWOImM78294qiwvX2kAVfz8tC3dBxlyxFtvy368l1vvbsvhaKLw66ym/bKZNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xukrQKQY2T+e19KQSiJ6cXhxfpSJoL7CTyetOr5LQts=;
- b=xkTJrbKfF0E8FBmrYkHEo24zD/npvonzlmWx9WhXXmjqHy4AUF/xYMZqhGZcrrGfbVlrcOSaM7USg6PT3MxGovoDjxVX//hMpnFb24/riz5soHRsH3u1PizXvjalLew1MtahxnqGVq/GKMa35SSR/zUlLcCXDZ/+2OkrsI2SPUg=
-Received: from CY5PR12MB6527.namprd12.prod.outlook.com (2603:10b6:930:30::13)
- by DS7PR12MB6119.namprd12.prod.outlook.com (2603:10b6:8:99::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9094.22; Mon, 8 Sep 2025 13:59:35 +0000
-Received: from CY5PR12MB6527.namprd12.prod.outlook.com
- ([fe80::6ac9:89ee:fdef:754e]) by CY5PR12MB6527.namprd12.prod.outlook.com
- ([fe80::6ac9:89ee:fdef:754e%7]) with mapi id 15.20.9094.021; Mon, 8 Sep 2025
- 13:59:35 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Lin, Wayne" <Wayne.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
- ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
- "Wu, Ray" <Ray.Wu@amd.com>, "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "Hung,
- Alex" <Alex.Hung@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>
-Subject: RE: [PATCH 00/11] DC Patches for September 8, 2025
-Thread-Topic: [PATCH 00/11] DC Patches for September 8, 2025
-Thread-Index: AQHcG6L1L0iWDYjN+EmGhvnewXN4YrSJWbKA
-Date: Mon, 8 Sep 2025 13:59:35 +0000
-Message-ID: <CY5PR12MB6527706102E6E2EE1AC491C89C0CA@CY5PR12MB6527.namprd12.prod.outlook.com>
-References: <20250902004532.1833436-1-Wayne.Lin@amd.com>
-In-Reply-To: <20250902004532.1833436-1-Wayne.Lin@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-09-08T13:58:25.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6527:EE_|DS7PR12MB6119:EE_
-x-ms-office365-filtering-correlation-id: 4167e8bf-3a0a-40d3-25ab-08ddeedff1a7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|376014|366016|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?UhkXhJqrQOwCLPc8wfVdFvZhAsRXfaYFJZwbHkHMttTjQLXjKo5yHOLdbFnj?=
- =?us-ascii?Q?qghCVwd+6tkp7Rh+uNMv+kOCgVsapoBZ6h9RmRB+/Bjwsp7PZFoffHDM9SYM?=
- =?us-ascii?Q?CLq0M43khIKC+uWmkNXiA79E1I3qK3rawQKnBz2lk0sENu2PyrxsSQkC6D2C?=
- =?us-ascii?Q?AvL75l6jhXFo9BHkBnD651hDu9RplzYXBru8N16ppct/PfNEqjtBeEK9hH02?=
- =?us-ascii?Q?zKahiZR2G17bwQFgPVaQ1e7pETpIM09ynaBBhNd07EC3wNx55hh3DtVIxIGs?=
- =?us-ascii?Q?LcfV7JtG5mc2h+zC6px7B21MUqujvrSQ7dDXJtUT+CBmE2KBO/9lJb3qhia3?=
- =?us-ascii?Q?leU6cavffpNuNQdpL6PZZIJklG0ChbtCFkgmxEhgWvjyMvxJWYlhu+/EwhEL?=
- =?us-ascii?Q?5nXEHl63U/uXd5d0VTYJKs67C8LguydZmimUK+ThaNI50XEvudo/opXCuKtM?=
- =?us-ascii?Q?yZ8H4zLRaTlVby6uLXY6H46MOdACo25K0F+GqywYlPv5nxrhEHI/3o01efuv?=
- =?us-ascii?Q?YY8STRMj0UYK2K0sNYd3aWmSVkbZa++5509RIFg3mJX7QSdRZ3hb2Zxw0+F8?=
- =?us-ascii?Q?dW0ukzrxpQkNILnJPPE5qCmbaywHHdBZ+Cv7usc4gOx1W0cj5qj5EaRle/nx?=
- =?us-ascii?Q?kDnUgE4wXNYodK/E8j4xHD+vhBhNcvtlYprgbSXWHmPsQy6wdfIq1nKMxWS1?=
- =?us-ascii?Q?037GglujJXb0C9FPW00nruoOG8yvvxelinhUIYf4vzoDWXlfVw2s2DGq9Rwo?=
- =?us-ascii?Q?vXcn6Fu0Qe7Xvo6VnF1v5qECKCYY8YDJ+5MhRZxIIKSTQkaKOyESvs3t//Qf?=
- =?us-ascii?Q?iIWYCe3x8ZT6Uq6PlkI/ZR4vxOylo67m+sRhQSmjBEZrh9NaX7LYJbjvy69N?=
- =?us-ascii?Q?hfn3LD3gqcvZubLe8kf/JxUx8HirDucljikLlNtE5kS2Y20OzzdBZegg/S7k?=
- =?us-ascii?Q?LCFF2hCkAQVf6BGu3Bjdww7PrKwkfyO52X44PoRSCiH6pLUKoy2/7j+bLTz7?=
- =?us-ascii?Q?/23hd8OS8znOsTppHhZfdCeWRX2hIsIV32U6fsujegTt6yZGs1m52Zg9hSq8?=
- =?us-ascii?Q?tH6H1VySJJao2oUdo4fdZ0lBcIvo1vHqOoQgkC9YyK4ZhA8X0DLZnoRhP7em?=
- =?us-ascii?Q?vKnS4rxqfWq9cl2tfm9F0oVcUhoCZ7WuDNYusvKc3KNlDsMevanTJeVS9Otd?=
- =?us-ascii?Q?a4l3JPTcFzKQG5uANwj0dBEkn6Yw+ngzOKzfZeuUfeozeDDMtd4Ag4pyTAHs?=
- =?us-ascii?Q?HEc2OJARCJdvIFoG7ofWzF/DViAZqP+BDN0h7iQ14ny1EFvLomBaKNzNIctQ?=
- =?us-ascii?Q?7Sk+g+fQqOyEqdoBexvzAI81u2im431PVpOWGOjPACIaZ2k4hLzyVVPNEwwl?=
- =?us-ascii?Q?mFrE+CRzLrtHa5Q5JzL6PhAn1rtAAfPlmcgm0GJLD8bfkjyHvAZJaQ8RsZdw?=
- =?us-ascii?Q?XFhE3YTn2/Ktljilfzc9SdX5sLnW1bSQTdq8udLOG79/cGHImKELpw=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6527.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+3OWFbTgGHylBoluBnx9Adjw4Kh4t0q08ZV0VrupJdMoB9hUrCrHSwPTvOYR?=
- =?us-ascii?Q?MpBUDq0aqDRkwapSqU5ViI6JSIJKcLrFQaJQvkowrVwI1eDgUNxwFIveWgvH?=
- =?us-ascii?Q?0Fp9Wm/+UHWgSxFgR1OWvEHcT49tLKMRrFuGm5y9v2AEkWOfj8TrguoHhI2o?=
- =?us-ascii?Q?HxMyCQmjzwL7PYKj6s55ql1MBJvXzRaUZZzjeHMCPEYcTSB3u1sECLGjrIca?=
- =?us-ascii?Q?/sg9uSmlCduHiFIE+vr2coRcr6/dFWh8dMhcGM3l5kM/reZVr0X84kJWHMAP?=
- =?us-ascii?Q?ayBxdWOsGQJdosqUYaB9CZVvDiWhGgnj2fctGTpI6rsO15k4TduACSZOHAZ8?=
- =?us-ascii?Q?WTJOJl0sxKPEWao7VweZAXARGRTjrDBHwBUXPZCnIUxPEqlzSJ7gwVqlPYX1?=
- =?us-ascii?Q?zrv86TL0WgRl+Buz/gQDEyLZ5dCjqmypoQJ0969GVGOlZ6BoSC9WG6c200+C?=
- =?us-ascii?Q?Y6bPtavYw26/LH571n7WT/2QcYB/4XnU9gUseRxNTTtq6eOVfjofr7S9piZV?=
- =?us-ascii?Q?1rYw5jp2aIqHsRI28dCk7BuxZ7U9sY0NfJL3j8imp4J/9KQNoBPxDtqSg/e0?=
- =?us-ascii?Q?XsZ7bIqNUfv+utcRfSdBKVtdfaBuWCVNEivJ1MJRSgXcZWMTOLwg0PhnPzty?=
- =?us-ascii?Q?o1k5ddnBtgdoDHG9svEKIaevesOq55Wza8vpvzUoZIBJlvdGDX6HXmh82//Q?=
- =?us-ascii?Q?YiXWvOLCbrGz0UfmL8cLD6m8r3PoisHPAKLhqvuTAMoBSXuEomjqYfR28rl+?=
- =?us-ascii?Q?ff9DKT9lWTjfu0BpAuTXTRacJp2zXESNdi8jOMnt5Q3+igKFdl1WNFhnkR5V?=
- =?us-ascii?Q?bQa1V7Rt0SgT7wxshJ0luptbbPL2ADoeG9iKfiYAXAKJ985qdjuTbUOPrkOt?=
- =?us-ascii?Q?IVERNUWrSULGyk9SV/FEOTB3r1OFiNy95rRCkFBX2JsvixMhNvlGHnffdyHF?=
- =?us-ascii?Q?KcVe/harRXq2vhe7IdNb6C9XA/23NZrWLUA7LioM/bPB3TvemuQdBeOJ3Ko3?=
- =?us-ascii?Q?sCzMA1DgXDDRSWlZuWMRyAwqA34I10oGT+UGreuNo7LrKt+A1r9KFt94Yhlv?=
- =?us-ascii?Q?sqn0ppOVd7xB62G0NDDxcFW07joAT2fB11N0n0UiHlTQeoZUPxsJ3MujMe8r?=
- =?us-ascii?Q?P/xY++phZYASRZxobioAvsqOD44UWN8EZdmlA59VGkjAxDvyEaFN4ocOBYFZ?=
- =?us-ascii?Q?YU5wSjZn5imgUO3jI9DhzYChWpSi7UWsoBjTwR1/5pZAmV8GoPS9lFom3myV?=
- =?us-ascii?Q?FgM8HnbzbLi69/l4NJg9YWdTJEvtCM8/KpTixdnhYf2Ph/u/rTJm2IcTb8iO?=
- =?us-ascii?Q?AZESAmf7Oe/gR+pyuBSlPE2+UbWvfWWCIVMm22eTFVav35W5Hn1QeG5pUg3A?=
- =?us-ascii?Q?ufGu8OR9Ncl2e8VS8afs498YxgZpM5jmADjm03FlVZ5fGOd9lbn3Lp5ZwVBD?=
- =?us-ascii?Q?b2sdia72uNkEMb3i4l5+tOwBkTY7yvWmadL0/rB9nUnIPJj6B6XxLFPJlCJc?=
- =?us-ascii?Q?eEGw5luLcndU9oKzg4MmDn3yxuFSQFP5NqRfunaDsaUDYR+DgwWB/d3BTVX/?=
- =?us-ascii?Q?u5LkLFfnT3+QFz8yiD4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 840C510E53E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 14:38:37 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id A2237C8EC51;
+ Mon,  8 Sep 2025 14:38:19 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 392C96061A;
+ Mon,  8 Sep 2025 14:38:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 5CAE5102F270F; 
+ Mon,  8 Sep 2025 16:38:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1757342314; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references:autocrypt;
+ bh=3+kRf5MNNIFuKMtF8DkuLBor42xHpAuXkRT1mWr6b70=;
+ b=rZWo/xG7tjPxZfgwuZ77qZWGPSIzH1ri8Gu+k61WptQZAk+tGtEfw3a7Lrsp2qHX38sxgT
+ k0nRLvzO87UJ3/IxKiEIzRSBpVyJlLciF74aDMTjJSzwRYWw1q3d0nsVJLuNBgv5Y9emQi
+ BBB+K0uW3h+lgZsbj9WqCi0c2lgwo2FnHd3K+ymd8+S656hww87hm9IyUoTnmxACAlsxI2
+ QojWGWLLHxJkY8GyOt7HBf0Y36j1x9p4iGxlzNu3rjSsv56EC3t5lj0le+59JnIVoF3F7e
+ kzs3ukLc5MMsMY72T6r4LOU38HVbXURYoqWphwZn2qrvIfS73QrGXuQ5CcaX6g==
+Message-ID: <ea069c8f-b724-409c-9dc6-345b3f9d6d85@bootlin.com>
+Date: Mon, 8 Sep 2025 16:38:09 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6527.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4167e8bf-3a0a-40d3-25ab-08ddeedff1a7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2025 13:59:35.5237 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7vnpo28Oe9iWXyufdOSPKhRY839qRJ+ZYP0jXfySM0i8dNhGhNKn1i3q0DedYj/tlDO4FA+QLpjpAAyu/pWYSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6119
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 29/58] docs/dyndbg: add classmap info to howto
+To: Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org,
+ jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com, seanpaul@chromium.org,
+ robdclark@gmail.com, groeck@google.com, yanivt@google.com,
+ bleung@google.com, quic_saipraka@quicinc.com, will@kernel.org,
+ catalin.marinas@arm.com, quic_psodagud@quicinc.com, maz@kernel.org,
+ arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, mingo@redhat.com, linux-doc@vger.kernel.org
+References: <20250803035816.603405-1-jim.cromie@gmail.com>
+ <20250803035816.603405-30-jim.cromie@gmail.com>
+Content-Language: en-US
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
+ 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
+In-Reply-To: <20250803035816.603405-30-jim.cromie@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,167 +125,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
-
-Hi all,
-
-This week this patchset was tested on 4 systems, two dGPU and two APU based=
-, and tested across multiple display and connection types.
-
-APU
-        * Single Display eDP -> 1080p 60hz, 1920x1200 165hz, 3840x2400 60hz
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
-, 4k 240hz (Includes USB-C to DP/HDMI adapters)
-        * Thunderbolt -> LG Ultrafine 5k
-        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
-lays, HP Hook G2 with 2x 4k60hz displays
-        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
- DP and 1x 4k60hz HDMI displays
-        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
-ion supported by the dongle of 4k 120hz YUV420 12bpc.
-        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
-he adapter of 4k 120hz RGB 8bpc.
-
-DGPU
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multiple Display DP -> 4k240hz + 4k144hz
-        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
-        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
-isplays)
-
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to)
-        * Changing display configurations and settings
-        * Video/Audio playback
-        * Benchmark testing
-        * Suspend/Resume testing
-        * Feature testing (Freesync, HDCP, etc.)
-
-Automated testing includes (but is not limited to)
-        * Script testing (scripts to automate some of the manual checks)
-        * IGT testing
-
-The testing is mainly tested on the following displays, but occasionally th=
-ere are tests with other displays
-        * Samsung G8 Neo 4k240hz
-        * Samsung QN55QN95B 4k 120hz
-        * Acer XV322QKKV 4k144hz
-        * HP U27 4k Wireless 4k60hz
-        * LG 27UD58B 4k60hz
-        * LG 32UN650WA 4k60hz
-        * LG Ultrafine 5k 5k60hz
-        * AU Optronics B140HAN01.1 1080p 60hz eDP
-        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
-        * Samsung ATNA60YV02-0 3840x2400 60Hz OLED eDP
 
 
-The patchset consists of the amd-staging-drm-next branch (Head commit - bb1=
-2c5af081eb863715b4d11bcf6d4ec2d7af896 -> drm/amd/pm: Remove wm_low and wm_h=
-igh fields from amdgpu_crtc (v2)) with new patches added on top of it.
+Le 03/08/2025 à 05:57, Jim Cromie a écrit :
+> Describe the 3 API macros providing dynamic_debug's classmaps
+> 
+> DYNDBG_CLASSMAP_DEFINE - create & export a classmap
+> DYNDBG_CLASSMAP_USE    - refer to exported map
+> DYNDBG_CLASSMAP_PARAM  - bind control param to the classmap
+> DYNDBG_CLASSMAP_PARAM_REF + use module's storage - __drm_debug
+> 
+> TBD: some of this might be over-specification, or just over-talked.
+> 
+> NB: The _DEFINE & _USE model makes the user dependent on the definer,
+> just like EXPORT_SYMBOL(__drm_debug) already does.
+> 
+> cc: linux-doc@vger.kernel.org
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 
-Tested on Ubuntu 24.04.3, on Wayland and X11, using Gnome.
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+> ---
+> v3- rework protection around PARAM
+> 
+> v0.5 adjustments per Randy Dunlap
+> v0.7 checkpatch fixes
+> v0.8 more
+> v0.9 rewords
+> 
+> fixup-howto
+> ---
+>   .../admin-guide/dynamic-debug-howto.rst       | 137 ++++++++++++++++--
+>   1 file changed, 126 insertions(+), 11 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+> index 1ceadf4f28f9f..556e00299ed35 100644
+> --- a/Documentation/admin-guide/dynamic-debug-howto.rst
+> +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+> @@ -146,7 +146,9 @@ keywords are:::
+>     "1-30" is valid range but "1 - 30" is not.
+>   
+>   
+> -The meanings of each keyword are:
+> +Keywords:::
+> +
+> +The meanings of each keyword are::
+>   
+>   func
+>       The given string is compared against the function name
+> @@ -194,16 +196,6 @@ format
+>   	format "nfsd: SETATTR"  // a neater way to match a format with whitespace
+>   	format 'nfsd: SETATTR'  // yet another way to match a format with whitespace
+>   
+> -class
+> -    The given class_name is validated against each module, which may
+> -    have declared a list of known class_names.  If the class_name is
+> -    found for a module, callsite & class matching and adjustment
+> -    proceeds.  Examples::
+> -
+> -	class DRM_UT_KMS	# a DRM.debug category
+> -	class JUNK		# silent non-match
+> -	// class TLD_*		# NOTICE: no wildcard in class names
+> -
+>   line
+>       The given line number or range of line numbers is compared
+>       against the line number of each ``pr_debug()`` callsite.  A single
+> @@ -218,6 +210,24 @@ line
+>   	line -1605          // the 1605 lines from line 1 to line 1605
+>   	line 1600-          // all lines from line 1600 to the end of the file
+>   
+> +class
+> +
+> +    The given class_name is validated against each module, which may
+> +    have declared a list of class_names it accepts.  If the class_name
+> +    accepted by a module, callsite & class matching and adjustment
+> +    proceeds.  Examples::
+> +
+> +	class DRM_UT_KMS	# a DRM.debug category
+> +	class JUNK		# silent non-match
+> +	// class TLD_*		# NOTICE: no wildcard in class names
+> +
+> +.. note ::
+> +
+> +    Unlike other keywords, classes are "name-to-change", not
+> +    "omitting-constraint-allows-change".  See Dynamic Debug Classmaps
+> +
+> +Flags:::
+> +
+>   The flags specification comprises a change operation followed
+>   by one or more flag characters.  The change operation is one
+>   of the characters::
+> @@ -394,3 +404,108 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
+>   For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
+>   its ``prefix_str`` argument, if it is constant string; or ``hexdump``
+>   in case ``prefix_str`` is built dynamically.
+> +
+> +Dynamic Debug Classmaps
+> +=======================
+> +
+> +The "class" keyword selects prdbgs based on author supplied,
+> +domain-oriented names.  This complements the nested-scope keywords:
+> +module, file, function, line.
+> +
+> +The main difference from the others: classes must be named to be
+> +changed.  This protects them from generic overwrite:
+> +
+> +  # IOW this cannot undo any DRM.debug settings
+> +  :#> ddcmd -p
+> +
+> +This protection is needed; /sys/module/drm/parameters/debug is ABI.
+> +DRM.debug is authoritative when dyndbg is not used, dyndbg's PARAM
+> +cannot undermine that guarantee just because its optional for DRM to
+> +use it.
+> +
+> +  :#> echo 0x1ff > /sys/module/drm/parameters/debug
+> +
+> +So each class must be enabled individually (no wildcards):
+> +
+> +  :#> ddcmd class DRM_UT_CORE +p
+> +  :#> ddcmd class DRM_UT_KMS +p
+> +  # or more selectively
+> +  :#> ddcmd class DRM_UT_CORE module drm +p
+> +
+> +That makes direct >control wordy and annoying, but it is a secondary
+> +interface; it is not intended to replace the ABI, just slide in
+> +underneath and reimplement it.
+> +
+> +However, since the sysfs/kparam is the ABI, if a classmap DEFINEr
+> +doesn't also add a _CLASSMAP_PARAM, there is no ABI, and no protection
+> +is needed.  In that case, class'd prdbgs would be enabled/disabled by
+> +legacy (class-less) queries, as a convenience, and because there's no
+> +need to enforce irrelevant rules.
+> +
+> +
+> +Dynamic Debug Classmap API
+> +==========================
+> +
+> +DRM.debug is built upon:
+> +
+> +- enum drm_debug_category: DRM_UT_<*> - <T> for short
+> +- 23 categorized api macros: drm_dbg_<T>(), DRM_DEBUG_<T>()
+> +- 5000 calls to them
+> +- all calling to __pr_debug_cls(<T>, ...)
+> +
+> +Those compile-time const short ints are good for optimizing compilers;
+> +a primary classmaps design goal was to keep that property.
+> +So basically .class_id === category.
+> +
+> +Then we use the drm_categories DRM_UT_* enum for both the classnames
+> +(stringified enum symbols) and their numeric values.
+> +
+> +Its expected that future users will also use categorized macros and an
+> +enum-defined categorization scheme like DRM's, with dyndbg inserted in
+> +similarly.
+> +
+> +DYNAMIC_DEBUG_CLASSMAP_DEFINE(var,type,_base,classnames) - this maps
+> +classnames (a list of strings) onto class-ids consecutively, starting
+> +at _base, it also maps the names onto CLASSMAP_PARAM bits 0..N.
+> +
+> +DYNAMIC_DEBUG_CLASSMAP_USE(var) - modules call this to refer to the
+> +var _DEFINEd elsewhere (and exported).
+> +
+> +Classmaps are opt-in: modules invoke _DEFINE or _USE to authorize
+> +dyndbg to update those classes.  "class FOO" queries are validated
+> +against the classes, this finds the classid to alter; classes are not
+> +directly selectable by their classid.
+> +
+> +NB: It is an inherent API limitation that the following are possible:
+> +
+> +  // these would be caught in review
+> +  __pr_debug_cls(0, "fake DRM_UT_CORE msg");  // this works
+> +  __pr_debug_cls(62, "un-known classid msg"); // this compiles, does nothing
+> +
+> +There are 2 types of classmaps:
+> +
+> + DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, like DRM.debug
+> + DD_CLASS_TYPE_LEVEL_NUM: classes are relative, ordered (V3 > V2)
+> +
+> +DYNAMIC_DEBUG_CLASSMAP_PARAM - modelled after module_param_cb, it
+> +refers to a DEFINEd classmap, and associates it to the param's
+> +data-store.  This state is then applied to DEFINEr and USEr modules
+> +when they're modprobed.
+> +
+> +The PARAM interface also enforces the DD_CLASS_TYPE_LEVEL_NUM relation
+> +amongst the contained classnames; all classes are independent in the
+> +control parser itself; there is no implied meaning in names like "V4".
+> +
+> +Modules or module-groups (drm & drivers) can define multiple
+> +classmaps, as long as they (all the classmaps) share the limited 0..62
+> +per-module-group _class_id range, without overlap.
+> +
+> +If a module encounters a conflict between 2 classmaps its USEing, we
+> +can extend the _USE macro with an offset to allow de-conflicting the
+> +respective ranges.  Or they use the DEFINErs macro-api, but with new
+> +enum symbols.
+> +
+> +``#define DEBUG`` will enable all pr_debugs in scope, including any
+> +class'd ones.  This won't be reflected in the PARAM readback value,
+> +but the class'd pr_debug callsites can be forced off by toggling the
+> +classmap-kparam all-on then all-off.
 
-
-
-Thank you,
-
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
-
------Original Message-----
-From: waynelin <Wayne.Lin@amd.com>
-Sent: Monday, September 1, 2025 8:43 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
-Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
-uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel=
-.Wheeler@amd.com>; Wu, Ray <Ray.Wu@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.=
-com>; Hung, Alex <Alex.Hung@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>
-Subject: [PATCH 00/11] DC Patches for September 8, 2025
-
-This DC patchset brings improvements in multiple areas. In summary, we high=
-light:
-
-- Disable stutter when programming watermarks on dcn32
-- Fix pbn_div Calculation Error
-- Correct sequences and delays for DCN35 PG & RCG
-- Define interfaces for hubbub perfmance monitoring support
-- Extend to read eDP general capability 2
-- Indicate when custom brightness curves are in use
-- Dont wait for pipe update during medupdate/highirq
-- Add HDCP retry_limit control parameter
-
-Cc: Dan Wheeler <daniel.wheeler@amd.com>
-
----
-
-Allen Li (1):
-  drm/amd/display: Read DPCD to obtain eDP capability information.
-
-Ausef Yousof (1):
-  drm/amd/display: dont wait for pipe update during medupdate/highirq
-
-Cruise Hung (1):
-  drm/amd/display: Add link index in AUX and dpms
-
-Dillon Varone (1):
-  drm/amd/display: Disable stutter when programming watermarks on dcn32
-
-Fangzhi Zuo (1):
-  drm/amd/display: Fix pbn_div Calculation Error
-
-Mario Limonciello (1):
-  drm/amd/display: Indicate when custom brightness curves are in use
-
-Oleh Kuzhylnyi (1):
-  drm/amd/display: Add HDCP policy control
-
-Ovidiu Bunea (1):
-  drm/amd/display: Correct sequences and delays for DCN35 PG & RCG
-
-Roman Li (1):
-  drm/amd/display: Refine error message for vblank init failure
-
-Taimur Hassan (1):
-  drm/amd/display: Promote DC to 3.2.349
-
-Wenjing Liu (1):
-  drm/amd/display: Update dchubbub.h for hubbub perfmon support
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   9 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |   2 +
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  13 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |   2 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      |   2 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   4 +-
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |   1 +
- .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    |  74 +++++------
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.c  |  17 ++-
- .../display/dc/hubbub/dcn32/dcn32_hubbub.c    |  37 +++++-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 115 +++---------------
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   3 -
- .../amd/display/dc/hwss/dcn351/dcn351_init.c  |   3 -
- .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |  22 ++++
- .../gpu/drm/amd/display/dc/inc/hw/pg_cntl.h   |   1 +
- .../drm/amd/display/dc/link/link_detection.c  |   2 +-
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |   9 +-
- .../dc/link/protocols/link_dp_capability.c    |   6 +
- .../amd/display/dc/pg/dcn35/dcn35_pg_cntl.c   |  78 +++++++-----
- .../dc/resource/dcn32/dcn32_resource.c        |   1 +
- .../dc/resource/dcn32/dcn32_resource.h        |   3 +-
- .../gpu/drm/amd/display/modules/hdcp/hdcp.c   |   5 +-
- .../drm/amd/display/modules/inc/mod_hdcp.h    |   1 +
- 23 files changed, 220 insertions(+), 190 deletions(-)
-
---
-2.43.0
+-- 
+Louis Chauvet, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
