@@ -4,42 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4690FCAC58C
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16309CAC592
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 021B210E889;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25E6310E88A;
 	Wed, 10 Sep 2025 08:01:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="OZr/evQk";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="Ip98w3po";
 	dkim-atps=neutral
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com
- [91.218.175.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B072E10E285
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 21:32:54 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1757367173;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=TGwfNfXsEJt+uuuZOEIftwyyKCix/PrVNO8dS5i6p/8=;
- b=OZr/evQkrPMn26+Eu82p/06rJXNr1j9LyyGeiZYEqKtLkOiPaRfk6DOAHwDSbzqyHll1XT
- WyiuSsWs6Vgp6IV67vr0Psv8x6d/mH3T06524oV4LlVWDcVEnWDfNbsos6hKuOXEh5eQ8q
- 5IcS3SL3xSvjV7rdZzSeAvuxOo0fJww=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdkfd: Replace kzalloc + copy_from_user with memdup_user
-Date: Mon,  8 Sep 2025 23:31:56 +0200
-Message-ID: <20250908213156.565861-2-thorsten.blum@linux.dev>
+X-Greylist: delayed 534 seconds by postgrey-1.36 at gabe;
+ Mon, 08 Sep 2025 21:18:09 UTC
+Received: from smtp.smtpout.orange.fr (smtp-74.smtpout.orange.fr
+ [80.12.242.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E79B10E5DD;
+ Mon,  8 Sep 2025 21:18:09 +0000 (UTC)
+Received: from [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
+ ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
+ by smtp.orange.fr with ESMTPA
+ id vj6puzqdeoTLUvj6puozOR; Mon, 08 Sep 2025 23:09:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1757365753;
+ bh=6ltswrdyQEQpMWiYuSVRDKy5ajUU0upafr0DRYZj5dU=;
+ h=Message-ID:Date:MIME-Version:Subject:From:To;
+ b=Ip98w3po82tDFo78WFreoHDqqSTKQUvoEDNszK2zWi2rPiCt36agSQ7A+d4ZvaSwP
+ RamEvrAl303pcRErS0TjhS5RHHA6iZh1+gQFULZB4LPDlN6GQkKqpR25DMe4h4xHc+
+ 5RKsqzcnWD5B2tj8gbMs467I/v47QnQV5QSnh7TXb+5fliGMc4NinF060yTtb7QGzG
+ DglYg7jNHH6qr3PNyWaGhASvBsDuHa0poldyMxkZZNIC3Un7MzxkFR1ZCVXJKCav6K
+ PkWFuHBzk0GpBkZfbbkSvQDRC0e42JJd9EGFhKs16fNEWSn/bvGwXuv1HhZDuS1UTG
+ Ali2P3MY8035g==
+X-ME-Helo: [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
+X-ME-Auth: bWFyaW9uLmphaWxsZXRAd2FuYWRvby5mcg==
+X-ME-Date: Mon, 08 Sep 2025 23:09:13 +0200
+X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
+Message-ID: <78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr>
+Date: Mon, 8 Sep 2025 23:09:07 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/8] drm/msm/dpu: use drmm_writeback_connector_init()
+References: <20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com>
+ <20250819-wb-drop-encoder-v3-4-b48a6af7903b@oss.qualcomm.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Content-Language: en-US, fr-FR
+To: "dmitry.baryshkov@oss.qualcomm.com >> Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>
+Cc: abhinav.kumar@linux.dev, airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dave.stevenson@raspberrypi.com, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, geert+renesas@glider.be,
+ harry.wentland@amd.com, jani.nikula@linux.intel.com,
+ jessica.zhang@oss.qualcomm.com, kernel-list@raspberrypi.com,
+ kieran.bingham+renesas@ideasonboard.com,
+ laurent.pinchart+renesas@ideasonboard.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ liviu.dudau@arm.com, louis.chauvet@bootlin.com, lumag@kernel.org,
+ maarten.lankhorst@linux.intel.com, magnus.damm@gmail.com,
+ marijn.suijten@somainline.org, mcanal@igalia.com, mripard@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, suraj.kandpal@intel.com,
+ tomi.valkeinen+renesas@ideasonboard.com, tzimmermann@suse.de
+In-Reply-To: <20250819-wb-drop-encoder-v3-4-b48a6af7903b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Wed, 10 Sep 2025 08:01:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,49 +80,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace kzalloc() followed by copy_from_user() with memdup_user() to
-improve and simplify kfd_ioctl_set_cu_mask().
+Le 19/08/2025 à 22:32, Dmitry Baryshkov a écrit :
+> Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> drmm_writeback_connector_init() in order to initialize writeback
+> connector instance.
+> 
+> Reviewed-by: Louis Chauvet <louis.chauvet-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>
+> Reviewed-by: Suraj Kandpal <suraj.kandpal-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+> Reviewed-by: Jessica Zhang <jessica.zhang-5oFBVzJwu8Ry9aJCnZT0Uw@public.gmane.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov-5oFBVzJwu8Ry9aJCnZT0Uw@public.gmane.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 10 +++-------
+>   1 file changed, 3 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> index 8ff496082902b1ee713e806140f39b4730ed256a..cd73468e369a93c50303db2a7d4499bcb17be5d1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> @@ -80,7 +80,6 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
+>   static const struct drm_connector_funcs dpu_wb_conn_funcs = {
+>   	.reset = drm_atomic_helper_connector_reset,
+>   	.fill_modes = drm_helper_probe_single_connector_modes,
+> -	.destroy = drm_connector_cleanup,
+>   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>   };
+> @@ -131,12 +130,9 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
+>   
+>   	drm_connector_helper_add(&dpu_wb_conn->base.base, &dpu_wb_conn_helper_funcs);
+>   
+> -	/* DPU initializes the encoder and sets it up completely for writeback
+> -	 * cases and hence should use the new API drm_writeback_connector_init_with_encoder
+> -	 * to initialize the writeback connector
+> -	 */
+> -	rc = drm_writeback_connector_init_with_encoder(dev, &dpu_wb_conn->base, enc,
+> -			&dpu_wb_conn_funcs, format_list, num_formats);
+> +	rc = drmm_writeback_connector_init(dev, &dpu_wb_conn->base,
+> +					   &dpu_wb_conn_funcs, enc,
+> +					   format_list, num_formats);
+>   
+>   	if (!rc)
+>   		dpu_wb_conn->wb_enc = enc;
+> 
 
-Return early if an error occurs and remove the obsolete 'out' label.
+dpu_wb_conn is allocated a few lines above using devm_kzalloc().
 
-No functional changes intended.
+Based on [1], mixing devm_ and drmm_ is not safe and can lead to a uaf.
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+Is it correct here?
+If the explanation at [1] is correct, then &dpu_wb_conn->base would 
+point to some released memory, IIUC.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 828a9ceef1e7..5d58a7bf309a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -521,15 +521,10 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
- 		cu_mask_size = sizeof(uint32_t) * (max_num_cus/32);
- 	}
- 
--	minfo.cu_mask.ptr = kzalloc(cu_mask_size, GFP_KERNEL);
--	if (!minfo.cu_mask.ptr)
--		return -ENOMEM;
--
--	retval = copy_from_user(minfo.cu_mask.ptr, cu_mask_ptr, cu_mask_size);
--	if (retval) {
-+	minfo.cu_mask.ptr = memdup_user(cu_mask_ptr, cu_mask_size);
-+	if (IS_ERR(minfo.cu_mask.ptr)) {
- 		pr_debug("Could not copy CU mask from userspace");
--		retval = -EFAULT;
--		goto out;
-+		return PTR_ERR(minfo.cu_mask.ptr);
- 	}
- 
- 	mutex_lock(&p->mutex);
-@@ -538,7 +533,6 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
- 
- 	mutex_unlock(&p->mutex);
- 
--out:
- 	kfree(minfo.cu_mask.ptr);
- 	return retval;
- }
--- 
-2.51.0
 
+just my 2c.
+
+CJ
+
+[1]: 
+https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753
