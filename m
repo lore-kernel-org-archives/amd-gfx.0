@@ -4,160 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A7B4CAC581
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 17:35:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A606CA1016
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 17:36:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABFB010E58B;
-	Mon,  8 Sep 2025 17:35:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBB110E58C;
+	Mon,  8 Sep 2025 17:36:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EWyfWoCE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LtwOcOi5";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFE4710E588;
- Mon,  8 Sep 2025 17:35:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lGopTiqEoATO2lb8atnjKf1qz9TuNWutRJNZY/T/57pPcWcsQQ6oL3MTDsBIvrbzrH8MMLeUHgiwLjVOlH0qQBra2M/7iFlS/FLT0lDfdYIyLH8RChYc5u2nZ87sXll5FPTqFlA8GVUOUrJITrA1cEZp2yfY/mCHe+1uqtpGYU9rpCm7573WFHRPhyLtFMyeOmHxWu1wizoTHbI3NwIdtaexl9KY2evQj3+R+pkKxvlYgKCidL3PGjBJh/bDC/ttszMfLGudz71DjqC545BwwegSGthETh3U1H771mHovoXnlSB89ii9U/UNXp0PsYvk4K3NUbCYOwf99Cr7ykXdXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zyt7ccj4yCIJzq/ukEJyUBtIsU7dgix+0wYeUcK/xk8=;
- b=VtdXg1TEU+vq4xAQFCSVW4qQhwssqgVmzJFYmk52153CnORvkAOl2tZxcSNPARqOoX3STkz6EReWPc1QYMNUkgbxdhzJHeIULPn//DFH9IM0zQCDBLdmtaMGTmyMEsaf1GHMgwnfeYgyTbDfBaHpi1EZ8b+C8QttTeB+dqshBvOnaThz7quiCrC8Ssjp+mjsJ8EOK41Utv6j8WiWXSTJ1E3WadlyRN0TUUTHu5vjB1NFYrvyIkbDgnyR8vuQ/wERRh6Fw0WD+4I1zhwcmz6Bv7JtGytxrTu9lnRmYxjyYk4kAnf6M6Ob/tZGkCATRmZ5tL+mjdjwNUmG3PJHcXAmQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zyt7ccj4yCIJzq/ukEJyUBtIsU7dgix+0wYeUcK/xk8=;
- b=EWyfWoCEvxGjL9dWgXPFbNnKmazEAfpNr2Bpl3rXYA3xGMWf9CN3EylCwPZ50iwx5ejSGr+bJJz/66/Vw2nFMfijjPJXc1PkKt6V5pr6tSlz2pCyz0jFX9ZEL1mmOsBqaj3LRiCTaiprNDnBQhm6n5bo5IJwatfZiLSm80IyRFE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB7571.namprd12.prod.outlook.com (2603:10b6:610:147::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Mon, 8 Sep
- 2025 17:35:17 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9094.017; Mon, 8 Sep 2025
- 17:35:17 +0000
-Message-ID: <655a009a-0b69-4e11-949e-ff0f47b424d5@amd.com>
-Date: Mon, 8 Sep 2025 19:35:08 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amd/display: Optimize reserved time candidates
- sorting using standard sort()
-To: Alex Hung <alex.hung@amd.com>, Kuan-Wei Chiu <visitorckw@gmail.com>,
- austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: zaeem.mohamed@amd.com, wenjing.liu@amd.com, chiahsuan.chung@amd.com,
- Natanel.Roizenman@amd.com, Daniel.Sa@amd.com, jserv@ccns.ncku.edu.tw,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20250824182359.142050-1-visitorckw@gmail.com>
- <20250824182359.142050-2-visitorckw@gmail.com>
- <c28df8a2-9ec1-41d0-afe4-4ee047290d27@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <c28df8a2-9ec1-41d0-afe4-4ee047290d27@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL0PR02CA0021.namprd02.prod.outlook.com
- (2603:10b6:207:3c::34) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B54610E58C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 17:36:07 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-24b1331cb98so7797125ad.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Sep 2025 10:36:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757352967; x=1757957767; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=c2s0r/otJhWB9e9UKttwl16eZjGxOkI+V7nq3RxAzng=;
+ b=LtwOcOi5Vj/O+8tZ6dkpPEGJvQ1v6Y6MMSOZcZyajTFFBtS9P1yW4OpObK7SN0Bznk
+ QK/PbhpGtwXaL8X3GqFaXbkLAaHEDsPA2ypoAwLJHFihvFssAieGk1N8Gxy19DVFgEIb
+ 3a0aqV332kobbGHwahU85E957SYvjbAEve0341/MFIxHqufJXCLXdDxlyCS3WArOV+a3
+ KxVHor/OwZsqWu/7czu6wl26Uk/iq+MOA0zwSGY9YOPfszfJNJ1TcwTZtX4AEvvlJzCZ
+ feZhWBZGhE8oF1xkpJ3LtUj8bBnfZQPcJ72NpUEpA86939MsG9rKjuud/MNwbV8SWgRt
+ eSVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757352967; x=1757957767;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=c2s0r/otJhWB9e9UKttwl16eZjGxOkI+V7nq3RxAzng=;
+ b=GuUW6dSpS/k9Mj5eIZC4Fjd9I1FuOiwPo2Lr/ZU8VxW/Ve37Lh7ZCA0QtW8dpvyBSf
+ r2YYGOxjqVO0VHMd7Hv5NpOTdNlV8xblpdNviFz++ltPaLn5DK6bWnnEEar4wTZ5TAD5
+ j/s5+0120+o4Dvy9zfmxWH3HmIXY5y392hsuBudHBV39eSm0DDZvdaSvtGU8tuoStIb/
+ 3d7M+ZW0wcKHA/etFfIBGsOjDwJG4/FhVp0QUvJAJy852sfEB7O3bv1TzA7o6xG7derV
+ bIekSHKpvtg7tdDE4yTe2dTUosifGQNMZXj02xvKglV0t8U3XE1UiMtWouL59mHoemim
+ QjvQ==
+X-Gm-Message-State: AOJu0Yx2lmnKCSCjmO53YwOhrTF61s2kX2BA42IuM4eXIHJaEjMk3QeZ
+ evZkBGCGJ/kGuDqC3Y0IuTaa4i3cEqnVgQXaLvnUiKUn+C61hzktiPUjdbN1xofVYQEbDzEuMX6
+ K40BojlwcAkGktRkSkhV0iFMHul4FlZA=
+X-Gm-Gg: ASbGncuprWivSSCxVHthEVPhF40g89DPZn6Kyi9Ydp5Acp8jpFmGavD7sQ+wZmAOWHA
+ tgM3cTrxZlWBptVdNY435wgM9ERWQu/zrfrI3LvvtxzVhV4bQGx3XkzMeKbOdffOqqqnj5VTKkw
+ MrKn8+A2jBbSddziKL8nzauYnTM1mOdfbhx5VzUc+MrdWFrPRYnyJbNxzzWhKr5uvTcwUoQy2UF
+ AkpjT3asJaichN6vA==
+X-Google-Smtp-Source: AGHT+IEds58zF9GOv4G/1q4JJVzxNGM4kb32ZsW02MKVLHNzwonsbDnV3DQOUySsLtUslobJu9GECSVbGJ96NJRVgSc=
+X-Received: by 2002:a17:902:ea03:b0:24c:b69d:5929 with SMTP id
+ d9443c01a7336-2516da048f8mr65751065ad.2.1757352966685; Mon, 08 Sep 2025
+ 10:36:06 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7571:EE_
-X-MS-Office365-Filtering-Correlation-Id: 657cc250-7489-43ab-a452-08ddeefe1378
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|921020|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aXJtck1QeTBqcmJEVE1XRXdheXhHTUxieEl5MU9ZOTVxNHJRdVJoMnFyQnpn?=
- =?utf-8?B?SXRUczl4U2ZRN1BtRHN2RjNFNVZqaUN4a29LRE4rMzE5bnJXLzdqQUFxc1Ex?=
- =?utf-8?B?Z05JVHBqSGxGVlNCVWMzZkplY3lSd25ob1dLMWNEQXcvb3N1QzNLSWlvWCtT?=
- =?utf-8?B?QUJVdytrd1k5QjBMcTMvRDAvREJmVmFBS1R4Y1hnNHV5bm1BbXE1cGd1S3hY?=
- =?utf-8?B?ZGYyaVozY2kxQVBld05oeDF4TXJpRXg4NHNqenJRVlVSR2tzcGlyT0sxOEpM?=
- =?utf-8?B?MG5kdFVsRXdmc1lrQ1dLNGZMdHk2Qk5veHBWNGhaMGFXK2dTMzJqOGE2a2Er?=
- =?utf-8?B?OXRSVWloNjJFendEMDJwQXdnRm5oQU5wZ2t4OHhRMFp6d2J6SEREMmZYQ3Jr?=
- =?utf-8?B?Vm9vL2Q2U0xXNDRlS2RtYS9MTitWMk5lWDB3SS9NTkZ1SmVKYytSaW5iYUtZ?=
- =?utf-8?B?cEZwTEtMVUdsZlExTGJKd0pMNGtFRTd6dGVWaGUwUmF2UEwvUHhmZERPdk5C?=
- =?utf-8?B?bkdBNmJYY3d5bmE3amc3cWJtODlrTEZLZ21valNsQlpZdmlPeU1mOEp3eTVM?=
- =?utf-8?B?dXBLMk1TZGFoSUwwc2diYjNzTUtnRFpvSEJGUzJLVGZGM0xuM04yRkRnVWgz?=
- =?utf-8?B?ajgxaXpSL3lrS2IySUJ6V3hVWEpSSDFyeGE5MHZ6VWFUaU5OTWNXY1B0Wnhu?=
- =?utf-8?B?bU5EYUcvdVFiekpxRkxaQTZQVElGSjdTbVNLcmduQWlWeStnd0VuaHR4N21n?=
- =?utf-8?B?TTB1VWVaUVhKeWd0V1pVM21tQ0prUW1KeERRSmNnSHZEZThQbHNQa0JjSUlo?=
- =?utf-8?B?TW5wckIzV2N5OGF4cmRYQ09pOThSVlpDZW90UWkwZENvT3NCWjZNcXVJOW1Z?=
- =?utf-8?B?S3pLNnZ3R0lDTitQQ21ZVTljRXJWeUdaVlZlL0FwWWxZdHdpdGVBU1lsV1Bn?=
- =?utf-8?B?YWhxRlExeVpuNXpBQVBEenYyaEttLzkwTXJxaUIzVXRyOXlseU9WV2tDMHRn?=
- =?utf-8?B?VWJYNHBSSWFPczFBWkdvdjVOOTZoK2RUREVhZXpCc1B0dFg4NEhlbkd2aXJE?=
- =?utf-8?B?b0htZ09EYlplMVVoTUMzeXpVdUE2eHZuc0NYVXA2MlhUQTZnV3NzZXJjenNI?=
- =?utf-8?B?aW1OL09Cd0FxQUlWdmJNSUhmdC9ldlpUK0p2WFp3ZUppNmdvVVBlZENCMlBU?=
- =?utf-8?B?TjdDZ0J1aXJ3QUZyUndvb1h0TUd6VEpCMGZSNWpIMmdkRDdodm16OXZ1L0dz?=
- =?utf-8?B?RDVoVGZma2UvQVgwV24vUlJKbzFyNVViUk05NWpyZVcrR0R3WGEyNTYrdWov?=
- =?utf-8?B?U1hVYWtyOFlDZWJybHIwdmdoYXYvN3FXcnNPNkc0V3hORk90b20yTlhRM1l1?=
- =?utf-8?B?eFpkYmtTS3c1MFMvMDQ4YTBTTVZjem1jK0JHTjlEVUlON0c0emlTME5QSWZ4?=
- =?utf-8?B?bFFHQ0Jyc05xT1VURDh5SWI2a1JpY0trWHRma2orTS81OHpsYVZZVjE4cndX?=
- =?utf-8?B?d1ZoWHN4OXZMT3FzYnNhaFc5Z09TeGFtdTIzcHdBOVVpdUVUd1poOVpBYldM?=
- =?utf-8?B?aUpQN2lSN0wyaGVDcUtienozRTlCUTB5Vy9Oam9nbTUxZjdaWTEwRC83SW1L?=
- =?utf-8?B?YkVxRzJGaEp1YUhLY2RDSHRhaGx1NGRndmlTYkc5SVRjVFBTQzZYYjI4ZnJk?=
- =?utf-8?B?MmtCMVBaUStJMW9qK1dpTXdyWmFEM01vS3lDaVl5SjBNL0NTNVRlQ2haaE9B?=
- =?utf-8?B?NmpEUEI3K3pMaEVOK0JSRGpwOGRiZDhSNzArT1hGd1c1SWdxcXE2R203OTli?=
- =?utf-8?B?SHgveC9hNElQSzRmVHpMOWNRQkJpTXErc1dOTTc4UVZXTDZ3UWVNZ2pkY3Zl?=
- =?utf-8?B?N2tLNDFJRU9qQW92a1R1ckVRekdmc1NvRXY4ckdjc2hyZmJ6K1NiSWY4SytM?=
- =?utf-8?B?b2FRMFhZa2NtLzEwV0w5azJBRGM1Y2pvc1lIa3BWTHFueFhHOHpJNXJuRWFJ?=
- =?utf-8?B?LzFqWEpVNHJRPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(921020)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YTh2c1FjMHNLSlZjNVVhamcyZ0ZZQjVxdEkzeWlLZTUxUWpueVRxTy9RN2lG?=
- =?utf-8?B?NEFiUDZQdnVNRnJ4d0l1amtJTWNkMVNSLy9seUthT2Y3aXZucjdZcVcxNWhy?=
- =?utf-8?B?dzBGMWF5c0lMV0NjUk1OU0V6OEtmZlRNUVppeVp2U2NEMnN3VEZzRm9RSk5S?=
- =?utf-8?B?N2FYL0FiRHF5dk4wN0J0eU1qKzJNZFpoUndhb2JmcERQbjA1TFRmTnltYlVK?=
- =?utf-8?B?TEpUUjhmNW5scFo3ZjVMY1FwVTRDN3hwWVdyWWF0bkJBbVBzbkhOVzAwWnFE?=
- =?utf-8?B?NENzRWs1aVRjaUdEazdSTEZ1Y0d5ZElBRGhBNFVGbFpyR2gyZHp3b1lkNFA4?=
- =?utf-8?B?ZjM0aitFc2FxSXR1UnN5VmxoalhyTjhFem42d0hZdno4dERKelg1Nm5Namtl?=
- =?utf-8?B?NEo4UFZvSG4zc0tscm1MdGt0MERMaWNZL3gwcW95YzJZUmRXcHllZlNUaDUy?=
- =?utf-8?B?bFJnb2g4VXpuZWVaWGgzR2pJZlZCY29zQW03bk9VUmE2akNtYW0wMUtiODgv?=
- =?utf-8?B?Qm54WVlOcUVZbzdJMnJCMW8vdmFkbUJyb1JMWC9BS21SbFBzQ252S050WThl?=
- =?utf-8?B?bDF6dzhIR2pYZHl5Y1YvSFB2ellsbnhnUHFjRmtRTzNHNVhDM0FjRVpRME5I?=
- =?utf-8?B?MVhkcEhYSDIrMDlVbXZvdlRHdzdENy90NWpkVStDYXRwcndTVjVrQ28xa2xx?=
- =?utf-8?B?RlVrZkNReFMxQlB2NnRjZHduS1VGN1l2MjJMTVpZSGZpNXBoazgyU1BQVFhi?=
- =?utf-8?B?UEhvNzVmMWtEVUUzVjRnSDhzTUw1RlZtbWkvdnlQYmFQbjBseUlESjJzclBU?=
- =?utf-8?B?VDFxMElEZVJlM0w0ZndUeDdBTlQ0alZBMkhha0xqNkhPdHBheHBiWTR2aUJP?=
- =?utf-8?B?UUJuUXdOZENuVjdUSGx3cTVFaXp0YVIrSEkwTU8yYUxSOU1Nc0VGdHdiOTFR?=
- =?utf-8?B?OGpRUkt0WUd2RHBKN25BaFhHeVlnS0hQOFk2OWJOa3lnSi9SbHBsTU1KcHhR?=
- =?utf-8?B?T2pockNXYWhNc1hLS3A5OXdBY2YxN2xjNWtaU0RJNDVIK05iMlE3cnhZVFlQ?=
- =?utf-8?B?RHhzN0JrSDVYMFVnN1o2V0ZVaW54TFZtWUxxVkUvQ2FxRHk1blN3SlZnRENH?=
- =?utf-8?B?a240MVFhUC9FQVdhaDBSbCsrbDQrQk1jeko1bDNJbHVNNVU2bEx0YXd1Q2Y3?=
- =?utf-8?B?U2N1S2NjckxQeExMR1gxc3ZOa01yYzkxVUFKODRtaHc4bm9YcTV2TFJVYW5a?=
- =?utf-8?B?c3IxVytHN3pUMEVyVVcvNjI3SU1Cc1BURnUySU1YNThvbFc2aHptNmsxVjVG?=
- =?utf-8?B?a2VWUytvYlJjUUpnSEV2WnFtSlJxMGlTZCtEc3NzOVpyWnZGelpMbngwTDBa?=
- =?utf-8?B?WFc1ZCsvQ05ZYWlmUHdXSjlVWmZEcFpvQzZvSlBHMzUvVDNhTy9yUjExL1VS?=
- =?utf-8?B?OEdpYVZscnJqTktxSFNlVC9DY3FrdUNYckZlUmNPd21HczIyM1VNV2JuVU1a?=
- =?utf-8?B?eDYxMEwvVW1nSHcrRjJGZ0hVNk1GK0s1eWpJazZwK1ppSHkzc1ZvZWdkNlBq?=
- =?utf-8?B?RFNyMHkyK2djMHdIT09pYlBwNHBuVnNkVVJpUFVYMmloQjVNenhiSFNOeld4?=
- =?utf-8?B?aDd4QjFpZHRoSlNyV2laM2x4cDF4UjJydk5rcjRzeTN6R0wvdm0rUGdyYkVu?=
- =?utf-8?B?em5LcGxGbWt0TFZjMTJmSEJOejZRN3pDVHJCSUJ2bjhHRzZRbmFlR3c2S0Jw?=
- =?utf-8?B?NHlGZndOY0pnMktQNmpEL0JNM1h4dWNrczhKSHNzYVcwemJNRlZSK25nTWF0?=
- =?utf-8?B?WU03RDVWVElRcjNweENSNGw1ajdVVnRITnB6UjR0cUtFT3hzRUxEbjZoWnht?=
- =?utf-8?B?Mi8rVjU1K0VuOUNVektXNytKRnNjdkhBTG9XemYwTTJGWnFjZDFuNXAwSm1p?=
- =?utf-8?B?Y2JSaC92RG1pbnFMOGRSazlyMkdWU1BkQnpjSUNRY0xRdW1Wak56SWxCc0Y0?=
- =?utf-8?B?Rk5BU2FacnVTSE9SOXJyM0JISkIvcEY4YVdlTjRtbWd4b0RyUGhVYkhTUEpR?=
- =?utf-8?B?UmVsTEpUTTNWQU5MclowVkxGcFVLdTNXWWRheENySE90WHBOQkxLZFp3dGdT?=
- =?utf-8?Q?+X6ANpUACz9K3ZWMeYS/UMcNO?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 657cc250-7489-43ab-a452-08ddeefe1378
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2025 17:35:17.4901 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 37xITbMYkNCvtcpKhMFMhxikT7VY7WnPuobYomBWx4YJJKc/dreCitn0xM7hWQva
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7571
+References: <20250825215631.628949-1-timur.kristof@gmail.com>
+ <CADnq5_MjEuHz89Mv-_n5BoE4GMWD_PweLEwb=nydO1KdioPG2w@mail.gmail.com>
+ <CADnq5_N3AA+etH6_v8a8CZbvBeRsZVNWvAUOLcWMATfuR=6wRw@mail.gmail.com>
+In-Reply-To: <CADnq5_N3AA+etH6_v8a8CZbvBeRsZVNWvAUOLcWMATfuR=6wRw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 8 Sep 2025 13:35:54 -0400
+X-Gm-Features: Ac12FXwuvsrVlcqR3RVHAEuGER8s4tm13bD2-ApGiKxOTDOhBIMjHZ6ogBE6JaM
+Message-ID: <CADnq5_MKSwBNDhnKvYpT0vMiNUzfqSv4gm2k=-bxB1Fkum3GYw@mail.gmail.com>
+Subject: Re: [PATCH 0/4] DC: Fix page flip timeouts on DCE 6 (v2)
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, alexhung@amd.com,
+ "Wentland, Harry" <Harry.Wentland@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ alex.hung@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,71 +84,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 08.09.25 19:05, Alex Hung wrote:
-> 
-> 
-> On 8/24/25 12:23, Kuan-Wei Chiu wrote:
->> Replace the custom bubble sort used for sorting reserved time
->> candidates in with the kernel's standard sort() helper. The previous
->> code had O(N^2) time complexity, while the generic kernel sort runs in
->> O(N log N). This improves efficiency and removes the need for a local
->> sorting implementation, while keeping functionality unchanged.
->>
->> Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
->> ---
->> Compile test only.
->>
->>   .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c   | 23 +++++++++++--------
->>   1 file changed, 13 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
->> index e763c8e45da8..2b13a5e88917 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
->> @@ -2,19 +2,21 @@
->>   //
->>   // Copyright 2024 Advanced Micro Devices, Inc.
->>   +#include <linux/sort.h>
->> +
-> 
-> Thanks for working on this, but this file is shared with another OS and it is not possible to replace sort function with Linux-only sort.
+@alexhung@amd.com@Wentland, Harry
+ Were you planning to pick this up for this week's promotion or should
+I grab them?
 
-That's not a valid argument. Linux code must be solely written for Linux, you can't reject a valid patch because it breaks sharing code with other operating systems.
+Thanks,
 
-Regards,
-Christian.
+Alex
 
-> 
->>   #include "dml2_pmo_factory.h"
->>   #include "dml2_pmo_dcn3.h"
->>   -static void sort(double *list_a, int list_a_size)
->> +static int cmp_double(const void *a, const void *b)
->>   {
->> -    // For all elements b[i] in list_b[]
->> -    for (int i = 0; i < list_a_size - 1; i++) {
->> -        // Find the first element of list_a that's larger than b[i]
->> -        for (int j = i; j < list_a_size - 1; j++) {
->> -            if (list_a[j] > list_a[j + 1])
->> -                swap(list_a[j], list_a[j + 1]);
->> -        }
->> -    }
->> +    double da = *(const double *)a;
->> +    double db = *(const double *)b;
->> +
->> +    if (da < db)
->> +        return -1;
->> +    if (da > db)
->> +        return 1;
->> +    return 0;
->>   }
->>     static double get_max_reserved_time_on_all_planes_with_stream_index(struct display_configuation_with_meta *config, unsigned int stream_index)
->> @@ -634,7 +636,8 @@ bool pmo_dcn3_init_for_pstate_support(struct dml2_pmo_init_for_pstate_support_in
->>             // Finally sort the array of candidates
->>           sort(pmo->scratch.pmo_dcn3.reserved_time_candidates[stream_index],
->> -            pmo->scratch.pmo_dcn3.reserved_time_candidates_count[stream_index]);
->> +             pmo->scratch.pmo_dcn3.reserved_time_candidates_count[stream_index],
->> +             sizeof(double), cmp_double, NULL);
->>             remove_duplicates(pmo->scratch.pmo_dcn3.reserved_time_candidates[stream_index],
->>               &pmo->scratch.pmo_dcn3.reserved_time_candidates_count[stream_index]);
-> 
-
+On Tue, Sep 2, 2025 at 9:59=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com>=
+ wrote:
+>
+> On Tue, Aug 26, 2025 at 10:23=E2=80=AFAM Alex Deucher <alexdeucher@gmail.=
+com> wrote:
+> >
+> > On Mon, Aug 25, 2025 at 5:56=E2=80=AFPM Timur Krist=C3=B3f <timur.krist=
+of@gmail.com> wrote:
+> > >
+> > > Compared to the previous version of this series, v2 fixes
+> > > the rebase conflicts on amd-staging-drm-next and includes
+> > > an additional patch to address page flip timeouts when the
+> > > displays are blanked.
+> > >
+> > > Currently when using DC on DCE 6, it produces pageflip timeouts:
+> > >
+> > > 1. When displays are blanked
+> > > This is caused by (mistakenly) turning off the display engine
+> > > clock on DCE 6.0 and 6.4 which is also the DP clock.
+> > >
+> > > 2. After suspend/resume
+> > > The root cause is that DC assumes that the VUPDATE interrupt
+> > > is always present, when in fact it isn't supported by DCE 6,
+> > > which also doesn't support VRR.
+> > >
+> > > Finally, there is also a patch to disable fast boot mode
+> > > on DCE 6. The rationale is that this already didn't work
+> > > on DCE 8, and even if it did I have no means to test it.
+> > >
+> > > Timur Krist=C3=B3f (4):
+> > >   drm/amd/display: Keep PLL0 running on DCE 6.0 and 6.4 (v2)
+> > >   drm/amd/display: Disable fastboot on DCE 6 too
+> > >   drm/amd/display: Disable VRR on DCE 6
+> > >   drm/amd/display: Don't use non-registered VUPDATE on DCE 6 (v2)
+> >
+> > Series is:
+> > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> @alexhung@amd.com
+> Were you planning to include this series in an upcoming DC promotion
+> or should I pick it up?
+>
+> Thanks,
+>
+> Alex
+>
+> >
+> > >
+> > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 ++++++++++++-----=
+--
+> > >  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 16 +++++++-----
+> > >  drivers/gpu/drm/amd/display/dc/dc_helper.c    |  5 ++++
+> > >  drivers/gpu/drm/amd/display/dc/dm_services.h  |  2 ++
+> > >  .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  6 ++---
+> > >  .../dc/resource/dce60/dce60_resource.c        | 11 +++++++-
+> > >  6 files changed, 46 insertions(+), 20 deletions(-)
+> > >
+> > > --
+> > > 2.50.1
+> > >
