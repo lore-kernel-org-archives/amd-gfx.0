@@ -4,44 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DDA3CAC58C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B079ACAC58D
 	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF96D10E882;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75EA110E87F;
 	Wed, 10 Sep 2025 08:01:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="SJVa9R/d";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="K3+M3w31";
 	dkim-atps=neutral
-X-Greylist: delayed 369 seconds by postgrey-1.36 at gabe;
- Tue, 09 Sep 2025 15:18:33 UTC
-Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com
- [95.215.58.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61FCB10E74E
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 15:18:33 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1757430743;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=YTikDlX12kXL3j+5kwkltxNVJHuHuCGZc9SB1ihbGG4=;
- b=SJVa9R/d9JBXok4g28X5XyNlSwCYDy1Z9ugy6mZB8SX7QL4omrAASdlWcbBZOMqsE0+UPR
- /gejcTIxHMMnytu9jWBu7OHWYAw7+xtJkvtCgGPFwF5nti1t3+vx+OoWQ0GZ7Ws1QIHsoz
- 4MMqCMfouJ8X6IPvREtIcp01b0wGFc8=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdkfd: Replace kmalloc + copy_from_user with memdup_user
-Date: Tue,  9 Sep 2025 17:11:46 +0200
-Message-ID: <20250909151146.760450-2-thorsten.blum@linux.dev>
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3BE410E78D;
+ Tue,  9 Sep 2025 15:22:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+ Sender:Reply-To:Content-ID:Content-Description;
+ bh=2bJb9r9WRkh2TAMgOyJeg6yuzlP1Z0g5WcvmBSdw5jw=; b=K3+M3w31oZcBuYI9a7tM1Wo4ID
+ BPiBqB+/2QDy58bY7Sc9535axphYxgvKiFquwU0TlajgwlRtUwRspA0xVmD9BAHJLz/l+jeRZjyjR
+ Unw1uOLgfY+EjPa0Itj9WptPWEi19neifkYJniy3Wf2hlEbdwOSuG2acrNEVToC0OeJ1sZs5T1nnK
+ gXGBKfpb0jyqvC2yHxEbiNlRGTIi8PdJLlcATpL1HoYOoKskBQ4MjK5mFv/WtG5JC72p01/TzMbra
+ BkITS1U0QdkexZxcKSJB91r2uD2hrSHqab+CbXgy+JPrmtyOmqb15KRnsWDBSvIaUTLwYUljo7s4o
+ cH/Dx2Kw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1uw0Aa-00000005OZD-2Xxf; Tue, 09 Sep 2025 15:22:09 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 3D7323002EB; Tue, 09 Sep 2025 16:05:19 +0200 (CEST)
+Date: Tue, 9 Sep 2025 16:05:19 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ matthew.auld@intel.com, jani.nikula@linux.intel.com,
+ samuel.pitoiset@gmail.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, alexander.deucher@amd.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] drm/buddy: Optimize free block management with RB
+ tree
+Message-ID: <20250909140519.GK4067720@noisy.programming.kicks-ass.net>
+References: <20250909095621.489833-1-Arunpravin.PaneerSelvam@amd.com>
+ <6f6841a7-57bd-49de-9b55-b5b0514a2749@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+In-Reply-To: <6f6841a7-57bd-49de-9b55-b5b0514a2749@amd.com>
 X-Mailman-Approved-At: Wed, 10 Sep 2025 08:01:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,56 +65,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace kmalloc() followed by copy_from_user() with memdup_user() to
-improve and simplify kfd_criu_restore_queue().
+On Tue, Sep 09, 2025 at 02:04:30PM +0200, Christian König wrote:
+> Hi Arun,
+> 
+> On 09.09.25 11:56, Arunpravin Paneer Selvam wrote:
+> [SNIP]
+> 
+> > +/**
+> > + * rbtree_for_each_entry_safe - iterate in-order over rb_root safe against removal
+> > + *
+> > + * @pos:	the 'type *' to use as a loop cursor
+> > + * @n:		another 'type *' to use as temporary storage
+> > + * @root:	'rb_root *' of the rbtree
+> > + * @member:	the name of the rb_node field within 'type'
+> > + */
+> > +#define rbtree_for_each_entry_safe(pos, n, root, member) \
+> > +	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member), \
+> > +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL; \
+> > +	     (pos); \
+> > +	     (pos) = (n), \
+> > +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL)
+> 
+> As far as I know exactly that operation does not work on an R/B tree.
+> 
+> See the _safe() variants of the for_each_ macros are usually used to iterate over a container while being able to remove entries.
+> 
+> But because of the potential re-balance storing just the next entry is not sufficient for an R/B tree to do that as far as I know.
+> 
+> Please explain how exactly you want to use this macro.
 
-No functional changes intended.
+So I don't much like these iterators; I've said so before. Either we
+should introduce a properly threaded rb-tree (where the NULL child
+pointers encode a linked list), or simply keep a list_head next to the
+rb_node and use that.
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- .../amd/amdkfd/kfd_process_queue_manager.c    | 22 +++++--------------
- 1 file changed, 6 insertions(+), 16 deletions(-)
+The rb_{next,prev}() things are O(ln n), in the worst case they do a
+full traversal up the tree and a full traversal down the other branch.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 7fbb5c274ccc..70c17a12cadf 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -1004,13 +1004,9 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 	if (*priv_data_offset + sizeof(*q_data) > max_priv_data_size)
- 		return -EINVAL;
- 
--	q_data = kmalloc(sizeof(*q_data), GFP_KERNEL);
--	if (!q_data)
--		return -ENOMEM;
--
--	ret = copy_from_user(q_data, user_priv_ptr + *priv_data_offset, sizeof(*q_data));
--	if (ret) {
--		ret = -EFAULT;
-+	q_data = memdup_user(user_priv_ptr + *priv_data_offset, sizeof(*q_data));
-+	if (IS_ERR(q_data)) {
-+		ret = PTR_ERR(q_data);
- 		goto exit;
- 	}
- 
-@@ -1022,15 +1018,9 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 		goto exit;
- 	}
- 
--	q_extra_data = kmalloc(q_extra_data_size, GFP_KERNEL);
--	if (!q_extra_data) {
--		ret = -ENOMEM;
--		goto exit;
--	}
--
--	ret = copy_from_user(q_extra_data, user_priv_ptr + *priv_data_offset, q_extra_data_size);
--	if (ret) {
--		ret = -EFAULT;
-+	q_extra_data = memdup_user(user_priv_ptr + *priv_data_offset, q_extra_data_size);
-+	if (IS_ERR(q_extra_data)) {
-+		ret = PTR_ERR(q_extra_data);
- 		goto exit;
- 	}
- 
--- 
-2.51.0
+That said; given 'next' will remain an existing node, only the 'pos'
+node gets removed, rb_next() will still work correctly, even in the face
+of rebalance.
+
 
