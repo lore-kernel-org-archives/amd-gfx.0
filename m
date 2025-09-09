@@ -4,54 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BDB0CA101F
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A8F1CAC58F
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4A5A10E883;
-	Wed, 10 Sep 2025 08:01:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2297210E887;
+	Wed, 10 Sep 2025 08:01:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="mwh+wD9p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q36jG4Q5";
 	dkim-atps=neutral
-Received: from xry111.site (xry111.site [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D978210E0DB;
- Tue,  9 Sep 2025 02:02:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
- s=default; t=1757383337;
- bh=zcmpcw0mekrXcR6rkLebx4OWUdSHyk73nm9XQs6nR5E=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=mwh+wD9pqb74xXaSeUW0Fy4iOx+0uACLhjsiWm+anmJ9h85Kmbz1NMEAHsXYtQWVH
- IKCeXHS5cncmv/E1+oAd3eDpkO9aoc2Y8jSca6um59hYQNYspm8As1xpC5954/PgYA
- KeT3BBkec8hgk7HOa9qB4WdsDrAXR/HxCoq9GuRQ=
-Received: from [127.0.0.1]
- (2607-8700-5500-e873-0000-0000-0000-1001.16clouds.com
- [IPv6:2607:8700:5500:e873::1001])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1)
- server-digest SHA384) (Client did not present a certificate)
- (Authenticated sender: xry111@xry111.site)
- by xry111.site (Postfix) with ESMTPSA id 18F2866983;
- Mon,  8 Sep 2025 22:02:13 -0400 (EDT)
-Message-ID: <6f0857ec48e7d1aab55f5e1cc923d9b5086af6c2.camel@xry111.site>
-Subject: Re: [PATCH] drm/amd/display/dml2: Guard
- dml21_map_dc_state_into_dml_display_cfg with DC_FP_START
-From: Xi Ruoyao <xry111@xry111.site>
-To: Alex Hung <alex.hung@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Huacai Chen <chenhuacai@kernel.org>, WANG
- Xuerui <kernel@xen0n.name>, Mingcong Bai <jeffbai@aosc.io>,
- dri-devel@lists.freedesktop.org, 	loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, Asiacn <710187964@qq.com>,  Austin Zheng
- <Austin.Zheng@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, Wenjing
- Liu	 <wenjing.liu@amd.com>
-Date: Tue, 09 Sep 2025 10:02:12 +0800
-In-Reply-To: <25fcd3b5c1a415deb8358714279a7d532e26ed47.camel@xry111.site>
-References: <20250825085211.34396-1-xry111@xry111.site>
- <0f6b54fa-720f-43b7-ad74-91c2c5700dad@amd.com>
- <25fcd3b5c1a415deb8358714279a7d532e26ed47.camel@xry111.site>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACE3810E66B;
+ Tue,  9 Sep 2025 09:09:40 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-7725de6b57dso6158663b3a.0; 
+ Tue, 09 Sep 2025 02:09:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757408980; x=1758013780; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=kqPc2XyEx7hJaGX2RHm1jVlEm9h0J3/vXED5Ck3jL34=;
+ b=Q36jG4Q5C5Zzwyo6PROQhxJOR2bucCt93eu5Ugzmc6kRsSzLFLfAyguPwepx6OtNX7
+ JSkskIXOcTwr8UixpPOs2inKsm8bhKTTZ7oQ6Vm7QsgNfsOsgA+IzH3rY/KyD7u+np/h
+ D8irLU3LGLskqpxJ8tQzJ7bppF4TW1EJUfyzstzUKuFYp1j5K+xlD3pEvVS5TWkevuuc
+ wykzepotqD6Qj3n+1Gs59gqWrtumSnSy1TKVfPFMsyl/dWXpBkXXLfVgWXt+03MTu4xS
+ x0tyKe/tgnI+ZtaLWgD8QVUqzpzR83bygF2byppecxSOMLlh6/Uf2FS0ekFbew67Cyn+
+ 1kHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757408980; x=1758013780;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kqPc2XyEx7hJaGX2RHm1jVlEm9h0J3/vXED5Ck3jL34=;
+ b=fMyYKjfTK1TGFnPUU+j8uGTCduirCjq0UD5WKwvJtIFW0nRffKOIBGWnCPn6O7jIb4
+ hoYTq7fDU12fO64AiqvxN/JDPQlmENj5cz1MNj8D8TMCpmzs1Vm3DVgDBPBqccj22kEQ
+ DSqtb9lvXbhlxSq963Rhh9rt7taKVLIgaAnXdS3h5uimkxriyzVJt/hIGpt9KIXdTMfZ
+ wn1EUl93X4JeUI2YyRvOVMIF/l5acuiZK95vLvXgu6ShUdaXmrRYR+ms/0SLl1i5BVYL
+ Zoy/8T/1RpeBxKUt0olfCqV1nCEer6HRhzAjQgqVQJTVc5JPIh8bVptrt9pGGciAixr9
+ GP9A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWJpU098XEDfNsZbwaaOqR17VDaYCGXSo6e3ZCTzrbgvwZ2DgIPtjNc19N5QsOUxHBYXxQOfijF@lists.freedesktop.org,
+ AJvYcCWXlnRWSyTySBKB0RcLXqQZOZYeWAmzb8mIyK8S6/4eiVT84R8wNsZd/VB3Zdq+7CXyJ2BftDnWdMYc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwjpWdBPsRm9QCTtbkIMo4daygmSuFamKuxMPh90bmpuaHGdjsF
+ pMD2CRg2LB0ZzwB+kxXqhLB6I/5475iM8pilF5TCitWWNtFfaO0vA+so
+X-Gm-Gg: ASbGncubHENIHKe/DsTitUU0beFttqbdttr8NhFn6nwq70bmp52TnL1JByBT3oYgiiQ
+ DAvAQDgoN9T88+egvhkZ5LUBiUCnSpSHvEMhRoodPi32EfxrLdWGt2D5258dgCz7RhXJ1EQ8END
+ Q/iALeER9tJGVFLAJweGOb9I+bdBpww0b+OXmOUER2FOJejEgxuFp9aMnzDctoUO4tBzOcfLxKQ
+ aNlsHFqvLOLKV3oEWAgrcL0W5vVmd5nCciebsywDSWu/n+PGcM5q1w0Y28QdcLeCvmsDD2u4bB8
+ FjblTOLS3hINc66Beb0Feye0+x9+/bCkzPY5K3SB+5H9+egj9i6M7HNDLcBkRgz0/QotDPJ2Lvg
+ tckFkQ9NqD4rO2cJqZn2NkW/Vk2hAW1FIut2ciAvUPWqrN0CCwuFy0IsLZF0oBI9ajnKc+FI=
+X-Google-Smtp-Source: AGHT+IGLMvgR09TtpXV6LHI+sqDFZWwyxmCEyzU7IJEVMiPIwQK0Li50mUmwwWRucDIt6KYIn3TMog==
+X-Received: by 2002:a05:6a00:2191:b0:76b:f7af:c47d with SMTP id
+ d2e1a72fcca58-7742dd60109mr14646722b3a.4.1757408980074; 
+ Tue, 09 Sep 2025 02:09:40 -0700 (PDT)
+Received: from visitorckw-System-Product-Name ([140.113.216.168])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-774660e4dcfsm1469549b3a.18.2025.09.09.02.09.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Sep 2025 02:09:39 -0700 (PDT)
+Date: Tue, 9 Sep 2025 17:09:35 +0800
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>, austin.zheng@amd.com, jun.lei@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ zaeem.mohamed@amd.com, wenjing.liu@amd.com, chiahsuan.chung@amd.com,
+ Natanel.Roizenman@amd.com, Daniel.Sa@amd.com,
+ jserv@ccns.ncku.edu.tw, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/amd/display: Optimize reserved time candidates
+ sorting using standard sort()
+Message-ID: <aL/uz16tMybHTeYD@visitorckw-System-Product-Name>
+References: <20250824182359.142050-1-visitorckw@gmail.com>
+ <20250824182359.142050-2-visitorckw@gmail.com>
+ <c28df8a2-9ec1-41d0-afe4-4ee047290d27@amd.com>
+ <655a009a-0b69-4e11-949e-ff0f47b424d5@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <655a009a-0b69-4e11-949e-ff0f47b424d5@amd.com>
 X-Mailman-Approved-At: Wed, 10 Sep 2025 08:01:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,103 +100,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-09-09 at 09:47 +0800, Xi Ruoyao wrote:
-> On Mon, 2025-09-08 at 14:18 -0600, Alex Hung wrote:
-> >=20
-> >=20
-> > On 8/25/25 02:52, Xi Ruoyao wrote:
-> > > dml21_map_dc_state_into_dml_display_cfg calls (the call is usually
-> > > inlined by the compiler) populate_dml21_surface_config_from_plane_sta=
-te
-> > > and populate_dml21_plane_config_from_plane_state which may use FPU.=
-=C2=A0 In
-> > > a x86-64 build:
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 $ objdump --disassemble=3Ddml21_map_dc_state=
-_into_dml_display_cfg \
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 > drivers/gpu/drm/amd/display/dc/dml2/dml21/=
-dml21_translation_helper.o |
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 > grep %xmm -c
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 63
-> > >=20
-> > > Thus it needs to be guarded with DC_FP_START.=C2=A0 But we must note =
-that the
-> > > current code quality of the in-kernel FPU use in AMD dml2 is very muc=
-h
-> > > problematic: we are actually calling DC_FP_START in dml21_wrapper.c
-> > > here, and this translation unit is built with CC_FLAGS_FPU.=C2=A0 Str=
-ictly
-> > > speaking this does not make any sense: with CC_FLAGS_FPU the compiler=
- is
-> > > allowed to generate FPU uses anywhere in the translated code, perhaps
-> > > out of the DC_FP_START guard.=C2=A0 This problematic pattern also occ=
-urs in
-> > > at least dml2_wrapper.c, dcn35_fpu.c, and dcn351_fpu.c.=C2=A0 Thus we=
- really
-> >=20
-> > Let me share Austin's comments below:
-> >=20
-> > "
-> > Both CC_FLAGS_FPU and DC_FP_START are required for FPU usage.
-> >=20
-> > CC_FLAGS_FPU allows the compiler to generate FPU code whereas=20
-> > DC_FP_START ensures that the FPU registers don't get tainted during run=
-time.
->=20
-> But the correct pattern would be: isolating the code using FPU into its
-> own translation unit, say xxx_fp.c, then call DC_FP_START in another
-> translation unit (for which CC_FLAGS_FPU is NOT used) before calling the
-> routines in xxx_fp.c.
->=20
-> It's because there's generally no way to guarantee the compiler only
-> generate FP code in the range of DC_FP_START ... DC_FP_END if
-> CC_FLAGS_FPU is used.=C2=A0 The compiler can generate FPU code in situati=
-ons
-> we don't intend to use (and don't anticipate) FPU, for example if a
-> "counting number of ones in a word" pattern is detected when the code is
-> built for LoongArch, the compiler can invoke FPU to use a popcount
-> instruction with CC_FLAGS_FPU.=C2=A0 (That doesn't really happen now but =
-it
-> may happen in the future.)
->=20
-> And the correct pattern is already used by, for example
-> dcn10_resource.c:
->=20
-> =C2=A0=C2=A0=C2=A0 DC_FP_START();
-> =C2=A0=C2=A0=C2=A0 voltage_supported =3D dcn_validate_bandwidth(dc, conte=
-xt, validate_mode);
-> =C2=A0=C2=A0=C2=A0 DC_FP_END();
->=20
-> Here dcn_validate_bandwidth is in dcn_calcs.c where CC_FLAGS_FPU is in-
-> effect, but dcn10_resource.c itself is not built with CC_FLAGS_FPU.
+On Mon, Sep 08, 2025 at 07:35:08PM +0200, Christian König wrote:
+> On 08.09.25 19:05, Alex Hung wrote:
+> > 
+> > 
+> > On 8/24/25 12:23, Kuan-Wei Chiu wrote:
+> >> Replace the custom bubble sort used for sorting reserved time
+> >> candidates in with the kernel's standard sort() helper. The previous
+> >> code had O(N^2) time complexity, while the generic kernel sort runs in
+> >> O(N log N). This improves efficiency and removes the need for a local
+> >> sorting implementation, while keeping functionality unchanged.
+> >>
+> >> Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+> >> ---
+> >> Compile test only.
+> >>
+> >>   .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c   | 23 +++++++++++--------
+> >>   1 file changed, 13 insertions(+), 10 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
+> >> index e763c8e45da8..2b13a5e88917 100644
+> >> --- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
+> >> +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
+> >> @@ -2,19 +2,21 @@
+> >>   //
+> >>   // Copyright 2024 Advanced Micro Devices, Inc.
+> >>   +#include <linux/sort.h>
+> >> +
+> > 
+> > Thanks for working on this, but this file is shared with another OS and it is not possible to replace sort function with Linux-only sort.
+> 
+> That's not a valid argument. Linux code must be solely written for Linux, you can't reject a valid patch because it breaks sharing code with other operating systems.
+> 
+Hi Alex and Christian,
 
-And the correct pattern is already documented and explained in
-dcn20_fpu.c:
+Thanks for your feedback.
+Based on the discussion, I plan to keep this patch in my v2.
 
- * 4. Developers **must not** use DC_FP_START/END in this file, but they ne=
-ed
- *    to ensure that the caller invokes it before access any function avail=
-able
- *    in this file. For this reason, public functions in this file must inv=
-oke
- *    dc_assert_fp_enabled();
- *
- * Let's expand a little bit more the idea in the code pattern. To fully
- * isolate FPU operations in a single place, we must avoid situations where
- * compilers spill FP values to registers due to FP enable in a specific C
- * file. Note that even if we isolate all FPU functions in a single file an=
-d
- * call its interface from other files, the compiler might enable the use o=
-f
- * FPU before we call DC_FP_START. Nevertheless, it is the programmer's
- * responsibility to invoke DC_FP_START/END in the correct place. To highli=
-ght
- * situations where developers forgot to use the FP protection before calli=
-ng
- * the DC FPU interface functions, we introduce a helper that checks if the
- * function is invoked under FP protection. If not, it will trigger a kerne=
-l
- * warning.
+Regards,
+Kuan-Wei
 
---=20
-Xi Ruoyao <xry111@xry111.site>
