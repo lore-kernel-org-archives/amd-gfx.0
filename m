@@ -4,151 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87BDDCAC583
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 14:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C6A3CA0FED
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 14:46:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30DCA10E05F;
-	Tue,  9 Sep 2025 14:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E09A010E754;
+	Tue,  9 Sep 2025 14:46:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f4afd9JU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HmZcgvyC";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 638B010E05F
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 14:34:49 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2042.outbound.protection.outlook.com [40.107.92.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E759B10E754
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 14:46:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O5UXsf7zHssLZzlOT+M3LUVl6cqlAynSPT2meJ7BufZkNXF9xHlyAyAp4chqXxFCxD06dvkOrifgWi42LRop8tZEdgWAaGRtIlwA+o1VcN9T3vQe5Ye2KdM4Bmn6Ya9xIH4Go3dhOvrg8y93A0vcQmGKQCMR9X1LkOEO6P5NOcfKalJRSKs2R+1BYEPzYOd/3bQy35ztbZ8ZclaLi1JbCMROmRXgzsja4ELOeZ0RpJSzKpAHGBG3h73Z6cetfRXxd+4w82Udfnqz+JBcdrbYWHDjSZ8JCxTGmq53ArzNiTMqfFy1qFLfamyIB456qie8w0WyrN0UE+O2hwHbgYUKcQ==
+ b=gqoWVd7q6X8oGpdPCrkqBARZQRiIzDr4Lq5T8TBhACYKmJEKu7XQRSUir62hp/DV3EHL5H7lPtv68nGP1cWoHmD7imZtrGzPtfbnXbJm+JyHOeYSeBm7kgd29OgsHnLN3OoMHLZswi5JyVMq+PYf4G/Ez9wHRphoTYNIkWM1rTvkksK1VaWwAT8D7OsqbY/hdpg04mIvEBHzhJ47eY97g3g2P4QYVqlEmmRfeJdPLdMvw9l0LeF9sCCT/YG3QLiWiWAkGPRS2XMYow8wgoxjbXhX0ZcuhvWPONTW02R7KRnAoTCkwfPmDpU68lcAk1hiy7Nb7bfVHbU6sPs7mOAYTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2xLsNTfoA92uwDrm2MGJ1LVI+OZPGx2NGNf7/IRe4ls=;
- b=B98vB0S0U8IdkmqRqwEwotOgyzqASLV5yNovSqRSKLwHDKDoPNPqVyFmBm7igyIyWKMbL4t6VFaseCniT9X1s98lsUsWp+0k/ovrNxshFzsSrWPGMmeA4llwgUSCl1aFZBpa/xBHeOFHFJRy1gjp9swflqpEpWe22HBo8zAvpXtsB8sXq+W4OQE76erUVplvq7qa0YHl3JTufbJbXZ7SDzbBxo8jDyyNKEVP5OXda0Sg3CP5l+01I7YI5JvrjBPLklhEZ3XCkSaTI6Yica2x64e1Bxl5y/FOG6dD2NLZrY60fT6ntYh52pjv6qtnJrvwuwSO3KPPNVKHKIwMtkS+ug==
+ bh=NEBQogC4mQ44Sl2oqGDaG/Xsf0bF85uSrArB2nJ4gV4=;
+ b=zElp906hDs8eeGl5R/oXuqTOOkseMgj6WY6YbVk2goeMq/Kn/jMUfyy6mP0AUGDyi530NU6Ll/VoTpsEdRNlLkXGETY4NMZKP9Fjc423T27miSzDu5areniSlOcPFYFpAHnM+VNlu4qDDjaw7XErDcSITKJtI9NGDfxVqqPuIGX1rAOWl3YWOe5OGgNnlnYL891TPBHzfsIoQMV2u36zGZSZjfl6wkqqbVuPiZ+MixlFbofeNhPMGz6f9xAvABREa0zyg6JsYz1wqalsgbPqEtoQo3dG/mM+HYTluFxm6xzulMQaRdLE66RGNkvvYAFGid8tY/YDzwLYX5VZKvxppA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2xLsNTfoA92uwDrm2MGJ1LVI+OZPGx2NGNf7/IRe4ls=;
- b=f4afd9JUYWKJ6ClvIfDSSV5LjVXp4DJk0mU3WJhZp8E4ZDM5VZ/rfeo9iPpRnJewTD5fJjZafK6yPmAVC9FW6RAjrMVhVjgTitljMy7VD0HmSfUcb2QwHiTfHDeOx/NSTcLJMX0p3WNtA0+RIZz/WTGEw8nJM3GrwjGbs5p46YM=
+ bh=NEBQogC4mQ44Sl2oqGDaG/Xsf0bF85uSrArB2nJ4gV4=;
+ b=HmZcgvyCZfIeDL8hOhMcsmJNa5efolW4i0ug7SIRpGVZx8Jmyf1Ic+hOt7exzhukf/B97wMnm00cLcaR/q6Rw62mXRwT9CqvbEh7Mb5cjScCIDcX2TCcNQlraBBd9CGqJnZDvyKpb1E91u2nuApOE2CoR69B6N5FqN3AvlFHerE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by CYYPR12MB8961.namprd12.prod.outlook.com (2603:10b6:930:bf::7) with
+ by SJ1PR12MB6242.namprd12.prod.outlook.com (2603:10b6:a03:457::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Tue, 9 Sep
- 2025 14:34:44 +0000
+ 2025 14:46:05 +0000
 Received: from DM4PR12MB5149.namprd12.prod.outlook.com
  ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
  ([fe80::36fa:deca:aaeb:75da%4]) with mapi id 15.20.9094.021; Tue, 9 Sep 2025
- 14:34:43 +0000
-Message-ID: <e8239092-65aa-7add-e9ff-1426b7dcc18e@amd.com>
-Date: Tue, 9 Sep 2025 10:34:41 -0400
+ 14:46:05 +0000
+Message-ID: <ff4297c3-e6e6-c8ad-5d46-f330e4770278@amd.com>
+Date: Tue, 9 Sep 2025 10:46:01 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v2 1/3] Revert "drm/amdkfd: return migration pages from
- copy function"
+Subject: Re: [PATCH v2 2/3] drm/amdkfd: add function
+ svm_migrate_successful_pages
 Content-Language: en-US
 To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Felix.kuehling@amd.com, philip.yang@amd.com, chengjun.yao@amd.com,
  jamesz@amd.com
 References: <20250908161526.99413-1-James.Zhu@amd.com>
+ <20250908161526.99413-2-James.Zhu@amd.com>
 From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20250908161526.99413-1-James.Zhu@amd.com>
+In-Reply-To: <20250908161526.99413-2-James.Zhu@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0352.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6b::21) To DM4PR12MB5149.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0105.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:5::8) To DM4PR12MB5149.namprd12.prod.outlook.com
  (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CYYPR12MB8961:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4579137b-2b88-45d4-b662-08ddefae0454
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|SJ1PR12MB6242:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f47dbd6-d0b2-48b6-2c7c-08ddefaf9a98
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ak15TkdPNzBoemxFOC9QMjlDZEJmK0xTVGhJclRISThLcjUvTytvQXVXa3Fm?=
- =?utf-8?B?QmxRQkVaMTdFUjh4WlhMazhCNVMySjdkbGNkUjc5dDdIS2k2OXVJNlptR0lp?=
- =?utf-8?B?dDI2di9hYkhUL1l3VGc5VkpaVjY2NE93RUZUNjhicmgwZ0JQQm5HdEhyNmhT?=
- =?utf-8?B?Zk9GcDV0ZkpHbkdwWXQycXRsNGllRHY5b3lYR3hqS294eUd1dnowRXpiTHpv?=
- =?utf-8?B?NC82dkk4Q3BLWUhFOWtYcE1DK2lFd2U0QXFmanhYYmxmQlRwTTIvUnRhK0hN?=
- =?utf-8?B?NHhtN1hVRm5kd3pzVy8ybzJ2ZFJ6djRmMUtaMlE1aUlqNzVWY2lReDVoZjBB?=
- =?utf-8?B?UEFNN3hKcXRLYWEzTmNWS0pHenFhTkhpWnlpOGtWMEliQTZhVUZzN20xM1FE?=
- =?utf-8?B?dEFyR0ErYlkxYmNTR2p5aTJVS0xtaXhFR3JVNTAvN05HbDNPaGhyNmZuQWVZ?=
- =?utf-8?B?Z3pQSjJ2K2gvNHcrSlovN1pRVFdtbGlnellCb0NpNmFRa05UcDhqbG1lNW5a?=
- =?utf-8?B?TTdScVdFQWdhdXRQU1R1ZE80dFNPbElqcDFHMk43ZFVsQkZRQ2QrOEo5dkJE?=
- =?utf-8?B?MmFHVFlhdnZwOXFSMmlVQjcrcHZqOUdIR3FUbFRvVm9NUDhiZTV5SHE1MXpC?=
- =?utf-8?B?N3pkMStwTlB0WnQ4WnpMNTFsdmI1MmlSelBucWltcWwzUktVbTFucVpyYitI?=
- =?utf-8?B?NXdIaG5QVnBSd0V3UVcxWmRlK3ludjJMMmpHUjFUbDhMTUNKNzYzalF3dnNN?=
- =?utf-8?B?azVEQzdmT2ZBNFJLVFRhVXZJS0FvRG9PTEhuTXgzcSt5ayt4K2tzTnpqMURk?=
- =?utf-8?B?VHlrbHJETVVEb3RTdXRqZGJGaTNETStvaDlxb0w4QVIvRk9CZG9nbkUxVmd4?=
- =?utf-8?B?VUFzUURZbzRNVjV6bUZoUTcwTGxDL09FeVF5Y00va1RtakdXYmpUeVN1OEJa?=
- =?utf-8?B?SDB5VFNVaGQ0TGYxUGRSOThMQXAxekxWdnFqdVNVUnFibWIyVFZQZ3d1ck42?=
- =?utf-8?B?aSsyU21mQW1kQmVxcm0zRlpHZTZyL212UWpIYWV3TVV4MUd3SHVzbVZYUHRZ?=
- =?utf-8?B?UlJEdkRsRHpCY0xYRTdqbndpdEdqSkJ4S1NndVY3bjV0eWh0SVFyR0xVREZ1?=
- =?utf-8?B?SmdKL2Z6bTk0NlpLaHhnS2xTemJ2Z25vT0wrSEw3NXpIeTBGcnR0MXJIY1ky?=
- =?utf-8?B?L2hOcHhGa1BRVDgreitURGJ2NHoveTRLWG94ZDZWcjJPRFhaaWcrQVFBL21z?=
- =?utf-8?B?WUNXK1FseGNpV1NiWlQyT1NPTVZpVEkzc3lQOWplZUVaNStXcXF0MHRXYk1j?=
- =?utf-8?B?cFdxRkxNRGhKMVNkTjJUc2tQWCt6RU10d3ZKSlBhcitFdnlDQUNISzh3V3A4?=
- =?utf-8?B?cDZaR3Z5VlBHT3NLTFZBYXp0ekFIL05VSEx0UmlNeTJSWlJHQWE4OUpzdkRn?=
- =?utf-8?B?WmtMSjlLZVJGbmJPU09iakx1U2VIb3JJN1hoY1UrbTBHZFhGU2xCR2R3SDBx?=
- =?utf-8?B?ZFgybGw0Zi8rTll5TkxPVXRaOVM3bkI5eWFsQ0ordlFyVGpBR3I3U1BucTdq?=
- =?utf-8?B?MFdsYVZOcDJKb3F2cWJPMWwxUnlVRElmMGU4eHNxRkpqNE51b29iT01mZjls?=
- =?utf-8?B?RzJIN1V2eW9rdG9iUWZwZ1YrWHNsVTdSRUNxQVVLYUNRTXZ4SGZzZkt4T1Qr?=
- =?utf-8?B?bzVmM3NTbTQ3QnlCcEhuYnRNM2xZWGkxUjRiNEtEZHhldU5HVC8xWmQ2aUFW?=
- =?utf-8?B?bUFXQk9KckRJUTY1SUFkUWNXd3kzMWM1RVNKSy9jMFJndDl5ZDQzOFVEVHA0?=
- =?utf-8?B?VmdwZ0FaY1lLK0VUcG4yZkMwREJvZXZhQStoSDdNR21BSFlZaVR2dDVTY1dE?=
- =?utf-8?B?ZWNQNFVJQzZ0WFNzcFl6bUt3cU1ZTUJNRE1WV1c1VDNDVzlLOVYrNmtkMUxY?=
- =?utf-8?Q?bqmuO16TRwg=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WjRpRzNJc29IczdCUS9wVHp0RUJ3MlFqNHVmRUVFZkZLeXQzRzFvMm5jOTJX?=
+ =?utf-8?B?bjJxS1pMQWp2WDhPc0lZVWdtUjJxUlY2OG1EVkt4L3Zpd3FWNm5vVUlRdWxR?=
+ =?utf-8?B?MjlWeWZwUmJLL1MxRFhPOFAyNllNT1FwczM4NkZFNFdYY2Rsc1FEL2FRamxL?=
+ =?utf-8?B?ajMwRGdIYW1aNkNycTc4bzJUVGRaWlhQODNCcXB4Q0FCTHZMa0dTTGZ2cFhp?=
+ =?utf-8?B?TXp6b2JWVnJER2ZZVzJ2b01sVWRUcXZHTy9OQVFDSi9UbEFmZy9XNmFrUzR3?=
+ =?utf-8?B?N0VLMm5JVDNhTnBhL3ZhNXpqc1pPbitVcnp4bWpycHNQYjMvMTRXZEpUY05E?=
+ =?utf-8?B?SGFMR3JMZ0RTc3lLeUhYK2Nudmh3QndXZnJLdVhkcC9IdGxGYkdXMVhsR2h3?=
+ =?utf-8?B?Ty9GbXdQRHFEZXFFaEN0UDg3Q2RYaW91ODIzZTc0dTEyL2F2VEsrYnhJQTNa?=
+ =?utf-8?B?aG5SVFVZemtHR2ppUXFBUFM0Yk56NW01cXFpUVROdnVUVCtPdnBlb0FqalZ0?=
+ =?utf-8?B?MUdTSEFJR3VoZkNoUWFPTzVHOGYrVkdXSC80UDlHMWJEZ3FkZ2YzV0dDWGFw?=
+ =?utf-8?B?YmplSURzNE5Kc25WbjBoS0tHVDE1NFE3VmtGMUtBTit6UEM5OG9xQVdEV1g0?=
+ =?utf-8?B?ZHJLZS8yam9GWGd5d0tObSt0cWRJMjZ0Q2N2Rm5tdUptRVV6NGV0SXZ4MWhs?=
+ =?utf-8?B?aGUyNUJZK2VXYWtVUCsySHQzdWtQSlVQZ3MyTldtMjgvdzIraENQUUtnVUdz?=
+ =?utf-8?B?dmVKbmlVNERsSkNIS3ZRWnZtQnBMeWhiQjI5K3J5U2x5SFlUN2Z1R2ZDR1Bt?=
+ =?utf-8?B?WHRpUjNDRTJKY1VCcWRxWi9NcmxEbCt6L2xKUHFKRW8rQjdIT2V3cDY3dEl4?=
+ =?utf-8?B?OFFIQ2V4bmRvbWc2Q2NzdnRIOHhqUnBQV0dWblB4RXlVMEpiVStmMEJWYkFs?=
+ =?utf-8?B?OG00R1NFNngrcHBTNHh4MEEvd0Q1cnlsdkRzaGxrVEk2UWVtRk5NN0tvQkpW?=
+ =?utf-8?B?ZnpjUGkxZTArMXpQRzJDRktFRW8raVVOSnQvU2R0WmVzUEJqSDlOeS9WY3Q0?=
+ =?utf-8?B?UU1vM1ZtR01vbGt3cXBnRTZjTFN1ZkF1WllYSFJSZnQwcy9tRTdtbThzVUti?=
+ =?utf-8?B?czlvdkJNQ1A2cGpQMDdPa3oxeG5ZSEsyc3prYU1rUGczOFF4VkZKdmpiMGZZ?=
+ =?utf-8?B?eTZaV3BJWS9vNW5CUEtlcnh4VGhIak1sVVNmcXc0YitjRll0Vmt5TXBIVm9n?=
+ =?utf-8?B?NVY0aWRYSE1yMEZLSGNGNTMzQ2cvbzhEaTBYaGZ0VE5VUGQxOXFOTm5yTXBW?=
+ =?utf-8?B?UTA3S1htUXlDVkd4SFUvYWVSOE12WVVGNWN4SENxWDZWZCtRek83Mkx0TlhJ?=
+ =?utf-8?B?NDB4cEd5U0tGckE3QWVXb3hiQ3phYUhNdUtYakZlNGVUNEpEL2tBZHoxcVdP?=
+ =?utf-8?B?K1plMDBMNWtjQzlwblNCNjlNSzlBMHFDMjBlYk9QZTM3Q1IvMEM1MmlOZ3lH?=
+ =?utf-8?B?d2FEOGw5R3liNit6TUs1L2ZBTk1idjJSS0s5emEvS0MxTDRwMWJCMmV6ZS9l?=
+ =?utf-8?B?Z3RPeHRUaEhPQVhVZGFGTHNZWjZma0RCRDVlRTVNM1lQamt5OFI4VWhWaVAy?=
+ =?utf-8?B?OWZBK3B4Nm9nSmU5RktTVGVEOHQ3c1VDdnhvQUR5UzZWUHpDK08xUys4eFdl?=
+ =?utf-8?B?MFIyMndjdmFUTGhCS1VrR1JoWXZTU1JPQTlEMHpTTUp6cWtYZUZ0TzZPZk5z?=
+ =?utf-8?B?T0JQN3JVdUp1SW8xUXgwd2RnRGtyeFJ2MDdVeU9KRUg3SndFTy9HYjNGV0hK?=
+ =?utf-8?B?MzNnTHdqTE12czNHYm9mV1greWFKbHk4VGF2aEZIUWduS1ZtdXltdHYyMGdX?=
+ =?utf-8?B?Q3lQSzRmcSthWFJMQ2NsWWlETE5ubmdVQlFoYjUyMFdMd1Z2amlKUjU1cytF?=
+ =?utf-8?Q?eQizrPdTDhU=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K1UybU8rY2MxOFhQTUhhbGJ3dVBLeTRBM0M4VzIyR1dQQVoyTHJLQTc0UlNW?=
- =?utf-8?B?K2Q1aDNTTXh5cGJSeVRSMGZzYURBZ093WEx1R1p4Lyt4aXZVdE96WjdadHdJ?=
- =?utf-8?B?SE5FaXhVNSt6Yll2bDhTY1hMOFprMm43cWNDaUl1bjArclRnOHkvNFFVSDRt?=
- =?utf-8?B?MWoxYi9tMnFSUFE3Rk4vdzFIbSsvU3RuVlVndldHd2xtQmROa0JGU0w2cjFX?=
- =?utf-8?B?Tk8zOEc1aGVCZDJNT3Uzc1hWeG1XY3QyMnRDUUpxbytoZU5XYmQ1UzVWVFBr?=
- =?utf-8?B?Y0s4dWlwMkswS1RMQXJYTVgwa1JtOUwzQTN4SllETkl5VjZRcndVTk1GQjds?=
- =?utf-8?B?U0xVN294RVA2MzNOaDJVZ1lCNEtWc3h5MS9TeWRiRmxKVjNMaDhsSDZWTVBP?=
- =?utf-8?B?alFnODBXRE1jUTlwMmNkQnhPdlA0T2ViNHFMYkRnemF5aE1KaTBDMkYzeG5x?=
- =?utf-8?B?bmtUNlVTMll3dzM0aTdmdWJpSGFwbmxYbVBYQXRyYUdCeU9aaDNWZGwvbVEx?=
- =?utf-8?B?MmREMVh4MkhUcTBpb2VWdU85dXc1TlBUMExXTUpHRUJGc3BvL3M2eDdRT0Qy?=
- =?utf-8?B?bHdQV1VmOWdUZ3FESURwREp2c1BTYjA5OTBhdExoMDVIbXc2WFBjdlM3MTdO?=
- =?utf-8?B?Z3FUOWJBdHpoWFB6Zm1YQVZVUE1YWkh4eWR6VjVBMG83NE5HSTJtMi9TUFdY?=
- =?utf-8?B?Z2xyc3dwTXUxOElFNEpmcTZ1YmRaKzFlWHZsZW4zTTdDV21PSGFrVTNpUVcv?=
- =?utf-8?B?M25CcytydjVBdVBJUnRndDBrUVBNcUpVQlkvTzduU3ZpazdGZ2UyS2RqUHpi?=
- =?utf-8?B?bXFMcnlqVW03Yzh1NTYyeVlDMlVTUGlMdWlNSS9XSzNkZnpIUmoyMG5ZUWdy?=
- =?utf-8?B?ZU5WOWhodHl2d3VydHpQWklNMGtyVWhCNkFWeEZCbFJoRGh4Nmh5bEYxTndY?=
- =?utf-8?B?QWhNNkw0ZzRGQWM1YStIWnBvWHliZkxHYURWNTIvTlQvcFBZTHluSlZKY1Na?=
- =?utf-8?B?eXZIMnk3cFJWZXZPWmZUSHZOazhEbG50NTVLUTg2NkVKNFEzbFNBREpxNWFM?=
- =?utf-8?B?MDE2Ym9EUU1sMGFEZXRrYUpIT0tTMTNRa0NZa3cxaEpLZEgvRUs1bUlwVWFB?=
- =?utf-8?B?bE9NNFZFbWNXbW5odzI0bzhOdjZzT1h1dUc2UDd0aHVPdnRxQUthdkc1cmpu?=
- =?utf-8?B?OXlEenVUblRYY2dhRXgxRmpYSVZsMENhWFdLa1dQY1lSRWc2NFh4OVhiNDVO?=
- =?utf-8?B?U0U0RW9oQmx1bW5WcTlub0tuRXUxRk8xa2lZNFJnblc2ckQ2UW54UGJqQ0FL?=
- =?utf-8?B?WkFyWENVUStYZVNRdFZmR1dLK0ZSa3J1WG9uQTVCTk0wOEJNb2h4QWYycVp1?=
- =?utf-8?B?KytBV1VOc3lyOXc1YkdwaEZvUFp4ZnZ4QVBSQkJGYXNFSUx3THhoZFpSclRO?=
- =?utf-8?B?R21JNUJBVFZRMVVxT2l0T0QwTlN1RGtnaEdOMktvSSs3bjY0WlhmcW8xcitN?=
- =?utf-8?B?aVpMTUt4VzZOZHFTSDBwb2lKd1dBWGxyZStyUGdXWUNZR0cwUDI5WWNwZFIx?=
- =?utf-8?B?WXdGYzlJRTl0eElCNG5OcHN5UDRmanBCZ2Q3ODJ6M3RRdHJxSS9BaWhPd0VF?=
- =?utf-8?B?TW00WmNKZXdiQUh4bEd3bFdybllCQUhxOW5wVTFlNGtuNnd4UDE2Zmh3TDVm?=
- =?utf-8?B?L2ZxNk1VUmJwT0NPanhDTFZPWFZONnR0QW5mQU5HWHJGYW5RZWFXQkVGem14?=
- =?utf-8?B?enJOR2JwYk82MmpycGZzakM1YU1PS1g4YUlqRGxVWWdHRGNHakpQRU05NzBZ?=
- =?utf-8?B?eFgrb3p6TDN4UGF1N29HZHRwWFhjeFllNTluZGdYSTNveksvU3ZwNEN1SGIz?=
- =?utf-8?B?OHA0SjJBWWx4dXVQTklDS253RlhNTy9MNytURklUVFdBcjBBNnN4KzczZERW?=
- =?utf-8?B?YlNkajF0dXgvVUhTZFRuTVpOU1FrVnNVaUhNRzZXREJ3YkExbkdiczVRc2Rq?=
- =?utf-8?B?WElGRWhJWVpLem5nK20xMmFsZ3FzZnZnQ091V0FlZzIyNlFUbllPbWg0RTlk?=
- =?utf-8?B?cW5QWlhVdk5YNUgzNFM2TGlFaDV5MFAyb1B3allhbHZxSmFiOGlmb2pBN3VU?=
- =?utf-8?Q?GXpo=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UE5ydVdPUmVjeWI5bUxKOGZXdGZNaEpLZXU1ejZ5cHV1VFZ6ckNwRTdnOHVQ?=
+ =?utf-8?B?RXlpUGtOMTl4Y0E0UlVNWGZwNXlDUG1WcVZWZGR0Vkl0MGRwZTNQSGVOU1Nj?=
+ =?utf-8?B?MGo2S0JHMllsb2pFZmV2YUlNeUZjUmZQbE04QjB4Q0VnYzg1d3Mrd2lMc3My?=
+ =?utf-8?B?L1FTNUUzWHN5Vy80MTE3Y0czRTNCa1JTRHMvdEdqM3lLM2Ntb3VJYlFqMk44?=
+ =?utf-8?B?S0JFaGt6WjZqYVljN1E1bk96OWllK2JpaVNNNEx6aXJidUtGVFA3R0xwUkxN?=
+ =?utf-8?B?cGpOZE1EWjhnSGxtdjBwUUlPL1Z4dHR4cU1aOTJiVWdhTmtyVE1Wd25kSzV2?=
+ =?utf-8?B?aTg0a3E2enFPKzhBL2Z2cFFVby9DNU8xUlE0azY4YlQ1ZnZndkZkZVorTVVj?=
+ =?utf-8?B?SlJaZHJxT1VEVlM2L0R0SXlRUUVhNUlObURjeCtsT2hXZ1g5MTV0cWZJYnVC?=
+ =?utf-8?B?Y1lYdjFleGlrOHZPMzdsWFBHVjVMR0dWUnhuM1IvMzVzRGpjRXFURlhhM1Mw?=
+ =?utf-8?B?T0EvcHh5enk5VEgyRURCMXFONWVvL0lDYnJqN2JUK2EzMTlQNC94S3VDeFhs?=
+ =?utf-8?B?RVFBT1MxZk9RMmJXRTdUYTVFYTVXbzNibDU3RUt5emk1eUNCUFl4OG0vSFpZ?=
+ =?utf-8?B?ZkI3amxMZ0NrbFVsSWxuZGdLNnhlSVNDTFd4YllBTTlzd1RVQURzZWdtNFhL?=
+ =?utf-8?B?VDFKcjdlcUNHWU11SE05UTlDWTRRNmdub2lFdlNVaHJxUmRwb2lSWDVXUVV0?=
+ =?utf-8?B?QWRKZVcvaWJSVmVYNSt5eXh4WHZqZ2NtYVFzczlxNGw0QlplbjRaaUNhM2cv?=
+ =?utf-8?B?Q25iVDh4WnNZTzBlUVJSUktVRnFWeVBOVnFsbW1uZXlsWUdqbmVsWHl6S2dj?=
+ =?utf-8?B?Y0RPeHNoNlhHOFlobUdYaXBUSEI4eWQyMXd6c3Rpa2FoaWcrQkFVTkVyRVJJ?=
+ =?utf-8?B?UlAvOGtSR3k4em85UnZ1RGp0T1BrMlJObFJJclhWcFIyUzNwbWNXSFZ0NCti?=
+ =?utf-8?B?OGdVYkl3aSs5NmphM1N1V2poSFFSMW5mOG5TdTI5RERNQkh2T0Y4b3FZRVln?=
+ =?utf-8?B?NlhNYlBPS0M2b0hLUkJxUldJRnE1T2N4M0J1MCs3NVNSbmRza2QvN1hHeXRW?=
+ =?utf-8?B?Rml1Nnh4TFpja3o3ZC9VZi8waWVyVnBwc1JRU3JnUXFEM0FRbTgyOFh3SGV4?=
+ =?utf-8?B?eW4zNXlhandzd3YzTDFRYTl5R0tsMFoyUFVQdHV0eHV4TlQ4TjdzdjRNSElY?=
+ =?utf-8?B?R1l4ODRVVUpTeEZyNG9FaXlZNjQ4SXNzZkdCSEVIUE8zazVSRHoyaW5pbkEw?=
+ =?utf-8?B?cCtBaEcrT04zeHFjMkh0RS9WSW41ck1WbXN4Wjh3MUVDbkFSRTA1N2E2R2Rz?=
+ =?utf-8?B?MWdCYS9OSWQ4aHprZ3hQY3JBditxbW5rczRJbkVucGpYL1dMd2pJTGdsZ1Iy?=
+ =?utf-8?B?RCt6KzI4OHRObTBleGZ0WS84U25BNkliaGNZSExxdDFBMXoxem1RNDQxVUVj?=
+ =?utf-8?B?WjQySytrendjYXVIU1k5bVVmSERweVFFZTQzS1ZNaWhEWkR2SVFQbWpUK2xK?=
+ =?utf-8?B?MmEwc3pJcmZDdXMza1kzblAweTJqNDJoeUsxc0Z0TmJjSnhDQlBMR1EyOVBI?=
+ =?utf-8?B?ckhCQXZMaUFnT25QbUlyZTc1bTdVREVUSmJwSzFlVjlFbHhwNDJaNXpFNlZJ?=
+ =?utf-8?B?K3JKMkZGc05QMVlVUEZ0ZE1ZTE9yWUV3V1BjOHAvdlZ4VGZZNFlrS2tVcVBq?=
+ =?utf-8?B?WnRxM1hUVU9hTGpFT05hR0hVT09leGt4Z2lLN2ZZcS9jekJOZllIQUFZcW5P?=
+ =?utf-8?B?WWRGeUhlMUc0dC9lVmhxZXFqN242RWlWVTVlcWxYTUxvRzF3azNpS0FmSlow?=
+ =?utf-8?B?b1UySTYyWVpJcmxIbU5MdVp4R0VtK0E3RkxUc2dCRWFtRTNuRlo1S0JoeC9P?=
+ =?utf-8?B?ZnVzSWF4UHAwVUNLczZselNuN3JoTUhnbEFQMzFPVkZtZHk0aHZ5UEZadEVl?=
+ =?utf-8?B?WmIxSTBVZUdSQkxYREJ5T2xPV2E1SjNaMnJIaHhmZ0JFZGVjTTQ1R2JLeEZ4?=
+ =?utf-8?B?ME9XWkoycHBDQlBkWTd2SVZ3T0lIU0xYVUFYdk9Gbk1oZ0g4cnUya2F6Q1lu?=
+ =?utf-8?Q?mT2M=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4579137b-2b88-45d4-b662-08ddefae0454
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f47dbd6-d0b2-48b6-2c7c-08ddefaf9a98
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2025 14:34:43.7114 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2025 14:46:04.9789 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3U/KPwWRVV9yKY6xXw1/PSmSjRe1WaAUsBHUwRK4cOWqTMWr3AwDDrJWL4UEq8pD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8961
+X-MS-Exchange-CrossTenant-UserPrincipalName: dLwMc2/rJo7tcY5sRLM3M44QftNM5ZtRHDvvYlgycGNlnFRbfUufk67tUNVrILaQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6242
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,238 +166,130 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 2025-09-08 12:15, James Zhu wrote:
-> This reverts commit cab1cec78c8fd52e014546739875a81150f11080.
+> to get migration pages. dst MIGRATE_PFN_VALID bit and src
+> MIGRATE_PFN_MIGRATE bit should always be set when migration success.
 >
-> migrate_vma_pages can fail if a CPU thread faults on the same page.
-> However, the page table is locked and only one of the new pages will
-> be inserted. The device driver will see that the MIGRATE_PFN_MIGRATE
-> bit is cleared if it loses the race.
-
-Missing Signed-off-by tag, with tag added, this patch is
-
-Reviewed-by: Philip Yang <Philip.Yang@amd.com>
-
+> cpage includes src MIGRATE_PFN_MIGRATE bit set and MIGRATE_PFN_VALID
+> bit unset pages for both ram and vram when memory is only allocated
+> without being populated before migration, those ram pages should be
+> counted as migrate pages and those vram pages should not be counted
+> as migrate pages. Here migration pages refer to how many vram pages
+> invloved.
+>
+> Signed-off-by: James Zhu <James.Zhu@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 72 ++++++++++++------------
->   1 file changed, 36 insertions(+), 36 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 30 +++++++++++++-----------
+>   1 file changed, 16 insertions(+), 14 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index 5d7eb0234002..f0b690d4bb46 100644
+> index f0b690d4bb46..83b9d019c885 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -260,7 +260,20 @@ static void svm_migrate_put_sys_page(unsigned long addr)
+> @@ -260,17 +260,18 @@ static void svm_migrate_put_sys_page(unsigned long addr)
 >   	put_page(page);
 >   }
 >   
-> -static long
-> +static unsigned long svm_migrate_unsuccessful_pages(struct migrate_vma *migrate)
-> +{
-> +	unsigned long upages = 0;
-> +	unsigned long i;
-> +
-> +	for (i = 0; i < migrate->npages; i++) {
-> +		if (migrate->src[i] & MIGRATE_PFN_VALID &&
-> +		    !(migrate->src[i] & MIGRATE_PFN_MIGRATE))
-> +			upages++;
-> +	}
-> +	return upages;
-> +}
-> +
-> +static int
->   svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   			 struct migrate_vma *migrate, struct dma_fence **mfence,
->   			 dma_addr_t *scratch, uint64_t ttm_res_offset)
-> @@ -269,7 +282,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   	struct amdgpu_device *adev = node->adev;
->   	struct device *dev = adev->dev;
->   	struct amdgpu_res_cursor cursor;
-> -	long mpages;
-> +	uint64_t mpages = 0;
->   	dma_addr_t *src;
->   	uint64_t *dst;
->   	uint64_t i, j;
-> @@ -283,7 +296,6 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
+> -static unsigned long svm_migrate_unsuccessful_pages(struct migrate_vma *migrate)
+> +static unsigned long svm_migrate_successful_pages(struct migrate_vma *migrate)
+>   {
+> -	unsigned long upages = 0;
+> +	unsigned long mpages = 0;
+>   	unsigned long i;
 >   
->   	amdgpu_res_first(prange->ttm_res, ttm_res_offset,
->   			 npages << PAGE_SHIFT, &cursor);
-> -	mpages = 0;
->   	for (i = j = 0; (i < npages) && (mpages < migrate->cpages); i++) {
->   		struct page *spage;
->   
-> @@ -344,14 +356,13 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   out_free_vram_pages:
->   	if (r) {
->   		pr_debug("failed %d to copy memory to vram\n", r);
-> -		while (i-- && mpages) {
-> +		for (i = 0; i < npages && mpages; i++) {
->   			if (!dst[i])
->   				continue;
->   			svm_migrate_put_vram_page(adev, dst[i]);
->   			migrate->dst[i] = 0;
->   			mpages--;
->   		}
-> -		mpages = r;
+>   	for (i = 0; i < migrate->npages; i++) {
+> -		if (migrate->src[i] & MIGRATE_PFN_VALID &&
+> -		    !(migrate->src[i] & MIGRATE_PFN_MIGRATE))
+> -			upages++;
+> +		if (migrate->dst[i] & MIGRATE_PFN_VALID &&
+> +			migrate->src[i] & MIGRATE_PFN_MIGRATE)
+> +				mpages++;
+> +		}
 >   	}
->   
->   #ifdef DEBUG_FORCE_MIXED_DOMAINS
-> @@ -369,7 +380,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   	}
->   #endif
->   
-> -	return mpages;
-> +	return r;
+> -	return upages;
+> +	return mpages;
 >   }
 >   
->   static long
-> @@ -384,7 +395,7 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
->   	struct dma_fence *mfence = NULL;
->   	struct migrate_vma migrate = { 0 };
->   	unsigned long cpages = 0;
-> -	long mpages = 0;
-> +	unsigned long mpages = 0;
->   	dma_addr_t *scratch;
->   	void *buf;
->   	int r = -ENOMEM;
-> @@ -430,17 +441,15 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
->   	else
->   		pr_debug("0x%lx pages collected\n", cpages);
->   
-> -	mpages = svm_migrate_copy_to_vram(node, prange, &migrate, &mfence, scratch, ttm_res_offset);
-> +	r = svm_migrate_copy_to_vram(node, prange, &migrate, &mfence, scratch, ttm_res_offset);
->   	migrate_vma_pages(&migrate);
->   
+
+To fix the incorrect page counting, maybe add this check in 
+svm_migrate_unsuccessful_pages, I fell this is easier to understand than 
+the condition added in svm_migrate_successful_pages
+
+@@ -278,6 +278,15 @@ static unsigned long 
+svm_migrate_unsuccessful_pages(struct migrate_vma *migrate)
+                 if (migrate->src[i] & MIGRATE_PFN_VALID &&
+                     !(migrate->src[i] & MIGRATE_PFN_MIGRATE))
+                         upages++;
++               /*
++                * if migrating from vram to ram, don't count device pages
++                * which are not populated, this could happen if svm_bo is
++                * evicted.
++                */
++               if (!(migrate.flags & MIGRATE_VMA_SELECT_SYSTEM) &&
++                   !(migrate->src[i] & MIGRATE_PFN_VALID) &&
++                   migrate->src[i] & MIGRATE_PFN_MIGRATE)
++                       upages++;
+         }
+         return upages;
+
+>   static int
+> @@ -447,8 +448,8 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
 >   	svm_migrate_copy_done(adev, mfence);
 >   	migrate_vma_finalize(&migrate);
 >   
-> -	if (mpages >= 0)
-> -		pr_debug("migrated/collected/requested 0x%lx/0x%lx/0x%lx\n",
-> +	mpages = cpages - svm_migrate_unsuccessful_pages(&migrate);
-> +	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
+> -	mpages = cpages - svm_migrate_unsuccessful_pages(&migrate);
+> -	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
+> +	mpages = svm_migrate_successful_pages(&migrate);
+> +	pr_debug("migrated/collected/requested 0x%lx/0x%lx/0x%lx\n",
 >   			 mpages, cpages, migrate.npages);
-> -	else
-> -		r = mpages;
 >   
 >   	svm_range_dma_unmap_dev(adev->dev, scratch, 0, npages);
->   
-> @@ -450,13 +459,14 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
->   				    start >> PAGE_SHIFT, end >> PAGE_SHIFT,
->   				    0, node->id, trigger, r);
->   out:
-> -	if (!r && mpages > 0) {
-> +	if (!r && mpages) {
->   		pdd = svm_range_get_pdd_by_node(prange, node);
->   		if (pdd)
->   			WRITE_ONCE(pdd->page_in, pdd->page_in + mpages);
-> -	}
->   
-> -	return r ? r : mpages;
-> +		return mpages;
-> +	}
-> +	return r;
->   }
->   
->   /**
-> @@ -567,7 +577,7 @@ static void svm_migrate_page_free(struct page *page)
->   	}
->   }
->   
-> -static long
-> +static int
->   svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   			struct migrate_vma *migrate, struct dma_fence **mfence,
->   			dma_addr_t *scratch, uint64_t npages)
-> @@ -576,7 +586,6 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   	uint64_t *src;
->   	dma_addr_t *dst;
->   	struct page *dpage;
-> -	long mpages;
->   	uint64_t i = 0, j;
->   	uint64_t addr;
->   	int r = 0;
-> @@ -589,7 +598,6 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   	src = (uint64_t *)(scratch + npages);
->   	dst = scratch;
->   
-> -	mpages = 0;
->   	for (i = 0, j = 0; i < npages; i++, addr += PAGE_SIZE) {
->   		struct page *spage;
->   
-> @@ -638,7 +646,6 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   				     dst[i] >> PAGE_SHIFT, page_to_pfn(dpage));
->   
->   		migrate->dst[i] = migrate_pfn(page_to_pfn(dpage));
-> -		mpages++;
->   		j++;
->   	}
->   
-> @@ -648,17 +655,13 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   out_oom:
->   	if (r) {
->   		pr_debug("failed %d copy to ram\n", r);
-> -		while (i-- && mpages) {
-> -			if (!migrate->dst[i])
-> -				continue;
-> +		while (i--) {
->   			svm_migrate_put_sys_page(dst[i]);
->   			migrate->dst[i] = 0;
-> -			mpages--;
->   		}
-> -		mpages = r;
->   	}
->   
-> -	return mpages;
-> +	return r;
->   }
->   
->   /**
-> @@ -685,8 +688,9 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
+> @@ -688,7 +689,6 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
 >   {
 >   	struct kfd_process *p = container_of(prange->svms, struct kfd_process, svms);
 >   	uint64_t npages = (end - start) >> PAGE_SHIFT;
-> +	unsigned long upages = npages;
+> -	unsigned long upages = npages;
 >   	unsigned long cpages = 0;
-> -	long mpages = 0;
-> +	unsigned long mpages = 0;
+>   	unsigned long mpages = 0;
 >   	struct amdgpu_device *adev = node->adev;
->   	struct kfd_process_device *pdd;
->   	struct dma_fence *mfence = NULL;
-> @@ -740,15 +744,13 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
->   	else
->   		pr_debug("0x%lx pages collected\n", cpages);
->   
-> -	mpages = svm_migrate_copy_to_ram(adev, prange, &migrate, &mfence,
-> +	r = svm_migrate_copy_to_ram(adev, prange, &migrate, &mfence,
+> @@ -748,9 +748,9 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
 >   				    scratch, npages);
 >   	migrate_vma_pages(&migrate);
 >   
-> -	if (mpages >= 0)
-> -		pr_debug("migrated/collected/requested 0x%lx/0x%lx/0x%lx\n",
-> -		 mpages, cpages, migrate.npages);
-> -	else
-> -		r = mpages;
-> +	upages = svm_migrate_unsuccessful_pages(&migrate);
-> +	pr_debug("unsuccessful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
-> +		 upages, cpages, migrate.npages);
+> -	upages = svm_migrate_unsuccessful_pages(&migrate);
+> -	pr_debug("unsuccessful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
+> -		 upages, cpages, migrate.npages);
+> +	mpages = svm_migrate_successful_pages(&migrate);
+> +	pr_debug("migrated/collected/requested 0x%lx/0x%lx/0x%lx\n",
+> +		mpages, cpages, migrate.npages);
 >   
 >   	svm_migrate_copy_done(adev, mfence);
 >   	migrate_vma_finalize(&migrate);
-> @@ -761,7 +763,8 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
+> @@ -763,8 +763,7 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
 >   				    start >> PAGE_SHIFT, end >> PAGE_SHIFT,
 >   				    node->id, 0, trigger, r);
 >   out:
-> -	if (!r && mpages > 0) {
-> +	if (!r && cpages) {
-> +		mpages = cpages - upages;
+> -	if (!r && cpages) {
+> -		mpages = cpages - upages;
+> +	if (!r && mpages) {
 >   		pdd = svm_range_get_pdd_by_node(prange, node);
 >   		if (pdd)
 >   			WRITE_ONCE(pdd->page_out, pdd->page_out + mpages);
-> @@ -844,9 +847,6 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm,
+> @@ -847,6 +846,9 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm,
 >   	}
 >   
 >   	if (r >= 0) {
-> -		WARN_ONCE(prange->vram_pages < mpages,
-> -			"Recorded vram pages(0x%llx) should not be less than migration pages(0x%lx).",
-> -			prange->vram_pages, mpages);
+> +		WARN_ONCE(prange->vram_pages < mpages,
+> +			"Recorded vram pages(0x%llx) should not be less than migration pages(0x%lx).",
+> +			prange->vram_pages, mpages);
+
+It is good to add warning once here, should we also change u64 
+prange->vram_pages to 0 for this case, otherwise this could leak svm_bo 
+as prange->vram_pages never become 0?
+
+Regards,
+
+Philip
+
 >   		prange->vram_pages -= mpages;
 >   
 >   		/* prange does not have vram page set its actual_loc to system
