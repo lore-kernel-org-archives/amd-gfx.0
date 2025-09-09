@@ -4,152 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB172CA0FED
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 14:50:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE813CAC583
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 15:00:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9EC10E75C;
-	Tue,  9 Sep 2025 14:50:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9219510E75A;
+	Tue,  9 Sep 2025 15:00:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gN/gvV/E";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bJDPtxwe";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2052.outbound.protection.outlook.com [40.107.223.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1947110E78A
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 14:50:09 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2089.outbound.protection.outlook.com [40.107.243.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5013810E74D;
+ Tue,  9 Sep 2025 15:00:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=shwUSdnHEwBuOxQtL0OyFtR031a4u/1F83Mcsl3lgi7xJLR4yJuqcW5eZob39kVTqI5MeZf2i5QtVt/Mimv+igf/bRXK4IzrUp67fuz9y67TkbSoS49CIlxjlc703pTUfQh3SS/pgB5eCzGmO5z7lwq8FxBBiRGVvL3xlKfwHJkdSfQUnLqs69JUVzvSQI/1dH51FS8PywXLiyyRp3jCB3SbBly7fBTtsRcbGnJ5XRDZD2Wpfjy6FZ2vsg1C3Qh7CXZ88tiTR/mTnx5wD2Ke7LI/04qbC7kfXhpWsA5c9zORQ5DXUtokhL6EhCiyhA0Zzjehs4cRUUnFdE0ykd61bA==
+ b=bur2y7t8mstzCs4IkjcfZF4BsdpgPRTkbYizSVx2UxOsW2NiCxm4bHRGEAVkyAIJ2nSgH2khczWBdzd4m6V3ylwwgcFLfXctbI/Y54Uv9SYf7dec2KsNzIV6JsN1TiyKyoBLhyoKwgRKynBNouU8s80igRvwwd+1TcBLxfaFvfVoRajC/BezCB5j2lJro3zr74bh75OFceIxXwfuofs22dNsGkhTGWsswA4BpgvZdF+V95jfPv4wyo9DhxNkxcBnpTO915Kt5N6YT0lLLZDymH80aFiPekxuM7om8KUR954ihzbu9jWMSoMFTaR8hxKgnHmLhOUlRN86bnAkWyOdhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hOdVoMlYO+HufwWDPKeu+brrauNtskg4TfGaRH/uAzA=;
- b=eyP+ARjSLnTeagDgsdc/B4VqoarUtNwqhXUub9hEY2nh3Xb9cNGZM9GKTIXnqhgDsQaMHBhwpxH6bfCDAnRaKgPje4argV50HlFRhwXRViS5VF8az870Hu5jqxt9m3M4nlj1Oe59JFhtNjvLxHn1FO3Xab5fdxU0D+b+40lsec8KPRKEprrezuhwVxMZzE2EIxoqPrwY0xaBm5hyZ+g3lSAAL5KERo3wveVQvtAgf0BuIx+e90fBkP19QBrQaXvU4SVp4yET5str7qnAvsIiNQB1PNnkGO9XXY4vfCjUe4Bats4lnK4phraShK9KrJKNLA91d4Kzg/CWXMkIZvkQwA==
+ bh=K59APmL/gFmCabTVCLFIsLIri24ISOQXSEE+Q1arEos=;
+ b=GDfb8SibEn/NVGYd6bMptJmvfJtNs+6W+uUnzwOrxxY/xlAuimHL5d3AVtUWANq55tX8wUuHFdghG1RwuBxIP0Yq2zE6QBudDgAL+kfH4rkMfS/0nIPpMIlf/89+GvAuWckTq3wetN5BKPeSzsRjrFkW9SZjPWaWy91a696w4rcBs3aQ+3JBaezPltnoXGxltegGvHfG6p5B+cfS0DOZSC9rYr0oArvSY5FHDNURtwZRzkjJU0vWLe1x/aKq2+fqon1cmlI8RllmU0PWCi5CThmC3x370lFaoKI4hky7JOo4nDNOVT/9EgN12k5Ii/t/70Zf0iTnCWbPTk+/SCdKsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hOdVoMlYO+HufwWDPKeu+brrauNtskg4TfGaRH/uAzA=;
- b=gN/gvV/EmEl5EJTrIpRU9dgN1piWScnHRZhA03x2nyTnmuAdj4cYFFYQ4kae+Hxt21WjSWcK/egUYTB8WH3n8II5Bz+aZBJKbFXxE6Em4tdtecXU7c4UcBNt3rrN9Ryv/iTYbb/uqW4D8/AP+bxmNHecL+DEZqNF1B0aHgXb1z4=
+ bh=K59APmL/gFmCabTVCLFIsLIri24ISOQXSEE+Q1arEos=;
+ b=bJDPtxweagEB5LH3FTbvP6CmASpPxA5G6myRCIKwf4jnBLsDTxmj6N40PvJ27IU7dzB3Q4wwVEpfLdfZRItHe6TnRk2prOLwgUjLpDHUFLX2InJwFzW9y0NFNoN/OHw1UfV0IKNGPDWlk69cheXrZD2hUJxSjKCXOanlAUZ3veI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by MW6PR12MB8705.namprd12.prod.outlook.com (2603:10b6:303:24c::18) with
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by SN7PR12MB8001.namprd12.prod.outlook.com (2603:10b6:806:340::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Tue, 9 Sep
- 2025 14:50:05 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da%4]) with mapi id 15.20.9094.021; Tue, 9 Sep 2025
- 14:50:05 +0000
-Message-ID: <a18b2b22-4d43-399a-640e-704774fdddd3@amd.com>
-Date: Tue, 9 Sep 2025 10:50:02 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2 3/3] drm/amdkfd: free system struct pages when
- migration bit is cleared
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.12; Tue, 9 Sep
+ 2025 15:00:34 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.9073.026; Tue, 9 Sep 2025
+ 15:00:34 +0000
+Message-ID: <d3bc5c52-345a-420a-bf92-dc4b56c5cc97@amd.com>
+Date: Tue, 9 Sep 2025 11:00:30 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/amd/display: change dc stream color settings
+ only in atomic commit
+To: Melissa Wen <mwen@igalia.com>, sunpeng.li@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?=
+ <mdaenzer@redhat.com>, Christopher Snowhill <kode54@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20250901214413.12675-1-mwen@igalia.com>
+ <20250901214413.12675-3-mwen@igalia.com>
 Content-Language: en-US
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.kuehling@amd.com, philip.yang@amd.com, chengjun.yao@amd.com,
- jamesz@amd.com
-References: <20250908161526.99413-1-James.Zhu@amd.com>
- <20250908161526.99413-3-James.Zhu@amd.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20250908161526.99413-3-James.Zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20250901214413.12675-3-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0095.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:3::31) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+X-ClientProxiedBy: YT4P288CA0080.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d0::15) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|MW6PR12MB8705:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58129ecf-a202-4ad2-15c7-08ddefb029d6
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SN7PR12MB8001:EE_
+X-MS-Office365-Filtering-Correlation-Id: c10317ac-5086-4ea0-8566-08ddefb1a08b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TmR5dUtRbEpMd3l0SnFBR1hCNlBhMjd0ZTdBUy9VZHNXdUpHTzd0WThxTEtP?=
- =?utf-8?B?UEpmMXZORFRGblJBRW5UL01xSys2cHgweFY5RnkxSFVxS1czVGd1azdoNTFX?=
- =?utf-8?B?OW9DalVCaWI5RmdTR2wvbFRZVDN6N21RWXJ4SEJqVzhabEV5cHNOODhVME1u?=
- =?utf-8?B?ZlNHSjJSMzlzSi9mNVFjaHBwZ05IOHRnRDRJUlpXRFBYUXVMVWJZNXFaV2Zo?=
- =?utf-8?B?UENCNDZaTHlMTFdaL1JoYXlGeU1IdG9iQ1lDaFFjTkhGd0lHNXFaQzhzNWZK?=
- =?utf-8?B?WXB1YW5NNExjWWlGWlJUOVR1b0ZqUW1YNHVFOTNnZUllQmRZK3NicVlrQkRv?=
- =?utf-8?B?aEIrNXVvT1FORWpTcFhlNnlrL1BYcFlZcVk2dU5uNllJVHowUVo1NGsweThn?=
- =?utf-8?B?Q2NhL3A0bmlLUG1tYkU3cEQyL2FmRzlSWVp3cUxHc3UxNUYvemhPOFdZeUpL?=
- =?utf-8?B?VmFucHFMUFAyRDVycXVHVEN0aXNsdit6QzM4YWRZQUM2VGFEMWUrc3J6TFZT?=
- =?utf-8?B?bWZPZ0hpNGdiRU1ZbTM2dHFQSUJGK1JTN1ZyRHh0Q0toMmFEQVpEc0dlb3ha?=
- =?utf-8?B?Vk5xYnhzbCtOb0tVZFV3MDlPSlJycDVFdXpLUEFZSUtyaXZwSENJSVNNb2l6?=
- =?utf-8?B?VkNpRk1mS0NpZzdMeWhXSnNJcXN2eWlWYU1tTVJVMDlBL3ZoVy9vdWlaN3FQ?=
- =?utf-8?B?bWhOVU50MEtLdjl6bjRKWnlha2wyYUpXUVp6WExURk9JOEZxak9IekV1MTdB?=
- =?utf-8?B?VmU4My8wOWhWR0dPYld1RnN3YlpVVDJOMGMyVjhndHpRbDQ4T0Z1OFJMVkEw?=
- =?utf-8?B?U1hIYzJqdnVCcEF6cGNHMHdGR21uVVllbVV1OWFsVkVEZEVoMm95UVp3dEJV?=
- =?utf-8?B?K0lndEFuUlZDT3ZJYkZ2RmlvVG1qUjdJZHJtN0NFTmdEcXE4MEt3Q05ZTTZZ?=
- =?utf-8?B?WWV2Z0dlY0lzaVBIRTNkTTdpR1Q5WWRUS1JGK3g4S0tzN1BQcjRYL2JBS1Y2?=
- =?utf-8?B?eWhtNnA0eWs4dHlCbTI0RTFJQy9wb280c3puZGlyTnk5MXN6dTdnOVRlMnh1?=
- =?utf-8?B?NmxtVEFyaDR1RURXZWthczYrUUtrMC80bmp1YnBJakxmam9Tc3VvSmwrMDZv?=
- =?utf-8?B?Nk15VThaR0oydlZXaDdNejFWbE4yVU9IUGZ1WFJ6bElCSFVrMVZpN09UU21L?=
- =?utf-8?B?VENjM1RuN1BaM2ZyZ3ZPbndsYjlwdTMyb2tMclphbUtiY0hDYXh2djBMYUdk?=
- =?utf-8?B?ckl5a1V3Wk8rVXlQZ0VpSG9wd0o5YWl0blcxS0d2ZnN6NW9pVkJ1UXphcmNJ?=
- =?utf-8?B?bDdndVRyZXR0TjViUkkwR2d0MTBtTElwNGtwQjdQcW1CS05QWHdKVnh4Vzc2?=
- =?utf-8?B?T1VZUFF6VVdrQVZVUHpXV1pWKzdiWHgvdUNJYmd5T2F1bm91UERRSzVIRHBP?=
- =?utf-8?B?dEJFTXNGNkVkckRVTEhLSG5uSmNqM1JRZDcrUjhSWVZ0cENBMU94Ri9laU8x?=
- =?utf-8?B?V0tMZVpLdXcrVjMyWThubUQ0T3JzMzNqb2hLd3pzVGhhV29VTk9OdFYvSkND?=
- =?utf-8?B?ZHdRTkZJajV0ZzM5Mk50cU9hZmhHOEJoeVM1dXRMR05BMVBDYUZUOWtqSXd1?=
- =?utf-8?B?aHpFRnlwazNpYzNid2FRZkVqV2p2TElPdW5IZGN1SXZCN0JkTWRSUVJiZm02?=
- =?utf-8?B?NU0rZVE1YXlvS2VIMnFWbGJMMkVGekR0Yi9wTFpHWXQyenBFcGNCTjNKdkpz?=
- =?utf-8?B?MXpSbmRTQzJ2bjNSUU9uU0JnTExoMy8rTzNocHVXTHgvVy9GdlMyNHRKQ295?=
- =?utf-8?B?U01Ua3cwbmJRYWQvRjRCSmlES2ZOcWR2cWNMK2ZSb2lMaGdwRERaQmJacTEx?=
- =?utf-8?B?bHlLQytrWnpKKzZRUGdTUnBlRmZXQWdFQ29uMmlwakJ1c3g5azFsZjJYZlVH?=
- =?utf-8?Q?Wy5uHsBdfCs=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WmRsTWhmbXNtVFFiVGhxVWpkb1cwMURsMlhNdG53M0RhRUM1YzN1ZWJVYkdK?=
+ =?utf-8?B?d3Zwdm54RVFpUjhGZlhXck0vRDZCanc0U0kvc09wNjB2aTlmUkk1RGxCVS9a?=
+ =?utf-8?B?SDFXVHViYjhBMmIzNnhreUtnOW9GVDQrZU5PeXhkVkxPc1hPSE1yWG83bUhv?=
+ =?utf-8?B?b2QvZkxGL1JYZ1RHUnFsQTZaTlVqSkMxT0JTRnQ5OE9kVFJGTHB5RFJzeHZJ?=
+ =?utf-8?B?SjhCVkt6Y2RreUdFTmpiRE9XMzY4SE43M1lQRENlbUg3NE1ST0pWQktQOWR6?=
+ =?utf-8?B?YnhWL3l0WE9KcmhqNE9YU2FRMWtldnpKU09pcUN3YXVYc3M2anBoQVZJbmFS?=
+ =?utf-8?B?dm9idlR3cXlxMHlnUjZGVjNRTk9KV21yTXJsSjRxc3g0ejVjMFZ3TFk5WUlK?=
+ =?utf-8?B?eTZXanlDcVRkRW83QVZKa2ZscDQrZHVkZjNuZWtvenBsMit5d3RVOFBzcm55?=
+ =?utf-8?B?aEJsakZVekF0T2J4YUszT3VnU3VOS2xRU3hFVm9YbEMyV2RQTDYrNXNPanhG?=
+ =?utf-8?B?R1VXQWFUZTlRK3B0TjVFZXBZQWNDSi8zbnFpVVdWeWdkTUhVSmdKRHM1NWNn?=
+ =?utf-8?B?VVE4T2VEVC9tMldqSUlkN0tLaDVwWGo3Y1A0UzZkanhlWFR3OFNpbjE2V3R4?=
+ =?utf-8?B?Q2hiWVBJdHU5TVA2K091ZEVMRkZTYW1nczF0SWdrR09vVXpQVDZhc3o2cWh6?=
+ =?utf-8?B?NnBNTEJXVHhMM3VjOFJQOE4vUUVKRk9VT0tINHBBMEpkaElLSmlvQ1RNVyt5?=
+ =?utf-8?B?elo4Z3k4ZC9uQjc1WkFHdGF6SkNWTzFDbFRNWC9CUlpuSVlJOHAwd0pCUnpF?=
+ =?utf-8?B?TVBGUUwrWVFsbWhKb3Z5Y1U0N2NGN0J5ZEFpa01TVzQ5a1IzZHUzdk9lOVRL?=
+ =?utf-8?B?ZUtRa2QyNDdtbEo0NWQ5M1I0bDlXdVdYeHZVSVV4UHdpRHRwRmIrWjQrOFUz?=
+ =?utf-8?B?REhMODFhMVRyUEozU3ZXKzRLdU9Bc21MU09QbksyZm5WaUJNWlJoUzBqZE9G?=
+ =?utf-8?B?dldYc2JUbFJ4UnpUNjJaTXlnV3JOQndzQWJtVDRtMU5FaXptbVQvYVQ4ZkJu?=
+ =?utf-8?B?bGNmZE16T0MrUzk4cVRQd1JpL2lYZFl5bDJHZXdkbmF3WHo0bklYTjYwNWJw?=
+ =?utf-8?B?Mkk5K3BZd3FUNW8wUmJoenZIMUNZakRTays0eVBWQjFlUHptNzl5U0RoSGVv?=
+ =?utf-8?B?dTl0ZjlYMm05cjdUc1EzU0ZaZEFFWElVTXdLK2hRVWd3bER4Qi8waTd1RzdP?=
+ =?utf-8?B?eDhvdlFUOS9JK1dtRlpmU25PRWpOL2ZWYnJVb091SXptQTFxbGd0ZS9DTHkz?=
+ =?utf-8?B?S1hkaUMzUzZGQUEwUmh2d3R3L0d3UHQ4RzdRdlZKRlFUQVB5UDN6OWJEdnZN?=
+ =?utf-8?B?alUxZGoxbHA2YUVINE1JNWw0N2ZXeFp3T2c5VWxKWmZaV2tKbXRwdElNc3pQ?=
+ =?utf-8?B?OW5tbTVTYmM1dFNNSGV4K2xzQmxpOE51bUdPSWNSSVZienkrYmpPWHJRSWRS?=
+ =?utf-8?B?TER0WDV3Nmx2dG9zZENJaEF1Y1hnL2Z1TnRzdVZ1cjBIeUVLaFlFK1FoMlZQ?=
+ =?utf-8?B?T0dNdVBkTDF4dUk3V1RyVWtMbGxhNzJTTE9OaVlPMXBrUVJUSFBkc0V3aTh4?=
+ =?utf-8?B?RnNlcVRibUxJUit6K2YvTU1nd0lFd0MvZEg4cjBVMGJyZTBZN0d1a3NKbXc4?=
+ =?utf-8?B?clVqMVVHY2thbmZLOXUxeVNkUzRIalJYclU1SHViRHdPNWNhR3h5YmoxMDdx?=
+ =?utf-8?B?ZlJJN1dVQ1FBWkxWU2Vwalh3SXZzRjdmbUx3MyttWE9FN2IxNlhVRWtPRXFu?=
+ =?utf-8?Q?0yS7NfSd9XRTMhTkKYTGNeLdrJUP8I6/4ktTc=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eDNoNWs1VHV6Tk4vcmxhRDlJaG91NTFXUkFwR0g1RHNOcGJYa2c2dWdmV05Q?=
- =?utf-8?B?ejl5UXcxVytqSTJtaGtnbnFPSWd0ZGVjTDArK21RT2VWUWJHcG5OL3Ryd2xP?=
- =?utf-8?B?Qnc3b1o1NGEvQTk2RWdjbTJjeEtnTXpUS21SZ3pUY0hlYWRwdGJKQ0xpNUo0?=
- =?utf-8?B?OVV1OTZWdUlLKzdSTTFDS05JTEhaWUV5djljd2p6VHdkUndoOVp2aGh0bjNp?=
- =?utf-8?B?RC84a0hJZ0F2UjVYcHprR24wOWdYTi83RFI1c3p0VUZqT3VRTHNWMHd1Zm5r?=
- =?utf-8?B?eURjeHNoeUV4VmxwemkzMSt5QTcxWTcxVG93Z2ZzaGh2dTVvam5WS2N0aFdv?=
- =?utf-8?B?ZU9FZnNIQVVxZndsOXkwMVBaM0Y3ZGMyaFh0L0hmazlZaFpsYkhiN1dBQS9k?=
- =?utf-8?B?eDBJcDNuRGZOYlhXT0twaHFEUGJueU5ZZVc3S3NjNUlUbU5jY3FaS29qaVRt?=
- =?utf-8?B?N2RRZ2J3SlpGODR5bW5LWnZRMEg0QmQvRlF0K2tOWEIveFo1QWN5M0NVTGtO?=
- =?utf-8?B?dHNwYVpYVlR3Mmtuc1loY3BRWElObXNUVGdZY3BkMVFkaVhjaWZXVjdTekhX?=
- =?utf-8?B?TTk2TnRUeENySS9OTHN5QVhNZzdjSWpzais2dUpFZnVYU1VwR3VSQTRZM3Y5?=
- =?utf-8?B?MTFZVW9jRHFqOXovMjk5RG9hb1JpNkwxY0VPeHB2czB2aHVlUzFZRDl3Vlgy?=
- =?utf-8?B?R00xclFxTUdCWitobHR3QkZ0cGFpcVEzSC9wS0lmZXVLTTMyQ0JJWXQrYWpY?=
- =?utf-8?B?bVA1dkZPNVRSSXpoUWxxNGxUR3VGaTIrWFNiUFBxV3Iva0NBZ0o0Z0dOSGtU?=
- =?utf-8?B?TkM3ZmR4VlhnQ1RnNmFwU25oSFhpcE96UXhQb0FmcmZoV2Q4WlpOaUpOd2Vk?=
- =?utf-8?B?MXFLbmpDeVMzOVM1VUFsUkY2M2lRODA2QmM4L1N0T1BEcVlubEFtc3JoSXFX?=
- =?utf-8?B?UEdNaGdoYlBEQktKNUg4T2VLQjRJWjZSYmIwRm1tNUo0bjRxWXhaajdkakJ3?=
- =?utf-8?B?SnV5UFZ4MjNPM3ZsVExwcnRsT01QUVNaNHY2cGx4a1F4Y253ZzBtSysyQUsz?=
- =?utf-8?B?ZUdMWFR1Z3QweEtjL0poSGJxVURVYi9iTGYzaWo2cGpiNFFySGd1M1U1bVVK?=
- =?utf-8?B?cTZBc0NyOW1uQnJCV0Q4dGlpalBDREpSeFRpZkpscStBY2xYRFRVQzBCTXdC?=
- =?utf-8?B?QzJEdUxCczZ6eTRIOE5RT2NmbkcyMlJJZ1F5bHNMend2UG9JSmJJaHdBTTBV?=
- =?utf-8?B?b20wYVYwSzdHNS9lVFdzbDczZ0dyVnRqY1ZQU3p4VDYvbzVCWTdIVEN4SS9I?=
- =?utf-8?B?OTRxTXdLR2xLODRNb0lnZmRFT1ZpaDNFejljWTBzRDY4MmlTc2JNSmxaSXFl?=
- =?utf-8?B?TVN0L0FWZUpKVWI2blgzQXZ6Q0ZJMzVuNXVUbnl2Ulc0SFl0aXhSNERsck00?=
- =?utf-8?B?QzhDQ0liS0piVXF4OVJQUlVIS0k0TFhMQWZvYTl5S2FzYlNoSHQ5UGhtNWJP?=
- =?utf-8?B?YmJkc0hmVUo2NWdZSlc1Ly8rL2RLT0dGQVVNWFFqNTRKMC92amlKVGcrSFBU?=
- =?utf-8?B?QTBlTXlERVduTEpWUmNqYTRETU5kNE5xRk9tSnpoZUJjNldSZEQ4TWdBQVM1?=
- =?utf-8?B?ck5Yc0dBRGZLN2hzMWJkbWEwb2t5SG5jNDE3ZWpxQ3owNExyK1p5NExhV0dP?=
- =?utf-8?B?d1V0eXFWL3k0d3AxVjRoaWRhZUpSVkVaYUNzeTRwTFJPNGV1Umsyb0ljSDIv?=
- =?utf-8?B?QXZKdUg0eFNQaWZKNnpXNTZQRmxENGhjdWxjQUJnSWpMTWQ1VEhSSGxhRmFT?=
- =?utf-8?B?S1dmSnJabFhSWUhreFJZNGhLTXordFcvVVBub09ZRVJmZWVRNWJPVCsrL0JU?=
- =?utf-8?B?c2tsMzllaTRIdW5hOHl5QXZseDdjbFkvTFZROGJVTjJrTWtJUXBWYVcrTjRS?=
- =?utf-8?B?SWE1TWUwejhoVWdGQmcvalRYcEh3NWZ4eUJudlFJWTltTW9yT1E5Q2pCdVI0?=
- =?utf-8?B?THBwSnlvWjdRdTJGS2pwMVh0RjFBWWRUTWpuWGhOQldZNi9QSDdCU2ozRUJE?=
- =?utf-8?B?VWp5dTFodnUvM3MwdUR1ZS93TTk2Yk9XNkJGUnN6ek5vZ1dVTDNhcUgrcWRS?=
- =?utf-8?Q?h0yE=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UGhHTnJxdzN6WmhDUHp1OFNsU29sdi9aVnBKT01qWVZUTTZpZW5vaHlsQmNT?=
+ =?utf-8?B?czduWEVKR25aV3p5WEliZmZPQnI3RVk5MU5lMnFnNlBuMXYzMnBabzFDV3Y2?=
+ =?utf-8?B?aUF5ZTZ0N1N2TnAxd0s5Z3R0YTJBZmJoYThJaWEzWG5XYnFCNHlWbFR3Qlhx?=
+ =?utf-8?B?clAwUWtvVnUvZmZsQUFIN3VKYWdEV28rWmV0MGMvT2FkdWZQSU1jb3RHajNw?=
+ =?utf-8?B?MnBoK2ZkNGJMODBMVU9HOWVkRGNNM1dUWGlzWkN0SlhHcHpOUlRGNStFd25K?=
+ =?utf-8?B?N0xLcW41OWRYMGc4OWNjbjhvT0pBSEtzWm5xMzBlQlpQdWg3dzJNaVZ5eHlY?=
+ =?utf-8?B?NDhDWEprVDZYamVYU2xETnljNjUwbmtwWXpzTnloV2xlS2hOM2NCb0N0cENw?=
+ =?utf-8?B?Vmt0Sk5wQ0xJWFhsci8rdkR1Y2FnYkE5WmhRS0xKY0JERHBrTUNmU0R6TG1Z?=
+ =?utf-8?B?ajZ6WE1RdFl6eXdBdzNXWklNbXl0V3IyT1ZxRzhlZWdkV0s5MThHZjZlU0Qx?=
+ =?utf-8?B?UkowbG1VYWhMeHNNQ0U5UUdDVHVEZ0g1bmxoSktoVGNKdGhQR0xxMEZaQ0Fh?=
+ =?utf-8?B?VDFZMGRTMnZxT015dVN6bEJKbWRzYk5QZjVUZ1hSeVpXSS9ZTFNjZ0p1amt0?=
+ =?utf-8?B?TnphdlpsUFBwM3IvLzBWVVpkSjdNT3ZjZ293UXR3N0pjNjFQQ1RubjVHWnBk?=
+ =?utf-8?B?WnVCYUFDdkw3bExRbm5ZNVM3TUkzVVAyN0ljRTRyeWplMzJtQk1rZ25qTDQv?=
+ =?utf-8?B?NW1jblRVbHQyZ0dZUmJLQ0NjZTR6WFFXNzdQU0hueXl0Y2F1TDJtSWsySzQ5?=
+ =?utf-8?B?c2dRL2t0WDdUVFd4WDVkVVUxREFneHFDVzVGRUdOdXVaeTl6ZTh0OFA0WG5z?=
+ =?utf-8?B?ZWhpRktvSFhlOEFRMXRZZlFjSnFDcWwzazFhbFVacURYb0FZcXY5SGd0QlBY?=
+ =?utf-8?B?RkFEU3k0YjFNMXNKQUVrUk9KbEtqeVgxV3E3NVVKdFhXcFNoZi9hUTdDSTNW?=
+ =?utf-8?B?eTVGZzIvNGZCN1RwY0VQQml5NDcvekp3c2s4SGZDSlVyQ01ucmhOQ2FhN0R1?=
+ =?utf-8?B?eXZML3JsVlhHSmhwYVlLeUtzTHFJZm9HV1NjeWN3emRuQ0lUM2JXaTM0L0x0?=
+ =?utf-8?B?UVlQOFcxU01UcHlLWXF1RXNWVTF3TUxWT0c4QjNqV1Z5ZnBPd0l6bG53RG1J?=
+ =?utf-8?B?U3U5NHU5Q1lrMjVwOCtTMk5VcHE3b3JXZytiVHcrc01mUjU0ZEFwMThocjRu?=
+ =?utf-8?B?dVZGK2pXdGt3dWdCeTJSMVZrQ1l6ZFA0WGNnemhvaCszOWxCYlNybWptdXU0?=
+ =?utf-8?B?RHloM04xaFp3N1cyenFNYlNNa05mTDNjNmovWVlvWW1DK3dXcGIyaDh6TUJ2?=
+ =?utf-8?B?UjJuWEQwbXRieE1aTHNNVVkzR0UxNnFBbkFJRGFRVnV0dWlaZVZBUlIvRWwz?=
+ =?utf-8?B?U0pXN0ZmN0t5bC94Z3RaK2tKS1ZTU0J5WnVTN29DQUlqU0R1NU9tWWJHemxI?=
+ =?utf-8?B?S2ROV3FBNytHSWZpU0lWNTZJLzArdnRQTXA5YzdSbnVvbFBBR1k5VW1zcVhR?=
+ =?utf-8?B?Q29yQ3dQY3U0bW1xbkFkMi8xSyt4dFlSY1VYUmtxRm9XV0R3WUtqQ2w1ZW81?=
+ =?utf-8?B?SndMamM1NlZDNmhoREpoNVJocFZXSHhFK1hZdHV2cVNrWjBCSFc1MVRjcjhh?=
+ =?utf-8?B?L1QvUzRPMzc0RDlLelZRNVJZTkxxaGwwcklTenBwdmFZbEx0aVNxcFR5Zklr?=
+ =?utf-8?B?VDliMFlpTU9IeEk4UERjYml5c2Z6cjE3OUFqWVE1dm9hbTBROEdJNkxWYnBz?=
+ =?utf-8?B?cWhvcGU5ZVp5cTA1OTlGRFRaNno1dzdtV1JnN1FxWEh4akhyUDFmV1YzTGth?=
+ =?utf-8?B?S3I3aU1GYmlnMEo2QXV3YTBwUDVneCsrdXVrREhNZGo2bktvKzcwT20wZEpp?=
+ =?utf-8?B?ZjdRckw1aEpUVXhDUXppby9DRTBTUEo1NWdXZzNzRGY0dGo5T1JyYWJqOUhR?=
+ =?utf-8?B?aU5odHVTbm9aelJ1QVR0WXVtaG9GN0ZSck1CZ1U0N1o2RWw5WGsrRkxEU3Rq?=
+ =?utf-8?B?WTM1M2RnNEJHZlpHTXJHTFJ5bldZOEEvbDh0SDl3Mmh2S2ZMdWtRZTlwOGI3?=
+ =?utf-8?Q?6IRjbsIF45OusT44s+tQkGuKw?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58129ecf-a202-4ad2-15c7-08ddefb029d6
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c10317ac-5086-4ea0-8566-08ddefb1a08b
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2025 14:50:05.2850 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2025 15:00:34.0804 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: czR2UcJGtCO6AV4qZEFGvvaR7EWqBdD2Jss3xGrqN5w9TaUa2pz14DZ73cYlAaLn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8705
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7hFT1NstvJC6/kgpXbTjI26LDcNXnuDeORxuBP5JndTllDJ/55NfBNNhO3kHAJWBkPWlGRFrUS2Pv8D08oCVCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8001
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,70 +166,207 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2025-09-08 12:15, James Zhu wrote:
-> if destination is on system ram. migrate_vma_pages can fail if a CPU
-> thread faults on the same page. However, the page table is locked and
-> only one of the new pages will be inserted. The device driver will see
-> that the MIGRATE_PFN_MIGRATE bit is cleared if it loses the race.
->
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
+
+On 2025-09-01 17:33, Melissa Wen wrote:
+> Don't update DC stream color components during atomic check. The driver
+> will continue validating the new CRTC color state but will not change DC
+> stream color components. The DC stream color state will only be
+> programmed at commit time in the `atomic_setup_commit` stage.
+> 
+> It fixes gamma LUT loss reported by KDE users when changing brightness
+> quickly or changing Display settings (such as overscan) with nightlight
+> on and HDR. As KWin can do a test commit with color settings different
+> from those that should be applied in a non-test-only commit, if the
+> driver changes DC stream color state in atomic check, this state can be
+> eventually HW programmed in commit tail, instead of the respective state
+> set by the non-blocking commit.
+> 
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4444
+> Reported-by: Xaver Hugl <xaver.hugl@gmail.com>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 15 ++++++++++-----
->   1 file changed, 10 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index 83b9d019c885..eb43542896e0 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -260,15 +260,20 @@ static void svm_migrate_put_sys_page(unsigned long addr)
->   	put_page(page);
->   }
->   
-> -static unsigned long svm_migrate_successful_pages(struct migrate_vma *migrate)
-> +static unsigned long svm_migrate_successful_pages(struct migrate_vma *migrate,
-> +						bool dst_on_ram)
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 105 +++++++++++++++++-
+>  3 files changed, 104 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 9bd82e04fe5c..ba40346eaf95 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -11125,7 +11125,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>  	if (dm_new_crtc_state->base.color_mgmt_changed ||
+>  	    dm_old_crtc_state->regamma_tf != dm_new_crtc_state->regamma_tf ||
+>  	    drm_atomic_crtc_needs_modeset(new_crtc_state)) {
+> -		ret = amdgpu_dm_update_crtc_color_mgmt(dm_new_crtc_state);
+> +		ret = amdgpu_dm_check_crtc_color_mgmt(dm_new_crtc_state);
+>  		if (ret)
+>  			goto fail;
+>  	}
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index ce74125c713e..1cc3d83e377a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -1041,6 +1041,7 @@ void amdgpu_dm_init_color_mod(void);
+>  int amdgpu_dm_create_color_properties(struct amdgpu_device *adev);
+>  int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
+>  int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
+> +int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc);
+>  int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>  				      struct drm_plane_state *plane_state,
+>  				      struct dc_plane_state *dc_plane_state);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index c7387af725d6..a7cfcdba1fc9 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -566,12 +566,11 @@ static int __set_output_tf(struct dc_transfer_func *func,
+>  	return res ? 0 : -ENOMEM;
+>  }
+>  
+> -static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
+> +static int amdgpu_dm_set_atomic_regamma(struct dc_transfer_func *out_tf,
+>  					const struct drm_color_lut *regamma_lut,
+>  					uint32_t regamma_size, bool has_rom,
+>  					enum dc_transfer_func_predefined tf)
+>  {
+> -	struct dc_transfer_func *out_tf = &stream->out_transfer_func;
+>  	int ret = 0;
+>  
+>  	if (regamma_size || tf != TRANSFER_FUNCTION_LINEAR) {
+> @@ -969,7 +968,7 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>  			return r;
+>  	} else {
+>  		regamma_size = has_regamma ? regamma_size : 0;
+> -		r = amdgpu_dm_set_atomic_regamma(stream, regamma_lut,
+> +		r = amdgpu_dm_set_atomic_regamma(&stream->out_transfer_func, regamma_lut,
+>  						 regamma_size, has_rom, tf);
+>  		if (r)
+>  			return r;
+> @@ -1008,6 +1007,106 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>  	return 0;
+>  }
+>  
+> +/**
+> + * amdgpu_dm_check_crtc_color_mgmt: Check if DRM color props are programmable by DC.
+> + * @crtc: amdgpu_dm crtc state
+> + *
+> + * This function just verifies CRTC LUT sizes, if there is enough space for
+> + * output transfer function and if its parameters can be calculated by AMD
+> + * color module. It also adjusts some settings for programming CRTC degamma at
+> + * plane stage, using plane DGM block.
+> + *
+> + * The RGM block is typically more fully featured and accurate across
+> + * all ASICs - DCE can't support a custom non-linear CRTC DGM.
+> + *
+> + * For supporting both plane level color management and CRTC level color
+> + * management at once we have to either restrict the usage of some CRTC
+> + * properties or blend adjustments together.
+> + *
+> + * Returns:
+> + * 0 on success. Error code if validation fails.
+> + */
+> +
+> +int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc)
 
-Use if (!(migrate.flags & MIGRATE_VMA_SELECT_SYSTEM)), don't add extra 
-parameter.
+This function is almost a duplicate of amdgpu_dm_update_crtc_color_mgmt,
+without the part that sets the stream->out_transfer_func and without
+the "Setup CRTC CTM" bits. I wonder whether it would make sense to
+combine them in a way where the "update" function would look like:
 
-Thanks for catching this system memory page leaking corner case.
+int amdgpu_dm_update_crtc_color_mgmt(...)
+{
+    amdgpu_dm_check_crtc_color_mgmt(...);
 
-Regards,
+    update stream->out_transfer_func based on out_tf computed in check
 
-Philip
+    do the "Setup CRTC CTM bits
+}
 
->   {
->   	unsigned long mpages = 0;
->   	unsigned long i;
->   
->   	for (i = 0; i < migrate->npages; i++) {
-> -		if (migrate->dst[i] & MIGRATE_PFN_VALID &&
-> -			migrate->src[i] & MIGRATE_PFN_MIGRATE)
-> +		if (migrate->dst[i] & MIGRATE_PFN_VALID) {
-> +			if (migrate->src[i] & MIGRATE_PFN_MIGRATE) {
->   				mpages++;
-> +			} else if (dst_on_ram) {
-> +				svm_migrate_put_sys_page(migrate->dst[i]);
-> +				migrate->dst[i] = 0;
-> +			}
->   		}
->   	}
->   	return mpages;
-> @@ -448,7 +453,7 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
->   	svm_migrate_copy_done(adev, mfence);
->   	migrate_vma_finalize(&migrate);
->   
-> -	mpages = svm_migrate_successful_pages(&migrate);
-> +	mpages = svm_migrate_successful_pages(&migrate, false);
->   	pr_debug("migrated/collected/requested 0x%lx/0x%lx/0x%lx\n",
->   			 mpages, cpages, migrate.npages);
->   
-> @@ -748,7 +753,7 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
->   				    scratch, npages);
->   	migrate_vma_pages(&migrate);
->   
-> -	mpages = svm_migrate_successful_pages(&migrate);
-> +	mpages = svm_migrate_successful_pages(&migrate, true);
->   	pr_debug("migrated/collected/requested 0x%lx/0x%lx/0x%lx\n",
->   		mpages, cpages, migrate.npages);
->   
+Either way, great find, and really good change. The series is
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+> +{
+> +	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
+> +	bool has_rom = adev->asic_type <= CHIP_RAVEN;
+> +	const struct drm_color_lut *degamma_lut, *regamma_lut;
+> +	uint32_t degamma_size, regamma_size;
+> +	bool has_regamma, has_degamma;
+> +	struct dc_transfer_func *out_tf;
+> +	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_LINEAR;
+> +	bool is_legacy;
+> +	int r;
+> +
+> +	tf = amdgpu_tf_to_dc_tf(crtc->regamma_tf);
+> +
+> +	r = amdgpu_dm_verify_lut_sizes(&crtc->base);
+> +	if (r)
+> +		return r;
+> +
+> +	degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
+> +	regamma_lut = __extract_blob_lut(crtc->base.gamma_lut, &regamma_size);
+> +
+> +	has_degamma =
+> +		degamma_lut && !__is_lut_linear(degamma_lut, degamma_size);
+> +
+> +	has_regamma =
+> +		regamma_lut && !__is_lut_linear(regamma_lut, regamma_size);
+> +
+> +	is_legacy = regamma_size == MAX_COLOR_LEGACY_LUT_ENTRIES;
+> +
+> +	/* Reset all adjustments. */
+> +	crtc->cm_has_degamma = false;
+> +	crtc->cm_is_degamma_srgb = false;
+> +
+> +	out_tf = kzalloc(sizeof(*out_tf), GFP_KERNEL);
+> +	if (!out_tf)
+> +		return -ENOMEM;
+> +
+> +	/* Setup regamma and degamma. */
+> +	if (is_legacy) {
+> +		/*
+> +		 * Legacy regamma forces us to use the sRGB RGM as a base.
+> +		 * This also means we can't use linear DGM since DGM needs
+> +		 * to use sRGB as a base as well, resulting in incorrect CRTC
+> +		 * DGM and CRTC CTM.
+> +		 *
+> +		 * TODO: Just map this to the standard regamma interface
+> +		 * instead since this isn't really right. One of the cases
+> +		 * where this setup currently fails is trying to do an
+> +		 * inverse color ramp in legacy userspace.
+> +		 */
+> +		crtc->cm_is_degamma_srgb = true;
+> +		out_tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+> +		out_tf->tf = TRANSFER_FUNCTION_SRGB;
+> +		/*
+> +		 * Note: although we pass has_rom as parameter here, we never
+> +		 * actually use ROM because the color module only takes the ROM
+> +		 * path if transfer_func->type == PREDEFINED.
+> +		 *
+> +		 * See more in mod_color_calculate_regamma_params()
+> +		 */
+> +		r = __set_legacy_tf(out_tf, regamma_lut,
+> +				    regamma_size, has_rom);
+> +	} else {
+> +		regamma_size = has_regamma ? regamma_size : 0;
+> +		r = amdgpu_dm_set_atomic_regamma(out_tf, regamma_lut,
+> +						 regamma_size, has_rom, tf);
+> +	}
+> +
+> +	/*
+> +	 * CRTC DGM goes into DGM LUT. It would be nice to place it
+> +	 * into the RGM since it's a more featured block but we'd
+> +	 * have to place the CTM in the OCSC in that case.
+> +	 */
+> +	crtc->cm_has_degamma = has_degamma;
+> +	dc_transfer_func_release(out_tf);
+> +
+> +	return r;
+> +}
+> +
+> +
+>  static int
+>  map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
+>  			     struct dc_plane_state *dc_plane_state,
+
