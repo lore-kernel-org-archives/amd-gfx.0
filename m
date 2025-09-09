@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88ABCCAC58C
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 19:16:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0632CAC582
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 19:16:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49D8910E7D0;
-	Tue,  9 Sep 2025 19:16:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5639B10E7D1;
+	Tue,  9 Sep 2025 19:16:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tha22Vom";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tA27EPcq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFA2110E7CF;
- Tue,  9 Sep 2025 19:16:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A58A410E7D1;
+ Tue,  9 Sep 2025 19:16:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B43EC43AA2;
+ by tor.source.kernel.org (Postfix) with ESMTP id 250DC6024E;
+ Tue,  9 Sep 2025 19:16:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2DBCC4CEF8;
  Tue,  9 Sep 2025 19:16:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941CEC4CEF4;
- Tue,  9 Sep 2025 19:16:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757445399;
- bh=nP9n5VGF2FskJeZ1oNEb2BbawXh/NPFp8tsiOD47chk=;
+ s=k20201202; t=1757445401;
+ bh=0L8ILI5VlxDH9DgDwEiUXlzII6qULtClGxRZoPNq2oQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tha22VomXzKKVDuNMsYaaI/v4sKoE2TBohnaT1Kl90FdSl4ElBIns+GBpzpL9ZIqO
- 5LrGnCaxPAIl0sixS0v/qko2Odfkb5iDJTFeg51yTRy5tk2HKmheUWID1mVXcA1eSC
- kafOmegbUsAGQmwrM7k8nr0x3Lfm3QCPzluT14+H4jU3YNVHMJR3QfFciouEgHqArw
- 6Z2EdHXT0/9uiX/VopJtSBSpWaNBMfHTZO/WNGlX3xjdwf1IjGMsQtzVCf0L2iKG9r
- tsLsyAw2QiWkN4bAe6QEEkQ9DR6/DxTAoFYeWLCxar83LxxkEJ82myIYQiJs8f2yOQ
- cJswWDh9xLc/A==
+ b=tA27EPcqGoO0Tc9Fd6DK1CunOgfynBFijWFPsClRnpClremZxUq6lY3Jpbb4fQc6b
+ GKnXTYH9ukeWMASYDBeg5VCtIS4vmgyLcfJRL+ZXrKf4NM/A8Nnz0E84R+0GpjRZjq
+ 5nP05432NmJWyzXVv4J1O+tOOeMnqwVIUN87P7FIE832Odh2LxYfyVYOiTI3sHNKKu
+ 0Ak0FBK8q2aftvITP473PreOGELRN4o80PWaXfimxKa6rDmjTOhWZ+LSKLKzBBGPYM
+ URRHRqIVZmKKVDNMQmW/M9MIiuup56VJr8b8Afp7xhAYDMGLPo+4x9uIzcTyDZUN2W
+ nh7slVNy4A4AQ==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -53,9 +53,10 @@ Cc: Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
  Eric Naim <dnaim@cachyos.org>,
  "Guilherme G . Piccoli" <gpiccoli@igalia.com>,
  "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v7 02/12] scsi: Add PM_EVENT_POWEROFF into suspend callbacks
-Date: Tue,  9 Sep 2025 14:16:09 -0500
-Message-ID: <20250909191619.2580169-3-superm1@kernel.org>
+Subject: [PATCH v7 03/12] usb: sl811-hcd: Add PM_EVENT_POWEROFF into suspend
+ callbacks
+Date: Tue,  9 Sep 2025 14:16:10 -0500
+Message-ID: <20250909191619.2580169-4-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250909191619.2580169-1-superm1@kernel.org>
 References: <20250909191619.2580169-1-superm1@kernel.org>
@@ -84,37 +85,25 @@ Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
 v5:
  * Re-order
+ * Add tags
 v4:
  * https://lore.kernel.org/linux-pci/20250616175019.3471583-1-superm1@kernel.org/
 ---
- drivers/scsi/mesh.c | 1 +
- drivers/scsi/stex.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/usb/host/sl811-hcd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/scsi/mesh.c b/drivers/scsi/mesh.c
-index 1c15cac41d805..768b85eecc8fd 100644
---- a/drivers/scsi/mesh.c
-+++ b/drivers/scsi/mesh.c
-@@ -1762,6 +1762,7 @@ static int mesh_suspend(struct macio_dev *mdev, pm_message_t mesg)
- 	case PM_EVENT_SUSPEND:
- 	case PM_EVENT_HIBERNATE:
- 	case PM_EVENT_FREEZE:
-+	case PM_EVENT_POWEROFF:
+diff --git a/drivers/usb/host/sl811-hcd.c b/drivers/usb/host/sl811-hcd.c
+index ea3cab99c5d40..5d6dba681e503 100644
+--- a/drivers/usb/host/sl811-hcd.c
++++ b/drivers/usb/host/sl811-hcd.c
+@@ -1748,6 +1748,7 @@ sl811h_suspend(struct platform_device *dev, pm_message_t state)
  		break;
- 	default:
- 		return 0;
-diff --git a/drivers/scsi/stex.c b/drivers/scsi/stex.c
-index 63ed7f9aaa937..ee9372e1f7f07 100644
---- a/drivers/scsi/stex.c
-+++ b/drivers/scsi/stex.c
-@@ -1965,6 +1965,7 @@ static int stex_choice_sleep_mic(struct st_hba *hba, pm_message_t state)
  	case PM_EVENT_SUSPEND:
- 		return ST_S3;
  	case PM_EVENT_HIBERNATE:
 +	case PM_EVENT_POWEROFF:
- 		hba->msi_lock = 0;
- 		return ST_S4;
- 	default:
+ 	case PM_EVENT_PRETHAW:		/* explicitly discard hw state */
+ 		port_power(sl811, 0);
+ 		break;
 -- 
 2.43.0
 
