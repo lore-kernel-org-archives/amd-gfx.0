@@ -4,72 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4BCBCA0FED
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 14:49:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99ECECAC583
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 14:49:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36D6510E771;
-	Tue,  9 Sep 2025 14:49:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C24910E759;
+	Tue,  9 Sep 2025 14:49:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B3F6+pUH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QAhagrQH";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35F4610E75A
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 14:49:47 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-24457f581aeso52108795ad.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 Sep 2025 07:49:47 -0700 (PDT)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C56EE10E759
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 14:49:50 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-24c7848519bso58058435ad.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Sep 2025 07:49:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757429387; x=1758034187; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=JY2G52TxC2VFMrczcF6VF6VJB0SzM4PHxb10Ektvpnc=;
- b=B3F6+pUHxd4gjzJM0rY5bIHPVHNxX0xJxBFEwsGELwdL0Nq7eLCRFz06/dBv8IzwPZ
- crF9Dt5Lu2FrF+GKXEJAPurUY2S741vytldeV/gwytqrFu35ufJK0vCU3h+rDDnvziyY
- ELfrhO2PwGZaYvMU/1b6s/j1zGxJdAsO2VxkZOY0BoHDLzZAaap8xnHs9CSmfWRDdSwc
- HCFNz9w4kIXSH3AxL1Dsh6OCL94fnkIvIbgzsc4M+Ny2pDNNfhDMsBx/3A8Cw6b422ro
- sGQJkZ/Q3GWqs3cguBHu3BC7jRTFnc5qod+yr1dc3B0ODgMpzdFst67SxyQoPIHVijxb
- yiGA==
+ d=gmail.com; s=20230601; t=1757429390; x=1758034190; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TTY/7V+u1Zf1MbiYH6GnmoJBA/B/ZovnZ5bMMwwETXw=;
+ b=QAhagrQHtZX0RXTx3uaqh2q/JC7CDzJONVRj8wSmamuqX5ITOE9wgHjnvkAa+Dz48L
+ t1uD6KMYiiyEayk1xU0Sf4JJaAMKuMbl5iQYGgbmzv96dMvcWoiX/qtlCt4dk9Vnkrxg
+ m+UWjhvrfgPkUdxn8vNoLNRSFW6rnAK6Za7noTzY3FUyiMv9INH6gZv4x7ofPfOlB8Q3
+ QF1thW5x9PWGWA5xIJpZkfYIM6vph+qWMPcaiI8LPMk9OxZY12TfT/vu+qmkRNi2X7Cq
+ C8Aj4YFcYFK1oiUkAQ6ubXUzotIV1v8HZz1mXC/drnyvC/6hiZ+L6QOF8SqCST8dOPpp
+ dIqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757429387; x=1758034187;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=JY2G52TxC2VFMrczcF6VF6VJB0SzM4PHxb10Ektvpnc=;
- b=i5BLZ7DFIcclmcKqHQbXlGCLbOxrhpkE7TDTYqui/4f5kolUU52U418LsbcJRl54/K
- AwFsc8VpBgGPBmsxcsDmIowbaY+Fk8OWTX9Ase5QE/HLo7FOV1XOlaod8/hOXwBCoD/v
- NhGP4D7qk1LxKRSrrPjT/FwSXN9ILBU4i1T0cDwYd3fYM6jEDYaU4npjvXJKRB+x2KYi
- b8GfBrwm5RF/FTPj4alnNWd7uGvxGCcJAofKVvA3/mkZfFZoXKK6pNSbIJrvoKWw+JSe
- 8qu+hhIIM6f1l088Nwq8s73KF+cLB1YyZTtxweufVtKl7K2ThK0onz44V2+NQCCYICQa
- 0XOw==
-X-Gm-Message-State: AOJu0YwikLImqWh2zDxKoaoDaMdP3lHRHZ8gUbhgu5yDSdSXs1VAVNhA
- 4INvrvrIFnSwJKmtqTSd/1aM/Ry6nsLOR/Dt4UGhr/1e8+rYCrjOGfYN5kBWuw==
-X-Gm-Gg: ASbGncsk4APdoc3rF/rFvWY9iTrpoi3b5ch0z8rqK357KO801E4Q5uG4/LbBnQ6IXuK
- cF10LQWENvmzc8Kml2vJPiC9cx9DrEYTZQrRiNy4F8cPWuMqwdMpdflfj50bV+Ab+8oifVKvbtm
- inWx8pOzLOAt380tDCGlbhztOWsBpduksYkfKGRwHuhbGyfUTaHBo8bx7cdZpo3xhLljwG8T58D
- x6AAbaOBFA7QCkrK8wcqo15tsc8jMVc1uw0Uj21SsPuG/WoVn4HGn7pgE0pATsAfve9HJmaaOno
- aWtZd7WNF1Lrx35gJoamc4PFiPRImLVJBodMBe7KMVAZ2sBqN9EEdnCM4xhHOisG0brBKXMb/fO
- V2oGCa00nGpN4RVIFreMykbGvQizsF9K7jm+ZbiMubAkS3BzKNF0fxJrqZI1LfSYw0VX/GZhcrY
- 6yc/3MjOF4Bj1Y6oPxhg9MhLisZZ3Uk1DMsllCNg==
-X-Google-Smtp-Source: AGHT+IGeAZF85ICmo0VNXke3C8HHhMxGCL8qZo/GvJrql/AmUo1bbx5Y/IWrPHDA2Nh2yJYBCufDBA==
-X-Received: by 2002:a17:902:d2c4:b0:24c:965a:f97e with SMTP id
- d9443c01a7336-2516f05008amr153365625ad.2.1757429386532; 
- Tue, 09 Sep 2025 07:49:46 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1757429390; x=1758034190;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TTY/7V+u1Zf1MbiYH6GnmoJBA/B/ZovnZ5bMMwwETXw=;
+ b=j72I7k/3baDP9RB0TLCIT9T/zxO959ih1qFR2M4fuPNvDnt+d31mgYymM23Org50ud
+ kgOytYGk9T2vvLT1aRl9YkuYvPZwH1O6KFRd3ux/Um+BL9cEi0WtcbZSP8iHtpfsIlXE
+ 4EpGNn7lrp6DhBoRZgH/vxdHo6tkucOd1csTogEWlVAZSph3TR/R43RpGo9YtmMcp4Bb
+ vy4ECwB3JqYsx2yCBVE2cci5myrbTMED7Wh2CNjHkpHk+2EEObmXlF45eDfx9GQv54QU
+ gSrStJ5ms+aPLdf9rL10wBlhHy8BhP3Sr9D209AxCzC+wauHXALFxo0iuriqKtF2HHFv
+ aEdA==
+X-Gm-Message-State: AOJu0YzraQ5iOr4ZiOOJnIMf2I4vV5A1TrjEnh7Z+fE95C2fQaH1dJbI
+ 2e8nl1NfrPrr8T0a0YgcvVvGRuAcgFxSktOll4NVytJZzqdSHFqEffb3tkOYjQ==
+X-Gm-Gg: ASbGncvTB/jjTilxsekPUcnkCgi+PT2BFfQQDycruX45LBVuEvJ8uLtSq294hdqVvtM
+ 689JQbE3wYlV3I5G5CkAU6Yuotdd3Hro2PBgs4zhgkycjmkE+Pbtff82srbvscQnWDSfBaLoJJE
+ ACwKD7h9AGWd2Rkz+8IDBkcaan6kpuyfLii+fntOBCVj9iYdSw3ubNd0J9XkZZPsdR6d1IjU3sy
+ fI2bqK0wYRTJ9xh5Fii78GZv8GZKnAYACwZ9gyPl0WT/HLUGvfrN2DwtUo4CEHPSxTKo+RJJl1m
+ cSn40/ta/yiBaUHmSQ8R0V0fX+iNO9ZluhmMfhzOlnUBrXjq3SjJsvPEFbXeCfrThoj0uKcvqqh
+ 7rTlmZculTtKXQ4Rnyykj+aMTxj9DrJUoqy+1sd1DtxxxjLbmOgLfQ+dJpcezsMhVxEPfpNdMNy
+ jH1uB52Ex3yUhFsSH7ZvJtSC0/NXc5c40RH2202g==
+X-Google-Smtp-Source: AGHT+IEv8lR6hADMZg16/XLUKq5qPbQqlmOmQto0FfMrZpf/eu2oH7U+Fd8yYwISLCXMWIPeM1aaFg==
+X-Received: by 2002:a17:903:18b:b0:24d:37fb:6f38 with SMTP id
+ d9443c01a7336-25170395983mr164361265ad.20.1757429390224; 
+ Tue, 09 Sep 2025 07:49:50 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24D7A10085C74347BA908E23.dsl.pool.telekom.hu.
  [2001:4c4e:24d7:a100:85c7:4347:ba90:8e23])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-25a2a3449f7sm239455ad.88.2025.09.09.07.49.43
+ d9443c01a7336-25a2a3449f7sm239455ad.88.2025.09.09.07.49.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Sep 2025 07:49:46 -0700 (PDT)
+ Tue, 09 Sep 2025 07:49:49 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 1/3] drm/amdgpu: Fix allocating extra dwords for rings (v2)
-Date: Tue,  9 Sep 2025 16:49:35 +0200
-Message-ID: <20250909144937.22452-1-timur.kristof@gmail.com>
+Subject: [PATCH 2/3] drm/amdgpu: Set SDMA v3 copy_max_bytes to 0x3fff00
+Date: Tue,  9 Sep 2025 16:49:36 +0200
+Message-ID: <20250909144937.22452-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20250909144937.22452-1-timur.kristof@gmail.com>
+References: <20250909144937.22452-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -87,96 +90,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rename extra_dw to extra_bytes and document what it's for.
+SDMA v3-v5 can copy almost 4 MiB in a single copy operation.
+Use the	same value as PAL and Mesa for copy_max_bytes.
 
-The value is already used as if it were bytes in vcn_v4_0.c
-and in amdgpu_ring_init. Just adjust the dword count in
-jpeg_v1_0.c so that it becomes a byte count.
+For reference, see oss2DmaCmdBuffer.cpp	in PAL:
+"Due to HW limitation, the maximum count may not be 2^n-1,
+can only be 2^n - 1 - start_addr[4:2]"
 
-v2:
-Rename extra_dw to extra_bytes as discussed during review.
+See also sid.h in Mesa:
+"There is apparently an undocumented HW limitation that
+prevents the HW from copying the last 255 bytes of (1 << 22) - 1"
 
-Fixes: c8c1a1d2ef04 ("drm/amdgpu: define and add extra dword for jpeg ring")
+Fixes: dfe5c2b76b2a ("drm/amdgpu: Correct bytes limit for SDMA 3.0 copy and fill")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 11 ++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 13 ++++++++++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c    |  2 +-
- 4 files changed, 20 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 6379bb25bf5c..eca8b28e3fb9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -364,11 +364,12 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+index 1c076bd1cf73..9302cf0b5e4b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+@@ -1659,11 +1659,11 @@ static void sdma_v3_0_emit_fill_buffer(struct amdgpu_ib *ib,
+ }
  
- 	/* Allocate ring buffer */
- 	if (ring->ring_obj == NULL) {
--		r = amdgpu_bo_create_kernel(adev, ring->ring_size + ring->funcs->extra_dw, PAGE_SIZE,
--					    AMDGPU_GEM_DOMAIN_GTT,
--					    &ring->ring_obj,
--					    &ring->gpu_addr,
--					    (void **)&ring->ring);
-+		r = amdgpu_bo_create_kernel(adev, ring->ring_size + ring->funcs->extra_bytes,
-+						PAGE_SIZE,
-+						AMDGPU_GEM_DOMAIN_GTT,
-+						&ring->ring_obj,
-+						&ring->gpu_addr,
-+						(void **)&ring->ring);
- 		if (r) {
- 			dev_err(adev->dev, "(%d) ring create failed\n", r);
- 			kvfree(ring->ring_backup);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 7670f5d82b9e..12783ea3ba0f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -211,7 +211,18 @@ struct amdgpu_ring_funcs {
- 	bool			support_64bit_ptrs;
- 	bool			no_user_fence;
- 	bool			secure_submission_supported;
--	unsigned		extra_dw;
-+
-+	/**
-+	 * @extra_bytes:
-+	 *
-+	 * Optional extra space in bytes that is added to the ring size
-+	 * when allocating the BO that holds the contents of the ring.
-+	 * This space isn't used for command submission to the ring,
-+	 * but is just there to satisfy some hardware requirements or
-+	 * implement workarounds. It's up to the implementation of each
-+	 * specific ring to initialize this space.
-+	 */
-+	unsigned		extra_bytes;
+ static const struct amdgpu_buffer_funcs sdma_v3_0_buffer_funcs = {
+-	.copy_max_bytes = 0x3fffe0, /* not 0x3fffff due to HW limitation */
++	.copy_max_bytes = 0x3fff00, /* not 0x3fffff due to HW limitation */
+ 	.copy_num_dw = 7,
+ 	.emit_copy_buffer = sdma_v3_0_emit_copy_buffer,
  
- 	/* ring read/write ptr handling */
- 	u64 (*get_rptr)(struct amdgpu_ring *ring);
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-index 9e428e669ada..b5bb7f4d607c 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-@@ -557,7 +557,7 @@ static const struct amdgpu_ring_funcs jpeg_v1_0_decode_ring_vm_funcs = {
- 	.nop = PACKET0(0x81ff, 0),
- 	.support_64bit_ptrs = false,
- 	.no_user_fence = true,
--	.extra_dw = 64,
-+	.extra_bytes = 256,
- 	.get_rptr = jpeg_v1_0_decode_ring_get_rptr,
- 	.get_wptr = jpeg_v1_0_decode_ring_get_wptr,
- 	.set_wptr = jpeg_v1_0_decode_ring_set_wptr,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index d0d27790b73b..099698cb1a3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1986,7 +1986,7 @@ static struct amdgpu_ring_funcs vcn_v4_0_unified_ring_vm_funcs = {
- 	.type = AMDGPU_RING_TYPE_VCN_ENC,
- 	.align_mask = 0x3f,
- 	.nop = VCN_ENC_CMD_NO_OP,
--	.extra_dw = sizeof(struct amdgpu_vcn_rb_metadata),
-+	.extra_bytes = sizeof(struct amdgpu_vcn_rb_metadata),
- 	.get_rptr = vcn_v4_0_unified_ring_get_rptr,
- 	.get_wptr = vcn_v4_0_unified_ring_get_wptr,
- 	.set_wptr = vcn_v4_0_unified_ring_set_wptr,
+-	.fill_max_bytes = 0x3fffe0, /* not 0x3fffff due to HW limitation */
++	.fill_max_bytes = 0x3fff00, /* not 0x3fffff due to HW limitation */
+ 	.fill_num_dw = 5,
+ 	.emit_fill_buffer = sdma_v3_0_emit_fill_buffer,
+ };
 -- 
 2.51.0
 
