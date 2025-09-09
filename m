@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B079ACAC58D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BDB0CA101F
 	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75EA110E87F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4A5A10E883;
 	Wed, 10 Sep 2025 08:01:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="K3+M3w31";
+	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="mwh+wD9p";
 	dkim-atps=neutral
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3BE410E78D;
- Tue,  9 Sep 2025 15:22:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=2bJb9r9WRkh2TAMgOyJeg6yuzlP1Z0g5WcvmBSdw5jw=; b=K3+M3w31oZcBuYI9a7tM1Wo4ID
- BPiBqB+/2QDy58bY7Sc9535axphYxgvKiFquwU0TlajgwlRtUwRspA0xVmD9BAHJLz/l+jeRZjyjR
- Unw1uOLgfY+EjPa0Itj9WptPWEi19neifkYJniy3Wf2hlEbdwOSuG2acrNEVToC0OeJ1sZs5T1nnK
- gXGBKfpb0jyqvC2yHxEbiNlRGTIi8PdJLlcATpL1HoYOoKskBQ4MjK5mFv/WtG5JC72p01/TzMbra
- BkITS1U0QdkexZxcKSJB91r2uD2hrSHqab+CbXgy+JPrmtyOmqb15KRnsWDBSvIaUTLwYUljo7s4o
- cH/Dx2Kw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uw0Aa-00000005OZD-2Xxf; Tue, 09 Sep 2025 15:22:09 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 3D7323002EB; Tue, 09 Sep 2025 16:05:19 +0200 (CEST)
-Date: Tue, 9 Sep 2025 16:05:19 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- matthew.auld@intel.com, jani.nikula@linux.intel.com,
- samuel.pitoiset@gmail.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, alexander.deucher@amd.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH v5 1/3] drm/buddy: Optimize free block management with RB
- tree
-Message-ID: <20250909140519.GK4067720@noisy.programming.kicks-ass.net>
-References: <20250909095621.489833-1-Arunpravin.PaneerSelvam@amd.com>
- <6f6841a7-57bd-49de-9b55-b5b0514a2749@amd.com>
+Received: from xry111.site (xry111.site [89.208.246.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D978210E0DB;
+ Tue,  9 Sep 2025 02:02:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
+ s=default; t=1757383337;
+ bh=zcmpcw0mekrXcR6rkLebx4OWUdSHyk73nm9XQs6nR5E=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=mwh+wD9pqb74xXaSeUW0Fy4iOx+0uACLhjsiWm+anmJ9h85Kmbz1NMEAHsXYtQWVH
+ IKCeXHS5cncmv/E1+oAd3eDpkO9aoc2Y8jSca6um59hYQNYspm8As1xpC5954/PgYA
+ KeT3BBkec8hgk7HOa9qB4WdsDrAXR/HxCoq9GuRQ=
+Received: from [127.0.0.1]
+ (2607-8700-5500-e873-0000-0000-0000-1001.16clouds.com
+ [IPv6:2607:8700:5500:e873::1001])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1)
+ server-digest SHA384) (Client did not present a certificate)
+ (Authenticated sender: xry111@xry111.site)
+ by xry111.site (Postfix) with ESMTPSA id 18F2866983;
+ Mon,  8 Sep 2025 22:02:13 -0400 (EDT)
+Message-ID: <6f0857ec48e7d1aab55f5e1cc923d9b5086af6c2.camel@xry111.site>
+Subject: Re: [PATCH] drm/amd/display/dml2: Guard
+ dml21_map_dc_state_into_dml_display_cfg with DC_FP_START
+From: Xi Ruoyao <xry111@xry111.site>
+To: Alex Hung <alex.hung@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Huacai Chen <chenhuacai@kernel.org>, WANG
+ Xuerui <kernel@xen0n.name>, Mingcong Bai <jeffbai@aosc.io>,
+ dri-devel@lists.freedesktop.org, 	loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Asiacn <710187964@qq.com>,  Austin Zheng
+ <Austin.Zheng@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, Wenjing
+ Liu	 <wenjing.liu@amd.com>
+Date: Tue, 09 Sep 2025 10:02:12 +0800
+In-Reply-To: <25fcd3b5c1a415deb8358714279a7d532e26ed47.camel@xry111.site>
+References: <20250825085211.34396-1-xry111@xry111.site>
+ <0f6b54fa-720f-43b7-ad74-91c2c5700dad@amd.com>
+ <25fcd3b5c1a415deb8358714279a7d532e26ed47.camel@xry111.site>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6f6841a7-57bd-49de-9b55-b5b0514a2749@amd.com>
 X-Mailman-Approved-At: Wed, 10 Sep 2025 08:01:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,45 +67,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 09, 2025 at 02:04:30PM +0200, Christian König wrote:
-> Hi Arun,
-> 
-> On 09.09.25 11:56, Arunpravin Paneer Selvam wrote:
-> [SNIP]
-> 
-> > +/**
-> > + * rbtree_for_each_entry_safe - iterate in-order over rb_root safe against removal
-> > + *
-> > + * @pos:	the 'type *' to use as a loop cursor
-> > + * @n:		another 'type *' to use as temporary storage
-> > + * @root:	'rb_root *' of the rbtree
-> > + * @member:	the name of the rb_node field within 'type'
-> > + */
-> > +#define rbtree_for_each_entry_safe(pos, n, root, member) \
-> > +	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member), \
-> > +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL; \
-> > +	     (pos); \
-> > +	     (pos) = (n), \
-> > +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL)
-> 
-> As far as I know exactly that operation does not work on an R/B tree.
-> 
-> See the _safe() variants of the for_each_ macros are usually used to iterate over a container while being able to remove entries.
-> 
-> But because of the potential re-balance storing just the next entry is not sufficient for an R/B tree to do that as far as I know.
-> 
-> Please explain how exactly you want to use this macro.
+On Tue, 2025-09-09 at 09:47 +0800, Xi Ruoyao wrote:
+> On Mon, 2025-09-08 at 14:18 -0600, Alex Hung wrote:
+> >=20
+> >=20
+> > On 8/25/25 02:52, Xi Ruoyao wrote:
+> > > dml21_map_dc_state_into_dml_display_cfg calls (the call is usually
+> > > inlined by the compiler) populate_dml21_surface_config_from_plane_sta=
+te
+> > > and populate_dml21_plane_config_from_plane_state which may use FPU.=
+=C2=A0 In
+> > > a x86-64 build:
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 $ objdump --disassemble=3Ddml21_map_dc_state=
+_into_dml_display_cfg \
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 > drivers/gpu/drm/amd/display/dc/dml2/dml21/=
+dml21_translation_helper.o |
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 > grep %xmm -c
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 63
+> > >=20
+> > > Thus it needs to be guarded with DC_FP_START.=C2=A0 But we must note =
+that the
+> > > current code quality of the in-kernel FPU use in AMD dml2 is very muc=
+h
+> > > problematic: we are actually calling DC_FP_START in dml21_wrapper.c
+> > > here, and this translation unit is built with CC_FLAGS_FPU.=C2=A0 Str=
+ictly
+> > > speaking this does not make any sense: with CC_FLAGS_FPU the compiler=
+ is
+> > > allowed to generate FPU uses anywhere in the translated code, perhaps
+> > > out of the DC_FP_START guard.=C2=A0 This problematic pattern also occ=
+urs in
+> > > at least dml2_wrapper.c, dcn35_fpu.c, and dcn351_fpu.c.=C2=A0 Thus we=
+ really
+> >=20
+> > Let me share Austin's comments below:
+> >=20
+> > "
+> > Both CC_FLAGS_FPU and DC_FP_START are required for FPU usage.
+> >=20
+> > CC_FLAGS_FPU allows the compiler to generate FPU code whereas=20
+> > DC_FP_START ensures that the FPU registers don't get tainted during run=
+time.
+>=20
+> But the correct pattern would be: isolating the code using FPU into its
+> own translation unit, say xxx_fp.c, then call DC_FP_START in another
+> translation unit (for which CC_FLAGS_FPU is NOT used) before calling the
+> routines in xxx_fp.c.
+>=20
+> It's because there's generally no way to guarantee the compiler only
+> generate FP code in the range of DC_FP_START ... DC_FP_END if
+> CC_FLAGS_FPU is used.=C2=A0 The compiler can generate FPU code in situati=
+ons
+> we don't intend to use (and don't anticipate) FPU, for example if a
+> "counting number of ones in a word" pattern is detected when the code is
+> built for LoongArch, the compiler can invoke FPU to use a popcount
+> instruction with CC_FLAGS_FPU.=C2=A0 (That doesn't really happen now but =
+it
+> may happen in the future.)
+>=20
+> And the correct pattern is already used by, for example
+> dcn10_resource.c:
+>=20
+> =C2=A0=C2=A0=C2=A0 DC_FP_START();
+> =C2=A0=C2=A0=C2=A0 voltage_supported =3D dcn_validate_bandwidth(dc, conte=
+xt, validate_mode);
+> =C2=A0=C2=A0=C2=A0 DC_FP_END();
+>=20
+> Here dcn_validate_bandwidth is in dcn_calcs.c where CC_FLAGS_FPU is in-
+> effect, but dcn10_resource.c itself is not built with CC_FLAGS_FPU.
 
-So I don't much like these iterators; I've said so before. Either we
-should introduce a properly threaded rb-tree (where the NULL child
-pointers encode a linked list), or simply keep a list_head next to the
-rb_node and use that.
+And the correct pattern is already documented and explained in
+dcn20_fpu.c:
 
-The rb_{next,prev}() things are O(ln n), in the worst case they do a
-full traversal up the tree and a full traversal down the other branch.
+ * 4. Developers **must not** use DC_FP_START/END in this file, but they ne=
+ed
+ *    to ensure that the caller invokes it before access any function avail=
+able
+ *    in this file. For this reason, public functions in this file must inv=
+oke
+ *    dc_assert_fp_enabled();
+ *
+ * Let's expand a little bit more the idea in the code pattern. To fully
+ * isolate FPU operations in a single place, we must avoid situations where
+ * compilers spill FP values to registers due to FP enable in a specific C
+ * file. Note that even if we isolate all FPU functions in a single file an=
+d
+ * call its interface from other files, the compiler might enable the use o=
+f
+ * FPU before we call DC_FP_START. Nevertheless, it is the programmer's
+ * responsibility to invoke DC_FP_START/END in the correct place. To highli=
+ght
+ * situations where developers forgot to use the FP protection before calli=
+ng
+ * the DC FPU interface functions, we introduce a helper that checks if the
+ * function is invoked under FP protection. If not, it will trigger a kerne=
+l
+ * warning.
 
-That said; given 'next' will remain an existing node, only the 'pos'
-node gets removed, rb_next() will still work correctly, even in the face
-of rebalance.
-
-
+--=20
+Xi Ruoyao <xry111@xry111.site>
