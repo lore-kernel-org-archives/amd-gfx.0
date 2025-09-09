@@ -4,77 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99ECECAC583
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 14:49:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9991CA0FED
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 14:49:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C24910E759;
-	Tue,  9 Sep 2025 14:49:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 485D610E743;
+	Tue,  9 Sep 2025 14:49:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QAhagrQH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AQ9ZYDy9";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C56EE10E759
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 14:49:50 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-24c7848519bso58058435ad.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 Sep 2025 07:49:50 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7145510E743
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 14:49:54 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-24c8ef94e5dso46281935ad.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Sep 2025 07:49:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757429390; x=1758034190; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1757429394; x=1758034194; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TTY/7V+u1Zf1MbiYH6GnmoJBA/B/ZovnZ5bMMwwETXw=;
- b=QAhagrQHtZX0RXTx3uaqh2q/JC7CDzJONVRj8wSmamuqX5ITOE9wgHjnvkAa+Dz48L
- t1uD6KMYiiyEayk1xU0Sf4JJaAMKuMbl5iQYGgbmzv96dMvcWoiX/qtlCt4dk9Vnkrxg
- m+UWjhvrfgPkUdxn8vNoLNRSFW6rnAK6Za7noTzY3FUyiMv9INH6gZv4x7ofPfOlB8Q3
- QF1thW5x9PWGWA5xIJpZkfYIM6vph+qWMPcaiI8LPMk9OxZY12TfT/vu+qmkRNi2X7Cq
- C8Aj4YFcYFK1oiUkAQ6ubXUzotIV1v8HZz1mXC/drnyvC/6hiZ+L6QOF8SqCST8dOPpp
- dIqg==
+ bh=1b9Q1H2YLDiueM4jvmZhWt3i+2uNYRbT9T8oBmMZroU=;
+ b=AQ9ZYDy9Ut1ZlA1g3mNzjTt+43AODGjbKPX33izDdjWumX9U0iHjjqZbBmHWghVQS/
+ LPUV1n6g/sK7uW2GLGfJkD5bhwED+lXmIxtjLBAuGZHq6EPiHODoLa+hZSt6J/734ic6
+ o7SYF41YLJOD9khcHzl1phhDtVhuCJ8xkKnOwQq/bRv6Hhh4PDTIiQ+N3E4iziVAN+3r
+ zBtHGHs/XDAovXhM+Pa+51kBmgconvPDX4wLTiGP1F/1w/z2NY8krVM+KwZi/KS1WJ4K
+ ATx9j0AZoMBllTw9GyOM+TIj8iwIS0VrbXNHsXQKyuXcbtnGoamnCOdNMNE5zwFTT2Wv
+ wGnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757429390; x=1758034190;
+ d=1e100.net; s=20230601; t=1757429394; x=1758034194;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TTY/7V+u1Zf1MbiYH6GnmoJBA/B/ZovnZ5bMMwwETXw=;
- b=j72I7k/3baDP9RB0TLCIT9T/zxO959ih1qFR2M4fuPNvDnt+d31mgYymM23Org50ud
- kgOytYGk9T2vvLT1aRl9YkuYvPZwH1O6KFRd3ux/Um+BL9cEi0WtcbZSP8iHtpfsIlXE
- 4EpGNn7lrp6DhBoRZgH/vxdHo6tkucOd1csTogEWlVAZSph3TR/R43RpGo9YtmMcp4Bb
- vy4ECwB3JqYsx2yCBVE2cci5myrbTMED7Wh2CNjHkpHk+2EEObmXlF45eDfx9GQv54QU
- gSrStJ5ms+aPLdf9rL10wBlhHy8BhP3Sr9D209AxCzC+wauHXALFxo0iuriqKtF2HHFv
- aEdA==
-X-Gm-Message-State: AOJu0YzraQ5iOr4ZiOOJnIMf2I4vV5A1TrjEnh7Z+fE95C2fQaH1dJbI
- 2e8nl1NfrPrr8T0a0YgcvVvGRuAcgFxSktOll4NVytJZzqdSHFqEffb3tkOYjQ==
-X-Gm-Gg: ASbGncvTB/jjTilxsekPUcnkCgi+PT2BFfQQDycruX45LBVuEvJ8uLtSq294hdqVvtM
- 689JQbE3wYlV3I5G5CkAU6Yuotdd3Hro2PBgs4zhgkycjmkE+Pbtff82srbvscQnWDSfBaLoJJE
- ACwKD7h9AGWd2Rkz+8IDBkcaan6kpuyfLii+fntOBCVj9iYdSw3ubNd0J9XkZZPsdR6d1IjU3sy
- fI2bqK0wYRTJ9xh5Fii78GZv8GZKnAYACwZ9gyPl0WT/HLUGvfrN2DwtUo4CEHPSxTKo+RJJl1m
- cSn40/ta/yiBaUHmSQ8R0V0fX+iNO9ZluhmMfhzOlnUBrXjq3SjJsvPEFbXeCfrThoj0uKcvqqh
- 7rTlmZculTtKXQ4Rnyykj+aMTxj9DrJUoqy+1sd1DtxxxjLbmOgLfQ+dJpcezsMhVxEPfpNdMNy
- jH1uB52Ex3yUhFsSH7ZvJtSC0/NXc5c40RH2202g==
-X-Google-Smtp-Source: AGHT+IEv8lR6hADMZg16/XLUKq5qPbQqlmOmQto0FfMrZpf/eu2oH7U+Fd8yYwISLCXMWIPeM1aaFg==
-X-Received: by 2002:a17:903:18b:b0:24d:37fb:6f38 with SMTP id
- d9443c01a7336-25170395983mr164361265ad.20.1757429390224; 
- Tue, 09 Sep 2025 07:49:50 -0700 (PDT)
+ bh=1b9Q1H2YLDiueM4jvmZhWt3i+2uNYRbT9T8oBmMZroU=;
+ b=A29uA+4fdAOawdzCGtHxXe1U4WNrhlOLXRUDQk1y/YTeOmrkIKXz3pohMVvDB9WKXX
+ G2Mw7HUNsnFiB/kmRIfSYOhRQowB4zCXLo7sQLF3e370guAw/ey0467H+Cgj4xDcSd4m
+ 5s5i/90ekBS4XP574jF/Mk3mK26QNrSqVz8AJ6XxaOQq/NdRowKS+dTPIsTFsjUzsUTm
+ NVpBFS9+MDl9b6KIe9NF9kw8JE2mCRpFbUmoivOpGTTtGgZ1vxbLMy/HzvNUeoF18gHU
+ Zt+ASXpvUTVU87FPzBnnZD6oorJByIeGLGYI4vlZOj6Qp88Ny2K2AfXfVUBU4crV5agy
+ 5I/w==
+X-Gm-Message-State: AOJu0Ywl7I2AHMl0OcOvAg5HvCVSA2SbsEEP7q4vn9cXgI5adTs3Fpdy
+ 7x0rUOjb6PjhCpcC+CWOYwdxe6K58Y6yakx5SxiltLZFjxCVyrt/PYF6501z1w==
+X-Gm-Gg: ASbGncsYrZOjTKEf28ZUa2/kYLNktdTuQKXd8YxiyKs5mwZvgZg8gv8a0vV6cERvstw
+ XOVx7Z9I1mrLgf8g3CDoZ7d5V6OmGT34KxSaVbyLwVJzP4E3j8b7fyKMMk8YH7+D1YEWTPp4QTW
+ 4TAZyjPn/vilBZkWgHk/VG9oxjYWGby22wjgozPXQ/swPlyAP2I01OQ6qlHZriZq0nc1KRsuzR5
+ pEw0rgyTZuq/7hWaIZmmeAp6RMIZHXQGpkr4NjFVorzMgL2C3TnL7o8suIIgUluJ16+KL16imd5
+ rpwPNY6JcuCYzHRb0pYhqN95MWeOYXGMqL+jK1iSZK1tn/Ui4feLn5KQZT0G7N3YfmRyl2yyJ5J
+ O2kt9iMMmzgx8yPuDxLnEbHRrKIff4zY/cRUHKc3UKw1yRLfupCNlRo3HHlO4292+dvHz0VnY42
+ 4yQdJppQkaVCrq7GYtuweXDUjUs+E=
+X-Google-Smtp-Source: AGHT+IEcz59Ow74VvyjAugtrnwVJKe06xcVqQXLyQ+8kvXQYRNxzs6Xxi9rqKVuSlFgP69JwGiZv9Q==
+X-Received: by 2002:a17:903:41ce:b0:24b:26c5:674f with SMTP id
+ d9443c01a7336-24cef5270demr222859975ad.19.1757429393873; 
+ Tue, 09 Sep 2025 07:49:53 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24D7A10085C74347BA908E23.dsl.pool.telekom.hu.
  [2001:4c4e:24d7:a100:85c7:4347:ba90:8e23])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-25a2a3449f7sm239455ad.88.2025.09.09.07.49.47
+ d9443c01a7336-25a2a3449f7sm239455ad.88.2025.09.09.07.49.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Sep 2025 07:49:49 -0700 (PDT)
+ Tue, 09 Sep 2025 07:49:53 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/3] drm/amdgpu: Set SDMA v3 copy_max_bytes to 0x3fff00
-Date: Tue,  9 Sep 2025 16:49:36 +0200
-Message-ID: <20250909144937.22452-2-timur.kristof@gmail.com>
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH 3/3] drm/amdgpu: Use memset32 for ring clearing
+Date: Tue,  9 Sep 2025 16:49:37 +0200
+Message-ID: <20250909144937.22452-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250909144937.22452-1-timur.kristof@gmail.com>
 References: <20250909144937.22452-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,41 +89,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SDMA v3-v5 can copy almost 4 MiB in a single copy operation.
-Use the	same value as PAL and Mesa for copy_max_bytes.
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-For reference, see oss2DmaCmdBuffer.cpp	in PAL:
-"Due to HW limitation, the maximum count may not be 2^n-1,
-can only be 2^n - 1 - start_addr[4:2]"
+Use memset32 instead of open coding it, just because it is
+a tiny bit nicer.
 
-See also sid.h in Mesa:
-"There is apparently an undocumented HW limitation that
-prevents the HW from copying the last 255 bytes of (1 << 22) - 1"
-
-Fixes: dfe5c2b76b2a ("drm/amdgpu: Correct bytes limit for SDMA 3.0 copy and fill")
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index 1c076bd1cf73..9302cf0b5e4b 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -1659,11 +1659,11 @@ static void sdma_v3_0_emit_fill_buffer(struct amdgpu_ib *ib,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 12783ea3ba0f..20133ff43af3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -481,10 +481,7 @@ static inline void amdgpu_ring_set_preempt_cond_exec(struct amdgpu_ring *ring,
+ 
+ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+ {
+-	int i = 0;
+-	while (i <= ring->buf_mask)
+-		ring->ring[i++] = ring->funcs->nop;
+-
++	memset32(ring->ring, ring->funcs->nop, ring->buf_mask + 1);
  }
  
- static const struct amdgpu_buffer_funcs sdma_v3_0_buffer_funcs = {
--	.copy_max_bytes = 0x3fffe0, /* not 0x3fffff due to HW limitation */
-+	.copy_max_bytes = 0x3fff00, /* not 0x3fffff due to HW limitation */
- 	.copy_num_dw = 7,
- 	.emit_copy_buffer = sdma_v3_0_emit_copy_buffer,
- 
--	.fill_max_bytes = 0x3fffe0, /* not 0x3fffff due to HW limitation */
-+	.fill_max_bytes = 0x3fff00, /* not 0x3fffff due to HW limitation */
- 	.fill_num_dw = 5,
- 	.emit_fill_buffer = sdma_v3_0_emit_fill_buffer,
- };
+ static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
 -- 
 2.51.0
 
