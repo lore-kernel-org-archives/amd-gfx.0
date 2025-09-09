@@ -4,153 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD38CAC583
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 12:04:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5809ACA0FED
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:04:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD7C410E6E3;
-	Tue,  9 Sep 2025 12:04:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF5E310E706;
+	Tue,  9 Sep 2025 13:04:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EiwjHNzo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cfzY2zjQ";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D54510E6D5;
- Tue,  9 Sep 2025 12:04:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vByXJ2pWcJGDPKejxJJIpoez0awgqjPX0TGcb6KpLhFWZJLifFc03jugUGMvSI5oN0FykBTHdrmAWztztGRYvlSo/paCZa9FscTR5i/mxZ3BkUmjIHJfA5fzNu5iv49yIESSJo9ETTvZ966OT4fbvd25G8+VCuKl3TnjwF9UiBt0ED44fVrc4+BpDw2DPJqb6bNp9VckJzAiSaHIJNeBk0lsbwkhwV7K7lwYMPouRr56T87caJaK5vn12/AaT+xY49NneRc7UPkKcof4hMXq7rhT/g7BS9sb6OlwiT3mESPbYqkkxVYI3xKk80JJn//zPgmp+ZD+BoCXB30YJ8IVZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kdf74tiPhOAPZ4Q75XrdlD4eYdsu8zgqcvlSj1r4vsc=;
- b=XqFqFODcyWrvs3xNDYxvDquP8wDMnfhGunn/U0p7XfELyicnVArpNcoEEAjkxgpvG+lY20rgtD0ALPJ9DpX3xwwenrV7koW5+EgWeQvmFj8mHMRNMrdigNaYbek4nPYhM7E0W57qHozDCOaao2vAMhfVF43Fy0YYH8Zgt+E7mf7Kl0UaS9sHtNPb+Vqab7DnLuvfNDFFZqMgWTS8bkccXnqu7kbYGV2sIpgb4aASLzU4HH9xV+aoRv90uzcvsrOP4Otx4wi2IwsoDAu5ZXzp51AlYElqJsbX26HSvxKmijJA5laX6VIOJ/C0OOomzYlndJUEOcXI7aWanAH50q0J6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kdf74tiPhOAPZ4Q75XrdlD4eYdsu8zgqcvlSj1r4vsc=;
- b=EiwjHNzoP0kJfdkJYiWcwtA+3yqmTjfj71cCwxOB+PNK53aq5LJymLHYCmf4FvcBw6KVJxOoy8LE+0htCcAJZ35m4fYtOShnt8pqkkpU27Ay/BwWvMRsQLgX7hi6eqj986dGwL2SnEbkh5bg0jML4E9D1qVjApPzX7j3r6CkurM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB6910.namprd12.prod.outlook.com (2603:10b6:806:262::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Tue, 9 Sep
- 2025 12:04:38 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9094.021; Tue, 9 Sep 2025
- 12:04:38 +0000
-Message-ID: <6f6841a7-57bd-49de-9b55-b5b0514a2749@amd.com>
-Date: Tue, 9 Sep 2025 14:04:30 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] drm/buddy: Optimize free block management with RB
- tree
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- matthew.auld@intel.com, jani.nikula@linux.intel.com, peterz@infradead.org,
- samuel.pitoiset@gmail.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, stable@vger.kernel.org
-References: <20250909095621.489833-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250909095621.489833-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1P221CA0036.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:5b5::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE78510E706
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 13:04:00 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-24aacdf40a2so14267885ad.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Sep 2025 06:04:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757423040; x=1758027840; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=S//34kv4YyoaVA0VToN7iyF0o3HCXGX39bZt9+j2mFY=;
+ b=cfzY2zjQ3O3zgGkxzPbNeimzK+VhG8t7C+SQQkHJcaGT27U9bU+gkphxUTahiGYcNc
+ ul5TR8A03gQ4owmsU7xxa/umG4eJdECzDY5R1yyy3yIdyxGDtFPGf3Ye3npoenogSbzm
+ x8se2JGOT6yhVe3YUP4ureGAU4K/8SiIgaQaH6HuY6Mj01iu5hZxbQjrPSwV6k5nedAO
+ 9g+W+62adlU9oG+ppx4vLX05hLjFFo5d6ZnJVM4GdcFlS8SR15EGFdjQBxMqXdulqGx6
+ u0QwXJfla+tEZYDwFJhTQRoa8tl8RXdZhjQrBTagK9pUV/CH4pzPjIsEntrjzKLMDTEs
+ 55EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757423040; x=1758027840;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=S//34kv4YyoaVA0VToN7iyF0o3HCXGX39bZt9+j2mFY=;
+ b=n3kkoxEgtk0ZUaXtog/RXA6odPTRn7XDFQpFItPE+q6DNJazWXIELHLJpdrIrqEgaI
+ 8lI9QdPkzf9LpVI2k2OkjkKXG3arkWckQEOtlQM+hqhSxDl4bwx8kM/8zUa0Qb0FF1Bn
+ UfztQ1NwJWDBJheEcD73QycVVXMoTbBUyIfLvcjI25SFZhnlIx13mjj4jlHLj9tmgx1g
+ HpSquXnXLlmiwFycaRk2CmmYChngUtwQYsl6w7YIOd/dUjOIqLdfS9hY3vM0CSqFEhpF
+ 6o/amoJt5b5U9IsgY2J+vpXiPCH2l1qp7CUngPixwQuseFBTeN4kOJSD1dB1E49Vugm5
+ /EPQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUDRIU4Ec5yki80DAhq3sYGXcdEIEOh9RdDsHggZwxAQysTptcG3VbUJ+IFwtjcSIK/UEGiY1ZM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyjyCv5hESEwLtSe8u76skyrshKcRhC+NIBs1jnVAdabj69Wisc
+ 8W1peJhvzZxWWZ/lnZLIhWDesqe8qKL+uApbrsPNqgEydi7SbkpTLdz6kmDCI6IR7vX8z54p7xW
+ K2U8/wAcmYPLnzvCEQuJuvb0jrD0j8RU=
+X-Gm-Gg: ASbGnctUHy0Kn6x2cndH+bnA+zMaxPDVt5Hwy/RjfwFypSLci1hNxK/L1CaiGUt5mMX
+ Vkj0vcVYlmkUqwnHLJMu1TiuOYK0KP5kkHGBKVGzhWNDelh731r8yeD2LWsakCKzOAS9YJp+xpx
+ KYOPsKV+8lv7lL1b5hesC8twHL5Ma53OMZElQR+7btDXgK28Zc2CahBdBVSJNVMqMgKgX8JLlUI
+ P/TWtg+SMdj17mGcw==
+X-Google-Smtp-Source: AGHT+IGRBxYEbLLG7ZikotbrdTaUnM4gOvEio6VH36wgab4BI5/mbOsGEC+6C01L/0G1HLVTpDK790L+Yd0ALAL4HlE=
+X-Received: by 2002:a17:902:c203:b0:24c:b1f4:88cc with SMTP id
+ d9443c01a7336-251757bab71mr63331905ad.9.1757423040088; Tue, 09 Sep 2025
+ 06:04:00 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6910:EE_
-X-MS-Office365-Filtering-Correlation-Id: aca461ac-7ba8-49d6-cb79-08ddef990cb6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SXF1VnVZZGxsekU2dm10RzJTMFVDUndka1lYNHdxRVFzUVpoVm1CcEZNNTFU?=
- =?utf-8?B?QkNqdG5EcW9jemhoYWIzenhDc3A3cTZqQm9FeWlvTWtvMkJhbS8xdS8xMjZH?=
- =?utf-8?B?dHVBa3l3a1QwL0JXSXhpNWlHOGxpeTZyWjhMMTNxY0xvN2dZUG12VjdBVlY5?=
- =?utf-8?B?Y2hiaHVidld1RU9NeWJJMXdraHE2MW9ydjJNY3Z6dnkyTW5nL0RFWm9VTUwy?=
- =?utf-8?B?dTV2Mit3YXgvblVJQWhzeEEwMHVub0p2RDBsTGtDc0NRNktwdHl3MWxOeldV?=
- =?utf-8?B?WXBvQXozVUFJeEpWcVVaZE1qY1Q3UDVCbWlJNHpvSWZBN25wWHo1K0tFTXJU?=
- =?utf-8?B?SGR6OWI1ZkRBRjFaVHIreHFoSWNzSk56bkhCNjhmMnpER3pmZUxEeTFSMkR0?=
- =?utf-8?B?Z0lvZnVvd3AveCtPanYrMHdFaU5yQjl3dy80RmdiWlZ0ZVN0dS85N3Y0Y1Vq?=
- =?utf-8?B?SURxNXlJQ3hFNDRidUNET0ljdWRHbndKdEdiNmpkbFNnYVR1Mk1hdXlvNld5?=
- =?utf-8?B?d0VybUl1c1BuTUdiZW14ekNJOEFnVG50NWRiT0F2UHNlQVlKRENjZTZWaGND?=
- =?utf-8?B?VmVRV3Q5YlNNaE1Fc2hhVHZhWFE3ZjgrcnhaWGlBMURkVFVzSzZZL25NTW9R?=
- =?utf-8?B?Ti9KYmFmSjNqVFhkS3FLZTlHZk5RS0FLYnI3YU5tSTljY2VmSFBqaDRIR3pZ?=
- =?utf-8?B?SGRVU2E2NzlmT21PcmhYNmEwam8ySzVpYW1JQWdSNHd3a1h4M29JVDlNZDRF?=
- =?utf-8?B?d2tqdmw3Si9tak1ORjRvMTJyZ0hYOHZzV0E1Z1IyWWJSRERBekZ6NFRoTDlr?=
- =?utf-8?B?d3JocnF1bVZHeDhWQ1hLMGdjdEJPUWFnMnQ0VGZqT255Q2kvbDZUT2ErWXFn?=
- =?utf-8?B?ZU1qdHFrU2Q3NkhvZmhEWDhaZkZCMHB2Tm5ObTRrMkdYditna1BFdFNOUnpx?=
- =?utf-8?B?ZVMxZ3FaaVhlVEJ1MnU1WEpNVW0wZTEzQWZRZDZ6N1EyUFBDTm1qeXhzcmM0?=
- =?utf-8?B?TFNFb1UrUmo5M3dIRzlVK0k4N0ZkNzVUSUdaZThPeEk4eCthSFJrbE8vdS9R?=
- =?utf-8?B?eVdFc3FoR1kwYzhUMVdXdkpmaHlrdjVSR1dtcE5pNkt2TS9xRVFMQ1VMcCtW?=
- =?utf-8?B?MEFYWGg0VEZBZndYTExEZzU0dDVndnU1KzRyRkluTURqajZneTFmUmJKa2Rw?=
- =?utf-8?B?dGtlaXcvYkh0YmFycEtISjlreXg3a2oxaHphZ1hXa1lXbjArVFF2MThCRk9j?=
- =?utf-8?B?MHZRQVVYRGw5RDVGVDY3anpBYXpzbDAwYVY3b0pvdEQvQ0piempZczM5Q2d3?=
- =?utf-8?B?UnhicmgybW04UFhaSzY5aXlPMkdMVmljU1lLV283aFNFOVlYdUdGTEhaNFlk?=
- =?utf-8?B?TUFqUUZSM01UeTBjMTBsTElQcThTSzZxMjNhZ3JqcEZiVjViZnczbGx5dnpy?=
- =?utf-8?B?NEdxUng4TDNsSHJxNVliQnNtemFES2ovd1RJWEE3R0VMa0lFQTZadnp6RlYy?=
- =?utf-8?B?b0F5OUNWZlBZTnMvMlg1citaZ0ZGWVhPVG1zNHp3U2NQS0lOdnlueE1KZndn?=
- =?utf-8?B?UlYrb0NDUit6dysrWHhtWUFRUFRFdkR3Qk80UkxQbytxREFBeElWaUgxWmU5?=
- =?utf-8?B?YXR2S2hGM0JielZqZHlGUGMyMk5qdmRGd2o2MlZSL28yRnh2T0NYWW5BMFpS?=
- =?utf-8?B?bXl3eTBKYmxXdGdpd3hoZjQvOHNHak1oaHRkZ2YwdWtnZU9pMCtKelZJdFh1?=
- =?utf-8?B?YndFWXBhMktxR2g2OUlEb0s3b1h4b0hoZWFtbTRDUzVOK1VTNU5yVzlISmxx?=
- =?utf-8?B?K213VjdRdUhQZzUyelZBVC9jNHdvTlg4WmUzMk5zbGFVbVVrRnZnYmt2NlpP?=
- =?utf-8?B?ZWxkVFlRNTVrZ2RRQThlY01ra0ptcUlOYUZvck5OR0daNXNKUHhlN29jYnNC?=
- =?utf-8?Q?uFhF2mbsvf0=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sy9ycmI5c2lXQ1ZucnF3OXlLK0FzLzliV0dqaldnUFk0dWh6L25BNjlmWWJB?=
- =?utf-8?B?cCtVakNPYUpnVlMvaVN5ZGFvNVF4QXBWSDZsZmJmdE10RXl1KzRvTUM2T2M4?=
- =?utf-8?B?N2FPdERHOWZHbUZTNHliT2FBTTh6cFJzMjdMdm1zWDlFeDA2ZE96REtHZGVk?=
- =?utf-8?B?K2ZGK3h2eXBXS0Z0MytaT2R2OW5hVmFYNldORG05Vm9pVmU0bzVZcXZETXRa?=
- =?utf-8?B?WjRTS2NBU21TNmxyZlQzc0JEVzg2Tjd5QVM2bm1RS1EyUGMvOTY5L21tdXd2?=
- =?utf-8?B?YjM4VENGK2k0bTNqMXcybFNKWHZpemdORGZwUGgxRUpia0JQL1A3d0diRGVC?=
- =?utf-8?B?ZWtaMDQ0UGdUUlIva0pMVDNzUStHYWRUc3RMcFh3Q2c2MU1FV2xURnRNN1pE?=
- =?utf-8?B?STVVSVNoTjUrVjlYcVBTb1VVZkQwQjhlZTNLRXRTdjRGUTYybnJ1MXR4dkJ5?=
- =?utf-8?B?Vmh1Ni9NRDRCTWV5anl1WXpBZ0hZenlIYnlJWXpCVmovTmtpMHYzUjJ4K2xt?=
- =?utf-8?B?Q0F6dWRURFo0UDQ2cEkxaG95cmhUQnMzemxWY0l5QVlmZ3Rvc2RrWVdIcjBM?=
- =?utf-8?B?OHA4Q21YcjM3UmxGeitIclo1enc3S0FrbnZMbG9VQ0UvbjNVcVhXdVQ1ZEtY?=
- =?utf-8?B?VXhKWVRwUThNTHdFVDZSYm5nZEswMmIyYkpMakgwc21Yclh6WFVOdlc2NTRp?=
- =?utf-8?B?TW5UZE4zQURxTzdCRE1KTjNucjV1NFJtQU8yRTNzUEpCSTF4OFJ4VG9qVkJh?=
- =?utf-8?B?N2V0bHFhT1I0dVE2bkJBVCttTU11ZHFTUmJDcmdLTjRUeVo4cWNDSDZPS2lN?=
- =?utf-8?B?YjdqZ1FBS212MXQ5QTRQanl3TU1kRmticnhsUU5ib0xmYmE1QnNGcjVIWkc0?=
- =?utf-8?B?NzFPbSs4Q2JIRThCSXE5OGZCb3JwZ3RkN1FaSU9nSXc1ZGREQjRBT2RsWTgy?=
- =?utf-8?B?Y1Q4TFZwY2tqbmFkQ1Mrd21ueUFzQmRsMVBycVI0WVhFOTRuRU8zdklzL3Az?=
- =?utf-8?B?ajIxbFM2RmQrdm5yNytFcWE3QStJdHREL2pjUTNkajdTaEVNZ1Q5cjBBdmt0?=
- =?utf-8?B?NVNGcHNQU05FQ3NJZzMxeHFOMWljaThyY3dIK0pVV2tZQlJjdGdzQ1JyN05R?=
- =?utf-8?B?YVVlRXdZakYvUFYwQTFOaWtCOFIwaittVUFZOXJ3a1VsOWx0S0tKUDIzRnlW?=
- =?utf-8?B?NkxzT2lBOHBVUG4zU0daV3pQVE1ScGNlclk1Zy9TdzRaRS9JUnExNHIrbVR3?=
- =?utf-8?B?eDFsd2c1Qm9tczRqMWdCcktBRGpRek9uVk1XcTAxVDRmbTRWUVdNaXdtRG8r?=
- =?utf-8?B?c3d1R2NlL0lsOXJ6VFNXVTVXRmlqWURGbmxRY0YyNFIxbUZESkc4Zm9TVFJW?=
- =?utf-8?B?L2JTUHNBMEgySmdFRGt5aVZWTk9rdlZFcVdsb010a1VaWWEvMHdObFBQZVkr?=
- =?utf-8?B?dmJKWlZWTnRROTRubnFwbWNvSTJ6WDllNUNPYkFuVFBpYlN6UnNVL3VNeFRi?=
- =?utf-8?B?VUNzOVI1WmxHellZVEFUWHVqeGtienFYa2F0T3hFNmhUdjBRUEdDbFpPbTRU?=
- =?utf-8?B?c0lvbUU3WThzRUlkYXpRbmlxVWhGdDFMeXhPeVNqSWhSZWVnekQxV2EzdGVB?=
- =?utf-8?B?WFE1dGJpNDcyY2grUExJTVhpODJ2N1NYMHVVbzNJYzFJRUZNbCswMHVVeVlX?=
- =?utf-8?B?UnpEVEx4blNEV25BR1BuVlM5TVB1a1VxakN2Rk1wbm82WE5YdmpDbUl4MXFZ?=
- =?utf-8?B?QzZWcXlWZE1FTTBaemRHWTNFMVkvSjd2YlBVZEc0aUJKYi9MRzFVNVpUUUVj?=
- =?utf-8?B?RnpYa1oyZmZTR3p3b0NYTjdvUk9TN2tiK1dHNmJiMnNXQTNHM0dFTkJuZkdZ?=
- =?utf-8?B?RHdhdTl1UDd4WWdWSC8wM2JLY0tuS2RrZHJGTUdkRnQzMTh3UnNQc1I1ZVhy?=
- =?utf-8?B?UWN2VTBpOVpoZ0hDMm9HM1BzdmZQRnJBbm01ZnR0VWw1NkVKV1QvVDFNQXlm?=
- =?utf-8?B?NHNaRkY2bEJ2eEdTbWwrSlZmbGdHNTczWENRcDg3bTdKRUdwRDIyMXdGNGls?=
- =?utf-8?B?My96eDRzbjFhd0RWUkc0U3dmRS9ablBhYVdicUVWTDR6SWMza0kwYjJkVE1X?=
- =?utf-8?Q?nMmwpJ20NX3ixaBev3yxygTDd?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aca461ac-7ba8-49d6-cb79-08ddef990cb6
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2025 12:04:38.0664 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L8WQTGIl0ktysYXpVwihctD91IapJ5qCfH8FFuGmytGw4jzOuI8nSGkyuyPRgPTa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6910
+References: <20250908232134.2223198-1-siqueira@igalia.com>
+ <0c1d66d1-0a73-4846-82b3-46f1e3889e8b@amd.com>
+In-Reply-To: <0c1d66d1-0a73-4846-82b3-46f1e3889e8b@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 9 Sep 2025 09:03:48 -0400
+X-Gm-Features: Ac12FXy-c9A3l2AyCItD829C2wlym0CVvZdeycI9lYoi0_nF5jWDxchAG1e7RY0
+Message-ID: <CADnq5_N5ae3h+EES5meomp_OnWmT+gj9ZuFQaONoxa7S+siPDQ@mail.gmail.com>
+Subject: Re: [PATCH 0/5] Remove multiple instances of volatile from amdgpu
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,58 +85,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Arun,
+Applied.  Thanks!
 
-On 09.09.25 11:56, Arunpravin Paneer Selvam wrote:
-[SNIP]
-
-> +/**
-> + * rbtree_for_each_entry_safe - iterate in-order over rb_root safe against removal
-> + *
-> + * @pos:	the 'type *' to use as a loop cursor
-> + * @n:		another 'type *' to use as temporary storage
-> + * @root:	'rb_root *' of the rbtree
-> + * @member:	the name of the rb_node field within 'type'
-> + */
-> +#define rbtree_for_each_entry_safe(pos, n, root, member) \
-> +	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member), \
-> +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL; \
-> +	     (pos); \
-> +	     (pos) = (n), \
-> +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL)
-
-As far as I know exactly that operation does not work on an R/B tree.
-
-See the _safe() variants of the for_each_ macros are usually used to iterate over a container while being able to remove entries.
-
-But because of the potential re-balance storing just the next entry is not sufficient for an R/B tree to do that as far as I know.
-
-Please explain how exactly you want to use this macro.
-
-Regards,
-Christian.
-
-
-> +
-> +/**
-> + * rbtree_reverse_for_each_entry_safe - iterate in reverse in-order over rb_root
-> + * safe against removal
-> + *
-> + * @pos:	the struct type * to use as a loop cursor.
-> + * @n:		another struct type * to use as temporary storage.
-> + * @root:	pointer to struct rb_root to iterate.
-> + * @member:	name of the rb_node field within the struct.
-> + */
-> +#define rbtree_reverse_for_each_entry_safe(pos, n, root, member) \
-> +	for ((pos) = rb_entry_safe(rb_last(root), typeof(*(pos)), member), \
-> +	     (n) = (pos) ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member) : NULL; \
-> +	     (pos); \
-> +	     (pos) = (n), \
-> +	     (n) = (pos) ? rb_entry_safe(rb_prev(&(pos)->member), typeof(*(pos)), member) : NULL)
-> +
->  /**
->   * rbtree_postorder_for_each_entry_safe - iterate in post-order over rb_root of
->   * given type allowing the backing memory of @pos to be invalidated
-> 
-> base-commit: 7156602d56e5ad689ae11e03680ab6326238b5e3
-
+On Tue, Sep 9, 2025 at 4:34=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com> for the enti=
+re series.
+>
+> Could be that this uncovers a bunch of missing memory barriers, but that =
+is pretty much the intended purpose.
+>
+> Thanks for taking care of that,
+> Christian.
+>
+> On 09.09.25 01:15, Rodrigo Siqueira wrote:
+> > In a series that reworked the CSB manipulation, Christian noticed the
+> > use of volatile in some of the function parameters and pointed out that
+> > the use of volatile in amdgpu is probably wrong [1]. He also shared the
+> > following link about this topic:
+> >
+> >   https://docs.kernel.org/process/volatile-considered-harmful.html
+> >
+> > After reading the documentation and inspecting multiple parts of the
+> > code, this series was created to remove many parts that use volatile.
+> > The three rare cases where volatile should be used served as a guide fo=
+r
+> > making this series.
+> >
+> > [1] https://lore.kernel.org/amd-gfx/b1c2d811-132a-47e5-a13f-086125b849b=
+5@amd.com/
+> >
+> > Thanks
+> >
+> > Rodrigo Siqueira (5):
+> >   drm/amdgpu: Remove volatile from CSB functions
+> >   drm/amdgpu: Remove volatile from RLC files
+> >   drm/amdgpu: Remove volatile from ring manipulation
+> >   drm/amdgpu: Remove volatile from amdgpu and amdgpu_ih headers
+> >   drm/amdgpu: Remove volatile references from VCN
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  4 ++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  |  6 +++---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |  6 +++---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h   |  6 +++---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 12 ++++++------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c  |  4 ++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h  |  8 ++++----
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c  | 10 +++++-----
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |  5 ++---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   |  5 ++---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   |  5 ++---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c    |  7 +++----
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c    |  5 ++---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    |  3 +--
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  3 +--
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c    | 10 +++++-----
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c    | 10 +++++-----
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c    | 12 ++++++------
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c    | 14 +++++++-------
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  | 12 ++++++------
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c  | 10 +++++-----
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c  | 10 +++++-----
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c  | 12 ++++++------
+> >  24 files changed, 87 insertions(+), 94 deletions(-)
+> >
+>
