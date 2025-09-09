@@ -4,74 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3B1CA0FED
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 19:42:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9AB7CA0FED
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 20:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD4E510E7EA;
-	Tue,  9 Sep 2025 19:42:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F57910E25A;
+	Tue,  9 Sep 2025 20:07:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j+dFUaXS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IeTZue2P";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB19E10E7EA
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 19:42:08 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-77253037b5eso500946b3a.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 Sep 2025 12:42:08 -0700 (PDT)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBA2D10E25A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 20:07:55 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-32baaf13944so671543a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Sep 2025 13:07:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757446928; x=1758051728; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1757448475; x=1758053275; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tt1nbhrV7qE0kEW//BEgpwej7R5la/lL9STfDHdXKI4=;
- b=j+dFUaXS/xu/Jfmj+mPKS/aTZqDMAthHt2VilvWAoQluaHpbLlIdJOaZtLoNcGPW6J
- X7t8YtIOO5t/TeGNu378MnUfxbqy4G6sppVDOCozjRRWuutidJhXkL+FuSkVjRLxqcIj
- gT2lBOhxNvkOJeXfGHxwa9R/aCQTH0k9Jy5bUlCM13d7ZiICi+TFwF1C3VYpMsWub8ky
- 961ePu22SfzzEbxKJKzJzg5XgjDYFEIB2a4P302PqZQjaYFURXlq/SdrmWrK/QjjrYl6
- /2pbbY5bNBT+HRIzaOYottmsUBIRAS7iGFsTwAMdIGAUnlILyMhOlritQ+yGh8u2imY/
- FdOw==
+ bh=rcntwuxZ3oT7oFN+1Q6d5xBh9D2T7d+KW33ERPH++oo=;
+ b=IeTZue2PLpcEAStgZFjxMJJaVrfmO+zDBwApko9VDk4CCmxIoBLbqWfv5+rWhiQJl7
+ 3bTwelMQrVfKDQUKHkE/j0AaLMJ75YUUI3MAdsPQlSxfXucBSRr88KvuIDNzKAPFnOLK
+ gjwj2O7XwcSH1RNw6wjiBupCejOZ0JrBx25lGXI+Fb7DnU+YVpQJ6/+4cVMQ4wdtjbAn
+ FaMQJCTCNnWMCuox5WID2yZiyevWFN+Ems7eogyUQ3pR54q7b4YdDJlxEEf3N/Jz51t9
+ /2xtnImOu24fdajt5gET6VrHCLP5C+wT5Cwhd1BBrZoWONUfCVY5yMHvsHmnzIvMmMoo
+ w2iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757446928; x=1758051728;
+ d=1e100.net; s=20230601; t=1757448475; x=1758053275;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tt1nbhrV7qE0kEW//BEgpwej7R5la/lL9STfDHdXKI4=;
- b=ukcpyPeo+G9R1eDldTz/pxLE90pSBJdnr1j7ZYHJ0j16HxPvXyMamOAKh3gIL4ZnQk
- PQCCjb/n1H0nB0yV90WBk2SEls94+PInjzxDvnRC+9vZjhl5AXH5EO3WDesxFYPT0Jvp
- ERSpOk6Tv+aTfnj+q+5JaH4DTCWHWxqeAij14K1wIGYMrGjji6lZE7dy7jmHfGs0QVyK
- AmPro5ueKRf5yTUYioroO0KPhb2KAZo1K9xenjbjat26F/QXiwqN0Pe5wS02ONkvy9Kw
- ArKyspe0Fjkz4u7ktBq/2X9/7eGFwopV7TDfG5yNnYzB6Zyqef7q60FYE+ZWRRwihte3
- X1Ow==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXYZQx276GZ0mYSfzQ/Nx4AOhtY16KcrlSIEKZLuMNXfW6fcIOx7EqiMfGFzaSg3A7Hz92KjcjW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywn23HwFIuNtKbN3/ZrGTYot+0zsAWCaOiNMzHlUHQ7O1cE4LU1
- yVVumoGxNYSTF7mXesV/CovIpQHiOz/4Gp3bZwtxikK9cMuOW1/g0zjk9vacFE3nbUwhJnEnoGo
- ETO4n+JK9Dv9tsyJYdLXSzVYGeuwsBqQ=
-X-Gm-Gg: ASbGnctXQuuFdz/9pqdTfyIidkxhgdoMvYYrIefItqGuFdOwnQlmORwI3VuwrqHqvpn
- wpVDSg2gWzdaJNb0Ec3gk0NVKy10Ej+hagabU/hIaJHkBYhCJK9FDMIccLPdEGEDEXJ5xUna4kv
- VQcs6BHiv6/mMf40bdizkz9Tpq3GdKAYzvrPjAnstYcx3zdy+ODZ/v0cXWQTq0b5NnNmNlT+xDe
- PBMvJ4=
-X-Google-Smtp-Source: AGHT+IGuqwZUuYGG1g6HtaFsCIhKncvH6h4aKdjJ/S30VeBFhwA1eqMmpcLVB9SJVrzo5nQs97BbxOM1Dy3jHKAvkeU=
-X-Received: by 2002:a17:902:ea03:b0:24c:b69d:5929 with SMTP id
- d9443c01a7336-2516da048f8mr98203935ad.2.1757446928256; Tue, 09 Sep 2025
- 12:42:08 -0700 (PDT)
+ bh=rcntwuxZ3oT7oFN+1Q6d5xBh9D2T7d+KW33ERPH++oo=;
+ b=vXi2t+2R3ngP/L/bjpVAUPs84dSGtCJJHSsPKlx+OBN0XnK78mwVSimJbkZ0uK9TPG
+ TTP7FxIY7E0uN4oeqsopFx3HMMZb8nfGwz7Ak/gSWykUs5+40s1wEEc4yrXuceWEfmMR
+ z33a/jfvwQSZE86TM4uVAvZLSyLFPWUKkjE+YiRncAKljg/uAH27lsBhpslVjjbv4ibn
+ Ko/qbo0rFNd621OhYQ4RY6CVVdf4GEd2oCKeNWq4dBoIEXEeVsx0RpxCyCh5CgO8Nn6J
+ w2i1opUk41CfbIoN9h3VBLd1H34RTtQeXImPZzIX7VvSvxFRvGqRCg2Py7OzxpbEZvsq
+ NdAg==
+X-Gm-Message-State: AOJu0YxLOgN6FX4zKIE+rujffWmYk5uXMN9gtHQSkU6XduIzU4dnAAlV
+ 3IuZi7qoVZJpjBMKR8kRIR8BpOQ8ToSnp6/DRIPfZ40zl/aee/CLmmhoMh3fNtoJJop6x4fw1BJ
+ CkJllnRMmz1TFd6y6uTFFdZYnykd+nm4=
+X-Gm-Gg: ASbGncvj/5sE48ofWaoATj79xVHThYi9XVDAujkg8yd/zWJK8wu20zaelcQwOcyfAQ3
+ moRLEkfuKnGV4A08mLQlKHndQQ1b7d7l2rJjJm/beG6PtT/8JijP82I3Z21zK/FnjK1qVAkihqQ
+ rA759kGY0g4CgXAfemvSC2/p+krKYdv2XSpVTuRA+3oe2Bx4Osa2Dnsh2qPowY5AP397/zaZYGu
+ pVeOmoNQnAAG3SyMg==
+X-Google-Smtp-Source: AGHT+IEdCBJ3VuJTbQNiNUaN6Lfwo04QTMgvPXUgeK0pImUrVUOgTo6VMG1fAqtbIA1EgUrT0R/7WgPDdL8AsV70L+E=
+X-Received: by 2002:a17:90b:4d0d:b0:32a:e70a:fe88 with SMTP id
+ 98e67ed59e1d1-32d440c4cf9mr9037111a91.7.1757448475211; Tue, 09 Sep 2025
+ 13:07:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250908204207.8397-1-stefan.silviu.alexandru@gmail.com>
- <BL1PR12MB51442BF8FBDCE9F4A23C21D0F70CA@BL1PR12MB5144.namprd12.prod.outlook.com>
- <CAB7_Ay8KKxn_unO6RiLKn=ZPrFoapHkMQjUWO6+_o0FjTkLy3A@mail.gmail.com>
-In-Reply-To: <CAB7_Ay8KKxn_unO6RiLKn=ZPrFoapHkMQjUWO6+_o0FjTkLy3A@mail.gmail.com>
+References: <20250905032026.3256999-1-Jesse.Zhang@amd.com>
+ <20250905032026.3256999-2-Jesse.Zhang@amd.com>
+In-Reply-To: <20250905032026.3256999-2-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 9 Sep 2025 15:41:56 -0400
-X-Gm-Features: Ac12FXz4-uma-zy0NSQjL2xa4_VaF5sjHeChDS32l_yfH88CrzdNg-00lXvK0Q4
-Message-ID: <CADnq5_PyD=_wv+kOSQ5FoyLU=YLhW3tRLc4_MX3uvM-qgim+YA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Register DP aux only if used
-To: Silviu-Alexandru Stefan <stefan.silviu.alexandru@gmail.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, 
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
+Date: Tue, 9 Sep 2025 16:07:42 -0400
+X-Gm-Features: Ac12FXxX0ofG-QWYvSaHAyQjvOkBmMhRT3b---SM37i4V3zEX43xLK6piM0Vcc4
+Message-ID: <CADnq5_N9Bipy=hoXW_FBBfA26FBh+d7hS_R2A2k8PXJiMqJyeA@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/amdgpu: Switch user queues to use preempt/restore
+ for eviction
+To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,180 +83,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 9, 2025 at 1:39=E2=80=AFPM Silviu-Alexandru Stefan
-<stefan.silviu.alexandru@gmail.com> wrote:
+On Thu, Sep 4, 2025 at 11:20=E2=80=AFPM Jesse.Zhang <Jesse.Zhang@amd.com> w=
+rote:
 >
-> On Tue, 9 Sept 2025 at 00:16, Deucher, Alexander
-> <Alexander.Deucher@amd.com> wrote:
-> >
-> > [Public]
-> >
-> > > -----Original Message-----
-> > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Si=
-lviu-
-> > > Alexandru =C8=98tefan
-> > > Sent: Monday, September 8, 2025 4:42 PM
-> > > To: amd-gfx@lists.freedesktop.org
-> > > Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> > > <Sunpeng.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Silviu-
-> > > Alexandru =C8=98tefan <stefan.silviu.alexandru@gmail.com>
-> > > Subject: [PATCH] drm/amd/display: Register DP aux only if used
-> > >
-> > > The aux channel is always registered if the connector is DP, even whe=
-n the link
-> > > doesn't contain DP. When using the DisplayPort connector in DP++ mode=
-, the I2C
-> > > is done directly over the pins, not over an aux channel. The practica=
-l effect is the
-> > > creation of
-> > > 2 I2C devices for DDC, one from the actual pins, and another from the=
- aux channel.
-> > >
-> > > This generates duplicate results from tools like ddcutil, for example=
- using a cheap
-> > > passive DP-to-DVI cable:
-> > >
-> > > Display 1
-> > >    I2C bus:  /dev/i2c-3
-> > >    DRM_connector:           card1-DP-1
-> > > ...
-> > > Display 3
-> > >    I2C bus:  /dev/i2c-7
-> > >    DRM_connector:           card1-DP-1
-> > > ...
-> > >
-> > > The "real" bus is i2c-3, while the aux i2c-7 doesn't work.
-> > >
-> > > Any read on the aux channel succeeds, but always returns an all-zero =
-buffer,
-> > > further confusing ddcutil which just says "Maximum retries exceeded",=
- even if it will
-> > > never work.
-> > >
-> > > The dc_link->aux_mode is true if the link actually intends to use aux=
- for DDC I2C,
-> > > so skip registering aux unless the link is actually in aux mode.
-> >
-> > I don't think you can skip this otherwise you'll never have the other b=
-us.  E.g., if you unplug the DP++ monitor and then plug in a DP monitor, th=
-e aux bus won't exist and then you'll have the opposite problem.
+> This patch modifies the user queue management to use preempt/restore
+> operations instead of full map/unmap for queue eviction scenarios where
+> applicable. The changes include:
 >
-> Hello,
+> 1. Introduces new helper functions:
+>    - amdgpu_userqueue_preempt_helper()
+>    - amdgpu_userqueue_restore_helper()
 >
-> Thanks for the review. You're right, the bus doesn't come back if I
-> switch around my monitors, I should have thought of that. I was
-> thinking the extra bus has to be wrong because other things only show
-> up in /dev if something is actually there, but I guess that isn't
-> necessarily correct here.
+> 2. Updates queue state management to track PREEMPTED state
 >
-> > You just need to use the right one based on what monitor is attached.  =
-In general, userspace shouldn't be messing with the i2c buses in the first =
-place.  If you need access to the EDIDs, the drm provides access to them.
+> 3. Modifies eviction handling to use preempt instead of unmap:
+>    - amdgpu_userq_evict_all() now uses preempt_helper
+>    - amdgpu_userq_restore_all() now uses restore_helper
 >
-> I want to change input source and/or brightness for 2 monitors with a
-> script, so it's more about commands over DDC than EDID. I see there is
-> a symlink "/sys/class/drm/card1-DP-1/ddc", but that has the opposite
-> issue as it always points to the non-aux i2c (good for DP++, bad for
-> normal DP).
+> The preempt/restore approach provides better performance during queue
+> eviction by avoiding the overhead of full queue teardown and setup.
+> Full map/unmap operations are still used for initial setup/teardown
+> and system suspend scenarios.
 >
-> Would it make sense to at least update the ddc symlink when the DP
-> link changes? That way it would always point at the actual i2c being
-> used for DDC, aux or not.
-> Or should I leave it like this and figure out in userspace which bus to u=
-se?
+> v2: rename amdgpu_userqueue_restore_helper/amdgpu_userqueue_preempt_helpe=
+r to
+> amdgpu_userq_restore_helper/amdgpu_userq_preempt_helper for consistency. =
+(Alex)
+>
+> v3: amdgpu_userq_stop_sched_for_enforce_isolation() and
+> amdgpu_userq_start_sched_for_enforce_isolation() should use preempt and r=
+estore (Alex)
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-I'm not sure how the symlink is managed.  If that can be handled
-dynamically that would be ok I think.
+Patches 1, 2 are:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Another option would be to only expose a single i2c bus for each
-physical connector and then internally the driver would use either the
-legacy i2c pins or the aux bus depending on what was connected.  That
-would prevent use of both buses independently however and it would
-make it impossible to use different i2c devices independently for each
-internal bus.
-
-Alex
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 53 ++++++++++++++++++++---
+>  1 file changed, 48 insertions(+), 5 deletions(-)
 >
-> Thanks,
-> Silviu
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index f941787e3506..7772de16f12b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -45,7 +45,7 @@ u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_de=
+vice *adev)
+>  }
 >
+>  static int
+> -amdgpu_userq_unmap_helper(struct amdgpu_userq_mgr *uq_mgr,
+> +amdgpu_userq_preempt_helper(struct amdgpu_userq_mgr *uq_mgr,
+>                           struct amdgpu_usermode_queue *queue)
+>  {
+>         struct amdgpu_device *adev =3D uq_mgr->adev;
+> @@ -54,6 +54,49 @@ amdgpu_userq_unmap_helper(struct amdgpu_userq_mgr *uq_=
+mgr,
+>         int r =3D 0;
 >
+>         if (queue->state =3D=3D AMDGPU_USERQ_STATE_MAPPED) {
+> +               r =3D userq_funcs->preempt(uq_mgr, queue);
+> +               if (r) {
+> +                       queue->state =3D AMDGPU_USERQ_STATE_HUNG;
+> +               } else {
+> +                       queue->state =3D AMDGPU_USERQ_STATE_PREEMPTED;
+> +               }
+> +       }
+> +
+> +       return r;
+> +}
+> +
+> +static int
+> +amdgpu_userq_restore_helper(struct amdgpu_userq_mgr *uq_mgr,
+> +                       struct amdgpu_usermode_queue *queue)
+> +{
+> +       struct amdgpu_device *adev =3D uq_mgr->adev;
+> +       const struct amdgpu_userq_funcs *userq_funcs =3D
+> +               adev->userq_funcs[queue->queue_type];
+> +       int r =3D 0;
+> +
+> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_PREEMPTED) {
+> +               r =3D userq_funcs->restore(uq_mgr, queue);
+> +               if (r) {
+> +                       queue->state =3D AMDGPU_USERQ_STATE_HUNG;
+> +               } else {
+> +                       queue->state =3D AMDGPU_USERQ_STATE_MAPPED;
+> +               }
+> +       }
+> +
+> +       return r;
+> +}
+> +
+> +static int
+> +amdgpu_userq_unmap_helper(struct amdgpu_userq_mgr *uq_mgr,
+> +                         struct amdgpu_usermode_queue *queue)
+> +{
+> +       struct amdgpu_device *adev =3D uq_mgr->adev;
+> +       const struct amdgpu_userq_funcs *userq_funcs =3D
+> +               adev->userq_funcs[queue->queue_type];
+> +       int r =3D 0;
+> +
+> +       if ((queue->state =3D=3D AMDGPU_USERQ_STATE_MAPPED) ||
+> +               (queue->state =3D=3D AMDGPU_USERQ_STATE_PREEMPTED)) {
+>                 r =3D userq_funcs->unmap(uq_mgr, queue);
+>                 if (r)
+>                         queue->state =3D AMDGPU_USERQ_STATE_HUNG;
+> @@ -591,7 +634,7 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_=
+mgr)
 >
-> >
-> > Alex
-> > >
-> > > i2cdetect -y 3:
-> > >      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-> > > 00:                         -- -- -- -- -- -- -- --
-> > > 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > 30: -- -- -- -- -- -- -- 37 -- -- 3a -- -- -- -- --
-> > > 40: 40 41 -- -- -- -- -- -- -- 49 -- -- -- -- -- --
-> > > 50: 50 -- -- -- -- -- -- -- -- 59 -- -- -- -- -- --
-> > > 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > 70: -- -- -- -- -- -- -- --
-> > >
-> > > i2cdetect -y 7:
-> > >      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-> > > 00:                         -- -- -- -- -- -- -- --
-> > > 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > 70: -- -- -- -- -- -- -- --
-> > >
-> > > Signed-off-by: Silviu-Alexandru =C8=98tefan <stefan.silviu.alexandru@=
-gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++--
-> > >  1 file changed, 11 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > index fadc6098eae..1759071e02a 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > @@ -7429,6 +7429,16 @@ amdgpu_dm_connector_atomic_duplicate_state(str=
-uct
-> > > drm_connector *connector)
-> > >       return &new_state->base;
-> > >  }
-> > >
-> > > +static inline bool amdgpu_dm_should_register_dp_aux(
-> > > +     struct amdgpu_dm_connector *amdgpu_dm_connector) {
-> > > +     int connector_type =3D amdgpu_dm_connector->base.connector_type=
-;
-> > > +
-> > > +     return ((connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPort) =
+>         /* Resume all the queues for this process */
+>         idr_for_each_entry(&uq_mgr->userq_idr, queue, queue_id) {
+> -               r =3D amdgpu_userq_map_helper(uq_mgr, queue);
+> +               r =3D amdgpu_userq_restore_helper(uq_mgr, queue);
+>                 if (r)
+>                         ret =3D r;
+>         }
+> @@ -748,7 +791,7 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mg=
+r)
+>
+>         /* Try to unmap all the queues in this process ctx */
+>         idr_for_each_entry(&uq_mgr->userq_idr, queue, queue_id) {
+> -               r =3D amdgpu_userq_unmap_helper(uq_mgr, queue);
+> +               r =3D amdgpu_userq_preempt_helper(uq_mgr, queue);
+>                 if (r)
+>                         ret =3D r;
+>         }
+> @@ -933,7 +976,7 @@ int amdgpu_userq_stop_sched_for_enforce_isolation(str=
+uct amdgpu_device *adev,
+>                         if (((queue->queue_type =3D=3D AMDGPU_HW_IP_GFX) =
 ||
-> > > +             (connector_type =3D=3D DRM_MODE_CONNECTOR_eDP)) &&
-> > > +            amdgpu_dm_connector->dc_link->aux_mode;
-> > > +}
-> > > +
-> > >  static int
-> > >  amdgpu_dm_connector_late_register(struct drm_connector *connector)  =
-{ @@ -
-> > > 7445,8 +7455,7 @@ amdgpu_dm_connector_late_register(struct drm_connec=
-tor
-> > > *connector)
-> > >
-> > >       amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
-> > >
-> > > -     if ((connector->connector_type =3D=3D
-> > > DRM_MODE_CONNECTOR_DisplayPort) ||
-> > > -         (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP)) =
-{
-> > > +     if (amdgpu_dm_should_register_dp_aux(amdgpu_dm_connector)) {
-> > >               amdgpu_dm_connector->dm_dp_aux.aux.dev =3D connector->k=
-dev;
-> > >               r =3D drm_dp_aux_register(&amdgpu_dm_connector-
-> > > >dm_dp_aux.aux);
-> > >               if (r)
-> > >
-> > > base-commit: 837f3abbfebdb355ed049c2b06b54108e2bbdf35
-> > > --
-> > > 2.51.0
-> >
+>                              (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPU=
+TE)) &&
+>                             (queue->xcp_id =3D=3D idx)) {
+> -                               r =3D amdgpu_userq_unmap_helper(uqm, queu=
+e);
+> +                               r =3D amdgpu_userq_preempt_helper(uqm, qu=
+eue);
+>                                 if (r)
+>                                         ret =3D r;
+>                         }
+> @@ -967,7 +1010,7 @@ int amdgpu_userq_start_sched_for_enforce_isolation(s=
+truct amdgpu_device *adev,
+>                         if (((queue->queue_type =3D=3D AMDGPU_HW_IP_GFX) =
+||
+>                              (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPU=
+TE)) &&
+>                             (queue->xcp_id =3D=3D idx)) {
+> -                               r =3D amdgpu_userq_map_helper(uqm, queue)=
+;
+> +                               r =3D amdgpu_userq_restore_helper(uqm, qu=
+eue);
+>                                 if (r)
+>                                         ret =3D r;
+>                         }
+> --
+> 2.49.0
+>
