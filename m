@@ -4,89 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A056CA101F
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 18:38:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8566ACA101F
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 18:41:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E36210E9B9;
-	Wed, 10 Sep 2025 18:38:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 258CC10E9BA;
+	Wed, 10 Sep 2025 18:41:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hUa6z1el";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rTOZLl/F";
 	dkim-atps=neutral
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E349610E9BA
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 18:38:16 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-7723f0924a3so9486855b3a.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 11:38:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757529496; x=1758134296; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=fL4hZHDdfgOk1aP7LE0pW0a5zCT4VcoQA7NE7uCznYg=;
- b=hUa6z1el7gpVJbeug/RKvHsZXbgbA+g0l2/kxENOymtZDf+1Yy3Y9gUtJnjz5TyGip
- FrGihZD05mTCXxZsQeyQflCCOqi9x8XvQ9WyV2dsD9L4Gh4VU/EP6VZE8+qHEbPBUiS9
- hwGW868yRCkymzAYBtq4ejw839RcDpgtRHu6j+Z9+UCGRl1mClEm8so/cQlQx+pjaVUV
- /gLFwzIdXjL5e+CNLgysgtQIEGPDv4ythVNvBQH/Fz5abYQf6oLc/5xoG2bNQcHBqNQ0
- QiqN+6LZSCdz9WgRwFAr6VMnltP1gfFx3bDLZIYxmdhXWuvygRaqG3OF16qpvp55TRH2
- osrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757529496; x=1758134296;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fL4hZHDdfgOk1aP7LE0pW0a5zCT4VcoQA7NE7uCznYg=;
- b=onfjxXnQ00TTr/UPkbkphxEuGUWMSZNOXRiXmSxVWxatRYBdJvYE5cY2p6297SBFMG
- xch0IdTtfB1Xldrdsbg4CUhHBz8wvvUiWAPiPtWPjn7f2hZtqPAGY3zOOo/ggbgV2J+1
- CerC01tPlmhMnU38zzut70EDB/vGEs6rlqGhuN/v+/yM2DnXKDWmyYFiLE7nZkjZgxzP
- KGHGXPTbyWxQAzuNM5fu4JqifhunfxC1j+zMRcFWfNOK3vi4vo9G9TdZ42X2/C9uNgZI
- uT/J1r3LZUqJvrYXgc0rRRGg1UOEdxmGxe13uhhP91CQhQVt+Zw+S631wcZJracJqEVe
- +dBg==
-X-Gm-Message-State: AOJu0Ywl8pTk+Ja2HfyBSmvAoAJNncBrhZNYv4H7+p5E+e7K3jRV8jhE
- ycrqyJObXvMVr6BcitAG5zCEXFK7ek6uVse/MlHoUbdHvv2fuZZuH9Vv
-X-Gm-Gg: ASbGncvXIgfcCGm+TriSXcPsukJz5g3BIMQZGYFYTnTvjSrEWimyRKChiNUxAdykRK5
- 1KkcDYgX1H4c74zSKejg31jObnOoBAwXgxIFTL/PmMYfWMFQXMzvnzTRcbtdxIXfbrfP5nbbMJl
- iefnLJoEwkZ591SgEYlu5L+4rf8aSwnts8au0/SaYYdRnucwUO9qJsnTottlMNVo6cLQYnNuGdV
- 6m7gmwuh6HZ/NMOEJXYIhGSVpdxOwUHW/IquOexB9vECf06sPLBb6JfYZL+er2bpLXfvUIsJXOe
- QR54lutdi5zH23MNvBB6eUxZ+jToRNMqKAJAS36dE6Lk1PsLRZVR4FARzVRrFTvFuLYvOLapFvO
- urhATpjeykYWMvgN1thwUHoTKFnJS1alIdesuB15F72z63HW5fxq+q+Mz968IS66KBx/GOUZ255
- q01tiJC1i/9zpjylM/iZei3lgPSWzXK8UeD/+FWKhMgLBfUwBaB3h4aB+NCxcX/JHeToqVdCgnS
- 65g4YGNt+E=
-X-Google-Smtp-Source: AGHT+IFfF3u0ER59yps4IFz0MwiqsfrWZiXMwhqMsahNXwtHO/LKW72VoBU5uzuBHVsY0RnIkwNIoQ==
-X-Received: by 2002:a05:6a20:9186:b0:247:b1d9:77c with SMTP id
- adf61e73a8af0-2533e5731cfmr24500952637.3.1757529496175; 
- Wed, 10 Sep 2025 11:38:16 -0700 (PDT)
-Received: from ?IPv6:2001:4c4e:24d7:a100:4049:4ce3:eb22:4319?
- (20014C4E24D7A10040494CE3EB224319.dsl.pool.telekom.hu.
- [2001:4c4e:24d7:a100:4049:4ce3:eb22:4319])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b548a3f31a5sm3269596a12.8.2025.09.10.11.38.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Sep 2025 11:38:15 -0700 (PDT)
-Message-ID: <7c5d463888fdac592ae2631327b05efdd1b29a80.camel@gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: Set SDMA v3 copy_max_bytes to 0x3fff00
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Marek =?UTF-8?Q?Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, "Olsak, Marek"
- <Marek.Olsak@amd.com>
-Date: Wed, 10 Sep 2025 20:38:08 +0200
-In-Reply-To: <CAAxE2A4HvuAHsuoeaNKVMxsFanR25iNo_THGV=vdyaMT6_qy9A@mail.gmail.com>
-References: <20250909144937.22452-1-timur.kristof@gmail.com>
- <20250909144937.22452-2-timur.kristof@gmail.com>
- <26b5d36d-1c9b-4891-962c-ec13b65f02ac@amd.com>
- <a065f044dd629a9863ca18bb0e913d8f9299bedc.camel@gmail.com>
- <32b1c868-8b0d-41fd-94b9-0ebfbc6b3711@amd.com>
- <0d07fe34d3857ece68d29ce21ea2768e43538aa6.camel@gmail.com>
- <a77a5934-afa8-48e5-bb15-a7f55087c245@amd.com>
- <CAAxE2A4ZUG_DLnMpW7yd=pSqnGoyELmxi_u9GveLg1zra82_wg@mail.gmail.com>
- <eff9b0b0-ff7d-490b-b81c-ab866f5a4b14@amd.com>
- <CAAxE2A4HvuAHsuoeaNKVMxsFanR25iNo_THGV=vdyaMT6_qy9A@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 622E610E9BA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 18:41:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f86tNiIXjfQGDJ1sk1M9y/0iQQricNrEPoLQWDA2OkhsUBSL74nIcS8gVkesQQn7x0gZCw8nXIitEuTgVV4LrfAngcpkBd+GIWQYGv/Wq+FUq4L26CwrXYFvHTQAC2FJGVi9joeEVSEGliqhvLxY6O6utbqJGHX9Qs3rIaYRrZWNPEQr6Qas/+8jSeAiTrAL9Kqplf5WptRGnmp/1Q89gmXpeoG48RAEMHtF7/NP66AMx7ziprA8u72ljrpNlI1PY+3/k6hdFj4AajDSzMUf0F35NN8oS4tTU/W+ligwcjEqg8+Crwx7QiKkDGgcqrUHwb9YZqzCgETASFA5ifoxqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dzc+4I10SuAutuYPKmDtMi6Z2SZKWjIPbaQUbAk3CxU=;
+ b=eQ0HhCwb+Gr6CMel6JFCSpnbhT5B6UCISP3DtDy1tTG3+SBw1/0278UG5xXAqdvx/1z87siYIBoqy0bbzXI96q8HyRLvmgEoNQbzs5H8rN85o+bOGH4c6TPHRuQAbGq8EdTWBjI0WDwaJwxNDN8b57NFBSRR2ul5Gbp7NOCVSLEBUrOCR0BTLp6RiBVneENIpaqWUAOmYUorHyKQPCtAa3g4dfSiPhEISgS63wbXPs7AMIPvnO8Hdd9UO3nABRH6X/AtL3x6F1c4kNHiCGjKmHxOfh2cFySL3zXWKn7vYlQnF3cBPErm8AWt+66No7Vs8czTAauXYS+j0+hJrX/zcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dzc+4I10SuAutuYPKmDtMi6Z2SZKWjIPbaQUbAk3CxU=;
+ b=rTOZLl/FN13D7tvtbGvSwQ37NLYiq8EpVK3sxG9kCmnN9tEAZe9Nk3slXqrF3uvlY8fPwy28vGpqgQd8tKMPaT+xtwsykDuBxdPLNOPsob/H/9O0eECnPOrUmqMw/jK9VsEdZIBTGLine17Si65d8YH00M4uhLEVKGr9oemctwk=
+Received: from SJ0PR13CA0164.namprd13.prod.outlook.com (2603:10b6:a03:2c7::19)
+ by LV3PR12MB9266.namprd12.prod.outlook.com (2603:10b6:408:21b::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
+ 2025 18:41:03 +0000
+Received: from SJ5PEPF000001EC.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c7:cafe::6) by SJ0PR13CA0164.outlook.office365.com
+ (2603:10b6:a03:2c7::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.6 via Frontend Transport; Wed,
+ 10 Sep 2025 18:41:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001EC.mail.protection.outlook.com (10.167.242.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9115.13 via Frontend Transport; Wed, 10 Sep 2025 18:41:02 +0000
+Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 10 Sep 2025 11:40:59 -0700
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: "amd-gfx @ lists . freedesktop . org" <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH] drm/amd: Duplicate DC_FEATURE_MASK and DC_DEBUG_MASK enum
+ values into kdoc
+Date: Wed, 10 Sep 2025 13:40:30 -0500
+Message-ID: <20250910184030.3773845-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EC:EE_|LV3PR12MB9266:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd8657e8-b204-40b9-aaf8-08ddf09997ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IT5qAA3T8FtVQ+3Va1A5BAm7FQ+RIcM/hHXe77owPwR1hnf/fDcK1o+rTagU?=
+ =?us-ascii?Q?Kl51aYz29FsdnD4L9kgDUYgOM8CgmbIVeWM8EfopFDO2TpR+U7Gi3FQ35y7b?=
+ =?us-ascii?Q?ohhEfyIR91eWV3Uoacza2Zo94GGWz6Zi2/zpHZalYC2GgOuziHIzfgyLL1Gm?=
+ =?us-ascii?Q?7yzcswLGRajo/K8ZBxWGHzQz1cpWd9AfqXyADFPYDSHQxEQ2dYRka1CTeoC/?=
+ =?us-ascii?Q?PZo0Fz8kylB1RF2OyCBe7NMAeFnk70m3Mrc6Qc4uONimnEt9GH6Yj1AnIoSI?=
+ =?us-ascii?Q?T/Um5TI8ExbFvpQ2GAMgTknemZi/GUenBxgc7iRNskEctiY+c/C0LLf/GF3a?=
+ =?us-ascii?Q?VHOziW+64TEJ5u20343u+5muL0TJp08/XsuRA1Aa/sZOWCHGyD/VlG3j3NqX?=
+ =?us-ascii?Q?To7ThEhA8AvKdwasxiWMAed1FQHe7HfMRKvsKUAlu+b+RmP7i5jwMhegVQnG?=
+ =?us-ascii?Q?mvqzc3yOm6fmNlwfiaDCkfO3aBUezfnKOEMChSuXrErFPR6/QA2hL0CeNpRG?=
+ =?us-ascii?Q?ta560RcjlzUTdMYPj2IgyEz74UFDn2iS7vGVVF2hUW2rQULNaHfXjQ1N79K8?=
+ =?us-ascii?Q?dAI5tGN8cZKewn5W8SmKXkHZcsPb1TkKRgEkWu/2xwRBDJgfk4qXZa9G4ZjL?=
+ =?us-ascii?Q?AdI5Ra3tZX2vdY5uatNOe993pUT2qXEljaFIABW9jg0+jLMojEI4QUsZnfdb?=
+ =?us-ascii?Q?COel9uUYTSN3x8tzwaC4S24dCBOeUjVHIxYU5DCX70SMAs+nLU9ldok7M70q?=
+ =?us-ascii?Q?Hx4zvs0EEqr4UfddWnheFGSiPPYAyvqBGgD4QF+4WOKq7kF9iEZ9fdqd8Np8?=
+ =?us-ascii?Q?3H2CoOVKcN/HN4zLS1kVSyLqPC0ULZkZOjHmDNnhBT8VfNunsgkVOYG5umiU?=
+ =?us-ascii?Q?el04HBLlkcCbxFLj8MJXjEXhcK/JL9zhiQoKxNAMcySUZzlNO1ntyWb72eH7?=
+ =?us-ascii?Q?jB+C+murJS1dkUGh/YOmviRLQFmI18lolOeu9E/qTfR6tIQehVowhk7kRWwM?=
+ =?us-ascii?Q?WWygFag21az3C/4jL1fgNos8F63bgZ9fTbFl1TIINICuDU85cAQClAdsyvKh?=
+ =?us-ascii?Q?BqV+CSg/Wlml3y4fQQjp2d0FJmRTrgr/L/S4pwhiWCzla1laIOLiC89A+p79?=
+ =?us-ascii?Q?gFgpojNa/4XsJqVJJGFc4HxJjukRWF/9+TV//EzIJvlumlMePKaMCKFou/c4?=
+ =?us-ascii?Q?8L5BpsL7uuQMZyeMea11IAsPZZdMFCRVwRytVLR/hbATd5AiwOnY6DxCSEwF?=
+ =?us-ascii?Q?JWUyXoiRTVg4Y6EFyNyR4lssaQIeGy9c2URHvaEzdOSLvhzRF54ApmASm2Ql?=
+ =?us-ascii?Q?Ab36nyHM43L5cWiu04JCtw2IhevFvNgtDBR0hHha/z64Lg9z7TJnoHieML+A?=
+ =?us-ascii?Q?/HZIdrmWQRM9wVzLkxKjUKhJRThZPSG5QPI/KCWZl/k7eCwXnQknc551mL/w?=
+ =?us-ascii?Q?GynNNDiT7FA7aDB1mExsjcE4jV5HusSSsAxD+YmY9T2Qj6K6dY1oiggdaLTl?=
+ =?us-ascii?Q?X+mhVfIh2V6li1YiC3IcBG2nBP8ig31bUOj4?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 18:41:02.0623 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd8657e8-b204-40b9-aaf8-08ddf09997ae
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9266
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,280 +131,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-09-10 at 11:10 -0400, Marek Ol=C5=A1=C3=A1k wrote:
-> I added the comment into Mesa that 0x3fff00 is the limit. I did
-> research on that bug separately from PAL, but I don't remember the
-> details.
->=20
-> There is no performance to gain here. It's only about consistency and
-> clear communication to the=C2=A0public what the recommended SDMA
-> programming is.
->=20
-> Marek
+[Why]
+When kernel documentation is generated the enum values themselves don't
+end up in the documentation.  This makes browsing them in HTML a lot
+less useful.
 
-Hi Christian & Marek,
+[How]
+Copy DC_DEBUG_MASK and DC_FEATURE_MASK enum values into matching kdoc
+comments.
 
-I'd be happy to submit a new patch series if we can agree on what the
-limits are for each SDMA version and how to get the best performance
-from it.
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ Documentation/gpu/amdgpu/driver-core.rst |  2 +-
+ drivers/gpu/drm/amd/include/amd_shared.h | 98 ++++++++++++++++--------
+ 2 files changed, 67 insertions(+), 33 deletions(-)
 
-I trust Marek's word that he did his research when he came up with
-0x3fff00 so I don't understand the pushback here.
+diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu/amdgpu/driver-core.rst
+index bd4be32f2725..3ce276272171 100644
+--- a/Documentation/gpu/amdgpu/driver-core.rst
++++ b/Documentation/gpu/amdgpu/driver-core.rst
+@@ -210,4 +210,4 @@ IP Blocks
+    :doc: IP Blocks
+ 
+ .. kernel-doc:: drivers/gpu/drm/amd/include/amd_shared.h
+-   :identifiers: amd_ip_block_type amd_ip_funcs DC_DEBUG_MASK
++   :identifiers: amd_ip_block_type amd_ip_funcs DC_FEATURE_MASK DC_DEBUG_MASK
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index bfb446736ca8..75efda2969cf 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -239,18 +239,51 @@ enum amd_harvest_ip_mask {
+     AMD_HARVEST_IP_DMU_MASK = 0x4,
+ };
+ 
++/**
++ * enum DC_FEATURE_MASK - Bits that control DC feature defaults
++ */
+ enum DC_FEATURE_MASK {
+ 	//Default value can be found at "uint amdgpu_dc_feature_mask"
+-	DC_FBC_MASK = (1 << 0), //0x1, disabled by default
+-	DC_MULTI_MON_PP_MCLK_SWITCH_MASK = (1 << 1), //0x2, enabled by default
+-	DC_DISABLE_FRACTIONAL_PWM_MASK = (1 << 2), //0x4, disabled by default
+-	DC_PSR_MASK = (1 << 3), //0x8, disabled by default for dcn < 3.1
+-	DC_EDP_NO_POWER_SEQUENCING = (1 << 4), //0x10, disabled by default
+-	DC_DISABLE_LTTPR_DP1_4A = (1 << 5), //0x20, disabled by default
+-	DC_DISABLE_LTTPR_DP2_0 = (1 << 6), //0x40, disabled by default
+-	DC_PSR_ALLOW_SMU_OPT = (1 << 7), //0x80, disabled by default
+-	DC_PSR_ALLOW_MULTI_DISP_OPT = (1 << 8), //0x100, disabled by default
+-	DC_REPLAY_MASK = (1 << 9), //0x200, disabled by default for dcn < 3.1.4
++	/**
++	 * @DC_FBC_MASK: (0x1) disabled by default
++	 */
++	DC_FBC_MASK = (1 << 0),
++	/**
++	 * @DC_MULTI_MON_PP_MCLK_SWITCH_MASK: (0x2) enabled by default
++	 */
++	DC_MULTI_MON_PP_MCLK_SWITCH_MASK = (1 << 1),
++	/**
++	 * @DC_DISABLE_FRACTIONAL_PWM_MASK: (0x4) disabled by default
++	 */
++	DC_DISABLE_FRACTIONAL_PWM_MASK = (1 << 2),
++	/**
++	 * @DC_PSR_MASK: (0x8) disabled by default for DCN < 3.1
++	 */
++	DC_PSR_MASK = (1 << 3),
++	/**
++	 * @DC_EDP_NO_POWER_SEQUENCING: (0x10) disabled by default
++	 */
++	DC_EDP_NO_POWER_SEQUENCING = (1 << 4),
++	/**
++	 * @DC_DISABLE_LTTPR_DP1_4A: (0x20) disabled by default
++	 */
++	DC_DISABLE_LTTPR_DP1_4A = (1 << 5),
++	/**
++	 * @DC_DISABLE_LTTPR_DP2_0: (0x40) disabled by default
++	 */
++	DC_DISABLE_LTTPR_DP2_0 = (1 << 6),
++	/**
++	 * @DC_PSR_ALLOW_SMU_OPT: (0x80) disabled by default
++	 */
++	DC_PSR_ALLOW_SMU_OPT = (1 << 7),
++	/**
++	 * @DC_PSR_ALLOW_MULTI_DISP_OPT: (0x100) disabled by default
++	 */
++	DC_PSR_ALLOW_MULTI_DISP_OPT = (1 << 8),
++	/**
++	 * @DC_REPLAY_MASK: (0x200) disabled by default for DCN < 3.1.4
++	 */
++	DC_REPLAY_MASK = (1 << 9),
+ };
+ 
+ /**
+@@ -258,64 +291,64 @@ enum DC_FEATURE_MASK {
+  */
+ enum DC_DEBUG_MASK {
+ 	/**
+-	 * @DC_DISABLE_PIPE_SPLIT: If set, disable pipe-splitting
++	 * @DC_DISABLE_PIPE_SPLIT: (0x1) If set, disable pipe-splitting
+ 	 */
+ 	DC_DISABLE_PIPE_SPLIT = 0x1,
+ 
+ 	/**
+-	 * @DC_DISABLE_STUTTER: If set, disable memory stutter mode
++	 * @DC_DISABLE_STUTTER: (0x2) If set, disable memory stutter mode
+ 	 */
+ 	DC_DISABLE_STUTTER = 0x2,
+ 
+ 	/**
+-	 * @DC_DISABLE_DSC: If set, disable display stream compression
++	 * @DC_DISABLE_DSC: (0x4) If set, disable display stream compression
+ 	 */
+ 	DC_DISABLE_DSC = 0x4,
+ 
+ 	/**
+-	 * @DC_DISABLE_CLOCK_GATING: If set, disable clock gating optimizations
++	 * @DC_DISABLE_CLOCK_GATING: (0x8) If set, disable clock gating optimizations
+ 	 */
+ 	DC_DISABLE_CLOCK_GATING = 0x8,
+ 
+ 	/**
+-	 * @DC_DISABLE_PSR: If set, disable Panel self refresh v1 and PSR-SU
++	 * @DC_DISABLE_PSR: (0x10) If set, disable Panel self refresh v1 and PSR-SU
+ 	 */
+ 	DC_DISABLE_PSR = 0x10,
+ 
+ 	/**
+-	 * @DC_FORCE_SUBVP_MCLK_SWITCH: If set, force mclk switch in subvp, even
++	 * @DC_FORCE_SUBVP_MCLK_SWITCH: (0x20) If set, force mclk switch in subvp, even
+ 	 * if mclk switch in vblank is possible
+ 	 */
+ 	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
+ 
+ 	/**
+-	 * @DC_DISABLE_MPO: If set, disable multi-plane offloading
++	 * @DC_DISABLE_MPO: (0x40) If set, disable multi-plane offloading
+ 	 */
+ 	DC_DISABLE_MPO = 0x40,
+ 
+ 	/**
+-	 * @DC_ENABLE_DPIA_TRACE: If set, enable trace logging for DPIA
++	 * @DC_ENABLE_DPIA_TRACE: (0x80) If set, enable trace logging for DPIA
+ 	 */
+ 	DC_ENABLE_DPIA_TRACE = 0x80,
+ 
+ 	/**
+-	 * @DC_ENABLE_DML2: If set, force usage of DML2, even if the DCN version
++	 * @DC_ENABLE_DML2: (0x100) If set, force usage of DML2, even if the DCN version
+ 	 * does not default to it.
+ 	 */
+ 	DC_ENABLE_DML2 = 0x100,
+ 
+ 	/**
+-	 * @DC_DISABLE_PSR_SU: If set, disable PSR SU
++	 * @DC_DISABLE_PSR_SU: (0x200) If set, disable PSR SU
+ 	 */
+ 	DC_DISABLE_PSR_SU = 0x200,
+ 
+ 	/**
+-	 * @DC_DISABLE_REPLAY: If set, disable Panel Replay
++	 * @DC_DISABLE_REPLAY: (0x400) If set, disable Panel Replay
+ 	 */
+ 	DC_DISABLE_REPLAY = 0x400,
+ 
+ 	/**
+-	 * @DC_DISABLE_IPS: If set, disable all Idle Power States, all the time.
++	 * @DC_DISABLE_IPS: (0x800) If set, disable all Idle Power States, all the time.
+ 	 * If more than one IPS debug bit is set, the lowest bit takes
+ 	 * precedence. For example, if DC_FORCE_IPS_ENABLE and
+ 	 * DC_DISABLE_IPS_DYNAMIC are set, then DC_DISABLE_IPS_DYNAMIC takes
+@@ -324,56 +357,57 @@ enum DC_DEBUG_MASK {
+ 	DC_DISABLE_IPS = 0x800,
+ 
+ 	/**
+-	 * @DC_DISABLE_IPS_DYNAMIC: If set, disable all IPS, all the time,
++	 * @DC_DISABLE_IPS_DYNAMIC: (0x1000) If set, disable all IPS, all the time,
+ 	 * *except* when driver goes into suspend.
+ 	 */
+ 	DC_DISABLE_IPS_DYNAMIC = 0x1000,
+ 
+ 	/**
+-	 * @DC_DISABLE_IPS2_DYNAMIC: If set, disable IPS2 (IPS1 allowed) if
++	 * @DC_DISABLE_IPS2_DYNAMIC: (0x2000) If set, disable IPS2 (IPS1 allowed) if
+ 	 * there is an enabled display. Otherwise, enable all IPS.
+ 	 */
+ 	DC_DISABLE_IPS2_DYNAMIC = 0x2000,
+ 
+ 	/**
+-	 * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
++	 * @DC_FORCE_IPS_ENABLE: (0x4000) If set, force enable all IPS, all the time.
+ 	 */
+ 	DC_FORCE_IPS_ENABLE = 0x4000,
+ 	/**
+-	 * @DC_DISABLE_ACPI_EDID: If set, don't attempt to fetch EDID for
++	 * @DC_DISABLE_ACPI_EDID: (0x8000) If set, don't attempt to fetch EDID for
+ 	 * eDP display from ACPI _DDC method.
+ 	 */
+ 	DC_DISABLE_ACPI_EDID = 0x8000,
+ 
+ 	/**
+-	 * @DC_DISABLE_HDMI_CEC: If set, disable HDMI-CEC feature in amdgpu driver.
++	 * @DC_DISABLE_HDMI_CEC: (0x10000) If set, disable HDMI-CEC feature in amdgpu driver.
+ 	 */
+ 	DC_DISABLE_HDMI_CEC = 0x10000,
+ 
+ 	/**
+-	 * @DC_DISABLE_SUBVP_FAMS: If set, disable DCN Sub-Viewport & Firmware Assisted
++	 * @DC_DISABLE_SUBVP_FAMS: (0x20000) If set, disable DCN Sub-Viewport & Firmware Assisted
+ 	 * Memory Clock Switching (FAMS) feature in amdgpu driver.
+ 	 */
+ 	DC_DISABLE_SUBVP_FAMS = 0x20000,
+ 	/**
+-	 * @DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: If set, disable support for custom brightness curves
++	 * @DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: (0x40000) If set, disable support for custom
++	 * brightness curves
+ 	 */
+ 	DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE = 0x40000,
+ 
+ 	/**
+-	 * @DC_HDCP_LC_FORCE_FW_ENABLE: If set, use HDCP Locality Check FW
++	 * @DC_HDCP_LC_FORCE_FW_ENABLE: (0x80000) If set, use HDCP Locality Check FW
+ 	 * path regardless of reported HW capabilities.
+ 	 */
+ 	DC_HDCP_LC_FORCE_FW_ENABLE = 0x80000,
+ 
+ 	/**
+-	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK: If set, upon HDCP Locality Check FW
++	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK: (0x100000) If set, upon HDCP Locality Check FW
+ 	 * path failure, retry using legacy SW path.
+ 	 */
+ 	DC_HDCP_LC_ENABLE_SW_FALLBACK = 0x100000,
+ 
+ 	/**
+-	 * @DC_SKIP_DETECTION_LT: If set, skip detection link training
++	 * @DC_SKIP_DETECTION_LT: (0x200000) If set, skip detection link training
+ 	 */
+ 	DC_SKIP_DETECTION_LT = 0x200000,
+ };
+-- 
+2.50.1
 
-(1) According to a conversation between Marek and myself, the most
-optimal way to program the SDMA would be to use 256-byte-aligned copy
-packets. Christian, do you agree with this? If yes, I can write a patch
-for that. If not, let me know what you would prefer.
-
-(2) I'd like us to come to an agreement on the maximum amount of bytes
-copied per SDMA packet, and align the kernel code with Mesa. At the
-moment, the maximum limit is different for every SDMA version between
-the kernel and Mesa, which makes the whole topic super confusing.
-
-Please keep in mind that if there is any chance that the current limit
-is indeed incorrect (as it sounds like it is), we risk "random" SDMA
-hangs on users' machines.
-
-Thanks & best regards,
-Timur
-
-
-
-
->=20
-> On Wed, Sep 10, 2025 at 10:57=E2=80=AFAM Christian K=C3=B6nig
-> <christian.koenig@amd.com> wrote:
-> > On 10.09.25 16:52, Marek Ol=C5=A1=C3=A1k wrote:
-> > > It's probably better to use=C2=A00x3fff00 to match Mesa and PAL. Ther=
-e
-> > > is no benefit in using a different limit,=C2=A0not even a perf
-> > > benefit, and it's better to be consistent with all UMDs.
-> >=20
-> > Unification with Mesa is certainly a valid argument, but just using
-> > an approach because PAL does it has proven to be troublesome
-> > before.
-> >=20
-> > If we are interested in best performance we should actually round
-> > down the value to the next multiple of PAGE_SIZE.
-> >=20
-> > Christian.
-> >=20
-> > >=20
-> > > Marek
-> > >=20
-> > > On Wed, Sep 10, 2025 at 7:54=E2=80=AFAM Christian K=C3=B6nig
-> > > <christian.koenig@amd.com <mailto:christian.koenig@amd.com>>
-> > > wrote:
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0On 10.09.25 11:34, Timur Krist=C3=B3f wrote:
-> > > =C2=A0 =C2=A0 =C2=A0> On Wed, 2025-09-10 at 10:34 +0200, Christian K=
-=C3=B6nig wrote:
-> > > =C2=A0 =C2=A0 =C2=A0>> On 09.09.25 18:56, Timur Krist=C3=B3f wrote:
-> > > =C2=A0 =C2=A0 =C2=A0>>>> Even when we apply it I think we should drop=
- that, the
-> > > value the
-> > > =C2=A0 =C2=A0 =C2=A0>>>> kernel uses is correct.
-> > > =C2=A0 =C2=A0 =C2=A0>>>
-> > > =C2=A0 =C2=A0 =C2=A0>>> Hi Christian,
-> > > =C2=A0 =C2=A0 =C2=A0>>>
-> > > =C2=A0 =C2=A0 =C2=A0>>> The kernel and Mesa disagree on the limits fo=
-r almost
-> > > all SDMA
-> > > =C2=A0 =C2=A0 =C2=A0>>> versions, so it would be nice to actually und=
-erstand
-> > > what the
-> > > =C2=A0 =C2=A0 =C2=A0>>> limits of
-> > > =C2=A0 =C2=A0 =C2=A0>>> the SDMA HW are and use the same limit in the=
- kernel and
-> > > Mesa, or
-> > > =C2=A0 =C2=A0 =C2=A0>>> if
-> > > =C2=A0 =C2=A0 =C2=A0>>> that isn't viable, let's document why the dif=
-ferent
-> > > limits make
-> > > =C2=A0 =C2=A0 =C2=A0>>> sense.
-> > > =C2=A0 =C2=A0 =C2=A0>>>
-> > > =C2=A0 =C2=A0 =C2=A0>>> I'm adding Marek to CC, he wrote the comment =
-that I
-> > > referenced
-> > > =C2=A0 =C2=A0 =C2=A0>>> here.
-> > > =C2=A0 =C2=A0 =C2=A0>>> As far as I understand from my conversation w=
-ith Marek,
-> > > the kernel
-> > > =C2=A0 =C2=A0 =C2=A0>>> is
-> > > =C2=A0 =C2=A0 =C2=A0>>> actually wrong.
-> > > =C2=A0 =C2=A0 =C2=A0>>>
-> > > =C2=A0 =C2=A0 =C2=A0>>> If the limits depend on alignment, then we sh=
-ould either
-> > > set a
-> > > =C2=A0 =C2=A0 =C2=A0>>> limit
-> > > =C2=A0 =C2=A0 =C2=A0>>> that is always safe, or make sure SDMA copies=
- in the
-> > > kernel are
-> > > =C2=A0 =C2=A0 =C2=A0>>> always
-> > > =C2=A0 =C2=A0 =C2=A0>>> aligned and add assertions about it.
-> > > =C2=A0 =C2=A0 =C2=A0>>
-> > > =C2=A0 =C2=A0 =C2=A0>> That's already done. See the size restrictions=
- applied to
-> > > BOs and the
-> > > =C2=A0 =C2=A0 =C2=A0>> callers of amdgpu_copy_buffer().
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > =C2=A0 =C2=A0 =C2=A0> Based on the code comments I cited, as far as I
-> > > understand, the issue
-> > > =C2=A0 =C2=A0 =C2=A0> is with copying the last 256 bytes of 2^22-1. D=
-o I
-> > > understood your
-> > > =C2=A0 =C2=A0 =C2=A0> response correctly that you are saying that the=
- kernel
-> > > isn't affected
-> > > =C2=A0 =C2=A0 =C2=A0> by this issue because it always copies things t=
-hat are 256
-> > > byte
-> > > =C2=A0 =C2=A0 =C2=A0> aligned?
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0Yes, see the kernel always works with at least PA=
-GE_SIZE
-> > > buffers (between 4k and 64k depending on CPU architecture). You
-> > > never get anything smaller than that.
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0The only exception is the debugger interface, but=
- that
-> > > always copies < PAGE_SIZE, so the SDMA limits are irrelevant.
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0> I checked the callers of amdgpu_copy_buffer and=
- can't find
-> > > what you are
-> > > =C2=A0 =C2=A0 =C2=A0> referring to. However, assuming that all caller=
-s use
-> > > amdgpu_copy_buffer
-> > > =C2=A0 =C2=A0 =C2=A0> on 256 byte aligned addresses, there is still a=
-n issue
-> > > with large BOs:
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > =C2=A0 =C2=A0 =C2=A0> When the kernel copies a BO that is larger than=
- 0x3fffe0
-> > > bytes then it
-> > > =C2=A0 =C2=A0 =C2=A0> needs to emit multiple SDMA copy packets, and t=
-he copy
-> > > done by the
-> > > =C2=A0 =C2=A0 =C2=A0> second packet (and other subsequent packets) wo=
-n't be 256
-> > > byte aligned.
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0I've just double checked the documentation and fo=
-r SI it
-> > > clearly states that the limit is 0x3fffe0. Documentation for
-> > > later HW says 2^22 - 1 - start_addr[4:2] (which is 0x1f in the
-> > > worst case so you end up with 0x3fffe0 again).
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0For backward, tiled and windowed copies a 256byte=
- bounce
-> > > buffer is used instead of the 32byte buffer for the linear copy.
-> > > So the limit is then 0x3fff00.
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0Looks like that buffer is also used for byte alig=
-ned copies
-> > > and that limit applies there as well.
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0>>
-> > > =C2=A0 =C2=A0 =C2=A0>> We could add another warning to amdgpu_copy_bu=
-ffer(), but
-> > > that is
-> > > =C2=A0 =C2=A0 =C2=A0>> just the backend function.
-> > > =C2=A0 =C2=A0 =C2=A0>>
-> > > =C2=A0 =C2=A0 =C2=A0>>> Looking at the implementation of
-> > > =C2=A0 =C2=A0 =C2=A0>>> amdgpu_copy_buffer in the kernel, I see that =
-it relies
-> > > on
-> > > =C2=A0 =C2=A0 =C2=A0>>> copy_max_bytes and doesn't take alignment int=
-o account,
-> > > so with the
-> > > =C2=A0 =C2=A0 =C2=A0>>> current limit it could issue subsequent copie=
-s that
-> > > aren't 256 byte
-> > > =C2=A0 =C2=A0 =C2=A0>>> aligned.
-> > > =C2=A0 =C2=A0 =C2=A0>>
-> > > =C2=A0 =C2=A0 =C2=A0>> "Due to HW limitation, the maximum count may n=
-ot be 2^n-
-> > > 1, can only
-> > > =C2=A0 =C2=A0 =C2=A0>> be 2^n - 1 - start_addr[4:2]"
-> > > =C2=A0 =C2=A0 =C2=A0>>
-> > > =C2=A0 =C2=A0 =C2=A0>> Well according to this comments the size restr=
-iction is
-> > > 32 bytes (256
-> > > =C2=A0 =C2=A0 =C2=A0>> bits!) and not 256 bytes.
-> > > =C2=A0 =C2=A0 =C2=A0>>
-> > > =C2=A0 =C2=A0 =C2=A0>> Were do you actually get the 256 bytes restric=
-tion from?
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > =C2=A0 =C2=A0 =C2=A0> The comments I cited above are from the followi=
-ng sources:
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > =C2=A0 =C2=A0 =C2=A0> PAL uses 1<<22-256 =3D 0x3fff00 here:
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > https://github.com/GPUOpen-Drivers/pal/blob/bcec463efe5260776d486a5e3=
-da0c549bc0a75d2/src/core/hw/ossip/oss2/oss2DmaCmdBuffer.cpp#L308
-> > > <https://github.com/GPUOpen-Drivers/pal/blob/bcec463efe5260776d48
-> > > 6a5e3da0c549bc0a75d2/src/core/hw/ossip/oss2/oss2DmaCmdBuffer.cpp#
-> > > L308>
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > =C2=A0 =C2=A0 =C2=A0> Mesa also uses 0x3fff00 here:
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > https://gitlab.freedesktop.org/mesa/mesa/-/blob/47f5d25f93fd36224c112=
-ee2d48e511ae078f8c2/src/amd/common/sid.h#L390
-> > > <https://gitlab.freedesktop.org/mesa/mesa/-/blob/47f5d25f93fd3622
-> > > 4c112ee2d48e511ae078f8c2/src/amd/common/sid.h#L390>
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > =C2=A0 =C2=A0 =C2=A0> The limit in Mesa was added by this commit:
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > https://gitlab.freedesktop.org/mesa/mesa/-/commit/2c1f249f2b61be50222=
-411bc0d41c095004232ed
-> > > <https://gitlab.freedesktop.org/mesa/mesa/-/commit/2c1f249f2b61be
-> > > 50222411bc0d41c095004232ed>
-> > > =C2=A0 =C2=A0 =C2=A0> According to the commit message, Dave added thi=
-s limit
-> > > when hitting an
-> > > =C2=A0 =C2=A0 =C2=A0> issue trying to use SDMA with buffers that are =
-larger than
-> > > this.
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > =C2=A0 =C2=A0 =C2=A0> For SDMA v5.2 and newer, a larger limit was add=
-ed by Marek
-> > > later:
-> > > =C2=A0 =C2=A0 =C2=A0>
-> > > https://gitlab.freedesktop.org/mesa/mesa/-/commit/a54bcb9429666fcbe38=
-c04660cc4b3f8abbde259
-> > > <https://gitlab.freedesktop.org/mesa/mesa/-/commit/a54bcb9429666f
-> > > cbe38c04660cc4b3f8abbde259>
-> > > =C2=A0 =C2=A0 =C2=A0> Which confirms the same issue copying the last =
-256 bytes
-> > > on these
-> > > =C2=A0 =C2=A0 =C2=A0> versions, although in this case the kernel isn'=
-t
-> > > technically wrong
-> > > =C2=A0 =C2=A0 =C2=A0> because it uses a smaller overall maximum.
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0Yeah, I mean that totally makes sense. When you w=
-ant allow
-> > > byte aligned copies as well then you have to use 0x3fff00 as
-> > > maximum.
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0The PAL code even has extra checks to speed up co=
-pies where
-> > > src and dst are byte aligned, but size isn't:
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 if (IsPow2Aligned(srcGpuAddr, sizeo=
-f(uint32)) &&
-> > > =C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 IsPow2Aligned(dstGpuA=
-ddr, sizeof(uint32)) &&
-> > > =C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 (*pBytesCopied >=3D s=
-izeof(uint32)))
-> > > =C2=A0 =C2=A0 =C2=A0....
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0So it totally makes sense to use the lower limit =
-in Mesa but
-> > > not for the kernel.
-> > >=20
-> > > =C2=A0 =C2=A0 =C2=A0Regards,
-> > > =C2=A0 =C2=A0 =C2=A0Christian.
-> > >=20
-> >=20
