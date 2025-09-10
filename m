@@ -4,119 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8566ACA101F
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 18:41:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68C1ECA101F
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 19:42:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 258CC10E9BA;
-	Wed, 10 Sep 2025 18:41:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0EDF10E9CA;
+	Wed, 10 Sep 2025 19:42:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rTOZLl/F";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="M4C4B47D";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 622E610E9BA
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 18:41:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f86tNiIXjfQGDJ1sk1M9y/0iQQricNrEPoLQWDA2OkhsUBSL74nIcS8gVkesQQn7x0gZCw8nXIitEuTgVV4LrfAngcpkBd+GIWQYGv/Wq+FUq4L26CwrXYFvHTQAC2FJGVi9joeEVSEGliqhvLxY6O6utbqJGHX9Qs3rIaYRrZWNPEQr6Qas/+8jSeAiTrAL9Kqplf5WptRGnmp/1Q89gmXpeoG48RAEMHtF7/NP66AMx7ziprA8u72ljrpNlI1PY+3/k6hdFj4AajDSzMUf0F35NN8oS4tTU/W+ligwcjEqg8+Crwx7QiKkDGgcqrUHwb9YZqzCgETASFA5ifoxqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dzc+4I10SuAutuYPKmDtMi6Z2SZKWjIPbaQUbAk3CxU=;
- b=eQ0HhCwb+Gr6CMel6JFCSpnbhT5B6UCISP3DtDy1tTG3+SBw1/0278UG5xXAqdvx/1z87siYIBoqy0bbzXI96q8HyRLvmgEoNQbzs5H8rN85o+bOGH4c6TPHRuQAbGq8EdTWBjI0WDwaJwxNDN8b57NFBSRR2ul5Gbp7NOCVSLEBUrOCR0BTLp6RiBVneENIpaqWUAOmYUorHyKQPCtAa3g4dfSiPhEISgS63wbXPs7AMIPvnO8Hdd9UO3nABRH6X/AtL3x6F1c4kNHiCGjKmHxOfh2cFySL3zXWKn7vYlQnF3cBPErm8AWt+66No7Vs8czTAauXYS+j0+hJrX/zcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dzc+4I10SuAutuYPKmDtMi6Z2SZKWjIPbaQUbAk3CxU=;
- b=rTOZLl/FN13D7tvtbGvSwQ37NLYiq8EpVK3sxG9kCmnN9tEAZe9Nk3slXqrF3uvlY8fPwy28vGpqgQd8tKMPaT+xtwsykDuBxdPLNOPsob/H/9O0eECnPOrUmqMw/jK9VsEdZIBTGLine17Si65d8YH00M4uhLEVKGr9oemctwk=
-Received: from SJ0PR13CA0164.namprd13.prod.outlook.com (2603:10b6:a03:2c7::19)
- by LV3PR12MB9266.namprd12.prod.outlook.com (2603:10b6:408:21b::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
- 2025 18:41:03 +0000
-Received: from SJ5PEPF000001EC.namprd05.prod.outlook.com
- (2603:10b6:a03:2c7:cafe::6) by SJ0PR13CA0164.outlook.office365.com
- (2603:10b6:a03:2c7::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.6 via Frontend Transport; Wed,
- 10 Sep 2025 18:41:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001EC.mail.protection.outlook.com (10.167.242.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Wed, 10 Sep 2025 18:41:02 +0000
-Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 10 Sep 2025 11:40:59 -0700
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: "amd-gfx @ lists . freedesktop . org" <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH] drm/amd: Duplicate DC_FEATURE_MASK and DC_DEBUG_MASK enum
- values into kdoc
-Date: Wed, 10 Sep 2025 13:40:30 -0500
-Message-ID: <20250910184030.3773845-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.50.1
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B15DC10E9C9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 19:42:55 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58ACgDOk029730
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 19:42:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=AshvdUVEa9FiNe5UYmEu3NEb
+ RFgCfkbR3d/lUj1X4cc=; b=M4C4B47DFelWfTtHXBl58OlfAnb9kgVzh2KD5MDP
+ u21jR0DMliki4JJ9sbq0tg/a+i93jCDeMlXDMvHLvtf7lP6zdaXEhxxR40DF68h+
+ rU/qxdJlK0+ZmRfhw4E6cF67By/Tr+FieX8DVNFtWhOFAWxwvGr5eR1s72BMLocK
+ /g2sryaJrEckcY4rJKMHckuG4bRdtmZmv+k7ig0la9HsVvpcCZ4RXA1kAkttl361
+ 6ckX43sYScEE63NUml41VV+UYRTAp8Z6clD8qHBQqabTgKjKw1MHHCSsIvDTZ3y4
+ RhcJ4PBDMquA6XnTAn+tQ4uLj2dtQHl0xxkg7UDOFdLxag==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 490aapnc09-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 19:42:54 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4b5eb7b2c05so427431cf.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 12:42:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757533374; x=1758138174;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AshvdUVEa9FiNe5UYmEu3NEbRFgCfkbR3d/lUj1X4cc=;
+ b=mWUei5eNMnhV9U8Eh48KDYqFzl5h+wZv+EmNzpMgLwr2LUs2MGdbEZ27+mMcHbyMvN
+ CeB0YVPaMaEnGakMpg4q7/ZPpHjkccnkz79LsUyd6oFWVJ3o/Y7LBMYZ4XrM47LZpvem
+ fkhUbjqYDmdqtIgRhXZ7qbRdoZ/MFOSD5YFbivf8XcvjyQBTyaC4lKAC9+nq7qJ4XzBL
+ 4JbCdmXPPpZ7TqPdjSZ7ow3rhurQkQoBkuPBeknQt+4ojnrEGYIj/kx4/G06IlaHpCJk
+ XiVapnWILWS3VTsiA268pCoFyxcXP0c241n5YdZ9J2wNbu9x5cnyh/ZG3e2XwC5b6VpV
+ mY2Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXvyZ9D1kCnzTY87HM1j0P8VihFLEKCk1gnYFmwNCqnZ4DhH3Ai1vNruxeYW1KStWtRxZH51UMu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxz+ylNx0jX4DCYZynMgtl6/SlyGwQ3MlrFiUvN459etmOcI6xO
+ Fa4qihKTANQP/INNvIfaLO4vmaKCqgl5tz6xba5/7abW8q/Qzo7GsIQwFT7oANkmd32+4WDSIQ9
+ UTMcPY5vwrwSH34TCCGRFXPNO7S+P7MrQtKRi2mLUqgWuRCyAFXGaFwzsCgjNuvdsTMtT
+X-Gm-Gg: ASbGnctWQjen2AC1XnT1O0pdDyyFN0XAQolg3KZw4AZb5UhkRc2aMOuztMtUcNqM+gC
+ iITgOEs3GNSRKIXQH9FZbbr6ZrlS2otkmYppRdcciFoYa1ICK4G+bloGm1Dmz9qgOheLYKXXPvX
+ VHJfKbvCWz0wbQH5+z+uXS6zrE802fZmpja8HvO8ZuIp2UaSbMxA8mZCqsqd2B20IyKHMbyNgY3
+ fNzDwwfJ83M/bHicxOdVWpAiTyd/CuY3+KaDyFpoF+aKc2fSNvAnXK57LnlzoHnS7Il2bqlpTe1
+ PQow763gWrCD/4IvhxOj8eWn5Qs6QA32AkukgCa/hKxQgFY0wBEcDk1TTE/pDXEFolYvSA2a8bP
+ pa2SU/pz6YQROePD4GyBchEED57wCKmsalPRNBKyNzb2i5zDrJu5d
+X-Received: by 2002:a05:622a:1904:b0:4b2:8ac4:ef85 with SMTP id
+ d75a77b69052e-4b5f84bdc04mr172828751cf.84.1757533373905; 
+ Wed, 10 Sep 2025 12:42:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE4LM5n6q3x7O/nMFCbv+KTdGAJSRvFARvfiNuJedE701eBLHhZVYWWeXkwyAfYeYOBgycy0w==
+X-Received: by 2002:a05:622a:1904:b0:4b2:8ac4:ef85 with SMTP id
+ d75a77b69052e-4b5f84bdc04mr172828411cf.84.1757533373376; 
+ Wed, 10 Sep 2025 12:42:53 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-56dbfb5d10fsm49073e87.108.2025.09.10.12.42.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Sep 2025 12:42:52 -0700 (PDT)
+Date: Wed, 10 Sep 2025 22:42:50 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
+ arun.r.murthy@intel.com, uma.shankar@intel.com, jani.nikula@intel.com,
+ harry.wentland@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, robin.clark@oss.qualcomm.com,
+ abhinav.kumar@linux.dev, tzimmermann@suse.de,
+ jessica.zhang@oss.qualcomm.com, sean@poorly.run,
+ marijn.suijten@somainline.org,
+ laurent.pinchart+renesas@ideasonboard.com, mcanal@igalia.com,
+ dave.stevenson@raspberrypi.com, tomi.valkeinen+renesas@ideasonboard.com,
+ kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com
+Subject: Re: [PATCH 1/7] drm: writeback: Refactor drm_writeback_connector
+ structure
+Message-ID: <curkiddhkz6k4rtbxxmmmm4oqyjzvda3xc2bc5c6dmq2c5qgkk@z6cwzap2hwgy>
+References: <20250909100649.1509696-1-suraj.kandpal@intel.com>
+ <20250909100649.1509696-2-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EC:EE_|LV3PR12MB9266:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd8657e8-b204-40b9-aaf8-08ddf09997ae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IT5qAA3T8FtVQ+3Va1A5BAm7FQ+RIcM/hHXe77owPwR1hnf/fDcK1o+rTagU?=
- =?us-ascii?Q?Kl51aYz29FsdnD4L9kgDUYgOM8CgmbIVeWM8EfopFDO2TpR+U7Gi3FQ35y7b?=
- =?us-ascii?Q?ohhEfyIR91eWV3Uoacza2Zo94GGWz6Zi2/zpHZalYC2GgOuziHIzfgyLL1Gm?=
- =?us-ascii?Q?7yzcswLGRajo/K8ZBxWGHzQz1cpWd9AfqXyADFPYDSHQxEQ2dYRka1CTeoC/?=
- =?us-ascii?Q?PZo0Fz8kylB1RF2OyCBe7NMAeFnk70m3Mrc6Qc4uONimnEt9GH6Yj1AnIoSI?=
- =?us-ascii?Q?T/Um5TI8ExbFvpQ2GAMgTknemZi/GUenBxgc7iRNskEctiY+c/C0LLf/GF3a?=
- =?us-ascii?Q?VHOziW+64TEJ5u20343u+5muL0TJp08/XsuRA1Aa/sZOWCHGyD/VlG3j3NqX?=
- =?us-ascii?Q?To7ThEhA8AvKdwasxiWMAed1FQHe7HfMRKvsKUAlu+b+RmP7i5jwMhegVQnG?=
- =?us-ascii?Q?mvqzc3yOm6fmNlwfiaDCkfO3aBUezfnKOEMChSuXrErFPR6/QA2hL0CeNpRG?=
- =?us-ascii?Q?ta560RcjlzUTdMYPj2IgyEz74UFDn2iS7vGVVF2hUW2rQULNaHfXjQ1N79K8?=
- =?us-ascii?Q?dAI5tGN8cZKewn5W8SmKXkHZcsPb1TkKRgEkWu/2xwRBDJgfk4qXZa9G4ZjL?=
- =?us-ascii?Q?AdI5Ra3tZX2vdY5uatNOe993pUT2qXEljaFIABW9jg0+jLMojEI4QUsZnfdb?=
- =?us-ascii?Q?COel9uUYTSN3x8tzwaC4S24dCBOeUjVHIxYU5DCX70SMAs+nLU9ldok7M70q?=
- =?us-ascii?Q?Hx4zvs0EEqr4UfddWnheFGSiPPYAyvqBGgD4QF+4WOKq7kF9iEZ9fdqd8Np8?=
- =?us-ascii?Q?3H2CoOVKcN/HN4zLS1kVSyLqPC0ULZkZOjHmDNnhBT8VfNunsgkVOYG5umiU?=
- =?us-ascii?Q?el04HBLlkcCbxFLj8MJXjEXhcK/JL9zhiQoKxNAMcySUZzlNO1ntyWb72eH7?=
- =?us-ascii?Q?jB+C+murJS1dkUGh/YOmviRLQFmI18lolOeu9E/qTfR6tIQehVowhk7kRWwM?=
- =?us-ascii?Q?WWygFag21az3C/4jL1fgNos8F63bgZ9fTbFl1TIINICuDU85cAQClAdsyvKh?=
- =?us-ascii?Q?BqV+CSg/Wlml3y4fQQjp2d0FJmRTrgr/L/S4pwhiWCzla1laIOLiC89A+p79?=
- =?us-ascii?Q?gFgpojNa/4XsJqVJJGFc4HxJjukRWF/9+TV//EzIJvlumlMePKaMCKFou/c4?=
- =?us-ascii?Q?8L5BpsL7uuQMZyeMea11IAsPZZdMFCRVwRytVLR/hbATd5AiwOnY6DxCSEwF?=
- =?us-ascii?Q?JWUyXoiRTVg4Y6EFyNyR4lssaQIeGy9c2URHvaEzdOSLvhzRF54ApmASm2Ql?=
- =?us-ascii?Q?Ab36nyHM43L5cWiu04JCtw2IhevFvNgtDBR0hHha/z64Lg9z7TJnoHieML+A?=
- =?us-ascii?Q?/HZIdrmWQRM9wVzLkxKjUKhJRThZPSG5QPI/KCWZl/k7eCwXnQknc551mL/w?=
- =?us-ascii?Q?GynNNDiT7FA7aDB1mExsjcE4jV5HusSSsAxD+YmY9T2Qj6K6dY1oiggdaLTl?=
- =?us-ascii?Q?X+mhVfIh2V6li1YiC3IcBG2nBP8ig31bUOj4?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 18:41:02.0623 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd8657e8-b204-40b9-aaf8-08ddf09997ae
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EC.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9266
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250909100649.1509696-2-suraj.kandpal@intel.com>
+X-Authority-Analysis: v=2.4 cv=eMETjGp1 c=1 sm=1 tr=0 ts=68c1d4be cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=yJojWOMRYYMA:10 a=QyXUC8HyAAAA:8 a=ht3OSqXAj6RBLq6GiRYA:9 a=CjuIK1q_8ugA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: CBqjEOiCTTXkiWSKDlUEvICnK2E1Ouuo
+X-Proofpoint-ORIG-GUID: CBqjEOiCTTXkiWSKDlUEvICnK2E1Ouuo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAwMCBTYWx0ZWRfX00PVJLbzkHol
+ 5HY3nP/hQsbGz4p23kU2w5LVO+WtTrkoDvMDszpK5vjxB5aohJKXE/tJZkeI88fnAmUeoxlVsp6
+ wzrAocQEmwcGe3pnM1yK+dW5EqkjffcRVWDKpSdQaMwTeoE05Gbi4XfGo27/MKH/p4GzTwxUQYs
+ XowuprqkdMw33Ui/05yE8dm/BJYJuXLb8FA3UPhem0ls6+3fixF297keBgwk5rL00YIrs0fjZ+a
+ Ckl72wvkRdoZ5rMf2FLWQ1DsinHksQiEqSUP23uaP2KLcvSBZJ7AQhI96rHv2qe7cTM3b+heq+y
+ rHP/zOctYFPavQPjfiXJOqWCWpr/PSTMJu5BbUVZ1OPyT3oFM7Ve4z/LzxFyAtFkV9Wov88SYQf
+ ZxHcYmg8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-10_04,2025-09-10_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0
+ bulkscore=0 phishscore=0 spamscore=0 suspectscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2509060000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,242 +136,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-When kernel documentation is generated the enum values themselves don't
-end up in the documentation.  This makes browsing them in HTML a lot
-less useful.
+On Tue, Sep 09, 2025 at 03:36:43PM +0530, Suraj Kandpal wrote:
+> Some drivers cannot work with the current design where the connector
+> is embedded within the drm_writeback_connector such as Intel and
+> some drivers that can get it working end up adding a lot of checks
+> all around the code to check if it's a writeback conenctor or not,
+> this is due to the limitation of inheritance in C.
+> To solve this we move the drm_writeback_connector within the
 
-[How]
-Copy DC_DEBUG_MASK and DC_FEATURE_MASK enum values into matching kdoc
-comments.
+Please take a look at Documentation/process/submitting-patches.rst:
+s/we //g, etc.
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- Documentation/gpu/amdgpu/driver-core.rst |  2 +-
- drivers/gpu/drm/amd/include/amd_shared.h | 98 ++++++++++++++++--------
- 2 files changed, 67 insertions(+), 33 deletions(-)
+> drm_connector and remove the drm_connector base which was in
+> drm_writeback_connector. We also make this drm_writeback_connector
+> a union with hdmi connector to save memory and since a connector can
+> never be both writeback and hdmi it should serve us well.
+> We do all other requireda modifications that come with these changes
+> along with addition of new function which returns the drm_connector
+> when drm_writeback_connector is present.
+> We also modify drivers using the drm_writeback_connector to
+> allow them to use this connector without breaking them.
+> The drivers modified here are amd, komeda, mali, vc4, vkms,
+> rcar_du, msm
+> 
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  8 +--
+>  .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  6 +-
+>  .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+>  .../arm/display/komeda/komeda_wb_connector.c  |  8 +--
+>  drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+>  drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+>  drivers/gpu/drm/arm/malidp_hw.c               |  6 +-
+>  drivers/gpu/drm/arm/malidp_mw.c               |  8 +--
+>  drivers/gpu/drm/drm_writeback.c               | 33 ++++++---
+>  .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  3 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 16 +++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
+>  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  4 +-
+>  .../drm/renesas/rcar-du/rcar_du_writeback.c   | 19 ++---
+>  drivers/gpu/drm/vc4/vc4_txp.c                 | 14 ++--
+>  drivers/gpu/drm/vkms/vkms_composer.c          |  2 +-
+>  drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
+>  drivers/gpu/drm/vkms/vkms_writeback.c         | 13 ++--
+>  include/drm/drm_connector.h                   | 70 +++++++++++++++++--
+>  include/drm/drm_writeback.h                   | 68 ++----------------
+>  22 files changed, 163 insertions(+), 137 deletions(-)
+> 
+> @@ -2305,6 +2366,7 @@ struct drm_connector {
+>  	 * @cec: CEC-related data.
+>  	 */
+>  	struct drm_connector_cec cec;
+> +
 
-diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu/amdgpu/driver-core.rst
-index bd4be32f2725..3ce276272171 100644
---- a/Documentation/gpu/amdgpu/driver-core.rst
-+++ b/Documentation/gpu/amdgpu/driver-core.rst
-@@ -210,4 +210,4 @@ IP Blocks
-    :doc: IP Blocks
- 
- .. kernel-doc:: drivers/gpu/drm/amd/include/amd_shared.h
--   :identifiers: amd_ip_block_type amd_ip_funcs DC_DEBUG_MASK
-+   :identifiers: amd_ip_block_type amd_ip_funcs DC_FEATURE_MASK DC_DEBUG_MASK
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index bfb446736ca8..75efda2969cf 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -239,18 +239,51 @@ enum amd_harvest_ip_mask {
-     AMD_HARVEST_IP_DMU_MASK = 0x4,
- };
- 
-+/**
-+ * enum DC_FEATURE_MASK - Bits that control DC feature defaults
-+ */
- enum DC_FEATURE_MASK {
- 	//Default value can be found at "uint amdgpu_dc_feature_mask"
--	DC_FBC_MASK = (1 << 0), //0x1, disabled by default
--	DC_MULTI_MON_PP_MCLK_SWITCH_MASK = (1 << 1), //0x2, enabled by default
--	DC_DISABLE_FRACTIONAL_PWM_MASK = (1 << 2), //0x4, disabled by default
--	DC_PSR_MASK = (1 << 3), //0x8, disabled by default for dcn < 3.1
--	DC_EDP_NO_POWER_SEQUENCING = (1 << 4), //0x10, disabled by default
--	DC_DISABLE_LTTPR_DP1_4A = (1 << 5), //0x20, disabled by default
--	DC_DISABLE_LTTPR_DP2_0 = (1 << 6), //0x40, disabled by default
--	DC_PSR_ALLOW_SMU_OPT = (1 << 7), //0x80, disabled by default
--	DC_PSR_ALLOW_MULTI_DISP_OPT = (1 << 8), //0x100, disabled by default
--	DC_REPLAY_MASK = (1 << 9), //0x200, disabled by default for dcn < 3.1.4
-+	/**
-+	 * @DC_FBC_MASK: (0x1) disabled by default
-+	 */
-+	DC_FBC_MASK = (1 << 0),
-+	/**
-+	 * @DC_MULTI_MON_PP_MCLK_SWITCH_MASK: (0x2) enabled by default
-+	 */
-+	DC_MULTI_MON_PP_MCLK_SWITCH_MASK = (1 << 1),
-+	/**
-+	 * @DC_DISABLE_FRACTIONAL_PWM_MASK: (0x4) disabled by default
-+	 */
-+	DC_DISABLE_FRACTIONAL_PWM_MASK = (1 << 2),
-+	/**
-+	 * @DC_PSR_MASK: (0x8) disabled by default for DCN < 3.1
-+	 */
-+	DC_PSR_MASK = (1 << 3),
-+	/**
-+	 * @DC_EDP_NO_POWER_SEQUENCING: (0x10) disabled by default
-+	 */
-+	DC_EDP_NO_POWER_SEQUENCING = (1 << 4),
-+	/**
-+	 * @DC_DISABLE_LTTPR_DP1_4A: (0x20) disabled by default
-+	 */
-+	DC_DISABLE_LTTPR_DP1_4A = (1 << 5),
-+	/**
-+	 * @DC_DISABLE_LTTPR_DP2_0: (0x40) disabled by default
-+	 */
-+	DC_DISABLE_LTTPR_DP2_0 = (1 << 6),
-+	/**
-+	 * @DC_PSR_ALLOW_SMU_OPT: (0x80) disabled by default
-+	 */
-+	DC_PSR_ALLOW_SMU_OPT = (1 << 7),
-+	/**
-+	 * @DC_PSR_ALLOW_MULTI_DISP_OPT: (0x100) disabled by default
-+	 */
-+	DC_PSR_ALLOW_MULTI_DISP_OPT = (1 << 8),
-+	/**
-+	 * @DC_REPLAY_MASK: (0x200) disabled by default for DCN < 3.1.4
-+	 */
-+	DC_REPLAY_MASK = (1 << 9),
- };
- 
- /**
-@@ -258,64 +291,64 @@ enum DC_FEATURE_MASK {
-  */
- enum DC_DEBUG_MASK {
- 	/**
--	 * @DC_DISABLE_PIPE_SPLIT: If set, disable pipe-splitting
-+	 * @DC_DISABLE_PIPE_SPLIT: (0x1) If set, disable pipe-splitting
- 	 */
- 	DC_DISABLE_PIPE_SPLIT = 0x1,
- 
- 	/**
--	 * @DC_DISABLE_STUTTER: If set, disable memory stutter mode
-+	 * @DC_DISABLE_STUTTER: (0x2) If set, disable memory stutter mode
- 	 */
- 	DC_DISABLE_STUTTER = 0x2,
- 
- 	/**
--	 * @DC_DISABLE_DSC: If set, disable display stream compression
-+	 * @DC_DISABLE_DSC: (0x4) If set, disable display stream compression
- 	 */
- 	DC_DISABLE_DSC = 0x4,
- 
- 	/**
--	 * @DC_DISABLE_CLOCK_GATING: If set, disable clock gating optimizations
-+	 * @DC_DISABLE_CLOCK_GATING: (0x8) If set, disable clock gating optimizations
- 	 */
- 	DC_DISABLE_CLOCK_GATING = 0x8,
- 
- 	/**
--	 * @DC_DISABLE_PSR: If set, disable Panel self refresh v1 and PSR-SU
-+	 * @DC_DISABLE_PSR: (0x10) If set, disable Panel self refresh v1 and PSR-SU
- 	 */
- 	DC_DISABLE_PSR = 0x10,
- 
- 	/**
--	 * @DC_FORCE_SUBVP_MCLK_SWITCH: If set, force mclk switch in subvp, even
-+	 * @DC_FORCE_SUBVP_MCLK_SWITCH: (0x20) If set, force mclk switch in subvp, even
- 	 * if mclk switch in vblank is possible
- 	 */
- 	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
- 
- 	/**
--	 * @DC_DISABLE_MPO: If set, disable multi-plane offloading
-+	 * @DC_DISABLE_MPO: (0x40) If set, disable multi-plane offloading
- 	 */
- 	DC_DISABLE_MPO = 0x40,
- 
- 	/**
--	 * @DC_ENABLE_DPIA_TRACE: If set, enable trace logging for DPIA
-+	 * @DC_ENABLE_DPIA_TRACE: (0x80) If set, enable trace logging for DPIA
- 	 */
- 	DC_ENABLE_DPIA_TRACE = 0x80,
- 
- 	/**
--	 * @DC_ENABLE_DML2: If set, force usage of DML2, even if the DCN version
-+	 * @DC_ENABLE_DML2: (0x100) If set, force usage of DML2, even if the DCN version
- 	 * does not default to it.
- 	 */
- 	DC_ENABLE_DML2 = 0x100,
- 
- 	/**
--	 * @DC_DISABLE_PSR_SU: If set, disable PSR SU
-+	 * @DC_DISABLE_PSR_SU: (0x200) If set, disable PSR SU
- 	 */
- 	DC_DISABLE_PSR_SU = 0x200,
- 
- 	/**
--	 * @DC_DISABLE_REPLAY: If set, disable Panel Replay
-+	 * @DC_DISABLE_REPLAY: (0x400) If set, disable Panel Replay
- 	 */
- 	DC_DISABLE_REPLAY = 0x400,
- 
- 	/**
--	 * @DC_DISABLE_IPS: If set, disable all Idle Power States, all the time.
-+	 * @DC_DISABLE_IPS: (0x800) If set, disable all Idle Power States, all the time.
- 	 * If more than one IPS debug bit is set, the lowest bit takes
- 	 * precedence. For example, if DC_FORCE_IPS_ENABLE and
- 	 * DC_DISABLE_IPS_DYNAMIC are set, then DC_DISABLE_IPS_DYNAMIC takes
-@@ -324,56 +357,57 @@ enum DC_DEBUG_MASK {
- 	DC_DISABLE_IPS = 0x800,
- 
- 	/**
--	 * @DC_DISABLE_IPS_DYNAMIC: If set, disable all IPS, all the time,
-+	 * @DC_DISABLE_IPS_DYNAMIC: (0x1000) If set, disable all IPS, all the time,
- 	 * *except* when driver goes into suspend.
- 	 */
- 	DC_DISABLE_IPS_DYNAMIC = 0x1000,
- 
- 	/**
--	 * @DC_DISABLE_IPS2_DYNAMIC: If set, disable IPS2 (IPS1 allowed) if
-+	 * @DC_DISABLE_IPS2_DYNAMIC: (0x2000) If set, disable IPS2 (IPS1 allowed) if
- 	 * there is an enabled display. Otherwise, enable all IPS.
- 	 */
- 	DC_DISABLE_IPS2_DYNAMIC = 0x2000,
- 
- 	/**
--	 * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
-+	 * @DC_FORCE_IPS_ENABLE: (0x4000) If set, force enable all IPS, all the time.
- 	 */
- 	DC_FORCE_IPS_ENABLE = 0x4000,
- 	/**
--	 * @DC_DISABLE_ACPI_EDID: If set, don't attempt to fetch EDID for
-+	 * @DC_DISABLE_ACPI_EDID: (0x8000) If set, don't attempt to fetch EDID for
- 	 * eDP display from ACPI _DDC method.
- 	 */
- 	DC_DISABLE_ACPI_EDID = 0x8000,
- 
- 	/**
--	 * @DC_DISABLE_HDMI_CEC: If set, disable HDMI-CEC feature in amdgpu driver.
-+	 * @DC_DISABLE_HDMI_CEC: (0x10000) If set, disable HDMI-CEC feature in amdgpu driver.
- 	 */
- 	DC_DISABLE_HDMI_CEC = 0x10000,
- 
- 	/**
--	 * @DC_DISABLE_SUBVP_FAMS: If set, disable DCN Sub-Viewport & Firmware Assisted
-+	 * @DC_DISABLE_SUBVP_FAMS: (0x20000) If set, disable DCN Sub-Viewport & Firmware Assisted
- 	 * Memory Clock Switching (FAMS) feature in amdgpu driver.
- 	 */
- 	DC_DISABLE_SUBVP_FAMS = 0x20000,
- 	/**
--	 * @DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: If set, disable support for custom brightness curves
-+	 * @DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: (0x40000) If set, disable support for custom
-+	 * brightness curves
- 	 */
- 	DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE = 0x40000,
- 
- 	/**
--	 * @DC_HDCP_LC_FORCE_FW_ENABLE: If set, use HDCP Locality Check FW
-+	 * @DC_HDCP_LC_FORCE_FW_ENABLE: (0x80000) If set, use HDCP Locality Check FW
- 	 * path regardless of reported HW capabilities.
- 	 */
- 	DC_HDCP_LC_FORCE_FW_ENABLE = 0x80000,
- 
- 	/**
--	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK: If set, upon HDCP Locality Check FW
-+	 * @DC_HDCP_LC_ENABLE_SW_FALLBACK: (0x100000) If set, upon HDCP Locality Check FW
- 	 * path failure, retry using legacy SW path.
- 	 */
- 	DC_HDCP_LC_ENABLE_SW_FALLBACK = 0x100000,
- 
- 	/**
--	 * @DC_SKIP_DETECTION_LT: If set, skip detection link training
-+	 * @DC_SKIP_DETECTION_LT: (0x200000) If set, skip detection link training
- 	 */
- 	DC_SKIP_DETECTION_LT = 0x200000,
- };
+Probably a refactoring leftover.
+
+>  };
+>  
+>  #define obj_to_connector(x) container_of(x, struct drm_connector, base)
+
 -- 
-2.50.1
-
+With best wishes
+Dmitry
