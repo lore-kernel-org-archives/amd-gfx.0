@@ -4,86 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F892CA0FED
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 10:09:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80C43CA101F
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 11:37:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F4B10E8AA;
-	Wed, 10 Sep 2025 10:09:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AAC310E8ED;
+	Wed, 10 Sep 2025 11:37:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="xy6FWYvO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HqV4X4zw";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA0F810E8AA
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 10:09:24 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-45dd7b15a64so4465895e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 03:09:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1757498963; x=1758103763;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=uOTuzZysV5kQ+YDTuaTugOko0DCUNkdlz/KqCUlCKRw=;
- b=xy6FWYvO/+vF1forqjCuQyLeOWKI4HgAmkfpC1V7dS7GhubeTVM74KnYHwoVegVkwT
- ThgGIJv0jMYEag1y3sRuC+E5GSFPaRaFUxotmKhPDLNMQrYrLYJ8mgya1r6SFAsjybKR
- k20o6RqPQzc7HektrMlNwLvhr4aekZjjakps9vnSQvGD1emczLqIL7PU3OQ1Gx9e1oXD
- MYV65JOTpkYMjQE326pbAq/fNKzWoxCbVp8PUldfoaANMEbg6MjUakocUmWcWzUkLbX0
- FlKFFE66LKgdgfYmkvNcQ5T/hLBs0U08mmFGBk6B+DF0LkzTc6oz9pGLoQoCOE7+XIea
- vuBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757498963; x=1758103763;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uOTuzZysV5kQ+YDTuaTugOko0DCUNkdlz/KqCUlCKRw=;
- b=rkRqfOAxikqkZ0ffi7G/SaAo6Wr2EYPG7DmV2NtFUJQuaBZVNz+iPLFXLZkd6zFlCc
- QG5OcP9MVo6iBRkp2U5ccnk/sMtJ7Io/dmBaqw4pRe+V80623Id18NRgAJQCPwZdQ3C0
- HbfrqWTFwIHr6ubgX+M9ml3HOnYCRrS0O+jwi5FRH3pFJOQE19qh7NZwZ8CX3AErUM+F
- DEKLWp2IgKFB+gnSaLv7m/rsqpJubWG2bPBlyDL0ZS+VOym7JwFzQEFZGHEqXB3jum/j
- CLg2LDgVSFof+10L4E+YLln2Rgf91FPr8waQIpwWwLWT9RWEAvEbF4AgET/U2Zmp9z5E
- 4VUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUyeN/indj0brV3p6rZP3IZJiNIndWccO7byzdM/+ABuBZOYJfRuOr2eRssHqB9reVrf2hJx+EV@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy/EDCqHqP139HuT118zPF/1y20ga3b6fwVp9ZnK8s2GwL76110
- H79uhtQwOYlU8XerIB7fOU7D1d1bnQgPBFyJT4+ber4IbYKvtsqFRvLjLizbIcLpchY=
-X-Gm-Gg: ASbGnctRZgNFbeSzBYO4G8rHSgsidtQdt19YaExhL4Yt7jkDTq266Iepu2R9h8Z4i8s
- K8ywehldc/+v2SM7GQmnnHYBy+XzUtf9eOdgr5U5t2abGSfThPlA1ug9QGSnUGitpoT/5+F5PTz
- yLx8/kUWwjNf8euRliiO67Ziz6F9/+P30g6dJt+af2U7VkBeHZH8uvc9VTw32OvGA45mpEy9ndk
- OWpQB3rrwNo32gbaMEeSwQlFsxkCrwwfqaFcEhvmmMMJR2AD3k85n5RCZTvGPMYoFb8LC9gvxtl
- aF6d1DpPHCNGAHiHHShKlB6HPq2/H06TMrQ59WLqSUe55SkTVJEuHnxTbhFapqDniMyXw2wDEz/
- JpsuTRp80qGOUjTbfD0rdQKJrxEmFOreMxl8=
-X-Google-Smtp-Source: AGHT+IEPG+lyxFIlIpxH80LQ7aYbGd+s/txpQcAp+CxqWZwvUkzOGr9U4ZUXp3PY2MRxFE9ROgpc0w==
-X-Received: by 2002:a05:600c:c0c5:b0:45d:e531:99df with SMTP id
- 5b1f17b1804b1-45de64869d9mr77361225e9.3.1757498962954; 
- Wed, 10 Sep 2025 03:09:22 -0700 (PDT)
-Received: from [192.168.0.101] ([84.66.36.92])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45df82037c1sm22413075e9.9.2025.09.10.03.09.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Sep 2025 03:09:22 -0700 (PDT)
-Message-ID: <d51e11fa-54b0-41f4-9b06-95b46094de39@ursulin.net>
-Date: Wed, 10 Sep 2025 11:09:21 +0100
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2048.outbound.protection.outlook.com [40.107.95.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F49F10E8ED
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 11:37:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HcouI7Wz4zPR3ifsHagrwuhVV4pxl5q4ynRAV44RG2XEyZOxY9ctyifrKbk+rW2IzTVi6qPuc6KEjz8rL8DyZeFPDcYmRVyycbraHP3LMxE2eGzKTejKO/tAMRVQ7vx969TsVhCoiHTgPsMF06pxv4FrvN6+uBh4OJAoazRXpEY02+O+iRoQ0ef7PNfVdGW2vz3ZO6M4JxzOWQ3bE5UsAo1lBMmKhZpvLLztVBad9GjS3yoBJ/f0gYTMdtuTPvXWxQaJP5MBVxr53AS0otb7jJ84uIdEHwVZLxKc/Vm9oHFQD/e/7Y8+fX17MM3GyXOYm9foIoX3FNYntzUUBpC1lQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o8g/D8V0Ydz6ih8G7C7IVdO6KBKrysdmGgTHIlLusUc=;
+ b=ugcZ0Khs1wxcMxP0m11NmcfOG3JmDYbD1MqCEv+Oz/rpjP7wUK0Am9pZq7FPUXHztFzf/S2mqBwbnzlGy33FKQTmOE6I6a9nIYaDILhifQOOpZ9e8zeOPhR79eaCoVw8FQVvKqgFeoJK+mvlbUTRR+F/vMTaBXqILEs/I2gB6aK2MD3YH9nc89HCMmRktNWNyClEVy5M23IjPPYoVpkoOHnCRGuUJKL+mtN+bNeXKpxibqta07YFl58jws2hmQdEs60z5trWNFDCfrdcNsjZ3mdUf4++ejgLNL8oUaFbHiyvLZreP24WjqFB5P8fq93Fxgk8lTmWdtiqnoyJdy7Bag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o8g/D8V0Ydz6ih8G7C7IVdO6KBKrysdmGgTHIlLusUc=;
+ b=HqV4X4zwaEXMQ1jaw11uwefmm/M3gNMwXUI6+yRZswcTXxgFB2M3PzBP2bq7DR6vun7zXyo9ebP6zJITsQd9ujcru8M6PNv5z2dhsISiKGnCeGFsSicIiB719iJ50A0CuMrGdib4bi2EDdj7Ymi5YgsN11PJWppdaLGOxezoAcQ=
+Received: from CH2PR05CA0038.namprd05.prod.outlook.com (2603:10b6:610:38::15)
+ by IA0PPFB6B4D32F9.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::be3) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
+ 2025 11:37:43 +0000
+Received: from CH2PEPF0000009D.namprd02.prod.outlook.com
+ (2603:10b6:610:38:cafe::a6) by CH2PR05CA0038.outlook.office365.com
+ (2603:10b6:610:38::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.6 via Frontend Transport; Wed,
+ 10 Sep 2025 11:37:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF0000009D.mail.protection.outlook.com (10.167.244.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9115.13 via Frontend Transport; Wed, 10 Sep 2025 11:37:42 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 10 Sep
+ 2025 04:37:40 -0700
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH 1/9] drm/amdgpu: add UAPI for user queue query status
+Date: Wed, 10 Sep 2025 19:37:23 +0800
+Message-ID: <20250910113731.2688320-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Replace kzalloc + copy_from_user with
- memdup_user
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20250908211559.519892-1-thorsten.blum@linux.dev>
- <4005498b-d866-4e41-a8a4-d8228b2062e7@ursulin.net>
- <CADnq5_NDrq_S7rcpr6_MY-USfVGr8-QcJ2hqnai7VEm5D_OyxQ@mail.gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <CADnq5_NDrq_S7rcpr6_MY-USfVGr8-QcJ2hqnai7VEm5D_OyxQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009D:EE_|IA0PPFB6B4D32F9:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b98f364-791c-4c58-500e-08ddf05e7476
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YWRnNFV4dTBoY0xEeGlENDBTc01OV3RQZjZ0UnB6YnlPTlpBVEU0NVFlazNm?=
+ =?utf-8?B?cGtPR2FETmo5dzEyYXVhVlhBVTNUZEwyRjc3NWpCZDJHTi91aERmbUlOa01H?=
+ =?utf-8?B?aE1Rd0pqK3B1MVpFaXEwUHAzV3duR0ZNTkZsZDQ4aFd2UFNyRVV3UDEyUTFJ?=
+ =?utf-8?B?TTAwSmN1YmhseEZ0ZjYwMW5LRFRNT2t0V2d5SFBEcThLa0NMMDZlOGwvdExs?=
+ =?utf-8?B?bW9VOHFicVJnMmZGc3htaU9CZXJBYkZQa3FlQTRrWmVzTWs4UGZoTTU1K2Ru?=
+ =?utf-8?B?bE9lWmFpQS9LeVl2MWJ0Z1NWZ0JONEVFbG16S04xNXg1T2YrdDFaUzhybW02?=
+ =?utf-8?B?OVhLSnJpOThuMlVFbXcxblBzblRKV1QzU1A4N2tzQzU5SFNzak5wdHhqK0Fq?=
+ =?utf-8?B?QWlJdXJEUFIwMU1rdDBDSDFaUVJTQ2YwMVJ4QlJ4MXJpS0pxbFVGcnNWNENM?=
+ =?utf-8?B?RWtBSjRJaVpndVFVM3RRaUhaVXdzR2NkVi9id2M0RExzcTRQTlNVdWlzbWYz?=
+ =?utf-8?B?UDY4K3hTVGV4Sm5Qc2krNmpwTGF6ZWVseDZxbmY0eGpBNFJGL1VxWmhFNzRC?=
+ =?utf-8?B?TjdWOXFVWmh3U21GYzg4RzloZGFUM2hpK29BWlhIekNhS1F2Y290RXhFRlNu?=
+ =?utf-8?B?MjFhMTJYWlJGVWRFRjArSGVVWnREVElJYzkrVnluaGI2ZWJaYThsczJHN1d5?=
+ =?utf-8?B?TTlJWmQ0L2tjenAwMVhJWjNnWlptQWcyRjl6bmJhQWpDanR5MHV4UnNJell6?=
+ =?utf-8?B?UEQ1V2Qvbk9uaTF1Y1RUVWRiY3dBVGZpWmJicHZGT2RhK0ZLemEyRloxM1Zs?=
+ =?utf-8?B?ZDhFTFk4OXAwMm50SU1NeGJqYkI5TUxHODExajRsNnF5MW9QNFNvb1FRaFVM?=
+ =?utf-8?B?NmVEYmFCRFdTNHltVndMZ3pHNjN5dGJuK3pld0FXOFc0SDhuWWZNQlF0QXhm?=
+ =?utf-8?B?RVVFZmtIZDBTQjJ6NzdUZ1kvekF0UXhYczNFNy83aGwvNnBGUmM4WlY3QS9j?=
+ =?utf-8?B?ZVNaUGUzU3h6ZjFjWU5rTGZlbnlsaGZuRWxLbC9TNGNLWVB5UEEybm1OVDEx?=
+ =?utf-8?B?cCt1YlFBdmQ1dExIS3h5bDdsMnpydUxNb0VwRndwQ3U0WUF4VjFRSkZIaEpi?=
+ =?utf-8?B?UlNreWh6cXFDajVYS0RUWjhIUzBvRWxuTlZ5T0JEUDk5NUcrTFVndkJyQkZs?=
+ =?utf-8?B?WEwzamhDVHVxRjI0TW56MGtQaTNlSE9iQllpNTJ5cHd4N1ovbExoTmtXdHRi?=
+ =?utf-8?B?QkYySTkxTkdqM3ZITU1RZG5BQWQ5MHJ4ZWxONkdyYXdNZS9NcUhRSk5yV0dI?=
+ =?utf-8?B?VjFnVWRSYkcyUkdzUjVycUQyWlJFUEpKM0lUeEtmQ3RFVW0yRlIrWlhQb1Jy?=
+ =?utf-8?B?QVVmNkFML2RYb2p2VDhiajFqTlRLM1hSZU9pNi9SSTVsRDF5S1g4bStrcXJP?=
+ =?utf-8?B?RFRubjRxMkhzTUc1N3hDNzlHd0s1Tk1FY2tUeW1nNG0yaGVEdVZOWVYyYVEx?=
+ =?utf-8?B?RmdwNUJ0bDJML25VT1dlbkpQKzhMUDZPeWY1dDc1NEMzdXRzdnhSMk9Nbm5i?=
+ =?utf-8?B?ejYrQlJWcU84dm9jK3R3K3VMSXNETWtaT0c3OHJOZ1d3OTR1S0J6ZGc2Q0xQ?=
+ =?utf-8?B?T2ZUQUgydno0S2JwL0dkLzBadUUxbTJTdytqYlpNemNCcEliRzJXclZaQTdr?=
+ =?utf-8?B?ZnhkMi9hVVNBN2tkVmRWZ25jbDBGYVFhNW1PZjhhemxIODFUSmlRMXpZRFBp?=
+ =?utf-8?B?Mlg0eHV0MDVMczM5aFRDSWZ1Z3BnK2wrU2kyeWFqU3d6Wnc5Vm1oL2xxYVJw?=
+ =?utf-8?B?US9Ydk9kdlpPZ1hTcGZWV2xpUThFaVliaDFvYU9NejVhQTJ4Q09FQW1Od3I0?=
+ =?utf-8?B?cTFKNUJPV05jR3VSUmxCYUtrQ3A0LzdoN2ZhYzRjRXUrcWxRdTg1c21sSHJU?=
+ =?utf-8?B?alZXak1jYm1JdGwwdUlSek8zUzA0QzdoeHFQWmRDdW90VVZnUGhIRnZqVUtr?=
+ =?utf-8?B?dklWS2toS2t4VFg4TnZ1TUlGQkFFbmpnLzZRNWI0L1BIVi81eTZIbEt6SGJU?=
+ =?utf-8?Q?HK0yVb?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 11:37:42.7420 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b98f364-791c-4c58-500e-08ddf05e7476
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFB6B4D32F9
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,70 +141,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Alex Deucher <alexander.deucher@amd.com>
 
-On 09/09/2025 14:36, Alex Deucher wrote:
-> On Tue, Sep 9, 2025 at 4:17 AM Tvrtko Ursulin <tursulin@ursulin.net> wrote:
->>
->>
->> On 08/09/2025 22:15, Thorsten Blum wrote:
->>> Replace kzalloc() followed by copy_from_user() with memdup_user() to
->>> improve and simplify ta_if_load_debugfs_write() and
->>> ta_if_invoke_debugfs_write().
->>>
->>> No functional changes intended.
->>>
->>> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 20 ++++++--------------
->>>    1 file changed, 6 insertions(+), 14 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
->>> index 38face981c3e..6e8aad91bcd3 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
->>> @@ -171,13 +171,9 @@ static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf, size_t
->>>
->>>        copy_pos += sizeof(uint32_t);
->>>
->>> -     ta_bin = kzalloc(ta_bin_len, GFP_KERNEL);
->>> -     if (!ta_bin)
->>> -             return -ENOMEM;
->>> -     if (copy_from_user((void *)ta_bin, &buf[copy_pos], ta_bin_len)) {
->>> -             ret = -EFAULT;
->>> -             goto err_free_bin;
->>> -     }
->>> +     ta_bin = memdup_user(&buf[copy_pos], ta_bin_len);
->>> +     if (IS_ERR(ta_bin))
->>> +             return PTR_ERR(ta_bin);
->>>
->>>        /* Set TA context and functions */
->>>        set_ta_context_funcs(psp, ta_type, &context);
->>> @@ -327,13 +323,9 @@ static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *buf, size
->>>                return -EFAULT;
->>>        copy_pos += sizeof(uint32_t);
->>>
->>> -     shared_buf = kzalloc(shared_buf_len, GFP_KERNEL);
->>> -     if (!shared_buf)
->>> -             return -ENOMEM;
->>> -     if (copy_from_user((void *)shared_buf, &buf[copy_pos], shared_buf_len)) {
->>> -             ret = -EFAULT;
->>> -             goto err_free_shared_buf;
->>> -     }
->>> +     shared_buf = memdup_user(&buf[copy_pos], shared_buf_len);
->>> +     if (IS_ERR(shared_buf))
->>> +             return PTR_ERR(shared_buf);
->>>
->>>        set_ta_context_funcs(psp, ta_type, &context);
->>>
->>
->> More complete than the one I sent in June^1.
-> 
-> I never received this series.  I didn't see it in patchwork either.
-> Seems it never made it to amd-gfx.  Sorry I missed it. I've applied
-> the applicable patches now.
+Add an API to query queue status such as whether the
+queue is hung or whether vram is lost.
 
-Thank you and no worries, it wasn't anything urgent.
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ include/uapi/drm/amdgpu_drm.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-Regards,
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 85b3ca14f81e..7292f7bfcd13 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -334,6 +334,7 @@ union drm_amdgpu_ctx {
+ /* user queue IOCTL operations */
+ #define AMDGPU_USERQ_OP_CREATE	1
+ #define AMDGPU_USERQ_OP_FREE	2
++#define AMDGPU_USERQ_OP_QUERY_STATUS	3
+ 
+ /* queue priority levels */
+ /* low < normal low < normal high < high */
+@@ -346,6 +347,12 @@ union drm_amdgpu_ctx {
+ /* for queues that need access to protected content */
+ #define AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE  (1 << 2)
+ 
++
++/* the queue is hung */
++#define AMDGPU_USERQ_QUERY_STATUS_FLAGS_HUNG    (1 << 0)
++/* indicate vram lost since queue was created */
++#define AMDGPU_USERQ_QUERY_STATUS_FLAGS_VRAMLOST (1 << 1)
++
+ /*
+  * This structure is a container to pass input configuration
+  * info for all supported userqueue related operations.
+@@ -427,9 +434,16 @@ struct drm_amdgpu_userq_out {
+ 	__u32 _pad;
+ };
+ 
++/* The structure to carry output of userqueue ops */
++struct drm_amdgpu_userq_out_query_state {
++	__u32 flags;
++	__u32 _pad;
++};
++
+ union drm_amdgpu_userq {
+ 	struct drm_amdgpu_userq_in in;
+ 	struct drm_amdgpu_userq_out out;
++	struct drm_amdgpu_userq_out_query_state out_qs;
+ };
+ 
+ /* GFX V11 IP specific MQD parameters */
+-- 
+2.34.1
 
-Tvrtko
