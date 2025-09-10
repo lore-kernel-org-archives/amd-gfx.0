@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B21EECAC58E
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 17:44:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 358B2CA101F
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 17:44:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4950810E995;
-	Wed, 10 Sep 2025 17:44:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4946F10E997;
+	Wed, 10 Sep 2025 17:44:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ga3trgjr";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EqUaExAv";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1397C10E995
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 17:44:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05A7910E997
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 17:44:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=bNYajzSiw9nd/fcWlbW86GqWWMgzvUddJjf56L+zroU=; b=ga3trgjr+7lWEhIxMfXiNMdxPE
- ChaiXX5x6lgYD1p5Y82yZ61gxbNwBSwad4M/TV/yrjDoz7MSGKapTI0mGlsC6awV3OiEWkKuLyoIg
- 8dL6YJ6GemStWpDy/ccdw8/ixln6K0JVKjQ4zQctgsCJmZW1FFLMFsc+KFTkZMyzCvuwry3D0Q97O
- MoNPrurZxhIt3O2C1Nks2J16JyGr516JqzEZk+BTQ90hypDdeIeyYlHRZwnIH/X8ZDJ08kAMIoi7y
- NfEGw/4Zt6Lf55yXQJY9coTbcOlIitzrOGILi03kDhEH2cF8xSmjdLHXoXYRh3gs6R+86LqVztPph
- YdgHb6DA==;
+ bh=PAnVQWJDB6+WQGL9HyYfRj0W4HTfl2fOOBt8/BWxhK0=; b=EqUaExAv8Q6Fwn9KefLQ7x4Mn5
+ gELa/uZSw/InKfk378BJe0kgUqPMOk/CuGMKjlHeziJPQE/NEW5mRIUWbwgJ0C0JVrWr3h9MFFJcz
+ hZEq5HRnVIpQu8i60vtDs8xTUhrfFtwBtuKMsrPCgom2SDQ+6vvFg8kC1qtFjYP35xYDMtDQPRs+Y
+ Kg2PnrQ2D4FXKRw8Xuja2107sa4WP7OjvQAjJyRB3DhxDbsZVn+zo1qhFnl+IZ3T7VVnrMe8m/pkg
+ 5VpAn6QUDblZBMIjgA/aAvtrtto1kAI/Qz6vVO4FUBuDDRKCAJ6RX9N3SZWjA4/PH5xc/v4AfUnJy
+ aYpm5Xyg==;
 Received: from [104.193.135.201] (helo=debian.lan)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uwOrj-009URG-Vl; Wed, 10 Sep 2025 19:44:20 +0200
+ id 1uwOrn-009URG-QL; Wed, 10 Sep 2025 19:44:24 +0200
 From: Rodrigo Siqueira <siqueira@igalia.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -39,10 +39,13 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Robert Beckett <bob.beckett@collabora.com>
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 00/10] Use devm_i2c_add_adapter() for amdgpu
-Date: Wed, 10 Sep 2025 11:39:33 -0600
-Message-ID: <20250910174350.2729341-1-siqueira@igalia.com>
+Subject: [PATCH 01/10] drm/amd/display: Use devm_i2c_add_adapter to simplify
+ i2c cleanup logic
+Date: Wed, 10 Sep 2025 11:39:34 -0600
+Message-ID: <20250910174350.2729341-2-siqueira@igalia.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250910174350.2729341-1-siqueira@igalia.com>
+References: <20250910174350.2729341-1-siqueira@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -59,50 +62,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When discussing the load/unload issue in amdgpu and its fix [1],  Robert
-Beckett suggested the use of devm_i2c_add_adapter(). This function is
-part of Devres [2], and it simplifies resource management when the driver is
-detached. Aside from reducing boilerplate, it also reduces maintenance
-effort and minimizes the likelihood of future load/unload issues
-associated with i2c.
+This commit replaces the utilization of i2c_add/del_adapter() with
+devm_i2c_add_adapter() to reduce the amount of boilerplate. Using
+devm_i2c_add_adapter() has the advantage of removing the manual
+manipulation of the I2C adapter.
 
-With this idea in mind, this series replaces all the i2c_add_adapter()
-and i2c_del_adapter() with devm_i2c_add_adapter() in amdgpu. The first
-patch is focused on DM, the second patch focuses on the generic
-amdgpu_i2c, and all the other patches are part of the SMU (they share a
-similar code).
-
-[1] - https://gitlab.freedesktop.org/agd5f/linux/-/commit/89923fb7ead4fdd37b78dd49962d9bb5892403e6
-[2] - https://docs.kernel.org/driver-api/driver-model/devres.html
-
-Thanks
-
-Rodrigo Siqueira (10):
-  drm/amd/display: Use devm_i2c_add_adapter to simplify i2c cleanup
-    logic
-  drm/amdgpu/amdgpu_i2c: Use devm_i2c_add_adapter instead of
-    i2c_add_adapter
-  drm/amdgpu: Use devm_i2c_add_adapter() in SMU V11
-  drm/amd/pm: Use devm_i2c_add_adapter() in the i2c init
-  drm/amd/pm: Use devm_i2c_add_adapter() in the Arcturus smu
-  drm/amd/pm: Use devm_i2c_add_adapter() in the Navi10 smu
-  drm/amd/pm: Use devm_i2c_add_adapter() in the Sienna smu
-  drm/amd/pm: Use devm_i2c_add_adapter() in the V13 smu
-  drm/amd/pm: Use devm_i2c_add_adapter() in the V13_0_6 smu
-  drm/amd/pm: Use devm_i2c_add_adapter() in the V14_0_2 smu
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       | 18 +++-------------
- drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    |  5 +----
+Suggested-by: Robert Beckett <bob.beckett@collabora.com>
+Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+---
  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 21 ++-----------------
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 19 ++---------------
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 19 ++---------------
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 19 ++---------------
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 15 ++-----------
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 19 ++---------------
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 19 ++---------------
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 19 ++---------------
- 10 files changed, 20 insertions(+), 153 deletions(-)
+ 1 file changed, 2 insertions(+), 19 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index fadc6098eaee..5a06a82de6d9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2945,7 +2945,7 @@ static int dm_oem_i2c_hw_init(struct amdgpu_device *adev)
+ 			return -ENOMEM;
+ 		}
+ 
+-		r = i2c_add_adapter(&oem_i2c->base);
++		r = devm_i2c_add_adapter(adev->dev, &oem_i2c->base);
+ 		if (r) {
+ 			drm_info(adev_to_drm(adev), "Failed to register oem i2c\n");
+ 			kfree(oem_i2c);
+@@ -2957,17 +2957,6 @@ static int dm_oem_i2c_hw_init(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
+-static void dm_oem_i2c_hw_fini(struct amdgpu_device *adev)
+-{
+-	struct amdgpu_display_manager *dm = &adev->dm;
+-
+-	if (dm->oem_i2c) {
+-		i2c_del_adapter(&dm->oem_i2c->base);
+-		kfree(dm->oem_i2c);
+-		dm->oem_i2c = NULL;
+-	}
+-}
+-
+ /**
+  * dm_hw_init() - Initialize DC device
+  * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+@@ -3018,8 +3007,6 @@ static int dm_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 
+-	dm_oem_i2c_hw_fini(adev);
+-
+ 	amdgpu_dm_hpd_fini(adev);
+ 
+ 	amdgpu_dm_irq_fini(adev);
+@@ -7363,10 +7350,6 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
+ 	drm_dp_cec_unregister_connector(&aconnector->dm_dp_aux.aux);
+ 	drm_connector_unregister(connector);
+ 	drm_connector_cleanup(connector);
+-	if (aconnector->i2c) {
+-		i2c_del_adapter(&aconnector->i2c->base);
+-		kfree(aconnector->i2c);
+-	}
+ 	kfree(aconnector->dm_dp_aux.aux.name);
+ 
+ 	kfree(connector);
+@@ -8698,7 +8681,7 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
+ 	}
+ 
+ 	aconnector->i2c = i2c;
+-	res = i2c_add_adapter(&i2c->base);
++	res = devm_i2c_add_adapter(dm->adev->dev, &i2c->base);
+ 
+ 	if (res) {
+ 		drm_err(adev_to_drm(dm->adev), "Failed to register hw i2c %d\n", link->link_index);
 -- 
 2.50.1
 
