@@ -4,123 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7475FCA101F
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 19:44:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19A32CA0FED
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 19:48:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19F6E10E0C6;
-	Wed, 10 Sep 2025 19:44:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7B4610E9D4;
+	Wed, 10 Sep 2025 19:48:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="avc37zmE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MjC/25FW";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B136D10E0C6
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 19:44:39 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58ACgFax020848
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 19:44:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=MRFwGcw4G0+ktZMni3vfLtmQ
- O/YRU2ZQtqpoFx/hjaA=; b=avc37zmEzVW7YjVsxItPhtWI22GJZQQOvskkWisI
- fAPD0eUnTWrwGwoiLO6/vxsGmyPbq3IOT3bDNSVNVJ9Cb2MPH1f/YAmv7QAcY8Lh
- yTzmcpRFSSiZfYNDmLTj7y+7A+m6xea7WQH0GmwOe5wmaLw5jv5tY2TEC0YocBab
- CzOvW1/dr2D6JZc7kOT9YGSwQkckprDcudn/1rdT9By0GObcCpBRtPZxTT2b7c1e
- QPuKJ5WTYEV9Uc7qEOByIVZQUFjqVgbtBlcdN/okWE5aChurpHzl8cLP8lDRQrBc
- PU9xSiqsSMWBtA8NUcn7IkT2woCXAPQ+JlIxcIPC+4K4PA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 491vc295d7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 19:44:38 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-75e974f3f7dso13155046d6.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 12:44:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757533478; x=1758138278;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MRFwGcw4G0+ktZMni3vfLtmQO/YRU2ZQtqpoFx/hjaA=;
- b=sPk7cz8Iz/4ahOtddREbR+RzKGQIKdENBYcizW/TD+bJdzS64FIuSn410WFtqkQGdx
- L30AQ1+NIzQmeW1qG3Hti8MAoPICvkV2RxoUUAFlDByt19HC+qwLzb++YxV3Umt8Z2FJ
- KcpSNjlRYEZNm4gCYBD1M5frkn/5ZWcHydoUQxXxr8ljiKUUe9HKkGnQ/CNQhVIpS0ja
- sbTHuFH7mgrOpTnok4gZBvaCuUyjLe20t+4hr6IwjqCHfY+q1WZ1f93A4y1IBPPVEGtt
- MHYoW1njeJ+e5Q9XgQVkC96E2h5F6HaauFIa7agNkzwSMFn3Y57ENV64wScF9iVvE5Hc
- XLIQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXzhc//n3ZY6YyZZUzKFJFrAtkNfA0JhawpZ77ZWT8GgwVos75D3ElCAFumsT1oD5QQst1ySdyH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzsP0nHWtwcyEW3Mb2BRELaDEGi6dWgpp3bD08yeo2rJtoTwgjg
- qjltOsuepP7tekt/qdgCse8TuY+l3p5FhOEkBRX0vXgjMFKWokCGWV8Z6q+tG6tW3wTJxQWNK26
- XHo45xCzoywSkodBN2yrLeG8uujZaB7AP2Rw9iGn4qduJ9gG61mfnx/OfWHq0GWlxMC5H
-X-Gm-Gg: ASbGncu6S5oG2oEtcUmZDt2IQlkGCBj1SluZ1F2uc43JBdZ+x+o8L8okB41e2oTe4mM
- cNTW3OxIcfzD+j4PMyCSIgI71Xt7SPAm0l5fj8HgQlFL2LMFPrws1L4g70dSU/Zrv3se/D9lZzW
- GUNX/EEg7GucU4QZM7hGL0YsqAMj19t/7bx+GhoJkzJqjZ73k/UZ+0jpmJoqKbN9PBs7ux77z2+
- 3nHW9iBvonoXkF0NeToteFsK7tDqRvRnZOPtprfdsBlXAxiywsASGDV+DgFR6xbGqb8RWyjHsmM
- IpP2ge8zgD6zpXYGfW0KqJ2G3Fu8wq43w3gtjWstUN877FXyYTJwGQxT0UtlS9vvY560lOz8+3X
- UtKY5GsJoZOOpXOo/3PIA5D5Fu+ehhl3fOHNAOKKvLwx78k3Ua0LM
-X-Received: by 2002:a05:6214:d83:b0:722:4cf0:43ca with SMTP id
- 6a1803df08f44-7393ec165cfmr207443146d6.36.1757533477914; 
- Wed, 10 Sep 2025 12:44:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHLTybLfL00fFfCA42iPicU5GPH+S6SfBfiUJaoauFhGCNadtLOwQ0vunk0e3CAte+J5/R2vA==
-X-Received: by 2002:a05:6214:d83:b0:722:4cf0:43ca with SMTP id
- 6a1803df08f44-7393ec165cfmr207442566d6.36.1757533477313; 
- Wed, 10 Sep 2025 12:44:37 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-337f4c4ffd5sm43997081fa.14.2025.09.10.12.44.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Sep 2025 12:44:35 -0700 (PDT)
-Date: Wed, 10 Sep 2025 22:44:32 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>
-Cc: kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
- arun.r.murthy@intel.com, uma.shankar@intel.com, jani.nikula@intel.com,
- harry.wentland@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, robin.clark@oss.qualcomm.com,
- abhinav.kumar@linux.dev, tzimmermann@suse.de,
- jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org,
- laurent.pinchart+renesas@ideasonboard.com, mcanal@igalia.com,
- dave.stevenson@raspberrypi.com, tomi.valkeinen+renesas@ideasonboard.com,
- kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com
-Subject: Re: [PATCH 2/7] drm: writeback: Modify writeback init helpers
-Message-ID: <nw4ehd7a655rzyf6g5yxb3z25en45esja2i5uowzy4wpmb2el6@orycag5iccho>
-References: <20250909100649.1509696-1-suraj.kandpal@intel.com>
- <20250909100649.1509696-3-suraj.kandpal@intel.com>
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C3D810E9D4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 19:48:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TCkMf/IDCBbjlINpZgIkNcZZhHbJ/LdG2PWLooIEPcGu0WYAs9qGS2fWNhp5IO9cK5NXJAWQdqFCqD4MSWEMVLL2Q/U8Gr2/aTMdxHUMO/gRhhRtSIFmhZicBreNHxlWhXb7b8zaaGIRRKdJiAwPTM8TDjwUT6FIhstPNaLskOlhxBQD8v8doReZ3/UVmSlLjApi7AOcBNXVEaMvy6TkrxYwaxxQB/+ZxmnWNHdt6A5dJ40rVGWAKRBIaZuD5GddApRIT5bVdECLdvxG9kX4AEV42yxYBJIOHaRKNwRRWOptYNhVaYcpTh9uaHgb56epDoXhqvxJ0sqmVjpmk3nEwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mQZBGwpJ6lokpSzz5ElAsIAli771sr4uI+PrNrDZP7k=;
+ b=a/RN7wl1BYT/6NpxlOc64Gfd3Jo9KObiRdzJH8A01b8SQDul0LuM5gJyKOg4newEGp3dxakRNJZjiJQGq5biwokZMnxPDQM9m/yVrUYaRHg+4HSXQuQuwrhv6pXx5kOCkKXaZ+revEDOTypHCb1IDeJnb6JXw0M00/Fw1t2I46pzusaAL2X+WfKiQn1Ic47NbNzKlMUylFnv4rsMHyy+P+YvWES8cEFbQWXD72ilsMaOaLPMhOBhehGlpy2XBjkbwit0AJh5QGh6f8hmWLgTEp/LsAhPUr+CxsU5dcWWYo6lWzhp7I/HVWwyShIYL4AolcYlhBHpcIbILwJ2hc+uJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mQZBGwpJ6lokpSzz5ElAsIAli771sr4uI+PrNrDZP7k=;
+ b=MjC/25FWXN7HsOlCzCRkBPue4+UkiAy54nbC1V3GfVp0L3qzMnvlgx/Tal79HBJkHqzPQQYNjQy1Eda8qjRlqB1Y9907TQzSTu4KZzUkDZxTMwNSZJeCNg3anREJu9fxTB2KEhPR0dIgWRdl703MDtphjpOeb20xJj4cirWEX3M=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
+ 2025 19:48:43 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009%7]) with mapi id 15.20.9094.021; Wed, 10 Sep 2025
+ 19:48:43 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Kamal, Asad" <Asad.Kamal@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
+CC: "Ma, Le" <Le.Ma@amd.com>, "Zhang, Morris" <Shiwu.Zhang@amd.com>, "Kamal,
+ Asad" <Asad.Kamal@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 3/3] drm/amd/pm: Allow to set power cap in vf mode
+Thread-Topic: [PATCH 3/3] drm/amd/pm: Allow to set power cap in vf mode
+Thread-Index: AQHcHh+kbo7sTv9H6kCSiVdGfRxPHbSM23MA
+Date: Wed, 10 Sep 2025 19:48:43 +0000
+Message-ID: <BN9PR12MB5257218B6F8E920B02D2F7A6FC0EA@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20250905044301.1947978-1-asad.kamal@amd.com>
+ <20250905044301.1947978-3-asad.kamal@amd.com>
+In-Reply-To: <20250905044301.1947978-3-asad.kamal@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-09-10T19:48:15.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|IA0PR12MB8374:EE_
+x-ms-office365-filtering-correlation-id: 21d31530-a7f8-43e9-5976-08ddf0a30c75
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|38070700021|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?RIvQqsubp1E/qHo+k5U2cBMqMYvPRwmhLwegs0UjPp9QJ7tvIQRda49vEJFp?=
+ =?us-ascii?Q?WXlpxH7A+GauuHa0kbnaddM6LOlT2rJ6Hkr13OswSLsPfCvVwpzqswlzDYBh?=
+ =?us-ascii?Q?DiowMF8i6MkUSPbqcEtHCJsLTkMoWDXgJUo8ZWcnYiUp4VnQibCKT9G1WRXY?=
+ =?us-ascii?Q?C308RBtjaPe+fb4lNGUke8pAo1qoaPk7yCo/7FyM3tcr1f2P8/qEtZXg9WNN?=
+ =?us-ascii?Q?ADidk9Fkxzh/1o29tqvmerYqbVQMTiL37xk3poEJFcL0jaoSIqbznRXXWM4u?=
+ =?us-ascii?Q?Yhtv2Qeh7Qi4eNv729g5auCRCcXd6bQViYqpiDjhxltB5tZ3tjMryagqy62Y?=
+ =?us-ascii?Q?UspBujAzhTi82HVy5TSDSjeWtcqajvhskYH1L+EigvpX4wyWNM5ZC/cKGuQl?=
+ =?us-ascii?Q?jKZlYXKZ7wyQjKzbUojscIbYoP3bMOYvH8EFNHs3e62K6It4v04GgeUOV7Xb?=
+ =?us-ascii?Q?0QzovrqqqBAqTUjdkU7RPIPRJW4ZHVQd1bTYgMJ8o0kZ/pE9vgmyUrCz6gzI?=
+ =?us-ascii?Q?ulCC6DFe7zl95CM1g6evkYlqGbCmZaGhokxxAL1Sc1MeY1XDuT1cGPTYPI5R?=
+ =?us-ascii?Q?LAztR85oZdEimg15g0ie6o5MrYV1mHzbGI6qU6fK2N774917wprDI+z436Md?=
+ =?us-ascii?Q?uX+GUU1VFdMxrO11yaYYgjBnlrXKfzJ3tAxTKDpy5rvfHUjLMlMn2LAHgIWD?=
+ =?us-ascii?Q?wbggUxdf8NHKYrz/87fALtd9mhu4mUspveu0l+PRPOVaD1g8dZmN41DNFkKd?=
+ =?us-ascii?Q?LDCn1XO9auqiCF/AGXftMApQ1vf+yih8j5yTWKxThLECMTdpkW+eZuLNDoQC?=
+ =?us-ascii?Q?f7ih3YG3Ojj5qs0wXd1Lc4W8P0tlvBiEkWzLgkq9tgg1npDti/7FgTDG6XOr?=
+ =?us-ascii?Q?Q8PUr2PAWZXsHrjvNyYlF4KPG6JbqF9T1BJLfKWFtbRRreI0mb2g7jqJTMwM?=
+ =?us-ascii?Q?c3Ek9EEI7QUrJYmYOyijNuUQLvE4xyuYs7d5fVDdA8yhxzqquBhoxXILVJtG?=
+ =?us-ascii?Q?JwbIa4/di4LXjvYFaBQ+eHUX9sxq7p262fwzPwAckOXDwPLH4/U83K4d6Lrj?=
+ =?us-ascii?Q?z48znfd+ImcnIb8lJRDvfKVIzvaq7zZDbMPQINGD2IBmf31ZHte1g8ItTguG?=
+ =?us-ascii?Q?efhSgAdNV3vo6GCIEQqUz2KVsMjnq8Vh84QkVvf9YgRQ8JHD8Zhd/ZCiky0Q?=
+ =?us-ascii?Q?bmnOhFdd11sbcHthXVYVHhFa0I1Rn5eUp2KobiqJ7U1/sY2aWDYJ5dlsb1UY?=
+ =?us-ascii?Q?d4x3/+m9Vu23KV3SF2JD+ta4Vtv5ANAQr+u7V4gpk4WLtl0T82xuY8twq+sv?=
+ =?us-ascii?Q?AMyUASnze/v3BEGCUUTmmcQ7L6yLeREv4GGT63gVDLk9ihZDDHxt2/3bkI5h?=
+ =?us-ascii?Q?RWWKc1Ksqv0RfGMrcwDt8t3R3lyOgKS6TS7JZZBmCXxHxWQ3U0MWQul2sOYK?=
+ =?us-ascii?Q?QvL9ajirszO0G2YCDF5ChJGtEUWUcnqOEWMAXS9YDe3eN/d/pT8V6w=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wz2GdNjTRx5jRVl3pVidsX17WPWqlnTiUS8bdB38XUThKtr9I+jHrbm+Sz2O?=
+ =?us-ascii?Q?Jg5//bEdBeJvFoLXkSwkhRNVyr1S8IOQiky8C+aeiGO4JDQwr5oXLXE1n8C3?=
+ =?us-ascii?Q?bqChjGO/jgah/a1n7ASbSoQ6AGYBOuwgRletM5TJ+UvVxk4b0cP5l39W5r6v?=
+ =?us-ascii?Q?5lLX8ygAHIGP8XO2Cxc2mnWYl5HcAq9NN66qvRh1KUlLV3qlaPDtUTqxmAue?=
+ =?us-ascii?Q?s4sQMrr9Nv3/UmW5LWGKz68LwNqHeFwMrrfZW1wyq5kQoj8pKbGQ4yze7Or3?=
+ =?us-ascii?Q?x2Oeeo4BpHIRCTduuqBfu8ocf7koh8t0ZOOv8orm2+NfZmOP6CVpqVHTinkY?=
+ =?us-ascii?Q?yrbAOMtjz0ftYdXJRIFp45Gi3/F14z/86gm7C1BFFHU/Sq724ntGhevFcIOz?=
+ =?us-ascii?Q?q6r4zNnpKF9Z2gzfN0NwzK4w9EmJjmTG/hFqmbqjyUDwe6M7Lrtd4WE8I4M+?=
+ =?us-ascii?Q?MKuUrkDrNpneTNteWxGfkZ7vvd3TCheSznVpiIbs1E9M28T2CK6eXyYUkkbo?=
+ =?us-ascii?Q?Y4B8rmqbHeLDkNx68+GyY/Ltun2ACHvpZfhYEnGDu8k3JgaPmvxskkKJSrQv?=
+ =?us-ascii?Q?xdwi1kGUSOQfiXIukNaydIncE/w/VUZdIOOH6TSGh2LNfrB5kFEr82kKXXwN?=
+ =?us-ascii?Q?0TZFz87JUFts6bHbNQQfv4RcEg0IW2HV9/rSuOKNuViCyKv+R6s8TLuXl2Qy?=
+ =?us-ascii?Q?GVb7r5YoOPkCGj7S08Nh+xQheow72b3D0fYLeWsW53tsDIxYWcj+qm+mhvHg?=
+ =?us-ascii?Q?acvFeGeSANcvCmU9imFgyRI/l1ogGW/8DjaRxaqTX7WKAmoooIPmcISaXkBT?=
+ =?us-ascii?Q?WulcFAZGI0nO5t0usPnnl/uLhz3LqBy+wE4oHsyimRE5XLPiWLEAGhN5QFTi?=
+ =?us-ascii?Q?Kg0ms8GJcyFH9vBVKmgBLEuQuDTRwYc9vQOoS2Wwaa+y+4ESVZdZNM9X9lUL?=
+ =?us-ascii?Q?J6DrdUl36zKewhfyCR0ph73YpMxI0FjQSwbkZ6WTqI2xiaJQyyxZB24X/0zS?=
+ =?us-ascii?Q?IHWAu7LHgyU31voYzqguqpSz+jPym3pNN6PLjifGXpjHVBSYSUWqlw7uK8w4?=
+ =?us-ascii?Q?I9V0B+qO6dHAbFrSbwRdGw8vO0QlqpGaKC9S9RLDqYsBwFGKtOQv8edTDzxB?=
+ =?us-ascii?Q?d4agoqxvx8P3JoQTmvBdZTr7aZ+VRVvgnS+cBXIn7k+6D0a/OJZv5nl8eGrV?=
+ =?us-ascii?Q?CYv771RFr742H0nRnWN6Dlkui5HdYsIjoWfQkVppjWkCkNszJNzJxVRDZZ62?=
+ =?us-ascii?Q?F42SSyLBcU179d3Tl4zn+7jQsCv9qtqK0BzVl7Xu8h56glMluxKCR1SVN4rV?=
+ =?us-ascii?Q?kGvHUYCmVAAcRILsitl6m42IjENpESCyIqYKXOeiZtm5FFV0EzwC5H+04amF?=
+ =?us-ascii?Q?lDI1Bo4NDjh22dgSeCN7fvCDz2PYIVrj9mb+CsDx+Qwt1+Gp1lRFjBm6e37B?=
+ =?us-ascii?Q?dJ4qSIJVnPqQSEoTOvAUKYyAwOVqA3ax3DXE4QiD7ImWklvU76oNzglp8W0E?=
+ =?us-ascii?Q?RLQ3JTro7wFAB6onV2kZ7c30NH8KhnT4QBX3uc/nCG2FWGdZPNxi6xEwK/Yb?=
+ =?us-ascii?Q?bThcK7Z0QYweG9I7UfE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250909100649.1509696-3-suraj.kandpal@intel.com>
-X-Authority-Analysis: v=2.4 cv=FN4bx/os c=1 sm=1 tr=0 ts=68c1d526 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=yJojWOMRYYMA:10 a=QyXUC8HyAAAA:8 a=T65gB5C1oy4ZwBZl7KYA:9 a=CjuIK1q_8ugA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: MH8u733L1GaFbuKnLguEqBvpoERXWRvp
-X-Proofpoint-GUID: MH8u733L1GaFbuKnLguEqBvpoERXWRvp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA4MDA5NCBTYWx0ZWRfX4DLPbBOWwlp4
- S85e+HG9NoqPKFH5OS2tQvqoqmoVB5nQAgVROq2MjYcfvHNZqsfMoGMyMJ0Kl27/ODhUsmeP2xH
- sOacjhrTZVbcfKdlsojAGBGpz0saZyU1cRnKTnwXeFmOcVGw/rwDQXni1/0C/REKjaPwmThqGwU
- xWXSeici3hEUHto5AZFbwC6F1I9BtLM1OnnjjCAAIKkVijz4roYcwckl4wbdSt/ravrrYRyflx/
- wSS2stsq9fjoi3UOO/zTDupZYf7IynWjNKacNs+bxu2Ds2BT8+oyM2W+t/3vhzspaS/+78R9wSz
- 8+z1RA1g3i221tCoS09RMkx5c1WHaeLiuTqCPQ+fJmMdx8ujn+ztaRAN7RafstJ2unDJMhbbJWo
- ebfRVulx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-10_04,2025-09-10_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 clxscore=1015 phishscore=0 adultscore=0
- bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509080094
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21d31530-a7f8-43e9-5976-08ddf0a30c75
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2025 19:48:43.5193 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JkPaDqh1kOW4TnkZp/nlGwrZ+oUQQ+kReUMmVCw6y/+MPobjTj2dSY8VSv4zZ6/s5vdG8aQCAKKpCa0+f1zbcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8374
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,48 +156,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 09, 2025 at 03:36:44PM +0530, Suraj Kandpal wrote:
-> Now with drm_writeback_connector moved to drm_connector it makes
-> more sense use drm_connector as an argument rather than drm_connector.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-than drm_writeback_connector
+The patch is
 
-> The writeback connector can easily be derived from drm_connector.
-> 
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c |  2 +-
->  .../drm/arm/display/komeda/komeda_wb_connector.c |  5 +----
->  drivers/gpu/drm/arm/malidp_mw.c                  |  2 +-
->  drivers/gpu/drm/drm_writeback.c                  | 16 ++++++++--------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c    |  2 +-
->  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c  |  3 +--
->  drivers/gpu/drm/vc4/vc4_txp.c                    |  2 +-
->  drivers/gpu/drm/vkms/vkms_writeback.c            |  4 ++--
->  include/drm/drm_writeback.h                      |  4 ++--
->  9 files changed, 18 insertions(+), 22 deletions(-)
-> 
-> @@ -338,13 +338,13 @@ static void drm_writeback_connector_cleanup(struct drm_device *dev,
->   * Returns: 0 on success, or a negative error code
->   */
->  int drmm_writeback_connector_init(struct drm_device *dev,
-> -				  struct drm_writeback_connector *wb_connector,
-> +				  struct drm_connector *connector,
->  				  const struct drm_connector_funcs *con_funcs,
->  				  struct drm_encoder *enc,
->  				  const u32 *formats, int n_formats)
->  {
-> -	struct drm_connector *connector =
-> -		drm_writeback_to_connector(wb_connector);
-> +	struct drm_writeback_connector *wb_connector =
-> +		drm_connector_to_writeback(connector);
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-You can use &connector->writeback without extra wrappers.
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Asad Kam=
+al
+Sent: Friday, September 5, 2025 00:43
+To: amd-gfx@lists.freedesktop.org; Lazar, Lijo <Lijo.Lazar@amd.com>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, =
+Morris <Shiwu.Zhang@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Deucher, Al=
+exander <Alexander.Deucher@amd.com>
+Subject: [PATCH 3/3] drm/amd/pm: Allow to set power cap in vf mode
 
->  	int ret;
->  
->  	ret = drmm_connector_init(dev, connector, con_funcs,
+Allow setting power cap for smu_v13_0_6 in 1vf mode
 
--- 
-With best wishes
-Dmitry
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                   | 7 ++++---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 6 +++++-
+ 2 files changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c
+index 5230276628a3..3c1346085c3a 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3253,9 +3253,6 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct devi=
+ce *dev,
+        int err;
+        u32 value;
+
+-       if (amdgpu_sriov_vf(adev))
+-               return -EINVAL;
+-
+        err =3D kstrtou32(buf, 10, &value);
+        if (err)
+                return err;
+@@ -3597,6 +3594,10 @@ static umode_t hwmon_attributes_visible(struct kobje=
+ct *kobj,
+                        return 0;
+        }
+
++       if (attr =3D=3D &sensor_dev_attr_power1_cap.dev_attr.attr &&
++           amdgpu_virt_cap_is_rw(&adev->virt.virt_caps, AMDGPU_VIRT_CAP_PO=
+WER_LIMIT))
++               effective_mode |=3D S_IWUSR;
++
+        /* not implemented yet for APUs having < GC 9.3.0 (Renoir) */
+        if (((adev->family =3D=3D AMDGPU_FAMILY_SI) ||
+             ((adev->flags & AMD_IS_APU) && (gc_ver < IP_VERSION(9, 3, 0)))=
+) && diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/dr=
+ivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index e37b7b5358ea..0acf574930d8 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -143,7 +143,7 @@ static const struct cmn2asic_msg_mapping smu_v13_0_6_me=
+ssage_map[SMU_MSG_MAX_COU
+        MSG_MAP(GetMinDpmFreq,                       PPSMC_MSG_GetMinDpmFre=
+q,                   1),
+        MSG_MAP(GetMaxDpmFreq,                       PPSMC_MSG_GetMaxDpmFre=
+q,                   1),
+        MSG_MAP(GetDpmFreqByIndex,                   PPSMC_MSG_GetDpmFreqBy=
+Index,               1),
+-       MSG_MAP(SetPptLimit,                         PPSMC_MSG_SetPptLimit,=
+                     0),
++       MSG_MAP(SetPptLimit,                         PPSMC_MSG_SetPptLimit,=
+                     1),
+        MSG_MAP(GetPptLimit,                         PPSMC_MSG_GetPptLimit,=
+                     1),
+        MSG_MAP(GfxDeviceDriverReset,                PPSMC_MSG_GfxDriverRes=
+et,                  SMU_MSG_RAS_PRI | SMU_MSG_NO_PRECHECK),
+        MSG_MAP(DramLogSetDramAddrHigh,              PPSMC_MSG_DramLogSetDr=
+amAddrHigh,          0),
+@@ -413,6 +413,10 @@ static void smu_v13_0_6_init_caps(struct smu_context *=
+smu)
+                        smu_v13_0_6_cap_set(smu, SMU_CAP(HST_LIMIT_METRICS)=
+);
+
+                if (amdgpu_sriov_vf(adev)) {
++                       if (fw_ver >=3D 0x00558200)
++                               amdgpu_virt_attr_set(&adev->virt.virt_caps,
++                                                    AMDGPU_VIRT_CAP_POWER_=
+LIMIT,
++                                                    AMDGPU_CAP_ATTR_RW);
+                        if ((pgm =3D=3D 0 && fw_ver >=3D 0x00558000) ||
+                            (pgm =3D=3D 7 && fw_ver >=3D 0x7551000)) {
+                                smu_v13_0_6_cap_set(smu,
+--
+2.46.0
+
