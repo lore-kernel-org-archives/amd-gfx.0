@@ -4,152 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31F17CA101F
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68CEECA0FED
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 09:35:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF7210E8A4;
-	Wed, 10 Sep 2025 08:34:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1318110E0ED;
+	Wed, 10 Sep 2025 09:35:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4LQ+DKKZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DXmaU2mb";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C426D10E2C8
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 08:34:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sqRhclXx9NC2KoW1OX5irJHA/0ahYnfpbZzgxn75gvB36Uc9BhQ6u6oF4s0VAgVwxCKGw2yikFfRrAb75ZyKuX7MFNyo5cYRsDdijloSYcdx1zysRZ8XFaA30b4b5j9xZeub1ZBDyb1K5Aqhe9DVJxFwAwVRFrIDUI1QA2T54Ww6xLA8BBkxZSsEneq//votXdV2QpfLhyxT5l8BtwC5pM0GM5hfbMiEZDS/P39+o2zpGJRy+yoN+hf/1OKthdxYRmQoZ0P9JRIzMEEb/2pT2k6xPLHszOqfIGCMiU9v1WHwwo9oZ3xySKteGRpW+FBwKO81C+BbSuxd9OkhryoKaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=flE+Tr6h11SH4ivE9B+Y6cqrHqsXYKdlwyeMaQi5lhI=;
- b=bSrPXUB9Hf/pUa0g7Q1RBTjIPfNx0ZjfpiO5Y92Eg3Rd8ml14wxJjnP37Haw5t52L4TsG4P8bhV1LFsxihHDrZDc2K/YKYMRSGlPekmVxtHvHkFH+1LfRfCyR0xDrHuh7BeJa7SIBwyH9CyYv8OL6bCsHnCvSSzLo8q1rRJkPrNAxIqsitMMzjZ4iPvU1VlTvu7sD/QJAwhSE0xNAW/hkT36FiaOnW/KIOKYKxCePnnVf0isFgDAYWOw37BhMwRVdHr4st5byohgWyN9FEODRfR1K/Glu5EUqbFYWdc/GBXTvd86KhFHoop1+MNIUlmIY2CkJify36hRp10sFxRj/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=flE+Tr6h11SH4ivE9B+Y6cqrHqsXYKdlwyeMaQi5lhI=;
- b=4LQ+DKKZW9w/NGDM836+trVyqSFzjf9GpzIaPpv4MY1q+MWcoEMznTSw6xp5iJ7v+hCr7HCmap9zQcDT/yZMZt16x/zP4TtzZa6uViNq2mdPKC7G3t54oYt1j1m+CXnHJPKa3lfzF5uSdI44inPeZY8Bam7ql5ZAkbOd2gj0hVg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB7959.namprd12.prod.outlook.com (2603:10b6:510:282::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
- 2025 08:34:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9094.021; Wed, 10 Sep 2025
- 08:34:23 +0000
-Message-ID: <32b1c868-8b0d-41fd-94b9-0ebfbc6b3711@amd.com>
-Date: Wed, 10 Sep 2025 10:34:18 +0200
-User-Agent: Mozilla Thunderbird
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBAF710E0ED
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 09:34:59 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-24b13313b1bso48263725ad.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 02:34:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757496899; x=1758101699; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=HXbAsR7aVzqW9fkya7RufHoVSzXiKWBBOA2e4TxC9iY=;
+ b=DXmaU2mbw64lDNUYz1XE7ERV8TRtsqV04+FKhdbF8Huh9qMrB8B41D07YZnsGXwW/A
+ tbYQbD3twLeYVaiRvNpGx/pPvPrKu98uK7KvaGR513xNE6PgasvYMWdEMdqJ+6XhTtSF
+ XjI0hYLmhd7liB1xodtHBMzMMkBJsL3xbCMAJPSGhL6z71wEdnpcc1lLBkttjiZp2BRY
+ S5OAocZbsU/UcFQxAiAnhXJzD6O8d+7N/MD1q22iD7FdU/KpVAWP02feYHMBDg6mDuwa
+ ahiqnodVsXaUuX1rAU5CD1CZHiG6h3uinAJ6hhCh9g78nG/muAGCdYT4VuAoMUvOOKNq
+ bF4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757496899; x=1758101699;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=HXbAsR7aVzqW9fkya7RufHoVSzXiKWBBOA2e4TxC9iY=;
+ b=Km1JwA9Pv4NhlbsZuFx5wJ8kGuXBM3jdk9fVQb/DFHtLHsZVu/OIFcUP0TSzjkJjZx
+ ZZRuPVKOzQxG+wHyCs2o10SE57bquTp/lB2g7W/ndQYrI9tOYzVHMnckzymbDwo2dzRq
+ jY549SpIy5C1DH3j0GwU3jpqbGuW47KWF/SyjdZM9M91uefJYv9ewB3WJbpsaCbV2t9W
+ 2CZxuoO3BenhZTcAbkHoo7w00zCGggO54b4EYaZu0Jr+LyUsVV3+bCIe7PE2jrFmCUGB
+ bT0EywaJc9y6DmNoziL21QfvW585f9Kpc17akJMyIWXqYjSCl7+kt27K7zoj6tzdIo+z
+ KscA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUqjZQDV0GS9RhnYoh6oJbiZfi6sCqzVNJXzt70PaZ2IOOxllYbsMwZzDWRCt/fXFQ+BynXgbdb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx2rTzjwzSZhKP/9QJy3z9kSXnMjZ+zPziCk16Vyq85CD2CGn+f
+ 4nBgqrVBk/hUmAmno+OeuzOi3HGySlGrnDXA6QL7QRkHNWcYWH+jPb7H
+X-Gm-Gg: ASbGnctcqtJrfHER6y33iUjZjEzxs5yTOUYbUIf1O44vaZnVuyFiJm8+q9I9FL6VnI3
+ GoKHIA2QqiQ79jW89DY01gxJptoXCpST6YZcH4ZtB2hxW0JnZcaSPFV9Rhk/s9CYurVFExZybdq
+ jC/QWWinVCqg5p0po4P2m6jO+XDQ95X8wZYUYQXSXfMXtkd1ZseZU5TDv2mjDpPf+AB+A0bSLzq
+ +OCjSFcWrEncCZ2sawAuJuMtAWu+axahfFwbF0ZR1SPghkPY/UBx/KgMyx1RoGpOmUQZSmZscW6
+ 6PG/Fydsbe6+LuPG+dpSEIifgsOgOqrovkNiszP1PKdBDMZ67hRbVDNunHICDaWX5YRNY9jGNlR
+ RNXv6ETv9F2O6ARhUmi1dNVl6cEpOBTAtGj/uoG5tQ6ywo0Og0CHR4+ASMfvXWYSmqLP/3nHhUL
+ M+7uqsio2t0brhw5BURbsGYh3e+77nGTcjtsx5lwWFldNtYvWqqExb0xvFuR5YVEZ92aysw2PWf
+ aWMmaPbarfh
+X-Google-Smtp-Source: AGHT+IECr0geTRsdv4blLJYS1bKVoFI6eqD70xvLSB2AOQSrtdGssxUOoVJemVpbI9kG11SGO49XfQ==
+X-Received: by 2002:a17:902:c94f:b0:24c:bdbe:cc90 with SMTP id
+ d9443c01a7336-2516f04ef6bmr224381965ad.1.1757496899081; 
+ Wed, 10 Sep 2025 02:34:59 -0700 (PDT)
+Received: from ?IPv6:2001:4c4e:24d7:a100:6cbc:3a09:ac01:5ce2?
+ (20014C4E24D7A1006CBC3A09AC015CE2.dsl.pool.telekom.hu.
+ [2001:4c4e:24d7:a100:6cbc:3a09:ac01:5ce2])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-25a274258b6sm22010625ad.26.2025.09.10.02.34.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Sep 2025 02:34:58 -0700 (PDT)
+Message-ID: <0d07fe34d3857ece68d29ce21ea2768e43538aa6.camel@gmail.com>
 Subject: Re: [PATCH 2/3] drm/amdgpu: Set SDMA v3 copy_max_bytes to 0x3fff00
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
  amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, "Olsak, Marek" <Marek.Olsak@amd.com>
+Date: Wed, 10 Sep 2025 11:34:52 +0200
+In-Reply-To: <32b1c868-8b0d-41fd-94b9-0ebfbc6b3711@amd.com>
 References: <20250909144937.22452-1-timur.kristof@gmail.com>
  <20250909144937.22452-2-timur.kristof@gmail.com>
  <26b5d36d-1c9b-4891-962c-ec13b65f02ac@amd.com>
  <a065f044dd629a9863ca18bb0e913d8f9299bedc.camel@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <a065f044dd629a9863ca18bb0e913d8f9299bedc.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0177.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ <32b1c868-8b0d-41fd-94b9-0ebfbc6b3711@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7959:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6395464d-9943-4997-cf15-08ddf044d827
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TDE3MXFSTTRZbE5tNE9DNzFEdkZpbXVnU3ZoN21HWVZReTRGY2dzTlg5UzdJ?=
- =?utf-8?B?SFNvUXVUSTY5VlRDQVVGb3NFT2lUTUNLRjlQcVk0QmFVQ3NFbjkzaDBHOURm?=
- =?utf-8?B?WFd3NmpLblRQTDVxSE81NEdMQlY1TUhRN0hLY0g2ZWozeHBVdnppZ0JZRWNG?=
- =?utf-8?B?NnJleFE2UmxPTDA3dmdBL0NPeSt2M1puM1ZxeTZ4TmhmVzVJRENwRTJRNXFV?=
- =?utf-8?B?NzVEQThEWkt2a25hbnk2c0N4RXhNa1YxbXBiTjFvTGgvckZweFU3dFBIS1pE?=
- =?utf-8?B?Z0dIZlpuUzBlLzlnWlVFaEpJbW9sZ25QSmFSallVOGdGZWFlMGZSMlVvZHY0?=
- =?utf-8?B?TkhaVjRFZ05GdC9QbWZjL0p3eU1nU2JOVzdraFltRzBXMkJKbmMyRkNhMVJz?=
- =?utf-8?B?L0x4d0pBbWJ3U0M2UTRYdG54UGw5dEJ6MElOZm9QTFNqeUpBWHJpVmpReFhy?=
- =?utf-8?B?cEIyWHRHeEFvWTREM1Z6K3VLUlNTNmpWRzdsbTZlM09YV0xWVVBFWEZrajZN?=
- =?utf-8?B?aUZ5cmN5MGhLSkRWSERZOVBZTkc4WnJYOTlOVHFpSXhyWlpzVkMzZ04zN1Bm?=
- =?utf-8?B?NXUxRGNnMHl1OGU5K3pTc0t5Ky9rSkxPOHlIWDZnZlhSWHJ4VDdFVWpRVkp4?=
- =?utf-8?B?UnZCbmM2Y1lxZkR2ejlTaFk2bGlNVFlBbkF6SmQycUFlVllHNlVGdWVPa1Jw?=
- =?utf-8?B?eFIrWnYxakg4bTJTRnBqemFvbHpKY0VoMVJBWnM5QS9HRzJoZldEWXFuZEpm?=
- =?utf-8?B?eEVteTc4WG9Vd0RaUWlpTmJhSmVjYTI2S24xR2hqSU5FQWtFalZSYUlESVEy?=
- =?utf-8?B?b0w5R1JpaThVZWwrb2Q0OVR0RzBZVVBwb3hlZDd1WjIzcTFIZUxFRHNaUHNx?=
- =?utf-8?B?Z29RZG5ObFd5dGpwSit1VjVUdEdJMStRS3ZEMWtERDNzRjdpbTB2U2tmVmF2?=
- =?utf-8?B?WGQwbXFlUEtlUmRRVGp3VjRuSDBDWHhuUXBOcDVvQkRuYmdXK3lkTWtaWkIr?=
- =?utf-8?B?S2ZOTnJXR3cxWko3Uk1iSFA1c1VOZzBnYUZGclVucVhBbzlUeVlWMnlFZWU4?=
- =?utf-8?B?bUd5bDR5VVpkbHo5UHNSVlRHek0vOEZpU0JiQ0pJc3R0aTFzOWkwZlJ6NkFV?=
- =?utf-8?B?bGxrTjQ1UmNtNUxzdHcyZGtkaE1PWUoyUDlnWFFwVjg1RHl0aENWZ1UwYW1r?=
- =?utf-8?B?RVM2MmtDV2ZoV3Zhbi81VzJudWVVQkxLWVFSNi9xVDZFVCs3Z083cjhKVXl6?=
- =?utf-8?B?aGllZEc1NVh3YnlHSWc1SFNxNmk1aTE4UlJyUkpGdytwaEpPSkp5ekNBMHJI?=
- =?utf-8?B?SjZybFJFZ1l6YnlTK3pVM2x2RU45Qlp6a2VmVmF3Ukk3TlVUUGp0MGQzMXhi?=
- =?utf-8?B?Ri9iK0xFZ3pBN2VTVkgyZ3p1VjhtaDFyMG5wd29RZERJVGtuMStNdnRZV0Ji?=
- =?utf-8?B?WUVGSHcyVnFPd1krL0JYUFV6Vzlmd09UK1N2OFVoYkg0ZDNTdXdzOWNkbkVG?=
- =?utf-8?B?cEZ5b3ByczVkSzRtTm90U1M5WGZPV2c1Wk1DY2h1Zm5FY3h0VTdwSHhDMTJI?=
- =?utf-8?B?azFCV1AzY09OV0ExRUF6cE1GbVdSWXNhUFhqSnZwSFdkSlJGNVQ2ZnhJUFdT?=
- =?utf-8?B?U3NPUkdraVFVZVpwUkdGRkVKY1VPWHQrRmdwcHZXWENkRFR2YUo0aXFvN00r?=
- =?utf-8?B?NDhmUG0xcTIvZ05DejFnT2l4K3N2em9HVHh1TlRmaTJENzJkalA3ZFAwVUIz?=
- =?utf-8?B?UDdGSktwUEVTZXcvLzRxTHdJclkwZkdUSGxSa1BzZ2NIMU9Sb0xoZmV4dnQ2?=
- =?utf-8?B?S0lMSkNWdzVnZUZTNE1EUFM4bjNRcTNOQU9xN3ROeSszeTB3ejBOekhxZE1t?=
- =?utf-8?B?b05xeXA5L2l0YzU3ZWsxMnJkSUpaK1ZmWEhlaVhtL3lvaFo4aURlQm12TmJW?=
- =?utf-8?Q?uSUQYWmpp28=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUJtbXZqMkt0cVVMWDBBUjlySXV3TjZneFZpZmZJOHByVFFITGNScnVXQUt3?=
- =?utf-8?B?VXJXNUNNNkc1WHJ1RUduSlhzbnFEbTBsU29mblZhQi8yd2g2WncrbjMxOGhW?=
- =?utf-8?B?SXhBb1NOMStydEtFN0xNM1ZxY2xpNVFSSXJIckJKTTZ6ck03cVN6ekZVK0Ez?=
- =?utf-8?B?ZzJwVEU5MXZiVFErZk9rNGRtRkZKS3M0d1A4N3B5T2VRa3A0cDM2OTh5eGJX?=
- =?utf-8?B?bG4xWHdMQTl6YU1Dd2g3OURzMmt2UlRRWFlaU1BQUmxUM1JLZTNTSzB3NTh2?=
- =?utf-8?B?aUNoejE2NjRCK2lZYTRXa05zY3JSYWczRldGSXoraG45bjBVdFZjSkpzMHdH?=
- =?utf-8?B?ZW1hZ3JaczR2WWNleHBWcEl0Z2FQYzJNS0I3WU9JVXIzQ2QxTnVjSGlFRE5I?=
- =?utf-8?B?SXpBWmFxMjNRd2dwVjk0Zm4zZm5RejcxQXpXVW5mdjZKdVdDOVZHWmdOMGVQ?=
- =?utf-8?B?UVBPNExLQkpLTEU5UitoODBuQ0lPNGk5bm9xYmRMMW1NY21uUkdkczB0ays0?=
- =?utf-8?B?RzJ6Sk5LcFltWFAyYS9zK1RqeUx4RU50VFhCZ1VKZURsRUluZS83VWtnbkJn?=
- =?utf-8?B?SE90ZEQ4dXNvQXdBOVBIVThSbitiaVVaN1FqazZpaGFsbG5jclVHQXRWb2tN?=
- =?utf-8?B?MHdRTFM0RGlWUFY2T09sWHQ4bDk5ejFxWkV3VDdVMHV5ZlNpM3M2cFRtR1RP?=
- =?utf-8?B?aUdjUkdORHV0R2lHYmx3NFRyRzlwWHhUK0JXamsrV1BDWVVVaTFpWE44ekZw?=
- =?utf-8?B?ODFPOXRjYXRlYmlWV1dTNVo4NG1YUm1nVzN5cnZZWWdCOVNlUi9QQktiQXZ5?=
- =?utf-8?B?NmswWDkvUEt2VXFSaFlFakZqNTdyRzdFTmRrZVJmZFB1dFBOMmxiQ3haenBH?=
- =?utf-8?B?NkFEZFEzQ2JISjlBSGVCVDRpdTJGczhBWFF3eW9rZ1Jvc2EwNmhLcStsL24r?=
- =?utf-8?B?WG96N0VHdXVYZWd0ZnVRenltWEVZUFduTFUwbHFxTlFZZUtTVzVUOFZNQXE1?=
- =?utf-8?B?aWswSW9KOWRTc3dMZkdnZzJYK1pBNytZWW1ibDdKZ2grQWpmOTNQWjR6bWs3?=
- =?utf-8?B?eUhCVVJPR3dYdXpzVDh6WEUvL0ZsMFlreWJTeE9PL3ZQTitBNjYxYlY5TmhS?=
- =?utf-8?B?NHZ4TnRsSlFIWGhWUldrYTFkZitTSjMyOU1pai9uZ2NEMk56Rnc2SEliRFMr?=
- =?utf-8?B?UTNFeC9OeVhxMmlKd2ZKY3k5em5FUnVuLzVuUTZLeGFMb3NyNTdJVlYvODBp?=
- =?utf-8?B?RWgwN0c4VnZuQjVqbFRtSXVPMFZWYUJKcFVUZDhmbk41ZDV0SkR5bmlFMks4?=
- =?utf-8?B?L2hSYzRndmFCWVNHY2NLTEdjQnJRM3FPZHp2TTRnQ045aEcvTFBDM3ZxM2ZB?=
- =?utf-8?B?eEFSNy9OdnJJSmRrV3ZrZWRBVjFEZTVxdWM5dndUUi95WmhyTkxpWVF1b0pu?=
- =?utf-8?B?S1NDNnIyTVhvaWRrUVkxQzdsRnFkZjhrSmNyaE9ydFduT25QSERDZ0M3QUpt?=
- =?utf-8?B?ZCtSMEQyenhFMlpoc01RWlM0RGYwUFNlTWZzR2J0K0ZpY1k1ajFWQjQvckFP?=
- =?utf-8?B?a1VJNDFYbGcxWXRBWmVOM3B5eGk0TW0wbkRaejREaTlJbGg1bzlOTTZXbG92?=
- =?utf-8?B?cU56K0hTcG1DQmdaQWJGd1hxQVhna1dHaXBMV2FmaGdoa2crbEwyRVRMeWRp?=
- =?utf-8?B?MFZWQmRQT0x0VTlLd2ZKc1dXRGhzTmpBZUZ0OHA5RTRvcjk3YVVhRzQwakNx?=
- =?utf-8?B?QUpzM283SEZ1SUVWak9RV0xyTGIyNHVPVTdGZFVXL1dCVmw0OHlwSlp2WE1P?=
- =?utf-8?B?b0pWcVU2S3RMNVFrODBPL2NSS2lDMVQ3dlBjV2w3SEpEQmErb3FMcE9sZGdF?=
- =?utf-8?B?Q0UrbFlpTWlselc1T2xWaWR5RGlNVWJKTjNrc3NmdEFDcC94bXRtSTU5Mlla?=
- =?utf-8?B?NWluZkU3ZzBEbVA2QkpZbnJsOEMveWxMaGYvdzhQbERhR01SUmRIZHVPbkRY?=
- =?utf-8?B?eE55YWw5ZC91QUtPeUdzbHZ5eFhrTk9kR25oU1QyTExFbTd6WFV0OTFkbmQr?=
- =?utf-8?B?d0V4Z012Nk1kTXVFQlpKMTlWb3JDREtkU1VjV1FSTWJiZXhnQzQxTzNjR1h5?=
- =?utf-8?Q?LEPeqKizC+oYHPkxqPInkagxK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6395464d-9943-4997-cf15-08ddf044d827
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 08:34:23.4034 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qbN3p6kYT5swoTMeMxty54z2W+trvfoFU/PeGwd8mdT7FxNtsyEoIn/oVa/R9fBk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7959
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,46 +97,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 09.09.25 18:56, Timur Kristóf wrote:
->> Even when we apply it I think we should drop that, the value the
->> kernel uses is correct.
-> 
-> Hi Christian,
-> 
-> The kernel and Mesa disagree on the limits for almost all SDMA
-> versions, so it would be nice to actually understand what the limits of
-> the SDMA HW are and use the same limit in the kernel and Mesa, or if
-> that isn't viable, let's document why the different limits make sense.
-> 
-> I'm adding Marek to CC, he wrote the comment that I referenced here.
-> As far as I understand from my conversation with Marek, the kernel is
-> actually wrong.
-> 
-> If the limits depend on alignment, then we should either set a limit
-> that is always safe, or make sure SDMA copies in the kernel are always
-> aligned and add assertions about it.
+On Wed, 2025-09-10 at 10:34 +0200, Christian K=C3=B6nig wrote:
+> On 09.09.25 18:56, Timur Krist=C3=B3f wrote:
+> > > Even when we apply it I think we should drop that, the value the
+> > > kernel uses is correct.
+> >=20
+> > Hi Christian,
+> >=20
+> > The kernel and Mesa disagree on the limits for almost all SDMA
+> > versions, so it would be nice to actually understand what the
+> > limits of
+> > the SDMA HW are and use the same limit in the kernel and Mesa, or
+> > if
+> > that isn't viable, let's document why the different limits make
+> > sense.
+> >=20
+> > I'm adding Marek to CC, he wrote the comment that I referenced
+> > here.
+> > As far as I understand from my conversation with Marek, the kernel
+> > is
+> > actually wrong.
+> >=20
+> > If the limits depend on alignment, then we should either set a
+> > limit
+> > that is always safe, or make sure SDMA copies in the kernel are
+> > always
+> > aligned and add assertions about it.
+>=20
+> That's already done. See the size restrictions applied to BOs and the
+> callers of amdgpu_copy_buffer().
 
-That's already done. See the size restrictions applied to BOs and the callers of amdgpu_copy_buffer().
+Based on the code comments I cited, as far as I understand, the issue
+is with copying the last 256 bytes of 2^22-1. Do I understood your
+response correctly that you are saying that the kernel isn't affected
+by this issue because it always copies things that are 256 byte
+aligned?
 
-We could add another warning to amdgpu_copy_buffer(), but that is just the backend function.
+I checked the callers of amdgpu_copy_buffer and can't find what you are
+referring to. However, assuming that all callers use amdgpu_copy_buffer
+on 256 byte aligned addresses, there is still an issue with large BOs:
 
-> Looking at the implementation of
-> amdgpu_copy_buffer in the kernel, I see that it relies on
-> copy_max_bytes and doesn't take alignment into account, so with the
-> current limit it could issue subsequent copies that aren't 256 byte
-> aligned.
+When the kernel copies a BO that is larger than 0x3fffe0 bytes then it
+needs to emit multiple SDMA copy packets, and the copy done by the
+second packet (and other subsequent packets) won't be 256 byte aligned.
 
-"Due to HW limitation, the maximum count may not be 2^n-1, can only be 2^n - 1 - start_addr[4:2]"
+>=20
+> We could add another warning to amdgpu_copy_buffer(), but that is
+> just the backend function.
+>=20
+> > Looking at the implementation of
+> > amdgpu_copy_buffer in the kernel, I see that it relies on
+> > copy_max_bytes and doesn't take alignment into account, so with the
+> > current limit it could issue subsequent copies that aren't 256 byte
+> > aligned.
+>=20
+> "Due to HW limitation, the maximum count may not be 2^n-1, can only
+> be 2^n - 1 - start_addr[4:2]"
+>=20
+> Well according to this comments the size restriction is 32 bytes (256
+> bits!) and not 256 bytes.
+>=20
+> Were do you actually get the 256 bytes restriction from?
 
-Well according to this comments the size restriction is 32 bytes (256 bits!) and not 256 bytes.
+The comments I cited above are from the following sources:
 
-Were do you actually get the 256 bytes restriction from?
+PAL uses 1<<22-256 =3D 0x3fff00 here:
+https://github.com/GPUOpen-Drivers/pal/blob/bcec463efe5260776d486a5e3da0c54=
+9bc0a75d2/src/core/hw/ossip/oss2/oss2DmaCmdBuffer.cpp#L308
 
-Regards,
-Christian.
+Mesa also uses 0x3fff00 here:
+https://gitlab.freedesktop.org/mesa/mesa/-/blob/47f5d25f93fd36224c112ee2d48=
+e511ae078f8c2/src/amd/common/sid.h#L390
 
-> 
-> Best regards,
-> Timur
-> 
-> 
+The limit in Mesa was added by this commit:
+https://gitlab.freedesktop.org/mesa/mesa/-/commit/2c1f249f2b61be50222411bc0=
+d41c095004232ed
+According to the commit message, Dave added this limit when hitting an
+issue trying to use SDMA with buffers that are larger than this.
+
+For SDMA v5.2 and newer, a larger limit was added by Marek later:
+https://gitlab.freedesktop.org/mesa/mesa/-/commit/a54bcb9429666fcbe38c04660=
+cc4b3f8abbde259
+Which confirms the same issue copying the last 256 bytes on these
+versions, although in this case the kernel isn't technically wrong
+because it uses a smaller overall maximum.
+
+
+
+
