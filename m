@@ -4,77 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3881CA0FED
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C0DBCA101F
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 08:01:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B5D610E88E;
-	Wed, 10 Sep 2025 08:01:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7649310E88B;
+	Wed, 10 Sep 2025 08:01:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dUgpkKGm";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="scLhUfFo";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEF0C10E1AA
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 09:21:05 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2518a38e7e4so31961685ad.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 Sep 2025 02:21:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757409665; x=1758014465; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=aUvugBs/HfbP8FSUc7ieLlf7fcudHbkwsA+MFyocDa4=;
- b=dUgpkKGmvsdD5UPoknshSo9qW2gKs7ioAWZptpgM8N+776V+6jdgvuFOJHZR1JfepK
- mlpq23ZOLP5ex8l4xYTjUeNNLyLr/sdu5EvTYTSifqpRq+0l77g9C+Jt7hrY+IEugl9K
- 93zedwe9RHlKNJC/X8T6UvBafceeGx9bofQZgfOWJXOm+2xYYcl34fxr8gxcebR3jgy3
- aIZx6ir7ME4tN+WQndH+7daKNONRgBMVnSftE4yISeNMbm7oDIv3y0iAZH7zlrElpM4C
- 4Ps88WfGu4akgSUGMMvlpnJq1Fvyht3Yi80jZkprPGxogzV3ZcAX+1iizOQe6FWP+LZL
- tQvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757409665; x=1758014465;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=aUvugBs/HfbP8FSUc7ieLlf7fcudHbkwsA+MFyocDa4=;
- b=UkysjZjkuyDFUtd0stVLQEOElYADv3E29PtMi8N0xdNeUs+xyW1qzaAqRFIv3d10xG
- oB//esq2WJxeJBRWnB+35TPRQN6h/23YP4DVR1QJKb2t+nCmfjOvVa1Gw6/K6SBCQjB+
- rAo6S5Dxd5YoheFj+E9CBGLJh3L0hFoDdrNxe5bE+jY2bTKMKyVt7kJ8SnlM5OYuKJ1y
- 3qA6DXHZAD0YQNyQkSxbrp4CIuwrwHR6Zt8n67mXY2bTOjLa2t0ysNCJWojRK/ymNWgT
- 02acasd57Gi3/fg6BqsMY1b5P04Zfmmf++rjMhf0os81hIUHA/eCKl+v+J5UhasIQTX0
- oCfQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXSE9z9S7yYTwu6oi2SRUcSzZ/QTusbr8NdFW5BpOBM1wTG1VWykPne6528OxTMeklMCa9Dw00N@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAcaBxE95SeJ5amhpzGjV3yacNN/W00ij6mllZ6DId5/rDbXOX
- FyzMh88UX/RfJxyIP0kOhMWcbnAxY3Yyvz9SzchV/0l/xCqk3TFpIDi9mCY8Mw==
-X-Gm-Gg: ASbGncuspyKz3vbAZA05BW2d6+RGYh0ZuRcVSm2ioSB2/qaAu9M0u61X1ry2uKbS4T4
- 4yD02fcoZJoJk8oVN7zsQYa4ZfkCQM6+/m2WZZvG5qk17ya9QWJDD8HEPXsm/F02nopyyTonrm1
- +3WOkanu/xJ9bng7oLZYx9ejqgVfygrbulHdqH3Ckb2RH0Inkp5V2HeETUwyHGRajMj0YhH62+W
- JSbybsuK9cQ1ERWNevHLh2kksYI8lmnLTolC1G+/8+gTqaKhOsKuHLVnpBy2TJV0Xk//UxR6O5V
- yNZ06klGhmj0XUSf7caoJeIPH7h9r6RpnaqVMsisNsOsmRUfDV/+vIKKDndxc/N6WulV/vaIrhU
- oRDOXs34pdrX79JVUqArtE1B+fcHX8WsPn0+ughIIioW0YT9c3IRl0IUKhLu6dFU=
-X-Google-Smtp-Source: AGHT+IFUMNr3rKpEQQ4QGJsgn1vIVkRQMGZf6cJe/JnOFgXmQnPwtOeK007JtOsHgeUS+Rg3hE+J+w==
-X-Received: by 2002:a17:903:986:b0:240:417d:8166 with SMTP id
- d9443c01a7336-251788fd271mr132869335ad.19.1757409665016; 
- Tue, 09 Sep 2025 02:21:05 -0700 (PDT)
-Received: from visitorckw-System-Product-Name.. ([140.113.216.168])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-25125d76218sm88522165ad.119.2025.09.09.02.21.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Sep 2025 02:21:04 -0700 (PDT)
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
-To: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com, alex.hung@amd.com,
- aurabindo.pillai@amd.com
-Cc: chiahsuan.chung@amd.com, nicholas.kazlauskas@amd.com, wenjing.liu@amd.com,
- jserv@ccns.ncku.edu.tw, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Kuan-Wei Chiu <visitorckw@gmail.com>
-Subject: [PATCH v2 0/2] drm/amd/display: optimize reserved time candidates
- handling
-Date: Tue,  9 Sep 2025 17:20:55 +0800
-Message-Id: <20250909092057.473907-1-visitorckw@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from smtp.smtpout.orange.fr (smtp-81.smtpout.orange.fr
+ [80.12.242.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7F5610E84E;
+ Wed, 10 Sep 2025 05:32:58 +0000 (UTC)
+Received: from [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
+ ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
+ by smtp.orange.fr with ESMTPA
+ id wDRrubswWjg72wDRruzgJz; Wed, 10 Sep 2025 07:32:56 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1757482376;
+ bh=9Zxhr99Mmj2vi+RoG0QYHKDA21udjWwSg+ONMdgzCn0=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=scLhUfFoPPETEBlKDeYO4eO7wZgRtPVhphiC7OmOMFzDYHu9GvObRMACfrNWi/KIx
+ gY11BSWHJTs+Vx+I+fdGujCrkd2Fsk5AAq8TatnEkrpOSCQIBRWb/0UZgV1iKLKC2z
+ 93/J1JAaUY8xi+jJ91wcg2vtSz16SmaqA7v7EcPq5tnFCp3egn3VCszpmdf8EcXB4N
+ GEtbRS5twEctwPo2mvNq6yg4LI5RtbQLcDWsyzhri4+LtdOrhoV2BNuRGTbP+L7yjj
+ WSeOe7RBOmfdiyZu8jxrYD6BC6qWZVsscbGqbU2NTlhuQYdtPubekBfSUaGmNwro4u
+ /GvsPCIq3XNOw==
+X-ME-Helo: [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
+X-ME-Auth: bWFyaW9uLmphaWxsZXRAd2FuYWRvby5mcg==
+X-ME-Date: Wed, 10 Sep 2025 07:32:56 +0200
+X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
+Message-ID: <ae40f623-4cfc-4a49-9eed-affb08efdfd1@wanadoo.fr>
+Date: Wed, 10 Sep 2025 07:32:51 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/8] drm/msm/dpu: use drmm_writeback_connector_init()
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: abhinav.kumar@linux.dev, airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ christophe.jaillet@wanadoo.fr, dave.stevenson@raspberrypi.com,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ geert+renesas@glider.be, harry.wentland@amd.com,
+ jani.nikula@linux.intel.com, jessica.zhang@oss.qualcomm.com,
+ kernel-list@raspberrypi.com, kieran.bingham+renesas@ideasonboard.com,
+ laurent.pinchart+renesas@ideasonboard.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ liviu.dudau@arm.com, louis.chauvet@bootlin.com, lumag@kernel.org,
+ maarten.lankhorst@linux.intel.com, magnus.damm@gmail.com,
+ marijn.suijten@somainline.org, mcanal@igalia.com, mripard@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, suraj.kandpal@intel.com,
+ tomi.valkeinen+renesas@ideasonboard.com, tzimmermann@suse.de
+References: <20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com>
+ <20250819-wb-drop-encoder-v3-4-b48a6af7903b@oss.qualcomm.com>
+ <78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr>
+ <zw23hgjduxgijown52jyiomungxx4cjyv63qixtnx5nbm3w7xb@2yy65777ydnj>
+ <654e04e3-d80e-4d34-a1a0-21f66d43875b@wanadoo.fr>
+ <75tzn4xg2k2zxdqko4b3xsplbtnolhrxzbowisdqogoo2qhfkl@szr3ar5dg5zd>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Content-Language: en-US, fr-FR
+In-Reply-To: <75tzn4xg2k2zxdqko4b3xsplbtnolhrxzbowisdqogoo2qhfkl@szr3ar5dg5zd>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 10 Sep 2025 08:01:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,27 +81,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Optimize the handling of reserved time candidates by replacing the
-custom bubble sort with the kernel's standard sort() and rewriting
-duplicate removal with a linear-time fast/slow pointer method. The
-changes improve sorting from O(N^2) to O(N log N) and duplicate removal
-from O(N^2) to O(N), reducing computational overhead and eliminating
-hand-rolled implementations, while correctness has been verified with
-simple unit tests.
----
-Changes from v1:
-- Add early return when *list_a_size = 0 to fix a corner case.
+Le 10/09/2025 à 05:47, Dmitry Baryshkov a écrit :
+> On Mon, Sep 08, 2025 at 11:38:44PM +0200, Christophe JAILLET wrote:
+>> Le 08/09/2025 à 23:26, Dmitry Baryshkov a écrit :
+>>> On Mon, Sep 08, 2025 at 11:09:07PM +0200, Christophe JAILLET wrote:
+>>>> Le 19/08/2025 à 22:32, Dmitry Baryshkov a écrit :
+>>>>> Use drmm_plain_encoder_alloc() to allocate simple encoder and
+>>>>> drmm_writeback_connector_init() in order to initialize writeback
+>>>>> connector instance.
+>>>>>
+>>>>> Reviewed-by: Louis Chauvet <louis.chauvet-LDxbnhwyfcJBDgjK7y7TUQ-XMD5yJDbdMReXY1tMh2IBg-XMD5yJDbdMReXY1tMh2IBg@public.gmane.org>
+>>>>> Reviewed-by: Suraj Kandpal <suraj.kandpal-ral2JQCrhuEAvxtiuMwx3w-XMD5yJDbdMReXY1tMh2IBg-XMD5yJDbdMReXY1tMh2IBg@public.gmane.org>
+>>>>> Reviewed-by: Jessica Zhang <jessica.zhang-5oFBVzJwu8Ry9aJCnZT0Uw-XMD5yJDbdMReXY1tMh2IBg-XMD5yJDbdMReXY1tMh2IBg@public.gmane.org>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov-5oFBVzJwu8Ry9aJCnZT0Uw-XMD5yJDbdMReXY1tMh2IBg-XMD5yJDbdMReXY1tMh2IBg@public.gmane.org>
+>>>>> ---
+>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 10 +++-------
+>>>>>     1 file changed, 3 insertions(+), 7 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>>>>> index 8ff496082902b1ee713e806140f39b4730ed256a..cd73468e369a93c50303db2a7d4499bcb17be5d1 100644
+>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>>>>> @@ -80,7 +80,6 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
+>>>>>     static const struct drm_connector_funcs dpu_wb_conn_funcs = {
+>>>>>     	.reset = drm_atomic_helper_connector_reset,
+>>>>>     	.fill_modes = drm_helper_probe_single_connector_modes,
+>>>>> -	.destroy = drm_connector_cleanup,
+>>>>>     	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>>>>>     	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>>>>>     };
+>>>>> @@ -131,12 +130,9 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
+>>>>>     	drm_connector_helper_add(&dpu_wb_conn->base.base, &dpu_wb_conn_helper_funcs);
+>>>>> -	/* DPU initializes the encoder and sets it up completely for writeback
+>>>>> -	 * cases and hence should use the new API drm_writeback_connector_init_with_encoder
+>>>>> -	 * to initialize the writeback connector
+>>>>> -	 */
+>>>>> -	rc = drm_writeback_connector_init_with_encoder(dev, &dpu_wb_conn->base, enc,
+>>>>> -			&dpu_wb_conn_funcs, format_list, num_formats);
+>>>>> +	rc = drmm_writeback_connector_init(dev, &dpu_wb_conn->base,
+>>>>> +					   &dpu_wb_conn_funcs, enc,
+>>>>> +					   format_list, num_formats);
+>>>>>     	if (!rc)
+>>>>>     		dpu_wb_conn->wb_enc = enc;
+>>>>>
+>>>>
+>>>> dpu_wb_conn is allocated a few lines above using devm_kzalloc().
+>>>
+>>> That's a valid point, thanks!
+>>
+>> I've not analyzed in details all the patches of the serie, but at least
+>> patch 2/8 and 6/8 seems to have the same pattern.
+> 
+> Not quite, 2/8 and 6/8 use drmm_kzalloc(), it is fine to be used with
+> drmm_writeback_connector_init(). This one is indeed incorrect.
+> 
 
-v1: https://lore.kernel.org/lkml/20250824182359.142050-1-visitorckw@gmail.com
+Hmm, for patch 2/8, I looked at the source, not what was changes by your 
+patch... Sorry. :(
 
-Kuan-Wei Chiu (2):
-  drm/amd/display: Optimize reserved time candidates sorting using
-    standard sort()
-  drm/amd/display: Optimize remove_duplicates() from O(N^2) to O(N)
+For 6/8, I agree with you.
 
- .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c   | 44 ++++++++++---------
- 1 file changed, 24 insertions(+), 20 deletions(-)
+For patch 1/8, I think there is a issue too, becasue of [1], IIUC.
 
--- 
-2.34.1
+CJ
+
+
+[1]: 
+https://elixir.bootlin.com/linux/v6.17-rc5/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L5257
+
+>>
+>> CJ
+>>
+>>>
+>>>>
+>>>> Based on [1], mixing devm_ and drmm_ is not safe and can lead to a uaf.
+>>>>
+>>>> Is it correct here?
+>>>> If the explanation at [1] is correct, then &dpu_wb_conn->base would point to
+>>>> some released memory, IIUC.
+>>>>
+>>>>
+>>>> just my 2c.
+>>>>
+>>>> CJ
+>>>>
+>>>> [1]: https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753
+>>>
+>>
+> 
 
