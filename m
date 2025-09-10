@@ -4,49 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19B9DCA101F
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 17:44:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D521CCAC58E
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Sep 2025 17:48:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B747C10E9A3;
-	Wed, 10 Sep 2025 17:44:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8701910E9A7;
+	Wed, 10 Sep 2025 17:48:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Q1+tY3Tx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IH4SbEcd";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 081FB10E9A3
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Sep 2025 17:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=hrTPl3rCu0nZgiiNba3QV6RU0t1GQ+gCgT56r2SPpew=; b=Q1+tY3TxzyAVVKiZNbuSsuUrJx
- im/UHl2xGlngQ8OqYliFcdY154rvWb9zutZmZjp8hISEGPn/2EaieKBuaikJf2RZN4w/kpEv2n6cp
- ZUz3RymvqDdP1fp6eZMOx7CcwwezUeAWzanFrredJAv0wmWgLVTQh57oIoSf/O4TLzk8lHuBHWAld
- DytcgOA2BXALPcx+dXYD6dVzQy6OzM4fsqN78MlK9CZFdgjXdL1eX15yqqIUKD9G0OIxMZpvnuvJG
- MznEuIEb1Cf6lJ/xSXeOsTkhWVsuQPVR6d2h6gWe5/fIZL//QPTyvBVHiq1jkS4aRhgA2CT5a2tsy
- GyNF1WXg==;
-Received: from [104.193.135.201] (helo=debian.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uwOsC-009URG-F7; Wed, 10 Sep 2025 19:44:48 +0200
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>,
- Robert Beckett <bob.beckett@collabora.com>
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 10/10] drm/amd/pm: Use devm_i2c_add_adapter() in the V14_0_2
- smu
-Date: Wed, 10 Sep 2025 11:39:43 -0600
-Message-ID: <20250910174350.2729341-11-siqueira@igalia.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250910174350.2729341-1-siqueira@igalia.com>
-References: <20250910174350.2729341-1-siqueira@igalia.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7678E10E9A6;
+ Wed, 10 Sep 2025 17:48:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 26EA34456B;
+ Wed, 10 Sep 2025 17:48:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF5CC4CEF7;
+ Wed, 10 Sep 2025 17:48:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1757526502;
+ bh=0ztWwTmDi2ZzwzQNUAOEIl2hbr5ojTLDzSuY2PO0wsk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=IH4SbEcdWEveaRhNvmgsmIMFByRp6rVXdwbu5/4JZNVyZRuSBFNkPE9iYzP8mVCch
+ yusciDeKotqoa7woikSAdDXU1fddbSkewujMT+vE7wekHh3peOaJXK3pc5H5xMwKXh
+ wYOWC2mTTbUCx+qY+D+jiLKqRuZ/J6zmZq2xN3t+ISmu00BrBcgAYKG2+CpTZ0I8T0
+ O/Bx6Zp/hAWrUgFhXZHjWQhDhgbqlHNIfUzucWPfHnwEehmQpMQmptpAUzpAGsConZ
+ f/Gs8x+aBLlJ6xE2mXPxxka8AwqC/koFc/4EkzPZ56Q08lxfe8xMLVKUfAAz+jn13U
+ cng9KhikfgNKQ==
+Message-ID: <9332e17e-380b-42cc-b078-7c5d9d09d798@kernel.org>
+Date: Wed, 10 Sep 2025 12:48:19 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 01/12] PM: Introduce new PMSG_POWEROFF event
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ "open list:HIBERNATION (aka Software Suspend, aka swsusp)"
+ <linux-pm@vger.kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+ "open list:TRACING" <linux-trace-kernel@vger.kernel.org>,
+ AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ =?UTF-8?Q?Merthan_Karaka=C5=9F?= <m3rthn.k@gmail.com>,
+ Eric Naim <dnaim@cachyos.org>, "Guilherme G . Piccoli" <gpiccoli@igalia.com>
+References: <20250909191619.2580169-1-superm1@kernel.org>
+ <20250909191619.2580169-2-superm1@kernel.org>
+ <CAJZ5v0i6+UaTHDnJE6z-VFuJrXbmfiAr7Gs=z9-xaX9mS7NqGA@mail.gmail.com>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <CAJZ5v0i6+UaTHDnJE6z-VFuJrXbmfiAr7Gs=z9-xaX9mS7NqGA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,64 +77,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The I2C init for V14_0_2 uses i2c_add_adapter() and i2c_del_adapter(),
-this commit replaces the use of these two functions with
-devm_i2c_add_adapter(). Notice that V14_0_2 init initializes multiple
-I2C buses in a loop; if something goes wrong, the previous adapters are
-removed, and the amdgpu load is interrupted. Since I2C init is required
-for the correct load of amdgpu, it is safe to rely on
-devm_i2c_add_adapter() to handle any previously initialized I2C adapter.
+On 9/10/25 8:58 AM, Rafael J. Wysocki wrote:
+> On Tue, Sep 9, 2025 at 9:16 PM Mario Limonciello (AMD)
+> <superm1@kernel.org> wrote:
+>>
+>> PMSG_POWEROFF will be used for the PM core to allow differentiating between
+>> a hibernation or shutdown sequence when re-using callbacks.
+>>
+>> This event should not have wakeups enabled
+> 
+> Why?
+> 
+> It surely is valid to wake up the system while it is being powered
+> off, especially in the hibernation case.
 
-Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
----
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 19 ++-----------------
- 1 file changed, 2 insertions(+), 17 deletions(-)
+In the hibernation case - yes you want wakeups.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index f32474af90b3..086501cc5213 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -2087,10 +2087,10 @@ static int smu_v14_0_2_i2c_control_init(struct smu_context *smu)
- 		control->quirks = &smu_v14_0_2_i2c_control_quirks;
- 		i2c_set_adapdata(control, smu_i2c);
- 
--		res = i2c_add_adapter(control);
-+		res = devm_i2c_add_adapter(adev->dev, control);
- 		if (res) {
- 			DRM_ERROR("Failed to register hw i2c, err: %d\n", res);
--			goto Out_err;
-+			return res;
- 		}
- 	}
- 
-@@ -2100,27 +2100,12 @@ static int smu_v14_0_2_i2c_control_init(struct smu_context *smu)
- 	adev->pm.fru_eeprom_i2c_bus = &adev->pm.smu_i2c[0].adapter;
- 
- 	return 0;
--Out_err:
--	for ( ; i >= 0; i--) {
--		struct amdgpu_smu_i2c_bus *smu_i2c = &adev->pm.smu_i2c[i];
--		struct i2c_adapter *control = &smu_i2c->adapter;
--
--		i2c_del_adapter(control);
--	}
--	return res;
- }
- 
- static void smu_v14_0_2_i2c_control_fini(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
--	int i;
- 
--	for (i = 0; i < MAX_SMU_I2C_BUSES; i++) {
--		struct amdgpu_smu_i2c_bus *smu_i2c = &adev->pm.smu_i2c[i];
--		struct i2c_adapter *control = &smu_i2c->adapter;
--
--		i2c_del_adapter(control);
--	}
- 	adev->pm.ras_eeprom_i2c_bus = NULL;
- 	adev->pm.fru_eeprom_i2c_bus = NULL;
- }
--- 
-2.50.1
+But in what is perceived as powering off the machine it's not expected 
+that you would have wakeups.
+
+If I have a USB mouse connected and set as a wakeup source, I can click 
+the mouse and the machine wakes up.  A user wouldn't expect that happens 
+with a powered off machine.
+
+That's certainly not how it works today at least.
+> 
+> The "poweroff" transition is generally not recoverable, however, so it
+> may be better to complete it and trigger a reboot if wakeup has been
+> signaled.
+
+Hmm, I'm not sure about that.  Back to hypothesizing on the USB mouse case:
+If I'm entering suspend, the mouse is an enabled wakeup source and I'm 
+moving the mouse the suspend should be aborted.
+
+But if I requested the machine to be powered off and and I clicked the 
+mouse while powering off that would be an "aborted power off?.
+Wouldn't that be really counterintuitive to reboot instead?
+
+IE as a user you expect that pressing the power button gets you an off 
+machine, not a different result based on other activity.
+
+> 
+>> so update PMSG_NO_WAKEUP() to match it as well.
+> 
+> No, please.
+> 
+>> Tested-by: Eric Naim <dnaim@cachyos.org>
+>> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+>> ---
+>> v7:
+>>   * Reword commit
+>> v5:
+>>   * Re-order and split
+>>   * Add tags
+>> v4:
+>>   * https://lore.kernel.org/linux-pci/20250616175019.3471583-1-superm1@kernel.org/
+>> ---
+>>   drivers/base/power/main.c    | 7 +++++++
+>>   include/linux/pm.h           | 5 ++++-
+>>   include/trace/events/power.h | 3 ++-
+>>   3 files changed, 13 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
+>> index 2ea6e05e6ec90..86661c94e8cef 100644
+>> --- a/drivers/base/power/main.c
+>> +++ b/drivers/base/power/main.c
+>> @@ -99,6 +99,8 @@ static const char *pm_verb(int event)
+>>                  return "restore";
+>>          case PM_EVENT_RECOVER:
+>>                  return "recover";
+>> +       case PM_EVENT_POWEROFF:
+>> +               return "poweroff";
+>>          default:
+>>                  return "(unknown PM event)";
+>>          }
+>> @@ -369,6 +371,7 @@ static pm_callback_t pm_op(const struct dev_pm_ops *ops, pm_message_t state)
+>>          case PM_EVENT_FREEZE:
+>>          case PM_EVENT_QUIESCE:
+>>                  return ops->freeze;
+>> +       case PM_EVENT_POWEROFF:
+>>          case PM_EVENT_HIBERNATE:
+>>                  return ops->poweroff;
+>>          case PM_EVENT_THAW:
+>> @@ -403,6 +406,7 @@ static pm_callback_t pm_late_early_op(const struct dev_pm_ops *ops,
+>>          case PM_EVENT_FREEZE:
+>>          case PM_EVENT_QUIESCE:
+>>                  return ops->freeze_late;
+>> +       case PM_EVENT_POWEROFF:
+>>          case PM_EVENT_HIBERNATE:
+>>                  return ops->poweroff_late;
+>>          case PM_EVENT_THAW:
+>> @@ -437,6 +441,7 @@ static pm_callback_t pm_noirq_op(const struct dev_pm_ops *ops, pm_message_t stat
+>>          case PM_EVENT_FREEZE:
+>>          case PM_EVENT_QUIESCE:
+>>                  return ops->freeze_noirq;
+>> +       case PM_EVENT_POWEROFF:
+>>          case PM_EVENT_HIBERNATE:
+>>                  return ops->poweroff_noirq;
+>>          case PM_EVENT_THAW:
+>> @@ -1370,6 +1375,8 @@ static pm_message_t resume_event(pm_message_t sleep_state)
+>>                  return PMSG_RECOVER;
+>>          case PM_EVENT_HIBERNATE:
+>>                  return PMSG_RESTORE;
+>> +       case PM_EVENT_POWEROFF:
+>> +               return PMSG_ON;
+>>          }
+>>          return PMSG_ON;
+>>   }
+>> diff --git a/include/linux/pm.h b/include/linux/pm.h
+>> index cc7b2dc28574c..892bd93f13dad 100644
+>> --- a/include/linux/pm.h
+>> +++ b/include/linux/pm.h
+>> @@ -507,6 +507,7 @@ const struct dev_pm_ops name = { \
+>>    * RECOVER     Creation of a hibernation image or restoration of the main
+>>    *             memory contents from a hibernation image has failed, call
+>>    *             ->thaw() and ->complete() for all devices.
+>> + * POWEROFF    System will poweroff, call ->poweroff() for all devices.
+>>    *
+>>    * The following PM_EVENT_ messages are defined for internal use by
+>>    * kernel subsystems.  They are never issued by the PM core.
+>> @@ -537,6 +538,7 @@ const struct dev_pm_ops name = { \
+>>   #define PM_EVENT_USER          0x0100
+>>   #define PM_EVENT_REMOTE                0x0200
+>>   #define PM_EVENT_AUTO          0x0400
+>> +#define PM_EVENT_POWEROFF      0x0800
+>>
+>>   #define PM_EVENT_SLEEP         (PM_EVENT_SUSPEND | PM_EVENT_HIBERNATE)
+>>   #define PM_EVENT_USER_SUSPEND  (PM_EVENT_USER | PM_EVENT_SUSPEND)
+>> @@ -551,6 +553,7 @@ const struct dev_pm_ops name = { \
+>>   #define PMSG_QUIESCE   ((struct pm_message){ .event = PM_EVENT_QUIESCE, })
+>>   #define PMSG_SUSPEND   ((struct pm_message){ .event = PM_EVENT_SUSPEND, })
+>>   #define PMSG_HIBERNATE ((struct pm_message){ .event = PM_EVENT_HIBERNATE, })
+>> +#define PMSG_POWEROFF  ((struct pm_message){ .event = PM_EVENT_POWEROFF, })
+>>   #define PMSG_RESUME    ((struct pm_message){ .event = PM_EVENT_RESUME, })
+>>   #define PMSG_THAW      ((struct pm_message){ .event = PM_EVENT_THAW, })
+>>   #define PMSG_RESTORE   ((struct pm_message){ .event = PM_EVENT_RESTORE, })
+>> @@ -568,7 +571,7 @@ const struct dev_pm_ops name = { \
+>>
+>>   #define PMSG_IS_AUTO(msg)      (((msg).event & PM_EVENT_AUTO) != 0)
+>>   #define PMSG_NO_WAKEUP(msg)    (((msg).event & \
+>> -                               (PM_EVENT_FREEZE | PM_EVENT_QUIESCE)) != 0)
+>> +                               (PM_EVENT_FREEZE | PM_EVENT_QUIESCE | PM_EVENT_POWEROFF)) != 0)
+>>   /*
+>>    * Device run-time power management status.
+>>    *
+>> diff --git a/include/trace/events/power.h b/include/trace/events/power.h
+>> index 82904291c2b81..370f8df2fdb4b 100644
+>> --- a/include/trace/events/power.h
+>> +++ b/include/trace/events/power.h
+>> @@ -179,7 +179,8 @@ TRACE_EVENT(pstate_sample,
+>>                  { PM_EVENT_HIBERNATE, "hibernate" }, \
+>>                  { PM_EVENT_THAW, "thaw" }, \
+>>                  { PM_EVENT_RESTORE, "restore" }, \
+>> -               { PM_EVENT_RECOVER, "recover" })
+>> +               { PM_EVENT_RECOVER, "recover" }, \
+>> +               { PM_EVENT_POWEROFF, "poweroff" })
+>>
+>>   DEFINE_EVENT(cpu, cpu_frequency,
+>>
+>> --
+>> 2.43.0
+>>
 
