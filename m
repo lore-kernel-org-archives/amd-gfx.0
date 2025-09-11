@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 568EECAC58D
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 12:39:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 456A2CAC58E
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 12:39:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8966F10EB0A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE18510EB0B;
 	Thu, 11 Sep 2025 12:39:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hJhIL2Gc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pgc9bvnw";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C69BF10EA3E;
- Thu, 11 Sep 2025 07:58:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBD3010EA25;
+ Thu, 11 Sep 2025 07:56:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757577493; x=1789113493;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6RYIEQkuOzl3A3InWzcMug/hfkfoXrpzul9p5LmOsSg=;
- b=hJhIL2Gcd/l9v38zUpiFdjC9IPa7+HgajmIgTD1/CPYVQXxfnAlg/qL0
- kSk4I/rZnMtZIAUpE+u/aJez2L5+Rw5YmB2/Pbd8wkdeY9VGdNPcENfMj
- vjM+49jPogHq2g12vl6BUmqxE+yfoNbCg9NuXMTIMeUoZbUxfE7rU83aZ
- eR+LgYE5pZ4UFDDLp7CA6MMyuZqZCpM2fIZkr5qRa1oKlqxgJXlUhG+nZ
- e1kOt8iy6NAOeuv790gUaLuISfOtmSAnrar1JHokbQ3gCAdPZEpt0EpjO
- PZjhRF+HgYaNrEDCe/wLkJa+Iwe6swbqYG68br0daXuzjvwOAErNFEf7u Q==;
-X-CSE-ConnectionGUID: BkP4ZZHNReSLuUPwu3iNCw==
-X-CSE-MsgGUID: RPfY9XTtQq6B9vVXA5u+nA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11549"; a="70999391"
-X-IronPort-AV: E=Sophos;i="6.18,256,1751266800"; d="scan'208";a="70999391"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2025 00:57:51 -0700
-X-CSE-ConnectionGUID: gRaHmoh2RmK5x3zOFXvN2w==
-X-CSE-MsgGUID: f+tPr7AfRD+jyMtnjayPKw==
+ t=1757577381; x=1789113381;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=NdLKAQlWUr0SnI1fWCp+SY3s4Yp8zDJc9KTErx0pre0=;
+ b=Pgc9bvnwgYzyS/oxiqWP3c9lw0aP9dn6rxdlL3PzA8mxIhVDLI7VWEIc
+ PXuh849AQsKYhULkJnZnk7DSxbw9JozFxpOraUc/j7xLlm5D6kCDTjD7Y
+ qz3Zh2FW3XvqrvYZ/V4Qcc2VyOW57vGxXyFD7tUNySMsZBPfRvBabDVW5
+ Edv4vebcGuwLbMEUn3zKVInFdT7tBMpXOkttM6wP6bImWYGr/7sZa0IJe
+ WHFpyn+L6Qlwkc3v+P5xRvCIVIy3Y22KYq6QWDcZ3NF05oOk8KvXoYzyy
+ OFLKYQtZLQWtlNrvxbZR1QUpDksD97mlyB6mXBb9oV/9ganG0ASleeG5L Q==;
+X-CSE-ConnectionGUID: gEJztGU8RN6WZSZCD4W69w==
+X-CSE-MsgGUID: T54jX+9cR5OAJbKTmNqD/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11549"; a="58942208"
+X-IronPort-AV: E=Sophos;i="6.18,256,1751266800"; d="scan'208";a="58942208"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2025 00:56:20 -0700
+X-CSE-ConnectionGUID: vPGNxPT3TFm13imjCknavQ==
+X-CSE-MsgGUID: PTSScRSiSEyaM2fCiqO+cQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,256,1751266800"; d="scan'208";a="173186319"
+X-IronPort-AV: E=Sophos;i="6.18,256,1751266800"; d="scan'208";a="210757574"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.187])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2025 00:57:44 -0700
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2025 00:56:13 -0700
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
  =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
@@ -55,16 +55,13 @@ To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
  Tvrtko Ursulin <tursulin@ursulin.net>,
- ?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- linux-kernel@vger.kernel.org
-Cc: linux-doc@vger.kernel.org,
+ ?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 07/11] drm/xe/vram: Use PCI rebar helpers in resize_vram_bar()
-Date: Thu, 11 Sep 2025 10:56:01 +0300
-Message-Id: <20250911075605.5277-8-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 00/11] PCI: Resizable BAR improvements
+Date: Thu, 11 Sep 2025 10:55:54 +0300
+Message-Id: <20250911075605.5277-1-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250911075605.5277-1-ilpo.jarvinen@linux.intel.com>
-References: <20250911075605.5277-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -83,60 +80,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PCI core provides pci_rebar_size_supported(), use it in
-resize_vram_bar() to simplify code.
+pci.c has been used as catch everything that doesn't fits elsewhere
+within PCI core and thus resizable BAR code has been placed there as
+well. Move Resizable BAR related code to a newly introduced rebar.c to
+reduce size of pci.c. After move, there are no pci_rebar_*() calls from
+pci.c indicating this is indeed well-defined subset of PCI core.
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
- drivers/gpu/drm/xe/xe_vram.c | 19 +++++++------------
- 1 file changed, 7 insertions(+), 12 deletions(-)
+Endpoint drivers perform Resizable BAR related operations which could
+well be performed by PCI core to simplify driver-side code. This
+series adds a few new API functions to that effect and converts the
+drivers to use the new APIs (in separate patches).
 
-diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
-index e421a74fb87c..08a9abebfee7 100644
---- a/drivers/gpu/drm/xe/xe_vram.c
-+++ b/drivers/gpu/drm/xe/xe_vram.c
-@@ -21,8 +21,6 @@
- #include "xe_sriov.h"
- #include "xe_vram.h"
- 
--#define BAR_SIZE_SHIFT 20
--
- static void
- _resize_bar(struct xe_device *xe, int resno, resource_size_t size)
- {
-@@ -71,25 +69,22 @@ static void resize_vram_bar(struct xe_device *xe)
- 
- 	/* set to a specific size? */
- 	if (force_vram_bar_size) {
--		u32 bar_size_bit;
--
--		rebar_size = force_vram_bar_size * (resource_size_t)SZ_1M;
-+		rebar_size = pci_rebar_bytes_to_size(force_vram_bar_size *
-+						     (resource_size_t)SZ_1M);
- 
--		bar_size_bit = bar_size_mask & BIT(pci_rebar_bytes_to_size(rebar_size));
--
--		if (!bar_size_bit) {
-+		if (!pci_rebar_size_supported(pdev, LMEM_BAR, rebar_size)) {
- 			drm_info(&xe->drm,
- 				 "Requested size: %lluMiB is not supported by rebar sizes: 0x%x. Leaving default: %lluMiB\n",
--				 (u64)rebar_size >> 20, bar_size_mask, (u64)current_size >> 20);
-+				 (u64)pci_rebar_size_to_bytes(rebar_size) >> 20,
-+				 bar_size_mask, (u64)current_size >> 20);
- 			return;
- 		}
- 
--		rebar_size = 1ULL << (__fls(bar_size_bit) + BAR_SIZE_SHIFT);
--
-+		rebar_size = pci_rebar_size_to_bytes(rebar_size);
- 		if (rebar_size == current_size)
- 			return;
- 	} else {
--		rebar_size = 1ULL << (__fls(bar_size_mask) + BAR_SIZE_SHIFT);
-+		rebar_size = pci_rebar_size_to_bytes(__fls(bar_size_mask));
- 
- 		/* only resize if larger than current */
- 		if (rebar_size <= current_size)
+While at it, also convert BAR sizes bitmask to u64 as PCIe spec already
+specifies more sizes than what will fit u32 to make the API typing more
+future-proof. The extra sizes beyond 128TB are not added at this point.
+
+These are based on pci/main, there are two minor conflicts with the
+work in pci/resource but I'm hesitant to base this on top of it as this
+is otherwise entirely independent. If we end up having to pull the
+bridge window select changes, there should be no reason why this does
+have to become collateral damage (so my suggestion, if this is good to
+go in this cycle, to take this into a separate branch than pci/resource
+and deal with those small conflicts while merging into pci/next).
+
+I've tested sysfs resize, i915, and xe BAR resizing functionality. In
+the case of xe, I did small hack patch as its resize is anyway broken
+as is because BAR0 pins the bridge window so resizing BAR2 fails. My
+hack caused other problems further down the road (likely because BAR0
+is in use by the driver so releasing it messed assumptions xe driver
+has) but the BAR resize itself was working which was all I was
+interested to know. I'm not planning to pursue fixing the pinning
+problem within xe driver because the core changes to consider maximum
+size of the resizable BARs should take care of the main problem by
+different means.
+
+Some parts of this are to be used by the resizable BAR changes into the
+resource fitting/assingment logic but these seem to stand on their own
+so sending these out now to reduce the size of the other patch series.
+
+
+Ilpo Järvinen (11):
+  PCI: Move Resizable BAR code into rebar.c
+  PCI: Cleanup pci_rebar_bytes_to_size() and move into rebar.c
+  PCI: Move pci_rebar_size_to_bytes() and export it
+  PCI: Improve Resizable BAR functions kernel doc
+  PCI: Add pci_rebar_size_supported() helper
+  drm/i915/gt: Use pci_rebar_size_supported()
+  drm/xe/vram: Use PCI rebar helpers in resize_vram_bar()
+  PCI: Add pci_rebar_get_max_size()
+  drm/xe/vram: Use pci_rebar_get_max_size()
+  drm/amdgpu: Use pci_rebar_get_max_size()
+  PCI: Convert BAR sizes bitmasks to u64
+
+ Documentation/driver-api/pci/pci.rst        |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   8 +-
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c |  10 +-
+ drivers/gpu/drm/xe/xe_vram.c                |  32 +-
+ drivers/pci/Makefile                        |   2 +-
+ drivers/pci/iov.c                           |   9 +-
+ drivers/pci/pci-sysfs.c                     |   2 +-
+ drivers/pci/pci.c                           | 145 ---------
+ drivers/pci/pci.h                           |   5 +-
+ drivers/pci/rebar.c                         | 318 ++++++++++++++++++++
+ drivers/pci/setup-res.c                     |  78 -----
+ include/linux/pci.h                         |  15 +-
+ 12 files changed, 354 insertions(+), 273 deletions(-)
+ create mode 100644 drivers/pci/rebar.c
+
+
+base-commit: 8f5ae30d69d7543eee0d70083daf4de8fe15d585
 -- 
 2.39.5
 
