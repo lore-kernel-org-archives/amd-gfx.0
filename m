@@ -4,42 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26FE1CA101F
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 08:25:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA47BCAC582
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 08:25:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B031D10E46C;
-	Fri, 12 Sep 2025 08:25:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="EFvG700E";
-	dkim-atps=neutral
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com
- [95.215.58.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9233910E3CF
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 17:49:26 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1757612963;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=lMLhoZdhoWhFz7FF9+I0+eNAAPfeFR/F2M6sYRcTU34=;
- b=EFvG700EnBtme1kNOJANhvuLWC3f0OpetSn862Is355HfA9hea3hPwqt59QYyxlVudrkeW
- bBVB9+VD5Ob5ygn9WF/PuIGMFWHI/jsI6Pf9n0CBhHiTd6aFlZKDieq9yjVTD3woQAn/sB
- QVpJqMPazmLDPG82/IY5h5Px87YuVhI=
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: chiahsuan.chung@amd.com, alexander.deucher@amd.com, harry.wentland@amd.com,
- simona@ffwll.ch, airlied@gmail.com, sunpeng.li@amd.com
-Cc: amd-gfx@lists.freedesktop.org, zaeem.mohamed@amd.com,
- mario.limonciello@amd.com, misyl@froggi.es, linux-kernel@vger.kernel.org,
- Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: [PATCH v2] drm/amd/display: Only restore backlight after
- amdgpu_dm_init or dm_resume
-Date: Thu, 11 Sep 2025 10:48:51 -0700
-Message-ID: <20250911174851.2767335-1-matthew.schwartz@linux.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 824B110EBBB;
+	Fri, 12 Sep 2025 08:25:50 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62AE710EB8F;
+ Thu, 11 Sep 2025 20:58:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=0qy55m6NltHy97e3BgE53LDGV8tmJEWe7HuI0Fh9fMU=; b=Z8Nvya0A5h9hSajXA7XhLa9YNA
+ QznMZ9P5uW4O+XyH9XMxoco14sEFcjkDwyxUJygW9N3DquMGnIX6CPuHYhFFxp+hjeAXvsm/eZWzJ
+ oh9q5JXsCQSQnuFocm241p2ZLwpgI+LENLStiQlj9eMaCe29iy8gW2XTTAsw4VEPJg76mIVhcSktQ
+ MhzchP7Hbft3zhwnkDSGjCoF25c1SpfIjSDAXI1U60vAMzwAV8EJzka/VlUSFaymc3I/4eadTfkCq
+ E2AbrSPZxbho7Gtdtrh8tnL7G77PQTHysIq5t/lf+PGHytQ5vGmyicqgXKIWNv3ala9/xIhf+Xtd7
+ /G5j8JXQ==;
+Received: from [50.53.25.54] (helo=[192.168.254.17])
+ by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1uwoN4-00000005LTR-0IIn; Thu, 11 Sep 2025 20:58:22 +0000
+Message-ID: <8be02c33-b659-4999-8408-2bd939009e82@infradead.org>
+Date: Thu, 11 Sep 2025 13:58:21 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/11] PCI: Improve Resizable BAR functions kernel doc
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Micha=C5=82_Winiarski?= <michal.winiarski@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ ?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+References: <20250911075605.5277-1-ilpo.jarvinen@linux.intel.com>
+ <20250911075605.5277-5-ilpo.jarvinen@linux.intel.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20250911075605.5277-5-ilpo.jarvinen@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Fri, 12 Sep 2025 08:25:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,108 +69,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On clients that utilize AMD_PRIVATE_COLOR properties for HDR support,
-brightness sliders can include a hardware controlled portion and a
-gamma-based portion. This is the case on the Steam Deck OLED when using
-gamescope with Steam as a client.
+Hi,
 
-When a user sets a brightness level while HDR is active, the gamma-based
-portion and/or hardware portion are adjusted to achieve the desired
-brightness. However, when a modeset takes place while the gamma-based
-portion is in-use, restoring the hardware brightness level overrides the
-user's overall brightness level and results in a mismatch between what
-the slider reports and the display's current brightness.
+On 9/11/25 12:55 AM, Ilpo Järvinen wrote:
+> Fix the copy-pasted errors in the Resizable BAR handling functions
+> kernel doc and generally improve wording choices.
+> 
+> Fix the formatting errors of the Return: line.
+> 
+> Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+> ---
+>  drivers/pci/rebar.c | 29 ++++++++++++++++++-----------
+>  1 file changed, 18 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
+> index 020ed7a1b3aa..64315dd8b6bb 100644
+> --- a/drivers/pci/rebar.c
+> +++ b/drivers/pci/rebar.c
+> @@ -58,8 +58,9 @@ void pci_rebar_init(struct pci_dev *pdev)
+>   * @bar: BAR to find
+>   *
+>   * Helper to find the position of the ctrl register for a BAR.
+> - * Returns -ENOTSUPP if resizable BARs are not supported at all.
+> - * Returns -ENOENT if no ctrl register for the BAR could be found.
+> + *
+> + * Return: %-ENOTSUPP if resizable BARs are not supported at all,
+> + *	   %-ENOENT if no ctrl register for the BAR could be found.
 
-To avoid overriding gamma-based brightness, only restore HW backlight
-level after boot or resume. This ensures that the backlight level is
-set correctly after the DC layer resets it while avoiding interference
-with subsequent modesets.
+These 2 lines will run together in the (html) output. They could be
+made "prettier" (IMO) into a 2-item list if you choose:
 
-Fixes: 7875afafba84 ("drm/amd/display: Fix brightness level not retained over reboot")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4551
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
----
-v2: Drop set_backlight_level and use dm->restore_backlight in
-amdgpu_dm_commit_streams
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++++++
- 2 files changed, 15 insertions(+), 4 deletions(-)
+ * Return:
+ * * %-ENOTSUPP if resizable BARs are not supported at all
+ * * %-ENOENT if no ctrl register for the BAR could be found
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7808a647a306c..2a5fa85505e84 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2037,6 +2037,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 
- 	dc_hardware_init(adev->dm.dc);
- 
-+	adev->dm.restore_backlight = true;
-+
- 	adev->dm.hpd_rx_offload_wq = hpd_rx_irq_create_workqueue(adev);
- 	if (!adev->dm.hpd_rx_offload_wq) {
- 		drm_err(adev_to_drm(adev), "failed to create hpd rx offload workqueue.\n");
-@@ -3407,6 +3409,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
- 		dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
- 
- 		dc_resume(dm->dc);
-+		adev->dm.restore_backlight = true;
- 
- 		amdgpu_dm_irq_resume_early(adev);
- 
-@@ -9802,7 +9805,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
- 	bool mode_set_reset_required = false;
- 	u32 i;
- 	struct dc_commit_streams_params params = {dc_state->streams, dc_state->stream_count};
--	bool set_backlight_level = false;
- 
- 	/* Disable writeback */
- 	for_each_old_connector_in_state(state, connector, old_con_state, i) {
-@@ -9922,7 +9924,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
- 			acrtc->hw_mode = new_crtc_state->mode;
- 			crtc->hwmode = new_crtc_state->mode;
- 			mode_set_reset_required = true;
--			set_backlight_level = true;
- 		} else if (modereset_required(new_crtc_state)) {
- 			drm_dbg_atomic(dev,
- 				       "Atomic commit: RESET. crtc id %d:[%p]\n",
-@@ -9979,13 +9980,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
- 	 * to fix a flicker issue.
- 	 * It will cause the dm->actual_brightness is not the current panel brightness
- 	 * level. (the dm->brightness is the correct panel level)
--	 * So we set the backlight level with dm->brightness value after set mode
-+	 * So we set the backlight level with dm->brightness value after initial
-+	 * set mode. Use restore_backlight flag to avoid setting backlight level
-+	 * for every subsequent mode set.
- 	 */
--	if (set_backlight_level) {
-+	if (dm->restore_backlight) {
- 		for (i = 0; i < dm->num_of_edps; i++) {
- 			if (dm->backlight_dev[i])
- 				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
- 		}
-+		dm->restore_backlight = false;
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index b937da0a4e4a0..6aae51c1beb36 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -610,6 +610,13 @@ struct amdgpu_display_manager {
- 	 */
- 	u32 actual_brightness[AMDGPU_DM_MAX_NUM_EDP];
- 
-+	/**
-+	 * @restore_backlight:
-+	 *
-+	 * Flag to indicate whether to restore backlight after modeset.
-+	 */
-+	bool restore_backlight;
-+
- 	/**
- 	 * @aux_hpd_discon_quirk:
- 	 *
+
+>   */
+>  static int pci_rebar_find_pos(struct pci_dev *pdev, int bar)
+>  {
+
 -- 
-2.51.0
+~Randy
 
