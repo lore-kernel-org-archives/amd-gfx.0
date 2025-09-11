@@ -4,55 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D7DDCAC593
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 08:25:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26FE1CA101F
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 08:25:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 437CB10EBBA;
-	Fri, 12 Sep 2025 08:25:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B031D10E46C;
+	Fri, 12 Sep 2025 08:25:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="jY6hIv5r";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="EFvG700E";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 712E710EB51;
- Thu, 11 Sep 2025 14:32:18 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4cN0Pp64NZz9spR;
- Thu, 11 Sep 2025 16:32:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1757601134; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MEgQa5obCBR8UEm8RmOyIfI3uS01fc9cby+jjpCxmak=;
- b=jY6hIv5ruHCUSYrknVnerxYwYEThmFGDAo8Nn0Ctn/BVdcsrBS8jwiuaU3n4WdUsBHFyH/
- w+AASfrrcxZRNcej5V6dWBNyumDuNmupfxPAaNb3Z52L7baLL2U8R9UU9HJfGoh8iKhRVf
- ioAZV973Cvrqm4tcXSbC8cfBfeN81KAqDTvsA7Op5AhQpeDoq7PrUAneGtYLI9fxZhNjPv
- J/SNFtXW7ls9sRUmLORLYmVmZmu5Xv+WsmIUh2WFczVkz/doUBqDapf6m8LbFGKYBZs/R4
- bld4a0vACVo7EjVMFDNrLa+W84YmS/VU7yM6XT51uuWzp/RXT2PanJYXxKVYNg==
-Message-ID: <2f17fb5d359c1ddaf8253454bf0f0d318c90bc8d.camel@mailbox.org>
-Subject: Re: [RFC v8 08/12] drm/sched: Remove idle entity from tree
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
- <phasta@kernel.org>
-Date: Thu, 11 Sep 2025 16:32:10 +0200
-In-Reply-To: <20250903101820.63032-9-tvrtko.ursulin@igalia.com>
-References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
- <20250903101820.63032-9-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com
+ [95.215.58.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9233910E3CF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 17:49:26 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1757612963;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=lMLhoZdhoWhFz7FF9+I0+eNAAPfeFR/F2M6sYRcTU34=;
+ b=EFvG700EnBtme1kNOJANhvuLWC3f0OpetSn862Is355HfA9hea3hPwqt59QYyxlVudrkeW
+ bBVB9+VD5Ob5ygn9WF/PuIGMFWHI/jsI6Pf9n0CBhHiTd6aFlZKDieq9yjVTD3woQAn/sB
+ QVpJqMPazmLDPG82/IY5h5Px87YuVhI=
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+To: chiahsuan.chung@amd.com, alexander.deucher@amd.com, harry.wentland@amd.com,
+ simona@ffwll.ch, airlied@gmail.com, sunpeng.li@amd.com
+Cc: amd-gfx@lists.freedesktop.org, zaeem.mohamed@amd.com,
+ mario.limonciello@amd.com, misyl@froggi.es, linux-kernel@vger.kernel.org,
+ Matthew Schwartz <matthew.schwartz@linux.dev>
+Subject: [PATCH v2] drm/amd/display: Only restore backlight after
+ amdgpu_dm_init or dm_resume
+Date: Thu, 11 Sep 2025 10:48:51 -0700
+Message-ID: <20250911174851.2767335-1-matthew.schwartz@linux.dev>
 MIME-Version: 1.0
-X-MBO-RS-META: zfm3d1aoy6f9d9wu9jyjfj1ai7anrso1
-X-MBO-RS-ID: a1637beb3f1dd216233
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Fri, 12 Sep 2025 08:25:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,106 +52,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
-> There is no need to keep entities with no jobs in the tree so lets remove
-> it once the last job is consumed. This keeps the tree smaller which is
-> nicer and more efficient as entities are removed and re-added on every
-> popped job.
+On clients that utilize AMD_PRIVATE_COLOR properties for HDR support,
+brightness sliders can include a hardware controlled portion and a
+gamma-based portion. This is the case on the Steam Deck OLED when using
+gamescope with Steam as a client.
 
-This reads suspiciously as if it could be an independent patch, not
-necessarily tied to this series. I see it depends on the _pop()
-function you added.
+When a user sets a brightness level while HDR is active, the gamma-based
+portion and/or hardware portion are adjusted to achieve the desired
+brightness. However, when a modeset takes place while the gamma-based
+portion is in-use, restoring the hardware brightness level overrides the
+user's overall brightness level and results in a mismatch between what
+the slider reports and the display's current brightness.
 
-I think you'd want to make it a bit more obvious that this is not so
-much a general improvement as it is a preparation for followup work. Or
-could it be made generic for the current in-tree scheduler?
+To avoid overriding gamma-based brightness, only restore HW backlight
+level after boot or resume. This ensures that the backlight level is
+set correctly after the DC layer resets it while avoiding interference
+with subsequent modesets.
 
->=20
-> Apart from that, the upcoming fair scheduling algorithm will rely on the
-> tree only containing runnable entities.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_rq.c | 28 +++++++++++++++++--------=
+Fixes: 7875afafba84 ("drm/amd/display: Fix brightness level not retained over reboot")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4551
+Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 ---
-> =C2=A01 file changed, 17 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/sched=
-uler/sched_rq.c
-> index 16d57461765e..67804815ca0d 100644
-> --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> @@ -19,6 +19,9 @@ drm_sched_entity_compare_before(struct rb_node *a, cons=
-t struct rb_node *b)
-> =C2=A0static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity=
- *entity,
-> =C2=A0					=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq)
-> =C2=A0{
-> +	lockdep_assert_held(&entity->lock);
-> +	lockdep_assert_held(&rq->lock);
+v2: Drop set_backlight_level and use dm->restore_backlight in
+amdgpu_dm_commit_streams
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++----
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++++++
+ 2 files changed, 15 insertions(+), 4 deletions(-)
 
-The callers of drm_sched_rq_remove_fifo_locked() already have some
-lockdep asserts, have you seen them? Are those here redundant /
-additional?
-
-And are they strictly related to this patch?
-
-Maybe you want to investigate the other lockdep assertions and, if
-there's room for improvement, address that in a dedicated patch.
-
-
-P.
-
-> +
-> =C2=A0	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> =C2=A0		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
-> =C2=A0		RB_CLEAR_NODE(&entity->rb_tree_node);
-> @@ -158,24 +161,27 @@ void drm_sched_rq_pop_entity(struct drm_sched_entit=
-y *entity)
-> =C2=A0{
-> =C2=A0	struct drm_sched_job *next_job;
-> =C2=A0	struct drm_sched_rq *rq;
-> -	ktime_t ts;
-> =C2=A0
-> =C2=A0	/*
-> =C2=A0	 * Update the entity's location in the min heap according to
-> =C2=A0	 * the timestamp of the next job, if any.
-> =C2=A0	 */
-> +	spin_lock(&entity->lock);
-> +	rq =3D entity->rq;
-> +	spin_lock(&rq->lock);
-> =C2=A0	next_job =3D drm_sched_entity_queue_peek(entity);
-> -	if (!next_job)
-> -		return;
-> +	if (next_job) {
-> +		ktime_t ts;
-> =C2=A0
-> -	spin_lock(&entity->lock);
-> -	rq =3D entity->rq;
-> -	spin_lock(&rq->lock);
-> -	if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> -		ts =3D next_job->submit_ts;
-> -	else
-> -		ts =3D drm_sched_rq_get_rr_ts(rq, entity);
-> -	drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> +		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> +			ts =3D next_job->submit_ts;
-> +		else
-> +			ts =3D drm_sched_rq_get_rr_ts(rq, entity);
-> +
-> +		drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> +	} else {
-> +		drm_sched_rq_remove_fifo_locked(entity, rq);
-> +	}
-> =C2=A0	spin_unlock(&rq->lock);
-> =C2=A0	spin_unlock(&entity->lock);
-> =C2=A0}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7808a647a306c..2a5fa85505e84 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2037,6 +2037,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 
+ 	dc_hardware_init(adev->dm.dc);
+ 
++	adev->dm.restore_backlight = true;
++
+ 	adev->dm.hpd_rx_offload_wq = hpd_rx_irq_create_workqueue(adev);
+ 	if (!adev->dm.hpd_rx_offload_wq) {
+ 		drm_err(adev_to_drm(adev), "failed to create hpd rx offload workqueue.\n");
+@@ -3407,6 +3409,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 		dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+ 
+ 		dc_resume(dm->dc);
++		adev->dm.restore_backlight = true;
+ 
+ 		amdgpu_dm_irq_resume_early(adev);
+ 
+@@ -9802,7 +9805,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 	bool mode_set_reset_required = false;
+ 	u32 i;
+ 	struct dc_commit_streams_params params = {dc_state->streams, dc_state->stream_count};
+-	bool set_backlight_level = false;
+ 
+ 	/* Disable writeback */
+ 	for_each_old_connector_in_state(state, connector, old_con_state, i) {
+@@ -9922,7 +9924,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 			acrtc->hw_mode = new_crtc_state->mode;
+ 			crtc->hwmode = new_crtc_state->mode;
+ 			mode_set_reset_required = true;
+-			set_backlight_level = true;
+ 		} else if (modereset_required(new_crtc_state)) {
+ 			drm_dbg_atomic(dev,
+ 				       "Atomic commit: RESET. crtc id %d:[%p]\n",
+@@ -9979,13 +9980,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 	 * to fix a flicker issue.
+ 	 * It will cause the dm->actual_brightness is not the current panel brightness
+ 	 * level. (the dm->brightness is the correct panel level)
+-	 * So we set the backlight level with dm->brightness value after set mode
++	 * So we set the backlight level with dm->brightness value after initial
++	 * set mode. Use restore_backlight flag to avoid setting backlight level
++	 * for every subsequent mode set.
+ 	 */
+-	if (set_backlight_level) {
++	if (dm->restore_backlight) {
+ 		for (i = 0; i < dm->num_of_edps; i++) {
+ 			if (dm->backlight_dev[i])
+ 				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+ 		}
++		dm->restore_backlight = false;
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index b937da0a4e4a0..6aae51c1beb36 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -610,6 +610,13 @@ struct amdgpu_display_manager {
+ 	 */
+ 	u32 actual_brightness[AMDGPU_DM_MAX_NUM_EDP];
+ 
++	/**
++	 * @restore_backlight:
++	 *
++	 * Flag to indicate whether to restore backlight after modeset.
++	 */
++	bool restore_backlight;
++
+ 	/**
+ 	 * @aux_hpd_discon_quirk:
+ 	 *
+-- 
+2.51.0
 
