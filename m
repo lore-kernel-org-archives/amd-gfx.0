@@ -4,68 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 052E2CAC58E
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 17:26:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FB95CAC587
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 17:31:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB3910E3B5;
-	Thu, 11 Sep 2025 17:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D895710E282;
+	Thu, 11 Sep 2025 17:31:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hpqegs/N";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kSvmZZOm";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DB9610E3B5
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 17:26:55 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-24aacdf40a2so1860655ad.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 10:26:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757611615; x=1758216415; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4FHdkLhA6/NPnT5RD0ZkGc66iVURNbqLzYVVRGjfT6o=;
- b=hpqegs/NVW5GJ1RsbkCiyUOfTo39Av5IseJpvsVZAkQfs2oB1blGx/czRg2xWj4utw
- v2n4bA0tasXrwZVE89S2/MkndCjojkrW2nEM8KRnLKotVDp0W+uqreWiSdztbXveLSae
- EBR+i3XblZfmmeYpA2UzM05Vr7nCr8vP18ZbWIpIN/SVjH6FKqHYi6RKFCUDO2kMhvep
- MAeuz3PXsgp7eUUfHDe8ikD/ygJ8i5Jkqgdd5NYyIfsHyeBigxG2wjcYnYDUT+OpiV7v
- f5YZvhdmCxmTgwG4ZbSsr6pYwrPgYmG7b3bgxTYWz8w5LBXblusknz7Nu2OPOhpNFNo8
- kleA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757611615; x=1758216415;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4FHdkLhA6/NPnT5RD0ZkGc66iVURNbqLzYVVRGjfT6o=;
- b=M7bAAh5+xTa9dfoY+tfMeK4ekLXzUOg0WoYhkEFpuszYIQU19eRYPhwCi+uN34IuLL
- wyVwk3fvL1acO5RooTRIlnsTlKpsIMx8F8Hl7MJqSOfWKDryVczepZ5vQEdaCuDDsJRx
- lCyfy669y/kYfQGWoLXyZShttHp/9a/eIg8QpIeR6v6yx3RxlrkgcyNLiqalf2zb0Sws
- zeVkuWIa2DNdPxTfRlDJJLAVbpWHcTbGn6qxkxD1Tm1w2N6sm+dUEAu10IeKpFePbXRT
- lO6SBM1RvyZvtC9zwNfDnbRQBjsALXBtiYbgZOxtp7UMX7WLPDg0JJVq0GJ7ZGh/XH3L
- w8Ow==
-X-Gm-Message-State: AOJu0YyxwX9mn/HMQAqxOYu34zsZ+A2D2iuZqkbNtZj3IP7lXmSgvibO
- 1dpEG8qF5zMywOMe9851SRgUQzCOBvesiHR1kBq1M7ka9csKrY23Uag8Pzj5BlMtksZJ+YRcuFV
- v46vx7z3Y0EbQEeDh+gVMEZNF2qHkneLx+mqU
-X-Gm-Gg: ASbGncstIUVe9dm61OvnBBrBuskiDzAraNVRQdwzyy8jzofPBnou1XDJ7oAWuZM2/Nj
- 1pE3G72suON41QzQ/5S4LHXNo1EgldangYnRecvXEK0SAcdVFxBUzovuPBSMMHPRpH4w/IVpMxd
- AsAWq6A95PetSoGczhgWsXbRbRjTFGrUv/N2oIRBz/yTRSO8Vr22t074CW/llmiDi1UsxDvAXMi
- Z9V8jGTBooMVfc2og==
-X-Google-Smtp-Source: AGHT+IFObieo4nt9QUALlh1NyB3k732hAOTGiVv7PAvyE0bDxRBt2EAR1KyZVXw1OpVFC03KjSIt1+iYPi3oR8RGDro=
-X-Received: by 2002:a17:903:1a8b:b0:25a:4437:dbb7 with SMTP id
- d9443c01a7336-25d25e85badmr966965ad.4.1757611614838; Thu, 11 Sep 2025
- 10:26:54 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E50410E282;
+ Thu, 11 Sep 2025 17:31:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=n9AjxNd2ubK6h2D3R9Tlm2zPh1JulBQXlXxRl8Luphg=; b=kSvmZZOmS33tGEXu4x9iYhdc6G
+ KZf13guYAeP5g+Ml0CEbtehk3neTAwTI6m+78s2kso8BfQpzdsvDL3FUfr662dJIaLOUClf/EZXR4
+ 18tAQUdwml+Mw1v2ljgR+8sefYp+EsdcItviAuUYWWPRfuqp9y2PlPH5u8eR0WUfFlCB5oOf1Wz/X
+ LthZaWCAj0LFSuOgPGL6PNF5jr4BA6gHnE08pGurDOl5PThte6BKZQMQ37jTOmTEVS+i0t4TxXIyu
+ 9ux7srsqsQavGmi8lRfi7lR93SOg2EUu2UxIRO0ZyNy4nR7fmBDoSV+C8zAHRMvwuHfnSJJHDDQQT
+ qOGbn21Q==;
+Received: from [189.6.16.239] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uwl8Y-009uA8-7m; Thu, 11 Sep 2025 19:31:10 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com
+Cc: Xaver Hugl <xaver.hugl@gmail.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Christopher Snowhill <kode54@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+Subject: [PATCH v3 0/2] drm/amd/display: don't overwrite regamma LUT with
+ empty data
+Date: Thu, 11 Sep 2025 14:21:18 -0300
+Message-ID: <20250911173101.1960156-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-References: <20250911170658.584379-1-shaoyun.liu@amd.com>
-In-Reply-To: <20250911170658.584379-1-shaoyun.liu@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 11 Sep 2025 13:26:42 -0400
-X-Gm-Features: Ac12FXxawBWOa0tpUxXJY7tLweSjO15CuJ-VqfYaxAr_DR5nV3E2BLEx2JRWeTI
-Message-ID: <CADnq5_NaDW0U3riWjK_jBqaeMBVbyymKhbLQJJDxvK3vNVwc+Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Fix the mes version that support inv_tlbs
-To: Shaoyun Liu <shaoyun.liu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,45 +61,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 11, 2025 at 1:14=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> w=
-rote:
->
-> MES pipe0 will do VM invalidation with engine set 5 when assign VMID to a=
- process,
-> driver will submit inv_tlb package to mes pipe1. It might run into race c=
-ondition
-> if both pipes use the same invalidate engine set. From MES version 0x83 i=
-t will use
-> invalidate engine set 6 for pipe1 to fix the issue
->
-> Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
+Hi,
 
-Fixes: 87e65052616c ("drm/amd/amdgpu : Use the MES INV_TLBS API for
-tlb invalidation on gfx12")
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Xaver first reported flickering when changing GAMMA_LUT often in KDE
+with an HDR-enabled display:
+https://gitlab.freedesktop.org/drm/amd/-/issues/4444
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gmc_v12_0.c
-> index 76d3c40735b0..7cc16af1868b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> @@ -337,7 +337,7 @@ static void gmc_v12_0_flush_gpu_tlb_pasid(struct amdg=
-pu_device *adev,
->         int vmid, i;
->
->         if (adev->enable_uni_mes && adev->mes.ring[AMDGPU_MES_SCHED_PIPE]=
-.sched.ready &&
-> -           (adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D 0x81=
-) {
-> +           (adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D 0x83=
-) {
->                 struct mes_inv_tlbs_pasid_input input =3D {0};
->                 input.pasid =3D pasid;
->                 input.flush_type =3D flush_type;
-> --
-> 2.34.1
->
+This issue is reproducible on Fedora 42 from [1], with integrated and/or
+external monitors. I was able to reproduce it on DCN3.01,  but other
+users also reported similar issue with DCN3 and DCN4 families. Besides
+that, when setting Night Light mode and changing a Display setting, such
+as Overscan, colors on the screen look like gamma LUT was lost (and it
+was).
+
+After further investigation, the root cause of all these problems
+appears to be the way DM updates the DC stream's color state at
+`atomic_check`, allowing test-only commit settings to override
+non-blocking commit settings before it is committed in `commit_tail`.
+Xaver explained that KWin always performs a test commit without the LUT,
+then another with the LUT, and finally a non-test-only commit with the
+same LUT value still set. This sequence makes the issue more likely to
+occur, as the commit_tail of a non-blocking commit can delay until a
+subsequent test-only commit without the LUT "removes" the gamma LUT set
+by the non-blocking commit at `atomic_check` from the DC stream's state.
+
+This series resolves all reported issues by moving DC stream color
+changes from `atomic_check` to `atomic_setup_commit`, preventing
+test-only commit CRTC color properties from being programmed into
+`commit_tail`. I see this change in line with the kernel-doc on
+amdgpu_dm_atomic_check(), which says: "It is important not to modify the
+existing DC state.  Otherwise, atomic_check may unexpectedly commit
+hardware changes."
+
+Adding here a shortened trace that exemplifies this bad sequence with
+some custom printk to track color settings in `drm_atomic_state`:
+
+[  +0.000046] DRM: non block commit call: begin
+[  +0.000003] amdgpu 0000:04:00.0: [drm:drm_atomic_check_only [drm]] checking 00000000183d1556 <-- non-blocking commit
+[  +0.000053] amdgpu: AMD DM: atomic_check: CHECK color mgmt: color change: 1, AMD regamma Tf update: 0, needs modeset: 0 for drm_atomic_state: 00000000183d1556
+[  +0.000005] amdgpu: program atomic regamma? 1 for drm_atomic_state: 00000000183d1556
+[  +0.000003] amdgpu: AMD DM: set_atomic_regamma: PROGRAM regamma
+[  +0.000699] amdgpu 0000:04:00.0: [drm:drm_atomic_nonblocking_commit [drm]] committing 00000000183d1556 nonblocking
+[  +0.000076] DRM: non block commit call: end
+[  +0.000002] amdgpu 0000:04:00.0: [drm:drm_atomic_get_connector_state [drm]] Added [CONNECTOR:93:eDP-1] 00000000c74c75cc state to 00000000bce01e59 <-- test-only commit
+[[  +0.000046] amdgpu 0000:04:00.0: [drm:drm_atomic_get_crtc_state [drm]] Added [CRTC:79:crtc-0] 000000004fe38ea2 state to 00000000bce01e59
+[  +0.000048] amdgpu 0000:04:00.0: [drm:drm_atomic_get_plane_state [drm]] Added [PLANE:76:plane-6] 00000000a3ba0680 state to 00000000bce01e59
+[  -0.000252] amdgpu 0000:04:00.0: [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] amdgpu_crtc id:0 crtc_state_flags: enable:1, active:1, planes_changed:1, mode_changed:0,active_changed:0,connectors_changed:0
+[  +0.000045] amdgpu 0000:04:00.0: [drm:drm_atomic_get_plane_state [drm]] Added [PLANE:58:plane-3] 0000000007ae0fe5 state to 00000000bce01e59
+[  +0.000073] DRM: color mgmt changed for DEGAMMA? 0
+[  +0.000054] DRM: color mgmt changed for CTM? 0
+[  +0.000314] DRM: color mgmt changed for REGAMMA? 1
+[  +0.000004] DRM: TEST ONLY call: begin
+[  +0.000003] amdgpu 0000:04:00.0: [drm:drm_atomic_check_only [drm]] checking 00000000bce01e59 <-- test-only commit
+[  +0.000055] amdgpu: AMD DM: atomic check: CHECK color mgmt: color change: 1, AMD regamma Tf update: 0, needs modeset: 0 for drm_atomic_state: 00000000bce01e59
+[  +0.000005] amdgpu: program atomic regamma? 0 for drm_atomic_state 00000000bce01e59
+[  +0.000003] amdgpu: AMD DM: set atomic regamma: REMOVE regamma
+[  +0.000247] amdgpu 0000:04:00.0: [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] [HDCP_DM] pipe_ctx dispname=ANX7530 U
+[  +0.000441] amdgpu 0000:04:00.0: [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] crtc:0, pflip_stat:AMDGPU_FLIP_SUBMITTED
+[  +0.000731] amdgpu: AMD DM: commit planes: color mgmt changed, out tf type: 2 for drm_atomic_commit 00000000183d1556 <-- non-blocking commit taking out TF = BYPASS
+[  +0.000570] DC: set_output_transfer_func? enable: 0, out_tf:1
+[  +0.000005] DC: set_output_transfer_func: begin
+[  +0.000004] DC: set_output_transfer_func: configure output gamma: 2 <-- BYPASS
+[  +0.000004] DC: set_output_gamma: begin
+[  +0.000002] DC: set_output_gamma: DISABLE OGAM
+[  +0.000107] amdgpu 0000:04:00.0: [drm:drm_atomic_state_default_clear [drm]] Clearing atomic state 00000000183d1556
+[  +0.000053] DRM: TEST ONLY call: end
+[  +0.000008] amdgpu 0000:04:00.0: [drm:drm_atomic_state_default_clear [drm]] Clearing atomic state 00000000bce01e59
+[  +0.000012] amdgpu 0000:04:00.0: [drm:__drm_atomic_state_free [drm]] Freeing atomic state 00000000bce01e59
+[  +0.000085] amdgpu 0000:04:00.0: [drm:__drm_atomic_state_free [drm]] Freeing atomic state 00000000183d1556
+
+I hope this trace can illustrate the situation.
+ 
+[1] https://bodhi.fedoraproject.org/updates/FEDORA-2025-b58c14c454
+
+v1: https://lore.kernel.org/amd-gfx/20250822211552.1472375-1-mwen@igalia.com/
+- complete redesign targeting DM instead of DC
+
+v2: https://lore.kernel.org/amd-gfx/20250901214413.12675-1-mwen@igalia.com/
+- switch from pr_info to drm_dbg_atomic
+- nest amdgpu_dm_check_crtc_color_mgmt in
+  amdgpu_dm_update_crtc_color_mgmt (Harry)
+- use kvfree instead of dc_release_transfer_func since out_tf and
+  stream->out_transfer_func isn't refcounted.
+- add Harry r-b, but the 2nd patch changed a lot so should be double
+  checked.
+
+PS: maybe we should do a follow-up refactor in the
+amdgpu_dm_atomic_check() and move other DC state changes from
+`atomic_check` to `atomic_setup_commit`.
+
+Best Regards,
+
+Melissa
+
+Melissa Wen (2):
+  drm/amd/display: update color on atomic commit time
+  drm/amd/display: change dc stream color settings only in atomic commit
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 38 +++++++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 86 ++++++++++++++-----
+ 3 files changed, 101 insertions(+), 25 deletions(-)
+
+-- 
+2.47.2
+
