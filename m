@@ -4,83 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF63ECAC58E
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 14:46:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ECF4CAC587
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 14:48:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CFB110E38B;
-	Thu, 11 Sep 2025 14:46:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEDC010E38A;
+	Thu, 11 Sep 2025 14:48:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HCiUFNZI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VBbHJPyA";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D007F10E38A
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 14:46:42 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-b4fb8d3a2edso39290a12.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 07:46:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757602002; x=1758206802; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Fkck3dvtGAa4jKuCQF2YnyA4z/Pk5JokxiUsKmpzfM0=;
- b=HCiUFNZIbzLEBoZ0ddWoqPHJ2bxJsIYKY8SIIi17GYmXOQqdOSFy2ani4y7WJ/GScC
- 8OHq+tmvp0X73acq49kjn6Ii5GBBqxgRVgE1rLWop/iRcH0QtMq1iblO6nkQaxQuUw8f
- uziZDZdHtYQ8ccYpOx/D4Cn/Ql2Uab4BDB3AEglVHttOyNu98c7u2AV9I1ks1/r0Mw5U
- 4dulMbTHMuOJ8Ik0o/1XfmFezSSzDl5wF7snEr26k5/sPt2btDd8/ibqRHTC3GQ9dmqY
- UcYMZlUiIRAbb/dI7MlAp9RKzuirHGiusCU8+72Yn2KTczJQix48zcrR41soe8EsmOHy
- LYZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757602002; x=1758206802;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Fkck3dvtGAa4jKuCQF2YnyA4z/Pk5JokxiUsKmpzfM0=;
- b=gQxE8UEVh/FA1hRFaYWix6vUW2coMhSl5joLdI9uyNN1cRlnQmYiF3wyp3MGsMs0uj
- KbiyiAnmi036M/FXXPu5Oa0NdS723+nL6ZsswsNYGBS5L1uG5UI3Ihd8x2yn9qou5Pqa
- rG0oyYUO5kC8xVw5A4kA2SVNht9SzwLOa5Vq9O/qw9HEOaqfRIJIxGCmloZXCDMabdy9
- 2N/o/bXtYL/FhLWx+DPDDRN3lYQPkkdNhS1W4RO5h3j+kxfVagJ5Ck++xeiddP/Oyepc
- QAD9sgNLnpawjxHS7VxxauFeXLjZeua56XZvhA46PRmlBaZiesX8febW0TNMwvYg2paE
- QKng==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUOcIUSVoiBpCDhvjIZEk5SB/OKGpaDUbINPt53RKDuZBPxCJcGKAkwJdH68d5epk05yIpOfLvS@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUgyygZ6UYrZOeq/yjU0YYCd4LHZAaVGWflUNE5ueCY1/lxv3Q
- hUZhDSziox1L2ge0wYTP9h4BIYVZ2dcJntKZ3De93JJ16xX//v3ickag6eNQHPOu/BlPNI1Ifdq
- c8t+MSYHbA/uOBdYAwnb5W4ex4uxr0oY=
-X-Gm-Gg: ASbGnctSt5ECxnChd+fkLSyi4VEGS4ygYeudwyFScrq6RvlZzfV32ORAfixVVMjOs76
- kfH/o+LVPan4HyWuFLAVp24Aed7oy+VPisNenSv9EZMfbOESujuWS78CYZTAU6fyacRmSLCPR21
- DbbvwIf0gK5ziFb40TfPxkxhIywE3gx6HE6odPBs6VZNpKKnCHQUC6Wf4VfNUaRXje1b9BGlJJJ
- ug5j0U=
-X-Google-Smtp-Source: AGHT+IFLCY8znSQ4ZCkiCmxeWC0mgPzywpamvy6kh/tqukbJKzXJ0b5BD+tV6Qq0nFvX0yDJd/j/ICv/zKDaUk1aHjQ=
-X-Received: by 2002:a17:902:da8f:b0:24a:8e25:75c5 with SMTP id
- d9443c01a7336-25170678855mr123646145ad.5.1757602002162; Thu, 11 Sep 2025
- 07:46:42 -0700 (PDT)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28AC610E38A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 14:48:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Oj5yGyx6XE93248hkRbzZq5UIVZMpz0MyeqXFGWynuZJv0WQ2W38cNm/5HI5cRjLY+FyJTRh0PsazAfcXopylkIm1dnoSFSnTTx0NvL1U8MdqrAlD2Gr75VtfEtHBKZhFtDr8AqwBDjqaLAKphHES94ZKO9LALs5c5h6Usho+uKAilMfqeieXrw5cnErqq0aEviONhcNavzb8kx9RShZshzPBya0fJ5XG9YXSkUc/UDz2n1Dj6xBU4jboB1Dim0a6ZtYLAnaSiGc65nBdo7/k1Yhumkc3FciXEe4AqFLK8mvEH0wbIezmMgpXfGTsAt4f8IuP/1zPZk+4sVeFnrc/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3BiUX7rRWk2I4NnFFa69XZmHV71XFxxYSxD4Ubxh1RE=;
+ b=wgar5bzxnenm4oGgZK937uXqWn+U6crBNj/T+nOq2qSHnM9rc8MKFYkxAWwmuY2ufpAiGzYHcv+kHFpnVRJgNwfREmQJdud1+uee9R6oSiUDJdk7gRlmyXfQr+9aaJWKoemAjSyLOP88q//4B3/OUDFPhHGmnG8rs9OAcLnmnZ9ba5stg3nlsFl0XdYFa9k1rVufr8faDRnXZ0m76H8n0mxCtWjd788ohCeiyBueaR7viCwk26FaZrvCk03DG69qLwAuwKEJe7uLt/tjdPvN3f/2nZ5hx4S6PtjqojxDkhn3ygM3Flc28R0057qA/QBvcKSike3A1vL0/40Rgxlncw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3BiUX7rRWk2I4NnFFa69XZmHV71XFxxYSxD4Ubxh1RE=;
+ b=VBbHJPyAfCQ7khyl+Hgi/Alwq4ilxm5owAUhqIbscqIJ8I/ih5sc1yyyLZSkmrJvRkp53q6boAX+S4L1S8VpYp7kqdZNO1AeBVp83NvidXOOHjm4rzPGGj945WYFu3OaUOC3OrVA8TH7cwUtskjnHZXwaLcxjL1+bw8oQNW/7B4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV5PR12MB9754.namprd12.prod.outlook.com (2603:10b6:408:305::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Thu, 11 Sep
+ 2025 14:48:54 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.9094.021; Thu, 11 Sep 2025
+ 14:48:54 +0000
+Message-ID: <70b92bff-727a-4e30-a8aa-933c115ec9c6@amd.com>
+Date: Thu, 11 Sep 2025 16:48:49 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 4/4] drm/amdgpu/dma-buf: Treat MMIO_REMAP as fixed
+ I/O; don't move it
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20250911143815.825607-1-srinivasan.shanmugam@amd.com>
+ <20250911143815.825607-5-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250911143815.825607-5-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0417.namprd13.prod.outlook.com
+ (2603:10b6:208:2c2::32) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20250909144937.22452-1-timur.kristof@gmail.com>
- <20250909144937.22452-2-timur.kristof@gmail.com>
- <26b5d36d-1c9b-4891-962c-ec13b65f02ac@amd.com>
- <a065f044dd629a9863ca18bb0e913d8f9299bedc.camel@gmail.com>
- <32b1c868-8b0d-41fd-94b9-0ebfbc6b3711@amd.com>
- <0d07fe34d3857ece68d29ce21ea2768e43538aa6.camel@gmail.com>
- <a77a5934-afa8-48e5-bb15-a7f55087c245@amd.com>
- <CAAxE2A4ZUG_DLnMpW7yd=pSqnGoyELmxi_u9GveLg1zra82_wg@mail.gmail.com>
- <eff9b0b0-ff7d-490b-b81c-ab866f5a4b14@amd.com>
- <CAAxE2A4HvuAHsuoeaNKVMxsFanR25iNo_THGV=vdyaMT6_qy9A@mail.gmail.com>
- <7c5d463888fdac592ae2631327b05efdd1b29a80.camel@gmail.com>
-In-Reply-To: <7c5d463888fdac592ae2631327b05efdd1b29a80.camel@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 11 Sep 2025 10:46:30 -0400
-X-Gm-Features: Ac12FXwo0Vr2qNuwjYcpAt2NFKKduMmHa0fZpTEADRaLngWmOXcImQIPUVPK7FU
-Message-ID: <CADnq5_N=4KhqXf2WDZm94Q0hHRdar0g10Dvo_O9uHn=dzDiG4Q@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: Set SDMA v3 copy_max_bytes to 0x3fff00
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- "Olsak, Marek" <Marek.Olsak@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV5PR12MB9754:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26fcd160-448f-47d6-1ccc-08ddf1425450
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZVczZlpHVnplN0RTMWEra0k1dmwxOEV0TnE4b3hWZWJhd2JJc3dTZzJ3Umpi?=
+ =?utf-8?B?UEp6azRrS0o3Rml2SXVHTWt0ZHd6MWVRNzBpUUhvK0pjQ3QzUTBNQzk0K1I1?=
+ =?utf-8?B?UE9EeDBPZXV1YnpMNXZNYm5ZdWFjTTFmSk9Tekd6Um9wR05nclBGSm4wRCtD?=
+ =?utf-8?B?WUgxSWxYKzhMTXVML2NRYm9LbTRTcnQwNFBCZk9iRVBGRk1rclZqYitUenJE?=
+ =?utf-8?B?bkIwbi9pU0hGMEpLQTZQR1VFR2VsdWxLWWZGUDhWSWxzZTQ1cGFobUdaQnJN?=
+ =?utf-8?B?S090Q2JXejhCQTRSUnlSN0tZT1RwdGJuSmpwTWJ1LzRWZjVzeUZrbGdRdXhh?=
+ =?utf-8?B?VTZmcUNibG55SEZBZzh1a1NGaXg0SEZac3pBL2pqN0NrSjFFR043M3lPdzR0?=
+ =?utf-8?B?eURGcExqZ1YvaGE4VVl6SGYrUlJpdG9EUW9RdkRMKzVNWkFmVmxPWWF0SXA4?=
+ =?utf-8?B?aVFscGtrNGQ0K1l3dUdtMXk3THY1bFZ1UnUwa0pPM2JLU011eHptazNZMXln?=
+ =?utf-8?B?cmtDNVAxT29JYVZ0NS95WHVPWWlEZ1hEZ3p0amgyTlFhZjRiU3ZCOTdjd21l?=
+ =?utf-8?B?VzFMcmFXVWk4TGZrT0lrTVpWVUY2RDhKV3RIb3ZubnVDUTFiM0s0UHBGU2Rx?=
+ =?utf-8?B?bml0RXVlMG0rOXd1LzlnMGlwV2NKR295QUlqNTVaNHdITzhXNGhNVWpaUlZx?=
+ =?utf-8?B?eTVvcUFKdS9acURmTlZKZ1BraHlSUW1Xd2Fyc2Y1dmZhdnh5QlFVeDcvdlFC?=
+ =?utf-8?B?TmNkandqeU5LOVlKMndjTXA0dGcxQ095T1NjOFZlZ0l3eDhjb3NDbndpTnVV?=
+ =?utf-8?B?UnIrOFFubmQ4NDJHU1JKYVhMNXlKbWlyQjhUUHF5bjJvRXhwNENwck1Sd0JF?=
+ =?utf-8?B?c05hTTBZd0F6alFqa2FJbXBEQk11M3dBS3E0YXdDcHUzM1dCdjVWSS9VcmxH?=
+ =?utf-8?B?eUhSQlp5bUswNTh6dVI0bHFQVEpCUm1zQU9XUnNwcDhDdmI1eS9lRldTR0lY?=
+ =?utf-8?B?OXRGTG9mVzVPUUNLQVNGQlh4Uyt6Ly9NTGVZb2RUd0lDN0VSR3RVUzlTQUxp?=
+ =?utf-8?B?SVNtb0dvdkVXMlo4eWN4YURpelVCWmowVWI5TzN1cGx3aVZsTDE0OGxBdU9h?=
+ =?utf-8?B?aklhVXltRFI1SXpRUWFOemdOY1pRaFJZZmdJdmdSSXBZdmR3YmI1cGJBRzJE?=
+ =?utf-8?B?cS9Od1l4ZVVpYmVueFRjbzRrNW9wVFZwODZxTlU5QlVhWGo4M2s5VWNwK285?=
+ =?utf-8?B?R2VMUnRiQTBFakE0NlMrSjk3NEtXL3NYcW5MN2h4YmExRE1IaVFqSmtTUSt1?=
+ =?utf-8?B?QnFoVlFWbGRhaW5JZU1mdW9oMHBxaS9yVXpDYnpnQ2xnZnNxSkZBTDVWSmdW?=
+ =?utf-8?B?VFBUZzVZR3BncU9xS2FFMkJUNXV3clQ4YmtQMEIvMURUZkdsV2F5RW5VT0Jq?=
+ =?utf-8?B?Q0xJMThMQzNJc25PTDJOY2JpbWRnVWZjOVVZd0xVcml0MnpOVjFFamFIOWFB?=
+ =?utf-8?B?NytBN2FHd21sYlE5MCtmd3Y3M1NRTUFEeThRZzc5T2xoT0ZaZkJQbVBlRHB4?=
+ =?utf-8?B?bEhoWEVta0JjMnk3TXVXZjY2TkkydkRJdy8zM1lsL3NVdzNobW90eFBQdnQ5?=
+ =?utf-8?B?c2g3NEprQWtuUlhpZTY0MUt3RUZuSnVFQUo3QVJOeUVuaWRScnByN0VXeUx6?=
+ =?utf-8?B?eW9EcjBPODFkTFM1L0VjcHBnVzdkY3BxUmNWMjg4amNWTDArTXlURzJSR0t1?=
+ =?utf-8?B?L085TXNscmhSbS9yRnJNSUtiWnZVZHlBY2RoaG5SRkFYQ3M3SXZleS9pMmk4?=
+ =?utf-8?B?bzVCYXJUMEVsWDRIMUd6YmR3VVhyaFhkcFdpRVFvZjVyblNiRWVNRVdDZ1Vq?=
+ =?utf-8?B?UzJtdFFXNzBIdVdWamF5bkFFazZER1loQWNwSUE2TUdCZDFwdzhhVzZlS0ZL?=
+ =?utf-8?Q?37v43n51xmc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R0xGd0dycFFSMUNQVUltUDEwYlhVcUdXdjQ2TEhRMS94QmYxZVlOZlE4SkQw?=
+ =?utf-8?B?QmN2U1ZXeElhbkZYQU9PYmlKL1NGT2VycmFNT0ptaC9jRlNDZkhTZURiVEd5?=
+ =?utf-8?B?a1V6WTBoN2NPemJNeUQzakdwZmUwSFdmcU9seDV3K2p5TjFDY3ZOL2tucWdz?=
+ =?utf-8?B?YUZZb3hDaE15NnU3UHNEWEtySHp0bStNUXlyZ1pFT2haZWZLSlR5UmxhTVlq?=
+ =?utf-8?B?R1dDYnlxSHFVellmNlhmOUJ6R1p0MTNxN1pPTzBDTXBaS1ZZUWtrc0ZmOVFp?=
+ =?utf-8?B?aWRUb2R0MkN3YjhrNzVlOFZOTFIyeDlYK0twMXVmVm9iaFM2MjBQcWUxeUJD?=
+ =?utf-8?B?SE9lV01HaU92ZmdhZ0hBVFNKM3p0aEdBRzhDbWNFdHpSOHp4c2RJNit6YVYv?=
+ =?utf-8?B?OElRZlV6R3g1MHBwNTJnQ2hJeHVLRTBUeWdMMEpROXhZSnYwdm1IandFRGsz?=
+ =?utf-8?B?OXR5MjJIaUtySkFrcFpQUGRBSzFySURoYVpxRk5rUTZ3R3JSZlBPYVBNVS83?=
+ =?utf-8?B?a3RDVXZ5bFpUeXZpL1BONXNQZ3BIUUgwdWNBZlRLeVlrNFpBWXYvVjFTcjBl?=
+ =?utf-8?B?K2NUbHp5VFpMQ2hRSkJHWE5TSXRuNzdydlRlNksrSy9RQzBaNWM1ODl3UjJx?=
+ =?utf-8?B?Q2lOWEh6RmtzK3c0V0dnZlR6V1puVlN3SGN6SVBKUnA2UWJPMkc1bTZQd0Np?=
+ =?utf-8?B?d014a2JjcUFEQ0MyM0lGdHA3clVoYldkd2F0b2ExUGxvTGJrNEZBMFlEa1Nh?=
+ =?utf-8?B?djBwTUNNNng4bUVZOVFpYk81VkJqaDF1TnBZcW05QWw3SDEwWEpDbGFOWU1R?=
+ =?utf-8?B?T1RERkxZb1pDV0NZckQ4MFRENjRkV3hoaGtYd2JmVEs0eGxsY3M4UDlJNDVl?=
+ =?utf-8?B?aFJjVmRGNE5YMUJaeFNYdFlKYytscUV5Ty9SSFh2ODVqalRyR0ozOUx0MC9L?=
+ =?utf-8?B?ZHh4M21FQWxoanBaZ0l5MzdhTnlzS1ltQzhOemZmQzhpU3BuZ0ZxaVh2aTVw?=
+ =?utf-8?B?cFJ5VmdBU1FST1EvRncyRWxaZDkwb0RQakErMG42aGtGakwwNlIrYlN4ZmVX?=
+ =?utf-8?B?S2FGZXhkWmhXWnYyb0kyZm9SalQ2NEVtdnpuWXNPc2JSRlJoQ0d4RUNpVVFH?=
+ =?utf-8?B?NFY0cldISWI5cVlPOUExMXhpOUdZMElSQ1BUSWllNVphSWJ1OW9HNFd6cUFk?=
+ =?utf-8?B?ampMdnpWQmRtMlpPTkd3aVcrMjJSSVZpZC91ekl2M3VYcHBtMkxvSHdnNGhN?=
+ =?utf-8?B?OTZMWDlCc3FlYkVZbmZMWEdiVzVPMXFMYjVxTWxlK0ovVTI0MmxaNWNKY3Jp?=
+ =?utf-8?B?WGhvdFZzazU4NUE2SEJFRTNzOUlITjZlOWNtd3ovWHYxeGk2c1VWaWk5eXFZ?=
+ =?utf-8?B?aVo0Q0dFOU1GY3dDK0JmbU5DUDBLWjRrMkhEVlF2dnlrb29XTlhwRkNHVmR3?=
+ =?utf-8?B?L0xxbXR1MXZBakcxOUZRVllYZ2VlWnBrYndxOW5XODZTN1g0dW5Sa3Z5MXlw?=
+ =?utf-8?B?aHdIcGxsRHhzZlgzb2QzZVBWZk1lVnd3YXpybWdQbC82cGJtK2lpUis5eWJH?=
+ =?utf-8?B?eVk4QXZNd24vMHpqUUIwTC9CdllOT1dDcUxHNlpZZ0M0a2M4OXJyK0xVU0dE?=
+ =?utf-8?B?YXp4eUN1SVhaNktWMEJiSWpYNlNFVzJPc2dKU1V0YTU2d3loK2duWVpzM1dL?=
+ =?utf-8?B?NlNnUXIxbjVYT1pJVnFpcjljZFBQZHZHQ2F6S0h0NnNTWWRLekIrMElxdGZa?=
+ =?utf-8?B?RFhFeU5LQlRGNlVJQ1NWSy84dlAxUWJFbkt2UnJMcDFGV1BZYkh3U2N6QWdZ?=
+ =?utf-8?B?bFZGUnpqQlBzYXVBelVWSExkakJHN2pNajZ5NlNVdmdBL1p1UDlsYWZuZGhQ?=
+ =?utf-8?B?Y3RDWVNMWXFWMGFZenNJSVJXb1lBMU5jR1lRcHNuT0Y3dC9yUTdRdXR2MjRI?=
+ =?utf-8?B?WlcyclgrblRJZitKWDFjb1hvbzNxbk9DRUNsSTgzNnU5NnprcFVOT25jcFc2?=
+ =?utf-8?B?eTROM2JCbTdTMHp0cjhFZDU2V3ZRMmxsYzJ3SDdFdHJDQzJHWndLRXIwalZn?=
+ =?utf-8?B?UjdETThibVpMOTQ5QmtjVTc3eVVEcHRNYyttaW82SGpvQ3YreU1FUnJZbi9k?=
+ =?utf-8?Q?mK3n8cpf+DApEFkPt4AB0DsMH?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26fcd160-448f-47d6-1ccc-08ddf1425450
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2025 14:48:54.2793 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gGsWpRTgnbKEWYroi1CIAbfVtmSwjxWQNvJF3eK/L4n3xWnme/Ej169pBY87KJAv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9754
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,252 +163,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 10, 2025 at 2:38=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
->
-> On Wed, 2025-09-10 at 11:10 -0400, Marek Ol=C5=A1=C3=A1k wrote:
-> > I added the comment into Mesa that 0x3fff00 is the limit. I did
-> > research on that bug separately from PAL, but I don't remember the
-> > details.
-> >
-> > There is no performance to gain here. It's only about consistency and
-> > clear communication to the public what the recommended SDMA
-> > programming is.
-> >
-> > Marek
->
-> Hi Christian & Marek,
->
-> I'd be happy to submit a new patch series if we can agree on what the
-> limits are for each SDMA version and how to get the best performance
-> from it.
->
-> I trust Marek's word that he did his research when he came up with
-> 0x3fff00 so I don't understand the pushback here.
->
-> (1) According to a conversation between Marek and myself, the most
-> optimal way to program the SDMA would be to use 256-byte-aligned copy
-> packets. Christian, do you agree with this? If yes, I can write a patch
-> for that. If not, let me know what you would prefer.
->
-> (2) I'd like us to come to an agreement on the maximum amount of bytes
-> copied per SDMA packet, and align the kernel code with Mesa. At the
-> moment, the maximum limit is different for every SDMA version between
-> the kernel and Mesa, which makes the whole topic super confusing.
->
-SI didn't have SDMA.  It used the older paging and DMA engine.
-SDMA 2.x used byte_count directly in the packet so the limit is 0x1fffff
-SDMA 3.x used byte_count directly in the packet so the limit is
-0x3fffe0 or 0x3fff00 depending on alignment.
-SDMA 4.0.x used byte_count -1 in the packet so the limit is 0x400000.
-SDMA 4.4.x used byte_count -1 in the packet and increased the limit to
-0x4000000.
-SDMA 5.0.x used byte_count -1 in the packet so the limit is 0x400000.
-SDMA 5.2.x and newer used byte_count -1 in the packet and increased
-the limit to 0x4000000.
+On 11.09.25 16:38, Srinivasan Shanmugam wrote:
+> The HDP flush page (AMDGPU_PL_MMIO_REMAP) is an MMIO window, not RAM.
+> It must not be migrated to GTT/VRAM by dma-buf paths.
+> 
+> This change makes pin/unpin no-ops for MMIO_REMAP and skips CPU-access
+> migration, keeping the object fixed.
 
-Alex
+Just use ttm_bo_pin() while creating the BO, no need to modify anything here.
 
-> Please keep in mind that if there is any chance that the current limit
-> is indeed incorrect (as it sounds like it is), we risk "random" SDMA
-> hangs on users' machines.
->
-> Thanks & best regards,
-> Timur
->
->
->
->
-> >
-> > On Wed, Sep 10, 2025 at 10:57=E2=80=AFAM Christian K=C3=B6nig
-> > <christian.koenig@amd.com> wrote:
-> > > On 10.09.25 16:52, Marek Ol=C5=A1=C3=A1k wrote:
-> > > > It's probably better to use 0x3fff00 to match Mesa and PAL. There
-> > > > is no benefit in using a different limit, not even a perf
-> > > > benefit, and it's better to be consistent with all UMDs.
-> > >
-> > > Unification with Mesa is certainly a valid argument, but just using
-> > > an approach because PAL does it has proven to be troublesome
-> > > before.
-> > >
-> > > If we are interested in best performance we should actually round
-> > > down the value to the next multiple of PAGE_SIZE.
-> > >
-> > > Christian.
-> > >
-> > > >
-> > > > Marek
-> > > >
-> > > > On Wed, Sep 10, 2025 at 7:54=E2=80=AFAM Christian K=C3=B6nig
-> > > > <christian.koenig@amd.com <mailto:christian.koenig@amd.com>>
-> > > > wrote:
-> > > >
-> > > >      On 10.09.25 11:34, Timur Krist=C3=B3f wrote:
-> > > >      > On Wed, 2025-09-10 at 10:34 +0200, Christian K=C3=B6nig wrot=
-e:
-> > > >      >> On 09.09.25 18:56, Timur Krist=C3=B3f wrote:
-> > > >      >>>> Even when we apply it I think we should drop that, the
-> > > > value the
-> > > >      >>>> kernel uses is correct.
-> > > >      >>>
-> > > >      >>> Hi Christian,
-> > > >      >>>
-> > > >      >>> The kernel and Mesa disagree on the limits for almost
-> > > > all SDMA
-> > > >      >>> versions, so it would be nice to actually understand
-> > > > what the
-> > > >      >>> limits of
-> > > >      >>> the SDMA HW are and use the same limit in the kernel and
-> > > > Mesa, or
-> > > >      >>> if
-> > > >      >>> that isn't viable, let's document why the different
-> > > > limits make
-> > > >      >>> sense.
-> > > >      >>>
-> > > >      >>> I'm adding Marek to CC, he wrote the comment that I
-> > > > referenced
-> > > >      >>> here.
-> > > >      >>> As far as I understand from my conversation with Marek,
-> > > > the kernel
-> > > >      >>> is
-> > > >      >>> actually wrong.
-> > > >      >>>
-> > > >      >>> If the limits depend on alignment, then we should either
-> > > > set a
-> > > >      >>> limit
-> > > >      >>> that is always safe, or make sure SDMA copies in the
-> > > > kernel are
-> > > >      >>> always
-> > > >      >>> aligned and add assertions about it.
-> > > >      >>
-> > > >      >> That's already done. See the size restrictions applied to
-> > > > BOs and the
-> > > >      >> callers of amdgpu_copy_buffer().
-> > > >      >
-> > > >      > Based on the code comments I cited, as far as I
-> > > > understand, the issue
-> > > >      > is with copying the last 256 bytes of 2^22-1. Do I
-> > > > understood your
-> > > >      > response correctly that you are saying that the kernel
-> > > > isn't affected
-> > > >      > by this issue because it always copies things that are 256
-> > > > byte
-> > > >      > aligned?
-> > > >
-> > > >      Yes, see the kernel always works with at least PAGE_SIZE
-> > > > buffers (between 4k and 64k depending on CPU architecture). You
-> > > > never get anything smaller than that.
-> > > >
-> > > >      The only exception is the debugger interface, but that
-> > > > always copies < PAGE_SIZE, so the SDMA limits are irrelevant.
-> > > >
-> > > >      > I checked the callers of amdgpu_copy_buffer and can't find
-> > > > what you are
-> > > >      > referring to. However, assuming that all callers use
-> > > > amdgpu_copy_buffer
-> > > >      > on 256 byte aligned addresses, there is still an issue
-> > > > with large BOs:
-> > > >      >
-> > > >      > When the kernel copies a BO that is larger than 0x3fffe0
-> > > > bytes then it
-> > > >      > needs to emit multiple SDMA copy packets, and the copy
-> > > > done by the
-> > > >      > second packet (and other subsequent packets) won't be 256
-> > > > byte aligned.
-> > > >
-> > > >      I've just double checked the documentation and for SI it
-> > > > clearly states that the limit is 0x3fffe0. Documentation for
-> > > > later HW says 2^22 - 1 - start_addr[4:2] (which is 0x1f in the
-> > > > worst case so you end up with 0x3fffe0 again).
-> > > >
-> > > >      For backward, tiled and windowed copies a 256byte bounce
-> > > > buffer is used instead of the 32byte buffer for the linear copy.
-> > > > So the limit is then 0x3fff00.
-> > > >
-> > > >      Looks like that buffer is also used for byte aligned copies
-> > > > and that limit applies there as well.
-> > > >
-> > > >      >>
-> > > >      >> We could add another warning to amdgpu_copy_buffer(), but
-> > > > that is
-> > > >      >> just the backend function.
-> > > >      >>
-> > > >      >>> Looking at the implementation of
-> > > >      >>> amdgpu_copy_buffer in the kernel, I see that it relies
-> > > > on
-> > > >      >>> copy_max_bytes and doesn't take alignment into account,
-> > > > so with the
-> > > >      >>> current limit it could issue subsequent copies that
-> > > > aren't 256 byte
-> > > >      >>> aligned.
-> > > >      >>
-> > > >      >> "Due to HW limitation, the maximum count may not be 2^n-
-> > > > 1, can only
-> > > >      >> be 2^n - 1 - start_addr[4:2]"
-> > > >      >>
-> > > >      >> Well according to this comments the size restriction is
-> > > > 32 bytes (256
-> > > >      >> bits!) and not 256 bytes.
-> > > >      >>
-> > > >      >> Were do you actually get the 256 bytes restriction from?
-> > > >      >
-> > > >      > The comments I cited above are from the following sources:
-> > > >      >
-> > > >      > PAL uses 1<<22-256 =3D 0x3fff00 here:
-> > > >      >
-> > > > https://github.com/GPUOpen-Drivers/pal/blob/bcec463efe5260776d486a5=
-e3da0c549bc0a75d2/src/core/hw/ossip/oss2/oss2DmaCmdBuffer.cpp#L308
-> > > > <https://github.com/GPUOpen-Drivers/pal/blob/bcec463efe5260776d48
-> > > > 6a5e3da0c549bc0a75d2/src/core/hw/ossip/oss2/oss2DmaCmdBuffer.cpp#
-> > > > L308>
-> > > >      >
-> > > >      > Mesa also uses 0x3fff00 here:
-> > > >      >
-> > > > https://gitlab.freedesktop.org/mesa/mesa/-/blob/47f5d25f93fd36224c1=
-12ee2d48e511ae078f8c2/src/amd/common/sid.h#L390
-> > > > <https://gitlab.freedesktop.org/mesa/mesa/-/blob/47f5d25f93fd3622
-> > > > 4c112ee2d48e511ae078f8c2/src/amd/common/sid.h#L390>
-> > > >      >
-> > > >      > The limit in Mesa was added by this commit:
-> > > >      >
-> > > > https://gitlab.freedesktop.org/mesa/mesa/-/commit/2c1f249f2b61be502=
-22411bc0d41c095004232ed
-> > > > <https://gitlab.freedesktop.org/mesa/mesa/-/commit/2c1f249f2b61be
-> > > > 50222411bc0d41c095004232ed>
-> > > >      > According to the commit message, Dave added this limit
-> > > > when hitting an
-> > > >      > issue trying to use SDMA with buffers that are larger than
-> > > > this.
-> > > >      >
-> > > >      > For SDMA v5.2 and newer, a larger limit was added by Marek
-> > > > later:
-> > > >      >
-> > > > https://gitlab.freedesktop.org/mesa/mesa/-/commit/a54bcb9429666fcbe=
-38c04660cc4b3f8abbde259
-> > > > <https://gitlab.freedesktop.org/mesa/mesa/-/commit/a54bcb9429666f
-> > > > cbe38c04660cc4b3f8abbde259>
-> > > >      > Which confirms the same issue copying the last 256 bytes
-> > > > on these
-> > > >      > versions, although in this case the kernel isn't
-> > > > technically wrong
-> > > >      > because it uses a smaller overall maximum.
-> > > >
-> > > >      Yeah, I mean that totally makes sense. When you want allow
-> > > > byte aligned copies as well then you have to use 0x3fff00 as
-> > > > maximum.
-> > > >
-> > > >      The PAL code even has extra checks to speed up copies where
-> > > > src and dst are byte aligned, but size isn't:
-> > > >
-> > > >          if (IsPow2Aligned(srcGpuAddr, sizeof(uint32)) &&
-> > > >              IsPow2Aligned(dstGpuAddr, sizeof(uint32)) &&
-> > > >              (*pBytesCopied >=3D sizeof(uint32)))
-> > > >      ....
-> > > >
-> > > >      So it totally makes sense to use the lower limit in Mesa but
-> > > > not for the kernel.
-> > > >
-> > > >      Regards,
-> > > >      Christian.
-> > > >
-> > >
+Regards,
+Christian.
+
+> 
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> index 31d78561ab95..4c75e296b57f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> @@ -109,6 +109,11 @@ static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
+>  	struct amdgpu_bo *bo = gem_to_amdgpu_bo(dmabuf->priv);
+>  	u32 domains = bo->allowed_domains;
+>  
+> +	/* Already pinned at export; don't try to move I/O apertures */
+> +	if (bo->tbo.resource &&
+> +	    bo->tbo.resource->mem_type == AMDGPU_PL_MMIO_REMAP)
+> +		return 0;
+> +
+>  	dma_resv_assert_held(dmabuf->resv);
+>  
+>  	/* Try pinning into VRAM to allow P2P with RDMA NICs without ODP
+> @@ -148,6 +153,10 @@ static void amdgpu_dma_buf_unpin(struct dma_buf_attachment *attach)
+>  	struct drm_gem_object *obj = attach->dmabuf->priv;
+>  	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+>  
+> +	if (bo->tbo.resource &&
+> +	    bo->tbo.resource->mem_type == AMDGPU_PL_MMIO_REMAP)
+> +		return;
+> +
+>  	amdgpu_bo_unpin(bo);
+>  }
+>  
+> @@ -354,6 +363,11 @@ static int amdgpu_dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
+>  	bool reads = (direction == DMA_BIDIRECTIONAL ||
+>  		      direction == DMA_FROM_DEVICE);
+>  
+> +	/* Never migrate MMIO_REMAP for CPU access heuristics */
+> +	if (bo->tbo.resource &&
+> +	    bo->tbo.resource->mem_type == AMDGPU_PL_MMIO_REMAP)
+> +		return 0;
+> +
+>  	if (!reads || !(domain & AMDGPU_GEM_DOMAIN_GTT))
+>  		return 0;
+>  
+
