@@ -4,51 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46CFCCAC587
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 15:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47900CAC587
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 15:33:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4BC710E37F;
-	Thu, 11 Sep 2025 15:06:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E162010EB67;
+	Thu, 11 Sep 2025 15:33:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pN3YRm9Q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hiU6Op/x";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE6410E37F;
- Thu, 11 Sep 2025 15:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ajC4dQK2/Z8OcvEI4k5f3pswXG9oWpmzoRH7wWNHtSU=; b=pN3YRm9Q9DKFodCI8NUj5xvfr4
- JVg8wehWpGFzZLyY5TygEkI7eeKtLeKwPdQLjqImx1NuDHE7n9kLSHTZy+7wNLiAXe078vRk0P8c7
- CNVEWXwqA4mK1r+fF4pwrz4rfQXyqTKcqvjMpu3KXekNi2uYkLEJeO0RuHoaL2iTaEb6mE7F4RDFr
- Vn5sPaGLmNpbewTXw4oAa8xGENifKzxRQaAmjtF5lBToYtBrKyO2WSY4/ByvhyQsvIoPYum0DbpCa
- vomT6uzM4LXlieQVBCNxiDSGRy7ppGJ1z1ihiEopYxrGHy0Vsr3cPTHIx8NOkCL76HRq4tOxwxRzz
- K0RJ/XFw==;
-Received: from [84.66.36.92] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uwisS-009r8Z-CI; Thu, 11 Sep 2025 17:06:24 +0200
-Message-ID: <2e18f226-068c-4986-b203-144b6bdb0a7f@igalia.com>
-Date: Thu, 11 Sep 2025 16:06:23 +0100
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2FEB10EB67
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 15:33:43 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-b47173bdb03so50692a12.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 08:33:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757604823; x=1758209623; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gmkVbaIH8lq1949T5cYloSIAw0bfgkvJWSIRJOBlfoc=;
+ b=hiU6Op/xX3xDqWlfAmjhcN3wblBKeQGtAQkfi9mMxlZByMXUyIErgDU0oxLqHVTEes
+ Phubbu8eBIzjlEpJfa4gcae1XHbgC0ph85IHXIfbEAbdnx7ec8qKKfx8vnMt+1yksrot
+ IPursKgCytfPfuZcFcPO7ojIzpiuVoeFixC8n5EECR/DRhjFe42OHawxzNOHFYtE8qba
+ 3AUfX5Hc+sk2ka7MgiFKMElUFVH9FchzBEg0+HThunav6PKyYzljnr6dqxh9WJI2hLIu
+ akFXOrok7uS11VnbpqcVn9ZjShSDKxqy6lXViqS8uDoyO7Qz8dnbVyzwcYFLcg5AAzvB
+ uuDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757604823; x=1758209623;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gmkVbaIH8lq1949T5cYloSIAw0bfgkvJWSIRJOBlfoc=;
+ b=tW5J2vaq6yo3Yqmh0zMSEKt0d5S7xdgUmsKcxI0sfywGZ4eHWN0l5k6JXIMl25DYHE
+ qVFgUBzaR9ZZBtyH9KRjFK9xS80Kbao83Ng9Kiol4etBnPvv56u0mRyIykRq9xylVNiK
+ OHK4bXoqtic7PipbrGvvMMOrV0JEhJ2IOvBTZZ4+rmD38q2j+FyfASL6GUsMVtHtX/RW
+ PJhjFEs++6vuFeQ+DpvYlcQNhznHSzWOmNc7kEKpCQqy472pbLwax47beXoFt3FsqvWJ
+ AT3l4GfoGksGlXrpx17GD8ueyCnHB8VyszbPFrGs/FTUGQ+q4OvynHw3yizbokLCPvQM
+ 5yow==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVSRtEBOyfOhx8x42pKwiyYhPQRYpVZD0Plbkv59LFjvpYG+kE9NQ3xW5ujtDma68ON9S870VMe@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxveap+X8h6jXJNLkIMPX0vbmSmjCvJTOYg3+yiLF2VdEIBifZR
+ Z4iohovpccSJd/4d5syVkTBFpofA1Ub8YtMIzjsP205cNwXDlWhhCR9fq6z8BPvlqLIEy3RY596
+ Yk0PnjfYjG8uCZd3SiZ26SdVfDeYdD/o=
+X-Gm-Gg: ASbGncu65l02owJXkayFI5ZK+qw4eQ3lFAaGltPNrREB9y94IScsTIFwVK2s5OdB33W
+ DI8g/GqsC16QujuzcY6mGsKSxCkboyTG6Y5ULp+7BcoGUdc/j0DDNkS0VlIwLfECRo+omcsRpee
+ SGwUIlMSmF5AUiPqvYuUIiiuw373GsyDZanPFJLtF8IcsCBFY8F/1JhrpH8/aIX/WzTlftAppgr
+ UaQvRMH9z+8pzZ4EQ==
+X-Google-Smtp-Source: AGHT+IE6hczOO0u9I43/n8P1J5hIW2zXcpk5ssp9QCeqgk1pCALasP7z4UWn8jsLA+dtBWR2iPtWC+T6Tl3cYZ7WMUA=
+X-Received: by 2002:a17:903:41c5:b0:25b:f108:b227 with SMTP id
+ d9443c01a7336-25bf108b55amr19808365ad.9.1757604823217; Thu, 11 Sep 2025
+ 08:33:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v8 08/12] drm/sched: Remove idle entity from tree
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
-References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
- <20250903101820.63032-9-tvrtko.ursulin@igalia.com>
- <2f17fb5d359c1ddaf8253454bf0f0d318c90bc8d.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <2f17fb5d359c1ddaf8253454bf0f0d318c90bc8d.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20250911145934.825708-1-srinivasan.shanmugam@amd.com>
+ <20250911150239.825769-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250911150239.825769-1-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 11 Sep 2025 11:33:31 -0400
+X-Gm-Features: Ac12FXx2_lp3Eh9mJWWDGjfq6v759Y4XzCUhfX2K1vY7DL5wyWmBEnHU2iFIf5Y
+Message-ID: <CADnq5_P4HfHHpU+mfg7LOb5Rd_y_yHaNU8MhSmjntfdAx0OzRw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu/gfx11: Add Cleaner Shader Support for
+ GFX11.0.1/11.0.4 GPUs
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Wasee Alam <wasee.alam@amd.com>, Mario Sopena-Novales <mario.novales@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,111 +86,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Sep 11, 2025 at 11:09=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> Enable the cleaner shader for additional GFX11.5.2/11.5.3 series GPUs to
+> ensure data isolation among GPU tasks. The cleaner shader is tasked with
+> clearing the Local Data Store (LDS), Vector General Purpose Registers
+> (VGPRs), and Scalar General Purpose Registers (SGPRs), which helps avoid
+> data leakage and guarantees the accuracy of computational results.
+>
+> This update extends cleaner shader support to GFX11.0.1/11.0.4 GPUs,
+> previously available for GFX11.0.3. It enhances security by clearing GPU
+> memory between processes and maintains a consistent GPU state across KGD
+> and KFD workloads.
+>
+> Cc: Wasee Alam <wasee.alam@amd.com>
+> Cc: Mario Sopena-Novales <mario.novales@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-On 11/09/2025 15:32, Philipp Stanner wrote:
-> On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
->> There is no need to keep entities with no jobs in the tree so lets remove
->> it once the last job is consumed. This keeps the tree smaller which is
->> nicer and more efficient as entities are removed and re-added on every
->> popped job.
-> 
-> This reads suspiciously as if it could be an independent patch, not
-> necessarily tied to this series. I see it depends on the _pop()
-> function you added.
-> 
-> I think you'd want to make it a bit more obvious that this is not so
-> much a general improvement as it is a preparation for followup work. Or
-> could it be made generic for the current in-tree scheduler?
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Both is true. There is currently no reason idle entities _need_ to be in 
-the tree. Removing them would improve O(log n) on the rbtree. But also 
-fair scheduler relies on it, see below...
-
->> Apart from that, the upcoming fair scheduling algorithm will rely on the
->> tree only containing runnable entities.
-
-... ^^^ here.
-
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> ---
->>   drivers/gpu/drm/scheduler/sched_rq.c | 28 +++++++++++++++++-----------
->>   1 file changed, 17 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
->> index 16d57461765e..67804815ca0d 100644
->> --- a/drivers/gpu/drm/scheduler/sched_rq.c
->> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
->> @@ -19,6 +19,9 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
->>   static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
->>   					    struct drm_sched_rq *rq)
->>   {
->> +	lockdep_assert_held(&entity->lock);
->> +	lockdep_assert_held(&rq->lock);
-> 
-> The callers of drm_sched_rq_remove_fifo_locked() already have some
-> lockdep asserts, have you seen them? Are those here redundant /
-> additional?
-> 
-> And are they strictly related to this patch?
-
-Yes, drm_sched_rq_pop_entity() is the new caller, which needs to take 
-both locks on its own. So IMO makes sense to add the asserts.
-
-> Maybe you want to investigate the other lockdep assertions and, if
-> there's room for improvement, address that in a dedicated patch.
-
-They look okay to me. Are you seeing something is off?
-
-Regards,
-
-Tvrtko
-
->> +
->>   	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
->>   		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
->>   		RB_CLEAR_NODE(&entity->rb_tree_node);
->> @@ -158,24 +161,27 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->>   {
->>   	struct drm_sched_job *next_job;
->>   	struct drm_sched_rq *rq;
->> -	ktime_t ts;
->>   
->>   	/*
->>   	 * Update the entity's location in the min heap according to
->>   	 * the timestamp of the next job, if any.
->>   	 */
->> +	spin_lock(&entity->lock);
->> +	rq = entity->rq;
->> +	spin_lock(&rq->lock);
->>   	next_job = drm_sched_entity_queue_peek(entity);
->> -	if (!next_job)
->> -		return;
->> +	if (next_job) {
->> +		ktime_t ts;
->>   
->> -	spin_lock(&entity->lock);
->> -	rq = entity->rq;
->> -	spin_lock(&rq->lock);
->> -	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->> -		ts = next_job->submit_ts;
->> -	else
->> -		ts = drm_sched_rq_get_rr_ts(rq, entity);
->> -	drm_sched_rq_update_fifo_locked(entity, rq, ts);
->> +		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->> +			ts = next_job->submit_ts;
->> +		else
->> +			ts = drm_sched_rq_get_rr_ts(rq, entity);
->> +
->> +		drm_sched_rq_update_fifo_locked(entity, rq, ts);
->> +	} else {
->> +		drm_sched_rq_remove_fifo_locked(entity, rq);
->> +	}
->>   	spin_unlock(&rq->lock);
->>   	spin_unlock(&entity->lock);
->>   }
-> 
-
+> ---
+> v2: updated MES FW version
+>
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 86b3fcab5772..66c47c466532 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -1653,6 +1653,21 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)
+>                         }
+>                 }
+>                 break;
+> +       case IP_VERSION(11, 0, 1):
+> +       case IP_VERSION(11, 0, 4):
+> +               adev->gfx.cleaner_shader_ptr =3D gfx_11_0_3_cleaner_shade=
+r_hex;
+> +               adev->gfx.cleaner_shader_size =3D sizeof(gfx_11_0_3_clean=
+er_shader_hex);
+> +               if (adev->gfx.pfp_fw_version >=3D 102 &&
+> +                   adev->gfx.mec_fw_version >=3D 66 &&
+> +                   adev->mes.fw_version[0] >=3D 128) {
+> +                       adev->gfx.enable_cleaner_shader =3D true;
+> +                       r =3D amdgpu_gfx_cleaner_shader_sw_init(adev, ade=
+v->gfx.cleaner_shader_size);
+> +                       if (r) {
+> +                               adev->gfx.enable_cleaner_shader =3D false=
+;
+> +                               dev_err(adev->dev, "Failed to initialize =
+cleaner shader\n");
+> +                       }
+> +               }
+> +               break;
+>         case IP_VERSION(11, 5, 0):
+>         case IP_VERSION(11, 5, 1):
+>                 adev->gfx.cleaner_shader_ptr =3D gfx_11_0_3_cleaner_shade=
+r_hex;
+> --
+> 2.34.1
+>
