@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5C58CA1016
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 12:39:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 568EECAC58D
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Sep 2025 12:39:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81CE010EB04;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8966F10EB0A;
 	Thu, 11 Sep 2025 12:39:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GNP/NTa5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hJhIL2Gc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D48B510EA2C;
- Thu, 11 Sep 2025 07:58:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C69BF10EA3E;
+ Thu, 11 Sep 2025 07:58:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757577510; x=1789113510;
+ t=1757577493; x=1789113493;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YJbpUXJnomq+7nV94XeE/h+A16kP2CVabGQK0HSB9bY=;
- b=GNP/NTa5psVBLHibZnZXvdXxX2SOveVK3eindCuQ5jzLTDF2kAU9A6w7
- BYWb8vJKupODiu7w3QvbkAD0oMHJG7J7/KFjrweqvoegtHBJOIZdQPMUY
- TPU3t+YWfvUHn1K3S71rwGudHIBdvrgavRJYZsrgMFwCcd67iVJXab9+b
- oaBgV4yKbwE0iDfqMZExp/PLLTh4TZmB/VjGUks4mGdG6pTTmSlAb53Kq
- uc1lcRW/66/Pho/Qc4eOjCSfRDx9+NGI7B1jA0D24D7165NRK0RCfVPBy
- OrrTWBC+ewmKCC3Z0QjJFPi/qWR+5Z/PoozMO52EFmj9Ib+RkHcfzNIsp A==;
-X-CSE-ConnectionGUID: lS4JucHHRYapuzbNRNEJEg==
-X-CSE-MsgGUID: 86Op/ZMUQhyLmVuVtSbsHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="63728935"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="63728935"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2025 00:58:29 -0700
-X-CSE-ConnectionGUID: Sbkad06OQkquDc+OlxBMIg==
-X-CSE-MsgGUID: eliGRZu4RQKlcbjTqR512A==
+ bh=6RYIEQkuOzl3A3InWzcMug/hfkfoXrpzul9p5LmOsSg=;
+ b=hJhIL2Gcd/l9v38zUpiFdjC9IPa7+HgajmIgTD1/CPYVQXxfnAlg/qL0
+ kSk4I/rZnMtZIAUpE+u/aJez2L5+Rw5YmB2/Pbd8wkdeY9VGdNPcENfMj
+ vjM+49jPogHq2g12vl6BUmqxE+yfoNbCg9NuXMTIMeUoZbUxfE7rU83aZ
+ eR+LgYE5pZ4UFDDLp7CA6MMyuZqZCpM2fIZkr5qRa1oKlqxgJXlUhG+nZ
+ e1kOt8iy6NAOeuv790gUaLuISfOtmSAnrar1JHokbQ3gCAdPZEpt0EpjO
+ PZjhRF+HgYaNrEDCe/wLkJa+Iwe6swbqYG68br0daXuzjvwOAErNFEf7u Q==;
+X-CSE-ConnectionGUID: BkP4ZZHNReSLuUPwu3iNCw==
+X-CSE-MsgGUID: RPfY9XTtQq6B9vVXA5u+nA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11549"; a="70999391"
+X-IronPort-AV: E=Sophos;i="6.18,256,1751266800"; d="scan'208";a="70999391"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2025 00:57:51 -0700
+X-CSE-ConnectionGUID: gRaHmoh2RmK5x3zOFXvN2w==
+X-CSE-MsgGUID: f+tPr7AfRD+jyMtnjayPKw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,256,1751266800"; d="scan'208";a="174422525"
+X-IronPort-AV: E=Sophos;i="6.18,256,1751266800"; d="scan'208";a="173186319"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.187])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2025 00:58:22 -0700
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2025 00:57:44 -0700
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
  =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
@@ -59,9 +59,9 @@ To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
  linux-kernel@vger.kernel.org
 Cc: linux-doc@vger.kernel.org,
  =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 10/11] drm/amdgpu: Use pci_rebar_get_max_size()
-Date: Thu, 11 Sep 2025 10:56:04 +0300
-Message-Id: <20250911075605.5277-11-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 07/11] drm/xe/vram: Use PCI rebar helpers in resize_vram_bar()
+Date: Thu, 11 Sep 2025 10:56:01 +0300
+Message-Id: <20250911075605.5277-8-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250911075605.5277-1-ilpo.jarvinen@linux.intel.com>
 References: <20250911075605.5277-1-ilpo.jarvinen@linux.intel.com>
@@ -83,42 +83,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use pci_rebar_get_max_size() from PCI core to simplify code in
-amdgpu_device_resize_fb_bar().
+PCI core provides pci_rebar_size_supported(), use it in
+resize_vram_bar() to simplify code.
 
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_vram.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 01d234cf8156..c4ab503fb5d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1670,9 +1670,9 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- 	int rbar_size = pci_rebar_bytes_to_size(adev->gmc.real_vram_size);
- 	struct pci_bus *root;
- 	struct resource *res;
-+	int max_size, r;
- 	unsigned int i;
- 	u16 cmd;
--	int r;
+diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
+index e421a74fb87c..08a9abebfee7 100644
+--- a/drivers/gpu/drm/xe/xe_vram.c
++++ b/drivers/gpu/drm/xe/xe_vram.c
+@@ -21,8 +21,6 @@
+ #include "xe_sriov.h"
+ #include "xe_vram.h"
  
- 	if (!IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT))
- 		return 0;
-@@ -1718,8 +1718,10 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- 		return 0;
+-#define BAR_SIZE_SHIFT 20
+-
+ static void
+ _resize_bar(struct xe_device *xe, int resno, resource_size_t size)
+ {
+@@ -71,25 +69,22 @@ static void resize_vram_bar(struct xe_device *xe)
  
- 	/* Limit the BAR size to what is available */
--	rbar_size = min(fls(pci_rebar_get_possible_sizes(adev->pdev, 0)) - 1,
--			rbar_size);
-+	max_size = pci_rebar_get_max_size(adev->pdev, 0);
-+	if (max_size < 0)
-+		return 0;
-+	rbar_size = min(max_size, rbar_size);
+ 	/* set to a specific size? */
+ 	if (force_vram_bar_size) {
+-		u32 bar_size_bit;
+-
+-		rebar_size = force_vram_bar_size * (resource_size_t)SZ_1M;
++		rebar_size = pci_rebar_bytes_to_size(force_vram_bar_size *
++						     (resource_size_t)SZ_1M);
  
- 	/* Disable memory decoding while we change the BAR addresses and size */
- 	pci_read_config_word(adev->pdev, PCI_COMMAND, &cmd);
+-		bar_size_bit = bar_size_mask & BIT(pci_rebar_bytes_to_size(rebar_size));
+-
+-		if (!bar_size_bit) {
++		if (!pci_rebar_size_supported(pdev, LMEM_BAR, rebar_size)) {
+ 			drm_info(&xe->drm,
+ 				 "Requested size: %lluMiB is not supported by rebar sizes: 0x%x. Leaving default: %lluMiB\n",
+-				 (u64)rebar_size >> 20, bar_size_mask, (u64)current_size >> 20);
++				 (u64)pci_rebar_size_to_bytes(rebar_size) >> 20,
++				 bar_size_mask, (u64)current_size >> 20);
+ 			return;
+ 		}
+ 
+-		rebar_size = 1ULL << (__fls(bar_size_bit) + BAR_SIZE_SHIFT);
+-
++		rebar_size = pci_rebar_size_to_bytes(rebar_size);
+ 		if (rebar_size == current_size)
+ 			return;
+ 	} else {
+-		rebar_size = 1ULL << (__fls(bar_size_mask) + BAR_SIZE_SHIFT);
++		rebar_size = pci_rebar_size_to_bytes(__fls(bar_size_mask));
+ 
+ 		/* only resize if larger than current */
+ 		if (rebar_size <= current_size)
 -- 
 2.39.5
 
