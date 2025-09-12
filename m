@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E2DCAC582
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 17:59:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ABB1CAC582
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 18:00:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 068D710ECB3;
-	Fri, 12 Sep 2025 17:59:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33B7D10ECBB;
+	Fri, 12 Sep 2025 18:00:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dGl6dEr+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jFTPtq7Y";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3E710ECB3
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 17:59:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BBBD10ECBB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 17:59:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 91F15601D3
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 17:59:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB34CC4CEF1;
- Fri, 12 Sep 2025 17:59:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D61FF43512
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 17:59:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63885C4CEF1;
+ Fri, 12 Sep 2025 17:59:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757699979;
- bh=B4ZsL4l4a2/aQLEwQofGlZPi1QkJ0ab8k5aIcr1xajc=;
+ s=k20201202; t=1757699998;
+ bh=7eucXCf0U+bCnJSvNvq0qtH2YSq9R2o0ARgVUQ7WD5E=;
  h=From:To:Cc:Subject:Date:From;
- b=dGl6dEr+6pFgUGdzexz0Q38W+yUsvAO3COxNorZfCQnZZrFcfDcdxib+ufMgDNkmN
- UcDafLSJskhjQcvmGBjOswbQNdbTLqG2Dbd0Z3VI+gmAQ1InNyjsTEa9Kt417gGU/R
- 3VWgxomve4WjplnhXdJnH8XL3qwiAc7HCCExdbJJ+iDpITlwXDzNx2e3Wijfbr7woC
- kXm/hzTWm1Kn7iPXw4SiQKVC4Ah82E/cmyNFJgpXk4ZTHIRga6sp6KhRYE0DdDjDJi
- DkVfY5cckkJ/BSLskfE4OvCX60q64/cfMkkN6/redy98KveVClmjDrUiDdIVX/8k8Q
- rctUz1ka7bG1Q==
+ b=jFTPtq7YLOcrTvCoSyzRQcIdF6GMQj2PMUX2RthBpWSuEmZ2cvCi6pRej6HVP+R8B
+ v2YISM9V5R9k6yc+9xUk424Dkadc4F3QeO+zPPevsmrZ1wi96usSpa2xm7pFVs2Hw1
+ Un3qx3/v9SD2X7OfuftZDTidQhiYSMvyBDFaH7fRaKHZkAwiEUr7+kZM0RlG1sLXma
+ 1+azrHmkRvi+53Es1PHnvGNGvDegU6behs9Dq3pa3SVN8NRsXUrO4LpP/pfqYcBnBh
+ DrbnDhflbCkXSozNTFPdJ0kbghAucK1PRvq3LehPpht3Uc3j+0NdIh4qbExE2KmC7s
+ 2XhS6FuANzltg==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: amd-gfx@lists.freedesktop.org
 Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH] drm/amd: Drop unnecessary calls to smu_dpm_set_vpe_enable()
-Date: Fri, 12 Sep 2025 12:59:33 -0500
-Message-ID: <20250912175933.917146-1-superm1@kernel.org>
+Subject: [PATCH] drm/amd: Suspend drm clients during shutdown()
+Date: Fri, 12 Sep 2025 12:59:51 -0500
+Message-ID: <20250912175951.918354-1-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -53,48 +53,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-smu_hw_init() and smu_hw_fini() call smu_dpm_set_vpe_enable() for
-APUs as part of startup and teardown.  These calls however are
-not necessary because vpe_hw_init()/vpe_hw_fini() will call at
-init/fini:
+If the drm device is used for displaying the console then writing
+to the console could potentially cause a hang on the system if DCN
+is in IPS. This is more likely to happen after commit 6ea9a1781c70a
+("Flush console log from kernel_power_off()") which has caused the
+console to get flushed at shutdown.
 
-```
-vpe_hw_init() / vpe_hw_fini()
-  amdgpu_device_ip_set_powergating_state()
-    vpe_set_powergating_state()
-      amdgpu_dpm_enable_vpe()
-        amdgpu_dpm_set_powergating_by_smu()
-          smu_dpm_set_power_gate()
-            smu_dpm_set_vpe_enable()
-```
-
-Drop the extra calls.
+As part of the amdgpu shutdown callback drm clients must be suspended to
+prevent this. Add an explicit call for the shutdown sequence.
 
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index b47cb4a5f4887..49e6a2266136b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1896,7 +1896,6 @@ static int smu_hw_init(struct amdgpu_ip_block *ip_block)
- 		for (i = 0; i < adev->vcn.num_vcn_inst; i++)
- 			smu_dpm_set_vcn_enable(smu, true, i);
- 		smu_dpm_set_jpeg_enable(smu, true);
--		smu_dpm_set_vpe_enable(smu, true);
- 		smu_dpm_set_umsch_mm_enable(smu, true);
- 		smu_set_mall_enable(smu);
- 		smu_set_gfx_cgpg(smu, true);
-@@ -2104,7 +2103,6 @@ static int smu_hw_fini(struct amdgpu_ip_block *ip_block)
- 	}
- 	smu_dpm_set_jpeg_enable(smu, false);
- 	adev->jpeg.cur_state = AMD_PG_STATE_GATE;
--	smu_dpm_set_vpe_enable(smu, false);
- 	smu_dpm_set_umsch_mm_enable(smu, false);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 985ab240e4bb0..5d8254d5ee1c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -24,6 +24,7 @@
  
- 	if (!smu->pm_enabled)
+ #include <drm/amdgpu_drm.h>
+ #include <drm/clients/drm_client_setup.h>
++#include <drm/drm_client_event.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_fbdev_ttm.h>
+ #include <drm/drm_gem.h>
+@@ -2551,6 +2552,7 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
+ 	 */
+ 	if (!amdgpu_passthrough(adev))
+ 		adev->mp1_state = PP_MP1_STATE_UNLOAD;
++	drm_client_dev_suspend(dev, false);
+ 	amdgpu_device_ip_suspend(adev);
+ 	adev->mp1_state = PP_MP1_STATE_NONE;
+ }
 -- 
 2.43.0
 
