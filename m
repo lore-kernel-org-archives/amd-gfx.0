@@ -4,77 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B9BBCA101F
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 18:05:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A82BDCAC582
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 18:50:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E206B10ECBE;
-	Fri, 12 Sep 2025 18:05:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4676510ECD5;
+	Fri, 12 Sep 2025 18:50:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P3+JlduY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WmneMf6a";
 	dkim-atps=neutral
-Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
- [209.85.166.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1AA10ECBE
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 18:05:36 +0000 (UTC)
-Received: by mail-il1-f169.google.com with SMTP id
- e9e14a558f8ab-417661ecc5eso10887225ab.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 11:05:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757700336; x=1758305136; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DMqU2klDWvxZSPSl8G9wROwoOwEP1DsAPemPOyOlVjk=;
- b=P3+JlduYTM3pwe1DLHH1WptLgRjBNOrvubi8Y1UfKFpMozTAnkfbvclc9dYyzRn3wW
- 2hEBfXdwv4ATaLVSI8QZLl8WoxLPORIc97fVbrzCvQXAYGCZp+FNaavIe6zao12i6lLP
- zstEncpxN6O9/c93V+diWkNBCczUzWnym/ib3EDJABCymuVU0dccKSmLU3n652onKrHw
- nntmqXBsyY6yqPOCHML1NsBQzgrJ2hjjrV28lJWmoIpR7NERreP3QeRSl4oV7NQF+5SQ
- B1BBh6dpAlEjD3Tuw4Olm/vfyyavAXiuAxlj8ovbFNNgqoWsEKfdzVYFP4S/mHmqxuHm
- xjzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757700336; x=1758305136;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DMqU2klDWvxZSPSl8G9wROwoOwEP1DsAPemPOyOlVjk=;
- b=xHjBmAJmFjyNp4gQdFDBGECJq5n7qkCetcUkXirjtedD2xLzObceY6pgmmgeD/aJVE
- 8VfHcGPNqe+Z9P8va+G1iMr6rwO/B+QfE2H+2BQiIQjgaDLypHz/6ejWQzq1avtxz0n8
- Sx+PIiaOkwoUk4+Io6pk8CagsyxSMwzBhawmaSqrYHqYtmugC5J/wyspi1GbM4IuN+z0
- g+rd6bEvK+Gbaw7qGPCyIVVEA1nlBaIHLjvcpQH1hCl+SJufRRXP5J745J7crVYlrkzd
- VlQQ38btkAXS78UnqwJCqHxdRD9KMU4yBEa96naYCBX+5vBJx4qXKXqGDt4S0cMwcKOh
- NWqQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXW+5hAvZI9ZNZNdaKVxEnGb0D9TSENXkny+WZpvr7Qvkpu8rp8WRTGJryAqb8roMpiIqwsSMCS@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyj8Dn3KlRSdBTz+xxAyWOsNK8Qf9seWiIOivA+07es8m9kxY4T
- BWioLnSgAvHg7UyA2zRY80mdNfy7q6YTSEtMo3GRWTPXrsaYCBvJW8XmwAC1CGUrStha4vEwZ0s
- k1A8YWg4g0Ec8twiVgRrzc5JLUS7GzfQ=
-X-Gm-Gg: ASbGncsCiTQaQQPfM55jSpRBeW4MhKY0DEBUZy9JXCiEpWO00uKsHZ7/2Lrh/+uCRnd
- izpI6YXK8KesMsDZcwBkbMV76u7A85w67bZvFCl7HTNq1XbfDBNB0tBPVp3sAAkovptI5UOcarh
- NwaCiKascZ2ERfh8HeESeNT8ahCAQIADB/w0tXkqroILzBQPAtDef1bNGvk1ag0VTTUVtveP7ZI
- NFi4AK4BKYTcS6Ci4pMccE4HLsJLeG2jJ6rXsqQzQjWZ6ubg2vE0PSR3/Q6w2AuaUI2cfveSQ==
-X-Google-Smtp-Source: AGHT+IEEeRMFvv90i5H9olTwgwB2sRaHa6ldngzy2YIcizazQ2aa//4TBnPfEQ8sUr9MfW+2k0Dr418d5PcszfMSeO0=
-X-Received: by 2002:a05:6e02:19ce:b0:407:dc0b:7ba2 with SMTP id
- e9e14a558f8ab-4209d40fe6emr70635255ab.3.1757700335757; Fri, 12 Sep 2025
- 11:05:35 -0700 (PDT)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2078.outbound.protection.outlook.com [40.107.92.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 494FA10ECD1;
+ Fri, 12 Sep 2025 18:50:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iS2RwR18zYj74qHm5gEeM0g70aAIgFC0AVP/4ADKWF1Ua+7NZLewqFUHKnjrqbxoRZZVpA1WKuQ6gCsohQEFkM92MakpH2wv4zpDC5Uc/ElyUKBh9IMEclHKQvmcZuE01nxazNNUDwt64loVOtO4FkZ0od17aXqbdlFhUyeDSJESqZTGOmdWsa2xOEeBh19reKEg0ijbRTYBSXfhb7tGTyUD8cOS6ik8GAkXwrQcdPxKJt32vrAYb10n4SeRCGBW74R6qO3qz8Az0Kwgd23b/d1bw7LT9jFmDDU5tg6XEpFPLbX/6ngO9BaOR3rU/ChuuNOuiELE0sJVOc3mLP23tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8nlQtee+9xc9yQKdBQSDGfSOWpOtrERlJ9blqDiFCc8=;
+ b=yewE+00UICh89HnN3bXnyPsH571syNL1MFnakQvG9lSUVvu5WD+tCNIwXEIrsEtC5lunSGjObvc5tF4wrAQl5YsmtHh5TCzPFIZdmnHHtEPNoMnir+9V3PrtJLTfP+UwgMkMRO6sJJw9GrS8B+V/94rBxddSZwk3skg42lNeePVVjlTkcqjdCO37IPmDJjWDRqxJfAQj0d5NysCtZfdeCfsIONMzTmS3k/nCOJwMqxCSUKZeZGuKN8LcFhJxdpYHl/4MvvCRYtCdnNPRs2ub0gTsM0B27uxOOpUJjdVpkwWnCV1a/W6Q5O62BAN9VwVWpwjPq18tnpQq4QuElU0mDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8nlQtee+9xc9yQKdBQSDGfSOWpOtrERlJ9blqDiFCc8=;
+ b=WmneMf6aBnupuLXK4DTGbfQT+GyFB3R3JbcDxwKv4WIMUcQpAG9IJqtHAl1lKf/6DqMheO/cAfK5t/eGtL2V1UQ5e7JkPKZ+YitQ4tIfqSUNcUEO2/Unt9EpDRQp7Emk2iJyAQbMFW8QrciGb0Pllsib0VgxPGAgPlw3VoytApw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by PH7PR12MB5654.namprd12.prod.outlook.com (2603:10b6:510:137::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Fri, 12 Sep
+ 2025 18:50:48 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.9073.026; Fri, 12 Sep 2025
+ 18:50:48 +0000
+Message-ID: <3532996f-757a-4a75-b33d-e1d9aebe879d@amd.com>
+Date: Fri, 12 Sep 2025 14:50:43 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] drm/amd/display: change dc stream color settings
+ only in atomic commit
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?=
+ <mdaenzer@redhat.com>, Christopher Snowhill <kode54@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20250911173101.1960156-1-mwen@igalia.com>
+ <20250911173101.1960156-3-mwen@igalia.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20250911173101.1960156-3-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0040.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:86::10) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20250908204207.8397-1-stefan.silviu.alexandru@gmail.com>
- <BL1PR12MB51442BF8FBDCE9F4A23C21D0F70CA@BL1PR12MB5144.namprd12.prod.outlook.com>
- <CAB7_Ay8KKxn_unO6RiLKn=ZPrFoapHkMQjUWO6+_o0FjTkLy3A@mail.gmail.com>
- <CADnq5_PyD=_wv+kOSQ5FoyLU=YLhW3tRLc4_MX3uvM-qgim+YA@mail.gmail.com>
-In-Reply-To: <CADnq5_PyD=_wv+kOSQ5FoyLU=YLhW3tRLc4_MX3uvM-qgim+YA@mail.gmail.com>
-From: Silviu-Alexandru Stefan <stefan.silviu.alexandru@gmail.com>
-Date: Fri, 12 Sep 2025 21:05:24 +0300
-X-Gm-Features: Ac12FXzFCQGI3ybE27IeZ4Uq7-TFRjaXVoBGpWo6yj-9ssTz2c05utIJXHvaSmc
-Message-ID: <CAB7_Ay9nBHWGYgg_hF0Ye6hBDOa0_krSpTRnDdOS+C-Wod33CQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Register DP aux only if used
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, 
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|PH7PR12MB5654:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9280a3c3-8e7b-49a1-d296-08ddf22d4972
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?U0M0bkpTOXFJQ0ZXZHpxbjVkTzlRdlE5Yk04Z2cwa1dNOGdyZ2VBZzVQV2o0?=
+ =?utf-8?B?RWdLcEVaVkkxTzVsajErMmIzdEcrbWp1bkZ5OGJ1WFNYM1RORktFSm5lbXpL?=
+ =?utf-8?B?WVYrODRydkdDSndiZm1ZblY5cGlocWN4ejV2LzF4V1doYnZuQUN4ZE02L1Q5?=
+ =?utf-8?B?dXdyaEI2OFpwcFNmTmJOcjc4bXJGOFFjN1VQLy9jVXhEdUs5Q0dYWEpKS2U2?=
+ =?utf-8?B?aTYyUVVidEZwaVpia2wzbmdlZHl2UlVUdVlOcFNtaGMvSUxSY1dXTFBGS1J1?=
+ =?utf-8?B?UU8razZpck5oaUloMlFHL0luY0RBL0RIeHJCRWJJUE1XUlJTQzltNG5yUi83?=
+ =?utf-8?B?a0d0RWhjODNPS09PcWlncHBmWGpDRy8xQkpGS0xQZEs1UThRcTJFOHcwb2lr?=
+ =?utf-8?B?N3dGZWNvbzFGR1JTZm9OQkJoRXMwVnhEYzNQcEw5WGRTNStXaTZNWWdCRHJL?=
+ =?utf-8?B?VVZMemJaUEZVaU5BbHY3dTBwYjNsTVVRdCt6bGl4K2hWUnNYTkU4bjEzZEpU?=
+ =?utf-8?B?VndLc2YySWhCblZKRUtHcTdUb2gxTWJ4TjF2S3BLcDA0MVFEYVl4MXR1bmZZ?=
+ =?utf-8?B?VFVPc1VsUTZjbnU3WThTK2tvYXhWN2lpWE5nTk14eWxHaW80VGZZVyt1VG1Q?=
+ =?utf-8?B?N0pQcGdxcnJhZEVpd2dTOVZiVklaVGVEaU5hK1JEOW9pczkzbzNaeTdtZkJG?=
+ =?utf-8?B?aURGTGt6K3hUWXJTNmNaSkdzRDBRelRpRmtrcDYxaHl6U0dyNkc1YkJMdkox?=
+ =?utf-8?B?dzhOcDFtdkFaWWlpa0dkdUcrQ0hQcVd2VURYRXU3eFpqRzR1Mi93QUc4ZzN0?=
+ =?utf-8?B?WHpkMXBycjhrU1dPYjhaTWRiRS8yd2lBNmRmajdQeks5SlJ1TzVJaUxzOTlw?=
+ =?utf-8?B?b3N4OTFDZ0QvN1Y2cnk2WmlUTXZWUHpUSkN1ci9kV2NQU1pVcnhHMGRQVlZD?=
+ =?utf-8?B?aUhMOVRtTEtnSFlJRGdoK2NOWFNONHBJd0RFSmtOUWhyZFYvMUxpVVVDQ2xK?=
+ =?utf-8?B?eHc0WXdMQ2d0T2hQZ3hjNGgvN0JPZXd5cFFxUXdvNDNWdDJGSDBPdG9NSkNz?=
+ =?utf-8?B?aGpFcjcrc3Q5bzAyb0w3UHR2WE96ZVFtOFE1VGlzTmVNNitGOTRZU050TXZV?=
+ =?utf-8?B?a2RTUWg1czVHckVna2VvbVF2bFdHYjVJWExMd1RFV1h6MW5vWjkzRStkZ05S?=
+ =?utf-8?B?R3FrNERnV0k3aUMraDNzZ2pqY0ovcUZjanVLVXdVdEhiK1dQN0hyOGN5RGFl?=
+ =?utf-8?B?SWI4SDBYKytXOHVNVWVna3U2ZmNmWERuWHI2L0QzQlJjamhQalBYNHozUDFJ?=
+ =?utf-8?B?MEFFQXBlR3o3Ry9xcmtyYm9NQzZiL01tWmNsWWlEYlQ0UllGQ1pCNGM4QUhI?=
+ =?utf-8?B?SUlqT0l3ejZDaEdscW9mZjFEOCtuSElkMENya0xLOWhFV0U2ZTQrVGlvdzFt?=
+ =?utf-8?B?S05JZXgyQ1Nka1BoNmx1Qmt3S2lwNjl2SXQyWjY0MVVqSFVnZ3FGdHpWSlNi?=
+ =?utf-8?B?ZHc1d25FWVRyRU1JQ2U4VFZFcXB0OVY5Q2xRNDlmMk1PandVVTVVdXE3Mm1y?=
+ =?utf-8?B?MXEzSUkzUGxLMXpFQmpBYXBmTG9wbldRQlBtanliZGJGS3BWWm13LzZ6R0x6?=
+ =?utf-8?B?YnNNejNJcHVKZ09UeVB6N2Z5N1lLem1hb3VkSUNZaytRTzg2M2hTV2pyTXg5?=
+ =?utf-8?B?eTR0RmFIR1c3aDFlaVhaUyt4NHBBVGZQOHQ2S05CMHFhUnFnaFpZOG1uWFVN?=
+ =?utf-8?B?SVdVdExRVWV2enNRaWVyc2xOM25DTjQzZFVFZ2RET1gzU2JGcytHSXZ5WjNy?=
+ =?utf-8?Q?Hm++Kzb12ljU9McSWjNBmnhDB6T5gB2vEjCZU=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHA3QXczQURiZ3VyL1pMSFdYZkUwMlViZTlHSmtTYlpLOGZVdjRDajFqb0tV?=
+ =?utf-8?B?aFo3STlLTEozb0MvbkRVTnZUY1JFSDE5bFNTbXBHVWo4M256ZnhVV1d4TThD?=
+ =?utf-8?B?QXFWblVTMWdadmpWa3A5SXgvR3Axb3FvaUVlcUdsT3FQQTBpTWU5STY2RHg1?=
+ =?utf-8?B?OExtS2V3ckRsM1BNdG1qcjZmVm1sdmZzYUUyQlhvMjBKOXR2cDBaNjd0aUh3?=
+ =?utf-8?B?akNaMVdrU3dHTTlaS0U0dm5uczFYREdGY0FoTkV4MUp4V1NrWnRJc3h6S0tS?=
+ =?utf-8?B?cmNHdDZlWWJyb2tPRFNCRDErYjJzSWVXS21NWFUrZjBOT011VWVBMmV3VVhN?=
+ =?utf-8?B?K1ptUWhBM0hCK2o0MFd4MGZWR0RnRjFlcnByU2VXellpZWs3eWpxcjNLMkd5?=
+ =?utf-8?B?NTQydU53OExhNld1SmRzYTRwSnB2OW5zc1BqVGhLeTlVeGxSZHB2anBFdnpm?=
+ =?utf-8?B?WEFRaFNmQ1pFbXM4TFdoMno0b3ViSEoyeU9BZWQwTkJ3WDJMYW1hczFEek1R?=
+ =?utf-8?B?UWJGdDZnN2tzNmVURjdvOVNZR1JRMU9BdURjVTJsampIeTFtSVpONWhhTUZ4?=
+ =?utf-8?B?dXdRUUh6bkhCTkV4cVkwYjNIOFJTdlNNcnd5TXg1blFrcTFROVNabXVxQkhJ?=
+ =?utf-8?B?OWxzSStJbDR2SWJhdDM4VGFnWkpUZHJlT2RNZ0ZUUGF5cVdyZXZ4R0xmZ3hW?=
+ =?utf-8?B?b2ZuVCtUaHdCb3dMMWpISXg0UmlQaUM0VTNiRVdJSlY4a1FQdnI3T0tPT3Nt?=
+ =?utf-8?B?WUdMQTcyK1JhQkZ1RG9KZjNDMVh2NTY2TS9UeUhvaTl1cG5DSlBrZjVONDhr?=
+ =?utf-8?B?dkMvR0ZPcFRENTd4djBVc3lNWWd5OFZLSkw0Tk1wUlNDR0tHWUg2N2t5Q3M5?=
+ =?utf-8?B?bCtKTTZNaVNhNWJsbEpKUndRd3BFbDBkL1BvWVZkVm1kdHp0VXNMbHI4UVNs?=
+ =?utf-8?B?eUIzaU1wTnZCMkZYVU0zUzZaQ3lVUktUQnRNUkNvUXllYy9DeVREaTQ4T2tu?=
+ =?utf-8?B?VmNjNnBrZCtneUJ4eit5ZHRreUF1enhUc2hxbDZUbWMvWklMQkpTZ1lVZ2pQ?=
+ =?utf-8?B?OUx0aEVDQmRyRDdMelFjN1gxcUtSWEZlMXh0eGlaa1Z4ZC92cm5LdkkzRnVp?=
+ =?utf-8?B?S3l4V0UyeTZDYzlxd1EzVFUxMG1CNkMyZk1kbDZEQ0FXZW11RTdITmdGakQz?=
+ =?utf-8?B?aDBLSEVsbkJJbnVzcjQrSkExS0RxVUxUZFY5VGpIa3VXWFpST2QwYTUweHE5?=
+ =?utf-8?B?ZnVZRXNXL3BiaFk5MFhRNEU4WGhyT1FtL204S0lleldQNkpvQXNuaE1xYmhk?=
+ =?utf-8?B?Ym1iMWxMYlZ3TEhaMXBibkhvUEI1T1FiVzhDRUlzYllpZTJFMUUrdTRIV3pj?=
+ =?utf-8?B?NGt0N2JWK1REd3U5ay9pMGM1M09VeDZKNkprYzAzTW04d1drTUVqQ3FjU1ZK?=
+ =?utf-8?B?Ky94UkxDTlphWHc5M1VnWCt3RHpOa0tQendYYVcxU29hcEJKRmtwU1BWZjJl?=
+ =?utf-8?B?dnoyNGZtbUJtZmRXWFp5L3RUdDA2Z1crSFRLckJ1WFlhL09tbUtGck1scEZ0?=
+ =?utf-8?B?cjZueGpscDdoeWhVSzQ5TVVHQ01Ma01naTNOZE1MM21JbjR4RXYvbDMra2RP?=
+ =?utf-8?B?emxCVHl0TmdtTTlyZFMxSnNHdXFJUzVnQ3hjQjQ5djNGbnY5bnZoWVNrTFZI?=
+ =?utf-8?B?bnhXbEtEa3dYbWdTbkFPdGdVd2xCNnVrN2xNeC9MTEVZdVRHVG8vK1U3MGFC?=
+ =?utf-8?B?N3JzWldVOEhOOE94SHlvRDVpVGkxOGFiN2pOQ3YrWi8ySWxqSjFKOWExVG53?=
+ =?utf-8?B?M3Y0TVZOYk9FNkN5djBLS2FNVXZ1a2Vqd2NuVC92UXBUdmhqMFl1UGpHK1Nj?=
+ =?utf-8?B?aHNWcnB6c0hGanB5Nnh6VmdNaWlZdDlnQ3NXUkMySmhGaWZMM1VDbUt1c2Ju?=
+ =?utf-8?B?NytIZUdWWks4R1NNa3F6c29Zd2o4RE8wb2h2d0g1bGlYQllNZWVzRFVmMFFv?=
+ =?utf-8?B?SW5sMzhGQy9Nek9VS1JHak9sS2R2dkNoQkhmSGRXOEQvRWhxbk5iamR4MXhs?=
+ =?utf-8?B?NVhSMjc4SW5yYjQwMFV6WVJFVnBiQXIzcWxmYkMvTlhqUU9oSHBOa1lrYnpq?=
+ =?utf-8?Q?doRiY92DETUgcI/7gMESXjtXC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9280a3c3-8e7b-49a1-d296-08ddf22d4972
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2025 18:50:47.8981 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RpzSeLo7aL5Ci8VCvMf0Kdq9rvSbvRRRTu77TbwGb6xZ1BEHqvp9gdFWo+qWE2ezmtGf8EuTVY//juqMfA693g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5654
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,388 +167,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 9 Sept 2025 at 22:42, Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Tue, Sep 9, 2025 at 1:39=E2=80=AFPM Silviu-Alexandru Stefan
-> <stefan.silviu.alexandru@gmail.com> wrote:
-> >
-> > On Tue, 9 Sept 2025 at 00:16, Deucher, Alexander
-> > <Alexander.Deucher@amd.com> wrote:
-> > >
-> > > [Public]
-> > >
-> > > > -----Original Message-----
-> > > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of =
-Silviu-
-> > > > Alexandru =C8=98tefan
-> > > > Sent: Monday, September 8, 2025 4:42 PM
-> > > > To: amd-gfx@lists.freedesktop.org
-> > > > Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> > > > <Sunpeng.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Silvi=
-u-
-> > > > Alexandru =C8=98tefan <stefan.silviu.alexandru@gmail.com>
-> > > > Subject: [PATCH] drm/amd/display: Register DP aux only if used
-> > > >
-> > > > The aux channel is always registered if the connector is DP, even w=
-hen the link
-> > > > doesn't contain DP. When using the DisplayPort connector in DP++ mo=
-de, the I2C
-> > > > is done directly over the pins, not over an aux channel. The practi=
-cal effect is the
-> > > > creation of
-> > > > 2 I2C devices for DDC, one from the actual pins, and another from t=
-he aux channel.
-> > > >
-> > > > This generates duplicate results from tools like ddcutil, for examp=
-le using a cheap
-> > > > passive DP-to-DVI cable:
-> > > >
-> > > > Display 1
-> > > >    I2C bus:  /dev/i2c-3
-> > > >    DRM_connector:           card1-DP-1
-> > > > ...
-> > > > Display 3
-> > > >    I2C bus:  /dev/i2c-7
-> > > >    DRM_connector:           card1-DP-1
-> > > > ...
-> > > >
-> > > > The "real" bus is i2c-3, while the aux i2c-7 doesn't work.
-> > > >
-> > > > Any read on the aux channel succeeds, but always returns an all-zer=
-o buffer,
-> > > > further confusing ddcutil which just says "Maximum retries exceeded=
-", even if it will
-> > > > never work.
-> > > >
-> > > > The dc_link->aux_mode is true if the link actually intends to use a=
-ux for DDC I2C,
-> > > > so skip registering aux unless the link is actually in aux mode.
-> > >
-> > > I don't think you can skip this otherwise you'll never have the other=
- bus.  E.g., if you unplug the DP++ monitor and then plug in a DP monitor, =
-the aux bus won't exist and then you'll have the opposite problem.
-> >
-> > Hello,
-> >
-> > Thanks for the review. You're right, the bus doesn't come back if I
-> > switch around my monitors, I should have thought of that. I was
-> > thinking the extra bus has to be wrong because other things only show
-> > up in /dev if something is actually there, but I guess that isn't
-> > necessarily correct here.
-> >
-> > > You just need to use the right one based on what monitor is attached.=
-  In general, userspace shouldn't be messing with the i2c buses in the firs=
-t place.  If you need access to the EDIDs, the drm provides access to them.
-> >
-> > I want to change input source and/or brightness for 2 monitors with a
-> > script, so it's more about commands over DDC than EDID. I see there is
-> > a symlink "/sys/class/drm/card1-DP-1/ddc", but that has the opposite
-> > issue as it always points to the non-aux i2c (good for DP++, bad for
-> > normal DP).
-> >
-> > Would it make sense to at least update the ddc symlink when the DP
-> > link changes? That way it would always point at the actual i2c being
-> > used for DDC, aux or not.
-> > Or should I leave it like this and figure out in userspace which bus to=
- use?
->
-> I'm not sure how the symlink is managed.  If that can be handled
-> dynamically that would be ok I think.
->
-
-The symlink update can be done by just removing it and recreating it
-(also tried renaming the new symlink on top of the old one, but that
-gives EEXIST). The relevant code is in drm/drm_sysfs.c, though it
-needs to export a new function to do this. That function can then be
-called in amdgpu_dm_update_connector_after_detect to change the
-symlink on hotplug.
-
-For the initial ddc symlink, amdgpu_dm_connector_init can pick the
-correct bus for drm_connector_init_with_ddc by checking aux_mode. The
-Intel driver sets aux as ddc, so this part seems ok to do.
-
-I've tested it on boot and on hotplug (physically switching the ports
-used for the DP++ and DP monitors), it worked fine.
-
-Assuming the approach is ok, I can send this patch after writing a
-commit message. I also have a question about the drm_sysfs change,
-should I just CC maintainers from drm-misc on the same patch or should
-it be a separate one?
-
-In the meantime here's the diff:
-
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 52 ++++++++++++++-----
-drivers/gpu/drm/drm_sysfs.c                   | 14 +++++
-include/drm/drm_sysfs.h                       |  2 +
-3 files changed, 54 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index fadc6098eae..3b04998780d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -95,6 +95,7 @@
-#include <drm/drm_vblank.h>
-#include <drm/drm_audio_component.h>
-#include <drm/drm_gem_atomic_helper.h>
-+#include <drm/drm_sysfs.h>
-
-#include <media/cec-notifier.h>
-#include <acpi/video.h>
-@@ -3695,6 +3696,32 @@ static void update_connector_ext_caps(struct
-amdgpu_dm_connector *aconnector)
-               caps->min_input_signal =3D min_input_signal_override;
-}
-
-+static struct i2c_adapter * select_ddc_adapter(struct
-amdgpu_dm_connector *aconnector)
-+{
-+       if (aconnector->dc_link && aconnector->dc_link->aux_mode) {
-+               return &aconnector->dm_dp_aux.aux.ddc;
-+       } else {
-+               return &aconnector->i2c->base;
-+       }
-+}
-+
-+static void amdgpu_update_connector_sysfs(struct amdgpu_dm_connector
-*aconnector)
-+{
-+       int ret;
-+       struct i2c_adapter *old_ddc =3D aconnector->base.ddc;
-+
-+       aconnector->base.ddc =3D select_ddc_adapter(aconnector);
-+
-+       if (aconnector->base.ddc =3D=3D old_ddc) {
-+               return;
-+       }
-+
-+       ret =3D drm_sysfs_connector_update(&aconnector->base);
-+       if (ret) {
-+               drm_err(aconnector->base.dev, "failed to update
-connector ddc sysfs, %d", ret);
-+       }
-+}
-+
-DEFINE_FREE(sink_release, struct dc_sink *, if (_T) dc_sink_release(_T))
-
-void amdgpu_dm_update_connector_after_detect(
-@@ -3818,6 +3845,7 @@ void amdgpu_dm_update_connector_after_detect(
-
-               amdgpu_dm_update_freesync_caps(connector, aconnector->drm_ed=
-id);
-               update_connector_ext_caps(aconnector);
-+               amdgpu_update_connector_sysfs(aconnector);
-       } else {
-               hdmi_cec_unset_edid(aconnector);
-               drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
-@@ -7466,14 +7494,9 @@ static void
-amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
-       struct dc_link *dc_link =3D aconnector->dc_link;
-       struct dc_sink *dc_em_sink =3D aconnector->dc_em_sink;
-       const struct drm_edid *drm_edid;
--       struct i2c_adapter *ddc;
-+       struct i2c_adapter *ddc =3D select_ddc_adapter(aconnector);
-       struct drm_device *dev =3D connector->dev;
-
--       if (dc_link && dc_link->aux_mode)
--               ddc =3D &aconnector->dm_dp_aux.aux.ddc;
--       else
--               ddc =3D &aconnector->i2c->base;
--
-       drm_edid =3D drm_edid_read_ddc(connector, ddc);
-       drm_edid_connector_update(connector, drm_edid);
-       if (!drm_edid) {
-@@ -7519,19 +7542,13 @@ static int get_modes(struct drm_connector *connecto=
-r)
-static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
-{
-       struct drm_connector *connector =3D &aconnector->base;
--       struct dc_link *dc_link =3D aconnector->dc_link;
-       struct dc_sink_init_data init_params =3D {
-                       .link =3D aconnector->dc_link,
-                       .sink_signal =3D SIGNAL_TYPE_VIRTUAL
-       };
-       const struct drm_edid *drm_edid;
-       const struct edid *edid;
--       struct i2c_adapter *ddc;
--
--       if (dc_link && dc_link->aux_mode)
--               ddc =3D &aconnector->dm_dp_aux.aux.ddc;
--       else
--               ddc =3D &aconnector->i2c->base;
-+       struct i2c_adapter *ddc =3D select_ddc_adapter(aconnector);
-
-       drm_edid =3D drm_edid_read_ddc(connector, ddc);
-       drm_edid_connector_update(connector, drm_edid);
-@@ -8686,6 +8703,7 @@ static int amdgpu_dm_connector_init(struct
-amdgpu_display_manager *dm,
-       struct dc *dc =3D dm->dc;
-       struct dc_link *link =3D dc_get_link_at_index(dc, link_index);
-       struct amdgpu_i2c_adapter *i2c;
-+       struct i2c_adapter *ddc;
-
-       /* Not needed for writeback connector */
-       link->priv =3D aconnector;
-@@ -8705,6 +8723,12 @@ static int amdgpu_dm_connector_init(struct
-amdgpu_display_manager *dm,
-               goto out_free;
-       }
-
-+       if (link->aux_mode) {
-+               ddc =3D &aconnector->dm_dp_aux.aux.ddc;
-+       } else {
-+               ddc =3D &i2c->base;
-+       }
-+
-       connector_type =3D to_drm_connector_type(link->connector_signal);
-
-       res =3D drm_connector_init_with_ddc(
-@@ -8712,7 +8736,7 @@ static int amdgpu_dm_connector_init(struct
-amdgpu_display_manager *dm,
-                       &aconnector->base,
-                       &amdgpu_dm_connector_funcs,
-                       connector_type,
--                       &i2c->base);
-+                       ddc);
-
-       if (res) {
-               drm_err(adev_to_drm(dm->adev), "connector_init failed\n");
-diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-index 60c1f26edb6..c216ee67abf 100644
---- a/drivers/gpu/drm/drm_sysfs.c
-+++ b/drivers/gpu/drm/drm_sysfs.c
-@@ -395,6 +395,20 @@ int drm_sysfs_connector_add_late(struct
-drm_connector *connector)
-       return 0;
-}
-
-+int drm_sysfs_connector_update(struct drm_connector *connector)
-+{
-+       if (connector->ddc) {
-+               sysfs_remove_link(&connector->kdev->kobj, "ddc");
-+
-+               return sysfs_create_link(&connector->kdev->kobj,
-+                                        &connector->ddc->dev.kobj, "ddc");
-+       }
-+
-+       return 0;
-+}
-+
-+EXPORT_SYMBOL_GPL(drm_sysfs_connector_update);
-+
-void drm_sysfs_connector_remove_early(struct drm_connector *connector)
-{
-       if (connector->ddc)
-diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
-index 96a5d858404..60a45a8d796 100644
---- a/include/drm/drm_sysfs.h
-+++ b/include/drm/drm_sysfs.h
-@@ -10,6 +10,8 @@ struct drm_property;
-int drm_class_device_register(struct device *dev);
-void drm_class_device_unregister(struct device *dev);
-
-+int drm_sysfs_connector_update(struct drm_connector *connector);
-+
-void drm_sysfs_hotplug_event(struct drm_device *dev);
-void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
-void drm_sysfs_connector_property_event(struct drm_connector *connector,
 
 
-Thanks,
-Silviu
+On 2025-09-11 13:21, Melissa Wen wrote:
+> Don't update DC stream color components during atomic check. The driver
+> will continue validating the new CRTC color state but will not change DC
+> stream color components. The DC stream color state will only be
+> programmed at commit time in the `atomic_setup_commit` stage.
+> 
+> It fixes gamma LUT loss reported by KDE users when changing brightness
+> quickly or changing Display settings (such as overscan) with nightlight
+> on and HDR. As KWin can do a test commit with color settings different
+> from those that should be applied in a non-test-only commit, if the
+> driver changes DC stream color state in atomic check, this state can be
+> eventually HW programmed in commit tail, instead of the respective state
+> set by the non-blocking commit.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4444
+> Reported-by: Xaver Hugl <xaver.hugl@gmail.com>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com> #v2
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 86 ++++++++++++++-----
+>  3 files changed, 66 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index f6462ff7251f..50b3bd0e32dd 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -11118,7 +11118,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>  	if (dm_new_crtc_state->base.color_mgmt_changed ||
+>  	    dm_old_crtc_state->regamma_tf != dm_new_crtc_state->regamma_tf ||
+>  	    drm_atomic_crtc_needs_modeset(new_crtc_state)) {
+> -		ret = amdgpu_dm_update_crtc_color_mgmt(dm_new_crtc_state);
+> +		ret = amdgpu_dm_check_crtc_color_mgmt(dm_new_crtc_state, true);
+>  		if (ret)
+>  			goto fail;
+>  	}
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index ce74125c713e..69125c3f08d5 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -1041,6 +1041,8 @@ void amdgpu_dm_init_color_mod(void);
+>  int amdgpu_dm_create_color_properties(struct amdgpu_device *adev);
+>  int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
+>  int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
+> +int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc,
+> +				    bool check_only);
+>  int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>  				      struct drm_plane_state *plane_state,
+>  				      struct dc_plane_state *dc_plane_state);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index c7387af725d6..427bf8877df7 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -566,12 +566,11 @@ static int __set_output_tf(struct dc_transfer_func *func,
+>  	return res ? 0 : -ENOMEM;
+>  }
+>  
+> -static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
+> +static int amdgpu_dm_set_atomic_regamma(struct dc_transfer_func *out_tf,
+>  					const struct drm_color_lut *regamma_lut,
+>  					uint32_t regamma_size, bool has_rom,
+>  					enum dc_transfer_func_predefined tf)
+>  {
+> -	struct dc_transfer_func *out_tf = &stream->out_transfer_func;
+>  	int ret = 0;
+>  
+>  	if (regamma_size || tf != TRANSFER_FUNCTION_LINEAR) {
+> @@ -885,33 +884,33 @@ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
+>  }
+>  
+>  /**
+> - * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
+> + * amdgpu_dm_check_crtc_color_mgmt: Check if DRM color props are programmable by DC.
+>   * @crtc: amdgpu_dm crtc state
+> + * @check_only: only check color state without update dc stream
+>   *
+> - * With no plane level color management properties we're free to use any
+> - * of the HW blocks as long as the CRTC CTM always comes before the
+> - * CRTC RGM and after the CRTC DGM.
+> - *
+> - * - The CRTC RGM block will be placed in the RGM LUT block if it is non-linear.
+> - * - The CRTC DGM block will be placed in the DGM LUT block if it is non-linear.
+> - * - The CRTC CTM will be placed in the gamut remap block if it is non-linear.
+> + * This function just verifies CRTC LUT sizes, if there is enough space for
+> + * output transfer function and if its parameters can be calculated by AMD
+> + * color module. It also adjusts some settings for programming CRTC degamma at
+> + * plane stage, using plane DGM block.
+>   *
+>   * The RGM block is typically more fully featured and accurate across
+>   * all ASICs - DCE can't support a custom non-linear CRTC DGM.
+>   *
+>   * For supporting both plane level color management and CRTC level color
+> - * management at once we have to either restrict the usage of CRTC properties
+> - * or blend adjustments together.
+> + * management at once we have to either restrict the usage of some CRTC
+> + * properties or blend adjustments together.
+>   *
+>   * Returns:
+> - * 0 on success. Error code if setup fails.
+> + * 0 on success. Error code if validation fails.
+>   */
+> -int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+> +
+> +int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc,
+> +				    bool check_only)
+>  {
+>  	struct dc_stream_state *stream = crtc->stream;
+>  	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
+>  	bool has_rom = adev->asic_type <= CHIP_RAVEN;
+> -	struct drm_color_ctm *ctm = NULL;
+> +	struct dc_transfer_func *out_tf;
+>  	const struct drm_color_lut *degamma_lut, *regamma_lut;
+>  	uint32_t degamma_size, regamma_size;
+>  	bool has_regamma, has_degamma;
+> @@ -940,6 +939,14 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>  	crtc->cm_has_degamma = false;
+>  	crtc->cm_is_degamma_srgb = false;
+>  
+> +	if (check_only) {
+> +		out_tf = kvzalloc(sizeof(*out_tf), GFP_KERNEL);
+> +		if (!out_tf)
+> +			return -ENOMEM;
+> +	} else {
+> +		out_tf = &stream->out_transfer_func;
+> +	}
+> +
+>  	/* Setup regamma and degamma. */
+>  	if (is_legacy) {
+>  		/*
+> @@ -954,8 +961,8 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>  		 * inverse color ramp in legacy userspace.
+>  		 */
+>  		crtc->cm_is_degamma_srgb = true;
+> -		stream->out_transfer_func.type = TF_TYPE_DISTRIBUTED_POINTS;
+> -		stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
+> +		out_tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+> +		out_tf->tf = TRANSFER_FUNCTION_SRGB;
+>  		/*
+>  		 * Note: although we pass has_rom as parameter here, we never
+>  		 * actually use ROM because the color module only takes the ROM
+> @@ -963,16 +970,12 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>  		 *
+>  		 * See more in mod_color_calculate_regamma_params()
+>  		 */
+> -		r = __set_legacy_tf(&stream->out_transfer_func, regamma_lut,
+> +		r = __set_legacy_tf(out_tf, regamma_lut,
+>  				    regamma_size, has_rom);
+> -		if (r)
+> -			return r;
+>  	} else {
+>  		regamma_size = has_regamma ? regamma_size : 0;
+> -		r = amdgpu_dm_set_atomic_regamma(stream, regamma_lut,
+> +		r = amdgpu_dm_set_atomic_regamma(out_tf, regamma_lut,
+>  						 regamma_size, has_rom, tf);
+> -		if (r)
+> -			return r;
+>  	}
+>  
+>  	/*
+> @@ -981,6 +984,43 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>  	 * have to place the CTM in the OCSC in that case.
+>  	 */
+>  	crtc->cm_has_degamma = has_degamma;
+> +	if (check_only)
+> +		kvfree(out_tf);
+> +
+> +	return r;
+> +}
+> +
+> +/**
+> + * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
+> + * @crtc: amdgpu_dm crtc state
+> + *
+> + * With no plane level color management properties we're free to use any
+> + * of the HW blocks as long as the CRTC CTM always comes before the
+> + * CRTC RGM and after the CRTC DGM.
+> + *
+> + * - The CRTC RGM block will be placed in the RGM LUT block if it is non-linear.
+> + * - The CRTC DGM block will be placed in the DGM LUT block if it is non-linear.
+> + * - The CRTC CTM will be placed in the gamut remap block if it is non-linear.
+> + *
+> + * The RGM block is typically more fully featured and accurate across
+> + * all ASICs - DCE can't support a custom non-linear CRTC DGM.
+> + *
+> + * For supporting both plane level color management and CRTC level color
+> + * management at once we have to either restrict the usage of CRTC properties
+> + * or blend adjustments together.
+> + *
+> + * Returns:
+> + * 0 on success. Error code if setup fails.
+> + */
+> +int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+> +{
+> +	struct dc_stream_state *stream = crtc->stream;
+> +	struct drm_color_ctm *ctm = NULL;
+> +	int ret;
+> +
+> +	ret = amdgpu_dm_check_crtc_color_mgmt(crtc, false);
+> +	if (ret)
+> +		return ret;
 
+Thanks. I like it.
 
-> Another option would be to only expose a single i2c bus for each
-> physical connector and then internally the driver would use either the
-> legacy i2c pins or the aux bus depending on what was connected.  That
-> would prevent use of both buses independently however and it would
-> make it impossible to use different i2c devices independently for each
-> internal bus.
->
-> Alex
->
-> >
-> > Thanks,
-> > Silviu
-> >
-> >
-> >
-> > >
-> > > Alex
-> > > >
-> > > > i2cdetect -y 3:
-> > > >      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-> > > > 00:                         -- -- -- -- -- -- -- --
-> > > > 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > > 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > > 30: -- -- -- -- -- -- -- 37 -- -- 3a -- -- -- -- --
-> > > > 40: 40 41 -- -- -- -- -- -- -- 49 -- -- -- -- -- --
-> > > > 50: 50 -- -- -- -- -- -- -- -- 59 -- -- -- -- -- --
-> > > > 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > > 70: -- -- -- -- -- -- -- --
-> > > >
-> > > > i2cdetect -y 7:
-> > > >      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-> > > > 00:                         -- -- -- -- -- -- -- --
-> > > > 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > > 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > > 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > > 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > > 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > > 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-> > > > 70: -- -- -- -- -- -- -- --
-> > > >
-> > > > Signed-off-by: Silviu-Alexandru =C8=98tefan <stefan.silviu.alexandr=
-u@gmail.com>
-> > > > ---
-> > > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++=
---
-> > > >  1 file changed, 11 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > index fadc6098eae..1759071e02a 100644
-> > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > @@ -7429,6 +7429,16 @@ amdgpu_dm_connector_atomic_duplicate_state(s=
-truct
-> > > > drm_connector *connector)
-> > > >       return &new_state->base;
-> > > >  }
-> > > >
-> > > > +static inline bool amdgpu_dm_should_register_dp_aux(
-> > > > +     struct amdgpu_dm_connector *amdgpu_dm_connector) {
-> > > > +     int connector_type =3D amdgpu_dm_connector->base.connector_ty=
-pe;
-> > > > +
-> > > > +     return ((connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPort=
-) ||
-> > > > +             (connector_type =3D=3D DRM_MODE_CONNECTOR_eDP)) &&
-> > > > +            amdgpu_dm_connector->dc_link->aux_mode;
-> > > > +}
-> > > > +
-> > > >  static int
-> > > >  amdgpu_dm_connector_late_register(struct drm_connector *connector)=
-  { @@ -
-> > > > 7445,8 +7455,7 @@ amdgpu_dm_connector_late_register(struct drm_conn=
-ector
-> > > > *connector)
-> > > >
-> > > >       amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
-> > > >
-> > > > -     if ((connector->connector_type =3D=3D
-> > > > DRM_MODE_CONNECTOR_DisplayPort) ||
-> > > > -         (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP)=
-) {
-> > > > +     if (amdgpu_dm_should_register_dp_aux(amdgpu_dm_connector)) {
-> > > >               amdgpu_dm_connector->dm_dp_aux.aux.dev =3D connector-=
->kdev;
-> > > >               r =3D drm_dp_aux_register(&amdgpu_dm_connector-
-> > > > >dm_dp_aux.aux);
-> > > >               if (r)
-> > > >
-> > > > base-commit: 837f3abbfebdb355ed049c2b06b54108e2bbdf35
-> > > > --
-> > > > 2.51.0
-> > >
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+>  
+>  	/* Setup CRTC CTM. */
+>  	if (crtc->base.ctm) {
+
