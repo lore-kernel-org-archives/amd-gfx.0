@@ -4,118 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56EA8CA101F
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 06:21:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06322CAC58E
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 07:39:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEFD410E2B3;
-	Mon, 15 Sep 2025 06:21:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86E0110E2BE;
+	Mon, 15 Sep 2025 07:39:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MeTNpD5s";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kOTj8Lbj";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2080.outbound.protection.outlook.com [40.107.96.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8DF410E2B3
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 06:21:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UCRiIp72+bDBF9z2+1BoDRW1WmQY/T5GxeUo4SgKye87rc0bksS9xlA7uS0JeZy/xV7ikQ36+oc6NZ829eEn2h9taxCOsAUjbr+ZYmg5vdzp+3AG997Rhrr8UpS6X2nLua/3gFeDORkhuAyNCeWiyE2Jj4jGzVXakMFWxsxQR0dC2AljrD+djIFULHoX8M+VAXPreH/hcCGogQbc/FQhQWPDsJAKu7pUBV5EGIXk2QhYBOU8ufLSx2/VyUhZVZD6pnLDJ75l1N7M5MLZgZE9d+vjlFyDoVA5NkDGFhaCdjw/RFkBG2p52blfKTI3TKsZM0mKA0uG5IG/pqt7Gi8rAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nDY+e1D0CiDc4TbprU/ImuvMHhZ2aBH7PD85ZCkrZk4=;
- b=QeIND+7tCA2wwCBg76+5/XZgLpzGdUobiZ04XTuIjZwhBxQxvJidiqUfApehCKz6jEvuLnNQyPvvkeqZYYg8kLA+cKd8PqKT0MXeWyW8l4j8OqqmMK1Sds1Kq4+p6V9K4nqSIFuOtwIEjKCzxg/o0u24Bg6yd7420gwotk3tK5af0U1/MqY3Y3SHVJe0GZinYGPB0pz3CsG8qAKWyejA9EqRYM/Yyh7xcsOwd6xaDpn5C7kemWUuHmle2+CvqVwyC6GooKCLzp8dgUwwU3irJZXO8uFWbsqPGCC7gV6W1I8nLYLPPwbIV36r5tg7GpWfuJSYB64xSY1MZAnEhEBgcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nDY+e1D0CiDc4TbprU/ImuvMHhZ2aBH7PD85ZCkrZk4=;
- b=MeTNpD5si4sPj96UVZQzLqPH47UO6KkcG2jnWemMtvyXvukkQ+NMDquELPMu+PUUJGG5eQHPhdJGxWe2Fsl3Ww/RG1iDnnSpvE/pK+IIulizZTFmQX0sEglLVzLd/MStxRQWy0JLF8Xf35S6e/HKUGTughR/cMwx1CDQd4CnzNU=
-Received: from CH5PR03CA0019.namprd03.prod.outlook.com (2603:10b6:610:1f1::27)
- by SJ2PR12MB9114.namprd12.prod.outlook.com (2603:10b6:a03:567::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.21; Mon, 15 Sep
- 2025 06:21:19 +0000
-Received: from CH1PEPF0000AD78.namprd04.prod.outlook.com
- (2603:10b6:610:1f1:cafe::1) by CH5PR03CA0019.outlook.office365.com
- (2603:10b6:610:1f1::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.22 via Frontend Transport; Mon,
- 15 Sep 2025 06:21:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD78.mail.protection.outlook.com (10.167.244.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Mon, 15 Sep 2025 06:21:17 +0000
-Received: from work.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sun, 14 Sep
- 2025 23:21:16 -0700
-From: David Rosca <david.rosca@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: David Rosca <david.rosca@amd.com>
-Subject: [PATCH] drm/amdgpu/userq: Fix reading timeline points in wait ioctl
-Date: Mon, 15 Sep 2025 08:20:58 +0200
-Message-ID: <20250915062056.6436-3-david.rosca@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BFF310E045
+ for <amd-gfx@lists.freedesktop.org>; Sun, 14 Sep 2025 17:25:39 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-b042eb09948so728130566b.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 14 Sep 2025 10:25:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757870738; x=1758475538; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:from:content-language
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=G1e+KbGXFu9VcGvJSdmZ1O17Fz6KR5HDN0NkR/H9+bk=;
+ b=kOTj8Lbjbew5+4pc2Mads2i4CNXZ/bRcjeR+YPXcTDAcqsRAl9aTH6mqc7CWEbmBpJ
+ 6KeTJbdXC13YEq7nowH9/Xtab1ZVGbmTCoQwd0bXQEdoRVYrfsn5hDIwi81eE/xVIGrs
+ ycDb3X0maiX2aGDebQ8YT67a5kQL+ARNy9jbntkIVGBJjtu//8rALnA0FTxFnphiCha3
+ XYgTMz7d00Uzw7TNlKYlXA7ETI/bSjWrcvDPPbLHkXAORZPKGEfByYx5W06jRbd8iWrI
+ 9dq8GZT1WVhVbOrfZH3rq5PT31zbQ6KDQ6NvrPaXbyq8Un2OuYWTHmMvOgZTJi8QjZrY
+ MfoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757870738; x=1758475538;
+ h=content-transfer-encoding:cc:to:subject:from:content-language
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=G1e+KbGXFu9VcGvJSdmZ1O17Fz6KR5HDN0NkR/H9+bk=;
+ b=GO711CDjkkOec8e5mHohk5UNAIzIMheEKKquoefND+eCsHptMoZV2+1brZzDpuRoD5
+ q7z9/QZHiaj18o2eFieNjFlQhEbM3geTPResFlbdnD/Foku6qGnduQpnICTfVKaGMDDw
+ Ft0txma7nwBiNg5V97JS/igMJpZouQtJ6mS81Kk7M/4NjXXqLWAjxpHB+oE/l9YkBUHj
+ Z7cis4Wg+/BRfNPDLTycX+xXWrMCMyOZ3o33mwNV/Pvi8Hgw+uz4UMth6yS3RZsvOEjG
+ DshjQR1adgxFo80n/PNZzyjH7bwZLjL4iTVbZ4mk42kYnjlW6yt8n+joL4YNp8HFMEpt
+ 8pUQ==
+X-Gm-Message-State: AOJu0YyzUfk1zDtk/0qorg+HwLlvydRg4iTqWUBEWuWZv/+mhLx9jPSI
+ d1d0WeTZLevFgRMQ+nuZtK4pcw1FimpMRoWI2zIw136U4liE1N76Kh2x
+X-Gm-Gg: ASbGncuCuqpRd9qaE57Wn8GZ+Re/JJqAOtwlgVd9iypxnFFgn0SA1W0KuN61Q77XF1i
+ 3c/onKgx/9phWJVm3PI9XEidiU75KCQPQmYg/4WlMBmi14xUsLJEi9F1UVWh7GRhOgqzyKryedz
+ 3FJ6E/Qd3amfk1lvGBs6mC2uH45tYX51NKWiQHm+MfVnWuxVYEy7OSBKobz/dCtKI2BjAR78YjP
+ S8lVa1a1PMNWMfs0gr6DsBrmEYGnDhb4b5KF8kp8Ask/uR131/5cc9xBi+kxKNtoihzck0rUDCl
+ 0kTEaRnIb62w6yBQgQjIbTo3MAaYol06EDyVIlkerzhBN30JeiisvbBC86r1upGmUn7DoPabndb
+ 3z/O5JLZ/VBQ5efp3Zp/J4wyQawXeR+c1suIzkN4CTXOPwge8bfQvprMpJ7rXJ8TswsRG2zhva5
+ GwG9Ktbv3j4rOfMqkdyJrOpQ==
+X-Google-Smtp-Source: AGHT+IGXXVdrVK0u4cCSFNgAfQf47ACkyGsAKEWoSv4adQsY/7oMdFXgo5U3XdkN5Q1lPFbogG7ihQ==
+X-Received: by 2002:a17:907:9617:b0:b04:c7c5:499d with SMTP id
+ a640c23a62f3a-b07c3833a41mr894320266b.47.1757870737739; 
+ Sun, 14 Sep 2025 10:25:37 -0700 (PDT)
+Received: from ?IPV6:2607:fa49:655f:db00:25c1:6b2c:46ab:8758?
+ ([2607:fa49:655f:db00:25c1:6b2c:46ab:8758])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-62edb7d9cbbsm5693360a12.15.2025.09.14.10.25.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 14 Sep 2025 10:25:37 -0700 (PDT)
+Message-ID: <12e266b6-b708-43c0-8ff3-db0058c35742@gmail.com>
+Date: Sun, 14 Sep 2025 13:25:34 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US, fr
+From: =?UTF-8?B?SsOpcsO0bWUgTMOpY3V5ZXI=?= <jerome.4a4c@gmail.com>
+Subject: [REGRESSION] AMD GPU not detected since 6.16.4 commit c97636cc83d4
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|SJ2PR12MB9114:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9daead8c-06b5-4cb1-5e6e-08ddf42014a8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?En8BAtN2cQ/Zp61WAVlV3F+TmiApBASK+3Ld8nBOhFHSNV/+sY+p9F5TkenY?=
- =?us-ascii?Q?veQTU8vocQDhZEBst7f06Rk3JMLSCNJBF4JY0NjKQi4x8e0Y2U2BHY/9Cfn0?=
- =?us-ascii?Q?O9JhP3sdm7m85ojiCQ4kxey0UAuMlojJRmbDZOO9L++BLb6c5r9l3Brt0XbI?=
- =?us-ascii?Q?MSdWjiJByiu/0ShrN4rk03bLrGrarv1uX+PX0kz5xPjuDODf1iighDyhpt5g?=
- =?us-ascii?Q?onDTA1rmGqXHGWw3bp7wHHOMKgexmk7lxgj8SZEnsKOxWvkIzgulGvKxfxBM?=
- =?us-ascii?Q?O5fFmCHDgB23hDvvKXCcbXjSVIkgHz5dwUH9UvLqSpZB3HiUocXiuRM6TdyU?=
- =?us-ascii?Q?KcNjR6X2JsFgcHL7wJU4mzP+Xa4x2eTUM8LJQO/9pOtkFkkATnnsJzmsu+kY?=
- =?us-ascii?Q?ZdRm6khpAt07ZlGD3WlcJ5PCSSg2yRINXGifihc9XEz/SnJJEzqGYTiEiaoV?=
- =?us-ascii?Q?pQOrJaq2xA8mD8PuqaPnPHE4TxaiS2eT9UrSjl3ujKn4XhWhj39+23LJA/JH?=
- =?us-ascii?Q?5LtUKUNnW2QD3t/VsG2n3hMlO5vhyxnlG4atYbV/bp3/hH4Y8ScdLJ4sMPyQ?=
- =?us-ascii?Q?/HmN31cmdscA5sJ6NH2HG6fdp3PaYvxIcKqet6J5hy0Hi6axy0Q/x5jlbhOP?=
- =?us-ascii?Q?E7CY7L5Ux9U7eTIubbeoeg18euiH1BPqna/ggRN1Mx+T6yipoCnYWneGUL3I?=
- =?us-ascii?Q?khKK4lEqRi/MyVgZS+V4nY8J8EGdjYaIsLn58uIj+Ux02BMnVmU6Xm7i/txv?=
- =?us-ascii?Q?FxEz/r+qOfWe2ZoxsKg1AKbrtfVyecUxOONchblrcQfGdloWl8pTy7D68El9?=
- =?us-ascii?Q?MciR+AsBB/YJSHG8+rYUd1lo7Rbajo/WA6/shV2JEqPZL3B8kh0CwDfvAbF8?=
- =?us-ascii?Q?+dedpXajjRR8JG+2vPtKwI3Fvvl9L9+zwvLAAYhxCnn0AOGBNjrFPIIzu3Ph?=
- =?us-ascii?Q?0SXgJuRCA1E7heR9EddGnFKnjmXlSASdXZcN/sh8AUCWBt8Iz/rY2o6iwft0?=
- =?us-ascii?Q?KN46gGKVhD35QyHrGstmVlSW7lFS8aXrxY+89lDD5/EdX6izVrumIsenBkIy?=
- =?us-ascii?Q?DyiHdUhuleSWpazF5KJ3lXU6bYA6CVekq40Dd+wpdBaYPo4MKJp/JDXiBOhV?=
- =?us-ascii?Q?ybaFE599mFwBbmtExRH7PkxK3heSqLn3lqlqP97UxmvlQhJQYgrjtB4XHcq6?=
- =?us-ascii?Q?4/FXOJ1FJp12sgeA0VwUp4qeZq+uiI98sblrdWh6j62Z0AlJv2RfW64DWn58?=
- =?us-ascii?Q?rsmR8YFdd8uUZJa+4DOPN66yBl4qjVMOLTyH9r+V91joNaMOM5MfOOOW8q+U?=
- =?us-ascii?Q?cR2/a/jDsKH1blGMCZfMSpgCgkczplcQ589jt/5LaMDyEpwfKENxHEjf2IiP?=
- =?us-ascii?Q?AydZNdtx9W6FZdALychPLauyfz18EoRuOWBYl3oRY4Vzgc5551wIWGxpNtDN?=
- =?us-ascii?Q?JTk8la42t93VLdyV9B7L9OwQDrdWsXMIKK1cF1WLBplWZDM9r/ajPUGFMt+t?=
- =?us-ascii?Q?BBWAD+QhFKOIWZfdSxhwOoEYe8eYMvdgB0zB?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2025 06:21:17.8650 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9daead8c-06b5-4cb1-5e6e-08ddf42014a8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD78.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9114
+X-Mailman-Approved-At: Mon, 15 Sep 2025 07:39:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,36 +88,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use correct u64 type.
+Since 6.16.4, I am no longer able to use my dGPU.
 
-Signed-off-by: David Rosca <david.rosca@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+It is visible in nvtop for a brief moment after the system boots,
+but once it is D3cold, it can't wake up (not in nvtop anymore).
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 95e91d1dc58a..729f0f358398 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -637,7 +637,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
- int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
- 			    struct drm_file *filp)
- {
--	u32 *syncobj_handles, *timeline_points, *timeline_handles, *bo_handles_read, *bo_handles_write;
-+	u32 *syncobj_handles, *timeline_handles, *bo_handles_read, *bo_handles_write;
-+	u64 *timeline_points;
- 	u32 num_syncobj, num_read_bo_handles, num_write_bo_handles;
- 	struct drm_amdgpu_userq_fence_info *fence_info = NULL;
- 	struct drm_amdgpu_userq_wait *wait_info = data;
-@@ -682,7 +683,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- 	timeline_points = memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_points),
--				      sizeof(u32) * num_points);
-+				      sizeof(u64) * num_points);
- 	if (IS_ERR(timeline_points)) {
- 		r = PTR_ERR(timeline_points);
- 		goto free_timeline_handles;
--- 
-2.43.0
+Specifications:
+Laptop with
+AMD Ryzen 5 4600H (iGPU)
+AMD Radeon RX 5500M (dGPU), not overclocked (at least manually), goes to 
+D3cold often
+~Arch Linux, KDE, Wayland, tried multiple kernels before and after 6.16.4.
+
+Kernel versions:
+dGPU works fine in 6.16.3 and before.
+The issue started appearing in 6.16.4 and persists with 6.16.7 and 6.17-rc5.
+Bisect using aur/linux-git remote torvalds/linux found: 
+https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=c97636cc83d4591c0c91b6f80eaca3434d7d3e3a
+
+dmesg after starting nvtop:
+
+[   32.931442] [drm] PCIE GART of 512M enabled (table at 
+0x0000008000000000).
+[   32.931460] amdgpu 0000:03:00.0: amdgpu: PSP is resuming...
+[   33.086921] amdgpu 0000:03:00.0: amdgpu: reserve 0x900000 from 
+0x80fd000000 for PSP TMR
+[   33.130797] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode 
+is not available
+[   33.136900] amdgpu 0000:03:00.0: amdgpu: RAP: optional rap ta ucode 
+is not available
+[   33.136903] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: optional 
+securedisplay ta ucode is not available
+[   33.136907] amdgpu 0000:03:00.0: amdgpu: SMU is resuming...
+[   33.167904] amdgpu 0000:03:00.0: amdgpu: OverDrive is not enabled!
+[   33.167909] amdgpu 0000:03:00.0: amdgpu: resume of IP block <smu> 
+failed -22
+[   33.167912] amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_resume 
+failed (-22).
+
+OverDrive is a warning. The two last logs are errors.
+
+
+Building with this change on top of commit 22f20375f5b7 fixed the issue.
+https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux/+/22f20375f5b71f30c0d6896583b93b6e4bba7279
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c 
+b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index b47cb4a5f488..408f05dfab90 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2236,7 +2236,7 @@ static int smu_resume(struct amdgpu_ip_block 
+*ip_block)
+                         return ret;
+         }
+
+-       if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
++       if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL && 
+smu->od_enabled) {
+                 ret = smu_od_edit_dpm_table(smu, 
+PP_OD_COMMIT_DPM_TABLE, NULL, 0);
+                 if (ret)
+                         return ret;
+
+
+dGPU behaves normally now.
+
+...
+[  275.490129] amdgpu 0000:03:00.0: amdgpu: SMU is resuming...
+[  275.521159] amdgpu 0000:03:00.0: amdgpu: SMU is resumed successfully!
+[  275.522179] amdgpu 0000:03:00.0: amdgpu: kiq ring mec 2 pipe 1 q 0
+[  275.525009] amdgpu 0000:03:00.0: [drm] Cannot find any crtc or sizes
+[  275.525023] amdgpu 0000:03:00.0: amdgpu: ring gfx_0.0.0 uses VM inv 
+eng 0 on hub 0
+...
+
+
+Thanks,
+Jérôme
 
