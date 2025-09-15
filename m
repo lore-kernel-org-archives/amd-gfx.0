@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42644CAC58F
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 08:02:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36ACCAC58E
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 08:02:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3DAE10E339;
-	Mon, 15 Sep 2025 08:02:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7578210E329;
+	Mon, 15 Sep 2025 08:02:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pfuMg8Qo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bf5wVoSz";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2050.outbound.protection.outlook.com [40.107.236.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6128B10E339
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 08:02:03 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9FF910E329
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 08:02:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c8DkJRuz+PA+oTTPoIu89Y8QRtDtooWTXh9tqvNkIoS6NbPv7cqyUMqOx8PDM248SNkN69UclebKF3fBrJAzm4Yf6YkQD2zrjUf1i8hyO1exFR2ZvZ4DVfNMdSjtzlxapOJjpDWJWtJudrNgtKVXGogP+Uhy2b4s85IW+n0A+lTQz/8Vf7XxiNjw4bLzZbvCNrX7XMxGj7lqm1koBi/BplwK5CYAZo1QrqXS0U+w5EsEH0GIlSizkVUhxJo/u1GwSM+lMOrelwEC3yiIOa/efu2yxnB08YbEFqnb6+Y6BnyA1oXQH7n4TKM9wLwX8RsJ67fFUgDZGyOQW2Hx8Kjlcw==
+ b=ZHtYmLD+75nGmEO2w4lplPNuIZmoTsXw2HCgX5H+c0ntV/vhdAGqdyLKHTlWyoTrJM4Y62RoPIOwlZZJGBDw9a+U81af2eYjUdQqJ2dG7RQav4M8RY3RlHe9QYnaRchY5euvpSDTlYzymfdK5Oxx7Vwc96SFOybAny0JJNleQ3yFNfa1NcYwwR9imJuLHGCw5n40e3lZjrc15nL8kADlbk+3fBlFkPaHWjIu5WhD5lhXnr2k8LYrc3I8azxZBjh14GspUGHY2JIT2CsiAV3YJSuv0E1PoLAD2IqbiCJb8m+6aaVQ+csIR7zHY4QitCh2hhL3zP4YaJ2gUsrdXUkYMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bLG0t1obAvSAqBRyLiQI9u4CIDa5m4O2g9N7Teozo6o=;
- b=D53MytpUSkKlIzlAbFZZSqLHBpzSTyIC2FEBYoEzfITQYMVkPARc7eCUDpR/V15Py35NZCQXvIqkuw2A4tDVgM1L4AhNSJlcemuihWBWE0nzsC4mWKkmlhphoHFXdGx68/7SD3YC0/VXlbZqNk1Ih31bOOhSRQJn3fA7ntqMlETH1mCdDEowp93J6ra2L8npe4eWKu4cXZq4CuZ3co3ZZP3X1w/jB8QAqBPw0zM0q5PVGI5vfRi35nUfnZjSmRvjtSlbwF6BcfrbdQJsTh/MQ/d1aHntGBBcED0BWXxjSl2qBCJV4aSoe0b+mF+GN1uBgHO1C/0W5qaKlciCDXtQkw==
+ bh=0PRB1rrTvPVpk7U/LRVF1yXc9q9lsKAUMqUexj0am3I=;
+ b=r8RLur2kHTe4LuESOEJKMmDZA+yAAtDNNos60LF2gEuTQpGgLCoSjOnUY3gP8oTcUJa/j3isepbRjpSiB+RWwy53+IYoHcHuRMtfDArBIgIiLFfAUT6bCuwLHjjy1vBTuUHfg+9l1RaJdo/CMhLjSbkHPUbLNrqibRcJy8uBf6K/qeCWxYRnkuppRvZlHndjXkjB5wjcvtbPgUeszjiWSrR0Q/7GF+T2TLgG8MQ3HT/2/cs4IJ1KkO4WZmEh6XT7g/R4fHG4OFvvpfmJJjqkf1HVfaVSXAQv1RP9p+LgCm/tslSnxfkAMv4P7dOkHD/TXPEarlWX+eI8svzu4klqMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bLG0t1obAvSAqBRyLiQI9u4CIDa5m4O2g9N7Teozo6o=;
- b=pfuMg8QoyoKQYEudX+g7g6bxisdosOhNrdU/io1/Xpdw2MpBDMUQHvGKUY6nxDjhmXRxC+BgjF4nUeZzQgLGEUz4xvKHIBB2CVEjxS/YWzVxW1yin4h/Rcp2ljwy7rs7pBnVhZvDewPOiHhUQ4RaWhErT3vc3yZwOzJg4JyQjyg=
-Received: from MW4PR04CA0315.namprd04.prod.outlook.com (2603:10b6:303:82::20)
- by IA1PR12MB6258.namprd12.prod.outlook.com (2603:10b6:208:3e6::17)
+ bh=0PRB1rrTvPVpk7U/LRVF1yXc9q9lsKAUMqUexj0am3I=;
+ b=bf5wVoSz7UzSwMtbAyDd9ZswPW84lZQlt1AhuA7CLafce1kItW4VvdMIZ1f6pC97oc8w+gAh3mSnQkekLo+RzGJAA7VNzLyvwjNbzlY9/GTuV6LJKdQS/y0sGYEfZ5BzTGDLqFQ2f1hpPNHGv9kDYxWNLytjyuWAeS1TlPc6R8s=
+Received: from BY3PR05CA0040.namprd05.prod.outlook.com (2603:10b6:a03:39b::15)
+ by BY5PR12MB4098.namprd12.prod.outlook.com (2603:10b6:a03:205::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.19; Mon, 15 Sep
- 2025 08:01:56 +0000
-Received: from SJ1PEPF00001CE6.namprd03.prod.outlook.com
- (2603:10b6:303:82:cafe::6b) by MW4PR04CA0315.outlook.office365.com
- (2603:10b6:303:82::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.21 via Frontend Transport; Mon,
- 15 Sep 2025 08:01:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.21; Mon, 15 Sep
+ 2025 08:02:16 +0000
+Received: from SJ1PEPF00001CE8.namprd03.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::6d) by BY3PR05CA0040.outlook.office365.com
+ (2603:10b6:a03:39b::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.11 via Frontend Transport; Mon,
+ 15 Sep 2025 08:02:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE6.mail.protection.outlook.com (10.167.242.22) with Microsoft
+ SJ1PEPF00001CE8.mail.protection.outlook.com (10.167.242.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Mon, 15 Sep 2025 08:01:54 +0000
+ 15.20.9115.13 via Frontend Transport; Mon, 15 Sep 2025 08:02:16 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 15 Sep
- 2025 01:01:52 -0700
+ 2025 01:01:54 -0700
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, Asad Kamal
  <asad.kamal@amd.com>
-Subject: [PATCH v4 3/7] drm/amd/pm: Use gpu metrics 1.9 for SMUv13.0.6
-Date: Mon, 15 Sep 2025 13:26:32 +0530
-Message-ID: <20250915080123.3024297-4-lijo.lazar@amd.com>
+Subject: [PATCH v4 4/7] drm/amd/pm: Use gpu metrics 1.9 for SMUv13.0.12
+Date: Mon, 15 Sep 2025 13:26:33 +0530
+Message-ID: <20250915080123.3024297-5-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250915080123.3024297-1-lijo.lazar@amd.com>
 References: <20250915080123.3024297-1-lijo.lazar@amd.com>
@@ -73,52 +73,52 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE6:EE_|IA1PR12MB6258:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48058146-984d-434a-7f30-08ddf42e2305
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE8:EE_|BY5PR12MB4098:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20ff303c-e153-42a8-2718-08ddf42e2fe1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MHkmnPEQxfn9NxjICAvDo0jkI3FY1LwblJSdFinrha1q6SQheWuECbrxjgJd?=
- =?us-ascii?Q?RTyI4CtwXGtK2Jm0hjxMHYE4iWQGIJZk508PzoInhDtKzPPOu97FxrBaX8Li?=
- =?us-ascii?Q?HguC9HZi+O74bLxGWhfAr9xbc6yP3+ull/YWJqhNzIpSEw2OXIYU8yet7kXR?=
- =?us-ascii?Q?/ikZ5mk3V9JP+tQXyKoHPYn5MH2kIt5wia1+OJVZA5KWEqbVShiXFMf117OO?=
- =?us-ascii?Q?+uuKmB1HaM+zWJG6a6/jtEW3b4yHXXW61qR9ECu/19FCgqS1380eMztNdMdg?=
- =?us-ascii?Q?m1HvxGHWq84jLz2hbvKdIU+u1FjOyYXGMesUSz6iznvS7wbbQ6wNPlFY9noN?=
- =?us-ascii?Q?9tw8+F/ZwE6pyM3uIQp1YzzflKsj5J6GSWtp246853kyWeA5dtZjrLLjzElC?=
- =?us-ascii?Q?RUFj8pTJe+03aytLhyJErRClaMBvy+Kotgg2ohqdsPPCYx4oapTpYYRrT9IM?=
- =?us-ascii?Q?I4mCbSXwIbsjsvBgGVDkSq2pQcgy+nN34q/L29+0FP5YhGGRCDLv65R+N6hp?=
- =?us-ascii?Q?8uJ9cbj3HqPztxnSYbpYjR2QDGA8lbh9+i2EWLidDDLAODtm6UONMMdXx3jg?=
- =?us-ascii?Q?kbxAq9SIdP+1KHPm7M1vr3nFPlDO73lguX4WT/VC4PN1IwK3uAc9z24OdMBn?=
- =?us-ascii?Q?Ub0PQeNut5UNFmX6wVX0pB4kw/LtW7F3GqI216eqT342iVeqaDhmQVrH/ZaX?=
- =?us-ascii?Q?5mW2giquAsWfTAFot3rayNi0MIGxtRd1IP0vHpa+PBKbWFP3Al6gBtUDjcax?=
- =?us-ascii?Q?5NPeByo7AM7YT7ySDHnflen4KQZJW0802UiCNtmIV5L90ITu5MCRBXkf8rma?=
- =?us-ascii?Q?cTDp18lL3+PCjaRDqhiKa51UOQWBiV2upkhuhHq2WOCFf29J6TLj+5wgcCt2?=
- =?us-ascii?Q?UmX08ODH+XFRapJfg3o+tkGiUMhyfFTKjiCxttk33WycTxji2l0uUBY/LaJB?=
- =?us-ascii?Q?dhbz/xeGntSjCY/CGRYOLCzZzKI6dWYX5umTTq3jir2ZpP/WxmK+wtwqVJJC?=
- =?us-ascii?Q?MnSMmh1WoaHqoi9h/iBWBxoyrLj9UkBJwjmHcuDND5/OZc2VI1kq17Z5aRIl?=
- =?us-ascii?Q?l1dLbuHJH5Kao0S6KsS5rBgobFUwdJIG40NBnTr58YYjNaHYG4IDr/dxY06C?=
- =?us-ascii?Q?6Cy5l/KObKXDLTHOTromePnDXqi8Jo/JiTRLp2fh68POBKKpUwLVkIVXfaD6?=
- =?us-ascii?Q?oqlIHnwijBAfz7Ms5cRyFEVO14Mi2UX9wRiLQYtqeJVqyZ0lYcOo5uzbSmQO?=
- =?us-ascii?Q?jJFpSJN5Jzg7HuoyZswlna1JqbG/WnUswnNf566csxO4canLIN8IgfGHj29Q?=
- =?us-ascii?Q?9Yr7HNgkmGOaZUKUdMY17BqbY7vCST/togxcgJkF4L/Oopkjq/Nw0jn3wtLd?=
- =?us-ascii?Q?aAuNViX8lCv65yTCe2NtmWyZPmgCHzvrVw6ct79ZgS/qphuQ55k+QRWxA829?=
- =?us-ascii?Q?Z+VTB2RI7Bi3o1ya4v0o60hir+7u23d0SO6OoWrs7vsb5+MgMiKxa/dsTP7f?=
- =?us-ascii?Q?dNfA1xei8C9suBMZO9dj8d5CmALLzc64ROWw?=
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?N1sJFNGeKxcl+yqbFQw5uLyre6JDQ2rXCW218ncqaS8jPjf/IZ9qrpAHhLNs?=
+ =?us-ascii?Q?gWoeSwJuKuvxy5EjiPJz9Y5sBTMWMkNP4dtr38uhFhxUpwqu2/GucK7hPyeV?=
+ =?us-ascii?Q?7aiMGvbwyafEzFqBV6eiXvqjjVgE8bEPtHP9n7o4f62KlhHtC1MczUMhRdjh?=
+ =?us-ascii?Q?p6p+tGJnb12aTw70CZi6arm9jbjebz3ULutuEljs3SYJx/vBhjfUWOHPrQRt?=
+ =?us-ascii?Q?TdyX47UVmrqYzNBvjQh1FXJE0WwTCpLw88N0AfDU2HXDNByDjqj3R57tsOTR?=
+ =?us-ascii?Q?3mr3coO6I17Mot8EnRuDtcKATMoXH3pTx2YiA5oSVqnVWRw9RRw2yvCWslg3?=
+ =?us-ascii?Q?NyWO0NE7SXbGXqbTuKk0J7ETFKkyWbR9S5lZgf00jRR/w/cR1CDgeVEEhGQx?=
+ =?us-ascii?Q?K/0csBTJZxJH2hr+ItXuhu2ypqXhfGBCtqSJbxsiixWtK3IHLPp4DvmfmKT5?=
+ =?us-ascii?Q?hqeuSyEIjq2aFMMZgXqErJpWiFdMdtATkDLJ3ME2aiSsDmjfW1TZLR5NvV/V?=
+ =?us-ascii?Q?ZgW1m7gcHRyoTFrWpEIPV3R6uyPrcO5qlVGoNtic6jUh0oyIMO/hEkRQjb0U?=
+ =?us-ascii?Q?ZyjbkB7k9AUlpAtXPB76ygi5MI28oFqxy3PY7A/cVinZ9CFFaNO9B/vPeTbW?=
+ =?us-ascii?Q?vXVW28JW38Ys0azkaRhweHfYTQrw6LRi50EpWU+yuvfCEgAeuQU5xdhgtpBA?=
+ =?us-ascii?Q?JSLXTsyYrk2H5eH1RNN2ZNWWZX1Z8XaekSC8iCrqkyBnQvLuXTdLNo0Xm1pf?=
+ =?us-ascii?Q?SDTYgwstexnJPrjL/5XFXnDop9YLDItVacV7rLbih0EQHZj94KWRbVotIXlU?=
+ =?us-ascii?Q?2B7wAZvEuSE8v3Mf3xuVs1mR1R462jwuoLygI9GKm+IifinYU3sLy8AkRStm?=
+ =?us-ascii?Q?gGycfPEY/wUwf9ANgxCESOtWBkv0DD4y1VMl8RcdHfXuhgKz2reEuixcgU9U?=
+ =?us-ascii?Q?vTKfaQj/ahnLNpr1dO597c1vumqxZEkURxdmNcLqYORcZSDdvhgXaIqNRURR?=
+ =?us-ascii?Q?mzp9yfQg0AbhRQjo6/HNf4d3gec8qZxFUv/oEHl7wbFkkmoOZtULhF4OFsin?=
+ =?us-ascii?Q?6YDRxAkqVylEs9MUiUcbA4Eb1WDwDQZAh0zG0cvxsOz8QCekKuWt3B547IKh?=
+ =?us-ascii?Q?SN/CHgWz7xm4XDQb9x3xnffvXlminn+C46j29QkKeRxm2I6MzoFZRu4FV1vU?=
+ =?us-ascii?Q?IcWKPj6/C+4hmuiu3ZMN/hOC8NPtUL+57rM3xy2Jpig+42F2WnnJ0DpHqtTV?=
+ =?us-ascii?Q?FIH1gIz4Xu3JXjyYFJqSvoebZFx9w8HU5AvXAVGcX1BxSaTlDo4spp2xAj58?=
+ =?us-ascii?Q?jy7/99svieC/j74rurS7zrfl9tABudsJwlk+vp+H/goqOFnNi5v2x7+rXD6U?=
+ =?us-ascii?Q?qrs6DDlzi8o8a8qI2J8olyiqVIpj5fYF1fssBFOC71ZgZzigPhKy6WlP5MI3?=
+ =?us-ascii?Q?GgMKOa4Q+ENk9P+cT3/63O239c8P9bPZCqpt/uh3SgKHPH63fzN1ZL5r447D?=
+ =?us-ascii?Q?IYP5nRove/ZqIULe87HRaxLEovmQVbOrp1Kk?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2025 08:01:54.8373 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48058146-984d-434a-7f30-08ddf42e2305
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2025 08:02:16.4033 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20ff303c-e153-42a8-2718-08ddf42e2fe1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE6.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE8.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6258
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4098
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,101 +133,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fill and publish GPU metrics in v1.9 format for SMUv13.0.6 SOCs
+Fill and publish GPU metrics in v1.9 format for SMUv13.0.12 SOCs
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 113 +++++++++--------
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h  | 118 ++++++++++++++++++
- 2 files changed, 177 insertions(+), 54 deletions(-)
+v2: Keep return type of smu_v13_0_12_get_gpu_metrics as void (Asad)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index bcd6525ca5e9..8e89ab9e3360 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -543,6 +543,7 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
- 	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct smu_table *tables = smu_table->tables;
- 	void *gpu_metrics_table __free(kfree) = NULL;
-+	struct smu_v13_0_6_gpu_metrics *gpu_metrics;
- 	void *driver_pptable __free(kfree) = NULL;
- 	void *metrics_table __free(kfree) = NULL;
- 	struct amdgpu_device *adev = smu->adev;
-@@ -582,11 +583,22 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
- 	if (!driver_pptable)
- 		return -ENOMEM;
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 89 ++++++++-----------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 25 +++---
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h  |  4 +-
+ 3 files changed, 51 insertions(+), 67 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index 0bec12b348ce..09f1e4072db6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -58,7 +58,7 @@
  
-+	ret = smu_table_cache_init(smu, SMU_TABLE_SMU_METRICS,
-+				   sizeof(struct smu_v13_0_6_gpu_metrics), 1);
-+	if (ret)
-+		return ret;
-+
-+	gpu_metrics = (struct smu_v13_0_6_gpu_metrics
-+			       *)(tables[SMU_TABLE_SMU_METRICS].cache.buffer);
-+
-+	smu_v13_0_6_gpu_metrics_init(gpu_metrics, 1, 9);
- 	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) ==
- 	    IP_VERSION(13, 0, 12)) {
- 		ret = smu_v13_0_12_tables_init(smu);
--		if (ret)
-+		if (ret) {
-+			smu_table_cache_fini(smu, SMU_TABLE_SMU_METRICS);
- 			return ret;
-+		}
- 	}
+ #define NUM_JPEG_RINGS_FW	10
+ #define NUM_JPEG_RINGS_GPU_METRICS(gpu_metrics) \
+-	(ARRAY_SIZE(gpu_metrics->xcp_stats[0].jpeg_busy) / 4)
++	(ARRAY_SIZE(gpu_metrics->jpeg_busy) / 4)
  
- 	smu_table->gpu_metrics_table = no_free_ptr(gpu_metrics_table);
-@@ -725,6 +737,7 @@ static int smu_v13_0_6_fini_smc_tables(struct smu_context *smu)
- {
- 	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 12))
- 		smu_v13_0_12_tables_fini(smu);
-+	smu_table_cache_fini(smu, SMU_TABLE_SMU_METRICS);
- 	return smu_v13_0_fini_smc_tables(smu);
+ const struct cmn2asic_mapping smu_v13_0_12_feature_mask_map[SMU_FEATURE_COUNT] = {
+ 	SMU_13_0_12_FEA_MAP(SMU_FEATURE_DATA_CALCULATIONS_BIT, 		FEATURE_DATA_CALCULATION),
+@@ -724,22 +724,17 @@ ssize_t smu_v13_0_12_get_xcp_metrics(struct smu_context *smu, struct amdgpu_xcp
+ 	return sizeof(*xcp_metrics);
  }
  
-@@ -2740,18 +2753,16 @@ static ssize_t smu_v13_0_6_get_xcp_metrics(struct smu_context *smu, int xcp_id,
- static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table)
+-ssize_t smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table, void *smu_metrics)
++void smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table,
++				  void *smu_metrics,
++				  struct smu_v13_0_6_gpu_metrics *gpu_metrics)
  {
- 	struct smu_table_context *smu_table = &smu->smu_table;
+-	struct smu_table_context *smu_table = &smu->smu_table;
 -	struct gpu_metrics_v1_8 *gpu_metrics =
 -		(struct gpu_metrics_v1_8 *)smu_table->gpu_metrics_table;
-+	struct smu_table *tables = smu_table->tables;
-+	struct smu_v13_0_6_gpu_metrics *gpu_metrics;
- 	int version = smu_v13_0_6_get_metrics_version(smu);
- 	MetricsTableV0_t *metrics_v0 __free(kfree) = NULL;
 -	int ret = 0, xcc_id, inst, i, j, k, idx;
  	struct amdgpu_device *adev = smu->adev;
 +	int ret = 0, xcc_id, inst, i, j;
- 	MetricsTableV1_t *metrics_v1;
- 	MetricsTableV2_t *metrics_v2;
+ 	u8 num_jpeg_rings_gpu_metrics;
+ 	MetricsTable_t *metrics;
 -	struct amdgpu_xcp *xcp;
- 	u16 link_width_level;
- 	u8 num_jpeg_rings;
 -	u32 inst_mask;
- 	bool per_inst;
  
- 	metrics_v0 = kzalloc(METRICS_TABLE_SIZE, GFP_KERNEL);
-@@ -2766,8 +2777,8 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 	metrics = (MetricsTable_t *)smu_metrics;
  
- 	metrics_v1 = (MetricsTableV1_t *)metrics_v0;
- 	metrics_v2 = (MetricsTableV2_t *)metrics_v0;
--
 -	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 8);
-+	gpu_metrics = (struct smu_v13_0_6_gpu_metrics
-+			       *)(tables[SMU_TABLE_SMU_METRICS].cache.buffer);
- 
+-
  	gpu_metrics->temperature_hotspot =
- 		SMUQ10_ROUND(GET_METRIC_FIELD(MaxSocketTemperature, version));
-@@ -2889,55 +2900,49 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 		SMUQ10_ROUND(metrics->MaxSocketTemperature);
+ 	/* Individual HBM stack temperature is not reported */
+@@ -829,57 +824,47 @@ ssize_t smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table, void
  			gpu_metrics->xgmi_link_status[j] = ret;
  	}
  
 -	gpu_metrics->num_partition = adev->xcp_mgr->num_xcps;
 -
- 	per_inst = smu_v13_0_6_cap_supported(smu, SMU_CAP(PER_INST_METRICS));
- 
- 	num_jpeg_rings = AMDGPU_MAX_JPEG_RINGS_4_0_3;
+ 	num_jpeg_rings_gpu_metrics = NUM_JPEG_RINGS_GPU_METRICS(gpu_metrics);
 -	for_each_xcp(adev->xcp_mgr, xcp, i) {
 -		amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask);
 -		idx = 0;
@@ -235,228 +199,172 @@ index bcd6525ca5e9..8e89ab9e3360 100644
 -			/* Both JPEG and VCN has same instances */
 -			inst = GET_INST(VCN, k);
 -
--			for (j = 0; j < num_jpeg_rings; ++j) {
+-			for (j = 0; j < num_jpeg_rings_gpu_metrics; ++j) {
 -				gpu_metrics->xcp_stats[i].jpeg_busy
--					[(idx * num_jpeg_rings) + j] =
--					SMUQ10_ROUND(GET_METRIC_FIELD(JpegBusy, version)
--							[(inst * num_jpeg_rings) + j]);
+-					[(idx * num_jpeg_rings_gpu_metrics) + j] =
+-					SMUQ10_ROUND(metrics->JpegBusy
+-							[(inst * NUM_JPEG_RINGS_FW) + j]);
 -			}
 -			gpu_metrics->xcp_stats[i].vcn_busy[idx] =
--			       SMUQ10_ROUND(GET_METRIC_FIELD(VcnBusy, version)[inst]);
+-			       SMUQ10_ROUND(metrics->VcnBusy[inst]);
 -			idx++;
--
--		}
-+	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
-+		inst = GET_INST(JPEG, i);
-+		for (j = 0; j < num_jpeg_rings; ++j)
-+			gpu_metrics->jpeg_busy[(i * num_jpeg_rings) + j] =
-+				SMUQ10_ROUND(GET_METRIC_FIELD(
-+					JpegBusy,
-+					version)[(inst * num_jpeg_rings) + j]);
-+	}
 +	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
 +		inst = GET_INST(VCN, i);
-+		gpu_metrics->vcn_busy[i] =
-+			SMUQ10_ROUND(GET_METRIC_FIELD(VcnBusy, version)[inst]);
++
++		for (j = 0; j < num_jpeg_rings_gpu_metrics; ++j) {
++			gpu_metrics->jpeg_busy[(i * num_jpeg_rings_gpu_metrics) +
++					       j] =
++				SMUQ10_ROUND(
++					metrics->JpegBusy[(inst *
++							   NUM_JPEG_RINGS_FW) +
++							  j]);
+ 		}
++		gpu_metrics->vcn_busy[i] = SMUQ10_ROUND(metrics->VcnBusy[inst]);
 +	}
  
--		if (per_inst) {
--			amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX, &inst_mask);
--			idx = 0;
--			for_each_inst(k, inst_mask) {
--				inst = GET_INST(GC, k);
--				gpu_metrics->xcp_stats[i].gfx_busy_inst[idx] =
--					SMUQ10_ROUND(GET_GPU_METRIC_FIELD(GfxBusy, version)[inst]);
--				gpu_metrics->xcp_stats[i].gfx_busy_acc[idx] =
--					SMUQ10_ROUND(GET_GPU_METRIC_FIELD(GfxBusyAcc,
--									  version)[inst]);
--				if (smu_v13_0_6_cap_supported(smu, SMU_CAP(HST_LIMIT_METRICS))) {
--					gpu_metrics->xcp_stats[i].gfx_below_host_limit_ppt_acc[idx] =
--						SMUQ10_ROUND
--						(metrics_v0->GfxclkBelowHostLimitPptAcc[inst]);
--					gpu_metrics->xcp_stats[i].gfx_below_host_limit_thm_acc[idx] =
--						SMUQ10_ROUND
--						(metrics_v0->GfxclkBelowHostLimitThmAcc[inst]);
--					gpu_metrics->xcp_stats[i].gfx_low_utilization_acc[idx] =
--						SMUQ10_ROUND
--						(metrics_v0->GfxclkLowUtilizationAcc[inst]);
--					gpu_metrics->xcp_stats[i].gfx_below_host_limit_total_acc[idx] =
--						SMUQ10_ROUND
--						(metrics_v0->GfxclkBelowHostLimitTotalAcc[inst]);
--				}
--				idx++;
-+	if (per_inst) {
-+		for (i = 0; i < NUM_XCC(adev->gfx.xcc_mask); ++i) {
-+			inst = GET_INST(GC, i);
-+			gpu_metrics->gfx_busy_inst[i] = SMUQ10_ROUND(
-+				GET_GPU_METRIC_FIELD(GfxBusy, version)[inst]);
-+			gpu_metrics->gfx_busy_acc[i] = SMUQ10_ROUND(
-+				GET_GPU_METRIC_FIELD(GfxBusyAcc,
-+						     version)[inst]);
-+			if (smu_v13_0_6_cap_supported(
-+				    smu, SMU_CAP(HST_LIMIT_METRICS))) {
-+				gpu_metrics->gfx_below_host_limit_ppt_acc
-+					[i] = SMUQ10_ROUND(
-+					metrics_v0->GfxclkBelowHostLimitPptAcc
-+						[inst]);
-+				gpu_metrics->gfx_below_host_limit_thm_acc
-+					[i] = SMUQ10_ROUND(
-+					metrics_v0->GfxclkBelowHostLimitThmAcc
-+						[inst]);
-+				gpu_metrics->gfx_low_utilization_acc
-+					[i] = SMUQ10_ROUND(
-+					metrics_v0
-+						->GfxclkLowUtilizationAcc[inst]);
-+				gpu_metrics->gfx_below_host_limit_total_acc
-+					[i] = SMUQ10_ROUND(
-+					metrics_v0->GfxclkBelowHostLimitTotalAcc
-+						[inst]);
- 			}
+-		amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX, &inst_mask);
+-		idx = 0;
+-		for_each_inst(k, inst_mask) {
+-			inst = GET_INST(GC, k);
+-			gpu_metrics->xcp_stats[i].gfx_busy_inst[idx] =
+-				SMUQ10_ROUND(metrics->GfxBusy[inst]);
+-			gpu_metrics->xcp_stats[i].gfx_busy_acc[idx] =
+-				SMUQ10_ROUND(metrics->GfxBusyAcc[inst]);
+-			if (smu_v13_0_6_cap_supported(smu, SMU_CAP(HST_LIMIT_METRICS))) {
+-				gpu_metrics->xcp_stats[i].gfx_below_host_limit_ppt_acc[idx] =
+-					SMUQ10_ROUND(metrics->GfxclkBelowHostLimitPptAcc[inst]);
+-				gpu_metrics->xcp_stats[i].gfx_below_host_limit_thm_acc[idx] =
+-					SMUQ10_ROUND(metrics->GfxclkBelowHostLimitThmAcc[inst]);
+-				gpu_metrics->xcp_stats[i].gfx_low_utilization_acc[idx] =
+-					SMUQ10_ROUND(metrics->GfxclkLowUtilizationAcc[inst]);
+-				gpu_metrics->xcp_stats[i].gfx_below_host_limit_total_acc[idx] =
+-					SMUQ10_ROUND(metrics->GfxclkBelowHostLimitTotalAcc[inst]);
+-			}
+-			idx++;
+-		}
++	for (i = 0; i < NUM_XCC(adev->gfx.xcc_mask); ++i) {
++		inst = GET_INST(GC, i);
++		gpu_metrics->gfx_busy_inst[i] =
++			SMUQ10_ROUND(metrics->GfxBusy[inst]);
++		gpu_metrics->gfx_busy_acc[i] =
++			SMUQ10_ROUND(metrics->GfxBusyAcc[inst]);
++		if (smu_v13_0_6_cap_supported(smu,
++					      SMU_CAP(HST_LIMIT_METRICS))) {
++			gpu_metrics
++				->gfx_below_host_limit_ppt_acc[i] = SMUQ10_ROUND(
++				metrics->GfxclkBelowHostLimitPptAcc[inst]);
++			gpu_metrics
++				->gfx_below_host_limit_thm_acc[i] = SMUQ10_ROUND(
++				metrics->GfxclkBelowHostLimitThmAcc[inst]);
++			gpu_metrics->gfx_low_utilization_acc[i] = SMUQ10_ROUND(
++				metrics->GfxclkLowUtilizationAcc[inst]);
++			gpu_metrics->gfx_below_host_limit_total_acc
++				[i] = SMUQ10_ROUND(
++				metrics->GfxclkBelowHostLimitTotalAcc[inst]);
++		};
+ 	}
+ 
+ 	gpu_metrics->xgmi_link_width = metrics->XgmiWidth;
+ 	gpu_metrics->xgmi_link_speed = metrics->XgmiBitrate;
+ 
+ 	gpu_metrics->firmware_timestamp = metrics->Timestamp;
+-
+-	*table = (void *)gpu_metrics;
+-
+-	return sizeof(*gpu_metrics);
+ }
+ 
+ const struct smu_temp_funcs smu_v13_0_12_temp_funcs = {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 8e89ab9e3360..3edfdb0b2c00 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -542,7 +542,6 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+ 	struct smu_table *tables = smu_table->tables;
+-	void *gpu_metrics_table __free(kfree) = NULL;
+ 	struct smu_v13_0_6_gpu_metrics *gpu_metrics;
+ 	void *driver_pptable __free(kfree) = NULL;
+ 	void *metrics_table __free(kfree) = NULL;
+@@ -573,12 +572,6 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
+ 		return -ENOMEM;
+ 	smu_table->metrics_time = 0;
+ 
+-	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_8);
+-	gpu_metrics_table =
+-		kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+-	if (!gpu_metrics_table)
+-		return -ENOMEM;
+-
+ 	driver_pptable = kzalloc(sizeof(struct PPTable_t), GFP_KERNEL);
+ 	if (!driver_pptable)
+ 		return -ENOMEM;
+@@ -601,7 +594,6 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
  		}
  	}
-@@ -2947,7 +2952,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 
+-	smu_table->gpu_metrics_table = no_free_ptr(gpu_metrics_table);
+ 	smu_table->metrics_table = no_free_ptr(metrics_table);
+ 	smu_table->driver_pptable = no_free_ptr(driver_pptable);
+ 
+@@ -2770,16 +2762,20 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 	if (ret)
+ 		return ret;
+ 
+-	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) ==
+-		    IP_VERSION(13, 0, 12) &&
+-	    smu_v13_0_6_cap_supported(smu, SMU_CAP(STATIC_METRICS)))
+-		return smu_v13_0_12_get_gpu_metrics(smu, table, metrics_v0);
+-
+-	metrics_v1 = (MetricsTableV1_t *)metrics_v0;
+ 	metrics_v2 = (MetricsTableV2_t *)metrics_v0;
+ 	gpu_metrics = (struct smu_v13_0_6_gpu_metrics
+ 			       *)(tables[SMU_TABLE_SMU_METRICS].cache.buffer);
+ 
++	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 12) &&
++	    smu_v13_0_6_cap_supported(smu, SMU_CAP(STATIC_METRICS))) {
++		smu_v13_0_12_get_gpu_metrics(smu, table, metrics_v0,
++					     gpu_metrics);
++		goto fill;
++	}
++
++	metrics_v1 = (MetricsTableV1_t *)metrics_v0;
++	metrics_v2 = (MetricsTableV2_t *)metrics_v0;
++
+ 	gpu_metrics->temperature_hotspot =
+ 		SMUQ10_ROUND(GET_METRIC_FIELD(MaxSocketTemperature, version));
+ 	/* Individual HBM stack temperature is not reported */
+@@ -2952,6 +2948,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
  
  	gpu_metrics->firmware_timestamp = GET_METRIC_FIELD(Timestamp, version);
  
--	*table = (void *)gpu_metrics;
-+	*table = tables[SMU_TABLE_SMU_METRICS].cache.buffer;
++fill:
+ 	*table = tables[SMU_TABLE_SMU_METRICS].cache.buffer;
  
  	return sizeof(*gpu_metrics);
- }
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
-index 4652fcd5e068..d0cc1b03749b 100644
+index d0cc1b03749b..003672be005e 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
-@@ -73,6 +73,13 @@ enum smu_v13_0_6_caps {
- 	SMU_CAP(ALL),
- };
+@@ -92,7 +92,6 @@ size_t smu_v13_0_12_get_system_metrics_size(void);
+ int smu_v13_0_12_setup_driver_pptable(struct smu_context *smu);
+ int smu_v13_0_12_get_smu_metrics_data(struct smu_context *smu,
+ 				      MetricsMember_t member, uint32_t *value);
+-ssize_t smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table, void *smu_metrics);
+ ssize_t smu_v13_0_12_get_xcp_metrics(struct smu_context *smu,
+ 				     struct amdgpu_xcp *xcp, void *table,
+ 				     void *smu_metrics);
+@@ -209,6 +208,9 @@ extern const struct smu_temp_funcs smu_v13_0_12_temp_funcs;
+ 		  SMU_13_0_6_MAX_XCC)
  
-+#define SMU_13_0_6_NUM_XGMI_LINKS 8
-+#define SMU_13_0_6_MAX_GFX_CLKS 8
-+#define SMU_13_0_6_MAX_CLKS 4
-+#define SMU_13_0_6_MAX_XCC 8
-+#define SMU_13_0_6_MAX_VCN 4
-+#define SMU_13_0_6_MAX_JPEG 40
-+
- extern void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu);
- bool smu_v13_0_6_cap_supported(struct smu_context *smu, enum smu_v13_0_6_caps cap);
- int smu_v13_0_6_get_static_metrics_table(struct smu_context *smu);
-@@ -94,4 +101,115 @@ void smu_v13_0_12_tables_fini(struct smu_context *smu);
- extern const struct cmn2asic_mapping smu_v13_0_12_feature_mask_map[];
- extern const struct cmn2asic_msg_mapping smu_v13_0_12_message_map[];
- extern const struct smu_temp_funcs smu_v13_0_12_temp_funcs;
-+
-+#if defined(SWSMU_CODE_LAYER_L2)
-+#include "smu_cmn.h"
-+
-+/* SMUv 13.0.6 GPU metrics*/
-+#define SMU_13_0_6_METRICS_FIELDS(SMU_SCALAR, SMU_ARRAY)                       \
-+	SMU_SCALAR(SMU_MATTR(TEMPERATURE_HOTSPOT), SMU_MUNIT(TEMP_1),          \
-+		   SMU_MTYPE(U16), temperature_hotspot)                        \
-+	SMU_SCALAR(SMU_MATTR(TEMPERATURE_MEM), SMU_MUNIT(TEMP_1),              \
-+		   SMU_MTYPE(U16), temperature_mem)                            \
-+	SMU_SCALAR(SMU_MATTR(TEMPERATURE_VRSOC), SMU_MUNIT(TEMP_1),            \
-+		   SMU_MTYPE(U16), temperature_vrsoc)                          \
-+	SMU_SCALAR(SMU_MATTR(CURR_SOCKET_POWER), SMU_MUNIT(POWER_1),           \
-+		   SMU_MTYPE(U16), curr_socket_power)                          \
-+	SMU_SCALAR(SMU_MATTR(AVERAGE_GFX_ACTIVITY), SMU_MUNIT(PERCENT),        \
-+		   SMU_MTYPE(U16), average_gfx_activity)                       \
-+	SMU_SCALAR(SMU_MATTR(AVERAGE_UMC_ACTIVITY), SMU_MUNIT(PERCENT),        \
-+		   SMU_MTYPE(U16), average_umc_activity)                       \
-+	SMU_SCALAR(SMU_MATTR(MEM_MAX_BANDWIDTH), SMU_MUNIT(BW_1),              \
-+		   SMU_MTYPE(U64), mem_max_bandwidth)                          \
-+	SMU_SCALAR(SMU_MATTR(ENERGY_ACCUMULATOR), SMU_MUNIT(NONE),             \
-+		   SMU_MTYPE(U64), energy_accumulator)                         \
-+	SMU_SCALAR(SMU_MATTR(SYSTEM_CLOCK_COUNTER), SMU_MUNIT(TIME_1),         \
-+		   SMU_MTYPE(U64), system_clock_counter)                       \
-+	SMU_SCALAR(SMU_MATTR(ACCUMULATION_COUNTER), SMU_MUNIT(NONE),           \
-+		   SMU_MTYPE(U32), accumulation_counter)                       \
-+	SMU_SCALAR(SMU_MATTR(PROCHOT_RESIDENCY_ACC), SMU_MUNIT(NONE),          \
-+		   SMU_MTYPE(U32), prochot_residency_acc)                      \
-+	SMU_SCALAR(SMU_MATTR(PPT_RESIDENCY_ACC), SMU_MUNIT(NONE),              \
-+		   SMU_MTYPE(U32), ppt_residency_acc)                          \
-+	SMU_SCALAR(SMU_MATTR(SOCKET_THM_RESIDENCY_ACC), SMU_MUNIT(NONE),       \
-+		   SMU_MTYPE(U32), socket_thm_residency_acc)                   \
-+	SMU_SCALAR(SMU_MATTR(VR_THM_RESIDENCY_ACC), SMU_MUNIT(NONE),           \
-+		   SMU_MTYPE(U32), vr_thm_residency_acc)                       \
-+	SMU_SCALAR(SMU_MATTR(HBM_THM_RESIDENCY_ACC), SMU_MUNIT(NONE),          \
-+		   SMU_MTYPE(U32), hbm_thm_residency_acc)                      \
-+	SMU_SCALAR(SMU_MATTR(GFXCLK_LOCK_STATUS), SMU_MUNIT(NONE),             \
-+		   SMU_MTYPE(U32), gfxclk_lock_status)                         \
-+	SMU_SCALAR(SMU_MATTR(PCIE_LINK_WIDTH), SMU_MUNIT(NONE),                \
-+		   SMU_MTYPE(U16), pcie_link_width)                            \
-+	SMU_SCALAR(SMU_MATTR(PCIE_LINK_SPEED), SMU_MUNIT(SPEED_2),             \
-+		   SMU_MTYPE(U16), pcie_link_speed)                            \
-+	SMU_SCALAR(SMU_MATTR(XGMI_LINK_WIDTH), SMU_MUNIT(NONE),                \
-+		   SMU_MTYPE(U16), xgmi_link_width)                            \
-+	SMU_SCALAR(SMU_MATTR(XGMI_LINK_SPEED), SMU_MUNIT(SPEED_1),             \
-+		   SMU_MTYPE(U16), xgmi_link_speed)                            \
-+	SMU_SCALAR(SMU_MATTR(GFX_ACTIVITY_ACC), SMU_MUNIT(PERCENT),            \
-+		   SMU_MTYPE(U32), gfx_activity_acc)                           \
-+	SMU_SCALAR(SMU_MATTR(MEM_ACTIVITY_ACC), SMU_MUNIT(PERCENT),            \
-+		   SMU_MTYPE(U32), mem_activity_acc)                           \
-+	SMU_SCALAR(SMU_MATTR(PCIE_BANDWIDTH_ACC), SMU_MUNIT(PERCENT),          \
-+		   SMU_MTYPE(U64), pcie_bandwidth_acc)                         \
-+	SMU_SCALAR(SMU_MATTR(PCIE_BANDWIDTH_INST), SMU_MUNIT(BW_1),            \
-+		   SMU_MTYPE(U64), pcie_bandwidth_inst)                        \
-+	SMU_SCALAR(SMU_MATTR(PCIE_L0_TO_RECOV_COUNT_ACC), SMU_MUNIT(NONE),     \
-+		   SMU_MTYPE(U64), pcie_l0_to_recov_count_acc)                 \
-+	SMU_SCALAR(SMU_MATTR(PCIE_REPLAY_COUNT_ACC), SMU_MUNIT(NONE),          \
-+		   SMU_MTYPE(U64), pcie_replay_count_acc)                      \
-+	SMU_SCALAR(SMU_MATTR(PCIE_REPLAY_ROVER_COUNT_ACC), SMU_MUNIT(NONE),    \
-+		   SMU_MTYPE(U64), pcie_replay_rover_count_acc)                \
-+	SMU_SCALAR(SMU_MATTR(PCIE_NAK_SENT_COUNT_ACC), SMU_MUNIT(NONE),        \
-+		   SMU_MTYPE(U32), pcie_nak_sent_count_acc)                    \
-+	SMU_SCALAR(SMU_MATTR(PCIE_NAK_RCVD_COUNT_ACC), SMU_MUNIT(NONE),        \
-+		   SMU_MTYPE(U32), pcie_nak_rcvd_count_acc)                    \
-+	SMU_ARRAY(SMU_MATTR(XGMI_READ_DATA_ACC), SMU_MUNIT(DATA_1),            \
-+		  SMU_MTYPE(U64), xgmi_read_data_acc,                          \
-+		  SMU_13_0_6_NUM_XGMI_LINKS)                                   \
-+	SMU_ARRAY(SMU_MATTR(XGMI_WRITE_DATA_ACC), SMU_MUNIT(DATA_1),           \
-+		  SMU_MTYPE(U64), xgmi_write_data_acc,                         \
-+		  SMU_13_0_6_NUM_XGMI_LINKS)                                   \
-+	SMU_ARRAY(SMU_MATTR(XGMI_LINK_STATUS), SMU_MUNIT(NONE),                \
-+		  SMU_MTYPE(U16), xgmi_link_status, SMU_13_0_6_NUM_XGMI_LINKS) \
-+	SMU_SCALAR(SMU_MATTR(FIRMWARE_TIMESTAMP), SMU_MUNIT(TIME_2),           \
-+		   SMU_MTYPE(U64), firmware_timestamp)                         \
-+	SMU_ARRAY(SMU_MATTR(CURRENT_GFXCLK), SMU_MUNIT(CLOCK_1),               \
-+		  SMU_MTYPE(U16), current_gfxclk, SMU_13_0_6_MAX_GFX_CLKS)     \
-+	SMU_ARRAY(SMU_MATTR(CURRENT_SOCCLK), SMU_MUNIT(CLOCK_1),               \
-+		  SMU_MTYPE(U16), current_socclk, SMU_13_0_6_MAX_CLKS)         \
-+	SMU_ARRAY(SMU_MATTR(CURRENT_VCLK0), SMU_MUNIT(CLOCK_1),                \
-+		  SMU_MTYPE(U16), current_vclk0, SMU_13_0_6_MAX_CLKS)          \
-+	SMU_ARRAY(SMU_MATTR(CURRENT_DCLK0), SMU_MUNIT(CLOCK_1),                \
-+		  SMU_MTYPE(U16), current_dclk0, SMU_13_0_6_MAX_CLKS)          \
-+	SMU_SCALAR(SMU_MATTR(CURRENT_UCLK), SMU_MUNIT(CLOCK_1),                \
-+		   SMU_MTYPE(U16), current_uclk)                               \
-+	SMU_SCALAR(SMU_MATTR(PCIE_LC_PERF_OTHER_END_RECOVERY),                 \
-+		   SMU_MUNIT(NONE), SMU_MTYPE(U32),                            \
-+		   pcie_lc_perf_other_end_recovery)                            \
-+	SMU_ARRAY(SMU_MATTR(GFX_BUSY_INST), SMU_MUNIT(PERCENT),                \
-+		  SMU_MTYPE(U32), gfx_busy_inst, SMU_13_0_6_MAX_XCC)           \
-+	SMU_ARRAY(SMU_MATTR(JPEG_BUSY), SMU_MUNIT(PERCENT), SMU_MTYPE(U16),    \
-+		  jpeg_busy, SMU_13_0_6_MAX_JPEG)                              \
-+	SMU_ARRAY(SMU_MATTR(VCN_BUSY), SMU_MUNIT(PERCENT), SMU_MTYPE(U16),     \
-+		  vcn_busy, SMU_13_0_6_MAX_VCN)                                \
-+	SMU_ARRAY(SMU_MATTR(GFX_BUSY_ACC), SMU_MUNIT(PERCENT), SMU_MTYPE(U64), \
-+		  gfx_busy_acc, SMU_13_0_6_MAX_XCC)                            \
-+	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_PPT_ACC), SMU_MUNIT(NONE),    \
-+		  SMU_MTYPE(U64), gfx_below_host_limit_ppt_acc,                \
-+		  SMU_13_0_6_MAX_XCC)                                          \
-+	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_THM_ACC), SMU_MUNIT(NONE),    \
-+		  SMU_MTYPE(U64), gfx_below_host_limit_thm_acc,                \
-+		  SMU_13_0_6_MAX_XCC)                                          \
-+	SMU_ARRAY(SMU_MATTR(GFX_LOW_UTILIZATION_ACC), SMU_MUNIT(NONE),         \
-+		  SMU_MTYPE(U64), gfx_low_utilization_acc, SMU_13_0_6_MAX_XCC) \
-+	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_TOTAL_ACC), SMU_MUNIT(NONE),  \
-+		  SMU_MTYPE(U64), gfx_below_host_limit_total_acc,              \
-+		  SMU_13_0_6_MAX_XCC)
-+
-+DECLARE_SMU_METRICS_CLASS(smu_v13_0_6_gpu_metrics, SMU_13_0_6_METRICS_FIELDS);
-+
-+#endif /* SWSMU_CODE_LAYER_L2 */
-+
- #endif
+ DECLARE_SMU_METRICS_CLASS(smu_v13_0_6_gpu_metrics, SMU_13_0_6_METRICS_FIELDS);
++void smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table,
++				  void *smu_metrics,
++				  struct smu_v13_0_6_gpu_metrics *gpu_metrics);
+ 
+ #endif /* SWSMU_CODE_LAYER_L2 */
+ 
 -- 
 2.49.0
 
