@@ -4,118 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1EA6CAC592
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 20:31:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CA67CAC598
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 21:45:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB4110E059;
-	Mon, 15 Sep 2025 20:31:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5903F10E368;
+	Mon, 15 Sep 2025 21:45:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yIqDzi6O";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X8jnO/rc";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010047.outbound.protection.outlook.com [52.101.201.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 154B210E059
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 20:31:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lKwUHb2Bulosht4HAWwfbM1af8Ey2v42ElMY1PcSbR5u6j19lmlw8W8Y/AYXxd9qhDDloQFbsTR0t79dNsLLzmnxEM3c7aLwxtV+R/E4/StsUhnNvbqFI5HxEawXJfl99NaMBgiebpXEfcgCilC6FcTg/reGrvMm7XVPohiboJq75k9lBHLClCH/v19N7dH+QyIrMfP/DmwMmmYUah/j5fuB2ZdnOj9UrGZ4cWDXBkVokf4KwLqOrLKNsB+5127VHYc+yNlq30I9Y//1+z0/UYDhP6wma0rlUdgoO7tsGMgWo6VGi/wrP78XeAH46X0I0tLiExx1T/t7Jrv/d6eVlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/UT6CdWKzbEyUJbbptf1mYHtvKUQm0ygQZnDy3By1dA=;
- b=IMSHoEqQ8ayL9CD2gRGCoXNTy+2ys+TpC7me5HAuYYYmRD/PIxLM5klNRcN3BdwYvVTKcwbNC1a/nd1xPFDKlHwqr3cYjrX3wdgRYPqzXLp83pE3bTgbDceMrUrsdYtgxQnzzRSK4THvt+b6gpbnNCENqONJ9hvxjVgTmm2HgOUo3BYgtR06cmS5XAQdmh+eyqafxEnNHsyYhqKJkc4fyNwn1ElRRYji1wtX8/23kgcku9KWBr/NuSR37IlkNtPUstiPifRLv47JNxSHMeblYRkuEdMhAzyI5O9X6NtL4txag4YsFB1a/qLGq8B4Ey585IS0aPobxgmphJAz8n/2kQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/UT6CdWKzbEyUJbbptf1mYHtvKUQm0ygQZnDy3By1dA=;
- b=yIqDzi6Ohd/7hdcE5JH7zgmJyhBFxfSmCbw7chMQxv+1VtwYkzu7ETdKlXKeOkdtjzPvRnKftitUD+nlZDLIyefRfXPfGx8yMNJk2Xz6E75nc9BBEwM7+jAvjs4/hlpOgY1mdgpjavpchoGSxp/6Lt2Bgvs+IkMD0niWid2vvyQ=
-Received: from SJ0PR05CA0096.namprd05.prod.outlook.com (2603:10b6:a03:334::11)
- by SN7PR12MB7450.namprd12.prod.outlook.com (2603:10b6:806:29a::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.22; Mon, 15 Sep
- 2025 20:31:45 +0000
-Received: from SJ5PEPF000001D1.namprd05.prod.outlook.com
- (2603:10b6:a03:334:cafe::6f) by SJ0PR05CA0096.outlook.office365.com
- (2603:10b6:a03:334::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.10 via Frontend Transport; Mon,
- 15 Sep 2025 20:31:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001D1.mail.protection.outlook.com (10.167.242.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Mon, 15 Sep 2025 20:31:44 +0000
-Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 15 Sep
- 2025 13:31:44 -0700
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] Documentation: add initial documenation for user queues
-Date: Mon, 15 Sep 2025 16:31:31 -0400
-Message-ID: <20250915203131.24829-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.51.0
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C44A210E368
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 21:45:30 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-260f41a85f3so4815425ad.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 14:45:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757972730; x=1758577530; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hgjQuP4Me3guJDVcSDtwLqdLj9Ad4VyHioffhsnvnuU=;
+ b=X8jnO/rcUhn3kXQMJ9+aC9/S7Xm1xLTnZ6p2lMTn68wS6Da8tXzJvtMBXaajJhGt6Q
+ AhpEM8GdCdU2STq5Q3VHNBoKl/3XtYqngzfUph4rylBRfU6eUOxtPb6LAAbQmvxIIf2B
+ VW1nne2boKG6Fw8RXsi+WC/0gsg76/vUfcWYJUJ8CuY1HxWxw0GCrC1N861BTIBVon23
+ mcxeMGk9woaA9ZUKEf17x5LSly5AC8+7mdBMlm1hBnUdgTDzfQvdKHRHj8W46eUn/u0h
+ h8fj0nutPPppnBEVfNkGEm7gl681U5Djd+XJ5BgXNc5Wtegd0jghzWWV3JCk76OE9u0D
+ 5v7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757972730; x=1758577530;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=hgjQuP4Me3guJDVcSDtwLqdLj9Ad4VyHioffhsnvnuU=;
+ b=T83BBlQ/KeSHIZTclqqVSPsjMlJmRkq5dIcGez63sWz+clkBT+dcvYOqkKaeFBe01K
+ nl4WzsuYvdo9NwLR4pObGwuKu0H+nPoWc9+jw0PWb7vP8JRa6DgjMdLnZV+Uc416+G5+
+ Ab7ow+YLYO+UdOy58SoPQEQVb7a6VYozDwqsY6xwAJGHOsztuMc1wyGRrrw2g3I0+u4z
+ lmZ5yJ9qcLVuZ/kkjfdjiBJ6M+/wfT1ipuz6eCkrTAuQQ5+PorYW8cj29fxDJrDKyd19
+ GWkVXPcOOr0QAc3+UR/clju1OaWERas6J+aUGq2HAk++/Bz2KVhpRXN0s8kqPZAEZPHo
+ plsg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXcCcIWS4XOWZuNGA0e/nzTRVNGkpeL2UQbxcr1VOAAff9SrRk6Kgj8hN3qe0BX5qN3a1Z8nEEU@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwofP35mMjt97IONOwD2GU+bCGkBwDbw+Lm4wIWQEkUvEssgkkv
+ e8ysWfrVBUuJ22ObJ9VqsNwDJA5u5UJkKhaaA66TNIb1SF8lRhGiiZsb3TKb/JJS7lQMecVErlt
+ Me31yXttPwSIZYcpkAHIYmVQGkGaO3DA=
+X-Gm-Gg: ASbGncuzKylKNHuRDLt5BtOcx1Ze9+w9j57CqY8IyUvISjAiJnHlso9WRBru4mrDDUa
+ 0C38gvmaQQpypjrxjDXZXYGIbdedkSS4iMt3hX4l8WU1QB3LRS4n9KXvQHz7+P62z0gwiWUcrzx
+ +tcC1Vz6hcRVB3Oskzc2Mi8uK7yhjwVuqtxR2ETiBnrBAH5NJs4pCRZbn4Fv+lpThEQ9wO3iEAp
+ 0iADmZ4Oo0avcu59w==
+X-Google-Smtp-Source: AGHT+IHw3Z18XHstUu2o5MDyyGsJMQUZc09lyWpgCR+3iBlFcxOGkW7iUUBCOCFrQn0WS7ZaeI8Iju8q0S+OmEonvrg=
+X-Received: by 2002:a17:903:1a8b:b0:25a:4437:dbb7 with SMTP id
+ d9443c01a7336-25d25e85badmr85747195ad.4.1757972730212; Mon, 15 Sep 2025
+ 14:45:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D1:EE_|SN7PR12MB7450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ba02bd9-40de-492f-a905-08ddf496e2fb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?vTMOEFGZfXCP84YvizQ0oFNpAW3CkKYaElPUjFOvCuZu9QS5Jw/ExMuhU/f8?=
- =?us-ascii?Q?Xi5N09UGMYXGaUAkbo5kv6nBc77ciE+3c027J3urhLYlXuAxc8bTFJtqsgef?=
- =?us-ascii?Q?5LIg4uzH0at4ljM26WwzNGDHjWkMb/YC0JL/Eps2ZrNWo6ifp6YJOffHagZJ?=
- =?us-ascii?Q?IzIYSOJvadzZ6CM+2XISFjweH+22B8epAJRjMshH+f1hNBaYEtP4rfbw5+Es?=
- =?us-ascii?Q?HKi+eU0dGAlOQaR1pB2XY82PRuh2JR9o3jX7eEWPPaQXnmRBN0fYYa9t5Bmp?=
- =?us-ascii?Q?DNGvyD52C2gH/zLb/ziON1jVDEiA+pHYSMxTa1DbPRac4r1zRo5/xIYEgoIf?=
- =?us-ascii?Q?BTXAS97W0DO/+qQrhlFOzMWdwBCfMdFpYp2lhn/lmXhNhBVsJXePkEVCVXSZ?=
- =?us-ascii?Q?el8Ug/jFLmQVw7zCCSkgywwyAm6kmYsHHwpRt7m/GW/JXkJacIwFKwR/yYLD?=
- =?us-ascii?Q?CPs20A0AwOBNXy9RSfSTcPPNXEUNyeV5LG2UgHUnit8uCjpvPnMAmufn9CfU?=
- =?us-ascii?Q?u3AqAAIi2Kd5PIkP1p8BGPsfZoe71XFmyWdko0Am+fnOjIO849OfRuLD/XU+?=
- =?us-ascii?Q?Z8TZKa062VWmeqkNHg3lqEWB3RX/xQkCEp4eAzQZIyzT7Px/MF/ngfycfy1c?=
- =?us-ascii?Q?pFBJCez4mliqbZUk0pzEEJqbMhJzGbFUpNzwjD/VfPwrGvHWTZhFuAMZn+54?=
- =?us-ascii?Q?suy7DM3H5q3UuA7yR0enKC2ranPSieCA2cKb1BeYnS3XPrrJUW0sF9B/wzV1?=
- =?us-ascii?Q?jRVq3nLMm/LQIQ9y0CBvCEIcW1iLAOrosfm/pxox6wU5AlbjZ5pRPLiAjyW0?=
- =?us-ascii?Q?6/mMMrsqbWGaF/I9IKUZRfK3jNc13V5RpXPjeJMZlWr9ceXKkQP2XJshxy/m?=
- =?us-ascii?Q?hGjwnVJV20X6GGQLOwGTNpkbp6ZS2YNCA9P9GWlFOSLoPUkLbj82EKY9pZlg?=
- =?us-ascii?Q?Lz2V5n+CMp92cjxVa2ueItArxr6quT+AqZQqd+IHplK8rtmsSuBVwphAytB/?=
- =?us-ascii?Q?tFQhVZ2KwI4LVh3tW9Jk7n2XgoSjDp+Az1ZcbbTo4fO9tg9v/EXku/DRjojN?=
- =?us-ascii?Q?6kd7qI+QNsnPlq14Z+GLhBs3f9ZT9/J9CnOggubsEenHg58q6vwnYIFEBVDw?=
- =?us-ascii?Q?VqTyas5kAmME6Wpp8nOEBoJiYKvz7Np7xi8pe2dLUu0h/1aLaQJrA7lxcuvd?=
- =?us-ascii?Q?jKoUhcr5JUuQFXk2JVKP++xqeHG1lowUMMAYZgNwY7j/ik+GrF16+G5wjpxx?=
- =?us-ascii?Q?1fP4GIUiv8rDUbytUmNMNv4+u4mHVCJzYQiHJDPO78/wiu0+S/4SnVhpLV9B?=
- =?us-ascii?Q?ZbOH0hBDt3vGO3/abjm6ca+K7Cffs1l16dx1NvIHUhND88+kTCYzXzrT0NqP?=
- =?us-ascii?Q?KkBwzo5B8ZVt7LE6v4H91J6kVdaV5islSz/oPruBJPkYJ+BRlYIcp7QVxTpw?=
- =?us-ascii?Q?tz+EYbZ82GQLqe8jPJcr1kIlSbSfFYwgdOwPFdmWLn57+U8B2D4C890ssiYr?=
- =?us-ascii?Q?mtMeE6bNqbI7HcPf7B4QYabKUDD0F+QcJAEn?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2025 20:31:44.5542 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ba02bd9-40de-492f-a905-08ddf496e2fb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7450
+References: <20250913052109.2638-1-bold.zone2373@fastmail.com>
+In-Reply-To: <20250913052109.2638-1-bold.zone2373@fastmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Sep 2025 17:45:18 -0400
+X-Gm-Features: Ac12FXyeEWmkZqa6wbMn8t2Wun6mfw4KJJSTBJD8vx8rr6MmHrmXg4LFyNCd8yc
+Message-ID: <CADnq5_N9r+hyu6ARUGeYnsSPNNBM-bq0YV5mQoH6vp2yXdXZhg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Use kmalloc_array() instead of kmalloc()
+To: James Flowers <bold.zone2373@fastmail.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, roman.li@amd.com, alvin.lee2@amd.com, 
+ skhan@linuxfoundation.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-kernel-mentees@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,236 +87,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an initial documentation page for user mode queues.
+Applied.  Thanks!
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- Documentation/gpu/amdgpu/index.rst |   1 +
- Documentation/gpu/amdgpu/userq.rst | 203 +++++++++++++++++++++++++++++
- 2 files changed, 204 insertions(+)
- create mode 100644 Documentation/gpu/amdgpu/userq.rst
+Alex
 
-diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amdgpu/index.rst
-index bb2894b5edaf2..45523e9860fc5 100644
---- a/Documentation/gpu/amdgpu/index.rst
-+++ b/Documentation/gpu/amdgpu/index.rst
-@@ -12,6 +12,7 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA) architectures.
-    module-parameters
-    gc/index
-    display/index
-+   userq
-    flashing
-    xgmi
-    ras
-diff --git a/Documentation/gpu/amdgpu/userq.rst b/Documentation/gpu/amdgpu/userq.rst
-new file mode 100644
-index 0000000000000..ca3ea71f7888b
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/userq.rst
-@@ -0,0 +1,203 @@
-+==================
-+ User Mode Queues
-+==================
-+
-+Introduction
-+============
-+
-+Similar to the KFD, GPU engine queues move into userspace.  The idea is to let
-+user processes manage their submissions to the GPU engines directly, bypassing
-+IOCTL calls to the driver to submit work.  This reduces overhead and also allows
-+the GPU to submit work to itself.  Applications can set up work graphs of jobs
-+across multiple GPU engines without needing trips through the CPU.
-+
-+UMDs directly interface with firmware via per application shared memory areas.
-+The main vehicle for this is queue.  A queue is a ring buffer with a read
-+pointer (rptr) and a write pointer (wptr).  The UMD writes IP specific packets
-+into the queue and the firmware processes those packets, kicking off work on the
-+GPU engines.  The CPU in the application (or another queue or device) updates
-+the wptr to tell the firmware how far into the ring buffer to process packets
-+and the rtpr provides feedback to the UMD on how far the firmware has progressed
-+in executing those packets.  When the wptr and the rptr are equal, the queue is
-+idle.
-+
-+Theory of Operation
-+===================
-+
-+The various engines on modern AMD GPUs support multiple queues per engine with a
-+scheduling firmware which handles dynamically scheduling user queues on the
-+available hardware queue slots.  When the number of user queues outnumbers the
-+available hardware queue slots, the scheduling firmware dynamically maps and
-+unmaps queues based on priority and time quanta.  The state of each user queue
-+is managed in the kernel driver in an MQD (Memory Queue Descriptor).  This is a
-+buffer in GPU accessible memory that stores the state of a user queue.  The
-+scheduling firmware uses the MQD to load the queue state into an HQD (Hardware
-+Queue Descriptor) when a user queue is mapped.  Each user queue requires a
-+number of additional buffers which represent the ring buffer and any metadata
-+needed by the engine for runtime operation.  On most engines this consists of
-+the ring buffer itself, a rptr buffer (where the firmware will shadow the rptr
-+to userspace), a wptr buffer (where the application will write the wptr for the
-+firmware to fetch it), and a doorbell.  A doorbell is a piece of one of the
-+device's MMIO BARs which can be mapped to specific user queues.  When the
-+application writes to the doorbell, it will signal the firmware to take some
-+action. Writing to the doorbell wakes the firmware and causes it to fetch the
-+wptr and start processing the packets in the queue. Each 4K page of the doorbell
-+BAR supports specific offset ranges for specific engines.  The doorbell of a
-+queue must be mapped into the aperture aligned to the IP used by the queue
-+(e.g., GFX, VCN, SDMA, etc.).  These doorbell apertures are set up via NBIO
-+registers.  Doorbells are 32 bit or 64 bit (depending on the engine) chunks of
-+the doorbell BAR.  A 4K doorbell page provides 512 64-bit doorbells for up to
-+512 user queues.  A subset of each page is reserved for each IP type supported
-+on the device.  The user can query the doorbell ranges for each IP via the INFO
-+IOCTL.  See the IOCTL Interfaces section for more information.
-+
-+When an application wants to create a user queue, it allocates the necessary
-+buffers for the queue (ring buffer, wptr and rptr, context save areas, etc.).
-+These can be separate buffers or all part of one larger buffer.  The application
-+would map the buffer(s) into its GPUVM and use the GPU virtual addresses of for
-+the areas of memory they want to use for the user queue.  They would also
-+allocate a doorbell page for the doorbells used by the user queues.  The
-+application would then populate the MQD in the USERQ IOCTL structure with the
-+GPU virtual addresses and doorbell index they want to use.  The user can also
-+specify the attributes for the user queue (priority, whether the queue is secure
-+for protected content, etc.).  The application would then call the USERQ
-+CREATE IOCTL to create the queue using the specified MQD details in the IOCTL.
-+The kernel driver then validates the MQD provided by the application and
-+translates the MQD into the engine specific MQD format for the IP.  The IP
-+specific MQD would be allocated and the queue would be added to the run list
-+maintained by the scheduling firmware.  Once the queue has been created, the
-+application can write packets directly into the queue, update the wptr, and
-+write to the doorbell offset to kick off work in the user queue.
-+
-+When the application is done with the user queue, it would call the USERQ
-+FREE IOCTL to destroy it.  The kernel driver would preempt the queue and
-+remove it from the scheduling firmware's run list.  Then the IP specific MQD
-+would be freed and the user queue state would be cleaned up.
-+
-+Some engines may require the aggregated doorbell too if the engine does not
-+support doorbells from unmapped queues.  The aggregated doorbell is a special
-+page of doorbell space which wakes the scheduler.  In cases where the engine may
-+be oversubscribed, some queues may not be mapped.  If the doorbell is rung when
-+the queue is not mapped, the engine firmware may miss the request.  Some
-+scheduling firmware may work around this by polling wptr shadows when the
-+hardware is oversubscribed, other engines may support doorbell updates from
-+unmapped queues.  In the event that one of these options is not available, the
-+kernel driver will map a page of aggregated doorbell space into each GPUVM
-+space.  The UMD will then update the doorbell and wptr as normal and then write
-+to the aggregated doorbell as well.
-+
-+Special Packets
-+---------------
-+
-+In order to support legacy implicit synchronization, as well as mixed user and
-+kernel queues, we need a synchronization mechanism that is secure.  Because
-+kernel queues or memory management tasks depend on kernel fences, we need a way
-+for user queues to update memory that the kernel can use for a fence, that can't
-+be messed with by a bad actor.  To support this, we've added a protected fence
-+packet.  This packet works by writing a monotonically increasing value to
-+a memory location that only privileged clients have write access to. User
-+queues only have read access.  When this packet is executed, the memory location
-+is updated and other queues (kernel or user) can see the results.  The
-+user application would submit this packet in their command stream.  The actual
-+packet format varies from IP to IP (GFX/Compute, SDMA, VCN, etc.), but the
-+behavior is the same.  The packet submission is handled in userspace.  The
-+kernel driver sets up the privileged memory used for each user queue when it
-+sets the queues up when the application creates them.
-+
-+
-+Memory Management
-+=================
-+
-+It is assumed that all buffers mapped into the GPUVM space for the process are
-+valid when engines on the GPU are running.  The kernel driver will only allow
-+user queues to run when all buffers are mapped.  If there is a memory event that
-+requires buffer migration, the kernel driver will preempt the user queues,
-+migrate buffers to where they need to be, update the GPUVM page tables and
-+invaldidate the TLB, and then resume the user queues.
-+
-+Interaction with Kernel Queues
-+==============================
-+
-+Depending on the IP and the scheduling firmware, you can enable kernel queues
-+and user queues at the same time, however, you are limited by the HQD slots.
-+Kernel queues are always mapped so any work that goes into kernel queues will
-+take priority.  This limits the available HQD slots for user queues.
-+
-+Not all IPs will support user queues on all GPUs.  As such, UMDs will need to
-+support both user queues and kernel queues depending on the IP.  For example, a
-+GPU may support user queues for GFX, compute, and SDMA, but not for VCN, JPEG,
-+and VPE.  UMDs need to support both.  The kernel driver provides a way to
-+determine if user queues and kernel queues are supported on a per IP basis.
-+UMDs can query this information via the INFO IOCTL and determine whether to use
-+kernel queues or user queues for each IP.
-+
-+Queue Resets
-+============
-+
-+For most engines, queues can be reset individually.  GFX, compute, and SDMA
-+queues can be reset individually.  When a hung queue is detected, it can be
-+reset either via the scheduling firmware or MMIO.  Since there are no kernel
-+fences for most user queues, they will usually only be detected when some other
-+event happens; e.g., a memory event which requires migration of buffers.  When
-+the queues are preempted, if the queue is hung, the preemption will fail.
-+Driver will then look up the queues that failed to preempt and reset them and
-+record which queues are hung.
-+
-+On the UMD side, we will add a USERQ QUERY_STATUS IOCTL to query the queue
-+status.  UMD will provide the queue id in the IOCTL and the kernel driver
-+will check if it has already recorded the queue as hung (e.g., due to failed
-+peemption) and report back the status.
-+
-+IOCTL Interfaces
-+================
-+
-+GPU virtual addresses used for queues and related data (rptrs, wptrs, context
-+save areas, etc.) should be validated by the kernel mode driver to prevent the
-+user from specifying invalid GPU virtual addresses.  If the user provides
-+invalid GPU virtual addresses or doorbell indicies, the IOCTL should return an
-+error message.  These buffers should also be tracked in the kernel driver so
-+that if the user attempts to unmap the buffer(s) from the GPUVM, the umap call
-+would return an error.
-+
-+INFO
-+----
-+There are several new INFO queries related to user queues in order to query the
-+size of user queue meta data needed for a user queue (e.g., context save areas
-+or shadow buffers), whether kernel or user queues or both are supported
-+for each IP type, and the offsets for each IP type in each doorbell page.
-+
-+USERQ
-+-----
-+The USERQ IOCTL is used for creating, freeing, and querying the status of user
-+queues.  It supports 3 opcodes:
-+
-+1. CREATE - Create a user queue.  The application provides an MQD-like structure
-+   that defines the type of queue and associated metadata and flags for that
-+   queue type.  Returns the queue id.
-+2. FREE - Free a user queue.
-+3. QUERY_STATUS - Query that status of a queue.  Used to check if the queue is
-+   healthy or not.  E.g., if the queue has been reset. (WIP)
-+
-+USERQ_SIGNAL
-+------------
-+The USERQ_SIGNAL IOCTL is used to provide a list of sync objects to be signaled.
-+
-+USERQ_WAIT
-+----------
-+The USERQ_WAIT IOCTL is used to provide a list of sync object to be waited on.
-+
-+Kernel and User Queues
-+======================
-+
-+In order to properly validate and test performance, we have a driver option to
-+select what type of queues are enabled (kernel queues, user queues or both).
-+The user_queue driver parameter allows you to enable kernel queues only (0),
-+user queues and kernel queues (1), and user queues only (2).  Enabling user
-+queues only will free up static queue assignments that would otherwise be used
-+by kernel queues for use by the scheduling firmware.  Some kernel queues are
-+required for kernel driver operation and they will always be created.  When the
-+kernel queues are not enabled, they are not registered with the drm scheduler
-+and the CS IOCTL will reject any incoming command submissions which target those
-+queue types.  Kernel queues only mirrors the behavior on all existing GPUs.
-+Enabling both queues allows for backwards compatibility with old userspace while
-+still supporting user queues.
--- 
-2.51.0
-
+On Sat, Sep 13, 2025 at 1:31=E2=80=AFAM James Flowers
+<bold.zone2373@fastmail.com> wrote:
+>
+> Documentation/process/deprecated.rst recommends against the use of kmallo=
+c
+> with dynamic size calculations due to the risk of overflow and smaller
+> allocation being made than the caller was expecting. This could lead to
+> buffer overflow in code similar to the memcpy in
+> amdgpu_dm_plane_add_modifier().
+>
+> Signed-off-by: James Flowers <bold.zone2373@fastmail.com>
+> ---
+> I see that in amdgpu_dm_plane_get_plane_modifiers, capacity is initialize=
+d to
+> only 128, but it is probably preferable to refactor.
+>
+> Tested on a Steam Deck OLED with no apparent regressions using these test=
+ suites from
+> igt-gpu-tools:
+> 1) kms_plane
+> 2) amd_plane
+> 3) amd_fuzzing
+> 4) testdisplay
+>
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index b7c6e8d13435..b587d2033f0b 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -146,7 +146,7 @@ static void amdgpu_dm_plane_add_modifier(uint64_t **m=
+ods, uint64_t *size, uint64
+>
+>         if (*cap - *size < 1) {
+>                 uint64_t new_cap =3D *cap * 2;
+> -               uint64_t *new_mods =3D kmalloc(new_cap * sizeof(uint64_t)=
+, GFP_KERNEL);
+> +               uint64_t *new_mods =3D kmalloc_array(new_cap, sizeof(uint=
+64_t), GFP_KERNEL);
+>
+>                 if (!new_mods) {
+>                         kfree(*mods);
+> @@ -732,7 +732,7 @@ static int amdgpu_dm_plane_get_plane_modifiers(struct=
+ amdgpu_device *adev, unsig
+>         if (adev->family < AMDGPU_FAMILY_AI)
+>                 return 0;
+>
+> -       *mods =3D kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
+> +       *mods =3D kmalloc_array(capacity, sizeof(uint64_t), GFP_KERNEL);
+>
+>         if (plane_type =3D=3D DRM_PLANE_TYPE_CURSOR) {
+>                 amdgpu_dm_plane_add_modifier(mods, &size, &capacity, DRM_=
+FORMAT_MOD_LINEAR);
+> --
+> 2.51.0
+>
