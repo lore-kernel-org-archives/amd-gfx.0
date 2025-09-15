@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E493CCAC597
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 12:55:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94DDCCAC592
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 12:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC03810E49A;
-	Mon, 15 Sep 2025 12:55:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E9D10E49E;
+	Mon, 15 Sep 2025 12:55:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KZJiLwPX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X5GJWlHM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D58610E340;
- Mon, 15 Sep 2025 09:14:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B25510E350;
+ Mon, 15 Sep 2025 09:15:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757927653; x=1789463653;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=AxVnpcaVMfU77Gl4c7H9h18KifP1c77MUN1TjexI22g=;
- b=KZJiLwPXjjrU9YiojYZMehYaH+rYeufVTwNiAm9SIUPN92sZNvOLfOlY
- J4HDYv2Kc+ndi6uUXl5VM28Yak9FH4CliVZkGXdcKs58etBbUDQyBsvZY
- sH3Ozrkp45BKcMv3uZuvU60gWWS1yHzexvEy4sE2Ow3OE0m2uz8d/oUBp
- tcgjsdvqoEcFEbkBs93odL1vm0UvFoz/SKEko2nCaYd/4YsJljr1zEk9v
- ebHwejjAOZTKkJ6Yo8orDlwiSPFPhADF9AkoI8u0o89PApeRsMqko9pgQ
- YK6PaW/Pr92NufIsKWNUoepQ6f/REvEOk/dZS3NxfvqzxDRS4qwiFIhlI w==;
-X-CSE-ConnectionGUID: CIWKMpW4S/yYqmxUYu+Zmg==
-X-CSE-MsgGUID: ohCVrwt+QKq11xfV0qrg8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11553"; a="85610441"
-X-IronPort-AV: E=Sophos;i="6.18,265,1751266800"; d="scan'208";a="85610441"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2025 02:14:13 -0700
-X-CSE-ConnectionGUID: d9gd8qNIQe2edfK9Cn3AtQ==
-X-CSE-MsgGUID: LGbc/gSNTj2vnhflODtAAg==
+ t=1757927721; x=1789463721;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=h/Xhf1+IdqyzVV9Qr0HMdfiRWshhu3XbN9mZnzNd18A=;
+ b=X5GJWlHMgDE4HRNurpP3dMypTJsjzP/zPxWC9PYo2IUMmwmLp3yESrb1
+ mhCyShqmWuPD4WdzsbUX8WgsIOnAYaQt/x9loPzN6V4MdDebQ0VQOFOm4
+ joPAsLp/o5L0NFY4Sn+qnfBjhskfPO27hTw2G+0vmR4lOEXL2O+iHUs07
+ SdcXzVtqLxXlAOzfZBPP3qrR1NbDoFa278dDBz5USRapOLGrhsC+8Cgq+
+ zXcjvupNtWNDrwkaBOAa/mfze1S162XTW75xIuMcmdNkDcGz6kFt/8CSx
+ jjhO/EuHul3pAx+C6ooW4hC+5EchTdPvJ7gGxcKqnyHtjFxI1Wgo991L+ Q==;
+X-CSE-ConnectionGUID: J0DKfU7VRi+i/c+s6wPzDA==
+X-CSE-MsgGUID: ZHyfS11KTeWMM/Cq3Td0Hg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11553"; a="59870351"
+X-IronPort-AV: E=Sophos;i="6.18,265,1751266800"; d="scan'208";a="59870351"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2025 02:15:21 -0700
+X-CSE-ConnectionGUID: G+ni6SSzSXmX6MDly/yb9g==
+X-CSE-MsgGUID: gyrD8VVoReCu83iTq4IYpQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,265,1751266800"; d="scan'208";a="174497118"
+X-IronPort-AV: E=Sophos;i="6.18,265,1751266800"; d="scan'208";a="178917829"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.39])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2025 02:14:05 -0700
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2025 02:15:13 -0700
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
  =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
@@ -56,13 +56,15 @@ To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
  Tvrtko Ursulin <tursulin@ursulin.net>,
  ?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Michael J . Ruhl" <mjruhl@habana.ai>
-Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ "Michael J . Ruhl" <mjruhl@habana.ai>, linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org,
  =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v2 00/11] PCI: Resizable BAR improvements
-Date: Mon, 15 Sep 2025 12:13:47 +0300
-Message-Id: <20250915091358.9203-1-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v2 05/11] PCI: Add pci_rebar_size_supported() helper
+Date: Mon, 15 Sep 2025 12:13:52 +0300
+Message-Id: <20250915091358.9203-6-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250915091358.9203-1-ilpo.jarvinen@linux.intel.com>
+References: <20250915091358.9203-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -81,96 +83,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pci.c has been used as catch everything that doesn't fits elsewhere
-within PCI core and thus resizable BAR code has been placed there as
-well. Move Resizable BAR related code to a newly introduced rebar.c to
-reduce size of pci.c. After move, there are no pci_rebar_*() calls from
-pci.c indicating this is indeed well-defined subset of PCI core.
+Many callers of pci_rebar_get_possible_sizes() are interested in
+finding out if a particular BAR Size (PCIe r6.2 sec. 7.8.6.3) is
+supported by the particular BAR.
 
-Endpoint drivers perform Resizable BAR related operations which could
-well be performed by PCI core to simplify driver-side code. This
-series adds a few new API functions to that effect and converts the
-drivers to use the new APIs (in separate patches).
+Add pci_rebar_size_supported() into PCI core to make it easy for the
+drivers to determine if the BAR Size is supported or not.
 
-While at it, also convert BAR sizes bitmask to u64 as PCIe spec already
-specifies more sizes than what will fit u32 to make the API typing more
-future-proof. The extra sizes beyond 128TB are not added at this point.
+Use the new function in pci_resize_resource() and in
+pci_iov_vf_bar_set_size().
 
-These are based on pci/main plus a simple "adapter" patch to add the
-include for xe_vram_types.h that was added by a commit in drm-tip.
-Hopefully that is enough to avoid the within context conflict with
-BAR_SIZE_SHIFT removal to let the xe CI tests to be run for this
-series.
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/pci/iov.c   |  7 +------
+ drivers/pci/rebar.c | 25 +++++++++++++++++++------
+ include/linux/pci.h |  1 +
+ 3 files changed, 21 insertions(+), 12 deletions(-)
 
-There are two minor conflicts with the work in pci/resource but I'm
-hesitant to base this on top of it as this is otherwise entirely
-independent (and would likely prevent GPU CI tests as well). If we end
-up having to pull the bridge window select changes, there should be no
-reason why this does have to become collateral damage (so my
-suggestion, if this is good to go in this cycle, to take this into a
-separate branch than pci/resource and deal with those small conflicts
-while merging into pci/next).
-
-I've tested sysfs resize, i915, and xe BAR resizing functionality. In
-the case of xe, I did small hack patch as its resize is anyway broken
-as is because BAR0 pins the bridge window so resizing BAR2 fails. My
-hack caused other problems further down the road (likely because BAR0
-is in use by the driver so releasing it messed assumptions xe driver
-has) but the BAR resize itself was working which was all I was
-interested to know. I'm not planning to pursue fixing the pinning
-problem within xe driver because the core changes to consider maximum
-size of the resizable BARs should take care of the main problem by
-different means.
-
-Some parts of this are to be used by the resizable BAR changes into the
-resource fitting/assingment logic but these seem to stand on their own
-so sending these out now to reduce the size of the other patch series.
-
-v2:
-- Kerneldoc:
-  - Improve formatting of errno returns
-  - Open "ctrl" -> "control"
-  - Removed mislead "bit" words (when referring to BAR size)
-  - Rewrote pci_rebar_get_possible_sizes() kernel doc to not claim the
-    returned bitmask is defined in PCIe spec as the capability bits now
-    span across two registers in the spec and are not continuous (we
-    don't support the second block of bits yet, but this API is expected
-    to return the bits without the hole so it will not be matching with
-    the spec layout).
-- Dropped superfluous zero check from pci_rebar_size_supported()
-- Small improvement to changelog of patch 7
-
-Ilpo Järvinen (11):
-  PCI: Move Resizable BAR code into rebar.c
-  PCI: Cleanup pci_rebar_bytes_to_size() and move into rebar.c
-  PCI: Move pci_rebar_size_to_bytes() and export it
-  PCI: Improve Resizable BAR functions kernel doc
-  PCI: Add pci_rebar_size_supported() helper
-  drm/i915/gt: Use pci_rebar_size_supported()
-  drm/xe/vram: Use PCI rebar helpers in resize_vram_bar()
-  PCI: Add pci_rebar_get_max_size()
-  drm/xe/vram: Use pci_rebar_get_max_size()
-  drm/amdgpu: Use pci_rebar_get_max_size()
-  PCI: Convert BAR sizes bitmasks to u64
-
- Documentation/driver-api/pci/pci.rst        |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   8 +-
- drivers/gpu/drm/i915/gt/intel_region_lmem.c |  10 +-
- drivers/gpu/drm/xe/xe_vram.c                |  32 +-
- drivers/pci/Makefile                        |   2 +-
- drivers/pci/iov.c                           |   9 +-
- drivers/pci/pci-sysfs.c                     |   2 +-
- drivers/pci/pci.c                           | 145 ---------
- drivers/pci/pci.h                           |   5 +-
- drivers/pci/rebar.c                         | 314 ++++++++++++++++++++
- drivers/pci/setup-res.c                     |  78 -----
- include/linux/pci.h                         |  15 +-
- 12 files changed, 350 insertions(+), 273 deletions(-)
- create mode 100644 drivers/pci/rebar.c
-
-
-base-commit: 8f5ae30d69d7543eee0d70083daf4de8fe15d585
-prerequisite-patch-id: 35bd3cd7a60ff7d887450a7fdde73b055a76ae24
+diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
+index ac4375954c94..51844a9176a0 100644
+--- a/drivers/pci/iov.c
++++ b/drivers/pci/iov.c
+@@ -1334,7 +1334,6 @@ EXPORT_SYMBOL_GPL(pci_sriov_configure_simple);
+  */
+ int pci_iov_vf_bar_set_size(struct pci_dev *dev, int resno, int size)
+ {
+-	u32 sizes;
+ 	int ret;
+ 
+ 	if (!pci_resource_is_iov(resno))
+@@ -1343,11 +1342,7 @@ int pci_iov_vf_bar_set_size(struct pci_dev *dev, int resno, int size)
+ 	if (pci_iov_is_memory_decoding_enabled(dev))
+ 		return -EBUSY;
+ 
+-	sizes = pci_rebar_get_possible_sizes(dev, resno);
+-	if (!sizes)
+-		return -ENOTSUPP;
+-
+-	if (!(sizes & BIT(size)))
++	if (!pci_rebar_size_supported(dev, resno, size))
+ 		return -EINVAL;
+ 
+ 	ret = pci_rebar_set_size(dev, resno, size);
+diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
+index b1bd24a72bcc..81e01cbadde7 100644
+--- a/drivers/pci/rebar.c
++++ b/drivers/pci/rebar.c
+@@ -3,6 +3,7 @@
+  * PCI Resizable BAR Extended Capability handling.
+  */
+ 
++#include <linux/bits.h>
+ #include <linux/bitfield.h>
+ #include <linux/errno.h>
+ #include <linux/export.h>
+@@ -124,6 +125,23 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
+ }
+ EXPORT_SYMBOL(pci_rebar_get_possible_sizes);
+ 
++/**
++ * pci_rebar_size_supported - check if size is supported for BAR
++ * @pdev: PCI device
++ * @bar: BAR to check
++ * @size: size as defined in the PCIe spec (0=1MB, 31=128TB)
++ *
++ * Return: %true if @bar is resizable and @size is a supported, otherwise
++ *	   %false.
++ */
++bool pci_rebar_size_supported(struct pci_dev *pdev, int bar, int size)
++{
++	u64 sizes = pci_rebar_get_possible_sizes(pdev, bar);
++
++	return BIT(size) & sizes;
++}
++EXPORT_SYMBOL_GPL(pci_rebar_size_supported);
++
+ /**
+  * pci_rebar_get_current_size - get the current size of a Resizable BAR
+  * @pdev: PCI device
+@@ -231,7 +249,6 @@ int pci_resize_resource(struct pci_dev *dev, int resno, int size)
+ 	struct resource *res = pci_resource_n(dev, resno);
+ 	struct pci_host_bridge *host;
+ 	int old, ret;
+-	u32 sizes;
+ 
+ 	/* Check if we must preserve the firmware's resource assignment */
+ 	host = pci_find_host_bridge(dev->bus);
+@@ -245,11 +262,7 @@ int pci_resize_resource(struct pci_dev *dev, int resno, int size)
+ 	if (pci_resize_is_memory_decoding_enabled(dev, resno))
+ 		return -EBUSY;
+ 
+-	sizes = pci_rebar_get_possible_sizes(dev, resno);
+-	if (!sizes)
+-		return -ENOTSUPP;
+-
+-	if (!(sizes & BIT(size)))
++	if (!pci_rebar_size_supported(dev, resno, size))
+ 		return -EINVAL;
+ 
+ 	old = pci_rebar_get_current_size(dev, resno);
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 6f0c31290675..917c3b897739 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1423,6 +1423,7 @@ void pci_release_resource(struct pci_dev *dev, int resno);
+ int pci_rebar_bytes_to_size(u64 bytes);
+ resource_size_t pci_rebar_size_to_bytes(int size);
+ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
++bool pci_rebar_size_supported(struct pci_dev *pdev, int bar, int size);
+ int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size);
+ 
+ int pci_select_bars(struct pci_dev *dev, unsigned long flags);
 -- 
 2.39.5
 
