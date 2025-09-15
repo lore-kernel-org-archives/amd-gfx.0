@@ -4,72 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECF80CAC592
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 12:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 758E5CAC597
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 13:07:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85B6910E4A3;
-	Mon, 15 Sep 2025 12:55:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 161E810E4A0;
+	Mon, 15 Sep 2025 13:07:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kBpVBP5L";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kJEhxOoJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54C7110E36D;
- Mon, 15 Sep 2025 09:15:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757927747; x=1789463747;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=MCrmdy109Fbjud3+MYKK2EMTUs8mzp+zO0nHpuscGPU=;
- b=kBpVBP5LTLAmvbvpKUWb2JhtlQq3W/k43poU/z7reC0Oun/KEmR6vU33
- 0MjxzG8HjfHC+1otDH8vwALGycdfqbXfj4OS2hzr67CMEpMaeELmUBW1Z
- cwv348tXJMebk4CS+3LryjsfQaOETnqzG9srl9/AfJAdzrYeI4Fr8g1A1
- jt2f8knvpgnwFo/ui7GgIGrj/mSX5piRjCjo3CfuSOwZ3RyQy/qpzNA11
- e0PxTYg1CVioXKjwdWwm7OWVx3n0YV365k0By1KosHmZVxWLqvLAZz/se
- dkCeRlBtN18QWZHXZpoUc31HdJlcocQFsRBaIsx40DfgG0h5Iqge32+Kz w==;
-X-CSE-ConnectionGUID: esUaJuOqSAqsQMR9Sea6Ng==
-X-CSE-MsgGUID: bexyNSNGRG2xjt952CKvOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11553"; a="59401312"
-X-IronPort-AV: E=Sophos;i="6.18,265,1751266800"; d="scan'208";a="59401312"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2025 02:15:47 -0700
-X-CSE-ConnectionGUID: fbKaiQoqQ/ewcz/3tZM/eQ==
-X-CSE-MsgGUID: l1+Y/EZ6SkiOBkQ7kJ31Ng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,265,1751266800"; d="scan'208";a="175364034"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.39])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2025 02:15:39 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- ?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Michael J . Ruhl" <mjruhl@habana.ai>, linux-kernel@vger.kernel.org
-Cc: linux-doc@vger.kernel.org,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v2 07/11] drm/xe/vram: Use PCI rebar helpers in
- resize_vram_bar()
-Date: Mon, 15 Sep 2025 12:13:54 +0300
-Message-Id: <20250915091358.9203-8-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250915091358.9203-1-ilpo.jarvinen@linux.intel.com>
-References: <20250915091358.9203-1-ilpo.jarvinen@linux.intel.com>
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A060C10E4A0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 13:07:17 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-262346a67c9so4071695ad.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 06:07:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757941637; x=1758546437; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fbfFmXH06ruRttzMU52EVy7mpZbioomjj9i0aeK0rX0=;
+ b=kJEhxOoJdJMW2HVAoE2/eLAdDP25KAqCvBuc7z6HYNPFtq12OOe3uFiBi+NI0cx0hL
+ /I6kn5mIS0NYxMJmbl/nYhwBMTBRPtfjnhOwdOE6VzAspvqsIv8DHbxDftExBdKtTfp1
+ 2SQqTHZQPAIi2q5bTwAbSTF78M0XvpMjEVp+630HREeDOJCcxcU0FHZ8BJ6jcy9xk+0u
+ MKXCfZjOBVN7Gh/8iFVACupuCVtqqCgPcQSGBmo17C4j39pQhbR28JSqWlDsNynXVjD/
+ 86gJoZv9ykBtIe5Q6Zrgj2l8qSff8iq7asLVTgiyLTdSGhxKuHTuemy2xvl8kTTNyP0E
+ 4DHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757941637; x=1758546437;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fbfFmXH06ruRttzMU52EVy7mpZbioomjj9i0aeK0rX0=;
+ b=QavLbzru1hREvUkT0eD5l7Gxxou2NWTSdGVA2xqV0R01T1srfCmftc9EymqkDvDMoB
+ H8Toz5A62t03Dllmj+SQCPQo/pF+zQJMu8II/RrxnIYlefCyaUI9ZjvEDi0DKmmntrVv
+ 1Iwd4Ufi+rFASQsidsmOF9PItlE5Skhu97oHPTFUzosLd/4oqeuQYjn6wSrTJapAxuuU
+ RZi5SoNLkK25KvTip3IhJbzI3ug6zIRdb0KRv+oM+ifoQc7R5RQ+Sap3l3Bx1Gt26xuX
+ mFe9IVkDGRR4pM8gxQJqKeWZ1FE9MReOKhQqO65JG2jTLys/q+EsrEKUc8bM98pGd1BD
+ hh/Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWelnj1c9VVFdd9uVH8MKELbzQDQ9Up5a3DsgEMGzQ0BDrRFo0ovjXlsSLdcx7G1mexNZ2cGIuK@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyglFG2jbdNzEINeM7f5ZO3CMWXa6tXklPr+Rqfd5eoiW4ounMo
+ WiWwZZP+IU0BQsmZ/Czz/irN6ej4OeDy2DhMENKMJicZdscR5CGgcvrSN5U6lfYkwM97GVYOkpl
+ p5zqD0KdU1AyIZkn7RiCdeocxgKOmhj4=
+X-Gm-Gg: ASbGncsFsRVlS6mvtqrk2P5w2Ok41+cPwoMgyWoVcdhEsA36q/1rxxLUwTByRNZJj6j
+ CTUpK7oeuCNCT2ZvjnEsiLH8O8knEnoeTaz7Kq0xWu1RnNfL6mlj26tc8Lc3DOFVdYu3Zk3/e+V
+ 54l7DCFAnYhB9LTLDU0ueYSLe0s0KSz+qyNhaEYnFfic6qKRY3hDlpscGG6R9aQDFpyy/wYxogV
+ V+BgUCPvRZlw6RjMg==
+X-Google-Smtp-Source: AGHT+IEauUtHy9MpUfTI3RbZw3c6vrOrT37iWOTRnSL20kFZikXwfRgBt89O4n8Ac5mlP9A2rdZ85ZauRlbVPpdzC1g=
+X-Received: by 2002:a17:903:1c3:b0:263:cd95:9c8a with SMTP id
+ d9443c01a7336-263cd95a9f0mr43649255ad.3.1757941636886; Mon, 15 Sep 2025
+ 06:07:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 15 Sep 2025 12:55:07 +0000
+References: <20250911172449.3340848-1-alexander.deucher@amd.com>
+ <20250911172449.3340848-3-alexander.deucher@amd.com>
+ <CADnq5_PNL_-YjyYQgNtz5xQKBxxXWdrvKzM6YT4wYZCOE=ooNQ@mail.gmail.com>
+ <CADnq5_OgyiAZJudNfbx9Xt5uiXAXZV1Pe7d2bZPaaD4RdE0GSQ@mail.gmail.com>
+ <8acbb3b27a933b60b17b06a03454cc171f1cefc8.camel@gmail.com>
+In-Reply-To: <8acbb3b27a933b60b17b06a03454cc171f1cefc8.camel@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Sep 2025 09:07:04 -0400
+X-Gm-Features: Ac12FXzYlQjZclh90VDAym3TowP_piNat7j3ExI8mBb5PoHOVJJJst3XYaUQ3-k
+Message-ID: <CADnq5_Ny2WpNtZGSSNY7VtcH8vysgmNOvNCYrNR4efzLAuqVzQ@mail.gmail.com>
+Subject: Re: [PATCH 3/5] drm/amdgpu/sdma5.2: adjust SDMA limits
+To: timur.kristof@gmail.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ christian.koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,62 +87,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PCI core provides pci_rebar_size_supported() and
-pci_rebar_size_to_bytes(), use them in resize_vram_bar() to simplify
-code.
+On Sat, Sep 13, 2025 at 1:28=E2=80=AFAM <timur.kristof@gmail.com> wrote:
+>
+> On Fri, 2025-09-12 at 15:38 -0400, Alex Deucher wrote:
+> > On Thu, Sep 11, 2025 at 2:18=E2=80=AFPM Alex Deucher <alexdeucher@gmail=
+.com>
+> > wrote:
+> > >
+> > > On Thu, Sep 11, 2025 at 1:25=E2=80=AFPM Alex Deucher
+> > > <alexander.deucher@amd.com> wrote:
+> > > >
+> > > > SDMA 5.2.x has increased transfer limits.
+> > > >
+> > > > v2: fix harder, use shifts to make it more obvious
+> > > >
+> > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > > ---
+> > > >  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 4 ++--
+> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > > > index a8e39df29f343..bf227eadbe487 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > > > @@ -2065,11 +2065,11 @@ static void
+> > > > sdma_v5_2_emit_fill_buffer(struct amdgpu_ib *ib,
+> > > >  }
+> > > >
+> > > >  static const struct amdgpu_buffer_funcs sdma_v5_2_buffer_funcs =3D
+> > > > {
+> > > > -       .copy_max_bytes =3D 0x400000,
+> > > > +       .copy_max_bytes =3D 1 << 30,
+> > > >         .copy_num_dw =3D 7,
+> > > >         .emit_copy_buffer =3D sdma_v5_2_emit_copy_buffer,
+> > > >
+> > > > -       .fill_max_bytes =3D 0x400000,
+> > > > +       .fill_max_bytes =3D 1 << 30,
+> > >
+> > > The hw docs and PAL differ here.  I've asked the hw designers to
+> > > clarify.
+> >
+> > The HW team verified that the hardware supports the extended range
+> > for
+> > both copies and fills.
+> >
+> > Alex
+>
+> Hi Alex,
+>
+> This is still pretty confusing.
+> According to PAL, only SDMA v6 has the extended range for fills, and it
+> can do 4 bytes fewer.
+>
+> Are you sure that PAL is wrong about this?
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Acked-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/xe/xe_vram.c | 19 +++++++------------
- 1 file changed, 7 insertions(+), 12 deletions(-)
+I can talk to the PAL team as well.  I talked to the hardware
+designers and they verified that the hardware has the higher limit.
+It's the same underlying hardware so it makes sense that both copies
+and fills would have the same limit.
 
-diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
-index 0b7417bb0a47..d4fbd7f74255 100644
---- a/drivers/gpu/drm/xe/xe_vram.c
-+++ b/drivers/gpu/drm/xe/xe_vram.c
-@@ -22,8 +22,6 @@
- #include "xe_vram.h"
- #include "xe_vram_types.h"
- 
--#define BAR_SIZE_SHIFT 20
--
- static void
- _resize_bar(struct xe_device *xe, int resno, resource_size_t size)
- {
-@@ -72,25 +70,22 @@ static void resize_vram_bar(struct xe_device *xe)
- 
- 	/* set to a specific size? */
- 	if (force_vram_bar_size) {
--		u32 bar_size_bit;
--
--		rebar_size = force_vram_bar_size * (resource_size_t)SZ_1M;
-+		rebar_size = pci_rebar_bytes_to_size(force_vram_bar_size *
-+						     (resource_size_t)SZ_1M);
- 
--		bar_size_bit = bar_size_mask & BIT(pci_rebar_bytes_to_size(rebar_size));
--
--		if (!bar_size_bit) {
-+		if (!pci_rebar_size_supported(pdev, LMEM_BAR, rebar_size)) {
- 			drm_info(&xe->drm,
- 				 "Requested size: %lluMiB is not supported by rebar sizes: 0x%x. Leaving default: %lluMiB\n",
--				 (u64)rebar_size >> 20, bar_size_mask, (u64)current_size >> 20);
-+				 (u64)pci_rebar_size_to_bytes(rebar_size) >> 20,
-+				 bar_size_mask, (u64)current_size >> 20);
- 			return;
- 		}
- 
--		rebar_size = 1ULL << (__fls(bar_size_bit) + BAR_SIZE_SHIFT);
--
-+		rebar_size = pci_rebar_size_to_bytes(rebar_size);
- 		if (rebar_size == current_size)
- 			return;
- 	} else {
--		rebar_size = 1ULL << (__fls(bar_size_mask) + BAR_SIZE_SHIFT);
-+		rebar_size = pci_rebar_size_to_bytes(__fls(bar_size_mask));
- 
- 		/* only resize if larger than current */
- 		if (rebar_size <= current_size)
--- 
-2.39.5
+>
+> For reference:
+> https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/hw/gfxip/sdma/gf=
+x10/gfx10DmaCmdBuffer.cpp
+> https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/hw/gfxip/sdma/gf=
+x12/gfx12DmaCmdBuffer.cpp
+>
+> MaxCopySize on GFX10: 1 << 22
+> MaxCopySize on GFX10.3+: 1 << 30
+>
+> MaxFillSize on GFX10-10.3: (1 << 22 - 1) & ~3
+> MaxFillSize on GFX11+: (1 << 30 - 1) & ~3
+> This makes sense because they program the count field in the packet
+> using the byte count minus four.
 
+They are setting up the packet for dword fill rather than byte fill so
+count becomes dword aligned:
+
+    // Because we will set fillsize =3D 2, the low two bits of our
+"count" are ignored, but we still program
+    // this in terms of bytes.
+
+Alex
