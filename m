@@ -4,53 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F130CAC598
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 09:04:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 331CDCAC598
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 09:05:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93D1610E6EC;
-	Tue, 16 Sep 2025 09:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0F2110E740;
+	Tue, 16 Sep 2025 09:05:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lQxQHID+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Gnus1ut8";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 047D010E740;
- Tue, 16 Sep 2025 09:04:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ht6dtf2B4lNoeSax/9id9vpJqZdGaIb7TfEbNQYVf4w=; b=lQxQHID+hADodVXgWFlJv6EoJ4
- gh83RMpUGqpk76KbFhLzKyQ+Qp2nMw9nW50XmbF4FQ0AoTNuUSVSnQ5/nRUWFhl/NKBveaF/oP40t
- myPyKWO9ZYwohpgh3zfFWDTfUl+8E0Hg9VHfm1PPOjO3lKbXSskH7LBwGVdXVFL8TM2+9FQYY7Vqq
- wfvEuOGh3p5qF16PNE54sBs/sjOnazfnIG1JECCVR2PBZvburJXd79BUcTudgw9MF1vHsRkTCsMeQ
- ei+aAfo+6ADx+EcvhqEZdf7vjbq9qvfxFhYwx1EiuOvrk86bMV77rsyUqKuKn8M7zZtiSuOj/doA1
- hdftJz1Q==;
-Received: from [84.66.36.92] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uyRbs-00CB5s-Fa; Tue, 16 Sep 2025 11:04:24 +0200
-Message-ID: <996f7a3a-26ca-4034-a608-8f316a7eee66@igalia.com>
-Date: Tue, 16 Sep 2025 10:04:23 +0100
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013057.outbound.protection.outlook.com
+ [40.93.201.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDF3710E740
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 09:05:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mYpi+Je7QE3xRSzGdL+HQI+bImYzy/ytgPGJhJy28S1kq5Yt3325nGNQz73G8I7Yazy05aAeHsJDmjJrKh8UbsI1oHVTeZMNK4a/aVHepZrs7UarqRhIOl3I2oaHDdhQ/qG+3ZSvmnf+PZ/ILDlZcgiYpIIROeY4GMX212PPIq5YdDMBwKkiZdPYajfm8BZrq/NmLIqevxA1paHSEnNIEaPiI/dSiE7ALI3a9YIawFwhmPA0QKiWoCXY0jVwFQh+vM/dr82RMVq1YOSud8VqZeqdg52dmsFBk5D0v0NpBp6LQClX7douaBbR435/VnUBVH331440abFKRiPKAFeAtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CJkjF3w7p7czxsvulzAky9vbPJfpYTWYcueL5htUlqY=;
+ b=ujwSYKelHDIeCv7c0gsDLyPWo0oUHiHCaSmhYikrpF2x2pzHWQwVZr7kobi5FmBavhvrLt788CqWA99jZ5UB2Z9u8rACh/LthZGs2tmU0rv73judJXgdcygS14NoYVBZj+xvgA6O6FgBkfCKG++Z4Ny9welWecPpBYqnh++mdpkCFwDsMVqP7Zm9VhcXklnSIW5Jz+vfQyGLAdsYIy6xtn+4rGgOn5VFt/H7x2jX/ij+VXJDflcHAaZ06YZiit/yRRjfwvwblqYA3AM72r0O+dEFDj0rBX++Rv+6ww/KcerRMexot7x3u5QHAkHzQE/Z92w6Tst0cSK5dKUaH4rEkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CJkjF3w7p7czxsvulzAky9vbPJfpYTWYcueL5htUlqY=;
+ b=Gnus1ut8KbGE9qSH4iKyz/R12j61ilMBMMv4Af6cAlP1kz0Ij8C0BJ8W1kUCzbuULHHGhtEhbgSpBFzy3n5ibbbhvpQ1+O/knlx8SdJ1JWIP32xSmU+/1cwBqKBSt/Tw1jC79l2G6A/uUzl1BD79NFsfxAd4SRMrdzy0sw0F3xs=
+Received: from BY5PR20CA0022.namprd20.prod.outlook.com (2603:10b6:a03:1f4::35)
+ by IA0PR12MB7508.namprd12.prod.outlook.com (2603:10b6:208:440::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.21; Tue, 16 Sep
+ 2025 09:05:44 +0000
+Received: from CO1PEPF000044F0.namprd05.prod.outlook.com
+ (2603:10b6:a03:1f4:cafe::e3) by BY5PR20CA0022.outlook.office365.com
+ (2603:10b6:a03:1f4::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.22 via Frontend Transport; Tue,
+ 16 Sep 2025 09:05:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000044F0.mail.protection.outlook.com (10.167.241.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9137.12 via Frontend Transport; Tue, 16 Sep 2025 09:05:42 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 16 Sep
+ 2025 02:05:39 -0700
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <lijo.lazar@amd.com>
+CC: <hawking.zhang@amd.com>, <le.ma@amd.com>, <shiwu.zhang@amd.com>,
+ <asad.kamal@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>
+Subject: [PATCH v3 1/6] drm/amd/pm: Rename amdgpu_hwmon_get_sensor_generic
+Date: Tue, 16 Sep 2025 17:05:22 +0800
+Message-ID: <20250916090527.2727930-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v8 04/12] drm/sched: Consolidate entity run queue management
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
-References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
- <20250903101820.63032-5-tvrtko.ursulin@igalia.com>
- <6fe010e8dc5e8a5db35d8702960f42940e342093.camel@mailbox.org>
- <73681fac-ef47-4005-87ad-cea0b91e6813@igalia.com>
- <9ce2b23820b4d56123eba515b01f282af4380a7c.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <9ce2b23820b4d56123eba515b01f282af4380a7c.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F0:EE_|IA0PR12MB7508:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41d2bf92-8ce4-40ba-7304-08ddf5003724
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?WDMbx1IUydbJDYrpqtGgZ/ie8F9VRrc3/7p4YdtVR1O7Nr+hwSEqowrLwZnn?=
+ =?us-ascii?Q?sbhzI7EoQOPDBBDXTCTmGWBys8sGhmWDjzOaqjzkW5xBrF3lenOSA5qVs/I/?=
+ =?us-ascii?Q?l+8nhnVtCP45ptu6YkLyI4cYN6JIi2aR9GzyQztXwTgyoa0IMBFXfPTLTxJN?=
+ =?us-ascii?Q?eV21RK1yfxoT8O5S4KpiJVE0NuXG2jJugwc3gIDPJUTx3pV80K8HwSo0+X+P?=
+ =?us-ascii?Q?1TFBp9ULSw2nds0jrYhMh6gUwcNJEzALrvGvsSRTAa/Oyl95XPNSJ3S52NiR?=
+ =?us-ascii?Q?BRsumkWUB4RHYBS8IxQEpXjP0TstMiu0H5tvZNLZBJe4MmoY0UZT8EMY4444?=
+ =?us-ascii?Q?+RlVdou1jYxrYnRCae2veGtWkYSVEDiF6Q3VJAFab7C7oNXovwcwx46soJ4k?=
+ =?us-ascii?Q?onWeGXzy/woNfxTmOSu0xbBHqdAlUkfqGTiwoLx2z3fbEYai90GWijv8IyXD?=
+ =?us-ascii?Q?TQKbl6c2TWN7X+PQKnEslaX8NlAAUw0/eiY9i4D1il1vh/zpjuZbx2BdZTae?=
+ =?us-ascii?Q?ilEpJnBTiAXJopzifMVD+VI+nS/0z3wOS96Hk2V8ocP6R4aEZFCcHPP72Ti6?=
+ =?us-ascii?Q?VhtBOh3Y3nJI/gVHeYAswNaCw9nsgMGubAFksIwZiHNaByw5FyHCqDJxGyo9?=
+ =?us-ascii?Q?KQF0g+udpNnW/4mLsECCrbSHmAkWUq2ouyqth/0wghkaFUrG6vBozRPAT4qR?=
+ =?us-ascii?Q?KM6hsjsP+XE1g5JsUVpRH4/BH6ngSIrKtTTcHtjqaWwms69tcSW6DS0ijYXp?=
+ =?us-ascii?Q?9XkNBbnz8nafP4YzjrqlKB304mY/MjiYY229/8Ig6eMEbT97+g+f8IscUP9S?=
+ =?us-ascii?Q?NLiMnjUHfOX2bixv1N3uLnqO3MUvuKAHw3HeO/UOLYghWQDVxjGLDQd3l/mg?=
+ =?us-ascii?Q?CKbNVl48Ss18yy64ppMwQBJ1f0MBVF5Ak8RVwJEEic0f8ffaI9FBhnACWzmB?=
+ =?us-ascii?Q?gO+r34jLEhq5Q5cYOTjL89W/4lSL+k1VFM3A7gdfu7pMH03Uln2cmrobv+hr?=
+ =?us-ascii?Q?gJKTd14G2Jyr3Bum/5A+z8yyks+stFDqFHutFg6JLe4rbpurNYZu8pWxnTKU?=
+ =?us-ascii?Q?JrZ0Te56G4qm0MbFwPJpeqYCQG47zhHTihEUH8BL381TBmMb41q6uHK4YH90?=
+ =?us-ascii?Q?ZnXHm5irqZxHKYRRkBcBirIUFiN5jr2YYzG5Fd0X2EDJ/1nCSFxrgdx2DaTp?=
+ =?us-ascii?Q?q4wGdmOLq0ltvaBzP7gW3MKbMkIat14ejzqwktLrPYYMd8xQGPZ10m8Zilbm?=
+ =?us-ascii?Q?3CaDucSzwRP9jBLoJuHtF7RWdmnT6Dm+ylF5KngE1ADY30wjAE3Od6Bwadw2?=
+ =?us-ascii?Q?EOM8uMHBtGC1vx/oqwoOrv4pJbu7Sv+MPE6YlTZHv2COrOtuOqpmWBLYqFky?=
+ =?us-ascii?Q?ZlXG+Yj09PB04BKsPsdeW6QWRmqAOxNeSBemULRiUV51W7mKbkL5kvmVEweQ?=
+ =?us-ascii?Q?zMia2SMY90vS/u4IMYXwBndEFOGnw4SFBNxZvZN0cwchIlMaEKSTdn3olFpG?=
+ =?us-ascii?Q?e0OuV1+3F/hrlyHvZRwdLJhv9FrZNdRB5hUe?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2025 09:05:42.9077 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41d2bf92-8ce4-40ba-7304-08ddf5003724
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7508
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,319 +132,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Rename amdgpu_hwmon_get_sensor_generic to use for generic pm
+interfaces
 
-On 16/09/2025 08:41, Philipp Stanner wrote:
-> On Thu, 2025-09-11 at 15:55 +0100, Tvrtko Ursulin wrote:
->>
->> On 11/09/2025 15:20, Philipp Stanner wrote:
->>> On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
->>>> Move the code dealing with entities entering and exiting run queues to
->>>> helpers to logically separate it from jobs entering and exiting entities.
->>>
->>> Sorry if I've asked this before, but does this strictly depend on the
->>> preceding patches or could it be branched out?
->>
->> There is no fundamental dependency so I could re-order and pull it ahead
->> if you are certain that is what you prefer?
-> 
-> Well, you know my opinion: If it's a general improvement not directly
-> necessary for a series, it should be send separately.
-> 
-> For this patch, however, I'm not even sure whether it's really
-> improving the code base. The number of functions seems the same, just
-> with different names, and the code base gets even slightly larger.
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 76 +++++++++++++++---------------
+ 1 file changed, 39 insertions(+), 37 deletions(-)
 
-There is one new function actually (pop). But one previously exported 
-gets hidden as implementation details (rbtree update).
-
-> Can you elaborate a bit on why you think this patch makes sense?
-
-Before the patch we have sched_main.c implement 
-drm_sched_rq_remove_entity() as an interface operating on run-queues and 
-used by the entity code. It handles both the the entity list and the 
-FIFO rbtree. All good there.
-
-Other two operations which operate on those two data structures are add 
-and pop.
-
-But while the existing drm_sched_rq_add_entity() from the name sounds 
-analogous to drm_sched_rq_remove_entity(), in reality it isn't. It only 
-handles the entity list part, while the FIFO rbtree is open coded in 
-sched_entity.c.
-
-Job pop is the same - rbtree hanlding is open coded in sched_entity.c.
-
-The patch consolidates all of the entity run queue management into 
-contained API which is aligned with the above mentioned existing 
-drm_sched_rq_remove_entity().
-
-Drm_sched_rq_add_entity() gets conceptualy aligned with 
-drm_sched_rq_remove_entity() with rbtree operations removed from 
-sched_entity.c.
-
-Drm_sched_rq_pop_entity() is added with the same effect.
-
-The two new pieces of API are implemented next to 
-drm_sched_rq_remove_entity() in sched_main.c. (Later I move all three, 
-together with other bits relating to run queue management to a new 
-sched_rq.c.)
-
-Regards,
-
-Tvrtko
-
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> Cc: Danilo Krummrich <dakr@kernel.org>
->>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>> Cc: Philipp Stanner <phasta@kernel.org>
->>>> ---
->>>>    drivers/gpu/drm/scheduler/sched_entity.c   | 64 ++-------------
->>>>    drivers/gpu/drm/scheduler/sched_internal.h |  8 +-
->>>>    drivers/gpu/drm/scheduler/sched_main.c     | 95 +++++++++++++++++++---
->>>>    3 files changed, 91 insertions(+), 76 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->>>> index 4852006f2308..7a0a52ba87bf 100644
->>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>>> @@ -456,24 +456,9 @@ drm_sched_job_dependency(struct drm_sched_job *job,
->>>>    	return NULL;
->>>>    }
->>>>    
->>>> -static ktime_t
->>>> -drm_sched_rq_get_rr_ts(struct drm_sched_rq *rq, struct drm_sched_entity *entity)
->>>> -{
->>>> -	ktime_t ts;
->>>> -
->>>> -	lockdep_assert_held(&entity->lock);
->>>> -	lockdep_assert_held(&rq->lock);
->>>> -
->>>> -	ts = ktime_add_ns(rq->rr_ts, 1);
->>>> -	entity->rr_ts = ts;
->>>> -	rq->rr_ts = ts;
->>>> -
->>>> -	return ts;
->>>> -}
->>>> -
->>>>    struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>>>    {
->>>> -	struct drm_sched_job *sched_job, *next_job;
->>>> +	struct drm_sched_job *sched_job;
->>>>    
->>>>    	sched_job = drm_sched_entity_queue_peek(entity);
->>>>    	if (!sched_job)
->>>> @@ -502,26 +487,7 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>>>    
->>>>    	spsc_queue_pop(&entity->job_queue);
->>>>    
->>>> -	/*
->>>> -	 * Update the entity's location in the min heap according to
->>>> -	 * the timestamp of the next job, if any.
->>>> -	 */
->>>> -	next_job = drm_sched_entity_queue_peek(entity);
->>>> -	if (next_job) {
->>>> -		struct drm_sched_rq *rq;
->>>> -		ktime_t ts;
->>>> -
->>>> -		spin_lock(&entity->lock);
->>>> -		rq = entity->rq;
->>>> -		spin_lock(&rq->lock);
->>>> -		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>>> -			ts = next_job->submit_ts;
->>>> -		else
->>>> -			ts = drm_sched_rq_get_rr_ts(rq, entity);
->>>> -		drm_sched_rq_update_fifo_locked(entity, rq, ts);
->>>> -		spin_unlock(&rq->lock);
->>>> -		spin_unlock(&entity->lock);
->>>> -	}
->>>> +	drm_sched_rq_pop_entity(entity);
->>>>    
->>>>    	/* Jobs and entities might have different lifecycles. Since we're
->>>>    	 * removing the job from the entities queue, set the jobs entity pointer
->>>> @@ -611,30 +577,10 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->>>>    	/* first job wakes up scheduler */
->>>>    	if (first) {
->>>>    		struct drm_gpu_scheduler *sched;
->>>> -		struct drm_sched_rq *rq;
->>>>    
->>>> -		/* Add the entity to the run queue */
->>>> -		spin_lock(&entity->lock);
->>>> -		if (entity->stopped) {
->>>> -			spin_unlock(&entity->lock);
->>>> -
->>>> -			DRM_ERROR("Trying to push to a killed entity\n");
->>>> -			return;
->>>> -		}
->>>> -
->>>> -		rq = entity->rq;
->>>> -		sched = rq->sched;
->>>> -
->>>> -		spin_lock(&rq->lock);
->>>> -		drm_sched_rq_add_entity(rq, entity);
->>>> -		if (drm_sched_policy == DRM_SCHED_POLICY_RR)
->>>> -			submit_ts = entity->rr_ts;
->>>> -		drm_sched_rq_update_fifo_locked(entity, rq, submit_ts);
->>>> -
->>>> -		spin_unlock(&rq->lock);
->>>> -		spin_unlock(&entity->lock);
->>>> -
->>>> -		drm_sched_wakeup(sched);
->>>> +		sched = drm_sched_rq_add_entity(entity, submit_ts);
->>>> +		if (sched)
->>>> +			drm_sched_wakeup(sched);
->>>>    	}
->>>>    }
->>>>    EXPORT_SYMBOL(drm_sched_entity_push_job);
->>>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
->>>> index 7ea5a6736f98..8269c5392a82 100644
->>>> --- a/drivers/gpu/drm/scheduler/sched_internal.h
->>>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
->>>> @@ -12,13 +12,11 @@ extern int drm_sched_policy;
->>>>    
->>>>    void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
->>>>    
->>>> -void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
->>>> -			     struct drm_sched_entity *entity);
->>>> +struct drm_gpu_scheduler *
->>>> +drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts);
->>>>    void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>>>    				struct drm_sched_entity *entity);
->>>> -
->>>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
->>>> -				     struct drm_sched_rq *rq, ktime_t ts);
->>>> +void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
->>>>    
->>>>    void drm_sched_entity_select_rq(struct drm_sched_entity *entity);
->>>>    struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
->>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->>>> index 1db0a4aa1d46..c53931e63458 100644
->>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>> @@ -151,9 +151,9 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
->>>>    	}
->>>>    }
->>>>    
->>>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
->>>> -				     struct drm_sched_rq *rq,
->>>> -				     ktime_t ts)
->>>> +static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
->>>> +					    struct drm_sched_rq *rq,
->>>> +					    ktime_t ts)
->>>>    {
->>>>    	/*
->>>>    	 * Both locks need to be grabbed, one to protect from entity->rq change
->>>> @@ -191,22 +191,45 @@ static void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
->>>>    /**
->>>>     * drm_sched_rq_add_entity - add an entity
->>>>     *
->>>> - * @rq: scheduler run queue
->>>>     * @entity: scheduler entity
->>>> + * @ts: submission timestamp
->>>>     *
->>>>     * Adds a scheduler entity to the run queue.
->>>> + *
->>>> + * Returns a DRM scheduler pre-selected to handle this entity.
->>>>     */
->>>> -void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
->>>> -			     struct drm_sched_entity *entity)
->>>> +struct drm_gpu_scheduler *
->>>> +drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
->>>>    {
->>>> -	lockdep_assert_held(&entity->lock);
->>>> -	lockdep_assert_held(&rq->lock);
->>>> +	struct drm_gpu_scheduler *sched;
->>>> +	struct drm_sched_rq *rq;
->>>>    
->>>> -	if (!list_empty(&entity->list))
->>>> -		return;
->>>> +	/* Add the entity to the run queue */
->>>> +	spin_lock(&entity->lock);
->>>> +	if (entity->stopped) {
->>>> +		spin_unlock(&entity->lock);
->>>>    
->>>> -	atomic_inc(rq->sched->score);
->>>> -	list_add_tail(&entity->list, &rq->entities);
->>>> +		DRM_ERROR("Trying to push to a killed entity\n");
->>>> +		return NULL;
->>>> +	}
->>>> +
->>>> +	rq = entity->rq;
->>>> +	spin_lock(&rq->lock);
->>>> +	sched = rq->sched;
->>>> +
->>>> +	if (list_empty(&entity->list)) {
->>>> +		atomic_inc(sched->score);
->>>> +		list_add_tail(&entity->list, &rq->entities);
->>>> +	}
->>>> +
->>>> +	if (drm_sched_policy == DRM_SCHED_POLICY_RR)
->>>> +		ts = entity->rr_ts;
->>>> +	drm_sched_rq_update_fifo_locked(entity, rq, ts);
->>>> +
->>>> +	spin_unlock(&rq->lock);
->>>> +	spin_unlock(&entity->lock);
->>>> +
->>>> +	return sched;
->>>>    }
->>>>    
->>>>    /**
->>>> @@ -235,6 +258,54 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>>>    	spin_unlock(&rq->lock);
->>>>    }
->>>>    
->>>> +static ktime_t
->>>> +drm_sched_rq_get_rr_ts(struct drm_sched_rq *rq, struct drm_sched_entity *entity)
->>>> +{
->>>> +	ktime_t ts;
->>>> +
->>>> +	lockdep_assert_held(&entity->lock);
->>>> +	lockdep_assert_held(&rq->lock);
->>>> +
->>>> +	ts = ktime_add_ns(rq->rr_ts, 1);
->>>> +	entity->rr_ts = ts;
->>>> +	rq->rr_ts = ts;
->>>> +
->>>> +	return ts;
->>>> +}
->>>> +
->>>> +/**
->>>> + * drm_sched_rq_pop_entity - pops an entity
->>>> + *
->>>> + * @entity: scheduler entity
->>>> + *
->>>> + * To be called every time after a job is popped from the entity.
->>>> + */
->>>> +void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->>>> +{
->>>> +	struct drm_sched_job *next_job;
->>>> +	struct drm_sched_rq *rq;
->>>> +	ktime_t ts;
->>>> +
->>>> +	/*
->>>> +	 * Update the entity's location in the min heap according to
->>>> +	 * the timestamp of the next job, if any.
->>>> +	 */
->>>> +	next_job = drm_sched_entity_queue_peek(entity);
->>>> +	if (!next_job)
->>>> +		return;
->>>> +
->>>> +	spin_lock(&entity->lock);
->>>> +	rq = entity->rq;
->>>> +	spin_lock(&rq->lock);
->>>> +	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>>> +		ts = next_job->submit_ts;
->>>> +	else
->>>> +		ts = drm_sched_rq_get_rr_ts(rq, entity);
->>>> +	drm_sched_rq_update_fifo_locked(entity, rq, ts);
->>>> +	spin_unlock(&rq->lock);
->>>> +	spin_unlock(&entity->lock);
->>>> +}
->>>> +
->>>>    /**
->>>>     * drm_sched_rq_select_entity - Select an entity which provides a job to run
->>>>     *
->>>
->>
-> 
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 3e935a89d279..57821e59d3cc 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1421,9 +1421,9 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
+ 	return -EINVAL;
+ }
+ 
+-static int amdgpu_hwmon_get_sensor_generic(struct amdgpu_device *adev,
+-					   enum amd_pp_sensors sensor,
+-					   void *query)
++static int amdgpu_pm_get_sensor_generic(struct amdgpu_device *adev,
++					enum amd_pp_sensors sensor,
++					void *query)
+ {
+ 	int r, size = sizeof(uint32_t);
+ 
+@@ -1456,7 +1456,7 @@ static ssize_t amdgpu_get_gpu_busy_percent(struct device *dev,
+ 	unsigned int value;
+ 	int r;
+ 
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GPU_LOAD, &value);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GPU_LOAD, &value);
+ 	if (r)
+ 		return r;
+ 
+@@ -1480,7 +1480,7 @@ static ssize_t amdgpu_get_mem_busy_percent(struct device *dev,
+ 	unsigned int value;
+ 	int r;
+ 
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MEM_LOAD, &value);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MEM_LOAD, &value);
+ 	if (r)
+ 		return r;
+ 
+@@ -1504,7 +1504,7 @@ static ssize_t amdgpu_get_vcn_busy_percent(struct device *dev,
+ 	unsigned int value;
+ 	int r;
+ 
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VCN_LOAD, &value);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VCN_LOAD, &value);
+ 	if (r)
+ 		return r;
+ 
+@@ -1783,7 +1783,7 @@ static int amdgpu_show_powershift_percent(struct device *dev,
+ 	uint32_t ss_power;
+ 	int r = 0, i;
+ 
+-	r = amdgpu_hwmon_get_sensor_generic(adev, sensor, (void *)&ss_power);
++	r = amdgpu_pm_get_sensor_generic(adev, sensor, (void *)&ss_power);
+ 	if (r == -EOPNOTSUPP) {
+ 		/* sensor not available on dGPU, try to read from APU */
+ 		adev = NULL;
+@@ -1796,7 +1796,7 @@ static int amdgpu_show_powershift_percent(struct device *dev,
+ 		}
+ 		mutex_unlock(&mgpu_info.mutex);
+ 		if (adev)
+-			r = amdgpu_hwmon_get_sensor_generic(adev, sensor, (void *)&ss_power);
++			r = amdgpu_pm_get_sensor_generic(adev, sensor, (void *)&ss_power);
+ 	}
+ 
+ 	if (r)
+@@ -1906,11 +1906,11 @@ static int ss_bias_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+ 
+ 	if (!amdgpu_device_supports_smart_shift(adev))
+ 		*states = ATTR_STATE_UNSUPPORTED;
+-	else if (amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_SS_APU_SHARE,
+-		 (void *)&ss_power))
++	else if (amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_SS_APU_SHARE,
++					      (void *)&ss_power))
+ 		*states = ATTR_STATE_UNSUPPORTED;
+-	else if (amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_SS_DGPU_SHARE,
+-		 (void *)&ss_power))
++	else if (amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_SS_DGPU_SHARE,
++					      (void *)&ss_power))
+ 		*states = ATTR_STATE_UNSUPPORTED;
+ 
+ 	return 0;
+@@ -2636,18 +2636,18 @@ static ssize_t amdgpu_hwmon_show_temp(struct device *dev,
+ 	switch (channel) {
+ 	case PP_TEMP_JUNCTION:
+ 		/* get current junction temperature */
+-		r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_HOTSPOT_TEMP,
+-					   (void *)&temp);
++		r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_HOTSPOT_TEMP,
++						 (void *)&temp);
+ 		break;
+ 	case PP_TEMP_EDGE:
+ 		/* get current edge temperature */
+-		r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_EDGE_TEMP,
+-					   (void *)&temp);
++		r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_EDGE_TEMP,
++						 (void *)&temp);
+ 		break;
+ 	case PP_TEMP_MEM:
+ 		/* get current memory temperature */
+-		r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MEM_TEMP,
+-					   (void *)&temp);
++		r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MEM_TEMP,
++						 (void *)&temp);
+ 		break;
+ 	default:
+ 		r = -EINVAL;
+@@ -2909,8 +2909,8 @@ static ssize_t amdgpu_hwmon_get_fan1_min(struct device *dev,
+ 	u32 min_rpm = 0;
+ 	int r;
+ 
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MIN_FAN_RPM,
+-				   (void *)&min_rpm);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MIN_FAN_RPM,
++					 (void *)&min_rpm);
+ 
+ 	if (r)
+ 		return r;
+@@ -2926,8 +2926,8 @@ static ssize_t amdgpu_hwmon_get_fan1_max(struct device *dev,
+ 	u32 max_rpm = 0;
+ 	int r;
+ 
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MAX_FAN_RPM,
+-				   (void *)&max_rpm);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MAX_FAN_RPM,
++					 (void *)&max_rpm);
+ 
+ 	if (r)
+ 		return r;
+@@ -3060,8 +3060,8 @@ static ssize_t amdgpu_hwmon_show_vddgfx(struct device *dev,
+ 	int r;
+ 
+ 	/* get the voltage */
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDGFX,
+-				   (void *)&vddgfx);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDGFX,
++					 (void *)&vddgfx);
+ 	if (r)
+ 		return r;
+ 
+@@ -3077,8 +3077,8 @@ static ssize_t amdgpu_hwmon_show_vddboard(struct device *dev,
+ 	int r;
+ 
+ 	/* get the voltage */
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDBOARD,
+-					    (void *)&vddboard);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDBOARD,
++					 (void *)&vddboard);
+ 	if (r)
+ 		return r;
+ 
+@@ -3111,8 +3111,8 @@ static ssize_t amdgpu_hwmon_show_vddnb(struct device *dev,
+ 		return -EINVAL;
+ 
+ 	/* get the voltage */
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDNB,
+-				   (void *)&vddnb);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDNB,
++					 (void *)&vddnb);
+ 	if (r)
+ 		return r;
+ 
+@@ -3134,7 +3134,7 @@ static int amdgpu_hwmon_get_power(struct device *dev,
+ 	u32 query = 0;
+ 	int r;
+ 
+-	r = amdgpu_hwmon_get_sensor_generic(adev, sensor, (void *)&query);
++	r = amdgpu_pm_get_sensor_generic(adev, sensor, (void *)&query);
+ 	if (r)
+ 		return r;
+ 
+@@ -3284,8 +3284,8 @@ static ssize_t amdgpu_hwmon_show_sclk(struct device *dev,
+ 	int r;
+ 
+ 	/* get the sclk */
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GFX_SCLK,
+-				   (void *)&sclk);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GFX_SCLK,
++					 (void *)&sclk);
+ 	if (r)
+ 		return r;
+ 
+@@ -3308,8 +3308,8 @@ static ssize_t amdgpu_hwmon_show_mclk(struct device *dev,
+ 	int r;
+ 
+ 	/* get the sclk */
+-	r = amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GFX_MCLK,
+-				   (void *)&mclk);
++	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GFX_MCLK,
++					 (void *)&mclk);
+ 	if (r)
+ 		return r;
+ 
+@@ -3607,10 +3607,12 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 
+ 	/* not all products support both average and instantaneous */
+ 	if (attr == &sensor_dev_attr_power1_average.dev_attr.attr &&
+-	    amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER, (void *)&tmp) == -EOPNOTSUPP)
++	    amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER,
++					 (void *)&tmp) == -EOPNOTSUPP)
+ 		return 0;
+ 	if (attr == &sensor_dev_attr_power1_input.dev_attr.attr &&
+-	    amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER, (void *)&tmp) == -EOPNOTSUPP)
++	    amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER,
++					 (void *)&tmp) == -EOPNOTSUPP)
+ 		return 0;
+ 
+ 	/* hide max/min values if we can't both query and manage the fan */
+@@ -3649,8 +3651,8 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 	/* only few boards support vddboard */
+ 	if ((attr == &sensor_dev_attr_in2_input.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_in2_label.dev_attr.attr) &&
+-	     amdgpu_hwmon_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDBOARD,
+-					     (void *)&tmp) == -EOPNOTSUPP)
++	     amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_VDDBOARD,
++					  (void *)&tmp) == -EOPNOTSUPP)
+ 		return 0;
+ 
+ 	/* no mclk on APUs other than gc 9,4,3*/
+-- 
+2.46.0
 
