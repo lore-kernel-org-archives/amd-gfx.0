@@ -4,79 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F18E6CAC59A
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 07:21:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05235CAC599
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 08:07:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEB7210E6BE;
-	Tue, 16 Sep 2025 07:21:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EBF210E6E0;
+	Tue, 16 Sep 2025 08:07:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TKMxGOJF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z3G7eih/";
 	dkim-atps=neutral
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
- [209.85.160.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF72A10E13F
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 23:02:39 +0000 (UTC)
-Received: by mail-qt1-f169.google.com with SMTP id
- d75a77b69052e-4b5eee40cc0so47795081cf.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 16:02:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757977358; x=1758582158; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ua7l1bqzQuCWyFV9tIRGLf5KyT7bRmbeKtayL/Sa8go=;
- b=TKMxGOJFD18A6fp8085rnaLDlQ7Dxe/n3szqHiWS1L1AKKW1ZyPHus17Tq6MxrroKb
- D7VYdRGnjFJL6c/CfI0+lOREOE/9M0d73ZgW7C20wz9pHHiKAHFyvz+uYZ3+A+hr21Zw
- 2dD2stCycZZQjCNGJBVINE1zVWlSqU/JW/3QlbVYmViRyW61bF7OZcZkOkaxH0T7zCKf
- AzuBD1VOYtmlDsqFMNzV16uEMmbSUD4wcc1jJoCe/4/qacdFIFZyq1+Mf0c/GOSsq/tM
- PUnE4B/+4GAU58URim2RX8qcd6u5LlX7wE3PAs1JV6BIKxLRkHM3c+LM6jqGW3Yr4XU/
- kXsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757977358; x=1758582158;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ua7l1bqzQuCWyFV9tIRGLf5KyT7bRmbeKtayL/Sa8go=;
- b=UzDBUl9pKPDkyW7TY3PwKewHFrBpg6aS1aIhOzIRviT2DovJ3Oh9tcNt3+LrNusgtj
- j1ulnxeqG21NslxkREfTS8rTK3mK8TAj4VvztReyISrD0VXFbzeP1OVGTNQ6EMIjE3BJ
- OvtZURjGI7iItgYE5Uh1fe2Bw515eMrnVRxjjUvAvQB5tYVR4pdxwpyM6N/z+Kff3Wo2
- 4/c7LqsJGLeyv2Eki6aeWE60fin4TXa+GjQcXs3ElD5nGk2X3Er/s8P6crHqCpNJIKgC
- jGfwHVEyORGnYWrKb8TIzkE20r2cP8h3Pwe1Zg/bphH8DAi/edCwiUdzG1M4QXcEo0Ua
- Tt7Q==
-X-Gm-Message-State: AOJu0Yzp8KsHD2pc9+r3P3W3hGUSN9GG/o5iTz+SqraEmqCnto241cmp
- 5Wl82M7KxIa1f1uY3wTA3QlQHbJjvt1UQ3feU6Xmjkg259a4ITD+FNyn
-X-Gm-Gg: ASbGnctit1jmrkEtdO5dP0QmU/7GC4yg1bVD0hpmQCr6TlvJq7IrNgeW4jjzTgDLxSF
- tdeg79PJUgd51WqcQ/YdNTjwZNZEgsTlSdRNrQCao8rihRDOryGd7JyG19Rl3n0o66TLO5V2Dya
- fje1y2LBcvatn2QtI8OoP1Zr1Ar9f1+6MXd8w4yzQ2fpc4GgLFZ9OJwJY6yxNGQnrxqQb5tVpjT
- lfB4E0nw64XQRDi2PV38pdd2QwoVxq0GL5sA3ORO+aBzZP7Cz4Pe+lijvKtMA6p1NguuqC8PQQS
- uRkpmpIyBWvrOGYRWF4sU8SgMfoWh9G/jeaCJbVukTom9bVKiHdNFpqU4PnGYG7duXatsOoiVWk
- 7Su373ppMzfsKUBwsnlAK08gvMgB8JO5gXjLXR8dbYSV+yWnMf5cQtr400bLjbcw0EX/Fc59k0+
- bDTviHJopvGQ8=
-X-Google-Smtp-Source: AGHT+IEL3CC8YI/JRiZOHg5Ppn1FQSD6RhZ4YQMN0AMHBA3ioVI9iNaOVowwbde59HkrjMjwsnzYkg==
-X-Received: by 2002:a05:622a:55:b0:4b6:226b:b6b7 with SMTP id
- d75a77b69052e-4b77d1b243dmr217362301cf.81.1757977357464; 
- Mon, 15 Sep 2025 16:02:37 -0700 (PDT)
-Received: from ?IPV6:2607:fa49:655f:db00:25c1:6b2c:46ab:8758?
- ([2607:fa49:655f:db00:25c1:6b2c:46ab:8758])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4b639cb2102sm71918461cf.16.2025.09.15.16.02.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Sep 2025 16:02:36 -0700 (PDT)
-Message-ID: <379880c4-d8e0-408e-bb0b-766389f10a38@gmail.com>
-Date: Mon, 15 Sep 2025 19:02:35 -0400
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53C1C10E30B;
+ Tue, 16 Sep 2025 08:07:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1758010039; x=1789546039;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Y8J/F7oKrl3zjCh+oB+s8eg1WIz+389ZWBoMt2NLWbc=;
+ b=Z3G7eih/d2i9H3QRfFhkzFd3y3Hh1iL5yCxtGo9nR96nMQt7ay+FIaTn
+ NJ8iM+Vvdk8yRgA3CJNz3s7GIhApOG+0/DymK0cwKxNFu80PR4INtJX5R
+ fdeq4DuSKxg1FXq9eSPPrEsfy49B9cY4EB2IjA0JiNY/k2Q4jNux7iaAy
+ 248mPwaSvYCN9vMmw9bOvFdZA2TJNb1uE3gPe4zmUxvUTU9WBzZbARhEG
+ rcDkXL4pnqb39dgGrRTS8Kse6e98EFFCFC/XZkd4zyQXmG7y2g9o6Hwlq
+ h8Nup+LbBKgdcWxN6hgea3DoUun37K0LyXsvFb0y9o+8GFhJo3HkUSlTK A==;
+X-CSE-ConnectionGUID: Il/uEFUgThS2AFGFkd1Yzw==
+X-CSE-MsgGUID: 8kdQHb0jSoaRSug94bOGtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11554"; a="59326755"
+X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="59326755"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2025 01:07:17 -0700
+X-CSE-ConnectionGUID: JyflTA6ySzGmtCMp5c36wg==
+X-CSE-MsgGUID: bcQf46JZTxGbHCsvp5kmDQ==
+X-ExtLoop1: 1
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.81])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2025 01:07:10 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Andi Shyti <andi.shyti@kernel.org>, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>, Christian
+ =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>, =?utf-8?Q?Micha=C5=82?= Winiarski
+ <michal.winiarski@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona
+ Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ ?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Michael J . Ruhl" <mjruhl@habana.ai>, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 05/11] PCI: Add pci_rebar_size_supported() helper
+In-Reply-To: <cduh4ave3lbdgd2kutfhgf3obf3wuskgxf6rrhggsiksw7wrwa@lqly5npj5g3r>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20250915091358.9203-1-ilpo.jarvinen@linux.intel.com>
+ <20250915091358.9203-6-ilpo.jarvinen@linux.intel.com>
+ <cduh4ave3lbdgd2kutfhgf3obf3wuskgxf6rrhggsiksw7wrwa@lqly5npj5g3r>
+Date: Tue, 16 Sep 2025 11:07:07 +0300
+Message-ID: <eb0bbfbcb963174bbb625268b0e5385deb8a2c62@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [REGRESSION] AMD GPU not detected since 6.16.4 commit c97636cc83d4
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <12e266b6-b708-43c0-8ff3-db0058c35742@gmail.com>
- <0ffe2692-7bfa-4821-856e-dd0f18e2c32b@amd.com>
-Content-Language: en-US, fr
-From: =?UTF-8?B?SsOpcsO0bWUgTMOpY3V5ZXI=?= <jerome.4a4c@gmail.com>
-In-Reply-To: <0ffe2692-7bfa-4821-856e-dd0f18e2c32b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 16 Sep 2025 07:21:45 +0000
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,17 +82,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-09-15 15:04, Mario Limonciello wrote:
-> It makes sense.  Can you send out a properly formatted patch to the 
-> M/L with all the tags (Fixes/Closes/S-o-b)?  Or if you want me to use 
-> yours to write one and send one out (and give you a Suggested-by) I 
-> can do that too. 
+On Mon, 15 Sep 2025, Andi Shyti <andi.shyti@kernel.org> wrote:
+> Hi Ilpo,
+>
+>> +/**
+>> + * pci_rebar_size_supported - check if size is supported for BAR
+>> + * @pdev: PCI device
+>> + * @bar: BAR to check
+>> + * @size: size as defined in the PCIe spec (0=1MB, 31=128TB)
+>> + *
+>> + * Return: %true if @bar is resizable and @size is a supported, otherwise
+>> + *	   %false.
+>> + */
+>> +bool pci_rebar_size_supported(struct pci_dev *pdev, int bar, int size)
+>> +{
+>> +	u64 sizes = pci_rebar_get_possible_sizes(pdev, bar);
+>> +
+>> +	return BIT(size) & sizes;
+>
+> I would return here "!!(BIT(size) & sizes)", but it doesn't
+> really matter.
 
+If the patch had that, I'd ask to drop the superfluous negations and
+parens...
 
-Please send it, I'll learn that another day.
+BR,
+Jani.
 
-Suggested-by would be great.
+>
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+>
+> Andi
 
-Thanks,
-Jérôme
-
+-- 
+Jani Nikula, Intel
