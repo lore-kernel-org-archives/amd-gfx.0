@@ -4,68 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C5C1CAC598
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 13:11:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB333CAC599
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 13:17:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED6DE10E317;
-	Tue, 16 Sep 2025 13:11:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FEE810E09F;
+	Tue, 16 Sep 2025 13:17:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V8qj3UsK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lzihGXQd";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A80210E317
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 13:11:49 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-24498e93b8fso7678875ad.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 06:11:49 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF0DF10E09F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 13:17:57 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-267f15eb5d3so287565ad.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 06:17:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758028309; x=1758633109; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758028677; x=1758633477; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rZQGWLMYS20RM2PHRcKIUdzG/sbIcO56YCQjlhrSFJ0=;
- b=V8qj3UsKGi2mnX3xliyGKYv8zC6sNlOEd3TcEpGHeoQeXktJ3Ca5klMP80Fx9mpFJz
- nCwwlPjwP+f3ApQkgw5MqTT5W79iy27cPgB2Rc5TGqtOmoFxFZ1IVIuHLy7Ay+kZdkDQ
- eZG25Q4Uv4EubcKeLbw6LzFcdH79p7byp6c57RVLvUETrsbFbCEUCq/efdZgQODxiyWd
- pcQullhQwVE9Hfb9kFOl0z7DWApsCfDiiZ9c8ZVLoz1u8M4mP2v+cLEcQemQXO77781Z
- UfrHGe2F6DFgzvmR1xL56XT2IACpNz9Nyc4Qc9CVzFMfwCK2fytninVNRduS7neWoHCT
- 6VJw==
+ bh=EL8rdeeyZRCJLWAuSItxERxV75snwUDozJkW0ed9By8=;
+ b=lzihGXQdFg0iOH+sJzBkRWW8W0AvIFkkyCPtVGrljBP8LN21tsYZir04Azz2C1o563
+ i6W6Zc/RjDiG/UgAwZnfglVHsLKMI7ixa2/BAYKiPBbLMn6AFr78f2bwj+FhqtJFSQ0e
+ sNQv3Ry4jQo+MrvHcF3csnJvpHztG4jjyjWSOpa4m27O5BxxKF/MovXEcb7+D1DOdLMq
+ 0nXoUU2a4G24S2/OyZ9C1eRRT+NJiKvmqwMoKfIJj6xdNyw1ILOOmzt21HwIqX/RZ8wo
+ ob9zUhQ0jCXO1iD7b3j9Iy/AO/p/brLP5AwEeLYWwwMWD+tK26CBvcDCq/QLMLHNZBX0
+ aYTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758028309; x=1758633109;
+ d=1e100.net; s=20230601; t=1758028677; x=1758633477;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rZQGWLMYS20RM2PHRcKIUdzG/sbIcO56YCQjlhrSFJ0=;
- b=aqUX/EhjxDy/PajJjSSIJwsniafr2DFB20ev+e0Q7lHmZhDKOySp1rz1xu3uXSK6UY
- sh6HzHniC20XVEYfRR+zUrTBNvsgEtSAwLAxTojGqJUkCrh3mYGOlwxwrM3Wens7qITw
- Mv1/TrPrmsCPBU1Jc3zp4cLE2I+ODnN8302hkpvClM9pKsSTyuaA/JK4KQzCg5BqMx3E
- JIvv/nQjneYjsgV7VPtaD/erq4Q+P3+72CxvrxXfCjpxAom82Zj26fPUk6Ma4DTcx8xF
- Ih7dJCREksDjLWSqbukn0IO512RdPpCX5PJ2X2Faqyek9OAk7VxbR+B7BQ/w+Ft6aKFQ
- rngA==
-X-Gm-Message-State: AOJu0YzY6tcThcAA5rJKduJeeg4m/6HEImOqYN0h1puDP6Gv7I61toFo
- jOR+ry5khxT6G1JqXuwElY1oAKE0xRUSFvpPM5xrTId3adWqHpgCBDu/eBxHKUBCAKxADiB7mzA
- jdVcUxxa3qPCTgE0UTfCkEE/QhBbsYVM=
-X-Gm-Gg: ASbGncvUjjFezpIoY88a+uIBoppdg/WWMGVy3iM3q/Rfoe+YAjJRUXMpaadzk39zPvu
- AHcOyow6mJdhEgQWv/1QQ5aTiZEs3o5HGrwtjOlCiAfpN4FrSl8S73ItkAbBiCKyMyYD7ryms/6
- HWrsu1g6FZX2sOQdXz4jZ1LrnGoPPL6dkTu8dFm+lmQjyYhy+IaG3FHf2HhkZ620Op4UxM/8FNT
- UNHYOU=
-X-Google-Smtp-Source: AGHT+IHdBX+BDCzs72mqFiTaPcuHGQueiRO+jKRRLYirXl9AXm5yXijcUbkgPTo7POT8AC9lyHyKpRnsayPUaVFJHnc=
-X-Received: by 2002:a17:903:ac5:b0:25c:b66e:9c2a with SMTP id
- d9443c01a7336-25d27c1df3cmr106987245ad.6.1758028308742; Tue, 16 Sep 2025
- 06:11:48 -0700 (PDT)
+ bh=EL8rdeeyZRCJLWAuSItxERxV75snwUDozJkW0ed9By8=;
+ b=dv1+7/abpRd0BZdI8RREjP0n8XrF8ebiQb4EcisNXBSNKBwPKgioLbV5uSxTkvcy3x
+ gWxhdecJTGS/6Q78UfeCybg6rVDseD8H9O03vNFFzimWuuzWS+lxL0u53BvASdyhmPh2
+ PGbalGemC89OFGea2+SGmTws3pLR/aqtWaT2vj4bYZHqMAjzmlDiQl6AUqM6IF9iRDMU
+ 78v6qi6bg1LvOitepWWDDjE63RlGz+RteYjlAXkUMqgtox7IX04ULWxqj6BZYuQcTuYd
+ K5gpsW4ybT1V5R4JFSSWC0GspBH1p0Ln9rQbSN/ULgLqeeevfBHcofTQLVRmGhUfr1uh
+ V+Kg==
+X-Gm-Message-State: AOJu0YxHB/Tezsz9UUXG02inmEuM/5K3w6K6Zjb5mNfDb3Vkm9xBlHa5
+ w9WlFotRDeWqZRPk7GTo5Wj22W7ZrChTtovQwX8PEpCCReK1t1e9ZvmOdmsj3/u9PXaazMfoogM
+ CgdCUEqjzj1rjHNe5FV/AJgudHIf+AZQ=
+X-Gm-Gg: ASbGncvupUfNk9DbUAFywH+dkeMQB7kKrvXQm2PUbnCo3/vE1XMg8r75h3Q4DQ3kAw6
+ 58lyVTA/ZHxGM1PeFEZqMKCuIvQ/UHrCmGx/RM5tpD2ZwhOD2oplnEJryJdqWqMcIe96uMxJd9M
+ W4LGheouk/UKPtFhUzl8s4eNkIMGatRRf2qpcajNb4MeFMK/X9zuu5TuqVVcKv6Bt6DHS2OLE/c
+ v1RJoY=
+X-Google-Smtp-Source: AGHT+IEWOKNZlpigqVqMynJ9DZyeKUBqPRWLtd91PAWWKCLFctKlaa268jD+blO0AOC6qstSHkGyUuZW7QsroQ8WBXs=
+X-Received: by 2002:a17:903:41c1:b0:260:7a59:a177 with SMTP id
+ d9443c01a7336-2607a59a2d9mr91723455ad.7.1758028677254; Tue, 16 Sep 2025
+ 06:17:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250916015902.77242-1-mario.limonciello@amd.com>
-In-Reply-To: <20250916015902.77242-1-mario.limonciello@amd.com>
+References: <20250916012033.76549-1-mario.limonciello@amd.com>
+In-Reply-To: <20250916012033.76549-1-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Sep 2025 09:11:35 -0400
-X-Gm-Features: AS18NWBHylpMVcq-hRpBq7PC5b0sPBeEzYLb6jrJrCkWt5NgsGld7AXBRsGzCGU
-Message-ID: <CADnq5_PqbmO9JpzuG-Ry1Mw53Db62-wHJMLjKqy6Dnd47KMofw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Only restore cached manual clock settings in
- restore if OD enabled
+Date: Tue, 16 Sep 2025 09:17:45 -0400
+X-Gm-Features: AS18NWChsoNjWoOcWhWFQGhnyn30oQmKFLwsoZYYhRgpVlN9uTRdZpIO26jPG_4
+Message-ID: <CADnq5_OQXtMY-vm7d+k6ieWeBgB4H5b6+u7nSfTnYqnOpB=CvQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Run KFD suspend and resume routines for s0ix
 To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org, 
- =?UTF-8?B?SsOpcsO0bWUgTMOpY3V5ZXI=?= <jerome.4a4c@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,46 +80,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 15, 2025 at 10:39=E2=80=AFPM Mario Limonciello
+On Mon, Sep 15, 2025 at 9:20=E2=80=AFPM Mario Limonciello
 <mario.limonciello@amd.com> wrote:
 >
-> If OD is not enabled then restoring cached clock settings doesn't make
-> sense and actually leads to errors in resume.
+> KFD suspend and resume routines have been disabled since commit
+> 5d3a2d95224da ("drm/amdgpu: skip kfd suspend/resume for S0ix") which
+> made sense at that time.  However there is a problem that if there is
+> any compute work running there may still be active fences.  Running
+> suspend without draining them can cause the system to hang.
 >
-> Check if enabled before restoring settings.
+> So run KFD suspend/resume routines even in s0ix.
 >
-> Fixes: 796ff8a7e01bd ("drm/amd: Restore cached manual clock settings duri=
-ng resume")
-> Cc: stable@vger.kernel.org
-> Reported-by: J=C3=A9r=C3=B4me L=C3=A9cuyer <jerome.4a4c@gmail.com>
-> Closes: https://lore.kernel.org/amd-gfx/0ffe2692-7bfa-4821-856e-dd0f18e2c=
-32b@amd.com/T/#me6db8ddb192626360c462b7570ed7eba0c6c9733
-> Suggested-by: J=C3=A9r=C3=B4me L=C3=A9cuyer <jerome.4a4c@gmail.com>
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
 > ---
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 ++++++-------
+>  1 file changed, 6 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index bf2b38dd7e25..fb8086859857 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -2263,7 +2263,7 @@ static int smu_resume(struct amdgpu_ip_block *ip_bl=
-ock)
->                         return ret;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 0fdfde3dcb9f..59688f8ae919 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5220,10 +5220,9 @@ int amdgpu_device_suspend(struct drm_device *dev, =
+bool notify_clients)
+>
+>         amdgpu_device_ip_suspend_phase1(adev);
+>
+> -       if (!adev->in_s0ix) {
+> -               amdgpu_amdkfd_suspend(adev, !amdgpu_sriov_vf(adev) && !ad=
+ev->in_runpm);
+> +       amdgpu_amdkfd_suspend(adev, !amdgpu_sriov_vf(adev) && !adev->in_r=
+unpm);
+> +       if (!adev->in_s0ix)
+>                 amdgpu_userq_suspend(adev);
+
+KGD user queues have the same requirements as KFD user queues so this
+should be called as well.
+
+> -       }
+>
+>         r =3D amdgpu_device_evict_resources(adev);
+>         if (r)
+> @@ -5318,11 +5317,11 @@ int amdgpu_device_resume(struct drm_device *dev, =
+bool notify_clients)
+>                 goto exit;
 >         }
 >
-> -       if (smu_dpm_ctx->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL) {
-> +       if (smu_dpm_ctx->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL && =
-smu->od_enabled) {
->                 ret =3D smu_od_edit_dpm_table(smu, PP_OD_COMMIT_DPM_TABLE=
-, NULL, 0);
->                 if (ret)
->                         return ret;
+> -       if (!adev->in_s0ix) {
+> -               r =3D amdgpu_amdkfd_resume(adev, !amdgpu_sriov_vf(adev) &=
+& !adev->in_runpm);
+> -               if (r)
+> -                       goto exit;
+> +       r =3D amdgpu_amdkfd_resume(adev, !amdgpu_sriov_vf(adev) && !adev-=
+>in_runpm);
+> +       if (r)
+> +               goto exit;
+>
+> +       if (!adev->in_s0ix) {
+>                 r =3D amdgpu_userq_resume(adev);
+
+Same here.
+
+Alex
+
+>                 if (r)
+>                         goto exit;
 > --
-> 2.49.0
+> 2.50.1
 >
