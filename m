@@ -4,56 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0EFDCAC598
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 13:04:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3A56CAC599
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 13:04:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 472A210E7D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9688D10E7D4;
 	Tue, 16 Sep 2025 13:04:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="FM/C116C";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aWdU0eR0";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C56B410E698;
- Tue, 16 Sep 2025 07:41:44 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4cQv3m62yBz9sm6;
- Tue, 16 Sep 2025 09:41:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1758008500; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fe4+MjApCWo7jGglDayHEOd9HsjjsE6/NjBFpucGOAU=;
- b=FM/C116CR2W9010/KuO+5+je2Bwdy4DbmotdCtq7OPzTezlrhroWXz4LXJ3s0c2CnnPBM4
- Jm4nA+dtOjU7Vf/zhTqhfJtwgSSevUOVBA7yIPFAjS9lqyPy8Z/sYCGkvaqZKzaw+0N9gq
- t0E2HSMTKX4y0Wphs8sQWFROKWPaqE/yK1UsmJLQKuq6pAolK+mZhZ/eTQWcw47vN7pN/7
- 8cfmvphsXqHdmBKzHtlJdASlxPpurt/NFPW872hK8SW6pLy/bPIjnExgO7mFnsGr3tZnZp
- TzIB+A4q8VY0fynjJ3y7F25KR2WhRunxEKiAaysagYULdtOe4pxND9np44TLiw==
-Message-ID: <9ce2b23820b4d56123eba515b01f282af4380a7c.camel@mailbox.org>
-Subject: Re: [RFC v8 04/12] drm/sched: Consolidate entity run queue management
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
-Date: Tue, 16 Sep 2025 09:41:37 +0200
-In-Reply-To: <73681fac-ef47-4005-87ad-cea0b91e6813@igalia.com>
-References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
- <20250903101820.63032-5-tvrtko.ursulin@igalia.com>
- <6fe010e8dc5e8a5db35d8702960f42940e342093.camel@mailbox.org>
- <73681fac-ef47-4005-87ad-cea0b91e6813@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F02D10E75E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 09:30:19 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-32ec291a325so40862a91.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 02:30:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1758015019; x=1758619819; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xMegCBQz7YTxSeWsApsavoRdrbMxT8WcHe9sV3hQY/k=;
+ b=aWdU0eR0MXkbcD06Hlq4p4BVUIpdyZtmsQU+jHeHTCYGtQBQow3MVl4n+5BNPyNkBA
+ acGkacsrd0sQka8K5dInxUY2iJxYmDL2aNDw/sigGySppEr3/X15GdzXEyZTc31zmhuH
+ CznhSAUTrKJSDO1CW+tcT7HQFf08QS4A/MFJMpZJQE8BfrWetNF1kDyGUks+Yvb9BVGJ
+ Qkg0i2FvaSmaSRqC2oWYldAeXXxr1ONMzfUdWyfVd3S9Ae2KCbcclGh+YLNCBxs6uEQA
+ B2IyiWb1IsGK+yjWwAODE/h2/nLvn0fjMuoQVo86/aKt5Z0bTE+9WNQ5GwDperOedN4P
+ KWcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758015019; x=1758619819;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xMegCBQz7YTxSeWsApsavoRdrbMxT8WcHe9sV3hQY/k=;
+ b=BdHLvalRu9HhbJrNlFUlprXmI7QAKCVM2v77bODpOhMFKt8ACtlbwlZ2Anl7KZoNmu
+ dWH/LIAWyAjJa0CqWnuQPVWPbnDu5ZWDrWhItTJwrs9Gus79JZXWNUSEboN7YTXnyVR/
+ XAY0y5hzxXraJjhTUZB57Lx0lOvlBxbMVE9JLEqBwLW5kO/xLniX4ughVWJxrAWiy5IH
+ XrX14bnoIvmJCyeg+xVAcyoObi+M5KAdS5e6okFdPJkycT5AcjWXbmffpZtaSX802tYt
+ UXNq81UDwcHIb5AN+A3D2TQbI/sHA7fx1F1XsFifwCHb6IQ8xdgtFcZdLqE62A7UE+FC
+ IvQg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVa1ySZphmGk0/VgvCodK3rBxAbYNLR0i9/N5fu0kqwe628d6sTtJLdOV9u6aqjg0dB4idpSYPv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy7RaPVvvh0KcHLNK3HSgyuXehn2mkO4/9Cm2FSatqgLnA5rlf5
+ 10A9uhV2u2rHyuZTehezBPsK5ab47Jr2CLKe/azana4ocACfGM4ELAk0
+X-Gm-Gg: ASbGnctIzSBwuCmrLbD+iR9nvn1Yla04rjmzJ070X46pIP0rlD+mbjS+Xc3l6sJ52YL
+ NwtrEauq0xxzDXv26ZF+ILfHOms5DHw0hp/VLKZyq5MaQB7bvUt1gciYAslzmLaXCJM4uTI8nL0
+ WNTX90YphNZ5ClX+VjrVrcnz3cTC9wUG+6TialNprP37efAa0/KN1TOPr5XpbD+7sXJ3OEmduUg
+ zixKqrbbE+fpqA5gURHeh30iSKg8ACgcBOiJIwLC0Py3qszxbgoqoQSVC691S11T836RhposNak
+ APFKKc4lNDQrXsH6PERyWY8EGOdaHzEnfxBotMq9+cDxAGB9YDJno0FzN9URJLM+nCTKwzCPJig
+ GvpXPIagMmZz+BbW0P7b5uQz27T9MnznRaKMc9aRgVp9FFR0=
+X-Google-Smtp-Source: AGHT+IHaY5c65oxrMkdcTL0n+OlnjEx6RcD6jC9gi1YeTOzARVykTuROW5jlE0gu3jOJro1VNfqXFA==
+X-Received: by 2002:a17:90b:38d2:b0:32b:baaa:21b0 with SMTP id
+ 98e67ed59e1d1-32de4eabfbamr18284658a91.6.1758015018661; 
+ Tue, 16 Sep 2025 02:30:18 -0700 (PDT)
+Received: from localhost.localdomain ([165.204.156.251])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-32ea3c72dacsm869074a91.4.2025.09.16.02.30.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Sep 2025 02:30:18 -0700 (PDT)
+From: Rahul Kumar <rk0006818@gmail.com>
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
+ skhan@linuxfoundation.org, rk0006818@gmail.com
+Subject: [PATCH] drm/amdgpu: Use kmalloc_array() instead of kmalloc()
+Date: Tue, 16 Sep 2025 14:59:49 +0530
+Message-ID: <20250916092949.4118999-1-rk0006818@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MBO-RS-META: wm5sjrj4poepb5rcuba5tfpezr3ys538
-X-MBO-RS-ID: bbe42caea259c62f92c
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 16 Sep 2025 13:04:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,317 +85,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-09-11 at 15:55 +0100, Tvrtko Ursulin wrote:
->=20
-> On 11/09/2025 15:20, Philipp Stanner wrote:
-> > On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
-> > > Move the code dealing with entities entering and exiting run queues t=
-o
-> > > helpers to logically separate it from jobs entering and exiting entit=
-ies.
-> >=20
-> > Sorry if I've asked this before, but does this strictly depend on the
-> > preceding patches or could it be branched out?
->=20
-> There is no fundamental dependency so I could re-order and pull it ahead=
-=20
-> if you are certain that is what you prefer?
+Documentation/process/deprecated.rst recommends against the use of
+kmalloc with dynamic size calculations due to the risk of overflow and
+smaller allocation being made than the caller was expecting.
 
-Well, you know my opinion: If it's a general improvement not directly
-necessary for a series, it should be send separately.
+Replace kmalloc() with kmalloc_array() in amdgpu_amdkfd_gfx_v10.c
+to make the intended allocation size clearer and avoid potential
+overflow issues.
 
-For this patch, however, I'm not even sure whether it's really
-improving the code base. The number of functions seems the same, just
-with different names, and the code base gets even slightly larger.
+Signed-off-by: Rahul Kumar <rk0006818@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Can you elaborate a bit on why you think this patch makes sense?
-
-P.
-
->=20
-> Regards,
->=20
-> Tvrtko
->=20
-> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > Cc: Danilo Krummrich <dakr@kernel.org>
-> > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > Cc: Philipp Stanner <phasta@kernel.org>
-> > > ---
-> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 | 64=
- ++-------------
-> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_internal.h |=C2=A0 8 +-
-> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 95 +++++++++++++++++++---
-> > > =C2=A0=C2=A03 files changed, 91 insertions(+), 76 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/d=
-rm/scheduler/sched_entity.c
-> > > index 4852006f2308..7a0a52ba87bf 100644
-> > > --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> > > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> > > @@ -456,24 +456,9 @@ drm_sched_job_dependency(struct drm_sched_job *j=
-ob,
-> > > =C2=A0=C2=A0	return NULL;
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > -static ktime_t
-> > > -drm_sched_rq_get_rr_ts(struct drm_sched_rq *rq, struct drm_sched_ent=
-ity *entity)
-> > > -{
-> > > -	ktime_t ts;
-> > > -
-> > > -	lockdep_assert_held(&entity->lock);
-> > > -	lockdep_assert_held(&rq->lock);
-> > > -
-> > > -	ts =3D ktime_add_ns(rq->rr_ts, 1);
-> > > -	entity->rr_ts =3D ts;
-> > > -	rq->rr_ts =3D ts;
-> > > -
-> > > -	return ts;
-> > > -}
-> > > -
-> > > =C2=A0=C2=A0struct drm_sched_job *drm_sched_entity_pop_job(struct drm=
-_sched_entity *entity)
-> > > =C2=A0=C2=A0{
-> > > -	struct drm_sched_job *sched_job, *next_job;
-> > > +	struct drm_sched_job *sched_job;
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	sched_job =3D drm_sched_entity_queue_peek(entity);
-> > > =C2=A0=C2=A0	if (!sched_job)
-> > > @@ -502,26 +487,7 @@ struct drm_sched_job *drm_sched_entity_pop_job(s=
-truct drm_sched_entity *entity)
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	spsc_queue_pop(&entity->job_queue);
-> > > =C2=A0=20
-> > > -	/*
-> > > -	 * Update the entity's location in the min heap according to
-> > > -	 * the timestamp of the next job, if any.
-> > > -	 */
-> > > -	next_job =3D drm_sched_entity_queue_peek(entity);
-> > > -	if (next_job) {
-> > > -		struct drm_sched_rq *rq;
-> > > -		ktime_t ts;
-> > > -
-> > > -		spin_lock(&entity->lock);
-> > > -		rq =3D entity->rq;
-> > > -		spin_lock(&rq->lock);
-> > > -		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> > > -			ts =3D next_job->submit_ts;
-> > > -		else
-> > > -			ts =3D drm_sched_rq_get_rr_ts(rq, entity);
-> > > -		drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> > > -		spin_unlock(&rq->lock);
-> > > -		spin_unlock(&entity->lock);
-> > > -	}
-> > > +	drm_sched_rq_pop_entity(entity);
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	/* Jobs and entities might have different lifecycles. Si=
-nce we're
-> > > =C2=A0=C2=A0	 * removing the job from the entities queue, set the job=
-s entity pointer
-> > > @@ -611,30 +577,10 @@ void drm_sched_entity_push_job(struct drm_sched=
-_job *sched_job)
-> > > =C2=A0=C2=A0	/* first job wakes up scheduler */
-> > > =C2=A0=C2=A0	if (first) {
-> > > =C2=A0=C2=A0		struct drm_gpu_scheduler *sched;
-> > > -		struct drm_sched_rq *rq;
-> > > =C2=A0=20
-> > > -		/* Add the entity to the run queue */
-> > > -		spin_lock(&entity->lock);
-> > > -		if (entity->stopped) {
-> > > -			spin_unlock(&entity->lock);
-> > > -
-> > > -			DRM_ERROR("Trying to push to a killed entity\n");
-> > > -			return;
-> > > -		}
-> > > -
-> > > -		rq =3D entity->rq;
-> > > -		sched =3D rq->sched;
-> > > -
-> > > -		spin_lock(&rq->lock);
-> > > -		drm_sched_rq_add_entity(rq, entity);
-> > > -		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_RR)
-> > > -			submit_ts =3D entity->rr_ts;
-> > > -		drm_sched_rq_update_fifo_locked(entity, rq, submit_ts);
-> > > -
-> > > -		spin_unlock(&rq->lock);
-> > > -		spin_unlock(&entity->lock);
-> > > -
-> > > -		drm_sched_wakeup(sched);
-> > > +		sched =3D drm_sched_rq_add_entity(entity, submit_ts);
-> > > +		if (sched)
-> > > +			drm_sched_wakeup(sched);
-> > > =C2=A0=C2=A0	}
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=C2=A0EXPORT_SYMBOL(drm_sched_entity_push_job);
-> > > diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu=
-/drm/scheduler/sched_internal.h
-> > > index 7ea5a6736f98..8269c5392a82 100644
-> > > --- a/drivers/gpu/drm/scheduler/sched_internal.h
-> > > +++ b/drivers/gpu/drm/scheduler/sched_internal.h
-> > > @@ -12,13 +12,11 @@ extern int drm_sched_policy;
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
-> > > =C2=A0=20
-> > > -void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
-> > > -			=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_entity *entity);
-> > > +struct drm_gpu_scheduler *
-> > > +drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)=
-;
-> > > =C2=A0=C2=A0void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
-> > > =C2=A0=C2=A0				struct drm_sched_entity *entity);
-> > > -
-> > > -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity=
-,
-> > > -				=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq, ktime_t ts);
-> > > +void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0void drm_sched_entity_select_rq(struct drm_sched_entity *=
-entity);
-> > > =C2=A0=C2=A0struct drm_sched_job *drm_sched_entity_pop_job(struct drm=
-_sched_entity *entity);
-> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm=
-/scheduler/sched_main.c
-> > > index 1db0a4aa1d46..c53931e63458 100644
-> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > @@ -151,9 +151,9 @@ static void drm_sched_rq_remove_fifo_locked(struc=
-t drm_sched_entity *entity,
-> > > =C2=A0=C2=A0	}
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity=
-,
-> > > -				=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq,
-> > > -				=C2=A0=C2=A0=C2=A0=C2=A0 ktime_t ts)
-> > > +static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity =
-*entity,
-> > > +					=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq,
-> > > +					=C2=A0=C2=A0=C2=A0 ktime_t ts)
-> > > =C2=A0=C2=A0{
-> > > =C2=A0=C2=A0	/*
-> > > =C2=A0=C2=A0	 * Both locks need to be grabbed, one to protect from en=
-tity->rq change
-> > > @@ -191,22 +191,45 @@ static void drm_sched_rq_init(struct drm_gpu_sc=
-heduler *sched,
-> > > =C2=A0=C2=A0/**
-> > > =C2=A0=C2=A0 * drm_sched_rq_add_entity - add an entity
-> > > =C2=A0=C2=A0 *
-> > > - * @rq: scheduler run queue
-> > > =C2=A0=C2=A0 * @entity: scheduler entity
-> > > + * @ts: submission timestamp
-> > > =C2=A0=C2=A0 *
-> > > =C2=A0=C2=A0 * Adds a scheduler entity to the run queue.
-> > > + *
-> > > + * Returns a DRM scheduler pre-selected to handle this entity.
-> > > =C2=A0=C2=A0 */
-> > > -void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
-> > > -			=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_entity *entity)
-> > > +struct drm_gpu_scheduler *
-> > > +drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
-> > > =C2=A0=C2=A0{
-> > > -	lockdep_assert_held(&entity->lock);
-> > > -	lockdep_assert_held(&rq->lock);
-> > > +	struct drm_gpu_scheduler *sched;
-> > > +	struct drm_sched_rq *rq;
-> > > =C2=A0=20
-> > > -	if (!list_empty(&entity->list))
-> > > -		return;
-> > > +	/* Add the entity to the run queue */
-> > > +	spin_lock(&entity->lock);
-> > > +	if (entity->stopped) {
-> > > +		spin_unlock(&entity->lock);
-> > > =C2=A0=20
-> > > -	atomic_inc(rq->sched->score);
-> > > -	list_add_tail(&entity->list, &rq->entities);
-> > > +		DRM_ERROR("Trying to push to a killed entity\n");
-> > > +		return NULL;
-> > > +	}
-> > > +
-> > > +	rq =3D entity->rq;
-> > > +	spin_lock(&rq->lock);
-> > > +	sched =3D rq->sched;
-> > > +
-> > > +	if (list_empty(&entity->list)) {
-> > > +		atomic_inc(sched->score);
-> > > +		list_add_tail(&entity->list, &rq->entities);
-> > > +	}
-> > > +
-> > > +	if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_RR)
-> > > +		ts =3D entity->rr_ts;
-> > > +	drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> > > +
-> > > +	spin_unlock(&rq->lock);
-> > > +	spin_unlock(&entity->lock);
-> > > +
-> > > +	return sched;
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0/**
-> > > @@ -235,6 +258,54 @@ void drm_sched_rq_remove_entity(struct drm_sched=
-_rq *rq,
-> > > =C2=A0=C2=A0	spin_unlock(&rq->lock);
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > +static ktime_t
-> > > +drm_sched_rq_get_rr_ts(struct drm_sched_rq *rq, struct drm_sched_ent=
-ity *entity)
-> > > +{
-> > > +	ktime_t ts;
-> > > +
-> > > +	lockdep_assert_held(&entity->lock);
-> > > +	lockdep_assert_held(&rq->lock);
-> > > +
-> > > +	ts =3D ktime_add_ns(rq->rr_ts, 1);
-> > > +	entity->rr_ts =3D ts;
-> > > +	rq->rr_ts =3D ts;
-> > > +
-> > > +	return ts;
-> > > +}
-> > > +
-> > > +/**
-> > > + * drm_sched_rq_pop_entity - pops an entity
-> > > + *
-> > > + * @entity: scheduler entity
-> > > + *
-> > > + * To be called every time after a job is popped from the entity.
-> > > + */
-> > > +void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
-> > > +{
-> > > +	struct drm_sched_job *next_job;
-> > > +	struct drm_sched_rq *rq;
-> > > +	ktime_t ts;
-> > > +
-> > > +	/*
-> > > +	 * Update the entity's location in the min heap according to
-> > > +	 * the timestamp of the next job, if any.
-> > > +	 */
-> > > +	next_job =3D drm_sched_entity_queue_peek(entity);
-> > > +	if (!next_job)
-> > > +		return;
-> > > +
-> > > +	spin_lock(&entity->lock);
-> > > +	rq =3D entity->rq;
-> > > +	spin_lock(&rq->lock);
-> > > +	if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> > > +		ts =3D next_job->submit_ts;
-> > > +	else
-> > > +		ts =3D drm_sched_rq_get_rr_ts(rq, entity);
-> > > +	drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> > > +	spin_unlock(&rq->lock);
-> > > +	spin_unlock(&entity->lock);
-> > > +}
-> > > +
-> > > =C2=A0=C2=A0/**
-> > > =C2=A0=C2=A0 * drm_sched_rq_select_entity - Select an entity which pr=
-ovides a job to run
-> > > =C2=A0=C2=A0 *
-> >=20
->=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+index 04ef0ca10541..0239114fb6c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+@@ -352,7 +352,7 @@ static int kgd_hqd_dump(struct amdgpu_device *adev,
+ 		(*dump)[i++][1] = RREG32_SOC15_IP(GC, addr);		\
+ 	} while (0)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+@@ -449,7 +449,7 @@ static int kgd_hqd_sdma_dump(struct amdgpu_device *adev,
+ #undef HQD_N_REGS
+ #define HQD_N_REGS (19+6+7+10)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+-- 
+2.43.0
 
