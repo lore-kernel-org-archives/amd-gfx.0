@@ -4,64 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E4F9CAC59B
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 19:12:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA475CAC59B
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 19:12:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4170610E3E3;
-	Tue, 16 Sep 2025 19:12:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D80310E3EC;
+	Tue, 16 Sep 2025 19:12:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j4oTNhiU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RLRGWe0z";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010036.outbound.protection.outlook.com [52.101.201.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D59410E3E3
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 19:12:17 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012002.outbound.protection.outlook.com [52.101.43.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E95910E3E3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 19:12:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rQZTQkADjdEfJSHt4fGWSBcseZ3fIwU1zyN5WRAIGPaWWOaZ1jtQ14a1qNje0oj5uS/SHXE8ijrLF+vPIuMw5NRtfAz0nyXsLay2T6rX3rzAa7HLcERn4gA99NO2cdS00y/oS/EJkT6VC1N6mVSCXeh8LXXWWof69Ny1WmeEjUhPqbpeZ0tuFN/IdUxI9lsIz7gtRaoVHycGMcRBm6RYQVydyai+5YF4CMBR9Z0nMl2aFsgeovA5EM9nc8al11w3FrK4F6pZ1LzgBXddXlaJqe4vJU4Y5cB/+L8sEHXuCntKqHor4ePss+IM9EkGEnFttzZIz4WpGf3WoybcWngDUg==
+ b=C8NIK6rTxECVp5csl9iJSKK2UfOxvxRfSp90CFN0O5gFE35LQqtLycqLioyJL0HE5+ffy63kfzyDBQPCETyTGiopgqPWdctywILHC+efJG4KwioT1YX7O3ev8ZEyLhIbI7tmldFvs9jTy/ZI4igShIJPNiq8sr5zXJyclwPM5CQJ1aMAHltq+MBpGokBTpEsEZHD1ztU61ZPz1Qr8fOSVF/6ZIatsqvyyz+WoO3fwuP+4go20ZySPj0vKPYu+4o0bmMkQIPkU9FrlpaPDHiTww6pkRfEwkfFmR3ntYwNr2VDVpCNMA4eDtdDM+zeU+SHxiMUfJ90HftXe/6S6t3KVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kdxtTm0I/VhvMl5tDoay83eEh6cBJMDP3pc63vQvh6Q=;
- b=rmC5ylCLDh/GZDXZPnXgF+VJtDzEHn6C0WfQm2RRdUqw2v2CQTowV1yAr8Kf27h2V5ea+/4GvVPyM3cjk+M68T/wOne/MvklCNcnNQJviI/EE8foXsvOoIfvJYeRfRfOjHrM9z7bCTYX4CIjd0YZhB7/dn0c/bAUAHL+sDEeJvtvJWdaLcHllOSmRNmepDlzNrNKIGqMLyPOYFF101zYMoB3E2gngbWt5ksf2s4FWUbGDYbQjv5+9xBQyKzVBKbmUXGyoZZo81nnowd0gZAISqT3ks3kh3uFybYsMqMU/L/FS8T3OLOp5hsQkevZKxFe1qF0er++8rPhL4JEGctLJQ==
+ bh=KVUTYseol6POPiwxCdpuRAOc5Bbf7ZM42JUZXufadJc=;
+ b=gKqVf/h8SfEmE0oHAyaki4/rHMRYnniQJDmmdOk3GkKh4NQbStWHZoxbtmnd/XUw2FZerN5CCnCvSbNkDzWb3li0f4sdvfnPehYzFsxCQtSKFOpBZNqW0GMeEiEIjEkLTeYmDsuuttXkclcnhR4+rRu0qPx//9x3b+QE/a54US4v3RmdJivZbu4SW/ohZC6MDHxcoHD3c0seo4PV0XD9CoH6NVHJm/778cecNtzh/u2oES9BXYYpJBM6KuLL7TRJNLZ042Jx8p945UMKl1+mcylQvC8GvCzXFcwY+J6nOAijfZ5kDhwnaM5FtFtNFWpg8Vnw8ryHh4rBIhOLRSB6iQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kdxtTm0I/VhvMl5tDoay83eEh6cBJMDP3pc63vQvh6Q=;
- b=j4oTNhiU4dkqJuAvubu7BS/6nBM434XH1nK4++i7xWKXaS+veX22WTMfKi6LNXhJdc9JuWJCDV9wT3f6fyHhsIlCjbDH1xlPjabV5cevNlzR3NX1UFq6N/5w+kHsZnNu/FkhNBLby7KGXNg7vaZk+e6ZNJMwzQ1+kKp9Bx5VNCE=
-Received: from BL1PR13CA0331.namprd13.prod.outlook.com (2603:10b6:208:2c6::6)
- by SJ1PR12MB6243.namprd12.prod.outlook.com (2603:10b6:a03:456::13)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=KVUTYseol6POPiwxCdpuRAOc5Bbf7ZM42JUZXufadJc=;
+ b=RLRGWe0zfnKAsWSJekHucQPB6cMpLoH5z0vsjTJinH+D7tD86toachz+zg+Yp2K6TkqWZ1L29w5dSaL4YR+WAERscypo9Q/KcW4+j/Klvh6lCvdxC3t51njvDmEbnFZK1t5+/zdBwLLIslEJdHsPfq2aEq1Jq4KVyVA55IVlr2Q=
+Received: from DS7PR03CA0357.namprd03.prod.outlook.com (2603:10b6:8:55::10) by
+ MN0PR12MB6343.namprd12.prod.outlook.com (2603:10b6:208:3c0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.22; Tue, 16 Sep
- 2025 19:12:09 +0000
-Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
- (2603:10b6:208:2c6:cafe::aa) by BL1PR13CA0331.outlook.office365.com
- (2603:10b6:208:2c6::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.10 via Frontend Transport; Tue,
- 16 Sep 2025 19:12:08 +0000
+ 2025 19:12:14 +0000
+Received: from DS2PEPF00003442.namprd04.prod.outlook.com
+ (2603:10b6:8:55:cafe::db) by DS7PR03CA0357.outlook.office365.com
+ (2603:10b6:8:55::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.22 via Frontend Transport; Tue,
+ 16 Sep 2025 19:12:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Tue, 16 Sep 2025 19:12:08 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9137.12 via Frontend Transport; Tue, 16 Sep 2025 19:12:14 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 16 Sep
- 2025 12:12:07 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 16 Sep
- 2025 12:12:07 -0700
+ 2025 12:12:10 -0700
 Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 16 Sep 2025 12:12:06 -0700
+ Transport; Tue, 16 Sep 2025 12:12:09 -0700
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,12 +65,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Dillon Varone <Dillon.Varone@amd.com>, Alvin Lee
- <Alvin.Lee2@amd.com>
-Subject: [PATCH 01/20] drm/amd/display: Disable stutter when programming
- watermarks on dcn32
-Date: Tue, 16 Sep 2025 15:09:21 -0400
-Message-ID: <20250916191142.3504643-2-IVAN.LIPSKI@amd.com>
+ <alex.hung@amd.com>, Lo-an Chen <lo-an.chen@amd.com>, Charlene Liu
+ <charlene.liu@amd.com>
+Subject: [PATCH 06/20] drm/amd/display: Init dispclk from bootup clock for
+ DCN314
+Date: Tue, 16 Sep 2025 15:09:26 -0400
+Message-ID: <20250916191142.3504643-7-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250916191142.3504643-1-IVAN.LIPSKI@amd.com>
 References: <20250916191142.3504643-1-IVAN.LIPSKI@amd.com>
@@ -83,52 +79,52 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|SJ1PR12MB6243:EE_
-X-MS-Office365-Filtering-Correlation-Id: be2faf60-1637-4d52-bacc-08ddf554ee97
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|MN0PR12MB6343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c27da89-c70b-4b5c-c34a-08ddf554f23e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|30052699003|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?oxhbBXa+CAOCO5u8U/ar6FHfWyJn3bOyxEDvGtuYc/a16rn09y6XrgMT69ye?=
- =?us-ascii?Q?lqt3i9N3BrP5mAxp1mr0ZHtX5PmHbhwV6SqwyChXCunzLrU4OJKlPiOPA0/8?=
- =?us-ascii?Q?qwa/8TDPKnhocGG2BxJaKL+2msotDmOgpKucoihIS2TT1jD9gwJz77YL4RJV?=
- =?us-ascii?Q?y7Y14GZ8bp+SN6zANnfz1bBoagjrprFN9J0f2ekuGkcZNcnv1/XWQmbVwCSG?=
- =?us-ascii?Q?iRBebtFjsbRnAw3SoKw9WPpewiZaPc1JurP2l+8FhaeWLEYnreBndB96sl56?=
- =?us-ascii?Q?zg3zkT1xIbIzLCNrBeIZkzJ7e/SL989NyiuF34ognlUGTQsU0jn/CQSICI9Z?=
- =?us-ascii?Q?/Fs43Gr10n8a7VbooNbf0XR8d2JrtEseS2rZElw1GVL6VtkZraliGPaR73QK?=
- =?us-ascii?Q?56TMhNPQ57HtT3uButubYxArbGNpwOanBUhBNJxW/DhRl5YL5Ciu55SjG7fs?=
- =?us-ascii?Q?gs2VhDMhI6Cr6gnJn4kl//A60fPsAWYPP0OKw6EnDJdvP1KA91Wgwf2wZB5c?=
- =?us-ascii?Q?tn5oWDIgZ2WQjcVIcO+lKDAU+s9KyJIjM7ZktDI6DWtDyKESA6OGmN+T+Jqo?=
- =?us-ascii?Q?lMIZJwofeEUtALlzijYbbh4yd4QeOltfLew+hDsFfWklfw7sGO6v97hZ879g?=
- =?us-ascii?Q?idkBDXTuUbiVFrIEl4N9gjX2N+TBjad5MzAPhmyY7xE9FXwmbNA73GWhLYq5?=
- =?us-ascii?Q?wneNPFYj73HVn59ZuDMFUNQZC9PuZeTEHoEc9eFvPdm/DbVnIsCQxKztFRMG?=
- =?us-ascii?Q?LW2Nmgb9ArWu/421MIjtBwKWZ7aveBF6Aec3reXQZC1X9tlmY82DAqqv4YWt?=
- =?us-ascii?Q?LHiGEd9qphzT7HbtDzbnN8E8m7y4yN9+zOH15jIi064UzuFXVLU6shlNGeDH?=
- =?us-ascii?Q?t8P5kNxoWU33SUgGwV2WiQS3f6Zz6N4gXTLCeb2P+EZjJCVfi0cssXesqQYE?=
- =?us-ascii?Q?lxzcFkwCKegu5hC5ynrnBJvZiOsO8eoQxYm1/buXcsydH4UGIZ8WRYH80zLP?=
- =?us-ascii?Q?3kPNuSbzGE6NbFlc3RWfj6p5g+t7YJa2ee0aFshC6xBw4JwA8sK3pOpIqHEk?=
- =?us-ascii?Q?IKJDWZraVv8FqZVVJ8x3oW8lXRQwrN2uTjqj73D1B4dBSgjhbhZ9SsxfUF85?=
- =?us-ascii?Q?oUWVbegmkyEtGmizTHb3EszcdXLUhcZrKbq7zG8ep51nCPFkNeeKA4lFZ0q5?=
- =?us-ascii?Q?QhV1VuzNv6vMoSV/jraJtNOOZJjT0NmypwAMWeuCjblzaf27Ntwmdqtl4SfF?=
- =?us-ascii?Q?fp2LEd0JInKTzsK6Ne14oOqWROTs4960GYvQFW9l4yC7z55rFIqiNrzFZmz8?=
- =?us-ascii?Q?jGKa7YwTfCWSfVF0ZHwNlmtMeaCoBI9YrMI6bxLF3oDUK+3DmdfJeFfK1Da6?=
- =?us-ascii?Q?5E37/Ezb61upTNFKY9X4Ge4hM8CcE23NWiAdSXtURvDFI2wvjDk/CQY/Lrwk?=
- =?us-ascii?Q?Huhl4oXAVS0CQ0q+3rj+uwL0grWh899V+EC5QwpyRLJfVpfkX+YSko1j5S/H?=
- =?us-ascii?Q?+sT+Tx+0CR+RTPjSTbvdHSk37TmOd8Q0vwnW?=
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8GHgoVbBqmfyBHc6W/cMypmUGlRp93ioagVRStBag8TyVuWPBBsBeNfWL8I4?=
+ =?us-ascii?Q?iyIg1AzPI4XqLk41ApAII/F80x2w1R1x4rP5HFcwOxkEqm6L/qVfAn1JHnzQ?=
+ =?us-ascii?Q?nIX8fAC+d83kU2KgxDG97N/2OoUkKxl69c4BVP0ZLi7qbnWp5nHmAY3ePu2j?=
+ =?us-ascii?Q?VGMXOl9t2yimL2e80pKBhkni0YYIpAZ2gWsfYycyknvXDYAlkeQvCg+WzM7v?=
+ =?us-ascii?Q?u1bvtymxtPmWI3Mk9e/eR4t3iFyFkZHNjU/ieSMYHmlacbvwUJ/qQ7xXWzqM?=
+ =?us-ascii?Q?rybOoQTAO6ppQ/Dt6afngC7CypqVkr+zWtuI92G/64kJXqiz8IQ+YVY6IHCG?=
+ =?us-ascii?Q?eAadBoPLgUydGyJ5Xw0iHxGkx0gtVyyXvAfcK+IoFJlwViPPOmPnHjoKvcLA?=
+ =?us-ascii?Q?AkC78gL8ODTS1iMz3hSQ0DTzazkktOYN1TjBtKhhzuG15g8kYI6lQs2kpOQg?=
+ =?us-ascii?Q?yBYURrWj0G/+6efNvgznSuP5KoVrWrEOJzDZ+yLPCW7XvM1hRqUASYNHj4AR?=
+ =?us-ascii?Q?IwAMxyV0Ud6EcokvlMz7vbr7MkdQI8mHZ5SO4smPQvn4NFLrIk6BOub2ERek?=
+ =?us-ascii?Q?tUJEPPPtFLXkGqjQQ+/DrMYyTYKVC23iXLrGy2hpgIevNpxNagyYyOjPDfVJ?=
+ =?us-ascii?Q?5ItO8+XZAUuIFDzNZo+M7q4AUA/CceJcP0YyxQ5dm5xj84BnnVTJ5B9NEWM4?=
+ =?us-ascii?Q?5GhvKaPJHjWXOcsGNkS4GkYPzU465AL3dFP1UPnvuOP8PqRkH9nOFxC//ukr?=
+ =?us-ascii?Q?R4N6I3Y1pUFvmpCcCp4TofDq4nVnwWR6HkYvwtKWoO2DiQklPS87rtLw44ES?=
+ =?us-ascii?Q?1YVoHr+fLjkGtO/STlQ48c3DWEI0/WafyjIMKtvend/x32aAcTU2ijlujJcB?=
+ =?us-ascii?Q?xr1iVpvKwwdWG9EHipnxGtuc9wk6ylD+g5bGtDQVjHs5fnxBmAn5reyCcVU5?=
+ =?us-ascii?Q?nwpdVzCbpG5aX8bRujMXLbkQNRWBHzZcXmDNueHqLD9pqyq0XP5sbznp1MUa?=
+ =?us-ascii?Q?gNayojegXQvMIjdahKMIrdtaH//HMcqPFot3VMHXhpKm8AoyorwiclkKEDxl?=
+ =?us-ascii?Q?RWKT8eGdksdK3xjxBDTVVvy4JFQVklCysrhTTwhb6pz4AtJ3Dfo1XhuYmyUq?=
+ =?us-ascii?Q?tMPPYPyqjAHkBEBOwalF0bolxpdLX2PG0J25whypRW7VHdglLdAhuCGC87UF?=
+ =?us-ascii?Q?Is/dVHk/o37+6T5b9BCQ5qIX0JLt/YQcZWW+S8WdenRGvHwTkOj3s0nEqOVk?=
+ =?us-ascii?Q?8l8dyXCv2+9HWvYNMci9cBNpS7zHfJIO9gDs+sXBUZ3rPYTq4RFRCUiDmGd8?=
+ =?us-ascii?Q?yxTFUARzj7K8CnkWePK5RKG98Ved3IxWSYbntpnQwlW/Ymtz9bk7oDmBYEDR?=
+ =?us-ascii?Q?eoiouGMdwp9epAoKV7DH/4G4Ds9ocYkQQqLJy7vGpgkRIZgLNo4cJ5JWGj1x?=
+ =?us-ascii?Q?zetRuMbFvZDE88G0xZfUEq+lvIGOcmrCBUb831LHUIpZ0MorwzGocNavdUfT?=
+ =?us-ascii?Q?a4Af+pUhnk1MJ9jKHJAlIj/Fu5LXsB+eJrVk?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(30052699003)(376014);
- DIR:OUT; SFP:1101; 
+ IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2025 19:12:08.5016 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be2faf60-1637-4d52-bacc-08ddf554ee97
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2025 19:12:14.5928 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c27da89-c70b-4b5c-c34a-08ddf554f23e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD8.namprd02.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003442.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6243
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6343
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,140 +139,264 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <Dillon.Varone@amd.com>
+From: Lo-an Chen <lo-an.chen@amd.com>
 
-[WHY&HOW]
-Reprogramming watermarks with stutter allowed can cause instability on
-some ASICs. Disable it prior to raising watermarks (prepare bandwidth),
-then re-enable after lowering (optimize bandwidth).
+[Why]
+Driver does not pick up and save vbios's clocks during init clocks,
+the dispclk in clk_mgr will keep 0 until the first update clocks.
+In some cases, OS changes the timing in the second set mode
+(lower the pixel clock), causing the driver to lower the dispclk
+in prepare bandwidth, which is illegal and causes grey screen.
 
-Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
-Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
+[How]
+1. Dump and save the vbios's clocks, and init the dispclk in
+dcn314_init_clocks.
+2. Fix the condition in dcn314_update_clocks, regarding a 0kHz value.
+
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Lo-an Chen <lo-an.chen@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- .../display/dc/hubbub/dcn32/dcn32_hubbub.c    | 37 ++++++++++++++++---
- .../dc/resource/dcn32/dcn32_resource.c        |  1 +
- .../dc/resource/dcn32/dcn32_resource.h        |  3 +-
- 4 files changed, 36 insertions(+), 6 deletions(-)
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        | 142 +++++++++++++++++-
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.h        |   5 +
+ .../dc/resource/dcn314/dcn314_resource.c      |   1 +
+ 3 files changed, 143 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 8bee44cd4609..19c74f56aa5e 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1163,6 +1163,7 @@ struct dc_debug_options {
- 	unsigned int auxless_alpm_lfps_t1t2_us;
- 	short auxless_alpm_lfps_t1t2_offset_us;
- 	bool enable_pg_cntl_debug_logs;
-+	bool disable_stutter_for_wm_program;
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+index 790bbd8235b1..9e63fa72101c 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+@@ -77,6 +77,7 @@ static const struct IP_BASE CLK_BASE = { { { { 0x00016C00, 0x02401800, 0, 0, 0,
+ #undef DC_LOGGER
+ #define DC_LOGGER \
+ 	clk_mgr->base.base.ctx->logger
++
+ #define regCLK1_CLK_PLL_REQ			0x0237
+ #define regCLK1_CLK_PLL_REQ_BASE_IDX		0
  
+@@ -87,8 +88,70 @@ static const struct IP_BASE CLK_BASE = { { { { 0x00016C00, 0x02401800, 0, 0, 0,
+ #define CLK1_CLK_PLL_REQ__PllSpineDiv_MASK	0x0000F000L
+ #define CLK1_CLK_PLL_REQ__FbMult_frac_MASK	0xFFFF0000L
  
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c
-index 92957398ac0a..3b71bfaca291 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c
-@@ -28,6 +28,7 @@
- #include "dcn32_hubbub.h"
- #include "dm_services.h"
- #include "reg_helper.h"
-+#include "dal_asic_id.h"
++#define regCLK1_CLK0_DFS_CNTL				0x0269
++#define regCLK1_CLK0_DFS_CNTL_BASE_IDX		0
++#define regCLK1_CLK1_DFS_CNTL				0x026c
++#define regCLK1_CLK1_DFS_CNTL_BASE_IDX		0
++#define regCLK1_CLK2_DFS_CNTL				0x026f
++#define regCLK1_CLK2_DFS_CNTL_BASE_IDX		0
++#define regCLK1_CLK3_DFS_CNTL				0x0272
++#define regCLK1_CLK3_DFS_CNTL_BASE_IDX		0
++#define regCLK1_CLK4_DFS_CNTL				0x0275
++#define regCLK1_CLK4_DFS_CNTL_BASE_IDX		0
++#define regCLK1_CLK5_DFS_CNTL				0x0278
++#define regCLK1_CLK5_DFS_CNTL_BASE_IDX		0
++
++#define regCLK1_CLK0_CURRENT_CNT			0x02fb
++#define regCLK1_CLK0_CURRENT_CNT_BASE_IDX	0
++#define regCLK1_CLK1_CURRENT_CNT			0x02fc
++#define regCLK1_CLK1_CURRENT_CNT_BASE_IDX	0
++#define regCLK1_CLK2_CURRENT_CNT			0x02fd
++#define regCLK1_CLK2_CURRENT_CNT_BASE_IDX	0
++#define regCLK1_CLK3_CURRENT_CNT			0x02fe
++#define regCLK1_CLK3_CURRENT_CNT_BASE_IDX	0
++#define regCLK1_CLK4_CURRENT_CNT			0x02ff
++#define regCLK1_CLK4_CURRENT_CNT_BASE_IDX	0
++#define regCLK1_CLK5_CURRENT_CNT			0x0300
++#define regCLK1_CLK5_CURRENT_CNT_BASE_IDX	0
++
++#define regCLK1_CLK0_BYPASS_CNTL			0x028a
++#define regCLK1_CLK0_BYPASS_CNTL_BASE_IDX	0
++#define regCLK1_CLK1_BYPASS_CNTL			0x0293
++#define regCLK1_CLK1_BYPASS_CNTL_BASE_IDX	0
+ #define regCLK1_CLK2_BYPASS_CNTL			0x029c
+ #define regCLK1_CLK2_BYPASS_CNTL_BASE_IDX	0
++#define regCLK1_CLK3_BYPASS_CNTL			0x02a5
++#define regCLK1_CLK3_BYPASS_CNTL_BASE_IDX	0
++#define regCLK1_CLK4_BYPASS_CNTL			0x02ae
++#define regCLK1_CLK4_BYPASS_CNTL_BASE_IDX	0
++#define regCLK1_CLK5_BYPASS_CNTL			0x02b7
++#define regCLK1_CLK5_BYPASS_CNTL_BASE_IDX	0
++
++#define regCLK1_CLK0_DS_CNTL				0x0283
++#define regCLK1_CLK0_DS_CNTL_BASE_IDX		0
++#define regCLK1_CLK1_DS_CNTL				0x028c
++#define regCLK1_CLK1_DS_CNTL_BASE_IDX		0
++#define regCLK1_CLK2_DS_CNTL				0x0295
++#define regCLK1_CLK2_DS_CNTL_BASE_IDX		0
++#define regCLK1_CLK3_DS_CNTL				0x029e
++#define regCLK1_CLK3_DS_CNTL_BASE_IDX		0
++#define regCLK1_CLK4_DS_CNTL				0x02a7
++#define regCLK1_CLK4_DS_CNTL_BASE_IDX		0
++#define regCLK1_CLK5_DS_CNTL				0x02b0
++#define regCLK1_CLK5_DS_CNTL_BASE_IDX		0
++
++#define regCLK1_CLK0_ALLOW_DS				0x0284
++#define regCLK1_CLK0_ALLOW_DS_BASE_IDX		0
++#define regCLK1_CLK1_ALLOW_DS				0x028d
++#define regCLK1_CLK1_ALLOW_DS_BASE_IDX		0
++#define regCLK1_CLK2_ALLOW_DS				0x0296
++#define regCLK1_CLK2_ALLOW_DS_BASE_IDX		0
++#define regCLK1_CLK3_ALLOW_DS				0x029f
++#define regCLK1_CLK3_ALLOW_DS_BASE_IDX		0
++#define regCLK1_CLK4_ALLOW_DS				0x02a8
++#define regCLK1_CLK4_ALLOW_DS_BASE_IDX		0
++#define regCLK1_CLK5_ALLOW_DS				0x02b1
++#define regCLK1_CLK5_ALLOW_DS_BASE_IDX		0
  
+ #define CLK1_CLK2_BYPASS_CNTL__CLK2_BYPASS_SEL__SHIFT	0x0
+ #define CLK1_CLK2_BYPASS_CNTL__CLK2_BYPASS_DIV__SHIFT	0x10
+@@ -185,6 +248,8 @@ void dcn314_init_clocks(struct clk_mgr *clk_mgr)
+ {
+ 	struct clk_mgr_internal *clk_mgr_int = TO_CLK_MGR_INTERNAL(clk_mgr);
+ 	uint32_t ref_dtbclk = clk_mgr->clks.ref_dtbclk_khz;
++	struct clk_mgr_dcn314 *clk_mgr_dcn314 = TO_CLK_MGR_DCN314(clk_mgr_int);
++	struct clk_log_info log_info = {0};
  
- #define CTX \
-@@ -72,6 +73,14 @@ static void dcn32_init_crb(struct hubbub *hubbub)
- 	REG_UPDATE(DCHUBBUB_DEBUG_CTRL_0, DET_DEPTH, 0x47F);
+ 	memset(&(clk_mgr->clks), 0, sizeof(struct dc_clocks));
+ 	// Assumption is that boot state always supports pstate
+@@ -200,6 +265,9 @@ void dcn314_init_clocks(struct clk_mgr *clk_mgr)
+ 			dce_adjust_dp_ref_freq_for_ss(clk_mgr_int, clk_mgr->dprefclk_khz);
+ 	else
+ 		clk_mgr->dp_dto_source_clock_in_khz = clk_mgr->dprefclk_khz;
++
++	dcn314_dump_clk_registers(&clk_mgr->boot_snapshot, &clk_mgr_dcn314->base.base, &log_info);
++	clk_mgr->clks.dispclk_khz =  clk_mgr->boot_snapshot.dispclk * 1000;
  }
  
-+static void hubbub32_set_sdp_control(struct hubbub *hubbub, bool dc_control)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
+ void dcn314_update_clocks(struct clk_mgr *clk_mgr_base,
+@@ -218,6 +286,8 @@ void dcn314_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	if (dc->work_arounds.skip_clock_update)
+ 		return;
+ 
++	display_count = dcn314_get_active_display_cnt_wa(dc, context);
 +
-+	REG_UPDATE(DCHUBBUB_SDPIF_CFG0,
-+			SDPIF_PORT_CONTROL, dc_control);
+ 	/*
+ 	 * if it is safe to lower, but we are already in the lower state, we don't have to do anything
+ 	 * also if safe to lower is false, we just go in the higher state
+@@ -236,7 +306,6 @@ void dcn314_update_clocks(struct clk_mgr *clk_mgr_base,
+ 		}
+ 		/* check that we're not already in lower */
+ 		if (clk_mgr_base->clks.pwr_state != DCN_PWR_STATE_LOW_POWER) {
+-			display_count = dcn314_get_active_display_cnt_wa(dc, context);
+ 			/* if we can go lower, go lower */
+ 			if (display_count == 0) {
+ 				union display_idle_optimization_u idle_info = { 0 };
+@@ -293,11 +362,19 @@ void dcn314_update_clocks(struct clk_mgr *clk_mgr_base,
+ 		update_dppclk = true;
+ 	}
+ 
+-	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)) {
++	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz) &&
++	    (new_clocks->dispclk_khz > 0 || (safe_to_lower && display_count == 0))) {
++		int requested_dispclk_khz = new_clocks->dispclk_khz;
++
+ 		dcn314_disable_otg_wa(clk_mgr_base, context, safe_to_lower, true);
+ 
++		/* Clamp the requested clock to PMFW based on their limit. */
++		if (dc->debug.min_disp_clk_khz > 0 && requested_dispclk_khz < dc->debug.min_disp_clk_khz)
++			requested_dispclk_khz = dc->debug.min_disp_clk_khz;
++
++		dcn314_smu_set_dispclk(clk_mgr, requested_dispclk_khz);
+ 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
+-		dcn314_smu_set_dispclk(clk_mgr, clk_mgr_base->clks.dispclk_khz);
++
+ 		dcn314_disable_otg_wa(clk_mgr_base, context, safe_to_lower, false);
+ 
+ 		update_dispclk = true;
+@@ -385,10 +462,65 @@ bool dcn314_are_clock_states_equal(struct dc_clocks *a,
+ 	return true;
+ }
+ 
+-static void dcn314_dump_clk_registers(struct clk_state_registers_and_bypass *regs_and_bypass,
++
++static void dcn314_dump_clk_registers_internal(struct dcn35_clk_internal *internal, struct clk_mgr *clk_mgr_base)
++{
++	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
++
++	// read dtbclk
++	internal->CLK1_CLK4_CURRENT_CNT = REG_READ(CLK1_CLK4_CURRENT_CNT);
++	internal->CLK1_CLK4_BYPASS_CNTL = REG_READ(CLK1_CLK4_BYPASS_CNTL);
++
++	// read dcfclk
++	internal->CLK1_CLK3_CURRENT_CNT = REG_READ(CLK1_CLK3_CURRENT_CNT);
++	internal->CLK1_CLK3_BYPASS_CNTL = REG_READ(CLK1_CLK3_BYPASS_CNTL);
++
++	// read dcf deep sleep divider
++	internal->CLK1_CLK3_DS_CNTL = REG_READ(CLK1_CLK3_DS_CNTL);
++	internal->CLK1_CLK3_ALLOW_DS = REG_READ(CLK1_CLK3_ALLOW_DS);
++
++	// read dppclk
++	internal->CLK1_CLK1_CURRENT_CNT = REG_READ(CLK1_CLK1_CURRENT_CNT);
++	internal->CLK1_CLK1_BYPASS_CNTL = REG_READ(CLK1_CLK1_BYPASS_CNTL);
++
++	// read dprefclk
++	internal->CLK1_CLK2_CURRENT_CNT = REG_READ(CLK1_CLK2_CURRENT_CNT);
++	internal->CLK1_CLK2_BYPASS_CNTL = REG_READ(CLK1_CLK2_BYPASS_CNTL);
++
++	// read dispclk
++	internal->CLK1_CLK0_CURRENT_CNT = REG_READ(CLK1_CLK0_CURRENT_CNT);
++	internal->CLK1_CLK0_BYPASS_CNTL = REG_READ(CLK1_CLK0_BYPASS_CNTL);
 +}
 +
- void hubbub32_set_request_limit(struct hubbub *hubbub, int memory_channel_count, int words_per_channel)
++void dcn314_dump_clk_registers(struct clk_state_registers_and_bypass *regs_and_bypass,
+ 		struct clk_mgr *clk_mgr_base, struct clk_log_info *log_info)
  {
- 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-@@ -754,8 +763,17 @@ static bool hubbub32_program_watermarks(
- 		unsigned int refclk_mhz,
- 		bool safe_to_lower)
- {
-+	struct dc *dc = hubbub->ctx->dc;
- 	bool wm_pending = false;
- 
-+	if (!safe_to_lower && dc->debug.disable_stutter_for_wm_program &&
-+			(ASICREV_IS_GC_11_0_0(dc->ctx->asic_id.hw_internal_rev) ||
-+			ASICREV_IS_GC_11_0_3(dc->ctx->asic_id.hw_internal_rev))) {
-+		/* before raising watermarks, SDP control give to DF, stutter must be disabled */
-+		hubbub32_set_sdp_control(hubbub, false);
-+		hubbub1_allow_self_refresh_control(hubbub, false);
-+	}
+-	return;
 +
- 	if (hubbub32_program_urgent_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
- 		wm_pending = true;
- 
-@@ -786,10 +804,20 @@ static bool hubbub32_program_watermarks(
- 	REG_UPDATE(DCHUBBUB_ARB_DF_REQ_OUTSTAND,
- 			DCHUBBUB_ARB_MIN_REQ_OUTSTAND, 0x1FF);*/
- 
--	if (safe_to_lower || hubbub->ctx->dc->debug.disable_stutter)
--		hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
-+	if (safe_to_lower) {
-+		/* after lowering watermarks, stutter setting is restored, SDP control given to DC */
-+		hubbub1_allow_self_refresh_control(hubbub, !dc->debug.disable_stutter);
++	struct dcn35_clk_internal internal = {0};
 +
-+		if (dc->debug.disable_stutter_for_wm_program &&
-+				(ASICREV_IS_GC_11_0_0(dc->ctx->asic_id.hw_internal_rev) ||
-+				ASICREV_IS_GC_11_0_3(dc->ctx->asic_id.hw_internal_rev))) {
-+			hubbub32_set_sdp_control(hubbub, true);
-+		}
-+	} else if (dc->debug.disable_stutter) {
-+		hubbub1_allow_self_refresh_control(hubbub, !dc->debug.disable_stutter);
-+	}
- 
--	hubbub32_force_usr_retraining_allow(hubbub, hubbub->ctx->dc->debug.force_usr_allow);
-+	hubbub32_force_usr_retraining_allow(hubbub, dc->debug.force_usr_allow);
- 
- 	return wm_pending;
++	dcn314_dump_clk_registers_internal(&internal, clk_mgr_base);
++
++	regs_and_bypass->dcfclk = internal.CLK1_CLK3_CURRENT_CNT / 10;
++	regs_and_bypass->dcf_deep_sleep_divider = internal.CLK1_CLK3_DS_CNTL / 10;
++	regs_and_bypass->dcf_deep_sleep_allow = internal.CLK1_CLK3_ALLOW_DS;
++	regs_and_bypass->dprefclk = internal.CLK1_CLK2_CURRENT_CNT / 10;
++	regs_and_bypass->dispclk = internal.CLK1_CLK0_CURRENT_CNT / 10;
++	regs_and_bypass->dppclk = internal.CLK1_CLK1_CURRENT_CNT / 10;
++	regs_and_bypass->dtbclk = internal.CLK1_CLK4_CURRENT_CNT / 10;
++
++	regs_and_bypass->dppclk_bypass = internal.CLK1_CLK1_BYPASS_CNTL & 0x0007;
++	if (regs_and_bypass->dppclk_bypass < 0 || regs_and_bypass->dppclk_bypass > 4)
++		regs_and_bypass->dppclk_bypass = 0;
++	regs_and_bypass->dcfclk_bypass = internal.CLK1_CLK3_BYPASS_CNTL & 0x0007;
++	if (regs_and_bypass->dcfclk_bypass < 0 || regs_and_bypass->dcfclk_bypass > 4)
++		regs_and_bypass->dcfclk_bypass = 0;
++	regs_and_bypass->dispclk_bypass = internal.CLK1_CLK0_BYPASS_CNTL & 0x0007;
++	if (regs_and_bypass->dispclk_bypass < 0 || regs_and_bypass->dispclk_bypass > 4)
++		regs_and_bypass->dispclk_bypass = 0;
++	regs_and_bypass->dprefclk_bypass = internal.CLK1_CLK2_BYPASS_CNTL & 0x0007;
++	if (regs_and_bypass->dprefclk_bypass < 0 || regs_and_bypass->dprefclk_bypass > 4)
++		regs_and_bypass->dprefclk_bypass = 0;
++
  }
-@@ -974,8 +1002,7 @@ void hubbub32_init(struct hubbub *hubbub)
- 	ignore the "df_pre_cstate_req" from the SDP port control.
- 	only the DCN will determine when to connect the SDP port
- 	*/
--	REG_UPDATE(DCHUBBUB_SDPIF_CFG0,
--			SDPIF_PORT_CONTROL, 1);
-+	hubbub32_set_sdp_control(hubbub, true);
- 	/*Set SDP's max outstanding request to 512
- 	must set the register back to 0 (max outstanding = 256) in zero frame buffer mode*/
- 	REG_UPDATE(DCHUBBUB_SDPIF_CFG1,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index 8f80ccb846d7..3965a7f1b64b 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -739,6 +739,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.fpo_vactive_min_active_margin_us = 200,
- 	.fpo_vactive_max_blank_us = 1000,
- 	.enable_legacy_fast_update = false,
-+	.disable_stutter_for_wm_program = true
+ 
+ static struct clk_bw_params dcn314_bw_params = {
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h
+index 002c28e80720..0577eb527bc3 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h
+@@ -65,4 +65,9 @@ void dcn314_clk_mgr_construct(struct dc_context *ctx,
+ 
+ void dcn314_clk_mgr_destroy(struct clk_mgr_internal *clk_mgr_int);
+ 
++
++void dcn314_dump_clk_registers(struct clk_state_registers_and_bypass *regs_and_bypass,
++		struct clk_mgr *clk_mgr_base, struct clk_log_info *log_info);
++
++
+ #endif //__DCN314_CLK_MGR_H__
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+index 663c49cce4aa..d4917a35b991 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+@@ -927,6 +927,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.enable_legacy_fast_update = true,
+ 	.using_dml2 = false,
+ 	.disable_dsc_power_gate = true,
++	.min_disp_clk_khz = 100000,
  };
  
- static struct dce_aux *dcn32_aux_engine_create(
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-index 20d714596021..99f0432288b4 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-@@ -1230,7 +1230,8 @@ unsigned int dcn32_get_max_hw_cursor_size(const struct dc *dc,
-       SR(DCHUBBUB_ARB_MALL_CNTL),                                              \
-       SR(DCN_VM_FAULT_ADDR_MSB), SR(DCN_VM_FAULT_ADDR_LSB),                    \
-       SR(DCN_VM_FAULT_CNTL), SR(DCN_VM_FAULT_STATUS),                          \
--      SR(SDPIF_REQUEST_RATE_LIMIT)
-+      SR(SDPIF_REQUEST_RATE_LIMIT),                                            \
-+      SR(DCHUBBUB_SDPIF_CFG0)
- 
- /* DCCG */
- 
+ static const struct dc_panel_config panel_config_defaults = {
 -- 
 2.43.0
 
