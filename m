@@ -4,76 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3A56CAC599
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 13:04:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C5C1CAC598
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 13:11:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9688D10E7D4;
-	Tue, 16 Sep 2025 13:04:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED6DE10E317;
+	Tue, 16 Sep 2025 13:11:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aWdU0eR0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V8qj3UsK";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F02D10E75E
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 09:30:19 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-32ec291a325so40862a91.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 02:30:19 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A80210E317
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 13:11:49 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-24498e93b8fso7678875ad.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 06:11:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758015019; x=1758619819; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xMegCBQz7YTxSeWsApsavoRdrbMxT8WcHe9sV3hQY/k=;
- b=aWdU0eR0MXkbcD06Hlq4p4BVUIpdyZtmsQU+jHeHTCYGtQBQow3MVl4n+5BNPyNkBA
- acGkacsrd0sQka8K5dInxUY2iJxYmDL2aNDw/sigGySppEr3/X15GdzXEyZTc31zmhuH
- CznhSAUTrKJSDO1CW+tcT7HQFf08QS4A/MFJMpZJQE8BfrWetNF1kDyGUks+Yvb9BVGJ
- Qkg0i2FvaSmaSRqC2oWYldAeXXxr1ONMzfUdWyfVd3S9Ae2KCbcclGh+YLNCBxs6uEQA
- B2IyiWb1IsGK+yjWwAODE/h2/nLvn0fjMuoQVo86/aKt5Z0bTE+9WNQ5GwDperOedN4P
- KWcQ==
+ d=gmail.com; s=20230601; t=1758028309; x=1758633109; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rZQGWLMYS20RM2PHRcKIUdzG/sbIcO56YCQjlhrSFJ0=;
+ b=V8qj3UsKGi2mnX3xliyGKYv8zC6sNlOEd3TcEpGHeoQeXktJ3Ca5klMP80Fx9mpFJz
+ nCwwlPjwP+f3ApQkgw5MqTT5W79iy27cPgB2Rc5TGqtOmoFxFZ1IVIuHLy7Ay+kZdkDQ
+ eZG25Q4Uv4EubcKeLbw6LzFcdH79p7byp6c57RVLvUETrsbFbCEUCq/efdZgQODxiyWd
+ pcQullhQwVE9Hfb9kFOl0z7DWApsCfDiiZ9c8ZVLoz1u8M4mP2v+cLEcQemQXO77781Z
+ UfrHGe2F6DFgzvmR1xL56XT2IACpNz9Nyc4Qc9CVzFMfwCK2fytninVNRduS7neWoHCT
+ 6VJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758015019; x=1758619819;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=xMegCBQz7YTxSeWsApsavoRdrbMxT8WcHe9sV3hQY/k=;
- b=BdHLvalRu9HhbJrNlFUlprXmI7QAKCVM2v77bODpOhMFKt8ACtlbwlZ2Anl7KZoNmu
- dWH/LIAWyAjJa0CqWnuQPVWPbnDu5ZWDrWhItTJwrs9Gus79JZXWNUSEboN7YTXnyVR/
- XAY0y5hzxXraJjhTUZB57Lx0lOvlBxbMVE9JLEqBwLW5kO/xLniX4ughVWJxrAWiy5IH
- XrX14bnoIvmJCyeg+xVAcyoObi+M5KAdS5e6okFdPJkycT5AcjWXbmffpZtaSX802tYt
- UXNq81UDwcHIb5AN+A3D2TQbI/sHA7fx1F1XsFifwCHb6IQ8xdgtFcZdLqE62A7UE+FC
- IvQg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVa1ySZphmGk0/VgvCodK3rBxAbYNLR0i9/N5fu0kqwe628d6sTtJLdOV9u6aqjg0dB4idpSYPv@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7RaPVvvh0KcHLNK3HSgyuXehn2mkO4/9Cm2FSatqgLnA5rlf5
- 10A9uhV2u2rHyuZTehezBPsK5ab47Jr2CLKe/azana4ocACfGM4ELAk0
-X-Gm-Gg: ASbGnctIzSBwuCmrLbD+iR9nvn1Yla04rjmzJ070X46pIP0rlD+mbjS+Xc3l6sJ52YL
- NwtrEauq0xxzDXv26ZF+ILfHOms5DHw0hp/VLKZyq5MaQB7bvUt1gciYAslzmLaXCJM4uTI8nL0
- WNTX90YphNZ5ClX+VjrVrcnz3cTC9wUG+6TialNprP37efAa0/KN1TOPr5XpbD+7sXJ3OEmduUg
- zixKqrbbE+fpqA5gURHeh30iSKg8ACgcBOiJIwLC0Py3qszxbgoqoQSVC691S11T836RhposNak
- APFKKc4lNDQrXsH6PERyWY8EGOdaHzEnfxBotMq9+cDxAGB9YDJno0FzN9URJLM+nCTKwzCPJig
- GvpXPIagMmZz+BbW0P7b5uQz27T9MnznRaKMc9aRgVp9FFR0=
-X-Google-Smtp-Source: AGHT+IHaY5c65oxrMkdcTL0n+OlnjEx6RcD6jC9gi1YeTOzARVykTuROW5jlE0gu3jOJro1VNfqXFA==
-X-Received: by 2002:a17:90b:38d2:b0:32b:baaa:21b0 with SMTP id
- 98e67ed59e1d1-32de4eabfbamr18284658a91.6.1758015018661; 
- Tue, 16 Sep 2025 02:30:18 -0700 (PDT)
-Received: from localhost.localdomain ([165.204.156.251])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-32ea3c72dacsm869074a91.4.2025.09.16.02.30.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Sep 2025 02:30:18 -0700 (PDT)
-From: Rahul Kumar <rk0006818@gmail.com>
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
- skhan@linuxfoundation.org, rk0006818@gmail.com
-Subject: [PATCH] drm/amdgpu: Use kmalloc_array() instead of kmalloc()
-Date: Tue, 16 Sep 2025 14:59:49 +0530
-Message-ID: <20250916092949.4118999-1-rk0006818@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ d=1e100.net; s=20230601; t=1758028309; x=1758633109;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rZQGWLMYS20RM2PHRcKIUdzG/sbIcO56YCQjlhrSFJ0=;
+ b=aqUX/EhjxDy/PajJjSSIJwsniafr2DFB20ev+e0Q7lHmZhDKOySp1rz1xu3uXSK6UY
+ sh6HzHniC20XVEYfRR+zUrTBNvsgEtSAwLAxTojGqJUkCrh3mYGOlwxwrM3Wens7qITw
+ Mv1/TrPrmsCPBU1Jc3zp4cLE2I+ODnN8302hkpvClM9pKsSTyuaA/JK4KQzCg5BqMx3E
+ JIvv/nQjneYjsgV7VPtaD/erq4Q+P3+72CxvrxXfCjpxAom82Zj26fPUk6Ma4DTcx8xF
+ Ih7dJCREksDjLWSqbukn0IO512RdPpCX5PJ2X2Faqyek9OAk7VxbR+B7BQ/w+Ft6aKFQ
+ rngA==
+X-Gm-Message-State: AOJu0YzY6tcThcAA5rJKduJeeg4m/6HEImOqYN0h1puDP6Gv7I61toFo
+ jOR+ry5khxT6G1JqXuwElY1oAKE0xRUSFvpPM5xrTId3adWqHpgCBDu/eBxHKUBCAKxADiB7mzA
+ jdVcUxxa3qPCTgE0UTfCkEE/QhBbsYVM=
+X-Gm-Gg: ASbGncvUjjFezpIoY88a+uIBoppdg/WWMGVy3iM3q/Rfoe+YAjJRUXMpaadzk39zPvu
+ AHcOyow6mJdhEgQWv/1QQ5aTiZEs3o5HGrwtjOlCiAfpN4FrSl8S73ItkAbBiCKyMyYD7ryms/6
+ HWrsu1g6FZX2sOQdXz4jZ1LrnGoPPL6dkTu8dFm+lmQjyYhy+IaG3FHf2HhkZ620Op4UxM/8FNT
+ UNHYOU=
+X-Google-Smtp-Source: AGHT+IHdBX+BDCzs72mqFiTaPcuHGQueiRO+jKRRLYirXl9AXm5yXijcUbkgPTo7POT8AC9lyHyKpRnsayPUaVFJHnc=
+X-Received: by 2002:a17:903:ac5:b0:25c:b66e:9c2a with SMTP id
+ d9443c01a7336-25d27c1df3cmr106987245ad.6.1758028308742; Tue, 16 Sep 2025
+ 06:11:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 16 Sep 2025 13:04:06 +0000
+References: <20250916015902.77242-1-mario.limonciello@amd.com>
+In-Reply-To: <20250916015902.77242-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 16 Sep 2025 09:11:35 -0400
+X-Gm-Features: AS18NWBHylpMVcq-hRpBq7PC5b0sPBeEzYLb6jrJrCkWt5NgsGld7AXBRsGzCGU
+Message-ID: <CADnq5_PqbmO9JpzuG-Ry1Mw53Db62-wHJMLjKqy6Dnd47KMofw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Only restore cached manual clock settings in
+ restore if OD enabled
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org, 
+ =?UTF-8?B?SsOpcsO0bWUgTMOpY3V5ZXI=?= <jerome.4a4c@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,41 +82,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Documentation/process/deprecated.rst recommends against the use of
-kmalloc with dynamic size calculations due to the risk of overflow and
-smaller allocation being made than the caller was expecting.
+On Mon, Sep 15, 2025 at 10:39=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> If OD is not enabled then restoring cached clock settings doesn't make
+> sense and actually leads to errors in resume.
+>
+> Check if enabled before restoring settings.
+>
+> Fixes: 796ff8a7e01bd ("drm/amd: Restore cached manual clock settings duri=
+ng resume")
+> Cc: stable@vger.kernel.org
+> Reported-by: J=C3=A9r=C3=B4me L=C3=A9cuyer <jerome.4a4c@gmail.com>
+> Closes: https://lore.kernel.org/amd-gfx/0ffe2692-7bfa-4821-856e-dd0f18e2c=
+32b@amd.com/T/#me6db8ddb192626360c462b7570ed7eba0c6c9733
+> Suggested-by: J=C3=A9r=C3=B4me L=C3=A9cuyer <jerome.4a4c@gmail.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Replace kmalloc() with kmalloc_array() in amdgpu_amdkfd_gfx_v10.c
-to make the intended allocation size clearer and avoid potential
-overflow issues.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Signed-off-by: Rahul Kumar <rk0006818@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index 04ef0ca10541..0239114fb6c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -352,7 +352,7 @@ static int kgd_hqd_dump(struct amdgpu_device *adev,
- 		(*dump)[i++][1] = RREG32_SOC15_IP(GC, addr);		\
- 	} while (0)
- 
--	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
-+	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
- 	if (*dump == NULL)
- 		return -ENOMEM;
- 
-@@ -449,7 +449,7 @@ static int kgd_hqd_sdma_dump(struct amdgpu_device *adev,
- #undef HQD_N_REGS
- #define HQD_N_REGS (19+6+7+10)
- 
--	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
-+	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
- 	if (*dump == NULL)
- 		return -ENOMEM;
- 
--- 
-2.43.0
-
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
+amd/pm/swsmu/amdgpu_smu.c
+> index bf2b38dd7e25..fb8086859857 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -2263,7 +2263,7 @@ static int smu_resume(struct amdgpu_ip_block *ip_bl=
+ock)
+>                         return ret;
+>         }
+>
+> -       if (smu_dpm_ctx->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL) {
+> +       if (smu_dpm_ctx->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL && =
+smu->od_enabled) {
+>                 ret =3D smu_od_edit_dpm_table(smu, PP_OD_COMMIT_DPM_TABLE=
+, NULL, 0);
+>                 if (ret)
+>                         return ret;
+> --
+> 2.49.0
+>
