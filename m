@@ -4,120 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D288CAC599
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 08:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D9B4CAC598
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 08:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0542510E6EA;
-	Tue, 16 Sep 2025 08:08:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9423E10E6E1;
+	Tue, 16 Sep 2025 08:12:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yO1C9PXf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lx8hGWJS";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012038.outbound.protection.outlook.com [52.101.48.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D50E10E6EA
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 08:08:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lD2RsuEaL5buRQIyV9lp9f7dm8EqFU2Xn6VPH+z1xruhNl+FJWXKog7+fMpRYcJMc5MMSpXWC8OjNewbzRseJSxorJEm1F9VuOr/1SiUhQGE+H6xyBtENj3w67mzpoD1Dzyg8Tvzw2eWLXA4jIlunVs2vPDQKz+eVXuMU7rLC+qV4Bf6+RrpVvTZRiqX88zHhM1YYAb/AuuQKWMuAxhCKUA+tyOrrfHzm2WvK97HMUslqKSVxYOmj4qGlrTWFFqbjfjHzpQE3vLNva7RnLngSwprf13esbhpCZ/vdxjsosGhZFghof6uwuVjH0OaPhgOgBuXJkgz7gwZQlArPR+9Xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RdBHMMt/9n75CldmDRmB+cmvzeKcR8zXZXW5L93vcJA=;
- b=ldbGgl3Fc+wKyyLJafhoDqNM7RoU1pLWSfNCh6FXFnyTtkXYjs8GOLDhO/Fwo4S8Z9zpcWUKXzXN7G6ZC4T3hQ00ua7OSU7EwsjaD4QnrsNKQSLO004tYqRAtU9HE4havti0OVe+iafJxYzG9VkoJ82ZMaCukzzZ99xNSXWkY0iI8p+4ka3NGFJrzsxE1bxMi2EUCbvuxRZ+WmtBXWraoIgugVkzgWmjxwSEF8bGdH9u+oZoIfnQEoBe8XZ+ksMR2BZ9KNT01UIJ/33jP92AGZp8JIi+87GHyAAQUihDuHvkA0PMZ/5NZ6QZyTDJpdl4Ihbhdwstg2tibbqJum1IGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RdBHMMt/9n75CldmDRmB+cmvzeKcR8zXZXW5L93vcJA=;
- b=yO1C9PXfoXSxPQfJT7xX6rbNSQkkJeXVanUW9X8oUDhuXWbM4gBGwG+AZUQ6xGXXDrikeL3AZdYCDC+vwdVLzV+EfY5/xN0aF+MT5MRWjl2ztKlDxyaIzi2eEBm2qGU90vSPEjtDoGaxGBtktbRoV/rNqGyrMpE0HebnfvhXyc0=
-Received: from BN0PR08CA0011.namprd08.prod.outlook.com (2603:10b6:408:142::33)
- by CH1PR12MB9573.namprd12.prod.outlook.com (2603:10b6:610:2ae::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.19; Tue, 16 Sep
- 2025 08:08:12 +0000
-Received: from BN3PEPF0000B076.namprd04.prod.outlook.com
- (2603:10b6:408:142:cafe::dd) by BN0PR08CA0011.outlook.office365.com
- (2603:10b6:408:142::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.21 via Frontend Transport; Tue,
- 16 Sep 2025 08:08:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B076.mail.protection.outlook.com (10.167.243.121) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Tue, 16 Sep 2025 08:08:12 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 16 Sep
- 2025 01:08:11 -0700
-Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Tue, 16 Sep 2025 01:08:10 -0700
-From: Jesse.Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH v3] drm/amdgpu: Add fallback to pipe reset if KCQ ring reset
- fails
-Date: Tue, 16 Sep 2025 16:07:35 +0800
-Message-ID: <20250916080809.993236-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8D810E0AC;
+ Tue, 16 Sep 2025 08:12:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1758010352; x=1789546352;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=/fOTPnIYRzNwyZiVhCec2Qefpdd4a+D5flBWydA6AZE=;
+ b=lx8hGWJSEdQTR9BNvogza54a3y3txZ2UBqpPVzTLCmq1vktDeK8klsDa
+ XnL/Nmnf5CtoPTb6kylv4xLKzxqG3vC7k9oFcKL6h3WOQAJ6L8lEAb8wg
+ d4dhE3zDV+kBdwPGcRcA1sJdTI4G+maEIwKMj1L6QLRwsMj6A/XEUbSyW
+ D9AeFUjQWdCk4ATQtp1Wvzb+HSPlQVaHTzQoFxLOKw3aLq4MHvooTRp6g
+ kPoEdv+IvloOD1ow2bvfY7t7WRIrg6B+D+n8lBYTPrhsF7MUV6mSt2e1G
+ mkawVuYIO7YhP3kBaCwMINkm1LHcoguNxPkjEi011ARWQ3OTh+hExclWH Q==;
+X-CSE-ConnectionGUID: CVg8k4SjSQCRjMN6Kt6nEQ==
+X-CSE-MsgGUID: bR/nNCRnRq62NUOMFk4xQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11554"; a="60211645"
+X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="60211645"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2025 01:12:31 -0700
+X-CSE-ConnectionGUID: ZT4Lqgl3Qg2yWk79GVLDRA==
+X-CSE-MsgGUID: j/vJU0B9RmavdKiDJ4Kqsw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="175658518"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.81])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2025 01:12:24 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, Krzysztof
+ =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>, Christian
+ =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, =?utf-8?Q?Micha=C5=82?=
+ Winiarski <michal.winiarski@intel.com>, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, David Airlie
+ <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Simona Vetter <simona@ffwll.ch>, Tvrtko
+ Ursulin <tursulin@ursulin.net>, ?UTF-8?q?Thomas=20Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, "Michael J . Ruhl" <mjruhl@habana.ai>,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 06/11] drm/i915/gt: Use pci_rebar_size_supported()
+In-Reply-To: <aMhzougLzpfw2wWw@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20250915091358.9203-1-ilpo.jarvinen@linux.intel.com>
+ <20250915091358.9203-7-ilpo.jarvinen@linux.intel.com>
+ <b918053f6ac7b4a27148a1cbf10eb8402572c6c9@intel.com>
+ <ewypjj64siaswcfvfzgxihwrflb6k6pz2mrfuu4ursdldwnqlm@ignlhd73keck>
+ <aMhzougLzpfw2wWw@intel.com>
+Date: Tue, 16 Sep 2025 11:12:21 +0300
+Message-ID: <58fb988207c4d5c5ba25338c1281189e12c009c3@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B076:EE_|CH1PR12MB9573:EE_
-X-MS-Office365-Filtering-Correlation-Id: 199141dd-706d-4387-f2bd-08ddf4f82e50
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ipokG+bfkA8NjS9Z0tt+ka7T20s0YPUt25h9dzeyxbgr9lzxAMvqTx+r8PEo?=
- =?us-ascii?Q?Ba9GPOeI1fz5iN8ErRqDKxk1tgZ2MmLbQPzBb2k2OAD0N8Ga69QecNuwme37?=
- =?us-ascii?Q?VShWmU5sjTWSqeoHmMUw8wk5gJQBFLZlJ+OixW/DimiWsa013XpQXtkwtrCR?=
- =?us-ascii?Q?1BbO3YsXyhEXsxR6AA2rZMQT/HLIXNMWLtC91EMij2Z+FAfqtyVMWbl93FEG?=
- =?us-ascii?Q?m6ZD/os+yCjisWFRqueRpF/D5IhQukkaoFYBkyy8uYw23Y/VNVhkS+CyV7Hs?=
- =?us-ascii?Q?lxHIYYlrTfEMti67VKwOGrYTTpksP0Wsp42OB3oXnODYoTj19yIJeYhesMav?=
- =?us-ascii?Q?O3vgK4J/jNomsXOYLP15IRMCh0Er4eYjTux3s014TD1k5omQ2AG/3mP+E5rq?=
- =?us-ascii?Q?mhRlSXF9lOzrYszMw6zo5O51OhICeNkDTL2G8/euJjK0H0gGU2mazBxTqU21?=
- =?us-ascii?Q?FfR+UTy2RNv6OmqYhzNkHX1INi/SxDXH/dSk8TXx/qR5nb2v6Jo6L/MyEnTi?=
- =?us-ascii?Q?yD+Znge75X14lwLTgAyaZ7VuxiHTADirG0nHNTQuECARGq0MlPvtu1AVmpAq?=
- =?us-ascii?Q?iFyWQnBX8aFh+GmSBGsPJr21N7imlgcTnKDGfKHxWlX3v6m8OpSMxsA6GfAu?=
- =?us-ascii?Q?TKWMpy7cuboZjQpmqW4w2YscBgJjrXNffp3H4Wl+JLKhWmGAKrMnTjcbk+DK?=
- =?us-ascii?Q?UzCam4KRFCv1RRgdqf/xmoyKx8umnMbhwIKkL2m9tJauKJTv9hBSjKbXz9S8?=
- =?us-ascii?Q?V7Vf2qhI8IhUTXgrj54rmAe3khtSxBWnwxAU8mKtq8mOC/Iip/GE88SKzgeC?=
- =?us-ascii?Q?Kn6CJRxngC6LVGcH1Ks9PkwWkeV7tD5P5zOHp1rKddCmKNQdAQ5WVCrg0QJ2?=
- =?us-ascii?Q?4s8FTpnXKGyQz+zyAbKGS/BYMpaF6h/5+k1OldaWZYW81CYezjCfCzSenhaI?=
- =?us-ascii?Q?CcpeHugiuU3o7+wV1eJXv0QJox/vWk69UdhCQMSHaT4c0HFs6TyJX/yrB/t+?=
- =?us-ascii?Q?l+VxWkvlkPXqheOm02iwCOJr0h4XJ85Lj0uAmEUV4FjGE0yyWWJO7qLOuQjL?=
- =?us-ascii?Q?ckAtiTm3gTqymuN9PMHf8I8rvl3/0hUKysyAs/S+caj6P2bgYotXpWJemZl8?=
- =?us-ascii?Q?NpCx8U5yN22Ai9HvwKD93gwLUSphTa2bDrOSXtXpPA3+xTsOCE6jVe49UImZ?=
- =?us-ascii?Q?NS7HW8jRNrxcEcAFtSev0Oq7dQ4Le/fE7DXaU4opcBB6oJ0avduTxaHeABX/?=
- =?us-ascii?Q?JRDkAGTjEmGswYL5yNMUm4P5TmgbKVH0oCOZ401+AkakbryeBRfxNC0+OMVZ?=
- =?us-ascii?Q?IU1b0cU0E5cGF1gYeXVUYZdEnVub6bzf9J22NTxuDip2fp7LYxSx3PnnAnjk?=
- =?us-ascii?Q?z0BGak3YcpJM69SCak9vNA/4c5qJ2DigEMwwa2AUPz+d8pde7gbt0FCXW+uy?=
- =?us-ascii?Q?Wsw3xST+/LKH2E5HhT2ifCCad3Y7l8C2DFuuypuUcb7puiwf7taT+KoxLhtR?=
- =?us-ascii?Q?s07RFKBnW4DE1V2HjbBwMpdVno0QC3oK6hbv?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2025 08:08:12.2138 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 199141dd-706d-4387-f2bd-08ddf4f82e50
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B076.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9573
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,63 +84,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lijo Lazar <lijo.lazar@amd.com>
+On Mon, 15 Sep 2025, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
+> On Mon, Sep 15, 2025 at 07:24:10PM +0200, Andi Shyti wrote:
+>> Hi,
+>>=20
+>> On Mon, Sep 15, 2025 at 03:42:23PM +0300, Jani Nikula wrote:
+>> > On Mon, 15 Sep 2025, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com=
+> wrote:
+>> > > PCI core provides pci_rebar_size_supported() that helps in checking =
+if
+>> > > a BAR Size is supported for the BAR or not. Use it in
+>> > > i915_resize_lmem_bar() to simplify code.
+>> > >
+>> > > Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+>> > > Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>> >=20
+>> > Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+>> >=20
+>> > and
+>> >=20
+>> > Acked-by: Jani Nikula <jani.nikula@intel.com>
+>>=20
+>> Just for some random noise on commit log's bureaucracy: why do we
+>> need both Ack and R-b? I think R-b covers Ack making it
+>> redundant. Right?
+>
+> reviewed-by is a more formal attestation of the entries in the
+> submitting-patches doc, saying that he carefully reviewed the work.
+>
+> acked by is to state that from the maintainer perspective of that file
+> the file can be merged through any tree.
+>
+> in the drm trees nowdays our tooling is enforcing acked-by tag if
+> the patch is touching domains outside that drm branch itself.
+>
+> if a committer tries to push a patch without ack from the maintainer
+> of that domain it will be blocked.
+>
+> So I believe it is a good idea to keep a separation of the meaning.
+> Carrying a technical review of the patch in question doesn't necessarily
+> mean that you, as maintainer, is okay of getting that patch merged
+> through other trees.
 
-Add a fallback mechanism to attempt pipe reset when KCQ reset
-fails to recover the ring. After performing the KCQ reset and
-queue remapping, test the ring functionality. If the ring test
-fails, initiate a pipe reset as an additional recovery step.
+Yes, all of the above. I just wanted to be explicit to avoid the
+follow-up questions "thanks for the review, but is it okay to merge via
+pci" or "thanks for the ack, but does this need review also", and move
+on from this whole thread. (Which is a nice cleanup, btw, thanks.)
 
-v2: fix the typo (Lijo)
-v3: try pipeline reset when kiq mapping fails (Lijo)
+BR,
+Jani.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 8ba66d4dfe86..77f9d5b9a556 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -3560,6 +3560,7 @@ static int gfx_v9_4_3_reset_kcq(struct amdgpu_ring *ring,
- 	struct amdgpu_device *adev = ring->adev;
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq[ring->xcc_id];
- 	struct amdgpu_ring *kiq_ring = &kiq->ring;
-+	int reset_mode = AMDGPU_RESET_TYPE_PER_QUEUE;
- 	unsigned long flags;
- 	int r;
- 
-@@ -3597,6 +3598,7 @@ static int gfx_v9_4_3_reset_kcq(struct amdgpu_ring *ring,
- 		if (!(adev->gfx.compute_supported_reset & AMDGPU_RESET_TYPE_PER_PIPE))
- 			return -EOPNOTSUPP;
- 		r = gfx_v9_4_3_reset_hw_pipe(ring);
-+		reset_mode = AMDGPU_RESET_TYPE_PER_PIPE;
- 		dev_info(adev->dev, "ring: %s pipe reset :%s\n", ring->name,
- 				r ? "failed" : "successfully");
- 		if (r)
-@@ -3619,10 +3621,20 @@ static int gfx_v9_4_3_reset_kcq(struct amdgpu_ring *ring,
- 	r = amdgpu_ring_test_ring(kiq_ring);
- 	spin_unlock_irqrestore(&kiq->ring_lock, flags);
- 	if (r) {
-+		if (reset_mode == AMDGPU_RESET_TYPE_PER_QUEUE)
-+			goto pipe_reset;
-+
- 		dev_err(adev->dev, "fail to remap queue\n");
- 		return r;
- 	}
- 
-+	if (reset_mode == AMDGPU_RESET_TYPE_PER_QUEUE) {
-+		r = amdgpu_ring_test_ring(ring);
-+		if (r)
-+			goto pipe_reset;
-+	}
-+
-+
- 	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
- }
- 
--- 
-2.49.0
-
+--=20
+Jani Nikula, Intel
