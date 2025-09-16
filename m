@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB7C1CAC599
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 09:06:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C2E9CAC599
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 09:06:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63CE510E746;
-	Tue, 16 Sep 2025 09:06:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2720E10E748;
+	Tue, 16 Sep 2025 09:06:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m5fQ41qi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c85LmuTN";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011039.outbound.protection.outlook.com
- [40.93.194.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9380010E742
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 09:05:56 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011005.outbound.protection.outlook.com [52.101.57.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F350110E746
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 09:05:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZMPqd+eprngNYBgGSKLBQ/zUUKW2t+P38lEPgsLh2mqlDRjuNuxk3q7tQdZ0u2oEbkDXd+CIugbTK8+4ujyy6EErWxlJKWUoqGtONCuXl6gYAPMD5QlmCAWn4mZJYIKJ9KT/gncL3EiZluj9kynaaVZuIxFkfa9LtjFo0nAmf1CynYOpfjtS0W0Q8sZBsIXtG4RsNpnhDRNpsCB0FXJX1KCq22g/8el795MqwSkd3bagMEPSNzB2iLFIpUsImoQTI7agmDQkqIgVyijbXW987vdwKlsmLmr7XWqbeapYIYF5MI8lrB7GWFC/7wgy1wU7lUC2fp/YDHPeeizW9zMsAw==
+ b=Fl8c0w0GRFmTyXJmGOO40lQkHYsLwfrBjZLsbjavuwsRugBg2NMeLV+P6uNVN/hVtJl+f84li9PGMGuWJ/McW6V65y6HHha45Sbs1JfcC9fiaVrAXEFASzeAiZMDqhkdVOcaCAf027eg4E+FV57QLZxJca3xLaljnP9CGoFB8Wf575CJZG1YR8SlG0BSdc772AhNOJ5+pfv3qjOVy4+RstxJXWc8gPTeBHbxW8Fkfs9xnUT7lnLG98HVzRY+MbEoKXVVi1i7CAURHAGeglZ/4U28YDGv2lnZTJ+qbefCjbzQdfVSk+M35qkjAAIvLJxge8dTes3L1BjQcahvJ5a8rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8dAY32PQVMKqwbsR3fT3ZRqqhDAHQzOFVnpCCf9+UMw=;
- b=SPzzGIGDOZP5Q0yVQNQEAVyw7m3hmtYeyJ0P8w006DLACPf8wYIS1lp0O2X0Rf+XlqAfRQQnsK+BXfW3TiIsN248JkSDXiNuvqGA6sDxXNW+UFxaG4mfxjBP4aJpIPVApZuensSIS42FXXUhVYKvJdAHI5aXbBr/LGhOZuVr+WlB9mz5+1+n16u4M9OfRfplRxfvVbi59VIfVWNfRwdYwhjB4eUIKBKxSzop9R69nOSdoWuk0ZXYnKqM4dZuHhtuZKC3Zwxf+23wHuJkhJ69NsK8nR1JSYfsh3EYqJNaBs/S8JqbjA/E1CjNm9OzBURXP3A0ecZ8OrYvqpLmNSVDcg==
+ bh=luBgS/SpNTezgOM0bVagQaHQgL6dkuVqKZ6wfvZ0QUY=;
+ b=qCR1Rkhs+XSguGt/b/8qRLSijG4xQeaSqsKwAewpU+Q+2GekJRADQpHvnSECEJePgVAW3ggyLbTK/S6XWkMfxl0XATEENKLR8pHLJprJn1KXYNHQG2uD4wmTjUO2DoDN5okDFIsf9xeWcEZwosHlXPET1vkbrkQtGfqYJib30vNQjhQmJNoXhlMrXIWURr5Ud8vll809IjAQmR/6USKTUp9D6G7BWvkSC2d/ri7sdVG1bEhQS916vBX1fnLIYMZivuVE4Ey23CbIeKdRjvpg+JQzBysTypkMXlQx46mnxCx7iceS+5847jCSDyAGVLVkKqO/x44u5fQJHnTj+KomYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8dAY32PQVMKqwbsR3fT3ZRqqhDAHQzOFVnpCCf9+UMw=;
- b=m5fQ41qiDmtVjmdWDlemgcX9yMh5jPnkImufeUbptWA9esMi3/vYCAPL92HO7XsE9ZnIPQSt9kMUTeeagwDLigByxoAiWlEGFoMxkcZ1FR60DX60O6R3LEJ7EkhNkT8Q5XCA1AZ7zmDAJ/7YT6y7lv9ToqluKxj7uhAvglzQg0w=
-Received: from CY5PR15CA0026.namprd15.prod.outlook.com (2603:10b6:930:14::17)
- by SA3PR12MB8762.namprd12.prod.outlook.com (2603:10b6:806:31f::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=luBgS/SpNTezgOM0bVagQaHQgL6dkuVqKZ6wfvZ0QUY=;
+ b=c85LmuTNOYRxzQmL5/mtd/w9tlWA6T57tFdpveV1kjfjZwihVuGXkJtFDLPTLHmY8lJ3hf5bgoNIhTBRotRZPh2s0+1teURHECNVhA+ysnxt8dA6ruWqL0oyqY1iuCFtbX5wlBCnsxcTGN/GNeNgmNOrM4KqevonN81Yn/fbSqo=
+Received: from CY5PR15CA0014.namprd15.prod.outlook.com (2603:10b6:930:14::35)
+ by CH1PPF73CDB1C12.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::615) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.21; Tue, 16 Sep
- 2025 09:05:53 +0000
+ 2025 09:05:55 +0000
 Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
- (2603:10b6:930:14:cafe::7e) by CY5PR15CA0026.outlook.office365.com
- (2603:10b6:930:14::17) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:930:14:cafe::df) by CY5PR15CA0014.outlook.office365.com
+ (2603:10b6:930:14::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.21 via Frontend Transport; Tue,
- 16 Sep 2025 09:05:53 +0000
+ 16 Sep 2025 09:05:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Tue, 16 Sep 2025 09:05:52 +0000
+ 15.20.9137.12 via Frontend Transport; Tue, 16 Sep 2025 09:05:55 +0000
 Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 16 Sep
- 2025 02:05:47 -0700
+ 2025 02:05:52 -0700
 From: Asad Kamal <asad.kamal@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <lijo.lazar@amd.com>
 CC: <hawking.zhang@amd.com>, <le.ma@amd.com>, <shiwu.zhang@amd.com>,
  <asad.kamal@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>
-Subject: [PATCH v3 4/6] drm/amd/pm: Add sysfs node for node power
-Date: Tue, 16 Sep 2025 17:05:25 +0800
-Message-ID: <20250916090527.2727930-4-asad.kamal@amd.com>
+Subject: [PATCH v3 6/6] drm/amd/pm: Enable npm metrics data
+Date: Tue, 16 Sep 2025 17:05:27 +0800
+Message-ID: <20250916090527.2727930-6-asad.kamal@amd.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20250916090527.2727930-1-asad.kamal@amd.com>
 References: <20250916090527.2727930-1-asad.kamal@amd.com>
@@ -74,52 +73,52 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|SA3PR12MB8762:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32d20a66-e684-42fc-5df0-08ddf5003d18
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|CH1PPF73CDB1C12:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dba517d-e09c-4017-91aa-08ddf5003e52
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dYowAW/xNWHRRnwg5Yxwok+hdCk2FG1OTZc57joGC7h/3rn3+Z+70tUk/q7A?=
- =?us-ascii?Q?hoglr1sg/hJGPY6JEKMHEOx6Beyxa3TsPCS1BXsHzHLTnRBsqf68jvuoUCw3?=
- =?us-ascii?Q?C+iNM4nyugwK+gyP6ZhiHqTBagveFCAteD2FuXPXA9o5Y90QM/JIM1P5goZ+?=
- =?us-ascii?Q?ob8OK5RBvvGmVtbjIL827ewd/FAItb7sEUiFOd6O/hNls4pOrxqexYDv18Z0?=
- =?us-ascii?Q?bd5XxUBkgoHN7U67da3Wn46js1sIyX1cLTTCk8zeWB5bpSXk2owOX6ubFm7K?=
- =?us-ascii?Q?AL4P642kDTTA3D2/cwZv8R//iQYKuYpkPr8ED08gxowyaWGI8E8yKFerJjdX?=
- =?us-ascii?Q?MoEwPrl0iKObL5hO2N8vX/9UH5nnPztD/hDS9OTCUBraq1pJ3wlDAPh2q7y2?=
- =?us-ascii?Q?wqsfkrz9UzkP5mAQ0KcC9CZQ4hox8YaNIjbRLzicSukN+vY14T0baaO/cHfH?=
- =?us-ascii?Q?rkVH2yGKXJVm1+EpvVPcyi6q4UIcn9nn5ZJy82sxETjeoHs7AvofRhkufZ30?=
- =?us-ascii?Q?SrZleQ/wspD2oPYVORHWq7IrU7fFxYCccIeNjSYV48hMAuPbxOISf2UK1EM7?=
- =?us-ascii?Q?q4s8Py5tJ2aRpaE/9F4BTulzNV7cRa4MZINQvu8wnpGjW2fn2BAuI7Ldgqqv?=
- =?us-ascii?Q?Bu+ewMScEI+mg5L/tXnKB0lf4OA9IuA1qoWeY0S6k5CkydJRELjURRbjzSGj?=
- =?us-ascii?Q?mmxaWeCsTs9ZiDYdNVacPfO/2dpi2obQHTzdQhV5pMcH9bM1K4Ivwfve4ycT?=
- =?us-ascii?Q?9Ign4z4RTsdV11nJO0Zx4uDxPqEPgOvMpqm/xSpP141VyiJsY+TJFr/EkR1z?=
- =?us-ascii?Q?5UgK9uAMkNDaCgkwsXN3vnGN3zsWdyLQYVgXW0Fe/skDxkxQ5ma1yxP+yWeC?=
- =?us-ascii?Q?GIuDpN0uW/SU/QfpcULqINsfjLQZ85pMfi99M6otc2zf9PDuoJ2aik6F59yE?=
- =?us-ascii?Q?BZ3mpsIlG9mpoEy0dnEFDKKdN2McvLSarp7InSkn3IsfCCHh5SMq+hu7cUhF?=
- =?us-ascii?Q?0oTQ7LPhAZRFmW+X6C7CH3TFxDHPaXKl3TuES6Gw9rDdZaifPvTFklVySuRN?=
- =?us-ascii?Q?H+c6dIF6MaNgOzFbSSjM5ea+WUCS1NXERMZEmu7JEYzdBKICJncsypDidteT?=
- =?us-ascii?Q?Iq2URyl+VXUp9ygFLoVXv8OBtMbaozKGiMixjAi7HFhnrxB6Repx8k5YMnRy?=
- =?us-ascii?Q?KKoqHTNh7AyHe2aS1vp4VrUiVK/POy/Ah5COSK352j/geZWeTaQVoUP/Dou4?=
- =?us-ascii?Q?s6Y8TFdVonIpAKSo52JjHjf1ZEVJT4i8VVgQ79Ecs4UHdzx3f8zGOVtv47ZA?=
- =?us-ascii?Q?SUPMBiiBQaMiyx4AuNo0d8QGErqg6w9Oewp60PxCX7gKbOq5LXs4Vx8WGs4Z?=
- =?us-ascii?Q?/3rAqRtwmyCbFW0/dlHXLo2I1xKj20CEUyUPWs9ruZv2ieaIzRjbGE0zrl4X?=
- =?us-ascii?Q?0Y5IP6g9qUL06XlT9j0aCKGD27Lt3liiPPUy0TbHhIwroX0AmXpaW5QKz4Oi?=
- =?us-ascii?Q?wp9FIfbTnUGjT7r2KQJ+4rBhlbsaKGJy+54f?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pHcD0OHgAr8Vk7c71st2C015nRVRk7QNnAOGZm4NvluIMMYC4kgvTnf6KpLn?=
+ =?us-ascii?Q?qR3M2IpJqf/2V6UDngcbKrJm08EL18QuxvUJKnTFZ6b2yeyq5xuABQyEcC3S?=
+ =?us-ascii?Q?eiLfrzba+3FejY8l8+qh1u8sXNEiJrOlrUvkqZTfhavDKKe/xXa2oOUtLyqi?=
+ =?us-ascii?Q?bC0btqRbxHNxKkX1NrFfZjRdNAdkzw9N+RtZf5gFPaL3D384G6oI2YiyBylP?=
+ =?us-ascii?Q?shy5GlQj6KLSu+79vBFUxyvYdkT+MoKFliYmiSeKOmdSRdtoKS6cZz53w5RU?=
+ =?us-ascii?Q?qlkoL8i6x8Wq8fBDRF48tNVPwM2WIX/TZbey4KBYJuv3sc/v3Or4IIHK9Fe/?=
+ =?us-ascii?Q?eY308pKoLD8eg8Qocqy+eLjGpyNr5tRVuqb3dKEhx0PdKq7GYH+FkoFvixls?=
+ =?us-ascii?Q?4xHj9JgvpwZTNkM5B7JlvdS5Mwyt8kezPbx4EmwRtY8sFBdYcF/4nvFUDvEi?=
+ =?us-ascii?Q?7t8/5aM2TIlHxKmdwXHVf7ScyXszrccUeqHofD/sYzdY2mMNLB90ATM7WEk+?=
+ =?us-ascii?Q?qPyVp6sCVFfA6LpGv0+tpbO+WgmMMSDOtYe+DuE3uEiWSeYOW7sjWdVAnUq5?=
+ =?us-ascii?Q?Nquk+U2W0z7Enk+HzwhhXo8xdFb49Go4CsAm0+Q2oQChazzoZ4VKqpcfYCbx?=
+ =?us-ascii?Q?tAUQiLDLztBv+ydKIujfKF06VvZ+ftQLEPFeTb7Tg0uhYctFyp3SCwENed43?=
+ =?us-ascii?Q?MLXKxOOLOqCyAFnqHH7ZgQDdSBpl4rgzJmqO25bO0dLmL53UFUJHOQMYLNar?=
+ =?us-ascii?Q?uvqu/sD3nwhL4dSkoGYfu0PLnaNKG/Y9MQcmmO4MgodYYwadeJsGbdP/gP8m?=
+ =?us-ascii?Q?kn7AoonQelztIL1tLz7J8vvFKqbwXwzQUNwjA1aYZ4KNlcYmz4a8x76e6lWl?=
+ =?us-ascii?Q?r7cYcmmHr0pbjIpx0FEPtE9eXN79jE8gSpA+zlw9S96yN6QPWuQT4NGSUiqM?=
+ =?us-ascii?Q?8PeVTkB9uiAMnqVr7QE0z4n6R/LHtCN2qlFanpmfX+Hz7Z6U0iNGppSxV734?=
+ =?us-ascii?Q?zP4G9gC+y9/xT62PlxS7ZYLnj8lJjm3Gsz3K6OMAypwbH6WFlqiTm1dZ/1sp?=
+ =?us-ascii?Q?rpPWX16gOGovAchPZqiJVeTiD/BRFyk8HSBOx5i36p+ISg9Vx4So6pj+Ks9U?=
+ =?us-ascii?Q?k5kTFjdU6ZTrekPXQVmsWRVVnmPA/HHmxUNoFFWYQt5m+5r5SfnaArfAetFY?=
+ =?us-ascii?Q?13eEMU2T/Tbc7AKGBYLuP5ZuwQbuin9M86R5U3UowFnqJU/6cQkhudgT02NM?=
+ =?us-ascii?Q?WikjwRrLXfE15vWYjNfmDmTEgGBlqVk1UG2tZlWMan/2jxyZVizsBk4DmgY8?=
+ =?us-ascii?Q?IRqnV+MkJ4j9bokWAFPEN4Ch8vW9YjJlDCKR/DQkf6bFV30gS2P/+dbn64fI?=
+ =?us-ascii?Q?wIN4RxguOGR6lVqAWrAs/13YnR0ZAx9gHVeAxDAE6c/gdSjSKX05BTP9JEbE?=
+ =?us-ascii?Q?ykDC91l1okTpOxd5Mbw5d4EUgrn6GN5rgY5thiNuWGhT8aBcEZknwCTorSAB?=
+ =?us-ascii?Q?afn0ZejX92GtFFTs0qwndkvCWiWs4cy0BhJ/?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2025 09:05:52.9416 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32d20a66-e684-42fc-5df0-08ddf5003d18
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2025 09:05:55.0005 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8dba517d-e09c-4017-91aa-08ddf5003e52
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3B.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8762
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF73CDB1C12
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,227 +133,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add sysfs node to expose node power limit for smu_v13_0_12
+Enable npm metrics data for smu_v13_0_12
 
-v2: Remove support check from visible function (Kevin)
-
-v3: Update comments (Kevin)
-    Remove sysfs remove file, change format specifier
-    for sysfs_emit, use attribute_group.name (Lijo)
+v3: Add node id check for setting NPM_CAPS (Lijo)
 
 Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 ---
- .../gpu/drm/amd/include/kgd_pp_interface.h    |   4 +
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 151 +++++++++++++++++-
- 2 files changed, 153 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index 2f7e4b5bebf3..2b0cdb2a2775 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -162,6 +162,10 @@ enum amd_pp_sensors {
- 	AMDGPU_PP_SENSOR_PEAK_PSTATE_SCLK,
- 	AMDGPU_PP_SENSOR_PEAK_PSTATE_MCLK,
- 	AMDGPU_PP_SENSOR_VCN_LOAD,
-+	AMDGPU_PP_SENSOR_NODEPOWERLIMIT,
-+	AMDGPU_PP_SENSOR_NODEPOWER,
-+	AMDGPU_PP_SENSOR_GPPTRESIDENCY,
-+	AMDGPU_PP_SENSOR_MAXNODEPOWERLIMIT,
- };
- 
- enum amd_pp_task {
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 57821e59d3cc..b5fbb0fd1dc0 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2081,8 +2081,9 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
-  * for user application to monitor various board reated attributes.
-  *
-  * The amdgpu driver provides a sysfs API for reporting board attributes. Presently,
-- * only two types of attributes are reported, baseboard temperature and
-- * gpu board temperature. Both of them are reported as binary files.
-+ * seven types of attributes are reported. Baseboard temperature and
-+ * gpu board temperature are reported as binary files. Npm status, current node power limit,
-+ * max node power limit, node power and global ppt residency is reported as ASCII text file.
-  *
-  * * .. code-block:: console
-  *
-@@ -2090,6 +2091,15 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
-  *
-  *      hexdump /sys/bus/pci/devices/.../board/gpuboard_temp
-  *
-+ *      hexdump /sys/bus/pci/devices/.../board/npm_status
-+ *
-+ *      hexdump /sys/bus/pci/devices/.../board/cur_node_power_limit
-+ *
-+ *      hexdump /sys/bus/pci/devices/.../board/max_node_power_limit
-+ *
-+ *      hexdump /sys/bus/pci/devices/.../board/node_power
-+ *
-+ *      hexdump /sys/bus/pci/devices/.../board/global_ppt_resid
-  */
- 
- /**
-@@ -2168,8 +2178,129 @@ static ssize_t amdgpu_get_gpuboard_temp_metrics(struct device *dev,
- 	return size;
- }
- 
-+/**
-+ * DOC: cur_node_power_limit
-+ *
-+ * The amdgpu driver provides a sysfs API for retrieving current node power limit.
-+ * The file cur_node_power_limit is used for this.
-+ */
-+static ssize_t amdgpu_show_cur_node_power_limit(struct device *dev,
-+						struct device_attribute *attr, char *buf)
-+{
-+	struct drm_device *ddev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = drm_to_adev(ddev);
-+	u32 nplimit;
-+	int r;
-+
-+	/* get the current node power limit */
-+	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_NODEPOWERLIMIT,
-+					 (void *)&nplimit);
-+	if (r)
-+		return r;
-+
-+	return sysfs_emit(buf, "%u\n", nplimit);
-+}
-+
-+/**
-+ * DOC: node_power
-+ *
-+ * The amdgpu driver provides a sysfs API for retrieving current node power.
-+ * The file node_power is used for this.
-+ */
-+static ssize_t amdgpu_show_node_power(struct device *dev,
-+				      struct device_attribute *attr, char *buf)
-+{
-+	struct drm_device *ddev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = drm_to_adev(ddev);
-+	u32 npower;
-+	int r;
-+
-+	/* get the node power */
-+	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_NODEPOWER,
-+					 (void *)&npower);
-+	if (r)
-+		return r;
-+
-+	return sysfs_emit(buf, "%u\n", npower);
-+}
-+
-+/**
-+ * DOC: npm_status
-+ *
-+ * The amdgpu driver provides a sysfs API for retrieving current node power management status.
-+ * The file npm_status is used for this. It shows the status as enabled or disabled based on
-+ * current node power value. If node power is zero, status is disabled else enabled.
-+ */
-+static ssize_t amdgpu_show_npm_status(struct device *dev,
-+				      struct device_attribute *attr, char *buf)
-+{
-+	struct drm_device *ddev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = drm_to_adev(ddev);
-+	u32 npower;
-+	int r;
-+
-+	/* get the node power */
-+	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_NODEPOWER,
-+					 (void *)&npower);
-+	if (r)
-+		return r;
-+
-+	return sysfs_emit(buf, "%s\n", npower ? "enabled" : "disabled");
-+}
-+
-+/**
-+ * DOC: global_ppt_resid
-+ *
-+ * The amdgpu driver provides a sysfs API for retrieving global ppt residency.
-+ * The file global_ppt_resid is used for this.
-+ */
-+static ssize_t amdgpu_show_global_ppt_resid(struct device *dev,
-+					    struct device_attribute *attr, char *buf)
-+{
-+	struct drm_device *ddev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = drm_to_adev(ddev);
-+	u32 gpptresid;
-+	int r;
-+
-+	/* get the global ppt residency */
-+	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GPPTRESIDENCY,
-+					 (void *)&gpptresid);
-+	if (r)
-+		return r;
-+
-+	return sysfs_emit(buf, "%u\n", gpptresid);
-+}
-+
-+/**
-+ * DOC: max_node_power_limit
-+ *
-+ * The amdgpu driver provides a sysfs API for retrieving maximum node power limit.
-+ * The file max_node_power_limit is used for this.
-+ */
-+static ssize_t amdgpu_show_max_node_power_limit(struct device *dev,
-+						struct device_attribute *attr, char *buf)
-+{
-+	struct drm_device *ddev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = drm_to_adev(ddev);
-+	u32 max_nplimit;
-+	int r;
-+
-+	/* get the max node power limit */
-+	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MAXNODEPOWERLIMIT,
-+					 (void *)&max_nplimit);
-+	if (r)
-+		return r;
-+
-+	return sysfs_emit(buf, "%u\n", max_nplimit);
-+}
-+
- static DEVICE_ATTR(baseboard_temp, 0444, amdgpu_get_baseboard_temp_metrics, NULL);
- static DEVICE_ATTR(gpuboard_temp, 0444, amdgpu_get_gpuboard_temp_metrics, NULL);
-+static DEVICE_ATTR(cur_node_power_limit, 0444, amdgpu_show_cur_node_power_limit, NULL);
-+static DEVICE_ATTR(node_power, 0444, amdgpu_show_node_power, NULL);
-+static DEVICE_ATTR(global_ppt_resid, 0444, amdgpu_show_global_ppt_resid, NULL);
-+static DEVICE_ATTR(max_node_power_limit, 0444, amdgpu_show_max_node_power_limit, NULL);
-+static DEVICE_ATTR(npm_status, 0444, amdgpu_show_npm_status, NULL);
- 
- static struct attribute *board_attrs[] = {
- 	&dev_attr_baseboard_temp.attr,
-@@ -4534,6 +4665,7 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
- {
- 	enum amdgpu_sriov_vf_mode mode;
- 	uint32_t mask = 0;
-+	uint32_t tmp;
- 	int ret;
- 
- 	if (adev->pm.sysfs_initialized)
-@@ -4600,6 +4732,21 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
- 					    &amdgpu_board_attr_group);
- 		if (ret)
- 			goto err_out0;
-+		if (amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_MAXNODEPOWERLIMIT,
-+						 (void *)&tmp) != -EOPNOTSUPP) {
-+			sysfs_add_file_to_group(&adev->dev->kobj,
-+						&dev_attr_cur_node_power_limit.attr,
-+						amdgpu_board_attr_group.name);
-+			sysfs_add_file_to_group(&adev->dev->kobj, &dev_attr_node_power.attr,
-+						amdgpu_board_attr_group.name);
-+			sysfs_add_file_to_group(&adev->dev->kobj, &dev_attr_global_ppt_resid.attr,
-+						amdgpu_board_attr_group.name);
-+			sysfs_add_file_to_group(&adev->dev->kobj,
-+						&dev_attr_max_node_power_limit.attr,
-+						amdgpu_board_attr_group.name);
-+			sysfs_add_file_to_group(&adev->dev->kobj, &dev_attr_npm_status.attr,
-+						amdgpu_board_attr_group.name);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index f749acc7d48e..03b6a9969174 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -356,8 +356,11 @@ static void smu_v13_0_12_init_caps(struct smu_context *smu)
+ 	if (fw_ver >= 0x04560700) {
+ 		if (!amdgpu_sriov_vf(smu->adev))
+ 			smu_v13_0_6_cap_set(smu, SMU_CAP(TEMP_METRICS));
+-		else if (fw_ver >= 0x04560900)
++		if (fw_ver >= 0x04560900) {
+ 			smu_v13_0_6_cap_set(smu, SMU_CAP(TEMP_METRICS));
++			if (smu->adev->gmc.xgmi.physical_node_id == 0)
++				smu_v13_0_6_cap_set(smu, SMU_CAP(NPM_METRICS));
 +		}
+ 	} else {
+ 		smu_v13_0_12_tables_fini(smu);
  	}
- 
- 	adev->pm.sysfs_initialized = true;
 -- 
 2.46.0
 
