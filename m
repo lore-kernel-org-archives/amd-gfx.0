@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 444CCCAC59A
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 14:07:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C15D7CAC59A
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 14:10:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA43D10E844;
-	Wed, 17 Sep 2025 14:07:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5417410E1CA;
+	Wed, 17 Sep 2025 14:10:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MwPjWFM9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EsEIZDm1";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DED010E844
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 14:07:24 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-24602f6d8b6so11849685ad.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 07:07:24 -0700 (PDT)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFEF310E1CA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 14:10:17 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-269640c2d4bso654865ad.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 07:10:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758118044; x=1758722844; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758118217; x=1758723017; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IprkCY42ZU+tUVdOEl1u+74oX6sQlsHo8PN49MQrJiw=;
- b=MwPjWFM9kDqq9FbyVjKOA1So3XVXjqPPJyLmtVA+IYyX0uX6187JIKMwj4Kb9Elatf
- fTTK+Re+DalCzfC4GefsLgmvfmdvrlNTHYSsrX2nGgTB312B40ouNq/c1gTcup3rKJ9R
- USvhVgGnw3799HYPlBb88tTnl8B9K8Kj0SMoSV7OopCJKPLhjNmEIHsPk4DA06IG+gwe
- 1HGoWYuf24Iesa7B2qKMqy17OBLD87g36g2FtwQk8HFqQe8y7QrS6Fiw7Pjq/2XvUUsc
- 1NqX6lO+H+M0lYE2v3T6Iqf8wm6gYNpDKeeJlnxv3HySsq7JXNbSdQRcmxLWVTQh1qBh
- RedA==
+ bh=2bBDlUzZ8rqtJwLPuYCXBqAv8Fg2j/j3T65P0xiE2gs=;
+ b=EsEIZDm1iOTIUjTEZBDuAiUJA3inD9Bucqf6k0xWg9vBxVX9L1pE/8vNeWLgU4WcWE
+ NMvFSad5oTHVRHZ33K31N+1fWAFizu46rvPLcvDUFLw9FftjjuDqLHkU9P38VrN99kTs
+ sgESbyU7/GNT3Z9bQgD9cjBh9h/W+enVga7Lm55QC0r+cQQ9yMzuXMArK/j70TC4bd8Y
+ 5dFeTIy/JHNGVHZQOaWwFfeocj+HwipCsxf8EIc2tb9kEJXi+5EMaGPythSUKlx82xfr
+ ak25vhZ7ZBBUFauvA7EHXyZV6w0vqtQnCxmZZ3Y2N9XeB9wnPCTG4537iwXVcpL8aukT
+ 2cpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758118044; x=1758722844;
+ d=1e100.net; s=20230601; t=1758118217; x=1758723017;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IprkCY42ZU+tUVdOEl1u+74oX6sQlsHo8PN49MQrJiw=;
- b=J1OR//MOBp3vME1YNBwPnJzR1K/v9ld97D+FYnx8FfwfdokSwKAwZhu2vSN8I5U1TS
- 9wyPjU1sq3jWjViAMdAf9gKP6g9aCfdw4b4HH9xnXtb4r5yfqVVss3Ye6bnzZ/NLaZFF
- FsjZrOYjQgbsZojWfhG1HHLE3URQMWsIyacew3W6vHM2YhPYDsjMzPbZ8Wrc687by++P
- nn720VqF58r1nKgWTmF9xlDk8D7Jx/0ymQlh9iTz1pKb7RFS/+taEGLpdWpEFPv3DJPY
- 8dZtO+E5PuLWT2W/IUdFiTkeh0o9ICzp9nxYVeS4OxWizOlxSn5bysZZhFCizam3nU02
- 66Ig==
-X-Gm-Message-State: AOJu0YxSUlkZt19G2tNs+qRFkiuf/NFk3qVAxqanMLSBMlMAPVZ9BS0f
- Yfcj8EHsrHIYi/ZpWwziu5ECmODH0CL8jKn0T5aO5b9yn2AcRCGN6DRtc7huzJZS13NdaPT85/W
- UcGU0C3D+FT+nD6rBiR0rfwA5ERRthjw=
-X-Gm-Gg: ASbGnct8MaypNFcheKTohGcORTBszTnqCBGRZfM43C3YMQTxTGloA/m597PgqZbXrpR
- PSilpn9YZWdhsufJKCFE3V4B2l31A3uW3SVt3a3oFk9AlqxNzZZa6UNydIO3bbcvg0Uck05AsUx
- htLsQY84RbF5sfk21n/1GQCjHbaas+q85mVmcQCr8olnBf+HXj5EFiHoQcFMDuogMTW3qhdwA4a
- 0HA/iSU
-X-Google-Smtp-Source: AGHT+IEsOuxHNbkKpe+lBQL//8y6nGhXZ8/0l41bfyjB69LQd4WoQMge8XJapL+EsP1ldONFDxFYcbhvRZlO+/ZgAb4=
-X-Received: by 2002:a17:902:e752:b0:267:731c:42cb with SMTP id
- d9443c01a7336-268118b9400mr17564735ad.2.1758118043595; Wed, 17 Sep 2025
- 07:07:23 -0700 (PDT)
+ bh=2bBDlUzZ8rqtJwLPuYCXBqAv8Fg2j/j3T65P0xiE2gs=;
+ b=reNJQNuvDOswBpTA4wqGi/N9tB7niO2MKlKt9Qod6VkJ528Tn2AunPEAsL+dl8It4x
+ nO6zNnQaCm7JcBggbnC4/dWXgVO9J+RCDvSjzz6BbZO+2T4bwy7KU377B+l64r7RmXd2
+ dhlw4hTjk8INa4AZzIhVSIg9W/c7HyVP6bayFQ37LnUGo/b89FF41w/bHWSof41ho9Oz
+ sz3+YqFpyRbpI6Sj/CjsXGn/q9c8/IPiE66+kioTWUY/SPRk4d0zB2/UREdY1WVzMUSJ
+ 7nHT2FWPoYiBUYT1QFUBcImjbmSDenHjuT2XCOxytS5eBAW93lrYHCo9UfoUt+DCIbSX
+ UHxg==
+X-Gm-Message-State: AOJu0YzYFKeN0cEYmg6iw67LPD9ohQjmNBzslSKk54VZ2Av5O2el9Hjo
+ gvP7Rz8iWjiXd3DFa87pr8VIiFp1SejNq5IBQpUS+dSlYaFdOejKIxJmr4r17WtMoaem5XKwHeF
+ D6xPI+M03wfkMd3iKZH36Y0rwHuWO7lk=
+X-Gm-Gg: ASbGnct1+P8OFi8Ret5sWy3NxC0rtYTPT1t9H9Kth3/J21f2J2Eam7SvEayBrKJhsLm
+ kKpANfA6xQHKiKe3dEaplnZqPJOlAliTTF9arztKSpE6f0EyV/GpU0zjllxEQ6JATA4dP9U19/O
+ liB4AgjRiRlV5wTyiZEdpGqph9lfqh09PaRDMyoujqwIqkEdvJ/hQZqibRlidPYLNATSa4C29oN
+ DJtiSIP
+X-Google-Smtp-Source: AGHT+IF32L1J6xZ8ANfxo8ghZQ/mp76ZM1mmTpgnx5i9zVVYIaPzzlDqppHB9aJPWUZ8EOceED2k5kIkdnSqbhO2yCc=
+X-Received: by 2002:a17:903:5d0:b0:24c:b36d:637 with SMTP id
+ d9443c01a7336-26811ba4d0cmr11966105ad.1.1758118217094; Wed, 17 Sep 2025
+ 07:10:17 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250912055518.2719533-1-Prike.Liang@amd.com>
- <20250912055518.2719533-8-Prike.Liang@amd.com>
-In-Reply-To: <20250912055518.2719533-8-Prike.Liang@amd.com>
+ <20250912055518.2719533-9-Prike.Liang@amd.com>
+In-Reply-To: <20250912055518.2719533-9-Prike.Liang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 17 Sep 2025 10:07:11 -0400
-X-Gm-Features: AS18NWDOxbVF2RmsCfm4Pu5ZZz_KKp-YWCgFiYPaO9Ca5-hHrw8xBUxOy7_5NGs
-Message-ID: <CADnq5_Pi6RsZHPtbKBToO9+FZ6pWMDRrWZo4mW2zLpyRtTP7uw@mail.gmail.com>
-Subject: Re: [PATCH v2 8/9] drm/amdgpu: validate the queue va for resuming the
- queue
+Date: Wed, 17 Sep 2025 10:10:05 -0400
+X-Gm-Features: AS18NWBVjjXJullSTrwaKittR_r62bWmAxBCF-G_Pq-YEqJMCYkC3mxQ4AYnBOs
+Message-ID: <CADnq5_O8AA=LvBwv518uwbW=YHBAuedg+WsoQodLwinTdL+hMg@mail.gmail.com>
+Subject: Re: [PATCH v2 9/9] drm/amdgpu: validate userq va for GEM unmap
 To: Prike Liang <Prike.Liang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian.Koenig@amd.com
@@ -86,81 +85,126 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Fri, Sep 12, 2025 at 2:04=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
 rote:
 >
-> It requires validating the userq VA whether is mapped before
-> trying to resume the queue.
+> When an user unmaps a userq VA, the driver must ensure
+> the queue has no in-flight jobs. If there is pending work,
+> the kernel should wait for the attached eviction (bookkeeping)
+> fence to signal before deleting the mapping.
 >
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 24 +++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  1 +
->  2 files changed, 25 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 29 +++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  3 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 11 +++++++++
+>  3 files changed, 43 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
 amd/amdgpu/amdgpu_userq.c
-> index 957b26ca2eb7..a13f186f0a8a 100644
+> index a13f186f0a8a..e14dcdcfe36e 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -115,6 +115,23 @@ bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm =
-*vm, u64 addr)
->         return r;
+> @@ -1182,3 +1182,32 @@ int amdgpu_userq_start_sched_for_enforce_isolation=
+(struct amdgpu_device *adev,
+>         mutex_unlock(&adev->userq_mutex);
+>         return ret;
 >  }
->
-> +bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)
-> +{
-> +       struct amdgpu_userq_va_cursor *va_cursor, *tmp;
-> +       int r;
 > +
-> +       list_for_each_entry_safe(va_cursor, tmp, &queue->userq_va_list, l=
-ist) {
-> +               r +=3D amdgpu_userq_buffer_va_mapped(queue->vm, va_cursor=
-->gpu_addr);
-> +               dev_dbg(queue->userq_mgr->adev->dev, "validate the userq =
-mapping: %p va:%llx r:%d\n",
-> +                       queue, va_cursor->gpu_addr, r);
+> +int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
+> +                                      struct amdgpu_bo_va_mapping *mappi=
+ng,
+> +                                      uint64_t saddr)
+> +{
+> +       u32 ip_mask =3D amdgpu_userq_get_supported_ip_mask(adev);
+> +       struct amdgpu_bo_va *bo_va =3D mapping->bo_va;
+> +       struct dma_resv *resv =3D bo_va->base.bo->tbo.base.resv;
+> +       int ret;
+> +
+> +       if (!ip_mask)
+> +               return 0;
+> +
+> +       dev_warn(adev->dev, "now unmapping a vital queue va:%llx\n", sadd=
+r);
+
+dev_warn_once() so we don't spam the logs.
+
+> +       /**
+> +        * The userq VA mapping reservation should include the eviction f=
+ence, if the eviction fence
+> +        * can't signal successfully during unmapping, then driver will w=
+arn to flag this improper unmap
+> +        * of the userq VA.
+> +        * Note: The eviction fence may be attached to different BOs, and=
+ this unmap is only for one kind
+> +        * of userq VAs, so at this point suppose the eviction fence is a=
+lways unsignaled.
+> +        */
+> +       if (!dma_resv_test_signaled(resv, DMA_RESV_USAGE_BOOKKEEP)) {
+> +               ret =3D dma_resv_wait_timeout(resv, DMA_RESV_USAGE_BOOKKE=
+EP, true, MAX_SCHEDULE_TIMEOUT);
+> +               if (ret <=3D 0)
+> +                       return -EBUSY;
 > +       }
 > +
-> +       if (r !=3D 0)
-> +               return true;
-> +
-> +       return false;
+> +       return 0;
 > +}
-> +
->  int amdgpu_userq_buffer_va_put(struct amdgpu_vm *vm,
->                                u64 addr)
->  {
-> @@ -772,6 +789,13 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq=
-_mgr)
->
->         /* Resume all the queues for this process */
->         idr_for_each_entry(&uq_mgr->userq_idr, queue, queue_id) {
-> +
-> +               if (!amdgpu_userq_buffer_vas_mapped(queue)) {
-> +                       drm_file_err(uq_mgr->file, "trying restore queue =
-without va mappping\n");
-> +                       queue->state =3D AMDGPU_USERQ_STATE_INVALID_VA;
-> +                       continue;
-> +               }
-> +
->                 r =3D amdgpu_userq_map_helper(uq_mgr, queue);
->                 if (r)
->                         ret =3D r;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
 amd/amdgpu/amdgpu_userq.h
-> index b71fff65a896..8cd307be7256 100644
+> index 8cd307be7256..c9a41876f10e 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -156,4 +156,5 @@ bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *=
-vm, u64 addr);
->  int amdgpu_userq_buffer_va_put(struct amdgpu_vm *vm, u64 addr);
+> @@ -157,4 +157,7 @@ int amdgpu_userq_buffer_va_put(struct amdgpu_vm *vm, =
+u64 addr);
 >  int amdgpu_userq_buffer_vas_put(struct amdgpu_device *adev,
 >                                 struct amdgpu_usermode_queue *queue);
-> +bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)=
+>  bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)=
 ;
+> +int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
+> +                                      struct amdgpu_bo_va_mapping *mappi=
+ng,
+> +                                      uint64_t saddr);
 >  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index bd12d8ff15a4..ccde1f040cef 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1941,6 +1941,7 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+>         struct amdgpu_bo_va_mapping *mapping;
+>         struct amdgpu_vm *vm =3D bo_va->base.vm;
+>         bool valid =3D true;
+> +       int r;
+>
+>         saddr /=3D AMDGPU_GPU_PAGE_SIZE;
+>
+> @@ -1961,6 +1962,16 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+>                         return -ENOENT;
+>         }
+>
+> +       /* It's unlikely to happen that the mapping userq hasn't been idl=
+ed
+> +        * during user requests GEM unmap IOCTL except for forcing the un=
+map
+> +        * from user space.
+> +        */
+> +       if (unlikely(atomic_read(&bo_va->userq_va_mapped) > 0)) {
+> +               r =3D amdgpu_userq_gem_va_unmap_validate(adev, mapping, s=
+addr);
+> +               if (unlikely(r =3D=3D -EBUSY))
+> +                       dev_warn(adev->dev, "Here should be an improper u=
+nmap request from user space\n");
+
+dev_warn_once().
+
+This looks good to me, but it would be good to get Christian's input as wel=
+l.
+
+Alex
+
+> +       }
+> +
+>         list_del(&mapping->list);
+>         amdgpu_vm_it_remove(mapping, &vm->va);
+>         mapping->bo_va =3D NULL;
 > --
 > 2.34.1
 >
