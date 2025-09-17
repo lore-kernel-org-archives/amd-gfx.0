@@ -4,119 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0D08CA0EE8
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 10:00:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF44CCAC598
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 10:15:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A55510E189;
-	Wed, 17 Sep 2025 10:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9577610E193;
+	Wed, 17 Sep 2025 10:15:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E1XHOzCy";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="jf7pBlsj";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011016.outbound.protection.outlook.com [52.101.57.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50B3210E189
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 10:00:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qlQMMrTCWiDtHbmqw4lBLaRjh6p12aHJMXweTArzHLFulL+8O+JQaJO9mUS50YJqqFAiIFalYhbGm979vl6JW/fWm+lvm5B3KFmpfSip9LHsG0Pn4cwpYXEek6B6UMYRTd+pl1RxrlC9lIDiuiRBUQPgYjTiDTiQ7elhjvb2WT+RFfW1jyBJ3hJ9tu4tdNkl++RmZIG5whyb+SQQLYWtstrVL6n9iOJU+V/iWfJmrwohDKuJJ6HjwGhaJiAVzYYq15n61duuyjwV3XPsQaZEkRAmX/n23g+T3UK/fl25oj9u7G8lAuIoPhN94I8sRgb/Yd/TSDrtP67CbPipzXbtcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ahuaz0HKGMn7gHCrNk4whD4X7I9PhemMjPBNmkRhTuA=;
- b=OkMzCr9C8C8EO8g+Fvh1zro7qza7aWlmWjPLo3iy/PdZrByhVT0xZd4ovuGg02pcN6AxwZjQ0y8VFS9pSMCl6xuHXyVi2Tv2TvvYrLNRuDcfjQsGTlChfds55AzpsYlMrRMW4ITRg2621DEKo+vx1QP35RcXydj4c6KoNhFqBHjfNlRsyfstX8rosugfp5jgQyD7eHtqjqrWeCHzT2VkmmqcYonu+HjypTO6s94nQUl3XMB2VsMS8Qe3BIYHZbH+GOX7CiBulXZ3i4CQeONu0N0USwsOCYXVW6hxMgUYWxHFbuq+N3W0PWiCPDGWgrHd/YJLfmKZJCtK1blbI+GewA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ahuaz0HKGMn7gHCrNk4whD4X7I9PhemMjPBNmkRhTuA=;
- b=E1XHOzCyNlTbfFZKMtQJ5KYRTzSdXZKizYVWEsAIDkf7pGYVJUa7RVzFFjiNq25lISfNX2uKnLVEnkPvuBoLNhz/Lhi1yUCVoO6FagR+8kRBGsCod07v5qd/QjsCmhj52DXT0YS2To+0g21RN9XAdPPr1o4XUDhjdK1ykV2a/N0=
-Received: from SN7P220CA0028.NAMP220.PROD.OUTLOOK.COM (2603:10b6:806:123::33)
- by CH3PR12MB9079.namprd12.prod.outlook.com (2603:10b6:610:1a1::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.23; Wed, 17 Sep
- 2025 10:00:26 +0000
-Received: from SA2PEPF00003AE6.namprd02.prod.outlook.com
- (2603:10b6:806:123:cafe::bb) by SN7P220CA0028.outlook.office365.com
- (2603:10b6:806:123::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.14 via Frontend Transport; Wed,
- 17 Sep 2025 10:00:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003AE6.mail.protection.outlook.com (10.167.248.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Wed, 17 Sep 2025 10:00:26 +0000
-Received: from work.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 17 Sep
- 2025 03:00:25 -0700
-From: David Rosca <david.rosca@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: David Rosca <david.rosca@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix pipelining jobs with timeline syncobj
- dependencies
-Date: Wed, 17 Sep 2025 11:59:40 +0200
-Message-ID: <20250917095939.41615-2-david.rosca@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DAAF10E193
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 10:15:47 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-45de56a042dso44154515e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 03:15:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1758104146; x=1758708946;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Ycun2+PT43f5yBkFLM2ehojSIpMd2qyDNqzxkeYW2iM=;
+ b=jf7pBlsjqSCfagbuWyRxo0vDUZUFwP2ZTh7G0zbDUil0s/hDlsDbiD1q3J9+9fvAT4
+ ydEf/T6AYTNjKpPJc3WhI77Zq+iWng5/B0vqmoLprje5dTNEVzfUp2uHb85DKLoRwZjA
+ Xq+hSLcXoXTjAX/3AjtLV2IlsFpiiIAkM5YV2YyAvDsDopyLwQ9D/JibH/OKpiwZwMWg
+ g+cADqlhVM4MNtFaM2nMPhh4iTD+41hldNDLzWs87JKVsOuJjmBaIT/OAM2DtN/xokOe
+ Mx0ZaEmdhqwdUeV6TxqRV5oEIS4UqmGZj5EbgtYE3y9Y9K9Wl0qBEte2Mcwst5lyjadv
+ 5mPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758104146; x=1758708946;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ycun2+PT43f5yBkFLM2ehojSIpMd2qyDNqzxkeYW2iM=;
+ b=BV6JjTfYG6a/rozdxIRUow1+ra9VMKfCJ6aCyWGrBiwDsZwCieQ0Ir8RYqs2qFmIrq
+ cnQnncogd1NrkMU6kDXRx6xn8r2PM1QXULQRPok+P1Yq9qCx2VruCuFjBzrVW53Sbgrq
+ ObmgDXtq5BJ5k37slznfZ8esd7ImR+5ZFRkqFZG7XAsrP1OfRivHza66AcZmPEz2LaaV
+ r8gPYctGrRp3GNvrRCbzQf9IRY+Qa3oLhp8UZgxea/qIhx/7VFzVS9QgagcFUeP2nKum
+ M/CNg6rx1a8ib8qB2igFk7un9SKttwno5a68+9LZZAKLG3zBhbrJJKLLvRSHbqqvS9F2
+ 77PA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXh8r2nzuQwgsPvfi9wlDwLH5Fty5F//Y7aEiuP5VKZj/lbAbvQIvQkIBqY4gh8oy+d7YGfPz+B@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvbqGWP2PNorrGari6qEeiDoE1BBOiSw0nA/JUdITkgZiQryGu
+ P/35KdsfeLAZi1ZPUV9lvRyogzOJghr96Ch+/sBK9bVcAg49yNqY10xWK+1L0kVLY0U=
+X-Gm-Gg: ASbGncu8iOsxajzz4UDPgOH/cMeJU1Z3Fibk74p3WGJdwS4512/W5ejes9K2wi0hxny
+ Hha/ne9+/8FB3/Ed2GAJA/Y/t12KlZ9wBj61vS0yOlNOh/Z8cXk/BT0bhNgOu3N7f0T5p87XJA3
+ Z/i/K+PukphXtlZ1nC6R2Tvk61VhZCYJB1Jseq7lsefNysIJMM01Vw/8e3W+5JprAOwWWzlCxrg
+ UAwmEjFY5mTBp1n0jZUVN44GQqk1hK5PnxUcZe7+FSBSRcqvlq7C3yrYkO4YCaj9k2RQBYLc16O
+ uaHrCQyNSkbuTR+w6tfvmjoyni1bhSschOqTtIOmaqhdAh0qFT8fcRAdRB8YYTinyou5ZU9+9eE
+ Rxkbvj+lQP2fEihT/UOdoXcVAPlKn0/w2HsQ=
+X-Google-Smtp-Source: AGHT+IHp3WWrcX0IUyyQ7aYBSim6FWhJWx4hcjoRqleeSmiOqiCrhVpxm6pl41cLDZY4u6uFkF080A==
+X-Received: by 2002:a05:600c:4507:b0:45f:29ed:2cff with SMTP id
+ 5b1f17b1804b1-46206f04fabmr10769775e9.35.1758104145635; 
+ Wed, 17 Sep 2025 03:15:45 -0700 (PDT)
+Received: from [192.168.0.101] ([84.66.36.92])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-460942b6c3csm24383255e9.1.2025.09.17.03.15.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Sep 2025 03:15:45 -0700 (PDT)
+Message-ID: <c1f6d69f-7f71-4d6d-b475-fe22f5316ca3@ursulin.net>
+Date: Wed, 17 Sep 2025 11:15:44 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE6:EE_|CH3PR12MB9079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c6d7105-7cc7-4308-228b-08ddf5d106c8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OSqPYceRp8PXAVUjofKASlGf0Jv81x2TU/oJ1DOTlbxqrX2JLMngVIwehJDy?=
- =?us-ascii?Q?/KLM6umL0lNEmO1I9h8b6xREe8zpyRcIv4/tKZkFAnHX9+IUMKQinW4hysNv?=
- =?us-ascii?Q?9tkEFxplaZsuInl/1DJtSd4NNhbWaSrHe1uJrmoAnBIj5hKYn5iB31YkGDhD?=
- =?us-ascii?Q?OFZ4Vbz8Fwl4JHYS1SlrFGO57B1uNApWfxY2bLuomPsLaJcBpouX7dLqAmSH?=
- =?us-ascii?Q?zLiSsXGSv0Dm4BvtLibQoZ1UBMVv7ivIUirVBmb2j+HAnTyXeRLWJLkuSjJo?=
- =?us-ascii?Q?stzcdjg6tQu6OglnROXd6YSDvaAPmz52UcpPC/3hYJZCKSTaozMIGbCoU4m9?=
- =?us-ascii?Q?L03c/dDwEEPbT8hvsSzj6x26zxykTVu/+EzseR/izcSbnFKg8dChtHNcKiaD?=
- =?us-ascii?Q?ZYh9opyki7gQOe7h8yrXSYXNeCljp57F59CWg3yb2sNhFQ3y+n72TcnrIq0v?=
- =?us-ascii?Q?cKDpsRAkR7O4iJQKMouulhdCfyPJJBLCTIUQZTBrdOU7Zkir1BzbKpgAQ0Mn?=
- =?us-ascii?Q?4wekI8K/87EkCkMeb1014MBb1t+jtqBTPq2mtem7Nofur1uhfMu2HRy6Wc5a?=
- =?us-ascii?Q?sziq0cecBXa4cvsjB0033JPFTrSKS0nKITJ6OsceLmtp1f1aW16H+k/syrcV?=
- =?us-ascii?Q?SVsuV8dgVaR0p96xNHCRbn+tI5cFdEnRNK4uLt/L+RkbSCg8G3PJrSCVUhyt?=
- =?us-ascii?Q?c0/sH1xFxoFMPSv5iLEyTufE80tLltC329mu8oqjV8ZD/PnmTp939BtPREi4?=
- =?us-ascii?Q?jVAm5iU4Y50Eh6SWo5gt7T+uE38BYW3wqx8SVkKeEGntj/UtuItFCmcgeFHH?=
- =?us-ascii?Q?b6+/rafkZqi5hk5dPDSHiXCq7KiB24rI+Mj1jPaI+Tddivk9DT/ztjWgEQ6J?=
- =?us-ascii?Q?3hkUZTri6qJKqPg0Kv4v7w7JwLPDgkvsVvnnOmK/nDp0aM/1rOUPjTMKh4IS?=
- =?us-ascii?Q?SX4RK3Lrcv+vvBNJg+LHpBlfgeYE0FuLbTtS9nOMbFlFj7Z4yvvzHOZk2SqG?=
- =?us-ascii?Q?x+mSaQ92oHme3Dy3GS1lMsLrhE/Qyj9/82s341aqMboNxpbu01x1T8Nl0XtN?=
- =?us-ascii?Q?vWoEVgGbHGvObZ5M2ph9mJymPMebSGzzK614v8C5T/nwKFktQpwWR2Kk5qpO?=
- =?us-ascii?Q?z2QJIGCxZcl0LWWdFIQHz76/0DfRDuDmhJLyWRra1oLW5xKSNI0n8cVQqnRH?=
- =?us-ascii?Q?b0xbeoBWHxec/n3IGryjxyvVwjcgKc2zYrhw0s8qvJM/4qU1/bVJcW/g+AYB?=
- =?us-ascii?Q?HxpY7VwH96wF2Tco0Rnghj0cWNn97F0lWLyqvxuqAyuCX9xJQ4JgwtRnMIFU?=
- =?us-ascii?Q?BI8VYm/o5s/3BXr0eqLTRSAo9gOYaeRy9rPU1IfbFPMGEQA1YrOoj5We6XBN?=
- =?us-ascii?Q?sis7LSIQOmPvSn2UFE9mEkwvFANJmZ9M5GBI/ErF+uatpPwJ9iaZiStYTGfC?=
- =?us-ascii?Q?NKabFvnpGF+CqN8TmalQlxVAnUJTRB59GGwzULmzA8uBoOTyJgcmBfXxx6uB?=
- =?us-ascii?Q?z220aFWLBjwi3VX4GBEINwb9DPXcYE38oRVA?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2025 10:00:26.6542 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c6d7105-7cc7-4308-228b-08ddf5d106c8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9079
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Fix pipelining jobs with timeline syncobj
+ dependencies
+To: David Rosca <david.rosca@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250917095939.41615-2-david.rosca@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20250917095939.41615-2-david.rosca@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,53 +90,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_syncobj_find_fence returns fence chain for timeline syncobjs.
-Scheduler expects normal fences as job dependencies to be able to
-determine whether the fences come from the same entity or sched
-and skip waiting on them.
-With fence chain as job dependency, the fence will always be
-waited on forcing CPU round-trip before starting the job.
 
-Signed-off-by: David Rosca <david.rosca@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Hi,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 2e93d570153c..779c11227a53 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -29,6 +29,7 @@
- #include <linux/pagemap.h>
- #include <linux/sync_file.h>
- #include <linux/dma-buf.h>
-+#include <linux/dma-fence-unwrap.h>
- 
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_syncobj.h>
-@@ -450,7 +451,8 @@ static int amdgpu_syncobj_lookup_and_add(struct amdgpu_cs_parser *p,
- 					 uint32_t handle, u64 point,
- 					 u64 flags)
- {
--	struct dma_fence *fence;
-+	struct dma_fence *fence, *f;
-+	struct dma_fence_unwrap iter;
- 	int r;
- 
- 	r = drm_syncobj_find_fence(p->filp, handle, point, flags, &fence);
-@@ -460,7 +462,11 @@ static int amdgpu_syncobj_lookup_and_add(struct amdgpu_cs_parser *p,
- 		return r;
- 	}
- 
--	r = amdgpu_sync_fence(&p->sync, fence, GFP_KERNEL);
-+	dma_fence_unwrap_for_each(f, &iter, fence) {
-+		if (!r)
-+			r = amdgpu_sync_fence(&p->sync, f, GFP_KERNEL);
-+	}
-+
- 	dma_fence_put(fence);
- 	return r;
- }
--- 
-2.43.0
+On 17/09/2025 10:59, David Rosca wrote:
+> drm_syncobj_find_fence returns fence chain for timeline syncobjs.
+> Scheduler expects normal fences as job dependencies to be able to
+> determine whether the fences come from the same entity or sched
+> and skip waiting on them.
+> With fence chain as job dependency, the fence will always be
+> waited on forcing CPU round-trip before starting the job.
+
+Interesting! I was sending patches to fix this differently last year or 
+so, by making the scheduler use dma_fence_array for tracking 
+dependencies and relying on dma_fence_unwrap_merge to unwrap, coalesce 
+contexts and only keep the latest fence for each. But I did not have a 
+good story to show for which use cases it helped. So I am curious if you 
+could share which scenario you found gets an improvement from your patch?
+
+Regards,
+
+Tvrtko
+
+> Signed-off-by: David Rosca <david.rosca@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 2e93d570153c..779c11227a53 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -29,6 +29,7 @@
+>   #include <linux/pagemap.h>
+>   #include <linux/sync_file.h>
+>   #include <linux/dma-buf.h>
+> +#include <linux/dma-fence-unwrap.h>
+>   
+>   #include <drm/amdgpu_drm.h>
+>   #include <drm/drm_syncobj.h>
+> @@ -450,7 +451,8 @@ static int amdgpu_syncobj_lookup_and_add(struct amdgpu_cs_parser *p,
+>   					 uint32_t handle, u64 point,
+>   					 u64 flags)
+>   {
+> -	struct dma_fence *fence;
+> +	struct dma_fence *fence, *f;
+> +	struct dma_fence_unwrap iter;
+>   	int r;
+>   
+>   	r = drm_syncobj_find_fence(p->filp, handle, point, flags, &fence);
+> @@ -460,7 +462,11 @@ static int amdgpu_syncobj_lookup_and_add(struct amdgpu_cs_parser *p,
+>   		return r;
+>   	}
+>   
+> -	r = amdgpu_sync_fence(&p->sync, fence, GFP_KERNEL);
+> +	dma_fence_unwrap_for_each(f, &iter, fence) {
+> +		if (!r)
+> +			r = amdgpu_sync_fence(&p->sync, f, GFP_KERNEL);
+> +	}
+> +
+>   	dma_fence_put(fence);
+>   	return r;
+>   }
 
