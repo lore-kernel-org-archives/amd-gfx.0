@@ -4,46 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 926EDCAC5A0
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 14:55:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79849CAC59A
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 16:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12B8010E88F;
-	Wed, 17 Sep 2025 14:55:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2DB10E54A;
+	Wed, 17 Sep 2025 16:42:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H6ef2BQo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XlxMJdkg";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E5FD10E888
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 14:55:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=cCNRHuT/6Zbdjo7ZLYmryTB8Ec7b3k1AiEQLTYoZa80=; b=H6ef2BQolQiBXbvkol7MwdNDeG
- mI1HC3d9AqHInL78FXGSNQKdOCDcKnGtdLEA1s98uelxPbM0VzEnMs8+9DecbPCNUDPyNGhIoMvCk
- 5KL8LXa6T8Y7llinWwmw2VocbMiofI5sdMg/xuOWRkKBsjepuya/1I8dzCpKQ4XnITjLRqSeBHFqY
- iE6vh/OMYnOEl7LWG3F3TBtB5a6UwZjlgM8R8dSswduPZXWR78AZMDkZ6SKtgcx9jXtmiyLxAiawf
- DaIKkDg0AvNXfeNxUFwXOJlGm7UYh/WSxF9LwkZtY/F4DPqI+cXuooYqBm2pacWryJhUUEs6o30zO
- XvZimRxw==;
-Received: from [84.66.36.92] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uytYi-00Ckfg-La; Wed, 17 Sep 2025 16:55:00 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 6/6] drm/amd/pm: Use common helper for parsing sysfs writes
-Date: Wed, 17 Sep 2025 15:54:49 +0100
-Message-ID: <20250917145450.3000-7-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250917145450.3000-1-tvrtko.ursulin@igalia.com>
-References: <20250917145450.3000-1-tvrtko.ursulin@igalia.com>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011006.outbound.protection.outlook.com [52.101.52.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 839A010E54A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 16:42:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tLpM+Q7bb/VyCDr5jdYUCVGZmFRcdFnugw2w6z743Hvdyt6HH37GPUYHRlry2PkpGqUWIYl92Cq5g7ctdHs8qNPqh91LywJRwpjzOQmDrelfvUOiasyeB9DyBqSjFIVtPCqE5nHG+iHUIGw3X/uFSkrYOetPTJyCmnSiB9aifpXoUwTpEgyoATCNXIivZQEvD1TqGuTqnsyU5FJ6vAedavtkwweYpXh5uZz+JzL6igtuK84w7vP04+GmP1wjVZXwmDlJS8jmIhiNmno2Xo2OLgYYZUgmq4yj7zzzafkFJC6WVcLMgSGZHBLKkUWrBDqgFWAHE+GJdkcTlZuLBRvy8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GHDdgh+MjSTD2uf3ym426tsE703WhxsIip52yY3JMWE=;
+ b=TkC5ycAarY5g6hH5jvMyZxPdPNTVO6DAvnJ/ZaiHGWyg1a8iBS3Xtw43LD/TqLwIPXyNpkcwAm1lUcv5L/5/1nJqFc8sf2xTrVug/cq2eApR3Bw48V8m1y8v9zXm7k9gEGJe5ml+bjrlnj7svRxFDUS8MK7XeCj7KiJHWEYUp7XCyeoYi2ZPe9S1hlR31s7Ox+g0AFaNjRckj+afjwt04kdz6XKwwuqV1GMZE/8VKHoMm8cGqA7GBv06vQRLg7Iau7SPFM98JB6V5adY1JXxrWYXPOzpkP1FjTrozu7IJf+c571xcFiAmjjwe2EfCKLvJI5SutfsBQIOwsj7infcog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GHDdgh+MjSTD2uf3ym426tsE703WhxsIip52yY3JMWE=;
+ b=XlxMJdkggf1oDvgCeEz1JsNHVhCmqVVZCIVX1Pnw3KRBFPhCp8k0kzf9xnIE8CRURDHrhjpFA9597BY1EHN2GfuNFmi0uWkyFBt4injmlg7Czu6rHWS0dGbZWsZGnvDuxRMxoTClZwvI4RpdZYeGsxU5Vsnw1XlrmttoprBBUU4=
+Received: from CH0PR03CA0423.namprd03.prod.outlook.com (2603:10b6:610:10e::6)
+ by CYYPR12MB8890.namprd12.prod.outlook.com (2603:10b6:930:c7::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 17 Sep
+ 2025 16:42:29 +0000
+Received: from CH1PEPF0000AD7C.namprd04.prod.outlook.com
+ (2603:10b6:610:10e:cafe::30) by CH0PR03CA0423.outlook.office365.com
+ (2603:10b6:610:10e::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.12 via Frontend Transport; Wed,
+ 17 Sep 2025 16:42:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7C.mail.protection.outlook.com (10.167.244.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9137.12 via Frontend Transport; Wed, 17 Sep 2025 16:42:29 +0000
+Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 17 Sep
+ 2025 09:42:26 -0700
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <mario.limonciello@amd.com>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 1/3] drm/amdkfd: add proper handling for S0ix
+Date: Wed, 17 Sep 2025 12:42:09 -0400
+Message-ID: <20250917164211.1761304-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|CYYPR12MB8890:EE_
+X-MS-Office365-Filtering-Correlation-Id: e39f998e-7f8c-4dbb-0b4e-08ddf60930f4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?h6G7Da4GJlCnYCT3DTrqJaljP7HtETbhyLe/kPwr+WXrUzhiLG19Q1IW6twx?=
+ =?us-ascii?Q?fe40agn3X5ULorfn3+ueq6NERfiFkWSeSxh/OSPYEIXnvj74HbfKPK8IqqMe?=
+ =?us-ascii?Q?JXSRMk848nO07HVdJOn6e0o7kppMQseTXJEioH5jSILQ8Kwt0IdNJ1VnMX+0?=
+ =?us-ascii?Q?hiwLpbEXNBUotedi14/PkbanjK9py6r/MQhoZFjuiYFW1kBpAWE6t874rYVU?=
+ =?us-ascii?Q?oMfn309Mo3YgOc3Snfrof2e+FGotgUmwK5hwTYG1PN8HE2+081tIm0GQHtRK?=
+ =?us-ascii?Q?8CN2b90TTa8bXhWOGsYCIThUPQihiJdiKEx1ZwODHvUP+cX5Yhz18HjJInlw?=
+ =?us-ascii?Q?mTE2StQke3XaZ0B3DMz8hLYYtZnHjd/ZCjvwkB+d4x8wxtLguSpwFKDikSaJ?=
+ =?us-ascii?Q?zxjdDL8XPfUk3aX8H5ueofgSyqSWkcTyd2zsLtOSFkte5jbCUGeDm//Sy4Od?=
+ =?us-ascii?Q?N6CZx+i8W7mSYLhLywcrl0eWditUKK8MMkKDWY4El0J8PnBUFYToVJ38eBRh?=
+ =?us-ascii?Q?fQrosCV5Hc1xro0Cic3WD9Y9BjFpZBgAguIbeAVX52hpTBctY8vzO5wZsoIf?=
+ =?us-ascii?Q?SwylL/pHH786TxGHCs9OQPLoSugeROh9eGFNv/xW04BsnMs47ggf6ZG1qrXK?=
+ =?us-ascii?Q?cpuzBg/MlXCE3PDf1dVl7tOv/BlKvqfoZIy2P/8okkacUc2vieUPcAt2erTd?=
+ =?us-ascii?Q?YCSPZsi1xqDhp0/Sr85QU6h57yvFbyryJA+71nyCybVgiRMl67pQ43PfI1tb?=
+ =?us-ascii?Q?7VKrammUmXHtU5RxEAkvBIVQfXIUyoUHRvJjnVsYje6w4o4+vnji72SPWEv7?=
+ =?us-ascii?Q?8j6GoSYAbt6POcVxcDA31eZoHGnBnffbFrAXARWDXSU6LsKZuAfAcReo5aDL?=
+ =?us-ascii?Q?HAiPW+M0o8D1fDLOc8tEi3ij2/nLDFE9s70srMxhzTNVWNqwLFUM7Bz0TevJ?=
+ =?us-ascii?Q?QddHN9QSNKpAbgDyMT1dQv1JrK1SDaTV5y2VdAnShpT6ZIpFVPM5qAKijCl0?=
+ =?us-ascii?Q?Y9fhz9Omisc3D3AjQQ9ZgSs83w00m8dnlW6rw0Wv32zmKUaw7Cogcb+KPuEA?=
+ =?us-ascii?Q?wd6uvd4bZxEotbmhKKdFuvXgT1gWvtwoT5QetrGBimYhBFs94EHCygzFquRO?=
+ =?us-ascii?Q?L1ko+zqyzJ6X28VgR145PwUirS7ZM8zOhqYGHDBTw5BWyDcVj2IRePV7HEOL?=
+ =?us-ascii?Q?a6tQ6hgp6nvapCJlnDZcpnecaz1kO+VmfbujP4VhqS63eENDIw5wYROSDdNl?=
+ =?us-ascii?Q?g6Hwo3+YKozcZZd7gJhuPMQ6PRKRlRglBdPhB25MSISxVStyT/K98ioWFBr8?=
+ =?us-ascii?Q?xBzCKba5rncrcClW+Kr/mcQ6BzsdIQPpVmI9DO/MzO7OeuUeOrdk4TVN9U8L?=
+ =?us-ascii?Q?HxwgHIyH8LssdHpWVVwnwN14mF7Fuy6/xhg9YcDlCEMK6h59ACsdp466FP+5?=
+ =?us-ascii?Q?qnh2acweKKFksEmYiVta5SmdNRVQkrMo7m1r1IFqgdhgf81BagV7ogAVf+Nd?=
+ =?us-ascii?Q?LId4dvWcH0PAMANXChj4Ku2fDEiL6T0B8en4?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2025 16:42:29.2372 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e39f998e-7f8c-4dbb-0b4e-08ddf60930f4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8890
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,386 +130,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the previously added common helper for parsing sysfs writes into
-arrays of longs.
+When in S0i3, the GFX state is retained, so all we need to do
+is stop the runlist so GFX can enter gfxoff.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 236 ++++++++++-------------------
- 1 file changed, 83 insertions(+), 153 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 16 +++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h | 12 ++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 36 ++++++++++++++++++++++
+ 3 files changed, 60 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 4503220c09aa..9154c75fd95a 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -751,16 +751,14 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index fbe7616555c83..a2879d2b7c8ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -250,16 +250,24 @@ void amdgpu_amdkfd_interrupt(struct amdgpu_device *adev,
+ 
+ void amdgpu_amdkfd_suspend(struct amdgpu_device *adev, bool suspend_proc)
  {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	int ret;
--	uint32_t parameter_size = 0;
--	long parameter[64];
--	char buf_cpy[128];
--	char *tmp_str;
--	char *sub_str;
--	const char delimiter[3] = {' ', '\n', '\0'};
-+	unsigned int num_args;
-+	char copy[128];
-+	long args[64];
- 	uint32_t type;
-+	char *tmp;
-+	int ret;
+-	if (adev->kfd.dev)
+-		kgd2kfd_suspend(adev->kfd.dev, suspend_proc);
++	if (adev->kfd.dev) {
++		if (adev->in_s0ix)
++			kgd2kfd_stop_sched_all_nodes(adev->kfd.dev);
++		else
++			kgd2kfd_suspend(adev->kfd.dev, suspend_proc);
++	}
+ }
  
--	if (count > 127 || count == 0)
-+	if (count >= sizeof(copy) || count == 0)
- 		return -EINVAL;
+ int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool resume_proc)
+ {
+ 	int r = 0;
  
- 	if (*buf == 's')
-@@ -780,60 +778,47 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
- 	else
- 		return -EINVAL;
- 
--	memcpy(buf_cpy, buf, count);
--	buf_cpy[count] = 0;
--
--	tmp_str = buf_cpy;
-+	memcpy(copy, buf, count);
-+	copy[count] = 0;
- 
-+	/* Skip command characters. */
-+	tmp = &copy[1];
- 	if ((type == PP_OD_EDIT_VDDC_CURVE) ||
- 	     (type == PP_OD_EDIT_VDDGFX_OFFSET))
--		tmp_str++;
--	while (isspace(*++tmp_str));
-+		tmp++;
- 
--	while ((sub_str = strsep(&tmp_str, delimiter)) != NULL) {
--		if (strlen(sub_str) == 0)
--			continue;
--		ret = kstrtol(sub_str, 0, &parameter[parameter_size]);
--		if (ret)
--			return -EINVAL;
--		parameter_size++;
--
--		if (!tmp_str)
--			break;
--
--		while (isspace(*tmp_str))
--			tmp_str++;
--	}
-+	ret = amdgpu_parse_buffer_l(tmp, 0, " \n", args, ARRAY_SIZE(args));
-+	if (ret < 0)
-+		return ret;
-+	num_args = ret;
- 
- 	ret = amdgpu_pm_get_access(adev);
- 	if (ret < 0)
- 		return ret;
- 
--	if (amdgpu_dpm_set_fine_grain_clk_vol(adev,
--					      type,
--					      parameter,
--					      parameter_size))
--		goto err_out;
-+	if (amdgpu_dpm_set_fine_grain_clk_vol(adev, type, args, num_args)) {
-+		ret = -EINVAL;
-+		goto out;
+-	if (adev->kfd.dev)
+-		r = kgd2kfd_resume(adev->kfd.dev, resume_proc);
++	if (adev->kfd.dev) {
++		if (adev->in_s0ix)
++			r = kgd2kfd_start_sched_all_nodes(adev->kfd.dev);
++		else
++			r = kgd2kfd_resume(adev->kfd.dev, resume_proc);
 +	}
  
--	if (amdgpu_dpm_odn_edit_dpm_table(adev, type,
--					  parameter, parameter_size))
--		goto err_out;
-+	if (amdgpu_dpm_odn_edit_dpm_table(adev, type, args, num_args)) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
- 
- 	if (type == PP_OD_COMMIT_DPM_TABLE) {
- 		if (amdgpu_dpm_dispatch_task(adev,
- 					     AMD_PP_TASK_READJUST_POWER_STATE,
--					     NULL))
--			goto err_out;
-+					     NULL)) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
- 	}
- 
-+out:
- 	amdgpu_pm_put_access(adev);
- 
--	return count;
--
--err_out:
--	amdgpu_pm_put_access(adev);
--
--	return -EINVAL;
-+	return ret ?: count;
+ 	return r;
  }
- 
- static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
-@@ -1367,17 +1352,14 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
- 		const char *buf,
- 		size_t count)
- {
--	int ret;
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	uint32_t parameter_size = 0;
--	long parameter[64];
--	char *sub_str, buf_cpy[128];
--	char *tmp_str;
--	uint32_t i = 0;
--	char tmp[2];
-+	unsigned int num_args;
- 	long int profile_mode;
--	const char delimiter[3] = {' ', '\n', '\0'};
-+	char copy[128];
-+	long args[64];
-+	char tmp[2];
-+	int ret;
- 
- 	tmp[0] = *(buf);
- 	tmp[1] = '\0';
-@@ -1386,39 +1368,29 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
- 		return -EINVAL;
- 
- 	if (profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
--		if (count < 2 || count > 127)
-+		if (count < 2 || count >= sizeof(copy))
- 			return -EINVAL;
--		while (isspace(*++buf))
--			i++;
--		memcpy(buf_cpy, buf, count-i);
--		tmp_str = buf_cpy;
--		while ((sub_str = strsep(&tmp_str, delimiter)) != NULL) {
--			if (strlen(sub_str) == 0)
--				continue;
--			ret = kstrtol(sub_str, 0, &parameter[parameter_size]);
--			if (ret)
--				return -EINVAL;
--			parameter_size++;
--			if (!tmp_str)
--				break;
--			while (isspace(*tmp_str))
--				tmp_str++;
--		}
-+
-+		memcpy(copy, &buf[1], count - 1);
-+
-+		ret = amdgpu_parse_buffer_l(copy, 0, " \n",
-+					    args, ARRAY_SIZE(args));
-+		if (ret < 0)
-+			return ret;
-+
-+		num_args = ret;
- 	}
--	parameter[parameter_size] = profile_mode;
-+	args[num_args] = profile_mode;
- 
- 	ret = amdgpu_pm_get_access(adev);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = amdgpu_dpm_set_power_profile_mode(adev, parameter, parameter_size);
-+	ret = amdgpu_dpm_set_power_profile_mode(adev, args, num_args);
- 
- 	amdgpu_pm_put_access(adev);
- 
--	if (!ret)
--		return count;
--
--	return -EINVAL;
-+	return ret ?: count;
- }
- 
- static int amdgpu_hwmon_get_sensor_generic(struct amdgpu_device *adev,
-@@ -2277,32 +2249,18 @@ static ssize_t amdgpu_set_pm_policy_attr(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	struct amdgpu_pm_policy_attr *policy_attr;
--	int ret, num_params = 0;
--	char delimiter[] = " \n\t";
--	char tmp_buf[128];
--	char *tmp, *param;
-+	char copy[128];
- 	long val;
-+	int ret;
- 
--	count = min(count, sizeof(tmp_buf));
--	memcpy(tmp_buf, buf, count);
--	tmp_buf[count - 1] = '\0';
--	tmp = tmp_buf;
-+	count = min(count, sizeof(copy));
-+	memcpy(copy, buf, count);
-+	copy[count - 1] = '\0';
- 
--	tmp = skip_spaces(tmp);
--	while ((param = strsep(&tmp, delimiter))) {
--		if (!strlen(param)) {
--			tmp = skip_spaces(tmp);
--			continue;
--		}
--		ret = kstrtol(param, 0, &val);
--		if (ret)
--			return -EINVAL;
--		num_params++;
--		if (num_params > 1)
--			return -EINVAL;
--	}
--
--	if (num_params != 1)
-+	ret = amdgpu_parse_buffer_l(copy, 0, " \t\n", &val, 1);
-+	if (ret < 0)
-+		return ret;
-+	else if (ret != 1)
- 		return -EINVAL;
- 
- 	policy_attr =
-@@ -2316,10 +2274,7 @@ static ssize_t amdgpu_set_pm_policy_attr(struct device *dev,
- 
- 	amdgpu_pm_put_access(adev);
- 
--	if (ret)
--		return ret;
--
--	return count;
-+	return ret ?: count;
- }
- 
- #define AMDGPU_PM_POLICY_ATTR(_name, _id)                                  \
-@@ -3728,58 +3683,43 @@ static int amdgpu_retrieve_od_settings(struct amdgpu_device *adev,
- 	return size;
- }
- 
--static int parse_input_od_command_lines(const char *buf,
--					size_t count,
-+static int parse_input_od_command_lines(const char *buf, size_t count,
- 					u32 *type,
--					long *params,
--					uint32_t *num_of_params)
-+					long *args, unsigned int *num_args)
- {
--	const char delimiter[3] = {' ', '\n', '\0'};
--	uint32_t parameter_size = 0;
--	char buf_cpy[128] = {0};
--	char *tmp_str, *sub_str;
-+	const unsigned int max_args = *num_args;
-+	char copy[128], *p = copy;
- 	int ret;
- 
--	if (count > sizeof(buf_cpy) - 1)
-+	if (count > sizeof(copy) - 1)
- 		return -EINVAL;
- 
--	memcpy(buf_cpy, buf, count);
--	tmp_str = buf_cpy;
-+	*num_args = 0;
-+
-+	memcpy(copy, buf, count);
- 
- 	/* skip heading spaces */
--	while (isspace(*tmp_str))
--		tmp_str++;
-+	while (isspace(*p))
-+		p++;
- 
--	switch (*tmp_str) {
-+	switch (*p) {
- 	case 'c':
- 		*type = PP_OD_COMMIT_DPM_TABLE;
- 		return 0;
- 	case 'r':
--		params[parameter_size] = *type;
--		*num_of_params = 1;
-+		args[0] = *type;
-+		*num_args = 1;
- 		*type = PP_OD_RESTORE_DEFAULT_TABLE;
- 		return 0;
- 	default:
- 		break;
- 	}
- 
--	while ((sub_str = strsep(&tmp_str, delimiter)) != NULL) {
--		if (strlen(sub_str) == 0)
--			continue;
-+	ret = amdgpu_parse_buffer_l(p, 0, " \n", args, max_args);
-+	if (ret < 0)
-+		return ret;
- 
--		ret = kstrtol(sub_str, 0, &params[parameter_size]);
--		if (ret)
--			return -EINVAL;
--		parameter_size++;
--
--		if (!tmp_str)
--			break;
--
--		while (isspace(*tmp_str))
--			tmp_str++;
--	}
--
--	*num_of_params = parameter_size;
-+	*num_args = ret;
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 127927b16ee29..9e120c934cc17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -428,7 +428,9 @@ void kgd2kfd_smi_event_throttle(struct kfd_dev *kfd, uint64_t throttle_bitmask);
+ int kgd2kfd_check_and_lock_kfd(struct kfd_dev *kfd);
+ void kgd2kfd_unlock_kfd(struct kfd_dev *kfd);
+ int kgd2kfd_start_sched(struct kfd_dev *kfd, uint32_t node_id);
++int kgd2kfd_start_sched_all_nodes(struct kfd_dev *kfd);
+ int kgd2kfd_stop_sched(struct kfd_dev *kfd, uint32_t node_id);
++int kgd2kfd_stop_sched_all_nodes(struct kfd_dev *kfd);
+ bool kgd2kfd_compute_active(struct kfd_dev *kfd, uint32_t node_id);
+ bool kgd2kfd_vmfault_fast_path(struct amdgpu_device *adev, struct amdgpu_iv_entry *entry,
+ 			       bool retry_fault);
+@@ -518,11 +520,21 @@ static inline int kgd2kfd_start_sched(struct kfd_dev *kfd, uint32_t node_id)
  	return 0;
  }
-@@ -3790,15 +3730,12 @@ amdgpu_distribute_custom_od_settings(struct amdgpu_device *adev,
- 				     const char *in_buf,
- 				     size_t count)
+ 
++static inline int kgd2kfd_start_sched_all_nodes(struct kfd_dev *kfd)
++{
++	return 0;
++}
++
+ static inline int kgd2kfd_stop_sched(struct kfd_dev *kfd, uint32_t node_id)
  {
--	uint32_t parameter_size = 0;
--	long parameter[64];
-+	long args[64];
-+	unsigned int max_args = ARRAY_SIZE(args);
- 	int ret;
- 
--	ret = parse_input_od_command_lines(in_buf,
--					   count,
--					   &cmd_type,
--					   parameter,
--					   &parameter_size);
-+	ret = parse_input_od_command_lines(in_buf, count, &cmd_type, args,
-+					   &max_args);
- 	if (ret)
- 		return ret;
- 
-@@ -3806,29 +3743,22 @@ amdgpu_distribute_custom_od_settings(struct amdgpu_device *adev,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = amdgpu_dpm_odn_edit_dpm_table(adev,
--					    cmd_type,
--					    parameter,
--					    parameter_size);
-+	ret = amdgpu_dpm_odn_edit_dpm_table(adev, cmd_type, args, max_args);
- 	if (ret)
--		goto err_out;
-+		goto out;
- 
- 	if (cmd_type == PP_OD_COMMIT_DPM_TABLE) {
- 		ret = amdgpu_dpm_dispatch_task(adev,
- 					       AMD_PP_TASK_READJUST_POWER_STATE,
- 					       NULL);
- 		if (ret)
--			goto err_out;
-+			goto out;
- 	}
- 
-+out:
- 	amdgpu_pm_put_access(adev);
- 
--	return count;
--
--err_out:
--	amdgpu_pm_put_access(adev);
--
--	return ret;
-+	return ret ?: count;
+ 	return 0;
  }
  
- /**
++static inline int kgd2kfd_stop_sched_all_nodes(struct kfd_dev *kfd)
++{
++	return 0;
++}
++
+ static inline bool kgd2kfd_compute_active(struct kfd_dev *kfd, uint32_t node_id)
+ {
+ 	return false;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 7e749f9b6d69d..349c351e242b5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -1550,6 +1550,25 @@ int kgd2kfd_start_sched(struct kfd_dev *kfd, uint32_t node_id)
+ 	return ret;
+ }
+ 
++int kgd2kfd_start_sched_all_nodes(struct kfd_dev *kfd)
++{
++	struct kfd_node *node;
++	int i, r;
++
++	if (!kfd->init_complete)
++		return 0;
++
++	for (i = 0; i < kfd->num_nodes; i++) {
++		node = kfd->nodes[i];
++		r = node->dqm->ops.unhalt(node->dqm);
++		if (r) {
++			dev_err(kfd_device, "Error in starting scheduler\n");
++			return r;
++		}
++	}
++	return 0;
++}
++
+ int kgd2kfd_stop_sched(struct kfd_dev *kfd, uint32_t node_id)
+ {
+ 	struct kfd_node *node;
+@@ -1567,6 +1586,23 @@ int kgd2kfd_stop_sched(struct kfd_dev *kfd, uint32_t node_id)
+ 	return node->dqm->ops.halt(node->dqm);
+ }
+ 
++int kgd2kfd_stop_sched_all_nodes(struct kfd_dev *kfd)
++{
++	struct kfd_node *node;
++	int i, r;
++
++	if (!kfd->init_complete)
++		return 0;
++
++	for (i = 0; i < kfd->num_nodes; i++) {
++		node = kfd->nodes[i];
++		r = node->dqm->ops.halt(node->dqm);
++		if (r)
++			return r;
++	}
++	return 0;
++}
++
+ bool kgd2kfd_compute_active(struct kfd_dev *kfd, uint32_t node_id)
+ {
+ 	struct kfd_node *node;
 -- 
-2.48.0
+2.51.0
 
