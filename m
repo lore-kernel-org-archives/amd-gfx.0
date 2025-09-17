@@ -4,187 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3894ACAC598
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 19:27:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A3CCAC59A
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 19:49:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBAF310E586;
-	Wed, 17 Sep 2025 19:27:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 201D610E589;
+	Wed, 17 Sep 2025 19:49:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=windriver.com header.i=@windriver.com header.b="dIytc7/v";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Lwk5c9c5";
 	dkim-atps=neutral
-X-Greylist: delayed 514 seconds by postgrey-1.36 at gabe;
- Wed, 17 Sep 2025 15:53:28 UTC
-Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
- [205.220.166.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 567AB10E0A5
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 15:53:28 +0000 (UTC)
-Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 58HAc8np576337; Wed, 17 Sep 2025 08:44:51 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
- h=content-type:date:from:message-id:mime-version:subject:to; s=
- PPS06212021; bh=MwCVnLkaJuJn+/oTD40cPN1ZJYGNcbPbODJdAHlLpzo=; b=
- dIytc7/vUxnb/9/jkmMnmxEkTdkYGWgO1ScZCy7LPmafO5dfSn6NPzzXdS8ELlPs
- XIjt53/Ohd0IfMsGuNNq8Noao2TLMCXxPzTseElFxQQ0mJC8s+dIwHwDdcp7BsEr
- BoQyl/4Nl0ejENiFT2Cw3qAKV1JJDM0gqeVtBwjREQ2f0SO8CepEvfrDm142BwwW
- 1I8RyevASHF6Dc7Fqm/LM6ew+LguKtSzL9WhMB/3m2BIeEr2xvR9hOLzJqxPZtfc
- yswhL7FwoOqTEHrM9XeXOp+jG5ONdJjU5qJjqZGL6+iizWlfDyi6pv0Ut6N9/Fu9
- 7hzoenhnMgDGYBUUe6Yd+g==
-Received: from ch5pr02cu005.outbound.protection.outlook.com
- (mail-northcentralusazon11012051.outbound.protection.outlook.com
- [40.107.200.51])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 497fwr0w7c-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 17 Sep 2025 08:44:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p0oYJ0+fu9n83SzQdQMWKvBdxbukZv+4548p2WnEvJU1uMYJYpq0uPGBvXYUxwc0YSp3HNgdDvjdT2iUGFYCDMMdD/yUdGpWE6TgjXyIyaLioPRXgVH7Of6k/KIRRuLlyILuh5C86txTZpFLbdi9zcwEsfqUx2vXChqJCSE8xqxop93Er9/VSbRe2TlF4WpUgO7SkkA1w+CfQsokl/2owUySFxux2094IfA+fkS+0DZBTFEng1nIRqZ32Emn0TOBUh4y5X7Pk/w4afN9jKzjNPTU+BYtvSIHyixsRoqw56VI6D2Nh0uWoOyw1lx+0SJ6z/V6SpPO0aMC7whCaARnGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MwCVnLkaJuJn+/oTD40cPN1ZJYGNcbPbODJdAHlLpzo=;
- b=SnIzhl0lCn7YSAgcIYBjqu+W6DkF7vKLgXrStlcquRc+DCh+MJzYwhytGdnelxRlq1IYnueAEb447SVxJOhFHft4lN8y2cGOAFyBWKtqIR9UsDnOCS3h2JfdJpJ+LJwSpUC22/JBq9sWWpGkRAGmbB+dIHr74aAogZTfd5R6jl4Go1ShQvxPf1wjTtXDy855e9nFyw7pBFBqfiMPEFCcedvh3UXemf0GcUEiWFAKfXLsPVOETK5iecwFmWrldvkCUW1W1WuhWiXUNyHE591wiUawytcnXJ8amwY74eraJPDsV8tBFD9aWb7mbPMnFoktAebR1sG2Jpb6kz7lIQwUlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-Received: from DS7PR11MB8806.namprd11.prod.outlook.com (2603:10b6:8:253::19)
- by DS7PR11MB8808.namprd11.prod.outlook.com (2603:10b6:8:257::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.13; Wed, 17 Sep
- 2025 15:44:49 +0000
-Received: from DS7PR11MB8806.namprd11.prod.outlook.com
- ([fe80::fd19:2442:ba3c:50c8]) by DS7PR11MB8806.namprd11.prod.outlook.com
- ([fe80::fd19:2442:ba3c:50c8%7]) with mapi id 15.20.9115.018; Wed, 17 Sep 2025
- 15:44:48 +0000
-Content-Type: multipart/alternative;
- boundary="------------URJS0Cggna0F4SqfCkz1zKs4"
-Message-ID: <5e751340-24f5-4542-a340-df622d64bba6@windriver.com>
-Date: Wed, 17 Sep 2025 09:44:45 -0600
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org
-From: Chris Friesen <chris.friesen@windriver.com>
-Subject: questions around driver for AMD Instinct GPUs (for AI/ML)
-X-ClientProxiedBy: BN0PR08CA0020.namprd08.prod.outlook.com
- (2603:10b6:408:142::8) To DS7PR11MB8806.namprd11.prod.outlook.com
- (2603:10b6:8:253::19)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F4E810E14A;
+ Wed, 17 Sep 2025 19:49:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Qw00HfDU6upFZ/LlA2ZAzjKkkst3dqNSfepXXLeMLE8=; b=Lwk5c9c5ePcvwX+3JssD1HJeFk
+ vJzNulEP3aI4sAB0JFcVYdQ1DvZMEWjkCmpGvVBRYTud5YLgwzYCUlDGyrgQpHAhl49PZTt1E3Qx0
+ fUI+0Kp1Wk9/zsgkdnhcJ82XEPsH/xwGN4YAoChR2l/VEmFschHAxAX5+TFrgQ1CdTuyjAln128ay
+ I8Qyc8nQP8SRlob1HfcAuW2+9HQc5/FoxOWPL/l7dKYvgaDtD42iQCKSWHxYQapW19ZoOBmC+EH2u
+ 3xC5BU3fjE8YkaxCjiCRtx5F9IM5dPaiJD1/azUCr0tId5zScaGnhFzrGFPDVoXph1EC7KUKMUq5R
+ Vr876TNQ==;
+Received: from [189.6.16.239] (helo=[192.168.31.42])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uyy9d-00Cqa1-IK; Wed, 17 Sep 2025 21:49:25 +0200
+Message-ID: <c6ae7793-358c-446d-b7a8-38440b3883fe@igalia.com>
+Date: Wed, 17 Sep 2025 16:49:18 -0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR11MB8806:EE_|DS7PR11MB8808:EE_
-X-MS-Office365-Filtering-Correlation-Id: 284bf4df-1b35-4bf9-ef0d-08ddf60121bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|13003099007|8096899003; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?K1RFVFRxYkhERzJnZXpJUFZiZlZIN0VVSTNzV2ZGTFllNVEzMFJweE9YNEtZ?=
- =?utf-8?B?UWhsUHh6ck9FY0tSQmJOOHdjUzlmc0o3VEdydExSZkNDbXRqellWclVIM1B3?=
- =?utf-8?B?TjdVbTZua2J0VjhZSGZvNTNjUnhPOVZHVjMwTERoeWpqOWZQb1Y1UzF2eXV1?=
- =?utf-8?B?NGFkRDlXVmorSG1oSkhkREprU2pzZDdSV25EVGlyb2xndzZnaGxNNERUYkN1?=
- =?utf-8?B?d1Z1WTU2RWwrQXVWWXVxZCt3MjloZGxXS2NiSzFTSGh1ZWZNNit6YlNkbHRz?=
- =?utf-8?B?NW9wMlNHa2pWOVdsYkdJZ3F6UFFNR3ZiT3pYbkhDeU90bmRkQWNxMEJjdUU5?=
- =?utf-8?B?VTc3cld3cFFkUWozc0tCRnNRQnl0NHhSTG03MWJUSXN6am51dlhBY0pwMUcy?=
- =?utf-8?B?OXFZT3NpNXpVRFoyMkJ3bWVvMHNKOStoU2cxUEJaS0lGK3c1WEJmdjB0aUpa?=
- =?utf-8?B?dFJadDA2WERLdnhFeDR2L2U4UW4zcFpDVVJ0TWZCbVYzSVhtbFRmNDdBVkpR?=
- =?utf-8?B?RHRKamUyRTdzbzl3UHFaWm1xbGVpT3RuTFRlRHZtbURDbDN1dUNVdUJoclBy?=
- =?utf-8?B?THRKMFV1SzM4TFpJTU45bTVzdys3UG51ei9xUTcwOUZMcEpzNjJ4K21GU3N1?=
- =?utf-8?B?RFVFWDNLY1VVR1d6QU1ZZDhjTGlkRWNqUEVsaW9wcUdLU3R3LytuOG5FTTlu?=
- =?utf-8?B?UzVFYThPQWt5Q2M3RmxxQ2ZIVTUxZ2RkQytGN2hIOW5wSzhJS092dXgxMGR2?=
- =?utf-8?B?Qm4yaDNSeWg0STdCcGpXUVlXcGNTa0lhWTJDaWZpRnRwV2haTHo0TTl5WWt6?=
- =?utf-8?B?NzRBVlhBQUNLRFZvK0J4M1BDZ3h5d1ErV3IxaVdvVm9VRWtUeW9maVU5ZDhE?=
- =?utf-8?B?MDd3Ny9nMkhqU2Z3UkhaUkxiM2RHQmF4SVJNSGovYTJ3QXdOQ0tWdjgxNExQ?=
- =?utf-8?B?ajFyQVBGZVQxOE9xZSs2aHEzOWFaVE4zQXBPbldjMkVSSVBFSG5kcUZobEha?=
- =?utf-8?B?WXFkcW9mQ3k1dHNjSUtYdVZxQzUzdkkvUDdhQTd3d0ozenJVNXZyUy8vU05U?=
- =?utf-8?B?UFRISmpWdC9DVUdZbkc1Z1ZhQVQrdWdMZDh2TjN3YVB0YU1XT1NPdjdDS1pl?=
- =?utf-8?B?aTNmMzRNeHRaem9ITElMQjBSSjM2S2FXYlNzRFVJVytUeUhvQklLV1F1TStP?=
- =?utf-8?B?RWV5ekNjTXdZMVc2d2xoQVZpM0wzMTlNU3VwSmFpbFBhV0ZIN1FDa1RlNU1Q?=
- =?utf-8?B?SGFCQWFGbWJ3RjJCUE80NGEraWJ0RWZ6NEt3ZTFFZU02VXhhUEpYeUJ1RW50?=
- =?utf-8?B?cjljbjdFMHZRSVZmL3RobWoyZG9NdnhycWQ0bGhGRHdDWlpqRlZ2cEJVTG90?=
- =?utf-8?B?STZQdk5iYkFvU1JnaTZpaGhhR01pQU9rQUJDMUhaNmFnMFlodi9LKzBrQS9u?=
- =?utf-8?B?dmdGWlRodHZBRjgzeEFybExuWHRlOUVPNklvdTFjK0UwSmpMYnc1UHoxbFFU?=
- =?utf-8?B?bkxhOGh6cjVYR00xZjRiSHNvZHNZcXN0SDVoNVd3WVBaN0srY2I4SnhDUThs?=
- =?utf-8?B?dGlDNnU1ZXJRY3VKYUxqVHdOWjNDV29NSG4rVy9rMVNLYmR6WlB4ZUk0NUJW?=
- =?utf-8?B?enl5bDJyK0tMankrS0pGZmhVN2g1ZmttcTBZOFlaWWNxZkh3S0hYVzdXQWFI?=
- =?utf-8?B?aUlKeEw2ZStaWk15TEdoeFRES2RIRjlZblBJVXJxbWpWbTd1c0dXanNrT1Zs?=
- =?utf-8?B?OTh4UUp4Y2JReStFbnBINjV0R25CTFZENEM5MmpVTWFoUFp0NnE1Z3JLTmZp?=
- =?utf-8?B?aTlzd0p1cVpZQWg5ZXdoY0NaUjFoZ05XeWhoZFIwR243QTdNOFIvNWk2dlBN?=
- =?utf-8?B?ek05aklzaE5TVURaRGJyeTdKT0gwM0tiUXJjZDJaVk92c0RNellieUJEL1VS?=
- =?utf-8?Q?gCk4Kju9ADc=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR11MB8806.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(13003099007)(8096899003); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YU5PRnJSaXNNNE1TSlVYQzNDRWpNVGg3eW9uNGZWNTlsaXp1eDEzS1Z0SVcv?=
- =?utf-8?B?VkpHNHZUSHBJWTBsNTZSbjR5ZHo1TWpWa2k0Zm16N3VLQ3k5QVdWeHg5VlRU?=
- =?utf-8?B?bEtndC96cWJxcnpFZlRWVkl0RGVWUzhqVWJsdTJia09uYVB6TEh4Nko4WHQ5?=
- =?utf-8?B?bXE5TlVUYmdURWQ4YTNjUzl2OS9wOWg1TC8vQ3NQY2k3UStLWlAyMzlwc0FE?=
- =?utf-8?B?bnVkZHJJSkM2NEdkbWFxMFk2T1F4bW5SaGM2d1hjMWd6T29ubmFxU3VjOWlB?=
- =?utf-8?B?Y2hiS3Y0QUdxaVNkdEp4VGlzRFkyUUp0WWJJQ2VxSENabXNvM2lBZk4rS0d0?=
- =?utf-8?B?YkVzUXlKYVZRRi83Z1Y0Q2tuZ1pMOEFQdlZISnJXbkRPTER1MnQ3NUdYejd0?=
- =?utf-8?B?UGNJLy9uOGZBSCtQVGZoNHp6YnN3NG1xb2ZpWkVPK1hEd2hYdFBFdEhwUEdz?=
- =?utf-8?B?Q2lvV2MrNkpLU0RLM2RjYUxtZVhPa2drd0hDQWpHNG5zU0k4RkxBZVoyMTR5?=
- =?utf-8?B?TEZ3WEQ3RUxiU3RLRGI3MjhHWmdBTlNXVkdMWlE3VEZ5SThTWW5INWRTbzhE?=
- =?utf-8?B?Tk82R2FMb0NMdERUdUtqNHJLVm80Y2pwR00vcW80L1gzYmtjSll6eFNQbHlP?=
- =?utf-8?B?eVhyNVE0OUZoZ1Yra3pkSTRYK0IzTG9xTEVwN2xHdjBoa1hNd01GZ2pkUm5i?=
- =?utf-8?B?SElWQS96TXU2N1h5SnF6WnJGWUlJMk5obUhWZXBxVFpCOXF4VG5TbHpBaWZC?=
- =?utf-8?B?SkgxRjY3QUlQbC9ScE80ajNHa3hvODNJUlRCNFlNbjJITGV0MkppWW9VS0d1?=
- =?utf-8?B?LzdxNE1zOXE1SEFPUzA2dG1CWFFORHlIcjVPd1ZmQ3ZCcW5DdlNJaHlmbVB2?=
- =?utf-8?B?SmRRZkZFbzBWcEI2RWpFOVRVTS8rVnFLdXo0TVNlVFdNdFZib2s2TzRoRU4r?=
- =?utf-8?B?dWlGckxVTnRoNXZhcXozd3I4REoreHRYdEtpZkIza1dRdXUrTWFrSTBkTUl2?=
- =?utf-8?B?blNXd3pWeUo1RXlZVGRZc3IxQW1GVW5hR3Z1S0F1TXJnb05vdE8rZjdOQTFE?=
- =?utf-8?B?cm9QTXNSSVQvb3ZlRDZmNlpycTB3VmN0RzJJaGxqM2t1Q2djdEJ3MVh5M0gx?=
- =?utf-8?B?QUdFdlFHS25zZDkzZTlHRkxaVWZtRWwyMTBtVC9hQk00M1ppc09oVjlzVlBz?=
- =?utf-8?B?SEtrMitka1BRaVRLemwvTkhjWjEwcm5kVFhFU2o1Q0M3RThKUnhiK0paWFVu?=
- =?utf-8?B?RHVJYkNUcXBFWkVxM3NiRHpaaGV4bjdNek5lUHg4RWY1UmNTbHhHeHRSNHl1?=
- =?utf-8?B?NnpTN0hJOVNMb2JQRmdpRHdBL25nRzRBV2dEQ25WWmFPU1Bvd3BGNTkwNjFi?=
- =?utf-8?B?Z1Uyc0FzVW43b0pxNUZveDdPY0ZLZ09KOVNEYlR2L0NkZDN6WHZzcXNqbits?=
- =?utf-8?B?OXpkN2lPMFRIV0JJOXV1ak8weUxtY1RoYVZ4bk5KMnRDMXpYM3JMSUtHS2xv?=
- =?utf-8?B?MnUxcFZoYUp0SHFJWlVGaC9LRTk2NnFFNWNlQzRWaml1UzQvVDJwY3NMdGVq?=
- =?utf-8?B?Q1JkZ2ZpSkpHN21TdDZOZ2syVGJab0kvbXhtNFd1RC92cXliazVjNEtKS2dU?=
- =?utf-8?B?U0FxRHdJcnRGYmwwemMwS3FJRkxpaTNQeDJqWHduZ21Bazk4Mmpod1Rna0RM?=
- =?utf-8?B?N1Y0UXNIaWFLdlhQcEY3a3JFR0lnQkVBNTNYaG1xeFhQNnpKbGlQclM2SEtR?=
- =?utf-8?B?d0M0aXU0Y3VXRGwxcFhHSXl4Q0tSTFJDMUt6WkJxYS9RK2ZxNDRCYkNzQlhV?=
- =?utf-8?B?YThqa3VXOEQ2M0FlZndKVnJGd1psRzJ4V2ZzUTBtY1JvUHc3RFBTbmZzWm1o?=
- =?utf-8?B?azhqc2ZhT3IybVlKS1JHSGNjSTFTNFJmRS9TdGZnU08yc01MVldjYjA3SE9I?=
- =?utf-8?B?UGovMHgwSVJZSTBlRU14ZDRJbHlWT3hGM2lBOGh6eThNMThqaTk0WWhPU0Rx?=
- =?utf-8?B?dWdBWHRRQ3JEZlNlbC9zaWE5d1dJZ0pLVjZ2ZGM5TzREK1ozak1wNldVRnBu?=
- =?utf-8?B?RlRsdnlOTDJzN3Q1M1BnQUEvRmVEMGNWc2U0QWhack5pdWd4a3RDTk1vQnJD?=
- =?utf-8?B?UkJWWDBNUWtpN2k2My9tdFJaSVo0N0JIYnRHOTh1VzdEUEo0SG9KUFhQaVor?=
- =?utf-8?B?dmc9PQ==?=
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 284bf4df-1b35-4bf9-ef0d-08ddf60121bc
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB8806.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2025 15:44:48.8576 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I8NlbnjT4yXtmMsbt9b7DHqVvMvWlRnV0aSmMMSJ2sJ4tklz1VzR0bRB8NqZw9Asfbch38VcYMrmkaEdSBUEEc8yiHlOGf8S2zRmqMOxET4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB8808
-X-Authority-Analysis: v=2.4 cv=Jay8rVKV c=1 sm=1 tr=0 ts=68cad773 cx=c_pps
- a=W7vQ9/Pp6pMPjVhEX4N8+Q==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19 a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19
- a=xqWC_Br6kY4A:10 a=yJojWOMRYYMA:10 a=zd2uoN0lAAAA:8 a=9nuoZwFb9SCXz4p33PgA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=-mYYMuPxZR8A:10
- a=-UC-E6RliN4zp7y7KOgA:9 a=_W_S_7VecoQA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTE3MDE1NCBTYWx0ZWRfX1MfYxnSExi/k
- A6tY+Fo0rMuuPCTJbRzHo+tWSxneEB5GvdjxQW+DKYUWmXbrty1Lnw3eMdZRBSlTDM3e0U5T+4Z
- /Ob94aBQOHX29wf04GqFC1AIXUOMv9tjrYUtCAmeVm1N641mO65hrn8Xj5yCpFNTSNC1YxJAR7a
- rp0RlKaNROeClP5+b8ymDpDOpWDebkCFqq6jss9gL81L0dovhc8aH75Spm8grHe2r+vPCObEdua
- 0wIfR3bCRwOm5MP+uLMXNZfGbYlYfIQcCQp0WW9JhBUQvo5KaU9JB8x8pIRPSFsKZC8GdZk6ZYi
- ZGWnRzNQREQPRg9d3ER6O7CMAVecl7bj7xJG+cRYdWOkeT879+gktWw3et5gTw=
-X-Proofpoint-GUID: YZkxWoJIPYK5pNwNFfxrL8vOCssB48mX
-X-Proofpoint-ORIG-GUID: YZkxWoJIPYK5pNwNFfxrL8vOCssB48mX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-17_01,2025-09-17_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 priorityscore=1501 malwarescore=0 suspectscore=0 adultscore=0
- bulkscore=0 phishscore=0 spamscore=0 impostorscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2507300000 definitions=firstrun
-X-Mailman-Approved-At: Wed, 17 Sep 2025 19:27:07 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] drm/amd/display: change dc stream color settings
+ only in atomic commit
+To: Harry Wentland <harry.wentland@amd.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?=
+ <mdaenzer@redhat.com>, Christopher Snowhill <kode54@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20250911173101.1960156-1-mwen@igalia.com>
+ <20250911173101.1960156-3-mwen@igalia.com>
+ <3532996f-757a-4a75-b33d-e1d9aebe879d@amd.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <3532996f-757a-4a75-b33d-e1d9aebe879d@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -199,67 +67,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------URJS0Cggna0F4SqfCkz1zKs4
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-Hi,
 
-I'm wondering if you can give me some guidance.
+On 12/09/2025 15:50, Harry Wentland wrote:
+>
+> On 2025-09-11 13:21, Melissa Wen wrote:
+>> Don't update DC stream color components during atomic check. The driver
+>> will continue validating the new CRTC color state but will not change DC
+>> stream color components. The DC stream color state will only be
+>> programmed at commit time in the `atomic_setup_commit` stage.
+>>
+>> It fixes gamma LUT loss reported by KDE users when changing brightness
+>> quickly or changing Display settings (such as overscan) with nightlight
+>> on and HDR. As KWin can do a test commit with color settings different
+>> from those that should be applied in a non-test-only commit, if the
+>> driver changes DC stream color state in atomic check, this state can be
+>> eventually HW programmed in commit tail, instead of the respective state
+>> set by the non-blocking commit.
+Hello,
 
- 1. I'm just starting to look at the use of AMD GPUs for AI/ML
-    workloads, and I'm wondering if there is any documentation available
-    on the tradeoffs between the in-tree and out-of-tree amdgpu
-    drivers?   For commercial use should we expect to use the
-    out-of-tree driver?
- 2. Are there any known issues with using the amdgpu driver on a kernel
-    with PREEMPT_RT enabled?
- 3. What's AMD's policy on backporting in-tree driver improvements to
-    LTS kernels (6.12 for example)?   It looks like only around 10% of
-    the amdgpu changes going in to mainline are being ported back.
+I'm not sure if this series was already applied somewhere. I don't see 
+it in asdn.
 
-Separately (and I'm not sure if this is the right place to ask), do you 
-know why the ROCm compatibility matrix[1] indicates that the  
-MI355X/MI350X/MI325X are not supported on Debian?
+Can someone double check?
 
 Thanks,
 
-Chris
+Melissa
 
-[1] 
-https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html
+>>
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4444
+>> Reported-by: Xaver Hugl <xaver.hugl@gmail.com>
+>> Reviewed-by: Harry Wentland <harry.wentland@amd.com> #v2
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 86 ++++++++++++++-----
+>>   3 files changed, 66 insertions(+), 24 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index f6462ff7251f..50b3bd0e32dd 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -11118,7 +11118,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>>   	if (dm_new_crtc_state->base.color_mgmt_changed ||
+>>   	    dm_old_crtc_state->regamma_tf != dm_new_crtc_state->regamma_tf ||
+>>   	    drm_atomic_crtc_needs_modeset(new_crtc_state)) {
+>> -		ret = amdgpu_dm_update_crtc_color_mgmt(dm_new_crtc_state);
+>> +		ret = amdgpu_dm_check_crtc_color_mgmt(dm_new_crtc_state, true);
+>>   		if (ret)
+>>   			goto fail;
+>>   	}
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> index ce74125c713e..69125c3f08d5 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> @@ -1041,6 +1041,8 @@ void amdgpu_dm_init_color_mod(void);
+>>   int amdgpu_dm_create_color_properties(struct amdgpu_device *adev);
+>>   int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
+>>   int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
+>> +int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc,
+>> +				    bool check_only);
+>>   int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>>   				      struct drm_plane_state *plane_state,
+>>   				      struct dc_plane_state *dc_plane_state);
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> index c7387af725d6..427bf8877df7 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> @@ -566,12 +566,11 @@ static int __set_output_tf(struct dc_transfer_func *func,
+>>   	return res ? 0 : -ENOMEM;
+>>   }
+>>   
+>> -static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
+>> +static int amdgpu_dm_set_atomic_regamma(struct dc_transfer_func *out_tf,
+>>   					const struct drm_color_lut *regamma_lut,
+>>   					uint32_t regamma_size, bool has_rom,
+>>   					enum dc_transfer_func_predefined tf)
+>>   {
+>> -	struct dc_transfer_func *out_tf = &stream->out_transfer_func;
+>>   	int ret = 0;
+>>   
+>>   	if (regamma_size || tf != TRANSFER_FUNCTION_LINEAR) {
+>> @@ -885,33 +884,33 @@ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
+>>   }
+>>   
+>>   /**
+>> - * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
+>> + * amdgpu_dm_check_crtc_color_mgmt: Check if DRM color props are programmable by DC.
+>>    * @crtc: amdgpu_dm crtc state
+>> + * @check_only: only check color state without update dc stream
+>>    *
+>> - * With no plane level color management properties we're free to use any
+>> - * of the HW blocks as long as the CRTC CTM always comes before the
+>> - * CRTC RGM and after the CRTC DGM.
+>> - *
+>> - * - The CRTC RGM block will be placed in the RGM LUT block if it is non-linear.
+>> - * - The CRTC DGM block will be placed in the DGM LUT block if it is non-linear.
+>> - * - The CRTC CTM will be placed in the gamut remap block if it is non-linear.
+>> + * This function just verifies CRTC LUT sizes, if there is enough space for
+>> + * output transfer function and if its parameters can be calculated by AMD
+>> + * color module. It also adjusts some settings for programming CRTC degamma at
+>> + * plane stage, using plane DGM block.
+>>    *
+>>    * The RGM block is typically more fully featured and accurate across
+>>    * all ASICs - DCE can't support a custom non-linear CRTC DGM.
+>>    *
+>>    * For supporting both plane level color management and CRTC level color
+>> - * management at once we have to either restrict the usage of CRTC properties
+>> - * or blend adjustments together.
+>> + * management at once we have to either restrict the usage of some CRTC
+>> + * properties or blend adjustments together.
+>>    *
+>>    * Returns:
+>> - * 0 on success. Error code if setup fails.
+>> + * 0 on success. Error code if validation fails.
+>>    */
+>> -int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>> +
+>> +int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc,
+>> +				    bool check_only)
+>>   {
+>>   	struct dc_stream_state *stream = crtc->stream;
+>>   	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
+>>   	bool has_rom = adev->asic_type <= CHIP_RAVEN;
+>> -	struct drm_color_ctm *ctm = NULL;
+>> +	struct dc_transfer_func *out_tf;
+>>   	const struct drm_color_lut *degamma_lut, *regamma_lut;
+>>   	uint32_t degamma_size, regamma_size;
+>>   	bool has_regamma, has_degamma;
+>> @@ -940,6 +939,14 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>>   	crtc->cm_has_degamma = false;
+>>   	crtc->cm_is_degamma_srgb = false;
+>>   
+>> +	if (check_only) {
+>> +		out_tf = kvzalloc(sizeof(*out_tf), GFP_KERNEL);
+>> +		if (!out_tf)
+>> +			return -ENOMEM;
+>> +	} else {
+>> +		out_tf = &stream->out_transfer_func;
+>> +	}
+>> +
+>>   	/* Setup regamma and degamma. */
+>>   	if (is_legacy) {
+>>   		/*
+>> @@ -954,8 +961,8 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>>   		 * inverse color ramp in legacy userspace.
+>>   		 */
+>>   		crtc->cm_is_degamma_srgb = true;
+>> -		stream->out_transfer_func.type = TF_TYPE_DISTRIBUTED_POINTS;
+>> -		stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
+>> +		out_tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+>> +		out_tf->tf = TRANSFER_FUNCTION_SRGB;
+>>   		/*
+>>   		 * Note: although we pass has_rom as parameter here, we never
+>>   		 * actually use ROM because the color module only takes the ROM
+>> @@ -963,16 +970,12 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>>   		 *
+>>   		 * See more in mod_color_calculate_regamma_params()
+>>   		 */
+>> -		r = __set_legacy_tf(&stream->out_transfer_func, regamma_lut,
+>> +		r = __set_legacy_tf(out_tf, regamma_lut,
+>>   				    regamma_size, has_rom);
+>> -		if (r)
+>> -			return r;
+>>   	} else {
+>>   		regamma_size = has_regamma ? regamma_size : 0;
+>> -		r = amdgpu_dm_set_atomic_regamma(stream, regamma_lut,
+>> +		r = amdgpu_dm_set_atomic_regamma(out_tf, regamma_lut,
+>>   						 regamma_size, has_rom, tf);
+>> -		if (r)
+>> -			return r;
+>>   	}
+>>   
+>>   	/*
+>> @@ -981,6 +984,43 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>>   	 * have to place the CTM in the OCSC in that case.
+>>   	 */
+>>   	crtc->cm_has_degamma = has_degamma;
+>> +	if (check_only)
+>> +		kvfree(out_tf);
+>> +
+>> +	return r;
+>> +}
+>> +
+>> +/**
+>> + * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
+>> + * @crtc: amdgpu_dm crtc state
+>> + *
+>> + * With no plane level color management properties we're free to use any
+>> + * of the HW blocks as long as the CRTC CTM always comes before the
+>> + * CRTC RGM and after the CRTC DGM.
+>> + *
+>> + * - The CRTC RGM block will be placed in the RGM LUT block if it is non-linear.
+>> + * - The CRTC DGM block will be placed in the DGM LUT block if it is non-linear.
+>> + * - The CRTC CTM will be placed in the gamut remap block if it is non-linear.
+>> + *
+>> + * The RGM block is typically more fully featured and accurate across
+>> + * all ASICs - DCE can't support a custom non-linear CRTC DGM.
+>> + *
+>> + * For supporting both plane level color management and CRTC level color
+>> + * management at once we have to either restrict the usage of CRTC properties
+>> + * or blend adjustments together.
+>> + *
+>> + * Returns:
+>> + * 0 on success. Error code if setup fails.
+>> + */
+>> +int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>> +{
+>> +	struct dc_stream_state *stream = crtc->stream;
+>> +	struct drm_color_ctm *ctm = NULL;
+>> +	int ret;
+>> +
+>> +	ret = amdgpu_dm_check_crtc_color_mgmt(crtc, false);
+>> +	if (ret)
+>> +		return ret;
+> Thanks. I like it.
+>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
+> Harry
+>
+>>   
+>>   	/* Setup CRTC CTM. */
+>>   	if (crtc->base.ctm) {
 
---------------URJS0Cggna0F4SqfCkz1zKs4
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>Hi,</p>
-    <p>I'm wondering if you can give me some guidance.</p>
-    <ol>
-      <li>I'm just starting to look at the use of AMD GPUs for AI/ML
-        workloads, and I'm wondering if there is any documentation
-        available on the tradeoffs between the in-tree and out-of-tree
-        amdgpu drivers?&nbsp; &nbsp;For commercial use should we expect to use the
-        out-of-tree driver?</li>
-      <li>Are there any known issues with using the amdgpu driver on a
-        kernel with PREEMPT_RT enabled?</li>
-      <li>What's AMD's policy on backporting in-tree driver improvements
-        to LTS kernels (6.12 for example)?&nbsp; &nbsp;It looks like only around
-        10% of the amdgpu changes going in to mainline are being ported
-        back.</li>
-    </ol>
-    <p>Separately (and I'm not sure if this is the right place to ask),
-      do you know why the ROCm compatibility matrix[1] indicates that
-      the&nbsp; MI355X/MI350X/MI325X are not supported on Debian?</p>
-    <p>Thanks,</p>
-    <p>Chris</p>
-    <p>[1]
-<a class="moz-txt-link-freetext" href="https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html">https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html</a></p>
-  </body>
-</html>
-
---------------URJS0Cggna0F4SqfCkz1zKs4--
