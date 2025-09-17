@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0F5ACAC59D
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 14:55:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C672ACAC599
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 14:55:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65D8910E886;
-	Wed, 17 Sep 2025 14:55:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A2A410E889;
+	Wed, 17 Sep 2025 14:55:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="X71LwXEi";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jvDcQcbm";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B88B610E858
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 14:54:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23CD410E0CB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 14:55:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,23 +22,23 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=F/9f8O9OjItrfflFbBEKctR81MvqtHHzY0BUxvflxfg=; b=X71LwXEi1NV9hZl8nF9aAH1OkD
- InLwDuuBxGyuJok5PdQnG00PHcx21zRQQMT9afdzf0ELdyBjSdE8nWTQ5S+ezJ1GZTvbHuZlhW6Cb
- wDRg5EEC+X4f29dhZ45/VY5lLvsGtP4p2YyVWTX2l94X2mvEO5a3QjhQ8H/OUtiQYvrbF72IBmBYs
- evdl1j9hUhXmd0lt+YwKRZtkAwDLkOjAXUzryumW5eHJAlxy+2B75tHqdqmVsGYQTARcRyDeP4xbZ
- /k43oWD4Ndit78N1y9/F40rbvv33FqZ4F6IC7fv2gIXpl4LI61lhnQa9Lx25bmrEZfcinGjHab1aG
- +F6b1i7Q==;
+ bh=0JGE+1RFK/V/H6Fj/i5CuxxrVEymgTH7aBWZ7jhmzu0=; b=jvDcQcbmDL31rpnNtdtP5gqhBN
+ q1CSfC8b4JYb6Y7uOZAxg0ntWbspiOc1rJJtTRVoOHFqk6Ki6xY8ect8aGXxl1HjPWI2iNWO5+fcd
+ P73wKo0cQNbvCTyrxUqT3kiga2qf4iU5Rwk6lUioe9+AZ6CkAolnHzb5S+3n8ncoHEpU1aXgUSuu5
+ e+oXV6c0kXCrg/UKVnczPYHI0lrxWDhZR2weHnWkvWgIt3Zp8TnJaTw5oYlUCMbs2mDmid8l6fS+/
+ omSNdld9BjlyRikAmaEC61LZ6kn/6CVnE+erdceJFvoUDYjXJof8re/MiWvxMlk+0b+wmP2X0jRMX
+ 5+KBVyWg==;
 Received: from [84.66.36.92] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uytYf-00Cke8-2U; Wed, 17 Sep 2025 16:54:57 +0200
+ id 1uytYg-00Ckep-F0; Wed, 17 Sep 2025 16:54:58 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 1/6] drm/amd/pm: Remove unnecessary local variable initialization
-Date: Wed, 17 Sep 2025 15:54:44 +0100
-Message-ID: <20250917145450.3000-2-tvrtko.ursulin@igalia.com>
+Subject: [RFC 3/6] drm/amd/display: Align data types in debugfs code
+Date: Wed, 17 Sep 2025 15:54:46 +0100
+Message-ID: <20250917145450.3000-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250917145450.3000-1-tvrtko.ursulin@igalia.com>
 References: <20250917145450.3000-1-tvrtko.ursulin@igalia.com>
@@ -58,229 +58,337 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Quite a few instances of local variables needlessly initialized -
-remove it.
+Align data type usage from a mix of explicit widths and native types, and
+a mix of signed and unsigned, to always using native int.
+
+Sort declaration blocks by width while at it and drop a few unnecessary
+initializations.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 62 ++++++++++++++----------------
- 1 file changed, 28 insertions(+), 34 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 178 +++++++++---------
+ 1 file changed, 89 insertions(+), 89 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 96590c1da553..4503220c09aa 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -444,7 +444,7 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	struct pp_states_info data = {0};
- 	enum amd_pm_state_type pm = 0;
--	int i = 0, ret = 0;
-+	int i, ret;
- 
- 	ret = amdgpu_pm_get_access_if_active(adev);
- 	if (ret)
-@@ -490,7 +490,7 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 3a348e868f5d..a2d6e298489f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -73,16 +73,18 @@ static const char *const mst_progress_status[] = {
+  * parameters that could be parsed.
+  *
+  */
+-static int parse_write_buffer_into_params(char *wr_buf, uint32_t wr_buf_size,
+-					  long *param, int max_param_num,
+-					  uint8_t *param_nums)
++static int parse_write_buffer_into_params(char *wr_buf,
++					  unsigned int wr_buf_size,
++					  long *param,
++					  unsigned int max_param_num,
++					  unsigned int *param_nums)
  {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	enum amd_pm_state_type state = 0;
-+	enum amd_pm_state_type state;
- 	struct pp_states_info data;
- 	unsigned long idx;
- 	int ret;
-@@ -583,7 +583,7 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
++	const char delimiter[3] = {' ', '\n', '\0'};
++	unsigned int wr_buf_count = 0;
++	unsigned int param_index = 0;
+ 	char *wr_buf_ptr = NULL;
+-	uint32_t wr_buf_count = 0;
+-	int r;
+ 	char *sub_str = NULL;
+-	const char delimiter[3] = {' ', '\n', '\0'};
+-	uint8_t param_index = 0;
++	int r;
+ 
+ 	*param_nums = 0;
+ 
+@@ -250,17 +252,17 @@ static ssize_t dp_link_settings_write(struct file *f, const char __user *buf,
+ 				 size_t size, loff_t *pos)
  {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	int ret = 0;
-+	int ret;
+ 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
+-	struct dc_link *link = connector->dc_link;
+ 	struct amdgpu_device *adev = drm_to_adev(connector->base.dev);
+-	struct dc *dc = (struct dc *)link->dc;
+ 	struct dc_link_settings prefer_link_settings = {0};
+-	const uint32_t wr_buf_size = 40;
++	struct dc_link *link = connector->dc_link;
++	struct dc *dc = (struct dc *)link->dc;
++	const unsigned int max_param_num = 2;
++	const unsigned int wr_buf_size = 40;
++	unsigned int param_nums = 0;
++	bool valid_input = true;
+ 	/* 0: lane_count; 1: link_rate */
+-	int max_param_num = 2;
+-	uint8_t param_nums = 0;
+ 	long param[2];
+ 	char *wr_buf;
+-	bool valid_input = true;
  
- 	ret = amdgpu_pm_get_access(adev);
- 	if (ret < 0)
-@@ -992,7 +992,7 @@ static ssize_t amdgpu_get_pp_dpm_clock(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	int size = 0;
--	int ret = 0;
-+	int ret;
- 
- 	ret = amdgpu_pm_get_access_if_active(adev);
- 	if (ret)
-@@ -1229,7 +1229,7 @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	uint32_t value = 0;
-+	uint32_t value;
- 	int ret;
- 
- 	ret = amdgpu_pm_get_access_if_active(adev);
-@@ -1275,7 +1275,7 @@ static ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	uint32_t value = 0;
-+	uint32_t value;
- 	int ret;
- 
- 	ret = amdgpu_pm_get_access_if_active(adev);
-@@ -1376,7 +1376,7 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
- 	char *tmp_str;
- 	uint32_t i = 0;
- 	char tmp[2];
--	long int profile_mode = 0;
-+	long int profile_mode;
- 	const char delimiter[3] = {' ', '\n', '\0'};
- 
- 	tmp[0] = *(buf);
-@@ -1609,7 +1609,7 @@ static ssize_t amdgpu_set_thermal_throttling_logging(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	long throttling_logging_interval;
--	int ret = 0;
-+	int ret;
- 
- 	ret = kstrtol(buf, 0, &throttling_logging_interval);
- 	if (ret)
-@@ -1720,7 +1720,7 @@ static ssize_t amdgpu_get_pm_metrics(struct device *dev,
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	ssize_t size = 0;
-+	ssize_t size;
- 	int ret;
- 
- 	ret = amdgpu_pm_get_access_if_active(adev);
-@@ -1753,7 +1753,7 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	void *gpu_metrics;
--	ssize_t size = 0;
-+	ssize_t size;
- 	int ret;
- 
- 	ret = amdgpu_pm_get_access_if_active(adev);
-@@ -1781,7 +1781,7 @@ static int amdgpu_show_powershift_percent(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	uint32_t ss_power;
--	int r = 0, i;
-+	int r, i;
- 
- 	r = amdgpu_hwmon_get_sensor_generic(adev, sensor, (void *)&ss_power);
- 	if (r == -EOPNOTSUPP) {
-@@ -1850,11 +1850,7 @@ static ssize_t amdgpu_get_smartshift_bias(struct device *dev,
- 					  struct device_attribute *attr,
- 					  char *buf)
- {
--	int r = 0;
--
--	r = sysfs_emit(buf, "%d\n", amdgpu_smartshift_bias);
--
--	return r;
-+	return sysfs_emit(buf, "%d\n", amdgpu_smartshift_bias);
- }
- 
- static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
-@@ -1863,8 +1859,7 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	int r = 0;
--	int bias = 0;
-+	int r, bias;
- 
- 	r = kstrtoint(buf, 10, &bias);
- 	if (r)
-@@ -2529,11 +2524,11 @@ static int amdgpu_device_attr_create(struct amdgpu_device *adev,
- 				     struct amdgpu_device_attr *attr,
- 				     uint32_t mask, struct list_head *attr_list)
- {
--	int ret = 0;
- 	enum amdgpu_device_attr_states attr_states = ATTR_STATE_SUPPORTED;
- 	struct amdgpu_device_attr_entry *attr_entry;
- 	struct device_attribute *dev_attr;
- 	const char *name;
-+	int ret;
- 
- 	int (*attr_update)(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
- 			   uint32_t mask, enum amdgpu_device_attr_states *states) = default_attr_update;
-@@ -2590,21 +2585,19 @@ static int amdgpu_device_attr_create_groups(struct amdgpu_device *adev,
- 					    uint32_t mask,
- 					    struct list_head *attr_list)
- {
--	int ret = 0;
--	uint32_t i = 0;
-+	uint32_t i;
-+	int ret;
- 
- 	for (i = 0; i < counts; i++) {
--		ret = amdgpu_device_attr_create(adev, &attrs[i], mask, attr_list);
--		if (ret)
--			goto failed;
-+		ret = amdgpu_device_attr_create(adev, &attrs[i], mask,
-+						attr_list);
-+		if (ret) {
-+			amdgpu_device_attr_remove_groups(adev, attr_list);
-+			return ret;
-+		}
- 	}
- 
- 	return 0;
--
--failed:
--	amdgpu_device_attr_remove_groups(adev, attr_list);
--
--	return ret;
- }
- 
- static void amdgpu_device_attr_remove_groups(struct amdgpu_device *adev,
-@@ -2726,7 +2719,7 @@ static ssize_t amdgpu_hwmon_show_temp_emergency(struct device *dev,
- {
- 	struct amdgpu_device *adev = dev_get_drvdata(dev);
- 	int channel = to_sensor_dev_attr(attr)->index;
--	int temp = 0;
-+	int temp;
- 
- 	if (channel >= PP_TEMP_MAX)
+ 	if (size == 0)
  		return -EINVAL;
-@@ -2741,6 +2734,8 @@ static ssize_t amdgpu_hwmon_show_temp_emergency(struct device *dev,
- 	case PP_TEMP_MEM:
- 		temp = adev->pm.dpm.thermal.max_mem_emergency_temp;
- 		break;
-+	default:
-+		temp = 0;
+@@ -379,17 +381,17 @@ static ssize_t dp_mst_link_setting(struct file *f, const char __user *buf,
+ 				 size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+-	struct dc_link *link = aconnector->dc_link;
+ 	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
+-	struct dc *dc = (struct dc *)link->dc;
+ 	struct dc_link_settings prefer_link_settings = {0};
+-	const uint32_t wr_buf_size = 40;
++	struct dc_link *link = aconnector->dc_link;
++	struct dc *dc = (struct dc *)link->dc;
++	const unsigned int max_param_num = 2;
++	const unsigned int wr_buf_size = 40;
+ 	/* 0: lane_count; 1: link_rate */
+-	int max_param_num = 2;
+-	uint8_t param_nums = 0;
++	unsigned int param_nums = 0;
++	bool valid_input = true;
+ 	long param[2];
+ 	char *wr_buf;
+-	bool valid_input = true;
+ 
+ 	if (!dp_mst_is_end_device(aconnector))
+ 		return -EINVAL;
+@@ -598,16 +600,16 @@ static ssize_t dp_phy_settings_write(struct file *f, const char __user *buf,
+ 				 size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
+-	struct dc_link *link = connector->dc_link;
+-	struct dc *dc = (struct dc *)link->dc;
+-	uint32_t wr_buf_size = 40;
+-	long param[3];
+-	bool use_prefer_link_setting;
+ 	struct link_training_settings link_lane_settings = {0};
+-	int max_param_num = 3;
+-	uint8_t param_nums = 0;
++	struct dc_link *link = connector->dc_link;
++	struct dc *dc = (struct dc *)link->dc;
++	const unsigned int max_param_num = 3;
++	const unsigned int wr_buf_size = 40;
++	unsigned int param_nums = 0;
++	bool use_prefer_link_setting;
++	long param[3];
+ 	char *wr_buf;
+-	int r = 0;
++	int r;
+ 
+ 
+ 	if (size == 0)
+@@ -739,24 +741,22 @@ static ssize_t dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
+ 				 size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
+-	struct dc_link *link = connector->dc_link;
+-	uint32_t wr_buf_size = 100;
+-	long param[11] = {0x0};
+-	int max_param_num = 11;
++	struct dc_link_settings prefer_link_settings =
++		{LANE_COUNT_UNKNOWN, LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
++	struct dc_link_settings cur_link_settings =
++		{LANE_COUNT_UNKNOWN, LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
+ 	enum dp_test_pattern test_pattern = DP_TEST_PATTERN_UNSUPPORTED;
+-	bool disable_hpd = false;
+-	bool valid_test_pattern = false;
+-	uint8_t param_nums = 0;
+ 	/* init with default 80bit custom pattern */
+-	uint8_t custom_pattern[10] = {
+-			0x1f, 0x7c, 0xf0, 0xc1, 0x07,
+-			0x1f, 0x7c, 0xf0, 0xc1, 0x07
+-			};
+-	struct dc_link_settings prefer_link_settings = {LANE_COUNT_UNKNOWN,
+-			LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
+-	struct dc_link_settings cur_link_settings = {LANE_COUNT_UNKNOWN,
+-			LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
++	uint8_t custom_pattern[10] = { 0x1f, 0x7c, 0xf0, 0xc1, 0x07,
++				       0x1f, 0x7c, 0xf0, 0xc1, 0x07 };
+ 	struct link_training_settings link_training_settings = {0};
++	struct dc_link *link = connector->dc_link;
++	const unsigned int max_param_num = 11;
++	const unsigned int wr_buf_size = 100;
++	bool valid_test_pattern = false;
++	unsigned int param_nums = 0;
++	bool disable_hpd = false;
++	long param[11] = {0x0};
+ 	char *wr_buf;
+ 	int i;
+ 
+@@ -1183,11 +1183,11 @@ static ssize_t dp_dsc_passthrough_set(struct file *f, const char __user *buf,
+ 				 size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+-	uint32_t wr_buf_size = 42;
+-	int max_param_num = 1;
++	const unsigned int max_param_num = 1;
++	const unsigned int wr_buf_size = 42;
++	unsigned int param_nums = 0;
++	char *wr_buf;
+ 	long param;
+-	uint8_t param_nums = 0;
+-	char *wr_buf;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+@@ -1414,16 +1414,15 @@ static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
+ 							size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+-	struct drm_connector *connector = &aconnector->base;
+-	struct dc_link *link = NULL;
+-	struct drm_device *dev = connector->dev;
+-	struct amdgpu_device *adev = drm_to_adev(dev);
+ 	enum dc_connection_type new_connection_type = dc_connection_none;
+-	uint32_t wr_buf_size = 42;
+-	int max_param_num = 1;
++	struct drm_connector *connector = &aconnector->base;
++	struct drm_device *dev = connector->dev;
++	struct amdgpu_device *adev = drm_to_adev(dev);
++	const unsigned int max_param_num = 1;
++	const unsigned int wr_buf_size = 42;
++	struct dc_link *link = NULL;
++	unsigned int param_nums = 0;
+ 	long param[1] = {0};
+-	uint8_t param_nums = 0;
+-	bool ret = false;
+ 	char *wr_buf;
+ 
+ 	if (!aconnector->dc_link)
+@@ -1458,6 +1457,7 @@ static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
  	}
  
- 	return sysfs_emit(buf, "%d\n", temp);
-@@ -3718,8 +3713,7 @@ static int amdgpu_retrieve_od_settings(struct amdgpu_device *adev,
- 				       enum pp_clock_type od_type,
- 				       char *buf)
+ 	if (param[0] == 1) {
++		bool ret;
+ 
+ 		if (!dc_link_detect_connection_type(aconnector->dc_link, &new_connection_type) &&
+ 			new_connection_type != dc_connection_none)
+@@ -1611,15 +1611,15 @@ static ssize_t dp_dsc_clock_en_write(struct file *f, const char __user *buf,
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+ 	struct drm_connector *connector = &aconnector->base;
+ 	struct drm_device *dev = connector->dev;
+-	struct drm_crtc *crtc = NULL;
+-	struct dm_crtc_state *dm_crtc_state = NULL;
++	const unsigned int max_param_num = 1;
++	const unsigned int wr_buf_size = 42;
++	struct dm_crtc_state *dm_crtc_state;
++	unsigned int param_nums = 0;
+ 	struct pipe_ctx *pipe_ctx;
+-	int i;
+-	uint32_t wr_buf_size = 42;
+-	int max_param_num = 1;
++	struct drm_crtc *crtc;
+ 	long param[1] = {0};
+-	uint8_t param_nums = 0;
+ 	char *wr_buf;
++	int i;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+@@ -1788,17 +1788,17 @@ static ssize_t dp_dsc_slice_width_write(struct file *f, const char __user *buf,
+ 				     size_t size, loff_t *pos)
  {
--	int size = 0;
--	int ret;
-+	int size, ret;
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+-	struct pipe_ctx *pipe_ctx;
+ 	struct drm_connector *connector = &aconnector->base;
+ 	struct drm_device *dev = connector->dev;
+-	struct drm_crtc *crtc = NULL;
+-	struct dm_crtc_state *dm_crtc_state = NULL;
+-	int i;
+-	uint32_t wr_buf_size = 42;
+-	int max_param_num = 1;
++	const unsigned int max_param_num = 1;
++	const unsigned int wr_buf_size = 42;
++	struct dm_crtc_state *dm_crtc_state;
++	unsigned int param_nums = 0;
++	struct pipe_ctx *pipe_ctx;
++	struct drm_crtc *crtc;
+ 	long param[1] = {0};
+-	uint8_t param_nums = 0;
+ 	char *wr_buf;
++	int i;
  
- 	ret = amdgpu_pm_get_access_if_active(adev);
- 	if (ret)
-@@ -4530,7 +4524,7 @@ static int amdgpu_od_set_init(struct amdgpu_device *adev)
- int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+ 	if (size == 0)
+ 		return -EINVAL;
+@@ -1969,15 +1969,15 @@ static ssize_t dp_dsc_slice_height_write(struct file *f, const char __user *buf,
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+ 	struct drm_connector *connector = &aconnector->base;
+ 	struct drm_device *dev = connector->dev;
+-	struct drm_crtc *crtc = NULL;
+-	struct dm_crtc_state *dm_crtc_state = NULL;
++	const unsigned int max_param_num = 1;
++	const unsigned int wr_buf_size = 42;
++	struct dm_crtc_state *dm_crtc_state;
++	unsigned int param_nums = 0;
+ 	struct pipe_ctx *pipe_ctx;
+-	int i;
+-	uint32_t wr_buf_size = 42;
+-	int max_param_num = 1;
+-	uint8_t param_nums = 0;
++	struct drm_crtc *crtc;
+ 	long param[1] = {0};
+ 	char *wr_buf;
++	int i;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+@@ -2141,15 +2141,15 @@ static ssize_t dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+ 	struct drm_connector *connector = &aconnector->base;
+ 	struct drm_device *dev = connector->dev;
+-	struct drm_crtc *crtc = NULL;
+-	struct dm_crtc_state *dm_crtc_state = NULL;
++	const unsigned int max_param_num = 1;
++	const unsigned int wr_buf_size = 42;
++	struct dm_crtc_state *dm_crtc_state;
+ 	struct pipe_ctx *pipe_ctx;
+-	int i;
+-	uint32_t wr_buf_size = 42;
+-	int max_param_num = 1;
+-	uint8_t param_nums = 0;
++	struct drm_crtc *crtc;
++	unsigned int param_nums = 0;
+ 	long param[1] = {0};
+ 	char *wr_buf;
++	int i;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+@@ -2566,12 +2566,12 @@ static ssize_t dp_max_bpc_write(struct file *f, const char __user *buf,
  {
- 	enum amdgpu_sriov_vf_mode mode;
--	uint32_t mask = 0;
-+	uint32_t mask;
- 	int ret;
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+ 	struct drm_connector *connector = &aconnector->base;
+-	struct dm_connector_state *state;
+ 	struct drm_device *dev = connector->dev;
+-	uint32_t wr_buf_size = 42;
+-	int max_param_num = 1;
++	const unsigned int max_param_num = 1;
++	const unsigned int wr_buf_size = 42;
++	struct dm_connector_state *state;
++	unsigned int param_nums = 0;
+ 	long param[1] = {0};
+-	uint8_t param_nums = 0;
+ 	char *wr_buf;
  
- 	if (adev->pm.sysfs_initialized)
-@@ -4847,7 +4841,7 @@ static ssize_t amdgpu_pm_prv_buffer_read(struct file *f, char __user *buf,
- 	struct amdgpu_device *adev = file_inode(f)->i_private;
- 	size_t smu_prv_buf_size;
- 	void *smu_prv_buf;
--	int ret = 0;
-+	int ret;
+ 	if (size == 0)
+@@ -3380,16 +3380,16 @@ static ssize_t edp_ilr_write(struct file *f, const char __user *buf,
+ 				 size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
+-	struct dc_link *link = connector->dc_link;
+ 	struct amdgpu_device *adev = drm_to_adev(connector->base.dev);
+-	struct dc *dc = (struct dc *)link->dc;
+ 	struct dc_link_settings prefer_link_settings;
+-	const uint32_t wr_buf_size = 40;
++	struct dc_link *link = connector->dc_link;
++	struct dc *dc = (struct dc *)link->dc;
++	const unsigned int max_param_num = 2;
++	const unsigned int wr_buf_size = 40;
+ 	/* 0: lane_count; 1: link_rate */
+-	int max_param_num = 2;
+-	uint8_t param_nums = 0;
+-	long param[2];
++	unsigned int param_nums = 0;
+ 	bool valid_input = true;
++	long param[2];
+ 	char *wr_buf;
  
- 	ret = amdgpu_pm_dev_state_check(adev, true);
- 	if (ret)
+ 	if (size == 0)
 -- 
 2.48.0
 
