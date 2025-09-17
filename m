@@ -4,72 +4,186 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1EF0CAC59F
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 19:27:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3894ACAC598
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Sep 2025 19:27:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F9B410E585;
-	Wed, 17 Sep 2025 19:27:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBAF310E586;
+	Wed, 17 Sep 2025 19:27:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B73Orcfv";
+	dkim=pass (2048-bit key; unprotected) header.d=windriver.com header.i=@windriver.com header.b="dIytc7/v";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 845DA10E1B9;
- Wed, 17 Sep 2025 13:00:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758114026; x=1789650026;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-id;
- bh=2yKGs0PVzLg3qQGCXuxUQSYho466dRx1tPvvARiZqSc=;
- b=B73OrcfvVPUHEyRXREu0Xbu5SLioFTOEkK+pLV/awSGLfb6NWNEeZrNr
- Ng438HxDfpMj+0J7kHy5yBG8EDZGglSi/0yLi4OVzINehwHLhULufI5c6
- k3Xz2xeOvytpnDPcwviMrwi7NRuefpti8p4OcmrnlcuSIdUBFj+XKDdGw
- sOLsBFvfGWk5ihoHQqZAYH89YsQowTa1LGbRYE9qzQPXkw71bGCFccf6L
- 2bOARI5lrh9OJqK/MekRdUeBCrq0/rGG4MtVgt54+W1Edpsa6WhtX2h3c
- 98hdu1me0lbMNTaWG8GYkDtwGH6LEpnRx4kQwjXJ5mZmb51j2ggEXF0Yl A==;
-X-CSE-ConnectionGUID: nkwhBiFHQEGWGVFPTmGFMg==
-X-CSE-MsgGUID: sB6ROlIAS2GL8V9TBL0o1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11556"; a="71045914"
-X-IronPort-AV: E=Sophos;i="6.18,272,1751266800"; d="scan'208,223";a="71045914"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2025 06:00:25 -0700
-X-CSE-ConnectionGUID: wqBSL0cpQwChrQvG9cG0/Q==
-X-CSE-MsgGUID: RYfeRSafTX+BsmmDmjtmdw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,272,1751266800"; 
- d="scan'208,223";a="206021646"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.87])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2025 06:00:14 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 17 Sep 2025 16:00:10 +0300 (EEST)
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-cc: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, 
- =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kw@linux.com>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- =?ISO-8859-2?Q?Micha=B3_Winiarski?= <michal.winiarski@intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- ?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- "Michael J . Ruhl" <mjruhl@habana.ai>, LKML <linux-kernel@vger.kernel.org>, 
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 00/11] PCI: Resizable BAR improvements
-In-Reply-To: <fl6tx5ztvttg7txmz2ps7oyd745wg3lwcp3h7esmvnyg26n44y@owo2ojiu2mov>
-Message-ID: <f1ba313f-74c2-ae63-ac80-4a35e53477b4@linux.intel.com>
-References: <20250915091358.9203-1-ilpo.jarvinen@linux.intel.com>
- <wqukxnxni2dbpdhri3cbvlrzsefgdanesgskzmxi5sauvsirsl@xor663jw2cdw>
- <fafda2a3-fc63-ce97-d22b-803f771a4d19@linux.intel.com>
- <fl6tx5ztvttg7txmz2ps7oyd745wg3lwcp3h7esmvnyg26n44y@owo2ojiu2mov>
+X-Greylist: delayed 514 seconds by postgrey-1.36 at gabe;
+ Wed, 17 Sep 2025 15:53:28 UTC
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
+ [205.220.166.238])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 567AB10E0A5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Sep 2025 15:53:28 +0000 (UTC)
+Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
+ by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 58HAc8np576337; Wed, 17 Sep 2025 08:44:51 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+ h=content-type:date:from:message-id:mime-version:subject:to; s=
+ PPS06212021; bh=MwCVnLkaJuJn+/oTD40cPN1ZJYGNcbPbODJdAHlLpzo=; b=
+ dIytc7/vUxnb/9/jkmMnmxEkTdkYGWgO1ScZCy7LPmafO5dfSn6NPzzXdS8ELlPs
+ XIjt53/Ohd0IfMsGuNNq8Noao2TLMCXxPzTseElFxQQ0mJC8s+dIwHwDdcp7BsEr
+ BoQyl/4Nl0ejENiFT2Cw3qAKV1JJDM0gqeVtBwjREQ2f0SO8CepEvfrDm142BwwW
+ 1I8RyevASHF6Dc7Fqm/LM6ew+LguKtSzL9WhMB/3m2BIeEr2xvR9hOLzJqxPZtfc
+ yswhL7FwoOqTEHrM9XeXOp+jG5ONdJjU5qJjqZGL6+iizWlfDyi6pv0Ut6N9/Fu9
+ 7hzoenhnMgDGYBUUe6Yd+g==
+Received: from ch5pr02cu005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012051.outbound.protection.outlook.com
+ [40.107.200.51])
+ by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 497fwr0w7c-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 17 Sep 2025 08:44:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p0oYJ0+fu9n83SzQdQMWKvBdxbukZv+4548p2WnEvJU1uMYJYpq0uPGBvXYUxwc0YSp3HNgdDvjdT2iUGFYCDMMdD/yUdGpWE6TgjXyIyaLioPRXgVH7Of6k/KIRRuLlyILuh5C86txTZpFLbdi9zcwEsfqUx2vXChqJCSE8xqxop93Er9/VSbRe2TlF4WpUgO7SkkA1w+CfQsokl/2owUySFxux2094IfA+fkS+0DZBTFEng1nIRqZ32Emn0TOBUh4y5X7Pk/w4afN9jKzjNPTU+BYtvSIHyixsRoqw56VI6D2Nh0uWoOyw1lx+0SJ6z/V6SpPO0aMC7whCaARnGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MwCVnLkaJuJn+/oTD40cPN1ZJYGNcbPbODJdAHlLpzo=;
+ b=SnIzhl0lCn7YSAgcIYBjqu+W6DkF7vKLgXrStlcquRc+DCh+MJzYwhytGdnelxRlq1IYnueAEb447SVxJOhFHft4lN8y2cGOAFyBWKtqIR9UsDnOCS3h2JfdJpJ+LJwSpUC22/JBq9sWWpGkRAGmbB+dIHr74aAogZTfd5R6jl4Go1ShQvxPf1wjTtXDy855e9nFyw7pBFBqfiMPEFCcedvh3UXemf0GcUEiWFAKfXLsPVOETK5iecwFmWrldvkCUW1W1WuhWiXUNyHE591wiUawytcnXJ8amwY74eraJPDsV8tBFD9aWb7mbPMnFoktAebR1sG2Jpb6kz7lIQwUlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from DS7PR11MB8806.namprd11.prod.outlook.com (2603:10b6:8:253::19)
+ by DS7PR11MB8808.namprd11.prod.outlook.com (2603:10b6:8:257::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.13; Wed, 17 Sep
+ 2025 15:44:49 +0000
+Received: from DS7PR11MB8806.namprd11.prod.outlook.com
+ ([fe80::fd19:2442:ba3c:50c8]) by DS7PR11MB8806.namprd11.prod.outlook.com
+ ([fe80::fd19:2442:ba3c:50c8%7]) with mapi id 15.20.9115.018; Wed, 17 Sep 2025
+ 15:44:48 +0000
+Content-Type: multipart/alternative;
+ boundary="------------URJS0Cggna0F4SqfCkz1zKs4"
+Message-ID: <5e751340-24f5-4542-a340-df622d64bba6@windriver.com>
+Date: Wed, 17 Sep 2025 09:44:45 -0600
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org
+From: Chris Friesen <chris.friesen@windriver.com>
+Subject: questions around driver for AMD Instinct GPUs (for AI/ML)
+X-ClientProxiedBy: BN0PR08CA0020.namprd08.prod.outlook.com
+ (2603:10b6:408:142::8) To DS7PR11MB8806.namprd11.prod.outlook.com
+ (2603:10b6:8:253::19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-161591600-1758110677=:1127"
-Content-ID: <02627e65-0efe-af44-e3e3-bb98aa69c8a6@linux.intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR11MB8806:EE_|DS7PR11MB8808:EE_
+X-MS-Office365-Filtering-Correlation-Id: 284bf4df-1b35-4bf9-ef0d-08ddf60121bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|13003099007|8096899003; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?K1RFVFRxYkhERzJnZXpJUFZiZlZIN0VVSTNzV2ZGTFllNVEzMFJweE9YNEtZ?=
+ =?utf-8?B?UWhsUHh6ck9FY0tSQmJOOHdjUzlmc0o3VEdydExSZkNDbXRqellWclVIM1B3?=
+ =?utf-8?B?TjdVbTZua2J0VjhZSGZvNTNjUnhPOVZHVjMwTERoeWpqOWZQb1Y1UzF2eXV1?=
+ =?utf-8?B?NGFkRDlXVmorSG1oSkhkREprU2pzZDdSV25EVGlyb2xndzZnaGxNNERUYkN1?=
+ =?utf-8?B?d1Z1WTU2RWwrQXVWWXVxZCt3MjloZGxXS2NiSzFTSGh1ZWZNNit6YlNkbHRz?=
+ =?utf-8?B?NW9wMlNHa2pWOVdsYkdJZ3F6UFFNR3ZiT3pYbkhDeU90bmRkQWNxMEJjdUU5?=
+ =?utf-8?B?VTc3cld3cFFkUWozc0tCRnNRQnl0NHhSTG03MWJUSXN6am51dlhBY0pwMUcy?=
+ =?utf-8?B?OXFZT3NpNXpVRFoyMkJ3bWVvMHNKOStoU2cxUEJaS0lGK3c1WEJmdjB0aUpa?=
+ =?utf-8?B?dFJadDA2WERLdnhFeDR2L2U4UW4zcFpDVVJ0TWZCbVYzSVhtbFRmNDdBVkpR?=
+ =?utf-8?B?RHRKamUyRTdzbzl3UHFaWm1xbGVpT3RuTFRlRHZtbURDbDN1dUNVdUJoclBy?=
+ =?utf-8?B?THRKMFV1SzM4TFpJTU45bTVzdys3UG51ei9xUTcwOUZMcEpzNjJ4K21GU3N1?=
+ =?utf-8?B?RFVFWDNLY1VVR1d6QU1ZZDhjTGlkRWNqUEVsaW9wcUdLU3R3LytuOG5FTTlu?=
+ =?utf-8?B?UzVFYThPQWt5Q2M3RmxxQ2ZIVTUxZ2RkQytGN2hIOW5wSzhJS092dXgxMGR2?=
+ =?utf-8?B?Qm4yaDNSeWg0STdCcGpXUVlXcGNTa0lhWTJDaWZpRnRwV2haTHo0TTl5WWt6?=
+ =?utf-8?B?NzRBVlhBQUNLRFZvK0J4M1BDZ3h5d1ErV3IxaVdvVm9VRWtUeW9maVU5ZDhE?=
+ =?utf-8?B?MDd3Ny9nMkhqU2Z3UkhaUkxiM2RHQmF4SVJNSGovYTJ3QXdOQ0tWdjgxNExQ?=
+ =?utf-8?B?ajFyQVBGZVQxOE9xZSs2aHEzOWFaVE4zQXBPbldjMkVSSVBFSG5kcUZobEha?=
+ =?utf-8?B?WXFkcW9mQ3k1dHNjSUtYdVZxQzUzdkkvUDdhQTd3d0ozenJVNXZyUy8vU05U?=
+ =?utf-8?B?UFRISmpWdC9DVUdZbkc1Z1ZhQVQrdWdMZDh2TjN3YVB0YU1XT1NPdjdDS1pl?=
+ =?utf-8?B?aTNmMzRNeHRaem9ITElMQjBSSjM2S2FXYlNzRFVJVytUeUhvQklLV1F1TStP?=
+ =?utf-8?B?RWV5ekNjTXdZMVc2d2xoQVZpM0wzMTlNU3VwSmFpbFBhV0ZIN1FDa1RlNU1Q?=
+ =?utf-8?B?SGFCQWFGbWJ3RjJCUE80NGEraWJ0RWZ6NEt3ZTFFZU02VXhhUEpYeUJ1RW50?=
+ =?utf-8?B?cjljbjdFMHZRSVZmL3RobWoyZG9NdnhycWQ0bGhGRHdDWlpqRlZ2cEJVTG90?=
+ =?utf-8?B?STZQdk5iYkFvU1JnaTZpaGhhR01pQU9rQUJDMUhaNmFnMFlodi9LKzBrQS9u?=
+ =?utf-8?B?dmdGWlRodHZBRjgzeEFybExuWHRlOUVPNklvdTFjK0UwSmpMYnc1UHoxbFFU?=
+ =?utf-8?B?bkxhOGh6cjVYR00xZjRiSHNvZHNZcXN0SDVoNVd3WVBaN0srY2I4SnhDUThs?=
+ =?utf-8?B?dGlDNnU1ZXJRY3VKYUxqVHdOWjNDV29NSG4rVy9rMVNLYmR6WlB4ZUk0NUJW?=
+ =?utf-8?B?enl5bDJyK0tMankrS0pGZmhVN2g1ZmttcTBZOFlaWWNxZkh3S0hYVzdXQWFI?=
+ =?utf-8?B?aUlKeEw2ZStaWk15TEdoeFRES2RIRjlZblBJVXJxbWpWbTd1c0dXanNrT1Zs?=
+ =?utf-8?B?OTh4UUp4Y2JReStFbnBINjV0R25CTFZENEM5MmpVTWFoUFp0NnE1Z3JLTmZp?=
+ =?utf-8?B?aTlzd0p1cVpZQWg5ZXdoY0NaUjFoZ05XeWhoZFIwR243QTdNOFIvNWk2dlBN?=
+ =?utf-8?B?ek05aklzaE5TVURaRGJyeTdKT0gwM0tiUXJjZDJaVk92c0RNellieUJEL1VS?=
+ =?utf-8?Q?gCk4Kju9ADc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR11MB8806.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(13003099007)(8096899003); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YU5PRnJSaXNNNE1TSlVYQzNDRWpNVGg3eW9uNGZWNTlsaXp1eDEzS1Z0SVcv?=
+ =?utf-8?B?VkpHNHZUSHBJWTBsNTZSbjR5ZHo1TWpWa2k0Zm16N3VLQ3k5QVdWeHg5VlRU?=
+ =?utf-8?B?bEtndC96cWJxcnpFZlRWVkl0RGVWUzhqVWJsdTJia09uYVB6TEh4Nko4WHQ5?=
+ =?utf-8?B?bXE5TlVUYmdURWQ4YTNjUzl2OS9wOWg1TC8vQ3NQY2k3UStLWlAyMzlwc0FE?=
+ =?utf-8?B?bnVkZHJJSkM2NEdkbWFxMFk2T1F4bW5SaGM2d1hjMWd6T29ubmFxU3VjOWlB?=
+ =?utf-8?B?Y2hiS3Y0QUdxaVNkdEp4VGlzRFkyUUp0WWJJQ2VxSENabXNvM2lBZk4rS0d0?=
+ =?utf-8?B?YkVzUXlKYVZRRi83Z1Y0Q2tuZ1pMOEFQdlZISnJXbkRPTER1MnQ3NUdYejd0?=
+ =?utf-8?B?UGNJLy9uOGZBSCtQVGZoNHp6YnN3NG1xb2ZpWkVPK1hEd2hYdFBFdEhwUEdz?=
+ =?utf-8?B?Q2lvV2MrNkpLU0RLM2RjYUxtZVhPa2drd0hDQWpHNG5zU0k4RkxBZVoyMTR5?=
+ =?utf-8?B?TEZ3WEQ3RUxiU3RLRGI3MjhHWmdBTlNXVkdMWlE3VEZ5SThTWW5INWRTbzhE?=
+ =?utf-8?B?Tk82R2FMb0NMdERUdUtqNHJLVm80Y2pwR00vcW80L1gzYmtjSll6eFNQbHlP?=
+ =?utf-8?B?eVhyNVE0OUZoZ1Yra3pkSTRYK0IzTG9xTEVwN2xHdjBoa1hNd01GZ2pkUm5i?=
+ =?utf-8?B?SElWQS96TXU2N1h5SnF6WnJGWUlJMk5obUhWZXBxVFpCOXF4VG5TbHpBaWZC?=
+ =?utf-8?B?SkgxRjY3QUlQbC9ScE80ajNHa3hvODNJUlRCNFlNbjJITGV0MkppWW9VS0d1?=
+ =?utf-8?B?LzdxNE1zOXE1SEFPUzA2dG1CWFFORHlIcjVPd1ZmQ3ZCcW5DdlNJaHlmbVB2?=
+ =?utf-8?B?SmRRZkZFbzBWcEI2RWpFOVRVTS8rVnFLdXo0TVNlVFdNdFZib2s2TzRoRU4r?=
+ =?utf-8?B?dWlGckxVTnRoNXZhcXozd3I4REoreHRYdEtpZkIza1dRdXUrTWFrSTBkTUl2?=
+ =?utf-8?B?blNXd3pWeUo1RXlZVGRZc3IxQW1GVW5hR3Z1S0F1TXJnb05vdE8rZjdOQTFE?=
+ =?utf-8?B?cm9QTXNSSVQvb3ZlRDZmNlpycTB3VmN0RzJJaGxqM2t1Q2djdEJ3MVh5M0gx?=
+ =?utf-8?B?QUdFdlFHS25zZDkzZTlHRkxaVWZtRWwyMTBtVC9hQk00M1ppc09oVjlzVlBz?=
+ =?utf-8?B?SEtrMitka1BRaVRLemwvTkhjWjEwcm5kVFhFU2o1Q0M3RThKUnhiK0paWFVu?=
+ =?utf-8?B?RHVJYkNUcXBFWkVxM3NiRHpaaGV4bjdNek5lUHg4RWY1UmNTbHhHeHRSNHl1?=
+ =?utf-8?B?NnpTN0hJOVNMb2JQRmdpRHdBL25nRzRBV2dEQ25WWmFPU1Bvd3BGNTkwNjFi?=
+ =?utf-8?B?Z1Uyc0FzVW43b0pxNUZveDdPY0ZLZ09KOVNEYlR2L0NkZDN6WHZzcXNqbits?=
+ =?utf-8?B?OXpkN2lPMFRIV0JJOXV1ak8weUxtY1RoYVZ4bk5KMnRDMXpYM3JMSUtHS2xv?=
+ =?utf-8?B?MnUxcFZoYUp0SHFJWlVGaC9LRTk2NnFFNWNlQzRWaml1UzQvVDJwY3NMdGVq?=
+ =?utf-8?B?Q1JkZ2ZpSkpHN21TdDZOZ2syVGJab0kvbXhtNFd1RC92cXliazVjNEtKS2dU?=
+ =?utf-8?B?U0FxRHdJcnRGYmwwemMwS3FJRkxpaTNQeDJqWHduZ21Bazk4Mmpod1Rna0RM?=
+ =?utf-8?B?N1Y0UXNIaWFLdlhQcEY3a3JFR0lnQkVBNTNYaG1xeFhQNnpKbGlQclM2SEtR?=
+ =?utf-8?B?d0M0aXU0Y3VXRGwxcFhHSXl4Q0tSTFJDMUt6WkJxYS9RK2ZxNDRCYkNzQlhV?=
+ =?utf-8?B?YThqa3VXOEQ2M0FlZndKVnJGd1psRzJ4V2ZzUTBtY1JvUHc3RFBTbmZzWm1o?=
+ =?utf-8?B?azhqc2ZhT3IybVlKS1JHSGNjSTFTNFJmRS9TdGZnU08yc01MVldjYjA3SE9I?=
+ =?utf-8?B?UGovMHgwSVJZSTBlRU14ZDRJbHlWT3hGM2lBOGh6eThNMThqaTk0WWhPU0Rx?=
+ =?utf-8?B?dWdBWHRRQ3JEZlNlbC9zaWE5d1dJZ0pLVjZ2ZGM5TzREK1ozak1wNldVRnBu?=
+ =?utf-8?B?RlRsdnlOTDJzN3Q1M1BnQUEvRmVEMGNWc2U0QWhack5pdWd4a3RDTk1vQnJD?=
+ =?utf-8?B?UkJWWDBNUWtpN2k2My9tdFJaSVo0N0JIYnRHOTh1VzdEUEo0SG9KUFhQaVor?=
+ =?utf-8?B?dmc9PQ==?=
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 284bf4df-1b35-4bf9-ef0d-08ddf60121bc
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB8806.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2025 15:44:48.8576 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I8NlbnjT4yXtmMsbt9b7DHqVvMvWlRnV0aSmMMSJ2sJ4tklz1VzR0bRB8NqZw9Asfbch38VcYMrmkaEdSBUEEc8yiHlOGf8S2zRmqMOxET4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB8808
+X-Authority-Analysis: v=2.4 cv=Jay8rVKV c=1 sm=1 tr=0 ts=68cad773 cx=c_pps
+ a=W7vQ9/Pp6pMPjVhEX4N8+Q==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19 a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19
+ a=xqWC_Br6kY4A:10 a=yJojWOMRYYMA:10 a=zd2uoN0lAAAA:8 a=9nuoZwFb9SCXz4p33PgA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=-mYYMuPxZR8A:10
+ a=-UC-E6RliN4zp7y7KOgA:9 a=_W_S_7VecoQA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTE3MDE1NCBTYWx0ZWRfX1MfYxnSExi/k
+ A6tY+Fo0rMuuPCTJbRzHo+tWSxneEB5GvdjxQW+DKYUWmXbrty1Lnw3eMdZRBSlTDM3e0U5T+4Z
+ /Ob94aBQOHX29wf04GqFC1AIXUOMv9tjrYUtCAmeVm1N641mO65hrn8Xj5yCpFNTSNC1YxJAR7a
+ rp0RlKaNROeClP5+b8ymDpDOpWDebkCFqq6jss9gL81L0dovhc8aH75Spm8grHe2r+vPCObEdua
+ 0wIfR3bCRwOm5MP+uLMXNZfGbYlYfIQcCQp0WW9JhBUQvo5KaU9JB8x8pIRPSFsKZC8GdZk6ZYi
+ ZGWnRzNQREQPRg9d3ER6O7CMAVecl7bj7xJG+cRYdWOkeT879+gktWw3et5gTw=
+X-Proofpoint-GUID: YZkxWoJIPYK5pNwNFfxrL8vOCssB48mX
+X-Proofpoint-ORIG-GUID: YZkxWoJIPYK5pNwNFfxrL8vOCssB48mX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-17_01,2025-09-17_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 priorityscore=1501 malwarescore=0 suspectscore=0 adultscore=0
+ bulkscore=0 phishscore=0 spamscore=0 impostorscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2507300000 definitions=firstrun
 X-Mailman-Approved-At: Wed, 17 Sep 2025 19:27:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,507 +199,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+--------------URJS0Cggna0F4SqfCkz1zKs4
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---8323328-161591600-1758110677=:1127
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <0ff851c3-bc92-a369-3277-d7c205779207@linux.intel.com>
+Hi,
 
-On Tue, 16 Sep 2025, Lucas De Marchi wrote:
+I'm wondering if you can give me some guidance.
 
-> On Mon, Sep 15, 2025 at 08:24:06PM +0300, Ilpo J=E4rvinen wrote:
-> > On Mon, 15 Sep 2025, Lucas De Marchi wrote:
-> >=20
-> > > On Mon, Sep 15, 2025 at 12:13:47PM +0300, Ilpo J=E4rvinen wrote:
-> > > > pci.c has been used as catch everything that doesn't fits elsewhere
-> > > > within PCI core and thus resizable BAR code has been placed there a=
-s
-> > > > well. Move Resizable BAR related code to a newly introduced rebar.c=
- to
-> > > > reduce size of pci.c. After move, there are no pci_rebar_*() calls =
-from
-> > > > pci.c indicating this is indeed well-defined subset of PCI core.
-> > > >
-> > > > Endpoint drivers perform Resizable BAR related operations which cou=
-ld
-> > > > well be performed by PCI core to simplify driver-side code. This
-> > > > series adds a few new API functions to that effect and converts the
-> > > > drivers to use the new APIs (in separate patches).
-> > > >
-> > > > While at it, also convert BAR sizes bitmask to u64 as PCIe spec alr=
-eady
-> > > > specifies more sizes than what will fit u32 to make the API typing =
-more
-> > > > future-proof. The extra sizes beyond 128TB are not added at this po=
-int.
-> > > >
-> > > > These are based on pci/main plus a simple "adapter" patch to add th=
-e
-> > > > include for xe_vram_types.h that was added by a commit in drm-tip.
-> > > > Hopefully that is enough to avoid the within context conflict with
-> > > > BAR_SIZE_SHIFT removal to let the xe CI tests to be run for this
-> > > > series.
-> > > >
-> > > > There are two minor conflicts with the work in pci/resource but I'm
-> > > > hesitant to base this on top of it as this is otherwise entirely
-> > > > independent (and would likely prevent GPU CI tests as well). If we =
-end
-> > > > up having to pull the bridge window select changes, there should be=
- no
-> > > > reason why this does have to become collateral damage (so my
-> > > > suggestion, if this is good to go in this cycle, to take this into =
-a
-> > > > separate branch than pci/resource and deal with those small conflic=
-ts
-> > > > while merging into pci/next).
-> > > >
-> > > > I've tested sysfs resize, i915, and xe BAR resizing functionality. =
-In
-> > > > the case of xe, I did small hack patch as its resize is anyway brok=
-en
-> > > > as is because BAR0 pins the bridge window so resizing BAR2 fails. M=
-y
-> > > > hack caused other problems further down the road (likely because BA=
-R0
-> > > > is in use by the driver so releasing it messed assumptions xe drive=
-r
-> > > > has) but the BAR resize itself was working which was all I was
-> > >=20
-> > > is the hack you mention here to release all BARs before attempting th=
-e
-> > > resize?
-> >=20
-> > Yes, the patch added release of BAR0 prior to resize. The existing xe c=
-ode
-> > in _resize_bar() already releases BAR2.
-> >=20
-> > During resize, if the first loop in pbus_reassign_bridge_resources()
-> > (called from pci_resize_resource()) finds the bridge window closest to =
-the
-> > endpoint still has a child, it results in having empty saved list becau=
-se
-> > all upstream bridge windows will then have a child as well.
-> >=20
-> > Empty saved list is checked after the loop and
-> > pbus_reassign_bridge_resources() returns -ENOENT without even trying to
-> > assign the resources. The error is returned even if the actual bridge
-> > window size is large enough to fit the resized resource.
-> >=20
-> > The logic in pci_resize_resource() and pbus_reassign_bridge_resources()
-> > need some other improvements besides that problem, but I likely won't
-> > have time to look at that until completing the fitting algorithm change=
-s.
-> > I'd actually want to add pci_release_and_resize_resource() which would
-> > take care of releasing all the resources of the device (obviously drive=
-r
-> > must have its hands off all those BARs when it calls that function). Wi=
-th
-> > the current pci_resize_resource() API, handling the restore of BARs in
-> > case of failure is not as robust as I'd like to make it.
-> >=20
-> > > > interested to know. I'm not planning to pursue fixing the pinning
-> > > > problem within xe driver because the core changes to consider maxim=
-um
-> > > > size of the resizable BARs should take care of the main problem by
-> > > > different means.
-> > >=20
-> > > I'd actually like to pursue that myself as that could be propagated t=
-o
-> > > stable since we do have some resize errors in xe with BMG that I wasn=
-'t
-> > > understanding. It's likely due to xe_mmio_probe_early() taking a hold=
- of
-> > > BAR0 and not expecting it to be moved. We could either remap if we ha=
-ve
-> > > have to resize or just move the resize logic early on.
-> >=20
-> > Great. If you have any questions when it comes to the PCI core side cod=
-e,
-> > please let me know.
->=20
-> I moved the resize to happen before anything else in xe. However when
-> testing I noticed a scenario failing without involving the driver.
-> With and without this series I still have the same pass/failure
-> scenarios:
->=20
-> Tests executed with a BMG. Just after boot, BAR2 is 16GB.
->=20
-> 1) If I resize it via sysfs to 8GB and then load the driver, it resizes
-> it back. Resize from sysfs works too. No change in behavior.
+ 1. I'm just starting to look at the use of AMD GPUs for AI/ML
+    workloads, and I'm wondering if there is any documentation available
+    on the tradeoffs between the in-tree and out-of-tree amdgpu
+    drivers?   For commercial use should we expect to use the
+    out-of-tree driver?
+ 2. Are there any known issues with using the amdgpu driver on a kernel
+    with PREEMPT_RT enabled?
+ 3. What's AMD's policy on backporting in-tree driver improvements to
+    LTS kernels (6.12 for example)?   It looks like only around 10% of
+    the amdgpu changes going in to mainline are being ported back.
 
-It's expected that resizing smaller size -> back to the original works=20
-through sysfs because the upstream window pins won't prevent reacquiring=20
-the same or less space.
+Separately (and I'm not sure if this is the right place to ask), do you 
+know why the ROCm compatibility matrix[1] indicates that the  
+MI355X/MI350X/MI325X are not supported on Debian?
 
-But the way resize is called from current xe code, sizing even to a=20
-smaller size fails because BAR0 pins the closest upstream window,=20
-resulting in -ENOENT as explained above. I don't see fixing this on core=20
-side as priority because I plan to rework the resizing code anyway and=20
-resizing to a smaller size doesn't seem overly useful use case.
+Thanks,
 
-> 2) If I do "remove the bridge via sysfs and rescan the bus"[1], it fails =
-to
-> resize (either automatically, on rescan, via sysfs, or loading the xe
-> driver). It just stays at 256M.
+Chris
 
-This is because the larger resource sizes are only calculated on the=20
-actual resize call which occurs after the bridge windows were already=20
-sized on rescan to the smaller size. At that point, the critical bridge=20
-windows are already pinned in place and thus cannot be relocated to free=20
-area I assume there would be somewhere within 4000000000-7fffffffff.
+[1] 
+https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html
 
-> The only thing that brings it back is a reboot. /proc/iomem shows this:
->=20
-> 4000000000-7fffffffff : PCI Bus 0000:00
->   4000000000-44007fffff : PCI Bus 0000:01
->     4000000000-4017ffffff : PCI Bus 0000:02
->       4000000000-400fffffff : PCI Bus 0000:03    <<<< BMG
->         4000000000-400fffffff : 0000:03:00.0
+--------------URJS0Cggna0F4SqfCkz1zKs4
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
->       4010000000-40100fffff : PCI Bus 0000:04
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p>Hi,</p>
+    <p>I'm wondering if you can give me some guidance.</p>
+    <ol>
+      <li>I'm just starting to look at the use of AMD GPUs for AI/ML
+        workloads, and I'm wondering if there is any documentation
+        available on the tradeoffs between the in-tree and out-of-tree
+        amdgpu drivers?&nbsp; &nbsp;For commercial use should we expect to use the
+        out-of-tree driver?</li>
+      <li>Are there any known issues with using the amdgpu driver on a
+        kernel with PREEMPT_RT enabled?</li>
+      <li>What's AMD's policy on backporting in-tree driver improvements
+        to LTS kernels (6.12 for example)?&nbsp; &nbsp;It looks like only around
+        10% of the amdgpu changes going in to mainline are being ported
+        back.</li>
+    </ol>
+    <p>Separately (and I'm not sure if this is the right place to ask),
+      do you know why the ROCm compatibility matrix[1] indicates that
+      the&nbsp; MI355X/MI350X/MI325X are not supported on Debian?</p>
+    <p>Thanks,</p>
+    <p>Chris</p>
+    <p>[1]
+<a class="moz-txt-link-freetext" href="https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html">https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html</a></p>
+  </body>
+</html>
 
-This pins 0000:01:00.0's window in place. And also prevents enlarging the=
-=20
-siblings.
-
-It would possible, though, to release it and still use sysfs to perform=20
-resize on 0000:03:00.0 as removing 0000:04:00.0 doesn't require removing=20
-0000:03:00.0. But...
-
->     4018000000-40187fffff : 0000:01:00.0
-
-=2E..This resource pins 0000:00:01.0's window in place. AFAIK, it cannot be=
-=20
-released other than by removing 0000:01:00.0 which results in removing=20
-0000:03:00.0 as well, thus making it impossible to perform the BAR resize=
-=20
-for 0000:03:00.0 through sysfs anymore. Catch-22.
-
-Could you test if the attached quirk patch helps. Maybe it could be=20
-considered as the interim solution until the bridge sizing logic becomes=20
-aware of the resizable BARs. To use a quirk to do this feels hacky to me,=
-=20
-but then it's hard to point out any real downsides with that approach=20
-(other than having to quirk it).
-
-You'll still need to manually release 0000:04:00.0 but the BAR0 on the=20
-switch should be gone thanks to the quirk. When both of the window pins=20
-are gone, I think the resize through sysfs should work.
-
-> And dmesg shows this for the rescan:
->=20
-> [ 1673.189737] pci 0000:01:00.0: [8086:e2ff] type 01 class 0x060400 PCIe
-> Switch Upstream Port
-> [ 1673.189794] pci 0000:01:00.0: BAR 0 [mem 0x00000000-0x007fffff 64bit p=
-ref]
-> [ 1673.189808] pci 0000:01:00.0: PCI bridge to [bus 00]
-> [ 1673.189824] pci 0000:01:00.0:   bridge window [io  0x0000-0x0fff]
-> [ 1673.189834] pci 0000:01:00.0:   bridge window [mem 0x00000000-0x000fff=
-ff]
-> [ 1673.189856] pci 0000:01:00.0:   bridge window [mem 0x00000000-0x000fff=
-ff
-> 64bit pref]
-> [ 1673.189878] pci 0000:01:00.0: Max Payload Size set to 256 (was 128, ma=
-x
-> 256)
-> [ 1673.190164] pci 0000:01:00.0: PME# supported from D0 D3hot D3cold
-> [ 1673.193531] pci 0000:01:00.0: Adding to iommu group 16
-> [ 1673.196997] pcieport 0000:00:01.0: ASPM: current common clock configur=
-ation
-> is inconsistent, reconfiguring
-> [ 1673.197061] pci 0000:01:00.0: bridge configuration invalid ([bus 00-00=
-]),
-> reconfiguring
-> [ 1673.197421] pci 0000:02:01.0: [8086:e2f0] type 01 class 0x060400 PCIe
-> Switch Downstream Port
-> [ 1673.197452] pci 0000:02:01.0: PCI bridge to [bus 00]
-> [ 1673.197463] pci 0000:02:01.0:   bridge window [io  0x0000-0x0fff]
-> [ 1673.197468] pci 0000:02:01.0:   bridge window [mem 0x00000000-0x000fff=
-ff]
-> [ 1673.197482] pci 0000:02:01.0:   bridge window [mem 0x00000000-0x000fff=
-ff
-> 64bit pref]
-> [ 1673.197497] pci 0000:02:01.0: Max Payload Size set to 256 (was 128, ma=
-x
-> 256)
-> [ 1673.197503] pci 0000:02:01.0: enabling Extended Tags
-> [ 1673.197660] pci 0000:02:01.0: PME# supported from D0 D3hot D3cold
-> [ 1673.198411] pci 0000:02:01.0: Adding to iommu group 17
-> [ 1673.200258] pci 0000:02:02.0: [8086:e2f1] type 01 class 0x060400 PCIe
-> Switch Downstream Port
-> [ 1673.200289] pci 0000:02:02.0: PCI bridge to [bus 00]
-> [ 1673.200299] pci 0000:02:02.0:   bridge window [io  0x0000-0x0fff]
-> [ 1673.200304] pci 0000:02:02.0:   bridge window [mem 0x00000000-0x000fff=
-ff]
-> [ 1673.200317] pci 0000:02:02.0:   bridge window [mem 0x00000000-0x000fff=
-ff
-> 64bit pref]
-> [ 1673.200333] pci 0000:02:02.0: Max Payload Size set to 256 (was 128, ma=
-x
-> 256)
-> [ 1673.200337] pci 0000:02:02.0: enabling Extended Tags
-> [ 1673.200470] pci 0000:02:02.0: PME# supported from D0 D3hot D3cold
-> [ 1673.201059] pci 0000:02:02.0: Adding to iommu group 18
-> [ 1673.202761] pci 0000:01:00.0: PCI bridge to [bus 02-04]
-> [ 1673.202774] pci 0000:02:01.0: bridge configuration invalid ([bus 00-00=
-]),
-> reconfiguring
-> [ 1673.202782] pci 0000:02:02.0: bridge configuration invalid ([bus 00-00=
-]),
-> reconfiguring
-> [ 1673.203024] pci 0000:03:00.0: [8086:e221] type 00 class 0x030000 PCIe
-> Endpoint
-> [ 1673.203060] pci 0000:03:00.0: BAR 0 [mem 0x00000000-0x00ffffff 64bit]
-> [ 1673.203064] pci 0000:03:00.0: BAR 2 [mem 0x00000000-0x0fffffff 64bit p=
-ref]
-> [ 1673.203069] pci 0000:03:00.0: ROM [mem 0x00000000-0x001fffff pref]
-> [ 1673.203077] pci 0000:03:00.0: Max Payload Size set to 256 (was 128, ma=
-x
-> 256)
-> [ 1673.203209] pci 0000:03:00.0: PME# supported from D0 D3hot
-> [ 1673.203770] pci 0000:03:00.0: Adding to iommu group 19
-> [ 1673.205451] pci 0000:03:00.0: vgaarb: setting as boot VGA device
-> [ 1673.205454] pci 0000:03:00.0: vgaarb: bridge control possible
-> [ 1673.205455] pci 0000:03:00.0: vgaarb: VGA device added:
-> decodes=3Dio+mem,owns=3Dnone,locks=3Dnone
-> [ 1673.205534] pci 0000:02:01.0: PCI bridge to [bus 03-04]
-> [ 1673.205543] pci_bus 0000:03: busn_res: [bus 03-04] end is updated to 0=
-3
-> [ 1673.205787] pci 0000:04:00.0: [8086:e2f7] type 00 class 0x040300 PCIe
-> Endpoint
-> [ 1673.205848] pci 0000:04:00.0: BAR 0 [mem 0x00000000-0x00003fff 64bit]
-> [ 1673.205867] pci 0000:04:00.0: Max Payload Size set to 256 (was 128, ma=
-x
-> 256)
-> [ 1673.205872] pci 0000:04:00.0: enabling Extended Tags
-> [ 1673.206012] pci 0000:04:00.0: PME# supported from D3hot D3cold
-> [ 1673.206528] pci 0000:04:00.0: Adding to iommu group 20
-> [ 1673.208271] pci 0000:02:02.0: PCI bridge to [bus 04]
-> [ 1673.208284] pci_bus 0000:04: busn_res: [bus 04] end is updated to 04
-> [ 1673.208291] pci_bus 0000:02: busn_res: [bus 02-04] end is updated to 0=
-4
-> [ 1673.232003] pcieport 0000:00:01.0: Assigned bridge window [mem
-> 0x83000000-0x840fffff] to [bus 01-04] cannot fit 0x2000000 required for
-> 0000:02:01.0 bridging to [bus 03]
-> [ 1673.232009] pci 0000:02:01.0: bridge window [mem 0x00000000-0x000fffff=
-] to
-> [bus 03] requires relaxed alignment rules
-> [ 1673.232016] pci 0000:02:01.0: bridge window [mem 0x01000000-0x01ffffff=
-] to
-> [bus 03] add_size 200000 add_align 1000000
-> [ 1673.232020] pcieport 0000:00:01.0: Assigned bridge window [mem
-> 0x83000000-0x840fffff] to [bus 01-04] cannot fit 0x1800000 required for
-> 0000:01:00.0 bridging to [bus 02-04]
-> [ 1673.232025] pci 0000:01:00.0: bridge window [mem 0x00000000-0x000fffff=
-] to
-> [bus 02-04] requires relaxed alignment rules
-> [ 1673.232027] pcieport 0000:00:01.0: Assigned bridge window [mem
-> 0x83000000-0x840fffff] to [bus 01-04] cannot fit 0x2000000 required for
-> 0000:01:00.0 bridging to [bus 02-04]
-> [ 1673.232031] pci 0000:01:00.0: bridge window [mem 0x00000000-0x000fffff=
-] to
-> [bus 02-04] requires relaxed alignment rules
-> [ 1673.232036] pci 0000:01:00.0: bridge window [mem 0x01000000-0x020fffff=
-] to
-> [bus 02-04] add_size 200000 add_align 1000000
-> [ 1673.232077] pci 0000:01:00.0: bridge window [mem 0x4000000000-0x4017ff=
-ffff
-> 64bit pref]: assigned
-> [ 1673.232080] pci 0000:01:00.0: bridge window [mem size 0x01300000]: can=
-'t
-> assign; no space
-> [ 1673.232082] pci 0000:01:00.0: bridge window [mem size 0x01300000]: fai=
-led
-> to assign
-> [ 1673.232090] pci 0000:01:00.0: BAR 0 [mem 0x4018000000-0x40187fffff 64b=
-it
-> pref]: assigned
-> [ 1673.232103] pci 0000:01:00.0: bridge window [io  0x8000-0x9fff]: assig=
-ned
-> [ 1673.232129] pci 0000:01:00.0: bridge window [mem 0x83000000-0x840fffff=
-]:
-> assigned
-> [ 1673.232131] pci 0000:01:00.0: bridge window [mem 0x83000000-0x840fffff=
-]:
-> failed to expand by 0x200000
-> [ 1673.232136] pci 0000:01:00.0: bridge window [mem 0x83000000-0x840fffff=
-]:
-> failed to add optional 200000
-> [ 1673.232192] pci 0000:02:01.0: bridge window [mem 0x4000000000-0x400fff=
-ffff
-> 64bit pref]: assigned
-> [ 1673.232196] pci 0000:02:01.0: bridge window [mem 0x83000000-0x83ffffff=
-]:
-> assigned
-> [ 1673.232200] pci 0000:02:02.0: bridge window [mem 0x84000000-0x840fffff=
-]:
-> assigned
-> [ 1673.232202] pci 0000:02:02.0: bridge window [mem 0x4010000000-0x40100f=
-ffff
-> 64bit pref]: assigned
-> [ 1673.232204] pci 0000:02:01.0: bridge window [io  0x8000-0x8fff]: assig=
-ned
-> [ 1673.232206] pci 0000:02:02.0: bridge window [io  0x9000-0x9fff]: assig=
-ned
-> [ 1673.232241] pci 0000:03:00.0: BAR 2 [mem 0x4000000000-0x400fffffff 64b=
-it
-> pref]: assigned
-> [ 1673.232250] pci 0000:03:00.0: BAR 0 [mem 0x83000000-0x83ffffff 64bit]:
-> assigned
-> [ 1673.232259] pci 0000:03:00.0: ROM [mem size 0x00200000 pref]: can't as=
-sign;
-> no space
-> [ 1673.232261] pci 0000:03:00.0: ROM [mem size 0x00200000 pref]: failed t=
-o
-> assign
-> [ 1673.232272] pci 0000:03:00.0: BAR 2 [mem 0x4000000000-0x400fffffff 64b=
-it
-> pref]: assigned
-> [ 1673.232280] pci 0000:03:00.0: BAR 0 [mem 0x83000000-0x83ffffff 64bit]:
-> assigned
-> [ 1673.232289] pci 0000:03:00.0: ROM [mem size 0x00200000 pref]: can't as=
-sign;
-> no space
-> [ 1673.232291] pci 0000:03:00.0: ROM [mem size 0x00200000 pref]: failed t=
-o
-> assign
-> [ 1673.232302] pci 0000:02:01.0: PCI bridge to [bus 03]
-> [ 1673.232304] pci 0000:02:01.0:   bridge window [io  0x8000-0x8fff]
-> [ 1673.232309] pci 0000:02:01.0:   bridge window [mem 0x83000000-0x83ffff=
-ff]
-> [ 1673.232313] pci 0000:02:01.0:   bridge window [mem
-> 0x4000000000-0x400fffffff 64bit pref]
-> [ 1673.232321] pci 0000:04:00.0: BAR 0 [mem 0x84000000-0x84003fff 64bit]:
-> assigned
-> [ 1673.232336] pci 0000:02:02.0: PCI bridge to [bus 04]
-> [ 1673.232339] pci 0000:02:02.0:   bridge window [io  0x9000-0x9fff]
-> [ 1673.232345] pci 0000:02:02.0:   bridge window [mem 0x84000000-0x840fff=
-ff]
-> [ 1673.232349] pci 0000:02:02.0:   bridge window [mem
-> 0x4010000000-0x40100fffff 64bit pref]
-> [ 1673.232356] pci 0000:01:00.0: PCI bridge to [bus 02-04]
-> [ 1673.232359] pci 0000:01:00.0:   bridge window [io  0x8000-0x9fff]
-> [ 1673.232363] pci 0000:01:00.0:   bridge window [mem 0x83000000-0x840fff=
-ff]
-> [ 1673.232366] pci 0000:01:00.0:   bridge window [mem
-> 0x4000000000-0x4017ffffff 64bit pref]
-> [ 1673.232471] pcieport 0000:01:00.0: enabling device (0000 -> 0003)
-> [ 1673.233508] pcieport 0000:02:01.0: enabling device (0000 -> 0003)
-> [ 1673.233692] pcieport 0000:02:02.0: enabling device (0000 -> 0003)
->=20
-> # echo 9 > /sys/bus/pci/devices/0000\:03\:00.0/resource2_resize -bash: ec=
-ho:
-> write error: No space left on device
->=20
->=20
-> [1] # echo 1 > /sys/bus/pci/devices/0000\:01\:00.0/remove
->     # echo 0 > /sys/bus/pci/drivers_autoprobe
->     # echo 1 > /sys/bus/pci/rescan
->=20
->=20
-> I can share the xe patch so you check if it at least fixes it in your
-> test scenario.
-
-Ah, one thing I didn't remember mention is that in my case the BAR is=20
-already at its maximum size, so to test the resize is working, I made
-the target size smaller, not larger. (I understand this might not be very=
-=20
-helpful in your case but I was only interested that resize code still=20
-works after this series).
-
---=20
- i.
---8323328-161591600-1758110677=:1127
-Content-Type: text/x-diff; name=0001-PCI-Release-BAR0-of-an-integrated-bridge-to-allow-GP.patch
-Content-Transfer-Encoding: BASE64
-Content-ID: <106de70e-1c2b-f200-e68a-aa5052505f4b@linux.intel.com>
-Content-Description: 
-Content-Disposition: attachment; filename=0001-PCI-Release-BAR0-of-an-integrated-bridge-to-allow-GP.patch
-
-RnJvbSA5NDhhNDlmMDFkZjU0YjM0MzU4NjExMzhhMGVhZTg1YmIyYzNmMWYz
-IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQ0KRnJvbTogPT9VVEYtOD9xP0ls
-cG89MjBKPUMzPUE0cnZpbmVuPz0gPGlscG8uamFydmluZW5AbGludXguaW50
-ZWwuY29tPg0KRGF0ZTogV2VkLCAxNyBTZXAgMjAyNSAxNToyNDo1MyArMDMw
-MA0KU3ViamVjdDogW1BBVENIIDEvMV0gUENJOiBSZWxlYXNlIEJBUjAgb2Yg
-YW4gaW50ZWdyYXRlZCBicmlkZ2UgdG8gYWxsb3cgR1BVDQogQkFSIHJlc2l6
-ZQ0KTUlNRS1WZXJzaW9uOiAxLjANCkNvbnRlbnQtVHlwZTogdGV4dC9wbGFp
-bjsgY2hhcnNldD1VVEYtOA0KQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzog
-OGJpdA0KDQpSZXNpemluZyBCQVIgdG8gYSBsYXJnZXIgc2l6ZSBoYXMgdG8g
-cmVsZWFzZSB1cHN0cmVhbSBicmlkZ2Ugd2luZG93cyBpbg0Kb3JkZXIgbWFr
-ZSB0aGUgYnJpZGdlIHdpbmRvd3MgbGFyZ2VyIGFzIHdlbGwgKGFuZCB0byBw
-b3RlbnRpYWwgcmVsb2NhdGUNCnRoZW0gaW50byBhIGxhcmdlciBmcmVlIGJs
-b2NrIHdpdGhpbiBpb21lbSBzcGFjZSkuIFNvbWUgR1BVcyBoYXZlIGFuDQpp
-bnRlZ3JhdGVkIFBDSSBzd2l0Y2ggdGhhdCBoYXMgQkFSMC4gVGhlIHJlc291
-cmNlIGFsbG9jYXRpb24gYXNzaWducw0Kc3BhY2UgZm9yIHRoYXQgQkFSMCBh
-cyBpdCBkb2VzIGZvciBhbnkgcmVzb3VyY2UuDQoNCkFuIGV4dHJhIHJlc291
-cmNlIG9uIGEgYnJpZGdlIHdpbGwgcGluIGl0cyB1cHN0cmVhbSBicmlkZ2Ug
-d2luZG93IGluDQpwbGFjZSB3aGljaCBwcmV2ZW50cyBCQVIgcmVzaXplIGZv
-ciBhbnl0aGluZyBiZW5lYXRoIHRoYXQgYnJpZGdlLg0KDQpOb3RoaW5nIGlu
-IHRoZSBwY2llcG9ydCBkcml2ZXIgcHJvdmlkZWQgYnkgUENJIGNvcmUsIHdo
-aWNoIHR5cGljYWxseSBpcw0KdGhlIGRyaXZlciBib3VuZCB0byB0aGVzZSBi
-cmlkZ2VzLCByZXF1aXJlcyB0aGF0IEJBUjAuIEJlY2F1c2Ugb2YgdGhhdCwN
-CnJlbGVhc2luZyB0aGUgZXh0cmEgQkFSIGRvZXMgbm90IHNlZW0gdG8gaGF2
-ZSBub3RhYmxlIGRvd25zaWRlcyBidXQNCmNvbWVzIHdpdGggYSBjbGVhciB1
-cHNpZGUuDQoNClRoZXJlZm9yZSwgcmVsZWFzZSBCQVIwIG9mIHN1Y2ggc3dp
-dGNoZXMgdXNpbmcgYSBxdWlyayBhbmQgY2xlYXIgaXRzDQpmbGFncyB0byBw
-cmV2ZW50IGFueSBuZXcgaW52b2NhdGlvbiBvZiB0aGUgcmVzb3VyY2UgYXNz
-aWdubWVudA0KYWxnb3JpdGhtIGZyb20gYXNzaWduaW5nIHRoZSByZXNvdXJj
-ZSBhZ2Fpbi4NCg0KRHVlIHRvIG90aGVyIHNpYmxpbmdzIHdpdGhpbiB0aGUg
-UENJIGhpZXJhcmNoeSBvZiBhbGwgdGhlIGRldmljZXMNCmludGVncmF0ZWQg
-aW50byB0aGUgR1BVLCBzb21lIG90aGVyIGRldmljZXMgbWF5IHN0aWxsIGhh
-dmUgdG8gYmUNCm1hbnVhbGx5IHJlbW92ZWQgYmVmb3JlIHRoZSByZXNpemUg
-aXMgZnJlZSBvZiBhbnkgYnJpZGdlIHdpbmRvdyBwaW5zLg0KU3VjaCBzaWJs
-aW5ncyBjYW4gYmUgcmVsZWFzZWQgdGhyb3VnaCBzeXNmcyB0byB1bnBpbiB3
-aW5kb3dzIHdoaWxlDQpsZWF2aW5nIGFjY2VzcyB0byBHUFUncyBzeXNmcyBl
-bnRyaWVzIHJlcXVpcmVkIGZvciBpbml0aWF0aW5nIHRoZQ0KcmVzaXplIG9w
-ZXJhdGlvbiwgd2hlcmVhcyByZW1vdmluZyB0aGUgdG9wbW9zdCBicmlkZ2Ug
-dGhpcyBxdWlyaw0KdGFyZ2V0cyB3b3VsZCByZXN1bHQgaW4gcmVtb3Zpbmcg
-dGhlIEdQVSBkZXZpY2UgYXMgd2VsbCBzbyBubyBtYW51YWwNCndvcmthcm91
-bmQgZm9yIHRoaXMgcHJvYmxlbSBleGlzdHMuDQoNClJlcG9ydGVkLWJ5OiBM
-dWNhcyBEZSBNYXJjaGkgPGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4NCkxp
-bms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LXBjaS9mbDZ0eDV6
-dHZ0dGc3dHhtejJwczdveWQ3NDV3ZzNsd2NwM2g3ZXNtdm55ZzI2bjQ0eUBv
-d28yb2ppdTJtb3YvDQpTaWduZWQtb2ZmLWJ5OiBJbHBvIErDpHJ2aW5lbiA8
-aWxwby5qYXJ2aW5lbkBsaW51eC5pbnRlbC5jb20+DQotLS0NCg0KVGhpcyBm
-ZWVscyBxdWl0ZSBoYWNreSB0byBtZSBhbmQgSSdtIHdvcmtpbmcgdG93YXJk
-cyBhIGJldHRlciBzb2x1dGlvbg0Kd2hpY2ggaXMgdG8gY29uc2lkZXIgUmVz
-aXphYmxlIEJBUiBtYXhpbXVtIHNpemUgdGhlIHJlc291cmNlIGZpdHRpbmcN
-CmFsZ29yaXRobS4gQnV0IHRoZW4sIEkgZG9uJ3QgZXhwZWN0IHRoZSBiZXR0
-ZXIgc29sdXRpb24gdG8gYmUgc29tZXRoaW5nDQp3ZSB3YW50IHRvIHB1c2gg
-aW50byBzdGFibGUgZHVlIHRvIGV4dHJlbWVseSBpbnZhc2l2ZSBkZXBlbmRl
-bmNpZXMuIFNvDQptYXliZSBjb25zaWRlciB0aGlzIGFuIGludGVyaW0vbGVn
-YWN5IHNvbHV0aW9uIHRvIHRoZSByZXNpemluZyBwcm9ibGVtDQphbmQgcmVt
-b3ZlIGl0IG9uY2UgdGhlIGFsZ29yaXRobWljIGFwcHJvYWNoIHdvcmtzIChv
-ciBtb3JlIHByZWNpc2VseQ0KcmV0YWluIGl0IG9ubHkgaW4gdGhlIG9sZCBr
-ZXJuZWwgdmVyc2lvbnMpLg0KLS0tDQogZHJpdmVycy9wY2kvcXVpcmtzLmMg
-fCAyMCArKysrKysrKysrKysrKysrKysrKw0KIDEgZmlsZSBjaGFuZ2VkLCAy
-MCBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL3BjaS9x
-dWlya3MuYyBiL2RyaXZlcnMvcGNpL3F1aXJrcy5jDQppbmRleCBkOTczMzVh
-NDAxOTMuLjk4YTRmMGExMjg1YiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvcGNp
-L3F1aXJrcy5jDQorKysgYi9kcml2ZXJzL3BjaS9xdWlya3MuYw0KQEAgLTYz
-MzgsMyArNjMzOCwyMyBAQCBzdGF0aWMgdm9pZCBwY2lfbWFza19yZXBsYXlf
-dGltZXJfdGltZW91dChzdHJ1Y3QgcGNpX2RldiAqcGRldikNCiBERUNMQVJF
-X1BDSV9GSVhVUF9GSU5BTChQQ0lfVkVORE9SX0lEX0dMSSwgMHg5NzUwLCBw
-Y2lfbWFza19yZXBsYXlfdGltZXJfdGltZW91dCk7DQogREVDTEFSRV9QQ0lf
-RklYVVBfRklOQUwoUENJX1ZFTkRPUl9JRF9HTEksIDB4OTc1NSwgcGNpX21h
-c2tfcmVwbGF5X3RpbWVyX3RpbWVvdXQpOw0KICNlbmRpZg0KKw0KKy8qDQor
-ICogUENJIHN3aXRjaGVzIGludGVncmF0ZWQgaW50byBzb21lIEdQVXMgaGF2
-ZSBCQVIwIHRoYXQgcHJldmVudHMgcmVzaXppbmcNCisgKiB0aGUgQkFScyBv
-ZiB0aGUgR1BVIGRldmljZSBkdWUgdG8gdGhhdCBicmlkZ2UgQkFSMCBwaW5u
-aW5nIHRoZSBicmlkZ2UNCisgKiB3aW5kb3cgaXQncyB1bmRlciBpbiBwbGFj
-ZS4gTm90aGluZyBpbiBwY2llcG9ydCByZXF1aXJlcyB0aGF0IEJBUjAuDQor
-ICoNCisgKiBSZWxlYXNlIGFuZCBkaXNhYmxlIEJBUjAgcGVybWFuZW50bHkg
-YnkgY2xlYXJpbmcgaXRzIGZsYWdzIHRvIHByZXZlbnQNCisgKiBhbnl0aGlu
-ZyBmcm9tIGFzc2lnbmluZyBpdCBhZ2Fpbi4NCisgKi8NCitzdGF0aWMgdm9p
-ZCBwY2lfcmVsZWFzZV9iYXIwKHN0cnVjdCBwY2lfZGV2ICpwZGV2KQ0KK3sN
-CisJc3RydWN0IHJlc291cmNlICpyZXMgPSBwY2lfcmVzb3VyY2VfbihwZGV2
-LCAwKTsNCisNCisJaWYgKCFyZXMtPnBhcmVudCkNCisJCXJldHVybjsNCisN
-CisJcGNpX3JlbGVhc2VfcmVzb3VyY2UocGRldiwgMCk7DQorCXJlcy0+Zmxh
-Z3MgPSAwOw0KK30NCitERUNMQVJFX1BDSV9GSVhVUF9FTkFCTEUoUENJX1ZF
-TkRPUl9JRF9JTlRFTCwgMHhlMmZmLCBwY2lfcmVsZWFzZV9iYXIwKTsNCg0K
-YmFzZS1jb21taXQ6IDhmNWFlMzBkNjlkNzU0M2VlZTBkNzAwODNkYWY0ZGU4
-ZmUxNWQ1ODUNCi0tIA0KMi4zOS41DQoNCg==
-
---8323328-161591600-1758110677=:1127--
+--------------URJS0Cggna0F4SqfCkz1zKs4--
