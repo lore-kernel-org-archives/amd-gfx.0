@@ -4,65 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E110CAC5AA
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 12:44:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D4BCAC5A0
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 12:44:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FBAA10E898;
-	Thu, 18 Sep 2025 12:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1FA10E899;
+	Thu, 18 Sep 2025 12:44:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QStIFduX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="luGo9XoZ";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A673010E66C;
- Thu, 18 Sep 2025 08:40:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1758184858;
- bh=wkdHSWOqeYK7n4RsHjVudEoksMfRdS1NB7ACekPCh0A=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=QStIFduXexoAAzOLAvOJaQI9nVerHdHQ1zMlvFMQxvef1K06itgtq8C/+vG403PME
- COHLexsulXNL/hGoIoBPReg76vPBLjGzBQB5UtVV70Ts7BrI92mVDOxfS1C0vAMCNO
- KvSvPD29IK0Wttmxy1KTU9Q41SwWC1WJkOYVEwhETgTQ9VNEutDziL0c4qT3+TX0y8
- 0BW9BBas5MAWezpj7G7m6/hXB8PgP8gIj+a9KJYEOhSsvn8kYnhRxz7Daf7zvLtz6f
- aVT4Oc1kbHHKfuwxBePjjXmHrbeL/UAeLJDdz2EgrF84+HbhrEWzsXkhlTHWymyfnt
- od36Lcc6SjIoQ==
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0595E17E12C4;
- Thu, 18 Sep 2025 10:40:56 +0200 (CEST)
-Date: Thu, 18 Sep 2025 11:40:36 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Alex Hung <alex.hung@amd.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, Sebastian Wick
- <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- harry.wentland@amd.com, leo.liu@amd.com, ville.syrjala@linux.intel.com,
- contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com,
- shashank.sharma@amd.com, agoins@nvidia.com, joshua@froggi.es,
- mdaenzer@redhat.com, aleixpol@kde.org, victoria@system76.com,
- daniel@ffwll.ch, uma.shankar@intel.com, quic_naseer@quicinc.com,
- quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, marcan@marcan.st,
- Liviu.Dudau@arm.com, sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
- mcanal@igalia.com, nfraprado@collabora.com, Daniel Stone
- <daniels@collabora.com>
-Subject: Re: [PATCH V11 06/47] drm/colorop: Add 1D Curve subtype
-Message-ID: <20250918114036.454735e9@eldfell>
-In-Reply-To: <610215a0-50ad-45b8-b60a-a52441619c73@amd.com>
-References: <20250815035047.3319284-1-alex.hung@amd.com>
- <20250815035047.3319284-7-alex.hung@amd.com>
- <DC6I12RMKGXL.1L8KAEE0UBNNW@redhat.com>
- <CAFZQkGyXbD_x0V6KBdR4vaunF+bG+HKOYAA7y6aVWfeTQ3cLzA@mail.gmail.com>
- <4eef4157-cad5-4399-9bc9-c5c2f005d472@amd.com>
- <20250826120306.618c275f@eldfell>
- <610215a0-50ad-45b8-b60a-a52441619c73@amd.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3E110E0E5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 07:12:33 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-76e6cbb991aso648867b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 00:12:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1758179553; x=1758784353; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kkm5768qLYG/7lMt2aDpCtrK/g19VAgQZBHIXA7VzC8=;
+ b=luGo9XoZaLbLP/GtB5ZzgXHlqhKsqBAAH3SvZ71E8gSWXOjVH3IkVJQybsum8qDsRr
+ 5F+R5BNZ3lHKEHPziKFGERcTKcG6BrU666i4q21GZh3L53qy6fmQ8nJcyBJyz1dqwzbR
+ whrvtiKLvu8JC0wWQBmHvUvu9lX2MCF93Fu7aror/hhb8UF8J1xAomvIer6BFVEI53np
+ x9alCOP9vD4EM8SACKP4HUQo+/RGWQaE/T9AGQ0+X9AvaAcn/m7DFjib45kiR8RWBERI
+ z3mAaCwxGyi5ibt9IAYSVae79JKyAl63Y8AQuyXgz7cKr9jqj8l7VS0dgMit3cBQMecW
+ KtRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758179553; x=1758784353;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kkm5768qLYG/7lMt2aDpCtrK/g19VAgQZBHIXA7VzC8=;
+ b=Yj7y+K81sU89f+mZ3CbdorRfcFfulQUID36KPivoGOxZ8ugyXplCv3PiF2KmmB0iiP
+ gQR0k/1OD4ptMIJxOHPkcxih5OexWFjE6QZU/eLaNNLSCWb2WPf79ZNUgn5d8EaYImUI
+ hNuZMIbntqXfdwHDHMoGXxx6FOdbaI2Hx1ZEUMpbcRoSmbWRQ3dc6C0gAjwIUxRsApVC
+ V4OZjnvQDfHlPdai1wiqKP55oXJ5nwfZhbDypUMCMfZRJywMxhWkyLucOiK0M+Z7bEdn
+ ZRUFDluMC+zlkr+wJAgiSa6gQLynl+eEobXOOAnMJTp6ILxx/I/NAQKJTgIJGjXz0mLO
+ aXyA==
+X-Gm-Message-State: AOJu0Yw3i3rzlRmnhzWyX83OyKVshOmgbzIAoRQvatV1HisqLMC0SKju
+ ZNKC2P9he2ZbTSRMw6Z/NzHGqRIw0c/foV9m5KdX5NGBgvoU6QwxSGW6
+X-Gm-Gg: ASbGncu2OQvfoRfdYnct2vkTcxceEru9Q/iEHfAxPoUrROznhSlN67317ahtl1q3Fpx
+ vKGbm+6dSVRY1S0uCNCM+OIlh7ZRtQzzkembUVYJpaxtzfYr0QinrzdxcVNG5bXQDFW96Qn//xS
+ 7KQuOLkVnChqnBrwdFeXgsdiXtXmAqRcvyprnKQU66E+JqIvrTD+sWiTpe3wnfWmA1pAFbtq5/g
+ A1XWYMdzyzkeliKKumqCq+/QP+Jiu7ihy//jEahqy3Yd5Dx/wdw8u52MeFereFHJlG8LTTxgMoU
+ UxoRyW0SnKKcv5BqpK7Y3sArCLUNTQDbBtRiVXevlbcVAZ0vM3PM5nRA6PuSS/AL4jDx0cDq/M2
+ flKo2XrBvXTqfEBJ9r1Wp8czRes8JSWoDRGb3BJxYxwdMrA4+NCVO1TQ=
+X-Google-Smtp-Source: AGHT+IGdU2UHmJHhU9RR2jUy+RtSKtOMtaGZXLns5gxJCl2FXNsuL8oTowVvbbfw7QvNTE+aUNdCBQ==
+X-Received: by 2002:a05:6a20:6a10:b0:23d:ab68:1b7c with SMTP id
+ adf61e73a8af0-27aa99bdb9emr7214606637.46.1758179552545; 
+ Thu, 18 Sep 2025 00:12:32 -0700 (PDT)
+Received: from localhost.localdomain ([165.204.156.251])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b54ff3743bcsm1435597a12.20.2025.09.18.00.12.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Sep 2025 00:12:32 -0700 (PDT)
+From: Rahul Kumar <rk0006818@gmail.com>
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linuxfoundation.org, skhan@linuxfoundation.org,
+ rk0006818@gmail.com, Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Use kmalloc_array() instead of kmalloc()
+Date: Thu, 18 Sep 2025 12:42:00 +0530
+Message-ID: <20250918071201.350162-1-rk0006818@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/uzPsFupCAS4ezSX2oPq_XI0";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 18 Sep 2025 12:44:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,126 +87,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/uzPsFupCAS4ezSX2oPq_XI0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Documentation/process/deprecated.rst recommends against the use of
+kmalloc with dynamic size calculations due to the risk of overflow and
+smaller allocation being made than the caller was expecting.
 
-On Tue, 16 Sep 2025 17:01:07 -0600
-Alex Hung <alex.hung@amd.com> wrote:
+Replace kmalloc() with kmalloc_array() in amdgpu_amdkfd_gfx_v10.c,
+amdgpu_amdkfd_gfx_v10_3.c, amdgpu_amdkfd_gfx_v11.c and
+amdgpu_amdkfd_gfx_v12.c to make the intended allocation size clearer
+and avoid potential overflow issues.
 
-> On 8/26/25 03:03, Pekka Paalanen wrote:
-> > On Thu, 21 Aug 2025 11:54:32 -0600
-> > Alex Hung <alex.hung@amd.com> wrote:
-> >  =20
-> >> On 8/21/25 06:23, Xaver Hugl wrote: =20
-> >>>> We user space folks have been convinced at this point that the sRGB =
-EOTF
-> >>>> is actually gamma 2.2, and not the piece-wise function. Now, if the
-> >>>> hardware is actually the piece-wise, then that's what should be expo=
-sed,
-> >>>> but I'm a bit unsure if we should do that under the name sRGB EOTF. =
-=20
-> >>> Maybe simply rename the enum string to "sRGB piece-wise EOTF"? In
-> >>> hindsight, the naming of "srgb" in the Wayland protocol caused a lot
-> >>> of confusion, it's better to be explicit about it where possible. =20
-> >>
-> >> I will leave this to Harry to comment. He is taking a few days off so I
-> >> will check with him later.
-> >> =20
-> >=20
-> > "sRGB inverse OETF"?
-> >=20
-> > Strictly speaking "sRGB piece-wise EOTF" is not a thing AFAIU.
-> >=20
-> >=20
-> > Thanks,
-> > pq =20
->=20
-> If an extension in future after this proposal is merged, can it be GAMMA=
-=20
-> 2.2 to be [DRM_COLOROP_1D_CURVE_GAMMA22] =3D "GAMMA 2.2" so it won't=20
-> conflict with current name?
->=20
-> Meanwhile, do we agree to change "sRGB EOTF" as "sRGB Inverse OETF" as=20
-> the following? or do we still want to add "piece-wise"?
+Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Rahul Kumar <rk0006818@gmail.com>
+---
+Changes since v1:
+- Extend fix to amdgpu_amdkfd_gfx_v10_3.c, amdgpu_amdkfd_gfx_v11.c and
+  amdgpu_amdkfd_gfx_v12.c as suggested.
+- Added Suggested-by tag.
+Link to v1:
+https://lore.kernel.org/all/f782159b-ad3f-4d0c-8476-50a701bf29e6@amd.com/
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c   | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c   | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c   | 4 ++--
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
-Hi Alex,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+index 04ef0ca10541..0239114fb6c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+@@ -352,7 +352,7 @@ static int kgd_hqd_dump(struct amdgpu_device *adev,
+ 		(*dump)[i++][1] = RREG32_SOC15_IP(GC, addr);		\
+ 	} while (0)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+@@ -449,7 +449,7 @@ static int kgd_hqd_sdma_dump(struct amdgpu_device *adev,
+ #undef HQD_N_REGS
+ #define HQD_N_REGS (19+6+7+10)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+index 6d08bc2781a3..f2278a0937ff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+@@ -338,7 +338,7 @@ static int hqd_dump_v10_3(struct amdgpu_device *adev,
+ 		(*dump)[i++][1] = RREG32_SOC15_IP(GC, addr);		\
+ 	} while (0)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+@@ -435,7 +435,7 @@ static int hqd_sdma_dump_v10_3(struct amdgpu_device *adev,
+ #undef HQD_N_REGS
+ #define HQD_N_REGS (19+6+7+12)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+index e0e6a6a49d90..aaccf0b9947d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+@@ -323,7 +323,7 @@ static int hqd_dump_v11(struct amdgpu_device *adev,
+ 		(*dump)[i++][1] = RREG32(addr);		\
+ 	} while (0)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+@@ -420,7 +420,7 @@ static int hqd_sdma_dump_v11(struct amdgpu_device *adev,
+ #undef HQD_N_REGS
+ #define HQD_N_REGS (7+11+1+12+12)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c
+index 6f0dc23c901b..e0ceab400b2d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c
+@@ -115,7 +115,7 @@ static int hqd_dump_v12(struct amdgpu_device *adev,
+ 		(*dump)[i++][1] = RREG32(addr);		\
+ 	} while (0)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+@@ -146,7 +146,7 @@ static int hqd_sdma_dump_v12(struct amdgpu_device *adev,
+ #undef HQD_N_REGS
+ #define HQD_N_REGS (last_reg - first_reg + 1)
+ 
+-	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	*dump = kmalloc_array(HQD_N_REGS, sizeof(**dump), GFP_KERNEL);
+ 	if (*dump == NULL)
+ 		return -ENOMEM;
+ 
+-- 
+2.43.0
 
-since my previous comment, things have muddied further again. FWIW, we
-intend to remove the use of the name "srgb" transfer function
-completely from the Wayland protocol as confusing:
-
-https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requests/4=
-42
-
-I would recommend the KMS UAPI to similarly avoid the term. I would
-recommend "gamma 2.2" or even "power 2.2" and "compound power 2.4" or
-such. These names would hopefully not trigger intuition and make people
-look at the definition harder. Or any other name you can come up with.
-
-I agree that "piece-wise sRGB EOTF" would be intuitively clear, but it
-may provoke people debating what does IEC 61966-2-1 actually define.
-We've had these kind of discussions for Wayland already, and it was
-suggested that it is better to define the actual mathematical function
-in our specification that to leave it for interpretation from standards.
-
-For KMS, this should be even easier than for Wayland, because the
-hardware implements a specific mathematical function regardless of
-where it might have originated or what it is being used for.
-
-
-Thanks,
-pq
-
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 1551b86471ce..90a216c0b6ac 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -71,7 +71,7 @@ static const struct drm_prop_enum_list=20
-> drm_colorop_type_enum_list[] =3D {
->   };
->=20
->   static const char * const colorop_curve_1d_type_names[] =3D {
-> -	[DRM_COLOROP_1D_CURVE_SRGB_EOTF] =3D "sRGB EOTF",
-> +	[DRM_COLOROP_1D_CURVE_SRGB_EOTF] =3D "sRGB Inverse OETF",
->   	[DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF] =3D "sRGB Inverse EOTF",
->   	[DRM_COLOROP_1D_CURVE_PQ_125_EOTF] =3D "PQ 125 EOTF",
->   	[DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF] =3D "PQ 125 Inverse EOTF",
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index e4250b7d8de8..ce85c52c60c8 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -43,7 +43,7 @@ enum drm_colorop_curve_1d_type {
->   	/**
->   	 * @DRM_COLOROP_1D_CURVE_SRGB_EOTF:
->   	 *
-> -	 * enum string "sRGB EOTF"
-> +	 * enum string "sRGB Inverse OETF"
->   	 *
->   	 * sRGB piece-wise electro-optical transfer function. Transfer
->   	 * characteristics as defined by IEC 61966-2-1 sRGB. Equivalent
->=20
-
-
---Sig_/uzPsFupCAS4ezSX2oPq_XI0
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmjLxYQACgkQI1/ltBGq
-qqcLFxAArP7VFGLRZdI3HZym72NgRjpk0bQ8JA5uTFhkLAXuNL/YPBOyYwdTkbj3
-EiAxC19Bwqlzkri0uA02SkGEqp3f/BvwsAeDzcV30tBm4G0BcsugdblQuJddH7lb
-yaIptChV50+RGpH1rp/4tOa5b9k1cr7NFq3fEjWpieeMskJE306d95GOTBUqP3qm
-OLNGZ77Je1ZIaJq5d4jCeu8IZwLixA08rb6CeF3//NXhhuY8VvwTh5eDDfL1Rquc
-GFTBGfqon8zbMyHxL4qP0qBE5HPuYgW2539aQEf/KzcZFo1Ip2AW/aJY/xA0FdeI
-dnCqookjhsiYSumZsqvtORqEt8f5bFwzvL3lnOKc6ydk+AGVj2CPR0IPSugAsypB
-eDDAZh7edaGp9TsgqkKe5uQAqFh4KbN5LsfnaMDgKcrd4VfOvtCOx1GGcDs+01Rn
-RDtt4HIvZKHBqJ8PlYinZPxEr7jXi0+RO76TdY72iOBviPSpBa+5wge0Fy4F9L7D
-f+HG50zO7CYYStaFwKA5ADtHiM3jExfqTosijvHb6NzvesVijlBuqYhlIKaj5UNr
-cAnI/KbjpRnPx9Xo0j9jmb89uWawy8zb6HgQci5xpV5anjLH1adClwNWL0XmZONv
-vUb4lgHQNT1oFBk5e2qQzaOOS6jqx4PsFav2sC1XwqQ0RDMX+Wg=
-=U5MB
------END PGP SIGNATURE-----
-
---Sig_/uzPsFupCAS4ezSX2oPq_XI0--
