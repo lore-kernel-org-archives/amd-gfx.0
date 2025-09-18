@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87DD4CAC59A
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 01:33:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE693CAC5A5
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 01:33:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2794310E5F1;
-	Thu, 18 Sep 2025 01:33:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70E3110E5FD;
+	Thu, 18 Sep 2025 01:33:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Uf2sGsQ+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uGBjV+3Q";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012034.outbound.protection.outlook.com
- [40.93.195.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB8C510E5F1
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 01:33:42 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012066.outbound.protection.outlook.com [52.101.48.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDBE810E5F6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 01:33:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nmc4ZL9SjeX5FRWVc5VagdZePfISq1M1ZWt4DyEERzKBENhu+6tbdOtUcccEMlIIHKrU20gP+q1cYjpl/Jr1Mgj1mri9sjr/r5zOXw07qyyKHOwPK6/c2xkTR8q4ZRuhwuzVl7OQ9Hw3aE/5NrpzTOMAJNez2W9IGkPAmKrDg6aOaL68ZkIgHB2dx3Z8tspzWnowbw+AAPgzDIYC6nZKMJ07iRwqkkRPgelXuF87dW00ImsUXmeAt16oFv27zr0FRJb6HWtuav4iEnu3KB/1U2rGXGIs/7NuGQNQePBFDy7JaT1JZoQZQAx69DwvVPlZn4csInY1ygpSUbvw6DibPQ==
+ b=BcdCJWNNhAzaAvyAK4205fVlkXHy6Jv59GCSQ34zdT6J+67RAaFztJMOu8QJDgIqc4VYFw50h9gyeHXjAxpodxwqO/sSfT/ebOR0EdRFLjltETq3cFmpxeMt2L2IsG3Rm9Kfz8RuuPS2uKScdgmST6VJYrdH2QVMaQhvPhzQew/MHqYub98sagyWUm5aekndq8/ECKF4M0oyUsqWNpaGSf0w75C0U+ajyXDFKKZcqXznG0JDrGpgWHixzcAHJp1VGCLZa4uzBHCokxEFMnCobn78WIoe0S/+L+IN5lfOrLj8vPQ31Xaou5EM2sBpuM9uu3NiufakotomGpmIyMYXYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a6f+707ieeAiQL5CBgrWffz6quIEbMuKE5+84JLg9hQ=;
- b=pSwGesLb2pdVtXA/4NXu2U/O8y20cJ0q2rpm67TmmkzqujmTOYfVSdmt163ktaz7maE3eJ+hs2kxQjIpLhwGEroKgqf/kgHjTEPJaZtYpIQMvW1AjJd7J+v6/Tvk9hhBqiXGzJmw8Mr54u6PL952BF4OedHSGUBsk9bO/eiQejNV0JILuoVjE1yO4yK2DDE0cIr+1VnYjz0qtzJL4KyJD4xsAWT7+looE2x9apsfpDGssmXpgSpC2iWZVfy2kpdTzjY1bYmTrOpJNN3IBQT6hZeASPOcJl19lDqsnkK6L/SQvJq6bbQKgj6tUszVT0t/pY6H4+4ljERhuxCxiWy5UQ==
+ bh=RumBOxmDaLhsfiNzR806jzhLaQBLmIzdEFVYUY07LZE=;
+ b=inQSc0VHxi78ztxC1vpNzuRPon03pKubfFG0RzTHveHyH19iB1er1QacVQWaMJ3rkCBNpBMCwzxHca9lQHcVxOHpOXioGf+p3oGtqikM724Zzu8iWixFirs58NkZiHPH2Jekw2Rt+FRG9CallgdMkvGEC+QtOY8YM7P+GKlswnyQwbINvVThnBZVd43OXkb2J9MMb/0xvOPWwtefIqnxW4fkmWNp3xHH39Ocodqk4nI9QeSmehgvFPz2bFUP79ydBzePZnFtCsjhkgUSXooA1EDH3dAKDddeT5tN+LPvaKlNWX3sdtQxg/rP7vtZlumNjL8jdOtjaeLuokwkYW95jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a6f+707ieeAiQL5CBgrWffz6quIEbMuKE5+84JLg9hQ=;
- b=Uf2sGsQ+Qc2uue8SKUW5I+zujMXhYR8Hf2uJD9Cmn5LQQJJQtpG7yIBr1wg8Wt9UQH+dg8ChU/dThh1Uzmzqt5EVrjtkrU8RjtXHLlUQbGZYeOE4SwOR722f2pSp3N0IFRuptjObJWri5KdfobvxhtkumFbkq26Nn8NgVFSWI30=
-Received: from MW4PR03CA0203.namprd03.prod.outlook.com (2603:10b6:303:b8::28)
- by DM6PR12MB4203.namprd12.prod.outlook.com (2603:10b6:5:21f::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=RumBOxmDaLhsfiNzR806jzhLaQBLmIzdEFVYUY07LZE=;
+ b=uGBjV+3QgoQZUB08qVayx6kJ0mRwbnA5I//l/uw7j1Y70cuRd7FQbnim3mTLMw0kgKIu4FwPdHOHX7V94aBHbwGv7iX96x3ANNR5PLLZla4jcSkpsE4EKUiAPIpnFTLcaRhp71rGjVRtk5gqDejwMdb2tJaPnaS0wvsmhW4lIOI=
+Received: from SJ0PR13CA0233.namprd13.prod.outlook.com (2603:10b6:a03:2c1::28)
+ by MN2PR12MB4240.namprd12.prod.outlook.com (2603:10b6:208:1d3::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.13; Thu, 18 Sep
- 2025 01:33:37 +0000
-Received: from CO1PEPF000044EF.namprd05.prod.outlook.com
- (2603:10b6:303:b8:cafe::e7) by MW4PR03CA0203.outlook.office365.com
- (2603:10b6:303:b8::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.14 via Frontend Transport; Thu,
- 18 Sep 2025 01:33:37 +0000
+ 2025 01:33:40 +0000
+Received: from CO1PEPF000044F2.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::3) by SJ0PR13CA0233.outlook.office365.com
+ (2603:10b6:a03:2c1::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.13 via Frontend Transport; Thu,
+ 18 Sep 2025 01:33:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000044EF.mail.protection.outlook.com (10.167.241.69) with Microsoft
+ CO1PEPF000044F2.mail.protection.outlook.com (10.167.241.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Thu, 18 Sep 2025 01:33:37 +0000
+ 15.20.9137.12 via Frontend Transport; Thu, 18 Sep 2025 01:33:39 +0000
 Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 17 Sep
- 2025 18:33:35 -0700
+ 2025 18:33:37 -0700
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
  <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou
  <tao.zhou1@amd.com>
-Subject: [PATCH 15/21] drm/amd/ras: Add psp ras common functions
-Date: Thu, 18 Sep 2025 09:32:26 +0800
-Message-ID: <20250918013232.2629215-15-YiPeng.Chai@amd.com>
+Subject: [PATCH 16/21] drm/amd/ras: Add ras ioctl command handler
+Date: Thu, 18 Sep 2025 09:32:27 +0800
+Message-ID: <20250918013232.2629215-16-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250918013232.2629215-1-YiPeng.Chai@amd.com>
 References: <20250918013232.2629215-1-YiPeng.Chai@amd.com>
@@ -75,52 +74,52 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044EF:EE_|DM6PR12MB4203:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd50ea55-b25c-4fec-8876-08ddf6536408
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F2:EE_|MN2PR12MB4240:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63ac8b79-004b-4155-e639-08ddf653653c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?p5axdnf4Sp/+9kjk0nnGKqlqI1Isxdn7/WWZfN0rSydGbnDDE5rmdhRtYV4y?=
- =?us-ascii?Q?SE7i2HUSUjf/0FbgPjIRu3To8kOsneNK3QibvTE5/Xakw99CHbDZ2XOicMRT?=
- =?us-ascii?Q?1aZ1UmnxIw2IugBdmz8X9jsIzdpdN6jpGumvicNlosBLn9I48eb3DZKaBV5G?=
- =?us-ascii?Q?1Yt4WoeI/SAj9cgTciPCbxZdeZjZA+t5CtKFxmuytO2+lNi/kpaBXP95zsj1?=
- =?us-ascii?Q?W5tmcw4c9O2QkHRaR7m5JID2D/yOwlR608c0hTcUJmgKB8nELzDB0KtRMImo?=
- =?us-ascii?Q?lqictVl2CxSwAZvplnXhUJUVlMqsQWHh97fgEmnE6sCvv9FhxIo/FiG8IaY8?=
- =?us-ascii?Q?bD/QUdnE00qvDhPl870MS3hRwsWBB3uWvQ5gInasBFgREUt+8vQ1tqxTq7wM?=
- =?us-ascii?Q?LAafsJn6j+wuud8l/RA/kBtS2tK5N6gqknjM00ab8JVqEuwmeT3jUZ605aeU?=
- =?us-ascii?Q?ttpmKnIP8VonmsQOXJ2nBDnlZV765qiR7Inf4RHdGehIzLFShBfCjtd7zlZM?=
- =?us-ascii?Q?57QiqwfB/00TLS4hF/vI9mQz1bm6OfuMBavtKPgeys7fT5r58F3CT4af5W1a?=
- =?us-ascii?Q?KY/lZ62tvGKkFTZ/2Y/PS7tKfuVq79op/rcMN4meyxeY+YZRkrSg8oBp7Gbk?=
- =?us-ascii?Q?4+X8gKndLNx5ibQJYFSWrDaClAPTmQCMFmit5yL7nmggpo+bHWY1fXlYAkNl?=
- =?us-ascii?Q?tc2bMp0Ilu3naa/9D7BtK87TgGmyHzLsxp1zzzXo4JC9YOG1MROhbagHPkEH?=
- =?us-ascii?Q?FUjcUDPFdJRHMwOCH9SKtUKEmHIoqXsdPVkK91GdeAwFNtxZA9bJkWwFkTzL?=
- =?us-ascii?Q?BYvAqfEidbFgMngLTqd/BIXmc3bpLTxDlCXdut0iCI4iOoIem4+do8wcAkHW?=
- =?us-ascii?Q?WjpgxZxhQEvMh2s+GXKa1/ycZuNV7SB7qJf0+KMGibsEs3S64v/yoRvmMzc2?=
- =?us-ascii?Q?lNKNijWIvgnGdoAOEldT3248fWbwLH6ASAivT7qc0Vtl2Qxk84Y9CPhTML1Z?=
- =?us-ascii?Q?Q8bYChwFJqnhY3+7hZgz6wIbHD9aah44J6AAymqpVEM5/icuMjIaafZtddjG?=
- =?us-ascii?Q?EcWF2RBP356CMKJJ6ozO3X1y6+2S8od/lnfAWriRnBlJrhqq5h3GxM9EPqNw?=
- =?us-ascii?Q?GrZbg7/ZXYW0L/ahyiRz54FKgeD0zt1aML8spm6SdRXqrVNoHl7gjWcCo74W?=
- =?us-ascii?Q?tICM9HJ6v0HlJjXBUbMWQidZl+FqstR32sZF1fMl/iChz6LgYWjd2YTMK1vV?=
- =?us-ascii?Q?iPOUFDiIMR5ZBNuSVo55oKxzPi+PhQ7XDcdBdy8WZ2m9n3wOv9Ow5pIhBnce?=
- =?us-ascii?Q?L0PGpmxOeU7gWb+0pLQjAGj6SseMjyyc5+rkC1eaFXT7L/3pQ2ZcQ07tyhG+?=
- =?us-ascii?Q?FWBsTCgaN3WcXMbZOPeHFKbBVGkLPTrC/cxl7pAARlL8bY8BRWuOYg6G3QMF?=
- =?us-ascii?Q?qxIGSXcbPafBSrLWpLjr2MUASCBqjLDqCX7JAi94Zy9QKIkQqr3Fs8B8tkG3?=
- =?us-ascii?Q?PtS1Rl4a/NNX9wDV7aeKqm1Fdk782MYLyDwQ?=
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jY4vr25BWgXWM9x56hFWFnt2SffQnJZX8JoHrrkMwk1/V7L/s/oKCqe/uEsq?=
+ =?us-ascii?Q?EIlRTmIt+IrkXRXa1n+Bokmq9ccuutuuSruVmQ9enGb79ufbHWbQ8en4ACZE?=
+ =?us-ascii?Q?G9yUeJvg+AAxy7FZ31AJi77j/iLftNXIa7k90B/YH3jB1rlKTNxvjGn85qp1?=
+ =?us-ascii?Q?d8mZQwuifJo64g6dJAffZg/rH8WenmMbAdPXGanfIZIPsH2U86WlusGAVCu2?=
+ =?us-ascii?Q?sXaD8yaJA46No9qlagFEIfAsLMnGVaJ002jDeFIh1wBruFx5n1fdkVkv0i5t?=
+ =?us-ascii?Q?BF3meOw2f6vel2U7oUBCdMau5i2M2W0de0MqslgXv1P9Icn8LPs+2ZVjlWdF?=
+ =?us-ascii?Q?ouEkhoTLHkFMSZL+gWAkVIbPzrPLfdjg2HZ2ID8pNylZDdCPGNbJIVXNMcJb?=
+ =?us-ascii?Q?8CJ4h7ujYDbOv21PSAOaw938Sos7vqLDJl9NiaZF9X32ijZAln2o4TDkYLo8?=
+ =?us-ascii?Q?7Vo0wcf4rSam/jLmrnR9BliKnKZHHf28wxID9+ljoihk1UARXMDZ+ijW+cjY?=
+ =?us-ascii?Q?QVSUEG8UvsUCyvsKirVySOn4V+NTEpJxw2y8I3H+gJJhPrfZn7WYLEqHhjY1?=
+ =?us-ascii?Q?Zh6i0mF1XvKZAYubQdRetCfPzM3tn01oJzL0/E9FBJSlUh9RShfgfRR/dCI5?=
+ =?us-ascii?Q?c4D6RZT04roRdbL/EbVVPm96gQ6bNcjjBR+O1k9aQ2eNYGZwE8p0llh+QEmr?=
+ =?us-ascii?Q?6tIiy53ZxfYrDePmvRpI6zNcyVSEOcBQ/9WJGNl9SqzuJWciGUD7FnOCysi4?=
+ =?us-ascii?Q?xuFMSSCCDotBjbHv8dRbkYI8eJ1EYuEFqRubuwrcjDrqJl2TjYc/T+IPCUJq?=
+ =?us-ascii?Q?nfr5Jd0ROrzsvfzUf+hKqoU6+3ppTuLMeFNA7X0xQNqLFo9OYzblEwsIVacx?=
+ =?us-ascii?Q?lkslNqqMVAp4Ev+U1ZQot1VGH2k+wUZSQ3/53Wta5psCExKpPnK/1NuCcVkF?=
+ =?us-ascii?Q?h8udCNkXPrJxZr/CawM9GaJFZIUENYh1U1LC0c3/qf0afZpKUrycm8Xg1mRX?=
+ =?us-ascii?Q?Avk1gfVnSCWiFTgTEmT40sTKWsUKVADqSe5UZirNWoQpriEBLUs0b9PsPfkI?=
+ =?us-ascii?Q?tftSbXX/7UN7rAisYEoGz5ePZxePL2cGRT8iD7GSZ8f2gSd1/6dDQD76I/On?=
+ =?us-ascii?Q?fmcdKMSitTQJOE7b73QyLSVPpUOwcQxKxVOSR5iSbUWAUMfGOGLhXLyNBzLS?=
+ =?us-ascii?Q?sjaFOheUzuaSPd/eSMmO2zx8WE7rySz20zINBPSS+bM4WNuzspQqUwqCslOA?=
+ =?us-ascii?Q?hS8hD/dfcwqVBLvwvkPoe711A+F/5aISwij9RjgkPCLbGoJG4Q3g2zTDHlFK?=
+ =?us-ascii?Q?yyDQwG+RC46t8y0iBqGpGjWdIdYcdGZQEGwQmp+/FdQYDmq9pMxur4an02z3?=
+ =?us-ascii?Q?p85Y56AGHz63m2E209xpinHqFrSkcjr7lWLWInIFE/1wqbtDnpn3n7fpXbnt?=
+ =?us-ascii?Q?ZbRiA2EtDFx+n0dJAENJkt2VCrG12C0zhx/319W10nTx9kKMscDH/tLVI3O+?=
+ =?us-ascii?Q?tnJpwYBlC4+ZBtqTxgA5DwhjOFz1E3ntEpYn?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 01:33:37.6124 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd50ea55-b25c-4fec-8876-08ddf6536408
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 01:33:39.6344 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63ac8b79-004b-4155-e639-08ddf653653c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044EF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4203
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4240
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,25 +134,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add psp ras common functions.
+Add ras ioctl command handler.
+
+V2:
+  Remove ras global device list.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/ras/rascore/ras_psp.c   | 750 ++++++++++++++++++++
- drivers/gpu/drm/amd/ras/rascore/ras_psp.h   | 145 ++++
- drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h | 231 ++++++
- 3 files changed, 1126 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_psp.c
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_psp.h
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h
+ drivers/gpu/drm/amd/ras/rascore/ras_cmd.c | 527 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/ras/rascore/ras_cmd.h | 425 +++++++++++++++++
+ 2 files changed, 952 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c b/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
 new file mode 100644
-index 000000000000..c94effd4b114
+index 000000000000..697619b30ea2
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
-@@ -0,0 +1,750 @@
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
+@@ -0,0 +1,527 @@
 +// SPDX-License-Identifier: MIT
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
@@ -178,9 +178,551 @@ index 000000000000..c94effd4b114
 + *
 + */
 +#include "ras.h"
-+#include "ras_ta_if.h"
-+#include "ras_psp.h"
-+#include "ras_psp_v13_0.h"
++#include "ras_cmd.h"
++
++#define RAS_CMD_MAJOR_VERSION 6
++#define RAS_CMD_MINOR_VERSION 0
++#define RAS_CMD_VERSION  (((RAS_CMD_MAJOR_VERSION) << 10) | (RAS_CMD_MINOR_VERSION))
++
++static int ras_cmd_add_device(struct ras_core_context *ras_core)
++{
++	INIT_LIST_HEAD(&ras_core->ras_cmd.head);
++	ras_core->ras_cmd.ras_core = ras_core;
++	ras_core->ras_cmd.dev_handle = (uint64_t)ras_core ^ RAS_CMD_DEV_HANDLE_MAGIC;
++	return 0;
++}
++
++static int ras_cmd_remove_device(struct ras_core_context *ras_core)
++{
++	memset(&ras_core->ras_cmd, 0, sizeof(ras_core->ras_cmd));
++	return 0;
++}
++
++static int ras_get_block_ecc_info(struct ras_core_context *ras_core,
++				struct ras_cmd_ioctl *cmd, void *data)
++{
++	struct ras_cmd_block_ecc_info_req *input_data =
++			(struct ras_cmd_block_ecc_info_req *)cmd->input_buff_raw;
++	struct ras_cmd_block_ecc_info_rsp *output_data =
++			(struct ras_cmd_block_ecc_info_rsp *)cmd->output_buff_raw;
++	struct ras_ecc_count err_data;
++	int ret;
++
++	if (cmd->input_size != sizeof(struct ras_cmd_block_ecc_info_req))
++		return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
++
++	memset(&err_data, 0, sizeof(err_data));
++	ret = ras_aca_get_block_ecc_count(ras_core, input_data->block_id, &err_data);
++	if (ret)
++		return RAS_CMD__ERROR_GENERIC;
++
++	output_data->ce_count = err_data.total_ce_count;
++	output_data->ue_count = err_data.total_ue_count;
++	output_data->de_count = err_data.total_de_count;
++
++	cmd->output_size = sizeof(struct ras_cmd_block_ecc_info_rsp);
++	return RAS_CMD__SUCCESS;
++}
++
++static void ras_cmd_update_bad_page_info(struct ras_cmd_bad_page_record *ras_cmd_record,
++	struct eeprom_umc_record *record)
++{
++	ras_cmd_record->retired_page = record->cur_nps_retired_row_pfn;
++	ras_cmd_record->ts = record->ts;
++	ras_cmd_record->err_type = record->err_type;
++	ras_cmd_record->mem_channel = record->mem_channel;
++	ras_cmd_record->mcumc_id = record->mcumc_id;
++	ras_cmd_record->address = record->address;
++	ras_cmd_record->bank = record->bank;
++	ras_cmd_record->valid = 1;
++}
++
++static int ras_cmd_get_group_bad_pages(struct ras_core_context *ras_core,
++	uint32_t group_index, struct ras_cmd_bad_pages_info_rsp *output_data)
++{
++	struct eeprom_umc_record record;
++	struct ras_cmd_bad_page_record *ras_cmd_record;
++	uint32_t i = 0, bp_cnt = 0, group_cnt = 0;
++
++	output_data->bp_in_group = 0;
++	output_data->group_index = 0;
++
++	bp_cnt = ras_umc_get_badpage_count(ras_core);
++	if (bp_cnt) {
++		output_data->group_index = group_index;
++		group_cnt = bp_cnt / RAS_CMD_MAX_BAD_PAGES_PER_GROUP
++			+ ((bp_cnt % RAS_CMD_MAX_BAD_PAGES_PER_GROUP) ? 1 : 0);
++
++		if (group_index >= group_cnt)
++			return RAS_CMD__ERROR_INVALID_INPUT_DATA;
++
++		i = group_index * RAS_CMD_MAX_BAD_PAGES_PER_GROUP;
++		for (;
++		   i < bp_cnt && output_data->bp_in_group < RAS_CMD_MAX_BAD_PAGES_PER_GROUP;
++		   i++) {
++			if (ras_umc_get_badpage_record(ras_core, i, &record))
++				return RAS_CMD__ERROR_GENERIC;
++
++			ras_cmd_record = &output_data->records[i % RAS_CMD_MAX_BAD_PAGES_PER_GROUP];
++
++			memset(ras_cmd_record, 0, sizeof(*ras_cmd_record));
++			ras_cmd_update_bad_page_info(ras_cmd_record, &record);
++			output_data->bp_in_group++;
++		}
++	}
++	output_data->bp_total_cnt = bp_cnt;
++	return RAS_CMD__SUCCESS;
++}
++
++static int ras_cmd_get_bad_pages(struct ras_core_context *ras_core,
++				struct ras_cmd_ioctl *cmd, void *data)
++{
++	struct ras_cmd_bad_pages_info_req *input_data =
++			(struct ras_cmd_bad_pages_info_req *)cmd->input_buff_raw;
++	struct ras_cmd_bad_pages_info_rsp *output_data =
++			(struct ras_cmd_bad_pages_info_rsp *)cmd->output_buff_raw;
++	int ret;
++
++	if (cmd->input_size != sizeof(struct ras_cmd_bad_pages_info_req))
++		return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
++
++	ret = ras_cmd_get_group_bad_pages(ras_core, input_data->group_index, output_data);
++	if (ret)
++		return RAS_CMD__ERROR_GENERIC;
++
++	output_data->version = 0;
++
++	cmd->output_size = sizeof(struct ras_cmd_bad_pages_info_rsp);
++	return RAS_CMD__SUCCESS;
++}
++
++static int ras_cmd_clear_bad_page_info(struct ras_core_context *ras_core,
++				struct ras_cmd_ioctl *cmd, void *data)
++{
++	if (cmd->input_size != sizeof(struct ras_cmd_dev_handle))
++		return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
++
++	if (ras_eeprom_reset_table(ras_core))
++		return RAS_CMD__ERROR_GENERIC;
++
++	if (ras_umc_clean_badpage_data(ras_core))
++		return RAS_CMD__ERROR_GENERIC;
++
++	return RAS_CMD__SUCCESS;
++}
++
++static int ras_cmd_reset_all_error_counts(struct ras_core_context *ras_core,
++				struct ras_cmd_ioctl *cmd, void *data)
++{
++	if (cmd->input_size != sizeof(struct ras_cmd_dev_handle))
++		return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
++
++	if (ras_aca_clear_all_blocks_ecc_count(ras_core))
++		return RAS_CMD__ERROR_GENERIC;
++
++	if (ras_umc_clear_logged_ecc(ras_core))
++		return RAS_CMD__ERROR_GENERIC;
++
++	return RAS_CMD__SUCCESS;
++}
++
++static int ras_cmd_get_cper_snapshot(struct ras_core_context *ras_core,
++			struct ras_cmd_ioctl *cmd, void *data)
++{
++	struct ras_cmd_cper_snapshot_rsp *output_data =
++			(struct ras_cmd_cper_snapshot_rsp *)cmd->output_buff_raw;
++	struct ras_log_batch_overview overview;
++
++	if (cmd->input_size != sizeof(struct ras_cmd_cper_snapshot_req))
++		return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
++
++	ras_log_ring_get_batch_overview(ras_core, &overview);
++
++	output_data->total_cper_num = overview.logged_batch_count;
++	output_data->start_cper_id = overview.first_batch_id;
++	output_data->latest_cper_id = overview.last_batch_id;
++
++	output_data->version = 0;
++
++	cmd->output_size = sizeof(struct ras_cmd_cper_snapshot_rsp);
++	return RAS_CMD__SUCCESS;
++}
++
++static int ras_cmd_get_cper_records(struct ras_core_context *ras_core,
++			struct ras_cmd_ioctl *cmd, void *data)
++{
++	struct ras_cmd_cper_record_req *req =
++			(struct ras_cmd_cper_record_req *)cmd->input_buff_raw;
++	struct ras_cmd_cper_record_rsp *rsp =
++			(struct ras_cmd_cper_record_rsp *)cmd->output_buff_raw;
++	struct ras_log_info *trace[MAX_RECORD_PER_BATCH] = {0};
++	struct ras_log_batch_overview overview;
++	uint32_t offset = 0, real_data_len = 0;
++	uint64_t batch_id;
++	uint8_t *buffer;
++	int ret = 0, i, count;
++
++	if (cmd->input_size != sizeof(struct ras_cmd_cper_record_req))
++		return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
++
++	if (!req->buf_size || !req->buf_ptr || !req->cper_num)
++		return RAS_CMD__ERROR_INVALID_INPUT_DATA;
++
++	if (!access_ok((void *)req->buf_ptr, req->buf_size)) {
++		RAS_DEV_ERR(ras_core->dev, "Invalid cper buffer memory!\n");
++		return RAS_CMD__ERROR_INVALID_INPUT_DATA;
++	}
++
++	buffer = kzalloc(req->buf_size, GFP_KERNEL);
++	if (!buffer)
++		return RAS_CMD__ERROR_GENERIC;
++
++	ras_log_ring_get_batch_overview(ras_core, &overview);
++	for (i = 0; i < req->cper_num; i++) {
++		batch_id = req->cper_start_id + i;
++		if (batch_id >= overview.last_batch_id)
++			break;
++
++		count = ras_log_ring_get_batch_records(ras_core, batch_id, trace,
++					ARRAY_SIZE(trace));
++		if (count > 0) {
++			ret = ras_cper_generate_cper(ras_core, trace, count,
++					&buffer[offset], req->buf_size - offset, &real_data_len);
++			if (ret)
++				break;
++
++			offset += real_data_len;
++		}
++	}
++
++	if ((ret && (ret != -ENOMEM)) ||
++		copy_to_user((void *)req->buf_ptr, buffer, offset)) {
++		kfree(buffer);
++		return RAS_CMD__ERROR_GENERIC;
++	}
++
++	rsp->real_data_size = offset;
++	rsp->real_cper_num = i;
++	rsp->remain_num = (ret == -ENOMEM) ? (req->cper_num - i) : 0;
++	rsp->version = 0;
++
++	cmd->output_size = sizeof(struct ras_cmd_cper_record_rsp);
++
++	kfree(buffer);
++
++	return RAS_CMD__SUCCESS;
++}
++
++static int ras_cmd_get_batch_trace_snapshot(struct ras_core_context *ras_core,
++	struct ras_cmd_ioctl *cmd, void *data)
++{
++	struct ras_cmd_batch_trace_snapshot_rsp *rsp =
++			(struct ras_cmd_batch_trace_snapshot_rsp *)cmd->output_buff_raw;
++	struct ras_log_batch_overview overview;
++
++
++	if (cmd->input_size != sizeof(struct ras_cmd_batch_trace_snapshot_req))
++		return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
++
++	ras_log_ring_get_batch_overview(ras_core, &overview);
++
++	rsp->total_batch_num = overview.logged_batch_count;
++	rsp->start_batch_id = overview.first_batch_id;
++	rsp->latest_batch_id = overview.last_batch_id;
++	rsp->version = 0;
++
++	cmd->output_size = sizeof(struct ras_cmd_batch_trace_snapshot_rsp);
++	return RAS_CMD__SUCCESS;
++}
++
++static int ras_cmd_get_batch_trace_records(struct ras_core_context *ras_core,
++	struct ras_cmd_ioctl *cmd, void *data)
++{
++	struct ras_cmd_batch_trace_record_req *input_data =
++			(struct ras_cmd_batch_trace_record_req *)cmd->input_buff_raw;
++	struct ras_cmd_batch_trace_record_rsp *output_data =
++			(struct ras_cmd_batch_trace_record_rsp *)cmd->output_buff_raw;
++	struct ras_log_batch_overview overview;
++	struct ras_log_info *trace_arry[MAX_RECORD_PER_BATCH] = {0};
++	struct ras_log_info *record;
++	int i, j, count = 0, offset = 0;
++	uint64_t id;
++	bool completed = false;
++
++	if (cmd->input_size != sizeof(struct ras_cmd_batch_trace_record_req))
++		return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
++
++	if ((!input_data->batch_num) || (input_data->batch_num > RAS_CMD_MAX_BATCH_NUM))
++		return RAS_CMD__ERROR_INVALID_INPUT_DATA;
++
++	ras_log_ring_get_batch_overview(ras_core, &overview);
++	if ((input_data->start_batch_id < overview.first_batch_id) ||
++	    (input_data->start_batch_id >= overview.last_batch_id))
++		return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
++
++	for (i = 0; i < input_data->batch_num; i++) {
++		id = input_data->start_batch_id + i;
++		if (id >= overview.last_batch_id) {
++			completed = true;
++			break;
++		}
++
++		count = ras_log_ring_get_batch_records(ras_core,
++					id, trace_arry, ARRAY_SIZE(trace_arry));
++		if (count > 0) {
++			if ((offset + count) > RAS_CMD_MAX_TRACE_NUM)
++				break;
++			for (j = 0; j < count; j++) {
++				record = &output_data->records[offset + j];
++				record->seqno = trace_arry[j]->seqno;
++				record->timestamp = trace_arry[j]->timestamp;
++				record->event = trace_arry[j]->event;
++				memcpy(&record->aca_reg,
++					&trace_arry[j]->aca_reg, sizeof(trace_arry[j]->aca_reg));
++			}
++		} else {
++			count = 0;
++		}
++
++		output_data->batchs[i].batch_id = id;
++		output_data->batchs[i].offset = offset;
++		output_data->batchs[i].trace_num = count;
++		offset += count;
++	}
++
++	output_data->start_batch_id = input_data->start_batch_id;
++	output_data->real_batch_num = i;
++	output_data->remain_num = completed ? 0 : (input_data->batch_num - i);
++	output_data->version = 0;
++
++	cmd->output_size = sizeof(struct ras_cmd_batch_trace_record_rsp);
++
++	return RAS_CMD__SUCCESS;
++}
++
++static enum ras_ta_block __get_ras_ta_block(enum ras_block_id block)
++{
++	switch (block) {
++	case RAS_BLOCK_ID__UMC:
++		return RAS_TA_BLOCK__UMC;
++	case RAS_BLOCK_ID__SDMA:
++		return RAS_TA_BLOCK__SDMA;
++	case RAS_BLOCK_ID__GFX:
++		return RAS_TA_BLOCK__GFX;
++	case RAS_BLOCK_ID__MMHUB:
++		return RAS_TA_BLOCK__MMHUB;
++	case RAS_BLOCK_ID__ATHUB:
++		return RAS_TA_BLOCK__ATHUB;
++	case RAS_BLOCK_ID__PCIE_BIF:
++		return RAS_TA_BLOCK__PCIE_BIF;
++	case RAS_BLOCK_ID__HDP:
++		return RAS_TA_BLOCK__HDP;
++	case RAS_BLOCK_ID__XGMI_WAFL:
++		return RAS_TA_BLOCK__XGMI_WAFL;
++	case RAS_BLOCK_ID__DF:
++		return RAS_TA_BLOCK__DF;
++	case RAS_BLOCK_ID__SMN:
++		return RAS_TA_BLOCK__SMN;
++	case RAS_BLOCK_ID__SEM:
++		return RAS_TA_BLOCK__SEM;
++	case RAS_BLOCK_ID__MP0:
++		return RAS_TA_BLOCK__MP0;
++	case RAS_BLOCK_ID__MP1:
++		return RAS_TA_BLOCK__MP1;
++	case RAS_BLOCK_ID__FUSE:
++		return RAS_TA_BLOCK__FUSE;
++	case RAS_BLOCK_ID__MCA:
++		return RAS_TA_BLOCK__MCA;
++	case RAS_BLOCK_ID__VCN:
++		return RAS_TA_BLOCK__VCN;
++	case RAS_BLOCK_ID__JPEG:
++		return RAS_TA_BLOCK__JPEG;
++	default:
++		return RAS_TA_BLOCK__UMC;
++	}
++}
++
++static enum ras_ta_error_type __get_ras_ta_err_type(enum ras_ecc_err_type error)
++{
++	switch (error) {
++	case RAS_ECC_ERR__NONE:
++		return RAS_TA_ERROR__NONE;
++	case RAS_ECC_ERR__PARITY:
++		return RAS_TA_ERROR__PARITY;
++	case RAS_ECC_ERR__SINGLE_CORRECTABLE:
++		return RAS_TA_ERROR__SINGLE_CORRECTABLE;
++	case RAS_ECC_ERR__MULTI_UNCORRECTABLE:
++		return RAS_TA_ERROR__MULTI_UNCORRECTABLE;
++	case RAS_ECC_ERR__POISON:
++		return RAS_TA_ERROR__POISON;
++	default:
++		return RAS_TA_ERROR__NONE;
++	}
++}
++
++static int ras_cmd_inject_error(struct ras_core_context *ras_core,
++			struct ras_cmd_ioctl *cmd, void *data)
++{
++	struct ras_cmd_inject_error_req *req =
++		(struct ras_cmd_inject_error_req *)cmd->input_buff_raw;
++	struct ras_cmd_inject_error_rsp *output_data =
++		(struct ras_cmd_inject_error_rsp *)cmd->output_buff_raw;
++	int ret = 0;
++	struct ras_ta_trigger_error_input block_info = {
++		.block_id = __get_ras_ta_block(req->block_id),
++		.sub_block_index = req->subblock_id,
++		.inject_error_type = __get_ras_ta_err_type(req->error_type),
++		.address = req->address,
++		.value = req->method,
++	};
++
++	ret = ras_psp_trigger_error(ras_core, &block_info, req->instance_mask);
++	if (!ret) {
++		output_data->version = 0;
++		output_data->address = block_info.address;
++		cmd->output_size = sizeof(struct ras_cmd_inject_error_rsp);
++	} else {
++		RAS_DEV_ERR(ras_core->dev, "ras inject block %u failed %d\n", req->block_id, ret);
++		ret = RAS_CMD__ERROR_ACCESS_DENIED;
++	}
++
++	return ret;
++}
++
++static struct ras_cmd_func_map ras_cmd_maps[] = {
++	{RAS_CMD__INJECT_ERROR, ras_cmd_inject_error},
++	{RAS_CMD__GET_BLOCK_ECC_STATUS, ras_get_block_ecc_info},
++	{RAS_CMD__GET_BAD_PAGES, ras_cmd_get_bad_pages},
++	{RAS_CMD__CLEAR_BAD_PAGE_INFO, ras_cmd_clear_bad_page_info},
++	{RAS_CMD__RESET_ALL_ERROR_COUNTS, ras_cmd_reset_all_error_counts},
++	{RAS_CMD__GET_CPER_SNAPSHOT, ras_cmd_get_cper_snapshot},
++	{RAS_CMD__GET_CPER_RECORD, ras_cmd_get_cper_records},
++	{RAS_CMD__GET_BATCH_TRACE_SNAPSHOT, ras_cmd_get_batch_trace_snapshot},
++	{RAS_CMD__GET_BATCH_TRACE_RECORD, ras_cmd_get_batch_trace_records},
++};
++
++int rascore_handle_cmd(struct ras_core_context *ras_core,
++		struct ras_cmd_ioctl *cmd, void *data)
++{
++	struct ras_cmd_func_map *ras_cmd = NULL;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(ras_cmd_maps); i++) {
++		if (cmd->cmd_id == ras_cmd_maps[i].cmd_id) {
++			ras_cmd = &ras_cmd_maps[i];
++			break;
++		}
++	}
++
++	if (!ras_cmd)
++		return	RAS_CMD__ERROR_UKNOWN_CMD;
++
++	return ras_cmd->func(ras_core, cmd, data);
++}
++
++int ras_cmd_init(struct ras_core_context *ras_core)
++{
++	return ras_cmd_add_device(ras_core);
++}
++
++int ras_cmd_fini(struct ras_core_context *ras_core)
++{
++	ras_cmd_remove_device(ras_core);
++	return 0;
++}
++
++int ras_cmd_query_interface_info(struct ras_core_context *ras_core,
++	struct ras_query_interface_info_rsp *rsp)
++{
++	rsp->ras_cmd_major_ver = RAS_CMD_MAJOR_VERSION;
++	rsp->ras_cmd_minor_ver = RAS_CMD_MINOR_VERSION;
++
++	return 0;
++}
++
++int ras_cmd_translate_soc_pa_to_bank(struct ras_core_context *ras_core,
++	uint64_t soc_pa, struct ras_fb_bank_addr *bank_addr)
++{
++	struct umc_bank_addr  umc_bank = {0};
++	int ret;
++
++	ret = ras_umc_translate_soc_pa_and_bank(ras_core, &soc_pa, &umc_bank, false);
++	if (ret)
++		return RAS_CMD__ERROR_GENERIC;
++
++	bank_addr->stack_id = umc_bank.stack_id;
++	bank_addr->bank_group = umc_bank.bank_group;
++	bank_addr->bank = umc_bank.bank;
++	bank_addr->row = umc_bank.row;
++	bank_addr->column = umc_bank.column;
++	bank_addr->channel = umc_bank.channel;
++	bank_addr->subchannel = umc_bank.subchannel;
++
++	return 0;
++}
++
++int ras_cmd_translate_bank_to_soc_pa(struct ras_core_context *ras_core,
++		struct ras_fb_bank_addr bank_addr, uint64_t *soc_pa)
++{
++	struct umc_bank_addr  umc_bank = {0};
++
++	umc_bank.stack_id = bank_addr.stack_id;
++	umc_bank.bank_group = bank_addr.bank_group;
++	umc_bank.bank = bank_addr.bank;
++	umc_bank.row = bank_addr.row;
++	umc_bank.column = bank_addr.column;
++	umc_bank.channel = bank_addr.channel;
++	umc_bank.subchannel = bank_addr.subchannel;
++
++	return ras_umc_translate_soc_pa_and_bank(ras_core, soc_pa, &umc_bank, true);
++}
++
++uint64_t ras_cmd_get_dev_handle(struct ras_core_context *ras_core)
++{
++	return ras_core->ras_cmd.dev_handle;
++}
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
+new file mode 100644
+index 000000000000..6df8c70f5ad8
+--- /dev/null
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
+@@ -0,0 +1,425 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __RAS_CMD_H__
++#define __RAS_CMD_H__
++#include "ras.h"
++#include "ras_eeprom.h"
++#include "ras_log_ring.h"
++#include "ras_cper.h"
++
++#define RAS_CMD_DEV_HANDLE_MAGIC 0xFEEDAD00UL
++
++#define RAS_CMD_MAX_IN_SIZE 256
++#define RAS_CMD_MAX_GPU_NUM 32
++#define RAS_CMD_MAX_BAD_PAGES_PER_GROUP 32
 +
 +/* position of instance value in sub_block_index of
 + * ta_ras_trigger_error_input, the sub block uses lower 12 bits
@@ -188,1109 +730,387 @@ index 000000000000..c94effd4b114
 +#define RAS_TA_INST_MASK 0xfffff000
 +#define RAS_TA_INST_SHIFT 0xc
 +
-+static const struct ras_psp_ip_func *ras_psp_get_ip_funcs(
-+			struct ras_core_context *ras_core, uint32_t ip_version)
-+{
-+	switch (ip_version) {
-+	case IP_VERSION(13, 0, 6):
-+	case IP_VERSION(13, 0, 14):
-+	case IP_VERSION(13, 0, 12):
-+		return &ras_psp_v13_0;
-+	default:
-+		RAS_DEV_ERR(ras_core->dev,
-+			"psp ip version(0x%x) is not supported!\n", ip_version);
-+		break;
-+	}
-+
-+	return NULL;
-+}
-+
-+static int ras_psp_sync_system_ras_psp_status(struct ras_core_context *ras_core)
-+{
-+	struct ras_psp *psp = &ras_core->ras_psp;
-+	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
-+	struct ras_psp_ctx *psp_ctx = &ras_core->ras_psp.psp_ctx;
-+	struct ras_psp_sys_status status = {0};
-+	int ret;
-+
-+	if (psp->sys_func && psp->sys_func->get_ras_psp_system_status) {
-+		ret = psp->sys_func->get_ras_psp_system_status(ras_core, &status);
-+		if (ret)
-+			return ret;
-+
-+		if (status.initialized) {
-+			ta_ctx->preload_ras_ta_enabled = true;
-+			ta_ctx->ras_ta_initialized = status.initialized;
-+			ta_ctx->session_id = status.session_id;
-+		}
-+
-+		psp_ctx->external_mutex = status.psp_cmd_mutex;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ras_psp_get_ras_ta_init_param(struct ras_core_context *ras_core,
-+	struct ras_ta_init_param *ras_ta_param)
-+{
-+	struct ras_psp *psp = &ras_core->ras_psp;
-+
-+	if (psp->sys_func && psp->sys_func->get_ras_ta_init_param)
-+		return psp->sys_func->get_ras_ta_init_param(ras_core, ras_ta_param);
-+
-+	RAS_DEV_ERR(ras_core->dev, "Not config get_ras_ta_init_param API!!\n");
-+	return -EACCES;
-+}
-+
-+static struct gpu_mem_block *ras_psp_get_gpu_mem(struct ras_core_context *ras_core,
-+			enum gpu_mem_type mem_type)
-+{
-+	struct ras_psp *psp = &ras_core->ras_psp;
-+	struct gpu_mem_block *gpu_mem = NULL;
-+	int ret;
-+
-+	switch (mem_type) {
-+	case GPU_MEM_TYPE_RAS_PSP_RING:
-+		gpu_mem = &psp->psp_ring.ras_ring_gpu_mem;
-+		break;
-+	case GPU_MEM_TYPE_RAS_PSP_CMD:
-+		gpu_mem = &psp->psp_ctx.psp_cmd_gpu_mem;
-+		break;
-+	case GPU_MEM_TYPE_RAS_PSP_FENCE:
-+		gpu_mem = &psp->psp_ctx.out_fence_gpu_mem;
-+		break;
-+	case GPU_MEM_TYPE_RAS_TA_FW:
-+		gpu_mem = &psp->ta_ctx.fw_gpu_mem;
-+		break;
-+	case GPU_MEM_TYPE_RAS_TA_CMD:
-+		gpu_mem = &psp->ta_ctx.cmd_gpu_mem;
-+		break;
-+	default:
-+		return NULL;
-+	}
-+
-+	if (!gpu_mem->ref_count) {
-+		ret = ras_core_get_gpu_mem(ras_core, mem_type, gpu_mem);
-+		if (ret)
-+			return NULL;
-+		gpu_mem->mem_type = mem_type;
-+	}
-+
-+	gpu_mem->ref_count++;
-+
-+	return gpu_mem;
-+}
-+
-+static int ras_psp_put_gpu_mem(struct ras_core_context *ras_core,
-+			struct gpu_mem_block *gpu_mem)
-+{
-+	if (!gpu_mem)
-+		return 0;
-+
-+	gpu_mem->ref_count--;
-+
-+	if (gpu_mem->ref_count > 0) {
-+		return 0;
-+	} else if (gpu_mem->ref_count < 0) {
-+		RAS_DEV_WARN(ras_core->dev,
-+			"Duplicate free gpu memory %u\n", gpu_mem->mem_type);
-+	} else {
-+		ras_core_put_gpu_mem(ras_core, gpu_mem->mem_type, gpu_mem);
-+		memset(gpu_mem, 0, sizeof(*gpu_mem));
-+	}
-+
-+	return 0;
-+}
-+
-+static void __acquire_psp_cmd_lock(struct ras_core_context *ras_core)
-+{
-+	struct ras_psp_ctx *psp_ctx = &ras_core->ras_psp.psp_ctx;
-+
-+	if (psp_ctx->external_mutex)
-+		mutex_lock(psp_ctx->external_mutex);
-+	else
-+		mutex_lock(&psp_ctx->internal_mutex);
-+}
-+
-+static void __release_psp_cmd_lock(struct ras_core_context *ras_core)
-+{
-+	struct ras_psp_ctx *psp_ctx = &ras_core->ras_psp.psp_ctx;
-+
-+	if (psp_ctx->external_mutex)
-+		mutex_unlock(psp_ctx->external_mutex);
-+	else
-+		mutex_unlock(&psp_ctx->internal_mutex);
-+}
-+
-+static uint32_t __get_ring_frame_slot(struct ras_core_context *ras_core)
-+{
-+	struct ras_psp *psp = &ras_core->ras_psp;
-+	uint32_t ras_ring_wptr_dw;
-+
-+	ras_ring_wptr_dw = psp->ip_func->psp_ras_ring_wptr_get(ras_core);
-+
-+	return (ras_ring_wptr_dw << 2) / sizeof(struct psp_gfx_rb_frame);
-+}
-+
-+static int __set_ring_frame_slot(struct ras_core_context *ras_core,
-+			uint32_t slot)
-+{
-+	struct ras_psp *psp = &ras_core->ras_psp;
-+
-+	return psp->ip_func->psp_ras_ring_wptr_set(ras_core,
-+				(slot * sizeof(struct psp_gfx_rb_frame)) >> 2);
-+}
-+
-+static int write_frame_to_ras_psp_ring(struct ras_core_context *ras_core,
-+		struct psp_gfx_rb_frame *frame)
-+{
-+	struct gpu_mem_block *ring_mem;
-+	struct psp_gfx_rb_frame *rb_frame;
-+	uint32_t max_frame_slot;
-+	uint32_t slot_idx;
-+	uint32_t write_flush_read_back = 0;
-+	int ret = 0;
-+
-+	ring_mem = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_PSP_RING);
-+	if (!ring_mem)
-+		return -ENOMEM;
-+
-+	max_frame_slot =
-+		ring_mem->mem_size / sizeof(struct psp_gfx_rb_frame);
-+
-+	rb_frame =
-+		(struct psp_gfx_rb_frame *)ring_mem->mem_cpu_addr;
-+
-+	slot_idx = __get_ring_frame_slot(ras_core);
-+	if (slot_idx >= max_frame_slot)
-+		slot_idx = 0;
-+
-+	memcpy(&rb_frame[slot_idx], frame, sizeof(*frame));
-+
-+	/* Do a read to force the write of the frame before writing
-+	 * write pointer.
-+	 */
-+	write_flush_read_back = rb_frame[slot_idx].fence_value;
-+	if (write_flush_read_back != frame->fence_value) {
-+		RAS_DEV_ERR(ras_core->dev,
-+		"Failed to submit ring cmd! cmd:0x%x:0x%x, fence:0x%x:0x%x value:%u, expected:%u\n",
-+			rb_frame[slot_idx].cmd_buf_addr_hi,
-+			rb_frame[slot_idx].cmd_buf_addr_lo,
-+			rb_frame[slot_idx].fence_addr_hi,
-+			rb_frame[slot_idx].fence_addr_lo,
-+			write_flush_read_back, frame->fence_value);
-+		ret = -EACCES;
-+		goto err;
-+	}
-+
-+	slot_idx++;
-+
-+	if (slot_idx >= max_frame_slot)
-+		slot_idx = 0;
-+
-+	__set_ring_frame_slot(ras_core, slot_idx);
-+
-+err:
-+	ras_psp_put_gpu_mem(ras_core, ring_mem);
-+	return ret;
-+}
-+
-+static int send_psp_cmd(struct ras_core_context *ras_core,
-+		enum psp_gfx_cmd_id gfx_cmd_id, void *cmd_data,
-+		uint32_t cmd_size, struct psp_cmd_resp *resp)
-+{
-+	struct ras_psp_ctx *psp_ctx = &ras_core->ras_psp.psp_ctx;
-+	struct gpu_mem_block *psp_cmd_buf = NULL;
-+	struct gpu_mem_block *psp_fence_buf = NULL;
-+	struct psp_gfx_cmd_resp *gfx_cmd;
-+	struct psp_gfx_rb_frame rb_frame;
-+	int ret = 0;
-+	int timeout = 1000;
-+
-+	if (!cmd_data || (cmd_size > sizeof(union psp_gfx_commands)) || !resp) {
-+		RAS_DEV_ERR(ras_core->dev, "Invalid RAS PSP command, id: %u\n", gfx_cmd_id);
-+		return -EINVAL;
-+	}
-+
-+	__acquire_psp_cmd_lock(ras_core);
-+
-+	psp_cmd_buf = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_PSP_CMD);
-+	if (!psp_cmd_buf) {
-+		ret = -ENOMEM;
-+		goto exit;
-+	}
-+
-+	psp_fence_buf = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_PSP_FENCE);
-+	if (!psp_fence_buf) {
-+		ret = -ENOMEM;
-+		goto exit;
-+	}
-+
-+	gfx_cmd = (struct psp_gfx_cmd_resp *)psp_cmd_buf->mem_cpu_addr;
-+	memset(gfx_cmd, 0, sizeof(*gfx_cmd));
-+	gfx_cmd->cmd_id = gfx_cmd_id;
-+	memcpy(&gfx_cmd->cmd, cmd_data, cmd_size);
-+
-+	psp_ctx->in_fence_value++;
-+
-+	memset(&rb_frame, 0, sizeof(rb_frame));
-+	rb_frame.cmd_buf_addr_hi = upper_32_bits(psp_cmd_buf->mem_mc_addr);
-+	rb_frame.cmd_buf_addr_lo = lower_32_bits(psp_cmd_buf->mem_mc_addr);
-+	rb_frame.fence_addr_hi = upper_32_bits(psp_fence_buf->mem_mc_addr);
-+	rb_frame.fence_addr_lo = lower_32_bits(psp_fence_buf->mem_mc_addr);
-+	rb_frame.fence_value = psp_ctx->in_fence_value;
-+
-+	ret = write_frame_to_ras_psp_ring(ras_core, &rb_frame);
-+	if (ret) {
-+		psp_ctx->in_fence_value--;
-+		goto exit;
-+	}
-+
-+	while (*((uint64_t *)psp_fence_buf->mem_cpu_addr) !=
-+		   psp_ctx->in_fence_value) {
-+		if (--timeout == 0)
-+			break;
-+		/*
-+		 * Shouldn't wait for timeout when err_event_athub occurs,
-+		 * because gpu reset thread triggered and lock resource should
-+		 * be released for psp resume sequence.
-+		 */
-+		if (ras_core_ras_interrupt_detected(ras_core))
-+			break;
-+
-+		msleep(2);
-+	}
-+
-+	resp->status = gfx_cmd->resp.status;
-+	resp->session_id = gfx_cmd->resp.session_id;
-+
-+exit:
-+	ras_psp_put_gpu_mem(ras_core, psp_cmd_buf);
-+	ras_psp_put_gpu_mem(ras_core, psp_fence_buf);
-+
-+	__release_psp_cmd_lock(ras_core);
-+
-+	return ret;
-+}
-+
-+static void __check_ras_ta_cmd_resp(struct ras_core_context *ras_core,
-+			struct ras_ta_cmd *ras_cmd)
-+{
-+
-+	if (ras_cmd->ras_out_message.flags.err_inject_switch_disable_flag) {
-+		RAS_DEV_WARN(ras_core->dev, "ECC switch disabled\n");
-+		ras_cmd->ras_status = RAS_TA_STATUS__ERROR_RAS_NOT_AVAILABLE;
-+	} else if (ras_cmd->ras_out_message.flags.reg_access_failure_flag)
-+		RAS_DEV_WARN(ras_core->dev, "RAS internal register access blocked\n");
-+
-+	switch (ras_cmd->ras_status) {
-+	case RAS_TA_STATUS__ERROR_UNSUPPORTED_IP:
-+		RAS_DEV_WARN(ras_core->dev,
-+			 "RAS WARNING: cmd failed due to unsupported ip\n");
-+		break;
-+	case RAS_TA_STATUS__ERROR_UNSUPPORTED_ERROR_INJ:
-+		RAS_DEV_WARN(ras_core->dev,
-+			 "RAS WARNING: cmd failed due to unsupported error injection\n");
-+		break;
-+	case RAS_TA_STATUS__SUCCESS:
-+		break;
-+	case RAS_TA_STATUS__TEE_ERROR_ACCESS_DENIED:
-+		if (ras_cmd->cmd_id == RAS_TA_CMD_ID__TRIGGER_ERROR)
-+			RAS_DEV_WARN(ras_core->dev,
-+				 "RAS WARNING: Inject error to critical region is not allowed\n");
-+		break;
-+	default:
-+		RAS_DEV_WARN(ras_core->dev,
-+			 "RAS WARNING: ras status = 0x%X\n", ras_cmd->ras_status);
-+		break;
-+	}
-+}
-+
-+static int send_ras_ta_runtime_cmd(struct ras_core_context *ras_core,
-+			enum ras_ta_cmd_id cmd_id, void *in, uint32_t in_size,
-+			void *out, uint32_t out_size)
-+{
-+	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
-+	struct gpu_mem_block *cmd_mem;
-+	struct ras_ta_cmd *ras_cmd;
-+	struct psp_gfx_cmd_invoke_cmd invoke_cmd = {0};
-+	struct psp_cmd_resp resp = {0};
-+	int ret = 0;
-+
-+	if (!in || (in_size > sizeof(union ras_ta_cmd_input)) ||
-+		(cmd_id >= MAX_RAS_TA_CMD_ID)) {
-+		RAS_DEV_ERR(ras_core->dev, "Invalid RAS TA command, id: %u\n", cmd_id);
-+		return -EINVAL;
-+	}
-+
-+	ras_psp_sync_system_ras_psp_status(ras_core);
-+
-+	cmd_mem = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_TA_CMD);
-+	if (!cmd_mem)
-+		return -ENOMEM;
-+
-+	if (!ras_core_down_trylock_gpu_reset_lock(ras_core)) {
-+		ret = -EACCES;
-+		goto out;
-+	}
-+
-+	ras_cmd = (struct ras_ta_cmd *)cmd_mem->mem_cpu_addr;
-+
-+	mutex_lock(&ta_ctx->ta_mutex);
-+
-+	memset(ras_cmd, 0, sizeof(*ras_cmd));
-+	ras_cmd->cmd_id = cmd_id;
-+	memcpy(&ras_cmd->ras_in_message, in, in_size);
-+
-+	invoke_cmd.ta_cmd_id = cmd_id;
-+	invoke_cmd.session_id = ta_ctx->session_id;
-+
-+	ret = send_psp_cmd(ras_core, GFX_CMD_ID_INVOKE_CMD,
-+			&invoke_cmd, sizeof(invoke_cmd), &resp);
-+
-+	/* If err_event_athub occurs error inject was successful, however
-+	 *  return status from TA is no long reliable
-+	 */
-+	if (ras_core_ras_interrupt_detected(ras_core)) {
-+		ret = 0;
-+		goto unlock;
-+	}
-+
-+	if (ret || resp.status) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"RAS: Failed to send psp cmd! ret:%d, status:%u\n",
-+			ret, resp.status);
-+		ret = -ESTRPIPE;
-+		goto unlock;
-+	}
-+
-+	if (ras_cmd->if_version > RAS_TA_HOST_IF_VER) {
-+		RAS_DEV_WARN(ras_core->dev, "RAS: Unsupported Interface\n");
-+		ret = -EINVAL;
-+		goto unlock;
-+	}
-+
-+	if (!ras_cmd->ras_status && out && out_size)
-+		memcpy(out, &ras_cmd->ras_out_message, out_size);
-+
-+	__check_ras_ta_cmd_resp(ras_core, ras_cmd);
-+
-+unlock:
-+	mutex_unlock(&ta_ctx->ta_mutex);
-+	ras_core_up_gpu_reset_lock(ras_core);
-+out:
-+	ras_psp_put_gpu_mem(ras_core, cmd_mem);
-+	return ret;
-+}
-+
-+static int trigger_ras_ta_error(struct ras_core_context *ras_core,
-+	struct ras_ta_trigger_error_input *info, uint32_t instance_mask)
-+{
-+	uint32_t dev_mask = 0;
-+
-+	switch (info->block_id) {
-+	case RAS_TA_BLOCK__GFX:
-+		if (ras_gfx_get_ta_subblock(ras_core, info->inject_error_type,
-+				info->sub_block_index, &info->sub_block_index))
-+			return -EINVAL;
-+
-+		dev_mask = RAS_GET_MASK(ras_core->dev, GC, instance_mask);
-+		break;
-+	case RAS_TA_BLOCK__SDMA:
-+		dev_mask = RAS_GET_MASK(ras_core->dev, SDMA0, instance_mask);
-+		break;
-+	case RAS_TA_BLOCK__VCN:
-+	case RAS_TA_BLOCK__JPEG:
-+		dev_mask = RAS_GET_MASK(ras_core->dev, VCN, instance_mask);
-+		break;
-+	default:
-+		dev_mask = instance_mask;
-+		break;
-+	}
-+
-+	/* reuse sub_block_index for backward compatibility */
-+	dev_mask <<= RAS_TA_INST_SHIFT;
-+	dev_mask &= RAS_TA_INST_MASK;
-+	info->sub_block_index |= dev_mask;
-+
-+	return send_ras_ta_runtime_cmd(ras_core, RAS_TA_CMD_ID__TRIGGER_ERROR,
-+				info, sizeof(*info), NULL, 0);
-+}
-+
-+static int send_load_ta_fw_cmd(struct ras_core_context *ras_core,
-+				struct ras_ta_ctx *ta_ctx)
-+{
-+	struct ras_ta_fw_bin  *fw_bin = &ta_ctx->fw_bin;
-+	struct gpu_mem_block *fw_mem;
-+	struct gpu_mem_block *cmd_mem;
-+	struct ras_ta_cmd *ta_cmd;
-+	struct ras_ta_init_flags *ta_init_flags;
-+	struct psp_gfx_cmd_load_ta  psp_load_ta_cmd;
-+	struct psp_cmd_resp resp = {0};
-+	struct ras_ta_image_header *fw_hdr = NULL;
-+	int ret;
-+
-+	fw_mem = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_TA_FW);
-+	if (!fw_mem)
-+		return -ENOMEM;
-+
-+	cmd_mem = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_TA_CMD);
-+	if (!cmd_mem) {
-+		ret = -ENOMEM;
-+		goto err;
-+	}
-+
-+	ret = ras_psp_get_ras_ta_init_param(ras_core, &ta_ctx->init_param);
-+	if (ret)
-+		goto err;
-+
-+	if (!ras_core_down_trylock_gpu_reset_lock(ras_core)) {
-+		ret = -EACCES;
-+		goto err;
-+	}
-+
-+	/* copy ras ta binary to shared gpu memory */
-+	memcpy(fw_mem->mem_cpu_addr, fw_bin->bin_addr, fw_bin->bin_size);
-+	fw_mem->mem_size = fw_bin->bin_size;
-+
-+	/* Initialize ras ta startup parameter */
-+	ta_cmd = (struct ras_ta_cmd *)cmd_mem->mem_cpu_addr;
-+	ta_init_flags = &ta_cmd->ras_in_message.init_flags;
-+
-+	ta_init_flags->poison_mode_en = ta_ctx->init_param.poison_mode_en;
-+	ta_init_flags->dgpu_mode = ta_ctx->init_param.dgpu_mode;
-+	ta_init_flags->xcc_mask = ta_ctx->init_param.xcc_mask;
-+	ta_init_flags->channel_dis_num = ta_ctx->init_param.channel_dis_num;
-+	ta_init_flags->nps_mode = ta_ctx->init_param.nps_mode;
-+	ta_init_flags->active_umc_mask = ta_ctx->init_param.active_umc_mask;
-+
-+	/* Setup load ras ta command */
-+	memset(&psp_load_ta_cmd, 0, sizeof(psp_load_ta_cmd));
-+	psp_load_ta_cmd.app_phy_addr_lo	= lower_32_bits(fw_mem->mem_mc_addr);
-+	psp_load_ta_cmd.app_phy_addr_hi	= upper_32_bits(fw_mem->mem_mc_addr);
-+	psp_load_ta_cmd.app_len		= fw_mem->mem_size;
-+	psp_load_ta_cmd.cmd_buf_phy_addr_lo = lower_32_bits(cmd_mem->mem_mc_addr);
-+	psp_load_ta_cmd.cmd_buf_phy_addr_hi = upper_32_bits(cmd_mem->mem_mc_addr);
-+	psp_load_ta_cmd.cmd_buf_len = cmd_mem->mem_size;
-+
-+	ret = send_psp_cmd(ras_core, GFX_CMD_ID_LOAD_TA,
-+			&psp_load_ta_cmd, sizeof(psp_load_ta_cmd), &resp);
-+	if (!ret && !resp.status) {
-+		/* Read TA version at FW offset 0x60 if TA version not found*/
-+		fw_hdr = (struct ras_ta_image_header *)fw_bin->bin_addr;
-+		RAS_DEV_INFO(ras_core->dev, "PSP: RAS TA(version:%X.%X.%X.%X) is loaded.\n",
-+			(fw_hdr->image_version >> 24) & 0xFF, (fw_hdr->image_version >> 16) & 0xFF,
-+			(fw_hdr->image_version >> 8) & 0xFF, fw_hdr->image_version & 0xFF);
-+		ta_ctx->ta_version = fw_hdr->image_version;
-+		ta_ctx->session_id = resp.session_id;
-+		ta_ctx->ras_ta_initialized = true;
-+	} else {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to load RAS TA! ret:%d, status:%d\n", ret, resp.status);
-+	}
-+
-+	ras_core_up_gpu_reset_lock(ras_core);
-+
-+err:
-+	ras_psp_put_gpu_mem(ras_core, fw_mem);
-+	ras_psp_put_gpu_mem(ras_core, cmd_mem);
-+	return ret;
-+}
-+
-+static int load_ras_ta_firmware(struct ras_core_context *ras_core,
-+		struct ras_psp_ta_load *ras_ta_load)
-+{
-+	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
-+	struct ras_ta_fw_bin  *fw_bin = &ta_ctx->fw_bin;
-+	int ret;
-+
-+	fw_bin->bin_addr = ras_ta_load->bin_addr;
-+	fw_bin->bin_size = ras_ta_load->bin_size;
-+	fw_bin->fw_version = ras_ta_load->fw_version;
-+	fw_bin->feature_version = ras_ta_load->feature_version;
-+
-+	ret = send_load_ta_fw_cmd(ras_core, ta_ctx);
-+	if (!ret) {
-+		ras_ta_load->out_session_id = ta_ctx->session_id;
-+		ras_ta_load->out_loaded_ta_version = ta_ctx->ta_version;
-+	}
-+
-+	return ret;
-+}
-+
-+static int unload_ras_ta_firmware(struct ras_core_context *ras_core,
-+		struct ras_psp_ta_unload *ras_ta_unload)
-+{
-+	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
-+	struct psp_gfx_cmd_unload_ta  cmd_unload_ta = {0};
-+	struct psp_cmd_resp resp = {0};
-+	int ret;
-+
-+	if (!ras_core_down_trylock_gpu_reset_lock(ras_core))
-+		return -EACCES;
-+
-+	cmd_unload_ta.session_id = ta_ctx->session_id;
-+	ret = send_psp_cmd(ras_core, GFX_CMD_ID_UNLOAD_TA,
-+		&cmd_unload_ta, sizeof(cmd_unload_ta), &resp);
-+	if (ret || resp.status) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to unload RAS TA! ret:%d, status:%u\n",
-+			ret, resp.status);
-+		goto unlock;
-+	}
-+
-+	kfree(ta_ctx->fw_bin.bin_addr);
-+	memset(&ta_ctx->fw_bin, 0, sizeof(ta_ctx->fw_bin));
-+	ta_ctx->ta_version = 0;
-+	ta_ctx->ras_ta_initialized = false;
-+	ta_ctx->session_id = 0;
-+
-+unlock:
-+	ras_core_up_gpu_reset_lock(ras_core);
-+
-+	return ret;
-+}
-+
-+int ras_psp_load_firmware(struct ras_core_context *ras_core,
-+	struct ras_psp_ta_load *ras_ta_load)
-+{
-+	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
-+	struct ras_psp_ta_unload ras_ta_unload = {0};
-+	int ret;
-+
-+	if (ta_ctx->preload_ras_ta_enabled)
-+		return 0;
-+
-+	if (!ras_ta_load)
-+		return -EINVAL;
-+
-+	if (ta_ctx->ras_ta_initialized) {
-+		ras_ta_unload.ras_session_id = ta_ctx->session_id;
-+		ret = unload_ras_ta_firmware(ras_core, &ras_ta_unload);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return load_ras_ta_firmware(ras_core, ras_ta_load);
-+}
-+
-+int ras_psp_unload_firmware(struct ras_core_context *ras_core,
-+	struct ras_psp_ta_unload *ras_ta_unload)
-+{
-+	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
-+
-+	if (ta_ctx->preload_ras_ta_enabled)
-+		return 0;
-+
-+	if ((!ras_ta_unload) ||
-+	    (ras_ta_unload->ras_session_id != ta_ctx->session_id))
-+		return -EINVAL;
-+
-+	return unload_ras_ta_firmware(ras_core, ras_ta_unload);
-+}
-+
-+int ras_psp_trigger_error(struct ras_core_context *ras_core,
-+	struct ras_ta_trigger_error_input *info, uint32_t instance_mask)
-+{
-+	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
-+
-+	if (!ta_ctx->preload_ras_ta_enabled && !ta_ctx->ras_ta_initialized) {
-+		RAS_DEV_ERR(ras_core->dev, "RAS: ras firmware not initialized!");
-+		return -ENOEXEC;
-+	}
-+
-+	if (!info)
-+		return -EINVAL;
-+
-+	return trigger_ras_ta_error(ras_core, info, instance_mask);
-+}
-+
-+int ras_psp_query_address(struct ras_core_context *ras_core,
-+		struct ras_ta_query_address_input *addr_in,
-+		struct ras_ta_query_address_output *addr_out)
-+{
-+	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
-+
-+	if (!ta_ctx->preload_ras_ta_enabled &&
-+	    !ta_ctx->ras_ta_initialized) {
-+		RAS_DEV_ERR(ras_core->dev, "RAS: ras firmware not initialized!");
-+		return -ENOEXEC;
-+	}
-+
-+	if (!addr_in || !addr_out)
-+		return -EINVAL;
-+
-+	return send_ras_ta_runtime_cmd(ras_core, RAS_TA_CMD_ID__QUERY_ADDRESS,
-+		addr_in, sizeof(*addr_in), addr_out, sizeof(*addr_out));
-+}
-+
-+int ras_psp_sw_init(struct ras_core_context *ras_core)
-+{
-+	struct ras_psp *psp = &ras_core->ras_psp;
-+
-+	memset(psp, 0, sizeof(*psp));
-+
-+	psp->sys_func = ras_core->config->psp_cfg.psp_sys_fn;
-+	if (!psp->sys_func) {
-+		RAS_DEV_ERR(ras_core->dev, "RAS psp sys function not configured!\n");
-+		return -EINVAL;
-+	}
-+
-+	mutex_init(&psp->psp_ctx.internal_mutex);
-+	mutex_init(&psp->ta_ctx.ta_mutex);
-+
-+	return 0;
-+}
-+
-+int ras_psp_sw_fini(struct ras_core_context *ras_core)
-+{
-+	struct ras_psp *psp = &ras_core->ras_psp;
-+
-+	mutex_destroy(&psp->psp_ctx.internal_mutex);
-+	mutex_destroy(&psp->ta_ctx.ta_mutex);
-+
-+	memset(psp, 0, sizeof(*psp));
-+
-+	return 0;
-+}
-+
-+int ras_psp_hw_init(struct ras_core_context *ras_core)
-+{
-+	struct ras_psp *psp = &ras_core->ras_psp;
-+
-+	psp->psp_ip_version = ras_core->config->psp_ip_version;
-+
-+	psp->ip_func = ras_psp_get_ip_funcs(ras_core, psp->psp_ip_version);
-+	if (!psp->ip_func)
-+		return -EINVAL;
-+
-+	/* After GPU reset, the system RAS PSP status may change.
-+	 * therefore, it is necessary to synchronize the system status again.
-+	 */
-+	ras_psp_sync_system_ras_psp_status(ras_core);
-+
-+	return 0;
-+}
-+
-+int ras_psp_hw_fini(struct ras_core_context *ras_core)
-+{
-+	return 0;
-+}
-+
-+bool ras_psp_check_supported_cmd(struct ras_core_context *ras_core,
-+		enum ras_ta_cmd_id cmd_id)
-+{
-+	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
-+	bool ret = false;
-+
-+	if (!ta_ctx->preload_ras_ta_enabled && !ta_ctx->ras_ta_initialized)
-+		return false;
-+
-+	switch (cmd_id) {
-+	case RAS_TA_CMD_ID__QUERY_ADDRESS:
-+		/* Currently, querying the address from RAS TA is only supported
-+		 * when the RAS TA firmware is loaded during driver installation.
-+		 */
-+		if (ta_ctx->preload_ras_ta_enabled)
-+			ret = true;
-+		break;
-+	case RAS_TA_CMD_ID__TRIGGER_ERROR:
-+		ret = true;
-+		break;
-+	default:
-+		ret = false;
-+		break;
-+	}
-+
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.h b/drivers/gpu/drm/amd/ras/rascore/ras_psp.h
-new file mode 100644
-index 000000000000..71776fecfd66
---- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_psp.h
-@@ -0,0 +1,145 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#ifndef __RAS_PSP_H__
-+#define __RAS_PSP_H__
-+#include "ras.h"
-+#include "ras_ta_if.h"
++enum ras_cmd_interface_type {
++	RAS_CMD_INTERFACE_TYPE_NONE,
++	RAS_CMD_INTERFACE_TYPE_AMDGPU,
++	RAS_CMD_INTERFACE_TYPE_VF,
++	RAS_CMD_INTERFACE_TYPE_PF,
++};
++
++enum ras_cmd_id_range {
++	RAS_CMD_ID_COMMON_START = 0,
++	RAS_CMD_ID_COMMON_END = 0x10000,
++	RAS_CMD_ID_AMDGPU_START = RAS_CMD_ID_COMMON_END,
++	RAS_CMD_ID_AMDGPU_END = 0x20000,
++	RAS_CMD_ID_MXGPU_START = RAS_CMD_ID_AMDGPU_END,
++	RAS_CMD_ID_MXGPU_END = 0x30000,
++	RAS_CMD_ID_MXGPU_VF_START = RAS_CMD_ID_MXGPU_END,
++	RAS_CMD_ID_MXGPU_VF_END = 0x40000,
++};
++
++enum ras_cmd_id {
++	RAS_CMD__BEGIN = RAS_CMD_ID_COMMON_START,
++	RAS_CMD__QUERY_INTERFACE_INFO,
++	RAS_CMD__GET_DEVICES_INFO,
++	RAS_CMD__GET_BLOCK_ECC_STATUS,
++	RAS_CMD__INJECT_ERROR,
++	RAS_CMD__GET_BAD_PAGES,
++	RAS_CMD__CLEAR_BAD_PAGE_INFO,
++	RAS_CMD__RESET_ALL_ERROR_COUNTS,
++	RAS_CMD__GET_SAFE_FB_ADDRESS_RANGES,
++	RAS_CMD__TRANSLATE_FB_ADDRESS,
++	RAS_CMD__GET_LINK_TOPOLOGY,
++	RAS_CMD__GET_CPER_SNAPSHOT,
++	RAS_CMD__GET_CPER_RECORD,
++	RAS_CMD__GET_BATCH_TRACE_SNAPSHOT,
++	RAS_CMD__GET_BATCH_TRACE_RECORD,
++	RAS_CMD__SUPPORTED_MAX = RAS_CMD_ID_COMMON_END,
++};
++
++enum ras_cmd_response {
++	RAS_CMD__SUCCESS = 0,
++	RAS_CMD__SUCCESS_EXEED_BUFFER,
++	RAS_CMD__ERROR_UKNOWN_CMD,
++	RAS_CMD__ERROR_INVALID_CMD,
++	RAS_CMD__ERROR_VERSION,
++	RAS_CMD__ERROR_INVALID_INPUT_SIZE,
++	RAS_CMD__ERROR_INVALID_INPUT_DATA,
++	RAS_CMD__ERROR_DRV_INIT_FAIL,
++	RAS_CMD__ERROR_ACCESS_DENIED,
++	RAS_CMD__ERROR_GENERIC,
++	RAS_CMD__ERROR_TIMEOUT,
++};
++
++enum ras_error_type {
++	RAS_TYPE_ERROR__NONE = 0,
++	RAS_TYPE_ERROR__PARITY = 1,
++	RAS_TYPE_ERROR__SINGLE_CORRECTABLE = 2,
++	RAS_TYPE_ERROR__MULTI_UNCORRECTABLE = 4,
++	RAS_TYPE_ERROR__POISON = 8,
++};
 +
 +struct ras_core_context;
-+struct ras_ta_trigger_error_input;
-+struct ras_ta_query_address_input;
-+struct ras_ta_query_address_output;
-+enum ras_ta_cmd_id;
++struct ras_cmd_ioctl;
 +
-+struct ras_ta_image_header {
-+	uint32_t reserved1[24];
-+	uint32_t image_version; /* [0x60] Off Chip Firmware Version */
-+	uint32_t reserved2[39];
++struct ras_cmd_mgr {
++	struct list_head head;
++	struct ras_core_context *ras_core;
++	uint64_t dev_handle;
 +};
 +
-+struct ras_psp_sys_status {
-+	bool  initialized;
-+	uint32_t session_id;
-+	void *psp_cmd_mutex;
++struct ras_cmd_func_map {
++	uint32_t cmd_id;
++	int (*func)(struct ras_core_context *ras_core,
++			struct ras_cmd_ioctl *cmd, void *data);
 +};
 +
-+struct ras_ta_init_param {
-+	uint8_t poison_mode_en;
-+	uint8_t dgpu_mode;
-+	uint16_t xcc_mask;
-+	uint8_t channel_dis_num;
-+	uint8_t nps_mode;
-+	uint32_t active_umc_mask;
++struct ras_device_bdf {
++	union {
++		struct {
++			uint32_t function : 3;
++			uint32_t device : 5;
++			uint32_t bus : 8;
++			uint32_t domain : 16;
++		};
++		uint32_t u32_all;
++	};
 +};
 +
-+struct gpu_mem_block {
-+	uint32_t mem_type;
-+	void *mem_bo;
-+	uint64_t mem_mc_addr;
-+	void *mem_cpu_addr;
-+	uint32_t mem_size;
-+	int ref_count;
-+	void *private;
++struct ras_cmd_param {
++	uint32_t idx_vf;
++	void *data;
 +};
 +
-+struct ras_psp_ip_func {
-+	uint32_t (*psp_ras_ring_wptr_get)(struct ras_core_context *ras_core);
-+	int (*psp_ras_ring_wptr_set)(struct ras_core_context *ras_core, uint32_t wptr);
++#pragma pack(push, 8)
++struct ras_cmd_ioctl {
++	uint32_t magic;
++	union {
++		struct {
++			uint16_t ras_cmd_minor_ver : 10;
++			uint16_t ras_cmd_major_ver : 6;
++		};
++		uint16_t ras_cmd_ver;
++	};
++	union {
++		struct {
++			uint16_t plat_major_ver : 10;
++			uint16_t plat_minor_ver : 6;
++		};
++		uint16_t plat_ver;
++	};
++	uint32_t cmd_id;
++	uint32_t cmd_res;
++	uint32_t input_size;
++	uint32_t output_size;
++	uint32_t reserved[6];
++	uint8_t  input_buff_raw[RAS_CMD_MAX_IN_SIZE];
++	uint8_t  output_buff_raw[];
 +};
 +
-+struct ras_psp_ring {
-+	struct gpu_mem_block ras_ring_gpu_mem;
++struct ras_cmd_dev_handle {
++	uint64_t dev_handle;
 +};
 +
-+struct psp_cmd_resp {
-+	uint32_t status;
-+	uint32_t session_id;
++struct ras_cmd_block_ecc_info_req {
++	struct ras_cmd_dev_handle dev;
++	uint32_t block_id;
++	uint32_t subblock_id;
++	uint32_t reserved[4];
 +};
 +
-+struct ras_psp_ctx {
-+	void *external_mutex;
-+	struct mutex internal_mutex;
-+	uint64_t in_fence_value;
-+	struct gpu_mem_block psp_cmd_gpu_mem;
-+	struct gpu_mem_block out_fence_gpu_mem;
++struct ras_cmd_block_ecc_info_rsp {
++	uint32_t version;
++	uint32_t ce_count;
++	uint32_t ue_count;
++	uint32_t de_count;
++	uint32_t reserved[6];
 +};
 +
-+struct ras_ta_fw_bin {
-+	uint32_t fw_version;
-+	uint32_t feature_version;
-+	uint32_t bin_size;
-+	uint8_t *bin_addr;
-+};
-+
-+struct ras_ta_ctx {
-+	bool  preload_ras_ta_enabled;
-+	bool  ras_ta_initialized;
-+	uint32_t  session_id;
-+	uint32_t  resp_status;
-+	uint32_t  ta_version;
-+	struct mutex ta_mutex;
-+	struct ras_ta_fw_bin fw_bin;
-+	struct ras_ta_init_param init_param;
-+	struct gpu_mem_block fw_gpu_mem;
-+	struct gpu_mem_block cmd_gpu_mem;
-+};
-+
-+struct ras_psp {
-+	uint32_t psp_ip_version;
-+	struct ras_psp_ring psp_ring;
-+	struct ras_psp_ctx  psp_ctx;
-+	struct ras_ta_ctx   ta_ctx;
-+	const struct ras_psp_ip_func *ip_func;
-+	const struct ras_psp_sys_func *sys_func;
-+};
-+
-+struct ras_psp_ta_load {
-+	uint32_t fw_version;
-+	uint32_t feature_version;
-+	uint32_t bin_size;
-+	uint8_t *bin_addr;
-+	uint64_t out_session_id;
-+	uint32_t out_loaded_ta_version;
-+};
-+
-+struct ras_psp_ta_unload {
-+	uint64_t ras_session_id;
-+};
-+
-+int ras_psp_sw_init(struct ras_core_context *ras_core);
-+int ras_psp_sw_fini(struct ras_core_context *ras_core);
-+int ras_psp_hw_init(struct ras_core_context *ras_core);
-+int ras_psp_hw_fini(struct ras_core_context *ras_core);
-+int ras_psp_load_firmware(struct ras_core_context *ras_core,
-+		struct ras_psp_ta_load *ras_ta_load);
-+int ras_psp_unload_firmware(struct ras_core_context *ras_core,
-+		struct ras_psp_ta_unload *ras_ta_unload);
-+int ras_psp_trigger_error(struct ras_core_context *ras_core,
-+	struct ras_ta_trigger_error_input *info, uint32_t instance_mask);
-+int ras_psp_query_address(struct ras_core_context *ras_core,
-+		struct ras_ta_query_address_input *addr_in,
-+		struct ras_ta_query_address_output *addr_out);
-+bool ras_psp_check_supported_cmd(struct ras_core_context *ras_core,
-+		enum ras_ta_cmd_id cmd_id);
-+#endif
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h b/drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h
-new file mode 100644
-index 000000000000..0921e36d3274
---- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h
-@@ -0,0 +1,231 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef _RAS_TA_IF_H
-+#define _RAS_TA_IF_H
-+#include "ras.h"
-+
-+#define RAS_TA_HOST_IF_VER	0
-+
-+/* Responses have bit 31 set */
-+#define RSP_ID_MASK (1U << 31)
-+#define RSP_ID(cmdId) (((uint32_t)(cmdId)) | RSP_ID_MASK)
-+
-+/* invalid node instance value */
-+#define RAS_TA_INV_NODE 0xffff
-+
-+/* RAS related enumerations */
-+/**********************************************************/
-+enum ras_ta_cmd_id {
-+	RAS_TA_CMD_ID__ENABLE_FEATURES = 0,
-+	RAS_TA_CMD_ID__DISABLE_FEATURES,
-+	RAS_TA_CMD_ID__TRIGGER_ERROR,
-+	RAS_TA_CMD_ID__QUERY_BLOCK_INFO,
-+	RAS_TA_CMD_ID__QUERY_SUB_BLOCK_INFO,
-+	RAS_TA_CMD_ID__QUERY_ADDRESS,
-+	MAX_RAS_TA_CMD_ID
-+};
-+
-+enum ras_ta_status {
-+	RAS_TA_STATUS__SUCCESS                          = 0x0000,
-+	RAS_TA_STATUS__RESET_NEEDED                     = 0xA001,
-+	RAS_TA_STATUS__ERROR_INVALID_PARAMETER          = 0xA002,
-+	RAS_TA_STATUS__ERROR_RAS_NOT_AVAILABLE          = 0xA003,
-+	RAS_TA_STATUS__ERROR_RAS_DUPLICATE_CMD          = 0xA004,
-+	RAS_TA_STATUS__ERROR_INJECTION_FAILED           = 0xA005,
-+	RAS_TA_STATUS__ERROR_ASD_READ_WRITE             = 0xA006,
-+	RAS_TA_STATUS__ERROR_TOGGLE_DF_CSTATE           = 0xA007,
-+	RAS_TA_STATUS__ERROR_TIMEOUT                    = 0xA008,
-+	RAS_TA_STATUS__ERROR_BLOCK_DISABLED             = 0XA009,
-+	RAS_TA_STATUS__ERROR_GENERIC                    = 0xA00A,
-+	RAS_TA_STATUS__ERROR_RAS_MMHUB_INIT             = 0xA00B,
-+	RAS_TA_STATUS__ERROR_GET_DEV_INFO               = 0xA00C,
-+	RAS_TA_STATUS__ERROR_UNSUPPORTED_DEV            = 0xA00D,
-+	RAS_TA_STATUS__ERROR_NOT_INITIALIZED            = 0xA00E,
-+	RAS_TA_STATUS__ERROR_TEE_INTERNAL               = 0xA00F,
-+	RAS_TA_STATUS__ERROR_UNSUPPORTED_FUNCTION       = 0xA010,
-+	RAS_TA_STATUS__ERROR_SYS_DRV_REG_ACCESS         = 0xA011,
-+	RAS_TA_STATUS__ERROR_RAS_READ_WRITE             = 0xA012,
-+	RAS_TA_STATUS__ERROR_NULL_PTR                   = 0xA013,
-+	RAS_TA_STATUS__ERROR_UNSUPPORTED_IP             = 0xA014,
-+	RAS_TA_STATUS__ERROR_PCS_STATE_QUIET            = 0xA015,
-+	RAS_TA_STATUS__ERROR_PCS_STATE_ERROR            = 0xA016,
-+	RAS_TA_STATUS__ERROR_PCS_STATE_HANG             = 0xA017,
-+	RAS_TA_STATUS__ERROR_PCS_STATE_UNKNOWN          = 0xA018,
-+	RAS_TA_STATUS__ERROR_UNSUPPORTED_ERROR_INJ      = 0xA019,
-+	RAS_TA_STATUS__TEE_ERROR_ACCESS_DENIED          = 0xA01A
-+};
-+
-+enum ras_ta_block {
-+	RAS_TA_BLOCK__UMC = 0,
-+	RAS_TA_BLOCK__SDMA,
-+	RAS_TA_BLOCK__GFX,
-+	RAS_TA_BLOCK__MMHUB,
-+	RAS_TA_BLOCK__ATHUB,
-+	RAS_TA_BLOCK__PCIE_BIF,
-+	RAS_TA_BLOCK__HDP,
-+	RAS_TA_BLOCK__XGMI_WAFL,
-+	RAS_TA_BLOCK__DF,
-+	RAS_TA_BLOCK__SMN,
-+	RAS_TA_BLOCK__SEM,
-+	RAS_TA_BLOCK__MP0,
-+	RAS_TA_BLOCK__MP1,
-+	RAS_TA_BLOCK__FUSE,
-+	RAS_TA_BLOCK__MCA,
-+	RAS_TA_BLOCK__VCN,
-+	RAS_TA_BLOCK__JPEG,
-+	RAS_TA_BLOCK__IH,
-+	RAS_TA_BLOCK__MPIO,
-+	RAS_TA_BLOCK__MMSCH,
-+	RAS_TA_NUM_BLOCK_MAX
-+};
-+
-+enum ras_ta_mca_block {
-+	RAS_TA_MCA_BLOCK__MP0   = 0,
-+	RAS_TA_MCA_BLOCK__MP1   = 1,
-+	RAS_TA_MCA_BLOCK__MPIO  = 2,
-+	RAS_TA_MCA_BLOCK__IOHC  = 3,
-+	RAS_TA_MCA_NUM_BLOCK_MAX
-+};
-+
-+enum ras_ta_error_type {
-+	RAS_TA_ERROR__NONE			= 0,
-+	RAS_TA_ERROR__PARITY			= 1,
-+	RAS_TA_ERROR__SINGLE_CORRECTABLE	= 2,
-+	RAS_TA_ERROR__MULTI_UNCORRECTABLE	= 4,
-+	RAS_TA_ERROR__POISON			= 8,
-+};
-+
-+enum ras_ta_address_type {
-+	RAS_TA_MCA_TO_PA,
-+	RAS_TA_PA_TO_MCA,
-+};
-+
-+enum ras_ta_nps_mode {
-+	RAS_TA_UNKNOWN_MODE = 0,
-+	RAS_TA_NPS1_MODE = 1,
-+	RAS_TA_NPS2_MODE = 2,
-+	RAS_TA_NPS4_MODE = 4,
-+	RAS_TA_NPS8_MODE = 8,
-+};
-+
-+/* Input/output structures for RAS commands */
-+/**********************************************************/
-+
-+struct ras_ta_enable_features_input {
-+	enum ras_ta_block	block_id;
-+	enum ras_ta_error_type	error_type;
-+};
-+
-+struct ras_ta_disable_features_input {
-+	enum ras_ta_block	block_id;
-+	enum ras_ta_error_type	error_type;
-+};
-+
-+struct ras_ta_trigger_error_input {
-+	/* ras-block. i.e. umc, gfx */
-+	enum ras_ta_block block_id;
-+
-+	/* type of error. i.e. single_correctable */
-+	enum ras_ta_error_type inject_error_type;
-+
-+	/* mem block. i.e. hbm, sram etc. */
-+	uint32_t sub_block_index;
-+
-+	/* explicit address of error */
++struct ras_cmd_inject_error_req {
++	struct ras_cmd_dev_handle dev;
++	uint32_t block_id;
++	uint32_t subblock_id;
 +	uint64_t address;
-+
-+	/* method if error injection. i.e persistent, coherent etc. */
-+	uint64_t value;
++	uint32_t error_type;
++	uint32_t instance_mask;
++	union {
++		struct {
++			/* vf index */
++			uint64_t vf_idx : 6;
++			/* method of error injection. i.e persistent, coherent etc */
++			uint64_t method : 10;
++			uint64_t rsv    : 48;
++		};
++		uint64_t value;
++	};
++	uint32_t reserved[8];
 +};
 +
-+struct ras_ta_init_flags {
-+	uint8_t poison_mode_en;
-+	uint8_t dgpu_mode;
-+	uint16_t xcc_mask;
-+	uint8_t channel_dis_num;
-+	uint8_t nps_mode;
-+	uint32_t active_umc_mask;
++struct ras_cmd_inject_error_rsp {
++	uint32_t version;
++	uint32_t reserved[5];
++	uint64_t address;
 +};
 +
-+struct ras_ta_mca_addr {
-+	uint64_t err_addr;
-+	uint32_t ch_inst;
-+	uint32_t umc_inst;
-+	uint32_t node_inst;
-+	uint32_t socket_id;
++struct ras_cmd_dev_info {
++	uint64_t dev_handle;
++	uint32_t location_id;
++	uint32_t ecc_enabled;
++	uint32_t ecc_supported;
++	uint32_t vf_num;
++	uint32_t asic_type;
++	uint32_t oam_id;
++	uint32_t reserved[8];
 +};
 +
-+struct ras_ta_phy_addr {
-+	uint64_t pa;
++struct ras_cmd_devices_info_rsp {
++	uint32_t version;
++	uint32_t dev_num;
++	uint32_t reserved[6];
++	struct ras_cmd_dev_info devs[RAS_CMD_MAX_GPU_NUM];
++};
++
++struct ras_cmd_bad_page_record {
++	union {
++		uint64_t address;
++		uint64_t offset;
++	};
++	uint64_t retired_page;
++	uint64_t ts;
++
++	uint32_t err_type;
++
++	union {
++		unsigned char bank;
++		unsigned char cu;
++	};
++
++	unsigned char mem_channel;
++	unsigned char mcumc_id;
++
++	unsigned char valid;
++	unsigned char reserved[8];
++};
++
++struct ras_cmd_bad_pages_info_req {
++	struct ras_cmd_dev_handle device;
++	uint32_t group_index;
++	uint32_t reserved[5];
++};
++
++struct ras_cmd_bad_pages_info_rsp {
++	uint32_t version;
++	uint32_t group_index;
++	uint32_t bp_in_group;
++	uint32_t bp_total_cnt;
++	uint32_t reserved[4];
++	struct ras_cmd_bad_page_record records[RAS_CMD_MAX_BAD_PAGES_PER_GROUP];
++};
++
++struct ras_query_interface_info_req {
++	uint32_t reserved[8];
++};
++
++struct ras_query_interface_info_rsp {
++	uint32_t version;
++	uint32_t ras_cmd_major_ver;
++	uint32_t ras_cmd_minor_ver;
++	uint32_t plat_major_ver;
++	uint32_t plat_minor_ver;
++	uint8_t  interface_type;
++	uint8_t  rsv[3];
++	uint32_t reserved[8];
++};
++
++#define RAS_MAX_NUM_SAFE_RANGES 64
++struct ras_cmd_ras_safe_fb_address_ranges_rsp {
++	uint32_t version;
++	uint32_t num_ranges;
++	uint32_t reserved[4];
++	struct {
++		uint64_t start;
++		uint64_t size;
++		uint32_t idx;
++		uint32_t reserved[3];
++	} range[RAS_MAX_NUM_SAFE_RANGES];
++};
++
++enum ras_fb_addr_type {
++	RAS_FB_ADDR_SOC_PHY, /* SPA */
++	RAS_FB_ADDR_BANK,
++	RAS_FB_ADDR_VF_PHY, /* GPA */
++	RAS_FB_ADDR_UNKNOWN
++};
++
++struct ras_fb_bank_addr {
++	uint32_t stack_id; /* SID */
++	uint32_t bank_group;
 +	uint32_t bank;
-+	uint32_t channel_idx;
++	uint32_t row;
++	uint32_t column;
++	uint32_t channel;
++	uint32_t subchannel; /* Also called Pseudochannel (PC) */
++	uint32_t reserved[3];
 +};
 +
-+struct ras_ta_query_address_input {
-+	enum ras_ta_address_type addr_type;
-+	struct ras_ta_mca_addr ma;
-+	struct ras_ta_phy_addr pa;
++struct ras_fb_vf_phy_addr {
++	uint32_t vf_idx;
++	uint32_t reserved;
++	uint64_t addr;
 +};
 +
-+struct ras_ta_output_flags {
-+	uint8_t ras_init_success_flag;
-+	uint8_t err_inject_switch_disable_flag;
-+	uint8_t reg_access_failure_flag;
++union ras_translate_fb_address {
++	struct ras_fb_bank_addr bank_addr;
++	uint64_t soc_phy_addr;
++	struct ras_fb_vf_phy_addr vf_phy_addr;
 +};
 +
-+struct ras_ta_query_address_output {
-+	/* don't use the flags here */
-+	struct ras_ta_output_flags flags;
-+	struct ras_ta_mca_addr ma;
-+	struct ras_ta_phy_addr pa;
++struct ras_cmd_translate_fb_address_req {
++	struct ras_cmd_dev_handle dev;
++	enum ras_fb_addr_type src_addr_type;
++	enum ras_fb_addr_type dest_addr_type;
++	union ras_translate_fb_address trans_addr;
 +};
 +
-+/* Common input structure for RAS callbacks */
-+/**********************************************************/
-+union ras_ta_cmd_input {
-+	struct ras_ta_init_flags		init_flags;
-+	struct ras_ta_enable_features_input	enable_features;
-+	struct ras_ta_disable_features_input	disable_features;
-+	struct ras_ta_trigger_error_input	trigger_error;
-+	struct ras_ta_query_address_input	address;
-+	uint32_t reserve_pad[256];
++struct ras_cmd_translate_fb_address_rsp {
++	uint32_t version;
++	uint32_t reserved[5];
++	union ras_translate_fb_address trans_addr;
 +};
 +
-+union ras_ta_cmd_output {
-+	struct ras_ta_output_flags flags;
-+	struct ras_ta_query_address_output address;
-+	uint32_t reserve_pad[256];
++struct ras_dev_link_topology_req {
++	struct ras_cmd_dev_handle src;
++	struct ras_cmd_dev_handle dst;
 +};
 +
-+struct ras_ta_cmd {
-+	uint32_t  cmd_id;
-+	uint32_t  resp_id;
-+	uint32_t  ras_status;
-+	uint32_t  if_version;
-+	union ras_ta_cmd_input  ras_in_message;
-+	union ras_ta_cmd_output ras_out_message;
++struct ras_dev_link_topology_rsp {
++	uint32_t  version;
++	uint32_t  link_status;  /* HW status of the link */
++	uint32_t  link_type;    /* type of the link */
++	uint32_t  num_hops;     /* number of hops */
++	uint32_t reserved[8];
 +};
 +
++struct ras_cmd_cper_snapshot_req {
++	struct ras_cmd_dev_handle dev;
++};
++
++struct ras_cmd_cper_snapshot_rsp {
++	uint32_t version;
++	uint32_t reserved[4];
++	uint32_t total_cper_num;
++	uint64_t start_cper_id;
++	uint64_t latest_cper_id;
++};
++
++struct ras_cmd_cper_record_req {
++	struct ras_cmd_dev_handle dev;
++	uint64_t cper_start_id;
++	uint32_t cper_num;
++	uint32_t buf_size;
++	uint64_t buf_ptr;
++	uint32_t reserved[4];
++};
++
++struct ras_cmd_cper_record_rsp {
++	uint32_t version;
++	uint32_t real_data_size;
++	uint32_t real_cper_num;
++	uint32_t remain_num;
++	uint32_t reserved[4];
++};
++
++struct ras_cmd_batch_trace_snapshot_req {
++	struct ras_cmd_dev_handle dev;
++};
++
++struct ras_cmd_batch_trace_snapshot_rsp {
++	uint32_t version;
++	uint32_t reserved[4];
++	uint32_t total_batch_num;
++	uint64_t start_batch_id;
++	uint64_t latest_batch_id;
++};
++
++struct ras_cmd_batch_trace_record_req {
++	struct ras_cmd_dev_handle dev;
++	uint64_t start_batch_id;
++	uint32_t batch_num;
++	uint32_t reserved[5];
++};
++
++struct batch_ras_trace_info {
++	uint64_t batch_id;
++	uint16_t offset;
++	uint8_t  trace_num;
++	uint8_t  rsv;
++	uint32_t reserved;
++};
++
++#define RAS_CMD_MAX_BATCH_NUM  300
++#define RAS_CMD_MAX_TRACE_NUM  300
++struct ras_cmd_batch_trace_record_rsp {
++	uint32_t version;
++	uint16_t real_batch_num;
++	uint16_t remain_num;
++	uint64_t start_batch_id;
++	uint32_t reserved[2];
++	struct batch_ras_trace_info batchs[RAS_CMD_MAX_BATCH_NUM];
++	struct ras_log_info records[RAS_CMD_MAX_TRACE_NUM];
++};
++
++#pragma pack(pop)
++
++int ras_cmd_init(struct ras_core_context *ras_core);
++int ras_cmd_fini(struct ras_core_context *ras_core);
++int rascore_handle_cmd(struct ras_core_context *ras_core, struct ras_cmd_ioctl *cmd, void *data);
++uint64_t ras_cmd_get_dev_handle(struct ras_core_context *ras_core);
++int ras_cmd_query_interface_info(struct ras_core_context *ras_core,
++	struct ras_query_interface_info_rsp *rsp);
++int ras_cmd_translate_soc_pa_to_bank(struct ras_core_context *ras_core,
++			uint64_t soc_pa, struct ras_fb_bank_addr *bank_addr);
++int ras_cmd_translate_bank_to_soc_pa(struct ras_core_context *ras_core,
++			struct ras_fb_bank_addr bank_addr, uint64_t *soc_pa);
 +#endif
 -- 
 2.34.1
