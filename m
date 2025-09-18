@@ -4,56 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206B1CAC5AA
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9647CAC597
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEA3110E8FB;
-	Thu, 18 Sep 2025 20:58:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B4AD10E8FC;
+	Thu, 18 Sep 2025 20:58:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dL5GL0et";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Qjpf0K7t";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52E0B10E3BC;
- Thu, 18 Sep 2025 20:25:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=WL6Kw9YUWCG0W8YCQWVk37aQPOOB+kRzsZn1Ep3RQ9E=; b=dL5GL0etsWf87csUiJUWIysuyb
- 8NGFGem8xV12Rc4e5BNHP74oOwMmbfW/kFPjw1xU35v81QjAQZv4FCP4qhq5GWM1UDq5gNvQwD8dd
- bqWJbsl2EHJfxtcc0v2n4dFT4ss+XU0codakbqRYSO64j0Q3s4S6yIkM/tVF5XZMK9ha0S09t6cez
- RtDJYqNxYhlTq1viV5FQ8uyyyW1g+idVZ8mzPGlOIWw/T4sqc2iF4LeNfWvFmqvqB/lsPYD6YVVhI
- ZkpgiCmXCduHtdFGfwEU+IhkJe9wmGqih7CReNYgCxNSXGul1/dza0OdU1cVC0SQKqhResx1r14pU
- EZCxTu8w==;
-Received: from 179-125-87-227-dinamico.pombonet.net.br ([179.125.87.227]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uzLBu-00Dp3q-CC; Thu, 18 Sep 2025 22:25:18 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Thu, 18 Sep 2025 17:09:26 -0300
-Subject: [PATCH RFC v2 3/3] drm/amdgpu: allow allocation preferences when
- creating GEM object
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com
+ [91.218.175.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C631B10E078
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 16:37:16 +0000 (UTC)
+Message-ID: <8f1143f0-e70f-4187-9a2c-4e825ed9c63f@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1758213434;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XO454g9fUgdATXAdxjgdUn+MLRq0EbRhxsOv4dkvFzY=;
+ b=Qjpf0K7taskmFHjCc8lNG67rAi0v4ikc3zUW9yLfeNiqXFwBqiWeguz9gIdigUTcpJtFln
+ 0sWHDX78CdAQdLvmVOlGhxN1Vw4bpDGmvbKJL1a80qTVrkVLIVubnZrTobvnliRGWr0hT6
+ uglWMRKVdfKJlI2an+VCXtcVIhGD/xY=
+Date: Thu, 18 Sep 2025 09:37:07 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250918-ttm_pool_no_direct_reclaim-v2-3-135294e1f8a2@igalia.com>
-References: <20250918-ttm_pool_no_direct_reclaim-v2-0-135294e1f8a2@igalia.com>
-In-Reply-To: <20250918-ttm_pool_no_direct_reclaim-v2-0-135294e1f8a2@igalia.com>
-To: Christian Koenig <christian.koenig@amd.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.14.2
+Subject: Re: [PATCH v2] drm/amd/display: Only restore backlight after
+ amdgpu_dm_init or dm_resume
+To: Mario Limonciello <mario.limonciello@amd.com>, chiahsuan.chung@amd.com,
+ alexander.deucher@amd.com, harry.wentland@amd.com, simona@ffwll.ch,
+ airlied@gmail.com, sunpeng.li@amd.com
+Cc: amd-gfx@lists.freedesktop.org, zaeem.mohamed@amd.com, misyl@froggi.es,
+ linux-kernel@vger.kernel.org
+References: <20250911174851.2767335-1-matthew.schwartz@linux.dev>
+ <ccdc6dda-8341-4b77-a571-e0642499e3f7@amd.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+In-Reply-To: <ccdc6dda-8341-4b77-a571-e0642499e3f7@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Thu, 18 Sep 2025 20:58:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,73 +61,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When creating a GEM object on amdgpu, it may be specified that latency
-during allocation should be preferred over throughput when processing.
+On 9/11/25 10:55 AM, Mario Limonciello wrote:
+> On 9/11/25 12:48 PM, Matthew Schwartz wrote:
+>> On clients that utilize AMD_PRIVATE_COLOR properties for HDR support,
+>> brightness sliders can include a hardware controlled portion and a
+>> gamma-based portion. This is the case on the Steam Deck OLED when using
+>> gamescope with Steam as a client.
+>>
+>> When a user sets a brightness level while HDR is active, the gamma-based
+>> portion and/or hardware portion are adjusted to achieve the desired
+>> brightness. However, when a modeset takes place while the gamma-based
+>> portion is in-use, restoring the hardware brightness level overrides the
+>> user's overall brightness level and results in a mismatch between what
+>> the slider reports and the display's current brightness.
+>>
+>> To avoid overriding gamma-based brightness, only restore HW backlight
+>> level after boot or resume. This ensures that the backlight level is
+>> set correctly after the DC layer resets it while avoiding interference
+>> with subsequent modesets.
+>>
+>> Fixes: 7875afafba84 ("drm/amd/display: Fix brightness level not retained over reboot")
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4551
+>> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+> 
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> Haven't picked it up, will wait a few days for more comments.
 
-That will reflect into the TTM operation, which will lead to the use of
-direct reclaim for higher order pages when throughput is preferred, even if
-latency is configured to be preferred in the system.
+Was this applied somewhere or still waiting on more comments?
 
-If latency is preferred, no direct reclaim will be used for higher order
-pages, which might lead to more use of lower order pages, which can also
-compromised throughput.
+Thanks
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
- include/uapi/drm/amdgpu_drm.h              | 9 +++++++++
- 3 files changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index d1ccbfcf21fa62a8d4fe1b8f020cf00d34efe1ab..0a0333e7ed1a45de63fedfbc161094f6de7fda00 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -451,7 +451,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 		      AMDGPU_GEM_CREATE_EXPLICIT_SYNC |
- 		      AMDGPU_GEM_CREATE_ENCRYPTED |
- 		      AMDGPU_GEM_CREATE_GFX12_DCC |
--		      AMDGPU_GEM_CREATE_DISCARDABLE))
-+		      AMDGPU_GEM_CREATE_DISCARDABLE |
-+		      AMDGPU_GEM_ALLOCATION_MASK))
- 		return -EINVAL;
- 
- 	/* reject invalid gem domains */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 122a882948839464dc197d40ff8e46cf161f7b42..54350460bb41e4bc057eb61d7bb6014457e56c6e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -632,7 +632,8 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 		/* We opt to avoid OOM on system pages allocations */
- 		.gfp_retry_mayfail = true,
- 		.allow_res_evict = bp->type != ttm_bo_type_kernel,
--		.resv = bp->resv
-+		.resv = bp->resv,
-+		.alloc_method = AMDGPU_GEM_ALLOCATION(bp->flags)
- 	};
- 	struct amdgpu_bo *bo;
- 	unsigned long page_align, size = bp->size;
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index bdedbaccf776db0c86cec939725a435c37f09f77..b796744abeba2bf4b14556251b36938ba0905c1e 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -180,6 +180,15 @@ extern "C" {
- /* Set PTE.D and recompress during GTT->VRAM moves according to TILING flags. */
- #define AMDGPU_GEM_CREATE_GFX12_DCC		(1 << 16)
- 
-+/* Prioritize allocation latency or high-order allocations that favor
-+ * throughput */
-+#define AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT	(17)
-+#define AMDGPU_GEM_ALLOCATION_DEFAULT		(0 << AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
-+#define AMDGPU_GEM_ALLOCATION_LATENCY		(2 << AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
-+#define AMDGPU_GEM_ALLOCATION_THROUGHPUT	(3 << AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
-+#define AMDGPU_GEM_ALLOCATION_MASK		(3 << AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
-+#define AMDGPU_GEM_ALLOCATION(flags)		((flags & AMDGPU_GEM_ALLOCATION_MASK) >> AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
-+
- struct drm_amdgpu_gem_create_in  {
- 	/** the requested memory size */
- 	__u64 bo_size;
-
--- 
-2.47.3
+> 
+>> ---
+>> v2: Drop set_backlight_level and use dm->restore_backlight in
+>> amdgpu_dm_commit_streams
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++----
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++++++
+>>   2 files changed, 15 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 7808a647a306c..2a5fa85505e84 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -2037,6 +2037,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+>>         dc_hardware_init(adev->dm.dc);
+>>   +    adev->dm.restore_backlight = true;
+>> +
+>>       adev->dm.hpd_rx_offload_wq = hpd_rx_irq_create_workqueue(adev);
+>>       if (!adev->dm.hpd_rx_offload_wq) {
+>>           drm_err(adev_to_drm(adev), "failed to create hpd rx offload workqueue.\n");
+>> @@ -3407,6 +3409,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+>>           dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+>>             dc_resume(dm->dc);
+>> +        adev->dm.restore_backlight = true;
+>>             amdgpu_dm_irq_resume_early(adev);
+>>   @@ -9802,7 +9805,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+>>       bool mode_set_reset_required = false;
+>>       u32 i;
+>>       struct dc_commit_streams_params params = {dc_state->streams, dc_state->stream_count};
+>> -    bool set_backlight_level = false;
+>>         /* Disable writeback */
+>>       for_each_old_connector_in_state(state, connector, old_con_state, i) {
+>> @@ -9922,7 +9924,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+>>               acrtc->hw_mode = new_crtc_state->mode;
+>>               crtc->hwmode = new_crtc_state->mode;
+>>               mode_set_reset_required = true;
+>> -            set_backlight_level = true;
+>>           } else if (modereset_required(new_crtc_state)) {
+>>               drm_dbg_atomic(dev,
+>>                          "Atomic commit: RESET. crtc id %d:[%p]\n",
+>> @@ -9979,13 +9980,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+>>        * to fix a flicker issue.
+>>        * It will cause the dm->actual_brightness is not the current panel brightness
+>>        * level. (the dm->brightness is the correct panel level)
+>> -     * So we set the backlight level with dm->brightness value after set mode
+>> +     * So we set the backlight level with dm->brightness value after initial
+>> +     * set mode. Use restore_backlight flag to avoid setting backlight level
+>> +     * for every subsequent mode set.
+>>        */
+>> -    if (set_backlight_level) {
+>> +    if (dm->restore_backlight) {
+>>           for (i = 0; i < dm->num_of_edps; i++) {
+>>               if (dm->backlight_dev[i])
+>>                   amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+>>           }
+>> +        dm->restore_backlight = false;
+>>       }
+>>   }
+>>   diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> index b937da0a4e4a0..6aae51c1beb36 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> @@ -610,6 +610,13 @@ struct amdgpu_display_manager {
+>>        */
+>>       u32 actual_brightness[AMDGPU_DM_MAX_NUM_EDP];
+>>   +    /**
+>> +     * @restore_backlight:
+>> +     *
+>> +     * Flag to indicate whether to restore backlight after modeset.
+>> +     */
+>> +    bool restore_backlight;
+>> +
+>>       /**
+>>        * @aux_hpd_discon_quirk:
+>>        *
+> 
 
