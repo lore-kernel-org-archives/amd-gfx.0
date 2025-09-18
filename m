@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04AA2CAC597
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:33:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC44ACA1013
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:34:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99AA010E8F8;
-	Thu, 18 Sep 2025 20:33:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB8C10E8F9;
+	Thu, 18 Sep 2025 20:34:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bPeQOcEJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KC2Rq3+b";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE6510E8F8
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 20:33:34 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-26808b24a00so2170595ad.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 13:33:34 -0700 (PDT)
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D63210E8F9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 20:34:22 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-b54deb8508eso52416a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 13:34:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758227614; x=1758832414; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758227662; x=1758832462; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=sF7sr8KQUGU2LKMm66IhaFtG9MvgDqsZEh4N0bzpHSs=;
- b=bPeQOcEJJutSzLIYzSAifU4iw6a2Mu/I9DGdEu0xnKZ6zwEWE4mb+do2smrRROKBa6
- eRmFWblIiOe75gtfdAfY3Y50zeEotGdiG2jNilZv17Ten0LFB1iJucKhFopQuIf9g8Xh
- f5WDRlwf3plG9Ih/zNqMlU2HgOrDqJl6YwZWzgdEkwDwI3OD+nn1eeed3p7eyblP0kMG
- dK9vud7piwU9278DBais2glYRQLAUMpCnLdlVgoqMDRTIRK6MBzmskkHRc7kkptQ+E8x
- 99DGz143jd3d+rDO65q8Y2Bc7G5P+6As9WjLQwE361MfJtTE0YdgAKrNM3QvsFSM80xB
- UVlw==
+ bh=pJO6D91Yaxwfneqcoreh9cmZORLD8JSvOfOeKUfeTXs=;
+ b=KC2Rq3+bHgDHSypODuC2IWW12YQEAJMWWRLwd9wqgqAIvGGUCOl04WMOGTXjIXr643
+ T1hOenfmIl4bAEAWflkDWa/Yb8B0Dolv9uh2+Bq+xZoGwEWjgEL1VRI6grD4tPyIaEO+
+ blxUVGYer33Zho/msaR3bqBSUTCljK1okM8aHbBeJD3Hfk6w3B1ux/5LkPeIbB3KNumU
+ AEQitANaGJAQYXrHgItXhKlZMUJz+ZZ6ueMpxx9V9tCPQvpRUGpGQTEP4565vkpnHTUw
+ CO7aRTR5jLDbhqDNnrqyK0906K5/+GN2FcGCsS+Q7bDtKqjeGDYJMoaoDKyXjiQ4o6UL
+ s//A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758227614; x=1758832414;
+ d=1e100.net; s=20230601; t=1758227662; x=1758832462;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=sF7sr8KQUGU2LKMm66IhaFtG9MvgDqsZEh4N0bzpHSs=;
- b=tBA2e/on+rvFjTFEbnzTEvVBHfYxlWfbcnhUR0Nx1pna5PfMTM+qBozUmeuRtmjadz
- om/2OqY3yDTsPbMN6UtTunWvCkqgioSn4MwVfIhdOPTdBQzSv9dEDB7fmGwsQaTUcFkA
- d1hprOaUTO8Fhf6AS2EXJxWKEMJzyCWrhb7d62y826D8FmuoYvyQdxQ8YU6KclKK9bod
- sZ6IDIyZWqbI9LZVBgvYg2tgeBTbj+j99yKIrvvsygb65Zb/58uN4Xvq3DCGg3G1AbWN
- oOfkvyUpblEHilNkmU0+aDFepiyJoGM2tUWDnnlKOu0A69aYaGEKKSC8HTInDttk9DxU
- dh+Q==
-X-Gm-Message-State: AOJu0YyfTsaYAAJqiMCv9oN8M5KPJmNoZEnXYm39MnOzdyFeeBMSdsTe
- jzyth2gpYsthH/Ma+qkgtsqJC0dQgyu12KkIMQlyDbTDvLKuXjjnDNwLlAyLExazbJ961Ou5rsz
- XUu+miqbJ1gF3AbnDC31eXpXWNq2NdpllWg==
-X-Gm-Gg: ASbGnctLiBEXVjwt/zb3RAeR0D4V09Fqw1t08cfe96k5roXgtI/AzOjoFoeRGqMvVK0
- u7/Cq39onEJ0VNERJJTSPfl3mJFBJally34p+GlkdrfRjg6yyGaf/Kw+yQ8obx/23biKr9319o+
- qYceWBWKT8c9X5UYT2JAA6lG4Vq7OT3EoTOIVsxDTXQbB0KSfrFXIWVqC96vcVa2HeV5ZVe2laG
- VBNVyaD2kovvW5SoOYFWGklfA==
-X-Google-Smtp-Source: AGHT+IEilJn4bzlfKQK3OSZxpgP5bZWR6B111186+7m/5uhKYa8uCOZmSls0ZVR/IRBu33H4cUQ92WDOl54DYtNRLi4=
-X-Received: by 2002:a17:902:d2cc:b0:266:120a:29cc with SMTP id
- d9443c01a7336-269ba43e278mr6087685ad.3.1758227614109; Thu, 18 Sep 2025
- 13:33:34 -0700 (PDT)
+ bh=pJO6D91Yaxwfneqcoreh9cmZORLD8JSvOfOeKUfeTXs=;
+ b=c91SKfmZZ9gG1DyE1N30/FVzWK11LjkY1/t3JWCwUJ1zXCrmT5QYz7GtQJBjrj8cJF
+ yGvnEVJGLoSCs7pP5TIXK5x7L2ShkjGwEkLsIK3aecwbPXNzIbV1JupCOgoHskgK22fo
+ St2qh1cdiRLNaU4eLjs+OObCCb+RFdhwxDw25O5goAreVYS2fwe0L+l+FVM6RqkMykAQ
+ kekFRMuL591blxiaS3TExSHNmNrwbYjolct6TJWTYNp5D1rxZU8FYBq+yV7Sgn3yf0zU
+ bA+BJ9fDGfc6WBI+1u/nu1jSbObkVIMNyKjg7Y6pZclWeNICKqPFfNtuQ2lDL9kzsdzV
+ T6oA==
+X-Gm-Message-State: AOJu0Yw7ctHV/Agqi71Dvy6UYUAmMbvwex7kQCrMfCsqMyuD7u7bC7mi
+ CZvWYOwfjEjjYgpkKiTCzXTVaQXiC0e+95fBMLal4fCQ9syMb94bPd5s/b5HkUSM3MeRFHY9lPX
+ dSe6YoB/jBu6u32iMk2hdU7TQus7M1Co=
+X-Gm-Gg: ASbGnct+Q8ouT0Mxom83cl9DaQ4ZzXm4Y3fM6NA0DqzftvlAg3KR9tlJ8AoWlkNTXhX
+ oYKRHYOknhhfX5WZpHBdMXE9vRo6m9i5WnYwEJKIfl0R8+b2kBqt9DvHE1DqZB/mQdESPBAj6M0
+ eU8GYnlen1lXGwx5pgjkDSRiIdzuq4tXTqk1iZuyyZbUKl+so4iJMqYLRvnt9LSs9nhhUFxT4VO
+ DgZGmdX7A21wmt6C/i6GKhXzg==
+X-Google-Smtp-Source: AGHT+IGqMj5MbQ/sJLpIArHr7MSRLkYt1rWzeYmTaDNCYG5jW8exmWNW0kkwFgbOEdkdJ46XgNEmqtXnsWj9xj7jHqQ=
+X-Received: by 2002:a17:90b:4c88:b0:32e:4924:68f8 with SMTP id
+ 98e67ed59e1d1-33097ff4c7bmr468214a91.2.1758227661759; Thu, 18 Sep 2025
+ 13:34:21 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250918081815.2755437-1-Prike.Liang@amd.com>
- <20250918081815.2755437-4-Prike.Liang@amd.com>
-In-Reply-To: <20250918081815.2755437-4-Prike.Liang@amd.com>
+ <20250918081815.2755437-5-Prike.Liang@amd.com>
+In-Reply-To: <20250918081815.2755437-5-Prike.Liang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Sep 2025 16:33:20 -0400
-X-Gm-Features: AS18NWDAJxfRnpZuove37sJkXUcGKl9I2ds6E5aBkjKK7H6kBfPB_6R_i2ogxbw
-Message-ID: <CADnq5_NFjLm8DQoD+04EdHadvuJELDcVxDwoLbAtWB7e6A4_sw@mail.gmail.com>
-Subject: Re: [PATCH v3 04/10] drm/amdgpu/userq: extend userq state
+Date: Thu, 18 Sep 2025 16:34:09 -0400
+X-Gm-Features: AS18NWCbUB98mUe3LxzxDXGmnodd7hTrPGYKoKyeNk3ZSKRHuoX2j_nkQLQfabY
+Message-ID: <CADnq5_Njw1VXqpMwafgHsAg09dQVtz1gsNu0tB46qc0i4tWT8g@mail.gmail.com>
+Subject: Re: [PATCH v3 05/10] drm/amdgpu: add userq invalid VA query
 To: Prike Liang <Prike.Liang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian.Koenig@amd.com
@@ -82,33 +82,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 18, 2025 at 4:18=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+On Thu, Sep 18, 2025 at 4:29=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
 rote:
 >
-> Extend the userq state for identifying the
-> userq invalid cases.
+> Add the userq invalid VA query interface.
 >
 > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.h
-> index 2260b1fb8a22..33a582200dda 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -37,6 +37,7 @@ enum amdgpu_userq_state {
->         AMDGPU_USERQ_STATE_MAPPED,
->         AMDGPU_USERQ_STATE_PREEMPTED,
->         AMDGPU_USERQ_STATE_HUNG,
-> +       AMDGPU_USERQ_STATE_INVALID_VA,
->  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 83f0ecdaa0b7..3b57352e523a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -577,6 +577,8 @@ amdgpu_userq_query_status(struct drm_file *filp, unio=
+n drm_amdgpu_userq *args)
+>         if (queue->generation !=3D amdgpu_vm_generation(adev, &fpriv->vm)=
+)
+>                 args->out_qs.flags |=3D AMDGPU_USERQ_QUERY_STATUS_FLAGS_V=
+RAMLOST;
 >
->  struct amdgpu_mqd_prop;
+> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_INVALID_VA)
+> +               args->out_qs.flags |=3D AMDGPU_USERQ_QUERY_STATUS_FLAGS_I=
+NVALID_VA;
+>         mutex_unlock(&uq_mgr->userq_mutex);
+>
+>         return 0;
 > --
 > 2.34.1
 >
