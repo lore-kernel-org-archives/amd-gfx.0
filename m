@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 183CECA1013
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206B1CAC5AA
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:58:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5AF310E8FD;
-	Thu, 18 Sep 2025 20:58:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEA3110E8FB;
+	Thu, 18 Sep 2025 20:58:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GC/xuEH8";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dL5GL0et";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3D5D10E1A8;
- Thu, 18 Sep 2025 20:25:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52E0B10E3BC;
+ Thu, 18 Sep 2025 20:25:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
- Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=KSWSMnfsKClm3CO88jw/F2wXZZE8FuFNwsBo3LfrVLE=; b=GC/xuEH8Z2NhexrDp/215Iw+4X
- f1z996qAxQavumwdFkSFH3aG8BVR02CnMLnpCDz+7O81/pSHn5y+GWjpV+JBT+E5xsLMLo0BZL1C1
- zv4EM0SECk6tHLGHdMMKrf3ApbBL8/GtCMZ0PxADGO1gAw5CSCWW5R1BjNuoc6Z+mJtiY6zWlpjis
- vwD0bvxKj/heUoMW5uoRApfzxxQrSKButwethC4cVt4c+ZQ/T6ghpfmjH8qP3+M5ifMmmB21BltFs
- LKYYGPAwZLeuN5Gwr7470UTUqbdR2bhLO68YgetNTzfBnx6NQA7QoyABc4VaDoc+4yZyJpboetIcm
- T//wTLnA==;
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=WL6Kw9YUWCG0W8YCQWVk37aQPOOB+kRzsZn1Ep3RQ9E=; b=dL5GL0etsWf87csUiJUWIysuyb
+ 8NGFGem8xV12Rc4e5BNHP74oOwMmbfW/kFPjw1xU35v81QjAQZv4FCP4qhq5GWM1UDq5gNvQwD8dd
+ bqWJbsl2EHJfxtcc0v2n4dFT4ss+XU0codakbqRYSO64j0Q3s4S6yIkM/tVF5XZMK9ha0S09t6cez
+ RtDJYqNxYhlTq1viV5FQ8uyyyW1g+idVZ8mzPGlOIWw/T4sqc2iF4LeNfWvFmqvqB/lsPYD6YVVhI
+ ZkpgiCmXCduHtdFGfwEU+IhkJe9wmGqih7CReNYgCxNSXGul1/dza0OdU1cVC0SQKqhResx1r14pU
+ EZCxTu8w==;
 Received: from 179-125-87-227-dinamico.pombonet.net.br ([179.125.87.227]
  helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uzLBf-00Dp3q-IW; Thu, 18 Sep 2025 22:25:03 +0200
+ id 1uzLBu-00Dp3q-CC; Thu, 18 Sep 2025 22:25:18 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH RFC v2 0/3] drm/ttm: allow direct reclaim to be skipped
-Date: Thu, 18 Sep 2025 17:09:23 -0300
-Message-Id: <20250918-ttm_pool_no_direct_reclaim-v2-0-135294e1f8a2@igalia.com>
+Date: Thu, 18 Sep 2025 17:09:26 -0300
+Subject: [PATCH RFC v2 3/3] drm/amdgpu: allow allocation preferences when
+ creating GEM object
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPRmzGgC/32NwQqDMBBEf0X23JRNRNSeCoV+QK9FQqobXVAjS
- ZAW8d8b7L2XgTcDbzYI5JkCXLINPK0c2M0J1CmDdjBzT4K7xKBQFVhjLWKc9OLcqGenO/bURp1
- iNDwJIqywNKrLLUESLJ4svw/5Ex73GzSpHDhE5z/H4SqP6eeW+M+9SiFFkb/QmtJWKa/cm5HNu
- XUTNPu+fwG+xEa0ygAAAA==
-X-Change-ID: 20250909-ttm_pool_no_direct_reclaim-ee0807a2d3fe
+Message-Id: <20250918-ttm_pool_no_direct_reclaim-v2-3-135294e1f8a2@igalia.com>
+References: <20250918-ttm_pool_no_direct_reclaim-v2-0-135294e1f8a2@igalia.com>
+In-Reply-To: <20250918-ttm_pool_no_direct_reclaim-v2-0-135294e1f8a2@igalia.com>
 To: Christian Koenig <christian.koenig@amd.com>, 
  =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
  Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
@@ -72,51 +69,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On certain workloads, like on ChromeOS when opening multiple tabs and
-windows, and switching desktops, memory pressure can build up and latency
-is observed as high order allocations result in memory reclaim. This was
-observed when running on an amdgpu.
+When creating a GEM object on amdgpu, it may be specified that latency
+during allocation should be preferred over throughput when processing.
 
-This is caused by TTM pool allocations and turning off direct reclaim when
-doing those higher order allocations leads to lower memory pressure.
+That will reflect into the TTM operation, which will lead to the use of
+direct reclaim for higher order pages when throughput is preferred, even if
+latency is configured to be preferred in the system.
 
-Since turning direct reclaim off might also lead to lower throughput,
-make it tunable, both as a module parameter that can be changed in sysfs
-and as a flag when allocating a GEM object.
-
-A latency option will avoid direct reclaim for higher order allocations.
-
-The throughput option could be later used to more agressively compact pages
-or reclaim, by not using __GFP_NORETRY.
-
-Other drivers can later opt to use this mechanism too.
+If latency is preferred, no direct reclaim will be used for higher order
+pages, which might lead to more use of lower order pages, which can also
+compromised throughput.
 
 Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
-Changes in v2:
-- Make disabling direct reclaim an option.
-- Link to v1: https://lore.kernel.org/r/20250910-ttm_pool_no_direct_reclaim-v1-1-53b0fa7f80fa@igalia.com
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+ include/uapi/drm/amdgpu_drm.h              | 9 +++++++++
+ 3 files changed, 13 insertions(+), 2 deletions(-)
 
----
-Thadeu Lima de Souza Cascardo (3):
-      ttm: pool: allow requests to prefer latency over throughput
-      ttm: pool: add a module parameter to set latency preference
-      drm/amdgpu: allow allocation preferences when creating GEM object
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index d1ccbfcf21fa62a8d4fe1b8f020cf00d34efe1ab..0a0333e7ed1a45de63fedfbc161094f6de7fda00 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -451,7 +451,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		      AMDGPU_GEM_CREATE_EXPLICIT_SYNC |
+ 		      AMDGPU_GEM_CREATE_ENCRYPTED |
+ 		      AMDGPU_GEM_CREATE_GFX12_DCC |
+-		      AMDGPU_GEM_CREATE_DISCARDABLE))
++		      AMDGPU_GEM_CREATE_DISCARDABLE |
++		      AMDGPU_GEM_ALLOCATION_MASK))
+ 		return -EINVAL;
+ 
+ 	/* reject invalid gem domains */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 122a882948839464dc197d40ff8e46cf161f7b42..54350460bb41e4bc057eb61d7bb6014457e56c6e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -632,7 +632,8 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 		/* We opt to avoid OOM on system pages allocations */
+ 		.gfp_retry_mayfail = true,
+ 		.allow_res_evict = bp->type != ttm_bo_type_kernel,
+-		.resv = bp->resv
++		.resv = bp->resv,
++		.alloc_method = AMDGPU_GEM_ALLOCATION(bp->flags)
+ 	};
+ 	struct amdgpu_bo *bo;
+ 	unsigned long page_align, size = bp->size;
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index bdedbaccf776db0c86cec939725a435c37f09f77..b796744abeba2bf4b14556251b36938ba0905c1e 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -180,6 +180,15 @@ extern "C" {
+ /* Set PTE.D and recompress during GTT->VRAM moves according to TILING flags. */
+ #define AMDGPU_GEM_CREATE_GFX12_DCC		(1 << 16)
+ 
++/* Prioritize allocation latency or high-order allocations that favor
++ * throughput */
++#define AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT	(17)
++#define AMDGPU_GEM_ALLOCATION_DEFAULT		(0 << AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
++#define AMDGPU_GEM_ALLOCATION_LATENCY		(2 << AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
++#define AMDGPU_GEM_ALLOCATION_THROUGHPUT	(3 << AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
++#define AMDGPU_GEM_ALLOCATION_MASK		(3 << AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
++#define AMDGPU_GEM_ALLOCATION(flags)		((flags & AMDGPU_GEM_ALLOCATION_MASK) >> AMDGPU_GEM_OVERRIDE_ALLOCATION_SHIFT)
++
+ struct drm_amdgpu_gem_create_in  {
+ 	/** the requested memory size */
+ 	__u64 bo_size;
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  3 ++-
- drivers/gpu/drm/ttm/ttm_pool.c             | 23 +++++++++++++++++------
- drivers/gpu/drm/ttm/ttm_tt.c               |  2 +-
- include/drm/ttm/ttm_bo.h                   |  5 +++++
- include/drm/ttm/ttm_pool.h                 |  2 +-
- include/drm/ttm/ttm_tt.h                   |  2 +-
- include/uapi/drm/amdgpu_drm.h              |  9 +++++++++
- 8 files changed, 38 insertions(+), 11 deletions(-)
----
-base-commit: f83ec76bf285bea5727f478a68b894f5543ca76e
-change-id: 20250909-ttm_pool_no_direct_reclaim-ee0807a2d3fe
-
-Best regards,
 -- 
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+2.47.3
 
