@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C5D2CAC59F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D47CAC59A
 	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 01:33:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB6FF10E5F8;
-	Thu, 18 Sep 2025 01:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2231810E5FE;
+	Thu, 18 Sep 2025 01:33:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pq4iElkK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wr15Raz0";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011003.outbound.protection.outlook.com
- [40.93.194.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81B9A10E5F8
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013022.outbound.protection.outlook.com
+ [40.107.201.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9002B10E5FA
  for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 01:33:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hUBqPbFHaHXiGoy8RMbomUewvuERn8MD8X2mNBwppf7kQMP8vW/Ikbi1YFQPo8GZyfi/JNYj9eqPnAD8Fkllo7bE5NeyX7e21hQdLO7wxGWv4i14isvarYqwl+ZmQe063dVSaIqWhAjv36nGoaSuVBwN89fklkozjDweQbdOnbSSESe4fsJcFq64adZvyHRHbM9VH/bTeRbRlGYX1msQW6tXskQSXbV8GMIu48R7xrb3Kfhsi4lMubeMSw4ajUGPGxEYFtRmXgOsrdBUWQkJVUJol5mcT3sYhD0Nmz/VaM15H8XJHQMEi1sjiyNe9D1vhhsHxIR/RQyPWrwxv5mgdg==
+ b=Ny4LOICFkwgKcKDGM26/snOXlxbqHTCbEP5m1Y3XPj/pmsIALDGoB8WCzD6sD+6mZNAcQB7f0BGm+BVjRMf+rkgxwIdU2rqt/x1nIDPWGTzVytoVFre1JgIEzHKx3xUpyve/XM8NJXcXxKApY98CFD1QsvMAWisIn7cENYDfMwbOmNfO/sGLK0teRvKxyPrQUgMxZwUq5XhEQfymJWSCqhbc1ZpWqiuopgU6grVJasfrFRshOUupvl3FrDtcUHSSjwMzoq7YbXG4TC5GJ5ifiKFfU5oxcl/ybIaIiq+IV2U9Vz7bC77YNtQW7WvHE1BRSnWCkrXtAiTQ9W0doGKGgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sn+coW4wsX5tlqp1ucJnNyeqS85AtoUMS03Ts+bd85U=;
- b=lF/CCb4p5oRxyH1iPqPTKNdlOJb3RPKSeFVDGW8O4vLcGi7838dhzPGdJKjXmaga/SAr8ktEyaL/qK021VtKARU0j697/uWBIceEfbC4zQXYjEUbSy/tF9dlG3U+J8WCxjm+IoPc45rNFLPAE460pNVI1/dKEsEwivH8zjcXgdZZCRG35a4RBrXEN+asJzweSNPi8Pf06/FWSfKy8MR76d1vApoC8KvO0QZrG4JSdgA6bF59a3+0IZuPOdDvDwcmX7Zt/o8OW/TULaSw5rAJvocWfldhlZ7QFoO7VLqZItcQJfM/8a7HdUXwdKSlsbUr5LOisjQjpjaYiKWvNqUnAw==
+ bh=X4AGcwa63MuBV8GdOBoi3a+rpHHrmeZlpJCP2VqbXe0=;
+ b=w+2osZluk+hOGATJtnDwrDnbGRKL0cowqQ8kyUHndpYtRFot3I44eAjVSJ61pVm/AhuPw1MIJ0IZ53FyoansurX+p16uSu1arY51vGr3TqD2gdm2hHNwV+bviX2M7cvBFBOUzuWdZhPifhXsGNKiowwiYVgJ8mG+e/QwFmD2ulADvNKHsJ9uv5XptWJErjlAR5g1InMtbdx707PVzeEXouDUDRQn20K0I6ewh2TKyXo1PSyaDykYCEfvoPzSvWsYDYiPlIlPjiyEDQw9ISieNIetvfk2O7Nf1rvh21/Sqb/lGgxwilvHtUWFA670Km71rvasyanIyuigeL+S5rugfA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sn+coW4wsX5tlqp1ucJnNyeqS85AtoUMS03Ts+bd85U=;
- b=pq4iElkK5y5RqZWraX1p+SfRFmfPAbsB9YyqG7+Rz0iY9rhqkWHnxanfvNvOY4Bcz/7HNI9N/Tmgtulbh0CWXaaYKLFPZyDy3vxe15ZTxEl2DhJvwmVdNwuXfKMEQxBs3QYNuKaLf7M6Lp9kToAf5MKZWduJO5O0r2u65ZcZhMY=
-Received: from SJ0PR13CA0238.namprd13.prod.outlook.com (2603:10b6:a03:2c1::33)
- by DM6PR12MB4451.namprd12.prod.outlook.com (2603:10b6:5:2ab::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.13; Thu, 18 Sep
- 2025 01:33:44 +0000
-Received: from CO1PEPF000044F2.namprd05.prod.outlook.com
- (2603:10b6:a03:2c1:cafe::4e) by SJ0PR13CA0238.outlook.office365.com
- (2603:10b6:a03:2c1::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.13 via Frontend Transport; Thu,
- 18 Sep 2025 01:33:44 +0000
+ bh=X4AGcwa63MuBV8GdOBoi3a+rpHHrmeZlpJCP2VqbXe0=;
+ b=wr15Raz0y7Ssn9zwqaVq2FP/gIK0MYhMmexySxQAbIN7hPB1xqXyJvckmXe/zGuvZxEViZNzu80nXaThMIQTx5ZQdpsZUv1My4Fh+KH72bG1WphTZ0sH7KDe8Zb0Bpm+pc5/RsMr43aRssYvDKBlO9nEWPu7zSydviMn5aZUfj4=
+Received: from BYAPR05CA0083.namprd05.prod.outlook.com (2603:10b6:a03:e0::24)
+ by SJ2PR12MB7992.namprd12.prod.outlook.com (2603:10b6:a03:4c3::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.23; Thu, 18 Sep
+ 2025 01:33:42 +0000
+Received: from CO1PEPF000044F5.namprd05.prod.outlook.com
+ (2603:10b6:a03:e0:cafe::8f) by BYAPR05CA0083.outlook.office365.com
+ (2603:10b6:a03:e0::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.12 via Frontend Transport; Thu,
+ 18 Sep 2025 01:33:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,21 +49,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000044F2.mail.protection.outlook.com (10.167.241.72) with Microsoft
+ CO1PEPF000044F5.mail.protection.outlook.com (10.167.241.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Thu, 18 Sep 2025 01:33:43 +0000
+ 15.20.9137.12 via Frontend Transport; Thu, 18 Sep 2025 01:33:41 +0000
 Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 17 Sep
- 2025 18:33:41 -0700
+ 2025 18:33:39 -0700
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
  <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou
  <tao.zhou1@amd.com>
-Subject: [PATCH 18/21] drm/amd/ras: Use ring buffer to record ras ecc data
-Date: Thu, 18 Sep 2025 09:32:29 +0800
-Message-ID: <20250918013232.2629215-18-YiPeng.Chai@amd.com>
+Subject: [PATCH 17/21] drm/amd/ras: Add thread to handle ras events
+Date: Thu, 18 Sep 2025 09:32:28 +0800
+Message-ID: <20250918013232.2629215-17-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250918013232.2629215-1-YiPeng.Chai@amd.com>
 References: <20250918013232.2629215-1-YiPeng.Chai@amd.com>
@@ -75,52 +75,52 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F2:EE_|DM6PR12MB4451:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd5780c8-ae27-4bce-4ecc-08ddf65367d1
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F5:EE_|SJ2PR12MB7992:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c03f77a-6d04-4190-b992-08ddf6536682
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?rKo9NSrOk7x+5H3gHFipBWPqueU7LnV0DzIU/zFC5rfCZlLm+t9pDyvZCMtr?=
- =?us-ascii?Q?IUi6zohUXkNjjneFyzt1FlRwHb0GR2dTWiJj3eP7wq9BhVH8jVFxyTz2eju9?=
- =?us-ascii?Q?kWEchVK7avNA440S86CL35rV6z/6GMprU7KNWAuf4/tcncXLfA/nLrbh0IVj?=
- =?us-ascii?Q?XefVfdazsvBSOsoZU82wBfdE8JiIaSHPSKCm/dk2eOKb987fVKEJkTCOIyzm?=
- =?us-ascii?Q?bCT8xAgvQDeY70HytrMCTkDLSoKbLtfrlck/elBnl/wLEsczsADdQC8hfaTi?=
- =?us-ascii?Q?UmyTGpoQIKteOJ8RDDySGSj0XKaoRvRcvFzxJIN2AoikwMSExFMrnFm15vUj?=
- =?us-ascii?Q?n4xz0i5Il0IgG4Nm6LxRmvZn/52PgejaBeKqMRjcqn8lH9zizagPfnNWdcn4?=
- =?us-ascii?Q?WYqj7Ryd4WoJBbo5kQFeBhirKFj5CrO+So49NhOXFcgM8uINVFsqjiym0P/G?=
- =?us-ascii?Q?nKMC2+TNR8o4aqhEW/OD0kDXGB7xCd5Z9mhJMz1Jtfzp6b6d+v6j7JRd9uL/?=
- =?us-ascii?Q?cPlnP8kN6p23OqrauTQzj+D4I2f+APfise4A++UHBoPlDOZqdaVVW4VV+kEq?=
- =?us-ascii?Q?6hyWFRp7rqGgZQx/afL0ESy11YXVD879DJzsFFlEhNtoL7Wl8qXq24pezOMu?=
- =?us-ascii?Q?C2EyVvnnxbA9AhiBwARkFPnl5UEwhjjJakEgCOy9dhBDnhij4nBHzf5UmIxY?=
- =?us-ascii?Q?IA99IszAz1angjrR7iREX/xrkK5X98YDAj+wTNo0Lfkjt88ozkpwZ9/Sw0FP?=
- =?us-ascii?Q?/SuBcETTcP48trBw6EvBpZ3K09d1Sw66NAovm1Ec1OJdGto3ivgeNGn4urfI?=
- =?us-ascii?Q?aB4eZMQ8qnyjxyzq9SCk0IYFeJ1pjp43Cc2fMbS3gnMoU7Xt3rORIrt/Cz/7?=
- =?us-ascii?Q?6Q9vkvhGR0/tokXNCXllhvMiszAkv5bgw93BYZ00GI46TL+V/qy/4Ns3ziV/?=
- =?us-ascii?Q?dCcrL5v+oZHxk8dlEto1CNd3J/4rpGSfIzU5e8+ZmORA9b/HIMf674ggzImW?=
- =?us-ascii?Q?8pOmjbg9TKne3jkK9w2teec/FVMiV1jOMaKgI1udBNF+vVqFk6boWo8AhKQR?=
- =?us-ascii?Q?uOV+L/OJZ5d7t4kG0/hMtyUrS/Giu/rFCiaWngXqCyABievk6F975qV+pjYk?=
- =?us-ascii?Q?7qv7ebOAXdER1zU6LAipIsKonWd8AB4E59cKlMZUYbdc799vVE7nRLxzqJq0?=
- =?us-ascii?Q?5I8aHZRS0d4tmsZt8MMxcXJk6Lto0TwzMslBkSWx+Mbb7N8T1kwHgupRJRd8?=
- =?us-ascii?Q?f3YZspEJYLYwDmiKDEFiHLwLeDnTF8JXOrWctZ+6uy6++Hh0bet8SYeA/hxo?=
- =?us-ascii?Q?UViKmmSeeyDyakuAHR8SVWHYPyig+UfHBpyNtiKj4dkWuKAJ4FJJY51Cw1P5?=
- =?us-ascii?Q?9c2JBsEeTIiF6rfUIS1hh0WGHstR5+uZHc28psPTM65x8X84QbNOQLh1bsFe?=
- =?us-ascii?Q?S9mGU8IjbrxnxPSWraoIgZOjZE7iUWo4+RlEokro6wgEYRWigXb8CyZVmnff?=
- =?us-ascii?Q?QRuYgc2QgEj3b2cScgfEzgUcFxtGg2mAVQUX?=
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YR4/U58tyLi8c+g0nxJoskJOiHVB3AYTsEEWRyGAb0rqZhcHY+HRomVwkbWU?=
+ =?us-ascii?Q?mL/0nujIviPif89IPvgsbJwqTOCHjWG0sFhGE1GX7zVQCTRJbWm+6LLZt2WJ?=
+ =?us-ascii?Q?TskEpt9Gi7FkBppjrRFpZ23BZtJs1i8k11gxASFY63l8S2o/G/SE1KYXWz4J?=
+ =?us-ascii?Q?kjilnSaAyzY7f3QZagMb1P8H1FQOzaODfTMB5tNjn1Io9EGeJW6DMuSOgAgc?=
+ =?us-ascii?Q?/6RX+k+dzSyLZ1N5QEuashaLfbU5iS/iy10AG8U0gMBfax0QbJn1Fh5yUOAi?=
+ =?us-ascii?Q?jPtJSJy/X1D69iE1KAmmRz+tVdDPboS7rQQcC+DslE2aflbPIkDsWCIpEAHC?=
+ =?us-ascii?Q?TLjbd46f07qeh3OjSRNo8lbHPH6TW9xP4DCeUx6xzyLAee/17DO6IJlU8gQO?=
+ =?us-ascii?Q?H40aTRjFWRhIB2+4THged6vUbz5KBn+c1ifGRQ+tTBIM1jrJh1B+AZSlC4QL?=
+ =?us-ascii?Q?ma3L/mr5wsW7IKbOcpR5/vpPI+uMXuyjY3UsoG4SVcWy0ntiEkX86WrnU2kI?=
+ =?us-ascii?Q?Bv+6vmmtTSaIbjGqHzx1tktlHwdBleaVQODpcPHnTnziOrzkKRZZlCJnO0uZ?=
+ =?us-ascii?Q?kDMYEf3Kg/fh5cz9eIsbCEnM7oNd7UXHGk1gz/Xw5r3h4+mRqEAaAz1eRytA?=
+ =?us-ascii?Q?hYxPv4Yuw0DFISdL9w0a1qZ0N0kFZ026SissK7ViAx7m+d9Wb1rthm7hwgTD?=
+ =?us-ascii?Q?UfDzpi2qkll+FUSeo+Gd5WXZhJcTpnTss/Lxpx+Q1aqIIfVK6qcu3z+aB/m8?=
+ =?us-ascii?Q?R67fnS3AKRWkwD1v0noT/AiJb58fr4Mf3qEusOIS0oLYoZFDJOI5avY0webn?=
+ =?us-ascii?Q?chWDXD6UPyhveqzSxljyFGDPl+MJ437ZxyyjyCIz+24axvHLx0XiDxVfA41w?=
+ =?us-ascii?Q?SiBnRU8YLVIJaH8sGm7E0ZiZ9W8G+KLjG3JqF6kTBnUebjtnm2XGjjHxa4ef?=
+ =?us-ascii?Q?tiKc9TB0wNn9CAeD+Vod8NC7Wvj6QmSKXX51aYR2wcASOtTYBsL7dA9UXqSU?=
+ =?us-ascii?Q?ITYDDnY/sHj/5slhCQgl+I66lhoKg7WysRSyCk5F6AyQq2o47jG5ZBBprJ2l?=
+ =?us-ascii?Q?p6bTtB9ZZpeYk9ZvTuHL0BDg2B25IKr1MXS/ytIVztxEw87HGqrAvhCDzQoG?=
+ =?us-ascii?Q?5Yg/WuUySJ9FO2X7Ap9WNMtITfSI13LIucHXfqvK4gy2BikXhjbfsLv26RmJ?=
+ =?us-ascii?Q?21IwAg7+hj5mH2kfhM1AYNhilob1ROd1ui1qyaK6SQzAzscQKdZ8WjW6Jj+9?=
+ =?us-ascii?Q?GCXJYQyWJ1UFVPhKo4ysYzmRSeqaFacZvw3vcMbDqAAJXH4Lu46ZtLVS7gK8?=
+ =?us-ascii?Q?Sk4tDQwl7/phEJcBN9+JrliDYNt8gEMsR7MeyKhr1yEqUIvVtpRq8JXNHX0I?=
+ =?us-ascii?Q?A83Zt/cyO5GJYnmHNngIQB+aq1v/tn6rQa2dfsbJeci4Ui/Jk4GF89szimi9?=
+ =?us-ascii?Q?Pf76o+Bd4gQaaKWWeRWTg/GBS6MpJJz8tQLuYbgQj8LRl2eHdRAtsggBTnvK?=
+ =?us-ascii?Q?GMcYS2ZXi7UGauys8rlD6y+l9fjTJ41Aszoi?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 01:33:43.9625 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd5780c8-ae27-4bce-4ecc-08ddf65367d1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 01:33:41.7705 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c03f77a-6d04-4190-b992-08ddf6536682
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4451
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7992
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,27 +135,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use ring buffer to record ras ecc data.
-
-V3:
-  Change commit message and rename the file and
-  function names.
+Add thread to handle ras events.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- .../gpu/drm/amd/ras/rascore/ras_log_ring.c    | 310 ++++++++++++++++++
- .../gpu/drm/amd/ras/rascore/ras_log_ring.h    |  93 ++++++
- 2 files changed, 403 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_log_ring.c
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_log_ring.h
+ drivers/gpu/drm/amd/ras/rascore/ras_process.c | 315 ++++++++++++++++++
+ drivers/gpu/drm/amd/ras/rascore/ras_process.h |  53 +++
+ 2 files changed, 368 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_process.c
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_process.h
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.c b/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_process.c b/drivers/gpu/drm/amd/ras/rascore/ras_process.c
 new file mode 100644
-index 000000000000..bca094058f91
+index 000000000000..02f0657f78a3
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.c
-@@ -0,0 +1,310 @@
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_process.c
+@@ -0,0 +1,315 @@
 +// SPDX-License-Identifier: MIT
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
@@ -180,298 +176,303 @@ index 000000000000..bca094058f91
 + *
 + */
 +#include "ras.h"
-+#include "ras_core_status.h"
-+#include "ras_log_ring.h"
++#include "ras_process.h"
 +
-+#define RAS_LOG_MAX_QUERY_SIZE   0xC000
-+#define RAS_LOG_MEM_TEMP_SIZE    0x200
-+#define RAS_LOG_MEMPOOL_SIZE \
-+	(RAS_LOG_MAX_QUERY_SIZE + RAS_LOG_MEM_TEMP_SIZE)
++#define RAS_EVENT_FIFO_SIZE (128 * sizeof(struct ras_event_req))
 +
-+#define BATCH_IDX_TO_TREE_IDX(batch_idx, sn) (((batch_idx) << 8) | (sn))
++#define RAS_POLLING_ECC_TIMEOUT  300
 +
-+static const uint64_t ras_rma_aca_reg[ACA_REG_MAX_COUNT] = {
-+	[ACA_REG_IDX__CTL]    = 0x1,
-+	[ACA_REG_IDX__STATUS] = 0xB000000000000137,
-+	[ACA_REG_IDX__ADDR]   = 0x0,
-+	[ACA_REG_IDX__MISC0]  = 0x0,
-+	[ACA_REG_IDX__CONFG] = 0x1ff00000002,
-+	[ACA_REG_IDX__IPID]   = 0x9600000000,
-+	[ACA_REG_IDX__SYND]   = 0x0,
-+};
-+
-+static uint64_t ras_log_ring_get_logged_ecc_count(struct ras_core_context *ras_core)
++static int ras_process_put_event(struct ras_core_context *ras_core,
++		struct ras_event_req *req)
 +{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
-+	uint64_t count = 0;
-+
-+	if (log_ring->logged_ecc_count < 0) {
-+		RAS_DEV_WARN(ras_core->dev,
-+			"Error: the logged ras count should not less than 0!\n");
-+		count = 0;
-+	} else {
-+		count = log_ring->logged_ecc_count;
-+	}
-+
-+	if (count > RAS_LOG_MEMPOOL_SIZE)
-+		RAS_DEV_WARN(ras_core->dev,
-+			"Error: the logged ras count is out of range!\n");
-+
-+	return count;
-+}
-+
-+static int ras_log_ring_add_data(struct ras_core_context *ras_core,
-+			struct ras_log_info *log, struct ras_log_batch_tag *batch_tag)
-+{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
-+	unsigned long flags = 0;
++	struct ras_process *ras_proc = &ras_core->ras_proc;
 +	int ret;
 +
-+	if (batch_tag && (batch_tag->sub_seqno >= MAX_RECORD_PER_BATCH)) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Invalid batch sub seqno:%d, batch:0x%llx\n",
-+			batch_tag->sub_seqno, batch_tag->batch_id);
-+		return -EINVAL;
++	ret = kfifo_in_spinlocked(&ras_proc->event_fifo,
++			req, sizeof(*req), &ras_proc->fifo_spinlock);
++	if (!ret) {
++		RAS_DEV_ERR(ras_core->dev, "Poison message fifo is full!\n");
++		return -ENOSPC;
 +	}
 +
-+	spin_lock_irqsave(&log_ring->spin_lock, flags);
-+	if (batch_tag) {
-+		log->seqno =
-+			BATCH_IDX_TO_TREE_IDX(batch_tag->batch_id, batch_tag->sub_seqno);
-+		batch_tag->sub_seqno++;
-+	} else {
-+		log->seqno = BATCH_IDX_TO_TREE_IDX(log_ring->mono_upward_batch_id, 0);
-+		log_ring->mono_upward_batch_id++;
-+	}
-+	ret = radix_tree_insert(&log_ring->ras_log_root, log->seqno, log);
-+	if (!ret)
-+		log_ring->logged_ecc_count++;
-+	spin_unlock_irqrestore(&log_ring->spin_lock, flags);
++	return 0;
++}
 +
-+	if (ret) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to add ras log! seqno:0x%llx, ret:%d\n",
-+			log->seqno, ret);
-+		mempool_free(log, log_ring->ras_log_mempool);
++static int ras_process_add_reset_gpu_event(struct ras_core_context *ras_core,
++			uint32_t reset_cause)
++{
++	struct ras_event_req req = {0};
++
++	req.reset = reset_cause;
++
++	return ras_process_put_event(ras_core, &req);
++}
++
++static int ras_process_get_event(struct ras_core_context *ras_core,
++		struct ras_event_req *req)
++{
++	struct ras_process *ras_proc = &ras_core->ras_proc;
++
++	return kfifo_out_spinlocked(&ras_proc->event_fifo,
++				req, sizeof(*req), &ras_proc->fifo_spinlock);
++}
++
++static void ras_process_clear_event_fifo(struct ras_core_context *ras_core)
++{
++	struct ras_event_req req;
++	int ret;
++
++	do {
++		ret = ras_process_get_event(ras_core, &req);
++	} while (ret);
++}
++
++#define AMDGPU_RAS_WAITING_DATA_READY  200
++static int ras_process_umc_event(struct ras_core_context *ras_core,
++				uint32_t event_count)
++{
++	struct ras_ecc_count ecc_data;
++	int ret = 0;
++	uint32_t timeout = 0;
++	uint32_t detected_de_count = 0;
++
++	do {
++		memset(&ecc_data, 0, sizeof(ecc_data));
++		ret = ras_core_update_ecc_info(ras_core);
++		if (ret)
++			return ret;
++
++		ret = ras_core_query_block_ecc_data(ras_core, RAS_BLOCK_ID__UMC, &ecc_data);
++		if (ret)
++			return ret;
++
++		if (ecc_data.new_de_count) {
++			detected_de_count += ecc_data.new_de_count;
++			timeout = 0;
++		} else {
++			if (!timeout && event_count)
++				timeout = AMDGPU_RAS_WAITING_DATA_READY;
++
++			if (timeout) {
++				if (!--timeout)
++					break;
++
++				msleep(1);
++			}
++		}
++	} while (detected_de_count < event_count);
++
++	if (detected_de_count && ras_core_gpu_is_rma(ras_core))
++		ras_process_add_reset_gpu_event(ras_core, GPU_RESET_CAUSE_RMA);
++
++	return 0;
++}
++
++static int ras_process_non_umc_event(struct ras_core_context *ras_core)
++{
++	struct ras_process *ras_proc = &ras_core->ras_proc;
++	struct ras_event_req req;
++	uint32_t event_count = kfifo_len(&ras_proc->event_fifo);
++	uint32_t reset_flags = 0;
++	int ret = 0, i;
++
++	for (i = 0; i < event_count; i++) {
++		memset(&req, 0, sizeof(req));
++		ret = ras_process_get_event(ras_core, &req);
++		if (!ret)
++			continue;
++
++		ras_core_event_notify(ras_core,
++			RAS_EVENT_ID__POISON_CONSUMPTION, &req);
++
++		reset_flags |= req.reset;
++
++		if (req.reset == GPU_RESET_CAUSE_RMA)
++			continue;
++
++		if (req.reset)
++			RAS_DEV_INFO(ras_core->dev,
++				"{%llu} GPU reset for %s RAS poison consumption is issued!\n",
++				req.seqno, ras_core_get_ras_block_name(req.block));
++		else
++			RAS_DEV_INFO(ras_core->dev,
++				"{%llu} %s RAS poison consumption is issued!\n",
++				req.seqno, ras_core_get_ras_block_name(req.block));
++	}
++
++	if (reset_flags) {
++		ret = ras_core_event_notify(ras_core,
++				RAS_EVENT_ID__RESET_GPU, &reset_flags);
++		if (!ret && (reset_flags & GPU_RESET_CAUSE_RMA))
++			return -RAS_CORE_GPU_IN_MODE1_RESET;
 +	}
 +
 +	return ret;
 +}
 +
-+static int ras_log_ring_delete_data(struct ras_core_context *ras_core, uint32_t count)
++int ras_process_handle_ras_event(struct ras_core_context *ras_core)
 +{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
-+	unsigned long flags = 0;
-+	uint32_t i = 0, j = 0;
-+	uint64_t batch_id, idx;
-+	void *data;
-+	int ret = -ENODATA;
++	struct ras_process *ras_proc = &ras_core->ras_proc;
++	uint32_t umc_event_count;
++	int ret;
 +
-+	if (count > ras_log_ring_get_logged_ecc_count(ras_core))
-+		return -EINVAL;
++	ras_aca_clear_fatal_flag(ras_core);
++	ras_umc_log_pending_bad_bank(ras_core);
 +
-+	spin_lock_irqsave(&log_ring->spin_lock, flags);
-+	batch_id = log_ring->last_del_batch_id;
-+	while (batch_id < log_ring->mono_upward_batch_id) {
-+		for (j = 0; j < MAX_RECORD_PER_BATCH; j++) {
-+			idx = BATCH_IDX_TO_TREE_IDX(batch_id, j);
-+			data = radix_tree_delete(&log_ring->ras_log_root, idx);
-+			if (data) {
-+				mempool_free(data, log_ring->ras_log_mempool);
-+				log_ring->logged_ecc_count--;
-+				i++;
-+			}
-+		}
-+		batch_id = ++log_ring->last_del_batch_id;
-+		if (i >= count) {
-+			ret = 0;
++	do {
++		umc_event_count = atomic_read(&ras_proc->umc_interrupt_count);
++		ret = ras_process_umc_event(ras_core, umc_event_count);
++		if (ret == -RAS_CORE_GPU_IN_MODE1_RESET)
 +			break;
-+		}
++
++		if (umc_event_count)
++			atomic_sub(umc_event_count, &ras_proc->umc_interrupt_count);
++	} while (atomic_read(&ras_proc->umc_interrupt_count));
++
++	if ((ret != -RAS_CORE_GPU_IN_MODE1_RESET) &&
++			(kfifo_len(&ras_proc->event_fifo)))
++		ret = ras_process_non_umc_event(ras_core);
++
++	if (ret == -RAS_CORE_GPU_IN_MODE1_RESET) {
++		/* Clear poison fifo */
++		ras_process_clear_event_fifo(ras_core);
++		atomic_set(&ras_proc->umc_interrupt_count, 0);
 +	}
-+	spin_unlock_irqrestore(&log_ring->spin_lock, flags);
 +
 +	return ret;
 +}
 +
-+static void ras_log_ring_clear_log_tree(struct ras_core_context *ras_core)
++static int thread_wait_condition(void *param)
 +{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
-+	uint64_t batch_id, idx;
-+	unsigned long flags = 0;
-+	void *data;
-+	int j;
++	struct ras_process *ras_proc = (struct ras_process *)param;
 +
-+	if ((log_ring->mono_upward_batch_id <= log_ring->last_del_batch_id) &&
-+		!log_ring->logged_ecc_count)
-+		return;
-+
-+	spin_lock_irqsave(&log_ring->spin_lock, flags);
-+	batch_id = log_ring->last_del_batch_id;
-+	while (batch_id < log_ring->mono_upward_batch_id) {
-+		for (j = 0; j < MAX_RECORD_PER_BATCH; j++) {
-+			idx = BATCH_IDX_TO_TREE_IDX(batch_id, j);
-+			data = radix_tree_delete(&log_ring->ras_log_root, idx);
-+			if (data) {
-+				mempool_free(data, log_ring->ras_log_mempool);
-+				log_ring->logged_ecc_count--;
-+			}
-+		}
-+		batch_id++;
-+	}
-+	spin_unlock_irqrestore(&log_ring->spin_lock, flags);
-+
++	return (kthread_should_stop() ||
++		atomic_read(&ras_proc->ras_interrupt_req));
 +}
 +
-+int ras_log_ring_sw_init(struct ras_core_context *ras_core)
++static int ras_process_thread(void *context)
 +{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
++	struct ras_core_context *ras_core = (struct ras_core_context *)context;
++	struct ras_process *ras_proc = &ras_core->ras_proc;
 +
-+	memset(log_ring, 0, sizeof(*log_ring));
++	while (!kthread_should_stop()) {
++		ras_wait_event_interruptible_timeout(&ras_proc->ras_process_wq,
++			thread_wait_condition, ras_proc,
++			msecs_to_jiffies(RAS_POLLING_ECC_TIMEOUT));
 +
-+	log_ring->ras_log_mempool = mempool_create_kmalloc_pool(
-+			RAS_LOG_MEMPOOL_SIZE, sizeof(struct ras_log_info));
-+	if (!log_ring->ras_log_mempool)
-+		return -ENOMEM;
++		if (kthread_should_stop())
++			break;
 +
-+	INIT_RADIX_TREE(&log_ring->ras_log_root, GFP_KERNEL);
++		if (!ras_core->is_initialized)
++			continue;
 +
-+	spin_lock_init(&log_ring->spin_lock);
++		atomic_set(&ras_proc->ras_interrupt_req, 0);
++
++		if (ras_core_gpu_in_reset(ras_core))
++			continue;
++
++		if (ras_core->sys_fn && ras_core->sys_fn->async_handle_ras_event)
++			ras_core->sys_fn->async_handle_ras_event(ras_core, NULL);
++		else
++			ras_process_handle_ras_event(ras_core);
++	}
 +
 +	return 0;
 +}
 +
-+int ras_log_ring_sw_fini(struct ras_core_context *ras_core)
++int ras_process_init(struct ras_core_context *ras_core)
 +{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
++	struct ras_process *ras_proc = &ras_core->ras_proc;
++	int ret;
 +
-+	ras_log_ring_clear_log_tree(ras_core);
-+	log_ring->logged_ecc_count = 0;
-+	log_ring->last_del_batch_id = 0;
-+	log_ring->mono_upward_batch_id = 0;
++	ret = kfifo_alloc(&ras_proc->event_fifo, RAS_EVENT_FIFO_SIZE, GFP_KERNEL);
++	if (ret)
++		return ret;
 +
-+	mempool_destroy(log_ring->ras_log_mempool);
++	spin_lock_init(&ras_proc->fifo_spinlock);
++
++	init_waitqueue_head(&ras_proc->ras_process_wq);
++
++	ras_proc->ras_process_thread = kthread_run(ras_process_thread,
++							(void *)ras_core, "ras_process_thread");
++	if (!ras_proc->ras_process_thread) {
++		RAS_DEV_ERR(ras_core->dev, "Failed to create ras_process_thread.\n");
++		ret =  -ENOMEM;
++		goto err;
++	}
++
++	return 0;
++
++err:
++	ras_process_fini(ras_core);
++	return ret;
++}
++
++int ras_process_fini(struct ras_core_context *ras_core)
++{
++	struct ras_process *ras_proc = &ras_core->ras_proc;
++
++	if (ras_proc->ras_process_thread) {
++		kthread_stop(ras_proc->ras_process_thread);
++		ras_proc->ras_process_thread = NULL;
++	}
++
++	kfifo_free(&ras_proc->event_fifo);
 +
 +	return 0;
 +}
 +
-+struct ras_log_batch_tag *ras_log_ring_create_batch_tag(struct ras_core_context *ras_core)
++static int ras_process_add_umc_interrupt_req(struct ras_core_context *ras_core,
++			struct ras_event_req *req)
 +{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
-+	struct ras_log_batch_tag *batch_tag;
-+	unsigned long flags;
++	struct ras_process *ras_proc = &ras_core->ras_proc;
 +
-+	batch_tag = kzalloc(sizeof(*batch_tag), GFP_KERNEL);
-+	if (!batch_tag)
-+		return NULL;
++	atomic_inc(&ras_proc->umc_interrupt_count);
++	atomic_inc(&ras_proc->ras_interrupt_req);
 +
-+	spin_lock_irqsave(&log_ring->spin_lock, flags);
-+	batch_tag->batch_id = log_ring->mono_upward_batch_id;
-+	log_ring->mono_upward_batch_id++;
-+	spin_unlock_irqrestore(&log_ring->spin_lock, flags);
-+
-+	batch_tag->sub_seqno = 0;
-+	batch_tag->timestamp = ras_core_get_utc_second_timestamp(ras_core);
-+	return batch_tag;
++	wake_up(&ras_proc->ras_process_wq);
++	return 0;
 +}
 +
-+void ras_log_ring_destroy_batch_tag(struct ras_core_context *ras_core,
-+		struct ras_log_batch_tag *batch_tag)
++static int ras_process_add_non_umc_interrupt_req(struct ras_core_context *ras_core,
++		struct ras_event_req *req)
 +{
-+	kfree(batch_tag);
-+}
++	struct ras_process *ras_proc = &ras_core->ras_proc;
++	int ret;
 +
-+void ras_log_ring_add_log_event(struct ras_core_context *ras_core,
-+		enum ras_log_event event, void *data, struct ras_log_batch_tag *batch_tag)
-+{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
-+	struct ras_log_info *log;
-+	void *obj;
-+
-+	obj = mempool_alloc_preallocated(log_ring->ras_log_mempool);
-+	if (!obj ||
-+	   (ras_log_ring_get_logged_ecc_count(ras_core) >= RAS_LOG_MEMPOOL_SIZE)) {
-+		ras_log_ring_delete_data(ras_core, RAS_LOG_MEM_TEMP_SIZE);
-+		if (!obj)
-+			obj = mempool_alloc_preallocated(log_ring->ras_log_mempool);
++	ret = ras_process_put_event(ras_core, req);
++	if (!ret) {
++		atomic_inc(&ras_proc->ras_interrupt_req);
++		wake_up(&ras_proc->ras_process_wq);
 +	}
 +
-+	if (!obj) {
-+		RAS_DEV_ERR(ras_core->dev, "ERROR: Failed to alloc ras log buffer!\n");
-+		return;
-+	}
-+
-+	log = (struct ras_log_info *)obj;
-+
-+	memset(log, 0, sizeof(*log));
-+	log->timestamp =
-+		batch_tag ? batch_tag->timestamp : ras_core_get_utc_second_timestamp(ras_core);
-+	log->event = event;
-+
-+	if (data)
-+		memcpy(&log->aca_reg, data, sizeof(log->aca_reg));
-+
-+	if (event == RAS_LOG_EVENT_RMA)
-+		memcpy(&log->aca_reg, ras_rma_aca_reg, sizeof(log->aca_reg));
-+
-+	ras_log_ring_add_data(ras_core, log, batch_tag);
++	return ret;
 +}
 +
-+static struct ras_log_info *ras_log_ring_lookup_data(struct ras_core_context *ras_core,
-+					uint64_t idx)
++int ras_process_add_interrupt_req(struct ras_core_context *ras_core,
++	struct ras_event_req *req, bool is_umc)
 +{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
-+	unsigned long flags = 0;
-+	void *data;
++	int ret;
 +
-+	spin_lock_irqsave(&log_ring->spin_lock, flags);
-+	data = radix_tree_lookup(&log_ring->ras_log_root, idx);
-+	spin_unlock_irqrestore(&log_ring->spin_lock, flags);
-+
-+	return (struct ras_log_info *)data;
-+}
-+
-+int ras_log_ring_get_batch_records(struct ras_core_context *ras_core, uint64_t batch_id,
-+		struct ras_log_info **log_arr, uint32_t arr_num)
-+{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
-+	uint32_t i, idx, count = 0;
-+	void *data;
-+
-+	if ((batch_id >= log_ring->mono_upward_batch_id) ||
-+		(batch_id < log_ring->last_del_batch_id))
++	if (!ras_core)
 +		return -EINVAL;
 +
-+	for (i = 0; i < MAX_RECORD_PER_BATCH; i++) {
-+		idx = BATCH_IDX_TO_TREE_IDX(batch_id, i);
-+		data = ras_log_ring_lookup_data(ras_core, idx);
-+		if (data) {
-+			log_arr[count++] = data;
-+			if (count >= arr_num)
-+				break;
-+		}
-+	}
++	if (!ras_core->is_initialized)
++		return -EPERM;
 +
-+	return count;
++	if (is_umc)
++		ret = ras_process_add_umc_interrupt_req(ras_core, req);
++	else
++		ret = ras_process_add_non_umc_interrupt_req(ras_core, req);
++
++	return ret;
 +}
-+
-+int ras_log_ring_get_batch_overview(struct ras_core_context *ras_core,
-+		struct ras_log_batch_overview *overview)
-+{
-+	struct ras_log_ring *log_ring = &ras_core->ras_log_ring;
-+
-+	overview->logged_batch_count =
-+		log_ring->mono_upward_batch_id - log_ring->last_del_batch_id;
-+	overview->last_batch_id = log_ring->mono_upward_batch_id;
-+	overview->first_batch_id = log_ring->last_del_batch_id;
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.h b/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_process.h b/drivers/gpu/drm/amd/ras/rascore/ras_process.h
 new file mode 100644
-index 000000000000..0ff6cc35678d
+index 000000000000..28458b50510e
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.h
-@@ -0,0 +1,93 @@
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_process.h
+@@ -0,0 +1,53 @@
 +/* SPDX-License-Identifier: MIT */
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
@@ -495,75 +496,35 @@ index 000000000000..0ff6cc35678d
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
-+#ifndef __RAS_LOG_RING_H__
-+#define __RAS_LOG_RING_H__
-+#include "ras_aca.h"
++#ifndef __RAS_PROCESS_H__
++#define __RAS_PROCESS_H__
 +
-+#define MAX_RECORD_PER_BATCH 32
-+
-+#define RAS_LOG_SEQNO_TO_BATCH_IDX(seqno) ((seqno) >> 8)
-+
-+enum ras_log_event {
-+	RAS_LOG_EVENT_NONE,
-+	RAS_LOG_EVENT_UE,
-+	RAS_LOG_EVENT_DE,
-+	RAS_LOG_EVENT_CE,
-+	RAS_LOG_EVENT_POISON_CREATION,
-+	RAS_LOG_EVENT_POISON_CONSUMPTION,
-+	RAS_LOG_EVENT_RMA,
-+	RAS_LOG_EVENT_COUNT_MAX,
-+};
-+
-+struct ras_aca_reg {
-+	uint64_t regs[ACA_REG_MAX_COUNT];
-+};
-+
-+struct ras_log_info {
++struct ras_event_req {
 +	uint64_t seqno;
-+	uint64_t timestamp;
-+	enum ras_log_event event;
-+	union {
-+		struct ras_aca_reg aca_reg;
-+	};
++	uint32_t idx_vf;
++	uint32_t block;
++	uint16_t pasid;
++	uint32_t reset;
++	void *pasid_fn;
++	void *data;
 +};
 +
-+struct ras_log_batch_tag {
-+	uint64_t batch_id;
-+	uint64_t timestamp;
-+	uint32_t sub_seqno;
-+};
-+
-+struct ras_log_ring {
-+	void *ras_log_mempool;
-+	struct radix_tree_root ras_log_root;
-+	spinlock_t spin_lock;
-+	uint64_t mono_upward_batch_id;
-+	uint64_t last_del_batch_id;
-+	int logged_ecc_count;
-+};
-+
-+struct ras_log_batch_overview {
-+	uint64_t first_batch_id;
-+	uint64_t last_batch_id;
-+	uint32_t logged_batch_count;
++struct ras_process {
++	void *dev;
++	void *ras_process_thread;
++	wait_queue_head_t ras_process_wq;
++	atomic_t ras_interrupt_req;
++	atomic_t umc_interrupt_count;
++	struct kfifo event_fifo;
++	spinlock_t fifo_spinlock;
 +};
 +
 +struct ras_core_context;
-+
-+int ras_log_ring_sw_init(struct ras_core_context *ras_core);
-+int ras_log_ring_sw_fini(struct ras_core_context *ras_core);
-+
-+struct ras_log_batch_tag *ras_log_ring_create_batch_tag(struct ras_core_context *ras_core);
-+void ras_log_ring_destroy_batch_tag(struct ras_core_context *ras_core,
-+			struct ras_log_batch_tag *tag);
-+void ras_log_ring_add_log_event(struct ras_core_context *ras_core,
-+		enum ras_log_event event, void *data, struct ras_log_batch_tag *tag);
-+
-+int ras_log_ring_get_batch_records(struct ras_core_context *ras_core, uint64_t batch_idx,
-+		struct ras_log_info **log_arr, uint32_t arr_num);
-+
-+int ras_log_ring_get_batch_overview(struct ras_core_context *ras_core,
-+		struct ras_log_batch_overview *overview);
++int ras_process_init(struct ras_core_context *ras_core);
++int ras_process_fini(struct ras_core_context *ras_core);
++int ras_process_handle_ras_event(struct ras_core_context *ras_core);
++int ras_process_add_interrupt_req(struct ras_core_context *ras_core,
++		struct ras_event_req *req, bool is_umc);
 +#endif
 -- 
 2.34.1
