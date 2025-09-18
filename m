@@ -4,150 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECB1ECAC59A
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 14:35:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F826CAC59A
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 16:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2DF10E1EE;
-	Thu, 18 Sep 2025 14:35:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1774E10E8D1;
+	Thu, 18 Sep 2025 16:43:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fmQBqpfj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0d0ZDgSn";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010055.outbound.protection.outlook.com
- [40.93.198.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB9C110E1DD
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 14:35:12 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013009.outbound.protection.outlook.com
+ [40.93.201.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF7ED10E8D1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 16:43:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qSMCvPTbiiyjmG5YmX1xGxpAEeCAcioFHw5dd5R+NFdX6SscBWdAq4qqDdg7qtTpKgnn2M/NjhsauwZaIN75SznDOll2Uxumi2GTsDC5Xibciy65/KkoyaysLQtyOifnEhvgWoK6VLVBem80o0/4Etspoj7ORuu9Iv6mudhZ/fpLc9nb61KZkAXndk5PPuDx+eQGjPKGC12PQ0LkWLbXfU/+Y48juIV36da6xWVBXCYPZ0+6PtKhCxlPgCndwnCi7s1ZREXimNes5hle8bhW22+TXjMRIYNR7UnRoZZhOurIZQzzhrCqgtWWLN74UOJdjPdFrqV6TTv/GK4v8ydOIA==
+ b=QF/WgPAm+nwwfEkO2ld5hL5IvMtA2Wv1myxQNDCB3LT4gPuc/6ccvou9VZPeSJls3cWF3vmsb7uMQWpuherEJspVRmZ1GHiB6S2zJkyI5IM935RjfB7Tfs+Ksww0gRpjCIza2oeJDdm961uUDupYtnJ9OTHtNsrbfQhTGXweBQlMSCkCB0orH0cdMzJ7l5NBl2KeV4xmoJahugl2oaoURea+Veyz8IheGY+EAIkNWHFMhFz+G8Cl7DNu8ICdRf2dui0xIb8VUxWc0gEqlO95/aAxJ2J+0e5I2gMefzO/Yigx3h5a6koR/fF2Tp0OuVTlduNmmGAB4+lecmvyfKHP/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XVKvYw29FDfx71cDJ1U69Zg69QZ1/vtGrWn4l0xSmt8=;
- b=uPXxyLwCySbmbBrgyWgW2PW55JfxQ/S/AI+4m7y38/fg8u+NVOWk4cuS5TJNTrwNVNPVHpPxXd7RsrRiLDX7OViY4SmJjcdfhLRkLtG6dP7R4bh1F2oAc4aSXXyqDob0IvWhDtXNqlvcS28Sx5rA+48w93yPmRq+QcMOeKTcpWCFCl2uIphZfQtIN1AiBrNltt+NnkWJg5qmD7dtWU2Eho7fio2BXU41/gS48yflftf+BQVQDpt8VhpeAjcPdTEIWLDkRtO2m9AQBHorVlQfyrQ2ygThCgUmoOWQzof1tB36emmqTIMCsSptchMQxRf2bOHg34nNeEy0K2hArKIm2A==
+ bh=Mzk4dYY7eUrlKk6kKCYYaz7UfMs5e6pMOJZEKXAf7Uw=;
+ b=B0sFbuhJVRO34fBxcBPi8GtBontX1PFR/jL4Bs1GCGblg5Cg9n/Oebn/OFAvf35/618rJWTaz2lJcYbv+umjlkeBbgXjgnK/L+mIfifM7E0OA02RWfft9hMltLH8SHLAhonD+8cmF5y/wDdIOUav2501OBOA9+1N4d+nuObtjyxo5lZi9ktBcaZpyFsdskexuhUWbIjvOfpUQhtz4yp8j/yhNXa1jdYXu3Ycswj5rlFuM8ufYWfazjrOR0tCVEVtG4dpoMVyq+twH15WdqEb7K5McKKV47Fw3LRha9/LIUHqAUNkDGpIS0FAIWe4TX9QNdUBpZcBrlVZqfWlCa2soA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XVKvYw29FDfx71cDJ1U69Zg69QZ1/vtGrWn4l0xSmt8=;
- b=fmQBqpfj0iHBHHztHBzoB6NorlkuRx2NBZMYATRpln8BcsRlNEXWTIo2i8GpvIJ/Szk12K/R3pc+0b0CH92nc+IcIQA9Vi8x87kDfxoXDp/VPZjpUUzhZ0jYpCsD6Qj7MF7UDzegt9QAZ7sJLgyNyUR7S0kDTKsfwGJXTeTq04g=
+ bh=Mzk4dYY7eUrlKk6kKCYYaz7UfMs5e6pMOJZEKXAf7Uw=;
+ b=0d0ZDgSnV+HL7QHOL892qYNvT3CURrYuDJnxLSkUCQBHsIbf3jamr8pQwDP2MB1cjoS6/qQZsv+Fz74pS8215m70Kkn01oBqVe8rnK45NEtpVbXhVQJXtLBfqlBZXGg/w7GSDmTBs+EHzhdmeEQ1T0KLIMXNJOEsqn3/FgcJ+0w=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB6890.namprd12.prod.outlook.com (2603:10b6:510:1ca::21)
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by LV3PR12MB9257.namprd12.prod.outlook.com (2603:10b6:408:1b7::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.13; Thu, 18 Sep
- 2025 14:35:09 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9137.012; Thu, 18 Sep 2025
- 14:35:09 +0000
-Message-ID: <7c0f8c1b-0a55-4824-ab01-28745db06051@amd.com>
-Date: Thu, 18 Sep 2025 16:35:05 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.23; Thu, 18 Sep
+ 2025 16:43:48 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.9115.020; Thu, 18 Sep 2025
+ 16:43:47 +0000
+Message-ID: <7e5dc364-e8c1-4520-b530-9e48cf86e9c6@amd.com>
+Date: Thu, 18 Sep 2025 11:43:44 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: use hmm_pfns instead of array of pages
-To: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20250917172201.3874839-1-sunil.khatri@amd.com>
+Subject: Re: [PATCH v2] drm/amd/display: Only restore backlight after
+ amdgpu_dm_init or dm_resume
+To: Matthew Schwartz <matthew.schwartz@linux.dev>, chiahsuan.chung@amd.com,
+ alexander.deucher@amd.com, harry.wentland@amd.com, simona@ffwll.ch,
+ airlied@gmail.com, sunpeng.li@amd.com
+Cc: amd-gfx@lists.freedesktop.org, zaeem.mohamed@amd.com, misyl@froggi.es,
+ linux-kernel@vger.kernel.org
+References: <20250911174851.2767335-1-matthew.schwartz@linux.dev>
+ <ccdc6dda-8341-4b77-a571-e0642499e3f7@amd.com>
+ <8f1143f0-e70f-4187-9a2c-4e825ed9c63f@linux.dev>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250917172201.3874839-1-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <8f1143f0-e70f-4187-9a2c-4e825ed9c63f@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0011.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c8::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: SA9PR03CA0011.namprd03.prod.outlook.com
+ (2603:10b6:806:20::16) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6890:EE_
-X-MS-Office365-Filtering-Correlation-Id: 656a8a93-c54e-4526-38c7-08ddf6c0914e
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|LV3PR12MB9257:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42151af8-827b-401f-2085-08ddf6d28a15
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dzdubjVaK0g5ZjIxUmZkMkZiSnNvL1BmLzIySmRrdEVBdEhaTWNQenU2YVBI?=
- =?utf-8?B?YVNDZ0xINjNDY0VDdGxXcTh3TzVhdW45UHBrUUVONjJnMlZxM1l2MjhNSmVs?=
- =?utf-8?B?Ty9USDZ3SDFramxoTVZEdWxKYnQ3RmVOZGZCTEN6OGFGWms5U1lZZklIVjB6?=
- =?utf-8?B?Y1F1V3ljM2pYbENwV0w2MHRqWDZmaXE1eVpVK1ZUZGxQRG9vNU5md3F3Z01G?=
- =?utf-8?B?OExXYk5KaUh2Q2xvbkRnTVlLalYrUUpnSmNGbS9qWjR3b0tTa0NsL2dTNGpZ?=
- =?utf-8?B?ZG40UFZPZ2VoTzhTN3BXaWthOXhNQVdLUGJxOXUxWDE1cVhJdkxOSUVBZU9o?=
- =?utf-8?B?UXhVbWkzanZBR3crUHd3Wm44ZUNPTVhGcE16ZEIvWU41T0pyVC9RblVLejNv?=
- =?utf-8?B?T3BVdC92RDI0SG1MdWU2LzM4UkYwZTJNTFFhTWpNa0J2QmJsMitEUlJsaTE4?=
- =?utf-8?B?RmIrWkFIZmRFUXZ5OWtlOVlhTXFZc2tsZTJRREw1UktlaHYwY3FIM0w4dXpJ?=
- =?utf-8?B?Uk8zTFNJZEtSemMwem5FV0k5VHc1cVRWSGRHbmszdzZ3WFM5dVBaYkcwUTB4?=
- =?utf-8?B?WWlWQ2pUSXgxbTJBWFhiTUxodThVZ2lkS0FKcnJ0bStZby9ld0Y5Z2hMSkhU?=
- =?utf-8?B?ODRqUG9wSVd1eThBRnlhcjdibGREUU5oa1NQZHYwNWFqbnd2VnVQLzVKc3lD?=
- =?utf-8?B?US9qRHlUMDU5SjdFcnFVZkJTR3VPSDZDWTdqekVXRWhPZlNOWHR3ZUQ5U3hx?=
- =?utf-8?B?aVV4UXF3U212UEZ4VUlxTC93eGRlb1ZsSHhxRXFtbVVTTzRONm5tbTJmQUoy?=
- =?utf-8?B?N0V3eW9HRTl4TTJvd1hJaE5PbHN2L0hCSDBqQ2drU2ZuRGphUElvS1NXbFQ5?=
- =?utf-8?B?VXRxaE91UXpwOUtKbHZZVm94TFNrMGVMaTNiUjNaNzM4dFc0eG5HdXFyUDRD?=
- =?utf-8?B?MmNGS0tFRGMwVVB4ejdqeGZRK25IQmRUNTQzOEVSMjczTm45SFl3ZXJ4TW9Y?=
- =?utf-8?B?S3ZWREdpT1dteDZaSGhEelFtQWlVN1kzbjE5UHZSQXp5NC9kaWVSY3I0Vmxz?=
- =?utf-8?B?ZDlMTklWRld0aUZqWDZMWUZRTXhnQkNtMGg2OVVuRlNCTmsvbjViZlhYTE1t?=
- =?utf-8?B?L2U3cDliTW1sWEtmK3FxTjZDMEFIbEZtMWFualQzNG5XK3RrSWdUaW9zQnlm?=
- =?utf-8?B?UDhaR0pXeDBEVlFPdkJ4UVltQS9aQVpNejlHQldUWFlXZ0QvTjdtZmZvc2xQ?=
- =?utf-8?B?NFFuQkM1WmF3aXVRNVg0bnUvVjcyUlJTRlFEb0lsVjg1SkRxVExjU1l3OU8z?=
- =?utf-8?B?UnJXYUtFajVpWEc1Q211YzZuV3dubXFJYzhQdDBlYjFqWnA0Sml5bU5kYzBv?=
- =?utf-8?B?K21mMUkxMzBsRG1RUy9VRVZNL3gxVEpMdVUvbkhjeDZvejI2UExqeU5zTGti?=
- =?utf-8?B?YXhDaTA5ZDVkV3dyOUU5QjFHdmpjQldscFpMVHBuNHFQelF3LzBzK0UybVly?=
- =?utf-8?B?S0lSWVRQaUtjakg0b3dtdVRPd1BSeVM0STlHckVPb29hVG5nMzNzWnhHZGdF?=
- =?utf-8?B?SGo0QXkzWUppY3VEdW1LOEVocjluVWo3RXZ5YmtCZUZNWDQzbDhMVlV1N0Qx?=
- =?utf-8?B?Y2xLVGNRNXV1bGQzUFpBeWRXRGFmWElOKzE1VlFOaHF3T2RRTE42ZTVFZ1pU?=
- =?utf-8?B?bmZWOWlXcEFSZ2JTMTV5c1dlTUVPQm9rWXUxeFh1OVJCMFNwRnA1WjY1bVJu?=
- =?utf-8?B?TUc1S3ZvUytwQmdqOXBVQXoxMCtjQTE3dDBycVdKM3J5SnVOSzFtZG9COG4r?=
- =?utf-8?B?SzVTam5ROUJ1d0M4dFJQQkZUSk9sQk05NlBUZEcvWHhRektxb2hwYU5RUFdE?=
- =?utf-8?B?QS9FYjc2WUk0VmZud1Eycm5rdml5b3BmNUdZOEVwQk4wejc2Ri9kbC81Vjgx?=
- =?utf-8?Q?vrdQ1uSjTbk=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TkdKbTcrMEpsQVNuT0ZLbHpEa2xQY2JtOGtsa1YzYTYzS3IyN3JMK1BKaVZP?=
+ =?utf-8?B?bG9WNjFjcXgxaVcyem9GbmpYSzF0a0s1b2dJRWRmYVJhT2lWMGJUMlBSdG1L?=
+ =?utf-8?B?am8vc0Z2enZxZDQ5OEJNZW5CVWlrNFpsRHh3ekpRdTN5Q21uK0UrT3lQdk9i?=
+ =?utf-8?B?akJKaVZEYVQvTzd1UHVxbFhkS1I2a3pFbWFUZHh5bWE4U3ZwSjAyUDJxUllp?=
+ =?utf-8?B?OVlqQjVzZHE0SE9CNDRmTlRzaEtueE92Y01GeUdOak1VOVo4SXNqZWNZMHIv?=
+ =?utf-8?B?Vk5IL1B6Q2R3MER0SlN4UjIwakM4S0tEYTZJaFBPQVVPSzZqRms1WTJlS1NY?=
+ =?utf-8?B?V3pYOFp4WlMrakFEYys5dktmRzdONkYzbkpuZkNha0d6UGRKeWVHbG5KOC9I?=
+ =?utf-8?B?VTYyc05FZWVFajFhSXVDd0U3ZkRkby96ZjVjMkZ6RFlkcmNZUWRMRWVWSVFa?=
+ =?utf-8?B?bWZJTFFHekZrS0NyQVR4YndiS1hZcWFmSVh1UGYwZThyUXFFTmlPM1I2Yk02?=
+ =?utf-8?B?aTE0QmZmZFRKbVJ6OXh5Q3IyYzRQSkpRZ1RPbDlzRkVJQTRSUloxL1R4bkJV?=
+ =?utf-8?B?dExWS3lUSWhFNFhUSjRDOE9pREVmcXhKTUhwdW1MMlJscTFIeHdycFpNUldo?=
+ =?utf-8?B?WlVNRldUMVpJdVBwN0d2Zm44UXh4WEV4R1pWUlNiNDRtMFBWd1R1L2d1YXhL?=
+ =?utf-8?B?TlVkZ0JiaE1PbUJqeFNzUTBIT01JVitQRXVVdVFVV1FPRTA2YWtvRS9FVTJz?=
+ =?utf-8?B?ck05VWZVK2VORTFaaTlCbCtENmtUZDNLNE15RCtoNlByY3c1bkJzdUUxQzRZ?=
+ =?utf-8?B?NTlSYmxiczRSQ2NPcmxEa25objVUREZtT3pwekVDUE82YlZkVEV5RE0rUHlq?=
+ =?utf-8?B?cEhnWHdoZ1lORW12V001NTQyUUdmNVNqT3RGeGF1NTUwZTRCK2pZTFZZeHY2?=
+ =?utf-8?B?TkREcDVFZzF3UmFoVTd5Ty8xL25yeFNhVnhsUWUwVG10YlhrbTdwc25US3Fv?=
+ =?utf-8?B?Zk9SSE9XWWdXK3ZkMnNLSnN1YVd6VzJyS3JJYTFGeVYwb1I0aElRc3pzYktK?=
+ =?utf-8?B?SSt2ck90MXAvNmZnVGEvVE14VmFVdHlteHE3QktzdHNzY2E2VTlMSXRwMnhJ?=
+ =?utf-8?B?N3NOU1YyRWtDckZYazEvcmRYdnhnWXVDUkMzdXNZVys0b1A2dFV2M29MVnZ2?=
+ =?utf-8?B?UXlzU29sK3lNbmpUSUF1M2paME9WTWFYcVdHU2pVUXFIWHVPZWRscGpabC9V?=
+ =?utf-8?B?YXdmb1B5V2NOUkk2ajdCTU1NLytLZXhkZlYzQnpGdkttdGRSbmd4d1ZFUU9F?=
+ =?utf-8?B?amd5UDRLbjRzdGNBUExTcHBZaWRucUxrWFE2Q3pQN0pnblcrSFBYQmpEVW13?=
+ =?utf-8?B?U1U1K25UYUJkWElnWkhrNG5sQzJvOWVRWU50SzcydXc5V1N0TEtuQ2QrVExW?=
+ =?utf-8?B?T0pvNW15VWdRZmJ4S0h3K1k0NElWbm02R1N4VmxaMnU1WHdKNGlwa1hRRHJk?=
+ =?utf-8?B?Q3ZTZWZreEhXOUFJMDFadFRnenJrWVN5bUs2YlBLR0VGSGU5am9FeG9jdy9L?=
+ =?utf-8?B?SGlmb0R5cWpMWHoyWG5GTDVNOWRacFdTRGd6WlhrMjFyTkJSK2tiM1l4Z1o1?=
+ =?utf-8?B?YU5Kc1IxU2NoODJXNEF3WDlvZGdKZmJROURPRTBXTUQyQVYyK0craU5MNWV3?=
+ =?utf-8?B?bTEwRjkzemcrczhJTWtzMUVpMGRHVTRtYllOdVZaVkozcWJoR1Q3RkxaOUwx?=
+ =?utf-8?B?KzgyVkE2ZGZpaXo4c0o3dkFzRnF5ME9Fd1d5NE50UGNDYnVFNGtxcXNPeEJI?=
+ =?utf-8?Q?7jte2BgALMjPuYaieTLkfQ8SGP9Bj5FukQBOc=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SEl4bWpieitkR1laTWppajB0R1ZRbVBBTWdtdTF5Zlp3aUpERlNWcCtTU0ZN?=
- =?utf-8?B?WWx3ekIrdm5nbDZhQytsU2xoeHBHQU5wSDAyTy8wT0NhdlEwcjQzRlUwTThq?=
- =?utf-8?B?S1V6aXhiWmVKaGNrbGlZdG1Sbk1nNGd6OE16TmNLZ2RhTTlQOVNyU0ZjMGR1?=
- =?utf-8?B?MU9JVHZJdStRKy9xdEoxOVJ6c2JhN21ObTVYRDZ5cUk3OXlIeEZKRmVGUDZm?=
- =?utf-8?B?b0psNFo0N1Bhei9wa1pXSlI3ZXJndFRuSkJ0Z2tGM2V4Zi9lT09UMXp1ZnNs?=
- =?utf-8?B?N0QyVFNML3NNWng1SDhNdTZNdTVGOVVtWnFKZjgrN3JvK0ZLR0t5TWYyRU4r?=
- =?utf-8?B?WnQvTWdQVHVDMEhxRjNiUzg3WCs5b0pJZ0VqbTdxU2tkSXFyL2RHVnN6cUtN?=
- =?utf-8?B?bWlOTlozVUpjd3JGU084R1JHZ0hXMjFhMkZwaWxHWE12N1kwYlhMQjhLYmE3?=
- =?utf-8?B?ZCtpRXdjM3VIVm9maW8vczM4WE03QTY5K3Y4and1ejNLZlNjTHRUUkhDS2Fs?=
- =?utf-8?B?YWhYdTRHalNIaVhUVmRqb2NEYVZ1UlZJRXMrUzZwMkZ4ZVFFVGczY1BDVzlV?=
- =?utf-8?B?a2ZGYU5KY2ZMY2dwTHkrTjBDVXZKcytlbG1FL0lFay82S3hxcGVXclFTMFhX?=
- =?utf-8?B?dUZTY1BaV3dhemNZUnZkeHFVZzdsQXQ3RUxvNU5xd1l4ZkFkRlMrSUsxRUh1?=
- =?utf-8?B?OTMrb1Brcm1IQXZHTllTaDE2QmkvVEF4K3pmSWYrdDdZVzVmYXkyUlJ5RlRl?=
- =?utf-8?B?czdNV3A2bE5sd1J3VGRodkh5WXJQWTFBYld3eldHTWtwMkFGdzlvSEpxZjZr?=
- =?utf-8?B?OHoyUkFmUjJlTjlrMW9iUG5vYkl2TlQ0YzgwdUpEVTdpNHhXSExWcVBCczRt?=
- =?utf-8?B?VkZ6THZSbzZwcnhVdzFnNlhjRGw3SW9yVTZBVWlrVmxrcE0vVHRwd2hYamdj?=
- =?utf-8?B?UDFBU1R1dFBwdDMzbDI2R3pQZ0VCbHNGSWFHSkxaa3RFQjEvb1c2V2J0ejFG?=
- =?utf-8?B?QlFGbjlVb0hvWHVSNFpIVW8yVE5YSStzQ250anlTVUFibWRoR2p3c1hnYXF3?=
- =?utf-8?B?eldIdDBCS2poOHJ2MzR6MXJ6dHM3VHdsL2VzRFlrU29ZeFdZT3NuR0lSYTMy?=
- =?utf-8?B?b2JvVmFzakV2RFhwY0Z4Q0tYTFhpbzlSa1BMZnNPTUxlTWhXREpUSmNHd1RL?=
- =?utf-8?B?UnczWjNyVE9wekVJNmhRSkkvUTdZOWlBdGZrQlYwMDBHenpBT0x0ekF3MXpE?=
- =?utf-8?B?RVdpdDV2ZHFhZFAzeTZCcHViY1p6Y015VzAyUDk5NVNuTGJqUkJEdkkwclMw?=
- =?utf-8?B?UCtqenREbjQyckxDcTFRSkZqQWkyNkFlTmJxYXFMZ0hDT0JlYjZVMVM0d3By?=
- =?utf-8?B?a0RaY1lSUHk3WmJDeXhTLzlrcmxtZ2dWZWlMdE02WEN4T095cGtZWDBucGwy?=
- =?utf-8?B?SDd5OE9sVDJBelFvOWVxOWRuWHZGSWV1aTVpZDFlM1pjKzQ2aGdnWVRmZzJF?=
- =?utf-8?B?bG5KSUx4RzhzVk1GcEp5VDlPUnhVYTdOQUFwRWgycG50YUhYcFpNMncwM0Mr?=
- =?utf-8?B?dE1LdUVVdDlsZldBVEF6MTBySkpnOWFienZ0YTA1RlZQTXQzd3FHaGk2bFF4?=
- =?utf-8?B?T1R6SGxEeTBZenFWbWdnZTJsOEhEYWYrT1IzK0xWREpWRzlDTmVDVXgzMzBM?=
- =?utf-8?B?blFHUkpFKzVzSkJIampqU0g1OUNrYTBsSWFXTmM2b1kzSmxIalJqKzh2SnJn?=
- =?utf-8?B?L1ZYT1dZRElkdVU5bktWc0xuZHpZVDkxTk9lMXJZZzVJei95N1lCd0UrZXNH?=
- =?utf-8?B?MldYR2ZwWUI3M29JdUV4U0FlNkxnWlJvaDZwZ2FwYTVPVS9PUjZIdldUeVA4?=
- =?utf-8?B?T2NzZ2RFNHNreU8rK25GRWdTWElCc24wenhNWXZoL1YwN0U1OVprWER2aENz?=
- =?utf-8?B?WDV2blpSUGFCbnY5R0JhcDdTdjRuQUh5dDdya01rWm40L0VmZGN5bUdmTEF1?=
- =?utf-8?B?WjRCWEd4MXhyQ0txZWxVQU1iaUVNY2dEL0lyaTV4cm4rRXFHRk1yOG1od0tR?=
- =?utf-8?B?bXlHMFRLOHo0QzBKSWFERWVjV0Q3d1B3Y3VydFhuVHRYZVlLZCtEUEpzUzEv?=
- =?utf-8?Q?5VLeeTBwj6m59HGCkV5um8V4p?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjV2c0psa2ljaVo3dlZMRUZnbFQ3Y0pSbkN4RlRWRTdhYUwwMkV4MlV1Z0py?=
+ =?utf-8?B?T1M1dmNzUDlrZ3J1MTNuQ0hEWFpJcjFLZGQ5RTg2aGwydTVlNXBCZUdhOG5n?=
+ =?utf-8?B?WjhORU9vM2dlWVJGbTFJWUhKRG5uOENTSG1LSkJzM1JnaDE3Zmd4MW9iSXU3?=
+ =?utf-8?B?bW92U2NUTWlvN0Z3VmZMOTFxQXExVXd2UEd3amFBcUtweG1ybFlydFA3Q1Nv?=
+ =?utf-8?B?ZUNaR1o1NTFlbjNUWFlxSEtIdkE2MDI3UjZtWTV2MUQ0bnpPa041MEpQV2hq?=
+ =?utf-8?B?Mmd1L0l1d2l0NUsvdXNrblgvZitHMWlYOVpuR1IyQ3RQOFNrR2t6b2FEL1Y0?=
+ =?utf-8?B?V09nY3haMXplYXZKdnh3V2IxSTcwYUNCT1Y5b2tjYktpVGRHRlF6SStLNTc1?=
+ =?utf-8?B?K3Jsd2g1RlA2YWZ6VStyejN3OGhNUUUrak1NKzhZSEYxalNwU3hrQXBOTUtq?=
+ =?utf-8?B?SFdvUkxlOEdjeU1nK2JSd3JWM3ZjOXlPMC9McnJ4VndRbWI3RHpZOXhHcXp5?=
+ =?utf-8?B?WEp4ZTNWUmNYM3FSVkdrQ24vbHBZV3FNdGlLb2lPZ3ZCRTFnWjRUYVFWeExy?=
+ =?utf-8?B?OThQN0I3SkFUd0hnWnpjbEUyWDZld2R4SXVBeUhvcm5zNFNudlQ5VEZndXFV?=
+ =?utf-8?B?WEd3LzNBQU1YZHB2OFY0N05zbXpNaEJBWWNvTEhXa1N5a2t0U3ltd2dabWV6?=
+ =?utf-8?B?VlpwMFpaSEpiakRiSDdwTlJGMllpYmJ1SXNDalIzQTRHTjJCSHhWL2pDMDVx?=
+ =?utf-8?B?aHd3b0F1SklubEl3b2dwd0VUN1MwdkJVMWlZeTJyRWZOVXV6a2xRRFY5Kys0?=
+ =?utf-8?B?a0FDVXcxZWxVbWt2UklGMkVNRHhRTFBaRStqY2RtMng2S0R0ZTNybml5eU8v?=
+ =?utf-8?B?RDEvV1AzYnMyeFFFeTN5ZWpiaFR6dU1XVWovYmpZZmF2U21UdnNqTEl5ZHlu?=
+ =?utf-8?B?NHgvMTRXVmVNbVVKYm9XWXRaMkpHcXZRTmxmUGtHQU5KUmM0VjVFZGFLTmND?=
+ =?utf-8?B?cjM3U2lrVFJHVGxtRTlYSmVLOFBzakpCNUxwcUo1TXptODhtVXUxaG5EQTg1?=
+ =?utf-8?B?elB5NVBIenVLMXgvNzBsbmpDYVBYbTBRSU05SWZmeVJvdDNia1ZoZVRkV01x?=
+ =?utf-8?B?NnFSVytEejhOV2NlVGZGamFja04xeEZGRVNSUHhsUXFUSkxxdzRXZE5jeVEv?=
+ =?utf-8?B?bW80SmlNWThPMWs3alNFbWFCaGNmWkFrMG9Yb0RZY2JuZHRDNXRPVFh1blBP?=
+ =?utf-8?B?TGZ5dEVHQm1zV0VwNWFsc0REbGJSZ0g2bTU0cXR5bmJucGxPNENBcWU3ZE14?=
+ =?utf-8?B?OTFGY2c1UmxBcWZHMy9mZ2Q1ZzN1cmIxbmkyRGVHZnhRRkl2ZWk0NlFRUzNi?=
+ =?utf-8?B?aTVuSEpaNVZkWGg3cm1YdTB2RmtrOFQ1M2U3UlFuMXNnenJvaU91ZXR2OHJK?=
+ =?utf-8?B?Z1Q0SGlGbnFBQ2lueDVHemlJUVFiY2RUT0RyLzB3Q05BZGdQM0szOWtDUWdB?=
+ =?utf-8?B?ZEgyZ0U4L2hYcWl2ait2eW1iVjBSMlIxb2pDdXB4dDJiT1hsUG5xY25RMkNN?=
+ =?utf-8?B?TkRWQnVBV0FzQXltVUx0alZadGN5cE1lY1lqWHBTY213ZmdrejUvdEkzYWp3?=
+ =?utf-8?B?aVROSXI1TVQrUm9VSXJGVzVabE13b1p3ZmJsMUZmSFAyc2NiL3FPelo0dWE3?=
+ =?utf-8?B?SGF2Q21IbGFiTTFpZEsvNFZXejdVTU1XUllRZU5aWGRLK1d5L1pEV0xMWU5S?=
+ =?utf-8?B?bkdKczN0WElHNlNLWm9iYW0rM0RLQVlQK1VpVDB3ZjlQZkFIUGhVV3BOV1Zs?=
+ =?utf-8?B?VExsUlVtMDNGWEZyMGxpeGNoWVRuMFBiWEVhNGk4TFBLcTA2QU90cm9hRHpL?=
+ =?utf-8?B?c2hVbEh5ZTRWbjF4aU8wNytjMTdPOERGSC9ZbEg3dVR5R3orVlpZRUp6b0Iv?=
+ =?utf-8?B?bnJNOVQzbzBzamx1OU5BOC9YUmJDK1RSRnBUNGlaeXVSUFBTMUt6SUhiK2FB?=
+ =?utf-8?B?eDdidzdkVmg0OE80TFk5K29CNEZZTy9tVnRlaWZ1UkxuNmlpQlMzSjBGeTBS?=
+ =?utf-8?B?QWtQZnh6OFF1SHVEclJJN2lONkIwZVJzcHJEeFZmcjRmSjJYaytKTzNScjBl?=
+ =?utf-8?Q?jupEZtp/tf8S5WuhKAPRg8uwu?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 656a8a93-c54e-4526-38c7-08ddf6c0914e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42151af8-827b-401f-2085-08ddf6d28a15
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 14:35:09.1134 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 16:43:47.8322 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eFKTF5LrRHH7XZmpaiV8n+RIVPqf+Tk55qz72+F+35dbrVOtP2AOL/dola5mmpq6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6890
+X-MS-Exchange-CrossTenant-UserPrincipalName: XbDQLvqUYfZhhS3zhiyJj/bF0ih3M57/V3ajwrLPjQzghjPFzUO6URpulRf3V9DlZXozhpwUy524XzLkfIUWHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9257
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,302 +165,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 17.09.25 19:22, Sunil Khatri wrote:
-> we dont need to allocate local array of pages to hold
-> the pages returned by the hmm, instead we could use
-> the hmm_range structure itself to get to hmm_pfn
-> and get the required pages directly.
-> 
-> This saved alloc/free a lot of memory without
-> any impact on performance.
-> 
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> Suggested-by: Christian König <christian.koenig@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
 
-> ---
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 10 +++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h   |  1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        | 30 ++++---------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  5 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c       | 10 +------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h       |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  8 ++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  5 ++--
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  2 +-
->  9 files changed, 25 insertions(+), 48 deletions(-)
+On 9/18/2025 11:37 AM, Matthew Schwartz wrote:
+> On 9/11/25 10:55 AM, Mario Limonciello wrote:
+>> On 9/11/25 12:48 PM, Matthew Schwartz wrote:
+>>> On clients that utilize AMD_PRIVATE_COLOR properties for HDR support,
+>>> brightness sliders can include a hardware controlled portion and a
+>>> gamma-based portion. This is the case on the Steam Deck OLED when using
+>>> gamescope with Steam as a client.
+>>>
+>>> When a user sets a brightness level while HDR is active, the gamma-based
+>>> portion and/or hardware portion are adjusted to achieve the desired
+>>> brightness. However, when a modeset takes place while the gamma-based
+>>> portion is in-use, restoring the hardware brightness level overrides the
+>>> user's overall brightness level and results in a mismatch between what
+>>> the slider reports and the display's current brightness.
+>>>
+>>> To avoid overriding gamma-based brightness, only restore HW backlight
+>>> level after boot or resume. This ensures that the backlight level is
+>>> set correctly after the DC layer resets it while avoiding interference
+>>> with subsequent modesets.
+>>>
+>>> Fixes: 7875afafba84 ("drm/amd/display: Fix brightness level not retained over reboot")
+>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4551
+>>> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+>>
+>> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+>>
+>> Haven't picked it up, will wait a few days for more comments.
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index c3b34a410375..7c54fe6b0f5d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1089,7 +1089,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
->  		return 0;
->  	}
->  
-> -	ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages, &range);
-> +	ret = amdgpu_ttm_tt_get_user_pages(bo, &range);
->  	if (ret) {
->  		if (ret == -EAGAIN)
->  			pr_debug("Failed to get user pages, try again\n");
-> @@ -1103,6 +1103,9 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
->  		pr_err("%s: Failed to reserve BO\n", __func__);
->  		goto release_out;
->  	}
-> +
-> +	amdgpu_ttm_tt_set_user_pages(bo->tbo.ttm, range);
-> +
->  	amdgpu_bo_placement_from_domain(bo, mem->domain);
->  	ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
->  	if (ret)
-> @@ -2565,8 +2568,7 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
->  		}
->  
->  		/* Get updated user pages */
-> -		ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages,
-> -						   &mem->range);
-> +		ret = amdgpu_ttm_tt_get_user_pages(bo, &mem->range);
->  		if (ret) {
->  			pr_debug("Failed %d to get user pages\n", ret);
->  
-> @@ -2595,6 +2597,8 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
->  			ret = 0;
->  		}
->  
-> +		amdgpu_ttm_tt_set_user_pages(bo->tbo.ttm, mem->range);
-> +
->  		mutex_lock(&process_info->notifier_lock);
->  
->  		/* Mark the BO as valid unless it was invalidated
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-> index 555cd6d877c3..a716c9886c74 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-> @@ -38,7 +38,6 @@ struct amdgpu_bo_list_entry {
->  	struct amdgpu_bo		*bo;
->  	struct amdgpu_bo_va		*bo_va;
->  	uint32_t			priority;
-> -	struct page			**user_pages;
->  	struct hmm_range		*range;
->  	bool				user_invalidated;
->  };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index defb511acc5a..744e6ff69814 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -29,6 +29,7 @@
->  #include <linux/pagemap.h>
->  #include <linux/sync_file.h>
->  #include <linux/dma-buf.h>
-> +#include <linux/hmm.h>
->  
->  #include <drm/amdgpu_drm.h>
->  #include <drm/drm_syncobj.h>
-> @@ -885,24 +886,12 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->  		struct amdgpu_bo *bo = e->bo;
->  		int i;
->  
-> -		e->user_pages = kvcalloc(bo->tbo.ttm->num_pages,
-> -					 sizeof(struct page *),
-> -					 GFP_KERNEL);
-> -		if (!e->user_pages) {
-> -			drm_err(adev_to_drm(p->adev), "kvmalloc_array failure\n");
-> -			r = -ENOMEM;
-> -			goto out_free_user_pages;
-> -		}
-> -
-> -		r = amdgpu_ttm_tt_get_user_pages(bo, e->user_pages, &e->range);
-> -		if (r) {
-> -			kvfree(e->user_pages);
-> -			e->user_pages = NULL;
-> +		r = amdgpu_ttm_tt_get_user_pages(bo, &e->range);
-> +		if (r)
->  			goto out_free_user_pages;
-> -		}
->  
->  		for (i = 0; i < bo->tbo.ttm->num_pages; i++) {
-> -			if (bo->tbo.ttm->pages[i] != e->user_pages[i]) {
-> +			if (bo->tbo.ttm->pages[i] != hmm_pfn_to_page(e->range->hmm_pfns[i])) {
->  				userpage_invalidated = true;
->  				break;
->  			}
-> @@ -946,7 +935,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->  		}
->  
->  		if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
-> -		    e->user_invalidated && e->user_pages) {
-> +		    e->user_invalidated) {
->  			amdgpu_bo_placement_from_domain(e->bo,
->  							AMDGPU_GEM_DOMAIN_CPU);
->  			r = ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
-> @@ -955,11 +944,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->  				goto out_free_user_pages;
->  
->  			amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
-> -						     e->user_pages);
-> +						     e->range);
->  		}
-> -
-> -		kvfree(e->user_pages);
-> -		e->user_pages = NULL;
->  	}
->  
->  	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
-> @@ -1001,11 +987,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->  	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
->  		struct amdgpu_bo *bo = e->bo;
->  
-> -		if (!e->user_pages)
-> -			continue;
->  		amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, e->range);
-> -		kvfree(e->user_pages);
-> -		e->user_pages = NULL;
->  		e->range = NULL;
->  	}
->  	mutex_unlock(&p->bo_list->bo_list_mutex);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index a8fa09184459..8524aa55e057 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -571,8 +571,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
->  		goto release_object;
->  
->  	if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE) {
-> -		r = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages,
-> -						 &range);
-> +		r = amdgpu_ttm_tt_get_user_pages(bo, &range);
->  		if (r)
->  			goto release_object;
->  
-> @@ -580,6 +579,8 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
->  		if (r)
->  			goto user_pages_done;
->  
-> +		amdgpu_ttm_tt_set_user_pages(bo->tbo.ttm, range);
-> +
->  		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_GTT);
->  		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
->  		amdgpu_bo_unreserve(bo);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> index e36fede7f74c..4441572d6ad1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> @@ -167,7 +167,7 @@ void amdgpu_hmm_unregister(struct amdgpu_bo *bo)
->  
->  int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->  			       uint64_t start, uint64_t npages, bool readonly,
-> -			       void *owner, struct page **pages,
-> +			       void *owner,
->  			       struct hmm_range **phmm_range)
->  {
->  	struct hmm_range *hmm_range;
-> @@ -222,14 +222,6 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->  	hmm_range->start = start;
->  	hmm_range->hmm_pfns = pfns;
->  
-> -	/*
-> -	 * Due to default_flags, all pages are HMM_PFN_VALID or
-> -	 * hmm_range_fault() fails. FIXME: The pages cannot be touched outside
-> -	 * the notifier_lock, and mmu_interval_read_retry() must be done first.
-> -	 */
-> -	for (i = 0; pages && i < npages; i++)
-> -		pages[i] = hmm_pfn_to_page(pfns[i]);
-> -
->  	*phmm_range = hmm_range;
->  
->  	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-> index e2edcd010ccc..953e1d06de20 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-> @@ -33,7 +33,7 @@
->  
->  int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->  			       uint64_t start, uint64_t npages, bool readonly,
-> -			       void *owner, struct page **pages,
-> +			       void *owner,
->  			       struct hmm_range **phmm_range);
->  bool amdgpu_hmm_range_get_pages_done(struct hmm_range *hmm_range);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 4e2486dbc0a6..280400b13c54 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -707,7 +707,7 @@ struct amdgpu_ttm_tt {
->   * Calling function must call amdgpu_ttm_tt_userptr_range_done() once and only
->   * once afterwards to stop HMM tracking
->   */
-> -int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages,
-> +int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
->  				 struct hmm_range **range)
->  {
->  	struct ttm_tt *ttm = bo->tbo.ttm;
-> @@ -744,7 +744,7 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages,
->  
->  	readonly = amdgpu_ttm_tt_is_readonly(ttm);
->  	r = amdgpu_hmm_range_get_pages(&bo->notifier, start, ttm->num_pages,
-> -				       readonly, NULL, pages, range);
-> +				       readonly, NULL, range);
->  out_unlock:
->  	mmap_read_unlock(mm);
->  	if (r)
-> @@ -796,12 +796,12 @@ bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
->   * that backs user memory and will ultimately be mapped into the device
->   * address space.
->   */
-> -void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct page **pages)
-> +void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct hmm_range *range)
->  {
->  	unsigned long i;
->  
->  	for (i = 0; i < ttm->num_pages; ++i)
-> -		ttm->pages[i] = pages ? pages[i] : NULL;
-> +		ttm->pages[i] = hmm_pfn_to_page(range->hmm_pfns[i]);
->  }
->  
->  /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index bb17987f0447..6ac94469ed40 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -190,7 +190,7 @@ void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
->  uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
->  
->  #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
-> -int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages,
-> +int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
->  				 struct hmm_range **range);
->  void amdgpu_ttm_tt_discard_user_pages(struct ttm_tt *ttm,
->  				      struct hmm_range *range);
-> @@ -198,7 +198,6 @@ bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
->  				       struct hmm_range *range);
->  #else
->  static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
-> -					       struct page **pages,
->  					       struct hmm_range **range)
->  {
->  	return -EPERM;
-> @@ -214,7 +213,7 @@ static inline bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
->  }
->  #endif
->  
-> -void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct page **pages);
-> +void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct hmm_range *range);
->  int amdgpu_ttm_tt_get_userptr(const struct ttm_buffer_object *tbo,
->  			      uint64_t *user_addr);
->  int amdgpu_ttm_tt_set_userptr(struct ttm_buffer_object *bo,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 68ba239b2e5d..273f42e3afdd 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1738,7 +1738,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->  
->  			WRITE_ONCE(p->svms.faulting_task, current);
->  			r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
-> -						       readonly, owner, NULL,
-> +						       readonly, owner,
->  						       &hmm_range);
->  			WRITE_ONCE(p->svms.faulting_task, NULL);
->  			if (r)
+> Was this applied somewhere or still waiting on more comments?
+
+Hey Matt,
+
+Thanks for the reminder!  I wanted to see if we got any comments from 
+display team before picking it up.
+
+I've added it to our internal tree, and as long as CI is happy we'll 
+bring it forward in a future PR.  I'll come back to you if there are any 
+problems.
+
+> 
+> Thanks
+> 
+>>
+>>> ---
+>>> v2: Drop set_backlight_level and use dm->restore_backlight in
+>>> amdgpu_dm_commit_streams
+>>> ---
+>>>    drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++----
+>>>    drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++++++
+>>>    2 files changed, 15 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 7808a647a306c..2a5fa85505e84 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -2037,6 +2037,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+>>>          dc_hardware_init(adev->dm.dc);
+>>>    +    adev->dm.restore_backlight = true;
+>>> +
+>>>        adev->dm.hpd_rx_offload_wq = hpd_rx_irq_create_workqueue(adev);
+>>>        if (!adev->dm.hpd_rx_offload_wq) {
+>>>            drm_err(adev_to_drm(adev), "failed to create hpd rx offload workqueue.\n");
+>>> @@ -3407,6 +3409,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+>>>            dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+>>>              dc_resume(dm->dc);
+>>> +        adev->dm.restore_backlight = true;
+>>>              amdgpu_dm_irq_resume_early(adev);
+>>>    @@ -9802,7 +9805,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+>>>        bool mode_set_reset_required = false;
+>>>        u32 i;
+>>>        struct dc_commit_streams_params params = {dc_state->streams, dc_state->stream_count};
+>>> -    bool set_backlight_level = false;
+>>>          /* Disable writeback */
+>>>        for_each_old_connector_in_state(state, connector, old_con_state, i) {
+>>> @@ -9922,7 +9924,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+>>>                acrtc->hw_mode = new_crtc_state->mode;
+>>>                crtc->hwmode = new_crtc_state->mode;
+>>>                mode_set_reset_required = true;
+>>> -            set_backlight_level = true;
+>>>            } else if (modereset_required(new_crtc_state)) {
+>>>                drm_dbg_atomic(dev,
+>>>                           "Atomic commit: RESET. crtc id %d:[%p]\n",
+>>> @@ -9979,13 +9980,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+>>>         * to fix a flicker issue.
+>>>         * It will cause the dm->actual_brightness is not the current panel brightness
+>>>         * level. (the dm->brightness is the correct panel level)
+>>> -     * So we set the backlight level with dm->brightness value after set mode
+>>> +     * So we set the backlight level with dm->brightness value after initial
+>>> +     * set mode. Use restore_backlight flag to avoid setting backlight level
+>>> +     * for every subsequent mode set.
+>>>         */
+>>> -    if (set_backlight_level) {
+>>> +    if (dm->restore_backlight) {
+>>>            for (i = 0; i < dm->num_of_edps; i++) {
+>>>                if (dm->backlight_dev[i])
+>>>                    amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+>>>            }
+>>> +        dm->restore_backlight = false;
+>>>        }
+>>>    }
+>>>    diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>> index b937da0a4e4a0..6aae51c1beb36 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>> @@ -610,6 +610,13 @@ struct amdgpu_display_manager {
+>>>         */
+>>>        u32 actual_brightness[AMDGPU_DM_MAX_NUM_EDP];
+>>>    +    /**
+>>> +     * @restore_backlight:
+>>> +     *
+>>> +     * Flag to indicate whether to restore backlight after modeset.
+>>> +     */
+>>> +    bool restore_backlight;
+>>> +
+>>>        /**
+>>>         * @aux_hpd_discon_quirk:
+>>>         *
+>>
+> 
 
