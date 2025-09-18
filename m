@@ -4,68 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AA1CCA1013
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 19:05:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8308ECA1013
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 19:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A06D310E8E7;
-	Thu, 18 Sep 2025 19:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21AE210E8E5;
+	Thu, 18 Sep 2025 19:14:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="APnXjXlK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rmpGD1Hc";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED5210E8E7
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 19:05:39 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-26808b24a00so2063645ad.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 12:05:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758222339; x=1758827139; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zZdDmR3l4rPO5UXJNs7PJ2wVGdMA4rEekFAXbtXgmrA=;
- b=APnXjXlKsZC3MvItZWidv6gPneFFk6TuzjO89I9wo2K31UUYXroxakbaj5OhIdo3xi
- nNmJVuIPqfjAKS/P8yT3vp5b3J0rTizY5g+X2BlzZSHmmaSHuH26k6sbIDy5GmdGwTDO
- /vssW70xwuPAuPoT3VXr3S3FIAwjYdCeDgFe1EqAZY12uix8W0KWoGbrtYYaXwi+DS7G
- FcaPVq5XgHodr2oiAG9WPuD/8rhXRk89vUWaDe45OaJ8x/V9yqEDPG8an4Roeu27R5f9
- M0D3Zm1OIgfZOmyofoZ3+gv0gJuraiIhJ/wYoncPdr1o6RJGSB9cxXE38z0tkZQWUA86
- Zahg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758222339; x=1758827139;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zZdDmR3l4rPO5UXJNs7PJ2wVGdMA4rEekFAXbtXgmrA=;
- b=dkKEtlUAy8P17NGlhmulXEuwIQaDo3iFkmbRuwnx9r3eN6fFI+lxyD0F6utBZitfm4
- X3DWuo2xhtYsEB/QiTWfD9V5NH/6Lyp4fxCWymR8S+geHZiKXORpxADoV7zTACZUEMY4
- ZLyGY7Cadt4lEuuaFBxraJgfaozo5HxvpPd28QUS58uCGGXSh4jdDaFC7H2Xcojv4860
- HH7UgTunFahbVcoJJScY0Kvs+jFvKG3L0PEyq712M+ZKChPW71K2i+9zODBm1Ofa5ZQt
- Hbr+MUDqC3Xn7JOe8H7H4dFiEjQe0o0Rrd3JZNfLTHqbFLeqATAK7cazOCSEDO0v6NbL
- WKGg==
-X-Gm-Message-State: AOJu0Yw8rU41WTeKCCeNza/mKURS8th5qsjUgocWV5ggVcviwmfYOcUU
- MOdmaaxE/1O9+EntaUiRtn1Vqx30CloXaVY1pawjkthXGpyyMiKGHFMGOiQbDMfMKDf/rYi9Kxa
- U8sB1YBnKGfScoOyRieIjamdgzP3wJ1c=
-X-Gm-Gg: ASbGnctRDduRC5yu2NLoBVyM4meon/R0p0fkYzrjm9rdWNbMdLE5KAjjqmrdpoPWgfQ
- fCNy3YwWDRN9tViLwcuR/BkAfWhyXJVZdoosxC+JJHq+PrwevgP5xgR+J/xBRJ0+8rDTL2T6W3i
- j1l47XSqVwWBbb750HkmqyMp9mNV1GWz5a2vulKIEUWqtW4W41JgUQ8diPtTLWkxUQfn2CDzPrf
- lHC1K2twGJmgtYY5zWO5+GRaQ==
-X-Google-Smtp-Source: AGHT+IHQXpcT+Lmnmnnhi3i+6psLjzwZapCiJPvQzHL1fZkaBdE4J/jYI8iksDi8DxOmx5E5bBD5Ivsn6kRZpQtL80U=
-X-Received: by 2002:a17:902:da8f:b0:24e:af92:70de with SMTP id
- d9443c01a7336-269ba5049dbmr4988535ad.7.1758222338557; Thu, 18 Sep 2025
- 12:05:38 -0700 (PDT)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012002.outbound.protection.outlook.com [52.101.48.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C112510E0EC;
+ Thu, 18 Sep 2025 19:14:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CzeOqy7TPaFmdwTHa+dS/m0qIwDmkupBZykcVPt+9Jii0dmqvwiiD9JMLb1pvi3ehqfYK4mHoqhsDR+4fbU2YqRrPrJYqgXgUmuAM9LR8ZiZBgPvdKfwu6PC2VYZaSqFZPmbFM9elNoq9HbZuRXnlxj/w3eaMCLFr/zxxnhVjInYpU08nlfyGeahOXqEiikKdycYfDChdpGnaFuu+fjFlVfrBQMT27RmzbaTrCxpFER1z3+835uNACpKC8v2JlT4ETDpTOsj6PW0dxdF2NdqWKSgH7bOeerpqX8+rFQmwjv44as6jQ+nDaah25A9Lz2KP+StVLNSM7eY5u+hm87llQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dUQskEYAwsydPRAOqdiuIEIbGbsZz1MCMrdBJdVjHnw=;
+ b=w17PrUw4oPVzetQ+IwmVAzVrE0qD2XwMZ0nBenPFmXf8mfkKxr6IWLtB6CrcG6h6BK3eMpD2w5qOEzHpGCU4W7xK0lWNNXTcGko6xqMj47KqelIdTmMbqx8Z8xpB/Q9RAlU1yPF7TcNN0ZBncKo+Sq8cuw7AkPPS3OPPU+We9RBYLsBH5Ola0aWJ/cWv1B2seLZBT/uN9m/UUgDGBEwjlmsF8AGRQnizWl+r366VAppSrANmxhBYRVo1MmXiRJ2qY8o70t69JFkJh70t81yuIhbVfjk/pDAdZCjd9PzVLIFokbMOgmdt2AAWiylGnbbuQ2Dg76zyI2PuKglDZF1y+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dUQskEYAwsydPRAOqdiuIEIbGbsZz1MCMrdBJdVjHnw=;
+ b=rmpGD1Hcep1iUWwVjPRo5rPqyTstGy0Wn1kggYtKFPHa+H3+CoQ+f1nOiZndvIl8w6Lstxj1eh+iEpUxUTNOtfAuKzVzOwRyA2CBlbq6Wy/Q2HWLZBIW2Q0HI/3qfJjDfBr3muEcWLkUvnx96Gtqf6wS8iv6JE3XT7lpgi3xVII=
+Received: from BYAPR07CA0058.namprd07.prod.outlook.com (2603:10b6:a03:60::35)
+ by SA5PPFA403A61D8.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8da) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.22; Thu, 18 Sep
+ 2025 19:14:44 +0000
+Received: from CO1PEPF000042AC.namprd03.prod.outlook.com
+ (2603:10b6:a03:60:cafe::3) by BYAPR07CA0058.outlook.office365.com
+ (2603:10b6:a03:60::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.15 via Frontend Transport; Thu,
+ 18 Sep 2025 19:14:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000042AC.mail.protection.outlook.com (10.167.243.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9137.12 via Frontend Transport; Thu, 18 Sep 2025 19:14:42 +0000
+Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 18 Sep
+ 2025 12:14:41 -0700
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-6.17
+Date: Thu, 18 Sep 2025 15:14:28 -0400
+Message-ID: <20250918191428.2553105-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-References: <20250918184150.394532-1-mario.limonciello@amd.com>
-In-Reply-To: <20250918184150.394532-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Sep 2025 15:05:26 -0400
-X-Gm-Features: AS18NWCxEMsC86DPZsrDIlZNSlQB97ScFwNTjrJJcmy4e6MRfxpCW5WuvTuCbxU
-Message-ID: <CADnq5_M13ADiuoKKdgEyi=1MVbLJ9qCJKTHUPd+F+aLXUzwtDQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Enable MES lr_compute_wa by default
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Yifan Zhang <yifan1.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AC:EE_|SA5PPFA403A61D8:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13f114c6-db09-40dc-4df1-08ddf6e79f79
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mJe3f9LSCyBkL8nuvl8WOErbHxlLKj+fKnAyruJ+sCGhfRDBSZvSrlxdBIN4?=
+ =?us-ascii?Q?+v69fvKB/fjjORamy98mtGUKZYViFDEi+MXr9mrPJ7WcnBmqfjvbrd5STXHG?=
+ =?us-ascii?Q?yjyoNoLbbdZc46RbY6r2g49v/c9kCzI9kDJs9jlODVU3FInP4EmZgZiGuxze?=
+ =?us-ascii?Q?FJKno558wmGcZDBxXRBbTEiaN2qaBrs8fGsZLiXTqprj5tC7TitG6ksVRkQW?=
+ =?us-ascii?Q?MLsk6F8D9G7H4Ed5UlnxaGV2MO3HtjYCKtnWo9gZ65lcrSokM5b8vJANibzA?=
+ =?us-ascii?Q?Ms9hkIJrwIbslXAkGiFtXTi9zWGrWLDGNIZgO2D4yt/S3sFmD330Ecgh2ZQA?=
+ =?us-ascii?Q?Fgky4QUgIaCZuo7JBwgGurLmXONpAh+Kj9rExeVveWWTu+iox69bpsVDS1b2?=
+ =?us-ascii?Q?4pej5UOLta7IViU0fZLVA1bl9Yc0YxsWeRbflBYnX0zuPf0noBLJS9f9dzfF?=
+ =?us-ascii?Q?FaF7kNudK/IFf2KoQNDWYqik/1FOtGVMZYg1ZDi9C/PTM/KmFw4KenVSqHEI?=
+ =?us-ascii?Q?DvQvsvh4MRDszpw8BDlkhncbTGcG9QkZpFnPDUTjjZ0CWKWnQMA3lWoIrHyK?=
+ =?us-ascii?Q?n4PC527AxnN0ECDkTGTRTz7aXhIi7faNUcOzsLEsO6b5p/u+LisE4hu5gv8z?=
+ =?us-ascii?Q?Jy0S4syzzmblvNb0BbWcwY4YdJO/ZTs8ThzetrBy4FsLq3YNn9FS8PZskIhd?=
+ =?us-ascii?Q?Mmjy6Yj0+iinL2eEI3+jCcVUhyDtgdBFnVXhg47FGUxFQW/X+BxAUOTNl5X+?=
+ =?us-ascii?Q?eb0hTDZa9GP0VgXt/kbnjAgpjiRySl0jLAv2NPWYTUfJ5uIBRkRwsLQy54ut?=
+ =?us-ascii?Q?FSrN8FAeus+f0kTe/fDxv/OeDmEmkwZWHwcRjJ/YmmRoGpusn6i/SQeiSdcz?=
+ =?us-ascii?Q?8bt+9utXoyBhBB7plW9BiWQVgC2FsOHzL0RrpCo0hTrY+WNTm+ipFLlpvYXg?=
+ =?us-ascii?Q?9XadRkw2/ho/FL/OI57nRnArkckr5Pdd2pNa+zrWV7VkE/ICOqVU0N5Zpo1a?=
+ =?us-ascii?Q?Z8k0/9zOiOyjL55FnUb6iuvE5lDmKSnLRTMmYcxjdI9gJdsXiSFceRAZDjqd?=
+ =?us-ascii?Q?Ir88L66ZgenoFj03FqIxQ+MiGmazzDZdkY4AN71bUG+z2rgFQRxoW0VLpVGm?=
+ =?us-ascii?Q?gn71Ewvy5d+2Khe6slkr4jIP6FOC0nmL5RN34yxQrpvex5QB81HODdSscqjv?=
+ =?us-ascii?Q?4W1EKD3QVJ/wcV456ufxVNSN6CdzOfD69peVShuhOnhZlwLQ2xMYTexdnh8B?=
+ =?us-ascii?Q?uVfEkH9/t+PjFnQHNfr+HrZ2cUOiH11xLAbMS0xftdGjKdmSGJ6MUJ6KuadL?=
+ =?us-ascii?Q?n059mDVX50PC0t/jXNAOV0NSC73OpN3fJe63gTgV2hp2e6GuKdU4H6Zw/yjv?=
+ =?us-ascii?Q?CSQIr07Hg8QUTijXOofhiq1VW6zDWEt9w7yN9eS25ZLHnMJ9vEu61+YWf9Fv?=
+ =?us-ascii?Q?G5tDIS8nh4+VyxuxeN/E0rUXnGo1OT4dkIX7AMqwU1nTD7OjBVcmDw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 19:14:42.8549 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13f114c6-db09-40dc-4df1-08ddf6e79f79
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AC.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFA403A61D8
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,96 +130,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 18, 2025 at 2:59=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> The MES set resources packet has an optional bit 'lr_compute_wa'
-> which can be used for preventing MES hangs on long compute jobs.
->
-> Set this bit by default.
->
-> Co-developed-by: Yifan Zhang <yifan1.zhang@amd.com>
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Hi Dave, Simona,
 
-Presumably this bit will be ignored on old firmwares?  If not, we'll
-need a firmware version check.  Assuming this works correctly on old
-firmwares,
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Fixes for 6.17.
 
-Alex
+The following changes since commit f83ec76bf285bea5727f478a68b894f5543ca76e:
 
-> ---
-> v2:
->  * drop module parameter
->  * add more description to commit text
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 2 ++
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        | 1 +
->  drivers/gpu/drm/amd/include/mes_v11_api_def.h | 3 ++-
->  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 3 ++-
->  4 files changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index 3b91ea601add..540b514312b1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -713,6 +713,8 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_m=
-es *mes)
->         mes_set_hw_res_pkt.enable_reg_active_poll =3D 1;
->         mes_set_hw_res_pkt.enable_level_process_quantum_check =3D 1;
->         mes_set_hw_res_pkt.oversubscription_timer =3D 50;
-> +       mes_set_hw_res_pkt.enable_lr_compute_wa =3D 1;
-> +
->         if (amdgpu_mes_log_enable) {
->                 mes_set_hw_res_pkt.enable_mes_event_int_logging =3D 1;
->                 mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr =3D
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index 998893dff08e..01266eef65cb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -769,6 +769,7 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_m=
-es *mes, int pipe)
->         mes_set_hw_res_pkt.use_different_vmid_compute =3D 1;
->         mes_set_hw_res_pkt.enable_reg_active_poll =3D 1;
->         mes_set_hw_res_pkt.enable_level_process_quantum_check =3D 1;
-> +       mes_set_hw_res_pkt.enable_lr_compute_wa =3D 1;
->
->         /*
->          * Keep oversubscribe timer for sdma . When we have unmapped door=
-bell
-> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v11_api_def.h
-> index 15680c3f4970..ab1cfc92dbeb 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> @@ -238,7 +238,8 @@ union MESAPI_SET_HW_RESOURCES {
->                                 uint32_t enable_mes_sch_stb_log : 1;
->                                 uint32_t limit_single_process : 1;
->                                 uint32_t is_strix_tmz_wa_enabled  :1;
-> -                               uint32_t reserved : 13;
-> +                               uint32_t enable_lr_compute_wa : 1;
-> +                               uint32_t reserved : 12;
->                         };
->                         uint32_t        uint32_t_all;
->                 };
-> diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v12_api_def.h
-> index c04bd351b250..69611c7e30e3 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> @@ -287,7 +287,8 @@ union MESAPI_SET_HW_RESOURCES {
->                                 uint32_t limit_single_process : 1;
->                                 uint32_t unmapped_doorbell_handling: 2;
->                                 uint32_t enable_mes_fence_int: 1;
-> -                               uint32_t reserved : 10;
-> +                               uint32_t enable_lr_compute_wa : 1;
-> +                               uint32_t reserved : 9;
->                         };
->                         uint32_t uint32_all;
->                 };
-> --
-> 2.49.0
->
+  Linux 6.17-rc6 (2025-09-14 14:21:14 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.17-2025-09-18
+
+for you to fetch changes up to 9272bb34b066993f5f468b219b4a26ba3f2b25a1:
+
+  drm/amdgpu: suspend KFD and KGD user queues for S0ix (2025-09-18 14:59:41 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.17-2025-09-18:
+
+amdgpu:
+- GC 11.0.1/4 cleaner shader support
+- DC irq fix
+- OD fix
+
+amdkfd:
+- S0ix fix
+
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amdkfd: add proper handling for S0ix
+      drm/amdgpu: suspend KFD and KGD user queues for S0ix
+
+Ivan Lipski (1):
+      drm/amd/display: Allow RX6xxx & RX7700 to invoke amdgpu_irq_get/put
+
+Mario Limonciello (1):
+      drm/amd: Only restore cached manual clock settings in restore if OD enabled
+
+Srinivasan Shanmugam (1):
+      drm/amdgpu/gfx11: Add Cleaner Shader Support for GFX11.0.1/11.0.4 GPUs
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c        | 16 +++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h        | 12 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 24 ++++++--------
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c            | 15 +++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c           | 36 +++++++++++++++++++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 39 ++++++++++++++++++++++-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c         |  2 +-
+ 7 files changed, 124 insertions(+), 20 deletions(-)
