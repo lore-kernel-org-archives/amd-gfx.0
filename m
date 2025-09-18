@@ -4,75 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE38BCAC5A0
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 13:12:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 473EDCAC59A
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 13:15:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72C0B10E89F;
-	Thu, 18 Sep 2025 13:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E255D10E8A2;
+	Thu, 18 Sep 2025 13:15:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I9D9DTpo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OAtS8/I+";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0634B10E8A0
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 13:12:23 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2630354dd1aso1817175ad.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 06:12:23 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71EF910E8A2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 13:15:42 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-265f97930baso1499445ad.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 06:15:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758201142; x=1758805942; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758201342; x=1758806142; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ow/FekpgA7UhV9Mvh36laSeW60WQ/h2Ti7HkmGFnCsM=;
- b=I9D9DTpoSIyHbtqQR1QCxVzbfouq6MLVBPUOgmN0+uwB7Fc8FLj47R7r4kDG03azwx
- S6/pb/hkf9XjHIRZiGo52Fzkd5wbDNiMCIUialvSodQkdDjaPLJknPooRrpbzuuZQtlT
- gKrLO9ueA/CyFizrIi5gjw56BMXet522y2ibm2vPaZ2BKkxkGYFkAPmVZ8LY4qMkQu24
- BEfxkU2BQDBYd/Lku02Pip5ZnL/W8egbwCTiqRKYe/1cWBYkhp6i7L1GiZQSmRxdO4jm
- qwxcwiOxuNuTJ11E/93HfZ7ODpUwwT6VXG13HJTZPN/YSMb64tG3UtO+cOCNhwNaYUjA
- NtWw==
+ bh=RasaXRYoTov957p2EKq0m05wVRacOzOcmfpjSEkGiBY=;
+ b=OAtS8/I+oG4wjO1eqhgtzA870Z2fVSXAnkdjipTgHJS7gfV6FOzCikd1KMy3a77Pmy
+ UlJV896dLrbMSa7IMz0ivfpWMxrV407OVdED37y7eHgbPh5o/mRoEcKzqDM7x+RZPm3t
+ aBoW3noSuyKleWMWKQtoydf+9BvgcAlVpvnd6qnhSmZUo+Idu+34dvjyRlyV5oO+cjtv
+ VjEX8/JgAFAuybs/LPSJz7KChTh0AxUvqVczjHS63cVqwP9vNHrABAkEnR+yumupc+HJ
+ 9nH145luSiZcsM1iGS7Y7usRi95QJyMLrYNFsrGxJTjcqMd/AhDDSyzPvnkuzdp5FSFT
+ 31AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758201142; x=1758805942;
+ d=1e100.net; s=20230601; t=1758201342; x=1758806142;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ow/FekpgA7UhV9Mvh36laSeW60WQ/h2Ti7HkmGFnCsM=;
- b=Dt6f5WKZvCYQx6bCP7wFdpLSdBK188Rp1Ial6rpjzG53bBV9grc2m8B1dNaI2W5n1z
- CSnkO5Fn3MJuG7TdU7206xobujO0wUeKx3E5t5ABlv4VFBCIaU6K72LDxJ0ffNo3Zj88
- ne8uzETMQEdMrCy6dzD/FCC3wafw6AVFfuLg322KpURfx1lctaEpVhF2zOt2RIpnAd7T
- FWEU+K9xxoWK0HLmQY/1hXcnrLUL02/OmWwBVVCadl7NUAJs0kliAkMZIfqRRPSrWAOv
- kiNQBPXbGrLdEcqd1Krt0QETGe49AvNMz66YwjYOBKw/LOqnDR19kKq62h8X4BgT2BQz
- J2XA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW4nhiWz7ln+9CoR/H1AIvwa2nLurwwvMAP9eBpnYuQt2rVG4UcKT3pA+W3kDa8GWZVR6S/sc1/@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnHOo4vIGTeJYprqw9zF+fYhspKSlpEcwxIIg37H/MqtDJbnkg
- 6v7dz/IU73VnfIEzA3ZNr3qJTQXR01It2K9M5wMbSbZhBUbUc9JDD7QfRz/TzDKybRp4I1yZbkp
- PeSgXic69YX6Ukkib8qjI7dFC386s1gM=
-X-Gm-Gg: ASbGnct/ViuScIijQQI78ljxjEnVhygGyRuPujbLAs31qZWpTuLyjokFNE0aHGPF/vG
- jI+Cm13+c2/ZhdQ/6ELUv/PBIGRNPgu3PBxiJUC6WPKkq3IpGThHfGN8eh3ImpA4qgl0wYWsW6j
- uqRDfSVDGsbo+AvIUuBX5RBd8vTniNF5jMjz0KZolXbReDNzjTzOvgK40cTTA4GuTYDxMDM53hr
- EsX9S36yAwjM3KrnL6xqv465ik=
-X-Google-Smtp-Source: AGHT+IGPGpvPJnDMA+MU6VEF8DQ0xnGm1dy+iqzuJdF1p3969ZuqYgSVs9i3T569keWH/YmK9RWABocwx0S6kTCDWjQ=
-X-Received: by 2002:a17:902:ce81:b0:269:9ae5:26cf with SMTP id
- d9443c01a7336-2699ae52d42mr9215285ad.4.1758201142273; Thu, 18 Sep 2025
- 06:12:22 -0700 (PDT)
+ bh=RasaXRYoTov957p2EKq0m05wVRacOzOcmfpjSEkGiBY=;
+ b=rma3aBMWM83YqsSyLxs0/15WNwAjMJNXO846dm98P+5fV8Ku8ehvNmd/xKP+r3Sjdp
+ MQ1tKFviOmXOOZwQFTdpecRngRO2GwWUsuoX8YrqPNXlid+jCbDTKrdexoHaZCyzBXdT
+ HBQDtqOo3kR1Uzgt5bw/y3fxmRBq6F8FfF59CdIRudZ6ccE2U/B69WnOz+ZqE67Wl+Dp
+ UaorHA3Rf8HgM5JBbwc1xv3H8ar2f3O/b2Sk0WZfksg8F9uB6hPSDi/cy0p1AChZgjUi
+ P0BYURABOSmC8ZJfJXyoe9c4U6NMtic8y4QGbbGHR1X83C+MD4C6mfgs8a9+6H75rt5j
+ LgIw==
+X-Gm-Message-State: AOJu0YwJNmylWXQjWUoGwPcvgs8PgCu/mxcN8KFEftzlda2LUOF9alZv
+ 2IySUG7syugS9YuAmJttNwKibjZyFrMc22ZFdvLxF9eWJ907+yGH+ksNcYhQWe18TlKbrpGuno+
+ qEfB1Xtli24rNtOwUJl2YSeNLOGefHWI=
+X-Gm-Gg: ASbGncsdP60qyfcv3OfDD2jJiAkDPqXbL+L+DJLf2ZWEs7UT0ozl3ytw7uO4Uj0fip1
+ dantYE6bJbxTnecYKE01zrAB0hwICr40bnEr3kVhzvS1ffdZDRAkbE83pg//TiCuCw/e6jI+wPb
+ 7/+D87NhTMr3LcCcMMg86fa0f5RONWBR2ZDtl1+vfRShyNkFedW0gsJfRL8bkCxExo5gD+vX0na
+ LCdfQO2FqlCGZbmuTjCpVuk6Qc=
+X-Google-Smtp-Source: AGHT+IFax5Dfrpy91oIDrnvioXuDiOrJdZxEvifNuT+MVbXtnVyG3fzNI5GV1aZWNjhe297YgQCAJffuGztHHNUIAEs=
+X-Received: by 2002:a17:903:320e:b0:24c:c445:87c2 with SMTP id
+ d9443c01a7336-2681286bac1mr37075995ad.4.1758201341667; Thu, 18 Sep 2025
+ 06:15:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250918105705.3480495-1-lgs201920130244@gmail.com>
-In-Reply-To: <20250918105705.3480495-1-lgs201920130244@gmail.com>
+References: <20250918123038.3099984-1-lijo.lazar@amd.com>
+In-Reply-To: <20250918123038.3099984-1-lijo.lazar@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Sep 2025 09:12:10 -0400
-X-Gm-Features: AS18NWBryzMXeisWyksAUCkLKladPwFh28QPE6dGbAFuIaGpcNhnEsksRdkuC1w
-Message-ID: <CADnq5_NQMQNpa7=MW4LXHvnKWTc4+QSEoA0zsNqpdfEV5Ho0SA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/atom: Check kcalloc() for WS buffer in
- amdgpu_atom_execute_table_locked()
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Al Viro <viro@zeniv.linux.org.uk>, 
- Kees Cook <kees@kernel.org>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
+Date: Thu, 18 Sep 2025 09:15:29 -0400
+X-Gm-Features: AS18NWDa86J2UYz3jv10ob0B1IeHGKolH3vIn4x6SHZdD8xguptcno_pPDD4Fbg
+Message-ID: <CADnq5_OxSQQ+O0md1DE3RZCKUZu9f9=p=sYKiw1XX8b5vha85w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix vbios build number parsing logic
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, Mangesh.Gadre@amd.com, Jesse.Zhang@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,49 +81,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 18, 2025 at 8:44=E2=80=AFAM Guangshuo Li <lgs201920130244@gmail=
-.com> wrote:
+On Thu, Sep 18, 2025 at 9:09=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
 >
-> kcalloc() may fail. When WS is non-zero and allocation fails, ectx.ws
-> remains NULL while ectx.ws_size is set, leading to a potential NULL
-> pointer dereference in atom_get_src_int() when accessing WS entries.
+> It's not necessary that the build string and atom header section has a
+> difference of 32 bytes. Use the remaining bytes in the section as copy
+> limit.
 >
-> Return -ENOMEM on allocation failure to avoid the NULL dereference.
->
-> Fixes: 6396bb221514 ("treewide: kzalloc() -> kcalloc()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/atom.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdg=
 pu/atom.c
-> index 82a02f831951..bed3083f317b 100644
+> index 1c994d0cc50b..7cc7aec1bff3 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/atom.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-> @@ -1247,9 +1247,9 @@ static int amdgpu_atom_execute_table_locked(struct =
-atom_context *ctx, int index,
->         if (ws) {
->                 ectx.ws =3D kcalloc(4, ws, GFP_KERNEL);
->                 if (!ectx.ws) {
-> -               ret =3D -ENOMEM;
-> -               goto free;
-> -        }
-> +                       ret =3D -ENOMEM;
-> +                       goto free;
-> +               }
-
-What branch is this patch against?  This doesn't apply as is.  I've
-fixed this up manually and applied it.
-
-Thanks,
-
-Alex
-
->                 ectx.ws_size =3D ws;
->         } else {
->                 ectx.ws =3D NULL;
+> @@ -1498,7 +1498,7 @@ static void atom_get_vbios_build(struct atom_contex=
+t *ctx)
+>  {
+>         unsigned char *atom_rom_hdr;
+>         unsigned char *str;
+> -       uint16_t base;
+> +       uint16_t base, len;
+>
+>         base =3D CU16(ATOM_ROM_TABLE_PTR);
+>         atom_rom_hdr =3D CSTR(base);
+> @@ -1511,8 +1511,9 @@ static void atom_get_vbios_build(struct atom_contex=
+t *ctx)
+>         while (str < atom_rom_hdr && *str++)
+>                 ;
+>
+> -       if ((str + STRLEN_NORMAL) < atom_rom_hdr)
+> -               strscpy(ctx->build_num, str, STRLEN_NORMAL);
+> +       len =3D min(atom_rom_hdr - str, STRLEN_NORMAL);
+> +       if (len)
+> +               strscpy(ctx->build_num, str, len);
+>  }
+>
+>  struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bio=
+s)
 > --
-> 2.43.0
+> 2.49.0
 >
