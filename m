@@ -4,68 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 338ABCA1013
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:25:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69ED2CAC597
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:30:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0FDC10E8F6;
-	Thu, 18 Sep 2025 20:25:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08DB110E8F7;
+	Thu, 18 Sep 2025 20:30:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lI0y0FqH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dJf0jp4b";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B50310E8F6
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 20:25:42 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-269ba651d06so508105ad.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 13:25:42 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0907F10E8F7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 20:30:38 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-267dbd4e189so2854945ad.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 13:30:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758227141; x=1758831941; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758227437; x=1758832237; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fGQFNpJZheiZMY5yZbpPMhMSjJCU2Qh87KQ2moH0PwM=;
- b=lI0y0FqHVlKH7gCJzADfnI3v4oUzmCjKSRl0Uir5hN1XcUmC1g6BaeH+S/kUb6E7cB
- BBdKqOxXTJRe9D/jEeKiKDi5c4xlMKwj1P1PuU6f9TKbM+nTKxt9S1sFh9+6DzNp2k79
- o1wzuMETc8Yp2klWcCkMiL410N3qKNyqlunPYdiXfFWnOjVpEgo1i71em3J8WxhTBicW
- k6rp6rw35VoOiSeBZxnmfMltpWu2uzIhd0oYCKuDIh5qNCAK8IU3ICCf8ReVI9g+8C0S
- g4lwnhp4cpsgeVtuLcoNINluPf0iUjtkLOACfgFZLpZI9pqQgKZAjVq8mUYRXl89HoLg
- tJeg==
+ bh=itlecr1AMbeQejBGwhaBOOreCrpUrTQwKi1eT+1tYJw=;
+ b=dJf0jp4bOjjTg2aWR6Y1OVCP5EwQ0XA0XzRbHk17Nk3ct2sGMhThWfOzPN12/pld9a
+ 7kOaDIiXrgpm1zJf/1TxJKgm0Pben1SO6X1YYq/tH2cZh8Ck95938363ZmPTk6NF+G+V
+ EBGDNsxyaZqd9+pDLtSLi8FtOrcfwBvc0OaG3nGuM6It02B05+rZfOHwcb89xsI7kBRF
+ XyBbF1eapHZxH9BFbh7yn40fMZK6FWfjhnkjBaajDbbUD7F2niCGszzMSdnpCrNBg/Ws
+ zgiMtG6dJM7NeNaDixlS8XmvpD0l3XFAtnO2WJHUiNdYgyCWvgLVf/TKTJ/NLE7tJnpr
+ UJ6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758227141; x=1758831941;
+ d=1e100.net; s=20230601; t=1758227437; x=1758832237;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fGQFNpJZheiZMY5yZbpPMhMSjJCU2Qh87KQ2moH0PwM=;
- b=mhS3Sly0DZplamx2VnFKrbojS/9rPrVTgnbpotq2AQ9JDK3k3YnkbKNUNPK5Q/hbAY
- TJXdNpWB6bExObH5XEW9snIZNlqyB78MbJXBFjmfO0duGoqQFTiE/LQnSuKrLLljU8Nk
- JFVl/BnoxRaDnHzvYj5vWjJM66r964q9ED2+eJ/OmYud/G9bH1oZJbDIAxUZWbQ4X46w
- Uetr7t/kkOpHcdzNr3wuIyZUFln8m3KIoCkdWuLeobq+52meHphYxvYoOInaA3LrQiV4
- kQfcl4kTQDlTGhBaRX+wA94OmV145YVq0Sjo8qSfCUjKrq/dQFVmCYTuReUh7Bq8v8Xc
- PbKg==
-X-Gm-Message-State: AOJu0Yz/HMZvP3Eb0k6mZdCyK9OTra/i9ThPBjC7WAF9cVQjiNV1Hoqq
- dWx/WcvkkvB4VeFSOlVdd/nTMJuIoN6xTxgwyFegaxXldgItttNUFjQrmcjeHggZc5eSBO50Je2
- hPLg1qt6QH3jr0DhsMZ6aJ90syR6rUh4=
-X-Gm-Gg: ASbGncssILHHf24S6omHcIkDQ9QRGpUi6ND9WUxEVGibTtQ080BLlQV2p7Lcm+n+eWh
- WhJ1n5UZ39dZL27cmnQtq0Q7P3ngK7wrU2g5KlRXs/8DSLlOkwUXcWjvnqHBWWVsFsX6PKswIOL
- 8aI+V37xZijcraXj0RfX/HsJWLFqdkl61Gdpineb/UoJIqFc6/7/MvY5wVo1S+4Nhoj63TckcFW
- WK8jgI2y/JO+YlnyJRn/RLnLA==
-X-Google-Smtp-Source: AGHT+IENI8yqihDL36UR1KxekgCFtuIXijEEw1mgLVmbYpr0t4lkx7ulqeAQVbHn34UF4WRIAZgiiM3u+9vliHFGsDI=
-X-Received: by 2002:a17:902:f904:b0:261:500a:5742 with SMTP id
- d9443c01a7336-269ba547cc5mr4143715ad.10.1758227141494; Thu, 18 Sep 2025
- 13:25:41 -0700 (PDT)
+ bh=itlecr1AMbeQejBGwhaBOOreCrpUrTQwKi1eT+1tYJw=;
+ b=c0K1t+k8EEMCq4M7J1YkDVgUfHkyvgZzfP4Yre/ulpjRHjGZet1lNfhEtIqJ2Xb6LY
+ /zJK9wrWma7jqhMt6nqDn+fab6iD0uQMbAG1rxRKDONaL+PFcfYSepTTwoXZPZN1gVOD
+ zQi7INaNSi1JXpg6IH2g41YEcJpji1zaHnu5qMmTlNAUJdsceCkLrCPrj89dkz+TeTLT
+ EMqWL5b8d02m5Me0cGYO+lTeGWGCHvEkJg/XvsisGyHkl/gsEMObwAP3iv0tTXOuD9te
+ 3C5qI5O5JRtgkEgVDQDJdCWSKz8yKxNaNEG+HRo57pckfM59eOBqUR+f7HL4h0h3zzhw
+ mBkQ==
+X-Gm-Message-State: AOJu0YwI9rcZmSnWJMneR4q38yJguhcArw7XA3ANF0oXhEtcQgw9AiiE
+ YAucYYYBJQlN2gbJThAkw73ys1ZpcENYnakVz5/y+sQB6sa5VU598R3D2JeQWmYv74pxIBuNd+b
+ axjd2XitobCU9fzZmi5shOsOFKaLcgTo=
+X-Gm-Gg: ASbGnctsUTs7smeECEqATT7rVtU+ncet9vu7uOD0FXTjklLXeOoiUR82KG3bWMsR8Uk
+ aKTOL4Joi6N2mzK9+eULVtBHf6c4811eHlZ7ukMR4bbcgX6NeYN2G++U3wDiD/AA2SP5j7B1qQB
+ OQUOj8YuThhm/0AS8NJ/AWNO0j5rBc1DcnSXxXf69GB4aFZBqrNKPvWx7gnc3q8fsqlYhZWqtE0
+ eS3MFaYL0xK+DWgNgeJFoO9sQ==
+X-Google-Smtp-Source: AGHT+IE5XSN5aeSgP1gnSl0cy/5wrAyMU9aIN14IIl5DbsCxRwilKJWJCfSWRiKufJLOxKujQk+utYf+C4KUuvCAzuQ=
+X-Received: by 2002:a17:903:1a68:b0:269:9ae5:26cf with SMTP id
+ d9443c01a7336-269ba47beb2mr6326225ad.4.1758227437355; Thu, 18 Sep 2025
+ 13:30:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250918013507.2629620-1-YiPeng.Chai@amd.com>
- <20250918013507.2629620-5-YiPeng.Chai@amd.com>
-In-Reply-To: <20250918013507.2629620-5-YiPeng.Chai@amd.com>
+References: <20250912055518.2719533-1-Prike.Liang@amd.com>
+ <20250912055518.2719533-9-Prike.Liang@amd.com>
+ <CADnq5_O8AA=LvBwv518uwbW=YHBAuedg+WsoQodLwinTdL+hMg@mail.gmail.com>
+ <DS7PR12MB6005162B656C4EF265B6E602FB16A@DS7PR12MB6005.namprd12.prod.outlook.com>
+In-Reply-To: <DS7PR12MB6005162B656C4EF265B6E602FB16A@DS7PR12MB6005.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Sep 2025 16:25:29 -0400
-X-Gm-Features: AS18NWBEQulXazq3LPrkr83BLyYw1SKt_fTT9OC5bRCxjm8JqRqejACNEuFG6MM
-Message-ID: <CADnq5_NVYYq9Lb0_89N+-qu7vUuJ8gtoZsyjM3nUr=8aSRwrxA@mail.gmail.com>
-Subject: Re: [PATCH 05/10] drm/amd/ras: Amdgpu handle ras ioctl command
-To: YiPeng Chai <YiPeng.Chai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Tao.Zhou1@amd.com, 
- Candice.Li@amd.com, Stanley.Yang@amd.com
+Date: Thu, 18 Sep 2025 16:30:25 -0400
+X-Gm-Features: AS18NWAvM25IjO44zT9lArLZRzmw5eRk_hLJfXfD3rq151yMHLS-OYoJEVTmMFc
+Message-ID: <CADnq5_PPax-tWwABAYTa2wReUNMiqWrKq9t=gBHx3OcT3W+_Hw@mail.gmail.com>
+Subject: Re: [PATCH v2 9/9] drm/amdgpu: validate userq va for GEM unmap
+To: "Liang, Prike" <Prike.Liang@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,527 +85,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 17, 2025 at 9:36=E2=80=AFPM YiPeng Chai <YiPeng.Chai@amd.com> w=
-rote:
+On Wed, Sep 17, 2025 at 10:37=E2=80=AFPM Liang, Prike <Prike.Liang@amd.com>=
+ wrote:
 >
-> Amdgpu handle ras ioctl command.
+> [Public]
+>
+> Regards,
+>       Prike
+>
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Wednesday, September 17, 2025 10:10 PM
+> > To: Liang, Prike <Prike.Liang@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.co=
+m>
+> > Subject: Re: [PATCH v2 9/9] drm/amdgpu: validate userq va for GEM unmap
+> >
+> > On Fri, Sep 12, 2025 at 2:04=E2=80=AFAM Prike Liang <Prike.Liang@amd.co=
+m> wrote:
+> > >
+> > > When an user unmaps a userq VA, the driver must ensure the queue has
+> > > no in-flight jobs. If there is pending work, the kernel should wait
+> > > for the attached eviction (bookkeeping) fence to signal before
+> > > deleting the mapping.
+> > >
+> > > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 29
+> > > +++++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |
+> > 3 +++
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 11 +++++++++
+> > >  3 files changed, 43 insertions(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > > index a13f186f0a8a..e14dcdcfe36e 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > > @@ -1182,3 +1182,32 @@ int
+> > amdgpu_userq_start_sched_for_enforce_isolation(struct amdgpu_device *ad=
+ev,
+> > >         mutex_unlock(&adev->userq_mutex);
+> > >         return ret;
+> > >  }
+> > > +
+> > > +int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
+> > > +                                      struct amdgpu_bo_va_mapping *m=
+apping,
+> > > +                                      uint64_t saddr) {
+> > > +       u32 ip_mask =3D amdgpu_userq_get_supported_ip_mask(adev);
+> > > +       struct amdgpu_bo_va *bo_va =3D mapping->bo_va;
+> > > +       struct dma_resv *resv =3D bo_va->base.bo->tbo.base.resv;
+> > > +       int ret;
+> > > +
+> > > +       if (!ip_mask)
+> > > +               return 0;
+> > > +
+> > > +       dev_warn(adev->dev, "now unmapping a vital queue va:%llx\n",
+> > > + saddr);
+> >
+> > dev_warn_once() so we don't spam the logs.
+> It seems unlikely to run into this case, but I'm okay to change this to d=
+ev_warn_once() or dev_warn_ratelimited().
 
-Where is the actual IOCTL interface defined?
+Unlikely for a proper application, but you could write a bad
+application which would cause the kernel log to get spammed.
 
 Alex
 
->
-> V2:
->   Remove non-standard device information.
->
-> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-> Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-> ---
->  .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c  | 363 ++++++++++++++++++
->  .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.h  |  55 +++
->  2 files changed, 418 insertions(+)
->  create mode 100644 drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
->  create mode 100644 drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.h
->
-> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c b/drivers/g=
-pu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-> new file mode 100644
-> index 000000000000..195ca51a96d5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-> @@ -0,0 +1,363 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include <linux/pci.h>
-> +#include "amdgpu.h"
-> +#include "amdgpu_ras.h"
-> +#include "ras_sys.h"
-> +#include "amdgpu_ras_cmd.h"
-> +#include "amdgpu_ras_mgr.h"
-> +
-> +/* inject address is 52 bits */
-> +#define        RAS_UMC_INJECT_ADDR_LIMIT       (0x1ULL << 52)
-> +
-> +#define AMDGPU_RAS_TYPE_RASCORE  0x1
-> +#define AMDGPU_RAS_TYPE_AMDGPU   0x2
-> +#define AMDGPU_RAS_TYPE_VF       0x3
-> +
-> +static int amdgpu_ras_query_interface_info(struct ras_core_context *ras_=
-core,
-> +                       struct ras_cmd_ioctl *cmd)
-> +{
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->=
-dev;
-> +       struct ras_query_interface_info_rsp *output_data =3D
-> +               (struct ras_query_interface_info_rsp *)cmd->output_buff_r=
-aw;
-> +       int ret;
-> +
-> +       if (cmd->input_size !=3D sizeof(struct ras_query_interface_info_r=
-eq))
-> +               return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
-> +
-> +       ret =3D ras_cmd_query_interface_info(ras_core, output_data);
-> +       if (!ret) {
-> +               output_data->plat_major_ver =3D 0;
-> +               output_data->plat_minor_ver =3D 0;
-> +
-> +               output_data->interface_type =3D amdgpu_sriov_vf(adev) ?
-> +                       RAS_CMD_INTERFACE_TYPE_VF : RAS_CMD_INTERFACE_TYP=
-E_AMDGPU;
-> +
-> +               cmd->output_size =3D sizeof(struct ras_query_interface_in=
-fo_rsp);
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +static struct ras_core_context *ras_cmd_get_ras_core(uint64_t dev_handle=
-)
-> +{
-> +       struct ras_core_context *ras_core;
-> +
-> +       if (!dev_handle || (dev_handle =3D=3D RAS_CMD_DEV_HANDLE_MAGIC))
-> +               return NULL;
-> +
-> +       ras_core =3D (struct ras_core_context *)(dev_handle ^ RAS_CMD_DEV=
-_HANDLE_MAGIC);
-> +
-> +       if (ras_cmd_get_dev_handle(ras_core) =3D=3D dev_handle)
-> +               return ras_core;
-> +
-> +       return NULL;
-> +}
-> +
-> +static int amdgpu_ras_get_devices_info(struct ras_core_context *ras_core=
-,
-> +                       struct ras_cmd_ioctl *cmd)
-> +{
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->=
-dev;
-> +       struct ras_cmd_devices_info_rsp *output_data =3D
-> +                       (struct ras_cmd_devices_info_rsp *)cmd->output_bu=
-ff_raw;
-> +       struct ras_cmd_dev_info *dev_info;
-> +
-> +       dev_info =3D &output_data->devs[0];
-> +       dev_info->dev_handle =3D ras_cmd_get_dev_handle(ras_core);
-> +       dev_info->oam_id =3D adev->smuio.funcs->get_socket_id(adev);
-> +       dev_info->ecc_enabled =3D 1;
-> +       dev_info->ecc_supported =3D 1;
-> +
-> +       output_data->dev_num =3D 1;
-> +       output_data->version =3D 0;
-> +       cmd->output_size =3D sizeof(struct ras_cmd_devices_info_rsp);
-> +
-> +       return 0;
-> +}
-> +
-> +static int amdgpu_ras_trigger_error_prepare(struct ras_core_context *ras=
-_core,
-> +                       struct ras_cmd_inject_error_req *block_info)
-> +{
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->=
-dev;
-> +       int ret;
-> +
-> +       if (block_info->block_id =3D=3D TA_RAS_BLOCK__XGMI_WAFL) {
-> +               if (amdgpu_dpm_set_df_cstate(adev, DF_CSTATE_DISALLOW))
-> +                       RAS_DEV_WARN(adev, "Failed to disallow df cstate"=
-);
-> +
-> +               ret =3D amdgpu_dpm_set_pm_policy(adev, PP_PM_POLICY_XGMI_=
-PLPD, XGMI_PLPD_DISALLOW);
-> +               if (ret && (ret !=3D -EOPNOTSUPP))
-> +                       RAS_DEV_WARN(adev, "Failed to disallow XGMI power=
- down");
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static int amdgpu_ras_trigger_error_end(struct ras_core_context *ras_cor=
-e,
-> +                       struct ras_cmd_inject_error_req *block_info)
-> +{
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->=
-dev;
-> +       int ret;
-> +
-> +       if (block_info->block_id =3D=3D TA_RAS_BLOCK__XGMI_WAFL) {
-> +               if (amdgpu_ras_intr_triggered())
-> +                       return 0;
-> +
-> +               ret =3D amdgpu_dpm_set_pm_policy(adev, PP_PM_POLICY_XGMI_=
-PLPD, XGMI_PLPD_DEFAULT);
-> +               if (ret && (ret !=3D -EOPNOTSUPP))
-> +                       RAS_DEV_WARN(adev, "Failed to allow XGMI power do=
-wn");
-> +
-> +               if (amdgpu_dpm_set_df_cstate(adev, DF_CSTATE_ALLOW))
-> +                       RAS_DEV_WARN(adev, "Failed to allow df cstate");
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static uint64_t local_addr_to_xgmi_global_addr(struct ras_core_context *=
-ras_core,
-> +                                          uint64_t addr)
-> +{
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->=
-dev;
-> +       struct amdgpu_xgmi *xgmi =3D &adev->gmc.xgmi;
-> +
-> +       return (addr + xgmi->physical_node_id * xgmi->node_segment_size);
-> +}
-> +
-> +static int amdgpu_ras_inject_error(struct ras_core_context *ras_core,
-> +                       struct ras_cmd_ioctl *cmd, void *data)
-> +{
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->=
-dev;
-> +       struct ras_cmd_inject_error_req *req =3D
-> +               (struct ras_cmd_inject_error_req *)cmd->input_buff_raw;
-> +       int ret =3D RAS_CMD__ERROR_GENERIC;
-> +
-> +       if (req->block_id =3D=3D RAS_BLOCK_ID__UMC) {
-> +               if (amdgpu_ras_mgr_check_retired_addr(adev, req->address)=
-) {
-> +                       RAS_DEV_WARN(ras_core->dev,
-> +                               "RAS WARN: inject: 0x%llx has already bee=
-n marked as bad!\n",
-> +                               req->address);
-> +                       return RAS_CMD__ERROR_ACCESS_DENIED;
-> +               }
-> +
-> +               if ((req->address >=3D adev->gmc.mc_vram_size &&
-> +                       adev->gmc.mc_vram_size) ||
-> +                       (req->address >=3D RAS_UMC_INJECT_ADDR_LIMIT)) {
-> +                       RAS_DEV_WARN(adev, "RAS WARN: input address 0x%ll=
-x is invalid.",
-> +                                       req->address);
-> +                       return RAS_CMD__ERROR_INVALID_INPUT_DATA;
-> +               }
-> +
-> +               /* Calculate XGMI relative offset */
-> +               if (adev->gmc.xgmi.num_physical_nodes > 1 &&
-> +                       req->block_id !=3D RAS_BLOCK_ID__GFX) {
-> +                       req->address =3D local_addr_to_xgmi_global_addr(r=
-as_core, req->address);
-> +               }
-> +       }
-> +
-> +       amdgpu_ras_trigger_error_prepare(ras_core, req);
-> +       ret =3D rascore_handle_cmd(ras_core, cmd, data);
-> +       amdgpu_ras_trigger_error_end(ras_core, req);
-> +       if (ret) {
-> +               RAS_DEV_ERR(adev, "ras inject block %u failed %d\n", req-=
->block_id, ret);
-> +               ret =3D RAS_CMD__ERROR_ACCESS_DENIED;
-> +       }
-> +
-> +
-> +       return ret;
-> +}
-> +
-> +static int amdgpu_ras_get_ras_safe_fb_addr_ranges(struct ras_core_contex=
-t *ras_core,
-> +       struct ras_cmd_ioctl *cmd, void *data)
-> +{
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->=
-dev;
-> +       struct ras_cmd_dev_handle *input_data =3D
-> +                       (struct ras_cmd_dev_handle *)cmd->input_buff_raw;
-> +       struct ras_cmd_ras_safe_fb_address_ranges_rsp *ranges =3D
-> +                       (struct ras_cmd_ras_safe_fb_address_ranges_rsp *)=
-cmd->output_buff_raw;
-> +       struct amdgpu_mem_partition_info *mem_ranges;
-> +       uint32_t i =3D 0;
-> +
-> +       if (cmd->input_size !=3D sizeof(*input_data))
-> +               return RAS_CMD__ERROR_INVALID_INPUT_DATA;
-> +
-> +       mem_ranges =3D adev->gmc.mem_partitions;
-> +       for (i =3D 0; i < adev->gmc.num_mem_partitions; i++) {
-> +               ranges->range[i].start =3D mem_ranges[i].range.fpfn << AM=
-DGPU_GPU_PAGE_SHIFT;
-> +               ranges->range[i].size =3D mem_ranges[i].size;
-> +               ranges->range[i].idx =3D i;
-> +       }
-> +
-> +       ranges->num_ranges =3D adev->gmc.num_mem_partitions;
-> +
-> +       ranges->version =3D 0;
-> +       cmd->output_size =3D sizeof(struct ras_cmd_ras_safe_fb_address_ra=
-nges_rsp);
-> +
-> +       return RAS_CMD__SUCCESS;
-> +}
-> +
-> +static int ras_translate_fb_address(struct ras_core_context *ras_core,
-> +               enum ras_fb_addr_type src_type,
-> +               enum ras_fb_addr_type dest_type,
-> +               union ras_translate_fb_address *src_addr,
-> +               union ras_translate_fb_address *dest_addr)
-> +{
-> +       uint64_t soc_phy_addr;
-> +       int ret =3D RAS_CMD__SUCCESS;
-> +
-> +       /* Does not need to be queued as event as this is a SW translatio=
-n */
-> +       switch (src_type) {
-> +       case RAS_FB_ADDR_SOC_PHY:
-> +               soc_phy_addr =3D src_addr->soc_phy_addr;
-> +               break;
-> +       case RAS_FB_ADDR_BANK:
-> +               ret =3D ras_cmd_translate_bank_to_soc_pa(ras_core,
-> +                                       src_addr->bank_addr, &soc_phy_add=
-r);
-> +               if (ret)
-> +                       return RAS_CMD__ERROR_GENERIC;
-> +               break;
-> +       default:
-> +               return RAS_CMD__ERROR_INVALID_CMD;
-> +       }
-> +
-> +       switch (dest_type) {
-> +       case RAS_FB_ADDR_SOC_PHY:
-> +               dest_addr->soc_phy_addr =3D soc_phy_addr;
-> +               break;
-> +       case RAS_FB_ADDR_BANK:
-> +               ret =3D ras_cmd_translate_soc_pa_to_bank(ras_core,
-> +                               soc_phy_addr, &dest_addr->bank_addr);
-> +               if (ret)
-> +                       return RAS_CMD__ERROR_GENERIC;
-> +               break;
-> +       default:
-> +               return RAS_CMD__ERROR_INVALID_CMD;
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +static int amdgpu_ras_translate_fb_address(struct ras_core_context *ras_=
-core,
-> +                               struct ras_cmd_ioctl *cmd, void *data)
-> +{
-> +       struct ras_cmd_translate_fb_address_req *req_buff =3D
-> +                       (struct ras_cmd_translate_fb_address_req *)cmd->i=
-nput_buff_raw;
-> +       struct ras_cmd_translate_fb_address_rsp *rsp_buff =3D
-> +                       (struct ras_cmd_translate_fb_address_rsp *)cmd->o=
-utput_buff_raw;
-> +       int ret =3D RAS_CMD__ERROR_GENERIC;
-> +
-> +       if (cmd->input_size !=3D sizeof(struct ras_cmd_translate_fb_addre=
-ss_req))
-> +               return RAS_CMD__ERROR_INVALID_INPUT_SIZE;
-> +
-> +       if ((req_buff->src_addr_type >=3D RAS_FB_ADDR_UNKNOWN) ||
-> +           (req_buff->dest_addr_type >=3D RAS_FB_ADDR_UNKNOWN))
-> +               return RAS_CMD__ERROR_INVALID_INPUT_DATA;
-> +
-> +       ret =3D ras_translate_fb_address(ras_core, req_buff->src_addr_typ=
-e,
-> +                       req_buff->dest_addr_type, &req_buff->trans_addr, =
-&rsp_buff->trans_addr);
-> +       if (ret)
-> +               return RAS_CMD__ERROR_GENERIC;
-> +
-> +       rsp_buff->version =3D 0;
-> +       cmd->output_size =3D sizeof(struct ras_cmd_translate_fb_address_r=
-sp);
-> +
-> +       return RAS_CMD__SUCCESS;
-> +}
-> +
-> +static struct ras_cmd_func_map amdgpu_ras_cmd_maps[] =3D {
-> +       {RAS_CMD__INJECT_ERROR, amdgpu_ras_inject_error},
-> +       {RAS_CMD__GET_SAFE_FB_ADDRESS_RANGES, amdgpu_ras_get_ras_safe_fb_=
-addr_ranges},
-> +       {RAS_CMD__TRANSLATE_FB_ADDRESS, amdgpu_ras_translate_fb_address},
-> +};
-> +
-> +int amdgpu_ras_handle_cmd(struct ras_core_context *ras_core, struct ras_=
-cmd_ioctl *cmd, void *data)
-> +{
-> +       struct ras_cmd_func_map *ras_cmd =3D NULL;
-> +       int i, res;
-> +
-> +       for (i =3D 0; i < ARRAY_SIZE(amdgpu_ras_cmd_maps); i++) {
-> +               if (cmd->cmd_id =3D=3D amdgpu_ras_cmd_maps[i].cmd_id) {
-> +                       ras_cmd =3D &amdgpu_ras_cmd_maps[i];
-> +                       break;
-> +               }
-> +       }
-> +
-> +       if (ras_cmd)
-> +               res =3D ras_cmd->func(ras_core, cmd, NULL);
-> +       else
-> +               res =3D RAS_CMD__ERROR_UKNOWN_CMD;
-> +
-> +       return res;
-> +}
-> +
-> +int amdgpu_ras_cmd_ioctl_handler(struct ras_core_context *ras_core,
-> +                       uint8_t *cmd_buf, uint32_t buf_size)
-> +{
-> +       struct ras_cmd_ioctl *cmd =3D (struct ras_cmd_ioctl *)cmd_buf;
-> +       struct ras_core_context *cmd_core =3D NULL;
-> +       struct ras_cmd_dev_handle *cmd_handle =3D NULL;
-> +       int timeout =3D 60;
-> +       int res;
-> +
-> +       cmd->cmd_res =3D RAS_CMD__ERROR_INVALID_CMD;
-> +       cmd->output_size =3D 0;
-> +
-> +       if (!ras_core_is_enabled(ras_core))
-> +               return RAS_CMD__ERROR_ACCESS_DENIED;
-> +
-> +       if (cmd->cmd_id =3D=3D RAS_CMD__QUERY_INTERFACE_INFO) {
-> +               cmd->cmd_res =3D amdgpu_ras_query_interface_info(ras_core=
-, cmd);
-> +       } else if (cmd->cmd_id =3D=3D RAS_CMD__GET_DEVICES_INFO) {
-> +               cmd->cmd_res =3D amdgpu_ras_get_devices_info(ras_core, cm=
-d);
-> +       } else {
-> +               cmd_handle =3D (struct ras_cmd_dev_handle *)cmd->input_bu=
-ff_raw;
-> +               cmd_core =3D ras_cmd_get_ras_core(cmd_handle->dev_handle)=
-;
-> +               if (!cmd_core)
-> +                       return RAS_CMD__ERROR_INVALID_INPUT_DATA;
-> +
-> +               while (ras_core_gpu_in_reset(cmd_core)) {
-> +                       msleep(1000);
-> +                       if (!timeout--)
-> +                               return RAS_CMD__ERROR_TIMEOUT;
-> +               }
-> +
-> +
-> +               if (!ras_core_is_enabled(cmd_core))
-> +                       return RAS_CMD__ERROR_ACCESS_DENIED;
-> +
-> +               res =3D amdgpu_ras_handle_cmd(cmd_core, cmd, NULL);
-> +               if (res =3D=3D RAS_CMD__ERROR_UKNOWN_CMD)
-> +                       res =3D rascore_handle_cmd(cmd_core, cmd, NULL);
-> +
-> +               cmd->cmd_res =3D res;
-> +       }
-> +
-> +       if ((cmd->cmd_res =3D=3D RAS_CMD__SUCCESS) &&
-> +           ((cmd->output_size + sizeof(*cmd)) > buf_size)) {
-> +               RAS_INFO("Insufficient command buffer size 0x%x!\n", buf_=
-size);
-> +               return RAS_CMD__SUCCESS_EXEED_BUFFER;
-> +       }
-> +
-> +       return RAS_CMD__SUCCESS;
-> +}
-> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.h b/drivers/g=
-pu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.h
-> new file mode 100644
-> index 000000000000..7017198f1bac
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.h
-> @@ -0,0 +1,55 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
-> +
-> +#ifndef __AMDGPU_RAS_CMD_H__
-> +#define __AMDGPU_RAS_CMD_H__
-> +#include "ras.h"
-> +
-> +enum amdgpu_ras_cmd_id {
-> +       RAS_CMD__AMDGPU_BEGIN =3D RAS_CMD_ID_AMDGPU_START,
-> +       RAS_CMD__TRANSLATE_MEMORY_FD,
-> +       RAS_CMD__AMDGPU_SUPPORTED_MAX =3D RAS_CMD_ID_AMDGPU_END,
-> +};
-> +
-> +struct ras_cmd_translate_memory_fd_req {
-> +       struct ras_cmd_dev_handle dev;
-> +       uint32_t type;
-> +       uint32_t fd;
-> +       uint64_t address;
-> +       uint32_t reserved[4];
-> +};
-> +
-> +struct ras_cmd_translate_memory_fd_rsp {
-> +       uint32_t version;
-> +       uint32_t padding;
-> +       uint64_t start;
-> +       uint64_t size;
-> +       uint32_t reserved[2];
-> +};
-> +
-> +int amdgpu_ras_handle_cmd(struct ras_core_context *ras_core,
-> +               struct ras_cmd_ioctl *cmd, void *data);
-> +int amdgpu_ras_cmd_ioctl_handler(struct ras_core_context *ras_core,
-> +                       uint8_t *cmd_buf, uint32_t buf_size);
-> +
-> +#endif
-> --
-> 2.34.1
->
+> >
+> > > +       /**
+> > > +        * The userq VA mapping reservation should include the evicti=
+on fence, if the
+> > eviction fence
+> > > +        * can't signal successfully during unmapping, then driver wi=
+ll warn to flag
+> > this improper unmap
+> > > +        * of the userq VA.
+> > > +        * Note: The eviction fence may be attached to different BOs,=
+ and this unmap
+> > is only for one kind
+> > > +        * of userq VAs, so at this point suppose the eviction fence =
+is always
+> > unsignaled.
+> > > +        */
+> > > +       if (!dma_resv_test_signaled(resv, DMA_RESV_USAGE_BOOKKEEP)) {
+> > > +               ret =3D dma_resv_wait_timeout(resv, DMA_RESV_USAGE_BO=
+OKKEEP,
+> > true, MAX_SCHEDULE_TIMEOUT);
+> > > +               if (ret <=3D 0)
+> > > +                       return -EBUSY;
+> > > +       }
+> > > +
+> > > +       return 0;
+> > > +}
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> > > index 8cd307be7256..c9a41876f10e 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> > > @@ -157,4 +157,7 @@ int amdgpu_userq_buffer_va_put(struct amdgpu_vm
+> > > *vm, u64 addr);  int amdgpu_userq_buffer_vas_put(struct amdgpu_device=
+ *adev,
+> > >                                 struct amdgpu_usermode_queue *queue);
+> > > bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue
+> > > *queue);
+> > > +int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
+> > > +                                      struct amdgpu_bo_va_mapping *m=
+apping,
+> > > +                                      uint64_t saddr);
+> > >  #endif
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > index bd12d8ff15a4..ccde1f040cef 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > @@ -1941,6 +1941,7 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device
+> > *adev,
+> > >         struct amdgpu_bo_va_mapping *mapping;
+> > >         struct amdgpu_vm *vm =3D bo_va->base.vm;
+> > >         bool valid =3D true;
+> > > +       int r;
+> > >
+> > >         saddr /=3D AMDGPU_GPU_PAGE_SIZE;
+> > >
+> > > @@ -1961,6 +1962,16 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device
+> > *adev,
+> > >                         return -ENOENT;
+> > >         }
+> > >
+> > > +       /* It's unlikely to happen that the mapping userq hasn't been=
+ idled
+> > > +        * during user requests GEM unmap IOCTL except for forcing th=
+e unmap
+> > > +        * from user space.
+> > > +        */
+> > > +       if (unlikely(atomic_read(&bo_va->userq_va_mapped) > 0)) {
+> > > +               r =3D amdgpu_userq_gem_va_unmap_validate(adev, mappin=
+g, saddr);
+> > > +               if (unlikely(r =3D=3D -EBUSY))
+> > > +                       dev_warn(adev->dev, "Here should be an
+> > > + improper unmap request from user space\n");
+> >
+> > dev_warn_once().
+> >
+> > This looks good to me, but it would be good to get Christian's input as=
+ well.
+> >
+> > Alex
+> >
+> > > +       }
+> > > +
+> > >         list_del(&mapping->list);
+> > >         amdgpu_vm_it_remove(mapping, &vm->va);
+> > >         mapping->bo_va =3D NULL;
+> > > --
+> > > 2.34.1
+> > >
