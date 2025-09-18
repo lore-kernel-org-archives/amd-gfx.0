@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B902CAC59A
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 01:33:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE23CAC59F
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 01:33:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A81710E5F0;
-	Thu, 18 Sep 2025 01:33:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F7AB10E5F5;
+	Thu, 18 Sep 2025 01:33:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PbVTvQUi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qj8qJheA";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012007.outbound.protection.outlook.com [52.101.48.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E044110E5F6
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 01:33:30 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011008.outbound.protection.outlook.com
+ [40.93.194.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB6C110E5F5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 01:33:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LaiJ8LoeV5Wzjqy2AzQsFVE6riJBm67wKVdPIB0r6QuPwQO/JbzMBvCQRLnLrOx0hWVeOPbvGlkm571jSbXGPegn/cGPwT33U2lnu/os0FLIRthBBeRqlwrtDV7Kr5alsaIMC1XllfyQzVofaKDcV2sXpXP93d/lvLfavR95BGBaQtdfAYwRyepEIC9cp+WnZr/75ZxV0HhJ0lfdfdxEsM2ltJHl5Aq+37Wa1zRksyTc+2O8KbQXateUlIXB5S+aSZIBq0ea/iwwrhCdaUwCiPoycHcgRTIG8A8OnXgggKfPilxrb7Obx8lwKehoQPPOUfNomgQFE1mZsXStq3JXHw==
+ b=wnagKQ6/GM0J2lZax/qFHbfKU4PcsEcDsuq0Q9aYZZET+ran0EdE5i8OM641WHZL2j0+S0kHaxvax4uEfpl54zxNKAlQeYXiiptb0j43KfemJZiqe7aC886++qt8+9e4cv/xnu7ZHgdPKSym+6EH4CoX/jbCe+RBt/QyKZV5yf/00z4O5WSJ1sskM+tBWFyuw2SpDtQdSw73QDiqfEjz6zzABZ11i94v3a8BF4ORYmepilJogvoYd2ilZNqv6kZ4+aKVOdQTIwqAgx6GUdPN4OESAx0fK3PEXiPnXfoPKEwtwylMmE5F0uEoC5WC/ZuiejlXr/w4qwQYD4UY4P2alA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DbK9dHvB4ZtGxzOrX1ZXqJdFPbEwRVdqCCSVHIH8wg8=;
- b=W2/BE7PoR5F8o0ct+CFn/ukndVJTrJNia5CSzjSlZNGEx9Ll3CbE7VwtNKqZrd5KZX4hKhbRTGgbpNnayt7MUrZD3JKI5cxHhhiXVtWhH886uC0vzSwxTY1Xzg83gf2VnNe23ceqHRgvGRJZZnOy7LUZKMnhp6CRoIOWBolC0QPpjQAJpuxJmE72G4vb/fM8LtGdMR9aASDSrG2ihL9P8zM67bUD4dSt8+b+Xcl+MEJo5M8MvDH75dz8v/AmPS1N92ZV9Pef45ucOvql03vVzes2DGUEsnaLNxcNfb+3jbBqkZEuINnInIQf2+crT6FQ+CC3uqVvN7gp6bUbX/aqXg==
+ bh=793RQNEBgacjSsDkPnhE0AQt7Rz6JZ4tgsfv79VoJfk=;
+ b=lk4YUOsGVnLFxLT2aPXauHLmG4MR8gVPVqEBIweX2vNQdTIAjyZeyorQtqmwbQJ0j3mVh/zXSLBrSlbgZxQ0R6V6MnVB/B01AMAtWV3VwjljHd874iUIeRFiodgdsLnAhH475tQBOStZ8byzmJj5LxW58E7Hy3h2GPQWolCXA8/WdWeb3m7BDnrXm+E/dtFRGS9mYsMHrVApxVfIfXdOiqllujeXtbRvv8nEhTFWoodUdL3p0cTikxTRA7HM6fYZg1OMNSR/5Z/F7F+lmWK1XlcKNVisgt1J3GA3gmMdcQ1nYN86vIifkW7/1FnZ7N/RQhBuXuQGjBiNMtko0vem5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DbK9dHvB4ZtGxzOrX1ZXqJdFPbEwRVdqCCSVHIH8wg8=;
- b=PbVTvQUiZMqpEGSLp26KUnT6N/Sqls++hGT2I3EEq2uz6ptvIFEMnCt4BYKKcAXXT2So75VXfUyS/0A7bRh1EY8tJ4C8sP9/45kGoKELqCK0n4PbHJk21blnpwU+mbYf4rwsK2K6tLaEYEya+SaIAq7jJX5LeAd3u4qi0E0C6S4=
-Received: from BYAPR05CA0106.namprd05.prod.outlook.com (2603:10b6:a03:e0::47)
- by MN2PR12MB4240.namprd12.prod.outlook.com (2603:10b6:208:1d3::14)
+ bh=793RQNEBgacjSsDkPnhE0AQt7Rz6JZ4tgsfv79VoJfk=;
+ b=qj8qJheAuSV6Lz6CcbeXFrOV5x2J1BkUkekYla/6p0AOsxRIt69QYoqB42GQfLi7pdoAvGppxDpmgSNGg0P9iHKLcmq79h/xfRdIznBmgjQiC4VEHt7a/etKQ25PL0ArNGSY2zDLb0iMjn5mnCtBMJB+RqyXVzL5yetNkue6mOA=
+Received: from SJ0PR13CA0230.namprd13.prod.outlook.com (2603:10b6:a03:2c1::25)
+ by MW4PR12MB8612.namprd12.prod.outlook.com (2603:10b6:303:1ec::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.13; Thu, 18 Sep
- 2025 01:33:25 +0000
-Received: from CO1PEPF000044F5.namprd05.prod.outlook.com
- (2603:10b6:a03:e0:cafe::80) by BYAPR05CA0106.outlook.office365.com
- (2603:10b6:a03:e0::47) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 01:33:27 +0000
+Received: from CO1PEPF000044F2.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::3f) by SJ0PR13CA0230.outlook.office365.com
+ (2603:10b6:a03:2c1::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.13 via Frontend Transport; Thu,
- 18 Sep 2025 01:33:24 +0000
+ 18 Sep 2025 01:33:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +49,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000044F5.mail.protection.outlook.com (10.167.241.75) with Microsoft
+ CO1PEPF000044F2.mail.protection.outlook.com (10.167.241.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Thu, 18 Sep 2025 01:33:24 +0000
+ 15.20.9137.12 via Frontend Transport; Thu, 18 Sep 2025 01:33:26 +0000
 Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 17 Sep
- 2025 18:33:22 -0700
+ 2025 18:33:24 -0700
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
  <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou
  <tao.zhou1@amd.com>
-Subject: [PATCH 09/21] drm/amd/ras: Add umc v12_0 ras functions
-Date: Thu, 18 Sep 2025 09:32:20 +0800
-Message-ID: <20250918013232.2629215-9-YiPeng.Chai@amd.com>
+Subject: [PATCH 10/21] drm/amd/ras: Add umc common ras functions
+Date: Thu, 18 Sep 2025 09:32:21 +0800
+Message-ID: <20250918013232.2629215-10-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250918013232.2629215-1-YiPeng.Chai@amd.com>
 References: <20250918013232.2629215-1-YiPeng.Chai@amd.com>
@@ -74,52 +75,52 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F5:EE_|MN2PR12MB4240:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d734638-f734-422c-960d-08ddf6535c27
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F2:EE_|MW4PR12MB8612:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88209687-edea-4c20-bf64-08ddf6535d7f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Nbe94wtNGw2hLMmWXe/2mkMfx3P0ZJRCBPz7DKjoYRaVIX84i+/577zPGjjV?=
- =?us-ascii?Q?jhR27TwyLYABmypfpZ2f7JMKjSf79WF4wmcz7oeE0wh82b5262WieREWmb5P?=
- =?us-ascii?Q?HZfNaFfcyXylpeJQqEKP9O30SK/RQr8+/lTseKuSJv3zwYICxOb712eyrmx4?=
- =?us-ascii?Q?97IoT/5BcThsufvPvjiudyIpGuNQFr5S7+q6Kow2IfNjcTraGT1oq9Gducpr?=
- =?us-ascii?Q?oLDqZiJTYcUKqpdKpm46ArYf79JtqlqB2ZTCxTF//pRaA26SqlpCJfj2/kU1?=
- =?us-ascii?Q?y6osCRXGhH3Umoh1S9uixuYPH/BKOW7B/4a+/g86GIk8FQh7DyMrpf6JzC8c?=
- =?us-ascii?Q?33/zGN/0JJzkqQj2TR+F3ZzCxiJqxwUS4d1EOlb1PovpB+cqBrslSxv1goff?=
- =?us-ascii?Q?HxRrM/Lvt11KLb3nvtjW6Y1XcwqadR/sHVfCyakX93YmeEixUC8lO0Daus7+?=
- =?us-ascii?Q?Bd2Pw2uR/pSdTyN6WNqcF7D6s400veCxAFTuRSW//UBuXEkBzKsszAC0MfNZ?=
- =?us-ascii?Q?sEdj1XN7Udapb9cuLv6lhiuZ2+h4JvWhp2wo65BhHBVjiHYTwnBrRVjJEWWn?=
- =?us-ascii?Q?3I7VMl7ebNK9OURXU5hv4UTS/0NiyCMn+Q3DXoAkWizo8HFL4kUogpit1/py?=
- =?us-ascii?Q?XEQ0d9uAIZT5TtejoUXI689Bw2Q438W1qGbdFbU7i+RUWfNTm7gK1W9ZUpKX?=
- =?us-ascii?Q?83L1LJoOjFVIKOBDhB388Pi3uA+e9+nFtcofFLGWU7EIxkVqJG1DQZ4lEtT9?=
- =?us-ascii?Q?cTmJfAN4CgzE9qswKvOy41GhamjJIPm8xX9WLpNdiEpE+1UG1VhP++9FO6MA?=
- =?us-ascii?Q?RSr7gUAqIc3ANbARc/YyKTPok24tezLVE+UYvDV11WXzaIZu6L0k8960TDeR?=
- =?us-ascii?Q?oiX6MORINhNZwrPjIz2IGzUx9tZD4duoG29RnFMQxxwSnINXu02BVJcwjEmp?=
- =?us-ascii?Q?0gNzi31H3CDOAFUQHShTOwb+MSh2Kuz6lbq5Nup4tuJ2HIrMjWh9AeyEWKTz?=
- =?us-ascii?Q?sNl9RhGu9kqfDsdPApjF5QAwBR7MHw1owolfaWH3SJDqhBaItqzgBIhQgrBB?=
- =?us-ascii?Q?/CFTZRtK5wT5+Rg8oQYm7pMaNchCOIZEw+yeD67pXul5bOHJsQV0gqzBbusB?=
- =?us-ascii?Q?955hoYLNbasvwn1x2Bx6ZRnNoGFnJYmxg45Aiuy0aUl5rNPcADcP1BdOaK8D?=
- =?us-ascii?Q?tRqZIu/LHkl90Z/5a+75A60FKRIAG490nFpmG3ORJEbdSr3+L8AqqcuyUdpQ?=
- =?us-ascii?Q?BquKjpRlKzAnRqaskP1I3+ivd7/YdJ+Hlm8PDj1hIq6rN9gNnOgv0/bsGT+3?=
- =?us-ascii?Q?yx4IhALqy4tgp0OW/ZDFKnF1eZCCAL5JGVbZZkZ5wFLAvyblbCwrOjgfQjhL?=
- =?us-ascii?Q?AFsP9O3PNA37JORbWTzvA6JMYBjOPxZ3Cbu0FLZsBfXw976I1qzGkpXdt6NJ?=
- =?us-ascii?Q?1MTYwNTkfH7cFT9n8JeVohP6T+lw9//XYl8yscPG4qBzvwwjT/9I7gW7nRmf?=
- =?us-ascii?Q?E/m0shapCmiEPYdiNBH2r2zsS/YriJUO8rhn?=
+ ARA:13230040|1800799024|82310400026|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?iOfjJyo5wLyNkPs/JoOnA2YKDgV4jaH147QJY5wZjxUccLXUo6hcolqKzG0w?=
+ =?us-ascii?Q?AZibaIDVMHR9U1bYMLbMV+SaUMNTLcERQD22/skb6wuDbhyRGn9QAyn2wwKf?=
+ =?us-ascii?Q?ypv+H0k8vHvDCAUU9wM8o1+/tUEOUljZ3zutI551BUoNYbdUbqqm5bOrelbq?=
+ =?us-ascii?Q?6feTfOPXtBTRtQvsCxiZAWOvAAaGLXE95LBn07oM9+hjGCFw99d+xtHaECPK?=
+ =?us-ascii?Q?jQ74In+HH9N7STjKgzWedGfQWpiTvPVrBllysOWp6IdKsOxd2PsmVk/WAg6U?=
+ =?us-ascii?Q?Pf16Zx5PzGPr3EmPmSdK3hqRtV8LJ3sNuKMkaZRElNaSujvSHFi7+JLZ8sie?=
+ =?us-ascii?Q?hN5ME3Fo40Rm8jhm0YdRuKzsWjbTkqNrF2sXKBAkWLPinfw+VwhkTMoSMg8+?=
+ =?us-ascii?Q?7bzW5GaPfGSwds/+cP/JqdOQyD2dwUIAlRotdd7vFXR91+me2017QZMAdyzp?=
+ =?us-ascii?Q?ILF4tfsqgrcoDA2Y70Hy/oN2qzt81ViRvBXCsALqToU5KZqVVhB42CHs7u2f?=
+ =?us-ascii?Q?VysnT+TWV8pIfWOPoJj9C56gVa0l29+BQm1d9DSGhFw6T6eraCFD6+WL6vps?=
+ =?us-ascii?Q?jSOAhOtB7x5VBg11YnrismYRw+vyZw72FFuMlnniPBH5p+3DZu5ZHO4WL6iX?=
+ =?us-ascii?Q?ZjbcC+yAWwfRzaBDXcPWaRm2QxeZYdJ6AQy4/BK9mB4gmy7m4Ojtx8iu8HQ/?=
+ =?us-ascii?Q?KqqACL0rjTMnicgaHWW3jt25qQcRxlw4ncGSJ6bH1hO+FOVzIJwyo+8IREXm?=
+ =?us-ascii?Q?6GJCVueS3owOBdVWor3Oz6NQRsxyjGItpVVK5weTyi35J/+0moLwJiwPqCRX?=
+ =?us-ascii?Q?R2TjjQ5haSo/MOZ1hbFKYA5MZU9Mto8qy6XWMiqMSPYLZ0as3utWXGjS0Rz2?=
+ =?us-ascii?Q?fOoR2d4DrKxO65SdOPHHGlEKIIQeeL7h6xeJrhEoBuxRTnpKcO8paMg2FXPI?=
+ =?us-ascii?Q?OI2yPXnF57K9/dUSXEwa8hZdMq6/JMZ1W9WOvser5ttOrAVDwCgVx9iQ/AJ2?=
+ =?us-ascii?Q?ZohzLBMKNH7If1FOptDW+baMjhQDx2/Pohyy8fM+H/wM0vlCq7Rw9uDvIQt+?=
+ =?us-ascii?Q?K90euxtolCdvd/56fmykyOK4dEcrHuHqNDKkp7uSMegGxtyOq6ZASh5KYdGY?=
+ =?us-ascii?Q?Rk2f0kVXlxc+SF3LQhQoNSipXoXNN5TG4WScaQlbQ/VjHMh5dY5zURmTdb+v?=
+ =?us-ascii?Q?rHNcy3uQhHz1J/5LIlLA0B4kEitbSoiUGv5Aj/hTH/q2g9ol3Wn7SVYtmtMt?=
+ =?us-ascii?Q?HoY73a3RFqd/jX7trtXU0DT5pM3OcHNROUzY7kMSaysqN7nmBW3ixtGuTa83?=
+ =?us-ascii?Q?e9uLOpq7EE/r2FITuYzM2PpnEYPxok8p2aJk597mKC07SgHUY89860V/Daoz?=
+ =?us-ascii?Q?pDQdvMf6gq1ZR7V46CK52MWlX/eV7Z+v1cNKI0sioYToVBBAcL4CFlA6EFle?=
+ =?us-ascii?Q?G9iG7gq5vBOQy/rJE4mFSd+G+ZxVgElJ8DdFbDXL9RzL3Wg42IQngre+3teW?=
+ =?us-ascii?Q?ioReJ1ceUle9Flbxf4JYvQbgLDEsIhI9It0X?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 01:33:24.3956 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d734638-f734-422c-960d-08ddf6535c27
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 01:33:26.6501 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88209687-edea-4c20-bf64-08ddf6535d7f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4240
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB8612
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,23 +135,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add umc v12_0 ras functions.
+Add umc common ras functions.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- .../gpu/drm/amd/ras/rascore/ras_umc_v12_0.c   | 511 ++++++++++++++++++
- .../gpu/drm/amd/ras/rascore/ras_umc_v12_0.h   | 314 +++++++++++
- 2 files changed, 825 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.c | 706 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.h | 166 +++++
+ 2 files changed, 872 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_umc.h
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
 new file mode 100644
-index 000000000000..5d9a11c17a86
+index 000000000000..4067359bb299
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
-@@ -0,0 +1,511 @@
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+@@ -0,0 +1,706 @@
 +// SPDX-License-Identifier: MIT
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
@@ -176,498 +177,693 @@ index 000000000000..5d9a11c17a86
 + */
 +#include "ras.h"
 +#include "ras_umc.h"
-+#include "ras_core_status.h"
 +#include "ras_umc_v12_0.h"
 +
-+#define NumDieInterleaved 4
++#define MAX_ECC_NUM_PER_RETIREMENT  16
 +
-+static const uint32_t umc_v12_0_channel_idx_tbl[]
-+	[UMC_V12_0_UMC_INSTANCE_NUM][UMC_V12_0_CHANNEL_INSTANCE_NUM] = {
-+	{{3,   7,   11,  15,  2,   6,   10,  14},  {1,   5,   9,   13,  0,   4,   8,   12},
-+	 {19,  23,  27,  31,  18,  22,  26,  30},  {17,  21,  25,  29,  16,  20,  24,  28}},
-+	{{47,  43,  39,  35,  46,  42,  38,  34},  {45,  41,  37,  33,  44,  40,  36,  32},
-+	 {63,  59,  55,  51,  62,  58,  54,  50},  {61,  57,  53,  49,  60,  56,  52,  48}},
-+	{{79,  75,  71,  67,  78,  74,  70,  66},  {77,  73,  69,  65,  76,  72,  68,  64},
-+	 {95,  91,  87,  83,  94,  90,  86,  82},  {93,  89,  85,  81,  92,  88,  84,  80}},
-+	{{99,  103, 107, 111, 98,  102, 106, 110}, {97,  101, 105, 109, 96,  100, 104, 108},
-+	 {115, 119, 123, 127, 114, 118, 122, 126}, {113, 117, 121, 125, 112, 116, 120, 124}}
-+};
++/* bad page timestamp format
++ * yy[31:27] mm[26:23] day[22:17] hh[16:12] mm[11:6] ss[5:0]
++ */
++#define EEPROM_TIMESTAMP_MINUTE  6
++#define EEPROM_TIMESTAMP_HOUR    12
++#define EEPROM_TIMESTAMP_DAY     17
++#define EEPROM_TIMESTAMP_MONTH   23
++#define EEPROM_TIMESTAMP_YEAR    27
 +
-+/* mapping of MCA error address to normalized address */
-+static const uint32_t umc_v12_0_ma2na_mapping[] = {
-+	0,  5,  6,  8,  9,  14, 12, 13,
-+	10, 11, 15, 16, 17, 18, 19, 20,
-+	21, 22, 23, 24, 25, 26, 27, 28,
-+	24, 7,  29, 30,
-+};
-+
-+static bool umc_v12_0_bit_wise_xor(uint32_t val)
++static uint64_t ras_umc_get_eeprom_timestamp(struct ras_core_context *ras_core)
 +{
-+	bool result = 0;
-+	int i;
++	struct ras_time tm = {0};
++	uint64_t utc_timestamp = 0;
++	uint64_t eeprom_timestamp = 0;
 +
-+	for (i = 0; i < 32; i++)
-+		result = result ^ ((val >> i) & 0x1);
++	utc_timestamp = ras_core_get_utc_second_timestamp(ras_core);
++	if (!utc_timestamp)
++		return utc_timestamp;
 +
-+	return result;
++	ras_core_convert_timestamp_to_time(ras_core, utc_timestamp, &tm);
++
++	/* the year range is 2000 ~ 2031, set the year if not in the range */
++	if (tm.tm_year < 2000)
++		tm.tm_year = 2000;
++	if (tm.tm_year > 2031)
++		tm.tm_year = 2031;
++
++	tm.tm_year -= 2000;
++
++	eeprom_timestamp = tm.tm_sec + (tm.tm_min << EEPROM_TIMESTAMP_MINUTE)
++				+ (tm.tm_hour << EEPROM_TIMESTAMP_HOUR)
++				+ (tm.tm_mday << EEPROM_TIMESTAMP_DAY)
++				+ (tm.tm_mon << EEPROM_TIMESTAMP_MONTH)
++				+ (tm.tm_year << EEPROM_TIMESTAMP_YEAR);
++	eeprom_timestamp &= 0xffffffff;
++
++	return eeprom_timestamp;
 +}
 +
-+static void __get_nps_pa_flip_bits(struct ras_core_context *ras_core,
-+			enum umc_memory_partition_mode nps,
-+			struct umc_flip_bits *flip_bits)
++static const struct ras_umc_ip_func *ras_umc_get_ip_func(
++				struct ras_core_context *ras_core, uint32_t ip_version)
 +{
-+	uint32_t vram_type = ras_core->ras_umc.umc_vram_type;
-+
-+	/* default setting */
-+	flip_bits->flip_bits_in_pa[0] = UMC_V12_0_PA_C2_BIT;
-+	flip_bits->flip_bits_in_pa[1] = UMC_V12_0_PA_C3_BIT;
-+	flip_bits->flip_bits_in_pa[2] = UMC_V12_0_PA_C4_BIT;
-+	flip_bits->flip_bits_in_pa[3] = UMC_V12_0_PA_R13_BIT;
-+	flip_bits->flip_row_bit = 13;
-+	flip_bits->bit_num = 4;
-+	flip_bits->r13_in_pa = UMC_V12_0_PA_R13_BIT;
-+
-+	if (nps == UMC_MEMORY_PARTITION_MODE_NPS2) {
-+		flip_bits->flip_bits_in_pa[0] = UMC_V12_0_PA_CH5_BIT;
-+		flip_bits->flip_bits_in_pa[1] = UMC_V12_0_PA_C2_BIT;
-+		flip_bits->flip_bits_in_pa[2] = UMC_V12_0_PA_B1_BIT;
-+		flip_bits->r13_in_pa = UMC_V12_0_PA_R12_BIT;
-+	} else if (nps == UMC_MEMORY_PARTITION_MODE_NPS4) {
-+		flip_bits->flip_bits_in_pa[0] = UMC_V12_0_PA_CH4_BIT;
-+		flip_bits->flip_bits_in_pa[1] = UMC_V12_0_PA_CH5_BIT;
-+		flip_bits->flip_bits_in_pa[2] = UMC_V12_0_PA_B0_BIT;
-+		flip_bits->r13_in_pa = UMC_V12_0_PA_R11_BIT;
-+	}
-+
-+	switch (vram_type) {
-+	case UMC_VRAM_TYPE_HBM:
-+		/* other nps modes are taken as nps1 */
-+		if (nps == UMC_MEMORY_PARTITION_MODE_NPS2)
-+			flip_bits->flip_bits_in_pa[3] = UMC_V12_0_PA_R12_BIT;
-+		else if (nps == UMC_MEMORY_PARTITION_MODE_NPS4)
-+			flip_bits->flip_bits_in_pa[3] = UMC_V12_0_PA_R11_BIT;
-+
-+		break;
-+	case UMC_VRAM_TYPE_HBM3E:
-+		flip_bits->flip_bits_in_pa[3] = UMC_V12_0_PA_R12_BIT;
-+		flip_bits->flip_row_bit = 12;
-+
-+		if (nps == UMC_MEMORY_PARTITION_MODE_NPS2)
-+			flip_bits->flip_bits_in_pa[3] = UMC_V12_0_PA_R11_BIT;
-+		else if (nps == UMC_MEMORY_PARTITION_MODE_NPS4)
-+			flip_bits->flip_bits_in_pa[3] = UMC_V12_0_PA_R10_BIT;
-+
-+		break;
++	switch (ip_version) {
++	case IP_VERSION(12, 0, 0):
++		return &ras_umc_func_v12_0;
 +	default:
-+		RAS_DEV_WARN(ras_core->dev,
-+			"Unknown HBM type, set RAS retire flip bits to the value in NPS1 mode.\n");
++		RAS_DEV_ERR(ras_core->dev,
++			"UMC ip version(0x%x) is not supported!\n", ip_version);
 +		break;
 +	}
++
++	return NULL;
 +}
 +
-+static uint64_t  convert_nps_pa_to_row_pa(struct ras_core_context *ras_core,
-+		uint64_t pa, enum umc_memory_partition_mode nps, bool zero_pfn_ok)
++int ras_umc_psp_convert_ma_to_pa(struct ras_core_context *ras_core,
++		struct umc_mca_addr *in, struct umc_phy_addr *out,
++		uint32_t nps)
 +{
-+	struct umc_flip_bits flip_bits = {0};
-+	uint64_t row_pa;
-+	int i;
++	struct ras_ta_query_address_input addr_in;
++	struct ras_ta_query_address_output addr_out;
++	int ret;
 +
-+	__get_nps_pa_flip_bits(ras_core, nps, &flip_bits);
-+
-+	row_pa = pa;
-+	/* clear loop bits in soc physical address */
-+	for (i = 0; i < flip_bits.bit_num; i++)
-+		row_pa &= ~BIT_ULL(flip_bits.flip_bits_in_pa[i]);
-+
-+	if (!zero_pfn_ok && !RAS_ADDR_TO_PFN(row_pa))
-+		row_pa |= BIT_ULL(flip_bits.flip_bits_in_pa[2]);
-+
-+	return row_pa;
-+}
-+
-+static int lookup_bad_pages_in_a_row(struct ras_core_context *ras_core,
-+		struct eeprom_umc_record *record, uint32_t nps,
-+		uint64_t *pfns, uint32_t num,
-+		uint64_t seq_no, bool dump)
-+{
-+	uint32_t col, col_lower, row, row_lower, idx, row_high;
-+	uint64_t soc_pa, row_pa, column, err_addr;
-+	uint64_t retired_addr = RAS_PFN_TO_ADDR(record->cur_nps_retired_row_pfn);
-+	struct umc_flip_bits flip_bits = {0};
-+	uint32_t retire_unit;
-+	uint32_t i;
-+
-+	__get_nps_pa_flip_bits(ras_core, nps, &flip_bits);
-+
-+	row_pa = convert_nps_pa_to_row_pa(ras_core, retired_addr, nps, true);
-+
-+	err_addr = record->address;
-+	/* get column bit 0 and 1 in mca address */
-+	col_lower = (err_addr >> 1) & 0x3ULL;
-+	/* MA_R13_BIT will be handled later */
-+	row_lower = (err_addr >> UMC_V12_0_MCA_R0_BIT) & 0x1fffULL;
-+	row_lower &= ~BIT_ULL(flip_bits.flip_row_bit);
-+
-+	if (ras_core->ras_gfx.gfx_ip_version >= IP_VERSION(9, 5, 0)) {
-+		row_high = (row_pa >> flip_bits.r13_in_pa) & 0x3ULL;
-+		/* it's 2.25GB in each channel, from MCA address to PA
-+		 * [R14 R13] is converted if the two bits value are 0x3,
-+		 * get them from PA instead of MCA address.
-+		 */
-+		row_lower |= (row_high << 13);
-+	}
-+
-+	idx = 0;
-+	row = 0;
-+	retire_unit = 0x1 << flip_bits.bit_num;
-+	/* loop for all possibilities of retire bits */
-+	for (column = 0; column < retire_unit; column++) {
-+		soc_pa = row_pa;
-+		for (i = 0; i < flip_bits.bit_num; i++)
-+			soc_pa |= (((column >> i) & 0x1ULL) << flip_bits.flip_bits_in_pa[i]);
-+
-+		col = ((column & 0x7) << 2) | col_lower;
-+
-+		/* add row bit 13 */
-+		if (flip_bits.bit_num == UMC_PA_FLIP_BITS_NUM)
-+			row = ((column >> 3) << flip_bits.flip_row_bit) | row_lower;
-+
-+		if (dump)
-+			RAS_DEV_INFO(ras_core->dev,
-+				"{%llu} Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x Bank:0x%x Channel:0x%x\n",
-+				seq_no, soc_pa, row, col,
-+				record->cur_nps_bank, record->mem_channel);
-+
-+
-+		if (pfns && (idx < num))
-+			pfns[idx++] = RAS_ADDR_TO_PFN(soc_pa);
-+	}
-+
-+	return idx;
-+}
-+
-+static int umc_v12_convert_ma_to_pa(struct ras_core_context *ras_core,
-+			struct umc_mca_addr *addr_in, struct umc_phy_addr *addr_out,
-+			uint32_t nps)
-+{
-+	uint32_t i, na_shift;
-+	uint64_t soc_pa, na, na_nps;
-+	uint32_t bank_hash0, bank_hash1, bank_hash2, bank_hash3, col, row;
-+	uint32_t bank0, bank1, bank2, bank3, bank;
-+	uint32_t ch_inst = addr_in->ch_inst;
-+	uint32_t umc_inst = addr_in->umc_inst;
-+	uint32_t node_inst = addr_in->node_inst;
-+	uint32_t socket_id = addr_in->socket_id;
-+	uint32_t channel_index;
-+	uint64_t err_addr = addr_in->err_addr;
-+
-+	if (node_inst != UMC_INV_AID_NODE) {
-+		if (ch_inst >= UMC_V12_0_CHANNEL_INSTANCE_NUM ||
-+			umc_inst >= UMC_V12_0_UMC_INSTANCE_NUM ||
-+			node_inst >= UMC_V12_0_AID_NUM_MAX ||
-+			socket_id >= UMC_V12_0_SOCKET_NUM_MAX)
-+			return -EINVAL;
-+	} else {
-+		if (socket_id >= UMC_V12_0_SOCKET_NUM_MAX ||
-+			ch_inst >= UMC_V12_0_TOTAL_CHANNEL_NUM)
-+			return -EINVAL;
-+	}
-+
-+	bank_hash0 = (err_addr >> UMC_V12_0_MCA_B0_BIT) & 0x1ULL;
-+	bank_hash1 = (err_addr >> UMC_V12_0_MCA_B1_BIT) & 0x1ULL;
-+	bank_hash2 = (err_addr >> UMC_V12_0_MCA_B2_BIT) & 0x1ULL;
-+	bank_hash3 = (err_addr >> UMC_V12_0_MCA_B3_BIT) & 0x1ULL;
-+	col = (err_addr >> 1) & 0x1fULL;
-+	row = (err_addr >> 10) & 0x3fffULL;
-+
-+	/* apply bank hash algorithm */
-+	bank0 =
-+		bank_hash0 ^ (UMC_V12_0_XOR_EN0 &
-+		(umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR0) ^
-+		(umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR0))));
-+	bank1 =
-+		bank_hash1 ^ (UMC_V12_0_XOR_EN1 &
-+		(umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR1) ^
-+		(umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR1))));
-+	bank2 =
-+		bank_hash2 ^ (UMC_V12_0_XOR_EN2 &
-+		(umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR2) ^
-+		(umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR2))));
-+	bank3 =
-+		bank_hash3 ^ (UMC_V12_0_XOR_EN3 &
-+		(umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR3) ^
-+		(umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR3))));
-+
-+	bank = bank0 | (bank1 << 1) | (bank2 << 2) | (bank3 << 3);
-+	err_addr &= ~0x3c0ULL;
-+	err_addr |= (bank << UMC_V12_0_MCA_B0_BIT);
-+
-+	na_nps = 0x0;
-+	/* convert mca error address to normalized address */
-+	for (i = 1; i < ARRAY_SIZE(umc_v12_0_ma2na_mapping); i++)
-+		na_nps |= ((err_addr >> i) & 0x1ULL) << umc_v12_0_ma2na_mapping[i];
-+
-+	if (nps == UMC_MEMORY_PARTITION_MODE_NPS1)
-+		na_shift = 8;
-+	else if (nps == UMC_MEMORY_PARTITION_MODE_NPS2)
-+		na_shift = 9;
-+	else if (nps == UMC_MEMORY_PARTITION_MODE_NPS4)
-+		na_shift = 10;
-+	else if (nps == UMC_MEMORY_PARTITION_MODE_NPS8)
-+		na_shift = 11;
-+	else
++	if (!in)
 +		return -EINVAL;
 +
-+	na = ((na_nps >> na_shift) << 8) | (na_nps & 0xff);
++	memset(&addr_in, 0, sizeof(addr_in));
++	memset(&addr_out, 0, sizeof(addr_out));
 +
-+	if (node_inst != UMC_INV_AID_NODE)
-+		channel_index =
-+			umc_v12_0_channel_idx_tbl[node_inst][umc_inst][ch_inst];
-+	else {
-+		channel_index = ch_inst;
-+		node_inst = channel_index /
-+			(UMC_V12_0_UMC_INSTANCE_NUM * UMC_V12_0_CHANNEL_INSTANCE_NUM);
++	addr_in.ma.err_addr = in->err_addr;
++	addr_in.ma.ch_inst = in->ch_inst;
++	addr_in.ma.umc_inst = in->umc_inst;
++	addr_in.ma.node_inst = in->node_inst;
++	addr_in.ma.socket_id = in->socket_id;
++
++	addr_in.addr_type = RAS_TA_MCA_TO_PA;
++
++	ret = ras_psp_query_address(ras_core, &addr_in, &addr_out);
++	if (ret) {
++		RAS_DEV_WARN(ras_core->dev,
++			"Failed to query RAS physical address for 0x%llx, ret:%d",
++			in->err_addr, ret);
++		return -EREMOTEIO;
 +	}
 +
-+	/* translate umc channel address to soc pa, 3 parts are included */
-+	soc_pa = ADDR_OF_32KB_BLOCK(na) |
-+		ADDR_OF_256B_BLOCK(channel_index) |
-+		OFFSET_IN_256B_BLOCK(na);
-+
-+	/* calc channel hash based on absolute address */
-+	soc_pa += socket_id * SOCKET_LFB_SIZE;
-+	/* the umc channel bits are not original values, they are hashed */
-+	UMC_V12_0_SET_CHANNEL_HASH(channel_index, soc_pa);
-+	/* restore pa */
-+	soc_pa -= socket_id * SOCKET_LFB_SIZE;
-+
-+	/* get some channel bits from na_nps directly and
-+	 * add nps section offset
-+	 */
-+	if (nps == UMC_MEMORY_PARTITION_MODE_NPS2) {
-+		soc_pa &= ~(0x1ULL << UMC_V12_0_PA_CH5_BIT);
-+		soc_pa |= ((na_nps & 0x100) << 5);
-+		soc_pa += (node_inst >> 1) * (SOCKET_LFB_SIZE >> 1);
-+	} else if (nps == UMC_MEMORY_PARTITION_MODE_NPS4) {
-+		soc_pa &= ~(0x3ULL << UMC_V12_0_PA_CH4_BIT);
-+		soc_pa |= ((na_nps & 0x300) << 4);
-+		soc_pa += node_inst * (SOCKET_LFB_SIZE >> 2);
-+	} else if (nps == UMC_MEMORY_PARTITION_MODE_NPS8) {
-+		soc_pa &= ~(0x7ULL << UMC_V12_0_PA_CH4_BIT);
-+		soc_pa |= ((na_nps & 0x700) << 4);
-+		soc_pa += node_inst * (SOCKET_LFB_SIZE >> 2) +
-+			(channel_index >> 4) * (SOCKET_LFB_SIZE >> 3);
++	if (out) {
++		out->pa = addr_out.pa.pa;
++		out->bank = addr_out.pa.bank;
++		out->channel_idx = addr_out.pa.channel_idx;
 +	}
-+
-+	addr_out->pa = soc_pa;
-+	addr_out->bank = bank;
-+	addr_out->channel_idx = channel_index;
 +
 +	return 0;
 +}
 +
-+static int convert_ma_to_pa(struct ras_core_context *ras_core,
-+			struct umc_mca_addr *addr_in, struct umc_phy_addr *addr_out,
-+			uint32_t nps)
++static int ras_umc_log_ecc(struct ras_core_context *ras_core,
++		unsigned long idx, void *data)
 +{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
 +	int ret;
 +
-+	if (ras_psp_check_supported_cmd(ras_core, RAS_TA_CMD_ID__QUERY_ADDRESS))
-+		ret = ras_umc_psp_convert_ma_to_pa(ras_core,
-+				addr_in, addr_out, nps);
-+	else
-+		ret = umc_v12_convert_ma_to_pa(ras_core,
-+				addr_in, addr_out, nps);
++	mutex_lock(&ras_umc->tree_lock);
++	ret = radix_tree_insert(&ras_umc->root, idx, data);
++	if (!ret)
++		radix_tree_tag_set(&ras_umc->root, idx, UMC_ECC_NEW_DETECTED_TAG);
++	mutex_unlock(&ras_umc->tree_lock);
 +
 +	return ret;
 +}
 +
-+static int convert_bank_to_nps_addr(struct ras_core_context *ras_core,
-+			struct ras_bank_ecc *bank, struct umc_phy_addr *pa_addr, uint32_t nps)
++int ras_umc_clear_logged_ecc(struct ras_core_context *ras_core)
 +{
-+	struct umc_mca_addr addr_in;
-+	struct umc_phy_addr addr_out;
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	uint64_t buf[8] = {0};
++	void  **slot;
++	void *data;
++	void *iter = buf;
++
++	mutex_lock(&ras_umc->tree_lock);
++	radix_tree_for_each_slot(slot, &ras_umc->root, iter, 0) {
++		data = ras_radix_tree_delete_iter(&ras_umc->root, iter);
++		kfree(data);
++	}
++	mutex_unlock(&ras_umc->tree_lock);
++
++	return 0;
++}
++
++static void ras_umc_reserve_eeprom_record(struct ras_core_context *ras_core,
++				struct eeprom_umc_record *record)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	uint64_t page_pfn[16];
++	int count = 0, i;
++
++	memset(page_pfn, 0, sizeof(page_pfn));
++	if (ras_umc->ip_func && ras_umc->ip_func->eeprom_record_to_nps_pages) {
++		count = ras_umc->ip_func->eeprom_record_to_nps_pages(ras_core,
++					record, record->cur_nps, page_pfn, ARRAY_SIZE(page_pfn));
++		if (count <= 0) {
++			RAS_DEV_ERR(ras_core->dev,
++				"Fail to convert error address! count:%d\n", count);
++			return;
++		}
++	}
++
++	/* Reserve memory */
++	for (i = 0; i < count; i++)
++		ras_core_event_notify(ras_core,
++			RAS_EVENT_ID__RESERVE_BAD_PAGE, &page_pfn[i]);
++}
++
++/* When gpu reset is ongoing, ecc logging operations will be pended.
++ */
++int ras_umc_log_bad_bank_pending(struct ras_core_context *ras_core, struct ras_bank_ecc *bank)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct ras_bank_ecc_node *ecc_node;
++
++	ecc_node = kzalloc(sizeof(*ecc_node), GFP_KERNEL);
++	if (!ecc_node)
++		return -ENOMEM;
++
++	memcpy(&ecc_node->ecc, bank, sizeof(ecc_node->ecc));
++
++	mutex_lock(&ras_umc->pending_ecc_lock);
++	list_add_tail(&ecc_node->node, &ras_umc->pending_ecc_list);
++	mutex_unlock(&ras_umc->pending_ecc_lock);
++
++	return 0;
++}
++
++/* After gpu reset is complete, re-log the pending error banks.
++ */
++int ras_umc_log_pending_bad_bank(struct ras_core_context *ras_core)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct ras_bank_ecc_node *ecc_node, *tmp;
++
++	mutex_lock(&ras_umc->pending_ecc_lock);
++	list_for_each_entry_safe(ecc_node,
++		tmp, &ras_umc->pending_ecc_list, node){
++		if (ecc_node && !ras_umc_log_bad_bank(ras_core, &ecc_node->ecc)) {
++			list_del(&ecc_node->node);
++			kfree(ecc_node);
++		}
++	}
++	mutex_unlock(&ras_umc->pending_ecc_lock);
++
++	return 0;
++}
++
++int ras_umc_log_bad_bank(struct ras_core_context *ras_core, struct ras_bank_ecc *bank)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct eeprom_umc_record umc_rec;
++	struct eeprom_umc_record *err_rec;
 +	int ret;
 +
-+	memset(&addr_in, 0, sizeof(addr_in));
-+	memset(&addr_out, 0, sizeof(addr_out));
++	memset(&umc_rec, 0, sizeof(umc_rec));
 +
-+	addr_in.err_addr = ACA_ADDR_2_ERR_ADDR(bank->addr);
-+	addr_in.ch_inst = ACA_IPID_2_UMC_CH(bank->ipid);
-+	addr_in.umc_inst = ACA_IPID_2_UMC_INST(bank->ipid);
-+	addr_in.node_inst = ACA_IPID_2_DIE_ID(bank->ipid);
-+	addr_in.socket_id = ACA_IPID_2_SOCKET_ID(bank->ipid);
++	mutex_lock(&ras_umc->bank_log_lock);
++	ret = ras_umc->ip_func->bank_to_eeprom_record(ras_core, bank, &umc_rec);
++	if (ret)
++		goto out;
 +
-+	ret = convert_ma_to_pa(ras_core, &addr_in, &addr_out, nps);
-+	if (!ret) {
-+		pa_addr->pa =
-+			convert_nps_pa_to_row_pa(ras_core, addr_out.pa, nps, false);
-+		pa_addr->channel_idx = addr_out.channel_idx;
-+		pa_addr->bank = addr_out.bank;
++	err_rec = kzalloc(sizeof(*err_rec), GFP_KERNEL);
++	if (!err_rec) {
++		ret = -ENOMEM;
++		goto out;
 +	}
++
++	memcpy(err_rec, &umc_rec, sizeof(umc_rec));
++	ret = ras_umc_log_ecc(ras_core, err_rec->cur_nps_retired_row_pfn, err_rec);
++	if (ret) {
++		if (ret == -EEXIST) {
++			RAS_DEV_INFO(ras_core->dev, "The bad pages have been logged before.\n");
++			ret = 0;
++		}
++
++		kfree(err_rec);
++		goto out;
++	}
++
++	ras_umc_reserve_eeprom_record(ras_core, err_rec);
++
++	ret = ras_core_event_notify(ras_core,
++			RAS_EVENT_ID__BAD_PAGE_DETECTED, NULL);
++
++out:
++	mutex_unlock(&ras_umc->bank_log_lock);
++	return ret;
++}
++
++static int ras_umc_get_new_records(struct ras_core_context *ras_core,
++			struct eeprom_umc_record *records, u32 num)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct eeprom_umc_record *entries[MAX_ECC_NUM_PER_RETIREMENT];
++	u32 entry_num = num < MAX_ECC_NUM_PER_RETIREMENT ? num : MAX_ECC_NUM_PER_RETIREMENT;
++	int count = 0;
++	int new_detected, i;
++
++	mutex_lock(&ras_umc->tree_lock);
++	new_detected = radix_tree_gang_lookup_tag(&ras_umc->root, (void **)entries,
++			0, entry_num, UMC_ECC_NEW_DETECTED_TAG);
++	for (i = 0; i < new_detected; i++) {
++		if (!entries[i])
++			continue;
++
++		memcpy(&records[i], entries[i], sizeof(struct eeprom_umc_record));
++		count++;
++		radix_tree_tag_clear(&ras_umc->root,
++				entries[i]->cur_nps_retired_row_pfn, UMC_ECC_NEW_DETECTED_TAG);
++	}
++	mutex_unlock(&ras_umc->tree_lock);
++
++	return count;
++}
++
++static bool ras_umc_check_retired_record(struct ras_core_context *ras_core,
++				struct eeprom_umc_record *record, bool from_eeprom)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct eeprom_store_record *data = &ras_umc->umc_err_data.rom_data;
++	uint32_t nps = 0;
++	int i, ret;
++
++	if (from_eeprom) {
++		nps = ras_umc->umc_err_data.umc_nps_mode;
++		if (ras_umc->ip_func && ras_umc->ip_func->eeprom_record_to_nps_record) {
++			ret = ras_umc->ip_func->eeprom_record_to_nps_record(ras_core, record, nps);
++			if (ret)
++				RAS_DEV_WARN(ras_core->dev,
++					"Failed to adjust eeprom record, ret:%d", ret);
++		}
++		return false;
++	}
++
++	for (i = 0; i < data->count; i++) {
++		if ((data->bps[i].retired_row_pfn == record->retired_row_pfn) &&
++		    (data->bps[i].cur_nps_retired_row_pfn == record->cur_nps_retired_row_pfn))
++			return true;
++	}
++
++	return false;
++}
++
++/* alloc/realloc bps array */
++static int ras_umc_realloc_err_data_space(struct ras_core_context *ras_core,
++		struct eeprom_store_record *data, int pages)
++{
++	unsigned int old_space = data->count + data->space_left;
++	unsigned int new_space = old_space + pages;
++	unsigned int align_space = ALIGN(new_space, 512);
++	void *bps = kzalloc(align_space * sizeof(*data->bps), GFP_KERNEL);
++
++	if (!bps)
++		return -ENOMEM;
++
++	if (data->bps) {
++		memcpy(bps, data->bps,
++				data->count * sizeof(*data->bps));
++		kfree(data->bps);
++	}
++
++	data->bps = bps;
++	data->space_left += align_space - old_space;
++	return 0;
++}
++
++static int ras_umc_update_eeprom_rom_data(struct ras_core_context *ras_core,
++		struct eeprom_umc_record *bps)
++{
++	struct eeprom_store_record *data = &ras_core->ras_umc.umc_err_data.rom_data;
++
++	if (!data->space_left &&
++		ras_umc_realloc_err_data_space(ras_core, data, 256)) {
++		return	-ENOMEM;
++	}
++
++	memcpy(&data->bps[data->count], bps, sizeof(*data->bps));
++	data->count++;
++	data->space_left--;
++	return 0;
++}
++
++static int ras_umc_update_eeprom_ram_data(struct ras_core_context *ras_core,
++				struct eeprom_umc_record *bps)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct eeprom_store_record *data = &ras_umc->umc_err_data.ram_data;
++	uint64_t page_pfn[16];
++	int count = 0, j;
++
++	if (!data->space_left &&
++		ras_umc_realloc_err_data_space(ras_core, data, 256)) {
++		return	-ENOMEM;
++	}
++
++	memset(page_pfn, 0, sizeof(page_pfn));
++	if (ras_umc->ip_func && ras_umc->ip_func->eeprom_record_to_nps_pages)
++		count = ras_umc->ip_func->eeprom_record_to_nps_pages(ras_core,
++					bps, bps->cur_nps, page_pfn, ARRAY_SIZE(page_pfn));
++
++	if (count > 0) {
++		for (j = 0; j < count; j++) {
++			bps->cur_nps_retired_row_pfn = page_pfn[j];
++			memcpy(&data->bps[data->count], bps, sizeof(*data->bps));
++			data->count++;
++			data->space_left--;
++		}
++	} else {
++		memcpy(&data->bps[data->count], bps, sizeof(*data->bps));
++		data->count++;
++		data->space_left--;
++	}
++
++	return 0;
++}
++
++/* it deal with vram only. */
++static int ras_umc_add_bad_pages(struct ras_core_context *ras_core,
++				 struct eeprom_umc_record *bps,
++				 int pages, bool from_eeprom)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct ras_umc_err_data *data = &ras_umc->umc_err_data;
++	int i, ret = 0;
++
++	if (!bps || pages <= 0)
++		return 0;
++
++	mutex_lock(&ras_umc->umc_lock);
++	for (i = 0; i < pages; i++) {
++		if (ras_umc_check_retired_record(ras_core, &bps[i], from_eeprom))
++			continue;
++
++		ret = ras_umc_update_eeprom_rom_data(ras_core, &bps[i]);
++		if (ret)
++			goto out;
++
++		if (data->last_retired_pfn == bps[i].cur_nps_retired_row_pfn)
++			continue;
++
++		data->last_retired_pfn = bps[i].cur_nps_retired_row_pfn;
++
++		if (from_eeprom)
++			ras_umc_reserve_eeprom_record(ras_core, &bps[i]);
++
++		ret = ras_umc_update_eeprom_ram_data(ras_core, &bps[i]);
++		if (ret)
++			goto out;
++	}
++out:
++	mutex_unlock(&ras_umc->umc_lock);
 +
 +	return ret;
 +}
 +
-+static int umc_v12_0_bank_to_eeprom_record(struct ras_core_context *ras_core,
-+		struct ras_bank_ecc *bank, struct eeprom_umc_record *record)
++/*
++ * read error record array in eeprom and reserve enough space for
++ * storing new bad pages
++ */
++int ras_umc_load_bad_pages(struct ras_core_context *ras_core)
 +{
-+	struct umc_phy_addr nps_addr;
++	struct eeprom_umc_record *bps;
++	uint32_t ras_num_recs;
 +	int ret;
 +
-+	memset(&nps_addr, 0, sizeof(nps_addr));
++	ras_num_recs = ras_eeprom_get_record_count(ras_core);
++	/* no bad page record, skip eeprom access */
++	if (!ras_num_recs ||
++	    ras_core->ras_eeprom.record_threshold_config == DISABLE_RETIRE_PAGE)
++		return 0;
 +
-+	ret = convert_bank_to_nps_addr(ras_core, bank,
-+			&nps_addr, bank->nps);
-+	if (ret)
-+		return ret;
++	bps = kcalloc(ras_num_recs, sizeof(*bps), GFP_KERNEL);
++	if (!bps)
++		return -ENOMEM;
 +
-+	ras_umc_fill_eeprom_record(ras_core,
-+		ACA_ADDR_2_ERR_ADDR(bank->addr), ACA_IPID_2_UMC_INST(bank->ipid),
-+		&nps_addr, bank->nps, record);
++	ret = ras_eeprom_read(ras_core, bps, ras_num_recs);
++	if (ret) {
++		RAS_DEV_ERR(ras_core->dev, "Failed to load EEPROM table records!");
++	} else {
++		ras_core->ras_umc.umc_err_data.last_retired_pfn = UMC_INV_MEM_PFN;
++		ret = ras_umc_add_bad_pages(ras_core, bps, ras_num_recs, true);
++	}
 +
-+	lookup_bad_pages_in_a_row(ras_core, record,
-+		bank->nps, NULL, 0, bank->seq_no, true);
-+
-+	return 0;
++	kfree(bps);
++	return ret;
 +}
 +
-+static int convert_eeprom_record_to_nps_addr(struct ras_core_context *ras_core,
-+			struct eeprom_umc_record *record, uint64_t *pa, uint32_t nps)
++/*
++ * write error record array to eeprom, the function should be
++ * protected by recovery_lock
++ * new_cnt: new added UE count, excluding reserved bad pages, can be NULL
++ */
++static int ras_umc_save_bad_pages(struct ras_core_context *ras_core)
 +{
-+	struct device_system_info dev_info = {0};
-+	struct umc_mca_addr addr_in;
-+	struct umc_phy_addr addr_out;
-+	int ret;
-+
-+	memset(&addr_in, 0, sizeof(addr_in));
-+	memset(&addr_out, 0, sizeof(addr_out));
-+
-+	ras_core_get_device_system_info(ras_core, &dev_info);
-+
-+	addr_in.err_addr = record->address;
-+	addr_in.ch_inst = record->mem_channel;
-+	addr_in.umc_inst = record->mcumc_id;
-+	addr_in.node_inst = UMC_INV_AID_NODE;
-+	addr_in.socket_id = dev_info.socket_id;
-+
-+	ret = convert_ma_to_pa(ras_core, &addr_in, &addr_out, nps);
-+	if (ret)
-+		return ret;
-+
-+	*pa = convert_nps_pa_to_row_pa(ras_core, addr_out.pa, nps, false);
-+
-+	return 0;
-+}
-+
-+static int umc_v12_0_eeprom_record_to_nps_record(struct ras_core_context *ras_core,
-+				struct eeprom_umc_record *record, uint32_t nps)
-+{
-+	uint64_t pa = 0;
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct eeprom_store_record *data = &ras_umc->umc_err_data.rom_data;
++	uint32_t eeprom_record_num;
++	int save_count;
 +	int ret = 0;
 +
-+	if (nps == EEPROM_RECORD_UMC_NPS_MODE(record)) {
-+		record->cur_nps_retired_row_pfn = EEPROM_RECORD_UMC_ADDR_PFN(record);
-+	} else {
-+		ret = convert_eeprom_record_to_nps_addr(ras_core,
-+				record, &pa, nps);
-+		if (!ret)
-+			record->cur_nps_retired_row_pfn = RAS_ADDR_TO_PFN(pa);
++	if (!data->bps)
++		return 0;
++
++	eeprom_record_num = ras_eeprom_get_record_count(ras_core);
++	mutex_lock(&ras_umc->umc_lock);
++	save_count = data->count - eeprom_record_num;
++	/* only new entries are saved */
++	if (save_count > 0) {
++		if (ras_eeprom_append(ras_core,
++					   &data->bps[eeprom_record_num],
++					   save_count)) {
++			RAS_DEV_ERR(ras_core->dev, "Failed to save EEPROM table data!");
++			ret = -EIO;
++			goto exit;
++		}
++
++		RAS_DEV_INFO(ras_core->dev, "Saved %d pages to EEPROM table.\n", save_count);
 +	}
 +
-+	record->cur_nps = nps;
++exit:
++	mutex_unlock(&ras_umc->umc_lock);
++	return ret;
++}
++
++int ras_umc_handle_bad_pages(struct ras_core_context *ras_core, void *data)
++{
++	struct eeprom_umc_record records[MAX_ECC_NUM_PER_RETIREMENT];
++	int count, ret;
++
++	memset(records, 0, sizeof(records));
++	count = ras_umc_get_new_records(ras_core, records, ARRAY_SIZE(records));
++	if (count <= 0)
++		return -ENODATA;
++
++	ret = ras_umc_add_bad_pages(ras_core, records, count, false);
++	if (ret) {
++		RAS_DEV_ERR(ras_core->dev, "Failed to add ras bad page!\n");
++		return -EINVAL;
++	}
++
++	ret = ras_umc_save_bad_pages(ras_core);
++	if (ret) {
++		RAS_DEV_ERR(ras_core->dev, "Failed to save ras bad page\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++int ras_umc_sw_init(struct ras_core_context *ras_core)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++
++	memset(ras_umc, 0, sizeof(*ras_umc));
++
++	INIT_LIST_HEAD(&ras_umc->pending_ecc_list);
++
++	INIT_RADIX_TREE(&ras_umc->root, GFP_KERNEL);
++
++	mutex_init(&ras_umc->tree_lock);
++	mutex_init(&ras_umc->pending_ecc_lock);
++	mutex_init(&ras_umc->umc_lock);
++	mutex_init(&ras_umc->bank_log_lock);
++
++	return 0;
++}
++
++int ras_umc_sw_fini(struct ras_core_context *ras_core)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct ras_umc_err_data *umc_err_data = &ras_umc->umc_err_data;
++	struct ras_bank_ecc_node *ecc_node, *tmp;
++
++	mutex_destroy(&ras_umc->umc_lock);
++	mutex_destroy(&ras_umc->bank_log_lock);
++
++	if (umc_err_data->rom_data.bps) {
++		umc_err_data->rom_data.count = 0;
++		kfree(umc_err_data->rom_data.bps);
++		umc_err_data->rom_data.bps = NULL;
++		umc_err_data->rom_data.space_left = 0;
++	}
++
++	if (umc_err_data->ram_data.bps) {
++		umc_err_data->ram_data.count = 0;
++		kfree(umc_err_data->ram_data.bps);
++		umc_err_data->ram_data.bps = NULL;
++		umc_err_data->ram_data.space_left = 0;
++	}
++
++	ras_umc_clear_logged_ecc(ras_core);
++
++	mutex_lock(&ras_umc->pending_ecc_lock);
++	list_for_each_entry_safe(ecc_node,
++		tmp, &ras_umc->pending_ecc_list, node){
++		list_del(&ecc_node->node);
++		kfree(ecc_node);
++	}
++	mutex_unlock(&ras_umc->pending_ecc_lock);
++
++	mutex_destroy(&ras_umc->tree_lock);
++	mutex_destroy(&ras_umc->pending_ecc_lock);
++
++	return 0;
++}
++
++int ras_umc_hw_init(struct ras_core_context *ras_core)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	uint32_t nps;
++
++	nps = ras_core_get_curr_nps_mode(ras_core);
++
++	if (!nps || (nps >= UMC_MEMORY_PARTITION_MODE_UNKNOWN)) {
++		RAS_DEV_ERR(ras_core->dev, "Invalid memory NPS mode: %u!\n", nps);
++		return -ENODATA;
++	}
++
++	ras_umc->umc_err_data.umc_nps_mode = nps;
++
++	ras_umc->umc_vram_type = ras_core->config->umc_cfg.umc_vram_type;
++	if (!ras_umc->umc_vram_type) {
++		RAS_DEV_ERR(ras_core->dev, "Invalid UMC VRAM Type: %u!\n",
++			ras_umc->umc_vram_type);
++		return -ENODATA;
++	}
++
++	ras_umc->umc_ip_version = ras_core->config->umc_ip_version;
++	ras_umc->ip_func = ras_umc_get_ip_func(ras_core, ras_umc->umc_ip_version);
++	if (!ras_umc->ip_func)
++		return -EINVAL;
++
++	return 0;
++}
++
++int ras_umc_hw_fini(struct ras_core_context *ras_core)
++{
++	return 0;
++}
++
++int ras_umc_clean_badpage_data(struct ras_core_context *ras_core)
++{
++	struct ras_umc_err_data *data = &ras_core->ras_umc.umc_err_data;
++
++	mutex_lock(&ras_core->ras_umc.umc_lock);
++
++	kfree(data->rom_data.bps);
++	kfree(data->ram_data.bps);
++
++	memset(data, 0, sizeof(*data));
++	mutex_unlock(&ras_core->ras_umc.umc_lock);
++
++	return 0;
++}
++
++int ras_umc_fill_eeprom_record(struct ras_core_context *ras_core,
++		uint64_t err_addr, uint32_t umc_inst, struct umc_phy_addr *cur_nps_addr,
++		enum umc_memory_partition_mode cur_nps, struct eeprom_umc_record *record)
++{
++	struct eeprom_umc_record *err_rec = record;
++
++	/* Set bad page pfn and nps mode */
++	EEPROM_RECORD_SETUP_UMC_ADDR_AND_NPS(err_rec,
++			RAS_ADDR_TO_PFN(cur_nps_addr->pa), cur_nps);
++
++	err_rec->address = err_addr;
++	err_rec->ts = ras_umc_get_eeprom_timestamp(ras_core);
++	err_rec->err_type = RAS_EEPROM_ERR_NON_RECOVERABLE;
++	err_rec->cu = 0;
++	err_rec->mem_channel = cur_nps_addr->channel_idx;
++	err_rec->mcumc_id = umc_inst;
++	err_rec->cur_nps_retired_row_pfn = RAS_ADDR_TO_PFN(cur_nps_addr->pa);
++	err_rec->cur_nps_bank = cur_nps_addr->bank;
++	err_rec->cur_nps = cur_nps;
++	return 0;
++}
++
++int ras_umc_get_saved_eeprom_count(struct ras_core_context *ras_core)
++{
++	struct ras_umc_err_data *err_data = &ras_core->ras_umc.umc_err_data;
++
++	return err_data->rom_data.count;
++}
++
++int ras_umc_get_badpage_count(struct ras_core_context *ras_core)
++{
++	struct eeprom_store_record *data = &ras_core->ras_umc.umc_err_data.ram_data;
++
++	return data->count;
++}
++
++int ras_umc_get_badpage_record(struct ras_core_context *ras_core, uint32_t index, void *record)
++{
++	struct eeprom_store_record *data = &ras_core->ras_umc.umc_err_data.ram_data;
++
++	if (index >= data->count)
++		return -EINVAL;
++
++	memcpy(record, &data->bps[index], sizeof(struct eeprom_umc_record));
++	return 0;
++}
++
++bool ras_umc_check_retired_addr(struct ras_core_context *ras_core, uint64_t addr)
++{
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	struct eeprom_store_record *data = &ras_umc->umc_err_data.ram_data;
++	uint64_t page_pfn = RAS_ADDR_TO_PFN(addr);
++	int i, ret = false;
++
++	mutex_lock(&ras_umc->umc_lock);
++	for (i = 0; i < data->count; i++) {
++		if (data->bps[i].cur_nps_retired_row_pfn == page_pfn) {
++			ret = true;
++			break;
++		}
++	}
++	mutex_unlock(&ras_umc->umc_lock);
 +
 +	return ret;
 +}
 +
-+static int umc_v12_0_eeprom_record_to_nps_pages(struct ras_core_context *ras_core,
-+			struct eeprom_umc_record *record, uint32_t nps,
-+			uint64_t *pfns, uint32_t num)
++int ras_umc_translate_soc_pa_and_bank(struct ras_core_context *ras_core,
++	uint64_t *soc_pa, struct umc_bank_addr *bank_addr, bool bank_to_pa)
 +{
-+	return lookup_bad_pages_in_a_row(ras_core,
-+				record, nps, pfns, num, 0, false);
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	int ret = 0;
++
++	if (bank_to_pa)
++		ret = ras_umc->ip_func->bank_to_soc_pa(ras_core, *bank_addr, soc_pa);
++	else
++		ret = ras_umc->ip_func->soc_pa_to_bank(ras_core, *soc_pa, bank_addr);
++
++	return ret;
 +}
-+
-+static int umc_12_0_soc_pa_to_bank(struct ras_core_context *ras_core,
-+			uint64_t soc_pa,
-+			struct umc_bank_addr *bank_addr)
-+{
-+
-+	int channel_hashed = 0;
-+	int channel_real = 0;
-+	int channel_reversed = 0;
-+	int i = 0;
-+
-+	bank_addr->stack_id = UMC_V12_0_SOC_PA_TO_SID(soc_pa);
-+	bank_addr->bank_group = 0; /* This is a combination of SID & Bank. Needed?? */
-+	bank_addr->bank = UMC_V12_0_SOC_PA_TO_BANK(soc_pa);
-+	bank_addr->row = UMC_V12_0_SOC_PA_TO_ROW(soc_pa);
-+	bank_addr->column = UMC_V12_0_SOC_PA_TO_COL(soc_pa);
-+
-+	/* Channel bits 4-6 are hashed. Bruteforce reverse the hash */
-+	channel_hashed = (soc_pa >> UMC_V12_0_PA_CH4_BIT) & 0x7;
-+
-+	for (i = 0; i < 8; i++) {
-+		channel_reversed = 0;
-+		channel_reversed |= UMC_V12_0_CHANNEL_HASH_CH4((i << 4), soc_pa);
-+		channel_reversed |= (UMC_V12_0_CHANNEL_HASH_CH5((i << 4), soc_pa) << 1);
-+		channel_reversed |= (UMC_V12_0_CHANNEL_HASH_CH6((i << 4), soc_pa) << 2);
-+		if (channel_reversed == channel_hashed)
-+			channel_real = ((i << 4)) | ((soc_pa >> UMC_V12_0_PA_CH0_BIT) & 0xf);
-+	}
-+
-+	bank_addr->channel = channel_real;
-+	bank_addr->subchannel = UMC_V12_0_SOC_PA_TO_PC(soc_pa);
-+
-+	return 0;
-+}
-+
-+static int umc_12_0_bank_to_soc_pa(struct ras_core_context *ras_core,
-+			struct umc_bank_addr bank_addr,
-+			uint64_t *soc_pa)
-+{
-+	uint64_t na = 0;
-+	uint64_t tmp_pa = 0;
-+	*soc_pa = 0;
-+
-+	tmp_pa |= UMC_V12_0_SOC_SID_TO_PA(bank_addr.stack_id);
-+	tmp_pa |= UMC_V12_0_SOC_BANK_TO_PA(bank_addr.bank);
-+	tmp_pa |= UMC_V12_0_SOC_ROW_TO_PA(bank_addr.row);
-+	tmp_pa |= UMC_V12_0_SOC_COL_TO_PA(bank_addr.column);
-+	tmp_pa |= UMC_V12_0_SOC_CH_TO_PA(bank_addr.channel);
-+	tmp_pa |= UMC_V12_0_SOC_PC_TO_PA(bank_addr.subchannel);
-+
-+	/* Get the NA */
-+	na = ((tmp_pa >> UMC_V12_0_PA_C2_BIT) << UMC_V12_0_NA_C2_BIT);
-+	na |= tmp_pa & 0xff;
-+
-+	/* translate umc channel address to soc pa, 3 parts are included */
-+	tmp_pa = ADDR_OF_32KB_BLOCK(na) |
-+		ADDR_OF_256B_BLOCK(bank_addr.channel) |
-+		OFFSET_IN_256B_BLOCK(na);
-+
-+	/* the umc channel bits are not original values, they are hashed */
-+	UMC_V12_0_SET_CHANNEL_HASH(bank_addr.channel, tmp_pa);
-+
-+	*soc_pa = tmp_pa;
-+
-+	return 0;
-+}
-+
-+const struct ras_umc_ip_func ras_umc_func_v12_0 = {
-+	.bank_to_eeprom_record = umc_v12_0_bank_to_eeprom_record,
-+	.eeprom_record_to_nps_record = umc_v12_0_eeprom_record_to_nps_record,
-+	.eeprom_record_to_nps_pages = umc_v12_0_eeprom_record_to_nps_pages,
-+	.bank_to_soc_pa = umc_12_0_bank_to_soc_pa,
-+	.soc_pa_to_bank = umc_12_0_soc_pa_to_bank,
-+};
-+
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h b/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h b/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
 new file mode 100644
-index 000000000000..8a35ad856165
+index 000000000000..7d9e779d8c4c
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h
-@@ -0,0 +1,314 @@
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
+@@ -0,0 +1,166 @@
 +/* SPDX-License-Identifier: MIT */
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
@@ -691,297 +887,149 @@ index 000000000000..8a35ad856165
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
-+#ifndef __RAS_UMC_V12_0_H__
-+#define __RAS_UMC_V12_0_H__
++
++#ifndef __RAS_UMC_H__
++#define __RAS_UMC_H__
 +#include "ras.h"
++#include "ras_eeprom.h"
++#include "ras_cmd.h"
 +
-+/* MCA_UMC_UMC0_MCUMC_ADDRT0 */
-+#define MCA_UMC_UMC0_MCUMC_ADDRT0__ErrorAddr__SHIFT                0x0
-+#define MCA_UMC_UMC0_MCUMC_ADDRT0__Reserved__SHIFT                 0x38
-+#define MCA_UMC_UMC0_MCUMC_ADDRT0__ErrorAddr_MASK                  0x00FFFFFFFFFFFFFFL
-+#define MCA_UMC_UMC0_MCUMC_ADDRT0__Reserved_MASK                   0xFF00000000000000L
++#define UMC_VRAM_TYPE_UNKNOWN 0
++#define UMC_VRAM_TYPE_GDDR1   1
++#define UMC_VRAM_TYPE_DDR2    2
++#define UMC_VRAM_TYPE_GDDR3   3
++#define UMC_VRAM_TYPE_GDDR4   4
++#define UMC_VRAM_TYPE_GDDR5   5
++#define UMC_VRAM_TYPE_HBM     6
++#define UMC_VRAM_TYPE_DDR3    7
++#define UMC_VRAM_TYPE_DDR4    8
++#define UMC_VRAM_TYPE_GDDR6   9
++#define UMC_VRAM_TYPE_DDR5    10
++#define UMC_VRAM_TYPE_LPDDR4  11
++#define UMC_VRAM_TYPE_LPDDR5  12
++#define UMC_VRAM_TYPE_HBM3E   13
 +
-+/* MCMP1_IPIDT0 */
-+#define MCMP1_IPIDT0__InstanceIdLo__SHIFT                          0x0
-+#define MCMP1_IPIDT0__HardwareID__SHIFT                            0x20
-+#define MCMP1_IPIDT0__InstanceIdHi__SHIFT                          0x2c
-+#define MCMP1_IPIDT0__McaType__SHIFT                               0x30
++#define UMC_ECC_NEW_DETECTED_TAG       0x1
++#define UMC_INV_MEM_PFN  (0xFFFFFFFFFFFFFFFF)
 +
-+#define MCMP1_IPIDT0__InstanceIdLo_MASK                            0x00000000FFFFFFFFL
-+#define MCMP1_IPIDT0__HardwareID_MASK                              0x00000FFF00000000L
-+#define MCMP1_IPIDT0__InstanceIdHi_MASK                            0x0000F00000000000L
-+#define MCMP1_IPIDT0__McaType_MASK                                 0xFFFF000000000000L
-+
-+/* number of umc channel instance with memory map register access */
-+#define UMC_V12_0_CHANNEL_INSTANCE_NUM		8
-+/* number of umc instance with memory map register access */
-+#define UMC_V12_0_UMC_INSTANCE_NUM		4
-+
-+/* one piece of normalized address is mapped to 8 pieces of physical address */
-+#define UMC_V12_0_NA_MAP_PA_NUM        8
-+
-+/* bank bits in MCA error address */
-+#define UMC_V12_0_MCA_B0_BIT 6
-+#define UMC_V12_0_MCA_B1_BIT 7
-+#define UMC_V12_0_MCA_B2_BIT 8
-+#define UMC_V12_0_MCA_B3_BIT 9
-+
-+/* row bits in MCA address */
-+#define UMC_V12_0_MCA_R0_BIT 10
-+
-+/* Stack ID bits in SOC physical address */
-+#define UMC_V12_0_PA_SID1_BIT 37
-+#define UMC_V12_0_PA_SID0_BIT 36
-+
-+/* bank bits in SOC physical address */
-+#define UMC_V12_0_PA_B3_BIT 18
-+#define UMC_V12_0_PA_B2_BIT 17
-+#define UMC_V12_0_PA_B1_BIT 20
-+#define UMC_V12_0_PA_B0_BIT 19
-+
-+/* row bits in SOC physical address */
-+#define UMC_V12_0_PA_R13_BIT 35
-+#define UMC_V12_0_PA_R12_BIT 34
-+#define UMC_V12_0_PA_R11_BIT 33
-+#define UMC_V12_0_PA_R10_BIT 32
-+#define UMC_V12_0_PA_R9_BIT 31
-+#define UMC_V12_0_PA_R8_BIT 30
-+#define UMC_V12_0_PA_R7_BIT 29
-+#define UMC_V12_0_PA_R6_BIT 28
-+#define UMC_V12_0_PA_R5_BIT 27
-+#define UMC_V12_0_PA_R4_BIT 26
-+#define UMC_V12_0_PA_R3_BIT 25
-+#define UMC_V12_0_PA_R2_BIT 24
-+#define UMC_V12_0_PA_R1_BIT 23
-+#define UMC_V12_0_PA_R0_BIT 22
-+
-+/* column bits in SOC physical address */
-+#define UMC_V12_0_PA_C4_BIT 21
-+#define UMC_V12_0_PA_C3_BIT 16
-+#define UMC_V12_0_PA_C2_BIT 15
-+#define UMC_V12_0_PA_C1_BIT 6
-+#define UMC_V12_0_PA_C0_BIT 5
-+
-+/* channel index bits in SOC physical address */
-+#define UMC_V12_0_PA_CH6_BIT 14
-+#define UMC_V12_0_PA_CH5_BIT 13
-+#define UMC_V12_0_PA_CH4_BIT 12
-+#define UMC_V12_0_PA_CH3_BIT 11
-+#define UMC_V12_0_PA_CH2_BIT 10
-+#define UMC_V12_0_PA_CH1_BIT 9
-+#define UMC_V12_0_PA_CH0_BIT 8
-+
-+/* Pseudochannel index bits in SOC physical address */
-+#define UMC_V12_0_PA_PC0_BIT 7
-+
-+#define UMC_V12_0_NA_C2_BIT 8
-+
-+#define UMC_V12_0_SOC_PA_TO_SID(pa) \
-+	((((pa >> UMC_V12_0_PA_SID0_BIT) & 0x1ULL) << 0ULL) | \
-+	 (((pa >> UMC_V12_0_PA_SID1_BIT) & 0x1ULL) << 1ULL))
-+
-+#define UMC_V12_0_SOC_PA_TO_BANK(pa) \
-+	((((pa >> UMC_V12_0_PA_B0_BIT) & 0x1ULL) << 0ULL) | \
-+	 (((pa >> UMC_V12_0_PA_B1_BIT) & 0x1ULL) << 1ULL) | \
-+	 (((pa >> UMC_V12_0_PA_B2_BIT) & 0x1ULL) << 2ULL) | \
-+	 (((pa >> UMC_V12_0_PA_B3_BIT) & 0x1ULL) << 3ULL))
-+
-+#define UMC_V12_0_SOC_PA_TO_ROW(pa) \
-+	((((pa >> UMC_V12_0_PA_R0_BIT) & 0x1ULL) << 0ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R1_BIT) & 0x1ULL) << 1ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R2_BIT) & 0x1ULL) << 2ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R3_BIT) & 0x1ULL) << 3ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R4_BIT) & 0x1ULL) << 4ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R5_BIT) & 0x1ULL) << 5ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R6_BIT) & 0x1ULL) << 6ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R7_BIT) & 0x1ULL) << 7ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R8_BIT) & 0x1ULL) << 8ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R9_BIT) & 0x1ULL) << 9ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R10_BIT) & 0x1ULL) << 10ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R11_BIT) & 0x1ULL) << 11ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R12_BIT) & 0x1ULL) << 12ULL) | \
-+	 (((pa >> UMC_V12_0_PA_R13_BIT) & 0x1ULL) << 13ULL))
-+
-+#define UMC_V12_0_SOC_PA_TO_COL(pa) \
-+	((((pa >> UMC_V12_0_PA_C0_BIT) & 0x1ULL) << 0ULL) | \
-+	 (((pa >> UMC_V12_0_PA_C1_BIT) & 0x1ULL) << 1ULL) | \
-+	 (((pa >> UMC_V12_0_PA_C2_BIT) & 0x1ULL) << 2ULL) | \
-+	 (((pa >> UMC_V12_0_PA_C3_BIT) & 0x1ULL) << 3ULL) | \
-+	 (((pa >> UMC_V12_0_PA_C4_BIT) & 0x1ULL) << 4ULL))
-+
-+#define UMC_V12_0_SOC_PA_TO_CH(pa) \
-+	((((pa >> UMC_V12_0_PA_CH0_BIT) & 0x1ULL) << 0ULL) | \
-+	 (((pa >> UMC_V12_0_PA_CH1_BIT) & 0x1ULL) << 1ULL) | \
-+	 (((pa >> UMC_V12_0_PA_CH2_BIT) & 0x1ULL) << 2ULL) | \
-+	 (((pa >> UMC_V12_0_PA_CH3_BIT) & 0x1ULL) << 3ULL) | \
-+	 (((pa >> UMC_V12_0_PA_CH4_BIT) & 0x1ULL) << 4ULL) | \
-+	 (((pa >> UMC_V12_0_PA_CH5_BIT) & 0x1ULL) << 5ULL) | \
-+	 (((pa >> UMC_V12_0_PA_CH6_BIT) & 0x1ULL) << 6ULL))
-+
-+#define UMC_V12_0_SOC_PA_TO_PC(pa) (((pa >> UMC_V12_0_PA_PC0_BIT) & 0x1ULL) << 0ULL)
-+
-+#define UMC_V12_0_SOC_SID_TO_PA(sid) \
-+	((((sid >> 0ULL) & 0x1ULL) << UMC_V12_0_PA_SID0_BIT) | \
-+	 (((sid >> 1ULL) & 0x1ULL) << UMC_V12_0_PA_SID1_BIT))
-+
-+#define UMC_V12_0_SOC_BANK_TO_PA(bank) \
-+	((((bank >> 0ULL) & 0x1ULL) << UMC_V12_0_PA_B0_BIT) | \
-+	 (((bank >> 1ULL) & 0x1ULL) << UMC_V12_0_PA_B1_BIT) | \
-+	 (((bank >> 2ULL) & 0x1ULL) << UMC_V12_0_PA_B2_BIT) | \
-+	 (((bank >> 3ULL) & 0x1ULL) << UMC_V12_0_PA_B3_BIT))
-+
-+#define UMC_V12_0_SOC_ROW_TO_PA(row) \
-+	((((row >> 0ULL) & 0x1ULL) << UMC_V12_0_PA_R0_BIT) | \
-+	 (((row >> 1ULL) & 0x1ULL) << UMC_V12_0_PA_R1_BIT) | \
-+	 (((row >> 2ULL) & 0x1ULL) << UMC_V12_0_PA_R2_BIT) | \
-+	 (((row >> 3ULL) & 0x1ULL) << UMC_V12_0_PA_R3_BIT) | \
-+	 (((row >> 4ULL) & 0x1ULL) << UMC_V12_0_PA_R4_BIT) | \
-+	 (((row >> 5ULL) & 0x1ULL) << UMC_V12_0_PA_R5_BIT) | \
-+	 (((row >> 6ULL) & 0x1ULL) << UMC_V12_0_PA_R6_BIT) | \
-+	 (((row >> 7ULL) & 0x1ULL) << UMC_V12_0_PA_R7_BIT) | \
-+	 (((row >> 8ULL) & 0x1ULL) << UMC_V12_0_PA_R8_BIT) | \
-+	 (((row >> 9ULL) & 0x1ULL) << UMC_V12_0_PA_R9_BIT) | \
-+	 (((row >> 10ULL) & 0x1ULL) << UMC_V12_0_PA_R10_BIT) | \
-+	 (((row >> 11ULL) & 0x1ULL) << UMC_V12_0_PA_R11_BIT) | \
-+	 (((row >> 12ULL) & 0x1ULL) << UMC_V12_0_PA_R12_BIT) | \
-+	 (((row >> 13ULL) & 0x1ULL) << UMC_V12_0_PA_R13_BIT))
-+
-+#define UMC_V12_0_SOC_COL_TO_PA(col) \
-+	((((col >> 0ULL) & 0x1ULL) << UMC_V12_0_PA_C0_BIT) | \
-+	 (((col >> 1ULL) & 0x1ULL) << UMC_V12_0_PA_C1_BIT) | \
-+	 (((col >> 2ULL) & 0x1ULL) << UMC_V12_0_PA_C2_BIT) | \
-+	 (((col >> 3ULL) & 0x1ULL) << UMC_V12_0_PA_C3_BIT) | \
-+	 (((col >> 4ULL) & 0x1ULL) << UMC_V12_0_PA_C4_BIT))
-+
-+#define UMC_V12_0_SOC_CH_TO_PA(ch) \
-+	((((ch >> 0ULL) & 0x1ULL) << UMC_V12_0_PA_CH0_BIT) | \
-+	 (((ch >> 1ULL) & 0x1ULL) << UMC_V12_0_PA_CH1_BIT) | \
-+	 (((ch >> 2ULL) & 0x1ULL) << UMC_V12_0_PA_CH2_BIT) | \
-+	 (((ch >> 3ULL) & 0x1ULL) << UMC_V12_0_PA_CH3_BIT) | \
-+	 (((ch >> 4ULL) & 0x1ULL) << UMC_V12_0_PA_CH4_BIT) | \
-+	 (((ch >> 5ULL) & 0x1ULL) << UMC_V12_0_PA_CH5_BIT) | \
-+	 (((ch >> 6ULL) & 0x1ULL) << UMC_V12_0_PA_CH6_BIT))
-+
-+#define UMC_V12_0_SOC_PC_TO_PA(pc) (((pc >> 0ULL) & 0x1ULL) << UMC_V12_0_PA_PC0_BIT)
-+
-+/* bank hash settings */
-+#define UMC_V12_0_XOR_EN0 1
-+#define UMC_V12_0_XOR_EN1 1
-+#define UMC_V12_0_XOR_EN2 1
-+#define UMC_V12_0_XOR_EN3 1
-+#define UMC_V12_0_COL_XOR0 0x0
-+#define UMC_V12_0_COL_XOR1 0x0
-+#define UMC_V12_0_COL_XOR2 0x800
-+#define UMC_V12_0_COL_XOR3 0x1000
-+#define UMC_V12_0_ROW_XOR0 0x11111
-+#define UMC_V12_0_ROW_XOR1 0x22222
-+#define UMC_V12_0_ROW_XOR2 0x4444
-+#define UMC_V12_0_ROW_XOR3 0x8888
-+
-+/* channel hash settings */
-+#define UMC_V12_0_HASH_4K 0
-+#define UMC_V12_0_HASH_64K 1
-+#define UMC_V12_0_HASH_2M 1
-+#define UMC_V12_0_HASH_1G 1
-+#define UMC_V12_0_HASH_1T 1
-+
-+/* XOR some bits of PA into CH4~CH6 bits (bits 12~14 of PA),
-+ * hash bit is only effective when related setting is enabled
++/* three column bits and one row bit in MCA address flip
++ * in bad page retirement
 + */
-+#define UMC_V12_0_CHANNEL_HASH_CH4(channel_idx, pa) ((((channel_idx) >> 5) & 0x1) ^ \
-+				(((pa)  >> 20) & 0x1ULL & UMC_V12_0_HASH_64K) ^ \
-+				(((pa)  >> 27) & 0x1ULL & UMC_V12_0_HASH_2M) ^ \
-+				(((pa)  >> 34) & 0x1ULL & UMC_V12_0_HASH_1G) ^ \
-+				(((pa)  >> 41) & 0x1ULL & UMC_V12_0_HASH_1T))
-+#define UMC_V12_0_CHANNEL_HASH_CH5(channel_idx, pa) ((((channel_idx) >> 6) & 0x1) ^ \
-+				(((pa)  >> 21) & 0x1ULL & UMC_V12_0_HASH_64K) ^ \
-+				(((pa)  >> 28) & 0x1ULL & UMC_V12_0_HASH_2M) ^ \
-+				(((pa)  >> 35) & 0x1ULL & UMC_V12_0_HASH_1G) ^ \
-+				(((pa)  >> 42) & 0x1ULL & UMC_V12_0_HASH_1T))
-+#define UMC_V12_0_CHANNEL_HASH_CH6(channel_idx, pa) ((((channel_idx) >> 4) & 0x1) ^ \
-+				(((pa)  >> 19) & 0x1ULL & UMC_V12_0_HASH_64K) ^ \
-+				(((pa)  >> 26) & 0x1ULL & UMC_V12_0_HASH_2M) ^ \
-+				(((pa)  >> 33) & 0x1ULL & UMC_V12_0_HASH_1G) ^ \
-+				(((pa)  >> 40) & 0x1ULL & UMC_V12_0_HASH_1T) ^ \
-+				(((pa)  >> 47) & 0x1ULL & UMC_V12_0_HASH_1T))
-+#define UMC_V12_0_SET_CHANNEL_HASH(channel_idx, pa) do { \
-+		(pa) &= ~(0x7ULL << UMC_V12_0_PA_CH4_BIT); \
-+		(pa) |= (UMC_V12_0_CHANNEL_HASH_CH4(channel_idx, pa) << UMC_V12_0_PA_CH4_BIT); \
-+		(pa) |= (UMC_V12_0_CHANNEL_HASH_CH5(channel_idx, pa) << UMC_V12_0_PA_CH5_BIT); \
-+		(pa) |= (UMC_V12_0_CHANNEL_HASH_CH6(channel_idx, pa) << UMC_V12_0_PA_CH6_BIT); \
-+	} while (0)
++#define UMC_PA_FLIP_BITS_NUM 4
 +
++enum umc_memory_partition_mode {
++	UMC_MEMORY_PARTITION_MODE_NONE = 0,
++	UMC_MEMORY_PARTITION_MODE_NPS1 = 1,
++	UMC_MEMORY_PARTITION_MODE_NPS2 = 2,
++	UMC_MEMORY_PARTITION_MODE_NPS3 = 3,
++	UMC_MEMORY_PARTITION_MODE_NPS4 = 4,
++	UMC_MEMORY_PARTITION_MODE_NPS6 = 6,
++	UMC_MEMORY_PARTITION_MODE_NPS8 = 8,
++	UMC_MEMORY_PARTITION_MODE_UNKNOWN
++};
 +
-+/*
-+ * (addr / 256) * 4096, the higher 26 bits in ErrorAddr
-+ * is the index of 4KB block
-+ */
-+#define ADDR_OF_4KB_BLOCK(addr)			(((addr) & ~0xffULL) << 4)
-+/*
-+ * (addr / 256) * 8192, the higher 26 bits in ErrorAddr
-+ * is the index of 8KB block
-+ */
-+#define ADDR_OF_8KB_BLOCK(addr)			(((addr) & ~0xffULL) << 5)
-+/*
-+ * (addr / 256) * 32768, the higher 26 bits in ErrorAddr
-+ * is the index of 8KB block
-+ */
-+#define ADDR_OF_32KB_BLOCK(addr)			(((addr) & ~0xffULL) << 7)
-+/* channel index is the index of 256B block */
-+#define ADDR_OF_256B_BLOCK(channel_index)	((channel_index) << 8)
-+/* offset in 256B block */
-+#define OFFSET_IN_256B_BLOCK(addr)		((addr) & 0xffULL)
++struct ras_core_context;
++struct ras_bank_ecc;
 +
++struct umc_flip_bits {
++	uint32_t flip_bits_in_pa[UMC_PA_FLIP_BITS_NUM];
++	uint32_t flip_row_bit;
++	uint32_t r13_in_pa;
++	uint32_t bit_num;
++};
 +
-+#define UMC_V12_ADDR_MASK_BAD_COLS(addr) \
-+	((addr) & ~((0x3ULL << UMC_V12_0_PA_C2_BIT) | \
-+			(0x1ULL << UMC_V12_0_PA_C4_BIT) | \
-+			(0x1ULL << UMC_V12_0_PA_R13_BIT)))
++struct umc_mca_addr {
++	uint64_t err_addr;
++	uint32_t ch_inst;
++	uint32_t umc_inst;
++	uint32_t node_inst;
++	uint32_t socket_id;
++};
 +
-+#define ACA_IPID_HI_2_UMC_AID(_ipid_hi) (((_ipid_hi) >> 2) & 0x3)
-+#define ACA_IPID_LO_2_UMC_CH(_ipid_lo)  \
-+	(((((_ipid_lo) >> 20) & 0x1) * 4) + (((_ipid_lo) >> 12) & 0xF))
-+#define ACA_IPID_LO_2_UMC_INST(_ipid_lo) (((_ipid_lo) >> 21) & 0x7)
++struct umc_phy_addr {
++	uint64_t pa;
++	uint32_t bank;
++	uint32_t channel_idx;
++};
 +
-+#define ACA_IPID_2_DIE_ID(ipid)  ((REG_GET_FIELD(ipid, MCMP1_IPIDT0, InstanceIdHi) >> 2) & 0x03)
-+#define ACA_IPID_2_UMC_CH(ipid) \
-+	(ACA_IPID_LO_2_UMC_CH(REG_GET_FIELD(ipid, MCMP1_IPIDT0, InstanceIdLo)))
++struct umc_bank_addr {
++	uint32_t stack_id; /* SID */
++	uint32_t bank_group;
++	uint32_t bank;
++	uint32_t row;
++	uint32_t column;
++	uint32_t channel;
++	uint32_t subchannel; /* Also called Pseudochannel (PC) */
++};
 +
-+#define ACA_IPID_2_UMC_INST(ipid) \
-+	(ACA_IPID_LO_2_UMC_INST(REG_GET_FIELD(ipid, MCMP1_IPIDT0, InstanceIdLo)))
++struct ras_umc_ip_func {
++	int (*bank_to_eeprom_record)(struct ras_core_context *ras_core,
++			struct ras_bank_ecc *bank, struct eeprom_umc_record *record);
++	int (*eeprom_record_to_nps_record)(struct ras_core_context *ras_core,
++			struct eeprom_umc_record *record, uint32_t nps);
++	int (*eeprom_record_to_nps_pages)(struct ras_core_context *ras_core,
++			struct eeprom_umc_record *record, uint32_t nps,
++			uint64_t *pfns, uint32_t num);
++	int (*bank_to_soc_pa)(struct ras_core_context *ras_core,
++			struct umc_bank_addr bank_addr, uint64_t *soc_pa);
++	int (*soc_pa_to_bank)(struct ras_core_context *ras_core,
++			uint64_t soc_pa, struct umc_bank_addr *bank_addr);
++};
 +
-+#define ACA_IPID_2_SOCKET_ID(ipid) \
-+	(((REG_GET_FIELD(ipid, MCMP1_IPIDT0, InstanceIdLo) & 0x1) << 2) | \
-+	 (REG_GET_FIELD(ipid, MCMP1_IPIDT0, InstanceIdHi) & 0x03))
++struct eeprom_store_record {
++	/* point to data records array */
++	struct eeprom_umc_record *bps;
++	/* the count of entries */
++	int count;
++	/* the space can place new entries */
++	int space_left;
++};
 +
-+#define ACA_ADDR_2_ERR_ADDR(addr) \
-+	REG_GET_FIELD(addr, MCA_UMC_UMC0_MCUMC_ADDRT0, ErrorAddr)
++struct ras_umc_err_data {
++	struct eeprom_store_record rom_data;
++	struct eeprom_store_record ram_data;
++	enum umc_memory_partition_mode umc_nps_mode;
++	uint64_t last_retired_pfn;
++};
 +
-+/* R13 bit shift should be considered, double the number */
-+#define UMC_V12_0_BAD_PAGE_NUM_PER_CHANNEL (UMC_V12_0_NA_MAP_PA_NUM * 2)
++struct ras_umc {
++	u32 umc_ip_version;
++	u32 umc_vram_type;
++	const struct ras_umc_ip_func *ip_func;
++	struct radix_tree_root root;
++	struct mutex  tree_lock;
++	struct mutex  umc_lock;
++	struct mutex  bank_log_lock;
++	struct mutex  pending_ecc_lock;
++	struct ras_umc_err_data umc_err_data;
++	struct list_head pending_ecc_list;
++};
 +
-+
-+/* C2, C3, C4, R13, four MCA bits are looped in page retirement */
-+#define UMC_V12_0_RETIRE_LOOP_BITS 4
-+
-+/* invalid node instance value */
-+#define UMC_INV_AID_NODE 0xffff
-+
-+#define UMC_V12_0_AID_NUM_MAX     4
-+#define UMC_V12_0_SOCKET_NUM_MAX  8
-+
-+#define UMC_V12_0_TOTAL_CHANNEL_NUM \
-+	(UMC_V12_0_AID_NUM_MAX * UMC_V12_0_UMC_INSTANCE_NUM * UMC_V12_0_CHANNEL_INSTANCE_NUM)
-+
-+/* one device has 192GB HBM */
-+#define SOCKET_LFB_SIZE   0x3000000000ULL
-+
-+extern const struct ras_umc_ip_func ras_umc_func_v12_0;
++int ras_umc_sw_init(struct ras_core_context *ras);
++int ras_umc_sw_fini(struct ras_core_context *ras);
++int ras_umc_hw_init(struct ras_core_context *ras);
++int ras_umc_hw_fini(struct ras_core_context *ras);
++int ras_umc_psp_convert_ma_to_pa(struct ras_core_context *ras_core,
++		struct umc_mca_addr *in, struct umc_phy_addr *out,
++		uint32_t nps);
++int ras_umc_handle_bad_pages(struct ras_core_context *ras_core, void *data);
++int ras_umc_log_bad_bank(struct ras_core_context *ras, struct ras_bank_ecc *bank);
++int ras_umc_log_bad_bank_pending(struct ras_core_context *ras_core, struct ras_bank_ecc *bank);
++int ras_umc_log_pending_bad_bank(struct ras_core_context *ras_core);
++int ras_umc_clear_logged_ecc(struct ras_core_context *ras_core);
++int ras_umc_load_bad_pages(struct ras_core_context *ras_core);
++int ras_umc_get_saved_eeprom_count(struct ras_core_context *ras_core);
++int ras_umc_clean_badpage_data(struct ras_core_context *ras_core);
++int ras_umc_fill_eeprom_record(struct ras_core_context *ras_core,
++		uint64_t err_addr, uint32_t umc_inst, struct umc_phy_addr *cur_nps_addr,
++		enum umc_memory_partition_mode cur_nps, struct eeprom_umc_record *record);
 +
 +int ras_umc_get_badpage_count(struct ras_core_context *ras_core);
 +int ras_umc_get_badpage_record(struct ras_core_context *ras_core, uint32_t index, void *record);
++bool ras_umc_check_retired_addr(struct ras_core_context *ras_core, uint64_t addr);
++int ras_umc_translate_soc_pa_and_bank(struct ras_core_context *ras_core,
++			uint64_t *soc_pa, struct umc_bank_addr *bank_addr, bool bank_to_pa);
 +#endif
-+
 -- 
 2.34.1
 
