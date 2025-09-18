@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46B29CA1013
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:52:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE932CAC597
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Sep 2025 20:52:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C17ED10E168;
-	Thu, 18 Sep 2025 20:52:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50E2A10E8FA;
+	Thu, 18 Sep 2025 20:52:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WpVdMwox";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BaDcXvnM";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84CD010E168
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 20:52:01 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-324e2c12f43so156617a91.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 13:52:01 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF51910E8FA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 20:52:55 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-32da2bd7044so200419a91.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Sep 2025 13:52:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758228721; x=1758833521; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758228775; x=1758833575; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vYRJeW51wxnLp76xdotE5IRncO/thDQ4oGxTQVUjSqw=;
- b=WpVdMwoxwIlpGCk3149Bzz3NxfCoJfp2QDBz0IVwJBE8GvyLI7cxnUp7dQioYX5Q0y
- Q27pTIJDGqMrUX6sl3gVs4ua6gaBlc35hFCg9PqDxREDQRH0jkwEw4rv6Onpm5hisqkz
- 7K9GHmG+iGTUIAv3NXYYTYtBARNbPY+gFOrEjxBNqKNGm+fP5vid3MSf7Ua5zOPcOeSQ
- Mk0LH/H8mLRr44+UeGxwyeJ8dRqUpFMDM4B2VMKGJLcCjBbd/UFpEpiUtUaLNBv4YT67
- AjFIQq8UCeZK91+LIL/WZXVf7hCb6e9XOa2rPNPyB4QiWZIYDES2iyOdQoE/eVsrCD0Y
- RAtg==
+ bh=8g1pL9AUUC8P/PFn+EXnHKvKiZ1cnYcbKqw+0fVegmk=;
+ b=BaDcXvnMb6+WnOyipynUrq6BxL61TU8E+ApIfEQApEx5YQP5fFRXvErdCJRchOWKde
+ 2BpU6hV3kLQogp0LlIDYMnVe1pFYb0zvHIdXLt918EE7SeYkpJnhymj3MDYwZAmNL5UV
+ MP4XcxSQNFrfNQ/9Q4vYUUeNru+w6MzwqaSF4K2Cs9kniNCsUZq1lCgSTWVqLAFB9KG4
+ 9ZkcUjjLxY6xHuBgayQUKnDqC//kfFehUQtmvVDLrIOMFabWuGc6S40vsIa+DzNGBUcr
+ zcQY/X1WodYNAtfZOiZQ9+xBBf4QJCRjO3pH4gqrFDBWMhsNkDeH/RBlvfxrYtiPgxOU
+ ARyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758228721; x=1758833521;
+ d=1e100.net; s=20230601; t=1758228775; x=1758833575;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vYRJeW51wxnLp76xdotE5IRncO/thDQ4oGxTQVUjSqw=;
- b=KB4rl7+CGg0peCjAFJjI2uQuwb57cEqQJY2sA5LfZwKEcjY3dtTop/mBFDeZPxZ4yb
- 9lRxl1tFykdJ1vNOuGbbs9lKdqlNS+LXHPSZNwmzdIXhrx8A3zcM4es93pk6H0UjG/OU
- ZH1SuuM6gfY1JBMxZESUFPk2FK235l6rk8vVbdAHpJNTzwvX65UZTt1wdnnW5JaT1Ouh
- UlJuorDF+qVatL+Nak8E2dZrv9xqHH2fd+jW+lgxjsVL00sCSNKVqMw+VKHpDIOIh7uh
- r13yEttSlgJXIvghi8mopwdjWKjTzs6MfGC115ssBNSc0xHB445jjeOgEhpVSOW31Fev
- 5erw==
-X-Gm-Message-State: AOJu0YwomIEuZMxUwXZBXEiBZDbrEgpD78o+XJJS370MjC3h0JPPBH9T
- MDqhQh37fOJkRxixgIWmB1j1JTh83bid6KqnfDYsibQsAbaGKIz3r+0u16aps9RJcP+Oc47T379
- 7sv9zrVaj/se+zeiWhqvpU/EQsZilHj4=
-X-Gm-Gg: ASbGnctQfFaTCWzREuK4tsixzSv52i3YohjYqHEhXjTnMv/SQ/aerwXO+CmyR30CyAS
- /NQBHHRk8XKDRPGDTItflTJxpqZKwu4fuQHd+oIx7ts2MD/zYxulMqDB94ynbG/iLE/0lyOmTq6
- OnV1OVXLkzKBINXNgti33sE7Dr4v66ARr2M6IQ8KRm/Eqw1h4GkkxTuhU8oGn+H5zJoXu3i2NBm
- FjHrpbHRPQpwjldkKJE/NI2XQ==
-X-Google-Smtp-Source: AGHT+IEhGoXdOO4CrmluJhpjfAnuxc0R0Nd62fwr7+OY+QoqWwvMfbRsBTrTBpuW8eQ7Bb/ZXePNYNfHHm4M7thJKOk=
-X-Received: by 2002:a17:90b:1809:b0:330:88d7:9620 with SMTP id
- 98e67ed59e1d1-33097fd448cmr586146a91.1.1758228720922; Thu, 18 Sep 2025
- 13:52:00 -0700 (PDT)
+ bh=8g1pL9AUUC8P/PFn+EXnHKvKiZ1cnYcbKqw+0fVegmk=;
+ b=OGTn1k1HF9w0REu6f61p01JhRAyAWb2XyzOwXQwU79oDHkLEAT4X4y4TdnXzglDYZV
+ e3qwFK0xFhroEWxzIRMl2rkpMrfZcvj/bisE+qSmwg6hfcdxlj6XU26PdALN3ohpr0xq
+ 8AqXFoSl80gYRQLtGKW6j4VsvARVojnXUJiHrynEivXDUjKIR1BlLKiHXg/PGgSKI+No
+ 3R+c5Mx/RCfnev/jqdzllo51UerHfC1mjIKVU62UDBhONW00SpcVxO5mS0NjgYCKbymX
+ z2b7Ez9SVIu0R3VF4UOf3efiQLJJX9rw/mlJvUq1NEfS3ZhZ1RVizCnD8j4h1M5YKcBm
+ B+KA==
+X-Gm-Message-State: AOJu0YwRDF71swAxtem9D/rtKdfj+jV2hOovgGAcWGYezyWzcFmX2FKF
+ Vd+WxlRad4U0YCtikrFMARlgdQaxHPTy/TXI5mKMBn+IH2BYVAUB/tDftiUyHAZb0VfR91ivNBa
+ piiChGj9ePDPtPFGMyQOks0aUQDPP1MqFDQ==
+X-Gm-Gg: ASbGncvT0QMx+1oUoC8CEJtbovlV3rAWlNgffuthDdD+D0jzCZwgKLD8ZsX8FEeo9FG
+ YcsJbvlM4mN/OMIoWbimJniC4d7oLTggC+uNd+inWYF7i8hzmFHsJ1hvNbfyFElC8eStFwSjrHL
+ vui3vre36ucJTQBZfF0OZuSf4WQ+hXHuDswkH1mPwcrn9c4OBqoPoV228FHt6i064wqM4L7Hstb
+ iV3/ocSDZv/MMTN8DCB5mOBIA==
+X-Google-Smtp-Source: AGHT+IFPep3/PAzjT9VTDe2hYMKHQBleyySKjukwHkdSxm1pJYt2JkablR7oBZNyfNfGvn1W8EDTutJv17TFd6nqd9w=
+X-Received: by 2002:a17:90b:1b49:b0:32e:8c14:5cfb with SMTP id
+ 98e67ed59e1d1-33097ff4c25mr478049a91.1.1758228775225; Thu, 18 Sep 2025
+ 13:52:55 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250918081815.2755437-1-Prike.Liang@amd.com>
- <20250918081815.2755437-7-Prike.Liang@amd.com>
-In-Reply-To: <20250918081815.2755437-7-Prike.Liang@amd.com>
+ <20250918081815.2755437-8-Prike.Liang@amd.com>
+In-Reply-To: <20250918081815.2755437-8-Prike.Liang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Sep 2025 16:51:49 -0400
-X-Gm-Features: AS18NWBvtDsQ3Oz3ZkUMsAVA1eRkdkBw4y6FbemqGgLJl_4Ty76OtkmdUJmuMgc
-Message-ID: <CADnq5_M7bp9_KuH=da7npTQjWZo58dotaeWMFF+ZEpEz35RCVA@mail.gmail.com>
-Subject: Re: [PATCH v3 07/10] drm/amdgpu: track the userq bo va for its obj
- management
+Date: Thu, 18 Sep 2025 16:52:43 -0400
+X-Gm-Features: AS18NWBfeje0ThhXSKAmHuMa36LtEuDI4YOiMk_USOJBjkPimc50Ar5iIkT6OCc
+Message-ID: <CADnq5_NrPoKtcW5nmrzjwfhCzakpP-RqirQxysLjO1oa905pcw@mail.gmail.com>
+Subject: Re: [PATCH v3 08/10] drm/amdgpu: keeping waiting userq fence
+ infinitely
 To: Prike Liang <Prike.Liang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian.Koenig@amd.com
@@ -83,67 +83,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 18, 2025 at 4:18=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+On Thu, Sep 18, 2025 at 5:14=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
 rote:
 >
-> Track the userq obj for its life time, and reference and
-> dereference the buffer flag at its creating and destroying
-> period.
+> Keeping waiting the userq fence infinitely untill
+> hang detection, and then suspend the hang queue and
+> set the fence error.
 >
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
 amd/amdgpu/amdgpu_userq.c
-> index 71cac54791c9..3c8f05a9e82d 100644
+> index 3c8f05a9e82d..5c918faca776 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -138,6 +138,22 @@ int amdgpu_userq_buffer_va_list_del(struct amdgpu_vm=
- *vm,
->         return -EINVAL;
+> @@ -193,7 +193,7 @@ amdgpu_userq_map_helper(struct amdgpu_userq_mgr *uq_m=
+gr,
+>         return r;
 >  }
 >
-> +static int amdgpu_userq_buffer_vas_list_cleanup(struct amdgpu_device *ad=
-ev,
-> +                               struct amdgpu_usermode_queue *queue)
-> +{
-> +       struct amdgpu_userq_va_cursor *va_cursor, *tmp;
-> +       int r;
-> +
-> +       list_for_each_entry_safe(va_cursor, tmp, &queue->userq_va_list, l=
-ist) {
-> +               r +=3D amdgpu_userq_buffer_va_list_del(queue->vm, va_curs=
-or->gpu_addr);
-> +               dev_dbg(adev->dev, "delete the userq:%p va:%llx r:%d\n",
-> +                       queue, va_cursor->gpu_addr, r);
-> +               list_del(&va_cursor->list);
-
-Move list_del() into the amdgpu_userq_buffer_va_list_del() and move
-the bo_reserve/unreserve() into this function.
-
-Alex
-
-> +               kfree(va_cursor);
-> +       }
-> +       return r;
-> +}
-> +
->  static int
->  amdgpu_userq_unmap_helper(struct amdgpu_userq_mgr *uq_mgr,
->                           struct amdgpu_usermode_queue *queue)
-> @@ -200,6 +216,8 @@ amdgpu_userq_cleanup(struct amdgpu_userq_mgr *uq_mgr,
->         struct amdgpu_device *adev =3D uq_mgr->adev;
->         const struct amdgpu_userq_funcs *uq_funcs =3D adev->userq_funcs[q=
-ueue->queue_type];
+> -static void
+> +static int
+>  amdgpu_userq_wait_for_last_fence(struct amdgpu_userq_mgr *uq_mgr,
+>                                  struct amdgpu_usermode_queue *queue)
+>  {
+> @@ -201,11 +201,16 @@ amdgpu_userq_wait_for_last_fence(struct amdgpu_user=
+q_mgr *uq_mgr,
+>         int ret;
 >
-> +       /* Drop the userq reference. */
-> +       amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
->         uq_funcs->mqd_destroy(uq_mgr, queue);
->         amdgpu_userq_fence_driver_free(queue);
->         idr_remove(&uq_mgr->userq_idr, queue_id);
+>         if (f && !dma_fence_is_signaled(f)) {
+> -               ret =3D dma_fence_wait_timeout(f, true, msecs_to_jiffies(=
+100));
+> -               if (ret <=3D 0)
+> +               ret =3D dma_fence_wait_timeout(f, true, MAX_SCHEDULE_TIME=
+OUT);
+> +               if (ret <=3D 0) {
+>                         drm_file_err(uq_mgr->file, "Timed out waiting for=
+ fence=3D%llu:%llu\n",
+>                                      f->context, f->seqno);
+> +                       queue->state =3D AMDGPU_USERQ_STATE_HUNG;
+> +                       return -ETIME;
+> +               }
+>         }
+> +
+> +       return ret;
+>  }
+>
+>  static void
 > --
 > 2.34.1
 >
