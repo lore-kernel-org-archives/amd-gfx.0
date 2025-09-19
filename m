@@ -4,77 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5581ECAC592
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 15:20:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2875CAC59A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 15:24:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBF6010EA39;
-	Fri, 19 Sep 2025 15:20:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3931610EA3D;
+	Fri, 19 Sep 2025 15:24:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PZ9t2fFo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ew/ByMXI";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31D0710EA39
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 15:20:52 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-45f31adf368so15848185e9.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 08:20:52 -0700 (PDT)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A746910EA3D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 15:24:10 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-b5235737aedso198607a12.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 08:24:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758295251; x=1758900051; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=XUNzm2y2m33f/1luH1mQKp6uRXVjAcVzBqklxYkIhoE=;
- b=PZ9t2fFoWhihcmoMekkLZV7AHdNNj7eCBd1fv0l9rYICaz90956Ob6hTeGi8d3euP/
- bBaOJ+gzXFG115PE1vgTmPk1nSMefLQhlxpAzDzRGx1Uh1Y7WnwgFR1LGnVx763BIOzt
- wAve60ky2tIQ6ha5XnpPiM3oMvjuwO0B2YziByaQImt5zWVK+bfN+meP8ZXjmFG+hHQl
- c6fpYgEhoqMHYdHPB/nw/iRczM7b9zZA1sM/mHG84T3mzdi06fDYlCv8MefZwBLGQ17k
- B9vRaorWTNuYs3MfvRDJtRPVYzsrUVkclKC3ab/clURIbRVWWOX6kXkNsVXit0/WmO/8
- itsw==
+ d=gmail.com; s=20230601; t=1758295450; x=1758900250; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=K9V0gvadl/KzXFcUUvAvurMTGmVEJiY1IcA5/CBzgz0=;
+ b=ew/ByMXIiPOLhqlIu0Titn4aZq7airg2SuCjWX8q4U1ZCiPz66NOeYvbR01pdz3RW2
+ 8tKrhkTHxQxSlahtXFAPdBiRBfgWNbwKCIZxoSwpswNoHPFwOTl9mBS+gXI5ML2SRJ8e
+ Yzoa57gCQqC41y1WncMb5eV5ys5fCBkKOIxtnlAj3qU2hamyPok2EgephNe/vP8nv5mA
+ Ay3G7YPqA5Q6/h+aGs+ZE6eYuiVY/VE+Vjk96b8huXjV21PNgtEaHTdwyMvteSOKf/OZ
+ mj6dyFESi7UADSEXTOseUYplmU0BuTkfBjtunRPD04FRZUiHwmJQ+id8duTdReiEEpLx
+ NV4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758295251; x=1758900051;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=XUNzm2y2m33f/1luH1mQKp6uRXVjAcVzBqklxYkIhoE=;
- b=AxiMZ7x/Ek3KxpB4FkKIvYcDrpAa5tK8bbkjGZLOGCPMwjHzboPzRl0t9gRQno52rS
- CpwVKYC2a+6owAeeY2jYib1321Ck3gCq6/xwAEQfl4BlStxpJQPnmpKdqNxzV/JG6/qP
- 6ekcG/A3MfNmf927PwLpmSh8HWn5TObNwolr/8K68vX+4erkFi4nBW+s1S2EAfRUVK4i
- HFEqWGjv4zo8BR/LSDO1PUFQAbschgfi7tJ01mm+3X8EUgGK0OoFp+opZjvaYgxlHlHT
- bV/vWtYWPrQP0D/k9hLMBOJVeLVyo3Oo+SetZYrXwjOMosaFpu8fOB4WWdgPmup+DE74
- /Y2w==
-X-Gm-Message-State: AOJu0YyOMFPNkldtPPPSTkQ2nXPQkuZkAZM/U3xGNuUC2zGXCUD+xBMR
- V1bUjncPT/E7YUk3pb5tKmw+1teAueJNRnpsINufCVE0g4YQN9qokL0VClBuYQ==
-X-Gm-Gg: ASbGnctaeYDHuZ6jhSe5cx+nBzB/+GLTHXvuWGwGoXb8gHy+HydIDQtqTtJVJTq2ddc
- HkCU1RcX4hfy0fjEyimsD5XFKdSVo2gpDieok6CpuOaqh12h6+N+cp4jFG026cz8K0iJqmyjK6+
- zsgtiiPG4WxVGR6dL4apR0FWqWN54k7aAaqdOQ7fh8u1IezLp32a0QB07O8GSTcCFds3dUbDR+z
- zW2eZ2n/OJ0uHyTOdibm9P1/8W2GP6hBYA4xofQhAVPiZ1UEZEWmwzWJmo/z1R0Y+zamwZ2dGZQ
- 5LP24aVpbsZvqoBcxr4gfbmZViUppEgSSQJA00SHoYAGMU50RqjsIkivYGAHntt2DclgwEE+Fs4
- WL+oNrsIBuh+fD16DX2nry3sgfstWaPzI2KgNrbBcHXmXnwN0LdtLlGY1Yl/eHQiCzPZMPWagte
- o=
-X-Google-Smtp-Source: AGHT+IGF71w0yANXCOsDouBI1SooDLwoWnOgW8por4l7GcP1es1Kyuhpt43QLYwvl/okKXVnCVGRlw==
-X-Received: by 2002:a05:600c:444d:b0:45f:31d8:4977 with SMTP id
- 5b1f17b1804b1-467ebbbfbd2mr35094515e9.30.1758295250195; 
- Fri, 19 Sep 2025 08:20:50 -0700 (PDT)
-Received: from [192.168.101.182] (catv-178-48-232-92.catv.fixed.one.hu.
- [178.48.232.92]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3ee07407ccasm8320144f8f.15.2025.09.19.08.20.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Sep 2025 08:20:49 -0700 (PDT)
-Message-ID: <45c57fda591a68d7acd5a872047f87becd9cad0a.camel@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Reject YUV422 encoding over DP on DCE
-From: timur.kristof@gmail.com
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- alex.hung@amd.com, 	harry.wentland@amd.com, siqueira@igalia.com
-Date: Fri, 19 Sep 2025 17:20:48 +0200
-In-Reply-To: <CADnq5_Pj43m4C2esgH5wVFfbq5rSehSeL-7NkdwHU0ByNSRdUg@mail.gmail.com>
-References: <20250919081419.9034-1-timur.kristof@gmail.com>
- <CADnq5_Pj43m4C2esgH5wVFfbq5rSehSeL-7NkdwHU0ByNSRdUg@mail.gmail.com>
+ d=1e100.net; s=20230601; t=1758295450; x=1758900250;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=K9V0gvadl/KzXFcUUvAvurMTGmVEJiY1IcA5/CBzgz0=;
+ b=aJMuTd/0/wOWa2qDJLySQEBDjo4Q0oVaP5PrNzsbPup3pmB7bfWzwe7VdKK81GWoj1
+ QWbkMWFlbgmYYK/p2mel6a/DpRBB5Tl9gqx8YOVOX+nlRzsiQSgGWK0glLaHXO0fsJ/9
+ ADkobrpsbdzsx6gsdIAQrgFwUoqvI8mRbn7hNNpGu4Km0YTvFojB43Ev4Nw163vCg1+g
+ rc42qa937fjLSMZEtki45dPueaaBKr19ic2se6GgXtDpk4BBW8PTaNlcouIPOKyhpz23
+ 5q5aG5wSo+R7EmNZdjY/jCjigCUF+PVp0tpBI6kvreLmcXy7GXkPWOYc22cB16ywHSHT
+ LRLw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVznsHsYqeU/5+vZph+uLU8FCUIVwS8ANfYvyEChdqXqIE4rHK9qSFwrqbhuEkyWATsFpbn7q+/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz5B5C7RYaQ0A1+l4jynmqLgkDWwsVVK8BzZH3yAMi2f+2LBAZQ
+ 2CYsNcKxb2zCKUvUvzUHykVN3Ylej27a56Lt84EMMwwuw89E7qyWG6cgFcyVmQTb+DZza+nAmGT
+ eqJoBuwLu4YCBKFRUJqTQWaPmeH4YQ+A=
+X-Gm-Gg: ASbGncvCL5c0G2YEWMMu2HCRrwbU8XFwXUXTOfG3nvW/xQAYpiFAaTO01YS+uCQlXMq
+ FKEaYIPq/k+y4egergFBjFE1R0d49Ljy0N8ND90yObtyld9FXJ1OMuaNBrObyW6adSaU6m41Gxp
+ vslrum3c7aaeKpBlSwJSUuV6n4YZ0OjwpXCKVnhg7nBIL8OQ6vxsgeufvH6vSqMxJpoVVxhZYwg
+ g42bNI=
+X-Google-Smtp-Source: AGHT+IFOBt/38SHTtZfyXcj7zNFb936/GoCI9dj+5gQWbjt43+esMby2oLz8fjIUMSGVi4sfZ7sUdH3Stxqlu+IaUmU=
+X-Received: by 2002:a17:90b:3ec9:b0:32e:74b6:4ef9 with SMTP id
+ 98e67ed59e1d1-33097c32ecfmr2647355a91.0.1758295449976; Fri, 19 Sep 2025
+ 08:24:09 -0700 (PDT)
+MIME-Version: 1.0
+References: <20250919122147.2538-1-christian.koenig@amd.com>
+ <20250919122147.2538-2-christian.koenig@amd.com>
+In-Reply-To: <20250919122147.2538-2-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 19 Sep 2025 11:23:58 -0400
+X-Gm-Features: AS18NWAABbh07JhqlJubypiLp3YLPX8-RGw-LttuYXBOXeHmQ1U8UdTGqXpkQqY
+Message-ID: <CADnq5_P8K27d3pG7vdtfmrf5dbKfA+sxZQyUvntoAUjvwekgfQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: revert "rework reserved VMID handling"
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: Alexander.Deucher@amd.com, James.Zhu@amd.com, srinivasan.shanmugam@amd.com,
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
-MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,102 +84,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-09-19 at 11:09 -0400, Alex Deucher wrote:
-> On Fri, Sep 19, 2025 at 4:14=E2=80=AFAM Timur Krist=C3=B3f
-> <timur.kristof@gmail.com> wrote:
-> >=20
-> > Mark YUV422 unsupported over DP on DCE to work around a
-> > regression caused by the recent YUV422 fallback patch.
-> >=20
-> > See https://gitlab.freedesktop.org/drm/amd/-/issues/4585
-> >=20
-> > The recent YUV422 fallback breaks DisplayPort on DCE6-10 because
-> > it can select a high refresh rate mode with YUV422 and 6 BPC,
-> > which is apparently not actually supported by the HW, causing
-> > it to boot to a "no signal" screen.
-> >=20
-> > Tested with a Samsung Odyssey G7 on the following GPUs:
-> >=20
-> > - Cape Verde (DCE 6): affected
-> > - Tonga (DCE 10): affected
-> > - Polaris (DCE 11.2): not affected
-> > - Vega (DCE 12): not affected
-> >=20
-> > Polaris and Vega are not affected because the same mode
-> > gets rejected by other parts of the code base, possibly the
-> > bandwidth calculation which exists for DCE11+ but not older HW.
-> >=20
-> > It is not documented whether YUV422 is actually supported over DP
-> > on DCE, but considering that this encoding was never used before,
-> > and that YUV420 is already marked unsupported, probably not.
-> >=20
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
->=20
-> Fixes: db291ed1732e02 ("drm/amd/display: Add fallback path for
-> YCBCR422")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4585
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->=20
-> Would be good to get feedback from the display team on what the
-> actual
-> capabilities are, but seems reasonable to me.
->=20
-> Alex
+On Fri, Sep 19, 2025 at 8:29=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> This reverts commit e44a0fe630c58b0a87d8281f5c1077a3479e5fce.
+>
+> Initially we used VMID reservation to enforce isolation between
+> processes. That has now been replaced by proper fence handling.
+>
+> Both OpenGL, RADV and ROCm developers requested a way to reserve a VMID
+> for SPM, so restore that approach by reverting back to only allowing a
+> single process to use the reserved VMID.
+>
+> Only compile tested for now.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 61 ++++++++++++++++---------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h | 11 ++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 17 ++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  2 +-
+>  4 files changed, 50 insertions(+), 41 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ids.c
+> index cbdf108612d2..e35f7525fbff 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -275,13 +275,12 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_=
+vm *vm,
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+>         unsigned vmhub =3D ring->vm_hub;
+> -       struct amdgpu_vmid_mgr *id_mgr =3D &adev->vm_manager.id_mgr[vmhub=
+];
+>         uint64_t fence_context =3D adev->fence_context + ring->idx;
+>         bool needs_flush =3D vm->use_cpu_for_update;
+>         uint64_t updates =3D amdgpu_vm_tlb_seq(vm);
+>         int r;
+>
+> -       *id =3D id_mgr->reserved;
+> +       *id =3D vm->reserved_vmid[vmhub];
+>         if ((*id)->owner !=3D vm->immediate.fence_context ||
+>             !amdgpu_vmid_compatible(*id, job) ||
+>             (*id)->flushed_updates < updates ||
+> @@ -474,40 +473,61 @@ bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm=
+, unsigned int vmhub)
+>         return vm->reserved_vmid[vmhub];
+>  }
+>
+> -int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev,
+> +/*
+> + * amdgpu_vmid_alloc_reserved - reserve a specific VMID for this vm
+> + * @adev: amdgpu device structure
+> + * @vm: the VM to reserve an ID for
+> + * @vmhub: the VMHUB which should be used
+> + *
+> + * Mostly used to have a reserved VMID for debugging and SPM.
+> + *
+> + * Returns: 0 for success, -EINVAL if an ID is already reserved.
 
-Thanks Alex.
+I think -ENOENT or -ENOMEM make more sense.  Other than that, looks good to=
+ me.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-I prefer not to add the Closes tag, as this patch doesn't really
-resolve the issue, it's just a workaround that I came up with until
-someone who knows better can properly fix it.
-
-The proper fix would be:
-
-1. Determine which DCE and DCN versions actually support 422 over DP
-and HDMI, and add new fields to the encoder capabilities:
-dp_ycbcr422_supported
-hdmi_ycbcr420_supported
-(I didn't find this info anywhere publicly, but can I can help write
-that patch if someone from AMD confirms which DCE/DCN versions support
-422 and which don't.)
-
-2. If it so happens that DCE actually supports 422 over DP, we should
-determine why this mode doesn't work. (I suspect that it was rejected
-on Polaris and Vega by the bandwidth calculation.)
-
-3. If the current link encoder doesn't support 422 and/or 420, the code
-should not even attempt to use them.
-
-Thanks & best regards,
-Timur
-
->=20
-> > ---
-> > =C2=A0drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c | 3 ++-
-> > =C2=A01 file changed, 2 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-> > b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-> > index 0c50fe266c8a..686f6be68c91 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-> > @@ -798,7 +798,8 @@ bool dce110_link_encoder_validate_dp_output(
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct dce110_link_enc=
-oder *enc110,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct dc_crtc_timing =
-*crtc_timing)
-> > =C2=A0{
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (crtc_timing->pixel_encoding =
-=3D=3D PIXEL_ENCODING_YCBCR420)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (crtc_timing->pixel_encoding =
-=3D=3D PIXEL_ENCODING_YCBCR420
-> > ||
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 crtc_timing->pixel_encoding =3D=3D
-> > PIXEL_ENCODING_YCBCR422)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 return false;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return true;
-> > --
-> > 2.51.0
-> >=20
+> + */
+> +int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu=
+_vm *vm,
+>                                unsigned vmhub)
+>  {
+>         struct amdgpu_vmid_mgr *id_mgr =3D &adev->vm_manager.id_mgr[vmhub=
+];
+> +       struct amdgpu_vmid *id;
+> +       int r =3D 0;
+>
+>         mutex_lock(&id_mgr->lock);
+> -
+> -       ++id_mgr->reserved_use_count;
+> -       if (!id_mgr->reserved) {
+> -               struct amdgpu_vmid *id;
+> -
+> -               id =3D list_first_entry(&id_mgr->ids_lru, struct amdgpu_v=
+mid,
+> -                                     list);
+> -               /* Remove from normal round robin handling */
+> -               list_del_init(&id->list);
+> -               id_mgr->reserved =3D id;
+> +       if (vm->reserved_vmid[vmhub])
+> +               goto unlock;
+> +       if (id_mgr->reserved_vmid) {
+> +               r =3D -EINVAL;
+> +               goto unlock;
+>         }
+> -
+> +       /* Remove from normal round robin handling */
+> +       id =3D list_first_entry(&id_mgr->ids_lru, struct amdgpu_vmid, lis=
+t);
+> +       list_del_init(&id->list);
+> +       vm->reserved_vmid[vmhub] =3D id;
+> +       id_mgr->reserved_vmid =3D true;
+>         mutex_unlock(&id_mgr->lock);
+> +
+>         return 0;
+> +unlock:
+> +       mutex_unlock(&id_mgr->lock);
+> +       return r;
+>  }
+>
+> -void amdgpu_vmid_free_reserved(struct amdgpu_device *adev,
+> +/*
+> + * amdgpu_vmid_free_reserved - free up a reserved VMID again
+> + * @adev: amdgpu device structure
+> + * @vm: the VM with the reserved ID
+> + * @vmhub: the VMHUB which should be used
+> + */
+> +void amdgpu_vmid_free_reserved(struct amdgpu_device *adev, struct amdgpu=
+_vm *vm,
+>                                unsigned vmhub)
+>  {
+>         struct amdgpu_vmid_mgr *id_mgr =3D &adev->vm_manager.id_mgr[vmhub=
+];
+>
+>         mutex_lock(&id_mgr->lock);
+> -       if (!--id_mgr->reserved_use_count) {
+> -               /* give the reserved ID back to normal round robin */
+> -               list_add(&id_mgr->reserved->list, &id_mgr->ids_lru);
+> -               id_mgr->reserved =3D NULL;
+> +       if (vm->reserved_vmid[vmhub]) {
+> +               list_add(&vm->reserved_vmid[vmhub]->list,
+> +                       &id_mgr->ids_lru);
+> +               vm->reserved_vmid[vmhub] =3D NULL;
+> +               id_mgr->reserved_vmid =3D false;
+>         }
+> -
+>         mutex_unlock(&id_mgr->lock);
+>  }
+>
+> @@ -574,7 +594,6 @@ void amdgpu_vmid_mgr_init(struct amdgpu_device *adev)
+>
+>                 mutex_init(&id_mgr->lock);
+>                 INIT_LIST_HEAD(&id_mgr->ids_lru);
+> -               id_mgr->reserved_use_count =3D 0;
+>
+>                 /* for GC <10, SDMA uses MMHUB so use first_kfd_vmid for =
+both GC and MM */
+>                 if (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(10, =
+0, 0))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ids.h
+> index 240fa6751260..b3649cd3af56 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> @@ -67,8 +67,7 @@ struct amdgpu_vmid_mgr {
+>         unsigned                num_ids;
+>         struct list_head        ids_lru;
+>         struct amdgpu_vmid      ids[AMDGPU_NUM_VMID];
+> -       struct amdgpu_vmid      *reserved;
+> -       unsigned int            reserved_use_count;
+> +       bool                    reserved_vmid;
+>  };
+>
+>  int amdgpu_pasid_alloc(unsigned int bits);
+> @@ -79,10 +78,10 @@ void amdgpu_pasid_free_delayed(struct dma_resv *resv,
+>  bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
+>                                struct amdgpu_vmid *id);
+>  bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub)=
+;
+> -int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev,
+> -                               unsigned vmhub);
+> -void amdgpu_vmid_free_reserved(struct amdgpu_device *adev,
+> -                               unsigned vmhub);
+> +int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu=
+_vm *vm,
+> +                              unsigned vmhub);
+> +void amdgpu_vmid_free_reserved(struct amdgpu_device *adev, struct amdgpu=
+_vm *vm,
+> +                              unsigned vmhub);
+>  int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+>                      struct amdgpu_job *job, struct dma_fence **fence);
+>  void amdgpu_vmid_reset(struct amdgpu_device *adev, unsigned vmhub,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 1f8b43253eea..108d2a838ef0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2788,10 +2788,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, st=
+ruct amdgpu_vm *vm)
+>         dma_fence_put(vm->last_update);
+>
+>         for (i =3D 0; i < AMDGPU_MAX_VMHUBS; i++) {
+> -               if (vm->reserved_vmid[i]) {
+> -                       amdgpu_vmid_free_reserved(adev, i);
+> -                       vm->reserved_vmid[i] =3D false;
+> -               }
+> +               amdgpu_vmid_free_reserved(adev, vm, i);
+>         }
+>
+>         ttm_lru_bulk_move_fini(&adev->mman.bdev, &vm->lru_bulk_move);
+> @@ -2887,6 +2884,7 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *d=
+ata, struct drm_file *filp)
+>         union drm_amdgpu_vm *args =3D data;
+>         struct amdgpu_device *adev =3D drm_to_adev(dev);
+>         struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
+> +       struct amdgpu_vm *vm =3D &fpriv->vm;
+>
+>         /* No valid flags defined yet */
+>         if (args->in.flags)
+> @@ -2895,17 +2893,10 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void =
+*data, struct drm_file *filp)
+>         switch (args->in.op) {
+>         case AMDGPU_VM_OP_RESERVE_VMID:
+>                 /* We only have requirement to reserve vmid from gfxhub *=
+/
+> -               if (!fpriv->vm.reserved_vmid[AMDGPU_GFXHUB(0)]) {
+> -                       amdgpu_vmid_alloc_reserved(adev, AMDGPU_GFXHUB(0)=
+);
+> -                       fpriv->vm.reserved_vmid[AMDGPU_GFXHUB(0)] =3D tru=
+e;
+> -               }
+> -
+> +               amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(0));
+>                 break;
+>         case AMDGPU_VM_OP_UNRESERVE_VMID:
+> -               if (fpriv->vm.reserved_vmid[AMDGPU_GFXHUB(0)]) {
+> -                       amdgpu_vmid_free_reserved(adev, AMDGPU_GFXHUB(0))=
+;
+> -                       fpriv->vm.reserved_vmid[AMDGPU_GFXHUB(0)] =3D fal=
+se;
+> -               }
+> +               amdgpu_vmid_free_reserved(adev, vm, AMDGPU_GFXHUB(0));
+>                 break;
+>         default:
+>                 return -EINVAL;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.h
+> index 829b400cb8c0..3b9d583358b0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -415,7 +415,7 @@ struct amdgpu_vm {
+>         struct dma_fence        *last_unlocked;
+>
+>         unsigned int            pasid;
+> -       bool                    reserved_vmid[AMDGPU_MAX_VMHUBS];
+> +       struct amdgpu_vmid      *reserved_vmid[AMDGPU_MAX_VMHUBS];
+>
+>         /* Flag to indicate if VM tables are updated by CPU or GPU (SDMA)=
+ */
+>         bool                                    use_cpu_for_update;
+> --
+> 2.43.0
+>
