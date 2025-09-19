@@ -4,120 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2072CAC5A8
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 12:49:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81BF3CAC59A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 13:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 015C410E9CD;
-	Fri, 19 Sep 2025 12:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F3EC10E9FA;
+	Fri, 19 Sep 2025 13:08:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="G6UrPt/V";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N1W5Nnmp";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9B210E9BD;
- Fri, 19 Sep 2025 12:49:17 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 3F8464E40D1E;
- Fri, 19 Sep 2025 12:49:16 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 13B39606A8;
- Fri, 19 Sep 2025 12:49:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 62D5E102F177A; 
- Fri, 19 Sep 2025 14:49:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1758286154; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references:autocrypt;
- bh=CXFrW6b1BufmSMQloeBTYVqhzkotLOwRurdEc62BsBI=;
- b=G6UrPt/V1InZ7GaFaNGVlCKPjBFAoRElaETJoqUNX8afx3L8jS7+zzzbkaYSIF0uTEnKta
- gfd8ckPCa3RL6w1wwl1W5oEkGHTLOAJuDUUnhiTCCJ45HiQvGkps9Gpy1cubeeUN0c5IiA
- JgZEpxsJ0I137d3Mnyw6Ey18wBtpgrBCQvcCdbmb8uUKY+n5bTaWBQxYRDWnJW2iXA00Y0
- 8TJ+NxRfVwXFrv+l9nlhEPbosj7o5W0u3edWHN1+evh5w8gpoOkYhqF2e0a2kSg02SNc+j
- 85hSJuszpShrplkdmxuspKAdLNWf3XTS4MMhgbIES8xoMuin3o+j3jSsKbP7NQ==
-Message-ID: <034cd9c9-807a-4c9d-a6b9-a75ed0b350d5@bootlin.com>
-Date: Fri, 19 Sep 2025 14:49:10 +0200
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 168B110E9FA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 13:08:07 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-267dbd4e189so4609565ad.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 06:08:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1758287286; x=1758892086; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5tu/k7GNWlgszf2+SNXROxMGKfuE8Ll4FMHGjE7SOz4=;
+ b=N1W5NnmpeF2q6k1/Te9VMkGCzKByKejXBPqU4m8DF4PjVfmWx4ESFIwXOs7qnSSAGR
+ K9AP8UNzHWS79/z6+5HSfuENpiux5wnFpjN5N6pA0bfxMVmGPEzY2c67GaUVG3XkhMZv
+ 8AsBvZga88faYTYHXhetYPlB/r9BPAnNSZn4nps9If379h7ZMMinsNv+b2EYDtrloV3h
+ rfdBeQccc729NMVuVdUcPtry1hK+G3tlC6p1OawMzCnaGv22G9aklaVHA/nPTip15WKs
+ BuDtb/FaakNMzO3GIPyjWZFcxpP2R09vGW8dcnTAGujz6xGMlW7r6GqD8B+xgRLjYeaz
+ UaUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758287286; x=1758892086;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5tu/k7GNWlgszf2+SNXROxMGKfuE8Ll4FMHGjE7SOz4=;
+ b=WZUPc5kZhSpHCcXZuORO4NrQ9YeugeWq6cHYOoOQ1WN212yqoMb6Q4CcNM+W+EKASR
+ rI4JTtddqUPaFUTG6vfW9+mUtguLlwkO57kZrw5ez6tkNbEVs6IEWk8+eURxi2OqPOri
+ KuQcolt6wvvSflZuGh9CxW8dtoC5ztcdzk+BlSJhVQfCYZEJJ2/4NGHap7ER3Lq+POn+
+ KLynGw8B6cJcoxrcH/bo3ejxpWoQwVOj+MSe8tx5k1x/iBR+XdBI5wZsj/Mg36pWlsf+
+ 1bQ5wuJS8XPJxdcN7Irq39U8XHCYg8RUnrpY/qIOQYrDKDbz0jiQcySIfEurIY8+m+jY
+ fBtw==
+X-Gm-Message-State: AOJu0Yzqy1ljhQbRyQR/7ek4t9sbHMmjRXmunfw6Rs8zf/QUaEUqx+FS
+ 2SR8AAAbbrVrB9tBOvfqedVeBEINmfxkWSM83vlz3U+/plqfZgiCRQ8OXxmc6jW6qlHEkWZ0FgE
+ myzKbqRmTT8aEsfVOeyF1qB3Buqjgd0+mnQ==
+X-Gm-Gg: ASbGncsXFR5L6L5ikAYUBDVwJ22VPpuO1LIvSBcztb6IqAgdP7L1dqTWvU0jK+KZRx2
+ qYDOZYJxhctOMv7jlzdPGrP8GnwQ71DWV5LY8h8dyrzSIgYSM221LpAObbdCxXkv1mqQEpMpdCG
+ rDgLyrDxODGrmwqPDje6Y8dCUyBRc/xqD4I/y0DhaXDBz4FwLt3E+stF1yzbEHmISIPFlZoq6XV
+ PRX524=
+X-Google-Smtp-Source: AGHT+IEIEdg/xbXQ0LYPZRVbSvZQgrz7xq85ThHREp3CGTCHjQ17yJ50NYB1ZaMoXUZTOit2WIl9IILjxylB3+/IiFw=
+X-Received: by 2002:a17:903:1c3:b0:263:cd95:9c8a with SMTP id
+ d9443c01a7336-269ba4675e8mr27470215ad.3.1758287286468; Fri, 19 Sep 2025
+ 06:08:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Subject: Re: [PATCH V11 14/47] drm/vkms: Add enumerated 1D curve colorop
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>,
- harry.wentland@amd.com, =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?=
- <nfraprado@collabora.com>
-Cc: wayland-devel@lists.freedesktop.org, leo.liu@amd.com,
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com,
- mwen@igalia.com, jadahl@redhat.com, sebastian.wick@redhat.com,
- shashank.sharma@amd.com, agoins@nvidia.com, joshua@froggi.es,
- mdaenzer@redhat.com, aleixpol@kde.org, xaver.hugl@gmail.com,
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com,
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com,
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, mcanal@igalia.com,
- Daniel Stone <daniels@collabora.com>
-References: <20250815035047.3319284-1-alex.hung@amd.com>
- <20250815035047.3319284-15-alex.hung@amd.com>
- <87a2f6ca-c398-4222-8b23-d683c5fe6024@bootlin.com>
- <c1a1044e-dd05-4bf0-a903-9e13bfbf0de6@amd.com>
- <3fecacf2e1ea9b9e071cbb95e315a75a1cfb3b3d.camel@collabora.com>
- <73f01810-df2d-4e39-a20b-fc1cec2c5e12@amd.com>
-Content-Language: en-US, fr
-Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
- 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
-In-Reply-To: <73f01810-df2d-4e39-a20b-fc1cec2c5e12@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20250919004800.125555-1-superm1@kernel.org>
+In-Reply-To: <20250919004800.125555-1-superm1@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 19 Sep 2025 09:07:54 -0400
+X-Gm-Features: AS18NWCF8j4uVk3zBx7Fi3c9jJV7WCUYcM_zpZ0wWiMhz54G_QHuvoXffTR29h8
+Message-ID: <CADnq5_Ocy21YobXERacyDYwpqfR_K6o+EUxc3_z+414FrOn7rw@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: Enable MES lr_compute_wa by default
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,285 +82,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Sep 18, 2025 at 9:04=E2=80=AFPM Mario Limonciello (AMD)
+<superm1@kernel.org> wrote:
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> The MES set resources packet has an optional bit 'lr_compute_wa'
+> which can be used for preventing MES hangs on long compute jobs.
+>
+> Set this bit by default.
+>
+> Co-developed-by: Yifan Zhang <yifan1.zhang@amd.com>
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Le 18/09/2025 à 02:45, Alex Hung a écrit :
-> 
-> 
-> On 9/17/25 08:47, Nícolas F. R. A. Prado wrote:
->> On Tue, 2025-09-16 at 19:54 -0600, Alex Hung wrote:
->>>
->>>
->>> On 9/5/25 11:12, Louis Chauvet wrote:
->>>>
->>>>
->>>> Le 15/08/2025 à 05:50, Alex Hung a écrit :
->>>>> From: Harry Wentland <harry.wentland@amd.com>
->>>>>
->>>>> This patch introduces a VKMS color pipeline that includes two
->>>>> drm_colorops for named transfer functions. For now the only ones
->>>>> supported are sRGB EOTF, sRGB Inverse EOTF, and a Linear TF.
->>>>> We will expand this in the future but I don't want to do so
->>>>> without accompanying IGT tests.
->>>>>
->>>>> We introduce a new vkms_luts.c file that hard-codes sRGB EOTF,
->>>>> sRGB Inverse EOTF, and a linear EOTF LUT. These have been
->>>>> generated with 256 entries each as IGT is currently testing
->>>>> only 8 bpc surfaces. We will likely need higher precision
->>>>> but I'm reluctant to make that change without clear indication
->>>>> that we need it. We'll revisit and, if necessary, regenerate
->>>>> the LUTs when we have IGT tests for higher precision buffers.
->>>>>
->>>>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
->>>>> Signed-off-by: Alex Hung <alex.hung@amd.com>
->>>>> Reviewed-by: Daniel Stone <daniels@collabora.com>
->>>>> ---
->>>>> v11:
->>>>>     - Update drm_colorop_pipeline_destroy from plane to dev
->>>>> (Nícolas Prado)
->>>>>     - Fix undefined errors by EXPORT_SYMBOL symbols (kernel test
->>>>> robot)
->>>>>
->>>>> v9:
->>>>>     - Replace cleanup code by drm_colorop_pipeline_destroy (Simon
->>>>> Ser)
->>>>>     - Update function names by _plane_ (Chaitanya Kumar Borah)
->>>>>
->>>>> v8:
->>>>>     - Replace DRM_ERROR by drm_err (Louis Chauvet)
->>>>>     - Replace DRM_WARN_ONCE by drm_WARN_ONCE (Louis Chauvet)
->>>>>     - Fix conflicts with upstream VKMS (Louis Chauvet)
->>>>>     - Add comments for drm_color_lut linear_array (Louis Chauvet)
->>>>>
->>>>> v7:
->>>>>     - Fix checkpatch warnings (Louis Chauvet)
->>>>>      - Change kzalloc(sizeof(struct drm_colorop) ...) to
->>>>> kzalloc(sizeof(*ops[i]) ...)
->>>>>      - Remove if (ops[i]) before kfree(ops[i])
->>>>>      - Fix styles by adding and removing spaces (new lines, tabs
->>>>> and so on)
->>>>>
->>>>> v6:
->>>>>     - drop 'len' var (Louis Chauvet)
->>>>>     - cleanup if colorop alloc or init fails (Louis Chauvet)
->>>>>     - switch loop in pre_blend_transform (Louis Chauvet)
->>>>>     - drop extraneous if (colorop) inside while (colorop) (Louis
->>>>> Chauvet)
->>>>>
->>>>> v5:
->>>>>     - Squash with "Pull apply_colorop out of
->>>>> pre_blend_color_transform"
->>>>>       (Sebastian)
->>>>>     - Fix warnings
->>>>>     - Fix include
->>>>>     - Drop TODOs
->>>>>
->>>>> v4:
->>>>>     - Drop _tf_ from color_pipeline init function
->>>>>     - Pass supported TFs into colorop init
->>>>>     - Create bypass pipeline in DRM helper (Pekka)
->>>>>
->>>>> v2:
->>>>>     - Add commit description
->>>>>     - Fix sRGB EOTF LUT definition
->>>>>     - Add linear and sRGB inverse EOTF LUTs
->>>>>
->>>>>     drivers/gpu/drm/vkms/Makefile        |   4 +-
->>>>>     drivers/gpu/drm/vkms/vkms_colorop.c  |  81 +++
->>>>>     drivers/gpu/drm/vkms/vkms_composer.c |  51 +-
->>>>>     drivers/gpu/drm/vkms/vkms_drv.h      |   3 +
->>>>>     drivers/gpu/drm/vkms/vkms_luts.c     | 811
->>>>> +++++++++++++++++++++++++++
->>>>>     drivers/gpu/drm/vkms/vkms_luts.h     |  12 +
->>>>>     drivers/gpu/drm/vkms/vkms_plane.c    |   2 +
->>>>>     7 files changed, 962 insertions(+), 2 deletions(-)
->>>>>     create mode 100644 drivers/gpu/drm/vkms/vkms_colorop.c
->>>>>     create mode 100644 drivers/gpu/drm/vkms/vkms_luts.c
->>>>>     create mode 100644 drivers/gpu/drm/vkms/vkms_luts.h
->>>>>
->>>>> diff --git a/drivers/gpu/drm/vkms/Makefile
->>>>> b/drivers/gpu/drm/vkms/
->>>>> Makefile
->>>>> index d657865e573f..0b8936674f69 100644
->>>>> --- a/drivers/gpu/drm/vkms/Makefile
->>>>> +++ b/drivers/gpu/drm/vkms/Makefile
->>>>> @@ -8,7 +8,9 @@ vkms-y := \
->>>>>         vkms_composer.o \
->>>>>         vkms_writeback.o \
->>>>>         vkms_connector.o \
->>>>> -    vkms_config.o
->>>>> +    vkms_config.o \
->>>>> +    vkms_colorop.o \
->>>>> +    vkms_luts.o
->>>>>     obj-$(CONFIG_DRM_VKMS) += vkms.o
->>>>>     obj-$(CONFIG_DRM_VKMS_KUNIT_TEST) += tests/
->>>>> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c
->>>>> b/drivers/gpu/drm/
->>>>> vkms/vkms_colorop.c
->>>>> new file mode 100644
->>>>> index 000000000000..f955ffb0ac84
->>>>> --- /dev/null
->>>>> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
->>>>> @@ -0,0 +1,81 @@
->>>>> +// SPDX-License-Identifier: GPL-2.0+
->>>>> +
->>>>> +#include <linux/slab.h>
->>>>> +#include <drm/drm_colorop.h>
->>>>> +#include <drm/drm_print.h>
->>>>> +#include <drm/drm_property.h>
->>>>> +#include <drm/drm_plane.h>
->>>>> +
->>>>> +#include "vkms_drv.h"
->>>>> +
->>>>> +static const u64 supported_tfs =
->>>>> +    BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
->>>>> +    BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF);
->>>>> +
->>>>> +#define MAX_COLOR_PIPELINE_OPS 2
->>>>> +
->>>>> +static int vkms_initialize_color_pipeline(struct drm_plane
->>>>> *plane,
->>>>> struct drm_prop_enum_list *list)
->>>>> +{
->>>>> +    struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
->>>>> +    struct drm_device *dev = plane->dev;
->>>>> +    int ret;
->>>>> +    int i = 0;
->>>>> +
->>>>> +    memset(ops, 0, sizeof(ops));
->>>>> +
->>>>> +    /* 1st op: 1d curve */
->>>>> +    ops[i] = kzalloc(sizeof(*ops[i]), GFP_KERNEL);
->>>>> +    if (!ops[i]) {
->>>>> +        drm_err(dev, "KMS: Failed to allocate colorop\n");
->>>>> +        ret = -ENOMEM;
->>>>> +        goto cleanup;
->>>>> +    }
->>>>> +
->>>>> +    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane,
->>>>> supported_tfs);
->>>>> +    if (ret)
->>>>> +        goto cleanup;
->>>>> +
->>>>> +    list->type = ops[i]->base.id;
->>>>> +    list->name = kasprintf(GFP_KERNEL, "Color Pipeline %d",
->>>>> ops[i]-
->>>>>> base.id);
->>>>> +
->>>>> +    i++;
->>>>> +
->>>>> +    /* 2nd op: 1d curve */
->>>>> +    ops[i] = kzalloc(sizeof(*ops[i]), GFP_KERNEL);
->>>>> +    if (!ops[i]) {
->>>>> +        drm_err(dev, "KMS: Failed to allocate colorop\n");
->>>>> +        ret = -ENOMEM;
->>>>> +        goto cleanup;
->>>>> +    }
->>>>> +
->>>>> +    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane,
->>>>> supported_tfs);
->>>>> +    if (ret)
->>>>> +        goto cleanup;
->>>>> +
->>>>> +    drm_colorop_set_next_property(ops[i - 1], ops[i]);
->>>>> +
->>>>> +    return 0;
->>>>> +
->>>>> +cleanup:
->>>>> +    drm_colorop_pipeline_destroy(dev);
->>>>
->>>> If it take a device, it means that it deletes everything, which is
->>>> not
->>>> what I would expect here: you are curently allocating a specific
->>>> plane
->>>> pipeline, and deleting all colorop for other planes because of one
->>>> failure is counterintuitive.
->>>> In this situation I would expect either:
->>>> - error propagation to vkms_create or vkms_output_init (it is
->>>> already
->>>> the case) and "device-wide" cleanup in
->>>> vkms_create/vkms_output_init;
->>>> - "local" cleanup (i.e only this specific pipeline)
-> 
-> the colorop are now in dev->mode_config->colorop_list, so we can use
-> "drm_colorop_cleanup" (assuming it is changed to be available here) for
-> cleanup if removing entire colorop_list by
-> drm_colorop_pipeline_destroy(dev) is not desireable in vkms. Does the
-> following code make sense?
-> 
-> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c
-> b/drivers/gpu/drm/vkms/vkms_colorop.c
-> index 0191ac44dec0..d263e3593ad5 100644
-> --- a/drivers/gpu/drm/vkms/vkms_colorop.c
-> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
-> @@ -19,7 +19,7 @@ static int vkms_initialize_color_pipeline(struct
-> drm_plane *plane, struct drm_pr
->    	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
->    	struct drm_device *dev = plane->dev;
->    	int ret;
-> -	int i = 0;
-> +	int i = 0, j = 0;
-> 
->    	memset(ops, 0, sizeof(ops));
-> 
-> @@ -91,7 +91,10 @@ static int vkms_initialize_color_pipeline(struct
-> drm_plane *plane, struct drm_pr
->    	return 0;
-> 
->    cleanup:
-> -	drm_colorop_pipeline_destroy(dev);
-> +	for (j = 0; j < i; j++) {
-> +		if (ops[j])
-> +			drm_colorop_cleanup(ops[j]);
-> +	}
-> 
->    	return ret;
->    }
-
-Yes, that could work!
-
-I think you need to add a kfree for ops[j], but this code is better: it 
-only destroy what was allocated in this function, no more.
-
-BTW, while reviewing this series + post_blend, I noticed that the 
-pipeline is never freed on device destruction. Did I miss something in 
-the colorop core? If no, I think it should be added in vkms_destroy or 
-using automagic drmm_add_action_or_reset in vkms_output_init.
-
->>>
->>> Hi Louis,
->>>
->>> Does it make sense to make drm_colorop_pipeline_destroy(drm_plane),
->>> i.e.
->>> in PATCH 13 as in previously V10?
->>>
->>> and then drm_colorop_pipeline_destroy should limit to the pipeline in
->>> a
->>> drm_plane and should do something like
->>>
->>>      drm_colorop_cleanup(colorop);
->>>      free(colorop)
->>>      drm_plane->colorop = NULL;
->>>
-> 
-> This doesn't seem right after digging into it.
-> 
->>> We can have same behaviours accross device drivers like amdgpu too.
->>>
->>> Hi Simon and Nicolas,
->>>
->>> Do you have comments on above proposal?
->>
->> Hi,
->>
->> indeed that would make more sense to me.
->>
-> 
-
--- 
---
-Louis Chauvet, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
-
+> ---
+> v3:
+>  * gate on fw version
+> v2:
+>  * drop module parameter
+>  * add more description to commit text
+> ---
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        | 5 +++++
+>  drivers/gpu/drm/amd/include/mes_v11_api_def.h | 3 ++-
+>  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 3 ++-
+>  4 files changed, 15 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v11_0.c
+> index 3b91ea601add4..e82188431f796 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -713,6 +713,12 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_=
+mes *mes)
+>         mes_set_hw_res_pkt.enable_reg_active_poll =3D 1;
+>         mes_set_hw_res_pkt.enable_level_process_quantum_check =3D 1;
+>         mes_set_hw_res_pkt.oversubscription_timer =3D 50;
+> +       if ((mes->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D=
+ 0x7f)
+> +               mes_set_hw_res_pkt.enable_lr_compute_wa =3D 1;
+> +       else
+> +               dev_info_once(mes->adev->dev,
+> +                             "MES FW version must be >=3D 0x7f to enable=
+ LR compute workaround.\n");
+> +
+>         if (amdgpu_mes_log_enable) {
+>                 mes_set_hw_res_pkt.enable_mes_event_int_logging =3D 1;
+>                 mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr =3D
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v12_0.c
+> index 998893dff08e9..aff06f06aeeec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -769,6 +769,11 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_=
+mes *mes, int pipe)
+>         mes_set_hw_res_pkt.use_different_vmid_compute =3D 1;
+>         mes_set_hw_res_pkt.enable_reg_active_poll =3D 1;
+>         mes_set_hw_res_pkt.enable_level_process_quantum_check =3D 1;
+> +       if ((mes->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D=
+ 0x82)
+> +               mes_set_hw_res_pkt.enable_lr_compute_wa =3D 1;
+> +       else
+> +               dev_info_once(adev->dev,
+> +                             "MES FW version must be >=3D 0x82 to enable=
+ LR compute workaround.\n");
+>
+>         /*
+>          * Keep oversubscribe timer for sdma . When we have unmapped door=
+bell
+> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/=
+drm/amd/include/mes_v11_api_def.h
+> index 15680c3f49704..ab1cfc92dbeb1 100644
+> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+> @@ -238,7 +238,8 @@ union MESAPI_SET_HW_RESOURCES {
+>                                 uint32_t enable_mes_sch_stb_log : 1;
+>                                 uint32_t limit_single_process : 1;
+>                                 uint32_t is_strix_tmz_wa_enabled  :1;
+> -                               uint32_t reserved : 13;
+> +                               uint32_t enable_lr_compute_wa : 1;
+> +                               uint32_t reserved : 12;
+>                         };
+>                         uint32_t        uint32_t_all;
+>                 };
+> diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/=
+drm/amd/include/mes_v12_api_def.h
+> index c04bd351b2505..69611c7e30e35 100644
+> --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+> +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+> @@ -287,7 +287,8 @@ union MESAPI_SET_HW_RESOURCES {
+>                                 uint32_t limit_single_process : 1;
+>                                 uint32_t unmapped_doorbell_handling: 2;
+>                                 uint32_t enable_mes_fence_int: 1;
+> -                               uint32_t reserved : 10;
+> +                               uint32_t enable_lr_compute_wa : 1;
+> +                               uint32_t reserved : 9;
+>                         };
+>                         uint32_t uint32_all;
+>                 };
+> --
+> 2.43.0
+>
