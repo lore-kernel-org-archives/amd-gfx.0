@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A073CAC5B0
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Sep 2025 09:03:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5424CAC5A7
+	for <amd-gfx@archiver.kernel.org>; Sun, 21 Sep 2025 09:03:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C030E10E36A;
-	Sun, 21 Sep 2025 09:03:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6525410E350;
+	Sun, 21 Sep 2025 09:03:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="FFVETJ+x";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="bjd6QN7z";
 	dkim-atps=neutral
-Received: from fra-out-004.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-004.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [3.74.81.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1245D10E987;
- Fri, 19 Sep 2025 10:27:15 +0000 (UTC)
+Received: from fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [3.72.182.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DCBC10E984;
+ Fri, 19 Sep 2025 10:21:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758277636; x=1789813636;
+ t=1758277270; x=1789813270;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4SfYhUHUdz2vUYRpmznvvnCmHBX3qlcufUWUmq1eJX8=;
- b=FFVETJ+xi5/POyUyJJXvdMhFydyR2c7++P686mqBA7NiK6YFVnZbM6NK
- VwVr358XzqauCB56mnMgXDYWdCAthoBXdezM0xYw1rzRwdVVBnO/p+hoK
- J+5AL7nJ1M6SafN/J29Rbf34Z0verIyZI3ZQx5P1m35dMX/PvdcL/cPt7
- M9prasf95pGf3JfzIe4hiUoPuiCgvYJFTUiIB+zo+esvP8ABvca+OBCjC
- 1dOOTYLFyBhbJ0WtEzxYW0JtaeTMSr2vUmX9e4HMqzmJJfxqgRvb885Ln
- dGgPSkfWEFFXET98gHRu17hgrquCgwy8zZX4J161z6RA5p5l1sYBT+EjZ w==;
-X-CSE-ConnectionGUID: PDJJvTtNSH+hjbi2ebjBfw==
-X-CSE-MsgGUID: DLaM/fsvSKOsCR4u1obQDg==
+ bh=jAlxXvtF6wZ1RF0/zktk6f5ZtKHAgPghtBG8hJeCJz4=;
+ b=bjd6QN7zLSGvhiE/3c2i+xSKGXhUDyhL3UNnyeEd1C6QAXzSUATTE54L
+ uh3/JWHVIgGez06WkTGhHgGLzpwyGTPtkgVPNI51rjQZGjLM4Hm4Beo8S
+ uUZsZwH8zrMYwzUxzzAzCI/+Wpg5olG7bNVwQvQc5e2xV7D9WU2nccODY
+ XgAhzDEqXp3Y6pSgGwTfn3ne/ypCJ7a1v1zMrbkcnuwKxPMRDRXhU/O76
+ T8trv6PxQTdKTYDJoE2zVdsqvdbihzqVrNEOW1G4NFZ4Dd5KkoaLg46LE
+ qM5Zfu18KU6SttHCpnVfSNw0tFNcz0+WWAbypSsdvACVpTizWcSLLYnYZ g==;
+X-CSE-ConnectionGUID: Xk2rTTfFQEKfM7PvxCYyfg==
+X-CSE-MsgGUID: mUY6ldt3Qa+FMoyGEPvF1Q==
 X-IronPort-AV: E=Sophos;i="6.18,277,1751241600"; 
-   d="scan'208";a="2367702"
-Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-004.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:27:14 +0000
-Received: from EX19MTAEUA001.ant.amazon.com [54.240.197.233:2492]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.39.25:2525]
+   d="scan'208";a="2365643"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:21:07 +0000
+Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:21528]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.23.64:2525]
  with esmtp (Farcaster)
- id 28962e4b-a5f6-44f1-9053-96eac3c7bb76; Fri, 19 Sep 2025 10:27:14 +0000 (UTC)
-X-Farcaster-Flow-ID: 28962e4b-a5f6-44f1-9053-96eac3c7bb76
+ id 11e7158b-2694-464a-90a7-6c9e9f1a2abf; Fri, 19 Sep 2025 10:21:07 +0000 (UTC)
+X-Farcaster-Flow-ID: 11e7158b-2694-464a-90a7-6c9e9f1a2abf
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUA001.ant.amazon.com (10.252.50.192) with Microsoft SMTP Server
+ EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 19 Sep 2025 10:27:13 +0000
+ Fri, 19 Sep 2025 10:21:00 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 19 Sep 2025
- 10:26:46 +0000
+ 10:20:32 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -97,11 +97,11 @@ To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <stable@vger.kernel.org>
-CC: <jonnyc@amazon.com>
-Subject: [PATCH 16/27 5.10.y] lib: zstd: drop local MIN/MAX macros in favor of
- generic ones
-Date: Fri, 19 Sep 2025 10:17:16 +0000
-Message-ID: <20250919101727.16152-17-farbere@amazon.com>
+CC: <jonnyc@amazon.com>, Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: [PATCH 05/27 5.10.y] minmax: Introduce {min,max}_array()
+Date: Fri, 19 Sep 2025 10:17:05 +0000
+Message-ID: <20250919101727.16152-6-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20250919101727.16152-1-farbere@amazon.com>
 References: <20250919101727.16152-1-farbere@amazon.com>
@@ -109,7 +109,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D042UWA003.ant.amazon.com (10.13.139.44) To
+X-ClientProxiedBy: EX19D045UWA004.ant.amazon.com (10.13.139.91) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Sun, 21 Sep 2025 09:02:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -126,33 +126,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the MIN() and MAX() macros from zstd_internal.h to avoid
-duplicate definitions now that the generic MIN() and MAX() macros
-are available globally.
+From: Herve Codina <herve.codina@bootlin.com>
 
-This change continues commit 1a251f52cfdc ("minmax: make generic MIN()
-and MAX() macros available everywhere") and is required for 5.10.y,
-where these macros did not exist in zstd_internal.h when the upstream
-change was made.
+[ Upstream commit c952c748c7a983a8bda9112984e6f2c1f6e441a5 ]
 
+Introduce min_array() (resp max_array()) in order to get the
+minimal (resp maximum) of values present in an array.
+
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+Link: https://lore.kernel.org/r/20230623085830.749991-8-herve.codina@bootlin.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- lib/zstd/zstd_internal.h | 2 --
- 1 file changed, 2 deletions(-)
+ include/linux/minmax.h | 64 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-diff --git a/lib/zstd/zstd_internal.h b/lib/zstd/zstd_internal.h
-index dac753397f86..927ed4e8c11c 100644
---- a/lib/zstd/zstd_internal.h
-+++ b/lib/zstd/zstd_internal.h
-@@ -36,8 +36,6 @@
- /*-*************************************
- *  shared macros
- ***************************************/
--#define MIN(a, b) ((a) < (b) ? (a) : (b))
--#define MAX(a, b) ((a) > (b) ? (a) : (b))
- #define CHECK_F(f)                       \
- 	{                                \
- 		size_t const errcod = f; \
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 7affadcb2a29..0e89c78810f6 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -151,6 +151,70 @@
+  */
+ #define max_t(type, x, y)	__careful_cmp((type)(x), (type)(y), >)
+ 
++/*
++ * Remove a const qualifier from integer types
++ * _Generic(foo, type-name: association, ..., default: association) performs a
++ * comparison against the foo type (not the qualified type).
++ * Do not use the const keyword in the type-name as it will not match the
++ * unqualified type of foo.
++ */
++#define __unconst_integer_type_cases(type)	\
++	unsigned type:  (unsigned type)0,	\
++	signed type:    (signed type)0
++
++#define __unconst_integer_typeof(x) typeof(			\
++	_Generic((x),						\
++		char: (char)0,					\
++		__unconst_integer_type_cases(char),		\
++		__unconst_integer_type_cases(short),		\
++		__unconst_integer_type_cases(int),		\
++		__unconst_integer_type_cases(long),		\
++		__unconst_integer_type_cases(long long),	\
++		default: (x)))
++
++/*
++ * Do not check the array parameter using __must_be_array().
++ * In the following legit use-case where the "array" passed is a simple pointer,
++ * __must_be_array() will return a failure.
++ * --- 8< ---
++ * int *buff
++ * ...
++ * min = min_array(buff, nb_items);
++ * --- 8< ---
++ *
++ * The first typeof(&(array)[0]) is needed in order to support arrays of both
++ * 'int *buff' and 'int buff[N]' types.
++ *
++ * The array can be an array of const items.
++ * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
++ * to discard the const qualifier for the __element variable.
++ */
++#define __minmax_array(op, array, len) ({				\
++	typeof(&(array)[0]) __array = (array);				\
++	typeof(len) __len = (len);					\
++	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
++	while (__len--)							\
++		__element = op(__element, __array[__len]);		\
++	__element; })
++
++/**
++ * min_array - return minimum of values present in an array
++ * @array: array
++ * @len: array length
++ *
++ * Note that @len must not be zero (empty array).
++ */
++#define min_array(array, len) __minmax_array(min, array, len)
++
++/**
++ * max_array - return maximum of values present in an array
++ * @array: array
++ * @len: array length
++ *
++ * Note that @len must not be zero (empty array).
++ */
++#define max_array(array, len) __minmax_array(max, array, len)
++
+ /**
+  * clamp_t - return a value clamped to a given range using a given type
+  * @type: the type of variable to use
 -- 
 2.47.3
 
