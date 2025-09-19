@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BC2ECAC5AC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44657CAC5AA
 	for <amd-gfx@archiver.kernel.org>; Sun, 21 Sep 2025 09:03:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9617310E367;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B294D10E368;
 	Sun, 21 Sep 2025 09:03:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="fjL8z8mj";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="qvEbABwe";
 	dkim-atps=neutral
-Received: from fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [35.158.23.94])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E118B10E984;
- Fri, 19 Sep 2025 10:18:13 +0000 (UTC)
+Received: from fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [18.199.210.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C721710E984;
+ Fri, 19 Sep 2025 10:24:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758277094; x=1789813094;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=BxXd7aLvDai7evuJPWIvJpLyCQkjko3tn6jQCrrWhJk=;
- b=fjL8z8mj0eMIoChdIs8U9FiBsNbuQUiVVPlT3zrMd2QY4qshSQGFLsCZ
- I3RvurginN0A0zChNMESd2d9w8s3xOy5oVmh614EDqw2yBhb/QmmcPOe3
- wAAtuxQ+v2eRIjVuLFIedVBHsV3Rb12raStNei1WJf2DEDd/aHXHZhmeN
- a76yJ5Nd+Gk7nlpcDtvLOt5sY92VddMIhaXr5b8MVqqxkEyG5Fzb9cBYs
- NZ2BX/TzsOfyqIh85A+I7sEL6a70FKGDlX46GqPiXZuw3OnvDWvZsHlvS
- OHWNraZNTBCZiIHocmYMS/MclFB/5eIGDNbYlGQCbqgvw6N7wcVazh2wF A==;
-X-CSE-ConnectionGUID: kpLok2gGQZaUNR51qNOOOA==
-X-CSE-MsgGUID: O1O53yWdRsCFciLE9oPAkQ==
+ t=1758277472; x=1789813472;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Up26bfkjgG7bBpXTUDNOne3Gaz9xL27H6G5Ic5zP1jo=;
+ b=qvEbABwe2zrrjJtz9XZK+Wd3DAxchcHdm/TUPATx65fexPZCneVrcPio
+ WxvAPsjuG42ebzT2PYJsy8oJ7fdL1V5VYROTwCPvLZMDP39uLtnvcUn1+
+ AhM14p5IrGRcz7ABNy+34bL6Qmxfe5aUhWzI7Yo1vSsvhJ3rWO9ISI7wt
+ IGLfqkRnc4uqqlh4NPDPvlhAFly9EoPU1oxqHHI/YDJvT7N7z0VJsZ5NV
+ eKNt5iTte4oRtxFHy+9CiH2HwLImB28soIUdfWXHyH3dBAJykj53oVFBo
+ M8HGmsA1hdSo/a11r8XUvBXqkfwdb+MwiyUB5qGButEnvhsygjaRuEgH1 g==;
+X-CSE-ConnectionGUID: uOA4YP9ESZq1z3U+/FQblQ==
+X-CSE-MsgGUID: +9AKtw6XT7ywoAOd2DOyxg==
 X-IronPort-AV: E=Sophos;i="6.18,277,1751241600"; 
-   d="scan'208";a="2371468"
-Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
- by internal-fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:18:03 +0000
-Received: from EX19MTAEUA001.ant.amazon.com [54.240.197.233:23074]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.8.212:2525]
+   d="scan'208";a="2264848"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:24:21 +0000
+Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:12085]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.23.64:2525]
  with esmtp (Farcaster)
- id 2cb163fe-6002-4c0e-9495-7cf46795baf7; Fri, 19 Sep 2025 10:18:03 +0000 (UTC)
-X-Farcaster-Flow-ID: 2cb163fe-6002-4c0e-9495-7cf46795baf7
+ id 13c390b8-4d66-4da4-9902-c277754da027; Fri, 19 Sep 2025 10:24:21 +0000 (UTC)
+X-Farcaster-Flow-ID: 13c390b8-4d66-4da4-9902-c277754da027
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUA001.ant.amazon.com (10.252.50.192) with Microsoft SMTP Server
+ EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 19 Sep 2025 10:18:02 +0000
+ Fri, 19 Sep 2025 10:24:18 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 19 Sep 2025
- 10:17:34 +0000
+ 10:23:50 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -97,16 +97,20 @@ To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <stable@vger.kernel.org>
-CC: <jonnyc@amazon.com>
-Subject: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
-Date: Fri, 19 Sep 2025 10:17:00 +0000
-Message-ID: <20250919101727.16152-1-farbere@amazon.com>
+CC: <jonnyc@amazon.com>, Christoph Hellwig <hch@infradead.org>, Linus Torvalds
+ <torvalds@linux-foundation.org>
+Subject: [PATCH 11/27 5.10.y] minmax: relax check to allow comparison between
+ unsigned arguments and signed constants
+Date: Fri, 19 Sep 2025 10:17:11 +0000
+Message-ID: <20250919101727.16152-12-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20250919101727.16152-1-farbere@amazon.com>
+References: <20250919101727.16152-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D043UWC001.ant.amazon.com (10.13.139.202) To
+X-ClientProxiedBy: EX19D032UWA003.ant.amazon.com (10.13.139.37) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Sun, 21 Sep 2025 09:02:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -123,162 +127,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series includes a total of 27 patches, to align minmax.h of
-v5.15.y with v6.17-rc6.
+From: David Laight <David.Laight@ACULAB.COM>
 
-The set consists of 24 commits that directly update minmax.h:
-1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() macro
-   once")
-2) 5efcecd9a3b1 ("minmax: sanity check constant bounds when clamping")
-3) 2122e2a4efc2 ("minmax: clamp more efficiently by avoiding extra
-   comparison")
-4) f9bff0e31881 ("minmax: add in_range() macro")
-5) c952c748c7a9 ("minmax: Introduce {min,max}_array()")
-6) 5e57418a2031 ("minmax: deduplicate __unconst_integer_typeof()")
-7) f6e9d38f8eb0 ("minmax: fix header inclusions")
-8) d03eba99f5bf ("minmax: allow min()/max()/clamp() if the arguments
-   have the same signedness.")
-9) f4b84b2ff851 ("minmax: fix indentation of __cmp_once() and
-   __clamp_once()")
-10) 4ead534fba42 ("minmax: allow comparisons of 'int' against 'unsigned
-    char/short'")
-11) 867046cc7027 ("minmax: relax check to allow comparison between
-    unsigned arguments and signed constants")
-12) 3a7e02c040b1 ("minmax: avoid overly complicated constant
-    expressions in VM code")
-14) 017fa3e89187 ("minmax: simplify and clarify min_t()/max_t()
-    implementation")
-15) 1a251f52cfdc ("minmax: make generic MIN() and MAX() macros
-    available everywhere")
-18) dc1c8034e31b ("minmax: simplify min()/max()/clamp()
-    implementation")
-19) 22f546873149 ("minmax: improve macro expansion and type
-    checking")
-20) 21b136cc63d2 ("minmax: fix up min3() and max3() too")
-21) 71ee9b16251e ("minmax.h: add whitespace around operators and after
-    commas")
-22) 10666e992048 ("minmax.h: update some comments")
-23) b280bb27a9f7 ("minmax.h: reduce the #define expansion of min(),
-    max() and clamp()")
-24) a5743f32baec ("minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi
-    test in clamp()")
-25) c3939872ee4a ("minmax.h: move all the clamp() definitions after the
-    min/max() ones")
-26) 495bba17cdf9 ("minmax.h: simplify the variants of clamp()")
-27) 2b97aaf74ed5 ("minmax.h: remove some #defines that are only
-    expanded once")
+[ Upstream commit 867046cc7027703f60a46339ffde91a1970f2901 ]
 
-2 prerequisite commits that adjust users of MIN and MAX macros (to
-prevent compilation issues):
-13) 4477b39c32fd ("minmax: add a few more MIN_T/MAX_T users")
-17) cb04e8b1d2f2 ("minmax: don't use max() in situations that want a C
-    constant expression")
+Allow (for example) min(unsigned_var, 20).
 
-1 additional commit introduced to resolve a build failures during the
-backport:
-16) lib: zstd: drop local MIN/MAX macros in favor of generic ones
+The opposite min(signed_var, 20u) is still errored.
 
-The primary motivation is to bring in commit (8).
-In mainline, this change allows min()/max()/clamp() to accept mixed
-argument types when both share the same signedness.
-Backported patches to v5.10.y that use such forms trigger compiler
-warnings, which in turn cause build failures when -Werror is enabled.
+Since a comparison between signed and unsigned never makes the unsigned
+value negative it is only necessary to adjust the __types_ok() test.
 
-Originaly I aligned 5.10.y to 5.15.y, but David Laight commented that I
-need to pick up the later changes (from Linus) as well.
+Link: https://lkml.kernel.org/r/633b64e2f39e46bb8234809c5595b8c7@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ include/linux/minmax.h | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
-Andy Shevchenko (2):
-  minmax: deduplicate __unconst_integer_typeof()
-  minmax: fix header inclusions
-
-Bart Van Assche (1):
-  overflow, tracing: Define the is_signed_type() macro once
-
-David Laight (11):
-  minmax: allow min()/max()/clamp() if the arguments have the same
-    signedness.
-  minmax: fix indentation of __cmp_once() and __clamp_once()
-  minmax: allow comparisons of 'int' against 'unsigned char/short'
-  minmax: relax check to allow comparison between unsigned arguments and
-    signed constants
-  minmax.h: add whitespace around operators and after commas
-  minmax.h: update some comments
-  minmax.h: reduce the #define expansion of min(), max() and clamp()
-  minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
-  minmax.h: move all the clamp() definitions after the min/max() ones
-  minmax.h: simplify the variants of clamp()
-  minmax.h: remove some #defines that are only expanded once
-
-Eliav Farber (1):
-  lib: zstd: drop local MIN/MAX macros in favor of generic ones
-
-Herve Codina (1):
-  minmax: Introduce {min,max}_array()
-
-Jason A. Donenfeld (2):
-  minmax: sanity check constant bounds when clamping
-  minmax: clamp more efficiently by avoiding extra comparison
-
-Linus Torvalds (8):
-  minmax: avoid overly complicated constant expressions in VM code
-  minmax: add a few more MIN_T/MAX_T users
-  minmax: simplify and clarify min_t()/max_t() implementation
-  minmax: make generic MIN() and MAX() macros available everywhere
-  minmax: don't use max() in situations that want a C constant
-    expression
-  minmax: simplify min()/max()/clamp() implementation
-  minmax: improve macro expansion and type checking
-  minmax: fix up min3() and max3() too
-
-Matthew Wilcox (Oracle) (1):
-  minmax: add in_range() macro
-
- arch/arm/mm/pageattr.c                        |   6 +-
- arch/um/drivers/mconsole_user.c               |   2 +
- arch/x86/mm/pgtable.c                         |   2 +-
- drivers/edac/sb_edac.c                        |   4 +-
- drivers/edac/skx_common.h                     |   1 -
- .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |   2 +
- .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    |  14 +-
- .../drm/arm/display/include/malidp_utils.h    |   2 +-
- .../display/komeda/komeda_pipeline_state.c    |  24 +-
- drivers/gpu/drm/drm_color_mgmt.c              |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   6 -
- drivers/gpu/drm/radeon/evergreen_cs.c         |   2 +
- drivers/hwmon/adt7475.c                       |  24 +-
- drivers/input/touchscreen/cyttsp4_core.c      |   2 +-
- drivers/md/dm-integrity.c                     |   2 +-
- drivers/media/dvb-frontends/stv0367_priv.h    |   3 +
- .../net/ethernet/chelsio/cxgb3/cxgb3_main.c   |  18 +-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |   2 +-
- drivers/net/fjes/fjes_main.c                  |   4 +-
- drivers/nfc/pn544/i2c.c                       |   2 -
- drivers/platform/x86/sony-laptop.c            |   1 -
- drivers/scsi/isci/init.c                      |   6 +-
- .../pci/hive_isp_css_include/math_support.h   |   5 -
- fs/btrfs/misc.h                               |   2 -
- fs/btrfs/tree-checker.c                       |   2 +-
- fs/ext2/balloc.c                              |   2 -
- fs/ext4/ext4.h                                |   2 -
- fs/ufs/util.h                                 |   6 -
- include/linux/compiler.h                      |  15 +
- include/linux/minmax.h                        | 267 ++++++++++++++----
- include/linux/overflow.h                      |   1 -
- include/linux/trace_events.h                  |   2 -
- kernel/trace/preemptirq_delay_test.c          |   2 -
- lib/btree.c                                   |   1 -
- lib/decompress_unlzma.c                       |   2 +
- lib/logic_pio.c                               |   3 -
- lib/vsprintf.c                                |   2 +-
- lib/zstd/zstd_internal.h                      |   2 -
- mm/zsmalloc.c                                 |   1 -
- net/ipv4/proc.c                               |   2 +-
- net/ipv6/proc.c                               |   2 +-
- net/netfilter/nf_nat_core.c                   |   6 +-
- net/tipc/core.h                               |   2 +-
- net/tipc/link.c                               |  10 +-
- 44 files changed, 306 insertions(+), 164 deletions(-)
-
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 842c1db62ffe..2ec559284a9f 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -10,13 +10,18 @@
+ /*
+  * min()/max()/clamp() macros must accomplish three things:
+  *
+- * - avoid multiple evaluations of the arguments (so side-effects like
++ * - Avoid multiple evaluations of the arguments (so side-effects like
+  *   "x++" happen only once) when non-constant.
+- * - perform signed v unsigned type-checking (to generate compile
+- *   errors instead of nasty runtime surprises).
+- * - retain result as a constant expressions when called with only
++ * - Retain result as a constant expressions when called with only
+  *   constant expressions (to avoid tripping VLA warnings in stack
+  *   allocation usage).
++ * - Perform signed v unsigned type-checking (to generate compile
++ *   errors instead of nasty runtime surprises).
++ * - Unsigned char/short are always promoted to signed int and can be
++ *   compared against signed or unsigned arguments.
++ * - Unsigned arguments can be compared against non-negative signed constants.
++ * - Comparison of a signed argument against an unsigned constant fails
++ *   even if the constant is below __INT_MAX__ and could be cast to int.
+  */
+ #define __typecheck(x, y) \
+ 	(!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
+@@ -26,9 +31,14 @@
+ 	__builtin_choose_expr(__is_constexpr(is_signed_type(typeof(x))),	\
+ 		is_signed_type(typeof(x)), 0)
+ 
+-#define __types_ok(x, y) 			\
+-	(__is_signed(x) == __is_signed(y) ||	\
+-		__is_signed((x) + 0) == __is_signed((y) + 0))
++/* True for a non-negative signed int constant */
++#define __is_noneg_int(x)	\
++	(__builtin_choose_expr(__is_constexpr(x) && __is_signed(x), x, -1) >= 0)
++
++#define __types_ok(x, y) 					\
++	(__is_signed(x) == __is_signed(y) ||			\
++		__is_signed((x) + 0) == __is_signed((y) + 0) ||	\
++		__is_noneg_int(x) || __is_noneg_int(y))
+ 
+ #define __cmp_op_min <
+ #define __cmp_op_max >
 -- 
 2.47.3
 
