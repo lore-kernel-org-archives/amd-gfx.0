@@ -4,190 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C58BCAC5B6
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Sep 2025 09:02:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9517ECAC5A8
+	for <amd-gfx@archiver.kernel.org>; Sun, 21 Sep 2025 09:03:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F258910E357;
-	Sun, 21 Sep 2025 09:02:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3484B10E354;
+	Sun, 21 Sep 2025 09:03:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OriFzY6k";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="huUdNRBB";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011060.outbound.protection.outlook.com [52.101.57.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 949F810E999;
- Fri, 19 Sep 2025 12:12:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AD582V/BZa9pU6CwJjiIJjvvTNdjxLVrJcJAZ4wDujsYTxHicnibNdBX41+7L7y+xN/BjiNP3wu05eucjRsefxwjmXGoRSvN5bDsuYCHf1FdO5zNpemDct8D4JFME6tYEjWUXJbM0NWdt3/FXpESkq5/J2D5TnqxiRfLpctLAydiPByxMjj23yb6N31ZRMkpXPrKva7C3K/SuJqSsAo05pYR4uHCohh/dNLg6OunTCsArUWNpI2E/NsCF4AdM4EUIysrcXH1U9ariWL+M+4Z16WJNhZ/BJVvUz8+ONE+fuZAayA4it0YsxJnC/iPr53wcMJZ6m3IbmrpcxBYdvXQ/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wbVXg5MyCk+7aXzf2aqtq5p3hcfcw9Z+3yObGYsYiy4=;
- b=GNl4eE/M18q6uF+7wngl9tt++sLmOH1dEo+DnV1hhGxl5/Ohp8Uxh3yHO4beFu2EcJqspIqDTelH4Xfo0NObFk9JSid2IK1p1mHuGsYQXZTPAAeEbHxc5qxJXekoFleMev6oYVwtzx3RtmaF6EzK/GryouQObi8gh62H/GsuwMsEhMAH0rbeNusNaFC2XrKdUJgPYVsZMLwXzsEW8gv5Lad9fkxNKdThqMC2SZN0+lr7hUZkQsLgRpFXxuPN4PcwotZ5TN7LChnXe/zOAlS7Gz3dP2Flj/qQGjYfqR5k2p9lumKbkPx6je21y0PiuD+T1Hqmeo8ddN4K0MfTv9l7vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wbVXg5MyCk+7aXzf2aqtq5p3hcfcw9Z+3yObGYsYiy4=;
- b=OriFzY6kLBgfM9OYuTo2qAYjl8W3DOr9hzny7usAcNpA2yhXN4XLbl1PPLGljQs4l8TiFN6c6GpGfQ46OOVR3bFfybVROkAuOSq36fduPMjXuwR+YrNdURm6XOtsSnywI00zpv6iS+Jz5orH0S+VfpBsX/NROfk0y3DrBJCKz8c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB6699.namprd12.prod.outlook.com (2603:10b6:510:1ce::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.22; Fri, 19 Sep
- 2025 12:12:01 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9137.012; Fri, 19 Sep 2025
- 12:12:01 +0000
-Message-ID: <184ce83f-0063-43a0-a1c8-da23c5d03cf7@amd.com>
-Date: Fri, 19 Sep 2025 14:11:37 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
-To: Eliav Farber <farbere@amazon.com>, linux@armlinux.org.uk,
- jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
- dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, tony.luck@intel.com, qiuxu.zhuo@intel.com,
- mchehab@kernel.org, james.morse@arm.com, rric@kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, evan.quan@amd.com,
- james.qian.wang@arm.com, liviu.dudau@arm.com, mihail.atanassov@arm.com,
- brian.starkey@arm.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, robdclark@gmail.com,
- sean@poorly.run, jdelvare@suse.com, linux@roeck-us.net, fery@cypress.com,
- dmitry.torokhov@gmail.com, agk@redhat.com, snitzer@redhat.com,
- dm-devel@redhat.com, rajur@chelsio.com, davem@davemloft.net,
- kuba@kernel.org, peppe.cavallaro@st.com, alexandre.torgue@st.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, malattia@linux.it,
- hdegoede@redhat.com, mgross@linux.intel.com, intel-linux-scu@intel.com,
- artur.paszkiewicz@intel.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
- sakari.ailus@linux.intel.com, gregkh@linuxfoundation.org, clm@fb.com,
- josef@toxicpanda.com, dsterba@suse.com, jack@suse.com, tytso@mit.edu,
- adilger.kernel@dilger.ca, dushistov@mail.ru, luc.vanoostenryck@gmail.com,
- rostedt@goodmis.org, pmladek@suse.com, sergey.senozhatsky@gmail.com,
- andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk,
- minchan@kernel.org, ngupta@vflare.org, akpm@linux-foundation.org,
- kuznet@ms2.inr.ac.ru, yoshfuji@linux-ipv6.org, pablo@netfilter.org,
- kadlec@netfilter.org, fw@strlen.de, jmaloy@redhat.com,
- ying.xue@windriver.com, willy@infradead.org, sashal@kernel.org,
- ruanjinjie@huawei.com, David.Laight@ACULAB.COM, herve.codina@bootlin.com,
- Jason@zx2c4.com, bvanassche@acm.org, keescook@chromium.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-um@lists.infradead.org, linux-edac@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-btrfs@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-sparse@vger.kernel.org,
- linux-mm@kvack.org, netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- tipc-discussion@lists.sourceforge.net, stable@vger.kernel.org
-Cc: jonnyc@amazon.com
-References: <20250919101727.16152-1-farbere@amazon.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [52.28.197.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38DF110E984;
+ Fri, 19 Sep 2025 10:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1758277533; x=1789813533;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=JKrzZxxwAGrrsDAYTdb2CFyqRRiBdvlMoDbZLm/oNpo=;
+ b=huUdNRBB0X7dX9A1S/mL/voCFSS0pDXGbpfXb9tHfc8UJUdCpGFs1URk
+ 52e0+TMee7tT2PyLxh8EiDw7aqcJCg2h2LWUKZzx/4eFYIBmP5XpgzpL/
+ 8vudiTceSRjRJJR0agWRnA7AuNJz4YCphK6c1Ys+NjZEoXXh6sBXvRx3c
+ VRCM5n74NsEGP6/1TSG5eDRoKoBZAtdOM6RcqsRli17zdAbvK2JdKe8UL
+ lPNEjwQtfdWP4AZHAeMBa8JgKTzT5TOm3BJjRlPSWjWJchDaMS9T6Q+mY
+ o5Ibbi/q8aO119SDC89uL+Bq90/m0cwShXd+VQ9f2Xv0oG1I+upFmFx5o g==;
+X-CSE-ConnectionGUID: U0EhKdrxSye2p5nE34cH0w==
+X-CSE-MsgGUID: wAJ621goQjuBrwiPZ59IDQ==
+X-IronPort-AV: E=Sophos;i="6.18,277,1751241600"; 
+   d="scan'208";a="2263859"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:25:31 +0000
+Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.226:8326]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.39.25:2525]
+ with esmtp (Farcaster)
+ id fcea71c2-c4ac-4edd-9d6b-2623094cfc8a; Fri, 19 Sep 2025 10:25:31 +0000 (UTC)
+X-Farcaster-Flow-ID: fcea71c2-c4ac-4edd-9d6b-2623094cfc8a
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUB001.ant.amazon.com (10.252.51.28) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Fri, 19 Sep 2025 10:25:30 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 19 Sep 2025
+ 10:25:01 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>,
+ <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>,
+ <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
+ <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>,
+ <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>,
+ <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
+ <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>,
+ <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, 
+ <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>,
+ <gregkh@linuxfoundation.org>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>,
+ <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>,
+ <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>,
+ <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <bvanassche@acm.org>,
+ <keescook@chromium.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
+ <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <stable@vger.kernel.org>
+CC: <jonnyc@amazon.com>, Linus Torvalds <torvalds@linux-foundation.org>,
+ "David Laight" <David.Laight@aculab.com>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>
+Subject: [PATCH 13/27 5.10.y] minmax: add a few more MIN_T/MAX_T users
+Date: Fri, 19 Sep 2025 10:17:13 +0000
+Message-ID: <20250919101727.16152-14-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20250919101727.16152-1-farbere@amazon.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0156.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+References: <20250919101727.16152-1-farbere@amazon.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6699:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6937c5b9-1962-44a7-1ee6-08ddf775bd22
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y3hLRFVLeVExQmhYODR2ak01bWVFUXNoSXpVYi8rWDdaRzBDN0FpVnpuanZO?=
- =?utf-8?B?RytJRWgzNjErVi93RUtQdEZZUnRjL0ZFUUs0ZGx3NjN2M3NlWUMxRHVPbFdC?=
- =?utf-8?B?V1laRGlBSGlrU05RdFNpRWRUeEpnSmVreDVTOStaSUNSVkcwZlRXdEZXRUF4?=
- =?utf-8?B?Wlg1ZHA1cDNkSnhid3Ftc2lnaWE1YVV1dWxaeG9zbnppZkF5a3dOTlZWZHY3?=
- =?utf-8?B?bUNiWkJpRVMwa25nVCt0a2t1dUFmZEY3elYvQnc5WWdlRlBmNWRGZGJuZE81?=
- =?utf-8?B?cnlGRHF3Y0s2ZnZETXdudUdkK0tvSVZtMGVJMkFTWU4vMVJzVFg2Z05MWEZx?=
- =?utf-8?B?VlpJOStDMDY4YVd4eklyZjFpbGR2aGJnVS9SdjljSjExbkdtZlBoRmZ2dWhH?=
- =?utf-8?B?TFBadkdYQjROWXo2bUR3ODNRQXM0L1VrQVJMSlIrcDQ4c3drWGdqaEFBZEZV?=
- =?utf-8?B?cWVnQ09oSXZ3cVJvbUNyMzRJVE1rV2NyV2UvRGJ6ZStyaXRFbTltajdsL0dt?=
- =?utf-8?B?aElqS1VUc0JObnFucGNLeHp5YyszcWk0TTBmTUVValB0bnlIek0yM1ZyaCtp?=
- =?utf-8?B?QThGVmROY2kySm1BcW9jQ0JXNWFLajEzbkRkVkhLc082QkpPRjZ5ODE3Q2NW?=
- =?utf-8?B?a1hNcHNqWGNCdzlkODFUWHkrVVBpRmRIU0tKU21NbXVQOElZSG4vZTZoSFNt?=
- =?utf-8?B?Ui9qMnllTThYdWFDYWdVR2twcjA3NFNSWUpUT001MHp5Y1FvZ2h2d0d4Vytr?=
- =?utf-8?B?dUkwNHU2Y0IzUTVUTkp2QUZyS0VWQ0hWaEdpUytsQWF0dG00WGVtdjEzNGFT?=
- =?utf-8?B?UWR3MWd3K0RmL1ozeDRXbkJMQnQ4TEZPNUhuKytlZVh0UjhRNEkrMXBHeDMr?=
- =?utf-8?B?TFlGWHdTek8vb2ZDREVwNlFJMjJlQTY4cXhhZFhLWFFVMVU4RU5zKzFhMzNk?=
- =?utf-8?B?WnVRdlFabnhlUHQ0UzRIU29LYVlzbVRlelZ4NFZ6a1pkTVF1eWR4TjB6bHJk?=
- =?utf-8?B?ckJldXpDUGdOaFJlUW1janNkaGw3ZUJ2YnNmcmRrY1Bvajl0R2xCaERHYjU4?=
- =?utf-8?B?OEp0a1ppY0xDL1I1eFEzeGVyemNwWnNUUGhEOGJFeHFuQzVkcXhJMUU1Rjg4?=
- =?utf-8?B?Q0tBOG1QZFNoaThMTDhkemNkUDY1RUc1Rit5VHYxZWgyUW02cUVFWkxNdjVa?=
- =?utf-8?B?QmZiWXF0OHBPNnhnWVVMUGxxay9VSTJ3VThmVzBDQlpZcThVT2g1b09wYnRU?=
- =?utf-8?B?bjFMdi9xSVFubHlXa1ExRXFqTmZSdTl1NmlIa1lzSy9xM25oMUZqTUY3d25E?=
- =?utf-8?B?dWlXWFk3VjhCdis5dDNYYTdscGcxWDliN3gvR2xGV0F4SHhOcjB0NTh5WHlM?=
- =?utf-8?B?ZXRnMnlONEJMRWZucXlMUVNEaXFaNUppWnVTanUzZThuc0g1bSswcjRzdGxM?=
- =?utf-8?B?TGFDbERNcXpTcTY3LzhSbVgrUWZ5Q2RSa2xUd1BRSENDTTFiQ3piaFk5V2h0?=
- =?utf-8?B?RGJyR3ZhaCt4SkpSRG9CTTBCaUVaVy96NEJyUlFHRmV6RzNGWlFFTHVmSzRX?=
- =?utf-8?B?RHhnUXJxWi9POVE5TTltZEhJKzVtS25jQi9WV0pFQWZRZEpzUEV4cnhuSlVR?=
- =?utf-8?B?dDNQSENhSWtULzZpWWc2akZpcFhTUGxRK28ycldrWXkvenFnSXRZUHlTQjZp?=
- =?utf-8?B?emhyTXdjSk83NWhiM0FYalQwMSsyQjRrSkVlaHRJaGFpYkZVZmRmbVdON3h5?=
- =?utf-8?B?ZllielpZZTFxc0NESDNGSE5HZURaT29MR1F5N2h0elAxY2p5WjZ3SkpEd2lv?=
- =?utf-8?B?aXJVMHp5aFVTOThjblhiTC9LNCtFamxvOEhuNVRzSzhGenFsUlNtaGQyd0No?=
- =?utf-8?B?SkZzWFo2dUtkdndFUk9lMWJBR2xZVlZJRXBSL3JWM1RRMU9LTGFyR0VjNWFR?=
- =?utf-8?B?eWxZUFF2dEtyZFkvRnlYclRCZGcyWVlLT3BSS3JUZWdvWTlZcmV2UmVYbjZt?=
- =?utf-8?B?Tk1sNFV6U3lRPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0VydlR5bjl3RFBmQk1PSVJNR1VtNWJKcWRoWnM4VjRqNUtBSjJOVm5HU01a?=
- =?utf-8?B?N0IvZ2RVc3BxVDk1NXdMbjlFUWY2dE9ETlJlMlBaRG9IM2ZpU2lVcXdDZTRX?=
- =?utf-8?B?akhWL21pTkZXMzJDR1FJMk9WTDc3T1l3UndWMkZMQlZDcVcwbnRoc0NrUDMv?=
- =?utf-8?B?Y0hvVmpZczFkUlFCaVhJNkkxc00zZExZalBIdXo1eU81MmpPVlJUWmxaTTJS?=
- =?utf-8?B?QVVFWUtHN3dSOXRORTVrbk5EUUNCVHRlQXdSVUsreS9nSkFXckFOc3dqd0VI?=
- =?utf-8?B?eS9Nb0hrSW9TOVN3c1ZsSTBYYU9iYmlIMy9XRUE5cmRtaC9ZRTF6RXZYNVNJ?=
- =?utf-8?B?dkVua1pQV0F6NStCMHRyZ05wMmVSa1J1UFphY1UzVEdmYm5FVHQ3YVdSM003?=
- =?utf-8?B?YXVDVXpucUNvVk5reE5Ia0lqdWp2Q0w4aUhPQTVUZkdmVTR0T051TXl4V0U4?=
- =?utf-8?B?dkVQdWZJVHdGdGZqQmdQRXM1Q2tucFhpU3F2aTJvY2pmYU1MMVZieWJDSkJw?=
- =?utf-8?B?aUtlcHNONGh6bEZ5dkN0akRLUHVuUUE0c2hSQW51MGJ0eStNM2ZuNVNSL001?=
- =?utf-8?B?YUljbW5Zd0JjcU96Y0EyZm9vMzU2MTF3RENnTzFHazc3MVFxeXRYcll0RWl6?=
- =?utf-8?B?U2tQbzc0ak53QXJLam9tZkgvTC9xcG9WcENMMlYwUkQvbkdDc3JtMDduUzR6?=
- =?utf-8?B?RXZzamR6VG9jb0F5QkZkNWVmVDFFbXhRcTRYMUZoNllHOWhxME5ZaDhpZk1E?=
- =?utf-8?B?cnZCeUJtTEk3TkYwaW50bWxzc1hVY0o2dHkxZ3NZMUhxSi85UlhQNm01eGJ1?=
- =?utf-8?B?ZnJteTB3a0FXN3lxcTBCU3lFRk1WRWhQUG5sV2VlOFJaekp6MzE0Q1B2UXJK?=
- =?utf-8?B?elYxZ3ZFY0kzdFRkZnhHc3prOHY5QnEwZnhQY1ptbzl4QjZXQ0VlUk9zM2Fh?=
- =?utf-8?B?U3ZOTTNSekVJblVzOHNZZDdGYzc4YnkwellNQUw3S0FSQnArc003L21UelBD?=
- =?utf-8?B?dHYrUkhzbzBGQ1pFNXVEeWl6UWIzQkRjT0hod1pWN3J6T09KNHZldE1TWmJr?=
- =?utf-8?B?VURrSDl3QnVlcTJjdE0zdE5DbENiVGFzOFIyQUxhZUt1Qk0ySlgyS2RqR3Ex?=
- =?utf-8?B?ZmtLL2ViRkNML0NhSS94TDFQbWs5V2tMMkNqbE1HSVdHa052S2V0ZXdVeDlv?=
- =?utf-8?B?K01OMFFlNmFSU0ZqUFlwUlE4NmtJL3htUzU3RmdKQTRiVWY2dUZMdXVvUFA5?=
- =?utf-8?B?bDJCOWphTjhzZ1lSM2c5cWZXTnRnOUpHZm9jcEc1YVloRHZ5VTFKT0hEalpz?=
- =?utf-8?B?Zmc2a3hud1R2OE0zdStJZXlZS2gycktPRUdSUUVNZGo2dzZwODFvcEl6MXpo?=
- =?utf-8?B?ckhtbEdYb3dFZE5KMXNSNzd5M25HTlBLV3ZnL1MwanEreHBaZjdSRWJxN2Rq?=
- =?utf-8?B?MWZXNGhEZWxYYXFnK2FTN2czTW16K1dKUE1DSmIwQXlyZ0NMMVlBTEJ1V1cw?=
- =?utf-8?B?RVFUd0RvUGVpQzZIc0pJeUdTL1Q1MVhjS1p4VEcwaU4zNk1HbWJRb0hyOTdt?=
- =?utf-8?B?ODd3U2o5WTU4SFl5VFBqdzIyQ2RlSElUcVloYUZDNWV0V0FObHk4Z1AvWEFv?=
- =?utf-8?B?cG56NEZEOWpSK09ET1prbVFTVFlrMUdxQ3dURlRXbnIvbkJOaUZnRXFhYWFI?=
- =?utf-8?B?b21IRmkwYXJ4QkRxTlhPR01FTXRvRkNjcENnVmZ1OWtvVDkrcDhOK2xvaUZ1?=
- =?utf-8?B?WDlRS01oQkVmZGpsSFVzemtmQzZObkRrY2F2ZU51MHpYc0RtUDVRcE11emMr?=
- =?utf-8?B?SWQvRmxKQ2hUcnF6d3k2K3NteGphZHcwb2wxcGN4ZkhqMEQyMHh3cm83Snho?=
- =?utf-8?B?SC9XdHpSWU1tS0hWS3h0NFVyWTU1Z3dWT1ZOa0pMbmlIQkZpczEySEZoZmwx?=
- =?utf-8?B?Z3EwTVVacyt2dDZjV3dRTnhUR041TmZVS29LaUFOd01SL2NHbjlZUHZFcVVk?=
- =?utf-8?B?MFRRZFhrTmtzL1p2MDZENDlHLzRHMlRmOVA5bVdRSDdCUGJNbmgxTU5UeTlm?=
- =?utf-8?B?dGJHRHdOazVRRTg1RlQ3a1hDazZYYW1HUVhMejFaUmRvWGhpVDY2b24raTZY?=
- =?utf-8?Q?NKiCWZy6KpXV5wwLJmoYbWn+q?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6937c5b9-1962-44a7-1ee6-08ddf775bd22
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2025 12:12:01.6073 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lV8yIqWmCjsKi+0mG6kRzonlCfsKYf5LVBwA839a0bMwoG/ldmSYNzTvdItV8cR7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6699
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D035UWB004.ant.amazon.com (10.13.138.104) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Sun, 21 Sep 2025 09:02:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -203,170 +127,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 19.09.25 12:17, Eliav Farber wrote:
-> This series includes a total of 27 patches, to align minmax.h of
-> v5.15.y with v6.17-rc6.
-> 
-> The set consists of 24 commits that directly update minmax.h:
-> 1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() macro
->    once")
-> 2) 5efcecd9a3b1 ("minmax: sanity check constant bounds when clamping")
-> 3) 2122e2a4efc2 ("minmax: clamp more efficiently by avoiding extra
->    comparison")
-> 4) f9bff0e31881 ("minmax: add in_range() macro")
-> 5) c952c748c7a9 ("minmax: Introduce {min,max}_array()")
-> 6) 5e57418a2031 ("minmax: deduplicate __unconst_integer_typeof()")
-> 7) f6e9d38f8eb0 ("minmax: fix header inclusions")
-> 8) d03eba99f5bf ("minmax: allow min()/max()/clamp() if the arguments
->    have the same signedness.")
-> 9) f4b84b2ff851 ("minmax: fix indentation of __cmp_once() and
->    __clamp_once()")
-> 10) 4ead534fba42 ("minmax: allow comparisons of 'int' against 'unsigned
->     char/short'")
-> 11) 867046cc7027 ("minmax: relax check to allow comparison between
->     unsigned arguments and signed constants")
-> 12) 3a7e02c040b1 ("minmax: avoid overly complicated constant
->     expressions in VM code")
-> 14) 017fa3e89187 ("minmax: simplify and clarify min_t()/max_t()
->     implementation")
-> 15) 1a251f52cfdc ("minmax: make generic MIN() and MAX() macros
->     available everywhere")
-> 18) dc1c8034e31b ("minmax: simplify min()/max()/clamp()
->     implementation")
-> 19) 22f546873149 ("minmax: improve macro expansion and type
->     checking")
-> 20) 21b136cc63d2 ("minmax: fix up min3() and max3() too")
-> 21) 71ee9b16251e ("minmax.h: add whitespace around operators and after
->     commas")
-> 22) 10666e992048 ("minmax.h: update some comments")
-> 23) b280bb27a9f7 ("minmax.h: reduce the #define expansion of min(),
->     max() and clamp()")
-> 24) a5743f32baec ("minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi
->     test in clamp()")
-> 25) c3939872ee4a ("minmax.h: move all the clamp() definitions after the
->     min/max() ones")
-> 26) 495bba17cdf9 ("minmax.h: simplify the variants of clamp()")
-> 27) 2b97aaf74ed5 ("minmax.h: remove some #defines that are only
->     expanded once")
-> 
-> 2 prerequisite commits that adjust users of MIN and MAX macros (to
-> prevent compilation issues):
-> 13) 4477b39c32fd ("minmax: add a few more MIN_T/MAX_T users")
-> 17) cb04e8b1d2f2 ("minmax: don't use max() in situations that want a C
->     constant expression")
-> 
-> 1 additional commit introduced to resolve a build failures during the
-> backport:
-> 16) lib: zstd: drop local MIN/MAX macros in favor of generic ones
-> 
-> The primary motivation is to bring in commit (8).
-> In mainline, this change allows min()/max()/clamp() to accept mixed
-> argument types when both share the same signedness.
-> Backported patches to v5.10.y that use such forms trigger compiler
-> warnings, which in turn cause build failures when -Werror is enabled.
-> 
-> Originaly I aligned 5.10.y to 5.15.y, but David Laight commented that I
-> need to pick up the later changes (from Linus) as well.
-> 
-> Andy Shevchenko (2):
->   minmax: deduplicate __unconst_integer_typeof()
->   minmax: fix header inclusions
-> 
-> Bart Van Assche (1):
->   overflow, tracing: Define the is_signed_type() macro once
-> 
-> David Laight (11):
->   minmax: allow min()/max()/clamp() if the arguments have the same
->     signedness.
->   minmax: fix indentation of __cmp_once() and __clamp_once()
->   minmax: allow comparisons of 'int' against 'unsigned char/short'
->   minmax: relax check to allow comparison between unsigned arguments and
->     signed constants
->   minmax.h: add whitespace around operators and after commas
->   minmax.h: update some comments
->   minmax.h: reduce the #define expansion of min(), max() and clamp()
->   minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
->   minmax.h: move all the clamp() definitions after the min/max() ones
->   minmax.h: simplify the variants of clamp()
->   minmax.h: remove some #defines that are only expanded once
-> 
-> Eliav Farber (1):
->   lib: zstd: drop local MIN/MAX macros in favor of generic ones
-> 
-> Herve Codina (1):
->   minmax: Introduce {min,max}_array()
-> 
-> Jason A. Donenfeld (2):
->   minmax: sanity check constant bounds when clamping
->   minmax: clamp more efficiently by avoiding extra comparison
-> 
-> Linus Torvalds (8):
->   minmax: avoid overly complicated constant expressions in VM code
->   minmax: add a few more MIN_T/MAX_T users
->   minmax: simplify and clarify min_t()/max_t() implementation
->   minmax: make generic MIN() and MAX() macros available everywhere
->   minmax: don't use max() in situations that want a C constant
->     expression
->   minmax: simplify min()/max()/clamp() implementation
->   minmax: improve macro expansion and type checking
->   minmax: fix up min3() and max3() too
-> 
-> Matthew Wilcox (Oracle) (1):
->   minmax: add in_range() macro
-> 
->  arch/arm/mm/pageattr.c                        |   6 +-
->  arch/um/drivers/mconsole_user.c               |   2 +
->  arch/x86/mm/pgtable.c                         |   2 +-
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
->  drivers/edac/sb_edac.c                        |   4 +-
->  drivers/edac/skx_common.h                     |   1 -
->  .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |   2 +
->  .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    |  14 +-
->  .../drm/arm/display/include/malidp_utils.h    |   2 +-
->  .../display/komeda/komeda_pipeline_state.c    |  24 +-
->  drivers/gpu/drm/drm_color_mgmt.c              |   2 +-
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   6 -
->  drivers/gpu/drm/radeon/evergreen_cs.c         |   2 +
->  drivers/hwmon/adt7475.c                       |  24 +-
->  drivers/input/touchscreen/cyttsp4_core.c      |   2 +-
->  drivers/md/dm-integrity.c                     |   2 +-
->  drivers/media/dvb-frontends/stv0367_priv.h    |   3 +
->  .../net/ethernet/chelsio/cxgb3/cxgb3_main.c   |  18 +-
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c |   2 +-
->  drivers/net/fjes/fjes_main.c                  |   4 +-
->  drivers/nfc/pn544/i2c.c                       |   2 -
->  drivers/platform/x86/sony-laptop.c            |   1 -
->  drivers/scsi/isci/init.c                      |   6 +-
+[ Upstream commit 4477b39c32fdc03363affef4b11d48391e6dc9ff ]
 
-I do see the value to backport the infrastructure, but why are driver specific changes backported as well?
+Commit 3a7e02c040b1 ("minmax: avoid overly complicated constant
+expressions in VM code") added the simpler MIN_T/MAX_T macros in order
+to avoid some excessive expansion from the rather complicated regular
+min/max macros.
 
-I mean the changes are most likely correct but also not valuable in anyway as bug fix.
+The complexity of those macros stems from two issues:
 
-Regards,
-Christian.
+ (a) trying to use them in situations that require a C constant
+     expression (in static initializers and for array sizes)
 
->  .../pci/hive_isp_css_include/math_support.h   |   5 -
->  fs/btrfs/misc.h                               |   2 -
->  fs/btrfs/tree-checker.c                       |   2 +-
->  fs/ext2/balloc.c                              |   2 -
->  fs/ext4/ext4.h                                |   2 -
->  fs/ufs/util.h                                 |   6 -
->  include/linux/compiler.h                      |  15 +
->  include/linux/minmax.h                        | 267 ++++++++++++++----
->  include/linux/overflow.h                      |   1 -
->  include/linux/trace_events.h                  |   2 -
->  kernel/trace/preemptirq_delay_test.c          |   2 -
->  lib/btree.c                                   |   1 -
->  lib/decompress_unlzma.c                       |   2 +
->  lib/logic_pio.c                               |   3 -
->  lib/vsprintf.c                                |   2 +-
->  lib/zstd/zstd_internal.h                      |   2 -
->  mm/zsmalloc.c                                 |   1 -
->  net/ipv4/proc.c                               |   2 +-
->  net/ipv6/proc.c                               |   2 +-
->  net/netfilter/nf_nat_core.c                   |   6 +-
->  net/tipc/core.h                               |   2 +-
->  net/tipc/link.c                               |  10 +-
->  44 files changed, 306 insertions(+), 164 deletions(-)
-> 
+ (b) the type sanity checking
+
+and MIN_T/MAX_T avoids both of these issues.
+
+Now, in the whole (long) discussion about all this, it was pointed out
+that the whole type sanity checking is entirely unnecessary for
+min_t/max_t which get a fixed type that the comparison is done in.
+
+But that still leaves min_t/max_t unnecessarily complicated due to
+worries about the C constant expression case.
+
+However, it turns out that there really aren't very many cases that use
+min_t/max_t for this, and we can just force-convert those.
+
+This does exactly that.
+
+Which in turn will then allow for much simpler implementations of
+min_t()/max_t().  All the usual "macros in all upper case will evaluate
+the arguments multiple times" rules apply.
+
+We should do all the same things for the regular min/max() vs MIN/MAX()
+cases, but that has the added complexity of various drivers defining
+their own local versions of MIN/MAX, so that needs another level of
+fixes first.
+
+Link: https://lore.kernel.org/all/b47fad1d0cf8449886ad148f8c013dae@AcuMS.aculab.com/
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ arch/x86/mm/pgtable.c                             | 2 +-
+ drivers/edac/sb_edac.c                            | 4 ++--
+ drivers/gpu/drm/drm_color_mgmt.c                  | 2 +-
+ drivers/md/dm-integrity.c                         | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ net/ipv4/proc.c                                   | 2 +-
+ net/ipv6/proc.c                                   | 2 +-
+ 7 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
+index 204b25ee26f0..27e8e3d6be48 100644
+--- a/arch/x86/mm/pgtable.c
++++ b/arch/x86/mm/pgtable.c
+@@ -107,7 +107,7 @@ static inline void pgd_list_del(pgd_t *pgd)
+ #define UNSHARED_PTRS_PER_PGD				\
+ 	(SHARED_KERNEL_PMD ? KERNEL_PGD_BOUNDARY : PTRS_PER_PGD)
+ #define MAX_UNSHARED_PTRS_PER_PGD			\
+-	max_t(size_t, KERNEL_PGD_BOUNDARY, PTRS_PER_PGD)
++	MAX_T(size_t, KERNEL_PGD_BOUNDARY, PTRS_PER_PGD)
+ 
+ 
+ static void pgd_set_mm(pgd_t *pgd, struct mm_struct *mm)
+diff --git a/drivers/edac/sb_edac.c b/drivers/edac/sb_edac.c
+index 1522d4aa2ca6..714020e7405a 100644
+--- a/drivers/edac/sb_edac.c
++++ b/drivers/edac/sb_edac.c
+@@ -109,8 +109,8 @@ static const u32 knl_interleave_list[] = {
+ 	0x104, 0x10c, 0x114, 0x11c,   /* 20-23 */
+ };
+ #define MAX_INTERLEAVE							\
+-	(max_t(unsigned int, ARRAY_SIZE(sbridge_interleave_list),	\
+-	       max_t(unsigned int, ARRAY_SIZE(ibridge_interleave_list),	\
++	(MAX_T(unsigned int, ARRAY_SIZE(sbridge_interleave_list),	\
++	       MAX_T(unsigned int, ARRAY_SIZE(ibridge_interleave_list),	\
+ 		     ARRAY_SIZE(knl_interleave_list))))
+ 
+ struct interleave_pkg {
+diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+index 138ff34b31db..4bc671484c05 100644
+--- a/drivers/gpu/drm/drm_color_mgmt.c
++++ b/drivers/gpu/drm/drm_color_mgmt.c
+@@ -421,7 +421,7 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
+ {
+ 	struct drm_device *dev = plane->dev;
+ 	struct drm_property *prop;
+-	struct drm_prop_enum_list enum_list[max_t(int, DRM_COLOR_ENCODING_MAX,
++	struct drm_prop_enum_list enum_list[MAX_T(int, DRM_COLOR_ENCODING_MAX,
+ 						       DRM_COLOR_RANGE_MAX)];
+ 	int i, len;
+ 
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index 07a7b4e51f0e..7fa3bf74747d 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -2431,7 +2431,7 @@ static void do_journal_write(struct dm_integrity_c *ic, unsigned write_start,
+ 				    unlikely(from_replay) &&
+ #endif
+ 				    ic->internal_hash) {
+-					char test_tag[max_t(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
++					char test_tag[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
+ 
+ 					integrity_sector_checksum(ic, sec + ((l - j) << ic->sb->log2_sectors_per_block),
+ 								  (char *)access_journal_data(ic, i, l), test_tag);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index b8581a711514..e6fa2782d28f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2267,7 +2267,7 @@ static void stmmac_dma_interrupt(struct stmmac_priv *priv)
+ 	u32 channels_to_check = tx_channel_count > rx_channel_count ?
+ 				tx_channel_count : rx_channel_count;
+ 	u32 chan;
+-	int status[max_t(u32, MTL_MAX_TX_QUEUES, MTL_MAX_RX_QUEUES)];
++	int status[MAX_T(u32, MTL_MAX_TX_QUEUES, MTL_MAX_RX_QUEUES)];
+ 
+ 	/* Make sure we never check beyond our status buffer. */
+ 	if (WARN_ON_ONCE(channels_to_check > ARRAY_SIZE(status)))
+diff --git a/net/ipv4/proc.c b/net/ipv4/proc.c
+index 80d13d8f982d..94fbba052b49 100644
+--- a/net/ipv4/proc.c
++++ b/net/ipv4/proc.c
+@@ -43,7 +43,7 @@
+ #include <net/sock.h>
+ #include <net/raw.h>
+ 
+-#define TCPUDP_MIB_MAX max_t(u32, UDP_MIB_MAX, TCP_MIB_MAX)
++#define TCPUDP_MIB_MAX MAX_T(u32, UDP_MIB_MAX, TCP_MIB_MAX)
+ 
+ /*
+  *	Report socket allocation statistics [mea@utu.fi]
+diff --git a/net/ipv6/proc.c b/net/ipv6/proc.c
+index bbff3e02e302..929981a8fe98 100644
+--- a/net/ipv6/proc.c
++++ b/net/ipv6/proc.c
+@@ -27,7 +27,7 @@
+ #include <net/ipv6.h>
+ 
+ #define MAX4(a, b, c, d) \
+-	max_t(u32, max_t(u32, a, b), max_t(u32, c, d))
++	MAX_T(u32, MAX_T(u32, a, b), MAX_T(u32, c, d))
+ #define SNMP_MIB_MAX MAX4(UDP_MIB_MAX, TCP_MIB_MAX, \
+ 			IPSTATS_MIB_MAX, ICMP_MIB_MAX)
+ 
+-- 
+2.47.3
 
