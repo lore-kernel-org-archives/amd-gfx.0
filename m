@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 622DACAC5AC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BFA5CAC5B1
 	for <amd-gfx@archiver.kernel.org>; Sun, 21 Sep 2025 09:02:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0858210E34C;
-	Sun, 21 Sep 2025 09:02:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E024410E34A;
+	Sun, 21 Sep 2025 09:02:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="hdm7n6w5";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="Eym9F1Pj";
 	dkim-atps=neutral
-Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [52.28.197.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E53B410E984;
- Fri, 19 Sep 2025 10:20:15 +0000 (UTC)
+Received: from fra-out-001.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-001.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [18.156.205.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94A5710E984;
+ Fri, 19 Sep 2025 10:33:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758277216; x=1789813216;
+ t=1758278026; x=1789814026;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QGaAvozmIqIzV143yBTS5nQtsGF8X9DZFIMkdv4YYLs=;
- b=hdm7n6w5aNvK1Kjo0IJOp0xje8pxL9SI5ac1DUxLMHhcHqHPhiaPaIML
- ULXFDtDIBM9D7WUhY4qrwqcrPARvPE1+BzJIP4H35hyy6j+6UxKQqPVdT
- xXpKZe++ZDgl7VLSb52Yv+Uyl1F3bBqsJG+7nZnnzp4IKH29+YnoLu0VF
- R0XpxvyLQFOS3Po2S02KbP1ieSGSbzaIBQRD8I0z+50of5HROzP9jA0BM
- vfEJXXpZgirWVEfTNpntS3CFqm5rVhfL1psPohtjKvbREqaqOlT9DImBg
- 3bhjSUbBUd+kCezV8maKpL3PzBy8gnBr1ci4Fk6lhStmKCiNhu46cG/Xr A==;
-X-CSE-ConnectionGUID: bNGyTyr9Tluytx4xpBWYaw==
-X-CSE-MsgGUID: NUPh/j/ESIquMv5V2VCWqg==
+ bh=k0dUe76w+6n5/NfsPbyefGVCom+xh3GGcFcV3Olhmks=;
+ b=Eym9F1PjjpHFlLj6A6HmQpNSa5L14TyKnwvYhbcayZDS61YiRPI95vai
+ v8Kh7ksFQTpY9/DXp+S1ve8WPcNPicgVxBZ6CT7AOFxBkeqHBHFAoL7K7
+ /exxOvo/gQXcWLPMKDIk2RQl91kJlUXJrfYyN+qn1QxYeTxDmlE2Tp/gH
+ Y2l0HbCR+vrxGBvchxMothWLqC/5M806aUTncTp7nPM1XN3Cm7KjqbcPb
+ fCCjW1G/wb8DzuQbMaa5wB7xFNVSO3IY1eLyN4bZHpXnfAGu8CoMUdFcm
+ AlOdJpObGZKLSUdMpbv1kiNN5RePYjItS5GqmLyi0SuI8QJLMKvcmtFrp Q==;
+X-CSE-ConnectionGUID: IhsI0m9OQq6ZY3VFZZ/mVw==
+X-CSE-MsgGUID: F5UFpiBqSFqBWNN69Yc04Q==
 X-IronPort-AV: E=Sophos;i="6.18,277,1751241600"; 
-   d="scan'208";a="2263473"
-Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:20:05 +0000
-Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.226:21045]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.8.212:2525]
+   d="scan'208";a="2369179"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-001.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:33:43 +0000
+Received: from EX19MTAEUC001.ant.amazon.com [54.240.197.225:15647]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.36.68:2525]
  with esmtp (Farcaster)
- id 156d81fd-6821-4347-8cba-062f59dcaca0; Fri, 19 Sep 2025 10:20:04 +0000 (UTC)
-X-Farcaster-Flow-ID: 156d81fd-6821-4347-8cba-062f59dcaca0
+ id 88862edc-0f4e-43e1-b5c5-01b86f4ae053; Fri, 19 Sep 2025 10:33:43 +0000 (UTC)
+X-Farcaster-Flow-ID: 88862edc-0f4e-43e1-b5c5-01b86f4ae053
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB001.ant.amazon.com (10.252.51.28) with Microsoft SMTP Server
+ EX19MTAEUC001.ant.amazon.com (10.252.51.155) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 19 Sep 2025 10:20:04 +0000
+ Fri, 19 Sep 2025 10:33:43 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 19 Sep 2025
- 10:19:36 +0000
+ 10:33:13 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -97,11 +97,14 @@ To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <stable@vger.kernel.org>
-CC: <jonnyc@amazon.com>
-Subject: [PATCH 03/27 5.10.y] minmax: clamp more efficiently by avoiding extra
- comparison
-Date: Fri, 19 Sep 2025 10:17:03 +0000
-Message-ID: <20250919101727.16152-4-farbere@amazon.com>
+CC: <jonnyc@amazon.com>, Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig
+ <hch@infradead.org>, Dan Carpenter <dan.carpenter@linaro.org>, Jens Axboe
+ <axboe@kernel.dk>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, "Mateusz
+ Guzik" <mjguzik@gmail.com>, Pedro Falcato <pedro.falcato@gmail.com>
+Subject: [PATCH 27/27 5.10.y] minmax.h: remove some #defines that are only
+ expanded once
+Date: Fri, 19 Sep 2025 10:17:27 +0000
+Message-ID: <20250919101727.16152-28-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20250919101727.16152-1-farbere@amazon.com>
 References: <20250919101727.16152-1-farbere@amazon.com>
@@ -109,7 +112,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D045UWA004.ant.amazon.com (10.13.139.91) To
+X-ClientProxiedBy: EX19D035UWB001.ant.amazon.com (10.13.138.33) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Sun, 21 Sep 2025 09:02:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -126,184 +129,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 2122e2a4efc2cd139474079e11939b6e07adfacd ]
+[ Upstream commit 2b97aaf74ed534fb838d09867d09a3ca5d795208 ]
 
-Currently the clamp algorithm does:
+The bodies of __signed_type_use() and __unsigned_type_use() are much the
+same size as their names - so put the bodies in the only line that expands
+them.
 
-    if (val > hi)
-        val = hi;
-    if (val < lo)
-        val = lo;
+Similarly __signed_type() is defined separately for 64bit and then used
+exactly once just below.
 
-But since hi > lo by definition, this can be made more efficient with:
+Change the test for __signed_type from CONFIG_64BIT to one based on gcc
+defined macros so that the code is valid if it gets used outside of a
+kernel build.
 
-    if (val > hi)
-        val = hi;
-    else if (val < lo)
-        val = lo;
-
-So fix up the clamp and clamp_t functions to do this, adding the same
-argument checking as for min and min_t.
-
-For simple cases, code generation on x86_64 and aarch64 stay about the
-same:
-
-    before:
-            cmp     edi, edx
-            mov     eax, esi
-            cmova   edi, edx
-            cmp     edi, esi
-            cmovnb  eax, edi
-            ret
-    after:
-            cmp     edi, esi
-            mov     eax, edx
-            cmovnb  esi, edi
-            cmp     edi, edx
-            cmovb   eax, esi
-            ret
-
-    before:
-            cmp     w0, w2
-            csel    w8, w0, w2, lo
-            cmp     w8, w1
-            csel    w0, w8, w1, hi
-            ret
-    after:
-            cmp     w0, w1
-            csel    w8, w0, w1, hi
-            cmp     w0, w2
-            csel    w0, w8, w2, lo
-            ret
-
-On MIPS64, however, code generation improves, by removing arithmetic in
-the second branch:
-
-    before:
-            sltu    $3,$6,$4
-            bne     $3,$0,.L2
-            move    $2,$6
-
-            move    $2,$4
-    .L2:
-            sltu    $3,$2,$5
-            bnel    $3,$0,.L7
-            move    $2,$5
-
-    .L7:
-            jr      $31
-            nop
-    after:
-            sltu    $3,$4,$6
-            beq     $3,$0,.L13
-            move    $2,$6
-
-            sltu    $3,$4,$5
-            bne     $3,$0,.L12
-            move    $2,$4
-
-    .L13:
-            jr      $31
-            nop
-
-    .L12:
-            jr      $31
-            move    $2,$5
-
-For more complex cases with surrounding code, the effects are a bit
-more complicated. For example, consider this simplified version of
-timestamp_truncate() from fs/inode.c on x86_64:
-
-    struct timespec64 timestamp_truncate(struct timespec64 t, struct inode *inode)
-    {
-        struct super_block *sb = inode->i_sb;
-        unsigned int gran = sb->s_time_gran;
-
-        t.tv_sec = clamp(t.tv_sec, sb->s_time_min, sb->s_time_max);
-        if (t.tv_sec == sb->s_time_max || t.tv_sec == sb->s_time_min)
-            t.tv_nsec = 0;
-        return t;
-    }
-
-    before:
-            mov     r8, rdx
-            mov     rdx, rsi
-            mov     rcx, QWORD PTR [r8]
-            mov     rax, QWORD PTR [rcx+8]
-            mov     rcx, QWORD PTR [rcx+16]
-            cmp     rax, rdi
-            mov     r8, rcx
-            cmovge  rdi, rax
-            cmp     rdi, rcx
-            cmovle  r8, rdi
-            cmp     rax, r8
-            je      .L4
-            cmp     rdi, rcx
-            jge     .L4
-            mov     rax, r8
-            ret
-    .L4:
-            xor     edx, edx
-            mov     rax, r8
-            ret
-
-    after:
-            mov     rax, QWORD PTR [rdx]
-            mov     rdx, QWORD PTR [rax+8]
-            mov     rax, QWORD PTR [rax+16]
-            cmp     rax, rdi
-            jg      .L6
-            mov     r8, rax
-            xor     edx, edx
-    .L2:
-            mov     rax, r8
-            ret
-    .L6:
-            cmp     rdx, rdi
-            mov     r8, rdi
-            cmovge  r8, rdx
-            cmp     rax, r8
-            je      .L4
-            xor     eax, eax
-            cmp     rdx, rdi
-            cmovl   rax, rsi
-            mov     rdx, rax
-            mov     rax, r8
-            ret
-    .L4:
-            xor     edx, edx
-            jmp     .L2
-
-In this case, we actually gain a branch, unfortunately, because the
-compiler's replacement axioms no longer as cleanly apply.
-
-So all and all, this change is a bit of a mixed bag.
-
-Link: https://lkml.kernel.org/r/20220926133435.1333846-2-Jason@zx2c4.com
-Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Link: https://lkml.kernel.org/r/9386d1ebb8974fbabbed2635160c3975@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
 Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Kees Cook <keescook@chromium.org>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/minmax.h | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 8b092c66c5aa..abdeae409dad 100644
+index 2bbdd5b5e07e..eaaf5c008e4d 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -38,7 +38,7 @@
- 		__cmp_once(x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y), op))
+@@ -46,10 +46,8 @@
+  * comparison, and these expressions only need to be careful to not cause
+  * warnings for pointer use.
+  */
+-#define __signed_type_use(ux) (2 + __is_nonneg(ux))
+-#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
+ #define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
+-	__signed_type_use(ux) : __unsigned_type_use(ux))
++	(2 + __is_nonneg(ux)) : (1 + 2 * (sizeof(ux) < 4)))
  
- #define __clamp(val, lo, hi)	\
--	__cmp(__cmp(val, lo, >), hi, <)
-+	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+ /*
+  * Check whether a signed value is always non-negative.
+@@ -57,7 +55,7 @@
+  * A cast is needed to avoid any warnings from values that aren't signed
+  * integer types (in which case the result doesn't matter).
+  *
+- * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * On 64-bit any integer or pointer type can safely be cast to 'long long'.
+  * But on 32-bit we need to avoid warnings about casting pointers to integers
+  * of different sizes without truncating 64-bit values so 'long' or 'long long'
+  * must be used depending on the size of the value.
+@@ -66,12 +64,12 @@
+  * them, but we do not use s128 types in the kernel (we do use 'u128',
+  * but they are handled by the !is_signed_type() case).
+  */
+-#ifdef CONFIG_64BIT
+-  #define __signed_type(ux) long
++#if __SIZEOF_POINTER__ == __SIZEOF_LONG_LONG__
++#define __is_nonneg(ux) statically_true((long long)(ux) >= 0)
+ #else
+-  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
++#define __is_nonneg(ux) statically_true( \
++	(typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L)))(ux) >= 0)
+ #endif
+-#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
  
- #define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
- 		typeof(val) unique_val = (val);				\
+ #define __types_ok(ux, uy) \
+ 	(__sign_use(ux) & __sign_use(uy))
 -- 
 2.47.3
 
