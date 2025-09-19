@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01881CAC5A7
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Sep 2025 09:02:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 622DACAC5AC
+	for <amd-gfx@archiver.kernel.org>; Sun, 21 Sep 2025 09:02:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF8A10E349;
-	Sun, 21 Sep 2025 09:02:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0858210E34C;
+	Sun, 21 Sep 2025 09:02:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="tW1FPbi3";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="hdm7n6w5";
 	dkim-atps=neutral
-Received: from fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [63.178.132.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B62F10E984;
- Fri, 19 Sep 2025 10:26:48 +0000 (UTC)
+Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [52.28.197.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E53B410E984;
+ Fri, 19 Sep 2025 10:20:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758277609; x=1789813609;
+ t=1758277216; x=1789813216;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=o3tB3MVnb5Sy0ootiHUhWzPUwXkEpU95FPChw/pDapE=;
- b=tW1FPbi3tJefNGE8wGgxr7egc5PXkm5h3w+vHiruwn8wJdRiFBtGuVdB
- caUJ8/wwcSZkhpmtEa4hHTz49dG/glcGxyZqO+5fAwnYrsbCd90GFup4s
- 2jFb2MeeF6fL+5u/C+ywMLb+cFBGpTfPdM2cLWj9n3VAjk9w3f1IYTGkR
- bELJkZ8OquiaKL+GxqLisFVoJKNcRx1gJzWYjjJ02fc9pGQwjM27DGZPZ
- 5PdHECfRC5fE6oBBVrYNnqrnteVCodRSewYpYGnYGzhIyIHK6ePoSc2SE
- Rqyo/7lfLgM3F98xVdAVue1l6z2IAExplhBS/qYLGj9fPK/iDkWsCSZP7 g==;
-X-CSE-ConnectionGUID: wqUqYAH4S9uDHyCFFR7ICw==
-X-CSE-MsgGUID: md53KUjnRD+UwnvkGOJzdg==
+ bh=QGaAvozmIqIzV143yBTS5nQtsGF8X9DZFIMkdv4YYLs=;
+ b=hdm7n6w5aNvK1Kjo0IJOp0xje8pxL9SI5ac1DUxLMHhcHqHPhiaPaIML
+ ULXFDtDIBM9D7WUhY4qrwqcrPARvPE1+BzJIP4H35hyy6j+6UxKQqPVdT
+ xXpKZe++ZDgl7VLSb52Yv+Uyl1F3bBqsJG+7nZnnzp4IKH29+YnoLu0VF
+ R0XpxvyLQFOS3Po2S02KbP1ieSGSbzaIBQRD8I0z+50of5HROzP9jA0BM
+ vfEJXXpZgirWVEfTNpntS3CFqm5rVhfL1psPohtjKvbREqaqOlT9DImBg
+ 3bhjSUbBUd+kCezV8maKpL3PzBy8gnBr1ci4Fk6lhStmKCiNhu46cG/Xr A==;
+X-CSE-ConnectionGUID: bNGyTyr9Tluytx4xpBWYaw==
+X-CSE-MsgGUID: NUPh/j/ESIquMv5V2VCWqg==
 X-IronPort-AV: E=Sophos;i="6.18,277,1751241600"; 
-   d="scan'208";a="2264535"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:26:46 +0000
-Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:3862]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.21.238:2525]
+   d="scan'208";a="2263473"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:20:05 +0000
+Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.226:21045]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.8.212:2525]
  with esmtp (Farcaster)
- id 09716eb9-a62d-41a1-b7d9-d55120b861e7; Fri, 19 Sep 2025 10:26:46 +0000 (UTC)
-X-Farcaster-Flow-ID: 09716eb9-a62d-41a1-b7d9-d55120b861e7
+ id 156d81fd-6821-4347-8cba-062f59dcaca0; Fri, 19 Sep 2025 10:20:04 +0000 (UTC)
+X-Farcaster-Flow-ID: 156d81fd-6821-4347-8cba-062f59dcaca0
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB002.ant.amazon.com (10.252.51.79) with Microsoft SMTP Server
+ EX19MTAEUB001.ant.amazon.com (10.252.51.28) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 19 Sep 2025 10:26:46 +0000
+ Fri, 19 Sep 2025 10:20:04 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 19 Sep 2025
- 10:26:17 +0000
+ 10:19:36 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -97,13 +97,11 @@ To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <stable@vger.kernel.org>
-CC: <jonnyc@amazon.com>, Linus Torvalds <torvalds@linux-foundation.org>,
- "David Laight" <David.Laight@aculab.com>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>
-Subject: [PATCH 15/27 5.10.y] minmax: make generic MIN() and MAX() macros
- available everywhere
-Date: Fri, 19 Sep 2025 10:17:15 +0000
-Message-ID: <20250919101727.16152-16-farbere@amazon.com>
+CC: <jonnyc@amazon.com>
+Subject: [PATCH 03/27 5.10.y] minmax: clamp more efficiently by avoiding extra
+ comparison
+Date: Fri, 19 Sep 2025 10:17:03 +0000
+Message-ID: <20250919101727.16152-4-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20250919101727.16152-1-farbere@amazon.com>
 References: <20250919101727.16152-1-farbere@amazon.com>
@@ -111,7 +109,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D042UWA003.ant.amazon.com (10.13.139.44) To
+X-ClientProxiedBy: EX19D045UWA004.ant.amazon.com (10.13.139.91) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Sun, 21 Sep 2025 09:02:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -128,361 +126,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
 
-[ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
+[ Upstream commit 2122e2a4efc2cd139474079e11939b6e07adfacd ]
 
-This just standardizes the use of MIN() and MAX() macros, with the very
-traditional semantics.  The goal is to use these for C constant
-expressions and for top-level / static initializers, and so be able to
-simplify the min()/max() macros.
+Currently the clamp algorithm does:
 
-These macro names were used by various kernel code - they are very
-traditional, after all - and all such users have been fixed up, with a
-few different approaches:
+    if (val > hi)
+        val = hi;
+    if (val < lo)
+        val = lo;
 
- - trivial duplicated macro definitions have been removed
+But since hi > lo by definition, this can be made more efficient with:
 
-   Note that 'trivial' here means that it's obviously kernel code that
-   already included all the major kernel headers, and thus gets the new
-   generic MIN/MAX macros automatically.
+    if (val > hi)
+        val = hi;
+    else if (val < lo)
+        val = lo;
 
- - non-trivial duplicated macro definitions are guarded with #ifndef
+So fix up the clamp and clamp_t functions to do this, adding the same
+argument checking as for min and min_t.
 
-   This is the "yes, they define their own versions, but no, the include
-   situation is not entirely obvious, and maybe they don't get the
-   generic version automatically" case.
+For simple cases, code generation on x86_64 and aarch64 stay about the
+same:
 
- - strange use case #1
+    before:
+            cmp     edi, edx
+            mov     eax, esi
+            cmova   edi, edx
+            cmp     edi, esi
+            cmovnb  eax, edi
+            ret
+    after:
+            cmp     edi, esi
+            mov     eax, edx
+            cmovnb  esi, edi
+            cmp     edi, edx
+            cmovb   eax, esi
+            ret
 
-   A couple of drivers decided that the way they want to describe their
-   versioning is with
+    before:
+            cmp     w0, w2
+            csel    w8, w0, w2, lo
+            cmp     w8, w1
+            csel    w0, w8, w1, hi
+            ret
+    after:
+            cmp     w0, w1
+            csel    w8, w0, w1, hi
+            cmp     w0, w2
+            csel    w0, w8, w2, lo
+            ret
 
-	#define MAJ 1
-	#define MIN 2
-	#define DRV_VERSION __stringify(MAJ) "." __stringify(MIN)
+On MIPS64, however, code generation improves, by removing arithmetic in
+the second branch:
 
-   which adds zero value and I just did my Alexander the Great
-   impersonation, and rewrote that pointless Gordian knot as
+    before:
+            sltu    $3,$6,$4
+            bne     $3,$0,.L2
+            move    $2,$6
 
-	#define DRV_VERSION "1.2"
+            move    $2,$4
+    .L2:
+            sltu    $3,$2,$5
+            bnel    $3,$0,.L7
+            move    $2,$5
 
-   instead.
+    .L7:
+            jr      $31
+            nop
+    after:
+            sltu    $3,$4,$6
+            beq     $3,$0,.L13
+            move    $2,$6
 
- - strange use case #2
+            sltu    $3,$4,$5
+            bne     $3,$0,.L12
+            move    $2,$4
 
-   A couple of drivers thought that it's a good idea to have a random
-   'MIN' or 'MAX' define for a value or index into a table, rather than
-   the traditional macro that takes arguments.
+    .L13:
+            jr      $31
+            nop
 
-   These values were re-written as C enum's instead. The new
-   function-line macros only expand when followed by an open
-   parenthesis, and thus don't clash with enum use.
+    .L12:
+            jr      $31
+            move    $2,$5
 
-Happily, there weren't really all that many of these cases, and a lot of
-users already had the pattern of using '#ifndef' guarding (or in one
-case just using '#undef MIN') before defining their own private version
-that does the same thing. I left such cases alone.
+For more complex cases with surrounding code, the effects are a bit
+more complicated. For example, consider this simplified version of
+timestamp_truncate() from fs/inode.c on x86_64:
 
-Cc: David Laight <David.Laight@aculab.com>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+    struct timespec64 timestamp_truncate(struct timespec64 t, struct inode *inode)
+    {
+        struct super_block *sb = inode->i_sb;
+        unsigned int gran = sb->s_time_gran;
+
+        t.tv_sec = clamp(t.tv_sec, sb->s_time_min, sb->s_time_max);
+        if (t.tv_sec == sb->s_time_max || t.tv_sec == sb->s_time_min)
+            t.tv_nsec = 0;
+        return t;
+    }
+
+    before:
+            mov     r8, rdx
+            mov     rdx, rsi
+            mov     rcx, QWORD PTR [r8]
+            mov     rax, QWORD PTR [rcx+8]
+            mov     rcx, QWORD PTR [rcx+16]
+            cmp     rax, rdi
+            mov     r8, rcx
+            cmovge  rdi, rax
+            cmp     rdi, rcx
+            cmovle  r8, rdi
+            cmp     rax, r8
+            je      .L4
+            cmp     rdi, rcx
+            jge     .L4
+            mov     rax, r8
+            ret
+    .L4:
+            xor     edx, edx
+            mov     rax, r8
+            ret
+
+    after:
+            mov     rax, QWORD PTR [rdx]
+            mov     rdx, QWORD PTR [rax+8]
+            mov     rax, QWORD PTR [rax+16]
+            cmp     rax, rdi
+            jg      .L6
+            mov     r8, rax
+            xor     edx, edx
+    .L2:
+            mov     rax, r8
+            ret
+    .L6:
+            cmp     rdx, rdi
+            mov     r8, rdi
+            cmovge  r8, rdx
+            cmp     rax, r8
+            je      .L4
+            xor     eax, eax
+            cmp     rdx, rdi
+            cmovl   rax, rsi
+            mov     rdx, rax
+            mov     rax, r8
+            ret
+    .L4:
+            xor     edx, edx
+            jmp     .L2
+
+In this case, we actually gain a branch, unfortunately, because the
+compiler's replacement axioms no longer as cleanly apply.
+
+So all and all, this change is a bit of a mixed bag.
+
+Link: https://lkml.kernel.org/r/20220926133435.1333846-2-Jason@zx2c4.com
+Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Kees Cook <keescook@chromium.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- arch/um/drivers/mconsole_user.c               |  2 ++
- drivers/edac/skx_common.h                     |  1 -
- .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |  2 ++
- .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    | 14 +++++++----
- drivers/gpu/drm/radeon/evergreen_cs.c         |  2 ++
- drivers/hwmon/adt7475.c                       | 24 +++++++++----------
- drivers/media/dvb-frontends/stv0367_priv.h    |  3 +++
- drivers/net/fjes/fjes_main.c                  |  4 +---
- drivers/nfc/pn544/i2c.c                       |  2 --
- drivers/platform/x86/sony-laptop.c            |  1 -
- drivers/scsi/isci/init.c                      |  6 +----
- .../pci/hive_isp_css_include/math_support.h   |  5 ----
- include/linux/minmax.h                        |  2 ++
- kernel/trace/preemptirq_delay_test.c          |  2 --
- lib/btree.c                                   |  1 -
- lib/decompress_unlzma.c                       |  2 ++
- mm/zsmalloc.c                                 |  1 -
- 17 files changed, 37 insertions(+), 37 deletions(-)
+ include/linux/minmax.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/um/drivers/mconsole_user.c b/arch/um/drivers/mconsole_user.c
-index e24298a734be..a04cd13c6315 100644
---- a/arch/um/drivers/mconsole_user.c
-+++ b/arch/um/drivers/mconsole_user.c
-@@ -71,7 +71,9 @@ static struct mconsole_command *mconsole_parse(struct mc_request *req)
- 	return NULL;
- }
- 
-+#ifndef MIN
- #define MIN(a,b) ((a)<(b) ? (a):(b))
-+#endif
- 
- #define STRINGX(x) #x
- #define STRING(x) STRINGX(x)
-diff --git a/drivers/edac/skx_common.h b/drivers/edac/skx_common.h
-index b93c33ac8e60..5adba76c3f4d 100644
---- a/drivers/edac/skx_common.h
-+++ b/drivers/edac/skx_common.h
-@@ -36,7 +36,6 @@
- #define I10NM_NUM_CHANNELS	2
- #define I10NM_NUM_DIMMS		2
- 
--#define MAX(a, b)	((a) > (b) ? (a) : (b))
- #define NUM_IMC		MAX(SKX_NUM_IMC, I10NM_NUM_IMC)
- #define NUM_CHANNELS	MAX(SKX_NUM_CHANNELS, I10NM_NUM_CHANNELS)
- #define NUM_DIMMS	MAX(SKX_NUM_DIMMS, I10NM_NUM_DIMMS)
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
-index 1b2df97226a3..40286e8dd4e1 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
-@@ -25,7 +25,9 @@
- 
- #include "hdcp.h"
- 
-+#ifndef MIN
- #define MIN(a, b) ((a) < (b) ? (a) : (b))
-+#endif
- #define HDCP_I2C_ADDR 0x3a	/* 0x74 >> 1*/
- #define KSV_READ_SIZE 0xf	/* 0x6803b - 0x6802c */
- #define HDCP_MAX_AUX_TRANSACTION_SIZE 16
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
-index 8f50a038396c..96b03a342f38 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
-@@ -22,12 +22,18 @@
-  */
- #include <asm/div64.h>
- 
--#define SHIFT_AMOUNT 16 /* We multiply all original integers with 2^SHIFT_AMOUNT to get the fInt representation */
-+enum ppevvmath_constants {
-+	/* We multiply all original integers with 2^SHIFT_AMOUNT to get the fInt representation */
-+	SHIFT_AMOUNT	= 16,
- 
--#define PRECISION 5 /* Change this value to change the number of decimal places in the final output - 5 is a good default */
-+	/* Change this value to change the number of decimal places in the final output - 5 is a good default */
-+	PRECISION	=  5,
- 
--#define SHIFTED_2 (2 << SHIFT_AMOUNT)
--#define MAX (1 << (SHIFT_AMOUNT - 1)) - 1 /* 32767 - Might change in the future */
-+	SHIFTED_2	= (2 << SHIFT_AMOUNT),
-+
-+	/* 32767 - Might change in the future */
-+	MAX		= (1 << (SHIFT_AMOUNT - 1)) - 1,
-+};
- 
- /* -------------------------------------------------------------------------------
-  * NEW TYPE - fINT
-diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
-index 468efa5ac8fc..3ce87e5f90f7 100644
---- a/drivers/gpu/drm/radeon/evergreen_cs.c
-+++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-@@ -32,8 +32,10 @@
- #include "evergreen_reg_safe.h"
- #include "cayman_reg_safe.h"
- 
-+#ifndef MIN
- #define MAX(a,b)                   (((a)>(b))?(a):(b))
- #define MIN(a,b)                   (((a)<(b))?(a):(b))
-+#endif
- 
- #define REG_SAFE_BM_SIZE ARRAY_SIZE(evergreen_reg_safe_bm)
- 
-diff --git a/drivers/hwmon/adt7475.c b/drivers/hwmon/adt7475.c
-index b4c0f01f52c4..1e0678eb0077 100644
---- a/drivers/hwmon/adt7475.c
-+++ b/drivers/hwmon/adt7475.c
-@@ -23,23 +23,23 @@
- #include <linux/util_macros.h>
- 
- /* Indexes for the sysfs hooks */
--
--#define INPUT		0
--#define MIN		1
--#define MAX		2
--#define CONTROL		3
--#define OFFSET		3
--#define AUTOMIN		4
--#define THERM		5
--#define HYSTERSIS	6
--
-+enum adt_sysfs_id {
-+	INPUT		= 0,
-+	MIN		= 1,
-+	MAX		= 2,
-+	CONTROL		= 3,
-+	OFFSET		= 3,	// Dup
-+	AUTOMIN		= 4,
-+	THERM		= 5,
-+	HYSTERSIS	= 6,
- /*
-  * These are unique identifiers for the sysfs functions - unlike the
-  * numbers above, these are not also indexes into an array
-  */
-+	ALARM		= 9,
-+	FAULT		= 10,
-+};
- 
--#define ALARM		9
--#define FAULT		10
- 
- /* 7475 Common Registers */
- 
-diff --git a/drivers/media/dvb-frontends/stv0367_priv.h b/drivers/media/dvb-frontends/stv0367_priv.h
-index 617f605947b2..7f056d1cce82 100644
---- a/drivers/media/dvb-frontends/stv0367_priv.h
-+++ b/drivers/media/dvb-frontends/stv0367_priv.h
-@@ -25,8 +25,11 @@
- #endif
- 
- /* MACRO definitions */
-+#ifndef MIN
- #define MAX(X, Y) ((X) >= (Y) ? (X) : (Y))
- #define MIN(X, Y) ((X) <= (Y) ? (X) : (Y))
-+#endif
-+
- #define INRANGE(X, Y, Z) \
- 	((((X) <= (Y)) && ((Y) <= (Z))) || \
- 	(((Z) <= (Y)) && ((Y) <= (X))) ? 1 : 0)
-diff --git a/drivers/net/fjes/fjes_main.c b/drivers/net/fjes/fjes_main.c
-index 2a569eea4ee8..9a9ca5a8918e 100644
---- a/drivers/net/fjes/fjes_main.c
-+++ b/drivers/net/fjes/fjes_main.c
-@@ -14,9 +14,7 @@
- #include "fjes.h"
- #include "fjes_trace.h"
- 
--#define MAJ 1
--#define MIN 2
--#define DRV_VERSION __stringify(MAJ) "." __stringify(MIN)
-+#define DRV_VERSION "1.2"
- #define DRV_NAME	"fjes"
- char fjes_driver_name[] = DRV_NAME;
- char fjes_driver_version[] = DRV_VERSION;
-diff --git a/drivers/nfc/pn544/i2c.c b/drivers/nfc/pn544/i2c.c
-index 4ac8cb262559..b9a58a424933 100644
---- a/drivers/nfc/pn544/i2c.c
-+++ b/drivers/nfc/pn544/i2c.c
-@@ -126,8 +126,6 @@ struct pn544_i2c_fw_secure_blob {
- #define PN544_FW_CMD_RESULT_COMMAND_REJECTED 0xE0
- #define PN544_FW_CMD_RESULT_CHUNK_ERROR 0xE6
- 
--#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
--
- #define PN544_FW_WRITE_BUFFER_MAX_LEN 0x9f7
- #define PN544_FW_I2C_MAX_PAYLOAD PN544_HCI_I2C_LLC_MAX_SIZE
- #define PN544_FW_I2C_WRITE_FRAME_HEADER_LEN 8
-diff --git a/drivers/platform/x86/sony-laptop.c b/drivers/platform/x86/sony-laptop.c
-index f070e4eb74f4..a66a2ee3a9ed 100644
---- a/drivers/platform/x86/sony-laptop.c
-+++ b/drivers/platform/x86/sony-laptop.c
-@@ -757,7 +757,6 @@ static union acpi_object *__call_snc_method(acpi_handle handle, char *method,
- 	return result;
- }
- 
--#define MIN(a, b)	(a > b ? b : a)
- static int sony_nc_buffer_call(acpi_handle handle, char *name, u64 *value,
- 		void *buffer, size_t buflen)
- {
-diff --git a/drivers/scsi/isci/init.c b/drivers/scsi/isci/init.c
-index 9d7cc62ace2e..8c7594720ef3 100644
---- a/drivers/scsi/isci/init.c
-+++ b/drivers/scsi/isci/init.c
-@@ -65,11 +65,7 @@
- #include "task.h"
- #include "probe_roms.h"
- 
--#define MAJ 1
--#define MIN 2
--#define BUILD 0
--#define DRV_VERSION __stringify(MAJ) "." __stringify(MIN) "." \
--	__stringify(BUILD)
-+#define DRV_VERSION "1.2.0"
- 
- MODULE_VERSION(DRV_VERSION);
- 
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h
-index a444ec14ff9d..1c17a87a8572 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h
-@@ -31,11 +31,6 @@
- /* A => B */
- #define IMPLIES(a, b)        (!(a) || (b))
- 
--/* for preprocessor and array sizing use MIN and MAX
--   otherwise use min and max */
--#define MAX(a, b)            (((a) > (b)) ? (a) : (b))
--#define MIN(a, b)            (((a) < (b)) ? (a) : (b))
--
- #define ROUND_DIV(a, b)      (((b) != 0) ? ((a) + ((b) >> 1)) / (b) : 0)
- #define CEIL_DIV(a, b)       (((b) != 0) ? ((a) + (b) - 1) / (b) : 0)
- #define CEIL_MUL(a, b)       (CEIL_DIV(a, b) * (b))
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 9c2848abc804..fc384714da45 100644
+index 8b092c66c5aa..abdeae409dad 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -277,6 +277,8 @@ static inline bool in_range32(u32 val, u32 start, u32 len)
-  * Use these carefully: no type checking, and uses the arguments
-  * multiple times. Use for obvious constants only.
-  */
-+#define MIN(a,b) __cmp(min,a,b)
-+#define MAX(a,b) __cmp(max,a,b)
- #define MIN_T(type,a,b) __cmp(min,(type)(a),(type)(b))
- #define MAX_T(type,a,b) __cmp(max,(type)(a),(type)(b))
+@@ -38,7 +38,7 @@
+ 		__cmp_once(x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y), op))
  
-diff --git a/kernel/trace/preemptirq_delay_test.c b/kernel/trace/preemptirq_delay_test.c
-index 1a4f2f424996..91a3f4006ae6 100644
---- a/kernel/trace/preemptirq_delay_test.c
-+++ b/kernel/trace/preemptirq_delay_test.c
-@@ -31,8 +31,6 @@ MODULE_PARM_DESC(burst_size, "The size of a burst (default 1)");
+ #define __clamp(val, lo, hi)	\
+-	__cmp(__cmp(val, lo, >), hi, <)
++	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
  
- static struct completion done;
- 
--#define MIN(x, y) ((x) < (y) ? (x) : (y))
--
- static void busy_wait(ulong time)
- {
- 	u64 start, end;
-diff --git a/lib/btree.c b/lib/btree.c
-index b4cf08a5c267..b12f99d4c45c 100644
---- a/lib/btree.c
-+++ b/lib/btree.c
-@@ -43,7 +43,6 @@
- #include <linux/slab.h>
- #include <linux/module.h>
- 
--#define MAX(a, b) ((a) > (b) ? (a) : (b))
- #define NODESIZE MAX(L1_CACHE_BYTES, 128)
- 
- struct btree_geo {
-diff --git a/lib/decompress_unlzma.c b/lib/decompress_unlzma.c
-index 1cf409ef8d04..5b9c7a1bfaf4 100644
---- a/lib/decompress_unlzma.c
-+++ b/lib/decompress_unlzma.c
-@@ -37,7 +37,9 @@
- 
- #include <linux/decompress/mm.h>
- 
-+#ifndef MIN
- #define	MIN(a, b) (((a) < (b)) ? (a) : (b))
-+#endif
- 
- static long long INIT read_int(unsigned char *ptr, int size)
- {
-diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-index f5f80981ac98..bd66c28afb5c 100644
---- a/mm/zsmalloc.c
-+++ b/mm/zsmalloc.c
-@@ -126,7 +126,6 @@
- #define ISOLATED_BITS	3
- #define MAGIC_VAL_BITS	8
- 
--#define MAX(a, b) ((a) >= (b) ? (a) : (b))
- /* ZS_MIN_ALLOC_SIZE must be multiple of ZS_ALIGN */
- #define ZS_MIN_ALLOC_SIZE \
- 	MAX(32, (ZS_MAX_PAGES_PER_ZSPAGE << PAGE_SHIFT >> OBJ_INDEX_BITS))
+ #define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
+ 		typeof(val) unique_val = (val);				\
 -- 
 2.47.3
 
