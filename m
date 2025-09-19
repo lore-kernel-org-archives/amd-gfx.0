@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D87D3CAC592
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 20:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B362BCAC59A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 20:28:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDD210EA90;
-	Fri, 19 Sep 2025 20:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2517F10EA91;
+	Fri, 19 Sep 2025 20:28:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="feiSOcoA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LRNVsrtb";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 809CB10EA90
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 20:26:06 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-32b96f83238so219064a91.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 13:26:06 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E50010EA91
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 20:28:49 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-32ebcef552eso409985a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 13:28:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758313566; x=1758918366; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758313728; x=1758918528; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2edYhbkWGqwE5JWh+sQ/IR569CXWjL8McOb76y7BJk0=;
- b=feiSOcoAXvdlAzdF1124oDCEzdD4wSGCB4NI9g6O3dqefQaAaU5CF4zOKgUORulkuI
- ldpeczkkG0peQUiFYlKOO7GOqBY0dPSBpm9ymNjtllk/kNzNLqRkIutOwPfEMYBYId9Q
- y4TqJRcOrOzF3pi0anivPXuONYddKTSgCsQHoy9c2EoRq5VADDCrQYzmBbOcYcd5JqLr
- 9Ac/9ogxPafTAN29diojCXzy6byXem6Lq3nd43uFCCG1C5iyo7AHuY3GnS3Jg8y3DGfQ
- 9Bgu/0C0PRaXDNQaorOPmfZV30/f6+qoGXVkRAfeAZ1M8tEQSlL29PzUhSgBeEpPVec7
- xjfA==
+ bh=dxaQmrP9/aPHA+HEgqDefTrM2O5pB2ARy+ieKiBC7/c=;
+ b=LRNVsrtbU/aqBvcX8GpR1nUUfzo5qu8f8h8b9r14bMl2luXOGj7cJzG938XmE+e419
+ krvAaG2Y8NG/Xs347KI6cMjloLgLQ7Tipi1iLaXr5X06X9bpzilfKl4RHRp5LS07VHyH
+ PSXXErcc/XO4ZjOWq3ktZ/6kHZYhtvqJBXbmG00EegrgfU+p6NLgVnVlBbnP8+0eKVsN
+ WpN934yKQnm4DuG9NCphLVI49ATko7sIianFci4VtJMcff/hWHWG3pJiGuIgbmojfFWp
+ Jvu8wW/KVEB2mNs0DZ/IF0lmx/KVD+nYW1y9OuD7QIuRm2xxSSNaOcNZAvZ2mZn/OGSM
+ QZ/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758313566; x=1758918366;
+ d=1e100.net; s=20230601; t=1758313728; x=1758918528;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2edYhbkWGqwE5JWh+sQ/IR569CXWjL8McOb76y7BJk0=;
- b=FuOhqB8u3Fty6ytIZEl1XIlYypm5Gx13nk3I2iguARA0SM2NjnDVjYAGjHkvhYjBWS
- mceIghEgq/LCeOOneP/Z/Zww1UquL5PLL+vwSczGbvCdqQoGdOMQ7j8i0d/RoPsCGvdO
- azA8wMTNVKeprkVnQb5+i/UFibB5AnKQCRiKUYdtdXLtUnJuyjhZSNPrVJNA3oK5riIx
- KmoFWKPEiY/E7VGzoRJC64boUzNNqXCrd1G6ggUZaBtTy1aqb+2FGrkMleoSBVXOeAxP
- bZrqpp9vG1w/wD32NCKe54vu+0Nc8sYqha9bwmG34VA7rDR6eNy6L5npVigQiKrUryEA
- Jz4Q==
-X-Gm-Message-State: AOJu0YzM4IfThNvhv3zlIYaiIJl9y8Uqy3m3eaZGAEVdxsWtNDgL4Wi/
- g9X/cMdFRY4MR5sxKLxrVtow1srN6X2+jjIfxLDeNGyh4m2beFrlsJbyLI14WeXYbDtaDuIpVJT
- 1pa0k8vp2nWMNYw6joKriQr19QvM27dtWFA==
-X-Gm-Gg: ASbGncsDf5siWHAPbqlsPWgIsY0jWZ/TCV5mkpa3xRCeOj/g/eB6VJxOSTe24UTyNhA
- 4sS+A/Uvg4hqr1LnnSWcMEIjGjqiEvllhUMKSCfNS+oTcSZq/9nK/eEZp4EUpn+CsK4+abXUQXI
- AUQ2NykfiNww0Vb05oc6XJn6mekySdCLpe/bMlvT0U4xDgDHR84pJpFDJWeRJXAn9K7KG/NViNg
- QONKOY=
-X-Google-Smtp-Source: AGHT+IFPTauJLfwbMYRp5G0+GiqbI/JkG3LPvX1ieLglMQd3ladjzSwkQdEJbWbPTd2ZNdAek1DaIrlLY3fKcvR+rAg=
-X-Received: by 2002:a17:90b:4c88:b0:32e:4924:68f8 with SMTP id
- 98e67ed59e1d1-33097ff4c7bmr3025423a91.2.1758313565923; Fri, 19 Sep 2025
- 13:26:05 -0700 (PDT)
+ bh=dxaQmrP9/aPHA+HEgqDefTrM2O5pB2ARy+ieKiBC7/c=;
+ b=qL2VkkZhBl0wuwjSTcKyISYzyHEu0XPND8rsiJ0LFHJnAf58iwn5ZDsbqU/gEguh8Z
+ 7Z0Rv0+f5TXCOaIkwp3lOqW8iZnxZwlxUJ0hVYJnrFg0PE36OpO3oj/V4b/cNA+0fgAp
+ ZhJ969TIjwEFDsahO7totAJKojjq8bVeuX+KZD07vo0TyVFzWcF96/iOfM3aGcBMhbvy
+ sGBJcS5PcefUCnwZo8rOhJKJNJfuA+DGRrvj9I4VfWFYJrZSstte6ggDCLBk/EG1h9Lp
+ T5+ExqgZ4EEdOLdcYR6K7E//9YlU0p/gjzqsxvdqtKrBeri37qmh3S6vn9JWrVvaatU4
+ cHWQ==
+X-Gm-Message-State: AOJu0YywYRXPw3E86e+FMN2cU+nlMZ9eyYunpjHFBqyBPpCCCWtAmWVX
+ w8mSxLpye0eMzh3RSTpo66+dtqi3m6+OgrLlR6cpVbgouBGXbrieKAL1ofHUqyVXzEi7/YeV0vH
+ 49eaUtdoBGvL5PAEAr/3LXXYJadnFec4=
+X-Gm-Gg: ASbGncsV/LIw919IvPyNUrw5mgqdqa+KSYLixaPx/PogyV8e0T2aPuvtJWMn6qAP1Ny
+ q8mdNj/20qOdciwYxxSqWGAd8DL87SvVff/lNVT/rm99raZGqhpiUP8wVYfusHz9KqFi4XRr9s/
+ HQiN5bJUew6biEMrHSQPEKzuv2RwoZK301PuUkFkGgkF054P5c1Y+wp9j0+FXp5I5oxmqHjQuyi
+ tSplaA=
+X-Google-Smtp-Source: AGHT+IHFov8ZCBqLrFDABvyKaH34idRHmwvWHowpNWMygpWJxeN/Dcjy/P8XK6vWqRaT5RFfyPGAirWhtB6Wbueh6hk=
+X-Received: by 2002:a17:90b:4a46:b0:330:944e:4814 with SMTP id
+ 98e67ed59e1d1-330983587e1mr3422062a91.5.1758313728564; Fri, 19 Sep 2025
+ 13:28:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250919064613.2786008-1-Prike.Liang@amd.com>
-In-Reply-To: <20250919064613.2786008-1-Prike.Liang@amd.com>
+References: <20250919081113.2797985-1-Prike.Liang@amd.com>
+ <20250919081113.2797985-4-Prike.Liang@amd.com>
+In-Reply-To: <20250919081113.2797985-4-Prike.Liang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 19 Sep 2025 16:25:53 -0400
-X-Gm-Features: AS18NWC9V83BsJrVcppHLGppdZixIUGILWUed2JSH-CMOiPQC9vV9hCReaKhcfA
-Message-ID: <CADnq5_PD2SJQRNsKoFHuKXkpHMbYfuC5Z4Rczp=e4EH8v=8rMw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/userq: assign an error code for invalid userq
- va
+Date: Fri, 19 Sep 2025 16:28:36 -0400
+X-Gm-Features: AS18NWCz639vp9FE9akYc6QCoBevvjiWZ0wSKrf0hNf0p6y_nXezHxdpILioOPw
+Message-ID: <CADnq5_MbEzBy0e3h+U4PFdY3Eo-fvPcps3NkGXvmfKEsahGhxw@mail.gmail.com>
+Subject: Re: [PATCH v4 04/10] drm/amdgpu: keeping waiting userq fence
+ infinitely
 To: Prike Liang <Prike.Liang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian.Koenig@amd.com
@@ -82,48 +83,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 19, 2025 at 2:54=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+On Fri, Sep 19, 2025 at 4:11=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
 rote:
 >
-> It should return an error code if userq VA validation fails.
->
-> Fixes: 9e46b8bb0539 ("drm/amdgpu: validate userq buffer virtual
-> address and size")
+> Keeping waiting the userq fence infinitely until
+> hang detection, and then suspend the hang queue and
+> set the fence error.
 >
 > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 
+Patches 1-4 are:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
 amd/amdgpu/amdgpu_userq.c
-> index 5ab4ee26b825..3bbe1001fda1 100644
+> index 790f51d2b8f2..9cdb82c13a34 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -71,6 +71,7 @@ int amdgpu_userq_input_va_validate(struct amdgpu_vm *vm=
-, u64 addr,
->                 return 0;
->         }
->
-> +       r =3D -EINVAL;
->  out_err:
->         amdgpu_bo_unreserve(vm->root.bo);
+> @@ -232,7 +232,7 @@ amdgpu_userq_map_helper(struct amdgpu_userq_mgr *uq_m=
+gr,
 >         return r;
-> @@ -508,6 +509,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_=
-amdgpu_userq *args)
->         if (amdgpu_userq_input_va_validate(&fpriv->vm, args->in.queue_va,=
- args->in.queue_size) ||
->             amdgpu_userq_input_va_validate(&fpriv->vm, args->in.rptr_va, =
-AMDGPU_GPU_PAGE_SIZE) ||
->             amdgpu_userq_input_va_validate(&fpriv->vm, args->in.wptr_va, =
-AMDGPU_GPU_PAGE_SIZE)) {
-> +               r =3D -EINVAL;
->                 kfree(queue);
->                 goto unlock;
+>  }
+>
+> -static void
+> +static int
+>  amdgpu_userq_wait_for_last_fence(struct amdgpu_userq_mgr *uq_mgr,
+>                                  struct amdgpu_usermode_queue *queue)
+>  {
+> @@ -240,11 +240,16 @@ amdgpu_userq_wait_for_last_fence(struct amdgpu_user=
+q_mgr *uq_mgr,
+>         int ret;
+>
+>         if (f && !dma_fence_is_signaled(f)) {
+> -               ret =3D dma_fence_wait_timeout(f, true, msecs_to_jiffies(=
+100));
+> -               if (ret <=3D 0)
+> +               ret =3D dma_fence_wait_timeout(f, true, MAX_SCHEDULE_TIME=
+OUT);
+> +               if (ret <=3D 0) {
+>                         drm_file_err(uq_mgr->file, "Timed out waiting for=
+ fence=3D%llu:%llu\n",
+>                                      f->context, f->seqno);
+> +                       queue->state =3D AMDGPU_USERQ_STATE_HUNG;
+> +                       return -ETIME;
+> +               }
 >         }
+> +
+> +       return ret;
+>  }
+>
+>  static void
 > --
 > 2.34.1
 >
