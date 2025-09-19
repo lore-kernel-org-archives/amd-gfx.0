@@ -4,115 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3B7CAC5AA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88763CAC5B0
 	for <amd-gfx@archiver.kernel.org>; Sun, 21 Sep 2025 09:03:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB60B10E35A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77ECE10E358;
 	Sun, 21 Sep 2025 09:03:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="kYvXyPiB";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="L/j5DNx6";
 	dkim-atps=neutral
-Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [52.28.197.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E32110E984;
- Fri, 19 Sep 2025 10:33:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758277983; x=1789813983;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8djAgabF22BDsxfYcNFa72Q6mXnC3doUyHk+thXHzBc=;
- b=kYvXyPiB23lg3YIxsVOog0bbHXdcMpJ3wr9riknxV4UeSbGNTuZ9QRXj
- q9Onrsu8Xg15QzFWnVIRYsZJerHajj+de2xpHWMrpOmTUoe+UI0PmgvM2
- 3iFljmTq63j7n5T85nwhwlXJwP1eHNIkTiUQfnXQZVAe/xcBIXmpwE/GX
- XKzWT9tqrv3ptDOsXCWtKo+iyak+SbbS4GrJRXlS5FxkY1WNGdJeGVwxX
- P2du/p3i5QzMUMWqncoB9ATYWitof92c3ywQakPiIaHdpk4EoLDbdPmfC
- RytptXasQsYtGtY8TKaJdbU8XpESmeT7KaDl3XboergsKcnLXOple/RBX w==;
-X-CSE-ConnectionGUID: 8tgZ5mL7TdKPmMLbYojSeg==
-X-CSE-MsgGUID: 9TgPILTbQ7GVf6igeqO47Q==
-X-IronPort-AV: E=Sophos;i="6.18,277,1751241600"; 
-   d="scan'208";a="2264235"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:33:00 +0000
-Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:19477]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.8.212:2525]
- with esmtp (Farcaster)
- id 05c262ab-8dea-47ba-9ccf-e3ae718d6c54; Fri, 19 Sep 2025 10:33:00 +0000 (UTC)
-X-Farcaster-Flow-ID: 05c262ab-8dea-47ba-9ccf-e3ae718d6c54
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 19 Sep 2025 10:32:59 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 19 Sep 2025
- 10:32:30 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
- <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
- <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
- <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
- <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>,
- <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
- <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
- <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>,
- <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
- <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>,
- <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
- <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>,
- <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, 
- <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
- <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>,
- <gregkh@linuxfoundation.org>, <clm@fb.com>, <josef@toxicpanda.com>,
- <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
- <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
- <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
- <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>,
- <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
- <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>,
- <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>,
- <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>,
- <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
- <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>,
- <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <bvanassche@acm.org>,
- <keescook@chromium.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
- <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
- <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
- <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
- <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
- <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
- <stable@vger.kernel.org>
-CC: <jonnyc@amazon.com>, Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig
- <hch@infradead.org>, Dan Carpenter <dan.carpenter@linaro.org>, Jens Axboe
- <axboe@kernel.dk>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, "Mateusz
- Guzik" <mjguzik@gmail.com>, Pedro Falcato <pedro.falcato@gmail.com>
-Subject: [PATCH 26/27 5.10.y] minmax.h: simplify the variants of clamp()
-Date: Fri, 19 Sep 2025 10:17:26 +0000
-Message-ID: <20250919101727.16152-27-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20250919101727.16152-1-farbere@amazon.com>
-References: <20250919101727.16152-1-farbere@amazon.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0107E10E98B;
+ Fri, 19 Sep 2025 11:13:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=7IAnsxZjH5AhBJ/tfYhtdLrenrS33yCd6ZMl51qI+Nk=; b=L/j5DNx6AWdvT0FlzORjKGkjTA
+ oL4SJ9QjArw4uxAdFvmAEFtkBbMIVCAumtYWbxSJKW4gEh4Bxqh+7kmSfC8++euchHKon8xbUIy96
+ BzdDtMsYN9WfDOdMPEuEFvqzSnboGWeg68JtvGrytlT5DlkDnbqEBiVGNixkurpqIJoskcCQiqIEC
+ Z/suW+dy6X18IxjTgU2Mbo3boSl0EGg0P5FBxETSN5qSMA2u/xQlEJFQoRv1VOdyIFcM+tqTIRdZW
+ 3gdYlWxtbNVi6VpggaaE+nX3owigyKFgMOQ2ZCYEAO2TKs2a58z9AYnlHKZ0Lkwmi6105qwIZahRs
+ JHa4kY+A==;
+Received: from 179-125-87-227-dinamico.pombonet.net.br ([179.125.87.227]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uzZ3M-00E3o4-CX; Fri, 19 Sep 2025 13:13:24 +0200
+Date: Fri, 19 Sep 2025 08:13:15 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com,
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [PATCH RFC v2 0/3] drm/ttm: allow direct reclaim to be skipped
+Message-ID: <aM06y7MP6LzHMBK7@quatroqueijos.cascardo.eti.br>
+References: <20250918-ttm_pool_no_direct_reclaim-v2-0-135294e1f8a2@igalia.com>
+ <6f92ff06-04c3-440b-becb-50a7693ecc39@amd.com>
+ <67c83b24-01b6-4633-8645-52dc746c32e2@igalia.com>
+ <96c117bc-389f-42d9-952e-894768aad780@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D038UWC002.ant.amazon.com (10.13.139.238) To
- EX19D018EUA004.ant.amazon.com (10.252.50.85)
+In-Reply-To: <96c117bc-389f-42d9-952e-894768aad780@amd.com>
 X-Mailman-Approved-At: Sun, 21 Sep 2025 09:02:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,96 +73,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Laight <David.Laight@ACULAB.COM>
+On Fri, Sep 19, 2025 at 10:01:26AM +0200, Christian König wrote:
+> On 19.09.25 09:43, Tvrtko Ursulin wrote:
+> > On 19/09/2025 07:46, Christian König wrote:
+> >> On 18.09.25 22:09, Thadeu Lima de Souza Cascardo wrote:
+> >>> On certain workloads, like on ChromeOS when opening multiple tabs and
+> >>> windows, and switching desktops, memory pressure can build up and latency
+> >>> is observed as high order allocations result in memory reclaim. This was
+> >>> observed when running on an amdgpu.
+> >>>
+> >>> This is caused by TTM pool allocations and turning off direct reclaim when
+> >>> doing those higher order allocations leads to lower memory pressure.
+> >>>
+> >>> Since turning direct reclaim off might also lead to lower throughput,
+> >>> make it tunable, both as a module parameter that can be changed in sysfs
+> >>> and as a flag when allocating a GEM object.
+> >>>
+> >>> A latency option will avoid direct reclaim for higher order allocations.
+> >>>
+> >>> The throughput option could be later used to more agressively compact pages
+> >>> or reclaim, by not using __GFP_NORETRY.
+> >>
+> >> Well I can only repeat it, at least for amdgpu that is a clear NAK from my side to this.
+> >>
+> >> The behavior to allocate huge pages is a must have for the driver.
+> > 
+> > Disclaimer that I wouldn't go system-wide but per device - so somewhere in sysfs rather than a modparam. That kind of a toggle would not sound problematic to me since it leaves the policy outside the kernel and allows people to tune to their liking.
+> 
+> Yeah I've also wrote before when that is somehow beneficial for nouveau (for example) then I don't have any problem with making the policy device dependent.
+> 
+> But for amdgpu we have so many so bad experiences with this approach that I absolutely can't accept that.
 
-[ Upstream commit 495bba17cdf95e9703af1b8ef773c55ef0dfe703 ]
+The mechanism here allows it to be set per device. I even considered that
+as a patch in the RFC, but I opted to get it out sooner so we could have
+this discussion.
 
-Always pass a 'type' through to __clamp_once(), pass '__auto_type' from
-clamp() itself.
+> 
+> > One side question thought - does AMD benefit from larger than 2MiB contiguous blocks? IIUC the maximum PTE is 2MiB so maybe not? In which case it may make sense to add some TTM API letting drivers tell the pool allocator what is the maximum order to bother with. Larger than that may have diminishing benefit for the disproportionate pressure on the memory allocator and reclaim.
+> 
+> Using 1GiB allocations would allow for the page tables to skip another layer on AMD GPUs, but the most benefit is between 4kiB and 2MiB since that can be handled more efficiently by the L1. Having 2MiB allocations then also has an additional benefit for L2.
+> 
+> Apart from performance for AMD GPUs there are also some HW features which only work with huge pages, e.g. on some laptops you can get for example flickering on the display if the scanout buffer is back by to many small pages.
+> 
+> NVidia used to work on 1GiB allocations which as far as I know was the kickoff for the whole ongoing switch to using folios instead of pages. And from reading public available documentation I have the impression that NVidia GPUs works more or less the same as AMD GPUs regarding the TLB.
+> 
+> Another alternative would be that we add a WARN_ONCE() when we have to fallback to lower order pages, but that wouldn't help the end user either. It just makes it more obvious that you need more memory for a specific use case without triggering the OOM killer.
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Regards,
+> > 
+> > Tvrtko
+> > 
+> >> The alternative I can offer is to disable the fallback which in your case would trigger the OOM killer.
+> >>
 
-The expansion of __types_ok3() is reasonable so it isn't worth the added
-complexity of avoiding it when a fixed type is used for all three values.
+Warning could be as simple as removing __GFP_NOWARN. But I don't think we
+want either a warning or to trigger the OOM killer when allocating lower
+order pages are still possible. That will already happen when we get to 0
+order pages, where there is no fallback available anymore, and, then, it
+makes sense to try harder and warn if no page can be allocated.
 
-Link: https://lkml.kernel.org/r/8f69f4deac014f558bab186444bac2e8@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
- include/linux/minmax.h | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+Under my current workload, the balance skews torwards 0-order pages,
+reducing the amount of 10 and 9 order pages to half, when comparing runs
+with direct reclaim and without direct reclaim. So, I understand your
+concern in respect to the impact on the GPU TLB and potential flickering.
+Is there a way we can measure it on the devices we are using? And, then, if
+it does not show to be a problem on those devices, would making this be a
+setting per-device be acceptable to you? In a way that we could have in
+userspace a list of devices where it is okay to prefer not to reclaim over
+getting huge pages and that could be set if the workload prefers lower
+latency in those allocations?
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 75fb7a6ad4c6..2bbdd5b5e07e 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -183,29 +183,29 @@
- #define __clamp(val, lo, hi)	\
- 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
- 
--#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
--	__auto_type uval = (val);						\
--	__auto_type ulo = (lo);							\
--	__auto_type uhi = (hi);							\
-+#define __clamp_once(type, val, lo, hi, uval, ulo, uhi) ({			\
-+	type uval = (val);							\
-+	type ulo = (lo);							\
-+	type uhi = (hi);							\
- 	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
- 		"clamp() low limit " #lo " greater than high limit " #hi);	\
- 	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
- 		"clamp("#val", "#lo", "#hi") signedness error");		\
- 	__clamp(uval, ulo, uhi); })
- 
--#define __careful_clamp(val, lo, hi) \
--	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
-+#define __careful_clamp(type, val, lo, hi) \
-+	__clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
- 
- /**
-- * clamp - return a value clamped to a given range with strict typechecking
-+ * clamp - return a value clamped to a given range with typechecking
-  * @val: current value
-  * @lo: lowest allowable value
-  * @hi: highest allowable value
-  *
-- * This macro does strict typechecking of @lo/@hi to make sure they are of the
-- * same type as @val.  See the unnecessary pointer comparisons.
-+ * This macro checks @val/@lo/@hi to make sure they have compatible
-+ * signedness.
-  */
--#define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
-+#define clamp(val, lo, hi) __careful_clamp(__auto_type, val, lo, hi)
- 
- /**
-  * clamp_t - return a value clamped to a given range using a given type
-@@ -217,7 +217,7 @@
-  * This macro does no typechecking and uses temporary variables of type
-  * @type to make all the comparisons.
-  */
--#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
-+#define clamp_t(type, val, lo, hi) __careful_clamp(type, val, lo, hi)
- 
- /**
-  * clamp_val - return a value clamped to a given range using val's type
-@@ -230,7 +230,7 @@
-  * type and @lo and @hi are literals that will otherwise be assigned a signed
-  * integer type.
-  */
--#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
-+#define clamp_val(val, lo, hi) __careful_clamp(typeof(val), val, lo, hi)
- 
- /*
-  * Do not check the array parameter using __must_be_array().
--- 
-2.47.3
+Thanks.
+Cascardo.
 
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> Other drivers can later opt to use this mechanism too.
+> >>>
+> >>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> >>> ---
+> >>> Changes in v2:
+> >>> - Make disabling direct reclaim an option.
+> >>> - Link to v1: https://lore.kernel.org/r/20250910-ttm_pool_no_direct_reclaim-v1-1-53b0fa7f80fa@igalia.com
+> >>>
+> >>> ---
+> >>> Thadeu Lima de Souza Cascardo (3):
+> >>>        ttm: pool: allow requests to prefer latency over throughput
+> >>>        ttm: pool: add a module parameter to set latency preference
+> >>>        drm/amdgpu: allow allocation preferences when creating GEM object
+> >>>
+> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  3 ++-
+> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  3 ++-
+> >>>   drivers/gpu/drm/ttm/ttm_pool.c             | 23 +++++++++++++++++------
+> >>>   drivers/gpu/drm/ttm/ttm_tt.c               |  2 +-
+> >>>   include/drm/ttm/ttm_bo.h                   |  5 +++++
+> >>>   include/drm/ttm/ttm_pool.h                 |  2 +-
+> >>>   include/drm/ttm/ttm_tt.h                   |  2 +-
+> >>>   include/uapi/drm/amdgpu_drm.h              |  9 +++++++++
+> >>>   8 files changed, 38 insertions(+), 11 deletions(-)
+> >>> ---
+> >>> base-commit: f83ec76bf285bea5727f478a68b894f5543ca76e
+> >>> change-id: 20250909-ttm_pool_no_direct_reclaim-ee0807a2d3fe
+> >>>
+> >>> Best regards,
+> >>
+> > 
+> 
