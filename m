@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 004DDCAC59A
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 13:11:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EE9CCAC59A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 13:11:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4426D10EA10;
-	Fri, 19 Sep 2025 13:11:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95D1110E91C;
+	Fri, 19 Sep 2025 13:11:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="e0fqYeQO";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mFtgYd1b";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB4510EA06;
- Fri, 19 Sep 2025 13:11:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B44410EA0B;
+ Fri, 19 Sep 2025 13:11:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=kEoA8CHfUgwpFQZ8+Lkt7O9KEo17+MPkR1Dy9WI7SHc=; b=e0fqYeQO5WG0ANU6AawVLkfHP5
- Ii49pLwgufpRTn4iOLej1rTDt8F2iwRQAtQSAM+MACxw2EPy7/NroGT2wgrk5j2a4zfFdtul74WPq
- wAz/AjaBS8lPCGtIO4exLdXiwSW2ybmoyP7Z/YYc6PNTx5T2kroSrXthPU8HcNxFJ0fJq2p8sdH8W
- wmT0D08HmYLtmbzQvff9wVRWWdOcfxe3/p2tw9WkqoGR9OssDtpKAwBqjreizoA3Nl9YsAtGV8okE
- n4uMniH4FEgbV3yzkMVqtSYSL+xZ7q49R3bWAnakSEv4zQqSS4AxTdCM0erFc+93jJl0hZvJW8/Vi
- YL/3b2Bg==;
+ bh=5VWN8O+OfR4eWJykP0zJsMBzfdFAJifYXSylxE2abmw=; b=mFtgYd1b6yNhElINbKC0eRq9uL
+ grmQtEDZ5LQrUyToElbORNvkK9JnToJReUW+putZT9ntG/Njo1bPmSBtdLFrjyNTi6s0zddFOTziM
+ FkP5xfjpPJkqLwOfVSJjO6c0IIlM5V2pMVED5MJvEUhWw4FyjJtLQcF+5qdqL4KZjzUsWgCXueHjC
+ wXFY36qevU/lvr88eRTzKR+1+wJvGojAuMnw9nui2MPDiOwdsOGci6kHRFe5InM0i6hlC2KBMLp0C
+ fLRnGZvaiOPeYXCeN8KKby6OxdjWsji2xMZOc4kApc6F9KLK4i5UHxvvJCilrQKLALXrSZ8IL2XzZ
+ ovv1lSkg==;
 Received: from [84.66.36.92] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uzath-00E6IG-AM; Fri, 19 Sep 2025 15:11:33 +0200
+ id 1uzati-00E6IO-NB; Fri, 19 Sep 2025 15:11:34 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [RFC 0/2] ttm+amd: Reduce worst case latency when allocating large
- buffers
-Date: Fri, 19 Sep 2025 14:11:25 +0100
-Message-ID: <20250919131127.90932-1-tvrtko.ursulin@igalia.com>
+Subject: [RFC 2/2] drm/amdgpu: Configure max beneficial TTM pool allocation
+ order
+Date: Fri, 19 Sep 2025 14:11:27 +0100
+Message-ID: <20250919131127.90932-3-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250919131127.90932-1-tvrtko.ursulin@igalia.com>
+References: <20250919131127.90932-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -60,24 +62,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following the discussion from:
-  https://lore.kernel.org/dri-devel/7c6a3aa0-c1eb-4726-988a-460c4895f615@amd.com/T/#m32a0260769a0ffb2f114d00066ef3bfda91f9fd6
+Let the TTM pool allocator know that we can afford for it to expend less
+effort for satisfying contiguous allocations larger than 2MiB. The latter
+is the maximum relevant PTE entry size and the driver and hardware are
+happy to get larger blocks only opportunistically.
 
-Idea being that we can afford with no performance benefit to try less hard when
-allocating contiguous backing store larger than the size which brings a
-performance benefit for a specific GPU.
-
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Tvrtko Ursulin (2):
-  drm/ttm: Allow drivers to specify maximum beneficial TTM pool size
-  drm/amdgpu: Configure max beneficial TTM pool allocation order
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  5 +++++
- drivers/gpu/drm/ttm/ttm_pool.c          | 15 +++++++++++++--
- include/drm/ttm/ttm_pool.h              | 10 ++++++++++
- 3 files changed, 28 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 428265046815..7d7b91e07a47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1812,6 +1812,9 @@ static int amdgpu_ttm_pools_init(struct amdgpu_device *adev)
+ {
+ 	int i;
+ 
++	ttm_pool_set_max_beneficial_order(&adev->mman.bdev.pool,
++					  get_order(2 * SZ_1M));
++
+ 	if (!adev->gmc.is_app_apu || !adev->gmc.num_mem_partitions)
+ 		return 0;
+ 
+@@ -1825,6 +1828,8 @@ static int amdgpu_ttm_pools_init(struct amdgpu_device *adev)
+ 		ttm_pool_init(&adev->mman.ttm_pools[i], adev->dev,
+ 			      adev->gmc.mem_partitions[i].numa.node,
+ 			      false, false);
++		ttm_pool_set_max_beneficial_order(&adev->mman.ttm_pools[i],
++						  get_order(2 * SZ_1M));
+ 	}
+ 	return 0;
+ }
 -- 
 2.48.0
+
