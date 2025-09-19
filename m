@@ -4,67 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D3F0CAC59A
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 15:09:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2E02CAC592
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 15:14:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B1CD10EA1D;
-	Fri, 19 Sep 2025 15:09:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B34788FBD;
+	Fri, 19 Sep 2025 15:14:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZhEao5yU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OZOm3rCy";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3169B10EA1D
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 15:09:33 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-269ba651d06so1907385ad.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 08:09:33 -0700 (PDT)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3F2188FBD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 15:14:49 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-3308f4129fcso178596a91.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 08:14:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758294573; x=1758899373; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758294889; x=1758899689; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=p3TlNrMx0pT9d99eLaiW72vWkrGfY0prEYSKuOObGIA=;
- b=ZhEao5yU5V5QMe9IDRn+O70x+m583Zx9mSw3HDdsuQX8KFTmk/q+4ianwZ4n3gnz0C
- bZcmnS/HNLGFZ5AkpAAwbZFlIzJJzHcku0da2vq1ehwNjK1US0glPd0grddMkQ09aNuD
- NwEzAAyz9qtRKKV/nHLWDLuQ3Zx5x8lYuoHBYY7sFzjkoSYQvjdNVVyiavTxkC6heg76
- UopV05qdar8AJIqdhUhEdX3mXbCTNkhr50CbuYOn0ovF8KqjKEeiZAJsbeO6Vh6h5MQu
- jAnOtK9TkIqhWcazzb/+jVNiMu5YIm+HRTLwg94V6cPkrCYVHRs5XEGUma3tir2YkPTp
- u+5A==
+ bh=HX1VVA8HyB8zgPvl221Cy6GTMOJmqsABMEaGYcZeMh0=;
+ b=OZOm3rCy5keOGg8/rghOt++dR4URMjNJh19TEvOOA56W8W6YkjsEBBK2EvJuRDy64f
+ FNHLv1gRBED3k4wWKzXU3Z9oPCEOOcA3RAzmd20wU6XrccR9eVeUMUmQfhF7Jjs4obpC
+ frRlfPxTiTq7xpfGfdykb68UxZlZLZ8Mq94ZfKE3PcTcyyZlhqTt9QcPBetimVyyOOjz
+ zsSOAg5EacAGN93pw/uhGkEoZ2c1zhljf7vAXYNtmA/VWsi7B6f7j7Gkyd5WQfH7B0zY
+ GSH+4N7wnX8ZB+zXFLMnjJeQ4Q/VqUI0vxP+pMrG5ums9XW4YgdDAuhTOxZNpgDcq6+f
+ PoeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758294573; x=1758899373;
+ d=1e100.net; s=20230601; t=1758294889; x=1758899689;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=p3TlNrMx0pT9d99eLaiW72vWkrGfY0prEYSKuOObGIA=;
- b=gFeuhJtdLtiUm/LasV5H/5dkDzVP0DhsWyDc69+fw7KOz6tzTps2BCjuHzOPeO5xa2
- ozANJHrxR6GgPEd+1LyXiDk2twr4EJAfqJiUNssNjjRT+IK2vfIwwbWqiHM2jGDXEsqJ
- 1YEpEBDWPhFRloYy1ETo/thhvJDn+OlFXSxXnAuJjCyAJEXrnKwtEon3uuYJQ6TRZhQL
- LmF0QEO3YUImtR5UEh4hUf9CsK43qI7SFx0/l3H8xhklcVKscRMlp0u5JfNrD93RT1UC
- v+k9agLdDXBv8uMgOkqxtX9BbpvimjiKpXaAX7uNANT5m0c1haPtO0oIOKmi8Up4fvCe
- 5+9Q==
-X-Gm-Message-State: AOJu0YzMWNnzRJAPRgPpmm0JKEw1htbjhnpAfCceyXCYsQjCMQpdg3KZ
- Qulqtk4EJhyOUp6dc7ty2V4s0V8KvAclY/PvGthNH8PeRixo9Osh8p/IjqtI0TIjACd5V9jsKyT
- HpvvG7gFRmSlEFlGUI8GdLSTKhOBzSo0=
-X-Gm-Gg: ASbGnctAnokhpHgpMjXn8Ga9/xmYCs+74iRreN0yduJZpzvFsGsKc9MgnCisitrkBsZ
- 4xo7P1fHDnCXBlv6a4/n/M4GlBardmOJFZK+HFyLNGAL78q+KtjxHNtTDqkCCynx7UjgE0V6ELr
- pPU/i4K+CZA9sXrnLoPd0j1I58Mo3cDhkOixFPl6OD7W/rc4OV8tvJURdvkIF9hCUO5Cf65eGLL
- kUBMCY=
-X-Google-Smtp-Source: AGHT+IEZ2pKfsnHhbUqXxUFqJfftiAlGaC/NDlq9Yh33zisP44WS2mM8NU6Cxvrrw7PckbCXhU3Vrz7/JuHhlMHTYTQ=
-X-Received: by 2002:a17:903:2451:b0:26a:f96c:3099 with SMTP id
- d9443c01a7336-26af96c339bmr20135785ad.3.1758294572507; Fri, 19 Sep 2025
- 08:09:32 -0700 (PDT)
+ bh=HX1VVA8HyB8zgPvl221Cy6GTMOJmqsABMEaGYcZeMh0=;
+ b=tajbOIUla720jWFpIvTdV8g1LY7Gl0O+gmJYKa/hDN4YzVoJeglhdMRgiJdTgooiLN
+ 4cXuBOeReSAL7uHmdT/QbsiitsBrAO03ABHV7VlAd9ogFhB9fhXIlLZPaMOEbBUXH2vD
+ IEqiPkumEECKrq7kLYlkgPJ2OLZeoq1dsPVafw+inn9lJq6UeZD4cifK+sMw4sgVPpZY
+ wQ8ifN+9LF1c1QeaKeaHMwcuq6o5AS+RcRBQ+HeXHHSvAdttJiCVMJy4UGscRI9uAifr
+ r0qRQz5VXz06c94tcFMxpv8+m/ugi2c0xKcjx8cKfvb8Ht/0t/DCXHnwuk5wDIB8GLdf
+ It4w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVlIeEB7lJArAeDk8k33z0BVCqtb7o5dihLAHaFRr+0f81cTSJNiMQgDPvVBILj4PDXBqyQ9h14@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3UoGrj/CFG/oYmNiN38ir030WsVV2ipQq4jNsxeIdCYDEZNiX
+ cUvZEWPCCA6AYjh9rfZMYNAUTlb4mZkRLDYgkYtM0x1LpA+FpHBqB6G/EmYSR4xeQQor9+DyF4T
+ rgbMauBWQ5rLvjp5MyMEzuBGaeaAENSk=
+X-Gm-Gg: ASbGncsx/dGwvmIlXw65xt+zyTp2+aBLn7UwD6wRaNULo9CBRWgdzvLYE3vz9pEwwOa
+ T8ygwC06+pRPwHkCi/nytIgT8AWDyUaWy3yTpPV2KlmMg+s445E1SLuVO8PDG7vDetRJDRSe+Rd
+ UlL3v09jRmIVGJCeJ4c3OgyHI0MStppuP1dfgH5JIdmH+0fR3q1bFIX2ZBmDdC02Q3TsLmlWDQj
+ 3zqV7A=
+X-Google-Smtp-Source: AGHT+IEpK19YMQrKSgSC6M+05pSsIfexMceH/zUKzST+uke0iAS8l6E8G2NRCRUoXsnzakwtmE+kjR5jN9K0W64PnCU=
+X-Received: by 2002:a17:90b:3806:b0:330:7a07:edb5 with SMTP id
+ 98e67ed59e1d1-33097fdb384mr3207285a91.2.1758294888979; Fri, 19 Sep 2025
+ 08:14:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250919081419.9034-1-timur.kristof@gmail.com>
-In-Reply-To: <20250919081419.9034-1-timur.kristof@gmail.com>
+References: <20250919122147.2538-1-christian.koenig@amd.com>
+In-Reply-To: <20250919122147.2538-1-christian.koenig@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 19 Sep 2025 11:09:20 -0400
-X-Gm-Features: AS18NWA_r08JkkzG95QfrCfOpHANQS_-V0yHaUtygXWnjB8uKh8Oze8y6sWvdNI
-Message-ID: <CADnq5_Pj43m4C2esgH5wVFfbq5rSehSeL-7NkdwHU0ByNSRdUg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Reject YUV422 encoding over DP on DCE
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- alex.hung@amd.com, harry.wentland@amd.com, siqueira@igalia.com
+Date: Fri, 19 Sep 2025 11:14:37 -0400
+X-Gm-Features: AS18NWDax_H-URfnZ2YpMLiy12w8u0ozOcdgyxDkZOs1JXZBUEasaNqjRJmmcug
+Message-ID: <CADnq5_MVAwcnASmtpjjH2rfju+odqfMvPtocAxTfSw6nsBjuYg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: remove leftover from enforcing isolation
+ by VMID
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: Alexander.Deucher@amd.com, James.Zhu@amd.com, srinivasan.shanmugam@amd.com,
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,65 +84,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 19, 2025 at 4:14=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
+On Fri, Sep 19, 2025 at 8:21=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> Mark YUV422 unsupported over DP on DCE to work around a
-> regression caused by the recent YUV422 fallback patch.
+> Initially we enforced isolation by reserving a VMID, but that practice
+> was now removed.
 >
-> See https://gitlab.freedesktop.org/drm/amd/-/issues/4585
->
-> The recent YUV422 fallback breaks DisplayPort on DCE6-10 because
-> it can select a high refresh rate mode with YUV422 and 6 BPC,
-> which is apparently not actually supported by the HW, causing
-> it to boot to a "no signal" screen.
->
-> Tested with a Samsung Odyssey G7 on the following GPUs:
->
-> - Cape Verde (DCE 6): affected
-> - Tonga (DCE 10): affected
-> - Polaris (DCE 11.2): not affected
-> - Vega (DCE 12): not affected
->
-> Polaris and Vega are not affected because the same mode
-> gets rejected by other parts of the code base, possibly the
-> bandwidth calculation which exists for DCE11+ but not older HW.
->
-> It is not documented whether YUV422 is actually supported over DP
-> on DCE, but considering that this encoding was never used before,
-> and that YUV420 is already marked unsupported, probably not.
->
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-Fixes: db291ed1732e02 ("drm/amd/display: Add fallback path for YCBCR422")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4585
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Would be good to get feedback from the display team on what the actual
-capabilities are, but seems reasonable to me.
-
-Alex
-
 > ---
->  drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 5 -----
+>  1 file changed, 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c b/driv=
-ers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-> index 0c50fe266c8a..686f6be68c91 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-> @@ -798,7 +798,8 @@ bool dce110_link_encoder_validate_dp_output(
->         const struct dce110_link_encoder *enc110,
->         const struct dc_crtc_timing *crtc_timing)
->  {
-> -       if (crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_YCBCR420)
-> +       if (crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_YCBCR420 ||
-> +               crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_YCBCR42=
-2)
->                 return false;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ids.c
+> index 5dd78a9cb12d..cbdf108612d2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -594,11 +594,6 @@ void amdgpu_vmid_mgr_init(struct amdgpu_device *adev=
+)
+>                         list_add_tail(&id_mgr->ids[j].list, &id_mgr->ids_=
+lru);
+>                 }
+>         }
+> -       /* alloc a default reserved vmid to enforce isolation */
+> -       for (i =3D 0; i < (adev->xcp_mgr ? adev->xcp_mgr->num_xcps : 1); =
+i++) {
+> -               if (adev->enforce_isolation[i] !=3D AMDGPU_ENFORCE_ISOLAT=
+ION_DISABLE)
+> -                       amdgpu_vmid_alloc_reserved(adev, AMDGPU_GFXHUB(i)=
+);
+> -       }
+>  }
 >
->         return true;
+>  /**
 > --
-> 2.51.0
+> 2.43.0
 >
