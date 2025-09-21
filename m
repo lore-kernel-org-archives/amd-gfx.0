@@ -4,72 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91B00CAC5A7
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 07:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2DEACAC592
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 07:23:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3AFC10E3C5;
-	Mon, 22 Sep 2025 07:22:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D0310E3C6;
+	Mon, 22 Sep 2025 07:23:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DTYvftXf";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oNji14LK";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD9C10E317
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 Sep 2025 14:55:05 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-76e2ea933b7so3124752b3a.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 Sep 2025 07:55:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758466504; x=1759071304; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pJFv3ChPUzhn9GkGU13hJh9Fbrlocc4W2rtrc3dBgJk=;
- b=DTYvftXfAqx82edDPPDUzpWcUJyi1tuqxAR5lYdAMPDBDOKWIMbWbe0Ta4MChpfO1Z
- RqfjjSzpjX5rfIQeVWVmC9Tl5ZkC11lmcf/T2+3C6jomZopjdQGBqtOVHDCQvMOwczzT
- WwhnYgclvmOIcws8i1gVBdc8ZUbuXFJBeIb46eaELZ7bApwcXrHcj1+ZJOxWnKLfmYti
- Hs32xpv+NaK/f0xS22T0HDfEn6cUr7xBFQRKjkVmGo46nsX4FLc11515FtcE9Tx8efI3
- 8k2pq0fcyT3W4FkiHhDkaWPwk8LHtctaqeJu4tlWXEh+BF/ON4aWsj8chzEO7S+c+cO4
- iVgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758466504; x=1759071304;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pJFv3ChPUzhn9GkGU13hJh9Fbrlocc4W2rtrc3dBgJk=;
- b=R2UmeKVZMWfOvi0oXtTXzMF60bCat5XU8ZYawx3vHDVHwhpYzYNFGUOt7iCml+FwD/
- iFh9/LxW02htOhQVBavXbdo/7r5EDD45saY0qThtWbuhBvzjjcJ2Yvpjctm5ZEXKJdsZ
- IEplTk1OSCu13gb79nbA2LSJwexUR3Z3a8SWTdXqFgSQnNW/WwyFN7vT9OdSei5gI+e4
- bLz8vbibOZbtQ8wzeH9Yb81anUlwtXHysHYz4k243YfnSSAZoxn/EQDW+s3p5t0AsV3F
- 4y1MFhodk1lG8vzPLp9JGogxy9VH1LLXuodB/PNKJGzyu1EIHq9yySn5lDoVLM0dPpEj
- NsBg==
-X-Gm-Message-State: AOJu0Yy7T2s9zmlwDBpl0uCKyMsqaiW02L/PdcHD/v3UN4B73bze6eql
- VTu+0paJdc56krHGGkxW+OxdFaJqUpaG28JJucWRju7GinndADgy0wP6
-X-Gm-Gg: ASbGncu+Aq4AnNxcyVM9+ScjPkWrKmuqUE7Ybh8R23kZu3S55pHsprQchJ5UjoeZEoi
- shu1jlySoLi4DGE3wXW409NXi39AAo0Prxf6ReBJvw/JZ9bVjjT1FRqh87n8JjVKu0kRaya+6ru
- KoYgXM2HA11wVJbr0W3hY1KUZbY74VTAviQwMYJZ+rm21tj5jsre1v/7uJd17fdJEj91stUi3XV
- IftHCHAMLUvshtliYafLAKZKuoBRkEiGfFN3+9qXtlXcSA+nKtMUPXNEd8GKeVRYLPj73BqNwGb
- w5l0nQRLJyU8l56Pul+Wm8IJDF2IWOUYEQTr/9KWzI3vselLl/AIDlA5awM552feSnh+IWWKFfs
- pjpihvdA/cXs8OaHUiQ5wyQS1AUvNzIk4Le+vwq7piWg=
-X-Google-Smtp-Source: AGHT+IGlGOrrC1qELYieezel6ZZpPzpPTwUZ/Hjhxs33BYHvkYGq6FWqHUkdWrQ5M/94vUUoWCRMpA==
-X-Received: by 2002:a05:6a20:3945:b0:262:af30:e3c with SMTP id
- adf61e73a8af0-2921cafa18amr14329391637.28.1758466504480; 
- Sun, 21 Sep 2025 07:55:04 -0700 (PDT)
-Received: from asahi.bialairport.com ([103.241.193.55])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-77cfbb7aad7sm10415321b3a.12.2025.09.21.07.55.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Sep 2025 07:55:03 -0700 (PDT)
-From: Shreyas Muppana <shreyasmuppana@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shreyas Muppana <shreyasmuppana@gmail.com>
-Subject: [PATCH] drm/amdgpu: remove leading space before square bracket
-Date: Sun, 21 Sep 2025 20:24:01 +0530
-Message-ID: <20250921145401.22654-1-shreyasmuppana@gmail.com>
-X-Mailer: git-send-email 2.51.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFCF10E37B;
+ Sun, 21 Sep 2025 17:28:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 63B6D40468;
+ Sun, 21 Sep 2025 17:28:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22692C4CEE7;
+ Sun, 21 Sep 2025 17:28:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1758475727;
+ bh=OhAKhAi+AnzI3Qc3qjl3chOvflGQ1Z6G7nQKCQgIA6k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oNji14LKsaN74d6/6VxXQLAaEWqiMK1odhhlWG54PmdesR086HbzOQPsvLp4l8W8h
+ erd/geKCs7blyB1imhKlNfDZtIHl2vwbNw8z3TSYAfWxPI4STRspwkbfLQuyq+0pRc
+ wfxpVS7OtRaNl868jtRKMkgfZDW20Ck1f7t2BQsw=
+Date: Sun, 21 Sep 2025 19:28:44 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Eliav Farber <farbere@amazon.com>
+Cc: linux@armlinux.org.uk, jdike@addtoit.com, richard@nod.at,
+ anton.ivanov@cambridgegreys.com, dave.hansen@linux.intel.com,
+ luto@kernel.org, peterz@infradead.org, tglx@linutronix.de,
+ mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
+ tony.luck@intel.com, qiuxu.zhuo@intel.com, mchehab@kernel.org,
+ james.morse@arm.com, rric@kernel.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ evan.quan@amd.com, james.qian.wang@arm.com, liviu.dudau@arm.com,
+ mihail.atanassov@arm.com, brian.starkey@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robdclark@gmail.com, sean@poorly.run,
+ jdelvare@suse.com, linux@roeck-us.net, fery@cypress.com,
+ dmitry.torokhov@gmail.com, agk@redhat.com, snitzer@redhat.com,
+ dm-devel@redhat.com, rajur@chelsio.com, davem@davemloft.net,
+ kuba@kernel.org, peppe.cavallaro@st.com, alexandre.torgue@st.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, malattia@linux.it,
+ hdegoede@redhat.com, mgross@linux.intel.com,
+ intel-linux-scu@intel.com, artur.paszkiewicz@intel.com,
+ jejb@linux.ibm.com, martin.petersen@oracle.com,
+ sakari.ailus@linux.intel.com, clm@fb.com, josef@toxicpanda.com,
+ dsterba@suse.com, jack@suse.com, tytso@mit.edu,
+ adilger.kernel@dilger.ca, dushistov@mail.ru,
+ luc.vanoostenryck@gmail.com, rostedt@goodmis.org, pmladek@suse.com,
+ sergey.senozhatsky@gmail.com, andriy.shevchenko@linux.intel.com,
+ linux@rasmusvillemoes.dk, minchan@kernel.org, ngupta@vflare.org,
+ akpm@linux-foundation.org, kuznet@ms2.inr.ac.ru,
+ yoshfuji@linux-ipv6.org, pablo@netfilter.org, kadlec@netfilter.org,
+ fw@strlen.de, jmaloy@redhat.com, ying.xue@windriver.com,
+ willy@infradead.org, sashal@kernel.org, ruanjinjie@huawei.com,
+ David.Laight@aculab.com, herve.codina@bootlin.com, Jason@zx2c4.com,
+ bvanassche@acm.org, keescook@chromium.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-edac@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-sparse@vger.kernel.org,
+ linux-mm@kvack.org, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, tipc-discussion@lists.sourceforge.net,
+ stable@vger.kernel.org, jonnyc@amazon.com
+Subject: Re: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
+Message-ID: <2025092136-unelected-skirt-d91d@gregkh>
+References: <20250919101727.16152-1-farbere@amazon.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250919101727.16152-1-farbere@amazon.com>
 X-Mailman-Approved-At: Mon, 22 Sep 2025 07:22:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,27 +97,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-remove a space before an open square bracket,
-fixes a linter error
+On Fri, Sep 19, 2025 at 10:17:00AM +0000, Eliav Farber wrote:
+> This series includes a total of 27 patches, to align minmax.h of
+> v5.15.y with v6.17-rc6.
+> 
+> The set consists of 24 commits that directly update minmax.h:
+> 1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() macro
+>    once")
 
-Signed-off-by: Shreyas Muppana <shreyasmuppana@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+But this isn't in 5.15.y, so how is this syncing things up?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index cbc40cad5..8f3a31952 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -26,7 +26,7 @@
- #include "amdgpu_aca.h"
- #include "amdgpu_ras.h"
- 
--#define ACA_BANK_HWID(type, hwid, mcatype) [ACA_HWIP_TYPE_##type] = {hwid, mcatype}
-+#define ACA_BANK_HWID(type, hwid, mcatype)[ACA_HWIP_TYPE_##type] = {hwid, mcatype}
- 
- typedef int bank_handler_t(struct aca_handle *handle, struct aca_bank *bank, enum aca_smu_type type, void *data);
- 
--- 
-2.51.0
+I'm all for this, but I got confused here, at the first commit :)
 
+> 2) 5efcecd9a3b1 ("minmax: sanity check constant bounds when clamping")
+
+
+
+> 3) 2122e2a4efc2 ("minmax: clamp more efficiently by avoiding extra
+>    comparison")
+> 4) f9bff0e31881 ("minmax: add in_range() macro")
+> 5) c952c748c7a9 ("minmax: Introduce {min,max}_array()")
+> 6) 5e57418a2031 ("minmax: deduplicate __unconst_integer_typeof()")
+> 7) f6e9d38f8eb0 ("minmax: fix header inclusions")
+> 8) d03eba99f5bf ("minmax: allow min()/max()/clamp() if the arguments
+>    have the same signedness.")
+> 9) f4b84b2ff851 ("minmax: fix indentation of __cmp_once() and
+>    __clamp_once()")
+> 10) 4ead534fba42 ("minmax: allow comparisons of 'int' against 'unsigned
+>     char/short'")
+> 11) 867046cc7027 ("minmax: relax check to allow comparison between
+>     unsigned arguments and signed constants")
+> 12) 3a7e02c040b1 ("minmax: avoid overly complicated constant
+>     expressions in VM code")
+> 14) 017fa3e89187 ("minmax: simplify and clarify min_t()/max_t()
+>     implementation")
+> 15) 1a251f52cfdc ("minmax: make generic MIN() and MAX() macros
+>     available everywhere")
+> 18) dc1c8034e31b ("minmax: simplify min()/max()/clamp()
+>     implementation")
+> 19) 22f546873149 ("minmax: improve macro expansion and type
+>     checking")
+> 20) 21b136cc63d2 ("minmax: fix up min3() and max3() too")
+> 21) 71ee9b16251e ("minmax.h: add whitespace around operators and after
+>     commas")
+> 22) 10666e992048 ("minmax.h: update some comments")
+> 23) b280bb27a9f7 ("minmax.h: reduce the #define expansion of min(),
+>     max() and clamp()")
+> 24) a5743f32baec ("minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi
+>     test in clamp()")
+> 25) c3939872ee4a ("minmax.h: move all the clamp() definitions after the
+>     min/max() ones")
+> 26) 495bba17cdf9 ("minmax.h: simplify the variants of clamp()")
+> 27) 2b97aaf74ed5 ("minmax.h: remove some #defines that are only
+>     expanded once")
+
+Some of these are also only in newer kernels, which, as you know, is
+generally a bad thing (i.e. I can't take patches only for older
+kernels.)
+
+I want these changes, as they are great, but can you perhaps provide
+patch series for newer kernels first so that I can then take these?
+
+thanks,
+
+greg k-h
