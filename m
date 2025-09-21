@@ -4,157 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B65CAC592
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 07:22:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91B00CAC5A7
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 07:23:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1749510E113;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3AFC10E3C5;
 	Mon, 22 Sep 2025 07:22:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="DloIHZ8+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DTYvftXf";
 	dkim-atps=neutral
-Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [63.176.194.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB4410E0FA;
- Sun, 21 Sep 2025 21:37:16 +0000 (UTC)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD9C10E317
+ for <amd-gfx@lists.freedesktop.org>; Sun, 21 Sep 2025 14:55:05 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-76e2ea933b7so3124752b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 21 Sep 2025 07:55:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758490636; x=1790026636;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=w/nAd4kDSjaQjN1Dv16qY5ce7rfWNGwV0jiO1W97n90=;
- b=DloIHZ8+V6p8a6qTlJp349Vd/bxZs0ajxBJ01p1C0PPouse4pEpQK0LW
- AmnaaAfWQwwjZcrK9VsfO534Ipf77GLYCgI/dchs6g1Jyr8/YgYM4/fUA
- YhA8TupSW0JM0b5RdyNG9HQ9li5phLQUIoz7t+TEjdt6f5x+5PrImVTNP
- bGGptgDXWjn3wSUw8hLtEvpXXquAjIW31s16POTbTXyXsN5hsyaNXOSNO
- HdrYQlEQIjK59KxSi6ijYSft2shfkjOySxbX/SRteH0EkP1JWtkeDOvU5
- uvMzaxRWg63niaMFk0aKfU5G64KeAVVA2y91yqWnLG8M9ddiYi+PtWzzO Q==;
-X-CSE-ConnectionGUID: IkzWuETbT12a0z9pqWbBLQ==
-X-CSE-MsgGUID: PRMHOoNlThOyMzCGXOQDbw==
-X-IronPort-AV: E=Sophos;i="6.18,283,1751241600"; 
-   d="scan'208";a="2450586"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2025 21:37:06 +0000
-Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:22107]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.21.26:2525]
- with esmtp (Farcaster)
- id e11f0e39-22b8-46a0-839c-05efcff8dbe9; Sun, 21 Sep 2025 21:37:06 +0000 (UTC)
-X-Farcaster-Flow-ID: e11f0e39-22b8-46a0-839c-05efcff8dbe9
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUA002.ant.amazon.com (10.252.50.124) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Sun, 21 Sep 2025 21:37:03 +0000
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Sun, 21 Sep 2025 21:37:02 +0000
-Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
- EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
- 15.02.2562.020; Sun, 21 Sep 2025 21:37:02 +0000
-From: "Farber, Eliav" <farbere@amazon.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-CC: "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "jdike@addtoit.com"
- <jdike@addtoit.com>, "richard@nod.at" <richard@nod.at>,
- "anton.ivanov@cambridgegreys.com" <anton.ivanov@cambridgegreys.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "luto@kernel.org" <luto@kernel.org>, "peterz@infradead.org"
- <peterz@infradead.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
- "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
- "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
- "tony.luck@intel.com" <tony.luck@intel.com>, "qiuxu.zhuo@intel.com"
- <qiuxu.zhuo@intel.com>, "mchehab@kernel.org" <mchehab@kernel.org>,
- "james.morse@arm.com" <james.morse@arm.com>, "rric@kernel.org"
- <rric@kernel.org>, "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>, "alexander.deucher@amd.com"
- <alexander.deucher@amd.com>, "christian.koenig@amd.com"
- <christian.koenig@amd.com>, "airlied@linux.ie" <airlied@linux.ie>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "evan.quan@amd.com" <evan.quan@amd.com>, 
- "james.qian.wang@arm.com" <james.qian.wang@arm.com>, "liviu.dudau@arm.com"
- <liviu.dudau@arm.com>, "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>, 
- "brian.starkey@arm.com" <brian.starkey@arm.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "robdclark@gmail.com" <robdclark@gmail.com>,
- "sean@poorly.run" <sean@poorly.run>, "jdelvare@suse.com" <jdelvare@suse.com>, 
- "linux@roeck-us.net" <linux@roeck-us.net>, "fery@cypress.com"
- <fery@cypress.com>, "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>,
- "agk@redhat.com" <agk@redhat.com>, "snitzer@redhat.com" <snitzer@redhat.com>, 
- "dm-devel@redhat.com" <dm-devel@redhat.com>, "rajur@chelsio.com"
- <rajur@chelsio.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "kuba@kernel.org" <kuba@kernel.org>, "peppe.cavallaro@st.com"
- <peppe.cavallaro@st.com>, "alexandre.torgue@st.com"
- <alexandre.torgue@st.com>, "joabreu@synopsys.com" <joabreu@synopsys.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, "malattia@linux.it"
- <malattia@linux.it>, "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "mgross@linux.intel.com" <mgross@linux.intel.com>,
- "intel-linux-scu@intel.com" <intel-linux-scu@intel.com>,
- "artur.paszkiewicz@intel.com" <artur.paszkiewicz@intel.com>,
- "jejb@linux.ibm.com" <jejb@linux.ibm.com>, "martin.petersen@oracle.com"
- <martin.petersen@oracle.com>, "sakari.ailus@linux.intel.com"
- <sakari.ailus@linux.intel.com>, "clm@fb.com" <clm@fb.com>,
- "josef@toxicpanda.com" <josef@toxicpanda.com>, "dsterba@suse.com"
- <dsterba@suse.com>, "jack@suse.com" <jack@suse.com>, "tytso@mit.edu"
- <tytso@mit.edu>, "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "dushistov@mail.ru" <dushistov@mail.ru>, "luc.vanoostenryck@gmail.com"
- <luc.vanoostenryck@gmail.com>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "pmladek@suse.com" <pmladek@suse.com>, "sergey.senozhatsky@gmail.com"
- <sergey.senozhatsky@gmail.com>, "andriy.shevchenko@linux.intel.com"
- <andriy.shevchenko@linux.intel.com>, "linux@rasmusvillemoes.dk"
- <linux@rasmusvillemoes.dk>, "minchan@kernel.org" <minchan@kernel.org>,
- "ngupta@vflare.org" <ngupta@vflare.org>, "akpm@linux-foundation.org"
- <akpm@linux-foundation.org>, "kuznet@ms2.inr.ac.ru" <kuznet@ms2.inr.ac.ru>,
- "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>, "pablo@netfilter.org"
- <pablo@netfilter.org>, "kadlec@netfilter.org" <kadlec@netfilter.org>,
- "fw@strlen.de" <fw@strlen.de>, "jmaloy@redhat.com" <jmaloy@redhat.com>,
- "ying.xue@windriver.com" <ying.xue@windriver.com>, "willy@infradead.org"
- <willy@infradead.org>, "sashal@kernel.org" <sashal@kernel.org>,
- "ruanjinjie@huawei.com" <ruanjinjie@huawei.com>, "David.Laight@aculab.com"
- <David.Laight@aculab.com>, "herve.codina@bootlin.com"
- <herve.codina@bootlin.com>, "Jason@zx2c4.com" <Jason@zx2c4.com>,
- "bvanassche@acm.org" <bvanassche@acm.org>, "keescook@chromium.org"
- <keescook@chromium.org>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-um@lists.infradead.org"
- <linux-um@lists.infradead.org>, "linux-edac@vger.kernel.org"
- <linux-edac@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "linux-hwmon@vger.kernel.org"
- <linux-hwmon@vger.kernel.org>, "linux-input@vger.kernel.org"
- <linux-input@vger.kernel.org>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "netfilter-devel@vger.kernel.org"
- <netfilter-devel@vger.kernel.org>, "coreteam@netfilter.org"
- <coreteam@netfilter.org>, "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>, "Chocron, Jonathan" <jonnyc@amazon.com>
-Subject: RE: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
-Thread-Topic: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
-Thread-Index: AQHcKz/dRIfBoG9yrEaIjS9Ywn6sYg==
-Date: Sun, 21 Sep 2025 21:37:02 +0000
-Message-ID: <4f497306c58240a88c0bb001786c3ad2@amazon.com>
-References: <20250919101727.16152-1-farbere@amazon.com>
- <2025092136-unelected-skirt-d91d@gregkh>
-In-Reply-To: <2025092136-unelected-skirt-d91d@gregkh>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.85.143.176]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ d=gmail.com; s=20230601; t=1758466504; x=1759071304; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pJFv3ChPUzhn9GkGU13hJh9Fbrlocc4W2rtrc3dBgJk=;
+ b=DTYvftXfAqx82edDPPDUzpWcUJyi1tuqxAR5lYdAMPDBDOKWIMbWbe0Ta4MChpfO1Z
+ RqfjjSzpjX5rfIQeVWVmC9Tl5ZkC11lmcf/T2+3C6jomZopjdQGBqtOVHDCQvMOwczzT
+ WwhnYgclvmOIcws8i1gVBdc8ZUbuXFJBeIb46eaELZ7bApwcXrHcj1+ZJOxWnKLfmYti
+ Hs32xpv+NaK/f0xS22T0HDfEn6cUr7xBFQRKjkVmGo46nsX4FLc11515FtcE9Tx8efI3
+ 8k2pq0fcyT3W4FkiHhDkaWPwk8LHtctaqeJu4tlWXEh+BF/ON4aWsj8chzEO7S+c+cO4
+ iVgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758466504; x=1759071304;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=pJFv3ChPUzhn9GkGU13hJh9Fbrlocc4W2rtrc3dBgJk=;
+ b=R2UmeKVZMWfOvi0oXtTXzMF60bCat5XU8ZYawx3vHDVHwhpYzYNFGUOt7iCml+FwD/
+ iFh9/LxW02htOhQVBavXbdo/7r5EDD45saY0qThtWbuhBvzjjcJ2Yvpjctm5ZEXKJdsZ
+ IEplTk1OSCu13gb79nbA2LSJwexUR3Z3a8SWTdXqFgSQnNW/WwyFN7vT9OdSei5gI+e4
+ bLz8vbibOZbtQ8wzeH9Yb81anUlwtXHysHYz4k243YfnSSAZoxn/EQDW+s3p5t0AsV3F
+ 4y1MFhodk1lG8vzPLp9JGogxy9VH1LLXuodB/PNKJGzyu1EIHq9yySn5lDoVLM0dPpEj
+ NsBg==
+X-Gm-Message-State: AOJu0Yy7T2s9zmlwDBpl0uCKyMsqaiW02L/PdcHD/v3UN4B73bze6eql
+ VTu+0paJdc56krHGGkxW+OxdFaJqUpaG28JJucWRju7GinndADgy0wP6
+X-Gm-Gg: ASbGncu+Aq4AnNxcyVM9+ScjPkWrKmuqUE7Ybh8R23kZu3S55pHsprQchJ5UjoeZEoi
+ shu1jlySoLi4DGE3wXW409NXi39AAo0Prxf6ReBJvw/JZ9bVjjT1FRqh87n8JjVKu0kRaya+6ru
+ KoYgXM2HA11wVJbr0W3hY1KUZbY74VTAviQwMYJZ+rm21tj5jsre1v/7uJd17fdJEj91stUi3XV
+ IftHCHAMLUvshtliYafLAKZKuoBRkEiGfFN3+9qXtlXcSA+nKtMUPXNEd8GKeVRYLPj73BqNwGb
+ w5l0nQRLJyU8l56Pul+Wm8IJDF2IWOUYEQTr/9KWzI3vselLl/AIDlA5awM552feSnh+IWWKFfs
+ pjpihvdA/cXs8OaHUiQ5wyQS1AUvNzIk4Le+vwq7piWg=
+X-Google-Smtp-Source: AGHT+IGlGOrrC1qELYieezel6ZZpPzpPTwUZ/Hjhxs33BYHvkYGq6FWqHUkdWrQ5M/94vUUoWCRMpA==
+X-Received: by 2002:a05:6a20:3945:b0:262:af30:e3c with SMTP id
+ adf61e73a8af0-2921cafa18amr14329391637.28.1758466504480; 
+ Sun, 21 Sep 2025 07:55:04 -0700 (PDT)
+Received: from asahi.bialairport.com ([103.241.193.55])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-77cfbb7aad7sm10415321b3a.12.2025.09.21.07.55.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 21 Sep 2025 07:55:03 -0700 (PDT)
+From: Shreyas Muppana <shreyasmuppana@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shreyas Muppana <shreyasmuppana@gmail.com>
+Subject: [PATCH] drm/amdgpu: remove leading space before square bracket
+Date: Sun, 21 Sep 2025 20:24:01 +0530
+Message-ID: <20250921145401.22654-1-shreyasmuppana@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 22 Sep 2025 07:22:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -170,31 +85,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> On Fri, Sep 19, 2025 at 10:17:00AM +0000, Eliav Farber wrote:
-> > This series includes a total of 27 patches, to align minmax.h of
-> > v5.15.y with v6.17-rc6.
-> >
-> > The set consists of 24 commits that directly update minmax.h:
-> > 1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() macro
-> >    once")
->
-> But this isn't in 5.15.y, so how is this syncing things up?
->
-> I'm all for this, but I got confused here, at the first commit :)
+remove a space before an open square bracket,
+fixes a linter error
 
-It's a typo.
-It should be 5.10.y and not 5.15.y.
-
-> Some of these are also only in newer kernels, which, as you know, is
-> generally a bad thing (i.e. I can't take patches only for older
-> kernels.)
->
-> I want these changes, as they are great, but can you perhaps provide
-> patch series for newer kernels first so that I can then take these?
-
-So you'd first like first to align 6.16 with 6.17, then 6.15 with 6.16,
-then 6.12 with 6.15, then 6.6 with 6.12, and so on until we eventually
-align 5.10 and even 5.4?
-
+Signed-off-by: Shreyas Muppana <shreyasmuppana@gmail.com>
 ---
-Regards, Eliav
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index cbc40cad5..8f3a31952 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -26,7 +26,7 @@
+ #include "amdgpu_aca.h"
+ #include "amdgpu_ras.h"
+ 
+-#define ACA_BANK_HWID(type, hwid, mcatype) [ACA_HWIP_TYPE_##type] = {hwid, mcatype}
++#define ACA_BANK_HWID(type, hwid, mcatype)[ACA_HWIP_TYPE_##type] = {hwid, mcatype}
+ 
+ typedef int bank_handler_t(struct aca_handle *handle, struct aca_bank *bank, enum aca_smu_type type, void *data);
+ 
+-- 
+2.51.0
+
