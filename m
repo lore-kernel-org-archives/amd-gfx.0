@@ -4,122 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CABDCAC5A7
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 02:40:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B65CAC592
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 07:22:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 001E510E38D;
-	Mon, 22 Sep 2025 02:40:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1749510E113;
+	Mon, 22 Sep 2025 07:22:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="11gRpxE4";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="DloIHZ8+";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011003.outbound.protection.outlook.com [52.101.62.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ADEA10E38D
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Sep 2025 02:40:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BEXyHPOz+OoeRdULgqJqFuHEj3z39hv4s6iH5qj6fdpWucWBUYdcTmtaq3pIBEKTpBxJaIZF8qDakypC+92PMR+g608SvVWFY+rdqiWmQLocOtTRlK3LM9wrNvnoWtIfEsEHbtxczPdX6tMxvk7mvd/SNM3ix2hRXbhq2r8rmRTdMA8cY9qNz1cuWLiKFN1TQjCgRaHj4IxKPl8a7Juh3JUOMnizQ9JifZrjHt52aXKN1E+aZZ17XNEwia49SGrL2+NMREHu8v412/mu6Nj5QpcE9ezRA+B+ba9+CFNAeds81XbphoxCCRoCQb0nEbbfpRoLEkno3rhUFqqbpfDztQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=83oNflmrtq0rlbNICkRQUw/r+fliDL/puIQMabOEbcM=;
- b=DJNaNNhDFhdvM2TJgCVLyDtZJUEnL8CRy7PPktoSokmP7BzGwGoHhG7d5gueUc0O7Tml1kVihE1GdLJcP1bp8vlJGNq3kasppdfSR2FAUeNjtdHpUcSvHn0pYR5NaP1DdrEPx3c6UO+e5APwXtC5hSZG8iKjQ2ZCsAD0+Wy+XzC3oUdNP1oPNDbbHxr4v+pdFPSMLqZ+fUoH0+WXLTyKI8QNlUlzzq8KNYTnrnZUOuIwX3AsVOKDnyn3vkpc8eUuM+y+7tGhojBD8bkLfmu+6yLQOGGaMXtYWzjYC7idyL0Br8O70ygHRMe56zD+lIRax73QfTQOCTSGiyD00nJmZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=83oNflmrtq0rlbNICkRQUw/r+fliDL/puIQMabOEbcM=;
- b=11gRpxE4NuxFr8qTQH7HExPvHZsXfA0Q41xUg3soNXM0pTd60Hgle9RxiyAtqaxh/aKPcsoZGGDDi0l178hb+YA09MKTPa6iUgQNtPFcRl4Wv5S+72flKTKSAtVkI7QRZebKvirMeM7Y+4Fg3RemjvkBgkM/m11alYjONr8iO3k=
-Received: from MW3PR05CA0015.namprd05.prod.outlook.com (2603:10b6:303:2b::20)
- by CH3PR12MB8188.namprd12.prod.outlook.com (2603:10b6:610:120::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.19; Mon, 22 Sep
- 2025 02:40:13 +0000
-Received: from CO1PEPF000044FD.namprd21.prod.outlook.com
- (2603:10b6:303:2b:cafe::9e) by MW3PR05CA0015.outlook.office365.com
- (2603:10b6:303:2b::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.19 via Frontend Transport; Mon,
- 22 Sep 2025 02:40:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000044FD.mail.protection.outlook.com (10.167.241.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9182.0 via Frontend Transport; Mon, 22 Sep 2025 02:40:13 +0000
-Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sun, 21 Sep
- 2025 19:40:02 -0700
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <yipechai@amd.com>, <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>,
- <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou
- <tao.zhou1@amd.com>
-Subject: [PATCH V5 20/20] drm/amd/ras: Add files to ras core Makefile
-Date: Mon, 22 Sep 2025 10:38:44 +0800
-Message-ID: <20250922023844.3108065-20-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250922023844.3108065-1-YiPeng.Chai@amd.com>
-References: <20250922023844.3108065-1-YiPeng.Chai@amd.com>
+Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.176.194.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB4410E0FA;
+ Sun, 21 Sep 2025 21:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1758490636; x=1790026636;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=w/nAd4kDSjaQjN1Dv16qY5ce7rfWNGwV0jiO1W97n90=;
+ b=DloIHZ8+V6p8a6qTlJp349Vd/bxZs0ajxBJ01p1C0PPouse4pEpQK0LW
+ AmnaaAfWQwwjZcrK9VsfO534Ipf77GLYCgI/dchs6g1Jyr8/YgYM4/fUA
+ YhA8TupSW0JM0b5RdyNG9HQ9li5phLQUIoz7t+TEjdt6f5x+5PrImVTNP
+ bGGptgDXWjn3wSUw8hLtEvpXXquAjIW31s16POTbTXyXsN5hsyaNXOSNO
+ HdrYQlEQIjK59KxSi6ijYSft2shfkjOySxbX/SRteH0EkP1JWtkeDOvU5
+ uvMzaxRWg63niaMFk0aKfU5G64KeAVVA2y91yqWnLG8M9ddiYi+PtWzzO Q==;
+X-CSE-ConnectionGUID: IkzWuETbT12a0z9pqWbBLQ==
+X-CSE-MsgGUID: PRMHOoNlThOyMzCGXOQDbw==
+X-IronPort-AV: E=Sophos;i="6.18,283,1751241600"; 
+   d="scan'208";a="2450586"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2025 21:37:06 +0000
+Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:22107]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.21.26:2525]
+ with esmtp (Farcaster)
+ id e11f0e39-22b8-46a0-839c-05efcff8dbe9; Sun, 21 Sep 2025 21:37:06 +0000 (UTC)
+X-Farcaster-Flow-ID: e11f0e39-22b8-46a0-839c-05efcff8dbe9
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUA002.ant.amazon.com (10.252.50.124) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Sun, 21 Sep 2025 21:37:03 +0000
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Sun, 21 Sep 2025 21:37:02 +0000
+Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
+ EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
+ 15.02.2562.020; Sun, 21 Sep 2025 21:37:02 +0000
+From: "Farber, Eliav" <farbere@amazon.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+CC: "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "jdike@addtoit.com"
+ <jdike@addtoit.com>, "richard@nod.at" <richard@nod.at>,
+ "anton.ivanov@cambridgegreys.com" <anton.ivanov@cambridgegreys.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "luto@kernel.org" <luto@kernel.org>, "peterz@infradead.org"
+ <peterz@infradead.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
+ "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+ "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
+ "tony.luck@intel.com" <tony.luck@intel.com>, "qiuxu.zhuo@intel.com"
+ <qiuxu.zhuo@intel.com>, "mchehab@kernel.org" <mchehab@kernel.org>,
+ "james.morse@arm.com" <james.morse@arm.com>, "rric@kernel.org"
+ <rric@kernel.org>, "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "sunpeng.li@amd.com" <sunpeng.li@amd.com>, "alexander.deucher@amd.com"
+ <alexander.deucher@amd.com>, "christian.koenig@amd.com"
+ <christian.koenig@amd.com>, "airlied@linux.ie" <airlied@linux.ie>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "evan.quan@amd.com" <evan.quan@amd.com>, 
+ "james.qian.wang@arm.com" <james.qian.wang@arm.com>, "liviu.dudau@arm.com"
+ <liviu.dudau@arm.com>, "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>, 
+ "brian.starkey@arm.com" <brian.starkey@arm.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "robdclark@gmail.com" <robdclark@gmail.com>,
+ "sean@poorly.run" <sean@poorly.run>, "jdelvare@suse.com" <jdelvare@suse.com>, 
+ "linux@roeck-us.net" <linux@roeck-us.net>, "fery@cypress.com"
+ <fery@cypress.com>, "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>,
+ "agk@redhat.com" <agk@redhat.com>, "snitzer@redhat.com" <snitzer@redhat.com>, 
+ "dm-devel@redhat.com" <dm-devel@redhat.com>, "rajur@chelsio.com"
+ <rajur@chelsio.com>, "davem@davemloft.net" <davem@davemloft.net>,
+ "kuba@kernel.org" <kuba@kernel.org>, "peppe.cavallaro@st.com"
+ <peppe.cavallaro@st.com>, "alexandre.torgue@st.com"
+ <alexandre.torgue@st.com>, "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, "malattia@linux.it"
+ <malattia@linux.it>, "hdegoede@redhat.com" <hdegoede@redhat.com>,
+ "mgross@linux.intel.com" <mgross@linux.intel.com>,
+ "intel-linux-scu@intel.com" <intel-linux-scu@intel.com>,
+ "artur.paszkiewicz@intel.com" <artur.paszkiewicz@intel.com>,
+ "jejb@linux.ibm.com" <jejb@linux.ibm.com>, "martin.petersen@oracle.com"
+ <martin.petersen@oracle.com>, "sakari.ailus@linux.intel.com"
+ <sakari.ailus@linux.intel.com>, "clm@fb.com" <clm@fb.com>,
+ "josef@toxicpanda.com" <josef@toxicpanda.com>, "dsterba@suse.com"
+ <dsterba@suse.com>, "jack@suse.com" <jack@suse.com>, "tytso@mit.edu"
+ <tytso@mit.edu>, "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+ "dushistov@mail.ru" <dushistov@mail.ru>, "luc.vanoostenryck@gmail.com"
+ <luc.vanoostenryck@gmail.com>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "pmladek@suse.com" <pmladek@suse.com>, "sergey.senozhatsky@gmail.com"
+ <sergey.senozhatsky@gmail.com>, "andriy.shevchenko@linux.intel.com"
+ <andriy.shevchenko@linux.intel.com>, "linux@rasmusvillemoes.dk"
+ <linux@rasmusvillemoes.dk>, "minchan@kernel.org" <minchan@kernel.org>,
+ "ngupta@vflare.org" <ngupta@vflare.org>, "akpm@linux-foundation.org"
+ <akpm@linux-foundation.org>, "kuznet@ms2.inr.ac.ru" <kuznet@ms2.inr.ac.ru>,
+ "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>, "pablo@netfilter.org"
+ <pablo@netfilter.org>, "kadlec@netfilter.org" <kadlec@netfilter.org>,
+ "fw@strlen.de" <fw@strlen.de>, "jmaloy@redhat.com" <jmaloy@redhat.com>,
+ "ying.xue@windriver.com" <ying.xue@windriver.com>, "willy@infradead.org"
+ <willy@infradead.org>, "sashal@kernel.org" <sashal@kernel.org>,
+ "ruanjinjie@huawei.com" <ruanjinjie@huawei.com>, "David.Laight@aculab.com"
+ <David.Laight@aculab.com>, "herve.codina@bootlin.com"
+ <herve.codina@bootlin.com>, "Jason@zx2c4.com" <Jason@zx2c4.com>,
+ "bvanassche@acm.org" <bvanassche@acm.org>, "keescook@chromium.org"
+ <keescook@chromium.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-um@lists.infradead.org"
+ <linux-um@lists.infradead.org>, "linux-edac@vger.kernel.org"
+ <linux-edac@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
+ <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "linux-hwmon@vger.kernel.org"
+ <linux-hwmon@vger.kernel.org>, "linux-input@vger.kernel.org"
+ <linux-input@vger.kernel.org>, "linux-media@vger.kernel.org"
+ <linux-media@vger.kernel.org>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
+ "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, "netfilter-devel@vger.kernel.org"
+ <netfilter-devel@vger.kernel.org>, "coreteam@netfilter.org"
+ <coreteam@netfilter.org>, "tipc-discussion@lists.sourceforge.net"
+ <tipc-discussion@lists.sourceforge.net>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>, "Chocron, Jonathan" <jonnyc@amazon.com>
+Subject: RE: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
+Thread-Topic: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
+Thread-Index: AQHcKz/dRIfBoG9yrEaIjS9Ywn6sYg==
+Date: Sun, 21 Sep 2025 21:37:02 +0000
+Message-ID: <4f497306c58240a88c0bb001786c3ad2@amazon.com>
+References: <20250919101727.16152-1-farbere@amazon.com>
+ <2025092136-unelected-skirt-d91d@gregkh>
+In-Reply-To: <2025092136-unelected-skirt-d91d@gregkh>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.143.176]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FD:EE_|CH3PR12MB8188:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a89afe8-620c-4761-f26f-08ddf9815b47
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?WfmLTz3w4LX3YpQhU8dtRrABoNIuKVqdbYoQlw7FKPi/qmyqz4v/zK8NErX9?=
- =?us-ascii?Q?OZEakLEOue2gjOq2MpyvrUXIxKJjY0tQxddWmPaTVG0h9mXnbYfNgCAQwtUK?=
- =?us-ascii?Q?djQ7Y4GHXsqYhSlpypDLwSqIpy5LK5nNXL2Ncp0gWcsHGrEeftcT4mDXVl/4?=
- =?us-ascii?Q?XOuKKo7RVswdobIcflFDEBDPi9Ao6kuKYLlh5DTrUnRr82N2GTAPZik5PEcR?=
- =?us-ascii?Q?N+LIdVJUAE9BCGfAwKLNN8mPEY+0I/LRrZD9Ast/+qEezgBGlAztRW78DeLj?=
- =?us-ascii?Q?seatp0a9gtPJ6m42EwC2CnMYmmnhjEa7SbCeCS13np31pyYXACux+7UTmCo5?=
- =?us-ascii?Q?3QJDk73pqixOsC9sENBc8Eam0p9J4bVM8FoftzvBH5GGPzl7G50fiGAFeWPD?=
- =?us-ascii?Q?XHaFGahAsq/bcjRDKt/kgPUmVA9s5iG1Y8EFJz71UzdsM69eZFoBeJOGzQ64?=
- =?us-ascii?Q?p9CR+YWmRWVgwuEr2c/PvHWBD/2LUDgifaKhzDUpjYV7br05lAug9i3LU7zk?=
- =?us-ascii?Q?UcAF09gy3R/G0Df/VXl8q07YY0nBSm5bWKOLRclZ+wFHOAwz5DrCCmEmbR8d?=
- =?us-ascii?Q?hvWvaJZGmGeBPveQJ+cOdxoV0pPHv4lGdO36TEV+RaAswp82yToBYj467q/F?=
- =?us-ascii?Q?NbFyF4nCReeoLAJdlHj6jX++Z/bUNyVf+ZeuSUupEciBwspwP9yruFopD92j?=
- =?us-ascii?Q?sLbtmLSvqmyf+EjxwU2pelxjYjNojgO2O7NUESqiqi7bIWP3qTz1Y7T1yPDi?=
- =?us-ascii?Q?w40ekz6VuC18cHWCdB6UipbfXlsWRsKcGovNenPK08bZwRv/ynJYMmaFOem3?=
- =?us-ascii?Q?geBPwSCDAOkOJAErJjIT4zBfX8W6Re+tB7gYDJnkaRzqHpXJr9pS/ygKkva5?=
- =?us-ascii?Q?cAbmiTNTInBER7O8X8fzA5H+AZoQLgs8htyx7NJ1Tx17H0+lSUWklJFPOCBz?=
- =?us-ascii?Q?DN/WxRgAuYbcfYh/U16D70LJFNV93KwEprAqJlGXoZcirMJiXz0W6ZVT17Fl?=
- =?us-ascii?Q?1jvhGXd06e5VnzeRPQAvrXlW0EsmjNif53gCnfWQw/YSe3FPzgqOn8D2c081?=
- =?us-ascii?Q?wPEz2JeyyNgcZjCFHxJZpJ2AEObtaTeixtgqivuxSh78UxaCRTL90m8aFqEX?=
- =?us-ascii?Q?vic4vGF9Xx0Xgqks7IrqC4AHV5SLhJwVFU16+78fjLCJHsPzD2kRJTjbjwg8?=
- =?us-ascii?Q?RDjRTMb0lzagXyzroCz5H4Vm4k+LEWjcvrQ+1YlrqFCb4aWbW5GveayAwBx6?=
- =?us-ascii?Q?bi8W2akRGVjPr7917s9gl1QxlLv+oNul50JWFTCQRN5XID4XCvNIc2c/CA3U?=
- =?us-ascii?Q?/gXI7OTVDr1SPeQgw3RqikZcWlJz3i3yHrmnVg1yWWfl8us/0JZ4OWpkywiT?=
- =?us-ascii?Q?CHvgmmr9CPUZkh9VWNGbo+MxbR3cAF0sEk+Ba41emOuWkdK885iXHcwaznHu?=
- =?us-ascii?Q?hPu4HIJy9j1DIJDMws2ef21ToNIkTJFB4uJvvuQLxx1JqB1AaxQUkwXKUONR?=
- =?us-ascii?Q?XnRBPJoedjSSvYPEzccRGe6C3dbaaeZjFQB/?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2025 02:40:13.2675 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a89afe8-620c-4761-f26f-08ddf9815b47
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FD.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8188
+X-Mailman-Approved-At: Mon, 22 Sep 2025 07:22:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,64 +170,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add files to ras core Makefile.
+> On Fri, Sep 19, 2025 at 10:17:00AM +0000, Eliav Farber wrote:
+> > This series includes a total of 27 patches, to align minmax.h of
+> > v5.15.y with v6.17-rc6.
+> >
+> > The set consists of 24 commits that directly update minmax.h:
+> > 1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() macro
+> >    once")
+>
+> But this isn't in 5.15.y, so how is this syncing things up?
+>
+> I'm all for this, but I got confused here, at the first commit :)
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+It's a typo.
+It should be 5.10.y and not 5.15.y.
+
+> Some of these are also only in newer kernels, which, as you know, is
+> generally a bad thing (i.e. I can't take patches only for older
+> kernels.)
+>
+> I want these changes, as they are great, but can you perhaps provide
+> patch series for newer kernels first so that I can then take these?
+
+So you'd first like first to align 6.16 with 6.17, then 6.15 with 6.16,
+then 6.12 with 6.15, then 6.6 with 6.12, and so on until we eventually
+align 5.10 and even 5.4?
+
 ---
- drivers/gpu/drm/amd/ras/rascore/Makefile | 44 ++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/ras/rascore/Makefile b/drivers/gpu/drm/amd/ras/rascore/Makefile
-index e69de29bb2d1..e826a1f86424 100644
---- a/drivers/gpu/drm/amd/ras/rascore/Makefile
-+++ b/drivers/gpu/drm/amd/ras/rascore/Makefile
-@@ -0,0 +1,44 @@
-+#
-+# Copyright 2025 Advanced Micro Devices, Inc.
-+#
-+# Permission is hereby granted, free of charge, to any person obtaining a
-+# copy of this software and associated documentation files (the "Software"),
-+# to deal in the Software without restriction, including without limitation
-+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+# and/or sell copies of the Software, and to permit persons to whom the
-+# Software is furnished to do so, subject to the following conditions:
-+#
-+# The above copyright notice and this permission notice shall be included in
-+# all copies or substantial portions of the Software.
-+#
-+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+# THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+# OTHER DEALINGS IN THE SOFTWARE.
-+#
-+RAS_CORE_FILES = ras_core.o \
-+			ras_mp1.o \
-+			ras_mp1_v13_0.o \
-+			ras_aca.o  \
-+			ras_aca_v1_0.o \
-+			ras_eeprom.o \
-+			ras_umc.o \
-+			ras_umc_v12_0.o \
-+			ras_cmd.o \
-+			ras_gfx.o \
-+			ras_gfx_v9_0.o \
-+			ras_process.o \
-+			ras_nbio.o \
-+			ras_nbio_v7_9.o \
-+			ras_log_ring.o \
-+			ras_cper.o \
-+			ras_psp.o \
-+			ras_psp_v13_0.o
-+
-+
-+RAS_CORE = $(addprefix $(AMD_GPU_RAS_PATH)/rascore/,$(RAS_CORE_FILES))
-+
-+AMD_GPU_RAS_FILES += $(RAS_CORE)
--- 
-2.34.1
-
+Regards, Eliav
