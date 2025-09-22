@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84B2BCAC5A7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B630DCAC5AA
 	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 02:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22B9510E115;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 570F210E37D;
 	Mon, 22 Sep 2025 02:39:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QqFGcYgP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PFIOVJ7K";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010012.outbound.protection.outlook.com [52.101.46.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF1C10E37D
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Sep 2025 02:39:41 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010007.outbound.protection.outlook.com [52.101.56.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52CD810E115
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Sep 2025 02:39:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PxuC0SZiRuIhlbMQySNKbabANnUijbeWcvbkLc8ZUiEQ8X7GEJdUYuwUzvwEk2DBmo8h/0W+WvMfKDn13I3mHPvyvWJKWWcvxqyY+WV7l/AV134pxTeF8P2sx2yR5TM3UKM/vRXdyZmkh0o2D1EGtm4v7Ipd+CVtPL7cer6GLRQ1cpfbwMnd8AQH6LD7Ea5YlZiUM7cVjDYg9Qevda7sebEyW2SjQLdtySsYbrQBDTaNYu4t0hAt3KH01GVZ3LumdTiXpDWg3dSOKaCBeF6g9w15dy/3A0d1Q2ItRJdljxsZF8IIHh6ixkSRtp1cnHAIRxKRB9SbkmwFE7Vyxz2G2A==
+ b=fiGbEJSlffoSy/GfxmSWGl+XDme5kuFtRoCGbaKdEGezTibLN0kI9e9hfozreR1+WewIrrKE6eVM45Zq/NmfwIR/EttrCHzIi4XvWB/WuXqIdr0tbAp+tczGBy5skB5Z4yTTMeFFCYvG8zzUWjG8nvVLmtcRlcWT5LdTIl9qZSTiOhlkbNHLuihne5u5eaHxosWNGUyPui+fQD//9euFHAOtsl7yv6ZuTLt3GxTj0DfcA0IXb0344lBaIf17Fuq1SKfr+qEuC0ckb6bA3VcJanyRfzKBQbu7ukewXxiaw1z4XoUs8NKpfg4SDwD1a8gkF3wphZeo5fwD/04yMplZ4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k7RqWUMuMEkEO3LKGqLAzGR1L1tRS2KMJeurynGpBV8=;
- b=BRbjxrwO8hC0uA2ZUy1xuPkOC0a3zmxfQmT4U7pqcopjY5LQoW8sUpXsw/+pZ/BsQNmFAaMrGOe7efKejsb57s6wZejE6OfrDXQmQS8PDEmb/aXrVTjgMLNvFVs4Mq5HoNwUaq3t7cY7S/uSXcrRV04jymnsl91mhO5HRJEz4OZ3kkY4utnjrxmPx2kPN/H/rJdcEc9XEtXn4ptC0IjDqSjrwgtzVMKu768j5IP06pZUmDfck2xThUKwmlQAW+0UgNslXoYLEu/AsoWtiPUvUzGSbfhmSwa5/CHzINKT1TCNO8NkFldfBYBngBOv/EAE+9lcnhIOSm0eJ8ozUd4uJA==
+ bh=p9sur8/bjxcJspKi/BlLx5mUTVsj1iSfzLdCq2Uwmw8=;
+ b=tKFQ/eb81fbV71Sccfse9p9PO+rL/t+sBxy4wz792Pvor4txNNXVMjNddlgUI0SaGXpXuG0BApP2/75rfm/3Fm8DAZnhzWWikeklTzb0i1oEF5FcSAL/dcIe6jAgksspOyL3vtGlWyIbn4pR6Cmwoq/RC/Rtre+sXQyGWfJFgeDXROO4yuIOG5tsBIAEUE6k1LOHT9jQ7idgepiNC2lKzQJq0b/c9/X2Iw1m4UxTgbBRiO51HvBoKkju2HlDyBaklcdxgynlgY5gaiFbHZpvNp4YisGtDjnEkbZTBcb8uhgT7fKk3m8ynYtANo1kJa7E3VxIRfM2mxXXcwB5+HHFTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k7RqWUMuMEkEO3LKGqLAzGR1L1tRS2KMJeurynGpBV8=;
- b=QqFGcYgPEkFd1BQP9FW7UKOyrXXJ2pMDWJybea/2QGUXzjHTEJ/EQGedmNlvJWjowxWaSXDZmkstQ9tFw2GxpaBNPPh4DhdxrEv2Qc+BOuaTTTIGX8T9PfxDXeaKcrhIGdlNCr0F/POYBg5I/23ocE+Q8ZGtywWu0PIzjIBAL6Y=
-Received: from BYAPR01CA0044.prod.exchangelabs.com (2603:10b6:a03:94::21) by
- IA1PR12MB8555.namprd12.prod.outlook.com (2603:10b6:208:44f::14) with
+ bh=p9sur8/bjxcJspKi/BlLx5mUTVsj1iSfzLdCq2Uwmw8=;
+ b=PFIOVJ7KiEV3ZMZaqMbu5fbtwpmjebxc9rOc7B91rp4PMI/fFaCe7wx444IwXeDi+Bj7lDYsV1T56RxP3xvd2qwNZ8h4XlOkyO3YBGX8JTCDW+4hpk16IioG1g0phCqwE6j287og0IkB22YSr37EP5GxQ9/JRHTmleljl7CYf+c=
+Received: from BYAPR01CA0048.prod.exchangelabs.com (2603:10b6:a03:94::25) by
+ CH1PR12MB9672.namprd12.prod.outlook.com (2603:10b6:610:2b0::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.19; Mon, 22 Sep
- 2025 02:39:37 +0000
+ 2025 02:39:36 +0000
 Received: from CO1PEPF000044FA.namprd21.prod.outlook.com
- (2603:10b6:a03:94:cafe::30) by BYAPR01CA0044.outlook.office365.com
- (2603:10b6:a03:94::21) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:94:cafe::7e) by BYAPR01CA0048.outlook.office365.com
+ (2603:10b6:a03:94::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.19 via Frontend Transport; Mon,
- 22 Sep 2025 02:40:14 +0000
+ 22 Sep 2025 02:38:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CO1PEPF000044FA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9182.0 via Frontend Transport; Mon, 22 Sep 2025 02:39:36 +0000
+ 15.20.9182.0 via Frontend Transport; Mon, 22 Sep 2025 02:39:35 +0000
 Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sun, 21 Sep
- 2025 19:39:34 -0700
+ 2025 19:39:31 -0700
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <yipechai@amd.com>, <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>,
  <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou
  <tao.zhou1@amd.com>
-Subject: [PATCH V5 07/20] drm/amd/ras: Add nbio common ras functions
-Date: Mon, 22 Sep 2025 10:38:31 +0800
-Message-ID: <20250922023844.3108065-7-YiPeng.Chai@amd.com>
+Subject: [PATCH V5 06/20] drm/amd/ras: Add nbio v7_9 ras functions
+Date: Mon, 22 Sep 2025 10:38:30 +0800
+Message-ID: <20250922023844.3108065-6-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250922023844.3108065-1-YiPeng.Chai@amd.com>
 References: <20250922023844.3108065-1-YiPeng.Chai@amd.com>
@@ -74,52 +74,52 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|IA1PR12MB8555:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb103b10-4a0d-4189-0d37-08ddf981458e
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|CH1PR12MB9672:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4457d0da-6468-4f28-8874-08ddf98144bc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tnlM88OCZ6r241ETIP2wN3rHlKCaSXmhc7m+J84ewYxaz4EB2IPRcTNgrPtc?=
- =?us-ascii?Q?2QygmRXh8fIQiVMSrpPuDvGoeWgOj4PxcvxoDDmWv2233uKe2iNz66DdbW9X?=
- =?us-ascii?Q?RHaTsgR9fULgMCS3FM5eLHzCmjZ0nxivKfCgca08CevI1zY+jzy3IxOVe/Qq?=
- =?us-ascii?Q?SmUF5Tj26XSE3HG5N6lxE/ly4nEgfH6Ev/6Le8X6n5vI9QzcpKp4NnqFMkz7?=
- =?us-ascii?Q?BR2n7C4Od4CcdyoqdX+ShDC4GgJRBvb9SbkaSp+hjxGrdUcUZhIh76xXq9oO?=
- =?us-ascii?Q?BTP4gpznN3HRSOK6WknPKefWAFih2aLGfonE8xvcmqjAcEtKfpZMT420iA1K?=
- =?us-ascii?Q?zhX1jvTAwud633/5w82qLg3JE8T4p3N3/KoXa/A1FdwaLIGqbjx6ZQw3zwwj?=
- =?us-ascii?Q?TDEauGmsIblyRqpZdj3D8EhlNtGQ9J4s/Rc4tDVsj/VcSHT729V6M6Pl7+ef?=
- =?us-ascii?Q?sA+fz/fVzfo4oNjtjyvi7U861RCMHw4XcNFTufjG9JsAa0YApM6CQGfQh6Lf?=
- =?us-ascii?Q?gRplHg9Up4p5CQu+8/K2jQCJekj9gF8s6oQmwWusrgiHGt12jt1o6IDsVS8m?=
- =?us-ascii?Q?k92CCeI+SRtWtLiHib7Nu9ihQNgwco6Z6KfARw498H4Ld5YMKrbnLT/cwneL?=
- =?us-ascii?Q?vuudJIbAjQRlTgvineDBAZVQ5HBCCO/OeL1xv/jpES7fzAsxX//gwoRF1Tf1?=
- =?us-ascii?Q?L87coXXsMZLGVCzXLTT+3Y8bSKDW0tiO/aa2q6Pq1qh53cY6nriMJ4DKGG7K?=
- =?us-ascii?Q?aKkHhUeRbiqX5Wo3AVYyX+8ZjjO1hSh0eV9PgzSW4eadLbM4XZjVcxCpo06s?=
- =?us-ascii?Q?Ppj1ep4POqdKy9szSqObNL4E1FU6JmmLwG7ZQG551qqw6PWyA/1vETU8AHaB?=
- =?us-ascii?Q?v2cptq73oQhd7t/1cZ4YwjKV0l9CtQs0X9q4zh4zSmTUhRmWRiZFFfybxMAd?=
- =?us-ascii?Q?LSU42t2T7hFbzlpHMqPGZwxasyhQshutvwN+OCtxWweeutyzJHeXQjDmNYzV?=
- =?us-ascii?Q?WLU7D8kc6wL0bXM+bqKFh2GHkDP/xK97pPGxvNQqu8yC1oqRi1ajQ+eW9Aa0?=
- =?us-ascii?Q?vJcZBHyq2b66mtkCxtasfJN3oRyGG3NJ5Kn+gdG2JnC3tOVOwHXLYFjZnZTL?=
- =?us-ascii?Q?GQGh4mBWXzt6dO0d7VI6460oI0vq2bY535eWIRVz2+NAFhNRUT2rPOkw7bU/?=
- =?us-ascii?Q?a5jUYDcgB7jVGpl5LEk7sPHz663RucO+iV2xHqccUgRvTYbqMULRJVLxFQiU?=
- =?us-ascii?Q?Chb6cKNz5iAT1DhigW97wf9TthlYEs6Cu69WgN5yCCRmrBzW39IpWXIXJzP3?=
- =?us-ascii?Q?A9I4mPBsbHi4dLN7B0Z118Ss0XL8a+GT3d636UX43ySr/ymCD/VN24fDwh5r?=
- =?us-ascii?Q?iGUszJahbYLk90Q3k/jUDKiFyML2u/ul7ktHDSjKv3i4aMVftEjjdbLHDrqC?=
- =?us-ascii?Q?mQmvIhy5jW3nZLYWtlL//foKM7udWfP6PoTCXNGrUTYARi2AX02B206w/A6J?=
- =?us-ascii?Q?XNdql5jWEveyfFckdllf8vSGyMlOHI4kFdZr?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MR7yXy6BMaYly3aNvJHLXvI5oJ3dKpkkoFQtUGjWxfIXWgt4hETPx+fzT/wh?=
+ =?us-ascii?Q?yrVuZd0rOxjr6uPDacB2p4OORB9mSU87KDo0qdszPScPfJq8hu6WlxH5oyPY?=
+ =?us-ascii?Q?aKfB30FxUpqgmSMnmg25Kln4OTVRwgXaMeKo876W2RDyaiGrbsQjjpj/tpod?=
+ =?us-ascii?Q?BzbbnNrjM956L/V/e69Zkh5jfrh7z100xfpER9LaSDwXiOV4IrabTpXdsB+4?=
+ =?us-ascii?Q?XLO19KskOcr1014N12jkdNbxduT1neXkoq789uO+YfAnC4hJmsvLQWNZT7sj?=
+ =?us-ascii?Q?WqNZUpgFZoXWbkTAXHFGpY9bS5DDILlt+udbYtcylKkPydaXN6AG23Wth4QV?=
+ =?us-ascii?Q?k+dBGhN+laDByW2E0Iw9cOL679bDvsZ91WX4wEiypM1POYBbFwqxuY+DFOss?=
+ =?us-ascii?Q?ZH8jAt1bQ/TkxXBsFLbXxLi1puTRPi7xBmz327kydQ5TjAPkhPfHchO3QVkW?=
+ =?us-ascii?Q?5FQnTj0L6vVuRSxBwM5kRVOgC0L7D3nrP3UW36MAQVvVjeeJvOhz5ucaO4QU?=
+ =?us-ascii?Q?41U5xagaO4pHug1YS7gj6CbTS7+gOKQg3N3We4vSjZm2zhuIf5p9aervkzzR?=
+ =?us-ascii?Q?WaOMLxz95UOvgj5tORWyZhVlDmQVEjLqSYFjM5BxXQJvNayyuJyVwLKpCqqp?=
+ =?us-ascii?Q?vlBX5+JTmiixPfDNgAVRiL0IQLXRIxW9bSn4AbVtPMCRcLYhhX1B7/t/5FFe?=
+ =?us-ascii?Q?gGEhQfsiFM+l4Rux7vWpokzWJARU1N209AGP7xmsjS+y7SA7jbqN+LOzyMmK?=
+ =?us-ascii?Q?24Xt15FRj/urmbmUFIf7nlcTV3ZEmNB65abapKMYqiHT+DKG62UJrnLCfJ7d?=
+ =?us-ascii?Q?ZfZfDIgvDMZk4TXhaQtFaGR2NlmVD75l/kclJCkltf0dgQRs/DAi3goZ7Ak0?=
+ =?us-ascii?Q?GPEgSXsEJaxPZMkkoFyhd31iegua0heiH0lA4LSs6wrVymzczpojXr7cnxeU?=
+ =?us-ascii?Q?lQ3XkOa34NFBqKtZ/7IOkLAHHXYGvBBlKq+uDt1y4huonZN4YEJQ7xArGWpk?=
+ =?us-ascii?Q?VQmHqtCc0yJa5uUbU2CfJTwlL2K1NhvRPGyTmmiidDX0XdoblrTRCAX3eSIE?=
+ =?us-ascii?Q?3Im91zKViQNBYUcmOfc4t6sjkRv7LhNUbTMbfbwmDxEdE2WXHR9obIusau3i?=
+ =?us-ascii?Q?STc9puFuuyw+VIxhfAjmUVBtpO6MZ7+/RnfgtYoUfUoyBOBEiTTWEn1N4Ain?=
+ =?us-ascii?Q?eLa5RGRTmAWW3Rb2f+QnJpVwXM86TRtTm8lQAlLyHyxPSKTMvtYmUegRlZmf?=
+ =?us-ascii?Q?AqZkqEcLwUnsmYO5DOFKgsOVGJkX2wxHmiFRGie2AsjsurwHKHOMeqpiGIN5?=
+ =?us-ascii?Q?rjRdBKi47VmTFkaEpDRz0jLN4qoMp1JkRy4sAJTaPB80oXe3XgLUuWHteGmd?=
+ =?us-ascii?Q?yoXADmKP/8KO1Kvx6nIqqGvbT0b+4Gv1Hx7SVT+0tjdh+tLtdzdZMPxg1XfW?=
+ =?us-ascii?Q?KpibWF+JanLvii7Mtj1iBaXzhywfKqu60f1x1b8NP0Dxpf+t5OGf3OgjzEu+?=
+ =?us-ascii?Q?JuySgT8DnnPTB6z9lUyQWE6q+MWm9G4o9AIF?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2025 02:39:36.8176 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb103b10-4a0d-4189-0d37-08ddf981458e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2025 02:39:35.4432 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4457d0da-6468-4f28-8874-08ddf98144bc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FA.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8555
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9672
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,24 +134,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add nbio common ras functions.
+Add nbio v7_9 ras functions.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/ras/rascore/ras_nbio.c | 95 ++++++++++++++++++++++
- drivers/gpu/drm/amd/ras/rascore/ras_nbio.h | 46 +++++++++++
- 2 files changed, 141 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_nbio.c
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_nbio.h
+ .../gpu/drm/amd/ras/rascore/ras_nbio_v7_9.c   | 123 ++++++++++++++++++
+ .../gpu/drm/amd/ras/rascore/ras_nbio_v7_9.h   |  31 +++++
+ 2 files changed, 154 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.c
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.h
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio.c b/drivers/gpu/drm/amd/ras/rascore/ras_nbio.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.c b/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.c
 new file mode 100644
-index 000000000000..8bf1f35d595e
+index 000000000000..f17d708ec668
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_nbio.c
-@@ -0,0 +1,95 @@
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.c
+@@ -0,0 +1,123 @@
 +// SPDX-License-Identifier: MIT
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
@@ -177,82 +177,110 @@ index 000000000000..8bf1f35d595e
 + */
 +
 +#include "ras.h"
-+#include "ras_nbio.h"
 +#include "ras_nbio_v7_9.h"
 +
-+static const struct ras_nbio_ip_func *ras_nbio_get_ip_funcs(
-+				struct ras_core_context *ras_core, uint32_t ip_version)
++#define BIF_BX0_BIF_DOORBELL_INT_CNTL__RAS_ATHUB_ERR_EVENT_INTERRUPT_CLEAR__SHIFT      0x12
++#define BIF_BX0_BIF_DOORBELL_INT_CNTL__RAS_ATHUB_ERR_EVENT_INTERRUPT_CLEAR_MASK        0x00040000L
++#define BIF_BX0_BIF_DOORBELL_INT_CNTL__RAS_ATHUB_ERR_EVENT_INTERRUPT_STATUS__SHIFT     0x2
++#define BIF_BX0_BIF_DOORBELL_INT_CNTL__RAS_ATHUB_ERR_EVENT_INTERRUPT_STATUS_MASK       0x00000004L
++#define BIF_BX0_BIF_DOORBELL_INT_CNTL__RAS_CNTLR_INTERRUPT_CLEAR__SHIFT                0x11
++#define BIF_BX0_BIF_DOORBELL_INT_CNTL__RAS_CNTLR_INTERRUPT_CLEAR_MASK                  0x00020000L
++#define BIF_BX0_BIF_DOORBELL_INT_CNTL__RAS_CNTLR_INTERRUPT_STATUS__SHIFT               0x1
++#define BIF_BX0_BIF_DOORBELL_INT_CNTL__RAS_CNTLR_INTERRUPT_STATUS_MASK                 0x00000002L
++
++#define regBIF_BX0_BIF_DOORBELL_INT_CNTL_BASE_IDX      2
++#define regBIF_BX0_BIF_DOORBELL_INT_CNTL               0x00fe
++
++#define regBIF_BX0_BIF_INTR_CNTL                                                       0x0101
++#define regBIF_BX0_BIF_INTR_CNTL_BASE_IDX                                              2
++
++/* BIF_BX0_BIF_INTR_CNTL */
++#define BIF_BX0_BIF_INTR_CNTL__RAS_INTR_VEC_SEL__SHIFT                                 0x0
++#define BIF_BX0_BIF_INTR_CNTL__RAS_INTR_VEC_SEL_MASK                                   0x00000001L
++
++#define regBIF_BX_PF0_PARTITION_MEM_STATUS                                             0x0164
++#define regBIF_BX_PF0_PARTITION_MEM_STATUS_BASE_IDX                                    2
++/* BIF_BX_PF0_PARTITION_MEM_STATUS */
++#define BIF_BX_PF0_PARTITION_MEM_STATUS__CHANGE_STATUE__SHIFT                          0x0
++#define BIF_BX_PF0_PARTITION_MEM_STATUS__NPS_MODE__SHIFT                               0x4
++#define BIF_BX_PF0_PARTITION_MEM_STATUS__CHANGE_STATUE_MASK                            0x0000000FL
++#define BIF_BX_PF0_PARTITION_MEM_STATUS__NPS_MODE_MASK                                 0x00000FF0L
++
++
++static int nbio_v7_9_handle_ras_controller_intr_no_bifring(struct ras_core_context *ras_core)
 +{
-+	switch (ip_version) {
-+	case IP_VERSION(7, 9, 0):
-+		return &ras_nbio_v7_9;
-+	default:
-+		RAS_DEV_ERR(ras_core->dev,
-+			"NBIO ip version(0x%x) is not supported!\n", ip_version);
-+		break;
-+	}
++	uint32_t bif_doorbell_intr_cntl = 0;
 +
-+	return NULL;
-+}
++	bif_doorbell_intr_cntl =
++		RAS_DEV_RREG32_SOC15(ras_core->dev, NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
 +
-+int ras_nbio_hw_init(struct ras_core_context *ras_core)
-+{
-+	struct ras_nbio *nbio = &ras_core->ras_nbio;
++	if (REG_GET_FIELD(bif_doorbell_intr_cntl,
++		BIF_BX0_BIF_DOORBELL_INT_CNTL, RAS_CNTLR_INTERRUPT_STATUS)) {
++		/* driver has to clear the interrupt status when bif ring is disabled */
++		bif_doorbell_intr_cntl = REG_SET_FIELD(bif_doorbell_intr_cntl,
++						BIF_BX0_BIF_DOORBELL_INT_CNTL,
++						RAS_CNTLR_INTERRUPT_CLEAR, 1);
 +
-+	nbio->nbio_ip_version = ras_core->config->nbio_ip_version;
-+	nbio->sys_func = ras_core->config->nbio_cfg.nbio_sys_fn;
-+	if (!nbio->sys_func) {
-+		RAS_DEV_ERR(ras_core->dev, "RAS nbio sys function not configured!\n");
-+		return -EINVAL;
-+	}
++		RAS_DEV_WREG32_SOC15(ras_core->dev,
++			NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
 +
-+	nbio->ip_func = ras_nbio_get_ip_funcs(ras_core, nbio->nbio_ip_version);
-+	if (!nbio->ip_func)
-+		return -EINVAL;
-+
-+	if (nbio->sys_func) {
-+		if (nbio->sys_func->set_ras_controller_irq_state)
-+			nbio->sys_func->set_ras_controller_irq_state(ras_core, true);
-+		if (nbio->sys_func->set_ras_err_event_athub_irq_state)
-+			nbio->sys_func->set_ras_err_event_athub_irq_state(ras_core, true);
++		/* TODO: handle ras controller interrupt */
 +	}
 +
 +	return 0;
 +}
 +
-+int ras_nbio_hw_fini(struct ras_core_context *ras_core)
++static int nbio_v7_9_handle_ras_err_event_athub_intr_no_bifring(struct ras_core_context *ras_core)
 +{
-+	struct ras_nbio *nbio = &ras_core->ras_nbio;
++	uint32_t bif_doorbell_intr_cntl = 0;
++	int ret = 0;
 +
-+	if (nbio->sys_func) {
-+		if (nbio->sys_func->set_ras_controller_irq_state)
-+			nbio->sys_func->set_ras_controller_irq_state(ras_core, false);
-+		if (nbio->sys_func->set_ras_err_event_athub_irq_state)
-+			nbio->sys_func->set_ras_err_event_athub_irq_state(ras_core, false);
++	bif_doorbell_intr_cntl =
++		RAS_DEV_RREG32_SOC15(ras_core->dev, NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
++
++	if (REG_GET_FIELD(bif_doorbell_intr_cntl,
++		BIF_BX0_BIF_DOORBELL_INT_CNTL, RAS_ATHUB_ERR_EVENT_INTERRUPT_STATUS)) {
++		/* driver has to clear the interrupt status when bif ring is disabled */
++		bif_doorbell_intr_cntl = REG_SET_FIELD(bif_doorbell_intr_cntl,
++						BIF_BX0_BIF_DOORBELL_INT_CNTL,
++						RAS_ATHUB_ERR_EVENT_INTERRUPT_CLEAR, 1);
++
++		RAS_DEV_WREG32_SOC15(ras_core->dev,
++			NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
++
++		ret = ras_core_handle_fatal_error(ras_core);
 +	}
 +
-+	return 0;
++	return ret;
 +}
 +
-+bool ras_nbio_handle_irq_error(struct ras_core_context *ras_core, void *data)
++static uint32_t nbio_v7_9_get_memory_partition_mode(struct ras_core_context *ras_core)
 +{
-+	struct ras_nbio *nbio = &ras_core->ras_nbio;
++	uint32_t mem_status;
++	uint32_t mem_mode;
 +
-+	if (nbio->ip_func) {
-+		if (nbio->ip_func->handle_ras_controller_intr_no_bifring)
-+			nbio->ip_func->handle_ras_controller_intr_no_bifring(ras_core);
-+		if (nbio->ip_func->handle_ras_err_event_athub_intr_no_bifring)
-+			nbio->ip_func->handle_ras_err_event_athub_intr_no_bifring(ras_core);
-+	}
++	mem_status =
++		RAS_DEV_RREG32_SOC15(ras_core->dev, NBIO, 0, regBIF_BX_PF0_PARTITION_MEM_STATUS);
 +
-+	return true;
++	/* Each bit represents a mode 1-8*/
++	mem_mode = REG_GET_FIELD(mem_status, BIF_BX_PF0_PARTITION_MEM_STATUS, NPS_MODE);
++
++	return ffs(mem_mode);
 +}
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio.h b/drivers/gpu/drm/amd/ras/rascore/ras_nbio.h
++
++const struct ras_nbio_ip_func ras_nbio_v7_9 = {
++	.handle_ras_controller_intr_no_bifring =
++		nbio_v7_9_handle_ras_controller_intr_no_bifring,
++	.handle_ras_err_event_athub_intr_no_bifring =
++		nbio_v7_9_handle_ras_err_event_athub_intr_no_bifring,
++	.get_memory_partition_mode = nbio_v7_9_get_memory_partition_mode,
++};
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.h b/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.h
 new file mode 100644
-index 000000000000..0a1313e59a02
+index 000000000000..8711c82a927f
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_nbio.h
-@@ -0,0 +1,46 @@
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.h
+@@ -0,0 +1,31 @@
 +/* SPDX-License-Identifier: MIT */
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
@@ -277,27 +305,12 @@ index 000000000000..0a1313e59a02
 + *
 + */
 +
-+#ifndef __RAS_NBIO_H__
-+#define __RAS_NBIO_H__
-+#include "ras.h"
++#ifndef __RAS_NBIO_V7_9_H__
++#define __RAS_NBIO_V7_9_H__
++#include "ras_nbio.h"
 +
-+struct ras_core_context;
++extern const struct ras_nbio_ip_func ras_nbio_v7_9;
 +
-+struct ras_nbio_ip_func {
-+	int (*handle_ras_controller_intr_no_bifring)(struct ras_core_context *ras_core);
-+	int (*handle_ras_err_event_athub_intr_no_bifring)(struct ras_core_context *ras_core);
-+	uint32_t (*get_memory_partition_mode)(struct ras_core_context *ras_core);
-+};
-+
-+struct ras_nbio {
-+	uint32_t nbio_ip_version;
-+	const struct ras_nbio_ip_func *ip_func;
-+	const struct ras_nbio_sys_func *sys_func;
-+};
-+
-+int ras_nbio_hw_init(struct ras_core_context *ras_core);
-+int ras_nbio_hw_fini(struct ras_core_context *ras_core);
-+bool ras_nbio_handle_irq_error(struct ras_core_context *ras_core, void *data);
 +#endif
 -- 
 2.34.1
