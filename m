@@ -4,149 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A955CAC592
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 07:23:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12110CAC592
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 07:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F41610E3C8;
-	Mon, 22 Sep 2025 07:23:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E24210E175;
+	Mon, 22 Sep 2025 07:41:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BcNVWZn6";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Uj4O+7gW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XwMwUnB3";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JsJsfHP8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="nZGfpgDx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 941EE10E3A8;
- Mon, 22 Sep 2025 05:02:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 503AD601DC;
- Mon, 22 Sep 2025 05:02:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A858C4CEF5;
- Mon, 22 Sep 2025 05:02:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1758517333;
- bh=/nk8xPLOsGXuSw5wS41Jy4q570vGloBiPOCZp2/irX0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BcNVWZn6zT4Gv/IUZ2C0NZn/XQ5pAMMpsZzcS58NBPYxD2oFH/k4xQ1OcYygH2JDO
- qM8XphYZH6pOzc+c2uakvnfuiVmB28vwfNolajwWxIrag0Gc1iZ0LiKuoKaX4EXv7U
- h1tGLKcFUdBrn8iKhoSlB6ijAzBdHBAHMrirLbcw=
-Date: Mon, 22 Sep 2025 07:02:08 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: "Farber, Eliav" <farbere@amazon.com>
-Cc: "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "jdike@addtoit.com" <jdike@addtoit.com>, "richard@nod.at" <richard@nod.at>,
- "anton.ivanov@cambridgegreys.com" <anton.ivanov@cambridgegreys.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "luto@kernel.org" <luto@kernel.org>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
- "hpa@zytor.com" <hpa@zytor.com>,
- "tony.luck@intel.com" <tony.luck@intel.com>,
- "qiuxu.zhuo@intel.com" <qiuxu.zhuo@intel.com>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "james.morse@arm.com" <james.morse@arm.com>,
- "rric@kernel.org" <rric@kernel.org>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "evan.quan@amd.com" <evan.quan@amd.com>,
- "james.qian.wang@arm.com" <james.qian.wang@arm.com>,
- "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
- "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>,
- "brian.starkey@arm.com" <brian.starkey@arm.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "jdelvare@suse.com" <jdelvare@suse.com>,
- "linux@roeck-us.net" <linux@roeck-us.net>,
- "fery@cypress.com" <fery@cypress.com>,
- "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>,
- "agk@redhat.com" <agk@redhat.com>,
- "snitzer@redhat.com" <snitzer@redhat.com>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>,
- "rajur@chelsio.com" <rajur@chelsio.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "kuba@kernel.org" <kuba@kernel.org>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- "alexandre.torgue@st.com" <alexandre.torgue@st.com>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "malattia@linux.it" <malattia@linux.it>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "mgross@linux.intel.com" <mgross@linux.intel.com>,
- "intel-linux-scu@intel.com" <intel-linux-scu@intel.com>,
- "artur.paszkiewicz@intel.com" <artur.paszkiewicz@intel.com>,
- "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
- "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
- "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
- "clm@fb.com" <clm@fb.com>, "josef@toxicpanda.com" <josef@toxicpanda.com>,
- "dsterba@suse.com" <dsterba@suse.com>,
- "jack@suse.com" <jack@suse.com>, "tytso@mit.edu" <tytso@mit.edu>,
- "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "dushistov@mail.ru" <dushistov@mail.ru>,
- "luc.vanoostenryck@gmail.com" <luc.vanoostenryck@gmail.com>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "pmladek@suse.com" <pmladek@suse.com>,
- "sergey.senozhatsky@gmail.com" <sergey.senozhatsky@gmail.com>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>,
- "minchan@kernel.org" <minchan@kernel.org>,
- "ngupta@vflare.org" <ngupta@vflare.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "kuznet@ms2.inr.ac.ru" <kuznet@ms2.inr.ac.ru>,
- "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>,
- "pablo@netfilter.org" <pablo@netfilter.org>,
- "kadlec@netfilter.org" <kadlec@netfilter.org>,
- "fw@strlen.de" <fw@strlen.de>, "jmaloy@redhat.com" <jmaloy@redhat.com>,
- "ying.xue@windriver.com" <ying.xue@windriver.com>,
- "willy@infradead.org" <willy@infradead.org>,
- "sashal@kernel.org" <sashal@kernel.org>,
- "ruanjinjie@huawei.com" <ruanjinjie@huawei.com>,
- "David.Laight@aculab.com" <David.Laight@aculab.com>,
- "herve.codina@bootlin.com" <herve.codina@bootlin.com>,
- "Jason@zx2c4.com" <Jason@zx2c4.com>,
- "bvanassche@acm.org" <bvanassche@acm.org>,
- "keescook@chromium.org" <keescook@chromium.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, 
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
- "coreteam@netfilter.org" <coreteam@netfilter.org>,
- "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "Chocron, Jonathan" <jonnyc@amazon.com>
-Subject: Re: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
-Message-ID: <2025092203-untreated-sloppily-23b5@gregkh>
-References: <20250919101727.16152-1-farbere@amazon.com>
- <2025092136-unelected-skirt-d91d@gregkh>
- <4f497306c58240a88c0bb001786c3ad2@amazon.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E417910E3CD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Sep 2025 07:41:32 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A25AB22254;
+ Mon, 22 Sep 2025 07:41:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1758526891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=WMiDR+fRSE4QfehhdJrQsm87n6Jxxbhp/nLCiamoGOU=;
+ b=Uj4O+7gWe5leIxruI6yWGjSc/WnN6epJtluxSvF9J8HGKYTXrXkTTh7dp/6Lw2lN2IvglR
+ 52fsJisziItag/dtDPkgZxW4XMkuGVNR0CE/sPpcTb3+qYSjNgu9MCU6FsozzEwE7SGrHr
+ hf/b0T/amS2VIf4m4ktuGGqyejkPikk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1758526891;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=WMiDR+fRSE4QfehhdJrQsm87n6Jxxbhp/nLCiamoGOU=;
+ b=XwMwUnB30IcN14pIq9ftmcujRnKPKMyIrGYvbX83P542s+F3rrBic6YUdslvCtneEYrUFL
+ ksGaX4RqYPNdIjCQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JsJsfHP8;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=nZGfpgDx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1758526890; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=WMiDR+fRSE4QfehhdJrQsm87n6Jxxbhp/nLCiamoGOU=;
+ b=JsJsfHP8Ei9U8vqlSFJ5E1iiQ4BzkbFOA97ydeYZQMbzc9bNib7Fe3Yx3MlXWZoxrE4D7D
+ fJxHbI9zCW4TbAtIn0AEbpad0bkICTsgfLOczRwWbzO2+4IYUQTvRLrHb905u2Br6Q6f0z
+ ft6eKzPHn0q0oRphT9hWTQmgw0jBnlI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1758526890;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=WMiDR+fRSE4QfehhdJrQsm87n6Jxxbhp/nLCiamoGOU=;
+ b=nZGfpgDx2IFD/T5VgVQ6wLgkloAxMf49xNKAW+TzSP1BK0ud/loANj6s8LubNY0fvqsDVq
+ yNVvc5gmTohjCQDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4A3A21388C;
+ Mon, 22 Sep 2025 07:41:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 1wz1EKr90GjVAgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 22 Sep 2025 07:41:30 +0000
+Message-ID: <e9c42e99-87d7-4f78-bb7d-5e0574815eb9@suse.de>
+Date: Mon, 22 Sep 2025 09:41:29 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4f497306c58240a88c0bb001786c3ad2@amazon.com>
-X-Mailman-Approved-At: Mon, 22 Sep 2025 07:22:58 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] drm: revert the remaining commits about dma_buf
+ handling
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20250919155519.1104256-1-mwen@igalia.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20250919155519.1104256-1-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: A25AB22254
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[igalia.com,gmail.com,linux.intel.com,kernel.org,ffwll.ch];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[11]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.de:dkim, suse.de:mid, suse.de:email]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,32 +151,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Sep 21, 2025 at 09:37:02PM +0000, Farber, Eliav wrote:
-> > On Fri, Sep 19, 2025 at 10:17:00AM +0000, Eliav Farber wrote:
-> > > This series includes a total of 27 patches, to align minmax.h of
-> > > v5.15.y with v6.17-rc6.
-> > >
-> > > The set consists of 24 commits that directly update minmax.h:
-> > > 1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() macro
-> > >    once")
-> >
-> > But this isn't in 5.15.y, so how is this syncing things up?
-> >
-> > I'm all for this, but I got confused here, at the first commit :)
-> 
-> It's a typo.
-> It should be 5.10.y and not 5.15.y.
-> 
-> > Some of these are also only in newer kernels, which, as you know, is
-> > generally a bad thing (i.e. I can't take patches only for older
-> > kernels.)
-> >
-> > I want these changes, as they are great, but can you perhaps provide
-> > patch series for newer kernels first so that I can then take these?
-> 
-> So you'd first like first to align 6.16 with 6.17, then 6.15 with 6.16,
-> then 6.12 with 6.15, then 6.6 with 6.12, and so on until we eventually
-> align 5.10 and even 5.4?
+Hi
 
-Yes please!
+Am 19.09.25 um 17:54 schrieb Melissa Wen:
+> Hi all,
+>
+> I just talked with Thomas that these two patches are preventing amdgpu
+> driver to be unloaded:
+>
+> `modprobe: FATAL: Module amdgpu is in use.`
+>
+> and there is no process using the driver.
+>
+> We agreed that the best approach now is to completely revert the work
+> done for improving DMA bug handling to avoid any loose ends. With these
+> reverts we are just back to the old behavior and amdgpu loading and
+> unloading will return to normal.
+
+For both patches
+
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+If no complains come in, I'll send them out with this week's 
+drm-misc-next-fixes.
+
+Best regards
+Thomas
+
+>
+> Best Regards,
+>
+> Melissa
+>
+> Melissa Wen (2):
+>    Revert "drm/framebuffer: Acquire internal references on GEM handles"
+>    Revert "drm/gem: Acquire references on GEM handles for framebuffers"
+>
+>   drivers/gpu/drm/drm_framebuffer.c | 31 +--------------
+>   drivers/gpu/drm/drm_gem.c         | 64 +++++--------------------------
+>   drivers/gpu/drm/drm_internal.h    |  2 -
+>   include/drm/drm_framebuffer.h     |  7 ----
+>   4 files changed, 11 insertions(+), 93 deletions(-)
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
 
