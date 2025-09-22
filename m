@@ -4,51 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B20ACAC592
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 12:49:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12304CAC5A7
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 12:52:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 027B010E2AA;
-	Mon, 22 Sep 2025 12:49:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 723EA10E478;
+	Mon, 22 Sep 2025 12:52:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PMTATTUU";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vR10fA4F";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87D5410E2AA;
- Mon, 22 Sep 2025 12:49:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=FcDga14y/uDqUI2qhBeS4O67gmBFK77txxUz5SJ1jqs=; b=PMTATTUUoa6dxdiMTkXjF1256N
- e1MfHMT67U3KIDKfv5zotgPlwB32Gg8kk7Gk8g/Ie5sWCPJ+OCBLalFOQYqMOMsy8S2TRgK0j4x83
- i5jvDtOcya9mN+c8+NUcN3weAkPYkWMSAGyvBMCxA6GubnMtBQ2AnAT5WJeZJlG+ajhYsxFg0zGTQ
- RYAVqFT5YnktLZMe1PtDebjbRmHk+NBfVV8Diz2eK1A7xDSLfsOgVRAh2Ao80/MmrvhHro1l1+jv0
- f0ckmUb+y2NRWMGk3Ke36Ph/C7ns0SU4BI+y4iFLduTt3jJhHLaBPH+xwicmoflejD8O4TrV46Xfh
- lADguFVQ==;
-Received: from [84.66.36.92] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1v0fzG-00FkKu-HB; Mon, 22 Sep 2025 14:49:46 +0200
-Message-ID: <90e2941b-9efe-4d55-9d94-f4d111ca4679@igalia.com>
-Date: Mon, 22 Sep 2025 13:49:45 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E55010E465;
+ Mon, 22 Sep 2025 12:27:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 24F4A419B7;
+ Mon, 22 Sep 2025 12:27:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4CDC113D0;
+ Mon, 22 Sep 2025 12:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1758544052;
+ bh=rRfLqX/zR5w+ifwG90F2/vKyrmETA1lsBOrPDyyqAEM=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=vR10fA4FmZ4v7KaHCZIyLcLXELsAbPUAD5lYraSzHLR8SUfcT7fvuaVAfns1d40qo
+ ntIYtwcGsPGn6qaY9unY9gkWp6CxSXcCwRRsXp2js5R/wunwsZ0apFhkBqd5cHpQeH
+ 1Is19V8BQwQKhQvN6kPToNslukgQ2UAJ+ojqTKAY=
+Subject: Patch "minmax: simplify min()/max()/clamp() implementation" has been
+ added to the 6.6-stable tree
+To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
+	Rodrigo.Siqueira@amd.com, Xinhui.Pan@amd.com, agk@redhat.com,
+	airlied@gmail.com, akpm@linux-foundation.org,
+	alexander.deucher@amd.com, alexandre.torgue@foss.st.com,
+	amd-gfx@lists.freedesktop.org, andriy.shevchenko@linux.intel.com,
+	anton.ivanov@cambridgegreys.com, arnd@kernel.org,
+	artur.paszkiewicz@intel.com, bp@alien8.de, christian.koenig@amd.com,
+	clm@fb.com, daniel@ffwll.ch, dave.hansen@linux.intel.com,
+	davem@davemloft.net, dm-devel@lists.linux.dev,
+	dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
+	dsahern@kernel.org, dsterba@suse.com, edumazet@google.com,
+	evan.quan@amd.com, farbere@amazon.com, gregkh@linuxfoundation.org,
+	harry.wentland@amd.com, hdegoede@redhat.com, hpa@zytor.com,
+	ilpo.jarvinen@linux.intel.com, james.morse@arm.com,
+	jdelvare@suse.com, jejb@linux.ibm.com, jernej.skrabec@gmail.com,
+	joabreu@synopsys.com, johannes@sipsolutions.net,
+	josef@toxicpanda.com, keescook@chromium.org,
+	krzysztof.kozlowski@linaro.org, kuba@kernel.org,
+	linus.walleij@linaro.org, l@freedesktop.org,
+	inux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	linux-staging@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
+	linux@rasmusvillemoes.dk, linux@roeck-us.net,
+	lorenzo.stoakes@oracle.com, luc.vanoostenryck@gmail.com,
+	luto@kernel.org, maarten.lankhorst@linux.intel.com,
+	mailhol.vincent@wanadoo.fr, malattia@linux.it, markgross@kernel.org,
+	martin.petersen@oracle.com, mchehab@kernel.org,
+	mcoquelin.stm32@gmail.com, mhiramat@kernel.org, minchan@kernel.org,
+	mingo@redhat.com, mkl@pengutronix.de, mripard@kernel.org,
+	pabeni@redhat.com, peterz@infradead.org, pmladek@suse.com,
+	qiuxu.zhuo@intel.com, richard@nod.at, rostedt@goodmis.org,
+	rric@kernel.org, sakari.ailus@linux.intel.com, samuel@sholland.org,
+	senozhatsky@chromium.org, shuah@kernel.org, snitzer@kernel.org,
+	sunpeng.li@amd.com, tglx@linutronix.de, tony.luck@intel.com,
+	torvalds@linux-foundation.org, tzimmermann@suse.de, wad@chromium.org,
+	wens@csie.org, wg@grandegger.com, x86@kernel.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 22 Sep 2025 14:27:00 +0200
+In-Reply-To: <20250922103241.16213-6-farbere@amazon.com>
+Message-ID: <2025092200-bullfrog-resolved-b3bd@gregkh>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 1/2] drm/ttm: Allow drivers to specify maximum beneficial
- TTM pool size
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-References: <20250919131127.90932-1-tvrtko.ursulin@igalia.com>
- <20250919131127.90932-2-tvrtko.ursulin@igalia.com>
- <febddc1a-afed-4c32-912a-38f465d11ce0@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <febddc1a-afed-4c32-912a-38f465d11ce0@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore
+X-Mailman-Approved-At: Mon, 22 Sep 2025 12:52:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,135 +92,172 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 22/09/2025 10:31, Christian König wrote:
-> On 19.09.25 15:11, Tvrtko Ursulin wrote:
->> GPUs typically benefit from contiguous memory via reduced TLB pressure and
->> improved caching performance, where the maximum size of contiguous block
->> which adds a performance benefit is related to hardware design.
->>
->> TTM pool allocator by default tries (hard) to allocate up to the system
->> MAX_PAGE_ORDER blocks. This varies by the CPU platform and can also be
->> configured via Kconfig.
->>
->> If that limit was set to be higher than the GPU can make an extra use of,
->> lets allow the individual drivers to let TTM know over which allocation
->> order can the pool allocator afford to make a little bit less effort with.
->>
->> We implement this by disabling direct reclaim for those allocations, which
->> reduces the allocation latency and lowers the demands on the page
->> allocator, in cases where expending this effort is not critical for the
->> GPU in question.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->> ---
->>   drivers/gpu/drm/ttm/ttm_pool.c | 15 +++++++++++++--
->>   include/drm/ttm/ttm_pool.h     | 10 ++++++++++
->>   2 files changed, 23 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
->> index c5eb2e28ca9d..3bf7b6bd96a3 100644
->> --- a/drivers/gpu/drm/ttm/ttm_pool.c
->> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
->> @@ -726,8 +726,16 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
->>   
->>   	page_caching = tt->caching;
->>   	allow_pools = true;
->> -	for (order = ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
->> -	     alloc->remaining_pages;
->> +
->> +	order = ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
->> +	/*
->> +	 * Do not add latency to the allocation path for allocations orders
->> +	 * device tolds us do not bring additional performance gains.
->> +	 */
->> +	if (order > pool->max_beneficial_order)
->> +		gfp_flags &= ~__GFP_DIRECT_RECLAIM;
->> +
->> +	for (; alloc->remaining_pages;
-> 
-> Move that into ttm_pool_alloc_page(), the other code to adjust the gfp_flags based on the order is there as well.
+This is a note to let you know that I've just added the patch titled
 
-I can do that, no problem.
+    minmax: simplify min()/max()/clamp() implementation
 
-> 
->>   	     order = ttm_pool_alloc_find_order(order, alloc)) {
->>   		struct ttm_pool_type *pt;
->>   
->> @@ -745,6 +753,8 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
->>   		if (!p) {
->>   			page_caching = ttm_cached;
->>   			allow_pools = false;
->> +			if (order <= pool->max_beneficial_order)
->> +				gfp_flags |= __GFP_DIRECT_RECLAIM;
-> 
-> That makes this superfluous as well.
-> 
->>   			p = ttm_pool_alloc_page(pool, gfp_flags, order);
->>   		}
->>   		/* If that fails, lower the order if possible and retry. */
->> @@ -1076,6 +1086,7 @@ void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
->>   	pool->nid = nid;
->>   	pool->use_dma_alloc = use_dma_alloc;
->>   	pool->use_dma32 = use_dma32;
->> +	pool->max_beneficial_order = MAX_PAGE_ORDER;
->>   
->>   	for (i = 0; i < TTM_NUM_CACHING_TYPES; ++i) {
->>   		for (j = 0; j < NR_PAGE_ORDERS; ++j) {
->> diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
->> index 54cd34a6e4c0..24d3285c9aad 100644
->> --- a/include/drm/ttm/ttm_pool.h
->> +++ b/include/drm/ttm/ttm_pool.h
->> @@ -66,6 +66,7 @@ struct ttm_pool_type {
->>    * @nid: which numa node to use
->>    * @use_dma_alloc: if coherent DMA allocations should be used
->>    * @use_dma32: if GFP_DMA32 should be used
->> + * @max_beneficial_order: allocations above this order do not bring performance gains
->>    * @caching: pools for each caching/order
->>    */
->>   struct ttm_pool {
->> @@ -74,6 +75,7 @@ struct ttm_pool {
->>   
->>   	bool use_dma_alloc;
->>   	bool use_dma32;
->> +	unsigned int max_beneficial_order;
->>   
->>   	struct {
->>   		struct ttm_pool_type orders[NR_PAGE_ORDERS];
->> @@ -88,6 +90,14 @@ void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
->>   		   int nid, bool use_dma_alloc, bool use_dma32);
->>   void ttm_pool_fini(struct ttm_pool *pool);
->>   
->> +static inline unsigned int
->> +ttm_pool_set_max_beneficial_order(struct ttm_pool *pool, unsigned int order)
->> +{
->> +	pool->max_beneficial_order = min(MAX_PAGE_ORDER, order);
->> +
->> +	return pool->max_beneficial_order;
->> +}
->> +
-> 
-> Just make that a parameter to ttm_pool_init(), it should be static for all devices I know about anyway.
+to the 6.6-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-I wanted to avoid changing signature of ttm_device_init().
+The filename of the patch is:
+     minmax-simplify-min-max-clamp-implementation.patch
+and it can be found in the queue-6.6 subdirectory.
 
-But if will be are churning those, should I replace the two bool 
-arguments in ttm_pool_init() and ttm_device_init() with a pool init 
-parameters structure so two nameless booleans in a row are avoided? I do 
-not feel strongly about it either way though since there is not a huge 
-number of callers.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-Regards,
 
-Tvrtko
+From stable+bounces-180928-greg=kroah.com@vger.kernel.org Mon Sep 22 12:37:49 2025
+From: Eliav Farber <farbere@amazon.com>
+Date: Mon, 22 Sep 2025 10:32:31 +0000
+Subject: minmax: simplify min()/max()/clamp() implementation
+To: <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <mchehab@kernel.org>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>, <dm-devel@lists.linux.dev>, <mailhol.vincent@wanadoo.fr>, <wg@grandegger.com>, <mkl@pengutronix.de>, <davem@davemloft.net>, <edu
+ mazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>, <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>, <malattia@linux.it>, <hdegoede@redhat.com>, <ilpo.jarvinen@linux.intel.com>, <markgross@kernel.org>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <gregkh@linuxfoundation.org>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>, <pmladek@suse.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <senozhatsky@chromium.org>, <minchan@kernel.org>, <akpm@linux-foundation.org>, <dsahern@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>, <wad@chromium.org>, <farbere@amazon.com>, <David.Laight@ACULAB.COM>, <arnd@kernel.org>, <linux-um@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedeskto
+ p.org>, <dri-devel@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <linux-can@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>, <linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>, <stable@vger.kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Message-ID: <20250922103241.16213-6-farbere@amazon.com>
 
-> 
-> Apart from that looks good to me,
-> Christian.
-> 
->>   int ttm_pool_debugfs(struct ttm_pool *pool, struct seq_file *m);
->>   
->>   void ttm_pool_drop_backed_up(struct ttm_tt *tt);
-> 
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
+[ Upstream commit dc1c8034e31b14a2e5e212104ec508aec44ce1b9 ]
+
+Now that we no longer have any C constant expression contexts (ie array
+size declarations or static initializers) that use min() or max(), we
+can simpify the implementation by not having to worry about the result
+staying as a C constant expression.
+
+So now we can unconditionally just use temporary variables of the right
+type, and get rid of the excessive expansion that used to come from the
+use of
+
+   __builtin_choose_expr(__is_constexpr(...), ..
+
+to pick the specialized code for constant expressions.
+
+Another expansion simplification is to pass the temporary variables (in
+addition to the original expression) to our __types_ok() macro.  That
+may superficially look like it complicates the macro, but when we only
+want the type of the expression, expanding the temporary variable names
+is much simpler and smaller than expanding the potentially complicated
+original expression.
+
+As a result, on my machine, doing a
+
+  $ time make drivers/staging/media/atomisp/pci/isp/kernels/ynr/ynr_1.0/ia_css_ynr.host.i
+
+goes from
+
+	real	0m16.621s
+	user	0m15.360s
+	sys	0m1.221s
+
+to
+
+	real	0m2.532s
+	user	0m2.091s
+	sys	0m0.452s
+
+because the token expansion goes down dramatically.
+
+In particular, the longest line expansion (which was line 71 of that
+'ia_css_ynr.host.c' file) shrinks from 23,338kB (yes, 23MB for one
+single line) to "just" 1,444kB (now "only" 1.4MB).
+
+And yes, that line is still the line from hell, because it's doing
+multiple levels of "min()/max()" expansion thanks to some of them being
+hidden inside the uDIGIT_FITTING() macro.
+
+Lorenzo has a nice cleanup patch that makes that driver use inline
+functions instead of macros for sDIGIT_FITTING() and uDIGIT_FITTING(),
+which will fix that line once and for all, but the 16-fold reduction in
+this case does show why we need to simplify these helpers.
+
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ include/linux/minmax.h |   43 ++++++++++++++++++++-----------------------
+ 1 file changed, 20 insertions(+), 23 deletions(-)
+
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -35,10 +35,10 @@
+ #define __is_noneg_int(x)	\
+ 	(__builtin_choose_expr(__is_constexpr(x) && __is_signed(x), x, -1) >= 0)
+ 
+-#define __types_ok(x, y) 					\
+-	(__is_signed(x) == __is_signed(y) ||			\
+-		__is_signed((x) + 0) == __is_signed((y) + 0) ||	\
+-		__is_noneg_int(x) || __is_noneg_int(y))
++#define __types_ok(x, y, ux, uy) 				\
++	(__is_signed(ux) == __is_signed(uy) ||			\
++	 __is_signed((ux) + 0) == __is_signed((uy) + 0) ||	\
++	 __is_noneg_int(x) || __is_noneg_int(y))
+ 
+ #define __cmp_op_min <
+ #define __cmp_op_max >
+@@ -51,34 +51,31 @@
+ #define __cmp_once(op, type, x, y) \
+ 	__cmp_once_unique(op, type, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
+ 
+-#define __careful_cmp_once(op, x, y) ({			\
+-	static_assert(__types_ok(x, y),			\
++#define __careful_cmp_once(op, x, y, ux, uy) ({		\
++	__auto_type ux = (x); __auto_type uy = (y);	\
++	static_assert(__types_ok(x, y, ux, uy),		\
+ 		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
+-	__cmp_once(op, __auto_type, x, y); })
++	__cmp(op, ux, uy); })
+ 
+-#define __careful_cmp(op, x, y)					\
+-	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
+-		__cmp(op, x, y), __careful_cmp_once(op, x, y))
++#define __careful_cmp(op, x, y) \
++	__careful_cmp_once(op, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
+ 
+ #define __clamp(val, lo, hi)	\
+ 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+ 
+-#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({		\
+-	typeof(val) unique_val = (val);						\
+-	typeof(lo) unique_lo = (lo);						\
+-	typeof(hi) unique_hi = (hi);						\
++#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
++	__auto_type uval = (val);						\
++	__auto_type ulo = (lo);							\
++	__auto_type uhi = (hi);							\
+ 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+ 			(lo) <= (hi), true),					\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+-	static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
+-	static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
+-	__clamp(unique_val, unique_lo, unique_hi); })
+-
+-#define __careful_clamp(val, lo, hi) ({					\
+-	__builtin_choose_expr(__is_constexpr((val) - (lo) + (hi)),	\
+-		__clamp(val, lo, hi),					\
+-		__clamp_once(val, lo, hi, __UNIQUE_ID(__val),		\
+-			     __UNIQUE_ID(__lo), __UNIQUE_ID(__hi))); })
++	static_assert(__types_ok(uval, lo, uval, ulo), "clamp() 'lo' signedness error");	\
++	static_assert(__types_ok(uval, hi, uval, uhi), "clamp() 'hi' signedness error");	\
++	__clamp(uval, ulo, uhi); })
++
++#define __careful_clamp(val, lo, hi) \
++	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
+ 
+ /**
+  * min - return minimum of two values of the same or compatible types
+
+
+Patches currently in stable-queue which might be from farbere@amazon.com are
+
+queue-6.6/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
+queue-6.6/minmax-make-generic-min-and-max-macros-available-everywhere.patch
+queue-6.6/minmax-fix-up-min3-and-max3-too.patch
+queue-6.6/minmax-add-a-few-more-min_t-max_t-users.patch
+queue-6.6/minmax-improve-macro-expansion-and-type-checking.patch
+queue-6.6/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+queue-6.6/minmax-simplify-min-max-clamp-implementation.patch
+queue-6.6/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
