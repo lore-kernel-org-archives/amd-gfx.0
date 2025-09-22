@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4988ECAC5AD
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 02:39:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 972EECAC5A7
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 02:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E293A10E37E;
-	Mon, 22 Sep 2025 02:39:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3408610E388;
+	Mon, 22 Sep 2025 02:40:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PPB5uFOh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UEmLRvfW";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012069.outbound.protection.outlook.com [40.107.209.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CCD710E383
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Sep 2025 02:39:53 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011032.outbound.protection.outlook.com [40.107.208.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8540F10E389
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Sep 2025 02:39:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vz2O5XvdF1F2HLNx2DxlbX+hoFO05jqBNeQeAqlAvVz4jKxBuojn+Jo0PjpVaAv8w3rK6aOXCl1hP6MtgTa2zXYA6/i/NPgFgIzPy4HGQ6ncpZVM8XS9jkhXCZ//+oTD+jdK5KzjDaVt3fgEIit66FDWCtAMCtYQFVQ6MST6LIVqIQr5Z7h0cPK4AWsCvcE0Ml7qwnS7/B3yyGj2YaVehWzvUxECcAGLcUKDXfYSLzQQJMmb4RlgqjT38Q3J6WeF/sWGMZc6gDm4T72LnIKWi1waW6SQLGi8ccYerVgVL5HzFnQ0Z5OY6mOQjW+PyxATt8sKJBKN5OIP2jUY0j0SzQ==
+ b=ren0W0C4jtOYoOzWc4YwEJWhql2OGFKATzyELsqErSKN5g2LM8ninz0vbBaPlg4G9jUViuCI4NARSM8N3qPVjvrp6KOuzmYZTlK8gUFdiBFJa6/refEnGIvvv8u3NMeQLzscymf3B/0alUHKGQMRKsRGETZ/Gu9sbXESKK+7u19SfeBcabG0/iqAp7a4sAg3+BclXUar8jItoMVFNiIBKL7ABjJ2e7p6I7w8EUiOlCJSVSfpyBEcMhvzqer9oLrRWlGVZ1uFjA1ZBEPRcCItiiyl4pmRnWdtBMoukphDHAnvHKaXt//LTmQ+VKitcWC8qKwG/ENripLLol8NABhi2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FFQ0oTm37X3DOLSan67bilUHHCjZPfLvv6K46vvp9ao=;
- b=QaacZjyw57SrFSuJIXlYGr0aINI2PfsB0BLI2hBQj4ykUq1MMF0K78V5ZaZDvIjR0dPEQq80cpW1yT18raNt4X2bIxUqxC3IXfGLxJ7XVX0O4TP87vc/iuS4nvsTJkhIc+ltF7EpVvarSLo4kbeTcJtbJzh3O2SuKnM/FJYSJoTScralqXgVHUaWJ2v6jndUskfFcrVPK9BXOnqRptmLBIUPOPu8jglcWIrNnw9A6Ytsr0vWRP515+A2hNC+opCFjtUuqTHKfDq/0VBVvYzqs84GmIow/s6kmjYtJ6w8yxC9xMp4HxX5ewXvPyd04dRHVIsF87/xktSDnqRyUs892A==
+ bh=JDoRNE/pzTi5n1hG9eCjrEY5a+PDGYeuuUmD9sGlfF0=;
+ b=O26uD+zWXGDZcaVaTNG8azApEbg9sV6xLJSOw3v5ySukRQANlLzT/7uyNvBc8pC8JqLFT0YWQ2bv9fLiXCfeqcn7vUY7s4KPsDx3Wkst74KmSjGXLuWl2f7O9OE29bFhPrHErssP/RpksdoUFP0oCurPntlmD5I4+Vrfd2h4Ihgu4UCLRh6gjgpDYw786cVHl3pzW6NvCpREGjogxtQldUEwZMnzhZMD0APuovjprQYAQtDEhQ9siWq6mdo0UnC2gTsga30Veq/6JOWXvsjV05+LzFBr/b8kewXlWSqcgBKCHcBFxjO4qHgqiQoJNJQdBo1UmBwBhUosy6Got4litw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FFQ0oTm37X3DOLSan67bilUHHCjZPfLvv6K46vvp9ao=;
- b=PPB5uFOhK6sZfyUrBFcHC1HYuNJ9H9CwtHnDyyDI3EKBaa44ZEy0ngJtwGPm3v5Qz73zcTkreVL/JAKJLzVHcxXEGFp5DqTUKmRLuG/FYjIYojpMZ5gH9L5sYy/XqgmoRL3US3UjNbIU1P97gfgmcfN6HQVFVmmu7UxZY5e76yA=
-Received: from BYAPR01CA0041.prod.exchangelabs.com (2603:10b6:a03:94::18) by
- CY5PR12MB6273.namprd12.prod.outlook.com (2603:10b6:930:22::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.19; Mon, 22 Sep 2025 02:39:47 +0000
+ bh=JDoRNE/pzTi5n1hG9eCjrEY5a+PDGYeuuUmD9sGlfF0=;
+ b=UEmLRvfWYhBTG61/sa2L68bd2CSf2eVzzLQJPkPSPFvTSzu/n06sWjxrx/yXGoqKJbcJdttWfvi1UvE8/XGpBRysHSMUEyPFQJIMc4s5+o3xV1IKdchoxZAh9G9vL0z429xGKkx+iyg0mvRwLbU1ETgajWBW+Q4wRd4CcftXwxc=
+Received: from BYAPR01CA0063.prod.exchangelabs.com (2603:10b6:a03:94::40) by
+ PH8PR12MB6913.namprd12.prod.outlook.com (2603:10b6:510:1ca::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.18; Mon, 22 Sep
+ 2025 02:39:52 +0000
 Received: from CO1PEPF000044FA.namprd21.prod.outlook.com
- (2603:10b6:a03:94:cafe::98) by BYAPR01CA0041.outlook.office365.com
- (2603:10b6:a03:94::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.20 via Frontend Transport; Mon,
- 22 Sep 2025 02:40:27 +0000
+ (2603:10b6:a03:94:cafe::cd) by BYAPR01CA0063.outlook.office365.com
+ (2603:10b6:a03:94::40) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.19 via Frontend Transport; Mon,
+ 22 Sep 2025 02:39:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,85 +50,76 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CO1PEPF000044FA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9182.0 via Frontend Transport; Mon, 22 Sep 2025 02:39:47 +0000
+ 15.20.9182.0 via Frontend Transport; Mon, 22 Sep 2025 02:39:52 +0000
 Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sun, 21 Sep
- 2025 19:39:45 -0700
+ 2025 19:39:49 -0700
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <yipechai@amd.com>, <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>,
  <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou
  <tao.zhou1@amd.com>
-Subject: [PATCH V5 12/20] drm/amd/ras: Add eeprom ras functions
-Date: Mon, 22 Sep 2025 10:38:36 +0800
-Message-ID: <20250922023844.3108065-12-YiPeng.Chai@amd.com>
+Subject: [PATCH V5 14/20] drm/amd/ras: Add psp ras common functions
+Date: Mon, 22 Sep 2025 10:38:38 +0800
+Message-ID: <20250922023844.3108065-14-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250922023844.3108065-1-YiPeng.Chai@amd.com>
 References: <20250922023844.3108065-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|CY5PR12MB6273:EE_
-X-MS-Office365-Filtering-Correlation-Id: c494a5a1-05f0-4962-8d3b-08ddf9814bf4
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|PH8PR12MB6913:EE_
+X-MS-Office365-Filtering-Correlation-Id: ffbf3fb9-20e7-46b3-ea49-08ddf9814eb6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Z0ZLTk02MWUweHlSWXp3ano4TnBXRS9ydytmamF1clVRK2QybFZaeG9DYy9X?=
- =?utf-8?B?M0hpeTBXSFF6Z085bGlicGh4bjlOM1h4M3l2YUdUbG5mdXlHNVp2Nm0xZ2k1?=
- =?utf-8?B?Uk1zbWs1MFB6Vzh2L01IMmkxNHdxTzFJSDJMRTk4V25vV2RCY3UyWG0wVWFm?=
- =?utf-8?B?ZVBVRk1RVU55eGF0UGkzTE1BMklobmxuTzdMZ2lVVWtqMkNQak84dnBHUjBI?=
- =?utf-8?B?SEdXOXlObEtwNkFlaG5zb0hMVHFjMm9qQUwzSmt1dDZoR0psNjlyRlFhM2N1?=
- =?utf-8?B?cmErWDNXUXd2ZVhzY0h2a1pXSHJleXVXaE93ZThPaVZNR1o3aEpZYThFaXdW?=
- =?utf-8?B?NitLalVya3A2TElkdGhaTWo3bmUxcjU4bjlvOW5aTGtoa3U0cmlpVDNOc2cw?=
- =?utf-8?B?WTdPdzFUckI0RHkzcDRKRVNzTDFwWXE4RXdTSDZ3K3hvSFgzKzY1WjBzeHd1?=
- =?utf-8?B?SzJHKy9SR2hwMUZxbGMvTkJ4MERhWEoyYkFSbUFkNy9WQS8vOVRzTlhoQ2VZ?=
- =?utf-8?B?R2xrbWZlc1FKbEoyR2t3dTczNkVhTnpDZytaS1RCbU9NUlBLS1VxZkFFUXU5?=
- =?utf-8?B?SlB4WWh2ejVFbkZ1WVlnZ2FUZkJKRFZ6ZTB1SkJLYllXYXNLWWsvQkR0YXM3?=
- =?utf-8?B?ZFAvL3VUWm4yRWlzMFVDU25aTnI1b2xMRzBjK3U1VmE4SUJHZDVDcnl4dDFn?=
- =?utf-8?B?NHZxUjZCeWJhT3BZUDJYRUxZWitUQmNucTV4c0VHUXk0R0JyREZlTkxlTW4z?=
- =?utf-8?B?cGIyR1BLK083NXg3ZFN6SmVmMm9vTWN4UEJmTkQ5S1JITkpEbDZVREFETnlL?=
- =?utf-8?B?czlXeGpLUjhoTE9ta3I5U1BWb2ZmQ3Vab2MwYThRbEVZZWl1T0t1YUJET29l?=
- =?utf-8?B?K2xlay9KMitWWmRVT0kveXUwZGpFQit6bTlsVmRoQnlUS01VWmZYQ1FlclM1?=
- =?utf-8?B?ejBDU3YyR2trRk5XWk96NG5mdU9sNXBLeUhnQStlOFpobUFzZWxZSjlYci9l?=
- =?utf-8?B?T1hZVDcvNHJNYk1qNG9iZElqOUs4UVJGL2wvb09HN3BhNWxSeC9mR1lnNU43?=
- =?utf-8?B?ODRBVDdyWmg1bTM0STVlL2hETXFpV2ZPamdsbGxHSTRRQkdUbDNVYWhwMjFn?=
- =?utf-8?B?MW9ncFhHeVl6VEtFeUhtT2VuV3NPQ005WklsdlJUYnpHUndlc1JteGVxVlhH?=
- =?utf-8?B?K2NLeGlIYTJGWjlOMzlkUSs4UkFoYS9acjdqQW4yNEhjSXFPVWJGVnJYMnlr?=
- =?utf-8?B?ZExRaFZuWnhRY0Y3U2lXaTRIRmNqRlpXdnZub0RRemc5NUhhdFk4UktKdFlo?=
- =?utf-8?B?RXB5Z0JMQzJMalBlakVFd2JqS0FUdVdmR0JPcVU4SmRXY0dwMVpqYWNkOVpC?=
- =?utf-8?B?ZGVsR0RRNFIyL2NGemQrQjBvQnhzU0oxaGdtdEU0UUlkaE80NWZuTk9ydHox?=
- =?utf-8?B?NTlKUGdpNUs5RUpSd2tsdTlXS25Ncmt6eXBzcFdvSFJKcDI5Y2p3QjEzQXZN?=
- =?utf-8?B?OTVLM25lRjd3VUJZZXBFczA3MzgrWTdoTGxDS09vQXZNaGJFYkEzcTUrOXhX?=
- =?utf-8?B?cUwwcVRaMGMvaFBpZ0EyN2FHd2U0SHdkT3g2VlBSNW9wVTJKV01BM1lubXk3?=
- =?utf-8?B?VDBqakYyczRPM1VPTzc1RGhRMUdkS05jcWViMTRLcjB2MlRpUnNUZmNDWUQz?=
- =?utf-8?B?WFhFOEV3ZWEyQjU3Q0RwUFJwZm5WZnNsaythcWp0YldDclJ2UElvbFBzdWJa?=
- =?utf-8?B?OFRiU1hhZ2N3a0Z2ZnN4QlJ2UDNzQUp5WU1yWXd2OWwwS28zNitJRFVzRlAy?=
- =?utf-8?B?MTR0NHY2R0VxZm9TZ1N5dVB4bTE3TmlycnBwenJqNWVzSzNHZER3dzArOUY4?=
- =?utf-8?B?T2V0UzNEZWdpelBIcnFSNTg1dUY2ZXk1b29Dc0MraTI5SmQvODhlMVU2RDd0?=
- =?utf-8?B?QTVUbkZzNHNhQmQ5ZkIraFoxYXFkNXVRT1ZYd1dKMlRjK1liQ1dvVGViZzI0?=
- =?utf-8?B?UXRkait4VGVoVzdrWEphYzB2NXorMUhaMHZQREgyTit4U2UwWGxNOVFORFZs?=
- =?utf-8?Q?DSmbKl?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VxEzCLOyLs5kzuI5+34Hzkdsvrq2wi2n7DP2jK7EqoqZlfd7mYpaTtzZvS6z?=
+ =?us-ascii?Q?4ffHzoQUwMD183x8OhmT//iYsJ+usV8Rc3zh6RYHxpGod0sPbjc2DU2IipN7?=
+ =?us-ascii?Q?KHUDiem+RtZvUPdL3Y/vjd8rw7o94mHMHu+1wNOXKX+tGwyopnH7orb02jdL?=
+ =?us-ascii?Q?omyojhr4EGzzIruKNzU/fx9UtNo+Rq1DL5OqY1tdpw66aueggBGRN5DxfDEk?=
+ =?us-ascii?Q?dOWmr9KFpPXXjA+Bztyq7fsRqZP0St8IF2oqbxa5D2uRmZC1H3c8+PWDt4R/?=
+ =?us-ascii?Q?GfHQcgHToOOK2DUUhleXk/PP0GgY3qBSoVWpLXrN4xF5VZetn589Vd0RsT8V?=
+ =?us-ascii?Q?gaUw+krDGtFvQH1u1dem95j5uqFNk73BuLC1fr08dSVn39LofOlIQ7GHy3mC?=
+ =?us-ascii?Q?56KDQcA/FclXgM+MlVnigyIVitNm2zC1LWGyNPshmiHD2L1fM81eAICshQl8?=
+ =?us-ascii?Q?yVFnU+mI+H9mTouewbu6aCvZ1f17R5QwLOF6r/pJoVyDGkOhcNumslTjmd79?=
+ =?us-ascii?Q?ZxpQ46MpNmPFxAPXX1E4pMWenQZPmZUigOYBjSSc+8o9tvY7BJjhnAHW0L8z?=
+ =?us-ascii?Q?jpAE+WgLlPn7mkprcQqBVr+/mNmHLfbXyHAN7WHDJZ+lbwbEkWAcCRK9npN5?=
+ =?us-ascii?Q?SmHlXZczs/F+NtcXD2s6Ah7qno/l9qXYmRveg3Myl+AVl+YzGGxSNGziA3rK?=
+ =?us-ascii?Q?zU7pA4dTLpCNxFSWerW135wc3p2TVR8Q+Ij59tHDeEbWdNcit00rMhPutmN6?=
+ =?us-ascii?Q?t+YTNk4+sHXol0La7R1y0pxP/WYh93mrwkyBF5W3KXIaHBhKpCVptiNRkNBN?=
+ =?us-ascii?Q?iJQNdYEoG9jy4aAIYG2EUv4K4f+4E17K5r3C/e50CUscQ9hi+CWm66yCHfi2?=
+ =?us-ascii?Q?bAcz/v3iLF8fV/EaEdYIvupfyz3as0u5YIABH1QbWMYt8xhfNf7FH5ATk4Et?=
+ =?us-ascii?Q?oCANqxEZjD3mAOIObgUoQJDko6rB+W5Ww2vuXK8DQBBQbcSwbBAKcV3wgS/p?=
+ =?us-ascii?Q?k75zogXK+tZ8g8a2NTUv/bCgWAocT8W2h734yT0/VwEsTyOnCkRBEWbs0Jkv?=
+ =?us-ascii?Q?q7XH9m2TZl98+e52eJTLJUWxH3w57RvS/ksoaQwEh0ewnlXN3+dRlveis+Ty?=
+ =?us-ascii?Q?TJZxohf6xYLOoQVTj5rdWi8Ih7IfxJuvlzVzhnKchLu4gsIJN97uOvZQA7ci?=
+ =?us-ascii?Q?mqGuCAX+tfJQHgAiL1JhRY5VgdeID2JmCTYXOzcsm/Q9EhrZKf5eWwNAhX1O?=
+ =?us-ascii?Q?ynoJkat39no14zqGyeMivi16RDKMknIyQWMF22uWcfpc8YByBP3Kg3z1cn//?=
+ =?us-ascii?Q?Gb9co0P7JygGnoDLgvEXwjuCIUQ6CFE3eL/zuGsnqEotm5XKjJXZuQgc7Amq?=
+ =?us-ascii?Q?8YjVcmimyCR/EkRzWqO1052Ugw0vnNzcXXYhzwaAo+pF7slgokpVSxHvgy6q?=
+ =?us-ascii?Q?1XxkH1cMQy4fVqtS3rEhGoYyIFNNfdQUNhhKbR3jV3EJuYzzir0xhyP4jdEq?=
+ =?us-ascii?Q?K6iCqpyC5PFW7D+iEcV+SpZqFOuG15HyEldH?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2025 02:39:47.5555 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c494a5a1-05f0-4962-8d3b-08ddf9814bf4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2025 02:39:52.1843 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffbf3fb9-20e7-46b3-ea49-08ddf9814eb6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FA.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6273
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6913
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,27 +134,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add eeprom ras functions.
-
-V5:
-  Remove duplicate data structure definition.
+Add psp ras common functions.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c | 1368 ++++++++++++++++++
- drivers/gpu/drm/amd/ras/rascore/ras_eeprom.h |  197 +++
- 2 files changed, 1565 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
- create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_eeprom.h
+ drivers/gpu/drm/amd/ras/rascore/ras_psp.c   | 750 ++++++++++++++++++++
+ drivers/gpu/drm/amd/ras/rascore/ras_psp.h   | 145 ++++
+ drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h | 231 ++++++
+ 3 files changed, 1126 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_psp.c
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_psp.h
+ create mode 100644 drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c b/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
 new file mode 100644
-index 000000000000..9e0a4f605db0
+index 000000000000..c94effd4b114
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
-@@ -0,0 +1,1368 @@
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
+@@ -0,0 +1,750 @@
 +// SPDX-License-Identifier: MIT
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
@@ -186,1357 +177,890 @@ index 000000000000..9e0a4f605db0
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
-+
-+#include "ras_eeprom.h"
 +#include "ras.h"
++#include "ras_ta_if.h"
++#include "ras_psp.h"
++#include "ras_psp_v13_0.h"
 +
-+/* These are memory addresses as would be seen by one or more EEPROM
-+ * chips strung on the I2C bus, usually by manipulating pins 1-3 of a
-+ * set of EEPROM devices. They form a continuous memory space.
-+ *
-+ * The I2C device address includes the device type identifier, 1010b,
-+ * which is a reserved value and indicates that this is an I2C EEPROM
-+ * device. It also includes the top 3 bits of the 19 bit EEPROM memory
-+ * address, namely bits 18, 17, and 16. This makes up the 7 bit
-+ * address sent on the I2C bus with bit 0 being the direction bit,
-+ * which is not represented here, and sent by the hardware directly.
-+ *
-+ * For instance,
-+ *   50h = 1010000b => device type identifier 1010b, bits 18:16 = 000b, address 0.
-+ *   54h = 1010100b => --"--, bits 18:16 = 100b, address 40000h.
-+ *   56h = 1010110b => --"--, bits 18:16 = 110b, address 60000h.
-+ * Depending on the size of the I2C EEPROM device(s), bits 18:16 may
-+ * address memory in a device or a device on the I2C bus, depending on
-+ * the status of pins 1-3.
-+ *
-+ * The RAS table lives either at address 0 or address 40000h of EEPROM.
++/* position of instance value in sub_block_index of
++ * ta_ras_trigger_error_input, the sub block uses lower 12 bits
 + */
-+#define EEPROM_I2C_MADDR_0      0x0
-+#define EEPROM_I2C_MADDR_4      0x40000
++#define RAS_TA_INST_MASK 0xfffff000
++#define RAS_TA_INST_SHIFT 0xc
 +
-+#define EEPROM_PAGE_BITS   8
-+#define EEPROM_PAGE_SIZE   (1U << EEPROM_PAGE_BITS)
-+#define EEPROM_PAGE_MASK   (EEPROM_PAGE_SIZE - 1)
-+
-+#define EEPROM_OFFSET_SIZE 2
-+#define MAKE_I2C_ADDR(_aa) ((0xA << 3) | (((_aa) >> 16) & 0xF))
-+
-+/*
-+ * The 2 macros bellow represent the actual size in bytes that
-+ * those entities occupy in the EEPROM memory.
-+ * RAS_TABLE_RECORD_SIZE is different than sizeof(eeprom_umc_record) which
-+ * uses uint64 to store 6b fields such as retired_page.
-+ */
-+#define RAS_TABLE_HEADER_SIZE   20
-+#define RAS_TABLE_RECORD_SIZE   24
-+
-+/* Table hdr is 'AMDR' */
-+#define RAS_TABLE_HDR_VAL       0x414d4452
-+
-+/* Bad GPU tag ‘BADG’ */
-+#define RAS_TABLE_HDR_BAD       0x42414447
-+
-+/*
-+ * EEPROM Table structure v1
-+ * ---------------------------------
-+ * |                               |
-+ * |     EEPROM TABLE HEADER       |
-+ * |      ( size 20 Bytes )        |
-+ * |                               |
-+ * ---------------------------------
-+ * |                               |
-+ * |    BAD PAGE RECORD AREA       |
-+ * |                               |
-+ * ---------------------------------
-+ */
-+
-+/* Assume 2-Mbit size EEPROM and take up the whole space. */
-+#define RAS_TBL_SIZE_BYTES      (256 * 1024)
-+#define RAS_TABLE_START         0
-+#define RAS_HDR_START           RAS_TABLE_START
-+#define RAS_RECORD_START        (RAS_HDR_START + RAS_TABLE_HEADER_SIZE)
-+#define RAS_MAX_RECORD_COUNT    ((RAS_TBL_SIZE_BYTES - RAS_TABLE_HEADER_SIZE) \
-+				 / RAS_TABLE_RECORD_SIZE)
-+
-+/*
-+ * EEPROM Table structrue v2.1
-+ * ---------------------------------
-+ * |                               |
-+ * |     EEPROM TABLE HEADER       |
-+ * |      ( size 20 Bytes )        |
-+ * |                               |
-+ * ---------------------------------
-+ * |                               |
-+ * |     EEPROM TABLE RAS INFO     |
-+ * | (available info size 4 Bytes) |
-+ * |  ( reserved size 252 Bytes )  |
-+ * |                               |
-+ * ---------------------------------
-+ * |                               |
-+ * |     BAD PAGE RECORD AREA      |
-+ * |                               |
-+ * ---------------------------------
-+ */
-+
-+/* EEPROM Table V2_1 */
-+#define RAS_TABLE_V2_1_INFO_SIZE       256
-+#define RAS_TABLE_V2_1_INFO_START      RAS_TABLE_HEADER_SIZE
-+#define RAS_RECORD_START_V2_1          (RAS_HDR_START + RAS_TABLE_HEADER_SIZE + \
-+					RAS_TABLE_V2_1_INFO_SIZE)
-+#define RAS_MAX_RECORD_COUNT_V2_1      ((RAS_TBL_SIZE_BYTES - RAS_TABLE_HEADER_SIZE - \
-+					RAS_TABLE_V2_1_INFO_SIZE) \
-+					/ RAS_TABLE_RECORD_SIZE)
-+
-+/* Given a zero-based index of an EEPROM RAS record, yields the EEPROM
-+ * offset off of RAS_TABLE_START.  That is, this is something you can
-+ * add to control->i2c_address, and then tell I2C layer to read
-+ * from/write to there. _N is the so called absolute index,
-+ * because it starts right after the table header.
-+ */
-+#define RAS_INDEX_TO_OFFSET(_C, _N) ((_C)->ras_record_offset + \
-+				     (_N) * RAS_TABLE_RECORD_SIZE)
-+
-+#define RAS_OFFSET_TO_INDEX(_C, _O) (((_O) - \
-+				      (_C)->ras_record_offset) / RAS_TABLE_RECORD_SIZE)
-+
-+/* Given a 0-based relative record index, 0, 1, 2, ..., etc., off
-+ * of "fri", return the absolute record index off of the end of
-+ * the table header.
-+ */
-+#define RAS_RI_TO_AI(_C, _I) (((_I) + (_C)->ras_fri) % \
-+			      (_C)->ras_max_record_count)
-+
-+#define RAS_NUM_RECS(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
-+				  RAS_TABLE_HEADER_SIZE) / RAS_TABLE_RECORD_SIZE)
-+
-+#define RAS_NUM_RECS_V2_1(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
-+				       RAS_TABLE_HEADER_SIZE - \
-+				       RAS_TABLE_V2_1_INFO_SIZE) / RAS_TABLE_RECORD_SIZE)
-+
-+#define to_ras_core_context(x) (container_of(x, struct ras_core_context, ras_eeprom))
-+
-+static bool __is_ras_eeprom_supported(struct ras_core_context *ras_core)
++static const struct ras_psp_ip_func *ras_psp_get_ip_funcs(
++			struct ras_core_context *ras_core, uint32_t ip_version)
 +{
-+	return ras_core->ras_eeprom_supported;
-+}
-+
-+static bool __get_eeprom_i2c_addr(struct ras_core_context *ras_core,
-+				  struct ras_eeprom_control *control)
-+{
-+	int ret = -EINVAL;
-+
-+	if (control->sys_func &&
-+		control->sys_func->update_eeprom_i2c_config)
-+		ret = control->sys_func->update_eeprom_i2c_config(ras_core);
-+	else
-+		RAS_DEV_WARN(ras_core->dev,
-+			"No eeprom i2c system config!\n");
-+
-+	return !ret ? true : false;
-+}
-+
-+static int __ras_eeprom_xfer(struct ras_core_context *ras_core, u32 eeprom_addr,
-+				u8 *eeprom_buf, u32 buf_size, bool read)
-+{
-+	struct ras_eeprom_control *control = &ras_core->ras_eeprom;
-+	int ret;
-+
-+	if (control->sys_func && control->sys_func->eeprom_i2c_xfer) {
-+		ret = control->sys_func->eeprom_i2c_xfer(ras_core,
-+				eeprom_addr, eeprom_buf, buf_size, read);
-+
-+		if ((ret > 0) && !read) {
-+			/* According to EEPROM specs the length of the
-+			 * self-writing cycle, tWR (tW), is 10 ms.
-+			 *
-+			 * TODO: Use polling on ACK, aka Acknowledge
-+			 * Polling, to minimize waiting for the
-+			 * internal write cycle to complete, as it is
-+			 * usually smaller than tWR (tW).
-+			 */
-+			msleep(10);
-+		}
-+
-+		return ret;
++	switch (ip_version) {
++	case IP_VERSION(13, 0, 6):
++	case IP_VERSION(13, 0, 14):
++	case IP_VERSION(13, 0, 12):
++		return &ras_psp_v13_0;
++	default:
++		RAS_DEV_ERR(ras_core->dev,
++			"psp ip version(0x%x) is not supported!\n", ip_version);
++		break;
 +	}
 +
-+	RAS_DEV_ERR(ras_core->dev, "Error: No eeprom i2c system xfer function!\n");
-+	return -EINVAL;
++	return NULL;
 +}
 +
-+
-+/**
-+ * __eeprom_xfer -- Read/write from/to an I2C EEPROM device
-+ * @i2c_adap: pointer to the I2C adapter to use
-+ * @eeprom_addr: EEPROM address from which to read/write
-+ * @eeprom_buf: pointer to data buffer to read into/write from
-+ * @buf_size: the size of @eeprom_buf
-+ * @read: True if reading from the EEPROM, false if writing
-+ *
-+ * Returns the number of bytes read/written; -errno on error.
-+ */
-+static int __eeprom_xfer(struct ras_core_context *ras_core, u32 eeprom_addr,
-+			      u8 *eeprom_buf, u32 buf_size, bool read)
++static int ras_psp_sync_system_ras_psp_status(struct ras_core_context *ras_core)
 +{
-+	u16 limit;
-+	u16 ps; /* Partial size */
-+	int res = 0, r;
++	struct ras_psp *psp = &ras_core->ras_psp;
++	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
++	struct ras_psp_ctx *psp_ctx = &ras_core->ras_psp.psp_ctx;
++	struct ras_psp_sys_status status = {0};
++	int ret;
 +
-+	if (read)
-+		limit = ras_core->ras_eeprom.max_read_len;
++	if (psp->sys_func && psp->sys_func->get_ras_psp_system_status) {
++		ret = psp->sys_func->get_ras_psp_system_status(ras_core, &status);
++		if (ret)
++			return ret;
++
++		if (status.initialized) {
++			ta_ctx->preload_ras_ta_enabled = true;
++			ta_ctx->ras_ta_initialized = status.initialized;
++			ta_ctx->session_id = status.session_id;
++		}
++
++		psp_ctx->external_mutex = status.psp_cmd_mutex;
++	}
++
++	return 0;
++}
++
++static int ras_psp_get_ras_ta_init_param(struct ras_core_context *ras_core,
++	struct ras_ta_init_param *ras_ta_param)
++{
++	struct ras_psp *psp = &ras_core->ras_psp;
++
++	if (psp->sys_func && psp->sys_func->get_ras_ta_init_param)
++		return psp->sys_func->get_ras_ta_init_param(ras_core, ras_ta_param);
++
++	RAS_DEV_ERR(ras_core->dev, "Not config get_ras_ta_init_param API!!\n");
++	return -EACCES;
++}
++
++static struct gpu_mem_block *ras_psp_get_gpu_mem(struct ras_core_context *ras_core,
++			enum gpu_mem_type mem_type)
++{
++	struct ras_psp *psp = &ras_core->ras_psp;
++	struct gpu_mem_block *gpu_mem = NULL;
++	int ret;
++
++	switch (mem_type) {
++	case GPU_MEM_TYPE_RAS_PSP_RING:
++		gpu_mem = &psp->psp_ring.ras_ring_gpu_mem;
++		break;
++	case GPU_MEM_TYPE_RAS_PSP_CMD:
++		gpu_mem = &psp->psp_ctx.psp_cmd_gpu_mem;
++		break;
++	case GPU_MEM_TYPE_RAS_PSP_FENCE:
++		gpu_mem = &psp->psp_ctx.out_fence_gpu_mem;
++		break;
++	case GPU_MEM_TYPE_RAS_TA_FW:
++		gpu_mem = &psp->ta_ctx.fw_gpu_mem;
++		break;
++	case GPU_MEM_TYPE_RAS_TA_CMD:
++		gpu_mem = &psp->ta_ctx.cmd_gpu_mem;
++		break;
++	default:
++		return NULL;
++	}
++
++	if (!gpu_mem->ref_count) {
++		ret = ras_core_get_gpu_mem(ras_core, mem_type, gpu_mem);
++		if (ret)
++			return NULL;
++		gpu_mem->mem_type = mem_type;
++	}
++
++	gpu_mem->ref_count++;
++
++	return gpu_mem;
++}
++
++static int ras_psp_put_gpu_mem(struct ras_core_context *ras_core,
++			struct gpu_mem_block *gpu_mem)
++{
++	if (!gpu_mem)
++		return 0;
++
++	gpu_mem->ref_count--;
++
++	if (gpu_mem->ref_count > 0) {
++		return 0;
++	} else if (gpu_mem->ref_count < 0) {
++		RAS_DEV_WARN(ras_core->dev,
++			"Duplicate free gpu memory %u\n", gpu_mem->mem_type);
++	} else {
++		ras_core_put_gpu_mem(ras_core, gpu_mem->mem_type, gpu_mem);
++		memset(gpu_mem, 0, sizeof(*gpu_mem));
++	}
++
++	return 0;
++}
++
++static void __acquire_psp_cmd_lock(struct ras_core_context *ras_core)
++{
++	struct ras_psp_ctx *psp_ctx = &ras_core->ras_psp.psp_ctx;
++
++	if (psp_ctx->external_mutex)
++		mutex_lock(psp_ctx->external_mutex);
 +	else
-+		limit = ras_core->ras_eeprom.max_write_len;
++		mutex_lock(&psp_ctx->internal_mutex);
++}
 +
-+	if (limit && (limit <= EEPROM_OFFSET_SIZE)) {
++static void __release_psp_cmd_lock(struct ras_core_context *ras_core)
++{
++	struct ras_psp_ctx *psp_ctx = &ras_core->ras_psp.psp_ctx;
++
++	if (psp_ctx->external_mutex)
++		mutex_unlock(psp_ctx->external_mutex);
++	else
++		mutex_unlock(&psp_ctx->internal_mutex);
++}
++
++static uint32_t __get_ring_frame_slot(struct ras_core_context *ras_core)
++{
++	struct ras_psp *psp = &ras_core->ras_psp;
++	uint32_t ras_ring_wptr_dw;
++
++	ras_ring_wptr_dw = psp->ip_func->psp_ras_ring_wptr_get(ras_core);
++
++	return (ras_ring_wptr_dw << 2) / sizeof(struct psp_gfx_rb_frame);
++}
++
++static int __set_ring_frame_slot(struct ras_core_context *ras_core,
++			uint32_t slot)
++{
++	struct ras_psp *psp = &ras_core->ras_psp;
++
++	return psp->ip_func->psp_ras_ring_wptr_set(ras_core,
++				(slot * sizeof(struct psp_gfx_rb_frame)) >> 2);
++}
++
++static int write_frame_to_ras_psp_ring(struct ras_core_context *ras_core,
++		struct psp_gfx_rb_frame *frame)
++{
++	struct gpu_mem_block *ring_mem;
++	struct psp_gfx_rb_frame *rb_frame;
++	uint32_t max_frame_slot;
++	uint32_t slot_idx;
++	uint32_t write_flush_read_back = 0;
++	int ret = 0;
++
++	ring_mem = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_PSP_RING);
++	if (!ring_mem)
++		return -ENOMEM;
++
++	max_frame_slot =
++		ring_mem->mem_size / sizeof(struct psp_gfx_rb_frame);
++
++	rb_frame =
++		(struct psp_gfx_rb_frame *)ring_mem->mem_cpu_addr;
++
++	slot_idx = __get_ring_frame_slot(ras_core);
++	if (slot_idx >= max_frame_slot)
++		slot_idx = 0;
++
++	memcpy(&rb_frame[slot_idx], frame, sizeof(*frame));
++
++	/* Do a read to force the write of the frame before writing
++	 * write pointer.
++	 */
++	write_flush_read_back = rb_frame[slot_idx].fence_value;
++	if (write_flush_read_back != frame->fence_value) {
 +		RAS_DEV_ERR(ras_core->dev,
-+				"maddr:0x%04X size:0x%02X:quirk max_%s_len must be > %d",
-+				eeprom_addr, buf_size,
-+				read ? "read" : "write", EEPROM_OFFSET_SIZE);
++		"Failed to submit ring cmd! cmd:0x%x:0x%x, fence:0x%x:0x%x value:%u, expected:%u\n",
++			rb_frame[slot_idx].cmd_buf_addr_hi,
++			rb_frame[slot_idx].cmd_buf_addr_lo,
++			rb_frame[slot_idx].fence_addr_hi,
++			rb_frame[slot_idx].fence_addr_lo,
++			write_flush_read_back, frame->fence_value);
++		ret = -EACCES;
++		goto err;
++	}
++
++	slot_idx++;
++
++	if (slot_idx >= max_frame_slot)
++		slot_idx = 0;
++
++	__set_ring_frame_slot(ras_core, slot_idx);
++
++err:
++	ras_psp_put_gpu_mem(ras_core, ring_mem);
++	return ret;
++}
++
++static int send_psp_cmd(struct ras_core_context *ras_core,
++		enum psp_gfx_cmd_id gfx_cmd_id, void *cmd_data,
++		uint32_t cmd_size, struct psp_cmd_resp *resp)
++{
++	struct ras_psp_ctx *psp_ctx = &ras_core->ras_psp.psp_ctx;
++	struct gpu_mem_block *psp_cmd_buf = NULL;
++	struct gpu_mem_block *psp_fence_buf = NULL;
++	struct psp_gfx_cmd_resp *gfx_cmd;
++	struct psp_gfx_rb_frame rb_frame;
++	int ret = 0;
++	int timeout = 1000;
++
++	if (!cmd_data || (cmd_size > sizeof(union psp_gfx_commands)) || !resp) {
++		RAS_DEV_ERR(ras_core->dev, "Invalid RAS PSP command, id: %u\n", gfx_cmd_id);
 +		return -EINVAL;
 +	}
 +
-+	ras_core_down_gpu_reset_lock(ras_core);
++	__acquire_psp_cmd_lock(ras_core);
 +
-+	if (limit == 0) {
-+		res = __ras_eeprom_xfer(ras_core, eeprom_addr,
-+					eeprom_buf, buf_size, read);
-+	} else {
-+		/* The "limit" includes all data bytes sent/received,
-+		 * which would include the EEPROM_OFFSET_SIZE bytes.
-+		 * Account for them here.
++	psp_cmd_buf = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_PSP_CMD);
++	if (!psp_cmd_buf) {
++		ret = -ENOMEM;
++		goto exit;
++	}
++
++	psp_fence_buf = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_PSP_FENCE);
++	if (!psp_fence_buf) {
++		ret = -ENOMEM;
++		goto exit;
++	}
++
++	gfx_cmd = (struct psp_gfx_cmd_resp *)psp_cmd_buf->mem_cpu_addr;
++	memset(gfx_cmd, 0, sizeof(*gfx_cmd));
++	gfx_cmd->cmd_id = gfx_cmd_id;
++	memcpy(&gfx_cmd->cmd, cmd_data, cmd_size);
++
++	psp_ctx->in_fence_value++;
++
++	memset(&rb_frame, 0, sizeof(rb_frame));
++	rb_frame.cmd_buf_addr_hi = upper_32_bits(psp_cmd_buf->mem_mc_addr);
++	rb_frame.cmd_buf_addr_lo = lower_32_bits(psp_cmd_buf->mem_mc_addr);
++	rb_frame.fence_addr_hi = upper_32_bits(psp_fence_buf->mem_mc_addr);
++	rb_frame.fence_addr_lo = lower_32_bits(psp_fence_buf->mem_mc_addr);
++	rb_frame.fence_value = psp_ctx->in_fence_value;
++
++	ret = write_frame_to_ras_psp_ring(ras_core, &rb_frame);
++	if (ret) {
++		psp_ctx->in_fence_value--;
++		goto exit;
++	}
++
++	while (*((uint64_t *)psp_fence_buf->mem_cpu_addr) !=
++		   psp_ctx->in_fence_value) {
++		if (--timeout == 0)
++			break;
++		/*
++		 * Shouldn't wait for timeout when err_event_athub occurs,
++		 * because gpu reset thread triggered and lock resource should
++		 * be released for psp resume sequence.
 +		 */
-+		limit -= EEPROM_OFFSET_SIZE;
-+		for ( ; buf_size > 0;
-+			buf_size -= ps, eeprom_addr += ps, eeprom_buf += ps) {
-+			ps = (buf_size < limit) ? buf_size : limit;
++		if (ras_core_ras_interrupt_detected(ras_core))
++			break;
 +
-+			r = __ras_eeprom_xfer(ras_core, eeprom_addr,
-+						eeprom_buf, ps, read);
-+			if (r < 0)
-+				break;
++		msleep(2);
++	}
 +
-+			res += r;
-+		}
++	resp->status = gfx_cmd->resp.status;
++	resp->session_id = gfx_cmd->resp.session_id;
++
++exit:
++	ras_psp_put_gpu_mem(ras_core, psp_cmd_buf);
++	ras_psp_put_gpu_mem(ras_core, psp_fence_buf);
++
++	__release_psp_cmd_lock(ras_core);
++
++	return ret;
++}
++
++static void __check_ras_ta_cmd_resp(struct ras_core_context *ras_core,
++			struct ras_ta_cmd *ras_cmd)
++{
++
++	if (ras_cmd->ras_out_message.flags.err_inject_switch_disable_flag) {
++		RAS_DEV_WARN(ras_core->dev, "ECC switch disabled\n");
++		ras_cmd->ras_status = RAS_TA_STATUS__ERROR_RAS_NOT_AVAILABLE;
++	} else if (ras_cmd->ras_out_message.flags.reg_access_failure_flag)
++		RAS_DEV_WARN(ras_core->dev, "RAS internal register access blocked\n");
++
++	switch (ras_cmd->ras_status) {
++	case RAS_TA_STATUS__ERROR_UNSUPPORTED_IP:
++		RAS_DEV_WARN(ras_core->dev,
++			 "RAS WARNING: cmd failed due to unsupported ip\n");
++		break;
++	case RAS_TA_STATUS__ERROR_UNSUPPORTED_ERROR_INJ:
++		RAS_DEV_WARN(ras_core->dev,
++			 "RAS WARNING: cmd failed due to unsupported error injection\n");
++		break;
++	case RAS_TA_STATUS__SUCCESS:
++		break;
++	case RAS_TA_STATUS__TEE_ERROR_ACCESS_DENIED:
++		if (ras_cmd->cmd_id == RAS_TA_CMD_ID__TRIGGER_ERROR)
++			RAS_DEV_WARN(ras_core->dev,
++				 "RAS WARNING: Inject error to critical region is not allowed\n");
++		break;
++	default:
++		RAS_DEV_WARN(ras_core->dev,
++			 "RAS WARNING: ras status = 0x%X\n", ras_cmd->ras_status);
++		break;
++	}
++}
++
++static int send_ras_ta_runtime_cmd(struct ras_core_context *ras_core,
++			enum ras_ta_cmd_id cmd_id, void *in, uint32_t in_size,
++			void *out, uint32_t out_size)
++{
++	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
++	struct gpu_mem_block *cmd_mem;
++	struct ras_ta_cmd *ras_cmd;
++	struct psp_gfx_cmd_invoke_cmd invoke_cmd = {0};
++	struct psp_cmd_resp resp = {0};
++	int ret = 0;
++
++	if (!in || (in_size > sizeof(union ras_ta_cmd_input)) ||
++		(cmd_id >= MAX_RAS_TA_CMD_ID)) {
++		RAS_DEV_ERR(ras_core->dev, "Invalid RAS TA command, id: %u\n", cmd_id);
++		return -EINVAL;
++	}
++
++	ras_psp_sync_system_ras_psp_status(ras_core);
++
++	cmd_mem = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_TA_CMD);
++	if (!cmd_mem)
++		return -ENOMEM;
++
++	if (!ras_core_down_trylock_gpu_reset_lock(ras_core)) {
++		ret = -EACCES;
++		goto out;
++	}
++
++	ras_cmd = (struct ras_ta_cmd *)cmd_mem->mem_cpu_addr;
++
++	mutex_lock(&ta_ctx->ta_mutex);
++
++	memset(ras_cmd, 0, sizeof(*ras_cmd));
++	ras_cmd->cmd_id = cmd_id;
++	memcpy(&ras_cmd->ras_in_message, in, in_size);
++
++	invoke_cmd.ta_cmd_id = cmd_id;
++	invoke_cmd.session_id = ta_ctx->session_id;
++
++	ret = send_psp_cmd(ras_core, GFX_CMD_ID_INVOKE_CMD,
++			&invoke_cmd, sizeof(invoke_cmd), &resp);
++
++	/* If err_event_athub occurs error inject was successful, however
++	 *  return status from TA is no long reliable
++	 */
++	if (ras_core_ras_interrupt_detected(ras_core)) {
++		ret = 0;
++		goto unlock;
++	}
++
++	if (ret || resp.status) {
++		RAS_DEV_ERR(ras_core->dev,
++			"RAS: Failed to send psp cmd! ret:%d, status:%u\n",
++			ret, resp.status);
++		ret = -ESTRPIPE;
++		goto unlock;
++	}
++
++	if (ras_cmd->if_version > RAS_TA_HOST_IF_VER) {
++		RAS_DEV_WARN(ras_core->dev, "RAS: Unsupported Interface\n");
++		ret = -EINVAL;
++		goto unlock;
++	}
++
++	if (!ras_cmd->ras_status && out && out_size)
++		memcpy(out, &ras_cmd->ras_out_message, out_size);
++
++	__check_ras_ta_cmd_resp(ras_core, ras_cmd);
++
++unlock:
++	mutex_unlock(&ta_ctx->ta_mutex);
++	ras_core_up_gpu_reset_lock(ras_core);
++out:
++	ras_psp_put_gpu_mem(ras_core, cmd_mem);
++	return ret;
++}
++
++static int trigger_ras_ta_error(struct ras_core_context *ras_core,
++	struct ras_ta_trigger_error_input *info, uint32_t instance_mask)
++{
++	uint32_t dev_mask = 0;
++
++	switch (info->block_id) {
++	case RAS_TA_BLOCK__GFX:
++		if (ras_gfx_get_ta_subblock(ras_core, info->inject_error_type,
++				info->sub_block_index, &info->sub_block_index))
++			return -EINVAL;
++
++		dev_mask = RAS_GET_MASK(ras_core->dev, GC, instance_mask);
++		break;
++	case RAS_TA_BLOCK__SDMA:
++		dev_mask = RAS_GET_MASK(ras_core->dev, SDMA0, instance_mask);
++		break;
++	case RAS_TA_BLOCK__VCN:
++	case RAS_TA_BLOCK__JPEG:
++		dev_mask = RAS_GET_MASK(ras_core->dev, VCN, instance_mask);
++		break;
++	default:
++		dev_mask = instance_mask;
++		break;
++	}
++
++	/* reuse sub_block_index for backward compatibility */
++	dev_mask <<= RAS_TA_INST_SHIFT;
++	dev_mask &= RAS_TA_INST_MASK;
++	info->sub_block_index |= dev_mask;
++
++	return send_ras_ta_runtime_cmd(ras_core, RAS_TA_CMD_ID__TRIGGER_ERROR,
++				info, sizeof(*info), NULL, 0);
++}
++
++static int send_load_ta_fw_cmd(struct ras_core_context *ras_core,
++				struct ras_ta_ctx *ta_ctx)
++{
++	struct ras_ta_fw_bin  *fw_bin = &ta_ctx->fw_bin;
++	struct gpu_mem_block *fw_mem;
++	struct gpu_mem_block *cmd_mem;
++	struct ras_ta_cmd *ta_cmd;
++	struct ras_ta_init_flags *ta_init_flags;
++	struct psp_gfx_cmd_load_ta  psp_load_ta_cmd;
++	struct psp_cmd_resp resp = {0};
++	struct ras_ta_image_header *fw_hdr = NULL;
++	int ret;
++
++	fw_mem = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_TA_FW);
++	if (!fw_mem)
++		return -ENOMEM;
++
++	cmd_mem = ras_psp_get_gpu_mem(ras_core, GPU_MEM_TYPE_RAS_TA_CMD);
++	if (!cmd_mem) {
++		ret = -ENOMEM;
++		goto err;
++	}
++
++	ret = ras_psp_get_ras_ta_init_param(ras_core, &ta_ctx->init_param);
++	if (ret)
++		goto err;
++
++	if (!ras_core_down_trylock_gpu_reset_lock(ras_core)) {
++		ret = -EACCES;
++		goto err;
++	}
++
++	/* copy ras ta binary to shared gpu memory */
++	memcpy(fw_mem->mem_cpu_addr, fw_bin->bin_addr, fw_bin->bin_size);
++	fw_mem->mem_size = fw_bin->bin_size;
++
++	/* Initialize ras ta startup parameter */
++	ta_cmd = (struct ras_ta_cmd *)cmd_mem->mem_cpu_addr;
++	ta_init_flags = &ta_cmd->ras_in_message.init_flags;
++
++	ta_init_flags->poison_mode_en = ta_ctx->init_param.poison_mode_en;
++	ta_init_flags->dgpu_mode = ta_ctx->init_param.dgpu_mode;
++	ta_init_flags->xcc_mask = ta_ctx->init_param.xcc_mask;
++	ta_init_flags->channel_dis_num = ta_ctx->init_param.channel_dis_num;
++	ta_init_flags->nps_mode = ta_ctx->init_param.nps_mode;
++	ta_init_flags->active_umc_mask = ta_ctx->init_param.active_umc_mask;
++
++	/* Setup load ras ta command */
++	memset(&psp_load_ta_cmd, 0, sizeof(psp_load_ta_cmd));
++	psp_load_ta_cmd.app_phy_addr_lo	= lower_32_bits(fw_mem->mem_mc_addr);
++	psp_load_ta_cmd.app_phy_addr_hi	= upper_32_bits(fw_mem->mem_mc_addr);
++	psp_load_ta_cmd.app_len		= fw_mem->mem_size;
++	psp_load_ta_cmd.cmd_buf_phy_addr_lo = lower_32_bits(cmd_mem->mem_mc_addr);
++	psp_load_ta_cmd.cmd_buf_phy_addr_hi = upper_32_bits(cmd_mem->mem_mc_addr);
++	psp_load_ta_cmd.cmd_buf_len = cmd_mem->mem_size;
++
++	ret = send_psp_cmd(ras_core, GFX_CMD_ID_LOAD_TA,
++			&psp_load_ta_cmd, sizeof(psp_load_ta_cmd), &resp);
++	if (!ret && !resp.status) {
++		/* Read TA version at FW offset 0x60 if TA version not found*/
++		fw_hdr = (struct ras_ta_image_header *)fw_bin->bin_addr;
++		RAS_DEV_INFO(ras_core->dev, "PSP: RAS TA(version:%X.%X.%X.%X) is loaded.\n",
++			(fw_hdr->image_version >> 24) & 0xFF, (fw_hdr->image_version >> 16) & 0xFF,
++			(fw_hdr->image_version >> 8) & 0xFF, fw_hdr->image_version & 0xFF);
++		ta_ctx->ta_version = fw_hdr->image_version;
++		ta_ctx->session_id = resp.session_id;
++		ta_ctx->ras_ta_initialized = true;
++	} else {
++		RAS_DEV_ERR(ras_core->dev,
++			"Failed to load RAS TA! ret:%d, status:%d\n", ret, resp.status);
 +	}
 +
 +	ras_core_up_gpu_reset_lock(ras_core);
 +
-+	return res;
++err:
++	ras_psp_put_gpu_mem(ras_core, fw_mem);
++	ras_psp_put_gpu_mem(ras_core, cmd_mem);
++	return ret;
 +}
 +
-+static int __eeprom_read(struct ras_core_context *ras_core,
-+			      u32 eeprom_addr, u8 *eeprom_buf, u32 bytes)
++static int load_ras_ta_firmware(struct ras_core_context *ras_core,
++		struct ras_psp_ta_load *ras_ta_load)
 +{
-+	return __eeprom_xfer(ras_core, eeprom_addr,
-+			   eeprom_buf, bytes, true);
-+}
++	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
++	struct ras_ta_fw_bin  *fw_bin = &ta_ctx->fw_bin;
++	int ret;
 +
-+static int __eeprom_write(struct ras_core_context *ras_core,
-+			       u32 eeprom_addr, u8 *eeprom_buf, u32 bytes)
-+{
-+	return __eeprom_xfer(ras_core, eeprom_addr,
-+			   eeprom_buf, bytes, false);
-+}
++	fw_bin->bin_addr = ras_ta_load->bin_addr;
++	fw_bin->bin_size = ras_ta_load->bin_size;
++	fw_bin->fw_version = ras_ta_load->fw_version;
++	fw_bin->feature_version = ras_ta_load->feature_version;
 +
-+static void
-+__encode_table_header_to_buf(struct ras_eeprom_table_header *hdr,
-+			     unsigned char *buf)
-+{
-+	u32 *pp = (uint32_t *)buf;
-+
-+	pp[0] = cpu_to_le32(hdr->header);
-+	pp[1] = cpu_to_le32(hdr->version);
-+	pp[2] = cpu_to_le32(hdr->first_rec_offset);
-+	pp[3] = cpu_to_le32(hdr->tbl_size);
-+	pp[4] = cpu_to_le32(hdr->checksum);
-+}
-+
-+static void
-+__decode_table_header_from_buf(struct ras_eeprom_table_header *hdr,
-+			       unsigned char *buf)
-+{
-+	u32 *pp = (uint32_t *)buf;
-+
-+	hdr->header	      = le32_to_cpu(pp[0]);
-+	hdr->version	      = le32_to_cpu(pp[1]);
-+	hdr->first_rec_offset = le32_to_cpu(pp[2]);
-+	hdr->tbl_size	      = le32_to_cpu(pp[3]);
-+	hdr->checksum	      = le32_to_cpu(pp[4]);
-+}
-+
-+static int __write_table_header(struct ras_eeprom_control *control)
-+{
-+	u8 buf[RAS_TABLE_HEADER_SIZE];
-+	struct ras_core_context *ras_core = to_ras_core_context(control);
-+	int res;
-+
-+	memset(buf, 0, sizeof(buf));
-+	__encode_table_header_to_buf(&control->tbl_hdr, buf);
-+
-+	/* i2c may be unstable in gpu reset */
-+	res = __eeprom_write(ras_core,
-+				  control->i2c_address +
-+				  control->ras_header_offset,
-+				  buf, RAS_TABLE_HEADER_SIZE);
-+
-+	if (res < 0) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to write EEPROM table header:%d\n", res);
-+	} else if (res < RAS_TABLE_HEADER_SIZE) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Short write:%d out of %d\n", res, RAS_TABLE_HEADER_SIZE);
-+		res = -EIO;
-+	} else {
-+		res = 0;
-+	}
-+
-+	return res;
-+}
-+
-+static void
-+__encode_table_ras_info_to_buf(struct ras_eeprom_table_ras_info *rai,
-+			       unsigned char *buf)
-+{
-+	u32 *pp = (uint32_t *)buf;
-+	u32 tmp;
-+
-+	tmp = ((uint32_t)(rai->rma_status) & 0xFF) |
-+	      (((uint32_t)(rai->health_percent) << 8) & 0xFF00) |
-+	      (((uint32_t)(rai->ecc_page_threshold) << 16) & 0xFFFF0000);
-+	pp[0] = cpu_to_le32(tmp);
-+}
-+
-+static void
-+__decode_table_ras_info_from_buf(struct ras_eeprom_table_ras_info *rai,
-+				 unsigned char *buf)
-+{
-+	u32 *pp = (uint32_t *)buf;
-+	u32 tmp;
-+
-+	tmp = le32_to_cpu(pp[0]);
-+	rai->rma_status = tmp & 0xFF;
-+	rai->health_percent = (tmp >> 8) & 0xFF;
-+	rai->ecc_page_threshold = (tmp >> 16) & 0xFFFF;
-+}
-+
-+static int __write_table_ras_info(struct ras_eeprom_control *control)
-+{
-+	struct ras_core_context *ras_core = to_ras_core_context(control);
-+	u8 *buf;
-+	int res;
-+
-+	buf = kzalloc(RAS_TABLE_V2_1_INFO_SIZE, GFP_KERNEL);
-+	if (!buf) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to alloc buf to write table ras info\n");
-+		return -ENOMEM;
-+	}
-+
-+	__encode_table_ras_info_to_buf(&control->tbl_rai, buf);
-+
-+	/* i2c may be unstable in gpu reset */
-+	res = __eeprom_write(ras_core,
-+				  control->i2c_address +
-+				  control->ras_info_offset,
-+				  buf, RAS_TABLE_V2_1_INFO_SIZE);
-+
-+	if (res < 0) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to write EEPROM table ras info:%d\n", res);
-+	} else if (res < RAS_TABLE_V2_1_INFO_SIZE) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Short write:%d out of %d\n", res, RAS_TABLE_V2_1_INFO_SIZE);
-+		res = -EIO;
-+	} else {
-+		res = 0;
-+	}
-+
-+	kfree(buf);
-+
-+	return res;
-+}
-+
-+static u8 __calc_hdr_byte_sum(const struct ras_eeprom_control *control)
-+{
-+	int ii;
-+	u8  *pp, csum;
-+	u32 sz;
-+
-+	/* Header checksum, skip checksum field in the calculation */
-+	sz = sizeof(control->tbl_hdr) - sizeof(control->tbl_hdr.checksum);
-+	pp = (u8 *) &control->tbl_hdr;
-+	csum = 0;
-+	for (ii = 0; ii < sz; ii++, pp++)
-+		csum += *pp;
-+
-+	return csum;
-+}
-+
-+static u8 __calc_ras_info_byte_sum(const struct ras_eeprom_control *control)
-+{
-+	int ii;
-+	u8  *pp, csum;
-+	u32 sz;
-+
-+	sz = sizeof(control->tbl_rai);
-+	pp = (u8 *) &control->tbl_rai;
-+	csum = 0;
-+	for (ii = 0; ii < sz; ii++, pp++)
-+		csum += *pp;
-+
-+	return csum;
-+}
-+
-+static int ras_eeprom_correct_header_tag(
-+	struct ras_eeprom_control *control,
-+	uint32_t header)
-+{
-+	struct ras_eeprom_table_header *hdr = &control->tbl_hdr;
-+	u8 *hh;
-+	int res;
-+	u8 csum;
-+
-+	csum = -hdr->checksum;
-+
-+	hh = (void *) &hdr->header;
-+	csum -= (hh[0] + hh[1] + hh[2] + hh[3]);
-+	hh = (void *) &header;
-+	csum += hh[0] + hh[1] + hh[2] + hh[3];
-+	csum = -csum;
-+	mutex_lock(&control->ras_tbl_mutex);
-+	hdr->header = header;
-+	hdr->checksum = csum;
-+	res = __write_table_header(control);
-+	mutex_unlock(&control->ras_tbl_mutex);
-+
-+	return res;
-+}
-+
-+static void ras_set_eeprom_table_version(struct ras_eeprom_control *control)
-+{
-+	struct ras_eeprom_table_header *hdr = &control->tbl_hdr;
-+
-+	hdr->version = RAS_TABLE_VER_V3;
-+}
-+
-+/**
-+ * ras_eeprom_reset_table -- Reset the RAS EEPROM table
-+ * @control: pointer to control structure
-+ *
-+ * Reset the contents of the header of the RAS EEPROM table.
-+ * Return 0 on success, -errno on error.
-+ */
-+int ras_eeprom_reset_table(struct ras_core_context *ras_core)
-+{
-+	struct ras_eeprom_control *control = &ras_core->ras_eeprom;
-+	struct ras_eeprom_table_header *hdr = &control->tbl_hdr;
-+	struct ras_eeprom_table_ras_info *rai = &control->tbl_rai;
-+	u8 csum;
-+	int res;
-+
-+	mutex_lock(&control->ras_tbl_mutex);
-+
-+	hdr->header = RAS_TABLE_HDR_VAL;
-+	ras_set_eeprom_table_version(control);
-+
-+	if (hdr->version >= RAS_TABLE_VER_V2_1) {
-+		hdr->first_rec_offset = RAS_RECORD_START_V2_1;
-+		hdr->tbl_size = RAS_TABLE_HEADER_SIZE +
-+				RAS_TABLE_V2_1_INFO_SIZE;
-+		rai->rma_status = RAS_GPU_HEALTH_USABLE;
-+		/**
-+		 * GPU health represented as a percentage.
-+		 * 0 means worst health, 100 means fully health.
-+		 */
-+		rai->health_percent = 100;
-+		/* ecc_page_threshold = 0 means disable bad page retirement */
-+		rai->ecc_page_threshold = control->record_threshold_count;
-+	} else {
-+		hdr->first_rec_offset = RAS_RECORD_START;
-+		hdr->tbl_size = RAS_TABLE_HEADER_SIZE;
-+	}
-+
-+	csum = __calc_hdr_byte_sum(control);
-+	if (hdr->version >= RAS_TABLE_VER_V2_1)
-+		csum += __calc_ras_info_byte_sum(control);
-+	csum = -csum;
-+	hdr->checksum = csum;
-+	res = __write_table_header(control);
-+	if (!res && hdr->version > RAS_TABLE_VER_V1)
-+		res = __write_table_ras_info(control);
-+
-+	control->ras_num_recs = 0;
-+	control->ras_fri = 0;
-+
-+	control->bad_channel_bitmap = 0;
-+	ras_core_event_notify(ras_core, RAS_EVENT_ID__UPDATE_BAD_PAGE_NUM,
-+		&control->ras_num_recs);
-+	ras_core_event_notify(ras_core, RAS_EVENT_ID__UPDATE_BAD_CHANNEL_BITMAP,
-+		&control->bad_channel_bitmap);
-+	control->update_channel_flag = false;
-+
-+	mutex_unlock(&control->ras_tbl_mutex);
-+
-+	return res;
-+}
-+
-+static void
-+__encode_table_record_to_buf(struct ras_eeprom_control *control,
-+			     struct eeprom_umc_record *record,
-+			     unsigned char *buf)
-+{
-+	__le64 tmp = 0;
-+	int i = 0;
-+
-+	/* Next are all record fields according to EEPROM page spec in LE foramt */
-+	buf[i++] = record->err_type;
-+
-+	buf[i++] = record->bank;
-+
-+	tmp = cpu_to_le64(record->ts);
-+	memcpy(buf + i, &tmp, 8);
-+	i += 8;
-+
-+	tmp = cpu_to_le64((record->offset & 0xffffffffffff));
-+	memcpy(buf + i, &tmp, 6);
-+	i += 6;
-+
-+	buf[i++] = record->mem_channel;
-+	buf[i++] = record->mcumc_id;
-+
-+	tmp = cpu_to_le64((record->retired_row_pfn & 0xffffffffffff));
-+	memcpy(buf + i, &tmp, 6);
-+}
-+
-+static void
-+__decode_table_record_from_buf(struct ras_eeprom_control *control,
-+			       struct eeprom_umc_record *record,
-+			       unsigned char *buf)
-+{
-+	__le64 tmp = 0;
-+	int i =  0;
-+
-+	/* Next are all record fields according to EEPROM page spec in LE foramt */
-+	record->err_type = buf[i++];
-+
-+	record->bank = buf[i++];
-+
-+	memcpy(&tmp, buf + i, 8);
-+	record->ts = le64_to_cpu(tmp);
-+	i += 8;
-+
-+	memcpy(&tmp, buf + i, 6);
-+	record->offset = (le64_to_cpu(tmp) & 0xffffffffffff);
-+	i += 6;
-+
-+	record->mem_channel = buf[i++];
-+	record->mcumc_id = buf[i++];
-+
-+	memcpy(&tmp, buf + i,  6);
-+	record->retired_row_pfn = (le64_to_cpu(tmp) & 0xffffffffffff);
-+}
-+
-+bool ras_eeprom_check_safety_watermark(struct ras_core_context *ras_core)
-+{
-+	struct ras_eeprom_control *control = &ras_core->ras_eeprom;
-+	bool ret = false;
-+	int bad_page_count;
-+
-+	if (!__is_ras_eeprom_supported(ras_core) ||
-+	    !control->record_threshold_config)
-+		return false;
-+
-+	bad_page_count = ras_umc_get_badpage_count(ras_core);
-+	if (control->tbl_hdr.header == RAS_TABLE_HDR_BAD) {
-+		if (bad_page_count > control->record_threshold_count)
-+			RAS_DEV_WARN(ras_core->dev, "RAS records:%d exceed threshold:%d",
-+				bad_page_count, control->record_threshold_count);
-+
-+		if ((control->record_threshold_config == WARN_NONSTOP_OVER_THRESHOLD) ||
-+			(control->record_threshold_config == NONSTOP_OVER_THRESHOLD)) {
-+			RAS_DEV_WARN(ras_core->dev,
-+				"Please consult AMD Service Action Guide (SAG) for appropriate service procedures.\n");
-+			ret = false;
-+		} else {
-+			ras_core->is_rma = true;
-+			RAS_DEV_WARN(ras_core->dev,
-+				"Please consider adjusting the customized threshold.\n");
-+			ret = true;
-+		}
++	ret = send_load_ta_fw_cmd(ras_core, ta_ctx);
++	if (!ret) {
++		ras_ta_load->out_session_id = ta_ctx->session_id;
++		ras_ta_load->out_loaded_ta_version = ta_ctx->ta_version;
 +	}
 +
 +	return ret;
 +}
 +
-+/**
-+ * __ras_eeprom_write -- write indexed from buffer to EEPROM
-+ * @control: pointer to control structure
-+ * @buf: pointer to buffer containing data to write
-+ * @fri: start writing at this index
-+ * @num: number of records to write
-+ *
-+ * The caller must hold the table mutex in @control.
-+ * Return 0 on success, -errno otherwise.
-+ */
-+static int __ras_eeprom_write(struct ras_eeprom_control *control,
-+			      u8 *buf, const u32 fri, const u32 num)
++static int unload_ras_ta_firmware(struct ras_core_context *ras_core,
++		struct ras_psp_ta_unload *ras_ta_unload)
 +{
-+	struct ras_core_context *ras_core = to_ras_core_context(control);
-+	u32 buf_size;
-+	int res;
++	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
++	struct psp_gfx_cmd_unload_ta  cmd_unload_ta = {0};
++	struct psp_cmd_resp resp = {0};
++	int ret;
 +
-+	/* i2c may be unstable in gpu reset */
-+	buf_size = num * RAS_TABLE_RECORD_SIZE;
-+	res = __eeprom_write(ras_core,
-+			       control->i2c_address + RAS_INDEX_TO_OFFSET(control, fri),
-+			       buf, buf_size);
-+	if (res < 0) {
++	if (!ras_core_down_trylock_gpu_reset_lock(ras_core))
++		return -EACCES;
++
++	cmd_unload_ta.session_id = ta_ctx->session_id;
++	ret = send_psp_cmd(ras_core, GFX_CMD_ID_UNLOAD_TA,
++		&cmd_unload_ta, sizeof(cmd_unload_ta), &resp);
++	if (ret || resp.status) {
 +		RAS_DEV_ERR(ras_core->dev,
-+			"Writing %d EEPROM table records error:%d\n", num, res);
-+	} else if (res < buf_size) {
-+		/* Short write, return error.*/
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Wrote %d records out of %d\n",
-+			(res/RAS_TABLE_RECORD_SIZE), num);
-+		res = -EIO;
-+	} else {
-+		res = 0;
++			"Failed to unload RAS TA! ret:%d, status:%u\n",
++			ret, resp.status);
++		goto unlock;
 +	}
 +
-+	return res;
++	kfree(ta_ctx->fw_bin.bin_addr);
++	memset(&ta_ctx->fw_bin, 0, sizeof(ta_ctx->fw_bin));
++	ta_ctx->ta_version = 0;
++	ta_ctx->ras_ta_initialized = false;
++	ta_ctx->session_id = 0;
++
++unlock:
++	ras_core_up_gpu_reset_lock(ras_core);
++
++	return ret;
 +}
 +
-+static int ras_eeprom_append_table(struct ras_eeprom_control *control,
-+				   struct eeprom_umc_record *record,
-+				   const u32 num)
++int ras_psp_load_firmware(struct ras_core_context *ras_core,
++	struct ras_psp_ta_load *ras_ta_load)
 +{
-+	u32 a, b, i;
-+	u8 *buf, *pp;
-+	int res;
++	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
++	struct ras_psp_ta_unload ras_ta_unload = {0};
++	int ret;
 +
-+	buf = kcalloc(num, RAS_TABLE_RECORD_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	/* Encode all of them in one go.
-+	 */
-+	pp = buf;
-+	for (i = 0; i < num; i++, pp += RAS_TABLE_RECORD_SIZE) {
-+		__encode_table_record_to_buf(control, &record[i], pp);
-+
-+		/* update bad channel bitmap */
-+		if ((record[i].mem_channel < BITS_PER_TYPE(control->bad_channel_bitmap)) &&
-+		    !(control->bad_channel_bitmap & (1 << record[i].mem_channel))) {
-+			control->bad_channel_bitmap |= 1 << record[i].mem_channel;
-+			control->update_channel_flag = true;
-+		}
-+	}
-+
-+	/* a, first record index to write into.
-+	 * b, last record index to write into.
-+	 * a = first index to read (fri) + number of records in the table,
-+	 * b = a + @num - 1.
-+	 * Let N = control->ras_max_num_record_count, then we have,
-+	 * case 0: 0 <= a <= b < N,
-+	 *   just append @num records starting at a;
-+	 * case 1: 0 <= a < N <= b,
-+	 *   append (N - a) records starting at a, and
-+	 *   append the remainder,  b % N + 1, starting at 0.
-+	 * case 2: 0 <= fri < N <= a <= b, then modulo N we get two subcases,
-+	 * case 2a: 0 <= a <= b < N
-+	 *   append num records starting at a; and fix fri if b overwrote it,
-+	 *   and since a <= b, if b overwrote it then a must've also,
-+	 *   and if b didn't overwrite it, then a didn't also.
-+	 * case 2b: 0 <= b < a < N
-+	 *   write num records starting at a, which wraps around 0=N
-+	 *   and overwrite fri unconditionally. Now from case 2a,
-+	 *   this means that b eclipsed fri to overwrite it and wrap
-+	 *   around 0 again, i.e. b = 2N+r pre modulo N, so we unconditionally
-+	 *   set fri = b + 1 (mod N).
-+	 * Now, since fri is updated in every case, except the trivial case 0,
-+	 * the number of records present in the table after writing, is,
-+	 * num_recs - 1 = b - fri (mod N), and we take the positive value,
-+	 * by adding an arbitrary multiple of N before taking the modulo N
-+	 * as shown below.
-+	 */
-+	a = control->ras_fri + control->ras_num_recs;
-+	b = a + num  - 1;
-+	if (b < control->ras_max_record_count) {
-+		res = __ras_eeprom_write(control, buf, a, num);
-+	} else if (a < control->ras_max_record_count) {
-+		u32 g0, g1;
-+
-+		g0 = control->ras_max_record_count - a;
-+		g1 = b % control->ras_max_record_count + 1;
-+		res = __ras_eeprom_write(control, buf, a, g0);
-+		if (res)
-+			goto Out;
-+		res = __ras_eeprom_write(control,
-+						buf + g0 * RAS_TABLE_RECORD_SIZE,
-+						0, g1);
-+		if (res)
-+			goto Out;
-+		if (g1 > control->ras_fri)
-+			control->ras_fri = g1 % control->ras_max_record_count;
-+	} else {
-+		a %= control->ras_max_record_count;
-+		b %= control->ras_max_record_count;
-+
-+		if (a <= b) {
-+			/* Note that, b - a + 1 = num. */
-+			res = __ras_eeprom_write(control, buf, a, num);
-+			if (res)
-+				goto Out;
-+			if (b >= control->ras_fri)
-+				control->ras_fri = (b + 1) % control->ras_max_record_count;
-+		} else {
-+			u32 g0, g1;
-+
-+			/* b < a, which means, we write from
-+			 * a to the end of the table, and from
-+			 * the start of the table to b.
-+			 */
-+			g0 = control->ras_max_record_count - a;
-+			g1 = b + 1;
-+			res = __ras_eeprom_write(control, buf, a, g0);
-+			if (res)
-+				goto Out;
-+			res = __ras_eeprom_write(control,
-+						 buf + g0 * RAS_TABLE_RECORD_SIZE, 0, g1);
-+			if (res)
-+				goto Out;
-+			control->ras_fri = g1 % control->ras_max_record_count;
-+		}
-+	}
-+	control->ras_num_recs = 1 +
-+		(control->ras_max_record_count + b - control->ras_fri)
-+		% control->ras_max_record_count;
-+Out:
-+	kfree(buf);
-+	return res;
-+}
-+
-+static int ras_eeprom_update_header(struct ras_eeprom_control *control)
-+{
-+	struct ras_core_context *ras_core = to_ras_core_context(control);
-+	int threshold_config = control->record_threshold_config;
-+	u8 *buf, *pp, csum;
-+	u32 buf_size;
-+	int bad_page_count;
-+	int res;
-+
-+	bad_page_count = ras_umc_get_badpage_count(ras_core);
-+	/* Modify the header if it exceeds.
-+	 */
-+	if (threshold_config != 0 &&
-+		bad_page_count > control->record_threshold_count) {
-+		RAS_DEV_WARN(ras_core->dev,
-+			"Saved bad pages %d reaches threshold value %d\n",
-+			bad_page_count, control->record_threshold_count);
-+		control->tbl_hdr.header = RAS_TABLE_HDR_BAD;
-+		if (control->tbl_hdr.version >= RAS_TABLE_VER_V2_1) {
-+			control->tbl_rai.rma_status = RAS_GPU_RETIRED__ECC_REACH_THRESHOLD;
-+			control->tbl_rai.health_percent = 0;
-+		}
-+
-+		if ((threshold_config != WARN_NONSTOP_OVER_THRESHOLD) &&
-+			(threshold_config != NONSTOP_OVER_THRESHOLD))
-+			ras_core->is_rma = true;
-+
-+		/* ignore the -ENOTSUPP return value */
-+		ras_core_event_notify(ras_core, RAS_EVENT_ID__DEVICE_RMA, NULL);
-+	}
-+
-+	if (control->tbl_hdr.version >= RAS_TABLE_VER_V2_1)
-+		control->tbl_hdr.tbl_size = RAS_TABLE_HEADER_SIZE +
-+					    RAS_TABLE_V2_1_INFO_SIZE +
-+					    control->ras_num_recs * RAS_TABLE_RECORD_SIZE;
-+	else
-+		control->tbl_hdr.tbl_size = RAS_TABLE_HEADER_SIZE +
-+					    control->ras_num_recs * RAS_TABLE_RECORD_SIZE;
-+	control->tbl_hdr.checksum = 0;
-+
-+	buf_size = control->ras_num_recs * RAS_TABLE_RECORD_SIZE;
-+	buf = kcalloc(control->ras_num_recs, RAS_TABLE_RECORD_SIZE, GFP_KERNEL);
-+	if (!buf) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"allocating memory for table of size %d bytes failed\n",
-+			control->tbl_hdr.tbl_size);
-+		res = -ENOMEM;
-+		goto Out;
-+	}
-+
-+	res = __eeprom_read(ras_core,
-+			      control->i2c_address +
-+			      control->ras_record_offset,
-+			      buf, buf_size);
-+	if (res < 0) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"EEPROM failed reading records:%d\n", res);
-+		goto Out;
-+	} else if (res < buf_size) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"EEPROM read %d out of %d bytes\n", res, buf_size);
-+		res = -EIO;
-+		goto Out;
-+	}
-+
-+	/**
-+	 * bad page records have been stored in eeprom,
-+	 * now calculate gpu health percent
-+	 */
-+	if (threshold_config != 0 &&
-+	    control->tbl_hdr.version >= RAS_TABLE_VER_V2_1 &&
-+	    bad_page_count <= control->record_threshold_count)
-+		control->tbl_rai.health_percent = ((control->record_threshold_count -
-+			bad_page_count) * 100) / control->record_threshold_count;
-+
-+	/* Recalc the checksum.
-+	 */
-+	csum = 0;
-+	for (pp = buf; pp < buf + buf_size; pp++)
-+		csum += *pp;
-+
-+	csum += __calc_hdr_byte_sum(control);
-+	if (control->tbl_hdr.version >= RAS_TABLE_VER_V2_1)
-+		csum += __calc_ras_info_byte_sum(control);
-+	/* avoid sign extension when assigning to "checksum" */
-+	csum = -csum;
-+	control->tbl_hdr.checksum = csum;
-+	res = __write_table_header(control);
-+	if (!res && control->tbl_hdr.version > RAS_TABLE_VER_V1)
-+		res = __write_table_ras_info(control);
-+Out:
-+	kfree(buf);
-+	return res;
-+}
-+
-+/**
-+ * ras_core_eeprom_append -- append records to the EEPROM RAS table
-+ * @control: pointer to control structure
-+ * @record: array of records to append
-+ * @num: number of records in @record array
-+ *
-+ * Append @num records to the table, calculate the checksum and write
-+ * the table back to EEPROM. The maximum number of records that
-+ * can be appended is between 1 and control->ras_max_record_count,
-+ * regardless of how many records are already stored in the table.
-+ *
-+ * Return 0 on success or if EEPROM is not supported, -errno on error.
-+ */
-+int ras_eeprom_append(struct ras_core_context *ras_core,
-+			   struct eeprom_umc_record *record, const u32 num)
-+{
-+	struct ras_eeprom_control *control = &ras_core->ras_eeprom;
-+	int res;
-+
-+	if (!__is_ras_eeprom_supported(ras_core))
++	if (ta_ctx->preload_ras_ta_enabled)
 +		return 0;
 +
-+	if (num == 0) {
-+		RAS_DEV_ERR(ras_core->dev, "will not append 0 records\n");
++	if (!ras_ta_load)
 +		return -EINVAL;
-+	} else if ((num + control->ras_num_recs) > control->ras_max_record_count) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"cannot append %d records than the size of table %d\n",
-+			num, control->ras_max_record_count);
++
++	if (ta_ctx->ras_ta_initialized) {
++		ras_ta_unload.ras_session_id = ta_ctx->session_id;
++		ret = unload_ras_ta_firmware(ras_core, &ras_ta_unload);
++		if (ret)
++			return ret;
++	}
++
++	return load_ras_ta_firmware(ras_core, ras_ta_load);
++}
++
++int ras_psp_unload_firmware(struct ras_core_context *ras_core,
++	struct ras_psp_ta_unload *ras_ta_unload)
++{
++	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
++
++	if (ta_ctx->preload_ras_ta_enabled)
++		return 0;
++
++	if ((!ras_ta_unload) ||
++	    (ras_ta_unload->ras_session_id != ta_ctx->session_id))
++		return -EINVAL;
++
++	return unload_ras_ta_firmware(ras_core, ras_ta_unload);
++}
++
++int ras_psp_trigger_error(struct ras_core_context *ras_core,
++	struct ras_ta_trigger_error_input *info, uint32_t instance_mask)
++{
++	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
++
++	if (!ta_ctx->preload_ras_ta_enabled && !ta_ctx->ras_ta_initialized) {
++		RAS_DEV_ERR(ras_core->dev, "RAS: ras firmware not initialized!");
++		return -ENOEXEC;
++	}
++
++	if (!info)
++		return -EINVAL;
++
++	return trigger_ras_ta_error(ras_core, info, instance_mask);
++}
++
++int ras_psp_query_address(struct ras_core_context *ras_core,
++		struct ras_ta_query_address_input *addr_in,
++		struct ras_ta_query_address_output *addr_out)
++{
++	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
++
++	if (!ta_ctx->preload_ras_ta_enabled &&
++	    !ta_ctx->ras_ta_initialized) {
++		RAS_DEV_ERR(ras_core->dev, "RAS: ras firmware not initialized!");
++		return -ENOEXEC;
++	}
++
++	if (!addr_in || !addr_out)
++		return -EINVAL;
++
++	return send_ras_ta_runtime_cmd(ras_core, RAS_TA_CMD_ID__QUERY_ADDRESS,
++		addr_in, sizeof(*addr_in), addr_out, sizeof(*addr_out));
++}
++
++int ras_psp_sw_init(struct ras_core_context *ras_core)
++{
++	struct ras_psp *psp = &ras_core->ras_psp;
++
++	memset(psp, 0, sizeof(*psp));
++
++	psp->sys_func = ras_core->config->psp_cfg.psp_sys_fn;
++	if (!psp->sys_func) {
++		RAS_DEV_ERR(ras_core->dev, "RAS psp sys function not configured!\n");
 +		return -EINVAL;
 +	}
 +
-+	mutex_lock(&control->ras_tbl_mutex);
-+	res = ras_eeprom_append_table(control, record, num);
-+	if (!res)
-+		res = ras_eeprom_update_header(control);
++	mutex_init(&psp->psp_ctx.internal_mutex);
++	mutex_init(&psp->ta_ctx.ta_mutex);
 +
-+	mutex_unlock(&control->ras_tbl_mutex);
-+
-+	return res;
++	return 0;
 +}
 +
-+/**
-+ * __ras_eeprom_read -- read indexed from EEPROM into buffer
-+ * @control: pointer to control structure
-+ * @buf: pointer to buffer to read into
-+ * @fri: first record index, start reading at this index, absolute index
-+ * @num: number of records to read
-+ *
-+ * The caller must hold the table mutex in @control.
-+ * Return 0 on success, -errno otherwise.
-+ */
-+static int __ras_eeprom_read(struct ras_eeprom_control *control,
-+			     u8 *buf, const u32 fri, const u32 num)
++int ras_psp_sw_fini(struct ras_core_context *ras_core)
 +{
-+	struct ras_core_context *ras_core = to_ras_core_context(control);
-+	u32 buf_size;
-+	int res;
++	struct ras_psp *psp = &ras_core->ras_psp;
 +
-+	/* i2c may be unstable in gpu reset */
-+	buf_size = num * RAS_TABLE_RECORD_SIZE;
-+	res = __eeprom_read(ras_core,
-+			      control->i2c_address +
-+			      RAS_INDEX_TO_OFFSET(control, fri),
-+			      buf, buf_size);
-+	if (res < 0) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Reading %d EEPROM table records error:%d\n", num, res);
-+	} else if (res < buf_size) {
-+		/* Short read, return error.
++	mutex_destroy(&psp->psp_ctx.internal_mutex);
++	mutex_destroy(&psp->ta_ctx.ta_mutex);
++
++	memset(psp, 0, sizeof(*psp));
++
++	return 0;
++}
++
++int ras_psp_hw_init(struct ras_core_context *ras_core)
++{
++	struct ras_psp *psp = &ras_core->ras_psp;
++
++	psp->psp_ip_version = ras_core->config->psp_ip_version;
++
++	psp->ip_func = ras_psp_get_ip_funcs(ras_core, psp->psp_ip_version);
++	if (!psp->ip_func)
++		return -EINVAL;
++
++	/* After GPU reset, the system RAS PSP status may change.
++	 * therefore, it is necessary to synchronize the system status again.
++	 */
++	ras_psp_sync_system_ras_psp_status(ras_core);
++
++	return 0;
++}
++
++int ras_psp_hw_fini(struct ras_core_context *ras_core)
++{
++	return 0;
++}
++
++bool ras_psp_check_supported_cmd(struct ras_core_context *ras_core,
++		enum ras_ta_cmd_id cmd_id)
++{
++	struct ras_ta_ctx *ta_ctx = &ras_core->ras_psp.ta_ctx;
++	bool ret = false;
++
++	if (!ta_ctx->preload_ras_ta_enabled && !ta_ctx->ras_ta_initialized)
++		return false;
++
++	switch (cmd_id) {
++	case RAS_TA_CMD_ID__QUERY_ADDRESS:
++		/* Currently, querying the address from RAS TA is only supported
++		 * when the RAS TA firmware is loaded during driver installation.
 +		 */
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Read %d records out of %d\n",
-+			(res/RAS_TABLE_RECORD_SIZE), num);
-+		res = -EIO;
-+	} else {
-+		res = 0;
-+	}
-+
-+	return res;
-+}
-+
-+/**
-+ * ras_eeprom_read -- read EEPROM
-+ * @control: pointer to control structure
-+ * @record: array of records to read into
-+ * @num: number of records in @record
-+ *
-+ * Reads num records from the RAS table in EEPROM and
-+ * writes the data into @record array.
-+ *
-+ * Returns 0 on success, -errno on error.
-+ */
-+int ras_eeprom_read(struct ras_core_context *ras_core,
-+			 struct eeprom_umc_record *record, const u32 num)
-+{
-+	struct ras_eeprom_control *control = &ras_core->ras_eeprom;
-+	int i, res;
-+	u8 *buf, *pp;
-+	u32 g0, g1;
-+
-+	if (!__is_ras_eeprom_supported(ras_core))
-+		return 0;
-+
-+	if (num == 0) {
-+		RAS_DEV_ERR(ras_core->dev, "will not read 0 records\n");
-+		return -EINVAL;
-+	} else if (num > control->ras_num_recs) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"too many records to read:%d available:%d\n",
-+			num, control->ras_num_recs);
-+		return -EINVAL;
-+	}
-+
-+	buf = kcalloc(num, RAS_TABLE_RECORD_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	/* Determine how many records to read, from the first record
-+	 * index, fri, to the end of the table, and from the beginning
-+	 * of the table, such that the total number of records is
-+	 * @num, and we handle wrap around when fri > 0 and
-+	 * fri + num > RAS_MAX_RECORD_COUNT.
-+	 *
-+	 * First we compute the index of the last element
-+	 * which would be fetched from each region,
-+	 * g0 is in [fri, fri + num - 1], and
-+	 * g1 is in [0, RAS_MAX_RECORD_COUNT - 1].
-+	 * Then, if g0 < RAS_MAX_RECORD_COUNT, the index of
-+	 * the last element to fetch, we set g0 to _the number_
-+	 * of elements to fetch, @num, since we know that the last
-+	 * indexed to be fetched does not exceed the table.
-+	 *
-+	 * If, however, g0 >= RAS_MAX_RECORD_COUNT, then
-+	 * we set g0 to the number of elements to read
-+	 * until the end of the table, and g1 to the number of
-+	 * elements to read from the beginning of the table.
-+	 */
-+	g0 = control->ras_fri + num - 1;
-+	g1 = g0 % control->ras_max_record_count;
-+	if (g0 < control->ras_max_record_count) {
-+		g0 = num;
-+		g1 = 0;
-+	} else {
-+		g0 = control->ras_max_record_count - control->ras_fri;
-+		g1 += 1;
-+	}
-+
-+	mutex_lock(&control->ras_tbl_mutex);
-+	res = __ras_eeprom_read(control, buf, control->ras_fri, g0);
-+	if (res)
-+		goto Out;
-+	if (g1) {
-+		res = __ras_eeprom_read(control,
-+					buf + g0 * RAS_TABLE_RECORD_SIZE, 0, g1);
-+		if (res)
-+			goto Out;
-+	}
-+
-+	res = 0;
-+
-+	/* Read up everything? Then transform.
-+	 */
-+	pp = buf;
-+	for (i = 0; i < num; i++, pp += RAS_TABLE_RECORD_SIZE) {
-+		__decode_table_record_from_buf(control, &record[i], pp);
-+
-+		/* update bad channel bitmap */
-+		if ((record[i].mem_channel < BITS_PER_TYPE(control->bad_channel_bitmap)) &&
-+		    !(control->bad_channel_bitmap & (1 << record[i].mem_channel))) {
-+			control->bad_channel_bitmap |= 1 << record[i].mem_channel;
-+			control->update_channel_flag = true;
-+		}
-+	}
-+Out:
-+	kfree(buf);
-+	mutex_unlock(&control->ras_tbl_mutex);
-+
-+	return res;
-+}
-+
-+uint32_t ras_eeprom_max_record_count(struct ras_core_context *ras_core)
-+{
-+	struct ras_eeprom_control *control = &ras_core->ras_eeprom;
-+
-+	/* get available eeprom table version first before eeprom table init */
-+	ras_set_eeprom_table_version(control);
-+
-+	if (control->tbl_hdr.version >= RAS_TABLE_VER_V2_1)
-+		return RAS_MAX_RECORD_COUNT_V2_1;
-+	else
-+		return RAS_MAX_RECORD_COUNT;
-+}
-+
-+/**
-+ * __verify_ras_table_checksum -- verify the RAS EEPROM table checksum
-+ * @control: pointer to control structure
-+ *
-+ * Check the checksum of the stored in EEPROM RAS table.
-+ *
-+ * Return 0 if the checksum is correct,
-+ * positive if it is not correct, and
-+ * -errno on I/O error.
-+ */
-+static int __verify_ras_table_checksum(struct ras_eeprom_control *control)
-+{
-+	struct ras_core_context *ras_core = to_ras_core_context(control);
-+	int buf_size, res;
-+	u8  csum, *buf, *pp;
-+
-+	if (control->tbl_hdr.version >= RAS_TABLE_VER_V2_1)
-+		buf_size = RAS_TABLE_HEADER_SIZE +
-+			   RAS_TABLE_V2_1_INFO_SIZE +
-+			   control->ras_num_recs * RAS_TABLE_RECORD_SIZE;
-+	else
-+		buf_size = RAS_TABLE_HEADER_SIZE +
-+			   control->ras_num_recs * RAS_TABLE_RECORD_SIZE;
-+
-+	buf = kzalloc(buf_size, GFP_KERNEL);
-+	if (!buf) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Out of memory checking RAS table checksum.\n");
-+		return -ENOMEM;
-+	}
-+
-+	res = __eeprom_read(ras_core,
-+				 control->i2c_address +
-+				 control->ras_header_offset,
-+				 buf, buf_size);
-+	if (res < buf_size) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Partial read for checksum, res:%d\n", res);
-+		/* On partial reads, return -EIO.
-+		 */
-+		if (res >= 0)
-+			res = -EIO;
-+		goto Out;
-+	}
-+
-+	csum = 0;
-+	for (pp = buf; pp < buf + buf_size; pp++)
-+		csum += *pp;
-+Out:
-+	kfree(buf);
-+	return res < 0 ? res : csum;
-+}
-+
-+static int __read_table_ras_info(struct ras_eeprom_control *control)
-+{
-+	struct ras_eeprom_table_ras_info *rai = &control->tbl_rai;
-+	struct ras_core_context *ras_core = to_ras_core_context(control);
-+	unsigned char *buf;
-+	int res;
-+
-+	buf = kzalloc(RAS_TABLE_V2_1_INFO_SIZE, GFP_KERNEL);
-+	if (!buf) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to alloc buf to read EEPROM table ras info\n");
-+		return -ENOMEM;
-+	}
-+
-+	/**
-+	 * EEPROM table V2_1 supports ras info,
-+	 * read EEPROM table ras info
-+	 */
-+	res = __eeprom_read(ras_core,
-+			      control->i2c_address + control->ras_info_offset,
-+			      buf, RAS_TABLE_V2_1_INFO_SIZE);
-+	if (res < RAS_TABLE_V2_1_INFO_SIZE) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to read EEPROM table ras info, res:%d\n", res);
-+		res = res >= 0 ? -EIO : res;
-+		goto Out;
-+	}
-+
-+	__decode_table_ras_info_from_buf(rai, buf);
-+
-+Out:
-+	kfree(buf);
-+	return res == RAS_TABLE_V2_1_INFO_SIZE ? 0 : res;
-+}
-+
-+static int __check_ras_table_status(struct ras_core_context *ras_core)
-+{
-+	struct ras_eeprom_control *control = &ras_core->ras_eeprom;
-+	unsigned char buf[RAS_TABLE_HEADER_SIZE] = { 0 };
-+	struct ras_eeprom_table_header *hdr;
-+	int res;
-+
-+	hdr = &control->tbl_hdr;
-+
-+	if (!__is_ras_eeprom_supported(ras_core))
-+		return 0;
-+
-+	if (!__get_eeprom_i2c_addr(ras_core, control))
-+		return -EINVAL;
-+
-+	control->ras_header_offset = RAS_HDR_START;
-+	control->ras_info_offset = RAS_TABLE_V2_1_INFO_START;
-+	mutex_init(&control->ras_tbl_mutex);
-+
-+	/* Read the table header from EEPROM address */
-+	res = __eeprom_read(ras_core,
-+			      control->i2c_address + control->ras_header_offset,
-+			      buf, RAS_TABLE_HEADER_SIZE);
-+	if (res < RAS_TABLE_HEADER_SIZE) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to read EEPROM table header, res:%d\n", res);
-+		return res >= 0 ? -EIO : res;
-+	}
-+
-+	__decode_table_header_from_buf(hdr, buf);
-+
-+	if (hdr->header != RAS_TABLE_HDR_VAL &&
-+	    hdr->header != RAS_TABLE_HDR_BAD) {
-+		RAS_DEV_INFO(ras_core->dev, "Creating a new EEPROM table");
-+		return ras_eeprom_reset_table(ras_core);
-+	}
-+
-+	switch (hdr->version) {
-+	case RAS_TABLE_VER_V2_1:
-+	case RAS_TABLE_VER_V3:
-+		control->ras_num_recs = RAS_NUM_RECS_V2_1(hdr);
-+		control->ras_record_offset = RAS_RECORD_START_V2_1;
-+		control->ras_max_record_count = RAS_MAX_RECORD_COUNT_V2_1;
++		if (ta_ctx->preload_ras_ta_enabled)
++			ret = true;
 +		break;
-+	case RAS_TABLE_VER_V1:
-+		control->ras_num_recs = RAS_NUM_RECS(hdr);
-+		control->ras_record_offset = RAS_RECORD_START;
-+		control->ras_max_record_count = RAS_MAX_RECORD_COUNT;
++	case RAS_TA_CMD_ID__TRIGGER_ERROR:
++		ret = true;
 +		break;
 +	default:
-+		RAS_DEV_ERR(ras_core->dev,
-+			"RAS header invalid, unsupported version: %u",
-+			hdr->version);
-+		return -EINVAL;
++		ret = false;
++		break;
 +	}
 +
-+	if (control->ras_num_recs > control->ras_max_record_count) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"RAS header invalid, records in header: %u max allowed :%u",
-+			control->ras_num_recs, control->ras_max_record_count);
-+		return -EINVAL;
-+	}
-+
-+	control->ras_fri = RAS_OFFSET_TO_INDEX(control, hdr->first_rec_offset);
-+
-+	return 0;
++	return ret;
 +}
-+
-+int ras_eeprom_check_storage_status(struct ras_core_context *ras_core)
-+{
-+	struct ras_eeprom_control *control = &ras_core->ras_eeprom;
-+	struct ras_eeprom_table_header *hdr;
-+	int bad_page_count;
-+	int res = 0;
-+
-+	if (!__is_ras_eeprom_supported(ras_core))
-+		return 0;
-+
-+	if (!__get_eeprom_i2c_addr(ras_core, control))
-+		return -EINVAL;
-+
-+	hdr = &control->tbl_hdr;
-+
-+	bad_page_count = ras_umc_get_badpage_count(ras_core);
-+	if (hdr->header == RAS_TABLE_HDR_VAL) {
-+		RAS_DEV_INFO(ras_core->dev,
-+			"Found existing EEPROM table with %d records\n",
-+			bad_page_count);
-+
-+		if (hdr->version >= RAS_TABLE_VER_V2_1) {
-+			res = __read_table_ras_info(control);
-+			if (res)
-+				return res;
-+		}
-+
-+		res = __verify_ras_table_checksum(control);
-+		if (res)
-+			RAS_DEV_ERR(ras_core->dev,
-+				"RAS table incorrect checksum or error:%d\n", res);
-+
-+		/* Warn if we are at 90% of the threshold or above
-+		 */
-+		if (10 * bad_page_count >= 9 * control->record_threshold_count)
-+			RAS_DEV_WARN(ras_core->dev,
-+				"RAS records:%u exceeds 90%% of threshold:%d\n",
-+				bad_page_count,
-+				control->record_threshold_count);
-+
-+	} else if (hdr->header == RAS_TABLE_HDR_BAD &&
-+		   control->record_threshold_config != 0) {
-+		if (hdr->version >= RAS_TABLE_VER_V2_1) {
-+			res = __read_table_ras_info(control);
-+			if (res)
-+				return res;
-+		}
-+
-+		res = __verify_ras_table_checksum(control);
-+		if (res)
-+			RAS_DEV_ERR(ras_core->dev,
-+				"RAS Table incorrect checksum or error:%d\n", res);
-+
-+		if (control->record_threshold_count >= bad_page_count) {
-+			/* This means that, the threshold was increased since
-+			 * the last time the system was booted, and now,
-+			 * ras->record_threshold_count - control->num_recs > 0,
-+			 * so that at least one more record can be saved,
-+			 * before the page count threshold is reached.
-+			 */
-+			RAS_DEV_INFO(ras_core->dev,
-+				"records:%d threshold:%d, resetting RAS table header signature",
-+				bad_page_count,
-+				control->record_threshold_count);
-+			res = ras_eeprom_correct_header_tag(control, RAS_TABLE_HDR_VAL);
-+		} else {
-+			RAS_DEV_ERR(ras_core->dev, "RAS records:%d exceed threshold:%d",
-+				bad_page_count, control->record_threshold_count);
-+			if ((control->record_threshold_config == WARN_NONSTOP_OVER_THRESHOLD) ||
-+				(control->record_threshold_config == NONSTOP_OVER_THRESHOLD)) {
-+				RAS_DEV_WARN(ras_core->dev,
-+				"Please consult AMD Service Action Guide (SAG) for appropriate service procedures\n");
-+				res = 0;
-+			} else {
-+				ras_core->is_rma = true;
-+				RAS_DEV_ERR(ras_core->dev,
-+				"User defined threshold is set, runtime service will be halt when threshold is reached\n");
-+			}
-+		}
-+	}
-+
-+	return res < 0 ? res : 0;
-+}
-+
-+int ras_eeprom_hw_init(struct ras_core_context *ras_core)
-+{
-+	struct ras_eeprom_control *control;
-+	struct ras_eeprom_config *eeprom_cfg;
-+
-+	if (!ras_core)
-+		return -EINVAL;
-+
-+	ras_core->is_rma = false;
-+
-+	control = &ras_core->ras_eeprom;
-+
-+	memset(control, 0, sizeof(*control));
-+
-+	eeprom_cfg = &ras_core->config->eeprom_cfg;
-+	control->record_threshold_config =
-+		eeprom_cfg->eeprom_record_threshold_config;
-+
-+	control->record_threshold_count = ras_eeprom_max_record_count(ras_core);
-+	if (eeprom_cfg->eeprom_record_threshold_count <
-+		control->record_threshold_count)
-+		control->record_threshold_count =
-+			eeprom_cfg->eeprom_record_threshold_count;
-+
-+	control->sys_func = eeprom_cfg->eeprom_sys_fn;
-+	control->max_read_len = eeprom_cfg->max_i2c_read_len;
-+	control->max_write_len = eeprom_cfg->max_i2c_write_len;
-+	control->i2c_adapter = eeprom_cfg->eeprom_i2c_adapter;
-+	control->i2c_port = eeprom_cfg->eeprom_i2c_port;
-+	control->i2c_address = eeprom_cfg->eeprom_i2c_addr;
-+
-+	control->update_channel_flag = false;
-+
-+	return __check_ras_table_status(ras_core);
-+}
-+
-+int ras_eeprom_hw_fini(struct ras_core_context *ras_core)
-+{
-+	struct ras_eeprom_control *control;
-+
-+	if (!ras_core)
-+		return -EINVAL;
-+
-+	control = &ras_core->ras_eeprom;
-+	mutex_destroy(&control->ras_tbl_mutex);
-+
-+	return 0;
-+}
-+
-+uint32_t ras_eeprom_get_record_count(struct ras_core_context *ras_core)
-+{
-+	if (!ras_core)
-+		return 0;
-+
-+	return ras_core->ras_eeprom.ras_num_recs;
-+}
-+
-+void ras_eeprom_sync_info(struct ras_core_context *ras_core)
-+{
-+	struct ras_eeprom_control *control;
-+
-+	if (!ras_core)
-+		return;
-+
-+	control = &ras_core->ras_eeprom;
-+	ras_core_event_notify(ras_core, RAS_EVENT_ID__UPDATE_BAD_PAGE_NUM,
-+		&control->ras_num_recs);
-+	ras_core_event_notify(ras_core, RAS_EVENT_ID__UPDATE_BAD_CHANNEL_BITMAP,
-+		&control->bad_channel_bitmap);
-+}
-+
-+enum ras_gpu_health_status
-+	ras_eeprom_check_gpu_status(struct ras_core_context *ras_core)
-+{
-+	struct ras_eeprom_control *control = &ras_core->ras_eeprom;
-+	struct ras_eeprom_table_ras_info *rai = &control->tbl_rai;
-+
-+	if (!__is_ras_eeprom_supported(ras_core) ||
-+	    !control->record_threshold_config)
-+		return RAS_GPU_HEALTH_NONE;
-+
-+	if (control->tbl_hdr.header == RAS_TABLE_HDR_BAD)
-+		return RAS_GPU_IN_BAD_STATUS;
-+
-+	return rai->rma_status;
-+}
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.h b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.h b/drivers/gpu/drm/amd/ras/rascore/ras_psp.h
 new file mode 100644
-index 000000000000..2abe566c18b6
+index 000000000000..71776fecfd66
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.h
-@@ -0,0 +1,197 @@
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_psp.h
+@@ -0,0 +1,145 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef __RAS_PSP_H__
++#define __RAS_PSP_H__
++#include "ras.h"
++#include "ras_ta_if.h"
++
++struct ras_core_context;
++struct ras_ta_trigger_error_input;
++struct ras_ta_query_address_input;
++struct ras_ta_query_address_output;
++enum ras_ta_cmd_id;
++
++struct ras_ta_image_header {
++	uint32_t reserved1[24];
++	uint32_t image_version; /* [0x60] Off Chip Firmware Version */
++	uint32_t reserved2[39];
++};
++
++struct ras_psp_sys_status {
++	bool  initialized;
++	uint32_t session_id;
++	void *psp_cmd_mutex;
++};
++
++struct ras_ta_init_param {
++	uint8_t poison_mode_en;
++	uint8_t dgpu_mode;
++	uint16_t xcc_mask;
++	uint8_t channel_dis_num;
++	uint8_t nps_mode;
++	uint32_t active_umc_mask;
++};
++
++struct gpu_mem_block {
++	uint32_t mem_type;
++	void *mem_bo;
++	uint64_t mem_mc_addr;
++	void *mem_cpu_addr;
++	uint32_t mem_size;
++	int ref_count;
++	void *private;
++};
++
++struct ras_psp_ip_func {
++	uint32_t (*psp_ras_ring_wptr_get)(struct ras_core_context *ras_core);
++	int (*psp_ras_ring_wptr_set)(struct ras_core_context *ras_core, uint32_t wptr);
++};
++
++struct ras_psp_ring {
++	struct gpu_mem_block ras_ring_gpu_mem;
++};
++
++struct psp_cmd_resp {
++	uint32_t status;
++	uint32_t session_id;
++};
++
++struct ras_psp_ctx {
++	void *external_mutex;
++	struct mutex internal_mutex;
++	uint64_t in_fence_value;
++	struct gpu_mem_block psp_cmd_gpu_mem;
++	struct gpu_mem_block out_fence_gpu_mem;
++};
++
++struct ras_ta_fw_bin {
++	uint32_t fw_version;
++	uint32_t feature_version;
++	uint32_t bin_size;
++	uint8_t *bin_addr;
++};
++
++struct ras_ta_ctx {
++	bool  preload_ras_ta_enabled;
++	bool  ras_ta_initialized;
++	uint32_t  session_id;
++	uint32_t  resp_status;
++	uint32_t  ta_version;
++	struct mutex ta_mutex;
++	struct ras_ta_fw_bin fw_bin;
++	struct ras_ta_init_param init_param;
++	struct gpu_mem_block fw_gpu_mem;
++	struct gpu_mem_block cmd_gpu_mem;
++};
++
++struct ras_psp {
++	uint32_t psp_ip_version;
++	struct ras_psp_ring psp_ring;
++	struct ras_psp_ctx  psp_ctx;
++	struct ras_ta_ctx   ta_ctx;
++	const struct ras_psp_ip_func *ip_func;
++	const struct ras_psp_sys_func *sys_func;
++};
++
++struct ras_psp_ta_load {
++	uint32_t fw_version;
++	uint32_t feature_version;
++	uint32_t bin_size;
++	uint8_t *bin_addr;
++	uint64_t out_session_id;
++	uint32_t out_loaded_ta_version;
++};
++
++struct ras_psp_ta_unload {
++	uint64_t ras_session_id;
++};
++
++int ras_psp_sw_init(struct ras_core_context *ras_core);
++int ras_psp_sw_fini(struct ras_core_context *ras_core);
++int ras_psp_hw_init(struct ras_core_context *ras_core);
++int ras_psp_hw_fini(struct ras_core_context *ras_core);
++int ras_psp_load_firmware(struct ras_core_context *ras_core,
++		struct ras_psp_ta_load *ras_ta_load);
++int ras_psp_unload_firmware(struct ras_core_context *ras_core,
++		struct ras_psp_ta_unload *ras_ta_unload);
++int ras_psp_trigger_error(struct ras_core_context *ras_core,
++	struct ras_ta_trigger_error_input *info, uint32_t instance_mask);
++int ras_psp_query_address(struct ras_core_context *ras_core,
++		struct ras_ta_query_address_input *addr_in,
++		struct ras_ta_query_address_output *addr_out);
++bool ras_psp_check_supported_cmd(struct ras_core_context *ras_core,
++		enum ras_ta_cmd_id cmd_id);
++#endif
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h b/drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h
+new file mode 100644
+index 000000000000..0921e36d3274
+--- /dev/null
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h
+@@ -0,0 +1,231 @@
 +/* SPDX-License-Identifier: MIT */
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
@@ -1561,178 +1085,212 @@ index 000000000000..2abe566c18b6
 + *
 + */
 +
-+#ifndef __RAS_EEPROM_H__
-+#define __RAS_EEPROM_H__
-+#include "ras_sys.h"
++#ifndef _RAS_TA_IF_H
++#define _RAS_TA_IF_H
++#include "ras.h"
 +
-+#define RAS_TABLE_VER_V1           0x00010000
-+#define RAS_TABLE_VER_V2_1         0x00021000
-+#define RAS_TABLE_VER_V3           0x00030000
++#define RAS_TA_HOST_IF_VER	0
 +
-+#define NONSTOP_OVER_THRESHOLD              -2
-+#define WARN_NONSTOP_OVER_THRESHOLD         -1
-+#define DISABLE_RETIRE_PAGE                 0
++/* Responses have bit 31 set */
++#define RSP_ID_MASK (1U << 31)
++#define RSP_ID(cmdId) (((uint32_t)(cmdId)) | RSP_ID_MASK)
 +
-+/*
-+ * Bad address pfn : eeprom_umc_record.retired_row_pfn[39:0],
-+ * nps mode: eeprom_umc_record.retired_row_pfn[47:40]
-+ */
-+#define EEPROM_RECORD_UMC_ADDR_MASK 0xFFFFFFFFFFULL
-+#define EEPROM_RECORD_UMC_NPS_MASK  0xFF0000000000ULL
-+#define EEPROM_RECORD_UMC_NPS_SHIFT 40
++/* invalid node instance value */
++#define RAS_TA_INV_NODE 0xffff
 +
-+#define EEPROM_RECORD_UMC_NPS_MODE(RECORD) \
-+	(((RECORD)->retired_row_pfn & EEPROM_RECORD_UMC_NPS_MASK) >> \
-+		EEPROM_RECORD_UMC_NPS_SHIFT)
-+
-+#define EEPROM_RECORD_UMC_ADDR_PFN(RECORD) \
-+	((RECORD)->retired_row_pfn & EEPROM_RECORD_UMC_ADDR_MASK)
-+
-+#define EEPROM_RECORD_SETUP_UMC_ADDR_AND_NPS(RECORD, ADDR, NPS) \
-+do { \
-+	uint64_t tmp = (NPS); \
-+	tmp = ((tmp << EEPROM_RECORD_UMC_NPS_SHIFT) & EEPROM_RECORD_UMC_NPS_MASK); \
-+	tmp |= (ADDR) & EEPROM_RECORD_UMC_ADDR_MASK; \
-+	(RECORD)->retired_row_pfn = tmp; \
-+} while (0)
-+
-+enum ras_gpu_health_status {
-+	RAS_GPU_HEALTH_NONE = 0,
-+	RAS_GPU_HEALTH_USABLE = 1,
-+	RAS_GPU_RETIRED__ECC_REACH_THRESHOLD = 2,
-+	RAS_GPU_IN_BAD_STATUS = 3,
++/* RAS related enumerations */
++/**********************************************************/
++enum ras_ta_cmd_id {
++	RAS_TA_CMD_ID__ENABLE_FEATURES = 0,
++	RAS_TA_CMD_ID__DISABLE_FEATURES,
++	RAS_TA_CMD_ID__TRIGGER_ERROR,
++	RAS_TA_CMD_ID__QUERY_BLOCK_INFO,
++	RAS_TA_CMD_ID__QUERY_SUB_BLOCK_INFO,
++	RAS_TA_CMD_ID__QUERY_ADDRESS,
++	MAX_RAS_TA_CMD_ID
 +};
 +
-+enum ras_eeprom_err_type {
-+	RAS_EEPROM_ERR_NA,
-+	RAS_EEPROM_ERR_RECOVERABLE,
-+	RAS_EEPROM_ERR_NON_RECOVERABLE,
-+	RAS_EEPROM_ERR_COUNT,
++enum ras_ta_status {
++	RAS_TA_STATUS__SUCCESS                          = 0x0000,
++	RAS_TA_STATUS__RESET_NEEDED                     = 0xA001,
++	RAS_TA_STATUS__ERROR_INVALID_PARAMETER          = 0xA002,
++	RAS_TA_STATUS__ERROR_RAS_NOT_AVAILABLE          = 0xA003,
++	RAS_TA_STATUS__ERROR_RAS_DUPLICATE_CMD          = 0xA004,
++	RAS_TA_STATUS__ERROR_INJECTION_FAILED           = 0xA005,
++	RAS_TA_STATUS__ERROR_ASD_READ_WRITE             = 0xA006,
++	RAS_TA_STATUS__ERROR_TOGGLE_DF_CSTATE           = 0xA007,
++	RAS_TA_STATUS__ERROR_TIMEOUT                    = 0xA008,
++	RAS_TA_STATUS__ERROR_BLOCK_DISABLED             = 0XA009,
++	RAS_TA_STATUS__ERROR_GENERIC                    = 0xA00A,
++	RAS_TA_STATUS__ERROR_RAS_MMHUB_INIT             = 0xA00B,
++	RAS_TA_STATUS__ERROR_GET_DEV_INFO               = 0xA00C,
++	RAS_TA_STATUS__ERROR_UNSUPPORTED_DEV            = 0xA00D,
++	RAS_TA_STATUS__ERROR_NOT_INITIALIZED            = 0xA00E,
++	RAS_TA_STATUS__ERROR_TEE_INTERNAL               = 0xA00F,
++	RAS_TA_STATUS__ERROR_UNSUPPORTED_FUNCTION       = 0xA010,
++	RAS_TA_STATUS__ERROR_SYS_DRV_REG_ACCESS         = 0xA011,
++	RAS_TA_STATUS__ERROR_RAS_READ_WRITE             = 0xA012,
++	RAS_TA_STATUS__ERROR_NULL_PTR                   = 0xA013,
++	RAS_TA_STATUS__ERROR_UNSUPPORTED_IP             = 0xA014,
++	RAS_TA_STATUS__ERROR_PCS_STATE_QUIET            = 0xA015,
++	RAS_TA_STATUS__ERROR_PCS_STATE_ERROR            = 0xA016,
++	RAS_TA_STATUS__ERROR_PCS_STATE_HANG             = 0xA017,
++	RAS_TA_STATUS__ERROR_PCS_STATE_UNKNOWN          = 0xA018,
++	RAS_TA_STATUS__ERROR_UNSUPPORTED_ERROR_INJ      = 0xA019,
++	RAS_TA_STATUS__TEE_ERROR_ACCESS_DENIED          = 0xA01A
 +};
 +
-+struct ras_eeprom_table_header {
-+	uint32_t header;
-+	uint32_t version;
-+	uint32_t first_rec_offset;
-+	uint32_t tbl_size;
-+	uint32_t checksum;
-+} __packed;
-+
-+struct ras_eeprom_table_ras_info {
-+	u8  rma_status;
-+	u8  health_percent;
-+	u16 ecc_page_threshold;
-+	u32 padding[64 - 1];
-+} __packed;
-+
-+struct ras_eeprom_control {
-+	struct ras_eeprom_table_header tbl_hdr;
-+	struct ras_eeprom_table_ras_info tbl_rai;
-+
-+	/* record threshold */
-+	int record_threshold_config;
-+	uint32_t record_threshold_count;
-+	bool update_channel_flag;
-+
-+	const struct ras_eeprom_sys_func *sys_func;
-+	void *i2c_adapter;
-+	u32 i2c_port;
-+	u16 max_read_len;
-+	u16 max_write_len;
-+
-+	/* Base I2C EEPPROM 19-bit memory address,
-+	 * where the table is located. For more information,
-+	 * see top of amdgpu_eeprom.c.
-+	 */
-+	u32 i2c_address;
-+
-+	/* The byte offset off of @i2c_address
-+	 * where the table header is found,
-+	 * and where the records start--always
-+	 * right after the header.
-+	 */
-+	u32 ras_header_offset;
-+	u32 ras_info_offset;
-+	u32 ras_record_offset;
-+
-+	/* Number of records in the table.
-+	 */
-+	u32 ras_num_recs;
-+
-+	/* First record index to read, 0-based.
-+	 * Range is [0, num_recs-1]. This is
-+	 * an absolute index, starting right after
-+	 * the table header.
-+	 */
-+	u32 ras_fri;
-+
-+	/* Maximum possible number of records
-+	 * we could store, i.e. the maximum capacity
-+	 * of the table.
-+	 */
-+	u32 ras_max_record_count;
-+
-+	/* Protect table access via this mutex.
-+	 */
-+	struct mutex ras_tbl_mutex;
-+
-+	/* Record channel info which occurred bad pages
-+	 */
-+	u32 bad_channel_bitmap;
++enum ras_ta_block {
++	RAS_TA_BLOCK__UMC = 0,
++	RAS_TA_BLOCK__SDMA,
++	RAS_TA_BLOCK__GFX,
++	RAS_TA_BLOCK__MMHUB,
++	RAS_TA_BLOCK__ATHUB,
++	RAS_TA_BLOCK__PCIE_BIF,
++	RAS_TA_BLOCK__HDP,
++	RAS_TA_BLOCK__XGMI_WAFL,
++	RAS_TA_BLOCK__DF,
++	RAS_TA_BLOCK__SMN,
++	RAS_TA_BLOCK__SEM,
++	RAS_TA_BLOCK__MP0,
++	RAS_TA_BLOCK__MP1,
++	RAS_TA_BLOCK__FUSE,
++	RAS_TA_BLOCK__MCA,
++	RAS_TA_BLOCK__VCN,
++	RAS_TA_BLOCK__JPEG,
++	RAS_TA_BLOCK__IH,
++	RAS_TA_BLOCK__MPIO,
++	RAS_TA_BLOCK__MMSCH,
++	RAS_TA_NUM_BLOCK_MAX
 +};
 +
-+/*
-+ * Represents single table record. Packed to be easily serialized into byte
-+ * stream.
-+ */
-+struct eeprom_umc_record {
-+
-+	union {
-+		uint64_t address;
-+		uint64_t offset;
-+	};
-+
-+	uint64_t retired_row_pfn;
-+	uint64_t ts;
-+
-+	enum ras_eeprom_err_type err_type;
-+
-+	union {
-+		unsigned char bank;
-+		unsigned char cu;
-+	};
-+
-+	unsigned char mem_channel;
-+	unsigned char mcumc_id;
-+
-+	/* The following variables will not be saved to eeprom.
-+	 */
-+	uint64_t cur_nps_retired_row_pfn;
-+	uint32_t cur_nps_bank;
-+	uint32_t cur_nps;
++enum ras_ta_mca_block {
++	RAS_TA_MCA_BLOCK__MP0   = 0,
++	RAS_TA_MCA_BLOCK__MP1   = 1,
++	RAS_TA_MCA_BLOCK__MPIO  = 2,
++	RAS_TA_MCA_BLOCK__IOHC  = 3,
++	RAS_TA_MCA_NUM_BLOCK_MAX
 +};
 +
-+struct ras_core_context;
-+int ras_eeprom_hw_init(struct ras_core_context *ras_core);
-+int ras_eeprom_hw_fini(struct ras_core_context *ras_core);
++enum ras_ta_error_type {
++	RAS_TA_ERROR__NONE			= 0,
++	RAS_TA_ERROR__PARITY			= 1,
++	RAS_TA_ERROR__SINGLE_CORRECTABLE	= 2,
++	RAS_TA_ERROR__MULTI_UNCORRECTABLE	= 4,
++	RAS_TA_ERROR__POISON			= 8,
++};
 +
-+int ras_eeprom_reset_table(struct ras_core_context *ras_core);
++enum ras_ta_address_type {
++	RAS_TA_MCA_TO_PA,
++	RAS_TA_PA_TO_MCA,
++};
 +
-+bool ras_eeprom_check_safety_watermark(struct ras_core_context *ras_core);
++enum ras_ta_nps_mode {
++	RAS_TA_UNKNOWN_MODE = 0,
++	RAS_TA_NPS1_MODE = 1,
++	RAS_TA_NPS2_MODE = 2,
++	RAS_TA_NPS4_MODE = 4,
++	RAS_TA_NPS8_MODE = 8,
++};
 +
-+int ras_eeprom_read(struct ras_core_context *ras_core,
-+			 struct eeprom_umc_record *records, const u32 num);
++/* Input/output structures for RAS commands */
++/**********************************************************/
 +
-+int ras_eeprom_append(struct ras_core_context *ras_core,
-+			   struct eeprom_umc_record *records, const u32 num);
++struct ras_ta_enable_features_input {
++	enum ras_ta_block	block_id;
++	enum ras_ta_error_type	error_type;
++};
 +
-+uint32_t ras_eeprom_max_record_count(struct ras_core_context *ras_core);
-+uint32_t ras_eeprom_get_record_count(struct ras_core_context *ras_core);
-+void ras_eeprom_sync_info(struct ras_core_context *ras_core);
++struct ras_ta_disable_features_input {
++	enum ras_ta_block	block_id;
++	enum ras_ta_error_type	error_type;
++};
 +
-+int ras_eeprom_check_storage_status(struct ras_core_context *ras_core);
-+enum ras_gpu_health_status
-+	ras_eeprom_check_gpu_status(struct ras_core_context *ras_core);
++struct ras_ta_trigger_error_input {
++	/* ras-block. i.e. umc, gfx */
++	enum ras_ta_block block_id;
++
++	/* type of error. i.e. single_correctable */
++	enum ras_ta_error_type inject_error_type;
++
++	/* mem block. i.e. hbm, sram etc. */
++	uint32_t sub_block_index;
++
++	/* explicit address of error */
++	uint64_t address;
++
++	/* method if error injection. i.e persistent, coherent etc. */
++	uint64_t value;
++};
++
++struct ras_ta_init_flags {
++	uint8_t poison_mode_en;
++	uint8_t dgpu_mode;
++	uint16_t xcc_mask;
++	uint8_t channel_dis_num;
++	uint8_t nps_mode;
++	uint32_t active_umc_mask;
++};
++
++struct ras_ta_mca_addr {
++	uint64_t err_addr;
++	uint32_t ch_inst;
++	uint32_t umc_inst;
++	uint32_t node_inst;
++	uint32_t socket_id;
++};
++
++struct ras_ta_phy_addr {
++	uint64_t pa;
++	uint32_t bank;
++	uint32_t channel_idx;
++};
++
++struct ras_ta_query_address_input {
++	enum ras_ta_address_type addr_type;
++	struct ras_ta_mca_addr ma;
++	struct ras_ta_phy_addr pa;
++};
++
++struct ras_ta_output_flags {
++	uint8_t ras_init_success_flag;
++	uint8_t err_inject_switch_disable_flag;
++	uint8_t reg_access_failure_flag;
++};
++
++struct ras_ta_query_address_output {
++	/* don't use the flags here */
++	struct ras_ta_output_flags flags;
++	struct ras_ta_mca_addr ma;
++	struct ras_ta_phy_addr pa;
++};
++
++/* Common input structure for RAS callbacks */
++/**********************************************************/
++union ras_ta_cmd_input {
++	struct ras_ta_init_flags		init_flags;
++	struct ras_ta_enable_features_input	enable_features;
++	struct ras_ta_disable_features_input	disable_features;
++	struct ras_ta_trigger_error_input	trigger_error;
++	struct ras_ta_query_address_input	address;
++	uint32_t reserve_pad[256];
++};
++
++union ras_ta_cmd_output {
++	struct ras_ta_output_flags flags;
++	struct ras_ta_query_address_output address;
++	uint32_t reserve_pad[256];
++};
++
++struct ras_ta_cmd {
++	uint32_t  cmd_id;
++	uint32_t  resp_id;
++	uint32_t  ras_status;
++	uint32_t  if_version;
++	union ras_ta_cmd_input  ras_in_message;
++	union ras_ta_cmd_output ras_out_message;
++};
++
 +#endif
 -- 
 2.34.1
