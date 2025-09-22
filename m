@@ -4,78 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 071DBCAC5AE
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 12:52:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CBADCAC592
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 12:52:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA44A10E47A;
-	Mon, 22 Sep 2025 12:52:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41E8510E481;
+	Mon, 22 Sep 2025 12:52:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Yfqpe51j";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="jVYrM4LH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D93B110E1B3;
- Mon, 22 Sep 2025 12:27:05 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C7B506021D;
- Mon, 22 Sep 2025 12:27:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D6EC4CEF0;
- Mon, 22 Sep 2025 12:27:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1758544023;
- bh=xiUh1J9UQXNTnI2lGZhy5P5VMsOMixvNygGiduLod8o=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=Yfqpe51j1Oxd6OVCe4gaU9NrSSTPt0fCKcmKbD2t14pKJhHg80s5S9kKbPAlJ9Wa8
- zWQjuJ3ud+OrF55xVic6wSDiMjBwhnf4ivhaC3sVrQpdlEQ7bHrvbVouIdimz6nJPd
- XPvcQnFrb+/gwTGAgufNqkGIjE+ZAkve0ikMeXMw=
-Subject: Patch "minmax: add a few more MIN_T/MAX_T users" has been added to
- the 6.6-stable tree
-To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
-	Rodrigo.Siqueira@amd.com, Xinhui.Pan@amd.com, agk@redhat.com,
-	airlied@gmail.com, akpm@linux-foundation.org,
-	alexander.deucher@amd.com, alexandre.torgue@foss.st.com,
-	amd-gfx@lists.freedesktop.org, andriy.shevchenko@linux.intel.com,
-	anton.ivanov@cambridgegreys.com, arnd@kernel.org,
-	artur.paszkiewicz@intel.com, bp@alien8.de, christian.koenig@amd.com,
-	clm@fb.com, daniel@ffwll.ch, dave.hansen@linux.intel.com,
-	davem@davemloft.net, dm-devel@lists.linux.dev,
-	dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
-	dsahern@kernel.org, dsterba@suse.com, edumazet@google.com,
-	evan.quan@amd.com, farbere@amazon.com, gregkh@linuxfoundation.org,
-	harry.wentland@amd.com, hdegoede@redhat.com, hpa@zytor.com,
-	ilpo.jarvinen@linux.intel.com, james.morse@arm.com,
-	jdelvare@suse.com, jejb@linux.ibm.com, jernej.skrabec@gmail.com,
-	joabreu@synopsys.com, johannes@sipsolutions.net,
-	josef@toxicpanda.com, keescook@chromium.org,
-	krzysztof.kozlowski@linaro.org, kuba@kernel.org,
-	linus.walleij@linaro.org, l@freedesktop.org,
-	inux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
-	linux-staging@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
-	linux@rasmusvillemoes.dk, linux@roeck-us.net,
-	lorenzo.stoakes@oracle.com, luc.vanoostenryck@gmail.com,
-	luto@kernel.org, maarten.lankhorst@linux.intel.com,
-	mailhol.vincent@wanadoo.fr, malattia@linux.it, markgross@kernel.org,
-	martin.petersen@oracle.com, mchehab@kernel.org,
-	mcoquelin.stm32@gmail.com, mhiramat@kernel.org, minchan@kernel.org,
-	mingo@redhat.com, mkl@pengutronix.de, mripard@kernel.org,
-	pabeni@redhat.com, peterz@infradead.org, pmladek@suse.com,
-	qiuxu.zhuo@intel.com, richard@nod.at, rostedt@goodmis.org,
-	rric@kernel.org, sakari.ailus@linux.intel.com, samuel@sholland.org,
-	senozhatsky@chromium.org, shuah@kernel.org, snitzer@kernel.org,
-	sunpeng.li@amd.com, tglx@linutronix.de, tony.luck@intel.com,
-	torvalds@linux-foundation.org, tzimmermann@suse.de, wad@chromium.org,
-	wens@csie.org, wg@grandegger.com, x86@kernel.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 22 Sep 2025 14:26:59 +0200
-In-Reply-To: <20250922103241.16213-4-farbere@amazon.com>
-Message-ID: <2025092259-swimwear-glorious-ec5f@gregkh>
+Received: from fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [18.158.153.154])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBB0810E412;
+ Mon, 22 Sep 2025 10:36:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1758537404; x=1790073404;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=tuDLxbukezbKvm9K9qJc6kdbP/O3m0CMIC8okLoytJg=;
+ b=jVYrM4LHOhNag+V7nech3SuC7SzZ9mr4N/YWkV4dsL6V51NNVlpQERBY
+ K40OwmBo6KSIb4ke/6pAp84AykNpXfWm0jjt77fWVw1J9j8vQmKHTOh2v
+ PCG1pYCEv6sV21o6W7atzixh/m71grr3wpfHFUpzGMSEZ3O1dnaPSgxXP
+ YNfjwAjT0WNHdjtNDa9w1LqAydmaH61FVCLNm5Xg2UU+FVCHdCLcoQGPl
+ +1SRTpzMk+oJDdw7584vZnc24BLpxOo/PzMxBo8YrkRdSfgoQxZFZ+wg+
+ BVX+XKOWOMfEs9H5cvpoJvhYGGStg5voscGQdnp0qjjlXWQ+9VB034X2j g==;
+X-CSE-ConnectionGUID: CLU/dw09TKuhwh39bzmFeQ==
+X-CSE-MsgGUID: DaH/F5TjTKqq8WUxpTT0rw==
+X-IronPort-AV: E=Sophos;i="6.18,284,1751241600"; 
+   d="scan'208";a="2363918"
+Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
+ by internal-fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2025 10:36:38 +0000
+Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:13404]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.36.68:2525]
+ with esmtp (Farcaster)
+ id 2f3b1f74-d60a-4374-af80-eb8e63d2b393; Mon, 22 Sep 2025 10:36:38 +0000 (UTC)
+X-Farcaster-Flow-ID: 2f3b1f74-d60a-4374-af80-eb8e63d2b393
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Mon, 22 Sep 2025 10:36:30 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Mon, 22 Sep 2025
+ 10:36:04 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <richard@nod.at>, <anton.ivanov@cambridgegreys.com>,
+ <johannes@sipsolutions.net>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
+ <mchehab@kernel.org>, <rric@kernel.org>, <harry.wentland@amd.com>,
+ <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <jdelvare@suse.com>,
+ <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
+ <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>,
+ <dm-devel@lists.linux.dev>, <mailhol.vincent@wanadoo.fr>,
+ <wg@grandegger.com>, <mkl@pengutronix.de>, <davem@davemloft.net>,
+ <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+ <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <ilpo.jarvinen@linux.intel.com>,
+ <markgross@kernel.org>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>,
+ <gregkh@linuxfoundation.org>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>,
+ <mhiramat@kernel.org>, <pmladek@suse.com>,
+ <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+ <senozhatsky@chromium.org>, <minchan@kernel.org>,
+ <akpm@linux-foundation.org>, <dsahern@kernel.org>, <shuah@kernel.org>,
+ <keescook@chromium.org>, <wad@chromium.org>, <farbere@amazon.com>,
+ <David.Laight@ACULAB.COM>, <arnd@kernel.org>, <linux-um@lists.infradead.org>, 
+ <linux-kernel@vger.kernel.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-media@vger.kernel.org>, <linux-can@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-sparse@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
+ <linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <stable@vger.kernel.org>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
+ <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Subject: [PATCH 07/15 6.6.y] minmax: improve macro expansion and type checking
+Date: Mon, 22 Sep 2025 10:32:33 +0000
+Message-ID: <20250922103241.16213-8-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20250922103241.16213-1-farbere@amazon.com>
+References: <20250922103241.16213-1-farbere@amazon.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D033UWA001.ant.amazon.com (10.13.139.103) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Mon, 22 Sep 2025 12:52:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,193 +122,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-This is a note to let you know that I've just added the patch titled
-
-    minmax: add a few more MIN_T/MAX_T users
-
-to the 6.6-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     minmax-add-a-few-more-min_t-max_t-users.patch
-and it can be found in the queue-6.6 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From prvs=353d6d59a=farbere@amazon.com Mon Sep 22 12:34:49 2025
-From: Eliav Farber <farbere@amazon.com>
-Date: Mon, 22 Sep 2025 10:32:29 +0000
-Subject: minmax: add a few more MIN_T/MAX_T users
-To: <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <mchehab@kernel.org>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>, <dm-devel@lists.linux.dev>, <mailhol.vincent@wanadoo.fr>, <wg@grandegger.com>, <mkl@pengutronix.de>, <davem@davemloft.net>, <edu
- mazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>, <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>, <malattia@linux.it>, <hdegoede@redhat.com>, <ilpo.jarvinen@linux.intel.com>, <markgross@kernel.org>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <gregkh@linuxfoundation.org>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>, <pmladek@suse.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <senozhatsky@chromium.org>, <minchan@kernel.org>, <akpm@linux-foundation.org>, <dsahern@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>, <wad@chromium.org>, <farbere@amazon.com>, <David.Laight@ACULAB.COM>, <arnd@kernel.org>, <linux-um@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedeskto
- p.org>, <dri-devel@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <linux-can@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>, <linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>, <stable@vger.kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Message-ID: <20250922103241.16213-4-farbere@amazon.com>
-
 From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit 4477b39c32fdc03363affef4b11d48391e6dc9ff ]
+[ Upstream commit 22f5468731491e53356ba7c028f0fdea20b18e2c ]
 
-Commit 3a7e02c040b1 ("minmax: avoid overly complicated constant
-expressions in VM code") added the simpler MIN_T/MAX_T macros in order
-to avoid some excessive expansion from the rather complicated regular
-min/max macros.
+This clarifies the rules for min()/max()/clamp() type checking and makes
+them a much more efficient macro expansion.
 
-The complexity of those macros stems from two issues:
+In particular, we now look at the type and range of the inputs to see
+whether they work together, generating a mask of acceptable comparisons,
+and then just verifying that the inputs have a shared case:
 
- (a) trying to use them in situations that require a C constant
-     expression (in static initializers and for array sizes)
+ - an expression with a signed type can be used for
+    (1) signed comparisons
+    (2) unsigned comparisons if it is statically known to have a
+        non-negative value
 
- (b) the type sanity checking
+ - an expression with an unsigned type can be used for
+    (3) unsigned comparison
+    (4) signed comparisons if the type is smaller than 'int' and thus
+        the C integer promotion rules will make it signed anyway
 
-and MIN_T/MAX_T avoids both of these issues.
+Here rule (1) and (3) are obvious, and rule (2) is important in order to
+allow obvious trivial constants to be used together with unsigned
+values.
 
-Now, in the whole (long) discussion about all this, it was pointed out
-that the whole type sanity checking is entirely unnecessary for
-min_t/max_t which get a fixed type that the comparison is done in.
+Rule (4) is not necessarily a good idea, but matches what we used to do,
+and we have extant cases of this situation in the kernel.  Notably with
+bcachefs having an expression like
 
-But that still leaves min_t/max_t unnecessarily complicated due to
-worries about the C constant expression case.
+	min(bch2_bucket_sectors_dirty(a), ca->mi.bucket_size)
 
-However, it turns out that there really aren't very many cases that use
-min_t/max_t for this, and we can just force-convert those.
+where bch2_bucket_sectors_dirty() returns an 's64', and
+'ca->mi.bucket_size' is of type 'u16'.
 
-This does exactly that.
+Technically that bcachefs comparison is clearly sensible on a C type
+level, because the 'u16' will go through the normal C integer promotion,
+and become 'int', and then we're comparing two signed values and
+everything looks sane.
 
-Which in turn will then allow for much simpler implementations of
-min_t()/max_t().  All the usual "macros in all upper case will evaluate
-the arguments multiple times" rules apply.
+However, it's not entirely clear that a 'min(s64,u16)' operation makes a
+lot of conceptual sense, and it's possible that we will remove rule (4).
+After all, the _reason_ we have these complicated type checks is exactly
+that the C type promotion rules are not very intuitive.
 
-We should do all the same things for the regular min/max() vs MIN/MAX()
-cases, but that has the added complexity of various drivers defining
-their own local versions of MIN/MAX, so that needs another level of
-fixes first.
+But at least for now the rule is in place for backwards compatibility.
 
-Link: https://lore.kernel.org/all/b47fad1d0cf8449886ad148f8c013dae@AcuMS.aculab.com/
+Also note that rule (2) existed before, but is hugely relaxed by this
+commit.  It used to be true only for the simplest compile-time
+non-negative integer constants.  The new macro model will allow cases
+where the compiler can trivially see that an expression is non-negative
+even if it isn't necessarily a constant.
+
+For example, the amdgpu driver does
+
+	min_t(size_t, sizeof(fru_info->serial), pia[addr] & 0x3F));
+
+because our old 'min()' macro would see that 'pia[addr] & 0x3F' is of
+type 'int' and clearly not a C constant expression, so doing a 'min()'
+with a 'size_t' is a signedness violation.
+
+Our new 'min()' macro still sees that 'pia[addr] & 0x3F' is of type
+'int', but is smart enough to also see that it is clearly non-negative,
+and thus would allow that case without any complaints.
+
+Cc: Arnd Bergmann <arnd@kernel.org>
 Cc: David Laight <David.Laight@aculab.com>
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/x86/mm/pgtable.c                             |    2 +-
- drivers/edac/sb_edac.c                            |    4 ++--
- drivers/gpu/drm/drm_color_mgmt.c                  |    2 +-
- drivers/md/dm-integrity.c                         |    6 +++---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |    2 +-
- net/ipv4/proc.c                                   |    2 +-
- net/ipv6/proc.c                                   |    2 +-
- 7 files changed, 10 insertions(+), 10 deletions(-)
+ include/linux/compiler.h |  9 +++++
+ include/linux/minmax.h   | 74 ++++++++++++++++++++++++++++++++--------
+ 2 files changed, 68 insertions(+), 15 deletions(-)
 
---- a/arch/x86/mm/pgtable.c
-+++ b/arch/x86/mm/pgtable.c
-@@ -107,7 +107,7 @@ static inline void pgd_list_del(pgd_t *p
- #define UNSHARED_PTRS_PER_PGD				\
- 	(SHARED_KERNEL_PMD ? KERNEL_PGD_BOUNDARY : PTRS_PER_PGD)
- #define MAX_UNSHARED_PTRS_PER_PGD			\
--	max_t(size_t, KERNEL_PGD_BOUNDARY, PTRS_PER_PGD)
-+	MAX_T(size_t, KERNEL_PGD_BOUNDARY, PTRS_PER_PGD)
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index e84ed3a43f1f..1d4f23ea3105 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -244,6 +244,15 @@ static inline void *offset_to_ptr(const int *off)
+ #define is_signed_type(type) (((type)(-1)) < (__force type)1)
+ #define is_unsigned_type(type) (!is_signed_type(type))
  
- 
- static void pgd_set_mm(pgd_t *pgd, struct mm_struct *mm)
---- a/drivers/edac/sb_edac.c
-+++ b/drivers/edac/sb_edac.c
-@@ -109,8 +109,8 @@ static const u32 knl_interleave_list[] =
- 	0x104, 0x10c, 0x114, 0x11c,   /* 20-23 */
- };
- #define MAX_INTERLEAVE							\
--	(max_t(unsigned int, ARRAY_SIZE(sbridge_interleave_list),	\
--	       max_t(unsigned int, ARRAY_SIZE(ibridge_interleave_list),	\
-+	(MAX_T(unsigned int, ARRAY_SIZE(sbridge_interleave_list),	\
-+	       MAX_T(unsigned int, ARRAY_SIZE(ibridge_interleave_list),	\
- 		     ARRAY_SIZE(knl_interleave_list))))
- 
- struct interleave_pkg {
---- a/drivers/gpu/drm/drm_color_mgmt.c
-+++ b/drivers/gpu/drm/drm_color_mgmt.c
-@@ -532,7 +532,7 @@ int drm_plane_create_color_properties(st
- {
- 	struct drm_device *dev = plane->dev;
- 	struct drm_property *prop;
--	struct drm_prop_enum_list enum_list[max_t(int, DRM_COLOR_ENCODING_MAX,
-+	struct drm_prop_enum_list enum_list[MAX_T(int, DRM_COLOR_ENCODING_MAX,
- 						       DRM_COLOR_RANGE_MAX)];
- 	int i, len;
- 
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -1794,7 +1794,7 @@ static void integrity_metadata(struct wo
- 		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
- 		char *checksums;
- 		unsigned int extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
--		char checksums_onstack[max_t(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
-+		char checksums_onstack[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
- 		sector_t sector;
- 		unsigned int sectors_to_process;
- 
-@@ -2073,7 +2073,7 @@ retry_kmap:
- 				} while (++s < ic->sectors_per_block);
- #ifdef INTERNAL_VERIFY
- 				if (ic->internal_hash) {
--					char checksums_onstack[max_t(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
-+					char checksums_onstack[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
- 
- 					integrity_sector_checksum(ic, logical_sector, mem + bv.bv_offset, checksums_onstack);
- 					if (unlikely(memcmp(checksums_onstack, journal_entry_tag(ic, je), ic->tag_size))) {
-@@ -2638,7 +2638,7 @@ static void do_journal_write(struct dm_i
- 				    unlikely(from_replay) &&
- #endif
- 				    ic->internal_hash) {
--					char test_tag[max_t(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
-+					char test_tag[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
- 
- 					integrity_sector_checksum(ic, sec + ((l - j) << ic->sb->log2_sectors_per_block),
- 								  (char *)access_journal_data(ic, i, l), test_tag);
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2841,7 +2841,7 @@ static void stmmac_dma_interrupt(struct
- 	u32 channels_to_check = tx_channel_count > rx_channel_count ?
- 				tx_channel_count : rx_channel_count;
- 	u32 chan;
--	int status[max_t(u32, MTL_MAX_TX_QUEUES, MTL_MAX_RX_QUEUES)];
-+	int status[MAX_T(u32, MTL_MAX_TX_QUEUES, MTL_MAX_RX_QUEUES)];
- 
- 	/* Make sure we never check beyond our status buffer. */
- 	if (WARN_ON_ONCE(channels_to_check > ARRAY_SIZE(status)))
---- a/net/ipv4/proc.c
-+++ b/net/ipv4/proc.c
-@@ -43,7 +43,7 @@
- #include <net/sock.h>
- #include <net/raw.h>
- 
--#define TCPUDP_MIB_MAX max_t(u32, UDP_MIB_MAX, TCP_MIB_MAX)
-+#define TCPUDP_MIB_MAX MAX_T(u32, UDP_MIB_MAX, TCP_MIB_MAX)
- 
++/*
++ * Useful shorthand for "is this condition known at compile-time?"
++ *
++ * Note that the condition may involve non-constant values,
++ * but the compiler may know enough about the details of the
++ * values to determine that the condition is statically true.
++ */
++#define statically_true(x) (__builtin_constant_p(x) && (x))
++
  /*
-  *	Report socket allocation statistics [mea@utu.fi]
---- a/net/ipv6/proc.c
-+++ b/net/ipv6/proc.c
-@@ -27,7 +27,7 @@
- #include <net/ipv6.h>
+  * This is needed in functions which generate the stack canary, see
+  * arch/x86/kernel/smpboot.c::start_secondary() for an example.
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index e3e4353df983..41da6f85a407 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -26,19 +26,63 @@
+ #define __typecheck(x, y) \
+ 	(!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
  
- #define MAX4(a, b, c, d) \
--	max_t(u32, max_t(u32, a, b), max_t(u32, c, d))
-+	MAX_T(u32, MAX_T(u32, a, b), MAX_T(u32, c, d))
- #define SNMP_MIB_MAX MAX4(UDP_MIB_MAX, TCP_MIB_MAX, \
- 			IPSTATS_MIB_MAX, ICMP_MIB_MAX)
+-/* is_signed_type() isn't a constexpr for pointer types */
+-#define __is_signed(x) 								\
+-	__builtin_choose_expr(__is_constexpr(is_signed_type(typeof(x))),	\
+-		is_signed_type(typeof(x)), 0)
++/*
++ * __sign_use for integer expressions:
++ *   bit #0 set if ok for unsigned comparisons
++ *   bit #1 set if ok for signed comparisons
++ *
++ * In particular, statically non-negative signed integer
++ * expressions are ok for both.
++ *
++ * NOTE! Unsigned types smaller than 'int' are implicitly
++ * converted to 'int' in expressions, and are accepted for
++ * signed conversions for now. This is debatable.
++ *
++ * Note that 'x' is the original expression, and 'ux' is
++ * the unique variable that contains the value.
++ *
++ * We use 'ux' for pure type checking, and 'x' for when
++ * we need to look at the value (but without evaluating
++ * it for side effects! Careful to only ever evaluate it
++ * with sizeof() or __builtin_constant_p() etc).
++ *
++ * Pointers end up being checked by the normal C type
++ * rules at the actual comparison, and these expressions
++ * only need to be careful to not cause warnings for
++ * pointer use.
++ */
++#define __signed_type_use(x,ux) (2+__is_nonneg(x,ux))
++#define __unsigned_type_use(x,ux) (1+2*(sizeof(ux)<4))
++#define __sign_use(x,ux) (is_signed_type(typeof(ux))? \
++	__signed_type_use(x,ux):__unsigned_type_use(x,ux))
++
++/*
++ * To avoid warnings about casting pointers to integers
++ * of different sizes, we need that special sign type.
++ *
++ * On 64-bit we can just always use 'long', since any
++ * integer or pointer type can just be cast to that.
++ *
++ * This does not work for 128-bit signed integers since
++ * the cast would truncate them, but we do not use s128
++ * types in the kernel (we do use 'u128', but they will
++ * be handled by the !is_signed_type() case).
++ *
++ * NOTE! The cast is there only to avoid any warnings
++ * from when values that aren't signed integer types.
++ */
++#ifdef CONFIG_64BIT
++  #define __signed_type(ux) long
++#else
++  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux)>4,1LL,1L))
++#endif
++#define __is_nonneg(x,ux) statically_true((__signed_type(ux))(x)>=0)
  
+-/* True for a non-negative signed int constant */
+-#define __is_noneg_int(x)	\
+-	(__builtin_choose_expr(__is_constexpr(x) && __is_signed(x), x, -1) >= 0)
++#define __types_ok(x,y,ux,uy) \
++	(__sign_use(x,ux) & __sign_use(y,uy))
+ 
+-#define __types_ok(x, y, ux, uy) 				\
+-	(__is_signed(ux) == __is_signed(uy) ||			\
+-	 __is_signed((ux) + 0) == __is_signed((uy) + 0) ||	\
+-	 __is_noneg_int(x) || __is_noneg_int(y))
++#define __types_ok3(x,y,z,ux,uy,uz) \
++	(__sign_use(x,ux) & __sign_use(y,uy) & __sign_use(z,uz))
+ 
+ #define __cmp_op_min <
+ #define __cmp_op_max >
+@@ -53,8 +97,8 @@
+ 
+ #define __careful_cmp_once(op, x, y, ux, uy) ({		\
+ 	__auto_type ux = (x); __auto_type uy = (y);	\
+-	static_assert(__types_ok(x, y, ux, uy),		\
+-		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
++	BUILD_BUG_ON_MSG(!__types_ok(x,y,ux,uy),	\
++		#op"("#x", "#y") signedness error");	\
+ 	__cmp(op, ux, uy); })
+ 
+ #define __careful_cmp(op, x, y) \
+@@ -70,8 +114,8 @@
+ 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+ 			(lo) <= (hi), true),					\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+-	static_assert(__types_ok(uval, lo, uval, ulo), "clamp() 'lo' signedness error");	\
+-	static_assert(__types_ok(uval, hi, uval, uhi), "clamp() 'hi' signedness error");	\
++	BUILD_BUG_ON_MSG(!__types_ok3(val,lo,hi,uval,ulo,uhi),			\
++		"clamp("#val", "#lo", "#hi") signedness error");		\
+ 	__clamp(uval, ulo, uhi); })
+ 
+ #define __careful_clamp(val, lo, hi) \
+-- 
+2.47.3
 
-
-Patches currently in stable-queue which might be from farbere@amazon.com are
-
-queue-6.6/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
-queue-6.6/minmax-make-generic-min-and-max-macros-available-everywhere.patch
-queue-6.6/minmax-fix-up-min3-and-max3-too.patch
-queue-6.6/minmax-add-a-few-more-min_t-max_t-users.patch
-queue-6.6/minmax-improve-macro-expansion-and-type-checking.patch
-queue-6.6/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
-queue-6.6/minmax-simplify-min-max-clamp-implementation.patch
-queue-6.6/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
