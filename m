@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEBA7CAC5B2
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 12:52:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B717CAC5AC
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Sep 2025 12:52:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26CD910E47E;
-	Mon, 22 Sep 2025 12:52:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE2010E475;
+	Mon, 22 Sep 2025 12:52:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="YhS7L9H3";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="pnjMu8m1";
 	dkim-atps=neutral
-Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [63.176.194.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A9F110E40F;
- Mon, 22 Sep 2025 10:33:49 +0000 (UTC)
+Received: from fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.178.132.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A47C10E412
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Sep 2025 10:40:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758537229; x=1790073229;
+ t=1758537645; x=1790073645;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ripGF9rqnm7tHR7M3YpLJcXn9QY6D+OUp0N8RCNiC7M=;
- b=YhS7L9H3cFbVSgvINONUz2kUHhbyBzZ93h7L9+2CNhozuqA08tjJ8aTj
- rK0DKw5yg8UwpSrgSWSMBTYM+KAeYnu07u+XFX7y+xLbZX/dCsZCcE0u2
- 2AAPoF6RAp+fDONhot2U6QHYpTCTVmGxk2SX0CyBPTf1mJ1FVZ8qQOe2A
- GfCPetnSFJv+BFOTfpkUmG+5oEja+UkWTxDYjR1e2sDuP5KEDaggTAFK7
- RldN7WpqKmzUiUYWXahWTViDHeqPp7AnU3x+Jd87q+8hk3c4IVarwO1dE
- 1fqP2Th34+rjkoTpge3bIAr6196wqv0B6n6qZZUIOZ7IWUga1MLx+fXJD w==;
-X-CSE-ConnectionGUID: EfS0ySD4QuiodgYBvLgJ0Q==
-X-CSE-MsgGUID: iJ0xXlIjTmGXhiqi3oxuFw==
+ bh=8djAgabF22BDsxfYcNFa72Q6mXnC3doUyHk+thXHzBc=;
+ b=pnjMu8m1YSo13LDnuvwln5tDP9cQKl3SMEj3yuq41juAUO3jNAPGua8r
+ RHIHEsmm3e5ex9HS0P4SxCFsdFTAPl347pzi7BQftUH0jGHDWShq2ss6C
+ 5XYb3xdAyIX72RHFraqQPFYPXMdXI2OZpb+EhYceveQPNRzVBOQzFWkAa
+ UmammqEYaYD/ZrACcLWWAgZLISUWbWcD10l6WGEkC78zu54ajCFX+EhAS
+ XBs7f8EOz27CAnifd3/wUFfcZeWF97dBzANdxS9TzjpAQDDRa0bjtvJgi
+ SKJ8xCEcXN1O1XZr13TZtj4tiCEcs3Dv1e6insNMRdct+qcpu+SqoR7zc A==;
+X-CSE-ConnectionGUID: D2SgI/7CR4qI3pJSXsGfkA==
+X-CSE-MsgGUID: lexf/hHaRUyMG5BphUi2gw==
 X-IronPort-AV: E=Sophos;i="6.18,284,1751241600"; 
-   d="scan'208";a="2475964"
+   d="scan'208";a="2372398"
 Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
  smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2025 10:33:39 +0000
-Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:14817]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.23.64:2525]
+ by internal-fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2025 10:40:44 +0000
+Received: from EX19MTAEUA001.ant.amazon.com [54.240.197.233:22845]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.1.3:2525]
  with esmtp (Farcaster)
- id 574fc1fc-5740-4523-a02e-399120b77f10; Mon, 22 Sep 2025 10:33:39 +0000 (UTC)
-X-Farcaster-Flow-ID: 574fc1fc-5740-4523-a02e-399120b77f10
+ id a28afec0-0101-4d2b-af13-57d8c6bfb847; Mon, 22 Sep 2025 10:40:43 +0000 (UTC)
+X-Farcaster-Flow-ID: a28afec0-0101-4d2b-af13-57d8c6bfb847
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
+ EX19MTAEUA001.ant.amazon.com (10.252.50.50) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Mon, 22 Sep 2025 10:33:39 +0000
+ Mon, 22 Sep 2025 10:40:34 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Mon, 22 Sep 2025
- 10:33:13 +0000
+ 10:40:08 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <richard@nod.at>, <anton.ivanov@cambridgegreys.com>,
  <johannes@sipsolutions.net>, <dave.hansen@linux.intel.com>,
@@ -93,12 +93,14 @@ To: <richard@nod.at>, <anton.ivanov@cambridgegreys.com>,
  <linux-sparse@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
  <linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>,
  <bpf@vger.kernel.org>, <stable@vger.kernel.org>
-CC: Linus Torvalds <torvalds@linux-foundation.org>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, David Laight <David.Laight@aculab.com>
-Subject: [PATCH 01/15 6.6.y] minmax: avoid overly complicated constant
- expressions in VM code
-Date: Mon, 22 Sep 2025 10:32:27 +0000
-Message-ID: <20250922103241.16213-2-farbere@amazon.com>
+CC: Christoph Hellwig <hch@infradead.org>, Dan Carpenter
+ <dan.carpenter@linaro.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, "Jens
+ Axboe" <axboe@kernel.dk>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Mateusz Guzik <mjguzik@gmail.com>, Matthew Wilcox <willy@infradead.org>,
+ Pedro Falcato <pedro.falcato@gmail.com>
+Subject: [PATCH 14/15 6.6.y] minmax.h: simplify the variants of clamp()
+Date: Mon, 22 Sep 2025 10:32:40 +0000
+Message-ID: <20250922103241.16213-15-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20250922103241.16213-1-farbere@amazon.com>
 References: <20250922103241.16213-1-farbere@amazon.com>
@@ -106,7 +108,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D039UWB002.ant.amazon.com (10.13.138.79) To
+X-ClientProxiedBy: EX19D040UWB004.ant.amazon.com (10.13.138.91) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Mon, 22 Sep 2025 12:52:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -123,79 +125,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 3a7e02c040b130b5545e4b115aada7bacd80a2b6 ]
+[ Upstream commit 495bba17cdf95e9703af1b8ef773c55ef0dfe703 ]
 
-The minmax infrastructure is overkill for simple constants, and can
-cause huge expansions because those simple constants are then used by
-other things.
+Always pass a 'type' through to __clamp_once(), pass '__auto_type' from
+clamp() itself.
 
-For example, 'pageblock_order' is a core VM constant, but because it was
-implemented using 'min_t()' and all the type-checking that involves, it
-actually expanded to something like 2.5kB of preprocessor noise.
+The expansion of __types_ok3() is reasonable so it isn't worth the added
+complexity of avoiding it when a fixed type is used for all three values.
 
-And when that simple constant was then used inside other expansions:
-
-  #define pageblock_nr_pages      (1UL << pageblock_order)
-  #define pageblock_start_pfn(pfn)  ALIGN_DOWN((pfn), pageblock_nr_pages)
-
-and we then use that inside a 'max()' macro:
-
-	case ISOLATE_SUCCESS:
-		update_cached = false;
-		last_migrated_pfn = max(cc->zone->zone_start_pfn,
-			pageblock_start_pfn(cc->migrate_pfn - 1));
-
-the end result was that one statement expanding to 253kB in size.
-
-There are probably other cases of this, but this one case certainly
-stood out.
-
-I've added 'MIN_T()' and 'MAX_T()' macros for this kind of "core simple
-constant with specific type" use.  These macros skip the type checking,
-and as such need to be very sparingly used only for obvious cases that
-have active issues like this.
-
-Reported-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Link: https://lore.kernel.org/all/36aa2cad-1db1-4abf-8dd2-fb20484aabc3@lucifer.local/
-Cc: David Laight <David.Laight@aculab.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Link: https://lkml.kernel.org/r/8f69f4deac014f558bab186444bac2e8@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h          | 7 +++++++
- include/linux/pageblock-flags.h | 2 +-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ include/linux/minmax.h | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 2ec559284a9f..a7ef65f78933 100644
+index 75fb7a6ad4c6..2bbdd5b5e07e 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -270,4 +270,11 @@ static inline bool in_range32(u32 val, u32 start, u32 len)
- #define swap(a, b) \
- 	do { typeof(a) __tmp = (a); (a) = (b); (b) = __tmp; } while (0)
+@@ -183,29 +183,29 @@
+ #define __clamp(val, lo, hi)	\
+ 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
  
-+/*
-+ * Use these carefully: no type checking, and uses the arguments
-+ * multiple times. Use for obvious constants only.
-+ */
-+#define MIN_T(type,a,b) __cmp(min,(type)(a),(type)(b))
-+#define MAX_T(type,a,b) __cmp(max,(type)(a),(type)(b))
-+
- #endif	/* _LINUX_MINMAX_H */
-diff --git a/include/linux/pageblock-flags.h b/include/linux/pageblock-flags.h
-index e83c4c095041..a4bf7f0989b2 100644
---- a/include/linux/pageblock-flags.h
-+++ b/include/linux/pageblock-flags.h
-@@ -41,7 +41,7 @@ extern unsigned int pageblock_order;
-  * Huge pages are a constant size, but don't exceed the maximum allocation
-  * granularity.
+-#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
+-	__auto_type uval = (val);						\
+-	__auto_type ulo = (lo);							\
+-	__auto_type uhi = (hi);							\
++#define __clamp_once(type, val, lo, hi, uval, ulo, uhi) ({			\
++	type uval = (val);							\
++	type ulo = (lo);							\
++	type uhi = (hi);							\
+ 	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+ 	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
+ 		"clamp("#val", "#lo", "#hi") signedness error");		\
+ 	__clamp(uval, ulo, uhi); })
+ 
+-#define __careful_clamp(val, lo, hi) \
+-	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
++#define __careful_clamp(type, val, lo, hi) \
++	__clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
+ 
+ /**
+- * clamp - return a value clamped to a given range with strict typechecking
++ * clamp - return a value clamped to a given range with typechecking
+  * @val: current value
+  * @lo: lowest allowable value
+  * @hi: highest allowable value
+  *
+- * This macro does strict typechecking of @lo/@hi to make sure they are of the
+- * same type as @val.  See the unnecessary pointer comparisons.
++ * This macro checks @val/@lo/@hi to make sure they have compatible
++ * signedness.
   */
--#define pageblock_order		min_t(unsigned int, HUGETLB_PAGE_ORDER, MAX_ORDER)
-+#define pageblock_order		MIN_T(unsigned int, HUGETLB_PAGE_ORDER, MAX_ORDER)
+-#define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
++#define clamp(val, lo, hi) __careful_clamp(__auto_type, val, lo, hi)
  
- #endif /* CONFIG_HUGETLB_PAGE_SIZE_VARIABLE */
+ /**
+  * clamp_t - return a value clamped to a given range using a given type
+@@ -217,7 +217,7 @@
+  * This macro does no typechecking and uses temporary variables of type
+  * @type to make all the comparisons.
+  */
+-#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
++#define clamp_t(type, val, lo, hi) __careful_clamp(type, val, lo, hi)
  
+ /**
+  * clamp_val - return a value clamped to a given range using val's type
+@@ -230,7 +230,7 @@
+  * type and @lo and @hi are literals that will otherwise be assigned a signed
+  * integer type.
+  */
+-#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
++#define clamp_val(val, lo, hi) __careful_clamp(typeof(val), val, lo, hi)
+ 
+ /*
+  * Do not check the array parameter using __must_be_array().
 -- 
 2.47.3
 
