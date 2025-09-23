@@ -4,68 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C88ECCAC5B1
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Sep 2025 08:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F396DCAC5B0
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Sep 2025 08:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6462D10E5A3;
-	Tue, 23 Sep 2025 08:54:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9497B10E5A4;
+	Tue, 23 Sep 2025 08:55:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="D+MPi2/7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qYNIFuqY";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9A2F10E58E;
- Tue, 23 Sep 2025 07:59:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1758614387;
- bh=3ua7MjVN60F0PornDgkO2tRMSlC4RwSl7hiGmcZHIHU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=D+MPi2/74E1PxTZ7NBaZ/UWssh05hNgAzY6Zzx7o8TLwpTvZjh0A1bP7K+037T5+v
- rf/mprmVvU/2P8PrCX1TAmWyQoOXd7VXqcAqNnicSUTtsbTjD9RXoFrC2JRcixjcSF
- zIqmVGbkyYnMLEVdP3OXJWVqEOi8Uy0uiCTNidvtAGEmzW4eBHW8tCTlMlJx5e4Nb0
- 12LK8v6tKE6Xr+nlwBTL/uXQN+oO8z+x3glFcsE1Q42xrytAJgAjDOQf+zBVlMcNqf
- 37CCGeKNCiVb6MhEb86ca+0ccVpKh/tdAcpZSAiU71RUEIGCOewNwE4mdbgP/Sejdv
- CuIkCC0ioBc8Q==
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E466C17E00A3;
- Tue, 23 Sep 2025 09:59:45 +0200 (CEST)
-Date: Tue, 23 Sep 2025 10:59:18 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Alex Hung <alex.hung@amd.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, Sebastian Wick
- <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- harry.wentland@amd.com, leo.liu@amd.com, ville.syrjala@linux.intel.com,
- contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com,
- shashank.sharma@amd.com, agoins@nvidia.com, joshua@froggi.es,
- mdaenzer@redhat.com, aleixpol@kde.org, victoria@system76.com,
- daniel@ffwll.ch, uma.shankar@intel.com, quic_naseer@quicinc.com,
- quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, marcan@marcan.st,
- Liviu.Dudau@arm.com, sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com,
- mcanal@igalia.com, nfraprado@collabora.com, Daniel Stone
- <daniels@collabora.com>
-Subject: Re: [PATCH V11 06/47] drm/colorop: Add 1D Curve subtype
-Message-ID: <20250923105918.41f832c2@eldfell>
-In-Reply-To: <7abe9596-1d85-4b14-94ab-97bd4dfe0977@amd.com>
-References: <20250815035047.3319284-1-alex.hung@amd.com>
- <20250815035047.3319284-7-alex.hung@amd.com>
- <DC6I12RMKGXL.1L8KAEE0UBNNW@redhat.com>
- <CAFZQkGyXbD_x0V6KBdR4vaunF+bG+HKOYAA7y6aVWfeTQ3cLzA@mail.gmail.com>
- <4eef4157-cad5-4399-9bc9-c5c2f005d472@amd.com>
- <20250826120306.618c275f@eldfell>
- <610215a0-50ad-45b8-b60a-a52441619c73@amd.com>
- <20250918114036.454735e9@eldfell>
- <7abe9596-1d85-4b14-94ab-97bd4dfe0977@amd.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013051.outbound.protection.outlook.com
+ [40.107.201.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9547B10E5A4;
+ Tue, 23 Sep 2025 08:55:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IviuSnqy6U7MRZed3k+EJTy7U8lX90Q2Z+LsgMMdmO5Qii8+VSIcJweN1P10YVMA8AQEOMM5nOr5r03AqP6tKNsoKFSGa17isyvocnJ9WbSXrORgIolHAKiagOfV92deEGfsWvNmvaSLG4QUtH3ADIyc3IRZR7h6IeHfdEUVjii9BWiqSgoFKc1Fonc3hpkRYcZNZYCu3tV54DxBOPlUJHkJ4K4GFeZEztIFShqRc/dobXDaojdVIhdtv4rqXeCyy6M5vwRVOXVvvudvaIJG1idtxcQmFoQFGk/pBfcqfYeirqxf+7LZ9nkiTtX74AbYDgmhd6WB7ckxJOvmeXgdQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kauovZgAPh8/n9Syrz6UNx8Naz3MLfPorIsaUj3E58c=;
+ b=hAi3+jgcL3BS3vvpDG01aQZcCGyLQRcHq7+TuaFAvpWiWEdfLfJe/53DeHLcXqxRwNeGU0hxTi8Jfgosa7H+2YHosytXNuE9t9PqP3u0sBz9dRCrYjlE3RvEFhA8yYr8C7Ifso5u8e7d15CPrOz6Cmm3yZqEgmYuFXHQS9sxWFJyNQ3A6aKb8d8r9YlTXhvugrT5ulIO1OUU25fEni6W4wNj4S2u3FL7pdbTWplJ7flkijigggPTRo9LMlUdQ0149OHClh1ukIyAhji2H29KfnGMF2trI0PVK7Bh0JleEFLBxBT/xC2Se22jarERlaEFefSoKanrSn4cBTqbFRbTbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kauovZgAPh8/n9Syrz6UNx8Naz3MLfPorIsaUj3E58c=;
+ b=qYNIFuqYnKDVZ7OtMyCu+dxbn2njv4lQH4FvYk06rsa5euypB2Q+mD7zMnOS7mW7PiXnMWZpcSjDEsaKWGtNuCqUEGWUewWJlu7MrTRgj7qo05FHC/lTphuiwYW3syu2JtBhTeCqrzeMU85rPC+TwMSu91+c4ENvLn1hDLvvG3U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by CY5PR12MB6203.namprd12.prod.outlook.com (2603:10b6:930:24::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.19; Tue, 23 Sep
+ 2025 08:55:06 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350%5]) with mapi id 15.20.9137.018; Tue, 23 Sep 2025
+ 08:55:05 +0000
+Message-ID: <19d29a41-0bf6-453a-84b4-72b76f47b9c9@amd.com>
+Date: Tue, 23 Sep 2025 14:24:56 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] drm/buddy: Optimize free block management with RB
+ tree
+Content-Language: en-US
+To: Peter Zijlstra <peterz@infradead.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: matthew.auld@intel.com, jani.nikula@linux.intel.com,
+ samuel.pitoiset@gmail.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, alexander.deucher@amd.com,
+ stable@vger.kernel.org
+References: <20250909095621.489833-1-Arunpravin.PaneerSelvam@amd.com>
+ <6f6841a7-57bd-49de-9b55-b5b0514a2749@amd.com>
+ <20250909140519.GK4067720@noisy.programming.kicks-ass.net>
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20250909140519.GK4067720@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN4P287CA0107.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:276::10) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/A_KO/Wzkq0uRXNO=EUKd.ld";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Tue, 23 Sep 2025 08:54:52 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|CY5PR12MB6203:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58196185-fb5e-4f52-f3cf-08ddfa7ee3d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ajhLRUg0UzdlbTR3TEFsM2dNUHhTRXRmZ3lWMGxEaW1hdlFrWU9nWDlSUnNW?=
+ =?utf-8?B?RGptRXUxcFVnWHZpcTB2R1haMlZxK1ZWRjlzT3Y4YndBUzJvOFpBNGU5NkVO?=
+ =?utf-8?B?RVF5TmFyMVhkL0ZNaUNtdnVobVl0aGg0ZXdyVUh6NjFoOTUwaVduL21DTEFv?=
+ =?utf-8?B?bXQrdy81US9RUlEwT0wwZW1xV3ViRkRDS2h3UGhlYlFFUURGWGpLZnlCOVdo?=
+ =?utf-8?B?YUhMbzQ3ZXUvanN1OGpUUFgxaHVaekNUVit3Z2dueE1LblY5dE13VTNMZVZF?=
+ =?utf-8?B?Z2VhZHRsQzQ4czBTS0hYUEhjclJXSDA0R21WRlJZcENpZldFVXJsYSt5VHgr?=
+ =?utf-8?B?YjYyNVFOUStlcXpueHVzRWdFK2RMYUJ1UEJOck40TzByYnRBUUFWOHg2MjVj?=
+ =?utf-8?B?TEJISXNqeUdoQ2J2SHBINzkyT0NYVGFhNjJ3WDRRaU5HWDl6M0NjNTNMcHN6?=
+ =?utf-8?B?dmNNVHpvSXF6eE1IM3FqZ0ZVRkc2WDFsdk4xYSs5V3JJTVdRaFgwQzZCWGhU?=
+ =?utf-8?B?SktqMTdFekhYcGtxa0lIMnlVS1U5bFN1aGhwMENVK2N6VXgwZnFFWXNON0tk?=
+ =?utf-8?B?bUxMUVliSU9EWXpUY01MMnV3OURsWlowRTFmWGpxZ0VmTUduRlhXRGpvdkFy?=
+ =?utf-8?B?aXJZcVJ2S1gwTFRMRExUMHZGSFNnamNIT1hXNFg5czJleENwQ2phWlVGZm1s?=
+ =?utf-8?B?eWV2Zk11U1FRWVVyOUIyTGFLZCtkUGlqS1FPNUxYQkJxeVNlckNITW1tbFhN?=
+ =?utf-8?B?b1IxNFF4L0pyR2Q5NGpTU1RodktNanZ2Z0hyS3pHTnFRSGVCY1RGdUowUFJv?=
+ =?utf-8?B?TWdEcGpWR1hxMGtjRWkxLzRTS0VVYWZ2L2tNMlhpeHRBeUlwOFFaVVVjV1Za?=
+ =?utf-8?B?aTRVdmNKNnlsWnYwdkNCRlBvMFZubS9TQ0VSbmZPeGg2clFvaUxMRk9SWXMv?=
+ =?utf-8?B?dFRiVHBKZ0JReDFkSnpiSTRXWDRQbVF3RFFNekU2MVJxK3M4OUdIK09ucVVQ?=
+ =?utf-8?B?cDdHM0xNRm5iK2grWnFJVnE1THkwMmovM2tJTkwyWmpTakJId0YyL3N0WHl2?=
+ =?utf-8?B?QW1sU0kyVUNCMVV5bXgvcHhQUWxLaTVxbEYvRnNEMytxUGo2RG9MU043Qitx?=
+ =?utf-8?B?U0hMVzd1MUtYRTI4eWswMXBmTExvSERva1Y4SDhMU0V5b2cvVmRaQmhvSDJh?=
+ =?utf-8?B?cU04NU1lamJ6YWpEWkNFRW41ZUhRWFJDOHU3dDVPc21xUHpIcnYzWXY4bHlZ?=
+ =?utf-8?B?T3lOOVhGWEVqRk1BN2pEYm43Smlnb3MwU1NYLzRBV1IvbERCTmNoL0pNSUpw?=
+ =?utf-8?B?aVA3WFplS29YUkE3bGF3NEh1OGlJODVINjVmMDZRRnU5bjRvNkQ4MlRvTDlL?=
+ =?utf-8?B?cnE5amNTK202VGE2elhZVXhtbFgwUTQ2SDZmUHNkdW9HVDFJVlJXN2haaDNa?=
+ =?utf-8?B?N05iVE5YWVNzeUtMUzZvTGRZdFR0c1JMd2lEU3Q3dnNyUVBUUHNUdDJweURa?=
+ =?utf-8?B?bWZzemNtd3hEa0t4VDZkdCtRVUNXaFpnVlJ3bitPWW0rV001N3pOMHAreEk5?=
+ =?utf-8?B?WkJzNS9QU3lHN1BLbnF0SDhBTm5idUtZc3RXTTQ5ckhJTjZKY204QmEyZEVC?=
+ =?utf-8?B?QlYyeGFiNWRjRXNKWTcraHBIOFMrd0pJRmwzL2pxVlhOR21OYlJHNjUvRi9P?=
+ =?utf-8?B?N040MGd1OW5MWUlLVXRDQmc2dS9BOEpZYkUzaHRHdld6bk1NL2p6UWM2Y0NY?=
+ =?utf-8?B?UUEzb1pnOFp1RWJwYUlmMzlCdCtienNWaXVrMFJPcTdjZmljTVRBY0xCOVR4?=
+ =?utf-8?B?WnFtTHhqNDBpcFNqa1pkY2dLQ2g3bXhVM1RlaWI0U2gyOHBuRWcwelY1OW9K?=
+ =?utf-8?B?RkVnVDJIc0FHMGVrNkFPazJsYVkyUW5YSWdVeEtHakwzUnpUbkQrWktPUmxQ?=
+ =?utf-8?Q?/3bPwtNFixA=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFhUY3JnNy9pdmJrSDhvZGtmK1FFRUxQbGJ0Y3NHSHZiV3ByUXREd1V2WlZi?=
+ =?utf-8?B?TllJdFBVSERRWHM1VUtkcU1zQUVRS1VZV0R4amR4QittWm81T3hhaWlLUnJF?=
+ =?utf-8?B?MmgvSWxYS2FuNjVjbXJaODNVdEVGaGVMYzdqQS9CSThaK1VRSmM5QVgreGNJ?=
+ =?utf-8?B?VzJyTCtoQXk2WnlBSWFBRzVZZ3FnSURaYko4dDZSUWszUHZRQUl2K0c5Ung1?=
+ =?utf-8?B?dVJFeHA2aUozLzVsTnZGckpnVXBBWmQzR0h1WEY1VldXTVl2NytuNEMyRGpL?=
+ =?utf-8?B?UEFheG1OSy9QL1VWbWJiaVN1OEs4WEhJZ001d3FNdlMweEpGRDZJbVk1Q3Zm?=
+ =?utf-8?B?K0hxU3V0ZTVDdVIzMy9wUmUwTDZWSS90TDk4dDh0ckNtQXZNdWFEWm5pMHJt?=
+ =?utf-8?B?dmExTGF1V05UTm9HTTc3SGJZVzMyaEpZWEpjNCtSV3lYU3JBb09wZUdDYVJp?=
+ =?utf-8?B?NDcwNitPeUhpV0NIM0ZOL0lkR3MvVkFtVVJrRzhSdnpLZGdDbVhrUllUUmJX?=
+ =?utf-8?B?bUVBTURaNVpHV2VTYTU1cXBDSDcyRy8zSVBjanVRNGJvYWI4clB1cll2SGps?=
+ =?utf-8?B?WEpDaGltVExWWG45MWFRc3l5b0tLM2l1ZUlUaFViWHhJTXE0VmNqSkhsd1BU?=
+ =?utf-8?B?QjRZdHBYTWIvWHE2MlJ5QktaR2FIbHVxZ0ZJcjdBNWNsWStHQXpSSDRkNVpt?=
+ =?utf-8?B?YWRtNGtzeTExK2V4bk80UXlVaEtJYXBKUUxjUmVRZEYrYTA2NGlWcTl6ZERJ?=
+ =?utf-8?B?N0k2S2NKZ3djMGpONjVQZ1VyaS91UnpCMWFtVS9RNGZ4QnROaHlLT3I2eGE3?=
+ =?utf-8?B?WThlZzhjL09NS2EraVhpWGJHTzBnZThSTDBXRzZOeWhNTlEvTlplaWErNHlt?=
+ =?utf-8?B?d1RFeFFlbWpQTkFOdm5sWWFZVUZXNlpJelp2c1VlYTZvRXNMVjZoeEU2TjNR?=
+ =?utf-8?B?ZENwSWlkUW84QXNLTXVZbEFDaC8wWS9zN0syaTZBU05HN1pTamNTWnhublBD?=
+ =?utf-8?B?T2t0TFVWZVN4d2VWMzlXYWdtNC8valJWc2dJNmpyWlJqTG1UYmZUc0I0dFBE?=
+ =?utf-8?B?WURCc3NFbHdaMW1VYzBZT0hLczdHd3BYVmFkV0FpRGgzeU80Tkdoa0JSamdQ?=
+ =?utf-8?B?eUE5T01QYzY3cS9GMHNXcG4wRVh3SzQwV0NDKzRMRWppNmdXRzE2VWpuVlRs?=
+ =?utf-8?B?NWF6VmpwTzRSTDROMzZqbm56ZzZ1MTh2U05QTVN1Q2RUL3k5ck5lVjdrVFhS?=
+ =?utf-8?B?VlN5dkNUL1lmYVZ2Nzd0Q0h3bjJzbTl0Sjk5dmc1WFpSdUJiR0lzZitMWHNN?=
+ =?utf-8?B?alBuZVZQWGovdVh2YTdrUlFmclp3LzQ4dGVHdHEza0FTVEZTN3lIenp3aGRN?=
+ =?utf-8?B?Wm52M0IrZWVCQVc3RE1hVEU4TmJXUVJaVmVxa2FkY3Jhbk5MUkRpYVpLeFUv?=
+ =?utf-8?B?MnI2S1RJZ000bDlZNkFJNmVVeFROSWNxRkJlelhBSU1EL0dpUDh5SG9ndlo3?=
+ =?utf-8?B?T3RHdFpkZjBHSmFLOW03KzdDM0Y1SjAybTkvcFBDUERFcFRUWC9uL3JneTh2?=
+ =?utf-8?B?QlRLU2VaZlBnR0s4VmV4Y1BLUlNjTW01UUF0M0ZlUVVKZmt3LzZ1WWN4NTE4?=
+ =?utf-8?B?NzRYSEtRc1c1SmlFdG9rMUkzZVp2K0FsbGsvSkFVVUFRc2JrbExSTnBqdU9j?=
+ =?utf-8?B?M2RBWDJmK00yUTBzOG01eG9TbzVwTU1xMU1YSGhwQ3Y2Tzg5djBtU2JSVzJS?=
+ =?utf-8?B?MjE0NHBlNy9SeTByZXUvSHNENHZtQytpczhRd3ZXdlFFcVVsUDRaR2pVa3k2?=
+ =?utf-8?B?TmpIcEM3V1Z2MGxFdFNYenRuWkQzSmJ1cEdGL0JWMkNNR29kS3k2bDJFcXBz?=
+ =?utf-8?B?alFJcFBhc25TZkJyUnhiaVMzK0tOVkFZMEJJNjhOTzRGTEE2Uk91RE5vWjho?=
+ =?utf-8?B?d3Q2S2pQQXo5Kzh1NEI0Tlp4VTAwa3NOU05qaUtONDYxZGw5M3VuTFBYN1dH?=
+ =?utf-8?B?UElvcE8vRmJsVVRFSEhXeXBiVlVLOVpIVUFyV1BtSVRUYlRaOGtOK1lCckJs?=
+ =?utf-8?B?dzZIVWExbTBEOFNLVE04clRrenR3Y0QxdktvSUdHdW5TaVQrOXlXNDVEdkpB?=
+ =?utf-8?Q?A+Dtuaujb3GVlXAxXbysXMlLt?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58196185-fb5e-4f52-f3cf-08ddfa7ee3d5
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2025 08:55:05.5865 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9OOPn5XkUmT+3FZS32uwh39KNE/wfOA823gh4SGdja/O4aKDAGMyJF/jaNspK63pwZYo17fsOjDYPbskKQjyKA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6203
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,219 +169,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/A_KO/Wzkq0uRXNO=EUKd.ld
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 22 Sep 2025 21:16:45 -0600
-Alex Hung <alex.hung@amd.com> wrote:
 
-> On 9/18/25 02:40, Pekka Paalanen wrote:
-> > On Tue, 16 Sep 2025 17:01:07 -0600
-> > Alex Hung <alex.hung@amd.com> wrote:
-> >  =20
-> >> On 8/26/25 03:03, Pekka Paalanen wrote: =20
-> >>> On Thu, 21 Aug 2025 11:54:32 -0600
-> >>> Alex Hung <alex.hung@amd.com> wrote:
-> >>>     =20
-> >>>> On 8/21/25 06:23, Xaver Hugl wrote: =20
-> >>>>>> We user space folks have been convinced at this point that the sRG=
-B EOTF
-> >>>>>> is actually gamma 2.2, and not the piece-wise function. Now, if the
-> >>>>>> hardware is actually the piece-wise, then that's what should be ex=
-posed,
-> >>>>>> but I'm a bit unsure if we should do that under the name sRGB EOTF=
-. =20
-> >>>>> Maybe simply rename the enum string to "sRGB piece-wise EOTF"? In
-> >>>>> hindsight, the naming of "srgb" in the Wayland protocol caused a lot
-> >>>>> of confusion, it's better to be explicit about it where possible. =
-=20
-> >>>>
-> >>>> I will leave this to Harry to comment. He is taking a few days off s=
-o I
-> >>>> will check with him later.
-> >>>>    =20
-> >>>
-> >>> "sRGB inverse OETF"?
-> >>>
-> >>> Strictly speaking "sRGB piece-wise EOTF" is not a thing AFAIU.
-> >>>
-> >>>
-> >>> Thanks,
-> >>> pq =20
-> >>
-> >> If an extension in future after this proposal is merged, can it be GAM=
-MA
-> >> 2.2 to be [DRM_COLOROP_1D_CURVE_GAMMA22] =3D "GAMMA 2.2" so it won't
-> >> conflict with current name?
-> >>
-> >> Meanwhile, do we agree to change "sRGB EOTF" as "sRGB Inverse OETF" as
-> >> the following? or do we still want to add "piece-wise"? =20
-> >=20
-> > Hi Alex,
-> >=20
-> > since my previous comment, things have muddied further again. FWIW, we
-> > intend to remove the use of the name "srgb" transfer function
-> > completely from the Wayland protocol as confusing:
-> >=20
-> > https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_reques=
-ts/442
-> >=20
-> > I would recommend the KMS UAPI to similarly avoid the term. I would
-> > recommend "gamma 2.2" or even "power 2.2" and "compound power 2.4" or
-> > such. These names would hopefully not trigger intuition and make people
-> > look at the definition harder. Or any other name you can come up with.
-> >=20
-> > I agree that "piece-wise sRGB EOTF" would be intuitively clear, but it
-> > may provoke people debating what does IEC 61966-2-1 actually define.
-> > We've had these kind of discussions for Wayland already, and it was
-> > suggested that it is better to define the actual mathematical function
-> > in our specification that to leave it for interpretation from standards.
-> >=20
-> > For KMS, this should be even easier than for Wayland, because the
-> > hardware implements a specific mathematical function regardless of
-> > where it might have originated or what it is being used for.
-> >  =20
->=20
-> Do you mean the following changes? Userspace use Gamma 2.2, and display=20
-> driver can decide to use either sRGB piece-wise EOTF or Gamma 2.2 itself.
+On 9/9/2025 7:35 PM, Peter Zijlstra wrote:
+> On Tue, Sep 09, 2025 at 02:04:30PM +0200, Christian König wrote:
+>> Hi Arun,
+>>
+>> On 09.09.25 11:56, Arunpravin Paneer Selvam wrote:
+>> [SNIP]
+>>
+>>> +/**
+>>> + * rbtree_for_each_entry_safe - iterate in-order over rb_root safe against removal
+>>> + *
+>>> + * @pos:	the 'type *' to use as a loop cursor
+>>> + * @n:		another 'type *' to use as temporary storage
+>>> + * @root:	'rb_root *' of the rbtree
+>>> + * @member:	the name of the rb_node field within 'type'
+>>> + */
+>>> +#define rbtree_for_each_entry_safe(pos, n, root, member) \
+>>> +	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member), \
+>>> +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL; \
+>>> +	     (pos); \
+>>> +	     (pos) = (n), \
+>>> +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL)
+>> As far as I know exactly that operation does not work on an R/B tree.
+>>
+>> See the _safe() variants of the for_each_ macros are usually used to iterate over a container while being able to remove entries.
+>>
+>> But because of the potential re-balance storing just the next entry is not sufficient for an R/B tree to do that as far as I know.
+>>
+>> Please explain how exactly you want to use this macro.
+> So I don't much like these iterators; I've said so before. Either we
+> should introduce a properly threaded rb-tree (where the NULL child
+> pointers encode a linked list), or simply keep a list_head next to the
+> rb_node and use that.
+>
+> The rb_{next,prev}() things are O(ln n), in the worst case they do a
+> full traversal up the tree and a full traversal down the other branch.
+>
+> That said; given 'next' will remain an existing node, only the 'pos'
+> node gets removed, rb_next() will still work correctly, even in the face
+> of rebalance.
+Sorry for the delay. I have been discussing with Christian and testing a 
+few code
+changes. Maintaining a sorted list_head alongside each rb_node is expensive,
+which is the main reason we are moving from a list to an rbtree. In the 
+force_merge()
+function, we only call this during normal allocation to iterate once or 
+twice and merge
+the required blocks, not the entire tree. Therefore, rb_prev is 
+sufficient, and want to
+avoid adding unnecessary complexity for this simple operation. 
+Therefore, I have removed
+all the newly added macros in v7.
 
-Sorry, the driver cannot choose. The UAPI needs to define the curves
-explicitly, and the drivers need to implement those curves exactly(*) or
-not at all. What I propose is, let's not use "sRGB" in any of the names
-for the curves, because that name triggers different assumptions in
-different people.
-
-(*) "Exactly" is a little vague here. I assume some error tolerance
-needs to be allowed, e.g 1 bit on the electrical value. The maximum
-difference between the two-piece and power-2.2 curves is several code
-points for 8-bit electrical quantization, and that's too much error.
-
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index e1b2b446faf2..3a6c64285d9c 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -71,7 +71,7 @@ static const struct drm_prop_enum_list=20
-> drm_colorop_type_enum_list[] =3D {
->   };
->=20
->   static const char * const colorop_curve_1d_type_names[] =3D {
-> -       [DRM_COLOROP_1D_CURVE_SRGB_EOTF] =3D "sRGB EOTF",
-> +       [DRM_COLOROP_1D_CURVE_SRGB_EOTF] =3D "Gamma 2.2",
->          [DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF] =3D "sRGB Inverse EOTF",
->          [DRM_COLOROP_1D_CURVE_PQ_125_EOTF] =3D "PQ 125 EOTF",
->          [DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF] =3D "PQ 125 Inverse EOTF",
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index 3e70f66940e0..e39379f1a61c 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -48,7 +48,8 @@ enum drm_colorop_curve_1d_type {
->           * sRGB piece-wise electro-optical transfer function. Transfer
->           * characteristics as defined by IEC 61966-2-1 sRGB. Equivalent
->           * to H.273 TransferCharacteristics code point 13 with
-> -        * MatrixCoefficients set to 0.
-> +        * MatrixCoefficients set to 0. This can also be approximated as
-> +        * Gamma 2.2.
-
-The problem is that "H.273 TransferCharacteristics code point 13" a.k.a
-the sRGB curve means different things for different people (two-piece
-vs. power-2.2).
-
-The difference is minor but visible, and therefore I would not make
-two-piece and power-2.2 equivalent nor have one approximated by the
-other.
-
-They both need their own entries in the enum. Let's leave any decision
-about whether substituting one for the other is ok to the userspace.
-
->           */
->          DRM_COLOROP_1D_CURVE_SRGB_EOTF,
->=20
->=20
-> It is also possible to add GAMMA 2.2 in addition to sRGB piece-wise=20
-> EOTF. But if I understand correctly, DRM_COLOROP_1D_CURVE_SRGB_EOTF may=20
-> not be used at all, right?
-
-If hardware implements the two-piece curve, then there is reason to
-expose it, especially when it does not implement power-2.2. Userspace
-can choose to use it as an approximation when that is appropriate.
-
+A full traversal of force_merge() is only needed during the buddy 
+allocator's fini() operation, and in that
+case, any slowness or timing overhead is not critical.
 
 Thanks,
-pq
+Arun.
+>
+>
 
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -77,6 +77,7 @@ static const char * const=20
-> colorop_curve_1d_type_names[] =3D {
->          [DRM_COLOROP_1D_CURVE_SRGB_EOTF] =3D "sRGB EOTF",
->          [DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF] =3D "PQ 125 Inverse EOTF",
->          [DRM_COLOROP_1D_CURVE_BT2020_INV_OETF] =3D "BT.2020 Inverse OETF=
-",
->          [DRM_COLOROP_1D_CURVE_BT2020_OETF] =3D "BT.2020 OETF",
-> +       [DRM_COLOROP_1D_CURVE_GAMMA22] =3D "Gamma 2.2",
->   };
->=20
-> Does anyone have comments or concerns if we use the first option?
->=20
-> Alex H.
->=20
-> >=20
-> > Thanks,
-> > pq
-> >  =20
-> >> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_color=
-op.c
-> >> index 1551b86471ce..90a216c0b6ac 100644
-> >> --- a/drivers/gpu/drm/drm_colorop.c
-> >> +++ b/drivers/gpu/drm/drm_colorop.c
-> >> @@ -71,7 +71,7 @@ static const struct drm_prop_enum_list
-> >> drm_colorop_type_enum_list[] =3D {
-> >>    };
-> >>
-> >>    static const char * const colorop_curve_1d_type_names[] =3D {
-> >> -	[DRM_COLOROP_1D_CURVE_SRGB_EOTF] =3D "sRGB EOTF",
-> >> +	[DRM_COLOROP_1D_CURVE_SRGB_EOTF] =3D "sRGB Inverse OETF",
-> >>    	[DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF] =3D "sRGB Inverse EOTF",
-> >>    	[DRM_COLOROP_1D_CURVE_PQ_125_EOTF] =3D "PQ 125 EOTF",
-> >>    	[DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF] =3D "PQ 125 Inverse EOTF",
-> >> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> >> index e4250b7d8de8..ce85c52c60c8 100644
-> >> --- a/include/drm/drm_colorop.h
-> >> +++ b/include/drm/drm_colorop.h
-> >> @@ -43,7 +43,7 @@ enum drm_colorop_curve_1d_type {
-> >>    	/**
-> >>    	 * @DRM_COLOROP_1D_CURVE_SRGB_EOTF:
-> >>    	 *
-> >> -	 * enum string "sRGB EOTF"
-> >> +	 * enum string "sRGB Inverse OETF"
-> >>    	 *
-> >>    	 * sRGB piece-wise electro-optical transfer function. Transfer
-> >>    	 * characteristics as defined by IEC 61966-2-1 sRGB. Equivalent
-> >> =20
-> >  =20
->=20
-
-
---Sig_/A_KO/Wzkq0uRXNO=EUKd.ld
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmjSU1YACgkQI1/ltBGq
-qqer0RAAiaoVlQ5QYTphtzDeCCIf0oK2APfCl/E1oqjxA3+yHMccAIx1kzktyJFx
-gO577wO5nbYoA3T3a9pQ2Nq2Kw3ejdwp3+jl+iQeYWJy2mbkWyceJXg7VB2f9KI5
-ei/9tDBfp0bHzZnmoPCrdwGE6ad+ulq8AjQAbsd717oslPhNkfIgz1Jdbj+71dGn
-KySgJmLKxhkn0WZmuJSWRDOEHtLhAy9NkUjCxlDEczqTg+PEjhZAV3uDoKFkh2/a
-zLvnkJXjnX+NRZPkF7ovlSx2d3oMCgXJ5BA5RQjuETjUWOu0LDh1/H+Vz45keV13
-BlEufQiWmFhbMgO8ebj8gTGZskBJ6wTsbqGoT7f+BO8A/LrPwLGYF+OohLyGLxTz
-cLthxIdcH1nnzrMZbP1/Ex5a4zDSNHVtswdIdT/QSes2CrMQbsihyUOughZeRW33
-XUye2paFyasnRoW8zdU+pihSGWtVkOwpsxvslE2YcIGU0XfZ9p4cfxz4wxQJ98yM
-16YEEakd1uwn5zfDZU9yeh9AWIwlvrS6BUEZwz87oVe9xpVofaTVSrmVGgii1usK
-OAGzVv776qXucKmAWTGhiIWwlThVOmohmeJQnf8zs3Z+7An9xAe0qvK3yJZOA/ZO
-bIW4TviCIsCl//mSsUiqo7xqlICxy3ZL3pf3oQMKTdQzCXQPfFc=
-=fek9
------END PGP SIGNATURE-----
-
---Sig_/A_KO/Wzkq0uRXNO=EUKd.ld--
