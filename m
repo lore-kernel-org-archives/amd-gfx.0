@@ -4,74 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08713CAC5AC
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Sep 2025 21:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11AF1CAC5AC
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Sep 2025 23:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A317110E0FD;
-	Tue, 23 Sep 2025 21:18:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA7C10E5DA;
+	Tue, 23 Sep 2025 23:00:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BOL7cPCc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="brVqfx/4";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 641B910E0FD
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 21:18:23 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-267dbd4e189so14650955ad.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 14:18:23 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F80910E5DA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 23:00:49 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-330b0bb4507so3916719a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 16:00:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758662303; x=1759267103; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=loH/mer8uVzX4yEJRX08aYNFOzWZWI26oiZNxoeK7T0=;
- b=BOL7cPCcKphcr7yyLKtgHNKOofXrvb9N4yRzVWmJ9Ls4Hb6MPrfpt0zgZSaMjiYBvY
- FW+i3CPlWca633RXmiQtDQloQNaw93XGD1XpOqH0gmEX39BkT2JTlErZlf6OlwK2KyIV
- SunS+5k32p3Rd9ACJT2hv0eCEp74pO0XS3nvPIvWWHvwGDEpKmt//t2a+1W3gP906Pr2
- IrQs/00yMJNfKVHSIjfMVlQwfQ4jkvr3SMSGdXMMhOVor4CpraZNELVgqSFRf6jaS92w
- 4Qkb+xxHTtpFMFyTD299isR3C2yFnkpoZtoe0KPM5+cKoyEVFyEEZK6RkK43JJaOeBRX
- 9d4A==
+ d=gmail.com; s=20230601; t=1758668449; x=1759273249; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=1U7cilwNnTGIqt3DPs8LqOvMua7qXh5lV9ta4jiN5NE=;
+ b=brVqfx/4gyuYO5fKI5zo/bzhUwlczWKwr/F3lgV3F5R4hQCLX18laFx6G8Ho3EFlIf
+ aLuJxWxEDtz3sltRrAaohCiK2HcqIJN7lxrEt+PJa9fC6m/11dZk5IH4lM0jW1E8vFM1
+ +83jgZgANs8aSKMidN1Ff2y4+mDlHWv8l64mwCH0fvYtapvJVZx1OF7NBMOYR2DOJF/8
+ kFAF7IU7ncJWSva0XUPCOOqsFEfO230Nbgfu/qc/Vm32xywanJhbKRT932VOSskBZIgc
+ 9/uvI2r8mtZV5fHITAvrte6ue/rd6pTra2YD4/3VLcFyXEjl175C2B4/8nnERCQcjC0w
+ sgMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758662303; x=1759267103;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=loH/mer8uVzX4yEJRX08aYNFOzWZWI26oiZNxoeK7T0=;
- b=bgXVfsAg/5C5kRUQghYi7ZvsQUwg53bTLOalt+sqENLit8FX4mX1Dig9KAw2HGfbRf
- sID55duQevZvVBGbPEkflvobmylq8Y2vKZl8C9E/EYT1kHB9LWeog4qdj+UH2lH+EDPK
- a9CaWQaaz7j+nvtD5TpzXMg6Fw3GwPcVdD9Np4R/S9D57tWrVJT5GNblN6P95d9Q31hb
- 128R/H4jUhagJI4YGYowldvSy5ZcTt6R7acdu51QGt4OUqUkUBywfdYquN0U7/m2Ct5+
- iGrE9zASt/2wk8+qE7RqSs0uVVJiUO7euB8KAy+5sJLiiPFZQZyao3MaOdAuiH85v4VA
- 6ukQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXelOOc90Gv1SDJyK8Jmx+2pu09d4CRzMn9RLRMerE5bV32ixCx7vi8Xh0EawtOdWJAKXCp6Cei@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxd9PbWNbJp/933FpDrTOQANg3MjCypaMxrMH5F8QZorG7MlCyQ
- VgpKn3XbVX5UY7no13v5SXcQZvhB6LZ8uLZJ0J5/0z0Ij0fkqpA4fZ13juJ+WVseSCThrCcG+I8
- NdNorYnEASyLwkyKBR5O+X66SejdEjVY=
-X-Gm-Gg: ASbGnct9SOMklHSYamDGSISCTUT/AG8THg7BZHtsDefmQwhofYyrf736ySvJDCD6wOr
- GnUVHomi5YCfFtZUhKvsloXlSb/u9FdU7X4umQgOCQmrQCdoXEsf9CHMSNdqh5JknOlxXKcg2i5
- fm9ERe9JCsYpub4iXT33pFaR2XtVk06DNwAOpMpZBVNz7zabwb4Ck2I1y7XNNlrGmrFbLW3x3JG
- mQvjfg=
-X-Google-Smtp-Source: AGHT+IFnwwt/IOCvJsBB6AFgTLceNm7jgMwdkvU8lOGfthr8b/FHASvVJ52WqjVSCsqQpqVc9nC/JOCTScU1YGORn9M=
-X-Received: by 2002:a17:902:f693:b0:26a:3c75:5241 with SMTP id
- d9443c01a7336-27cc7f8fa39mr25912755ad.9.1758662302758; Tue, 23 Sep 2025
- 14:18:22 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250923211216.306525-1-siqueira@igalia.com>
-In-Reply-To: <20250923211216.306525-1-siqueira@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 Sep 2025 17:18:11 -0400
-X-Gm-Features: AS18NWAIa1C2HlAoKeIH7Tubx4lYQ2FHjgcsWY5x8ZF9pJqRaukf8Vlb9XVHyVE
-Message-ID: <CADnq5_Nk3V=7d4m7nCExc8yLhu1Zz7T08wXpM0qJhJSVAVnuaQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix GFX hang on SteamDeck when amdgpu is
- reloaded
-To: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Robert Beckett <bob.beckett@collabora.com>, amd-gfx@lists.freedesktop.org, 
- kernel-dev@igalia.com
+ d=1e100.net; s=20230601; t=1758668449; x=1759273249;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=1U7cilwNnTGIqt3DPs8LqOvMua7qXh5lV9ta4jiN5NE=;
+ b=URKeTco4cvytEgzdcjlX5v/4DdOrAYwEgIvFXwqQdR1eYZp6MLqaf7NC+KPkfalXiQ
+ RyRB4364swKNkH/2hx+J3ds1H59VpRZD+hckMzk6sCqcTpx/RvzBvUHaf9xLuWDA4Gi2
+ ZuGVvBKGd7cHa1DJxTGwtrH3VqLMdBCfKuhAi4y0HXKMyHS76DNOjiZxqZqDGDtTCTMo
+ 9/dHrxF37ZquCQF4DnhBiS1BzKPxRNZHBfD9WXXRD47VVUZDXDwAANKvuPVthQMwt//K
+ +G3TVcJBTElVBVam7S+WCmTDXeeRXQS6gaVwMIaTWb17P/3uBtAKhw0cLCDBdGp9C9AR
+ ME5w==
+X-Gm-Message-State: AOJu0YwsmVzBvk2AhaiRwfMwdd01TzUrzwjzBGW8XUp4CY0eq2qDvTIQ
+ pe4OXmpdstSM/GGFDWuds+AXof8tUDW3esIOquj74qZ7cLPYWd8vxsQO/faVQw==
+X-Gm-Gg: ASbGncsM1TbxFi3NTk/mBg7uNNderpfI1efMzmeTc6o4uvcoN1A4PVDD9yA8IkmdeZ4
+ X5DQ06ti9hE0P9mXCf7PPWwk1l066NLyHWW2wZXbQurOmUujAHWviOmIU+4+2itEqE45oUw8hHY
+ gGQARDngl2qHQciNUZKa47uB1EbEtKN8w6r9LhvZ28+1CpmW5XwvUITkWCBjkQd087zosRpH87q
+ 12c1xmPxtmIQeKjunBjmQZ1wIcJ9jnGbYTrLxDG/70cy2mBLBXaJT2MbMGi0wPvfZNkdxWMAWac
+ j9yExC6+NpYLBaOJFUvE69yfuDoNIvEU5fz6kBYdKWI/yb3xwNuGW9FzzhX84DqqQfcmHG/7luJ
+ 1nrcE8TjzskHBw5GUpbj0pfKUcyIxRIkNeRSVQ2xaKV0Fjk9wwnUn35EdIsN+pNPmcURqnWlCYy
+ eXsw==
+X-Google-Smtp-Source: AGHT+IElL/Dh2gVLNywr38cMA6fcZImTRoybXuM5YWXRcKqKGdrQXvqCXXRGx+jVsj1Bv07e5TA2vA==
+X-Received: by 2002:a17:90b:4b82:b0:330:604a:1009 with SMTP id
+ 98e67ed59e1d1-332a95c82d3mr3922823a91.23.1758668448719; 
+ Tue, 23 Sep 2025 16:00:48 -0700 (PDT)
+Received: from ?IPv6:2001:4c4e:24d0:6700:2d63:3626:f382:b5d2?
+ ([2001:4c4e:24d0:6700:2d63:3626:f382:b5d2])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-77f1f2a1bdasm10035559b3a.3.2025.09.23.16.00.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Sep 2025 16:00:47 -0700 (PDT)
+Message-ID: <1bf9dea32c916538866be9eccb424a28ed1f077d.camel@gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: block CE CS if not explicitely allowed
+ by module option
+From: timur.kristof@gmail.com
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ alexander.deucher@amd.com, Marek.Olsak@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+Date: Wed, 24 Sep 2025 01:00:38 +0200
+In-Reply-To: <20250923131025.3268-2-christian.koenig@amd.com>
+References: <20250923131025.3268-1-christian.koenig@amd.com>
+ <20250923131025.3268-2-christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,71 +91,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 23, 2025 at 5:12=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
-om> wrote:
->
-> When trying to unload amdgpu in the SteamDeck (TTY mode), the following
-> set of errors happens and the system gets unstable:
->
-> [..]
->  [drm] Initialized amdgpu 3.64.0 for 0000:04:00.0 on minor 0
->  amdgpu 0000:04:00.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test=
- failed on gfx_0.0.0 (-110).
->  amdgpu 0000:04:00.0: amdgpu: ib ring test failed (-110).
-> [..]
->  amdgpu 0000:04:00.0: amdgpu: SMU: I'm not done with your previous comman=
-d: SMN_C2PMSG_66:0x0000001E SMN_C2PMSG_82:0x00000000
->  amdgpu 0000:04:00.0: amdgpu: Failed to disable gfxoff!
->  amdgpu 0000:04:00.0: amdgpu: SMU: I'm not done with your previous comman=
-d: SMN_C2PMSG_66:0x0000001E SMN_C2PMSG_82:0x00000000
->  amdgpu 0000:04:00.0: amdgpu: Failed to disable gfxoff!
-> [..]
->
-> When the driver initializes the GPU, the PSP validates all the firmware
-> loaded, and after that, it is not possible to load any other firmware
-> unless the device is reset. What is happening in the load/unload
-> situation is that PSP halts the GC engine because it suspects that
-> something is amiss. To address this issue, this commit ensures that the
-> GPU is reset (mode 2 reset) in the load/unload sequence.
->
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+On Tue, 2025-09-23 at 15:10 +0200, Christian K=C3=B6nig wrote:
+> The Constant Engine found on gfx6-gfx10 HW has been a notorious
+> source of
+> problems.
+>=20
+> RADV never used it in the first place, radeonsi only used it for a
+> few
+> releases around 2017 for gfx6-gfx9 before dropping support for it as
+> well.
+>=20
+> While investigating another problem I just recently found that
+> submitting
+> to the CE seems to be completely broken on gfx9 for quite a while.
+>=20
+> Since nobody complained about that problem it most likely means that
+> nobody is using any of the affected radeonsi versions on current
+> Linux
+> kernels any more.
+>=20
+> So to potentially phase out the support for the CE and eliminate
+> another
+> source of problems block submitting CE IBs unless it is enabled again
+> using a debug flag.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+
+Acked-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+
+Hi Christian,
+
+Would you be open to receiving a patch to stop emitting the CE related
+workarounds when the CE is not enabled?
+
+Alternatively, could we stop emitting them altogether now that the CE
+is disabled by default?
+
+Also, should the new debug flag be documented?
+
+Thanks & best regards,
+Timur
+
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/nv.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu=
-/nv.c
-> index 50e77d9b30af..1964aa37c499 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -543,6 +543,13 @@ static bool nv_need_reset_on_init(struct amdgpu_devi=
-ce *adev)
->  {
->         u32 sol_reg;
->
-> +       /* GFX in the SteamDeck hangs when amdgpu module is reloaded, sin=
-ce the
-> +        * firmware is already loaded. To avoid this issue, ensure that t=
-he
-> +        * device is reset to put the PSP in a good state.
-> +        */
-> +       if (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(10, 3, =
-1))
-> +               return true;
-
-This will force a reset every time the driver loads.  That will add a
-lot of latency to the driver load sequence.  I think it would be
-better to reset on unload or add a check to see if CP firmware is
-already loaded here so we only reset if the driver has been previously
-loaded.
-
-Alex
-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu.h=C2=A0=C2=A0=C2=A0=C2=A0 | 1 +
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0 | 6 ++++++
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 +++++++-
+> =C2=A03 files changed, 14 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 2a0df4cabb99..6f5b4a0e0a34 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1290,6 +1290,7 @@ struct amdgpu_device {
+> =C2=A0	bool=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> debug_disable_gpu_ring_reset;
+> =C2=A0	bool=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 debug_vm_userptr;
+> =C2=A0	bool=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 debug_disable_ce_logs;
+> +	bool=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 debug_enable_ce_cs;
+> =C2=A0
+> =C2=A0	/* Protection for the following isolation structure */
+> =C2=A0	struct mutex=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enforce_isolat=
+ion_mutex;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 744e6ff69814..322890e2c899 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -364,6 +364,12 @@ static int amdgpu_cs_p2_ib(struct
+> amdgpu_cs_parser *p,
+> =C2=A0	if (p->uf_bo && ring->funcs->no_user_fence)
+> =C2=A0		return -EINVAL;
+> =C2=A0
+> +	if (!p->adev->debug_enable_ce_cs &&
+> +	=C2=A0=C2=A0=C2=A0 chunk_ib->flags & AMDGPU_IB_FLAG_CE) {
+> +		dev_err_ratelimited(p->adev->dev, "CE CS is blocked,
+> use debug=3D0x400 to override\n");
+> +		return -EINVAL;
+> +	}
 > +
->         if (adev->flags & AMD_IS_APU)
->                 return false;
->
-> --
-> 2.51.0
->
+> =C2=A0	if (chunk_ib->ip_type =3D=3D AMDGPU_HW_IP_GFX &&
+> =C2=A0	=C2=A0=C2=A0=C2=A0 chunk_ib->flags & AMDGPU_IB_FLAG_PREEMPT) {
+> =C2=A0		if (chunk_ib->flags & AMDGPU_IB_FLAG_CE)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index ece251cbe8c3..3b3fc734c0f8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -144,7 +144,8 @@ enum AMDGPU_DEBUG_MASK {
+> =C2=A0	AMDGPU_DEBUG_DISABLE_GPU_RING_RESET =3D BIT(6),
+> =C2=A0	AMDGPU_DEBUG_SMU_POOL =3D BIT(7),
+> =C2=A0	AMDGPU_DEBUG_VM_USERPTR =3D BIT(8),
+> -	AMDGPU_DEBUG_DISABLE_RAS_CE_LOG =3D BIT(9)
+> +	AMDGPU_DEBUG_DISABLE_RAS_CE_LOG =3D BIT(9),
+> +	AMDGPU_DEBUG_ENABLE_CE_CS =3D BIT(10)
+> =C2=A0};
+> =C2=A0
+> =C2=A0unsigned int amdgpu_vram_limit =3D UINT_MAX;
+> @@ -2289,6 +2290,11 @@ static void amdgpu_init_debug_options(struct
+> amdgpu_device *adev)
+> =C2=A0		pr_info("debug: disable kernel logs of correctable
+> errors\n");
+> =C2=A0		adev->debug_disable_ce_logs =3D true;
+> =C2=A0	}
+> +
+> +	if (amdgpu_debug_mask & AMDGPU_DEBUG_ENABLE_CE_CS) {
+> +		pr_info("debug: allowing command submission to CE
+> engine\n");
+> +		adev->debug_enable_ce_cs =3D true;
+> +	}
+> =C2=A0}
+> =C2=A0
+> =C2=A0static unsigned long amdgpu_fix_asic_type(struct pci_dev *pdev,
+> unsigned long flags)
