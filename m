@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 468A1CAC5A7
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Sep 2025 02:59:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ADFACAC5AA
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Sep 2025 02:59:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C413F10E040;
-	Tue, 23 Sep 2025 02:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C334010E1D9;
+	Tue, 23 Sep 2025 02:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sgJKOmpy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PbVADMfZ";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010046.outbound.protection.outlook.com [52.101.56.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDB5F10E040
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 02:59:16 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012007.outbound.protection.outlook.com
+ [40.107.200.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49AC310E040
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 02:59:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HRvrUNgiOZV/RqNAAt0UdsTGxcPpVBDrRh70Q3CBlQoUVPOOOVS0oiY8lowsVnqNHkcWquAtR3ewJYUSSylGRq2ftWruTyjgAuVIrl3Z5cSgphfGgigW2ETK0FkjnpChbylYKtouNRgpk7/H1EyS/n4MOKCKTMqBqq7tuUnqQdEIY13lEjpk2ksqJGC88ixFvp/G8VCnUHG9Y5Byn3fd9d7DJn3SX0hu2z6YFm2LathEMWSZwhOyLkX4rab42spOTUbuuULq9LhtpOj1u8B9849LG+YFdVzN/3A8YpSKNWdJ1WIvEAXyg284PuoamSpKxyckUNpXRq5VUsnEFGqx4w==
+ b=dN7MVFOgpaA7pCS3Of4miChwsEKo4vH3jv5T4FWxNR9X3/9v95vmE+JXbgLtixsAhce2XjQgA/R4KmFc22wOpMyZMBVAlAQJQAy8zfa+lQeSAY5W3EjmFDpdO8IMCj7I314vfLhc5sbWJMQFaiKvxW2Jl6taQz50N/zXUOKOgReLxiE7Q3A1o5kLbYivNCz0q7iNs2A6OgO/YW93DhHZZMCnV+praJqLsRU5Oz98nnyorNtlU0hde9QeZJqW1m8pRIBYQAyZOiXiLytZElzbdgd+W/P64BTUax5tGgeL4kD/DUAzZPYWhm+fj6TOcdcVxt3loGjQmdv8WCIEj3xcSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bOcr32wVxiqo98od+32Xi+z/0ZGaZDsO/mtNcZLhcOo=;
- b=Lv/UM5IqQb9rVJyFyADVTtkoF/QQmJQSwd4JFDR/TEBmey/8JLn17VhJc4+xPT/A9gEAu+ayvUjA2K7zgicuJEMVCPWtXLSbHbhHeRABnbCz+xmBfbrNO4Jd/t5grfWd5HgZ5GEcZeF479zdO+0KR6OBdHdZwzOtnZ5KADEm0w11JuXbU02jJfL3rYh5JoUdujk3plCLT5dtHp4hKWnof5MeMGUiLMrQCvdjIZpCcPoajZnRz33NMRk5o/DruqUlN+0FGtNbB/XX2HMRrE+eOWm3q07FJ1LVqHAlnSWEGicDoWi1+8JXHwIJDqrvdjv0Vwx8aM3oG+1N5SGJDdzIfQ==
+ bh=7pt2nxMp0gZtfhd/kb0GiUus6PRTCOIrJuQYZEPI5mI=;
+ b=bZmQ5MDF0TCWgU+617DdnhKVrLaYrwpJG1dGBQ7yqwIdJKXWJawctSkdU3MEKHeU36RaxQiUOt4pROM6ECotKQ72Up7Qeq+rc0ZXeNVQ9mRzrffG6ufd1nNAekJIffS73IADs6yOEavypG1uzR77ua2D3/LmVISrETk7LLYOaSn/5P1tCO+7BlVoqmRDDXhUusQ3tepwZM+Y0bHy8eHCY+pS/dK5SRG2UPtg8BsOGYLtXmj/irdngT9T7wg6tGylmK1xV/NPxvFVF248Rw1pl9cA/HRW9v6D88dun5idVFRnyFY6yVeXWKbEkVYZFzxGHlH7q4Y9EWbq8AWX0pByeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bOcr32wVxiqo98od+32Xi+z/0ZGaZDsO/mtNcZLhcOo=;
- b=sgJKOmpyqq0ssdRv6fY1npiBCwdfXRh3Bgx61X/lBdLbx/yllgo7q5kc/dDtePvpuS6qyX5I6omJN7W/Xkqjqio8Sw05G8OWNtpOAOANy86hYkFPcjMQ+o96MzDka7ZAaTB8FubFfh82faANuio00cKDbzXGkyXMvQaucmUwn4Y=
-Received: from DM6PR11CA0018.namprd11.prod.outlook.com (2603:10b6:5:190::31)
- by SA5PPF50009C446.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8c8) with
+ bh=7pt2nxMp0gZtfhd/kb0GiUus6PRTCOIrJuQYZEPI5mI=;
+ b=PbVADMfZvv6vG92286vHXqb2uJMXrOhtHuM/gqGtEqt+fi8dYjlxorKKdS0vwWJCWqL1L1h0Sehu/LKDDKQbAB8dWTTHtvWHwFO5bqe00PyB9SB4kNm7Fp8gwJeGKUP/5Bi/za57dMUx6L5Gt0ScLvSRnSIrRdM5BG7yIvLfoY8=
+Received: from DM6PR11CA0016.namprd11.prod.outlook.com (2603:10b6:5:190::29)
+ by SA1PR12MB8095.namprd12.prod.outlook.com (2603:10b6:806:33f::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.18; Tue, 23 Sep
- 2025 02:59:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.19; Tue, 23 Sep
+ 2025 02:59:13 +0000
 Received: from CY4PEPF0000FCC2.namprd03.prod.outlook.com
- (2603:10b6:5:190:cafe::2d) by DM6PR11CA0018.outlook.office365.com
- (2603:10b6:5:190::31) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:5:190:cafe::13) by DM6PR11CA0016.outlook.office365.com
+ (2603:10b6:5:190::29) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.20 via Frontend Transport; Tue,
- 23 Sep 2025 02:59:12 +0000
+ 23 Sep 2025 02:59:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +51,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CY4PEPF0000FCC2.mail.protection.outlook.com (10.167.242.104) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Tue, 23 Sep 2025 02:59:11 +0000
+ 15.20.9137.12 via Frontend Transport; Tue, 23 Sep 2025 02:59:12 +0000
 Received: from yifan.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 22 Sep
- 2025 19:59:08 -0700
+ 2025 19:59:10 -0700
 From: Yifan Zhang <yifan1.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <Alexander.Deucher@amd.com>,
  <Philip.Yang@amd.com>, <Lijo.Lazar@amd.com>, Yifan Zhang
  <yifan1.zhang@amd.com>
-Subject: [PATCH v3 1/2] amd/amdkfd: resolve a race in
- amdgpu_amdkfd_device_fini_sw
-Date: Tue, 23 Sep 2025 10:58:51 +0800
-Message-ID: <20250923025852.1679262-1-yifan1.zhang@amd.com>
+Subject: [PATCH v3 2/2] amd/amdkfd: enhance kfd process check in switch
+ partition
+Date: Tue, 23 Sep 2025 10:58:52 +0800
+Message-ID: <20250923025852.1679262-2-yifan1.zhang@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250923025852.1679262-1-yifan1.zhang@amd.com>
+References: <20250923025852.1679262-1-yifan1.zhang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -73,52 +76,52 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|SA5PPF50009C446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 997cf0ae-71e9-47fc-3000-08ddfa4d2c16
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|SA1PR12MB8095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6eb6d15a-e3c3-4a61-7b6f-08ddfa4d2cf6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ctqPRIzPXf5hi0NwUtwFaUEi8VgW3tEvK9jrlkdfs6YeoT2T45EZPIAtH8Ri?=
- =?us-ascii?Q?SF6kDK4KRdrVErgJRdFv61scvq/gTMUstV9aTthLCWnhXnn9qF7N+cY8+Wk4?=
- =?us-ascii?Q?lP4Tx4MnfBf4GYu2kybFvioECNqFcgzBxnSsgfCrFYVulJApVVXLuY+qX4BC?=
- =?us-ascii?Q?AOG8mm5fZxZAZ4zbwtYzo9XoPEM8MC12ucbGpvpaTgxWFk/TRlL0CynqgsdG?=
- =?us-ascii?Q?TSyqk3fe1koyOpTQwh8AlkvIvB5krwnYYfz/Cslwr/bwgXBurT+XMRGhqa5z?=
- =?us-ascii?Q?G9nVi0iNgthqgBNu+SyzrYkTYPl7m1pYVpP++ojRA7lAeHQDOj9KO94jBF7C?=
- =?us-ascii?Q?/cdtkiYOJnOoofII58qUuOaIBDBcI6SkiXVDaA3nQ0qXedG8QDluuFHdedOg?=
- =?us-ascii?Q?4O2U/WOIv792vpVE/HaAzBNarx/wRgbkARH5DBge/+LCB5EkQ77IiJmdZlf0?=
- =?us-ascii?Q?ejw9L0d6WJdYxcgoSwe1N11qjY6VbxZaBMBuUYytqhg69hdCVqPzcORg7J8n?=
- =?us-ascii?Q?wnPbfrp+H3e+XVkc/gZyAIIAELsVDYauPiT9yd985XPaZmY0a/oZY0qWBdzx?=
- =?us-ascii?Q?zGq4CyQLefJTJ800WVnWCd4EXXnl58fN5npM7W1R58TMrDgCW0gv3W+SCtx0?=
- =?us-ascii?Q?jIN84xJfbKTj5YVn+kExVlV6eJ4fFCPuuc9eL4PrSGpSVUBtVARarKvpNkZu?=
- =?us-ascii?Q?wObb+L0HHFmwTqcAXtdWww/wQwgBSxnDJm779gmUm3fERLIA2biVzPv++y+v?=
- =?us-ascii?Q?lvZjqpkNCSKExL+Lg7JujxdR1tXrglh7jLOdl5tFT5DvvcCpdTRETHziDWnN?=
- =?us-ascii?Q?KDqndI/jQUE3+VnlShoHT1FNUALd3o8actHqGgolmV+a5sNvmVtepwMXHC0K?=
- =?us-ascii?Q?MSaauX1Eir0CcVJRweKpPEUlaOYl0swIsN06V7LwjHXiv34gS76cw+ecN9on?=
- =?us-ascii?Q?Gmy+ZqAWIOZFV0GYZOeQkxI+8SkUtF+atcGd/ttI4mwQgEWpTiFI0UMSq8w6?=
- =?us-ascii?Q?16Z69TgVj2ApQXASF/seLGsFbQhri/OP+VvCj1DJiZwQm0+SmCpEUVIyuZ9w?=
- =?us-ascii?Q?TPVA4z7p1uJlrbTwv6lNYscALrESCVt+pJqe42gFuqtVUvLioDxy+PLTLZwd?=
- =?us-ascii?Q?RVLh0EmDI9sVmOywO7aN2uWEvbphP0tfzgV9k52UqkKYSU2l9eaXT9BSkefQ?=
- =?us-ascii?Q?qhTZY22K4rX+qtYJ2aDYnj1JD29pL1/IPAEP5jMMgQw2ZMMcgkVh0nnYmExz?=
- =?us-ascii?Q?CFw9xcAVyH+NOCS7girD4yGNyRgTVoyz8QCQE50segQw0i/iI35fOJ8FVl/m?=
- =?us-ascii?Q?jx12qMxSOKlmc6JHfCdnk4ksIgonNEkVE/fv/xwM01V22P+hsY9ZNPmSLba1?=
- =?us-ascii?Q?dYbg7UxXD6qZ8lo31zR/NaZbLQLSwKkv6fZo/scH+3PaM9/ixWkLiP1sGL7a?=
- =?us-ascii?Q?VHIMOWj5uc2BHhOODIJrdDlhyBTuB9qEKhRBrfOLnqH5Jlhp+RL+e61OqihS?=
- =?us-ascii?Q?/OwuNiv0Vp9qJmFWzvw+pD2KVKgPkCE1KQJL?=
+ ARA:13230040|36860700013|1800799024|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?abZ2OaXc/mas/jSzHZoM0rfLTqeVq+Q6AowbZatmxcU5LLVxoLzOC+nb+e4Y?=
+ =?us-ascii?Q?HG2mreEVt3xpofN+mIN03mPTa6NZdS5EKhS1FDrXxr5YzBfU4unLjpqAvKpc?=
+ =?us-ascii?Q?WQI9WeuhTI0lcUtmn8uyXMXx2Wuj42IaPb9PpzeiE+p1Upb8ofxxpF/hxahm?=
+ =?us-ascii?Q?gRu+xmaKWzz2vkZC7BZJ33Gs8k4faDL9sTCAedYjQdEhQ0BpKLtxSadvKEei?=
+ =?us-ascii?Q?Y8mK1cHTh1TTem1S+mh9VxUyP9cMmNiDUzU0oAhkOJM0GaBew0MY1qQIZ4NT?=
+ =?us-ascii?Q?ZnoqZQ6TpnItW8S8SHP7JpbmhTB+exHHdai06j7uy7zJRV4s+NgiFuooyefl?=
+ =?us-ascii?Q?7NKJ3lwmqx5gDA6BFuxzSlSTbguCVYNJBaoQGv7bYzQgVmWHgQxBaL/q2Rdk?=
+ =?us-ascii?Q?v0Gke8Pv1JOCpICODSS0ZZ0ikZH4mG48wAw7tOUC+GwIvzLawcWC5k1P0PqE?=
+ =?us-ascii?Q?JYwG84WDL8AorgdnTu+G0fKJFat4c96+hG1QDZv1wH3JBmT9W9YTIaD98tFx?=
+ =?us-ascii?Q?C1GFwuDRIgR4bCJNt89jmIY4WSK8Qzj7U11WC9treIGJT7PXUCokmv8KbYKO?=
+ =?us-ascii?Q?cH8kOBgnj5fZlaLeEMWLBQloP98ZhsbctvVGYDxEcn4q23X1oOTzAXXjerf3?=
+ =?us-ascii?Q?686+uGJ0YXYzb2R/oit48ZAVYR8MkiFsCamaZ8qPo37HEdJdEOWQZ1Vzn8Wo?=
+ =?us-ascii?Q?di+MROS/aLSZiE3AlGMF42Xv3VjG8/r6Qu53IJBU+ijwYGY+g+2t1lWx4iAI?=
+ =?us-ascii?Q?w0407EgDrqW8NRIvdoy55euj8bf1JfLFmbEmfFXHTMsWIJQihKKAu3tH08ce?=
+ =?us-ascii?Q?j1cmWbs/kg5A/gdyvUHjQ1QWeBXzrevyiU7NMrr8NwxDzzhU5/wNDLObt7aH?=
+ =?us-ascii?Q?yjXXfUNiXn2Rt+tswwKiscv/C+yKvoIuUtLPkhF6oZMLdRGocRVVEfbHNVC0?=
+ =?us-ascii?Q?ZE8Mg6dRbYCSuB+lge1b3E/TLMNOTrTj/tZlrXx2kzpWRPdX0s9QEIekXU6t?=
+ =?us-ascii?Q?539i67fnRimHqTUaIAXVPnotnBEqpBbgNC4Wci47gqmnDhoJCRjd0S4ACtwf?=
+ =?us-ascii?Q?TGTOCZPm3D2eRphPxVpaNf7Uk6iCP4o3Gw3Y+mGgHXXZnZZBZMU45RCqCBHl?=
+ =?us-ascii?Q?1HPlxlIMIYL2mUWW/gDMd9hCTkeO1W5sDah0YN7Pvj5I/SMGVA2CluGCbuH7?=
+ =?us-ascii?Q?dJVpqXwrmE4f5+5FsnZt8i738shVoqsDOfJ7/Sx+yX2pTlXPd5pT+yLdx/k0?=
+ =?us-ascii?Q?X+CgnpSz//Q9IGsk0chq2bew0h8+RN/VD9YoVjrKVBVshLZ6s0uWRlMVEsji?=
+ =?us-ascii?Q?Mm+QniiVdE7zw/3JO2iSRCl5CNVt+7izZeWLssOXcTrKXje+MNqwMaPowHzs?=
+ =?us-ascii?Q?/RtCodSFmAxWjVeCEif2HOXVTxiTLVrpi2K+QlqJOTGo+GGqQNc9fUpg1KIM?=
+ =?us-ascii?Q?Smsqb93DEghPUQVLJYrvAsFwMTNAc63SctyyMB3l7Q60wiCn9FHUWIPTNPGU?=
+ =?us-ascii?Q?Lr/HkYZgjFyVrXZG3R212RLq4MiZoxclroz0?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2025 02:59:11.4678 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 997cf0ae-71e9-47fc-3000-08ddfa4d2c16
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2025 02:59:12.9376 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6eb6d15a-e3c3-4a61-7b6f-08ddfa4d2cf6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC2.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF50009C446
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8095
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,112 +136,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is race in amdgpu_amdkfd_device_fini_sw and interrupt.
-if amdgpu_amdkfd_device_fini_sw run in b/w kfd_cleanup_nodes and
-  kfree(kfd), and KGD interrupt generated.
+current switch partition only check if kfd_processes_table is empty.
+kfd_prcesses_table entry is deleted in kfd_process_notifier_release, but
+kfd_process tear down is in kfd_process_wq_release.
 
-kernel panic log:
+consider two processes:
 
-BUG: kernel NULL pointer dereference, address: 0000000000000098
-amdgpu 0000:c8:00.0: amdgpu: Requesting 4 partitions through PSP
+Process A (workqueue) -> kfd_process_wq_release -> Access kfd_node member
+Process B switch partition -> amdgpu_xcp_pre_partition_switch -> amdgpu_amdkfd_device_fini_sw
+-> kfd_node tear down.
 
-PGD d78c68067 P4D d78c68067
+Process A and B may trigger a race as shown in dmesg log.
 
-kfd kfd: amdgpu: Allocated 3969056 bytes on gart
+This patch is to resolve the race by adding an atomic kfd_process counter
+kfd_processes_count, it increment as create kfd process, decrement as
+finish kfd_process_wq_release.
 
-PUD 1465b8067 PMD @
+v2: Put kfd_processes_count per kfd_dev, move decrement to kfd_process_destroy_pdds
+and bug fix. (Philip Yang)
 
-Oops: @002 [#1] SMP NOPTI
-
-kfd kfd: amdgpu: Total number of KFD nodes to be created: 4
-CPU: 115 PID: @ Comm: swapper/115 Kdump: loaded Tainted: G S W OE K
-
-RIP: 0010:_raw_spin_lock_irqsave+0x12/0x40
-
-Code: 89 e@ 41 5c c3 cc cc cc cc 66 66 2e Of 1f 84 00 00 00 00 00 OF 1f 40 00 Of 1f 44% 00 00 41 54 9c 41 5c fa 31 cO ba 01 00 00 00 <fO> OF b1 17 75 Ba 4c 89 e@ 41 Sc
-
-89 c6 e8 07 38 5d
-
-RSP: 0018: ffffc90@1a6b0e28 EFLAGS: 00010046
-
-RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000018
-0000000000000001 RSI: ffff8883bb623e00 RDI: 0000000000000098
-ffff8883bb000000 RO8: ffff888100055020 ROO: ffff888100055020
-0000000000000000 R11: 0000000000000000 R12: 0900000000000002
-ffff888F2b97da0@ R14: @000000000000098 R15: ffff8883babdfo00
-
-CS: 010 DS: 0000 ES: 0000 CRO: 0000000080050033
-
-CR2: 0000000000000098 CR3: 0000000e7cae2006 CR4: 0000000002770ce0
-0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-0000000000000000 DR6: 00000000fffeO7FO DR7: 0000000000000400
-
-PKRU: 55555554
-
-Call Trace:
-
-<IRQ>
-
-kgd2kfd_interrupt+@x6b/0x1f@ [amdgpu]
-
-? amdgpu_fence_process+0xa4/0x150 [amdgpu]
-
-kfd kfd: amdgpu: Node: 0, interrupt_bitmap: 3 YcpxFl Rant tErace
-
-amdgpu_irq_dispatch+0x165/0x210 [amdgpu]
-
-amdgpu_ih_process+0x80/0x100 [amdgpu]
-
-amdgpu: Virtual CRAT table created for GPU
-
-amdgpu_irq_handler+0x1f/@x60 [amdgpu]
-
-__handle_irq_event_percpu+0x3d/0x170
-
-amdgpu: Topology: Add dGPU node [0x74a2:0x1002]
-
-handle_irq_event+0x5a/@xcO
-
-handle_edge_irq+0x93/0x240
-
-kfd kfd: amdgpu: KFD node 1 partition @ size 49148M
-
-asm_call_irq_on_stack+0xf/@x20
-
-</IRQ>
-
-common_interrupt+0xb3/0x130
-
-asm_common_interrupt+0x1le/0x40
-
-5.10.134-010.a1i5000.a18.x86_64 #1
+[3966658.307702] divide error: 0000 [#1] SMP NOPTI
+[3966658.350818]  i10nm_edac
+[3966658.356318] CPU: 124 PID: 38435 Comm: kworker/124:0 Kdump: loaded Tainted
+[3966658.356890] Workqueue: kfd_process_wq kfd_process_wq_release [amdgpu]
+[3966658.362839]  nfit
+[3966658.366457] RIP: 0010:kfd_get_num_sdma_engines+0x17/0x40 [amdgpu]
+[3966658.366460] Code: 00 00 e9 ac 81 02 00 66 66 2e 0f 1f 84 00 00 00 00 00 90 0f 1f 44 00 00 48 8b 4f 08 48 8b b7 00 01 00 00 8b 81 58 26 03 00 99 <f7> be b8 01 00 00 80 b9 70 2e 00 00 00 74 0b 83 f8 02 ba 02 00 00
+[3966658.380967]  x86_pkg_temp_thermal
+[3966658.391529] RSP: 0018:ffffc900a0edfdd8 EFLAGS: 00010246
+[3966658.391531] RAX: 0000000000000008 RBX: ffff8974e593b800 RCX: ffff888645900000
+[3966658.391531] RDX: 0000000000000000 RSI: ffff888129154400 RDI: ffff888129151c00
+[3966658.391532] RBP: ffff8883ad79d400 R08: 0000000000000000 R09: ffff8890d2750af4
+[3966658.391532] R10: 0000000000000018 R11: 0000000000000018 R12: 0000000000000000
+[3966658.391533] R13: ffff8883ad79d400 R14: ffffe87ff662ba00 R15: ffff8974e593b800
+[3966658.391533] FS:  0000000000000000(0000) GS:ffff88fe7f600000(0000) knlGS:0000000000000000
+[3966658.391534] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[3966658.391534] CR2: 0000000000d71000 CR3: 000000dd0e970004 CR4: 0000000002770ee0
+[3966658.391535] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+[3966658.391535] DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
+[3966658.391536] PKRU: 55555554
+[3966658.391536] Call Trace:
+[3966658.391674]  deallocate_sdma_queue+0x38/0xa0 [amdgpu]
+[3966658.391762]  process_termination_cpsch+0x1ed/0x480 [amdgpu]
+[3966658.399754]  intel_powerclamp
+[3966658.402831]  kfd_process_dequeue_from_all_devices+0x5b/0xc0 [amdgpu]
+[3966658.402908]  kfd_process_wq_release+0x1a/0x1a0 [amdgpu]
+[3966658.410516]  coretemp
+[3966658.434016]  process_one_work+0x1ad/0x380
+[3966658.434021]  worker_thread+0x49/0x310
+[3966658.438963]  kvm_intel
+[3966658.446041]  ? process_one_work+0x380/0x380
+[3966658.446045]  kthread+0x118/0x140
+[3966658.446047]  ? __kthread_bind_mask+0x60/0x60
+[3966658.446050]  ret_from_fork+0x1f/0x30
+[3966658.446053] Modules linked in: kpatch_20765354(OEK)
+[3966658.455310]  kvm
+[3966658.464534]  mptcp_diag xsk_diag raw_diag unix_diag af_packet_diag netlink_diag udp_diag act_pedit act_mirred act_vlan cls_flower kpatch_21951273(OEK) kpatch_18424469(OEK) kpatch_19749756(OEK)
+[3966658.473462]  idxd_mdev
+[3966658.482306]  kpatch_17971294(OEK) sch_ingress xt_conntrack amdgpu(OE) amdxcp(OE) amddrm_buddy(OE) amd_sched(OE) amdttm(OE) amdkcl(OE) intel_ifs iptable_mangle tcm_loop target_core_pscsi tcp_diag target_core_file inet_diag target_core_iblock target_core_user target_core_mod coldpgs kpatch_18383292(OEK) ip6table_nat ip6table_filter ip6_tables ip_set_hash_ipportip ip_set_hash_ipportnet ip_set_hash_ipport ip_set_bitmap_port xt_comment iptable_nat nf_nat iptable_filter ip_tables ip_set ip_vs_sh ip_vs_wrr ip_vs_rr ip_vs nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 sn_core_odd(OE) i40e overlay binfmt_misc tun bonding(OE) aisqos(OE) aisqos_hotfixes(OE) rfkill uio_pci_generic uio cuse fuse nf_tables nfnetlink intel_rapl_msr intel_rapl_common intel_uncore_frequency intel_uncore_frequency_common i10nm_edac nfit x86_pkg_temp_thermal intel_powerclamp coretemp kvm_intel kvm idxd_mdev
+[3966658.491237]  vfio_pci
+[3966658.501196]  vfio_pci vfio_virqfd mdev vfio_iommu_type1 vfio iax_crypto intel_pmt_telemetry iTCO_wdt intel_pmt_class iTCO_vendor_support irqbypass crct10dif_pclmul crc32_pclmul ghash_clmulni_intel rapl intel_cstate snd_hda_intel snd_intel_dspcfg snd_hda_codec snd_hda_core snd_hwdep snd_seq
+[3966658.508537]  vfio_virqfd
+[3966658.517569]  snd_seq_device ipmi_ssif isst_if_mbox_pci isst_if_mmio pcspkr snd_pcm idxd intel_uncore ses isst_if_common intel_vsec idxd_bus enclosure snd_timer mei_me snd i2c_i801 i2c_smbus mei i2c_ismt soundcore joydev acpi_ipmi ipmi_si ipmi_devintf ipmi_msghandler acpi_power_meter acpi_pad vfat fat
+[3966658.526851]  mdev
+[3966658.536096]  nfsd auth_rpcgss nfs_acl lockd grace slb_vtoa(OE) sunrpc dm_mod hookers mlx5_ib(OE) ast i2c_algo_bit drm_vram_helper drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops drm_ttm_helper ttm mlx5_core(OE) mlxfw(OE)
+[3966658.540381]  vfio_iommu_type1
+[3966658.544341]  nvme mpt3sas tls drm nvme_core pci_hyperv_intf raid_class psample libcrc32c crc32c_intel mlxdevm(OE) i2c_core
+[3966658.551254]  vfio
+[3966658.558742]  scsi_transport_sas wmi pinctrl_emmitsburg sd_mod t10_pi sg ahci libahci libata rdma_ucm(OE) ib_uverbs(OE) rdma_cm(OE) iw_cm(OE) ib_cm(OE) ib_umad(OE) ib_core(OE) ib_ucm(OE) mlx_compat(OE)
+[3966658.563004]  iax_crypto
+[3966658.570988]  [last unloaded: diagnose]
+[3966658.571027] ---[ end trace cc9dbb180f9ae537 ]---
 
 Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c  | 6 ++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 2 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 4 ++++
+ 3 files changed, 12 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 349c351e242b..051a00152b08 100644
+index 051a00152b08..97d3158a67a4 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1133,7 +1133,15 @@ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
- 	}
+@@ -1521,6 +1521,12 @@ int kgd2kfd_check_and_lock_kfd(struct kfd_dev *kfd)
  
- 	for (i = 0; i < kfd->num_nodes; i++) {
--		node = kfd->nodes[i];
-+		/* Race if another thread in b/w
-+		 * kfd_cleanup_nodes and kfree(kfd),
-+		 * when kfd->nodes[i] = NULL
-+		 */
-+		if (kfd->nodes[i])
-+			node = kfd->nodes[i];
-+		else
-+			return;
+ proc_check_unlock:
+ 	srcu_read_unlock(&kfd_processes_srcu, idx);
 +
- 		spin_lock_irqsave(&node->interrupt_lock, flags);
++	if (!!atomic_read(&kfd->kfd_processes_count)) {
++		pr_debug("process_wq_release not finished\n");
++		r = -EBUSY;
++	}
++
+ out:
+ 	if (!r)
+ 		++kfd->kfd_dev_lock;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index d01ef5ac0766..70ef051511bb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -382,6 +382,8 @@ struct kfd_dev {
  
- 		if (node->interrupts_active
+ 	/* for dynamic partitioning */
+ 	int kfd_dev_lock;
++
++	atomic_t kfd_processes_count;
+ };
+ 
+ enum kfd_mempool {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 5be28c6c4f6a..ddfe30c13e9d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1088,6 +1088,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 			pdd->runtime_inuse = false;
+ 		}
+ 
++		atomic_dec(&pdd->dev->kfd->kfd_processes_count);
++
+ 		kfree(pdd);
+ 		p->pdds[i] = NULL;
+ 	}
+@@ -1649,6 +1651,8 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
+ 	/* Init idr used for memory handle translation */
+ 	idr_init(&pdd->alloc_idr);
+ 
++	atomic_inc(&dev->kfd->kfd_processes_count);
++
+ 	return pdd;
+ }
+ 
 -- 
 2.43.0
 
