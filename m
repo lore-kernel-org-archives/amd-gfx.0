@@ -4,79 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6EB4CAC5B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 10:44:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE941CAC5B3
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67F7A10E6EC;
-	Wed, 24 Sep 2025 10:44:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 673D610E709;
+	Wed, 24 Sep 2025 11:38:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="noi0ONrN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hk3KUlcz";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E41FE10E6EC
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 10:44:16 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-27a6c3f482dso24288035ad.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 03:44:16 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC0810E709
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 11:38:47 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-77e6495c999so5253005b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 04:38:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758710656; x=1759315456; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kWXmm060LCiRJOG2s/VcfeqKd3isYwEF/69EtKY/YFg=;
- b=noi0ONrN58ZkSe4jafs2LFe5pooYdM6OdOlOU/Dj2YS3h3q6OJT1os1Y4UZlfCADOf
- nLev7xmhSJBxNGgqVvEiZdHdhIhszyhSGwM3b5Uo6gX5mHxGY07nnt5wGuLedCyFJaQP
- oWXMA7QyuqnNMyRwAH22Gd99EKYBeRW5sIEIUc3vmoUmFZ/7RZrGPFJzPh8hdSEnHTJW
- 68QoCQvaUIdu79JsIhnUlr4Sf3qLb2swN6g88XwRnCXy4xPlQFilhvz3VsZbYFNSv/8s
- oQfMA9qoaNBgaMNe+1WDpqynLVsn98ZMQtQgeLAaMujo1lbnFqHu4yzmnZbFXBvjdxIE
- aeXQ==
+ d=gmail.com; s=20230601; t=1758713927; x=1759318727; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Y4rS7SFbGhDevM8tkC93xM0kejF9WpESgGrjW5TvxBU=;
+ b=Hk3KUlczDvWYmdHjI9mAcbK3vhwBpLjfoeRpHjstScqGRPzEYuY5S3MQmeT7oS/l8+
+ b8hgWBipi1Ibp/r4I1KWBJEGLiExO7XLO6iSa0JLhzmw71Mk8Qcf23pFgXtbApd+7Bb/
+ V+mtPrvS01E894bfYJiEqfmqrFPT84Kh1clBV17Y1PPv3VmqSuQaiddH19QeijKfjB5F
+ ldPAbhu3Y3OeppgtP5FcD61gsk4bQSd096l+yL+75rvUszJ5zUogB9z1m+pbKnxytjea
+ ecmjuv/gySTuGSwwCepLzubgUf2F/xLmmt9bmduZNRTnE9FFu/w1fg4L6SRxHAK6xZkt
+ KlAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758710656; x=1759315456;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kWXmm060LCiRJOG2s/VcfeqKd3isYwEF/69EtKY/YFg=;
- b=xKB7DXlHeWJ/4bCZMmE3lm2qGzvkRbOg4iLHUvw6vUvTUcdn7UtQTKbTVQKkhqyfQk
- 2GkUmlUtnLdyx98aRaPwXEglWU2Gdfc2UcB1Dp4jXfPIvjr9UM/w94JPgtEIQxrNwLR1
- RTOxrnludSOdekE7EFN59yWE3SVbfbxv3QltDudcVkFTP/hbkrs5C0/tmll/UphadSny
- ZKAkYbrZiy/eKVVRu/LBSt7u9GItBfZgm7MQp5p13srF2oilP5EneeC6QfkNtZY+2qdt
- I/dOQye2zhXAyOP3GVtV7hQb/WeH6vXUM5rTgtnvU2Qu9i+bvh9OY+UVoIh20JZ0Oqn/
- EVzg==
-X-Gm-Message-State: AOJu0YzvW9jFbDBtkT2C/vt91B7Rt4UwQHR0u9kntp3PozFO+9W6iiRw
- brKBu/juaQZ4JmbQNCw2RJXQU1KK7e/QDBjMWvRo/yuOzKENn2kT7Pmigif/OQ==
-X-Gm-Gg: ASbGncu1OIuoAaL+xg101MEZeBFNHLEzTCq8qtVMcAX8Cjq7CB3Knuw1ykYMRgZESF/
- WuJ2ceDFzbRnIaWs3bEevxuHXUZ/KjEekeTj0GJxaXtybFCi8IflkcUAkO5Y8JBuDTBBpqSHyMy
- yUhMPKUbCY49COIB9s8Ysdk300Xm6oYrltseMR7ZN6hGh5+ferxxKIk45loj8x12sQDvWRKBbRh
- s92ONFSUckXkr3sLcm3fOqFasl7aIhPjyfyw0WsQBuZm6MT6zhwQaIvx0cKZkUTJ1UQ5cQF5LXQ
- EvdcX4jVx9JQEjAXeZ8G310WFWWgbU2L9GJhN0muCX/TDWX/Qqq1dnEhQAuU0rtRAFBl4S4qHz4
- KfixAmrrmUjRVAjCRPbj/NetwU/7lPdetTr0lcqY5KnhbH78G5sNUan2p3ri3HA+31yUr3WnChW
- VctxLjwxDrdXjBiO6IvQ4SpJFNpKwRUxf+sEKpS4WHRDaJHZpRBUCMLqF81Z91
-X-Google-Smtp-Source: AGHT+IFr6oaAMwLTPNCxPk/WItikFZkJ5er/57Klp7/coISbFj0XTGzUgHjFYxa+1RbR7482vMWOwQ==
-X-Received: by 2002:a17:903:1105:b0:252:1743:de67 with SMTP id
- d9443c01a7336-27cc678314fmr65074845ad.44.1758710656443; 
- Wed, 24 Sep 2025 03:44:16 -0700 (PDT)
-Received: from ?IPV6:2001:4c4e:24d0:6700:5d2c:718b:790:18c4?
+ d=1e100.net; s=20230601; t=1758713927; x=1759318727;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Y4rS7SFbGhDevM8tkC93xM0kejF9WpESgGrjW5TvxBU=;
+ b=mEcRCeSDwMHpeQ27EcGEqSdaBtwlZMa2nHnDLT3JB+HqRJOYDa+wwmD7JWDCTYkd5y
+ SR0HXqyuP6JLqJoK/lYof11hWZeOKloxJnApDp35vwn7sIdiF048HIA0OTPofmWSLWib
+ M0C6r4aw1PEguRWn0tVd3iEmyCKmzuKEMaP2ozuK/eIT+qE4YBoLwsz4tNt/9FU+t6Vh
+ dvqURwyCfynLfFlcFYFHsphu75TC2IxvWum0ZWIm2Ou3uoO5iRcHovRquexyAeG43xFz
+ HWCtgGL7EI5bdvSKFGnvaFGnrsHho4oiLxVgz+21F4T924Ju8IilbLU04TlupCfjPphz
+ gzyA==
+X-Gm-Message-State: AOJu0YyPd1H8LdX5NxGEPxpJ1LDdSW5rlz1TWUx2xKJZssZjqRoOXdZ/
+ +yw03YqLu5CTx0ZBl8QsOei3HcV7VI7A9E39j78KElPFNY8bxehcO5cpuwSvJLdI
+X-Gm-Gg: ASbGnctUgVN8eFHiVfe7oieW5oMOy63f6cM2hQ7lnbOrod3KAA7bUPzrtMssA0MNLMe
+ 6zGXFTZYJ+4HPNUT1bVuWnliqBoR+gg/1zKF/g/e37L1TNOWVB6xdicRC6Xlf75iJuTyq4Ial+A
+ 2KZCHMrb/AV07tkVEbzNbmM8+AYdczK7wO5+E70hSzDXm+O5lSzO/j+I9AL3fOHR6LWIJEX4Gt8
+ /CE2g3yOd/88m5724LuUsyokxzIsjmjJ9hqPyqfq6QIGoK+aG7Aq0y4z5CcyHVysrBFBu8T7H2J
+ WjOHPsoEhxes7hDVgpygc0E1pvDW49PPbviQdKMw/lpILZVtV6hiCIEzaxnkBvaoyern6fgc7L4
+ /uOKYD+TwSHQG5ZkWQLP+XaRQmV4gr6EKu5ecSZIbWoPn4TRXiYicNwM6+oiFbuLoZ44tq34meN
+ gaDzIRzFlW24EwAfK3waxsF5WnHwKEF1BOOFPYD75D0QSD
+X-Google-Smtp-Source: AGHT+IHnIFNkhVEy6PYdHZAtmjJMmi1Ky/CmY8ywqxDt5YkTHoraXailvqPGzZxW5dcfYJw5ssmSlA==
+X-Received: by 2002:a17:90b:4f43:b0:32e:749d:fcb6 with SMTP id
+ 98e67ed59e1d1-332a951c1c4mr7721593a91.12.1758713927237; 
+ Wed, 24 Sep 2025 04:38:47 -0700 (PDT)
+Received: from Timur-Hyperion.home
  (20014C4E24D067005D2C718B079018C4.dsl.pool.telekom.hu.
  [2001:4c4e:24d0:6700:5d2c:718b:790:18c4])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2698016c265sm186914275ad.49.2025.09.24.03.44.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 03:44:15 -0700 (PDT)
-Message-ID: <b445a38f-2fb1-4f4f-b91e-925624295113@gmail.com>
-Date: Wed, 24 Sep 2025 12:44:08 +0200
+ 98e67ed59e1d1-3341be38382sm2142548a91.25.2025.09.24.04.38.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Sep 2025 04:38:46 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, alex.hung@amd.com, harry.wentland@amd.com,
+ siqueira@igalia.com,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 0/3] DC: Reject too high pixel clocks on DCE6-10
+Date: Wed, 24 Sep 2025 13:38:33 +0200
+Message-ID: <20250924113836.57013-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Reject YUV422 encoding over DP on DCE
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- alex.hung@amd.com, harry.wentland@amd.com, siqueira@igalia.com
-References: <20250919081419.9034-1-timur.kristof@gmail.com>
- <CADnq5_Pj43m4C2esgH5wVFfbq5rSehSeL-7NkdwHU0ByNSRdUg@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-In-Reply-To: <CADnq5_Pj43m4C2esgH5wVFfbq5rSehSeL-7NkdwHU0ByNSRdUg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,52 +88,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Reject modes with a pixel clock higher than the maximum display
+clock. These were never supported, but we haven't noticed the
+issue until the YCbCr 422 fallback was recently added.
 
+For example, the DP 1.2 standard technically supports
+4K 120Hz YCbCr 422 6 bpc, but in practice the pixel clock is
+too high on these old GPUs.
 
-On 9/19/25 17:09, Alex Deucher wrote:
-> On Fri, Sep 19, 2025 at 4:14 AM Timur Kristóf <timur.kristof@gmail.com> wrote:
->>
->> Mark YUV422 unsupported over DP on DCE to work around a
->> regression caused by the recent YUV422 fallback patch.
->>
->> See https://gitlab.freedesktop.org/drm/amd/-/issues/4585
->>
->> The recent YUV422 fallback breaks DisplayPort on DCE6-10 because
->> it can select a high refresh rate mode with YUV422 and 6 BPC,
->> which is apparently not actually supported by the HW, causing
->> it to boot to a "no signal" screen.
->>
->> Tested with a Samsung Odyssey G7 on the following GPUs:
->>
->> - Cape Verde (DCE 6): affected
->> - Tonga (DCE 10): affected
->> - Polaris (DCE 11.2): not affected
->> - Vega (DCE 12): not affected
->>
->> Polaris and Vega are not affected because the same mode
->> gets rejected by other parts of the code base, possibly the
->> bandwidth calculation which exists for DCE11+ but not older HW.
->>
->> It is not documented whether YUV422 is actually supported over DP
->> on DCE, but considering that this encoding was never used before,
->> and that YUV420 is already marked unsupported, probably not.
->>
->> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-> 
-> Fixes: db291ed1732e02 ("drm/amd/display: Add fallback path for YCBCR422")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4585
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> 
-> Would be good to get feedback from the display team on what the actual
-> capabilities are, but seems reasonable to me.
-> 
-> Alex
+Additionally, there are two small code cleanup patches to avoid
+excessive code duplication.
 
+Timur Kristóf (3):
+  drm/amd/display: Reject modes with too high pixel clock on DCE6-10
+  drm/amd/display: Share dce100_validate_bandwidth with DCE6-8
+  drm/amd/display: Share dce100_validate_global with DCE6-8
 
-Please disregard this patch.
+ .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  3 +
+ .../display/dc/clk_mgr/dce60/dce60_clk_mgr.c  |  5 ++
+ .../dc/resource/dce100/dce100_resource.c      | 25 +++++--
+ .../dc/resource/dce100/dce100_resource.h      |  9 +++
+ .../dc/resource/dce60/dce60_resource.c        | 69 +------------------
+ .../dc/resource/dce80/dce80_resource.c        | 60 +---------------
+ 6 files changed, 44 insertions(+), 127 deletions(-)
 
-I will send a different patch which will instead reject modes that would 
-require a pixel clock higher than the maximum display clock.
+-- 
+2.51.0
 
-Thanks,
-Timur
