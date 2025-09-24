@@ -4,120 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F4ABCAC5AA
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 07:34:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56926CAC5AA
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 08:09:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B40AF10E85A;
-	Thu, 25 Sep 2025 07:34:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B65610E135;
+	Thu, 25 Sep 2025 08:09:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gc/xiV+p";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="MqwCqPTX";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012040.outbound.protection.outlook.com [40.107.209.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59B2710E860
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 07:34:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PWVdh2Cme+hk3NNq51JEeKBlHwV18AQ3GJ/YjXEPKGC04NuDVbtKRQKUZXoWr2RZxUTC2QYQhM/Ta+fZe6Y/KljDBpd7wsOSa7SFkFo7LubU4Hz53W5VdGtSek5teuodPlb3pYSYsnxPMvP6QGC05OKjfRr1qjpaBwResAkWe8u0ncNIiLQvGcqg3hstLq/A4vGiP5vn1hLR0m/c9fQh0/KPDrvk8kebLD1lnzFyAlFL84w6XGVdYSltxH89jTaS/hpV/Wz3YkGoPS44aqQ27EctVGIZSUSFogU7yOTnvsRG14c22xltEZsexPwboctqJ4KnnQ06yj0ImepgNNkUzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iVeIE5N5UzlJZ8sEXeJTOyRITIgob2sNf45ze2CoqwA=;
- b=r+R9IOD25Bz3GT1R5I530BTdbBDGeEpyM5pJ/6yIBDMhCKkWmz5QaddyL/UgeElKuHPEvFyEitkdulpwhEBSvpKSjqNGFft784w3Swi02hgrLlTgXvKnQHAhBZL2LwIRvOIpiA41ZrJozTDxzkbdZ04SuoyGGxFeTOOcDPe1Uew83n7Got1OtrMTRXtx8+NF+sSzMvOc4AO6vbK/grr2umSQ1r2I1GD7Zo/J+9KslW4wxdREZRHMo34UD1MdlEUZNsW6WcdIk5ybRwdEkbsInUwVfVUJeYddnn9cDwQjEsbtgrPI8RhdVS3cC9CkurUBPzJNd8w9G+Ivln82RgUJJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iVeIE5N5UzlJZ8sEXeJTOyRITIgob2sNf45ze2CoqwA=;
- b=gc/xiV+p6KTlQ/f20a4V7nOhwOwqyCtdjTfFyzceTSi57XLWqXEqOip1JQMRkx0OnEw4v2qNVqNcdVs4qnzm5RqZTkRNhVr5gMVyl6e4coN5f5lVTfvC54vh5IHzPzONoIa+r4vA0bTiKVUmf8W3Gzya0svDEPB0T0xnnmay0Y0=
-Received: from SA1P222CA0134.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c2::7)
- by DM6PR12MB4372.namprd12.prod.outlook.com (2603:10b6:5:2af::14) with
+Received: from fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [35.158.23.94])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67F1510E7CC;
+ Wed, 24 Sep 2025 20:30:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1758745837; x=1790281837;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ToVPFfAmijgFkPXuC9UXKvHeG3XAoNk6zHMcSv2Lxjo=;
+ b=MqwCqPTXA/8DByvzoyKG/+XmPqsTknhoTTVe2PPQCKP3zl1O0LGN2yeJ
+ EbryF+hJCyckLO4lOXhEJJHYrCtKNp2xgh1u4zjmrGcaMa1FmSYAg6qrU
+ 6QUomuOcuZGlGrws7jxwAvs/ZjchuUHx9Z7CZi6vV6V/SCOwNGS7hnZ32
+ GUaQ7xWg7/CPsAH6rGB8Urz1V30/Q+eBvIB7Qg/yEyLITs6mNkNZGDJhM
+ ecqLfvn7y0O8BG3MmndtJVQ433IZaKkHWNDbQ9MipjHRBNnKkNfZbwgx+
+ +MFGWy+UAbf0/jLgID5TRYInXhM+wQKcjWKNoacETovmw3jwsncX5ipQO A==;
+X-CSE-ConnectionGUID: whQs5I+6RPuEkQo+yiylwg==
+X-CSE-MsgGUID: zAkb8LYyRg601Cbp7tJfdw==
+X-IronPort-AV: E=Sophos;i="6.18,291,1751241600"; 
+   d="scan'208";a="2631986"
+Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
+ by internal-fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2025 20:30:25 +0000
+Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:8635]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.9.61:2525]
+ with esmtp (Farcaster)
+ id c1f88da4-53d2-47a7-88a6-131beb406856; Wed, 24 Sep 2025 20:30:25 +0000 (UTC)
+X-Farcaster-Flow-ID: c1f88da4-53d2-47a7-88a6-131beb406856
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Wed, 24 Sep 2025 20:30:22 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.10; Thu, 25 Sep
- 2025 07:34:19 +0000
-Received: from SA2PEPF00003AE8.namprd02.prod.outlook.com
- (2603:10b6:806:3c2:cafe::b8) by SA1P222CA0134.outlook.office365.com
- (2603:10b6:806:3c2::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9160.10 via Frontend Transport; Thu,
- 25 Sep 2025 07:34:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003AE8.mail.protection.outlook.com (10.167.248.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9160.9 via Frontend Transport; Thu, 25 Sep 2025 07:34:18 +0000
-Received: from marui-Super-Server.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 25 Sep 2025 00:34:10 -0700
-From: Heng Zhou <Heng.Zhou@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Lijo.Lazar@amd.com>, <Christian.Koenig@amd.com>, <Emily.Deng@amd.com>,
- <Victor.Zhao@amd.com>, <Felix.Kuehling@amd.com>, <phasta@kernel.org>,
- <Qing.Ma@amd.com>, <HaiJun.Chang@amd.com>, <Heng.Zhou@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix for GPU reset being blocked by KIQ I/O.
-Date: Thu, 25 Sep 2025 15:33:47 +0800
-Message-ID: <20250925073347.2010568-1-Heng.Zhou@amd.com>
-X-Mailer: git-send-email 2.43.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 24 Sep 2025
+ 20:29:47 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <linux@armlinux.org.uk>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>,
+ <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>,
+ <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>,
+ <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>,
+ <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>,
+ <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
+ <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
+ <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <jdelvare@suse.com>,
+ <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>,
+ <snitzer@kernel.org>, <dm-devel@redhat.com>, <rajur@chelsio.com>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <peppe.cavallaro@st.com>,
+ <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <markgross@kernel.org>,
+ <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>,
+ <gregkh@linuxfoundation.org>, <fei1.li@intel.com>, <clm@fb.com>,
+ <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, 
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>,
+ <pmladek@suse.com>, <senozhatsky@chromium.org>,
+ <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+ <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>,
+ <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>,
+ <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>,
+ <ying.xue@windriver.com>, <andrii@kernel.org>, <mykolal@fb.com>,
+ <ast@kernel.org>, <daniel@iogearbox.net>, <martin.lau@linux.dev>,
+ <song@kernel.org>, <yhs@fb.com>, <john.fastabend@gmail.com>,
+ <kpsingh@kernel.org>, <sdf@google.com>, <haoluo@google.com>,
+ <jolsa@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>,
+ <wad@chromium.org>, <willy@infradead.org>, <farbere@amazon.com>,
+ <sashal@kernel.org>, <ruanjinjie@huawei.com>, <quic_akhilpo@quicinc.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <stable@vger.kernel.org>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
+ <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Subject: [PATCH 10/19 v6.1.y] minmax: don't use max() in situations that want
+ a C constant expression
+Date: Wed, 24 Sep 2025 20:23:11 +0000
+Message-ID: <20250924202320.32333-11-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20250924202320.32333-1-farbere@amazon.com>
+References: <20250924202320.32333-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE8:EE_|DM6PR12MB4372:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7328b75a-f28d-463c-c6e1-08ddfc05f027
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?1gDOlUI9/4OqVP2fbRUjS7AsihAE6PqHL5xNuP2td45mCocDwYIqUQA2cfrv?=
- =?us-ascii?Q?M+VMqkpCzmg9lafbXPwWkZMXIhSnTnMmD9qSJssEf8jS2YLrViWtyszFKMy5?=
- =?us-ascii?Q?MfvytJbqXBs6eTzezdfSBETPKJdcOyUD08DRRYl/32WHyjdH8wHRek96BUMR?=
- =?us-ascii?Q?vWNbhItuft9zMwWny8/DT0SfHZGWV35+UNx3zg5mFXg9BQr8vupneytMinWN?=
- =?us-ascii?Q?3oRJePmAA9Nf80sxKqmfNjwF/SBhiAYuVNsw2eoRUYYv/PL7I5+eS4DNfxGt?=
- =?us-ascii?Q?y7Cg5nEjDbpzFuZOaV5HZS0BHrvYZvlOhdGb1UOkhQOHqwf9/7i4hFLe2Vj0?=
- =?us-ascii?Q?07Q/M4KHeDzuByYrEAIcRXXrqWkx3vJTmP/d/1zaXukQXjdywZ+sjS3iJIFv?=
- =?us-ascii?Q?pAaoeDpiAUZPk7ZeSPzIyp6AeWnsqepqpW9Tt6plev+y58HIUWz1aTzcchO6?=
- =?us-ascii?Q?zD398mo9vAL1T6GozkZ7Q2w/456u5J0CWRYtUvo6Fe4Q+DnpieBncUWSL06G?=
- =?us-ascii?Q?dvSDXcXWJAqAF+HLaO54Lb1UzkY+GC7mXUptghUPqXgsU+qdfmZ9qOBGuaqY?=
- =?us-ascii?Q?K7nPMd3X2B6OJutP0vPAZ9cm7d7EvuCB/SRq2Mca2QH0noSimV6QcoF9mVhZ?=
- =?us-ascii?Q?CrvEswJr1qe3iasm21+d0eOYr+DQal5vp66xGoBZErFoIL2DsD7J+sRQ09gi?=
- =?us-ascii?Q?OiXzJTWPXt9yqBTk6WQczvf6zbSKTe+TPj8LUUWxnc585oO3eLnlLu+MBNIw?=
- =?us-ascii?Q?P+663/GtLh15F5uPpAeWkGLKSCYfc2lMnh4uCG75uq4rSW4xjnoIwziyh/Bg?=
- =?us-ascii?Q?scIZ90IQLbrUHED7Ox+mF8YAtjJiL4ES2PS76e2cqPu+s6NQKMcoFxHXRvdS?=
- =?us-ascii?Q?jk7lTiWj1rwvLT7IO1YPkxdf2zE+5tOPUSrrQQVVTtPhFdP0SGLZ20/0ulZ5?=
- =?us-ascii?Q?CjjVphHptXus9nfMsGYVhysf/fSjtP6PugYF7Xnx/LLMVqlI9CSzxcRGXu9u?=
- =?us-ascii?Q?+0BPvHkrAy9W1lbHFKoE4xXHdx6uxj0tHLN0g6yO7IxESq9AabcYwmRUash3?=
- =?us-ascii?Q?aervyTisXmPOwlXZ5OOr1s1jJZhoivTgz/tD9XqYjVM2xBa5FlmQDrz6hp6V?=
- =?us-ascii?Q?wDj7eX6hgChf9bxQ1FekQ7Yvrra8Qc56qMFDbC1Wltxd+0sTDYzoTsR4SNDd?=
- =?us-ascii?Q?4EDWD1vnc0dy+DGt3Ir0DSTvS3bpa4Tq3lwLJKUO5Z0X/9sH9jEZmKnS+5a0?=
- =?us-ascii?Q?fh5Szda+s8PY+xcIq/m0W00GFhzWLt8xOzowPBpfiKzdH96ahYs0tLFdPv70?=
- =?us-ascii?Q?UnWrmbhsctpUUJGXHY2ZLTApfzAVKj3ONyQaoHkfC3WzS0T7L6kqA25c+jHS?=
- =?us-ascii?Q?gb8KFhIscFARvfCNdROiVrqtGUpFCDhNEoxDvboZX2iA6kb/yGhe5zYCwcyc?=
- =?us-ascii?Q?z8JM1ifchmO7Ian92i0p/HSI0ejzs3ZAyiQyOuA8D8YnDJ1XYBiu/67Qc/jh?=
- =?us-ascii?Q?UAwvZnMBo0SaUQ5bHBYGLX4rYLJR0sGpdsvS?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2025 07:34:18.9902 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7328b75a-f28d-463c-c6e1-08ddfc05f027
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4372
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D033UWA004.ant.amazon.com (10.13.139.85) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
+X-Mailman-Approved-At: Thu, 25 Sep 2025 08:09:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,38 +138,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is some probability that reset workqueue is blocked by KIQ I/O for 10+ seconds after gpu hangs.
-So we need to add a in_reset check during each KIQ register poll.
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-Signed-off-by: Heng Zhou <Heng.Zhou@amd.com>
+[ Upstream commit cb04e8b1d2f24c4c2c92f7b7529031fc35a16fed ]
+
+We only had a couple of array[] declarations, and changing them to just
+use 'MAX()' instead of 'max()' fixes the issue.
+
+This will allow us to simplify our min/max macros enormously, since they
+can now unconditionally use temporary variables to avoid using the
+argument values multiple times.
+
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c   | 2 +-
+ drivers/input/touchscreen/cyttsp4_core.c | 2 +-
+ drivers/irqchip/irq-sun6i-r.c            | 2 +-
+ fs/btrfs/tree-checker.c                  | 2 +-
+ lib/vsprintf.c                           | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 89fc1015d3a6..b6a88103adfd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1102,6 +1102,9 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 768b6e7dbd77..fd1faa840ec0 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -700,7 +700,7 @@ static const char *smu_get_feature_name(struct smu_context *smu,
+ size_t smu_cmn_get_pp_feature_mask(struct smu_context *smu,
+ 				   char *buf)
+ {
+-	int8_t sort_feature[max(SMU_FEATURE_COUNT, SMU_FEATURE_MAX)];
++	int8_t sort_feature[MAX(SMU_FEATURE_COUNT, SMU_FEATURE_MAX)];
+ 	uint64_t feature_mask;
+ 	int i, feature_index;
+ 	uint32_t count = 0;
+diff --git a/drivers/input/touchscreen/cyttsp4_core.c b/drivers/input/touchscreen/cyttsp4_core.c
+index dccbcb942fe5..936d69da3bda 100644
+--- a/drivers/input/touchscreen/cyttsp4_core.c
++++ b/drivers/input/touchscreen/cyttsp4_core.c
+@@ -871,7 +871,7 @@ static void cyttsp4_get_mt_touches(struct cyttsp4_mt_data *md, int num_cur_tch)
+ 	struct cyttsp4_touch tch;
+ 	int sig;
+ 	int i, j, t = 0;
+-	int ids[max(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
++	int ids[MAX(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
  
- 	might_sleep();
- 	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
-+		if (amdgpu_in_reset(adev)) {
-+			goto failed_kiq_read;
-+		}
- 		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
- 		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
- 	}
-@@ -1172,6 +1175,9 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint3
- 	might_sleep();
- 	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
+ 	memset(ids, 0, si->si_ofs.tch_abs[CY_TCH_T].max * sizeof(int));
+ 	for (i = 0; i < num_cur_tch; i++) {
+diff --git a/drivers/irqchip/irq-sun6i-r.c b/drivers/irqchip/irq-sun6i-r.c
+index a01e44049415..99958d470d62 100644
+--- a/drivers/irqchip/irq-sun6i-r.c
++++ b/drivers/irqchip/irq-sun6i-r.c
+@@ -270,7 +270,7 @@ static const struct irq_domain_ops sun6i_r_intc_domain_ops = {
  
-+		if (amdgpu_in_reset(adev)) {
-+			goto failed_kiq_write;
-+		}
- 		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
- 		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
- 	}
+ static int sun6i_r_intc_suspend(void)
+ {
+-	u32 buf[BITS_TO_U32(max(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
++	u32 buf[BITS_TO_U32(MAX(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
+ 	int i;
+ 
+ 	/* Wake IRQs are enabled during system sleep and shutdown. */
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index bf3822b25c58..cb76feac94a4 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -608,7 +608,7 @@ static int check_dir_item(struct extent_buffer *leaf,
+ 		 */
+ 		if (key->type == BTRFS_DIR_ITEM_KEY ||
+ 		    key->type == BTRFS_XATTR_ITEM_KEY) {
+-			char namebuf[max(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
++			char namebuf[MAX(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
+ 
+ 			read_extent_buffer(leaf, namebuf,
+ 					(unsigned long)(di + 1), name_len);
+diff --git a/lib/vsprintf.c b/lib/vsprintf.c
+index fa1c19701855..2b0b5f08b8fc 100644
+--- a/lib/vsprintf.c
++++ b/lib/vsprintf.c
+@@ -1082,7 +1082,7 @@ char *resource_string(char *buf, char *end, struct resource *res,
+ #define FLAG_BUF_SIZE		(2 * sizeof(res->flags))
+ #define DECODED_BUF_SIZE	sizeof("[mem - 64bit pref window disabled]")
+ #define RAW_BUF_SIZE		sizeof("[mem - flags 0x]")
+-	char sym[max(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
++	char sym[MAX(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
+ 		     2*RSRC_BUF_SIZE + FLAG_BUF_SIZE + RAW_BUF_SIZE)];
+ 
+ 	char *p = sym, *pend = sym + sizeof(sym);
 -- 
-2.43.0
+2.47.3
 
