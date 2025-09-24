@@ -4,56 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB7BACAC5A5
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79D1CCAC5B5
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:26:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4655810E7D7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8A7E10E7D9;
 	Wed, 24 Sep 2025 20:26:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="JVJXd55Y";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="YLJPYFsA";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9ED10E07A;
- Wed, 24 Sep 2025 11:51:08 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4cWwCs0jPhz9smD;
- Wed, 24 Sep 2025 13:51:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1758714665; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oOhlDOiuIjebvm3Avlm1EZdNYaSLY9/K5dr0KbPjl0Y=;
- b=JVJXd55Y6EtZ+9Xu2CHCKX21O8o46fUBM3pWvwc7UCZK5mnSRoSpUlafL+aOuANv8qzBQq
- WWPFpycthHnq+PC6LIPLjDPa8ch9vR6Cdq7GK+NKeeUdw/Is/lqsmq5+JhnuLJtH3nZhzP
- Q2DQgIsua9t8aPCEW1quovUiDSdAIgyq4e5SIEak1jaIBJL1VxeBIgUH4MW6/IX1ikjaaR
- BUsmh24B0UfHjLUMOfsRq94P4IakSOuTaGDdMQwXCUNrpnPSj0ddlvMHHqIV0dDZD983dn
- Wxp1fRvVvuDp8j1CIdA+RVDgF7Kicw0IINyCuVsIi8SWLyIkCsk1xVqYJQ5DpQ==
-Message-ID: <c6450d203fb015437376844c687ac76e42cba417.camel@mailbox.org>
-Subject: Re: [RFC v8 11/12] drm/sched: Remove FIFO and RR and simplify to a
- single run queue
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
- <phasta@kernel.org>
-Date: Wed, 24 Sep 2025 13:50:59 +0200
-In-Reply-To: <20250903101820.63032-12-tvrtko.ursulin@igalia.com>
-References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
- <20250903101820.63032-12-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.178.143.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F33E110E7D5;
+ Wed, 24 Sep 2025 20:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1758745548; x=1790281548;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=/92zpxyjeHvGlOVhJoOGNENC+jRdBRPJKKvWmFCfMhU=;
+ b=YLJPYFsAQ2oP4/1OP0d9us45Wuv7YF5PrQQDRZvG60F20zDm2fnHWxRC
+ XAbhN5klhdNfuVtee6D/UJmCtDExMPYI2XMrtH8neFReIBvvPKA6nLmeb
+ D4Tmt2JixtOvN643itgfatBhbw8RgIvK21JvETfeJ+4HObARz/1fe1GiA
+ BZaafaVpZa16pRX/bZMzlZM/rNUwyDL86Z3AUFxH74UPxcEinciJ/e8vi
+ Bdc84aJejeAGWZcuo9Vu1rYzss4ukekwGMJe/UGH2slRfcrKKGk7Qoku/
+ ZR+mMY+66Y0booyRnLyn+1GFHV8D0uwUYd6tSSCrJc52mbRT+6trDIKmV w==;
+X-CSE-ConnectionGUID: oouYGm3aRoqGoHtWUGdqSw==
+X-CSE-MsgGUID: EOnuYXiASKiRqlUO40vVig==
+X-IronPort-AV: E=Sophos;i="6.18,291,1751241600"; 
+   d="scan'208";a="2525132"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2025 20:25:44 +0000
+Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:23628]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.10.226:2525]
+ with esmtp (Farcaster)
+ id dcc177e1-9bc7-482f-9822-8d08804a2071; Wed, 24 Sep 2025 20:25:44 +0000 (UTC)
+X-Farcaster-Flow-ID: dcc177e1-9bc7-482f-9822-8d08804a2071
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Wed, 24 Sep 2025 20:25:43 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 24 Sep 2025
+ 20:25:09 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <linux@armlinux.org.uk>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>,
+ <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>,
+ <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>,
+ <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>,
+ <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>,
+ <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
+ <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
+ <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <jdelvare@suse.com>,
+ <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>,
+ <snitzer@kernel.org>, <dm-devel@redhat.com>, <rajur@chelsio.com>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <peppe.cavallaro@st.com>,
+ <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <markgross@kernel.org>,
+ <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>,
+ <gregkh@linuxfoundation.org>, <fei1.li@intel.com>, <clm@fb.com>,
+ <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, 
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>,
+ <pmladek@suse.com>, <senozhatsky@chromium.org>,
+ <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+ <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>,
+ <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>,
+ <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>,
+ <ying.xue@windriver.com>, <andrii@kernel.org>, <mykolal@fb.com>,
+ <ast@kernel.org>, <daniel@iogearbox.net>, <martin.lau@linux.dev>,
+ <song@kernel.org>, <yhs@fb.com>, <john.fastabend@gmail.com>,
+ <kpsingh@kernel.org>, <sdf@google.com>, <haoluo@google.com>,
+ <jolsa@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>,
+ <wad@chromium.org>, <willy@infradead.org>, <farbere@amazon.com>,
+ <sashal@kernel.org>, <ruanjinjie@huawei.com>, <quic_akhilpo@quicinc.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: [PATCH 03/19 v6.1.y] minmax: deduplicate __unconst_integer_typeof()
+Date: Wed, 24 Sep 2025 20:23:04 +0000
+Message-ID: <20250924202320.32333-4-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20250924202320.32333-1-farbere@amazon.com>
+References: <20250924202320.32333-1-farbere@amazon.com>
 MIME-Version: 1.0
-X-MBO-RS-META: ekmsy3jotzy1yshef3njytiw8eie7jfp
-X-MBO-RS-ID: f8f4cfa92774b917d57
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D043UWC004.ant.amazon.com (10.13.139.206) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Wed, 24 Sep 2025 20:26:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,763 +132,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
-> If the new fair policy is at least as good as FIFO and we can afford to
-> remove round-robin, we can simplify the scheduler code by making the
-> scheduler to run queue relationship always 1:1 and remove some code.
->=20
-> Also, now that the FIFO policy is gone the tree of entities is not a FIFO
-> tree any more so rename it to just the tree.
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-I think that this patch should be the one that sets the default
-scheduling policy to CFS.
+[ Upstream commit 5e57418a2031cd5e1863efdf3d7447a16a368172 ]
 
-Either that or a separate patch at an appropriate position before #11.
+It appears that compiler_types.h already have an implementation of the
+__unconst_integer_typeof() called __unqual_scalar_typeof().  Use it
+instead of the copy.
 
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.c=C2=A0=C2=A0=C2=A0 |=C2=A0 2=
-3 ++-
-> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 |=C2=A0 29 +--=
+Link: https://lkml.kernel.org/r/20230911154913.4176033-1-andriy.shevchenko@linux.intel.com
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Herve Codina <herve.codina@bootlin.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ include/linux/minmax.h | 25 ++-----------------------
+ 1 file changed, 2 insertions(+), 23 deletions(-)
+
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index aac0b7d23768..62b0c0a3cf30 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -168,27 +168,6 @@
+  */
+ #define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
+ 
+-/*
+- * Remove a const qualifier from integer types
+- * _Generic(foo, type-name: association, ..., default: association) performs a
+- * comparison against the foo type (not the qualified type).
+- * Do not use the const keyword in the type-name as it will not match the
+- * unqualified type of foo.
+- */
+-#define __unconst_integer_type_cases(type)	\
+-	unsigned type:  (unsigned type)0,	\
+-	signed type:    (signed type)0
 -
-> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h |=C2=A0=C2=A0 9 +-
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0 | 16=
-3 ++++++---------------
-> =C2=A0drivers/gpu/drm/scheduler/sched_rq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 60 ++------
-> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 30 +---
-> =C2=A06 files changed, 78 insertions(+), 236 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_job.c
-> index d020a890a0ea..bc07fd57310c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -434,25 +434,22 @@ drm_sched_entity_queue_pop(struct drm_sched_entity =
-*entity)
-> =C2=A0
-> =C2=A0void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sc=
-hed)
-> =C2=A0{
-> +	struct drm_sched_rq *rq =3D sched->rq;
-> +	struct drm_sched_entity *s_entity;
-> =C2=A0	struct drm_sched_job *s_job;
-> -	struct drm_sched_entity *s_entity =3D NULL;
-> -	int i;
-> =C2=A0
-> =C2=A0	/* Signal all jobs not yet scheduled */
-> -	for (i =3D DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
-> -		struct drm_sched_rq *rq =3D sched->sched_rq[i];
-> -		spin_lock(&rq->lock);
-> -		list_for_each_entry(s_entity, &rq->entities, list) {
-> -			while ((s_job =3D drm_sched_entity_queue_pop(s_entity))) {
-> -				struct drm_sched_fence *s_fence =3D s_job->s_fence;
-> +	spin_lock(&rq->lock);
-> +	list_for_each_entry(s_entity, &rq->entities, list) {
-> +		while ((s_job =3D drm_sched_entity_queue_pop(s_entity))) {
-> +			struct drm_sched_fence *s_fence =3D s_job->s_fence;
-> =C2=A0
-> -				dma_fence_signal(&s_fence->scheduled);
-> -				dma_fence_set_error(&s_fence->finished, -EHWPOISON);
-> -				dma_fence_signal(&s_fence->finished);
-> -			}
-> +			dma_fence_signal(&s_fence->scheduled);
-> +			dma_fence_set_error(&s_fence->finished, -EHWPOISON);
-> +			dma_fence_signal(&s_fence->finished);
-> =C2=A0		}
-> -		spin_unlock(&rq->lock);
-> =C2=A0	}
-> +	spin_unlock(&rq->lock);
-
-Yoah, well. Seems there is no easy fix to remove that from amdgpu,
-since it's used on GPU recovery.
-
-Fine from my side if it's mentioned and explained in the commit
-message.
-
-> =C2=A0
-> =C2=A0	/* Signal all jobs already scheduled to HW */
-> =C2=A0	list_for_each_entry(s_job, &sched->pending_list, list) {
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
-cheduler/sched_entity.c
-> index 58f51875547a..6dd30b85925b 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -108,8 +108,6 @@ int drm_sched_entity_init(struct drm_sched_entity *en=
-tity,
-> =C2=A0	entity->guilty =3D guilty;
-> =C2=A0	entity->num_sched_list =3D num_sched_list;
-> =C2=A0	entity->priority =3D priority;
-> -	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
-> =C2=A0	/*
-> =C2=A0	 * It's perfectly valid to initialize an entity without having a v=
-alid
-> =C2=A0	 * scheduler attached. It's just not valid to use the scheduler be=
-fore it
-> @@ -119,30 +117,14 @@ int drm_sched_entity_init(struct drm_sched_entity *=
-entity,
-> =C2=A0	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-> =C2=A0	RB_CLEAR_NODE(&entity->rb_tree_node);
-> =C2=A0
-> -	if (num_sched_list && !sched_list[0]->sched_rq) {
-> +	if (num_sched_list && !sched_list[0]->rq) {
-> =C2=A0		/* Since every entry covered by num_sched_list
-> =C2=A0		 * should be non-NULL and therefore we warn drivers
-> =C2=A0		 * not to do this and to fix their DRM calling order.
-> =C2=A0		 */
-> =C2=A0		pr_warn("%s: called with uninitialized scheduler\n", __func__);
-> =C2=A0	} else if (num_sched_list) {
-> -		enum drm_sched_priority p =3D entity->priority;
-> -
-> -		/*
-> -		 * The "priority" of an entity cannot exceed the number of
-> -		 * run-queues of a scheduler. Protect against num_rqs being 0,
-> -		 * by converting to signed. Choose the lowest priority
-> -		 * available.
-> -		 */
-> -		if (p >=3D sched_list[0]->num_user_rqs) {
-> -			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u nu=
-m_user_rqs:%u\n",
-> -				p, sched_list[0]->num_user_rqs);
-> -			p =3D max_t(s32,
-> -				 (s32)sched_list[0]->num_user_rqs - 1,
-> -				 (s32)DRM_SCHED_PRIORITY_KERNEL);
-> -			entity->priority =3D p;
-> -		}
-> -		entity->rq =3D sched_list[0]->sched_rq[entity->rq_priority];
-> +		entity->rq =3D sched_list[0]->rq;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	init_completion(&entity->entity_idle);
-> @@ -575,7 +557,7 @@ void drm_sched_entity_select_rq(struct drm_sched_enti=
-ty *entity)
-> =C2=A0
-> =C2=A0	spin_lock(&entity->lock);
-> =C2=A0	sched =3D drm_sched_pick_best(entity->sched_list, entity->num_sche=
-d_list);
-> -	rq =3D sched ? sched->sched_rq[entity->rq_priority] : NULL;
-> +	rq =3D sched ? sched->rq : NULL;
-> =C2=A0	if (rq !=3D entity->rq) {
-> =C2=A0		drm_sched_rq_remove_entity(entity->rq, entity);
-> =C2=A0		entity->rq =3D rq;
-> @@ -599,7 +581,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *=
-sched_job)
-> =C2=A0{
-> =C2=A0	struct drm_sched_entity *entity =3D sched_job->entity;
-> =C2=A0	bool first;
-> -	ktime_t submit_ts;
-> =C2=A0
-> =C2=A0	trace_drm_sched_job_queue(sched_job, entity);
-> =C2=A0
-> @@ -616,16 +597,14 @@ void drm_sched_entity_push_job(struct drm_sched_job=
- *sched_job)
-> =C2=A0	/*
-> =C2=A0	 * After the sched_job is pushed into the entity queue, it may be
-> =C2=A0	 * completed and freed up at any time. We can no longer access it.
-> -	 * Make sure to set the submit_ts first, to avoid a race.
-> =C2=A0	 */
-> -	sched_job->submit_ts =3D submit_ts =3D ktime_get();
-
-Can submit_ts be removed completely?
-
-> =C2=A0	first =3D spsc_queue_push(&entity->job_queue, &sched_job->queue_no=
-de);
-> =C2=A0
-> =C2=A0	/* first job wakes up scheduler */
-> =C2=A0	if (first) {
-> =C2=A0		struct drm_gpu_scheduler *sched;
-> =C2=A0
-> -		sched =3D drm_sched_rq_add_entity(entity, submit_ts);
-> +		sched =3D drm_sched_rq_add_entity(entity);
-> =C2=A0		if (sched)
-> =C2=A0			drm_sched_wakeup(sched);
-> =C2=A0	}
-> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm=
-/scheduler/sched_internal.h
-> index 125aba70eda6..6e5ed721bb5b 100644
-> --- a/drivers/gpu/drm/scheduler/sched_internal.h
-> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
-> @@ -22,13 +22,6 @@ struct drm_sched_entity_stats {
-> =C2=A0	u64		vruntime;
-> =C2=A0};
-> =C2=A0
-> -/* Used to choose between FIFO and RR job-scheduling */
-> -extern int drm_sched_policy;
-> -
-> -#define DRM_SCHED_POLICY_RR	0
-> -#define DRM_SCHED_POLICY_FIFO	1
-> -#define DRM_SCHED_POLICY_FAIR	2
-> -
-> =C2=A0bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-> =C2=A0			 struct drm_sched_entity *entity);
-> =C2=A0void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
-> @@ -39,7 +32,7 @@ struct drm_sched_entity *
-> =C2=A0drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
-> =C2=A0			=C2=A0=C2=A0 struct drm_sched_rq *rq);
-> =C2=A0struct drm_gpu_scheduler *
-> -drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts);
-> +drm_sched_rq_add_entity(struct drm_sched_entity *entity);
-> =C2=A0void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
-> =C2=A0				struct drm_sched_entity *entity);
-> =C2=A0void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
-eduler/sched_main.c
-> index e7726095c19a..a9079bdb27d3 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -84,15 +84,6 @@
-> =C2=A0#define CREATE_TRACE_POINTS
-> =C2=A0#include "gpu_scheduler_trace.h"
-> =C2=A0
-> -int drm_sched_policy =3D DRM_SCHED_POLICY_FAIR;
-> -
-> -/**
-> - * DOC: sched_policy (int)
-> - * Used to override default entities scheduling policy in a run queue.
-> - */
-> -MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entiti=
-es on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " =3D Round Robin, " =
-__stringify(DRM_SCHED_POLICY_FIFO) " =3D FIFO, " __stringify(DRM_SCHED_POLI=
-CY_FAIR) " =3D Fair (default).");
-> -module_param_named(sched_policy, drm_sched_policy, int, 0444);
-> -
-
-Anyone know what happens if we remove that param and some user still
-tries to set it?
-
-> =C2=A0static u32 drm_sched_available_credits(struct drm_gpu_scheduler *sc=
-hed)
-> =C2=A0{
-> =C2=A0	u32 credits;
-> @@ -876,34 +867,6 @@ void drm_sched_wakeup(struct drm_gpu_scheduler *sche=
-d)
-> =C2=A0	drm_sched_run_job_queue(sched);
-> =C2=A0}
-> =C2=A0
-> -/**
-> - * drm_sched_select_entity - Select next entity to process
-> - *
-> - * @sched: scheduler instance
-> - *
-> - * Return an entity to process or NULL if none are found.
-> - *
-> - * Note, that we break out of the for-loop when "entity" is non-null, wh=
-ich can
-> - * also be an error-pointer--this assures we don't process lower priorit=
-y
-> - * run-queues. See comments in the respectively called functions.
-> - */
-> -static struct drm_sched_entity *
-> -drm_sched_select_entity(struct drm_gpu_scheduler *sched)
-> -{
-> -	struct drm_sched_entity *entity =3D NULL;
-> -	int i;
-> -
-> -	/* Start with the highest priority.
-> -	 */
-> -	for (i =3D DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
-> -		entity =3D drm_sched_rq_select_entity(sched, sched->sched_rq[i]);
-> -		if (entity)
-> -			break;
-> -	}
-> -
-> -	return IS_ERR(entity) ? NULL : entity;
-> -}
-> -
-> =C2=A0/**
-> =C2=A0 * drm_sched_get_finished_job - fetch the next finished job to be d=
-estroyed
-> =C2=A0 *
-> @@ -1023,8 +986,8 @@ static void drm_sched_run_job_work(struct work_struc=
-t *w)
-> =C2=A0	int r;
-> =C2=A0
-> =C2=A0	/* Find entity with a ready job */
-> -	entity =3D drm_sched_select_entity(sched);
-> -	if (!entity)
-> +	entity =3D drm_sched_rq_select_entity(sched, sched->rq);
-
-Isn't clear to me why entity-selection should be based on the rq as a
-parameter, now that the scheduler only has one rq and, thus, only one
-list of entities anyways.
-
-Also, you pass both sched and sched->rq, which is redundant.
-
-I think it would be clearer to continue using the name
-drm_sched_select_entity().
-
-
-> +	if (IS_ERR_OR_NULL(entity))
-> =C2=A0		return;	/* No more work */
-> =C2=A0
-> =C2=A0	sched_job =3D drm_sched_entity_pop_job(entity);
-> @@ -1095,8 +1058,6 @@ static struct workqueue_struct *drm_sched_alloc_wq(=
-const char *name)
-> =C2=A0 */
-> =C2=A0int drm_sched_init(struct drm_gpu_scheduler *sched, const struct dr=
-m_sched_init_args *args)
-> =C2=A0{
-> -	int i;
-> -
-> =C2=A0	sched->ops =3D args->ops;
-> =C2=A0	sched->credit_limit =3D args->credit_limit;
-> =C2=A0	sched->name =3D args->name;
-> @@ -1106,13 +1067,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched=
-, const struct drm_sched_init_
-> =C2=A0	sched->score =3D args->score ? args->score : &sched->_score;
-> =C2=A0	sched->dev =3D args->dev;
-> =C2=A0
-> -	if (args->num_rqs > DRM_SCHED_PRIORITY_COUNT) {
-> -		/* This is a gross violation--tell drivers what the=C2=A0 problem is.
-> -		 */
-> -		dev_err(sched->dev, "%s: num_rqs cannot be greater than DRM_SCHED_PRIO=
-RITY_COUNT\n",
-> -			__func__);
-> -		return -EINVAL;
-> -	} else if (sched->sched_rq) {
-
-args->num_rqs is surplus now. What are we going to do with the drivers
-that set it?
-
-It should be removed from struct drm_sched_init_args and the using
-drivers. That way, those drivers will also notice this big change
-coming up.
-
-> +	if (sched->rq) {
-> =C2=A0		/* Not an error, but warn anyway so drivers can
-> =C2=A0		 * fine-tune their DRM calling order, and return all
-> =C2=A0		 * is good.
-> @@ -1132,21 +1087,11 @@ int drm_sched_init(struct drm_gpu_scheduler *sche=
-d, const struct drm_sched_init_
-> =C2=A0		sched->own_submit_wq =3D true;
-> =C2=A0	}
-> =C2=A0
-> -	sched->num_user_rqs =3D args->num_rqs;
-> -	sched->num_rqs =3D drm_sched_policy !=3D DRM_SCHED_POLICY_FAIR ?
-> -			 args->num_rqs : 1;
-> -	sched->sched_rq =3D kmalloc_array(sched->num_rqs,
-> -					sizeof(*sched->sched_rq),
-> -					GFP_KERNEL | __GFP_ZERO);
-> -	if (!sched->sched_rq)
-> +	sched->rq =3D kmalloc(sizeof(*sched->rq), GFP_KERNEL | __GFP_ZERO);
-> +	if (!sched->rq)
-> =C2=A0		goto Out_check_own;
-> =C2=A0
-> -	for (i =3D DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
-> -		sched->sched_rq[i] =3D kzalloc(sizeof(*sched->sched_rq[i]), GFP_KERNEL=
-);
-> -		if (!sched->sched_rq[i])
-> -			goto Out_unroll;
-> -		drm_sched_rq_init(sched, sched->sched_rq[i]);
-> -	}
-> +	drm_sched_rq_init(sched, sched->rq);
-
-Same, redundant function parameter.
-
-> =C2=A0
-> =C2=A0	init_waitqueue_head(&sched->job_scheduled);
-> =C2=A0	INIT_LIST_HEAD(&sched->pending_list);
-> @@ -1161,12 +1106,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched=
-, const struct drm_sched_init_
-> =C2=A0
-> =C2=A0	sched->ready =3D true;
-> =C2=A0	return 0;
-> -Out_unroll:
-> -	for (--i ; i >=3D DRM_SCHED_PRIORITY_KERNEL; i--)
-> -		kfree(sched->sched_rq[i]);
-> =C2=A0
-> -	kfree(sched->sched_rq);
-
-Almost thought we have a memory leak now. But seems fine since we can't
-fail anymore after the kmalloc() above.
-
-> -	sched->sched_rq =3D NULL;
-> =C2=A0Out_check_own:
-> =C2=A0	if (sched->own_submit_wq)
-> =C2=A0		destroy_workqueue(sched->submit_wq);
-> @@ -1202,41 +1142,35 @@ static void drm_sched_cancel_remaining_jobs(struc=
-t drm_gpu_scheduler *sched)
-> =C2=A0 */
-> =C2=A0void drm_sched_fini(struct drm_gpu_scheduler *sched)
-> =C2=A0{
-> +
-> +	struct drm_sched_rq *rq =3D sched->rq;
-> =C2=A0	struct drm_sched_entity *s_entity;
-> -	int i;
-> =C2=A0
-> =C2=A0	drm_sched_wqueue_stop(sched);
-> =C2=A0
-> -	for (i =3D DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
-> -		struct drm_sched_rq *rq =3D sched->sched_rq[i];
-> -
-> -		spin_lock(&rq->lock);
-> -		list_for_each_entry(s_entity, &rq->entities, list)
-> -			/*
-> -			 * Prevents reinsertion and marks job_queue as idle,
-> -			 * it will be removed from the rq in drm_sched_entity_fini()
-> -			 * eventually
-> -			 *
-> -			 * FIXME:
-> -			 * This lacks the proper spin_lock(&s_entity->lock) and
-> -			 * is, therefore, a race condition. Most notably, it
-> -			 * can race with drm_sched_entity_push_job(). The lock
-> -			 * cannot be taken here, however, because this would
-> -			 * lead to lock inversion -> deadlock.
-> -			 *
-> -			 * The best solution probably is to enforce the life
-> -			 * time rule of all entities having to be torn down
-> -			 * before their scheduler. Then, however, locking could
-> -			 * be dropped alltogether from this function.
-> -			 *
-> -			 * For now, this remains a potential race in all
-> -			 * drivers that keep entities alive for longer than
-> -			 * the scheduler.
-> -			 */
-> -			s_entity->stopped =3D true;
-> -		spin_unlock(&rq->lock);
-> -		kfree(sched->sched_rq[i]);
-> -	}
-> +	spin_lock(&rq->lock);
-> +	list_for_each_entry(s_entity, &rq->entities, list)
-> +		/*
-> +		 * Prevents re-insertion and marks job_queue as idle,
-> +		 * it will be removed from the rq in drm_sched_entity_fini()
-> +		 * eventually.
-> +		 *
-> +		 * FIXME:
-> +		 * This lacks the proper spin_lock(&s_entity->lock) and is,
-> +		 * therefore, a race condition. Most notably, it can race with
-> +		 * drm_sched_entity_push_job(). The lock cannot be taken here,
-> +		 * however, because this would lead to lock inversion.
-> +		 *
-> +		 * The best solution probably is to enforce the life time rule
-> +		 * of all entities having to be torn down before their
-> +		 * scheduler. Then locking could be dropped altogether from this
-> +		 * function.
-> +		 *
-> +		 * For now, this remains a potential race in all drivers that
-> +		 * keep entities alive for longer than the scheduler.
-> +		 */
-> +		s_entity->stopped =3D true;
-> +	spin_unlock(&rq->lock);
-> =C2=A0
-> =C2=A0	/* Wakeup everyone stuck in drm_sched_entity_flush for this schedu=
-ler */
-> =C2=A0	wake_up_all(&sched->job_scheduled);
-> @@ -1251,8 +1185,8 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched=
-)
-> =C2=A0	if (sched->own_submit_wq)
-> =C2=A0		destroy_workqueue(sched->submit_wq);
-> =C2=A0	sched->ready =3D false;
-> -	kfree(sched->sched_rq);
-> -	sched->sched_rq =3D NULL;
-> +	kfree(sched->rq);
-
-Renaming sched_rq to rq can be done, but it certainly increases the git
-diff. Such general naming improvements make patches a bit more
-difficult to review and I'd prefer to have those in separate patches.
-
-> +	sched->rq =3D NULL;
-> =C2=A0
-> =C2=A0	if (!list_empty(&sched->pending_list))
-> =C2=A0		dev_warn(sched->dev, "Tearing down scheduler while jobs are pendi=
-ng!\n");
-> @@ -1270,35 +1204,28 @@ EXPORT_SYMBOL(drm_sched_fini);
-> =C2=A0 */
-> =C2=A0void drm_sched_increase_karma(struct drm_sched_job *bad)
-> =C2=A0{
-> -	int i;
-> -	struct drm_sched_entity *tmp;
-> -	struct drm_sched_entity *entity;
-> =C2=A0	struct drm_gpu_scheduler *sched =3D bad->sched;
-> +	struct drm_sched_entity *entity, *tmp;
-> +	struct drm_sched_rq *rq =3D sched->rq;
-> =C2=A0
-> =C2=A0	/* don't change @bad's karma if it's from KERNEL RQ,
-> =C2=A0	 * because sometimes GPU hang would cause kernel jobs (like VM upd=
-ating jobs)
-> =C2=A0	 * corrupt but keep in mind that kernel jobs always considered goo=
-d.
-> =C2=A0	 */
-> -	if (bad->s_priority !=3D DRM_SCHED_PRIORITY_KERNEL) {
-> -		atomic_inc(&bad->karma);
-> +	if (bad->s_priority =3D=3D DRM_SCHED_PRIORITY_KERNEL)
-> +		return;
-> =C2=A0
-> -		for (i =3D DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
-> -			struct drm_sched_rq *rq =3D sched->sched_rq[i];
-> +	atomic_inc(&bad->karma);
-> =C2=A0
-> -			spin_lock(&rq->lock);
-> -			list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
-> -				if (bad->s_fence->scheduled.context =3D=3D
-> -				=C2=A0=C2=A0=C2=A0 entity->fence_context) {
-> -					if (entity->guilty)
-> -						atomic_set(entity->guilty, 1);
-> -					break;
-> -				}
-> -			}
-> -			spin_unlock(&rq->lock);
-> -			if (&entity->list !=3D &rq->entities)
-> -				break;
-> +	spin_lock(&rq->lock);
-> +	list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
-> +		if (bad->s_fence->scheduled.context =3D=3D entity->fence_context) {
-> +			if (entity->guilty)
-> +				atomic_set(entity->guilty, 1);
-> +			break;
-> =C2=A0		}
-> =C2=A0	}
-> +	spin_unlock(&rq->lock);
-> =C2=A0}
-> =C2=A0EXPORT_SYMBOL(drm_sched_increase_karma);
-> =C2=A0
-> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/sched=
-uler/sched_rq.c
-> index c5be8a2c893d..a9bc105221bf 100644
-> --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> @@ -34,7 +34,7 @@ static void drm_sched_rq_update_prio(struct drm_sched_r=
-q *rq)
-> =C2=A0	rq->head_prio =3D prio;
-> =C2=A0}
-> =C2=A0
-> -static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *ent=
-ity,
-> +static void drm_sched_rq_remove_tree_locked(struct drm_sched_entity *ent=
-ity,
-> =C2=A0					=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq)
-> =C2=A0{
-> =C2=A0	lockdep_assert_held(&entity->lock);
-> @@ -47,7 +47,7 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_=
-sched_entity *entity,
-> =C2=A0	}
-> =C2=A0}
-> =C2=A0
-> -static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *ent=
-ity,
-> +static void drm_sched_rq_update_tree_locked(struct drm_sched_entity *ent=
-ity,
-> =C2=A0					=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq,
-> =C2=A0					=C2=A0=C2=A0=C2=A0 ktime_t ts)
-> =C2=A0{
-> @@ -59,7 +59,7 @@ static void drm_sched_rq_update_fifo_locked(struct drm_=
-sched_entity *entity,
-> =C2=A0	lockdep_assert_held(&entity->lock);
-> =C2=A0	lockdep_assert_held(&rq->lock);
-> =C2=A0
-> -	drm_sched_rq_remove_fifo_locked(entity, rq);
-> +	drm_sched_rq_remove_tree_locked(entity, rq);
-> =C2=A0
-> =C2=A0	entity->oldest_job_waiting =3D ts;
-> =C2=A0
-> @@ -207,17 +207,17 @@ static ktime_t drm_sched_entity_get_job_ts(struct d=
-rm_sched_entity *entity)
-> =C2=A0 * drm_sched_rq_add_entity - add an entity
-> =C2=A0 *
-> =C2=A0 * @entity: scheduler entity
-> - * @ts: submission timestamp
-> =C2=A0 *
-> =C2=A0 * Adds a scheduler entity to the run queue.
-> =C2=A0 *
-> =C2=A0 * Returns a DRM scheduler pre-selected to handle this entity.
-> =C2=A0 */
-> =C2=A0struct drm_gpu_scheduler *
-> -drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
-> +drm_sched_rq_add_entity(struct drm_sched_entity *entity)
-> =C2=A0{
-> =C2=A0	struct drm_gpu_scheduler *sched;
-> =C2=A0	struct drm_sched_rq *rq;
-> +	ktime_t ts;
-> =C2=A0
-> =C2=A0	/* Add the entity to the run queue */
-> =C2=A0	spin_lock(&entity->lock);
-> @@ -237,15 +237,9 @@ drm_sched_rq_add_entity(struct drm_sched_entity *ent=
-ity, ktime_t ts)
-> =C2=A0		list_add_tail(&entity->list, &rq->entities);
-> =C2=A0	}
-> =C2=A0
-> -	if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR) {
-> -		ts =3D drm_sched_rq_get_min_vruntime(rq);
-> -		ts =3D drm_sched_entity_restore_vruntime(entity, ts,
-> -						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rq->head_prio);
-> -	} else if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_RR) {
-> -		ts =3D entity->rr_ts;
-> -	}
-> -
-> -	drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> +	ts =3D drm_sched_rq_get_min_vruntime(rq);
-> +	ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
-> +	drm_sched_rq_update_tree_locked(entity, rq, ts);
-> =C2=A0
-> =C2=A0	spin_unlock(&rq->lock);
-> =C2=A0	spin_unlock(&entity->lock);
-> @@ -274,26 +268,11 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq=
- *rq,
-> =C2=A0	atomic_dec(rq->sched->score);
-> =C2=A0	list_del_init(&entity->list);
-> =C2=A0
-> -	drm_sched_rq_remove_fifo_locked(entity, rq);
-> +	drm_sched_rq_remove_tree_locked(entity, rq);
-> =C2=A0
-> =C2=A0	spin_unlock(&rq->lock);
-> =C2=A0}
-> =C2=A0
-> -static ktime_t
-> -drm_sched_rq_get_rr_ts(struct drm_sched_rq *rq, struct drm_sched_entity =
-*entity)
-> -{
-> -	ktime_t ts;
-> -
-> -	lockdep_assert_held(&entity->lock);
-> -	lockdep_assert_held(&rq->lock);
-> -
-> -	ts =3D ktime_add_ns(rq->rr_ts, 1);
-> -	entity->rr_ts =3D ts;
-> -	rq->rr_ts =3D ts;
-> -
-> -	return ts;
-> -}
-> -
-> =C2=A0/**
-> =C2=A0 * drm_sched_rq_pop_entity - pops an entity
-> =C2=A0 *
-> @@ -317,23 +296,14 @@ void drm_sched_rq_pop_entity(struct drm_sched_entit=
-y *entity)
-> =C2=A0	if (next_job) {
-> =C2=A0		ktime_t ts;
-> =C2=A0
-> -		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR)
-> -			ts =3D drm_sched_entity_get_job_ts(entity);
-> -		else if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> -			ts =3D next_job->submit_ts;
-> -		else
-> -			ts =3D drm_sched_rq_get_rr_ts(rq, entity);
-> -
-> -		drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> +		ts =3D drm_sched_entity_get_job_ts(entity);
-> +		drm_sched_rq_update_tree_locked(entity, rq, ts);
-> =C2=A0	} else {
-> -		drm_sched_rq_remove_fifo_locked(entity, rq);
-> +		ktime_t min_vruntime;
-> =C2=A0
-> -		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR) {
-> -			ktime_t min_vruntime;
-> -
-> -			min_vruntime =3D drm_sched_rq_get_min_vruntime(rq);
-> -			drm_sched_entity_save_vruntime(entity, min_vruntime);
-> -		}
-> +		drm_sched_rq_remove_tree_locked(entity, rq);
-> +		min_vruntime =3D drm_sched_rq_get_min_vruntime(rq);
-> +		drm_sched_entity_save_vruntime(entity, min_vruntime);
-> =C2=A0	}
-> =C2=A0	spin_unlock(&rq->lock);
-> =C2=A0	spin_unlock(&entity->lock);
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index 327b75a052c7..c9b75a05d05c 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -96,8 +96,7 @@ struct drm_sched_entity {
-> =C2=A0	 * @lock:
-> =C2=A0	 *
-> =C2=A0	 * Lock protecting the run-queue (@rq) to which this entity belong=
-s,
-> -	 * @priority, the list of schedulers (@sched_list, @num_sched_list) and
-> -	 * the @rr_ts field.
-> +	 * @priority and the list of schedulers (@sched_list, @num_sched_list).
-> =C2=A0	 */
-> =C2=A0	spinlock_t			lock;
-> =C2=A0
-> @@ -150,18 +149,6 @@ struct drm_sched_entity {
-> =C2=A0	 */
-> =C2=A0	enum drm_sched_priority=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 priority;
-> =C2=A0
-> -	/**
-> -	 * @rq_priority: Run-queue priority
-> -	 */
-> -	enum drm_sched_priority=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- rq_priority;
-> -
-> -	/**
-> -	 * @rr_ts:
-> -	 *
-> -	 * Fake timestamp of the last popped job from the entity.
-> -	 */
-> -	ktime_t				rr_ts;
-> -
-> =C2=A0	/**
-> =C2=A0	 * @job_queue: the list of jobs of this entity.
-> =C2=A0	 */
-> @@ -259,8 +246,7 @@ struct drm_sched_entity {
-> =C2=A0 * struct drm_sched_rq - queue of entities to be scheduled.
-> =C2=A0 *
-> =C2=A0 * @sched: the scheduler to which this rq belongs to.
-> - * @lock: protects @entities, @rb_tree_root, @rr_ts and @head_prio.
-> - * @rr_ts: monotonically incrementing fake timestamp for RR mode
-> + * @lock: protects @entities, @rb_tree_root and @head_prio.
-> =C2=A0 * @entities: list of the entities to be scheduled.
-> =C2=A0 * @rb_tree_root: root of time based priority queue of entities for=
- FIFO scheduling
-> =C2=A0 * @head_prio: priority of the top tree element
-> @@ -274,7 +260,6 @@ struct drm_sched_rq {
-> =C2=A0
-> =C2=A0	spinlock_t			lock;
-> =C2=A0	/* Following members are protected by the @lock: */
-> -	ktime_t				rr_ts;
-> =C2=A0	struct list_head		entities;
-> =C2=A0	struct rb_root_cached		rb_tree_root;
-> =C2=A0	enum drm_sched_priority		head_prio;
-> @@ -360,13 +345,6 @@ struct drm_sched_fence *to_drm_sched_fence(struct dm=
-a_fence *f);
-> =C2=A0 * to schedule the job.
-> =C2=A0 */
-> =C2=A0struct drm_sched_job {
-> -	/**
-> -	 * @submit_ts:
-> -	 *
-> -	 * When the job was pushed into the entity queue.
-> -	 */
-> -	ktime_t=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 submit_ts;
-> -
-> =C2=A0	/**
-> =C2=A0	 * @sched:
-> =C2=A0	 *
-> @@ -603,9 +581,7 @@ struct drm_gpu_scheduler {
-> =C2=A0	atomic_t			credit_count;
-> =C2=A0	long				timeout;
-> =C2=A0	const char			*name;
-> -	u32=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_rqs;
-> -	u32=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_user_rqs;
-> -	struct drm_sched_rq=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 **sched_rq;
-> +	struct drm_sched_rq=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 *rq;
-
-Docu must be updated
-
-
-P.
-
-
-> =C2=A0	wait_queue_head_t		job_scheduled;
-> =C2=A0	atomic64_t			job_id_count;
-> =C2=A0	struct workqueue_struct		*submit_wq;
+-#define __unconst_integer_typeof(x) typeof(			\
+-	_Generic((x),						\
+-		char: (char)0,					\
+-		__unconst_integer_type_cases(char),		\
+-		__unconst_integer_type_cases(short),		\
+-		__unconst_integer_type_cases(int),		\
+-		__unconst_integer_type_cases(long),		\
+-		__unconst_integer_type_cases(long long),	\
+-		default: (x)))
+-
+ /*
+  * Do not check the array parameter using __must_be_array().
+  * In the following legit use-case where the "array" passed is a simple pointer,
+@@ -203,13 +182,13 @@
+  * 'int *buff' and 'int buff[N]' types.
+  *
+  * The array can be an array of const items.
+- * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
++ * typeof() keeps the const qualifier. Use __unqual_scalar_typeof() in order
+  * to discard the const qualifier for the __element variable.
+  */
+ #define __minmax_array(op, array, len) ({				\
+ 	typeof(&(array)[0]) __array = (array);				\
+ 	typeof(len) __len = (len);					\
+-	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
++	__unqual_scalar_typeof(__array[0]) __element = __array[--__len];\
+ 	while (__len--)							\
+ 		__element = op(__element, __array[__len]);		\
+ 	__element; })
+-- 
+2.47.3
 
