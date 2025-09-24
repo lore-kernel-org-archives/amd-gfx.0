@@ -4,55 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55F74CAC5B7
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E343CAC5B9
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:26:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88D6D10E7E2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EDAD10E7DE;
 	Wed, 24 Sep 2025 20:26:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="TSmx1LoF";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="nuxR+mrW";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52ACB10E6C3;
- Wed, 24 Sep 2025 09:11:36 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4cWrgm2X9Fz9tBF;
- Wed, 24 Sep 2025 11:11:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1758705092; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XwEskpjIn5D22Nu1O3GezZNjLkrMB3AoiTZaoemM8/8=;
- b=TSmx1LoFJx3v3vfZdmoIk4Iqt5ZdZE21vuRgXNnib7jJZjwpB/NqrZoWaxfBtwOFLh8x0G
- parD0re5mTyhCWbTA2+tqccKNmbYqSNMeGCV6hW1LcG9GtDSfwr63f0TREemQNN7BD7sEt
- yn/3iGzLnUTchTN97ph5JnXSBhht7CyRmzfF2OS2JjqlwNO9phzi3OXnghej9NV7mo5TaE
- LZAyUDUw2hgUedKvit/JYz4g7ti9S03llZAjiPpkVwaoLkugZ+nDiNBeVo2DXzpoRDUJPr
- H5n+5tne8l2L7SQGmf+hxL2Yx9YkVpJ3w8oeG2TTCJVA2qzIT3CtWJ/e3PJy9g==
-Message-ID: <6d5be3ab8413d44a360ebe7a34771ead6687c989.camel@mailbox.org>
-Subject: Re: [RFC v8 07/12] drm/sched: Account entity GPU time
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
- <phasta@kernel.org>
-Date: Wed, 24 Sep 2025 11:11:24 +0200
-In-Reply-To: <20250903101820.63032-8-tvrtko.ursulin@igalia.com>
-References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
- <20250903101820.63032-8-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 727 seconds by postgrey-1.36 at gabe;
+ Wed, 24 Sep 2025 11:18:59 UTC
+Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com
+ [203.205.221.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72CB110E14B;
+ Wed, 24 Sep 2025 11:18:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1758712736; bh=fRFsnJ40e71aBJkNjV/i7/Hq7grzH+57bG8oCWourQU=;
+ h=From:To:Cc:Subject:Date;
+ b=nuxR+mrW+4QxpMKJ0yFcoHAPwfRmhrI5M7CO5se3szu/yD0Xq7ZW+Kkmi8PbOqakO
+ YBTQFzrarHFfKNgyVQap+sYjbM6DlLS/MaoLcHe8mZ8iDD4D8YxWYwDQF7pWjqgPEC
+ CXpR0mpwSqpcvC4CE2nFLekyNhxgjjprCQCTXx5M=
+Received: from localhost.localdomain ([116.128.244.169])
+ by newxmesmtplogicsvrszb20-0.qq.com (NewEsmtp) with SMTP
+ id E9EAF8B6; Wed, 24 Sep 2025 18:58:30 +0800
+X-QQ-mid: xmsmtpt1758711510tfocsxz6a
+Message-ID: <tencent_A8BB4A0E44BDCF1DEC33942D2144C521AF07@qq.com>
+X-QQ-XMAILINFO: MAcVqULX7QQ1oqsUFJVBzWZUCyaAi+Dw31URdXL0LU4F/EGgFWDSg7XGQnER1S
+ Qj71FkoTXFhBNU5rBRZB/HzfMhdS4BK9lVgX5oggzw97ILRs/ePR27lQQFOEA6UXC/PhwLsXyo/D
+ J1SG1R6vvYluC7Y8BwGrQdAqHYCph3qBv6W+hOfcRB1IyNRCBH8dESldg6paCm9A32J3xTBI1xdf
+ abPIG8rVKY5ZH0HMMx+0yeVEBgslX5clhuQof2xrgE7ChxUjRniKA1UDZwQ6InFJReJo1MEDmhFt
+ kVDyanaHjFdeeecLo5hgxBpSiOmAwQbZWe5wjYj2JEJzAlqTqqpl+wqkTaBultba22UrpP7Yn8Uh
+ uRe5Ai4wL39syAMYFrykIi0Tok7hEXWlvFdGsKJ01yQ+gBDqiWzzJYT+H/AT6e3yDQ7Upbyj47FM
+ vU4jwCTr30Ex2KrMWI+G0je7ohmnMQeUWv3EEZZq8iokr4o1dybiuA1/mouwxh9nakn1/mFMwJii
+ ztNlwimDnxEItIpPeEZd1TsalKe5t0DumxUnRVmJ7M51z2VK4HrmXCcobF8pE7hnGzAAQWIY05PI
+ tdwh0XO62guBhYJd86G9S5DQl+nmdKUFoL9/t6bML6A02c0EzIPX2/if6wwHF6Q+DgHHb7Be1Dej
+ eeeJmBzCLVepb38R4K4t0CsnfzOcKxEveQ8Gf+LgW33059U2dinSUfbng2t1ygw25Rv1hp/4GPSW
+ ZyqU7Y/elDrCVYeTjKVbl6AcRlSUT49yOJQFMS8JvPr+FBFsLF1DS5H11CPos9/W9we1MdwK5K3w
+ XNBAuE+JJimHjScChfTs3kn4ht4wSWeALILzfz15Gv5NoKzAt8y6YMCxvAGjBCCsx13T3/8hzk4c
+ 6aBdELlTzSZhGct+mYUBcD9bxcx2z3zbF23kuaw/ZHaB1BuIq7Af+OBsYaKtODTdwapWXR+6xJbq
+ UGf/sMyVyk5ckeSfhohiNs/Oy14StUt9sB+iWIVPI=
+X-QQ-XMRINFO: Nq+8W0+stu50PRdwbJxPCL0=
+From: 2564278112@qq.com
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/radeon: Solve the problem of the audio options not
+ disappearing promptly after unplugging the HDMI audio.
+Date: Wed, 24 Sep 2025 18:58:27 +0800
+X-OQ-MSGID: <20250924105827.880992-1-2564278112@qq.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MBO-RS-META: iz1e3iw1xqfgcxkyam9k3gfqmyr1s38z
-X-MBO-RS-ID: 6d1e5c485274634c9d3
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 24 Sep 2025 20:26:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,305 +68,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
-> To implement fair scheduling we need a view into the GPU time consumed by
-> entities. Problem we have is that jobs and entities objects have decouple=
-d
-> lifetimes, where at the point we have a view into accurate GPU time, we
-> cannot link back to the entity any longer.
->=20
-> Solve this by adding a light weight entity stats object which is referenc=
-e
-> counted by both entity and the job and hence can safely be used from
-> either side.
->=20
-> With that, the only other thing we need is to add a helper for adding the
-> job's GPU time into the respective entity stats object, and call it once
-> the accurate GPU time has been calculated.
+From: Wang Jiang <jiangwang@kylinos.cn>
 
-This in general also looks reasonable and clean to me. Some comments
-below.
+The audio detection process in the Radeon driver is as follows:
+radeon_dvi_detect/radeon_dp_detect -> radeon_audio_detect -> radeon_audio_enable -> radeon_audio_component_notify -> radeon_audio_component_get_eld
+When HDMI is unplugged, radeon_dvi_detect is triggered.
+At this point, radeon_audio_detect is triggered before radeon_dvi_detect has finished (which also means the new state of the connector has not been reported).
+In this scenario, radeon_audio_detect can detect that the connector is disconnected (because the parameter is passed down),
+ but it is very likely that the audio callback function radeon_audio_component_get_eld cannot detect the disconnection of the connector.
+As a result, when the audio component (radeon_audio_component_get_eld) performs detection, the connector's state is not shown as disconnected,
+and connector->eld is not zero, causing the audio component to think the audio driver is still working.
+I have added a new member (enable_mask) to the audio structure to record the audio enable status.
+Only when radeon_audio_component_get_eld detects that enable_mask is not zero will it continue to work.
+There might be other solutions, such as placing radeon_audio_detect/radeon_audio_component_notify after the completion of radeon_XX_detect.
+However, I found that this would require significant changes (or perhaps it's just my limited coding skills?).
 
-btw I've got many nit-comments for all patches, but will wait with
-those until a v1 is posted.
+Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+---
+ drivers/gpu/drm/radeon/radeon.h       | 1 +
+ drivers/gpu/drm/radeon/radeon_audio.c | 5 +++++
+ 2 files changed, 6 insertions(+)
 
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 | 39 +++++++++=
-++++
-> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h | 66 +++++++++++++++++++=
-+++
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 6 +-
-> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++
-> =C2=A04 files changed, 122 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
-cheduler/sched_entity.c
-> index 7a0a52ba87bf..04ce8b7d436b 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -32,6 +32,39 @@
-> =C2=A0
-> =C2=A0#include "gpu_scheduler_trace.h"
-> =C2=A0
-> +
-> +/**
-> + * drm_sched_entity_stats_release - Entity stats kref release function
-> + *
-> + * @kref: Entity stats embedded kref pointer
-> + */
-> +void drm_sched_entity_stats_release(struct kref *kref)
-> +{
-> +	struct drm_sched_entity_stats *stats =3D
-> +		container_of(kref, typeof(*stats), kref);
-> +
-> +	kfree(stats);
-> +}
-> +
-> +/**
-> + * drm_sched_entity_stats_alloc - Allocate a new struct drm_sched_entity=
-_stats object
-> + *
-> + * Returns: Pointer to newly allocated struct drm_sched_entity_stats obj=
-ect.
-> + */
-> +static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
-> +{
-> +	struct drm_sched_entity_stats *stats;
-> +
-> +	stats =3D kzalloc(sizeof(*stats), GFP_KERNEL);
-> +	if (!stats)
-> +		return NULL;
-> +
-> +	kref_init(&stats->kref);
-> +	spin_lock_init(&stats->lock);
-> +
-> +	return stats;
-> +}
-> +
-> =C2=A0/**
-> =C2=A0 * drm_sched_entity_init - Init a context entity used by scheduler =
-when
-> =C2=A0 * submit to HW ring.
-> @@ -65,6 +98,11 @@ int drm_sched_entity_init(struct drm_sched_entity *ent=
-ity,
-> =C2=A0		return -EINVAL;
-> =C2=A0
-> =C2=A0	memset(entity, 0, sizeof(struct drm_sched_entity));
-> +
-> +	entity->stats =3D drm_sched_entity_stats_alloc();
-> +	if (!entity->stats)
-> +		return -ENOMEM;
-> +
-> =C2=A0	INIT_LIST_HEAD(&entity->list);
-> =C2=A0	entity->rq =3D NULL;
-> =C2=A0	entity->guilty =3D guilty;
-> @@ -338,6 +376,7 @@ void drm_sched_entity_fini(struct drm_sched_entity *e=
-ntity)
-> =C2=A0
-> =C2=A0	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true))=
-;
-> =C2=A0	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-> +	drm_sched_entity_stats_put(entity->stats);
-> =C2=A0}
-> =C2=A0EXPORT_SYMBOL(drm_sched_entity_fini);
-> =C2=A0
-> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm=
-/scheduler/sched_internal.h
-> index 703ee48fbc58..27c8460a3601 100644
-> --- a/drivers/gpu/drm/scheduler/sched_internal.h
-> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
-> @@ -3,6 +3,22 @@
-> =C2=A0#ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
-> =C2=A0#define _DRM_GPU_SCHEDULER_INTERNAL_H_
-> =C2=A0
-> +#include <linux/ktime.h>
-> +#include <linux/kref.h>
-> +#include <linux/spinlock.h>
-> +
-> +/**
-> + * struct drm_sched_entity_stats - execution stats for an entity.
-> + *
-> + * @kref: reference count for the object.
-> + * @lock: lock guarding the @runtime updates.
-> + * @runtime: time entity spent on the GPU.
-> + */
-> +struct drm_sched_entity_stats {
-
-Cool docu.
-
-Though, considering that awkward refcounting patterns are one of the
-more relevant scheduler problems, I believe it makes sense to add to
-the docu here a sentence or two about who refcounts this object for
-what reason.
-
-> +	struct kref	kref;
-> +	spinlock_t	lock;
-> +	ktime_t		runtime;
-> +};
-> =C2=A0
-> =C2=A0/* Used to choose between FIFO and RR job-scheduling */
-> =C2=A0extern int drm_sched_policy;
-> @@ -93,4 +109,54 @@ drm_sched_entity_is_ready(struct drm_sched_entity *en=
-tity)
-> =C2=A0	return true;
-> =C2=A0}
-> =C2=A0
-> +void drm_sched_entity_stats_release(struct kref *kref);
-> +
-> +/**
-> + * drm_sched_entity_stats_get - Obtain a reference count on struct drm_s=
-ched_entity_stats object
-> + *
-> + * @stats: struct drm_sched_entity_stats pointer
-> + *
-> + * Returns: struct drm_sched_entity_stats pointer
-> + */
-> +static inline struct drm_sched_entity_stats *
-> +drm_sched_entity_stats_get(struct drm_sched_entity_stats *stats)
-> +{
-> +	kref_get(&stats->kref);
-> +
-> +	return stats;
-> +}
-> +
-> +/**
-> + * drm_sched_entity_stats_put - Release a reference count on struct drm_=
-sched_entity_stats object
-> + *
-> + * @stats: struct drm_sched_entity_stats pointer
-> + */
-> +static inline void
-> +drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
-> +{
-> +	kref_put(&stats->kref, drm_sched_entity_stats_release);
-> +}
-> +
-> +/**
-> + * drm_sched_entity_stats_job_add_gpu_time - Account job execution time =
-to entity
-> + *
-> + * @job: Scheduler job to account.
-> + *
-> + * Accounts the execution time of @job to its respective entity stats ob=
-ject.
-> + */
-> +static inline void
-> +drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
-> +{
-> +	struct drm_sched_entity_stats *stats =3D job->entity_stats;
-> +	struct drm_sched_fence *s_fence =3D job->s_fence;
-> +	ktime_t start, end;
-> +
-> +	start =3D dma_fence_timestamp(&s_fence->scheduled);
-> +	end =3D dma_fence_timestamp(&s_fence->finished);
-> +
-> +	spin_lock(&stats->lock);
-> +	stats->runtime =3D ktime_add(stats->runtime, ktime_sub(end, start));
-> +	spin_unlock(&stats->lock);
-> +}
-> +
-> =C2=A0#endif
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
-eduler/sched_main.c
-> index 9411676e772a..a5d7706efbea 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -658,6 +658,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
-> =C2=A0
-> =C2=A0	job->sched =3D sched;
-> =C2=A0	job->s_priority =3D entity->priority;
-> +	job->entity_stats =3D drm_sched_entity_stats_get(entity->stats);
-> =C2=A0
-> =C2=A0	drm_sched_fence_init(job->s_fence, job->entity);
-> =C2=A0}
-> @@ -846,6 +847,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *job)
-> =C2=A0		 * been called.
-> =C2=A0		 */
-> =C2=A0		dma_fence_put(&job->s_fence->finished);
-> +		drm_sched_entity_stats_put(job->entity_stats);
-> =C2=A0	} else {
-> =C2=A0		/* The job was aborted before it has been committed to be run;
-> =C2=A0		 * notably, drm_sched_job_arm() has not been called.
-> @@ -997,8 +999,10 @@ static void drm_sched_free_job_work(struct work_stru=
-ct *w)
-> =C2=A0		container_of(w, struct drm_gpu_scheduler, work_free_job);
-> =C2=A0	struct drm_sched_job *job;
-> =C2=A0
-> -	while ((job =3D drm_sched_get_finished_job(sched)))
-> +	while ((job =3D drm_sched_get_finished_job(sched))) {
-> +		drm_sched_entity_stats_job_add_gpu_time(job);
-> =C2=A0		sched->ops->free_job(job);
-> +	}
-
-The biggest question I'm wondering about is whether the reference
-should be put in drm_sched_job_cleanup() or drm_sched_free_job_work().
-The primer is semantically more correct, probably, but the latter is
-always controlled by the scheduler.
-
-Hypothetically a driver could just not call drm_sched_job_cleanup() in
-its free_job() callback =E2=80=93 but then other stuff would leak as well a=
-nd
-everything would be broken anyways.
-
-I probably should change the docu for drm_sched_job_cleanup(), which
-currently says drivers "should" call it in free_job(), instead of
-"must".
-
-
-P.
-
-> =C2=A0
-> =C2=A0	drm_sched_run_job_queue(sched);
-> =C2=A0}
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index 802a0060db55..f33c78473867 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -71,6 +71,8 @@ enum drm_sched_priority {
-> =C2=A0	DRM_SCHED_PRIORITY_COUNT
-> =C2=A0};
-> =C2=A0
-> +struct drm_sched_entity_stats;
-> +
-> =C2=A0/**
-> =C2=A0 * struct drm_sched_entity - A wrapper around a job queue (typicall=
-y
-> =C2=A0 * attached to the DRM file_priv).
-> @@ -110,6 +112,11 @@ struct drm_sched_entity {
-> =C2=A0	 */
-> =C2=A0	struct drm_sched_rq		*rq;
-> =C2=A0
-> +	/**
-> +	 * @stats: Stats object reference held by the entity and jobs.
-> +	 */
-> +	struct drm_sched_entity_stats	*stats;
-> +
-> =C2=A0	/**
-> =C2=A0	 * @sched_list:
-> =C2=A0	 *
-> @@ -365,6 +372,11 @@ struct drm_sched_job {
-> =C2=A0	struct drm_sched_fence		*s_fence;
-> =C2=A0	struct drm_sched_entity=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 *entity;
-> =C2=A0
-> +	/**
-> +	 * @entity_stats: Stats object reference held by the job and entity.
-> +	 */
-> +	struct drm_sched_entity_stats	*entity_stats;
-> +
-> =C2=A0	enum drm_sched_priority		s_priority;
-> =C2=A0	u32				credits;
-> =C2=A0	/** @last_dependency: tracks @dependencies as they signal */
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index 63c47585afbc..2d0a411e3ed6 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -1745,6 +1745,7 @@ struct r600_audio_pin {
+ 	u32			offset;
+ 	bool			connected;
+ 	u32			id;
++	u8			enable_mask;
+ };
+ 
+ struct r600_audio {
+diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
+index 8d64ba18572e..a0717895cc8a 100644
+--- a/drivers/gpu/drm/radeon/radeon_audio.c
++++ b/drivers/gpu/drm/radeon/radeon_audio.c
+@@ -212,6 +212,7 @@ static void radeon_audio_enable(struct radeon_device *rdev,
+ 	if (rdev->audio.funcs->enable)
+ 		rdev->audio.funcs->enable(rdev, pin, enable_mask);
+ 
++	rdev->audio.pin[pin->id].enable_mask = enable_mask;
+ 	radeon_audio_component_notify(rdev, pin->id);
+ }
+ 
+@@ -274,6 +275,7 @@ int radeon_audio_init(struct radeon_device *rdev)
+ 		rdev->audio.pin[i].connected = false;
+ 		rdev->audio.pin[i].offset = pin_offsets[i];
+ 		rdev->audio.pin[i].id = i;
++		rdev->audio.pin[i].enable_mask = 0;
+ 	}
+ 
+ 	radeon_audio_interface_init(rdev);
+@@ -760,6 +762,9 @@ static int radeon_audio_component_get_eld(struct device *kdev, int port,
+ 	if (!rdev->audio.enabled || !rdev->mode_info.mode_config_initialized)
+ 		return 0;
+ 
++	if (rdev->audio.pin[port].enable_mask == 0)
++		return 0;
++
+ 	list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
+ 		const struct drm_connector_helper_funcs *connector_funcs =
+ 				connector->helper_private;
+-- 
+2.25.1
 
