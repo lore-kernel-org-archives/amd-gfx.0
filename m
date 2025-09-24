@@ -4,71 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02038CAC5AE
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 17:07:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31CD6CAC5AE
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 17:13:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9967F10E795;
-	Wed, 24 Sep 2025 17:07:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D28A510E77E;
+	Wed, 24 Sep 2025 17:13:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Axypm7EK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ma+s/IQZ";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD61910E796
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 17:07:14 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2698d47e6e7so37195ad.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 10:07:14 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6652C10E77E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 17:13:13 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-77f605f22easo64799b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 10:13:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758733634; x=1759338434; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9uGXKv6vNmqRC6Pe2k9epdhPteSOrLTy3D+CqtuGIBc=;
- b=Axypm7EKYtINykJlv2RVIqqr/xiuCfSOgEmngV/blcxN6E3f+02mtNFpBHC2V8q6+v
- nKMLmjMXhJ9qU9flZq6MMj/GZm0Fv2oNa/2SzwxsyIFndLdMuKSdrn5W/rD+o+PoaOSS
- ZcwdxbZsMhZlhcmsi4nCvhxLyVFmKkgt2FDQtHehSg2nUlCqG5DqoBSc2YFFwkxYPx2H
- 8ruwW2C7exUHntbyX1tA+B8kV2NxI/RzH9m7HYsoCIQkO0Fe8MZ5N9K+MYeB5lTf6sOc
- U1/3h5wVQ1YyH4wFWnZiS/XG5H8Lj/IxGWRCGcgbVT6e4l7VzZMpL9BoY/EQpD4Qk7Ml
- JMlg==
+ d=gmail.com; s=20230601; t=1758733993; x=1759338793; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ViC9tw0tv1yp8xCIYJ+A9v3YVoKMtKQ5O477dSh2cuk=;
+ b=Ma+s/IQZcJ+KLmHco1Dn4EQIWmMLKiENTru46mSdyK0s2ogq/0MF3VB981QrlQR4o3
+ 6qCeraDYiDLUYC2kkPvDQ1SYRTelB8mmcm9qUmd7+o5oejF92wMa3/0kJ0xB7j9wvb8j
+ onpuU9CYmXUyTQwqOKMBsiSb1BYveEuXc8jO+/OSM1cqQSWMd2j1IrnEky8XaQXxVt/+
+ Too7l8buB2M13ZLeTELsUilv18W8Qlap/0nt3KEC/WU1zWpaXLdup2DLMuz6lTLtD14J
+ Wp+xMYwNl+pe0QlbB/exOKIrfuUXaRw2bgGft6/3yRAdiYJKzgBQ80w04hSjWPbX5Yxq
+ +jIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758733634; x=1759338434;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9uGXKv6vNmqRC6Pe2k9epdhPteSOrLTy3D+CqtuGIBc=;
- b=ZWP6pE3VScQFda6j2eV1oYoz2RMANGY6wYNaEZ5+KrSFMr5QjtbisrPThv9Z2HnpRV
- OqVm2QECqaxUTStaIkCVws4kNsvsWlhN37aivULbfhyonbn3lEJ4hlpHeVq6rTIjDdVf
- xcymOAy+37kudhOud+3tP1a8hd5jI0/Ot3NrOXbjdkelABKIOfVrmLpGCZsCy76/ATTK
- 0UAqHEPR3rVWHoKwU2q1uJ2yX1XTiXUCXhuREUdc8huB3VibwuzOeKOJKzqrN7G4b9mD
- MYARMLMZmKDqQuntPiena1kzSxKf73SJl9jgXot+Zd/BHzhtGCeI8AMkhmkdKhO5RrQh
- qKXg==
-X-Gm-Message-State: AOJu0YwFtVEmTgAp/KKoM5vnYbDazowkgWS7anZKar9T8yCRb7BHEPDW
- foEnvrdvOMcz51+UqKm+rPIkYMdaeN+TqFZS4o4nX7MC6l69MnZZoSXYZKiP0WdZihuc1n1HNOD
- /X232eWYQ6UqSD5Z1kVKMi6OITGYwao27LA==
-X-Gm-Gg: ASbGncsibRj/O/aUmdd3LxN+3meZkeDNs/tV0nXwj4s7ut5zARaKDHLSvQzYUFvSTw9
- i7SFtAiMa4lBH3qQGAV+UzSReWaJ4d4YFprL9pOMD9euoHYStt4hKI9rppSVkaHM0CriBRjtvCP
- IdsVypAB+mPTbSTfd/gkZmfFlbRUueKFBVe9UCkc/ZTke6SRqBhFN3V8kV48ze+HMObrnrldHph
- KvDEM8=
-X-Google-Smtp-Source: AGHT+IHqc93a+KNaSbL0HAZT8xFpg3MjhNH0xhvBjD7ooI1wF+/6IhIyqBptzn/t3j0Ozcrrv1Guxv7hqgvmMN8jYA0=
-X-Received: by 2002:a17:902:c40d:b0:269:af66:5e70 with SMTP id
- d9443c01a7336-27ed4aca730mr2281905ad.9.1758733633969; Wed, 24 Sep 2025
- 10:07:13 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1758733993; x=1759338793;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ViC9tw0tv1yp8xCIYJ+A9v3YVoKMtKQ5O477dSh2cuk=;
+ b=WV0r14IdJIRo5uEP3/lCXUGfoGwrHxv8VsHuiCKwpiKa939LrBhkP1U86AjBsDB1Rb
+ hdOpL50dJ/RZzahF/2Ssxh9h1orqvjhbOPKKx8BHucA30RtEDkv3ZH4ydrPsMDkPUleY
+ KoMJUK7YeRFQOx7ptIfupkFmfXxc4jkCMkACeUoL12ZFwo2qnYiFdm9wXs6Q+w/GVaWw
+ Swn6qUNwZJmrgZh6UKs+mc62i8h8MLEKM1ClvCmnHmRq2lmste6uB0NW7SNKNaWV3+W9
+ l81DLmy4h/gVoO2RZPgbwM+i1KlbGz0DiAcoVcEJbgfRxQE0Ai3n5t8RJSKrETAeLi6S
+ EIHA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVXJPC5QZHVXXUs2fF5Io8glqB4x4lBmBr3OPjyQyD8//RiR/vrP8RZeeAnT6tqoBl8pYIHh+ry@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwF0+ttybHzuNfoxvTewoyC22pee3KpRdLyTUyfMXQxr1ho2VrI
+ guN/17U9Tf85OUvQ00El8mySms8ADkepvUUZgrJn+PgupRaQ82HXwsHw
+X-Gm-Gg: ASbGncsOvevBu8H0DDsk0jZdsFPx9EKtse20yiQhufaoafn5IPOxyzk2Mc5PWJ/yaju
+ vp98n8De5akuK3uW7NYkqRQCwI5J82BWFNUDoiamO4h0S9i1eej+gej1KQ2LhtZ0kuNqt3Fp78W
+ jGgZ1yR0lVgpOUQhfqhGWo5UMFfJznXqoASfFWvsn++PZrAmff8zsKBBqt8pSB7N+TIP6hHng2V
+ xVnd7waHTvDpxltkXV7u5IR4defgLI5LxVANFVlorj+FdwnY4DpNAHigpxuraHhjjCNaTAIB485
+ RpIhjtkuWKcS2vEWNs7bwU0x1wJADdYj3eu/Z1ZocRHnutpHQEqOWOWpsQzwuLtSzJPJuheEivd
+ GxMRbt6XsnWrp5cTlHS6dCKGW2KxRSAG0Zz7jrnnSiCQSOK8z3pm6nERLCpgGshyotg53NyD0W/
+ pAEOQK0+2ljhWFIt3+xRDllR/Z4JGdBCacJUmFMY1kCKcqLQZJRM7FHXLf7ZvVTipgHB3ox8A=
+X-Google-Smtp-Source: AGHT+IFL16CxT92EcPiTaY1BDq6W1nWyLF/EtNklu1fI3Pn+iBe/yDAePA996fFT5LVPQ+mttIkF7w==
+X-Received: by 2002:a05:6a20:4315:b0:2e2:3e68:6e36 with SMTP id
+ adf61e73a8af0-2e7d2e45e6dmr364288637.49.1758733992759; 
+ Wed, 24 Sep 2025 10:13:12 -0700 (PDT)
+Received: from ?IPV6:2001:4c4e:24d0:6700:c9f5:8820:b1e:cea8?
+ (20014C4E24D06700C9F588200B1ECEA8.dsl.pool.telekom.hu.
+ [2001:4c4e:24d0:6700:c9f5:8820:b1e:cea8])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b551705bd02sm15076832a12.41.2025.09.24.10.13.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Sep 2025 10:13:12 -0700 (PDT)
+Message-ID: <29cbab3f-083a-41a8-81a1-b0234f36152f@gmail.com>
+Date: Wed, 24 Sep 2025 19:13:06 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] Adjustments to common mode behavior
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
 References: <20250924161624.1975819-1-mario.limonciello@amd.com>
- <20250924161624.1975819-6-mario.limonciello@amd.com>
-In-Reply-To: <20250924161624.1975819-6-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 Sep 2025 13:07:02 -0400
-X-Gm-Features: AS18NWBcPPmfyO5fqqgMK7IzdOwIw07dvZkwQRlQQEfIluAxIfg1QOWd-zLOszk
-Message-ID: <CADnq5_NWMG7GAWOygZbb1uskHp9fE-_OMje=sx67fLWDLHo3sg@mail.gmail.com>
-Subject: Re: [PATCH 5/5] drm/amd: Add name to modes from
- amdgpu_connector_add_common_modes()
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+From: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+In-Reply-To: <20250924161624.1975819-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,81 +92,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 24, 2025 at 12:24=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> [Why]
-> When DC adds common modes it adds modes with a string to match what
-> they are. Non-DC doesn't. This can be inconsistent when turning on/off
-> DC support.
->
-> [How]
-> Add a name member to common_modes[] and copy it into the drm display
-> mode.
->
-> Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> ---
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 26 ++++++++++---------
->  1 file changed, 14 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_connectors.c
-> index 8c085ed703dd..120d8017b6f4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -399,21 +399,22 @@ static void amdgpu_connector_add_common_modes(struc=
-t drm_encoder *encoder,
->         struct drm_display_mode *native_mode =3D &amdgpu_encoder->native_=
-mode;
->         int i;
->         int n;
-> -       static const struct mode_size {
-> +       struct mode_size {
-> +               char name[DRM_DISPLAY_MODE_LEN];
->                 int w;
->                 int h;
->         } common_modes[] =3D {
-> -               { 640,  480},
-> -               { 800,  600},
-> -               {1024,  768},
-> -               {1280,  720},
-> -               {1280,  800},
-> -               {1280, 1024},
-> -               {1440,  900},
-> -               {1680, 1050},
-> -               {1600, 1200},
-> -               {1920, 1080},
-> -               {1920, 1200}
-> +               {  "640x480",  640,  480},
-> +               {  "800x600",  800,  600},
-> +               { "1024x768", 1024,  768},
-> +               { "1280x720", 1280,  720},
-> +               { "1280x800", 1280,  800},
-> +               {"1280x1024", 1280, 1024},
-> +               { "1440x900", 1440,  900},
-> +               {"1680x1050", 1680, 1050},
-> +               {"1600x1200", 1600, 1200},
-> +               {"1920x1080", 1920, 1080},
-> +               {"1920x1200", 1920, 1200}
->         };
->
->         n =3D ARRAY_SIZE(common_modes);
-> @@ -435,6 +436,7 @@ static void amdgpu_connector_add_common_modes(struct =
-drm_encoder *encoder,
->                 mode =3D drm_cvt_mode(dev, common_modes[i].w, common_mode=
-s[i].h, 60, false, false, false);
->                 if (!mode)
->                         return;
-> +               strscpy(mode->name, common_modes[i].name, DRM_DISPLAY_MOD=
-E_LEN);
->
->                 drm_mode_probed_add(connector, mode);
->         }
-> --
-> 2.51.0
->
+On 9/24/25 18:16, Mario Limonciello wrote:
+> As part of enablement for SI and CIK in DC Timur pointed out some
+> differences in behavior for common mode handling for DC vs non DC
+> code paths. This series lines up the behavior between the two
+> implementations.
+> 
+Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
+
+Thank you Mario, this series makes good sense to me.
+My only worry is this: is it possible that removing the common modes 
+from connectors like DP, HDMI, etc. will regress somebody's setup?
+
+Two possible cases come to mind:
+1. When we are unable to read the EDID for some reason
+2. When the EDID is buggy and/or doesn't contain any modes
+Are these issues real or am I overthinking it?
+
+Thanks & best regards,
+Timur
