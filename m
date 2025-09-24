@@ -4,79 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAC4ACAC5AE
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:07:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 581B3CAC5AE
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:26:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1E510E7CB;
-	Wed, 24 Sep 2025 20:07:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 894FE10E7D8;
+	Wed, 24 Sep 2025 20:26:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I3+0iGy6";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="WNv3YcW0";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD8CE10E7CB
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 20:07:26 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-24498e93b8fso349275ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 13:07:26 -0700 (PDT)
+Received: from fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.178.143.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAD5B10E7D3;
+ Wed, 24 Sep 2025 20:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758744446; x=1759349246; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OKnflPuEez+KMavmEvDVz0cbFU6KCU4us8y073u8XcU=;
- b=I3+0iGy6JFzLuFWfMRBvE2g9xo697jhdpht/vwxutaufAc+Ai7MHN4ZgSSg0N4253W
- 96y11zpk7mO3YrNQXIUipsQiWHRpIQFGKZ9E+fV35Whn83ZQjck3U1qr4qDfLO+WH4yK
- nwzLTnwpxCQXqEMYF6RdkTuFu7E+W+RbhwdX6pG5kLZH+vzsg4yhPlPIdnPOZstPDDv3
- ekF4t8opHNhhEpv1DvK/UB+TGN1+y2qP6dmethcdI3TD/0yug5xLQWKDNwv8xkrfCtZ6
- xcBIc7UU50N3m8spWhU7bJSHQTJXsMWl1Men/UjX9kOwmOumsyhNkrSmx7GdvCgAIBoA
- 8JRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758744446; x=1759349246;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OKnflPuEez+KMavmEvDVz0cbFU6KCU4us8y073u8XcU=;
- b=N940telSvhqNpSS295t1kaBbu0E6kmgACJkg3wS8tjnyooLUVWk36LT5ZpdjIm0FVX
- qrDREQRZ4eLWg/qb9jLsoaFHXwqze+PEe6VlVFeN1m41yB6fmbuzaQ0499O70xUfQF5I
- KbKCACHWuceeCkk/eCfy4nCK1ouh3uIkXESUCBFJy4ZonquY1RPcyowo8kyJFEgEl85w
- vgyTPOrlb17RAYAmkvnneBnUmypVgJXezkRSVQj1Be5RdZ5alswP+FxjQQzOsCJvhUvx
- GR8OVFiov9+kG5J/pydd1bTAWzzaRCINY1c1tTDoLu4CUFcHW4w/u1U3wApSnRdDpz44
- rimA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVIxKdXLjHKwHJVKaXSXknX4TTNaJrC1Wtchb78G/aRZFcDEHLC5J8OQr70Kgkb/oryCVspIDEF@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwDRBpRr8rwM3o5BSJu7/rmKaAtGXiBBjv33gc3n85FS3HNg6Ic
- w4ICABLtCAuZnB9Stj7JhuR3DOMIMhipWJ1nP9sjuMHejKyWhC0LKU1Mmn+cNPFH2CPgOoiv5FD
- 1F0ucJPMrJl7cgY4EVyPL7CtcDT81uq0=
-X-Gm-Gg: ASbGncsJzkRv8+M/IWnGlDpU+f8iUci2NKvs3ZNCLcOeNZr9tGhIL1L6mi6BWD+Bx8c
- jgPmcqwiHicS3wQ1zUNhpdd1FsKGmEm+Dg4O5/LDMRwgN4yv0EENvJ+2vc+rbRX/balcvVS7eZ4
- pIawjJnVzJx0llwZX3wGzGKmraZIn/6tspsLEjOOSCu+EA2JDCs8M+fsNWEki6dTYlrLCQhgfRf
- veDOSY=
-X-Google-Smtp-Source: AGHT+IF4XiybegPLTIs9qUadwYipQjFOe1bg+SxXgHLnmeip/H7U9DYgeH3CGDTBytjJQSPLudJl/tI8RqB2are0Qe8=
-X-Received: by 2002:a17:902:e886:b0:274:944f:9d84 with SMTP id
- d9443c01a7336-27ed4a66e4bmr5621505ad.11.1758744446082; Wed, 24 Sep 2025
- 13:07:26 -0700 (PDT)
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1758745524; x=1790281524;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=CCU0o8wSJQJX56U4+pnGKdTopFZ/0WcuCtYzGhhpTrQ=;
+ b=WNv3YcW0nZM835IEu0Fycuze4C3Sk8z+1pIHLPq9dKM9qEwnR2sALL8P
+ WVl6lm4cFJb2LNPT/QlKx3SAFKE/onZ14NHh6CfZziG6ReYepvGsn9mfH
+ N2FF+OEdS5y7w1vrVG/juv94HvAfsEJFeLXdxLhtp6A2MlfuUrFEsZnFe
+ 4XmzMjBMoRQK9sixVVNx5O8UVjjMOZDLkMIDpsHPd9KdHUIfWkT2dCFfT
+ gnylqnxxz99lmxDzVfOyNDZSxNo4GINPeptGMjozndfDn0DcFu+M6rgM6
+ ZVcI3hE53rjscDER1ve8jeXRlZYHj9cDLDoSsWgncP1E+DAKqr/F9Ht/a g==;
+X-CSE-ConnectionGUID: a1kayFJLT9+jylO1cmhIAQ==
+X-CSE-MsgGUID: /W5k3uF9SZ+FoDr6+hyF9A==
+X-IronPort-AV: E=Sophos;i="6.18,291,1751241600"; 
+   d="scan'208";a="2525115"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2025 20:25:20 +0000
+Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:17421]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.23.230:2525]
+ with esmtp (Farcaster)
+ id a321c2e3-9dbb-42fe-8549-d22fc4426b03; Wed, 24 Sep 2025 20:25:20 +0000 (UTC)
+X-Farcaster-Flow-ID: a321c2e3-9dbb-42fe-8549-d22fc4426b03
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUA002.ant.amazon.com (10.252.50.124) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Wed, 24 Sep 2025 20:25:09 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 24 Sep 2025
+ 20:24:34 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <linux@armlinux.org.uk>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>,
+ <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>,
+ <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>,
+ <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>,
+ <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>,
+ <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
+ <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
+ <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <jdelvare@suse.com>,
+ <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>,
+ <snitzer@kernel.org>, <dm-devel@redhat.com>, <rajur@chelsio.com>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <peppe.cavallaro@st.com>,
+ <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <markgross@kernel.org>,
+ <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>,
+ <gregkh@linuxfoundation.org>, <fei1.li@intel.com>, <clm@fb.com>,
+ <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, 
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>,
+ <pmladek@suse.com>, <senozhatsky@chromium.org>,
+ <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+ <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>,
+ <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>,
+ <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>,
+ <ying.xue@windriver.com>, <andrii@kernel.org>, <mykolal@fb.com>,
+ <ast@kernel.org>, <daniel@iogearbox.net>, <martin.lau@linux.dev>,
+ <song@kernel.org>, <yhs@fb.com>, <john.fastabend@gmail.com>,
+ <kpsingh@kernel.org>, <sdf@google.com>, <haoluo@google.com>,
+ <jolsa@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>,
+ <wad@chromium.org>, <willy@infradead.org>, <farbere@amazon.com>,
+ <sashal@kernel.org>, <ruanjinjie@huawei.com>, <quic_akhilpo@quicinc.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <stable@vger.kernel.org>
+CC: Andy Shevchenko <andy.shevchenko@gmail.com>, Christophe Leroy
+ <christophe.leroy@csgroup.eu>
+Subject: [PATCH 02/19 v6.1.y] minmax: Introduce {min,max}_array()
+Date: Wed, 24 Sep 2025 20:23:03 +0000
+Message-ID: <20250924202320.32333-3-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20250924202320.32333-1-farbere@amazon.com>
+References: <20250924202320.32333-1-farbere@amazon.com>
 MIME-Version: 1.0
-References: <20250924161624.1975819-1-mario.limonciello@amd.com>
- <29cbab3f-083a-41a8-81a1-b0234f36152f@gmail.com>
- <cc2094c5-3cc2-476e-8d6f-72fc61ebab90@amd.com>
- <bebbe919-0c5d-4399-a211-c7cf744febdc@gmail.com>
- <68bff33a-46ef-4518-8b1e-d9d1b3087f2a@amd.com>
- <ff564617-e261-466f-a686-81e96725b4d7@amd.com>
- <CADnq5_P6UUKSSO64r0zfyj+TsG+vzzP=Cci=EMhAru0GHNLgvw@mail.gmail.com>
- <c46d08ae-1cb6-412a-a135-c4974974eb12@amd.com>
-In-Reply-To: <c46d08ae-1cb6-412a-a135-c4974974eb12@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 Sep 2025 16:07:14 -0400
-X-Gm-Features: AS18NWDwm-xRqbuivFS5tB_K_sdS0nsHsL9jO4BHO7KEWpxMS4pD-StI8on4kjA
-Message-ID: <CADnq5_OOoAdeD5b6Q2FbbJwERq9_vkCADBcfudjBk1oU=LfRtw@mail.gmail.com>
-Subject: Re: [PATCH 0/5] Adjustments to common mode behavior
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D043UWC004.ant.amazon.com (10.13.139.206) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
+X-Mailman-Approved-At: Wed, 24 Sep 2025 20:26:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,137 +137,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 24, 2025 at 4:00=E2=80=AFPM Harry Wentland <harry.wentland@amd.=
-com> wrote:
->
->
->
-> On 2025-09-24 15:11, Alex Deucher wrote:
-> > On Wed, Sep 24, 2025 at 2:44=E2=80=AFPM Harry Wentland <harry.wentland@=
-amd.com> wrote:
-> >>
-> >>
-> >>
-> >> On 2025-09-24 13:48, Mario Limonciello wrote:
-> >>> On 9/24/25 12:33 PM, Timur Krist=C3=B3f wrote:
-> >>>>
-> >>>>
-> >>>> On 9/24/25 19:21, Mario Limonciello wrote:
-> >>>>>
-> >>>>> On 9/24/25 12:13 PM, Timur Krist=C3=B3f wrote:
-> >>>>>>
-> >>>>>>
-> >>>>>> On 9/24/25 18:16, Mario Limonciello wrote:
-> >>>>>>> As part of enablement for SI and CIK in DC Timur pointed out some
-> >>>>>>> differences in behavior for common mode handling for DC vs non DC
-> >>>>>>> code paths. This series lines up the behavior between the two
-> >>>>>>> implementations.
-> >>>>>>>
-> >>>>>> Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> >>>>>>
-> >>>>>> Thank you Mario, this series makes good sense to me.
-> >>>>>> My only worry is this: is it possible that removing the common mod=
-es from connectors like DP, HDMI, etc. will regress somebody's setup?
-> >>>>>
-> >>>>> Possibly.  We're not going to know until we try.  I generally prefe=
-r not to add common modes (hence why I tried to drop them before until we h=
-it the Xorg bug report).
-> >>>>>
-> >>>>> If someone complains about this then I see two other directions we =
-can go.
-> >>>>
-> >>>> Sounds good.
-> >>>>
-> >>>> Considering the non-DC code already didn't add those common modes, I=
- think it's reasonable to assume that we would have already heard about it =
-if somebody had issues with it.
-> >>>>
-> >>>>>
-> >>>>> 1) to make both DC and non-DC paths apply common modes to eDP,LVDS,=
- DP, HDMI.  Make them not apply common modes to VGA and DVI
-> >>>>>
-> >>>>> 2) Enabling common modes /across the board/ but anything not in the=
- EDID gets the GPU scalar turned on.
-> >>
-> >> I was surprised the previous approach failed, which seems
-> >> to indicate GPU scaling isn't already happening. I wonder
-> >> why. I think this would make a better default behavior
-> >> instead of relying on monitor scalers to deal with
-> >> non-advertised modes.
-> >
-> > My thinking with the original logic in radeon and the amdgpu non-DC
-> > code was to only add the common modes to eDP/LVDS because the EDIDs
-> > for those panels usually only had one mode in them and users almost
-> > always wanted to do clone mode with an external monitor.  For external
-> > monitors they often supported multiple modes already so there was less
-> > incentive to add additional modes.  The default setting of the scaler
-> > property was also different on eDP/LVDS (on) and external displays
-> > (off).  If a user wanted to use the GPU scaler on an external display,
-> > they could enable the scaler property and then manually add whatever
-> > mode they wanted.  If they wanted to use the modes from the EDID, they
-> > would just disable the scaler property and pick the mode from the
-> > EDID.
-> >
->
-> Makes sense. I forgot usermode controls scaling via the "scaling mode"
-> property.
+From: Herve Codina <herve.codina@bootlin.com>
 
-Now that compositors generally control all of this, unless you are
-running X, there's probably not a good way to mess with this.
+[ Upstream commit c952c748c7a983a8bda9112984e6f2c1f6e441a5 ]
 
-Alex
+Introduce min_array() (resp max_array()) in order to get the
+minimal (resp maximum) of values present in an array.
 
->
-> Harry
->
-> > Alex
-> >
-> >>
-> >> Harry
-> >>
-> >>>>
-> >>>> I guess we'll see if any of those are necessary. For now, I'd propos=
-e to just consider adding the common modes if there are 0 modes probed. But=
- I'm also OK with leaving that for later if you feel it isn't necessary.
-> >>>>
-> >>>
-> >>> Yeah if something comes up and we need to weight it out we have this =
-thread to refer back to for our ideas on what to do.
-> >>>
-> >>>> A slightly related question, would you be OK with changing the link =
-detection code to return dc_connection_none when DDC cannot read an EDID he=
-ader on digital signals, similar to how the non-DC code does it?
-> >>>>
-> >>>
-> >>> I personally think lining up all these nuances that are different bet=
-ween the two is a good idea.e e
-> >>>
-> >>> But for that specific question that's probably more of a Harry/Alex H=
-ung question.
-> >>>
-> >>>>>>
-> >>>>>> Two possible cases come to mind:
-> >>>>>> 1. When we are unable to read the EDID for some reason
-> >>>>>> 2. When the EDID is buggy and/or doesn't contain any modes
-> >>>>>> Are these issues real or am I overthinking it?
-> >>>>>>
-> >>>>>> Thanks & best regards,
-> >>>>>> Timur
-> >>>>>
-> >>>>> Failing to read EDID has happened in the past, but I think with the=
- deferred aux message handling that should be cleared up now.
-> >>>>
-> >>>> I was actually curious about that. I saw that issue while I was work=
-ing on something else. How is it deferred now? Can you point me to the seri=
-es that fixed it?
-> >>>>
-> >>>
-> >>> There's more patches than this one, but I believe this was the =F0=9F=
-=92=B0 patch.
-> >>>
-> >>> https://lore.kernel.org/amd-gfx/20250428135514.20775-27-ray.wu@amd.co=
-m/
-> >>>
-> >>>
-> >>
->
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+Link: https://lore.kernel.org/r/20230623085830.749991-8-herve.codina@bootlin.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ include/linux/minmax.h | 64 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index d4bc394b449e..aac0b7d23768 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -168,6 +168,70 @@
+  */
+ #define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
+ 
++/*
++ * Remove a const qualifier from integer types
++ * _Generic(foo, type-name: association, ..., default: association) performs a
++ * comparison against the foo type (not the qualified type).
++ * Do not use the const keyword in the type-name as it will not match the
++ * unqualified type of foo.
++ */
++#define __unconst_integer_type_cases(type)	\
++	unsigned type:  (unsigned type)0,	\
++	signed type:    (signed type)0
++
++#define __unconst_integer_typeof(x) typeof(			\
++	_Generic((x),						\
++		char: (char)0,					\
++		__unconst_integer_type_cases(char),		\
++		__unconst_integer_type_cases(short),		\
++		__unconst_integer_type_cases(int),		\
++		__unconst_integer_type_cases(long),		\
++		__unconst_integer_type_cases(long long),	\
++		default: (x)))
++
++/*
++ * Do not check the array parameter using __must_be_array().
++ * In the following legit use-case where the "array" passed is a simple pointer,
++ * __must_be_array() will return a failure.
++ * --- 8< ---
++ * int *buff
++ * ...
++ * min = min_array(buff, nb_items);
++ * --- 8< ---
++ *
++ * The first typeof(&(array)[0]) is needed in order to support arrays of both
++ * 'int *buff' and 'int buff[N]' types.
++ *
++ * The array can be an array of const items.
++ * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
++ * to discard the const qualifier for the __element variable.
++ */
++#define __minmax_array(op, array, len) ({				\
++	typeof(&(array)[0]) __array = (array);				\
++	typeof(len) __len = (len);					\
++	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
++	while (__len--)							\
++		__element = op(__element, __array[__len]);		\
++	__element; })
++
++/**
++ * min_array - return minimum of values present in an array
++ * @array: array
++ * @len: array length
++ *
++ * Note that @len must not be zero (empty array).
++ */
++#define min_array(array, len) __minmax_array(min, array, len)
++
++/**
++ * max_array - return maximum of values present in an array
++ * @array: array
++ * @len: array length
++ *
++ * Note that @len must not be zero (empty array).
++ */
++#define max_array(array, len) __minmax_array(max, array, len)
++
+ /**
+  * clamp_t - return a value clamped to a given range using a given type
+  * @type: the type of variable to use
+-- 
+2.47.3
+
