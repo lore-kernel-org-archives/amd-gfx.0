@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF31FCAC5B6
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:26:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55F74CAC5B7
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D44B10E7E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88D6D10E7E2;
 	Wed, 24 Sep 2025 20:26:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="yXCx/zmW";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="TSmx1LoF";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5352210E054;
- Wed, 24 Sep 2025 09:15:32 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52ACB10E6C3;
+ Wed, 24 Sep 2025 09:11:36 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4cWrmK2964z9tNG;
- Wed, 24 Sep 2025 11:15:29 +0200 (CEST)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4cWrgm2X9Fz9tBF;
+ Wed, 24 Sep 2025 11:11:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1758705329; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1758705092; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wz9VSiw84Gb9ITat48zhk6mySy+psZM1pGMpz6jS1aE=;
- b=yXCx/zmWJci5OWqCsQ4EHyrBGXg0DvCSFIxERngjDcjrVHwUd1zFaZeYNSGT6bymCVeEO5
- Sc96eZpsgG5NAxiHdKinIl2HirI6WxVfNWm6e/oGCmU5LdO2EC0F6qwXmTd+ZH8QDn6wkJ
- MT3gX0K9lv3Uj8KI2IYUhoQ5HqqOSdVuzy8ZkTPRtQB9pFt7Hjjw8H70PQXNqT8ukxuOJc
- 1SrAKqV1NoxQ9VTo/wsZJSkDEnaQFuqt1oDOkgzZXTkrgyzZVdPjLAujc1oqOQJpDVuK0t
- 0zZgYfvkYxgHcJx+aNYeFMwoLxjij3TGL0rSPJ+0J2cv2rH+/Opra8obsKKYBw==
-Message-ID: <6cbf38c0035feec1cfba3a2040556e6e0a1f024f.camel@mailbox.org>
-Subject: Re: [RFC v8 08/12] drm/sched: Remove idle entity from tree
+ bh=XwEskpjIn5D22Nu1O3GezZNjLkrMB3AoiTZaoemM8/8=;
+ b=TSmx1LoFJx3v3vfZdmoIk4Iqt5ZdZE21vuRgXNnib7jJZjwpB/NqrZoWaxfBtwOFLh8x0G
+ parD0re5mTyhCWbTA2+tqccKNmbYqSNMeGCV6hW1LcG9GtDSfwr63f0TREemQNN7BD7sEt
+ yn/3iGzLnUTchTN97ph5JnXSBhht7CyRmzfF2OS2JjqlwNO9phzi3OXnghej9NV7mo5TaE
+ LZAyUDUw2hgUedKvit/JYz4g7ti9S03llZAjiPpkVwaoLkugZ+nDiNBeVo2DXzpoRDUJPr
+ H5n+5tne8l2L7SQGmf+hxL2Yx9YkVpJ3w8oeG2TTCJVA2qzIT3CtWJ/e3PJy9g==
+Message-ID: <6d5be3ab8413d44a360ebe7a34771ead6687c989.camel@mailbox.org>
+Subject: Re: [RFC v8 07/12] drm/sched: Account entity GPU time
 From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
  dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
  =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
-Date: Wed, 24 Sep 2025 11:15:24 +0200
-In-Reply-To: <2e18f226-068c-4986-b203-144b6bdb0a7f@igalia.com>
+ <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
+ <phasta@kernel.org>
+Date: Wed, 24 Sep 2025 11:11:24 +0200
+In-Reply-To: <20250903101820.63032-8-tvrtko.ursulin@igalia.com>
 References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
- <20250903101820.63032-9-tvrtko.ursulin@igalia.com>
- <2f17fb5d359c1ddaf8253454bf0f0d318c90bc8d.camel@mailbox.org>
- <2e18f226-068c-4986-b203-144b6bdb0a7f@igalia.com>
+ <20250903101820.63032-8-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-META: btxiddx7p9k3b3ws5duydtw7i58ugn1o
-X-MBO-RS-ID: 4eba195b4b6f19efa7a
+X-MBO-RS-META: iz1e3iw1xqfgcxkyam9k3gfqmyr1s38z
+X-MBO-RS-ID: 6d1e5c485274634c9d3
 X-Mailman-Approved-At: Wed, 24 Sep 2025 20:26:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,142 +69,301 @@ Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-09-11 at 16:06 +0100, Tvrtko Ursulin wrote:
+On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
+> To implement fair scheduling we need a view into the GPU time consumed by
+> entities. Problem we have is that jobs and entities objects have decouple=
+d
+> lifetimes, where at the point we have a view into accurate GPU time, we
+> cannot link back to the entity any longer.
 >=20
-> On 11/09/2025 15:32, Philipp Stanner wrote:
-> > On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
-> > > There is no need to keep entities with no jobs in the tree so lets re=
-move
-> > > it once the last job is consumed. This keeps the tree smaller which i=
-s
-> > > nicer and more efficient as entities are removed and re-added on ever=
-y
-> > > popped job.
-> >=20
-> > This reads suspiciously as if it could be an independent patch, not
-> > necessarily tied to this series. I see it depends on the _pop()
-> > function you added.
-> >=20
-> > I think you'd want to make it a bit more obvious that this is not so
-> > much a general improvement as it is a preparation for followup work. Or
-> > could it be made generic for the current in-tree scheduler?
+> Solve this by adding a light weight entity stats object which is referenc=
+e
+> counted by both entity and the job and hence can safely be used from
+> either side.
 >=20
-> Both is true. There is currently no reason idle entities _need_ to be in=
-=20
-> the tree. Removing them would improve O(log n) on the rbtree. But also=
-=20
-> fair scheduler relies on it, see below...
->=20
-> > > Apart from that, the upcoming fair scheduling algorithm will rely on =
-the
-> > > tree only containing runnable entities.
->=20
-> ... ^^^ here.
+> With that, the only other thing we need is to add a helper for adding the
+> job's GPU time into the respective entity stats object, and call it once
+> the accurate GPU time has been calculated.
 
-Yes, I saw that.
+This in general also looks reasonable and clean to me. Some comments
+below.
 
-I wanted to stress where I'm coming from: generic code improvements
-should ideally be posted as separate patches, because that makes it
-easier to review and quicker to merge (and easier to revert should a
-problem be detected before the subsequent CFS series is merged)
-
-So, can you submit this patch separately without too much effort? :)
+btw I've got many nit-comments for all patches, but will wait with
+those until a v1 is posted.
 
 >=20
-> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > Cc: Danilo Krummrich <dakr@kernel.org>
-> > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > Cc: Philipp Stanner <phasta@kernel.org>
-> > > ---
-> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_rq.c | 28 +++++++++++++++=
-++-----------
-> > > =C2=A0=C2=A01 file changed, 17 insertions(+), 11 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/s=
-cheduler/sched_rq.c
-> > > index 16d57461765e..67804815ca0d 100644
-> > > --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> > > +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> > > @@ -19,6 +19,9 @@ drm_sched_entity_compare_before(struct rb_node *a, =
-const struct rb_node *b)
-> > > =C2=A0=C2=A0static void drm_sched_rq_remove_fifo_locked(struct drm_sc=
-hed_entity *entity,
-> > > =C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq)
-> > > =C2=A0=C2=A0{
-> > > +	lockdep_assert_held(&entity->lock);
-> > > +	lockdep_assert_held(&rq->lock);
-> >=20
-> > The callers of drm_sched_rq_remove_fifo_locked() already have some
-> > lockdep asserts, have you seen them? Are those here redundant /
-> > additional?
-> >=20
-> > And are they strictly related to this patch?
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> ---
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 | 39 +++++++++=
+++++
+> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h | 66 +++++++++++++++++++=
++++
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 6 +-
+> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++
+> =C2=A04 files changed, 122 insertions(+), 1 deletion(-)
 >=20
-> Yes, drm_sched_rq_pop_entity() is the new caller, which needs to take
-> both locks on its own. So IMO makes sense to add the asserts.
->=20
-> > Maybe you want to investigate the other lockdep assertions and, if
-> > there's room for improvement, address that in a dedicated patch.
->=20
-> They look okay to me. Are you seeing something is off?
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
+cheduler/sched_entity.c
+> index 7a0a52ba87bf..04ce8b7d436b 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -32,6 +32,39 @@
+> =C2=A0
+> =C2=A0#include "gpu_scheduler_trace.h"
+> =C2=A0
+> +
+> +/**
+> + * drm_sched_entity_stats_release - Entity stats kref release function
+> + *
+> + * @kref: Entity stats embedded kref pointer
+> + */
+> +void drm_sched_entity_stats_release(struct kref *kref)
+> +{
+> +	struct drm_sched_entity_stats *stats =3D
+> +		container_of(kref, typeof(*stats), kref);
+> +
+> +	kfree(stats);
+> +}
+> +
+> +/**
+> + * drm_sched_entity_stats_alloc - Allocate a new struct drm_sched_entity=
+_stats object
+> + *
+> + * Returns: Pointer to newly allocated struct drm_sched_entity_stats obj=
+ect.
+> + */
+> +static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
+> +{
+> +	struct drm_sched_entity_stats *stats;
+> +
+> +	stats =3D kzalloc(sizeof(*stats), GFP_KERNEL);
+> +	if (!stats)
+> +		return NULL;
+> +
+> +	kref_init(&stats->kref);
+> +	spin_lock_init(&stats->lock);
+> +
+> +	return stats;
+> +}
+> +
+> =C2=A0/**
+> =C2=A0 * drm_sched_entity_init - Init a context entity used by scheduler =
+when
+> =C2=A0 * submit to HW ring.
+> @@ -65,6 +98,11 @@ int drm_sched_entity_init(struct drm_sched_entity *ent=
+ity,
+> =C2=A0		return -EINVAL;
+> =C2=A0
+> =C2=A0	memset(entity, 0, sizeof(struct drm_sched_entity));
+> +
+> +	entity->stats =3D drm_sched_entity_stats_alloc();
+> +	if (!entity->stats)
+> +		return -ENOMEM;
+> +
+> =C2=A0	INIT_LIST_HEAD(&entity->list);
+> =C2=A0	entity->rq =3D NULL;
+> =C2=A0	entity->guilty =3D guilty;
+> @@ -338,6 +376,7 @@ void drm_sched_entity_fini(struct drm_sched_entity *e=
+ntity)
+> =C2=A0
+> =C2=A0	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true))=
+;
+> =C2=A0	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+> +	drm_sched_entity_stats_put(entity->stats);
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL(drm_sched_entity_fini);
+> =C2=A0
+> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm=
+/scheduler/sched_internal.h
+> index 703ee48fbc58..27c8460a3601 100644
+> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+> @@ -3,6 +3,22 @@
+> =C2=A0#ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
+> =C2=A0#define _DRM_GPU_SCHEDULER_INTERNAL_H_
+> =C2=A0
+> +#include <linux/ktime.h>
+> +#include <linux/kref.h>
+> +#include <linux/spinlock.h>
+> +
+> +/**
+> + * struct drm_sched_entity_stats - execution stats for an entity.
+> + *
+> + * @kref: reference count for the object.
+> + * @lock: lock guarding the @runtime updates.
+> + * @runtime: time entity spent on the GPU.
+> + */
+> +struct drm_sched_entity_stats {
 
-No, they do look correct. It's just that we have a bit of redundancy
-then, but that's probably a good thing for robustness.
+Cool docu.
+
+Though, considering that awkward refcounting patterns are one of the
+more relevant scheduler problems, I believe it makes sense to add to
+the docu here a sentence or two about who refcounts this object for
+what reason.
+
+> +	struct kref	kref;
+> +	spinlock_t	lock;
+> +	ktime_t		runtime;
+> +};
+> =C2=A0
+> =C2=A0/* Used to choose between FIFO and RR job-scheduling */
+> =C2=A0extern int drm_sched_policy;
+> @@ -93,4 +109,54 @@ drm_sched_entity_is_ready(struct drm_sched_entity *en=
+tity)
+> =C2=A0	return true;
+> =C2=A0}
+> =C2=A0
+> +void drm_sched_entity_stats_release(struct kref *kref);
+> +
+> +/**
+> + * drm_sched_entity_stats_get - Obtain a reference count on struct drm_s=
+ched_entity_stats object
+> + *
+> + * @stats: struct drm_sched_entity_stats pointer
+> + *
+> + * Returns: struct drm_sched_entity_stats pointer
+> + */
+> +static inline struct drm_sched_entity_stats *
+> +drm_sched_entity_stats_get(struct drm_sched_entity_stats *stats)
+> +{
+> +	kref_get(&stats->kref);
+> +
+> +	return stats;
+> +}
+> +
+> +/**
+> + * drm_sched_entity_stats_put - Release a reference count on struct drm_=
+sched_entity_stats object
+> + *
+> + * @stats: struct drm_sched_entity_stats pointer
+> + */
+> +static inline void
+> +drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
+> +{
+> +	kref_put(&stats->kref, drm_sched_entity_stats_release);
+> +}
+> +
+> +/**
+> + * drm_sched_entity_stats_job_add_gpu_time - Account job execution time =
+to entity
+> + *
+> + * @job: Scheduler job to account.
+> + *
+> + * Accounts the execution time of @job to its respective entity stats ob=
+ject.
+> + */
+> +static inline void
+> +drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+> +{
+> +	struct drm_sched_entity_stats *stats =3D job->entity_stats;
+> +	struct drm_sched_fence *s_fence =3D job->s_fence;
+> +	ktime_t start, end;
+> +
+> +	start =3D dma_fence_timestamp(&s_fence->scheduled);
+> +	end =3D dma_fence_timestamp(&s_fence->finished);
+> +
+> +	spin_lock(&stats->lock);
+> +	stats->runtime =3D ktime_add(stats->runtime, ktime_sub(end, start));
+> +	spin_unlock(&stats->lock);
+> +}
+> +
+> =C2=A0#endif
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
+eduler/sched_main.c
+> index 9411676e772a..a5d7706efbea 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -658,6 +658,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+> =C2=A0
+> =C2=A0	job->sched =3D sched;
+> =C2=A0	job->s_priority =3D entity->priority;
+> +	job->entity_stats =3D drm_sched_entity_stats_get(entity->stats);
+> =C2=A0
+> =C2=A0	drm_sched_fence_init(job->s_fence, job->entity);
+> =C2=A0}
+> @@ -846,6 +847,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *job)
+> =C2=A0		 * been called.
+> =C2=A0		 */
+> =C2=A0		dma_fence_put(&job->s_fence->finished);
+> +		drm_sched_entity_stats_put(job->entity_stats);
+> =C2=A0	} else {
+> =C2=A0		/* The job was aborted before it has been committed to be run;
+> =C2=A0		 * notably, drm_sched_job_arm() has not been called.
+> @@ -997,8 +999,10 @@ static void drm_sched_free_job_work(struct work_stru=
+ct *w)
+> =C2=A0		container_of(w, struct drm_gpu_scheduler, work_free_job);
+> =C2=A0	struct drm_sched_job *job;
+> =C2=A0
+> -	while ((job =3D drm_sched_get_finished_job(sched)))
+> +	while ((job =3D drm_sched_get_finished_job(sched))) {
+> +		drm_sched_entity_stats_job_add_gpu_time(job);
+> =C2=A0		sched->ops->free_job(job);
+> +	}
+
+The biggest question I'm wondering about is whether the reference
+should be put in drm_sched_job_cleanup() or drm_sched_free_job_work().
+The primer is semantically more correct, probably, but the latter is
+always controlled by the scheduler.
+
+Hypothetically a driver could just not call drm_sched_job_cleanup() in
+its free_job() callback =E2=80=93 but then other stuff would leak as well a=
+nd
+everything would be broken anyways.
+
+I probably should change the docu for drm_sched_job_cleanup(), which
+currently says drivers "should" call it in free_job(), instead of
+"must".
+
 
 P.
 
->=20
-> Regards,
->=20
-> Tvrtko
->=20
-> > > +
-> > > =C2=A0=C2=A0	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> > > =C2=A0=C2=A0		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_roo=
-t);
-> > > =C2=A0=C2=A0		RB_CLEAR_NODE(&entity->rb_tree_node);
-> > > @@ -158,24 +161,27 @@ void drm_sched_rq_pop_entity(struct drm_sched_e=
-ntity *entity)
-> > > =C2=A0=C2=A0{
-> > > =C2=A0=C2=A0	struct drm_sched_job *next_job;
-> > > =C2=A0=C2=A0	struct drm_sched_rq *rq;
-> > > -	ktime_t ts;
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	/*
-> > > =C2=A0=C2=A0	 * Update the entity's location in the min heap accordin=
-g to
-> > > =C2=A0=C2=A0	 * the timestamp of the next job, if any.
-> > > =C2=A0=C2=A0	 */
-> > > +	spin_lock(&entity->lock);
-> > > +	rq =3D entity->rq;
-> > > +	spin_lock(&rq->lock);
-> > > =C2=A0=C2=A0	next_job =3D drm_sched_entity_queue_peek(entity);
-> > > -	if (!next_job)
-> > > -		return;
-> > > +	if (next_job) {
-> > > +		ktime_t ts;
-> > > =C2=A0=20
-> > > -	spin_lock(&entity->lock);
-> > > -	rq =3D entity->rq;
-> > > -	spin_lock(&rq->lock);
-> > > -	if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> > > -		ts =3D next_job->submit_ts;
-> > > -	else
-> > > -		ts =3D drm_sched_rq_get_rr_ts(rq, entity);
-> > > -	drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> > > +		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> > > +			ts =3D next_job->submit_ts;
-> > > +		else
-> > > +			ts =3D drm_sched_rq_get_rr_ts(rq, entity);
-> > > +
-> > > +		drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> > > +	} else {
-> > > +		drm_sched_rq_remove_fifo_locked(entity, rq);
-> > > +	}
-> > > =C2=A0=C2=A0	spin_unlock(&rq->lock);
-> > > =C2=A0=C2=A0	spin_unlock(&entity->lock);
-> > > =C2=A0=C2=A0}
-> >=20
->=20
+> =C2=A0
+> =C2=A0	drm_sched_run_job_queue(sched);
+> =C2=A0}
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index 802a0060db55..f33c78473867 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -71,6 +71,8 @@ enum drm_sched_priority {
+> =C2=A0	DRM_SCHED_PRIORITY_COUNT
+> =C2=A0};
+> =C2=A0
+> +struct drm_sched_entity_stats;
+> +
+> =C2=A0/**
+> =C2=A0 * struct drm_sched_entity - A wrapper around a job queue (typicall=
+y
+> =C2=A0 * attached to the DRM file_priv).
+> @@ -110,6 +112,11 @@ struct drm_sched_entity {
+> =C2=A0	 */
+> =C2=A0	struct drm_sched_rq		*rq;
+> =C2=A0
+> +	/**
+> +	 * @stats: Stats object reference held by the entity and jobs.
+> +	 */
+> +	struct drm_sched_entity_stats	*stats;
+> +
+> =C2=A0	/**
+> =C2=A0	 * @sched_list:
+> =C2=A0	 *
+> @@ -365,6 +372,11 @@ struct drm_sched_job {
+> =C2=A0	struct drm_sched_fence		*s_fence;
+> =C2=A0	struct drm_sched_entity=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 *entity;
+> =C2=A0
+> +	/**
+> +	 * @entity_stats: Stats object reference held by the job and entity.
+> +	 */
+> +	struct drm_sched_entity_stats	*entity_stats;
+> +
+> =C2=A0	enum drm_sched_priority		s_priority;
+> =C2=A0	u32				credits;
+> =C2=A0	/** @last_dependency: tracks @dependencies as they signal */
 
