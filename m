@@ -4,79 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB10FCAC5A5
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:39:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1A28CAC5B0
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 12:10:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 837F510E70B;
-	Wed, 24 Sep 2025 11:39:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9293F10E235;
+	Wed, 24 Sep 2025 12:10:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QdJScsJf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UCqoHQfr";
 	dkim-atps=neutral
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5500810E70D
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 11:39:02 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-b55115148b4so4420319a12.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 04:39:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758713942; x=1759318742; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zLqgn9uc1t92h9xpwttL7yvW2qYUY8pIW1DpwBHd/d0=;
- b=QdJScsJfJi85xKz9UuwQqjXBg3I7hLWowq4fD4tNf/VkEbUduyshbTUL8C+VsRBOPk
- 08dY+W63rRegKW1wh12jFufyLUGPfL+AKuEko+X4LYMZdkPX/h8Bj5jSJ3PJyFrFfApY
- TaCXy9IyQq3qCMe9QUwBQse+iELAPfslBhzKhw8mb+XUwxWhfJfHC6P9ERBg4R06EjYl
- e380yID/sjlEdsh+BWtX5EFRDaVGEChvOqesJuTvViGnQmsBDsPwMf2zv4zL3BsHZcpd
- Bd2rNJNmTH2zKEI6IF7wKJrZ/gAaUS2Dl/tfbsmJcDRSAh9cdk+EUSzAExrOZnHl9EbJ
- LbKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758713942; x=1759318742;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zLqgn9uc1t92h9xpwttL7yvW2qYUY8pIW1DpwBHd/d0=;
- b=Ze1qI5qWU2/It/t8srcegYlvQjXEhuRG2crFzI0ZUEV8I4OXMcUtTHNAL3ShUdV114
- GoFXnBD1iAJ0kakkKjAscxoSngkz5i7XS/DOOyNAmNUP4IGwl1ySTq23SncH1rtyAek/
- 03OtWNHkuPptTUjeCFx65LtsHMNuoMDfc3JjAqc0Tv2TAsAMgbHzruu3NdUYth2YUGwr
- +hxnZtZfF4+xav/nqjgsm9OWKtnYy7w3mXYFsLfN/N8lwgRuQUjcbSvgjhvNdH5PdrSg
- /Bcw22yPhWW0IjCdhXmUoRqe1tNuK70pUF7ac7qRp8Mjq/2ZxBXTFBESLQw4y9BOxsPP
- xKVQ==
-X-Gm-Message-State: AOJu0YxlUZunO9GpEH3rp2Myz74mCGI60W3CUrK/VqLO9Fw533MfxuN6
- of4mtmi1XPvZN1xEuGSFZjm2lELN7KTf4qz7gnwV0cU8VlOIwCKNSpChXL1X7ozf
-X-Gm-Gg: ASbGncsoFCVJ5FKDOYZaQXzn7PJB0HD+fOJ3pTv/pEc6yGthSqbyO2KDq3MvjEEo1Dv
- Qvo3edi5UCDMoT+EcTFriNtZlEkKcEihHEDBRO28rWHwKFu/guP+wxsBJAXH44jCjLnPMe1T2m8
- fbhefXVtnFDD9FhaXQP/iYnpmpbsq0vHfL9NIkmN6TlDBiyTKbKQJ3WEsF3NORUWEPg6B2w4sLP
- ZJDx5ZgFYmSROUm3Tp2NUDq6VxcU0oRd9dAnj/U+k71uomahmLAMa663H3wzgctGOgNB92NUy3s
- Bii4JeeoWd8HwU4essVJCjQEMb/BjEQVKhzKxScgKl9V9Gq8aPoh2Qo6tmUZdwY9FDhciDqGGCg
- +jkaasusbkrnfRUkZVlz0QyfAe7fbJCv4vtVpD5yGT0w5AVf3mJukwdHp0A0eYr2Yo5b8DHh2Gp
- QgKZUIWMWPOOCx7Ee/mmq2KA154A==
-X-Google-Smtp-Source: AGHT+IFCTdDdvauYI8YZPRPamA11DbukUH+YaHE0ZrMNof1em6fj+qix/iDoDkiTxRlWHfG/bLWlKg==
-X-Received: by 2002:a17:903:252:b0:26c:87f9:9ea7 with SMTP id
- d9443c01a7336-27cc8b26a12mr71857705ad.59.1758713941775; 
- Wed, 24 Sep 2025 04:39:01 -0700 (PDT)
-Received: from Timur-Hyperion.home
- (20014C4E24D067005D2C718B079018C4.dsl.pool.telekom.hu.
- [2001:4c4e:24d0:6700:5d2c:718b:790:18c4])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3341be38382sm2142548a91.25.2025.09.24.04.38.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Sep 2025 04:39:01 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, alex.hung@amd.com, harry.wentland@amd.com,
- siqueira@igalia.com,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 3/3] drm/amd/display: Share dce100_validate_global with DCE6-8
-Date: Wed, 24 Sep 2025 13:38:36 +0200
-Message-ID: <20250924113836.57013-4-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20250924113836.57013-1-timur.kristof@gmail.com>
-References: <20250924113836.57013-1-timur.kristof@gmail.com>
-MIME-Version: 1.0
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012017.outbound.protection.outlook.com [52.101.43.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98DB410E71D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 12:10:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uONRHpuFHuS/9q3F7wC+bn+HKi+0YFI8oplODbqbDrcIpE0zy12QUJhatWKJraqeqT2/pom62pgS2XYRc1TVZzP0jCPVKn5KG6QoKQAxl/w5oI0I5rpAanUUzakhxrrxJPAPf2Y0kEWcmpq6P1vu2yV7LGmYaMDMGL5ue7DpsRFsZL+n6pB6UcLeRPAXhLTmXDwlujiKta2vhU+2PNChyIMrM76eB5ITgF514GFBpMCfR/DFepemXFH3pvn/6fQvTf5KagQgLDKMKwXXQhtt4FaIKbWTuRyvKIQ8Ehg7j18H8qLoAiZWPb/X1A+NRmLM588SS+LI+gCfBlH0cHJdaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eYZmhCteeqORwu3OIi31UyxJL3ETYPQ42p/+o5uJWKs=;
+ b=pJ1unVZZJlQklJHT28efNuXEzyN6wf7eyIQ0J0MkrgMvF1KR1TduX65+QxwV+Da+VlmwR3DkRRdRgilkGz0WE4Kt+y2IAbk2s8qaSR0zDFDsIvstE284fNEdZC31MyeXj7iyXAk/fO3cmi6do3lPJvs5V5Khx/Mz7Un70K4enXLxcL1LNlCR3BUZwkzmhIeQhyfgmg8yHuOut0+pLfBnv+ld1vC39g8yYLrsrWrIMa3T/M9Y+IjHd1h0SDx1adT5ouu9EooadX7pYzSZ7t9WHox2Ah3T56Vp/H4i74RY7QDYkc3qMNwRaXs7aU/vQugEqch2qvADqYUkxk7HI9hcSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eYZmhCteeqORwu3OIi31UyxJL3ETYPQ42p/+o5uJWKs=;
+ b=UCqoHQfrFhyMS74CyxQTLjcneq8J0YliUWaQHOhOxKw0UA0N1zvjESi0CSpPz+QtQ2Mi5peMxS4lo03cFrD+XBRGnRBo7SfpLi/i6F4gWcWk+Zm7I9L6sw0wTEQue3hDFuudNLmoz7nJSCFYBQJDmd1pWebabZkD941Zwcw+cA4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB7528.namprd12.prod.outlook.com (2603:10b6:8:110::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.9; Wed, 24 Sep
+ 2025 12:10:03 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9137.018; Wed, 24 Sep 2025
+ 12:10:02 +0000
+Message-ID: <9c78383a-d32c-43f7-8a91-dc01690d0a51@amd.com>
+Date: Wed, 24 Sep 2025 14:09:59 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch v2 2/2] drm/amdgpu: move variable declaration to top of
+ amdgpu_cs_parser_bos
+To: Sunil Khatri <sunil.khatri@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250924100156.3746229-1-sunil.khatri@amd.com>
+ <20250924100156.3746229-2-sunil.khatri@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250924100156.3746229-2-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL0PR02CA0053.namprd02.prod.outlook.com
+ (2603:10b6:207:3d::30) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB7528:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4178bd14-03da-4c7f-3590-08ddfb634a8c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QUhILzNiMWJNalUyTXY0ZUFuc3J3TnFRdTAzSU1lZkhjcjVGamN1azl5YzRr?=
+ =?utf-8?B?bkMwdlJtY3ZnRWI0dEZoT29Bd2RSMEhOQlJZVW9IbXNOclJHMEZXRk45dzRU?=
+ =?utf-8?B?eVUrTUVxV3JwWGQ5Z3ZDbUdwblh0azhYMkZ1VVNoKzFmaEN6NFhxZmNUc0J4?=
+ =?utf-8?B?SEVObVp0WFBIbGIzTWlPRkxlYmxVNWNwd0trYUU3bEp3WUtrc1RSSDh1Q3Jz?=
+ =?utf-8?B?Ty9uQXdhUEFYNmpzaC9oNXF0eEQzd05JWFdPS21QZVQvWUUzeWlmRmZqT0pw?=
+ =?utf-8?B?MDJGd1BQRFZSVFl3MDI1NVRyVlJiZ28rTFZveGFQWTJ5WXRqTEdLdkJSZDk2?=
+ =?utf-8?B?ZVludU15QlhWZG1CZ0VEbytoL1FlZy9TM2VydDNZOGpvaXUya216WTdwWDZh?=
+ =?utf-8?B?MzhRMHNGRWlQTWQySHI4ZEsxZGhabGJMNnF5SlY0WVhZZHRkZStFUG5IamRG?=
+ =?utf-8?B?OTNhSUh3Z1BsaWM2eUt1NGhpa3R6OWx0ek5jRlFTczVMMVF2akxyRSt4NHlt?=
+ =?utf-8?B?S1c4RXVjM3pMRzFIOFc3Mi9yTzc4QWl1eXdqenlxQnQwRUhta3U4R3p3L3ht?=
+ =?utf-8?B?RUx1Y2hLT0RRY2FKTmNLMm5CVkNld1lxSEZxZko1QkQ4QVJ4UktaWG1PL1VB?=
+ =?utf-8?B?Q2pkYStqN0gyaUV6WkxVeDdhSFRoRThCZzU4MmlYR2ZEZ1I0QlJzeGpMSk9T?=
+ =?utf-8?B?UXhvb3JKbU52NVQ2Tkh2UjVteFovYW9nTkhTSnFUZlNsRHMyM1Bac0ZsUmxa?=
+ =?utf-8?B?Z01zMjM0Z3c2R0x1T0FVU3ZMYWEyTFIzQndkNlc2Y29WakRoUzIzMXpiamJm?=
+ =?utf-8?B?c1ZnajRPanZFdERzYWNYSFZYRnVUZldQSWIrRFg3OFZTaDl3TXVsQjNCV1lY?=
+ =?utf-8?B?WEdMNDh0WG42T0VIRDJPdFovOE1jMjVnUExIMkVDaG9DbTM2dXJTa2hkTDBj?=
+ =?utf-8?B?WmJab1N0a2xoSFRyRTdGTGF2ejN5WVVxSXk0SzdkdEwvRWZ5RkdMSnJjZFpG?=
+ =?utf-8?B?TjAwTldwRlluRGZhdjI5eXkyeGlzN3hBYWJvN0I2Y0EvV1loWW1SVVc1dmNV?=
+ =?utf-8?B?dGRtU1FIdGNpRzJVdEt2UVMwa2tQZElFRExaQk4zalBmUWhyQ1NLSE9uZkt6?=
+ =?utf-8?B?TFpzK21rWGxIY1hQSEZZUTkrTXhsMDlUcC9tbUlKSjlvWDJoamZPNm5VUys5?=
+ =?utf-8?B?K1NtUnQ4em1RQk85eVBkeGZiWUNGcm1ncmIzTnpHUU1Fb0hjd3ZMa1EySkla?=
+ =?utf-8?B?ckZzOXE0akFUZXhXU1h4ZjlGMEdQc1M0clVFRHlEaTBmS2xkR0F6a2VheFFW?=
+ =?utf-8?B?TTdab0MxNW0xeENwYnZhWGxJcXZyb295TENQa3JpWndGbTJjWFBFRXhGQTVa?=
+ =?utf-8?B?U0FHaFpyK05wZUQwbDUzbEROM3g4SkYvaWxXQlVleUxzOXdIOGhPbk96aXZT?=
+ =?utf-8?B?a2tQL3U4eUtkUCtSZm5QYkZBKzdwc1p5Ym5hTXgvRDM3UGx1dTNLdkQ0UkZQ?=
+ =?utf-8?B?UEl1YWxlYW9sS2I0ZjYwTk42UGhhZUw1RUxrSGV4cU96WDJVNUtOZUdmeVRv?=
+ =?utf-8?B?U0dOdS9uZ25KT3VVc2d6VGloempZTW1sMmNNSmRGMDRwd3pHMUlLc3Z4dFhK?=
+ =?utf-8?B?cjNZVVk2TDVXTXNxZitwVW1DZHRHWktHNWtqckkwdjBsUWVjcUlxaDZScGlJ?=
+ =?utf-8?B?aDlaUkhibHZGRGxzeFdHS1MzTytQS2ltREpwaUdtNExrL2JEN3A2Qyt6WjhP?=
+ =?utf-8?B?aHAxcFQ0UDJzd0FxUVZZbGhyWDlwZjNIYVRlc3AwSzhTdWVYVE9Xd1hNRGs2?=
+ =?utf-8?B?N1JIekpzREtyTUNMWEZJREllcVYxTjRlRGUvSW51dk1LSGIvRTNyb204TmhK?=
+ =?utf-8?B?MVFlUnFhUEpKc2VFL3h0L1NWTit1VCtSNER3R3BIUGtodmZ5UXJIbyt3S1Er?=
+ =?utf-8?Q?hgXydvyJ6gU=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QjBkdFBzMFhLNEx3aXRYYXdlaDNpcXlTZ1FjZzlQR3BFQytnUVUzUjdPRmpr?=
+ =?utf-8?B?NzZOK3hkVEJnNXNvemZERzBiVFlxL0JEN0phM2pYSHZHM3RPRFd4Q1E3SWdh?=
+ =?utf-8?B?S0g2M1k0L1BoQlpDV3Fram1ZbFBISXQvK215NVVDc3Z6dk1zUi83Q2pIbDhn?=
+ =?utf-8?B?ZGpMYlhPaTVGcnpVcFFueHJTaFd6dEtuTk53WEZyUkpYMkFyWGdvVFRKWFR5?=
+ =?utf-8?B?Z3g1OE5LaWNiTksyUjNvR2JJRHE1M1cxMXlRUjhuSTlCaDBHL1kxLyttazI0?=
+ =?utf-8?B?ZzlsbHFxbXdNSERXcmd6aVFPemxvN0dzZEFQcXpxVTB6am5xRVNEdVQycnhP?=
+ =?utf-8?B?VTV2OXN3cDJqTE9NUUQ1QStWdy9JbWJtSVNkMk96OWdnSTdNRVdrcXJJcjZh?=
+ =?utf-8?B?RzA1UnJDaWw3VkNRWmhacHFiZjk0VFQ0aFJ0UTB3QzRtZGxYVmhHSWYwdXNy?=
+ =?utf-8?B?NHFSZ3U2RTlLMlZuT3V3blFMdVd5QU9EUGRmTk1NdEdMM085MTUxNTBSNGM5?=
+ =?utf-8?B?WVAxby96TlRHVHUvYUd3cm5JUlFrZk85eGJMN0o5UVp2c3NmbnJNZ29yb2d3?=
+ =?utf-8?B?NTFJK09SN3dReHBCcjRCYy9lUnBLUFZUajc1ZmkzRnM1RGVwUS9MQ0RpekRM?=
+ =?utf-8?B?K0YvQUhHYVB3cGpFTFp0dnp4UTBNYXl3aU9kbmhFQUlTUi9tWGN2UDgvREcy?=
+ =?utf-8?B?ajk2alduYi9CYW1KUHRDZTlzY3M0bWlmU3FzMWNueUhEWll5cmp2bzA0dG5G?=
+ =?utf-8?B?VFJnenpJRXhWYUg4R2pGd3J5VlliTG40b3ovU0pYak9SOXNrUnVVdEFnR2JN?=
+ =?utf-8?B?cFYwUGVoSngyMHV2Y0VtdUtvRWs1OEZ2cW9GZERFR0dGY2ZsNkZGS1poa0pn?=
+ =?utf-8?B?MGdVNXdxWmlPYTdTa2Y5c1pxVHY1N2U1akoyWHpVbEVHWGNzMmdVdUFrUk9k?=
+ =?utf-8?B?TnJEZ2UwR1FTY2dSQzVYRGVvdjRsQ1IyM3M5MUNaS3VPYUxmZm9OT2xkR0RW?=
+ =?utf-8?B?VTIydUd1d1h6L0tINE1sTy95aVZwdllBaHBPZ1RrYjVMVHBhTGdLZGRQcGN2?=
+ =?utf-8?B?Y29BNWJ4eG5PUEFaR2w1ZmFKb0xGdnVmQ09KTDdPRzAydVFVT0hncXU0TUJv?=
+ =?utf-8?B?bThXK0w4ajd0VXBFSmdNYUNlaFYrYVYwMS9rUSt1L1pKN1lERnZuV045WVRM?=
+ =?utf-8?B?anYyT1NiNGZTMUcyYkh2ck1MWXVXejA5TUZ3T21kZE9NUXpxRkFJM05XOUpr?=
+ =?utf-8?B?WXA3SEtlMmxKVzJRK2FPak5yTy9WbVR6OWlBSnMzSU1uUzRhM3FNT2wwSC9W?=
+ =?utf-8?B?ZDJPczNWMFNEcGp3TzVJb0hheHZ1d2dRbm0zREhaUURua05ScC9pOXgzUnJo?=
+ =?utf-8?B?ZU5xY3RHRU9pbENFZy9iaUFtRXIxeVVxa3ZQNlhhTzdpOFBzQjUxdWJxKzdL?=
+ =?utf-8?B?RW50bVZvYXpMVEwwSVpBMTFtd3VlSHBiTnBWVlcvb2NKOEpOaWZSdzlUc3Vu?=
+ =?utf-8?B?VUtQSndYYm5qRC9ZVExIUWN3b005Yml6Z3lXaGNHZmFhNG1YSDdQTDVsTVNB?=
+ =?utf-8?B?ZnBkb1NlMWpGWlExUlI3TTZRKzJXcGFlUVh4OEVHOXhUR2kzZnh6eDE2dkNC?=
+ =?utf-8?B?dkVpNUtPeXVxbmEybitVUjBCTjI2K0puZEk3Y1YxZUcwVmdPUjdaTEtoUTd4?=
+ =?utf-8?B?cFMvdnNNQjFuVnlxeko5K09La1JzVmowWGtaT2xiUUxDUTdTbzJYL2JXejJs?=
+ =?utf-8?B?SGhFbkE2Y2cxQklvTXRCaEJjV0pGTGtiMWp1YVZndlc4bzlRR0tneHBhaHFT?=
+ =?utf-8?B?V3pCSlM5alZaS3M5NkVIQ0FKVlBFQnM5SjNjcWFVajdRTUZrOVpuaytuVzhx?=
+ =?utf-8?B?ZCtqNUo0UGVabXoweXcxOE52akN2QWxyQUNOOW1XUGlqdlZFcGo5VWx0Q3Rr?=
+ =?utf-8?B?WHBPamw1NVQwTjllYTdPcFJrN0FsK0doK1E5VlFQYlRxckJOQTZQZHRZdndr?=
+ =?utf-8?B?L3kwTnEyRzVsY2RSeHZidy9vVXlMVy9jNzFMSGYxZGhFbnVITGxpc09KOWoz?=
+ =?utf-8?B?ZUhCYS9wT3lzeWhCbGJzSUl4aXBpejRHZjA1ZkZGdko5bDB5SEpRTWg3Myts?=
+ =?utf-8?Q?i3ujzqd1COfHUW+pgdy2k0wF6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4178bd14-03da-4c7f-3590-08ddfb634a8c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2025 12:10:02.9205 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1PWW6qr3seJgaq9HdXOFKkt4gRShQTcLYgRIPqf264wkCIZnvmW+K6klFh7uljEt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7528
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,147 +163,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The dce100_validate_global function was verbatim exactly the
-same as dce60_validate_global and dce80_validate_global.
 
-Share dce100_validate_global between DCE6-10 to save code size.
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- .../dc/resource/dce100/dce100_resource.c      |  2 +-
- .../dc/resource/dce100/dce100_resource.h      |  4 +++
- .../dc/resource/dce60/dce60_resource.c        | 32 +------------------
- .../dc/resource/dce80/dce80_resource.c        | 32 +------------------
- 4 files changed, 7 insertions(+), 63 deletions(-)
+On 24.09.25 12:01, Sunil Khatri wrote:
+> In function amdgpu_cs_parser_bos, declare the variables in the beginning
+> of the function and not during the initialization.
+> 
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 31eea1c7dac3..a9bdc368c981 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -854,6 +854,9 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+>  	struct amdgpu_vm *vm = &fpriv->vm;
+>  	struct amdgpu_bo_list_entry *e;
+>  	struct drm_gem_object *obj;
+> +	struct amdgpu_bo *bo;
+> +	struct mm_struct *usermm;
+> +	bool userpage_invalidated;
+>  	unsigned long index;
+>  	unsigned int i;
+>  	int r;
+> @@ -882,14 +885,12 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+>  	 * amdgpu_ttm_backend_bind() to flush and invalidate new pages
+>  	 */
+>  	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+> -		bool userpage_invalidated = false;
+> -		struct amdgpu_bo *bo = e->bo;
+> +		userpage_invalidated = false;
+> +		bo = e->bo;
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-index 6421a56ffd23..c4b4dc3ad8c9 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-@@ -898,7 +898,7 @@ static bool dce100_validate_surface_sets(
- 	return true;
- }
- 
--static enum dc_status dce100_validate_global(
-+enum dc_status dce100_validate_global(
- 		struct dc  *dc,
- 		struct dc_state *context)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.h
-index 08e045601a77..dd150a4b4610 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.h
-@@ -41,6 +41,10 @@ struct resource_pool *dce100_create_resource_pool(
- 
- enum dc_status dce100_validate_plane(const struct dc_plane_state *plane_state, struct dc_caps *caps);
- 
-+enum dc_status dce100_validate_global(
-+		struct dc  *dc,
-+		struct dc_state *context);
-+
- enum dc_status dce100_validate_bandwidth(
- 		struct dc  *dc,
- 		struct dc_state *context,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-index 61ad3703461e..53c67ebe779f 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
-@@ -864,36 +864,6 @@ static void dce60_resource_destruct(struct dce110_resource_pool *pool)
- 	}
- }
- 
--static bool dce60_validate_surface_sets(
--		struct dc_state *context)
--{
--	int i;
--
--	for (i = 0; i < context->stream_count; i++) {
--		if (context->stream_status[i].plane_count == 0)
--			continue;
--
--		if (context->stream_status[i].plane_count > 1)
--			return false;
--
--		if (context->stream_status[i].plane_states[0]->format
--				>= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN)
--			return false;
--	}
--
--	return true;
--}
--
--static enum dc_status dce60_validate_global(
--		struct dc *dc,
--		struct dc_state *context)
--{
--	if (!dce60_validate_surface_sets(context))
--		return DC_FAIL_SURFACE_VALIDATE;
--
--	return DC_OK;
--}
--
- static void dce60_destroy_resource_pool(struct resource_pool **pool)
- {
- 	struct dce110_resource_pool *dce110_pool = TO_DCE110_RES_POOL(*pool);
-@@ -910,7 +880,7 @@ static const struct resource_funcs dce60_res_pool_funcs = {
- 	.validate_bandwidth = dce100_validate_bandwidth,
- 	.validate_plane = dce100_validate_plane,
- 	.add_stream_to_ctx = dce100_add_stream_to_ctx,
--	.validate_global = dce60_validate_global,
-+	.validate_global = dce100_validate_global,
- 	.find_first_free_match_stream_enc_for_link = dce100_find_first_free_match_stream_enc_for_link
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
-index 0c9a39bf7ff4..5b7769745202 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
-@@ -870,36 +870,6 @@ static void dce80_resource_destruct(struct dce110_resource_pool *pool)
- 	}
- }
- 
--static bool dce80_validate_surface_sets(
--		struct dc_state *context)
--{
--	int i;
--
--	for (i = 0; i < context->stream_count; i++) {
--		if (context->stream_status[i].plane_count == 0)
--			continue;
--
--		if (context->stream_status[i].plane_count > 1)
--			return false;
--
--		if (context->stream_status[i].plane_states[0]->format
--				>= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN)
--			return false;
--	}
--
--	return true;
--}
--
--static enum dc_status dce80_validate_global(
--		struct dc *dc,
--		struct dc_state *context)
--{
--	if (!dce80_validate_surface_sets(context))
--		return DC_FAIL_SURFACE_VALIDATE;
--
--	return DC_OK;
--}
--
- static void dce80_destroy_resource_pool(struct resource_pool **pool)
- {
- 	struct dce110_resource_pool *dce110_pool = TO_DCE110_RES_POOL(*pool);
-@@ -916,7 +886,7 @@ static const struct resource_funcs dce80_res_pool_funcs = {
- 	.validate_bandwidth = dce100_validate_bandwidth,
- 	.validate_plane = dce100_validate_plane,
- 	.add_stream_to_ctx = dce100_add_stream_to_ctx,
--	.validate_global = dce80_validate_global,
-+	.validate_global = dce100_validate_global,
- 	.find_first_free_match_stream_enc_for_link = dce100_find_first_free_match_stream_enc_for_link
- };
- 
--- 
-2.51.0
+Those can stay as they are. (Ok there should be an empty line between the declaration of variables and code).
+
+>  		e->range = kzalloc(sizeof(*e->range), GFP_KERNEL);
+>  		if (unlikely(!e->range))
+>  			return -ENOMEM;
+>  
+> -		int i;
+> -
+
+But that here looks really fishy. It basically means that we have an "int it" declared in this block which overrides the "unsigned int i" declared.
+
+Please make a patch just removing this "int it" here and feel free to just add my rb and push to amd-staging-drm-next.
+
+I'm really wondering how the heck that happened?
+
+Thanks,
+Christian.
+
+
+>  		r = amdgpu_ttm_tt_get_user_pages(bo, e->range);
+>  		if (r)
+>  			goto out_free_user_pages;
+> @@ -930,8 +931,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+>  	}
+>  
+>  	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+> -		struct mm_struct *usermm;
+> -
+>  		usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
+>  		if (usermm && usermm != current->mm) {
+>  			r = -EPERM;
 
