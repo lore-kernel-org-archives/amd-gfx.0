@@ -4,118 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3203CAC5A5
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAC4ACAC5AE
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 20:07:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D30410E7D6;
-	Wed, 24 Sep 2025 20:06:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1E510E7CB;
+	Wed, 24 Sep 2025 20:07:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uEH+mpXa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I3+0iGy6";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012013.outbound.protection.outlook.com [52.101.48.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E547210E7D5;
- Wed, 24 Sep 2025 20:06:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PwDDJMDkL8sjDiazCKBPUE/gCtRJ33aPdXp5lzWm9w860NZhdNPq+YdkWJPZCLsv7KKmTSx7odIqPgdqEsL9G7C2LW6oueuA3JgShdUojpregbH0XR2ckVke5XD1/TmijKG00caraF4G90dKzEBkx/5nxxssiK79yEusshXhbWkPQkfz1x1vV06nmj1eSyRZ9SDmCbxDj6spBhJ5TUkMXyj9n9/xdEPxnLljBQ4m9tQ492JLXatacnY/TTvSbr1Z9JbZ36lqRI1+GGyGVhMA07yxCvVgqWbqyRIp9xDH8Y+zMSVcp6PjHSuQq58gG5k1pexzIeZJmioCWW5ObM8PuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ejr9ql0RTyT/5OR06+hgp8q0VUlQwJGaJBroz1XtzbY=;
- b=v3eBacxKv+EF5b4tCwEHf2jPOBJsyRi1hfboddRdzlTApLC7REDnWn3GikXnHLCemkrbtp76KCNWm9ASdh/huq1pfAsYm/aFFP7Egdxvji9kOLUqGwzMNrmUOR3iQulVyO7hMK0IFWtRngkh4GJmrgiGqWM0GwVVG+rSHRtp93sh9+PEogur21eGAH+PDFDt8BazIXZ2vdBiDTe/sat7qjwMm/nImoj72uWP1RIOwDdDKXchmFkEUIdcmmRFaKwMKubtzsOEI6jR2kKAXfUjMl1cJBOY+NlPS+vE+BGxwdSv2z9n5DCRgJAUBkHFlD8yVMajh2RYcUo1Q419Lk2YYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ejr9ql0RTyT/5OR06+hgp8q0VUlQwJGaJBroz1XtzbY=;
- b=uEH+mpXaClJgEEVTY2g68Xdw3PbH+gP0EAyRENhAphRleo7rvzP/N0sHyLTSP2Xz2iDE9dxONog3va7W6DRfep9Z/21b+TSEXj536RfGIlpR5JGaXc4EmL9vfYfFrqujha8LBUDLhNyP3Q5181Qe24PYlgGBirjfEN+DFNw0kmk=
-Received: from CH2PR11CA0002.namprd11.prod.outlook.com (2603:10b6:610:54::12)
- by IA0PPF44635DB8D.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bcc) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.14; Wed, 24 Sep
- 2025 20:06:47 +0000
-Received: from DS3PEPF000099D7.namprd04.prod.outlook.com
- (2603:10b6:610:54:cafe::7e) by CH2PR11CA0002.outlook.office365.com
- (2603:10b6:610:54::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.21 via Frontend Transport; Wed,
- 24 Sep 2025 20:06:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF000099D7.mail.protection.outlook.com (10.167.17.8) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9160.9 via Frontend Transport; Wed, 24 Sep 2025 20:06:47 +0000
-Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 24 Sep
- 2025 13:06:46 -0700
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu drm-fixes-6.17
-Date: Wed, 24 Sep 2025 16:06:32 -0400
-Message-ID: <20250924200632.531102-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.51.0
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD8CE10E7CB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 20:07:26 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-24498e93b8fso349275ad.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 13:07:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1758744446; x=1759349246; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OKnflPuEez+KMavmEvDVz0cbFU6KCU4us8y073u8XcU=;
+ b=I3+0iGy6JFzLuFWfMRBvE2g9xo697jhdpht/vwxutaufAc+Ai7MHN4ZgSSg0N4253W
+ 96y11zpk7mO3YrNQXIUipsQiWHRpIQFGKZ9E+fV35Whn83ZQjck3U1qr4qDfLO+WH4yK
+ nwzLTnwpxCQXqEMYF6RdkTuFu7E+W+RbhwdX6pG5kLZH+vzsg4yhPlPIdnPOZstPDDv3
+ ekF4t8opHNhhEpv1DvK/UB+TGN1+y2qP6dmethcdI3TD/0yug5xLQWKDNwv8xkrfCtZ6
+ xcBIc7UU50N3m8spWhU7bJSHQTJXsMWl1Men/UjX9kOwmOumsyhNkrSmx7GdvCgAIBoA
+ 8JRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758744446; x=1759349246;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OKnflPuEez+KMavmEvDVz0cbFU6KCU4us8y073u8XcU=;
+ b=N940telSvhqNpSS295t1kaBbu0E6kmgACJkg3wS8tjnyooLUVWk36LT5ZpdjIm0FVX
+ qrDREQRZ4eLWg/qb9jLsoaFHXwqze+PEe6VlVFeN1m41yB6fmbuzaQ0499O70xUfQF5I
+ KbKCACHWuceeCkk/eCfy4nCK1ouh3uIkXESUCBFJy4ZonquY1RPcyowo8kyJFEgEl85w
+ vgyTPOrlb17RAYAmkvnneBnUmypVgJXezkRSVQj1Be5RdZ5alswP+FxjQQzOsCJvhUvx
+ GR8OVFiov9+kG5J/pydd1bTAWzzaRCINY1c1tTDoLu4CUFcHW4w/u1U3wApSnRdDpz44
+ rimA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVIxKdXLjHKwHJVKaXSXknX4TTNaJrC1Wtchb78G/aRZFcDEHLC5J8OQr70Kgkb/oryCVspIDEF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwDRBpRr8rwM3o5BSJu7/rmKaAtGXiBBjv33gc3n85FS3HNg6Ic
+ w4ICABLtCAuZnB9Stj7JhuR3DOMIMhipWJ1nP9sjuMHejKyWhC0LKU1Mmn+cNPFH2CPgOoiv5FD
+ 1F0ucJPMrJl7cgY4EVyPL7CtcDT81uq0=
+X-Gm-Gg: ASbGncsJzkRv8+M/IWnGlDpU+f8iUci2NKvs3ZNCLcOeNZr9tGhIL1L6mi6BWD+Bx8c
+ jgPmcqwiHicS3wQ1zUNhpdd1FsKGmEm+Dg4O5/LDMRwgN4yv0EENvJ+2vc+rbRX/balcvVS7eZ4
+ pIawjJnVzJx0llwZX3wGzGKmraZIn/6tspsLEjOOSCu+EA2JDCs8M+fsNWEki6dTYlrLCQhgfRf
+ veDOSY=
+X-Google-Smtp-Source: AGHT+IF4XiybegPLTIs9qUadwYipQjFOe1bg+SxXgHLnmeip/H7U9DYgeH3CGDTBytjJQSPLudJl/tI8RqB2are0Qe8=
+X-Received: by 2002:a17:902:e886:b0:274:944f:9d84 with SMTP id
+ d9443c01a7336-27ed4a66e4bmr5621505ad.11.1758744446082; Wed, 24 Sep 2025
+ 13:07:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D7:EE_|IA0PPF44635DB8D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 846facd6-8123-43e1-c24f-08ddfba5e427
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?FNycJgEO3NTzFIhtXKzZKxujRJj3gmSGOMBM2GbD0Tv4tUU60SwtHjMHmkGp?=
- =?us-ascii?Q?hMUHrWaXd3ISZFf6lZcO0xUD+OGN1xZGGT939x+O/XDTvFIQGMZHuYJ6eGEE?=
- =?us-ascii?Q?SmggQQd7YLokzLXnqNt6dpR6v1Gmz67lrfpZioW24dmeQPxrUg6C/A3+FVXs?=
- =?us-ascii?Q?BhzK15k/UkIg46htbrcDtPlmbYsZZMchsyGe1pfdiBNz+0Dn4yv9InILRkdc?=
- =?us-ascii?Q?9kIR17a3byCpVFLGOvBofV6L4h4ALng1OJKkmftP/Qgkba7eSSY8dXcP85nL?=
- =?us-ascii?Q?+rHKkDPZjC0E5fJ21BnPKvym/xmUO+ta58i4QbDD63oHQqUkbfH8LhpoHm8d?=
- =?us-ascii?Q?WKG26d/0pkxd5O/QniPXSuRwHmHnNB/ELREl6bmH7jAFhauo1ECkQ2uAgJj3?=
- =?us-ascii?Q?A/Mw837wqYHAdskc9JfLJvmkqUnasUtH304pRFRjgS0uOOsDRLQwCf7y1sJK?=
- =?us-ascii?Q?rdDVxFlYRqIbNpP6ICuPqPOnklHNryq3Q9Dw8PiRmdngU7ztLkMJIT5MlCca?=
- =?us-ascii?Q?RQZS0b3NDxdFtcI31rGpezfDfDMopOKVCtwq9+FCtT+BuwuxASLhBENUrVKt?=
- =?us-ascii?Q?Sq5heaAtL1RCfAwqWS7QgWJUFfAxKejQiBck/9kj2lsKeB7Qb0SoTs8k5LXS?=
- =?us-ascii?Q?rJQrf/wzB5sF6KUkKjLJ3As+ra4EVqlbNvgU3rNrC5rfR2j2ZDmbTqDElMOx?=
- =?us-ascii?Q?SQwwPy0vbJHoDl/p1Ya9GetlyTBf9XaiWzdCSiDaYKxncUz/vl97zVpch8NQ?=
- =?us-ascii?Q?UxENJMk0op7X/vksW87hu/GM8ZI+U+JNIgNuKwaWEQotHf/dLzg3PvBb7Yu1?=
- =?us-ascii?Q?j20g5SHVgtuhuoijvB84nZQyK5k10Z3k9s72aisKnDbjMMk9DVs2DvhjzkoI?=
- =?us-ascii?Q?qjOq+OV/oc7o7v5hzl9ucYdVI8R+teXjEAcREsQzqE3/KMubVu741jNrjtsb?=
- =?us-ascii?Q?fIE1z6zf0eqDprb//VCb72HHunF0lXosIDSlTQ+5i7wy1GM7tZOCRiC6J88V?=
- =?us-ascii?Q?H27W5UM+iKHg/DyAo0/L3DTF91LWM+SjLo/hq22eA+ogjwUPU+6r98lNK2Tl?=
- =?us-ascii?Q?5TgUgMV/5HVWoU3uGWgMD4b3VI5h0DiL9QENuCwfhvOcUBkgQjb59YDEuomw?=
- =?us-ascii?Q?Nn8NxGWFQXBA+Ap2TP74LYsrmBEYyGqhLKgMM7lRLwLy5G8VAvpZj1up4UAi?=
- =?us-ascii?Q?I8jViXt/8dbdOgJDUUsXO1z9knD+4FpsCqLZDVc28GLY5La7LsyU966LnpGG?=
- =?us-ascii?Q?O1lsHjiz3b3tS9nGvLMEkK18IUOQ3mhMkyD3+hLMwEeUK50ePWhDHCckdUBm?=
- =?us-ascii?Q?6LAwQ8nCXkROgtcRasZ7HWfuvHAw1yqmYPe1fp9OgoYwmGm4ti/Ng+IgGz1n?=
- =?us-ascii?Q?VImD90j9k3ZG+UD1WObU1dBOkh0LdrsLyuP6Y4nvFEdJSwrLn7gzrq25xtts?=
- =?us-ascii?Q?RPjisglgOMPRV+RuEqY1MxBKzXeDZERo+z2z/+7LhUO06wU8D+ISoA=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2025 20:06:47.1274 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 846facd6-8123-43e1-c24f-08ddfba5e427
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D7.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF44635DB8D
+References: <20250924161624.1975819-1-mario.limonciello@amd.com>
+ <29cbab3f-083a-41a8-81a1-b0234f36152f@gmail.com>
+ <cc2094c5-3cc2-476e-8d6f-72fc61ebab90@amd.com>
+ <bebbe919-0c5d-4399-a211-c7cf744febdc@gmail.com>
+ <68bff33a-46ef-4518-8b1e-d9d1b3087f2a@amd.com>
+ <ff564617-e261-466f-a686-81e96725b4d7@amd.com>
+ <CADnq5_P6UUKSSO64r0zfyj+TsG+vzzP=Cci=EMhAru0GHNLgvw@mail.gmail.com>
+ <c46d08ae-1cb6-412a-a135-c4974974eb12@amd.com>
+In-Reply-To: <c46d08ae-1cb6-412a-a135-c4974974eb12@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 24 Sep 2025 16:07:14 -0400
+X-Gm-Features: AS18NWDwm-xRqbuivFS5tB_K_sdS0nsHsL9jO4BHO7KEWpxMS4pD-StI8on4kjA
+Message-ID: <CADnq5_OOoAdeD5b6Q2FbbJwERq9_vkCADBcfudjBk1oU=LfRtw@mail.gmail.com>
+Subject: Re: [PATCH 0/5] Adjustments to common mode behavior
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,50 +91,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+On Wed, Sep 24, 2025 at 4:00=E2=80=AFPM Harry Wentland <harry.wentland@amd.=
+com> wrote:
+>
+>
+>
+> On 2025-09-24 15:11, Alex Deucher wrote:
+> > On Wed, Sep 24, 2025 at 2:44=E2=80=AFPM Harry Wentland <harry.wentland@=
+amd.com> wrote:
+> >>
+> >>
+> >>
+> >> On 2025-09-24 13:48, Mario Limonciello wrote:
+> >>> On 9/24/25 12:33 PM, Timur Krist=C3=B3f wrote:
+> >>>>
+> >>>>
+> >>>> On 9/24/25 19:21, Mario Limonciello wrote:
+> >>>>>
+> >>>>> On 9/24/25 12:13 PM, Timur Krist=C3=B3f wrote:
+> >>>>>>
+> >>>>>>
+> >>>>>> On 9/24/25 18:16, Mario Limonciello wrote:
+> >>>>>>> As part of enablement for SI and CIK in DC Timur pointed out some
+> >>>>>>> differences in behavior for common mode handling for DC vs non DC
+> >>>>>>> code paths. This series lines up the behavior between the two
+> >>>>>>> implementations.
+> >>>>>>>
+> >>>>>> Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> >>>>>>
+> >>>>>> Thank you Mario, this series makes good sense to me.
+> >>>>>> My only worry is this: is it possible that removing the common mod=
+es from connectors like DP, HDMI, etc. will regress somebody's setup?
+> >>>>>
+> >>>>> Possibly.  We're not going to know until we try.  I generally prefe=
+r not to add common modes (hence why I tried to drop them before until we h=
+it the Xorg bug report).
+> >>>>>
+> >>>>> If someone complains about this then I see two other directions we =
+can go.
+> >>>>
+> >>>> Sounds good.
+> >>>>
+> >>>> Considering the non-DC code already didn't add those common modes, I=
+ think it's reasonable to assume that we would have already heard about it =
+if somebody had issues with it.
+> >>>>
+> >>>>>
+> >>>>> 1) to make both DC and non-DC paths apply common modes to eDP,LVDS,=
+ DP, HDMI.  Make them not apply common modes to VGA and DVI
+> >>>>>
+> >>>>> 2) Enabling common modes /across the board/ but anything not in the=
+ EDID gets the GPU scalar turned on.
+> >>
+> >> I was surprised the previous approach failed, which seems
+> >> to indicate GPU scaling isn't already happening. I wonder
+> >> why. I think this would make a better default behavior
+> >> instead of relying on monitor scalers to deal with
+> >> non-advertised modes.
+> >
+> > My thinking with the original logic in radeon and the amdgpu non-DC
+> > code was to only add the common modes to eDP/LVDS because the EDIDs
+> > for those panels usually only had one mode in them and users almost
+> > always wanted to do clone mode with an external monitor.  For external
+> > monitors they often supported multiple modes already so there was less
+> > incentive to add additional modes.  The default setting of the scaler
+> > property was also different on eDP/LVDS (on) and external displays
+> > (off).  If a user wanted to use the GPU scaler on an external display,
+> > they could enable the scaler property and then manually add whatever
+> > mode they wanted.  If they wanted to use the modes from the EDID, they
+> > would just disable the scaler property and pick the mode from the
+> > EDID.
+> >
+>
+> Makes sense. I forgot usermode controls scaling via the "scaling mode"
+> property.
 
-Fixes for 6.17.
+Now that compositors generally control all of this, unless you are
+running X, there's probably not a good way to mess with this.
 
-The following changes since commit 07e27ad16399afcd693be20211b0dfae63e0615f:
+Alex
 
-  Linux 6.17-rc7 (2025-09-21 15:08:52 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.17-2025-09-24
-
-for you to fetch changes up to 41b1f9fcba62b06195e625bb88c1031102892439:
-
-  drm/amd/display: remove output_tf_change flag (2025-09-23 13:54:50 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.17-2025-09-24:
-
-amdgpu:
-- Backlight fix
-- DC preblend fix
-- DCN 3.5 fix
-- Cleanup output_tf_change
-
-----------------------------------------------------------------
-Alvin Lee (1):
-      drm/amd/display: Use mpc.preblend flag to indicate preblend
-
-Leo Li (1):
-      drm/amd/display: Init DCN35 clocks from pre-os HW values
-
-Matthew Schwartz (1):
-      drm/amd/display: Only restore backlight after amdgpu_dm_init or dm_resume
-
-Melissa Wen (1):
-      drm/amd/display: remove output_tf_change flag
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  12 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   7 ++
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    |   2 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   2 +-
- .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 121 ++++++++++++++++++++-
- drivers/gpu/drm/amd/display/dc/dc.h                |   1 -
- .../drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c    |   6 +-
- .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  |   6 +-
- 8 files changed, 140 insertions(+), 17 deletions(-)
+>
+> Harry
+>
+> > Alex
+> >
+> >>
+> >> Harry
+> >>
+> >>>>
+> >>>> I guess we'll see if any of those are necessary. For now, I'd propos=
+e to just consider adding the common modes if there are 0 modes probed. But=
+ I'm also OK with leaving that for later if you feel it isn't necessary.
+> >>>>
+> >>>
+> >>> Yeah if something comes up and we need to weight it out we have this =
+thread to refer back to for our ideas on what to do.
+> >>>
+> >>>> A slightly related question, would you be OK with changing the link =
+detection code to return dc_connection_none when DDC cannot read an EDID he=
+ader on digital signals, similar to how the non-DC code does it?
+> >>>>
+> >>>
+> >>> I personally think lining up all these nuances that are different bet=
+ween the two is a good idea.e e
+> >>>
+> >>> But for that specific question that's probably more of a Harry/Alex H=
+ung question.
+> >>>
+> >>>>>>
+> >>>>>> Two possible cases come to mind:
+> >>>>>> 1. When we are unable to read the EDID for some reason
+> >>>>>> 2. When the EDID is buggy and/or doesn't contain any modes
+> >>>>>> Are these issues real or am I overthinking it?
+> >>>>>>
+> >>>>>> Thanks & best regards,
+> >>>>>> Timur
+> >>>>>
+> >>>>> Failing to read EDID has happened in the past, but I think with the=
+ deferred aux message handling that should be cleared up now.
+> >>>>
+> >>>> I was actually curious about that. I saw that issue while I was work=
+ing on something else. How is it deferred now? Can you point me to the seri=
+es that fixed it?
+> >>>>
+> >>>
+> >>> There's more patches than this one, but I believe this was the =F0=9F=
+=92=B0 patch.
+> >>>
+> >>> https://lore.kernel.org/amd-gfx/20250428135514.20775-27-ray.wu@amd.co=
+m/
+> >>>
+> >>>
+> >>
+>
