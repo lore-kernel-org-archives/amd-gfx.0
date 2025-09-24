@@ -4,119 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70481CAC5A7
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 08:12:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71918CAC5A7
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 08:31:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 082A310E229;
-	Wed, 24 Sep 2025 08:12:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE0F10E6B0;
+	Wed, 24 Sep 2025 08:31:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LBm8+WnM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x0LdpeGH";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010005.outbound.protection.outlook.com [52.101.56.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B64B610E229
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 08:12:36 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011053.outbound.protection.outlook.com [52.101.52.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 674B810E6B0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 08:31:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mtqOKvHhmi2g+cJbvwUakd9zMbbMFZYI1GaGCRFg55Z1gr//Qt3Zq72vJjft/Rz/VknAalrCCZlQJ/u5kyV42c6BPMMuogGRP33mhWbk64CA0KFbrjJuJcz7+UrivxC6utB+UMb0Mh1Op3dJAgGXfsr3R80rqfSv44o0jl+Xc03qYpm4kquIdmlcSGarsU1kFUPv+1V+jPTZtA1N3KtMVNyOKBLbD+HUIOk9vGTrd06aAN6UM01MVbJfmNv6EEvdLYAZebu13ruyuZUoIWRgNvIgAyPNnEjKtTnLBkL3dcHMQV/GeI/OLRqF1zhVoR+gB0eMflSOX+cVx5mtsm6cBQ==
+ b=O8/LAwwJl2WjVHudPSr5TzU0uFb2cEl98h3HVR+nPv2bYZSdFQpfdu6QVGX9mrweh2B7Bqu3WONO1ztkTz+94UGxWUQ90dN2kLQmF45MhBgJ9WUHNXjCX/KhL9Iezh2gAQaGs7BWfHiTox8IyXFYcO+KnsE5ToIfAsDWFKcv1pEMEGXtqMi0rkESkF8bDT2Lm3WPK0dmwydm56R7Q0GW74GcdBL/ECrOp/pZfsqmR/dNV10iO9OnR79y71/J/wQ5VnV/aYyqhGx43zc5ZJCMOeSlKgJN24s4RQ0U5/kwDdAZ8BeiPOchvlxzQbwXifiJHinGqZvsJbEsWvHreMqYCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JR439/+KoU6SqinwznBhZrrM8eDk/8zmOS1AtFyruh0=;
- b=Aygw1klCuLunV4PKPOYuTKBlCeyKKJm7eAuDCvfpLv4PQoSe+r/Ar5PVYnTXX3AT4EZQNBGiL5F5tqxDK2NKx9PPknLvliFXru3MXQDUvD7nzSEOpsCt29Md6vYnrEntSZoyNg24zBbXac8llSffGABz7UqRFdWbBAB+ihPmNv0LNh7vFR7yxz7fa8xUbA1bD9E2qXKHlxiJs5BoDaLuYYSncYrFSumNFogDXRyfjCBGsT2mHbkamjegfpm0w60ocs5rpAOLhkjPoX9LbGclHHhImV00VoeKrmnSi4Ltt5YTIcLKm6WG0VQ++NsudMmyGCq12R8EfyVScGsU7He9jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=1Akqoy5gYVUM9cSSjnoEdaruwk/AmeFhSibPn9ks+Ak=;
+ b=i2qxwgpkPpS0ERf9Gz6prsrX33LJFWU8ZxZFKRLMa+TdXdJJnyqjHWv3C3DbeXc88TPemnrDZXlymfJxYhHB0gN7NzMiXVTnsaj1KjZTg3uDXkt3ZK9Uz3EXkyVYMGu3IMJ/C/bEG2ebWXGfmxaRZ/SeLHptGso3Vi86+rrb0qnchOrhbr0Bpz2l0N2AC1+6vrQ7TOUP3o6Gir6lBJWvZcOISsWl8dFHd5JPcMzqJsi6tQTHZNf0R6rMztm2dpF/0CE2IicMIZsWvyAiM5eNqfpVmFb3OGkw36KhjQmNHt60f3YLV5hcUeYpjlafcSIuIMCy2xeJAfq8dvcz9jb1rA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JR439/+KoU6SqinwznBhZrrM8eDk/8zmOS1AtFyruh0=;
- b=LBm8+WnMQSswM3yTMitrRQ1JWVFhentHRuF/yypKRYvPPb/SB/oN98gNnAyoIH1jkYNIeyTNn+HFHONoFlklV5G/9bD+2ITLoBB/qfKkPMRP8VX3nS6aKFF8n8zUipSmRWdgWRhYr6vZxDl9nwfcuuYMWhKg517Ny795eQvmOgE=
-Received: from MN2PR16CA0039.namprd16.prod.outlook.com (2603:10b6:208:234::8)
- by SA0PR12MB4432.namprd12.prod.outlook.com (2603:10b6:806:98::16)
+ bh=1Akqoy5gYVUM9cSSjnoEdaruwk/AmeFhSibPn9ks+Ak=;
+ b=x0LdpeGHkOHGYXsJr73BHz/hWOlO8Yn6l+LHVANZdkx5dvfJ2geBTAMQRU+83W7RNiLEBQvSANuX6tjyNtPIoVkOJ3LTVOiajE1GgtKx2yZVD6hhBSf56hOHkBua68TSZKlo1UpsxflxV8j6aLkUglv2+w0v3s3MrQYZIhK7vN4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB8002.namprd12.prod.outlook.com (2603:10b6:806:34b::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.9; Wed, 24 Sep
- 2025 08:12:33 +0000
-Received: from BL6PEPF00022574.namprd02.prod.outlook.com
- (2603:10b6:208:234:cafe::f1) by MN2PR16CA0039.outlook.office365.com
- (2603:10b6:208:234::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.20 via Frontend Transport; Wed,
- 24 Sep 2025 08:12:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF00022574.mail.protection.outlook.com (10.167.249.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9160.9 via Frontend Transport; Wed, 24 Sep 2025 08:12:32 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 24 Sep
- 2025 01:12:32 -0700
-Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Wed, 24 Sep 2025 01:12:30 -0700
-From: Jesse.Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Jesse.Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix fence signaling race condition in userqueue
-Date: Wed, 24 Sep 2025 16:11:11 +0800
-Message-ID: <20250924081230.2341706-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.49.0
+ 2025 08:31:01 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9137.018; Wed, 24 Sep 2025
+ 08:31:01 +0000
+Message-ID: <48be4b23-23b1-46e3-b7aa-6b8e2c2c0f28@amd.com>
+Date: Wed, 24 Sep 2025 10:30:58 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Fix fence signaling race condition in
+ userqueue
+To: "Jesse.Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com
+References: <20250924081230.2341706-1-Jesse.Zhang@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250924081230.2341706-1-Jesse.Zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0053.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022574:EE_|SA0PR12MB4432:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bace5a0-667a-4cbe-b066-08ddfb421cd5
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB8002:EE_
+X-MS-Office365-Filtering-Correlation-Id: 471dba2b-0302-4e98-6cf4-08ddfb44b175
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qk/A7QV+CYRkf9ObvO3KdIb+Oa264bKMRzfGMRclCxYH1JqBeTmXGkwHrbP2?=
- =?us-ascii?Q?My6OHwDHc8QQ1o7wPFKbdZ5RPdKlBVx1iFfZFRwZ4/Te7rsUwdUw7gPar5xk?=
- =?us-ascii?Q?QvIbunBVoxYnRAd/emZGJnEQ2ZziaKrvJjQzGr725KvauF4RFMPM49VyeTZp?=
- =?us-ascii?Q?gOUSrvaORpY+eMahxsrsg+Kus5QcYohIKXhcQ9AQtN9r1/ZI40EXo41lCdoi?=
- =?us-ascii?Q?0rrjnrNvThymzs9xNvXlKuw0taT+6uF5x07PArzFlt7MsCMsp7aP0/xV0U67?=
- =?us-ascii?Q?nT3Mn1B6lMXkTxsZFOjVR5FlXMs+E44LVnlqRgZh3YMlyZuVOlXpQA8IJ3QU?=
- =?us-ascii?Q?t9yGxmsOG91cPFnrvK070DDdi4e+lnWr9vuOMzj2ze7jLp9K5XIJNhq8x8rv?=
- =?us-ascii?Q?iNCNLgxB4RAHI3kvLSKFUivGWizXkmlMSSUAdsSiUyHhERmv3dehdSB0SQ89?=
- =?us-ascii?Q?Qx7DU2HSGC/Q/H2ISeb9+NPHcuYb08mM6lCn/PA/GbgWQGZGwhK7h6MlAO67?=
- =?us-ascii?Q?lnylcNBy5k9O3S++dHsftnV6Mc3dIBJZWKE4y6MVtkdh+YrxxNrXpTkoWqhm?=
- =?us-ascii?Q?Zes8KCGa6e0bYI7HwcesIILyfhHaISWvr2zWXs9U+EkhN5ENWaG6YM/l4vQQ?=
- =?us-ascii?Q?xSwQZajf3DCV8/tQHIx3g03J97dMFObXYlkW9HaC5me1vAHMAyyb1rMQu4ID?=
- =?us-ascii?Q?0HkY/ud/cVeQiYm1yF+5kCIS5O8rIRXLwL4RBKWUTshqXs/d9431OEDMGYIx?=
- =?us-ascii?Q?d2WIBDJkVgtggKVnH4JK204Q66uVXYeDHbozqhBcXP9vqQsNVibpWFOMyRe0?=
- =?us-ascii?Q?NXT+CB1DDdP/GYrQBSt+4sthLvqeHMEdigwBVsdCt8iuL1mc/lIxySskQw58?=
- =?us-ascii?Q?lSzJY4DYcNfgEw7U6x+2+Lyxo6jKU0X+O1qBUYqpjaer6rH3Y3s7WZfz5gkG?=
- =?us-ascii?Q?qlD6FltGGnnoCw3wklIXhn2f8I3FKZVHoY68yevIOXDtYlpvwvg+FvqF8o0C?=
- =?us-ascii?Q?oNQ76lbgTu9Cyu0ME7nSth7gyZVUZ1Irt1awZ85+/7TZb65nvbrGtyzRGKwW?=
- =?us-ascii?Q?8TAENL0wcuOr/OmR1iib2tNDKtewHx7sOF/KZHgdFxWhCQjsOK28N+i57dtk?=
- =?us-ascii?Q?S6KA5A9BOSAUfd3aBCY/B7eP7pkZU4qkzW6qwlOA+zJJ179Yrxi+POIyfEBF?=
- =?us-ascii?Q?JI9y1uEs46P0Fa1sB/xIDF3nPsVGPoBUqZPalFv/VEaf7N11v6bUBtzl7BmI?=
- =?us-ascii?Q?6FltfYWMJMushdK4h2s5BvpCeaQS8WffILakvz1E3kFUYAs/vMWNCNTM2zoe?=
- =?us-ascii?Q?K/9JhQ9y19EI+fvcWb29C1GVYSuEOt0X3oK/Wnisv+8LyQYEfvzi4MojRmsO?=
- =?us-ascii?Q?qUT7gSXWtLOt7O5mv+osO4kIahgds0laW+QqdxaMmaC5dQD5Ua1lhY8CR5tJ?=
- =?us-ascii?Q?3/7l2PZBpvLTWqqk4h2yikjf/oh94bwOconpD7pyU/3Jlq95C7sMC8kL++wR?=
- =?us-ascii?Q?F6qSLhzJ6KQPC/tLKMpB9kOKhhFwWZBz4m4s?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WkFNdzBpLy9xSlZBUlJ0OVNXZjVPVVNRd0VDOXRRSVJNeTJOTUtQR1dPSi9p?=
+ =?utf-8?B?Mk5lcXNSeDZ2Z0FWcklHS3V6RTM3ZE9Ra0orei80dCs0dG0xNHRaQWtLY0dM?=
+ =?utf-8?B?WTlxdzBxREhvUFVvWTl3V28xS1NYMmswSDJYZXlCY0s5UlM0dlcrLzlnNXFX?=
+ =?utf-8?B?R2Q5dmhPYXlXMG82dXhiZWdPK1p3eU1seVZFUFlwVlAxSGduZEJISzBUOU9n?=
+ =?utf-8?B?TWFiRmVoUWNjdkdBaUVjb3ljS3U3WUNia0o0eE1FNFI5a0V2TFExQ28zRVVp?=
+ =?utf-8?B?SVo2RitZTDRQUkh5TWNUUERlUE9naHpBV090eVZJU2c5MllZSldSdWtEcWl2?=
+ =?utf-8?B?NUxNZEYyQkdZMDEybzNGVHJtMHkyVHZWMmdyZ2lVdE9CS2xWOFF6V0dvd2VS?=
+ =?utf-8?B?MFVzcWQ1WG1DMjZTTGZhSE9GRzZJQk9oYmh2ZHJ2K0JTM1c1eUFQMkNPR3I5?=
+ =?utf-8?B?VVBiVTZnTjdlOGlTN0hOMXpSeGZ1SjJDTFNNQ2Myem1jSXVBU1NaemUvZmk2?=
+ =?utf-8?B?L3V2MzVjaXZYNTZUN3NYbW45alBDQlA1TEJMVFdMODFLNnMraVdLbUpMeHk1?=
+ =?utf-8?B?bEkzUTFvUmd5eWhSN0g0Vi9HY3VYQ1pEbmVlTmhaS1JrUE8wQlZiS3NQSVdY?=
+ =?utf-8?B?cUVtTCtEdVlrbngvSnc3RmhSQlA4VzlZZHpvemNEOStOS05VQ2ZrSFpIcVpi?=
+ =?utf-8?B?dHVkb3lIQUx4RXJMekt4Z2xEVVFzNmJpUEdFdDlLZzFzR2NySlV3VFhaOC83?=
+ =?utf-8?B?SXY1Q1RhY3dqY080dWwvVnVNS0VuQWVlWVNZNVRhTUxGNVdZWE91bzdmelUv?=
+ =?utf-8?B?WldaVXdUbzIvTGtKNGZNdmxQdmdZRVZJaG9NMElBM1grSUxMUnNpV2FqTlhk?=
+ =?utf-8?B?MHNVYy9HQ0JXakNqa08rZmttVEd4aFpDUVpER2hEZ2E3UndwQW5jTUZjcTRp?=
+ =?utf-8?B?MUtUcU1GamloZlBmbzZwRTJGREtzL2wvS0wwems1N0hlbk9iWkRTaUp6L0F2?=
+ =?utf-8?B?NzZHNEsvVmNqakU1akFmMWlGcUwxcitnMFJ0Z2RSaDF4a3ltd2M4Y3B5QlZP?=
+ =?utf-8?B?SnFOY211NVA0dmhaU0xGckhwWVB3Z2hMREl4dFUvd1Jzd3NtUEU2UGZoejdU?=
+ =?utf-8?B?dCtYVTJtTUJnUHVUcnBIdENBVjdadlZaUXZsK2hKa2VrL2k3T01hSW9uak84?=
+ =?utf-8?B?NjRlMUQ5VlVOM0wxa0NVbHd4K0svN001L1NmUnJXQnc3MVdkdmtYb2cxT1pC?=
+ =?utf-8?B?ZkpkMmlwRWZSVU1xeEZGNXhmMFlNSThyN21vYkNYMXRIUEtMdTc3LzBzdmMw?=
+ =?utf-8?B?T2ovOTM1OU41NEo4Z2hyK2lxalp1YXR2ekZWQWNuSVNoeXBONUJLWVVmNmdO?=
+ =?utf-8?B?VEpGenRBR1MzTU1LbkZWUUVESW1nOURtcjg1a1dsWHBNOFZMVjVObkFqcDJO?=
+ =?utf-8?B?dVVRcXVjNG5aR1lOL2h3K2lIZHZGZkRKbjJPV3krbC9hbnNhSlJJdmp2NkQ1?=
+ =?utf-8?B?WDd3WWVHOWs2T1p2Y1RaSktDWExsU0xmNlBzOXA0T01ZK3UxWVNYTSs4TWlU?=
+ =?utf-8?B?ZE03MXp4c1ZjWEZjcU9aUE5YeWZiZXBZR2tkVFk2bXZTbjZNblJuRnljVVNI?=
+ =?utf-8?B?V1FkdHJybE1LZm9aUTFkbGJxeDAyWFZxRkFXQ0EzekZiVE9zZjQweDRPY0V6?=
+ =?utf-8?B?MDROYjhnakpJb1RWclFTL0xZZ3BZbUwrTUJEdWNabWpkaVNhUUpDemdlSG5I?=
+ =?utf-8?B?Zys5Y281eGduSS90eWFZaFdZUlJ6eE1JTTJJcTI3SDZaMGZUdTNGZm4yU0dF?=
+ =?utf-8?B?N1BMM2lESVROUTFmRzNjeEx0TVA1NHFXdXVZUjJqMGdTdmtGWCtFd1ozWTkw?=
+ =?utf-8?B?NWVwOGVkRzBaZDJlVnhSWU5xLzZOb1BFeCt2Mmc0R0dJc3NaVjJNUW83TWli?=
+ =?utf-8?Q?g94g1DlVC3M=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGNySTUvNnN2RzlMYTNndzBXK05TM3JFMUp2eHVRYzVOZ084a3FLd1R3bWFF?=
+ =?utf-8?B?SzZKMTNvUWdwcHRxa0Y1dGxsaktVVzFvbXVuWVErK2pJem83azZ6MmgxZFh0?=
+ =?utf-8?B?UDh5cWtscEFGbDdNMjFuM1loV3FuN1RkUklMLzk5Sys5aUVMUi9QWTlobTRr?=
+ =?utf-8?B?blNiei9lc3lUemdzMk4zajBlT1U3T2pYY09VQTdaQUUyL0VCanhtRDFmZSs5?=
+ =?utf-8?B?anVnU1JZL0pCTlM5NGtYWVQzYzhqMmowaVVldVRHNTE1c2lIT2wzbVZOOWFE?=
+ =?utf-8?B?SVlNZ0ovYWFNM2Q2clNvZlAvcmMvaXNhZDBUTlRCalJ1WDViamdVUGQvUDBq?=
+ =?utf-8?B?R0VqMGM0d1ZhUDhpaXdQUzhLbWpsdEZ4amVCNlUydUFJaEtkOUhKUnhWbmE0?=
+ =?utf-8?B?UUh0K1FQTjFYTm1vbUkvUlBOTTJZMWZMTE1oYVk0eUxvZnQ3S3BKSytwYTFM?=
+ =?utf-8?B?Zll6TmVISXZ3VjlpN2tTaEsrVE1adUJmWDZHdk05QUZEV1RCUDc2WVRtdVpp?=
+ =?utf-8?B?OUVBMzZMaytFL2taRDlsUzIwUXVRbit2Nm5KYWY0STFybjRiaVZyaEtnWHE1?=
+ =?utf-8?B?ZXFlRW1vcHJoUnVqMHcrYU9yT3BXWU4ralFkZjIzOVowUXRNUTZiTitrZnhC?=
+ =?utf-8?B?SU5ocnczYlV1SGxUNW5XbUVUZFRXS0FSU3kyNjlzZkQrcVg0QXNwWWwrQi9k?=
+ =?utf-8?B?dkZpVlA1ZktZbStScFlTLzlhcDlYZFYrZlF5NHZ6dlViVC84N2sxY2xBb1Bu?=
+ =?utf-8?B?RnY5cFJ2Rnd3TnBTY2J4YzR1S1lpZkJZVm1ybVpaUVpZbWJLQkVpRDRxOUhT?=
+ =?utf-8?B?TjRnQU9pTE5vcXF4NjJzTUlFbmZwOXMwNGtoVGoyUUIrYWV3TGJhdlZFRkc4?=
+ =?utf-8?B?SFpkd3pWdStpQ0thUGZNSnhOZkdIWHFwbUN4ZW91T2lQUDhMMFlCa1VGbkQ1?=
+ =?utf-8?B?dDh0QWR6K2EzbDY3QzZmc0pvZGlEam1UZW5VcU1wQlN5eTVLZnpockpURHRs?=
+ =?utf-8?B?UDRvb3RaUXZudXlyRXRPb0xjOUNrampyaFpxaFh1MXE0RWlLcktTKzNwTUdW?=
+ =?utf-8?B?UmhEeTZuODYwU2dkRUxCVDBmT1UvQ0gwTExvZk1PUW9Ldzg5YTI3V2hTQzkv?=
+ =?utf-8?B?MEZBNTV3OHFqbUFEbXg1eC9jRTJmMkZIU2pQNmlNOHRleGVUSEtIc0w4bkJs?=
+ =?utf-8?B?R2JMT1hEOXEwM3F0enVHcFJxLzZPRHBhTnoyREFNVHAxczk4VlRHa0gxNFBF?=
+ =?utf-8?B?aERheW1CT2haUmdmRUNaVjNXeDFadjVpWFBkYlVTcTV1Tit3ck9XOFVnejB3?=
+ =?utf-8?B?OG1iNXUrN2hWbGR0YndPVG5KZFBZSWN0eTExTXhBRnlmNWFhRzFhbERoRjBU?=
+ =?utf-8?B?WHBnK1F2QWRYbjlQdDYxS0psakR2Q1VacUhZdk1ONmUrUDNHR2RNNGpNQjZF?=
+ =?utf-8?B?OUFpVFRBZjR6Mk13emdja0E1cUoyd09hdSt0RHpBaFliVXhKMTZhejJHcysv?=
+ =?utf-8?B?RGQxa3F3WHp4dVpwQWtaQ2pLbDhIWmxFc0xHV01td21MOTEwUHJoVVdoOFkr?=
+ =?utf-8?B?WlJ1LzZuenJDVXhLZk1IbEM3OVZNR2FCS3VVSmllTzZZN3NZQ3FrckllTHpT?=
+ =?utf-8?B?Zm5wM2FlclpxN1lSM2V2dFBJWW5jbnVpbVhWSUpIRWY3dkR3Qk40SUJyUXNa?=
+ =?utf-8?B?OUdRUVkrT0s5SDc0OWV5YUxjMGQrTUVsbkkwYU56U0I3MmdGVG9QQ0NTWFZl?=
+ =?utf-8?B?WXkzalNBSWJxWnMybWlReWNROG9vWS9uZzlzZmEvSmhsaUt4TlFDQ2JhcHA5?=
+ =?utf-8?B?K3NBNGxKeTdaSmcrbUNrcURDc0pmbi9OTCtJeU1sZTJOdU5nYU5IeTQ1UjFD?=
+ =?utf-8?B?UmIrT04xVUZoTzFHZUI4bmFMZElpcklZMGhOdlpnYkVmVGlIaDJ0cmhKRUdx?=
+ =?utf-8?B?cUoyYTFtM3krSUg0ajFTckpCOVBiUkdCajB2aXNIRmNyQWRQQnpNeENxS0Na?=
+ =?utf-8?B?QUhTd0tyZm5jeVNaZENNdy9WVXUxN294K3JUTHZOUDhBZWpGVDFLNnloM21s?=
+ =?utf-8?B?OFhLWURncURXSmo2eHRaSEpvcUx5aDF2VEVaeFlISWpvZ2NoTHB1ZWcvMWIw?=
+ =?utf-8?Q?5ZR9yUw5t3uYp4qIVLvuEjuKL?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2025 08:12:32.6222 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bace5a0-667a-4cbe-b066-08ddfb421cd5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 471dba2b-0302-4e98-6cf4-08ddfb44b175
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2025 08:31:01.1843 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022574.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4432
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D8o40kqGxqvbZ3G0ts2tYhp5raFT7Nk0HPZ+U0gDQ/OwXYTrdGQkApSdeTNN7AZv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8002
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,49 +161,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit fixes a potential race condition in the userqueue fence
-signaling mechanism by replacing dma_fence_is_signaled_locked() with
-dma_fence_is_signaled().
+On 24.09.25 10:11, Jesse.Zhang wrote:
+> This commit fixes a potential race condition in the userqueue fence
+> signaling mechanism by replacing dma_fence_is_signaled_locked() with
+> dma_fence_is_signaled().
+> 
+> The issue occurred because:
+> 1. dma_fence_is_signaled_locked() should only be used when holding
+>    the fence's individual lock, not just the fence list lock
+> 2. Using the locked variant without the proper fence lock could lead
+>    to double-signaling scenarios:
+>    - Hardware completion signals the fence
+>    - Software path also tries to signal the same fence
+> 
+> By using dma_fence_is_signaled() instead, we properly handle the
+> locking hierarchy and avoid the race condition while still maintaining
+> the necessary synchronization through the fence_list_lock.
+> 
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index 59d0abbdfc2f..ac366e1bc9ab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -289,7 +289,16 @@ static int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
+>  
+>  	/* Check if hardware has already processed the job */
+>  	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
+> -	if (!dma_fence_is_signaled_locked(fence))
+> +	/*
+> +	 * Use dma_fence_is_signaled() instead of dma_fence_is_signaled_locked()
+> +	 * because we only hold the fence_list_lock, not the individual fence lock.
+> +	 * dma_fence_is_signaled_locked() should only be used when the fence's
+> +	 * own lock is held, which isn't the case here. Using the locked variant
+> +	 * can lead to race conditions where the fence gets signaled twice:
+> +	 * 1. Hardware completion signals the fence
+> +	 * 2. Software path also tries to signal the same fence
+> +	*/
 
-The issue occurred because:
-1. dma_fence_is_signaled_locked() should only be used when holding
-   the fence's individual lock, not just the fence list lock
-2. Using the locked variant without the proper fence lock could lead
-   to double-signaling scenarios:
-   - Hardware completion signals the fence
-   - Software path also tries to signal the same fence
+Please drop that comment since that is not really accurate. Apart from that looks good to me.
 
-By using dma_fence_is_signaled() instead, we properly handle the
-locking hierarchy and avoid the race condition while still maintaining
-the necessary synchronization through the fence_list_lock.
+Regards,
+Christian.
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 59d0abbdfc2f..ac366e1bc9ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -289,7 +289,16 @@ static int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
- 
- 	/* Check if hardware has already processed the job */
- 	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
--	if (!dma_fence_is_signaled_locked(fence))
-+	/*
-+	 * Use dma_fence_is_signaled() instead of dma_fence_is_signaled_locked()
-+	 * because we only hold the fence_list_lock, not the individual fence lock.
-+	 * dma_fence_is_signaled_locked() should only be used when the fence's
-+	 * own lock is held, which isn't the case here. Using the locked variant
-+	 * can lead to race conditions where the fence gets signaled twice:
-+	 * 1. Hardware completion signals the fence
-+	 * 2. Software path also tries to signal the same fence
-+	*/
-+	if (!dma_fence_is_signaled(fence))
- 		list_add_tail(&userq_fence->link, &fence_drv->fences);
- 	else
- 		dma_fence_put(fence);
--- 
-2.49.0
+> +	if (!dma_fence_is_signaled(fence))
+>  		list_add_tail(&userq_fence->link, &fence_drv->fences);
+>  	else
+>  		dma_fence_put(fence);
 
