@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 771ADCAC5BA
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 18:45:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D547CAC5BA
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 18:46:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA9F10E2D2;
-	Thu, 25 Sep 2025 18:45:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2824110E2DB;
+	Thu, 25 Sep 2025 18:46:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jsubHOPr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NW3L2pYv";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 738CB10E2D2
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 18:45:54 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-b5507d3ccd8so1203923a12.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 11:45:54 -0700 (PDT)
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
+ [209.85.215.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4B7010E2DB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 18:45:58 +0000 (UTC)
+Received: by mail-pg1-f180.google.com with SMTP id
+ 41be03b00d2f7-b555b0fb839so966354a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 11:45:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758825954; x=1759430754; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758825958; x=1759430758; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xqhKQitx3suNajogTS41/OLcw2v5ZXyrHHWgG/Zex1o=;
- b=jsubHOPrwO/Kb7FCD6KQu5XTob/rPDUDo90c8kDMttKqyKsG+yiOsGVo5DuI7FfcAx
- FtxPFdL9+IZ8x0rrLIT67o/jq1LOIqScOEUwxDnDgJ2AUTwIp38dOxRR27wWLP7tB9If
- ta3dVUiOHFOTBVymx652anLD+mQchmQbEhxVTmeHHmJebUkeCl/EC1gBwp06lFDz4wfl
- +QlmGDUjBI8xNwdxyrpdTkZ5GRUDIpB8o2xe5hLz+zTS4ij1vs7kGqy6eZUEJKH0TfbN
- 6TrRMst75A+DL4+L4P0gQ88z9MJu8Vc2ef+krqF3vVgCh4AKNoS+hYxLjMyesYhlnKd9
- FBQg==
+ bh=JwvNopWmkaIl01KbZ4oKe8B4JIM8ZonWEO3nwmX/D+c=;
+ b=NW3L2pYvlc4bOUSPk3nx3nTufesu1038MQpmNp20BgTG7ZbNdiK/GnENmPaTVBPMIM
+ blgsCSu2J5j2zfk7fpCNbvsi6hKquI4uFx5Xj1YjLHNGp8nYmjqkgsd/NniQsSXoY2gx
+ Q0N2A52xzcwa9XxBhMNicrO3sheFEAyxmgqxmHYEg3pAmIzOEeTF7vaZ0LbaG5aYIYy3
+ 2yJiJvMmuhwuBprCVo7W61THKhQqfF+g5Bux7LtUkhu4WuLuDYj4jwItZzhg9H4T2LTj
+ WVArehE4aP99S7pBEYpqgnPlvgm1+Ujb/awNKGnFxxCQG/xtOic8GGh0BIAknpCFzlG8
+ JvIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758825954; x=1759430754;
+ d=1e100.net; s=20230601; t=1758825958; x=1759430758;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xqhKQitx3suNajogTS41/OLcw2v5ZXyrHHWgG/Zex1o=;
- b=eOCoV2C5qPaYlAblToyES/ZYcU4Y1cTYfAjybn17whOVgTYCZ1cUTENLLk6YLcNZX7
- m2cBvI2+mzdV+ncQX332BKGf3d9AB0mZMegcT77Cy611XP42RXwOknkuwcdH4/jUG9Di
- ZQV/XkLhh/T0CbwVFQbBeII1azwJGJ1hZSwC/AqhahcpNswTIUv+gzkky5vJMYNlIEkY
- xWCFk1vg0jXBLz1nOalCEuHQm74/GvvZRNYmjeYdLD0p9FDoZJ1+6RPsOubrMc9GzjuR
- D5AUweh03dwCX8GXZ4zzm13e/r6lE1jxvn/NpI+yM22tWjsT7kMpeaEM1gFRYb5IUQ90
- dmag==
-X-Gm-Message-State: AOJu0Yz3szOxB4ts4j0+qIZCTHImg4x/6Y6Uc5f4XODIJ39na4UkPKQR
- M+48VDJv5NMk4lfoN7XDEnq43utzAYKuHCAFJBC+ytyoPVaEFt70qNhpAhovlA==
-X-Gm-Gg: ASbGncuyruUdkC589KjK8nTVQxnMB0CDmpq/unD4TBUGUArSDdcAX9T+I/HIWQt+bHK
- eNw7rPskuocsppHbU0EwPXx2hSZJpKnM/YBGtVo8KUfk7ft093RBzAeeiE3DV8eyy79PJMMoaSy
- HqUZlMAaKozFJ9Wl5y4UCLBeuMjK8m1qeComOZZMa1XuOz9wPq78Fn6KIvPRTent5Or6VMOMunA
- T/7aZbEX1f4cLTLEwAio+gaMvEcTH3iM9vq1rrmOIWIunMw72VF+PPQLW5ABXk+Ul12AXH8zL8N
- pXZgtMKZvUTN41Im348y+ZVpg8qrrcvapYxSE8Gs+bApc7jntqV4FzPaKBlvtSSX56pwTFpwV/K
- dTFxdyazPINxWWjWuyBWnOex8hh87Op/+Qftw5nQfEwQOO1cqTxmr73rwUNbzW2bDd2F+4kHZ06
- fbXJjM3jvBIeYCxSeJrATzQcfWHQ==
-X-Google-Smtp-Source: AGHT+IFP1fk8Bmw1ombA/UKUtH9aZdRO6HkjoYzZHlPif1S4+WFl4GhGUzSAc3KwpBVdM16msfhY7w==
-X-Received: by 2002:a17:902:76c8:b0:267:af07:6526 with SMTP id
- d9443c01a7336-27ed4a66f88mr36343765ad.55.1758825953943; 
- Thu, 25 Sep 2025 11:45:53 -0700 (PDT)
+ bh=JwvNopWmkaIl01KbZ4oKe8B4JIM8ZonWEO3nwmX/D+c=;
+ b=SKjhFZv9oE0WspqDRHpBnUZFfjfMfIGrlDqohzkBKQrZbkGzA/XQKb7KxCFVmeqRsA
+ OelU9jv9xNgyak1iEevCfabtGfF1RmL9s+f0+LLS4w49OLun1/bxtklszxzJrJdnPaij
+ p13O52ApPnbEQ96rZEInuy/sKgkgV8rvtMU1ptq1tioTb8DCCGfbrPs3b5A+UEDkY+M8
+ L3XL/M3sU2gciVp2j/5ZYUb4hQS8DuMCFSeAiAq5nb+I5hbkAPC+gnAVCvcmk2UkydiE
+ 5j+uAXqyAVMSw+jk7ECtJlnT7PINGug88xCPfn67SHGZxRUraxKeL8gpY+6Ztptacyx3
+ Cnvg==
+X-Gm-Message-State: AOJu0YxdQaX2qUyGu/SUgZitM9SqitcIPxCuf+FzzAByPvs3BRFQYJUc
+ pbM1knrQoLl5v3liFt0lsn39UwEK/sLvLEIcHegNZoBdEMqoRkrjc6c41X3pcQ==
+X-Gm-Gg: ASbGncuIJ7L4FcjGW8RI0AxodKHFSA3ChGZYH/nNUck9+z6GHei8fGtidmS4PC9hNjb
+ fCD2EXEDaiOmBXj5SeaAHPRg5JBEvpMdK/q8wQ5WCM0Lf1Rx71QH4NvZWYASeEvZzMqO1Y5Y7e6
+ QaA8uOr5ndA6VBmfT3FWrR15VP9MOvEfOtpXJintRSLUdim0ieLDKmBjKt6Hi+8TtMl4uZ604Vl
+ LR3/vd1MPUQErz0yzQ+lUlNlHwegeBAxmCSHvopXi8tlk/O9vNqkb/4s8XPiR8atOk/uk98QykX
+ z3AgYei6TXuo7NBhlYHAaHu8IZRaYTBv8GIovEwVXglsdr0ewXYoKRxDlxBAfdMadhoAkqb9mV9
+ xm3ST74ZYZ04qT9VQRJHS7ZEUKXl5SbFTkQWqFiB19KOgfRuek6M/lgjmUJ0gkJFhOVWGDo7fAZ
+ js6tEXYGXT8rt+TV+F018HqHTf7Q==
+X-Google-Smtp-Source: AGHT+IFjuxA2KBfSBBLXtUFizcsfekAxuuKdv9NDrs3VSGNbZ+XSKFziZV8mIpx436mjN2LQN7YTAw==
+X-Received: by 2002:a17:902:ecc3:b0:269:4759:904b with SMTP id
+ d9443c01a7336-27ed4ade041mr49744965ad.58.1758825958330; 
+ Thu, 25 Sep 2025 11:45:58 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24D06700C9F588200B1ECEA8.dsl.pool.telekom.hu.
  [2001:4c4e:24d0:6700:c9f5:8820:b1e:cea8])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-27eeb9a8ebfsm4244125ad.67.2025.09.25.11.45.49
+ d9443c01a7336-27eeb9a8ebfsm4244125ad.67.2025.09.25.11.45.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Sep 2025 11:45:53 -0700 (PDT)
+ Thu, 25 Sep 2025 11:45:58 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, alex.hung@amd.com, harry.wentland@amd.com,
  siqueira@igalia.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 4/5] drm/amd/display: Properly disable scaling on DCE6
-Date: Thu, 25 Sep 2025 20:45:24 +0200
-Message-ID: <20250925184525.43290-5-timur.kristof@gmail.com>
+Subject: [PATCH 5/5] drm/amd/display: Disable scaling on DCE6 for now
+Date: Thu, 25 Sep 2025 20:45:25 +0200
+Message-ID: <20250925184525.43290-6-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250925184525.43290-1-timur.kristof@gmail.com>
 References: <20250925184525.43290-1-timur.kristof@gmail.com>
@@ -91,89 +91,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SCL_SCALER_ENABLE can be used to enable/disable the scaler
-on DCE6. Program it to 0 when scaling isn't used, 1 when used.
-Additionally, clear some other registers when scaling is
-disabled and program the SCL_UPDATE register as recommended.
+Scaling doesn't work on DCE6 at the moment, the current
+register programming produces incorrect output when using
+fractional scaling (between 100-200%) on resolutions higher
+than 1080p.
 
-This fixes visible glitches for users whose BIOS sets up a
-mode with scaling at boot, which DC was unable to clean up.
+Disable it until we figure out how to program it properly.
 
-Fixes: b70aaf5586f2 ("drm/amd/display: dce_transform: add DCE6 specific macros,functions")
+Fixes: 7c15fd86aaec ("drm/amd/display: dc/dce: add initial DCE6 support (v10)")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- .../gpu/drm/amd/display/dc/dce/dce_transform.c    | 15 +++++++++++----
- .../gpu/drm/amd/display/dc/dce/dce_transform.h    |  2 ++
- 2 files changed, 13 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c    | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
-index e5c2fb134d14..1ab5ae9b5ea5 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
-@@ -154,10 +154,13 @@ static bool dce60_setup_scaling_configuration(
- 	REG_SET(SCL_BYPASS_CONTROL, 0, SCL_BYPASS_MODE, 0);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+index 53c67ebe779f..b75be6ad64f6 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+@@ -404,13 +404,13 @@ static const struct dc_plane_cap plane_cap = {
+ 	},
  
- 	if (data->taps.h_taps + data->taps.v_taps <= 2) {
--		/* Set bypass */
--
--		/* DCE6 has no SCL_MODE register, skip scale mode programming */
-+		/* Disable scaler functionality */
-+		REG_WRITE(SCL_SCALER_ENABLE, 0);
+ 	.max_upscale_factor = {
+-			.argb8888 = 16000,
++			.argb8888 = 1,
+ 			.nv12 = 1,
+ 			.fp16 = 1
+ 	},
  
-+		/* Clear registers that can cause glitches even when the scaler is off */
-+		REG_WRITE(SCL_TAP_CONTROL, 0);
-+		REG_WRITE(SCL_AUTOMATIC_MODE_CONTROL, 0);
-+		REG_WRITE(SCL_F_SHARP_CONTROL, 0);
- 		return false;
+ 	.max_downscale_factor = {
+-			.argb8888 = 250,
++			.argb8888 = 1,
+ 			.nv12 = 1,
+ 			.fp16 = 1
  	}
- 
-@@ -165,7 +168,7 @@ static bool dce60_setup_scaling_configuration(
- 			SCL_H_NUM_OF_TAPS, data->taps.h_taps - 1,
- 			SCL_V_NUM_OF_TAPS, data->taps.v_taps - 1);
- 
--	/* DCE6 has no SCL_MODE register, skip scale mode programming */
-+	REG_WRITE(SCL_SCALER_ENABLE, 1);
- 
- 	/* DCE6 has no SCL_BOUNDARY_MODE bit, skip replace out of bound pixels */
- 
-@@ -502,6 +505,8 @@ static void dce60_transform_set_scaler(
- 	REG_SET(DC_LB_MEM_SIZE, 0,
- 		DC_LB_MEM_SIZE, xfm_dce->lb_memory_size);
- 
-+	REG_WRITE(SCL_UPDATE, 0x00010000);
-+
- 	/* Clear SCL_F_SHARP_CONTROL value to 0 */
- 	REG_WRITE(SCL_F_SHARP_CONTROL, 0);
- 
-@@ -564,6 +569,8 @@ static void dce60_transform_set_scaler(
- 	/* DCE6 has no SCL_COEF_UPDATE_COMPLETE bit to flip to new coefficient memory */
- 
- 	/* DCE6 DATA_FORMAT register does not support ALPHA_EN */
-+
-+	REG_WRITE(SCL_UPDATE, 0);
- }
- #endif
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.h b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.h
-index ff746fba850b..eb716e8337e2 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.h
-@@ -155,6 +155,7 @@
- 	SRI(SCL_COEF_RAM_TAP_DATA, SCL, id), \
- 	SRI(VIEWPORT_START, SCL, id), \
- 	SRI(VIEWPORT_SIZE, SCL, id), \
-+	SRI(SCL_SCALER_ENABLE, SCL, id), \
- 	SRI(SCL_HORZ_FILTER_INIT_RGB_LUMA, SCL, id), \
- 	SRI(SCL_HORZ_FILTER_INIT_CHROMA, SCL, id), \
- 	SRI(SCL_HORZ_FILTER_SCALE_RATIO, SCL, id), \
-@@ -592,6 +593,7 @@ struct dce_transform_registers {
- 	uint32_t SCL_VERT_FILTER_SCALE_RATIO;
- 	uint32_t SCL_HORZ_FILTER_INIT;
- #if defined(CONFIG_DRM_AMD_DC_SI)
-+	uint32_t SCL_SCALER_ENABLE;
- 	uint32_t SCL_HORZ_FILTER_INIT_RGB_LUMA;
- 	uint32_t SCL_HORZ_FILTER_INIT_CHROMA;
- #endif
 -- 
 2.51.0
 
