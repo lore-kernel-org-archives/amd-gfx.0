@@ -4,51 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA447CAC5A5
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 11:52:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09E54CAC5A5
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 12:13:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C2010E2B7;
-	Thu, 25 Sep 2025 11:52:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98BB110E8F4;
+	Thu, 25 Sep 2025 12:13:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lEsa2CSp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nVHuHLcL";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3A4F10E8F8;
- Thu, 25 Sep 2025 11:52:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bFg2ngKv10DvJ4WCp75LyojWJ3G2AL1j2gRoH85cFCE=; b=lEsa2CSpYX9i1zjB6L6WzBBEhd
- UWokmfWOr5tRCkgNZi7ftrotB83gXy8Y0LyjnwPFZY+vdLHbE7/j7+bvGSDBYwoIrglVsdCqciTd5
- v+lacWgdt2QxZ3u5qatjF0X8aDJnCmBiGL8Ttc1S7awDsGAm+4FdbZmTHshWlvQSLDZeVJVwYadP/
- huNQ3bHOVJP9/5P3PM52zjGM7rbuHIBWKge0jOJrZMuUIoqyFMAQNj51X9f8HOOn6xVaoIh9PSBw7
- BXnJBz9+w6JHDOvW7VtfnE61RPQy+f8h8P8DCpLvkbH/I7HGoCgeMJF4tVkbqJj2rt3ixDAG4vTvC
- JPL2TeNg==;
-Received: from [84.66.36.92] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1v1kWp-00HKhL-JZ; Thu, 25 Sep 2025 13:52:51 +0200
-Message-ID: <743fa52d-f643-4102-9c56-24dca4359f82@igalia.com>
-Date: Thu, 25 Sep 2025 12:52:50 +0100
-MIME-Version: 1.0
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011068.outbound.protection.outlook.com [52.101.62.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05C0F10E8F4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 12:13:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RqXsT4xly7i53Es/9Ki05moYhP4MgG2rgTrOXzPm2zVkKqlgzKZunE+tw6GbJwLIy14cVQ4wzYQI6AFEWArZfJYqsazYuDGTcc8mGnQI77736uOQ2WNxJQ92iAQekMzDwWnBc28llkZwcjycwUycbBubfLRSEFuRBtcPU9fPk/sB18NHyvpQiDY7gybPa0/vCY8oqgXNtOx+uFrwPce6eAgCXWCBwj7ecOFDwy55sfonL5u4R/RvBR9hUpI/WFfSEvzGytoptOJ1xM+x92uHK9now9ktSNums/DO3hBUrXvtHTcN++Wf0pbuPni6vCtmh0YhV40E8Q3h4dGotwQYzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0t9oQt/prg/zVOv2Gl+1ZjPt+Fbyx0evQyybcWcnZJQ=;
+ b=PZnihQdhwfr9M9G8W6sSRY9NKBfffPBGcCTpcz/nzqOGwFAOfL9NjQi3wrjdkoLcfdaCS1x8wG7/UMdyeto5kVPWdwF+71MRKeBKFH2A/5gmaqdTIIjWPsHGjGPtk1n+E0+0s+qwcy8yEI4tEr+Hr2z6k7nNchn3vKIDi/+wO+AhL59IUd2pm4yEBfmcoH/UIYkQMjrKpEli7U2RUqvqS5ZmRJ8lK3l6qtPtI88zTv0hwEM/wPhEHuDZ4Xrr9tHFVT23nRdn6qwxSR0Bv1DdCSrVfCe/IkNo4p8F42QQZGgoPd0DHxn4pBm8RqYp3lEW4K2fj7gc37oLK1wBSyzdkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0t9oQt/prg/zVOv2Gl+1ZjPt+Fbyx0evQyybcWcnZJQ=;
+ b=nVHuHLcLj7NZwCIVDnloevC2oW2tlrkQl69YjlPjxphjboS8zHRkodgRjfpm83NWWuvlw5i1h8TmDxwbs7MRhNfh6PB0QKvVRVuj/+Jbs9FH1l3b1nOqAXuGW6g0U9TRoHpdGMDxP2554cNCIZEWb18C986/CIh3YD+OqyUMPpU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CYYPR12MB9016.namprd12.prod.outlook.com (2603:10b6:930:c4::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.9; Thu, 25 Sep
+ 2025 12:13:32 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9137.018; Thu, 25 Sep 2025
+ 12:13:32 +0000
+Message-ID: <72888d6e-db5d-4c27-915a-90f507eacd63@amd.com>
+Date: Thu, 25 Sep 2025 14:13:28 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v8 07/12] drm/sched: Account entity GPU time
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
-References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
- <20250903101820.63032-8-tvrtko.ursulin@igalia.com>
- <6d5be3ab8413d44a360ebe7a34771ead6687c989.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <6d5be3ab8413d44a360ebe7a34771ead6687c989.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] drm/amdgpu: Fix for GPU reset being blocked by KIQ I/O.
+To: phasta@kernel.org, Heng Zhou <Heng.Zhou@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: Lijo.Lazar@amd.com, Emily.Deng@amd.com, Victor.Zhao@amd.com,
+ Felix.Kuehling@amd.com, Qing.Ma@amd.com, HaiJun.Chang@amd.com
+References: <20250925094334.2012248-1-Heng.Zhou@amd.com>
+ <4e3e1e20fe4842f4a7cc61d6c47e270156c2e87c.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <4e3e1e20fe4842f4a7cc61d6c47e270156c2e87c.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0090.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB9016:EE_
+X-MS-Office365-Filtering-Correlation-Id: 761ebd8d-08ce-4bf5-7da8-08ddfc2cf1b3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UWhWaGJhMlZpSnlDS29sTTlqZERsQnRSejRRTGlZMXRKLzdwcHk0TmN5Q2tl?=
+ =?utf-8?B?dU5DSldnb1p2TDBuRnlsWDdqTHdtMFQ4ZDM3NUhUUnZDcU5NbmhEN2ZnSVd5?=
+ =?utf-8?B?dGRhNXMzK3NSRFlPZ0tXV01vUWlWblJvMExhUW5rN3F5THF3ZVoxT3EyTUht?=
+ =?utf-8?B?SHNJQjNJODRHSE13LzBIaFBJMTUycU14cXo0S0x1NnV1azBzMmd6YXRqalFB?=
+ =?utf-8?B?MWI5a1Nac2NKdXhuVU9zNHUrelVtTWQyQ3praWdXb3ZEMTRKNTAzMDM4SDVI?=
+ =?utf-8?B?alVwRU83Q3VMYmNkOWRZSFJWMlN2Zm9HZTJNVWwzZW1IbmhBalZOT3k5MXAr?=
+ =?utf-8?B?Si9UdmoyeG9pUlFRZXcxSzFlQ0x1Z0hSVjNmTmlFWFRrUmc0RVJmd2UxakdO?=
+ =?utf-8?B?L3lCWkdKTHVsVEx1YkxTcmZqb0dTeEhHU1FDc1RNSjdmVHUzekJYam1QUlJn?=
+ =?utf-8?B?SUdyckt3Ui83b0FzcC9MT05WajdoSm1qek9pWEE0V0ttSHowQ1NaMTl1WjNV?=
+ =?utf-8?B?ejBFek44ZVBEZExpN1JBRzFZc2FYYmVBVm1SaEFaeWdyNGl0UytBaVVYWks2?=
+ =?utf-8?B?dnA1ZGNxaSttOUsvcUtMOWE5d1NEQndNc0xuZm1LN2dGUE5OSmNGU1ZrR2dk?=
+ =?utf-8?B?enhNS2dzYkQ4UUtMY204UmdNaFR1djBHQ1c2WmR5TDY4RkwybmZ6WSsvS1Jv?=
+ =?utf-8?B?V1dqSGY2SGg5YmY1SG9ieWxUbkU2OXJ6UkcyRERzdkNNYnNhZEd2ZnN6ajVz?=
+ =?utf-8?B?bVJueWJrdGhwVE44dHBlR1BTSjdUSmw5UTZrWWYyVEdoUW9BQTd6aWJxK2ho?=
+ =?utf-8?B?WGhQemtFM0s1MGRESUgrbE8rakdWaUZvc0VJaE1ZSHNDcHVwdm5aYXdoMFRJ?=
+ =?utf-8?B?ckljaitTMUpGMTFKZ1BOK3FmVUVPYnlDQkh6YzZDcS81bjh2ZFYycjVrZ3k0?=
+ =?utf-8?B?QkxSTE5SeWgyQ0lrT2ltRnNhTXFtOGsxQVk3SmE1R0EzNUd0S0N4TEJDWnhU?=
+ =?utf-8?B?cXF3a1BDU0JvWGVDR093dXNNSCt4ckJITnh2Yk1XZ0hmdk9JTVFlUFhhMjRN?=
+ =?utf-8?B?eXRySGhhNFFSaVJGSVM1bjZlS2ozTmdWa2w0OXh1cUZLVTV5WFlRVkFPd2ZG?=
+ =?utf-8?B?cStEb0F0aS9PWTVMQUo0MGdHSDFpVmRPc1NoeEdhdmVsYXNzZUFEZXJ0MUcv?=
+ =?utf-8?B?aUoxYTl3YUNwT3R4Nk1jZEdKdVRyeHo4VWhnZ1g3SnAyOXJjZnY2bkVmdW1I?=
+ =?utf-8?B?UzVsRGFIeGtRNG1hNG5yV1Y4NUpKR2NCTFJBOENwU05XWjBQcU01bnVaWmQz?=
+ =?utf-8?B?QzNDNHB5TERTeU1DcDEvRkpGWFA1OWlkZmJkMjREcHFjN1NqdmxuaktQakNu?=
+ =?utf-8?B?U1gzYjdCa1ZxN1p3Z0dhc09PcUsxTFZ0KzR4dGxWZUFIZDU0RlFOVlo4N1Jn?=
+ =?utf-8?B?OU5uM1k1VUtTMmc4N1pGKzYxckgyTjROVFVyRkE2emlkVEJVaWk2NDd5VG55?=
+ =?utf-8?B?dXVKL1JhVy9nbUxlWDduZkVSa0lVbDcvVmtkS1dmY3lHOVVsZGpFeWVwUVlj?=
+ =?utf-8?B?dFFpTk5lak9QUkNaWE5KR3JCWFl0SkRZREp1dzFjTFBWV2FoVmdDN3JpZnpM?=
+ =?utf-8?B?Zlo1amgxNjlxdFV5YVFMY29vNlpxSXJqOGlpRldZMENEQjBLQWRIbU1ydnUx?=
+ =?utf-8?B?Q05Bc01vTlBTbXJ3MUhtbkQwcnM4WFhlVEs4b2dQTVFtVklDTFdPQ2hSaUFZ?=
+ =?utf-8?B?bmxpN3JSeW9IanFPSzJHYkErMHZZenZTNlpvY0pKVityRHBBMGZ3aUcyakND?=
+ =?utf-8?B?Z0Mxd2szbkgvOWE0TnRrbTcya2tNRzkvaHdrc2ZVUGRvR2ZKWjBvaXBFdW9k?=
+ =?utf-8?B?RENGSHdTS1hFVTI1SnpaYzZkUng4TEVQbUV2UXlYSkord2JQMVJ2MFQ1UFJ6?=
+ =?utf-8?Q?RS3kdpMWoKI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czdwVktDSVZ1VFR5ZUlObWNYQUE4VHRDMEg3bHloQ0xEaXJRQW5wNDdaRjZP?=
+ =?utf-8?B?VG5kWTllSERCc0lLa0oreXVVamx0Z21lb1JyanJFS1NiOFdubW5TVWVVOXJw?=
+ =?utf-8?B?TVFIR0NOemRtZFBuL3c0eDk4c1BYTWs1MnFlK1c1N3gxSVJ3dnFDTGtYQkhP?=
+ =?utf-8?B?dEFpV2VlZXpyUC9ONHllOG5vVUJXYndRWkFlUm5uUDBoOWdKWUlLaDJCaWZ3?=
+ =?utf-8?B?ZGlVUHJYOW1LUk0rL0ltb2NkUXRHdDJxbGxwbFQrV3FaQ3ZDY2x2bnZpbVVv?=
+ =?utf-8?B?cUlKNGRyTHVkRHliQzMxM1F4THNEUDZFNFBMSVVCbGR3Y0dpMXRaTkw4UFJq?=
+ =?utf-8?B?aWxZV1JObmFFamI5YkhkWGl4VjFweEhoWGZ6QkM2b1Nva2lUMVFjeUt5NXVy?=
+ =?utf-8?B?Y2t0bHhhOXBMa29FTW9oNUNBclZGVGQ4MzF4RXBOM1FMZkh4Mit5R0tUd3hy?=
+ =?utf-8?B?TjloK0pJdEJ1MmdWYUIwZEZnWFRSaVJiZ0d2dFFiTUVNVkU1VnJwbURrWUxO?=
+ =?utf-8?B?b1gyWS9GcUVMTkFyZFV2S1ZSSVRlanFPeHdYTS8vampNWEt2eG8vaVpWbDVY?=
+ =?utf-8?B?Z3dIdmdhUUt5Y0poTzFyaTRIczZ6eHVHSlR6ZUE5bTRCV1lrMTRXZWhXTStn?=
+ =?utf-8?B?bWF2bk9IS1VFS1Mzek9ZblBoSUI0NHJIWnhwam1tRVFxb1lXUkw3Qkl6Qm91?=
+ =?utf-8?B?a2tnd2pyMUxRWis1QmdiblV2dE5WaTRYWWlIVFRQM1hnYUJEcHlmcUd1cjZk?=
+ =?utf-8?B?OFVsNVpDR3JVckx3MWhzeXhCYXQzcmRQSWhaYWlFSUlYSk9PWGFwV2ZZazVW?=
+ =?utf-8?B?OGNScjVFOEw5c0N4ZjVTVFU4aHM3NFFXMTM4YmxvQ3l3dG1JWEtrOUFtVEdP?=
+ =?utf-8?B?WnpOMDRvU1VmY1BJY1NmM05XbTJlNDUrb0tjK1NDSXdOYzNneHRiNjFjdm8y?=
+ =?utf-8?B?T1ZodFRZVVkzSitCNDJTQ1NQTDhEMjNtQW9wY1ZMbWRMN29nS1p3eXlobm1h?=
+ =?utf-8?B?K0RqYzc5ZFYrNFlQaUJDb0lJVU1GS0RteE1NRmpvSzdqQjBmbnNDcFZKWWZl?=
+ =?utf-8?B?cFZrWUkxZjNQRU5ZOVZtWkN5UkJtWTVWSEV5Z0tXZ0o3UFp3MGpCL0t0M0NI?=
+ =?utf-8?B?WUNDZGNORjUxa3Zmd21EOUYxUHJydnZNa1pjYlU5aGZaMksyZkNlK25TSUpz?=
+ =?utf-8?B?UkU2WkhUbGQyTDBMTTBzcnF5a3hYQ2J1YnZ2LzBRY1Fjbm54ZFh4TkQ1MnZF?=
+ =?utf-8?B?K2g0eWhxcHJDMmp5VzhjWnlMeEFMUzhNSVR1VUN4ZWl3Vlp3ZEt2RjNPUXdK?=
+ =?utf-8?B?SDQ0clI3bFV2UFhGV2RNZlJ1RmNtY3BQNkNHOGI2cURabDVRa3dORVQ1MDlp?=
+ =?utf-8?B?aENjWmNqOEdLMElxSWhFR3VBU1cybFJER1ZqeDhBN0F4L29wNlVGYk5sTGhw?=
+ =?utf-8?B?QXV6ZHZZYnhRMnhyQVM0N3g2TnBrb09rTXZYZzdlL0J6dm5RaHBWalZ3WjRR?=
+ =?utf-8?B?ZHQxOEhuaVQzdGppTGd4MTNITDB2S2c2d0haMHpoWnJNTWlKbGgvUlBLV0xG?=
+ =?utf-8?B?Ym9nV29xd1p1N2R0TUJ1VVlkalp4R2FSOVZoQktBTlNtS3RSd1B2dzdRcDJR?=
+ =?utf-8?B?WmYwNm90MTJrc29VWE0wbjJta0lJelI5U052cXl5VU5BNVdvRTdtdS9NNC9z?=
+ =?utf-8?B?V0c0d1pSaGhJbHRhMUozS2Z2UGhmMzhOMjQyS25lMWVmZDZ4ckgrSEpLbnU2?=
+ =?utf-8?B?b1hOSWFHZ1NxLzhQaVFiaU90Z1FQVVFRTlJia0ZnZHo3ckxSd1VIWVVQYmtx?=
+ =?utf-8?B?Ylc2UzI3R3ozNUk5bTNvamN0TjFRMjRuSzFKdzAvU2JOcGszdy9DcWpWc1J6?=
+ =?utf-8?B?WEx0SUEzVzhWSm5id05GVUc4NGFzd0s2UU5rM3VCQVZSSFp2MG1xcVVyaHBW?=
+ =?utf-8?B?WmZGYmpVOE9DNlZLWmtSeE4veDhVK0RhZitDKzlTNDh2endFT3N2R2dwNXBp?=
+ =?utf-8?B?WjU2ZlN0RXFvTENjdFkvWExHMDNBRExJc0VOZ0NobytlSmUrWmMweXpaT0tB?=
+ =?utf-8?B?SUtUK24yeHBMMTl4SkZ6djQyUHVPQmtqL3ZNWEZpMEVQUjZMVUlsQUJvSGJT?=
+ =?utf-8?Q?R612h5GGBX7/5rKuCGloJ8VZd?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 761ebd8d-08ce-4bf5-7da8-08ddfc2cf1b3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2025 12:13:32.1749 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 33CVRG8o2qa5F0x6yldMOx6hpIK+gPIwOtrOPgSkY2AayIKg8z7R4tY6KF+WP0+C
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB9016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,295 +163,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 24/09/2025 10:11, Philipp Stanner wrote:
-> On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
->> To implement fair scheduling we need a view into the GPU time consumed by
->> entities. Problem we have is that jobs and entities objects have decoupled
->> lifetimes, where at the point we have a view into accurate GPU time, we
->> cannot link back to the entity any longer.
+On 25.09.25 13:55, Philipp Stanner wrote:
+> On Thu, 2025-09-25 at 17:43 +0800, Heng Zhou wrote:
+>> There is some probability that reset workqueue is blocked by KIQ I/O for 10+ seconds after gpu hangs.
+>> So we need to add a in_reset check during each KIQ register poll.
 >>
->> Solve this by adding a light weight entity stats object which is reference
->> counted by both entity and the job and hence can safely be used from
->> either side.
->>
->> With that, the only other thing we need is to add a helper for adding the
->> job's GPU time into the respective entity stats object, and call it once
->> the accurate GPU time has been calculated.
-> 
-> This in general also looks reasonable and clean to me. Some comments
-> below.
-
-Thanks!
-
-> btw I've got many nit-comments for all patches, but will wait with
-> those until a v1 is posted.
-
-Lets try and strike a balance please. :)
-
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
+>> Signed-off-by: Heng Zhou <Heng.Zhou@amd.com>
 >> ---
->>   drivers/gpu/drm/scheduler/sched_entity.c   | 39 +++++++++++++
->>   drivers/gpu/drm/scheduler/sched_internal.h | 66 ++++++++++++++++++++++
->>   drivers/gpu/drm/scheduler/sched_main.c     |  6 +-
->>   include/drm/gpu_scheduler.h                | 12 ++++
->>   4 files changed, 122 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->> index 7a0a52ba87bf..04ce8b7d436b 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -32,6 +32,39 @@
->>   
->>   #include "gpu_scheduler_trace.h"
->>   
->> +
->> +/**
->> + * drm_sched_entity_stats_release - Entity stats kref release function
->> + *
->> + * @kref: Entity stats embedded kref pointer
->> + */
->> +void drm_sched_entity_stats_release(struct kref *kref)
->> +{
->> +	struct drm_sched_entity_stats *stats =
->> +		container_of(kref, typeof(*stats), kref);
->> +
->> +	kfree(stats);
->> +}
->> +
->> +/**
->> + * drm_sched_entity_stats_alloc - Allocate a new struct drm_sched_entity_stats object
->> + *
->> + * Returns: Pointer to newly allocated struct drm_sched_entity_stats object.
->> + */
->> +static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
->> +{
->> +	struct drm_sched_entity_stats *stats;
->> +
->> +	stats = kzalloc(sizeof(*stats), GFP_KERNEL);
->> +	if (!stats)
->> +		return NULL;
->> +
->> +	kref_init(&stats->kref);
->> +	spin_lock_init(&stats->lock);
->> +
->> +	return stats;
->> +}
->> +
->>   /**
->>    * drm_sched_entity_init - Init a context entity used by scheduler when
->>    * submit to HW ring.
->> @@ -65,6 +98,11 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>   		return -EINVAL;
->>   
->>   	memset(entity, 0, sizeof(struct drm_sched_entity));
->> +
->> +	entity->stats = drm_sched_entity_stats_alloc();
->> +	if (!entity->stats)
->> +		return -ENOMEM;
->> +
->>   	INIT_LIST_HEAD(&entity->list);
->>   	entity->rq = NULL;
->>   	entity->guilty = guilty;
->> @@ -338,6 +376,7 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
->>   
->>   	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
->>   	RCU_INIT_POINTER(entity->last_scheduled, NULL);
->> +	drm_sched_entity_stats_put(entity->stats);
->>   }
->>   EXPORT_SYMBOL(drm_sched_entity_fini);
->>   
->> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
->> index 703ee48fbc58..27c8460a3601 100644
->> --- a/drivers/gpu/drm/scheduler/sched_internal.h
->> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
->> @@ -3,6 +3,22 @@
->>   #ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
->>   #define _DRM_GPU_SCHEDULER_INTERNAL_H_
->>   
->> +#include <linux/ktime.h>
->> +#include <linux/kref.h>
->> +#include <linux/spinlock.h>
->> +
->> +/**
->> + * struct drm_sched_entity_stats - execution stats for an entity.
->> + *
->> + * @kref: reference count for the object.
->> + * @lock: lock guarding the @runtime updates.
->> + * @runtime: time entity spent on the GPU.
->> + */
->> +struct drm_sched_entity_stats {
 > 
-> Cool docu.
-> 
-> Though, considering that awkward refcounting patterns are one of the
-> more relevant scheduler problems, I believe it makes sense to add to
-> the docu here a sentence or two about who refcounts this object for
-> what reason.
+> You should create such patches with git format-patch -v2 to create a
+> version 2 field in the header. And, ideally, provide a small change log
+> below the three dashes like so:
 
-Good idea - it is often not completely easy to find the commit message 
-from git blame.
+Alternatively depending on your setup you can also directly use "git send-email -v2 ..." to send out the patch to the mailing list.
 
 > 
->> +	struct kref	kref;
->> +	spinlock_t	lock;
->> +	ktime_t		runtime;
->> +};
->>   
->>   /* Used to choose between FIFO and RR job-scheduling */
->>   extern int drm_sched_policy;
->> @@ -93,4 +109,54 @@ drm_sched_entity_is_ready(struct drm_sched_entity *entity)
->>   	return true;
->>   }
->>   
->> +void drm_sched_entity_stats_release(struct kref *kref);
->> +
->> +/**
->> + * drm_sched_entity_stats_get - Obtain a reference count on struct drm_sched_entity_stats object
->> + *
->> + * @stats: struct drm_sched_entity_stats pointer
->> + *
->> + * Returns: struct drm_sched_entity_stats pointer
->> + */
->> +static inline struct drm_sched_entity_stats *
->> +drm_sched_entity_stats_get(struct drm_sched_entity_stats *stats)
->> +{
->> +	kref_get(&stats->kref);
->> +
->> +	return stats;
->> +}
->> +
->> +/**
->> + * drm_sched_entity_stats_put - Release a reference count on struct drm_sched_entity_stats object
->> + *
->> + * @stats: struct drm_sched_entity_stats pointer
->> + */
->> +static inline void
->> +drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
->> +{
->> +	kref_put(&stats->kref, drm_sched_entity_stats_release);
->> +}
->> +
->> +/**
->> + * drm_sched_entity_stats_job_add_gpu_time - Account job execution time to entity
->> + *
->> + * @job: Scheduler job to account.
->> + *
->> + * Accounts the execution time of @job to its respective entity stats object.
->> + */
->> +static inline void
->> +drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
->> +{
->> +	struct drm_sched_entity_stats *stats = job->entity_stats;
->> +	struct drm_sched_fence *s_fence = job->s_fence;
->> +	ktime_t start, end;
->> +
->> +	start = dma_fence_timestamp(&s_fence->scheduled);
->> +	end = dma_fence_timestamp(&s_fence->finished);
->> +
->> +	spin_lock(&stats->lock);
->> +	stats->runtime = ktime_add(stats->runtime, ktime_sub(end, start));
->> +	spin_unlock(&stats->lock);
->> +}
->> +
->>   #endif
->> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->> index 9411676e772a..a5d7706efbea 100644
->> --- a/drivers/gpu/drm/scheduler/sched_main.c
->> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->> @@ -658,6 +658,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
->>   
->>   	job->sched = sched;
->>   	job->s_priority = entity->priority;
->> +	job->entity_stats = drm_sched_entity_stats_get(entity->stats);
->>   
->>   	drm_sched_fence_init(job->s_fence, job->entity);
->>   }
->> @@ -846,6 +847,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *job)
->>   		 * been called.
->>   		 */
->>   		dma_fence_put(&job->s_fence->finished);
->> +		drm_sched_entity_stats_put(job->entity_stats);
->>   	} else {
->>   		/* The job was aborted before it has been committed to be run;
->>   		 * notably, drm_sched_job_arm() has not been called.
->> @@ -997,8 +999,10 @@ static void drm_sched_free_job_work(struct work_struct *w)
->>   		container_of(w, struct drm_gpu_scheduler, work_free_job);
->>   	struct drm_sched_job *job;
->>   
->> -	while ((job = drm_sched_get_finished_job(sched)))
->> +	while ((job = drm_sched_get_finished_job(sched))) {
->> +		drm_sched_entity_stats_job_add_gpu_time(job);
->>   		sched->ops->free_job(job);
->> +	}
+> ---
+> Changes in v2:
+>   - foo
+>   - bar
+> ---
 > 
-> The biggest question I'm wondering about is whether the reference
-> should be put in drm_sched_job_cleanup() or drm_sched_free_job_work().
-> The primer is semantically more correct, probably, but the latter is
-> always controlled by the scheduler.
-> 
-> Hypothetically a driver could just not call drm_sched_job_cleanup() in
-> its free_job() callback – but then other stuff would leak as well and
-> everything would be broken anyways.
+> JFYI for the future; I guess this patch is fine for now.
 
-I think drm_sched_entity_stats_put() from drm_sched_job_cleanup() makes 
-sense because latter is where other actions done by drm_sched_job_arm() 
-are cleaned up. And drm_sched_job_arm() is where I placed 
-drm_sched_entity_stats_get(). So that all looks nicely aligned to me.
-
-> I probably should change the docu for drm_sched_job_cleanup(), which
-> currently says drivers "should" call it in free_job(), instead of
-> "must".
-
-Yeah I agree s/should/must/ is in order.
+Yeah, agree feel free to add Reviewed-by: Christian König <christian.koenig@amd.com> and push.
 
 Regards,
+Christian.
 
-Tvrtko
-
->>   
->>   	drm_sched_run_job_queue(sched);
->>   }
->> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
->> index 802a0060db55..f33c78473867 100644
->> --- a/include/drm/gpu_scheduler.h
->> +++ b/include/drm/gpu_scheduler.h
->> @@ -71,6 +71,8 @@ enum drm_sched_priority {
->>   	DRM_SCHED_PRIORITY_COUNT
->>   };
->>   
->> +struct drm_sched_entity_stats;
+> 
+> Regards,
+> Philipp
+> 
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 5 +++++
+>>  1 file changed, 5 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>> index 89fc1015d3a6..7f02e36ccc1e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>> @@ -1102,6 +1102,9 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_
+>>  
+>>  	might_sleep();
+>>  	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
+>> +		if (amdgpu_in_reset(adev))
+>> +			goto failed_kiq_read;
 >> +
->>   /**
->>    * struct drm_sched_entity - A wrapper around a job queue (typically
->>    * attached to the DRM file_priv).
->> @@ -110,6 +112,11 @@ struct drm_sched_entity {
->>   	 */
->>   	struct drm_sched_rq		*rq;
->>   
->> +	/**
->> +	 * @stats: Stats object reference held by the entity and jobs.
->> +	 */
->> +	struct drm_sched_entity_stats	*stats;
->> +
->>   	/**
->>   	 * @sched_list:
->>   	 *
->> @@ -365,6 +372,11 @@ struct drm_sched_job {
->>   	struct drm_sched_fence		*s_fence;
->>   	struct drm_sched_entity         *entity;
->>   
->> +	/**
->> +	 * @entity_stats: Stats object reference held by the job and entity.
->> +	 */
->> +	struct drm_sched_entity_stats	*entity_stats;
->> +
->>   	enum drm_sched_priority		s_priority;
->>   	u32				credits;
->>   	/** @last_dependency: tracks @dependencies as they signal */
+>>  		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+>>  		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+>>  	}
+>> @@ -1171,6 +1174,8 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint3
+>>  
+>>  	might_sleep();
+>>  	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
+>> +		if (amdgpu_in_reset(adev))
+>> +			goto failed_kiq_write;
+>>  
+>>  		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+>>  		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
 > 
 
