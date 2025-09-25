@@ -4,129 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C835CAC5BC
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 08:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C31CCAC5A5
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 08:15:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5B3410E8A3;
-	Thu, 25 Sep 2025 08:09:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0E9410E887;
+	Thu, 25 Sep 2025 08:15:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="BfMcRipo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c2MsgES6";
 	dkim-atps=neutral
-Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [52.28.197.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21E2510E130;
- Wed, 24 Sep 2025 20:34:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758746085; x=1790282085;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=U4cCFbpHvYq8yWCMIbT6T5sZXi6GGX+iNVIOVWCWFxY=;
- b=BfMcRipoG4/pHxskhzOSbTnf1ct0XDt+THTaQcoaac+7QobFnA9YpYUa
- HNppeAkAXH28QthkJ8PNzomQnKkgrfiDrCXayigPo5XIZNL+fhSc57Xel
- ie25y3/ecXiYyGuEaR9tocmtOp/4GdR0eqc2oGlLsMaqVGz+YfBJSL42x
- nQ5zNO0n68N73b8aTC1MSyVtCA2CqXg9JV/q0nBHPAjzEOcfdddgygVQr
- Vznvnlq1yuW6MskJVaDLkIOKnPjcP6PJ5xrwYJov0b6MQzxtSujTD01Mg
- c7F1AdpVLe0vK5ZhqsDGa1+NHWCtOfwGODoZkw/YXXkoFlYcuIledEEma w==;
-X-CSE-ConnectionGUID: m/+QKsm3SLCrrae6+K+wNw==
-X-CSE-MsgGUID: e1iayThcQeCIi+HH03X8Qw==
-X-IronPort-AV: E=Sophos;i="6.18,291,1751241600"; 
-   d="scan'208";a="2526216"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2025 20:34:43 +0000
-Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.234:24683]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.23.230:2525]
- with esmtp (Farcaster)
- id b6a810ee-396d-4837-b14d-0fa6ee2c8881; Wed, 24 Sep 2025 20:34:42 +0000 (UTC)
-X-Farcaster-Flow-ID: b6a810ee-396d-4837-b14d-0fa6ee2c8881
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB001.ant.amazon.com (10.252.51.26) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Wed, 24 Sep 2025 20:34:42 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 24 Sep 2025
- 20:34:06 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <linux@armlinux.org.uk>, <richard@nod.at>,
- <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>,
- <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>,
- <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>,
- <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>,
- <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>,
- <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
- <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
- <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <jdelvare@suse.com>,
- <linux@roeck-us.net>, <linus.walleij@linaro.org>,
- <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
- <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>,
- <snitzer@kernel.org>, <dm-devel@redhat.com>, <rajur@chelsio.com>,
- <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <peppe.cavallaro@st.com>,
- <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>,
- <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>,
- <malattia@linux.it>, <hdegoede@redhat.com>, <markgross@kernel.org>,
- <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
- <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>,
- <gregkh@linuxfoundation.org>, <fei1.li@intel.com>, <clm@fb.com>,
- <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, 
- <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
- <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>,
- <pmladek@suse.com>, <senozhatsky@chromium.org>,
- <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
- <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>,
- <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>,
- <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>,
- <ying.xue@windriver.com>, <andrii@kernel.org>, <mykolal@fb.com>,
- <ast@kernel.org>, <daniel@iogearbox.net>, <martin.lau@linux.dev>,
- <song@kernel.org>, <yhs@fb.com>, <john.fastabend@gmail.com>,
- <kpsingh@kernel.org>, <sdf@google.com>, <haoluo@google.com>,
- <jolsa@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>,
- <wad@chromium.org>, <willy@infradead.org>, <farbere@amazon.com>,
- <sashal@kernel.org>, <ruanjinjie@huawei.com>, <quic_akhilpo@quicinc.com>,
- <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
- <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
- <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
- <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
- <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
- <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <stable@vger.kernel.org>
-CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
- <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Pedro
- Falcato" <pedro.falcato@gmail.com>
-Subject: [PATCH 16/19 v6.1.y] minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi
- test in clamp()
-Date: Wed, 24 Sep 2025 20:23:17 +0000
-Message-ID: <20250924202320.32333-17-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20250924202320.32333-1-farbere@amazon.com>
-References: <20250924202320.32333-1-farbere@amazon.com>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013053.outbound.protection.outlook.com
+ [40.93.201.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7AAC10E887
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 08:15:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uDY1n56h7VU9Ugh7Pz9MpF8JGYLNeb6kC8gleR1ILsx/0PuqsAh1VWVDw+ar4iteolhe6WP6tYbYyLm+9m1U/vZs7TFhFTMGx5NMuLXeXGRWCBotsiqbK5qvovfU0MB3yskKYpSsh8/aCGrsiVoLgnLK7UEKwNyMrw8bZnkConTQCcVPg223CR51aNWAX4spxCVgu2ylvSlIJV+kaLTPHTFD1vcStJrF6ksp6FLFbL/86SP6BkxSLq2sNhx0sxSZSaQI1s9oyreYMWXUwGYhBXwdKZsYp6uDx/f+bWKlsBXnf/LkA+y+RXWCao0KcEHnZBXNE4IkVDChhfL1B+6N5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1k2Dh27RVseFLtBDfq856Z3yeBGd0AV9MpdMEoZCZdE=;
+ b=HHf29rcjepVDFjeCK6pffuDQ56phpIIZeWqBvZQNHUHdyN63Z5kufa6GncFctFmnsnGaiDqRzXX3CQccG/xfqMJmYaajHMUjq4PPRWw3qa+4NDF02048hS8EqTFAkUa/AZ9AMC13QzbqVdrl85EQJv4Igw5vnP0WHjFoNl6LOH+d5PvRW2T40pfTM/VyCwhdX5/KvQcTK1ktltPNZXe+0TSrabeB9owErYsIL2t1Is5CSPqCN90wWXP1pDCFy+Y2/4OFIMm8vCNoSN0u8d5XtKIk9e+iRwc5fmyY5uaVTQsjJVWAF3/1fyx0o+PLPtrttLaJ4EbHZzNvRi9SR+KyMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1k2Dh27RVseFLtBDfq856Z3yeBGd0AV9MpdMEoZCZdE=;
+ b=c2MsgES6R84eG0UP9FWKLLnVg2ywPTDAOloHpxThoyE1m2egTgkzWaPnrQorcHrcpSTAx9ZHcrnNAU60P4jccsiv6l23JJJ+GLmIgl/JZI11qqUwdyUqQGarlzjCXMCyx1ivDqJ/u80ojzT6X9LHYMf4WjzROrUowRPKFPngK/8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB5950.namprd12.prod.outlook.com (2603:10b6:510:1d9::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.10; Thu, 25 Sep
+ 2025 08:15:13 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9137.018; Thu, 25 Sep 2025
+ 08:15:13 +0000
+Message-ID: <eece686d-5b30-4469-9196-6d0bfcde701c@amd.com>
+Date: Thu, 25 Sep 2025 10:15:08 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Fix for GPU reset being blocked by KIQ I/O.
+To: Heng Zhou <Heng.Zhou@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Lijo.Lazar@amd.com, Emily.Deng@amd.com, Victor.Zhao@amd.com,
+ Felix.Kuehling@amd.com, phasta@kernel.org, Qing.Ma@amd.com,
+ HaiJun.Chang@amd.com
+References: <20250925073347.2010568-1-Heng.Zhou@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250925073347.2010568-1-Heng.Zhou@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0085.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D046UWA002.ant.amazon.com (10.13.139.39) To
- EX19D018EUA004.ant.amazon.com (10.252.50.85)
-X-Mailman-Approved-At: Thu, 25 Sep 2025 08:09:29 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5950:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a25d9e4-44bb-4525-768a-08ddfc0ba6d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZUlGcy8rWUZUVWtQY0lpRHBPd0FFTnVMaWFkUHhWblp5ZXRDQUdmNjNleWRh?=
+ =?utf-8?B?dzZRYUZoa1FuV1V2Ky9BYnJmQ0R5RE40U1FJSmxCSmFYWGRISHp4WGpqdElO?=
+ =?utf-8?B?djVadWlzT0VXL3RHZGVMWEtpc2xHZmlUYlFhM0Zjb1F6V3ZWdDE4bjI2dE5v?=
+ =?utf-8?B?UnhGbzJNdUtUa0V5T3YwaDVGQ05pcnFnWTBIcS9PK0xQN0xISlA1ZEdqajR3?=
+ =?utf-8?B?cEd1OFJMTEJwVThMQkM1VHoyN1c1anB2djBrUXYxc2RONWdKbEc5K2V1ZC9w?=
+ =?utf-8?B?djhneHRmalFCS1FJczFuVmVGUHdVbnZIaWhKUlprNDVoR2lLd3plaFdqejYv?=
+ =?utf-8?B?THRiR3hvb1lJbm1WLzJRWnJ4eEhGb29CakNwSm5UaDNVNEY1WjdsczBST2Rs?=
+ =?utf-8?B?Y2toTUkwRERTK2tyeVJPRzlhRXVZcDl2Y1hTbFI4KzN6eUFhN3BoYnNlbzBy?=
+ =?utf-8?B?bGxUeU5qd1VrWjJqeGZ1cHVBYmQxUDlLdkpDQnlWUi8wUElUNFo5akdmWHc2?=
+ =?utf-8?B?WjZkbW1sOU1sYWE0RkJxdmxkME5XcVd5RXJwckd4SzJIVmY0VTdVNVRjRlBj?=
+ =?utf-8?B?TW9XZzVqVmViV3N2VytiMU53c2JzN2UvN210KzhGTVk3YnMzdHpLdUw2TkZC?=
+ =?utf-8?B?OVNwb3VUeDY2ZEsxc0RtQ3NEc201ZThWM2hVb3FCT2ZQWUd0VmhRWFh0czdM?=
+ =?utf-8?B?dk81ZFB1SmRxdnhvUFgxZzQ2ekJGSlM0UGt6ZDNZT25YN2s3dlp3ajNuay9t?=
+ =?utf-8?B?WndRU2FmMzE4Tzl4Nzc4RnFJK2hxTmwzV3lsMCtxbjJIOGVXUWtmU1JkdHQ4?=
+ =?utf-8?B?cXJSZHE5VlJpeUc1TWFJY0hwMEhzQ2NkdHU2NEpIVFh2VmVtY3I4TlFTWFZZ?=
+ =?utf-8?B?TmpnZ2VJeEphdjJlNGpxTW9oV3VraG1RejgwbEVLZnJSdDltVjhoZW5RWVpP?=
+ =?utf-8?B?djVEbkk1Wk5ZZ3BBbEdPUi93S3JGWDU4SWtqWUp3SmI0UFRpdTRTakVRUk5B?=
+ =?utf-8?B?YlFZdFAreEJlQU9QQmJmblJHYjJBSmZCVDgyVGpvVW1oT3JVaWw2SC9mSmEy?=
+ =?utf-8?B?cHJJNFpGR3dNVDN4V2VLektEV09tOEo5NnE1VlVkdmJFaWt6dFh1TVhqd29B?=
+ =?utf-8?B?b0R3bmNWNUI5VE5iMWZJL2psUXFrb3JINXdqQk1qem82VlVacDZCR1lwK0hq?=
+ =?utf-8?B?L3ltTnNKbU0zQkRnbzYraER4M3haMkJBbzdoRnduY240NzhYUGU1TFp6Q0VK?=
+ =?utf-8?B?UGJERVcrOWVZenVoZGg4SU1KYTZRN2t1VXBNc0JaSXJMSW5aYWh0M2dNWnpG?=
+ =?utf-8?B?emtJL052Q0U1ckZhNFhFQjN4ZlVRMDhhdlRUZ282ZEo2NHAzMXVycENxdy9H?=
+ =?utf-8?B?QTlGbEtJdm5abjdIdElDekt2aU9aMG9xY0FWVVJ3WGpYNE1FU2JKS1BJeUFG?=
+ =?utf-8?B?SGw5RWxDUmF1eitneTVWNkc4TGtaczM5OGZzeW9ndUo0STFkeWJubUZ6TmZO?=
+ =?utf-8?B?YUE5NURVUmtvVTZGMGkvejQrM2RPTUFzVFJsYVRvMi9vK0tNaGloNFZzQnBH?=
+ =?utf-8?B?OGtHTVBWVnR3cVpmQlJEUC9tYnFGdmtIMWZxU2UzNU4ybnpoUzhFVGpoRkNM?=
+ =?utf-8?B?MjFWb0RBdm52QWNSdGtUalFremhlU0MxbVp4TW9adjgrMDd1Y3JCVUQ0a3NW?=
+ =?utf-8?B?dWszNUpZZWo5N04wOURJRkF4MzZpWmovaGhQQ2tHU2tYbjYzYXFIbXdBMkRN?=
+ =?utf-8?B?YmxkaHN0UXh6ZExYM0oyQjNQbDVzZFJSVjdWRis1Wkxza29GWmNtVWxKSHM2?=
+ =?utf-8?B?ZHk4WlJuL2EzM00rNHhNaUNXek1kWm5QMEhUYWVzV1QrUXIzbUlUTUNQL0Za?=
+ =?utf-8?B?RlVrVUpIWVNaZ3hlZGk2dXhSQzJpb2pOTjJoZUdERGhMZFJyK3c3c1ZZL0FM?=
+ =?utf-8?Q?XgEiglTuqoI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Zld5YWI3SEN4VEFweUR6SVFkbXFrODdLcWlwclE3TDc2dDdsTkU4TXBMUzBU?=
+ =?utf-8?B?c0p4bFFNSExzUjFNL3lON0JaWjU0czI2eEZ4Y0x1Z2xKVytMRjlrMnNhL2ty?=
+ =?utf-8?B?cThmd3VSMHpMdzdLWmpzSzhNbkIreStHck93aXVPN2ZPK05tWUFWak13UGVS?=
+ =?utf-8?B?Uk51emJ0M21WSmEyNzVTMy9kUnhLSTBrUVVoNzhROGZjWktqTzVBNUUrS3Ix?=
+ =?utf-8?B?VlJzUTVuR0JmdGlwWHhKTlN2ZW9jajZKRFB4MWxBQmFTUjBQYXV3bnZ1aGU2?=
+ =?utf-8?B?R3ZYcldSZnZ1WlppcllydkF3OTh3SlFodWJJUkhMK1IvdmpaaE9GeHdxTnZq?=
+ =?utf-8?B?M0gvVGk5TVVtSDdDYk5ZRDZ2Ym9ydHBsY08yUm1OUzFBYW93cXRKemZKUXJM?=
+ =?utf-8?B?RGIyUjdaMlhFQmQwZjJhU1MwbFNybFI0UlE3VDArSExlQU1iQzJEM1dLb0Nu?=
+ =?utf-8?B?TFE5a2gyRmpkU2llQ3RYM1hsU1J5M1c5SmhIZm4weGptb1FMWUY1Ri8zUWN5?=
+ =?utf-8?B?c1VxWG1iY3pXb3FXSW5Xd1BSZ2swb0R0cjUrUTNZdER1NUxtdk5MdmFBZ2p6?=
+ =?utf-8?B?a2E1K1VKZWxCZ01UcTQvdUx2OEFzK3RmVjNJWUY0N0NBZkE2a2VQeStUakJT?=
+ =?utf-8?B?cVE3K3R2b2tQQUZBV1g4SGp3bmF1bzJGbi81UUNxMEVCQU9sME1QOFA1akh6?=
+ =?utf-8?B?L3V0eTh5VXI5SXdWVkZGb1dIL2NvSVJqVkg3bkhPTkl0NVZTZVZ6VU95VmZN?=
+ =?utf-8?B?ZHhRY3JNb0RDOGVWbDdFSldiVWhQUWEzOEZRUURzMXM4RjdNN1Z1RlJPd1FR?=
+ =?utf-8?B?L0hlbEkzYUw1OHo3VFlUWFdyN1lBUUh0MXFKZkRxYlFKZTd2c2hxbjZiRkFz?=
+ =?utf-8?B?S3RHSUNQVnlCSnZuU3A0WDdRZlBRTWllcW16OE9YSXYzZ2toV0RKWGE2UEpa?=
+ =?utf-8?B?THFLYXVRNVZFZHpOaGxvUGxCa2VWcXZGWXRjdk5wamNrTWZsdXh5ZkVRN3hz?=
+ =?utf-8?B?QVg5a1BrMXN5MHJEOXZCckVncWlYdVFuQ2Fiem9wR1RrTUI1L0FETk1aOGNW?=
+ =?utf-8?B?RU1YTXlPU1BxNUVGazBMeU5MRlBkL21DZ1RyaXQzb3dtZ0NnRmt6UjFoQk4x?=
+ =?utf-8?B?azNrcHdVSzFsVUhXcW16S3EvbTlESVVtOTFJblk4SkJsMkR2N0hZR0RabkZC?=
+ =?utf-8?B?U3EwNkxmcVFPSDB5RXJSOHIxQldVLzBNRjJlZzN6VjVqR0pORnpXVnovV3lB?=
+ =?utf-8?B?dmM0RHFCaHh0aS8rTTBtMW5kZ1RkK0d4a1l4cjUwNXI5K1JHNFFwc2tnazJw?=
+ =?utf-8?B?WUNFMFhtb3cwTFlINU9ET29RN2hFQktuWjREVXhwOU55RWRRTDRMSFRGZXFD?=
+ =?utf-8?B?M28zLzZpdEpmU2NWT2R3RTNoWm4wWFNBU20wb21PczJWNkFFaWZ3NzI3cUFJ?=
+ =?utf-8?B?dkFlaGVKeWMyN1kzM2FScjhsQmNEZHZ5NzVyUndNb0F3TzMzSERmTlR2Nzdw?=
+ =?utf-8?B?ZmU2dEdyeXpvM1hpdDd3clQ4WDV4c2FadUs4SngwUE1KTFdDWllKdFRUcEQ4?=
+ =?utf-8?B?OG9mcmc4T0hoc2FCL3h2VXNhL0pONHE5WWMrRTJibDdOMnN0ZjBlS2owbWhH?=
+ =?utf-8?B?T1laZklDUnViOGhkaDdWbnRxcUdkV2VMSDlJbEt6SVd6TjRMTHR4aEw3ZEFJ?=
+ =?utf-8?B?VGpjMXhacit2blJrMWFwZUZMdTJBeFFhaFNsRWFENE5QZzF1VklaTXY4MzRV?=
+ =?utf-8?B?aTBEdGtLWnlVM2J3cjlaQ2dXcFFreHVFcTRUakw0MnQzZEk3dTJHUUVMT3ZE?=
+ =?utf-8?B?Z1U0VDl6bldpZjhhSmR2YUxPZUM0ZlVDc0JmSTQrTVc1clNJOWFaTnRpa0Zo?=
+ =?utf-8?B?ZElMcnBjRGpLL1lFQ0owTWZwcDk1V0M4azFhZlVHZGxqd1BoUzAvWE92d25G?=
+ =?utf-8?B?SVRldGFlRXFxbWkwbzVoZlFZbW1vNVhNU0FIUEZhMXRzRmJ6VW1ON0lnM2l1?=
+ =?utf-8?B?YWhHUEg4cTg0aUtRd0dnZTZmbGc1UW9TYTJadkRNalJ1WUJ4emRkSDhJRUU3?=
+ =?utf-8?B?M2s1RTE0UGdzUmY2K2c5WTAvQXJ4MC8vYkd6NFVGSFBrVGJKT0ZzWHdDYWJk?=
+ =?utf-8?Q?FSbQa2y5x9nOkZHoEfrYaV72v?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a25d9e4-44bb-4525-768a-08ddfc0ba6d5
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2025 08:15:13.3732 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GfRIIVAvt8c1x0gKHVQmfPtu64cQOrlZRg4jVEuAOqvsUjmFsOC86Dj/2o3xJig9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5950
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,46 +163,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit a5743f32baec4728711bbc01d6ac2b33d4c67040 ]
 
-Use BUILD_BUG_ON_MSG(statically_true(ulo > uhi), ...) for the sanity check
-of the bounds in clamp().  Gives better error coverage and one less
-expansion of the arguments.
+On 25.09.25 09:33, Heng Zhou wrote:
+> There is some probability that reset workqueue is blocked by KIQ I/O for 10+ seconds after gpu hangs.
+> So we need to add a in_reset check during each KIQ register poll.
+> 
+> Signed-off-by: Heng Zhou <Heng.Zhou@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index 89fc1015d3a6..b6a88103adfd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1102,6 +1102,9 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_
+>  
+>  	might_sleep();
+>  	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
+> +		if (amdgpu_in_reset(adev)) {
+> +			goto failed_kiq_read;
+> +		}
 
-Link: https://lkml.kernel.org/r/34d53778977747f19cce2abb287bb3e6@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
- include/linux/minmax.h | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Drop the extra {}, apart from that sounds reasonable to me.
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 6f7ea669d305..91aa1b90c1bb 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -106,8 +106,7 @@
- 	__auto_type uval = (val);						\
- 	__auto_type ulo = (lo);							\
- 	__auto_type uhi = (hi);							\
--	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
--			(lo) <= (hi), true),					\
-+	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
- 		"clamp() low limit " #lo " greater than high limit " #hi);	\
- 	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
- 		"clamp("#val", "#lo", "#hi") signedness error");		\
--- 
-2.47.3
+Regards,
+Christian.
+
+>  		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+>  		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+>  	}
+> @@ -1172,6 +1175,9 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint3
+>  	might_sleep();
+>  	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
+>  
+> +		if (amdgpu_in_reset(adev)) {
+> +			goto failed_kiq_write;
+> +		}
+>  		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+>  		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+>  	}
 
