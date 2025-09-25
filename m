@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70829CAC5BA
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 18:45:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71F38CAC5B9
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 18:45:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 097EF10E2CF;
-	Thu, 25 Sep 2025 18:45:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 139FB10E2D1;
+	Thu, 25 Sep 2025 18:45:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kpDc++Ka";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MkT1Io5y";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB7210E2CF
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 18:45:45 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-77716518125so724109b3a.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 11:45:45 -0700 (PDT)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DE8910E2D1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 18:45:50 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-780f6632e64so733041b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 11:45:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758825945; x=1759430745; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758825950; x=1759430750; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qQhKzetF5oIRZwx+RXpKazp3H6wc14PpG1+yxlFyfZA=;
- b=kpDc++Kar8Mg2Jxw0eOL8rMYStMlgHwaxs4jzXm4xX3/s28KH3qA3Z4NvLpwk3JlsZ
- h+kQgpffywgnhRFSf/ZcT6F9260d64VMGrA+gDn+0exONttVW/iK4tZyU/eUveWUZeKP
- BWGBic3toBHCiduN2flb6rJAy8erTGul7FAkHe0ktZ2OyQ34C9NxkKyzrOFk3wJ3hkcI
- FaRUolEENDnN46XeG/HYVCEyQBdxXSIuS1YVvdHkoTE3g0Bwbp3+tz1hY1V4zyXz6XBn
- L3pXPoOqux1hml0Axaxw4W0AG0p1UslmrZXvcdI5fB9od2Jpyn2WWroyCRo6QQPgCgc3
- 2fhA==
+ bh=ln6GmNWJNf/t9NU3XteHX7auEceHRj29achGjAmDW5I=;
+ b=MkT1Io5yCWB5G4lm1usuTPYDQRgeLg9OWzRmehyr/sClS3XZeRfRZMYPK0QxnSqtGL
+ 0PJu7t17A6YXZqSwsSjPGWbSaR/tMpxresFAtQgAd7/07X8+qVs/eCgxuo7QW3B6G0gU
+ ZJ3FzPHfybqM4cBwzNmb36wmX1uI2Zb4/0rl8e6YAVRNSzXuLenJnrqcPb7XQi8yfMaA
+ AYsXhUteiOq7KV68Pa3Nn/M3IEv6TvpGkSNa17m85tjF8gWjZq8uVp/NVrm3jyHmoA7s
+ anAl1I6cR16gT5ptwiKotPsiM2yUv2nIzIBhRlcMmqO4gkIPXYubLppo/0CeYUYE1p8G
+ 79bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758825945; x=1759430745;
+ d=1e100.net; s=20230601; t=1758825950; x=1759430750;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qQhKzetF5oIRZwx+RXpKazp3H6wc14PpG1+yxlFyfZA=;
- b=Qr3MXiNb5hndwrR+xOlYMZXPT1SEM8Th2U7Kjuu1dFjjC0QvfZuCvSpobDmk7oVt5z
- h232lY6VD50GM/Fku/hraxs5vt+CP3fOd5Au71rvk6KFUluE8veY6wLnRd1+bu9gGcHN
- M0LVqvF7eHMKFiZbC25z8cdMrUm7wRvldCB3JgbMx3auOZoVgXsc90tZPMHbp7gzs1gQ
- Fcm7mXqLbedQGuvQ3zcNi2PYE0wTIJN2+zYd4RcQsEGGiZWL7hZhYDMxdfHg6ULKv0t4
- vHAPWarXw0K05neC+2X8Z2OivCTUQqfT8AwBwza+zYhZiLDyc5LttLGJOLp2Pn6JjyIf
- QzcA==
-X-Gm-Message-State: AOJu0Ywohh0J4mmnTXVNaMvgKIf5sETTg7nngmBOAaQ6EvMV8mHJkwnk
- pPINrra0L5HXI+rNwnladpiufn1fN+ZwT3dmFJIAecG3U9xi7Dg0usJQlV3qaw==
-X-Gm-Gg: ASbGncu3rkhij7w64TRZOJ1ZFqdLcrOPth6rZ8OrtgdfqNqm0R3Z8NAElgeibGM97qT
- vuM6Ql+MsbmgYtGO0OLH8730WSkuRV10dgmeOeoK5BRYGvHPYaQviy30SphTrvAG8+oa+o1Qe5l
- YcyiVeSjyQsVNm0/wX6ubJKmfHGkkpKyA8GWtaBlu+kJg//F1vKMHXdqxTO2iTmSRPAs3rWPk2u
- tGz+phFWG5R5bVfiTGGgWrp5YN4XhLH9bBcAZWYAgasLCb9IcPtWtMH2qJFBwxubk9zLCoS5p3X
- lKHwpzXd9MVRiO+PqMlGkYwO1tugnrdwvJCwZdCSC5c2TTDrdasWwsIdssvQ1DLxotiYQsCgv5W
- +zsLtsb0moHcJhES8fg77fmR+9smTRgCM9dZd/FEBHy1zGQz3RSX6p+1ayex0UZ5PnbleBxVo4r
- RgNKc+vCZQj1xFuH3A2HUqIwJY1A==
-X-Google-Smtp-Source: AGHT+IFpFdhZ6F97skMu7vn568cAAmlb4PO295uo1/auoXGHc7Yq1/JGQ3NDFxOSZ9JliNia1z+AoQ==
-X-Received: by 2002:a17:903:320e:b0:267:c8d3:531 with SMTP id
- d9443c01a7336-27ed4a315c1mr51613345ad.25.1758825945033; 
- Thu, 25 Sep 2025 11:45:45 -0700 (PDT)
+ bh=ln6GmNWJNf/t9NU3XteHX7auEceHRj29achGjAmDW5I=;
+ b=tcTQV68Oq3GHMu9kAYgyVhQrAjyvIfijw7/Q5urhf64smC2OVb/lmNyzvLVritt7Lc
+ ujrznHQ/XayLJrd/4vOig93qO44X8e8vIlefkwehD9ZbkTivjgyaOgahB7a2WU4ZCABc
+ am30DM0yQgKnJF9+X3EOzYUduGA7iXN1nbkIm1qaNJR7jLdCKfGWS+N1F6qPRSt5qkah
+ 3HAHucBCphNv0OSkjoVtdc+2V/BxH5r04+v8wmOX6/+0hA0YmXTkU59FaACsRDjE4u+j
+ XhjBr1pay3nWND5ULr2KIAK4iQtwVkhje5wEMSuEN3CbFfMRSPV4/AtKnvho44ApwEpQ
+ 1GJQ==
+X-Gm-Message-State: AOJu0YxwtCyg/IvwFAD6PZDiSCPCnkSUt0bpk2xxKkVukBzrtR6cOeYm
+ JHItUoSoiWksYDI84P8YIkMZqMk+k8qV5sjzJhlgTU0pV+WZS+sLBDM60LOaxw==
+X-Gm-Gg: ASbGncsU7x0N4UNtTfis6yyM8nQ/hu2yOXZ/d3SjHGAZjCUL4qVprTY7RumxZ91FlxY
+ PVKuh8SV0cwWIqgZfDLx0WFf9qO+Fx9wmYj36QQNDoFuKmUQZqDxYJUmH9upfY+I3GTkOU48KgW
+ JFiLpVBNT+1R+sKwlMjJS6ZOCgajSOJRRtkcFE53HnI5e5PU6kXu1JHDa7MLOY05t2jOgCBHhgL
+ WCIeqSrs6F5YYeXpeA9jUfIx6xyamIohSgldfy0sXpThDyufZAGL31/9oc6DRAhKIFf9hgmiAp1
+ GH3GzRaLeEwHOTMznmtoYP24n+pJ/N3McHR69eGkhxSIPZMGKYhBuTPR5b+m27AzjFmVtYaUmB1
+ 6kNF1aH1EtX1GpnjM86Fk4ucJ77HUMO0SO9VKxRQIm2ULuSTaaDBY0IiJuD/WtNSsqj+fX2Y43L
+ OERRwOdhKLbZn24qn4BqDzOoYSxqcRSC/hxQ+R
+X-Google-Smtp-Source: AGHT+IE5Y5+7I4EReAl8RNEwYwQPC+mh7w0KlSzSl2DRovMULw/BYMlntdCNgHXcz5R6U7YxMublSw==
+X-Received: by 2002:a17:903:3d0d:b0:25f:9682:74ae with SMTP id
+ d9443c01a7336-27ed4a91efbmr47743035ad.29.1758825949422; 
+ Thu, 25 Sep 2025 11:45:49 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24D06700C9F588200B1ECEA8.dsl.pool.telekom.hu.
  [2001:4c4e:24d0:6700:c9f5:8820:b1e:cea8])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-27eeb9a8ebfsm4244125ad.67.2025.09.25.11.45.41
+ d9443c01a7336-27eeb9a8ebfsm4244125ad.67.2025.09.25.11.45.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Sep 2025 11:45:44 -0700 (PDT)
+ Thu, 25 Sep 2025 11:45:49 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, alex.hung@amd.com, harry.wentland@amd.com,
  siqueira@igalia.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/5] drm/amd/display: Add missing DCE6 SCL_HORZ_FILTER_INIT*
- SRIs
-Date: Thu, 25 Sep 2025 20:45:22 +0200
-Message-ID: <20250925184525.43290-3-timur.kristof@gmail.com>
+Subject: [PATCH 3/5] drm/amd/display: Properly clear SCL_*_FILTER_CONTROL on
+ DCE6
+Date: Thu, 25 Sep 2025 20:45:23 +0200
+Message-ID: <20250925184525.43290-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250925184525.43290-1-timur.kristof@gmail.com>
 References: <20250925184525.43290-1-timur.kristof@gmail.com>
@@ -92,27 +92,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Without these, it's impossible to program these registers.
+Previously, the code would set a bit field which didn't exist
+on DCE6 so it would be effectively a no-op.
 
-Fixes: 102b2f587ac8 ("drm/amd/display: dce_transform: DCE6 Scaling Horizontal Filter Init (v2)")
+Fixes: b70aaf5586f2 ("drm/amd/display: dce_transform: add DCE6 specific macros,functions")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_transform.h | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dce/dce_transform.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.h b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.h
-index cbce194ec7b8..ff746fba850b 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.h
-@@ -155,6 +155,8 @@
- 	SRI(SCL_COEF_RAM_TAP_DATA, SCL, id), \
- 	SRI(VIEWPORT_START, SCL, id), \
- 	SRI(VIEWPORT_SIZE, SCL, id), \
-+	SRI(SCL_HORZ_FILTER_INIT_RGB_LUMA, SCL, id), \
-+	SRI(SCL_HORZ_FILTER_INIT_CHROMA, SCL, id), \
- 	SRI(SCL_HORZ_FILTER_SCALE_RATIO, SCL, id), \
- 	SRI(SCL_VERT_FILTER_SCALE_RATIO, SCL, id), \
- 	SRI(SCL_VERT_FILTER_INIT, SCL, id), \
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
+index 2b1673d69ea8..e5c2fb134d14 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
+@@ -527,8 +527,7 @@ static void dce60_transform_set_scaler(
+ 		if (coeffs_v != xfm_dce->filter_v || coeffs_h != xfm_dce->filter_h) {
+ 			/* 4. Program vertical filters */
+ 			if (xfm_dce->filter_v == NULL)
+-				REG_SET(SCL_VERT_FILTER_CONTROL, 0,
+-						SCL_V_2TAP_HARDCODE_COEF_EN, 0);
++				REG_WRITE(SCL_VERT_FILTER_CONTROL, 0);
+ 			program_multi_taps_filter(
+ 					xfm_dce,
+ 					data->taps.v_taps,
+@@ -542,8 +541,7 @@ static void dce60_transform_set_scaler(
+ 
+ 			/* 5. Program horizontal filters */
+ 			if (xfm_dce->filter_h == NULL)
+-				REG_SET(SCL_HORZ_FILTER_CONTROL, 0,
+-						SCL_H_2TAP_HARDCODE_COEF_EN, 0);
++				REG_WRITE(SCL_HORZ_FILTER_CONTROL, 0);
+ 			program_multi_taps_filter(
+ 					xfm_dce,
+ 					data->taps.h_taps,
 -- 
 2.51.0
 
