@@ -4,60 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6827ACAC5BA
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 19:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A1A0CAC5BB
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 19:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF0F010E2DA;
-	Thu, 25 Sep 2025 19:43:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBB3910E9A5;
+	Thu, 25 Sep 2025 19:46:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SGz/XuAs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HE0ZEkIp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70ED510E2DA
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 19:43:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 07B7B4550D
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 19:43:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF66DC113CF
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 19:43:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1758829388;
- bh=p9m63qbztqA2ZqEB3vay13lZfWLkiMoeU3IbsD91HtQ=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=SGz/XuAsTcbinLOkMaW3WcuGwlFZyjFoUUa46dWdmi/brQ1lON5MX5V8MZ15S05C6
- rvD/OTN1fjCHqI0nvjZfQmiL09uMKwEcstJra8PLJkWUZFdNeZczW3E9pZnwoTuv5/
- nyXhQWuRWq70tnEAc8N5jQFOA2ev30fqyrgt4GTIikqMf4zxXC6F0S1JHjLEd7cXLQ
- iA19uDSt6bAT93TPe0gE/Ary/xQwOJSO0lpLZrXyXWBs4REdf77yB6wZaEVGueamSc
- sC4/68uoOFBQ22Si8MlcING/n/vVR0s/mae/eSwopo8dw610JUHoo6NKF7HtljFD8u
- KQzJfBLVQ9Acw==
-Received: by mail-oa1-f53.google.com with SMTP id
- 586e51a60fabf-355102ff142so420270fac.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 12:43:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCU1dcIH6vDTTaydwpmciz8czWF2MZjUJnfNHwGGihGLdw07G8N8qgUITqWGoxM/vXEwfau+4bTy@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzFKviQazw0q+wYy5RhYTtC1qYVcj4yUlZctmvFE14ZIaG42s2P
- Zd3WaRtNlm6YM5Xgoo9re9vLIh39d+op9l4hc6IUlZefS86cD4t59oGXgh66gM1SeXFPG/awN75
- Yd8P70m1K6T5pS3i7BYSUe6Us2qZg8GQ=
-X-Google-Smtp-Source: AGHT+IE0ATqGlqZj1sCcE+gRnWpmVL5hKu3YF8bbl3xq78q2hcxItFzplLROHYVH/k48RmO/ChuvoYn9fUH38EOxfJA=
-X-Received: by 2002:a05:6871:487:b0:321:2c50:30cb with SMTP id
- 586e51a60fabf-35ebfac6d20mr1946262fac.12.1758829388150; Thu, 25 Sep 2025
- 12:43:08 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF5010E9B3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 19:46:15 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-24498e93b8fso2046165ad.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 12:46:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1758829575; x=1759434375; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Q6FpShBoBzCrektmbg86ZchJKKaFLhaOD1mCbblL0yY=;
+ b=HE0ZEkIpPfcJAGl/7mwlFXvkUe1t+/4C12VEHnOViLtzZqLL4BLCc++GU49FpIWeeN
+ LoaXe1vfFUQZ3/xs1XAbZ/fHqvJ3WuDntABaYIjnry/saOjvqZCNodGTmvEYIrFq5ORS
+ 6wCUCO8OevOQA+wQdzrJF1v/DjEROZk20Il+N8a/nrGXj7nqfWaG/z+wyYnG6h+QVGzO
+ OV+MCaRqqlNX1BC77FVzYjkYsl0rl7DCsNfzv1YBveRBgeKcGBEz+xFwCupRfHzeDEZA
+ Pgej+hEC60TbeyY5X5cYOvyvIh/QLXv4zshVqraBrM0+dHAJ2mOrbCYBuFfnAXZMGVdJ
+ QcnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758829575; x=1759434375;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Q6FpShBoBzCrektmbg86ZchJKKaFLhaOD1mCbblL0yY=;
+ b=B6wyTYpLvFuktsKxpCr6S2zgwrsuC546+aJEKvlWFQO7NuZsqfEryAuuX0rLjHFHl+
+ sVdJLRVjCr0voPo9ZwPFWrVz/141nr/KFSQ8PXKAmHCEYCR7Hx+m+18A+b/jm4JGmmbC
+ qv1Z6eyMAy9/nrZZPSCTW2oYu92NQX/nVfK2U+CJOJGyS6l4eFrCEELdc5stmxu3cz0/
+ dcsZrdyop8wAATo7GChNfX70Zo+2sHCbKeaLW0qkLAOeMe+3aApoKDThIvbyvrukXXv+
+ pcOl/udZ0Z0U4g2ffftEcI+rmQWKdKF2u12tI94cH/CQrYnov0A4e1Qwh/2an+G+6k0d
+ i8bA==
+X-Gm-Message-State: AOJu0Yx69Xt75iY0vh5rFY9delIuaSbrKiwJF2bqjavhQ9eaktZVtXMb
+ MMElNeYwSi5MVzu86cBcV3UXKv1+xNwNaQ5XAMMqLdQ6NxkplUGmRX7VVlIc9/R9qpTdnetX/g7
+ pPFcMsnAOCLrhHYf5euKiBkopRaurmTVWPg==
+X-Gm-Gg: ASbGncsF6UFL0ZgzkvwLzPsvPG6Er9/znUVI2VATURPTlP+Y+c7zlkkTxb6dq/ybLi7
+ iVZqkBqZzQQ0cAIuMDOTro5P+hKFIfceEX2hPyDZwv56hDCBQiA/xfqorUS3AoF6nVRuLHSYb5e
+ VMiuyQESm1fuamURlaTc0H2iB2jq80paROyM15Oqk9A4ft10S05so2B3+ZFYn0odG8BMCoX2Q+l
+ Tm/i4U=
+X-Google-Smtp-Source: AGHT+IHYNu/1DlHxI4hhGH/6UhG6QS258LUhau9++okNUjiRviYuQRNwYpPTEHM8z2j2AU3wXRRSO0a889b5y2ZGw+A=
+X-Received: by 2002:a17:903:32cf:b0:269:80e2:c5a8 with SMTP id
+ d9443c01a7336-27ed4a36556mr31818495ad.7.1758829574854; Thu, 25 Sep 2025
+ 12:46:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250925185108.2968494-1-superm1@kernel.org>
-In-Reply-To: <20250925185108.2968494-1-superm1@kernel.org>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Thu, 25 Sep 2025 21:42:56 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jCnmQSXRfSxD8rmn1Y=yuq-tSeOv3AgryowLJErZYRgQ@mail.gmail.com>
-X-Gm-Features: AS18NWAaKYsDERrfCLjBdjk_K5aGDYw84ebSbsufMfMQNSWk0Kcqs8ZuEg2bUSE
-Message-ID: <CAJZ5v0jCnmQSXRfSxD8rmn1Y=yuq-tSeOv3AgryowLJErZYRgQ@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] Fixes for hybrid sleep
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Samuel Zhang <guoqing.zhang@amd.com>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
- "open list:HIBERNATION (aka Software Suspend,
- aka swsusp)" <linux-pm@vger.kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>
+References: <20250925191402.2518978-1-mario.limonciello@amd.com>
+In-Reply-To: <20250925191402.2518978-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 25 Sep 2025 15:46:03 -0400
+X-Gm-Features: AS18NWBkYF777Mh0vmwHQp9yrSiGoymEyDr3TSl4Uske-Bly4jU7uLN2CKY8Cp4
+Message-ID: <CADnq5_M7_LTPz7KjtCWHH3XP5OZsFZoO=odqNPtkOLdgxXU-LA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Check whether secure display TA loaded
+ successfully
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,37 +81,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 25, 2025 at 8:51=E2=80=AFPM Mario Limonciello (AMD)
-<superm1@kernel.org> wrote:
+On Thu, Sep 25, 2025 at 3:39=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> From: Mario Limonciello <mario.limonciello@amd.com>
+> [Why]
+> Not all renoir hardware supports secure display.  If the TA is present
+> but the feature isn't supported it will fail to load or send commands.
+> This shows ERR messages to the user that make it seems like there is
+> a problem.
 >
-> Ionut Nechita reported recently a hibernate failure, but in debugging
-> the issue it's actually not a hibernate failure; but a hybrid sleep
-> failure.
+> [How]
+> Check the resp_status of the context to see if there was an error
+> before trying to send any secure display commands.
 >
-> Multiple changes related to the change of when swap is disabled in
-> the suspend sequence contribute to the failure.  See the individual
-> patches for details.
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4573
->
-> As it touches two subsystems it either needs to go through linux-pm
-> or drm.  Patch 3 has an Ack from Alex, this should merge through
-> linux-pm.
-> ---
-> v3:
->  * Push all calls for gfp mask changes into power_down()
-> Mario Limonciello (AMD) (3):
->   PM: hibernate: Fix hybrid-sleep
->   PM: hibernate: Add pm_hibernation_mode_is_suspend()
->   drm/amd: Fix hybrid sleep
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  2 +-
->  include/linux/suspend.h                 |  2 ++
->  kernel/power/hibernate.c                | 14 ++++++++++++++
->  3 files changed, 17 insertions(+), 1 deletion(-)
->
-> --
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1415
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-All applied as 6.18 material, thanks!
+I think the tricky part is that we want it to throw an error on a
+system where it is supported so the user knows something is wrong.
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.c
+> index 693357caa9a8..70d4bfb13f46 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -2356,6 +2356,9 @@ static int psp_securedisplay_initialize(struct psp_=
+context *psp)
+>         } else
+>                 return ret;
+>
+> +       if (psp->securedisplay_context.context.resp_status)
+> +               return 0;
+> +
+>         mutex_lock(&psp->securedisplay_context.mutex);
+>
+>         psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
+> --
+> 2.51.0
+>
