@@ -4,147 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2A20CAC5A7
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 13:26:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68457CAC5A7
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Sep 2025 15:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 589B910E154;
-	Thu, 25 Sep 2025 13:26:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0402E10E979;
+	Thu, 25 Sep 2025 15:31:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IL+Z3TZ/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cQfeGkGi";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013029.outbound.protection.outlook.com
- [40.107.201.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0097010E154
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 13:26:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OEoRYWYELQ5aaN/NtEBYwqfnA5SWlRAvObqulu3W+ACK/JzKljlsrrD/uAHOCYZfFto9C4pkDk8b4uHRIWCFk3wtBHKCjosMqoaYNWfc5S0x/SzqLuCTMtOthGnecvlsAJjT6cyqxpYhcGCEzjc3SlWJq/6dpG7fIACg3t44qhdecNWt7LJF2XZKoVAYiPXCMpZBMh/3J8hL1ugc514WhQuyMM0s1jW2qZmsDi6abHGVgBIdpr8xuHsfx+BOuiU6qWcnZFDW7E0q9+hMpzpaPAZnEUWKX4L2sP9lxnmIGYThYVLICs1otR3fhiaZUj+/Fq7i7serw5bKcMm7PVt3ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yEV+15U6D0U4GDG0xwuP5eZ7pD8brw7YcLrczvLuR8E=;
- b=DBmwEzhaSWHnTSfNftbjsn70XYuy+NpMCYQgDAAobRu/iDCAGS840YhInk6YGhg+b06U7aU+dbVuPegjezbdOnsAkFr53aTF+H0FhC5fFS1g9rtiy2PnclcT0K2rIDn6NeLYlFuQPTGL/00Hc4Pq2xUI819QbHMiCDFAWB1bdQitXBqy700NUPLxSNMj0Y+dslKUdGCYI8/WH1ladAhwbr68dmulrXG7YFdKaNZhDYBlvJMYNS8MDfVHRufSWhpOlNgU5UNnrVV/hDYJNqGeOLTT7RTSjHihe+Ls68w12ZEdURGGvUNxZW5MQoLnOYANp1jFmE1RacQiKgAXjnX+MQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yEV+15U6D0U4GDG0xwuP5eZ7pD8brw7YcLrczvLuR8E=;
- b=IL+Z3TZ/IRTkAkBbS6R50yT6FT9QQA1E+3/yOyqElMrqiCKDw7nE1fVUAOPpx/o4JVA/cJ7IPJwwWtbU/yvP4gn21xP36kHo5IqHWASd9WTBg9s+IcZcu1K+gOliQVmFdpC7zobJKFswgS//2CI3gL7oVsV6s9JxyQ6EjJj5rk0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS7SPRMB0010.namprd12.prod.outlook.com (2603:10b6:8:87::8) by
- SA1PR12MB7104.namprd12.prod.outlook.com (2603:10b6:806:29e::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.19; Thu, 25 Sep 2025 13:26:12 +0000
-Received: from DS7SPRMB0010.namprd12.prod.outlook.com
- ([fe80::b021:a6a0:9c65:221e]) by DS7SPRMB0010.namprd12.prod.outlook.com
- ([fe80::b021:a6a0:9c65:221e%7]) with mapi id 15.20.9160.008; Thu, 25 Sep 2025
- 13:26:12 +0000
-Message-ID: <6a99b66a-6d1b-4fdd-b1f0-c37cc036d889@amd.com>
-Date: Thu, 25 Sep 2025 08:26:10 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] DC: Reject too high pixel clocks on DCE6-10
-To: amd-gfx@lists.freedesktop.org, timur.kristof@gmail.com
-References: <20250924113836.57013-1-timur.kristof@gmail.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20250924113836.57013-1-timur.kristof@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN6PR01CA0029.prod.exchangelabs.com (2603:10b6:805:b6::42)
- To DS7SPRMB0010.namprd12.prod.outlook.com
- (2603:10b6:8:87::8)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8538610E979
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Sep 2025 15:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1758814287; x=1790350287;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=JnZFUklpcUUd7vma9QDHXmuHxHggkDvopDY+JB7yBGk=;
+ b=cQfeGkGi3IyOy7oIgTc/hndzAWwGQscxYmBuFu6veJEVLDu9aqRJ4eCf
+ HkS8U1I2jmuRDxWej91WK3Y0684SYp+rVNzaOY7dAr/msxkVsx1tx08sZ
+ f/TlkNw9hZOLF+5hXQF4N0ujbIOTN9RpPuDc1lr0G9KTrOzzKCCp2WBxu
+ B3A5iRm3NkzQ/lwnUq+9c3uYY39NYqTdhuoU0Fijf1Bia8chmNjXhZ3Rm
+ 72sEq4gmc5p+Ti3Mdo9RYJHhRr037aK3bMvirR+/KEj/ShVuwfu1/fEtt
+ SZ5uihGqdyKALvxt5iZPo7d2VEPGsb4qH3oZeU40K/NSzURNZRBxECoZq g==;
+X-CSE-ConnectionGUID: nzpvPDHjRhyGqIcZSJlOiQ==
+X-CSE-MsgGUID: D0ekDwNjSFa8pfogiH8SWw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11564"; a="78572499"
+X-IronPort-AV: E=Sophos;i="6.18,292,1751266800"; d="scan'208";a="78572499"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2025 08:31:27 -0700
+X-CSE-ConnectionGUID: rwxYC4quQiaj7tiM5osL6A==
+X-CSE-MsgGUID: nK+V9+GJRQC52LoK+4eRvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,292,1751266800"; d="scan'208";a="214492461"
+Received: from lkp-server02.sh.intel.com (HELO 84c55410ccf6) ([10.239.97.151])
+ by orviesa001.jf.intel.com with ESMTP; 25 Sep 2025 08:31:25 -0700
+Received: from kbuild by 84c55410ccf6 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1v1nwC-0005Ld-1h;
+ Thu, 25 Sep 2025 15:31:18 +0000
+Date: Thu, 25 Sep 2025 23:30:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Samuel Zhang <guoqing.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
+ "(open list:HIBERNATION (aka Software Suspend,
+ aka swsusp))" <linux-pm@vger.kernel.org>, 
+ "aka swsusp)), Mario Limonciello" <superm1@kernel.org>,
+ Ionut Nechita <ionut_n2001@yahoo.com>
+Subject: Re: [PATCH 1/3] PM: hibernate: Fix hybrid-sleep
+Message-ID: <202509252323.KEdz98a4-lkp@intel.com>
+References: <20250924205211.1059571-2-superm1@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7SPRMB0010:EE_|SA1PR12MB7104:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0518261-5bab-42f6-7525-08ddfc371893
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OFNBU0N5Mk9yZHp4TEUxV2xSOVhLcG10M3hlQ1B4eVE2MU1hS3pRYmY0VnVy?=
- =?utf-8?B?L0Z6VXYvdENRMmRPS2NiZHkxeHFZWG52NDVuT2NYaWpJNTZzQnkvd2Z1TE1Z?=
- =?utf-8?B?R1duQkVxRWdWUDVXejA5eW9FRGhpenQxN0ppckVNYnJucGZ6bkNtajA3VTJo?=
- =?utf-8?B?THUwY21LT1N0MUxoY0p6REQ4YnpJWU5qdFJBbDBNYUJaaEFlS3gyYjg2Z0Ry?=
- =?utf-8?B?VUY2ekx2NkJUY1NTeGVHNHlnSWtEQ0xTVmY3UnZuQlk5UjNlS1dmSlNxMEJw?=
- =?utf-8?B?cTd0S2hRRFd5S2xRT1JUS3BGQVl5Y1ZWbllaUGQxaGRzMVg0cDBNenlyYktt?=
- =?utf-8?B?ckRVNzhlazNMWHBsMnlKOXBnNUNWRWNXdzFzdm9UMWx2eDlJa0dYMytLeFhH?=
- =?utf-8?B?dzZNWUUxbk9tMkdndmp1ejBrQzVBZHgwV241QmRTQnZ6SFo5UVd6Z1d5QThu?=
- =?utf-8?B?OGdjaTFSTnUvOVVqY2w1b01JbkFvMXRBZXA5YVhoQzRkZWRFVFluQ1VOYS93?=
- =?utf-8?B?dXZYQXMzalpFdXNhQzZwOGwzRE9VOEJPQUtuUkJML1BCV0RqV1FhVzdZUnZM?=
- =?utf-8?B?UkcvcS9YcmQ4NkdEUnQ3cGF1WS9hblBkVk5JUURKbzRQbUM2MDBCdXU4Q3li?=
- =?utf-8?B?aDVWSUZSWkZrb2c4WG1OcEx4bDE1ZXVCOWozQnJHNVRNcTc4UWhuZWMxVjM1?=
- =?utf-8?B?aVdxMWxCdXlhdGNMSkN3VlNZRUFQN25zeE0vd205OXBlWGlGZjFobU9ISy9I?=
- =?utf-8?B?aGtrNWhHbytvcG5uRkhDUUVhUm51OXRESjYyU1V5T0w3aHZPN08rOEVGNmJl?=
- =?utf-8?B?ZkF3a0tNUHYwalRuaWdBOEluK1RQN3NnaTZ4SmRZQVRseVRZSGtWWUg0cWFx?=
- =?utf-8?B?ZTJqUWxpOUpiREZacnlTTmxQTlI5SmY4aWg0blVWVG00azVlSW9GY1doMFgr?=
- =?utf-8?B?ejE4eThlMFQvbDRBQ3E5UkozazB1ZkRBUjhTQVVUcU84R25VUUYyRUh1OUtB?=
- =?utf-8?B?RDd5ckUyQ2daL1NXTTNtT1NpdDVvMjdkdmRWZUJaT1VDL2JQM3k0Z1VMbzZw?=
- =?utf-8?B?WVYvYksra2l2NUkzVnJNSFFoR1NnSVpmN3BnSjBzM2tuY1ovYnMxT0M1b1l6?=
- =?utf-8?B?YnZGeFhORjJ2bWVnNmFobjhBNEVrYWJtN205Nk45eVd2VFFjOTI3Qm1sbTNT?=
- =?utf-8?B?dFQ2bzlYUEJaY2xTY1FEam83ZWp6RmlkSjVzRGZ3OFRkeHhDQTVSWi9FYVo4?=
- =?utf-8?B?WlRCV1ZWVEtyNFBLcWIxc2ttZThwcS9CWmRVYytkQUZiTE1oQWlreFRqbTJE?=
- =?utf-8?B?U2NFUEhYenorczZaMHA4Rm9CWC81WWFySUVKSGFlWEFYUnNPQkl3MDV4WEc3?=
- =?utf-8?B?TmNNL2hKVldWUXk2ZFh0cmw2cXJNaVNmS2Q4TGl2NU8xajl4TndGR3VvUWc4?=
- =?utf-8?B?WTJRODlweGRlYzgyYXh2eUR4cmJxRlRmRXNJZ3czZ1g4TGVzUmEwcm9RZmc3?=
- =?utf-8?B?aG92SzVMM1dScTdqRXVSNzFYL1lKY1h0MGpLU3RuL3BURVMvdjg4L2ErZWgw?=
- =?utf-8?B?Z3JsaWFVQVJzQnVyRk9ZdjJubFVjT25Qak1XUURobG9JUWZYY2I5akhEZW5j?=
- =?utf-8?B?Z2dJaThMRldCbHpYMW16R0tUcm55RGxydEFOUjk3MzBxU21TZWtQUWpwdlRS?=
- =?utf-8?B?Uy9qZEhscW9aTGduQ2YzNWNGb2JQQ2tsbExUVDZ6TlNhWHM3N3lSYlhVQVQv?=
- =?utf-8?B?TVNyaG9NZWI1QVRtNmJiM1A3VTNiSVJvV0kyOGF3T25DbU1RdmF0TjZNYzBn?=
- =?utf-8?B?eU44Sjk4cEEwV29UZUZROXFMZ0oyNHQyV3ZKS3FEVVFHU2J5bnV3ZGdpUS8r?=
- =?utf-8?B?T0E2bUdYMGh1M0JCd1RtdkdzQW03bXEremxBSkZ6SFA1Q2s2V1Z1TWNYZ3h5?=
- =?utf-8?Q?R+NTe6pdnpY=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7SPRMB0010.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TWxLL2szUjdPR1BXVm4xcXVGNFZvV0xnTFdqSUg3a2dhQkxORGIxbEZtdHlj?=
- =?utf-8?B?OG5hUEJMRUZqMk5IQTZ1SEhDSXdVaFJoalNhSWNQVWFvN1VrcURPbEhYeGRj?=
- =?utf-8?B?Wkw0WTNaSXlqL2lHTUkxbFhNbXQzeFRDeFdUamg2OUtZOEtLaDRWR28zMkhu?=
- =?utf-8?B?Q0wzdndPTFRPdmxCTkw4SXR2citPaGtJdTAraUVZNXhkM25RaWdodUFvSXVP?=
- =?utf-8?B?UTRHNWZIQndJeVd3aFZycjFmMFJpWUJTcWcxdFlJbWlUOGpjZ011SmpNZ01y?=
- =?utf-8?B?YkVIS1d3NUFUcmpnZGY1Z0EzUENHb29YOGo2eWdURGR6NjVhaXM1emEyTnEw?=
- =?utf-8?B?VnQ1RTBSN1YxeEdWTTZGOUZVK1NLbzlJOGdiNS80WGtkR0szTXZJSkpRUHZE?=
- =?utf-8?B?NmxpQVFwTEhtZ2JXdmg5RlhnUkxLYVpMTHVua01WTmtHWFFRM1dXS3NNN0Qx?=
- =?utf-8?B?ZEdJZ2dNRzVITGdiL2E3Q2JPY2lmMTN5WWhJRDZCNWFDYjcwNmEvdkYwdHBY?=
- =?utf-8?B?RjZYM1ljR3VpWmpTRTJZbWFhOUcxcjZJa2RSeGlNWU53UVpobTFXMDZXUWxv?=
- =?utf-8?B?Qi9jbHJXNHpJaHlZaGt4bGpyV2RlR3RlczFhTStXMEY4aFEzcG5nNk4yRnkv?=
- =?utf-8?B?cDlyaEd0bjU0ZWJRMjYyc0FTazlwdEQ0MTRpaGZyY25xN21OU2VpRXZRZGJi?=
- =?utf-8?B?QTFXNjI4QWdpTlpRaUxoV0p4V2Z1ZWsvNWN6RlVCQlh6cGlWRzRWRUMwSnpl?=
- =?utf-8?B?KzV6UEtONDFCd0JHMWE4VmVFR0Z1Z2hIRWdvcFFHK2xLaFFxeU5aVmh4dWtK?=
- =?utf-8?B?M3dXSUszOU44UnRiUk1JWVQyZHVrWWhwS0xFeVk5aHpuMUZESUJLNnZGZ25H?=
- =?utf-8?B?cEp5WnVqMS9LckFNYjBzcjVERS9aSzZaQThtUEY0MnhMcE10M1JDeE1ZdnND?=
- =?utf-8?B?U01taHFTQmNvVXZuZGtmMHFFMS9SRExia0xWSk5aL3dTZ1hpMUoxWXZ2UVl4?=
- =?utf-8?B?TmY3emEyRjdZZ00yRnRWOWp3VjgxNEV4SkdQVmJlVnpEK3FmQ2J0cWpPb3Ry?=
- =?utf-8?B?b3VaQ1BkTThta0gwRHFoWld3RGh6ckFvZlRDcG0va1piWUxOMzdPaEdOaGho?=
- =?utf-8?B?Ni82d1pBdVZCcTFFdzhMV2toUUh5eXpObkpjY1hMNHE5dFBTdmVmdFZtMm5y?=
- =?utf-8?B?dG9VbHE2dnl1TzhUQis3MmJKUGwwREJpOFRaL0N5Ym5uT2ZwVEtXRldKaWQ5?=
- =?utf-8?B?WkZ6Q1VmRUo5WXJpZk5HY1RBTG1jV3NQWitBeWNtRDAwZ3FycGtZZW8xM3hB?=
- =?utf-8?B?c1E1RmVtZ2hTRzR5cVdaalQ1d0xzVE9VbHVsZFN6RXRjMFc1cFNFcUtEd0ph?=
- =?utf-8?B?dEZTOWRCTndGY2Z3ZmdkTWcyeEpEWDNTV2lmWFBGRkRubWdKQ1VROVkyWngr?=
- =?utf-8?B?T3kwQ2laQ2c1TXBVRmJwT2pGN3JRcHo5NHVyYTRuTVJpWmQyVjQyLy9FVERB?=
- =?utf-8?B?RkhBbFB1TTBTSUVMTE5ROE11bzlSNFBGbWpSSXN1ZUZKYkMzR0lwNlI5ZS9k?=
- =?utf-8?B?QVJLbHlBdXRRUEpwRDRBeFg3cG9JZE13RU05S3VjTU1HRW16U3lqUmN1S01C?=
- =?utf-8?B?R0EzdWZhelR6U0NwQ2JYcFJaSk1vaWZFZmZleGx5aW5QYzRKbTZnSVlXL01p?=
- =?utf-8?B?dlFJa1k4RXBEME1GS0dkdllaMk9ESkQwemoweEg3ZERJL2hDVnYxWTVqakFS?=
- =?utf-8?B?b0x2TDc1Q29GdWUvTkFwcFNHRWMwY25nSDRBZVQ0MEdacjQxSmNnMUNGR01j?=
- =?utf-8?B?c1Nsd3NhVXpvWjRzNmNQOXptL2RPaFQvV0YveEZQZWdMK1duZjVSY21wR29u?=
- =?utf-8?B?UUx2dE56MEFybHUrNUt3MUs3ZmhjakdMMEJ2bHJObVhsenBTVnVKS2hWdHlx?=
- =?utf-8?B?TSt3empEOFkyMEs1Kyt6eFVtT01MT2w1TVRvUXBHbzdjS1EwYUpHOTBzQjlr?=
- =?utf-8?B?M0V1RVliY0FFa2lFK2NnVzdZcmc3cWlxL3A0R3pYWE1IVTV5TkxOdXRGNWY2?=
- =?utf-8?B?TmE0akVEM21iN01QZUtONzRZcGxVVEw4WTA0Z1pwYnlwTFozd3VEeEN5d3Zz?=
- =?utf-8?Q?D9Z/fGjJRVZaLDOcB+xrMiGP1?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0518261-5bab-42f6-7525-08ddfc371893
-X-MS-Exchange-CrossTenant-AuthSource: DS7SPRMB0010.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2025 13:26:12.3634 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dfr+BahjsxVCYgr/YgCKDVCtMbVnyKkXumKV1qFULwcYbMv0ETUBzC5dx/e9cBMTTkUowPTUrs/c/bVbT8ytBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7104
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250924205211.1059571-2-superm1@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,31 +75,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/24/2025 6:38 AM, Timur Kristóf wrote:
-> Reject modes with a pixel clock higher than the maximum display
-> clock. These were never supported, but we haven't noticed the
-> issue until the YCbCr 422 fallback was recently added.
-> 
-> For example, the DP 1.2 standard technically supports
-> 4K 120Hz YCbCr 422 6 bpc, but in practice the pixel clock is
-> too high on these old GPUs.
-> 
-> Additionally, there are two small code cleanup patches to avoid
-> excessive code duplication.
-> 
-> Timur Kristóf (3):
->    drm/amd/display: Reject modes with too high pixel clock on DCE6-10
->    drm/amd/display: Share dce100_validate_bandwidth with DCE6-8
->    drm/amd/display: Share dce100_validate_global with DCE6-8
-> 
->   .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  3 +
->   .../display/dc/clk_mgr/dce60/dce60_clk_mgr.c  |  5 ++
->   .../dc/resource/dce100/dce100_resource.c      | 25 +++++--
->   .../dc/resource/dce100/dce100_resource.h      |  9 +++
->   .../dc/resource/dce60/dce60_resource.c        | 69 +------------------
->   .../dc/resource/dce80/dce80_resource.c        | 60 +---------------
->   6 files changed, 44 insertions(+), 127 deletions(-)
-> 
+Hi Mario,
 
-I've applied this internally and it will run through CI and come to 
-amd-staging-drm-next soon, thanks!
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on amd-pstate/linux-next]
+[also build test ERROR on amd-pstate/bleeding-edge linus/master v6.17-rc7 next-20250924]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello-AMD/PM-hibernate-Fix-hybrid-sleep/20250925-045432
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git linux-next
+patch link:    https://lore.kernel.org/r/20250924205211.1059571-2-superm1%40kernel.org
+patch subject: [PATCH 1/3] PM: hibernate: Fix hybrid-sleep
+config: i386-randconfig-014-20250925 (https://download.01.org/0day-ci/archive/20250925/202509252323.KEdz98a4-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250925/202509252323.KEdz98a4-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202509252323.KEdz98a4-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> kernel/power/hibernate.c:866:27: error: use of undeclared identifier 'HIBERNATION_SUSPEND'
+     866 |                 if (hibernation_mode != HIBERNATION_SUSPEND)
+         |                                         ^
+   1 error generated.
+
+
+vim +/HIBERNATION_SUSPEND +866 kernel/power/hibernate.c
+
+   776	
+   777	/**
+   778	 * hibernate - Carry out system hibernation, including saving the image.
+   779	 */
+   780	int hibernate(void)
+   781	{
+   782		bool snapshot_test = false;
+   783		unsigned int sleep_flags;
+   784		int error;
+   785	
+   786		if (!hibernation_available()) {
+   787			pm_pr_dbg("Hibernation not available.\n");
+   788			return -EPERM;
+   789		}
+   790	
+   791		/*
+   792		 * Query for the compression algorithm support if compression is enabled.
+   793		 */
+   794		if (!nocompress) {
+   795			strscpy(hib_comp_algo, hibernate_compressor);
+   796			if (!crypto_has_acomp(hib_comp_algo, 0, CRYPTO_ALG_ASYNC)) {
+   797				pr_err("%s compression is not available\n", hib_comp_algo);
+   798				return -EOPNOTSUPP;
+   799			}
+   800		}
+   801	
+   802		sleep_flags = lock_system_sleep();
+   803		/* The snapshot device should not be opened while we're running */
+   804		if (!hibernate_acquire()) {
+   805			error = -EBUSY;
+   806			goto Unlock;
+   807		}
+   808	
+   809		pr_info("hibernation entry\n");
+   810		pm_prepare_console();
+   811		error = pm_notifier_call_chain_robust(PM_HIBERNATION_PREPARE, PM_POST_HIBERNATION);
+   812		if (error)
+   813			goto Restore;
+   814	
+   815		ksys_sync_helper();
+   816		if (filesystem_freeze_enabled)
+   817			filesystems_freeze();
+   818	
+   819		error = freeze_processes();
+   820		if (error)
+   821			goto Exit;
+   822	
+   823		lock_device_hotplug();
+   824		/* Allocate memory management structures */
+   825		error = create_basic_memory_bitmaps();
+   826		if (error)
+   827			goto Thaw;
+   828	
+   829		error = hibernation_snapshot(hibernation_mode == HIBERNATION_PLATFORM);
+   830		if (error || freezer_test_done)
+   831			goto Free_bitmaps;
+   832	
+   833		if (in_suspend) {
+   834			unsigned int flags = 0;
+   835	
+   836			if (hibernation_mode == HIBERNATION_PLATFORM)
+   837				flags |= SF_PLATFORM_MODE;
+   838			if (nocompress) {
+   839				flags |= SF_NOCOMPRESS_MODE;
+   840			} else {
+   841			        flags |= SF_CRC32_MODE;
+   842	
+   843				/*
+   844				 * By default, LZO compression is enabled. Use SF_COMPRESSION_ALG_LZ4
+   845				 * to override this behaviour and use LZ4.
+   846				 *
+   847				 * Refer kernel/power/power.h for more details
+   848				 */
+   849	
+   850				if (!strcmp(hib_comp_algo, COMPRESSION_ALGO_LZ4))
+   851					flags |= SF_COMPRESSION_ALG_LZ4;
+   852				else
+   853					flags |= SF_COMPRESSION_ALG_LZO;
+   854			}
+   855	
+   856			pm_pr_dbg("Writing hibernation image.\n");
+   857			error = swsusp_write(flags);
+   858			swsusp_free();
+   859			if (!error) {
+   860				if (hibernation_mode == HIBERNATION_TEST_RESUME)
+   861					snapshot_test = true;
+   862				else
+   863					power_down();
+   864			}
+   865			in_suspend = 0;
+ > 866			if (hibernation_mode != HIBERNATION_SUSPEND)
+   867				pm_restore_gfp_mask();
+   868		} else {
+   869			pm_pr_dbg("Hibernation image restored successfully.\n");
+   870		}
+   871	
+   872	 Free_bitmaps:
+   873		free_basic_memory_bitmaps();
+   874	 Thaw:
+   875		unlock_device_hotplug();
+   876		if (snapshot_test) {
+   877			pm_pr_dbg("Checking hibernation image\n");
+   878			error = swsusp_check(false);
+   879			if (!error)
+   880				error = load_image_and_restore();
+   881		}
+   882		thaw_processes();
+   883	
+   884		/* Don't bother checking whether freezer_test_done is true */
+   885		freezer_test_done = false;
+   886	 Exit:
+   887		filesystems_thaw();
+   888		pm_notifier_call_chain(PM_POST_HIBERNATION);
+   889	 Restore:
+   890		pm_restore_console();
+   891		hibernate_release();
+   892	 Unlock:
+   893		unlock_system_sleep(sleep_flags);
+   894		pr_info("hibernation exit\n");
+   895	
+   896		return error;
+   897	}
+   898	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
