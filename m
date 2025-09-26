@@ -4,121 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4AB9CAC5BB
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 23:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BF82CAC5B9
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Sep 2025 08:13:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F40D10E174;
-	Fri, 26 Sep 2025 23:05:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90D7310E0E0;
+	Sat, 27 Sep 2025 08:13:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="INeKzxM5";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="sxMkABFy";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012023.outbound.protection.outlook.com [52.101.48.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4CE510E174
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 23:05:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=irIv4lDwrlPWzBh2z4DoxnYBqZBVDlq4o8birRgwAMfaGhH/NWY7fkYWvENpyKgwmVgXhIdnHeEFkraipgcN1N8sIbkBUEFTIJO49SD1HEm0kqBrRPUB8zepkMRiXDCy/ATBzX1Uf0pCe1xxi7dSeLFYUMdSc7pj05ye+XUC/aWBI1ag8GWlFBQ8euxW2MAT2+rNkSL3eOp7j7byKg+ibKSFVUkTt1lky665NNEW81ccTrGYq6K9PQIysZFkZie1n7/XzTaD4HFslwL4oB9TR6sHtRTCmxlBvg/vufU/2SaWRA07l0vijoIvkhyQiYJsuLkDl1GBDzLNs/lziE+beQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d7eN3NF3dvLnzUwboZ5AY7ao1CNC3xKU51+e7XKpDoM=;
- b=cRH1L+2p9B78N/7WP8nKHa7A+4ejqikTk4XeiXuxTNhZq1w9pLgzhekp5a5ZZEClIih78YA6KO9WoIijNJlnu8Nf1nlkKtor4IICBpXv2FiiAt/DflPLrNid6RDjZGBz5JFWLwEtVuxknZKVlMAKZTtPgwWxoYPaYgipg7RfS6O2DSuh+aRRkK5hAwzNb2psBkmT7lhZVOFi+LJ8uSiAeRTpwsKxUEISon88dsI6pkxktL3CjT+oBGt05hKpuRGx3CqXn7TJc5cUYOA/CO2oHvz+IOZQBNs+fbR6Zrv6WZ57s4jt45eWP/i2MT1L/z2EzP67CeR6huqwEcSWPs14bw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d7eN3NF3dvLnzUwboZ5AY7ao1CNC3xKU51+e7XKpDoM=;
- b=INeKzxM59rizcG3kebJYO8pddkBRWmh1EKIkPWr+86JITKn4W9tMNBmb4ShT71X4rRdTq7eaPilPq9Zf86RL8la8a/rkgP8RphAOYha+KIcmrtDlCCOtuueR5bx0MjilVjFVYqeFH9NVUxkjDZngUx0Pe3Jh9E+7RYVUKz7Oc+o=
-Received: from MN0P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::8)
- by CH3PR12MB8258.namprd12.prod.outlook.com (2603:10b6:610:128::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.11; Fri, 26 Sep
- 2025 23:05:55 +0000
-Received: from BN2PEPF000044A0.namprd02.prod.outlook.com
- (2603:10b6:208:531:cafe::20) by MN0P222CA0005.outlook.office365.com
- (2603:10b6:208:531::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9160.13 via Frontend Transport; Fri,
- 26 Sep 2025 23:05:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000044A0.mail.protection.outlook.com (10.167.243.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9160.9 via Frontend Transport; Fri, 26 Sep 2025 23:05:54 +0000
-Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 26 Sep
- 2025 16:05:49 -0700
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>, Tom St Denis
- <tom.stdenis@amd.com>
-Subject: [PATCH] drm/amdgpu: fix handling of harvesting for ip_discovery
- firmware
-Date: Fri, 26 Sep 2025 19:05:35 -0400
-Message-ID: <20250926230535.5632-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.51.0
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32E5910EA42;
+ Fri, 26 Sep 2025 12:31:08 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4cY9146vt1z9stG;
+ Fri, 26 Sep 2025 14:31:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1758889865; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AAFvb8ofxjJ58SEgop88Ebhh0xRZ+BdWq8mY8vVM3pA=;
+ b=sxMkABFy8O0YmwR0UhxvHKNczy9uikIHGTIIHHcifd6LAPPtFDqlpPTCJYrvkDsVqURf8k
+ bJzgS5Nh2Lq3MY/jCaRmO/Pl7Ou1JJr2FL2FmcAf3JzIOy+aowMrGenKWqMxLoL07+YKlu
+ sOPGahJTjxtNm5lmBKpMZugf1v3xiQ0YwIRLYWm+NGLERTUmYp6OvFd4cKsnxLUcEAG+uw
+ pGgw/sTk58cTL8ImkPAj31cjNlRES/d2lTCaiv6zrU3uogWGVcws7UrqBmL0k4z6z86ekr
+ HKqsIcKZkOvEkNMjOzRePJY33PU/X7+h+z43Spqh4zbQS73VhUJlXPDqBxYmyg==
+Message-ID: <e135bab8170168f94e16906d9dc7afeb245ec0de.camel@mailbox.org>
+Subject: Re: [RFC v8 07/12] drm/sched: Account entity GPU time
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
+Date: Fri, 26 Sep 2025 14:30:59 +0200
+In-Reply-To: <743fa52d-f643-4102-9c56-24dca4359f82@igalia.com>
+References: <20250903101820.63032-1-tvrtko.ursulin@igalia.com>
+ <20250903101820.63032-8-tvrtko.ursulin@igalia.com>
+ <6d5be3ab8413d44a360ebe7a34771ead6687c989.camel@mailbox.org>
+ <743fa52d-f643-4102-9c56-24dca4359f82@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A0:EE_|CH3PR12MB8258:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62e0f39a-c66b-48bf-b65c-08ddfd513f27
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?3IOgs99JMy7WlO18vDICqAsvG4yOC5FRC/ef182TO6QIkvHMug84kLGdhYXT?=
- =?us-ascii?Q?pLEddGDKCjZbR47I6hAbhLdsMhxX3yM47ypmOsT19IKCOQClQ4hG6HF2qpPx?=
- =?us-ascii?Q?JXRNDTmCONP3dmd8INQQXOJg9Uer6nhm+BFEqyCEKU3Mkd2dSqWm9VbTleU+?=
- =?us-ascii?Q?Jj/xorQ51jQ4I03FYNDNSVgiW/PlMQ1LPbMCZfwcAjP7v+SguJ82bzG4v/H0?=
- =?us-ascii?Q?FOnNbuhB3j3T3FswFDoRPt2x230EAEiY6ldP5nc2XMx6yU5bnRBLyft+lNkw?=
- =?us-ascii?Q?5lRqzikEAMphG9mJkhNCLREWXCkNmA2qeTQHGslNlhc2qIdWFFDpI/Xtl1LJ?=
- =?us-ascii?Q?9ecChsU0XmbvOoUVyXTXsw8R5VelVoXsTUaKW8QlSbqBBiIbnGmuEmVQ3Ja2?=
- =?us-ascii?Q?aGEafPfmLBAuJbVFvWX/YQaNiQWioKsdDwKQHX99Ez2iiDe37Blb9RcXXrPc?=
- =?us-ascii?Q?j0yFY4F7SwNLoyBolG1W9ar0Fi5kPjVz/HKtz/pPn/gqo3PapLnt8hmQ05o6?=
- =?us-ascii?Q?JSoEr8RNXrx1RX6DzFeOSwFq2cskC5eNOaXnExvbxE0jkbbxs92z/P3Bg+rS?=
- =?us-ascii?Q?CZ7OZ5wpMCjELdQ2hP5ObZJXIi0rjgl3HA0yR2Q099buEgP6kxxdIW18lfGd?=
- =?us-ascii?Q?QkB5cIDkLn3qv7D8TrvfC1z/zJq18Z2q6LL72C1ewgiyicB5Q1ylARSyf37M?=
- =?us-ascii?Q?9dkneaybX+IVDnPr2cEYIRWVwQfBznTlZs9AHuI8HTLTJ6bq7zcbBZpZjOZi?=
- =?us-ascii?Q?TfX9gE2RAqw3QFcPB4hvsVu+YzhwxE7qQAQ+GXNCtIZFioCJTYKhc7rek10G?=
- =?us-ascii?Q?D1882eECuXq7nYcZaExWoor5gJLdTYIxCJ95a7Zrq4T3b1Adamgpc/PbN2Vm?=
- =?us-ascii?Q?YrmU3GAWS+wKv5V3s5PWB6tqhj0uLGUIN4/NO3jseb8cSx0UZmfuBpm3c4NY?=
- =?us-ascii?Q?Ih8G3rg/tJrp3U3ctokCrEBP7+kjbgMCROwWbDMmjn/9YWm8ULhysA8K2WbV?=
- =?us-ascii?Q?+EbwD3bqr3CheuJ3/2vb7zEYFPTEhNEPbLj0SA13lQ3/myssVJEl5ao2jPb6?=
- =?us-ascii?Q?WdqgHaNFzslPSJAqtPFFkG1xlCvNEWR45Joj0xf4OyXqFysIRsGL+5RJKfd0?=
- =?us-ascii?Q?IM+QLT/7Ckfkfek2XJVvPEAAl7jboZeA4z1GtOfekn2Sywz63bunOYewcHSB?=
- =?us-ascii?Q?Ciqu+I0r/Lt5OaYl5K8Zb2cawJu4SMxgbTwkV2ug1sNPmA3VzuA3KDEno6BY?=
- =?us-ascii?Q?xbhlzTitF7CjjJ/hEpGFtERcFcw8PgyMy1QXv9Rny3l34JKCE5zGQNbWcpcr?=
- =?us-ascii?Q?ymCBkJxlAhv+wfRdgj4Ypl7xs8Gw2lHONzZhFlAtO7LuQmDitHDdchvqKo8l?=
- =?us-ascii?Q?GJQyfbv9I4LoMgq90ouuPnqgiTN++eTVbRCoaZEHY/O7wWAqXIKdZxNS5aGe?=
- =?us-ascii?Q?DTwPhahc9FkEdY6jcPUmJtGGC/+ZzCKK1rwKQHroH7wjjIcPHD92jS0mcxA7?=
- =?us-ascii?Q?Ghg1sgjmCdQrY6UwAECtXovFYaRrkvpP5Md99lv0U1xELHgCoCUIAjLkAxz7?=
- =?us-ascii?Q?trmDGc5j4x/dK9zebSo=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2025 23:05:54.9817 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62e0f39a-c66b-48bf-b65c-08ddfd513f27
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A0.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8258
+X-MBO-RS-ID: f69d378cea5110f2bc7
+X-MBO-RS-META: r8idda4mfgsattcm14q399gm6t9rjmey
+X-Mailman-Approved-At: Sat, 27 Sep 2025 08:13:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,111 +65,354 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Chips which use the IP discovery firmware loaded by the driver
-reported incorrect harvesting information in the ip discovery
-table in sysfs because the driver only uses the ip discovery
-firmware for populating sysfs and not for direct parsing for the
-driver itself as such, the fields that are used to print the
-harvesting info in sysfs report incorrect data for some IPs.  Populate
-the relevant fields for this case as well.
+On Thu, 2025-09-25 at 12:52 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 24/09/2025 10:11, Philipp Stanner wrote:
+> > On Wed, 2025-09-03 at 11:18 +0100, Tvrtko Ursulin wrote:
+> > > To implement fair scheduling we need a view into the GPU time consume=
+d by
+> > > entities. Problem we have is that jobs and entities objects have deco=
+upled
+> > > lifetimes, where at the point we have a view into accurate GPU time, =
+we
+> > > cannot link back to the entity any longer.
+> > >=20
+> > > Solve this by adding a light weight entity stats object which is refe=
+rence
+> > > counted by both entity and the job and hence can safely be used from
+> > > either side.
+> > >=20
+> > > With that, the only other thing we need is to add a helper for adding=
+ the
+> > > job's GPU time into the respective entity stats object, and call it o=
+nce
+> > > the accurate GPU time has been calculated.
+> >=20
+> > This in general also looks reasonable and clean to me. Some comments
+> > below.
+>=20
+> Thanks!
+>=20
+> > btw I've got many nit-comments for all patches, but will wait with
+> > those until a v1 is posted.
+>=20
+> Lets try and strike a balance please. :)
 
-Fixes: 514678da56da ("drm/amdgpu/discovery: fix fw based ip discovery")
-Cc: Tom St Denis <tom.stdenis@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+-ENOTFULLYUNDERSTOOD
+I suppose we try to strike a balance in v1
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 73401f0aeb346..dd7b2b796427c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1033,7 +1033,9 @@ static uint8_t amdgpu_discovery_get_harvest_info(struct amdgpu_device *adev,
- 	/* Until a uniform way is figured, get mask based on hwid */
- 	switch (hw_id) {
- 	case VCN_HWID:
--		harvest = ((1 << inst) & adev->vcn.inst_mask) == 0;
-+		/* VCN vs UVD+VCE */
-+		if (!amdgpu_ip_version(adev, VCE_HWIP, 0))
-+			harvest = ((1 << inst) & adev->vcn.inst_mask) == 0;
- 		break;
- 	case DMU_HWID:
- 		if (adev->harvest_ip_mask & AMD_HARVEST_IP_DMU_MASK)
-@@ -2565,7 +2567,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_discovery_init(adev);
- 		vega10_reg_base_init(adev);
- 		adev->sdma.num_instances = 2;
-+		adev->sdma.sdma_mask = 3;
- 		adev->gmc.num_umc = 4;
-+		adev->gfx.xcc_mask = 1;
- 		adev->ip_versions[MMHUB_HWIP][0] = IP_VERSION(9, 0, 0);
- 		adev->ip_versions[ATHUB_HWIP][0] = IP_VERSION(9, 0, 0);
- 		adev->ip_versions[OSSSYS_HWIP][0] = IP_VERSION(4, 0, 0);
-@@ -2592,7 +2596,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_discovery_init(adev);
- 		vega10_reg_base_init(adev);
- 		adev->sdma.num_instances = 2;
-+		adev->sdma.sdma_mask = 3;
- 		adev->gmc.num_umc = 4;
-+		adev->gfx.xcc_mask = 1;
- 		adev->ip_versions[MMHUB_HWIP][0] = IP_VERSION(9, 3, 0);
- 		adev->ip_versions[ATHUB_HWIP][0] = IP_VERSION(9, 3, 0);
- 		adev->ip_versions[OSSSYS_HWIP][0] = IP_VERSION(4, 0, 1);
-@@ -2619,8 +2625,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_discovery_init(adev);
- 		vega10_reg_base_init(adev);
- 		adev->sdma.num_instances = 1;
-+		adev->sdma.sdma_mask = 1;
- 		adev->vcn.num_vcn_inst = 1;
- 		adev->gmc.num_umc = 2;
-+		adev->gfx.xcc_mask = 1;
- 		if (adev->apu_flags & AMD_APU_IS_RAVEN2) {
- 			adev->ip_versions[MMHUB_HWIP][0] = IP_VERSION(9, 2, 0);
- 			adev->ip_versions[ATHUB_HWIP][0] = IP_VERSION(9, 2, 0);
-@@ -2665,7 +2673,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_discovery_init(adev);
- 		vega20_reg_base_init(adev);
- 		adev->sdma.num_instances = 2;
-+		adev->sdma.sdma_mask = 3;
- 		adev->gmc.num_umc = 8;
-+		adev->gfx.xcc_mask = 1;
- 		adev->ip_versions[MMHUB_HWIP][0] = IP_VERSION(9, 4, 0);
- 		adev->ip_versions[ATHUB_HWIP][0] = IP_VERSION(9, 4, 0);
- 		adev->ip_versions[OSSSYS_HWIP][0] = IP_VERSION(4, 2, 0);
-@@ -2693,8 +2703,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_discovery_init(adev);
- 		arct_reg_base_init(adev);
- 		adev->sdma.num_instances = 8;
-+		adev->sdma.sdma_mask = 0xff;
- 		adev->vcn.num_vcn_inst = 2;
- 		adev->gmc.num_umc = 8;
-+		adev->gfx.xcc_mask = 1;
- 		adev->ip_versions[MMHUB_HWIP][0] = IP_VERSION(9, 4, 1);
- 		adev->ip_versions[ATHUB_HWIP][0] = IP_VERSION(9, 4, 1);
- 		adev->ip_versions[OSSSYS_HWIP][0] = IP_VERSION(4, 2, 1);
-@@ -2726,8 +2738,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_discovery_init(adev);
- 		aldebaran_reg_base_init(adev);
- 		adev->sdma.num_instances = 5;
-+		adev->sdma.sdma_mask = 0x1f;
- 		adev->vcn.num_vcn_inst = 2;
- 		adev->gmc.num_umc = 4;
-+		adev->gfx.xcc_mask = 1;
- 		adev->ip_versions[MMHUB_HWIP][0] = IP_VERSION(9, 4, 2);
- 		adev->ip_versions[ATHUB_HWIP][0] = IP_VERSION(9, 4, 2);
- 		adev->ip_versions[OSSSYS_HWIP][0] = IP_VERSION(4, 4, 0);
-@@ -2762,6 +2776,8 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 		} else {
- 			cyan_skillfish_reg_base_init(adev);
- 			adev->sdma.num_instances = 2;
-+			adev->sdma.sdma_mask = 3;
-+			adev->gfx.xcc_mask = 1;
- 			adev->ip_versions[MMHUB_HWIP][0] = IP_VERSION(2, 0, 3);
- 			adev->ip_versions[ATHUB_HWIP][0] = IP_VERSION(2, 0, 3);
- 			adev->ip_versions[OSSSYS_HWIP][0] = IP_VERSION(5, 0, 1);
--- 
-2.51.0
+>=20
+> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > Cc: Danilo Krummrich <dakr@kernel.org>
+> > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > Cc: Philipp Stanner <phasta@kernel.org>
+> > > ---
+> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 | 39=
+ +++++++++++++
+> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_internal.h | 66 +++++++++=
++++++++++++++
+> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 6 +-
+> > > =C2=A0=C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++
+> > > =C2=A0=C2=A04 files changed, 122 insertions(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/d=
+rm/scheduler/sched_entity.c
+> > > index 7a0a52ba87bf..04ce8b7d436b 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> > > @@ -32,6 +32,39 @@
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0#include "gpu_scheduler_trace.h"
+> > > =C2=A0=20
+> > > +
+> > > +/**
+> > > + * drm_sched_entity_stats_release - Entity stats kref release functi=
+on
+> > > + *
+> > > + * @kref: Entity stats embedded kref pointer
+> > > + */
+> > > +void drm_sched_entity_stats_release(struct kref *kref)
+> > > +{
+> > > +	struct drm_sched_entity_stats *stats =3D
+> > > +		container_of(kref, typeof(*stats), kref);
+> > > +
+> > > +	kfree(stats);
+> > > +}
+> > > +
+> > > +/**
+> > > + * drm_sched_entity_stats_alloc - Allocate a new struct drm_sched_en=
+tity_stats object
+> > > + *
+> > > + * Returns: Pointer to newly allocated struct drm_sched_entity_stats=
+ object.
+> > > + */
+> > > +static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(v=
+oid)
+> > > +{
+> > > +	struct drm_sched_entity_stats *stats;
+> > > +
+> > > +	stats =3D kzalloc(sizeof(*stats), GFP_KERNEL);
+> > > +	if (!stats)
+> > > +		return NULL;
+> > > +
+> > > +	kref_init(&stats->kref);
+> > > +	spin_lock_init(&stats->lock);
+> > > +
+> > > +	return stats;
+> > > +}
+> > > +
+> > > =C2=A0=C2=A0/**
+> > > =C2=A0=C2=A0 * drm_sched_entity_init - Init a context entity used by =
+scheduler when
+> > > =C2=A0=C2=A0 * submit to HW ring.
+> > > @@ -65,6 +98,11 @@ int drm_sched_entity_init(struct drm_sched_entity =
+*entity,
+> > > =C2=A0=C2=A0		return -EINVAL;
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	memset(entity, 0, sizeof(struct drm_sched_entity));
+> > > +
+> > > +	entity->stats =3D drm_sched_entity_stats_alloc();
+> > > +	if (!entity->stats)
+> > > +		return -ENOMEM;
+> > > +
+> > > =C2=A0=C2=A0	INIT_LIST_HEAD(&entity->list);
+> > > =C2=A0=C2=A0	entity->rq =3D NULL;
+> > > =C2=A0=C2=A0	entity->guilty =3D guilty;
+> > > @@ -338,6 +376,7 @@ void drm_sched_entity_fini(struct drm_sched_entit=
+y *entity)
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	dma_fence_put(rcu_dereference_check(entity->last_schedul=
+ed, true));
+> > > =C2=A0=C2=A0	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+> > > +	drm_sched_entity_stats_put(entity->stats);
+> > > =C2=A0=C2=A0}
+> > > =C2=A0=C2=A0EXPORT_SYMBOL(drm_sched_entity_fini);
+> > > =C2=A0=20
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu=
+/drm/scheduler/sched_internal.h
+> > > index 703ee48fbc58..27c8460a3601 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_internal.h
+> > > +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+> > > @@ -3,6 +3,22 @@
+> > > =C2=A0=C2=A0#ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
+> > > =C2=A0=C2=A0#define _DRM_GPU_SCHEDULER_INTERNAL_H_
+> > > =C2=A0=20
+> > > +#include <linux/ktime.h>
+> > > +#include <linux/kref.h>
+> > > +#include <linux/spinlock.h>
+> > > +
+> > > +/**
+> > > + * struct drm_sched_entity_stats - execution stats for an entity.
+> > > + *
+> > > + * @kref: reference count for the object.
+> > > + * @lock: lock guarding the @runtime updates.
+> > > + * @runtime: time entity spent on the GPU.
+> > > + */
+> > > +struct drm_sched_entity_stats {
+> >=20
+> > Cool docu.
+> >=20
+> > Though, considering that awkward refcounting patterns are one of the
+> > more relevant scheduler problems, I believe it makes sense to add to
+> > the docu here a sentence or two about who refcounts this object for
+> > what reason.
+>=20
+> Good idea - it is often not completely easy to find the commit message=
+=20
+> from git blame.
+>=20
+> >=20
+> > > +	struct kref	kref;
+> > > +	spinlock_t	lock;
+> > > +	ktime_t		runtime;
+> > > +};
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0/* Used to choose between FIFO and RR job-scheduling */
+> > > =C2=A0=C2=A0extern int drm_sched_policy;
+> > > @@ -93,4 +109,54 @@ drm_sched_entity_is_ready(struct drm_sched_entity=
+ *entity)
+> > > =C2=A0=C2=A0	return true;
+> > > =C2=A0=C2=A0}
+> > > =C2=A0=20
+> > > +void drm_sched_entity_stats_release(struct kref *kref);
+> > > +
+> > > +/**
+> > > + * drm_sched_entity_stats_get - Obtain a reference count on struct d=
+rm_sched_entity_stats object
+> > > + *
+> > > + * @stats: struct drm_sched_entity_stats pointer
+> > > + *
+> > > + * Returns: struct drm_sched_entity_stats pointer
+> > > + */
+> > > +static inline struct drm_sched_entity_stats *
+> > > +drm_sched_entity_stats_get(struct drm_sched_entity_stats *stats)
+> > > +{
+> > > +	kref_get(&stats->kref);
+> > > +
+> > > +	return stats;
+> > > +}
+> > > +
+> > > +/**
+> > > + * drm_sched_entity_stats_put - Release a reference count on struct =
+drm_sched_entity_stats object
+> > > + *
+> > > + * @stats: struct drm_sched_entity_stats pointer
+> > > + */
+> > > +static inline void
+> > > +drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
+> > > +{
+> > > +	kref_put(&stats->kref, drm_sched_entity_stats_release);
+> > > +}
+> > > +
+> > > +/**
+> > > + * drm_sched_entity_stats_job_add_gpu_time - Account job execution t=
+ime to entity
+> > > + *
+> > > + * @job: Scheduler job to account.
+> > > + *
+> > > + * Accounts the execution time of @job to its respective entity stat=
+s object.
+> > > + */
+> > > +static inline void
+> > > +drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+> > > +{
+> > > +	struct drm_sched_entity_stats *stats =3D job->entity_stats;
+> > > +	struct drm_sched_fence *s_fence =3D job->s_fence;
+> > > +	ktime_t start, end;
+> > > +
+> > > +	start =3D dma_fence_timestamp(&s_fence->scheduled);
+> > > +	end =3D dma_fence_timestamp(&s_fence->finished);
+> > > +
+> > > +	spin_lock(&stats->lock);
+> > > +	stats->runtime =3D ktime_add(stats->runtime, ktime_sub(end, start))=
+;
+> > > +	spin_unlock(&stats->lock);
+> > > +}
+> > > +
+> > > =C2=A0=C2=A0#endif
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm=
+/scheduler/sched_main.c
+> > > index 9411676e772a..a5d7706efbea 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > @@ -658,6 +658,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	job->sched =3D sched;
+> > > =C2=A0=C2=A0	job->s_priority =3D entity->priority;
+> > > +	job->entity_stats =3D drm_sched_entity_stats_get(entity->stats);
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	drm_sched_fence_init(job->s_fence, job->entity);
+> > > =C2=A0=C2=A0}
+> > > @@ -846,6 +847,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *=
+job)
+> > > =C2=A0=C2=A0		 * been called.
+> > > =C2=A0=C2=A0		 */
+> > > =C2=A0=C2=A0		dma_fence_put(&job->s_fence->finished);
+> > > +		drm_sched_entity_stats_put(job->entity_stats);
+> > > =C2=A0=C2=A0	} else {
+> > > =C2=A0=C2=A0		/* The job was aborted before it has been committed to =
+be run;
+> > > =C2=A0=C2=A0		 * notably, drm_sched_job_arm() has not been called.
+> > > @@ -997,8 +999,10 @@ static void drm_sched_free_job_work(struct work_=
+struct *w)
+> > > =C2=A0=C2=A0		container_of(w, struct drm_gpu_scheduler, work_free_job=
+);
+> > > =C2=A0=C2=A0	struct drm_sched_job *job;
+> > > =C2=A0=20
+> > > -	while ((job =3D drm_sched_get_finished_job(sched)))
+> > > +	while ((job =3D drm_sched_get_finished_job(sched))) {
+> > > +		drm_sched_entity_stats_job_add_gpu_time(job);
+> > > =C2=A0=C2=A0		sched->ops->free_job(job);
+> > > +	}
+> >=20
+> > The biggest question I'm wondering about is whether the reference
+> > should be put in drm_sched_job_cleanup() or drm_sched_free_job_work().
+> > The primer is semantically more correct, probably, but the latter is
+> > always controlled by the scheduler.
+> >=20
+> > Hypothetically a driver could just not call drm_sched_job_cleanup() in
+> > its free_job() callback =E2=80=93 but then other stuff would leak as we=
+ll and
+> > everything would be broken anyways.
+>=20
+> I think drm_sched_entity_stats_put() from drm_sched_job_cleanup() makes=
+=20
+> sense because latter is where other actions done by drm_sched_job_arm()=
+=20
+> are cleaned up. And drm_sched_job_arm() is where I placed=20
+> drm_sched_entity_stats_get(). So that all looks nicely aligned to me.
+
+ACK.
+
+>=20
+> > I probably should change the docu for drm_sched_job_cleanup(), which
+> > currently says drivers "should" call it in free_job(), instead of
+> > "must".
+>=20
+> Yeah I agree s/should/must/ is in order.
+
+Will do.
+
+
+P.
+
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	drm_sched_run_job_queue(sched);
+> > > =C2=A0=C2=A0}
+> > > diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.=
+h
+> > > index 802a0060db55..f33c78473867 100644
+> > > --- a/include/drm/gpu_scheduler.h
+> > > +++ b/include/drm/gpu_scheduler.h
+> > > @@ -71,6 +71,8 @@ enum drm_sched_priority {
+> > > =C2=A0=C2=A0	DRM_SCHED_PRIORITY_COUNT
+> > > =C2=A0=C2=A0};
+> > > =C2=A0=20
+> > > +struct drm_sched_entity_stats;
+> > > +
+> > > =C2=A0=C2=A0/**
+> > > =C2=A0=C2=A0 * struct drm_sched_entity - A wrapper around a job queue=
+ (typically
+> > > =C2=A0=C2=A0 * attached to the DRM file_priv).
+> > > @@ -110,6 +112,11 @@ struct drm_sched_entity {
+> > > =C2=A0=C2=A0	 */
+> > > =C2=A0=C2=A0	struct drm_sched_rq		*rq;
+> > > =C2=A0=20
+> > > +	/**
+> > > +	 * @stats: Stats object reference held by the entity and jobs.
+> > > +	 */
+> > > +	struct drm_sched_entity_stats	*stats;
+> > > +
+> > > =C2=A0=C2=A0	/**
+> > > =C2=A0=C2=A0	 * @sched_list:
+> > > =C2=A0=C2=A0	 *
+> > > @@ -365,6 +372,11 @@ struct drm_sched_job {
+> > > =C2=A0=C2=A0	struct drm_sched_fence		*s_fence;
+> > > =C2=A0=C2=A0	struct drm_sched_entity=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 *entity;
+> > > =C2=A0=20
+> > > +	/**
+> > > +	 * @entity_stats: Stats object reference held by the job and entity=
+.
+> > > +	 */
+> > > +	struct drm_sched_entity_stats	*entity_stats;
+> > > +
+> > > =C2=A0=C2=A0	enum drm_sched_priority		s_priority;
+> > > =C2=A0=C2=A0	u32				credits;
+> > > =C2=A0=C2=A0	/** @last_dependency: tracks @dependencies as they signa=
+l */
+> >=20
+>=20
 
