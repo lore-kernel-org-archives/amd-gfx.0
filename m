@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E2DFCAC5B8
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 18:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96360CAC5B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 18:02:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1646310EAB1;
-	Fri, 26 Sep 2025 18:02:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA2710EAB2;
+	Fri, 26 Sep 2025 18:02:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OfxEYLpD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d2uGv7Ca";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2EE110EAB1
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 18:02:21 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-24457f581aeso25525205ad.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 11:02:21 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B02F910EAB2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 18:02:26 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-27c369f8986so24674885ad.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 11:02:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758909741; x=1759514541; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758909746; x=1759514546; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jq9EkizHbueee6bQjcWIkh2x0VT+LH+7aCNELhm5gZM=;
- b=OfxEYLpDQrC/OMNeisGLohl/R8N96YNE+2CJjgYHboWPLTy/9yLW3sS1TioLUDtKiN
- WeifwzbFYIJ42JB3HIzyZAZRtWxk4ymad+TuHaPlUzA8N/9IfU6Zm9vqcxf+Bk+Y2Tva
- FZba4bjpLuthdMZFOip7dEJTbfIHbdLAQIOok+f28XoTfy8qxsxPqnDGulZFLxzUHg0C
- B5w628/Va3Axs2+ErN2BB9ogvGmJM+ehQWr/WqL+1bRKKal9j7ibQi5behLoQQVtoYQb
- MtJqkGRnoBpaLrhx1B8Mhy4sRiMLaJZeiFiKANJW4i8TCc61RC0tBT3/7dabpe35DXqh
- ouoA==
+ bh=LxiGj+CM3qtjfo2HCFmEbMDyBqyILSp5cxtgeNpe78A=;
+ b=d2uGv7CaSQ2fC44IkjACBqOjlBiQDipvGL1ZmOZ0wID7E0gUzAQhurcrEdeoHcInTv
+ lfM2AAPbDIv0awdIQQiVxCFLtjyDsBXSlFSsOPZKhMOu7dLiqHUj+uZA0A5QRd1XDXXk
+ zivpY9kqS7psW6rrmadViKu2gkO0aZj1e+c41TtCV/ngCqK7cyOOMJFnAS9wopfPjSLt
+ ioin0i/E+uCkE5mxdwyAm8OYvJByyKvVNEy8X5/nIK6EZu+QGXwy0uJlLAp3J/mUJ1v0
+ GPB4ViM2V/G9QGZ/wPce940HXDfvprwaFg/a7XkmX19+41wBfKAiEblgdPwkE79qWp4O
+ xBKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758909741; x=1759514541;
+ d=1e100.net; s=20230601; t=1758909746; x=1759514546;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jq9EkizHbueee6bQjcWIkh2x0VT+LH+7aCNELhm5gZM=;
- b=MuOrvawlW4xjFRVjBvoralhP4tiv/wOFhsUJcRFVMsl46oMGSPtBQfj6rS8kfYVnZn
- 4GvJqRx49hGo76nwvPySpYzgdcjkJNSuN3uuDrkQsAexKkywfdziQanDXG/2RsNPxkME
- +k7je7EDE0JEle49u3xMvAfTbGZvFH1SySkH8Kpm/+z5BihHqUkqaGpIhC61F3qo8LMm
- NbBmJtIRVwX4BAALYFJIHY6w3/r7l0sGzqJ3eWY1NuFLDmwUu8DB48HXr6mwrvr9B+DL
- Z91zWDr8QhUUNhhIgMjwoE8IxBulU3ixK3yr1CUUWIJ6cAIDgccJbpaaDdkPtD6NAhKN
- H80A==
-X-Gm-Message-State: AOJu0YyuShPvd10lbT8uVw/sfEDbA1co2OQclNd2ud24Zihb/VIdLp7i
- Bm3dW6vQTNxpnagg4yr4DubjI+XUk/RoIOVIFukfK9MY7KKDpp92sDSpIQ334w==
-X-Gm-Gg: ASbGncuTDfDvyI1CoCSkKp/XrbCjoLJPjS+j21n09nFURKSlYTze4ebPJFdWtjpjvWJ
- 8JTBJCLxPbGST6bchbl29tzWtopQvvXyMK5FZ8gC4fSF+wE/aBlJikujx2Ubudqe6okaGKRkJ7T
- z0ys4uCsnFLBEjguZtJj55SgyZgl8IH70++HtrKQ432BFDRepc88YGlP+Os74EPCHKkiVDvyDml
- evkGSJ5RqQ9xnxBG3jrLfnL/I6LcjGEn2vuR940FYdDSoSoy6l6ktjtu+GgT7k9wuL1Fe0y6oSD
- l27aB8YQEzfua43NwDhQ9RD5Me8lJlqkTx+5SDJCusNAdGlzjf3+HQkej9aSC4LFuItSm1XCjBN
- OwdWy+OUM5Rz/Hid9Cbs1Hrv92GVcGpvVQrFx5BShmbfqYZqxTquYoHmNWBlXvm2n5OPgPTui8n
- y5/xcALfqQfKkkdX65CMnnuwPdVRsCRQ==
-X-Google-Smtp-Source: AGHT+IEZdhcq80445yHOv63ltelc2vSXEJz++1Ki5tl65+4UcAUOFtP4wqlxApR5Ae/8k79U8etJAQ==
-X-Received: by 2002:a17:902:dac9:b0:252:1743:de67 with SMTP id
- d9443c01a7336-27ed4ac4cdamr81517355ad.44.1758909740953; 
- Fri, 26 Sep 2025 11:02:20 -0700 (PDT)
+ bh=LxiGj+CM3qtjfo2HCFmEbMDyBqyILSp5cxtgeNpe78A=;
+ b=TXCD4TEs/BZdjj5yhE8r1hrNU1HcEdCcWGMY3hpPpXwjzehSU17bQRlzDpGVYPH92L
+ pAQrEN4mK/JfxBsTdjp1EoBryC/VKay11rwcu1XqnmGFPwmP5m9UpMTBqhEiJVP77HtC
+ 4kE52LmNSSOJPy0nj3ojYEgMSe40lH1mVh9pBDgMcRG0QyIraqDc+qdp7ZH+jZ8tOUDr
+ zNHDNPTwWBkVeeoP2tOUiN5gtRQ6tsqKPK/O2G0z8JDy9HbGToc5nr2IGNcTZwJviuz5
+ KZPDk3UStxmMt7L3zpng2u2vAsc/s6UlVgrUoJvYINsXMwzSht49sut8h+Vo7VD7AlZ4
+ VyVg==
+X-Gm-Message-State: AOJu0Yw0ZsRorVua8nsbCMqRHKG1OHN820DYk0P5HwRYJzYYCFnWv3lz
+ 6OonQRQn2q6fyvIGliW4j5hMrHIEJeYSIZ2hF305LUsxpwzI55Ww30nP4+v+Zg==
+X-Gm-Gg: ASbGncs9mDeWvTVpoFimimXdyI6t7kP633N3cNwEVnSxxcUT0xXas1Qc8GRNa8tDQRw
+ oWwDN0cK8V68YPIxRDIidHs0TnTIAwnJzXOip23bOmpnAWsk+46Rk403wk3SzUiPOi+BtRBMxaU
+ vWl1ezp45fzxnOgYBXSGPL32/1zfGhI4pTAuRalMgwpJSNbLgDpHqC0p2ULDkBTV4369aBrPSBm
+ 23x0C3kjOrmXv6CxCfBe8ZyvZQNMlHJH2G4dQMz3OwTe5qsu3UelIx3aFdMEKjnk0ERl1KNuGzZ
+ 52Je84yqLkYbF4vISxnG4AiFOW9RApk955m53XXEjjcDFHhWSvX3fv1ytDOAhMAvhvynJGrrN5q
+ u3rU/3XEbgztwgwAJvUbdc5VAqNYXirrlWg0fU4V5uMdR8/ag9C526dQGQnkdOHg77h40VEUylG
+ H4Q/+LSDjHhdUxo8SoWMEOsyoBJToAn8TBMKbk6qBW
+X-Google-Smtp-Source: AGHT+IEcu3+T9Hw7Ypr8lV+voZ8go+TkjrzlLVQ14REoUpSK13exUfcHJ8IvcvxcOpr3G9pDe8ZVZw==
+X-Received: by 2002:a17:902:e88d:b0:263:b8f:77dd with SMTP id
+ d9443c01a7336-27ed4a5ec57mr98591345ad.57.1758909746086; 
+ Fri, 26 Sep 2025 11:02:26 -0700 (PDT)
 Received: from Timur-Hyperion
  (20014C4E24D067005D2C718B079018C4.dsl.pool.telekom.hu.
  [2001:4c4e:24d0:6700:5d2c:718b:790:18c4])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-27f1d2ef8c5sm22186835ad.151.2025.09.26.11.02.16
+ d9443c01a7336-27f1d2ef8c5sm22186835ad.151.2025.09.26.11.02.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Sep 2025 11:02:20 -0700 (PDT)
+ Fri, 26 Sep 2025 11:02:25 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, alex.hung@amd.com, harry.wentland@amd.com,
  siqueira@igalia.com, christian.koenig@amd.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 01/23] drm/amd/display: Determine DVI-I connector type (v2)
-Date: Fri, 26 Sep 2025 20:01:41 +0200
-Message-ID: <20250926180203.16690-2-timur.kristof@gmail.com>
+Subject: [PATCH 02/23] drm/amd/display: Add analog bit to edid_caps (v2)
+Date: Fri, 26 Sep 2025 20:01:42 +0200
+Message-ID: <20250926180203.16690-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250926180203.16690-1-timur.kristof@gmail.com>
 References: <20250926180203.16690-1-timur.kristof@gmail.com>
@@ -91,68 +91,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DC determines the DRM connector type based on the
-signal type, which becomes problematic when a connector may
-support different signal types, such as DVI-I.
-With this patch, it is now determined according to the actual
-connector type for DVI-D and DVI-I connectors.
+The new analog bit will be used with DVI-I connectors.
 
-Also set the HPD (hotplug detection) flag for DVI-I connectors
-to prevent regressing their digital functionality, which has
-been already working.
-
-A subsequent commit will also implement polling for DVI-I.
+DVI-I connectors can connect to both digital and analog monitors
+and this bit will help distinguish between those.
 
 v2:
-Only use connector type for DVI to prevent regressions
-for other signal types.
+Sanitize analog bit based on connector type.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h                 | 5 +++++
+ drivers/gpu/drm/amd/display/dc/link/link_detection.c      | 2 ++
+ drivers/gpu/drm/amd/display/include/grph_object_id.h      | 7 +++++++
+ 4 files changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 20ab9fd1b82a..4a9109818672 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8133,7 +8133,7 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index fe100e4c9801..a14076878b89 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -130,6 +130,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	edid_caps->serial_number = edid_buf->serial;
+ 	edid_caps->manufacture_week = edid_buf->mfg_week;
+ 	edid_caps->manufacture_year = edid_buf->mfg_year;
++	edid_caps->analog = !(edid_buf->input & DRM_EDID_INPUT_DIGITAL);
  
--static int to_drm_connector_type(enum signal_type st)
-+static int to_drm_connector_type(enum signal_type st, uint32_t connector_id)
- {
- 	switch (st) {
- 	case SIGNAL_TYPE_HDMI_TYPE_A:
-@@ -8149,6 +8149,10 @@ static int to_drm_connector_type(enum signal_type st)
- 		return DRM_MODE_CONNECTOR_DisplayPort;
- 	case SIGNAL_TYPE_DVI_DUAL_LINK:
- 	case SIGNAL_TYPE_DVI_SINGLE_LINK:
-+		if (connector_id == CONNECTOR_ID_SINGLE_LINK_DVII ||
-+			connector_id == CONNECTOR_ID_DUAL_LINK_DVII)
-+			return DRM_MODE_CONNECTOR_DVII;
+ 	drm_edid_get_monitor_name(edid_buf,
+ 				  edid_caps->display_name,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index b5aa03a3e39c..d948cdb98ea8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -185,6 +185,10 @@ struct dc_panel_patch {
+ 	unsigned int wait_after_dpcd_poweroff_ms;
+ };
+ 
++/**
++ * struct dc_edid_caps - Capabilities read from EDID.
++ * @analog: Whether the monitor is analog. Used by DVI-I handling.
++ */
+ struct dc_edid_caps {
+ 	/* sink identification */
+ 	uint16_t manufacturer_id;
+@@ -212,6 +216,7 @@ struct dc_edid_caps {
+ 	bool edid_hdmi;
+ 	bool hdr_supported;
+ 	bool rr_capable;
++	bool analog;
+ 
+ 	struct dc_panel_patch panel_patch;
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index 85303167a553..2ab8ee7f42c1 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -1103,6 +1103,8 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 			break;
+ 		}
+ 
++		sink->edid_caps.analog &= dc_connector_supports_analog(link->link_id.id);
 +
- 		return DRM_MODE_CONNECTOR_DVID;
- 	case SIGNAL_TYPE_VIRTUAL:
- 		return DRM_MODE_CONNECTOR_VIRTUAL;
-@@ -8538,6 +8542,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 			link->link_enc->features.dp_ycbcr420_supported ? true : false;
- 		break;
- 	case DRM_MODE_CONNECTOR_DVID:
-+	case DRM_MODE_CONNECTOR_DVII:
- 		aconnector->base.polled = DRM_CONNECTOR_POLL_HPD;
- 		break;
- 	default:
-@@ -8741,7 +8746,7 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
- 		goto out_free;
+ 		// Check if edid is the same
+ 		if ((prev_sink) &&
+ 		    (edid_status == EDID_THE_SAME || edid_status == EDID_OK))
+diff --git a/drivers/gpu/drm/amd/display/include/grph_object_id.h b/drivers/gpu/drm/amd/display/include/grph_object_id.h
+index 54e33062b3c0..1386fa124e85 100644
+--- a/drivers/gpu/drm/amd/display/include/grph_object_id.h
++++ b/drivers/gpu/drm/amd/display/include/grph_object_id.h
+@@ -310,4 +310,11 @@ static inline bool dal_graphics_object_id_equal(
  	}
- 
--	connector_type = to_drm_connector_type(link->connector_signal);
-+	connector_type = to_drm_connector_type(link->connector_signal, link->link_id.id);
- 
- 	res = drm_connector_init_with_ddc(
- 			dm->ddev,
+ 	return false;
+ }
++
++static inline bool dc_connector_supports_analog(const enum connector_id conn)
++{
++	return conn == CONNECTOR_ID_VGA ||
++		conn == CONNECTOR_ID_SINGLE_LINK_DVII ||
++		conn == CONNECTOR_ID_DUAL_LINK_DVII;
++}
+ #endif
 -- 
 2.51.0
 
