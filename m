@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63D56CAC5AE
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 18:04:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B39CAC5B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 18:04:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C20010EAC9;
-	Fri, 26 Sep 2025 18:04:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F4F110EACD;
+	Fri, 26 Sep 2025 18:04:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iyTMzpEF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DCWCBdlG";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCB3610EAC8
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 18:03:59 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-27eed7bdfeeso16119235ad.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 11:03:59 -0700 (PDT)
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37D0310EACC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 18:04:05 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-b5506b28c98so1744707a12.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 11:04:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758909839; x=1759514639; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758909845; x=1759514645; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=D2Zy8gREh6vtbo6EoGyUoWhIZzeRjqOxLEGOM8kLMns=;
- b=iyTMzpEFtxPhvVGn9LjIxUbuIEhKyhM6Tx84a7jhQDAOrEUOzj8bVltlK/mJkogW9v
- psvXDUoYI7I+4Lu8Fw7PJe7AVQvj5pktEQQ6LuP7PsQWGuLh35DGpEF8KtsVUeS7lp0e
- SC7b40pQ9tMhDPSk0XhvRcfBqPYvVui3ehOyuw5Nb9AanqTlVhXnO2QphR+XV7s/pImk
- icoR5RGp9tGX2eVMomweUw3ht5RX5Y25rIT4Y9UTlwiBlc2pFFdqoqOoTquqHKlbvW8H
- 7BtxTjVi49aJcU+hXDUPzAXR8ddBjybjJagjSImlplChSRQBNyt0zFr5i/M5wvhK9H12
- TvbQ==
+ bh=bG0JDw3QHJerpIxI8nfa8J0OuVfzbxw0qLl4r+EJark=;
+ b=DCWCBdlGw0lzrJYP27pcm3FkVnLX0hQF7gDNM7JsuP6Bwit7qwTNExfmakPBkxPVtU
+ XORm0gL1D0W+d+acj+SCWJZcyi1jt/chcJBHyKiovqW5flOmGABFUxX0eSPn68njGh5C
+ 12oaTBVSLNvGgkzzT23iW+7U1h5VTwMAs+dYBaJ4gs2iyBjbckHbhPJkTybFP7ZPOdt1
+ hC15HWuJijN8SYPP94GLOvRee6nlR73jIdsU4C4llt/CWSUsSzs8hiZGICAPDNz13Syu
+ RVHv1J6jWpQAy72SB8ify+W5AS73spASeylDGNEHLUaL3XJBlhEcFe4z2ZalFqgTlkSq
+ iorA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758909839; x=1759514639;
+ d=1e100.net; s=20230601; t=1758909845; x=1759514645;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=D2Zy8gREh6vtbo6EoGyUoWhIZzeRjqOxLEGOM8kLMns=;
- b=C3ipA5Xv72OepZZVlxh5XA8YkOU8CkvNF3jjpkJp6aKp8uM5oaGmptJLpnBYwBOkY9
- v1OU3joVaMrbUf3/ZAPLBEAsWajlONp92hXgOvn9489IHa/lOTR2y/Lc3CO5fRfLNFDv
- XkeYeBlHuUxPMJYrilTCAtPOCU3arEVuS3q2gOSlOeftAXA2FfIxJ8hfsT9ubY+B+s76
- SAN5RX3pzAgasrgWrQjnEM1bcTy7Gn0JuLNZCw8i+3YVIG8eqgUbg2mfS0dATThy1Gwr
- +Gvlp3Bh0lSeybDc/ZfK2siGfX7sqJ2eYyarwBEGda42kFAJdAiz7dXo2f9mlNFt27ZA
- JwFg==
-X-Gm-Message-State: AOJu0YxXsDe3tmVItMCwwpVNR5poDfRA5B0ogq9HX0VPeEKzZ2X4lil/
- s4IJAG4nYgAle7yNO+SIX5/iI6R5xKldSm8OlIh+YzQaaQdOy1LDpAI9JqhueA==
-X-Gm-Gg: ASbGncsIRCtWJuFNGFWzWcH8T+1r+ypiFdG862q5dZ8SmSzhhFki5EVpMUs3thSxpqo
- Vqa9arSDgN5u0HwisaC+QnS7F2rsNl6+AkENVRWKUmg8V3LP6Phq+2wln131k5ySceUb3wZh61c
- PGleSqLy4l3sA8y83QraxYC/Nv1qGgvN5AqyDzYy/kBKcAnfkjnFPj5GkvWjLKKDufhq49tr6ra
- +AA5x1hPSgQALTdecP7wh2D8u6HoPU/p0hIRjCYV1uvbfNe6LRS2XWqI0X2lMamVsfqg134TwEk
- 8qKwWPsvB976ur2n+aL+KRJw4fGDVL2vEhT9x/ineAB90E2sXiwlp4dGwJ++wRixv8BqGpOqUN4
- 5Rmw/YJT6xTcrMsKjYxEMdvmTpTbtPJTaluviRpFkh9THUKm1twWy9uI9i5ccSDg7xoIfWRm6PL
- OnKGHA1U8gAkx/Odw1Ozc=
-X-Google-Smtp-Source: AGHT+IEv7BucDiRcnGs1K9lOmXeYDCDekyD/Sz3dOqhSD9Q6qtXZjhRjQHn1g1HBlS6Lbce3gPO/CA==
-X-Received: by 2002:a17:902:c951:b0:273:ef4c:60f3 with SMTP id
- d9443c01a7336-2818434d82emr3951585ad.4.1758909839280; 
- Fri, 26 Sep 2025 11:03:59 -0700 (PDT)
+ bh=bG0JDw3QHJerpIxI8nfa8J0OuVfzbxw0qLl4r+EJark=;
+ b=DxpDyz/ipwpEDtWRtyK5DUU0ynqOLY5cJy9+eHb4k9ZYS+GyMXGn31NELkpY2wV5Q/
+ kgzmqq4OzoVJDNLXFdhH8fkgK7FAdcSL/XQ9DqXX/33rICH6aYRXh6SebACSyrF4s8Ti
+ 3uTVXINRyIICifvPGbLhmyLMNE13OlXcg6zgNB8SP5kSdIF83nulFGQRMP2Zrf9z/aLF
+ PydqvLVfW96FvcGk98bp4WS1zbXD4IbHhdy26MHXPMIbESLiAjhhNf8lFA3lsHvQmS4+
+ m6NkxCDoUEekAinA80LtMxiu+6jPAADcML3/Es6U4+tgx7Q0kOskW0ln0x5AuyI+Bf8N
+ Vz+w==
+X-Gm-Message-State: AOJu0Yw8o+UiFnKbnzvfIIl+IS2ypbJtI5gQg6+M2x2LMiBUh1MprK9V
+ +Kj7gvuEjofBDDgtnUWsHDFpXElQGoP8tSkCC+COlvYdeDWFfa4mpnfW6z7Hvg==
+X-Gm-Gg: ASbGncvyAnRgOJ42Tu2Itg5JvMB6Mc2soNUBOovvyrOVT1xIoHG69U7fZ4nLDnm8QJO
+ NuNBCOeshaYg/DaSepEXihw0DRVGQ78b0jHBwDwMEIJbZ5yrT563C9sXjELx8mOipOexvnrorQA
+ 3aukSuXXhhTBbJpF4Wt3Hw1K+yKwlzEJkoQ/OZyrqUMz9dLGJD8HKOWZ0Nisog1lU+Oh0L9VANd
+ Ul1uOv1NcAG99zq0xMrEbPmtAY+CZQVdddiXLfNRLLoRELt7yirdXQcerGSnpoKupCuq45r+LSh
+ 2xTu7nxSUFde0iStU+E/T4jx4a0mRVoHFrYr95lrlnxBLm16Tfjz57evPfcAfbJmTloIugs8jvG
+ 2Yb2vAdknbdZSiX+TKV0Y2AFKFWQq+lH0MHLeiHMA25FWG3T8Je1LeAxBiX8OPME1PIAswWMzyB
+ MEhL1aQ1ZXBfo+BohqGjo=
+X-Google-Smtp-Source: AGHT+IE9rjbT8vVu0WcXTSjxgW1D/yryKnfdhMhKFZ6rNSD7jlEBNxBa+jvTJ4DU4KJj+K+0JNacag==
+X-Received: by 2002:a17:903:2a8b:b0:279:a5bb:54e2 with SMTP id
+ d9443c01a7336-27ed4a3e08dmr105016225ad.20.1758909844763; 
+ Fri, 26 Sep 2025 11:04:04 -0700 (PDT)
 Received: from Timur-Hyperion
  (20014C4E24D067005D2C718B079018C4.dsl.pool.telekom.hu.
  [2001:4c4e:24d0:6700:5d2c:718b:790:18c4])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-27f1d2ef8c5sm22186835ad.151.2025.09.26.11.03.55
+ d9443c01a7336-27f1d2ef8c5sm22186835ad.151.2025.09.26.11.03.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Sep 2025 11:03:59 -0700 (PDT)
+ Fri, 26 Sep 2025 11:04:04 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, alex.hung@amd.com, harry.wentland@amd.com,
  siqueira@igalia.com, christian.koenig@amd.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 20/23] drm/amd/display: Use DAC load detection on analog
- connectors (v2)
-Date: Fri, 26 Sep 2025 20:02:00 +0200
-Message-ID: <20250926180203.16690-21-timur.kristof@gmail.com>
+Subject: [PATCH 21/23] drm/amd/display: Add common modes to analog displays
+ without EDID
+Date: Fri, 26 Sep 2025 20:02:01 +0200
+Message-ID: <20250926180203.16690-22-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250926180203.16690-1-timur.kristof@gmail.com>
 References: <20250926180203.16690-1-timur.kristof@gmail.com>
@@ -92,160 +92,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This feature is useful for analog connections without EDID:
-- Really old monitors with a VGA connector
-- Cheap DVI/VGA adapters that don't connect DDC pins
+When the EDID of an analog display is not available, we can't
+know the possible modes supported by the display. However, we
+still need to offer the user to select from a variety of common
+modes. It will be up to the user to select the best one, though.
 
-When a connection is established through DAC load detection,
-the driver is supposed to fill in the supported modes for the
-display, which we already do in amdgpu_dm_connector_get_modes.
-
-Also, because the load detection causes visible glitches, do not
-attempt to poll the connector again after it was detected this
-way. Note that it will still be polled after sleep/resume or
-when force is enabled, which is okay.
-
-v2:
-Add dc_connection_dac_load connection type.
-Properly release sink when no display is connected.
-Don't print error when EDID isn't read from an analog display.
+This is how it works on other operating systems as well as the
+legacy display code path in amdgpu.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  3 +-
- .../drm/amd/display/dc/link/link_detection.c  | 61 ++++++++++++++++++-
- 3 files changed, 72 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 46 +++++++++++--------
+ 1 file changed, 28 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 07cfd9cae0df..09248ac2f37d 100644
+index 09248ac2f37d..2773436d49d1 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7145,6 +7145,16 @@ amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force)
- 	enum dc_connection_type conn_type = dc_connection_none;
- 	enum drm_connector_status status = connector_status_disconnected;
+@@ -8282,7 +8282,7 @@ static void amdgpu_dm_get_native_mode(struct drm_connector *connector)
  
-+	/* When we determined the connection using DAC load detection,
-+	 * do NOT poll the connector do detect disconnect because
-+	 * that would run DAC load detection again which can cause
-+	 * visible visual glitches.
-+	 *
-+	 * Only allow to poll such a connector again when forcing.
-+	 */
-+	if (!force && link->local_sink && link->type == dc_connection_dac_load)
-+		return connector->status;
-+
- 	mutex_lock(&aconnector->hpd_lock);
+ static struct drm_display_mode *
+ amdgpu_dm_create_common_mode(struct drm_encoder *encoder,
+-			     char *name,
++			     const char *name,
+ 			     int hdisplay, int vdisplay)
+ {
+ 	struct drm_device *dev = encoder->dev;
+@@ -8304,6 +8304,24 @@ amdgpu_dm_create_common_mode(struct drm_encoder *encoder,
  
- 	if (dc_link_detect_connection_type(aconnector->dc_link, &conn_type) &&
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index d948cdb98ea8..e0157a91a950 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -352,7 +352,8 @@ enum dc_connection_type {
- 	dc_connection_none,
- 	dc_connection_single,
- 	dc_connection_mst_branch,
--	dc_connection_sst_branch
-+	dc_connection_sst_branch,
-+	dc_connection_dac_load
- };
- 
- struct dc_csc_adjustments {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index 2ad4862ad659..da54f696dafd 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -900,6 +900,37 @@ static bool link_detect_ddc_probe(struct dc_link *link)
- 	return true;
  }
  
-+/**
-+ * link_detect_dac_load_detect() - Performs DAC load detection.
-+ *
-+ * Load detection can be used to detect the presence of an
-+ * analog display when we can't read DDC. This causes a visible
-+ * visual glitch so it should be used sparingly.
-+ */
-+static bool link_detect_dac_load_detect(struct dc_link *link)
-+{
-+	struct dc_bios *bios = link->ctx->dc_bios;
-+	struct link_encoder *link_enc = link->link_enc;
-+	enum engine_id engine_id = link_enc->preferred_engine;
-+	enum dal_device_type device_type = DEVICE_TYPE_CRT;
-+	enum bp_result bp_result;
-+	uint32_t enum_id;
++static const struct amdgpu_dm_mode_size {
++	char name[DRM_DISPLAY_MODE_LEN];
++	int w;
++	int h;
++} common_modes[] = {
++	{  "640x480",  640,  480},
++	{  "800x600",  800,  600},
++	{ "1024x768", 1024,  768},
++	{ "1280x720", 1280,  720},
++	{ "1280x800", 1280,  800},
++	{"1280x1024", 1280, 1024},
++	{ "1440x900", 1440,  900},
++	{"1680x1050", 1680, 1050},
++	{"1600x1200", 1600, 1200},
++	{"1920x1080", 1920, 1080},
++	{"1920x1200", 1920, 1200}
++};
 +
-+	switch (engine_id) {
-+	case ENGINE_ID_DACB:
-+		enum_id = 2;
-+		break;
-+	case ENGINE_ID_DACA:
-+	default:
-+		engine_id = ENGINE_ID_DACA;
-+		enum_id = 1;
-+		break;
-+	}
+ static void amdgpu_dm_connector_add_common_modes(struct drm_encoder *encoder,
+ 						 struct drm_connector *connector)
+ {
+@@ -8314,23 +8332,6 @@ static void amdgpu_dm_connector_add_common_modes(struct drm_encoder *encoder,
+ 				to_amdgpu_dm_connector(connector);
+ 	int i;
+ 	int n;
+-	struct mode_size {
+-		char name[DRM_DISPLAY_MODE_LEN];
+-		int w;
+-		int h;
+-	} common_modes[] = {
+-		{  "640x480",  640,  480},
+-		{  "800x600",  800,  600},
+-		{ "1024x768", 1024,  768},
+-		{ "1280x720", 1280,  720},
+-		{ "1280x800", 1280,  800},
+-		{"1280x1024", 1280, 1024},
+-		{ "1440x900", 1440,  900},
+-		{"1680x1050", 1680, 1050},
+-		{"1600x1200", 1600, 1200},
+-		{"1920x1080", 1920, 1080},
+-		{"1920x1200", 1920, 1200}
+-	};
+ 
+ 	if ((connector->connector_type != DRM_MODE_CONNECTOR_eDP) &&
+ 	    (connector->connector_type != DRM_MODE_CONNECTOR_LVDS))
+@@ -8554,6 +8555,15 @@ static int amdgpu_dm_connector_get_modes(struct drm_connector *connector)
+ 		if (dc->link_srv->dp_get_encoding_format(verified_link_cap) == DP_128b_132b_ENCODING)
+ 			amdgpu_dm_connector->num_modes +=
+ 				drm_add_modes_noedid(connector, 1920, 1080);
 +
-+	bp_result = bios->funcs->dac_load_detection(bios, engine_id, device_type, enum_id);
-+	return bp_result == BP_RESULT_OK;
-+}
-+
- /*
-  * detect_link_and_local_sink() - Detect if a sink is attached to a given link
-  *
-@@ -1114,7 +1145,30 @@ static bool detect_link_and_local_sink(struct dc_link *link,
- 			DC_LOG_ERROR("Partial EDID valid, abandon invalid blocks.\n");
- 			break;
- 		case EDID_NO_RESPONSE:
-+			/* Analog connectors without EDID:
-+			 * - old monitor that actually doesn't have EDID
-+			 * - cheap DVI-A cable or adapter that doesn't connect DDC
++		if (amdgpu_dm_connector->dc_sink->edid_caps.analog) {
++			/* Analog monitor connected by DAC load detection.
++			 * Add common modes. It will be up to the user to select one that works.
 +			 */
-+			if (dc_connector_supports_analog(link->link_id.id)) {
-+				/* If we didn't do DAC load detection yet, do it now
-+				 * to verify there really is a display connected.
-+				 */
-+				if (link->type != dc_connection_dac_load &&
-+					!link_detect_dac_load_detect(link)) {
-+					if (prev_sink)
-+						dc_sink_release(prev_sink);
-+					link_disconnect_sink(link);
-+					return false;
-+				}
-+
-+				DC_LOG_INFO("%s detected analog display without EDID\n", __func__);
-+				link->type = dc_connection_dac_load;
-+				sink->edid_caps.analog = true;
-+				break;
-+			}
-+
- 			DC_LOG_ERROR("No EDID read.\n");
-+
- 			/*
- 			 * Abort detection for non-DP connectors if we have
- 			 * no EDID
-@@ -1303,6 +1357,11 @@ static bool link_detect_analog(struct dc_link *link, enum dc_connection_type *ty
- 		return true;
- 	}
- 
-+	if (link_detect_dac_load_detect(link)) {
-+		*type = dc_connection_dac_load;
-+		return true;
-+	}
-+
- 	*type = dc_connection_none;
- 	return true;
- }
-@@ -1324,7 +1383,7 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
- 	}
- 
- 	/* Ignore the HPD pin (if any) for analog connectors.
--	 * Instead rely on DDC.
-+	 * Instead rely on DDC and DAC.
- 	 *
- 	 * - VGA connectors don't have any HPD at all.
- 	 * - Some DVI-A cables don't connect the HPD pin.
++			for (int i = 0; i < ARRAY_SIZE(common_modes); i++)
++				amdgpu_dm_connector->num_modes += drm_add_modes_noedid(
++					connector, common_modes[i].w, common_modes[i].h);
++		}
+ 	} else {
+ 		amdgpu_dm_connector_ddc_get_modes(connector, drm_edid);
+ 		if (encoder)
 -- 
 2.51.0
 
