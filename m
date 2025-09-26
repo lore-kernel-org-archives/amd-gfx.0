@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49E02CAC5B8
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 18:03:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BA3ECAC5B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 18:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1C4910EAC2;
-	Fri, 26 Sep 2025 18:03:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B31010EAC6;
+	Fri, 26 Sep 2025 18:03:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m+hCmBVv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kzzttGKT";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8865D10EAC2
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 18:03:39 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-27a6c3f482dso20506435ad.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 11:03:39 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCAED10EAC6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 18:03:44 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-26983b5411aso18355585ad.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 11:03:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758909819; x=1759514619; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758909824; x=1759514624; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tM3EgE2D1EZ6aCNFVNKWsGNgouP+I5mfEFAOPS6GBek=;
- b=m+hCmBVvdJgRVLJzB+Orp3TW0v/IKP9wC9Hpid/rqPXrsfTAJ2E8dvhZnDIIJl5mxz
- Z6uf8xRys6fZ0aQ43g7854/GxW0OSoZ/5LXyVQyvrKRKOOCOEhLkgK8nSfx4zbcUcMHH
- E4f+kcsnPb8Bp14iEmeeVCNsDxJJseihhpGuKt/zws49bN0AwlByf5YIb0D5cA9CfrnU
- iCYwmnpdrFTGFr1yAfKJf3a3NgoCVKndaWhRloD+n1Y20rbHhMoTlI8Ps62HTsq0osHd
- 1UKFb2jC7/ryii1V6S6CeHCqe9kFf3SaY3NsiheaH0flbgQykVUA3MOfGRiKuJupORRF
- fBUg==
+ bh=FiV+Vf88JsaXYYr545IC+IevzBXuT7a8hAu6Jo3LjWw=;
+ b=kzzttGKTK43+M/0Tk+6IrOOzMQilRqORd1JvI7NnEuFndmO9SSRnmgfKy9W//AkISo
+ 8kUz0hPddFmoubM0O6nB03SvkeV+F7GHGMY/KIz0nhY3uM9w+V6c0e38QDm63GiNlmbl
+ Wj+gQyX688TcWquNh0TuMuXTQa6N1t6BBdlNxs3xnOkjhpYCTuDl58VWv+pDBYqOvCHk
+ +WWOWoyXLnURyJQmuNufdWrrN9XuWR+X4Lpl9V6xZT+71JZjgSH5+E4YcIQerX9Mug0o
+ 85YvG/QYM1s/L34m2XeNEOlxN70uWXylXKLd1vtC0sIslS/MdfBlhr5EXQWWedZNFso7
+ iBsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758909819; x=1759514619;
+ d=1e100.net; s=20230601; t=1758909824; x=1759514624;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tM3EgE2D1EZ6aCNFVNKWsGNgouP+I5mfEFAOPS6GBek=;
- b=La+pjZ4w69Q1TaW/UKGL2YEfVY1hACR20x7tx9kOMdOTjklPRi+4Hs3IX8kQC4EHhT
- k5aI0tG7JDErLPtVx7wLOVSEjswrfIAPb0N0QUJ5xLe/P7ouTj0ZOfZbQ0qQJarah0/I
- 9eiB08aGNr7PSA22g6bJip9uPren0nS85rLdK5JSyAAqW5dqeI6aX00zTRzJ2XRfxOFy
- C4BSbP+FnyuFSgKjI3iTicWZjZy7pUYitCBLLogXb4QyOHcEEFr5PkH/nYzP1DPq1nZG
- 96r/aw7V3HsKMwOz6LkYrpiwpoXG0fBiPmO3nHFrhVfb6hSpeYVjMs4bWndT8tPEIz54
- LUIg==
-X-Gm-Message-State: AOJu0YxaEE4yR75DG0Vc0FtQU1mG8KYWmipXLMabrG2YvuxlYLwhoDm8
- iFHDHgcCnCvugSn0zNG4yaxjkUM/FwOjdBqgDrZpUqc4wewNnaCO0oq+K9bLOQ==
-X-Gm-Gg: ASbGncsSuCgz/JZpsK1fCyvuJSIeHKjVbcI16R3ltdOALzDQWVbKb3ZYNWNUGM3Qnu0
- 09zNCCiWlV8RIiXFsIeuYN1/xHbvtPRqZm/6iJt8y6lw6peBVj/u3jUajBD+CjCx9znDV86Ljl4
- Sfm/wEnnZg/smAgoMl5Z9FHkUlXw+qyTaZQxK2GU/v4TSAoocOoKtrcx+TQOL4FVAlnzKDZ9WNt
- 0Ti5F/aZoddP3S0bYQL10+U+RQsYZpahijTFEgTztt5RJ6/2XkqVt67rO936M7cx40kPJ8KQdmI
- mGHNxLaGbjDkKb+Jlye+5fnEtAyyG+5D5TMj1mhoOavPpHO4jE0jPzgP1SEow8ii5PVT3k8DYrw
- TbYm7oVOv6NetccF0X4iuK2vd4LwVA/VD6ZiewlUBqeVLwgt+UU7wNL61Xs2tjU6RMDC6c+d0/X
- L6e0r1EayiZnEJORbsygPLDFDZbzrUdg==
-X-Google-Smtp-Source: AGHT+IHuRVUjxK3vlQ45sdSVUvDSae1hpONjM0Ju2TJpsQjqY4WPBqmELg6iLZeWAs7xNKYZbt8Qdw==
-X-Received: by 2002:a17:902:db0f:b0:269:9e4d:4c8b with SMTP id
- d9443c01a7336-27ed4a3ed4cmr102044265ad.21.1758909818708; 
- Fri, 26 Sep 2025 11:03:38 -0700 (PDT)
+ bh=FiV+Vf88JsaXYYr545IC+IevzBXuT7a8hAu6Jo3LjWw=;
+ b=UaRkLCauoK9cVqDmDQCXIAKZA6QWdWU17DPSwlOLq1QuIjX2rk3PlwTvQ7FEv1MmTD
+ 5rA3rGv4E/2I5aoJ0tX9sM5HPgEvtu415O77CQPyO32nUqLu0VvnFQ9iBaFyNp009S0F
+ UX6+3W7pRC9RwmV0szvFUWmu6w+bSw+nROu16VaS5njk3Aju16gPD/0xt2/m9zxov9kX
+ zUM7Q3GvfzUct/zAqJmV6Je44x4gxIFv4L11v6guuFMBHP6dAJt3HClh5NJklie8vaaU
+ yzOrtaucdJxtpRteX2sQs4KXSImkczbqHAsWFsH7gF4kgy3mhhI1CKJTkhRWzKRFE8lk
+ 5MXw==
+X-Gm-Message-State: AOJu0YwogD05PzZ9ZjZUrbrMldONi9sKre+gC56pTGzVNeuZbiyYuMZl
+ WaumXSdMlhH8OnOkNzjK/xOjKoLuC3JJ8l1FgyrLDEAUSXZiUxHNG6uWrGdbxg==
+X-Gm-Gg: ASbGncvYAyCqcHzJJTIRG4GaaG1U+CA/x9WGcvSwLueaZKlcYl/j+TwVxfGWVE4l/Vp
+ 3XMus5OTnjXPjX2UJkyYyKgjEDygO5bcIY5ta+lFOLtfIbSwLBcwXnWdjZvFbr7Q03Ri29KuR/2
+ l/BT8ZxgpPBIMrPmr3TPTnPVEMmvII5RW5tRz3n5DCSNl9aSHyzBF1qsFx5/9BHSNXcEHqXjAXW
+ 5b/GSOgu60reKEmhalwaWNNPOahLd6gxS8VThcm1+CrxsjY/rGYQjvxblDWTwy6aXKd8wmFoqJM
+ RYIOzThWRqCoh+rLfObZnCCV8Koh0jSKw1CJwUmA8GgjPb6iG/TYt/g/oNOs7b1gIWwu9Bpw5go
+ zSneeeKLn/zOF47Kegs7eA/z9VVFAw6mj893tdUnhi8+MGe4Q8ON6x8W+KiKw80hDbzulP2s3x+
+ RQMSSGGxnRF9tvVMw9POXcU64KOC0xRQ==
+X-Google-Smtp-Source: AGHT+IHxaJP6ss652vNM36PK5xpIpaEPjURlovUtR+EWJZxKXwfCYoGz5HK1NFxb8HGcc44RwgD8Cw==
+X-Received: by 2002:a17:902:ebc4:b0:262:4878:9dff with SMTP id
+ d9443c01a7336-27ed4a09347mr89555025ad.12.1758909824234; 
+ Fri, 26 Sep 2025 11:03:44 -0700 (PDT)
 Received: from Timur-Hyperion
  (20014C4E24D067005D2C718B079018C4.dsl.pool.telekom.hu.
  [2001:4c4e:24d0:6700:5d2c:718b:790:18c4])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-27f1d2ef8c5sm22186835ad.151.2025.09.26.11.03.33
+ d9443c01a7336-27f1d2ef8c5sm22186835ad.151.2025.09.26.11.03.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Sep 2025 11:03:38 -0700 (PDT)
+ Fri, 26 Sep 2025 11:03:43 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, alex.hung@amd.com, harry.wentland@amd.com,
  siqueira@igalia.com, christian.koenig@amd.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 16/23] drm/amd/display: Poll analog connectors (v2)
-Date: Fri, 26 Sep 2025 20:01:56 +0200
-Message-ID: <20250926180203.16690-17-timur.kristof@gmail.com>
+Subject: [PATCH 17/23] drm/amd/display: Add DCE BIOS_SCRATCH_0 register
+Date: Fri, 26 Sep 2025 20:01:57 +0200
+Message-ID: <20250926180203.16690-18-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250926180203.16690-1-timur.kristof@gmail.com>
 References: <20250926180203.16690-1-timur.kristof@gmail.com>
@@ -91,236 +91,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGA connectors don't support any hotplug detection, so the kernel
-needs to periodically poll them to see if a display is connected.
+The BIOS uses this register to write the results of the
+DAC_LoadDetection command, so we'll need to read this
+in order to make DAC load detection work.
 
-DVI-I connectors have hotplug detection for digital signals, and
-some analog DVI cables pull up that pin to work with that.
-However, in general not all DVI cables do this so we can't rely on
-this feature, therefore we need to poll DVI-I connectors as well.
-
-v2:
-Call drm_kms_helper_poll_fini in amdgpu_dm_hpd_fini.
-Disable/enable polling on suspend/resume.
-Don't call full link detection when already connected.
+As a reference, I used the mmBIOS_SCRATCH_0 definition from
+the amdgpu legacy display code.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 73 ++++++++++++++++++-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 20 +++++
- 2 files changed, 91 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_bios_types.h                  | 1 +
+ .../gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c    | 2 ++
+ .../gpu/drm/amd/display/dc/resource/dce110/dce110_resource.c    | 2 ++
+ .../gpu/drm/amd/display/dc/resource/dce112/dce112_resource.c    | 2 ++
+ .../gpu/drm/amd/display/dc/resource/dce120/dce120_resource.c    | 1 +
+ drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c  | 2 ++
+ drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c  | 2 ++
+ 7 files changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index cdc6112e5875..07cfd9cae0df 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3768,7 +3768,9 @@ void amdgpu_dm_update_connector_after_detect(
- 	drm_dbg_kms(dev, "DCHPD: connector_id=%d: Old sink=%p New sink=%p\n",
- 		    aconnector->connector_id, aconnector->dc_sink, sink);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
+index 545ce1e15eae..50c8906b74c5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
+@@ -168,6 +168,7 @@ struct dc_vbios_funcs {
+ };
  
--	guard(mutex)(&dev->mode_config.mutex);
-+	/* When polling, DRM has already locked the mutex for us. */
-+	if (!drm_kms_helper_is_poll_worker())
-+		mutex_lock(&dev->mode_config.mutex);
+ struct bios_registers {
++	uint32_t BIOS_SCRATCH_0;
+ 	uint32_t BIOS_SCRATCH_3;
+ 	uint32_t BIOS_SCRATCH_6;
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+index 075815e4041a..891416e0423f 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+@@ -78,6 +78,7 @@
+ #endif
  
- 	/*
- 	 * 1. Update status of the drm connector
-@@ -3831,6 +3833,10 @@ void amdgpu_dm_update_connector_after_detect(
- 	}
+ #ifndef mmBIOS_SCRATCH_2
++	#define mmBIOS_SCRATCH_0 0x05C9
+ 	#define mmBIOS_SCRATCH_2 0x05CB
+ 	#define mmBIOS_SCRATCH_3 0x05CC
+ 	#define mmBIOS_SCRATCH_6 0x05CF
+@@ -369,6 +370,7 @@ static const struct dce_abm_mask abm_mask = {
+ #define DCFE_MEM_PWR_CTRL_REG_BASE 0x1b03
  
- 	update_subconnector_property(aconnector);
-+
-+	/* When polling, the mutex will be unlocked for us by DRM. */
-+	if (!drm_kms_helper_is_poll_worker())
-+		mutex_unlock(&dev->mode_config.mutex);
+ static const struct bios_registers bios_regs = {
++	.BIOS_SCRATCH_0 = mmBIOS_SCRATCH_0,
+ 	.BIOS_SCRATCH_3 = mmBIOS_SCRATCH_3,
+ 	.BIOS_SCRATCH_6 = mmBIOS_SCRATCH_6
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce110/dce110_resource.c
+index cccde5a6f3cd..42b0068b1c05 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce110/dce110_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce110/dce110_resource.c
+@@ -82,6 +82,7 @@
+ #endif
+ 
+ #ifndef mmBIOS_SCRATCH_2
++	#define mmBIOS_SCRATCH_0 0x05C9
+ 	#define mmBIOS_SCRATCH_2 0x05CB
+ 	#define mmBIOS_SCRATCH_3 0x05CC
+ 	#define mmBIOS_SCRATCH_6 0x05CF
+@@ -377,6 +378,7 @@ static const struct dce110_clk_src_mask cs_mask = {
+ };
+ 
+ static const struct bios_registers bios_regs = {
++	.BIOS_SCRATCH_0 = mmBIOS_SCRATCH_0,
+ 	.BIOS_SCRATCH_3 = mmBIOS_SCRATCH_3,
+ 	.BIOS_SCRATCH_6 = mmBIOS_SCRATCH_6
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce112/dce112_resource.c
+index 869a8e515fc0..328d784ac4c8 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce112/dce112_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce112/dce112_resource.c
+@@ -76,6 +76,7 @@
+ #endif
+ 
+ #ifndef mmBIOS_SCRATCH_2
++	#define mmBIOS_SCRATCH_0 0x05C9
+ 	#define mmBIOS_SCRATCH_2 0x05CB
+ 	#define mmBIOS_SCRATCH_3 0x05CC
+ 	#define mmBIOS_SCRATCH_6 0x05CF
+@@ -385,6 +386,7 @@ static const struct dce110_clk_src_mask cs_mask = {
+ };
+ 
+ static const struct bios_registers bios_regs = {
++	.BIOS_SCRATCH_0 = mmBIOS_SCRATCH_0,
+ 	.BIOS_SCRATCH_3 = mmBIOS_SCRATCH_3,
+ 	.BIOS_SCRATCH_6 = mmBIOS_SCRATCH_6
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce120/dce120_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce120/dce120_resource.c
+index 540e04ec1e2d..efc92381c98d 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce120/dce120_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce120/dce120_resource.c
+@@ -491,6 +491,7 @@ static struct dce_i2c_hw *dce120_i2c_hw_create(
+ 	return dce_i2c_hw;
  }
+ static const struct bios_registers bios_regs = {
++	.BIOS_SCRATCH_0 = mmBIOS_SCRATCH_0 + NBIO_BASE(mmBIOS_SCRATCH_0_BASE_IDX),
+ 	.BIOS_SCRATCH_3 = mmBIOS_SCRATCH_3 + NBIO_BASE(mmBIOS_SCRATCH_3_BASE_IDX),
+ 	.BIOS_SCRATCH_6 = mmBIOS_SCRATCH_6 + NBIO_BASE(mmBIOS_SCRATCH_6_BASE_IDX)
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+index 5fa84c622282..1077c59cad39 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+@@ -80,6 +80,7 @@
  
- static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
-@@ -7123,12 +7129,63 @@ create_stream_for_sink(struct drm_connector *connector,
- 	return stream;
- }
  
-+/**
-+ * amdgpu_dm_connector_poll() - Poll a connector to see if it's connected to a display
-+ *
-+ * Used for connectors that don't support HPD (hotplug detection)
-+ * to periodically checked whether the connector is connected to a display.
-+ */
-+static enum drm_connector_status
-+amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force)
-+{
-+	struct drm_connector *connector = &aconnector->base;
-+	struct drm_device *dev = connector->dev;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct dc_link *link = aconnector->dc_link;
-+	enum dc_connection_type conn_type = dc_connection_none;
-+	enum drm_connector_status status = connector_status_disconnected;
-+
-+	mutex_lock(&aconnector->hpd_lock);
-+
-+	if (dc_link_detect_connection_type(aconnector->dc_link, &conn_type) &&
-+	    conn_type != dc_connection_none) {
-+		mutex_lock(&adev->dm.dc_lock);
-+
-+		/* Only call full link detection when a sink isn't created yet,
-+		 * ie. just when the display is plugged in, otherwise we risk flickering.
-+		 */
-+		if (link->local_sink ||
-+			dc_link_detect(link, DETECT_REASON_HPD))
-+			status = connector_status_connected;
-+
-+		mutex_unlock(&adev->dm.dc_lock);
-+	}
-+
-+	if (connector->status != status) {
-+		if (status == connector_status_disconnected) {
-+			if (link->local_sink)
-+				dc_sink_release(link->local_sink);
-+
-+			link->local_sink = NULL;
-+			link->dpcd_sink_count = 0;
-+			link->type = dc_connection_none;
-+		}
-+
-+		amdgpu_dm_update_connector_after_detect(aconnector);
-+	}
-+
-+	mutex_unlock(&aconnector->hpd_lock);
-+	return status;
-+}
-+
- /**
-  * amdgpu_dm_connector_detect() - Detect whether a DRM connector is connected to a display
-  *
-  * A connector is considered connected when it has a sink that is not NULL.
-  * For connectors that support HPD (hotplug detection), the connection is
-  * handled in the HPD interrupt.
-+ * For connectors that may not support HPD, such as analog connectors,
-+ * DRM will call this function repeatedly to poll them.
-  *
-  * Notes:
-  * 1. This interface is NOT called in context of HPD irq.
-@@ -7148,6 +7205,14 @@ amdgpu_dm_connector_detect(struct drm_connector *connector, bool force)
- 	else if (aconnector->base.force == DRM_FORCE_OFF)
- 		return connector_status_disconnected;
+ #ifndef mmBIOS_SCRATCH_2
++	#define mmBIOS_SCRATCH_0 0x05C9
+ 	#define mmBIOS_SCRATCH_2 0x05CB
+ 	#define mmBIOS_SCRATCH_3 0x05CC
+ 	#define mmBIOS_SCRATCH_6 0x05CF
+@@ -368,6 +369,7 @@ static const struct dce110_clk_src_mask cs_mask = {
+ };
  
-+	/* Poll analog connectors and only when either
-+	 * disconnected or connected to an analog display.
-+	 */
-+	if (drm_kms_helper_is_poll_worker() &&
-+		dc_connector_supports_analog(aconnector->dc_link->link_id.id) &&
-+		(!aconnector->dc_sink || aconnector->dc_sink->edid_caps.analog))
-+		return amdgpu_dm_connector_poll(aconnector, force);
-+
- 	return (aconnector->dc_sink ? connector_status_connected :
- 			connector_status_disconnected);
- }
-@@ -8545,9 +8610,13 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 			link->link_enc->features.dp_ycbcr420_supported ? true : false;
- 		break;
- 	case DRM_MODE_CONNECTOR_DVID:
--	case DRM_MODE_CONNECTOR_DVII:
- 		aconnector->base.polled = DRM_CONNECTOR_POLL_HPD;
- 		break;
-+	case DRM_MODE_CONNECTOR_DVII:
-+	case DRM_MODE_CONNECTOR_VGA:
-+		aconnector->base.polled =
-+			DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index a1c722112c22..61b0bf7b8269 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -476,6 +476,7 @@ void amdgpu_dm_irq_fini(struct amdgpu_device *adev)
+ static const struct bios_registers bios_regs = {
++	.BIOS_SCRATCH_0 = mmBIOS_SCRATCH_0,
+ 	.BIOS_SCRATCH_3 = mmBIOS_SCRATCH_3,
+ 	.BIOS_SCRATCH_6 = mmBIOS_SCRATCH_6
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
+index 902209a17fe4..e10e70360d0a 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
+@@ -78,6 +78,7 @@
  
- void amdgpu_dm_irq_suspend(struct amdgpu_device *adev)
- {
-+	struct drm_device *dev = adev_to_drm(adev);
- 	int src;
- 	struct list_head *hnd_list_h;
- 	struct list_head *hnd_list_l;
-@@ -512,6 +513,9 @@ void amdgpu_dm_irq_suspend(struct amdgpu_device *adev)
- 	}
  
- 	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
-+
-+	if (dev->mode_config.poll_enabled)
-+		drm_kms_helper_poll_disable(dev);
- }
+ #ifndef mmBIOS_SCRATCH_2
++	#define mmBIOS_SCRATCH_0 0x05C9
+ 	#define mmBIOS_SCRATCH_2 0x05CB
+ 	#define mmBIOS_SCRATCH_3 0x05CC
+ 	#define mmBIOS_SCRATCH_6 0x05CF
+@@ -369,6 +370,7 @@ static const struct dce110_clk_src_mask cs_mask = {
+ };
  
- void amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
-@@ -537,6 +541,7 @@ void amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
- 
- void amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
- {
-+	struct drm_device *dev = adev_to_drm(adev);
- 	int src;
- 	struct list_head *hnd_list_h, *hnd_list_l;
- 	unsigned long irq_table_flags;
-@@ -557,6 +562,9 @@ void amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
- 	}
- 
- 	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
-+
-+	if (dev->mode_config.poll_enabled)
-+		drm_kms_helper_poll_enable(dev);
- }
- 
- /*
-@@ -893,6 +901,7 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
- 	struct drm_connector_list_iter iter;
- 	int irq_type;
- 	int i;
-+	bool use_polling = false;
- 
- 	/* First, clear all hpd and hpdrx interrupts */
- 	for (i = DC_IRQ_SOURCE_HPD1; i <= DC_IRQ_SOURCE_HPD6RX; i++) {
-@@ -906,6 +915,8 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
- 		struct amdgpu_dm_connector *amdgpu_dm_connector;
- 		const struct dc_link *dc_link;
- 
-+		use_polling |= connector->polled != DRM_CONNECTOR_POLL_HPD;
-+
- 		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
- 			continue;
- 
-@@ -947,6 +958,9 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
- 		}
- 	}
- 	drm_connector_list_iter_end(&iter);
-+
-+	if (use_polling)
-+		drm_kms_helper_poll_init(dev);
- }
- 
- /**
-@@ -963,12 +977,15 @@ void amdgpu_dm_hpd_fini(struct amdgpu_device *adev)
- 	struct drm_connector *connector;
- 	struct drm_connector_list_iter iter;
- 	int irq_type;
-+	bool use_polling = false;
- 
- 	drm_connector_list_iter_begin(dev, &iter);
- 	drm_for_each_connector_iter(connector, &iter) {
- 		struct amdgpu_dm_connector *amdgpu_dm_connector;
- 		const struct dc_link *dc_link;
- 
-+		use_polling |= connector->polled != DRM_CONNECTOR_POLL_HPD;
-+
- 		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
- 			continue;
- 
-@@ -997,4 +1014,7 @@ void amdgpu_dm_hpd_fini(struct amdgpu_device *adev)
- 		}
- 	}
- 	drm_connector_list_iter_end(&iter);
-+
-+	if (dev->mode_config.poll_enabled)
-+		drm_kms_helper_poll_fini(dev);
- }
+ static const struct bios_registers bios_regs = {
++	.BIOS_SCRATCH_0 = mmBIOS_SCRATCH_0,
+ 	.BIOS_SCRATCH_3 = mmBIOS_SCRATCH_3,
+ 	.BIOS_SCRATCH_6 = mmBIOS_SCRATCH_6
+ };
 -- 
 2.51.0
 
