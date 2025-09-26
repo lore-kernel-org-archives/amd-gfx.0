@@ -4,63 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44993CAC5B8
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 17:09:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D928ECAC5AE
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 18:02:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14A7310EAB5;
-	Fri, 26 Sep 2025 17:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36CD610E15B;
+	Fri, 26 Sep 2025 18:02:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k4ZrxT+l";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bc+ed69T";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C326710E058;
- Fri, 26 Sep 2025 17:08:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758906537; x=1790442537;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=1ufvjGQLbxbg6rNNNy/03qHnlPm8o8IrClziDpfYv7Y=;
- b=k4ZrxT+lz50ObA4iUVT1XdF9bJwcqga3vb18SdqDe4u+hT/1yJY7Eaxb
- jou7dLIwaO5VdTC3ZHQGuK0qMNnom1hI45RDW53kWVJHl+zfm4JZyftLY
- op/aAkgR2OuyjxDZCw9ujhdeAn9m8aLGI4OZ6BDGzm7n58rAjEwugv7/4
- TjS25MHgt2MTiaP2FhOcZ9ew2tb0iB97BPzdkOTvPieuLsjHfA4Ul8h8l
- CVMBGhoTywIAEk1EnExJIFy/+dKDw6BKAcp213lsPyb4CaNoQ8o4Jb3gw
- D4pN0+ohcSmS8r7fYhBWKE1VsL+cSq2HEPEyaCtoiKGsWdruUnSyqlG0s g==;
-X-CSE-ConnectionGUID: bIIMtFAPT3adxUrbEuNaKQ==
-X-CSE-MsgGUID: bXFKCSZ+SNu1IYdvriKvKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11565"; a="61133828"
-X-IronPort-AV: E=Sophos;i="6.18,295,1751266800"; d="scan'208";a="61133828"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2025 10:08:56 -0700
-X-CSE-ConnectionGUID: rkMphPX8SA6TnCkjLFT2rw==
-X-CSE-MsgGUID: 6MWayDfWQH2K1nGTM7cWeQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,295,1751266800"; d="scan'208";a="201359385"
-Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.245.9])
- ([10.245.245.9])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2025 10:08:53 -0700
-Message-ID: <c1936b9c-3c0c-4a33-84e8-574d67790265@intel.com>
-Date: Fri, 26 Sep 2025 18:08:51 +0100
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A16F810E15B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 18:02:16 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-b5507d3ccd8so2200436a12.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 11:02:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1758909736; x=1759514536; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=nrwO8zUUQ6zp3AsQGcCXhu6FPHJ2Dz62jW2bt+i7ii8=;
+ b=Bc+ed69T+NnPOKzLkZ3XpZNcBJVxMZq2j+LNUnJIlqX5gpm1PYLlxsjQ9pq0Gnagrk
+ vqiTkiCUKT1LBTS3ijkXUiNX2FXVkE9p665ePOBo++fbuA160q15UHB3CQYup9R2IJz7
+ Tev0DKc0WzLX9K95aKz6z6SQisbhyAlRuemkX7ksgXIe0w6Z3JogDmf/W1fNYiu3JjcA
+ nmc+XGrTO0IM3NZMpHDinRAOskDhcrTVfGfZi9+HNC3oK/lYhrfKe8013TKlIOQlxsYA
+ A1vSbzXE6RIBO2mg9tvTrzMaNOk++7paWj8qloyV1ijvEpbU8leCzw2oC+sTW9YerCYm
+ TzSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758909736; x=1759514536;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=nrwO8zUUQ6zp3AsQGcCXhu6FPHJ2Dz62jW2bt+i7ii8=;
+ b=RxbhkmHBNHwW2c50X8jFy4y76UfG/qiQCSMEQo9VRurX2qehnZU9arbhCmtwYLTIRy
+ /gspDuvOnENpiAPb3zuUAhl30L6RQgGzB44NhBfErL8Dzgkr1j+4TU3XbZYMJcJpTRKL
+ nthvctj/AIs3g+Ec81TGc7aXg77MqHl779TcnQvb5Lz8RrxoI5wyKv0Oe8aPxUDVhdSz
+ VwEU479ed5xKsiijpeJMjuEJCNd/9mYpbVVQMKBd2nw7d+61J4E6w4ijnXeMUU93eGXr
+ vHYzMp74T53VLuyZHTVYdg7PMCKzpDQTqByFwZLbhk5wE1WGBLpZ2zfpbQu0UhGfOIqx
+ TG3g==
+X-Gm-Message-State: AOJu0YxmJ5QN+ZYdqSeoaMFUlULvOnfnSDkU4SCSo3VtCUpsdhneKSPN
+ DIiF9G5n6uLGc0FWw7Jl1JW+/xCTUH2msXySBFALZ8RPuYl/cv05DbTSR4ifDA==
+X-Gm-Gg: ASbGncsGgC7WsZhP/PdOMUoxLB27/YY5Fm3ym51BcksIuOD3118FVME2Q1UvvRlA0pB
+ YKtGjX6fmnFK5/KDb+UvHZwfCbVm5u6oWlLEkJbm1dmZEOhHtysjm/e/99HjgKPSQGqMjyLBKfa
+ 1FcwwSM0VtyuhRB+aag+U5MOQmevq8Uc1J/Vv/lNYfrObGOoOOfzq/QVtC8OnOw10XaB95L3PoK
+ sgn7nc4+snyOaNpRaYBIUwHkZCtFiT7Q0QsBvVMt5Ofd8Az8Hwc8lOsmLbH1ExSdh9iVktJrYIQ
+ 4LDB4wb8codOoDY6u5Uhk5lxqRfxvjArHC9dWhpyKimSBeb7/nQcao1UegFo6LhhuZimTXbq/Vz
+ So4l+ChSsdugEMN/YM++fSKL0I5yBR3sAJ+92auGa/firiv6+Q2p5ORQ0D1yX9q7INXN6NGpjMh
+ 14ksma2tXrkHUDS3OJjgU=
+X-Google-Smtp-Source: AGHT+IEKKtS77gHggO1+FXnCkfhhtaSz+NAY931LRlV4F+9l/uq9evVgoIf0DfXB6gqHd+c8gjGpsA==
+X-Received: by 2002:a17:902:ec8b:b0:264:ee2:c40f with SMTP id
+ d9443c01a7336-27ed4a665e9mr98483375ad.52.1758909736068; 
+ Fri, 26 Sep 2025 11:02:16 -0700 (PDT)
+Received: from Timur-Hyperion
+ (20014C4E24D067005D2C718B079018C4.dsl.pool.telekom.hu.
+ [2001:4c4e:24d0:6700:5d2c:718b:790:18c4])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-27f1d2ef8c5sm22186835ad.151.2025.09.26.11.02.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Sep 2025 11:02:15 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, alex.hung@amd.com, harry.wentland@amd.com,
+ siqueira@igalia.com, christian.koenig@amd.com,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 00/23] Analog connector support in DC (v2)
+Date: Fri, 26 Sep 2025 20:01:40 +0200
+Message-ID: <20250926180203.16690-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/3] drm/buddy: Separate clear and dirty free block
- trees
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, jani.nikula@linux.intel.com,
- peterz@infradead.org, samuel.pitoiset@gmail.com, stable@vger.kernel.org
-References: <20250923090242.60649-1-Arunpravin.PaneerSelvam@amd.com>
- <20250923090242.60649-2-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20250923090242.60649-2-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,623 +88,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 23/09/2025 10:02, Arunpravin Paneer Selvam wrote:
-> Maintain two separate RB trees per order - one for clear (zeroed) blocks
-> and another for dirty (uncleared) blocks. This separation improves
-> code clarity and makes it more obvious which tree is being searched
-> during allocation. It also improves scalability and efficiency when
-> searching for a specific type of block, avoiding unnecessary checks
-> and making the allocator more predictable under fragmentation.
-> 
-> The changes have been validated using the existing drm_buddy_test
-> KUnit test cases, along with selected graphics workloads,
-> to ensure correctness and avoid regressions.
-> 
-> v2: Missed adding the suggested-by tag. Added it in v2.
-> 
-> v3(Matthew):
->    - Remove the double underscores from the internal functions.
->    - Rename the internal functions to have less generic names.
->    - Fix the error handling code.
->    - Pass tree argument for the tree macro.
->    - Use the existing dirty/free bit instead of new tree field.
->    - Make free_trees[] instead of clear_tree and dirty_tree for
->      more cleaner approach.
-> 
-> v4:
->    - A bug was reported by Intel CI and it is fixed by
->      Matthew Auld.
->    - Replace the get_root function with
->      &mm->free_trees[tree][order] (Matthew)
->    - Remove the unnecessary rbtree_is_empty() check (Matthew)
->    - Remove the unnecessary get_tree_for_flags() function.
->    - Rename get_tree_for_block() name with get_block_tree() for more
->      clarity.
-> 
-> v5(Jani Nikula):
->    - Don't use static inline in .c files.
->    - enum free_tree and enumerator names are quite generic for a header
->      and usage and the whole enum should be an implementation detail.
-> 
-> v6:
->    - Rewrite the __force_merge() function using the rb_last() and rb_prev().
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Suggested-by: Matthew Auld <matthew.auld@intel.com>
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4260
-> ---
->   drivers/gpu/drm/drm_buddy.c | 321 ++++++++++++++++++++----------------
->   include/drm/drm_buddy.h     |   2 +-
->   2 files changed, 182 insertions(+), 141 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 67aa67229cc3..6e12a0b5d5e3 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -12,9 +12,16 @@
->   
->   #include <drm/drm_buddy.h>
->   
-> +enum drm_buddy_free_tree {
-> +	DRM_BUDDY_CLEAR_TREE = 0,
-> +	DRM_BUDDY_DIRTY_TREE,
-> +	DRM_BUDDY_MAX_FREE_TREES,
-> +};
-> +
->   static struct kmem_cache *slab_blocks;
->   
-> -#define rbtree_get_free_block(node) rb_entry((node), struct drm_buddy_block, rb)
-> +#define for_each_free_tree(tree) \
-> +	for ((tree) = 0; (tree) < DRM_BUDDY_MAX_FREE_TREES; (tree)++)
+This series adds support for analog connectors to DC for DCE6-10.
+There are two reasons to add this support:
 
-Some places seem to open code this? Maybe just drop this or use it 
-everywhere?
+1. GPUs that already use DC by default and have analog connectors.
+Some Tonga and Hawaii graphics cards in fact have DVI-I connectors,
+and their analog part doesn't work with DC. This functionality
+regressed when switching from the amdgpu legacy display code to DC.
 
->   
->   static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
->   					       struct drm_buddy_block *parent,
-> @@ -45,6 +52,30 @@ static void drm_block_free(struct drm_buddy *mm,
->   	kmem_cache_free(slab_blocks, block);
->   }
->   
-> +static enum drm_buddy_free_tree
-> +get_block_tree(struct drm_buddy_block *block)
-> +{
-> +	return drm_buddy_block_is_clear(block) ?
-> +	       DRM_BUDDY_CLEAR_TREE : DRM_BUDDY_DIRTY_TREE;
-> +}
-> +
-> +static struct drm_buddy_block *
-> +rbtree_get_free_block(const struct rb_node *node)
-> +{
-> +	return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
-> +}
-> +
-> +static struct drm_buddy_block *
-> +rbtree_last_free_block(struct rb_root *root)
-> +{
-> +	return rbtree_get_free_block(rb_last(root));
-> +}
-> +
-> +static bool rbtree_is_empty(struct rb_root *root)
-> +{
-> +	return RB_EMPTY_ROOT(root);
-> +}
-> +
->   static bool drm_buddy_block_offset_less(const struct drm_buddy_block *block,
->   					const struct drm_buddy_block *node)
->   {
-> @@ -59,37 +90,28 @@ static bool rbtree_block_offset_less(struct rb_node *block,
->   }
->   
->   static void rbtree_insert(struct drm_buddy *mm,
-> -			  struct drm_buddy_block *block)
-> +			  struct drm_buddy_block *block,
-> +			  enum drm_buddy_free_tree tree)
->   {
->   	rb_add(&block->rb,
-> -	       &mm->free_tree[drm_buddy_block_order(block)],
-> +	       &mm->free_trees[tree][drm_buddy_block_order(block)],
->   	       rbtree_block_offset_less);
->   }
->   
->   static void rbtree_remove(struct drm_buddy *mm,
->   			  struct drm_buddy_block *block)
->   {
-> +	unsigned int order = drm_buddy_block_order(block);
->   	struct rb_root *root;
-> +	enum drm_buddy_free_tree tree;
->   
-> -	root = &mm->free_tree[drm_buddy_block_order(block)];
-> -	rb_erase(&block->rb, root);
-> +	tree = get_block_tree(block);
-> +	root = &mm->free_trees[tree][order];
->   
-> +	rb_erase(&block->rb, root);
->   	RB_CLEAR_NODE(&block->rb);
->   }
->   
-> -static struct drm_buddy_block *
-> -rbtree_last_entry(struct drm_buddy *mm, unsigned int order)
-> -{
-> -	struct rb_node *node = rb_last(&mm->free_tree[order]);
-> -
-> -	return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
-> -}
-> -
-> -static bool rbtree_is_empty(struct drm_buddy *mm, unsigned int order)
-> -{
-> -	return RB_EMPTY_ROOT(&mm->free_tree[order]);
-> -}
-> -
->   static void clear_reset(struct drm_buddy_block *block)
->   {
->   	block->header &= ~DRM_BUDDY_HEADER_CLEAR;
-> @@ -112,10 +134,13 @@ static void mark_allocated(struct drm_buddy *mm,
->   static void mark_free(struct drm_buddy *mm,
->   		      struct drm_buddy_block *block)
->   {
-> +	enum drm_buddy_free_tree tree;
-> +
->   	block->header &= ~DRM_BUDDY_HEADER_STATE;
->   	block->header |= DRM_BUDDY_FREE;
->   
-> -	rbtree_insert(mm, block);
-> +	tree = get_block_tree(block);
-> +	rbtree_insert(mm, block, tree);
->   }
->   
->   static void mark_split(struct drm_buddy *mm,
-> @@ -201,6 +226,7 @@ static int __force_merge(struct drm_buddy *mm,
->   			 u64 end,
->   			 unsigned int min_order)
->   {
-> +	enum drm_buddy_free_tree tree;
->   	unsigned int order;
->   	int i;
->   
-> @@ -210,45 +236,48 @@ static int __force_merge(struct drm_buddy *mm,
->   	if (min_order > mm->max_order)
->   		return -EINVAL;
->   
-> -	for (i = min_order - 1; i >= 0; i--) {
-> -		struct rb_root *root = &mm->free_tree[i];
-> -		struct rb_node *iter;
-> +	for_each_free_tree(tree) {
-> +		for (i = min_order - 1; i >= 0; i--) {
-> +			struct rb_node *iter = rb_last(&mm->free_trees[tree][i]);
->   
-> -		iter = rb_last(root);
-> -
-> -		while (iter) {
-> -			struct drm_buddy_block *block, *buddy;
-> -			u64 block_start, block_end;
-> +			while (iter) {
-> +				struct drm_buddy_block *block, *buddy;
-> +				u64 block_start, block_end;
->   
-> -			block = rbtree_get_free_block(iter);
-> -			iter = rb_prev(iter);
-> +				block = rbtree_get_free_block(iter);
-> +				iter = rb_prev(iter);
->   
-> -			if (!block || !block->parent)
-> -				continue;
-> +				if (!block || !block->parent)
-> +					continue;
->   
-> -			block_start = drm_buddy_block_offset(block);
-> -			block_end = block_start + drm_buddy_block_size(mm, block) - 1;
-> +				block_start = drm_buddy_block_offset(block);
-> +				block_end = block_start + drm_buddy_block_size(mm, block) - 1;
->   
-> -			if (!contains(start, end, block_start, block_end))
-> -				continue;
-> +				if (!contains(start, end, block_start, block_end))
-> +					continue;
->   
-> -			buddy = __get_buddy(block);
-> -			if (!drm_buddy_block_is_free(buddy))
-> -				continue;
-> +				buddy = __get_buddy(block);
-> +				if (!drm_buddy_block_is_free(buddy))
-> +					continue;
->   
-> -			WARN_ON(drm_buddy_block_is_clear(block) ==
-> -				drm_buddy_block_is_clear(buddy));
-> +				WARN_ON(drm_buddy_block_is_clear(block) ==
-> +					drm_buddy_block_is_clear(buddy));
->   
-> -			if (iter == &buddy->rb)
-> -				iter = rb_prev(iter);
-> +				/*
-> +				 * Advance to the next node when the current node is the buddy,
-> +				 * as freeing the block will also remove its buddy from the tree.
-> +				 */
-> +				if (iter == &buddy->rb)
-> +					iter = rb_prev(iter);
->   
-> -			rbtree_remove(mm, block);
-> -			if (drm_buddy_block_is_clear(block))
-> -				mm->clear_avail -= drm_buddy_block_size(mm, block);
-> +				rbtree_remove(mm, block);
-> +				if (drm_buddy_block_is_clear(block))
-> +					mm->clear_avail -= drm_buddy_block_size(mm, block);
->   
-> -			order = __drm_buddy_free(mm, block, true);
-> -			if (order >= min_order)
-> -				return 0;
-> +				order = __drm_buddy_free(mm, block, true);
-> +				if (order >= min_order)
-> +					return 0;
-> +			}
+2. GPUs that don't use amdgpu by default yet.
+Currently, SI (GFX6) and CIK (GFX7) don't use amdgpu by default
+yet, and missing analog connector support in DC is cited as one
+of the main reasons why not.
 
-Do we need all these changes in __force_merge? Can't we just always pick 
-the dirty tree and keep everything else the same? If something is 
-non-merged there must be a dirty block preventing that, and when force 
-merging everything unmerged will be re-labled as dirty anyway, so the 
-second loop through the clean tree should always yield nothing?
+Before starting this work, I asked Harry and Alex about how best
+to do it and we agreed that we'd like to use the VBIOS to set up
+the DAC. So I used the amdgpu legacy display code as a reference.
+The first few commits add some minor changes to DC to prepare for
+supporting analog stream and link encoders, then analog link
+detection is added along with polling, and finally DAC load
+detection support, which is useful for old displays and adapters.
 
->   		}
->   	}
->   
-> @@ -269,7 +298,7 @@ static int __force_merge(struct drm_buddy *mm,
->    */
->   int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
->   {
-> -	unsigned int i;
-> +	unsigned int i, j;
->   	u64 offset;
->   
->   	if (size < chunk_size)
-> @@ -291,14 +320,22 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
->   
->   	BUG_ON(mm->max_order > DRM_BUDDY_MAX_ORDER);
->   
-> -	mm->free_tree = kmalloc_array(mm->max_order + 1,
-> -				      sizeof(struct rb_root),
-> -				      GFP_KERNEL);
-> -	if (!mm->free_tree)
-> +	mm->free_trees = kmalloc_array(DRM_BUDDY_MAX_FREE_TREES,
-> +				       sizeof(*mm->free_trees),
-> +				       GFP_KERNEL);
-> +	if (!mm->free_trees)
->   		return -ENOMEM;
->   
-> -	for (i = 0; i <= mm->max_order; ++i)
-> -		mm->free_tree[i] = RB_ROOT;
-> +	for (i = 0; i < DRM_BUDDY_MAX_FREE_TREES; i++) {
-> +		mm->free_trees[i] = kmalloc_array(mm->max_order + 1,
-> +						  sizeof(struct rb_root),
-> +						  GFP_KERNEL);
-> +		if (!mm->free_trees[i])
-> +			goto out_free_tree;
-> +
-> +		for (j = 0; j <= mm->max_order; ++j)
-> +			mm->free_trees[i][j] = RB_ROOT;
-> +	}
->   
->   	mm->n_roots = hweight64(size);
->   
-> @@ -346,7 +383,9 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
->   		drm_block_free(mm, mm->roots[i]);
->   	kfree(mm->roots);
->   out_free_tree:
-> -	kfree(mm->free_tree);
-> +	while (i--)
-> +		kfree(mm->free_trees[i]);
+With this analog support added to DC, we could already fully switch
+CIK discrete GPUs to use DC and switch them to the amdgpu driver
+by default. This series switches Bonaire to DC by default, we
+can do the switch to amdgpu in a later series.
 
-out_free_roots is also decrementing 'i' here it seems, so looks like 
-this might blow up?
+For SI dGPUs, there are other pending patches to make DC work
+well, afterwards we could switch to DC by default, but missing
+VCE1 support is the blocker from using amdgpu by default.
 
-> +	kfree(mm->free_trees);
->   	return -ENOMEM;
->   }
->   EXPORT_SYMBOL(drm_buddy_init);
-> @@ -382,8 +421,9 @@ void drm_buddy_fini(struct drm_buddy *mm)
->   
->   	WARN_ON(mm->avail != mm->size);
->   
-> +	for (i = 0; i < DRM_BUDDY_MAX_FREE_TREES; i++)
-> +		kfree(mm->free_trees[i]);
->   	kfree(mm->roots);
-> -	kfree(mm->free_tree);
->   }
->   EXPORT_SYMBOL(drm_buddy_fini);
->   
-> @@ -407,8 +447,7 @@ static int split_block(struct drm_buddy *mm,
->   		return -ENOMEM;
->   	}
->   
-> -	mark_free(mm, block->left);
-> -	mark_free(mm, block->right);
-> +	mark_split(mm, block);
->   
->   	if (drm_buddy_block_is_clear(block)) {
->   		mark_cleared(block->left);
-> @@ -416,7 +455,8 @@ static int split_block(struct drm_buddy *mm,
->   		clear_reset(block);
->   	}
->   
-> -	mark_split(mm, block);
-> +	mark_free(mm, block->left);
-> +	mark_free(mm, block->right);
->   
->   	return 0;
->   }
-> @@ -449,6 +489,7 @@ EXPORT_SYMBOL(drm_get_buddy);
->    */
->   void drm_buddy_reset_clear(struct drm_buddy *mm, bool is_clear)
->   {
-> +	enum drm_buddy_free_tree src_tree, dst_tree;
->   	u64 root_size, size, start;
->   	unsigned int order;
->   	int i;
-> @@ -463,19 +504,24 @@ void drm_buddy_reset_clear(struct drm_buddy *mm, bool is_clear)
->   		size -= root_size;
->   	}
->   
-> +	src_tree = is_clear ? DRM_BUDDY_DIRTY_TREE : DRM_BUDDY_CLEAR_TREE;
-> +	dst_tree = is_clear ? DRM_BUDDY_CLEAR_TREE : DRM_BUDDY_DIRTY_TREE;
-> +
->   	for (i = 0; i <= mm->max_order; ++i) {
-> +		struct rb_root *root = &mm->free_trees[src_tree][i];
->   		struct drm_buddy_block *block, *tmp;
->   
-> -		rbtree_postorder_for_each_entry_safe(block, tmp, &mm->free_tree[i], rb) {
-> -			if (is_clear != drm_buddy_block_is_clear(block)) {
-> -				if (is_clear) {
-> -					mark_cleared(block);
-> -					mm->clear_avail += drm_buddy_block_size(mm, block);
-> -				} else {
-> -					clear_reset(block);
-> -					mm->clear_avail -= drm_buddy_block_size(mm, block);
-> -				}
-> +		rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
-> +			rbtree_remove(mm, block);
-> +			if (is_clear) {
-> +				mark_cleared(block);
-> +				mm->clear_avail += drm_buddy_block_size(mm, block);
-> +			} else {
-> +				clear_reset(block);
-> +				mm->clear_avail -= drm_buddy_block_size(mm, block);
->   			}
-> +
-> +			rbtree_insert(mm, block, dst_tree);
->   		}
->   	}
->   }
-> @@ -665,27 +711,17 @@ __drm_buddy_alloc_range_bias(struct drm_buddy *mm,
->   }
->   
->   static struct drm_buddy_block *
-> -get_maxblock(struct drm_buddy *mm, unsigned int order,
-> -	     unsigned long flags)
-> +get_maxblock(struct drm_buddy *mm,
-> +	     unsigned int order,
-> +	     enum drm_buddy_free_tree tree)
->   {
->   	struct drm_buddy_block *max_block = NULL, *block = NULL;
-> +	struct rb_root *root;
->   	unsigned int i;
->   
->   	for (i = order; i <= mm->max_order; ++i) {
-> -		struct rb_node *iter = rb_last(&mm->free_tree[i]);
-> -		struct drm_buddy_block *tmp_block;
-> -
-> -		while (iter) {
-> -			tmp_block = rbtree_get_free_block(iter);
-> -
-> -			if (!block_incompatible(tmp_block, flags)) {
-> -				block = tmp_block;
-> -				break;
-> -			}
-> -
-> -			iter = rb_prev(iter);
-> -		}
-> -
-> +		root = &mm->free_trees[tree][i];
-> +		block = rbtree_last_free_block(root);
->   		if (!block)
->   			continue;
->   
-> @@ -709,43 +745,39 @@ alloc_from_freetree(struct drm_buddy *mm,
->   		    unsigned long flags)
->   {
->   	struct drm_buddy_block *block = NULL;
-> +	struct rb_root *root;
-> +	enum drm_buddy_free_tree tree;
->   	unsigned int tmp;
->   	int err;
->   
-> +	tree = (flags & DRM_BUDDY_CLEAR_ALLOCATION) ?
-> +		DRM_BUDDY_CLEAR_TREE : DRM_BUDDY_DIRTY_TREE;
-> +
->   	if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
-> -		block = get_maxblock(mm, order, flags);
-> +		block = get_maxblock(mm, order, tree);
->   		if (block)
->   			/* Store the obtained block order */
->   			tmp = drm_buddy_block_order(block);
->   	} else {
->   		for (tmp = order; tmp <= mm->max_order; ++tmp) {
-> -			struct rb_node *iter = rb_last(&mm->free_tree[tmp]);
-> -			struct drm_buddy_block *tmp_block;
-> -
-> -			while (iter) {
-> -				tmp_block = rbtree_get_free_block(iter);
-> -
-> -				if (!block_incompatible(tmp_block, flags)) {
-> -					block = tmp_block;
-> -					break;
-> -				}
-> -
-> -				iter = rb_prev(iter);
-> -			}
-> -
-> +			/* Get RB tree root for this order and tree */
-> +			root = &mm->free_trees[tree][tmp];
-> +			block = rbtree_last_free_block(root);
->   			if (block)
->   				break;
->   		}
->   	}
->   
->   	if (!block) {
-> -		/* Fallback method */
-> +		/* Try allocating from the other tree */
-> +		tree = (tree == DRM_BUDDY_CLEAR_TREE) ?
-> +			DRM_BUDDY_DIRTY_TREE : DRM_BUDDY_CLEAR_TREE;
-> +
->   		for (tmp = order; tmp <= mm->max_order; ++tmp) {
-> -			if (!rbtree_is_empty(mm, tmp)) {
+For GFX7 APUs, further work is needed before enabling DC by
+default, specifically with regards to the TRAVIS and NUTMEG
+external encoders which are not supported by DC at all.
 
-Did you mean to drop the is_empty() check here? If it's overkill I think 
-better just not add it in the previous patch?
+Changes in v2 of the series:
+Fixed regression on RDNA2 and newer APUs.
+Fixed flickering caused by polling analog connectors.
+Fixed crash on Kaveri.
+Fixed bug when HPD was high without a connected display.
+Reduced code churn by reusing same link encoder.
+Addressed other feedback from the review of v1.
 
-> -				block = rbtree_last_entry(mm, tmp);
-> -				if (block)
-> -					break;
-> -			}
-> +			root = &mm->free_trees[tree][tmp];
-> +			block = rbtree_last_free_block(root);
-> +			if (block)
-> +				break;
->   		}
->   
->   		if (!block)
-> @@ -887,9 +919,9 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
->   				     struct list_head *blocks)
->   {
->   	u64 rhs_offset, lhs_offset, lhs_size, filled;
-> +	enum drm_buddy_free_tree tree;
->   	struct drm_buddy_block *block;
->   	LIST_HEAD(blocks_lhs);
-> -	struct rb_node *iter;
->   	unsigned long pages;
->   	unsigned int order;
->   	u64 modify_size;
-> @@ -901,40 +933,43 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
->   	if (order == 0)
->   		return -ENOSPC;
->   
-> -	if (rbtree_is_empty(mm, order))
-> +	if (rbtree_is_empty(&mm->free_trees[DRM_BUDDY_CLEAR_TREE][order]) &&
-> +	    rbtree_is_empty(&mm->free_trees[DRM_BUDDY_DIRTY_TREE][order]))
+Timur Kristóf (23):
+  drm/amd/display: Determine DVI-I connector type (v2)
+  drm/amd/display: Add analog bit to edid_caps (v2)
+  drm/amd/display: Introduce MAX_LINK_ENCODERS (v2)
+  drm/amd/display: Hook up DAC to bios_parser_encoder_control
+  drm/amd/display: Add SelectCRTC_Source to BIOS parser
+  drm/amd/display: Get maximum pixel clock from VBIOS
+  drm/amd/display: Don't use stereo sync and audio on RGB signals (v2)
+  drm/amd/display: Don't try to enable/disable HPD when unavailable
+  drm/amd/display: Determine early if a link has supported encoders (v2)
+  drm/amd/display: Add concept of analog encoders (v2)
+  drm/amd/display: Implement DCE analog stream encoders
+  drm/amd/display: Implement DCE analog link encoders (v2)
+  drm/amd/display: Support DAC in dce110_hwseq
+  drm/amd/display: Add analog link detection (v2)
+  drm/amd/display: Refactor amdgpu_dm_connector_detect (v2)
+  drm/amd/display: Poll analog connectors (v2)
+  drm/amd/display: Add DCE BIOS_SCRATCH_0 register
+  drm/amd/display: Make get_support_mask_for_device_id reusable
+  drm/amd/display: Add DAC_LoadDetection to BIOS parser (v2)
+  drm/amd/display: Use DAC load detection on analog connectors (v2)
+  drm/amd/display: Add common modes to analog displays without EDID
+  drm/amd/display: Don't add freesync modes to analog displays (v2)
+  drm/amdgpu: Use DC by default for Bonaire
 
-Could potentially merge this with the for_each_tree loop below?
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   1 -
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 173 ++++++++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   5 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   1 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |  20 ++
+ .../gpu/drm/amd/display/dc/bios/bios_parser.c |  95 +++++-
+ .../drm/amd/display/dc/bios/command_table.c   | 286 ++++++++++++++++++
+ .../drm/amd/display/dc/bios/command_table.h   |   6 +
+ .../drm/amd/display/dc/core/dc_link_enc_cfg.c |   4 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   8 +
+ .../gpu/drm/amd/display/dc/dc_bios_types.h    |   9 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |   8 +-
+ .../drm/amd/display/dc/dce/dce_link_encoder.c |  85 ++++++
+ .../drm/amd/display/dc/dce/dce_link_encoder.h |  16 +-
+ .../amd/display/dc/dce/dce_stream_encoder.c   |  14 +
+ .../amd/display/dc/dce/dce_stream_encoder.h   |   5 +
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  75 ++++-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   8 +-
+ .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |  24 ++
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |   2 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   1 +
+ .../amd/display/dc/link/hwss/link_hwss_dio.c  |  19 +-
+ .../drm/amd/display/dc/link/link_detection.c  | 147 ++++++++-
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   |   9 +-
+ .../drm/amd/display/dc/link/link_factory.c    |  60 +++-
+ .../dc/resource/dce100/dce100_resource.c      |  31 +-
+ .../dc/resource/dce110/dce110_resource.c      |   2 +
+ .../dc/resource/dce112/dce112_resource.c      |   2 +
+ .../dc/resource/dce120/dce120_resource.c      |   1 +
+ .../dc/resource/dce60/dce60_resource.c        |  29 +-
+ .../dc/resource/dce80/dce80_resource.c        |  26 +-
+ .../amd/display/include/bios_parser_types.h   |  11 +-
+ .../display/include/grph_object_ctrl_defs.h   |   1 +
+ .../drm/amd/display/include/grph_object_id.h  |   7 +
+ .../drm/amd/display/include/signal_types.h    |  12 +
+ 35 files changed, 1117 insertions(+), 86 deletions(-)
 
-Otherwise,
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-
->   		return -ENOSPC;
->   
-> -	iter = rb_last(&mm->free_tree[order]);
-> -
-> -	while (iter) {
-> -		block = rbtree_get_free_block(iter);
-> -
-> -		/* Allocate blocks traversing RHS */
-> -		rhs_offset = drm_buddy_block_offset(block);
-> -		err =  __drm_buddy_alloc_range(mm, rhs_offset, size,
-> -					       &filled, blocks);
-> -		if (!err || err != -ENOSPC)
-> -			return err;
-> -
-> -		lhs_size = max((size - filled), min_block_size);
-> -		if (!IS_ALIGNED(lhs_size, min_block_size))
-> -			lhs_size = round_up(lhs_size, min_block_size);
-> -
-> -		/* Allocate blocks traversing LHS */
-> -		lhs_offset = drm_buddy_block_offset(block) - lhs_size;
-> -		err =  __drm_buddy_alloc_range(mm, lhs_offset, lhs_size,
-> -					       NULL, &blocks_lhs);
-> -		if (!err) {
-> -			list_splice(&blocks_lhs, blocks);
-> -			return 0;
-> -		} else if (err != -ENOSPC) {
-> +	for_each_free_tree(tree) {
-> +		struct rb_node *iter = rb_last(&mm->free_trees[tree][order]);
-> +
-> +		while (iter) {
-> +			block = rbtree_get_free_block(iter);
-> +
-> +			/* Allocate blocks traversing RHS */
-> +			rhs_offset = drm_buddy_block_offset(block);
-> +			err =  __drm_buddy_alloc_range(mm, rhs_offset, size,
-> +						       &filled, blocks);
-> +			if (!err || err != -ENOSPC)
-> +				return err;
-> +
-> +			lhs_size = max((size - filled), min_block_size);
-> +			if (!IS_ALIGNED(lhs_size, min_block_size))
-> +				lhs_size = round_up(lhs_size, min_block_size);
-> +
-> +			/* Allocate blocks traversing LHS */
-> +			lhs_offset = drm_buddy_block_offset(block) - lhs_size;
-> +			err =  __drm_buddy_alloc_range(mm, lhs_offset, lhs_size,
-> +						       NULL, &blocks_lhs);
-> +			if (!err) {
-> +				list_splice(&blocks_lhs, blocks);
-> +				return 0;
-> +			} else if (err != -ENOSPC) {
-> +				drm_buddy_free_list_internal(mm, blocks);
-> +				return err;
-> +			}
-> +			/* Free blocks for the next iteration */
->   			drm_buddy_free_list_internal(mm, blocks);
-> -			return err;
-> -		}
-> -		/* Free blocks for the next iteration */
-> -		drm_buddy_free_list_internal(mm, blocks);
->   
-> -		iter = rb_prev(iter);
-> +			iter = rb_prev(iter);
-> +		}
->   	}
->   
->   	return -ENOSPC;
-> @@ -1239,6 +1274,7 @@ EXPORT_SYMBOL(drm_buddy_block_print);
->    */
->   void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p)
->   {
-> +	enum drm_buddy_free_tree tree;
->   	int order;
->   
->   	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB, clear_free: %lluMiB\n",
-> @@ -1246,11 +1282,16 @@ void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p)
->   
->   	for (order = mm->max_order; order >= 0; order--) {
->   		struct drm_buddy_block *block, *tmp;
-> +		struct rb_root *root;
->   		u64 count = 0, free;
->   
-> -		rbtree_postorder_for_each_entry_safe(block, tmp, &mm->free_tree[order], rb) {
-> -			BUG_ON(!drm_buddy_block_is_free(block));
-> -			count++;
-> +		for_each_free_tree(tree) {
-> +			root = &mm->free_trees[tree][order];
-> +
-> +			rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
-> +				BUG_ON(!drm_buddy_block_is_free(block));
-> +				count++;
-> +			}
->   		}
->   
->   		drm_printf(p, "order-%2d ", order);
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index 9ee105d4309f..d7891d08f67a 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -73,7 +73,7 @@ struct drm_buddy_block {
->    */
->   struct drm_buddy {
->   	/* Maintain a free list for each order. */
-> -	struct rb_root *free_tree;
-> +	struct rb_root **free_trees;
->   
->   	/*
->   	 * Maintain explicit binary tree(s) to track the allocation of the
+-- 
+2.51.0
 
