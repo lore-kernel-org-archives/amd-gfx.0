@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 472D1CAC5BB
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 18:26:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C86ECAC5B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 18:26:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5AD710EACE;
-	Fri, 26 Sep 2025 18:26:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBD2D10EAD0;
+	Fri, 26 Sep 2025 18:26:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sbdl0DHi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eBwpNQ8j";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB8510EACE
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 18:26:37 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-78104c8cbb4so2413873b3a.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 11:26:37 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A23F10EAD0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 18:26:42 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-781010ff051so1797090b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 11:26:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758911197; x=1759515997; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1758911202; x=1759516002; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LfhR/97/waanrF0HF84NdT5YOwwiKq6dSNuUeP0Yp0Y=;
- b=Sbdl0DHiy9Gdi3lL4tMDDRb+Ywm1Sh+CHoW22ZSwRAcA3EolePKNDnCF9hw0NcvjBK
- XUxg5a0ceqnf6zCw+tgBG9KNa6nsRpoMHQXr5j5JK5BWYG3rlmWgk0mirSCPDyKx4JFM
- 3wBWqDKqgEx4c8EdS63cjhlMKaEW87hKQkuRACNFJOYKMuJ4BHJzin7vTc2Txls57pJI
- Zqq46b9zQjJmwTgOB5oa+XyB5Rd2CBAanMwFtojjC3r0d+1jpWARxbAhg2y3I7afX6M8
- q9adg2FClEfYbS120gnQiq0M6mJvah51Y1klwv2xWdoDVGZNc9mtBMm2I79TTW8/0CuM
- aIKA==
+ bh=G6pGl2zE/qKsZT/YQspYdsea3F+8D5zTIayZWxZmun4=;
+ b=eBwpNQ8jzuG0XJ6dlLoZGxv3A0QDPoPIoNKBbV0D1aePeXnwKHPxtCH+dlu7/fZHlP
+ 5TyrlCsxGQ9B8m0AmelRtfsx4n8fqt529u4euvK0Sp2DK5sFw9nhBZg0hDNlgmDU6h3R
+ Vx7BlLTlw5crCVlfF9CAE3yZoqzBJZ7SRIXaHABJ8Mp94mo1g5R+Gf8vEOXKQcfucDW0
+ WqMyHQ4Wjq2EzmMnyQv6tx+JZMXceUXc4DXGjh7855UIOn1uIv+8aKMxkM5RkrasJqfQ
+ BqvDZJw/IncMX7JFjr2AFb1vmqKaeu1DYE5ZglwiBFLbX1OezKjfxIFveCbA239zfUzn
+ K1dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758911197; x=1759515997;
+ d=1e100.net; s=20230601; t=1758911202; x=1759516002;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LfhR/97/waanrF0HF84NdT5YOwwiKq6dSNuUeP0Yp0Y=;
- b=sk/D4Vqh5GV+f75r/2cUzld3ralggJ9ldcrVAdS5SEPTHhPWwdw53ADVE8Xxnnam8Y
- FI2VTJ/yAow9VMqNrTIUUtKJtlUVjLR6FhBdxRXPOuDjNFPxJxbpqwWifZ74xCYwsqcK
- VZqKI1QdHpC2HLT9JnmaZjbczkXEZvGJAKeTRFlTQ3VpnpsXQDpw6Ahen6nQfVuY4aZ2
- xnLk2lqAAzh6+9Crr6MUYJGoTm0fh6l7owXIh58IudwNX/++ggikIs71KeAI4OuaBp9Q
- yJ7L39xKvzu1big7ChYsOaB3w7h0kRIPQCcX92ALQ50bs3cnMSy78+aHtsl9bkfmg4Cs
- PndA==
-X-Gm-Message-State: AOJu0YynrGFXd6GvpH47aDCx3iFA5u2e/1CvhTLHj7L6WWJfdJ7tq0dL
- EMvWmb/dPyFlzACuBc+I9Xsn0PmMEGdS1YFQd4O8fD4dlySFLaY0SFhGag8wgSGO
-X-Gm-Gg: ASbGnctYYsdHzWTmLhDRBmkS9iyNRzbuPLJnEm0F115g4ZviXvZ2YFMzX5WU+CktZbG
- PL/legOtI1DE8dEuPrLR0969WyybYgV9oyAvKio1F7lzSWqgFuwQvAiNNa1TNZlyjHrE5qy2Uu0
- 8W+d0q4vbeBRlS4nTNu1cKL3oOXnUPBIKzNBwu65HstnTT1+dOwmWWHvyZ/jHErwaYjj5Rn9AO9
- ffkfeb+Wq1xLf++SEZD3zc7DAIic6wRcAGSdSv72izd2lgf3taXN5y2UADqJdQb205jQLx+hc5R
- dvbCFhz+uUG8Vhwr8RQGfJlRHThTLu8LSW2C+/K1pCJPC3YwaHsYbwFBzXxgRzQi+RySipJ/UiF
- k57mfzSyzcYmD7dV+jkUoXT32A/SzRRH7K7bqvYx/2g7dG1oN8ZA9GYn5BXZpUAHg6Q5wWsFITm
- ETNz9rpLqeZWDm0YtJneg=
-X-Google-Smtp-Source: AGHT+IG4LTmFFBEIxqYGdatxjmU/cyStadxxCXsn/Gntnsl471bxVU3b33/Hz8prveVQlTT9pnXZOQ==
-X-Received: by 2002:a05:6a20:728f:b0:2fa:26fb:4a5c with SMTP id
- adf61e73a8af0-2fa2729122emr2644175637.59.1758911196670; 
- Fri, 26 Sep 2025 11:26:36 -0700 (PDT)
+ bh=G6pGl2zE/qKsZT/YQspYdsea3F+8D5zTIayZWxZmun4=;
+ b=tIR3KIBT75e31G9syacX6BAUy63MujoSTRNFwxVwVGCeG0IKMOpf0Y+HtQeoraFbWE
+ a3sCFKSycjfIbrfaSnVVWUwcYS5jxs1jA+Yz1FzKxeyQDtft8fgpctlDi8Xt/4MHzvR/
+ Zm0afZk+OIIyNsQ0hGnjwJjxNE8ZFsQh9rbX1HX+keyQHGo0PDJKYUJ0un/pb75SO/vx
+ tqhZ+m77NFu8ehJj3btMduuIYqwTLNUyutHFP8DEIs6v7V1M+m7YnqEWr7gUDFmfcWDp
+ UySYZR2JP3uMnPPcwRPGFoKosCEy+4TsijXCc7Xn5h/x7x1HC6JKHp9wDDl95cQuc16A
+ oj5w==
+X-Gm-Message-State: AOJu0YzHjMP8AyqzchXlXGLQJ1kOdGf9YsG5ndRyAxN7gdnjM2PWXs/R
+ RnrExmVUnxEnJRH5xPOLxp+F+tr4PLPi7YG6UCNRPYCRvq+gwGVkOoajUIiPawkB
+X-Gm-Gg: ASbGncs5xDZzSXH68KnCFwD/4anBs08Vej3c1LWNAm2FV6rLZqSzXwbJVCKdH+qKNzl
+ Ga+JbrXpwjt1YPiuohW7xQIogHaw+QqRJiXgHr6WFHXEKEGNcB1DL3kYcs7h8aRPh+K2MmWYqAl
+ NjIDBK9H7wbEiBo/A2NO5psgzMSjmt7hbhTR64yiDScBisBcCZIYh8M4Az92uT+wQmU6Sgc8elQ
+ vgk0VWCdCDPS6zNihVcG6CvhQ6W0XZt3AHS1drha++VgKPv8shiypK1uG4D/hAaOX4SudD26WoC
+ KlYSdwehl3aE/N3u1EHlGdjrwYIZMyppSWqPvTmPSwELAhlzKcrk2UmYm83woCXSeYOxVHzO17Z
+ WQQ1LBpbDYx9CpX5vm90SypacfuN8wntcPbmB/CjMZY6Q3a5IwAR6wPKTKe+X9lRqHNeMfCay4g
+ XDOtIJBvzNPUfdoFLvqDe7bZ3dDRfQmg==
+X-Google-Smtp-Source: AGHT+IHlKZPekWSweQv/VFhXZTx8jbCZkcaCt3FxqWdE5IibuLulglYxhtyUOQvfdI3Q+eVT0zWniw==
+X-Received: by 2002:a05:6a21:6003:b0:2fe:54f7:2b07 with SMTP id
+ adf61e73a8af0-2fe54f72c25mr144407637.20.1758911201912; 
+ Fri, 26 Sep 2025 11:26:41 -0700 (PDT)
 Received: from Timur-Hyperion
  (20014C4E24D067005D2C718B079018C4.dsl.pool.telekom.hu.
  [2001:4c4e:24d0:6700:5d2c:718b:790:18c4])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b57c53bb255sm5352131a12.5.2025.09.26.11.26.32
+ 41be03b00d2f7-b57c53bb255sm5352131a12.5.2025.09.26.11.26.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Sep 2025 11:26:36 -0700 (PDT)
+ Fri, 26 Sep 2025 11:26:41 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, alex.hung@amd.com, harry.wentland@amd.com,
  siqueira@igalia.com, christian.koenig@amd.com,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/3] drm/amd: Disable ASPM on SI
-Date: Fri, 26 Sep 2025 20:26:13 +0200
-Message-ID: <20250926182614.26629-3-timur.kristof@gmail.com>
+Subject: [PATCH 3/3] drm/amd/display: Set stricter clock dividers on DCE 6-10
+Date: Fri, 26 Sep 2025 20:26:14 +0200
+Message-ID: <20250926182614.26629-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250926182614.26629-1-timur.kristof@gmail.com>
 References: <20250926182614.26629-1-timur.kristof@gmail.com>
@@ -91,33 +91,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enabling ASPM causes randoms hangs on Tahiti and Oland on Zen4.
-It's unclear if this is a platform-specific or GPU-specific issue.
-Disable ASPM on SI for the time being.
+Set stricter dividers to stabilize the PLL's feedback loop.
+In practice, the actual output isn't exactly the target
+clock, but slowly oscillates around it. This makes it
+more stable.
+
+The values here are taken from the non-DC code.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 7 +++++++
  1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index a77000c2e0bb..279b6912be2a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1882,6 +1882,13 @@ static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device
- 
- static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
- {
-+	/* Enabling ASPM causes randoms hangs on Tahiti and Oland on Zen4.
-+	 * It's unclear if this is a platform-specific or GPU-specific issue.
-+	 * Disable ASPM on SI for the time being.
-+	 */
-+	if (adev->family == AMDGPU_FAMILY_SI)
-+		return true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index b4f5b4a6331a..00f25e2ee081 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -1700,6 +1700,13 @@ bool dce110_clk_src_construct(
+ 			clk_src->cs_mask->PLL_POST_DIV_PIXCLK;
+ 	calc_pll_cs_init_data.min_pll_ref_divider =	1;
+ 	calc_pll_cs_init_data.max_pll_ref_divider =	clk_src->cs_mask->PLL_REF_DIV;
 +
- #if IS_ENABLED(CONFIG_X86)
- 	struct cpuinfo_x86 *c = &cpu_data(0);
- 
++	if (ctx->dce_version <= DCE_VERSION_10_0) {
++		/* Set stricter dividers to stabilize the PLL's feedback loop on old HW. */
++		calc_pll_cs_init_data.min_pix_clk_pll_post_divider = 2;
++		calc_pll_cs_init_data.min_pll_ref_divider = 2;
++	}
++
+ 	/* when 0 use minInputPxlClkPLLFrequencyInKHz from firmwareInfo*/
+ 	calc_pll_cs_init_data.min_override_input_pxl_clk_pll_freq_khz =	0;
+ 	/* when 0 use maxInputPxlClkPLLFrequencyInKHz from firmwareInfo*/
 -- 
 2.51.0
 
