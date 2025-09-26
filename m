@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD31BCAC5AE
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 09:43:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8822CAC5B9
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 10:31:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C15510E366;
-	Fri, 26 Sep 2025 09:43:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69F9810E346;
+	Fri, 26 Sep 2025 10:31:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TNUCr56q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0RxpZ//M";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013042.outbound.protection.outlook.com
- [40.93.196.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E13110E3C1
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 09:43:42 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010045.outbound.protection.outlook.com [52.101.56.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A5B10E346
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Sep 2025 10:31:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IaKgovncRXmwsGqAVVj8bJJ7jqpaRaTwNFKH/+H4sgYeR4zvFFC439dv/2XkznewgOREqAtepU6jrF4SRHrjtTl3QPFvJUxdPTqrWO454/y4ee1i4KIPkPQRG2v7LoJq8ic5adyfV9EpiFVBmrLmRLJdILRdcu33Lk+FaKpwF8q6uyE5UD4q+7xaoD5JGaiCtAVd5w6s4PGpEAOWpjIjhE4cJGrDo/k6EgGBoHyOTXatjIloURCnuv6u7+dMi6n8z4J71/1cLAyMR3dvOtozlErOcnvqUBQE2Iv9WExFuZp9eXNzEs7jfyHBbXOZOSodWIZBRmGb8FZZtk+oitkhzA==
+ b=m7oa9vbNpxIczinVuIDTemsnUeYyy5x8H5yAI+k5AzSCd/AWxkn4FFcErAs+IfzfOcccRvvwZqt9/IkJIGYZjmlVRv7Bzmimx4HiRWu4Z1ZlfMbuFXAk2D8R2dcDVTwtx17jlR9Dy15WOkjlNaW27/uQi51Oa8NI1MwwN4zQFwjZjfiOTeVV3PlK2V2DrVbW5ucxbh4pFMDhZmc+Eapq8mX+4iyh08FnlYihyCYI7nUVohw80p3D8QkeyCtcOXV41nIwIVFiIAdNHB1AlyGdyw3Em15IGKxsVslmEJOGtJUUR9Ntp9PYmwvUK8pzMDhXvBp4hOycBHm08q+yfUf+aQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dCasu9a7OzXHPQwl7nDt0Q76QHJzLXjuVrTgFLrz0Us=;
- b=gn3q83xfOBtWS4vCIgz0bVgX9G4uq60+gpur7TuzDjBqu8QYFv0tDeyw1X1ERjH9BndSlACwJec0VqIr2pe4NXzZTYAWWDri1w+zEmJM1DeSu+J6GQtd/p0yjKEnGd8PtfiqZr+gUy2gjpGtgqpovrumUec3aBdx8dV+/EK/ow9R/OQ1M0HEiTs4y5slERzx+7OcMJCcK8tnz63lxIIX3eWakimQf6yEm8TdfV+Ja98vuGi310cFMtu2LhBDYvbssWmuajf+UYnGjVJ7DqjRsvFyle9qr0b6FFde21R3CXpeEJZpBnbYVFZ76v1MftnG7rIpxM2U8emi1F7q12CJIg==
+ bh=QCaFugK+T9zmRV9JiEtzanYVYKMIzq1Z9xTxmLX68pQ=;
+ b=TqKeawZaW2S2VHiRkBlExc5NX4e8kepbDs7+HeVF5d0V4eRXYkg3zzjJp7RU7W6DbnvOrBpmJgbxK0TwJw4QDw3WB5iAMFPRO7OU9rBxFG53ldgq+10wtBNb52cNlG/bncJ0QudJrMUVLHQgtduGlhlsdDGm1aZ9yC1yODZm2xL+HmsNBVRuyGytNYsB5JA8PqNdtnuciw9k1f81tABi4FsQ3QPs0SV5QGnMP369mbbPeC2VEl8IDhZ/DPeDtkJkuuaaFtiNsQsbMdzfSgwzcevtXXrq7UtZ46tauaOkXXEoxVbs37dLaeS/3A0QpXlinhHRxCHUFFY5p8sQPAYMqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dCasu9a7OzXHPQwl7nDt0Q76QHJzLXjuVrTgFLrz0Us=;
- b=TNUCr56qC3jMpZWGv6ha2JL1Um4GF6UHc5/PPRC+7az/QH2rnSzODZ3ISNjQx2RZ0lEWIRhmaQWiLgyu2RwroySWK7CT0Uqp8r6yzIrS9zZZh5iQtWZ/Oye7pCC+o3N5Y0F6/WVjFj2EVKLx1M4d7MsqeGMmcIe0r7FxAXH/8UI=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by DM6PR12MB4220.namprd12.prod.outlook.com (2603:10b6:5:21d::7) with
+ bh=QCaFugK+T9zmRV9JiEtzanYVYKMIzq1Z9xTxmLX68pQ=;
+ b=0RxpZ//MPYfQScP5Zcs7C26JWYRS7seALiXdWFOrhNLH/hDjZA2vdg+GafggggyRKGv/NO3JPupju5SW+GDug3UjismFvqXFHfqWI67yz9zbbilDuBba2PinZmU/mFHO+ASbXtrNaFntTf4f/dqHxq2zwey5EOZJbYHyI6sN578=
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ CH3PR12MB8879.namprd12.prod.outlook.com (2603:10b6:610:171::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.13; Fri, 26 Sep
- 2025 09:43:40 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::7547:2c7b:d652:8d04]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::7547:2c7b:d652:8d04%5]) with mapi id 15.20.9160.008; Fri, 26 Sep 2025
- 09:43:39 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.10; Fri, 26 Sep
+ 2025 10:31:45 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::e71b:4ec9:237f:24ea]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::e71b:4ec9:237f:24ea%5]) with mapi id 15.20.9160.008; Fri, 26 Sep 2025
+ 10:31:45 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
  <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: notify amdgpu gpu reset state via uevent
+Subject: Re: [PATCH] drm/amdgpu: notify amdgpu gpu reset state via uevent
 Thread-Topic: [PATCH] drm/amdgpu: notify amdgpu gpu reset state via uevent
-Thread-Index: AQHcLq+C2vqr7ujnc0ynSedPi0ZXdrSlB7EAgAAFwYCAACM5AIAAAnyw
-Date: Fri, 26 Sep 2025 09:43:39 +0000
-Message-ID: <PH7PR12MB59974E8FB258A40D171BF4D2821EA@PH7PR12MB5997.namprd12.prod.outlook.com>
+Thread-Index: AQHcLq/CnRqszrely0C0m9n0ee75DbSlBt9wgAAL3QCAABzd/IAABxqAgAAM3gU=
+Date: Fri, 26 Sep 2025 10:31:45 +0000
+Message-ID: <DS0PR12MB7804E9B50AA94EAB4B391992971EA@DS0PR12MB7804.namprd12.prod.outlook.com>
 References: <20250926063345.1131635-1-kevinyang.wang@amd.com>
  <DS0PR12MB780479816BDE27232614F6B4971EA@DS0PR12MB7804.namprd12.prod.outlook.com>
  <PH7PR12MB5997351862909E500BF2DB7F821EA@PH7PR12MB5997.namprd12.prod.outlook.com>
  <DS0PR12MB780416F186166F39E61F39DD971EA@DS0PR12MB7804.namprd12.prod.outlook.com>
-In-Reply-To: <DS0PR12MB780416F186166F39E61F39DD971EA@DS0PR12MB7804.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
+ <PH7PR12MB59974E8FB258A40D171BF4D2821EA@PH7PR12MB5997.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB59974E8FB258A40D171BF4D2821EA@PH7PR12MB5997.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -65,86 +65,87 @@ msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
  Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+x-ms-reactions: allow
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|DM6PR12MB4220:EE_
-x-ms-office365-filtering-correlation-id: b27a6056-af37-4b5b-3161-08ddfce12c1d
+x-ms-traffictypediagnostic: DS0PR12MB7804:EE_|CH3PR12MB8879:EE_
+x-ms-office365-filtering-correlation-id: 4702e6d7-2e2c-487c-8517-08ddfce7e44c
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|8096899003|38070700021; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?I+EwGa5oY8J/VfDXC3PrdMegZGX7sIgZ+VvLQTvtpMtHrpl/viRPxUZtLsfB?=
- =?us-ascii?Q?lBKBnQxj2e2PtHr0h9el5vK/yUshibBgYTRZDVxND4+IOU4dEU9qe/zYnwKP?=
- =?us-ascii?Q?4axB5rADZTjRGPdw8iKV011VCEdNDfRZe+cN2jyqmxtHM8eQSX8R39LUxKnz?=
- =?us-ascii?Q?ktoRfCDBGHZ58C/MrXSzNMTgpj0Pv5HI20RDpnGfijwBm7bH7M1B19cFJl6h?=
- =?us-ascii?Q?MpAzJ32BIY4o93Ac+Nme81BXsWI/bnFJ0FYB/lr3yEbImcTXNXUKt197O6kl?=
- =?us-ascii?Q?2CWmDalWn2cOWWfxkwxIodxMVKgSnOHqB+ALoPMNeASFcdgqeoztkBz+a6AW?=
- =?us-ascii?Q?YEK/Jj1RmvWHlcJdYqU616UX4vhND2vUFQ2NriSe7utticLxrqAsl+POTUBp?=
- =?us-ascii?Q?oBnPni6pBuArCE/xF1J1jIn2X1z60Fyvrazh4wM9mf0A2Tbdan0hNKR8vQUU?=
- =?us-ascii?Q?Ob8adOnoRd4qi8iaHDY1oYaMpFd4qcBo4kLbEcef1g/L8qqyBeOqeqLZG1nC?=
- =?us-ascii?Q?UIlvxpbBJLPIi+glBzCEsaVXGPmyD2mZ6pL9mjW9ZoAG1eodZexfrUuK8u90?=
- =?us-ascii?Q?WWTwKf0usVUTNogH9OHLxAO2D3ts/DjlfsLxFxZfb1XUD6R3YYpfGaogOjx2?=
- =?us-ascii?Q?mwcrC/WuEPETBWROWkVQ7OepKcWF/FZ8wgbalD/UOdLRf+h26RXo3nLktTUm?=
- =?us-ascii?Q?Ld1qKA5aub5h4NeARdGGAfr/KZ/Rp8It1cTtmpgvi1rewaeZHeQj3VSwCSmA?=
- =?us-ascii?Q?yD5fZIEdXA2zqrjy/Ds8sMM1vQtuMyewGPTd0VzWyQ2YPJ+yTytrMNjI0++X?=
- =?us-ascii?Q?DcRHUI1MM9zz0bSOUKo13Zdr+Ld5PIia66XeFqXzP55QGCxTJqd3K6dzJFVu?=
- =?us-ascii?Q?jcN9VaAYrN94aubocfn4rGw7eHfhEHX50Vqk16f2ODt7UhNfBZTs4menz72V?=
- =?us-ascii?Q?B2REHsTion40zgVcebtT7qTwjrY6QMWoQaKcmcEOUIIIR4LCoN0iw4EKTnT/?=
- =?us-ascii?Q?zBEuUleIxQUsjv/vvoEUoh+s1ixCHqpFExKfyTFqFfuAayFhTW0nMXbwtgi/?=
- =?us-ascii?Q?GucnoYSnPLBZmroasERW14QhbgXQxy8H//TaHDpxaaAZV3rZs7BZes9jKPHC?=
- =?us-ascii?Q?biktacnoCPQk3868GVsC3+U22XjcXURa++8FZYLLAA+22bagDW8AZEpjenEn?=
- =?us-ascii?Q?Oeiv8fZNkDGShwm1nth1QyWvJ6/QxK3I+cDiZ48GhBAEFk4GO4LaI4bYEMkY?=
- =?us-ascii?Q?3PN/55VncWRpwIi3lB1HSq9mPCzywpd2hfSegrOQmAn2aYwB3HpUncqWLxad?=
- =?us-ascii?Q?Qc4+uLwiFJee71dKXJnG1d6QJ+kap3/WOy9J0KTFvxmyj6FgNiw4qvV0E3i7?=
- =?us-ascii?Q?/qbC+RKKam/l3SFGjmP9A2WUkRUQ7RgxVGygUnI6tTxp/etgMySzVy5I1ty+?=
- =?us-ascii?Q?25TKOa6H+DbtqoSitfqsv+70SzYQuDdMZXoNepdxiHyqFamjSGgoRSqG39/T?=
- =?us-ascii?Q?v/IfCJp48XIJMUU=3D?=
+ ARA:13230040|376014|366016|1800799024|38070700021|8096899003|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?VHsiQizjfEfeoas5LkpVeBG6UcSZWKnY2ZwTHrGVnzFYaoILR98/gjWPNMci?=
+ =?us-ascii?Q?Kw3GhbIYh1GvW0X4SWIoMIUhKNffgPT331oCm46h9NSGx0I5xMM2J9vzxCjR?=
+ =?us-ascii?Q?CPDXszcwaJ5CbVp0q31LyFZxaoo0vHMgrQ4SBBft44fcoYUPsnkbidLTv3zf?=
+ =?us-ascii?Q?XJ+PlpOT/jPF0HXBnUCVx97rqM0HqW8MwZfQ60lwPUiyDvCYWVJhZ6CrhQHp?=
+ =?us-ascii?Q?zQjhOOhECJZbixY2hfkP2B3Bd01cZhKaPJp0qrDLUNW2p7vFrLRC1ueI4gDO?=
+ =?us-ascii?Q?J7AmvJluo594Mql95szRbhxbp9uG/PFg5PVJTIrOZbMPExUvWmnQh6zGAuYn?=
+ =?us-ascii?Q?nvXnm6vfhUZfRbPrdi03M0JvDBtYS7AKABi7M4C2zpfM9z8Ahu8B3iNdIowG?=
+ =?us-ascii?Q?XmpCmfzamb2g2wnCT/xt2yhwoNkapEAVd+7bQLTWeEGbzcktbITeH7PLCcZj?=
+ =?us-ascii?Q?+aXzxq7rghxAtQ39MrZXckwBAOl0tnm2LbVc4/UL++pZ26wXp2KY9P26Gxn7?=
+ =?us-ascii?Q?iCdYdKySXR8i2PVgHUZqviSfAy2fzBJNH9cwndsl6Qy82pF9/RbgPTDDSEgx?=
+ =?us-ascii?Q?0p0vFwii771usFtHiiHmD6G6/KTtUCD741MurJELV6PdcrBpNk1ON4DLfeUi?=
+ =?us-ascii?Q?SvV7CLW0P5RKC+bYY3qIewE1tKjRsNWSQBTJoVMlFAmPcqb0rit56ztK4260?=
+ =?us-ascii?Q?UatxUPQjyocJcjqKgUloaStZlZr4vfpRDRrm0QKC+3794EdvDCSRtPplJmKV?=
+ =?us-ascii?Q?FvmKpwkDPaGaOqiQZjKS1Kxw5/ySsrplYjjveb5k7I4j8b3LZT6X03ESXyoy?=
+ =?us-ascii?Q?Z6tqqZXQR3B591seMzpRBSED5R4kebHvB8Lq3RtgBfpFP/KHPgPgfOmppqje?=
+ =?us-ascii?Q?6igjD0Ed0do+QEAapMO3q9nMAfSjif4Nj5yPvYZ/nomwsBFNFQczONcnfBwx?=
+ =?us-ascii?Q?IjE7D1Ym/FcMxr02K9mWXVa+A7hyCIVbMMAva3jlESd0BaSa4UIoAOm1Uciu?=
+ =?us-ascii?Q?BBPtYGJhxVMu4Hc+TA4HKqHz9CfQl7e6g/JkBsU3/zcaxJ+Q+GhItatlz89q?=
+ =?us-ascii?Q?dmZ8VargEcCjxehY8dLKuR2OO7VgA3Wu2Kcnf6nPiEfLxVKAbA76aD5XDbFF?=
+ =?us-ascii?Q?bFh9LVHvjsTY49FDCVGJGtgAbU7lkerWCRGhBRp1JTzcf67bCtR85G5HPulw?=
+ =?us-ascii?Q?EOyUjmYZenUuqb35ZbI/ZWOZ4R5YbryLOcle5Mlkim/0OHKJHbeRLKyam0TE?=
+ =?us-ascii?Q?C7+LLCPgYupdiAkubFlRqU/7hh3pjjaqsE9/t/VWfvG1mJqirou0R6iHxJon?=
+ =?us-ascii?Q?5nbGRiZL9GMJ+nNi6Cbe8m8dnLCJZzE7LDwGrX2edKZR52lzocgJ8bCSvwN4?=
+ =?us-ascii?Q?ilBTklU5eTH2K60iYQKu7P1cFDzhBLvVHlCUxiRtMiOsyB62WDMi9oxMydoh?=
+ =?us-ascii?Q?r8/gyoXMyh/ZRYCNhFqsKIhxUnnqCx3bXp2Eg7Eib7RB0LViajpbT662R/EP?=
+ =?us-ascii?Q?CT1RtO68UKYyNbfOcfDkxsewYLJhdWjN+IMN?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(38070700021); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(8096899003)(7053199007);
+ DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DPRMHUIWphREIoaU9l7yPqXwgYDMFwYz6SxmPrQXjPCEhEIRuSVVTl4tU1fe?=
- =?us-ascii?Q?0MBW/cgVtIRt+hH326z3GPnErRG2EGmAQfdRWYB0hgXz/0EcZjauquW7qRQG?=
- =?us-ascii?Q?UqxE0+dLnivH3DpOnFX/AIX3NG1t7Ul43H+T0/Gj0YmDiAsqNgkKe59tJCG2?=
- =?us-ascii?Q?SQVpda1tWh3vNK/VXHZP42s7kdQ0tBmJSJp4J3rmsL4tdHo0H8ubriJvPZeE?=
- =?us-ascii?Q?TXydXErnE8PstnVhREScycOOfWurH6VdpAzd5QdTxU8IJm6WydM7Kist2zUq?=
- =?us-ascii?Q?CMnEepXCn77e3S6yenJxN+vW6aBjL0kLKzBh7jRYX90U0Un8T39zsl8V6UXa?=
- =?us-ascii?Q?NCjPO6OEQMpipjx5hn/K+eYBc9M5PkGAVZNV8Q0n5y3oyVWR37m9xH4+aFKN?=
- =?us-ascii?Q?hF0xhZD4uHYh9CBmyTorwcfAV7RCl+mJr0l5h/TDSGJVZr0BTFdzE0Z/0nRd?=
- =?us-ascii?Q?IHugEQbW4HcKo9iPkMFoc40G3ILlfmRrqexVqw56/15Ppzg6ijMnWMOxxLZI?=
- =?us-ascii?Q?107hg7NGG7MW8kt5sjVYzCmGKVKspRBhuYblzZd+XaiH98HBF6JA65BSrK8Y?=
- =?us-ascii?Q?IZARsQ9MMm3V820urFkupbPcwzGcqbRD3jt4IeqclxUOhCxzTR71EQYMsocH?=
- =?us-ascii?Q?kEaIgk0DCOHsNUEHfLD82fHTupywxzRCNBUNa3yhrbucHhBgfowKgor9lj3t?=
- =?us-ascii?Q?bG5Ii8FixlpV0OV5rCnJh6jRkqp6EeMzcX2Hz4Y2xsfvpYvxapoiYxJj3t5K?=
- =?us-ascii?Q?bast/WoSOtaUwA0d62QBPII2A7SySTSU2KPkU7L/dbdZaNwXyjAPG9kZDLjh?=
- =?us-ascii?Q?AaU5ZmigcAoITYApX1IW8hbUbgUDB1kUPVRUQBdUxk3XdzjWwJD9od2/lUpn?=
- =?us-ascii?Q?EY+vMdiWOIOVu8UivDtLgZQFxDGmkxpxVFhrW/ptu6mruIfEbfEq++946DMg?=
- =?us-ascii?Q?80Yg/ByVPCU6aahbk5Q/cMf6dzT9aLkNyCkV2p/26U0yMOKbhYkqJdZs+t7o?=
- =?us-ascii?Q?DMThosdl4pLMLnffrxbSJGw1rLtNPxQRsARJO70OPaRX6AICShKDbT2RO5Cr?=
- =?us-ascii?Q?YzfjHWb31RMUWaudxYs8UVO0nUUrWjagwZb9+hRp40E24C+S6EiDud6jo+DQ?=
- =?us-ascii?Q?IB+/GPS8lm5dkLx1S4dhnXNEWLFQwO7KWqKsmaoqp+wYVcGZgHkR/ncKOdr/?=
- =?us-ascii?Q?ep6RpY35x6PZoO8ufecYO2HuTRmhSG/C8ooexDSRdcvVqtjCwqEW0KM4evwm?=
- =?us-ascii?Q?SkPKPDHyUeibchuon2DjCRa4JVbvz3Oek6Dq5vM8uUHXsh1LosfItIkClU5Z?=
- =?us-ascii?Q?ms7IANZ3SadAxeG9kEdRT+W+eyBBCmp06zs7Sw8IusVlflPtiFCyuG+R8Tgl?=
- =?us-ascii?Q?4gcRN6vYKWK3OMh824gDV/eY4HqOwbF33FL91Jc8Ce66kEEwMD53yMTH2oKX?=
- =?us-ascii?Q?ZwfFUpr660C8FmXWgtC4j8ppiSWa/VZv7ntz5ZRGqZLltjsNM5DOHdaa+9Eh?=
- =?us-ascii?Q?yj5STTGggz5vvBra040CEpu1mstWsXAJvdVgueVLlhFBFoDyZiHV9OKECYjZ?=
- =?us-ascii?Q?OQgR87l4OsQoWcfFeao=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kgVXTWHVk2DH+tHyQ7IgHobBfao4UkGH9YtSHlSexBsWk/8OWE5TcUhfVI24?=
+ =?us-ascii?Q?UJn+M7Xe4jIfaXpT7KEeXL9jpUrR2kKnog1SgUyNJmk74wfJ0PeNAU95DmJ1?=
+ =?us-ascii?Q?fQI6ryo7LDYlbk26fTgOQQ9GldhTwDfH/WKrqC6VsYoKAitrl6Wh4L+8YphG?=
+ =?us-ascii?Q?uSaaR+cfm8gKpDt1IXRUlP0Ksyck0SBbdcCasrerz/LEW9rbrpPVXE6wUkwI?=
+ =?us-ascii?Q?b4NkVUohsn1YdKt/LurM2qe4h1tPlANdh0frU4ih1d9hYBBQkEPTtIvUkdsX?=
+ =?us-ascii?Q?khmfCthSWtlWtt3EswagOA5+nmdmZlYNTgDpcvee9zs1NkLsQIrQ+nz3HZzh?=
+ =?us-ascii?Q?0gQF43zc52NQtyb7rlOsrWlkfTlrtLgGttiNL5HvRZMF1R4Tnj2MQf/1iL+4?=
+ =?us-ascii?Q?SS/cNvaq0Hzih0pRHnZu4wyCTW71eSB2rHEiX6P09jDnm5mYotwejI6dMgz2?=
+ =?us-ascii?Q?OcRDSM9iOWBlxv2b/d8pxvb12FnRsJ+fXQiH/yRN5idkUQlCltNBE9zO3Gig?=
+ =?us-ascii?Q?KYw7UicYy1wJIlKSYrEAAngqdt/N3/hDYfM+8S8/jreyDlQ8S7ISXyJd5+R9?=
+ =?us-ascii?Q?E7smUz33CTk+tsrbx58umGKF7qXn1YN2mBfF7yeIV4xZb511jvtiCE/r4WXs?=
+ =?us-ascii?Q?+HTnWq3FwbSKxDJiHEv3j88araZUPb0OY48UiJSSrdRQpfIEUTZF9s6CND8i?=
+ =?us-ascii?Q?zyW/IAovnAIULShu/EqLe8P0gGVuNpR5g6kTWsp1V32aUi3wFtAlAUbA3Tno?=
+ =?us-ascii?Q?d7WS0296o/ALvFDXAstwFcCfHtN+pPmvU3bd08D0rEqVa6K+BzMwB7b8tjmk?=
+ =?us-ascii?Q?3HIEN/WXhanxcK6lJrxVqGbn/Ffi1WDjg28VQmWu2momfM1HmM8ZKFHQqUbw?=
+ =?us-ascii?Q?pwMi+IndAhmwHrq+Y29O8xMWVuMd9TinnRWN3JNgCMhV1NpL9AgPlJYcfwSm?=
+ =?us-ascii?Q?kv6OyG6/b7a3BmJMUp6p+oXwBroS3nAD0GkVl68wTwlVrm5Z3TnkyyfErdhJ?=
+ =?us-ascii?Q?5w89D24noEhv1YZTUfciVkkS4eaKaj2cjPt7wxH6BlD3IejdnQW8OGXXx1NT?=
+ =?us-ascii?Q?Qzye3MWxnXmOFZa9ud7Fh+Z/SHW7t+Fqt+FOJPO9zyyCVdA0W5b2awfi6fJC?=
+ =?us-ascii?Q?Xm6AU1UJkdKzCWIm01nsdD/QVv5QtNog87jQVqp8oY7O4s9pDTaqgTCkYe5n?=
+ =?us-ascii?Q?xGS9iiAcWM4KuSjgITWoKvZpuR1pk2qKTCsoD5FUmIRZOLnKhVH5qt3mA6Cb?=
+ =?us-ascii?Q?gxF2u4lNOJb6qTO726IyIARFryFEQY58aJXJP4zuNws812nYDkZkugOeXhRr?=
+ =?us-ascii?Q?6rnoRkgg23pvQBJFpMY/dlOZ2It7EudeCOmxUJ7XUPlIoIQxNJnrhrRjCgIk?=
+ =?us-ascii?Q?u3JUur1tqWJ2bDFPeBYbrQIQCbyLlsw1D9mCfo5wCk3uoABppbHVe8hcmLcT?=
+ =?us-ascii?Q?EAuTWKdauRuyOgbAtzqxavZw74tUuZ+IyeTtC0Bw6o+xtfAXzJfT0wglO02f?=
+ =?us-ascii?Q?C5UepMZpp3ZIfYHXj0occUMU0t2bJiyS914EOBzelxyXVe391jlMwug2cC7h?=
+ =?us-ascii?Q?h2QKFgBQSs7XvJItVaPed9WOdiKV6CTfluD9N0vZ?=
 Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB59974E8FB258A40D171BF4D2821EAPH7PR12MB5997namp_"
+ boundary="_000_DS0PR12MB7804E9B50AA94EAB4B391992971EADS0PR12MB7804namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b27a6056-af37-4b5b-3161-08ddfce12c1d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2025 09:43:39.3368 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4702e6d7-2e2c-487c-8517-08ddfce7e44c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2025 10:31:45.3652 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XeN+60d5qgrSDarmutd8N/huZ8trknaKvnzmR4OcB4RQ+2M/snXaENLPm8oUak8d
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4220
+X-MS-Exchange-CrossTenant-userprincipalname: iarFryK7iUNFpzDFX8QnjP8RmefeWzvSZvi7XxhU7YcFKq6/lvPM4tFEoYr1Dcyg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8879
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,19 +160,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB59974E8FB258A40D171BF4D2821EAPH7PR12MB5997namp_
+--_000_DS0PR12MB7804E9B50AA94EAB4B391992971EADS0PR12MB7804namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [Public]
 
+From what I understand, all KFD events will also eventually be moved to drm=
+ node based uevents. Also, these events are pre/post reset ones, not when t=
+he device is in reset state.
+
+Thanks,
+Lijo
+________________________________
+From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Sent: Friday, September 26, 2025 3:13:39 PM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: notify amdgpu gpu reset state via uevent
+
+
+[Public]
+
+
 >> I guess the primary reason to have drm_ event and amdgpu having that is =
 because all the 'users' interested in GPU events come through drm interface=
 .
 
+
+
 in fact, that such devices like drm render/kfd/i2c controller/hwmon/device =
 nodes are attached to pci devices may not respond if device in reset state.
 so, this is useful event for user mode application.
+
+
 
 and please conduct some research before making any comments to avoid wastin=
 g review resources.
@@ -181,47 +205,66 @@ KERNEL[11438.593757] remove   /class/kfd (class)
 KERNEL[11438.614767] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/drm/card1/card1-DP-3/i2c-13/i2c-dev/i2c-13 (i2c-=
 dev)
+
 KERNEL[11438.615100] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/drm/card1/card1-DP-3/i2c-13 (i2c)
+
 KERNEL[11438.615624] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/drm/card1/card1-DP-3 (drm)
+
 KERNEL[11438.615951] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/drm/card1/card1-HDMI-A-1 (drm)
+
 KERNEL[11438.617227] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/drm/card1/card1-Writeback-1 (drm)
+
 KERNEL[11438.618336] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/drm/card1 (drm)
+
 KERNEL[11438.618429] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/drm/renderD128 (drm)
+
 KERNEL[11438.622178] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/hwmon/hwmon0 (hwmon)
+
 KERNEL[11438.784296] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-10/i2c-dev/i2c-10 (i2c-dev)
+
 KERNEL[11438.784346] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-10 (i2c)
 KERNEL[11438.784386] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-9/i2c-dev/i2c-9 (i2c-dev)
+
 KERNEL[11438.784417] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-9 (i2c)
 KERNEL[11438.784508] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-8/i2c-dev/i2c-8 (i2c-dev)
+
 KERNEL[11438.784540] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-8 (i2c)
 KERNEL[11438.784634] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-7/i2c-dev/i2c-7 (i2c-dev)
+
 KERNEL[11438.784664] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-7 (i2c)
 KERNEL[11438.784803] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-6/i2c-dev/i2c-6 (i2c-dev)
+
 KERNEL[11438.784934] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-6 (i2c)
 KERNEL[11438.785151] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-5/i2c-dev/i2c-5 (i2c-dev)
+
 KERNEL[11438.785335] remove   /devices/pci0000:00/0000:00:03.1/0000:03:00.0=
 /0000:04:00.0/0000:05:00.0/i2c-5 (i2c)
 
+
+
 Best Regards,
+
 Kevin
+
+
 
 From: Lazar, Lijo <Lijo.Lazar@amd.com>
 Sent: Friday, September 26, 2025 17:22
@@ -232,16 +275,26 @@ eucher@amd.com>
 Subject: Re: [PATCH] drm/amdgpu: notify amdgpu gpu reset state via uevent
 
 
+
 [Public]
 
+
+
 The intention is to notify users of the device about the event.
+
+
 
 I guess the primary reason to have drm_ event and amdgpu having that is bec=
 ause all the 'users' interested in GPU events come through drm interface.
 
+
+
 Thanks,
+
 Lijo
+
 ________________________________
+
 From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com<mailto:KevinYang.Wang@amd.c=
 om>>
 Sent: Friday, September 26, 2025 1:04:56 PM
@@ -252,6 +305,8 @@ Cc: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; D=
 eucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.c=
 om>>
 Subject: RE: [PATCH] drm/amdgpu: notify amdgpu gpu reset state via uevent
+
+
 
 [Public]
 
@@ -435,90 +490,112 @@ ect_action action,
 2.34.1
 
 
---_000_PH7PR12MB59974E8FB258A40D171BF4D2821EAPH7PR12MB5997namp_
+--_000_DS0PR12MB7804E9B50AA94EAB4B391992971EADS0PR12MB7804namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Aptos;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#467886;
-	text-decoration:underline;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Arial",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
 </head>
-<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
+<body>
 <p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
 t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
 [Public]<br>
 </p>
 <br>
 <div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">&gt;&gt; I guess the primary reason to have drm_ eve=
-nt and amdgpu having that is because all the 'users' interested in GPU even=
-ts come through drm interface.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">in fact, that such devices like drm render/kfd/i2c co=
-ntroller/hwmon/device nodes are attached to pci devices may not respond if =
-device in reset state.<br>
-so, this is useful event for user mode application.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">and please conduct some research before making any co=
-mments to avoid wasting review resources.<br>
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+From what I understand, all KFD events will also eventually be moved to drm=
+ node based uevents. Also, these events are pre/post reset ones, not when t=
+he device is in reset state.</div>
+<div id=3D"ms-outlook-mobile-body-separator-line" data-applydefaultfontstyl=
+es=3D"true" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system=
+, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"auto">
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+<br>
+</div>
+</div>
+<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
+o, Arial, Helvetica, sans-serif; font-size: 12pt;" id=3D"ms-outlook-mobile-=
+signature" dir=3D"auto">
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+Thanks,</div>
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+Lijo</div>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wang, Yang(Kevin) &lt=
+;KevinYang.Wang@amd.com&gt;<br>
+<b>Sent:</b> Friday, September 26, 2025 3:13:39 PM<br>
+<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
+ &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: notify amdgpu gpu reset state via u=
+event</font>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:DengXian}
+@font-face
+	{font-family:Calibri}
+@font-face
+	{font-family:Aptos}
+@font-face
+	{}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif}
+a:link, span.x_MsoHyperlink
+	{color:#467886;
+	text-decoration:underline}
+span.x_EmailStyle20
+	{font-family:"Arial",sans-serif;
+	color:windowtext}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:1.0in 1.0in 1.0in 1.0in}
+div.x_WordSection1
+	{}
+-->
+</style>
+<div lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:b=
+reak-word">
+<p align=3D"Left" style=3D"font-family:Calibri; font-size:10pt; color:#0080=
+00; margin:5pt; font-style:normal; font-weight:normal; text-decoration:none=
+">
+[Public]<br>
+</p>
+<br>
+<div>
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal">&gt;&gt; I guess the primary reason to have drm_ e=
+vent and amdgpu having that is because all the 'users' interested in GPU ev=
+ents come through drm interface.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">in fact, that such devices like drm render/kfd/i2c=
+ controller/hwmon/device nodes are attached to pci devices may not respond =
+if device in reset state.<br>
+so, this is useful event for user mode application.</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">and please conduct some research before making any=
+ comments to avoid wasting review resources.<br>
 <br>
 KERNEL[11438.593689] remove&nbsp;&nbsp; /devices/virtual/kfd/kfd (kfd)&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
@@ -539,43 +616,42 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 KERNEL[11438.593757] remove&nbsp;&nbsp; /class/kfd (class)<br>
 KERNEL[11438.614767] remove&nbsp;&nbsp; /devices/pci0000:00/0000:00:03.1/00=
 00:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1/card1-DP-3/i2c-13/i2c-dev/i2=
-c-13 (i2c-dev)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.615100] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1/card1-=
-DP-3/i2c-13 (i2c)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.615624] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1/card1-=
-DP-3 (drm)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.615951] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1/card1-=
-HDMI-A-1 (drm)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.617227] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1/card1-=
-Writeback-1 (drm)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.618336] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1 (drm)<=
-o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.618429] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/renderD128 (=
-drm)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.622178] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/hwmon/hwmon0 (hw=
-mon)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.784296] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-10/i2c-dev/i=
-2c-10 (i2c-dev)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.784346] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-10 (i2c)&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+c-13 (i2c-dev)</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.615100] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1/car=
+d1-DP-3/i2c-13 (i2c)</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.615624] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1/car=
+d1-DP-3 (drm)</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.615951] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1/car=
+d1-HDMI-A-1 (drm)</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.617227] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1/car=
+d1-Writeback-1 (drm)</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.618336] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/card1 (dr=
+m)</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.618429] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/drm/renderD12=
+8 (drm)</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.622178] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/hwmon/hwmon0 =
+(hwmon)</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.784296] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-10/i2c-de=
+v/i2c-10 (i2c-dev)</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.784346] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-10 (i2c)&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
@@ -584,15 +660,15 @@ nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;
 <br>
 KERNEL[11438.784386] remove&nbsp;&nbsp; /devices/pci0000:00/0000:00:03.1/00=
-00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-9/i2c-dev/i2c-9 (i2c-dev)<o:p></o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.784417] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-9 (i2c)&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-9/i2c-dev/i2c-9 (i2c-dev)</span></=
+p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.784417] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-9 (i2c)&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
@@ -601,15 +677,15 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br>
 KERNEL[11438.784508] remove&nbsp;&nbsp; /devices/pci0000:00/0000:00:03.1/00=
-00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-8/i2c-dev/i2c-8 (i2c-dev)<o:p></o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.784540] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-8 (i2c)&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-8/i2c-dev/i2c-8 (i2c-dev)</span></=
+p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.784540] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-8 (i2c)&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
@@ -618,15 +694,15 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br>
 KERNEL[11438.784634] remove&nbsp;&nbsp; /devices/pci0000:00/0000:00:03.1/00=
-00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-7/i2c-dev/i2c-7 (i2c-dev)<o:p></o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.784664] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-7 (i2c)&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-7/i2c-dev/i2c-7 (i2c-dev)</span></=
+p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.784664] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-7 (i2c)&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
@@ -635,15 +711,15 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br>
 KERNEL[11438.784803] remove&nbsp;&nbsp; /devices/pci0000:00/0000:00:03.1/00=
-00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-6/i2c-dev/i2c-6 (i2c-dev)<o:p></o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.784934] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-6 (i2c)&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-6/i2c-dev/i2c-6 (i2c-dev)</span></=
+p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.784934] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-6 (i2c)&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
@@ -652,30 +728,31 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br>
 KERNEL[11438.785151] remove&nbsp;&nbsp; /devices/pci0000:00/0000:00:03.1/00=
-00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-5/i2c-dev/i2c-5 (i2c-dev)<o:p></o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">KERNEL[11438.785335] remove&nbsp;&nbsp; /devices/pci0=
-000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-5 (i2c)<o:p>=
-</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">Best Regards,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">Kevin<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+00:03:00.0/0000:04:00.0/0000:05:00.0/i2c-5/i2c-dev/i2c-5 (i2c-dev)</span></=
+p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">KERNEL[11438.785335] remove&nbsp;&nbsp; /devices/p=
+ci0000:00/0000:00:03.1/0000:03:00.0/0000:04:00.0/0000:05:00.0/i2c-5 (i2c)</=
+span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">Best Regards,</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">Kevin</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">&nbsp;</span></p>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> Lazar, Lijo &lt;Lijo.Lazar@amd=
-.com&gt;
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&q=
+uot;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0=
+pt; font-family:&quot;Calibri&quot;,sans-serif"> Lazar, Lijo &lt;Lijo.Lazar=
+@amd.com&gt;
 <br>
 <b>Sent:</b> Friday, September 26, 2025 17:22<br>
 <b>To:</b> Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; amd-gfx@lists.=
@@ -683,46 +760,46 @@ freedesktop.org<br>
 <b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
  &lt;Alexander.Deucher@amd.com&gt;<br>
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: notify amdgpu gpu reset state via u=
-event<o:p></o:p></span></p>
+event</span></p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt; font-family:&quo=
+t;Calibri&quot;,sans-serif; color:green">[Public]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 <div>
 <div>
-<p class=3D"MsoNormal">The intention is to notify users of the device about=
- the event.<o:p></o:p></p>
+<p class=3D"x_MsoNormal">The intention is to notify users of the device abo=
+ut the event.</p>
 </div>
 <div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 </div>
 <div>
-<p class=3D"MsoNormal">I guess the primary reason to have drm_ event and am=
-dgpu having that is because all the 'users' interested in GPU events come t=
-hrough drm interface.<o:p></o:p></p>
+<p class=3D"x_MsoNormal">I guess the primary reason to have drm_ event and =
+amdgpu having that is because all the 'users' interested in GPU events come=
+ through drm interface.</p>
 </div>
 <div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 </div>
-<div id=3D"ms-outlook-mobile-signature">
+<div id=3D"x_ms-outlook-mobile-signature">
 <div>
-<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"x_MsoNormal">Thanks,</p>
 </div>
 <div>
-<p class=3D"MsoNormal">Lijo<o:p></o:p></p>
+<p class=3D"x_MsoNormal">Lijo</p>
 </div>
 </div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Wang, =
-Yang(Kevin) &lt;<a href=3D"mailto:KevinYang.Wang@amd.com">KevinYang.Wang@am=
-d.com</a>&gt;<br>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&q=
+uot;Calibri&quot;,sans-serif; color:black">From:</span></b><span style=3D"f=
+ont-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:black"> =
+Wang, Yang(Kevin) &lt;<a href=3D"mailto:KevinYang.Wang@amd.com">KevinYang.W=
+ang@amd.com</a>&gt;<br>
 <b>Sent:</b> Friday, September 26, 2025 1:04:56 PM<br>
 <b>To:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
 @amd.com</a>&gt;;
@@ -734,16 +811,16 @@ ing.Zhang@amd.com</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailto:Alexand=
 er.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;<br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: notify amdgpu gpu reset state via u=
 event</span>
-<o:p></o:p></p>
+</p>
 <div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><a name=3D"BM_BEGIN">=
-</a><span style=3D"font-size:11.0pt;font-family:&quot;Times New Roman&quot;=
-,serif">[Public]<br>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt"><a name=3D"x_BM_BEG=
+IN"></a><span style=3D"font-size:11.0pt; font-family:&quot;Times New Roman&=
+quot;,serif">[Public]<br>
 <br>
 KERNEL[173.150476] change&nbsp;&nbsp; /devices/pci0000:00/0000:00:03.1/0000=
 :03:00.0/0000:04:00.0/0000:05:00.0/drm/card1 (drm)<br>
@@ -956,8 +1033,10 @@ on, uevent_env);<br>
 --<br>
 2.34.1<br>
 <br>
-</span><span style=3D"font-family:&quot;Times New Roman&quot;,serif"><o:p><=
-/o:p></span></p>
+</span><span style=3D"font-family:&quot;Times New Roman&quot;,serif"></span=
+></p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -966,4 +1045,4 @@ on, uevent_env);<br>
 </body>
 </html>
 
---_000_PH7PR12MB59974E8FB258A40D171BF4D2821EAPH7PR12MB5997namp_--
+--_000_DS0PR12MB7804E9B50AA94EAB4B391992971EADS0PR12MB7804namp_--
