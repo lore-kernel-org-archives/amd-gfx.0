@@ -4,60 +4,184 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91138CCD186
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D191CCD183
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69F3F10E8B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E5CC10E8C4;
 	Fri,  3 Oct 2025 07:03:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kbD6Zxx4";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="CZzLp8Cw";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DF0910E28C;
- Tue, 30 Sep 2025 07:07:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1759216075;
- bh=otM6iP4yEGo0zjb88ZOEX8uXJrV14+4cIodesPrg2IU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=kbD6Zxx4Q6bzLXCAKUCGs0+FTcp52cqk0bd9sUWzJIH4vSK1zbEB8rwa5NSEK3q0h
- f9cyIyEcwaVCthzx6u2MGSSOqmPO+4P4/X3SkhIFksYGYoZuIcmWDhdOBFbR70b/Vk
- YIa6izAWLadhrH2bR22ja0c/MEQ0YkwwFmAgB4d7B38cQgy3L+1d6rbASw214h14j6
- aHG+tHmNU282xQON8oXaNVd/yVcFZaUBm+pzv4vohPu2pMRdGLQn9XAvHeX+p4LmPq
- mIE8zXwTThXqO3ZABzVjFsc0bfsTdv73sa0oh84paX0uxCAbKUoqR9Ek4okHpga0R/
- zCTI2hGU233Cg==
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C6CAE17E12E5;
- Tue, 30 Sep 2025 09:07:54 +0200 (CEST)
-Date: Tue, 30 Sep 2025 10:07:40 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Alex Hung <alex.hung@amd.com>
-Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <wayland-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
- <leo.liu@amd.com>, <ville.syrjala@linux.intel.com>, <contact@emersion.fr>,
- <mwen@igalia.com>, <jadahl@redhat.com>, <sebastian.wick@redhat.com>,
- <shashank.sharma@amd.com>, <agoins@nvidia.com>, <joshua@froggi.es>,
- <mdaenzer@redhat.com>, <aleixpol@kde.org>, <xaver.hugl@gmail.com>,
- <victoria@system76.com>, <daniel@ffwll.ch>, <uma.shankar@intel.com>,
- <quic_naseer@quicinc.com>, <quic_cbraga@quicinc.com>,
- <quic_abhinavk@quicinc.com>, <marcan@marcan.st>, <Liviu.Dudau@arm.com>,
- <sashamcintosh@google.com>, <chaitanya.kumar.borah@intel.com>,
- <louis.chauvet@bootlin.com>, <mcanal@igalia.com>,
- <nfraprado@collabora.com>, Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH V11 17/47] drm/vkms: Use s32 for internal color pipeline
- precision
-Message-ID: <20250930100740.40b718bb@eldfell>
-In-Reply-To: <20250815035047.3319284-18-alex.hung@amd.com>
-References: <20250815035047.3319284-1-alex.hung@amd.com>
- <20250815035047.3319284-18-alex.hung@amd.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
+Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.176.194.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8641A89C5E;
+ Mon, 29 Sep 2025 17:22:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759166533; x=1790702533;
+ h=from:to:cc:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version:subject;
+ bh=gKvaxmrs9uqyIGzbajJ1O5Hd1/ndu7xAtdLZV5bBh5k=;
+ b=CZzLp8Cw5FgGMOd+O9ugZE5OTrE+zNIBb8GpJ8oKhbAygHRWImy9IIiB
+ RZZ1xP9OETdRVev89YHnq2M/PCi7/N71pUKpxzejv2v/mjbScAkH1Juet
+ vsHYox2LwBcjyDrCziuv6eSQJPrQBrGUYCuh/7PROKKw7jXqu7H0434xA
+ sf7Ya4v5Hp+ZrxtsRvTPUXqrAIqYQ2yytRn3VSSAZUROS8ZyuwMDul8bM
+ 29GS995wLHen2GB0xU7fURW2kn41JumgwwtkaMcoAc049oZfr0qdY1hsA
+ bGgpkXA4iYAAxqe74rORpahG8ArDojV2ML/eXIwG5kwxAVLz9XwidXfzQ A==;
+X-CSE-ConnectionGUID: IafcEd3hQO6oGZOiLnLKqg==
+X-CSE-MsgGUID: Itl7dVAmRv28mSSF4DAfeA==
+X-IronPort-AV: E=Sophos;i="6.18,302,1751241600"; 
+   d="scan'208";a="2841710"
+Subject: RE: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
+ available everywhere
+Thread-Topic: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
+ available everywhere
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2025 17:22:02 +0000
+Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:7433]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.19.222:2525]
+ with esmtp (Farcaster)
+ id 39c95fb2-68e2-4279-8b5a-834631637cab; Mon, 29 Sep 2025 17:22:01 +0000 (UTC)
+X-Farcaster-Flow-ID: 39c95fb2-68e2-4279-8b5a-834631637cab
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Mon, 29 Sep 2025 17:21:59 +0000
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Mon, 29 Sep 2025 17:21:59 +0000
+Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
+ EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
+ 15.02.2562.020; Mon, 29 Sep 2025 17:21:59 +0000
+From: "Farber, Eliav" <farbere@amazon.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+CC: "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "richard@nod.at"
+ <richard@nod.at>, "anton.ivanov@cambridgegreys.com"
+ <anton.ivanov@cambridgegreys.com>, "johannes@sipsolutions.net"
+ <johannes@sipsolutions.net>, "dave.hansen@linux.intel.com"
+ <dave.hansen@linux.intel.com>, "luto@kernel.org" <luto@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>, "tglx@linutronix.de"
+ <tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
+ <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com"
+ <hpa@zytor.com>, "tony.luck@intel.com" <tony.luck@intel.com>,
+ "qiuxu.zhuo@intel.com" <qiuxu.zhuo@intel.com>, "mchehab@kernel.org"
+ <mchehab@kernel.org>, "james.morse@arm.com" <james.morse@arm.com>,
+ "rric@kernel.org" <rric@kernel.org>, "harry.wentland@amd.com"
+ <harry.wentland@amd.com>, "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>, "Xinhui.Pan@amd.com"
+ <Xinhui.Pan@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "evan.quan@amd.com" <evan.quan@amd.com>, 
+ "james.qian.wang@arm.com" <james.qian.wang@arm.com>, "liviu.dudau@arm.com"
+ <liviu.dudau@arm.com>, "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>, 
+ "brian.starkey@arm.com" <brian.starkey@arm.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "robdclark@gmail.com" <robdclark@gmail.com>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "sean@poorly.run" <sean@poorly.run>, "jdelvare@suse.com" <jdelvare@suse.com>, 
+ "linux@roeck-us.net" <linux@roeck-us.net>, "linus.walleij@linaro.org"
+ <linus.walleij@linaro.org>, "dmitry.torokhov@gmail.com"
+ <dmitry.torokhov@gmail.com>, "maz@kernel.org" <maz@kernel.org>,
+ "wens@csie.org" <wens@csie.org>, "jernej.skrabec@gmail.com"
+ <jernej.skrabec@gmail.com>, "samuel@sholland.org" <samuel@sholland.org>,
+ "agk@redhat.com" <agk@redhat.com>, "snitzer@kernel.org" <snitzer@kernel.org>, 
+ "dm-devel@redhat.com" <dm-devel@redhat.com>, "rajur@chelsio.com"
+ <rajur@chelsio.com>, "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+ <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>, "mcoquelin.stm32@gmail.com"
+ <mcoquelin.stm32@gmail.com>, "krzysztof.kozlowski@linaro.org"
+ <krzysztof.kozlowski@linaro.org>, "malattia@linux.it" <malattia@linux.it>,
+ "hdegoede@redhat.com" <hdegoede@redhat.com>, "markgross@kernel.org"
+ <markgross@kernel.org>, "artur.paszkiewicz@intel.com"
+ <artur.paszkiewicz@intel.com>, "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
+ "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
+ "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+ "fei1.li@intel.com" <fei1.li@intel.com>, "clm@fb.com" <clm@fb.com>,
+ "josef@toxicpanda.com" <josef@toxicpanda.com>, "dsterba@suse.com"
+ <dsterba@suse.com>, "jack@suse.com" <jack@suse.com>, "tytso@mit.edu"
+ <tytso@mit.edu>, "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+ "dushistov@mail.ru" <dushistov@mail.ru>, "luc.vanoostenryck@gmail.com"
+ <luc.vanoostenryck@gmail.com>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "mhiramat@kernel.org" <mhiramat@kernel.org>, "pmladek@suse.com"
+ <pmladek@suse.com>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>, "minchan@kernel.org"
+ <minchan@kernel.org>, "ngupta@vflare.org" <ngupta@vflare.org>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>, "dsahern@kernel.org"
+ <dsahern@kernel.org>, "pablo@netfilter.org" <pablo@netfilter.org>,
+ "kadlec@netfilter.org" <kadlec@netfilter.org>, "fw@strlen.de" <fw@strlen.de>, 
+ "jmaloy@redhat.com" <jmaloy@redhat.com>, "ying.xue@windriver.com"
+ <ying.xue@windriver.com>, "andrii@kernel.org" <andrii@kernel.org>,
+ "mykolal@fb.com" <mykolal@fb.com>, "ast@kernel.org" <ast@kernel.org>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>, "martin.lau@linux.dev"
+ <martin.lau@linux.dev>, "song@kernel.org" <song@kernel.org>, "yhs@fb.com"
+ <yhs@fb.com>, "john.fastabend@gmail.com" <john.fastabend@gmail.com>,
+ "kpsingh@kernel.org" <kpsingh@kernel.org>, "sdf@google.com" <sdf@google.com>, 
+ "haoluo@google.com" <haoluo@google.com>, "jolsa@kernel.org"
+ <jolsa@kernel.org>, "shuah@kernel.org" <shuah@kernel.org>,
+ "keescook@chromium.org" <keescook@chromium.org>, "wad@chromium.org"
+ <wad@chromium.org>, "willy@infradead.org" <willy@infradead.org>,
+ "sashal@kernel.org" <sashal@kernel.org>, "ruanjinjie@huawei.com"
+ <ruanjinjie@huawei.com>, "quic_akhilpo@quicinc.com"
+ <quic_akhilpo@quicinc.com>, "David.Laight@aculab.com"
+ <David.Laight@aculab.com>, "herve.codina@bootlin.com"
+ <herve.codina@bootlin.com>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-um@lists.infradead.org"
+ <linux-um@lists.infradead.org>, "linux-edac@vger.kernel.org"
+ <linux-edac@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
+ <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "linux-hwmon@vger.kernel.org"
+ <linux-hwmon@vger.kernel.org>, "linux-input@vger.kernel.org"
+ <linux-input@vger.kernel.org>, "linux-sunxi@lists.linux.dev"
+ <linux-sunxi@lists.linux.dev>, "linux-media@vger.kernel.org"
+ <linux-media@vger.kernel.org>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
+ "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, "netfilter-devel@vger.kernel.org"
+ <netfilter-devel@vger.kernel.org>, "coreteam@netfilter.org"
+ <coreteam@netfilter.org>, "tipc-discussion@lists.sourceforge.net"
+ <tipc-discussion@lists.sourceforge.net>, "bpf@vger.kernel.org"
+ <bpf@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
+ <linux-kselftest@vger.kernel.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Thread-Index: AQHcLZHEroQ9W2lH4EW9XJumD1KlZrSqNL0AgAAM8ACAAAMmgIAAKtlA
+Date: Mon, 29 Sep 2025 17:21:58 +0000
+Message-ID: <e754fed7d53040fb92e1ef9b64c64f6e@amazon.com>
+References: <20250924202320.32333-1-farbere@amazon.com>
+ <20250924202320.32333-8-farbere@amazon.com>
+ <2025092923-stove-rule-a00f@gregkh>
+ <85a995bb59474300aa3d5f973d279a13@amazon.com>
+ <2025092955-module-landfall-ed45@gregkh>
+In-Reply-To: <2025092955-module-landfall-ed45@gregkh>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.143.172]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/MSnf5_FiI7lMAh/1C811xoZ";
- protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,173 +197,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/MSnf5_FiI7lMAh/1C811xoZ
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+> On Mon, Sep 29, 2025 at 02:39:26PM +0000, Farber, Eliav wrote:
+> > > On Wed, Sep 24, 2025 at 08:23:08PM +0000, Eliav Farber wrote:
+> > > > From: Linus Torvalds <torvalds@linux-foundation.org>
+> > > >
+> > > > [ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
+> > >
+> > > <snip>
+> > >
+> > > As this didn't go into 6.6.y yet, I'll stop here on this series for n=
+ow.
+> > > Please fix up for newer kernels first and then resend these.
+> >
+> > For 6.6.y I backported 15 commits:
+> > https://lore.kernel.org/stable/20250922103241.16213-1-farbere@amazon.co=
+m/T/#t
+> >
+> > Why weren't all of them picked?
+>
+> Because one of them broke the build, as I wrote a week ago here:
+>         https://lore.kernel.org/all/2025092209-owl-whisking-03e3@gregkh/
 
-On Thu, 14 Aug 2025 21:50:06 -0600
-Alex Hung <alex.hung@amd.com> wrote:
+Fixed:
+https://lore.kernel.org/stable/20250929171733.20671-1-farbere@amazon.com/T/=
+#t
 
-> From: Harry Wentland <harry.wentland@amd.com>
->=20
-> Certain operations require us to preserve values below 0.0 and
-> above 1.0 (0x0 and 0xffff respectively in 16 bpc unorm). One
-> such operation is a BT709 encoding operation followed by its
-> decoding operation, or the reverse.
->=20
-> We'll use s32 values as intermediate in and outputs of our
-> color operations, for the operations where it matters.
->=20
-> For now this won't apply to LUT operations. We might want to
-> update those to work on s32 as well, but it's unclear how
-> that should work for unorm LUT definitions. We'll revisit
-> that once we add LUT + CTM tests.
->=20
-> In order to allow for this we'll also invert the nesting of our
-> colorop processing loops. We now use the pixel iteration loop
-> on the outside and the colorop iteration on the inside.
-
-Hi Alex,
-
-is this an out-dated paragraph in the commit message?
-
-I don't see the patch inverting the nesting of loops.
-
-That statement worried me, because changing the loop structures has
-tanked the performance before.
-
-
-Thanks,
-pq
-
->=20
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
-> ---
-> v7:
->  - Fix checkpatch warnings
->   - Add a commit messages
->   - Fix code styles by adding and removing spaces (new lines, tabs and so=
- on)
->=20
-> v6:
->  - use clamp_val instead of manual clamping (Louis Chauvet)
->=20
-> v4:
->  - Clarify that we're packing 16-bit UNORM into s32, not
->    converting values to a different representation (Pekka)
->=20
-> v3:
->  - Use new colorop->next pointer
->=20
->  drivers/gpu/drm/vkms/vkms_composer.c | 27 +++++++++++++++++++++++++--
->  drivers/gpu/drm/vkms/vkms_drv.h      |  4 ++++
->  2 files changed, 29 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
-vkms_composer.c
-> index 0f3fcd6a5925..6630dccd68a4 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -128,7 +128,7 @@ static void apply_lut(const struct vkms_crtc_state *c=
-rtc_state, struct line_buff
->  	}
->  }
-> =20
-> -static void apply_colorop(struct pixel_argb_u16 *pixel, struct drm_color=
-op *colorop)
-> +static void apply_colorop(struct pixel_argb_s32 *pixel, struct drm_color=
-op *colorop)
->  {
->  	struct drm_colorop_state *colorop_state =3D colorop->state;
->  	struct drm_device *dev =3D colorop->dev;
-> @@ -157,9 +157,26 @@ static void apply_colorop(struct pixel_argb_u16 *pix=
-el, struct drm_colorop *colo
->  static void pre_blend_color_transform(const struct vkms_plane_state *pla=
-ne_state,
->  				      struct line_buffer *output_buffer)
->  {
-> +	struct pixel_argb_s32 pixel;
-> +
->  	for (size_t x =3D 0; x < output_buffer->n_pixels; x++) {
->  		struct drm_colorop *colorop =3D plane_state->base.base.color_pipeline;
-> =20
-> +		/*
-> +		 * Some operations, such as applying a BT709 encoding matrix,
-> +		 * followed by a decoding matrix, require that we preserve
-> +		 * values above 1.0 and below 0.0 until the end of the pipeline.
-> +		 *
-> +		 * Pack the 16-bit UNORM values into s32 to give us head-room to
-> +		 * avoid clipping until we're at the end of the pipeline. Clip
-> +		 * intentionally at the end of the pipeline before packing
-> +		 * UNORM values back into u16.
-> +		 */
-> +		pixel.a =3D output_buffer->pixels[x].a;
-> +		pixel.r =3D output_buffer->pixels[x].r;
-> +		pixel.g =3D output_buffer->pixels[x].g;
-> +		pixel.b =3D output_buffer->pixels[x].b;
-> +
->  		while (colorop) {
->  			struct drm_colorop_state *colorop_state;
-> =20
-> @@ -169,10 +186,16 @@ static void pre_blend_color_transform(const struct =
-vkms_plane_state *plane_state
->  				return;
-> =20
->  			if (!colorop_state->bypass)
-> -				apply_colorop(&output_buffer->pixels[x], colorop);
-> +				apply_colorop(&pixel, colorop);
-> =20
->  			colorop =3D colorop->next;
->  		}
-> +
-> +		/* clamp values */
-> +		output_buffer->pixels[x].a =3D clamp_val(pixel.a, 0, 0xffff);
-> +		output_buffer->pixels[x].r =3D clamp_val(pixel.r, 0, 0xffff);
-> +		output_buffer->pixels[x].g =3D clamp_val(pixel.g, 0, 0xffff);
-> +		output_buffer->pixels[x].b =3D clamp_val(pixel.b, 0, 0xffff);
->  	}
->  }
-> =20
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_=
-drv.h
-> index 30941714cd0f..55440ec6db52 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.h
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
-> @@ -45,6 +45,10 @@ struct vkms_frame_info {
->  	unsigned int rotation;
->  };
-> =20
-> +struct pixel_argb_s32 {
-> +	s32 a, r, g, b;
-> +};
-> +
->  /**
->   * struct pixel_argb_u16 - Internal representation of a pixel color.
->   * @a: Alpha component value, stored in 16 bits, without padding, using
-
-
---Sig_/MSnf5_FiI7lMAh/1C811xoZ
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmjbgbwACgkQI1/ltBGq
-qqfqpQ/9EZLOoqVMV29vKrbbVrUKvfkWh5vKI0kGwrimngoXip8jMpSJXz2ZA2Hz
-dWpELMpwhZjEDGIkGlU7T7qCMbTO5fZiTFjiUpOW56SqjXq6xQU2N0FGx4bKOzSV
-7z/KEMWvkU4cnHSg2mlhz2sGML08FXQNQ1Yx3cqnSScR9b8OgqEhV2knP4A70jps
-4s4XW9+YDCTTtattiQD139RxOjlR7l9UngZihYXtyH7RlIqDYgzPYxt5j8nWUkug
-XO5iZgyrY99E2AqY8q936MOfTyuPZu70MQqQh1Sewu6ntUqtX86+7Iw9VtmXrUoH
-BLYxUwbBEupdXZlZx9y62h3Yr7/qZYmZsfsQ86FlG0Ih6n3b42ar/jlXGy5K2TOk
-CAHRSZBmWZ+X98lH9OjpFs5+s90ja/o2/MvsouzxhknfKrlU4DfTBKjo4JZQ5fTC
-Rq/0J0AKhEQG7ov5YAOCpAzmK2TCF284ZNBYsJRFowEXfOEfybV3VEnVmzvSaFEw
-uWhBRdJGrKFFlkZxQ9cxMVqLpxD7pTIr1ebkRYx9Z6PMdRi0psOPMX3I3gDGFPg5
-d9R2Sp2mAYC9t+fm1gKoTDgq9BvEB9IE2mapF8FDRtScV+/oY5VUWc4yfRJAmiIB
-Bi2QaZbeBuozMJpJeZ3LHwJUv0rmlHkPlkA1aERqj9HO7oTxQF4=
-=ECLi
------END PGP SIGNATURE-----
-
---Sig_/MSnf5_FiI7lMAh/1C811xoZ--
+---
+Thanks, Eliav
