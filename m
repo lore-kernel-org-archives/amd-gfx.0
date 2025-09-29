@@ -4,88 +4,182 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 730E0CCD183
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A13CCD18A
 	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 008E310E8DE;
-	Fri,  3 Oct 2025 07:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA88A10E8DD;
+	Fri,  3 Oct 2025 07:03:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="aP11We1G";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="P2hOQM/c";
 	dkim-atps=neutral
-Received: from fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [18.199.210.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5E310E837;
- Thu,  2 Oct 2025 18:03:29 +0000 (UTC)
+Received: from fra-out-002.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-002.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [3.65.3.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7200310E433;
+ Mon, 29 Sep 2025 14:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759428209; x=1790964209;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=FhepguEQ0VZAS3etCeAAj5D/xXUqupnQ1wf0VPifqWY=;
- b=aP11We1GeaDn1j07gWE1yZw6X6IRB/tvUFwKuiPuoXlzdJLff4Vh87dH
- 0vjzAjjmsx5m+/4zQK3auE4z9jFusn3d/Qj6yYdWIrIbqbucYY4tsfkFq
- yR4uWhhqONjX7skUltSDcUaJ4gaAfgnaIjtMBWmSgEBUER4NuvHZJRTiz
- 6C+nalkr6hT9pi+22d+5IjyPqBp/DdZ9qrEuAckogYS/cGVy3t+rfLLzq
- sj/J12H12Qth0yynz2sdyvpJl174Ysgn8cSZrWTJZ8KbDRi2cQDsItTkP
- amFQLFxcu/2bMQZVrY+NeWGV7mHGYSRxeKNNvyAPcHaN/6Tdubu+mF/TI Q==;
-X-CSE-ConnectionGUID: yv+CFmwcTMGRTAIJYjoPnA==
-X-CSE-MsgGUID: PbN3Mvl/S7KK96iT3Y4oaQ==
-X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
-   d="scan'208";a="2919500"
+ t=1759156780; x=1790692780;
+ h=from:to:cc:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version:subject;
+ bh=jQWfyryv3PwAY4z7JkjeqszILRR0hMtG2kXXZBJTGME=;
+ b=P2hOQM/cNnMvYhobbSIfGh3ZWp3tA0HsWh1KhL7VJZc6nsQJRwh67YJf
+ x61xfRUdNqgMIwaE8GLdhhVTN/YUf/gMWDpHHJYJ/DDux/jMzuTy7fFer
+ C5VvTgJX0t6xZguhi0O2ObTwDiehBLdZgRxf2TNkVcdysXQmTxQroIXa1
+ sJyCi82pePrFZu2CzvRQFDZxmyfemNKUWnoRLcP5M8D5ADlc4NpkyfILc
+ r39i/wkHqKGvgsZHlijdC3mlVgfCtcUhFjAFPeQg78rkVdYUhc1ac3HJl
+ ovXJQgAy4v6yQ4wVL+Zig+mpeOv0ADwD63NebkH6WciTVk52mImfpDFDN Q==;
+X-CSE-ConnectionGUID: Eg5FVd3DSAe1GaVTZtKB6g==
+X-CSE-MsgGUID: z2L5KGDMS7uQ8XhGedGakg==
+X-IronPort-AV: E=Sophos;i="6.18,301,1751241600"; 
+   d="scan'208";a="2836489"
+Subject: RE: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
+ available everywhere
+Thread-Topic: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
+ available everywhere
 Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
  smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 18:03:18 +0000
-Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:9158]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.3.52:2525]
+ by internal-fra-out-002.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2025 14:39:28 +0000
+Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:13136]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.33.147:2525]
  with esmtp (Farcaster)
- id 07029763-2c6f-4d4a-9b51-cd8300cfe7f5; Thu, 2 Oct 2025 18:03:18 +0000 (UTC)
-X-Farcaster-Flow-ID: 07029763-2c6f-4d4a-9b51-cd8300cfe7f5
+ id 231f5531-c12d-4148-9dbe-5b2468a5b014; Mon, 29 Sep 2025 14:39:28 +0000 (UTC)
+X-Farcaster-Flow-ID: 231f5531-c12d-4148-9dbe-5b2468a5b014
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUC002.ant.amazon.com (10.252.51.181) with Microsoft SMTP Server
+ EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Thu, 2 Oct 2025 18:03:18 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
- 18:03:05 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
- <simona@ffwll.ch>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>,
- <tglx@linutronix.de>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
- <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>,
- <mpatocka@redhat.com>, <clm@fb.com>, <dsterba@suse.com>,
- <luc.vanoostenryck@gmail.com>, <pmladek@suse.com>, <rostedt@goodmis.org>,
- <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
- <senozhatsky@chromium.org>, <akpm@linux-foundation.org>,
- <lijo.lazar@amd.com>, <asad.kamal@amd.com>, <kevinyang.wang@amd.com>,
- <David.Laight@ACULAB.COM>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>,
- <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
- <stable@vger.kernel.org>, <farbere@amazon.com>
-CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
- <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
- Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
-Subject: [PATCH v3 07/11 6.1.y] minmax.h: reduce the #define expansion of
- min(), max() and clamp()
-Date: Thu, 2 Oct 2025 18:00:25 +0000
-Message-ID: <20251002180036.33738-8-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251002180036.33738-1-farbere@amazon.com>
-References: <20251002180036.33738-1-farbere@amazon.com>
+ Mon, 29 Sep 2025 14:39:27 +0000
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Mon, 29 Sep 2025 14:39:26 +0000
+Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
+ EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
+ 15.02.2562.020; Mon, 29 Sep 2025 14:39:26 +0000
+From: "Farber, Eliav" <farbere@amazon.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+CC: "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "richard@nod.at"
+ <richard@nod.at>, "anton.ivanov@cambridgegreys.com"
+ <anton.ivanov@cambridgegreys.com>, "johannes@sipsolutions.net"
+ <johannes@sipsolutions.net>, "dave.hansen@linux.intel.com"
+ <dave.hansen@linux.intel.com>, "luto@kernel.org" <luto@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>, "tglx@linutronix.de"
+ <tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
+ <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com"
+ <hpa@zytor.com>, "tony.luck@intel.com" <tony.luck@intel.com>,
+ "qiuxu.zhuo@intel.com" <qiuxu.zhuo@intel.com>, "mchehab@kernel.org"
+ <mchehab@kernel.org>, "james.morse@arm.com" <james.morse@arm.com>,
+ "rric@kernel.org" <rric@kernel.org>, "harry.wentland@amd.com"
+ <harry.wentland@amd.com>, "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>, "Xinhui.Pan@amd.com"
+ <Xinhui.Pan@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "evan.quan@amd.com" <evan.quan@amd.com>, 
+ "james.qian.wang@arm.com" <james.qian.wang@arm.com>, "liviu.dudau@arm.com"
+ <liviu.dudau@arm.com>, "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>, 
+ "brian.starkey@arm.com" <brian.starkey@arm.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "robdclark@gmail.com" <robdclark@gmail.com>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "sean@poorly.run" <sean@poorly.run>, "jdelvare@suse.com" <jdelvare@suse.com>, 
+ "linux@roeck-us.net" <linux@roeck-us.net>, "linus.walleij@linaro.org"
+ <linus.walleij@linaro.org>, "dmitry.torokhov@gmail.com"
+ <dmitry.torokhov@gmail.com>, "maz@kernel.org" <maz@kernel.org>,
+ "wens@csie.org" <wens@csie.org>, "jernej.skrabec@gmail.com"
+ <jernej.skrabec@gmail.com>, "samuel@sholland.org" <samuel@sholland.org>,
+ "agk@redhat.com" <agk@redhat.com>, "snitzer@kernel.org" <snitzer@kernel.org>, 
+ "dm-devel@redhat.com" <dm-devel@redhat.com>, "rajur@chelsio.com"
+ <rajur@chelsio.com>, "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+ <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>, "mcoquelin.stm32@gmail.com"
+ <mcoquelin.stm32@gmail.com>, "krzysztof.kozlowski@linaro.org"
+ <krzysztof.kozlowski@linaro.org>, "malattia@linux.it" <malattia@linux.it>,
+ "hdegoede@redhat.com" <hdegoede@redhat.com>, "markgross@kernel.org"
+ <markgross@kernel.org>, "artur.paszkiewicz@intel.com"
+ <artur.paszkiewicz@intel.com>, "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
+ "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
+ "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+ "fei1.li@intel.com" <fei1.li@intel.com>, "clm@fb.com" <clm@fb.com>,
+ "josef@toxicpanda.com" <josef@toxicpanda.com>, "dsterba@suse.com"
+ <dsterba@suse.com>, "jack@suse.com" <jack@suse.com>, "tytso@mit.edu"
+ <tytso@mit.edu>, "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+ "dushistov@mail.ru" <dushistov@mail.ru>, "luc.vanoostenryck@gmail.com"
+ <luc.vanoostenryck@gmail.com>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "mhiramat@kernel.org" <mhiramat@kernel.org>, "pmladek@suse.com"
+ <pmladek@suse.com>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>, "minchan@kernel.org"
+ <minchan@kernel.org>, "ngupta@vflare.org" <ngupta@vflare.org>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>, "dsahern@kernel.org"
+ <dsahern@kernel.org>, "pablo@netfilter.org" <pablo@netfilter.org>,
+ "kadlec@netfilter.org" <kadlec@netfilter.org>, "fw@strlen.de" <fw@strlen.de>, 
+ "jmaloy@redhat.com" <jmaloy@redhat.com>, "ying.xue@windriver.com"
+ <ying.xue@windriver.com>, "andrii@kernel.org" <andrii@kernel.org>,
+ "mykolal@fb.com" <mykolal@fb.com>, "ast@kernel.org" <ast@kernel.org>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>, "martin.lau@linux.dev"
+ <martin.lau@linux.dev>, "song@kernel.org" <song@kernel.org>, "yhs@fb.com"
+ <yhs@fb.com>, "john.fastabend@gmail.com" <john.fastabend@gmail.com>,
+ "kpsingh@kernel.org" <kpsingh@kernel.org>, "sdf@google.com" <sdf@google.com>, 
+ "haoluo@google.com" <haoluo@google.com>, "jolsa@kernel.org"
+ <jolsa@kernel.org>, "shuah@kernel.org" <shuah@kernel.org>,
+ "keescook@chromium.org" <keescook@chromium.org>, "wad@chromium.org"
+ <wad@chromium.org>, "willy@infradead.org" <willy@infradead.org>,
+ "sashal@kernel.org" <sashal@kernel.org>, "ruanjinjie@huawei.com"
+ <ruanjinjie@huawei.com>, "quic_akhilpo@quicinc.com"
+ <quic_akhilpo@quicinc.com>, "David.Laight@aculab.com"
+ <David.Laight@aculab.com>, "herve.codina@bootlin.com"
+ <herve.codina@bootlin.com>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-um@lists.infradead.org"
+ <linux-um@lists.infradead.org>, "linux-edac@vger.kernel.org"
+ <linux-edac@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
+ <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "linux-hwmon@vger.kernel.org"
+ <linux-hwmon@vger.kernel.org>, "linux-input@vger.kernel.org"
+ <linux-input@vger.kernel.org>, "linux-sunxi@lists.linux.dev"
+ <linux-sunxi@lists.linux.dev>, "linux-media@vger.kernel.org"
+ <linux-media@vger.kernel.org>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
+ "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, "netfilter-devel@vger.kernel.org"
+ <netfilter-devel@vger.kernel.org>, "coreteam@netfilter.org"
+ <coreteam@netfilter.org>, "tipc-discussion@lists.sourceforge.net"
+ <tipc-discussion@lists.sourceforge.net>, "bpf@vger.kernel.org"
+ <bpf@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
+ <linux-kselftest@vger.kernel.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Thread-Index: AQHcLZHEroQ9W2lH4EW9XJumD1KlZrSqNL0AgAAM8AA=
+Date: Mon, 29 Sep 2025 14:39:26 +0000
+Message-ID: <85a995bb59474300aa3d5f973d279a13@amazon.com>
+References: <20250924202320.32333-1-farbere@amazon.com>
+ <20250924202320.32333-8-farbere@amazon.com>
+ <2025092923-stove-rule-a00f@gregkh>
+In-Reply-To: <2025092923-stove-rule-a00f@gregkh>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.143.172]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D035UWA003.ant.amazon.com (10.13.139.86) To
- EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,99 +195,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Laight <David.Laight@ACULAB.COM>
+> On Wed, Sep 24, 2025 at 08:23:08PM +0000, Eliav Farber wrote:
+> > From: Linus Torvalds <torvalds@linux-foundation.org>
+> >
+> > [ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
+>
+> <snip>
+>
+> As this didn't go into 6.6.y yet, I'll stop here on this series for now.
+> Please fix up for newer kernels first and then resend these.
 
-[ Upstream commit b280bb27a9f7c91ddab730e1ad91a9c18a051f41 ]
+For 6.6.y I backported 15 commits:
+https://lore.kernel.org/stable/20250922103241.16213-1-farbere@amazon.com/T/=
+#t
 
-Since the test for signed values being non-negative only relies on
-__builtion_constant_p() (not is_constexpr()) it can use the 'ux' variable
-instead of the caller supplied expression.  This means that the #define
-parameters are only expanded twice.  Once in the code and once quoted in
-the error message.
+Why weren't all of them picked?
+What is missing?
 
-Link: https://lkml.kernel.org/r/051afc171806425da991908ed8688a98@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
-
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 24e4b372649a..6f7ea669d305 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -46,10 +46,10 @@
-  * comparison, and these expressions only need to be careful to not cause
-  * warnings for pointer use.
-  */
--#define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
--#define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
--#define __sign_use(x, ux) (is_signed_type(typeof(ux)) ? \
--	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
-+#define __signed_type_use(ux) (2 + __is_nonneg(ux))
-+#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
-+#define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
-+	__signed_type_use(ux) : __unsigned_type_use(ux))
- 
- /*
-  * Check whether a signed value is always non-negative.
-@@ -71,13 +71,13 @@
- #else
-   #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
- #endif
--#define __is_nonneg(x, ux) statically_true((__signed_type(ux))(x) >= 0)
-+#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
- 
--#define __types_ok(x, y, ux, uy) \
--	(__sign_use(x, ux) & __sign_use(y, uy))
-+#define __types_ok(ux, uy) \
-+	(__sign_use(ux) & __sign_use(uy))
- 
--#define __types_ok3(x, y, z, ux, uy, uz) \
--	(__sign_use(x, ux) & __sign_use(y, uy) & __sign_use(z, uz))
-+#define __types_ok3(ux, uy, uz) \
-+	(__sign_use(ux) & __sign_use(uy) & __sign_use(uz))
- 
- #define __cmp_op_min <
- #define __cmp_op_max >
-@@ -92,7 +92,7 @@
- 
- #define __careful_cmp_once(op, x, y, ux, uy) ({		\
- 	__auto_type ux = (x); __auto_type uy = (y);	\
--	BUILD_BUG_ON_MSG(!__types_ok(x, y, ux, uy),	\
-+	BUILD_BUG_ON_MSG(!__types_ok(ux, uy),		\
- 		#op"("#x", "#y") signedness error");	\
- 	__cmp(op, ux, uy); })
- 
-@@ -109,7 +109,7 @@
- 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
- 			(lo) <= (hi), true),					\
- 		"clamp() low limit " #lo " greater than high limit " #hi);	\
--	BUILD_BUG_ON_MSG(!__types_ok3(val, lo, hi, uval, ulo, uhi),		\
-+	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
- 		"clamp("#val", "#lo", "#hi") signedness error");		\
- 	__clamp(uval, ulo, uhi); })
- 
-@@ -149,7 +149,7 @@
- 
- #define __careful_op3(op, x, y, z, ux, uy, uz) ({			\
- 	__auto_type ux = (x); __auto_type uy = (y);__auto_type uz = (z);\
--	BUILD_BUG_ON_MSG(!__types_ok3(x, y, z, ux, uy, uz),		\
-+	BUILD_BUG_ON_MSG(!__types_ok3(ux, uy, uz),			\
- 		#op"3("#x", "#y", "#z") signedness error");		\
- 	__cmp(op, ux, __cmp(op, uy, uz)); })
- 
--- 
-2.47.3
-
+Thanks, Eliav
