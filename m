@@ -4,88 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F445CCD183
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81ADBCCD184
 	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 325B910E8AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F45B10E899;
 	Fri,  3 Oct 2025 07:03:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="HahsvoNP";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wjq3sRmx";
 	dkim-atps=neutral
-Received: from fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [3.72.182.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0449F10E839;
- Thu,  2 Oct 2025 18:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759428251; x=1790964251;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=eLjmOO9Imra/tK5RPFIsLXDdpmNXUJwWiKD0++d4PGI=;
- b=HahsvoNPFZLhkYZxlJtcxY1Po9EgLQaNCC6ZuED+MOtjmBJtt/XSfliw
- w4L/JIDvWeMyHhALZu6LW55A66lzPeWWUL5NG84gvITxRJVqpysD2uVpg
- iZu/rv4YchY6CdS4RvDs84RlQWsdweo81EnKs1WNEv3YloeqN751wuhcj
- QfYJ3qFnp70nzmUF7cjmBrxJBEcV8oVFfTgmXziB+U5VMO7iNiejQyQOj
- c8dmdYtVF0/xiEX67QDsySVSxPigxGCn/1TihDAkEywhE99Ik96aufKgB
- cUmUsCwnycsq53u3KeTUDivT7dCrcPKV2IdfxHKoA91Y9nPa1wdYXfq4q w==;
-X-CSE-ConnectionGUID: vNx6RvxpQJ61hTjIiHjHmg==
-X-CSE-MsgGUID: lmj+3ElrTLqd85N4gv8UQQ==
-X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
-   d="scan'208";a="3025749"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 18:04:01 +0000
-Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.224:12150]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.3.52:2525]
- with esmtp (Farcaster)
- id c0d02434-d1a7-44a1-9ae4-1bdce494e9c2; Thu, 2 Oct 2025 18:04:00 +0000 (UTC)
-X-Farcaster-Flow-ID: c0d02434-d1a7-44a1-9ae4-1bdce494e9c2
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Thu, 2 Oct 2025 18:03:58 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
- 18:03:45 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
- <simona@ffwll.ch>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>,
- <tglx@linutronix.de>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
- <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>,
- <mpatocka@redhat.com>, <clm@fb.com>, <dsterba@suse.com>,
- <luc.vanoostenryck@gmail.com>, <pmladek@suse.com>, <rostedt@goodmis.org>,
- <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
- <senozhatsky@chromium.org>, <akpm@linux-foundation.org>,
- <lijo.lazar@amd.com>, <asad.kamal@amd.com>, <kevinyang.wang@amd.com>,
- <David.Laight@ACULAB.COM>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>,
- <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
- <stable@vger.kernel.org>, <farbere@amazon.com>
-CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
- <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
- Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
-Subject: [PATCH v3 09/11 6.1.y] minmax.h: move all the clamp() definitions
- after the min/max() ones
-Date: Thu, 2 Oct 2025 18:00:27 +0000
-Message-ID: <20251002180036.33738-10-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251002180036.33738-1-farbere@amazon.com>
-References: <20251002180036.33738-1-farbere@amazon.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2321110E426;
+ Mon, 29 Sep 2025 13:48:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1A7C16250E;
+ Mon, 29 Sep 2025 13:48:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE755C113D0;
+ Mon, 29 Sep 2025 13:48:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1759153684;
+ bh=wbHj0ZDVZsl6ycoce1jc98/fwkaVeepCp5kpxZMpRpI=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=wjq3sRmxcKr3Q3OX1MINo6enZ8hPpq33GBW/IpZhQI6tq74S8UOFk+j3kqvD3rIS9
+ uORhn4ViPO1YcbQmK3TR5RRW4umYVi/mp+VJZT7hi2nrk8ceOGPYVfpznyz58yGbn/
+ Xey6neh3PWJjaLYnSiakQ1b/l1S6DT4daa/XIkrE=
+Subject: Patch "minmax: fix indentation of __cmp_once() and __clamp_once()"
+ has been added to the 6.1-stable tree
+To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
+	Rodrigo.Siqueira@amd.com, Xinhui.Pan@amd.com,
+	adilger.kernel@dilger.ca, agk@redhat.com, airlied@gmail.com,
+	akpm@linux-foundation.org, alexander.deucher@amd.com,
+	alexandre.torgue@foss.st.com, amd-gfx@lists.freedesktop.org,
+	andrii@kernel.org, andriy.shevchenko@linux.intel.com,
+	anton.ivanov@cambridgegreys.com, artur.paszkiewicz@intel.com,
+	ast@kernel.org, bp@alien8.de, brian.starkey@arm.com,
+	christian.koenig@amd.com, clm@fb.com, coreteam@netfilter.org,
+	daniel@ffwll.ch, daniel@iogearbox.net, dave.hansen@linux.intel.com,
+	davem@davemloft.net, david.laight@aculab.com, dm-devel@redhat.com,
+	dmitry.baryshkov@linaro.org, dmitry.torokhov@gmail.com,
+	dri-devel@lists.freedesktop.org, dsahern@kernel.org,
+	dsterba@suse.com, dushistov@mail.ru, edumazet@google.com,
+	evan.quan@amd.com, farbere@amazon.com, fei1.li@intel.com,
+	freedreno@lists.freedesktop.org, fw@strlen.de,
+	gregkh@linuxfoundation.org, haoluo@google.com,
+	harry.wentland@amd.com, hch@infradead.org, hdegoede@redhat.com,
+	herve.codina@bootlin.com, hpa@zytor.com, jack@suse.com,
+	james.morse@arm.com, james.qian.wang@arm.com, jdelvare@suse.com,
+	jejb@linux.ibm.com, jernej.skrabec@gmail.com, jmaloy@redhat.com,
+	joabreu@synopsys.com, johannes@sipsolutions.net,
+	john.fastabend@gmail.com, jolsa@kernel.org, josef@toxicpanda.com,
+	kadlec@netfilter.org, keescook@chromium.org, kpsingh@kernel.org,
+	krzysztof.kozlowski@linaro.org, kuba@kernel.org,
+	linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, linux-staging@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
+	linux@armlinux.org.uk, linux@rasmusvillemoes.dk, linux@roeck-us.net,
+	liviu.dudau@arm.com, luc.vanoostenryck@gmail.com, luto@kernel.org,
+	maarten.lankhorst@linux.intel.com, malattia@linux.it,
+	markgross@kernel.org, martin.lau@linux.dev,
+	martin.petersen@oracle.com, maz@kernel.org, mchehab@kernel.org,
+	mcoquelin.stm32@gmail.com, mhiramat@kernel.org,
+	mihail.atanassov@arm.com, minchan@kernel.org, mingo@redhat.com,
+	mripard@kernel.org, mykola@freedesktop.org, l@fb.com,
+	ngupta@vflare.org, pabeni@redhat.com, pablo@netfilter.org,
+	peppe.cavallaro@st.com, peterz@infradead.org, pmladek@suse.com,
+	qiuxu.zhuo@intel.com, quic_abhinavk@quicinc.com,
+	quic_akhilpo@quicinc.com, rajur@chelsio.com, richard@nod.at,
+	robdclark@gmail.com, rostedt@goodmis.org, rric@kernel.org,
+	ruanjinjie@huawei.com, sakari.ailus@linux.intel.com,
+	samuel@sholland.org, sashal@kernel.org, sdf@google.com,
+	sean@poorly.run, senozhatsky@chromium.org, shuah@kernel.org,
+	snitzer@kernel.org, song@kernel.org, sunpeng.li@amd.com,
+	tglx@linutronix.de, tipc-discussion@lists.sourceforge.net,
+	tony.luck@intel.com, torvalds@linux-foundation.org, tytso@mit.edu,
+	tzimmermann@suse.de, wad@chromium.org, wens@csie.org,
+	willy@infradead.org, x86@kernel.org, yhs@fb.com,
+	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 29 Sep 2025 15:47:50 +0200
+In-Reply-To: <20250924202320.32333-5-farbere@amazon.com>
+Message-ID: <2025092950-excavate-stipulate-da60@gregkh>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D040UWA001.ant.amazon.com (10.13.139.22) To
- EX19D018EUA004.ant.amazon.com (10.252.50.85)
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,185 +105,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+
+This is a note to let you know that I've just added the patch titled
+
+    minmax: fix indentation of __cmp_once() and __clamp_once()
+
+to the 6.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+and it can be found in the queue-6.1 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From linux-staging+bounces-34578-greg=kroah.com@lists.linux.dev Wed Sep 24 22:28:06 2025
+From: Eliav Farber <farbere@amazon.com>
+Date: Wed, 24 Sep 2025 20:23:05 +0000
+Subject: minmax: fix indentation of __cmp_once() and __clamp_once()
+To: <linux@armlinux.org.uk>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>, <brian.starkey@arm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <maz@k
+ ernel.org>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>, <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>, <peppe.cavallaro@st.com>, <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>, <malattia@linux.it>, <hdegoede@redhat.com>, <markgross@kernel.org>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <gregkh@linuxfoundation.org>, <fei1.li@intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>, <pmladek@suse.com>, <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.
+ org>, <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <andrii@kernel.org>, <mykolal@fb.com>, <ast@kernel.org>, <daniel@iogearbox.net>, <martin.lau@linux.dev>, <song@kernel.org>, <yhs@fb.com>, <john.fastabend@gmail.com>, <kpsingh@kernel.org>, <sdf@google.com>, <haoluo@google.com>, <jolsa@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>, <wad@chromium.org>, <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>, <ruanjinjie@huawei.com>, <quic_akhilpo@quicinc.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vge
+ r.kernel.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>, <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20250924202320.32333-5-farbere@amazon.com>
+
 From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit c3939872ee4a6b8bdcd0e813c66823b31e6e26f7 ]
+[ Upstream commit f4b84b2ff851f01d0fac619eadef47eb41648534 ]
 
-At some point the definitions for clamp() got added in the middle of the
-ones for min() and max().  Re-order the definitions so they are more
-sensibly grouped.
+Remove the extra indentation and align continuation markers.
 
-Link: https://lkml.kernel.org/r/8bb285818e4846469121c8abc3dfb6e2@AcuMS.aculab.com
+Link: https://lkml.kernel.org/r/bed41317a05c498ea0209eafbcab45a5@AcuMS.aculab.com
 Signed-off-by: David Laight <david.laight@aculab.com>
 Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
 Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
 Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/linux/minmax.h | 109 +++++++++++++++++++----------------------
- 1 file changed, 51 insertions(+), 58 deletions(-)
+ include/linux/minmax.h |   30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 91aa1b90c1bb..75fb7a6ad4c6 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -99,22 +99,6 @@
- #define __careful_cmp(op, x, y) \
- 	__careful_cmp_once(op, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
+@@ -46,11 +46,11 @@
+ #define __cmp(op, x, y)	((x) __cmp_op_##op (y) ? (x) : (y))
  
--#define __clamp(val, lo, hi)	\
--	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
--
--#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
--	__auto_type uval = (val);						\
--	__auto_type ulo = (lo);							\
--	__auto_type uhi = (hi);							\
--	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
--		"clamp() low limit " #lo " greater than high limit " #hi);	\
--	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
--		"clamp("#val", "#lo", "#hi") signedness error");		\
--	__clamp(uval, ulo, uhi); })
--
--#define __careful_clamp(val, lo, hi) \
--	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
--
- /**
-  * min - return minimum of two values of the same or compatible types
-  * @x: first value
-@@ -170,6 +154,22 @@
- #define max3(x, y, z) \
- 	__careful_op3(max, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
+ #define __cmp_once(op, x, y, unique_x, unique_y) ({	\
+-		typeof(x) unique_x = (x);		\
+-		typeof(y) unique_y = (y);		\
+-		static_assert(__types_ok(x, y),		\
+-			#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
+-		__cmp(op, unique_x, unique_y); })
++	typeof(x) unique_x = (x);			\
++	typeof(y) unique_y = (y);			\
++	static_assert(__types_ok(x, y),			\
++		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
++	__cmp(op, unique_x, unique_y); })
  
-+/**
-+ * min_t - return minimum of two values, using the specified type
-+ * @type: data type to use
-+ * @x: first value
-+ * @y: second value
-+ */
-+#define min_t(type, x, y) __cmp_once(min, type, x, y)
-+
-+/**
-+ * max_t - return maximum of two values, using the specified type
-+ * @type: data type to use
-+ * @x: first value
-+ * @y: second value
-+ */
-+#define max_t(type, x, y) __cmp_once(max, type, x, y)
-+
- /**
-  * min_not_zero - return the minimum that is _not_ zero, unless both are zero
-  * @x: value1
-@@ -180,6 +180,22 @@
- 	typeof(y) __y = (y);			\
- 	__x == 0 ? __y : ((__y == 0) ? __x : min(__x, __y)); })
+ #define __careful_cmp(op, x, y)					\
+ 	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
+@@ -60,16 +60,16 @@
+ #define __clamp(val, lo, hi)	\
+ 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
  
-+#define __clamp(val, lo, hi)	\
-+	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
-+
-+#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
-+	__auto_type uval = (val);						\
-+	__auto_type ulo = (lo);							\
-+	__auto_type uhi = (hi);							\
-+	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
+-#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
+-		typeof(val) unique_val = (val);				\
+-		typeof(lo) unique_lo = (lo);				\
+-		typeof(hi) unique_hi = (hi);				\
+-		static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+-				(lo) <= (hi), true),					\
+-			"clamp() low limit " #lo " greater than high limit " #hi);	\
+-		static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
+-		static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
+-		__clamp(unique_val, unique_lo, unique_hi); })
++#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({		\
++	typeof(val) unique_val = (val);						\
++	typeof(lo) unique_lo = (lo);						\
++	typeof(hi) unique_hi = (hi);						\
++	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
++			(lo) <= (hi), true),					\
 +		"clamp() low limit " #lo " greater than high limit " #hi);	\
-+	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
-+		"clamp("#val", "#lo", "#hi") signedness error");		\
-+	__clamp(uval, ulo, uhi); })
-+
-+#define __careful_clamp(val, lo, hi) \
-+	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
-+
- /**
-  * clamp - return a value clamped to a given range with strict typechecking
-  * @val: current value
-@@ -191,28 +207,30 @@
-  */
- #define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
++	static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
++	static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
++	__clamp(unique_val, unique_lo, unique_hi); })
  
--/*
-- * ..and if you can't take the strict
-- * types, you can specify one yourself.
-- *
-- * Or not use min/max/clamp at all, of course.
-- */
--
- /**
-- * min_t - return minimum of two values, using the specified type
-- * @type: data type to use
-- * @x: first value
-- * @y: second value
-+ * clamp_t - return a value clamped to a given range using a given type
-+ * @type: the type of variable to use
-+ * @val: current value
-+ * @lo: minimum allowable value
-+ * @hi: maximum allowable value
-+ *
-+ * This macro does no typechecking and uses temporary variables of type
-+ * @type to make all the comparisons.
-  */
--#define min_t(type, x, y) __cmp_once(min, type, x, y)
-+#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
- 
- /**
-- * max_t - return maximum of two values, using the specified type
-- * @type: data type to use
-- * @x: first value
-- * @y: second value
-+ * clamp_val - return a value clamped to a given range using val's type
-+ * @val: current value
-+ * @lo: minimum allowable value
-+ * @hi: maximum allowable value
-+ *
-+ * This macro does no typechecking and uses temporary variables of whatever
-+ * type the input argument @val is.  This is useful when @val is an unsigned
-+ * type and @lo and @hi are literals that will otherwise be assigned a signed
-+ * integer type.
-  */
--#define max_t(type, x, y) __cmp_once(max, type, x, y)
-+#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
- 
- /*
-  * Do not check the array parameter using __must_be_array().
-@@ -257,31 +275,6 @@
-  */
- #define max_array(array, len) __minmax_array(max, array, len)
- 
--/**
-- * clamp_t - return a value clamped to a given range using a given type
-- * @type: the type of variable to use
-- * @val: current value
-- * @lo: minimum allowable value
-- * @hi: maximum allowable value
-- *
-- * This macro does no typechecking and uses temporary variables of type
-- * @type to make all the comparisons.
-- */
--#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
--
--/**
-- * clamp_val - return a value clamped to a given range using val's type
-- * @val: current value
-- * @lo: minimum allowable value
-- * @hi: maximum allowable value
-- *
-- * This macro does no typechecking and uses temporary variables of whatever
-- * type the input argument @val is.  This is useful when @val is an unsigned
-- * type and @lo and @hi are literals that will otherwise be assigned a signed
-- * integer type.
-- */
--#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
--
- static inline bool in_range64(u64 val, u64 start, u64 len)
- {
- 	return (val - start) < len;
--- 
-2.47.3
+ #define __careful_clamp(val, lo, hi) ({					\
+ 	__builtin_choose_expr(__is_constexpr((val) - (lo) + (hi)),	\
 
+
+Patches currently in stable-queue which might be from farbere@amazon.com are
+
+queue-6.1/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+queue-6.1/minmax-add-in_range-macro.patch
+queue-6.1/minmax-deduplicate-__unconst_integer_typeof.patch
+queue-6.1/minmax-introduce-min-max-_array.patch
