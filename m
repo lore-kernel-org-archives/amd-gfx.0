@@ -4,111 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CFD5CCD188
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91138CCD186
 	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D21C10E8BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69F3F10E8B6;
 	Fri,  3 Oct 2025 07:03:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="gbLEvuWX";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kbD6Zxx4";
 	dkim-atps=neutral
-Received: from fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [18.158.153.154])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B17510E84D;
- Thu,  2 Oct 2025 20:55:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759438501; x=1790974501;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0AzpApDbX8CFEbC2P7WHNPH2gra+XDIh1eSQ6GUhJZw=;
- b=gbLEvuWXBlTvmYbQtTZ3ze+LB5+yDoexoUms4dcOvQfSZA5gN+8vSRls
- 5CyMnRpDYRA5p0iGNaOVa8YRGmn6XYB8KZ0P4vaKie1qnOqx6COACz6YK
- Dm7zAtHFd3hL2oiAIQGMxCc55nqkquB8xBYNjM4v5MNbvINOAa3n0b5xY
- HPqGZuph4Uf1DIXgFlmpSt8XTlq13y63hfbjKITmdbP7OFOUnoN/HX7wd
- DbAEEky/QqQdXY4F8EiFdFetPmRylx0OOWbqIjFmhlv+f/d1ZhnT32Z6v
- cd/O96rKduICmbA8N+wBxm11OIC11+qI+IX1VC3s8yygqQVVk7NRVfigM g==;
-X-CSE-ConnectionGUID: sqEmFwKJRe+4WKOe48OVQA==
-X-CSE-MsgGUID: gZDZJk8FQnqtouHNWAu8oA==
-X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
-   d="scan'208";a="2914044"
-Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 20:54:58 +0000
-Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.234:7933]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.22.27:2525]
- with esmtp (Farcaster)
- id e8a02be0-811b-4e66-a272-0a15e74d69d3; Thu, 2 Oct 2025 20:54:58 +0000 (UTC)
-X-Farcaster-Flow-ID: e8a02be0-811b-4e66-a272-0a15e74d69d3
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB001.ant.amazon.com (10.252.51.28) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Thu, 2 Oct 2025 20:54:49 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
- 20:54:22 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
- <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
- <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
- <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
- <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
- <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
- <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
- <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
- <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
- <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
- <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
- <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
- <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
- <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
- <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
- <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
- <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
- <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
- <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
- <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
- <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
- <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
- <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
- <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
- <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
- <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
- <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
- <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
- <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
- <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Pedro
- Falcato" <pedro.falcato@gmail.com>
-Subject: [PATCH 14/19 5.15.y] minmax.h: update some comments
-Date: Thu, 2 Oct 2025 20:47:28 +0000
-Message-ID: <20251002204733.35652-15-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251002204733.35652-1-farbere@amazon.com>
-References: <20251002204733.35652-1-farbere@amazon.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DF0910E28C;
+ Tue, 30 Sep 2025 07:07:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1759216075;
+ bh=otM6iP4yEGo0zjb88ZOEX8uXJrV14+4cIodesPrg2IU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=kbD6Zxx4Q6bzLXCAKUCGs0+FTcp52cqk0bd9sUWzJIH4vSK1zbEB8rwa5NSEK3q0h
+ f9cyIyEcwaVCthzx6u2MGSSOqmPO+4P4/X3SkhIFksYGYoZuIcmWDhdOBFbR70b/Vk
+ YIa6izAWLadhrH2bR22ja0c/MEQ0YkwwFmAgB4d7B38cQgy3L+1d6rbASw214h14j6
+ aHG+tHmNU282xQON8oXaNVd/yVcFZaUBm+pzv4vohPu2pMRdGLQn9XAvHeX+p4LmPq
+ mIE8zXwTThXqO3ZABzVjFsc0bfsTdv73sa0oh84paX0uxCAbKUoqR9Ek4okHpga0R/
+ zCTI2hGU233Cg==
+Received: from eldfell (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C6CAE17E12E5;
+ Tue, 30 Sep 2025 09:07:54 +0200 (CEST)
+Date: Tue, 30 Sep 2025 10:07:40 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <wayland-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
+ <leo.liu@amd.com>, <ville.syrjala@linux.intel.com>, <contact@emersion.fr>,
+ <mwen@igalia.com>, <jadahl@redhat.com>, <sebastian.wick@redhat.com>,
+ <shashank.sharma@amd.com>, <agoins@nvidia.com>, <joshua@froggi.es>,
+ <mdaenzer@redhat.com>, <aleixpol@kde.org>, <xaver.hugl@gmail.com>,
+ <victoria@system76.com>, <daniel@ffwll.ch>, <uma.shankar@intel.com>,
+ <quic_naseer@quicinc.com>, <quic_cbraga@quicinc.com>,
+ <quic_abhinavk@quicinc.com>, <marcan@marcan.st>, <Liviu.Dudau@arm.com>,
+ <sashamcintosh@google.com>, <chaitanya.kumar.borah@intel.com>,
+ <louis.chauvet@bootlin.com>, <mcanal@igalia.com>,
+ <nfraprado@collabora.com>, Daniel Stone <daniels@collabora.com>
+Subject: Re: [PATCH V11 17/47] drm/vkms: Use s32 for internal color pipeline
+ precision
+Message-ID: <20250930100740.40b718bb@eldfell>
+In-Reply-To: <20250815035047.3319284-18-alex.hung@amd.com>
+References: <20250815035047.3319284-1-alex.hung@amd.com>
+ <20250815035047.3319284-18-alex.hung@amd.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D038UWB001.ant.amazon.com (10.13.139.148) To
- EX19D018EUA004.ant.amazon.com (10.252.50.85)
+Content-Type: multipart/signed; boundary="Sig_/MSnf5_FiI7lMAh/1C811xoZ";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,123 +73,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Laight <David.Laight@ACULAB.COM>
+--Sig_/MSnf5_FiI7lMAh/1C811xoZ
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-[ Upstream commit 10666e99204818ef45c702469488353b5bb09ec7 ]
+On Thu, 14 Aug 2025 21:50:06 -0600
+Alex Hung <alex.hung@amd.com> wrote:
 
-- Change three to several.
-- Remove the comment about retaining constant expressions, no longer true.
-- Realign to nearer 80 columns and break on major punctiation.
-- Add a leading comment to the block before __signed_type() and __is_nonneg()
-  Otherwise the block explaining the cast is a bit 'floating'.
-  Reword the rest of that comment to improve readability.
+> From: Harry Wentland <harry.wentland@amd.com>
+>=20
+> Certain operations require us to preserve values below 0.0 and
+> above 1.0 (0x0 and 0xffff respectively in 16 bpc unorm). One
+> such operation is a BT709 encoding operation followed by its
+> decoding operation, or the reverse.
+>=20
+> We'll use s32 values as intermediate in and outputs of our
+> color operations, for the operations where it matters.
+>=20
+> For now this won't apply to LUT operations. We might want to
+> update those to work on s32 as well, but it's unclear how
+> that should work for unorm LUT definitions. We'll revisit
+> that once we add LUT + CTM tests.
+>=20
+> In order to allow for this we'll also invert the nesting of our
+> colorop processing loops. We now use the pixel iteration loop
+> on the outside and the colorop iteration on the inside.
 
-Link: https://lkml.kernel.org/r/85b050c81c1d4076aeb91a6cded45fee@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
- include/linux/minmax.h | 53 +++++++++++++++++++-----------------------
- 1 file changed, 24 insertions(+), 29 deletions(-)
+Hi Alex,
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 51b0d988e322..24e4b372649a 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -8,13 +8,10 @@
- #include <linux/types.h>
- 
- /*
-- * min()/max()/clamp() macros must accomplish three things:
-+ * min()/max()/clamp() macros must accomplish several things:
-  *
-  * - Avoid multiple evaluations of the arguments (so side-effects like
-  *   "x++" happen only once) when non-constant.
-- * - Retain result as a constant expressions when called with only
-- *   constant expressions (to avoid tripping VLA warnings in stack
-- *   allocation usage).
-  * - Perform signed v unsigned type-checking (to generate compile
-  *   errors instead of nasty runtime surprises).
-  * - Unsigned char/short are always promoted to signed int and can be
-@@ -31,25 +28,23 @@
-  *   bit #0 set if ok for unsigned comparisons
-  *   bit #1 set if ok for signed comparisons
-  *
-- * In particular, statically non-negative signed integer
-- * expressions are ok for both.
-+ * In particular, statically non-negative signed integer expressions
-+ * are ok for both.
-  *
-- * NOTE! Unsigned types smaller than 'int' are implicitly
-- * converted to 'int' in expressions, and are accepted for
-- * signed conversions for now. This is debatable.
-+ * NOTE! Unsigned types smaller than 'int' are implicitly converted to 'int'
-+ * in expressions, and are accepted for signed conversions for now.
-+ * This is debatable.
-  *
-- * Note that 'x' is the original expression, and 'ux' is
-- * the unique variable that contains the value.
-+ * Note that 'x' is the original expression, and 'ux' is the unique variable
-+ * that contains the value.
-  *
-- * We use 'ux' for pure type checking, and 'x' for when
-- * we need to look at the value (but without evaluating
-- * it for side effects! Careful to only ever evaluate it
-- * with sizeof() or __builtin_constant_p() etc).
-+ * We use 'ux' for pure type checking, and 'x' for when we need to look at the
-+ * value (but without evaluating it for side effects!
-+ * Careful to only ever evaluate it with sizeof() or __builtin_constant_p() etc).
-  *
-- * Pointers end up being checked by the normal C type
-- * rules at the actual comparison, and these expressions
-- * only need to be careful to not cause warnings for
-- * pointer use.
-+ * Pointers end up being checked by the normal C type rules at the actual
-+ * comparison, and these expressions only need to be careful to not cause
-+ * warnings for pointer use.
-  */
- #define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
- #define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
-@@ -57,19 +52,19 @@
- 	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
- 
- /*
-- * To avoid warnings about casting pointers to integers
-- * of different sizes, we need that special sign type.
-+ * Check whether a signed value is always non-negative.
-  *
-- * On 64-bit we can just always use 'long', since any
-- * integer or pointer type can just be cast to that.
-+ * A cast is needed to avoid any warnings from values that aren't signed
-+ * integer types (in which case the result doesn't matter).
-  *
-- * This does not work for 128-bit signed integers since
-- * the cast would truncate them, but we do not use s128
-- * types in the kernel (we do use 'u128', but they will
-- * be handled by the !is_signed_type() case).
-+ * On 64-bit any integer or pointer type can safely be cast to 'long'.
-+ * But on 32-bit we need to avoid warnings about casting pointers to integers
-+ * of different sizes without truncating 64-bit values so 'long' or 'long long'
-+ * must be used depending on the size of the value.
-  *
-- * NOTE! The cast is there only to avoid any warnings
-- * from when values that aren't signed integer types.
-+ * This does not work for 128-bit signed integers since the cast would truncate
-+ * them, but we do not use s128 types in the kernel (we do use 'u128',
-+ * but they are handled by the !is_signed_type() case).
-  */
- #ifdef CONFIG_64BIT
-   #define __signed_type(ux) long
--- 
-2.47.3
+is this an out-dated paragraph in the commit message?
 
+I don't see the patch inverting the nesting of loops.
+
+That statement worried me, because changing the loop structures has
+tanked the performance before.
+
+
+Thanks,
+pq
+
+>=20
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Daniel Stone <daniels@collabora.com>
+> ---
+> v7:
+>  - Fix checkpatch warnings
+>   - Add a commit messages
+>   - Fix code styles by adding and removing spaces (new lines, tabs and so=
+ on)
+>=20
+> v6:
+>  - use clamp_val instead of manual clamping (Louis Chauvet)
+>=20
+> v4:
+>  - Clarify that we're packing 16-bit UNORM into s32, not
+>    converting values to a different representation (Pekka)
+>=20
+> v3:
+>  - Use new colorop->next pointer
+>=20
+>  drivers/gpu/drm/vkms/vkms_composer.c | 27 +++++++++++++++++++++++++--
+>  drivers/gpu/drm/vkms/vkms_drv.h      |  4 ++++
+>  2 files changed, 29 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
+vkms_composer.c
+> index 0f3fcd6a5925..6630dccd68a4 100644
+> --- a/drivers/gpu/drm/vkms/vkms_composer.c
+> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
+> @@ -128,7 +128,7 @@ static void apply_lut(const struct vkms_crtc_state *c=
+rtc_state, struct line_buff
+>  	}
+>  }
+> =20
+> -static void apply_colorop(struct pixel_argb_u16 *pixel, struct drm_color=
+op *colorop)
+> +static void apply_colorop(struct pixel_argb_s32 *pixel, struct drm_color=
+op *colorop)
+>  {
+>  	struct drm_colorop_state *colorop_state =3D colorop->state;
+>  	struct drm_device *dev =3D colorop->dev;
+> @@ -157,9 +157,26 @@ static void apply_colorop(struct pixel_argb_u16 *pix=
+el, struct drm_colorop *colo
+>  static void pre_blend_color_transform(const struct vkms_plane_state *pla=
+ne_state,
+>  				      struct line_buffer *output_buffer)
+>  {
+> +	struct pixel_argb_s32 pixel;
+> +
+>  	for (size_t x =3D 0; x < output_buffer->n_pixels; x++) {
+>  		struct drm_colorop *colorop =3D plane_state->base.base.color_pipeline;
+> =20
+> +		/*
+> +		 * Some operations, such as applying a BT709 encoding matrix,
+> +		 * followed by a decoding matrix, require that we preserve
+> +		 * values above 1.0 and below 0.0 until the end of the pipeline.
+> +		 *
+> +		 * Pack the 16-bit UNORM values into s32 to give us head-room to
+> +		 * avoid clipping until we're at the end of the pipeline. Clip
+> +		 * intentionally at the end of the pipeline before packing
+> +		 * UNORM values back into u16.
+> +		 */
+> +		pixel.a =3D output_buffer->pixels[x].a;
+> +		pixel.r =3D output_buffer->pixels[x].r;
+> +		pixel.g =3D output_buffer->pixels[x].g;
+> +		pixel.b =3D output_buffer->pixels[x].b;
+> +
+>  		while (colorop) {
+>  			struct drm_colorop_state *colorop_state;
+> =20
+> @@ -169,10 +186,16 @@ static void pre_blend_color_transform(const struct =
+vkms_plane_state *plane_state
+>  				return;
+> =20
+>  			if (!colorop_state->bypass)
+> -				apply_colorop(&output_buffer->pixels[x], colorop);
+> +				apply_colorop(&pixel, colorop);
+> =20
+>  			colorop =3D colorop->next;
+>  		}
+> +
+> +		/* clamp values */
+> +		output_buffer->pixels[x].a =3D clamp_val(pixel.a, 0, 0xffff);
+> +		output_buffer->pixels[x].r =3D clamp_val(pixel.r, 0, 0xffff);
+> +		output_buffer->pixels[x].g =3D clamp_val(pixel.g, 0, 0xffff);
+> +		output_buffer->pixels[x].b =3D clamp_val(pixel.b, 0, 0xffff);
+>  	}
+>  }
+> =20
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_=
+drv.h
+> index 30941714cd0f..55440ec6db52 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.h
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
+> @@ -45,6 +45,10 @@ struct vkms_frame_info {
+>  	unsigned int rotation;
+>  };
+> =20
+> +struct pixel_argb_s32 {
+> +	s32 a, r, g, b;
+> +};
+> +
+>  /**
+>   * struct pixel_argb_u16 - Internal representation of a pixel color.
+>   * @a: Alpha component value, stored in 16 bits, without padding, using
+
+
+--Sig_/MSnf5_FiI7lMAh/1C811xoZ
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmjbgbwACgkQI1/ltBGq
+qqfqpQ/9EZLOoqVMV29vKrbbVrUKvfkWh5vKI0kGwrimngoXip8jMpSJXz2ZA2Hz
+dWpELMpwhZjEDGIkGlU7T7qCMbTO5fZiTFjiUpOW56SqjXq6xQU2N0FGx4bKOzSV
+7z/KEMWvkU4cnHSg2mlhz2sGML08FXQNQ1Yx3cqnSScR9b8OgqEhV2knP4A70jps
+4s4XW9+YDCTTtattiQD139RxOjlR7l9UngZihYXtyH7RlIqDYgzPYxt5j8nWUkug
+XO5iZgyrY99E2AqY8q936MOfTyuPZu70MQqQh1Sewu6ntUqtX86+7Iw9VtmXrUoH
+BLYxUwbBEupdXZlZx9y62h3Yr7/qZYmZsfsQ86FlG0Ih6n3b42ar/jlXGy5K2TOk
+CAHRSZBmWZ+X98lH9OjpFs5+s90ja/o2/MvsouzxhknfKrlU4DfTBKjo4JZQ5fTC
+Rq/0J0AKhEQG7ov5YAOCpAzmK2TCF284ZNBYsJRFowEXfOEfybV3VEnVmzvSaFEw
+uWhBRdJGrKFFlkZxQ9cxMVqLpxD7pTIr1ebkRYx9Z6PMdRi0psOPMX3I3gDGFPg5
+d9R2Sp2mAYC9t+fm1gKoTDgq9BvEB9IE2mapF8FDRtScV+/oY5VUWc4yfRJAmiIB
+Bi2QaZbeBuozMJpJeZ3LHwJUv0rmlHkPlkA1aERqj9HO7oTxQF4=
+=ECLi
+-----END PGP SIGNATURE-----
+
+--Sig_/MSnf5_FiI7lMAh/1C811xoZ--
