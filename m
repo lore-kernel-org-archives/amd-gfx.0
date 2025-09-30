@@ -4,32 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A801CCCA470
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Sep 2025 13:24:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B6A5CCA468
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Sep 2025 13:58:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47CA110E5E3;
-	Tue, 30 Sep 2025 13:24:13 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C1A810E5CF
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Sep 2025 13:24:12 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 58UDO6eX1736923; Tue, 30 Sep 2025 18:54:06 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 58UDO69D1736916;
- Tue, 30 Sep 2025 18:54:06 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>
-Subject: [Patch v2] drm/amdgpu: clean up amdgpu hmm range functions
-Date: Tue, 30 Sep 2025 18:54:05 +0530
-Message-Id: <20250930132405.1736897-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB8A710E2C0;
+	Tue, 30 Sep 2025 13:58:51 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u0F35Qxd";
+	dkim-atps=neutral
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010061.outbound.protection.outlook.com
+ [52.101.193.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3E010E2C4;
+ Tue, 30 Sep 2025 13:58:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Pj6hFVHOaZvWcE+NiCvSEWUHTf2Vkkut8O33SzYT3YAvhVpXh6twTHneIvupC/pwSppgoKuU064Gd1E6erOKMQ6HJ6Gvt2Bz8Fx5h+QYgfzK7zEHTfEbs0RpCYoItjDIR/D6FAMgrgF2ztosSllOJgvWUkBGZiG/L2foyeIW6s0+U/ZOL2ah1NTxUqVSertTB9/pG7mmBLueiq7tAOCl4+L4DRyiMJgE9ZPKOfJGROpNZSX8+HUdSq97W88QmnlNY2tPsinwlt58fI0d0XHwBLOFTJjzfYCqTq78BtOW5uwy4NUJC+QU3yKxeHrbVrEHqSF1YIxzOdn1Vm9m6aZwug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3ZsbmxeAUbb7FkYH4StUKorHGYX1q33CK4JlpYm9qN0=;
+ b=HVhmw6CmsUV3Tjk7tBzUgUd9mK79tXNV5/zJJ5Evo96b1PGig2n2WgImtqYfRyU0HRnPizwGeyx8pDbl2+aLXdrGDlYN3ZEc8vdhya69e1cDmEMY7rDUXDT10YQ/w7LHRE86TrGBSTLfSWYSSpjTMjSyFxzxYy+cqsXUj29B0keAIdK4s2xCmEct+0yVbAm8LYaHZjtdSBHUwEU5RrYJEGNj2ys8aXaF1mfzDFdKRirSsPkQbCwHnzxxgXJmlsLgtzpQ4sjwkzqvMWFhqQlxkrb0EoBdfNjGLwl7SBk6mrvfv+fS9p1Hsi95VB8qIkSs73quZ0fPtVNmQR56jDW+gg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3ZsbmxeAUbb7FkYH4StUKorHGYX1q33CK4JlpYm9qN0=;
+ b=u0F35Qxdq3FuqjJjJKodj7QsJVPFxEcXIdr1mM4ahNlUDVFT84VmT5401+vWXo3PchP5yv3hCismpbur7vhRVHYZRu6bhPS2WLKnpqUaTBNKUh+kd8NywkfgmfhfzWmDuMdYc5kiyR5kPLgtbA2F+hPeWdxgOCKWvwuLvPZougQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CYYPR12MB8922.namprd12.prod.outlook.com (2603:10b6:930:b8::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Tue, 30 Sep
+ 2025 13:58:46 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::9e93:67dd:49ac:bc14]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::9e93:67dd:49ac:bc14%6]) with mapi id 15.20.9160.017; Tue, 30 Sep 2025
+ 13:58:46 +0000
+Message-ID: <669a3b48-a1bf-4b19-b001-c0a4120d50ea@amd.com>
+Date: Tue, 30 Sep 2025 09:58:31 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V11 17/47] drm/vkms: Use s32 for internal color pipeline
+ precision
+To: Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Alex Hung <alex.hung@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, leo.liu@amd.com,
+ ville.syrjala@linux.intel.com, contact@emersion.fr, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
+ xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
+ uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
+ quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
+ sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
+ louis.chauvet@bootlin.com, mcanal@igalia.com, nfraprado@collabora.com,
+ Daniel Stone <daniels@collabora.com>
+References: <20250815035047.3319284-1-alex.hung@amd.com>
+ <20250815035047.3319284-18-alex.hung@amd.com>
+ <20250930100740.40b718bb@eldfell>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20250930100740.40b718bb@eldfell>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR07CA0147.eurprd07.prod.outlook.com
+ (2603:10a6:802:16::34) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CYYPR12MB8922:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6c4b4dc-9b8f-4531-7dcf-08de00297904
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|376014|7416014|366016|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bjE2azdPSzQ0eFIzY3FwZFMxa2J5R3QwTmdZekV1WmJpeWluMksySUlLdWlN?=
+ =?utf-8?B?Q3dmZmxCL0ZQb1F4emczdEpPckwrUWtINnlRQ1d2WFFhZjUvMmRHTWhXZ3pw?=
+ =?utf-8?B?RFZ4dVV1cTNzbnZ4RCtPTXIrVTY3TzJrS09vM1NVWVF2VTREZlA2N3pocnBG?=
+ =?utf-8?B?MTg4aUI1UlZ2Y3dZWnFhUUZrWU9SMDFIR2pMbHo2a3padUUxZ0V4a1ByUTB1?=
+ =?utf-8?B?clpZdjdlemo2bzZUbU1GQm9NK2dNeTExaWxueUFzdjVHWEhTNDY0RFFxY29Y?=
+ =?utf-8?B?NE9LWUcvTDByNXl3RytrUEMwcS9VSzZhUkJuNDk2RTNncmJtNkZ4RHJST0p0?=
+ =?utf-8?B?ZjlDSytJaHpYYm5WV2h3UFI2dGROaldTWDhXaXRLNXdmMDlmWUtrczB0Qll2?=
+ =?utf-8?B?ckFDSSthQnFzdWlNSmMzMERCZ0h3WE1UU0Rwa0hHbWFLamphWlo5bElrMzZ1?=
+ =?utf-8?B?dGhqMFBFWS9hZENUMjVpeVlueExvQTRsNDc3Q2kxc3pOdElMYW5zZmRlVm91?=
+ =?utf-8?B?NjZwbHZDTTd6ZFNBVW9UNncyMHdybFFzU0x1a3hFOFlZWjMvWG9SOGorVGRP?=
+ =?utf-8?B?R0hiNWN0bFJNa3ZianlMSHNjdDFHRWRFNU94OHZrWE9UaS9LcFV0Y29JWDVK?=
+ =?utf-8?B?UlRqYnQwMy81NDdiRnFFM0E5MWJGTG53Ulh2azlZcjFaZXoxamRvTHlRcEpS?=
+ =?utf-8?B?ZTJBa3l0eVZObk0wbFpsN0VkUGwyWDJFWUdQNm14RTlYam9KQ1ordjJjL0I4?=
+ =?utf-8?B?U2tpY3FqWS9tc1RYS3dYMDl4MTZGOWpRc1dqUkhJZFlKeUJrY0tpeVBaNXZZ?=
+ =?utf-8?B?SFRDeEdJaFBWOHRocnErR2FGTG5NbiswdDhVZ1ltbjR6TG5hK2FkRTlkVDVT?=
+ =?utf-8?B?UkQyNE5xSHlBa2xsZm9SRSszS216djJnRTdmYVBLcG1YaTlScE11MFpvSTRX?=
+ =?utf-8?B?RnoxZ2NDSC9XMndpUFFUdytNby9KQ1RpR1pFTzZjeUpjVGNLbjFKd1h4UFRa?=
+ =?utf-8?B?VDBxYVV1RXI1WHhUUk5GZ3gxMGdtbk00WjBnNzFVWSt1Zk5qbVcwalBKcHYy?=
+ =?utf-8?B?L2thSHQ3YWF0OWdwdnlSNk81QzB5QlhHVmtyZ0RLTHcyR3lwbXNudE4rVWs5?=
+ =?utf-8?B?aXBrdHZ5Z3JKNWNhUEhCcCttcGhVWWVJRDNpeDZaaXgxSko4bEt6MGlPU2tj?=
+ =?utf-8?B?ZEZCc25KVWlFdFhEd0JMOGVlVXdHa0YzYnIzWXJSOFVPTUpJdlBydjFzZTk0?=
+ =?utf-8?B?TTl2blV2bmpFMGpaYzltS2YyY2xxRkdhQUhsSTdhZG9XR0JxRW5IOTM0cGRk?=
+ =?utf-8?B?VzllUlJKTTBOelpoNkZiL1FQRXRxV0tZdnBjRWlJTEQ5aGRycUNSOEZyTC9r?=
+ =?utf-8?B?ZnJsbDN4RmV2ZjhtMUNnZW5FVll2VnRnenJta3RxSjN4Vkl6Zkprb3BQMzd4?=
+ =?utf-8?B?Uk1SZkI5cVFKL1ZSQ0VKbTljKzRuNE4zR0FQVkRYYktiYStaYkR3aE5VdXlP?=
+ =?utf-8?B?ZGZyRFl5OHdDZkZMZDVWbURRekFleTd2YWFoeHoydDZFSzZPSWRtbzZLVHlS?=
+ =?utf-8?B?amEzcDl6czdsTG5vd2RmdHdKNGoya2hTN3JPbkdKOWZicWFkWFBTVTRFMG11?=
+ =?utf-8?B?OWxEUlR1OW9iSTAvUG9oNTVsY2hHbHNxeitsVFlGRzUybDRNYlZlMXRxMWk1?=
+ =?utf-8?B?YzFpN1YxUWJBanBFUXIxdk9pOUZFYVJlcy96NzQvZ0l2R3I0NVpXNjZZZDRM?=
+ =?utf-8?B?Q0IzZ3NNdnlwU0grd3hCTWdrOGE2RmY0N0R4TmJlTE5mM1RCMHdCTUpSUWt1?=
+ =?utf-8?B?SVpXQnJsbWJGWFExdUJBUTZNblhxMmg2VHU2UHRGd0p0aWhIaVUxWXdGSE01?=
+ =?utf-8?B?Q2hDWit6WUpza002amNQRjNvV0xOOVFLd2haaUxHK0YyanhKZi84aXFWclhE?=
+ =?utf-8?Q?ee53r9zNCEcdjKZ/2iYhogyozpnYuMtk?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(376014)(7416014)(366016)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUZacVZQWURVR1FyTEE4NUFGRW5OWnlmT1BNRXpNdmhVTG5EV2MyL3VhTVlj?=
+ =?utf-8?B?aHkrL1pRcFRjRlpxaVdheGI1RUx0d2lQUXd1UlRtSW8zbitzbkNJRjU5UHlF?=
+ =?utf-8?B?NUxjYWhIRkFGS3NiN1FXRFpCaDMyRW9LM09UbzZpRGdiL3lJUGZiaTJua3RB?=
+ =?utf-8?B?dVlTV1lVRDh6Qmd4eTB0dG0xenF3aUxUUnRBV09aMEt2VUxqemd4dXlBU0N5?=
+ =?utf-8?B?ck1EenR6VHJQOXhlUXcxL0sxWk5XK0ZHT1M3ZmZoV1NrY0JpZFpCc05tbzlB?=
+ =?utf-8?B?RmRQTTIwRzRGZk8vZk9PNzk4cHo0QUU0ZVo1TU5HU1VEcW1RWXBsTkZVZ2tk?=
+ =?utf-8?B?ZmlqQnZlU3RiaG11Z2lqT3BkcXpObHFuaFZNK1VaOGNTbmxuNU54VHZmeGht?=
+ =?utf-8?B?cTAySVIrUlFjb25IUzQ3amFDVGMxYTZLbHBlVTVzLzRIeHJMbi9OeXplSFVI?=
+ =?utf-8?B?Vyt0ZnllQTgwNWlJbU9GNDVQcXFJUGRyM0Fna0FLYlQvR05vYTRhc3ZNMU5w?=
+ =?utf-8?B?aU9lNEJydzBmMm9welNkanlhbUtGVUlZMnplbE5GM2tPTEtNKytXTU91TldC?=
+ =?utf-8?B?Y3VrZDNvQWRjWUFWZ2xjRTNxV282bkt5OWdnNVNOZSs2WlFkOWtyL3B6SFZl?=
+ =?utf-8?B?RitDNjAwc3ZxdXUyUVMrc3ZiOTRla3J6a0IxOVlQSks0S2VJclVjTzBOcmx1?=
+ =?utf-8?B?T2RXODAvb0taa2VxangreFczeE9uOHJobjJZM2N4czIzUjlOMEZnVVErQTQ2?=
+ =?utf-8?B?YjZNRDhoUzdtVFI4VXgySlowcDlBUTBlaXJTUGpYWlkzajFlYmpWaEFvc1NH?=
+ =?utf-8?B?MXBCR0xXN01ldHBVbXNFblA4RThUODNhSS9abFJYa2VBSUN3SFNaOUJuenBM?=
+ =?utf-8?B?NWRud3FUQnNVTmFMMGRqcVRVcWY3OXh6RzVrVTlLdHN6WCtLZW8rcmt2UnRW?=
+ =?utf-8?B?OWw3TDdIOHc4VWdleVFsUFJUL1hsYVgzYldEMWNlZkpscm1UbFprT3hvbENU?=
+ =?utf-8?B?U0c2Q0w3cW5iSmdidHFRaCsyRXlWMFd0YlFaa2JJMGx6NEVrTVd6WHozQ0pK?=
+ =?utf-8?B?YU9rK0w1aCtlOU9wVlU2ZXdMSW9iVENqSU1aeERkak5HNXUyYUxTcTRYdEE3?=
+ =?utf-8?B?N0tIUVNEaS8xbjh0OENWRlA2ZXlidlA2STFyVyt4N2Z2enRZeVBxSUlSd1JS?=
+ =?utf-8?B?VHZyRzFxVlc0QXlBZWhxMHYrZ2ZkZmxIL2wrcjZVTGxIb2pSVWhHMWJqL2JP?=
+ =?utf-8?B?NHZaNlJBUW5WU3hPeEpPdTlVTGQrVURnbWtlbnB0OFB3STZyVnZNYnhtcmx0?=
+ =?utf-8?B?VnhFM0FiZzF3RE5IdVdnSUVYOXpBLzJSZ3ZlZUtDbFgvNTZNUjlvWGQzV3Fi?=
+ =?utf-8?B?VWhjd21qdlVhUFZKZzVjVkQ5cEsxcGxqNHV5N1RzaUFNNlI2YXcvM2tFaHdv?=
+ =?utf-8?B?Z01hcGNZbmhVNGszS215VklIVEFtQkRvdXNQL25KbWdqSDhDZUgvWlF6eUow?=
+ =?utf-8?B?dS9LdFF4dTF1aEJGcGk2MVJLd1I0c1BjcFBSVFh4VTVVZXc4ZEREN1JIUHBy?=
+ =?utf-8?B?R1U5dml2MTd1ZXVITmpVem12cGk3M0dKSUx3eUEvN2VRSVdnamdpbzdnamI0?=
+ =?utf-8?B?a1JNUFpURFN5ZjNZbHJKeVRMaDR0NnJld2xCYnpEVE1nV3N6amFTQkJXZ2FR?=
+ =?utf-8?B?QkdYczQ4VWtPTFJJYkpYbWk3V3NERllZWVNVTVVEaTZXb2RLeDZIYTFveksw?=
+ =?utf-8?B?eW5CMERuUHBRQlExSmZBa05HSEpHYjYvVlZHZlVEYi9oOCtkTHVaL0E5cXpw?=
+ =?utf-8?B?ZWduaDU4eGgvb3RCR1JFaWJSbDZTdWpkQnFidW84cC94SHpaWlhjTmoySDlB?=
+ =?utf-8?B?c29RdVJMTDlmdm13VDN4QkppZThERlczZmRycUZoTWk2dkN6VEVpR3dHeEZG?=
+ =?utf-8?B?RXZwQmY3L01zaU51dk9DbTQ2L1p5MFpXYjEzTElrQmh5ZHA0T29wbXBxSHps?=
+ =?utf-8?B?Um1kZlhYdVFROS9aelpHWHJIQlRFTEl6dGNZUDNhQm9vYnQ0OGlXdGxkdENj?=
+ =?utf-8?B?QnJuRzFtVUExaGtuMExoeXE5RkZQVTVZa0tFZ1oydVRZS3ZmcEZFTmwxSzgw?=
+ =?utf-8?B?Nk5uTGsyVm5PRjlYelZhTW1ZTmVrS01hTGxzdUx1VW1WOVhwdWVReXBZNGxr?=
+ =?utf-8?Q?VI44ShxoGR3jzD4uMRvtLjc=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6c4b4dc-9b8f-4531-7dcf-08de00297904
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2025 13:58:45.8812 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5QU3NPOuQX1yNiVDYHWSUsIhaMye7tpW1AF6w+JTbPalvmGHhZEl7JlfXWKSVV7nKdEijpWTnEqMdWfs0dhuog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8922
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,341 +178,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Clean up the amdgpu hmm range functions for clearer
-definition of each.
 
-a. Split amdgpu_ttm_tt_get_user_pages_done into two:
-   1. amdgpu_hmm_range_valid: To check if the user pages
-      are valid and update seq num
-   2. amdgpu_hmm_range_free: Clean up the hmm range
-      and pfn memory.
 
-b. amdgpu_ttm_tt_get_user_pages_done and
-   amdgpu_ttm_tt_discard_user_pages are similar function so remove
-   discard and directly use amdgpu_hmm_range_free to clean up the
-   hmm range and pfn memory.
+On 2025-09-30 03:07, Pekka Paalanen wrote:
+> On Thu, 14 Aug 2025 21:50:06 -0600
+> Alex Hung <alex.hung@amd.com> wrote:
+> 
+>> From: Harry Wentland <harry.wentland@amd.com>
+>>
+>> Certain operations require us to preserve values below 0.0 and
+>> above 1.0 (0x0 and 0xffff respectively in 16 bpc unorm). One
+>> such operation is a BT709 encoding operation followed by its
+>> decoding operation, or the reverse.
+>>
+>> We'll use s32 values as intermediate in and outputs of our
+>> color operations, for the operations where it matters.
+>>
+>> For now this won't apply to LUT operations. We might want to
+>> update those to work on s32 as well, but it's unclear how
+>> that should work for unorm LUT definitions. We'll revisit
+>> that once we add LUT + CTM tests.
+>>
+>> In order to allow for this we'll also invert the nesting of our
+>> colorop processing loops. We now use the pixel iteration loop
+>> on the outside and the colorop iteration on the inside.
+> 
+> Hi Alex,
+> 
+> is this an out-dated paragraph in the commit message?
+> 
+> I don't see the patch inverting the nesting of loops.
+> 
+> That statement worried me, because changing the loop structures has
+> tanked the performance before.
+> 
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 18 +++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        | 11 +++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  7 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c       | 23 +++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h       |  5 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 32 -------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       | 13 --------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  9 ++++--
- 8 files changed, 44 insertions(+), 74 deletions(-)
+I think this is an outdated message. I changed this in an earlier 
+version a long time ago, after we had a discussion on loop structure and 
+performance.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 4babd37712fb..ae127c79b192 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1089,7 +1089,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 		return 0;
- 	}
- 
--	range = kzalloc(sizeof(*range), GFP_KERNEL);
-+	range = amdgpu_hmm_range_alloc();
- 	if (unlikely(!range)) {
- 		ret = -ENOMEM;
- 		goto unregister_out;
-@@ -1097,7 +1097,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 
- 	ret = amdgpu_ttm_tt_get_user_pages(bo, range);
- 	if (ret) {
--		kfree(range);
-+		amdgpu_hmm_range_free(range);
- 		if (ret == -EAGAIN)
- 			pr_debug("Failed to get user pages, try again\n");
- 		else
-@@ -1120,7 +1120,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 	amdgpu_bo_unreserve(bo);
- 
- release_out:
--	amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
-+	amdgpu_hmm_range_free(range);
- unregister_out:
- 	if (ret)
- 		amdgpu_hmm_unregister(bo);
-@@ -1923,7 +1923,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 	if (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm)) {
- 		amdgpu_hmm_unregister(mem->bo);
- 		mutex_lock(&process_info->notifier_lock);
--		amdgpu_ttm_tt_discard_user_pages(mem->bo->tbo.ttm, mem->range);
-+		amdgpu_hmm_range_free(mem->range);
- 		mutex_unlock(&process_info->notifier_lock);
- 	}
- 
-@@ -2550,7 +2550,7 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
- 
- 		bo = mem->bo;
- 
--		amdgpu_ttm_tt_discard_user_pages(bo->tbo.ttm, mem->range);
-+		amdgpu_hmm_range_free(mem->range);
- 		mem->range = NULL;
- 
- 		/* BO reservations and getting user pages (hmm_range_fault)
-@@ -2574,13 +2574,13 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
- 			}
- 		}
- 
--		mem->range = kzalloc(sizeof(*mem->range), GFP_KERNEL);
-+		mem->range = amdgpu_hmm_range_alloc();
- 		if (unlikely(!mem->range))
- 			return -ENOMEM;
- 		/* Get updated user pages */
- 		ret = amdgpu_ttm_tt_get_user_pages(bo, mem->range);
- 		if (ret) {
--			kfree(mem->range);
-+			amdgpu_hmm_range_free(mem->range);
- 			mem->range = NULL;
- 			pr_debug("Failed %d to get user pages\n", ret);
- 
-@@ -2749,8 +2749,8 @@ static int confirm_valid_user_pages_locked(struct amdkfd_process_info *process_i
- 			continue;
- 
- 		/* Only check mem with hmm range associated */
--		valid = amdgpu_ttm_tt_get_user_pages_done(
--					mem->bo->tbo.ttm, mem->range);
-+		valid = amdgpu_hmm_range_valid(mem->range);
-+		amdgpu_hmm_range_free(mem->range);
- 
- 		mem->range = NULL;
- 		if (!valid) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index b75b53f21cbb..087e5b5497e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -41,6 +41,7 @@
- #include "amdgpu_gmc.h"
- #include "amdgpu_gem.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_hmm.h"
- 
- static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
- 				 struct amdgpu_device *adev,
-@@ -885,7 +886,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 		bool userpage_invalidated = false;
- 		struct amdgpu_bo *bo = e->bo;
- 
--		e->range = kzalloc(sizeof(*e->range), GFP_KERNEL);
-+		e->range = amdgpu_hmm_range_alloc();
- 		if (unlikely(!e->range))
- 			return -ENOMEM;
- 
-@@ -988,9 +989,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 
- out_free_user_pages:
- 	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
--		struct amdgpu_bo *bo = e->bo;
--
--		amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, e->range);
-+		amdgpu_hmm_range_free(e->range);
- 		e->range = NULL;
- 	}
- 	mutex_unlock(&p->bo_list->bo_list_mutex);
-@@ -1321,8 +1320,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 	 */
- 	r = 0;
- 	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
--		r |= !amdgpu_ttm_tt_get_user_pages_done(e->bo->tbo.ttm,
--							e->range);
-+		r |= !amdgpu_hmm_range_valid(e->range);
-+		amdgpu_hmm_range_free(e->range);
- 		e->range = NULL;
- 	}
- 	if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 12f0597a3659..82ddc8c22b64 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -571,12 +571,12 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
- 		goto release_object;
- 
- 	if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE) {
--		range = kzalloc(sizeof(*range), GFP_KERNEL);
-+		range = amdgpu_hmm_range_alloc();
- 		if (unlikely(!range))
- 			return -ENOMEM;
- 		r = amdgpu_ttm_tt_get_user_pages(bo, range);
- 		if (r) {
--			kfree(range);
-+			amdgpu_hmm_range_free(range);
- 			goto release_object;
- 		}
- 		r = amdgpu_bo_reserve(bo, true);
-@@ -600,8 +600,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
- 
- user_pages_done:
- 	if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE)
--		amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
--
-+		amdgpu_hmm_range_free(range);
- release_object:
- 	drm_gem_object_put(gobj);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-index 53d405a92a14..b582fd217bd0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-@@ -226,14 +226,25 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
- 	return r;
- }
- 
--bool amdgpu_hmm_range_get_pages_done(struct hmm_range *hmm_range)
-+bool amdgpu_hmm_range_valid(struct hmm_range *hmm_range)
- {
--	bool r;
-+	if (!hmm_range)
-+		return false;
-+
-+	return !mmu_interval_read_retry(hmm_range->notifier,
-+					hmm_range->notifier_seq);
-+}
-+
-+struct hmm_range *amdgpu_hmm_range_alloc(void)
-+{
-+	return kzalloc(sizeof(struct hmm_range), GFP_KERNEL);
-+}
-+
-+void amdgpu_hmm_range_free(struct hmm_range *hmm_range)
-+{
-+	if (!hmm_range)
-+		return;
- 
--	r = mmu_interval_read_retry(hmm_range->notifier,
--				    hmm_range->notifier_seq);
- 	kvfree(hmm_range->hmm_pfns);
- 	kfree(hmm_range);
--
--	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-index c54e3c64251a..368dd58d13ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-@@ -35,7 +35,10 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
- 			       uint64_t start, uint64_t npages, bool readonly,
- 			       void *owner,
- 			       struct hmm_range *hmm_range);
--bool amdgpu_hmm_range_get_pages_done(struct hmm_range *hmm_range);
-+
-+bool amdgpu_hmm_range_valid(struct hmm_range *hmm_range);
-+struct hmm_range *amdgpu_hmm_range_alloc(void);
-+void amdgpu_hmm_range_free(struct hmm_range *hmm_range);
- 
- #if defined(CONFIG_HMM_MIRROR)
- int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 046ff2346dab..96bd0185f936 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -753,38 +753,6 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- 	return r;
- }
- 
--/* amdgpu_ttm_tt_discard_user_pages - Discard range and pfn array allocations
-- */
--void amdgpu_ttm_tt_discard_user_pages(struct ttm_tt *ttm,
--				      struct hmm_range *range)
--{
--	struct amdgpu_ttm_tt *gtt = (void *)ttm;
--
--	if (gtt && gtt->userptr && range)
--		amdgpu_hmm_range_get_pages_done(range);
--}
--
--/*
-- * amdgpu_ttm_tt_get_user_pages_done - stop HMM track the CPU page table change
-- * Check if the pages backing this ttm range have been invalidated
-- *
-- * Returns: true if pages are still valid
-- */
--bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
--				       struct hmm_range *range)
--{
--	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
--
--	if (!gtt || !gtt->userptr || !range)
--		return false;
--
--	DRM_DEBUG_DRIVER("user_pages_done 0x%llx pages 0x%x\n",
--		gtt->userptr, ttm->num_pages);
--
--	WARN_ONCE(!range->hmm_pfns, "No user pages to check\n");
--
--	return !amdgpu_hmm_range_get_pages_done(range);
--}
- #endif
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index a8379b925878..99c46821b961 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -192,25 +192,12 @@ uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
- #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
- int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- 				 struct hmm_range *range);
--void amdgpu_ttm_tt_discard_user_pages(struct ttm_tt *ttm,
--				      struct hmm_range *range);
--bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
--				       struct hmm_range *range);
- #else
- static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- 					       struct hmm_range *range)
- {
- 	return -EPERM;
- }
--static inline void amdgpu_ttm_tt_discard_user_pages(struct ttm_tt *ttm,
--						    struct hmm_range *range)
--{
--}
--static inline bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
--						     struct hmm_range *range)
--{
--	return false;
--}
- #endif
- 
- void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct hmm_range *range);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 9f0f14ea93e5..53e443a243ee 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1737,13 +1737,13 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 			}
- 
- 			WRITE_ONCE(p->svms.faulting_task, current);
--			hmm_range = kzalloc(sizeof(*hmm_range), GFP_KERNEL);
-+			hmm_range = amdgpu_hmm_range_alloc();
- 			r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
- 						       readonly, owner,
- 						       hmm_range);
- 			WRITE_ONCE(p->svms.faulting_task, NULL);
- 			if (r) {
--				kfree(hmm_range);
-+				amdgpu_hmm_range_free(hmm_range);
- 				pr_debug("failed %d to get svm range pages\n", r);
- 			}
- 		} else {
-@@ -1764,10 +1764,13 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		 * Overrride return value to TRY AGAIN only if prior returns
- 		 * were successful
- 		 */
--		if (hmm_range && amdgpu_hmm_range_get_pages_done(hmm_range) && !r) {
-+		if (hmm_range && !amdgpu_hmm_range_valid(hmm_range) && !r) {
- 			pr_debug("hmm update the range, need validate again\n");
- 			r = -EAGAIN;
- 		}
-+		/* Free the hmm range */
-+		amdgpu_hmm_range_free(hmm_range);
-+
- 
- 		if (!r && !list_empty(&prange->child_list)) {
- 			pr_debug("range split by unmap in parallel, validate again\n");
--- 
-2.34.1
+Harry
+
+> 
+> Thanks,
+> pq
+> 
+>>
+>> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+>> Signed-off-by: Alex Hung <alex.hung@amd.com>
+>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>> Reviewed-by: Daniel Stone <daniels@collabora.com>
+>> ---
+>> v7:
+>>   - Fix checkpatch warnings
+>>    - Add a commit messages
+>>    - Fix code styles by adding and removing spaces (new lines, tabs and so on)
+>>
+>> v6:
+>>   - use clamp_val instead of manual clamping (Louis Chauvet)
+>>
+>> v4:
+>>   - Clarify that we're packing 16-bit UNORM into s32, not
+>>     converting values to a different representation (Pekka)
+>>
+>> v3:
+>>   - Use new colorop->next pointer
+>>
+>>   drivers/gpu/drm/vkms/vkms_composer.c | 27 +++++++++++++++++++++++++--
+>>   drivers/gpu/drm/vkms/vkms_drv.h      |  4 ++++
+>>   2 files changed, 29 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+>> index 0f3fcd6a5925..6630dccd68a4 100644
+>> --- a/drivers/gpu/drm/vkms/vkms_composer.c
+>> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
+>> @@ -128,7 +128,7 @@ static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buff
+>>   	}
+>>   }
+>>   
+>> -static void apply_colorop(struct pixel_argb_u16 *pixel, struct drm_colorop *colorop)
+>> +static void apply_colorop(struct pixel_argb_s32 *pixel, struct drm_colorop *colorop)
+>>   {
+>>   	struct drm_colorop_state *colorop_state = colorop->state;
+>>   	struct drm_device *dev = colorop->dev;
+>> @@ -157,9 +157,26 @@ static void apply_colorop(struct pixel_argb_u16 *pixel, struct drm_colorop *colo
+>>   static void pre_blend_color_transform(const struct vkms_plane_state *plane_state,
+>>   				      struct line_buffer *output_buffer)
+>>   {
+>> +	struct pixel_argb_s32 pixel;
+>> +
+>>   	for (size_t x = 0; x < output_buffer->n_pixels; x++) {
+>>   		struct drm_colorop *colorop = plane_state->base.base.color_pipeline;
+>>   
+>> +		/*
+>> +		 * Some operations, such as applying a BT709 encoding matrix,
+>> +		 * followed by a decoding matrix, require that we preserve
+>> +		 * values above 1.0 and below 0.0 until the end of the pipeline.
+>> +		 *
+>> +		 * Pack the 16-bit UNORM values into s32 to give us head-room to
+>> +		 * avoid clipping until we're at the end of the pipeline. Clip
+>> +		 * intentionally at the end of the pipeline before packing
+>> +		 * UNORM values back into u16.
+>> +		 */
+>> +		pixel.a = output_buffer->pixels[x].a;
+>> +		pixel.r = output_buffer->pixels[x].r;
+>> +		pixel.g = output_buffer->pixels[x].g;
+>> +		pixel.b = output_buffer->pixels[x].b;
+>> +
+>>   		while (colorop) {
+>>   			struct drm_colorop_state *colorop_state;
+>>   
+>> @@ -169,10 +186,16 @@ static void pre_blend_color_transform(const struct vkms_plane_state *plane_state
+>>   				return;
+>>   
+>>   			if (!colorop_state->bypass)
+>> -				apply_colorop(&output_buffer->pixels[x], colorop);
+>> +				apply_colorop(&pixel, colorop);
+>>   
+>>   			colorop = colorop->next;
+>>   		}
+>> +
+>> +		/* clamp values */
+>> +		output_buffer->pixels[x].a = clamp_val(pixel.a, 0, 0xffff);
+>> +		output_buffer->pixels[x].r = clamp_val(pixel.r, 0, 0xffff);
+>> +		output_buffer->pixels[x].g = clamp_val(pixel.g, 0, 0xffff);
+>> +		output_buffer->pixels[x].b = clamp_val(pixel.b, 0, 0xffff);
+>>   	}
+>>   }
+>>   
+>> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+>> index 30941714cd0f..55440ec6db52 100644
+>> --- a/drivers/gpu/drm/vkms/vkms_drv.h
+>> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
+>> @@ -45,6 +45,10 @@ struct vkms_frame_info {
+>>   	unsigned int rotation;
+>>   };
+>>   
+>> +struct pixel_argb_s32 {
+>> +	s32 a, r, g, b;
+>> +};
+>> +
+>>   /**
+>>    * struct pixel_argb_u16 - Internal representation of a pixel color.
+>>    * @a: Alpha component value, stored in 16 bits, without padding, using
+> 
 
