@@ -4,150 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6D76CAC5B0
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Oct 2025 22:04:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D2B3CAC5B8
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Oct 2025 23:20:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8AA10E85A;
-	Thu,  2 Oct 2025 22:04:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1123710E85C;
+	Thu,  2 Oct 2025 23:20:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ir04tidj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Tiih65xx";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010027.outbound.protection.outlook.com
- [40.93.198.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB8B910E858
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Oct 2025 22:04:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L9RcUa3wgH9K5WxJazAeg3nViuLK5IQbbC0F7713Tc8mtQpxTVSytqDv1qMHWyV/i+ibB//Sbl1FKgNasuzWCqGiw5vZrxQ72j5yDepf/CRV8Nq2UInCsQ3GxFqoCntpsQreEXff1Qs5H3Ssf0nsrp5D3HjVvxcZSx5CFXSb9kTy2ssXoh9pBjefVIj4C1qswiylPs7R5hfeM2dT60XGXcK/D6NKvDDvo2sg2myQy8yX+LG7XyWJXF5hAX23Sbif0mpAAfIxmo5AeEiKhE0upQgwJL2DOfyw9r7y/HGC5/At6nmsAlkKiysnt+8iY84+11vSZjw77WWzx0FoBlgGwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5I2o3pUdVaEu1TMIgqexNc0LQZkAk8+rAiLmMO9li8w=;
- b=SwHNRU3fddfpvtM52TwxFe9cuaJ0clTtNRbomUQxn2fC+05uNTkHe4iF0f/spznPq8CI9Q0ZgWWIM9nbEeISJ7QT89vyR83ozf7lZu59AZxGnB1MU7qBbcEKSzUBwCuKGdX+3/jS1LpR8TSkU5CeT6JugdX77uyJtNOBacHfv+1jEbeeVPruE/ajEhTWYJG4nZ1wMvdokCE/LxlIv4ZL+jOHYCdOVwhn2qz2xfEzmf2k6X32IItWlzXjf640hRAtGWFCXd4JTRrsuO8PpDnyJOUW7RAKJSljwv9InVDoZK1WtiW+s7CDpmIK41Z5kd8U3KAYl6c5bFAwJpYLnjE3Dw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5I2o3pUdVaEu1TMIgqexNc0LQZkAk8+rAiLmMO9li8w=;
- b=Ir04tidjjg3Lt/vb3af7T66fOJG8+YA+yPSNMnbQpH+N40kSZBrgprwilMZXwVe70YLN52lzggf65PZQBAS9g7yHIQhct6ivUt9MKno35X2S+uYAsbdqi2/+n1uanBuQxLxXe7u1TwMX+/mOuo2JH3uTPsuCDyMOnCANNBBmmms=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- DS7PR12MB8204.namprd12.prod.outlook.com (2603:10b6:8:e1::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9160.18; Thu, 2 Oct 2025 22:04:30 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.9160.017; Thu, 2 Oct 2025
- 22:04:30 +0000
-Message-ID: <75531fd4-74fa-424a-abed-3f5f03d7717d@amd.com>
-Date: Thu, 2 Oct 2025 17:04:28 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/amdkfd: svm unmap use page aligned address
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, harish.kasiviswanathan@amd.com
-References: <20251002174307.10583-1-Philip.Yang@amd.com>
- <20251002174307.10583-2-Philip.Yang@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <20251002174307.10583-2-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA9P223CA0018.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:806:26::23) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B95710E858;
+ Thu,  2 Oct 2025 23:20:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1759447209; x=1790983209;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=zer4Xzjj7dBSQqyLbsDiI/IqBCXEGdFEHlexlQ6sVGk=;
+ b=Tiih65xxm5nh/Ts+3u8+zcdrALE0dRvkBwxFcN9c1PPtC8xIWmfpLjm2
+ Ula7sePnRuDa1CX2JOFNNICqfMSaUNmLXXcwenH5a+JXufIUOhEOyhd0h
+ UNDmI1TLDy70st5+GLysUD9pwIT+qQnMIKnUpqW4JHt7ce7C1X/Nvlp3m
+ c/djssyPi6RbKktEmX+KoDJMEjr9f19vo5WU/B27SJX4+43i3uVdHHDt+
+ FYJ+WyD6bRe6YC8o70wEkKmhEwTv+hAet4nYRruz5UWTNa9iJyFNF5dtw
+ MIILj9pbZ1WwSpreUbSP9uNLCSMzH8ezERjHy+er+3Rm2G6hnuISD7MEO g==;
+X-CSE-ConnectionGUID: 7d2PV25hRhilMHWbJjuwpw==
+X-CSE-MsgGUID: h1lyKfG7QoqLRmcYnuTzjw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11570"; a="61775398"
+X-IronPort-AV: E=Sophos;i="6.18,310,1751266800"; d="scan'208";a="61775398"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2025 16:20:08 -0700
+X-CSE-ConnectionGUID: OX9JyEZvQMKLN55bhMJf0Q==
+X-CSE-MsgGUID: jLVVd7kZT8Omi4yhL6VRCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,310,1751266800"; d="scan'208";a="179103637"
+Received: from lkp-server01.sh.intel.com (HELO 2f2a1232a4e4) ([10.239.97.150])
+ by fmviesa006.fm.intel.com with ESMTP; 02 Oct 2025 16:20:02 -0700
+Received: from kbuild by 2f2a1232a4e4 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1v4Sad-0004BT-1y;
+ Thu, 02 Oct 2025 23:19:59 +0000
+Date: Fri, 3 Oct 2025 07:19:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bhanu Seshu Kumar Valluri <bhanuseshukumar@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ ganglxie <ganglxie@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Candice Li <candice.li@amd.com>,
+ Victor Skvortsov <victor.skvortsov@amd.com>,
+ Roman Li <roman.li@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
+ Karthi Kandasamy <karthi.kandasamy@amd.com>,
+ David Rosca <david.rosca@amd.com>,
+ Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ khalid@kernel.org, linux-kernel-mentees@lists.linuxfoundation.org,
+ skhan@linuxfoundation.org, david.hunter.linux@gmail.com,
+ bhanuseshukumar@gmail.com
+Subject: Re: [PATCH] drm: amd:  Use kmalloc_array to prevent overflow of
+ dynamic size calculation
+Message-ID: <202510030646.pqNWfKQ0-lkp@intel.com>
+References: <20251002022241.77823-1-bhanuseshukumar@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|DS7PR12MB8204:EE_
-X-MS-Office365-Filtering-Correlation-Id: b63d9c4f-2308-4ef1-b3de-08de01ffa912
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NVN0dnJZYUNSV1JKK3JteFlUUWpHYXJMb1hvRERiT204S09iZmdBbFJWT2Fv?=
- =?utf-8?B?NFo2aUNzV2d3ZU54cHhOS0x1NDlsam95TWd0UERoem1PaDV1Qm44S1NIek1i?=
- =?utf-8?B?U0IreWFOaGxZY2NjNDZCWXNwL1VucHo2V3A0OS8yUm9ESllrenZOY2tpQU50?=
- =?utf-8?B?Y1ExV1FwVzJESFF1YUlXZjRWSTNRNE90OVZxVzE5LzlNNFFoN05MVGhnc0xy?=
- =?utf-8?B?QzZpcjhZUVJqMHhvSjZDVDlTVkh0MFRLTExZWDB0RUhBZUJBRlVKc2h2RlV1?=
- =?utf-8?B?RG5MZUY1cEd4dVZ3enRGZHQ0d3p4cjZrN0hFSmc5czl2SzNwTWNKK3AwN1J3?=
- =?utf-8?B?Q0orK3N0aHdQNTVWMmIwcnNOR2dNV0dNU1hodkt4Mks2SVNmZjd4ZmE4QnRU?=
- =?utf-8?B?RmwyY2YzMitkODd5S1NhQmZoK1hqSFlyV0tvY2cxaHpjN1BmYVorSWF1SzNi?=
- =?utf-8?B?ejRKTktHanFnK3l0UTZoNWFaVUtzeFBBZHYxOG5uOXdCUndHQ0JZYzVzUFhv?=
- =?utf-8?B?MmhYeDIvMURLVTJKWjJUSmNlTHRNNlNBVUFqRS9BSmloc1czbzFlNlYrL1Zp?=
- =?utf-8?B?WjFsMnpXR09SbHV6dzNRUnQ0cWVKajRxWEpMZ3hFdEEySnFvTU0zTEpFdmFQ?=
- =?utf-8?B?b1IvWGNRVnRFbXNTMm45ZW9ZMy9tcGNuaFZ5akJ6MzY3d2wrcmJNZXd2TmtO?=
- =?utf-8?B?a0RMeUowVHhzdVlPek0yUmFLbm5WQlliZEZzN0R3Z3BnTHhxdFJzUUdHbSt6?=
- =?utf-8?B?eFZzNUtBU1pnSG5xTWdyWkNrYkI0L1FwM3UvbGdpRVh3dDZNRmN2ZTN1ZDV6?=
- =?utf-8?B?ajI1RHhGOGxDVUF1U0dBbGUxS1FmWUlzYU5oTWQwOFdMWUNpR0wxbWpMQVdT?=
- =?utf-8?B?TUdSN0F0TWk1UVRCNUU3aUdXaGNvalJFWWxKZjR4LzJ1VGdRZllpbXJRN25h?=
- =?utf-8?B?cis4NVB1bjkrUDhmVHJSeUdBUHlISzIzK2ErV0F2dzdOMFYyTG1Yb0s3clM3?=
- =?utf-8?B?a2FiUVpoWU1yQkZVREZ4QTlwbjFXSGRkajNGUDhVUWJ4eitDaGEwcytkWlRM?=
- =?utf-8?B?L0x2WndKOEZWeS9DbWppak5MeGN4Y1ZKSEZuTDVmTlYzdFFSN2hGMDhaQktS?=
- =?utf-8?B?YlU3WDFSMmROSTZlUmdyczBsOERGWG1jOWFwdWdERGlTN2laRlUzWDJieUZX?=
- =?utf-8?B?TUJ3aXBBdm90SmtONGNWZXE3ZUtPdGh6Zks1NnRuUzh5SExuSG5qOEdURElt?=
- =?utf-8?B?WWRKeXBmZmVlN2E2eHE3czZ5VldqU3BVLzI2SEYveEdkdVFsdTRraklLV2k1?=
- =?utf-8?B?eFoxZVc0YmNuQmIxVWhRM0c1MkR5REdDaEg2RjJHTnBCT3VOUEdnSlRXL1dL?=
- =?utf-8?B?Z2hldXFyaGx4STBwZDMxS1ZMUVFJaloyMkhKREJVL09nTHgwd0h2clB5ZEFr?=
- =?utf-8?B?RTdHWnFtN05rYTB1RHNsYUJORWVPOHVwTFluVytQblNkMDFQdERwR0FJelB6?=
- =?utf-8?B?NmY3aW5JdVRMN08rYndCNjNXVDNPOGxoaXlwZHhKclVrejVsMkpHRVdnY3Jx?=
- =?utf-8?B?M0E0VVh0ZmJESFh4b01VNDVXM2lHUS93Z2ZiNHpYM3QvcWdTbTVWSDFheEh4?=
- =?utf-8?B?WU9BSTVaNkFzNzNwS0pidldDMzByVjQzOVVPTERJVGEzZDVadHFnSjZXV2w4?=
- =?utf-8?B?Z1dWd3lJeEExRW5mTVdFWWc2NUNLYkg1RUpxQnBrYjJWNjNKRnlJWXlQWXNo?=
- =?utf-8?B?bEpaZEhmOGhkejZYNnpMMEJaYnU3YTh3RXFINmFDSEFDcTl3WEE3MHF2VlVQ?=
- =?utf-8?B?ZjdIZVllek93YS9tWjh6MWZxMlBtMkVBSnF1UWs2bU92cXpFQ1JrbkVyOFJH?=
- =?utf-8?B?QTZpU2gzNTdBdG5LdHhTNDlhRTFSVnRpcG5ySG4yY1JIQnZjbTBNcUpyWEg3?=
- =?utf-8?Q?tncWm+siiVK7dQBqeut95RbtkkLkTCRP?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDFyQ1M5M2hJNEM4dEx2Rjc5ZU1icFQwYmgvck4yVlkzSXhBQjFGV3g5YjBs?=
- =?utf-8?B?ck1DK3JRRzR3clk2U1ZoZHAraThBYkFubCs2QTIyV2h3VHlKajNINTBNa2I4?=
- =?utf-8?B?MlN1RGtJY1psdWhyODk4V1NwMGIrbXJNelBVMm0vMVJOYTgxd2FyNFk5NW85?=
- =?utf-8?B?Zk80L3d6eWc1QXhsSEdhanJlVTlJZHJIaGZpdGJGZjNvR2ltYUZreW5xOVRj?=
- =?utf-8?B?blRydHpJSkFHb1FBdlFHanB3di9YK3VocThodlJjUWlROTE0aE9OUnVIYVFL?=
- =?utf-8?B?VS80Y1BFRGFMeXhjSjd3WWcySHFkL0NBTjRoL0UrdEhDa0pITzYvWW9DUkxi?=
- =?utf-8?B?NjNQbTQrVEdKOXRYaWg5TGpsUWtWQnRhT3FBMXZpYTRFRXNiSjVUUHJDNjdO?=
- =?utf-8?B?aDdqc0xuQWtuaVluUC9JSmN1eXJQQlQwQ3VkM0g2UjVZVlV0ajRmL2RBQUJv?=
- =?utf-8?B?VWJ0RlRvQm9nYVlxK1lFbXdhWWppWDRyNXFKVmlnbWtPSUNrTFZ5VHlSMndE?=
- =?utf-8?B?dlVmUU1MUE5odzZKTjJ5bWEyNVpMUGJJQWIzSE9SRFRDNzJwMS9KTGo2WVhr?=
- =?utf-8?B?Z1JTUWRXMnJtMnJtL0lWaW5TcEhIUW5GM0R1R0hQSU15bkp4MG9vQm9ONURr?=
- =?utf-8?B?akNWVzIvNlAxejRIUkwwMm5TVkM4THJ0UlVkU2V0NzFSMmdGY0NYZVYzMXd2?=
- =?utf-8?B?UmM1TFhSdGhBWnBZN1lSdnJWdjA4cDAxMWhlb2I2QUdUVWtDZ3RSYlIyaTBU?=
- =?utf-8?B?TWplRW9XY3BSRDBpaVc1VjhaVDJxV3p4akdaeUxUM1FLZnd3WjNVZjEyRFpm?=
- =?utf-8?B?ZVF5WGFjOWFlS0gvTzhkdlNRaUJGZkREWWpwRmRhbXl6K3Y1NkxhRlFCWWp2?=
- =?utf-8?B?TkpCSnJqbDVtZ3pmS0hJTUZhN1BzOGJUNDlteHduM3ZydXFkMmY1cGVPa2Zi?=
- =?utf-8?B?MTNTUUxaYXBpMEFTUnBLaWVJQ1VETXRZbE1hb1NQZ2tPUmc4TTVOMTVmRVNs?=
- =?utf-8?B?V2R4eS9BWDNlSjlCSnRtcmViY0ljMlAwajJjZzNENE9aQUNKcFBMekFmQi82?=
- =?utf-8?B?MlZrUTNvQXdiQW1Qckd2ZnR1aUw4NVpYaEtPNytxc3pDQm1wWEV0dDVTVlhH?=
- =?utf-8?B?dGpidXRkVGgvMjgvdFpzLzRwVWxYUHlFUnJXdlNESHg5aVBtdFh5eisvODFj?=
- =?utf-8?B?ZEMvSk1NL0ZBeUcyajFlN1h5K2lBTnE1dnRvZVlhMHFpK2Z6bVpGMURGamFs?=
- =?utf-8?B?d3dMKy9mMnE0YTlRT3oxa3hkblRCRFlIaEFSODlKSCtkemx5ZzhCYU5TQ05D?=
- =?utf-8?B?a2tSSlY3OXY5Y3VrclRtb2RCWmRqUWd5amJKbnhYUHN4Ykg2QTlIL25SZUkx?=
- =?utf-8?B?VDRHeU1OMTcyaHc1V1VDbFFQQVVpaU9oTTB2ZS9PbFB3SjMrWFpGUElhN0Rn?=
- =?utf-8?B?dkVqLy9GS0YwY3VvdHlVQitOV0RZUmR5Qi9TSHNzRThSQkd1UTRzZ2Q5VDNv?=
- =?utf-8?B?QVJzeStGR3RrUHpZZzUrWDF5bk5xSExGYTMra0svVUtPV1k0UEY1VWkyQ1Fm?=
- =?utf-8?B?cTl1cGE3V093dWd1dEw4OStENHg4dnEyUkd3dFZRZWNUb2tWQTQ0N2syb3Js?=
- =?utf-8?B?OVE2dFhpVkplVUZzc3NzRDNIdnduc2JFbTI5UDdBODVIWGRNUU5qQ3hhempR?=
- =?utf-8?B?TEZpdWl2b2dlZ3ZGYWRzL2VlMjY3NjgyY2RyR05LSFJMKzBMSmEwbnFzRm1G?=
- =?utf-8?B?ZjdkNWEzZFZIam9qZXRaZjZnREplMEtWcWlyc3U4dFlyMWJiM1VSUHRxZlFX?=
- =?utf-8?B?WS9pQWdiaXFiY2xCRkJJd25tdHdCZVlVSTlyY1l0NzZIMTlBYlduTGZmUTYy?=
- =?utf-8?B?S0l5akNVbFdSamZ4emdTVE0ycHY5cWVtKzdNQkl6SU5VeWJLSStXeFAyeTh4?=
- =?utf-8?B?aFhJYzZmcEpEMFQzUmNzSk12QkwxckRBSGFzMW5UZDM1OFloTU9tVVBJQU1p?=
- =?utf-8?B?d2xPMk54b2JsK0tzOEszdGNNTXdJWCtLZUl3cFR0TTFWTE10d1grS1hPRTRr?=
- =?utf-8?B?Ni9VMTRMajltOGtTa2Q3MkF3Z2VrMVZKUjByYWZPa1JKMXIvNGNjZTlOeGlS?=
- =?utf-8?Q?GFL8=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b63d9c4f-2308-4ef1-b3de-08de01ffa912
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2025 22:04:29.9843 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S8YzIErp+OB+G8afgx8s+HlVdiY1KOUDsKCk91juXJYTkStoC4Hlf6aQodm98BJi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8204
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251002022241.77823-1-bhanuseshukumar@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,38 +89,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Bhanu,
 
-On 10/2/2025 12:43 PM, Philip Yang wrote:
-> svm_range_unmap_from_gpus uses page aligned start, end address, the end
-> address is inclusive.
->
-> Fixes: 38c55f6719f7 ("drm/amdkfd: Handle lack of READ permissions in SVM mapping")
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index e8a15751c125..742c28833650 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1723,8 +1723,8 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->   				svm_range_lock(prange);
->   				if (vma->vm_flags & VM_WRITE)
->   					pr_debug("VM_WRITE without VM_READ is not supported");
-> -				s = max(start, prange->start);
-> -				e = min(end, prange->last);
-> +				s = max(start >> PAGE_SHIFT, prange->start);
-> +				e = min((end - 1) >> PAGE_SHIFT, prange->last);
+kernel test robot noticed the following build warnings:
 
-I think the problem is more than that. Here "end" is the last place for 
-prange gpu mapping and the handling here is for a vma. Should use end of 
-the vma range to get "e".
+[auto build test WARNING on amd-pstate/linux-next]
+[also build test WARNING on amd-pstate/bleeding-edge v6.17]
+[cannot apply to linus/master next-20251002]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Regards
+url:    https://github.com/intel-lab-lkp/linux/commits/Bhanu-Seshu-Kumar-Valluri/drm-amd-Use-kmalloc_array-to-prevent-overflow-of-dynamic-size-calculation/20251002-102458
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git linux-next
+patch link:    https://lore.kernel.org/r/20251002022241.77823-1-bhanuseshukumar%40gmail.com
+patch subject: [PATCH] drm: amd:  Use kmalloc_array to prevent overflow of dynamic size calculation
+config: x86_64-randconfig-003-20251003 (https://download.01.org/0day-ci/archive/20251003/202510030646.pqNWfKQ0-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251003/202510030646.pqNWfKQ0-lkp@intel.com/reproduce)
 
-Xiaogang
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202510030646.pqNWfKQ0-lkp@intel.com/
 
->   				if (e >= s)
->   					r = svm_range_unmap_from_gpus(prange, s, e,
->   						       KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
+All warnings (new ones prefixed by >>):
+
+   In file included from include/linux/percpu.h:5,
+                    from arch/x86/include/asm/msr.h:16,
+                    from arch/x86/include/asm/tsc.h:11,
+                    from arch/x86/include/asm/timex.h:6,
+                    from include/linux/timex.h:67,
+                    from include/linux/time32.h:13,
+                    from include/linux/time.h:60,
+                    from include/linux/stat.h:19,
+                    from include/linux/fs.h:11,
+                    from include/linux/debugfs.h:15,
+                    from drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:24:
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c: In function 'amdgpu_ras_badpages_read':
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:37: warning: 'kmalloc_array_noprof' sizes specified with 'sizeof' in the earlier argument and not in the later argument [-Wcalloc-transposed-args]
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                                     ^~~~~~
+   include/linux/alloc_tag.h:239:16: note: in definition of macro 'alloc_hooks_tag'
+     239 |         typeof(_do_alloc) _res;                                         \
+         |                ^~~~~~~~~
+   include/linux/slab.h:950:49: note: in expansion of macro 'alloc_hooks'
+     950 | #define kmalloc_array(...)                      alloc_hooks(kmalloc_array_noprof(__VA_ARGS__))
+         |                                                 ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:16: note: in expansion of macro 'kmalloc_array'
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                ^~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:37: note: earlier argument should specify number of elements, later size of each element
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                                     ^~~~~~
+   include/linux/alloc_tag.h:239:16: note: in definition of macro 'alloc_hooks_tag'
+     239 |         typeof(_do_alloc) _res;                                         \
+         |                ^~~~~~~~~
+   include/linux/slab.h:950:49: note: in expansion of macro 'alloc_hooks'
+     950 | #define kmalloc_array(...)                      alloc_hooks(kmalloc_array_noprof(__VA_ARGS__))
+         |                                                 ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:16: note: in expansion of macro 'kmalloc_array'
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                ^~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:37: warning: 'kmalloc_array_noprof' sizes specified with 'sizeof' in the earlier argument and not in the later argument [-Wcalloc-transposed-args]
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                                     ^~~~~~
+   include/linux/alloc_tag.h:243:24: note: in definition of macro 'alloc_hooks_tag'
+     243 |                 _res = _do_alloc;                                       \
+         |                        ^~~~~~~~~
+   include/linux/slab.h:950:49: note: in expansion of macro 'alloc_hooks'
+     950 | #define kmalloc_array(...)                      alloc_hooks(kmalloc_array_noprof(__VA_ARGS__))
+         |                                                 ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:16: note: in expansion of macro 'kmalloc_array'
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                ^~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:37: note: earlier argument should specify number of elements, later size of each element
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                                     ^~~~~~
+   include/linux/alloc_tag.h:243:24: note: in definition of macro 'alloc_hooks_tag'
+     243 |                 _res = _do_alloc;                                       \
+         |                        ^~~~~~~~~
+   include/linux/slab.h:950:49: note: in expansion of macro 'alloc_hooks'
+     950 | #define kmalloc_array(...)                      alloc_hooks(kmalloc_array_noprof(__VA_ARGS__))
+         |                                                 ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:16: note: in expansion of macro 'kmalloc_array'
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                ^~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:37: warning: 'kmalloc_array_noprof' sizes specified with 'sizeof' in the earlier argument and not in the later argument [-Wcalloc-transposed-args]
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                                     ^~~~~~
+   include/linux/alloc_tag.h:246:24: note: in definition of macro 'alloc_hooks_tag'
+     246 |                 _res = _do_alloc;                                       \
+         |                        ^~~~~~~~~
+   include/linux/slab.h:950:49: note: in expansion of macro 'alloc_hooks'
+     950 | #define kmalloc_array(...)                      alloc_hooks(kmalloc_array_noprof(__VA_ARGS__))
+         |                                                 ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:16: note: in expansion of macro 'kmalloc_array'
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                ^~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:37: note: earlier argument should specify number of elements, later size of each element
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                                     ^~~~~~
+   include/linux/alloc_tag.h:246:24: note: in definition of macro 'alloc_hooks_tag'
+     246 |                 _res = _do_alloc;                                       \
+         |                        ^~~~~~~~~
+   include/linux/slab.h:950:49: note: in expansion of macro 'alloc_hooks'
+     950 | #define kmalloc_array(...)                      alloc_hooks(kmalloc_array_noprof(__VA_ARGS__))
+         |                                                 ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2569:16: note: in expansion of macro 'kmalloc_array'
+    2569 |         *bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+         |                ^~~~~~~~~~~~~
+
+
+vim +2569 drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+
+  2546	
+  2547	/* return 0 on success.
+  2548	 * caller need free bps.
+  2549	 */
+  2550	static int amdgpu_ras_badpages_read(struct amdgpu_device *adev,
+  2551			struct ras_badpage **bps, unsigned int *count)
+  2552	{
+  2553		struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+  2554		struct ras_err_handler_data *data;
+  2555		int i = 0;
+  2556		int ret = 0, status;
+  2557	
+  2558		if (!con || !con->eh_data || !bps || !count)
+  2559			return -EINVAL;
+  2560	
+  2561		mutex_lock(&con->recovery_lock);
+  2562		data = con->eh_data;
+  2563		if (!data || data->count == 0) {
+  2564			*bps = NULL;
+  2565			ret = -EINVAL;
+  2566			goto out;
+  2567		}
+  2568	
+> 2569		*bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+  2570		if (!*bps) {
+  2571			ret = -ENOMEM;
+  2572			goto out;
+  2573		}
+  2574	
+  2575		for (; i < data->count; i++) {
+  2576			(*bps)[i] = (struct ras_badpage){
+  2577				.bp = data->bps[i].retired_page,
+  2578				.size = AMDGPU_GPU_PAGE_SIZE,
+  2579				.flags = AMDGPU_RAS_RETIRE_PAGE_RESERVED,
+  2580			};
+  2581			status = amdgpu_vram_mgr_query_page_status(&adev->mman.vram_mgr,
+  2582					data->bps[i].retired_page << AMDGPU_GPU_PAGE_SHIFT);
+  2583			if (status == -EBUSY)
+  2584				(*bps)[i].flags = AMDGPU_RAS_RETIRE_PAGE_PENDING;
+  2585			else if (status == -ENOENT)
+  2586				(*bps)[i].flags = AMDGPU_RAS_RETIRE_PAGE_FAULT;
+  2587		}
+  2588	
+  2589		*count = data->count;
+  2590	out:
+  2591		mutex_unlock(&con->recovery_lock);
+  2592		return ret;
+  2593	}
+  2594	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
