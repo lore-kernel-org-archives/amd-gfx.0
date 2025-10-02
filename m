@@ -4,82 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C0FCCCA470
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB8EBCCD187
 	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8F2610E8EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADD3810E8E8;
 	Fri,  3 Oct 2025 07:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="NPb+vcCO";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="hklRKZGv";
 	dkim-atps=neutral
-Received: from mail-ed1-f74.google.com (mail-ed1-f74.google.com
- [209.85.208.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE9D510E850
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Oct 2025 21:01:08 +0000 (UTC)
-Received: by mail-ed1-f74.google.com with SMTP id
- 4fb4d7f45d1cf-6349af0e766so2098274a12.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Oct 2025 14:01:08 -0700 (PDT)
+Received: from fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.178.143.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB8B410E13A;
+ Thu,  2 Oct 2025 20:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1759438867; x=1760043667;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:from:subject:message-id
- :mime-version:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ZXewi+MSpgfgN5O6jXVKlfCi06aVUrotCL/q5o/3Ssw=;
- b=NPb+vcCOWMNBd6pbCd6qmVtpudYMp92/eYzIdI/VDvvzQkwua8ScHiJVKj/GWiMA5h
- 0gJpRgY4FTSO1Ni0J9476oNE+ayydFLeCq3s+VN/4+G+YjKntK64VUkadTdvscMEI2N1
- PpHrv+CUHtxS8AtJYeeKXIbWhL6dmqrd6mYsI9uhmFVJNV2Xqv5+KVDev3Dq268meg1s
- rdtZV1ChECQUZvjDtjOYQsETO5BNYjb8bXxOLJLMUkhSlqMYGgWSaAhTVnx7Ti7bvAfu
- jb5nUf/lB2KaY6n/QGmqHUhdoYBGkSu5cal/66gOXqrSiLx86vFZbNHAYqSXFHb8cu3Q
- 2nOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759438867; x=1760043667;
- h=content-transfer-encoding:cc:to:from:subject:message-id
- :mime-version:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZXewi+MSpgfgN5O6jXVKlfCi06aVUrotCL/q5o/3Ssw=;
- b=lvXcYzWoIp1zY8lJqTYXCqkM814qAIbb9RcGh5XLXPWqYvIKmM3JS9Kmj/4uKTxm3a
- CQy2c/jS716pmxURrycx8XyhLa8hn/fuXuR5DSndc9z2Ki40a7DQZ45FQvLxtPcYwVLf
- L6/rWyup+shGFLh5+fCJPMRSiAOqnsPiQdDS4joE3FuYrfihQgYBLO+8xqZjqxbyD+aC
- 2gkUn6zhv/XH1J7RgKw3OjHN89GiOjf/DgVS8eeEx8p8+r02+5fD6TzJstZ5azEm3X4u
- rz+id9yvM6PLY8IYCxclFDPHFjqFYHoKwdsfXd+U5j+cUWSK/67zEa2cKD/dnaT37/yu
- qaxg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/wYPB/gxRKTJbZfcfJOolX7hKFLAdJDuwTdnQRB9qQ8tZxuXTf+hphxLVopi7qibg10zWSYaf@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywo6Ihn/iIEH1B1BwI+LLO4v0HwKrQPH6Qd9W9DUFpv1Ggpb5YK
- sUOemhYJAwkz13lYLsMv9LNODaOhHwxunLP4pRaBCqePcNJZmjAlMYk+q/7evNs/u7/aWc7Q9Q=
- =
-X-Google-Smtp-Source: AGHT+IEExjmvbF8Lb9M+XG7YR7QTAIMSCeCwavhfGOO8t62xLo8r+Wg9cNCxdOmE3p/nTVLIqxQSzoMn
-X-Received: from ejbwr20.prod.google.com ([2002:a17:907:7014:b0:b44:aed4:d213])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:ea6:b0:b3d:5088:213f
- with SMTP id a640c23a62f3a-b49c1c67beamr97495666b.19.1759438867035; Thu, 02
- Oct 2025 14:01:07 -0700 (PDT)
-Date: Thu,  2 Oct 2025 23:00:45 +0200
-Mime-Version: 1.0
-X-Developer-Key: i=ardb@kernel.org; a=openpgp;
- fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9413; i=ardb@kernel.org;
- h=from:subject; bh=79gRZqCE8gjHML9Xmm1M2zyzayfEyQ0TDshfv9BB904=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIePe879ls71YX5scfvJf5tKT1d+uaJ59tN3VeJWKzuzfz
- VGe3XEMHaUsDGJcDLJiiiwCs/++23l6olSt8yxZmDmsTCBDGLg4BWAinx4zMmzNfqabUnh+kuY1
- TTPlV3OjZk+Nl5+qFa4mdlh9xdXUz5MYGTZ6OM+auzPnydya25LCCr9O8R/X2Fn9T0B3aa5tyAH
- hDgYA
-X-Mailer: git-send-email 2.51.0.618.g983fd99d29-goog
-Message-ID: <20251002210044.1726731-2-ardb+git@google.com>
-Subject: [PATCH] drm/amd/display: Fix unsafe uses of kernel mode FPU
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, will@kernel.org, 
- catalin.marinas@arm.com, mark.rutland@arm.com, broonie@kernel.org, 
- Ard Biesheuvel <ardb@kernel.org>, Austin Zheng <austin.zheng@amd.com>,
- Jun Lei <jun.lei@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759438270; x=1790974270;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=N9vw3vY/1omsH6Y8T8WlpNicAI5z9PBHh/F1wYs4A9Q=;
+ b=hklRKZGv6hYOAeO9cx19FDWq9/IFIUMjd5N/0SCOeeVvbb7RQSe02WEd
+ JOyEzP0YGS3z6oq7S/mJ3o4MvHYh+LCURrojr6/W9A0GRSi+Lk4lNd6Ur
+ xN/fEpgCGE1T02o0hFxmzerboyubQjs8u4srGKzegCX03EOjeYrE9qEeA
+ aeWfCjbzkMQLSZfF3ucLXxwugTgfAhB22Y7QCzWIZmqmaiTMAqHqlFxar
+ LRWfEhoIG1c39wEzJzZIW9BB/vPY53C5Q8aCLFXZfPtUyPEV60dP/ovxB
+ pWDLhz0OkK5tj5lobfsTnL+ZFdpIAEpXT8kSoboiShHSaRyDCXSieYhwc g==;
+X-CSE-ConnectionGUID: 8Ap1yhnQQLyheboNHD6VUw==
+X-CSE-MsgGUID: Fka9HCuIRYmDmbMwrqqUQA==
+X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
+   d="scan'208";a="2922325"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 20:50:59 +0000
+Received: from EX19MTAEUA001.ant.amazon.com [54.240.197.233:20150]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.22.27:2525]
+ with esmtp (Farcaster)
+ id 21e3a628-ce1c-4599-8d2d-a2085e1e7201; Thu, 2 Oct 2025 20:50:59 +0000 (UTC)
+X-Farcaster-Flow-ID: 21e3a628-ce1c-4599-8d2d-a2085e1e7201
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUA001.ant.amazon.com (10.252.50.223) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Thu, 2 Oct 2025 20:50:51 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
+ 20:50:26 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
+ <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
+ <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+ <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
+ <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
+ <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
+ <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Subject: [PATCH 06/19 5.15.y] minmax: make generic MIN() and MAX() macros
+ available everywhere
+Date: Thu, 2 Oct 2025 20:47:20 +0000
+Message-ID: <20251002204733.35652-7-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251002204733.35652-1-farbere@amazon.com>
+References: <20251002204733.35652-1-farbere@amazon.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D035UWA001.ant.amazon.com (10.13.139.101) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,253 +122,420 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ard Biesheuvel <ardb@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-The point of isolating code that uses kernel mode FPU in separate
-compilation units is to ensure that even implicit uses of, e.g., SIMD
-registers for spilling occur only in a context where this is permitted,
-i.e., from inside a kernel_fpu_begin/end block.
+[ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
 
-This is important on arm64, which uses -mgeneral-regs-only to build all
-kernel code, with the exception of such compilation units where FP or
-SIMD registers are expected to be used. Given that the compiler may
-invent uses of FP/SIMD anywhere in such a unit, none of its code may be
-accessible from outside a kernel_fpu_begin/end block.
+This just standardizes the use of MIN() and MAX() macros, with the very
+traditional semantics.  The goal is to use these for C constant
+expressions and for top-level / static initializers, and so be able to
+simplify the min()/max() macros.
 
-This means that all callers into such compilation units must use the
-DC_FP start/end macros, which must not occur there themselves. For
-robustness, all functions with external linkage that reside there should
-call dc_assert_fp_enabled() to assert that the FPU context was set up
-correctly.
+These macro names were used by various kernel code - they are very
+traditional, after all - and all such users have been fixed up, with a
+few different approaches:
 
-Fix this for the DCN35, DCN351 and DCN36 implementations.
+ - trivial duplicated macro definitions have been removed
 
-Cc: Austin Zheng <austin.zheng@amd.com>
-Cc: Jun Lei <jun.lei@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+   Note that 'trivial' here means that it's obviously kernel code that
+   already included all the major kernel headers, and thus gets the new
+   generic MIN/MAX macros automatically.
+
+ - non-trivial duplicated macro definitions are guarded with #ifndef
+
+   This is the "yes, they define their own versions, but no, the include
+   situation is not entirely obvious, and maybe they don't get the
+   generic version automatically" case.
+
+ - strange use case #1
+
+   A couple of drivers decided that the way they want to describe their
+   versioning is with
+
+	#define MAJ 1
+	#define MIN 2
+	#define DRV_VERSION __stringify(MAJ) "." __stringify(MIN)
+
+   which adds zero value and I just did my Alexander the Great
+   impersonation, and rewrote that pointless Gordian knot as
+
+	#define DRV_VERSION "1.2"
+
+   instead.
+
+ - strange use case #2
+
+   A couple of drivers thought that it's a good idea to have a random
+   'MIN' or 'MAX' define for a value or index into a table, rather than
+   the traditional macro that takes arguments.
+
+   These values were re-written as C enum's instead. The new
+   function-line macros only expand when followed by an open
+   parenthesis, and thus don't clash with enum use.
+
+Happily, there weren't really all that many of these cases, and a lot of
+users already had the pattern of using '#ifndef' guarding (or in one
+case just using '#undef MIN') before defining their own private version
+that does the same thing. I left such cases alone.
+
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c    |  4 ++++
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c    |  6 ++++--
- .../drm/amd/display/dc/dml/dcn351/dcn351_fpu.c  |  4 ++--
- .../display/dc/resource/dcn35/dcn35_resource.c  | 16 +++++++++++++++-
- .../dc/resource/dcn351/dcn351_resource.c        | 17 ++++++++++++++++-
- .../display/dc/resource/dcn36/dcn36_resource.c  | 16 +++++++++++++++-
- 6 files changed, 56 insertions(+), 7 deletions(-)
+ arch/um/drivers/mconsole_user.c               |  2 ++
+ drivers/edac/skx_common.h                     |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 ++
+ .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |  2 ++
+ .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    | 14 +++++++----
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  2 ++
+ drivers/gpu/drm/radeon/evergreen_cs.c         |  2 ++
+ drivers/hwmon/adt7475.c                       | 24 +++++++++----------
+ drivers/media/dvb-frontends/stv0367_priv.h    |  3 +++
+ drivers/net/fjes/fjes_main.c                  |  4 +---
+ drivers/nfc/pn544/i2c.c                       |  2 --
+ drivers/platform/x86/sony-laptop.c            |  1 -
+ drivers/scsi/isci/init.c                      |  6 +----
+ .../pci/hive_isp_css_include/math_support.h   |  5 ----
+ include/linux/minmax.h                        |  2 ++
+ kernel/trace/preemptirq_delay_test.c          |  2 --
+ lib/btree.c                                   |  1 -
+ lib/decompress_unlzma.c                       |  2 ++
+ lib/zstd/zstd_internal.h                      |  2 --
+ mm/zsmalloc.c                                 |  1 -
+ tools/testing/selftests/vm/mremap_test.c      |  2 ++
+ 21 files changed, 43 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers=
-/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-index 17a21bcbde17..1a28061bb9ff 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-@@ -808,6 +808,8 @@ void dcn316_update_bw_bounding_box(struct dc *dc, struc=
-t clk_bw_params *bw_param
-=20
- int dcn_get_max_non_odm_pix_rate_100hz(struct _vcs_dpi_soc_bounding_box_st=
- *soc)
- {
-+	dc_assert_fp_enabled();
-+
- 	return soc->clock_limits[0].dispclk_mhz * 10000.0 / (1.0 + soc->dcn_downs=
-pread_percent / 100.0);
+diff --git a/arch/um/drivers/mconsole_user.c b/arch/um/drivers/mconsole_user.c
+index e24298a734be..a04cd13c6315 100644
+--- a/arch/um/drivers/mconsole_user.c
++++ b/arch/um/drivers/mconsole_user.c
+@@ -71,7 +71,9 @@ static struct mconsole_command *mconsole_parse(struct mc_request *req)
+ 	return NULL;
  }
-=20
-@@ -815,6 +817,8 @@ int dcn_get_approx_det_segs_required_for_pstate(
- 		struct _vcs_dpi_soc_bounding_box_st *soc,
- 		int pix_clk_100hz, int bpp, int seg_size_kb)
- {
-+	dc_assert_fp_enabled();
+ 
++#ifndef MIN
+ #define MIN(a,b) ((a)<(b) ? (a):(b))
++#endif
+ 
+ #define STRINGX(x) #x
+ #define STRING(x) STRINGX(x)
+diff --git a/drivers/edac/skx_common.h b/drivers/edac/skx_common.h
+index 13f761930b4f..1a78f18cf7fe 100644
+--- a/drivers/edac/skx_common.h
++++ b/drivers/edac/skx_common.h
+@@ -44,7 +44,6 @@
+ #define I10NM_NUM_CHANNELS	MAX(I10NM_NUM_DDR_CHANNELS, I10NM_NUM_HBM_CHANNELS)
+ #define I10NM_NUM_DIMMS		MAX(I10NM_NUM_DDR_DIMMS, I10NM_NUM_HBM_DIMMS)
+ 
+-#define MAX(a, b)	((a) > (b) ? (a) : (b))
+ #define NUM_IMC		MAX(SKX_NUM_IMC, I10NM_NUM_IMC)
+ #define NUM_CHANNELS	MAX(SKX_NUM_CHANNELS, I10NM_NUM_CHANNELS)
+ #define NUM_DIMMS	MAX(SKX_NUM_DIMMS, I10NM_NUM_DIMMS)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index dbef22f56482..1ee8663fd866 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1277,7 +1277,9 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+ 
+ #define amdgpu_inc_vram_lost(adev) atomic_inc(&((adev)->vram_lost_counter));
+ 
++#ifndef MIN
+ #define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
++#endif
+ 
+ /* Common functions */
+ bool amdgpu_device_has_job_running(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
+index 1b2df97226a3..40286e8dd4e1 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
+@@ -25,7 +25,9 @@
+ 
+ #include "hdcp.h"
+ 
++#ifndef MIN
+ #define MIN(a, b) ((a) < (b) ? (a) : (b))
++#endif
+ #define HDCP_I2C_ADDR 0x3a	/* 0x74 >> 1*/
+ #define KSV_READ_SIZE 0xf	/* 0x6803b - 0x6802c */
+ #define HDCP_MAX_AUX_TRANSACTION_SIZE 16
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
+index dac29fe6cfc6..abbdb7731996 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
+@@ -22,12 +22,18 @@
+  */
+ #include <asm/div64.h>
+ 
+-#define SHIFT_AMOUNT 16 /* We multiply all original integers with 2^SHIFT_AMOUNT to get the fInt representation */
++enum ppevvmath_constants {
++	/* We multiply all original integers with 2^SHIFT_AMOUNT to get the fInt representation */
++	SHIFT_AMOUNT	= 16,
+ 
+-#define PRECISION 5 /* Change this value to change the number of decimal places in the final output - 5 is a good default */
++	/* Change this value to change the number of decimal places in the final output - 5 is a good default */
++	PRECISION	=  5,
+ 
+-#define SHIFTED_2 (2 << SHIFT_AMOUNT)
+-#define MAX (1 << (SHIFT_AMOUNT - 1)) - 1 /* 32767 - Might change in the future */
++	SHIFTED_2	= (2 << SHIFT_AMOUNT),
 +
- 	/* Roughly calculate required crb to hide latency. In practice there is s=
-lightly
- 	 * more buffer available for latency hiding
- 	 */
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers=
-/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-index 5d73efa2f0c9..15a1d77dfe36 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-@@ -445,6 +445,8 @@ int dcn35_populate_dml_pipes_from_context_fpu(struct dc=
- *dc,
- 	bool upscaled =3D false;
- 	const unsigned int max_allowed_vblank_nom =3D 1023;
-=20
-+	dc_assert_fp_enabled();
-+
- 	dcn31_populate_dml_pipes_from_context(dc, context, pipes,
- 					      validate_mode);
-=20
-@@ -498,9 +500,7 @@ int dcn35_populate_dml_pipes_from_context_fpu(struct dc=
- *dc,
-=20
- 		pipes[pipe_cnt].pipe.src.unbounded_req_mode =3D false;
-=20
--		DC_FP_START();
- 		dcn31_zero_pipe_dcc_fraction(pipes, pipe_cnt);
--		DC_FP_END();
-=20
- 		pipes[pipe_cnt].pipe.dest.vfront_porch =3D timing->v_front_porch;
- 		pipes[pipe_cnt].pipe.src.dcc_rate =3D 3;
-@@ -581,6 +581,8 @@ void dcn35_decide_zstate_support(struct dc *dc, struct =
-dc_state *context)
- 	unsigned int i, plane_count =3D 0;
- 	DC_LOGGER_INIT(dc->ctx->logger);
-=20
-+	dc_assert_fp_enabled();
-+
- 	for (i =3D 0; i < dc->res_pool->pipe_count; i++) {
- 		if (context->res_ctx.pipe_ctx[i].plane_state)
- 			plane_count++;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c b/drive=
-rs/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-index 6f516af82956..e5cfe73f640a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-@@ -478,6 +478,8 @@ int dcn351_populate_dml_pipes_from_context_fpu(struct d=
-c *dc,
- 	bool upscaled =3D false;
- 	const unsigned int max_allowed_vblank_nom =3D 1023;
-=20
-+	dc_assert_fp_enabled();
-+
- 	dcn31_populate_dml_pipes_from_context(dc, context, pipes,
- 					      validate_mode);
-=20
-@@ -531,9 +533,7 @@ int dcn351_populate_dml_pipes_from_context_fpu(struct d=
-c *dc,
-=20
- 		pipes[pipe_cnt].pipe.src.unbounded_req_mode =3D false;
-=20
--		DC_FP_START();
- 		dcn31_zero_pipe_dcc_fraction(pipes, pipe_cnt);
--		DC_FP_END();
-=20
- 		pipes[pipe_cnt].pipe.dest.vfront_porch =3D timing->v_front_porch;
- 		pipes[pipe_cnt].pipe.src.dcc_rate =3D 3;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c=
- b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-index 8475c6eec547..32678b66c410 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-@@ -1760,6 +1760,20 @@ enum dc_status dcn35_patch_unknown_plane_state(struc=
-t dc_plane_state *plane_stat
++	/* 32767 - Might change in the future */
++	MAX		= (1 << (SHIFT_AMOUNT - 1)) - 1,
++};
+ 
+ /* -------------------------------------------------------------------------------
+  * NEW TYPE - fINT
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index d4fde146bd4c..95894c25881a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1964,7 +1964,9 @@ static void sienna_cichlid_get_override_pcie_settings(struct smu_context *smu,
+ 	}
  }
-=20
-=20
-+static int populate_dml_pipes_from_context_fpu(struct dc *dc,
-+					       struct dc_state *context,
-+					       display_e2e_pipe_params_st *pipes,
-+					       enum dc_validate_mode validate_mode)
-+{
-+	int ret;
+ 
++#ifndef MAX
+ #define MAX(a, b)	((a) > (b) ? (a) : (b))
++#endif
+ 
+ static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu,
+ 					 uint32_t pcie_gen_cap,
+diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+index 820c2c3641d3..1311f10fad66 100644
+--- a/drivers/gpu/drm/radeon/evergreen_cs.c
++++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+@@ -33,8 +33,10 @@
+ #include "evergreen_reg_safe.h"
+ #include "cayman_reg_safe.h"
+ 
++#ifndef MIN
+ #define MAX(a,b)                   (((a)>(b))?(a):(b))
+ #define MIN(a,b)                   (((a)<(b))?(a):(b))
++#endif
+ 
+ #define REG_SAFE_BM_SIZE ARRAY_SIZE(evergreen_reg_safe_bm)
+ 
+diff --git a/drivers/hwmon/adt7475.c b/drivers/hwmon/adt7475.c
+index b4c0f01f52c4..1e0678eb0077 100644
+--- a/drivers/hwmon/adt7475.c
++++ b/drivers/hwmon/adt7475.c
+@@ -23,23 +23,23 @@
+ #include <linux/util_macros.h>
+ 
+ /* Indexes for the sysfs hooks */
+-
+-#define INPUT		0
+-#define MIN		1
+-#define MAX		2
+-#define CONTROL		3
+-#define OFFSET		3
+-#define AUTOMIN		4
+-#define THERM		5
+-#define HYSTERSIS	6
+-
++enum adt_sysfs_id {
++	INPUT		= 0,
++	MIN		= 1,
++	MAX		= 2,
++	CONTROL		= 3,
++	OFFSET		= 3,	// Dup
++	AUTOMIN		= 4,
++	THERM		= 5,
++	HYSTERSIS	= 6,
+ /*
+  * These are unique identifiers for the sysfs functions - unlike the
+  * numbers above, these are not also indexes into an array
+  */
++	ALARM		= 9,
++	FAULT		= 10,
++};
+ 
+-#define ALARM		9
+-#define FAULT		10
+ 
+ /* 7475 Common Registers */
+ 
+diff --git a/drivers/media/dvb-frontends/stv0367_priv.h b/drivers/media/dvb-frontends/stv0367_priv.h
+index 617f605947b2..7f056d1cce82 100644
+--- a/drivers/media/dvb-frontends/stv0367_priv.h
++++ b/drivers/media/dvb-frontends/stv0367_priv.h
+@@ -25,8 +25,11 @@
+ #endif
+ 
+ /* MACRO definitions */
++#ifndef MIN
+ #define MAX(X, Y) ((X) >= (Y) ? (X) : (Y))
+ #define MIN(X, Y) ((X) <= (Y) ? (X) : (Y))
++#endif
 +
-+	DC_FP_START();
-+	ret =3D dcn35_populate_dml_pipes_from_context_fpu(dc, context, pipes, val=
-idate_mode);
-+	DC_FP_END();
-+
-+	return ret;
-+}
-+
- static struct resource_funcs dcn35_res_pool_funcs =3D {
- 	.destroy =3D dcn35_destroy_resource_pool,
- 	.link_enc_create =3D dcn35_link_encoder_create,
-@@ -1770,7 +1784,7 @@ static struct resource_funcs dcn35_res_pool_funcs =3D=
- {
- 	.validate_bandwidth =3D dcn35_validate_bandwidth,
- 	.calculate_wm_and_dlg =3D NULL,
- 	.update_soc_for_wm_a =3D dcn31_update_soc_for_wm_a,
--	.populate_dml_pipes =3D dcn35_populate_dml_pipes_from_context_fpu,
-+	.populate_dml_pipes =3D populate_dml_pipes_from_context_fpu,
- 	.acquire_free_pipe_as_secondary_dpp_pipe =3D dcn20_acquire_free_pipe_for_=
-layer,
- 	.release_pipe =3D dcn20_release_pipe,
- 	.add_stream_to_ctx =3D dcn30_add_stream_to_ctx,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-index 0971c0f74186..677cee27589c 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-@@ -1732,6 +1732,21 @@ static enum dc_status dcn351_validate_bandwidth(stru=
-ct dc *dc,
- 	return out ? DC_OK : DC_FAIL_BANDWIDTH_VALIDATE;
+ #define INRANGE(X, Y, Z) \
+ 	((((X) <= (Y)) && ((Y) <= (Z))) || \
+ 	(((Z) <= (Y)) && ((Y) <= (X))) ? 1 : 0)
+diff --git a/drivers/net/fjes/fjes_main.c b/drivers/net/fjes/fjes_main.c
+index 1d1808afd529..792c22ba5b00 100644
+--- a/drivers/net/fjes/fjes_main.c
++++ b/drivers/net/fjes/fjes_main.c
+@@ -14,9 +14,7 @@
+ #include "fjes.h"
+ #include "fjes_trace.h"
+ 
+-#define MAJ 1
+-#define MIN 2
+-#define DRV_VERSION __stringify(MAJ) "." __stringify(MIN)
++#define DRV_VERSION "1.2"
+ #define DRV_NAME	"fjes"
+ char fjes_driver_name[] = DRV_NAME;
+ char fjes_driver_version[] = DRV_VERSION;
+diff --git a/drivers/nfc/pn544/i2c.c b/drivers/nfc/pn544/i2c.c
+index 37d26f01986b..fd7026206f58 100644
+--- a/drivers/nfc/pn544/i2c.c
++++ b/drivers/nfc/pn544/i2c.c
+@@ -126,8 +126,6 @@ struct pn544_i2c_fw_secure_blob {
+ #define PN544_FW_CMD_RESULT_COMMAND_REJECTED 0xE0
+ #define PN544_FW_CMD_RESULT_CHUNK_ERROR 0xE6
+ 
+-#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
+-
+ #define PN544_FW_WRITE_BUFFER_MAX_LEN 0x9f7
+ #define PN544_FW_I2C_MAX_PAYLOAD PN544_HCI_I2C_LLC_MAX_SIZE
+ #define PN544_FW_I2C_WRITE_FRAME_HEADER_LEN 8
+diff --git a/drivers/platform/x86/sony-laptop.c b/drivers/platform/x86/sony-laptop.c
+index 336dee9485d4..3c27d6b66bb4 100644
+--- a/drivers/platform/x86/sony-laptop.c
++++ b/drivers/platform/x86/sony-laptop.c
+@@ -757,7 +757,6 @@ static union acpi_object *__call_snc_method(acpi_handle handle, char *method,
+ 	return result;
  }
-=20
-+static int populate_dml_pipes_from_context_fpu(struct dc *dc,
-+					       struct dc_state *context,
-+					       display_e2e_pipe_params_st *pipes,
-+					       enum dc_validate_mode validate_mode)
-+{
-+	int ret;
-+
-+	DC_FP_START();
-+	ret =3D dcn351_populate_dml_pipes_from_context_fpu(dc, context, pipes, va=
-lidate_mode);
-+	DC_FP_END();
-+
-+	return ret;
-+
-+}
-+
- static struct resource_funcs dcn351_res_pool_funcs =3D {
- 	.destroy =3D dcn351_destroy_resource_pool,
- 	.link_enc_create =3D dcn35_link_encoder_create,
-@@ -1742,7 +1757,7 @@ static struct resource_funcs dcn351_res_pool_funcs =
-=3D {
- 	.validate_bandwidth =3D dcn351_validate_bandwidth,
- 	.calculate_wm_and_dlg =3D NULL,
- 	.update_soc_for_wm_a =3D dcn31_update_soc_for_wm_a,
--	.populate_dml_pipes =3D dcn351_populate_dml_pipes_from_context_fpu,
-+	.populate_dml_pipes =3D populate_dml_pipes_from_context_fpu,
- 	.acquire_free_pipe_as_secondary_dpp_pipe =3D dcn20_acquire_free_pipe_for_=
-layer,
- 	.release_pipe =3D dcn20_release_pipe,
- 	.add_stream_to_ctx =3D dcn30_add_stream_to_ctx,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c=
- b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-index 8bae7fcedc22..d81540515e5c 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-@@ -1734,6 +1734,20 @@ static enum dc_status dcn35_validate_bandwidth(struc=
-t dc *dc,
- }
-=20
-=20
-+static int populate_dml_pipes_from_context_fpu(struct dc *dc,
-+					       struct dc_state *context,
-+					       display_e2e_pipe_params_st *pipes,
-+					       enum dc_validate_mode validate_mode)
-+{
-+	int ret;
-+
-+	DC_FP_START();
-+	ret =3D dcn35_populate_dml_pipes_from_context_fpu(dc, context, pipes, val=
-idate_mode);
-+	DC_FP_END();
-+
-+	return ret;
-+}
-+
- static struct resource_funcs dcn36_res_pool_funcs =3D {
- 	.destroy =3D dcn36_destroy_resource_pool,
- 	.link_enc_create =3D dcn35_link_encoder_create,
-@@ -1744,7 +1758,7 @@ static struct resource_funcs dcn36_res_pool_funcs =3D=
+ 
+-#define MIN(a, b)	(a > b ? b : a)
+ static int sony_nc_buffer_call(acpi_handle handle, char *name, u64 *value,
+ 		void *buffer, size_t buflen)
  {
- 	.validate_bandwidth =3D dcn35_validate_bandwidth,
- 	.calculate_wm_and_dlg =3D NULL,
- 	.update_soc_for_wm_a =3D dcn31_update_soc_for_wm_a,
--	.populate_dml_pipes =3D dcn35_populate_dml_pipes_from_context_fpu,
-+	.populate_dml_pipes =3D populate_dml_pipes_from_context_fpu,
- 	.acquire_free_pipe_as_secondary_dpp_pipe =3D dcn20_acquire_free_pipe_for_=
-layer,
- 	.release_pipe =3D dcn20_release_pipe,
- 	.add_stream_to_ctx =3D dcn30_add_stream_to_ctx,
---=20
-2.51.0.618.g983fd99d29-goog
+diff --git a/drivers/scsi/isci/init.c b/drivers/scsi/isci/init.c
+index bd73f6925a9d..73144b2966ba 100644
+--- a/drivers/scsi/isci/init.c
++++ b/drivers/scsi/isci/init.c
+@@ -65,11 +65,7 @@
+ #include "task.h"
+ #include "probe_roms.h"
+ 
+-#define MAJ 1
+-#define MIN 2
+-#define BUILD 0
+-#define DRV_VERSION __stringify(MAJ) "." __stringify(MIN) "." \
+-	__stringify(BUILD)
++#define DRV_VERSION "1.2.0"
+ 
+ MODULE_VERSION(DRV_VERSION);
+ 
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h
+index a444ec14ff9d..1c17a87a8572 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h
+@@ -31,11 +31,6 @@
+ /* A => B */
+ #define IMPLIES(a, b)        (!(a) || (b))
+ 
+-/* for preprocessor and array sizing use MIN and MAX
+-   otherwise use min and max */
+-#define MAX(a, b)            (((a) > (b)) ? (a) : (b))
+-#define MIN(a, b)            (((a) < (b)) ? (a) : (b))
+-
+ #define ROUND_DIV(a, b)      (((b) != 0) ? ((a) + ((b) >> 1)) / (b) : 0)
+ #define CEIL_DIV(a, b)       (((b) != 0) ? ((a) + (b) - 1) / (b) : 0)
+ #define CEIL_MUL(a, b)       (CEIL_DIV(a, b) * (b))
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index a7ef65f78933..2a40d3550f28 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -274,6 +274,8 @@ static inline bool in_range32(u32 val, u32 start, u32 len)
+  * Use these carefully: no type checking, and uses the arguments
+  * multiple times. Use for obvious constants only.
+  */
++#define MIN(a,b) __cmp(min,a,b)
++#define MAX(a,b) __cmp(max,a,b)
+ #define MIN_T(type,a,b) __cmp(min,(type)(a),(type)(b))
+ #define MAX_T(type,a,b) __cmp(max,(type)(a),(type)(b))
+ 
+diff --git a/kernel/trace/preemptirq_delay_test.c b/kernel/trace/preemptirq_delay_test.c
+index 8af92dbe98f0..acb0c971a408 100644
+--- a/kernel/trace/preemptirq_delay_test.c
++++ b/kernel/trace/preemptirq_delay_test.c
+@@ -34,8 +34,6 @@ MODULE_PARM_DESC(cpu_affinity, "Cpu num test is running on");
+ 
+ static struct completion done;
+ 
+-#define MIN(x, y) ((x) < (y) ? (x) : (y))
+-
+ static void busy_wait(ulong time)
+ {
+ 	u64 start, end;
+diff --git a/lib/btree.c b/lib/btree.c
+index b4cf08a5c267..b12f99d4c45c 100644
+--- a/lib/btree.c
++++ b/lib/btree.c
+@@ -43,7 +43,6 @@
+ #include <linux/slab.h>
+ #include <linux/module.h>
+ 
+-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+ #define NODESIZE MAX(L1_CACHE_BYTES, 128)
+ 
+ struct btree_geo {
+diff --git a/lib/decompress_unlzma.c b/lib/decompress_unlzma.c
+index 20a858031f12..9d34d35908da 100644
+--- a/lib/decompress_unlzma.c
++++ b/lib/decompress_unlzma.c
+@@ -37,7 +37,9 @@
+ 
+ #include <linux/decompress/mm.h>
+ 
++#ifndef MIN
+ #define	MIN(a, b) (((a) < (b)) ? (a) : (b))
++#endif
+ 
+ static long long INIT read_int(unsigned char *ptr, int size)
+ {
+diff --git a/lib/zstd/zstd_internal.h b/lib/zstd/zstd_internal.h
+index dac753397f86..927ed4e8c11c 100644
+--- a/lib/zstd/zstd_internal.h
++++ b/lib/zstd/zstd_internal.h
+@@ -36,8 +36,6 @@
+ /*-*************************************
+ *  shared macros
+ ***************************************/
+-#define MIN(a, b) ((a) < (b) ? (a) : (b))
+-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+ #define CHECK_F(f)                       \
+ 	{                                \
+ 		size_t const errcod = f; \
+diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
+index 79f389d620c9..fd01f6922874 100644
+--- a/mm/zsmalloc.c
++++ b/mm/zsmalloc.c
+@@ -126,7 +126,6 @@
+ #define ISOLATED_BITS	3
+ #define MAGIC_VAL_BITS	8
+ 
+-#define MAX(a, b) ((a) >= (b) ? (a) : (b))
+ /* ZS_MIN_ALLOC_SIZE must be multiple of ZS_ALIGN */
+ #define ZS_MIN_ALLOC_SIZE \
+ 	MAX(32, (ZS_MAX_PAGES_PER_ZSPAGE << PAGE_SHIFT >> OBJ_INDEX_BITS))
+diff --git a/tools/testing/selftests/vm/mremap_test.c b/tools/testing/selftests/vm/mremap_test.c
+index 58775dab3cc6..92fb74865f26 100644
+--- a/tools/testing/selftests/vm/mremap_test.c
++++ b/tools/testing/selftests/vm/mremap_test.c
+@@ -22,7 +22,9 @@
+ #define VALIDATION_DEFAULT_THRESHOLD 4	/* 4MB */
+ #define VALIDATION_NO_THRESHOLD 0	/* Verify the entire region */
+ 
++#ifndef MIN
+ #define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
++#endif
+ 
+ struct config {
+ 	unsigned long long src_alignment;
+-- 
+2.47.3
 
