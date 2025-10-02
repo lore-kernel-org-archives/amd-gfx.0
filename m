@@ -4,108 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00C70CCD183
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 623A8CCD185
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7FD710E8F4;
-	Fri,  3 Oct 2025 07:03:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25A4310E8F5;
+	Fri,  3 Oct 2025 07:03:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="LglAKWAV";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="owZuNTJW";
 	dkim-atps=neutral
-Received: from fra-out-009.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-009.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [3.64.237.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 461E810E13A;
- Thu,  2 Oct 2025 20:50:38 +0000 (UTC)
+Received: from fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.178.132.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1818310E83B;
+ Thu,  2 Oct 2025 18:04:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759438238; x=1790974238;
+ t=1759428265; x=1790964265;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jvk2RBzXwrA99Hwxay/jSQlk3gLjsVti9lJHvH/pTPQ=;
- b=LglAKWAVttojWXBJWXdOhxvE7+CSwBIvLFSW1i8Wftcok+gHxDVUr4fp
- +5L7wwbjlniqewpO1elNxSoVFz1fFjkYKuIEvryjUSGL5ns1AIafAn29H
- ZWo0jxKuOSAcxPntyDxzlC4blmwZVIGIG7R2D/Mo+LhN5yZNWs0YD6Xpt
- vqBq0ZAWYy8jqZuV1E1GTaFNq0LZOjPbHxLdewcpEdZdKhD7cNeMB/kRF
- xOv3rabc9MBNHuhS+3wZEVJrFUL61arM3S/gkHCpU/kGGZVZYCO0j2iOr
- 00bhVav/Dsmygdo9TqoOWbm6xuUCRUFiAQJLVHIhTcmTkyHAvxJqgAWPS g==;
-X-CSE-ConnectionGUID: YiAweu1YTFWm7gL7sAM34g==
-X-CSE-MsgGUID: cPMixKcNRUaFt+r0RIS6uw==
+ bh=k0dUe76w+6n5/NfsPbyefGVCom+xh3GGcFcV3Olhmks=;
+ b=owZuNTJWhOjLKPQLmoJglMgVxoVKVqtkayiSPYPFn3cqaCZsa/YP5n8G
+ OTM9W+XgmOVSULQKJXIBjvBTJI2XlvX7e71wuRN6+nl1wiNg7xItLagNB
+ RVlr43FMwd7kIoo6LEskSCvrhu2vFfcqjhH2l4fJ7FstC5RCC89I/dojt
+ 1w1KULzkFAAh2xRBRSxmC2ocrs9L7bkTcqI0klDwMJBSJ48LZlkBrcZok
+ k46+91roUN1MqugVtMmlFjelUSKSDoXp7HlogyvnrX4x6M5XyOuHxhxxp
+ gFhH5mdXpgkyGUMjpuz1fn3pnP3tud3+g521VfD4WS9l/eyREavfxSX7W A==;
+X-CSE-ConnectionGUID: KYP+mIxcS+qh8swRIg8aqg==
+X-CSE-MsgGUID: 3iUG7CuKRNa+UdIi4LLhFw==
 X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
-   d="scan'208";a="2929522"
-Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
- by internal-fra-out-009.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 20:50:28 +0000
-Received: from EX19MTAEUC001.ant.amazon.com [54.240.197.225:22450]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.22.27:2525]
+   d="scan'208";a="2924326"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 18:04:23 +0000
+Received: from EX19MTAEUC001.ant.amazon.com [54.240.197.225:28750]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.1.16:2525]
  with esmtp (Farcaster)
- id 8269f201-c56b-4da0-ad37-545a7d678908; Thu, 2 Oct 2025 20:50:27 +0000 (UTC)
-X-Farcaster-Flow-ID: 8269f201-c56b-4da0-ad37-545a7d678908
+ id 50a0473f-3493-43fb-a202-fb586031f523; Thu, 2 Oct 2025 18:04:23 +0000 (UTC)
+X-Farcaster-Flow-ID: 50a0473f-3493-43fb-a202-fb586031f523
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUC001.ant.amazon.com (10.252.51.155) with Microsoft SMTP Server
+ EX19MTAEUC001.ant.amazon.com (10.252.51.193) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Thu, 2 Oct 2025 20:50:26 +0000
+ Thu, 2 Oct 2025 18:04:23 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
- 20:50:00 +0000
+ 18:04:10 +0000
 From: Eliav Farber <farbere@amazon.com>
-To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
- <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
- <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
- <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
- <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
- <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
- <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
- <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
- <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
- <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
- <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
- <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
- <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
- <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
- <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
- <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
- <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
- <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
- <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
- <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
- <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
- <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
- <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
- <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
- <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
- <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
- <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
- <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
- <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-CC: Linus Torvalds <torvalds@linux-foundation.org>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, David Laight <David.Laight@aculab.com>
-Subject: [PATCH 05/19 5.15.y] minmax: avoid overly complicated constant
- expressions in VM code
-Date: Thu, 2 Oct 2025 20:47:19 +0000
-Message-ID: <20251002204733.35652-6-farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
+ <simona@ffwll.ch>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>,
+ <tglx@linutronix.de>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
+ <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>,
+ <mpatocka@redhat.com>, <clm@fb.com>, <dsterba@suse.com>,
+ <luc.vanoostenryck@gmail.com>, <pmladek@suse.com>, <rostedt@goodmis.org>,
+ <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+ <senozhatsky@chromium.org>, <akpm@linux-foundation.org>,
+ <lijo.lazar@amd.com>, <asad.kamal@amd.com>, <kevinyang.wang@amd.com>,
+ <David.Laight@ACULAB.COM>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>,
+ <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <stable@vger.kernel.org>, <farbere@amazon.com>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
+ Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
+Subject: [PATCH v3 11/11 6.1.y] minmax.h: remove some #defines that are only
+ expanded once
+Date: Thu, 2 Oct 2025 18:00:29 +0000
+Message-ID: <20251002180036.33738-12-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251002204733.35652-1-farbere@amazon.com>
-References: <20251002204733.35652-1-farbere@amazon.com>
+In-Reply-To: <20251002180036.33738-1-farbere@amazon.com>
+References: <20251002180036.33738-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D035UWA001.ant.amazon.com (10.13.139.101) To
+X-ClientProxiedBy: EX19D040UWA001.ant.amazon.com (10.13.139.22) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -122,65 +101,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 3a7e02c040b130b5545e4b115aada7bacd80a2b6 ]
+[ Upstream commit 2b97aaf74ed534fb838d09867d09a3ca5d795208 ]
 
-The minmax infrastructure is overkill for simple constants, and can
-cause huge expansions because those simple constants are then used by
-other things.
+The bodies of __signed_type_use() and __unsigned_type_use() are much the
+same size as their names - so put the bodies in the only line that expands
+them.
 
-For example, 'pageblock_order' is a core VM constant, but because it was
-implemented using 'min_t()' and all the type-checking that involves, it
-actually expanded to something like 2.5kB of preprocessor noise.
+Similarly __signed_type() is defined separately for 64bit and then used
+exactly once just below.
 
-And when that simple constant was then used inside other expansions:
+Change the test for __signed_type from CONFIG_64BIT to one based on gcc
+defined macros so that the code is valid if it gets used outside of a
+kernel build.
 
-  #define pageblock_nr_pages      (1UL << pageblock_order)
-  #define pageblock_start_pfn(pfn)  ALIGN_DOWN((pfn), pageblock_nr_pages)
-
-and we then use that inside a 'max()' macro:
-
-	case ISOLATE_SUCCESS:
-		update_cached = false;
-		last_migrated_pfn = max(cc->zone->zone_start_pfn,
-			pageblock_start_pfn(cc->migrate_pfn - 1));
-
-the end result was that one statement expanding to 253kB in size.
-
-There are probably other cases of this, but this one case certainly
-stood out.
-
-I've added 'MIN_T()' and 'MAX_T()' macros for this kind of "core simple
-constant with specific type" use.  These macros skip the type checking,
-and as such need to be very sparingly used only for obvious cases that
-have active issues like this.
-
-Reported-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Link: https://lore.kernel.org/all/36aa2cad-1db1-4abf-8dd2-fb20484aabc3@lucifer.local/
-Cc: David Laight <David.Laight@aculab.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Link: https://lkml.kernel.org/r/9386d1ebb8974fbabbed2635160c3975@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/minmax.h | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 2ec559284a9f..a7ef65f78933 100644
+index 2bbdd5b5e07e..eaaf5c008e4d 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -270,4 +270,11 @@ static inline bool in_range32(u32 val, u32 start, u32 len)
- #define swap(a, b) \
- 	do { typeof(a) __tmp = (a); (a) = (b); (b) = __tmp; } while (0)
+@@ -46,10 +46,8 @@
+  * comparison, and these expressions only need to be careful to not cause
+  * warnings for pointer use.
+  */
+-#define __signed_type_use(ux) (2 + __is_nonneg(ux))
+-#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
+ #define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
+-	__signed_type_use(ux) : __unsigned_type_use(ux))
++	(2 + __is_nonneg(ux)) : (1 + 2 * (sizeof(ux) < 4)))
  
-+/*
-+ * Use these carefully: no type checking, and uses the arguments
-+ * multiple times. Use for obvious constants only.
-+ */
-+#define MIN_T(type,a,b) __cmp(min,(type)(a),(type)(b))
-+#define MAX_T(type,a,b) __cmp(max,(type)(a),(type)(b))
-+
- #endif	/* _LINUX_MINMAX_H */
+ /*
+  * Check whether a signed value is always non-negative.
+@@ -57,7 +55,7 @@
+  * A cast is needed to avoid any warnings from values that aren't signed
+  * integer types (in which case the result doesn't matter).
+  *
+- * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * On 64-bit any integer or pointer type can safely be cast to 'long long'.
+  * But on 32-bit we need to avoid warnings about casting pointers to integers
+  * of different sizes without truncating 64-bit values so 'long' or 'long long'
+  * must be used depending on the size of the value.
+@@ -66,12 +64,12 @@
+  * them, but we do not use s128 types in the kernel (we do use 'u128',
+  * but they are handled by the !is_signed_type() case).
+  */
+-#ifdef CONFIG_64BIT
+-  #define __signed_type(ux) long
++#if __SIZEOF_POINTER__ == __SIZEOF_LONG_LONG__
++#define __is_nonneg(ux) statically_true((long long)(ux) >= 0)
+ #else
+-  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
++#define __is_nonneg(ux) statically_true( \
++	(typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L)))(ux) >= 0)
+ #endif
+-#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
+ 
+ #define __types_ok(ux, uy) \
+ 	(__sign_use(ux) & __sign_use(uy))
 -- 
 2.47.3
 
