@@ -4,90 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE79DCCA471
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 579E1CCD185
 	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26E7210E8D4;
-	Fri,  3 Oct 2025 07:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 015FE10E8DF;
+	Fri,  3 Oct 2025 07:03:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="co5RWL4Y";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="qWLt81tS";
 	dkim-atps=neutral
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 605AD10E155
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Oct 2025 02:23:03 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-789fb76b466so597147b3a.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Oct 2025 19:23:03 -0700 (PDT)
+Received: from fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [18.158.153.154])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B644310E835;
+ Thu,  2 Oct 2025 18:03:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759371783; x=1759976583; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=mF3LfHpef/3mN9CeEleeS0pHSg8cp/5+RdXD9b+jUXQ=;
- b=co5RWL4Y/jvvEyf5oE01LaASHguRWrX/rxO9RuS8A2v7hGRs2hr6aD0Dps2K8u/09f
- zf0/BfS2xFp0PU63nj2Wo2bAF+e8xXb7+dCB40iwCN1AiMOJs6uBuh8gqY5nF/YBDRUU
- U66Y9cJtpzMKeKVqLN8hee5k70VklIRnF/qSW9TT1JVlt88ifMZU8lSMu9xNwkfnLqJo
- quI8bXEMC2LQx1ujFb5b0IX7L9QMIy5qNTSF3oA70kGb8Rg0Saq5NYxlhephdKCZHIrN
- Fzg+dgN3QmmNQC05Y0uV3eAUNpvIpoef+NSQgNgQby1lJ1HArKiWmV+WDYVmnI4QZi0V
- hnTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759371783; x=1759976583;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=mF3LfHpef/3mN9CeEleeS0pHSg8cp/5+RdXD9b+jUXQ=;
- b=HH1gFkRH8Unung6CUMS5v/64tDdRIX7f6n1FU2BEZrFstxVbSs1vnXsW6U7npRNgMs
- Xmu7GHJK/W8lIQvk06gpLm+zEOZOoACZI60ADACYnFCQdyA5U0Vq+IPAgmKA3aBUxWHO
- d92b9PrgmzOZf4P0+5NgZY7GmHSeJrfHDgtWaqPLYLPS/P/JiYatF8tD4a03f2suy/Xc
- C0s9bo4K2rhM7on7chIwQX3FZ1YM652JG3hxYpv24MZwkmdgJ1WDzb58+Gmtc7Qk3u0V
- CLk+OtAUjpxmR9/2FjV6IBUqjjOv97BN6oSWoCvASIDDYKN6H0nwIGXkXYtU+KTPQdh5
- 7JBQ==
-X-Gm-Message-State: AOJu0YwF6oH6ud5lAyqCgNfwJDCuhkTheRgtwPpApyxyr8flrPMfzzBT
- tfniZgAVSqTsTnWhMUBCr3sXXgJC3Xk2faIoOWC8tIwHQXwfyv3Fl2Wp
-X-Gm-Gg: ASbGncs0I7uyBenptvP63F8JImsen0rPfSw7VoGsJBnJfY1T+REMRxWxuINZBNwaLAf
- Gzid5VTrdZoI/7eiZhD9Nyj/kZ1T3xQWl19jX5Gkz+AECqtRvw2S38QKBPT+hpceFQbCzvujPx2
- HgPh4H3LBy+jaf9L8GIaB3mX1Yh6MO1cP3J2xe0dUOJnw7CfsMgN8SLYVXOOxCxZKbqx7pAuM1B
- qz/Gz8+13dG0tP0s26M4AO1F7tPxuWqTYxo00O/ByOsIy4nr5wiyqqltlxo0WwQrp0I5ibJo29E
- 33033sZ2D2DNAFZ29kr9QnPz08zA/lFfesWqxGDYKArJ674PqBtwiKoH5mGyFargBANd0kGIwga
- eoMqZaRj//kLKFkbXnz0lzJXYCTZcdHLU0zLLjw7bh6UMVC+BdzWKeqN9At+yaGdYdaRzCYolGJ
- ImF13DoO/jHw==
-X-Google-Smtp-Source: AGHT+IHxLShFCm76xin7rHm8qNL6ADQW6sxwH14YEVEejbEnDXp8CfZFyeDbyzek8/KKOZq8n0qs+g==
-X-Received: by 2002:a05:6a00:17a6:b0:781:556:f33 with SMTP id
- d2e1a72fcca58-78af3fe8bcbmr6233829b3a.5.1759371782828; 
- Wed, 01 Oct 2025 19:23:02 -0700 (PDT)
-Received: from ti-am64x-sdk.. ([157.50.91.136])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-78b01f99acesm1046229b3a.5.2025.10.01.19.22.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Oct 2025 19:23:02 -0700 (PDT)
-From: Bhanu Seshu Kumar Valluri <bhanuseshukumar@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Tao Zhou <tao.zhou1@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, ganglxie <ganglxie@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Candice Li <candice.li@amd.com>,
- Victor Skvortsov <victor.skvortsov@amd.com>, Roman Li <roman.li@amd.com>,
- Alvin Lee <Alvin.Lee2@amd.com>,
- Karthi Kandasamy <karthi.kandasamy@amd.com>,
- David Rosca <david.rosca@amd.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, khalid@kernel.org,
- linux-kernel-mentees@lists.linuxfoundation.org, skhan@linuxfoundation.org,
- david.hunter.linux@gmail.com, bhanuseshukumar@gmail.com
-Subject: [PATCH] drm: amd: Use kmalloc_array to prevent overflow of dynamic
- size calculation
-Date: Thu,  2 Oct 2025 07:52:41 +0530
-Message-Id: <20251002022241.77823-1-bhanuseshukumar@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759428188; x=1790964188;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0AzpApDbX8CFEbC2P7WHNPH2gra+XDIh1eSQ6GUhJZw=;
+ b=qWLt81tSJ/hCfbUJj5bjbkIShdAgml+Z58xT47oAkMVMY7oOyHk6WELt
+ L/TKB8mE1KbrNtedx7fJbEPT6qslX+LBKjyOla9sNVzK6vI5rTBFWn3iq
+ 3uKV5ITzKuaGtIntb2AUeiA2HrI0ydapo3KOQTsqh4+zEmwG8Se1ItLpp
+ xwsP12duibgBLfIm10OKWYtq3Ce1mtvFxBShStqzuSzynBFUOGkdjLDKn
+ 26W4KLqvRUmChBmL4nNyjUMDxolsUXPRbKmZws7FkiqcKxnUw54L0Kmgw
+ JTNAWy0meXkKf16BDyXpR+d8E9Kt+G18rdIKKNaV6dPx5qy5Ts1GX4zbk Q==;
+X-CSE-ConnectionGUID: wTIx4gDWROm7QuB8QQNE6Q==
+X-CSE-MsgGUID: ENmshZPSQgSwLDR37yUFwg==
+X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
+   d="scan'208";a="2908732"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 18:03:06 +0000
+Received: from EX19MTAEUC001.ant.amazon.com [54.240.197.225:10241]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.19.222:2525]
+ with esmtp (Farcaster)
+ id 474f6c3f-f81f-4963-8d2a-7c13e30e987b; Thu, 2 Oct 2025 18:03:06 +0000 (UTC)
+X-Farcaster-Flow-ID: 474f6c3f-f81f-4963-8d2a-7c13e30e987b
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUC001.ant.amazon.com (10.252.51.193) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Thu, 2 Oct 2025 18:03:05 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
+ 18:02:53 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
+ <simona@ffwll.ch>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>,
+ <tglx@linutronix.de>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
+ <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>,
+ <mpatocka@redhat.com>, <clm@fb.com>, <dsterba@suse.com>,
+ <luc.vanoostenryck@gmail.com>, <pmladek@suse.com>, <rostedt@goodmis.org>,
+ <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+ <senozhatsky@chromium.org>, <akpm@linux-foundation.org>,
+ <lijo.lazar@amd.com>, <asad.kamal@amd.com>, <kevinyang.wang@amd.com>,
+ <David.Laight@ACULAB.COM>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>,
+ <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <stable@vger.kernel.org>, <farbere@amazon.com>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
+ Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
+Subject: [PATCH v3 06/11 6.1.y] minmax.h: update some comments
+Date: Thu, 2 Oct 2025 18:00:24 +0000
+Message-ID: <20251002180036.33738-7-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251002180036.33738-1-farbere@amazon.com>
+References: <20251002180036.33738-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:33 +0000
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D035UWA003.ant.amazon.com (10.13.139.86) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
+X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,62 +100,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use kmalloc_array to avoid potential overflow during dynamic size calculation
-inside kmalloc.
+From: David Laight <David.Laight@ACULAB.COM>
 
-Signed-off-by: Bhanu Seshu Kumar Valluri <bhanuseshukumar@gmail.com>
+[ Upstream commit 10666e99204818ef45c702469488353b5bb09ec7 ]
+
+- Change three to several.
+- Remove the comment about retaining constant expressions, no longer true.
+- Realign to nearer 80 columns and break on major punctiation.
+- Add a leading comment to the block before __signed_type() and __is_nonneg()
+  Otherwise the block explaining the cast is a bit 'floating'.
+  Reword the rest of that comment to improve readability.
+
+Link: https://lkml.kernel.org/r/85b050c81c1d4076aeb91a6cded45fee@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- Note:
- Patch is verified for compilation.
- 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c                 | 4 ++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ include/linux/minmax.h | 53 +++++++++++++++++++-----------------------
+ 1 file changed, 24 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 540817e296da..642addf70466 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2566,7 +2566,7 @@ static int amdgpu_ras_badpages_read(struct amdgpu_device *adev,
- 		goto out;
- 	}
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 51b0d988e322..24e4b372649a 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -8,13 +8,10 @@
+ #include <linux/types.h>
  
--	*bps = kmalloc(sizeof(struct ras_badpage) * data->count, GFP_KERNEL);
-+	*bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
- 	if (!*bps) {
- 		ret = -ENOMEM;
- 		goto out;
-@@ -2722,7 +2722,7 @@ static int amdgpu_ras_realloc_eh_data_space(struct amdgpu_device *adev,
- 	unsigned int old_space = data->count + data->space_left;
- 	unsigned int new_space = old_space + pages;
- 	unsigned int align_space = ALIGN(new_space, 512);
--	void *bps = kmalloc(align_space * sizeof(*data->bps), GFP_KERNEL);
-+	void *bps = kmalloc_array(align_space, sizeof(*data->bps), GFP_KERNEL);
+ /*
+- * min()/max()/clamp() macros must accomplish three things:
++ * min()/max()/clamp() macros must accomplish several things:
+  *
+  * - Avoid multiple evaluations of the arguments (so side-effects like
+  *   "x++" happen only once) when non-constant.
+- * - Retain result as a constant expressions when called with only
+- *   constant expressions (to avoid tripping VLA warnings in stack
+- *   allocation usage).
+  * - Perform signed v unsigned type-checking (to generate compile
+  *   errors instead of nasty runtime surprises).
+  * - Unsigned char/short are always promoted to signed int and can be
+@@ -31,25 +28,23 @@
+  *   bit #0 set if ok for unsigned comparisons
+  *   bit #1 set if ok for signed comparisons
+  *
+- * In particular, statically non-negative signed integer
+- * expressions are ok for both.
++ * In particular, statically non-negative signed integer expressions
++ * are ok for both.
+  *
+- * NOTE! Unsigned types smaller than 'int' are implicitly
+- * converted to 'int' in expressions, and are accepted for
+- * signed conversions for now. This is debatable.
++ * NOTE! Unsigned types smaller than 'int' are implicitly converted to 'int'
++ * in expressions, and are accepted for signed conversions for now.
++ * This is debatable.
+  *
+- * Note that 'x' is the original expression, and 'ux' is
+- * the unique variable that contains the value.
++ * Note that 'x' is the original expression, and 'ux' is the unique variable
++ * that contains the value.
+  *
+- * We use 'ux' for pure type checking, and 'x' for when
+- * we need to look at the value (but without evaluating
+- * it for side effects! Careful to only ever evaluate it
+- * with sizeof() or __builtin_constant_p() etc).
++ * We use 'ux' for pure type checking, and 'x' for when we need to look at the
++ * value (but without evaluating it for side effects!
++ * Careful to only ever evaluate it with sizeof() or __builtin_constant_p() etc).
+  *
+- * Pointers end up being checked by the normal C type
+- * rules at the actual comparison, and these expressions
+- * only need to be careful to not cause warnings for
+- * pointer use.
++ * Pointers end up being checked by the normal C type rules at the actual
++ * comparison, and these expressions only need to be careful to not cause
++ * warnings for pointer use.
+  */
+ #define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
+ #define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
+@@ -57,19 +52,19 @@
+ 	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
  
- 	if (!bps) {
- 		return -ENOMEM;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 3d2f8eedeef2..e027798ece03 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -146,7 +146,7 @@ static void amdgpu_dm_plane_add_modifier(uint64_t **mods, uint64_t *size, uint64
- 
- 	if (*cap - *size < 1) {
- 		uint64_t new_cap = *cap * 2;
--		uint64_t *new_mods = kmalloc(new_cap * sizeof(uint64_t), GFP_KERNEL);
-+		uint64_t *new_mods = kmalloc_array(new_cap, sizeof(uint64_t), GFP_KERNEL);
- 
- 		if (!new_mods) {
- 			kfree(*mods);
-@@ -732,7 +732,7 @@ static int amdgpu_dm_plane_get_plane_modifiers(struct amdgpu_device *adev, unsig
- 	if (adev->family < AMDGPU_FAMILY_AI)
- 		return 0;
- 
--	*mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
-+	*mods = kmalloc_array(capacity, sizeof(uint64_t), GFP_KERNEL);
- 
- 	if (plane_type == DRM_PLANE_TYPE_CURSOR) {
- 		amdgpu_dm_plane_add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+ /*
+- * To avoid warnings about casting pointers to integers
+- * of different sizes, we need that special sign type.
++ * Check whether a signed value is always non-negative.
+  *
+- * On 64-bit we can just always use 'long', since any
+- * integer or pointer type can just be cast to that.
++ * A cast is needed to avoid any warnings from values that aren't signed
++ * integer types (in which case the result doesn't matter).
+  *
+- * This does not work for 128-bit signed integers since
+- * the cast would truncate them, but we do not use s128
+- * types in the kernel (we do use 'u128', but they will
+- * be handled by the !is_signed_type() case).
++ * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * But on 32-bit we need to avoid warnings about casting pointers to integers
++ * of different sizes without truncating 64-bit values so 'long' or 'long long'
++ * must be used depending on the size of the value.
+  *
+- * NOTE! The cast is there only to avoid any warnings
+- * from when values that aren't signed integer types.
++ * This does not work for 128-bit signed integers since the cast would truncate
++ * them, but we do not use s128 types in the kernel (we do use 'u128',
++ * but they are handled by the !is_signed_type() case).
+  */
+ #ifdef CONFIG_64BIT
+   #define __signed_type(ux) long
 -- 
-2.34.1
+2.47.3
 
