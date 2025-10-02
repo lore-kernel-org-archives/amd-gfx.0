@@ -4,183 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A13CCD18A
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE79DCCA471
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA88A10E8DD;
-	Fri,  3 Oct 2025 07:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26E7210E8D4;
+	Fri,  3 Oct 2025 07:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="P2hOQM/c";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="co5RWL4Y";
 	dkim-atps=neutral
-Received: from fra-out-002.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-002.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [3.65.3.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7200310E433;
- Mon, 29 Sep 2025 14:39:39 +0000 (UTC)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 605AD10E155
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Oct 2025 02:23:03 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-789fb76b466so597147b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Oct 2025 19:23:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759156780; x=1790692780;
- h=from:to:cc:date:message-id:references:in-reply-to:
- content-transfer-encoding:mime-version:subject;
- bh=jQWfyryv3PwAY4z7JkjeqszILRR0hMtG2kXXZBJTGME=;
- b=P2hOQM/cNnMvYhobbSIfGh3ZWp3tA0HsWh1KhL7VJZc6nsQJRwh67YJf
- x61xfRUdNqgMIwaE8GLdhhVTN/YUf/gMWDpHHJYJ/DDux/jMzuTy7fFer
- C5VvTgJX0t6xZguhi0O2ObTwDiehBLdZgRxf2TNkVcdysXQmTxQroIXa1
- sJyCi82pePrFZu2CzvRQFDZxmyfemNKUWnoRLcP5M8D5ADlc4NpkyfILc
- r39i/wkHqKGvgsZHlijdC3mlVgfCtcUhFjAFPeQg78rkVdYUhc1ac3HJl
- ovXJQgAy4v6yQ4wVL+Zig+mpeOv0ADwD63NebkH6WciTVk52mImfpDFDN Q==;
-X-CSE-ConnectionGUID: Eg5FVd3DSAe1GaVTZtKB6g==
-X-CSE-MsgGUID: z2L5KGDMS7uQ8XhGedGakg==
-X-IronPort-AV: E=Sophos;i="6.18,301,1751241600"; 
-   d="scan'208";a="2836489"
-Subject: RE: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
- available everywhere
-Thread-Topic: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
- available everywhere
-Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-002.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2025 14:39:28 +0000
-Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:13136]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.33.147:2525]
- with esmtp (Farcaster)
- id 231f5531-c12d-4148-9dbe-5b2468a5b014; Mon, 29 Sep 2025 14:39:28 +0000 (UTC)
-X-Farcaster-Flow-ID: 231f5531-c12d-4148-9dbe-5b2468a5b014
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Mon, 29 Sep 2025 14:39:27 +0000
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Mon, 29 Sep 2025 14:39:26 +0000
-Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
- EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
- 15.02.2562.020; Mon, 29 Sep 2025 14:39:26 +0000
-From: "Farber, Eliav" <farbere@amazon.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-CC: "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "richard@nod.at"
- <richard@nod.at>, "anton.ivanov@cambridgegreys.com"
- <anton.ivanov@cambridgegreys.com>, "johannes@sipsolutions.net"
- <johannes@sipsolutions.net>, "dave.hansen@linux.intel.com"
- <dave.hansen@linux.intel.com>, "luto@kernel.org" <luto@kernel.org>,
- "peterz@infradead.org" <peterz@infradead.org>, "tglx@linutronix.de"
- <tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
- <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com"
- <hpa@zytor.com>, "tony.luck@intel.com" <tony.luck@intel.com>,
- "qiuxu.zhuo@intel.com" <qiuxu.zhuo@intel.com>, "mchehab@kernel.org"
- <mchehab@kernel.org>, "james.morse@arm.com" <james.morse@arm.com>,
- "rric@kernel.org" <rric@kernel.org>, "harry.wentland@amd.com"
- <harry.wentland@amd.com>, "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>, "Xinhui.Pan@amd.com"
- <Xinhui.Pan@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "evan.quan@amd.com" <evan.quan@amd.com>, 
- "james.qian.wang@arm.com" <james.qian.wang@arm.com>, "liviu.dudau@arm.com"
- <liviu.dudau@arm.com>, "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>, 
- "brian.starkey@arm.com" <brian.starkey@arm.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "robdclark@gmail.com" <robdclark@gmail.com>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "sean@poorly.run" <sean@poorly.run>, "jdelvare@suse.com" <jdelvare@suse.com>, 
- "linux@roeck-us.net" <linux@roeck-us.net>, "linus.walleij@linaro.org"
- <linus.walleij@linaro.org>, "dmitry.torokhov@gmail.com"
- <dmitry.torokhov@gmail.com>, "maz@kernel.org" <maz@kernel.org>,
- "wens@csie.org" <wens@csie.org>, "jernej.skrabec@gmail.com"
- <jernej.skrabec@gmail.com>, "samuel@sholland.org" <samuel@sholland.org>,
- "agk@redhat.com" <agk@redhat.com>, "snitzer@kernel.org" <snitzer@kernel.org>, 
- "dm-devel@redhat.com" <dm-devel@redhat.com>, "rajur@chelsio.com"
- <rajur@chelsio.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
- <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>, "mcoquelin.stm32@gmail.com"
- <mcoquelin.stm32@gmail.com>, "krzysztof.kozlowski@linaro.org"
- <krzysztof.kozlowski@linaro.org>, "malattia@linux.it" <malattia@linux.it>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>, "markgross@kernel.org"
- <markgross@kernel.org>, "artur.paszkiewicz@intel.com"
- <artur.paszkiewicz@intel.com>, "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
- "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
- "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
- "fei1.li@intel.com" <fei1.li@intel.com>, "clm@fb.com" <clm@fb.com>,
- "josef@toxicpanda.com" <josef@toxicpanda.com>, "dsterba@suse.com"
- <dsterba@suse.com>, "jack@suse.com" <jack@suse.com>, "tytso@mit.edu"
- <tytso@mit.edu>, "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "dushistov@mail.ru" <dushistov@mail.ru>, "luc.vanoostenryck@gmail.com"
- <luc.vanoostenryck@gmail.com>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "mhiramat@kernel.org" <mhiramat@kernel.org>, "pmladek@suse.com"
- <pmladek@suse.com>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>, "minchan@kernel.org"
- <minchan@kernel.org>, "ngupta@vflare.org" <ngupta@vflare.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>, "dsahern@kernel.org"
- <dsahern@kernel.org>, "pablo@netfilter.org" <pablo@netfilter.org>,
- "kadlec@netfilter.org" <kadlec@netfilter.org>, "fw@strlen.de" <fw@strlen.de>, 
- "jmaloy@redhat.com" <jmaloy@redhat.com>, "ying.xue@windriver.com"
- <ying.xue@windriver.com>, "andrii@kernel.org" <andrii@kernel.org>,
- "mykolal@fb.com" <mykolal@fb.com>, "ast@kernel.org" <ast@kernel.org>,
- "daniel@iogearbox.net" <daniel@iogearbox.net>, "martin.lau@linux.dev"
- <martin.lau@linux.dev>, "song@kernel.org" <song@kernel.org>, "yhs@fb.com"
- <yhs@fb.com>, "john.fastabend@gmail.com" <john.fastabend@gmail.com>,
- "kpsingh@kernel.org" <kpsingh@kernel.org>, "sdf@google.com" <sdf@google.com>, 
- "haoluo@google.com" <haoluo@google.com>, "jolsa@kernel.org"
- <jolsa@kernel.org>, "shuah@kernel.org" <shuah@kernel.org>,
- "keescook@chromium.org" <keescook@chromium.org>, "wad@chromium.org"
- <wad@chromium.org>, "willy@infradead.org" <willy@infradead.org>,
- "sashal@kernel.org" <sashal@kernel.org>, "ruanjinjie@huawei.com"
- <ruanjinjie@huawei.com>, "quic_akhilpo@quicinc.com"
- <quic_akhilpo@quicinc.com>, "David.Laight@aculab.com"
- <David.Laight@aculab.com>, "herve.codina@bootlin.com"
- <herve.codina@bootlin.com>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-um@lists.infradead.org"
- <linux-um@lists.infradead.org>, "linux-edac@vger.kernel.org"
- <linux-edac@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "linux-hwmon@vger.kernel.org"
- <linux-hwmon@vger.kernel.org>, "linux-input@vger.kernel.org"
- <linux-input@vger.kernel.org>, "linux-sunxi@lists.linux.dev"
- <linux-sunxi@lists.linux.dev>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "netfilter-devel@vger.kernel.org"
- <netfilter-devel@vger.kernel.org>, "coreteam@netfilter.org"
- <coreteam@netfilter.org>, "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>, "bpf@vger.kernel.org"
- <bpf@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
- <linux-kselftest@vger.kernel.org>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Thread-Index: AQHcLZHEroQ9W2lH4EW9XJumD1KlZrSqNL0AgAAM8AA=
-Date: Mon, 29 Sep 2025 14:39:26 +0000
-Message-ID: <85a995bb59474300aa3d5f973d279a13@amazon.com>
-References: <20250924202320.32333-1-farbere@amazon.com>
- <20250924202320.32333-8-farbere@amazon.com>
- <2025092923-stove-rule-a00f@gregkh>
-In-Reply-To: <2025092923-stove-rule-a00f@gregkh>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.85.143.172]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ d=gmail.com; s=20230601; t=1759371783; x=1759976583; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mF3LfHpef/3mN9CeEleeS0pHSg8cp/5+RdXD9b+jUXQ=;
+ b=co5RWL4Y/jvvEyf5oE01LaASHguRWrX/rxO9RuS8A2v7hGRs2hr6aD0Dps2K8u/09f
+ zf0/BfS2xFp0PU63nj2Wo2bAF+e8xXb7+dCB40iwCN1AiMOJs6uBuh8gqY5nF/YBDRUU
+ U66Y9cJtpzMKeKVqLN8hee5k70VklIRnF/qSW9TT1JVlt88ifMZU8lSMu9xNwkfnLqJo
+ quI8bXEMC2LQx1ujFb5b0IX7L9QMIy5qNTSF3oA70kGb8Rg0Saq5NYxlhephdKCZHIrN
+ Fzg+dgN3QmmNQC05Y0uV3eAUNpvIpoef+NSQgNgQby1lJ1HArKiWmV+WDYVmnI4QZi0V
+ hnTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1759371783; x=1759976583;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mF3LfHpef/3mN9CeEleeS0pHSg8cp/5+RdXD9b+jUXQ=;
+ b=HH1gFkRH8Unung6CUMS5v/64tDdRIX7f6n1FU2BEZrFstxVbSs1vnXsW6U7npRNgMs
+ Xmu7GHJK/W8lIQvk06gpLm+zEOZOoACZI60ADACYnFCQdyA5U0Vq+IPAgmKA3aBUxWHO
+ d92b9PrgmzOZf4P0+5NgZY7GmHSeJrfHDgtWaqPLYLPS/P/JiYatF8tD4a03f2suy/Xc
+ C0s9bo4K2rhM7on7chIwQX3FZ1YM652JG3hxYpv24MZwkmdgJ1WDzb58+Gmtc7Qk3u0V
+ CLk+OtAUjpxmR9/2FjV6IBUqjjOv97BN6oSWoCvASIDDYKN6H0nwIGXkXYtU+KTPQdh5
+ 7JBQ==
+X-Gm-Message-State: AOJu0YwF6oH6ud5lAyqCgNfwJDCuhkTheRgtwPpApyxyr8flrPMfzzBT
+ tfniZgAVSqTsTnWhMUBCr3sXXgJC3Xk2faIoOWC8tIwHQXwfyv3Fl2Wp
+X-Gm-Gg: ASbGncs0I7uyBenptvP63F8JImsen0rPfSw7VoGsJBnJfY1T+REMRxWxuINZBNwaLAf
+ Gzid5VTrdZoI/7eiZhD9Nyj/kZ1T3xQWl19jX5Gkz+AECqtRvw2S38QKBPT+hpceFQbCzvujPx2
+ HgPh4H3LBy+jaf9L8GIaB3mX1Yh6MO1cP3J2xe0dUOJnw7CfsMgN8SLYVXOOxCxZKbqx7pAuM1B
+ qz/Gz8+13dG0tP0s26M4AO1F7tPxuWqTYxo00O/ByOsIy4nr5wiyqqltlxo0WwQrp0I5ibJo29E
+ 33033sZ2D2DNAFZ29kr9QnPz08zA/lFfesWqxGDYKArJ674PqBtwiKoH5mGyFargBANd0kGIwga
+ eoMqZaRj//kLKFkbXnz0lzJXYCTZcdHLU0zLLjw7bh6UMVC+BdzWKeqN9At+yaGdYdaRzCYolGJ
+ ImF13DoO/jHw==
+X-Google-Smtp-Source: AGHT+IHxLShFCm76xin7rHm8qNL6ADQW6sxwH14YEVEejbEnDXp8CfZFyeDbyzek8/KKOZq8n0qs+g==
+X-Received: by 2002:a05:6a00:17a6:b0:781:556:f33 with SMTP id
+ d2e1a72fcca58-78af3fe8bcbmr6233829b3a.5.1759371782828; 
+ Wed, 01 Oct 2025 19:23:02 -0700 (PDT)
+Received: from ti-am64x-sdk.. ([157.50.91.136])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-78b01f99acesm1046229b3a.5.2025.10.01.19.22.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Oct 2025 19:23:02 -0700 (PDT)
+From: Bhanu Seshu Kumar Valluri <bhanuseshukumar@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, ganglxie <ganglxie@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Candice Li <candice.li@amd.com>,
+ Victor Skvortsov <victor.skvortsov@amd.com>, Roman Li <roman.li@amd.com>,
+ Alvin Lee <Alvin.Lee2@amd.com>,
+ Karthi Kandasamy <karthi.kandasamy@amd.com>,
+ David Rosca <david.rosca@amd.com>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, khalid@kernel.org,
+ linux-kernel-mentees@lists.linuxfoundation.org, skhan@linuxfoundation.org,
+ david.hunter.linux@gmail.com, bhanuseshukumar@gmail.com
+Subject: [PATCH] drm: amd: Use kmalloc_array to prevent overflow of dynamic
+ size calculation
+Date: Thu,  2 Oct 2025 07:52:41 +0530
+Message-Id: <20251002022241.77823-1-bhanuseshukumar@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -195,22 +102,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> On Wed, Sep 24, 2025 at 08:23:08PM +0000, Eliav Farber wrote:
-> > From: Linus Torvalds <torvalds@linux-foundation.org>
-> >
-> > [ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
->
-> <snip>
->
-> As this didn't go into 6.6.y yet, I'll stop here on this series for now.
-> Please fix up for newer kernels first and then resend these.
+Use kmalloc_array to avoid potential overflow during dynamic size calculation
+inside kmalloc.
 
-For 6.6.y I backported 15 commits:
-https://lore.kernel.org/stable/20250922103241.16213-1-farbere@amazon.com/T/=
-#t
-
-Why weren't all of them picked?
-What is missing?
-
+Signed-off-by: Bhanu Seshu Kumar Valluri <bhanuseshukumar@gmail.com>
 ---
-Thanks, Eliav
+ Note:
+ Patch is verified for compilation.
+ 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c                 | 4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 540817e296da..642addf70466 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2566,7 +2566,7 @@ static int amdgpu_ras_badpages_read(struct amdgpu_device *adev,
+ 		goto out;
+ 	}
+ 
+-	*bps = kmalloc(sizeof(struct ras_badpage) * data->count, GFP_KERNEL);
++	*bps = kmalloc_array(sizeof(struct ras_badpage), data->count, GFP_KERNEL);
+ 	if (!*bps) {
+ 		ret = -ENOMEM;
+ 		goto out;
+@@ -2722,7 +2722,7 @@ static int amdgpu_ras_realloc_eh_data_space(struct amdgpu_device *adev,
+ 	unsigned int old_space = data->count + data->space_left;
+ 	unsigned int new_space = old_space + pages;
+ 	unsigned int align_space = ALIGN(new_space, 512);
+-	void *bps = kmalloc(align_space * sizeof(*data->bps), GFP_KERNEL);
++	void *bps = kmalloc_array(align_space, sizeof(*data->bps), GFP_KERNEL);
+ 
+ 	if (!bps) {
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 3d2f8eedeef2..e027798ece03 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -146,7 +146,7 @@ static void amdgpu_dm_plane_add_modifier(uint64_t **mods, uint64_t *size, uint64
+ 
+ 	if (*cap - *size < 1) {
+ 		uint64_t new_cap = *cap * 2;
+-		uint64_t *new_mods = kmalloc(new_cap * sizeof(uint64_t), GFP_KERNEL);
++		uint64_t *new_mods = kmalloc_array(new_cap, sizeof(uint64_t), GFP_KERNEL);
+ 
+ 		if (!new_mods) {
+ 			kfree(*mods);
+@@ -732,7 +732,7 @@ static int amdgpu_dm_plane_get_plane_modifiers(struct amdgpu_device *adev, unsig
+ 	if (adev->family < AMDGPU_FAMILY_AI)
+ 		return 0;
+ 
+-	*mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
++	*mods = kmalloc_array(capacity, sizeof(uint64_t), GFP_KERNEL);
+ 
+ 	if (plane_type == DRM_PLANE_TYPE_CURSOR) {
+ 		amdgpu_dm_plane_add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+-- 
+2.34.1
+
