@@ -4,182 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D911CAC5B0
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F445CCD183
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE6AE10E887;
-	Fri,  3 Oct 2025 07:03:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 325B910E8AD;
+	Fri,  3 Oct 2025 07:03:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="YfipFpxI";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="HahsvoNP";
 	dkim-atps=neutral
-Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [63.176.194.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC85A10E0B8;
- Mon, 29 Sep 2025 18:39:07 +0000 (UTC)
+Received: from fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [3.72.182.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0449F10E839;
+ Thu,  2 Oct 2025 18:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759171148; x=1790707148;
- h=from:to:cc:date:message-id:references:in-reply-to:
- content-transfer-encoding:mime-version:subject;
- bh=vJ7eD2nV/4N7AIUA9/+6epf2vjH4s0akBoFco89HihE=;
- b=YfipFpxIC/e1n3yjrMPoWpMkEBFkVJTMzSAG0OyFVzGehrd1NhR/tshe
- fPaFS52DyfaoziwdtLyGgrt1v1goVdwcKtGVLK2R5suFC4fHOG7GSjrRA
- 3s2+Kztu6mKzASZCElWWZQZtoQwQSFEyO+G+FxGMHslGWhhXUqq4xBObD
- /G3/W9LezAKi5XP4G1mN7sJ5lO/UhJD5O0Hx4/qLYFgvF2owGyiNgFEuk
- sPIFbFy9ad15FvPsRsWaSQd7OQZ/H0/uF4pE/VQvPEoQD2GhIQZlOet0c
- s0C05HxOGCNh9Z6xV80euF6T6QpHrbPBC50sbpdHbKBOJLqkulaTvNNPU Q==;
-X-CSE-ConnectionGUID: EC85rEzURZ+CERFt3YJdKA==
-X-CSE-MsgGUID: tnl/cymrQVqCkLCX53HUhQ==
-X-IronPort-AV: E=Sophos;i="6.18,302,1751241600"; 
-   d="scan'208";a="2844874"
-Subject: RE: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
- available everywhere
-Thread-Topic: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
- available everywhere
-Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2025 18:39:02 +0000
-Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:4036]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.19.222:2525]
+ t=1759428251; x=1790964251;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=eLjmOO9Imra/tK5RPFIsLXDdpmNXUJwWiKD0++d4PGI=;
+ b=HahsvoNPFZLhkYZxlJtcxY1Po9EgLQaNCC6ZuED+MOtjmBJtt/XSfliw
+ w4L/JIDvWeMyHhALZu6LW55A66lzPeWWUL5NG84gvITxRJVqpysD2uVpg
+ iZu/rv4YchY6CdS4RvDs84RlQWsdweo81EnKs1WNEv3YloeqN751wuhcj
+ QfYJ3qFnp70nzmUF7cjmBrxJBEcV8oVFfTgmXziB+U5VMO7iNiejQyQOj
+ c8dmdYtVF0/xiEX67QDsySVSxPigxGCn/1TihDAkEywhE99Ik96aufKgB
+ cUmUsCwnycsq53u3KeTUDivT7dCrcPKV2IdfxHKoA91Y9nPa1wdYXfq4q w==;
+X-CSE-ConnectionGUID: vNx6RvxpQJ61hTjIiHjHmg==
+X-CSE-MsgGUID: lmj+3ElrTLqd85N4gv8UQQ==
+X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
+   d="scan'208";a="3025749"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 18:04:01 +0000
+Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.224:12150]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.3.52:2525]
  with esmtp (Farcaster)
- id a320107e-9e0a-4760-b3dc-26c5d986714d; Mon, 29 Sep 2025 18:39:01 +0000 (UTC)
-X-Farcaster-Flow-ID: a320107e-9e0a-4760-b3dc-26c5d986714d
+ id c0d02434-d1a7-44a1-9ae4-1bdce494e9c2; Thu, 2 Oct 2025 18:04:00 +0000 (UTC)
+X-Farcaster-Flow-ID: c0d02434-d1a7-44a1-9ae4-1bdce494e9c2
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
  EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Mon, 29 Sep 2025 18:39:00 +0000
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Mon, 29 Sep 2025 18:39:00 +0000
-Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
- EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
- 15.02.2562.020; Mon, 29 Sep 2025 18:39:00 +0000
-From: "Farber, Eliav" <farbere@amazon.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-CC: "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "richard@nod.at"
- <richard@nod.at>, "anton.ivanov@cambridgegreys.com"
- <anton.ivanov@cambridgegreys.com>, "johannes@sipsolutions.net"
- <johannes@sipsolutions.net>, "dave.hansen@linux.intel.com"
- <dave.hansen@linux.intel.com>, "luto@kernel.org" <luto@kernel.org>,
- "peterz@infradead.org" <peterz@infradead.org>, "tglx@linutronix.de"
- <tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
- <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com"
- <hpa@zytor.com>, "tony.luck@intel.com" <tony.luck@intel.com>,
- "qiuxu.zhuo@intel.com" <qiuxu.zhuo@intel.com>, "mchehab@kernel.org"
- <mchehab@kernel.org>, "james.morse@arm.com" <james.morse@arm.com>,
- "rric@kernel.org" <rric@kernel.org>, "harry.wentland@amd.com"
- <harry.wentland@amd.com>, "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>, "Xinhui.Pan@amd.com"
- <Xinhui.Pan@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "evan.quan@amd.com" <evan.quan@amd.com>, 
- "james.qian.wang@arm.com" <james.qian.wang@arm.com>, "liviu.dudau@arm.com"
- <liviu.dudau@arm.com>, "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>, 
- "brian.starkey@arm.com" <brian.starkey@arm.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "robdclark@gmail.com" <robdclark@gmail.com>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "sean@poorly.run" <sean@poorly.run>, "jdelvare@suse.com" <jdelvare@suse.com>, 
- "linux@roeck-us.net" <linux@roeck-us.net>, "linus.walleij@linaro.org"
- <linus.walleij@linaro.org>, "dmitry.torokhov@gmail.com"
- <dmitry.torokhov@gmail.com>, "maz@kernel.org" <maz@kernel.org>,
- "wens@csie.org" <wens@csie.org>, "jernej.skrabec@gmail.com"
- <jernej.skrabec@gmail.com>, "samuel@sholland.org" <samuel@sholland.org>,
- "agk@redhat.com" <agk@redhat.com>, "snitzer@kernel.org" <snitzer@kernel.org>, 
- "dm-devel@redhat.com" <dm-devel@redhat.com>, "rajur@chelsio.com"
- <rajur@chelsio.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
- <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>, "mcoquelin.stm32@gmail.com"
- <mcoquelin.stm32@gmail.com>, "krzysztof.kozlowski@linaro.org"
- <krzysztof.kozlowski@linaro.org>, "malattia@linux.it" <malattia@linux.it>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>, "markgross@kernel.org"
- <markgross@kernel.org>, "artur.paszkiewicz@intel.com"
- <artur.paszkiewicz@intel.com>, "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
- "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
- "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
- "fei1.li@intel.com" <fei1.li@intel.com>, "clm@fb.com" <clm@fb.com>,
- "josef@toxicpanda.com" <josef@toxicpanda.com>, "dsterba@suse.com"
- <dsterba@suse.com>, "jack@suse.com" <jack@suse.com>, "tytso@mit.edu"
- <tytso@mit.edu>, "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "dushistov@mail.ru" <dushistov@mail.ru>, "luc.vanoostenryck@gmail.com"
- <luc.vanoostenryck@gmail.com>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "mhiramat@kernel.org" <mhiramat@kernel.org>, "pmladek@suse.com"
- <pmladek@suse.com>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>, "minchan@kernel.org"
- <minchan@kernel.org>, "ngupta@vflare.org" <ngupta@vflare.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>, "dsahern@kernel.org"
- <dsahern@kernel.org>, "pablo@netfilter.org" <pablo@netfilter.org>,
- "kadlec@netfilter.org" <kadlec@netfilter.org>, "fw@strlen.de" <fw@strlen.de>, 
- "jmaloy@redhat.com" <jmaloy@redhat.com>, "ying.xue@windriver.com"
- <ying.xue@windriver.com>, "andrii@kernel.org" <andrii@kernel.org>,
- "mykolal@fb.com" <mykolal@fb.com>, "ast@kernel.org" <ast@kernel.org>,
- "daniel@iogearbox.net" <daniel@iogearbox.net>, "martin.lau@linux.dev"
- <martin.lau@linux.dev>, "song@kernel.org" <song@kernel.org>, "yhs@fb.com"
- <yhs@fb.com>, "john.fastabend@gmail.com" <john.fastabend@gmail.com>,
- "kpsingh@kernel.org" <kpsingh@kernel.org>, "sdf@google.com" <sdf@google.com>, 
- "haoluo@google.com" <haoluo@google.com>, "jolsa@kernel.org"
- <jolsa@kernel.org>, "shuah@kernel.org" <shuah@kernel.org>,
- "keescook@chromium.org" <keescook@chromium.org>, "wad@chromium.org"
- <wad@chromium.org>, "willy@infradead.org" <willy@infradead.org>,
- "sashal@kernel.org" <sashal@kernel.org>, "ruanjinjie@huawei.com"
- <ruanjinjie@huawei.com>, "quic_akhilpo@quicinc.com"
- <quic_akhilpo@quicinc.com>, "David.Laight@aculab.com"
- <David.Laight@aculab.com>, "herve.codina@bootlin.com"
- <herve.codina@bootlin.com>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-um@lists.infradead.org"
- <linux-um@lists.infradead.org>, "linux-edac@vger.kernel.org"
- <linux-edac@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "linux-hwmon@vger.kernel.org"
- <linux-hwmon@vger.kernel.org>, "linux-input@vger.kernel.org"
- <linux-input@vger.kernel.org>, "linux-sunxi@lists.linux.dev"
- <linux-sunxi@lists.linux.dev>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "netfilter-devel@vger.kernel.org"
- <netfilter-devel@vger.kernel.org>, "coreteam@netfilter.org"
- <coreteam@netfilter.org>, "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>, "bpf@vger.kernel.org"
- <bpf@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
- <linux-kselftest@vger.kernel.org>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Thread-Index: AQHcLZHEroQ9W2lH4EW9XJumD1KlZrSqNL0AgABQRkA=
-Date: Mon, 29 Sep 2025 18:39:00 +0000
-Message-ID: <f32d53131d0a4b61a7be4862c7a7f237@amazon.com>
-References: <20250924202320.32333-1-farbere@amazon.com>
- <20250924202320.32333-8-farbere@amazon.com>
- <2025092923-stove-rule-a00f@gregkh>
-In-Reply-To: <2025092923-stove-rule-a00f@gregkh>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.85.143.172]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ Thu, 2 Oct 2025 18:03:58 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
+ 18:03:45 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
+ <simona@ffwll.ch>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>,
+ <tglx@linutronix.de>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
+ <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>,
+ <mpatocka@redhat.com>, <clm@fb.com>, <dsterba@suse.com>,
+ <luc.vanoostenryck@gmail.com>, <pmladek@suse.com>, <rostedt@goodmis.org>,
+ <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+ <senozhatsky@chromium.org>, <akpm@linux-foundation.org>,
+ <lijo.lazar@amd.com>, <asad.kamal@amd.com>, <kevinyang.wang@amd.com>,
+ <David.Laight@ACULAB.COM>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>,
+ <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <stable@vger.kernel.org>, <farbere@amazon.com>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
+ Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
+Subject: [PATCH v3 09/11 6.1.y] minmax.h: move all the clamp() definitions
+ after the min/max() ones
+Date: Thu, 2 Oct 2025 18:00:27 +0000
+Message-ID: <20251002180036.33738-10-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251002180036.33738-1-farbere@amazon.com>
+References: <20251002180036.33738-1-farbere@amazon.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D040UWA001.ant.amazon.com (10.13.139.22) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -195,18 +101,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 24, 2025 at 08:23:08PM +0000, Eliav Farber wrote:
-> From: Linus Torvalds <torvalds@linux-foundation.org>
->
-> [ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
+From: David Laight <David.Laight@ACULAB.COM>
 
-<snip>
+[ Upstream commit c3939872ee4a6b8bdcd0e813c66823b31e6e26f7 ]
 
-As this didn't go into 6.6.y yet, I'll stop here on this series for now.
-Please fix up for newer kernels first and then resend these.
+At some point the definitions for clamp() got added in the middle of the
+ones for min() and max().  Re-order the definitions so they are more
+sensibly grouped.
 
-The fix for 6.6.y was applied also on 6.1.y:
-https://lore.kernel.org/stable/20250929183358.18982-1-farbere@amazon.com/
-
+Link: https://lkml.kernel.org/r/8bb285818e4846469121c8abc3dfb6e2@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
-Regards, Eliav
+ include/linux/minmax.h | 109 +++++++++++++++++++----------------------
+ 1 file changed, 51 insertions(+), 58 deletions(-)
+
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 91aa1b90c1bb..75fb7a6ad4c6 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -99,22 +99,6 @@
+ #define __careful_cmp(op, x, y) \
+ 	__careful_cmp_once(op, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
+ 
+-#define __clamp(val, lo, hi)	\
+-	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+-
+-#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
+-	__auto_type uval = (val);						\
+-	__auto_type ulo = (lo);							\
+-	__auto_type uhi = (hi);							\
+-	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
+-		"clamp() low limit " #lo " greater than high limit " #hi);	\
+-	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
+-		"clamp("#val", "#lo", "#hi") signedness error");		\
+-	__clamp(uval, ulo, uhi); })
+-
+-#define __careful_clamp(val, lo, hi) \
+-	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
+-
+ /**
+  * min - return minimum of two values of the same or compatible types
+  * @x: first value
+@@ -170,6 +154,22 @@
+ #define max3(x, y, z) \
+ 	__careful_op3(max, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
+ 
++/**
++ * min_t - return minimum of two values, using the specified type
++ * @type: data type to use
++ * @x: first value
++ * @y: second value
++ */
++#define min_t(type, x, y) __cmp_once(min, type, x, y)
++
++/**
++ * max_t - return maximum of two values, using the specified type
++ * @type: data type to use
++ * @x: first value
++ * @y: second value
++ */
++#define max_t(type, x, y) __cmp_once(max, type, x, y)
++
+ /**
+  * min_not_zero - return the minimum that is _not_ zero, unless both are zero
+  * @x: value1
+@@ -180,6 +180,22 @@
+ 	typeof(y) __y = (y);			\
+ 	__x == 0 ? __y : ((__y == 0) ? __x : min(__x, __y)); })
+ 
++#define __clamp(val, lo, hi)	\
++	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
++
++#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
++	__auto_type uval = (val);						\
++	__auto_type ulo = (lo);							\
++	__auto_type uhi = (hi);							\
++	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
++		"clamp() low limit " #lo " greater than high limit " #hi);	\
++	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
++		"clamp("#val", "#lo", "#hi") signedness error");		\
++	__clamp(uval, ulo, uhi); })
++
++#define __careful_clamp(val, lo, hi) \
++	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
++
+ /**
+  * clamp - return a value clamped to a given range with strict typechecking
+  * @val: current value
+@@ -191,28 +207,30 @@
+  */
+ #define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
+ 
+-/*
+- * ..and if you can't take the strict
+- * types, you can specify one yourself.
+- *
+- * Or not use min/max/clamp at all, of course.
+- */
+-
+ /**
+- * min_t - return minimum of two values, using the specified type
+- * @type: data type to use
+- * @x: first value
+- * @y: second value
++ * clamp_t - return a value clamped to a given range using a given type
++ * @type: the type of variable to use
++ * @val: current value
++ * @lo: minimum allowable value
++ * @hi: maximum allowable value
++ *
++ * This macro does no typechecking and uses temporary variables of type
++ * @type to make all the comparisons.
+  */
+-#define min_t(type, x, y) __cmp_once(min, type, x, y)
++#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
+ 
+ /**
+- * max_t - return maximum of two values, using the specified type
+- * @type: data type to use
+- * @x: first value
+- * @y: second value
++ * clamp_val - return a value clamped to a given range using val's type
++ * @val: current value
++ * @lo: minimum allowable value
++ * @hi: maximum allowable value
++ *
++ * This macro does no typechecking and uses temporary variables of whatever
++ * type the input argument @val is.  This is useful when @val is an unsigned
++ * type and @lo and @hi are literals that will otherwise be assigned a signed
++ * integer type.
+  */
+-#define max_t(type, x, y) __cmp_once(max, type, x, y)
++#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
+ 
+ /*
+  * Do not check the array parameter using __must_be_array().
+@@ -257,31 +275,6 @@
+  */
+ #define max_array(array, len) __minmax_array(max, array, len)
+ 
+-/**
+- * clamp_t - return a value clamped to a given range using a given type
+- * @type: the type of variable to use
+- * @val: current value
+- * @lo: minimum allowable value
+- * @hi: maximum allowable value
+- *
+- * This macro does no typechecking and uses temporary variables of type
+- * @type to make all the comparisons.
+- */
+-#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
+-
+-/**
+- * clamp_val - return a value clamped to a given range using val's type
+- * @val: current value
+- * @lo: minimum allowable value
+- * @hi: maximum allowable value
+- *
+- * This macro does no typechecking and uses temporary variables of whatever
+- * type the input argument @val is.  This is useful when @val is an unsigned
+- * type and @lo and @hi are literals that will otherwise be assigned a signed
+- * integer type.
+- */
+-#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
+-
+ static inline bool in_range64(u64 val, u64 start, u64 len)
+ {
+ 	return (val - start) < len;
+-- 
+2.47.3
+
