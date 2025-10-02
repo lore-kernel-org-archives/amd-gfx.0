@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFEE1CCD185
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D68ECCD187
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE78E10E8C6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA44210E8C5;
 	Fri,  3 Oct 2025 07:03:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="TXXCKhsT";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="tYY8txHm";
 	dkim-atps=neutral
-Received: from fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [18.199.210.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B02810E13A;
- Thu,  2 Oct 2025 20:48:16 +0000 (UTC)
+Received: from fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.178.132.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF9210E13A;
+ Thu,  2 Oct 2025 20:50:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759438097; x=1790974097;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=M+i/1aQ96wGM9M7nei+/gyTh3TBikkVX3xpo2CVnia0=;
- b=TXXCKhsT2kixryn09LN3w7GTvJPLY4GrIV/cUI2cDfyS/sGyLRY2XD54
- uzr0/Du/iq1osX4o1ofyGCvbQqwQ6jdRvYjTQ+zpPAcbuOOaq+qFoaSy9
- tdsnz4xrpBOFEH+jcCPJDuOAKVoCLRAGhLwbeqD+h5mCDG8z15rp803Js
- FbrMOVQHSnY54DNJ6PTMrfgCeICxHCXCviloHkzisSAOzdfJPJifyLvHB
- lX/tuHXUvN4zYwUiU0LIhNq5zRymaQQ9kX8ACOVggfXt04VGpnTjLnWQM
- okCTykeHmdhUxD53JsQCyGcrqhXp9JfLssR90XknD7oD1mCWEgEjnLUSS A==;
-X-CSE-ConnectionGUID: IhyaDtzFRjGPZrRB0Zf/EA==
-X-CSE-MsgGUID: UEvTypAIRPKTvxOhrDEKZg==
+ t=1759438211; x=1790974211;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=4vb6NSqQR6ex3kWRbhDvcIC1XoiVTA7hMRv6Rl9gJRM=;
+ b=tYY8txHm3ym1t9TQp6mLXvfpbM72h5ldmBLP5KxtznKvarrqeaVAryOS
+ YnroD1j+Q6G/ShN3Qu0gv2IYioE06hnpQ5EiLkwpf4rhJ6JsAzON5hgIK
+ zPZcKM9sRusQNDjhBkpbWSkXITF7qS6ASEwjXDnwsrX+q27U/9qwYhfgX
+ pfP5W9WxvTG/+cF+DBRtYvjzrwhgwJ6v94DkhnUVNK5EZ+azavfAPtTFq
+ D66N0S1l4OCy+J1e30B8iX3kVNyc0aS0LQ9YwiSXfTWzK+fZ+fkbfQxbw
+ kyDE5BG70hBwF8KiyeAZ410p1CoI/jb2evcoM/mi1NVMC96dZVz7hkNfQ g==;
+X-CSE-ConnectionGUID: utlCpslsQsGOylyVYCd5AQ==
+X-CSE-MsgGUID: aB51SxZXRUu7bS1JkwJF5A==
 X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
-   d="scan'208";a="2924446"
-Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
- by internal-fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 20:48:06 +0000
-Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:13797]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.1.121:2525]
+   d="scan'208";a="2929237"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 20:50:01 +0000
+Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:7396]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.3.52:2525]
  with esmtp (Farcaster)
- id e9c967fc-a9f5-44c3-bb48-79cf233e2e24; Thu, 2 Oct 2025 20:48:06 +0000 (UTC)
-X-Farcaster-Flow-ID: e9c967fc-a9f5-44c3-bb48-79cf233e2e24
+ id c3bf194d-31fd-4dcf-beaf-1d9e157b04ba; Thu, 2 Oct 2025 20:50:00 +0000 (UTC)
+X-Farcaster-Flow-ID: c3bf194d-31fd-4dcf-beaf-1d9e157b04ba
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
  EX19MTAEUC002.ant.amazon.com (10.252.51.181) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Thu, 2 Oct 2025 20:48:05 +0000
+ Thu, 2 Oct 2025 20:50:00 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
- 20:47:40 +0000
+ 20:49:35 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -92,15 +92,20 @@ To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH 00/19 5.15.y] Backport minmax.h updates from v6.17-rc7
-Date: Thu, 2 Oct 2025 20:47:14 +0000
-Message-ID: <20251002204733.35652-1-farbere@amazon.com>
+CC: Christoph Hellwig <hch@infradead.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Linus Torvalds <torvalds@linux-foundation.org>
+Subject: [PATCH 04/19 5.15.y] minmax: fix indentation of __cmp_once() and
+ __clamp_once()
+Date: Thu, 2 Oct 2025 20:47:18 +0000
+Message-ID: <20251002204733.35652-5-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251002204733.35652-1-farbere@amazon.com>
+References: <20251002204733.35652-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D035UWA004.ant.amazon.com (10.13.139.109) To
+X-ClientProxiedBy: EX19D035UWA001.ant.amazon.com (10.13.139.101) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -117,101 +122,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series backports 19 patches to update minmax.h in the 5.15.y branch,
-aligning it with v6.17-rc7.
+From: David Laight <David.Laight@ACULAB.COM>
 
-The ultimate goal is to synchronize all longterm branches so that they
-include the full set of minmax.h changes (6.12.y and 6.6.y were already
-backported by me and are now aligned, 6.1.y is in progress).
+[ Upstream commit f4b84b2ff851f01d0fac619eadef47eb41648534 ]
 
-The key motivation is to bring in commit d03eba99f5bf ("minmax: allow
-min()/max()/clamp() if the arguments have the same signedness"), which
-is missing in kernel 5.10.y.
+Remove the extra indentation and align continuation markers.
 
-In mainline, this change enables min()/max()/clamp() to accept mixed 
-argument types, provided both have the same signedness. Without it,
-backported patches that use these forms may trigger compiler warnings,
-which escalate to build failures when -Werror is enabled.
+Link: https://lkml.kernel.org/r/bed41317a05c498ea0209eafbcab45a5@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ include/linux/minmax.h | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-Andy Shevchenko (1):
-  minmax: deduplicate __unconst_integer_typeof()
-
-David Laight (8):
-  minmax: fix indentation of __cmp_once() and __clamp_once()
-  minmax.h: add whitespace around operators and after commas
-  minmax.h: update some comments
-  minmax.h: reduce the #define expansion of min(), max() and clamp()
-  minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
-  minmax.h: move all the clamp() definitions after the min/max() ones
-  minmax.h: simplify the variants of clamp()
-  minmax.h: remove some #defines that are only expanded once
-
-Herve Codina (1):
-  minmax: Introduce {min,max}_array()
-
-Linus Torvalds (8):
-  minmax: avoid overly complicated constant expressions in VM code
-  minmax: make generic MIN() and MAX() macros available everywhere
-  minmax: add a few more MIN_T/MAX_T users
-  minmax: simplify and clarify min_t()/max_t() implementation
-  minmax: simplify min()/max()/clamp() implementation
-  minmax: don't use max() in situations that want a C constant
-    expression
-  minmax: improve macro expansion and type checking
-  minmax: fix up min3() and max3() too
-
-Matthew Wilcox (Oracle) (1):
-  minmax: add in_range() macro
-
- arch/arm/mm/pageattr.c                        |   6 +-
- arch/um/drivers/mconsole_user.c               |   2 +
- arch/x86/mm/pgtable.c                         |   2 +-
- drivers/edac/sb_edac.c                        |   4 +-
- drivers/edac/skx_common.h                     |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +
- .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |   2 +
- .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    |  14 +-
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |   2 +
- .../drm/arm/display/include/malidp_utils.h    |   2 +-
- .../display/komeda/komeda_pipeline_state.c    |  24 +-
- drivers/gpu/drm/drm_color_mgmt.c              |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   6 -
- drivers/gpu/drm/radeon/evergreen_cs.c         |   2 +
- drivers/hwmon/adt7475.c                       |  24 +-
- drivers/input/touchscreen/cyttsp4_core.c      |   2 +-
- drivers/irqchip/irq-sun6i-r.c                 |   2 +-
- drivers/md/dm-integrity.c                     |   4 +-
- drivers/media/dvb-frontends/stv0367_priv.h    |   3 +
- .../net/ethernet/chelsio/cxgb3/cxgb3_main.c   |  18 +-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |   2 +-
- drivers/net/fjes/fjes_main.c                  |   4 +-
- drivers/nfc/pn544/i2c.c                       |   2 -
- drivers/platform/x86/sony-laptop.c            |   1 -
- drivers/scsi/isci/init.c                      |   6 +-
- .../pci/hive_isp_css_include/math_support.h   |   5 -
- drivers/virt/acrn/ioreq.c                     |   4 +-
- fs/btrfs/misc.h                               |   2 -
- fs/btrfs/tree-checker.c                       |   2 +-
- fs/ext2/balloc.c                              |   2 -
- fs/ext4/ext4.h                                |   2 -
- fs/ufs/util.h                                 |   6 -
- include/linux/compiler.h                      |   9 +
- include/linux/minmax.h                        | 264 +++++++++++++-----
- kernel/trace/preemptirq_delay_test.c          |   2 -
- lib/btree.c                                   |   1 -
- lib/decompress_unlzma.c                       |   2 +
- lib/logic_pio.c                               |   3 -
- lib/vsprintf.c                                |   2 +-
- lib/zstd/zstd_internal.h                      |   2 -
- mm/zsmalloc.c                                 |   1 -
- net/ipv4/proc.c                               |   2 +-
- net/ipv6/proc.c                               |   2 +-
- net/netfilter/nf_nat_core.c                   |   6 +-
- net/tipc/core.h                               |   2 +-
- net/tipc/link.c                               |  10 +-
- tools/testing/selftests/vm/mremap_test.c      |   2 +
- 47 files changed, 289 insertions(+), 183 deletions(-)
-
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 62b0c0a3cf30..2ec559284a9f 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -46,11 +46,11 @@
+ #define __cmp(op, x, y)	((x) __cmp_op_##op (y) ? (x) : (y))
+ 
+ #define __cmp_once(op, x, y, unique_x, unique_y) ({	\
+-		typeof(x) unique_x = (x);		\
+-		typeof(y) unique_y = (y);		\
+-		static_assert(__types_ok(x, y),		\
+-			#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
+-		__cmp(op, unique_x, unique_y); })
++	typeof(x) unique_x = (x);			\
++	typeof(y) unique_y = (y);			\
++	static_assert(__types_ok(x, y),			\
++		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
++	__cmp(op, unique_x, unique_y); })
+ 
+ #define __careful_cmp(op, x, y)					\
+ 	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
+@@ -60,16 +60,16 @@
+ #define __clamp(val, lo, hi)	\
+ 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+ 
+-#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
+-		typeof(val) unique_val = (val);				\
+-		typeof(lo) unique_lo = (lo);				\
+-		typeof(hi) unique_hi = (hi);				\
+-		static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+-				(lo) <= (hi), true),					\
+-			"clamp() low limit " #lo " greater than high limit " #hi);	\
+-		static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
+-		static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
+-		__clamp(unique_val, unique_lo, unique_hi); })
++#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({		\
++	typeof(val) unique_val = (val);						\
++	typeof(lo) unique_lo = (lo);						\
++	typeof(hi) unique_hi = (hi);						\
++	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
++			(lo) <= (hi), true),					\
++		"clamp() low limit " #lo " greater than high limit " #hi);	\
++	static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
++	static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
++	__clamp(unique_val, unique_lo, unique_hi); })
+ 
+ #define __careful_clamp(val, lo, hi) ({					\
+ 	__builtin_choose_expr(__is_constexpr((val) - (lo) + (hi)),	\
 -- 
 2.47.3
 
