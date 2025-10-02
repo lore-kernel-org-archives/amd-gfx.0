@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14BF6CCA470
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 730E0CCD183
 	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFFB710E8DC;
-	Fri,  3 Oct 2025 07:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 008E310E8DE;
+	Fri,  3 Oct 2025 07:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="cLvCddt0";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="aP11We1G";
 	dkim-atps=neutral
-Received: from fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [18.158.153.154])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC99310E833;
- Thu,  2 Oct 2025 18:01:26 +0000 (UTC)
+Received: from fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [18.199.210.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5E310E837;
+ Thu,  2 Oct 2025 18:03:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759428087; x=1790964087;
+ t=1759428209; x=1790964209;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xp5UoMBNM337VsxADal51gUflVyTp2hEbyWmw6Fl0dg=;
- b=cLvCddt0v9QK++2K5JpZXcpnO0XbmxcsYo9svcy7cTD4gFg9h6fZAYUP
- FyrYzkqgpFR1ZhGFjSf26f2q2aVk/S58XX+0BFgxZKJGQEypTfoYT45ha
- TZiZfiYBJDRyRqEmNCISlc6p/dI4er3TTXiL/2ThWbEhGRPgjfSYr2N1L
- cgcEPn2T0eIpgCSrzxi5WWSHFqaAubnfCHSaGpmZBOfyDi2AcJfQZr5VE
- HQ30MRTszKOGdwNq3Apk872feIzJjbop4ey0eHE8JoyTthYp7Zd+R5OOb
- 8KlNLcrqLHRmhu4+JCpuX8U9NYvn3eSczyvYiVzXx3f8vajVatYcsCvQj A==;
-X-CSE-ConnectionGUID: R89fzDGGQK2VqMHG9jCYHQ==
-X-CSE-MsgGUID: oq/EfDUNRGio7XWZpmGHjg==
+ bh=FhepguEQ0VZAS3etCeAAj5D/xXUqupnQ1wf0VPifqWY=;
+ b=aP11We1GeaDn1j07gWE1yZw6X6IRB/tvUFwKuiPuoXlzdJLff4Vh87dH
+ 0vjzAjjmsx5m+/4zQK3auE4z9jFusn3d/Qj6yYdWIrIbqbucYY4tsfkFq
+ yR4uWhhqONjX7skUltSDcUaJ4gaAfgnaIjtMBWmSgEBUER4NuvHZJRTiz
+ 6C+nalkr6hT9pi+22d+5IjyPqBp/DdZ9qrEuAckogYS/cGVy3t+rfLLzq
+ sj/J12H12Qth0yynz2sdyvpJl174Ysgn8cSZrWTJZ8KbDRi2cQDsItTkP
+ amFQLFxcu/2bMQZVrY+NeWGV7mHGYSRxeKNNvyAPcHaN/6Tdubu+mF/TI Q==;
+X-CSE-ConnectionGUID: yv+CFmwcTMGRTAIJYjoPnA==
+X-CSE-MsgGUID: PbN3Mvl/S7KK96iT3Y4oaQ==
 X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
-   d="scan'208";a="2908603"
-Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
- by internal-fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 18:01:16 +0000
-Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.234:20325]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.22.27:2525]
+   d="scan'208";a="2919500"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 18:03:18 +0000
+Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:9158]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.3.52:2525]
  with esmtp (Farcaster)
- id 05221e60-65db-4011-8117-bf8f78f1d94d; Thu, 2 Oct 2025 18:01:16 +0000 (UTC)
-X-Farcaster-Flow-ID: 05221e60-65db-4011-8117-bf8f78f1d94d
+ id 07029763-2c6f-4d4a-9b51-cd8300cfe7f5; Thu, 2 Oct 2025 18:03:18 +0000 (UTC)
+X-Farcaster-Flow-ID: 07029763-2c6f-4d4a-9b51-cd8300cfe7f5
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB001.ant.amazon.com (10.252.51.26) with Microsoft SMTP Server
+ EX19MTAEUC002.ant.amazon.com (10.252.51.181) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Thu, 2 Oct 2025 18:01:14 +0000
+ Thu, 2 Oct 2025 18:03:18 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
- 18:01:03 +0000
+ 18:03:05 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
  <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
@@ -68,22 +68,25 @@ To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
  <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>,
  <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
  <stable@vger.kernel.org>, <farbere@amazon.com>
-CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
- <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Subject: [PATCH v3 02/11 6.1.y] minmax: don't use max() in situations that
- want a C constant expression
-Date: Thu, 2 Oct 2025 18:00:20 +0000
-Message-ID: <20251002180036.33738-3-farbere@amazon.com>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
+ Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
+Subject: [PATCH v3 07/11 6.1.y] minmax.h: reduce the #define expansion of
+ min(), max() and clamp()
+Date: Thu, 2 Oct 2025 18:00:25 +0000
+Message-ID: <20251002180036.33738-8-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251002180036.33738-1-farbere@amazon.com>
 References: <20251002180036.33738-1-farbere@amazon.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D036UWC003.ant.amazon.com (10.13.139.214) To
+X-ClientProxiedBy: EX19D035UWA003.ant.amazon.com (10.13.139.86) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
-X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:33 +0000
+X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,120 +101,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit cb04e8b1d2f24c4c2c92f7b7529031fc35a16fed ]
+[ Upstream commit b280bb27a9f7c91ddab730e1ad91a9c18a051f41 ]
 
-We only had a couple of array[] declarations, and changing them to just
-use 'MAX()' instead of 'max()' fixes the issue.
+Since the test for signed values being non-negative only relies on
+__builtion_constant_p() (not is_constexpr()) it can use the 'ux' variable
+instead of the caller supplied expression.  This means that the #define
+parameters are only expanded twice.  Once in the code and once quoted in
+the error message.
 
-This will allow us to simplify our min/max macros enormously, since they
-can now unconditionally use temporary variables to avoid using the
-argument values multiple times.
-
-Cc: David Laight <David.Laight@aculab.com>
+Link: https://lkml.kernel.org/r/051afc171806425da991908ed8688a98@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
-V2 -> V3:
-- Fix build failure in drivers/md/dm-integrity.c: In function
-  ‘integrity_metadata’.
-  The fix uses MAX() instead of max() in the checksums_onstack[] array
-  declarations.
-  Note: In the mainline branch, checksums_onstack[] used max_t(), so it
-  was fixed to use MAX_T() in commit 4477b39c32fd ("minmax: add a few
-  more MIN_T/MAX_T users").
-  In 6.1.y, checksums_onstack[] used max(), so it was fixed to use MAX
-  in the backport of commit cb04e8b1d2f2 ("minmax: don't use max() in
-  situations that want a C constant expression").
+ include/linux/minmax.h | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c   | 2 +-
- drivers/input/touchscreen/cyttsp4_core.c | 2 +-
- drivers/irqchip/irq-sun6i-r.c            | 2 +-
- drivers/md/dm-integrity.c                | 2 +-
- fs/btrfs/tree-checker.c                  | 2 +-
- lib/vsprintf.c                           | 2 +-
- 6 files changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index 768b6e7dbd77..fd1faa840ec0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -700,7 +700,7 @@ static const char *smu_get_feature_name(struct smu_context *smu,
- size_t smu_cmn_get_pp_feature_mask(struct smu_context *smu,
- 				   char *buf)
- {
--	int8_t sort_feature[max(SMU_FEATURE_COUNT, SMU_FEATURE_MAX)];
-+	int8_t sort_feature[MAX(SMU_FEATURE_COUNT, SMU_FEATURE_MAX)];
- 	uint64_t feature_mask;
- 	int i, feature_index;
- 	uint32_t count = 0;
-diff --git a/drivers/input/touchscreen/cyttsp4_core.c b/drivers/input/touchscreen/cyttsp4_core.c
-index dccbcb942fe5..936d69da3bda 100644
---- a/drivers/input/touchscreen/cyttsp4_core.c
-+++ b/drivers/input/touchscreen/cyttsp4_core.c
-@@ -871,7 +871,7 @@ static void cyttsp4_get_mt_touches(struct cyttsp4_mt_data *md, int num_cur_tch)
- 	struct cyttsp4_touch tch;
- 	int sig;
- 	int i, j, t = 0;
--	int ids[max(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
-+	int ids[MAX(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 24e4b372649a..6f7ea669d305 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -46,10 +46,10 @@
+  * comparison, and these expressions only need to be careful to not cause
+  * warnings for pointer use.
+  */
+-#define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
+-#define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
+-#define __sign_use(x, ux) (is_signed_type(typeof(ux)) ? \
+-	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
++#define __signed_type_use(ux) (2 + __is_nonneg(ux))
++#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
++#define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
++	__signed_type_use(ux) : __unsigned_type_use(ux))
  
- 	memset(ids, 0, si->si_ofs.tch_abs[CY_TCH_T].max * sizeof(int));
- 	for (i = 0; i < num_cur_tch; i++) {
-diff --git a/drivers/irqchip/irq-sun6i-r.c b/drivers/irqchip/irq-sun6i-r.c
-index a01e44049415..99958d470d62 100644
---- a/drivers/irqchip/irq-sun6i-r.c
-+++ b/drivers/irqchip/irq-sun6i-r.c
-@@ -270,7 +270,7 @@ static const struct irq_domain_ops sun6i_r_intc_domain_ops = {
+ /*
+  * Check whether a signed value is always non-negative.
+@@ -71,13 +71,13 @@
+ #else
+   #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
+ #endif
+-#define __is_nonneg(x, ux) statically_true((__signed_type(ux))(x) >= 0)
++#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
  
- static int sun6i_r_intc_suspend(void)
- {
--	u32 buf[BITS_TO_U32(max(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
-+	u32 buf[BITS_TO_U32(MAX(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
- 	int i;
+-#define __types_ok(x, y, ux, uy) \
+-	(__sign_use(x, ux) & __sign_use(y, uy))
++#define __types_ok(ux, uy) \
++	(__sign_use(ux) & __sign_use(uy))
  
- 	/* Wake IRQs are enabled during system sleep and shutdown. */
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index a201019babe4..fc9cb626ca91 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -1794,7 +1794,7 @@ static void integrity_metadata(struct work_struct *w)
- 		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
- 		char *checksums;
- 		unsigned int extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
--		char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
-+		char checksums_onstack[MAX(HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
- 		sector_t sector;
- 		unsigned int sectors_to_process;
+-#define __types_ok3(x, y, z, ux, uy, uz) \
+-	(__sign_use(x, ux) & __sign_use(y, uy) & __sign_use(z, uz))
++#define __types_ok3(ux, uy, uz) \
++	(__sign_use(ux) & __sign_use(uy) & __sign_use(uz))
  
-diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-index d3e5429ee03d..6108cfab1ba5 100644
---- a/fs/btrfs/tree-checker.c
-+++ b/fs/btrfs/tree-checker.c
-@@ -608,7 +608,7 @@ static int check_dir_item(struct extent_buffer *leaf,
- 		 */
- 		if (key->type == BTRFS_DIR_ITEM_KEY ||
- 		    key->type == BTRFS_XATTR_ITEM_KEY) {
--			char namebuf[max(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
-+			char namebuf[MAX(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
+ #define __cmp_op_min <
+ #define __cmp_op_max >
+@@ -92,7 +92,7 @@
  
- 			read_extent_buffer(leaf, namebuf,
- 					(unsigned long)(di + 1), name_len);
-diff --git a/lib/vsprintf.c b/lib/vsprintf.c
-index fa1c19701855..2b0b5f08b8fc 100644
---- a/lib/vsprintf.c
-+++ b/lib/vsprintf.c
-@@ -1082,7 +1082,7 @@ char *resource_string(char *buf, char *end, struct resource *res,
- #define FLAG_BUF_SIZE		(2 * sizeof(res->flags))
- #define DECODED_BUF_SIZE	sizeof("[mem - 64bit pref window disabled]")
- #define RAW_BUF_SIZE		sizeof("[mem - flags 0x]")
--	char sym[max(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
-+	char sym[MAX(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
- 		     2*RSRC_BUF_SIZE + FLAG_BUF_SIZE + RAW_BUF_SIZE)];
+ #define __careful_cmp_once(op, x, y, ux, uy) ({		\
+ 	__auto_type ux = (x); __auto_type uy = (y);	\
+-	BUILD_BUG_ON_MSG(!__types_ok(x, y, ux, uy),	\
++	BUILD_BUG_ON_MSG(!__types_ok(ux, uy),		\
+ 		#op"("#x", "#y") signedness error");	\
+ 	__cmp(op, ux, uy); })
  
- 	char *p = sym, *pend = sym + sizeof(sym);
+@@ -109,7 +109,7 @@
+ 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+ 			(lo) <= (hi), true),					\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+-	BUILD_BUG_ON_MSG(!__types_ok3(val, lo, hi, uval, ulo, uhi),		\
++	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
+ 		"clamp("#val", "#lo", "#hi") signedness error");		\
+ 	__clamp(uval, ulo, uhi); })
+ 
+@@ -149,7 +149,7 @@
+ 
+ #define __careful_op3(op, x, y, z, ux, uy, uz) ({			\
+ 	__auto_type ux = (x); __auto_type uy = (y);__auto_type uz = (z);\
+-	BUILD_BUG_ON_MSG(!__types_ok3(x, y, z, ux, uy, uz),		\
++	BUILD_BUG_ON_MSG(!__types_ok3(ux, uy, uz),			\
+ 		#op"3("#x", "#y", "#z") signedness error");		\
+ 	__cmp(op, ux, __cmp(op, uy, uz)); })
+ 
 -- 
 2.47.3
 
