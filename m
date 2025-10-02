@@ -4,87 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ECCACCD184
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C0FCCCA470
 	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 07:03:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 761CF10E8E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8F2610E8EB;
 	Fri,  3 Oct 2025 07:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="q4n4cY+3";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="NPb+vcCO";
 	dkim-atps=neutral
-Received: from fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [63.178.132.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2893910E834;
- Thu,  2 Oct 2025 18:01:40 +0000 (UTC)
+Received: from mail-ed1-f74.google.com (mail-ed1-f74.google.com
+ [209.85.208.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE9D510E850
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Oct 2025 21:01:08 +0000 (UTC)
+Received: by mail-ed1-f74.google.com with SMTP id
+ 4fb4d7f45d1cf-6349af0e766so2098274a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Oct 2025 14:01:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759428100; x=1790964100;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=v0+dvx2lYJR8T1XW8VPNBKmpFkkDU6diMas9sdwovb0=;
- b=q4n4cY+3VQ/68Vl6TGgpRwJItloYnsxNG0ZD/piL3UP2c1byDGY1aZeY
- XUM1jLgJEwgChFMq8QvhzOKk4ojmiJ2H55fZ9KsVe646re+agwGFlm6Gh
- NR/bGlcWaFCx7vf3ZPxYCTubDxiPsew5hhjlj/FUGTysADB3Ew2RnsJdZ
- VSGUg+8IhxRGjDs4D7VyTcEfzGz+5GPCReTkDGSrVcUGoRT22vHyrk9uV
- es/K6+1zHrV7D/L86gBPrHlgtwecObc8oQOWHGb39HHukIDTTPOLNk0i3
- QbFPUhdziFQtfWuXxtweFbXotqPvZmzrBasahf0qMmaHxjKvf6lGJ7tM0 g==;
-X-CSE-ConnectionGUID: atlRJ/g+TruF9GrtCb+QXQ==
-X-CSE-MsgGUID: w+R+qV7WRBe9WAhXIPAf8g==
-X-IronPort-AV: E=Sophos;i="6.18,310,1751241600"; 
-   d="scan'208";a="2924197"
-Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2025 18:01:29 +0000
-Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:6379]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.1.121:2525]
- with esmtp (Farcaster)
- id 269121ae-9785-4d7e-ae41-8073cde7a4fc; Thu, 2 Oct 2025 18:01:29 +0000 (UTC)
-X-Farcaster-Flow-ID: 269121ae-9785-4d7e-ae41-8073cde7a4fc
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Thu, 2 Oct 2025 18:01:25 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Thu, 2 Oct 2025
- 18:01:14 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
- <simona@ffwll.ch>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>,
- <tglx@linutronix.de>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
- <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>,
- <mpatocka@redhat.com>, <clm@fb.com>, <dsterba@suse.com>,
- <luc.vanoostenryck@gmail.com>, <pmladek@suse.com>, <rostedt@goodmis.org>,
- <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
- <senozhatsky@chromium.org>, <akpm@linux-foundation.org>,
- <lijo.lazar@amd.com>, <asad.kamal@amd.com>, <kevinyang.wang@amd.com>,
- <David.Laight@ACULAB.COM>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>,
- <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
- <stable@vger.kernel.org>, <farbere@amazon.com>
-CC: Linus Torvalds <torvalds@linux-foundation.org>, Arnd Bergmann
- <arnd@kernel.org>, David Laight <David.Laight@aculab.com>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>
-Subject: [PATCH v3 03/11 6.1.y] minmax: improve macro expansion and type
- checking
-Date: Thu, 2 Oct 2025 18:00:21 +0000
-Message-ID: <20251002180036.33738-4-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251002180036.33738-1-farbere@amazon.com>
-References: <20251002180036.33738-1-farbere@amazon.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D036UWC003.ant.amazon.com (10.13.139.214) To
- EX19D018EUA004.ant.amazon.com (10.252.50.85)
-X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:33 +0000
+ d=google.com; s=20230601; t=1759438867; x=1760043667;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:from:subject:message-id
+ :mime-version:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZXewi+MSpgfgN5O6jXVKlfCi06aVUrotCL/q5o/3Ssw=;
+ b=NPb+vcCOWMNBd6pbCd6qmVtpudYMp92/eYzIdI/VDvvzQkwua8ScHiJVKj/GWiMA5h
+ 0gJpRgY4FTSO1Ni0J9476oNE+ayydFLeCq3s+VN/4+G+YjKntK64VUkadTdvscMEI2N1
+ PpHrv+CUHtxS8AtJYeeKXIbWhL6dmqrd6mYsI9uhmFVJNV2Xqv5+KVDev3Dq268meg1s
+ rdtZV1ChECQUZvjDtjOYQsETO5BNYjb8bXxOLJLMUkhSlqMYGgWSaAhTVnx7Ti7bvAfu
+ jb5nUf/lB2KaY6n/QGmqHUhdoYBGkSu5cal/66gOXqrSiLx86vFZbNHAYqSXFHb8cu3Q
+ 2nOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1759438867; x=1760043667;
+ h=content-transfer-encoding:cc:to:from:subject:message-id
+ :mime-version:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZXewi+MSpgfgN5O6jXVKlfCi06aVUrotCL/q5o/3Ssw=;
+ b=lvXcYzWoIp1zY8lJqTYXCqkM814qAIbb9RcGh5XLXPWqYvIKmM3JS9Kmj/4uKTxm3a
+ CQy2c/jS716pmxURrycx8XyhLa8hn/fuXuR5DSndc9z2Ki40a7DQZ45FQvLxtPcYwVLf
+ L6/rWyup+shGFLh5+fCJPMRSiAOqnsPiQdDS4joE3FuYrfihQgYBLO+8xqZjqxbyD+aC
+ 2gkUn6zhv/XH1J7RgKw3OjHN89GiOjf/DgVS8eeEx8p8+r02+5fD6TzJstZ5azEm3X4u
+ rz+id9yvM6PLY8IYCxclFDPHFjqFYHoKwdsfXd+U5j+cUWSK/67zEa2cKD/dnaT37/yu
+ qaxg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/wYPB/gxRKTJbZfcfJOolX7hKFLAdJDuwTdnQRB9qQ8tZxuXTf+hphxLVopi7qibg10zWSYaf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywo6Ihn/iIEH1B1BwI+LLO4v0HwKrQPH6Qd9W9DUFpv1Ggpb5YK
+ sUOemhYJAwkz13lYLsMv9LNODaOhHwxunLP4pRaBCqePcNJZmjAlMYk+q/7evNs/u7/aWc7Q9Q=
+ =
+X-Google-Smtp-Source: AGHT+IEExjmvbF8Lb9M+XG7YR7QTAIMSCeCwavhfGOO8t62xLo8r+Wg9cNCxdOmE3p/nTVLIqxQSzoMn
+X-Received: from ejbwr20.prod.google.com ([2002:a17:907:7014:b0:b44:aed4:d213])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:ea6:b0:b3d:5088:213f
+ with SMTP id a640c23a62f3a-b49c1c67beamr97495666b.19.1759438867035; Thu, 02
+ Oct 2025 14:01:07 -0700 (PDT)
+Date: Thu,  2 Oct 2025 23:00:45 +0200
+Mime-Version: 1.0
+X-Developer-Key: i=ardb@kernel.org; a=openpgp;
+ fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9413; i=ardb@kernel.org;
+ h=from:subject; bh=79gRZqCE8gjHML9Xmm1M2zyzayfEyQ0TDshfv9BB904=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIePe879ls71YX5scfvJf5tKT1d+uaJ59tN3VeJWKzuzfz
+ VGe3XEMHaUsDGJcDLJiiiwCs/++23l6olSt8yxZmDmsTCBDGLg4BWAinx4zMmzNfqabUnh+kuY1
+ TTPlV3OjZk+Nl5+qFa4mdlh9xdXUz5MYGTZ6OM+auzPnydya25LCCr9O8R/X2Fn9T0B3aa5tyAH
+ hDgYA
+X-Mailer: git-send-email 2.51.0.618.g983fd99d29-goog
+Message-ID: <20251002210044.1726731-2-ardb+git@google.com>
+Subject: [PATCH] drm/amd/display: Fix unsafe uses of kernel mode FPU
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, will@kernel.org, 
+ catalin.marinas@arm.com, mark.rutland@arm.com, broonie@kernel.org, 
+ Ard Biesheuvel <ardb@kernel.org>, Austin Zheng <austin.zheng@amd.com>,
+ Jun Lei <jun.lei@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Fri, 03 Oct 2025 07:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,201 +95,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: Ard Biesheuvel <ardb@kernel.org>
 
-[ Upstream commit 22f5468731491e53356ba7c028f0fdea20b18e2c ]
+The point of isolating code that uses kernel mode FPU in separate
+compilation units is to ensure that even implicit uses of, e.g., SIMD
+registers for spilling occur only in a context where this is permitted,
+i.e., from inside a kernel_fpu_begin/end block.
 
-This clarifies the rules for min()/max()/clamp() type checking and makes
-them a much more efficient macro expansion.
+This is important on arm64, which uses -mgeneral-regs-only to build all
+kernel code, with the exception of such compilation units where FP or
+SIMD registers are expected to be used. Given that the compiler may
+invent uses of FP/SIMD anywhere in such a unit, none of its code may be
+accessible from outside a kernel_fpu_begin/end block.
 
-In particular, we now look at the type and range of the inputs to see
-whether they work together, generating a mask of acceptable comparisons,
-and then just verifying that the inputs have a shared case:
+This means that all callers into such compilation units must use the
+DC_FP start/end macros, which must not occur there themselves. For
+robustness, all functions with external linkage that reside there should
+call dc_assert_fp_enabled() to assert that the FPU context was set up
+correctly.
 
- - an expression with a signed type can be used for
-    (1) signed comparisons
-    (2) unsigned comparisons if it is statically known to have a
-        non-negative value
+Fix this for the DCN35, DCN351 and DCN36 implementations.
 
- - an expression with an unsigned type can be used for
-    (3) unsigned comparison
-    (4) signed comparisons if the type is smaller than 'int' and thus
-        the C integer promotion rules will make it signed anyway
-
-Here rule (1) and (3) are obvious, and rule (2) is important in order to
-allow obvious trivial constants to be used together with unsigned
-values.
-
-Rule (4) is not necessarily a good idea, but matches what we used to do,
-and we have extant cases of this situation in the kernel.  Notably with
-bcachefs having an expression like
-
-	min(bch2_bucket_sectors_dirty(a), ca->mi.bucket_size)
-
-where bch2_bucket_sectors_dirty() returns an 's64', and
-'ca->mi.bucket_size' is of type 'u16'.
-
-Technically that bcachefs comparison is clearly sensible on a C type
-level, because the 'u16' will go through the normal C integer promotion,
-and become 'int', and then we're comparing two signed values and
-everything looks sane.
-
-However, it's not entirely clear that a 'min(s64,u16)' operation makes a
-lot of conceptual sense, and it's possible that we will remove rule (4).
-After all, the _reason_ we have these complicated type checks is exactly
-that the C type promotion rules are not very intuitive.
-
-But at least for now the rule is in place for backwards compatibility.
-
-Also note that rule (2) existed before, but is hugely relaxed by this
-commit.  It used to be true only for the simplest compile-time
-non-negative integer constants.  The new macro model will allow cases
-where the compiler can trivially see that an expression is non-negative
-even if it isn't necessarily a constant.
-
-For example, the amdgpu driver does
-
-	min_t(size_t, sizeof(fru_info->serial), pia[addr] & 0x3F));
-
-because our old 'min()' macro would see that 'pia[addr] & 0x3F' is of
-type 'int' and clearly not a C constant expression, so doing a 'min()'
-with a 'size_t' is a signedness violation.
-
-Our new 'min()' macro still sees that 'pia[addr] & 0x3F' is of type
-'int', but is smart enough to also see that it is clearly non-negative,
-and thus would allow that case without any complaints.
-
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: David Laight <David.Laight@aculab.com>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
+Cc: Austin Zheng <austin.zheng@amd.com>
+Cc: Jun Lei <jun.lei@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- include/linux/compiler.h |  9 +++++
- include/linux/minmax.h   | 74 ++++++++++++++++++++++++++++++++--------
- 2 files changed, 68 insertions(+), 15 deletions(-)
+ .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c    |  4 ++++
+ .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c    |  6 ++++--
+ .../drm/amd/display/dc/dml/dcn351/dcn351_fpu.c  |  4 ++--
+ .../display/dc/resource/dcn35/dcn35_resource.c  | 16 +++++++++++++++-
+ .../dc/resource/dcn351/dcn351_resource.c        | 17 ++++++++++++++++-
+ .../display/dc/resource/dcn36/dcn36_resource.c  | 16 +++++++++++++++-
+ 6 files changed, 56 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/compiler.h b/include/linux/compiler.h
-index f6ea15821cea..a6a7be83fae6 100644
---- a/include/linux/compiler.h
-+++ b/include/linux/compiler.h
-@@ -244,6 +244,15 @@ static inline void *offset_to_ptr(const int *off)
-  */
- #define is_signed_type(type) (((type)(-1)) < (__force type)1)
- 
-+/*
-+ * Useful shorthand for "is this condition known at compile-time?"
-+ *
-+ * Note that the condition may involve non-constant values,
-+ * but the compiler may know enough about the details of the
-+ * values to determine that the condition is statically true.
-+ */
-+#define statically_true(x) (__builtin_constant_p(x) && (x))
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers=
+/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+index 17a21bcbde17..1a28061bb9ff 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+@@ -808,6 +808,8 @@ void dcn316_update_bw_bounding_box(struct dc *dc, struc=
+t clk_bw_params *bw_param
+=20
+ int dcn_get_max_non_odm_pix_rate_100hz(struct _vcs_dpi_soc_bounding_box_st=
+ *soc)
+ {
++	dc_assert_fp_enabled();
 +
- /*
-  * This is needed in functions which generate the stack canary, see
-  * arch/x86/kernel/smpboot.c::start_secondary() for an example.
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index e3e4353df983..41da6f85a407 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -26,19 +26,63 @@
- #define __typecheck(x, y) \
- 	(!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
- 
--/* is_signed_type() isn't a constexpr for pointer types */
--#define __is_signed(x) 								\
--	__builtin_choose_expr(__is_constexpr(is_signed_type(typeof(x))),	\
--		is_signed_type(typeof(x)), 0)
-+/*
-+ * __sign_use for integer expressions:
-+ *   bit #0 set if ok for unsigned comparisons
-+ *   bit #1 set if ok for signed comparisons
-+ *
-+ * In particular, statically non-negative signed integer
-+ * expressions are ok for both.
-+ *
-+ * NOTE! Unsigned types smaller than 'int' are implicitly
-+ * converted to 'int' in expressions, and are accepted for
-+ * signed conversions for now. This is debatable.
-+ *
-+ * Note that 'x' is the original expression, and 'ux' is
-+ * the unique variable that contains the value.
-+ *
-+ * We use 'ux' for pure type checking, and 'x' for when
-+ * we need to look at the value (but without evaluating
-+ * it for side effects! Careful to only ever evaluate it
-+ * with sizeof() or __builtin_constant_p() etc).
-+ *
-+ * Pointers end up being checked by the normal C type
-+ * rules at the actual comparison, and these expressions
-+ * only need to be careful to not cause warnings for
-+ * pointer use.
-+ */
-+#define __signed_type_use(x,ux) (2+__is_nonneg(x,ux))
-+#define __unsigned_type_use(x,ux) (1+2*(sizeof(ux)<4))
-+#define __sign_use(x,ux) (is_signed_type(typeof(ux))? \
-+	__signed_type_use(x,ux):__unsigned_type_use(x,ux))
+ 	return soc->clock_limits[0].dispclk_mhz * 10000.0 / (1.0 + soc->dcn_downs=
+pread_percent / 100.0);
+ }
+=20
+@@ -815,6 +817,8 @@ int dcn_get_approx_det_segs_required_for_pstate(
+ 		struct _vcs_dpi_soc_bounding_box_st *soc,
+ 		int pix_clk_100hz, int bpp, int seg_size_kb)
+ {
++	dc_assert_fp_enabled();
 +
-+/*
-+ * To avoid warnings about casting pointers to integers
-+ * of different sizes, we need that special sign type.
-+ *
-+ * On 64-bit we can just always use 'long', since any
-+ * integer or pointer type can just be cast to that.
-+ *
-+ * This does not work for 128-bit signed integers since
-+ * the cast would truncate them, but we do not use s128
-+ * types in the kernel (we do use 'u128', but they will
-+ * be handled by the !is_signed_type() case).
-+ *
-+ * NOTE! The cast is there only to avoid any warnings
-+ * from when values that aren't signed integer types.
-+ */
-+#ifdef CONFIG_64BIT
-+  #define __signed_type(ux) long
-+#else
-+  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux)>4,1LL,1L))
-+#endif
-+#define __is_nonneg(x,ux) statically_true((__signed_type(ux))(x)>=0)
- 
--/* True for a non-negative signed int constant */
--#define __is_noneg_int(x)	\
--	(__builtin_choose_expr(__is_constexpr(x) && __is_signed(x), x, -1) >= 0)
-+#define __types_ok(x,y,ux,uy) \
-+	(__sign_use(x,ux) & __sign_use(y,uy))
- 
--#define __types_ok(x, y, ux, uy) 				\
--	(__is_signed(ux) == __is_signed(uy) ||			\
--	 __is_signed((ux) + 0) == __is_signed((uy) + 0) ||	\
--	 __is_noneg_int(x) || __is_noneg_int(y))
-+#define __types_ok3(x,y,z,ux,uy,uz) \
-+	(__sign_use(x,ux) & __sign_use(y,uy) & __sign_use(z,uz))
- 
- #define __cmp_op_min <
- #define __cmp_op_max >
-@@ -53,8 +97,8 @@
- 
- #define __careful_cmp_once(op, x, y, ux, uy) ({		\
- 	__auto_type ux = (x); __auto_type uy = (y);	\
--	static_assert(__types_ok(x, y, ux, uy),		\
--		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
-+	BUILD_BUG_ON_MSG(!__types_ok(x,y,ux,uy),	\
-+		#op"("#x", "#y") signedness error");	\
- 	__cmp(op, ux, uy); })
- 
- #define __careful_cmp(op, x, y) \
-@@ -70,8 +114,8 @@
- 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
- 			(lo) <= (hi), true),					\
- 		"clamp() low limit " #lo " greater than high limit " #hi);	\
--	static_assert(__types_ok(uval, lo, uval, ulo), "clamp() 'lo' signedness error");	\
--	static_assert(__types_ok(uval, hi, uval, uhi), "clamp() 'hi' signedness error");	\
-+	BUILD_BUG_ON_MSG(!__types_ok3(val,lo,hi,uval,ulo,uhi),			\
-+		"clamp("#val", "#lo", "#hi") signedness error");		\
- 	__clamp(uval, ulo, uhi); })
- 
- #define __careful_clamp(val, lo, hi) \
--- 
-2.47.3
+ 	/* Roughly calculate required crb to hide latency. In practice there is s=
+lightly
+ 	 * more buffer available for latency hiding
+ 	 */
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers=
+/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
+index 5d73efa2f0c9..15a1d77dfe36 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
+@@ -445,6 +445,8 @@ int dcn35_populate_dml_pipes_from_context_fpu(struct dc=
+ *dc,
+ 	bool upscaled =3D false;
+ 	const unsigned int max_allowed_vblank_nom =3D 1023;
+=20
++	dc_assert_fp_enabled();
++
+ 	dcn31_populate_dml_pipes_from_context(dc, context, pipes,
+ 					      validate_mode);
+=20
+@@ -498,9 +500,7 @@ int dcn35_populate_dml_pipes_from_context_fpu(struct dc=
+ *dc,
+=20
+ 		pipes[pipe_cnt].pipe.src.unbounded_req_mode =3D false;
+=20
+-		DC_FP_START();
+ 		dcn31_zero_pipe_dcc_fraction(pipes, pipe_cnt);
+-		DC_FP_END();
+=20
+ 		pipes[pipe_cnt].pipe.dest.vfront_porch =3D timing->v_front_porch;
+ 		pipes[pipe_cnt].pipe.src.dcc_rate =3D 3;
+@@ -581,6 +581,8 @@ void dcn35_decide_zstate_support(struct dc *dc, struct =
+dc_state *context)
+ 	unsigned int i, plane_count =3D 0;
+ 	DC_LOGGER_INIT(dc->ctx->logger);
+=20
++	dc_assert_fp_enabled();
++
+ 	for (i =3D 0; i < dc->res_pool->pipe_count; i++) {
+ 		if (context->res_ctx.pipe_ctx[i].plane_state)
+ 			plane_count++;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c b/drive=
+rs/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
+index 6f516af82956..e5cfe73f640a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
+@@ -478,6 +478,8 @@ int dcn351_populate_dml_pipes_from_context_fpu(struct d=
+c *dc,
+ 	bool upscaled =3D false;
+ 	const unsigned int max_allowed_vblank_nom =3D 1023;
+=20
++	dc_assert_fp_enabled();
++
+ 	dcn31_populate_dml_pipes_from_context(dc, context, pipes,
+ 					      validate_mode);
+=20
+@@ -531,9 +533,7 @@ int dcn351_populate_dml_pipes_from_context_fpu(struct d=
+c *dc,
+=20
+ 		pipes[pipe_cnt].pipe.src.unbounded_req_mode =3D false;
+=20
+-		DC_FP_START();
+ 		dcn31_zero_pipe_dcc_fraction(pipes, pipe_cnt);
+-		DC_FP_END();
+=20
+ 		pipes[pipe_cnt].pipe.dest.vfront_porch =3D timing->v_front_porch;
+ 		pipes[pipe_cnt].pipe.src.dcc_rate =3D 3;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c=
+ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+index 8475c6eec547..32678b66c410 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+@@ -1760,6 +1760,20 @@ enum dc_status dcn35_patch_unknown_plane_state(struc=
+t dc_plane_state *plane_stat
+ }
+=20
+=20
++static int populate_dml_pipes_from_context_fpu(struct dc *dc,
++					       struct dc_state *context,
++					       display_e2e_pipe_params_st *pipes,
++					       enum dc_validate_mode validate_mode)
++{
++	int ret;
++
++	DC_FP_START();
++	ret =3D dcn35_populate_dml_pipes_from_context_fpu(dc, context, pipes, val=
+idate_mode);
++	DC_FP_END();
++
++	return ret;
++}
++
+ static struct resource_funcs dcn35_res_pool_funcs =3D {
+ 	.destroy =3D dcn35_destroy_resource_pool,
+ 	.link_enc_create =3D dcn35_link_encoder_create,
+@@ -1770,7 +1784,7 @@ static struct resource_funcs dcn35_res_pool_funcs =3D=
+ {
+ 	.validate_bandwidth =3D dcn35_validate_bandwidth,
+ 	.calculate_wm_and_dlg =3D NULL,
+ 	.update_soc_for_wm_a =3D dcn31_update_soc_for_wm_a,
+-	.populate_dml_pipes =3D dcn35_populate_dml_pipes_from_context_fpu,
++	.populate_dml_pipes =3D populate_dml_pipes_from_context_fpu,
+ 	.acquire_free_pipe_as_secondary_dpp_pipe =3D dcn20_acquire_free_pipe_for_=
+layer,
+ 	.release_pipe =3D dcn20_release_pipe,
+ 	.add_stream_to_ctx =3D dcn30_add_stream_to_ctx,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource=
+.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index 0971c0f74186..677cee27589c 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -1732,6 +1732,21 @@ static enum dc_status dcn351_validate_bandwidth(stru=
+ct dc *dc,
+ 	return out ? DC_OK : DC_FAIL_BANDWIDTH_VALIDATE;
+ }
+=20
++static int populate_dml_pipes_from_context_fpu(struct dc *dc,
++					       struct dc_state *context,
++					       display_e2e_pipe_params_st *pipes,
++					       enum dc_validate_mode validate_mode)
++{
++	int ret;
++
++	DC_FP_START();
++	ret =3D dcn351_populate_dml_pipes_from_context_fpu(dc, context, pipes, va=
+lidate_mode);
++	DC_FP_END();
++
++	return ret;
++
++}
++
+ static struct resource_funcs dcn351_res_pool_funcs =3D {
+ 	.destroy =3D dcn351_destroy_resource_pool,
+ 	.link_enc_create =3D dcn35_link_encoder_create,
+@@ -1742,7 +1757,7 @@ static struct resource_funcs dcn351_res_pool_funcs =
+=3D {
+ 	.validate_bandwidth =3D dcn351_validate_bandwidth,
+ 	.calculate_wm_and_dlg =3D NULL,
+ 	.update_soc_for_wm_a =3D dcn31_update_soc_for_wm_a,
+-	.populate_dml_pipes =3D dcn351_populate_dml_pipes_from_context_fpu,
++	.populate_dml_pipes =3D populate_dml_pipes_from_context_fpu,
+ 	.acquire_free_pipe_as_secondary_dpp_pipe =3D dcn20_acquire_free_pipe_for_=
+layer,
+ 	.release_pipe =3D dcn20_release_pipe,
+ 	.add_stream_to_ctx =3D dcn30_add_stream_to_ctx,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c=
+ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+index 8bae7fcedc22..d81540515e5c 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+@@ -1734,6 +1734,20 @@ static enum dc_status dcn35_validate_bandwidth(struc=
+t dc *dc,
+ }
+=20
+=20
++static int populate_dml_pipes_from_context_fpu(struct dc *dc,
++					       struct dc_state *context,
++					       display_e2e_pipe_params_st *pipes,
++					       enum dc_validate_mode validate_mode)
++{
++	int ret;
++
++	DC_FP_START();
++	ret =3D dcn35_populate_dml_pipes_from_context_fpu(dc, context, pipes, val=
+idate_mode);
++	DC_FP_END();
++
++	return ret;
++}
++
+ static struct resource_funcs dcn36_res_pool_funcs =3D {
+ 	.destroy =3D dcn36_destroy_resource_pool,
+ 	.link_enc_create =3D dcn35_link_encoder_create,
+@@ -1744,7 +1758,7 @@ static struct resource_funcs dcn36_res_pool_funcs =3D=
+ {
+ 	.validate_bandwidth =3D dcn35_validate_bandwidth,
+ 	.calculate_wm_and_dlg =3D NULL,
+ 	.update_soc_for_wm_a =3D dcn31_update_soc_for_wm_a,
+-	.populate_dml_pipes =3D dcn35_populate_dml_pipes_from_context_fpu,
++	.populate_dml_pipes =3D populate_dml_pipes_from_context_fpu,
+ 	.acquire_free_pipe_as_secondary_dpp_pipe =3D dcn20_acquire_free_pipe_for_=
+layer,
+ 	.release_pipe =3D dcn20_release_pipe,
+ 	.add_stream_to_ctx =3D dcn30_add_stream_to_ctx,
+--=20
+2.51.0.618.g983fd99d29-goog
 
