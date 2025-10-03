@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15DEFCCD186
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 13:01:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1683CCD182
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 13:01:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D551C10E8FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE95E10E8FC;
 	Fri,  3 Oct 2025 13:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="iODA/Xv+";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="rWIpD09f";
 	dkim-atps=neutral
-Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [52.28.197.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB4DF10E380;
- Fri,  3 Oct 2025 12:15:48 +0000 (UTC)
+Received: from fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [18.158.153.154])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6D6C10E397;
+ Fri,  3 Oct 2025 12:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759493749; x=1791029749;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=TqblJqfbXrrmCzEUxWga4pPKLpbgkCtwFBWjaGRMyg4=;
- b=iODA/Xv+fzLZVdYchbgWxIiERM+NrjlD5siKrHJuQoSliD0i30sRlGyw
- EnNuze4ltx3M+F7gvduT6LV2gqEb/9soKU9TChF1T3++BbHW6SSHxfstB
- RSQvcciX03urDRcWpQeS8CE+Zwsh3COog5IDjAtmghHePOzyq0B8Uem8E
- uPjeqidBUCJTZNVcnps1tr9Xc8jSGxTmusxO2s4lTvfuRy2d5zUKJC5Z5
- JevVascl1JDQPrf0sNHX0QB+DiHl8OJvgEJjIOF4fdEdwmRERkNSpRg1M
- 3I99QoVJyBF/s7CZ+snDYDOb824bVRlsjK5Tl0hSYTUwKsHMSaZq6+wea Q==;
-X-CSE-ConnectionGUID: MPRaiQ9mQMGHc/f2hmpJPw==
-X-CSE-MsgGUID: EATtKZGOSduCjCv28xmVFQ==
+ t=1759493844; x=1791029844;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=FhepguEQ0VZAS3etCeAAj5D/xXUqupnQ1wf0VPifqWY=;
+ b=rWIpD09fnVmwJGMpQbRugHv0t+7H7KmbIAUdCDE5SPwUFa76N5ZtQeAj
+ hs9HrTH9i7STCinTxsT+5KI0wKfOZM8QB2oVH3V6dtnMNQjCZPc7jICL4
+ +kb0SmoKqvFG1bln/qHzSB/1S80RzB6Hj8XzvmA0AKLYedXEXIYpcqDEo
+ KBsWdHt23KEOvgWv7PMDJEv7nlMZRL0z364TvfsHWR4wCxO6k7fxLUdVR
+ pvrfhnXMYt89cEnboAKe4l+Lxl+1sPEOw/jWdaX8np9q2iabyL3AzB7iG
+ EqGN33IzKwJLC8bKvoNMpWTZa697PhnkTeo7dCg3TI294VGNjZtgLP0bm A==;
+X-CSE-ConnectionGUID: Fo7CUvTvRAG8sdKd9fehAA==
+X-CSE-MsgGUID: Tv+mt4qoTY2w9C2M42PYlw==
 X-IronPort-AV: E=Sophos;i="6.18,312,1751241600"; 
-   d="scan'208";a="2957925"
-Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 12:15:38 +0000
-Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.234:5820]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.21.15:2525]
+   d="scan'208";a="2945423"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-015.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 12:17:12 +0000
+Received: from EX19MTAEUA001.ant.amazon.com [54.240.197.233:14614]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.1.121:2525]
  with esmtp (Farcaster)
- id 965d80e9-c758-4875-b5c1-af6f5c12ff0a; Fri, 3 Oct 2025 12:15:38 +0000 (UTC)
-X-Farcaster-Flow-ID: 965d80e9-c758-4875-b5c1-af6f5c12ff0a
+ id 1b2e00aa-4e1a-42e4-871e-c5dfec404783; Fri, 3 Oct 2025 12:17:12 +0000 (UTC)
+X-Farcaster-Flow-ID: 1b2e00aa-4e1a-42e4-871e-c5dfec404783
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB001.ant.amazon.com (10.252.51.28) with Microsoft SMTP Server
+ EX19MTAEUA001.ant.amazon.com (10.252.50.223) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 3 Oct 2025 12:15:37 +0000
+ Fri, 3 Oct 2025 12:17:10 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 3 Oct 2025
- 12:15:27 +0000
+ 12:16:58 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
  <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
@@ -68,15 +68,23 @@ To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
  <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>,
  <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
  <stable@vger.kernel.org>, <farbere@amazon.com>
-Subject: [PATCH v4 00/11 6.1.y] Backport minmax.h updates from v6.17-rc7
-Date: Fri, 3 Oct 2025 12:15:09 +0000
-Message-ID: <20251003121520.8176-1-farbere@amazon.com>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
+ Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
+Subject: [PATCH v4 07/11 6.1.y] minmax.h: reduce the #define expansion of
+ min(), max() and clamp()
+Date: Fri, 3 Oct 2025 12:15:16 +0000
+Message-ID: <20251003121520.8176-8-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251003121520.8176-1-farbere@amazon.com>
+References: <20251003121520.8176-1-farbere@amazon.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D032UWA004.ant.amazon.com (10.13.139.56) To
+X-ClientProxiedBy: EX19D045UWC001.ant.amazon.com (10.13.139.223) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Fri, 03 Oct 2025 13:01:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -93,112 +101,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series backports 11 patches to update minmax.h in the 6.1.y branch,
-aligning it with v6.17-rc7.
+From: David Laight <David.Laight@ACULAB.COM>
 
-The ultimate goal is to synchronize all longterm branches so that they
-include the full set of minmax.h changes (6.12.y and 6.6.y were already
-backported by me and are now aligned).
+[ Upstream commit b280bb27a9f7c91ddab730e1ad91a9c18a051f41 ]
 
-The key motivation is to bring in commit d03eba99f5bf ("minmax: allow
-min()/max()/clamp() if the arguments have the same signedness"), which
-is missing in older kernels.
+Since the test for signed values being non-negative only relies on
+__builtion_constant_p() (not is_constexpr()) it can use the 'ux' variable
+instead of the caller supplied expression.  This means that the #define
+parameters are only expanded twice.  Once in the code and once quoted in
+the error message.
 
-In mainline, this change enables min()/max()/clamp() to accept mixed
-argument types, provided both have the same signedness. Without it,
-backported patches that use these forms may trigger compiler warnings,
-which escalate to build failures when -Werror is enabled.
+Link: https://lkml.kernel.org/r/051afc171806425da991908ed8688a98@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ include/linux/minmax.h | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-Changes in v4:
-- Just swap the order of the first 2 patches in this chain, because
-  commit cb04e8b1d2f2 ("minmax: don't use max() in situations that want
-  a C constant expression") should come before commit dc1c8034e31b
-  ("minmax: simplify min()/max()/clamp() implementation").
-
-Changes in v3:
-- v2 included 13 patches:
-  https://lore.kernel.org/stable/20250929183358.18982-1-farbere@amazon.com/
-- First 2 were accepted and are part of 6.1.155.
-- 3rd caused build in drivers/md/ to fail:
-
-In file included from ./include/linux/container_of.h:5,
-                 from ./include/linux/list.h:5,
-                 from ./include/linux/wait.h:7,
-                 from ./include/linux/mempool.h:8,
-                 from ./include/linux/bio.h:8,
-                 from drivers/md/dm-bio-record.h:10,
-                 from drivers/md/dm-integrity.c:9:
-drivers/md/dm-integrity.c: In function ‘integrity_metadata’:
-drivers/md/dm-integrity.c:131:105: error: ISO C90 forbids variable length array ‘checksums_onstack’ [-Werror=vla]
-  131 | #define MAX_TAG_SIZE                    (JOURNAL_SECTOR_DATA - JOURNAL_MAC_PER_SECTOR - offsetof(struct journal_entry, last_bytes[MAX_SECTORS_PER_BLOCK]))
-      |                                                                                                         ^~~~~~~~~~~~~
-./include/linux/build_bug.h:78:56: note: in definition of macro ‘__static_assert’
-   78 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
-      |                                                        ^~~~
-./include/linux/minmax.h:56:9: note: in expansion of macro ‘static_assert’
-   56 |         static_assert(__types_ok(x, y, ux, uy),         \
-      |         ^~~~~~~~~~~~~
-./include/linux/minmax.h:41:31: note: in expansion of macro ‘__is_noneg_int’
-   41 |          __is_noneg_int(x) || __is_noneg_int(y))
-      |                               ^~~~~~~~~~~~~~
-./include/linux/minmax.h:56:23: note: in expansion of macro ‘__types_ok’
-   56 |         static_assert(__types_ok(x, y, ux, uy),         \
-      |                       ^~~~~~~~~~
-./include/linux/minmax.h:61:9: note: in expansion of macro ‘__careful_cmp_once’
-   61 |         __careful_cmp_once(op, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
-      |         ^~~~~~~~~~~~~~~~~~
-./include/linux/minmax.h:92:25: note: in expansion of macro ‘__careful_cmp’
-   92 | #define max(x, y)       __careful_cmp(max, x, y)
-      |                         ^~~~~~~~~~~~~
-drivers/md/dm-integrity.c:1797:40: note: in expansion of macro ‘max’
- 1797 |                 char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
-      |                                        ^~~
-drivers/md/dm-integrity.c:131:89: note: in expansion of macro ‘offsetof’
-  131 | #define MAX_TAG_SIZE                    (JOURNAL_SECTOR_DATA - JOURNAL_MAC_PER_SECTOR - offsetof(struct journal_entry, last_bytes[MAX_SECTORS_PER_BLOCK]))
-      |                                                                                         ^~~~~~~~
-drivers/md/dm-integrity.c:1797:73: note: in expansion of macro ‘MAX_TAG_SIZE’
- 1797 |                 char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
-      |                                                                         ^~~~~~~~~~~~
-
-- The build was fixed in the second patch of this series.
-
-Changes in v2:
-- v1 included 19 patches:
-  https://lore.kernel.org/stable/20250924202320.32333-1-farbere@amazon.com/
-- First 6 were pushed to the stable-tree.
-- 7th cauded amd driver's build to fail.
-- This change fixes it.
-- Modified files:
-   drivers/gpu/drm/amd/amdgpu/amdgpu.h
-   drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-   drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-
-David Laight (7):
-  minmax.h: add whitespace around operators and after commas
-  minmax.h: update some comments
-  minmax.h: reduce the #define expansion of min(), max() and clamp()
-  minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
-  minmax.h: move all the clamp() definitions after the min/max() ones
-  minmax.h: simplify the variants of clamp()
-  minmax.h: remove some #defines that are only expanded once
-
-Linus Torvalds (4):
-  minmax: don't use max() in situations that want a C constant
-    expression
-  minmax: simplify min()/max()/clamp() implementation
-  minmax: improve macro expansion and type checking
-  minmax: fix up min3() and max3() too
-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c   |   2 +-
- drivers/input/touchscreen/cyttsp4_core.c |   2 +-
- drivers/irqchip/irq-sun6i-r.c            |   2 +-
- drivers/md/dm-integrity.c                |   2 +-
- fs/btrfs/tree-checker.c                  |   2 +-
- include/linux/compiler.h                 |   9 +
- include/linux/minmax.h                   | 222 +++++++++++++----------
- lib/vsprintf.c                           |   2 +-
- 8 files changed, 143 insertions(+), 100 deletions(-)
-
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 24e4b372649a..6f7ea669d305 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -46,10 +46,10 @@
+  * comparison, and these expressions only need to be careful to not cause
+  * warnings for pointer use.
+  */
+-#define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
+-#define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
+-#define __sign_use(x, ux) (is_signed_type(typeof(ux)) ? \
+-	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
++#define __signed_type_use(ux) (2 + __is_nonneg(ux))
++#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
++#define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
++	__signed_type_use(ux) : __unsigned_type_use(ux))
+ 
+ /*
+  * Check whether a signed value is always non-negative.
+@@ -71,13 +71,13 @@
+ #else
+   #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
+ #endif
+-#define __is_nonneg(x, ux) statically_true((__signed_type(ux))(x) >= 0)
++#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
+ 
+-#define __types_ok(x, y, ux, uy) \
+-	(__sign_use(x, ux) & __sign_use(y, uy))
++#define __types_ok(ux, uy) \
++	(__sign_use(ux) & __sign_use(uy))
+ 
+-#define __types_ok3(x, y, z, ux, uy, uz) \
+-	(__sign_use(x, ux) & __sign_use(y, uy) & __sign_use(z, uz))
++#define __types_ok3(ux, uy, uz) \
++	(__sign_use(ux) & __sign_use(uy) & __sign_use(uz))
+ 
+ #define __cmp_op_min <
+ #define __cmp_op_max >
+@@ -92,7 +92,7 @@
+ 
+ #define __careful_cmp_once(op, x, y, ux, uy) ({		\
+ 	__auto_type ux = (x); __auto_type uy = (y);	\
+-	BUILD_BUG_ON_MSG(!__types_ok(x, y, ux, uy),	\
++	BUILD_BUG_ON_MSG(!__types_ok(ux, uy),		\
+ 		#op"("#x", "#y") signedness error");	\
+ 	__cmp(op, ux, uy); })
+ 
+@@ -109,7 +109,7 @@
+ 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+ 			(lo) <= (hi), true),					\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+-	BUILD_BUG_ON_MSG(!__types_ok3(val, lo, hi, uval, ulo, uhi),		\
++	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
+ 		"clamp("#val", "#lo", "#hi") signedness error");		\
+ 	__clamp(uval, ulo, uhi); })
+ 
+@@ -149,7 +149,7 @@
+ 
+ #define __careful_op3(op, x, y, z, ux, uy, uz) ({			\
+ 	__auto_type ux = (x); __auto_type uy = (y);__auto_type uz = (z);\
+-	BUILD_BUG_ON_MSG(!__types_ok3(x, y, z, ux, uy, uz),		\
++	BUILD_BUG_ON_MSG(!__types_ok3(ux, uy, uz),			\
+ 		#op"3("#x", "#y", "#z") signedness error");		\
+ 	__cmp(op, ux, __cmp(op, uy, uz)); })
+ 
 -- 
 2.47.3
 
