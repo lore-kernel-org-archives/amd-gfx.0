@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A049CAC5BB
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Oct 2025 09:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1980CCD183
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Oct 2025 09:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41C5510E287;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5729910E28E;
 	Sun,  5 Oct 2025 09:54:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="tkcVflYb";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="eS09I1y7";
 	dkim-atps=neutral
-Received: from fra-out-009.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-009.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [3.64.237.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED76A88EF0;
- Fri,  3 Oct 2025 13:02:06 +0000 (UTC)
+Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.176.194.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 217B310E10C;
+ Fri,  3 Oct 2025 13:05:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759496527; x=1791032527;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=/92zpxyjeHvGlOVhJoOGNENC+jRdBRPJKKvWmFCfMhU=;
- b=tkcVflYb7vQyt1RkH9Uj5zvYv/DFSS3KB+t/tEqYKErRt1The+Uh1PMm
- 0QSq1eKesS+22jAy+TWk2B4DJcM7sauQtvTccHUPGHBHQ1VvLLpPkcB6O
- g0JK+y8u+LxitrQHqqzUJVe8SVv54ElhU9wU0TLf9czBb6dwT7aTnksfM
- tUFvqKosxjLXC3teapy5YWqIv0gtg7i8rWi+RU+Exs2FdRFhNDs3a+6DT
- UlcecSFjTncg/FRan8COgMUAgKnkUJZ7kEbr6FN9x2pvFxcZk+o4MiIFm
- IGNgj3ORmANvZrzh38e40TygoJ5jSIrPds9B0CW+B1BhgJWNRBxFgtqzr w==;
-X-CSE-ConnectionGUID: RafEjVVVTqyIShPdYFqaRg==
-X-CSE-MsgGUID: gTGjwIVySfCFf42Ccz7DtA==
+ t=1759496706; x=1791032706;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Un1JE7toeI83ffXaasUfHmeV127z9Znvwu1ZeiNJbjk=;
+ b=eS09I1y7kgTISphGzClBMADKM582ILMCpITPAiG1PnRKpSq+o0Gyg8u5
+ t753jNWfbozBLZ2/Rv0LUmi2PTRk+oQZH95VCx9yJwf74BeWGWosk4J3g
+ hI3Qv5LmkOzGV96b2lnEYc89bCK2ggtZI0o+Yf+WMVyMjMFkz7PFrZJ+/
+ 3ECpAHd/1FUKoWpjtqGD2ZcMhj0duGisUTnzjndJSWli1OHrwlF6KHe9y
+ cGRPRspO4J4cs8F5FmBh0yPFcgWK64ILTdv8sqFjV4H59FvACUSVajHh2
+ LmoBF+LsfxQc8Kgjbw7/+5ouPIipNM15FGAhn3bB3u+ffE/LBwF4m2upO w==;
+X-CSE-ConnectionGUID: 6R4CGBMrRRGA1NnFWvKwdg==
+X-CSE-MsgGUID: bMMiRLiJRyytxeFDcKdX/w==
 X-IronPort-AV: E=Sophos;i="6.18,312,1751241600"; 
-   d="scan'208";a="2963638"
+   d="scan'208";a="3063483"
 Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
  smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-009.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 13:01:56 +0000
-Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:5896]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.21.15:2525]
+ by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 13:04:55 +0000
+Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:25758]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.4.140:2525]
  with esmtp (Farcaster)
- id a2369264-a95c-402e-aa2d-d6344cca8b56; Fri, 3 Oct 2025 13:01:56 +0000 (UTC)
-X-Farcaster-Flow-ID: a2369264-a95c-402e-aa2d-d6344cca8b56
+ id 41f1e6ba-7354-4550-b09f-a78bf412bfba; Fri, 3 Oct 2025 13:04:55 +0000 (UTC)
+X-Farcaster-Flow-ID: 41f1e6ba-7354-4550-b09f-a78bf412bfba
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
+ EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 3 Oct 2025 13:01:53 +0000
+ Fri, 3 Oct 2025 13:04:52 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 3 Oct 2025
- 13:01:28 +0000
+ 13:04:26 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -92,9 +92,12 @@ To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH v2 03/19 5.15.y] minmax: deduplicate __unconst_integer_typeof()
-Date: Fri, 3 Oct 2025 12:59:50 +0000
-Message-ID: <20251003130006.41681-4-farbere@amazon.com>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
+ <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Subject: [PATCH v2 09/19 5.15.y] minmax: don't use max() in situations that
+ want a C constant expression
+Date: Fri, 3 Oct 2025 12:59:56 +0000
+Message-ID: <20251003130006.41681-10-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251003130006.41681-1-farbere@amazon.com>
 References: <20251003130006.41681-1-farbere@amazon.com>
@@ -102,7 +105,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D032UWA002.ant.amazon.com (10.13.139.81) To
+X-ClientProxiedBy: EX19D040UWB003.ant.amazon.com (10.13.138.8) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Sun, 05 Oct 2025 09:54:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -119,71 +122,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit 5e57418a2031cd5e1863efdf3d7447a16a368172 ]
+[ Upstream commit cb04e8b1d2f24c4c2c92f7b7529031fc35a16fed ]
 
-It appears that compiler_types.h already have an implementation of the
-__unconst_integer_typeof() called __unqual_scalar_typeof().  Use it
-instead of the copy.
+We only had a couple of array[] declarations, and changing them to just
+use 'MAX()' instead of 'max()' fixes the issue.
 
-Link: https://lkml.kernel.org/r/20230911154913.4176033-1-andriy.shevchenko@linux.intel.com
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Acked-by: Herve Codina <herve.codina@bootlin.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+This will allow us to simplify our min/max macros enormously, since they
+can now unconditionally use temporary variables to avoid using the
+argument values multiple times.
+
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 25 ++-----------------------
- 1 file changed, 2 insertions(+), 23 deletions(-)
+ drivers/input/touchscreen/cyttsp4_core.c | 2 +-
+ drivers/irqchip/irq-sun6i-r.c            | 2 +-
+ drivers/md/dm-integrity.c                | 2 +-
+ fs/btrfs/tree-checker.c                  | 2 +-
+ lib/vsprintf.c                           | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index aac0b7d23768..62b0c0a3cf30 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -168,27 +168,6 @@
-  */
- #define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
+diff --git a/drivers/input/touchscreen/cyttsp4_core.c b/drivers/input/touchscreen/cyttsp4_core.c
+index dccbcb942fe5..936d69da3bda 100644
+--- a/drivers/input/touchscreen/cyttsp4_core.c
++++ b/drivers/input/touchscreen/cyttsp4_core.c
+@@ -871,7 +871,7 @@ static void cyttsp4_get_mt_touches(struct cyttsp4_mt_data *md, int num_cur_tch)
+ 	struct cyttsp4_touch tch;
+ 	int sig;
+ 	int i, j, t = 0;
+-	int ids[max(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
++	int ids[MAX(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
  
--/*
-- * Remove a const qualifier from integer types
-- * _Generic(foo, type-name: association, ..., default: association) performs a
-- * comparison against the foo type (not the qualified type).
-- * Do not use the const keyword in the type-name as it will not match the
-- * unqualified type of foo.
-- */
--#define __unconst_integer_type_cases(type)	\
--	unsigned type:  (unsigned type)0,	\
--	signed type:    (signed type)0
--
--#define __unconst_integer_typeof(x) typeof(			\
--	_Generic((x),						\
--		char: (char)0,					\
--		__unconst_integer_type_cases(char),		\
--		__unconst_integer_type_cases(short),		\
--		__unconst_integer_type_cases(int),		\
--		__unconst_integer_type_cases(long),		\
--		__unconst_integer_type_cases(long long),	\
--		default: (x)))
--
- /*
-  * Do not check the array parameter using __must_be_array().
-  * In the following legit use-case where the "array" passed is a simple pointer,
-@@ -203,13 +182,13 @@
-  * 'int *buff' and 'int buff[N]' types.
-  *
-  * The array can be an array of const items.
-- * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
-+ * typeof() keeps the const qualifier. Use __unqual_scalar_typeof() in order
-  * to discard the const qualifier for the __element variable.
-  */
- #define __minmax_array(op, array, len) ({				\
- 	typeof(&(array)[0]) __array = (array);				\
- 	typeof(len) __len = (len);					\
--	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
-+	__unqual_scalar_typeof(__array[0]) __element = __array[--__len];\
- 	while (__len--)							\
- 		__element = op(__element, __array[__len]);		\
- 	__element; })
+ 	memset(ids, 0, si->si_ofs.tch_abs[CY_TCH_T].max * sizeof(int));
+ 	for (i = 0; i < num_cur_tch; i++) {
+diff --git a/drivers/irqchip/irq-sun6i-r.c b/drivers/irqchip/irq-sun6i-r.c
+index 4cd3e533740b..74b1bd331425 100644
+--- a/drivers/irqchip/irq-sun6i-r.c
++++ b/drivers/irqchip/irq-sun6i-r.c
+@@ -268,7 +268,7 @@ static const struct irq_domain_ops sun6i_r_intc_domain_ops = {
+ 
+ static int sun6i_r_intc_suspend(void)
+ {
+-	u32 buf[BITS_TO_U32(max(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
++	u32 buf[BITS_TO_U32(MAX(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
+ 	int i;
+ 
+ 	/* Wake IRQs are enabled during system sleep and shutdown. */
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index 8e2b00536c3e..9e2bbfe328f0 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -1705,7 +1705,7 @@ static void integrity_metadata(struct work_struct *w)
+ 		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
+ 		char *checksums;
+ 		unsigned extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
+-		char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
++		char checksums_onstack[MAX(HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
+ 		sector_t sector;
+ 		unsigned sectors_to_process;
+ 
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index 51e04efe3e20..8f96ddaceb9a 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -608,7 +608,7 @@ static int check_dir_item(struct extent_buffer *leaf,
+ 		 */
+ 		if (key->type == BTRFS_DIR_ITEM_KEY ||
+ 		    key->type == BTRFS_XATTR_ITEM_KEY) {
+-			char namebuf[max(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
++			char namebuf[MAX(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
+ 
+ 			read_extent_buffer(leaf, namebuf,
+ 					(unsigned long)(di + 1), name_len);
+diff --git a/lib/vsprintf.c b/lib/vsprintf.c
+index d86abdc77c26..e46eb93c115d 100644
+--- a/lib/vsprintf.c
++++ b/lib/vsprintf.c
+@@ -1100,7 +1100,7 @@ char *resource_string(char *buf, char *end, struct resource *res,
+ #define FLAG_BUF_SIZE		(2 * sizeof(res->flags))
+ #define DECODED_BUF_SIZE	sizeof("[mem - 64bit pref window disabled]")
+ #define RAW_BUF_SIZE		sizeof("[mem - flags 0x]")
+-	char sym[max(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
++	char sym[MAX(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
+ 		     2*RSRC_BUF_SIZE + FLAG_BUF_SIZE + RAW_BUF_SIZE)];
+ 
+ 	char *p = sym, *pend = sym + sizeof(sym);
 -- 
 2.47.3
 
