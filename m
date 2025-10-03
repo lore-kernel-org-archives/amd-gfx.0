@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75104CCD187
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 13:01:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 562D5CCD189
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 13:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB9910E8FF;
-	Fri,  3 Oct 2025 13:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A470F10E8FE;
+	Fri,  3 Oct 2025 13:01:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="PxYuL+C/";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="sLUcinCl";
 	dkim-atps=neutral
-Received: from fra-out-001.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-001.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [18.156.205.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF4310E399;
- Fri,  3 Oct 2025 12:18:06 +0000 (UTC)
+Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.176.194.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE54710E395;
+ Fri,  3 Oct 2025 12:17:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759493887; x=1791029887;
+ t=1759493830; x=1791029830;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8djAgabF22BDsxfYcNFa72Q6mXnC3doUyHk+thXHzBc=;
- b=PxYuL+C/0s1oty8I5+oUXoh6wZdfWtIFBJdAfhDgqz3CB6GPa6Zmp2vq
- yvitBAUKxY4u531JB/tSVbGTvQVkPYJ9MMwDRrEDNEqg+RGS8ikdU8E0U
- FFnRucoIP2g0e/nGw6jWI0KoRaoLORE3SLpbmoW5gUBQoA5LPIH7+TsAk
- XbVScxzRK5f7jsV+ncRaUNl7hQZ/Zj8q4wt/ZHBdQFKOEz0MXskRYJbq2
- C2qELV7pCCJkMjsECwLwy8wWbUhR57BhtXERGCqKauZrh6unPY618QiTK
- TnjS+EeTU4IunS5vqogyHQ1pWeNoyXfk9F5L5OKdIck1NWsOVst5XJEJK w==;
-X-CSE-ConnectionGUID: H1zTERtER6eB1NhfuRPV8w==
-X-CSE-MsgGUID: yOFPhDRgSeKfm6QRpLWhBQ==
+ bh=0AzpApDbX8CFEbC2P7WHNPH2gra+XDIh1eSQ6GUhJZw=;
+ b=sLUcinClYJ06qaHMcONRGrCmdZ6rozx2cnYZnRiNUMcfPCCIgR4h2eo9
+ rDrNB4DOK0nhvqrj1Wr2XzeGpc0f0Ow78mXvgP7LZBP+TSuCK7Sexly26
+ i3x35NjRqVAmlPl+gWD07u2z4LNyq+MybNd51GffiRHpFyq3oX2wWD8rZ
+ rCsEp7EZ/XlZv5cHMwwsTy3WrVq0b0SZOien1uggNNzY4hHnc/LPWhdmt
+ T+b1+9UJDR2SWk7tmpe3rTya7Bu2pH6PIuER9tVOFQHXUMCP5EBXHwp/0
+ 5B7dsrrTDkBwg49ppTvKdpzfbQ0z4CL8tHeGlYCkV12tQdv/Nk6YCtDsJ g==;
+X-CSE-ConnectionGUID: GF5Gm469RGCFWfNBuSrp0A==
+X-CSE-MsgGUID: Ky/l0fQHTlGTysDjZi+xig==
 X-IronPort-AV: E=Sophos;i="6.18,312,1751241600"; 
-   d="scan'208";a="3061496"
-Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
- by internal-fra-out-001.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 12:18:01 +0000
-Received: from EX19MTAEUA001.ant.amazon.com [54.240.197.233:29101]
+   d="scan'208";a="3060308"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 12:16:59 +0000
+Received: from EX19MTAEUC001.ant.amazon.com [54.240.197.225:4398]
  by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.33.147:2525]
  with esmtp (Farcaster)
- id eb446649-fd94-4ab5-af1a-e2e75cb3b995; Fri, 3 Oct 2025 12:18:01 +0000 (UTC)
-X-Farcaster-Flow-ID: eb446649-fd94-4ab5-af1a-e2e75cb3b995
+ id 051d7b3e-dad6-4b7d-bec9-faaa743d62e1; Fri, 3 Oct 2025 12:16:59 +0000 (UTC)
+X-Farcaster-Flow-ID: 051d7b3e-dad6-4b7d-bec9-faaa743d62e1
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUA001.ant.amazon.com (10.252.50.223) with Microsoft SMTP Server
+ EX19MTAEUC001.ant.amazon.com (10.252.51.193) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 3 Oct 2025 12:18:01 +0000
+ Fri, 3 Oct 2025 12:16:58 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 3 Oct 2025
- 12:17:48 +0000
+ 12:16:46 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
  <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
@@ -73,9 +73,9 @@ CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
  <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
  <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
  Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
-Subject: [PATCH v4 10/11 6.1.y] minmax.h: simplify the variants of clamp()
-Date: Fri, 3 Oct 2025 12:15:19 +0000
-Message-ID: <20251003121520.8176-11-farbere@amazon.com>
+Subject: [PATCH v4 06/11 6.1.y] minmax.h: update some comments
+Date: Fri, 3 Oct 2025 12:15:15 +0000
+Message-ID: <20251003121520.8176-7-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251003121520.8176-1-farbere@amazon.com>
 References: <20251003121520.8176-1-farbere@amazon.com>
@@ -83,7 +83,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D035UWB003.ant.amazon.com (10.13.138.85) To
+X-ClientProxiedBy: EX19D045UWC001.ant.amazon.com (10.13.139.223) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Fri, 03 Oct 2025 13:01:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -102,15 +102,16 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 495bba17cdf95e9703af1b8ef773c55ef0dfe703 ]
+[ Upstream commit 10666e99204818ef45c702469488353b5bb09ec7 ]
 
-Always pass a 'type' through to __clamp_once(), pass '__auto_type' from
-clamp() itself.
+- Change three to several.
+- Remove the comment about retaining constant expressions, no longer true.
+- Realign to nearer 80 columns and break on major punctiation.
+- Add a leading comment to the block before __signed_type() and __is_nonneg()
+  Otherwise the block explaining the cast is a bit 'floating'.
+  Reword the rest of that comment to improve readability.
 
-The expansion of __types_ok3() is reasonable so it isn't worth the added
-complexity of avoiding it when a fixed type is used for all three values.
-
-Link: https://lkml.kernel.org/r/8f69f4deac014f558bab186444bac2e8@AcuMS.aculab.com
+Link: https://lkml.kernel.org/r/85b050c81c1d4076aeb91a6cded45fee@AcuMS.aculab.com
 Signed-off-by: David Laight <david.laight@aculab.com>
 Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Arnd Bergmann <arnd@kernel.org>
@@ -125,71 +126,97 @@ Cc: Pedro Falcato <pedro.falcato@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ include/linux/minmax.h | 53 +++++++++++++++++++-----------------------
+ 1 file changed, 24 insertions(+), 29 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 75fb7a6ad4c6..2bbdd5b5e07e 100644
+index 51b0d988e322..24e4b372649a 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -183,29 +183,29 @@
- #define __clamp(val, lo, hi)	\
- 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
- 
--#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
--	__auto_type uval = (val);						\
--	__auto_type ulo = (lo);							\
--	__auto_type uhi = (hi);							\
-+#define __clamp_once(type, val, lo, hi, uval, ulo, uhi) ({			\
-+	type uval = (val);							\
-+	type ulo = (lo);							\
-+	type uhi = (hi);							\
- 	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
- 		"clamp() low limit " #lo " greater than high limit " #hi);	\
- 	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
- 		"clamp("#val", "#lo", "#hi") signedness error");		\
- 	__clamp(uval, ulo, uhi); })
- 
--#define __careful_clamp(val, lo, hi) \
--	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
-+#define __careful_clamp(type, val, lo, hi) \
-+	__clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
- 
- /**
-- * clamp - return a value clamped to a given range with strict typechecking
-+ * clamp - return a value clamped to a given range with typechecking
-  * @val: current value
-  * @lo: lowest allowable value
-  * @hi: highest allowable value
-  *
-- * This macro does strict typechecking of @lo/@hi to make sure they are of the
-- * same type as @val.  See the unnecessary pointer comparisons.
-+ * This macro checks @val/@lo/@hi to make sure they have compatible
-+ * signedness.
-  */
--#define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
-+#define clamp(val, lo, hi) __careful_clamp(__auto_type, val, lo, hi)
- 
- /**
-  * clamp_t - return a value clamped to a given range using a given type
-@@ -217,7 +217,7 @@
-  * This macro does no typechecking and uses temporary variables of type
-  * @type to make all the comparisons.
-  */
--#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
-+#define clamp_t(type, val, lo, hi) __careful_clamp(type, val, lo, hi)
- 
- /**
-  * clamp_val - return a value clamped to a given range using val's type
-@@ -230,7 +230,7 @@
-  * type and @lo and @hi are literals that will otherwise be assigned a signed
-  * integer type.
-  */
--#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
-+#define clamp_val(val, lo, hi) __careful_clamp(typeof(val), val, lo, hi)
+@@ -8,13 +8,10 @@
+ #include <linux/types.h>
  
  /*
-  * Do not check the array parameter using __must_be_array().
+- * min()/max()/clamp() macros must accomplish three things:
++ * min()/max()/clamp() macros must accomplish several things:
+  *
+  * - Avoid multiple evaluations of the arguments (so side-effects like
+  *   "x++" happen only once) when non-constant.
+- * - Retain result as a constant expressions when called with only
+- *   constant expressions (to avoid tripping VLA warnings in stack
+- *   allocation usage).
+  * - Perform signed v unsigned type-checking (to generate compile
+  *   errors instead of nasty runtime surprises).
+  * - Unsigned char/short are always promoted to signed int and can be
+@@ -31,25 +28,23 @@
+  *   bit #0 set if ok for unsigned comparisons
+  *   bit #1 set if ok for signed comparisons
+  *
+- * In particular, statically non-negative signed integer
+- * expressions are ok for both.
++ * In particular, statically non-negative signed integer expressions
++ * are ok for both.
+  *
+- * NOTE! Unsigned types smaller than 'int' are implicitly
+- * converted to 'int' in expressions, and are accepted for
+- * signed conversions for now. This is debatable.
++ * NOTE! Unsigned types smaller than 'int' are implicitly converted to 'int'
++ * in expressions, and are accepted for signed conversions for now.
++ * This is debatable.
+  *
+- * Note that 'x' is the original expression, and 'ux' is
+- * the unique variable that contains the value.
++ * Note that 'x' is the original expression, and 'ux' is the unique variable
++ * that contains the value.
+  *
+- * We use 'ux' for pure type checking, and 'x' for when
+- * we need to look at the value (but without evaluating
+- * it for side effects! Careful to only ever evaluate it
+- * with sizeof() or __builtin_constant_p() etc).
++ * We use 'ux' for pure type checking, and 'x' for when we need to look at the
++ * value (but without evaluating it for side effects!
++ * Careful to only ever evaluate it with sizeof() or __builtin_constant_p() etc).
+  *
+- * Pointers end up being checked by the normal C type
+- * rules at the actual comparison, and these expressions
+- * only need to be careful to not cause warnings for
+- * pointer use.
++ * Pointers end up being checked by the normal C type rules at the actual
++ * comparison, and these expressions only need to be careful to not cause
++ * warnings for pointer use.
+  */
+ #define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
+ #define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
+@@ -57,19 +52,19 @@
+ 	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
+ 
+ /*
+- * To avoid warnings about casting pointers to integers
+- * of different sizes, we need that special sign type.
++ * Check whether a signed value is always non-negative.
+  *
+- * On 64-bit we can just always use 'long', since any
+- * integer or pointer type can just be cast to that.
++ * A cast is needed to avoid any warnings from values that aren't signed
++ * integer types (in which case the result doesn't matter).
+  *
+- * This does not work for 128-bit signed integers since
+- * the cast would truncate them, but we do not use s128
+- * types in the kernel (we do use 'u128', but they will
+- * be handled by the !is_signed_type() case).
++ * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * But on 32-bit we need to avoid warnings about casting pointers to integers
++ * of different sizes without truncating 64-bit values so 'long' or 'long long'
++ * must be used depending on the size of the value.
+  *
+- * NOTE! The cast is there only to avoid any warnings
+- * from when values that aren't signed integer types.
++ * This does not work for 128-bit signed integers since the cast would truncate
++ * them, but we do not use s128 types in the kernel (we do use 'u128',
++ * but they are handled by the !is_signed_type() case).
+  */
+ #ifdef CONFIG_64BIT
+   #define __signed_type(ux) long
 -- 
 2.47.3
 
