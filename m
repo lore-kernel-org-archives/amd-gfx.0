@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24E60CAC5BB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0699CCD184
 	for <amd-gfx@archiver.kernel.org>; Sun,  5 Oct 2025 09:54:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7093E10E292;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6001C10E290;
 	Sun,  5 Oct 2025 09:54:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="GRh2tsS9";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="ETE6o/Zp";
 	dkim-atps=neutral
-Received: from fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [35.158.23.94])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B6EA10E10C;
- Fri,  3 Oct 2025 13:04:02 +0000 (UTC)
+Received: from fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.178.132.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D133D10E904;
+ Fri,  3 Oct 2025 13:09:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759496643; x=1791032643;
+ t=1759496986; x=1791032986;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nWSej8xbBt1No+Mk4Q7cDNVqN1sPbiSh6ZSRtMK8qI8=;
- b=GRh2tsS9cCd1F3jXdhKSBVi8tqVf0BcbZsDxfZAj11qkcg72mB5AGKJj
- 3g2+oivEl7BOXtUh+jGu9jjWCHpTzpfKQXZVUO0DBuKzr+xiP876J3RpP
- UJEPb0dZfVHK1C6XJo1dpJRxbJEmtMeiS3aDAgtK8gLduHWmm5e9oyPEk
- 5d3H375IOqxjH/ERH+FHAc6RGNngvdqNgDtmyBq0EKj0d/FB1tk4aRlJa
- XEE8y8xNltnOyfqfqFfEBhfxt0VKheu80ac2dS/sFRUcplybh45tVutf2
- xn7KG+ZoxonqB4hv5XZF+H0YE2x8bQgdk/wt/eubjIYM4z/eh1RY2MnS8 g==;
-X-CSE-ConnectionGUID: uauqHzzGT8CWLIxTZUCqPQ==
-X-CSE-MsgGUID: iLEH/C58S9uyrBI8b72WGw==
+ bh=k0dUe76w+6n5/NfsPbyefGVCom+xh3GGcFcV3Olhmks=;
+ b=ETE6o/ZppperikdSLh5orm8DNqK4gL92o5kUU5mrWM6KlP/1Om9PQ97e
+ 1M6PvM7gHpYCA7Eie7LaQFtLRQXnODvVZbyFaIl7vPa7Z2wAds7G4jXGd
+ ZjgVLOHY8HoSuxgFNmVwyApifcYltk093G6RWNhM+04yf+FC3UqGT6paZ
+ sqx9X2D1CVDV/8dLS5bgEm4aVXDRvUka4rUKVE0PYhIoBlMIym4A0gkuX
+ pYTZXgaqBttn5aKFNx13zewXrwPoYFLNf8DwG/bPQJS/oY6UfJl721b/t
+ Ua9q5WY+MMwSMGwKnL58c3Ent5dJNT9b1u6R4xwjtLAG7KHVMLw3V8Hd/ g==;
+X-CSE-ConnectionGUID: pOpShtCIQUC1YxeGDT1KYw==
+X-CSE-MsgGUID: OAQmpc4qS2az1wjc1pwbrA==
 X-IronPort-AV: E=Sophos;i="6.18,312,1751241600"; 
-   d="scan'208";a="3066489"
-Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
- by internal-fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 13:04:00 +0000
-Received: from EX19MTAEUA001.ant.amazon.com [54.240.197.233:19702]
+   d="scan'208";a="2963326"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 13:09:44 +0000
+Received: from EX19MTAEUA001.ant.amazon.com [54.240.197.233:13822]
  by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.22.27:2525]
  with esmtp (Farcaster)
- id 94a9e6c0-deea-40ff-8bf8-c2afea5d2574; Fri, 3 Oct 2025 13:04:00 +0000 (UTC)
-X-Farcaster-Flow-ID: 94a9e6c0-deea-40ff-8bf8-c2afea5d2574
+ id 337663a1-1fe2-42ad-b6e4-6137698a0a8d; Fri, 3 Oct 2025 13:09:43 +0000 (UTC)
+X-Farcaster-Flow-ID: 337663a1-1fe2-42ad-b6e4-6137698a0a8d
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
  EX19MTAEUA001.ant.amazon.com (10.252.50.223) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 3 Oct 2025 13:03:47 +0000
+ Fri, 3 Oct 2025 13:09:39 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 3 Oct 2025
- 13:03:22 +0000
+ 13:09:12 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -92,12 +92,15 @@ To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
- <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Subject: [PATCH v2 07/19 5.15.y] minmax: simplify and clarify min_t()/max_t()
- implementation
-Date: Fri, 3 Oct 2025 12:59:54 +0000
-Message-ID: <20251003130006.41681-8-farbere@amazon.com>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Pedro
+ Falcato" <pedro.falcato@gmail.com>
+Subject: [PATCH v2 19/19 5.15.y] minmax.h: remove some #defines that are only
+ expanded once
+Date: Fri, 3 Oct 2025 13:00:06 +0000
+Message-ID: <20251003130006.41681-20-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251003130006.41681-1-farbere@amazon.com>
 References: <20251003130006.41681-1-farbere@amazon.com>
@@ -105,7 +108,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D043UWA002.ant.amazon.com (10.13.139.53) To
+X-ClientProxiedBy: EX19D046UWA004.ant.amazon.com (10.13.139.76) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Sun, 05 Oct 2025 09:54:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -122,79 +125,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 017fa3e89187848fd056af757769c9e66ac3e93d ]
+[ Upstream commit 2b97aaf74ed534fb838d09867d09a3ca5d795208 ]
 
-This simplifies the min_t() and max_t() macros by no longer making them
-work in the context of a C constant expression.
+The bodies of __signed_type_use() and __unsigned_type_use() are much the
+same size as their names - so put the bodies in the only line that expands
+them.
 
-That means that you can no longer use them for static initializers or
-for array sizes in type definitions, but there were only a couple of
-such uses, and all of them were converted (famous last words) to use
-MIN_T/MAX_T instead.
+Similarly __signed_type() is defined separately for 64bit and then used
+exactly once just below.
 
-Cc: David Laight <David.Laight@aculab.com>
+Change the test for __signed_type from CONFIG_64BIT to one based on gcc
+defined macros so that the code is valid if it gets used outside of a
+kernel build.
+
+Link: https://lkml.kernel.org/r/9386d1ebb8974fbabbed2635160c3975@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
-V1 -> V2:
-Use `[ Upstream commit <HASH> ]` instead of `commit <HASH> upstream.`
-like in all other patches.
-
- include/linux/minmax.h | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ include/linux/minmax.h | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index a7ef65f78933..9c2848abc804 100644
+index 2bbdd5b5e07e..eaaf5c008e4d 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -45,17 +45,20 @@
- 
- #define __cmp(op, x, y)	((x) __cmp_op_##op (y) ? (x) : (y))
- 
--#define __cmp_once(op, x, y, unique_x, unique_y) ({	\
--	typeof(x) unique_x = (x);			\
--	typeof(y) unique_y = (y);			\
-+#define __cmp_once_unique(op, type, x, y, ux, uy) \
-+	({ type ux = (x); type uy = (y); __cmp(op, ux, uy); })
-+
-+#define __cmp_once(op, type, x, y) \
-+	__cmp_once_unique(op, type, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
-+
-+#define __careful_cmp_once(op, x, y) ({			\
- 	static_assert(__types_ok(x, y),			\
- 		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
--	__cmp(op, unique_x, unique_y); })
-+	__cmp_once(op, __auto_type, x, y); })
- 
- #define __careful_cmp(op, x, y)					\
- 	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
--		__cmp(op, x, y),				\
--		__cmp_once(op, x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y)))
-+		__cmp(op, x, y), __careful_cmp_once(op, x, y))
- 
- #define __clamp(val, lo, hi)	\
- 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
-@@ -158,7 +161,7 @@
-  * @x: first value
-  * @y: second value
+@@ -46,10 +46,8 @@
+  * comparison, and these expressions only need to be careful to not cause
+  * warnings for pointer use.
   */
--#define min_t(type, x, y)	__careful_cmp(min, (type)(x), (type)(y))
-+#define min_t(type, x, y) __cmp_once(min, type, x, y)
- 
- /**
-  * max_t - return maximum of two values, using the specified type
-@@ -166,7 +169,7 @@
-  * @x: first value
-  * @y: second value
-  */
--#define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
-+#define max_t(type, x, y) __cmp_once(max, type, x, y)
+-#define __signed_type_use(ux) (2 + __is_nonneg(ux))
+-#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
+ #define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
+-	__signed_type_use(ux) : __unsigned_type_use(ux))
++	(2 + __is_nonneg(ux)) : (1 + 2 * (sizeof(ux) < 4)))
  
  /*
-  * Do not check the array parameter using __must_be_array().
+  * Check whether a signed value is always non-negative.
+@@ -57,7 +55,7 @@
+  * A cast is needed to avoid any warnings from values that aren't signed
+  * integer types (in which case the result doesn't matter).
+  *
+- * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * On 64-bit any integer or pointer type can safely be cast to 'long long'.
+  * But on 32-bit we need to avoid warnings about casting pointers to integers
+  * of different sizes without truncating 64-bit values so 'long' or 'long long'
+  * must be used depending on the size of the value.
+@@ -66,12 +64,12 @@
+  * them, but we do not use s128 types in the kernel (we do use 'u128',
+  * but they are handled by the !is_signed_type() case).
+  */
+-#ifdef CONFIG_64BIT
+-  #define __signed_type(ux) long
++#if __SIZEOF_POINTER__ == __SIZEOF_LONG_LONG__
++#define __is_nonneg(ux) statically_true((long long)(ux) >= 0)
+ #else
+-  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
++#define __is_nonneg(ux) statically_true( \
++	(typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L)))(ux) >= 0)
+ #endif
+-#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
+ 
+ #define __types_ok(ux, uy) \
+ 	(__sign_use(ux) & __sign_use(uy))
 -- 
 2.47.3
 
