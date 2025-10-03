@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AACD4CCD184
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 13:01:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFEA8CAC5B0
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 13:01:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ACE410E8EF;
-	Fri,  3 Oct 2025 13:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EECF910E8EC;
+	Fri,  3 Oct 2025 13:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="qGZBIZHx";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="qCpedAj8";
 	dkim-atps=neutral
-Received: from fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [18.199.210.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D24B310E396;
- Fri,  3 Oct 2025 12:17:38 +0000 (UTC)
+Received: from fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [3.72.182.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69DDA10E3B5;
+ Fri,  3 Oct 2025 12:18:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759493859; x=1791029859;
+ t=1759493903; x=1791029903;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=U4cCFbpHvYq8yWCMIbT6T5sZXi6GGX+iNVIOVWCWFxY=;
- b=qGZBIZHxM0UiPjIKupuC0FEF/KFw09kPnJgNCUEjPDH+Y0QxToQiMfoo
- D8pO0BNkHr+yTPsoiPG9WSVgF2Yjyh7ExYoPQG81UsAfFOpqmdeWpNedo
- 8QV5ZCqyAggJz+84U0P72XTIanJej4VDQ0Gwj1ppAPJc/KCyEgWCJuuoa
- jxpcO34vJgoF5Kj1wn+CjiYIdRXCE8wwlQJho1VI5w1/Jft/iBrekiVS0
- jZ12+SVRHM9VOAFfSUBl6uxDJ6WZENCiTHttqECsmLbFPhXmIb+3N82Ag
- 6JXThDztrEqWUtYUWDVkSh1wq/Jc9x0pilnh7tPyK+RkxeAPpaQs1UPfm w==;
-X-CSE-ConnectionGUID: Ynw4pSvgSECjxEDecEsMUA==
-X-CSE-MsgGUID: lXXG1PykRd+hxwYa4NlAnQ==
+ bh=k0dUe76w+6n5/NfsPbyefGVCom+xh3GGcFcV3Olhmks=;
+ b=qCpedAj8he5UldXG79EquSdxqSX3Mc8V9TW0rFqBQWrx358wvGn0oyb4
+ GbzfiRgbu7eIQco9lJuwrhX9zLdpEhQiElaa7DACE9vRm1bQ2f0Erggzo
+ 6UvtoFUog3cTZsAAX7r+18+rHDRng+0pEFkPO+EzlmmilFshdEgZxSjNQ
+ TdmbgeXemN6u76LIBSvddk4D/tJvqtoWUBeiO7Yh7VF0Sr1WPvF+YI4v5
+ MMthC2J/peQWbpr2UJfcmycm+jMAyAPF09eCe6Boylzkvfn4J2V6WwHs2
+ l4+rxsn6B9ytv33W+jU001XOIthnDOlzxhxHJ+07mXsRr+uji4/8nwHv6 w==;
+X-CSE-ConnectionGUID: iHjhxUPQRHe2B4gOSiKoaw==
+X-CSE-MsgGUID: DWm3LlXiQW+twGunnV0KdA==
 X-IronPort-AV: E=Sophos;i="6.18,312,1751241600"; 
-   d="scan'208";a="2954367"
+   d="scan'208";a="3061377"
 Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
  smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
- by internal-fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 12:17:37 +0000
-Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:7468]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.40.83:2525]
+ by internal-fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 12:18:13 +0000
+Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.224:28099]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.19.222:2525]
  with esmtp (Farcaster)
- id 2daabb73-a217-4768-aaa7-79018e0c73c8; Fri, 3 Oct 2025 12:17:37 +0000 (UTC)
-X-Farcaster-Flow-ID: 2daabb73-a217-4768-aaa7-79018e0c73c8
+ id 30f3960f-1ebe-474e-89a0-a1458ac740d9; Fri, 3 Oct 2025 12:18:13 +0000 (UTC)
+X-Farcaster-Flow-ID: 30f3960f-1ebe-474e-89a0-a1458ac740d9
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
+ EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 3 Oct 2025 12:17:36 +0000
+ Fri, 3 Oct 2025 12:18:13 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 3 Oct 2025
- 12:17:23 +0000
+ 12:18:01 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
  <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
@@ -73,10 +73,10 @@ CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
  <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
  <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
  Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
-Subject: [PATCH v4 08/11 6.1.y] minmax.h: use BUILD_BUG_ON_MSG() for the lo <
- hi test in clamp()
-Date: Fri, 3 Oct 2025 12:15:17 +0000
-Message-ID: <20251003121520.8176-9-farbere@amazon.com>
+Subject: [PATCH v4 11/11 6.1.y] minmax.h: remove some #defines that are only
+ expanded once
+Date: Fri, 3 Oct 2025 12:15:20 +0000
+Message-ID: <20251003121520.8176-12-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251003121520.8176-1-farbere@amazon.com>
 References: <20251003121520.8176-1-farbere@amazon.com>
@@ -103,13 +103,20 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit a5743f32baec4728711bbc01d6ac2b33d4c67040 ]
+[ Upstream commit 2b97aaf74ed534fb838d09867d09a3ca5d795208 ]
 
-Use BUILD_BUG_ON_MSG(statically_true(ulo > uhi), ...) for the sanity check
-of the bounds in clamp().  Gives better error coverage and one less
-expansion of the arguments.
+The bodies of __signed_type_use() and __unsigned_type_use() are much the
+same size as their names - so put the bodies in the only line that expands
+them.
 
-Link: https://lkml.kernel.org/r/34d53778977747f19cce2abb287bb3e6@AcuMS.aculab.com
+Similarly __signed_type() is defined separately for 64bit and then used
+exactly once just below.
+
+Change the test for __signed_type from CONFIG_64BIT to one based on gcc
+defined macros so that the code is valid if it gets used outside of a
+kernel build.
+
+Link: https://lkml.kernel.org/r/9386d1ebb8974fbabbed2635160c3975@AcuMS.aculab.com
 Signed-off-by: David Laight <david.laight@aculab.com>
 Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Arnd Bergmann <arnd@kernel.org>
@@ -124,23 +131,51 @@ Cc: Pedro Falcato <pedro.falcato@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ include/linux/minmax.h | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 6f7ea669d305..91aa1b90c1bb 100644
+index 2bbdd5b5e07e..eaaf5c008e4d 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -106,8 +106,7 @@
- 	__auto_type uval = (val);						\
- 	__auto_type ulo = (lo);							\
- 	__auto_type uhi = (hi);							\
--	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
--			(lo) <= (hi), true),					\
-+	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
- 		"clamp() low limit " #lo " greater than high limit " #hi);	\
- 	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
- 		"clamp("#val", "#lo", "#hi") signedness error");		\
+@@ -46,10 +46,8 @@
+  * comparison, and these expressions only need to be careful to not cause
+  * warnings for pointer use.
+  */
+-#define __signed_type_use(ux) (2 + __is_nonneg(ux))
+-#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
+ #define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
+-	__signed_type_use(ux) : __unsigned_type_use(ux))
++	(2 + __is_nonneg(ux)) : (1 + 2 * (sizeof(ux) < 4)))
+ 
+ /*
+  * Check whether a signed value is always non-negative.
+@@ -57,7 +55,7 @@
+  * A cast is needed to avoid any warnings from values that aren't signed
+  * integer types (in which case the result doesn't matter).
+  *
+- * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * On 64-bit any integer or pointer type can safely be cast to 'long long'.
+  * But on 32-bit we need to avoid warnings about casting pointers to integers
+  * of different sizes without truncating 64-bit values so 'long' or 'long long'
+  * must be used depending on the size of the value.
+@@ -66,12 +64,12 @@
+  * them, but we do not use s128 types in the kernel (we do use 'u128',
+  * but they are handled by the !is_signed_type() case).
+  */
+-#ifdef CONFIG_64BIT
+-  #define __signed_type(ux) long
++#if __SIZEOF_POINTER__ == __SIZEOF_LONG_LONG__
++#define __is_nonneg(ux) statically_true((long long)(ux) >= 0)
+ #else
+-  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
++#define __is_nonneg(ux) statically_true( \
++	(typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L)))(ux) >= 0)
+ #endif
+-#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
+ 
+ #define __types_ok(ux, uy) \
+ 	(__sign_use(ux) & __sign_use(uy))
 -- 
 2.47.3
 
