@@ -4,126 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF1FDCAC5BB
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Oct 2025 01:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B30BCAC5B8
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Oct 2025 09:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 620F210E24F;
-	Sun,  5 Oct 2025 01:34:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 510F910E28B;
+	Sun,  5 Oct 2025 09:54:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ISAQBzDA";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="WcewvaOq";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 487CD10E24F
- for <amd-gfx@lists.freedesktop.org>; Sun,  5 Oct 2025 01:34:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vNZnAVq2upygCtIqPYLAFu7vKPC1SDGsS2EbYKukCzR8QLnwhGmmFbrjSxsWBTEkSHOaKDM2F7ap806els6r4jRzFtI8fZFzZ7jDpoP1Z/Zr6TmWnOZFZfgJzYY0y+qJVyXewylQVC71odX7KCznt3bAD3KHE3US2mOsR5d0RRFRHHK3yD/CQJ71dJvZ2cN1oXRvQ6eOzp0I6HdCqOxW/W96JFxTEClNYH+nzm7gtOkCxqG8BYh+D1NgVSOb4BhAIESk/5Wt9+h5KccEoPUj0JgmyfRuXjGJSfvsqYexGLUYWFf9OaX10K/UgXiEub/UFGtGik97td5jdXhglTtjaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PnYmLNAcVrdXd09+cOo07GSAIbrSR53FbcFSS/PIo34=;
- b=M3kFqKJnJGSbR7RFC46UxaaDwpRK0mWX1pdB0/KEAIPrV//LjcYNioBorcawHUtpXgev7gM0QuJtMTPx8NyCH35UrCzLQX8eGNaas0G+CbZEhTRvqL17FeoDzaVGx/rf96mi4PhRLRnIM0FVVoFkKQmIY5yOXAArKSwdamP0O4Ait6P4iqpO4FNfXfBaKdqsisumNyN/eCD7jHvtrlp4AfHFGG/FYNtIdtjp0ToNUW3h73pmYXoYppjvqg8nKwUexBdqhJQ8ynMuQ7PieIw9db70GJ9jfZL5xMm8EBV0mmRZ/w/y5ZUcIKHFAHw8lTtnwtMJJ3DLbjpVwvcuio25MQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PnYmLNAcVrdXd09+cOo07GSAIbrSR53FbcFSS/PIo34=;
- b=ISAQBzDAjFcZOtNeEcG4GRoGtcnGmM+w0e9ISfP2oiG00SW8CI6/4rl+8VQHIIIF8AZVAIoYEGkpYMIGRJIKKy0T1FR74RdLGHuxldm6vTfA2lRROp/BvpuAYvIaRouG+x2yAWuT2CzabhVQqPLeeBUGIqsz4f/hhTVWm9W/3Yw=
-Received: from BN8PR07CA0026.namprd07.prod.outlook.com (2603:10b6:408:ac::39)
- by IA0PR12MB7776.namprd12.prod.outlook.com (2603:10b6:208:430::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.18; Sun, 5 Oct
- 2025 01:34:42 +0000
-Received: from BL6PEPF00020E64.namprd04.prod.outlook.com
- (2603:10b6:408:ac:cafe::27) by BN8PR07CA0026.outlook.office365.com
- (2603:10b6:408:ac::39) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.18 via Frontend Transport; Sun,
- 5 Oct 2025 01:34:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00020E64.mail.protection.outlook.com (10.167.249.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9 via Frontend Transport; Sun, 5 Oct 2025 01:34:42 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sat, 4 Oct
- 2025 18:34:41 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sat, 4 Oct
- 2025 18:34:41 -0700
-Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Sat, 4 Oct 2025 18:34:34 -0700
-From: Jesse.Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- <lijo.lazar@amd.com>, Jesse.Zhang <Jesse.Zhang@amd.com>, Jesse Zhang
- <jesse.zhang@amd.com>
-Subject: [PATCH] drm/amd/pm: Disable VCN queue reset on SMU v13.0.6 due to
- regression
-Date: Sun, 5 Oct 2025 09:34:20 +0800
-Message-ID: <20251005013434.3801595-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.178.143.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD92910E90D;
+ Fri,  3 Oct 2025 13:05:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759496734; x=1791032734;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=xkEPvUKyQPfYOtTnd+JXsEAKoNLEM/0U49oHM5nqIDU=;
+ b=WcewvaOqhuxWPikFUSET8xkWKtUIB0iYCuCNkaQPvEJ68W71SerIUYNf
+ TSCe4S+p8k+hbymNNAT91a3D+O7PcLokpnUaXi98jBii3iPc0rUtQu2kz
+ VCo5+Cr/MY8+fmcOl4JYN/EnZlnxv3TWtVy0FgAXLRVid38pG/UWgUsZD
+ qh9MgFgg2R9kuvt0zkhilM2KFRxeo7obYSvQReYowV3s307ui4b/5pFKO
+ dBPSjWqe1/QIVny2dr8+BZZPOLhBfr8b6fjxFTcvwVfGX2on2fjM8UwHD
+ h4YAcL5Tsg9O006L4riFo6LuCkQYgP7ySUwBRr2ge+jcCDsxZITbShraP Q==;
+X-CSE-ConnectionGUID: 7dECYYD/SOmF4vlFMcqreg==
+X-CSE-MsgGUID: W8dBbgL7S4Oa3B6A8g8h5A==
+X-IronPort-AV: E=Sophos;i="6.18,312,1751241600"; 
+   d="scan'208";a="2954290"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 13:05:23 +0000
+Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:11996]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.3.52:2525]
+ with esmtp (Farcaster)
+ id ecfd0dbb-2715-46b5-a53d-b6c09400b0a4; Fri, 3 Oct 2025 13:05:22 +0000 (UTC)
+X-Farcaster-Flow-ID: ecfd0dbb-2715-46b5-a53d-b6c09400b0a4
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Fri, 3 Oct 2025 13:05:17 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 3 Oct 2025
+ 13:04:51 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
+ <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
+ <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+ <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
+ <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
+ <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
+ <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Subject: [PATCH v2 10/19 5.15.y] minmax: simplify min()/max()/clamp()
+ implementation
+Date: Fri, 3 Oct 2025 12:59:57 +0000
+Message-ID: <20251003130006.41681-11-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251003130006.41681-1-farbere@amazon.com>
+References: <20251003130006.41681-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E64:EE_|IA0PR12MB7776:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ca7d2db-70d4-4c43-b920-08de03af5b88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?f1S7OsBXy6xHYpJX9i9xHwPL5mwtgW2rIhk9mzVKClT9e4mfcaTEnqqvus/2?=
- =?us-ascii?Q?xuFNG8knU2+9cTvh5RwIz/YguQ61jkNcvIGyAsKB+D9sfAtySxik76194nSE?=
- =?us-ascii?Q?k2OR3KB794eekEPzRRE+LgISaGABF6kEB9knirhyoEMApEgbh/LFpPZwyEx6?=
- =?us-ascii?Q?G/bniRJvozU0DuThS/9shynNkNfojDiWS937B1kQq5KVwVToSj5jQcGyOSTY?=
- =?us-ascii?Q?WbdaEDbYpUYxsT5+3PybpgGXCFRMiiHfdWc4tHMtI+UVuLymx173t7Vi/U0O?=
- =?us-ascii?Q?IrQSuihuGVA7f2K1U86XQzrX0TlFWCQHeJLRNn1r2STK5u6UCk7mzoLGeihI?=
- =?us-ascii?Q?2cKkq7Y/Qm5ERH8lqJ5hd5o70pUtC6JIkvZoY82U1EWZTY0cgxtktYjSgnnM?=
- =?us-ascii?Q?aCp3urLXSlWd57wCcWbvVgtIbcWzTf1XzfmPXiMJkyFkL1IBTYZ3V5XWC74l?=
- =?us-ascii?Q?1yRw+tIA+T2B6s2e+d+aTYWv/6R+ktR/FWQlFtptfmtpqtYwB7hwKLecqy6U?=
- =?us-ascii?Q?K6DPST7HvR7mUae1B4WABUZjomS9uqpysVffhkzi3uZdZO7pWGJlNs29Bd22?=
- =?us-ascii?Q?xWHhoPWWnlsTyYTndjG9XsjnbWMVGjIDkb0idGX/agthMVK0EUazrVBWrKCb?=
- =?us-ascii?Q?0GFTrww5eQhRySaKpSqDY55/MhKKrswskyGGIMPjMbY8yp9i1FUOG1uPZksY?=
- =?us-ascii?Q?hbRwkB3DBxb519KeXDpMuTclxZHogjnE5gUCQXCnnattNjxDqgik27dFkE3L?=
- =?us-ascii?Q?niMWWOBkEJpznpTTbh8tI0kquTi7ihCoF8vXUJNaK0KyAa/CAgmh3IxQdp3L?=
- =?us-ascii?Q?x09B2Fhs0g93pHlqW8kt6azHmzoMJJuBHRk2+uy87BSXrT1JIWvimoEDs+P4?=
- =?us-ascii?Q?2XgZTRGxPZnR5qFnY2U3VOJc4BS6BTzZVpztRTNQAURxtIIBh50+2OxFzcbI?=
- =?us-ascii?Q?mJ+PhuI00ixTENnGsNyJWzGOrRU4uB5OMjSKt6F1zDhzT1edI/aDeIzqvrfb?=
- =?us-ascii?Q?Z71mZN/ob/PpvUdJSQbGFCVrdNWimNHOLs4d+c/ln1tMawKctT2pSUMZytr7?=
- =?us-ascii?Q?r1s4icB//xh1QAdgskKMjIuWR/yKWLXmWhDuezlLQhBc0q/71ACDOHzBdNKu?=
- =?us-ascii?Q?nzlMp1/7pbNdHy5cbm4yH5VcyrQLcrKeaAC0Ste2mTz/osk/Kmy7j1Pe9dMc?=
- =?us-ascii?Q?c//r7yeEz8BkAQCSpMr20jdbI92zEitZJYn+CnzR6BuxDeER6AZp6z/gKYRn?=
- =?us-ascii?Q?rLY5pdT88H/6yISDvrx1uxkc+32yThV/lgFY4byt1EOcOU1dLQ0Bos85WEtz?=
- =?us-ascii?Q?SDccHoAhCwMAw1I7QV7DiBKn+M1f+99N+LxUyLAiq2xyhHM617+1YQUNDrRQ?=
- =?us-ascii?Q?LyH/9DaQAy8d9rcWLXLlLG/cqeDiPNUVmAWJKmYPPlVqsJvHQplyJc90hgcD?=
- =?us-ascii?Q?/pPoHTClMLdl/XlTKrdGTP+QTZChjtCjbFbFc2cVuQaY0y7CH+Z7oYG2oy4f?=
- =?us-ascii?Q?4j3SSBY9u5BL0ff6y2M6Dd2wpymDdoH+jqCw6rnuJh7nPBgXnBnBJKIw+6sP?=
- =?us-ascii?Q?uue8xQ+AtQwPiejJiP4=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2025 01:34:42.2605 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ca7d2db-70d4-4c43-b920-08de03af5b88
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E64.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7776
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D040UWB003.ant.amazon.com (10.13.138.8) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
+X-Mailman-Approved-At: Sun, 05 Oct 2025 09:54:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,28 +122,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Disable VCN reset capability for the program 4 as it's
-causing regressions.
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+[ Upstream commit dc1c8034e31b14a2e5e212104ec508aec44ce1b9 ]
+
+Now that we no longer have any C constant expression contexts (ie array
+size declarations or static initializers) that use min() or max(), we
+can simpify the implementation by not having to worry about the result
+staying as a C constant expression.
+
+So now we can unconditionally just use temporary variables of the right
+type, and get rid of the excessive expansion that used to come from the
+use of
+
+   __builtin_choose_expr(__is_constexpr(...), ..
+
+to pick the specialized code for constant expressions.
+
+Another expansion simplification is to pass the temporary variables (in
+addition to the original expression) to our __types_ok() macro.  That
+may superficially look like it complicates the macro, but when we only
+want the type of the expression, expanding the temporary variable names
+is much simpler and smaller than expanding the potentially complicated
+original expression.
+
+As a result, on my machine, doing a
+
+  $ time make drivers/staging/media/atomisp/pci/isp/kernels/ynr/ynr_1.0/ia_css_ynr.host.i
+
+goes from
+
+	real	0m16.621s
+	user	0m15.360s
+	sys	0m1.221s
+
+to
+
+	real	0m2.532s
+	user	0m2.091s
+	sys	0m0.452s
+
+because the token expansion goes down dramatically.
+
+In particular, the longest line expansion (which was line 71 of that
+'ia_css_ynr.host.c' file) shrinks from 23,338kB (yes, 23MB for one
+single line) to "just" 1,444kB (now "only" 1.4MB).
+
+And yes, that line is still the line from hell, because it's doing
+multiple levels of "min()/max()" expansion thanks to some of them being
+hidden inside the uDIGIT_FITTING() macro.
+
+Lorenzo has a nice cleanup patch that makes that driver use inline
+functions instead of macros for sDIGIT_FITTING() and uDIGIT_FITTING(),
+which will fix that line once and for all, but the 16-fold reduction in
+this case does show why we need to simplify these helpers.
+
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ include/linux/minmax.h | 43 ++++++++++++++++++++----------------------
+ 1 file changed, 20 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 72ca6302da63..285cf7979693 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -450,8 +450,7 @@ static void smu_v13_0_6_init_caps(struct smu_context *smu)
- 	    ((pgm == 4) && (fw_ver >= 0x4557000)))
- 		smu_v13_0_6_cap_set(smu, SMU_CAP(SDMA_RESET));
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index fc384714da45..e3e4353df983 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -35,10 +35,10 @@
+ #define __is_noneg_int(x)	\
+ 	(__builtin_choose_expr(__is_constexpr(x) && __is_signed(x), x, -1) >= 0)
  
--	if (((pgm == 0) && (fw_ver >= 0x00558200)) ||
--	    ((pgm == 4) && (fw_ver >= 0x04557100)))
-+	if ((pgm == 0) && (fw_ver >= 0x00558200))
- 		smu_v13_0_6_cap_set(smu, SMU_CAP(VCN_RESET));
- }
+-#define __types_ok(x, y) 					\
+-	(__is_signed(x) == __is_signed(y) ||			\
+-		__is_signed((x) + 0) == __is_signed((y) + 0) ||	\
+-		__is_noneg_int(x) || __is_noneg_int(y))
++#define __types_ok(x, y, ux, uy) 				\
++	(__is_signed(ux) == __is_signed(uy) ||			\
++	 __is_signed((ux) + 0) == __is_signed((uy) + 0) ||	\
++	 __is_noneg_int(x) || __is_noneg_int(y))
  
+ #define __cmp_op_min <
+ #define __cmp_op_max >
+@@ -51,34 +51,31 @@
+ #define __cmp_once(op, type, x, y) \
+ 	__cmp_once_unique(op, type, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
+ 
+-#define __careful_cmp_once(op, x, y) ({			\
+-	static_assert(__types_ok(x, y),			\
++#define __careful_cmp_once(op, x, y, ux, uy) ({		\
++	__auto_type ux = (x); __auto_type uy = (y);	\
++	static_assert(__types_ok(x, y, ux, uy),		\
+ 		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
+-	__cmp_once(op, __auto_type, x, y); })
++	__cmp(op, ux, uy); })
+ 
+-#define __careful_cmp(op, x, y)					\
+-	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
+-		__cmp(op, x, y), __careful_cmp_once(op, x, y))
++#define __careful_cmp(op, x, y) \
++	__careful_cmp_once(op, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
+ 
+ #define __clamp(val, lo, hi)	\
+ 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+ 
+-#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({		\
+-	typeof(val) unique_val = (val);						\
+-	typeof(lo) unique_lo = (lo);						\
+-	typeof(hi) unique_hi = (hi);						\
++#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
++	__auto_type uval = (val);						\
++	__auto_type ulo = (lo);							\
++	__auto_type uhi = (hi);							\
+ 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+ 			(lo) <= (hi), true),					\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+-	static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
+-	static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
+-	__clamp(unique_val, unique_lo, unique_hi); })
+-
+-#define __careful_clamp(val, lo, hi) ({					\
+-	__builtin_choose_expr(__is_constexpr((val) - (lo) + (hi)),	\
+-		__clamp(val, lo, hi),					\
+-		__clamp_once(val, lo, hi, __UNIQUE_ID(__val),		\
+-			     __UNIQUE_ID(__lo), __UNIQUE_ID(__hi))); })
++	static_assert(__types_ok(uval, lo, uval, ulo), "clamp() 'lo' signedness error");	\
++	static_assert(__types_ok(uval, hi, uval, uhi), "clamp() 'hi' signedness error");	\
++	__clamp(uval, ulo, uhi); })
++
++#define __careful_clamp(val, lo, hi) \
++	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
+ 
+ /**
+  * min - return minimum of two values of the same or compatible types
 -- 
-2.49.0
+2.47.3
 
