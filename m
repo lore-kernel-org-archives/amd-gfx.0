@@ -4,155 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B07DCAC5B0
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 20:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4448CCCA471
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 21:06:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DC4A10E97A;
-	Fri,  3 Oct 2025 20:46:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE16810E0C3;
+	Fri,  3 Oct 2025 21:05:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ejg3VrYc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QzKIW972";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012038.outbound.protection.outlook.com [40.107.209.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C52E8826D
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Oct 2025 20:46:50 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010027.outbound.protection.outlook.com [52.101.46.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD0B110E0C3
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Oct 2025 21:05:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dqxoxb9jtkTYAqr1VvrXTT4yzH2hMCW0MhR5B+dhYxzRgM2XyWmQ4BWa3fi+QmnY8488hEdzV66SE6XBmkcKOzX+xnP1OhFeEoQgK9vT1sY7vBvREDuRY/Iyh5f5JWNo2BEt+OKwDL0GMJ0f5udEljfw/8PgvM1uME2e3TWWDfB2AHLqtJdO2c4Bp649XH8HtQAJHXbyKO1sbkMblTjhm74kAmmjLCXXcR70JSE5gy1taAaSzWjw9+7hJvsDrB6SysXNMrWHuevzF6P6qY83WlQQGoRu43tGQ1XSs8WL6NIOOywUicgwknfOJjSizlXYj8Bm+horLbvmueyatFhh8g==
+ b=CtwpGJ0U0DjsJ9l8l1oozqeKjy7O//MYRlpvvAp1Ektcoxs/bsaNwRJdRw9XSyXD1hVRQq4VViLjS3ukMWv3225WXBRM5E9wKCHYpuSp5jUF21McLO6SHCTXETsaxD2ZQ2/6V6G3tnb9r8dq4fziOl6C9V7QghE5I7pwV8t/TE86i79SIBPp73zTkLVOVJJflKaArxlx2CIKK47jwLIh1rq5MWmHd2Ao93k52xQyTbwgyBkHVO6sFfRa5UWwF8WBs1uc1yxQmbjjB0+0xj2z35bcYdW1uTFVFGM0QFmfOJ7Rv2+FMwkzNsl0Lmhoum+zr/4YukdR607r+orsmYlwAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c33D4/He1KAqk0MJbWlzoIavFXadWWuYcnVamtNFclc=;
- b=u0cNqClMHz0MOZPpXN/sfg4DRSwGG4XWsfbBe9xNrX/zGnbiWswul9EKh8rcfgkhA1poTcp07rcWGO9K2TpgToQligwjNIrjekKPiZR/eb5fIs3c4lJ79n24IbwGyN9EsvUSVgQhY+SBh9K5XIaIYphndQ6BQ2l1KvZPWRhSIbCRIYheKcwyUTTcSho7UmUyUjfRW60Zi4CO+cqdP/wDmd9mI1i9T8aCskrEtIRvl7Wmh23LtSTURPxhe2ud6YeWIPKmK9tgxr2SgiCTn6hqnurFqq/fEy8ID7QGs5/9/xWraw7zxYWhxzsfe/EkcQSVStoOgW4p6OCmSk2kr6v2Aw==
+ bh=OMNHhTZ+4vXy0r6KSmFKY3E145wc+VZYchDUh06gJxk=;
+ b=fPc3zrZVKeVD9iUY85J+fTbBjqigJVGyB7VSMGdq5TVFNU39aEk1LH4UAHs4P/BhlZccmJS8t2Lhs12IXRo0+FsuqIAdBzOF9hYcEekPmnVEFEZmwl+hKyZS1Jf8UkV4AkANbo9TBqEKuh1EceWr0TZjkfYzm15E4pzybOg7hEMC28ZQEx8KpMjEGg8CoduadeLN8Hq0oLSCWAWmlhWxaVdm9O4LsdZ+3uGRj2Gm6ztkVEpSLAthdhEdDpS1K3AiT2Eo2GGFq6GU4EgJ2v1/9ldDe99wEBM2qGy1r+JUTM3A7jnjowrenEfuxpCc3CWPFHH80eHiGNfvVW0TTXRgoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c33D4/He1KAqk0MJbWlzoIavFXadWWuYcnVamtNFclc=;
- b=Ejg3VrYcadglY36rHgmoNNhGPckx0PKPENMru0yhgTTpD8zhjpnnZZnPvLAfeFvhnfALzvlT4INKKPICXbWLLlWqOmEO8Z6k0Zml/pVGPGg18mPwz2+0u1Gsk22xm9UyNNFtEThClcSwPxTri+YHS6FJ5UjfLAlpylP0ML8/LqU=
+ bh=OMNHhTZ+4vXy0r6KSmFKY3E145wc+VZYchDUh06gJxk=;
+ b=QzKIW972fCXiSHHSMREY/7kUMMwXdXJZRf5umrpxx2QSrZbqs61oL5Lf6jv1BFYcPToQr3iQabyghZSMXlGVWwnSPTrbh3u4XOczi8zJNb6lzfNBE60LnJbvMzp8WyK1WhJonIa6KqFcH1ghCTN3SiulkH5NfHmU1apqBlrfK5g=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY5PR12MB6551.namprd12.prod.outlook.com (2603:10b6:930:41::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.18; Fri, 3 Oct
- 2025 20:46:43 +0000
+ by SJ1PR12MB6099.namprd12.prod.outlook.com (2603:10b6:a03:45e::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Fri, 3 Oct
+ 2025 21:05:54 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.9182.015; Fri, 3 Oct 2025
- 20:46:43 +0000
-Message-ID: <50e93032-57da-4756-be08-056db1457812@amd.com>
-Date: Fri, 3 Oct 2025 16:46:41 -0400
+ 21:05:54 +0000
+Message-ID: <87ae1017-5990-4d6e-b42c-7a15f5663281@amd.com>
+Date: Fri, 3 Oct 2025 17:05:52 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/amdkfd: Don't stuck in svm restore worker
-To: "Chen, Xiaogang" <xiaogang.chen@amd.com>, Philip Yang <yangp@amd.com>,
- "Yang, Philip" <Philip.Yang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-References: <20251003181518.24270-1-Philip.Yang@amd.com>
- <20251003181518.24270-3-Philip.Yang@amd.com>
- <DM4PR12MB656658906DDEEEA2D86AA64AE3E4A@DM4PR12MB6566.namprd12.prod.outlook.com>
- <85af42a8-25a0-5614-a35b-fdfba1b7589b@amd.com>
- <6fd40823-96a9-4307-8364-8a6c70153a85@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix svm_bo and vram page refcount
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20250926210331.17401-1-Philip.Yang@amd.com>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <6fd40823-96a9-4307-8364-8a6c70153a85@amd.com>
+In-Reply-To: <20250926210331.17401-1-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQ1P288CA0009.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:9e::17) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQBPR01CA0153.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::15) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY5PR12MB6551:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2dc04956-6494-4bde-c76f-08de02bdf5f0
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SJ1PR12MB6099:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c93c850-1a66-44a3-29fe-08de02c0a3f6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RGg2MW9EN3pGaEgyWlIwcEFOK21UeTBzV0x5U25rdWhiM1BGTkQ0VmFaZjlV?=
- =?utf-8?B?ZTBMb0gvSzVWNWdFL01KcDRMREdBMWlwUlpwNXIrT0k0eTY1VUVoL3VuM0Fh?=
- =?utf-8?B?MHJZd21VWHJDYTlRdTRWS0lQNHFHYjV5dFpadC9SSzNTSkJxMW5KSHM5SzdM?=
- =?utf-8?B?V2RLSFdTSDB0eGlvYTZ6Y3RTaGo2aXk1bkRMSjBrQW8ySjNzZGo1WDZNa1po?=
- =?utf-8?B?RFRNT3IxTmV2TDlvTmUxYVZNZ0lIMURqNmJtMTdGcDQ0elJwdmpuMFhWbFdT?=
- =?utf-8?B?SWVtMzBTaVJpSHJhZWpNZ1BteXdBbmY0TCs5K1E0c1pVNldOTERuV1pBMlBa?=
- =?utf-8?B?U1JFWm5zbkdubiswZ3c1dWVObk12UHNKd1drOGZnazFUdEg0SXRwbmlXRXVO?=
- =?utf-8?B?K3lGRTFVRS93NWpEdEN5QkhYL3NpcDUzQmlwOWRjUFRHWjNFRy9NVE1pNlV5?=
- =?utf-8?B?U1BKcVlNb2YxWm9yMFNVTFh1ZnJQQ3NxU3QxMG9yMU1TeUNKZVhGR05ya1dM?=
- =?utf-8?B?VzZCbGxTTDNwQi9EVGo3bUhuK2Y2SWIrbUhwUGR3VG8wSEdrWFZPUit4QmM0?=
- =?utf-8?B?ZHRoM1UyelhxLy9KZ3B3ZGg1ZEJ6U3FoNFhzZ0k5dTYyZjh3ckVqQm56cHd3?=
- =?utf-8?B?cFF5U1k0UGdDcXRBWHFpMk5yWkk1c1I2QmdxVVFWQjFzOWNyTWE2Zzh6dmlo?=
- =?utf-8?B?bitBVzVFZklhVEQyQkxwQlM5UzVWZkhQVGlTdldDRndwQ1drUEVXRzVRUEVE?=
- =?utf-8?B?ZnhzUnFQam1LV2FRUncxVlBZNnR0WHdVOVdlYk5qam12NVEzVWhYMlczaER4?=
- =?utf-8?B?ZTNrd3F1bEQ1bHlvNzFVaUFXaU5qU2lLSyt3MHNJUFBVK0U4TEFac2pxZTFC?=
- =?utf-8?B?Z0lqNkR5UUl1dncvdHh5elZDTzhxcjJrUTdjVlJFOEFXNFF3Ty9heUc2UWw0?=
- =?utf-8?B?L3JURkJYUVM5RWR3YjVhSW1JZ3pmR2g3ZDJlcVNaUnFKSjhmb2RrK2NsNlU3?=
- =?utf-8?B?UFdiTTFOUzhIWkI3TGIzcllEMzZYMnA4dEJmbEM2YlVNQXREZXBOR1FYVmI0?=
- =?utf-8?B?UTNxSml3bk1pdE1xRU5mTWpPTC9zcUpNOWQrQnl6VnVFYjlKY1VwSUEzTitG?=
- =?utf-8?B?RGNNUXY1UDV4RXl5c09DT1dHamZ0OXJPMk93aC90M0QxaVVEcXdwOWdLc2NE?=
- =?utf-8?B?UmFDVDZZOU1jWUZ3Mis2UkJLSjBEYUEra1pweERsVWZQSU51eEk4U2wzek9v?=
- =?utf-8?B?elcwNE5vemJibEcwTTk1SXY0TTVSazhDYmRRa3RRRkJob0kvQ3d3WXBqdExz?=
- =?utf-8?B?RXRHU05MUzJzV1JGekRiMWVQVWhMWEZVOWxmOGZlWVowOTI3bUs2c1JzZUcz?=
- =?utf-8?B?bDV0SUNUck9oRGQ1NWNTRE1MQkhXVWZJM0FacEg5Rmd4SlpWNlBlUUR1S2xM?=
- =?utf-8?B?cEgvNDgydnNLY3JIUXhEN3hXTmdRVHRQYndDbnVYbVA0ZE81dmNiVDRNenBY?=
- =?utf-8?B?c3JiRlFWZ0cwcjlqa01hamoyM2tHYy8xNEtYQmd0NDRXR0YrcUZUdThsRHFr?=
- =?utf-8?B?Rkx4RmVmRC9odWlYeXNlcG9GajdhakVjS010MjNkNjJHQjZJMmNmVHgzUXZE?=
- =?utf-8?B?NzZYNTVpNm9rQXVaTC85L2QxMHY0ZkVjYzlTTU1zM1d4b0E4cnhZRyttbDlK?=
- =?utf-8?B?ZjdLdUkyanBKRHN1WmZRbXhkVHRUbUtWN2RRVEg2aHFTcTJ3cHBnZE9CenJB?=
- =?utf-8?B?VzBpMzIxTk04dUkvM2FtVzJVeGtCWjk1TTZ1Q1V4NHpzc1lidnJJTks0Qjg0?=
- =?utf-8?B?NFU3aklRN0RST3hXamwzNDFja1hBVXFpL2NQSlVrMzhsZkU2a0QwQUFKdlBH?=
- =?utf-8?B?d0NGdmJCLytvTitDNFh4d1NzRzBPZDFpYW9VTjhmeUluZ1l5Wm4xbHA3bWUw?=
- =?utf-8?Q?qjNV7pFmHTMu6tF+IGwBPKGSrFx5EpwW?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?REJvVzFYTWFqTWZ1bVk0NjAxcGI4V0RqU2h1VmxPSnJ1c2FwV25hNGFJc2JZ?=
+ =?utf-8?B?WDZ0K1Y5cGtLMkJsY1g1alM5WEdWdE1KUDZBMjFnNEJIc2ZpTU9uVlR4TFdi?=
+ =?utf-8?B?K0hBQ05iN0lWelI4T3VmY1Y5d3hBR3RLSldNUVd2V0h5VHNwUDJmZFdseFcv?=
+ =?utf-8?B?SmxXVC94QkhtMitHWjdjdGFBVkxQeStkU21vRitvMkZOVTdQUGtVM1ZXbk1Y?=
+ =?utf-8?B?L1BJcWlLZHhlVlJNc2I0Y3RFMDVwMVNLZTJWMktGWjdqQ3k4NXJYVHFzZ202?=
+ =?utf-8?B?R1htRjNwWXpmU1BpWWM5YzNRdDJrcmN1Qm10L05PQTVqNEllZi9DM1NwVHNy?=
+ =?utf-8?B?cUc5V0d3SmJaVCt5Sy9QUTB1UUJXeG1tK2NlUy84UFVMUlhsTU4rTTF1UGox?=
+ =?utf-8?B?UU5hQ0pzU1Rac2k0aVJlcHdVSU1NQ2Q1VkVhZnhFU3U0dEcra1pEc2JpZ0Y5?=
+ =?utf-8?B?ZitQYzZDMHNMTW9DVmxoR3B6QWNzbXZoMUIxZXh2SkxKdGJyUFlBTHV0a0xZ?=
+ =?utf-8?B?UURNaWFMV0cvVDV2NlpjRUhNSnJKN0I3MlhVc3g5N2lSSGwwK3hJS0t1QXlu?=
+ =?utf-8?B?MU0wK2JvZGVBUDRoMk5UNGoyRVJ3NjBaQ1YvdHFVUW1zZGtsVkxqeUJnblZk?=
+ =?utf-8?B?K3RYYU9OZ3o3N3NPRG9VREZ3V3BySWJiMWlRNzJIYVk1WndTQ1U5aVdad0J5?=
+ =?utf-8?B?aGIrZmplQW5JN0xIRmFmVzR4cXZQMlYvTEtYUnVweW16VVBOODdrUDdZU2Z5?=
+ =?utf-8?B?VklhaGNSVjZ6QXZUSVRnMDRjcWxxY1RpYVV4SnU1WTk5VlNXajI3aFFZZVpn?=
+ =?utf-8?B?TEpsMDByMHZraFF1UXhJMW5iTk1GYjN2ZzAxaDg2QXlTZ2RwK05aL3o4WUFB?=
+ =?utf-8?B?UXdROHo0NFR1M2graUN5a3pDK2tFNW1aZmpPRllXeVk1bzZmeVJwbGxLT0dL?=
+ =?utf-8?B?S0RXNDN6OWxoSzBUYWlabW80ckVwQm5sOGRwdnBlQ3lyYTFuSXZqVGkxNkNM?=
+ =?utf-8?B?RGxlblI0TVZXVzBvcWNzaVlJdENnQ3RpMTJJb0wxU0hQWUNXbGdyZ2xtQi9E?=
+ =?utf-8?B?MHN4QitrQU1QcFNvRkN2N3o3MitLS0NCZEp5SURpdFk3YXdHMExwUUc4eFR3?=
+ =?utf-8?B?cFJKWG9ENXhvRG9ja2tCVWVReWN4T0g4KytsNmNidlBvaFdlRDd3WkVIcEZX?=
+ =?utf-8?B?c2M2UEhuY3VOeFFncU16ODM2MTFmT01uZ2JxM3ZTZGEwb0ZxOTdNRCs1RDFL?=
+ =?utf-8?B?STNOV2J4YWF5ZjhaWHIvS0ZBMldyNG5rK3p2RmtCTk5tQ3JSNTRWZTlqTTZD?=
+ =?utf-8?B?TERwMXZJbmpFVTNPZVlBNlU4T2EwMEhHUjZwdWNZellqSXljYkkxdEl4STh6?=
+ =?utf-8?B?alQzRHhZZ1FRODlEd1NGdFRKemM4ZDZteTdFT3FxbDJqL3B2NG9kbzQySnN5?=
+ =?utf-8?B?b3dPSUxncGJmaHlSMjJ1SFVrMkZYQSs4SEM2MUFHbWRRUXZXUXp2RVlTZW5v?=
+ =?utf-8?B?OThIWVJ3Tk5USWpPQitnS3p3VWtKa1M1Ky9MTkRzSVAzNlBTRUVSMWFWaGxR?=
+ =?utf-8?B?b1JmZlQwWEhlMzBIQWo5Wlp4b1g5SmFYWlJkOGY0MCtld3B0WGcxaTFkZ3lL?=
+ =?utf-8?B?VnliVHZnZzRmSFZhZ0E5bys0c1I0K3Y1bjRENklwRWd0SDJDY3IxNXhGalE4?=
+ =?utf-8?B?dHduU0R4WkhJZEdkT1JibDZnd3Z1b2t5dUU2YkJxa1dCRzNic09SNEVVVDAx?=
+ =?utf-8?B?VklKeUFsTVVaMDM1L1VTODJESUZUbUQvMmhjUldYN1gwRUM5dVNLUDl0TjZ1?=
+ =?utf-8?B?UlZHb0VJaThWRUVXQ2sxY3c1R2VEbXlDMVVBQ0FWaHpZMUI1YlpnN1pkRUdS?=
+ =?utf-8?B?WVJpdkU3M3VKWWJ5U0p4MTkvSVFDSklwV0VrOFBWQWhQVkxNZEN1L1NlQXUz?=
+ =?utf-8?Q?bLpso/j3cPwNXlI9D8sal2+CgyPyAPYs?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V011bkZYR2dBakVPcGQyKzlueHVvRFdadE10N3lRVDVKZklWblVJNTk1N2N5?=
- =?utf-8?B?aU5rQzlpN2xDeEJDcEViRzU2TGlTWFI1RkZMZnRtOHkwMEdDeEtYaGV4bUhY?=
- =?utf-8?B?d1FDU2R1djRuOEJFOGVrTWRmZys1ZmRtSmROL001bXlheWU4Qm1wWnNwZEZJ?=
- =?utf-8?B?Q1ZLMms0WTJJNmxrVUtxNnQ1OTU3cDNreitKYWc1M3QxbnFoWTFCcjdpR3lO?=
- =?utf-8?B?VEVLMnJaQmZJUms1dmJwdWpoTnJVSXh6czRvLzdaYzkwM2ltVkpkWVpRR3p5?=
- =?utf-8?B?UDlvYXhPVm9mSkNYeE5lODJ1djgzcFd3ZUxVZU1IWkNKelFxQ1dOYjBlbEtR?=
- =?utf-8?B?U3MvajAwcEJ2TzdQam5DTTFCc0NwSFhnZ2FrOEF1V2ZKRWFXc1lOdmlzSElS?=
- =?utf-8?B?angvejBsMVJQUTh4cHpCN2NVVkhlNHNUNjZwSmdSd212Rm1JdmZZSkhQenR4?=
- =?utf-8?B?T3F0K1pMczR2NTFDTkxJK0IyRm11YXZRenZNaW1nRHpIUU44U1EwNzlKd2ZM?=
- =?utf-8?B?UFpFUzBpSENjcXpiejR1a2loaUdBZHZjOTQ3S0gyQ3dleWdFaUtDeHl6ZjBM?=
- =?utf-8?B?ZzQ1NzFEVExNRjh6YnI3SnZCeG5yVWwzMW5lZ1JDdFNkTGVPY1FqK3JXRENU?=
- =?utf-8?B?V2VlLytldGJsZ2NoM0h3clZVaE5JYXRSbEJEUkw3aTN6bVBKbHpsRHhqYUY2?=
- =?utf-8?B?dFMxQUNQRElQS2ZNbHdhUHBCY0NpWkFZbG9SNklaYlpIMlZDM2VDUGpnMjg4?=
- =?utf-8?B?ZHdhNHpSVkdaaFhMMGtONTlySG5EOHhBZnRpYXFoYUU4aWt2Z3BqaGZiZUIw?=
- =?utf-8?B?MHBycXdibzJnejhjdktSM0d4Sm1ObkFEWUVJYlllR2kwWDdmaUhweEpmc3JY?=
- =?utf-8?B?MVY4NE1NREZyQXBQSU1yMVl4djZJUGdzSDdDUlJiNC8zcms3eTlUTm1kWDYw?=
- =?utf-8?B?VUN5MmxjT2JGanpyYm5rbmZ1NU9BWjd5UUo4VHJFb0ZwQ29iN0paT2p5NGgr?=
- =?utf-8?B?d0VBYXRSZWV0YVdGSXFWV0x0MlhXWERXT0l3L1hsQzUyUlhxdzMwKzhhMXdG?=
- =?utf-8?B?YTVRQmhjZURqaFQvdXZoN2gwQWhGNTE4YVM4Ny9MaWxKSzhxUnVsR2NFMzdX?=
- =?utf-8?B?cGVUcnpqSncyMlhDaytuRi9jU1dYb2tNTnVEUlNmRDA0LzRTanZibE1FRTZG?=
- =?utf-8?B?Y1dCSkNGeDUzTTNJVWFnQ1hJQlp4dGJPSVVzdTJlUURJYVBDVHdEUERZZ2h2?=
- =?utf-8?B?dlBqcTVyTGxqUkoxV3N5RTZFMGwrbldDZUxpQlg5UWdnWCtZSjRoa0hLZ2p6?=
- =?utf-8?B?Y09FTndza0dFNGgyWTduYmdJTHBnMUVDYlVRaWpncnhpNmh5UkNLV1NOWEpj?=
- =?utf-8?B?bWJLR1dUTXkzL0haSFhGQlJURjBLNWhDQlhlcnNJREc5RTFkT0ZiVU5Mc3J0?=
- =?utf-8?B?dWxYVVlnSmFNeitQM0t6TkdJU2sySzVmNmxkcjdLVFJGNDAxVkhvcUZ3aVk2?=
- =?utf-8?B?dHpRTzFZeU1Nc1ozdnYrTXcrb0R4dU92VUptcnRIR3NBVzdIaWJxUkdyanNB?=
- =?utf-8?B?NDZodkNkc2FZVUdVUWYvUVJaditybkNhMEsyZnRuVy85VFFYWmNjdDd4ZVZM?=
- =?utf-8?B?TlpiQStDQzVsbmZObzJ5R1RTL2NjMTJDeG9LeVBrNDUrODBSMXdPY04wZ0lM?=
- =?utf-8?B?MkR5M2hzM1A5dkFhWHU5cDNXUUVHLy9zZEdkSnRQcmdKdVY4aW1vWitMc0pJ?=
- =?utf-8?B?UEtUWGppWERPeUFNTWw5RDZBdEVOUTdSVkZRbDJ0eVA5Zi9tRnNGckJrQ1da?=
- =?utf-8?B?MjJjRlZIZktHVCtmTUVuR3JEL3kxQWkvM2tVUXBwYzZsZ3d0b1ZvRUNJdG9I?=
- =?utf-8?B?UGZJUERwZ2VYZkg4eWRVbUM1a2N3b2VJQ3gyUS8wWE5sVXJlQVZJTVl1SkZk?=
- =?utf-8?B?aXFhVFVSSlByNE91Nk1oTXlSZUdId2Z6NTJMd0tFcm8yMGh2NzUvR2ZrQTBr?=
- =?utf-8?B?Yk55eXArOXoxRElLVDNLMHRwT0F6VkFhQTdJbTlDbHAzdHNQeU1aNWR2Q3I0?=
- =?utf-8?B?K0doVG42TGRsbG9pZExNd1hHZWtYTFdPNGdQK1pPbGVheHJjQUxrQ3o0UVYv?=
- =?utf-8?Q?spdTnTcWFbA2sr4VzDQ0uTA2F?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFRwajhJSEtaM2hJUExmOVZqeGl0OHAyTmF5bWdoNURWd1NyS2FqWGFLSUlw?=
+ =?utf-8?B?RFF2RXhrOGNmTHhXUXJ4UUUwZ1N4cTlLeng4M3c5TEZ1RGk4MENiR3lraDdr?=
+ =?utf-8?B?SXlDNnVBUXd4Y0U1R0Q4WDQ1M0htUG1KZ0lhc3dpYStRK0UrSjJKMDNJWDJ3?=
+ =?utf-8?B?NXhFcDJuclFROGtKWWRFWnZGUkV3czR4OWlzd1h1ODhMWjBITGRIRFVDRDhm?=
+ =?utf-8?B?RXRMVTdDTFlkbEhNVjZFejJiN1liU3hpUS8weEdNQzVGWDMyTCtSd3FxQ3Jt?=
+ =?utf-8?B?WUdSdFlwVEdDZWo0QUNMM2M5VnA2UzhBNWdySkZuMG5YUTBTRUhXa3JVWU8r?=
+ =?utf-8?B?bEZvVDRKdlZhT3VxQVZETWlTelJxcTdCZGdRclc2d01mUFdRQTJhTnF1SzAv?=
+ =?utf-8?B?OE9VUmM0aTQxb1Vlck0wdHRlb1RyOW9USU5kdXlSY3FROHIyYVFMc0ZDNXJS?=
+ =?utf-8?B?WVZTTXAwMGlGeEJsZEtCMHNNQ09OUkQ5YnYrZDlyY2dMS2toMXczOTBlNzQ1?=
+ =?utf-8?B?ZHFLZHdrYkxGdzArb3dTS1BiYU1ScW9ZR0ZLaTlWSVh0bU5lZXN6MHRYRy93?=
+ =?utf-8?B?TmJyQW4xMVNYZWFDWEhVYlpOVzhMU3hzZ2wvdVJDdk43VkVkdno5TVdDUjZl?=
+ =?utf-8?B?VTg2ZnVFR0JRb0ZtUFpKTGNKWjI1bHJMd1JBbHdsMmRYem1CQzJVZFNXY2lx?=
+ =?utf-8?B?TFNXZ0MzT2NCRlJzSDJLTHhEbVZOQU8zS1FrL2dvdDZNWEpLUUtzcjBsVmhS?=
+ =?utf-8?B?MGxFTHd6c3Vza0ZuMkhmRFlXbnZwNUN4UWlRUXpadDNuYUlQajBObWlTZUo0?=
+ =?utf-8?B?cHRpdTFxY0hjR09maWs0ZVdVS1pyNmdYWUViZ0ZwUnVPN3hQdzdPVUhUWFp3?=
+ =?utf-8?B?RGxuMTViMDJNcUY0TFZOM3BldnlDR3Y5Ym0yVklJMmpOMXVxSy85K2ZOT1RV?=
+ =?utf-8?B?cGZxUTRDOWUrYzRQdjJsV1ZwZ1NoaE16SFZRM0FTUVMzM2dVcGpjYUF0WnY3?=
+ =?utf-8?B?R3dGOXQ4dFZnSlZFeDBIR3FrM09aL0pQTEdxTi8wTVNNODNVWE1NUE1Gbmlt?=
+ =?utf-8?B?OU5sRkJySkFENGR4R1dmaDZpQWpxV2dZbDhFQzhvVDArWmlBemc1bDFESEcz?=
+ =?utf-8?B?NlFkb0xrM0lvVWRybERzdlllL0hpMHRGakNVMXJsYm4yM2xKNGhaNlFLSVNW?=
+ =?utf-8?B?MmVKMzhvOTVjSmJsTVBTUzJiQllVRWx2eTRod2VOanBCdVk1dHlBOEtackNu?=
+ =?utf-8?B?aU04cXJycEt1K2c2UVNydW53YnJOQUVvRExHZjRqczA4YUFONmN6TWxwTTEx?=
+ =?utf-8?B?R2NkMFNPM1lzSEhhWVdsMno1aEhjdHB4eFkzb2hDQTY5NUN0OWtrRXRheHlD?=
+ =?utf-8?B?Rnk2UzF2YXdDc0tEZ3RFUFBXbFNEVVF5RWlWSy9QZlgyQk9HZlVhRTgvZFJa?=
+ =?utf-8?B?cWkzWCtLc1R4bTljcVAxTS9TeVppb3VnRHpQMzlRSXhPTkwzaFZIQStxd0cx?=
+ =?utf-8?B?YUlKMTlESnE4MDA4ei9HQjFVcm1pYVgrRWNJelNiaFdaRzRsTUw5L2k3Q0pk?=
+ =?utf-8?B?TXFwTjlxc0ZKcUFwU2M4UjdWU2RLREtVRFZNOG0vWlhhbGpoRFBRWkgwKzRC?=
+ =?utf-8?B?SUJVNHArVSs5ODZ2bnE1S2NUZmdCamQ5WlZPbWs3eFBCM3R0UzdKdkh4R3ZC?=
+ =?utf-8?B?VENxRmxIUHE0aUwwdllxa05YN2pVaGU2YnR0WmZ5WWUzL2lLdU55TEpIN0Ft?=
+ =?utf-8?B?TnFZekxxNWozekNwOFdpbTViUGp5alRETmFwZERqY01ISFpqVXF4MXErSlJK?=
+ =?utf-8?B?V1dnNTlhZDNlVkdPZStRVWc0amJtbGpnVC9wQ0VZZmdGL3VQMlZSeVNUdFNY?=
+ =?utf-8?B?amxhdnFic0UvSTNUSmJrbUNjWnNOTklBU0VTVmloSEErZ0wzZ1Z4M3hONjM0?=
+ =?utf-8?B?WHlPQ0gxMUs5Tk1SMXV2Qkc1aDFFOUlPckZCLzZCdjNxSEhKWlFwSUxZM1cv?=
+ =?utf-8?B?bk95enJBSTFWZm8ydVJZMEdWRklXRUIreDlQNHgyNkIzVVFjemx6VEQ1KzhT?=
+ =?utf-8?B?MmxjNmc3MXMrNjh5UGdQMlZUOHRWbHc3bW5WZHk3STF0TVJXWXVlOGtldWY1?=
+ =?utf-8?Q?ydmH4BeCan0kLDPibqQpCCUKa?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2dc04956-6494-4bde-c76f-08de02bdf5f0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c93c850-1a66-44a3-29fe-08de02c0a3f6
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2025 20:46:43.3237 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2025 21:05:54.2179 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0UNvjuXEWmmcN/X/fiROSMSDJWk1dCXrgpp4w5TF0eJgUJ/vmfsi8BEx+d4qyupk7OoRhwFUi4GaSyEfq4rwaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6551
+X-MS-Exchange-CrossTenant-UserPrincipalName: cRgY1H2Kua1LmCztaEuwD9WRgAE3kKFrT5fLGXeWNFJPxm6EohrlWpd0K7xMJPhUVFZniX41V3t6xz7MlyJv3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6099
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,210 +160,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-10-03 14:34, Chen, Xiaogang wrote:
+On 2025-09-26 17:03, Philip Yang wrote:
+> zone_device_page_init uses set_page_count to set vram page refcount to
+> 1, there is race if step 2 happens between step 1 and 3.
 >
-> On 10/3/2025 1:27 PM, Philip Yang wrote:
->>
->> On 2025-10-03 14:22, Chen, Xiaogang wrote:
->>> [AMD Official Use Only - AMD Internal Distribution Only]
->>>
->>> The MADV_FREE is handled at 
->>> madvise_free_single_vma(madvise_dontneed_free) from 
->>> madvise_vma_behavior at mm/madvice.c.
->>>
->>> It calls mmu_notifier_invalidate_range_start(&range) with 
->>> MMU_NOTIFY_CLEAR to notify registered vm intervals. I am not sure 
->>> how driver don't receive the notification. Is there something else 
->>> cause the problem?
-
-I guess we got that notification. That's why we're trying to restore the 
-range later in the first place.
-
-
->>
->> I cannot repro the vma not found issue with madvise MADV_FREE on 
->> Ubunut kernel 6.16, this issue reported on a customized older kernel 
->> version.
->>
->> Regards,
+> 1. CPU page fault handler get vram page, migrate the vram page to
+> system page
+> 2. GPU page fault migrate to the vram page, set page refcount to 1
+> 3. CPU page fault handler put vram page, the vram page refcount is
+> 0 and reduce the vram_bo refcount
+> 4. vram_bo refcount is 1 off because the vram page is still used.
 >
-> One principle of hmm is gpu vm is mirror of cpu vm. Whatever happened 
-> at cpu vm need to reflect to gpu vm. If there is something wrong from 
-> hmm that driver did not get notification from mmu notifier driver need 
-> update gpu vm, also the correspondent prange. So, besides unmap from 
-> gpu vm, I think driver also need split prange to remove correspondent 
-> vm range from prange.
+> Afterwards, this causes use-after-free bug and page refcount warning.
 
-I would agree. It's strange that the vma disappeared without sending us 
-a MMU_NOTIFY_UNMAP. If we're adding a workaround here that unmaps things 
-for missing VMAs, we're potentially leaking the prange structure and any 
-associated svm_bo. Because I don't think we can expect that someone else 
-will later send us the MMU_NOTIFY_UNMAP.
-
-If we cannot reproduce this problem in an upstream kernel, we should not 
-include a workaround for it. If we can reproduce it in an upstream 
-kernel, we should discuss the proper solution with the HMM maintainers. 
-It may not be in our driver.
-
-The only place where we can put such a workaround for a bug that may be 
-specific to an old or modified customer kernel would be our DKMS branch. 
-And even there I would be hesitant with a workaround for a problem 
-that's not fully understood. It makes the branch harder to maintain, and 
-may be broken at any time if we can't test it.
+This implies that migration to RAM and to VRAM of the same range are 
+happening at the same time. Isn't that a bigger problem? It means 
+someone doing a migration is not holding the prange->migrate_mutex.
 
 Regards,
    Felix
 
 
 >
-> Regards
+> zone_device_page_init should not use in page migration, change to
+> get_page fix the race bug.
 >
-> Xiaogang
+> Add WARN_ONCE to report this issue early because the refcount bug is
+> hard to investigate.
 >
->>
->> Philip
->>
->>>
->>> Regards
->>>
->>> Xiaogang
->>>
->>> -----Original Message-----
->>> From: Yang, Philip <Philip.Yang@amd.com>
->>> Sent: Friday, October 3, 2025 1:15 PM
->>> To: amd-gfx@lists.freedesktop.org
->>> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Kasiviswanathan, 
->>> Harish <Harish.Kasiviswanathan@amd.com>; Chen, Xiaogang 
->>> <Xiaogang.Chen@amd.com>; Yang, Philip <Philip.Yang@amd.com>
->>> Subject: [PATCH v2 3/3] drm/amdkfd: Don't stuck in svm restore worker
->>>
->>> If vma is not found, the application has freed the memory using 
->>> madvise MADV_FREE, but driver don't receive the unmap from CPU MMU 
->>> notifier callback, the memory is still mapped on GPUs. svm restore 
->>> work will schedule the work to retry forever. Then user queues not 
->>> resumed and cause application hangs to wait for queue finish.
->>>
->>> svm restore work should unmap the memory range from GPUs then resume 
->>> queues. If GPU page fault happens on the unmapped address, it is 
->>> application use-after-free bug.
->>>
->>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 75 
->>> ++++++++++++++--------------
->>>   1 file changed, 38 insertions(+), 37 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> index 0aadd20be56a..e87c9b3533b9 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> @@ -1708,50 +1708,51 @@ static int svm_range_validate_and_map(struct 
->>> mm_struct *mm,
->>>                  bool readonly;
->>>
->>>                  vma = vma_lookup(mm, addr);
->>> -               if (vma) {
->>> -                       readonly = !(vma->vm_flags & VM_WRITE);
->>> +               next = vma ? min(vma->vm_end, end) : end;
->>> +               npages = (next - addr) >> PAGE_SHIFT;
->>>
->>> -                       next = min(vma->vm_end, end);
->>> -                       npages = (next - addr) >> PAGE_SHIFT;
->>> +               if (!vma || !(vma->vm_flags & VM_READ)) {
->>>                          /* HMM requires at least READ permissions. 
->>> If provided with PROT_NONE,
->>>                           * unmap the memory. If it's not already 
->>> mapped, this is a no-op
->>>                           * If PROT_WRITE is provided without READ, 
->>> warn first then unmap
->>> +                        * If vma is not found, addr is invalid, 
->>> unmap from GPUs
->>>                           */
->>> -                       if (!(vma->vm_flags & VM_READ)) {
->>> -                               unsigned long e, s;
->>> -
->>> -                               svm_range_lock(prange);
->>> -                               if (vma->vm_flags & VM_WRITE)
->>> -                                       pr_debug("VM_WRITE without 
->>> VM_READ is not supported");
->>> -                               s = max(addr >> PAGE_SHIFT, 
->>> prange->start);
->>> -                               e = s + npages - 1;
->>> -                               r = 
->>> svm_range_unmap_from_gpus(prange, s, e,
->>> - KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
->>> -                               svm_range_unlock(prange);
->>> -                               /* If unmap returns non-zero, we'll 
->>> bail on the next for loop
->>> -                                * iteration, so just leave r and 
->>> continue
->>> -                                */
->>> -                               addr = next;
->>> -                               continue;
->>> -                       }
->>> +                       unsigned long e, s;
->>> +
->>> +                       svm_range_lock(prange);
->>> +                       if (!vma)
->>> +                               pr_debug("vma not found\n");
->>> +                       else if (vma->vm_flags & VM_WRITE)
->>> +                               pr_debug("VM_WRITE without VM_READ 
->>> is not supported");
->>> +
->>> +                       s = max(addr >> PAGE_SHIFT, prange->start);
->>> +                       e = s + npages - 1;
->>> +                       r = svm_range_unmap_from_gpus(prange, s, e,
->>> + KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
->>> +                       svm_range_unlock(prange);
->>> +                       /* If unmap returns non-zero, we'll bail on 
->>> the next for loop
->>> +                        * iteration, so just leave r and continue
->>> +                        */
->>> +                       addr = next;
->>> +                       continue;
->>> +               }
->>>
->>> -                       hmm_range = kzalloc(sizeof(*hmm_range), 
->>> GFP_KERNEL);
->>> -                       if (unlikely(!hmm_range)) {
->>> -                               r = -ENOMEM;
->>> -                       } else {
->>> - WRITE_ONCE(p->svms.faulting_task, current);
->>> -                               r = 
->>> amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
->>> - readonly, owner,
->>> - hmm_range);
->>> - WRITE_ONCE(p->svms.faulting_task, NULL);
->>> -                               if (r) {
->>> -                                       kfree(hmm_range);
->>> -                                       hmm_range = NULL;
->>> -                                       pr_debug("failed %d to get 
->>> svm range pages\n", r);
->>> -                               }
->>> -                       }
->>> +               readonly = !(vma->vm_flags & VM_WRITE);
->>> +
->>> +               hmm_range = kzalloc(sizeof(*hmm_range), GFP_KERNEL);
->>> +               if (unlikely(!hmm_range)) {
->>> +                       r = -ENOMEM;
->>>                  } else {
->>> -                       r = -EFAULT;
->>> +                       WRITE_ONCE(p->svms.faulting_task, current);
->>> +                       r = 
->>> amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
->>> + readonly, owner,
->>> + hmm_range);
->>> +                       WRITE_ONCE(p->svms.faulting_task, NULL);
->>> +                       if (r) {
->>> +                               kfree(hmm_range);
->>> +                               hmm_range = NULL;
->>> +                               pr_debug("failed %d to get svm range 
->>> pages\n", r);
->>> +                       }
->>>                  }
->>>
->>>                  if (!r) {
->>> -- 
->>> 2.49.0
->>>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 14 +++++++++++++-
+>   1 file changed, 13 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index d10c6673f4de..15ab2db4af1d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -217,7 +217,8 @@ svm_migrate_get_vram_page(struct svm_range *prange, unsigned long pfn)
+>   	page = pfn_to_page(pfn);
+>   	svm_range_bo_ref(prange->svm_bo);
+>   	page->zone_device_data = prange->svm_bo;
+> -	zone_device_page_init(page);
+> +	get_page(page);
+> +	lock_page(page);
+>   }
+>   
+>   static void
+> @@ -552,6 +553,17 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+>   	if (mpages) {
+>   		prange->actual_loc = best_loc;
+>   		prange->vram_pages += mpages;
+> +		/*
+> +		 * To guarent we hold correct page refcount for all prange vram
+> +		 * pages and svm_bo refcount.
+> +		 * After prange migrated to VRAM, each vram page refcount hold
+> +		 * one svm_bo refcount, and vram node hold one refcount.
+> +		 * After page migrated to system memory, vram page refcount
+> +		 * reduced to 0, svm_migrate_page_free reduce svm_bo refcount.
+> +		 * svm_range_vram_node_free will free the svm_bo.
+> +		 */
+> +		WARN_ONCE(prange->vram_pages == kref_read(&prange->svm_bo->kref),
+> +			  "svm_bo refcount leaking\n");
+>   	} else if (!prange->actual_loc) {
+>   		/* if no page migrated and all pages from prange are at
+>   		 * sys ram drop svm_bo got from svm_range_vram_node_new
