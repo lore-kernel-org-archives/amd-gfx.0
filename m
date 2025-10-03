@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40766CCD188
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Oct 2025 09:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF4ECCD184
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Oct 2025 09:54:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E29E510E32F;
-	Sun,  5 Oct 2025 09:54:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6195D10E2A7;
+	Sun,  5 Oct 2025 09:54:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="rFgeTOSl";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="Xa2kvYc5";
 	dkim-atps=neutral
-Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [52.28.197.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB9B310E903;
- Fri,  3 Oct 2025 13:01:47 +0000 (UTC)
+Received: from fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [35.158.23.94])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BCD410E909;
+ Fri,  3 Oct 2025 13:05:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759496508; x=1791032508;
+ t=1759496746; x=1791032746;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CCU0o8wSJQJX56U4+pnGKdTopFZ/0WcuCtYzGhhpTrQ=;
- b=rFgeTOSlcusPoAUfwdMPbuP091UQ6yp3Q1u81W5lqXsI29vaLZpAgUXj
- P6/CA5WnrkqLLKIuILGx07CfT9RcKYjbwT4xbwR4CuClEp2BXmnkvZ521
- holLfrZAz1RPc5Xo7gducgC/kZqE/Mwi0nF6iZoS6DS3I+mYMJJLFx1DQ
- TbzeBbImdv+UKTk3GSX0ppvhC+im6BDrtdKwOxybqeV+45QB21aWbo1in
- m3zCzXXNaF+l6sdJ7rJpEr7vk39LAO0t9qUoMg+qATkTWRTVedKDp+mU8
- 1a5hMrOXNYI2qWibyO+9yPyF4UqgDzRuuVP9xNboHi8L5RtOzi3yXnlxw g==;
-X-CSE-ConnectionGUID: tfF0uA3NT9Wv7xRjl6BuWg==
-X-CSE-MsgGUID: qc8tbCehSsiKPhY3WYGIPA==
+ bh=LIWZLyJTB267mf1gB+7eM+QKWeNJa7R50sbMR1WI3N0=;
+ b=Xa2kvYc5HZrlI60WQSmY0ihu+85zKDzmVlfwaq6YGaX0FRA8T7WSOa2O
+ qiHl1r76EoMtK6NZhDTq6tOhpaIPlukLf8sogrRoDj0VJnfCCBhK465+r
+ aDHoU4/ZrOy9NEApL3K88U1rwffJPLsSXX8Iz9rlbmAmPfhrwNkA1ObSl
+ CcsV/8L+V28wI42fSGEBgiGzHmWrZ+JnzkFawBSr1SJi07feXRsBKF1So
+ MxYqgnC/qvFHE2Q+He1wccjzH5VsddM82q1GpLANKvj8hnvZAH7BnzAmG
+ ocaOBViCl3sEa4SVXuwBqPkH/pxh+CbIs1d3Qk8YeJJs9SGqkwh7J/jSC Q==;
+X-CSE-ConnectionGUID: q9hX2INbRai8iizRYjoy5g==
+X-CSE-MsgGUID: gH0zXrj3RR6UykESXRuy2g==
 X-IronPort-AV: E=Sophos;i="6.18,312,1751241600"; 
-   d="scan'208";a="2960400"
-Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
- by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 13:01:36 +0000
-Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:13481]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.22.27:2525]
+   d="scan'208";a="3066632"
+Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
+ by internal-fra-out-008.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 13:05:44 +0000
+Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:11118]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.33.147:2525]
  with esmtp (Farcaster)
- id 3dc9ed1a-be3b-484d-8c8a-735ffa6b2136; Fri, 3 Oct 2025 13:01:36 +0000 (UTC)
-X-Farcaster-Flow-ID: 3dc9ed1a-be3b-484d-8c8a-735ffa6b2136
+ id 4646b2df-6880-40f8-9990-9e5046ca457f; Fri, 3 Oct 2025 13:05:44 +0000 (UTC)
+X-Farcaster-Flow-ID: 4646b2df-6880-40f8-9990-9e5046ca457f
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
+ EX19MTAEUB002.ant.amazon.com (10.252.51.79) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 3 Oct 2025 13:01:28 +0000
+ Fri, 3 Oct 2025 13:05:42 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 3 Oct 2025
- 13:01:03 +0000
+ 13:05:17 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -92,11 +92,13 @@ To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-CC: Andy Shevchenko <andy.shevchenko@gmail.com>, Christophe Leroy
- <christophe.leroy@csgroup.eu>
-Subject: [PATCH v2 02/19 5.15.y] minmax: Introduce {min,max}_array()
-Date: Fri, 3 Oct 2025 12:59:49 +0000
-Message-ID: <20251003130006.41681-3-farbere@amazon.com>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, Arnd Bergmann
+ <arnd@kernel.org>, David Laight <David.Laight@aculab.com>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>
+Subject: [PATCH v2 11/19 5.15.y] minmax: improve macro expansion and type
+ checking
+Date: Fri, 3 Oct 2025 12:59:58 +0000
+Message-ID: <20251003130006.41681-12-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251003130006.41681-1-farbere@amazon.com>
 References: <20251003130006.41681-1-farbere@amazon.com>
@@ -104,7 +106,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D032UWA002.ant.amazon.com (10.13.139.81) To
+X-ClientProxiedBy: EX19D040UWB003.ant.amazon.com (10.13.138.8) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Sun, 05 Oct 2025 09:54:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -121,98 +123,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Herve Codina <herve.codina@bootlin.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit c952c748c7a983a8bda9112984e6f2c1f6e441a5 ]
+[ Upstream commit 22f5468731491e53356ba7c028f0fdea20b18e2c ]
 
-Introduce min_array() (resp max_array()) in order to get the
-minimal (resp maximum) of values present in an array.
+This clarifies the rules for min()/max()/clamp() type checking and makes
+them a much more efficient macro expansion.
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
-Link: https://lore.kernel.org/r/20230623085830.749991-8-herve.codina@bootlin.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+In particular, we now look at the type and range of the inputs to see
+whether they work together, generating a mask of acceptable comparisons,
+and then just verifying that the inputs have a shared case:
+
+ - an expression with a signed type can be used for
+    (1) signed comparisons
+    (2) unsigned comparisons if it is statically known to have a
+        non-negative value
+
+ - an expression with an unsigned type can be used for
+    (3) unsigned comparison
+    (4) signed comparisons if the type is smaller than 'int' and thus
+        the C integer promotion rules will make it signed anyway
+
+Here rule (1) and (3) are obvious, and rule (2) is important in order to
+allow obvious trivial constants to be used together with unsigned
+values.
+
+Rule (4) is not necessarily a good idea, but matches what we used to do,
+and we have extant cases of this situation in the kernel.  Notably with
+bcachefs having an expression like
+
+	min(bch2_bucket_sectors_dirty(a), ca->mi.bucket_size)
+
+where bch2_bucket_sectors_dirty() returns an 's64', and
+'ca->mi.bucket_size' is of type 'u16'.
+
+Technically that bcachefs comparison is clearly sensible on a C type
+level, because the 'u16' will go through the normal C integer promotion,
+and become 'int', and then we're comparing two signed values and
+everything looks sane.
+
+However, it's not entirely clear that a 'min(s64,u16)' operation makes a
+lot of conceptual sense, and it's possible that we will remove rule (4).
+After all, the _reason_ we have these complicated type checks is exactly
+that the C type promotion rules are not very intuitive.
+
+But at least for now the rule is in place for backwards compatibility.
+
+Also note that rule (2) existed before, but is hugely relaxed by this
+commit.  It used to be true only for the simplest compile-time
+non-negative integer constants.  The new macro model will allow cases
+where the compiler can trivially see that an expression is non-negative
+even if it isn't necessarily a constant.
+
+For example, the amdgpu driver does
+
+	min_t(size_t, sizeof(fru_info->serial), pia[addr] & 0x3F));
+
+because our old 'min()' macro would see that 'pia[addr] & 0x3F' is of
+type 'int' and clearly not a C constant expression, so doing a 'min()'
+with a 'size_t' is a signedness violation.
+
+Our new 'min()' macro still sees that 'pia[addr] & 0x3F' is of type
+'int', but is smart enough to also see that it is clearly non-negative,
+and thus would allow that case without any complaints.
+
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 64 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
+ include/linux/compiler.h |  9 +++++
+ include/linux/minmax.h   | 74 ++++++++++++++++++++++++++++++++--------
+ 2 files changed, 68 insertions(+), 15 deletions(-)
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index d4bc394b449e..aac0b7d23768 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -168,6 +168,70 @@
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index 4f03dfb6de0d..ee9e39d315c8 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -258,6 +258,15 @@ static inline void *offset_to_ptr(const int *off)
   */
- #define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
+ #define is_signed_type(type) (((type)(-1)) < (__force type)1)
  
 +/*
-+ * Remove a const qualifier from integer types
-+ * _Generic(foo, type-name: association, ..., default: association) performs a
-+ * comparison against the foo type (not the qualified type).
-+ * Do not use the const keyword in the type-name as it will not match the
-+ * unqualified type of foo.
++ * Useful shorthand for "is this condition known at compile-time?"
++ *
++ * Note that the condition may involve non-constant values,
++ * but the compiler may know enough about the details of the
++ * values to determine that the condition is statically true.
 + */
-+#define __unconst_integer_type_cases(type)	\
-+	unsigned type:  (unsigned type)0,	\
-+	signed type:    (signed type)0
++#define statically_true(x) (__builtin_constant_p(x) && (x))
 +
-+#define __unconst_integer_typeof(x) typeof(			\
-+	_Generic((x),						\
-+		char: (char)0,					\
-+		__unconst_integer_type_cases(char),		\
-+		__unconst_integer_type_cases(short),		\
-+		__unconst_integer_type_cases(int),		\
-+		__unconst_integer_type_cases(long),		\
-+		__unconst_integer_type_cases(long long),	\
-+		default: (x)))
+ /*
+  * This is needed in functions which generate the stack canary, see
+  * arch/x86/kernel/smpboot.c::start_secondary() for an example.
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index e3e4353df983..41da6f85a407 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -26,19 +26,63 @@
+ #define __typecheck(x, y) \
+ 	(!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
+ 
+-/* is_signed_type() isn't a constexpr for pointer types */
+-#define __is_signed(x) 								\
+-	__builtin_choose_expr(__is_constexpr(is_signed_type(typeof(x))),	\
+-		is_signed_type(typeof(x)), 0)
++/*
++ * __sign_use for integer expressions:
++ *   bit #0 set if ok for unsigned comparisons
++ *   bit #1 set if ok for signed comparisons
++ *
++ * In particular, statically non-negative signed integer
++ * expressions are ok for both.
++ *
++ * NOTE! Unsigned types smaller than 'int' are implicitly
++ * converted to 'int' in expressions, and are accepted for
++ * signed conversions for now. This is debatable.
++ *
++ * Note that 'x' is the original expression, and 'ux' is
++ * the unique variable that contains the value.
++ *
++ * We use 'ux' for pure type checking, and 'x' for when
++ * we need to look at the value (but without evaluating
++ * it for side effects! Careful to only ever evaluate it
++ * with sizeof() or __builtin_constant_p() etc).
++ *
++ * Pointers end up being checked by the normal C type
++ * rules at the actual comparison, and these expressions
++ * only need to be careful to not cause warnings for
++ * pointer use.
++ */
++#define __signed_type_use(x,ux) (2+__is_nonneg(x,ux))
++#define __unsigned_type_use(x,ux) (1+2*(sizeof(ux)<4))
++#define __sign_use(x,ux) (is_signed_type(typeof(ux))? \
++	__signed_type_use(x,ux):__unsigned_type_use(x,ux))
 +
 +/*
-+ * Do not check the array parameter using __must_be_array().
-+ * In the following legit use-case where the "array" passed is a simple pointer,
-+ * __must_be_array() will return a failure.
-+ * --- 8< ---
-+ * int *buff
-+ * ...
-+ * min = min_array(buff, nb_items);
-+ * --- 8< ---
++ * To avoid warnings about casting pointers to integers
++ * of different sizes, we need that special sign type.
 + *
-+ * The first typeof(&(array)[0]) is needed in order to support arrays of both
-+ * 'int *buff' and 'int buff[N]' types.
++ * On 64-bit we can just always use 'long', since any
++ * integer or pointer type can just be cast to that.
 + *
-+ * The array can be an array of const items.
-+ * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
-+ * to discard the const qualifier for the __element variable.
++ * This does not work for 128-bit signed integers since
++ * the cast would truncate them, but we do not use s128
++ * types in the kernel (we do use 'u128', but they will
++ * be handled by the !is_signed_type() case).
++ *
++ * NOTE! The cast is there only to avoid any warnings
++ * from when values that aren't signed integer types.
 + */
-+#define __minmax_array(op, array, len) ({				\
-+	typeof(&(array)[0]) __array = (array);				\
-+	typeof(len) __len = (len);					\
-+	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
-+	while (__len--)							\
-+		__element = op(__element, __array[__len]);		\
-+	__element; })
-+
-+/**
-+ * min_array - return minimum of values present in an array
-+ * @array: array
-+ * @len: array length
-+ *
-+ * Note that @len must not be zero (empty array).
-+ */
-+#define min_array(array, len) __minmax_array(min, array, len)
-+
-+/**
-+ * max_array - return maximum of values present in an array
-+ * @array: array
-+ * @len: array length
-+ *
-+ * Note that @len must not be zero (empty array).
-+ */
-+#define max_array(array, len) __minmax_array(max, array, len)
-+
- /**
-  * clamp_t - return a value clamped to a given range using a given type
-  * @type: the type of variable to use
++#ifdef CONFIG_64BIT
++  #define __signed_type(ux) long
++#else
++  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux)>4,1LL,1L))
++#endif
++#define __is_nonneg(x,ux) statically_true((__signed_type(ux))(x)>=0)
+ 
+-/* True for a non-negative signed int constant */
+-#define __is_noneg_int(x)	\
+-	(__builtin_choose_expr(__is_constexpr(x) && __is_signed(x), x, -1) >= 0)
++#define __types_ok(x,y,ux,uy) \
++	(__sign_use(x,ux) & __sign_use(y,uy))
+ 
+-#define __types_ok(x, y, ux, uy) 				\
+-	(__is_signed(ux) == __is_signed(uy) ||			\
+-	 __is_signed((ux) + 0) == __is_signed((uy) + 0) ||	\
+-	 __is_noneg_int(x) || __is_noneg_int(y))
++#define __types_ok3(x,y,z,ux,uy,uz) \
++	(__sign_use(x,ux) & __sign_use(y,uy) & __sign_use(z,uz))
+ 
+ #define __cmp_op_min <
+ #define __cmp_op_max >
+@@ -53,8 +97,8 @@
+ 
+ #define __careful_cmp_once(op, x, y, ux, uy) ({		\
+ 	__auto_type ux = (x); __auto_type uy = (y);	\
+-	static_assert(__types_ok(x, y, ux, uy),		\
+-		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
++	BUILD_BUG_ON_MSG(!__types_ok(x,y,ux,uy),	\
++		#op"("#x", "#y") signedness error");	\
+ 	__cmp(op, ux, uy); })
+ 
+ #define __careful_cmp(op, x, y) \
+@@ -70,8 +114,8 @@
+ 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+ 			(lo) <= (hi), true),					\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+-	static_assert(__types_ok(uval, lo, uval, ulo), "clamp() 'lo' signedness error");	\
+-	static_assert(__types_ok(uval, hi, uval, uhi), "clamp() 'hi' signedness error");	\
++	BUILD_BUG_ON_MSG(!__types_ok3(val,lo,hi,uval,ulo,uhi),			\
++		"clamp("#val", "#lo", "#hi") signedness error");		\
+ 	__clamp(uval, ulo, uhi); })
+ 
+ #define __careful_clamp(val, lo, hi) \
 -- 
 2.47.3
 
