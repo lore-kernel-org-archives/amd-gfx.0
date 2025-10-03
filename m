@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFEA8CAC5B0
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 13:01:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEAD8CCD183
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 13:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EECF910E8EC;
-	Fri,  3 Oct 2025 13:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42F8C10E8F3;
+	Fri,  3 Oct 2025 13:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="qCpedAj8";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="C4DIZHH6";
 	dkim-atps=neutral
-Received: from fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [3.72.182.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69DDA10E3B5;
- Fri,  3 Oct 2025 12:18:23 +0000 (UTC)
+Received: from fra-out-001.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-001.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [18.156.205.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B923D10E396;
+ Fri,  3 Oct 2025 12:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759493903; x=1791029903;
+ t=1759493805; x=1791029805;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=k0dUe76w+6n5/NfsPbyefGVCom+xh3GGcFcV3Olhmks=;
- b=qCpedAj8he5UldXG79EquSdxqSX3Mc8V9TW0rFqBQWrx358wvGn0oyb4
- GbzfiRgbu7eIQco9lJuwrhX9zLdpEhQiElaa7DACE9vRm1bQ2f0Erggzo
- 6UvtoFUog3cTZsAAX7r+18+rHDRng+0pEFkPO+EzlmmilFshdEgZxSjNQ
- TdmbgeXemN6u76LIBSvddk4D/tJvqtoWUBeiO7Yh7VF0Sr1WPvF+YI4v5
- MMthC2J/peQWbpr2UJfcmycm+jMAyAPF09eCe6Boylzkvfn4J2V6WwHs2
- l4+rxsn6B9ytv33W+jU001XOIthnDOlzxhxHJ+07mXsRr+uji4/8nwHv6 w==;
-X-CSE-ConnectionGUID: iHjhxUPQRHe2B4gOSiKoaw==
-X-CSE-MsgGUID: DWm3LlXiQW+twGunnV0KdA==
+ bh=fgKTaT7jj0zRx6jbQ7DJOMsaZramokk9q66dhz8aLl4=;
+ b=C4DIZHH6/tVGxmufxGNqj4GdZdSGrgbKjK0GJV177su//QsOFhPXuHbS
+ u/9m8Ggpyi3TWr4wYMihMIZgUVKng+UlA8oQZmb+eb1HoHgCXnCKHLxjT
+ T46CjukvELabi6G6rgwks+YKQljQ5xYd6EuBjlERp0w2aSNG5OhFZ4/Wi
+ Q2NDQe1251SFHH5HgT3qHld5qnkCWYFmiWmFVzbOCiepFVO8IgdpzPJsY
+ /JKUhnsz5fqxKVSBfuzreJQa482gOc2V0ZYNCXS0Hwv/0n8Xv8vdijQiQ
+ aLtEAbazRmH26SFsxlJFbjNTsYhMFJL6rtfud6aXF7vP960yPK8UemGD3 g==;
+X-CSE-ConnectionGUID: fFQQBkIDQ+SVpfluuQppUg==
+X-CSE-MsgGUID: rn3qB5pCQHG2am4PhYdtZQ==
 X-IronPort-AV: E=Sophos;i="6.18,312,1751241600"; 
-   d="scan'208";a="3061377"
+   d="scan'208";a="3061416"
 Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
  smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
- by internal-fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 12:18:13 +0000
-Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.224:28099]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.19.222:2525]
+ by internal-fra-out-001.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 12:16:34 +0000
+Received: from EX19MTAEUC001.ant.amazon.com [54.240.197.225:3369]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.21.15:2525]
  with esmtp (Farcaster)
- id 30f3960f-1ebe-474e-89a0-a1458ac740d9; Fri, 3 Oct 2025 12:18:13 +0000 (UTC)
-X-Farcaster-Flow-ID: 30f3960f-1ebe-474e-89a0-a1458ac740d9
+ id 2737baff-4d4f-494f-84fb-083a55c88999; Fri, 3 Oct 2025 12:16:33 +0000 (UTC)
+X-Farcaster-Flow-ID: 2737baff-4d4f-494f-84fb-083a55c88999
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
+ EX19MTAEUC001.ant.amazon.com (10.252.51.193) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 3 Oct 2025 12:18:13 +0000
+ Fri, 3 Oct 2025 12:16:33 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 3 Oct 2025
- 12:18:01 +0000
+ 12:16:22 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
  <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
@@ -68,15 +68,11 @@ To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>,
  <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>,
  <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
  <stable@vger.kernel.org>, <farbere@amazon.com>
-CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
- <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew
- Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
-Subject: [PATCH v4 11/11 6.1.y] minmax.h: remove some #defines that are only
- expanded once
-Date: Fri, 3 Oct 2025 12:15:20 +0000
-Message-ID: <20251003121520.8176-12-farbere@amazon.com>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
+ <David.Laight@aculab.com>, Arnd Bergmann <arnd@kernel.org>
+Subject: [PATCH v4 04/11 6.1.y] minmax: fix up min3() and max3() too
+Date: Fri, 3 Oct 2025 12:15:13 +0000
+Message-ID: <20251003121520.8176-5-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251003121520.8176-1-farbere@amazon.com>
 References: <20251003121520.8176-1-farbere@amazon.com>
@@ -84,7 +80,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D035UWB003.ant.amazon.com (10.13.138.85) To
+X-ClientProxiedBy: EX19D045UWC001.ant.amazon.com (10.13.139.223) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Fri, 03 Oct 2025 13:01:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -101,81 +97,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Laight <David.Laight@ACULAB.COM>
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit 2b97aaf74ed534fb838d09867d09a3ca5d795208 ]
+[ Upstream commit 21b136cc63d2a9ddd60d4699552b69c214b32964 ]
 
-The bodies of __signed_type_use() and __unsigned_type_use() are much the
-same size as their names - so put the bodies in the only line that expands
-them.
+David Laight pointed out that we should deal with the min3() and max3()
+mess too, which still does excessive expansion.
 
-Similarly __signed_type() is defined separately for 64bit and then used
-exactly once just below.
+And our current macros are actually rather broken.
 
-Change the test for __signed_type from CONFIG_64BIT to one based on gcc
-defined macros so that the code is valid if it gets used outside of a
-kernel build.
+In particular, the macros did this:
 
-Link: https://lkml.kernel.org/r/9386d1ebb8974fbabbed2635160c3975@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+  #define min3(x, y, z) min((typeof(x))min(x, y), z)
+  #define max3(x, y, z) max((typeof(x))max(x, y), z)
+
+and that not only is a nested expansion of possibly very complex
+arguments with all that involves, the typing with that "typeof()" cast
+is completely wrong.
+
+For example, imagine what happens in max3() if 'x' happens to be a
+'unsigned char', but 'y' and 'z' are 'unsigned long'.  The types are
+compatible, and there's no warning - but the result is just random
+garbage.
+
+No, I don't think we've ever hit that issue in practice, but since we
+now have sane infrastructure for doing this right, let's just use it.
+It fixes any excessive expansion, and also avoids these kinds of broken
+type issues.
+
+Requested-by: David Laight <David.Laight@aculab.com>
+Acked-by: Arnd Bergmann <arnd@kernel.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+ include/linux/minmax.h | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 2bbdd5b5e07e..eaaf5c008e4d 100644
+index 41da6f85a407..98008dd92153 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -46,10 +46,8 @@
-  * comparison, and these expressions only need to be careful to not cause
-  * warnings for pointer use.
-  */
--#define __signed_type_use(ux) (2 + __is_nonneg(ux))
--#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
- #define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
--	__signed_type_use(ux) : __unsigned_type_use(ux))
-+	(2 + __is_nonneg(ux)) : (1 + 2 * (sizeof(ux) < 4)))
+@@ -152,13 +152,20 @@
+ #define umax(x, y)	\
+ 	__careful_cmp(max, (x) + 0u + 0ul + 0ull, (y) + 0u + 0ul + 0ull)
  
- /*
-  * Check whether a signed value is always non-negative.
-@@ -57,7 +55,7 @@
-  * A cast is needed to avoid any warnings from values that aren't signed
-  * integer types (in which case the result doesn't matter).
-  *
-- * On 64-bit any integer or pointer type can safely be cast to 'long'.
-+ * On 64-bit any integer or pointer type can safely be cast to 'long long'.
-  * But on 32-bit we need to avoid warnings about casting pointers to integers
-  * of different sizes without truncating 64-bit values so 'long' or 'long long'
-  * must be used depending on the size of the value.
-@@ -66,12 +64,12 @@
-  * them, but we do not use s128 types in the kernel (we do use 'u128',
-  * but they are handled by the !is_signed_type() case).
++#define __careful_op3(op, x, y, z, ux, uy, uz) ({			\
++	__auto_type ux = (x); __auto_type uy = (y);__auto_type uz = (z);\
++	BUILD_BUG_ON_MSG(!__types_ok3(x,y,z,ux,uy,uz),			\
++		#op"3("#x", "#y", "#z") signedness error");		\
++	__cmp(op, ux, __cmp(op, uy, uz)); })
++
+ /**
+  * min3 - return minimum of three values
+  * @x: first value
+  * @y: second value
+  * @z: third value
   */
--#ifdef CONFIG_64BIT
--  #define __signed_type(ux) long
-+#if __SIZEOF_POINTER__ == __SIZEOF_LONG_LONG__
-+#define __is_nonneg(ux) statically_true((long long)(ux) >= 0)
- #else
--  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
-+#define __is_nonneg(ux) statically_true( \
-+	(typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L)))(ux) >= 0)
- #endif
--#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
+-#define min3(x, y, z) min((typeof(x))min(x, y), z)
++#define min3(x, y, z) \
++	__careful_op3(min, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
  
- #define __types_ok(ux, uy) \
- 	(__sign_use(ux) & __sign_use(uy))
+ /**
+  * max3 - return maximum of three values
+@@ -166,7 +173,8 @@
+  * @y: second value
+  * @z: third value
+  */
+-#define max3(x, y, z) max((typeof(x))max(x, y), z)
++#define max3(x, y, z) \
++	__careful_op3(max, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
+ 
+ /**
+  * min_not_zero - return the minimum that is _not_ zero, unless both are zero
 -- 
 2.47.3
 
