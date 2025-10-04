@@ -4,154 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C25CACAC5B0
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 22:16:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A957CAC5B0
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Oct 2025 06:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE91110E992;
-	Fri,  3 Oct 2025 22:16:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C765D10E00F;
+	Sat,  4 Oct 2025 06:31:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="anMz6hfP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rFSslXrT";
 	dkim-atps=neutral
 Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012039.outbound.protection.outlook.com [52.101.43.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0D1710E996
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Oct 2025 22:16:24 +0000 (UTC)
+ (mail-westusazon11012068.outbound.protection.outlook.com [52.101.43.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDACC10E00F
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Oct 2025 06:31:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GRQgsjs/M0Oj3qdlyJwAklC85XSGz0uMy48wHId3TfMZkVyvRPCbjCby7vXrsJigZ216SJGrjFD6gYh5JcTMpwX8EJoPwN/3a22C06Q8HXEA6UExbDAW75icYCeEuvm+CzHMJXB3amLt4YOqExEJajdW/rd5Kt4cF/c3X1H9Wz8GyJapl+nCU7VGwGQUccIS9mHcf3NI1fIumbJJa/p2y4bglsWFafxrCiYCQBC5r4Sr+AeGMHQkTZq/Jgi1oBmsGQJQqHJx2eOnn8j2UWrwmrFcDlicY0uPXmUr45L5scLrfpM3u6iKO4wdmFqD8jFYBFoT+JztiwH5v43HlqWZfw==
+ b=EoJVIDVwBPDqr+/BQsbHWlmFRZFPovogGlVX0VekhmjseJyDONFSDgLiZ1XA4iByJ9iIPUYhTjTFMrnKpznl8yat0J6txB3rbReGEawDC4Rf1c449Fw/Wb3yDo5SF0r7J/msx/og8XyWN+Sv+iexBXTsw/D+rvI1a0do9FoePCod9ZPI4xH35Jwh7+jUQVP2ikiA/Kv0p6rmLz0GYJnZYr8rGZ1Qx+5TW6SBlFwZT/M3bk4wfCb/1svAz/wy/4dUfERF2w1ghrhBoy/vy6Etk9MD8m2waZ+GZMYu+K+6ccdoH4SOhBzdUp6i9gy7XjmrlDf6KY4U47+W61ExUXtOVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jwtbyfnVSjSZ1LbrBu0M0GT2WdrIqeO58kmbc4zLhn4=;
- b=mqvCNoEjo/cEX4l9fqYRCPEk0SkdC5deeP6BGzqGcVSjQLbyFfisoDrRAC8kYreGojuPqa6k97qGh84FngUeg1k25vYcEAGcWByCECU43bqUxRXeLffliS6EbhLO4bhTUSAMF796t9gQdgLyiycoT7hWiNiGb/vX2J5ZzwgJ1TYdGm9a52syPOUn/zxzZQ2Y/CDIgtsTqpDUhK7L4mKxwCug03Gr2QVffhgatpF/2O2QGqEAqCU6ZI2J3seG24wt/G5Pou5KrkBlCWj6LoQxsSDCq/WCeNrxi6Xvo6sWMAY5G73z3SzKO6L8UF2Eg82edLbdCiCo5s7LqC3KcFbHgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=q9xv91mhgW9Nbvv+BUMAvawMMd/y2ZilRx2JNuVEnMc=;
+ b=lY3f17bxPJnskbKZiIhkGzOOu2cOVSGMp/JlaOOteOluPg3/WTF2oJB/6NxGcjy28XhDum0gFNz+yHPbTI8jI/vtL1OYnuWyewKIHnqxeNLe7Md2ZxLyd/O3jEs2tTDw/xa0R5zIjytjqSLkLR7REDhw/RCNjABYPozuxKKTkibn6feEqjMwsW87PBYc1vAPf/XgJcTT31Njop3MVKg6RCERXKgPmB6FZ3MaXjeUYlCIoWHNP+QM8goKpeIjpoXOpFwc6pZFlZo0egBUOVaKxZLVXzLXcyz4LIgmJvlCTupSpx110vkIHInYTQk4pXAw76Pkz2fndn3DkwdpPRBRjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jwtbyfnVSjSZ1LbrBu0M0GT2WdrIqeO58kmbc4zLhn4=;
- b=anMz6hfPh2zHtK2yEjFfbTnx3sTNXg4Dlb6+wM7cAEckTppO6Kuf/H0kwCGSsDAUyWGL/8UPc+jxtSJvPq7RZPVSyozpcDY8VHWBpvrE0Yk7BfYZ19a2YgItjEQtqtNvckZIxlNH1AOBp+KCqLtcGwtofR/8DJJyfQCmJZ4XKnA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MN2PR12MB4254.namprd12.prod.outlook.com (2603:10b6:208:1d0::17)
+ bh=q9xv91mhgW9Nbvv+BUMAvawMMd/y2ZilRx2JNuVEnMc=;
+ b=rFSslXrTG2g/VFl4946plFDrp/uxvOu/BuUMzLRX5LVTSEx5cOACC++HeH20yhou/ObxyLovVW+P0pIGGER+1WG+oJP59+qMZyfymbBvqNjH+09sZH1hPiw8Cjhcfmv1yYNxGoAIaq8c7IN744mtmW/c+c8nWa0v4XO2X9E2keA=
+Received: from BN9PR03CA0057.namprd03.prod.outlook.com (2603:10b6:408:fb::32)
+ by PH8PR12MB6937.namprd12.prod.outlook.com (2603:10b6:510:1bc::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.16; Fri, 3 Oct
- 2025 22:16:17 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.9182.015; Fri, 3 Oct 2025
- 22:16:16 +0000
-Message-ID: <17ee1a4d-69cd-4be9-bd6a-2924e8731db8@amd.com>
-Date: Fri, 3 Oct 2025 18:16:14 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix svm_bo and vram page refcount
-To: Philip Yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org, Linux MM <linux-mm@kvack.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>
-References: <20250926210331.17401-1-Philip.Yang@amd.com>
- <87ae1017-5990-4d6e-b42c-7a15f5663281@amd.com>
- <f3349a43-446f-f712-ac61-fa867cd74242@amd.com>
- <674f455e-434d-43d2-8f4f-18f577479ac9@amd.com>
- <aa910171-bc96-d8b1-1bee-65f3ef5d1f46@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <aa910171-bc96-d8b1-1bee-65f3ef5d1f46@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0338.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6b::6) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Sat, 4 Oct
+ 2025 06:30:53 +0000
+Received: from BN2PEPF00004FBC.namprd04.prod.outlook.com
+ (2603:10b6:408:fb:cafe::19) by BN9PR03CA0057.outlook.office365.com
+ (2603:10b6:408:fb::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.18 via Frontend Transport; Sat,
+ 4 Oct 2025 06:30:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FBC.mail.protection.outlook.com (10.167.243.182) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9182.15 via Frontend Transport; Sat, 4 Oct 2025 06:30:52 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 3 Oct
+ 2025 23:30:51 -0700
+Received: from victor-aws2.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 3 Oct 2025 23:30:50 -0700
+From: Victor Zhao <Victor.Zhao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <HaiJun.Chang@amd.com>, <Lijo.Lazar@amd.com>, Victor Zhao
+ <Victor.Zhao@amd.com>
+Subject: [PATCH v3] drm/amdgpu: use GPU_HDP_FLUSH for sriov
+Date: Sat, 4 Oct 2025 14:30:45 +0800
+Message-ID: <20251004063045.3901777-1-Victor.Zhao@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN2PR12MB4254:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca604d40-a4de-4d1b-6fdb-08de02ca78cb
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBC:EE_|PH8PR12MB6937:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3478cc4-6567-408b-db6e-08de030f90c5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cm00TVl2eU5WZW13ZmtjQ3lIWEhEV05Md0NqT1VJM29FK1p3cG1JL3I3dGNo?=
- =?utf-8?B?TmQ2UzNjMjNPNXlLUVlEREN1SDR2U2pzRkl1WURFS0RSdTdXUDZSemJMSUFX?=
- =?utf-8?B?a3puQis5NmhLdXhZNkJrZDJpYWpiQ2dXYU4vYm1RTy85R1RoYUQ3Z0o1NUp1?=
- =?utf-8?B?eXUyNjJRbjFCeFJlaTMzZWtPZThQaEVkanVjMzVzTE94eEQ3eEFUM015WDFT?=
- =?utf-8?B?SG11US9aOVdYMlRSSVF2dWRvQ2FnekNCcGlyQk9tYWx4MXZwbThqYnVtWEF0?=
- =?utf-8?B?ay9xeXlDWnBkNnBzTGt2Z0dERkdzd1Z2ZjVtYVpPOGdrQ3NlNW92VFNwU1JW?=
- =?utf-8?B?L1pTME5ZdHFQeTd1QkhaaTREOCtxNDM1WXFwNG5pZ2JpZVBkai9qVU1QOXV6?=
- =?utf-8?B?TGxodjc2SlBHOXN3R040M1BmT1k2SEdNRkU2ZnJxOTN1Q2xCYmttUDk3djc2?=
- =?utf-8?B?RGhtV08rSm1oR1hoZnlzamZzQ2NMSk9zdU9zYlRrTmNxTzEwUGg1Zm5vRktN?=
- =?utf-8?B?MHI0d2d6RndRSVdMME5IdUpOWVV3c3FaT1ZDQXltUjhNeVRTK2ptVVBzenJE?=
- =?utf-8?B?OTVEb092N2tZN2ZuSEZNZ2FzYjlkSHZSL1NSSTYwMFFnN1pObmVlY3hVaFR1?=
- =?utf-8?B?SitsR3gxQ3JJbGszUmRVODR5aTBoak9uci9IZU5vTU9NR2VzUTRKUmVnYVZ2?=
- =?utf-8?B?MmR2QTQvaGxBdkk5NE9nNmtFNkpJa0lwWjFhNGRpUkg2N2VJTHRSWGdUNlRC?=
- =?utf-8?B?MWNuN0tHZ284VW0wL3FQb01YNEtwbjdjR0VZaGp6bmsrck9uZUsrdzR4R09W?=
- =?utf-8?B?NERRWkxyOFRFc05HdzlpQXhyQTIwYmNoK2VHZ1MzdW9mNXo3NzBicmpTRk5U?=
- =?utf-8?B?Rzhqbk55WEJEa1NPcWRiZFRtZDl2T2o1SHB5R0loaC9QVTZMVW1wdElIU1Ft?=
- =?utf-8?B?VGFUN3BwTXVsYzE4aE1mME8vbE4wdGxaUDRuVWw4MmRveXQwZUlmaUNlRmtQ?=
- =?utf-8?B?TkRGdExRbENoZS9ka0dYd2hkMHdQODFYQnluS2VyV25oTUlGWUtMdXg0czJ3?=
- =?utf-8?B?d2E2QTFnSm1XUlBxUGVOeks4b1Q5bVRFOFFqa0RpeDZPL3RLekFtQ05RMURs?=
- =?utf-8?B?YjlDSWdtcmZ6K1VTYXprNEZNckt1QWxFaVZ5NVlDWm9JNDNGbzRaR2JjZ0Jp?=
- =?utf-8?B?d1RuQmRWY1orcmxpZnVHMzh2bVB1Rk1sN0tIN2JFQ0h6NDlramxzWmhDUzVC?=
- =?utf-8?B?bnRPQlgyUFpnRUlodXBPTmFzd3BTZkkvQUxoTW5pNkVUSTVTU09YZDdhK0RP?=
- =?utf-8?B?bEluNXpHQ2VaVDlZSW44eDhDSi8xVCtMcnFNaHpHUzdkS3JUSUkxL3BucWI3?=
- =?utf-8?B?TkNDRWxtYWV2MEY4OEtNdWkrSTFsM2NLdjE3S1hzczNuUXd4cW9zWG1SSkNE?=
- =?utf-8?B?ZjBtYUhiSjNMaElRd1h5dGZ2cDRybERBNnhlVlV3MjZ5QkhDc1ZBTng4TzlQ?=
- =?utf-8?B?OXRPWHRLcjZDRnF0clcwQzdpcER5bUNoSlp1OG1tMjdRNU1JblMzWnhIWXJo?=
- =?utf-8?B?TWMwZ2Z1dE5LK0p1TWpJZGJyOVZ4VElwWEh0dTJlQUgvUU9ad29XMHAxdlJ2?=
- =?utf-8?B?ZnZ3Mnloa0l3WkRLYlYzcGFYdEx0c01EampZcVJ2Zld2MEZ2S1JxbE5lQ3hS?=
- =?utf-8?B?b3lRRUI2QUZLaTdKNVBPMUhUSFdZVUxkVzNCQ0ZUR2pYV05UbjcycXE4NGRV?=
- =?utf-8?B?cTVGa0FIS1AxWGE0SDhBR0ovRDZpQy85Yjh1ZGRnN2tqRzNIMVpCYVhjN0VD?=
- =?utf-8?B?NUVCUlBna0c4b09Ia3JNVlBmMG42KzQ5YjZKUlFuMndreDFEZUd0c3lTbE85?=
- =?utf-8?B?M1oraGZTckdCSFNYZjEvSVE3V1VrSEZMWU40M0hrNlJpTHQ5Z3JJQzJQTWZ1?=
- =?utf-8?Q?LeY7DpiA4VxGRtb7/ywHADWZbp04urC3?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmJjdkRTeU5GRkw5MTBjcU9EM05PbkhlWXVCTk1qSVZ3S1N6dzR4V2dCTGF2?=
- =?utf-8?B?RUZHdmZnSXN6WkxxMGQ5SnBKYzJydEN2aHg0WGgrZGhHcVNMMDYxVG5KQmVq?=
- =?utf-8?B?Z212Qnk3cEtjdmZJQkJjM3UwbDhKUDduNEhKWmdFQjFuQ0JhZnczNFB6VUti?=
- =?utf-8?B?VzlrQ1VkWFlqY1JUSlZvTkhJcXR3NmdUZVJPaEVzY0RrbjVxNFlXMG5xcVo0?=
- =?utf-8?B?eCtURkQyZDlHTHBjSmR5TUY5am1udWtnckZBU21TUTR0TU9weFVlbFl0SlBM?=
- =?utf-8?B?UDB5TUcyeTJOMTJreUZDdE1tTXEyMURBRzczUU1PUXBSRmoyOUY5NDMxazFB?=
- =?utf-8?B?WFpPL3RTSzFIRXZHa1NiUnFYNlFBOWFzRFByVFNPZWRtZzJqMHMwRVhaR1FM?=
- =?utf-8?B?NHM4dHZsQW9aY1ZMZzlzZTBPZmR4TUdVbklSSnhsS0MxeEhlaEhGOUVGeDlH?=
- =?utf-8?B?Q1FhUkxabklQS1VpYklNaVJuaCt2eTNPbEg0dW1vTnNiQjgwSVJneW9mTFJl?=
- =?utf-8?B?djlHT2lKNkZNK1A1UDNjdUZuVjJuRmJ0WExSRElFYml6NVE4ZXZqRjBWS2ht?=
- =?utf-8?B?bFZYSGRTdzBZWlJuMmVESkIxc0pINkVHbUlENWZsaFcwVzQzbytSQnU4UTNR?=
- =?utf-8?B?cEF3dml5OXpCalE0ZkFYL29rRXhkMkVZekFNYW50WUtFTlVTc2M1ZUd6Z0sw?=
- =?utf-8?B?RUdTbHYxcVAvWC9aNEdXMFN3RTR0N1Rybko5RC9nR2ZwUnJtQzNBWHRnR3VT?=
- =?utf-8?B?MENzdXdIMjF4RDlneEJXV056WnE2aFJhNERScUkzSVhYMC9ScXk5QURaSFRD?=
- =?utf-8?B?U3F1dlVqSDNIbGxVMnBGUkVvTmsvY0o3VW1aREZOTXNVaUFQRThOcjkyNmlS?=
- =?utf-8?B?SUszclJOcUhVYkt0c1BsUlcwNm1hSlNDUWhVMm5zSUM0REFQYmJ6RnFJQkcw?=
- =?utf-8?B?UEhHK3dmajM5N2U2WjFrMTVtUGt6L3FRdHkyRmZXQ1k2cFFuNFUweVBqN2Ns?=
- =?utf-8?B?VkZOaU9kNmJ5NjRja3pxSTB2VWRyUlR1aVgydC9jNzJsMVFSajdnMzFDdVNX?=
- =?utf-8?B?OWtqQ3NxYm12ZFBoRVlhVldOYlJGY3hqaUs0ZFZFMy9KZHlvUFc5TEpFSGJj?=
- =?utf-8?B?Rkh4VkVFWGZjZjJtWlprejVMRzBnREhlSFFpYzZoVVUyTW9nWk4wZEpqNlRk?=
- =?utf-8?B?d2VrTlZtVjlHMTh4cmwzc0hxWGRNNXdQTVVublBSWG9Sa0FwSjA4K3AyZjNO?=
- =?utf-8?B?MGM3QjJMbGRyWmZCSzVqeXVCUFpsbzNMSmxKMEYvM0VtMGZ4ZXE0cnV3dFFK?=
- =?utf-8?B?d0k1WWJiaWZOSW4yZGY3T1Vsd3ZaamtNWnZoaEdQTHJGMzFSMWhuT3dRZTdX?=
- =?utf-8?B?a0dlemxzYWNZN3FteXd5Yy9Zc3dzemFkaG9WV1U5WEJDWVBEbXF2VDB4bUVp?=
- =?utf-8?B?K0xGRHZLamkvdktoUzBOWHhldTNrd1BpVWVnRmtmZW50bFU2WFpTcERMM0Zi?=
- =?utf-8?B?a1JTWHpLa1IwMG1UOGJtWkl2djB0ckVLMUpabjRCZ0h1ckszWHBiMm5RdW9j?=
- =?utf-8?B?THBMQlU5d3ZRdXppNENBYXlTbjQ4RE5Yd2FrQTJ3NkFGMWpicXdNeWx6VHZU?=
- =?utf-8?B?N3Rocm44ZThzdW5nclBFM2JycXRDRFRvbHZpWC9IRGVkZ3VCN3htMmJDTVgz?=
- =?utf-8?B?d29vS00yLy91cHVsWHd6aUxTaGQrdHpaMjFQOU1vQlN0ck0xV0tBVE1uUXph?=
- =?utf-8?B?MzdnL0RwNUhrcmR4eCszYzY4S2RHU3lPZWRIQUhiK3Q0QjR4VkQvZ1BLbTkz?=
- =?utf-8?B?dUtWU1g0VkU2a2UwNjMxM1p1NWlUL0JWUzJPRktya1czbnhiRkt6bEh5aERi?=
- =?utf-8?B?WnVZV0svTVhGZzBUWWhXWTE1TklTQzFtVXVLT0VqNlkwNzJhekhTRDJxNGlW?=
- =?utf-8?B?a1UvblJTajZZdDlPTGJlNzg2bml6eE5ZZVlrNjgxSG13MGtKV0dCMmphdHNh?=
- =?utf-8?B?aDgzd2RxM3BzaWRMRHJ3NkNJTVhzdUp1MDFNYWgrMVNCcVVKUDlNNzRER3Rx?=
- =?utf-8?B?dktSeWZzOUpHVzdzZ0l2d1QrRHZiY09LWGhXMUY4eXVYelkzODQ2Z0VzYjlh?=
- =?utf-8?Q?d9/r3rHGUumxsIaCpfp1sN8A3?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OxVOWOOCecnb9Fz98ZQ4LCSiB5V/jvUBTrLUykyoumEbjNdg8kaWWmOFUJwV?=
+ =?us-ascii?Q?TfbSf77LLtRlAFbkO/Tuf7o5iHfURHOiwZsNo7soHSPwU5tx3s0t7UMM/SMI?=
+ =?us-ascii?Q?ieGqLfqz53Zg1NuglTirs27+NSdx6K/2r6QGOn7ISBHiPuRH1V/jQ5x20n21?=
+ =?us-ascii?Q?A2WwyxOMv3XWqxbdtf7du+QTlfMRdiNX7+mXqIqEPuGUKcWkQ1s5rdc3lExD?=
+ =?us-ascii?Q?bob/HJx+90uPK8rRxXzekS9t6szKAdx56nfPim4fIbmU6EjaW/0Ume5ZvRtl?=
+ =?us-ascii?Q?fIhdsn9r6UKUISkt3oa1LVaEzMWjEj5IoBZKsIcgs9lbF9wZvUKlzDaJqzGE?=
+ =?us-ascii?Q?QVgjfgJFUCGKCvq69rbbwTbECpVRi2wq5Ur1UhabpOL5KRsbFSRn/LynVQa0?=
+ =?us-ascii?Q?E1ag4SfVkRSuik6RKc7fxV1E3qQB+FaUO6imNA/uZPDSyAt9MXlim0jlVdGt?=
+ =?us-ascii?Q?KWqjzwIo1AAIR1YkwiVu9CdvSkwg/s5n1etWzSgTonOE+EZ7xYXwDy44yCxv?=
+ =?us-ascii?Q?znx+VlwT8tNaBDp7sCZcPbcKyuAaHfvSnDqmtJ41kvN9BdVbGnTksErhkrQX?=
+ =?us-ascii?Q?tQtPHb6n4sjRLyWp+p1MlSXdQMTsM1iiaplKz8RtXVhtgvBUQJKLTMKstZRO?=
+ =?us-ascii?Q?DG2x3Mva7zWr4LkxY2FS67APOGEpmIPWyUo9wwTWeFWvnIivJfvV3oLi7yhl?=
+ =?us-ascii?Q?1vLN19vlqilGE9IyIh5wBQWc0HwFTckUwqEIhCBo5rN1YBTsZb6F5kCXt84y?=
+ =?us-ascii?Q?9JiXbsTgaLarO71a+wZpnvOWJJ51iC2TjDNfVv6d8m8CNc8e9KqgZ6gBOzPD?=
+ =?us-ascii?Q?vXSsAIkdR93qIntmuBDgVgv0ucfNcw3SwOlvv3A8KW9FQHNGEaiUOwRNTSED?=
+ =?us-ascii?Q?Qbc7v6C0HRFhdM5Tq3XLBFKQ05eHS542rq2sBvGwu+8TnpABSsZNmuFWLOT7?=
+ =?us-ascii?Q?/O+vZ9kphFQlLFiaIIGoGfl9hnZiSfdHf26Kg0YW1NRHYcnp2s3br+gMB8BI?=
+ =?us-ascii?Q?+j2dDye6G5YljdmrEd94WM0zpj1W4+vCkXnQBgpJgN3UmWkAhK6/QGStA/fj?=
+ =?us-ascii?Q?PtKQHHqE8Dm43SpYdaX6anLPeekGgLrRP8x3JnAD5ltTarMNhf/wIZy8QGXB?=
+ =?us-ascii?Q?A5zh2FaHqOYdnV9MGj+PcQbbUMHS+gvpMoQx0IPb0dpS+vPhFjt/vJxOoDe7?=
+ =?us-ascii?Q?YPc9CzSYmb6wjQhwOXNOIdqvdiBDMRnc8Xp/q1AHZC8/+rNuxALn8trPy9sR?=
+ =?us-ascii?Q?GyJoNEEdt0jAe/6FhwdFi/MDIyc1CpbQ/qCGW7n/UuYxiqxCvR9UjdHmiTvM?=
+ =?us-ascii?Q?O7Q2zSW3Jn4cqHfFh5cvZTLE+DwwZcPgY0v0mTmObel2iPdHhSQXUFkrnpE9?=
+ =?us-ascii?Q?hqFtYzUxbYc1EXwVCDYxbtSY+wlk21z8nuW57m/PJ6jm24qT9RkuAs6Bg69r?=
+ =?us-ascii?Q?KF00bMv0gbyia4kXRSV1JW2gcu8wF+CdtLkHQZG+64qGRRzhm3zDm0Qm/IG2?=
+ =?us-ascii?Q?/nhKoUJ/xJmkYqLDqIi1TYffbFJjn0f/wzPhkaxw/MqqyFW1afn/VMUnXMbb?=
+ =?us-ascii?Q?4xrUFDGvQz+S1stKjPA=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca604d40-a4de-4d1b-6fdb-08de02ca78cb
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2025 22:16:16.7795 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2025 06:30:52.1036 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3478cc4-6567-408b-db6e-08de030f90c5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ugjYDAEqxI6rVtXAezve1cse90lYTlkP6BafApYDiyIgdB7lQ73YhgwyM0JCOGdQ/QLs5DaBpU5osGRnkiCsfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4254
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6937
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,152 +132,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[+Linux MM and HMM maintainers]
+Currently SRIOV runtime will use kiq to write HDP_MEM_FLUSH_CNTL for
+hdp flush. This register need to be write from CPU for nbif to aware,
+otherwise it will not work.
+Add kiq ring callback to emit GPU_HDP_FLUSH, in amdgpu_device_flush_hdp
+if no ring provided.
 
-Please see below my question about the safety of using 
-zone_device_page_init.
+v2: remove changes to flush_hdp callback
+v3: add mes fix
 
-On 2025-10-03 18:02, Philip Yang wrote:
->
-> On 2025-10-03 17:46, Felix Kuehling wrote:
->>
->> On 2025-10-03 17:18, Philip Yang wrote:
->>>
->>> On 2025-10-03 17:05, Felix Kuehling wrote:
->>>> On 2025-09-26 17:03, Philip Yang wrote:
->>>>> zone_device_page_init uses set_page_count to set vram page 
->>>>> refcount to
->>>>> 1, there is race if step 2 happens between step 1 and 3.
->>>>>
->>>>> 1. CPU page fault handler get vram page, migrate the vram page to
->>>>> system page
->>>>> 2. GPU page fault migrate to the vram page, set page refcount to 1
->>>>> 3. CPU page fault handler put vram page, the vram page refcount is
->>>>> 0 and reduce the vram_bo refcount
->>>>> 4. vram_bo refcount is 1 off because the vram page is still used.
->>>>>
->>>>> Afterwards, this causes use-after-free bug and page refcount warning.
->>>>
->>>> This implies that migration to RAM and to VRAM of the same range 
->>>> are happening at the same time. Isn't that a bigger problem? It 
->>>> means someone doing a migration is not holding the 
->>>> prange->migrate_mutex.
->>>
->>> Migration hold prange->migrate_mutex so we don't have migration to 
->>> RAM and VRAM of same range at same time, the issue is in step 3, CPU 
->>> page fault handler do_swap_page put_page after 
->>> pgmap->ops->migrate_to_ram() returns and during migate_to_vram.
->>
->> That's the part I don't understand. The CPU page fault handler 
->> (svm_migrate_to_ram) is holding prange->migrate_mutex until the very 
->> end. Where do we have a put_page for a zone_device page outside the 
->> prange->migrate_mutex? Do you have a backtrace?
-> do_swap_page() {
->    .......
->         } else if (is_device_private_entry(entry)) {
->    ........
->
->             /*
->              * Get a page reference while we know the page can't be
->              * freed.
->              */
->             if (trylock_page(vmf->page)) {
->                 struct dev_pagemap *pgmap;
->
->                 get_page(vmf->page);
->                 pte_unmap_unlock(vmf->pte, vmf->ptl);
->                 pgmap = page_pgmap(vmf->page);
->                 ret = pgmap->ops->migrate_to_ram(vmf);
->                 unlock_page(vmf->page);
->                 put_page(vmf->page);
->
-> This put_page reduce the vram page refcount to zero if migrate_to_vram 
-> -> svm_migrate_get_vram_page already call zone_device_page_init set 
-> page refcount to 1.
->
-> put_page must be after unlock_page as put_page may free the page, 
-> svm_migrate_get_vram_page can lock the page, but page refcount becomes 0.
+Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 73 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     |  5 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |  1 +
+ 9 files changed, 84 insertions(+), 2 deletions(-)
 
-OK. Then you must have hit the 
-WARN_ON_ONCE(!percpu_ref_tryget_live(&page_pgmap(page)->ref)) in that 
-function.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index a77000c2e0bb..57d3ea33dec2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -7269,6 +7269,8 @@ void amdgpu_device_flush_hdp(struct amdgpu_device *adev,
+ 
+ 	if (ring && ring->funcs->emit_hdp_flush)
+ 		amdgpu_ring_emit_hdp_flush(ring);
++	else if (!ring && amdgpu_sriov_runtime(adev))
++		amdgpu_kiq_hdp_flush(adev, 0);
+ 	else
+ 		amdgpu_asic_flush_hdp(adev, ring);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 7f02e36ccc1e..ecd7908590de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1194,6 +1194,78 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint3
+ 	dev_err(adev->dev, "failed to write reg:%x\n", reg);
+ }
+ 
++void amdgpu_kiq_hdp_flush(struct amdgpu_device *adev, uint32_t xcc_id)
++{
++	signed long r, cnt = 0;
++	unsigned long flags;
++	uint32_t seq;
++	uint32_t hdp_flush_req_offset, hdp_flush_done_offset, ref_and_mask;
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
++	struct amdgpu_ring *ring = &kiq->ring;
++
++	BUG_ON(!ring->funcs->emit_hdp_flush);
++
++	if (amdgpu_device_skip_hw_access(adev))
++		return;
++
++	if (adev->enable_mes_kiq && adev->mes.ring[0].sched.ready) {
++		hdp_flush_req_offset = adev->nbio.funcs->get_hdp_flush_req_offset(adev);
++		hdp_flush_done_offset = adev->nbio.funcs->get_hdp_flush_done_offset(adev);
++		ref_and_mask = adev->nbio.hdp_flush_reg->ref_and_mask_cp0; /* Use CP0 for KIQ */
++
++		amdgpu_mes_reg_write_reg_wait(adev, hdp_flush_req_offset, hdp_flush_done_offset,
++					      ref_and_mask, ref_and_mask);
++		return;
++	}
++
++	spin_lock_irqsave(&kiq->ring_lock, flags);
++	r = amdgpu_ring_alloc(ring, 32);
++	if (r)
++		goto failed_unlock;
++
++	amdgpu_ring_emit_hdp_flush(ring);
++	r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
++	if (r)
++		goto failed_undo;
++
++	amdgpu_ring_commit(ring);
++	spin_unlock_irqrestore(&kiq->ring_lock, flags);
++
++	r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
++
++	/* don't wait anymore for gpu reset case because this way may
++	 * block gpu_recover() routine forever, e.g. this virt_kiq_rreg
++	 * is triggered in TTM and ttm_bo_lock_delayed_workqueue() will
++	 * never return if we keep waiting in virt_kiq_rreg, which cause
++	 * gpu_recover() hang there.
++	 *
++	 * also don't wait anymore for IRQ context
++	 * */
++	if (r < 1 && (amdgpu_in_reset(adev) || in_interrupt()))
++		goto failed_kiq_hdp_flush;
++
++	might_sleep();
++	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
++		if (amdgpu_in_reset(adev))
++			goto failed_kiq_hdp_flush;
++
++		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
++		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
++	}
++
++	if (cnt > MAX_KIQ_REG_TRY)
++		goto failed_kiq_hdp_flush;
++
++	return;
++
++failed_undo:
++	amdgpu_ring_undo(ring);
++failed_unlock:
++	spin_unlock_irqrestore(&kiq->ring_lock, flags);
++failed_kiq_hdp_flush:
++	dev_err(adev->dev, "failed to flush HDP via KIQ\n");
++}
++
+ int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev)
+ {
+ 	if (amdgpu_num_kcq == -1) {
+@@ -2484,3 +2556,4 @@ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
+ 			    &amdgpu_debugfs_compute_sched_mask_fops);
+ #endif
+ }
++
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index fb5f7a0ee029..5bccd2cc9518 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -615,6 +615,7 @@ int amdgpu_gfx_cp_ecc_error_irq(struct amdgpu_device *adev,
+ 				  struct amdgpu_iv_entry *entry);
+ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_id);
+ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint32_t xcc_id);
++void amdgpu_kiq_hdp_flush(struct amdgpu_device *adev, uint32_t xcc_id);
+ int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev);
+ void amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev, uint32_t ucode_id);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 8841d7213de4..751732f3e883 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -9951,6 +9951,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_kiq = {
+ 	.emit_wreg = gfx_v10_0_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v10_0_ring_emit_reg_wait,
+ 	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
++	.emit_hdp_flush = gfx_v10_0_ring_emit_hdp_flush,
+ };
+ 
+ static void gfx_v10_0_set_ring_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 66c47c466532..10d2219866f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -2438,7 +2438,7 @@ static int gfx_v11_0_rlc_load_microcode(struct amdgpu_device *adev)
+ 			if (version_minor == 3)
+ 				gfx_v11_0_load_rlcp_rlcv_microcode(adev);
+ 		}
+-		
++
+ 		return 0;
+ 	}
+ 
+@@ -3886,7 +3886,7 @@ static int gfx_v11_0_cp_compute_load_microcode(struct amdgpu_device *adev)
+ 	}
+ 
+ 	memcpy(fw, fw_data, fw_size);
+-	
++
+ 	amdgpu_bo_kunmap(adev->gfx.mec.mec_fw_obj);
+ 	amdgpu_bo_unreserve(adev->gfx.mec.mec_fw_obj);
+ 
+@@ -7320,6 +7320,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_kiq = {
+ 	.emit_wreg = gfx_v11_0_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v11_0_ring_emit_reg_wait,
+ 	.emit_reg_write_reg_wait = gfx_v11_0_ring_emit_reg_write_reg_wait,
++	.emit_hdp_flush = gfx_v11_0_ring_emit_hdp_flush,
+ };
+ 
+ static void gfx_v11_0_set_ring_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 710ec9c34e43..e2bb8668150d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -5597,6 +5597,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_kiq = {
+ 	.emit_wreg = gfx_v12_0_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v12_0_ring_emit_reg_wait,
+ 	.emit_reg_write_reg_wait = gfx_v12_0_ring_emit_reg_write_reg_wait,
++	.emit_hdp_flush = gfx_v12_0_ring_emit_hdp_flush,
+ };
+ 
+ static void gfx_v12_0_set_ring_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 0856ff65288c..d3d0a4b0380c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -6939,6 +6939,7 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_kiq = {
+ 	.pad_ib = amdgpu_ring_generic_pad_ib,
+ 	.emit_rreg = gfx_v8_0_ring_emit_rreg,
+ 	.emit_wreg = gfx_v8_0_ring_emit_wreg,
++	.emit_hdp_flush = gfx_v8_0_ring_emit_hdp_flush,
+ };
+ 
+ static void gfx_v8_0_set_ring_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index dd19a97436db..f1a2efc2a8d0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -7586,6 +7586,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_kiq = {
+ 	.emit_wreg = gfx_v9_0_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
+ 	.emit_reg_write_reg_wait = gfx_v9_0_ring_emit_reg_write_reg_wait,
++	.emit_hdp_flush = gfx_v9_0_ring_emit_hdp_flush,
+ };
+ 
+ static void gfx_v9_0_set_ring_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 77f9d5b9a556..b1fa4036befb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -4798,6 +4798,7 @@ static const struct amdgpu_ring_funcs gfx_v9_4_3_ring_funcs_kiq = {
+ 	.emit_wreg = gfx_v9_4_3_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v9_4_3_ring_emit_reg_wait,
+ 	.emit_reg_write_reg_wait = gfx_v9_4_3_ring_emit_reg_write_reg_wait,
++	.emit_hdp_flush = gfx_v9_4_3_ring_emit_hdp_flush,
+ };
+ 
+ static void gfx_v9_4_3_set_ring_funcs(struct amdgpu_device *adev)
+-- 
+2.25.1
 
-It sounds like zone_device_page_init is just unsafe to use in general. 
-It assumes that pages have a 0 refcount. But I don't see a good way for 
-drivers to guarantee that, because they are not in control of when the 
-page refcounts for their zone-device pages get decremented.
-
-Regards,
-   Felix
-
-
->
-> Regards,
->
-> Philip
->
->>
->> Regards,
->>   Felix
->>
->>
->>>
->>> Regards,
->>>
->>> Philip
->>>
->>>>
->>>> Regards,
->>>>   Felix
->>>>
->>>>
->>>>>
->>>>> zone_device_page_init should not use in page migration, change to
->>>>> get_page fix the race bug.
->>>>>
->>>>> Add WARN_ONCE to report this issue early because the refcount bug is
->>>>> hard to investigate.
->>>>>
->>>>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 14 +++++++++++++-
->>>>>   1 file changed, 13 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c 
->>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->>>>> index d10c6673f4de..15ab2db4af1d 100644
->>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->>>>> @@ -217,7 +217,8 @@ svm_migrate_get_vram_page(struct svm_range 
->>>>> *prange, unsigned long pfn)
->>>>>       page = pfn_to_page(pfn);
->>>>>       svm_range_bo_ref(prange->svm_bo);
->>>>>       page->zone_device_data = prange->svm_bo;
->>>>> -    zone_device_page_init(page);
->>>>> +    get_page(page);
->>>>> +    lock_page(page);
->>>>>   }
->>>>>     static void
->>>>> @@ -552,6 +553,17 @@ svm_migrate_ram_to_vram(struct svm_range 
->>>>> *prange, uint32_t best_loc,
->>>>>       if (mpages) {
->>>>>           prange->actual_loc = best_loc;
->>>>>           prange->vram_pages += mpages;
->>>>> +        /*
->>>>> +         * To guarent we hold correct page refcount for all 
->>>>> prange vram
->>>>> +         * pages and svm_bo refcount.
->>>>> +         * After prange migrated to VRAM, each vram page refcount 
->>>>> hold
->>>>> +         * one svm_bo refcount, and vram node hold one refcount.
->>>>> +         * After page migrated to system memory, vram page refcount
->>>>> +         * reduced to 0, svm_migrate_page_free reduce svm_bo 
->>>>> refcount.
->>>>> +         * svm_range_vram_node_free will free the svm_bo.
->>>>> +         */
->>>>> +        WARN_ONCE(prange->vram_pages == 
->>>>> kref_read(&prange->svm_bo->kref),
->>>>> +              "svm_bo refcount leaking\n");
->>>>>       } else if (!prange->actual_loc) {
->>>>>           /* if no page migrated and all pages from prange are at
->>>>>            * sys ram drop svm_bo got from svm_range_vram_node_new
