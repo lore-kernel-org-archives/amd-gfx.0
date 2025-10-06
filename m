@@ -4,65 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A249CCA470
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 19:59:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB082CCD187
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 20:58:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 238BE10E45B;
-	Mon,  6 Oct 2025 19:59:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EDED10E644;
+	Mon,  6 Oct 2025 20:58:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f3syiBFF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PBm8akT4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BFD610E12D
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 19:59:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 74EA461109
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 19:59:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2874FC19421
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 19:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1759780789;
- bh=RGOjghczmBhOn629RRqeFBoH+bmWrNCvmm7l98/ereY=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=f3syiBFFmJTX8U4zhWCmLfRemYi6nT3Nr0TsNcoNis6Qoh5r4Mdoa6w5gfWBPBHhJ
- nHTBKNMHLZAWiNfHmqo8ce9AapAcjmrk+w7oLuoxwsP6i4Y3jszTCcAuyZ5b051Sh5
- NrVphzBp23MsKCtY+R/RsC4OGMFO7+uQZFJ9kEoXe6ienz/9tF5u3jpD+xXf0urFOV
- P5HRvMkAg5Ead/82pXoYDMmBoP3esHe/8uX6XV816zJs6hSey6bx/y60zC+z+dCKJE
- XxYX22gkH5u64eMGBbE76BD7aM3i4NZkbb+Y+CfAWVL7r/gkqeEz2gmhWRMJroM8G3
- MNbR44HmX3XqQ==
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-36bf096b092so48699891fa.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Oct 2025 12:59:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCX0H383n77/U6BGPACHjEbyPgxPZTCBytdSjnKP0TRd+8eQJ5pY8qftBbMLp3kKh7xTWEs3IsdS@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOe4CejMx3KhsdSSD42u/OOU6+dwfQNvwI2eV2j8rMsDxJEzZ1
- ic2CcixNP6xBWBWQswR+1UftiRzqxf8Onf+Ug670Tk94/vc4LLR9TylCL3CBtdKHPYCiXzHpqlh
- kHQa+TP/MRvzc0zYMRlRgvCKiJfRPF98=
-X-Google-Smtp-Source: AGHT+IFCefbDSL2GYf6TgImraEUnQIVmnSoToPwmnqaXu68yMygrqwch2iehFFb+Yblt2/Ln03XrF5n8NYG5k5DfAYk=
-X-Received: by 2002:a2e:bc86:0:b0:373:a93d:5b2e with SMTP id
- 38308e7fff4ca-374c36ba428mr50608951fa.3.1759780787463; Mon, 06 Oct 2025
- 12:59:47 -0700 (PDT)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011020.outbound.protection.outlook.com [40.107.208.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F96B10E644
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 20:58:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Hx52tR+k8ZGW+3XJP4XkixpKigQNK1aPi4sc1R/ULL25+70wWWkpX7EF4kpJUxuxAQhrbH82I0GjxWHY0XeIUhb1IAQNMnQnosvpbP3DBaYhcFv7CYWDFKQP/KQvMBf47C/2lt1YgUB++BDQPMRBNphx//NilxAd6zkn8Wghk9K+hJ7MdEeRE0+r2ubXeiQ2wo97mshV+lIGqupy5PPq+O2iO+3B/xVNg3dKDkPR9BDC+elEgefYyQbFFHnASunb/kpyNgytMm9ipv1zzijMpKPS2mNl1KoF9cvc++ZoEj6xvUDz7gTMMZFAfoeg4lP3/vAswUAuUlZOEf0cK7hmGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EDRxx+SFzpyZkUJUCneMwSbn9tjpc2CasHDNxFu//iU=;
+ b=SPbC7DwaeFI003g6lCjiBlaHple8rJLBga8WhSIQXljIVqre1urBcKNqvD+/yLWApFBGG9aahfaPiv89ovVwuGtf6n2ePDJoQ8+mGugBHVd50ZWKP9CsxULfvNNrOeO92BcAnCTyxqsuFQCVeMsWDDGdQwvvdaAaG/4uITHD3q2kolp+nBhCyq9EQa0NgLh2k+y6VoPk0urtZqeSLyBd5Qldklx/NAWMLwmImsbasIZt4FFibASwYU2Pwm5fQSKqbosDBumk/HnjBbJEnf06zWCI2qEiBOoJpAmY9srUncuEn2PPJXF6oH+Vqu0tWyetth0+XM+oIrlZ7EmPy31s2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EDRxx+SFzpyZkUJUCneMwSbn9tjpc2CasHDNxFu//iU=;
+ b=PBm8akT4o8FhRVKmpOif190wD8qFKy58d0PXtwLVI6niCQLmZqoNFcUS16DFfXzHBYCgyCQikxauvUcewQ4VnJnkgnGfjK3zLvp6kCvP40sEb75DB1eG3FR4L6XLXA8sYVI8anZyM5vfokJ0OLVzaI/iICISCCryljtKSTMRwYc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by CY8PR12MB8267.namprd12.prod.outlook.com (2603:10b6:930:7c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Mon, 6 Oct
+ 2025 20:58:06 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.9182.017; Mon, 6 Oct 2025
+ 20:58:05 +0000
+Message-ID: <08acf9ad-2f6a-4b5f-a677-d09664680750@amd.com>
+Date: Mon, 6 Oct 2025 15:58:02 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: RE: [PATCH] drm/amd: Drop superfluous call to set_power_limit()
+To: amd-gfx@lists.freedesktop.org
+References: <20251001171340.561444-1-mario.limonciello@amd.com>
+ <DS0PR12MB7804768DA193EA233BA32C7F97E4A@DS0PR12MB7804.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <DS0PR12MB7804768DA193EA233BA32C7F97E4A@DS0PR12MB7804.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA0PR11CA0075.namprd11.prod.outlook.com
+ (2603:10b6:806:d2::20) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-References: <20251002210044.1726731-2-ardb+git@google.com>
- <5824c012-dcb2-4312-9b16-810656290831@amd.com>
-In-Reply-To: <5824c012-dcb2-4312-9b16-810656290831@amd.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Mon, 6 Oct 2025 21:59:34 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXHUjL7=CPz0viSBvfeX=BKNYuUkrpTizn9H1ZgJecB6cQ@mail.gmail.com>
-X-Gm-Features: AS18NWCnlytWnKuUujx3FjdzntMejSYw-Dggtn3KRe_zRGRZD-JaqCeN49BKKzs
-Message-ID: <CAMj1kXHUjL7=CPz0viSBvfeX=BKNYuUkrpTizn9H1ZgJecB6cQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix unsafe uses of kernel mode FPU
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, will@kernel.org, 
- catalin.marinas@arm.com, mark.rutland@arm.com, broonie@kernel.org, 
- Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|CY8PR12MB8267:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74bb3fdf-6de6-4397-4ab7-08de051b0b63
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?S0VURHZEaGJvcWF4d25GeGJocmpYVGF4dEtoNEtscWsyWERBUE5sQW55NjFN?=
+ =?utf-8?B?WWdvRG8yNm1rWmpKSHFINXZjNXJVaE5zVEl1MmhzajJJK3J1MDBoWnorSnBw?=
+ =?utf-8?B?bHZxZXVrU3FiWHFZVDRYSEpxbktJN3gzZ1dFS0IzSHI0czdwc0QyYktITStE?=
+ =?utf-8?B?eFE0K2pXREMrTjlyNTduRFNOTXNhcTJMZnhWeTh6ZTZTUnM5UFZxZzhFNXZ1?=
+ =?utf-8?B?Z21oV0VUWWlXWEV0aEQrU1pIOHNkSXRwN3oweDdsT296TzZYeUxnT1pBTDJC?=
+ =?utf-8?B?S0YwNk1vTVVSSk1sVVc1a3ZDZ0U1ejJKTU1oblpyOTRUb0t5UTh0eHFNMGVh?=
+ =?utf-8?B?ZEJlK1lYeGhEUEMrTjdGaEl2b296THhMME43SThSZk1lMDFKK2FaRFhwa1Z5?=
+ =?utf-8?B?K0t0YWpxL01Ka2ZlV25iekFlOFdjemdPaGhEdW5XS05XNElZcjFvMTVmTHJD?=
+ =?utf-8?B?bmhsVm8reEJYTHV0YXN5SmdmVUppWEZaQWxoT2JOY3NUS2pRRUN3SHNXVjk4?=
+ =?utf-8?B?MG5uaW9wMWRNS1hGRGlRbmQ3YmJDY0tqSUFoZE5PNDVkQ0JhYjBPKzFGaWNq?=
+ =?utf-8?B?VDF5ZFdIWW5KNzFEdElRTWhsVjJiR0pmZnM1a0hQUE1hejcyZTNscG0wK2w1?=
+ =?utf-8?B?OENkcFRnTzdNa0Fka3NQRlF1WTlBcHpHaHQ1Q0h2MUduNE5BRkFyb3ZZbHRW?=
+ =?utf-8?B?NGhEYkRINVhMU0c4RXg5RW0yMS8rdnBDU3JyTWs1Z1JycGdrcHFEVFJKU3k3?=
+ =?utf-8?B?V2ZuaFZnQWJuWG8rNVBJRjVPN05uOW9NQ3ppSzNWSjIxZTkvTndlUlJSaTNF?=
+ =?utf-8?B?cVQwSHpFOTYzNDlqNlR2TjRIZW8rRTdRQjUzQ2pTcmFFVnZmV0ZnQlJITGlD?=
+ =?utf-8?B?NVpSMmNYWXU3Q0pBbVRlVTRLTkIySEs0M2RJTllXelB5YjJUQzZLQWJpemFT?=
+ =?utf-8?B?OGVCd09wT1hTdjZENWZlV2RuZUNNcFVNOTNaSTN2MDh3WFAxRjNVbTNGZkJD?=
+ =?utf-8?B?aGJob3dqV0hscys5Y1loME01LzM1eVZQOTF1OEpMRGQ0MWRtZDRIWVh3SVpX?=
+ =?utf-8?B?dzM3QjZNTlZ2YzJNTDQvYzIwbTVCUVpEZFBkbFdQMGZYemRSUzVtaC9UL3FL?=
+ =?utf-8?B?eEVYK3p2V0JpUjlydWdVdWRQTVVyZE90RXlWUG0rT251VCtGSVdFZU1mdE9N?=
+ =?utf-8?B?c1hZK3dEaURVSThwYjhuWFJhYWs2T0s4SmtaSk5Ocm1CUVl1T2dZaTh6M3U0?=
+ =?utf-8?B?UVg1UTEzNmFPK0FZMjhXMWVTSW1iZE1LYXdadjdGWUNzdjBEWm1LSm1jZVhF?=
+ =?utf-8?B?TEFhd1BrMXNlamRNRlZ4WVQrcFphc1RTRDVUMExpc08vV3FwRHhhLzdEendW?=
+ =?utf-8?B?UE13bTlVVFRGeS9ON1pKREZTT0dFbkt2bE1qdWY2elJrQXBaMER1dUNzeFZV?=
+ =?utf-8?B?MFlSdTNMMFZrL0szNVhJM3dFMHFoM1BkbWM4NmxqTXdWRVhmOEdueWsvMGdF?=
+ =?utf-8?B?WkZ4V3lEdTIybHdtdWcrRWoyS0lweW16TVBRZk9IM1RGaGZQbVRQUWlKaG1p?=
+ =?utf-8?B?c08yM0ZGby9Rc3YvYjNLdHhCOGZqZUI0Z1piSkE4aVM2cWwwd2dRSDMzYml4?=
+ =?utf-8?B?ZGUzVUFMNkpWRnhTeVZ0b0w0WjVRNitPWnUzWG9GYmlDS0xPSDZMbVQyTFM4?=
+ =?utf-8?B?WExwTytHOW5XT0szRyt4ZlVUOGV4a3pqOUJPdC9oOU9BWkJlT2NCTy9WWHI1?=
+ =?utf-8?B?QVhFYXlLNE5SRlFtSVEwa2Jac2NQUVN5blIvU0Q1ZzhaREhuTWxTcXMrc3pM?=
+ =?utf-8?B?NllIeVVMR2JoZ2FDMHcyMXVIMDdzbVVJSlA4amFoNzZ5c0p4ejlXUjloWEZM?=
+ =?utf-8?B?TGhEMXVrK1NuRlZ5ZHhnWWxXMlFGYThOR21MT2F3Um9SWEZHZm1Fd3dya2pQ?=
+ =?utf-8?Q?IIMbPNvmwbX12AMv3+VnafTnkGxaOg63?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGlVdk1UbXJOdjljaDBlTG0vR1NDUFYwa1MwNkJPQkhUS3lJS1dadndDZXJ0?=
+ =?utf-8?B?cGZSQWR3UGttcHFFdjZEd0dZSUJObEdGQXozbC9Vdnh3c2dubkxEWGVYbXlR?=
+ =?utf-8?B?T3pBbVA0ODU5TlRtYkdFOEg5a0tSOXM1QUtmN0RCL25pYzlKTzdKdnpCdDc4?=
+ =?utf-8?B?U08xMGVLOUVJWHpMOU5IdExaZXZsUjdEdk5QSGEzak9tbGNmbTQwTnFrOVB1?=
+ =?utf-8?B?OHdLZm1INGdqOThlc3BhQUhNdStwTCs2VG9iYWZFd28rVnhHbElzd1RjN3FN?=
+ =?utf-8?B?TFBGQW11SExSWU1rejNoUkErUmduZHpDdTUwc05UWlZ3Q28zaHVPb3YwMnU5?=
+ =?utf-8?B?d2NEOXR5QUNscjdPWmpHelAxTWdBL1hPTUkvVkFTMTlET09IVzByYnFydGlQ?=
+ =?utf-8?B?aEpLKzl0elB6dlZIQ0hWVkk1VVVNMXdQTE5vM3BvYkpjeTBmUjh0eUhleHFT?=
+ =?utf-8?B?RDNYOE45aDU3NEE2Qlk3TmxDV0E0SUJMM2dRUHByY0NzUzU2ZXFjaWt3dXpN?=
+ =?utf-8?B?TDZuRUc4VGlNTytsbnlvOWdSOVhGOXNyVlZ0dFdaVUN1RXl4bVgyMkd2OVFT?=
+ =?utf-8?B?OFkvMUp4eGFwM0ZBdHNxWEJTYUcyMlZHenZsbXNKZDFqYmZPUisxK3JKZS9T?=
+ =?utf-8?B?cVVONnhJVWt4ZkR5RDJmUFdoY2x4cEhaNXNybUZmaW5rT29VcFdTN3JpQjJp?=
+ =?utf-8?B?ODFVSjNOd1NFUnJnMXMrYWdHejQwQ0I5ZUR1WUM2K0F2bC81TUhmbGJNaisv?=
+ =?utf-8?B?QUpTRm9JaTE0aGptRmhDcXp2RzNWNjdVcU0zbFlENE5HcWJsNDgvY3FEUUhQ?=
+ =?utf-8?B?WmRDc1JwVEEwei9vbEZsWlVEMGdqeUlqWS9JSUJEWWtRb0dZNE9ZVDFuWGF3?=
+ =?utf-8?B?dVZyNW56WjVwTW8xd1VNU0pzSWh1ODhJUG5YRk42NDEvYmRUc21CcGFxWFJX?=
+ =?utf-8?B?T0ZrTFQrdDh2SHQ3LzVJVFA2VEJqU1lvLzUvb21uMHVxWnlqRkQvTThid3Nn?=
+ =?utf-8?B?a2NXL0hoV2NpUmFGVjdYVDdYNGFyc1FiVTVuU29Va0tlTEV4L2E2aFNqZUp2?=
+ =?utf-8?B?NnB1YVFteHlBQVRXNGl5NE5URFVsaG9BRkhHM3cwS3pMU3ZYYjhTeHk1VFUv?=
+ =?utf-8?B?cDFiNTRyR3pBd3BoTitOU3R6dUJSMk9JYXkweUYzc2lJMW9zSUo4emdsMHhy?=
+ =?utf-8?B?cmZBVjhjb2tZQnRiSFIxVHNQaXBHUUtob0NWU2hRZ1Awb3lSZ2dNeURPTmNx?=
+ =?utf-8?B?R00vS2taRHlZZ3MxbHJEbDdXVkNWUXBGUHRoVERuNUp2MDB6ZGtLTWo0RXVv?=
+ =?utf-8?B?MGFYQXZsN2lYT3hVRCtpSTN3VW0wbGdkUkp2V3Z0WVAvbjNUVDZFQk9kYzNy?=
+ =?utf-8?B?dlVicyt4UHNNeWk2bDFaU0hvK3FVbFlyVm1qdFRwZmM0dkQzN0FPZTNKVjBN?=
+ =?utf-8?B?VmFKdEx4VXRPVHlpdkpyU3VUc2JmQU9LZ0cxdi9GV0VuaXZrT2xBVHhRVGRI?=
+ =?utf-8?B?eWNDSDVWNTIrRXpydUtrMTkvd1dmS283N0VXaHJ4UDdzc2FSWGVwaEJGRzFX?=
+ =?utf-8?B?SnVkWWRqMVdHZ3ErSEwrSFFWM2VZZlMycVRzZGdnZ29VNVN0bFhMOVFGckVC?=
+ =?utf-8?B?VGd2VCs4VU15eENVSFJVM1hITkZSbHprVlJDQTM0bXc1V0IvN1Y0KzBPUGtJ?=
+ =?utf-8?B?Umx0WWo4eEhxc2xjTjN4cmROT3QvRG9zQmVPaTNrOW1paDUxa2ZvazNPS2dX?=
+ =?utf-8?B?NWJ2d1dWQkdVdmdlT0RTOEt2V2xUY2tmWUpKcHpiTjdib09LMUFGbG9TTm1p?=
+ =?utf-8?B?eENQbW9hR05Gdk5PeTBTcU1Hd0s0MnUvZmZnWTVjOUFqenFQOVVDbHd3dTdz?=
+ =?utf-8?B?SUl4YmRHZEdwb0J4TUtTdWFwU2RsRkJ6MldpY0lFc3p6YWxBMUFla2VES2ts?=
+ =?utf-8?B?TjZSWHNVQ2psYjRhOWd0QUQ1SEFBdjltOW4ybVRLSnMvdWtRdndaNER6aTA4?=
+ =?utf-8?B?Z1lRQ3MvN1JHWUxRa3h6SWxRb25XdmRHVGZzRG5HaUhQSkZ3cHRMSmNSYlpX?=
+ =?utf-8?B?cTV6ZHpmZDFyT00yWDF6b01UZjFXUEJqSDdVYzRQb3VwSldNa2JCN3h3M2dR?=
+ =?utf-8?Q?R5TqhqZczU6jb4PbKtepXRya7?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74bb3fdf-6de6-4397-4ab7-08de051b0b63
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2025 20:58:04.9397 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: htjgyCHdnTgu/YDkZCV9RlxquKtB6H3HXdRbA6plVjWoKJHkhQRHOr/scXcVbv6C+VBZ6Fi6PFNfwTJCyu1d1A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8267
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,69 +160,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 6 Oct 2025 at 19:42, Christian K=C3=B6nig <christian.koenig@amd.com=
-> wrote:
->
-> On 02.10.25 23:00, Ard Biesheuvel wrote:
-> > From: Ard Biesheuvel <ardb@kernel.org>
-> >
-> > The point of isolating code that uses kernel mode FPU in separate
-> > compilation units is to ensure that even implicit uses of, e.g., SIMD
-> > registers for spilling occur only in a context where this is permitted,
-> > i.e., from inside a kernel_fpu_begin/end block.
-> >
-> > This is important on arm64, which uses -mgeneral-regs-only to build all
-> > kernel code, with the exception of such compilation units where FP or
-> > SIMD registers are expected to be used. Given that the compiler may
-> > invent uses of FP/SIMD anywhere in such a unit, none of its code may be
-> > accessible from outside a kernel_fpu_begin/end block.
-> >
-> > This means that all callers into such compilation units must use the
-> > DC_FP start/end macros, which must not occur there themselves. For
-> > robustness, all functions with external linkage that reside there shoul=
-d
-> > call dc_assert_fp_enabled() to assert that the FPU context was set up
-> > correctly.
->
-> Thanks a lot for that, I've pointed out this restriction before as well.
->
-> Since we had that issue multiple times now would it be somehow possible t=
-o automate rejecting new code getting this wrong?
->
-> E.g. adding something to the DC_FP_START()/DC_FP_END() or kernel_fpu_begi=
-n/end macros to make sure that they fail to compile on compolation units wh=
-ere FP use is enabled?
->
+Got it thanks.  Will disregard this one.
 
-Something like the below perhaps?
+On 10/3/2025 3:36 AM, Lazar, Lijo wrote:
+> [Public]
+> 
+> This is because currently only Vangogh has Fast PPT limit. The limit for that is not the same as default one. It will be higher than the max_power_limit. Since this is Vangogh-only, it's left to the implementation to handle that check.
+> 
+> Thanks,
+> Lijo
+> -----Original Message-----
+> From: Limonciello, Mario <Mario.Limonciello@amd.com>
+> Sent: Wednesday, October 1, 2025 10:44 PM
+> To: Limonciello, Mario <Mario.Limonciello@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Subject: [PATCH] drm/amd: Drop superfluous call to set_power_limit()
+> 
+> smu_set_power_limit() will call set_power_limit() if the limit type isn't default ppt, but after a bound check will call set_power_limit() regardless.
+> 
+> The first callpath is not necessary, remove it and do the bounds check for all calls.
+> 
+> Cc: Lijo Lazar <Lijo.Lazar@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 4 ----
+>   1 file changed, 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index ac99bb7e2e7b..431333060b72 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -2939,10 +2939,6 @@ static int smu_set_power_limit(void *handle, uint32_t limit)
+>                  return -EOPNOTSUPP;
+> 
+>          limit &= (1<<24)-1;
+> -       if (limit_type != SMU_DEFAULT_PPT_LIMIT)
+> -               if (smu->ppt_funcs->set_power_limit)
+> -                       return smu->ppt_funcs->set_power_limit(smu, limit_type, limit);
+> -
+>          if ((limit > smu->max_power_limit) || (limit < smu->min_power_limit)) {
+>                  dev_err(smu->adev->dev,
+>                          "New power limit (%d) is out of range [%d,%d]\n",
+> --
+> 2.51.0
+> 
+> 
 
-diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-index 73a10f65ce8b..d03e3705bade 100644
---- a/arch/arm64/Makefile
-+++ b/arch/arm64/Makefile
-@@ -35,7 +35,7 @@ endif
-
- # The GCC option -ffreestanding is required in order to compile code conta=
-ining
- # ARM/NEON intrinsics in a non C99-compliant environment (such as the kern=
-el)
--CC_FLAGS_FPU   :=3D -ffreestanding
-+CC_FLAGS_FPU   :=3D -ffreestanding -DIN_SIMD
- # Enable <arm_neon.h>
- CC_FLAGS_FPU   +=3D -isystem $(shell $(CC) -print-file-name=3Dinclude)
- CC_FLAGS_NO_FPU        :=3D -mgeneral-regs-only
-diff --git a/arch/arm64/include/asm/fpu.h b/arch/arm64/include/asm/fpu.h
-index 2ae50bdce59b..1297e660bd89 100644
---- a/arch/arm64/include/asm/fpu.h
-+++ b/arch/arm64/include/asm/fpu.h
-@@ -8,8 +8,10 @@
-
- #include <asm/neon.h>
-
-+#ifndef IN_SIMD
- #define kernel_fpu_available() cpu_has_neon()
- #define kernel_fpu_begin()     kernel_neon_begin()
- #define kernel_fpu_end()       kernel_neon_end()
-+#endif
-
- #endif /* ! __ASM_FPU_H */
