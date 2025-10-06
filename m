@@ -4,127 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A23CCD183
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 09:53:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29807CCA471
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 09:57:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA18F10E3E1;
-	Mon,  6 Oct 2025 09:53:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8B1A10E3D5;
+	Mon,  6 Oct 2025 09:57:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AnUZCl6y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AF9ZsRhv";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010042.outbound.protection.outlook.com
- [40.93.198.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9833610E3DD;
- Mon,  6 Oct 2025 09:53:14 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010028.outbound.protection.outlook.com [52.101.61.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 119E410E356
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 09:57:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yJykG7mR8eldNsH/RwNa7I3IwsK3J9ebJg3BgGQEBJgX6NYaAHZ8+Ov0vb71YhuKlwj7WIPjdVPWmljZXPs9eZu9AQ5hRtIlX7Th87K1UjBJkYA58C/6Y5nbRQn3epr+gjbtQGvtZb9LF4T4S1fnVWLDsBQHJQZ4Ub+77IN/yedbjt+OhhSF9frI83bUzwzbyGNRzqDFv5ey2qmRp2ToNXf/Ph8M9udL4iTkEJEScl9GGoTFR7B9Wl0QfMFcvfugVtVnJxp7Hj13XUY4UH1k7dbiiAKOWye5xrzNjtxWJo0D00A9JFUpgSxlP7E96IEsj1XMbU8F6RE/wm+T5lcFUw==
+ b=Ntf5ohCFGVCwQyeFAW0slaT0UQKBnNcVkxOawMsdKsa6Y9gu+SobSM9dHae6D76De4Ly3IjtH7YvRwCek77PCKTsK23AxCsT9cMMI7OH3x0NpanMjYLBEhy95XN6OcDidnwK//UplAiMgCLxfBshaVoaFwFTH4c8HEQeVwo4AqigmpKJYTAW12BqtBdOWgWDTiI2mwEvLtPu6FyA+ljHL95RfgjtSG8xzdvABxKVFprJyA0Kzh9CA0KeyXMOJQxI5LC1TiP86bw5iD+m81YwjB5BgYTHr0K4Sk0tq82NIdT1V4RTKMzHfaJhIL6/uFBKzNt6KTR0KbzqT2fGW4XQQA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dIjrBKm4497k1qcjlWLdwEMGAYB/8ciTfupWnLZtxso=;
- b=OCq732tLMyieGYZQUAvHuUDmMPWtAOSjbxsnT1/tEpPx4+jdGCZEBhI5vw6KUvf0pt9ylIEflEs+4Ec+JuOgxwb8HwaaQkO9twxFWEHZwBBAEqlRFvLsr6lNuYni23eAYRQj2P4UKYDk/ZNFlzfgjm08NYbiWMkv1ZWaJkpwkfTXszn3F/5DIWVfIw0oWP+t+uzkvdmNs4D/FUonkQN3iVGpIvLS1tkj5M1YgyyTJYqFB4q87Lt/6+2QAoxqu6YaIvvLCHsMS9vSWuBbTg5qjOpVOdT3owGVqD1e4UT/EtC0vECpbihZehXf4g9RtrVFHgqQNCqn1pThCdtOgd4nvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=4LWxBJOYEnEsinrLE0D3JlgYudUrHOJmOBerkZ4rcyE=;
+ b=UPTamK7w0rCjcEfr9/eZQOF4qCjnU3WcGKhm9u/GQYktobJwMWmfKE1VG4veYxgSbUGFe82fG2+onGC9rAkAYT7SRZjz64nlByYf0Ub8qNO2zzNRyrTwSjg+W7oAplKaIinwa1IT8WitCZqAzuYuLBhbcYlk9zrQg6+Von7Mu1f3ZzpazgqIy8B3+VMzLiyvuz3k1hK1MQb29h+t2uabDRjB1WXNBDXlNQQnpS6PD0Hz74YgVnfdUFK6Bks9UTJcfwprUemxZ/IQIopG8yIuGqLMizooAhIejzFMmRE3yAft3qWkEMSeE7IxuViKhy2vhHItSMledeYLN5tL/YnJnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dIjrBKm4497k1qcjlWLdwEMGAYB/8ciTfupWnLZtxso=;
- b=AnUZCl6y7oSvr0il2XYmkB4HCBPx0C4NGkRZBqQzZGaDuNe+UhCNRDNnln7a8ydqcXcYlhyLYzrbCNOQ/79URv2UAzATkq8p/5ohPct2d4nmGQKZZLvEnaw9Xkt26Ae87CjZxeHZjRSYOEfL2tokff29CowJBHOCHHdcSYgidZI=
-Received: from SJ0PR03CA0117.namprd03.prod.outlook.com (2603:10b6:a03:333::32)
- by DS0PR12MB8248.namprd12.prod.outlook.com (2603:10b6:8:f3::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.18; Mon, 6 Oct
- 2025 09:53:06 +0000
-Received: from SJ5PEPF00000205.namprd05.prod.outlook.com
- (2603:10b6:a03:333:cafe::4b) by SJ0PR03CA0117.outlook.office365.com
- (2603:10b6:a03:333::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.20 via Frontend Transport; Mon,
- 6 Oct 2025 09:53:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF00000205.mail.protection.outlook.com (10.167.244.38) with Microsoft
+ bh=4LWxBJOYEnEsinrLE0D3JlgYudUrHOJmOBerkZ4rcyE=;
+ b=AF9ZsRhv590xlEyFRemIcVG73Oha2ar7/tUlCr/9vN0B+/EKO10uwmr3PUn+CBmoZVy2sc8563NgHfgrJH8wxHTSXcpGthU+tpbRAu72kO11barT7NaOd2I4aMkvzR2aIXDbm2wj4/GUrmM486B+0UGq4lTvMJTOYo7muyDiNwQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB8272.namprd12.prod.outlook.com (2603:10b6:8:fc::7) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9 via Frontend Transport; Mon, 6 Oct 2025 09:53:05 +0000
-Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 6 Oct
- 2025 02:53:01 -0700
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <christian.koenig@amd.com>, <matthew.auld@intel.com>,
- <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <jani.nikula@linux.intel.com>,
- <peterz@infradead.org>, <samuel.pitoiset@gmail.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>
-Subject: [PATCH v8 3/3] drm/buddy: Add KUnit tests for allocator performance
- under fragmentation
-Date: Mon, 6 Oct 2025 15:21:24 +0530
-Message-ID: <20251006095124.1663-3-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20251006095124.1663-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20251006095124.1663-1-Arunpravin.PaneerSelvam@amd.com>
-MIME-Version: 1.0
+ 15.20.9182.20; Mon, 6 Oct 2025 09:57:04 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9182.017; Mon, 6 Oct 2025
+ 09:57:04 +0000
+Message-ID: <8d76707d-c547-4a40-a21a-0180e7eb930c@amd.com>
+Date: Mon, 6 Oct 2025 11:57:00 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: reduce queue timeout to 2 seconds
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+To: alexander.deucher@amd.com
+References: <20250925130322.1633-1-christian.koenig@amd.com>
+Content-Language: en-US
+Cc: amd-gfx@lists.freedesktop.org
+In-Reply-To: <20250925130322.1633-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR4P281CA0012.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c8::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000205:EE_|DS0PR12MB8248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3bf4ee2e-d667-40d3-a360-08de04be25a0
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8272:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0c79250-48f2-42f0-c283-08de04beb3d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?r01tkH3b80xrfz+c0DIG1J4QMijPXmBs2oS+KYYvwK7X0wOEnWwCXPiyvV5E?=
- =?us-ascii?Q?Jf63AVFQBI1QFx4QE3z+SYXr5F834+ulDIdvqtbPYxDKigb/0lYUGfNZcfca?=
- =?us-ascii?Q?gUXZFW+FMu7n+yIoZiFmHC0yslCCUFHgJ3AZRiohFOfGvjMLerc2n9AnSGN3?=
- =?us-ascii?Q?JmUJUWb/XUr3yhcXYrT2K8IEu5KZzVqjC6XSkQGgjLte84iOOR+9BS25sm4L?=
- =?us-ascii?Q?gpBcTYs5qcLXhLeSuXOdoyanFoDAnRdFWOVO8f8+UykxcWuZ36pEimOo4BUr?=
- =?us-ascii?Q?+aY41QJN6o+yPfAKyVjBDja24is12CumOsVVTgAUQ3daGUodFixLzr5edELI?=
- =?us-ascii?Q?Ezc0V6awaI/iGUKwNKsGsjnD9/QqWqpyIYfAWcjQNOfUD/ECk5wEvKaTqGxV?=
- =?us-ascii?Q?EIMLXAZ3iW8YzwiJkpK5FhHlTBfPIRiYQq7oulppe9wUpxd1gQtPMo/XNswz?=
- =?us-ascii?Q?+ZkbojAA93/dmfmJabSxH9bco8iL9hjlhcEjNECw+WZmoprbBeCFWciL2raT?=
- =?us-ascii?Q?RoDnne/qgL7pZAiJi8g7rEXav589g8Nw49Wytp9MRVZ28CwVrRYBe1z4GALs?=
- =?us-ascii?Q?4Fc1XWV2QRk51FwWos+wgVxnicuAyF1XQNPseYGhppc1P4bgbCZ5NSZv6yYJ?=
- =?us-ascii?Q?kS1A282hp9jmFDsKkfk4ady+9Vq5tQYPjBbS6PSUWwkRS2Y8Oda10j/vmGjC?=
- =?us-ascii?Q?TMIKQN1rwu81hNrJCC1J+jZC/WN6vLMJ85XcGKeXiQoIUXqb0/HER5sgewQ+?=
- =?us-ascii?Q?aMMzFHG3OR8QeyhWFZeuaSSdMszYmAZaj0+DFSGadE1KtebieIS1hWQpqX5C?=
- =?us-ascii?Q?4SkP5EVXHC0QLEQs77F5stys+rMtXiiExNWkb+Yi6YGAGXJ5bMC1K7/vyDRj?=
- =?us-ascii?Q?mrSPM6SUnJZmdr5nEIDrfe7wg5GtWDcpx3CKBxioZDlDyx1t6UJ0VQgsWCky?=
- =?us-ascii?Q?puyVdJY+N7z755+CI6PU3piFppJiWt3QvmOccbEm8Clfcw2dKGNALbn2g4tK?=
- =?us-ascii?Q?bP35q6PaFcj9VnixkeIjXp1+CqLju25wwJPKP2LYKbNcALAnT9I8wnaKWR+b?=
- =?us-ascii?Q?kjE/hM8I2Xj1x7rm3gQBg/NZKOkWfbuK8OfBNyqNzaXvSN8/K1rn0WEJ6fLL?=
- =?us-ascii?Q?GHIiGmeJTYfMqSwoeX23GtZN/YEYnOL7A+lCw2odeBcKKGGgTGdo7r/HSK3x?=
- =?us-ascii?Q?bsG7oY7tnTewWoRIpBT5xls8/kXMFNEj9L+3N8yhVw5/sbQy483QH4/lnJlc?=
- =?us-ascii?Q?K3Vq2mbUVEyNFnaDI504Cl6jpk4+cYZ0XU9DCw1RhjwcCrN3t1VTdlqx2Yg9?=
- =?us-ascii?Q?PkIDH8JzLoQr7tgpAY1EOfxu0S17kbr2ttqX62SPnJbLh69183xr3zWV4yEG?=
- =?us-ascii?Q?KchfFmMwSD9caBTOpHz5rPNNYMIeKs9260ngtwEHwdPDP9ePI3GpsCLNG13L?=
- =?us-ascii?Q?fRcamllhEERAoFBhhUwMg4PoyN6j6tWCJC+u0vLwKVDZfZdymV2R9h40TrXn?=
- =?us-ascii?Q?ZVCFLrgx0LZ9u1iDXwUC+9MJtyoDd2IJVaWcVl5MxjZFaTpw5FSTYvjnSD5n?=
- =?us-ascii?Q?FkUW8O4FHTE2RIvrecQ=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(7053199007);
- DIR:OUT; SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SEEwWkp4dm03NDZtcDgzK1lvTUV0SHlTWnZySmdyVFRCMGtWVVJGUi9WeXhZ?=
+ =?utf-8?B?MXdEeklMNEZDeEV0VTFzNk4xREd0ZVYrWVI3aWxpSTBkS05UNnl3bUtXait3?=
+ =?utf-8?B?OG45TXlPS0hvUXhlUmt2SlNQaGEzMDh1K3hGVnVDY2l1NVIxVU5ianhxYVhQ?=
+ =?utf-8?B?Sy9TcndBQ1ZoN3cwZTZHQzdVU2lXUlQwWWx4aGNsSzR2QmFzL0xCZWpPYXBR?=
+ =?utf-8?B?UFRzRXJPbnRHQmx3NUY4enZyM0tiTnE3NHVOd3VJU2ZRblpSMjB1UkZvSzFD?=
+ =?utf-8?B?clgyb21Iald5dGFRZFh2eU4yaVRNY2p1TDlHZm9FalB0ME1lZkRwVGNScmNu?=
+ =?utf-8?B?Y01KK3I4RE56M0wyZkdsZm9RbnpXN3ZTYlBKUlRVZjN1cHBPckRNOEVweVp2?=
+ =?utf-8?B?ZUxIT0xpWWVrclB1QUZ6Qlp6MXhkMDJJSVc2cWZvTmY1YTVzTkIwbVliai9r?=
+ =?utf-8?B?Z3BncHBHTlU3dEhjb3ZrUTJuTnMrWEFyRG5sNzFmWHFBOVduVVZPZHhuY3d3?=
+ =?utf-8?B?b2pJb0FiaFArVS9NVDc2ZG9ETU1LSDFjZnZqMkxuZ1ZuM2hGTFFaTUpXdHRh?=
+ =?utf-8?B?UnF2YjhNd2lmZDVlQTFOa1krOUZXWkdZd3JuVGxLc2JzVkJNMmZpLzI1WUsx?=
+ =?utf-8?B?WERQNks2MFlhQmMyY2VuQm0rVStKdG9tWkxRTmYrNStCY1pFeXJGTE44L2My?=
+ =?utf-8?B?VU5YS2RyeG92ZXlZcUVwWVl0aHlmczA0NmhLTnBhZWJqVnptc1d3NC9hb1Jq?=
+ =?utf-8?B?UElURWlrMnhEemRYL1dnTWVGVG1Xb1dRY1NmZkdhb1l3eWpWckhBR1Z0Mm9r?=
+ =?utf-8?B?eDVPc2ZJRmJydTFlOG5mbUNFNjBraUdEZjMxSlNFSTdTOFVwMjMrajFnRDJG?=
+ =?utf-8?B?N1Fpem1hMVIyRHo1RUtpeFJQdTEyRWZidDAwUzBqeTZFM2UxcEdJR1J3ZFdw?=
+ =?utf-8?B?R2YwUDNMMkxkRnR0NFN5Q2RmZG1pSjljazgxMmh1dHdzK0traDY1STNjaVF6?=
+ =?utf-8?B?L2NubDZmcjM1d2VvWFBGOTViQWdPNkRoUEdXbEIvZW1WWWp0dVM5ZjNXcXly?=
+ =?utf-8?B?OUpIdlFkalM2MFY1T0wyRjFiZDFuVTZWcGtxTzN6M2RWcXVMelR2TWdXTU1s?=
+ =?utf-8?B?TmtVUHl1SlZVN1NHdkRMc1JkbEltMUZ2MFlSaEN1bUwrVkFPSThOeW1uY2I5?=
+ =?utf-8?B?SEVzSkVCQkhUVmVibTRBSmVFZkhlU0VJbk5Qc3F5U0ZHYUQ0alhydlRBL2JZ?=
+ =?utf-8?B?YndBdmplSVVscnYySkl2NG1ONW1qdWx1OWpNY3BxYm9MUEtqenR3VGh5VnNp?=
+ =?utf-8?B?anEzS2pwTU5qL3ZvTFZmSTFOQ29uWEpsMWJDWkMzMDhXbnl1emM3UWxyRDNt?=
+ =?utf-8?B?ZUxnSUJjaUdERGJDYlcvSUt0LytTWFcyYjRWQmh1aUUxR3N1QzNJcDNXd1NU?=
+ =?utf-8?B?TEdubzFiM25UR2VtcVJKd09ORjcxM2hUTy9kUm9XU1pBVUxRNUlOYTFTVjRw?=
+ =?utf-8?B?MFJkMTNIcE8zMWd1OTFlbmwwMVZZQldPK25EcEp0QnpFQnd3Yjk2OVBnVUtQ?=
+ =?utf-8?B?dkxmMWZxVnhvVHhPeDVYQzZqUnVncTVPSm4vdnZxdExDSHgrY25MNG9SL09O?=
+ =?utf-8?B?WkZzK1Y5bjZVekhzR2RrbEIzRkUxcmpnRCt3N0J6cjMwWkd1ZUdncDBORm5P?=
+ =?utf-8?B?ckhZU2VMZGhBQngzTnA2Vis5bFF2SmkreE5TZ0pOeXoyRHViMWtKWXpiNE9M?=
+ =?utf-8?B?ckttQXhLQTU1bkcvN1k5QzM3NHpKLytVVVBxR0lDZFlqOXp3WmVzWmR2OXN4?=
+ =?utf-8?B?OFlZdWZnZlpPWFA1dWwvTWFoMTRUb3JGRysvNE42VnBNd0dwUlY5QTdrRXZG?=
+ =?utf-8?B?TS9ZWkI1UGU3NmdzdC9FZ1RhRGNVQ0Q4WXJMaWFaZW5Tci9VTmpRejNrYnhL?=
+ =?utf-8?Q?fkSYxm9cTCwC3GECWG8Q+senPTBN0nTp?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZzI2RmtJWEVMZTUzeXdhWTlTMlc1WEwvMDRMMGtGbnRDQk5SUm05T1BObWxP?=
+ =?utf-8?B?S1RFL21aVlJ5VUZBcm9GcnM5MXJXYXh0ekZQUjNnaURuaWw4dGxJdy9rTHhO?=
+ =?utf-8?B?S1V4T3ZyM2tYK0lSMWtlalNiMlhMUWNBNmgvWjZBVlNMZ2ZlcmhEbVN6dXQw?=
+ =?utf-8?B?TFBhWjBTWUQ4bVZQMVNTZVRDNGVkbVdjeXA0YUhtYXZ5aTRRSHhWNUR3cThv?=
+ =?utf-8?B?dGNtSWJIZFZpNFdpdVNOTjBCWjVHZS9TYkVIWWR1Y2NkMUsrVUpKWFVsTER5?=
+ =?utf-8?B?OGUrTjVVeEdRdUFRYU1kVTlDeHVwQ1Y0aGF0UGsyc2FzbjF0ZFR1TG82Vkdo?=
+ =?utf-8?B?TzE4OGwzK2pHWmR2NVRGZVFKS3grNzA0RU1sRC9oRkw0NTlOcUd6OGFLd09O?=
+ =?utf-8?B?Z2NuVThmbHlYNkFJSEt0WDhta1JPZUVFSmgxdnFuL3VTcVhjaVgvQ3RlY3A2?=
+ =?utf-8?B?LzduSUdtUlVjRHBSZjNtZkFheG5QclR1U1VuWjlhSS8ySWZiRVV5WHdiSUNP?=
+ =?utf-8?B?WC9wMWlHSmNPMUNZTEVMOXppRTZWS1hMNi92ZndUQkVrMkoya3NQQlVMVFI1?=
+ =?utf-8?B?Y0NnSEVMV0JROVFDUWdYcHQvSlUxZGQzS2VMZFRQL0VOOW5pY1VWZkZXNjNr?=
+ =?utf-8?B?ZDU2ZGZPd3pWR2lVVGoyT3BFZ29qNTJZT1NqYktLRmZ5ZTlZMDgrTWhZbndy?=
+ =?utf-8?B?NGRrZ01nbTVPVjNDNVNNMlBiS2JNZE9icnREZ3lma2RGRnV5ODgzSWdDZWJN?=
+ =?utf-8?B?b0pZSERKMTVsZG1XYWpSN09kUnF2T0hSWUU2RytxcG5vOUgyUzg2TVJUS2RL?=
+ =?utf-8?B?dkdxcnQ2UUVLNlJnUzQyYjNhQU5IYUZTcERrRWt0b0V5RDRSeHVDVTlLbTBa?=
+ =?utf-8?B?Uk1pZkI0eU1WRlc0VjNqaEcvTjAzN3FSTFQrTE1uWGxNTGN1UlphV242RzNF?=
+ =?utf-8?B?NkJWVitPYkMrcDVNS3d3bFVjV0pZN1RBRjNRdjhFUC9aSEIrdk01cVFnNzNl?=
+ =?utf-8?B?Uk1jc0lvQlRSNXhGT2FObi92T3p5bGVtK3RZbk9IdTZ1amJ5Wi8xdGtTYytX?=
+ =?utf-8?B?ZFJoZEsxa2xJM3ZBYjZIMTZTbDAyb3p6OEgrN0VUU3I2QW1UQVVsTEs4eHhh?=
+ =?utf-8?B?UWlUd01jUEQ4MGZvWkROVThSeU8zVkEwdlNSZU5kdFRqNjNwL2dJM09nNHZI?=
+ =?utf-8?B?Q1ROWWJSb05td0NlM1BReFVhZXgwL1JDbGdrSE1uNU45WW9scERuaUxXeEZT?=
+ =?utf-8?B?MCtQcjBFTHZFT0hhQjlLeC95NEZlSmg3ampQTW5sbUk1V2FlSm5QTFRQSnAv?=
+ =?utf-8?B?R1A3TVVMUjgrMEtmM0ptL0MyeEVjTys2WWNjL3ZNTnhwM3JvNG5JVUJOQnhm?=
+ =?utf-8?B?UHlQYmY0bXRCWEYxYWRweUFHYWZESWFYK0JnVGR0RXFlWHRXNU1QZDBmQ09k?=
+ =?utf-8?B?M25LL1BuTHJyblBWTDU3WmFSZ2pyYTVqbDhrTVBycUtUS21ub2VFMitLeTJm?=
+ =?utf-8?B?UmkvSSt1czNFQktNdXZXWC9kUFN6Rk1qTDJrSUVJaDlTaXpsc3pYKzBGaWdQ?=
+ =?utf-8?B?cWp6WG9ETGdBTnpNYi9WMlRxZnZ1N1c4SXpPcVRaUVFvYVhwOGVDMjJLM0NJ?=
+ =?utf-8?B?L24wVDgwNi93U2VEVGpZRGlhRzJjT3hrWWgyTU5EdG1oQlRoRk9ZSmtNWWdH?=
+ =?utf-8?B?dHVPSG9uVXV1UEpieGJFcTI2ay9vOWxTY2VGWFNTQUd5c2xscWdRTXQxMXlu?=
+ =?utf-8?B?VDh5MjZpU2pyZWg3N0ZKMU1kcUF4a0Y4bGFWd0lTZ3BLaEdqbG1oMGtuNEsv?=
+ =?utf-8?B?eUJVOGpySjlXMDhieVp4VFRyUzMrSlZkcTBzTi8zU3RaWjRQWmdmSDIzYVF0?=
+ =?utf-8?B?RWtGZTFwZThNNzFTWVhvT25SdmI3cDIvdGZiS2lEenU5OVBZSkNUZnRNNzRN?=
+ =?utf-8?B?eEdZS2d5K0FsVmJJclpTYUdCMTBqcG12dWJteWFoaE5JV2RPVnNpQldFSVQr?=
+ =?utf-8?B?UUhCaDk3WWIrK2lrY0cyY2V5Q3R6bTVIdExKa204LzlKU3hNSW1nVTlXN2xQ?=
+ =?utf-8?B?UEhua2x4cGFGV1dUdHB5Vm1SUEtzV3FoU0VuMDZOV25rbSsyQUpHanp5Z0hI?=
+ =?utf-8?Q?1RO8Hto0kNIRrYAYaZnrrAmnA?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2025 09:53:05.3429 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3bf4ee2e-d667-40d3-a360-08de04be25a0
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0c79250-48f2-42f0-c283-08de04beb3d7
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2025 09:57:04.4188 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000205.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8248
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PcmttvkUpw/LnL6ESs32OP/wG+RzgYT1aiphHO/kAwAfkwfRjEOtLaDp19L1j1aX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8272
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,153 +160,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add KUnit test cases that create severe memory fragmentation and
-measure allocation/free performance.
+Ping?
 
-The tests simulate two scenarios -
-
-1. Allocation under severe fragmentation
-   - Allocate the entire 4 GiB space as 8 KiB blocks with 64 KiB alignment,
-     split them into two groups and free with mixed flags to block coalescing.
-   - Repeatedly allocate and free 64 KiB blocks while timing the loop.
-   - Freelist runtime: 76475 ms(76.5 seconds), soft-lockup triggered.
-     RB-tree runtime: 186 ms.
-
-2. Reverse free order under fragmentation
-   - Create a similarly fragmented space, free half the blocks, reverse
-     the order of the remainder, and release them with the cleared flag.
-   - Freelist runtime: 85620 ms(85.6 seconds).
-     RB-tree runtime: 114 ms.
-
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/tests/drm_buddy_test.c | 105 +++++++++++++++++++++++++
- 1 file changed, 105 insertions(+)
-
-diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
-index 7a0e523651f0..5f40b5343bd8 100644
---- a/drivers/gpu/drm/tests/drm_buddy_test.c
-+++ b/drivers/gpu/drm/tests/drm_buddy_test.c
-@@ -21,6 +21,110 @@ static inline u64 get_size(int order, u64 chunk_size)
- 	return (1 << order) * chunk_size;
- }
- 
-+static void drm_test_buddy_fragmentation_performance(struct kunit *test)
-+{
-+	struct drm_buddy_block *block, *tmp;
-+	int num_blocks, i, ret, count = 0;
-+	LIST_HEAD(allocated_blocks);
-+	unsigned long elapsed_ms;
-+	LIST_HEAD(reverse_list);
-+	LIST_HEAD(test_blocks);
-+	LIST_HEAD(clear_list);
-+	LIST_HEAD(dirty_list);
-+	LIST_HEAD(free_list);
-+	struct drm_buddy mm;
-+	u64 mm_size = SZ_4G;
-+	ktime_t start, end;
-+
-+	/*
-+	 * Allocation under severe fragmentation
-+	 *
-+	 * Create severe fragmentation by allocating the entire 4 GiB address space
-+	 * as tiny 8 KiB blocks but forcing a 64 KiB alignment. The resulting pattern
-+	 * leaves many scattered holes. Split the allocations into two groups and
-+	 * return them with different flags to block coalescing, then repeatedly
-+	 * allocate and free 64 KiB blocks while timing the loop. This stresses how
-+	 * quickly the allocator can satisfy larger, aligned requests from a pool of
-+	 * highly fragmented space.
-+	 */
-+	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_init(&mm, mm_size, SZ_4K),
-+			       "buddy_init failed\n");
-+
-+	num_blocks = mm_size / SZ_64K;
-+
-+	start = ktime_get();
-+	/* Allocate with maximum fragmentation - 8K blocks with 64K alignment */
-+	for (i = 0; i < num_blocks; i++)
-+		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size, SZ_8K, SZ_64K,
-+								    &allocated_blocks, 0),
-+					"buddy_alloc hit an error size=%u\n", SZ_8K);
-+
-+	list_for_each_entry_safe(block, tmp, &allocated_blocks, link) {
-+		if (count % 4 == 0 || count % 4 == 3)
-+			list_move_tail(&block->link, &clear_list);
-+		else
-+			list_move_tail(&block->link, &dirty_list);
-+		count++;
-+	}
-+
-+	/* Free with different flags to ensure no coalescing */
-+	drm_buddy_free_list(&mm, &clear_list, DRM_BUDDY_CLEARED);
-+	drm_buddy_free_list(&mm, &dirty_list, 0);
-+
-+	for (i = 0; i < num_blocks; i++)
-+		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size, SZ_64K, SZ_64K,
-+								    &test_blocks, 0),
-+					"buddy_alloc hit an error size=%u\n", SZ_64K);
-+	drm_buddy_free_list(&mm, &test_blocks, 0);
-+
-+	end = ktime_get();
-+	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
-+
-+	kunit_info(test, "Fragmented allocation took %lu ms\n", elapsed_ms);
-+
-+	drm_buddy_fini(&mm);
-+
-+	/*
-+	 * Reverse free order under fragmentation
-+	 *
-+	 * Construct a fragmented 4 GiB space by allocating every 8 KiB block with
-+	 * 64 KiB alignment, creating a dense scatter of small regions. Half of the
-+	 * blocks are selectively freed to form sparse gaps, while the remaining
-+	 * allocations are preserved, reordered in reverse, and released back with
-+	 * the cleared flag. This models a pathological reverse-ordered free pattern
-+	 * and measures how quickly the allocator can merge and reclaim space when
-+	 * deallocation occurs in the opposite order of allocation, exposing the
-+	 * cost difference between a linear freelist scan and an ordered tree lookup.
-+	 */
-+	ret = drm_buddy_init(&mm, mm_size, SZ_4K);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	start = ktime_get();
-+	/* Allocate maximum fragmentation */
-+	for (i = 0; i < num_blocks; i++)
-+		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size, SZ_8K, SZ_64K,
-+								    &allocated_blocks, 0),
-+					"buddy_alloc hit an error size=%u\n", SZ_8K);
-+
-+	list_for_each_entry_safe(block, tmp, &allocated_blocks, link) {
-+		if (count % 2 == 0)
-+			list_move_tail(&block->link, &free_list);
-+		count++;
-+	}
-+	drm_buddy_free_list(&mm, &free_list, DRM_BUDDY_CLEARED);
-+
-+	list_for_each_entry_safe_reverse(block, tmp, &allocated_blocks, link)
-+		list_move(&block->link, &reverse_list);
-+	drm_buddy_free_list(&mm, &reverse_list, DRM_BUDDY_CLEARED);
-+
-+	end = ktime_get();
-+	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
-+
-+	kunit_info(test, "Reverse-ordered free took %lu ms\n", elapsed_ms);
-+
-+	drm_buddy_fini(&mm);
-+}
-+
- static void drm_test_buddy_alloc_range_bias(struct kunit *test)
- {
- 	u32 mm_size, size, ps, bias_size, bias_start, bias_end, bias_rem;
-@@ -772,6 +876,7 @@ static struct kunit_case drm_buddy_tests[] = {
- 	KUNIT_CASE(drm_test_buddy_alloc_contiguous),
- 	KUNIT_CASE(drm_test_buddy_alloc_clear),
- 	KUNIT_CASE(drm_test_buddy_alloc_range_bias),
-+	KUNIT_CASE(drm_test_buddy_fragmentation_performance),
- 	{}
- };
- 
--- 
-2.34.1
+On 25.09.25 15:03, Christian König wrote:
+> There has been multiple complains that 10 seconds are usually to long.
+> 
+> The original requirement for longer timeout came from compute tests on
+> AMDVLK, since that is no longer a topic reduce the timeout back to 2
+> seconds for all queues.
+> 
+> While at it also remove any special handling for compute queues under
+> SRIOV or pass through.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 85 ++++++++++------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 21 ++----
+>  2 files changed, 48 insertions(+), 58 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index a77000c2e0bb..ceb3c616292c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4278,58 +4278,53 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+>  	long timeout;
+>  	int ret = 0;
+>  
+> -	/*
+> -	 * By default timeout for jobs is 10 sec
+> -	 */
+> -	adev->compute_timeout = adev->gfx_timeout = msecs_to_jiffies(10000);
+> -	adev->sdma_timeout = adev->video_timeout = adev->gfx_timeout;
+> +	/* By default timeout for all queues is 2 sec */
+> +	adev->gfx_timeout = adev->compute_timeout = adev->sdma_timeout =
+> +		adev->video_timeout = msecs_to_jiffies(2000);
+>  
+> -	if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+> -		while ((timeout_setting = strsep(&input, ",")) &&
+> -				strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+> -			ret = kstrtol(timeout_setting, 0, &timeout);
+> -			if (ret)
+> -				return ret;
+> +	if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
+> +		return 0;
+>  
+> -			if (timeout == 0) {
+> -				index++;
+> -				continue;
+> -			} else if (timeout < 0) {
+> -				timeout = MAX_SCHEDULE_TIMEOUT;
+> -				dev_warn(adev->dev, "lockup timeout disabled");
+> -				add_taint(TAINT_SOFTLOCKUP, LOCKDEP_STILL_OK);
+> -			} else {
+> -				timeout = msecs_to_jiffies(timeout);
+> -			}
+> +	while ((timeout_setting = strsep(&input, ",")) &&
+> +	       strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+> +		ret = kstrtol(timeout_setting, 0, &timeout);
+> +		if (ret)
+> +			return ret;
+>  
+> -			switch (index++) {
+> -			case 0:
+> -				adev->gfx_timeout = timeout;
+> -				break;
+> -			case 1:
+> -				adev->compute_timeout = timeout;
+> -				break;
+> -			case 2:
+> -				adev->sdma_timeout = timeout;
+> -				break;
+> -			case 3:
+> -				adev->video_timeout = timeout;
+> -				break;
+> -			default:
+> -				break;
+> -			}
+> +		if (timeout == 0) {
+> +			index++;
+> +			continue;
+> +		} else if (timeout < 0) {
+> +			timeout = MAX_SCHEDULE_TIMEOUT;
+> +			dev_warn(adev->dev, "lockup timeout disabled");
+> +			add_taint(TAINT_SOFTLOCKUP, LOCKDEP_STILL_OK);
+> +		} else {
+> +			timeout = msecs_to_jiffies(timeout);
+>  		}
+> -		/*
+> -		 * There is only one value specified and
+> -		 * it should apply to all non-compute jobs.
+> -		 */
+> -		if (index == 1) {
+> -			adev->sdma_timeout = adev->video_timeout = adev->gfx_timeout;
+> -			if (amdgpu_sriov_vf(adev) || amdgpu_passthrough(adev))
+> -				adev->compute_timeout = adev->gfx_timeout;
+> +
+> +		switch (index++) {
+> +		case 0:
+> +			adev->gfx_timeout = timeout;
+> +			break;
+> +		case 1:
+> +			adev->compute_timeout = timeout;
+> +			break;
+> +		case 2:
+> +			adev->sdma_timeout = timeout;
+> +			break;
+> +		case 3:
+> +			adev->video_timeout = timeout;
+> +			break;
+> +		default:
+> +			break;
+>  		}
+>  	}
+>  
+> +	/* When only one value specified apply it to all queues. */
+> +	if (index == 1)
+> +		adev->gfx_timeout = adev->compute_timeout = adev->sdma_timeout =
+> +			adev->video_timeout = timeout;
+> +
+>  	return ret;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index ece251cbe8c3..fe45dd1d979e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -353,22 +353,17 @@ module_param_named(svm_default_granularity, amdgpu_svm_default_granularity, uint
+>   * DOC: lockup_timeout (string)
+>   * Set GPU scheduler timeout value in ms.
+>   *
+> - * The format can be [Non-Compute] or [GFX,Compute,SDMA,Video]. That is there can be one or
+> - * multiple values specified. 0 and negative values are invalidated. They will be adjusted
+> - * to the default timeout.
+> + * The format can be [single value] for setting all timeouts at once or
+> + * [GFX,Compute,SDMA,Video] to set individual timeouts.
+> + * Negative values mean infinity.
+>   *
+> - * - With one value specified, the setting will apply to all non-compute jobs.
+> - * - With multiple values specified, the first one will be for GFX.
+> - *   The second one is for Compute. The third and fourth ones are
+> - *   for SDMA and Video.
+> - *
+> - * By default(with no lockup_timeout settings), the timeout for all jobs is 10000.
+> + * By default(with no lockup_timeout settings), the timeout for all queues is 2000.
+>   */
+>  MODULE_PARM_DESC(lockup_timeout,
+> -		 "GPU lockup timeout in ms (default: 10000 for all jobs. "
+> -		 "0: keep default value. negative: infinity timeout), format: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
+> -		 "for passthrough or sriov [all jobs] or [GFX,Compute,SDMA,Video].");
+> -module_param_string(lockup_timeout, amdgpu_lockup_timeout, sizeof(amdgpu_lockup_timeout), 0444);
+> +		 "GPU lockup timeout in ms (default: 2000 for all queues. "
+> +		 "0: keep default value. negative: infinity timeout), format: [single value for all] or [GFX,Compute,SDMA,Video].");
+> +module_param_string(lockup_timeout, amdgpu_lockup_timeout,
+> +		    sizeof(amdgpu_lockup_timeout), 0444);
+>  
+>  /**
+>   * DOC: dpm (int)
 
