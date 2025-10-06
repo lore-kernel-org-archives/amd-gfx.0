@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9FCCCA471
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 12:41:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38B07CCD187
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 12:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8184A10E3C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8689310E3FF;
 	Mon,  6 Oct 2025 12:41:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ySCttw3i";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oAPXCrEs";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0DE10E3F2;
- Mon,  6 Oct 2025 10:40:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9872310E3FA;
+ Mon,  6 Oct 2025 10:40:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D9A0D4510F;
- Mon,  6 Oct 2025 10:40:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346CBC4CEF5;
- Mon,  6 Oct 2025 10:40:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6F84545315;
+ Mon,  6 Oct 2025 10:40:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDD1FC4CEFF;
+ Mon,  6 Oct 2025 10:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1759747208;
- bh=d1RJmttUV9SjcOAsVtow8qlwV+/r9oLBzb7vHACoeo4=;
+ s=korg; t=1759747229;
+ bh=p+txFM4wj1IiM3SXceqbgNe8LB9b7IgKU6irXcKlRJI=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=ySCttw3iKtUdz14zeF6gQ3oefYcuO9oOADNkNFojp78IzUfnplDE08EqFSSO/zLOG
- GqG1a9bYik9nfslkZukaQwjUM+I11bqwgLWLbtkPEzcvjoTHkEBNRkeWwDVbq1WFMG
- 3QMoie9KF+F/o10TsV6ItsoK4d2vwflCNxd0tJzY=
-Subject: Patch "minmax: don't use max() in situations that want a C constant
- expression" has been added to the 6.1-stable tree
-To: David.Laight@ACULAB.COM, David.Laight@aculab.com, agk@redhat.com,
- airlied@gmail.com, akpm@linux-foundation.org, alexander.deucher@amd.com,
+ b=oAPXCrEsxar2DwbZkzAjnq4qlCUiHRBoe0VkARSagoXn/NJ043aoLhplnklw1AY6a
+ 2HhrPgaT4hSDn88EwYLhdnz04PFzlPRaplCxaLAiVOMfdFNTz28eYL8UDBPnuj+27P
+ GuFEnCHA/Lknyfat2hrESnP8AUdMLt43/9jAL//w=
+Subject: Patch "minmax.h: update some comments" has been added to the
+ 6.1-stable tree
+To: David.Laight@ACULAB.COM, Jason@zx2c4.com, agk@redhat.com, airlied@gmail.com,
+ akpm@linux-foundation.org, alexander.deucher@amd.com,
  amd-gfx@lists.freedesktop.org, andriy.shevchenko@linux.intel.com,
- asad.kamal@amd.com, christian.koenig@amd.com, clm@fb.com,
+ arnd@kernel.org, asad.kamal@amd.com, axboe@kernel.dk, christian.koenig@amd.com,
+ clm@fb.com, dan.carpenter@linaro.org, david.laight@aculab.com,
  dm-devel@lists.linux.dev, dmitry.torokhov@gmail.com,
  dri-devel@lists.freedesktop.org, dsterba@suse.com, farbere@amazon.com,
- gregkh@linuxfoundation.org, jernej.skrabec@gmail.com, kenneth.feng@amd.com,
- kevinyang.wang@amd.com, lijo.lazar@amd.com, linus.walleij@linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux@rasmusvillemoes.dk, lorenzo.stoakes@oracle.com,
- luc.vanoostenryck@gmail.com, mpatocka@redhat.com, pmladek@suse.com,
+ gregkh@linuxfoundation.org, hch@infradead.org, jernej.skrabec@gmail.com,
+ kenneth.feng@amd.com, kevinyang.wang@amd.com, lijo.lazar@amd.com,
+ linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux@rasmusvillemoes.dk,
+ lorenzo.stoakes@oracle.com, luc.vanoostenryck@gmail.com, mjguzik@gmail.com,
+ mpatocka@redhat.com, pedro.falcato@gmail.com, pmladek@suse.com,
  rostedt@goodmis.org, samuel@sholland.org, senozhatsky@chromium.org,
- simona@ffwll.ch, snitzer@kernel.org, tglx@linutronix.de,
- torvalds@linux-foundation.org, wens@csie.org
+ simona@ffwll.ch, snitzer@kernel.org, tglx@linutronix.de, wens@csie.org,
+ willy@infradead.org
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 06 Oct 2025 12:39:09 +0200
-In-Reply-To: <20251003121520.8176-2-farbere@amazon.com>
-Message-ID: <2025100609-sacred-breach-69da@gregkh>
+Date: Mon, 06 Oct 2025 12:39:12 +0200
+In-Reply-To: <20251003121520.8176-7-farbere@amazon.com>
+Message-ID: <2025100612-fracture-supplier-18e3@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -71,119 +73,148 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is a note to let you know that I've just added the patch titled
 
-    minmax: don't use max() in situations that want a C constant expression
+    minmax.h: update some comments
 
 to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
+     minmax.h-update-some-comments.patch
 and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From stable+bounces-183172-greg=kroah.com@vger.kernel.org Fri Oct  3 14:16:33 2025
+From stable+bounces-183177-greg=kroah.com@vger.kernel.org Fri Oct  3 14:18:49 2025
 From: Eliav Farber <farbere@amazon.com>
-Date: Fri, 3 Oct 2025 12:15:10 +0000
-Subject: minmax: don't use max() in situations that want a C constant expression
+Date: Fri, 3 Oct 2025 12:15:15 +0000
+Subject: minmax.h: update some comments
 To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <tglx@linutronix.de>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>, <clm@fb.com>, <dsterba@suse.com>, <luc.vanoostenryck@gmail.com>, <pmladek@suse.com>, <rostedt@goodmis.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <senozhatsky@chromium.org>, <akpm@linux-foundation.org>, <lijo.lazar@amd.com>, <asad.kamal@amd.com>, <kevinyang.wang@amd.com>, <David.Laight@ACULAB.COM>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <stable@vger.
  kernel.org>, <farbere@amazon.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Message-ID: <20251003121520.8176-2-farbere@amazon.com>
+Cc: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>, Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
+Message-ID: <20251003121520.8176-7-farbere@amazon.com>
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit cb04e8b1d2f24c4c2c92f7b7529031fc35a16fed ]
+[ Upstream commit 10666e99204818ef45c702469488353b5bb09ec7 ]
 
-We only had a couple of array[] declarations, and changing them to just
-use 'MAX()' instead of 'max()' fixes the issue.
+- Change three to several.
+- Remove the comment about retaining constant expressions, no longer true.
+- Realign to nearer 80 columns and break on major punctiation.
+- Add a leading comment to the block before __signed_type() and __is_nonneg()
+  Otherwise the block explaining the cast is a bit 'floating'.
+  Reword the rest of that comment to improve readability.
 
-This will allow us to simplify our min/max macros enormously, since they
-can now unconditionally use temporary variables to avoid using the
-argument values multiple times.
-
-Cc: David Laight <David.Laight@aculab.com>
+Link: https://lkml.kernel.org/r/85b050c81c1d4076aeb91a6cded45fee@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c   |    2 +-
- drivers/input/touchscreen/cyttsp4_core.c |    2 +-
- drivers/irqchip/irq-sun6i-r.c            |    2 +-
- drivers/md/dm-integrity.c                |    2 +-
- fs/btrfs/tree-checker.c                  |    2 +-
- lib/vsprintf.c                           |    2 +-
- 6 files changed, 6 insertions(+), 6 deletions(-)
+ include/linux/minmax.h |   61 ++++++++++++++++++++++---------------------------
+ 1 file changed, 28 insertions(+), 33 deletions(-)
 
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -700,7 +700,7 @@ static const char *smu_get_feature_name(
- size_t smu_cmn_get_pp_feature_mask(struct smu_context *smu,
- 				   char *buf)
- {
--	int8_t sort_feature[max(SMU_FEATURE_COUNT, SMU_FEATURE_MAX)];
-+	int8_t sort_feature[MAX(SMU_FEATURE_COUNT, SMU_FEATURE_MAX)];
- 	uint64_t feature_mask;
- 	int i, feature_index;
- 	uint32_t count = 0;
---- a/drivers/input/touchscreen/cyttsp4_core.c
-+++ b/drivers/input/touchscreen/cyttsp4_core.c
-@@ -871,7 +871,7 @@ static void cyttsp4_get_mt_touches(struc
- 	struct cyttsp4_touch tch;
- 	int sig;
- 	int i, j, t = 0;
--	int ids[max(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
-+	int ids[MAX(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -8,13 +8,10 @@
+ #include <linux/types.h>
  
- 	memset(ids, 0, si->si_ofs.tch_abs[CY_TCH_T].max * sizeof(int));
- 	for (i = 0; i < num_cur_tch; i++) {
---- a/drivers/irqchip/irq-sun6i-r.c
-+++ b/drivers/irqchip/irq-sun6i-r.c
-@@ -270,7 +270,7 @@ static const struct irq_domain_ops sun6i
+ /*
+- * min()/max()/clamp() macros must accomplish three things:
++ * min()/max()/clamp() macros must accomplish several things:
+  *
+  * - Avoid multiple evaluations of the arguments (so side-effects like
+  *   "x++" happen only once) when non-constant.
+- * - Retain result as a constant expressions when called with only
+- *   constant expressions (to avoid tripping VLA warnings in stack
+- *   allocation usage).
+  * - Perform signed v unsigned type-checking (to generate compile
+  *   errors instead of nasty runtime surprises).
+  * - Unsigned char/short are always promoted to signed int and can be
+@@ -31,25 +28,23 @@
+  *   bit #0 set if ok for unsigned comparisons
+  *   bit #1 set if ok for signed comparisons
+  *
+- * In particular, statically non-negative signed integer
+- * expressions are ok for both.
++ * In particular, statically non-negative signed integer expressions
++ * are ok for both.
+  *
+- * NOTE! Unsigned types smaller than 'int' are implicitly
+- * converted to 'int' in expressions, and are accepted for
+- * signed conversions for now. This is debatable.
+- *
+- * Note that 'x' is the original expression, and 'ux' is
+- * the unique variable that contains the value.
+- *
+- * We use 'ux' for pure type checking, and 'x' for when
+- * we need to look at the value (but without evaluating
+- * it for side effects! Careful to only ever evaluate it
+- * with sizeof() or __builtin_constant_p() etc).
+- *
+- * Pointers end up being checked by the normal C type
+- * rules at the actual comparison, and these expressions
+- * only need to be careful to not cause warnings for
+- * pointer use.
++ * NOTE! Unsigned types smaller than 'int' are implicitly converted to 'int'
++ * in expressions, and are accepted for signed conversions for now.
++ * This is debatable.
++ *
++ * Note that 'x' is the original expression, and 'ux' is the unique variable
++ * that contains the value.
++ *
++ * We use 'ux' for pure type checking, and 'x' for when we need to look at the
++ * value (but without evaluating it for side effects!
++ * Careful to only ever evaluate it with sizeof() or __builtin_constant_p() etc).
++ *
++ * Pointers end up being checked by the normal C type rules at the actual
++ * comparison, and these expressions only need to be careful to not cause
++ * warnings for pointer use.
+  */
+ #define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
+ #define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
+@@ -57,19 +52,19 @@
+ 	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
  
- static int sun6i_r_intc_suspend(void)
- {
--	u32 buf[BITS_TO_U32(max(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
-+	u32 buf[BITS_TO_U32(MAX(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
- 	int i;
- 
- 	/* Wake IRQs are enabled during system sleep and shutdown. */
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -1794,7 +1794,7 @@ static void integrity_metadata(struct wo
- 		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
- 		char *checksums;
- 		unsigned int extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
--		char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
-+		char checksums_onstack[MAX(HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
- 		sector_t sector;
- 		unsigned int sectors_to_process;
- 
---- a/fs/btrfs/tree-checker.c
-+++ b/fs/btrfs/tree-checker.c
-@@ -608,7 +608,7 @@ static int check_dir_item(struct extent_
- 		 */
- 		if (key->type == BTRFS_DIR_ITEM_KEY ||
- 		    key->type == BTRFS_XATTR_ITEM_KEY) {
--			char namebuf[max(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
-+			char namebuf[MAX(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
- 
- 			read_extent_buffer(leaf, namebuf,
- 					(unsigned long)(di + 1), name_len);
---- a/lib/vsprintf.c
-+++ b/lib/vsprintf.c
-@@ -1082,7 +1082,7 @@ char *resource_string(char *buf, char *e
- #define FLAG_BUF_SIZE		(2 * sizeof(res->flags))
- #define DECODED_BUF_SIZE	sizeof("[mem - 64bit pref window disabled]")
- #define RAW_BUF_SIZE		sizeof("[mem - flags 0x]")
--	char sym[max(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
-+	char sym[MAX(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
- 		     2*RSRC_BUF_SIZE + FLAG_BUF_SIZE + RAW_BUF_SIZE)];
- 
- 	char *p = sym, *pend = sym + sizeof(sym);
+ /*
+- * To avoid warnings about casting pointers to integers
+- * of different sizes, we need that special sign type.
++ * Check whether a signed value is always non-negative.
+  *
+- * On 64-bit we can just always use 'long', since any
+- * integer or pointer type can just be cast to that.
++ * A cast is needed to avoid any warnings from values that aren't signed
++ * integer types (in which case the result doesn't matter).
+  *
+- * This does not work for 128-bit signed integers since
+- * the cast would truncate them, but we do not use s128
+- * types in the kernel (we do use 'u128', but they will
+- * be handled by the !is_signed_type() case).
+- *
+- * NOTE! The cast is there only to avoid any warnings
+- * from when values that aren't signed integer types.
++ * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * But on 32-bit we need to avoid warnings about casting pointers to integers
++ * of different sizes without truncating 64-bit values so 'long' or 'long long'
++ * must be used depending on the size of the value.
++ *
++ * This does not work for 128-bit signed integers since the cast would truncate
++ * them, but we do not use s128 types in the kernel (we do use 'u128',
++ * but they are handled by the !is_signed_type() case).
+  */
+ #ifdef CONFIG_64BIT
+   #define __signed_type(ux) long
 
 
 Patches currently in stable-queue which might be from farbere@amazon.com are
