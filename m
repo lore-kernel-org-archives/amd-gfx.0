@@ -4,149 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A3B2CAC5B8
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 10:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FDE0CCA471
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 10:36:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBC4F10E0BE;
-	Mon,  6 Oct 2025 10:34:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02AD010E3E0;
+	Mon,  6 Oct 2025 10:36:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tSJQfbp5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XwUPusSM";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011053.outbound.protection.outlook.com [52.101.52.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63B8210E0BE
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 10:34:26 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010046.outbound.protection.outlook.com
+ [52.101.193.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1835D10E3E0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 10:36:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NvkcDav16zVhK0IsKToIr9jUfR94Z9tWqTdX6olxKnmfzvdi48++eVduzWIuLJIkLQQaYeYrV+yLNryc4Vz5kIWHR+mo6OyIksenxpEeg6fzL//XDwIkOh4OlwR2/dX59nvPTRfezUWlFofOMCd8bzC01kkSnHz2/ZAIC2srcWXhvn6OWYDrAwYiSTtN3aWb6lvq/nckeaD+pPBieT623CklHcJHJth+nvSFRJR2xThrvFck9CEGOwxAHfoGjuiUqI6/RhAEmX8koap/9YS+8EX+Avq7qFpLCsVkS+Lfc1xDGwgMqwpKfHuA2FKmUK9LIRSL1QhPBtbVsOWX3wueTA==
+ b=fMJBqa9Zcc6+iILBpFeWI0fI05TvRvekFcuSXg7aSuT/BCaVfZMOPjLptNgCQtlx0bOY574392JlGl7jO9YosWU5Oh3lwKZ8Gz40VnHaFKCKTf5vZIETR9RFuXsYRKgmRCDblTBQfqnAgdX+ksebOMJLNmsJYVoMIrwWhqWNxVKMraUNpDNxkZrblWctMZXKV5TZaKgz0APC2C7BtvtqNqJ9jH4/nJe7D6rkhzWSQIDaqvCfaL+wmPyKl+8UL+4Im/XRPfGkVK44+NMkJYoVwGpZ/pw1/3s3NqHnmBTmFYnPcAH46XO8VjIh+3zYbHJemOmplYs1pKFaVsojSto0Kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2Ch3hQcN41qYYYRGjPLfV3LU4PFcFIGY9mF4XhIH1vw=;
- b=Eb1O7QuBoEYmGDa2IANBq0OIil9Uh3SWKG+9ig9JQ4aiEksyfGQGFhY678Otg12MlgMTx61h2mYGuparS2kHIXDBZoJJU5w7ynja+KIlJje6Ec0+IO8Zh7/3qaiY/RXrVSXHA7kQxiHuQBZjsjTIUetU4NAdneYA6mwDEvBFXsZvPLEp59SP+C3GincwUgd3mZdpEqTZbLCQ+D1jjFhs6ZXihZmf3n8XIblhFpPJiR87uoi6TESwkDYiXtc1p7YJfwxU1eAkCBqiZPf2Rdkz5hNml5fKrWuJqg+RfI3G1QUD3kkC/ln8R7aH9yiir5AOFD/NdxJO+952qrDaz5DzOQ==
+ bh=UlYjLBw4M3loubwuQVYa8c4rFZqitW1GrJNlWUwAAGY=;
+ b=DDHlXM8YQCsDMJEbbNipTDzH+BsDiLXXn/tcL2xwK3/6R1y3tEaQUP3t3YecWepoWRqN33zi3XOIpiMRASgL2eeyvahivbGUYlP+dWEA2JPjFS/GNlJjpdjH7odAwB5/bMUcgRtonCpaZjhLLFuYar1WWQ9XGLXduYYcET+1P55MlSiZ7lL5HHC/Ch3lnl5Fov5PJiMr/mmiHhCQsVwYeMsjdxOkinbueRY2rVV+Gu5WN6TfNBYcI9nt7gVg6bT6eiVo13Uicc+PQRxaIse04lDNYfV2lm9/mUplWNaowQh2u0gd0SnmvpJJhc1aT/IDRD3S4ievLWkLofxs655nxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Ch3hQcN41qYYYRGjPLfV3LU4PFcFIGY9mF4XhIH1vw=;
- b=tSJQfbp5HKqpiZ1rzaX4HwZ+f+eCrsdPSOvUON8hi4XIsuyAquRCrcIkgcH3ZfvA08ZaXIBNYgEPUxkBnmNfvEaP2E5FG2VARrw61mmXlwOX8a2L7itWNb6KB/en2Tm0WflJHOKLfcEgwXTpM0BSUCcBmAS8ILc3SmrdXVrnEC4=
+ bh=UlYjLBw4M3loubwuQVYa8c4rFZqitW1GrJNlWUwAAGY=;
+ b=XwUPusSM7WYdgT4SoOZ/DToNx+n1JSmfSnENr26AAUWfMw1OrAicVPqrwxd0ZNfyV1OtI1WpMYnS4sRzZrPWrmyo8X9Y0y0ENzBa6sWAyQfG14T+s7KCa5f7EkKScWMBPYC0g0KI0EcyqXiAa1mSm4N8ZX8FY3JHLQk+tn6IWbU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB8650.namprd12.prod.outlook.com (2603:10b6:a03:544::13)
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by SA3PR12MB7903.namprd12.prod.outlook.com (2603:10b6:806:307::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.16; Mon, 6 Oct
- 2025 10:34:19 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9182.017; Mon, 6 Oct 2025
- 10:34:18 +0000
-Message-ID: <87c89331-fc6d-47a3-8570-33d2c280d77c@amd.com>
-Date: Mon, 6 Oct 2025 12:34:14 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Mon, 6 Oct
+ 2025 10:36:07 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2%6]) with mapi id 15.20.9182.017; Mon, 6 Oct 2025
+ 10:36:07 +0000
+Message-ID: <cf56bd08-3989-46c6-8958-867c5a0b2aff@amd.com>
+Date: Mon, 6 Oct 2025 16:05:59 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v1] drm/amdgpu: clean up amdgpu hmm range functions
-To: Sunil Khatri <sunil.khatri@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
+Subject: Re: [Patch v2 1/2] drm/amdgpu: use user provided hmm_range buffer in
+ amdgpu_ttm_tt_get_user_pages
+To: "Chen, Xiaogang" <xiaogang.chen@amd.com>,
+ "Kuehling, Felix" <felix.kuehling@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20250930082711.1278523-1-sunil.khatri@amd.com>
+References: <20250924100156.3746229-1-sunil.khatri@amd.com>
+ <c5b52ba0-efe1-497e-9d35-a752a2b35267@amd.com>
+ <662c2254-dcfc-46d7-b11c-51111c26f23e@amd.com>
+ <ea08dc41-a919-4b44-9274-a962b707fa83@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250930082711.1278523-1-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <ea08dc41-a919-4b44-9274-a962b707fa83@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0128.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: PN2PR01CA0188.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:e8::11) To BL1PR12MB5753.namprd12.prod.outlook.com
+ (2603:10b6:208:390::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8650:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0fbc51f-837c-4557-0867-08de04c3e791
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|SA3PR12MB7903:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3969c7b-20e3-4d1e-6bb7-08de04c42834
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cnJSYmpCaVNhTEc3VDNIdDdKcUJ2b05UcFlnd1d3SlE3aG9VajA3Qkhucy8y?=
- =?utf-8?B?N1BEYVpWcVZwOXRUM1d6R2FoUGVBdmllWitUV3dkODBhUnFDYUtjY3hvWWdK?=
- =?utf-8?B?bWhvVWpsUkY2a2laZ0h2SmJrc2U3SDBaQnB4TkNmLzdxdWpKVEpUdlZoQ2gx?=
- =?utf-8?B?WkRKL1V2eEU3bkwzWEd1ZEo4VndRQzRZeXFJbTdJVUhVMEd4RENzMGd2cHRp?=
- =?utf-8?B?TWhlc2VPZmNseC91SktqaDR6TlV4a2t3RDh0dEV2SlZYamNCOThIeE80TTVl?=
- =?utf-8?B?SGE3RllPOW12dUhMWCt5VHhENHR4L2dHNDJ6TFdaa0JTeEtZWFFuQWpNcVlS?=
- =?utf-8?B?YVZHczJNYmVzMkd6R2c5bVlGQmZ3OWtmZ1FQVFFjTmVFdEo0eW5mNnBEQmMv?=
- =?utf-8?B?cDNtbEJNdUs4SXpXbER4elVYME93cDVibEZvVjNSa3FobEp6eExwejEzYmNH?=
- =?utf-8?B?SGFMOERGVnp1Z2NQelFFZExpN2VzRVNobFV4UUY0SXo4THdIRk1hVzNDQm9L?=
- =?utf-8?B?Z0dTK3ZjeGpLUnlXazBBMDRtWjdlZzIrOEZmVnFNRERyRlowbHN3a21FVmE2?=
- =?utf-8?B?RzFZSXJPYWExdDdmVU5rOU91WnRzMWFsbHkxTTFHVWpNaTlkZ3M2cFUxMXRY?=
- =?utf-8?B?eG55WktsbllzYnh6VmlQR0RiSFkwZXpPZHB5ZkdKbkorRFg5WnlyUWpoL2hl?=
- =?utf-8?B?SFI5eG40Ym41VlcrbDB0Y0M1T3k4dGY1M3FBWFNyVnlwOFF0T0VRZFNUdHV0?=
- =?utf-8?B?SHJ6RTFxekpWVnI1NkVqZVN3eDRQdTlGbE5PTUkwOEkvZUxaVm5oR3VRTmZQ?=
- =?utf-8?B?dUZUUEpRdWxNNVdVR2UyR3dLNFZBUEJUWHpBbGhYUUdmSUd3MFNRZVJOTDRZ?=
- =?utf-8?B?TElRZ2UwTVhQd3pwR0tOckZtRWQ0dDB0Sm9RaENlNGQwKzROR1N2YU8xck5M?=
- =?utf-8?B?bndaTU9rR3pmTG50TjFlaXFSZnRHRmdpRlNpV2tQaXBiSmtNVGNpNnllZnBC?=
- =?utf-8?B?VkgxMVJLdWpZVi9HeXo3TTJiWjgzS1ZvK0lQWE55d2lLVnErb1VzNXhONXUr?=
- =?utf-8?B?eXBhckhKbEh2THJlZnNFcUpYMnZvb2o0WmVuTHJuaFI5VTJncDJiK2FGcW5B?=
- =?utf-8?B?RXZXY2VMYnNnamF1RTBBTFd3RHhDRkxkN2hzbHZlTWk3OWZyYkpldWc2Vy9K?=
- =?utf-8?B?N2pCQkpsNFdEM0N2dnVMZjZJTzc3S2o1bHFWWWwwSDVtODF0TjhQYUNYcjhK?=
- =?utf-8?B?ZklFcHdMVDlLaG0xb1k1NEhLL3h5SGRSYklOc2laRFh6SGtwUGZ0TFk3cVow?=
- =?utf-8?B?R2ZFc0p2K2MzRXZoVUx5SmtMdVB6OUNyd2dRY0ZDNkJ3SXVEaDFZNmFtd0Z4?=
- =?utf-8?B?ek8zRmJkcE5pN0JYVlB3cUpwMUQ0SmlIR2dSQTRPaG5JOTNySVg5K2gxekky?=
- =?utf-8?B?S01MR0hGY3JTTG5DcHhvajY2SU1jYTQ3UFNlRnl1MjR1T2syM3ZzbG5QQldU?=
- =?utf-8?B?TVl5YVNjeGx4OUpBcUI4bCs3Z0dRbnVDS3BwZGZSVm9qVERzYmVzUFB0ZkFv?=
- =?utf-8?B?NEJJQjF4YmNyVzZJRStNUUFwdXN0Mm4zbFB6QnFXUlBpNW1FbDRSQVFBRFJp?=
- =?utf-8?B?Y3RoRWw5RExMODgxZFMwWDU0clZNNVFFbGY3YTNmdEFjT29Vam1KektxVTNI?=
- =?utf-8?B?cVppd0pmMVFUZU1XNmUyTjNZVDVwL2ZFdmsxNzY5aVJRNzhicjNuQkx0c3d5?=
- =?utf-8?B?RTNqWVNSK3Q1d1IvTVd4djQ5bnRRUzZMYVR4MkdiaVgraUhrWEtBTnJqa0lz?=
- =?utf-8?B?VUpIMXl2ZnM1bUJjV3doSHNWb0pESkFpbzZMS0ZvNXRLVldxTDBoR2tERm9X?=
- =?utf-8?B?SXVwNWMrN2dxUDdVeGxTWWxQcWZ4WGw4cXB3VVZDZU1aTmx5RW9UTGRjN0FF?=
- =?utf-8?Q?xTdyO6H8ytdnRj0U0kxFQ3Hxm5lvLvcU?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Z01Qdk5wd09GYVRKcjM0SjNYZ1YwU00rQXhjUnQvb3RlVzV4WFZvZWdQcEdm?=
+ =?utf-8?B?aUVDNTRYM3JKWkpXSjZjMjlibTdwbkFjSDd1WHNIb1EvZHdRWUxsMXpHZzJ4?=
+ =?utf-8?B?TExHSEpLanVrdHBaMEt6Q0xvdlZwMytlTTlpL3c2dzQwVWdaSXdaYU52b1hu?=
+ =?utf-8?B?Z2QvRzZFT0xWcUpQSHUzeUNOd0s0amd5b2ZRaC94VXI5YzFWVWF3SnFhcGFj?=
+ =?utf-8?B?NUhnR3pwcFF0SERNRmRRMmUya3MzN0plZDFnL2hveXRJOXpvb21jQXRrQmtw?=
+ =?utf-8?B?RWltY0hTUmxETHJLcE5RUjlGRWJ4UnNITGg1QjJ2MXBXRHpFYStTcE00Qkta?=
+ =?utf-8?B?RHFPOGtpdWEwNmhhV2lMbVhQWHJNcFRMRk1BWUxJbndpN0RtQkFYbmVseGk4?=
+ =?utf-8?B?Wm9FTWdCOTQ5bFZ2blM1T3UxeDI2MitHWjdTWVVtMmNPcU5HbDNaWklQNnB1?=
+ =?utf-8?B?UVl1d081NENocmI0d1p4aG5KVlRNM2Y0ZGRDRjdYT1FSaFduLzRnUTNZUS8r?=
+ =?utf-8?B?dTRFdUZHSDAzaFJkeGtVbEt6Z1ZMOGlZRW1Dc2drY01kM1BzbUhkbWpCd3dZ?=
+ =?utf-8?B?NEFoWXNteDhhZi8rNllUMjFySjNrbUkwendiYStMU1cwSEczdmFnWW1KcTht?=
+ =?utf-8?B?OXErY2pxaHRzNTB5L2pRYktYZ25zYkJ2SUEzRGJ5WGpLb2tnWCtMZ016YzR5?=
+ =?utf-8?B?VThkZ0tFd0NnR05VQ3VuMjFUUy81UHU3UUFva0NjZWhGdUVjMGZMbmZDSFRY?=
+ =?utf-8?B?emFqWDdIOXJXdklPQlAvSEVrYU9BeExmRW9JVW1OMzNCMEJOZWFlZktSdHlJ?=
+ =?utf-8?B?akNDSDA5WmI5NVZKWFZJaHp6R0tIZVBTeHNEaUUxajZUamRLamZGNGVBZmRi?=
+ =?utf-8?B?WFlXMWZFZVhDSGNINEF3aXhjMnBhN1ZrU2g2LzBhYnUrMURLbG93OE9sOUxI?=
+ =?utf-8?B?dEVrNmluUkZraUlPNDd0RVU2NDRRbU9mNHpVdEdrNm9DVzJnR2hnUjN5YWNP?=
+ =?utf-8?B?Z0ZLeDIxZER0ZS9nWWhJUDd5bEhKSERjV3k5eDBrZCtZY3gwdXZ1UHBhOFov?=
+ =?utf-8?B?c280YnpXYW02YU83cUYweTRXb0k2MUFzQmUrYmhXU1FubVNCamUyRzhWanM3?=
+ =?utf-8?B?S2czd29jRGY3VHlQRUwrK1pvSExaRVNVQ2hMcVQrejZadno0SzhnUDEvNmdI?=
+ =?utf-8?B?QzN4ODUxd3d1S2E2Sjd0RlVJSmI5Smtpc3VPUHNNTnhKVlg4YU1lQ0JHUi9T?=
+ =?utf-8?B?MmlET0sxUFRWd0VuTTcxMVVhU0Z4SEpsbXIxbFBkUlNnTmdqSis1MnhTMmlR?=
+ =?utf-8?B?ek9kY24zZzZmMGJpNWxjcXk2eHdqTGp2WUFiZldoOWF3K3d1ZXR5T3pQdWtq?=
+ =?utf-8?B?aHlmNm5IczViSExpMjBmYmh4UXlkMDdRSWxLMGhYallFZWJBWVkwZWo4N2JG?=
+ =?utf-8?B?YzhmUVJSRWdieEYvSkU2YjdLWFVqWFdPSTdqOTc0TkwzVHg2M1Qwb2lwU3Nm?=
+ =?utf-8?B?K0hZRC9KM2RsZkZvblpnSE9yTDlQbVNpTFpCM3RZTWNncU1hV1BLanJYbWRJ?=
+ =?utf-8?B?eEtLNmxrb2lqbDJ4ZDdxdXJsM0JSd3FHQWF1TjRtS25pUThjNXJwSmtRNXM5?=
+ =?utf-8?B?SWc2WUQzSlZtckxDS29ZTk1QYXRYTytYWTNYaXRuUEZrQkhEa2VzcjNSQXF4?=
+ =?utf-8?B?TUNZL3hZdlJOZWxxbTJHL0E1T0Y1dnlrN3hkWUhjWnVpWlpmMnNQSGs3YnR5?=
+ =?utf-8?B?Vmc0WUJGald6RmtIK3pFbStodG91K3ZIUnRRYXl1cFFmQkRnSG8xYldJK2g0?=
+ =?utf-8?B?b05hMlhFWTUwSFNkUkV6QVNQeXI3LzJtWStEZTM5MDdqNHU4djJNSWNsdjF6?=
+ =?utf-8?B?d1pTMjg5YUFHR2tnemdlam1MSU9manAwMHh0angrTmpKdEx2dmZxd2ZTNHhp?=
+ =?utf-8?Q?J9jvoLTHcNixxZAEWGJFXLwx5y9/3fqA?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjVhSlo5TUo3L3BFdjBYRjFrellNWXgvcGRINFpGdllJUDVSaGJFcC85aDVi?=
- =?utf-8?B?Z2QrRmh1V1RoSHZqOUpWbGhwblp4VzBMUVhONDZUcENOVWRVaG82dC91MndT?=
- =?utf-8?B?cHVUL2F1Y0Uyb1haVklIY1hhVW41ZHpCWE9OZXAxT0YzaE54RmhhVVd0Rk1y?=
- =?utf-8?B?MTl5eXhPVnFOK20wQWlqY2tzT1ZUNHVmUkF3MTRLMHIzZ1l3bDJqZWdueHdU?=
- =?utf-8?B?M0ZVVmp6TnI1aTBzWGIxVzErY1NFVm1IK2d6T0xVb3N1U3FxandSbmlWOFpi?=
- =?utf-8?B?YmliRGg0bE1iNkJYK1RjaVdjcGkrZmVnZ3Y2OHFRL2VRTnEzQzlvMHJxTEMw?=
- =?utf-8?B?aHRvVTVic0xZakFOY29LMGw5VnRHcHQ0YzJ2VFdFYitvNFFBNzBZWkJTM2dl?=
- =?utf-8?B?OFd1RGRVL2dPUnhkSklWQWhFUkZEcWMzRDFKR2hKMW9Jb0N6STNDMWZqM2VM?=
- =?utf-8?B?UTdZRU5DWVdvVmxpVDRaSFZFdmRDd1dXQVVTY1JFcnZOTWJQN2RNSWVEWjVo?=
- =?utf-8?B?aGpEN3NiYkpjNVhKQ0c2eVhBbG5tSEkySHl2MXRQTnRjVlVUdlIyZkNJOE9y?=
- =?utf-8?B?SCtOWGhWSFpTTFczL29OVUhnNHpOcFc5WkVTMFhQeU04OHNQZEd0eDBEbmQ5?=
- =?utf-8?B?UG1uaTFpM3dERUdtdWdvS1kwT3ZmS3VPaEdyQitjNnZQZ1J3M2N3a1lKT0Vu?=
- =?utf-8?B?Z0dYVDNMV1NsQlNEdStuaCtTeTlZTWFXcEdCSUgvT0FpWkJhZ01naytKdEpu?=
- =?utf-8?B?SldYOUV6S01GTzY3NHc2Q1BiUnhVU0RZLy9uM3VCbTVacnl2R0FaYzdkVXVE?=
- =?utf-8?B?c2RQaHE5a0YybTUzd1NTdi8xRWpFYXFycmVOU09rU2ZTN0dDam5XZ0pObkJN?=
- =?utf-8?B?Zk40aExwc3AxQllPTmhkWVlyNlBvM3VLWGs5M3ZKbVd2bkJEK3J6RFdRYndp?=
- =?utf-8?B?Zmt3SW9YVStiNXV3L3lCeDZleDc3SUFRMFBmTFE0SlJYd1BNUStzMFUyYTh1?=
- =?utf-8?B?YkFEZXJjRC9mVmVEM213dkRNSHQ2ZGtmdWxVOXZ0OGVnRktnR0RwdS9QNUZH?=
- =?utf-8?B?STVQM3l5MER0MWN5MWhwQ2Z2Rm1RSDJkV05sS0sxOTZKeiswSWtDRGhTNk91?=
- =?utf-8?B?UlJJUGNLdXZJZXZSc1hWenFxVDBkMkNZK01JSGZQNEpXSnIrMmR6STM4c3Vz?=
- =?utf-8?B?SDg5MmF5NFQ1bWE4R212eFd4bUJBMEphckhXNGtleGNYcFAzZmxPREJJY2NM?=
- =?utf-8?B?VElEdkxiVFRMZzFFL081c2RDMVJFcjgxUzVyc2kvVkJycGFNdDVWTFJZUVRQ?=
- =?utf-8?B?ZUYyQ3I0MjQ2ZWs3SElhbGtwUHpMT2c3bVlPZmhiVnh2a1RQRFYybUIzK3N4?=
- =?utf-8?B?ZXBHaXFvakd5UFdLQTF3S0lsUVkwRERNbHltaHNjWjZ5aVdBN0hOYWxaQUlm?=
- =?utf-8?B?M3lDTFhYLzNWaFdpb0xBWlpNRy9LTzQxMEFxMmQ1bnluOWpEVUM2YURPV3R4?=
- =?utf-8?B?eGVzbVdWM0J3S1drK25VNko5MmcxRGZXY0JZdXdXc2xmSENhbVhSWnNwY21W?=
- =?utf-8?B?RjB3OHFvV0U2VERIT1ZhRGJhR1lwNmUyT1hvdjdTSzJpckVLUHlRVU42R1NY?=
- =?utf-8?B?aDNGaVZnaVYxNVhNUzBnNFM0Tm82djJPNVRzUVBEQjM5RjBiYVprT3Awajdw?=
- =?utf-8?B?RGJ3TXRNdnRWYnRIS00rb0dGeXhxUUlmR2JFQmI3UStOR3lVQlRJVmNXR0hJ?=
- =?utf-8?B?dFRFV1gzRTI3RXVQYWxrS09KVlhSMDBIU1Z6ZXYwaGpqNkppdmZMRWgxaGFD?=
- =?utf-8?B?eUFDcTIxQnR0NTV5K3NKKzNxNk0vaUtHT1Z6SmdkbTJ3dVhpZUFNRGtzWHpK?=
- =?utf-8?B?NGlXR3NmdG4yOHFudm1SenVxZ2J0cnZXQVJ2NVVWVmVEcWR1dW9ZT2NMWHhG?=
- =?utf-8?B?bmRPbmRCVVZqVWtZbzZnTVE0cldPSjNMY0tHMzdCM0VKUVBuZjZJSUVjVk5j?=
- =?utf-8?B?Q2hINm1Ob1hsUUpKSTUxb3dlTnJpNExpK3V6ZUtESitobkZMTkxVV2J1TzUv?=
- =?utf-8?B?N21wSWJadUlkdWxqdmFBTzZ4WGxGa1MrTWZvSzM2Njg5S1cvem03KzJGQTYw?=
- =?utf-8?Q?H8iYwawDNVjcwwnznfyYMJk6U?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0l3eFpMcHFyOXlzV0J2ZVYxRkYramVkK1hZRC9xT0VCbXAxTkpQTklKYUV2?=
+ =?utf-8?B?UGsrZXRyQjhRc2Q3QzJUV0QrUjl0NXRqaTl0Ny9EKzgzejdFUElGZ3V1RDA2?=
+ =?utf-8?B?WmFybTFxYjFVejJRMjFKYXExcVIyWlo1cWFHMi92Y1E1cGdpQTF5cElNSzBE?=
+ =?utf-8?B?bXBJRjRlTTlETGZUWlVsMlZoK0NHaUI3NEtOVzgxZ2xKdDUrOTR6dkYyVGZX?=
+ =?utf-8?B?S1Z2VEQ2dk9wZGZobXZlTmV6TU4yTStEMlhOVDdBQ2F2clZza2p1SEhwOVhE?=
+ =?utf-8?B?MEgwVE9KV2Q2UTRUcXU3cmFzM3VweDVLelVVRHQ1Z3R3cGZ3cDBremljb21s?=
+ =?utf-8?B?MTNKL293TlhpaFJ0UlU3MXExaDloekhpWm1oTkM5cHE4YXFzRHF6S1BtQkxi?=
+ =?utf-8?B?YVllUFlkUld1Um5EVWVDcFc0cXlsY2ZqSTdWd2ZKeW5wQnlrV3J0SklwYXFq?=
+ =?utf-8?B?T01kTm56K3hZMEpTRzFiZFQrQ21CdXJVanpRMng2SkFKZVRNbjR0M3RDOElN?=
+ =?utf-8?B?YlhXaEJielByTkFKV3ZFSFQ2ZjMwemhRWmxXRWNuMlltWEt0MU5SQXQ2eG9B?=
+ =?utf-8?B?Um4rVWhwdDBka0RReDJuODFtaGdiTDlpQ3BjQnNhc2ZWSmtBZTJkcWNsT1pD?=
+ =?utf-8?B?d3NiK1I2aElUMk1RdlYwU2tleTR4RkszQzVrZ044SnVneU1tYlhIbG4zbnEy?=
+ =?utf-8?B?NnR6Y0N2UVVYMkM0ektVbzVFSlV3eU9FL3NwRURnSW9RS0pmamNCY2k1cUdM?=
+ =?utf-8?B?VGk3TjUwNStnSU1WMFNuUEtmNzFIam9xWENkRm4xNFZTYWVuTVBKenFtVVV6?=
+ =?utf-8?B?azh5RzMwSi9haW9wUlA4bTYwRzdYTkpRU2F6cjl4SDNjVzZLUUlVbWlFUnE5?=
+ =?utf-8?B?WS9rZjhndkN2TU1nQ1MvNVhDQXFrM1BkS0xndE52NDNvamdZa2VJU0VFVnVT?=
+ =?utf-8?B?RUhubzNmL2IyQVVvT0tPWUlpeUFkUzdTM1lnb2dWeXJzVXVRY1hzeXZGZ29J?=
+ =?utf-8?B?ajV0VTA0dnpldnB5dnl1NXdyY3FtT2pPcjArTWhyaUN4REZ4bXNiSU5FWUNm?=
+ =?utf-8?B?ckFKc2hBQlVxZGp1Ykx4VFg0MDBQQmFENU9BWXJwa1UrL0oxbmQ2QTROaHFm?=
+ =?utf-8?B?YklKL2dJS1dYZnRuQjBpdWp5SzBsVGdCZWhwbUxVUmdiN3NNbjVodjFmK0JU?=
+ =?utf-8?B?dFBMRnhJcTllMGJJTlpvczhzVWlkQlNNVU04QzJtTWs5QUpXRkR4Z2tNT0s2?=
+ =?utf-8?B?cGlRZ3daQjZIQVN6Snd3cXB4R0x2bGFjMmdObERXWjk0aDF4Z2cyZTBuWjVG?=
+ =?utf-8?B?aEZUV3c0Zmo4TWVSUzJKSnhFdEZJakRjUjh5dlhqbS9PY2hwTUVPZWJiU1c0?=
+ =?utf-8?B?RTVxOGV2Z1dJcDJHQ0hmNzlqeWUrSHdycmxqN1hVc3VmUXl6bERZWEJwTDc1?=
+ =?utf-8?B?eHpXSVR2dW9tZWxqWDdqUmNqNXE3YktXSUxvWEU5L1h0eGhjZlZ3OXJoOUhi?=
+ =?utf-8?B?M1dPY0crK0taVUg1OUNGNzd5NkNhNUs4ZnNoZ2t5anFtZUdNMWNDKzk3bGw1?=
+ =?utf-8?B?V0QvNnlUNnFjMXZlMDljTlJ3bEtSeGI0UEQ5MjR4bXl0NVE0cmp5SnU5N2pS?=
+ =?utf-8?B?Yk1jLzZZbkE4eE1ZK0tKZXlxK2ZMaXpadWRmM25JZTdlKzJGcDFsb3JpVm9J?=
+ =?utf-8?B?MlQvS0Rpenp4NHRibHJHdzRKaTNyTkEyMWNmN05seElWU2lDZTI0ZUxPOGF4?=
+ =?utf-8?B?YUFNS1RhcE1iN2hhRmdNNTNnSjJMTVNBWlJseCs2OEVDWDA1cHRiVllSRjY5?=
+ =?utf-8?B?dCtvVi9TczFwdHdjY1FSbFRCQ0UvNkZkQTducWZNbFEzK0dHc3IrZ0R2dmJL?=
+ =?utf-8?B?MnJyanQzTWl0NFZxZU04L3JDaDNVT1JQT0F4OEwyRzN5d3JYaklORURCVll3?=
+ =?utf-8?B?dkpYRjB6SDhnUko0ZXhNQW4vb0JFUSsrc0tsMVRkRWdQMERiWlBpTjdka3dm?=
+ =?utf-8?B?YlM4TEZHOVZQYUxBVHpsN2NEMnJZaGpLVFZmUHJpUDdFcjROYkZHUjN2V3Vz?=
+ =?utf-8?B?c1d3R1JOYjlTWU9aMVdIUFF0THBDdFY4MU1NRGNJNFNLN1Q2MGFyazJQdjJO?=
+ =?utf-8?Q?uXXOZdAn9ET5vo1IpdRynO30f?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0fbc51f-837c-4557-0867-08de04c3e791
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3969c7b-20e3-4d1e-6bb7-08de04c42834
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2025 10:34:18.5712 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2025 10:36:07.1933 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JUjykhMDrniHsMMbBdKFSj9XK6fIQTsb4O1+DrMYZqfCar06GGXYHpg1PobKhQN+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8650
+X-MS-Exchange-CrossTenant-UserPrincipalName: R14u4QW1qsJgWROyGHlwS/uRLPpjO1al+jks7B8hA64Vg7kOqgWqHMsvRUZl0MBuYTkf9GJ2StxNlKsPbyIZtw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7903
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,356 +168,287 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 30.09.25 10:27, Sunil Khatri wrote:
-> Clean up the amdgpu hmm range functions for clearer
-> definition of each.
-> 
-> a. Split amdgpu_ttm_tt_get_user_pages_done into two:
->    1. amdgpu_hmm_range_valid: To check if the user pages
->       are valid and update seq num
->    2. amdgpu_hmm_range_free: Clean up the hmm range
->       and pfn memory.
-> 
-> b. amdgpu_ttm_tt_get_user_pages_done and
->    amdgpu_ttm_tt_discard_user_pages are similar function so remove
->    discard and directly use amdgpu_hmm_range_free to clean up the
->    hmm range and pfn memory.
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 
+On 10/4/2025 1:53 AM, Chen, Xiaogang wrote:
+>
+> On 9/26/2025 5:53 AM, Khatri, Sunil wrote:
+>>
+>> On 9/24/2025 10:27 PM, Kuehling, Felix wrote:
+>>> On 2025-09-24 06:01, Sunil Khatri wrote:
+>>>> update the amdgpu_ttm_tt_get_user_pages and all dependent function
+>>>> along with it callers to use a user allocated hmm_range buffer instead
+>>>> hmm layer allocates the buffer.
+>>>>
+>>>> This is a need to get hmm_range pointers easily accessible
+>>>> without accessing the bo and that is a requirement for the
+>>>> userqueue to lock the userptrs effectively.
+>>>>
+>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>>>
+>>> What's the reason for this change? In the current code, the 
+>>> hmm_range is allocated by amdgpu_hmm_range_get_pages and freed by 
+>>> amdgpu_hmm_range_get_pages_done. Your change is breaking that symmetry.
+>> Sorry i missed your comment. For userqueues locking the userptr bos 
+>> and making sure we have valid userptrs at the time of validation 
+>> seems too complicated, so along with christian we decided to use 
+>> hmm_range list instead and have reference to userptr bo and via 
+>> hmm_range private field to be set to bo.
+>>
+>> Also i did made sure that wherever we are doing get pages and 
+>> allocating range the freeing part is taken care of. Specially for 
+>> freeing the memory is still done by amdgpu_hmm_range_get_pages_done 
+>> only. Please share if anywhere i missed something. Also Christian 
+>> brought out the point to have separate alloc/free for hmm_range which 
+>> i am working on and will share soon.
+>
+> This patch has other components to allocate hmm_range, freed it at 
+> amdgpu_hmm_range_get_pages_done. This inconsistency makes other 
+> components handle error case awkward.  It is better to let other 
+> component free hmm_range no matter amdgpu_hmm_range_get_pages success 
+> or not. And amdgpu_hmm_range_get_pages(done) alloc/free 
+> hmm_range->hmm_pfns. That would be easy to understand and have less 
+> chance to make mistake.
+Yes, that inconsistency is there and that is to be fixed is taken care 
+by having separate alloc/free functions and not use 
+amdgpu_hmm_range_get_pages_done and some more clean up done in other 
+patch since this code is already merged.
 
-> ---
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 19 +++++------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        | 12 +++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 11 ++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c       | 23 +++++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h       |  5 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 32 -------------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       | 13 --------
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  9 ++++--
->  8 files changed, 49 insertions(+), 75 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 4babd37712fb..e80a00d768cb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1089,7 +1089,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
->  		return 0;
->  	}
->  
-> -	range = kzalloc(sizeof(*range), GFP_KERNEL);
-> +	range = amdgpu_hmm_range_alloc();
->  	if (unlikely(!range)) {
->  		ret = -ENOMEM;
->  		goto unregister_out;
-> @@ -1097,7 +1097,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
->  
->  	ret = amdgpu_ttm_tt_get_user_pages(bo, range);
->  	if (ret) {
-> -		kfree(range);
-> +		amdgpu_hmm_range_free(range);
->  		if (ret == -EAGAIN)
->  			pr_debug("Failed to get user pages, try again\n");
->  		else
-> @@ -1120,7 +1120,8 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
->  	amdgpu_bo_unreserve(bo);
->  
->  release_out:
-> -	amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
-> +	amdgpu_hmm_range_valid(range);
+Regards
+Sunil khatri
 
-This call here to amdgpu_hmm_range_valid() can be dropped as far as I can see.
-
-Apart from that the patch is Reviewed-by: Christian König <christian.koenig@amd.com>
-
-Regards,
-Christian.
-
-> +	amdgpu_hmm_range_free(range);
->  unregister_out:
->  	if (ret)
->  		amdgpu_hmm_unregister(bo);
-> @@ -1923,7 +1924,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
->  	if (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm)) {
->  		amdgpu_hmm_unregister(mem->bo);
->  		mutex_lock(&process_info->notifier_lock);
-> -		amdgpu_ttm_tt_discard_user_pages(mem->bo->tbo.ttm, mem->range);
-> +		amdgpu_hmm_range_free(mem->range);
->  		mutex_unlock(&process_info->notifier_lock);
->  	}
->  
-> @@ -2550,7 +2551,7 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
->  
->  		bo = mem->bo;
->  
-> -		amdgpu_ttm_tt_discard_user_pages(bo->tbo.ttm, mem->range);
-> +		amdgpu_hmm_range_free(mem->range);
->  		mem->range = NULL;
->  
->  		/* BO reservations and getting user pages (hmm_range_fault)
-> @@ -2574,13 +2575,13 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
->  			}
->  		}
->  
-> -		mem->range = kzalloc(sizeof(*mem->range), GFP_KERNEL);
-> +		mem->range = amdgpu_hmm_range_alloc();
->  		if (unlikely(!mem->range))
->  			return -ENOMEM;
->  		/* Get updated user pages */
->  		ret = amdgpu_ttm_tt_get_user_pages(bo, mem->range);
->  		if (ret) {
-> -			kfree(mem->range);
-> +			amdgpu_hmm_range_free(mem->range);
->  			mem->range = NULL;
->  			pr_debug("Failed %d to get user pages\n", ret);
->  
-> @@ -2749,8 +2750,8 @@ static int confirm_valid_user_pages_locked(struct amdkfd_process_info *process_i
->  			continue;
->  
->  		/* Only check mem with hmm range associated */
-> -		valid = amdgpu_ttm_tt_get_user_pages_done(
-> -					mem->bo->tbo.ttm, mem->range);
-> +		valid = amdgpu_hmm_range_valid(mem->range);
-> +		amdgpu_hmm_range_free(mem->range);
->  
->  		mem->range = NULL;
->  		if (!valid) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index b75b53f21cbb..c4b2de1a1fab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -41,6 +41,7 @@
->  #include "amdgpu_gmc.h"
->  #include "amdgpu_gem.h"
->  #include "amdgpu_ras.h"
-> +#include "amdgpu_hmm.h"
->  
->  static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
->  				 struct amdgpu_device *adev,
-> @@ -885,7 +886,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->  		bool userpage_invalidated = false;
->  		struct amdgpu_bo *bo = e->bo;
->  
-> -		e->range = kzalloc(sizeof(*e->range), GFP_KERNEL);
-> +		e->range = amdgpu_hmm_range_alloc();
->  		if (unlikely(!e->range))
->  			return -ENOMEM;
->  
-> @@ -988,9 +989,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->  
->  out_free_user_pages:
->  	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
-> -		struct amdgpu_bo *bo = e->bo;
-> -
-> -		amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, e->range);
-> +		amdgpu_hmm_range_valid(e->range);
-> +		amdgpu_hmm_range_free(e->range);
->  		e->range = NULL;
->  	}
->  	mutex_unlock(&p->bo_list->bo_list_mutex);
-> @@ -1321,8 +1321,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->  	 */
->  	r = 0;
->  	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
-> -		r |= !amdgpu_ttm_tt_get_user_pages_done(e->bo->tbo.ttm,
-> -							e->range);
-> +		r |= !amdgpu_hmm_range_valid(e->range);
-> +		amdgpu_hmm_range_free(e->range);
->  		e->range = NULL;
->  	}
->  	if (r) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 12f0597a3659..cfd8ffe2da31 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -571,12 +571,12 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
->  		goto release_object;
->  
->  	if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE) {
-> -		range = kzalloc(sizeof(*range), GFP_KERNEL);
-> +		range = amdgpu_hmm_range_alloc();
->  		if (unlikely(!range))
->  			return -ENOMEM;
->  		r = amdgpu_ttm_tt_get_user_pages(bo, range);
->  		if (r) {
-> -			kfree(range);
-> +			amdgpu_hmm_range_free(range);
->  			goto release_object;
->  		}
->  		r = amdgpu_bo_reserve(bo, true);
-> @@ -599,9 +599,10 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
->  	args->handle = handle;
->  
->  user_pages_done:
-> -	if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE)
-> -		amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
-> -
-> +	if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE) {
-> +		amdgpu_hmm_range_valid(range);
-> +		amdgpu_hmm_range_free(range);
-> +	}
->  release_object:
->  	drm_gem_object_put(gobj);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> index 53d405a92a14..b582fd217bd0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> @@ -226,14 +226,25 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->  	return r;
->  }
->  
-> -bool amdgpu_hmm_range_get_pages_done(struct hmm_range *hmm_range)
-> +bool amdgpu_hmm_range_valid(struct hmm_range *hmm_range)
->  {
-> -	bool r;
-> +	if (!hmm_range)
-> +		return false;
-> +
-> +	return !mmu_interval_read_retry(hmm_range->notifier,
-> +					hmm_range->notifier_seq);
-> +}
-> +
-> +struct hmm_range *amdgpu_hmm_range_alloc(void)
-> +{
-> +	return kzalloc(sizeof(struct hmm_range), GFP_KERNEL);
-> +}
-> +
-> +void amdgpu_hmm_range_free(struct hmm_range *hmm_range)
-> +{
-> +	if (!hmm_range)
-> +		return;
->  
-> -	r = mmu_interval_read_retry(hmm_range->notifier,
-> -				    hmm_range->notifier_seq);
->  	kvfree(hmm_range->hmm_pfns);
->  	kfree(hmm_range);
-> -
-> -	return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-> index c54e3c64251a..368dd58d13ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-> @@ -35,7 +35,10 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->  			       uint64_t start, uint64_t npages, bool readonly,
->  			       void *owner,
->  			       struct hmm_range *hmm_range);
-> -bool amdgpu_hmm_range_get_pages_done(struct hmm_range *hmm_range);
-> +
-> +bool amdgpu_hmm_range_valid(struct hmm_range *hmm_range);
-> +struct hmm_range *amdgpu_hmm_range_alloc(void);
-> +void amdgpu_hmm_range_free(struct hmm_range *hmm_range);
->  
->  #if defined(CONFIG_HMM_MIRROR)
->  int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 046ff2346dab..96bd0185f936 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -753,38 +753,6 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
->  	return r;
->  }
->  
-> -/* amdgpu_ttm_tt_discard_user_pages - Discard range and pfn array allocations
-> - */
-> -void amdgpu_ttm_tt_discard_user_pages(struct ttm_tt *ttm,
-> -				      struct hmm_range *range)
-> -{
-> -	struct amdgpu_ttm_tt *gtt = (void *)ttm;
-> -
-> -	if (gtt && gtt->userptr && range)
-> -		amdgpu_hmm_range_get_pages_done(range);
-> -}
-> -
-> -/*
-> - * amdgpu_ttm_tt_get_user_pages_done - stop HMM track the CPU page table change
-> - * Check if the pages backing this ttm range have been invalidated
-> - *
-> - * Returns: true if pages are still valid
-> - */
-> -bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
-> -				       struct hmm_range *range)
-> -{
-> -	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
-> -
-> -	if (!gtt || !gtt->userptr || !range)
-> -		return false;
-> -
-> -	DRM_DEBUG_DRIVER("user_pages_done 0x%llx pages 0x%x\n",
-> -		gtt->userptr, ttm->num_pages);
-> -
-> -	WARN_ONCE(!range->hmm_pfns, "No user pages to check\n");
-> -
-> -	return !amdgpu_hmm_range_get_pages_done(range);
-> -}
->  #endif
->  
->  /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index a8379b925878..99c46821b961 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -192,25 +192,12 @@ uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
->  #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
->  int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
->  				 struct hmm_range *range);
-> -void amdgpu_ttm_tt_discard_user_pages(struct ttm_tt *ttm,
-> -				      struct hmm_range *range);
-> -bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
-> -				       struct hmm_range *range);
->  #else
->  static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
->  					       struct hmm_range *range)
->  {
->  	return -EPERM;
->  }
-> -static inline void amdgpu_ttm_tt_discard_user_pages(struct ttm_tt *ttm,
-> -						    struct hmm_range *range)
-> -{
-> -}
-> -static inline bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
-> -						     struct hmm_range *range)
-> -{
-> -	return false;
-> -}
->  #endif
->  
->  void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct hmm_range *range);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 9f0f14ea93e5..53e443a243ee 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1737,13 +1737,13 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->  			}
->  
->  			WRITE_ONCE(p->svms.faulting_task, current);
-> -			hmm_range = kzalloc(sizeof(*hmm_range), GFP_KERNEL);
-> +			hmm_range = amdgpu_hmm_range_alloc();
->  			r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
->  						       readonly, owner,
->  						       hmm_range);
->  			WRITE_ONCE(p->svms.faulting_task, NULL);
->  			if (r) {
-> -				kfree(hmm_range);
-> +				amdgpu_hmm_range_free(hmm_range);
->  				pr_debug("failed %d to get svm range pages\n", r);
->  			}
->  		} else {
-> @@ -1764,10 +1764,13 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->  		 * Overrride return value to TRY AGAIN only if prior returns
->  		 * were successful
->  		 */
-> -		if (hmm_range && amdgpu_hmm_range_get_pages_done(hmm_range) && !r) {
-> +		if (hmm_range && !amdgpu_hmm_range_valid(hmm_range) && !r) {
->  			pr_debug("hmm update the range, need validate again\n");
->  			r = -EAGAIN;
->  		}
-> +		/* Free the hmm range */
-> +		amdgpu_hmm_range_free(hmm_range);
-> +
->  
->  		if (!r && !list_empty(&prange->child_list)) {
->  			pr_debug("range split by unmap in parallel, validate again\n");
-
+>
+> Regards
+>
+> Xiaogang
+>
+>>
+>> Regards
+>> Sunil Khatri
+>>
+>>> Regards,
+>>>   Felix
+>>>
+>>>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 16 
+>>>> ++++++++++++++--
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  6 +++++-
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          | 10 +++++++---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c          | 11 +----------
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h          |  2 +-
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c          |  8 +++-----
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h          |  4 ++--
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c             |  7 +++++--
+>>>>   8 files changed, 38 insertions(+), 26 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>> index 7c54fe6b0f5d..4babd37712fb 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>> @@ -1089,8 +1089,15 @@ static int init_user_pages(struct kgd_mem 
+>>>> *mem, uint64_t user_addr,
+>>>>           return 0;
+>>>>       }
+>>>>   -    ret = amdgpu_ttm_tt_get_user_pages(bo, &range);
+>>>> +    range = kzalloc(sizeof(*range), GFP_KERNEL);
+>>>> +    if (unlikely(!range)) {
+>>>> +        ret = -ENOMEM;
+>>>> +        goto unregister_out;
+>>>> +    }
+>>>> +
+>>>> +    ret = amdgpu_ttm_tt_get_user_pages(bo, range);
+>>>>       if (ret) {
+>>>> +        kfree(range);
+>>>>           if (ret == -EAGAIN)
+>>>>               pr_debug("Failed to get user pages, try again\n");
+>>>>           else
+>>>> @@ -2567,9 +2574,14 @@ static int update_invalid_user_pages(struct 
+>>>> amdkfd_process_info *process_info,
+>>>>               }
+>>>>           }
+>>>>   +        mem->range = kzalloc(sizeof(*mem->range), GFP_KERNEL);
+>>>> +        if (unlikely(!mem->range))
+>>>> +            return -ENOMEM;
+>>>>           /* Get updated user pages */
+>>>> -        ret = amdgpu_ttm_tt_get_user_pages(bo, &mem->range);
+>>>> +        ret = amdgpu_ttm_tt_get_user_pages(bo, mem->range);
+>>>>           if (ret) {
+>>>> +            kfree(mem->range);
+>>>> +            mem->range = NULL;
+>>>>               pr_debug("Failed %d to get user pages\n", ret);
+>>>>                 /* Return -EFAULT bad address error as success. It 
+>>>> will
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>> index 744e6ff69814..31eea1c7dac3 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>> @@ -884,9 +884,13 @@ static int amdgpu_cs_parser_bos(struct 
+>>>> amdgpu_cs_parser *p,
+>>>>       amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+>>>>           bool userpage_invalidated = false;
+>>>>           struct amdgpu_bo *bo = e->bo;
+>>>> +        e->range = kzalloc(sizeof(*e->range), GFP_KERNEL);
+>>>> +        if (unlikely(!e->range))
+>>>> +            return -ENOMEM;
+>>>> +
+>>>>           int i;
+>>>>   -        r = amdgpu_ttm_tt_get_user_pages(bo, &e->range);
+>>>> +        r = amdgpu_ttm_tt_get_user_pages(bo, e->range);
+>>>>           if (r)
+>>>>               goto out_free_user_pages;
+>>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>> index 8524aa55e057..12f0597a3659 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>> @@ -571,10 +571,14 @@ int amdgpu_gem_userptr_ioctl(struct 
+>>>> drm_device *dev, void *data,
+>>>>           goto release_object;
+>>>>         if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE) {
+>>>> -        r = amdgpu_ttm_tt_get_user_pages(bo, &range);
+>>>> -        if (r)
+>>>> +        range = kzalloc(sizeof(*range), GFP_KERNEL);
+>>>> +        if (unlikely(!range))
+>>>> +            return -ENOMEM;
+>>>> +        r = amdgpu_ttm_tt_get_user_pages(bo, range);
+>>>> +        if (r) {
+>>>> +            kfree(range);
+>>>>               goto release_object;
+>>>> -
+>>>> +        }
+>>>>           r = amdgpu_bo_reserve(bo, true);
+>>>>           if (r)
+>>>>               goto user_pages_done;
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>>>> index 2c6a6b858112..53d405a92a14 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>>>> @@ -168,18 +168,13 @@ void amdgpu_hmm_unregister(struct amdgpu_bo *bo)
+>>>>   int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier 
+>>>> *notifier,
+>>>>                      uint64_t start, uint64_t npages, bool readonly,
+>>>>                      void *owner,
+>>>> -                   struct hmm_range **phmm_range)
+>>>> +                   struct hmm_range *hmm_range)
+>>>>   {
+>>>> -    struct hmm_range *hmm_range;
+>>>>       unsigned long end;
+>>>>       unsigned long timeout;
+>>>>       unsigned long *pfns;
+>>>>       int r = 0;
+>>>>   -    hmm_range = kzalloc(sizeof(*hmm_range), GFP_KERNEL);
+>>>> -    if (unlikely(!hmm_range))
+>>>> -        return -ENOMEM;
+>>>> -
+>>>>       pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
+>>>>       if (unlikely(!pfns)) {
+>>>>           r = -ENOMEM;
+>>>> @@ -221,15 +216,11 @@ int amdgpu_hmm_range_get_pages(struct 
+>>>> mmu_interval_notifier *notifier,
+>>>>       hmm_range->start = start;
+>>>>       hmm_range->hmm_pfns = pfns;
+>>>>   -    *phmm_range = hmm_range;
+>>>> -
+>>>>       return 0;
+>>>>     out_free_pfns:
+>>>>       kvfree(pfns);
+>>>>   out_free_range:
+>>>> -    kfree(hmm_range);
+>>>> -
+>>>>       if (r == -EBUSY)
+>>>>           r = -EAGAIN;
+>>>>       return r;
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
+>>>> index 953e1d06de20..c54e3c64251a 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
+>>>> @@ -34,7 +34,7 @@
+>>>>   int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier 
+>>>> *notifier,
+>>>>                      uint64_t start, uint64_t npages, bool readonly,
+>>>>                      void *owner,
+>>>> -                   struct hmm_range **phmm_range);
+>>>> +                   struct hmm_range *hmm_range);
+>>>>   bool amdgpu_hmm_range_get_pages_done(struct hmm_range *hmm_range);
+>>>>     #if defined(CONFIG_HMM_MIRROR)
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> index 901e0c39a594..046ff2346dab 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> @@ -705,10 +705,11 @@ struct amdgpu_ttm_tt {
+>>>>    * memory and start HMM tracking CPU page table update
+>>>>    *
+>>>>    * Calling function must call amdgpu_ttm_tt_userptr_range_done() 
+>>>> once and only
+>>>> - * once afterwards to stop HMM tracking
+>>>> + * once afterwards to stop HMM tracking. Its the caller 
+>>>> responsibility to ensure
+>>>> + * that range is a valid memory and it is freed too.
+>>>>    */
+>>>>   int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+>>>> -                 struct hmm_range **range)
+>>>> +                 struct hmm_range *range)
+>>>>   {
+>>>>       struct ttm_tt *ttm = bo->tbo.ttm;
+>>>>       struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
+>>>> @@ -718,9 +719,6 @@ int amdgpu_ttm_tt_get_user_pages(struct 
+>>>> amdgpu_bo *bo,
+>>>>       bool readonly;
+>>>>       int r = 0;
+>>>>   -    /* Make sure get_user_pages_done() can cleanup gracefully */
+>>>> -    *range = NULL;
+>>>> -
+>>>>       mm = bo->notifier.mm;
+>>>>       if (unlikely(!mm)) {
+>>>>           DRM_DEBUG_DRIVER("BO is not registered?\n");
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>>>> index 6ac94469ed40..a8379b925878 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>>>> @@ -191,14 +191,14 @@ uint64_t amdgpu_ttm_domain_start(struct 
+>>>> amdgpu_device *adev, uint32_t type);
+>>>>     #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
+>>>>   int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+>>>> -                 struct hmm_range **range);
+>>>> +                 struct hmm_range *range);
+>>>>   void amdgpu_ttm_tt_discard_user_pages(struct ttm_tt *ttm,
+>>>>                         struct hmm_range *range);
+>>>>   bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
+>>>>                          struct hmm_range *range);
+>>>>   #else
+>>>>   static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+>>>> -                           struct hmm_range **range)
+>>>> +                           struct hmm_range *range)
+>>>>   {
+>>>>       return -EPERM;
+>>>>   }
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
+>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>> index 273f42e3afdd..9f0f14ea93e5 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>> @@ -1737,12 +1737,15 @@ static int 
+>>>> svm_range_validate_and_map(struct mm_struct *mm,
+>>>>               }
+>>>>                 WRITE_ONCE(p->svms.faulting_task, current);
+>>>> +            hmm_range = kzalloc(sizeof(*hmm_range), GFP_KERNEL);
+>>>>               r = amdgpu_hmm_range_get_pages(&prange->notifier, 
+>>>> addr, npages,
+>>>>                                  readonly, owner,
+>>>> -                               &hmm_range);
+>>>> +                               hmm_range);
+>>>>               WRITE_ONCE(p->svms.faulting_task, NULL);
+>>>> -            if (r)
+>>>> +            if (r) {
+>>>> +                kfree(hmm_range);
+>>>>                   pr_debug("failed %d to get svm range pages\n", r);
+>>>> +            }
+>>>>           } else {
+>>>>               r = -EFAULT;
+>>>>           }
