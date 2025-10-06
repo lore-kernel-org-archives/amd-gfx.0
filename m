@@ -4,119 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2045DCCA470
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 18:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A249CCA470
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 19:59:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8A810E112;
-	Mon,  6 Oct 2025 18:26:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 238BE10E45B;
+	Mon,  6 Oct 2025 19:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fV41Ph/V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f3syiBFF";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011050.outbound.protection.outlook.com [40.107.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6708E10E112
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 18:26:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hWxRKsTxeeiQW1K1oAIBBGv+hGMRcK43c520Z+i9SOekznQavEAqmgURtB4WwQLx9eTJue/qkBXm9QtaORnlPBwNQQfDEKJwFZ+1/kPqzRqQW7eO7zx/7wBZ12Ax+zrroAIxGlFGYfuzPpYkuc0D7BVjTWCdRFm9c1DP4u53vqGWCkm08tq8npBHK3lsFK/eVGPS/gUkGNAq6nGQkupxPlcG0neLp5GVZl7qcTOUHh154bXTRiuiKtqRTHCVWgKNvb6+NFKNLFNEGO+Xn65tvMQtKvNW+ZRkNjYYO+WKgFGD7OKwzCwjCdt1myjgN4HcjH0wXl+UGIcFdHngftw/QA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sNPvbotzbpXy5Wu0tnCh95Q48Sl3d0smJTshmyL5Nyc=;
- b=NNWL5T65EwsUD8WNXDgCGOR7A2xp9e47KTQso2P8cppYuQAUAAX3O0nq8k7si7yDZaWYm9zqRkjp1vxbFcvHsZ3gwxCqmOHRQPlOgcqVBgvfhC/CT0GR3Ctw5PIM9SELFaJZYrj/UG4tL6UAVqrp0RjArnGNDVE42riem9LZEfFpjS2d6Q7IAIJcQ3kRkIEHmrddv7bingMRF65bJ2YoWYTJ+t+YN0IWIb5vm5IDfiZgnjfTNvyzRLAiKTY75DMX0uCyjBDI09YuFtmdBBkfNxaHiiKot+HwDafwfatCkaTnm3FW9YvmI/Ebw1fKZwnOWSiw8Nooav6tjaXUr0GdOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sNPvbotzbpXy5Wu0tnCh95Q48Sl3d0smJTshmyL5Nyc=;
- b=fV41Ph/Vag3M38qqkci6p7tG+Vn7CuoQFACXAx8xDlPbXzu7HMYzmbKEI3al8dF4ZmqLO7brZR0C58a97a0gloxjw1jRt9GmlA4OiynbJAEj+ap1Omk/mEDBntycgJ5CCqCyJGvIwDe0bqcZuz1hwJDYxppEK7CStmNgAVEG0Sw=
-Received: from BY5PR20CA0025.namprd20.prod.outlook.com (2603:10b6:a03:1f4::38)
- by CH1PPF946CC24FA.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::61c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.13; Mon, 6 Oct
- 2025 18:26:12 +0000
-Received: from MWH0EPF000A6731.namprd04.prod.outlook.com
- (2603:10b6:a03:1f4:cafe::8c) by BY5PR20CA0025.outlook.office365.com
- (2603:10b6:a03:1f4::38) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.20 via Frontend Transport; Mon,
- 6 Oct 2025 18:26:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000A6731.mail.protection.outlook.com (10.167.249.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9 via Frontend Transport; Mon, 6 Oct 2025 18:26:11 +0000
-Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 6 Oct
- 2025 11:26:08 -0700
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/mes: adjust the VMID masks
-Date: Mon, 6 Oct 2025 14:25:50 -0400
-Message-ID: <20251006182550.90535-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.51.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BFD610E12D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 19:59:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 74EA461109
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 19:59:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2874FC19421
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Oct 2025 19:59:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1759780789;
+ bh=RGOjghczmBhOn629RRqeFBoH+bmWrNCvmm7l98/ereY=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=f3syiBFFmJTX8U4zhWCmLfRemYi6nT3Nr0TsNcoNis6Qoh5r4Mdoa6w5gfWBPBHhJ
+ nHTBKNMHLZAWiNfHmqo8ce9AapAcjmrk+w7oLuoxwsP6i4Y3jszTCcAuyZ5b051Sh5
+ NrVphzBp23MsKCtY+R/RsC4OGMFO7+uQZFJ9kEoXe6ienz/9tF5u3jpD+xXf0urFOV
+ P5HRvMkAg5Ead/82pXoYDMmBoP3esHe/8uX6XV816zJs6hSey6bx/y60zC+z+dCKJE
+ XxYX22gkH5u64eMGBbE76BD7aM3i4NZkbb+Y+CfAWVL7r/gkqeEz2gmhWRMJroM8G3
+ MNbR44HmX3XqQ==
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-36bf096b092so48699891fa.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Oct 2025 12:59:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX0H383n77/U6BGPACHjEbyPgxPZTCBytdSjnKP0TRd+8eQJ5pY8qftBbMLp3kKh7xTWEs3IsdS@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwOe4CejMx3KhsdSSD42u/OOU6+dwfQNvwI2eV2j8rMsDxJEzZ1
+ ic2CcixNP6xBWBWQswR+1UftiRzqxf8Onf+Ug670Tk94/vc4LLR9TylCL3CBtdKHPYCiXzHpqlh
+ kHQa+TP/MRvzc0zYMRlRgvCKiJfRPF98=
+X-Google-Smtp-Source: AGHT+IFCefbDSL2GYf6TgImraEUnQIVmnSoToPwmnqaXu68yMygrqwch2iehFFb+Yblt2/Ln03XrF5n8NYG5k5DfAYk=
+X-Received: by 2002:a2e:bc86:0:b0:373:a93d:5b2e with SMTP id
+ 38308e7fff4ca-374c36ba428mr50608951fa.3.1759780787463; Mon, 06 Oct 2025
+ 12:59:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6731:EE_|CH1PPF946CC24FA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d41e6d6-902b-4b19-b207-08de0505d372
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?oQqld2TKaaHuUUYOad5U5F7WF7zZIRmcvjIw2TYa59WkbACoOFe4r/hma1S5?=
- =?us-ascii?Q?93w+xIbHwXZpfNKwibv+itQf/a2IS8w62tQoecigaKviy5KzFvbwZ9N9gqRc?=
- =?us-ascii?Q?CvdzEoWvDYRBHzi3OsEHk5IZk0D5KLJyq9auI6QuEIH09ke9FxYCg//1ckcf?=
- =?us-ascii?Q?WZLOnk31ipFyHBoVw8h89ffM1Nr4kgD4081p/uWeaNA4Sh0TwpqrDeHTFiUq?=
- =?us-ascii?Q?43lj310fz0WU8CoxKR2cjamcvyVfSlLJVW9tuCRKnRgDeHMbGEHNAju2PFYy?=
- =?us-ascii?Q?edTMxEQWybxkOYOTRCN6F5UnZjwvy7ru3uLADqkOocNDk6dOgkGCtz7camOE?=
- =?us-ascii?Q?RxiHW9v1OGfWkYYBcFw8X6xvxr8YCrDt2DhMVoJ8zaoEm7P/2mhJBprcelBs?=
- =?us-ascii?Q?8BiPZe4IdHR3kNOWAPrp4Uyg+yobqhT8FcVf6RQlM6/U78J/d7QKo87MZwU9?=
- =?us-ascii?Q?UTdkxUPouRRKMQqnaoQUF+silXjw6mzUndp2NCeLgc1eY2xZ9tvlwviVaJsB?=
- =?us-ascii?Q?2v3ZqjkTdhhd3bLdBcBeUL0A627fUZVxcTJII/P+Mw6Wq1xPLXh40xarVEtm?=
- =?us-ascii?Q?ONFsLb1lCpCbZTT/CR1fbH/5UcgFUtbdHCHdkhQi6fcaOiTadjObsmN1ocoY?=
- =?us-ascii?Q?cvDuHeqRnQWh1mavGhKoPzzNpl2K3Nqt7OlkxT/h7X/M2MYsSp+hKw0MIRpA?=
- =?us-ascii?Q?Av9V1vdA8dKMVmN8cA63DgW35HuJrMg124Tb6yRsz3wC8/F+b32TMJf1Gkub?=
- =?us-ascii?Q?PO43fFjxjHUB7jtDU/bnpwPqmfQ0V12WvhH8nzd4hH02jloQTFMKL7h1NAsQ?=
- =?us-ascii?Q?0qOCyYXcPHOIurOvwvMchfhRIef4+qnjsrP/Au+1E/u+6/aDiwl4z4lPkV5c?=
- =?us-ascii?Q?iQnXP2uAiUFxk8QfkfEQN4CUgK29ihGRPjKQLSudTaYG28kQGhWgC78Zk2m0?=
- =?us-ascii?Q?oxz2ZxSdWDkx4WgaqHRVUd2WZHz9eB1ahse5t01+M8VhCo6JyCiGlAdvTj9L?=
- =?us-ascii?Q?6LQ8Vb+m9lvh/nugV7jtnhTMpaP8/OKe7hBEMgFTg5I081/m5Zgta645XLxI?=
- =?us-ascii?Q?Arppse6uixLK2BOD06CKDvW3zH4J+42CunCgz1HY9zZsFZzaqFysAGbNl/DP?=
- =?us-ascii?Q?0EzzO4kwQoKuZ5BK2K9GqBz5ICFuRrX0B6ziIozalH+zvXg5wjJ7SMY4WLMS?=
- =?us-ascii?Q?5RcGd7g8jiq70gdtlAN1ype9rHvs1zWrlOqanZADmAlgiimR1RuEh0LWUnbc?=
- =?us-ascii?Q?JmuNuyRfoxPPGCvY5apjHFXRVFGv19k7kbiNv4BQP7W59DbOVD9GqZWo2bSw?=
- =?us-ascii?Q?tJrZhmYeOuRrpTENyYhkMe/Pl7qW61YEUUkfs1vyu77jTd3QshdPOCQJqr4y?=
- =?us-ascii?Q?PxYZXtXD81W6VGJ0pzImQEokCqVrZMFMwTxK6dnsos8znIfwTUzIQ5lr5eyx?=
- =?us-ascii?Q?sYV0LR+2jvh0OomghaV6tKqaleb3JbUlaEbEcDfKhem1R5L6ApayJ58bYvl/?=
- =?us-ascii?Q?6dbKhGngxzKllZjijDjKQF4wP0pP7KBdTc0gTz9F5oJFy5ufeq6Twqy2t134?=
- =?us-ascii?Q?ugkDX4t5c6l7xik++vY=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2025 18:26:11.2330 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d41e6d6-902b-4b19-b207-08de0505d372
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6731.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF946CC24FA
+References: <20251002210044.1726731-2-ardb+git@google.com>
+ <5824c012-dcb2-4312-9b16-810656290831@amd.com>
+In-Reply-To: <5824c012-dcb2-4312-9b16-810656290831@amd.com>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Mon, 6 Oct 2025 21:59:34 +0200
+X-Gmail-Original-Message-ID: <CAMj1kXHUjL7=CPz0viSBvfeX=BKNYuUkrpTizn9H1ZgJecB6cQ@mail.gmail.com>
+X-Gm-Features: AS18NWCnlytWnKuUujx3FjdzntMejSYw-Dggtn3KRe_zRGRZD-JaqCeN49BKKzs
+Message-ID: <CAMj1kXHUjL7=CPz0viSBvfeX=BKNYuUkrpTizn9H1ZgJecB6cQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix unsafe uses of kernel mode FPU
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, will@kernel.org, 
+ catalin.marinas@arm.com, mark.rutland@arm.com, broonie@kernel.org, 
+ Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,29 +77,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The firmware limits the max vmid, but align the
-settings with the hw limits as well just to be safe.
+On Mon, 6 Oct 2025 at 19:42, Christian K=C3=B6nig <christian.koenig@amd.com=
+> wrote:
+>
+> On 02.10.25 23:00, Ard Biesheuvel wrote:
+> > From: Ard Biesheuvel <ardb@kernel.org>
+> >
+> > The point of isolating code that uses kernel mode FPU in separate
+> > compilation units is to ensure that even implicit uses of, e.g., SIMD
+> > registers for spilling occur only in a context where this is permitted,
+> > i.e., from inside a kernel_fpu_begin/end block.
+> >
+> > This is important on arm64, which uses -mgeneral-regs-only to build all
+> > kernel code, with the exception of such compilation units where FP or
+> > SIMD registers are expected to be used. Given that the compiler may
+> > invent uses of FP/SIMD anywhere in such a unit, none of its code may be
+> > accessible from outside a kernel_fpu_begin/end block.
+> >
+> > This means that all callers into such compilation units must use the
+> > DC_FP start/end macros, which must not occur there themselves. For
+> > robustness, all functions with external linkage that reside there shoul=
+d
+> > call dc_assert_fp_enabled() to assert that the FPU context was set up
+> > correctly.
+>
+> Thanks a lot for that, I've pointed out this restriction before as well.
+>
+> Since we had that issue multiple times now would it be somehow possible t=
+o automate rejecting new code getting this wrong?
+>
+> E.g. adding something to the DC_FP_START()/DC_FP_END() or kernel_fpu_begi=
+n/end macros to make sure that they fail to compile on compolation units wh=
+ere FP use is enabled?
+>
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Something like the below perhaps?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 2a397cdbb38ed..aa4db2c81d17c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -105,8 +105,8 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
- 		spin_lock_init(&adev->mes.ring_lock[i]);
- 
- 	adev->mes.total_max_queue = AMDGPU_FENCE_MES_QUEUE_ID_MASK;
--	adev->mes.vmid_mask_mmhub = 0xffffff00;
--	adev->mes.vmid_mask_gfxhub = adev->gfx.disable_kq ? 0xfffffffe : 0xffffff00;
-+	adev->mes.vmid_mask_mmhub = 0xFF00;
-+	adev->mes.vmid_mask_gfxhub = adev->gfx.disable_kq ? 0xFFFE : 0xFF00;
- 
- 	num_pipes = adev->gfx.me.num_pipe_per_me * adev->gfx.me.num_me;
- 	if (num_pipes > AMDGPU_MES_MAX_GFX_PIPES)
--- 
-2.51.0
+diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
+index 73a10f65ce8b..d03e3705bade 100644
+--- a/arch/arm64/Makefile
++++ b/arch/arm64/Makefile
+@@ -35,7 +35,7 @@ endif
 
+ # The GCC option -ffreestanding is required in order to compile code conta=
+ining
+ # ARM/NEON intrinsics in a non C99-compliant environment (such as the kern=
+el)
+-CC_FLAGS_FPU   :=3D -ffreestanding
++CC_FLAGS_FPU   :=3D -ffreestanding -DIN_SIMD
+ # Enable <arm_neon.h>
+ CC_FLAGS_FPU   +=3D -isystem $(shell $(CC) -print-file-name=3Dinclude)
+ CC_FLAGS_NO_FPU        :=3D -mgeneral-regs-only
+diff --git a/arch/arm64/include/asm/fpu.h b/arch/arm64/include/asm/fpu.h
+index 2ae50bdce59b..1297e660bd89 100644
+--- a/arch/arm64/include/asm/fpu.h
++++ b/arch/arm64/include/asm/fpu.h
+@@ -8,8 +8,10 @@
+
+ #include <asm/neon.h>
+
++#ifndef IN_SIMD
+ #define kernel_fpu_available() cpu_has_neon()
+ #define kernel_fpu_begin()     kernel_neon_begin()
+ #define kernel_fpu_end()       kernel_neon_end()
++#endif
+
+ #endif /* ! __ASM_FPU_H */
