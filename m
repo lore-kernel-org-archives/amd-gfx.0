@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74074CCD182
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9FCCCA471
 	for <amd-gfx@archiver.kernel.org>; Mon,  6 Oct 2025 12:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6881610E367;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8184A10E3C9;
 	Mon,  6 Oct 2025 12:41:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fTxOQSgB";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ySCttw3i";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0551A10E3FC;
- Mon,  6 Oct 2025 10:40:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0DE10E3F2;
+ Mon,  6 Oct 2025 10:40:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5D40060443;
- Mon,  6 Oct 2025 10:40:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77FAEC4CEF5;
- Mon,  6 Oct 2025 10:40:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D9A0D4510F;
+ Mon,  6 Oct 2025 10:40:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346CBC4CEF5;
+ Mon,  6 Oct 2025 10:40:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1759747235;
- bh=DwIyVJT3dSSmH8DWM854dvwN6Q/1K9V6X6EKRDvtEk0=;
+ s=korg; t=1759747208;
+ bh=d1RJmttUV9SjcOAsVtow8qlwV+/r9oLBzb7vHACoeo4=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=fTxOQSgBlKBLzOW53qSbxWFlg0rfirHt9QOgXkFTn3q7GhALCWuugfj0dZgAdW31r
- E/h6d0o2sJv4axljUn/CHCVDf2aJ5Hb5e6ZC9laL3hkm9PUPONymAauiIVtYpCuf8S
- 39QJ2bmjAV59mk+D2TXpGapRQQJUIRV1EU1p7iEU=
-Subject: Patch "minmax.h: simplify the variants of clamp()" has been added to
- the 6.1-stable tree
-To: David.Laight@ACULAB.COM, Jason@zx2c4.com, agk@redhat.com, airlied@gmail.com,
- akpm@linux-foundation.org, alexander.deucher@amd.com,
+ b=ySCttw3iKtUdz14zeF6gQ3oefYcuO9oOADNkNFojp78IzUfnplDE08EqFSSO/zLOG
+ GqG1a9bYik9nfslkZukaQwjUM+I11bqwgLWLbtkPEzcvjoTHkEBNRkeWwDVbq1WFMG
+ 3QMoie9KF+F/o10TsV6ItsoK4d2vwflCNxd0tJzY=
+Subject: Patch "minmax: don't use max() in situations that want a C constant
+ expression" has been added to the 6.1-stable tree
+To: David.Laight@ACULAB.COM, David.Laight@aculab.com, agk@redhat.com,
+ airlied@gmail.com, akpm@linux-foundation.org, alexander.deucher@amd.com,
  amd-gfx@lists.freedesktop.org, andriy.shevchenko@linux.intel.com,
- arnd@kernel.org, asad.kamal@amd.com, axboe@kernel.dk, christian.koenig@amd.com,
- clm@fb.com, dan.carpenter@linaro.org, david.laight@aculab.com,
+ asad.kamal@amd.com, christian.koenig@amd.com, clm@fb.com,
  dm-devel@lists.linux.dev, dmitry.torokhov@gmail.com,
  dri-devel@lists.freedesktop.org, dsterba@suse.com, farbere@amazon.com,
- gregkh@linuxfoundation.org, hch@infradead.org, jernej.skrabec@gmail.com,
- kenneth.feng@amd.com, kevinyang.wang@amd.com, lijo.lazar@amd.com,
- linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux@rasmusvillemoes.dk,
- lorenzo.stoakes@oracle.com, luc.vanoostenryck@gmail.com, mjguzik@gmail.com,
- mpatocka@redhat.com, pedro.falcato@gmail.com, pmladek@suse.com,
+ gregkh@linuxfoundation.org, jernej.skrabec@gmail.com, kenneth.feng@amd.com,
+ kevinyang.wang@amd.com, lijo.lazar@amd.com, linus.walleij@linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux@rasmusvillemoes.dk, lorenzo.stoakes@oracle.com,
+ luc.vanoostenryck@gmail.com, mpatocka@redhat.com, pmladek@suse.com,
  rostedt@goodmis.org, samuel@sholland.org, senozhatsky@chromium.org,
- simona@ffwll.ch, snitzer@kernel.org, tglx@linutronix.de, wens@csie.org,
- willy@infradead.org
+ simona@ffwll.ch, snitzer@kernel.org, tglx@linutronix.de,
+ torvalds@linux-foundation.org, wens@csie.org
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 06 Oct 2025 12:39:12 +0200
-In-Reply-To: <20251003121520.8176-11-farbere@amazon.com>
-Message-ID: <2025100612-sarcasm-flashy-5e0a@gregkh>
+Date: Mon, 06 Oct 2025 12:39:09 +0200
+In-Reply-To: <20251003121520.8176-2-farbere@amazon.com>
+Message-ID: <2025100609-sacred-breach-69da@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -73,117 +71,119 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is a note to let you know that I've just added the patch titled
 
-    minmax.h: simplify the variants of clamp()
+    minmax: don't use max() in situations that want a C constant expression
 
 to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     minmax.h-simplify-the-variants-of-clamp.patch
+     minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
 and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From stable+bounces-183181-greg=kroah.com@vger.kernel.org Fri Oct  3 14:28:17 2025
+From stable+bounces-183172-greg=kroah.com@vger.kernel.org Fri Oct  3 14:16:33 2025
 From: Eliav Farber <farbere@amazon.com>
-Date: Fri, 3 Oct 2025 12:15:19 +0000
-Subject: minmax.h: simplify the variants of clamp()
+Date: Fri, 3 Oct 2025 12:15:10 +0000
+Subject: minmax: don't use max() in situations that want a C constant expression
 To: <gregkh@linuxfoundation.org>, <kenneth.feng@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <tglx@linutronix.de>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>, <clm@fb.com>, <dsterba@suse.com>, <luc.vanoostenryck@gmail.com>, <pmladek@suse.com>, <rostedt@goodmis.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <senozhatsky@chromium.org>, <akpm@linux-foundation.org>, <lijo.lazar@amd.com>, <asad.kamal@amd.com>, <kevinyang.wang@amd.com>, <David.Laight@ACULAB.COM>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>, <dm-devel@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <stable@vger.
  kernel.org>, <farbere@amazon.com>
-Cc: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>, Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Matthew Wilcox" <willy@infradead.org>, Pedro Falcato <pedro.falcato@gmail.com>
-Message-ID: <20251003121520.8176-11-farbere@amazon.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Message-ID: <20251003121520.8176-2-farbere@amazon.com>
 
-From: David Laight <David.Laight@ACULAB.COM>
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit 495bba17cdf95e9703af1b8ef773c55ef0dfe703 ]
+[ Upstream commit cb04e8b1d2f24c4c2c92f7b7529031fc35a16fed ]
 
-Always pass a 'type' through to __clamp_once(), pass '__auto_type' from
-clamp() itself.
+We only had a couple of array[] declarations, and changing them to just
+use 'MAX()' instead of 'max()' fixes the issue.
 
-The expansion of __types_ok3() is reasonable so it isn't worth the added
-complexity of avoiding it when a fixed type is used for all three values.
+This will allow us to simplify our min/max macros enormously, since they
+can now unconditionally use temporary variables to avoid using the
+argument values multiple times.
 
-Link: https://lkml.kernel.org/r/8f69f4deac014f558bab186444bac2e8@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
+Cc: David Laight <David.Laight@aculab.com>
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/linux/minmax.h |   24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c   |    2 +-
+ drivers/input/touchscreen/cyttsp4_core.c |    2 +-
+ drivers/irqchip/irq-sun6i-r.c            |    2 +-
+ drivers/md/dm-integrity.c                |    2 +-
+ fs/btrfs/tree-checker.c                  |    2 +-
+ lib/vsprintf.c                           |    2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
 
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -183,29 +183,29 @@
- #define __clamp(val, lo, hi)	\
- 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -700,7 +700,7 @@ static const char *smu_get_feature_name(
+ size_t smu_cmn_get_pp_feature_mask(struct smu_context *smu,
+ 				   char *buf)
+ {
+-	int8_t sort_feature[max(SMU_FEATURE_COUNT, SMU_FEATURE_MAX)];
++	int8_t sort_feature[MAX(SMU_FEATURE_COUNT, SMU_FEATURE_MAX)];
+ 	uint64_t feature_mask;
+ 	int i, feature_index;
+ 	uint32_t count = 0;
+--- a/drivers/input/touchscreen/cyttsp4_core.c
++++ b/drivers/input/touchscreen/cyttsp4_core.c
+@@ -871,7 +871,7 @@ static void cyttsp4_get_mt_touches(struc
+ 	struct cyttsp4_touch tch;
+ 	int sig;
+ 	int i, j, t = 0;
+-	int ids[max(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
++	int ids[MAX(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
  
--#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
--	__auto_type uval = (val);						\
--	__auto_type ulo = (lo);							\
--	__auto_type uhi = (hi);							\
-+#define __clamp_once(type, val, lo, hi, uval, ulo, uhi) ({			\
-+	type uval = (val);							\
-+	type ulo = (lo);							\
-+	type uhi = (hi);							\
- 	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
- 		"clamp() low limit " #lo " greater than high limit " #hi);	\
- 	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
- 		"clamp("#val", "#lo", "#hi") signedness error");		\
- 	__clamp(uval, ulo, uhi); })
+ 	memset(ids, 0, si->si_ofs.tch_abs[CY_TCH_T].max * sizeof(int));
+ 	for (i = 0; i < num_cur_tch; i++) {
+--- a/drivers/irqchip/irq-sun6i-r.c
++++ b/drivers/irqchip/irq-sun6i-r.c
+@@ -270,7 +270,7 @@ static const struct irq_domain_ops sun6i
  
--#define __careful_clamp(val, lo, hi) \
--	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
-+#define __careful_clamp(type, val, lo, hi) \
-+	__clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
+ static int sun6i_r_intc_suspend(void)
+ {
+-	u32 buf[BITS_TO_U32(max(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
++	u32 buf[BITS_TO_U32(MAX(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
+ 	int i;
  
- /**
-- * clamp - return a value clamped to a given range with strict typechecking
-+ * clamp - return a value clamped to a given range with typechecking
-  * @val: current value
-  * @lo: lowest allowable value
-  * @hi: highest allowable value
-  *
-- * This macro does strict typechecking of @lo/@hi to make sure they are of the
-- * same type as @val.  See the unnecessary pointer comparisons.
-+ * This macro checks @val/@lo/@hi to make sure they have compatible
-+ * signedness.
-  */
--#define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
-+#define clamp(val, lo, hi) __careful_clamp(__auto_type, val, lo, hi)
+ 	/* Wake IRQs are enabled during system sleep and shutdown. */
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -1794,7 +1794,7 @@ static void integrity_metadata(struct wo
+ 		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
+ 		char *checksums;
+ 		unsigned int extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
+-		char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
++		char checksums_onstack[MAX(HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
+ 		sector_t sector;
+ 		unsigned int sectors_to_process;
  
- /**
-  * clamp_t - return a value clamped to a given range using a given type
-@@ -217,7 +217,7 @@
-  * This macro does no typechecking and uses temporary variables of type
-  * @type to make all the comparisons.
-  */
--#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
-+#define clamp_t(type, val, lo, hi) __careful_clamp(type, val, lo, hi)
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -608,7 +608,7 @@ static int check_dir_item(struct extent_
+ 		 */
+ 		if (key->type == BTRFS_DIR_ITEM_KEY ||
+ 		    key->type == BTRFS_XATTR_ITEM_KEY) {
+-			char namebuf[max(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
++			char namebuf[MAX(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
  
- /**
-  * clamp_val - return a value clamped to a given range using val's type
-@@ -230,7 +230,7 @@
-  * type and @lo and @hi are literals that will otherwise be assigned a signed
-  * integer type.
-  */
--#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
-+#define clamp_val(val, lo, hi) __careful_clamp(typeof(val), val, lo, hi)
+ 			read_extent_buffer(leaf, namebuf,
+ 					(unsigned long)(di + 1), name_len);
+--- a/lib/vsprintf.c
++++ b/lib/vsprintf.c
+@@ -1082,7 +1082,7 @@ char *resource_string(char *buf, char *e
+ #define FLAG_BUF_SIZE		(2 * sizeof(res->flags))
+ #define DECODED_BUF_SIZE	sizeof("[mem - 64bit pref window disabled]")
+ #define RAW_BUF_SIZE		sizeof("[mem - flags 0x]")
+-	char sym[max(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
++	char sym[MAX(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
+ 		     2*RSRC_BUF_SIZE + FLAG_BUF_SIZE + RAW_BUF_SIZE)];
  
- /*
-  * Do not check the array parameter using __must_be_array().
+ 	char *p = sym, *pend = sym + sizeof(sym);
 
 
 Patches currently in stable-queue which might be from farbere@amazon.com are
