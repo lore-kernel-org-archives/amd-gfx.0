@@ -4,153 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F1E9CCA476
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Oct 2025 15:36:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52985CCA470
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Oct 2025 15:44:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90A3210E1B8;
-	Tue,  7 Oct 2025 15:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E164710E1C2;
+	Tue,  7 Oct 2025 15:44:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VrehuM5h";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OgWsgG8/";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010070.outbound.protection.outlook.com [52.101.46.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF66210E1B8;
- Tue,  7 Oct 2025 15:36:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wYQCdyJ283IZZ6YJPHM1obJjH/R8om5X4UwRDlqJJDw89seEcRzXBd7Vt0D7zrb+uMo4LoXMv2fHXLLzGwBD+Vtr4uw5Cm0IP+k58lfZugTQeLrfyF9bCRncMuHGxkRJJpk4ySfQBnB5a3M44dyfQXX9sXKo2y2tg+TxRDB/JeZE7rnhA+42BtkDa3iSKwYAc4r3IQbyOUA7gkOUQI2nVQzXQ+TgJGuPM/WnTuMRKWvWYfWGdWtN8zj9UVarLgW7CYskhfjQBgsXBgTKcNry6UkSGSRVdq4noGKAEn0SFq/40PHOA6WPoyQRFyid4nrgoToAr3i6+qK/p197x/jN8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bUka36Lk/hhxRJtDPjZXtdF8v76OPtzoItQp2uPVXCQ=;
- b=MAYTvlBYLnr/D3xZahWiM76v69CAXmDSJdcpZ5PhGIufSkQSBYD19PYMnAuXXH8rCciQtrJOdi1fe1HZmYmtj0L+LTw4oSdFKgtpuiTWjfece4zHeNsKgQ8h2+WXDKnmb/rwNXI+IE/jRRR62+uCpQL0igiWfxGjtET2kY4BjvmWXBSdh5urXWx8Avsa9O+JQrVu9wqY4TEg+nwvHWXrg7n1mW4MsMvk5ATcmRY8fHfXCpIK0MWTHNnpCTKcK3d4cG3j8G+ZpvSvg2DrrYs1L+yT6uxXnXmimWuw9gqLUOXCq4DzHesHrBmO1i6yfcjUVAhlD2Crrn8Gvn80PTmhOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bUka36Lk/hhxRJtDPjZXtdF8v76OPtzoItQp2uPVXCQ=;
- b=VrehuM5hjxOp2s0DKNQCMxSkrOCTMqeT3d9ixDjQSEm/8OVQdJGcFO/ti2Gof2x61qEB8a6QQA+38yFoIm0b6Eiu0uTqdFBYoKhoKWE4pdSxsKZ/tF3lsxgK1mIzcx527DNOpol9PJ6Ftbcs3xgkEUr/UEL8ShNayGxufvSmRy4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB7100.namprd12.prod.outlook.com (2603:10b6:930:60::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Tue, 7 Oct
- 2025 15:36:21 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9182.017; Tue, 7 Oct 2025
- 15:36:21 +0000
-Message-ID: <4f2e1bef-28c1-4af2-b088-ca4f907fa152@amd.com>
-Date: Tue, 7 Oct 2025 17:36:19 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2 4/5] drm/ttm: Allow drivers to specify maximum beneficial
- TTM pool size
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-References: <20251003135836.41116-1-tvrtko.ursulin@igalia.com>
- <20251003135836.41116-5-tvrtko.ursulin@igalia.com>
- <dddd1c34-94ba-487f-ba0b-14e10410dd12@amd.com>
- <cfb8ec02-4870-469a-9d23-51e3c0f1778c@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <cfb8ec02-4870-469a-9d23-51e3c0f1778c@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0301.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f6::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29B7010E1C2;
+ Tue,  7 Oct 2025 15:44:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1759851875;
+ bh=tdvi4W0xjX37x+KyKt5JT1k5u+Wzab6OWefO1NyCTMc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=OgWsgG8/2zlJTXxDwMQaGCO9N4mZ2PHYuIKJfKDy/qtc5dnikAJwJn7AHudLWcNmr
+ qcCbRrqte4yOi/ab4r6sKUP98DIeF5mSYzzKZ8fwZJvZTqZRbVTh1YfIxptw7Vkm5K
+ nD6ty+pwCnfAfyR3l5cwMiHD0QVhIjospljKQ1/MUL3z1blLmqIUPT9KnrmKnePkIU
+ rBUWDo49xHg5ZYISCSWSzK88XviPtVfpRGjcwf3OTnrzzamwj6e/k/5O1B9BdWTUEj
+ x15i9hUBUt92SONWztJfCm1DqkWRZDyqe1faitrUCXS6recp8ClqE386PBCl8Msarj
+ ag3zuuzuTuJMA==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 49DBC17E10B7;
+ Tue,  7 Oct 2025 17:44:34 +0200 (CEST)
+Date: Tue, 7 Oct 2025 17:44:29 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Philipp Stanner <phasta@mailbox.org>, phasta@kernel.org, Tvrtko Ursulin
+ <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ intel-xe@lists.freedesktop.org, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Leo Liu <Leo.Liu@amd.com>, =?UTF-8?B?TWHDrXJh?=
+ Canal <mcanal@igalia.com>, Matthew Brost <matthew.brost@intel.com>, Michal
+ =?UTF-8?B?S291dG7DvQ==?= <mkoutny@suse.com>, Michel =?UTF-8?B?RMOkbnpl?=
+ =?UTF-8?B?cg==?= <michel.daenzer@mailbox.org>, Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Rob Clark <robdclark@gmail.com>,
+ Tejun Heo <tj@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, Liviu
+ Dudau <liviu.dudau@arm.com>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Boqun Feng <boqunf@netflix.com>,
+ =?UTF-8?B?R3LDqWdvaXJlIFDDqWFu?= <gpean@netflix.com>, Simona Vetter
+ <simona@ffwll.ch>, airlied@gmail.com
+Subject: Re: [RFC v8 00/21] DRM scheduling cgroup controller
+Message-ID: <20251007174429.0fc0ad84@fedora>
+In-Reply-To: <aa7dedae-8f31-49f9-ad73-009cb8550b93@kernel.org>
+References: <20250903152327.66002-1-tvrtko.ursulin@igalia.com>
+ <DD5CCG4MIODH.1718JI1Z7GH8T@kernel.org>
+ <4453e5989b38e99588efd53af674b69016b2c420.camel@mailbox.org>
+ <20250930121229.4f265e0c@fedora>
+ <DD62YFG2CJ36.1NFKRTR2ZKD6V@kernel.org>
+ <20250930135736.02b69c65@fedora>
+ <aa7dedae-8f31-49f9-ad73-009cb8550b93@kernel.org>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42fb0f69-076b-4eab-5e9e-08de05b74404
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q1UrVUM4SDJLOTZKVEI0UDF3L21zdERnWlhZYWM2QTd3ZVVjcVYrY1JnVDdz?=
- =?utf-8?B?ZTV0Zzd2enhRN3k4QklJclhnWXNsaUV4Yll6blAwNitnTC8xQ1JhRDI0RkpT?=
- =?utf-8?B?MGlidzRRUk1CdmhxSXc0cXc3VUxxNXU1QlAxT093czFDTFdScTR2Q2swQk9p?=
- =?utf-8?B?RXJrWTVNWTZNM0Ewa2Nzd0dhbTZtUDFmcTAyRWFTWXBRbW5USnJZUC9BVlMr?=
- =?utf-8?B?ZC9ad0s2enNQYTU3V2xEYTRKeHZpMVB1WXJGNFR4Qkw1U1dBNUt2Y3AyUEFR?=
- =?utf-8?B?US9DbXQwdlM3a2RaaEpmV3dwaXdRY0xvL25abHY3czdwUUZGRjE2Zk93Z0lX?=
- =?utf-8?B?Sk8vLy8vY29RTURSMmFHbkZoR0JmY0hFcEp6OGV5ZmRvdlJBYU1ZaTVPWXho?=
- =?utf-8?B?WS8rWGVGaVhtOWpROTlQNGczeGdFajlWRGtlRVpXVm5VbGZoQlpva04rS0RD?=
- =?utf-8?B?c1NrY1EwM2VIMm1HOGRISGVlUjdtaGVVTXZCcWgveU9FQVdMaVVHUWhCZHda?=
- =?utf-8?B?b3Z1d1Bvanl4TXVjUmdZdG0xNGZCUlhUSm5DRGltT3JsTTg5WG0vckNYUDhE?=
- =?utf-8?B?a0hjWkZhNTJFdkxhNmxON1Jlb0dsK3FTQ1JPYU15YVcxUVlYTGZrU0JBY3gv?=
- =?utf-8?B?Mmw0bVlXVThvUDRZWllOMi9CUEszUnhlbVUzdy81TTRWZnhUZGIyK0F3YWt6?=
- =?utf-8?B?b0VrQWNRU2wxUm45ODZqK0hscmI1c29mV1ZVRmwrS0NCbU1CK3pWVGZrZXdz?=
- =?utf-8?B?YXpsUWlhdXNCTDY3RXhJR3IyM2RiVnlSTWxCMkRLUDczVkJyVXV1dVZlUkxs?=
- =?utf-8?B?SUFEYnBFL1BBbnRZUlBoU0dxdlJ0eSt4N00rUTB6d3RJTFFFMkl1RUtnb1hZ?=
- =?utf-8?B?MmtUVjhXcFVJNitWajhVdy9MTUhsYm5uNHBOUkRWdEdSeThaWTBxdnJxY1hP?=
- =?utf-8?B?TmZkcU1XcjBXVDVZaTA5UVVQZWFla1I4d1dmUDdYRjc1UldOcjVhRGhydE8x?=
- =?utf-8?B?b3VmRS9SdmhnUmFwMzd2bGkvNnp6RFJBQk4reHNhNERveHNnQlJidC82ZG55?=
- =?utf-8?B?U2tRZDJYSXIrN3RCZXRvRlhMUzkwVU5FN25RWTVwbi90WWtCeHBHcjFpZTA2?=
- =?utf-8?B?WTRPd20zaS8wSE9jY2pTMmphY0VLbGFyVS9wdDVRazBSNXVKR0UvbEcydEZF?=
- =?utf-8?B?M1pvZGpwWHFzU3BOZU5nM1haSzFBSVYvenhBVFJPMkhIVmdUVVNjU2wzMSsy?=
- =?utf-8?B?c2tXRmlNVFBKYUtFc29uYXFsYi9zbjlOWFN0eE5VTVk4ZXQ1THprQ1J4MUhO?=
- =?utf-8?B?S0JqZVF4K0ErdGs5UGVZb3RzU2hMelBoazd0SWxqSjluUE43emdwTWhLMU9i?=
- =?utf-8?B?NW9YUlRNTyswa2V0Rm85elkvYjI5ZXhXeVRMRnpqRXVIdGd3T1dlcElIZ1BK?=
- =?utf-8?B?aGhLcERFVjF0T1pmenRwSFhyWVprSDBVdmxHTVRvOGJQRUp4WjNIVW9abkR5?=
- =?utf-8?B?YmVyMGRQR091eTFnNGlrR1ZPampUWkpVK2pPQ0hFb0RUR2FmcTB5YmZ5Q2FU?=
- =?utf-8?B?VHkwaXQyZVZEdUkycDN2WDNvV29WSFpzWW8zWGI2MjJlL2xuNEZoWmtlZmtr?=
- =?utf-8?B?eGh6Vm1pM0t6VUlacXVJRkN0SjEyNHFtRjFWMys3c1djUDk0WmpMOWN6MFQ2?=
- =?utf-8?B?bTh5MmczbnBXd05qb29HWm4vT0lqOFhpMEs5Zm1ta056MlFVUE8vSjZ6TmJE?=
- =?utf-8?B?U3JURDc4aG9ibmhWK2poOTRrREhxZW8rb0M5OCs0SGxsOHZqaFlycEJjdHUx?=
- =?utf-8?B?VXo2TjdWdFpBMnBZSHM5aHhWMG40bHFEYnU2SEQrclV2WnFEOEdvUS9HcG1S?=
- =?utf-8?B?WlhLTDBSWTJhWFJoUkY1WnIrcEZJMy90a0lNVS82TDc1L2NyTjI1Z3RIeTho?=
- =?utf-8?Q?Lo4yr1DlaL8gjaabafaetzS55iygiLHO?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emhTd1MramhGT04vc1o4T2hESkliVTFDSFVRWjVDRzZ6TlhxR2g5NzhnY3d0?=
- =?utf-8?B?b1hkWDBYRnZCMXJ1SlU1anNscGxwc0dweTNJeStPbk1SYk50OGsxdDFqK3ds?=
- =?utf-8?B?OU9pWm0yVDFEVmxzUml2MDVBaE94U3FsUFBHKzJ1UGNpaGVKdVRObHdTaUYv?=
- =?utf-8?B?UVhtVkw1Q2Q1d3Q0T3N3QVpQQmhoa0xxMnNLeWtCOHBPRy80Z3hSZHh5VG9Q?=
- =?utf-8?B?ck1kK25DWVo0d3RBTTJtbUI0c2pNNkdrcWFIYTYwMnlGZEMza2xwSUkrRFpT?=
- =?utf-8?B?N2wrR2h2amJjN0JMQTYvT2FFNmQzYUZhNUkwWFRDNXc1aTNkMDJ5V3hQWnNq?=
- =?utf-8?B?S2lIQmhaS3BiaFc4NHlmd3hjcm1iVGIxSE5iSXJGMUhVemFIZXJNUVJrMUVY?=
- =?utf-8?B?TzhsTEcyMGI2a2ROSFlGdm9PaHY3VE9QSndvTElZUGw2T1lLNVZHc3RscHlz?=
- =?utf-8?B?VjRJVjdWV1N1MndaTDBpME9nR1RpWTlIU3FXa3JMc3A4MVc5ZXhjcDZVbWp5?=
- =?utf-8?B?ak5nd0RsKzhuM1ZEVnJaWGRsZHNDc0xNZVUvVldONmpjWjFZNlVrUlN2bDFn?=
- =?utf-8?B?K3NEZWttUk1nVk8vK21iVkI4MEh3L2xidmZTNlVkYk8rZU1DOEtOaC85SUUy?=
- =?utf-8?B?ejVFaCtIYnhOOWhWRmdnZjRFcVJkeGlSVy9BUFdObXRqRnVicUZTeUNsUEo1?=
- =?utf-8?B?TEZwWTBRSGpoYXdqcWRzZER4a2ZKdjQ4ZnBOUVZ3UE5oTUlCc3VSeXBJcGd3?=
- =?utf-8?B?N3RyaHowZ3F5R1lXYjNmZ0dJeXlXd3hjb0VTSER0cnlMekp6ZHAweDg1WVZx?=
- =?utf-8?B?WnVRTWVYc2xVenFnczBZdzNCd3ZVMHdBRXhFMkt4RS9lM1c3L0dVSUlaelBL?=
- =?utf-8?B?ek1yOVdPN2RCYTIrMjRyZmFDN2RhWWFVaDFZS1lqNzlhRkdYOUYwZTNHZ3Jv?=
- =?utf-8?B?REthSks3enlYSmk5VFdVb3NjMjNPUTlVZEV6ay9xMEVQS1VzcFdIZW4yUzVM?=
- =?utf-8?B?ay9NQU9hamZQOUFMRTNDcnJZeG05L2FQb3RGU3NSK0NRbmc3djNWWm5lMFVz?=
- =?utf-8?B?eW1TTjhKRFVxejlBOEdXS1NSSHViV05sblh2V0xPN3VVeW5tbFk4SEJ5UFBJ?=
- =?utf-8?B?V1JKK2RSVWNzdkdIL2lnZDNoaVZqZDhHdlFZWGFuQVlwempxUFdNaE9lUkdo?=
- =?utf-8?B?Mit6dm9yQStEbHlmUGphSlBXWEw3dE9TclVPOHpoUU1heE5EZnBWenl4RTht?=
- =?utf-8?B?YjRjQXZKWTVaVElWWUNncEFmYzdSTzE5U1lGYnZLVEo3SllwRTZMVXZoNHZV?=
- =?utf-8?B?MnBrTFBEZS9KODRtdlE0MWRxQ04zMlZHT3RDdFkyUFoyeW9uV2w3RnIrL0J4?=
- =?utf-8?B?WHAzalhCcWtVL3c1eXAvbTlrZlYwcnBWM004ci9CQ1RvQTJrTXE2YVY1Z1FR?=
- =?utf-8?B?Kzg3a2VTZkpWeDRRVGVNMHpZdkc4TU5uUTdGbFJaY2dxV2JiVzJrM2gvVVhm?=
- =?utf-8?B?SU1oZXNwek5PYmZMYkFPWklhQURaMHRnR0tTWk9pWVlnSmhNa1hIbFd4dStY?=
- =?utf-8?B?djZ0WFhML0I0N1FhNm9ISHdUTmZBRFE5aVJoMGZmRG1XWXV0ZmQ0cWNwcDFQ?=
- =?utf-8?B?S3lQeGF0cGxxQjB4TzFSbWtwdGlZR1kxRDhlb0Y2Y29UeXpKajlBUllncWlC?=
- =?utf-8?B?V2hqU1V0aUwxMVQ1d0E5b3pldDZGV1RHczQyK3pKZjJ0OTczVDdFTGNha0gz?=
- =?utf-8?B?Vjhod2x3aTd1NlRiaWczemZDWVU4T2pyRk4xaXV0b3RKMERrNGQ3SmE5R3Bh?=
- =?utf-8?B?VDFvK2dNbmgvWC9OZCtpT2NNdmgzK2JpNG9Bbi9jNVJ4a0Y2dW8vYTVyS3hZ?=
- =?utf-8?B?QXd3Um0xKzRWTWhlZytFSGszcWpwd2RVSC8zcTNkVGk1aHhjVHhsWUh3U0M2?=
- =?utf-8?B?eXJaMjB1RDl1MXBSbkR0c0tZcHNNU1orQlpIWmF0NjNqSnNmeEE2VFg4bVVi?=
- =?utf-8?B?U3R1MUdrQnAwWVIvQk5GUlRHa0taUnh3KzQrSkxSVEg0N3gzQ0IxWitTQjYx?=
- =?utf-8?B?VXVZWHFDMWluU1ZSNGNPMlZNbFVnNHFVanRFWWcxMHVOc1d1WkdEd3gwVjJT?=
- =?utf-8?Q?SInyG9f/vS+1hAAhvGxK3Qip6?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42fb0f69-076b-4eab-5e9e-08de05b74404
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2025 15:36:21.3766 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e2L7x48kTrmPF3//s/mHQ6PqjpPzioVwezSe22M0ELbqQyJe2ouNWC/do4I/mjWe
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7100
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,48 +85,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07.10.25 15:57, Tvrtko Ursulin wrote:
->>>   -#define TTM_POOL_USE_DMA_ALLOC     BIT(0) /* Use coherent DMA allocations. */
->>> -#define TTM_POOL_USE_DMA32    BIT(1) /* Use GFP_DMA32 allocations. */
->>> +#define TTM_POOL_BENEFICIAL_ORDER(n)    ((n) & 0xff) /* Max order which caller can benefit from */
->>
->> Looks good in general, but I'm not 100% convinced that we want to mix this value into the flags.
->>
->> On the one hand it makes your live easier because you don't need to change all drivers using it, on the other hand changing all drivers using it would potentially be cleaner and document the value better.
-> 
-> I was not 100% convinced either but it looked a reasonable compromise.
-> 
-> My thinking was to not simply add an int after the existing two booleans but to try and clean it up at the same time. Once I replaced them with flags then the option were to either add a new int argument or add some flags like TTM_POOL_BENEFICIAL_SIZE_2M, TTM_POOL_BENEFICIAL_SIZE_64K, with the thinking there probably isn't a full range of page sizes. But then I thought why not just put the order in some bits. Advantages being it adds names to anonymous booleans and is extensible with no further churn.
-> 
-> But I don't know, I am happy to change it to something else if you are sure this isn't the way.
-> 
-> If we add a new int then it has to have some "stick with default" semantics. Like -1 or whatnot. With is also meh. I wouldn't do a zero because it feels conflated.
+On Tue, 7 Oct 2025 16:44:59 +0200
+Danilo Krummrich <dakr@kernel.org> wrote:
 
-Ideally drivers would use MAX_PAGE_ORDER, but yeah that is quite some work to do.
+> On 9/30/25 1:57 PM, Boris Brezillon wrote:
+> > Can you remind me what the problem is? I thought the lifetime issue was
+> > coming from the fact the drm_sched ownership model was lax enough that
+> > the job could be owned by both drm_gpu_scheduler and drm_sched_entity
+> > at the same time.  
+> 
+> I don't think that's (directly) a thing from the perspective of the drm_sched
+> design. A job should be either in the entity queue for the pending_list of the
+> scheduler.
+> 
+> However, different drivers do implement their own lifetime (and ownership) model
+> on top of that, because they ultimately have to deal with jobs being either tied
+> to the entity or the scheduler lifetime, which is everything else but strait
+> forward in error cases and tear down paths.
+> 
+> And the fundamental problem why drivers implement their own rules on top of this
+> is because it is hard to deal with jobs being tied to entirely different
+> lifetime model depending on their state.
+> 
+> So, what I'm saying is that from the perspective of the component itself it's
+> probably fine, but for the application in drivers it's the root cause for a lot
+> of the hacks we see on top of the scheduler in drivers.
+> 
+> Some of those hacks even make their way into the scheduler [1].
+> 
+> [1]
+> https://elixir.bootlin.com/linux/v6.17.1/source/drivers/gpu/drm/scheduler/sched_main.c#L1439
+> 
+> >> Instead, I think the new Jobqueue should always own and always dispatch jobs
+> >> directly and provide some "control API" to be instructed by an external
+> >> component (orchestrator) on top of it when and to which ring to dispatch jobs.  
+> > 
+> > Feels to me that we're getting back to a model where the JobQueue needs
+> > to know about the upper-layer in charge of the scheduling. I mean, it
+> > can work, but you're adding some complexity back to JobQueue, which I
+> > was expecting to be a simple FIFO with a dep-tracking logic.  
+> 
+> Yes, the Jobqueue would need an interface to the orchestrator. I rather have the
+> complexity encapsulated in the Jobqueue, rather than pushing the complexity to
+> drivers by having a more complex lifetime and ownership model that leaks into
+> drivers as mentioned above.
+> 
+> > I have a hard time seeing how it can fully integrate in this
+> > orchestrator model. We can hook ourselves in the JobQueue::run_job()
+> > and schedule the group for execution when we queue a job to the
+> > ringbuf, but the group scheduler would still be something on the side.  
+> 
+> Can you please expand a bit more on the group model?
+> 
+> My understanding is that you have a limited number of firmware rings (R) and
+> each of those rings has N slots, where N is the number of queue types supported
+> by the GPU.
 
-Feel free to go ahead with the flags approach, it should solve the problem and is not much work for now.
-
-Regards,
-Christian.
+Honestly, the naming is a bit confusing, because for us, the ring
+buffer is what gets attached to each queue and contains the jobs to be
+executed on that queue. But other than this naming issue, that's pretty
+much it, yes.
 
 > 
-> Regards,
-> 
-> Tvrtko
-> 
->>> +#define TTM_POOL_USE_DMA_ALLOC         BIT(8) /* Use coherent DMA allocations. */
->>> +#define TTM_POOL_USE_DMA32        BIT(9) /* Use GFP_DMA32 allocations. */
->>>     /**
->>>    * struct ttm_pool - Pool for all caching and orders
->>> @@ -111,4 +112,9 @@ static inline bool ttm_pool_uses_dma32(struct ttm_pool *pool)
->>>       return pool->flags & TTM_POOL_USE_DMA32;
->>>   }
->>>   +static inline bool ttm_pool_beneficial_order(struct ttm_pool *pool)
->>> +{
->>> +    return pool->flags & 0xff;
->>> +}
->>> +
->>>   #endif
->>
-> 
+> So, you need something that can schedule "groups" of queues over all available
+> firmware rings, because it would be pointless to schedule each individual queue
+> independently, as a firmware ring has slots for each of those. Is that correct?
 
+It's not just that it would be pointless, it's not even an option,
+because there are inter-queue synchronization mechanisms that only work
+if the queues belong to the same group.
