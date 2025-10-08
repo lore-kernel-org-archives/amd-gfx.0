@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04BEFCCD188
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A94CCD187
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:45:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 925D310E959;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A571310E95A;
 	Thu,  9 Oct 2025 07:45:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="ZapQTduc";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="VGftt9cp";
 	dkim-atps=neutral
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com
- (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com
- [35.155.198.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A27110E845;
- Wed,  8 Oct 2025 15:31:25 +0000 (UTC)
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ [52.34.181.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC4910E85D;
+ Wed,  8 Oct 2025 15:33:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759937485; x=1791473485;
+ t=1759937632; x=1791473632;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jvk2RBzXwrA99Hwxay/jSQlk3gLjsVti9lJHvH/pTPQ=;
- b=ZapQTducq58w/mblsQienBoqi0LPRoFCt1s+f3L7E74DJGPw2RoZ1KYO
- GybO8PW4UMbUFmJWE7eYt8C6ACNM4D6Vv6WKMAW8/lEfUQBYQBk14dt3E
- bYD8fBj0KlxKZ9sJofA7E5YBXVUi/KCdXPZKvWfshqFU1HAgJ4z5Yroff
- RaSragkWdG/zhKtotPyluGeGSC9TUKezs+XJ70qPFmq/vx7OP91+hCV1F
- eB/CZtbH3zbLStk6aYKNI4E2O/DdbJXDSBPPj3rtrFZ657JOFjhxPGvfC
- jtUKqQRbagOnDP4fbqtnUv0fmVSg6zbW8luQcBmRxw23bslWrRbuTZSHR g==;
-X-CSE-ConnectionGUID: C84d4vrqS4+tQbY5ZX7vPg==
-X-CSE-MsgGUID: Smt1enfbSGyJRBqUsp38fA==
-X-IronPort-AV: E=Sophos;i="6.19,213,1754956800"; 
-   d="scan'208";a="4410627"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO
- smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
- by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2025 15:31:25 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [10.0.21.151:44901]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.54.171:2525]
+ bh=fgKTaT7jj0zRx6jbQ7DJOMsaZramokk9q66dhz8aLl4=;
+ b=VGftt9cpcw3+ciWgGDov+psy004+k4XMIjZzSMb0auLr+11kAQiE03FH
+ ZR3jCuQhKARszRzYL8dNl3QZeDjJH3MG2sl2ZlCcGByzV2/kEdIvZgekR
+ 9/PNGYxD8UsjzIuQClzyWk82sAdiRwcdgaUPJ/RRswBEjgs/Zi2H25AkL
+ TGSaseevjoQIhweokOyiwTHKhz2rf86tf1PzKPINq/Tm5zsSKRE91khQJ
+ iPiM3bS58x352heyQ6L/Zw19DcdSDPdib1X7mEBv+AVYI+C0D1snwLdHc
+ IZWEdgt+rypDzuAehtO7zSmh/sW0NC5jnsHzXlBa3InOV7B7LegXeezZO Q==;
+X-CSE-ConnectionGUID: HeQ81hJlQRq/8IVch3IyJw==
+X-CSE-MsgGUID: 5Exl1sTYTEing268rYU4Ig==
+X-IronPort-AV: E=Sophos;i="6.18,263,1751241600"; 
+   d="scan'208";a="4533344"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+ by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2025 15:33:50 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [10.0.7.35:65265]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.171:2525]
  with esmtp (Farcaster)
- id 71b65f11-5afc-47a3-8856-278291bee2e7; Wed, 8 Oct 2025 15:31:24 +0000 (UTC)
-X-Farcaster-Flow-ID: 71b65f11-5afc-47a3-8856-278291bee2e7
+ id c78ccf7c-b90d-4f48-b1a8-610633d84b7c; Wed, 8 Oct 2025 15:33:50 +0000 (UTC)
+X-Farcaster-Flow-ID: c78ccf7c-b90d-4f48-b1a8-610633d84b7c
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Wed, 8 Oct 2025 15:31:24 +0000
+ Wed, 8 Oct 2025 15:33:49 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 8 Oct 2025
- 15:31:11 +0000
+ 15:33:36 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -92,12 +92,11 @@ To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-CC: Linus Torvalds <torvalds@linux-foundation.org>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, David Laight <David.Laight@aculab.com>
-Subject: [PATCH v3 05/19 5.15.y] minmax: avoid overly complicated constant
- expressions in VM code
-Date: Wed, 8 Oct 2025 15:29:30 +0000
-Message-ID: <20251008152946.29285-6-farbere@amazon.com>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
+ <David.Laight@aculab.com>, Arnd Bergmann <arnd@kernel.org>
+Subject: [PATCH v3 12/19 5.15.y] minmax: fix up min3() and max3() too
+Date: Wed, 8 Oct 2025 15:29:37 +0000
+Message-ID: <20251008152946.29285-13-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251008152946.29285-1-farbere@amazon.com>
 References: <20251008152946.29285-1-farbere@amazon.com>
@@ -105,7 +104,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D037UWC003.ant.amazon.com (10.13.139.231) To
+X-ClientProxiedBy: EX19D042UWB004.ant.amazon.com (10.13.139.150) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 X-Mailman-Approved-At: Thu, 09 Oct 2025 07:45:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -124,63 +123,76 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit 3a7e02c040b130b5545e4b115aada7bacd80a2b6 ]
+[ Upstream commit 21b136cc63d2a9ddd60d4699552b69c214b32964 ]
 
-The minmax infrastructure is overkill for simple constants, and can
-cause huge expansions because those simple constants are then used by
-other things.
+David Laight pointed out that we should deal with the min3() and max3()
+mess too, which still does excessive expansion.
 
-For example, 'pageblock_order' is a core VM constant, but because it was
-implemented using 'min_t()' and all the type-checking that involves, it
-actually expanded to something like 2.5kB of preprocessor noise.
+And our current macros are actually rather broken.
 
-And when that simple constant was then used inside other expansions:
+In particular, the macros did this:
 
-  #define pageblock_nr_pages      (1UL << pageblock_order)
-  #define pageblock_start_pfn(pfn)  ALIGN_DOWN((pfn), pageblock_nr_pages)
+  #define min3(x, y, z) min((typeof(x))min(x, y), z)
+  #define max3(x, y, z) max((typeof(x))max(x, y), z)
 
-and we then use that inside a 'max()' macro:
+and that not only is a nested expansion of possibly very complex
+arguments with all that involves, the typing with that "typeof()" cast
+is completely wrong.
 
-	case ISOLATE_SUCCESS:
-		update_cached = false;
-		last_migrated_pfn = max(cc->zone->zone_start_pfn,
-			pageblock_start_pfn(cc->migrate_pfn - 1));
+For example, imagine what happens in max3() if 'x' happens to be a
+'unsigned char', but 'y' and 'z' are 'unsigned long'.  The types are
+compatible, and there's no warning - but the result is just random
+garbage.
 
-the end result was that one statement expanding to 253kB in size.
+No, I don't think we've ever hit that issue in practice, but since we
+now have sane infrastructure for doing this right, let's just use it.
+It fixes any excessive expansion, and also avoids these kinds of broken
+type issues.
 
-There are probably other cases of this, but this one case certainly
-stood out.
-
-I've added 'MIN_T()' and 'MAX_T()' macros for this kind of "core simple
-constant with specific type" use.  These macros skip the type checking,
-and as such need to be very sparingly used only for obvious cases that
-have active issues like this.
-
-Reported-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Link: https://lore.kernel.org/all/36aa2cad-1db1-4abf-8dd2-fb20484aabc3@lucifer.local/
-Cc: David Laight <David.Laight@aculab.com>
+Requested-by: David Laight <David.Laight@aculab.com>
+Acked-by: Arnd Bergmann <arnd@kernel.org>
 Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/minmax.h | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 2ec559284a9f..a7ef65f78933 100644
+index 41da6f85a407..98008dd92153 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -270,4 +270,11 @@ static inline bool in_range32(u32 val, u32 start, u32 len)
- #define swap(a, b) \
- 	do { typeof(a) __tmp = (a); (a) = (b); (b) = __tmp; } while (0)
+@@ -152,13 +152,20 @@
+ #define umax(x, y)	\
+ 	__careful_cmp(max, (x) + 0u + 0ul + 0ull, (y) + 0u + 0ul + 0ull)
  
-+/*
-+ * Use these carefully: no type checking, and uses the arguments
-+ * multiple times. Use for obvious constants only.
-+ */
-+#define MIN_T(type,a,b) __cmp(min,(type)(a),(type)(b))
-+#define MAX_T(type,a,b) __cmp(max,(type)(a),(type)(b))
++#define __careful_op3(op, x, y, z, ux, uy, uz) ({			\
++	__auto_type ux = (x); __auto_type uy = (y);__auto_type uz = (z);\
++	BUILD_BUG_ON_MSG(!__types_ok3(x,y,z,ux,uy,uz),			\
++		#op"3("#x", "#y", "#z") signedness error");		\
++	__cmp(op, ux, __cmp(op, uy, uz)); })
 +
- #endif	/* _LINUX_MINMAX_H */
+ /**
+  * min3 - return minimum of three values
+  * @x: first value
+  * @y: second value
+  * @z: third value
+  */
+-#define min3(x, y, z) min((typeof(x))min(x, y), z)
++#define min3(x, y, z) \
++	__careful_op3(min, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
+ 
+ /**
+  * max3 - return maximum of three values
+@@ -166,7 +173,8 @@
+  * @y: second value
+  * @z: third value
+  */
+-#define max3(x, y, z) max((typeof(x))max(x, y), z)
++#define max3(x, y, z) \
++	__careful_op3(max, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
+ 
+ /**
+  * min_not_zero - return the minimum that is _not_ zero, unless both are zero
 -- 
 2.47.3
 
