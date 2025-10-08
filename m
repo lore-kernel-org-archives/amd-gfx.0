@@ -4,144 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEA6ECCD183
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:31:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9027CCA470
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:45:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D5BA10E947;
-	Thu,  9 Oct 2025 07:31:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 348DC10E925;
+	Thu,  9 Oct 2025 07:45:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="isER4eJX";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="XOK6npKp";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010071.outbound.protection.outlook.com [52.101.61.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D05210E952
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 07:31:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PLVLYc6j25FydXummU2+C37PxefwqTQuM8y3boc6JsV6hIvrcwwcXj/vHz+dmxIoN8+3XBsYX2wl6/ogO7/Y8HWkJCHTJmGwPKBh0teFyVamQZtBp/tZ2HUaQn+TvO59pj6260+59U2KrC42y7flQngnneP+d5fpz7uPhzmQhAsJgaIhQL95DO7aKZLRAA3DWlAZkOgACfGV5p9nrpF9ar6PJV7TGzXX2C85/C4AAd8RfRvfJ3tRwQ2fqudG37cJ6i1agBDOZNHtmc5lPl6S0rEaWgTS3fKFiMw0/toQBsLesy5N12o38Z7pcay9rFSpM6kDwqPhPBuB0lSd2jwvKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qk0itmVyN5MjRNzEJdPdnlGxzzRG448iFPOoJpj1MgE=;
- b=Xe2l0g/WiZzcFXJCx9xOsnvNoDQuWs6r07+PcfamDImg+RLOJw9f4aaH5Yi9/s98TFXQrFm2Sk2g2Z2M877b1lAf3Ileyh+lSZfaOG/x3PS/w4nTrs4pyA/yEiztpGKxtFikBNG1VF8yKNj5Q5jGtR5pL8FiJQAKT6QcULf2l10GYqDmyuVxUmi75Ysje1+RUtNBnQGz2DiVX0LdzmBUyjy/tNvs8eiuqKBs1DnN+a4opmmohPz48bd6N1JMMw6ozIAMGaV0cpurlyA5yEJluR0qfeZdfqtEJ2QbQIl1hjmwSzDTBJvePhAfqdUNuTaiqk1xtHMOmbyYkcO4Kt+waw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qk0itmVyN5MjRNzEJdPdnlGxzzRG448iFPOoJpj1MgE=;
- b=isER4eJXLhX979YCxFHX5YXnQn97e9paH+RSREgjPYJc7JDg6eMSqVA5zWDFWH+xgEmt8tYgQYKb7q+EXsiNKC7sAciIVhXuFXMtKezWeDKtMTCn/DxE0p9AeNP1SxRTwC3Q28YM35X6cRTmAyG/0z0YKpFNxRtzPTE5F4uDnoU=
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- DS7PR12MB8292.namprd12.prod.outlook.com (2603:10b6:8:e2::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9; Thu, 9 Oct 2025 07:30:58 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::e71b:4ec9:237f:24ea]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::e71b:4ec9:237f:24ea%5]) with mapi id 15.20.9182.017; Thu, 9 Oct 2025
- 07:30:58 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Zhao, Victor" <Victor.Zhao@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Chang, HaiJun" <HaiJun.Chang@amd.com>, "Zhao, Victor"
- <Victor.Zhao@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu: use GPU_HDP_FLUSH for sriov
-Thread-Topic: [PATCH 2/2] drm/amdgpu: use GPU_HDP_FLUSH for sriov
-Thread-Index: AQHcOMdCN3Yiu//KtEyG5niJw4Hj+7S5Z/Tg
-Date: Thu, 9 Oct 2025 07:30:58 +0000
-Message-ID: <DS0PR12MB78048E7EAD08BE665E5FF5A197EEA@DS0PR12MB7804.namprd12.prod.outlook.com>
-References: <20251009024822.3973163-1-Victor.Zhao@amd.com>
- <20251009024822.3973163-2-Victor.Zhao@amd.com>
-In-Reply-To: <20251009024822.3973163-2-Victor.Zhao@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-10-09T07:17:34.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB7804:EE_|DS7PR12MB8292:EE_
-x-ms-office365-filtering-correlation-id: a0e5672e-f975-4a1c-de20-08de0705ca49
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?GumXrjeRsGSHRKwtOmFPuZ/LazPtJPz0qh6wn26UVBPCrzpjqG/rBAAdhyfw?=
- =?us-ascii?Q?9EbTKCwAAH0Tr/rJHIphI+fzgwhm0WYFMVJ45BtCAjWRVV+rbWuTAGPoKEv4?=
- =?us-ascii?Q?R+9Smcl1Rf1neJBwb7MHI+JCGVoEs4pqKYS2sjxdRPX7iVq+z3TDuJU/FweZ?=
- =?us-ascii?Q?Pu0JjpR9dcM32/HLaTw2AOnoQwjFY9DlQqReEemRe/a94Abbv5sNLnLVO6cL?=
- =?us-ascii?Q?t/kf6rVHee1m0dd6JfixAtRBmRDhq2yqRU/hF2Alhu3/I7tOmdYusQo236Qp?=
- =?us-ascii?Q?82cmnzZ4VI4GEutDAYQmz6jed0aSUxKoWy/jKX9aakPfeMBDK6nMzv+QIcZy?=
- =?us-ascii?Q?ZudOO9wwDrsDxuLn3+tct48TIOG+qbQBOMKVX8bAduqVAccNDW6ktz/fw81Y?=
- =?us-ascii?Q?Tl20OE/FkmUg+/cIlzdq3pKzrQUs1ZRMCmwbKMlN23at0/RtBF9AYxfr+I+C?=
- =?us-ascii?Q?d4q4X40iXXu88zHZJdBWFN5Ft/2jaV+0v5aoPcR+2THTAqFaq2xwDiwRPeD/?=
- =?us-ascii?Q?P76cOrcya4EdmfAVK7pC3MRZFnaUYkc4ERsa+N6HiDdeVMaKg+Bx/u7m0F2b?=
- =?us-ascii?Q?6R/hmWigDHeJtOQpF+UF+xIAJS5jKP1VnT0RhJjXCNLYUuQLQBlItWABdbAE?=
- =?us-ascii?Q?z+OxqcAmfrGzvVDEa++J6uFT2E7jHSvN88eZPGnMYovlmJgPl5rR0q03Kk4G?=
- =?us-ascii?Q?PvRkhrzqCOtt72R8BFtkyf/IN17xmtSSx2Of9OQO1wPtPE7T0VAdKrScFDdQ?=
- =?us-ascii?Q?hfO7CB8sCej+ZyH/dLUZ9Z8uV70fdV/oWPfQIfcNuuYzuRWJ8ghZM1wRReQd?=
- =?us-ascii?Q?Bukd8nTQ4fN+/jfE7q26hG300dG9m1ljlPNka1+Npy/DcQNLwlGJ/m+JWq11?=
- =?us-ascii?Q?/C3RVmkVJrf4YZ3vh8VEchDKUToNfU0FCmeBbSvpSp6svdl2WmUe8KY70jL8?=
- =?us-ascii?Q?6d8CdYlA4R1oZKPZe6ytmNanZav/uR1lQQypJ5sRuaCrtVtqujaEKtDeoT6H?=
- =?us-ascii?Q?WvRmaf8hLEGb/0YNZMrPaHPbRtiMJB2iKa38TggHSPMewLWXV2pBJIwCpyvY?=
- =?us-ascii?Q?MLZWpYKUFn4ypctWD0K9Pq2ohLilBRMuzGWAqRGuJbDlceIo9eGF1GXjqhaB?=
- =?us-ascii?Q?cglIIFm7itploQ28G8HYBOZZnWWnyJCA+YpSR62QVwRstz/oMuqruMBJkQF/?=
- =?us-ascii?Q?EOWxgszinCUHUjrOshr2QpYwqv7mWjO7TzY0i9TYQcY1dXpAEDlRj6BgKjkM?=
- =?us-ascii?Q?fY85rF5tw17YkojfdjV+P1LGiVrBfCEZdFM8vQgQrhmPpI7SSZ3BtW0StWrX?=
- =?us-ascii?Q?TjdOErchUwcc4GGJIn7Bg1bXu67dh4fBm5CmWG034m0CAWXPDJFAjdqq6F8x?=
- =?us-ascii?Q?IP4DrUvgF78Hc6VrY2Ss76ebD+o6fAOByDUlk1VYm8aLmOaAPDZ33EtFBaFy?=
- =?us-ascii?Q?/LJqO5PUCXW0dIaDxRKaMqEluoxbKM9pJ8P7fxd0+tb3qTBJm3AgjdkBTFbv?=
- =?us-ascii?Q?iMs7zCmg2+GXwLL6ekcUauele+DqK+7rRNDk?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iFv6tZG+1AoBoedjg1CfqH0tvM7/QbVzyhHS32StfDL8N+YDCDk/jtWgMSct?=
- =?us-ascii?Q?01UHr+fTtwrDqY9T+e7fPnIJlMvL+Uq4IPQs7nb6/DI1gDfgbSqQ+GTuEn8V?=
- =?us-ascii?Q?pgN1q723+vyYHUQwXrOnjHLRYGpYD0KHK6xxxzxf/fk/oIJJ9C7HHjBGWlUG?=
- =?us-ascii?Q?AH0nZ/18D3eBZMLgOuFF9AdDiARBolAPyAnd/0q6chRUabWy9xPD1heAt3iT?=
- =?us-ascii?Q?hj749EbWUXwiloHh4pMxSa5pioYjOnDLUstWbbnABykNKboYvRDGgcYoank4?=
- =?us-ascii?Q?VQ7qWrROGIHQkl20oBbmOD2hdsaFuMnK9EW6A6qGt+JBhr9BMAGajO/l7oHk?=
- =?us-ascii?Q?Xo8AFp+gKM02wLgm+/oxKuiDrXN4Oivjt+lrnEDc1hLmrIQ4MnOCI/PsajHb?=
- =?us-ascii?Q?QP9JUAue9IC8/bLn2SUyMuv9FMpMnj2DOXHNvhj0o8fWeGk0nxKv33mKL57b?=
- =?us-ascii?Q?dZMFYrkEHdG/L9ZHEXupYpAHGbsx1dzEcLM6AaQzh0+bZxa4Aev1s29wM49n?=
- =?us-ascii?Q?jeQU4VH1ayKoanFqDS/vtGhQGedyi+uXKWcqj0BnhOm65LA4C/GygUe1WcWM?=
- =?us-ascii?Q?uJ9m3HseH0vy8HDAEUN1GnSL/Op4iZW2aomfkDEsdzmkNpt6t/ORpC/NnefN?=
- =?us-ascii?Q?M51KgQi791k+7QFw0V9g3LY00XxD5tQj1qoFsWgh6k7vVt2KHVbTqNsgCvq5?=
- =?us-ascii?Q?urFZvMhEV44iQyk0mcDMbfa0wQCYZ55v3PMU7BMrnuoSLsEDLl8+M+Et2+no?=
- =?us-ascii?Q?ar83gDBMFX2EvJ4Rt8eO3c35Obs7EGYZFa5Qe2ElTy44l6mlynC/3vZKebDs?=
- =?us-ascii?Q?847RDbi1ygSsp7+S6Dk+tWaqRl4TECfBAHnuKkqjZkQhjvbVvDBvjNmScYVd?=
- =?us-ascii?Q?VnEzO2y5ohY0NZmO9O2XEmkozxXAO+1vcIfVhtWFG+vMdZyA6KMoEw6/qgxG?=
- =?us-ascii?Q?kZFRZrpuEpQrzjZEKPO6BLuHh/wyXVDdgHxcNN/fCGC8yilN2L2AFFthuc/b?=
- =?us-ascii?Q?LzwpDjGmqO9IdUFgPgRW5xMPvf+LnQcG5LrUiBHdPaE4lr0CCEGVX2GDTnzz?=
- =?us-ascii?Q?qziV2sjFFSK/WbolLIf0BSagmmRHnaNp9Y3iEu2YD7Pimxp8nJV9CQD9KRuS?=
- =?us-ascii?Q?YlF4wb3An75gQXzZcyh8fjSB3Ow0A0IPkJ/diiu5a91B9NZWvgP2L1bF3Fbd?=
- =?us-ascii?Q?pYbnM1lep6GGOdwb8WXXxP8X9dYznxy/vZKrXn281cWQ2RRxL9zWWldBrR81?=
- =?us-ascii?Q?OSWlWivjwCNx6k1Otm9gNM1pkZWNYgtB4Sm6NEooCKZoyRXjQTVm8Q0+RVdR?=
- =?us-ascii?Q?dvSfweGlRvrs+JUyGyR68mTWyc5FXXX2XkldtpcMH4zOx3hAk+8VbuaDRn8M?=
- =?us-ascii?Q?/LIAaYbYAJ4tIMreM8gZin7MwtWfKukxmtSQ0hUKkkeLPFA9WtlQXFlSMDn6?=
- =?us-ascii?Q?ipFNXMoVhYCpqZTDmPSncY5TdqteFp8JAk3P6P3RV2MXxPYhKXggVyu3cIBV?=
- =?us-ascii?Q?lAHv6kU0ZFULajledUI3xAOCLZQim9+fpI6C6yAWO5SuSmZcCgfacnqsFkKu?=
- =?us-ascii?Q?ySgABbpn2Qg3dFYWFO4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ [35.155.198.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B33BC10E84F;
+ Wed,  8 Oct 2025 15:34:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759937698; x=1791473698;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=U4cCFbpHvYq8yWCMIbT6T5sZXi6GGX+iNVIOVWCWFxY=;
+ b=XOK6npKpQL5yPhltoE9jpo+PcaMbUtyoEAJXqtfBjoieeA/Qdpvss34N
+ gxl7PygiGmJe6Zw/PJnTUF6GQMY439vyBZOz5I0YbbXtcKdPiB8MqnoTM
+ Jy4Bt2Ck3//MVTAjqFkVuzyQS10a60LxzHkn2Fg5VK9cSZZ8EKhStXJ4B
+ 4o4CGXdGBKpkGAZIS9OdeNoage6zm0U5Tg5ZLIQF51GyT2UY6iFpsT/Tg
+ Fzywb3adSr8mokpJ1VFPDcTVqICYsS5nT5CtH5uL8RYHhNfFM2rPKJj50
+ SXEn9DJ14lQ1SqJSk14gMWM6+7Ywu1RYckmSDtNnEHDh9kbxNP2C0d3R7 Q==;
+X-CSE-ConnectionGUID: itXPK2QGRGuEesBR1wju9Q==
+X-CSE-MsgGUID: b/4WZRnLQniBVTX4zCZo3w==
+X-IronPort-AV: E=Sophos;i="6.19,213,1754956800"; 
+   d="scan'208";a="4410925"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+ by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2025 15:34:58 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [10.0.21.151:46428]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.35.225:2525]
+ with esmtp (Farcaster)
+ id db997045-828d-4716-a451-8921ecfaf1b3; Wed, 8 Oct 2025 15:34:58 +0000 (UTC)
+X-Farcaster-Flow-ID: db997045-828d-4716-a451-8921ecfaf1b3
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Wed, 8 Oct 2025 15:34:53 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 8 Oct 2025
+ 15:34:39 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
+ <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
+ <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+ <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
+ <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
+ <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Pedro
+ Falcato" <pedro.falcato@gmail.com>
+Subject: [PATCH v3 16/19 5.15.y] minmax.h: use BUILD_BUG_ON_MSG() for the lo <
+ hi test in clamp()
+Date: Wed, 8 Oct 2025 15:29:41 +0000
+Message-ID: <20251008152946.29285-17-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251008152946.29285-1-farbere@amazon.com>
+References: <20251008152946.29285-1-farbere@amazon.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0e5672e-f975-4a1c-de20-08de0705ca49
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2025 07:30:58.3214 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JjIt7pN3V1foGOzlpU5KU1QouWm6yzWJDChGFyTJ+UGLWG6n3Rz/XPbtmJpmFZwe
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8292
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D036UWC004.ant.amazon.com (10.13.139.205) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-Mailman-Approved-At: Thu, 09 Oct 2025 07:45:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,179 +125,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+From: David Laight <David.Laight@ACULAB.COM>
 
->-----Original Message-----
->From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Victor
->Zhao
->Sent: Thursday, October 9, 2025 8:18 AM
->To: amd-gfx@lists.freedesktop.org
->Cc: Chang, HaiJun <HaiJun.Chang@amd.com>; Zhao, Victor
-><Victor.Zhao@amd.com>
->Subject: [PATCH 2/2] drm/amdgpu: use GPU_HDP_FLUSH for sriov
->
->Currently SRIOV runtime will use kiq to write HDP_MEM_FLUSH_CNTL for hdp
->flush. This register need to be write from CPU for nbif to aware, otherwis=
-e it will
->not work.
->
-[lijo]
-I think this may be related to routing in mult-xcc-SOCs. You may keep the o=
-riginal path as fallback for SOCs without multi-xcc.
+[ Upstream commit a5743f32baec4728711bbc01d6ac2b33d4c67040 ]
 
->Implement amdgpu_kiq_hdp_flush and use kiq to do gpu hdp flush during
->sriov runtime.
->
->Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
->---
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 73
->++++++++++++++++++++++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |  1 +
-> 3 files changed, 76 insertions(+)
->
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->index 7a899fb4de29..eff43757f983 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->@@ -7281,6 +7281,8 @@ void amdgpu_device_flush_hdp(struct
->amdgpu_device *adev,
->
->       if (ring && ring->funcs->emit_hdp_flush)
->               amdgpu_ring_emit_hdp_flush(ring);
->+      else if (!ring && amdgpu_sriov_runtime(adev))
->+              amdgpu_kiq_hdp_flush(adev, 0);
-[lijo]
+Use BUILD_BUG_ON_MSG(statically_true(ulo > uhi), ...) for the sanity check
+of the bounds in clamp().  Gives better error coverage and one less
+expansion of the arguments.
 
-If there is no use case of passing a different xcc_id, the extra parameter =
-may be removed and always be assumed that logical xcc 0 will be used.
+Link: https://lkml.kernel.org/r/34d53778977747f19cce2abb287bb3e6@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ include/linux/minmax.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
->       else
->               amdgpu_asic_flush_hdp(adev, ring);
-> }
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->index 7f02e36ccc1e..ecd7908590de 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->@@ -1194,6 +1194,78 @@ void amdgpu_kiq_wreg(struct amdgpu_device
->*adev, uint32_t reg, uint32_t v, uint3
->       dev_err(adev->dev, "failed to write reg:%x\n", reg);  }
->
->+void amdgpu_kiq_hdp_flush(struct amdgpu_device *adev, uint32_t xcc_id)
->+{
->+      signed long r, cnt =3D 0;
->+      unsigned long flags;
->+      uint32_t seq;
->+      uint32_t hdp_flush_req_offset, hdp_flush_done_offset,
->ref_and_mask;
->+      struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[xcc_id];
->+      struct amdgpu_ring *ring =3D &kiq->ring;
->+
->+      BUG_ON(!ring->funcs->emit_hdp_flush);
-[lijo]
-
-This may be kept as a warning. It's not necessary to bring-down the system.
-
->+
->+      if (amdgpu_device_skip_hw_access(adev))
->+              return;
->+
->+      if (adev->enable_mes_kiq && adev->mes.ring[0].sched.ready) {
->+              hdp_flush_req_offset =3D adev->nbio.funcs-
->>get_hdp_flush_req_offset(adev);
->+              hdp_flush_done_offset =3D adev->nbio.funcs-
->>get_hdp_flush_done_offset(adev);
->+              ref_and_mask =3D adev->nbio.hdp_flush_reg-
->>ref_and_mask_cp0; /* Use CP0
->+for KIQ */
->+
->+              amdgpu_mes_reg_write_reg_wait(adev, hdp_flush_req_offset,
->hdp_flush_done_offset,
->+                                            ref_and_mask, ref_and_mask);
->+              return;
->+      }
-[lijo]
-
-This part may be kept as amdgpu_mes_hdp_flush and moved inside amdgpu_mes.c
-
-Thanks,
-Lijo
-
->+
->+      spin_lock_irqsave(&kiq->ring_lock, flags);
->+      r =3D amdgpu_ring_alloc(ring, 32);
->+      if (r)
->+              goto failed_unlock;
->+
->+      amdgpu_ring_emit_hdp_flush(ring);
->+      r =3D amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
->+      if (r)
->+              goto failed_undo;
->+
->+      amdgpu_ring_commit(ring);
->+      spin_unlock_irqrestore(&kiq->ring_lock, flags);
->+
->+      r =3D amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
->+
->+      /* don't wait anymore for gpu reset case because this way may
->+       * block gpu_recover() routine forever, e.g. this virt_kiq_rreg
->+       * is triggered in TTM and ttm_bo_lock_delayed_workqueue() will
->+       * never return if we keep waiting in virt_kiq_rreg, which cause
->+       * gpu_recover() hang there.
->+       *
->+       * also don't wait anymore for IRQ context
->+       * */
->+      if (r < 1 && (amdgpu_in_reset(adev) || in_interrupt()))
->+              goto failed_kiq_hdp_flush;
->+
->+      might_sleep();
->+      while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
->+              if (amdgpu_in_reset(adev))
->+                      goto failed_kiq_hdp_flush;
->+
->+              msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
->+              r =3D amdgpu_fence_wait_polling(ring, seq,
->MAX_KIQ_REG_WAIT);
->+      }
->+
->+      if (cnt > MAX_KIQ_REG_TRY)
->+              goto failed_kiq_hdp_flush;
->+
->+      return;
->+
->+failed_undo:
->+      amdgpu_ring_undo(ring);
->+failed_unlock:
->+      spin_unlock_irqrestore(&kiq->ring_lock, flags);
->+failed_kiq_hdp_flush:
->+      dev_err(adev->dev, "failed to flush HDP via KIQ\n"); }
->+
-> int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev)  {
->       if (amdgpu_num_kcq =3D=3D -1) {
->@@ -2484,3 +2556,4 @@ void
->amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
->                           &amdgpu_debugfs_compute_sched_mask_fops);
-> #endif
-> }
->+
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->index fb5f7a0ee029..5bccd2cc9518 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->@@ -615,6 +615,7 @@ int amdgpu_gfx_cp_ecc_error_irq(struct
->amdgpu_device *adev,
->                                 struct amdgpu_iv_entry *entry);
-> uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg,
->uint32_t xcc_id);  void amdgpu_kiq_wreg(struct amdgpu_device *adev,
->uint32_t reg, uint32_t v, uint32_t xcc_id);
->+void amdgpu_kiq_hdp_flush(struct amdgpu_device *adev, uint32_t xcc_id);
-> int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev);  void
->amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev, uint32_t
->ucode_id);
->
->--
->2.25.1
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 6f7ea669d305..91aa1b90c1bb 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -106,8 +106,7 @@
+ 	__auto_type uval = (val);						\
+ 	__auto_type ulo = (lo);							\
+ 	__auto_type uhi = (hi);							\
+-	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+-			(lo) <= (hi), true),					\
++	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+ 	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
+ 		"clamp("#val", "#lo", "#hi") signedness error");		\
+-- 
+2.47.3
 
