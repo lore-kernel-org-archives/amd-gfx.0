@@ -4,71 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 073D4CAC5BB
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 17:45:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2DAECAC5BB
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 18:31:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD5D10E0D8;
-	Wed,  8 Oct 2025 17:45:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99D3710E8BD;
+	Wed,  8 Oct 2025 18:31:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="guzfjcsn";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=bob.beckett@collabora.com header.b="KGATDjkr";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B106A10E0D8
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 17:45:46 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2680ee37b21so159705ad.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 10:45:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759945546; x=1760550346; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5P6Wken1H0ed2Y3+ycAM88TCCOrSYPEDm7/g7SPIuYk=;
- b=guzfjcsnREWgdaQZSlVvxCQEugk4xzV34csDHxYMpIFGlOsZ+qwzcDzQkCIgHKbqNU
- lxZNj+6OcXJy4XrDhLz6mH3R69DghXlJ/0Sfcbve9/1bh9zZnJL/+a5TJbodXVOOdtRS
- Sdm8ASyPOg3nGoI1whnoPJhTk7+onSb7Ahnw5wtJUmjo2TwWy8CgTvjK67hrgvItexid
- EKx2lzVub6M/5unn20PZBjsndfDPhqHZxtI5Pe8Kxib+h2rcnoVQGZ4B3IXMdFF+feqb
- yMZb3hhU2qOwGofY9qVQ3g6hkSTnu26HxLyZvLKAoNOGllHStnxd20fOwQAIAXHr+1+z
- LJ2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759945546; x=1760550346;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5P6Wken1H0ed2Y3+ycAM88TCCOrSYPEDm7/g7SPIuYk=;
- b=bRxK/B28z0eobKn5TZ+li2q85F3PJ70MzaYYuL1dB1zseATS5KOUdf3+xvgA7xuAg2
- wn5gbmLZ+G1Ot9TfoBJg2GIeLeuhPRFeC13YtzF9Adx+fFQc0bnze9mdTL+oRi2PSr9h
- ebpvIaeON6qMfJ7q1KZFB0VxwnsKdYzN/RIQqd8TSp3lphMzyYQjW9J2xSQuRnzLtyo4
- Nneja/IHl4+7Ku/B7GSVfr9c/5jbj9S9xfzOaYA7PRNA5jjmqIyGjMge0djifptd/8Rg
- acYJDFxE0Jv3QAMYJU8uvZ5xTiqlky7+Ip15yNp/WTkcF84w/6PM3DMHp912fZskKmpv
- XQjA==
-X-Gm-Message-State: AOJu0Yw0I41Si4Xu5n7FUJIhIxteZBzFbhzdSVI16vTNjz7XSm537ssL
- tb9bjsuKKR6iEQNIs3CQHEYVtj8eaBfFtii33NwK3JrQnIkNLF+vEnpVTlFvgBOTboJcm6ryPl7
- 9LKE3YRaO8+LUxQnu1Z0fo5pk0RgIlLYh3qpB
-X-Gm-Gg: ASbGncvXbuBzq2CJF9N4wjXaJ61u2YEWsCrFJ7aNajJ+o4LlVS2jBAW4Hy1X7/Qlyl5
- ivqphxMWSUj9NLAy0lYOD6Ac4DCz4XrAQ9OJUGljX45GiZgEIBe1bOdai4D2Tmi2bLvRtfWlJjB
- JcjvI05GnGG85a079mXMhRTwSNOzBugAA1699PhmcRVm1GQaZWxIQ2O74T7B7YkV57TtO8EpYPB
- jgCurqxD1YQR3FkcmaFLvmmCWaFvjk=
-X-Google-Smtp-Source: AGHT+IFLtMbEhH/67YUIfhQrrDN2T8FKWqZGexMOR+HBFBKE0LAppp3f9f+U4sfkrDVJmJWm60YRNYMRwysQg/kRcUE=
-X-Received: by 2002:a17:902:c410:b0:27e:da7d:32d2 with SMTP id
- d9443c01a7336-290272e1cbfmr34861575ad.7.1759945546073; Wed, 08 Oct 2025
- 10:45:46 -0700 (PDT)
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D63F210E8BD
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 18:31:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1759948285; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=BscNQKanofZ5lwG3BGO6vS/Qz1naKrt1SIV2MAE4Q0TIFp+WQTEnjSUCEcGbdQ6q4hExBr5eeoWVQgQq8GeA3YHV/QVSvOJMuDfuonpx32Sejt4Hm4hyAABHCOAYjVEn21VEporLfKnx8lFSLl3HSOEhJoJgEBFZm3MZNmTnxG8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1759948285;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=lvXGdnVgonOgdLvbhWQEUEgbN6LIn7iY2LpSfjGokF0=; 
+ b=IxXPGfe4jxyoi4ktcpeo9ZDk0Ka3eP0hqW1XMnicIUNSsg46Wkdp2uB/eeMRgDSpkfbm5Eqermig182sesZwJEQrqsDWLaFUDgbmpSIjYFhe8rR0WXhbktxlHRzDXYLTOAQT7XgCouED3EY19UngI6i8YH8xLAmEyBzGwOI6moU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=bob.beckett@collabora.com;
+ dmarc=pass header.from=<bob.beckett@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1759948285; 
+ s=zohomail; d=collabora.com; i=bob.beckett@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=lvXGdnVgonOgdLvbhWQEUEgbN6LIn7iY2LpSfjGokF0=;
+ b=KGATDjkrrXUzDHnA/G2uVFE1nHenxiXQcXKmaKoFeX9dvC0OmetWwk4vAiHFy6LG
+ CCLyenf+xNjSlBaqI1hrdKV5KaCxF/ZNYiRutGpbDRlNDlMBn6xdkXSOp/tYLCcOEcc
+ U3XI3PKeEUL6rPLCsWGK8PWuU+wDg6/sHqL+mpnE=
+Received: from mail.zoho.com by mx.zohomail.com
+ with SMTP id 1759948253449207.8309816630358;
+ Wed, 8 Oct 2025 11:30:53 -0700 (PDT)
+Date: Wed, 08 Oct 2025 19:30:53 +0100
+From: Robert Beckett <bob.beckett@collabora.com>
+To: "Mario Limonciello" <superm1@kernel.org>
+Cc: "amd-gfx" <amd-gfx@lists.freedesktop.org>,
+ "Lijo Lazar" <Lijo.Lazar@amd.com>
+Message-ID: <199c51728f5.778006f5430494.3779269787170457909@collabora.com>
+In-Reply-To: <76272528-5167-445d-9a71-5c693323da8d@kernel.org>
+References: <20251007164116.371340-1-bob.beckett@collabora.com>
+ <20251007193110.763709-1-bob.beckett@collabora.com>
+ <76272528-5167-445d-9a71-5c693323da8d@kernel.org>
+Subject: Re: [PATCH v2 0/5] Adjustment to power limit setting
 MIME-Version: 1.0
-References: <20251008164408.850834-1-jonathan.kim@amd.com>
- <CADnq5_M_Rk9KX_5Vw+3pxPfrReKqhtF5rn+1P2LidFSJ5y7Wzw@mail.gmail.com>
- <CY8PR12MB74354BE47029963B8FEDCD4385E1A@CY8PR12MB7435.namprd12.prod.outlook.com>
-In-Reply-To: <CY8PR12MB74354BE47029963B8FEDCD4385E1A@CY8PR12MB7435.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Oct 2025 13:45:34 -0400
-X-Gm-Features: AS18NWDVyxCdJy6J6LW_QriholLlwCVHr1SD5NzAMWo8HcgQ3t72y3FDsnsgEAI
-Message-ID: <CADnq5_PLCEEVbk4ufSnQyqzmW32iBccpk5EXf7kPwdp5=Lpo-Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix gfx12 mes packet submission status check
-To: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
- Shaoyun" <Shaoyun.Liu@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,95 +69,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 8, 2025 at 1:27=E2=80=AFPM Kim, Jonathan <Jonathan.Kim@amd.com>=
- wrote:
->
-> [Public]
->
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Wednesday, October 8, 2025 1:12 PM
-> > To: Kim, Jonathan <Jonathan.Kim@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Liu, Shaoyun <Shaoyun.Liu@amd.com>
-> > Subject: Re: [PATCH] drm/amdgpu: fix gfx12 mes packet submission status=
- check
-> >
-> > On Wed, Oct 8, 2025 at 12:51=E2=80=AFPM Jonathan Kim <jonathan.kim@amd.=
-com>
-> > wrote:
-> > >
-> > > The driver currently only checks that the MES packet submission fence
-> > > did not timeout but does not actually check if the fence return statu=
-s
-> > > matches the expected completion value it passed to MES prior to
-> > > submission.
-> > >
-> > > For example, this can result in REMOVE_QUEUE requests returning succe=
-ss
-> > > to the driver when the queue actually failed to preempt.
-> > >
-> > > Fix this by having the driver actually compare the completion status
-> > > value to the expected success value.
-> >
-> > This should be correct as is:
-> >
-> > *status_ptr =3D 0;
->
-> That's not what I'm observing at the moment.
-> amdgpu_fence_wait_polling can still return fine where status_ptr !=3D 0 n=
-or 1.
-> From what I've been told, only 0x1 =3D=3D success (the completion fence v=
-alue passed to MES).
-> Shaoyun can probably elaborate or correct me if I'm wrong.
-> It's pretty easy for me to put the HW in a bad state (dangling queues pos=
-t remove) without the driver knowing in its current state.
 
-1 is just what the driver puts as the fence value to write:
-api_status->api_completion_fence_value =3D 1;
-and the memory location is initialized to 0:
-*status_ptr =3D 0;
-The firmware should either write 1 or nothing, writing a random value
-in there looks like memory corruption or a firmware bug.  If it
-doesn't write the fence, the driver can assume the operation failed.
-If it writes random values, then we have no idea what's going on.
+ ---- On Tue, 07 Oct 2025 20:40:43 +0100  Mario Limonciello <superm1@kernel.org> wrote --- 
+ > On 10/7/25 2:31 PM, Bob Beckett wrote:
+ > > --- quoted message ---
+ > >> From: Robert Beckett <bob.beckett@collabora.com>
+ > >>> Lijo pointed out to me that
+ > >>> commit ed4efe426a49 ("drm/amd: Restore cached power limit during resume")
+ > >>> commit 796ff8a7e01b ("drm/amd: Restore cached manual clock settings during resume")
+ > >>> both should be unnecessary because smu_restore_dpm_user_profile() already
+ > >>> restores them.  However in looking at the code there is a case that isn't
+ > >>> properly restored - the FAST PPT limits supported by Van Gogh. The nuance
+ > >>> isn't immediately obvious because the limit variable is overloaded with
+ > >>> limit type.
+ > >>> This series attempts to address that issue by passing limit type around
+ > >>> and saving/restoring both types.
+ > >>> Cc: Lijo Lazar <Lijo.Lazar@amd.com>
+ > >>> Mario Limonciello (5):
+ > >>>    drm/amd: Remove some unncessary header includes
+ > >>>    drm/amd: Stop overloading power limit with limit type
+ > >>>    drm/amd: Save and restore all limit types
+ > >>>    drm/amd: Drop calls to restore power limit and clock from smu_resume()
+ > >>>    drm/amd: Adjust whitespace for vangogh_ppt
+ > >>>   .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +-
+ > >>>   drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  3 +-
+ > >>>   drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  3 +-
+ > >>>   drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  2 +-
+ > >>>   .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  5 +--
+ > >>>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 40 ++++++++-----------
+ > >>>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  3 +-
+ > >>>   .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 13 +++---
+ > >>>   8 files changed, 29 insertions(+), 42 deletions(-)
+ > >>> -- 
+ > >>> 2.51.0
+ > >> entire series
+ > >> Tested-by: Robert Beckett <bob.beckett@collabora.com>
+ > > 
+ > > apologies, I need to retract this Tested-by.
+ > > I inadvertently tested v1. v2 looks like it still has the restore issue.
+ > > I'll debug and get back to you.
+ > 
+ > Oh thanks for getting back.  Let me hold up our merge on the patches 
+ > then too.
+ > 
 
-Alex
+The issue with v2 turned out to be quite simple in the end.
+You dropped 
 
->
-> Jon
->
-> > ...
-> > api_status->api_completion_fence_value =3D 1;
-> > ...
-> > if (r < 1 || !*status_ptr) {
-> >
-> > Alex
-> >
-> > >
-> > > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 3 +--
-> > >  1 file changed, 1 insertion(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > > index aff06f06aeee..58f61170cf85 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > > @@ -228,8 +228,7 @@ static int
-> > mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> > >                         pipe, x_pkt->header.opcode);
-> > >
-> > >         r =3D amdgpu_fence_wait_polling(ring, seq, timeout);
-> > > -       if (r < 1 || !*status_ptr) {
-> > > -
-> > > +       if (r < 1 || *status_ptr !=3D api_status->api_completion_fenc=
-e_value) {
-> > >                 if (misc_op_str)
-> > >                         dev_err(adev->dev, "MES(%d) failed to respond=
- to msg=3D%s
-> > (%s)\n",
-> > >                                 pipe, op_str, misc_op_str);
-> > > --
-> > > 2.34.1
-> > >
+drm/amd: Drop superfluous call to set_power_limit()
+
+from v1.
+picking that on top of v2 series makes it work again, so assuming v3 adds this back, have another:
+
+entire series
+Tested-by: Robert Beckett <bob.beckett@collabora.com>
+
