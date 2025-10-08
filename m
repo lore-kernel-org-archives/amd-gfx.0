@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81574CCD18C
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 08:54:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6345ACAC5BB
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 09:57:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6189C10E7B8;
-	Wed,  8 Oct 2025 08:54:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EED3810E0E3;
+	Wed,  8 Oct 2025 09:57:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dHEVS/uw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uI+2DHzf";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C816F10E7B6;
- Wed,  8 Oct 2025 08:54:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=qBWrhyAwMfLbV3SyFe2WNEL08nCotZiD1lZA/HutUUo=; b=dHEVS/uwBRPAUn1NplZE6BQpEM
- eQyKV/PQmIuhzUKIGPYSPzBziOYAsOUU7UvA4eAX6aFRxanP70kB03+u0XAr4X/12k9nckHZsN9z0
- KdODUOGyMzVWIdHydS0LbZqnSsOnStL0XEo1XaYJxuc1YQFFRmMfzrolnVY6IokPFIgytX2sv7rJO
- DWc9NDNFEfm6Sa7Qoh47QaXZyKeBLR1NuZFUDcIkI5Dli3rdsNbACKU3qiyU4lXm7oPF8LoHngoAX
- txTj2VX0p+ZYvR18zpNvAYrbDoYCMzKFSewrbLtiYD8UC4ovpTpB8j2/xWr9ETyyP3mUolbBjpNOr
- o+9KaQGQ==;
-Received: from [84.66.36.92] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1v6PwK-006Z2J-3K; Wed, 08 Oct 2025 10:54:28 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH 25/28] drm/sched: Remove drm_sched_init_args->num_rqs usage
-Date: Wed,  8 Oct 2025 09:53:56 +0100
-Message-ID: <20251008085359.52404-26-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
-References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D601E10E0E3;
+ Wed,  8 Oct 2025 09:57:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8C2E443BDB;
+ Wed,  8 Oct 2025 09:57:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5609AC4CEF4;
+ Wed,  8 Oct 2025 09:57:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1759917477;
+ bh=Du3rFNkYwgdmoyPLOqFQnUZ5XJn5oBWCLYwxql0rNy4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=uI+2DHzfiIT9dzxXoL7i0x/pAqr3Hm56UvCtm9CIGaJyBeOuCp8UyfQhf1Rnkw8Xx
+ r0EZqPc4SXsX4NBElq4VUMU3hloHiNMxDq3REjaQX5+jl1Ar3afIQeoTvyTjHm/Saf
+ ZdtN8gwZeP8QXyr5ChZFDAIUAx3+55fiMGEhv58WXLrf0hyyFUOvcwrgCShSFeKEP+
+ 3CoEYBzKrjf0O/9NMBp2laBqWE1t1fmzkGduIAQOWyFtKri34JL8NZA3DwOQ1QH2Aq
+ ofZLJHsIhhTZ4CGqOLo7fR9+i9yqKVXvCJSyrXYKGtgusalmKJeD4PGgg9rjJlOzDg
+ wgUvmVS57yHHg==
+Message-ID: <1f26173d-6d02-4445-8a78-c8464a57c450@kernel.org>
+Date: Wed, 8 Oct 2025 11:57:52 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/client: Remove holds_console_lock parameter from
+ suspend/resume
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, lyude@redhat.com,
+ lucas.demarchi@intel.com, thomas.hellstrom@linux.intel.com,
+ jfalempe@redhat.com, javierm@redhat.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+References: <20251001143709.419736-1-tzimmermann@suse.de>
+From: Danilo Krummrich <dakr@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20251001143709.419736-1-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,30 +64,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove member no longer used by the scheduler core.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: "Christian König" <ckoenig.leichtzumerken@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
----
- drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-index 8e9ae7d980eb..14403a762335 100644
---- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-+++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-@@ -290,7 +290,6 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
- {
- 	struct drm_sched_init_args args = {
- 		.ops		= &drm_mock_scheduler_ops,
--		.num_rqs	= DRM_SCHED_PRIORITY_COUNT,
- 		.credit_limit	= U32_MAX,
- 		.hang_limit	= 1,
- 		.timeout	= timeout,
--- 
-2.48.0
-
+On 10/1/25 4:37 PM, Thomas Zimmermann wrote:
+> No caller of the client resume/suspend helpers holds the console
+> lock. The last such cases were removed from radeon in the patch
+> series at [1]. Now remove the related parameter and the TODO items.
+> 
+> v2:
+> - update placeholders for CONFIG_DRM_CLIENT=n
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Link: https://patchwork.freedesktop.org/series/151624/ # [1]
+Acked-by: Danilo Krummrich <dakr@kernel.org>
